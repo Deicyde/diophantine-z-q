@@ -6518,79 +6518,403 @@ scratch/assemble-port/AssemblePort.lean:91836:15: warning: `Set.mem_setOf_eq` ha
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/assemble-port/AssemblePort.lean:92050:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:91932:76: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.HeckeRest`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
-Hint: Replace the deprecated name:
-  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:92052:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/assemble-port/AssemblePort.lean:92219:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
 
-Hint: Replace the deprecated name:
-  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:92107:77: warning: this tactic is never executed
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92219:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92219:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92219:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92220:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92220:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92220:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92220:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92221:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92221:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92221:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92221:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92222:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92222:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92222:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92222:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92223:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92223:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92223:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92223:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92225:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92225:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92225:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92225:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92227:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92227:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92227:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92227:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92228:56: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92228:84: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92228:113: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92228:142: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92231:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92231:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92231:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92231:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:92219:174: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:92107:73: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92107:77: warning: Unused tactic linter: `norm_num` does nothing.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92113:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
-
-Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/assemble-port/AssemblePort.lean:92113:53: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92117:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
-
-Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/assemble-port/AssemblePort.lean:92117:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
-
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92124:42: warning: This simp argument is unused:
-  Matrix.mul_apply
-
-Hint: Omit it from the simp argument list.
-  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:92124:60: warning: This simp argument is unused:
-  Fin.sum_univ_two
-
-Hint: Omit it from the simp argument list.
-  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:92459:4: warning: This simp argument is unused:
-  Matrix.mul_apply
-
-Hint: Omit it from the simp argument list.
-  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:92459:22: warning: This simp argument is unused:
-  Fin.sum_univ_two
-
-Hint: Omit it from the simp argument list.
-  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
-
-Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:92488:68: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:92220:174: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:92488:68: warning: Unused tactic linter: `exact (hA _ _).neg` does nothing.
+scratch/assemble-port/AssemblePort.lean:92221:174: warning: this tactic is never executed
 
-Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92884:55: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92222:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92223:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92224:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92225:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92226:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92227:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92228:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92229:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92230:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92231:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92232:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92233:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:92234:170: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/assemble-port/AssemblePort.lean:92884:55: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:92219:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:92913:36: warning: Unused tactic linter: `push_cast` does nothing.
+scratch/assemble-port/AssemblePort.lean:92219:174: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:93154:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:92220:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92220:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92221:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92221:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92222:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92222:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92223:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92223:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92224:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92224:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92225:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92225:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92226:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92226:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92227:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92227:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92228:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92228:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92229:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92229:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92230:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92230:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92231:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92231:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92232:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92232:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92233:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92233:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92234:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:92344:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6598,7 +6922,1031 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:93528:4: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:92351:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92353:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92399:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92400:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92519:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92531:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:92531:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:92543:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/assemble-port/AssemblePort.lean:92556:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:92556:40: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/assemble-port/AssemblePort.lean:92569:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:92569:41: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:92628:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92629:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92631:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92634:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92649:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92656:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92702:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92703:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92704:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92708:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92757:25: warning: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
+scratch/assemble-port/AssemblePort.lean:92781:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92782:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92783:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92787:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92789:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92792:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92794:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92797:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92798:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92836:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92845:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:92853:8: warning: `IsLocalization.map_comap` has been deprecated: Use `IsLocalization.map_under` instead
+
+Hint: Replace the deprecated name:
+  IsLocalization.map_c̵o̵m̵a̵p̵u̲n̲d̲e̲r̲
+scratch/assemble-port/AssemblePort.lean:92875:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93005:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93006:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93007:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93008:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93013:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93014:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93016:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93018:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93020:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93022:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93033:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93125:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93126:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93127:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93128:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93129:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93131:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93132:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93143:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93145:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93156:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93217:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93218:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93219:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93220:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93238:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93253:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93254:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93256:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93278:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93277:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93283:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93292:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93323:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93324:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93330:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93380:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93381:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93390:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93391:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93457:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93541:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93577:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93586:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93587:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93589:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93599:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93600:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93640:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93642:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93683:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93684:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93685:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93710:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93715:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93716:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93792:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93811:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93812:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93813:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93830:78: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+
+Hint: Replace the deprecated name:
+  Set.mem_s̲diff
+scratch/assemble-port/AssemblePort.lean:93836:30: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+
+Hint: Replace the deprecated name:
+  Set.s̲diff_subset
+scratch/assemble-port/AssemblePort.lean:93845:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93846:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93847:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93866:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93867:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93869:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93871:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93911:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:93912:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94024:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94025:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94026:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94057:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94080:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94097:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94211:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:94212:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:94211:6: warning: Unused tactic linter: `(simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp]; rfl)` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94212:6: warning: Unused tactic linter: `(erw [← ConcreteCategory.comp_apply, hmor])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94319:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94320:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94322:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94325:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94327:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94329:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94331:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94333:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94342:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:94377:68: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.HeckeRestAll`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/assemble-port/AssemblePort.lean:94563:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/assemble-port/AssemblePort.lean:94565:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/assemble-port/AssemblePort.lean:94620:77: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:94620:73: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94620:77: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94626:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/assemble-port/AssemblePort.lean:94626:53: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94630:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/assemble-port/AssemblePort.lean:94630:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:94637:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:94637:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:94972:4: warning: This simp argument is unused:
+  Matrix.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:94972:22: warning: This simp argument is unused:
+  Fin.sum_univ_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/assemble-port/AssemblePort.lean:95001:68: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/assemble-port/AssemblePort.lean:95001:68: warning: Unused tactic linter: `exact (hA _ _).neg` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:95397:55: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/assemble-port/AssemblePort.lean:95397:55: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:95426:36: warning: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/assemble-port/AssemblePort.lean:95667:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:96041:4: warning: This simp argument is unused:
   Matrix.head_cons
 
 Hint: Omit it from the simp argument list.
@@ -6607,26 +7955,26 @@ Hint: Omit it from the simp argument list.
     Matrix.cons_val_fin_one]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:93977:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:96490:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:94124:68: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:96637:68: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:94124:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:96637:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:94124:68: warning: Unused tactic linter: `ring` does nothing.
+scratch/assemble-port/AssemblePort.lean:96637:68: warning: Unused tactic linter: `ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:94129:28: warning: Variable name `hz` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:96642:28: warning: Variable name `hz` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hz
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:94155:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:96668:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -6634,84 +7982,84 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:94162:12: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:96675:12: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:94162:2: warning: Unused tactic linter: `all_goals ring` does nothing.
+scratch/assemble-port/AssemblePort.lean:96675:2: warning: Unused tactic linter: `all_goals ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:94208:24: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:96721:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:94208:42: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:96721:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:94251:24: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:96764:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:94251:42: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:96764:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:94310:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/assemble-port/AssemblePort.lean:96823:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/assemble-port/AssemblePort.lean:94310:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:96823:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:95094:8: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:97607:8: warning: This simp argument is unused:
   Matrix.mulVec
 
 Hint: Omit it from the simp argument list.
   [apply] simp [dotProduct, Fin.sum_univ_two] at c0 c1
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95094:23: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:97607:23: warning: This simp argument is unused:
   dotProduct
 
 Hint: Omit it from the simp argument list.
   [apply] simp [Matrix.mulVec, Fin.sum_univ_two] at c0 c1
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95094:35: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:97607:35: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [Matrix.mulVec, dotProduct] at c0 c1
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95517:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/assemble-port/AssemblePort.lean:98030:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/assemble-port/AssemblePort.lean:95526:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/assemble-port/AssemblePort.lean:98039:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/assemble-port/AssemblePort.lean:95565:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98078:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:95565:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98078:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:95900:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:98413:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -6719,7 +8067,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:95979:26: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+scratch/assemble-port/AssemblePort.lean:98492:26: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -6734,42 +8082,42 @@ instead of
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
         (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
-scratch/assemble-port/AssemblePort.lean:95920:18: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:98433:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95927:18: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:98440:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95934:18: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:98447:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95948:18: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:98461:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:95955:18: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:98468:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:96014:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:98527:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6777,67 +8125,67 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:96054:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98567:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96054:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98567:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96202:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98715:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96317:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:98830:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96646:42: warning: Variable name `hfst` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:99159:42: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:96647:5: warning: Variable name `hsnd` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:99160:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:96672:30: warning: Variable name `hfst` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:99185:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:96673:5: warning: Variable name `hsnd` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:99186:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:96718:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99231:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96718:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99231:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:96728:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_fst_eventuallyEq`:
+scratch/assemble-port/AssemblePort.lean:99241:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_fst_eventuallyEq`:
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:96746:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_snd_eventuallyEq`:
+scratch/assemble-port/AssemblePort.lean:99259:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_snd_eventuallyEq`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:97393:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:99906:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6845,90 +8193,90 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:97442:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99955:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97442:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99955:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97453:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:99966:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97453:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:99966:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97465:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99978:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97465:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:99978:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97475:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:99988:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97475:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:99988:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97510:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100023:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97726:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100239:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97726:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100239:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97750:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/assemble-port/AssemblePort.lean:100263:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/assemble-port/AssemblePort.lean:97846:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100359:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97846:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100359:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97849:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:100362:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97849:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:100362:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:97855:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100368:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97855:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100368:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97881:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100394:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:97912:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100425:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:98013:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:100526:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6936,7 +8284,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:98015:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:100528:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6944,15 +8292,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:98036:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100549:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:98036:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:100549:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:98070:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:100583:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6960,7 +8308,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:98071:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:100584:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6968,7 +8316,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:98355:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:100868:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -6976,13 +8324,13 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:98416:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.detFun_tmul`:
+scratch/assemble-port/AssemblePort.lean:100929:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.detFun_tmul`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98447:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+scratch/assemble-port/AssemblePort.lean:100960:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -6993,125 +8341,125 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-scratch/assemble-port/AssemblePort.lean:98467:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.exists_basis_of_span`:
+scratch/assemble-port/AssemblePort.lean:100980:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.exists_basis_of_span`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98491:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.secIndex_map`:
+scratch/assemble-port/AssemblePort.lean:101004:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.secIndex_map`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98549:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inl`:
+scratch/assemble-port/AssemblePort.lean:101062:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inl`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98557:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inr`:
+scratch/assemble-port/AssemblePort.lean:101070:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inr`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98572:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_castAdd`:
+scratch/assemble-port/AssemblePort.lean:101085:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_castAdd`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98578:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_natAdd`:
+scratch/assemble-port/AssemblePort.lean:101091:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_natAdd`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98585:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.det_prodBasis_append`:
+scratch/assemble-port/AssemblePort.lean:101098:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.det_prodBasis_append`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98611:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.card_le_of_li_range`:
+scratch/assemble-port/AssemblePort.lean:101124:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.card_le_of_li_range`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:98847:30: warning: Variable name `hfst` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:101360:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:98848:5: warning: Variable name `hsnd` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:101361:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:99228:2: warning: `simp` already closes the goal
+scratch/assemble-port/AssemblePort.lean:101741:2: warning: `simp` already closes the goal
 
 Hint: Use `simp` instead of `simpa`:
   [apply] simp
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
-scratch/assemble-port/AssemblePort.lean:99296:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₁`:
+scratch/assemble-port/AssemblePort.lean:101809:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₁`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99297:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₂`:
+scratch/assemble-port/AssemblePort.lean:101810:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99298:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₁`:
+scratch/assemble-port/AssemblePort.lean:101811:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₁`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99299:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₂`:
+scratch/assemble-port/AssemblePort.lean:101812:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99304:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₁`:
+scratch/assemble-port/AssemblePort.lean:101817:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₁`:
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99306:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₂`:
+scratch/assemble-port/AssemblePort.lean:101819:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:99440:30: warning: Variable name `hfst` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:101953:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:99441:5: warning: Variable name `hsnd` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:101954:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:99634:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:102147:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7119,7 +8467,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:99635:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:102148:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7127,31 +8475,31 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:99692:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:102205:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:99692:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:102205:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:99695:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:102208:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:99695:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:102208:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:99764:22: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:102277:22: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:99764:34: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/assemble-port/AssemblePort.lean:102277:34: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/assemble-port/AssemblePort.lean:99785:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:102298:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7159,7 +8507,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:99816:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:102329:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7167,7 +8515,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:99842:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:102355:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7175,25 +8523,25 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:99962:15: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:102475:15: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100138:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:102651:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100337:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:102850:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100475:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:102988:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100551:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103064:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100823:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.G0Galois`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103336:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.G0Galois`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:100859:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:103372:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7201,7 +8549,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101009:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:103522:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7209,7 +8557,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101053:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:103566:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7217,7 +8565,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101064:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:103577:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7225,7 +8573,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101065:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:103578:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7237,26 +8585,26 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.HSyn.sixContactMin_of_leaves3' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_leaves3'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.researchLeaves3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/assemble-port/AssemblePort.lean:101369:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103882:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:101369:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103882:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:101369:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103882:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:101390:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.G14Bridge`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:103903:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.G14Bridge`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:101504:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobTrace`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:104017:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobTrace`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:101511:2: warning: `LinearEquiv.ofLinear` has been deprecated: Use `LinearEquiv.ofLinearMap` instead
+scratch/assemble-port/AssemblePort.lean:104024:2: warning: `LinearEquiv.ofLinear` has been deprecated: Use `LinearEquiv.ofLinearMap` instead
 
 Hint: Replace the deprecated name:
   LinearEquiv.ofLinearM̲a̲p̲
-scratch/assemble-port/AssemblePort.lean:101781:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+scratch/assemble-port/AssemblePort.lean:104294:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -7271,7 +8619,7 @@ instead of
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
         (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
-scratch/assemble-port/AssemblePort.lean:101937:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104450:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7279,7 +8627,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101946:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104459:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7287,7 +8635,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101947:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104460:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7295,7 +8643,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101948:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104461:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7303,7 +8651,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:101985:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104498:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7311,10 +8659,10 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102205:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.AlgFrobRedRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:104718:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.AlgFrobRedRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:102371:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104884:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7322,7 +8670,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102371:21: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104884:21: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7330,7 +8678,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102371:40: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104884:40: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7338,7 +8686,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102438:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:104951:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7346,7 +8694,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102534:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105047:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7354,7 +8702,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102535:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105048:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7362,7 +8710,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102625:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105138:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7370,7 +8718,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102641:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105154:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7378,7 +8726,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102858:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105371:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7386,7 +8734,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102860:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105373:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7394,7 +8742,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102861:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105374:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7402,7 +8750,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102866:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105379:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7410,7 +8758,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102867:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105380:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7418,7 +8766,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102957:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105470:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7426,15 +8774,15 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:102974:48: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+scratch/assemble-port/AssemblePort.lean:105487:48: warning: `zero_le'` has been deprecated: Use `zero_le` instead
 
 Hint: Replace the deprecated name:
   zero_le'̵
-scratch/assemble-port/AssemblePort.lean:102976:14: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+scratch/assemble-port/AssemblePort.lean:105489:14: warning: `zero_le'` has been deprecated: Use `zero_le` instead
 
 Hint: Replace the deprecated name:
   zero_le'̵
-scratch/assemble-port/AssemblePort.lean:103012:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105525:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7442,7 +8790,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103014:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105527:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7450,7 +8798,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103015:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105528:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7458,7 +8806,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103016:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105529:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7466,7 +8814,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103309:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105822:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7474,7 +8822,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103322:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105835:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7482,7 +8830,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103339:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:105852:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7490,7 +8838,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103596:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106109:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7498,7 +8846,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103597:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106110:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7506,7 +8854,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103644:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106157:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7514,7 +8862,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103774:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106287:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7522,14 +8870,14 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103806:26: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:106319:26: warning: This simp argument is unused:
   map_natCast
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [ne_eq]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:103829:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106342:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7537,7 +8885,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103830:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106343:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7545,7 +8893,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:103831:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106344:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7553,10 +8901,10 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104151:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.AlgFrobRedRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:106664:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.AlgFrobRedRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104271:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106784:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7564,7 +8912,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104272:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106785:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7572,7 +8920,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104273:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106786:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7580,7 +8928,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104274:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106787:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7588,7 +8936,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104275:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106788:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7596,7 +8944,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104320:4: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106833:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7604,7 +8952,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104331:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106844:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7612,7 +8960,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104387:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106900:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7620,10 +8968,10 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104427:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:106940:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104481:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:106994:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7631,10 +8979,10 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104541:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FrobPiecesNeron`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:107054:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.FrobPiecesNeron`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104625:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:107138:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7642,7 +8990,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104630:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:107143:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7650,7 +8998,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104631:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:107144:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7658,7 +9006,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104670:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:107183:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7666,16 +9014,16 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:104689:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:107202:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104750:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:107263:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.FrobPiecesGood`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104811:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:107324:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:104866:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.LinkedFrobRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:107379:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.LinkedFrobRed`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
 'HDec.HSyn.abVarSpreadsOut_of_ega' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -7699,59 +9047,59 @@ Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
 'HDec.ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.propTSAll_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.LinkedTate.linkedTateData_of_frobRam' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/assemble-port/AssemblePort.lean:105245:0: warning: automatically included section variable(s) unused in theorem `HDec.LTGoodRed.NLG.ringOfIntegers_mem`:
+scratch/assemble-port/AssemblePort.lean:107758:0: warning: automatically included section variable(s) unused in theorem `HDec.LTGoodRed.NLG.ringOfIntegers_mem`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-scratch/assemble-port/AssemblePort.lean:105265:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/assemble-port/AssemblePort.lean:107778:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/assemble-port/AssemblePort.lean:105632:6: warning: Variable name `n` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:108145:6: warning: Variable name `n` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _n
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:105632:8: warning: Variable name `m` is not explicitly referenced.
+scratch/assemble-port/AssemblePort.lean:108145:8: warning: Variable name `m` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _m
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/assemble-port/AssemblePort.lean:105770:66: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:108283:66: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:105770:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:108283:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105770:66: warning: Unused tactic linter: `norm_num` does nothing.
+scratch/assemble-port/AssemblePort.lean:108283:66: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105776:66: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:108289:66: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:105776:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:108289:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105776:66: warning: Unused tactic linter: `norm_num` does nothing.
+scratch/assemble-port/AssemblePort.lean:108289:66: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105781:27: warning: this tactic is never executed
+scratch/assemble-port/AssemblePort.lean:108294:27: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/assemble-port/AssemblePort.lean:105781:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/assemble-port/AssemblePort.lean:108294:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105781:27: warning: Unused tactic linter: `norm_num` does nothing.
+scratch/assemble-port/AssemblePort.lean:108294:27: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/assemble-port/AssemblePort.lean:105927:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+scratch/assemble-port/AssemblePort.lean:108440:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -7762,21 +9110,21 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-scratch/assemble-port/AssemblePort.lean:105968:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/assemble-port/AssemblePort.lean:108481:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/assemble-port/AssemblePort.lean:106011:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/assemble-port/AssemblePort.lean:108524:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/assemble-port/AssemblePort.lean:106039:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+scratch/assemble-port/AssemblePort.lean:108552:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -7787,23 +9135,23 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-scratch/assemble-port/AssemblePort.lean:106211:69: warning: This simp argument is unused:
+scratch/assemble-port/AssemblePort.lean:108724:69: warning: This simp argument is unused:
   Polynomial.aeval_C
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [map_sub, map_pow, Polynomial.aeval_X, map_one, map_mul] at heval
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/assemble-port/AssemblePort.lean:106422:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:108935:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:106422:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:108935:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:106422:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:108935:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:106496:8: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109009:8: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7811,7 +9159,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106596:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109109:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7819,7 +9167,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106664:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109177:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7827,7 +9175,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106695:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109208:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -7835,14 +9183,14 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106715:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.UnramTate`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+scratch/assemble-port/AssemblePort.lean:109228:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.UnramTate`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-scratch/assemble-port/AssemblePort.lean:106740:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:109253:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:106754:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109267:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7850,7 +9198,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106755:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109268:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7858,15 +9206,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106764:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:109277:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:106910:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/assemble-port/AssemblePort.lean:109423:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/assemble-port/AssemblePort.lean:106939:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109452:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7874,7 +9222,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106945:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109458:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7882,7 +9230,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:106977:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109546:6: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7890,7 +9238,287 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/assemble-port/AssemblePort.lean:107006:2: warning: Try this: 
+scratch/assemble-port/AssemblePort.lean:109598:8: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109648:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109677:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109742:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109844:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109846:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109849:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109856:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109857:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109858:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109859:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109860:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109861:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109862:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109867:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109869:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109870:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109871:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109872:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109874:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109878:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109881:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109882:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109884:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109885:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109954:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109963:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:109982:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110012:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110014:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110016:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110055:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110125:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110136:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110158:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/assemble-port/AssemblePort.lean:110256:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -7929,10 +9557,16 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.UnramTate.kernelFieldBreaks_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.UnramTate.linkedRam_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.UnramTate.kernelFieldBreaksHigh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.betaTrivialAtTwo_of_sign' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.tateRamAtThreeD_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.G0ModField.KernelField.twistDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.LinkedFrobRed.linkedFrob_of_neron_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.abVarSpreadsOut_of_ega' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TSHecke.heckeIrreducible_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HeckeRestAll.curveGaloisChart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HeckeRestCurve.curveChartInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HeckeRest.heckeFibreSizes_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HeckeRestNV.heckeNoVertRam_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TSHecke.heckeNormalizationIrr_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TSHecke.heckeDegree_of_torsion' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TSHecke.heckeBranch_of'' depends on axioms: [propext, Classical.choice, Quot.sound]

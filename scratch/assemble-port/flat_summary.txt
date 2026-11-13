@@ -1,8 +1,11 @@
-flat check (32-field state with linked-frob and spread-out; commit 'fold spread-out ...')
-file: scratch/assemble-port/AssemblePort.lean, 107495 lines, md5 4f78739478091c05226e1f7d92872a7d
+FINAL flat check (31-field state: sixContactMin_of_leaves5 with GluePieces5 = 18 LEAF, 8 LEAF?, 5 GLUE)
+file: scratch/assemble-port/AssemblePort.lean, 110743 lines, md5 9bd33802ad82813f5672443ac1a083bd
 command: lake env lean scratch/assemble-port/AssemblePort.lean (cflat.sh)
-exit 0 in 1123s
+exit 0 in 1079s
 errors: 0  sorry: 0
-reports: 279  no-axiom reports: 0  nonstandard: 0
+reports: 285  no-axiom reports: 0  nonstandard: 0
 HDec.HSyn.sixContactMin_of_leaves5 reported
 HDec.HSyn.gluePieces_of_gluePieces5 reported
+
+earlier: 32-field state (107495 lines, md5 4f787394...): exit 0 in 1123 s, 0 errors, 279 reports all standard
+earlier: 27-field state (101778 lines, md5 ea746d85...): exit 0 in 1021 s, 0 errors, 272 reports all standard

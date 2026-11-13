@@ -141,3 +141,6 @@
   alFixedPoints LEAF?), − heckeNoVertRam (⇐ heckeVertWitness GLUE), − tateRamAtThreeD (proved), betaTrivialAtTwo →
   betaSignAtTwo (GLUE): 31 fields (18 LEAF, 8 LEAF?, 5 GLUE). TailF 149 s, TailD 100 s: VERIFIED exit 0, 0 errors,
   no sorryAx, all axiom reports standard.
+- FINAL FLAT CHECK (31-field state): AssemblePort.lean 110 743 lines, md5 9bd33802…: VERIFIED exit 0 in 1079 s,
+  0 errors, no sorry, 285 axiom reports all [propext, Classical.choice, Quot.sound], incl.
+  `HDec.HSyn.sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5` (flat_summary.txt, flat_out.txt).

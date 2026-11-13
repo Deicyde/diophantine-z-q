@@ -346,7 +346,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | 29 fields | 99 179 | a660b0c9… | 1 error (the e12 `simpa`, then repaired) |
 | 27 fields | 101 778 | ea746d85… | exit 0, 1021 s, 0 errors, no `sorry`, 272 axiom reports all standard |
 | 32 fields (after spread-out) | 107 495 | 4f787394… | exit 0, 1123 s, 0 errors, no `sorry`, 279 reports all standard |
-| final (31 fields) | | | `flat_summary.txt` and the last entry of `log.md` |
+| **final (31 fields)** | **110 743** | **9bd33802…** | **exit 0, 1079 s, 0 errors, no `sorry`, 285 reports all standard** |
 
 ## 6. What remains
 
