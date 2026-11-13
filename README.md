@@ -84,6 +84,10 @@ The earlier 962-variable polynomial builds on an independent reconstruction of t
 
 ## Verification scope
 
+For the conditional Lean formalization, contribution targets and CI checks, see
+the [Lean contribution guide](docs/lean-contributions.md). The root kernel project
+and the manuscript's explicit quartic have distinct proof status.
+
 The finite checks verify the source program, algebraic coordinate changes, projection-preserving eliminations, complete sum-of-squares expansion and coefficient statistics. Independent checks and rejection tests accompany the package. These checks do not prove the source system's arithmetic characterization of the integers.
 
 The manuscript supplies that arithmetic argument. The [Version 15 research index](research/version15/README.md) records the current selection and its review scope. The [Version 14 guide](docs/manuscript-revisions/version14/GUIDE.md) records that edition's constructions and separates the finite checks from their mathematical review. The [Version 13 guide](docs/manuscript-revisions/version13/GUIDE.md) separates the new component and composition reviews, the finite table checks, and the 39-application inventory. These internal reviews retain the inherited arithmetic inputs and source qualifications. The [Version 12 application inventory and reviews](docs/manuscript-revisions/version12/README.md) cover that edition's reductions while retaining the prior arithmetic inputs and their source qualifications. The [Version 9 extension](docs/quartic-523-540/README.md) connects the new arithmetic arguments to the inherited proofs. The [Version 7 inventory](docs/quartic-962/README.md) records exact theorem applications, source versions, hypotheses, conventions and translations. Version 6 proves the needed Gaussian ray-field estimate within the manuscript, following the method of Frei–Tinková without assuming their theorem. The replacement uses Mitsui's published prime-ideal estimate, Green–Tao's one-parameter results, and ordinary-prime transference.

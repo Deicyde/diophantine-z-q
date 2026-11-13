@@ -59,3 +59,20 @@ docs/building.md -text
 
 # Preserve the exact current-profile bytes bound by its reviewed selector.
 docs/current-manuscript.json -text
+
+# The kernel contract hashes these source bytes on every platform.
+.gitattributes -text
+ZInQKernel.lean -text
+ZInQKernel/** -text
+ThirdParty/** -text
+lakefile.toml -text
+lake-manifest.json -text
+lean-toolchain -text
+KERNEL_CONTRACT.json text eol=lf
+scripts/check_kernel*.py text eol=lf
+scripts/test_kernel*.py text eol=lf
+scripts/audit_kernel.lean text eol=lf
+scripts/kernel_base_report.py text eol=lf
+scripts/check_target.py -text
+scripts/print_axioms.lean -text
+.github/workflows/kernel-lean.yml text eol=lf
