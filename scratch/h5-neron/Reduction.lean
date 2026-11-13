@@ -163,7 +163,39 @@ theorem stableFaltingsHeight_eq_neron (hN1 : NeronModelExists)
     _ ≤ 𝒢'.height := hmin K A L' 𝒩' 𝒢' h𝒩'
     _ = 𝒢.height := hbc K A E.L L' 𝒢 𝒢' h𝒢'
 
+/-- **H5, the form R19-R21 need.** Under the same hypotheses, with `L₀` and `𝒩₀` given by N2 (so
+`A_{L₀}` semistable, and `𝒩₀.height` is Faltings' published stable height): the stable height equals
+the Néron-model height over `L₀` and over **every** finite extension `L'` of `L₀`. -/
+theorem stableFaltingsHeight_eq_neron_all (hN1 : NeronModelExists)
+    (hN2 : SemistableNeronIdentityComponent) (hmin : NeronModelMinimal)
+    (hbc : ModelHeightBaseChange) (hbcE : GroupModelBaseChangeExists)
+    (hop : OpenSubgroupHeight) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+        stableFaltingsHeight A = 𝒩'.height := by
+  obtain ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, hbase⟩ := hN2 K A
+  have heq : stableFaltingsHeight A = 𝒩₀.height := by
+    rw [stableFaltingsHeight_eq_iInf_height]
+    refine le_antisymm (iInf_le_of_le (FinExt.mk L₀) (iInf_le_of_le 𝒩₀ le_rfl)) ?_
+    refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+    obtain ⟨L', j1, j2, j3, j4, j5, t1, t2⟩ := compositum K E.L L₀
+    obtain ⟨𝒢', h𝒢'⟩ := hbcE K A E.L L' 𝒢
+    obtain ⟨𝒩', h𝒩'⟩ := hN1 K A L'
+    obtain ⟨𝒰, 𝒱, h𝒱, h𝒰𝒩, h𝒰𝒱⟩ := hbase L' 𝒩' h𝒩'
+    calc 𝒩₀.height = 𝒱.height := (hbc K A L₀ L' 𝒩₀ 𝒱 h𝒱).symm
+      _ = 𝒰.height := (hop K A L' 𝒰 𝒱 h𝒰𝒱).symm
+      _ = 𝒩'.height := hop K A L' 𝒰 𝒩' h𝒰𝒩
+      _ ≤ 𝒢'.height := hmin K A L' 𝒩' 𝒢' h𝒩'
+      _ = 𝒢.height := hbc K A E.L L' 𝒢 𝒢' h𝒢'
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, heq, ?_⟩
+  intro L' j1 j2 j3 j4 j5 𝒩' h𝒩'
+  obtain ⟨𝒰, 𝒱, h𝒱, h𝒰𝒩, h𝒰𝒱⟩ := hbase L' 𝒩' h𝒩'
+  rw [heq, ← hbc K A L₀ L' 𝒩₀ 𝒱 h𝒱, ← hop K A L' 𝒰 𝒱 h𝒰𝒱, hop K A L' 𝒰 𝒩' h𝒰𝒩]
+
 end ZInQ.H5Neron
 
 #print axioms ZInQ.H5Neron.compositum
 #print axioms ZInQ.H5Neron.stableFaltingsHeight_eq_neron
+#print axioms ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all

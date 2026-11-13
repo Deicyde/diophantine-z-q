@@ -59,3 +59,4 @@ Parts A + B + C plus part D:
   `neronModelExists_zero` (N1 for zero AV), `semistableNeronIdentityComponent_zero` (N2 for zero AV,
   L₀ = K), `glue_zero` (ModelHeightBaseChange / OpenSubgroupHeight / ProductModelHeight shapes hold
   for zero AV group models since all heights are 0).
+- stableFaltingsHeight_eq_neron_all (stable height = Néron height over L₀ and over every L' ⊇ L₀): COMPILED in H5Neron.lean and Reduction.lean
