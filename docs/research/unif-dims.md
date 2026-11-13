@@ -193,12 +193,23 @@ Main declarations, in namespace `ZInQ.UnifDims`:
 
 ## 5. Integration
 
-- Suggested replacement of glue piece 5 in `scratch/h-decomposition/Leaves.lean`:
-  `productModelHeight := ZInQ.UnifDims.productModelHeight_of_leaves t hT`.
-  - `t : TextbookLeaves` is the existing bundle.
-  - `hT : TangentDimAtOrigin` is the hodge-lattice Prop.
-- `LeavesIntegrated.lean` (`build_leaves.py`) checks this over Leaves.lean's own copies of every
-  definition; the outcome is in the log.
+- **Kernel world** (the integration target). `UnifDims.lean` and `Combined.lean` import the kernel
+  modules, where `ZInQ.LeafPush2.UniformizationExists` and def-faltings' models share the single
+  `PkgI3.AbVar`. There, P2 follows from T35 and `TangentDimAtOrigin` (VERIFIED). Suggested
+  replacement of glue piece 5:
+  `productModelHeight := ZInQ.UnifDims.productModelHeight_of_tangentDim t35 hT`.
+- **`scratch/h-decomposition/Leaves.lean`** (`build_leaves.py` → `LeavesIntegrated.lean`, not
+  committed). Finding (VERIFIED, first attempt with 23 errors): in Leaves.lean, T35
+  (`TextbookLeaves.t35`) is stated over `PkgI3.AbVar`, and its namespace `ZInQ.LeafPush2` carries
+  its own copies of the model layer (`GroupModel.ptC`, `genericFibre`). def-faltings' models there
+  use the distinct structure `ZInQ.DefFaltings.AbVar`. So in Leaves.lean, metrization2's transport
+  of T35 to group models does not typecheck without an `AbVar` bridge. The two structures are
+  merged in the kernel, so this is a defect of the scratch synthesis only, and it does not affect
+  the kernel. The second attempt drops the T35 transport and checks
+  `productModelHeight_of_leaves : AnalyticUniformizationOfDim → TangentDimAtOrigin →
+  ZInQ.H5Neron.ProductModelHeight` over Leaves.lean's own definitions; its outcome is in the log.
+  Everything else of this task, including `DetLatticeProd`, `ProductCotangent` and
+  `productHodgeLattice_of`, compiled there with standard axioms (VERIFIED).
 - `Torsion.lean`, `DetProd.lean` and `PC.lean` can become kernel modules unchanged. `PC.lean`
   contains infra-stalks' two files, which should be adopted from infra-stalks, not duplicated. The
   composites need product-unif's, product-height's and metrization2's pieces adopted first.

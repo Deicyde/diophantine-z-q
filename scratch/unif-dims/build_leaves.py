@@ -59,10 +59,12 @@ metrization's `AnalyticUniformizationOfDim` (which follows from T35 in the kerne
 hodge-lattice's `TangentDimAtOrigin`. -/
 theorem productModelHeight_of_leaves (hU : ZInQ.Metrization.AnalyticUniformizationOfDim)
     (hT : TangentDimAtOrigin) : ZInQ.H5Neron.ProductModelHeight :=
-  ZInQ.ProductUnif.productModelHeight_of_local (hodgeLatticeTheorem_of_tangent hT dimBaseChange)
-    (productUnifDims_of_unifOfDim hU) ZInQ.Metrization2.productLocalStructure
-    (productHodgeLattice_of productCotangent detLatticeProd
-      (cotangentRank_of_tangentDim (tangentDim_of_abVar hT dimBaseChange)) hU)
+  ZInQ.ProductHeight.productModelHeight_of_splits ZInQ.ProductUnif.productUnifSplits
+    (ZInQ.ProductUnif.productMetrizationOfProductUnif_of_local
+      (hodgeLatticeTheorem_of_tangent hT dimBaseChange)
+      (productUnifDims_of_unifOfDim hU) ZInQ.Metrization2.productLocalStructure
+      (productHodgeLattice_of productCotangent detLatticeProd
+        (cotangentRank_of_tangentDim (tangentDim_of_abVar hT dimBaseChange)) hU))
 
 end ZInQ.UnifDims
 
