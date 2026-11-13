@@ -178,13 +178,25 @@ The facts used for `Spec K`:
 
 | Item | Size (SPECULATIVE) | Needs |
 | --- | --- | --- |
-| `GroupModelBaseChangeExists` | M (category theory) | `IsMonHom` for the components of `Over.pullbackComp` and of `eqToIso` along `jL' ≫ φ = ψ ≫ jL`. `NatTrans.IsMonoidal.of_cartesianMonoidalCategory` exists, but the two `MonObj` structures on `F(G(X))` (composite functor or iterated) agree only propositionally |
+| `GroupModelBaseChangeExists` | M (category theory; partial in `scratch/h5-neron/BaseChange.lean`) | `IsMonHom` for the components of `Over.pullbackComp` and of `eqToIso` along `jL' ≫ φ = ψ ≫ jL`. `NatTrans.IsMonoidal.of_cartesianMonoidalCategory` exists, but the two `MonObj` structures on `F(G(X))` (composite functor or iterated) agree only propositionally |
 | `OpenSubgroupHeight` | M-L | transport of `MetrizedModel` along open immersions (stalks along the unit section, `Pts` bijection) |
 | `ModelHeightBaseChange` | L | flat base change of `ω`, `⋀^g` and Arakelov degree under `𝓞_L → 𝓞_{L'}`, restriction of embeddings |
 | `NeronModelMinimal` | L | functoriality of `omegaAt` along the comparison map; transport of uniformizations |
 | `ProductModelHeight` | L | `⋀` of a direct sum, product uniformizations |
 | `StableHeightFinite` (nonzero `A`) | XL | AV7, AN3, `HodgeLatticeTheorem` |
 | leaves N1, N2 | literature | Néron models and semistable reduction are absent from Mathlib (prereq-survey) |
+
+**Partial progress on H4b** (`BaseChange.lean`, compiles). Compiled so far:
+- `isMonHom_pbCompHom` and `isMonHom_pbCompInv`: the components of `Over.pullbackComp` are monoid
+  morphisms, through `Functor.mapMonNatIso` and `Functor.mapMonCompIso`;
+- `isMonHom_pbEq`;
+- the two commutative squares `square1` and `square2`;
+- the generic-fibre isomorphism `bcGen` of a base change.
+
+The final assembly, `IsMonHom (bcGen 𝒢).hom` in the `GroupModel` field's instance form, is
+accepted by the elaborator in about 50 s. The kernel then reports a deterministic timeout.
+`convert … using 1` shows that the remaining mismatch is in the hidden instance arguments, not
+in the morphism. The proof is kept as a comment in the file.
 
 Integration suggestion (for after the announcement): replace `LeafAdopt.H5` by N1 and N2 as
 leaves. List the four H5 glue statements and P2 as glue targets; P1 is proved. Keep `StableHeightFinite`

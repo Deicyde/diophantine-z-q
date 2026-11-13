@@ -78,3 +78,4 @@ Parts A + B + C plus part D:
 - FAILED: `bcGen_isMonHom` / `groupModelBaseChangeExists`: elaborator accepts (~50 s), kernel reports
   "(kernel) deterministic timeout" (also with maxHeartbeats 2000000: > 10 min, stopped). Proof kept as a
   comment. Glue H4b stays UNPROVED.
+- Diagnosis: `convert this using 1` leaves a goal identical up to hidden instance arguments, so the mismatch is in instance terms (MonObj/monoidal-functor instance paths), not in the morphism.
