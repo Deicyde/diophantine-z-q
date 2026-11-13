@@ -1,0 +1,14 @@
+'LeafQM.AV.Pin.r1fpPin_relabel_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r2fp_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTriple_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.relabel_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.isFibreOf_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.autRelabel_natural' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m6.637s
+user	0m5.722s
+sys	0m2.292s

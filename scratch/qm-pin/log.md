@@ -36,3 +36,7 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
   2m41s; one `sorry` warning at the known `HSyn.glueOutputs_of_leaves` (line 21577 of the copy). VERIFIED.
 - QMPin.lean run4 (adds relabel_geometric, PinUniqueOld, relabel_geometric_old): 0 errors, 5.6 s;
   15 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED (run4.txt).
+- QMPinKernel.lean = QMLeavesEdited.lean + QMPin §3 (renamed to the patched `R1fpProps`, namespace
+  `LeafQM.AV.Pin`, without the old-list lemmas): candidate content of a new kernel module
+  `QM/Pin.lean`. run 2: 0 errors, 6.6 s; 10 `#print axioms`, all standard. VERIFIED (run_pinkernel.txt).
+  (run 1: 4 errors from dot notation on `R1fpProps`/`QMFamily` across namespaces; fixed.)
