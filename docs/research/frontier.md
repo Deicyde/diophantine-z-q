@@ -316,7 +316,9 @@ hypothesis list of the composite of two compiled theorems (C0, C4).
 10 never-projected fields of §4.6. The def text of every H bundle Prop that an edge proves or reduces is identical in
 the proving file and in g0-assemble3's file (35 of 37 comparisons, including the 12 kernel textbook proofs against the
 `ZInQKernel/HDecomp` defs); the other two have no def in the proving file (`TwistDescent` comes from kf-glue's `KfGlue`
-olean; `analyticUniformizationOfDim` is bypassed, not proved).
+olean; `analyticUniformizationOfDim` is bypassed, not proved). For route T, the defs of `LinkedTateLocal`, `G7Data` (with `[L:ℚ] ≤ D`), `FibreSimple` and
+`QMEndRank` in lt-local's `LtLocal4.lean` are identical to g0-assemble3's; `FibreSimple` is derived inside g0-assemble3's
+assembly (`G0FibreSimple.fibreSimple_of_leaves` from bundle fields), so it is not an open Prop.
 
 `python3 scratch/frontier/chain.py doc` compares the rows `Z-n`, `T-n`, `H-n` of this report with the scenario-F open
 set minus the never-projected fields: VERIFIED equal (81 rows), apart from H-56, which is listed for completeness and

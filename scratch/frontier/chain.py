@@ -321,10 +321,24 @@ def main():
             print("def-text comparison (proved field vs g0-assemble3's def):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
+            print("route T inputs (def text vs g0-assemble3):")
+            extra_defcheck()
 
 
 if __name__ == "__main__" and "doc" not in sys.argv:
     main()
+
+
+EXTRA_DEFS = [("3d1b90b5", "scratch/lt-local/LtLocal4.lean", ["LinkedTateLocal", "G7Data", "FibreSimple", "QMEndRank"])]
+
+
+def extra_defcheck():
+    g3 = c.show(*G3)
+    for rev, path, names in EXTRA_DEFS:
+        t = c.show(rev, path)
+        for n in names:
+            A, B = c.def_texts_all(g3, n), c.def_texts_all(t, n)
+            print(f"  {n:20s} {rev}:{path}: {'identical' if A and B and any(x in B for x in A) else 'DIFFERENT or missing'}")
 
 
 def doc_check(path="/home/jackmccarthy/dzq-wt/frontier/docs/research/frontier.md"):
