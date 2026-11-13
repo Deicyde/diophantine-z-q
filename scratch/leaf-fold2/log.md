@@ -51,9 +51,9 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
 ## Flat file (2026-11-13 09:44-10:01 PST), VERIFIED
 - `lake env lean scratch/leaf-fold2/Leaves2.lean` (81 355 lines, md5 0cfffa613c4c…): exit 0 in 999 s, 0 errors, no
   `declaration uses 'sorry'`. 278 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`
-  (counted by script). The file still contains Leaves.lean's two `opaque` placeholders (R1(b), R17); neither
-  is a hypothesis of `sixContactMin_of_open2` (its axioms would show them otherwise only if used as axioms;
-  they are bundle-field types of the old `ResearchLeaves` only). No `axiom` declaration.
+  (counted by script). The file still declares Leaves.lean's two `opaque` placeholders (R1(b), R17), as types
+  of fields of the old `ResearchLeaves`; no field of the four bundles of `sixContactMin_of_open2` mentions them
+  (read in parts/b20_fold.lean). No `axiom` declaration.
 - `#print axioms` output for the leaf-fold2 theorems (flat file, host paths removed):
 ```
 'HDec.HSyn.t14a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
