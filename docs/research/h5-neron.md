@@ -4,7 +4,8 @@ Status: research note (task h5-neron, 2026-11-12). Lean: `scratch/h5-neron/H5Ner
 (self-contained, imports only `ZInQKernel.HDecomp.Faltings.Leaves`; compiled; no `sorry`, no
 `axiom`; all 27 `#print axioms` list only `propext`, `Classical.choice`, `Quot.sound`). The parts
 also compile separately: `Neron.lean` (A), `ZeroAV.lean` (B), `Reduction.lean` (C),
-`ProductModel.lean` (E). Results log:
+`ProductModel.lean` (E); `BaseChange.lean` (F) compiles but proves only part of glue H4b (§5).
+Results log:
 `scratch/h5-neron/log.md`. No file under `ZInQKernel/` or `blueprint/` and no other task's files
 were edited.
 
