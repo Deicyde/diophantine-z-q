@@ -1,0 +1,158 @@
+
+/-- **The section `X = s₀` and the ideal `m`** (PROVED): for `g ∈ ℤ[X]` there are `k` and an integer
+`n₀ = d^k g(s₀)` (`s₀ = a/d`) with `g ∈ m ↔ p ∣ n₀`. -/
+theorem homog_data (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀)
+    (m : Ideal ℤ[X]) [m.IsMaximal] (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) (g : ℤ[X]) :
+    ∃ (k : ℕ) (n₀ : ℤ), (n₀ : ℚ) = ((s₀.den : ℤ) : ℚ) ^ k * (g.map (Int.castRingHom ℚ)).eval s₀ ∧
+      (g ∈ m ↔ (p : ℤ) ∣ n₀) := by
+  set k := g.natDegree
+  set d : ℤ := (s₀.den : ℤ) with hd
+  set n₀ : ℤ := ∑ i ∈ Finset.range (k + 1), g.coeff i * s₀.num ^ i * d ^ (k - i)
+  refine ⟨k, n₀, ?_, ?_⟩
+  · rw [eval_eq_sum_range, natDegree_map_eq_of_injective (RingHom.injective_int _), Finset.mul_sum]
+    simp only [n₀, Int.cast_sum, Int.cast_mul, Int.cast_pow, coeff_map, eq_intCast]
+    apply Finset.sum_congr rfl
+    intro i hi
+    have hik : i ≤ k := Nat.lt_succ_iff.mp (Finset.mem_range.mp hi)
+    have hs : (s₀.num : ℚ) = (d : ℚ) * s₀ := by simp [d]
+    rw [hs, show (d : ℚ) ^ k = (d : ℚ) ^ (k - i) * (d : ℚ) ^ i by
+      rw [← pow_add, Nat.sub_add_cancel hik]]
+    ring
+  · have h1 : C (d ^ k) * g - C n₀ ∈ m := homog_mem m s₀.num d hsm g
+    have hdk : C (d ^ k) ∉ m := C_notMem p m (Ideal.IsMaximal.ne_top ‹_›) hpm _ (by
+      intro h
+      have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp.out
+      exact not_dvd_den_of_nonneg p s₀ hs₀ (Int.natCast_dvd_natCast.mp (hpr.dvd_of_dvd_pow h)))
+    constructor
+    · intro hg
+      by_contra hn
+      apply C_notMem p m (Ideal.IsMaximal.ne_top ‹_›) hpm n₀ hn
+      have := m.sub_mem (m.mul_mem_left (C (d ^ k)) hg) h1
+      rwa [sub_sub_cancel] at this
+    · intro hn
+      obtain ⟨t, ht⟩ := hn
+      have hCn : C n₀ ∈ m := by rw [ht, map_mul]; exact m.mul_mem_right _ hpm
+      have := m.add_mem h1 hCn
+      rw [sub_add_cancel] at this
+      exact ((Ideal.IsMaximal.isPrime ‹_›).mem_or_mem this).resolve_left hdk
+
+attribute [local instance] Polynomial.algebra in
+/-- **`SNSpecialize`, the main argument** (see `snSpecialize`). -/
+theorem snSpecialize_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀) (m : Ideal ℤ[X]) [m.IsMaximal]
+    (hpm : C (p : ℤ) ∈ m) (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) :
+    letI := locAlg E m
+    Algebra.Etale (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) →
+    ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+      𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
+      ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+        FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ)) ∧
+        UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p := by
+  letI iE : Algebra (Localization.AtPrime m) E := locAlg E m
+  intro het 𝔓 h𝔓 hU φ
+  have : Fact p.Prime := ⟨hp⟩
+  -- the rings (as in `snHorizontalTransfer_aux`)
+  letI iZ : Algebra ℤ[X] E := (zxMap E).toAlgebra
+  have hTR : IsScalarTower ℤ[X] (Localization.AtPrime m) E := by
+    apply IsScalarTower.of_algebraMap_eq'
+    exact (IsLocalization.lift_comp _).symm
+  let ιS : integralClosure ℤ[X] E →+* integralClosure (Localization.AtPrime m) E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := Localization.AtPrime m) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  letI aCS := ιS.toAlgebra
+  have hZCS : IsScalarTower ℤ[X] (integralClosure ℤ[X] E)
+      (integralClosure (Localization.AtPrime m) E) := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    apply Subtype.ext
+    rw [IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E)]
+    change algebraMap (Localization.AtPrime m) E (algebraMap ℤ[X] _ x) = algebraMap ℤ[X] E x
+    exact (IsScalarTower.algebraMap_apply _ _ _ x).symm
+  have hCSE : IsScalarTower (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E)
+      E := IsScalarTower.of_algebraMap_eq' rfl
+  have hlocE : IsLocalization (Algebra.algebraMapSubmonoid E m.primeCompl) E :=
+    isLocalization_field_self _ (fun x hx h0 => hx (by
+      rw [(zxMap_injective E) (h0.trans (map_zero _).symm)]; exact m.zero_mem))
+  have hlocS : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E)
+      m.primeCompl) (integralClosure (Localization.AtPrime m) E) :=
+    IsLocalization.integralClosure m.primeCompl
+  have hTQ : IsScalarTower ℤ[X] ℚ[X] E := IsScalarTower.of_algebraMap_eq' rfl
+  let ιB : integralClosure ℤ[X] E →+* integralClosure ℚ[X] E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := ℚ[X]) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  set M₀ : Submonoid ℤ[X] := (nonZeroDivisors ℤ).map C with hM₀
+  have hlocQ : IsLocalization M₀ ℚ[X] := Polynomial.isLocalization _ _
+  -- the residue field `B/𝔓` and the number field `L`
+  set L := IntermediateField.adjoin ℚ (Set.range φ) with hL
+  -- the value of `φ` on `ℚ[X]`: evaluation at `s₀`
+  have hφQ : ∀ f : ℚ[X], φ (Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f)) =
+      algebraMap ℚ Qbar (f.eval s₀) := by
+    intro f
+    have h1 : Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f) =
+        Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) (C (f.eval s₀))) := by
+      rw [Ideal.Quotient.eq, ← map_sub]
+      have : f - C (f.eval s₀) ∈ 𝔓.under ℚ[X] := by
+        rw [hU, Ideal.mem_span_singleton]
+        exact X_sub_C_dvd_sub_C_eval
+      exact this
+    rw [h1]
+    exact RingHom.congr_fun (Subsingleton.elim (φ.comp ((Ideal.Quotient.mk 𝔓).comp
+      ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp C))) (algebraMap ℚ Qbar)) (f.eval s₀)
+  -- the range of `φ` is a `ℚ`-subalgebra of `ℚ̄`
+  let Sφ : Subalgebra ℚ Qbar :=
+    { carrier := Set.range φ
+      mul_mem' := by
+        rintro _ _ ⟨a, rfl⟩ ⟨b, rfl⟩
+        exact ⟨a * b, φ.map_mul a b⟩
+      one_mem' := ⟨1, φ.map_one⟩
+      add_mem' := by
+        rintro _ _ ⟨a, rfl⟩ ⟨b, rfl⟩
+        exact ⟨a + b, φ.map_add a b⟩
+      zero_mem' := ⟨0, φ.map_zero⟩
+      algebraMap_mem' := fun q => ⟨_, by simpa using hφQ (C q)⟩ }
+  have hLsub : L.toSubalgebra = Sφ := by
+    rw [hL, IntermediateField.adjoin_toSubalgebra_of_isAlgebraic
+      (fun x _ => Algebra.IsAlgebraic.isAlgebraic x)]
+    exact Algebra.adjoin_eq Sφ
+  have hLmem : ∀ x : L, ∃ β : integralClosure ℚ[X] E, φ (Ideal.Quotient.mk 𝔓 β) = x := by
+    intro x
+    have hx : (x : Qbar) ∈ L.toSubalgebra := x.2
+    rw [hLsub] at hx
+    obtain ⟨y, hy⟩ := hx
+    obtain ⟨β, rfl⟩ := Ideal.Quotient.mk_surjective y
+    exact ⟨β, hy⟩
+  have hfd : FiniteDimensional ℚ L := by
+    obtain ⟨T, hT⟩ := (IsIntegralClosure.finite ℚ[X] (RatFunc ℚ) E
+      (integralClosure ℚ[X] E)).fg_top
+    set V : Submodule ℚ Qbar :=
+      Submodule.span ℚ ((fun β => φ (Ideal.Quotient.mk 𝔓 β)) '' (T : Set _)) with hV
+    have hVfd : FiniteDimensional ℚ V :=
+      FiniteDimensional.span_of_finite ℚ ((T.finite_toSet).image _)
+    have hle : Subalgebra.toSubmodule L.toSubalgebra ≤ V := by
+      rintro x hx
+      have hx' : x ∈ Sφ := by rw [← hLsub]; exact hx
+      obtain ⟨y, rfl⟩ := hx'
+      obtain ⟨β, rfl⟩ := Ideal.Quotient.mk_surjective y
+      clear hx
+      have hβ : β ∈ Submodule.span ℚ[X] (T : Set (integralClosure ℚ[X] E)) := by
+        rw [hT]; trivial
+      induction hβ using Submodule.span_induction with
+      | mem b hb => exact Submodule.subset_span ⟨b, hb, rfl⟩
+      | zero => rw [(Ideal.Quotient.mk 𝔓).map_zero, φ.map_zero]; exact V.zero_mem
+      | add a b _ _ ha hb =>
+        rw [(Ideal.Quotient.mk 𝔓).map_add, φ.map_add]; exact V.add_mem ha hb
+      | smul f b _ hb =>
+        rw [Algebra.smul_def, (Ideal.Quotient.mk 𝔓).map_mul, φ.map_mul, hφQ, ← Algebra.smul_def]
+        exact V.smul_mem _ hb
+    exact Submodule.finiteDimensional_of_le hle
+  refine ⟨hfd, ?_⟩
+  sorry
