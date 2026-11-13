@@ -6,63 +6,75 @@ task's directory was edited. Model work only, no human review.
 
 ## 1. Result
 
-**`MobiusGlue` is proved in Lean from four named facts** (`scratch/mobius-glue/MobiusGlue.lean`,
-compiled, 0 errors, axioms `[propext, Classical.choice, Quot.sound]`, VERIFIED):
+**`MobiusGlue` is proved in Lean from two named curve facts and one existing textbook leaf**
+(`scratch/mobius-glue/MobiusGlue.lean`; compiled, 0 errors, 0 warnings; axioms
+`[propext, Classical.choice, Quot.sound]`; VERIFIED):
 
 ```lean
-theorem mobiusGlue_of_named (hRF : CurveRatFactor) (hSu : CurveSurj)
-    (hT : ObjBridge.TorsionStructure) (hA : AutOInnerFinite) : MobiusGlue
+theorem mobiusGlue_of_curves (hRF : CurveRatFactor) (hSu : CurveSurj)
+    (hT : ObjBridge.TorsionStructure) : MobiusGlue
 ```
-
-The four facts:
 
 | name | kind | content | status |
 |---|---|---|---|
 | `CurveRatFactor` | curves | on a proper smooth curve `S/ℚ`, if `ρ : S → P¹` is constant on the fibres of `σ : S → P¹` (on `ℚ̄`-points), then `ρ = R ∘ σ` at every `ℚ̄`-point with finite `σ`-value, for a rational function `R = [F : G]`, `F, G ∈ ℚ̄[t]` coprime | STANDARD (§3.1); not in Mathlib |
 | `CurveSurj` | curves | a morphism `S → P¹` from a proper smooth curve over `ℚ` with a `ℚ̄`-point, whose fibres on `ℚ̄`-points are finite, is onto `P¹(ℚ̄)` | STANDARD (§3.2); not in Mathlib |
-| `ObjBridge.TorsionStructure` | textbook leaf T5, already in the decomposition | `A(K̄)[n] ≅ (ℤ/n)^{2g}` (Mumford §4) | existing leaf of `TextbookLeaves` (h-decomposition T5) |
-| `AutOInnerFinite` | algebra of the order `𝒪` | every ring automorphism of the kernel's `𝒪` is, up to conjugation by a unit of `𝒪`, one of finitely many | STANDARD (§3.3); not in Mathlib |
+| `ObjBridge.TorsionStructure` | textbook leaf T5 | `A(K̄)[n] ≅ (ℤ/n)^{2g}` (Mumford §4) | already in `TextbookLeaves` (h-decomposition T5) |
 
-`MobiusGlue` is copied verbatim from `scratch/qm-pin/QMPin.lean`, with the qm-pin definitions it
-uses: `QMFamily`, `IsFibreOf`, `R1famProps`, `R1fpPropsPin`, `R1univProps`, `R1fpPropsU`. A Python
-string comparison confirmed that the text of each declaration is identical (VERIFIED).
+`MobiusGlue` is copied verbatim from `scratch/qm-pin/QMPin.lean`, together with the qm-pin
+definitions it uses (`QMFamily`, `IsFibreOf`, `R1famProps`, `R1fpPropsPin`, `R1univProps`,
+`R1fpPropsU`). A Python string comparison confirmed that each declaration's text is identical
+(VERIFIED).
 
-Downstream, the comparison of two triples and the transfer of fibre statements now follow from the
-named facts too. Both are compiled:
+The downstream consumers follow from the same three inputs (compiled):
 
-- **`sameTripleMor_of_named`**: two triples satisfying the fully repaired list are `SameTripleMor`.
-- **`pointwise_of_witness_named`**: a fibre statement proved for the leaf's own triple holds for
-  every triple. This is the form used by `FibreSimple`, `ThetaPointOfFibre` and
-  `ModularConstituent`.
+- `sameTripleMor_of_curves`: two triples satisfying the fully repaired list are `SameTripleMor`;
+- `pointwise_of_witness_curves`: a fibre statement proved for the leaf's own triple holds for every
+  triple. This is the form used by `FibreSimple`, `ThetaPointOfFibre` and `ModularConstituent`.
 
 The CM-object hypothesis `hCM` stays as in qm-pin. It follows from the leaf bundle
 (`cm_objects_of_R1R2fp`, qm-pin).
 
-**What is proved, not assumed:**
+**What is proved, not assumed.** All of the following is compiled.
 
-1. **A Möbius map fixing `0, ∞, c` is the identity.** In Lean this is two theorems:
+1. **A Möbius map fixing `0, ∞, c` is the identity.**
    - `Mob.natDegree_le_one_of_injective`: over an algebraically closed field of characteristic 0,
-     a rational function `[F : G]` (`F`, `G` coprime) that is injective on `K` has `deg F ≤ 1` and
-     `deg G ≤ 1`.
+     if `F, G` are coprime and `t ↦ [F(t) : G(t)]` is injective on `K`, then `deg F, deg G ≤ 1`.
+     The proof uses the Wronskian `F'G − FG'`: it is nonzero, and for all but at most one `c`, the
+     unique root of `F − cG` is a root of the Wronskian.
    - `Mob.ratEval_eq_self`: such a function with no finite pole, fixing `0` and some `c ≠ 0`, is
      the identity.
-2. **The reduction `mobiusGlue_of_curveFacts`.** From the two curve facts and `TwistClassFinite`
-   (finitely many classes in a twist class), the following steps are compiled:
-   - the two maps `π'` and `π ∘ g` have the same fibres;
-   - the CM points exist on `Y'`;
-   - the fibres of `π ∘ g` are finite, so `π ∘ g` is onto `P¹(ℚ̄)` and the factor `R` is
-     injective;
-   - `R` has no finite pole (the fibre over `∞`) and fixes `0` and `−16/27`, so `R = id`, and
-     `π' = π ∘ g` on `ℚ̄`-points.
-3. **`TwistClassFinite` from `TorsionStructure` and `AutOInnerFinite`** (`twistClassFinite_of`).
-   - `level3_finite`: in characteristic 0, given `TorsionStructure`, a pair `(A, ι)` carries only
-     finitely many level structures. The proof goes through the kernel's `Level3.torsor`: a level
-     structure is `a ↦ η₀(a u₀)`, and this depends only on `u₀ mod 3𝒪`.
-   - `transportLevel` and `QML3.isoTransport` transport a level structure along an isomorphism of
-     QM pairs.
+2. **The reduction `mobiusGlue_of_curveFacts`.** It derives `MobiusGlue` from `CurveRatFactor`,
+   `CurveSurj` and `TwistClassFinite` (a twist class contains only finitely many isomorphism
+   classes). The steps:
+   - `π'` and `π ∘ g` have the same fibres;
+   - the CM points exist on `Y'`, because `Φ'` is onto;
+   - the fibres of `π ∘ g` are finite, so `π ∘ g` is onto `P¹(ℚ̄)`, and the factor `R` is injective;
+   - `R` has no finite pole (look at the fibre over `∞`) and fixes `0` and `−16/27`;
+   - so `R = id`, and `π' = π ∘ g` on `ℚ̄`-points.
+3. **`TwistClassFinite` from T5 alone** (`twistClassFinite`).
+   - `level3_finite`: in characteristic 0, a pair `(A, ι)` carries only finitely many level
+     structures. The proof goes through the kernel's `Level3.torsor`: a level structure is
+     `a ↦ η₀(a u₀)`, which depends only on `u₀ mod 3𝒪`.
+   - `transportLevel` and `QML3.isoTransport` transport level structures along isomorphisms of QM
+     pairs.
    - `conjUnitIso`: the twists by `t` and by `v t v⁻¹` are isomorphic through `ι(v)`.
+   - `autOInnerFinite`: `Aut(𝒪)` modulo conjugation by `𝒪^×` is finite, proved in two steps:
+     - (§7) An explicit extension of `α ∈ Aut 𝒪` to `α̃ ∈ Aut_ℚ(B)` (`extAlgEquiv`, with
+       `α̃(b) = m⁻¹ α(m b)`). Skolem–Noether, proved in the kernel
+       (`TSkolemKW.leafSkolemNoether`, through `GlueDescent.B6_inner`), makes `α̃` inner by some
+       `u ∈ B^×` normalizing `𝒪`.
+     - (§8) **`NormalizerFinite`, proved**: every `u ∈ B^×` normalizing `𝒪` is `q · v · t` with
+       `q ∈ ℚ^×`, `v ∈ 𝒪^×` and `t ∈ {1, i, j, ij}`. The proof is a descent on `|nrd u|`, after
+       scaling `u` into `𝒪`:
+       - a prime `p ∤ 6` dividing `nrd u` divides `u`, by the identity
+         `6 x_l² = Σ λ · coord(u e_k ū)` (integer coefficients from PARI's `matsolvemod`), because
+         `u e_k ū ∈ nrd(u) 𝒪`;
+       - `2 | nrd u` gives `u i⁻¹ ∈ 𝒪`, and `3 | nrd u` gives `u j⁻¹ ∈ 𝒪` (checks modulo 2 and 3 by
+         `decide`);
+       - `{1, i, j, ij}` is closed under right multiplication by `i` and `j` up to `ℚ^×`.
 
-**Hypotheses of `MobiusGlue` that the proof uses:**
+**Hypotheses of `MobiusGlue` the proof uses:**
 
 - for `Y'`: proper, smooth of relative dimension 1, with a `ℚ̄`-point; `Φ'` a bijection;
 - both `R2fpProps`;
@@ -98,6 +110,9 @@ def AutOInnerFinite : Prop :=
   ∃ T : Set (O ≃+* O), T.Finite ∧ ∀ α : O ≃+* O, ∃ t ∈ T, ∃ v : Oˣ,
     ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)
 ```
+
+`NormalizerFinite` (§7, proved in §8) reads: `∃ T : Set Bˣ, T.Finite ∧ ∀ u : Bˣ,
+(∀ a, a ∈ O ↔ u a u⁻¹ ∈ O) → ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ u = algebraMap q * v * t`.
 
 `Mob.ratEval F G t` is `∞` if `G(t) = 0` and `F(t)/G(t)` otherwise: the value of `[F : G]` at a
 finite point. The ingredients are all genuine definitions:
@@ -151,19 +166,17 @@ finitely many of them.
   That point is a `ℚ̄`-point of `S`.
 - STANDARD (Hartshorne II.6.8; locator UNVERIFIED).
 
-### 3.3 `AutOInnerFinite`
+### 3.3 `AutOInnerFinite` (now proved, §1 item 3)
 
-- A ring automorphism `α` of `𝒪` is `ℤ`-linear, so it extends to a `ℚ`-algebra automorphism of
-  `B = 𝒪 ⊗ ℚ`, the quaternion algebra `(2, −3)` of discriminant 6.
-- By Skolem–Noether, `α` is conjugation by some `x ∈ B^×`, and `x ∈ N(𝒪)`. Skolem–Noether is
-  proved in the kernel (`TSkolemKW.skolemNoether`; `GlueDescent.B6_inner` gives exactly this
-  form for `B6 = ℍ[ℚ, 2, −3]`).
-- `N(𝒪)/ℚ^×𝒪^×` is finite. For a maximal order it is `⊕_{p | disc} ℤ/2`, here `W ≅ (ℤ/2)²`,
-  generated by `i` (`nrd = −2`) and `j` (`nrd = 3`), both of which normalize `𝒪`. References:
-  Vignéras, *Arithmétique des algèbres de quaternions*, Ch. II §1 and Ch. III §5; Voight,
-  *Quaternion algebras*, normalizer chapter. Locators UNVERIFIED.
-- STANDARD. In Lean this would be glue from Skolem–Noether plus the normalizer computation, which
-  needs the two-sided ideals of `𝒪`; that is not attempted here.
+The argument is the standard one: Skolem–Noether, then the normalizer of a maximal order,
+`N(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` for discriminant 6, generated by `i` and `j`. It is now compiled.
+
+- Skolem–Noether comes from the kernel's proof.
+- The normalizer step is an elementary descent, made concrete by three computations:
+  - the identity `6 x_l² = Σ λ · coord(u e_k ū)` (the Smith form of the 16 quadratic forms
+    `coord_l(u e_k ū)` on the 10 monomials is `diag(1,1,1,1,1,6,6,6,6,6)`;
+    `scratch/mobius-glue/py/normalizer_identity.py`, VERIFIED);
+  - the residue checks modulo 2 and 3.
 
 ### 3.4 Why some finiteness is needed
 
@@ -175,7 +188,7 @@ Over the kernel's definitions, the fibre of `π'` through `y` is in bijection, v
 twist class. So `TwistClassFinite` is the natural form. Its proof needs both of the following:
 
 - finitely many level structures per pair (`TorsionStructure`);
-- finitely many pair classes per twist class (`AutOInnerFinite`).
+- finitely many pair classes per twist class (`AutOInnerFinite`, now proved).
 
 The second is necessary: if `End(A) = ι(𝒪)`, the pair classes `(A, ι ∘ α)` correspond exactly to
 `Aut(𝒪)` modulo inner automorphisms by units.
@@ -184,18 +197,31 @@ The second is necessary: if `End(A) = ι(𝒪)`, the pair classes `(A, ι ∘ α
 
 | file | content | outcome |
 |---|---|---|
-| `RatInj.lean` | development copy of `natDegree_le_one_of_injective` (imports Mathlib only) | 0 errors |
-| `MobiusGlue.lean` | §0 qm-pin definitions (verbatim); §1 rational functions; §2 named facts; §3 `mobiusGlue_of_curveFacts`; §4 `TwistClassFinite` from T5 and `AutOInnerFinite`; §5 `mobiusGlue_of_named`; §6 downstream (five qm-pin declarations verbatim, then `sameTripleMor_of_named`, `pointwise_of_witness_named`) | 0 errors, 0 warnings, about 6 s after `lake build ZInQKernel.HDecomp.QM.Leaves` (2m18s); 8 `#print axioms`, all `[propext, Classical.choice, Quot.sound]` |
+| `MobiusGlue.lean` (the deliverable) | §0–§8 as in its header | 0 errors, 0 warnings; 16 `#print axioms`, all `[propext, Classical.choice, Quot.sound]` (`run_final.txt`) |
+| `RatInj.lean` | development copy of §1 (imports Mathlib only) | 0 errors |
+| `AutO.lean` | development copy of §7 | 0 errors |
+| `Normalizer.lean` | development copy of §8 | 0 errors |
+| `py/normalizer_identity.py` | `mulCoord` check, norm and conjugate formulas, Smith form, PARI coefficients, residue checks modulo 2 and 3 | all checks pass |
 
-**Integration.** The file imports only `ZInQKernel.HDecomp.QM.Leaves`.
+**Build prerequisites.**
 
-- If qm-pin's full edit is adopted (`R1fpProps` with `R1famProps ∧ R1univProps`, plus the optional
-  module `QM/Pin.lean`), then §1–§6 can be appended to `QM/Pin.lean`. Rename `R1fpPropsU` to the
-  patched `R1fpProps`, and delete §0 and the five copied declarations of §6.
-- §4 uses the kernel's `Level3.torsor`, `liftO`, `ofInt_sub`, `three_mul_ofInt` and
-  `ObjBridge.TorsionStructure`, all from `QM/Structures.lean` and `Objects.lean`.
-- New leaves for the decomposition's list: `CurveRatFactor`, `CurveSurj` (curve glue, textbook)
-  and `AutOInnerFinite` (algebra, textbook). `TorsionStructure` is already T5.
+- Run `lake build ZInQKernel.HDecomp.QM.Leaves` (2m18s) and
+  `lake build ZInQKernel.HDecomp.Textbook.SkolemNoether` (51 s) first.
+- After that, `lake env lean scratch/mobius-glue/MobiusGlue.lean` runs in under a minute.
+
+**Integration.** The file imports `ZInQKernel.HDecomp.QM.Leaves` and
+`ZInQKernel.HDecomp.Textbook.SkolemNoether`.
+
+- **If qm-pin's full edit is adopted** (`R1fpProps` with `R1famProps ∧ R1univProps`, plus the
+  optional module `QM/Pin.lean`):
+  - §1–§8 can go into a new module after `QM/Pin.lean`;
+  - rename `R1fpPropsU` to the patched `R1fpProps`;
+  - delete §0 and the five copied declarations of §6.
+- §4 uses the kernel's `Level3.torsor`, `liftO`, `ofInt_sub`, `three_mul_ofInt`, `ofInt_injective`
+  and `ObjBridge.TorsionStructure`. §7 uses `GlueDescent.B6_inner` and
+  `TSkolemKW.leafSkolemNoether`.
+- **New leaves for the decomposition's list:** `CurveRatFactor` and `CurveSurj` (curve glue,
+  textbook). `TorsionStructure` is already T5.
 
 ## 5. What remains
 
@@ -203,11 +229,7 @@ The second is necessary: if `End(A) = ι(𝒪)`, the pair classes `(A, ι ∘ α
   argument needs.
   - A Lean proof needs curve theory that Mathlib v4.35 lacks: the degree of a finite morphism, the
     bijection between `P¹(ℚ̄)` and the points, and the factorization through the image curve.
-  - A finer split is possible but was not pursued: "the image of `(σ, ρ)` is a plane curve",
-    algebra on bivariate polynomials, and "two morphisms agreeing at cofinitely many points are
-    equal". Each piece still needs the morphism property; §3.4 shows why a purely point-level
-    argument cannot close the gap.
-- **`AutOInnerFinite`.** STANDARD. A Lean proof would split into an extension of `α` to `B`,
-  Skolem–Noether (proved in the kernel), and the normalizer computation for the maximal order of
-  discriminant 6 (not attempted).
+  - A finer split is possible: "the image of `(σ, ρ)` is a plane curve", algebra on bivariate
+    polynomials, and "two morphisms agreeing at cofinitely many points are equal". Each piece still
+    needs the morphism property; §3.4 shows that a purely point-level argument cannot close the gap.
 - **The CM objects** (`hCM`) come from the leaf bundle, as in qm-pin.
