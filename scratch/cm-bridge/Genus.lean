@@ -32,7 +32,12 @@ theorem picClass_maximal {K : Type} [Field K] [NumberField K]
   rw [coe_integralIdealsAwayConductorToInvertible_apply, FractionalIdeal.coe_mk0]
   congr 1
   ext x
-  sorry
+  rw [Ideal.mem_map_of_equiv]
+  constructor
+  · rintro ⟨y, hy, rfl⟩
+    exact hy
+  · intro hx
+    exact ⟨⟨(⟨x.1, x.2⟩ : 𝓞 K), (maximalNumberFieldOrder K).mem_toRingOfIntegers.mpr x.2⟩, hx, rfl⟩
 
 
 section Genus
@@ -44,10 +49,31 @@ def sqrtSet (n : ℕ) : Finset ℤ := insert (-1) (n.primeFactors.image (fun p :
 
 /-- `K_n(i, √p : p ∣ n) ⊆ K_nˢ`. -/
 def genusAmb (n : ℕ) [NeZero n] : IntermediateField (QNeg n) (SeparableClosure (QNeg n)) :=
-  ⨆ a ∈ sqrtSet n, adjSqrt (QNeg n) a
+  IntermediateField.adjoin (QNeg n) (sqrtK (QNeg n) '' (sqrtSet n : Set ℤ))
 
-instance : FiniteDimensional (QNeg n) (genusAmb n) := by unfold genusAmb; infer_instance
-instance : Normal (QNeg n) (genusAmb n) := by unfold genusAmb; infer_instance
+theorem adjSqrt_le_genusAmb {a : ℤ} (ha : a ∈ sqrtSet n) : adjSqrt (QNeg n) a ≤ genusAmb n :=
+  IntermediateField.adjoin.mono _ _ _ (Set.singleton_subset_iff.2
+    (Set.mem_image_of_mem _ (Finset.mem_coe.2 ha)))
+
+instance : FiniteDimensional (QNeg n) (genusAmb n) :=
+  IntermediateField.finiteDimensional_adjoin fun x hx => by
+    obtain ⟨a, -, rfl⟩ := hx
+    exact isIntegral_sqrtK _ a
+
+instance : Normal (QNeg n) (genusAmb n) := by
+  rw [IntermediateField.normal_iff_forall_map_le']
+  intro g
+  rw [genusAmb, IntermediateField.adjoin_map, IntermediateField.adjoin_le_iff]
+  rintro _ ⟨x, hx, rfl⟩
+  obtain ⟨a, ha, rfl⟩ := hx
+  have h : g (sqrtK (QNeg n) a) ^ 2 = sqrtK (QNeg n) a ^ 2 := by
+    rw [← map_pow, sqrtK_sq, map_intCast]
+  have hmem : sqrtK (QNeg n) a ∈ genusAmb n :=
+    IntermediateField.subset_adjoin _ _ (Set.mem_image_of_mem _ ha)
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 h with h | h
+  · simp only [AlgEquiv.coe_toAlgHom, h, SetLike.mem_coe]; exact hmem
+  · simp only [AlgEquiv.coe_toAlgHom, h, SetLike.mem_coe]; exact neg_mem hmem
+
 instance : IsGalois (QNeg n) (genusAmb n) := IsGalois.mk
 
 /-- **Genus characters at a prime split in `K_n(i, √p : p ∣ n)`**: if `−1` and every `p ∣ n` are
@@ -56,20 +82,19 @@ squares modulo `𝔭 ∌ 2n`, then `χ_q([𝔭]) = 1` for every `q ∣ n` (`|O/�
 theorem chi_eq_one_of_isSquare (hn : Odd n) (hsq : Squarefree n)
     (𝔭 : HeightOneSpectrum (𝓞 (QNeg n)))
     (h2n : ((2 * n : ℕ) : 𝓞 (QNeg n)) ∉ 𝔭.asIdeal)
-    (hm1 : IsSquare (((-1 : ℤ) : 𝓞 (QNeg n)) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal))
-    (hp : ∀ p ∈ n.primeFactors, IsSquare ((((p : ℤ) : 𝓞 (QNeg n))) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal))
+    (hm1 : IsSquare (((-1 : ℤ) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal)))
+    (hp : ∀ p ∈ n.primeFactors, IsSquare (((p : ℤ) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal)))
     (q : n.primeFactors) :
     chi n q (ClassGroup.mk0 ⟨𝔭.asIdeal, mem_nonZeroDivisors_of_ne_zero 𝔭.ne_bot⟩) = 1 := by
   have hqp := Nat.prime_of_mem_primeFactors q.2
-  haveI := Fact.mk hqp
+  have := Fact.mk hqp
   letI := Ideal.Quotient.field 𝔭.asIdeal
   haveI : Finite (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) := Ring.HasFiniteQuotients.finiteQuotient 𝔭.ne_bot
   letI := Fintype.ofFinite (𝓞 (QNeg n) ⧸ 𝔭.asIdeal)
-  set F := 𝓞 (QNeg n) ⧸ 𝔭.asIdeal
   have h2 : (2 : 𝓞 (QNeg n)) ∉ 𝔭.asIdeal := fun h => h2n (by
     push_cast; exact 𝔭.asIdeal.mul_mem_right _ h)
-  have hchar : ringChar F ≠ 2 := fun hc => h2 (by
-    have : ((2 : ℕ) : F) = 0 := by rw [← hc]; exact ringChar.Nat.cast_ringChar
+  have hchar : ringChar (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) ≠ 2 := fun hc => h2 (by
+    have : ((2 : ℕ) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal) = 0 := by rw [← hc]; exact ringChar.Nat.cast_ringChar
     rw [← Ideal.Quotient.eq_zero_iff_mem, map_ofNat]
     simpa using this)
   have hq2 : (q : ℕ) ≠ 2 := by
@@ -77,39 +102,44 @@ theorem chi_eq_one_of_isSquare (hn : Odd n) (hsq : Squarefree n)
     have := Nat.dvd_of_mem_primeFactors q.2
     rw [h] at this
     exact (Nat.not_even_iff_odd.2 hn) (even_iff_two_dvd.2 this)
-  have hqF : ((q : ℕ) : F) ≠ 0 := by
+  have hqF : ((q : ℕ) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal) ≠ 0 := by
     intro h0
     apply h2n
     obtain ⟨m, hm⟩ := Nat.dvd_of_mem_primeFactors q.2
     have h1 : ((q : ℕ) : 𝓞 (QNeg n)) ∈ 𝔭.asIdeal := by
       rw [← Ideal.Quotient.eq_zero_iff_mem]; simpa using h0
-    rw [hm]; push_cast
-    exact 𝔭.asIdeal.mul_mem_left _ (𝔭.asIdeal.mul_mem_right _ h1)
-  have hN : Ideal.absNorm 𝔭.asIdeal = Fintype.card F := by
+    have e2 : 2 * n = 2 * m * (q : ℕ) := by rw [mul_assoc, mul_comm m, ← hm]
+    rw [show ((2 * n : ℕ) : 𝓞 (QNeg n)) = ((2 * m * q : ℕ) : 𝓞 (QNeg n)) from congrArg _ e2,
+      Nat.cast_mul]
+    exact 𝔭.asIdeal.mul_mem_left _ h1
+  have hN : Ideal.absNorm 𝔭.asIdeal = Fintype.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) := by
     rw [Ideal.absNorm_apply, Submodule.cardQuot_apply, Nat.card_eq_fintype_card]
-  have hodd : Fintype.card F % 2 = 1 := Nat.odd_iff.mp (FiniteField.odd_card_of_char_ne_two hchar)
-  have h4 : Fintype.card F % 4 = 1 := by
-    have := FiniteField.isSquare_neg_one_iff.1 (by simpa using hm1)
-    omega
-  have hsqq := (FiniteField.isSquare_odd_prime_iff hchar hq2).1 (by simpa using hp q q.2)
-  rw [ZMod.χ₄_nat_one_mod_four h4] at hsqq
+  have hodd := FiniteField.odd_card_of_char_ne_two hchar
+  rw [Int.cast_neg, Int.cast_one, FiniteField.isSquare_neg_one_iff] at hm1
+  have h4 : Fintype.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) % 4 = 1 := by omega
+  have hsqq := hp q q.2
+  rw [Int.cast_natCast, FiniteField.isSquare_odd_prime_iff hchar hq2, ZMod.χ₄_nat_one_mod_four h4] at hsqq
   simp only [Int.cast_one, one_mul] at hsqq
-  have hsquare : IsSquare ((Fintype.card F : ℕ) : ZMod q) := by
+  have hsquare : IsSquare ((Fintype.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) : ℕ) : ZMod q) := by
     by_contra hns
     exact hsqq (quadraticChar_neg_one_iff_not_isSquare.2 hns)
   have hqN : ¬ (q : ℕ) ∣ Ideal.absNorm 𝔭.asIdeal := by
     rw [hN]
     intro hd
-    obtain ⟨k, hk, hcard⟩ := FiniteField.card F (ringChar F)
-    have hpr : (ringChar F).Prime := hk
+    obtain ⟨k, hk, hcard⟩ := FiniteField.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) (ringChar (𝓞 (QNeg n) ⧸ 𝔭.asIdeal))
+    have hpr : (ringChar (𝓞 (QNeg n) ⧸ 𝔭.asIdeal)).Prime := hk
     rw [hcard] at hd
     have := (Nat.prime_dvd_prime_iff_eq hqp hpr).1 (hqp.dvd_of_dvd_pow hd)
     apply hqF
     rw [this]
     exact ringChar.Nat.cast_ringChar
-  rw [chi_mk0 n hn hsq q _ hqN]
-  simp only [legBit]
-  rw [if_pos (by rw [hN]; exact_mod_cast hsquare)]
+  have hb : ZInQ.RouteK.legBit q ((Ideal.absNorm 𝔭.asIdeal : ℕ) : ℤ) = 0 := by
+    unfold ZInQ.RouteK.legBit
+    rw [if_pos]
+    rw [hN, Int.cast_natCast]
+    exact hsquare
+  have hc := chi_mk0 n hn hsq q ⟨𝔭.asIdeal, mem_nonZeroDivisors_of_ne_zero 𝔭.ne_bot⟩ hqN
+  rw [hc, hb]
   rfl
 
 /-- Transfer along `conductorOrder K 1 = maximal order`, then genus theory
@@ -149,21 +179,22 @@ theorem genusField_le_genusAmb (hn : n % 4 = 3) (hsq : Squarefree n) (h1 : 1 < n
     Ideal (𝓞 (QNeg n))).IsMaximal := 𝔭.isMaximal
   rw [mem_splitSet_iff (conductorOrder (QNeg n) 1) _ ⟨_, hJ⟩ 𝔭 rfl]
   have hsplit : ∀ a ∈ sqrtSet n, 𝔭 ∈ splitSet (QNeg n) (adjSqrt (QNeg n) a) := fun a ha =>
-    splitSet_anti (le_iSup₂ (f := fun a _ => adjSqrt (QNeg n) a) a ha) h𝔭
+    splitSet_anti (adjSqrt_le_genusAmb ha) h𝔭
   have hm1 := (mem_splitSet_adjSqrt_iff 𝔭 (a := -1) (by
     intro h; apply h2
     have : -((2 * (-1) : ℤ) : 𝓞 (QNeg n)) ∈ 𝔭.asIdeal := 𝔭.asIdeal.neg_mem h
     simpa using this)).1 (hsplit (-1) (Finset.mem_insert_self _ _))
   have hp : ∀ p ∈ n.primeFactors,
-      IsSquare ((((p : ℤ) : 𝓞 (QNeg n))) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal) := by
+      IsSquare (((p : ℤ) : 𝓞 (QNeg n) ⧸ 𝔭.asIdeal)) := by
     intro p hp
     refine (mem_splitSet_adjSqrt_iff 𝔭 (a := p) ?_).1
       (hsplit p (Finset.mem_insert_of_mem (Finset.mem_image_of_mem _ hp)))
     intro h; apply h2n
     obtain ⟨n', hn'⟩ := Nat.dvd_of_mem_primeFactors hp
+    have e2 : 2 * n = 2 * p * n' := by rw [hn']; ring
     have hcast : ((2 * n : ℕ) : 𝓞 (QNeg n)) =
         ((2 * (p : ℤ) : ℤ) : 𝓞 (QNeg n)) * (n' : 𝓞 (QNeg n)) := by
-      rw [hn']; push_cast; ring
+      rw [congrArg (Nat.cast (R := 𝓞 (QNeg n))) e2]; push_cast; ring
     rw [hcast]
     exact 𝔭.asIdeal.mul_mem_right _ h
   exact picClass_mem_picSquares hodd hsq h1 _ (conductorOrder_one _) ⟨_, hJ⟩
@@ -219,8 +250,8 @@ theorem mem_LniK (hsq : Squarefree n) {x : SeparableClosure (QNeg n)} :
     x ∈ LniK n hsq ↔ embed n x ∈ Lni n := Iff.rfl
 
 theorem genusAmb_le_LniK (hsq : Squarefree n) : genusAmb n ≤ LniK n hsq := by
-  refine iSup₂_le fun a ha => ?_
-  rw [IntermediateField.adjoin_le_iff, Set.singleton_subset_iff]
+  rw [genusAmb, IntermediateField.adjoin_le_iff]
+  rintro _ ⟨a, ha, rfl⟩
   exact (mem_LniK hsq).2 (embed_sqrtK_mem_Lni ha)
 
 /-- **Genus theory for `n ≡ 7 (mod 8)`** (cm-numeric's leaf `GenusFieldLeLni`), proved. -/
@@ -236,3 +267,4 @@ theorem genusFieldLeLni : GenusFieldLeLni := by
 end Genus
 
 end ZInQ.Contrib.TYZGenus.CMBridgeDev
+#print axioms ZInQ.Contrib.TYZGenus.CMBridgeDev.genusFieldLeLni

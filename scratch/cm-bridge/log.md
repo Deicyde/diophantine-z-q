@@ -22,3 +22,9 @@
   σ_{ϖ^5} geometric ⇒ arithmetic Art^{−5}), ρ(z) via Shimura reciprocity in cm-numeric's VERIFIED direction.
   Holds for all 12 squarefree n ≡ 7 (8), 7 ≤ n ≤ 103 (VERIFIED computed); wrong sign [𝔭₂]^{+5} fails in the
   8 cases where [𝔭₂]^{10} ≠ 1 (n = 23, 31, 39, 55, 71, 87, 95; and passes only where it coincides).
+- `Genus.lean` (dev file, copies `genusBar`/`GenusFieldLeLni` verbatim): `genusFieldLeLni : GenusFieldLeLni`
+  COMPILED, axioms [propext, Classical.choice, Quot.sound] (VERIFIED). Pieces: `picClass_maximal` (Tau Ceti's
+  picClass for the maximal order = `ClassGroup.mk0`), `genusAmb n = K_n(√a : a ∈ {−1} ∪ {p ∣ n})` (Normal, finite,
+  Galois), `chi_eq_one_of_isSquare` (genus characters trivial at primes split in genusAmb; Mathlib's
+  `FiniteField.isSquare_odd_prime_iff`, `isSquare_neg_one_iff`), `genusField_le_genusAmb` (Bauer),
+  `LniK` (L_n(i) pulled back to K_nˢ, contains K_n since √−n = ±i∏√p), `genusAmb_le_LniK`.
