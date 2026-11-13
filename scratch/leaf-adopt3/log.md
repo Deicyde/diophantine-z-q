@@ -17,3 +17,8 @@
 - Repairs agent: apply_repairs.py (12 docstring replacements, tested on copies: code byte-identical after stripping
   comments) and direct edits of h-decomposition.md (P1, P2, P4, P6 of rv-leaves48; fact-check items 1, 3, 5, 8, 14, 18).
   It reports that factcheck-w34b does not itself mention rows C2/E1/WP3/WP5/WP13 (see repairs_report.md).
+- 01:5x first tail with all ten fragments (+ x1-belyi, e1-sub, c9-rhof) and the bundle edits: one error,
+  e1-sub `bcPt.map_one'`: `rfl` after `rw` had no goal in Leaves.lean's context (dropped, commented).
+- 02:0x tail with all fragments, new bundles (t10 concrete; t13, t19, t22a/b, t30 removed; t17 → KroneckerWeberCyclic;
+  t18 → ChebotarevExists; new x1 (T36-T40), t41 (N1)), GluePieces.additivity → productModelHeight, derived
+  theorems (65_derived), hodge-lattice bridge: exit 0, 0 errors, no sorry, all `#print axioms` standard (380 s).

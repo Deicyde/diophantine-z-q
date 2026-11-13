@@ -256,9 +256,9 @@ coordinates (Def. 2.6) with `θ[a;b](0, Ω)` is UNVERIFIED (the main risk). The 
 `X = max(1, h_F + 3)` is `ZInQ.LeafPush2.R22_plus3` (proved). -/
 
 
-/-- **T10. `V_ℓ(A) ≅ H¹_et(A_K̄, ℚ_ℓ)^∨`**, Galois-equivariantly (Milne in Cornell–Silverman 1986,
-Thm 15.1(a), UNVERIFIED). Missing: ℓ-adic étale cohomology (large). -/
-opaque T10_TateDuality : Prop
+/-! leaf-adopt3 (2026-11-13): the placeholder `T10_TateDuality` is removed. T10 is now t10-etale's
+concrete Galois-equivariant `T10Etale.T10_TateDuality` over Mathlib's pro-étale `ℓ`-adic cohomology
+(section `T10EtaleSec`, below the bundles' reopening point). -/
 
 /-! leaf-adopt2 (2026-11-12): the placeholders `T11_RiemannGAGA` and `T12_ArtinComparison` are
 removed. T11 is now the two concrete textbook leaves `ZInQ.LeafPush2.T11a_RiemannEnd`

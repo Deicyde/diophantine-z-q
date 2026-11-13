@@ -421,6 +421,32 @@ theorem transfer_core (r19 : R19_GaudronRemond) (r20 : R20_FaltingsLemma5) (r21 
   · have hgZr : (gZ : ℝ) ≤ g := by exact_mod_cast hgZ
     linarith
 
+/-- **E4's additivity (g0-split's piece 5) from h5-neron (proved, leaf-adopt3)**: T41 (Néron
+models exist), H5's `NeronModelMinimal` and the model-level glue `ProductModelHeight`. -/
+theorem heightAdditivity_of_h5neron (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (hmin : ZInQ.DefFaltings.NeronModelMinimal) (hH : ZInQ.H5Neron.ProductModelHeight) :
+    HeightAdditivity :=
+  fun L _ _ P A Z ⟨p₁, p₂, h₁, h₂, h⟩ =>
+    ZInQ.H5Neron.heightAdditivity_unfolded hN1 hmin hH L P A Z p₁ p₂ h₁ h₂ h
+
+-- leaf-adopt3: `X1BelyiOnModel` from leaf-modcurves' `IsJ1` data is transport of `BelyiX1`
+-- (x1-belyi notes); `BelyiX1` itself is now `TextbookLeaves.belyiX1` (from T36, T37). The
+-- transport (about 50-100 lines: `IsBelyiFunction` along a `ℚ`-algebra isomorphism and
+-- `[ℚ(X):ℚ(t)] = [K_N:ℚ(j)]`) is not done, so `X1BelyiOnModel` stays a glue piece.
+
+/-- g0-split's `DimBaseChange` is hodge-lattice's (same statement, binders reordered; leaf-adopt3). -/
+theorem dimBaseChange_iff_hodgeLattice :
+    DimBaseChange ↔ ZInQ.DefFaltings.HodgeLattice.DimBaseChange :=
+  ⟨fun h K _ A L _ _ => h K L A, fun h K _ L _ _ A => h K A L⟩
+
+/-- **AN3's algebraic third from glue piece 2 (leaf-adopt3)**: `HodgeLatticeTheorem` (def-faltings)
+from hodge-lattice's two remaining Props and g0-split's `DimBaseChange`. -/
+theorem hodgeLatticeTheorem_of_dimBaseChange (hDim : DimBaseChange)
+    (h1 : ZInQ.DefFaltings.HodgeLattice.RegularAtOrigin)
+    (h2 : ZInQ.DefFaltings.HodgeLattice.DimAtOrigin) : ZInQ.DefFaltings.HodgeLatticeTheorem :=
+  ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts h1 h2
+    (dimBaseChange_iff_hodgeLattice.mp hDim)
+
 /-- glue-ssbc's theorem in `GlueI3`'s statement. -/
 theorem semisimpleBaseChange : GlueI3.SemisimpleBaseChange :=
   fun k E G V _ _ _ _ _ _ _ _ ρ hρ => GlueSSBC.semisimpleBaseChange k E G V ρ hρ
@@ -447,8 +473,11 @@ structure GluePieces : Prop where
   belyi : G0Split.X1BelyiOnModel
   /-- 4. G5-G6 on the fibre surface: simplicity. -/
   fibreSimple : G0Split.FibreSimple
-  /-- 5. E4: additivity of the stable height on products. -/
-  additivity : G0Split.HeightAdditivity
+  /-- 5. E4 at model level (h5-neron's glue P2, leaf-adopt3; replaces g0-split's
+  `HeightAdditivity`, which now follows from it with T41 (Néron models exist) and H5's
+  `NeronModelMinimal`, `G0Split.heightAdditivity_of_h5neron`): the height of a product group model
+  is at least the sum of the heights. -/
+  productModelHeight : ZInQ.H5Neron.ProductModelHeight
   /-- 6. Stable height invariant under base change. -/
   stableHeightBaseChange : G0Split.StableHeightBaseChange
   /-- 7. G17: products of abelian varieties exist. -/
@@ -473,7 +502,8 @@ glue-assembly's interface `GlueOutputs` at `S = Mult.S_mul`. Applied proved piec
 R19-R21). The non-CM disjunct is used (G6, NoCM). -/
 theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
-  obtain ⟨hDimF, hDim, hBelyi, hSimp, hAdd, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  obtain ⟨hDimF, hDim, hBelyi, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5.2 hPMH
   have hR18 : R18_JavanpeykarConcrete := r18Concrete_of r.r18 hCopies
   have hR22 : R22_PazukiConcrete := r22Concrete_of r.r22 hCopies
   -- A4: the moduli data and an object over every value

@@ -700,15 +700,57 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9755:2: warning: Try this: 
-  haveI̵
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9960:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10083:6: warning: `simp` already closes the goal
 
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9778:2: warning: Try this: 
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10085:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10144:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10185:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10478:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -716,7 +758,39 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9872:46: warning: Variable name `A` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10479:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10512:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12310:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12333:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12427:46: warning: Variable name `A` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _A
@@ -859,3 +933,44 @@ Note: This linter can be disabled with `set_option linter.unusedVariables false`
 'HSyn.G0Split.thetaPazuki' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.isogenousProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.semisimpleBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.r18Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.r22Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.heightAdditivity_of_h5neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.hodgeLatticeTheorem_of_dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t13_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t19_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t22a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t22b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t20_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t21_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.frobeniusDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.leafSqrtCrit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.t10_groupIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.x1ModelExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.exists_J1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.modCurveLeaves_of_bundles' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.glueDescent_leafSkolemNoether' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.pkgI6_brauerNesbittChar0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.C10.c10_of_chebotarev' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.leafAdopt_r1pi0Props_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.leafAdopt_r1pi0Props_of_X6Props' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.H5Neron.stableFaltingsHeight_add_le'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X1Belyi.belyiX1_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X1Belyi.x1ModelExists_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E1Sub.vSurjOfSurjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.rhoF_semisimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.rhoF_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_R14' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_r5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c10_via_c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_hsyn' depends on axioms: [propext, Classical.choice, Quot.sound]
