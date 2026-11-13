@@ -49,3 +49,14 @@ origin/wip/g0-split (c20fa62b), `scratch/g0-split/part_split.lean`, not merged.
 - F4 (VERIFIED): the twist bookkeeping of `C9Rhof.c9_r5` and the `A_f` of R16 must be taken from
   one application of R16 (c9 and E1Sub each obtain their own `A_f`); `commonConstituent_of_attached`
   uses one `A_f` for both the Brauer–Nesbitt isomorphism (`c9_core`) and the `J`-side (`jSide`).
+
+## Bridge to g0-mod-galois (02:15-02:20)
+- Copied their `resQ`, `Vb`, `tate`, `Intertwines`, `G8Out` (as `GalG8Out`), `G12Out` (as
+  `GalG12Out`) from origin/wip/g0-mod-galois ad7f14c2 `part_galois.lean`.
+- run9: name clash `G12Out`; `Field.absoluteGaloisGroup K` has no `FunLike` (use
+  `AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K` binders); `e.toLinearMap`.
+- run10: exit 0, no error, no sorry; 16 `#print axioms` standard (VERIFIED), incl.
+  `isConstituentOf_of_GalG8Out`, `g12Spec_of_galois`. `resQ_spec` compiled with the same
+  `letI` instances as Mathlib's `absoluteGaloisGroup.map`.
+- New named glue: `DirichletOfFinite` (finite-image character = Dirichlet character at Frobenius;
+  from T17). True (argument in the report §3).

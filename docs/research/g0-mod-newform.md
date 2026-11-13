@@ -3,7 +3,7 @@
 Task g0-mod-newform, 2026-11-13. Lean: `scratch/g0-mod-newform/NewForm.lean`, assembled by
 `scratch/g0-mod-newform/build.sh` from kernel imports, verbatim copies of
 `scratch/c9-rhof/C9.lean` and `scratch/e1-sub/E1Sub.lean`, and the new section
-`scratch/g0-mod-newform/part_new.lean` (namespace `G0ModNewform`, about 700 lines). Log:
+`scratch/g0-mod-newform/part_new.lean` (namespace `G0ModNewform`, 860 lines). Log:
 `scratch/g0-mod-newform/log.md`. Compiler output: `scratch/g0-mod-newform/compile.out`.
 
 Markers: **VERIFIED** = compiled or read here. **STANDARD** = published, with a reference.
@@ -15,10 +15,11 @@ Markers: **VERIFIED** = compiled or read here. **STANDARD** = published, with a 
 already stated in the kernel, three glue Props already named in the kernel, and two new, smaller
 named Props on the abelian-variety side. VERIFIED: `lake env lean scratch/g0-mod-newform/NewForm.lean`
 exits 0, with no errors and no `sorry`. `#print axioms` gives `[propext, Classical.choice,
-Quot.sound]` for each of these 15 declarations: `equivariant_of_asModule`, `condAt_eq_of_intertwine`,
-`newform_of_pan`, `commonConstituent_of_attached`, `g13`, `iso_R14`, `g14`, `g15`, `g16`,
-`g13_g16`, `g16Out_with_J1`, `localBound_of_ram`, `g13_g16_ram`, `modularConstituent_tail`,
-`two_one_add_U0_le`. A run takes about 30 s.
+Quot.sound]` for each of the 16 declarations printed: `equivariant_of_asModule`,
+`condAt_eq_of_intertwine`, `newform_of_pan`, `commonConstituent_of_attached`, `g13`, `iso_R14`,
+`g14`, `g15`, `g16`, `g13_g16`, `g16Out_with_J1`, `localBound_of_ram`, `g13_g16_ram`,
+`modularConstituent_tail`, `isConstituentOf_of_GalG8Out`, `g12Spec_of_galois`. A run takes
+about 30 s.
 
 The headline is `modularConstituent_tail`:
 
@@ -131,19 +132,24 @@ R9b, I3.M0, T18, T19; and T33 (`JacobianExists ℚ`) for the `J₁(N)`.
   `g` of level `M`, with `ψ` equal at Frobenius to a Dirichlet character `ψD mod m`.
 
 g0-mod-galois's draft (origin/wip/g0-mod-galois at ad7f14c2, `scratch/g0-mod-galois/part_galois.lean`)
-supplies these as follows (read, not compiled here):
+supplies these. Its definitions `resQ`, `Vb`, `tate`, `Intertwines`, `G8Out` and `G12Out` are
+copied verbatim into §9 of `part_new.lean`, over the kernel's objects, renamed `GalG8Out` and
+`GalG12Out` there. The bridge is **proved** (VERIFIED, standard axioms):
 
-- (a) is their `isIrreducible_of_g8`.
-- (b) follows from their `G8Out A ℓ ρ r`. Their `e : ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ² × ℚ̄_ℓ²` intertwines
-  the Tate action, through `resQ K = Field.absoluteGaloisGroup.map (algebraMap ℚ K)`, with
-  `r ⊕ r`. Take `U = e⁻¹(ℚ̄_ℓ² × 0)`, and take `i` to be the embedding `IsAlgClosed.lift` that
-  Mathlib's `map` uses. Then `i ∘ resQ K τ = τ ∘ i` (`AlgEquiv.restrictNormal_commutes`), so
-  every `σ` with `i ∘ σ = τ ∘ i` equals `resQ K τ`. This bridge is small glue, not written.
-- (c) follows from their `G12Out r₅`, which gives `ψ` of finite image, together with one small
-  glue Prop, `DirichletOfFinite`: a finite-image continuous `ψ : G_ℚ → ℚ̄_ℓ^×` agrees at
-  arithmetic Frobenius outside a finite set with `ιL ∘ ιC⁻¹ ∘ ψD` for a Dirichlet character `ψD`.
+- `g12Spec_of_galois (hDF : DirichletOfFinite) A ρ5 ρ3 r5 r3 (h5 : GalG8Out A 5 ρ5 r5)
+  (h3 : GalG8Out A 3 ρ3 r3) (h12 : GalG12Out r5) ι3 : ∃ D, D.r5 = r5 ∧ D.r3 = r3 ∧ D.ι3 = ι3 ∧
+  G12Spec D`.
+- (a) Irreducibility: the span of `r(G_{L'})` is contained in the span of `r(G_ℚ)`.
+- (b) `isConstituentOf_of_GalG8Out`: `U = ker(pr₂ ∘ e)`, where `e` is their
+  `ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ² × ℚ̄_ℓ²`. `resQ_spec` shows that the embedding `IsAlgClosed.lift` underlying
+  Mathlib's `Field.absoluteGaloisGroup.map` satisfies `i ∘ resQ K τ = τ ∘ i`
+  (`AlgEquiv.restrictNormal_commutes`), so every `σ` with `i ∘ σ = τ ∘ i` is `resQ K τ`.
+- (c) `panOutput_of_G12Out`: their `ψ` has finite image. One small glue Prop is named,
+  **`DirichletOfFinite`**: a finite-image continuous `ψ : G_ℚ → ℚ̄_ℓ^×` agrees, at arithmetic
+  Frobenius outside a finite set, with a Dirichlet character `ψD mod m` read through `ιC`, `ιL`.
   It is true: by Kronecker–Weber (T17) `ψ` factors through `Gal(ℚ(ζ_m)/ℚ) ≅ (ℤ/m)^×`, and its
   values are roots of unity, which lie in `ιL(ℚ̄)`. c9-rhof §3(b) noted the same gap.
+- The draft may still change. If it does, the bridge has to be re-checked.
 - `G14TraceCompat D` and `G15Ram D u` are to be proved with their construction of `r_ℓ` in
   `g8` (from `G7Out`'s `Tm`, `a`, `β`), as §2 explains.
 
@@ -173,11 +179,11 @@ C9 and E1Sub copies would come along) or moves `Split.lean` onto the kernel.
 
 ## 4. What compiles, what remains
 
-- Compiles (VERIFIED): `NewForm.lean`, 2290 lines (copies plus `part_new.lean`), exit 0, no
+- Compiles (VERIFIED): `NewForm.lean`, 2374 lines (copies plus `part_new.lean`), exit 0, no
   `sorry`, standard axioms.
 - Remains:
   - the two AV-side Props `G14TraceCompat`, `G15Ram` on G8's construction;
-  - the bridges (b) and (c) of §3, with `DirichletOfFinite` from T17;
+  - `DirichletOfFinite` (from T17);
   - the kernel glue Props `SwanIndependent`, `SwanIntegral`, `AdaptedExists`, `X1ModelExists`;
   - the object-layer transport of §3.
 
