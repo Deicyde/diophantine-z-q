@@ -2352,6 +2352,120 @@ theorem g12Spec_of_galois (hDF : DirichletOfFinite) {K : Type} [Field K] [Number
 
 end Bridge
 
+/-! ## §10. Local unramifiedness from G11's global form (proved) -/
+
+section LocalGlobal
+
+open PkgI4 (GQp)
+open scoped Pointwise
+
+variable (p : ℕ) [Fact p.Prime]
+
+/-- The embedding `ℚ̄ → ℚ̄_p` underlying `PkgI4.decomp p` (Mathlib's
+`Field.absoluteGaloisGroup.map`): it intertwines `decomp p σ` with `σ`. -/
+theorem decomp_spec : ∃ j : Qbar →+* PadicAlgCl p,
+    ∀ (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) x, j (PkgI4.decomp p σ x) = σ (j x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p] := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) := g.toAlgebra
+  refine ⟨g.toRingHom, fun σ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) σ)
+    (AlgebraicClosure ℚ) x
+
+/-- The valuation subring `{x ∈ ℚ̄ : ‖j x‖ ≤ 1}` of the place of `ℚ̄` above `p` given by `j`. -/
+def vj (j : Qbar →+* PadicAlgCl p) : ValuationSubring Qbar :=
+  (PadicAlgCl.valued p).v.valuationSubring.comap j
+
+theorem mem_vj (j : Qbar →+* PadicAlgCl p) (x : Qbar) : x ∈ vj p j ↔ ‖j x‖ ≤ 1 := by
+  rw [vj, ValuationSubring.mem_comap, Valuation.mem_valuationSubring_iff]
+  change ‖j x‖₊ ≤ 1 ↔ _
+  rw [← NNReal.coe_le_coe, coe_nnnorm, NNReal.coe_one]
+
+/-- `G_{ℚ_p}` acts isometrically on `ℚ̄_p` (spectral norm). -/
+theorem norm_aut (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (y : PadicAlgCl p) :
+    ‖σ y‖ = ‖y‖ := by
+  rw [← PadicAlgCl.spectralNorm_eq, ← PadicAlgCl.spectralNorm_eq]
+  exact (spectralNorm_eq_of_equiv σ y).symm
+
+theorem mem_nonunits_vj (j : Qbar →+* PadicAlgCl p) (b : Qbar) (hb : ‖j b‖ < 1) :
+    b ∈ (vj p j).nonunits := by
+  rw [ValuationSubring.mem_nonunits_iff_or]
+  by_cases h0 : b = 0
+  · exact Or.inl h0
+  · refine Or.inr fun hinv => ?_
+    rw [mem_vj, map_inv₀, norm_inv] at hinv
+    have hpos : 0 < ‖j b‖ := norm_pos_iff.mpr ((map_ne_zero j).mpr h0)
+    rw [inv_le_one₀ hpos] at hinv
+    linarith
+
+theorem liesOver_vj (j : Qbar →+* PadicAlgCl p) : LiesOver (vj p j) p := by
+  apply mem_nonunits_vj
+  rw [map_natCast, LadicCond.norm_p_kbar]
+  exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+
+/-- **Global unramified ⇒ local inertia acts trivially (GLUE, proved).** If `r` is unramified at
+`p` in PkgI4's global sense (every inertia group of `G_ℚ` at a place above `p` acts trivially),
+then `r|G_{ℚ_p}` is trivial on the local inertia set `LadicCond.inertiaSet`. -/
+theorem localUnram_of_unramifiedAt {ℓ n : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ n)
+    (hr : r.UnramifiedAt p) : ∀ σ ∈ LadicCond.inertiaSet, r.restrictLocal p σ = 1 := by
+  obtain ⟨j, hj⟩ := decomp_spec p
+  intro σ hσ
+  set τ := PkgI4.decomp p σ with hτ
+  have hdec : τ ∈ (vj p j).decompositionSubgroup ℚ := by
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, mem_vj, mem_vj, AlgEquiv.smul_def,
+      hτ, ← map_inv, hj, norm_aut]
+  have hin : (⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) ∈
+      (vj p j).inertiaSubgroup ℚ := by
+    rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+    ext y
+    obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective y
+    change (⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • IsLocalRing.residue _ a =
+      IsLocalRing.residue _ a
+    rw [← IsLocalRing.ResidueField.residue_smul]
+    apply Ideal.Quotient.eq.mpr
+    have hb : ((⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • a - a : vj p j) =
+        ⟨τ a - a, by
+          have := ((⟨τ, hdec⟩ : (vj p j).decompositionSubgroup ℚ) • a - a).2
+          exact this⟩ := rfl
+    have hnorm : ‖j (τ (a : Qbar) - a)‖ < 1 := by
+      rw [map_sub, hτ, hj]
+      exact hσ (j a) ((mem_vj p j a).mp a.2)
+    obtain ⟨hmem, hmax⟩ :=
+      (ValuationSubring.mem_nonunits_iff_exists_mem_maximalIdeal).mp
+        (mem_nonunits_vj p j _ hnorm)
+    rw [hb]
+    exact hmax
+  exact hr (vj p j) (liesOver_vj p j) ⟨τ, hdec⟩ hin
+
+end LocalGlobal
+
+/-- `LocalRam` with clause (iii) in G11's global form (`G0Galois.G11Out`: `r.UnramifiedAt p`). -/
+def LocalRamG (u : ℚ) (p : ℕ) [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) :
+    Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      ∀ t : ℝ, U0 < t → ∀ σ ∈ LadicCond.upperAbs p t, r.restrictLocal p σ = 1) ∧
+    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ LadicCond.wildSet, r.restrictLocal p σ = 1) ∧
+    (p ∉ ZInQ.Mult.S_mul → ¬ p ∣ ZInQ.contactSupport ZInQ.Mult.S_mul u → r.UnramifiedAt p)
+
+/-- **Open part of G15, final form.** Clauses (i)-(ii) of `LocalRam` (D1-D4 on G8's `r_ℓ`) and
+clause (iii) as G11's output (proved by g0-mod-galois as `g11`, `G0Galois.G11Out`). -/
+def G15RamG {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ) :
+    Prop :=
+  ∀ p : ℕ, ∀ hp : p.Prime,
+    (p ≠ 5 → @LocalRamG u p ⟨hp⟩ 5 _ D.r5) ∧ (p = 5 → @LocalRamG u p ⟨hp⟩ 3 _ D.r3)
+
+theorem g15Ram_of_G {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h : G15RamG D u) : G15Ram D u := by
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun h5 => ?_, fun h5 => ?_⟩
+  · obtain ⟨h1, h2, h3⟩ := (h p hp).1 h5
+    exact ⟨h1, h2, fun hS hM => localUnram_of_unramifiedAt p D.r5 (h3 hS hM)⟩
+  · obtain ⟨h1, h2, h3⟩ := (h p hp).2 h5
+    exact ⟨h1, h2, fun hS hM => localUnram_of_unramifiedAt p D.r3 (h3 hS hM)⟩
+
 end G0ModNewform
 
 end
@@ -2372,3 +2486,5 @@ end
 #print axioms G0ModNewform.modularConstituent_tail
 #print axioms G0ModNewform.isConstituentOf_of_GalG8Out
 #print axioms G0ModNewform.g12Spec_of_galois
+#print axioms G0ModNewform.localUnram_of_unramifiedAt
+#print axioms G0ModNewform.g15Ram_of_G
