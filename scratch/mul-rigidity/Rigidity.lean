@@ -73,7 +73,7 @@ theorem rigidity_algClosed [IsAlgClosed K]
     let fc : 𝟙_ (Over S) ⟶ 𝟙_ (Over S) ⊗ G := lift (𝟙 _) (pt ≫ snd G G)
     have : p ≫ pullback.fst G.hom G.hom = e.left :=
       ext_of_apply_closedPoint_eq G.hom (by simpa) (by simp) (by simpa)
-    have H₁ : p = fc.left ≫ (e ▷ G).left := by dsimp; ext <;> simp [fc, pt, S, this] <;> rfl
+    have H₁ : p = fc.left ≫ (e ▷ G).left := by dsimp; ext <;> simp [fc, pt, S, this]
     have H₂ : fc ≫ e ▷ G ≫ γ = lift e z := by
       have h1' := h1 _ (pt ≫ snd G G)
       rw [toUnit_unique (toUnit _) (𝟙 _), Category.id_comp, Category.id_comp] at h1'
@@ -133,4 +133,72 @@ theorem rigidity_algClosed [IsAlgClosed K]
       rw [← Scheme.Hom.comp_apply, ← Over.comp_left, lift_snd]
   · simp
 
+/-- **A pointed morphism of proper group schemes is a homomorphism, over an algebraically closed
+field** (rigidity, Mumford §4 Cor. 1). Apply `rigidity_algClosed` to
+`c = (μ ≫ h) * ((h ⊗ h) ≫ μ)⁻¹`. -/
+theorem isMonHom_of_algClosed [IsAlgClosed K]
+    (G B : Over (Spec (.of K))) [GrpObj G] [GrpObj B] [IsProper G.hom] [IsIntegral (G ⊗ G).left]
+    [IsSeparated B.hom] [LocallyOfFiniteType B.hom]
+    (h : G ⟶ B) (h0 : η[G] ≫ h = η[B]) : IsMonHom h := by
+  have hone : ∀ (T : Over (Spec (.of K))), (1 : T ⟶ G) ≫ h = 1 := fun T => by
+    rw [Hom.one_def, Hom.one_def, Category.assoc, h0]
+  have key := rigidity_algClosed G B η[G] η[B] ((μ ≫ h) * ((h ⊗ₘ h) ≫ μ)⁻¹)
+    (fun T y => by
+      rw [comp_mul, GrpObj.comp_inv, ← Category.assoc, ← Category.assoc, lift_map, ← Hom.mul_def,
+        ← Hom.mul_def, ← Hom.one_def, _root_.one_mul, hone, _root_.one_mul, mul_inv_cancel,
+        Hom.one_def])
+    (fun T x => by
+      rw [comp_mul, GrpObj.comp_inv, ← Category.assoc, ← Category.assoc, lift_map, ← Hom.mul_def,
+        ← Hom.mul_def, ← Hom.one_def, _root_.mul_one, hone, _root_.mul_one, mul_inv_cancel,
+        Hom.one_def])
+  rw [← Hom.one_def, mul_inv_eq_one] at key
+  exact ⟨h0, key⟩
+
+/-- **Rigidity over any field** (Mumford §4 Cor. 1 / Milne Cor. 2.2): base change to `K̄` and
+`isMonHom_of_algClosed`; `Over.pullback` along `Spec K̄ → Spec K` is faithful and monoidal. -/
+theorem isMonHom_of_geometricallyIntegral
+    (G B : Over (Spec (.of K))) [GrpObj G] [GrpObj B] [IsProper G.hom]
+    [GeometricallyIntegral G.hom] [IsSeparated B.hom] [LocallyOfFiniteType B.hom]
+    (h : G ⟶ B) (h0 : η[G] ≫ h = η[B]) : IsMonHom h := by
+  let f := Spec.map (CommRingCat.ofHom <| algebraMap K (AlgebraicClosure K))
+  let F := Over.pullback f
+  let G' := F.obj G
+  let B' := F.obj B
+  have : IsProper G'.hom := by dsimp [G', F]; infer_instance
+  have : IsIntegral (G' ⊗ G').left := by dsimp [G', F]; infer_instance
+  have : IsSeparated B'.hom := by dsimp [B', F]; infer_instance
+  have : LocallyOfFiniteType B'.hom := by dsimp [B', F]; infer_instance
+  let : GrpObj G' := Functor.grpObjObj
+  let : GrpObj B' := Functor.grpObjObj
+  have h0' : η[G'] ≫ F.map h = η[B'] := by
+    rw [Functor.obj.η_def, Functor.obj.η_def, Category.assoc, ← F.map_comp, h0]
+  have := isMonHom_of_algClosed G' B' (F.map h) h0'
+  refine ⟨h0, F.map_injective ?_⟩
+  have hm := IsMonHom.mul_hom (F.map h)
+  rw [Functor.obj.μ_def, Functor.obj.μ_def, Category.assoc, Functor.LaxMonoidal.μ_natural_assoc]
+    at hm
+  simp only [← F.map_comp] at hm
+  exact (cancel_epi _).mp hm
+
 end MulRigidity
+
+/-! ## The leaf, copied verbatim, and its proof -/
+
+namespace G0FibreSimple
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
+varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
+of `k`-schemes between abelian varieties that sends the identity to the identity is a
+homomorphism. -/
+def RigidityHom : Prop :=
+  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
+
+/-- **`RigidityHom` holds** (proved from Mathlib; no new hypotheses). -/
+theorem rigidityHom : RigidityHom := fun _ _ A B h h0 =>
+  MulRigidity.isMonHom_of_geometricallyIntegral A.X B.X h h0
+
+end G0FibreSimple
+
+#print axioms G0FibreSimple.rigidityHom
