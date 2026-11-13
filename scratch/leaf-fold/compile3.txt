@@ -1,0 +1,1990 @@
+scratch/leaf-fold/Full.lean:432:49: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/leaf-fold/Full.lean:433:17: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/leaf-fold/Full.lean:432:45: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:432:49: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:433:17: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:447:64: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/leaf-fold/Full.lean:447:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:2164:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueI3.finrank_commOf_le_of_equiv`:
+  [Monoid G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Monoid G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:2270:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:2297:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:2329:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:2368:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:2407:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:2942:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:3002:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/leaf-fold/Full.lean:3005:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:3026:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:3031:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:3072:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:3104:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/leaf-fold/Full.lean:3158:5: warning: Ambiguous namespace `GlueI3`: it is interpreted as `_root_.HDec.GlueI3` because this `open` occurs inside `namespace HDec.PkgI3`, while `_root_.GlueI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:3244:48: warning: Variable name `b` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _b
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:4907:17: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:4911:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:5008:17: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:5012:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:5237:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.lowerRam_anti`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5250:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.lowerRamR_nat`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5275:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.herbrandPhi_eq`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5304:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.phi_zero`:
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5326:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.codimInv_eq_zero`:
+  [IsLocalRing B]
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing B] [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5338:0: warning: automatically included section variable(s) unused in theorem `HDec.PkgI6.codimInv_le`:
+  [IsLocalRing B]
+  [Finite (B ≃ₐ[A] B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing B] [Finite (B ≃ₐ[A] B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:5868:17: warning: Ambiguous namespace `GlueConductor`: it is interpreted as `_root_.HDec.GlueConductor` because this `open` occurs inside `namespace HDec.GlueD1Local`, while `_root_.GlueConductor` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueConductor`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:6376:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueAssembly.PhiK_eval`:
+  [AdmissibleAbsValues K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AdmissibleAbsValues K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:6382:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueAssembly.coeff_sum_le`:
+  [AdmissibleAbsValues K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [AdmissibleAbsValues K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:7277:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:7530:36: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:7553:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueAssembly.mulHeight_rootsOfUnity_mul`:
+  [Fintype ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:7708:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueDescent.rho_commute`:
+  [Group G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Group G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:7714:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueDescent.rho_eq_act`:
+  [Group G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Group G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:8146:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8206:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:8208:19: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:8423:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8424:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8425:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8459:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:8483:52: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:8489:52: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:8584:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueDescent.B2.pull_dB`:
+  [TopologicalSpace Γ]
+  [TopologicalSpace Δ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] [TopologicalSpace Δ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:8601:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueDescent.B2.dB_mul`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:8604:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueDescent.B2.dB_inv`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:8768:5: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec.GlueDescent.B2Q`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:8862:5: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec.GlueDescent.B2Q`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:8882:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8900:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8902:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:8957:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.GlueDescent.B2Q`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:8957:17: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec.GlueDescent.B2Q`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:9092:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:9109:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:9117:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:9074:15: warning: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:9154:5: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec.GlueDescent.B3Q`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:9154:17: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec.GlueDescent.B3Q`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:9154:32: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec.GlueDescent.B3Q`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:9248:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:9203:15: warning: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:9278:15: warning: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:9331:21: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/leaf-fold/Full.lean:9331:21: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:9338:52: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/leaf-fold/Full.lean:9338:52: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:9360:35: warning: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:9420:29: warning: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:9471:45: warning: Unused tactic linter: `push_cast` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:9913:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueRepo.TorsionFree.three_pow_mul`:
+  [IsDomain R]
+  [IsNoetherianRing R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain R] [IsNoetherianRing R] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:10016:14: warning: This simp argument is unused:
+  Nat.card_fun
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.card_zmod, ← pow_mul, sq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/leaf-fold/Full.lean:10016:28: warning: This simp argument is unused:
+  Nat.card_zmod
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Nat.card_fun, ← pow_mul, sq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/leaf-fold/Full.lean:10100:54: warning: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:10106:34: warning: Variable name `hα` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hα
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:10250:61: warning: Variable name `bGH` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _bGH
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:10721:5: warning: Ambiguous namespace `PkgI2`: it is interpreted as `_root_.HDec.PkgI2` because this `open` occurs inside `namespace HDec.ObjBridge`, while `_root_.PkgI2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:10853:58: warning: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:10894:5: warning: Ambiguous namespace `PkgI2`: it is interpreted as `_root_.HDec.PkgI2` because this `open` occurs inside `namespace HDec.ObjBridge`, while `_root_.PkgI2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:11309:5: warning: Ambiguous namespace `PkgI2`: it is interpreted as `_root_.HDec.PkgI2` because this `open` occurs inside `namespace HDec.ObjBridge`, while `_root_.PkgI2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:11564:40: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:11698:52: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:11840:5: warning: Ambiguous namespace `PkgI2`: it is interpreted as `_root_.HDec.PkgI2` because this `open` occurs inside `namespace HDec.LeafPush`, while `_root_.PkgI2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:12097:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12113:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12115:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12221:40: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:12235:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12244:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12339:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12362:56: warning: `MonoidHom.finset_prod_apply` has been deprecated: Use `MonoidHom.finsetProd_apply` instead
+
+Hint: Replace the deprecated name:
+  MonoidHom.finset_̵p̵P̲rod_apply
+scratch/leaf-fold/Full.lean:12392:18: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:12420:51: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:12559:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12561:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12556:83: warning: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:12644:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12647:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12648:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12652:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:12967:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:12991:17: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:13189:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13192:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13230:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13306:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13368:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:13393:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13394:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13408:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:13414:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:13599:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13604:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:13697:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:13707:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:13716:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:13716:30: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:13717:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:13717:30: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:13856:32: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+
+Hint: Replace the deprecated name:
+  zero_le'̵
+scratch/leaf-fold/Full.lean:13860:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:13924:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:13927:18: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:13967:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:14053:25: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:14070:6: warning: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:14121:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:14269:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.LeafQM.AV`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:14578:5: warning: Ambiguous namespace `ObjBridge`: it is interpreted as `_root_.HDec.ObjBridge` because this `open` occurs inside `namespace HDec.LeafQM.AV`, while `_root_.ObjBridge` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ObjBridge`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:14730:5: warning: Ambiguous namespace `ObjBridge`: it is interpreted as `_root_.HDec.ObjBridge` because this `open` occurs inside `namespace HDec.LeafQM.AV`, while `_root_.ObjBridge` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.ObjBridge`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:16573:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.LeafModCurves`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:16573:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.LeafModCurves`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:19183:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:19185:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:19190:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:19192:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:20342:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:20887:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:20946:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:21026:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:21180:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:21424:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.ZInQ.LeafPush2`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:22120:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.filtR_zero`:
+  [Fintype G]
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22124:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.card_eq_sum`:
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22143:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22147:22: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22162:41: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/leaf-fold/Full.lean:22175:8: warning: `intervalIntegral.integral_finset_sum` has been deprecated: Use `intervalIntegral.integral_finsetSum` instead
+
+Hint: Replace the deprecated name:
+  intervalIntegral.integral_finset_̵s̵S̲um
+scratch/leaf-fold/Full.lean:22184:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22197:47: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/leaf-fold/Full.lean:22201:21: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/leaf-fold/Full.lean:22233:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.phiF_zero`:
+  [Fintype G]
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22252:61: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:22242:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.fiber_sum`:
+  [DecidableEq G]
+  [DecidableEq H]
+  [Fintype Q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq G] [DecidableEq H] [Fintype Q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22259:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.coset_min`:
+  [Fintype G]
+  [DecidableEq G]
+  [Fintype H]
+  [DecidableEq H]
+  [Fintype Q]
+  [DecidableEq Q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] [Fintype H] [DecidableEq H] [Fintype Q] [DecidableEq Q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22321:20: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22323:52: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22326:21: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22328:52: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22340:21: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22342:38: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:22346:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22388:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22388:41: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/leaf-fold/Full.lean:22495:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:22513:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:22518:50: warning: Variable name `ΓQ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ΓQ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:22574:31: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/leaf-fold/Full.lean:22581:35: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+scratch/leaf-fold/Full.lean:22636:31: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/leaf-fold/Full.lean:22856:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.finite_algEquiv`:
+  [IsIntegrallyClosed A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsIntegrallyClosed A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22916:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.isGaloisGroup_tower`:
+  [Module.IsTorsionFree A C]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Module.IsTorsionFree A C] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:22976:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.adjoin_tower_eq_top`:
+  [IsDomain A]
+  [IsIntegrallyClosed A]
+  [IsDomain C]
+  [Module.IsTorsionFree A C]
+  [IsDomain B]
+  [IsIntegrallyClosed B]
+  [Module.Finite A B]
+  [Module.IsTorsionFree A B]
+  [IsGalois (FractionRing A) (FractionRing B)]
+  [Module.IsTorsionFree C B]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain
+  A] [IsIntegrallyClosed
+  A] [IsDomain
+  C] [Module.IsTorsionFree A
+  C] [IsDomain
+  B] [IsIntegrallyClosed
+  B] [Module.Finite A
+  B] [Module.IsTorsionFree A B] [IsGalois (FractionRing A) (FractionRing B)] [Module.IsTorsionFree C B] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:23038:63: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/leaf-fold/Full.lean:23276:5: warning: Ambiguous namespace `PkgI6`: it is interpreted as `_root_.HDec.PkgI6` because this `open` occurs inside `namespace HDec.TDifferent`, while `_root_.PkgI6` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI6`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:23356:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.aeval_derivative_minpoly_eq_prod`:
+  [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra.IsSeparable (FractionRing A) (FractionRing B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:23496:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.repr_mem_of_mem_smul_top`:
+  [IsDomain A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:23503:0: warning: automatically included section variable(s) unused in theorem `HDec.TDifferent.exists_limit`:
+  [IsDomain B]
+  [IsDiscreteValuationRing B]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain B] [IsDiscreteValuationRing B] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:23943:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:24618:5: warning: Ambiguous namespace `GlueC10`: it is interpreted as `_root_.HDec.GlueC10` because this `open` occurs inside `namespace HDec.TSkolemKW.HS`, while `_root_.GlueC10` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueC10`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:24665:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:25636:50: warning: This simp argument is unused:
+  Units.val_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/leaf-fold/Full.lean:25636:65: warning: This simp argument is unused:
+  Units.val_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/leaf-fold/Full.lean:25655:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:25724:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:25772:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtLocal.isIntegral_iff_spectralNorm_le_one`:
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:25791:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtLocal.spectralNorm_mul'`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:26248:5: warning: Ambiguous namespace `GlueSqrtLocal`: it is interpreted as `_root_.HDec.GlueSqrtLocal` because this `open` occurs inside `namespace HDec.GlueSqrtDisj`, while `_root_.GlueSqrtLocal` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueSqrtLocal`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:26253:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtDisj.zeta_pow_m`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:26259:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtDisj.zeta_pow_pk`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:26272:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtDisj.fix_of_autToPow_eq_one`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:26410:5: warning: Ambiguous namespace `GlueSqrtLocal`: it is interpreted as `_root_.HDec.GlueSqrtLocal` because this `open` occurs inside `namespace HDec.GlueSqrtDisj`, while `_root_.GlueSqrtLocal` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueSqrtLocal`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:26437:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26469:12: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/leaf-fold/Full.lean:26474:12: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/leaf-fold/Full.lean:26469:12: warning: Unused tactic linter: `(dsimp only;
+  rw [Units.val_neg, Units.val_one, map_neg, map_one, Units.val_neg, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:26474:12: warning: Unused tactic linter: `(dsimp only; rw [Units.val_one, map_one, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/leaf-fold/Full.lean:26728:0: warning: automatically included section variable(s) unused in theorem `HDec.GlueSqrtDisj.level_dvd`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:26751:5: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:26751:21: warning: Ambiguous namespace `GlueSqrtDisj`: it is interpreted as `_root_.HDec.GlueSqrtDisj` because this `open` occurs inside `namespace HDec`, while `_root_.GlueSqrtDisj` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueSqrtDisj`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:26816:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26818:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26829:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26864:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26865:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26962:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26963:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26964:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:26998:5: warning: Ambiguous namespace `GlueSqrtLocal`: it is interpreted as `_root_.HDec.GlueSqrtLocal` because this `open` occurs inside `namespace HDec.T30`, while `_root_.GlueSqrtLocal` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueSqrtLocal`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:27120:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27222:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27223:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27258:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27260:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27272:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27276:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27322:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:27730:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.T10Etale`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:28915:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:29053:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/leaf-fold/Full.lean:29130:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:29193:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.DefFaltings.HodgeLattice.isUnit_germ_iff`:
+  [NumberField L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/leaf-fold/Full.lean:29289:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/leaf-fold/Full.lean:29499:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29572:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29577:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29668:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29757:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29758:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29806:7: warning: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:29806:42: warning: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:29838:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29897:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29906:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:29907:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30292:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30322:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30585:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30586:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30590:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30592:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30594:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30595:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30596:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30597:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30602:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30603:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30703:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30751:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30753:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30755:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30757:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:30899:5: warning: Ambiguous namespace `LeafModCurves`: it is interpreted as `_root_.HDec.LeafModCurves` because this `open` occurs inside `namespace HDec.X1Belyi`, while `_root_.LeafModCurves` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafModCurves`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31284:5: warning: Ambiguous namespace `GlueI3`: it is interpreted as `_root_.HDec.GlueI3` because this `open` occurs inside `namespace HDec.PkgI3`, while `_root_.GlueI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31388:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31388:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31443:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:31566:6: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/leaf-fold/Full.lean:31568:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:31627:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:31642:5: warning: Ambiguous namespace `LeafModCurves`: it is interpreted as `_root_.HDec.LeafModCurves` because this `open` occurs inside `namespace HDec.E1Sub`, while `_root_.LeafModCurves` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafModCurves`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31644:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.E1Sub`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:31668:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+scratch/leaf-fold/Full.lean:31961:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:31962:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:31995:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:32094:5: warning: Ambiguous namespace `LeafModCurves`: it is interpreted as `_root_.HDec.LeafModCurves` because this `open` occurs inside `namespace HDec.E1Sub`, while `_root_.LeafModCurves` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafModCurves`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32096:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.E1Sub`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32648:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32652:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32652:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32653:5: warning: Ambiguous namespace `LeafModCurves`: it is interpreted as `_root_.HDec.LeafModCurves` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.LeafModCurves` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafModCurves`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32973:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32977:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32977:11: warning: Ambiguous namespace `PkgI3.AbVar`: it is interpreted as `_root_.HDec.PkgI3.AbVar` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.PkgI3.AbVar` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3.AbVar`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:32978:5: warning: Ambiguous namespace `LeafModCurves`: it is interpreted as `_root_.HDec.LeafModCurves` because this `open` occurs inside `namespace HDec.C9Rhof`, while `_root_.LeafModCurves` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafModCurves`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+scratch/leaf-fold/Full.lean:33800:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:33823:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:33917:46: warning: Variable name `A` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _A
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/leaf-fold/Full.lean:34013:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:34031:24: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/leaf-fold/Full.lean:34052:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/leaf-fold/Full.lean:35073:15: warning: `Ideal.sum_ramification_inertia` has been deprecated: Use results of RingTheory.RamificationInertia.Basic
+scratch/leaf-fold/Full.lean:35076:39: warning: `Ideal.inertiaDeg'` has been deprecated: Use `Ideal.inertiaDeg` instead.
+scratch/leaf-fold/Full.lean:35077:79: warning: `Ideal.inertiaDeg'` has been deprecated: Use `Ideal.inertiaDeg` instead.
+scratch/leaf-fold/Full.lean:35081:4: warning: `Ideal.inertiaDeg'_eq_inertiaDeg` has been deprecated: Use `inertiaDeg_eq_of_isMaximal` instead.
+scratch/leaf-fold/Full.lean:35210:5: warning: Ambiguous namespace `PkgI4`: it is interpreted as `_root_.HDec.PkgI4` because this `open` occurs inside `namespace HDec.G0Galois`, while `_root_.PkgI4` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI4`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+HDec.PkgI6.LocalH2CardC: 4 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+HDec.PkgI6.LocalKroneckerWeber: 3 HDec constants compared; differences:
+HDec.PkgI6.LocalKroneckerWeber: bodies differ
+HDec.PkgI4.LocalHasHTWeights._proof_5: no root counterpart
+HDec.PkgI4.LocalHasHTWeights._proof_2: no root counterpart
+HDec.TSkolemKW.KW.KroneckerWeberCyclic: 2 HDec constants compared; differences:
+HDec.TSkolemKW.KW.KroneckerWeberCyclic: bodies differ
+HDec.HSyn.KroneckerWeber._proof_1: no root counterpart
+HDec.PkgI6.ChebotarevExists: 2 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+HDec.GlueConductor.HilbertDifferentFormula: 6 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+HDec.GlueConductor.SerreDifferentBound: 3 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+HDec.PkgI4.NewformOfEigenform: 10 HDec constants compared; differences:
+HDec.PkgI4.HasNebentypus: bodies differ
+HDec.PkgI1.evenChars._proof_1: no root counterpart
+HDec.GlueDescent.B2Q.LeafSqrtCrit: 13 HDec constants compared; differences:
+HDec.GlueDescent.B2Q.LeafSqrtCrit: bodies differ
+HDec.GlueDescent.B2Q.resp: types differ
+HDec.GlueDescent.B2Q.resp: bodies differ
+HDec.GlueDescent.B2Q.resp._proof_1: types differ
+HDec.GlueDescent.B2Q.instFactPrimeValNat_scratch: no root counterpart
+HDec.GlueDescent.B2Q.GQp: bodies differ
+HDec.GlueDescent.B2Q.LeafUnramified: 15 HDec constants compared; differences:
+HDec.GlueDescent.B2Q.LeafUnramified: bodies differ
+HDec.GlueDescent.B2Q.resp: types differ
+HDec.GlueDescent.B2Q.resp: bodies differ
+HDec.GlueDescent.B2Q.resp._proof_1: types differ
+HDec.GlueDescent.B2Q.instFactPrimeValNat_scratch: no root counterpart
+HDec.GlueDescent.B2Q.GQp: bodies differ
+HDec.PkgI6.BrauerHasse2C: 5 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+HDec.PkgI6.BrauerReciprocity2C: 7 HDec constants compared; each is its root counterpart verbatim (up to the prefix)
+'HDec.HSyn.weight_match' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.inertiaTrivial_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.D2_fixed_of_raynaud' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueConductor.D1_genuine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueConductor.level_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueConductor.fourth_pow_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_glueOutputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.f1_algebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.equiv_of_lyVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.exists_hom_ne_zero_of_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.finrank_equivEnd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI6.eq_of_same_finite_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.twist_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.index_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.mulHeight_le_mulHeightL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.invariants_ne_bot_of_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueDescent.B3Q.b3_degree_le_QM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueRepo.PR.inertia_orders_eq_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueRepo.PR.fibre_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sq_principalUnits_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.goodReduction_of_QM_rational3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI6.artinConductor_le_of_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI6.sq_principalUnits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.C2_absolutelyIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.E1_exists_hom_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueI3.equivariantDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.PkgI1.gram_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.cm4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.cm24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.G6_sub_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.Ju_ne_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.elkies_t' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.elkies_t_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI1.thetaRatio_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.logHeight_Phi_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.transfer_of_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.weight_match_coh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.sixContactMinAt_of_glueOutputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueAssembly.pazuki_numerics' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.range_tateHomZl_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueDescent.B2Q.b2_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueConductor.exists_sq_eq_one_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI6.cob_of_same_finite_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueA6Alg.Alg.core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueA6Alg.Alg.exists_valuationSubring_comap_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.quatUnipotentTrivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.goodReduction_of_QM_rational3_of_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI2.goodReduction_of_QM_rational3'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.trace_indep_of_ell' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI3.trace_eq_trace_of_ell' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.iso_of_trace_eq_frob_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.frobDense_of_chebotarev' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.eq_of_eq_on_frob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.iso_of_trace_eq_on_frob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.iso_three_of_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.semisimple_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.trace_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.frobLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.frobDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueC10.c10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.ramificationIdx_le_factorial_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.D1_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.index_localSub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.D1_local'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.ramificationIdx_le_factorial_of_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.D1_krasner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueD1Local.D1_krasner'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.homEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.endMulEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.homRankBound_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.charpolyIndependentOfEll_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.neronOggShafarevich_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.i3Leaves_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.charPolyIndepOfEll_iff_grp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.exists_hom_ne_one_of_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.finrank_equivEnd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.ofGrp_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.homT_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ObjBridge.homT_id' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t32a_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t32b_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.leafB3a_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.GlueB3Unram.unramified_outside_noLeaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.R1fp_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.R5fpWeak_of_R5fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.conj_iso_of_rational' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.cm_of_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Level3.onto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Level3.torsor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.QML3.goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.residue_unramified_over_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.exists_fibre_object' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.fibre_conjugates_isomorphic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.leaves_on_one_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.genus_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.IsJacobian.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.dim_J1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.exists_J1_dim_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.exists_J1_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.rhoF_traces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.g13_constituent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafModCurves.rhoF_attached' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.DefFaltings.stableFaltingsHeight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.ZInQ.DefFaltings.stableFaltingsHeight_eq_iInf_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.DefFaltings.stableFaltingsHeightDeligne_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.DefFaltings.stableFaltingsHeight_ne_bot_of_R21' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.r2X6PropsIff_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.cmExists_of_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.R1R2fp_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.R5fp_iff_R5fpStrong' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafAdopt.abVarEquiv_dim' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.stableFaltingsHeight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R18_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.javanpeykarBound_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.javanpeykarBound_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R22_plus3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.isSiegel_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.linYangTuple_onQMLocus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.onQMLocus_of_linYangTuple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.linYang_j_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R03_of_algClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.exists_isComplexConj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.T10_groupIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R03_LinYang' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R22_Pazuki' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.LeafPush2.R18_Javanpeykar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.isComplexConj_leafPush2_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.glueOutputs_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.transfer_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.javanpeykarJ1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.thetaPazuki' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.isogenousProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.semisimpleBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.r18Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.r22Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.heightAdditivity_of_h5neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.hodgeLatticeTheorem_of_dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t13_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t19_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t22a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t22b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t20_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t21_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.frobeniusDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.leafSqrtCrit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.t10_groupIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.x1ModelExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.TextbookLeaves.exists_J1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.modCurveLeaves_of_bundles' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.TSkolemKW.glueDescent_leafSkolemNoether' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.TSkolemKW.pkgI6_brauerNesbittChar0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.TSkolemKW.C10.c10_of_chebotarev' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.Pi0X6.leafAdopt_r1pi0Props_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.Pi0X6.leafAdopt_r1pi0Props_of_X6Props' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'HDec.ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.H5Neron.stableFaltingsHeight_add_le'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.X1Belyi.belyiX1_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.X1Belyi.x1ModelExists_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.E1Sub.vSurjOfSurjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.rhoF_semisimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.rhoF_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.c9_R14' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.c9_r5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.c10_via_c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.C9Rhof.c9_hsyn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.x1BelyiOnModel_of_belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.r1fpPin_relabel_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.r1fpPin_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.r2fp_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.phi_part' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.relabel_is_morphism' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.sameTripleMor_of_mobius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.pointwise_of_witness_mor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LeafQM.AV.Pin.cm_objects_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.fibreSimple_iff_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.thetaPointOfFibre_iff_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.modularConstituent_iff_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.qmPieces_iff_w' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePieces_of_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePiecesPin_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_leaves_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.TBrauerPurity.abhyankarDVR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t2_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t15_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t16a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t17_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.kroneckerWeber_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t18_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.frobeniusDense_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t20_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t21_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t25_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t30_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t30_proved'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t31_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t14_of_kummerIndexBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.eigenformRepExists_of_r14Det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PkgI4.deRhamComparisonHT_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.textbookLeaves_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	10m12.907s
+user	17m14.509s
+sys	0m18.941s
