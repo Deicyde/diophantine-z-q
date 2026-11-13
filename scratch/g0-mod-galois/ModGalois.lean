@@ -20051,6 +20051,7 @@ noncomputable section
 namespace G0Galois
 
 open PkgI4 (GaloisRep GaloisChar)
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ### Objects -/
 
@@ -20127,6 +20128,12 @@ def G7Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [
   (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ),
     Continuous fun g => f (GlueDescent.rho Tm a β g v))
 
+/-- **Output of G5-G6 (QM dichotomy and NoCM), the part used by G10:** `End_K(A)` is a division
+ring (`PkgI3.EndDivision`: every nonzero endomorphism is an isogeny) and is not commutative (so
+`End⁰_K(A) = B`, not a field). -/
+def G6Out {K : Type} [Field K] (A : PkgI3.AbVar K) : Prop :=
+  PkgI3.EndDivision A ∧ ∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x
+
 /-! ### Outputs of this range -/
 
 /-- **Output of G8.** `r : G_ℚ → GL₂(ℚ̄_ℓ)` (continuous) and `e : ℚ̄_ℓ ⊗ V_ℓ(A) ≅ ℚ̄_ℓ² × ℚ̄_ℓ²`
@@ -20153,6 +20160,8 @@ def G10Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop := r.IsOdd
 /-- **Output of G11:** `r` is unramified at every prime outside `T ∪ {ℓ}`. -/
 def G11Out {ℓ : ℕ} [Fact ℓ.Prime] (T : Finset ℕ) (r : GaloisRep ℓ 2) : Prop :=
   ∀ p : ℕ, p.Prime → p ∉ T → p ≠ ℓ → r.UnramifiedAt p
+
+instance fact_five : Fact (Nat.Prime 5) := ⟨by norm_num⟩
 
 /-- **Output of G12** (at `ℓ = 5`; N5 L755-768, h-trust C7-C8): there are a level `N ≥ 1`, a
 normalized eigenform `g` of **weight 2** on `Γ₁(N)` with nebentypus `χ`, a continuous character
@@ -20219,7 +20228,7 @@ quasi-isogenies `μ_σ : σA → A`, which exist by Faltings since `V_ℓ(σA) �
 extensions `r, r'` of the absolutely irreducible `r|G_K` with `G_K` normal differ by a character
 `θ` of `G_ℚ/G_K` (Schur), so `det r'(c) = θ(c)² det r(c) = det r(c)` since `c² = 1`. -/
 def G10Glue : Prop :=
-  T11_RiemannGAGA → T12_ArtinComparison → PkgI3.FaltingsTate →
+  HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison → PkgI3.FaltingsTate →
   ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
     [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
     (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
@@ -20237,7 +20246,8 @@ are `{n, n + 1 − k}` for an integer `n` (the Hodge–Tate weight of `ψ|G_{ℚ
 `ρ_g ⊗ ψ` are `{0,1−k} + n`; for `k = 1`, `ρ_g` has finite image, hence weights `{0, 0}`, so
 `r` would have equal weights, contradicting `{0, −1}` (so the hypotheses are inconsistent). -/
 def G12Weight : Prop :=
-  PkgI4.EigenformRepExists → PkgI4.EigenformHT → PkgI4.DeligneSerreFinite →
+  HSyn.EigenformRepExists → PkgI4.EigenformHT → HSyn.DeligneSerreConseq → HSyn.FrobeniusDense →
+  HSyn.BrauerNesbitt →
   ∀ (r : GaloisRep 5 2) (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k)
     (ψ : GaloisChar 5) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
     (S : Finset ℕ),
@@ -20255,7 +20265,7 @@ finite image), `χ_cyc` (the 5-adic cyclotomic character) of `G_ℚ` and a finit
 group theory that turns this into the finiteness of `ψ` is `GlueAssembly.twist_finite`
 (proved). -/
 def G12Det : Prop :=
-  PkgI4.EigenformRepExists → LeafPush.T09_WeilPairing.{0} →
+  HSyn.EigenformRepExists → LeafPush.T09_WeilPairing.{0} →
   ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (r : GaloisRep 5 2)
     (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
     (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 2) (ψ : GaloisChar 5)
@@ -20297,7 +20307,7 @@ theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3
   have h1 : GlueDescent.rho Tm a β 1 = 1 := by
     have := hres 1
     rw [map_one] at this
-    rw [GlueDescent.rho_eq_act Tm (fun _ => 1) a β 1 this.1 this.2.1 this.2.2]
+    refine (GlueDescent.rho_eq_act Tm (fun _ => tate A ℓ 1) a β 1 this.1 this.2.1 this.2.2).trans ?_
     exact map_one (tate A ℓ)
   let ρ : Representation (PadicAlgCl ℓ) PkgI4.GQ (Vb A ℓ) :=
     GlueDescent.rhoRep Tm c ε a β hTm ha hβ hβ0 h1
@@ -20313,14 +20323,15 @@ theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3
   haveI : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := inferInstance
   haveI : FiniteDimensional (PadicAlgCl ℓ) (Vb A ℓ) := inferInstance
   -- `dim = 4`, so `W ≠ 0`
-  have h4T : Module.finrank ℤ_[ℓ] (A.T ℓ) = 4 := by
-    rw [hdim] at hrk
-    have h' : ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = ((4 : ℕ) : ℕ∞) := by
-      rw [hrk]; rfl
-    exact_mod_cast h'
   have h4 : Module.finrank (PadicAlgCl ℓ) (Vb A ℓ) = 4 := by
-    rw [Module.finrank_baseChange, Module.finrank_baseChange, h4T]
-  haveI hVne : Nontrivial (Vb A ℓ) := Module.nontrivial_of_finrank_pos (by omega)
+    rw [Module.finrank_baseChange, Module.finrank_baseChange]
+    rw [hdim] at hrk
+    have h22 : (2 : WithBot ℕ∞) * 2 = (((4 : ℕ) : ℕ∞) : WithBot ℕ∞) := by
+      norm_num
+    rw [h22] at hrk
+    exact_mod_cast hrk
+  haveI hVne : Nontrivial (Vb A ℓ) :=
+    Module.nontrivial_of_finrank_pos (R := PadicAlgCl ℓ) (by omega)
   haveI : Nontrivial u.W := by
     by_contra hW
     rw [not_nontrivial_iff_subsingleton] at hW
@@ -20340,8 +20351,214 @@ theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3
     hirr
   exact ⟨r, hρres, e, hint, hadj⟩
 
+/-- **G11 (proved from `G2Out`, `G3Out` and G8's intertwining, no further glue).** At `p ∉ T`,
+`p ≠ ℓ`, an inertia element `σ` above `p` lies in `G_K` (G2), acts trivially on `V_ℓ(A)` (G3 with
+R7a), hence trivially on `r ⊕ r`, hence `r(σ) = 1`. -/
+theorem g11 {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (T : Finset ℕ) (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (h2 : G2Out K T) (h3 : G3Out A ℓ T)
+    (hint : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) : G11Out T r := by
+  intro p hp hpT hpℓ v hv σ hσ
+  obtain ⟨σ', hσ'⟩ := MonoidHom.mem_range.mp (h2 p hp hpT v hv σ hσ)
+  have ht := h3 p hp hpT hpℓ v hv σ' ⟨σ, hσ, hσ'.symm⟩
+  have key : ∀ w : Fin 2 → PadicAlgCl ℓ, (r.mat (resQ K σ')).mulVec w = w := by
+    intro w
+    have := hint σ' (e.symm (w, 0))
+    rw [ht] at this
+    simp only [Module.End.one_apply, LinearEquiv.apply_symm_apply] at this
+    exact (congrArg Prod.fst this).symm
+  have hM : r.mat (resQ K σ') = 1 := by
+    apply Matrix.toLin'.injective
+    apply LinearMap.ext
+    intro w
+    rw [Matrix.toLin'_apply, Matrix.toLin'_apply, key, Matrix.one_mulVec]
+  rw [← hσ']
+  exact Units.ext hM
+
+/-- G11 gives Pan's "ramified at finitely many primes" (`S = T ∪ {ℓ}`). -/
+theorem finitelyRamified_of_g11 {ℓ : ℕ} [Fact ℓ.Prime] {T : Finset ℕ} {r : GaloisRep ℓ 2}
+    (h : G11Out T r) : r.FinitelyRamified :=
+  ⟨insert ℓ T, fun p hp hpS => h p hp (fun h' => hpS (Finset.mem_insert_of_mem h'))
+    (fun h' => hpS (h' ▸ Finset.mem_insert_self ℓ T))⟩
+
+/-- Absolute irreducibility on `G_K` (G8) gives Pan's irreducibility on `G_ℚ`. -/
+theorem isIrreducible_of_g8 {K : Type} [Field K] [NumberField K] {ℓ : ℕ} [Fact ℓ.Prime]
+    {r : GaloisRep ℓ 2}
+    (hadj : Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤) :
+    r.IsIrreducible := by
+  unfold PkgI4.GaloisRep.IsIrreducible
+  rw [eq_top_iff, ← hadj]
+  apply Algebra.adjoin_mono
+  rintro _ ⟨σ, rfl⟩
+  exact ⟨_, rfl⟩
+
+/-- **G12 (proved from Pan∘Berger (R11+R12), the weight comparison `PkgI4.weight_match`, the
+determinant argument `GlueAssembly.twist_finite`, and the named pieces `G12Weight`, `G12Det`).**
+The hypotheses of Pan's Theorem 1.0.4 at `p = 5` come from G8 (irreducible), G11 (finitely
+ramified), G9 (de Rham, distinct weights `0 ≠ −1`) and G10 (odd). -/
+theorem g12 (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : PkgI4.EigenformHT)
+    (hR15 : HSyn.DeligneSerreConseq) (hT18 : HSyn.FrobeniusDense) (hT19 : HSyn.BrauerNesbitt)
+    (hT9 : LeafPush.T09_WeilPairing.{0}) (hW : G12Weight) (hD : G12Det)
+    {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (T : Finset ℕ) (r : GaloisRep 5 2)
+    (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
+    (hdim : A.dim = 2) (hint : Intertwines (tate A 5) (fun σ => r.mat (resQ K σ)) e)
+    (hirr : r.IsIrreducible) (h9 : G9Out r) (h10 : G10Out r) (h11 : G11Out T r) :
+    G12Out r := by
+  obtain ⟨N, k, χ, g, hN, hk, hg, ψ, ιC, ιL, S, hatt⟩ :=
+    hPB 5 (le_refl 5) r hirr (finitelyRamified_of_g11 h11) h9.1 h10 ⟨0, -1, by norm_num, h9.2⟩
+  obtain ⟨n, hn⟩ := hW hR14 hR13 hR15 hT18 hT19 r N k χ g ψ ιC ιL S hN hk hg hirr h9.2 hatt
+  obtain ⟨-, rfl⟩ := PkgI4.weight_match n k hk hn
+  obtain ⟨H, hH, dr, εg, χc, hdet, hHsq, hε⟩ :=
+    hD hR14 hT9 K A r e N χ g ψ ιC ιL S hdim hint hN hg hatt
+  haveI := hH
+  exact ⟨N, χ, g, ψ, ιC, ιL, S, hN, hg,
+    GlueAssembly.twist_finite H dr εg χc ψ.toHom hdet hHsq hε, hatt⟩
+
+/-- **G8-G11 at every coefficient prime `ℓ` (proved from the leaves, the outputs `G2Out`,
+`G3Out`, `G6Out`, `G7Out`, and the named glue `G8Matrix`, `G9Glue`, `G10Glue`).** -/
+theorem g8_g11 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
+    (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
+    (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
+    (hT11 : HSyn.T11_RiemannGAGA) (hT12 : HSyn.T12_ArtinComparison)
+    (hM : G8Matrix) (h9g : G9Glue) (h10g : G10Glue)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (ℓ : ℕ) [Fact ℓ.Prime] (h3 : G3Out A ℓ T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
+    (h7 : G7Out A ℓ Tm c ε a β u) :
+    ∃ r : GaloisRep ℓ 2, G8Out A ℓ (GlueDescent.rho Tm a β) r ∧ G9Out r ∧ G10Out r ∧
+      G11Out T r := by
+  have hdim := h7.1
+  have hrank := h7.2.1
+  obtain ⟨r, hres, e, hint, hadj⟩ := g8 hS hF hT hH hSS hM A ℓ Tm c ε a β u h7
+  have hintK := intertwines_res hres hint
+  exact ⟨r, ⟨hres, e, hint, hadj⟩, h9g hR10 hT23 K A ℓ r e hdim hintK,
+    h10g hT11 hT12 hF K A ℓ r e hdim hrank h6.1 h6.2 hintK, g11 A ℓ T r e h2 h3 hintK⟩
+
+/-- **G8-G12 at `ℓ = 5`: the conclusion of this range** (proved from the leaves, the outputs of
+G2, G3, G6, G7, and the five named glue pieces). It is the input of G13 (g0-mod-newform's range):
+`r₅` with `ℚ̄₅ ⊗ V₅(A) ≅ r₅|G_{L'} ⊕ r₅|G_{L'}` and `r₅` attached up to a finite twist to a
+weight-2 eigenform. -/
+theorem g8_g12 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate)
+    (hT : PkgI3.TateModuleFree) (hH : PkgI3.HomFreeFinite) (hSS : GlueI3.SemisimpleBaseChange)
+    (hR10 : PkgI4.DeRhamComparison) (hT23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p)
+    (hT11 : HSyn.T11_RiemannGAGA) (hT12 : HSyn.T12_ArtinComparison)
+    (hPB : PkgI4.PanBerger) (hR14 : HSyn.EigenformRepExists) (hR13 : PkgI4.EigenformHT)
+    (hR15 : HSyn.DeligneSerreConseq) (hT18 : HSyn.FrobeniusDense) (hT19 : HSyn.BrauerNesbitt)
+    (hT9 : LeafPush.T09_WeilPairing.{0})
+    (hM : G8Matrix) (h9g : G9Glue) (h10g : G10Glue) (hW : G12Weight) (hD : G12Det)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (h3 : G3Out A 5 T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a β : PkgI4.GQ → PadicAlgCl 5)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (h7 : G7Out A 5 Tm c ε a β u) :
+    ∃ r : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r ∧ G9Out r ∧ G10Out r ∧
+      G11Out T r ∧ G12Out r := by
+  obtain ⟨r, h8, h9, h10, h11⟩ :=
+    g8_g11 hS hF hT hH hSS hR10 hT23 hT11 hT12 hM h9g h10g A T h2 h6 5 h3 Tm c ε a β u h7
+  obtain ⟨hres, e, hint, hadj⟩ := h8
+  exact ⟨r, ⟨hres, e, hint, hadj⟩, h9, h10, h11,
+    g12 hPB hR14 hR13 hR15 hT18 hT19 hT9 hW hD A T r e h7.1 (intertwines_res hres hint)
+      (isIrreducible_of_g8 hadj) h9 h10 h11⟩
+
 end G0Galois
 
 end
 
 end G0GaloisSec
+
+/-! ### g0-mod-galois: the range G8-G12 from the leaf bundles -/
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep)
+
+/-- The five named glue pieces of the range G8-G12. -/
+structure GaloisPieces : Prop where
+  matrix : G8Matrix
+  deRham : G9Glue
+  odd : G10Glue
+  weight : G12Weight
+  det : G12Det
+
+/-- **G8-G12 from the leaf bundles** (`HSyn.ResearchLeaves`, `HSyn.TextbookLeaves`), glue-ssbc's
+proved `SemisimpleBaseChange`, the outputs of G2, G3, G6, G7 and the five named pieces. -/
+theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m : GaloisPieces)
+    {K : Type} [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (T : Finset ℕ)
+    (h2 : G2Out K T) (h6 : G6Out A) (h3 : G3Out A 5 T)
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5) (a β : PkgI4.GQ → PadicAlgCl 5)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl 5) (Vb A 5))
+    (h7 : G7Out A 5 Tm c ε a β u) :
+    ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
+      G11Out T r₅ ∧ G12Out r₅ :=
+  g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
+    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 m.matrix m.deRham m.odd m.weight m.det
+    A T h2 h6 h3 Tm c ε a β u h7
+
+/-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/
+
+/-- **What G13-G16 must deliver on the `J₁(N)` side** (input of the link lemma below): an
+injective `G_K`-equivariant map from `r|G_K` (the matrices `r(σ)`, `σ ∈ G_K`, on `ℚ̄₅²`) into
+`ℚ̄₅ ⊗ V₅(J)`, for `J = J₁(N)_{L'}` (G13: `r₅ ≅ ρ_{f,5}` and `ρ_{f,5} ⊂ V₅(J₁(N))`, R16). -/
+def JSide {K : Type} [Field K] [NumberField K] (J : PkgI3.AbVar K) (r : GaloisRep 5 2) : Prop :=
+  ∃ ιJ : (Fin 2 → PadicAlgCl 5) →ₗ[PadicAlgCl 5] Vb J 5, Function.Injective ιJ ∧
+    ∀ σ w, tate J 5 σ (ιJ w) = ιJ ((r.mat (resQ K σ)).mulVec w)
+
+/-- **Link lemma (proved).** G8's output (`ℚ̄₅ ⊗ V₅(A) ≅ r|G_K ⊕ r|G_K`) and the `J`-side of
+G13-G16 (`JSide`) give `CommonConstituent A J`, the field of `ModularConstituent` that E1
+(`PkgI3.E1_exists_hom_ne_zero`) consumes, with `ℓ = 5` and `E = ℚ̄₅`. -/
+theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : PkgI3.AbVar K)
+    (r : GaloisRep 5 2)
+    (e : Vb A 5 ≃ₗ[PadicAlgCl 5] (Fin 2 → PadicAlgCl 5) × (Fin 2 → PadicAlgCl 5))
+    (hint : Intertwines (tate A 5) (fun σ => r.mat (resQ K σ)) e) (hJ : JSide J r) :
+    HSyn.G0Split.CommonConstituent A J := by
+  obtain ⟨ιJ, hιJ, hJeq⟩ := hJ
+  let ιA : (Fin 2 → PadicAlgCl 5) →ₗ[PadicAlgCl 5] Vb A 5 :=
+    e.symm.toLinearMap ∘ₗ LinearMap.inl (PadicAlgCl 5) _ _
+  have hιA : Function.Injective ιA := e.symm.injective.comp LinearMap.inl_injective
+  have hAeq : ∀ σ w, tate A 5 σ (ιA w) = ιA ((r.mat (resQ K σ)).mulVec w) := by
+    intro σ w
+    apply e.injective
+    have h := hint σ (ιA w)
+    simp only [ιA, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply,
+      LinearMap.inl_apply, LinearEquiv.apply_symm_apply] at h ⊢
+    rw [h, Matrix.mulVec_zero]
+  let U : Subrepresentation (tate A 5) :=
+    ⟨LinearMap.range ιA, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hAeq σ w).symm⟩⟩
+  let U' : Subrepresentation (tate J 5) :=
+    ⟨LinearMap.range ιJ, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hJeq σ w).symm⟩⟩
+  have keyA : ∀ w (h : ιA w ∈ U.toSubmodule),
+      (LinearEquiv.ofInjective ιA hιA).symm ⟨ιA w, h⟩ = w := by
+    intro w h
+    rw [LinearEquiv.symm_apply_eq]
+    exact Subtype.ext (LinearEquiv.ofInjective_apply ιA hιA w).symm
+  refine ⟨5, inferInstance, PadicAlgCl 5, inferInstance, inferInstance, U, U',
+    (LinearEquiv.ofInjective ιA hιA).symm.trans (LinearEquiv.ofInjective ιJ hιJ), ?_, ?_⟩
+  · intro h
+    have h' : ιA (Pi.single 0 1) ∈ U.toSubmodule := ⟨_, rfl⟩
+    rw [h] at h'
+    have h0 : ιA (Pi.single 0 1) = 0 := h'
+    have := hιA (h0.trans (map_zero ιA).symm)
+    have := congrFun this 0
+    simp at this
+  · rintro σ ⟨_, w, rfl⟩
+    have hmem : ιA ((r.mat (resQ K σ)).mulVec w) ∈ U.toSubmodule := ⟨_, rfl⟩
+    have hx : (⟨GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5) σ (ιA w),
+        U.apply_mem_toSubmodule σ ⟨w, rfl⟩⟩ : U.toSubmodule) = ⟨_, hmem⟩ :=
+      Subtype.ext (hAeq σ w)
+    simp only [LinearEquiv.trans_apply]
+    rw [hx, keyA, keyA, LinearEquiv.ofInjective_apply, LinearEquiv.ofInjective_apply]
+    exact (hJeq σ w).symm
+
+end G0Galois
+
+#print axioms G0Galois.g8
+#print axioms G0Galois.g11
+#print axioms G0Galois.g12
+#print axioms G0Galois.g8_g12
+#print axioms G0Galois.g8_g12_of_leaves
+#print axioms G0Galois.commonConstituent_of_sides
