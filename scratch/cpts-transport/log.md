@@ -17,3 +17,14 @@ Setup: g0-assemble3's compiled olean chain (LPrefix..TailF, worktree g0-assemble
   `e.inv` (iso), and the pullback square of `A.baseChange ℚ̄`; `Spec(ιe) ≫ 𝟙 ≫ Spec(emb) = Spec(ιe ∘ emb)`.
   Only the pullback clause of `IsBaseChangeOf` is used (not the `ι`, `η` clauses).
 - `#print axioms` both: `[propext, Classical.choice, Quot.sound]`.
+
+## Step 2 (10:35): `PeriodMapH.BaseChangeClassUnique` proved — VERIFIED (compiled)
+
+- File `BCUnique.lean` (`import TailF`; = T2.lean), output `BCUnique_out.txt`: 0 errors, no sorry.
+- `HSyn.G0Split.FibreQM.PeriodMapH.BCUnique.eta_left_comp`: `IsBaseChangeOf`'s `η` clause at `a = 0` gives
+  `η[R.A.X].left ≫ g = Spec ιe ≫ η[P.A.X].left` (identity section to identity section).
+- `HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof : BaseChangeClassUnique`:
+  `E = isoIsPullback` of the two squares; `ι`- and `η`-compatibility by `IsPullback.hom_ext` on the second square;
+  `E.hom`, `E.inv` homomorphisms by `G0FibreSimple.rigidityHom`; `Quotient.sound` with a `QML3.Iso`.
+- axioms `[propext, Classical.choice, Quot.sound]`.
+- (field 10 `baseChangeClassUnique` of GluePieces4; same argument as CPtsTransport.)
