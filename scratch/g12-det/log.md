@@ -112,3 +112,4 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   serious issue. Notes: `htMult`'s division is exact (htSpace is an `E`-space by precomposition);
   `SympSimDet` holds even without `c ≠ 0`; `G12Weight` witness: `V_5` of a non-CM elliptic curve
   over ℚ with `ψ = 1`.
+- run (05:13-05:16) Weight.lean with part_htconj + part_final: 0 errors, 0 sorry; `g12Weight_of_htExtend : HTExtend → SenTwist → FiniteImageHT → G12Weight` and all earlier theorems on standard axioms.
