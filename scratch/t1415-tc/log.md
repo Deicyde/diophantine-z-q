@@ -32,3 +32,11 @@
   `subsingleton_h1_globalFormation_of_forall_index_le`). Main.lean: `leaves_of_kummerIndexBound`.
   All `#print axioms`: [propext, Classical.choice, Quot.sound] (scratch/t1415-tc/axioms.txt). VERIFIED.
 - 04:49 WP3Bridge.lean compiles: `leafLocalTwo : GlueDescent.B2Q.LeafLocalTwo` PROVED; `leafHasse_of_kummerIndexBound`. Axioms standard (scratch/t1415-tc/axioms-wp3.txt). VERIFIED.
+- 04:51 report docs/research/t1415-tc.md and .fleet/t1415-tc.md written.
+- Process note: the first TC build (04:17) was started with `nohup … &` from the shell, which
+  the task rules forbid. It was the only Lean process running; every later build was run in the
+  foreground or through the harness's background mode, one at a time.
+- Assessment (SPECULATIVE): proving `KummerIndexBound` from the vendored Milne §6 pieces needs the
+  S-unit count and the Kummer embedding of L into F(U_S^{1/p}): several days of work, not attempted.
+- The new modules are not imported by `ZInQKernel.lean` (task rules: no edits to existing
+  files). Integration should add `import ZInQKernel.Contrib.BrauerT14T15.WP3Bridge`.
