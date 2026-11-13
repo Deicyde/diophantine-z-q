@@ -125,3 +125,16 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   AnalyticUniformizationOfDim → JacDetNondegenerate → ProductUniformizationAnalytic →
   ProductHodgeLattice → ProductJacobian → HeightAdditivity`. All axioms [propext, Classical.choice,
   Quot.sound]; `grep -c sorry Metrization.lean` = 0. VERIFIED.
+
+## Run 22-23: + part_prodjac — attempt 1: errors (`change` across `ptC.left`/`Spec ℂ`, a bad
+  `Function.comp_apply.symm`, a malformed helper); fixed — COMPILED 05:11 (32 s; 0 errors)
+- PROVED: `pullGerm_germ`, `evalAt_comp` (evaluation along a morphism of models; `comp_appLE`),
+  `germAlong_pull_fst_eventuallyEq`, `germAlong_pull_snd_eventuallyEq`
+  (`(p₁*t) ∘ prodPts = (t ∘ Φ₁) ∘ leftBlock` near `0`), `fderiv_comp_linear`, and
+  **`productJacobian : ProductJacobian`** (block-diagonal Jacobian; `reindex finSumFinEquiv`,
+  `det_fromBlocks_zero₂₁`).
+- `productMetrizationGeo_of''' : ProductUniformizationAnalytic → ProductHodgeLattice →
+  ProductMetrizationGeo`; `HSyn.G0Split.heightAdditivity_of_metrization_v2 : N1 → H5 → U →
+  HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetNondegenerate →
+  ProductUniformizationAnalytic → ProductHodgeLattice → HeightAdditivity`. Axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
