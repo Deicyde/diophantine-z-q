@@ -348,6 +348,23 @@ lemma transport_homEquiv (e : X ≅ Y) {A : Ab.{u+1}}
   simp only [CategoryTheory.comp_apply]
   exact unit_ellIso_sections ℓ e _
 
+/-- **Degree-0 check of `transport`.** Computing global sections of `Y` at the terminal object
+`(X →e Y)` of `Y.ProEt` (whose sections are again `C(X, ℤ_ℓ)`), `transport e` in degree 0 is the
+identity of `C(X, ℤ_ℓ)`; i.e. on `C(Y, ℤ_ℓ)` it is `f ↦ f ∘ e⁻¹`, the pushforward `e_*`. This
+shows that `constIso` is the canonical isomorphism (no sign or other automorphism of the constant
+sheaf creeps in). -/
+theorem transport_H0 (e : X ≅ Y) (x : X.EllAdicCohomology ℓ 0) :
+    (Sheaf.H.equiv₀ (F Y ℓ) (isTerminalImg e) (transport ℓ e 0 x) : ULift.{u+1} C(X, ℤ_[ℓ])) =
+      (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X) x : ULift.{u+1} C(X, ℤ_[ℓ])) := by
+  have hm : ∀ {A B : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}} (f : A ⟶ B),
+      Abelian.Ext.addEquiv₀ (Abelian.Ext.mk₀ f) = f := fun f => Abelian.Ext.addEquiv₀.right_inv f
+  have hm' : ∀ {A B : Sheaf (Scheme.ProEt.topology Y) AddCommGrpCat.{u+1}} (f : A ⟶ B),
+      Abelian.Ext.addEquiv₀ (Abelian.Ext.mk₀ f) = f := fun f => Abelian.Ext.addEquiv₀.right_inv f
+  rw [← Abelian.Ext.mk₀_addEquiv₀_apply x, transport_mk₀]
+  simp only [Sheaf.H.equiv₀, AddEquiv.trans_apply, hm, hm', Adjunction.homAddEquiv_apply]
+  rw [← transport_homEquiv ℓ e]
+  rfl
+
 end Transport
 
 /-! ## T10 as a `ℤ_ℓ`-linear isomorphism -/
@@ -500,4 +517,5 @@ end T10Etale
 #print axioms T10Etale.transport_smul
 #print axioms T10Etale.galIso
 #print axioms T10Etale.transport_bijective
+#print axioms T10Etale.transport_H0
 #print axioms T10Etale.T10_linIso_of_tateDuality
