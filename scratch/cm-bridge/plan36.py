@@ -1,4 +1,4 @@
-"""Checks for the follow-up plan `TYZThm36Seven ⇐ ShimuraReciprocityPic + EtaModelFricke` (report §6):
+"""Checks for the follow-up plan `TYZThm36Seven ⇐ ShimuraReciprocityPic + EtaModelFricke` (report §2, Bridge.lean §14):
 for squarefree n = 7 (mod 8), d = tyzDelta n, A = (n+d^2)/4:
  (a) Q' = [32, d, (n+d^2)/128] is a Heegner form (level 32, disc -n) and tau_{Q'} = W(tau_{conj Q}),
      W(t) = -1/(32 t), conj Q = [A, -d, 1];

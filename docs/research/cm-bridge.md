@@ -168,9 +168,9 @@ identity were checked numerically first (`plan36.out`).
 
 `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` (clean), then
 `lake env lean scratch/cm-bridge/Bridge.lean`: 0 errors (≈40 s; only linter style warnings), VERIFIED
-2026-11-13. `#print axioms` for 27 declarations (`audit-out.txt`), including `genusFieldLeLni`,
-`betaOnGenus7_of`, `sqrtPstarInHilbert`, `artinPstarChi`, `normP2`, `lemma321Seven_of'` and the main
-theorem: all `[propext, Classical.choice, Quot.sound]`. The file keeps cm-numeric's
+2026-11-13. `#print axioms` for 29 declarations (`audit-out.txt`), including `genusFieldLeLni`, `tyzThm36Seven_of`,
+`betaOnGenus7_of`, `sqrtPstarInHilbert`, `artinPstarChi`, `normP2`, `lemma321Seven_of'` and both main
+theorems: all `[propext, Classical.choice, Quot.sound]`. The file keeps cm-numeric's
 `set_option maxRecDepth 8000`. Pitfall met: `rw [restrict_ringClassArtinEquiv] at h` at `K = QNeg d`
 hits max recursion / a kernel deterministic timeout; proving the restriction identity once for a general
 `K` (`coe_artin_restrict`) and specializing avoids it.
@@ -201,6 +201,6 @@ and the pinned `δ` cannot make the statement false (`z_n` depends on `δ mod 64
 conjugates `z_n` and `v₂` together) — OK; (4) `τ(1/2) = tauG 1 = (2, −4)` — OK; (5) not vacuous — OK.
 **Finding (blocking, fixed):** the first `p2Ideal` was not oriented relative to `ιC`, so the leaf was
 the wrong-sign statement (numerically false) for one of the two possible `embed n`. Fixed with
-`PosOrient` (§1); `normP2`, `betaOnGenus7`, `lemma321Seven_of'` and the main theorem recompiled
+`PosOrient` (§1); `normP2`, `betaOnGenus7`, `lemma321Seven_of'` and both main theorem recompiled
 unchanged otherwise. The reviewer also judged that `thm36_7.py` tests exactly the Lean statement under
 the `+i√n` orientation (Shimura direction taken from cm-numeric's VERIFIED `shimura.out`).
