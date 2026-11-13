@@ -2394,4 +2394,78 @@ theorem literature_hecke_fe_of_split_gaussPointCount
     HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
   literature_hecke_fe_of_mult_split_gaussPointCount (fun d _ _ => heckeMult d) hS h1
 
+/-! ### `HeckePrimePowSplit` (node B2c) -/
+
+theorem isUnit_of_norm_one {c : GaussianInt} (h : c.norm = 1) : IsUnit c :=
+  (Zsqrtd.norm_eq_one_iff' (by norm_num) c).mp h
+
+/-- An element of prime norm is a Gaussian prime. -/
+theorem prime_of_norm_prime {x : GaussianInt} {p : ℕ} (hp : p.Prime) (hx : x.norm = p) :
+    Prime x := by
+  have hirr : Irreducible x := by
+    refine ⟨fun hu => ?_, fun y z hyz => ?_⟩
+    · have := (Zsqrtd.norm_eq_one_iff' (by norm_num) x).mpr hu
+      rw [hx] at this; exact hp.one_lt.ne' (by exact_mod_cast this)
+    · have h := congrArg Zsqrtd.norm hyz
+      rw [Zsqrtd.norm_mul, hx] at h
+      have hy0 := GaussianInt.norm_nonneg y
+      have hz0 := GaussianInt.norm_nonneg z
+      have h' : (y.norm.toNat) * (z.norm.toNat) = p := by
+        have : ((y.norm.toNat * z.norm.toNat : ℕ) : ℤ) = p := by
+          push_cast; rw [Int.toNat_of_nonneg hy0, Int.toNat_of_nonneg hz0]; exact h.symm
+        exact_mod_cast this
+      rw [← h'] at hp
+      rcases Nat.prime_mul_iff.mp hp with ⟨_, h1⟩ | ⟨_, h1⟩
+      · right; apply isUnit_of_norm_one; omega
+      · left; apply isUnit_of_norm_one; omega
+  exact hirr.prime
+
+/-- `ψ_d(p) = p` for `p ≡ 1 (mod 4)`, `p ∤ d`. -/
+theorem psi_split_prime {d p : ℕ} (hp : p.Prime) (hp1 : p % 4 = 1) (hpd : ¬ p ∣ d) :
+    psi d ((p : ℤ), 0) = (p : ℂ) := by
+  have hJ : jacobiSym ((p : ℤ) ^ 2 + 0 ^ 2) d = 1 := by
+    rw [zero_pow two_ne_zero, add_zero]
+    apply jacobiSym.sq_one'
+    rw [Int.gcd_natCast_natCast]
+    exact (Nat.Prime.coprime_iff_not_dvd hp).mpr hpd
+  have hu : unitOf (((p : ℤ) : ZMod 4), ((0 : ℤ) : ZMod 4)) = 1 := by
+    have h1 : ((p : ℤ) : ZMod 4) = 1 := by
+      rw [Int.cast_natCast, ← ZMod.natCast_mod, hp1]; rfl
+    rw [h1]; simp [unitOf]
+  simp only [psi, hJ, hu, gz]
+  push_cast; ring
+
+open Classical in
+/-- `Σ_{β ∈ A_{n}} f(zβ) = Σ_{γ ∈ A_{pn}, z ∣ γ} f(γ)` for `N z = p`. -/
+theorem sum_mul_bij {z : ℤ × ℤ} {p n : ℕ} (hz : z.1 ^ 2 + z.2 ^ 2 = p) (hp : 0 < p) (f : ℤ × ℤ → ℂ) :
+    ∑ β ∈ normFiber n, f (gmul z β) =
+      ∑ γ ∈ (normFiber (p * n)).filter (fun γ => toG z ∣ toG γ), f γ := by
+  have hz0 : toG z ≠ 0 := by
+    intro h; have := congrArg Zsqrtd.norm h; rw [norm_toG, hz] at this; simp at this; omega
+  refine Finset.sum_nbij' (fun β => gmul z β) (fun γ => ((toG γ / toG z).re, (toG γ / toG z).im))
+    ?_ ?_ ?_ ?_ ?_
+  · intro β hβ
+    rw [Finset.mem_filter]
+    refine ⟨gmul_mem_normFiber (mem_normFiber.mpr hz) hβ, ⟨toG β, by rw [toG_gmul]⟩⟩
+  · intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    obtain ⟨hγn, hdvd⟩ := hγ
+    have hq : toG z * (toG γ / toG z) = toG γ := EuclideanDomain.mul_div_cancel' hz0 hdvd
+    rw [mem_normFiber]
+    have h := congrArg Zsqrtd.norm hq
+    rw [Zsqrtd.norm_mul, norm_toG, norm_toG, hz, mem_normFiber.mp hγn] at h
+    have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne'
+    have h2 : (toG γ / toG z).norm = n := by
+      push_cast at h; exact mul_left_cancel₀ hp0 h
+    rw [← h2, Zsqrtd.norm_def]; ring
+  · intro β _
+    apply toG_injective
+    show toG ((toG (gmul z β) / toG z).re, (toG (gmul z β) / toG z).im) = toG β
+    rw [toG_surj, toG_gmul, mul_div_cancel_left₀ _ hz0]
+  · intro γ hγ
+    rw [Finset.mem_filter] at hγ
+    apply toG_injective
+    rw [toG_gmul, toG_surj, EuclideanDomain.mul_div_cancel' hz0 hγ.2]
+  · intro β _; rfl
+
 end BpHeckeFE
