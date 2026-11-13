@@ -15,3 +15,9 @@
    src_AlgFrobRed.lean (cmp-identical copy of scratch/alg-frob-red/AlgFrobRed.lean) + AbsFrobDef
    body (minus import and the duplicate `def AbsFrob`) + part_fext.lean.
    First run blocked: ZInQKernel.HDecomp.C10.Link olean missing -> `lake build ZInQKernel.HDecomp.C10.Link`.
+4. Built missing ZInQKernel oleans (`lake build` of AfrAbsFrob.lean's ZInQKernel imports; exit 0).
+5. AfrAbsFrob.lean runs 1-3: rw-motive failures (hσ.1 through the `IsArithFrob` def; `G.left`
+   codomain `ℬ.X.left` vs `pullback ..`; identities at `(𝟙_ _).left`) fixed by `generalize hσ.1 = hσ1`,
+   a retyped `Gl`, `erw`.
+6. AfrAbsFrob.lean run 4: exit 0, no errors; 91 axiom prints, all [propext, Classical.choice, Quot.sound];
+   `AlgFrobRedRed.fExtendGen_of_nmp : PkgI2.NeronMappingAbelianScheme.{0} → FExtendGen` (VERIFIED).
