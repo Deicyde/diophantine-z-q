@@ -44,3 +44,20 @@ Target: `FrobPiecesNeron.ProperSmoothGenConnected` (scratch/frob-pieces/part_ner
   Spec L → Spec R), Γ(X_L) = L (Tau Ceti; X_L geometrically integral by smooth + geom. connected),
   R integrally closed in L. So EGA III 3.2.1 is NOT needed.
 - Remaining input: Zariski's connectedness theorem (EGA III₁ 4.3.1 + 4.3.4) as the only leaf.
+
+## Reduction proved (VERIFIED, compiled 12:25)
+- ZInQKernel/Contrib/ZariskiConn/Basic.lean (`lake build ZInQKernel.Contrib.ZariskiConn.Basic`: success):
+  - `ZariskiConn.ZariskiConnectedness` (LEAF, EGA III₁ 4.3.1 + 4.3.4, UNVERIFIED locators):
+    `∀ ⦃X Y : Scheme.{u}⦄ (f : X ⟶ Y), IsProper f → IsLocallyNoetherian Y →
+     (∀ U : Y.Opens, Function.Bijective (f.app U)) → GeometricallyConnected f`.
+  - `ZariskiConn.ProperSmoothGenConnected`: verbatim copy of frob-pieces' def.
+  - `appTop_bijective_of_generic` (R integrally closed domain, K = Frac R, p flat universally closed,
+    generic fibre geometrically integral ⇒ R → Γ(X) bijective);
+    `app_bijective_of_appTop_bijective` (Y affine, f qcqs, bijective on Γ ⇒ bijective on all opens;
+    via `bijective_of_isLocalization_away`, `isLocalization_of_eq_basicOpen`,
+    `TopCat.Sheaf.isIso_iff_isIso_basis` with the basic-open basis);
+    `dedekind_fractionRing_of_away`;
+    `properSmoothGenConnected_of_zariskiConnectedness : ZariskiConnectedness.{0} → ProperSmoothGenConnected`.
+  - #print axioms (scratch/zariski-conn/axioms.lean): all four [propext, Classical.choice, Quot.sound].
+- Pitfalls: `IsIso φ` for a `TopCat.Sheaf` morphism is not seen through `sheafToPresheaf`; use
+  `TopCat.Sheaf.forget`. `Sheaf` morphism from `f.c`: `⟨f.c⟩`.

@@ -1,0 +1,5 @@
+import ZInQKernel.Contrib.ZariskiConn.Basic
+#print axioms ZariskiConn.properSmoothGenConnected_of_zariskiConnectedness
+#print axioms ZariskiConn.appTop_bijective_of_generic
+#print axioms ZariskiConn.app_bijective_of_appTop_bijective
+#print axioms ZariskiConn.dedekind_fractionRing_of_away
