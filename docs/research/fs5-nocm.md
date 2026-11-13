@@ -163,7 +163,7 @@ def ComIntOrQuadOrder : Prop :=            -- N1a, proved (comIntOrQuadOrder_of_
       Module.finrank ℚ k = 2 ∧ ∃ R : Subring k, R ≤ (integralClosure ℤ k).toSubring ∧
         conductor R ≠ 0 ∧ Nonempty (com P.q ≃+* R)
 
-def CMConductorCoprime6 : Prop :=          -- N1b, leaf
+def CMConductorCoprime6 : Prop :=          -- N1b, proved from N1b′ (cmConductorCoprime6_of)
   ∀ (P : QMPair Qbar) (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
     Module.finrank ℚ k = 2 → ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring →
       conductor R ≠ 0 → Nonempty (com P.q ≃+* R) → Nat.Coprime (conductor R) 6
@@ -179,7 +179,16 @@ def X6KummerFibre : Prop :=                -- N2, glue
         ∀ i, π₆.val (K := Qbar) (f i).left = OnePoint.some (algebraMap ℚ Qbar j₀)
 ```
 
-(`ComOfMatrixEnd0`, the CM case of N1a, is stated in `partG.lean` and proved in `partH.lean`.)
+```lean
+def CMOptimalEmbedding : Prop :=           -- N1b′, leaf (partI.lean)
+  ∀ (P : AV.QMPair AV.Qbar) (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
+    Module.finrank ℚ k = 2 → ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring →
+      AV.conductor R ≠ 0 → Nonempty (AV.com P.q ≃+* R) →
+        ∃ φ : k →ₐ[ℚ] B, R = O.comap φ.toRingHom
+```
+
+(`ComOfMatrixEnd0`, the CM case of N1a, is stated in `partG.lean` and proved in `partH.lean`.
+`B`, `O` in N1b′ are `LeafQM.B = ℍ[ℚ,2,−3]` and N5's maximal order `LeafQM.O`.)
 
 ## 3. The proof
 
