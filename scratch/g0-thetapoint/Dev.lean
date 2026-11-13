@@ -112,3 +112,66 @@ theorem isSiegel_Omega {τ : ℂ} (hτ : 0 < τ.im) : IsSiegel (BPAnalytic.QM.Om
   BPAnalytic.QM.Omega_mem_siegelSpace hτ
 
 end DevTheta
+
+namespace DevTheta
+open Complex
+
+/-- The odd characteristics: `aᵀb` odd. -/
+def IsOddChar (m : Char2) : Prop :=
+  ((m.1 0 : ℕ) * (m.2 0 : ℕ) + (m.1 1 : ℕ) * (m.2 1 : ℕ)) % 2 = 1
+
+theorem thetaConst_odd (Ω : Matrix (Fin 2) (Fin 2) ℂ) (m : Char2) (hm : IsOddChar m) :
+    thetaConst Ω m = 0 := by
+  set a : Fin 2 → ℤ := fun i => ((m.1 i : ℕ) : ℤ)
+  set f : (Fin 2 → ℤ) → ℂ := fun n => Complex.exp (Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ
+          Ω.mulVec (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2)) +
+      2 * Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ (fun i => ((m.2 i : ℕ) : ℂ) / 2))) with hf
+  let e : (Fin 2 → ℤ) ≃ (Fin 2 → ℤ) :=
+    { toFun := fun n => -n - a, invFun := fun n => -n - a,
+      left_inv := fun n => by simp, right_inv := fun n => by simp }
+  have hv : ∀ n : Fin 2 → ℤ, (fun i => ((e n i : ℤ) : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) =
+      -(fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) := by
+    intro n; funext i
+    simp only [e, Equiv.coe_fn_mk, Pi.sub_apply, Pi.neg_apply, a, Int.cast_sub, Int.cast_neg,
+      Int.cast_natCast]
+    ring
+  -- the parity: `aᵀb = 2k + 1`
+  obtain ⟨k, hk⟩ : ∃ k : ℕ, (m.1 0 : ℕ) * (m.2 0 : ℕ) + (m.1 1 : ℕ) * (m.2 1 : ℕ) = 2 * k + 1 :=
+    ⟨((m.1 0 : ℕ) * (m.2 0 : ℕ) + (m.1 1 : ℕ) * (m.2 1 : ℕ)) / 2, by unfold IsOddChar at hm; omega⟩
+  have hfe : ∀ n, f (e n) = - f n := by
+    intro n
+    simp only [hf]
+    rw [hv n, Matrix.mulVec_neg, neg_dotProduct, dotProduct_neg, neg_neg, neg_dotProduct]
+    set Q := (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ
+          Ω.mulVec (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2)
+    set D := (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ (fun i => ((m.2 i : ℕ) : ℂ) / 2)
+    -- `2·2πi·D = 2πi (nᵀb) + πi (aᵀb)`
+    have hD : 2 * D = ((n 0 * (m.2 0 : ℕ) + n 1 * (m.2 1 : ℕ) + k : ℤ) : ℂ) + 1 / 2 := by
+      have hk' : ((m.1 0 : ℕ) : ℂ) * ((m.2 0 : ℕ) : ℂ) + ((m.1 1 : ℕ) : ℂ) * ((m.2 1 : ℕ) : ℂ)
+          = 2 * (k : ℂ) + 1 := by exact_mod_cast hk
+      simp only [D, dotProduct, Fin.sum_univ_two]
+      push_cast
+      linear_combination (1 / 2 : ℂ) * hk'
+    have hexp : Complex.exp (2 * Real.pi * I * D) =
+        - Complex.exp (2 * Real.pi * I * (-D)) := by
+      have h2 : 2 * Real.pi * I * D = 2 * Real.pi * I * (-D) +
+          (((n 0 * (m.2 0 : ℕ) + n 1 * (m.2 1 : ℕ) + k : ℤ) : ℂ) * (2 * Real.pi * I) +
+            Real.pi * I) := by
+        linear_combination (2 * Real.pi * I) * hD
+      rw [h2, Complex.exp_add, Complex.exp_add, Complex.exp_int_mul_two_pi_mul_I,
+        Complex.exp_pi_mul_I]
+      ring
+    rw [Complex.exp_add, Complex.exp_add, hexp]
+    ring
+  have h : thetaConst Ω m = - thetaConst Ω m := by
+    change ∑' n, f n = - ∑' n, f n
+    rw [← tsum_neg, ← Equiv.tsum_eq e f]
+    exact tsum_congr hfe
+  have h2 : (2 : ℂ) * thetaConst Ω m = 0 := by linear_combination h
+  simpa using h2
+
+end DevTheta
+#print axioms DevTheta.thetaConst_odd
+#print axioms DevTheta.f1_of_theta
