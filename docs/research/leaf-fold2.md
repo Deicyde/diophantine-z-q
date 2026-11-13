@@ -255,7 +255,7 @@ fact that they are unused is VERIFIED by the compile.
   The output is `scratch/leaf-fold2/olean/TailE_out.txt`, which is not committed: run `./ctail.sh TailE.lean TailE`.
 
 **Flat file.**
-- `lake env lean scratch/leaf-fold2/Leaves2.lean` (86 957 lines, final version): **exit 0 in 924 s,
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (87 519 lines, final version, md5 f70f2f3bbc24…): **exit 0 in 912 s,
   0 errors, no `sorry`. All 284 `#print axioms` reports read `[propext, Classical.choice,
   Quot.sound]`** (counted by script).
 - An earlier flat run failed with 8 errors in part b10, because the root modules' file-level `open`s

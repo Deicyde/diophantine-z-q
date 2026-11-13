@@ -145,3 +145,56 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
 - `x6KummerFibre` (GLUE) replaced by the leaf candidate `X6Kummer.X6ConicModel` (field of OpenAddedLeaves2,
   LEAF?), via `X6Kummer.x6KummerFibre_of_conic (mobiusGlue_of_t5' t.t5) l.x6ConicModel`.
 - TailE: exit 0, 0 errors, 66 s; all `#print axioms` standard. Bundles: 26 + 18 + 13 + 9 = 66.
+
+## Final flat file after the x6-kummer fold (11:05-11:20 PST), VERIFIED
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (87 519 lines, md5 f70f2f3bbc24…): **exit 0 in 912 s, 0 errors, no
+  `sorry`; 284 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`** (script). This supersedes the
+  previous flat entries. leaf-fold2 theorems (host paths removed):
+```
+'HDec.HSyn.sq_principalUnits_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t13_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t19_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t22a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t22b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t20_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t21_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t2_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t15_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t16a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t17_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.kroneckerWeber_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t18_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.frobeniusDense_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t20_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t21_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t25_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t30_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t30_proved'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t31_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t14b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t28_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t36_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t37_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t39_of_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.smoothStalkDimOne_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.constOrOntoAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.ratFactorAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mobiusGlue_of_t5'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mulIsogeny_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.kerUnitOpen_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9AbVarBaseChange_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9Glue_of_deRhamComparisonHT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.oMaximal_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.endTransport_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.conjTwistNontrivial_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.cotangentSpanBC_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.uniformizationLiftAnalytic_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.productUnifSplits_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.tangentDimAtOrigin_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.productMetrizationOfProductUnif_of_t35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.unramifiedConjugates_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves3_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.textbookLeaves_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePieces_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
