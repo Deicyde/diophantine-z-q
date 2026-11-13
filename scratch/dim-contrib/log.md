@@ -22,3 +22,9 @@ See docs/research/dim-contrib.md §1 for the table. Findings (VERIFIED: read):
 - `topologicalKrullDim_eq_of_smoothOfRelativeDimension` generalized to `[Nonempty X]` (new proof, compiles).
 - `topologicalKrullDim_eq_of_isIntegralHom_of_surjective` (IsIntegralHom + Surjective) compiles; finite
   surjective is its corollary.
+- Trdeg.lean, FunctionField.lean, SmoothTrdeg.lean, LeafPush2.lean: `lake build` success each (VERIFIED 09:54-09:59).
+  Pitfalls: `nonempty_top` instance is needed (`Nonempty ↥↑⊤` in a `change`); `cardinalMk_le_trdeg` and
+  `isTranscendenceBasis_of_trdeg_le_of_finite` force `ι` and `A` into one universe — use the `lift_` forms.
+- CheckDim.lean (`lake env lean`): 21 main theorems, all [propext, Classical.choice, Quot.sound] (VERIFIED, run_CheckDim.txt).
+- props_compare.py: 8 named Props textually identical to curve-infra's modulo fnFieldAlgebra -> functionFieldAlgebra (VERIFIED).
+- `git diff --name-only 80b032c9 HEAD -- ZInQKernel blueprint lean`: only the ten new Contrib/Dim files (VERIFIED).

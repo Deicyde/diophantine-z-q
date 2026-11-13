@@ -1,0 +1,2433 @@
+⚠ [9046/9101] Replayed ZInQKernel.RouteK.Rank.Counting
+warning: ZInQKernel/RouteK/Rank/Counting.lean: imports `Mathlib.GroupTheory.FiniteAbelian.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Rank/Counting.lean: imports `Mathlib.GroupTheory.Coset.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9047/9101] Replayed ZInQKernel.RouteK.Selmer.CharSum
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.JacobiSum.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.NumberTheory.LegendreSymbol.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/RouteK/Selmer/CharSum.lean: imports `Mathlib.Tactic.NormNum.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9048/9207] Replayed ZInQKernel.Target
+warning: ZInQKernel/Target.lean: imports `Mathlib.Algebra.MvPolynomial.Degrees` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Target.lean: imports `Mathlib.Algebra.Field.Rat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Target.lean: imports `Mathlib.Data.Fin.Tuple.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Target.lean: imports `Mathlib.Data.Nat.Hyperoperation` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9050/9267] Built ZInQ.NumericalTowerBounds (1.0s)
+⚠ [9051/9267] Replayed ZInQKernel.Multiplication.Certificate.ClearingArithmetic
+warning: ZInQKernel/Multiplication/Certificate/ClearingArithmetic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9052/9267] Replayed ZInQKernel.Multiplication.Local.ValHelpers
+warning: ZInQKernel/Multiplication/Local/ValHelpers.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9053/9267] Replayed ZInQKernel.Size.FormalMultiple.Congruences
+warning: ZInQKernel/Size/FormalMultiple/Congruences.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9054/9267] Replayed ZInQKernel.Multiplication.FormalLog.ChainRule
+warning: ZInQKernel/Multiplication/FormalLog/ChainRule.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9055/9267] Replayed ZInQKernel.Multiplication.FormalLog.Algebra
+warning: ZInQKernel/Multiplication/FormalLog/Algebra.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9056/9267] Replayed ZInQKernel.Multiplication.Completeness.SquareDen
+warning: ZInQKernel/Multiplication/Completeness/SquareDen.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9057/9267] Replayed ZInQKernel.Syntax.Language.Basic
+warning: ZInQKernel/Syntax/Language/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9058/9267] Replayed ZInQKernel.Model.Heights.Comparisons
+warning: ZInQKernel/Model/Heights/Comparisons.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9059/9267] Replayed ZInQKernel.Model.Heights.SearchCheck
+warning: ZInQKernel/Model/Heights/SearchCheck.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9060/9267] Replayed ZInQKernel.Compiler.Circuits.RegisterMachine
+warning: ZInQKernel/Compiler/Circuits/RegisterMachine.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9061/9267] Replayed ZInQKernel.Compiler.Circuits.Gadgets
+warning: ZInQKernel/Compiler/Circuits/Gadgets.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9062/9276] Replayed ZInQKernel.Model.Field.ShortWeierstrass
+warning: ZInQKernel/Model/Field/ShortWeierstrass.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9063/9276] Replayed ZInQKernel.Model.Descent.Kummer
+warning: ZInQKernel/Model/Descent/Kummer.lean:221:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.tZero_def`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:227:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.eq_zero_of_x_eq_zero`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:386:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_equation`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:407:8: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:409:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some_of_eq_zero`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Kummer.lean:413:0: automatically included section variable(s) unused in theorem `ZInQ.Descent.phi_some`:
+  [(shortCurve b).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve b).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9065/9276] Replayed ZInQKernel.RouteK.System.Config
+warning: ZInQKernel/RouteK/System/Config.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9071/9276] Replayed ZInQKernel.Hypotheses.Pole
+warning: ZInQKernel/Hypotheses/Pole.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9072/9276] Replayed ZInQKernel.RouteK.Slots.Basic
+warning: ZInQKernel/RouteK/Slots/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9074/9276] Replayed ZInQKernel.RouteK.Slots.Symbols
+warning: ZInQKernel/RouteK/Slots/Symbols.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9076/9276] Replayed ZInQKernel.RouteK.Rank5b.Bordered
+warning: ZInQKernel/RouteK/Rank5b/Bordered.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9077/9276] Replayed ZInQKernel.Hypotheses.PrimePattern
+warning: ZInQKernel/Hypotheses/PrimePattern.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9079/9276] Replayed ZInQKernel.Hypotheses.MordellWeil
+warning: ZInQKernel/Hypotheses/MordellWeil.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9084/9276] Replayed ZInQKernel.Syntax.Constants.PrimorialLiteral
+warning: ZInQKernel/Syntax/Constants/PrimorialLiteral.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9085/9276] Replayed ZInQKernel.Hypotheses.Height
+warning: ZInQKernel/Hypotheses/Height.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9094/9276] Replayed ZInQKernel.Model.Field.Residues
+warning: ZInQKernel/Model/Field/Residues.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9114/9282] Replayed ZInQKernel.Model.Descent.Factor
+warning: ZInQKernel/Model/Descent/Factor.lean:192:25: Unused tactic linter: `push_cast at h` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9121/9282] Built ZInQ.BinomialDigit (1.3s)
+⚠ [9122/9286] Built ZInQ.PoleValuation (1.7s)
+warning: ZInQ/PoleValuation.lean:234:30: Variable name `hp2` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp2
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9124/9286] Replayed ZInQKernel.Model.Descent.Residue
+warning: ZInQKernel/Model/Descent/Residue.lean:128:22: Variable name `hx` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hx
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Model/Descent/Residue.lean:162:25: Unused tactic linter: `push_cast at hx` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9133/9298] Replayed ZInQKernel.Model.Descent.KernelReduction
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:52:0: automatically included section variable(s) unused in theorem `ZInQ.sum_t_identity`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:65:0: automatically included section variable(s) unused in theorem `ZInQ.tw_equation`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:217:0: automatically included section variable(s) unused in theorem `ZInQ.kernel_third_point`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/KernelReduction.lean:323:49: This simp argument is unused:
+  shortCurve_negY
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9134/9298] Replayed ZInQKernel.Model.Descent.Reduction
+warning: ZInQKernel/Model/Descent/Reduction.lean:65:12: Variable name `y` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _y
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:97:0: automatically included section variable(s) unused in theorem `ZInQ.red_add_of_slope`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:59: This simp argument is unused:
+  shortCurve_a₁
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₃, zero_mul, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:74: This simp argument is unused:
+  shortCurve_a₃
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, zero_mul, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:122:89: This simp argument is unused:
+  zero_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, shortCurve_a₃, sub_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:123:4: This simp argument is unused:
+  sub_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Affine.addY, Affine.negAddY, shortCurve_negY, shortCurve_a₁, shortCurve_a₃, zero_mul]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:168:0: automatically included section variable(s) unused in theorem `ZInQ.not_vge_addX`:
+  hA
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hA in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:181:0: automatically included section variable(s) unused in theorem `ZInQ.add_of_red_opp`:
+  [(shortCurve A).IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [(shortCurve A).IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Model/Descent/Reduction.lean:479:60: Variable name `hT` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hT
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9160/9298] Replayed ZInQKernel.Multiplication.Local.FormalLogarithm
+warning: ZInQKernel/Multiplication/Local/FormalLogarithm.lean:92:0: automatically included section variable(s) unused in theorem `ZInQ.Mult.ellLog_neg`:
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9163/9298] Built ZInQ.RationalPositiveGuard (1.8s)
+⚠ [9164/9298] Replayed ZInQKernel.Syntax.Language.Gadgets
+warning: ZInQKernel/Syntax/Language/Gadgets.lean: imports `ZInQ.RationalPositiveGuard` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9178/9298] Replayed ZInQKernel.Compiler.Circuits.Compilation
+warning: ZInQKernel/Compiler/Circuits/Compilation.lean:397:6: Variable name `s` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _s
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9179/9298] Built ZInQ.BitwiseMacros (1.7s)
+⚠ [9181/9298] Replayed ZInQKernel.Compiler.Circuits.Builder
+warning: ZInQKernel/Compiler/Circuits/Builder.lean:255:78: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Circuits/Builder.lean:255:78: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9183/9298] Replayed ZInQKernel.Compiler.Circuits.Packed.Digits
+warning: ZInQKernel/Compiler/Circuits/Packed/Digits.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9197/9395] Replayed ZInQKernel.Compiler.Circuits.Packed.Counts
+warning: ZInQKernel/Compiler/Circuits/Packed/Counts.lean:129:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/Compiler/Circuits/Packed/Counts.lean:129:28: Unused tactic linter: `simp` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9202/9395] Replayed ZInQKernel.Compiler.Circuits.Scope
+warning: ZInQKernel/Compiler/Circuits/Scope.lean:127:52: This simp argument is unused:
+  s'
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9204/9395] Replayed ZInQKernel.Syntax.Recipes.Arith
+warning: ZInQKernel/Syntax/Recipes/Arith.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9205/9395] Replayed ZInQKernel.Model.DivisionPolynomials.Defs
+warning: ZInQKernel/Model/DivisionPolynomials/Defs.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9208/9395] Replayed ZInQKernel.Model.DivisionPolynomials.Algebra
+warning: ZInQKernel/Model/DivisionPolynomials/Algebra.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9217/9395] Replayed ZInQKernel.Multiplication.Completeness.WeakApproximation
+warning: ZInQKernel/Multiplication/Completeness/WeakApproximation.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9219/9395] Replayed ZInQKernel.Multiplication.Completeness.ShiftChoice
+warning: ZInQKernel/Multiplication/Completeness/ShiftChoice.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9221/9395] Replayed ZInQKernel.Multiplication.Soundness.HeightConstants
+warning: ZInQKernel/Multiplication/Soundness/HeightConstants.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9222/9395] Replayed ZInQKernel.Multiplication.Soundness.BoxInequality
+warning: ZInQKernel/Multiplication/Soundness/BoxInequality.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9223/9395] Replayed ZInQKernel.Compiler.Translation.FourSquares
+warning: ZInQKernel/Compiler/Translation/FourSquares.lean: imports `Mathlib.NumberTheory.SumFourSquares` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9224/9395] Replayed ZInQKernel.Compiler.Translation.Points
+warning: ZInQKernel/Compiler/Translation/Points.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9225/9395] Replayed ZInQKernel.Compiler.Precision.Encoding
+warning: ZInQKernel/Compiler/Precision/Encoding.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9233/9421] Built ZInQ.AlphaSignedResidue (914ms)
+⚠ [9239/9421] Replayed ZInQKernel.Compiler.Programs.Runs
+warning: ZInQKernel/Compiler/Programs/Runs.lean:161:88: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:168:86: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:161:88: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:168:86: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:197:76: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Compiler/Programs/Runs.lean:197:76: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9242/9421] Replayed ZInQKernel.Compiler.Programs.LoweringCorrect
+warning: ZInQKernel/Compiler/Programs/LoweringCorrect.lean:357:23: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9246/9421] Replayed ZInQKernel.Compiler.Programs.SignedSpec
+warning: ZInQKernel/Compiler/Programs/SignedSpec.lean:221:5: Variable name `hf` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hf
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9255/9465] Replayed ZInQKernel.Compiler.Interpreter.TapeLists
+warning: ZInQKernel/Compiler/Interpreter/TapeLists.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9260/9512] Built ZInQ.AlphaCRTWitness (818ms)
+⚠ [9264/9512] Replayed ZInQKernel.Assembly.Real.Accumulation
+warning: ZInQKernel/Assembly/Real/Accumulation.lean:31:0: automatically included section variable(s) unused in theorem `ZInQ.Assembly.shortCurve_map`:
+  [DecidableEq F]
+  [DecidableEq K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq F] [DecidableEq K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9279/9512] Replayed ZInQKernel.Size.Constants.Pow
+warning: ZInQKernel/Size/Constants/Pow.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9280/9512] Replayed ZInQKernel.Size.Constants.Closed
+warning: ZInQKernel/Size/Constants/Closed.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9288/9512] Replayed ZInQKernel.Size.Majorants.Towers
+warning: ZInQKernel/Size/Majorants/Towers.lean: imports `ZInQ.NumericalTowerBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Size/Majorants/Towers.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9289/9531] Built ZInQ.ModelDuplicationBounds (2.2s)
+⚠ [9290/9531] Replayed ZInQKernel.Model.Heights.DuplicationForms
+warning: ZInQKernel/Model/Heights/DuplicationForms.lean: imports `ZInQ.ModelDuplicationBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9301/9531] Built ZInQ.AlphaCore (2.2s)
+⚠ [9306/9531] Replayed ZInQKernel.Compiler.Translation.NaturalCode
+warning: ZInQKernel/Compiler/Translation/NaturalCode.lean:87:2: Unused tactic linter: `change (∃ y : ℕ → ℚ, (∀ i : Fin 5, y i = A i) ∧ _) ↔ _` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9310/9531] Replayed ZInQKernel.Progressions.IdealCount.Basic
+warning: ZInQKernel/Progressions/IdealCount/Basic.lean: imports `Mathlib.NumberTheory.NumberField.DedekindZeta` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9312/9531] Replayed ZInQKernel.Progressions.IdealCount.Splitting
+warning: ZInQKernel/Progressions/IdealCount/Splitting.lean: imports `Mathlib.NumberTheory.LegendreSymbol.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9313/9531] Replayed ZInQKernel.Progressions.IdealCount.ZetaFactor
+warning: ZInQKernel/Progressions/IdealCount/ZetaFactor.lean: imports `Mathlib.NumberTheory.EulerProduct.DirichletLSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Progressions/IdealCount/ZetaFactor.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9315/9531] Replayed ZInQKernel.Progressions.Final.RealLimit
+warning: ZInQKernel/Progressions/Final/RealLimit.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9316/9531] Replayed ZInQKernel.Progressions.QuadField.Basic
+warning: ZInQKernel/Progressions/QuadField/Basic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9323/9531] Replayed ZInQKernel.Progressions.RealChar.Hensel
+warning: ZInQKernel/Progressions/RealChar/Hensel.lean: imports `Mathlib.NumberTheory.LegendreSymbol.QuadraticReciprocity` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9324/9531] Replayed ZInQKernel.Progressions.RealChar.Local
+warning: ZInQKernel/Progressions/RealChar/Local.lean: imports `Mathlib.NumberTheory.DirichletCharacter.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9326/9531] Built ZInQ.ExplicitCutoffBounds (1.5s)
+✔ [9327/9531] Built ZInQ.PrecisionArithmetic (845ms)
+✔ [9328/9531] Built ZInQ.CantorDecoder (779ms)
+✔ [9329/9531] Built ZInQ.AlphaPowerModulus (1.1s)
+✔ [9330/9531] Built ZInQ.AlphaParity (1.2s)
+⚠ [9331/9533] Replayed ZInQKernel.Syntax.Constants.Fixed
+warning: ZInQKernel/Syntax/Constants/Fixed.lean: imports `ZInQ.ExplicitCutoffBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9332/9533] Replayed ZInQKernel.Multiplication.Certificate.TestGroup
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:320:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:321:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:322:55: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:323:59: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:320:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:321:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:322:55: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Multiplication/Certificate/TestGroup.lean:323:59: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+✔ [9333/9533] Built ZInQ.AlphaCompanionBound (1.3s)
+⚠ [9334/9533] Replayed ZInQKernel.Assembly.Values.Chains
+warning: ZInQKernel/Assembly/Values/Chains.lean:91:74: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Assembly/Values/Chains.lean:91:74: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9335/9533] Replayed ZInQKernel.Compiler.Precision.Threshold
+warning: ZInQKernel/Compiler/Precision/Threshold.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Precision/Threshold.lean: imports `ZInQ.PrecisionArithmetic` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9338/9533] Replayed ZInQKernel.Compiler.Programs.Cantor
+warning: ZInQKernel/Compiler/Programs/Cantor.lean: imports `ZInQ.CantorDecoder` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Programs/Cantor.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9339/9533] Built ZInQ.RationalSeparation (1.6s)
+⚠ [9340/9533] Replayed ZInQKernel.Progressions.RealChar.Classification
+warning: ZInQKernel/Progressions/RealChar/Classification.lean: imports `Mathlib.NumberTheory.LSeries.PrimesInAP` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9353/9579] Replayed ZInQKernel.Multiplication.Certificate.Slope
+warning: ZInQKernel/Multiplication/Certificate/Slope.lean:119:58: This simp argument is unused:
+  map_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [slopeContact, contactPoly, map_mul, map_add, ev_ofNat, add_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+✔ [9356/9579] Built ZInQ.AlphaUnordered (1.3s)
+⚠ [9371/9579] Replayed ZInQKernel.Progressions.LSeries.CharSum
+warning: ZInQKernel/Progressions/LSeries/CharSum.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9377/9579] Replayed ZInQKernel.Progressions.Mertens.First
+warning: ZInQKernel/Progressions/Mertens/First.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9378/9579] Replayed ZInQKernel.Progressions.Mertens.Defs
+warning: ZInQKernel/Progressions/Mertens/Defs.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9381/9579] Replayed ZInQKernel.Progressions.Mertens.PrimePowers
+warning: ZInQKernel/Progressions/Mertens/PrimePowers.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9390/9579] Replayed ZInQKernel.Compiler.NodeCheck.Packed
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:22:37: This simp argument is unused:
+  ih
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:95:17: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:122:72: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [eraseF]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:125:14: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:140:30: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:144:30: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:149:29: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:158:72: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Packed.incHandles, incHandles, List.map_map, Function.comp_def]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:178:30: This simp argument is unused:
+  getD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [h1, h2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:218:39: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:234:12: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:252:16: This simp argument is unused:
+  getLastD_map_node
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [eraseF]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:262:20: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:272:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:276:47: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:290:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:294:26: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:305:13: This simp argument is unused:
+  id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← getD_map_node]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:312:55: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+warning: ZInQKernel/Compiler/NodeCheck/Packed.lean:335:6: Local variable 'zero' resembles constructor 'Nat.zero' - write '.zero' (with a dot) or 'Nat.zero' to use the constructor.
+
+Note: This linter can be disabled with `set_option linter.constructorNameAsVariable false`
+⚠ [9391/9579] Replayed ZInQKernel.External.GreenTaoDense.Window
+warning: ZInQKernel/External/GreenTaoDense/Window.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/External/GreenTaoDense/Window.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/External/GreenTaoDense/Window.lean: imports `Mathlib.Analysis.SpecificLimits.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/External/GreenTaoDense/Window.lean: imports `Mathlib.NumberTheory.Bertrand` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9392/9579] Replayed ChallengeDeps
+warning: ThirdParty/GreenTao/ChallengeDeps.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9394/9579] Replayed Submission.Finite.Mean
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Algebra.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Data.Fintype.Card` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Finite/Mean.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9395/9579] Replayed Submission.ArithmeticProgression.Count
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean: imports `Mathlib.Algebra.Order.BigOperators.GroupWithZero.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/Count.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9396/9579] Replayed Submission.ArithmeticProgression.ShortInterval
+warning: ThirdParty/GreenTao/Submission/ArithmeticProgression/ShortInterval.lean: imports `Mathlib.Data.Int.ModEq` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9397/9592] Built ZInQ.AlphaParameterCongruence (1.1s)
+✔ [9398/9592] Built ZInQ.AlphaAddition (1.1s)
+⚠ [9401/9592] Replayed Submission.Primes.ReducedResidues
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Combinatorics.Pigeonhole` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Data.Nat.Totient` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/ReducedResidues.lean: imports `Mathlib.NumberTheory.Primorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9402/9592] Replayed Submission.Sieve.TruncatedDivisorSum
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Data.Nat.Totient` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.NumberTheory.ArithmeticFunction.Moebius` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.NumberTheory.Divisors` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/TruncatedDivisorSum.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9403/9592] Replayed Submission.Primes.WTrick
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean:82:29: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Primes/WTrick.lean:95:29: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9405/9592] Replayed Submission.GreenTao.Parameters
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/Parameters.lean: imports `Mathlib.Analysis.SpecificLimits.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9406/9592] Replayed Submission.Primes.Chebyshev
+warning: ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean: imports `Mathlib.NumberTheory.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Primes/Chebyshev.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9407/9592] Replayed Submission.Primes.WTrickDensity
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:625:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:670:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:699:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Primes/WTrickDensity.lean:721:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9414/9596] Replayed ZInQKernel.Compiler.Exponential.AlphaParameterCongruence
+warning: ZInQKernel/Compiler/Exponential/AlphaParameterCongruence.lean: imports `ZInQ.AlphaParameterCongruence` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaParameterCongruence.lean: imports `ZInQ.AlphaAddition` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaParameterCongruence.lean: imports `Mathlib.Data.Int.GCD` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9415/9596] Built ZInQ.PrecisionAlgorithms (767ms)
+⚠ [9416/9596] Replayed ZInQKernel.Compiler.Precision.Saturation
+warning: ZInQKernel/Compiler/Precision/Saturation.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Precision/Saturation.lean: imports `ZInQ.PrecisionAlgorithms` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9424/9635] Replayed ZInQKernel.Assembly.Values.Close
+warning: ZInQKernel/Assembly/Values/Close.lean:159:32: This simp argument is unused:
+  Matrix.cons_val_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_one, Matrix.head_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Close.lean:159:54: This simp argument is unused:
+  Matrix.cons_val_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_zero, Matrix.head_cons]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Assembly/Values/Close.lean:159:75: This simp argument is unused:
+  Matrix.head_cons
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, ev_X, Matrix.cons_val_zero, Matrix.cons_val_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9426/9635] Replayed ZInQKernel.Assembly.Values.ValueTest
+warning: ZInQKernel/Assembly/Values/ValueTest.lean:24:16: This simp argument is unused:
+  QuadraticAlgebra.algebraMap_eq
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9427/9635] Replayed ZInQKernel.Compiler.Programs.FieldSpec
+warning: ZInQKernel/Compiler/Programs/FieldSpec.lean:269:69: Variable name `h` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _h
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+ℹ [9429/9635] Replayed ZInQKernel.Compiler.Programs.PointSpec
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:194:12: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+info: ZInQKernel/Compiler/Programs/PointSpec.lean:443:14: Try this:
+  [apply] ring_nf
+  
+  The `ring` tactic failed to close the goal. Use `ring_nf` to obtain a normal form.
+    
+  Note that `ring` works primarily in *commutative* rings. If you have a noncommutative ring, abelian group or module, consider using `noncomm_ring`, `abel` or `module` instead.
+⚠ [9431/9635] Replayed ZInQKernel.Compiler.Programs.CappedSpec
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:29:37: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:40:40: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:85:81: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Compiler/Programs/CappedSpec.lean:142:67: Variable name `hd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9439/9635] Replayed Submission.LinearForms.Basic
+warning: ThirdParty/GreenTao/Submission/LinearForms/Basic.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9441/9635] Replayed Submission.LinearForms.Geometry
+warning: ThirdParty/GreenTao/Submission/LinearForms/Geometry.lean: imports `Mathlib.Data.Int.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9442/9635] Replayed Submission.Sieve.CongruenceAverage
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Algebra.GCDMonoid.FinsetLemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Algebra.Order.BigOperators.Group.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Data.Fintype.BigOperators` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Data.Fintype.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Logic.Equiv.Fin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CongruenceAverage.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9444/9635] Replayed Submission.Sieve.LocalFactors
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.Algebra.Field.ZMod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.GroupTheory.Index` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean: imports `Mathlib.LinearAlgebra.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean:181:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/LocalFactors.lean:236:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9446/9635] Replayed Submission.Sieve.SmoothCutoff
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.BumpFunction.InnerProduct` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.ContDiff.Deriv` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.Deriv.MeanValue` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.Analysis.Calculus.Deriv.Support` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.MeasureTheory.Integral.Bochner.Set` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoff.lean: imports `Mathlib.MeasureTheory.Integral.IntegralEqImproper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9447/9635] Replayed Submission.Sieve.SmoothMajorant
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothMajorant.lean:81:51: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9449/9635] Replayed Submission.Sieve.SmoothCutoffFourier
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourier.lean: imports `Mathlib.Analysis.Distribution.SchwartzSpace.Fourier` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourier.lean: imports `Mathlib.Tactic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9450/9635] Replayed Submission.Sieve.ZetaNearOne
+warning: ThirdParty/GreenTao/Submission/Sieve/ZetaNearOne.lean: imports `Mathlib.NumberTheory.Harmonic.ZetaAsymp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9451/9635] Replayed Submission.Sieve.FourierZetaParameters
+warning: ThirdParty/GreenTao/Submission/Sieve/FourierZetaParameters.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Complex` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9452/9635] Replayed Submission.Sieve.SmoothCutoffFourierTail
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourierTail.lean: imports `Mathlib.MeasureTheory.Integral.IntegralEqImproper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9453/9635] Replayed Submission.Sieve.SmoothCutoffFourierProductTail
+warning: ThirdParty/GreenTao/Submission/Sieve/SmoothCutoffFourierProductTail.lean: imports `Mathlib.MeasureTheory.Integral.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9454/9635] Replayed Submission.Sieve.MultivariateFourierExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/MultivariateFourierExpansion.lean: imports `Mathlib.MeasureTheory.Integral.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9455/9635] Replayed Submission.Sieve.CyclicMajorant
+warning: ThirdParty/GreenTao/Submission/Sieve/CyclicMajorant.lean:69:30: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+⚠ [9456/9635] Replayed Submission.GreenTao.Majorization
+warning: ThirdParty/GreenTao/Submission/GreenTao/Majorization.lean:320:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/GreenTao/Majorization.lean:348:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9457/9635] Replayed Submission.GreenTao.DiagonalNegligibility
+warning: ThirdParty/GreenTao/Submission/GreenTao/DiagonalNegligibility.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9459/9635] Replayed Submission.GreenTao.CofinalPrimeModulusAssembly
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeModulusAssembly.lean: imports `Mathlib.Data.Nat.Prime.Infinite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9463/9635] Replayed Submission.Transference.CutDiscrepancy
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean: imports `Mathlib.Algebra.BigOperators.Fin` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean: imports `Mathlib.Data.Fin.Tuple.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/CutDiscrepancy.lean:99:21: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9465/9635] Replayed Submission.Transference.APCut
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.Data.Int.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.Data.ZMod.Units` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/APCut.lean: imports `Mathlib.RingTheory.Int.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9466/9635] Replayed Submission.Transference.SimplexTelescoping
+warning: ThirdParty/GreenTao/Submission/Transference/SimplexTelescoping.lean: imports `Mathlib.Algebra.BigOperators.Ring.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9469/9635] Replayed Submission.Transference.DenseModel
+warning: ThirdParty/GreenTao/Submission/Transference/DenseModel.lean: imports `Mathlib.Analysis.LocallyConvex.Separation` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9470/9635] Replayed Submission.Transference.PolynomialApproximation
+warning: ThirdParty/GreenTao/Submission/Transference/PolynomialApproximation.lean: imports `Mathlib.Topology.ContinuousMap.Weierstrass` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9473/9635] Replayed Submission.Transference.BoxNorm
+warning: ThirdParty/GreenTao/Submission/Transference/BoxNorm.lean:268:12: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9475/9635] Replayed Submission.Transference.StrongLinearForms
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean:353:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/StrongLinearForms.lean:379:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9477/9635] Replayed Submission.Transference.ConvolutionClosure
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:108:10: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:257:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:258:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:259:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:260:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:367:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:368:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:406:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Transference/ConvolutionClosure.lean:407:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9478/9635] Replayed Submission.Sieve.CyclicLinearFormsLimitAssembly
+warning: ThirdParty/GreenTao/Submission/Sieve/CyclicLinearFormsLimitAssembly.lean: imports `Mathlib.Order.Filter.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9480/9692] Replayed Submission.GreenTao.CofinalPrimeTransference
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Data.Nat.Prime.Factorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean: imports `Mathlib.Order.Filter.Finite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/GreenTao/CofinalPrimeTransference.lean:165:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9481/9692] Replayed Submission.GreenTao.ReducedResidueCofinalTransference
+warning: ThirdParty/GreenTao/Submission/GreenTao/ReducedResidueCofinalTransference.lean:136:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9482/9692] Replayed Submission.Hypergraph.ConditionalAverage
+warning: ThirdParty/GreenTao/Submission/Hypergraph/ConditionalAverage.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/ConditionalAverage.lean: imports `Mathlib.Order.Partition.Finpartition` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9486/9692] Replayed Submission.Hypergraph.Removal
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Removal.lean: imports `Mathlib.Data.Finset.Max` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9487/9692] Replayed Submission.Hypergraph.APRemoval
+warning: ThirdParty/GreenTao/Submission/Hypergraph/APRemoval.lean:123:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9488/9692] Replayed Submission.Hypergraph.OrderedPattern
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedPattern.lean:157:13: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+⚠ [9489/9692] Replayed Submission.Hypergraph.OrderedSimplexBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedSimplexBridge.lean: imports `Mathlib.Order.Hom.PowersetCard` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedSimplexBridge.lean:43:8: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+⚠ [9491/9692] Replayed Submission.Hypergraph.Regularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Regularity.lean:522:33: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/Regularity.lean:534:33: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9493/9692] Replayed Submission.Transference.SimplexCounting
+warning: ThirdParty/GreenTao/Submission/Transference/SimplexCounting.lean: imports `Mathlib.Algebra.Order.BigOperators.Expect` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9505/9692] Replayed Submission.Transference.ProjectedFaceCutClosure
+warning: ThirdParty/GreenTao/Submission/Transference/ProjectedFaceCutClosure.lean:360:12: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+⚠ [9510/9692] Replayed Submission.Transference.RelativeCountingDecoderStep
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:504:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:816:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:842:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:854:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:947:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:1216:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderStep.lean:1301:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+⚠ [9511/9692] Replayed Submission.Transference.RelativeCountingDecoderTerminal
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:573:10: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:729:17: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingDecoderTerminal.lean:941:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9512/9692] Replayed Submission.Transference.RelativeCountingHeterogeneousMask
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:600:24: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:602:24: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ThirdParty/GreenTao/Submission/Transference/RelativeCountingHeterogeneousMask.lean:781:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9518/9692] Replayed Submission.Hypergraph.HypergraphBundleDuplication
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:165:34: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:173:34: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:196:34: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleDuplication.lean:204:34: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9519/9692] Replayed Submission.Hypergraph.FamilyRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:47:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_nonneg`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:56:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_le_card`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:71:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.familyEnergy_mono`:
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:124:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.exists_index_booleanCut_of_not_familyRegular`:
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:182:39: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:198:39: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/FamilyRegularity.lean:517:0: automatically included section variable(s) unused in theorem `Submission.GreenTao.FaceRegularityState.isFaceCutRegularFamily_of_familyRegularAgainst_supports`:
+  [Fintype ι]
+  [DecidableEq ι]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype ι] [DecidableEq ι] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+⚠ [9520/9692] Replayed Submission.Hypergraph.GeneratorCells
+warning: ThirdParty/GreenTao/Submission/Hypergraph/GeneratorCells.lean:48:51: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9524/9692] Replayed Submission.Hypergraph.OrderedCellLifting
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedCellLifting.lean: imports `Mathlib.Data.Fin.Tuple.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9527/9692] Replayed Submission.Hypergraph.PreliminaryOrderedRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:567:49: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:586:47: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:874:49: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/PreliminaryOrderedRegularity.lean:877:49: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9529/9692] Replayed Submission.Hypergraph.OrderedEnergy
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedEnergy.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9531/9736] Built ZInQ.AlphaPowerBounds (1.2s)
+⚠ [9532/9736] Replayed ZInQKernel.Compiler.Exponential.AlphaGrowth
+warning: ZInQKernel/Compiler/Exponential/AlphaGrowth.lean: imports `ZInQ.AlphaPowerBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9535/9736] Replayed Submission.Hypergraph.CoarseAtomBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseAtomBridge.lean: imports `Mathlib.Algebra.Order.Chebyshev` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9538/9736] Replayed Submission.Hypergraph.OrderedConfigurationCounting
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:259:8: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:515:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1499:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1512:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1561:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1563:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1585:40: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1613:40: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/OrderedConfigurationCounting.lean:1621:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9539/9736] Replayed Submission.Hypergraph.CoarseConfigurationCounting
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:829:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:842:4: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:891:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:893:6: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:913:45: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:941:45: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseConfigurationCounting.lean:949:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9542/9736] Replayed Submission.Hypergraph.HypergraphBundleConfigurationBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean: imports `Mathlib.Data.Fin.Tuple.Finset` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:116:5: `OrderEmbedding.range_inj` has been deprecated: Use `OrderEmbedding.range_inj_of_wellFoundedLT` instead
+
+Hint: Replace the deprecated name:
+  OrderEmbedding.range_inj_̲o̲f̲_̲w̲e̲l̲l̲F̲o̲u̲n̲d̲e̲d̲L̲T̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:340:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:341:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:431:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:433:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:453:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:455:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:509:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:514:13: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:529:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationBridge.lean:531:17: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9546/9736] Replayed Submission.Hypergraph.HypergraphBundleConfigurationStep
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:149:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:150:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:176:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleConfigurationStep.lean:177:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9548/9736] Replayed Submission.Hypergraph.HypergraphBundleFrozenCut
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleFrozenCut.lean:150:40: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9553/9736] Replayed Submission.Hypergraph.StrongOrderedComplexRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StrongOrderedComplexRegularity.lean:883:33: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StrongOrderedComplexRegularity.lean:883:33: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [9554/9736] Replayed Submission.Hypergraph.CoarseTargetRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRegularity.lean:420:33: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRegularity.lean:420:33: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [9555/9736] Replayed Submission.Hypergraph.AdaptiveCoarseTargetRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:661:46: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:691:18: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:749:18: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:691:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:749:28: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveCoarseTargetRegularity.lean:661:46: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+⚠ [9562/9736] Replayed Submission.Hypergraph.HypergraphBundleSourceGoodnessBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:667:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:669:15: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:742:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:743:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:744:6: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HypergraphBundleSourceGoodnessBridge.lean:750:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9571/9736] Replayed Submission.Hypergraph.AggregateGeneratedCellRemoval
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AggregateGeneratedCellRemoval.lean:164:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9575/9736] Replayed Submission.Hypergraph.HierarchicalGoodAtoms
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HierarchicalGoodAtoms.lean:61:28: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9576/9736] Replayed Submission.Hypergraph.HierarchicalParameterSelection
+warning: ThirdParty/GreenTao/Submission/Hypergraph/HierarchicalParameterSelection.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9579/9736] Replayed Submission.Hypergraph.CoarseTargetRankwiseRemovalBridge
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:78:12: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:106:60: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:80:10: Unused tactic linter: `all_goals rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRankwiseRemovalBridge.lean:80:20: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+⚠ [9580/9736] Replayed Submission.Hypergraph.CoarseTargetRemovalScheduleBase
+warning: ThirdParty/GreenTao/Submission/Hypergraph/CoarseTargetRemovalScheduleBase.lean:88:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9581/9736] Replayed Submission.Hypergraph.RankwiseStageShiftedRegularity
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1202:4: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1288:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankwiseStageShiftedRegularity.lean:1294:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9583/9794] Built ZInQ.AlphaIndexCompanion (1.4s)
+⚠ [9584/9794] Replayed ZInQKernel.Compiler.Exponential.AlphaPell
+warning: ZInQKernel/Compiler/Exponential/AlphaPell.lean: imports `ZInQ.AlphaIndexCompanion` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9585/9794] Replayed Submission.Hypergraph.StoppingTimeRemovalSelector
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:89:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:90:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:91:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:228:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:229:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Hypergraph/StoppingTimeRemovalSelector.lean:230:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9589/9794] Replayed Submission.Hypergraph.AdaptiveRegularityParameterSchedule
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:379:6: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:393:8: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/AdaptiveRegularityParameterSchedule.lean:398:8: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9593/9794] Replayed Submission.Hypergraph.RankPrefixWeightedRemovalExtension
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:406:6: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:406:18: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:414:6: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ThirdParty/GreenTao/Submission/Hypergraph/RankPrefixWeightedRemovalExtension.lean:414:18: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9597/9794] Replayed Submission.Sieve.PairedDivisibilityCRT
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedDivisibilityCRT.lean: imports `Mathlib.Data.ZMod.QuotientRing` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedDivisibilityCRT.lean:146:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+⚠ [9598/9794] Replayed Submission.Sieve.PairedLocalFactors
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedLocalFactors.lean: imports `Mathlib.Data.Nat.GCD.Prime` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PairedLocalFactors.lean: imports `Mathlib.Data.Nat.Squarefree` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9599/9794] Replayed Submission.Sieve.GoodPrimeAffineRank
+warning: ThirdParty/GreenTao/Submission/Sieve/GoodPrimeAffineRank.lean:191:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9601/9794] Replayed Submission.Sieve.EulerProductControl
+warning: ThirdParty/GreenTao/Submission/Sieve/EulerProductControl.lean: imports `Mathlib.Analysis.SpecialFunctions.Log.Summable` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/EulerProductControl.lean: imports `Mathlib.NumberTheory.SumPrimeReciprocals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9602/9794] Replayed Submission.Sieve.CFZEulerProductControl
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZEulerProductControl.lean:283:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZEulerProductControl.lean:306:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9603/9794] Replayed Submission.Sieve.ComplexLocalFactorControl
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexLocalFactorControl.lean:921:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9604/9794] Replayed Submission.Sieve.ComplexEulerProductTail
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductTail.lean: imports `Mathlib.Analysis.Normed.Ring.InfiniteProd` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9605/9794] Replayed Submission.Sieve.PrimeHarmonicProductBound
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Analysis.Complex.ExponentialBounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Analysis.SpecialFunctions.ImproperIntegrals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.NumberTheory.EulerProduct.DirichletLSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.NumberTheory.Harmonic.Bounds` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/PrimeHarmonicProductBound.lean: imports `Mathlib.Topology.Algebra.InfiniteSum.Field` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9608/9794] Replayed Submission.Sieve.CutoffNormalizerIntegral
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerIntegral.lean: imports `Mathlib.Analysis.SpecialFunctions.ImproperIntegrals` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerIntegral.lean: imports `Mathlib.MeasureTheory.Integral.Prod` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9609/9794] Replayed Submission.Sieve.CutoffNormalizerProduct
+warning: ThirdParty/GreenTao/Submission/Sieve/CutoffNormalizerProduct.lean: imports `Mathlib.MeasureTheory.Integral.Pi` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9611/9794] Replayed Submission.Sieve.ZetaEulerProductIdentification
+warning: ThirdParty/GreenTao/Submission/Sieve/ZetaEulerProductIdentification.lean: imports `Mathlib.NumberTheory.EulerProduct.DirichletLSeries` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9613/9794] Replayed Submission.Sieve.ComplexEulerProductComparison
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:216:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:398:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:496:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/ComplexEulerProductComparison.lean:583:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9615/9794] Replayed Submission.Sieve.WTrickedGoodPrime
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedGoodPrime.lean:110:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedGoodPrime.lean:125:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9616/9794] Replayed Submission.Sieve.CFZCongruenceBoundary
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCongruenceBoundary.lean:789:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9617/9794] Replayed Submission.Sieve.SelectedCFZAffineLocalProduct
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZAffineLocalProduct.lean:59:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9618/9794] Replayed Submission.Sieve.SelectedCFZDivisorEulerBridge
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:82:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:217:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:261:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/SelectedCFZDivisorEulerBridge.lean:288:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9619/9794] Replayed Submission.Sieve.CFZCarryBlockBoundary
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryBlockBoundary.lean: imports `Mathlib.Data.Int.Interval` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9621/9794] Replayed Submission.Sieve.CFZCarryBlockEulerBridge
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryBlockEulerBridge.lean:656:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9622/9794] Replayed Submission.Sieve.CFZCanonicalCarryCellDiscrepancy
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:190:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:192:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:296:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryCellDiscrepancy.lean:298:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9625/9794] Replayed Submission.Sieve.CFZCarryDivisorExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryDivisorExpansion.lean:152:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9627/9794] Replayed Submission.Sieve.CFZCarryFourierTailBound
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:159:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:161:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:335:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:337:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1141:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailBound.lean:1145:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9629/9794] Replayed Submission.Sieve.CFZCarryFourierTailPolylog
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:50:13: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:708:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryFourierTailPolylog.lean:713:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9630/9794] Replayed Submission.Sieve.CFZCarryEulerTail
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:269:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerTail.lean:270:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9631/9794] Replayed Submission.Sieve.WTrickedEulerCorrection
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean: imports `Mathlib.NumberTheory.PrimeCounting` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:80:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:102:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/WTrickedEulerCorrection.lean:182:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9632/9794] Replayed Submission.Sieve.CFZCarryEulerFactorization
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:106:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:107:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:130:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCarryEulerFactorization.lean:131:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9636/9794] Replayed Submission.Sieve.UnrestrictedPrimeSupportEulerSeries
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:292:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:422:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:444:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:577:16: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ThirdParty/GreenTao/Submission/Sieve/UnrestrictedPrimeSupportEulerSeries.lean:615:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9637/9794] Replayed Submission.Sieve.CFZCanonicalDivisorExpansion
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:164:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:441:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorExpansion.lean:473:10: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9640/9794] Replayed Submission.Sieve.CFZCanonicalDivisorRankinMassPolylog
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:105:10: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:216:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:259:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalDivisorRankinMassPolylog.lean:479:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9643/9794] Replayed Submission.Sieve.CFZCanonicalEulerCompletion
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:569:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletion.lean:1346:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9644/9794] Replayed Submission.Sieve.CFZCanonicalEulerCompletionTail
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1423:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1428:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1475:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalEulerCompletionTail.lean:1480:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9645/9857] Built ZInQ.AlphaLargeOddPair (1.2s)
+⚠ [9646/9857] Replayed Submission.Sieve.CFZCanonicalCyclicBoundaryLimit
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:76:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:831:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:834:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCyclicBoundaryLimit.lean:890:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9648/9857] Replayed Submission.Sieve.CFZCanonicalCarryFourierNormalization
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:131:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:263:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:284:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCarryFourierNormalization.lean:500:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9649/9857] Replayed Submission.Sieve.CFZCanonicalCompleteMainTermBridge
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCompleteMainTermBridge.lean:935:6: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZCanonicalCompleteMainTermBridge.lean:939:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9652/9857] Replayed Submission.Sieve.CFZUniformFiniteFourierCorrection
+warning: ThirdParty/GreenTao/Submission/Sieve/CFZUniformFiniteFourierCorrection.lean:74:24: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+⚠ [9653/9857] Replayed Submission.Sieve.StandardCyclicLinearForms
+warning: ThirdParty/GreenTao/Submission/Sieve/StandardCyclicLinearForms.lean:316:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9659/9857] Replayed ZInQKernel.Density.Abel
+warning: ZInQKernel/Density/Abel.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9660/9857] Replayed ZInQKernel.Density.CharSum
+warning: ZInQKernel/Density/CharSum.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9662/9857] Replayed ZInQKernel.Density.Residues
+warning: ZInQKernel/Density/Residues.lean:56:15: Variable name `ℓ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ℓ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9666/9857] Replayed ZInQKernel.Density.GaussSieve.Local
+warning: ZInQKernel/Density/GaussSieve/Local.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9667/9857] Replayed ZInQKernel.Density.GaussSieve.Box
+warning: ZInQKernel/Density/GaussSieve/Box.lean:95:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Box.lean:96:51: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [9668/9857] Replayed ZInQKernel.Sieve.AuxResults
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Algebra.Order.Antidiag.Nat` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Analysis.SpecialFunctions.Integrals.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.Analysis.SumIntegralComparisons` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/AuxResults.lean: imports `Mathlib.NumberTheory.ArithmeticFunction.Moebius` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9669/9857] Replayed ZInQKernel.Sieve.Basic
+warning: ZInQKernel/Sieve/Basic.lean: imports `Mathlib.NumberTheory.SelbergSieve` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9671/9857] Replayed ZInQKernel.Sieve.SelbergBounds
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.NumberTheory.Primorial` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.Analysis.Asymptotics.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Sieve/SelbergBounds.lean: imports `Mathlib.Analysis.SpecialFunctions.Pow.Asymptotics` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9672/9857] Replayed ZInQKernel.Density.GaussSieve.Harmonic
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:251:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:258:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:298:20: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:303:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:309:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:311:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:302:35: This simp argument is unused:
+  Nat.lt_succ_iff
+
+Hint: Omit it from the simp argument list.
+  [apply] simp at hj
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:325:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:325:20: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:327:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:327:45: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:340:49: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:345:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:445:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:445:27: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:452:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:454:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:454:44: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:453:16: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Harmonic.lean:453:16: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9673/9857] Replayed ZInQKernel.Density.GaussSieve.SelbergSum
+warning: ZInQKernel/Density/GaussSieve/SelbergSum.lean:235:4: Unused tactic linter: `push_cast at hl ⊢` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+⚠ [9674/9857] Replayed ZInQKernel.Density.GaussSieve.Instance
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:53:26: `Prime.dvd_finset_prod_iff` has been deprecated: Use `Prime.dvd_finsetProd_iff` instead
+
+Hint: Replace the deprecated name:
+  Prime.dvd_finset_̵p̵P̲rod_iff
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:106:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:107:38: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:202:10: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:204:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:214:10: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:215:47: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:216:47: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:203:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:217:54: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:203:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:217:54: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:254:25: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/Density/GaussSieve/Instance.lean:263:21: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+⚠ [9675/9857] Replayed ZInQKernel.Density.GaussSieve
+warning: ZInQKernel/Density/GaussSieve.lean:76:8: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:76:19: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:78:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Density/GaussSieve.lean:343:27: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+✔ [9679/9858] Built ZInQ.AlphaDivisibility (1.2s)
+✔ [9680/9858] Built ZInQ.AlphaWitnessTransport (1.2s)
+⚠ [9681/9858] Built ZInQ.AlphaCompanionPeriod (1.3s)
+warning: ZInQ/AlphaCompanionPeriod.lean:63:56: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9682/9858] Built ZInQ.PowerBoundDraft (1.3s)
+⚠ [9683/9860] Built ZInQ.AlphaSquareDivisibilityDraft (1.4s)
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:24:48: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQ/AlphaSquareDivisibilityDraft.lean:76:24: Variable name `hB` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hB
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9684/9861] Built ZInQ.AlphaPeriodReflection (1.2s)
+✔ [9685/9865] Built ZInQ.AlphaSquareBridgeDraft (1.2s)
+✔ [9686/9866] Built ZInQ.AlphaFoldedResidue (1.3s)
+✔ [9687/9866] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Equiv.Basic (1.2s)
+✔ [9688/9866] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Eigenspace.Separation (1.4s)
+✔ [9689/9868] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.AtkinLehner.Normalizer (1.1s)
+⚠ [9690/9868] Built ZInQKernel.Compiler.Exponential.AlphaEquations (2.4s)
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaUnordered` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaIndexCompanion` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaSquareBridgeDraft` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaFoldedResidue` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaSignedResidue` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaCompanionBound` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaLargeOddPair` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaWitnessTransport` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/AlphaEquations.lean: imports `ZInQ.AlphaCRTWitness` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9691/9868] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.MoebiusAction (1.7s)
+⚠ [9692/9868] Built ZInQKernel.Compiler.Exponential.PowerEquations (2.4s)
+warning: ZInQKernel/Compiler/Exponential/PowerEquations.lean: imports `ZInQ.AlphaPowerModulus` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Exponential/PowerEquations.lean: imports `ZInQ.PowerBoundDraft` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9693/9870] Built ZInQKernel.Contrib.GaussFE.Gauss (9.1s)
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.NumberTheory.JacobiSum.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.NumberTheory.LegendreSymbol.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.NumberTheory.Zsqrtd.GaussianInt` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.NumberTheory.MulChar.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean: imports `Mathlib.GroupTheory.SpecificGroups.Cyclic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean:105:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.GaussFE.chi_pow_four`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean:121:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.GaussFE.chi_neg_one_sq`:
+  hχ
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hχ in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean:129:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.GaussFE.chi_ne_one`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean:133:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.GaussFE.chi_sq_ne_one`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/GaussFE/Gauss.lean:135:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.GaussFE.chi_cube_ne_one`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9694/9870] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Map (1.3s)
+✔ [9695/9876] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Basic (3.3s)
+✔ [9696/9876] Built ZInQKernel.Contrib.TauCeti.Data.Nat.GCD (710ms)
+✔ [9697/9876] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Basic (1.6s)
+✔ [9698/9880] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Divisibility (1.2s)
+✔ [9699/9886] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Units (1.2s)
+✔ [9700/9886] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.DoubleCoset (1.2s)
+✔ [9701/9886] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.Basic (1.8s)
+✔ [9702/9888] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Matrix (1.3s)
+✔ [9703/9888] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.Basic (2.5s)
+✔ [9704/9888] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CongruenceSubgroups.Basic (2.6s)
+✔ [9705/9888] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.EntireExtension (1.9s)
+✔ [9706/9892] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.SlashActionRat (2.0s)
+✔ [9707/9892] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CongruenceSubgroups.Units (1.3s)
+✔ [9708/9892] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Conjugation (2.3s)
+✔ [9709/9892] Built ZInQKernel.Contrib.TauCeti.Analysis.Asymptotics.MvPolynomial (1.2s)
+✔ [9710/9892] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Basic (1.9s)
+⚠ [9711/9896] Built ZInQKernel.Multiplication.Certificate.Parity (27s)
+warning: ZInQKernel/Multiplication/Certificate/Parity.lean: imports `ZInQ.PoleValuation` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9712/9896] Built ZInQKernel.Contrib.PSide.BadPrimes (24s)
+⚠ [9713/9896] Built ZInQKernel.Contrib.PSide.APZero (24s)
+warning: ZInQKernel/Contrib/PSide/APZero.lean: imports `Mathlib.NumberTheory.LegendreSymbol.QuadraticChar.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9714/9896] Built ZInQKernel.Contrib.PSide.Coeff (24s)
+✔ [9715/9896] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.GcdSplit (962ms)
+✔ [9716/9896] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.Basic (947ms)
+✔ [9717/9896] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.ResToImagAxis (2.3s)
+✔ [9718/9896] Built ZInQKernel.Contrib.HeckeAll.LocalCd (26s)
+✔ [9719/9896] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.DiamondOperators (3.1s)
+✔ [9720/9897] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.PrimePowerProd.Basic (1.3s)
+✔ [9721/9897] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.PrimePowerProd.DivisorTable (1.3s)
+✔ [9722/9905] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Operator (2.3s)
+✔ [9723/9905] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.ResToImagAxis (2.7s)
+✔ [9724/9905] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Basic (1.1s)
+✔ [9725/9909] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Involution (2.2s)
+✔ [9726/9909] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Coset.Basic (1.5s)
+✔ [9727/9910] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Basic (2.5s)
+✔ [9728/9911] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Basic (1.3s)
+✔ [9729/9911] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Delta0 (1.7s)
+✔ [9730/9912] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.CharacterSpace (2.3s)
+✔ [9731/9912] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Divisibility (1.2s)
+✔ [9732/9914] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Support (1.2s)
+✔ [9733/9914] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Unit (1.1s)
+✔ [9734/9914] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Equivalence (1.2s)
+✔ [9735/9914] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Basic (1.3s)
+✔ [9736/9914] Built ZInQKernel.Contrib.TauCeti.Data.Int.Fin2Tuple (865ms)
+✔ [9737/9915] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplication (1.2s)
+✔ [9738/9918] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Fricke.Normalized (2.7s)
+⚠ [9739/9918] Built ZInQKernel.Compiler.Circuits.MacroSemantics (28s)
+warning: ZInQKernel/Compiler/Circuits/MacroSemantics.lean: imports `ZInQ.BinomialDigit` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Compiler/Circuits/MacroSemantics.lean: imports `ZInQ.BitwiseMacros` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9740/9918] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.Equivalence (1.3s)
+✔ [9741/9918] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.DoubleCoset (1.7s)
+✔ [9742/9918] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Centralizer (791ms)
+✔ [9743/9922] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.One (1.0s)
+✔ [9744/9922] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Diagonal (1.2s)
+✔ [9745/9922] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.FunctionalEquation (2.2s)
+✔ [9746/9923] Built ZInQKernel.Assembly.Local.PoleObstruction (15s)
+✔ [9747/9923] Built ZInQKernel.Contrib.HeckeAll.Iso (14s)
+✔ [9748/9923] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.CosetMap (1.6s)
+⚠ [9749/9923] Built ZInQKernel.Contrib.PSide.Hasse (15s)
+warning: ZInQKernel/Contrib/PSide/Hasse.lean: imports `Mathlib.NumberTheory.JacobiSum.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9750/9923] Built ZInQKernel.RouteK.Slots.Theta (16s)
+✔ [9751/9923] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Associativity (1.7s)
+✔ [9752/9923] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Normalizer (1.0s)
+✔ [9753/9923] Built ZInQKernel.Contrib.TauCeti.Algebra.LinearRecurrence.OrderTwo (1.1s)
+✔ [9754/9925] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Diagonal.Basic (2.2s)
+✔ [9755/9925] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SmithNormalForm (5.5s)
+✔ [9756/9925] Built ZInQKernel.Compiler.Circuits.PowerTemplate (5.6s)
+⚠ [9757/9927] Built ZInQKernel.Compiler.Circuits.Exposed (4.9s)
+warning: ZInQKernel/Compiler/Circuits/Exposed.lean:45:50: Variable name `i` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _i
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9758/9927] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Normalizer (1.2s)
+✔ [9759/9927] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Commutativity (1.9s)
+✔ [9760/9927] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.DiagonalCosets (1.9s)
+✔ [9761/9933] Built ZInQKernel.Contrib.TauCeti.Data.Int.LinearCongruence (1.1s)
+✔ [9762/9933] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.TransposeAntiInvolution (1.3s)
+✔ [9763/9933] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Coset (1.5s)
+✔ [9764/9933] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.BadPrimeCoset (1.8s)
+✔ [9765/9934] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.CoprimeRepresentative (1.7s)
+✔ [9766/9934] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Elem (1.4s)
+✔ [9767/9934] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.ElementaryDivisors (2.1s)
+✔ [9768/9936] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.LinearExtension (1.3s)
+✔ [9769/9937] Built ZInQKernel.Compiler.Circuits.Packed.Scope (15s)
+✔ [9770/9937] Built ZInQKernel.Contrib.PSide.Supersingular (17s)
+✔ [9771/9940] Built ZInQKernel.Contrib.TauCeti.Algebra.BigOperators.Finset.Fiber (916ms)
+✔ [9772/9940] Built ZInQKernel.RouteK.Slots.Construction (17s)
+✔ [9773/9941] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.StabConjugation (1.1s)
+✔ [9774/9941] Built ZInQKernel.Assembly.Local.TestDivisibility (19s)
+✔ [9775/9941] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.AtkinLehner (2.7s)
+⚠ [9776/9941] Built ZInQKernel.Contrib.PSide.Convergence (18s)
+warning: ZInQKernel/Contrib/PSide/Convergence.lean: imports `Mathlib.NumberTheory.LSeries.Convolution` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/PSide/Convergence.lean: imports `Mathlib.NumberTheory.LSeries.Dirichlet` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/PSide/Convergence.lean: imports `Mathlib.NumberTheory.LSeries.Deriv` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9777/9941] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Inv (858ms)
+✔ [9778/9941] Built ZInQKernel.Compiler.Circuits.Packed.Semantics (15s)
+✔ [9779/9944] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Equiv (1.5s)
+✔ [9780/9944] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma1.Basic (1.3s)
+✔ [9781/9946] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.PrimePower (1.5s)
+✔ [9782/9946] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Handedness (1.0s)
+✔ [9783/9946] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.BoundedAtCusp (1.9s)
+✔ [9784/9946] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.PairCoset (1.7s)
+✔ [9785/9946] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Rat.Basic (2.1s)
+✔ [9786/9949] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.ScalarMul (1.7s)
+✔ [9787/9956] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Rat.Slash (1.5s)
+✔ [9788/9966] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Basic (2.0s)
+✔ [9789/9966] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Composite (1.6s)
+✔ [9790/9966] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Adjugate (1.3s)
+✔ [9791/9967] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Holomorphic (1.5s)
+✔ [9792/9972] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Cusps (1.5s)
+✔ [9793/9973] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.UpperUnit (1.3s)
+✔ [9794/9975] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Reindex (1.8s)
+✔ [9795/9975] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Divisibility (753ms)
+✔ [9796/9977] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.NebentypusChar (1.2s)
+✔ [9797/9977] Built ZInQKernel.Contrib.TauCeti.RingTheory.PowerSeries.Support (1.3s)
+✔ [9798/9977] Built ZInQKernel.Contrib.TauCeti.Topology.DiscreteSeparation (788ms)
+✔ [9799/9977] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Independence (2.1s)
+✔ [9800/9977] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Invariance (2.2s)
+✔ [9801/9978] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.Manifold (1.7s)
+✔ [9802/9980] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Basic (2.5s)
+✔ [9803/9981] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Form (1.8s)
+✔ [9804/9981] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.Measure (1.9s)
+✔ [9805/9982] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.ProjectiveSpecialLinearGroup (1.8s)
+✔ [9806/9982] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.ThirdIso (1.2s)
+✔ [9807/9982] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.ModularForm (3.0s)
+✔ [9808/9982] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Degeneracy (5.2s)
+✔ [9809/9982] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.PSL.Action (2.7s)
+✔ [9810/9987] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Gamma0 (1.8s)

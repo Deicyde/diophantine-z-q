@@ -118,6 +118,7 @@ def DimEqTrdeg : Prop :=
     letI := functionFieldAlgebra K X f
     topologicalKrullDim X = ((Algebra.trdeg K X.functionField).toENat : WithBot ℕ∞)
 
+/-- curve-infra's `DimEqTrdeg`, proved. -/
 theorem dimEqTrdeg : DimEqTrdeg := by
   intro K _ X _ f _
   exact topologicalKrullDim_eq_trdeg_functionField K X f

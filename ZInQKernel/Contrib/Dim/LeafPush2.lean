@@ -53,14 +53,17 @@ def CurveAlgOverTranscendental : Prop :=
     ∀ x : X.left.functionField, Transcendental K x →
       Algebra.IsAlgebraic (Algebra.adjoin K {x}) X.left.functionField
 
+/-- curve-infra's `DimEqTrdegOver`, proved. -/
 theorem dimEqTrdegOver : DimEqTrdegOver := by
   intro K _ X _ _
   exact topologicalKrullDim_eq_trdeg_functionField K X.left X.hom
 
+/-- curve-infra's `SmoothTrdegOver`, proved. -/
 theorem smoothTrdegOver : SmoothTrdegOver := by
   intro K _ X _ n _
   exact trdeg_functionField_eq_of_smoothOfRelativeDimension K X.left X.hom n
 
+/-- curve-infra's `CurveAlgOverTranscendental`, proved. -/
 theorem curveAlgOverTranscendental : CurveAlgOverTranscendental := by
   intro K _ X _ _
   let := ZInQ.LeafPush2.ffAlgebra X

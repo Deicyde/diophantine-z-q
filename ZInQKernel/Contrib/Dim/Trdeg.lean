@@ -109,10 +109,12 @@ def AlgDepOfTrdegOne : Prop :=
   ∀ (K F : Type) [Field K] [Field F] [Algebra K F], Algebra.trdeg K F = 1 →
     ∀ a b : F, ∃ P : MvPolynomial (Fin 2) K, P ≠ 0 ∧ MvPolynomial.aeval ![a, b] P = 0
 
+/-- curve-infra's `DimEqTrdegAlg`, proved. -/
 theorem dimEqTrdegAlg : DimEqTrdegAlg := by
   intro K R _ _ _ _ _
   exact ringKrullDim_eq_trdeg_fractionRing K R
 
+/-- curve-infra's `AlgDepOfTrdegOne`, proved. -/
 theorem algDepOfTrdegOne : AlgDepOfTrdegOne := by
   intro K F _ _ _ h
   exact exists_aeval_eq_zero_of_trdeg_le_one K F h.le

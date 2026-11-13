@@ -85,10 +85,12 @@ def CurveFnFieldAlgDep : Prop :=
     letI := functionFieldAlgebra K X f
     ∀ a b : X.functionField, ∃ P : MvPolynomial (Fin 2) K, P ≠ 0 ∧ MvPolynomial.aeval ![a, b] P = 0
 
+/-- curve-infra's `SmoothTrdeg`, proved. -/
 theorem smoothTrdeg : SmoothTrdeg := by
   intro K _ X _ f n _
   exact trdeg_functionField_eq_of_smoothOfRelativeDimension K X f n
 
+/-- curve-infra's `CurveFnFieldAlgDep`, proved. -/
 theorem curveFnFieldAlgDep : CurveFnFieldAlgDep := by
   intro K _ X _ f _
   exact exists_aeval_eq_zero_of_smoothOfRelativeDimension_one K X f
