@@ -6,7 +6,7 @@ import FSPrefix
 `HSyn.G0Split.FibreSimple` (scratch/g0-split/Split.lean, copied verbatim with everything it
 depends on in `FSPrefix.lean`) is proved below (`fibreSimple_of_pieces`) from
 
-* the leaf T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1; field `t27` of `ResearchLeaves`), and
+* the leaf T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1; field `t27` of `TextbookLeaves`), and
 * five named glue Props (`EndDivisionDescent`, `EndDivisionOfSchemeIso`,
   `EndDivisionOfEnd0Division`, `CentralizerOfMatrixEnd0`, `FibreComTrivial`),
 
@@ -34,7 +34,10 @@ theorem B6_isUnit (x : ℍ[ℚ, 2, -3]) (hx : x ≠ 0) : IsUnit x := by
     exact hx (QuaternionAlgebra.ext h1 h2 h3 h4)
   have hs : star x * x = algebraMap ℚ ℍ[ℚ, 2, -3] n := GlueDescent.B6_star_mul x
   have hs' : x * star x = algebraMap ℚ ℍ[ℚ, 2, -3] n := by
-    rw [← (QuaternionAlgebra.star_comm_self x).eq]; exact hs
+    rw [QuaternionAlgebra.mul_star_eq_coe]
+    congr 1
+    simp [QuaternionAlgebra.re_mul]
+    ring
   refine ⟨⟨x, n⁻¹ • star x, ?_, ?_⟩, rfl⟩
   · rw [mul_smul_comm, hs', Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
   · rw [smul_mul_assoc, hs, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
@@ -55,17 +58,23 @@ def oi : LeafQM.O := ⟨LeafQM.ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
 /-- `j = 2·(1+j)/2 - 1 ∈ 𝒪`. -/
 def oj : LeafQM.O := ⟨LeafQM.ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
 
+theorem coe_two_O : ((2 : LeafQM.O) : LeafQM.B) = 2 := map_ofNat LeafQM.O.subtype 2
+theorem coe_three_O : ((3 : LeafQM.O) : LeafQM.B) = 3 := map_ofNat LeafQM.O.subtype 3
+
 theorem oi_mul_oi : oi * oi = 2 := by
   apply Subtype.ext
-  ext <;> simp [oi, LeafQM.ofInt] <;> norm_num
+  rw [coe_two_O, Subring.coe_mul]
+  ext <;> simp [oi, LeafQM.ofInt] <;> rfl
 
 theorem oj_mul_oj : oj * oj = -3 := by
   apply Subtype.ext
-  ext <;> simp [oj, LeafQM.ofInt] <;> norm_num
+  rw [Subring.coe_neg, coe_three_O, Subring.coe_mul]
+  ext <;> simp [oj, LeafQM.ofInt] <;> rfl
 
 theorem oj_mul_oi : oj * oi = -(oi * oj) := by
   apply Subtype.ext
-  ext <;> simp [oi, oj, LeafQM.ofInt] <;> norm_num
+  rw [Subring.coe_neg, Subring.coe_mul, Subring.coe_mul]
+  ext <;> simp [oi, oj, LeafQM.ofInt]
 
 /-- **Glue (proved): the QM structure gives `B ↪ End⁰(A)`.** For a QM structure
 `ι : 𝒪 → End_k(A)` (`LeafQM.AV.QMStr`), the elements `1 ⊗ ι(i)`, `1 ⊗ ι(j)` of
@@ -81,10 +90,10 @@ def qmBasis {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
     j := g oj
     k := g oi * g oj
     i_mul_i := by
-      rw [← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def, mul_one,
+      rw [← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def, _root_.mul_one,
         map_ofNat]
     j_mul_j := by
-      rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Algebra.smul_def, mul_one, map_neg,
+      rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Algebra.smul_def, _root_.mul_one, map_neg,
         map_ofNat]
     i_mul_j := rfl
     j_mul_i := by
@@ -154,8 +163,8 @@ Thm 5.12 (leaf R5, `LeafQM.AV.R5ptProps`) and Prop. 5.6 then force `R = ℤ[i]` 
 def FibreComTrivial : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
     R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
-    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
-      π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+    ∀ (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (P : QML3 LeafQM.AV.Qbar), Φ LeafQM.AV.Qbar y = M3.mk P →
+      π.val (K := LeafQM.AV.Qbar) y.left = OnePoint.some (algebraMap ℚ LeafQM.AV.Qbar (Jmap u)) →
       ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A)
 
 /-! ## §4 The piece, from T27 and FS1-FS5 -/
@@ -166,22 +175,22 @@ theorem fibreSimple_of_pieces (t27 : PkgI3.QMDichotomyYu) (h1 : EndDivisionDesce
     (h4 : CentralizerOfMatrixEnd0) (h5 : FibreComTrivial) : FibreSimple := by
   intro Y Φ π hR1 hR2 u hu K A hF
   obtain ⟨emb, y, P, hP, hval, hiso⟩ := hF
-  letI : Algebra K.K Qbar := emb.toAlgebra
+  let _ : Algebra K.K LeafQM.AV.Qbar := emb.toAlgebra
   -- G5 (T27 at `B = (2,-3)`): `End⁰(P.A) ≅ B` or `≅ M₂(ℚ(√d))`.
-  have hY := PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q)
+  have hY := PkgI3.qmDichotomy_B6 t27 LeafQM.AV.Qbar P.A P.surface B6_isUnit (qm_embeds_end0 P.q)
   -- G6 (NoCM): the second case is excluded.
   have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
     rcases hY with hB | ⟨d, hd, hM⟩
     · exact hB
     · exfalso
-      obtain ⟨φ, hφ, hne⟩ := h4 Qbar P.A P.q d hd hM
+      obtain ⟨φ, hφ, hne⟩ := h4 LeafQM.AV.Qbar P.A P.q d hd hM
       obtain ⟨n, hn⟩ := h5 Y Φ π hR1 hR2 u hu y P hP hval φ hφ
       exact hne n hn
   obtain ⟨e⟩ := hB
-  have hPdiv : PkgI3.EndDivision P.A := h3 Qbar P.A (division_of_algEquiv e B6_isUnit)
-  have hAbar : PkgI3.EndDivision (LeafAdopt.abVarEquiv Qbar (A.baseChange Qbar)) :=
-    h2 Qbar _ P.A hiso hPdiv
-  exact h1 K.K Qbar A hAbar
+  have hPdiv : PkgI3.EndDivision P.A := h3 LeafQM.AV.Qbar P.A (division_of_algEquiv e B6_isUnit)
+  have hAbar : PkgI3.EndDivision (LeafAdopt.abVarEquiv LeafQM.AV.Qbar (A.baseChange LeafQM.AV.Qbar)) :=
+    h2 LeafQM.AV.Qbar _ P.A hiso hPdiv
+  exact h1 K.K LeafQM.AV.Qbar A hAbar
 
 /-- The five glue pieces as one bundle. -/
 structure FibreSimplePieces : Prop where
@@ -191,9 +200,9 @@ structure FibreSimplePieces : Prop where
   centralizer : CentralizerOfMatrixEnd0
   comTrivial : FibreComTrivial
 
-/-- `FibreSimple` from the leaf bundle (`ResearchLeaves.t27`) and the five glue pieces. -/
-theorem fibreSimple_of_leaves (r : HSyn.ResearchLeaves) (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces r.t27 p.descent p.schemeIso p.end0Division p.centralizer p.comTrivial
+/-- `FibreSimple` from the leaf bundle (`TextbookLeaves.t27`) and the five glue pieces. -/
+theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (p : FibreSimplePieces) : FibreSimple :=
+  fibreSimple_of_pieces t.t27 p.descent p.schemeIso p.end0Division p.centralizer p.comTrivial
 
 end G0FibreSimple
 
