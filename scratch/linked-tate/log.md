@@ -35,3 +35,12 @@
 - Flat file `lake env lean scratch/linked-tate/LinkedTate.lean` (40891 lines; parts 10,70,72,74,75,77,87,92,93,95,96,97):
   VERIFIED exit 0 in 592 s, 0 errors, no sorry, 208 `#print axioms` reports, all [propext, Classical.choice, Quot.sound]
   (two are line-wrapped in the output).
+- All g0-assemble parts copied (05,20,30,40,50,60,80,85,88,89,90 added). Tail run 1: one error, in part 40
+  (g0-fibresimple's §5 `r1fpProps_twistBy`: its `obtain ⟨hp, hs, hq, hnat⟩` fails against the pin-applied
+  `R1fpProps`, as pin-apply intended). §5 (`PtAuto` ... `fibreComTrivial_twisted`, unused elsewhere) removed from the
+  copy, with a note in the part.
+- Part 98: `tate_eq_one_of_torsion` (proved), glue `GoodRedTorsion`, `goodRedG3Bridge_of_torsion` (proved).
+- Part 99: `HSyn.GluePieces3` (GluePieces2's 25 fields before `modelG3G6`, verbatim, + goodRedTorsion, qmEndRank,
+  linkedFrob, linkedRam), `gluePieces2_of_gluePieces3`, `sixContactMin_of_leaves3 r t gp3 : ZInQ.SixContactMin`.
+  Tail run 2 (10212 lines): VERIFIED 0 errors, no sorry; `sixContactMin_of_leaves2`, `gluePieces2_of_gluePieces3`,
+  `sixContactMin_of_leaves3`, `afterG7_of_final`, `goodRedG3Bridge_of_torsion`: standard axioms.
