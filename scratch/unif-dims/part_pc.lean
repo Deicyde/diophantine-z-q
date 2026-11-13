@@ -26,6 +26,53 @@ theorem Scheme.Hom.stalkMapAt_stalkSpecializes {X Y : Scheme.{u}} (f : X ⟶ Y) 
 
 end AlgebraicGeometry
 
+namespace IsLocalRing
+
+open Ideal
+
+/-- infra-stalks' `sub_mem_maximalIdeal_sq_of_product` with two different factor rings (same
+proof). -/
+theorem sub_mem_maximalIdeal_sq_of_product₂ {R O₁ O₂ : Type*} [CommRing R] [IsLocalRing R]
+    [CommRing O₁] [IsLocalRing O₁] [CommRing O₂] [IsLocalRing O₂]
+    (φ₁ : O₁ →+* R) (φ₂ : O₂ →+* R) (ψ₁ : R →+* O₁) (ψ₂ : R →+* O₂)
+    [IsLocalHom ψ₁] [IsLocalHom ψ₂]
+    (h₁ : ∀ a, ψ₁ (φ₁ a) = a) (h₂ : ∀ a, ψ₂ (φ₂ a) = a)
+    (h₁₂ : ∀ a ∈ maximalIdeal O₂, ψ₁ (φ₂ a) ∈ maximalIdeal O₁ ^ 2)
+    (h₂₁ : ∀ a ∈ maximalIdeal O₁, ψ₂ (φ₁ a) ∈ maximalIdeal O₂ ^ 2)
+    (hm : maximalIdeal R = (maximalIdeal O₁).map φ₁ ⊔ (maximalIdeal O₂).map φ₂)
+    (hr₁ : ∀ r : R, ∃ c, r - φ₁ c ∈ maximalIdeal R)
+    (hr₂ : ∀ r : R, ∃ c, r - φ₂ c ∈ maximalIdeal R)
+    {x : R} (hx : x ∈ maximalIdeal R) :
+    x - φ₁ (ψ₁ x) - φ₂ (ψ₂ x) ∈ maximalIdeal R ^ 2 := by
+  have hle₁ : (maximalIdeal O₁).map φ₁ ≤ maximalIdeal R := hm ▸ le_sup_left
+  have hle₂ : (maximalIdeal O₂).map φ₂ ≤ maximalIdeal R := hm ▸ le_sup_right
+  rw [hm] at hx
+  obtain ⟨y, hy, z, hz, rfl⟩ := Submodule.mem_sup.mp hx
+  obtain ⟨a, ha, ea⟩ := exists_sub_mem_sq_of_mem_map φ₁ hle₁ hr₁ hy
+  obtain ⟨b, hb, eb⟩ := exists_sub_mem_sq_of_mem_map φ₂ hle₂ hr₂ hz
+  have ex : y + z - φ₁ a - φ₂ b ∈ maximalIdeal R ^ 2 := by
+    have : y + z - φ₁ a - φ₂ b = (y - φ₁ a) + (z - φ₂ b) := by ring
+    rw [this]; exact Ideal.add_mem _ ea eb
+  have hψ₁ := map_mem_sq_of_le ψ₁ (map_maximalIdeal_le_of_local ψ₁) ex
+  have hψ₂ := map_mem_sq_of_le ψ₂ (map_maximalIdeal_le_of_local ψ₂) ex
+  rw [map_sub, map_sub, h₁] at hψ₁
+  rw [map_sub, map_sub, h₂] at hψ₂
+  have ea' : ψ₁ (y + z) - a ∈ maximalIdeal O₁ ^ 2 := by
+    have : ψ₁ (y + z) - a = (ψ₁ (y + z) - a - ψ₁ (φ₂ b)) + ψ₁ (φ₂ b) := by ring
+    rw [this]; exact Ideal.add_mem _ hψ₁ (h₁₂ b hb)
+  have eb' : ψ₂ (y + z) - b ∈ maximalIdeal O₂ ^ 2 := by
+    have : ψ₂ (y + z) - b = (ψ₂ (y + z) - ψ₂ (φ₁ a) - b) + ψ₂ (φ₁ a) := by ring
+    rw [this]; exact Ideal.add_mem _ hψ₂ (h₂₁ a ha)
+  have fa := map_mem_sq_of_le φ₁ hle₁ ea'
+  have fb := map_mem_sq_of_le φ₂ hle₂ eb'
+  rw [map_sub] at fa fb
+  have : y + z - φ₁ (ψ₁ (y + z)) - φ₂ (ψ₂ (y + z)) =
+      (y + z - φ₁ a - φ₂ b) - (φ₁ (ψ₁ (y + z)) - φ₁ a) - (φ₂ (ψ₂ (y + z)) - φ₂ b) := by ring
+  rw [this]
+  exact Ideal.sub_mem _ (Ideal.sub_mem _ ex fa) fb
+
+end IsLocalRing
+
 namespace ZInQ.UnifDims
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
@@ -307,9 +354,72 @@ theorem germ_cross₂₁ (a : 𝒢₁.genStalk) (ha : a ∈ IsLocalRing.maximalI
 
 end Product
 
+
+section ProductCot
+
+variable {A B C : AbVar K} (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+  (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+
+/-- **The generic stalk of a product, modulo `𝔪²`.** For `m ∈ 𝔪_P`:
+`m ≡ p₁*(i₁* m) + p₂*(i₂* m) (mod 𝔪_P²)` (infra-stalks' `pullback_stalkGen`,
+`maximalIdeal_eq_of_stalkGen`, `exists_sub_mem_maximalIdeal_of_stalkGen`). -/
+theorem germ_decomp (m : 𝒢P.genStalk) (hm : m ∈ IsLocalRing.maximalIdeal 𝒢P.genStalk) :
+    m - germMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e) (germMap 𝒢₁ 𝒢P _ (hi₁ 𝒢P 𝒢₁ 𝒢₂ e) m) -
+      germMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e) (germMap 𝒢₂ 𝒢P _ (hi₂ 𝒢P 𝒢₁ 𝒢₂ e) m) ∈
+      IsLocalRing.maximalIdeal 𝒢P.genStalk ^ 2 := by
+  set p := (e.hom ≫ fst 𝒢₁.G 𝒢₂.G).left with hpdef
+  set q := (e.hom ≫ snd 𝒢₁.G 𝒢₂.G).left with hqdef
+  have w : p ≫ 𝒢₁.G.hom = q ≫ 𝒢₂.G.hom := by rw [hpdef, hqdef, Over.w, Over.w]
+  have hgen : StalkGen p q 𝒢P.genericUnit :=
+    StalkGen.comp_of_isIso e.hom.left (pullback.fst 𝒢₁.G.hom 𝒢₂.G.hom) (pullback.snd _ _) _
+      (pullback_stalkGen _ _ _)
+  have hrat₁ : RationalOver 𝒢₁.G.hom (p 𝒢P.genericUnit) := by
+    rw [hpdef, hp₁]; exact rationalOver_genericUnit 𝒢₁
+  have hrat₂ : RationalOver 𝒢₂.G.hom (q 𝒢P.genericUnit) := by
+    rw [hqdef, hp₂]; exact rationalOver_genericUnit 𝒢₂
+  have hm0 := maximalIdeal_eq_of_stalkGen w hgen hrat₁
+  have hmax : IsLocalRing.maximalIdeal 𝒢P.genStalk =
+      (IsLocalRing.maximalIdeal 𝒢₁.genStalk).map (germMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e)) ⊔
+        (IsLocalRing.maximalIdeal 𝒢₂.genStalk).map (germMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e)) := by
+    rw [hm0, stalkIdeal, germMap, germMap, Scheme.Hom.map_stalkMapAt_maximalIdeal,
+      Scheme.Hom.map_stalkMapAt_maximalIdeal]
+  have hr₂ : ∀ r, ∃ c, r - germMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e) c ∈
+      IsLocalRing.maximalIdeal 𝒢P.genStalk := by
+    intro r
+    obtain ⟨b, hb⟩ := exists_sub_mem_maximalIdeal_of_stalkGen w hgen hrat₁ r
+    obtain ⟨c, hc⟩ := Scheme.Hom.exists_stalkMapAt_eq q (hp₂ 𝒢P 𝒢₁ 𝒢₂ e) b
+    exact ⟨c, by rw [germMap, hc]; exact hb⟩
+  have hr₁ : ∀ r, ∃ c, r - germMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e) c ∈
+      IsLocalRing.maximalIdeal 𝒢P.genStalk := by
+    intro r
+    obtain ⟨b, hb⟩ := exists_sub_mem_maximalIdeal_of_stalkGen w.symm hgen.symm hrat₂ r
+    obtain ⟨c, hc⟩ := Scheme.Hom.exists_stalkMapAt_eq p (hp₁ 𝒢P 𝒢₁ 𝒢₂ e) b
+    exact ⟨c, by rw [germMap, hc]; exact hb⟩
+  exact IsLocalRing.sub_mem_maximalIdeal_sq_of_product₂ _ _ _ _ (germ_retract₁ 𝒢P 𝒢₁ 𝒢₂ e)
+    (germ_retract₂ 𝒢P 𝒢₁ 𝒢₂ e)
+    (fun a ha => by rw [germ_cross₁₂ 𝒢P 𝒢₁ 𝒢₂ e a ha]; exact Ideal.zero_mem _)
+    (fun a ha => by rw [germ_cross₂₁ 𝒢P 𝒢₁ 𝒢₂ e a ha]; exact Ideal.zero_mem _) hmax hr₁ hr₂ hm
+
+/-- **The cotangent space of a product.** `x = j₁(ψ₁ x) + j₂(ψ₂ x)`. -/
+theorem cot_decomp (x : 𝒢P.cotangent) :
+    x = cotMap 𝒢P 𝒢₁ _ (hp₁ 𝒢P 𝒢₁ 𝒢₂ e) (cotMap 𝒢₁ 𝒢P _ (hi₁ 𝒢P 𝒢₁ 𝒢₂ e) x) +
+      cotMap 𝒢P 𝒢₂ _ (hp₂ 𝒢P 𝒢₁ 𝒢₂ e) (cotMap 𝒢₂ 𝒢P _ (hi₂ 𝒢P 𝒢₁ 𝒢₂ e) x) := by
+  obtain ⟨m, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢P.genStalk).toCotangent_surjective x
+  change 𝒢P.dCls m = cotMap 𝒢P 𝒢₁ _ _ (cotMap 𝒢₁ 𝒢P _ _ (𝒢P.dCls m)) +
+    cotMap 𝒢P 𝒢₂ _ _ (cotMap 𝒢₂ 𝒢P _ _ (𝒢P.dCls m))
+  rw [cotMap_dCls, cotMap_dCls, cotMap_dCls, cotMap_dCls]
+  refine ((Ideal.toCotangent_eq _).mpr ?_).trans
+    (map_add (IsLocalRing.maximalIdeal 𝒢P.genStalk).toCotangent _ _)
+  show (m : 𝒢P.genStalk) - (_ + _) ∈ _
+  rw [← sub_sub]
+  exact germ_decomp 𝒢P 𝒢₁ 𝒢₂ e m m.2
+
+end ProductCot
+
 end ZInQ.UnifDims
 
 #print axioms ZInQ.UnifDims.cotMap_dCls
 #print axioms ZInQ.UnifDims.cotMap_comp
 #print axioms ZInQ.UnifDims.cotMap_id
 #print axioms ZInQ.UnifDims.omega_map_le
+#print axioms ZInQ.UnifDims.cot_decomp
