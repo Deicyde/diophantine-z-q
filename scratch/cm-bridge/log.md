@@ -87,3 +87,11 @@
 - New final theorem `tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura`
   (hyps: 3 𝓛-leaves, CMFieldOfDefinition ringClassFieldD, TYZSigmaFixesZn, Lemma318Literal, Thm35First,
   Lemma321Five, ShimuraReciprocityPic, EtaModelFricke, CMAlgebraic). VERIFIED compiled.
+- Merged origin/wip/tyz-cm (0ad48a7d; their files unchanged) and built `ZInQKernel.Contrib.TYZGenus.ShimuraFricke`
+  (10301 jobs, OK). tyz-cm now PROVES X0.EtaModelFricke, X0.EtaModelInvariant, X0.EtaModelEquation and reduces
+  ShimuraReciprocityPic, CMValueRingClass, CMFieldOfDefinition ringClassFieldD to `Shimura.ShimuraReciprocityModFn`.
+- §15 COMPILED (VERIFIED, 32 audited declarations all standard axioms): `tyzCm_shimuraReciprocityPic_eq` (rfl: the
+  §14 copy is verbatim), `cmAlgebraic_of_cmValue : CMValueRingClass → CMAlgebraic`,
+  `tyzThm36Seven_of_shimuraModFn : ShimuraReciprocityModFn → TYZThm36Seven`, and
+  **`tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five`**: TYZ reading A from the three
+  𝓛-leaves, `Shimura.ShimuraReciprocityModFn` (one textbook CM leaf), `Lemma318Literal`, `Thm35First`, `Lemma321Five`.

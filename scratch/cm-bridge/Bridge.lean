@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.TYZGenus.RingClassBridge
+import ZInQKernel.Contrib.TYZGenus.ShimuraFricke
 
 /-!
 # cm-bridge: cm-numeric's class-7 file rewired to ring class field theory
@@ -3145,6 +3146,70 @@ theorem tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321
     genusFieldLeLni h35 h5
     (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) (tyzThm36Seven_of hS hF hA))
 
+
+/-! ## §15. Combination with tyz-cm (branch `wip/tyz-cm`, merged): the CM side from one textbook leaf
+
+tyz-cm proves x0-32's leaves `X0.EtaModelFricke` (`Shimura.etaModelFricke`) and
+`X0.EtaModelInvariant`, derives `ShimuraReciprocityPic` and `CMValueRingClass` from its textbook leaf
+`Shimura.ShimuraReciprocityModFn`, `CM.CMFieldOfDefinition ringClassFieldD` from `CMValueRingClass`
+and `TYZSigmaFixesZn` from `ShimuraReciprocityPic` + `EtaModelFricke`. With §14 and `CMAlgebraic`
+(derived here from `CMValueRingClass`), the CM side of TYZ reading A rests on
+`Shimura.ShimuraReciprocityModFn` alone. -/
+
+section TyzCmCombined
+
+open WeierstrassCurve.Affine
+
+/-- The verbatim copy of §14 is tyz-cm's leaf. -/
+theorem tyzCm_shimuraReciprocityPic_eq :
+    TyzCm.ShimuraReciprocityPic = Shimura.ShimuraReciprocityPic := rfl
+
+/-- **cm-points' leaf `CM.CMAlgebraic` from tyz-cm's `CMValueRingClass`** (the values `x(τ_Q)`,
+`y(τ_Q)` are algebraic; the point they define, or `0`, maps to `φ(τ_Q)`). -/
+theorem cmAlgebraic_of_cmValue (hV : Shimura.CMValueRingClass) : CMAlgebraic := by
+  classical
+  intro D Q
+  obtain ⟨a, -, ha⟩ := hV 32 _ (Shimura.isRatModFn_xC_of Shimura.etaModelInvariant
+    Shimura.etaCuspGrowth Shimura.xQExpRational) D Q
+  obtain ⟨b, -, hb⟩ := hV 32 _ (Shimura.isRatModFn_yC_of Shimura.etaModelInvariant
+    Shimura.etaCuspGrowth Shimura.yQExpRational) D Q
+  by_cases h : curveAbar.toAffine.Nonsingular a b
+  · refine ⟨.some a b h, ?_⟩
+    have h' : X0.curveAC.toAffine.Nonsingular (X0.xC Q.tauH) (X0.yC Q.tauH) := by
+      rw [← ha, ← hb]; exact Shimura.nonsingular_iff_C.2 h
+    simp only [toC, X0.phiC, h', ↓reduceDIte]
+    simp only [Point.map_some, Point.some.injEq]
+    exact ⟨ha, hb⟩
+  · refine ⟨0, ?_⟩
+    have h' : ¬ X0.curveAC.toAffine.Nonsingular (X0.xC Q.tauH) (X0.yC Q.tauH) := by
+      rw [← ha, ← hb]; exact fun h'' => h (Shimura.nonsingular_iff_C.1 h'')
+    simp only [X0.phiC, h', ↓reduceDIte, map_zero]
+
+/-- **`TYZThm36Seven` (TYZ Theorem 3.6(3)) from tyz-cm's one textbook leaf.** -/
+theorem tyzThm36Seven_of_shimuraModFn (hS : Shimura.ShimuraReciprocityModFn) : TYZThm36Seven :=
+  tyzThm36Seven_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS) Shimura.etaModelFricke
+    (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS))
+
+end TyzCmCombined
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem, combined with tyz-cm: TYZ reading A from the three `𝓛`-leaves, the one
+textbook CM leaf `Shimura.ShimuraReciprocityModFn` (main theorem of complex multiplication for
+values of modular functions on `X₀(N)` at Heegner points, Gross's form; tyz-cm) and the TYZ
+results `Lemma318Literal` (Lemma `torsion2`), `Thm35First` (Thm 3.3/3.5) and `Lemma321Five`
+(Lemma 3.21(1)).** -/
+theorem tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hS : Shimura.ShimuraReciprocityModFn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura h11 h1 h29
+    (Shimura.cmFieldOfDefinition_of_shimuraModFn hS)
+    (Shimura.tyzSigmaFixesZn_of (Shimura.shimuraReciprocityPic_of_shimuraModFn hS)
+      Shimura.etaModelFricke)
+    h318 h35 h5 (Shimura.shimuraReciprocityPic_of_shimuraModFn hS) Shimura.etaModelFricke
+    (cmAlgebraic_of_cmValue (Shimura.cmValueRingClass_of_modFn hS))
+
 end ZInQ.Contrib.TYZGenus.CMBridge
 
 /-! ## Axiom audit (output in `scratch/cm-bridge/audit-out.txt`) -/
@@ -3206,3 +3271,9 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm36Seven_of
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms cmAlgebraic_of_cmValue
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm36Seven_of_shimuraModFn
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five
