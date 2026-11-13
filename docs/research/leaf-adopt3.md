@@ -43,14 +43,15 @@ So **H follows from 58 literature leaves and 10 named glue Props.** In detail:
 - 35 textbook leaves, all concrete.
 - 10 glue Props, each a `def … : Prop` that the project must still prove.
 
-VERIFIED: `lake env lean scratch/h-decomposition/Leaves.lean` exits 0 in 574 s (33 921 lines):
+VERIFIED (final run, 2026-11-13 02:20 PST): `lake env lean scratch/h-decomposition/Leaves.lean`
+exits 0 in 452 s (34 024 lines):
 - 0 errors and no `declaration uses 'sorry'`;
 - 2 `opaque`, no `axiom`;
-- 174 `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`.
+- 175 `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`, including
+  `HSyn.sixContactMin_of_leaves`, `HSyn.glueOutputs_of_leaves` and every wave-25 bridge.
 
-The output is `scratch/leaf-adopt3/compile_full.txt`. After that run only one thing changed: the
-`X1BelyiOnModel` transport (§2.3). It was checked with the tail against an olean of the unchanged
-prefix (exit 0, 300 s, 175 lines, all standard). The final full run is recorded in §1.
+The output is `scratch/leaf-adopt3/compile_full2.txt`. An earlier full run, before the
+`X1BelyiOnModel` transport, is `compile_full.txt` (574 s, 174 lines, same result).
 
 | | before (leaf-adopt2) | now |
 | --- | --- | --- |
@@ -207,7 +208,8 @@ axioms). The proof:
 - `Algebra.finrank_eq_of_equiv_equiv` then gives `[ℚ(X):ℚ(t)] = [K_N:ℚ(j)] ≤ N²`.
 - Positivity comes from `IntermediateField.adjoin.finiteDimensional`.
 
-About 110 lines. It took two compile runs against the prefix olean (`x1transport/`).
+About 110 lines. It took two compile runs against the prefix olean (`x1transport/`), then
+the tail and the final full run.
 
 ## 3. Check of the diff (VERIFIED by script, plus reading)
 

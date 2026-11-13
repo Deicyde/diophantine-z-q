@@ -37,3 +37,7 @@
   (aeval_algHom_apply direction; stuck `Subsingleton (ℚ →+* ?)`, replaced by `eq_ratCast`; `1728 ≠ 0` in the
   function field, from injectivity of `g`); run2 exit 0. Folded into 70_g0 (`G0Split.x1BelyiOnModel_of_belyiX1`),
   glue piece 3 dropped from GluePieces (now 10 fields). Tail: exit 0, 0 errors (300 s), standard axioms.
+- 02:20 FINAL FULL CHECK (with the transport): exit 0 in 452 s, 34 024 lines, 0 errors, no sorry, 175 `#print axioms`
+  all standard, 2 opaque, no axiom (compile_full2.txt). stmt_diff unchanged (3 changed, T10 opaque removed).
+- HeightCopiesAgree not attempted (all of FinExt/HermitianLattice/HodgeData/GroupModel/MetrizedModel are
+  duplicated; left as glue piece 11, WP1).

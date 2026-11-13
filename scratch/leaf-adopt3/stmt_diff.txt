@@ -1,4 +1,4 @@
-base decls 1683, new decls 2403; changed 3, removed 1, added 721
+base decls 1683, new decls 2407; changed 3, removed 1, added 725
 CHANGED:
    HSyn.TextbookLeaves
    HSyn.glueOutputs_of_leaves
@@ -14,7 +14,7 @@ ADDED (namespaces):
    GlueSqrtDisj: 33
    GlueSqrtLocal: 43
    HSyn: 8
-   HSyn.G0Split: 33
+   HSyn.G0Split: 37
    HSyn.TextbookLeaves: 6
    Pi0X6: 73
    PkgI3: 2
