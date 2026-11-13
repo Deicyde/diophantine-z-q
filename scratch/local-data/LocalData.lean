@@ -7,6 +7,8 @@ import ZInQKernel.Hypotheses.Height
 import ZInQKernel.Multiplication.Certificate.Constants
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.Descent.ProjRep
+import ZInQKernel.HDecomp.Descent.B2Glue
+import ZInQKernel.HDecomp.Descent.Chi
 
 /-! # local-data: `LocalData p r` (scratch/g15-ram) on G8's `r`
 
@@ -1797,6 +1799,219 @@ theorem g7LocalData_of_odd (hp2 : p ≠ 2) {V : Type*} [AddCommGroup V]
     have hopen := betaOpen_of_isLocallyConstant (p := p) hβ (beta_one_of_charOn hm h0)
     exact ⟨F, hF, he, hT, betaTame_of_odd hp2 hm hs hopen⟩
 
+/-! ### `BetaSqWild` at odd `p` from `β² = χ` (proved)
+
+Wild inertia fixes every root of unity of order `n` with `p² ∤ n` (`wild_fix_root`, norms only);
+so the cyclotomic character mod `N`, and every Dirichlet character mod `N`, is trivial on
+`decomp(P_p)` when `p² ∤ N` (`galChar_decomp_wild`); and `p² ∤ chiLevel T₋` for odd `p`
+(`not_sq_dvd_chiLevel`). -/
+
+theorem norm_eq_one_of_pow_eq_one {η : Kbar p} {n : ℕ} (hn : 0 < n) (h : η ^ n = 1) :
+    ‖η‖ = 1 := by
+  have := congrArg norm h
+  rw [norm_pow, norm_one] at this
+  exact (pow_eq_one_iff_of_nonneg (norm_nonneg _) hn.ne').mp this
+
+theorem norm_sum_range_le_one {f : ℕ → Kbar p} (m : ℕ) (hf : ∀ k < m, ‖f k‖ ≤ 1) :
+    ‖∑ k ∈ Finset.range m, f k‖ ≤ 1 := by
+  induction m with
+  | zero => simp
+  | succ m ih =>
+    rw [Finset.sum_range_succ]
+    refine le_trans (IsUltrametricDist.norm_add_le_max _ _)
+      (max_le (ih fun k hk => hf k (by omega)) (hf m (by omega)))
+
+theorem norm_pow_sub_one_le {η : Kbar p} (h1 : ‖η‖ = 1) (i : ℕ) : ‖η ^ i - 1‖ ≤ ‖η - 1‖ := by
+  have he : η ^ i - 1 = (∑ k ∈ Finset.range i, η ^ k) * (η - 1) := (geom_sum_mul η i).symm
+  rw [he, norm_mul]
+  have hs : ‖∑ k ∈ Finset.range i, η ^ k‖ ≤ 1 :=
+    norm_sum_range_le_one i fun k _ => by rw [norm_pow, h1, one_pow]
+  calc ‖∑ k ∈ Finset.range i, η ^ k‖ * ‖η - 1‖ ≤ 1 * ‖η - 1‖ :=
+        mul_le_mul_of_nonneg_right hs (norm_nonneg _)
+    _ = ‖η - 1‖ := one_mul _
+
+/-- A root of unity of order prime to `p` congruent to `1` is `1`. -/
+theorem eq_one_of_pow_eq_one_of_norm_lt {η : Kbar p} {m : ℕ} (hm0 : 0 < m) (hpm : ¬ p ∣ m)
+    (hη : η ^ m = 1) (hlt : ‖η - 1‖ < 1) : η = 1 := by
+  by_contra hne
+  have h1 : ‖η‖ = 1 := norm_eq_one_of_pow_eq_one hm0 hη
+  have hsub : η - 1 ≠ 0 := sub_ne_zero.mpr hne
+  have hgeom : ∑ k ∈ Finset.range m, η ^ k = 0 := by
+    have := geom_sum_mul η m
+    rw [hη, sub_self] at this
+    exact (mul_eq_zero.mp this).resolve_right hsub
+  have hm : (m : Kbar p) = ∑ k ∈ Finset.range m, (1 - η ^ k) := by
+    rw [Finset.sum_sub_distrib, hgeom, sub_zero, Finset.sum_const, Finset.card_range,
+      nsmul_eq_mul, mul_one]
+  have hlt' : ‖∑ k ∈ Finset.range m, (1 - η ^ k)‖ < 1 :=
+    norm_sum_range_lt one_pos m fun k _ => by
+      rw [norm_sub_rev]; exact lt_of_le_of_lt (norm_pow_sub_one_le h1 k) hlt
+  rw [← hm, norm_natCast_kbar hpm] at hlt'
+  exact lt_irrefl _ hlt'
+
+/-- Wild inertia fixes roots of unity of order prime to `p`. -/
+theorem wild_fix_prime_to_p {σ : GQp p} (hσ : σ ∈ wildSet) {ζ : Kbar p} {m : ℕ} (hm0 : 0 < m)
+    (hpm : ¬ p ∣ m) (hζ : ζ ^ m = 1) : σ ζ = ζ := by
+  have hζ0 : ζ ≠ 0 := by
+    rintro rfl; rw [zero_pow hm0.ne'] at hζ; exact zero_ne_one hζ
+  set η := σ ζ * ζ⁻¹ with hη
+  have hηm : η ^ m = 1 := by
+    rw [hη, mul_pow, ← map_pow, hζ, map_one, inv_pow, hζ, inv_one, one_mul]
+  have hlt : ‖η - 1‖ < 1 := by
+    have he : η - 1 = (σ ζ - ζ) * ζ⁻¹ := by rw [hη, sub_mul, mul_inv_cancel₀ hζ0]
+    rw [he, norm_mul, norm_inv]
+    have hw := hσ ζ hζ0
+    have hpos : 0 < ‖ζ‖ := norm_pos_iff.mpr hζ0
+    rw [mul_inv_lt_iff₀ hpos, one_mul]
+    exact hw
+  have := eq_one_of_pow_eq_one_of_norm_lt hm0 hpm hηm hlt
+  rw [hη, mul_inv_eq_one₀ hζ0] at this
+  exact this
+
+/-- Wild inertia fixes the `p`-th roots of unity. -/
+theorem wild_fix_p_root {σ : GQp p} (hσ : σ ∈ wildSet) {ζ : Kbar p} (hζ : ζ ^ p = 1) :
+    σ ζ = ζ := by
+  have hp := (Fact.out : p.Prime)
+  by_contra hne
+  have hζ0 : ζ ≠ 0 := by
+    rintro rfl; rw [zero_pow hp.ne_zero] at hζ; exact zero_ne_one hζ
+  have hζ1 : ζ ≠ 1 := by rintro rfl; exact hne (map_one σ)
+  have h1ζ : ‖ζ‖ = 1 := norm_eq_one_of_pow_eq_one hp.pos hζ
+  set η := σ ζ * ζ⁻¹ with hη
+  have hηp : η ^ p = 1 := by
+    rw [hη, mul_pow, ← map_pow, hζ, map_one, inv_pow, hζ, inv_one, one_mul]
+  have hη1 : η ≠ 1 := by
+    intro h; rw [hη, mul_inv_eq_one₀ hζ0] at h; exact hne h
+  have h1η : ‖η‖ = 1 := norm_eq_one_of_pow_eq_one hp.pos hηp
+  have hord : orderOf η = p := orderOf_eq_prime hηp hη1
+  have hprim : IsPrimitiveRoot η p := by
+    have := IsPrimitiveRoot.orderOf η
+    rwa [hord] at this
+  haveI : NeZero p := ⟨hp.ne_zero⟩
+  obtain ⟨i, -, hi⟩ := hprim.eq_pow_of_pow_eq_one hζ
+  have hx0 : ζ - 1 ≠ 0 := sub_ne_zero.mpr hζ1
+  have hw := hσ (ζ - 1) hx0
+  have he : σ (ζ - 1) - (ζ - 1) = ζ * (η - 1) := by
+    rw [map_sub, map_one, hη]; field_simp; ring
+  rw [he, norm_mul, h1ζ, one_mul, ← hi] at hw
+  exact lt_irrefl _ (lt_of_lt_of_le hw (norm_pow_sub_one_le h1η i))
+
+/-- **Wild inertia fixes `μ_n` for `p² ∤ n` (proved).** -/
+theorem wild_fix_root {σ : GQp p} (hσ : σ ∈ wildSet) {ζ : Kbar p} {n : ℕ} (hn0 : 0 < n)
+    (hp2 : ¬ p ^ 2 ∣ n) (hζ : ζ ^ n = 1) : σ ζ = ζ := by
+  have hp := (Fact.out : p.Prime)
+  by_cases hpn : p ∣ n
+  · obtain ⟨m, rfl⟩ := hpn
+    have hpm : ¬ p ∣ m := by
+      rintro ⟨k, rfl⟩; exact hp2 ⟨k, by ring⟩
+    have hm0 : 0 < m := Nat.pos_of_ne_zero fun h => by simp [h] at hn0
+    have hζ0 : ζ ≠ 0 := by
+      rintro rfl; rw [zero_pow hn0.ne'] at hζ; exact zero_ne_one hζ
+    have hcop : Nat.Coprime p m := (Nat.Prime.coprime_iff_not_dvd hp).mpr hpm
+    have hy : σ (ζ ^ p) = ζ ^ p :=
+      wild_fix_prime_to_p hσ hm0 hpm (by rw [← pow_mul, hζ])
+    have hz : σ (ζ ^ m) = ζ ^ m :=
+      wild_fix_p_root hσ (by rw [← pow_mul, mul_comm, hζ])
+    have hb : ((p.gcd m : ℕ) : ℤ) = p * p.gcdA m + m * p.gcdB m := Nat.gcd_eq_gcd_ab p m
+    rw [hcop.gcd_eq_one, Nat.cast_one] at hb
+    have hdec : ζ = (ζ ^ p) ^ (p.gcdA m) * (ζ ^ m) ^ (p.gcdB m) := by
+      rw [← zpow_natCast, ← zpow_natCast (ζ) m, ← zpow_mul, ← zpow_mul, ← zpow_add₀ hζ0, ← hb,
+        zpow_one]
+    rw [hdec, map_mul, map_zpow₀, map_zpow₀, hy, hz]
+  · exact wild_fix_prime_to_p hσ hn0 hpn hζ
+
+/-- The embedding `ℚ̄ → ℚ̄_p` that `decomp` uses. -/
+def embP : PkgI4.Qbar →+* Kbar p :=
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p]).toRingHom
+
+/-- `embP ∘ decomp σ = σ ∘ embP` (Mathlib's `restrictNormal_commutes`, unfolding `map`). -/
+theorem decomp_spec (σ : GQp p) (x : PkgI4.Qbar) : embP (decomp p σ x) = σ (embP x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p]).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (σ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+theorem decomp_fix_root {σ : GQp p} (hσ : σ ∈ wildSet) {x : PkgI4.Qbar} {n : ℕ} (hn0 : 0 < n)
+    (hp2 : ¬ p ^ 2 ∣ n) (hx : x ^ n = 1) : decomp p σ x = x := by
+  apply (embP (p := p)).injective
+  rw [decomp_spec]
+  exact wild_fix_root hσ hn0 hp2 (by rw [← map_pow, hx, map_one])
+
+/-- **The cyclotomic character mod `N` is trivial on `decomp(P_p)` when `p² ∤ N` (proved).** -/
+theorem cyc_decomp_wild {N : ℕ} [NeZero N] (hp2 : ¬ p ^ 2 ∣ N) {σ : GQp p}
+    (hσ : σ ∈ wildSet) : GlueDescent.B2Q.cyc N (decomp p σ) = 1 := by
+  have hN0 : 0 < N := Nat.pos_of_ne_zero (NeZero.ne N)
+  by_cases hN1 : N = 1
+  · subst hN1; exact Subsingleton.elim _ _
+  haveI : Fact (1 < N) := ⟨by omega⟩
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  apply Units.ext
+  have hu := modularCyclotomicCharacter.unique (AlgebraicClosure ℚ)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+    (GlueDescent.B2Q.toRingAut (decomp p σ)) (c := 1) (fun t ht => by
+      rw [ZMod.val_one, pow_one]
+      have htN : ((t : (AlgebraicClosure ℚ)ˣ) : AlgebraicClosure ℚ) ^ N = 1 := by
+        rw [← Units.val_pow_eq_pow_val, (mem_rootsOfUnity N t).mp ht, Units.val_one]
+      exact decomp_fix_root hσ hN0 hp2 htN)
+  have hc : GlueDescent.B2Q.cyc N (decomp p σ) = modularCyclotomicCharacter (AlgebraicClosure ℚ)
+      (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+      (GlueDescent.B2Q.toRingAut (decomp p σ)) := rfl
+  rw [hc, Units.val_one]
+  exact hu.symm
+
+/-- **Every Dirichlet character mod `N`, as a Galois character, is trivial on `decomp(P_p)`
+when `p² ∤ N` (proved).** -/
+theorem galChar_decomp_wild {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N)
+    (hp2 : ¬ p ^ 2 ∣ N) {σ : GQp p} (hσ : σ ∈ wildSet) :
+    GlueDescent.B2Q.galChar χ (decomp p σ) = 1 := by
+  change χ.toUnitHom (GlueDescent.B2Q.cyc N (decomp p σ)) = 1
+  rw [cyc_decomp_wild hp2 hσ, map_one]
+
+/-- **`p² ∤ chiLevel T₋` for odd `p` (proved)**, `T₋` a finite set of primes (`lev q = q` for odd
+`q`, `lev 2 = 4`). -/
+theorem not_sq_dvd_chiLevel (hp2 : p ≠ 2) {Tm : Finset ℕ} (hTm : ∀ q ∈ Tm, q.Prime) :
+    ¬ p ^ 2 ∣ GlueDescent.chiLevel Tm := by
+  have hp := (Fact.out : p.Prime)
+  intro h
+  have hpp : p ∣ GlueDescent.chiLevel Tm := (dvd_pow_self p two_ne_zero).trans h
+  have hmem : p ∈ Tm := by
+    obtain ⟨q, hq, hpq⟩ := (Prime.dvd_finsetProd_iff hp.prime _).mp hpp
+    have hqp := hTm q hq
+    unfold GlueDescent.lev at hpq
+    split_ifs at hpq with h2
+    · subst h2
+      have : p ∣ 2 := hp.dvd_of_dvd_pow (show p ∣ 2 ^ 2 by norm_num; exact hpq)
+      exact absurd ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp this) hp2
+    · rwa [(Nat.prime_dvd_prime_iff_eq hp hqp).mp hpq]
+  unfold GlueDescent.chiLevel at h
+  rw [← Finset.mul_prod_erase Tm _ hmem] at h
+  have hlev : GlueDescent.lev p = p := by unfold GlueDescent.lev; rw [if_neg hp2]
+  rw [hlev, pow_two] at h
+  have hdvd := Nat.dvd_of_mul_dvd_mul_left hp.pos h
+  obtain ⟨q, hq, hpq⟩ := (Prime.dvd_finsetProd_iff hp.prime _).mp hdvd
+  have hqp := hTm q (Finset.mem_of_mem_erase hq)
+  have hqne := Finset.ne_of_mem_erase hq
+  unfold GlueDescent.lev at hpq
+  split_ifs at hpq with h2
+  · subst h2
+    have : p ∣ 2 := hp.dvd_of_dvd_pow (show p ∣ 2 ^ 2 by norm_num; exact hpq)
+    exact absurd ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp this) hp2
+  · exact hqne ((Nat.prime_dvd_prime_iff_eq hp hqp).mp hpq).symm
+
+/-- **`BetaSqWild` at odd `p` (proved)** from `β² = ι ∘ χ` on `G_F` (`χ` a Dirichlet character
+mod `N = chiLevel T₋` for a set `T₋` of primes, as in g0-mod-field's `G7Data`; `ι` the transport
+of values `ℂ^× → ℚ̄_ℓ^×`). -/
+theorem betaSqWild_of_chi (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {F : Fld p} {Tm : Finset ℕ}
+    (hTm : ∀ q ∈ Tm, q.Prime) [NeZero (GlueDescent.chiLevel Tm)]
+    (χ : DirichletCharacter ℂ (GlueDescent.chiLevel Tm)) (ι : ℂˣ →* (PadicAlgCl ℓ)ˣ)
+    (hsq : ∀ σ ∈ fixSet F, β (decomp p σ) ^ 2 = (ι (GlueDescent.B2Q.galChar χ (decomp p σ)) :
+      PadicAlgCl ℓ)) :
+    BetaSqWild β F := by
+  intro σ hσ
+  rw [hsq σ hσ.1, galChar_decomp_wild χ (not_sq_dvd_chiLevel hp2 hTm) hσ.2, map_one,
+    Units.val_one]
+
 end LocalDataSec
 
 end G15Ram
@@ -1810,3 +2025,7 @@ end G15Ram
 #print axioms G15Ram.g15RamG_of_g8
 #print axioms G15Ram.betaOpen_of_isLocallyConstant
 #print axioms G15Ram.g7LocalData_of_odd
+#print axioms G15Ram.wild_fix_root
+#print axioms G15Ram.galChar_decomp_wild
+#print axioms G15Ram.not_sq_dvd_chiLevel
+#print axioms G15Ram.betaSqWild_of_chi

@@ -9,6 +9,8 @@ P=../g0-mod-galois/part_galois.lean
   sed -n 1,7p $G
   echo "import ZInQKernel.HDecomp.I3Linalg.C2"
   echo "import ZInQKernel.HDecomp.Descent.ProjRep"
+  echo "import ZInQKernel.HDecomp.Descent.B2Glue"
+  echo "import ZInQKernel.HDecomp.Descent.Chi"
   echo
   echo "/-! # local-data: \`LocalData p r\` (scratch/g15-ram) on G8's \`r\`"
   echo

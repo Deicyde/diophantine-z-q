@@ -1,6 +1,6 @@
 # local-data results log
 
-## Step 1 (2026-11-13 05:50-06:30 PST): statements and findings
+## Step 1 (2026-11-13 05:50-05:58 PST): statements and findings
 - Target: `G15Ram.LocalData p r` (scratch/g15-ram/G15Ram.lean l.177), with `SmallPrimeData`,
   `LargePrimeData`, `TwistShape`, `TwistUpper`, `TwistTame`, `U0`, `ModData`.
   Copied verbatim (whole lines 8-718 of G15Ram.lean, via `build.sh`) into
@@ -22,7 +22,7 @@
   local Galois-closure bound is redone over `K` (SPECULATIVE). To be reported.
 - `lake build` of the 7 kernel modules needed (HDecomp not prebuilt in this worktree): started.
 
-## Step 2 (06:00-06:20 PST): reduction compiled
+## Step 2 (05:58-06:04 PST): reduction compiled
 - `LocalData.lean` = verbatim G15Ram.lean 8-1384 + verbatim part_galois defs (`resQ`, `Vb`, `tate`,
   `Intertwines`, `G7Out`, `G8Out`) + `part_local.lean` (§4, new). Needed a one-time
   `lake build` of 7 HDecomp modules and `ZInQKernel.Multiplication.Certificate.Constants`
@@ -48,3 +48,13 @@
 - Named glue Props left: `TateWildTrivial` (G4/G7 descent on G_L + R6 + D2; G3 + NOS at p > D),
   `BetaUpper` at p = 2 (T16 + D3), `BetaCharOn` (∂β = ε, ε inflated from Gal(L/ℚ)),
   `BetaSqWild` (β² = χ, χ tame at odd p), the e-bound / tameness of F (field degrees).
+
+## Step 3 (06:05-06:20 PST): β² = χ is trivial on wild inertia at odd p
+- New imports `ZInQKernel.HDecomp.Descent.B2Glue`, `…Chi` (lake build of both, once).
+- Proved (VERIFIED, compiled, axioms standard): `wild_fix_root` (σ ∈ wildSet, ζⁿ = 1,
+  p² ∤ n ⇒ σζ = ζ; via `wild_fix_prime_to_p`: m = ∑(1 − ηⁱ) has norm < 1 if η ≠ 1, and
+  `wild_fix_p_root`: x = ζ − 1 and ζ = ηⁱ); `decomp_spec` (embP ∘ decomp σ = σ ∘ embP);
+  `cyc_decomp_wild` (`GlueDescent.B2Q.cyc N (decomp p σ) = 1` for p² ∤ N);
+  `galChar_decomp_wild`; `not_sq_dvd_chiLevel` (p odd, T₋ primes ⇒ p² ∤ chiLevel T₋);
+  `betaSqWild_of_chi` (BetaSqWild from β² = ι ∘ galChar χ on G_F, χ mod chiLevel T₋).
+- Compile: exit 0, 0 errors, no sorry (~60 s).
