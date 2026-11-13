@@ -1,0 +1,104 @@
+/-! # infra-hodge S-alg, part 1: tools
+
+* `exists_basis_in`: a spanning family inside an `R`-submodule `W` contains an `L`-basis.
+* `det_eq_zero_of_rows_supported`: if `|S| > |T|` rows of a square matrix vanish outside the
+  columns `T`, the determinant is `0`.
+* `coeffOf`, `mkMetrized`: a metrized model from a trivialization `δ` of the Hodge line, a
+  lattice section, uniformizations, and constants `c τ` with `jacDet = τ(δ(wedge f)) · c τ`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module
+--IH:ABVAR
+open scoped TensorProduct
+
+theorem exists_basis_in {L V R : Type*} [Field L] [AddCommGroup V] [Module L V] [CommRing R]
+    [Module R V] [FiniteDimensional L V] (W : Submodule R V) {J : Type*} [Finite J] (v : J → V)
+    (hv : ∀ i, v i ∈ W) (hsp : Submodule.span L (Set.range v) = ⊤) :
+    ∃ u : Basis (Fin (finrank L V)) L V, ∀ k, u k ∈ W := by
+  obtain ⟨s, hs, hspan, hli⟩ := exists_linearIndependent L (Set.range v)
+  have hfin : s.Finite := (Set.finite_range v).subset hs
+  haveI := hfin.fintype
+  let bs : Basis s L V := Basis.mk hli (by rw [Subtype.range_coe, hspan, hsp])
+  let u := bs.reindex (Fintype.equivFinOfCardEq (Module.finrank_eq_card_basis bs).symm)
+  refine ⟨u, fun k => ?_⟩
+  simp only [u, Basis.reindex_apply, bs, Basis.mk_apply]
+  obtain ⟨i, hi⟩ := hs (Subtype.mem ((Fintype.equivFinOfCardEq
+    (Module.finrank_eq_card_basis bs).symm).symm k))
+  rw [← hi]
+  exact hv i
+
+theorem det_eq_zero_of_rows_supported {n : ℕ} (M : Matrix (Fin n) (Fin n) ℂ)
+    (S T : Finset (Fin n)) (hM : ∀ k ∈ S, ∀ j ∉ T, M k j = 0) (hST : T.card < S.card) :
+    M.det = 0 := by
+  by_contra h
+  have hli := Matrix.linearIndependent_rows_of_det_ne_zero h
+  have h2 : LinearIndependent ℂ (fun k : S => fun j : T => M k j) := by
+    rw [Fintype.linearIndependent_iff]
+    intro c hc
+    have h3 := Fintype.linearIndependent_iff.mp
+      (hli.comp (fun k : S => (k : Fin n)) Subtype.val_injective) c
+    apply h3
+    funext j
+    by_cases hj : j ∈ T
+    · have := congrFun hc ⟨j, hj⟩
+      simpa using this
+    · simp only [Finset.sum_apply, Pi.smul_apply, Function.comp_apply, smul_eq_mul,
+        Pi.zero_apply]
+      exact Finset.sum_eq_zero fun k _ => by rw [hM k k.2 j hj, mul_zero]
+  have := h2.fintype_card_le_finrank
+  simp only [Fintype.card_coe, Module.finrank_fintype_fun_eq_card] at this
+  omega
+
+section Mk
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- `x ↦ τ(δ x) · c`, a `τ`-semilinear map. -/
+noncomputable def coeffOf {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) (c : ℂ) : V →ₛₗ[τ] ℂ where
+  toFun x := τ (δ x) * c
+  map_add' x y := by simp [add_mul]
+  map_smul' a x := by simp [_root_.mul_assoc]
+
+theorem coeffOf_apply {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) (c : ℂ) (x : V) : coeffOf δ τ c x = τ (δ x) * c := rfl
+
+theorem coeffOf_ne_zero {V : Type*} [AddCommGroup V] [Module L V] (δ : V ≃ₗ[L] L)
+    (τ : L →+* ℂ) {c : ℂ} (hc : c ≠ 0) : coeffOf δ τ c ≠ 0 := by
+  intro h
+  have := LinearMap.congr_fun h (δ.symm 1)
+  rw [coeffOf_apply, LinearEquiv.apply_symm_apply, map_one, _root_.one_mul,
+    LinearMap.zero_apply] at this
+  exact hc this
+
+/-- A metrized model from the data listed in the header. -/
+noncomputable def mkMetrized (𝒢 : GroupModel A L) (d : ℕ) (δ : 𝒢.hodgeSpace d ≃ₗ[L] L)
+    (s : 𝒢.hodgeSpace d) (hs : s ∈ 𝒢.detLattice d) (hs0 : s ≠ 0)
+    (hsi : secIndex (𝒢.detLattice d) s ≠ 0) (Λ : (L →+* ℂ) → Submodule ℤ (Fin d → ℂ))
+    (hΛd : ∀ τ, DiscreteTopology (Λ τ)) (hΛz : ∀ τ, IsZLattice ℝ (Λ τ))
+    (Φ : ∀ τ : L →+* ℂ, (Fin d → ℂ) → 𝒢.Pts τ)
+    (hΦ : ∀ τ, 𝒢.IsAnalyticUniformization τ (Λ τ) (Φ τ)) (c : (L →+* ℂ) → ℂ)
+    (hc : ∀ τ, c τ ≠ 0) (hjac : ∀ τ f, 𝒢.jacDet (Φ τ) f = τ (δ (𝒢.wedge f)) * c τ) :
+    MetrizedModel A L d where
+  model := 𝒢
+  hodge :=
+    { lattice := 𝒢.detLattice d
+      finrank_eq_one := by rw [δ.finrank_eq, Module.finrank_self]
+      isLattice := ⟨s, hs, hs0, hsi⟩
+      periods := Λ
+      periods_discrete := hΛd
+      periods_isZLattice := hΛz
+      coeff := fun τ => coeffOf δ τ (c τ)
+      coeff_ne_zero := fun τ => coeffOf_ne_zero δ τ (hc τ) }
+  lattice_eq := rfl
+  arch τ := ⟨Φ τ, hΦ τ, fun f => (hjac τ f).symm⟩
+
+theorem mkMetrized_model (𝒢 : GroupModel A L) (d : ℕ) (δ : 𝒢.hodgeSpace d ≃ₗ[L] L) (s hs hs0 hsi Λ
+    hΛd hΛz Φ hΦ c hc hjac) :
+    (mkMetrized 𝒢 d δ s hs hs0 hsi Λ hΛd hΛz Φ hΦ c hc hjac).model = 𝒢 := rfl
+
+end Mk
+
+end ZInQ.InfraHodge

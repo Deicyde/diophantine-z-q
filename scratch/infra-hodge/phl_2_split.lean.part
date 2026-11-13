@@ -1,0 +1,263 @@
+/-! # infra-hodge, part 2: the cotangent space and `ω` of a product of group models
+
+For `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂` with homomorphic projections `pᵢ`, let `i₁ = (id, 1) ≫ e⁻¹`,
+`i₂ = (1, id) ≫ e⁻¹` (`incl1`, `incl2`). Then on cotangent spaces at the generic units
+* `i₁^* p₁^* = id`, `i₂^* p₂^* = id`, `i₁^* p₂^* = 0`, `i₂^* p₁^* = 0` (`cot_i1_p1`, ...);
+* `v = p₁^*(i₁^* v) + p₂^*(i₂^* v)` (`cot_split`, from infra-stalks' `sub_mem_sq_pairPt`);
+* a morphism preserving the unit section maps `ω` into `ω` (`cotG_omega`), so
+  `v ∈ ω_P ↔ i₁^* v ∈ ω₁ ∧ i₂^* v ∈ ω₂`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings
+--IH:ABVAR
+open scoped TensorProduct
+
+section Omega
+
+variable {K : Type} [Field K] {A B : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+theorem left_genericUnit_of {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (hη : η[𝒢.G] ≫ φ = η[ℋ.G]) : φ.left 𝒢.genericUnit = ℋ.genericUnit := by
+  have h2 : (η[𝒢.G]).left ≫ φ.left = (η[ℋ.G]).left := by rw [← Over.comp_left, hη]
+  show φ.left ((η[𝒢.G]).left (genericPt L)) = (η[ℋ.G]).left (genericPt L)
+  rw [← h2]
+  rfl
+
+theorem unitSection_comp_left {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (hη : η[𝒢.G] ≫ φ = η[ℋ.G]) : 𝒢.unitSection ≫ φ.left = ℋ.unitSection := by
+  unfold GroupModel.unitSection
+  rw [← Over.comp_left, hη]
+
+/-- Naturality of specialization maps for stalk maps between named points. -/
+theorem stalkSpec_stalkMapAt {X Y : Scheme.{0}} (f : X ⟶ Y) {x x' : X} (h : x ⤳ x') {y y' : Y}
+    (hy : f x = y) (hy' : f x' = y') (hyy : y ⤳ y') (t : Y.presheaf.stalk y') :
+    (X.presheaf.stalkSpecializes h).hom ((f.stalkMapAt hy').hom t) =
+      (f.stalkMapAt hy).hom ((Y.presheaf.stalkSpecializes hyy).hom t) := by
+  subst hy hy'
+  rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl]
+  exact (Scheme.Hom.stalkSpecializes_stalkMap_apply f x x' h t).symm
+
+/-- `𝒢.unitSection.stalkMap s ∘ φ^♯ = ℋ.unitSection.stalkMap s`. -/
+theorem unitSection_stalkMap_stalkMapAt {𝒢 : GroupModel A L} {ℋ : GroupModel B L}
+    (φ : 𝒢.G ⟶ ℋ.G) (hη : η[𝒢.G] ≫ φ = η[ℋ.G]) (s : Spec (CommRingCat.of (𝓞 L)))
+    (hs : φ.left (𝒢.unitSection s) = ℋ.unitSection s)
+    (t : ℋ.G.left.presheaf.stalk (ℋ.unitSection s)) :
+    (𝒢.unitSection.stalkMap s).hom ((φ.left.stalkMapAt hs).hom t) =
+      (ℋ.unitSection.stalkMap s).hom t := by
+  have hc := unitSection_comp_left φ hη
+  have hpt : (𝒢.unitSection ≫ φ.left) s = ℋ.unitSection s := by rw [hc]
+  have h1 := Scheme.Hom.stalkMapAt_comp 𝒢.unitSection φ.left (rfl : 𝒢.unitSection s = _) hs hpt
+  rw [Scheme.Hom.stalkMapAt_congr hc hpt rfl, Scheme.Hom.stalkMapAt_rfl,
+    Scheme.Hom.stalkMapAt_rfl] at h1
+  rw [h1]
+  rfl
+
+/-- **A morphism of group models preserving the unit section maps `ω_s` into `ω_s`.** -/
+theorem cotG_omegaAt {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (hη : η[𝒢.G] ≫ φ = η[ℋ.G]) (h : φ.left 𝒢.genericUnit = ℋ.genericUnit)
+    (s : Spec (CommRingCat.of (𝓞 L))) {v : ℋ.cotangent} (hv : v ∈ ℋ.omegaAt s) :
+    cotG φ h v ∈ 𝒢.omegaAt s := by
+  let F : ℋ.cotangent →ₗ[𝓞 L] 𝒢.cotangent :=
+    { toFun := cotG φ h, map_add' := map_add _, map_smul' := fun a v => cotG_smul_ring φ h a v }
+  suffices H : ℋ.omegaAt s ≤ (𝒢.omegaAt s).comap F from H hv
+  unfold GroupModel.omegaAt
+  rw [Submodule.span_le]
+  rintro m ⟨t, ht, hmem, rfl⟩
+  have hs : φ.left (𝒢.unitSection s) = ℋ.unitSection s := by
+    rw [← Scheme.Hom.comp_apply, unitSection_comp_left φ hη]
+  set T := (φ.left.stalkMapAt hs).hom t with hT
+  have hTker : T ∈ RingHom.ker (𝒢.unitSection.stalkMap s).hom := by
+    rw [RingHom.mem_ker, hT, unitSection_stalkMap_stalkMapAt φ hη s hs]
+    exact ht
+  have hnat : (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)).hom T =
+      (φ.left.stalkMapAt h).hom
+        ((ℋ.G.left.presheaf.stalkSpecializes (ℋ.specializes_genericUnit s)).hom t) :=
+    stalkSpec_stalkMapAt φ.left _ h hs _ t
+  have hmem' : (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)).hom T ∈
+      IsLocalRing.maximalIdeal 𝒢.genStalk := by
+    rw [hnat]; exact map_nonunit _ _ hmem
+  apply Submodule.subset_span
+  refine ⟨T, hTker, hmem', ?_⟩
+  show cotMapAt φ.left h ((IsLocalRing.maximalIdeal _).toCotangent ⟨_, hmem⟩) = _
+  rw [cotMapAt_toCotangent]
+  unfold GroupModel.dCls
+  congr 1
+  exact Subtype.ext hnat.symm
+
+theorem cotG_omega {𝒢 : GroupModel A L} {ℋ : GroupModel B L} (φ : 𝒢.G ⟶ ℋ.G)
+    (hη : η[𝒢.G] ≫ φ = η[ℋ.G]) (h : φ.left 𝒢.genericUnit = ℋ.genericUnit)
+    {v : ℋ.cotangent} (hv : v ∈ ℋ.omega) : cotG φ h v ∈ 𝒢.omega := by
+  unfold GroupModel.omega at hv ⊢
+  rw [Submodule.mem_iInf] at hv ⊢
+  exact fun s => cotG_omegaAt φ hη h s (hv s)
+
+end Omega
+
+section Product
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+
+theorem one_comp_e (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] : η[𝒢P.G] ≫ e.hom = lift η[𝒢₁.G] η[𝒢₂.G] := by
+  apply CartesianMonoidalCategory.hom_ext
+  · rw [lift_fst, Category.assoc, IsMonHom.one_hom]
+  · rw [lift_snd, Category.assoc, IsMonHom.one_hom]
+
+/-- `i₁ = (id, 1) ≫ e⁻¹ : 𝒢₁ → 𝒢P`. -/
+noncomputable def incl1 (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) : 𝒢₁.G ⟶ 𝒢P.G :=
+  lift (𝟙 _) (toUnit _ ≫ η[𝒢₂.G]) ≫ e.inv
+
+/-- `i₂ = (1, id) ≫ e⁻¹ : 𝒢₂ → 𝒢P`. -/
+noncomputable def incl2 (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) : 𝒢₂.G ⟶ 𝒢P.G :=
+  lift (toUnit _ ≫ η[𝒢₁.G]) (𝟙 _) ≫ e.inv
+
+theorem one_comp_incl1 (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] : η[𝒢₁.G] ≫ incl1 e = η[𝒢P.G] := by
+  rw [incl1, ← Category.assoc, Iso.comp_inv_eq, one_comp_e]
+  apply CartesianMonoidalCategory.hom_ext <;> simp
+
+theorem one_comp_incl2 (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] : η[𝒢₂.G] ≫ incl2 e = η[𝒢P.G] := by
+  rw [incl2, ← Category.assoc, Iso.comp_inv_eq, one_comp_e]
+  apply CartesianMonoidalCategory.hom_ext <;> simp
+
+theorem incl1_fst (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) : incl1 e ≫ e.hom ≫ fst _ _ = 𝟙 _ := by
+  simp [incl1]
+
+theorem incl1_snd (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) :
+    (incl1 e ≫ e.hom ≫ snd _ _).left = 𝒢₁.G.hom ≫ 𝒢₂.unitSection := by
+  have : incl1 e ≫ e.hom ≫ snd _ _ = toUnit _ ≫ η[𝒢₂.G] := by simp [incl1]
+  rw [this, Over.comp_left]
+  rfl
+
+theorem incl2_snd (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) : incl2 e ≫ e.hom ≫ snd _ _ = 𝟙 _ := by
+  simp [incl2]
+
+theorem incl2_fst (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) :
+    (incl2 e ≫ e.hom ≫ fst _ _).left = 𝒢₂.G.hom ≫ 𝒢₁.unitSection := by
+  have : incl2 e ≫ e.hom ≫ fst _ _ = toUnit _ ≫ η[𝒢₁.G] := by simp [incl2]
+  rw [this, Over.comp_left]
+  rfl
+
+variable (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+
+theorem hp1 : (e.hom ≫ fst _ _).left 𝒢P.genericUnit = 𝒢₁.genericUnit :=
+  left_genericUnit_of _ (IsMonHom.one_hom _)
+theorem hp2 : (e.hom ≫ snd _ _).left 𝒢P.genericUnit = 𝒢₂.genericUnit :=
+  left_genericUnit_of _ (IsMonHom.one_hom _)
+theorem hi1 : (incl1 e).left 𝒢₁.genericUnit = 𝒢P.genericUnit :=
+  left_genericUnit_of _ (one_comp_incl1 e)
+theorem hi2 : (incl2 e).left 𝒢₂.genericUnit = 𝒢P.genericUnit :=
+  left_genericUnit_of _ (one_comp_incl2 e)
+
+theorem cot_i1_p1 (v : 𝒢₁.cotangent) :
+    cotG (incl1 e) (hi1 e) (cotG (e.hom ≫ fst _ _) (hp1 e) v) = v := by
+  have hc : (incl1 e).left ≫ (e.hom ≫ fst _ _).left = 𝟙 _ := by
+    rw [← Over.comp_left, incl1_fst]; rfl
+  have hpt : ((incl1 e).left ≫ (e.hom ≫ fst _ _).left) 𝒢₁.genericUnit = 𝒢₁.genericUnit := by
+    rw [hc]; rfl
+  exact (cotMapAt_comp _ _ (hi1 e) (hp1 e) hpt v).symm.trans
+    ((cotMapAt_congr hc hpt rfl v).trans (cotMapAt_id _ rfl v))
+
+theorem cot_i2_p2 (v : 𝒢₂.cotangent) :
+    cotG (incl2 e) (hi2 e) (cotG (e.hom ≫ snd _ _) (hp2 e) v) = v := by
+  have hc : (incl2 e).left ≫ (e.hom ≫ snd _ _).left = 𝟙 _ := by
+    rw [← Over.comp_left, incl2_snd]; rfl
+  have hpt : ((incl2 e).left ≫ (e.hom ≫ snd _ _).left) 𝒢₂.genericUnit = 𝒢₂.genericUnit := by
+    rw [hc]; rfl
+  exact (cotMapAt_comp _ _ (hi2 e) (hp2 e) hpt v).symm.trans
+    ((cotMapAt_congr hc hpt rfl v).trans (cotMapAt_id _ rfl v))
+
+theorem cot_i1_p2 (v : 𝒢₂.cotangent) :
+    cotG (incl1 e) (hi1 e) (cotG (e.hom ≫ snd _ _) (hp2 e) v) = 0 := by
+  have hc : (incl1 e).left ≫ (e.hom ≫ snd _ _).left = 𝒢₁.G.hom ≫ 𝒢₂.unitSection := by
+    rw [← Over.comp_left, incl1_snd]
+  have hpt' : (𝒢₁.G.hom ≫ 𝒢₂.unitSection) 𝒢₁.genericUnit = 𝒢₂.genericUnit := by
+    rw [Scheme.Hom.comp_apply, hom_genericUnit]; rfl
+  have hpt : ((incl1 e).left ≫ (e.hom ≫ snd _ _).left) 𝒢₁.genericUnit = 𝒢₂.genericUnit := by
+    rw [hc]; exact hpt'
+  exact (cotMapAt_comp _ _ (hi1 e) (hp2 e) hpt v).symm.trans
+    ((cotMapAt_congr hc hpt hpt' v).trans (cotMapAt_comp_eq_zero 𝒢₁.G.hom 𝒢₂.unitSection
+      (hom_genericUnit 𝒢₁) rfl hpt' (maximalIdeal_stalk_genericPt L _ rfl) v))
+
+theorem cot_i2_p1 (v : 𝒢₁.cotangent) :
+    cotG (incl2 e) (hi2 e) (cotG (e.hom ≫ fst _ _) (hp1 e) v) = 0 := by
+  have hc : (incl2 e).left ≫ (e.hom ≫ fst _ _).left = 𝒢₂.G.hom ≫ 𝒢₁.unitSection := by
+    rw [← Over.comp_left, incl2_fst]
+  have hpt' : (𝒢₂.G.hom ≫ 𝒢₁.unitSection) 𝒢₂.genericUnit = 𝒢₁.genericUnit := by
+    rw [Scheme.Hom.comp_apply, hom_genericUnit]; rfl
+  have hpt : ((incl2 e).left ≫ (e.hom ≫ fst _ _).left) 𝒢₂.genericUnit = 𝒢₁.genericUnit := by
+    rw [hc]; exact hpt'
+  exact (cotMapAt_comp _ _ (hi2 e) (hp1 e) hpt v).symm.trans
+    ((cotMapAt_congr hc hpt hpt' v).trans (cotMapAt_comp_eq_zero 𝒢₂.G.hom 𝒢₁.unitSection
+      (hom_genericUnit 𝒢₂) rfl hpt' (maximalIdeal_stalk_genericPt L _ rfl) v))
+
+/-- `𝒢P.unitSection ≫ e.hom.left = (e₁, e₂)`. -/
+theorem unitSection_e (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] :
+    𝒢P.unitSection ≫ e.hom.left = pullback.lift 𝒢₁.unitSection 𝒢₂.unitSection
+      (by rw [unitSection_comp_hom, unitSection_comp_hom]) := by
+  show (η[𝒢P.G] ≫ e.hom).left = _
+  rw [one_comp_e]
+  rfl
+
+/-- **The cotangent space of a product splits:** `v = p₁^*(i₁^* v) + p₂^*(i₂^* v)`. -/
+theorem cot_split (v : 𝒢P.cotangent) :
+    v = cotG (e.hom ≫ fst _ _) (hp1 e) (cotG (incl1 e) (hi1 e) v) +
+      cotG (e.hom ≫ snd _ _) (hp2 e) (cotG (incl2 e) (hi2 e) v) := by
+  obtain ⟨v, rfl⟩ : ∃ v' : IsLocalRing.CotangentSpace (𝒢P.G.left.presheaf.stalk 𝒢P.genericUnit),
+      v' = v := ⟨v, rfl⟩
+  set f := 𝒢₁.G.hom
+  set g := 𝒢₂.G.hom
+  have hX := unitSection_comp_hom 𝒢₁
+  have hY := unitSection_comp_hom 𝒢₂
+  set z := pairPt f g 𝒢₁.unitSection 𝒢₂.unitSection hX hY (genericPt L) with hz
+  set E : 𝒢P.G.left ⟶ pullback f g := e.hom.left
+  set E' : pullback f g ⟶ 𝒢P.G.left := e.inv.left
+  have hEE' : E ≫ E' = 𝟙 _ := by
+    show (e.hom ≫ e.inv).left = _
+    rw [e.hom_inv_id]; rfl
+  have hEξ : E 𝒢P.genericUnit = z := by
+    show E (𝒢P.unitSection (genericPt L)) = _
+    rw [← Scheme.Hom.comp_apply, unitSection_e e]
+    rfl
+  have hE'z : E' z = 𝒢P.genericUnit := by
+    rw [← hEξ, ← Scheme.Hom.comp_apply, hEE']; rfl
+  have hid : (E' ≫ E) z = z := by rw [Scheme.Hom.comp_apply, hE'z, hEξ]
+  have hpt1 : (E ≫ pullback.fst f g) 𝒢P.genericUnit = 𝒢₁.genericUnit := hp1 e
+  have hpt2 : (E ≫ pullback.snd f g) 𝒢P.genericUnit = 𝒢₂.genericUnit := hp2 e
+  have hq1 : (incl₁ f g 𝒢₂.unitSection hY ≫ E') 𝒢₁.genericUnit = 𝒢P.genericUnit := hi1 e
+  have hq2 : (incl₂ f g 𝒢₁.unitSection hX ≫ E') 𝒢₂.genericUnit = 𝒢P.genericUnit := hi2 e
+  -- the identity on `T*_z`
+  have key : ∀ w : IsLocalRing.CotangentSpace ((pullback f g).presheaf.stalk z),
+      w = cotMapAt (pullback.fst f g) (fst_pairPt f g _ _ hX hY _)
+          (cotMapAt (incl₁ f g 𝒢₂.unitSection hY) (incl₁_apply f g _ _ hX hY _) w) +
+        cotMapAt (pullback.snd f g) (snd_pairPt f g _ _ hX hY _)
+          (cotMapAt (incl₂ f g 𝒢₁.unitSection hX) (incl₂_apply f g _ _ hX hY _) w) := by
+    intro w
+    obtain ⟨c, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective w
+    rw [cotMapAt_toCotangent, cotMapAt_toCotangent, cotMapAt_toCotangent, cotMapAt_toCotangent,
+      ← map_add, Ideal.toCotangent_eq]
+    have := sub_mem_sq_pairPt f g 𝒢₁.unitSection 𝒢₂.unitSection hX hY (genericPt L)
+      (maximalIdeal_stalk_genericPt L _ rfl) c c.2
+    rw [sub_sub] at this
+    exact this
+  have h1 : cotMapAt E hEξ (cotMapAt E' hE'z v) = v := by
+    have hpt : (E ≫ E') 𝒢P.genericUnit = 𝒢P.genericUnit := by rw [hEE']; rfl
+    exact (cotMapAt_comp E E' hEξ hE'z hpt v).symm.trans
+      ((cotMapAt_congr hEE' hpt rfl v).trans (cotMapAt_id _ rfl v))
+  have k := congrArg (cotMapAt E hEξ) (key (cotMapAt E' hE'z v))
+  rw [h1, map_add] at k
+  refine k.trans ?_
+  congr 1
+  · exact (cotMapAt_comp E _ hEξ _ hpt1 _).symm.trans
+      (congrArg _ (cotMapAt_comp _ E' (incl₁_apply f g _ _ hX hY _) hE'z hq1 v).symm)
+  · exact (cotMapAt_comp E _ hEξ _ hpt2 _).symm.trans
+      (congrArg _ (cotMapAt_comp _ E' (incl₂_apply f g _ _ hX hY _) hE'z hq2 v).symm)
+
+end Product
+
+end ZInQ.InfraHodge

@@ -1,0 +1,110 @@
+/-! # infra-hodge, part 4a: bases of `ω` inside the lattice (generic)
+
+* `basis_of_wedge_ne_zero`: if `L ⊗ ⋀^g V` is a line (`g ≥ 1`) and `1 ⊗ ιMulti v ≠ 0`, then `v` is
+  an `L`-basis of `V`.
+* `exists_omega_basis`: a metrized model of dimension `g` has an `L`-basis of `ω_{A_L}` inside
+  `ω_𝒢` (for `g = 0` assuming the cotangent space is `0`).
+* `TrivialPointsCotangent` (new named Prop, only for the case `g = 0`): a group model with a single
+  complex point has zero cotangent space. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module
+--IH:ABVAR
+open scoped TensorProduct
+
+section Wedge
+
+variable {L : Type*} [Field L] [NumberField L]
+variable {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V]
+
+theorem basis_of_wedge_ne_zero {g : ℕ} (hg : 0 < g)
+    (hfr : finrank L (L ⊗[𝓞 L] ⋀[𝓞 L]^g V) = 1) (v : Fin g → V)
+    (hv : (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v ≠ 0) :
+    ∃ b : Basis (Fin g) L V, ∀ k, b k = v k := by
+  have hL : exteriorPower.ιMulti L g v ≠ 0 := fun h => hv (by
+    rw [← ZInQ.HodgeBC2.extFracEquiv_ιMulti (R := 𝓞 L), h, map_zero])
+  have hli : LinearIndependent L v := by
+    by_contra h
+    exact hL ((exteriorPower.ιMulti L g).map_linearDependent v h)
+  have hfr' : finrank L (⋀[L]^g V) = 1 := by
+    rw [(ZInQ.HodgeBC2.extFracEquiv (R := 𝓞 L) (K := L) (M := V) g).finrank_eq]; exact hfr
+  haveI : FiniteDimensional L (⋀[L]^g V) := Module.finite_of_finrank_pos (by omega)
+  have hsp : ⊤ ≤ Submodule.span L (Set.range v) := by
+    intro x _
+    by_contra hx
+    have hli' : LinearIndependent L (Fin.snoc v x : Fin (g + 1) → V) :=
+      linearIndependent_fin_snoc.mpr ⟨hli, hx⟩
+    have h2 := exteriorPower.ιMulti_family_linearIndependent_field (n := g) hli'
+    have h3 := h2.fintype_card_le_finrank
+    rw [hfr'] at h3
+    have : Fintype.card (Set.powersetCard (Fin (g + 1)) g) = g + 1 := by
+      rw [Fintype.card_eq_nat_card, Set.powersetCard.card, Nat.card_eq_fintype_card,
+        Fintype.card_fin, Nat.choose_succ_self_right]
+    omega
+  exact ⟨Basis.mk hli hsp, fun k => Basis.mk_apply _ _ _⟩
+
+end Wedge
+
+section Factor
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+theorem exists_omega_basis {g : ℕ} (M : MetrizedModel A L g)
+    (h0 : g = 0 → Subsingleton M.model.cotangent) :
+    letI := cotL M.model; ∃ u : Basis (Fin g) L M.model.cotangent, ∀ k, u k ∈ M.model.omega := by
+  letI := cotL M.model
+  haveI := cotL_isScalarTower M.model
+  rcases Nat.eq_zero_or_pos g with rfl | hg
+  · haveI := h0 rfl
+    exact ⟨Basis.empty _, fun k => k.elim0⟩
+  obtain ⟨s, hs, hs0, -⟩ := M.hodge.isLattice
+  rw [M.lattice_eq] at hs
+  have : ∃ v : Fin g → M.model.omega, (1 : L) ⊗ₜ[𝓞 L]
+      exteriorPower.ιMulti (𝓞 L) g (fun i => (v i : M.model.cotangent)) ≠ 0 := by
+    by_contra hcon
+    push_neg at hcon
+    apply hs0
+    have hbot : M.model.detLattice g = ⊥ := by
+      unfold GroupModel.detLattice
+      rw [Submodule.span_eq_bot]
+      rintro _ ⟨v, rfl⟩
+      exact hcon v
+    rw [hbot] at hs
+    exact (Submodule.mem_bot _).mp hs
+  obtain ⟨v, hv⟩ := this
+  obtain ⟨b, hb⟩ := basis_of_wedge_ne_zero hg M.hodge.finrank_eq_one _ hv
+  exact ⟨b, fun k => by rw [hb]; exact (v k).2⟩
+
+/-- **Named Prop (used only for metrized models of dimension `0`).** A smooth group model `𝒢` of
+`A_L` over `𝓞_L` whose complex points at some `τ : L → ℂ` reduce to the identity has zero cotangent
+space `𝔪_ξ/𝔪_ξ² = ω_{A_L}`. Why true (STANDARD, unproved here): `𝒢(ℂ)_τ = A_τ(ℂ)`; a group scheme
+of finite type over `ℂ` with one `ℂ`-point is, by the Nullstellensatz (Jacobson), topologically a
+point, so `A_τ` is smooth of dimension `0`, i.e. étale over `ℂ`, and its cotangent space at the
+origin, which is `ℂ ⊗_{L,τ} ω_{A_L}` (cotangent spaces commute with field extension, infra-stalks'
+`cotangent_baseChange_injective`), vanishes. Glue (geometry of smooth varieties). -/
+def TrivialPointsCotangent : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ), (∀ p : 𝒢.Pts τ, p = 1) → Subsingleton 𝒢.cotangent
+
+theorem subsingleton_of_dim_zero (h0 : TrivialPointsCotangent) (M : MetrizedModel A L 0) :
+    Subsingleton M.model.cotangent := by
+  obtain ⟨τ⟩ := (inferInstance : Nonempty (L →+* ℂ))
+  obtain ⟨Φ, hΦ, -⟩ := M.arch τ
+  refine h0 K A L M.model τ fun p => ?_
+  obtain ⟨z, rfl⟩ := hΦ.2.2.1 p
+  have hz : z = 0 := Subsingleton.elim _ _
+  subst hz
+  have h := hΦ.1 0 0
+  rw [add_zero] at h
+  exact (_root_.mul_eq_left.mp h.symm)
+
+omit [Algebra K L] in
+theorem secIndex_eq_relIndex {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+    (M : Submodule (𝓞 L) V) (s : V) :
+    secIndex M s = (Submodule.span (𝓞 L) {s}).toAddSubgroup.relIndex M.toAddSubgroup := rfl
+
+end Factor
+
+end ZInQ.InfraHodge

@@ -1,0 +1,42 @@
+/-! # infra-hodge, part 5: `ProductHodgeLattice` proved, and consequences for metrization's chain -/
+
+namespace ZInQ.InfraHodge
+
+/-- **metrization's glue `ProductHodgeLattice` holds** (statement verbatim). -/
+theorem productHodgeLattice : ZInQ.Metrization.ProductHodgeLattice :=
+  productHodgeLattice_of trivialPointsCotangent
+
+end ZInQ.InfraHodge
+
+namespace ZInQ.Metrization
+
+/-- `ProductMetrizationGeo` (g0-heightadd's glue P2a-geo) holds: infra-stalks'
+`productMetrizationGeo_of_hodgeLattice` with `ProductHodgeLattice` proved. -/
+theorem productMetrizationGeo_infraHodge : ZInQ.G0HeightAdd.ProductMetrizationGeo :=
+  productMetrizationGeo_of_hodgeLattice ZInQ.InfraHodge.productHodgeLattice
+
+end ZInQ.Metrization
+
+namespace HSyn.G0Split
+
+/-- `HeightAdditivity` with `ProductHodgeLattice` discharged (infra-stalks' `_v4` without `hPL`). -/
+theorem heightAdditivity_of_metrization_v5 (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (h5 : LeafAdopt.H5) (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
+    (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
+    (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)
+    (hN : ZInQ.Metrization.JacDetNondegenerate) : HeightAdditivity :=
+  heightAdditivity_of_metrization_v4 hN1 h5 hU hH hUD hN ZInQ.InfraHodge.productHodgeLattice
+
+end HSyn.G0Split
+
+#print axioms ZInQ.InfraHodge.cot_split
+#print axioms ZInQ.InfraHodge.cotG_omega
+#print axioms ZInQ.InfraHodge.detIdeal_prod
+#print axioms ZInQ.InfraHodge.idx_mul
+#print axioms ZInQ.InfraHodge.relIndex_detLat
+#print axioms ZInQ.InfraHodge.exists_omega_basis
+#print axioms ZInQ.InfraHodge.productHodgeLattice_of
+#print axioms ZInQ.InfraHodge.trivialPointsCotangent
+#print axioms ZInQ.InfraHodge.productHodgeLattice
+#print axioms ZInQ.Metrization.productMetrizationGeo_infraHodge
+#print axioms HSyn.G0Split.heightAdditivity_of_metrization_v5

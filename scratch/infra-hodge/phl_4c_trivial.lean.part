@@ -1,0 +1,156 @@
+/-! # infra-hodge, part 6: `TrivialPointsCotangent` proved
+
+Let `X = 𝒢 ×_{𝓞_L} Spec ℂ` (via `τ`), smooth and locally of finite type over `ℂ`, hence Jacobson.
+Its closed points are its `ℂ`-points (Mathlib's `pointOfClosedPoint`, `ℂ` algebraically closed), and
+a `ℂ`-point of `X` over `Spec ℂ` is a `τ`-point of `𝒢`; all of these are `1`, so `X` has a single
+closed point `z₀`, hence (Jacobson) a single point. So `dim 𝒪_{X,z₀} = 0` (Mathlib's
+`ringKrullDim_stalk_eq_coheight`), and by infra-smooth-dim's `exists_stalk_dim_of_smooth`
+(dimension = embedding dimension at closed points) `𝔪_{z₀} = 0`. By infra-stalks'
+`cotangent_baseChange_injective`, `ℂ ⊗_{κ(η)} ω_{A_L} ↪ 𝔪_{z₀}/𝔪_{z₀}² = 0`, so `ω_{A_L} = 0`. -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings Module
+--IH:ABVAR
+open scoped TensorProduct
+
+section Trivial
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- (metrization's `ptC_hom_apply`, copied) `Spec ℂ → Spec 𝓞_L` (via `τ`) hits the generic
+point. -/
+theorem ptC_hom_apply' (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (GroupModel.ptC (L := L) τ).hom x = genericPt L := by
+  haveI : x.asIdeal.IsPrime := x.isPrime
+  have hx : x.asIdeal = ⊥ := Ideal.eq_bot_of_prime x.asIdeal
+  apply PrimeSpectrum.ext
+  show Ideal.comap (τ.comp (algebraMap (𝓞 L) L)) x.asIdeal = ⊥
+  rw [hx]
+  exact Ideal.comap_bot_of_injective _
+    (τ.injective.comp (IsFractionRing.injective (𝓞 L) L))
+
+/-- (metrization's `one_left_apply`, copied) The identity complex point lies over `ξ`. -/
+theorem one_left_apply' (𝒢 : GroupModel A L) (τ : L →+* ℂ) (x : Spec (CommRingCat.of ℂ)) :
+    (1 : 𝒢.Pts τ).left x = 𝒢.genericUnit := by
+  have hw : (toUnit (GroupModel.ptC (L := L) τ)).left = (GroupModel.ptC (L := L) τ).hom :=
+    (Category.comp_id _).symm.trans (Over.w (toUnit (GroupModel.ptC (L := L) τ)))
+  show (toUnit (GroupModel.ptC τ) ≫ η[𝒢.G]).left x = 𝒢.unitSection (genericPt L)
+  rw [Over.comp_left]
+  change (η[𝒢.G]).left ((toUnit (GroupModel.ptC (L := L) τ)).left x) = _
+  rw [hw, ptC_hom_apply']
+  rfl
+
+theorem nontrivial_stalk {X : Scheme} (x : X) : Nontrivial (X.presheaf.stalk x) := inferInstance
+
+/-- **`TrivialPointsCotangent` holds.** -/
+theorem trivialPointsCotangent : TrivialPointsCotangent := by
+  intro K _ A L _ _ _ 𝒢 τ hpts
+  let f : 𝒢.G.left ⟶ Spec (CommRingCat.of (𝓞 L)) := 𝒢.G.hom
+  let g : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of (𝓞 L)) := (GroupModel.ptC (L := L) τ).hom
+  let q : pullback f g ⟶ Spec (CommRingCat.of ℂ) := pullback.snd f g
+  haveI : LocallyOfFiniteType f := show LocallyOfFiniteType 𝒢.G.hom from inferInstance
+  haveI : Smooth f := show Smooth 𝒢.G.hom from inferInstance
+  haveI : LocallyOfFiniteType q := inferInstance
+  haveI : Smooth q := inferInstance
+  haveI : JacobsonSpace (pullback f g : Scheme) := LocallyOfFiniteType.jacobsonSpace q
+  have hw1 : (1 : 𝒢.Pts τ).left ≫ f = 𝟙 _ ≫ g := by
+    rw [Category.id_comp]; exact Over.w (1 : 𝒢.Pts τ)
+  let p₀ : Spec (CommRingCat.of ℂ) ⟶ pullback f g := pullback.lift (1 : 𝒢.Pts τ).left (𝟙 _) hw1
+  have hp₀ : p₀ ≫ q = 𝟙 _ := pullback.lift_snd _ _ _
+  set z₀ := p₀ (IsLocalRing.closedPoint ℂ) with hz₀
+  have hz₀c : IsClosed ({z₀} : Set (pullback f g : Scheme)) :=
+    ((pointEquivClosedPoint q) ⟨p₀, hp₀⟩).2
+  -- every closed point is `z₀`
+  have hcl : ∀ x : (pullback f g : Scheme), IsClosed ({x} : Set (pullback f g : Scheme)) → x = z₀ := by
+    intro x hx
+    let p := pointOfClosedPoint q x hx
+    have hp : p ≫ q = 𝟙 _ := pointOfClosedPoint_comp q x hx
+    have hw : (p ≫ pullback.fst f g) ≫ f = g := by
+      rw [Category.assoc, pullback.condition, ← Category.assoc]
+      show (p ≫ q) ≫ g = g
+      rw [hp, Category.id_comp]
+    have h1 := hpts (Over.homMk (p ≫ pullback.fst f g) hw)
+    have heq : p = p₀ := by
+      apply pullback.hom_ext
+      · have := congrArg CommaMorphism.left h1
+        exact this.trans (pullback.lift_fst (1 : 𝒢.Pts τ).left (𝟙 _) hw1).symm
+      · show p ≫ q = p₀ ≫ q
+        rw [hp, hp₀]
+    rw [← pointOfClosedPoint_apply q x hx (IsLocalRing.closedPoint ℂ)]
+    show p _ = _
+    rw [heq]
+  -- every point is `z₀`
+  have hall : ∀ y : (pullback f g : Scheme), y = z₀ := by
+    intro y
+    have hZ : closure ({y} : Set (pullback f g : Scheme)) ⊆ {z₀} := by
+      rw [← closure_inter_closedPoints isClosed_closure, ← hz₀c.closure_eq]
+      refine closure_mono fun x hx => ?_
+      exact hcl x hx.2
+    exact hZ (subset_closure rfl)
+  -- the local ring at `z₀` has dimension `0`, hence is a field
+  have hdim0 : ringKrullDim ((pullback f g : Scheme).presheaf.stalk z₀) = 0 := by
+    rw [ringKrullDim_stalk_eq_coheight]
+    have : Order.coheight z₀ = 0 :=
+      Order.coheight_eq_zero.mpr (fun b _ => by rw [hall b])
+    rw [this]
+    rfl
+  obtain ⟨n, hn1, hn2⟩ := InfraSmoothDim.exists_stalk_dim_of_smooth q z₀ hz₀c
+  have hn : n = 0 := by
+    rw [hdim0] at hn1
+    exact_mod_cast hn1.symm
+  haveI : IsLocallyNoetherian (pullback f g : Scheme) := LocallyOfFiniteType.isLocallyNoetherian q
+  have hm : IsLocalRing.maximalIdeal ((pullback f g : Scheme).presheaf.stalk z₀) = ⊥ :=
+    (Submodule.spanFinrank_eq_zero_iff_eq_bot (IsNoetherian.noetherian _)).mp (hn2.trans hn)
+  have hsub : ∀ w : IsLocalRing.CotangentSpace ((pullback f g : Scheme).presheaf.stalk z₀), w = 0 := by
+    intro w
+    obtain ⟨a, rfl⟩ := (IsLocalRing.maximalIdeal _).toCotangent_surjective w
+    have ha : (a : (pullback f g : Scheme).presheaf.stalk z₀) = 0 := by
+      have h2 : (a : (pullback f g : Scheme).presheaf.stalk z₀) ∈
+          (⊥ : Ideal ((pullback f g : Scheme).presheaf.stalk z₀)) := hm ▸ a.2
+      exact (Ideal.mem_bot).mp h2
+    rw [show a = 0 from Subtype.ext ha, map_zero]
+  -- base change of the cotangent space
+  set s0 := genericPoint (Spec (CommRingCat.of (𝓞 L)))
+  have e1 : (p₀ ≫ pullback.fst f g : Spec (CommRingCat.of ℂ) ⟶ 𝒢.G.left) =
+      (1 : 𝒢.Pts τ).left := pullback.lift_fst _ _ _
+  have e2 : (p₀ ≫ pullback.snd f g : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ)) =
+      𝟙 _ := pullback.lift_snd _ _ _
+  have hx : pullback.fst f g z₀ = 𝒢.genericUnit :=
+    (congrArg (fun φ : Spec (CommRingCat.of ℂ) ⟶ 𝒢.G.left => φ (IsLocalRing.closedPoint ℂ))
+      e1).trans (one_left_apply' 𝒢 τ _)
+  have hy : pullback.snd f g z₀ = IsLocalRing.closedPoint ℂ :=
+    congrArg (fun φ : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ) =>
+      φ (IsLocalRing.closedPoint ℂ)) e2
+  have hs : f 𝒢.genericUnit = s0 := hom_genericUnit' 𝒢
+  have hys : g (IsLocalRing.closedPoint ℂ) = s0 :=
+    (ptC_hom_apply' τ _).trans (genericPt_eq_genericPoint L)
+  have hS := maximalIdeal_stalk_genericPt L s0 (genericPt_eq_genericPoint L).symm
+  have hY := maximalIdeal_stalk_spec_field ℂ (IsLocalRing.closedPoint ℂ)
+  have hrat : RationalOver f 𝒢.genericUnit :=
+    rationalOver_of_section _ _ (unitSection_comp_hom 𝒢) (genericPt L)
+  obtain ⟨Ψ, -, hinj⟩ := cotangent_baseChange_injective f g z₀ hx hy hs hys hS hY hrat
+  let Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s0
+  let Ox := 𝒢.G.left.presheaf.stalk 𝒢.genericUnit
+  let Oy := (Spec (CommRingCat.of ℂ)).presheaf.stalk (IsLocalRing.closedPoint ℂ)
+  letI : Algebra Os Ox := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra Os Oy := (g.stalkMapAt hys).hom.toAlgebra
+  letI : Field Os := inferInstanceAs (Field (Spec (CommRingCat.of (𝓞 L))).functionField)
+  refine ⟨fun v w => ?_⟩
+  suffices H : ∀ v : 𝒢.cotangent, v = 0 by rw [H v, H w]
+  intro v
+  by_contra hv
+  let vv : (IsLocalRing.maximalIdeal Ox).Cotangent := v
+  have hbOs : LinearIndependent Os (fun _ : Unit => vv) := linearIndependent_unique_iff.mpr hv
+  have hli := Module.Flat.linearIndependent_one_tmul (S := Oy) hbOs
+  haveI : Nontrivial Oy := nontrivial_stalk (X := Spec (CommRingCat.of ℂ)) _
+  have h10 : (1 : Oy) ⊗ₜ[Os] vv ≠ 0 := hli.ne_zero ()
+  apply h10
+  apply hinj
+  simp only [map_zero]
+  exact hsub _
+
+end Trivial
+
+end ZInQ.InfraHodge
