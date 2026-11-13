@@ -141,3 +141,29 @@ the definition `GaloisRep.AttachedUpToTwist`.
   - Use `HSyn.FrobeniusDense` and the `PkgI4` leaves of `Leaves.lean` instead of the copies in §4
     and §7.
   - The headline is `C9Rhof.c9_r5` followed by `c10_via_c9`.
+
+## §4. Independent review (2026-11-12, one model review, read-only)
+
+**Verdict: no faithfulness defects.** The reviewer checked:
+- `rhoF` is the covariant `ι`-quotient of `V_ℓ(A_f) ⊗ ℚ̄_ℓ`, with arithmetic Frobenius.
+- R16 (`IsFrobAt`) and R14 (`IsArithFrob`) use the same normalization; they are bridged by
+  `isFrobAt_of_isArithFrob` and `embOf_spec`.
+- The twist bookkeeping `ιC(βα) = ψD(p)a_p(g) = a_p(g') = a_p(f)` and the level `N ∣ Mm²`.
+- No leaf is used in a form stronger than its source. T18 is a correct consequence of Chebotarev.
+  It differs from the kernel's proved `GlueC10.frobDense` only in using `IsArithFrob`.
+- The hypotheses are satisfiable: `hatt` holds for `r = ρ_{f,ι}` itself, and `∃ J, IsJ1 N J`
+  holds by `LeafModCurves.exists_J1`.
+
+Points the reviewer raised, and what was done with them:
+1. `c9`'s `hatt` had no `p ∤ Nℓ` guard, so it was slightly stronger than needed. **Applied:**
+   `hatt` now carries the guard. Recompiled: exit 0, standard axioms.
+2. In `c9_r5`, the set `S` must contain `ℓ` and the primes of `m`. The reason is that
+   `AttachedUpToTwist` asserts `UnramifiedAt p` for `p ∉ S`, and `hψ` fails at `p ∣ m`, where
+   `ψD(p) = 0`. Both hypotheses get weaker as `S` grows, so C8 just takes `S` large. Not a defect.
+3. Pan's output (`PanFor`) has some weight `k ≥ 1`. `c9_r5` takes `g` of weight 2, so `k = 2`
+   must come from C8's weight comparison (`HSyn.weight_match`, with the Hodge–Tate supplier).
+   This belongs to C8.
+4. The reviewer said that global Kronecker–Weber is not in the leaf list. **Incorrect**, and
+   VERIFIED as such: `KroneckerWeber` (T17) is defined at `scratch/h-decomposition/Leaves.lean`
+   L18903 and is the field `t17` of the textbook bundle (L19173). So `hψ` is open glue from T17
+   plus the finiteness of `ψ` (`GlueAssembly.twist_finite`), as §3(b) says.

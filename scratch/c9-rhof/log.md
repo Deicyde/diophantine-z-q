@@ -40,3 +40,10 @@ Markers: VERIFIED (compiled / read), STANDARD, SPECULATIVE, UNVERIFIED.
   - `c10_via_c9`: `GlueC10.c10` instantiated with `ρ₅ := rhoF` and C9's `h₅`, `hρ₅`.
 - `#print axioms` for rhoF_semisimple, rhoF_continuous, c9, c9_R14, c9_r5, c10_via_c9:
   [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## 23:25 PST
+- `isSemisimple_of_isIrreducible` (Burnside-irreducible GaloisRep ⇒ IsSemisimple) compiles.
+- Model review (one agent, read-only): no faithfulness defects. Its point on `c9`'s `hatt`
+  (missing `p ∤ Nℓ` guard) is applied, recompiled exit 0, standard axioms (VERIFIED).
+  Its claim that global Kronecker–Weber is not a leaf is wrong: `KroneckerWeber` at Leaves.lean
+  L18903, bundle field `t17` (VERIFIED).

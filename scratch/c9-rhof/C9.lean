@@ -313,7 +313,7 @@ theorem c9 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateMo
     (bW : Module.Basis κ (PadicAlgCl ℓ) W) (r : Representation (PadicAlgCl ℓ) GQ W)
     (hrc : Continuous fun g => LinearMap.toMatrix bW bW (r g))
     (hr : IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) r.asModule)
-    (hatt : ∀ p, p.Prime → p ∉ S → ∃ α : Qbar, ιC α = coeff f p ∧
+    (hatt : ∀ p, p.Prime → p ∉ S → ¬ p ∣ N * ℓ → ∃ α : Qbar, ιC α = coeff f p ∧
       ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
         LinearMap.trace (PadicAlgCl ℓ) W (r τ) = ιL α) :
     ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
@@ -337,7 +337,7 @@ theorem c9 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateMo
     c9_core ℓ hS hT hBN hD N hN (fun p => ⟨coeff f p, coeff_mem_coeffField f p⟩) A θ _ h2
       (fun p hp hpN σ hσ => (hfr p hp hpN σ hσ).1 _ rfl) S bW r hrc hr ?_⟩
   intro p hp hpS hpN v τ hv hτ
-  obtain ⟨α, hα, hrα⟩ := hatt p hp hpS
+  obtain ⟨α, hα, hrα⟩ := hatt p hp hpS hpN
   rw [hrα v τ hv hτ]
   exact (embOf_spec ℓ ιC ιL (coeffField f) _ α hα).symm
 
@@ -533,7 +533,7 @@ theorem c9_R14 (hR14 : PkgI4.EigenformRepExists) (hR16 : R16_EichlerShimuraJ1')
   obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, -⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J hJ
     ιC ιL (N * ℓ).primeFactors (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep ρ)
     (toRep_continuous ρ) (toRep_semisimple ρ hss) (by
-      intro p hp hpS
+      intro p hp hpS _
       have hpN : ¬ p ∣ N * ℓ := fun h => hpS (Nat.mem_primeFactors.mpr ⟨hp, h, hNℓ⟩)
       obtain ⟨-, α, hα, h⟩ := hatt p hp hpN
       exact ⟨α, hα, fun v τ hv hτ => by rw [trace_toRep]; exact h v τ hv hτ⟩)
@@ -578,7 +578,7 @@ theorem c9_r5 (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
   obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, hFrob⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J
     hJ ιC ιL (S ∪ (M * m).primeFactors) (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep r)
     (toRep_continuous r) (toRep_semisimple r hr) (by
-      intro p hp hpS
+      intro p hp hpS _
       have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
       have hpMm : ¬ p ∣ M * m := fun h =>
         hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hMm⟩))
