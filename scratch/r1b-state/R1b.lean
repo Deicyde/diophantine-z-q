@@ -1551,9 +1551,14 @@ def R2fpPropsC (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP
 
 /-- **GLUE (R2 at complex points).** Why true: the published statement behind `R2fpProps`
 (Baba–Granath, with R1 at level one) is about `X₆` and `X₆/W ≅ P¹` over `ℚ`, and the coarse moduli
-property holds over every algebraically closed field of characteristic 0, `ℂ` included; for a
-candidate `(Y, Φ, π)` satisfying the clause lists, `π` is determined by its values on the dense
-set of `ℚ̄`-points, so it is the published `π` (Lefschetz principle). -/
+property holds over every algebraically closed field of characteristic 0, `ℂ` included. For a
+candidate `(Y, Φ, π)` satisfying the clause lists: `(Y, Φ)` is isomorphic to `Y₃` compatibly with
+`Φ` (`phi_part` both ways; a self-map of a reduced separated scheme that is the identity on all
+field points is the identity); `π` agrees with the published map on `ℚ̄`-points (same fibres and
+three values, so they differ by a bijection of `P¹(ℚ̄)` that is algebraic, hence Möbius, hence the
+identity: qm-pin's `MobiusGlue` argument); and a morphism is determined by its values on the
+dense set of `ℚ̄`-points of the reduced `Y`. So `π` is the published map, and its fibres and CM
+values at `ℂ`-points are the coarse-moduli ones (Lefschetz principle). -/
 def R2OnC : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
     R1fpProps Y Φ → R2fpProps Y Φ π → R2fpPropsC Y Φ π
