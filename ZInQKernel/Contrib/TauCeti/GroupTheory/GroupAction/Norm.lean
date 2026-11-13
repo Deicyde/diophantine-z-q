@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 97a5b23586f9, module TauCeti.GroupTheory.GroupAction.Norm), Apache-2.0.
+-- Modified for the Z-in-Q kernel: `groupNorm`, `groupNormHom` and their lemmas omitted (taken from the imported oct16 `GroupCohomology.Cocycle`); extra imports of that module and a Backport/ module.
 module
 
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle

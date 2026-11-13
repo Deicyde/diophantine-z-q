@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.NumberTheory.ModularForms.LFunction.Sign), Apache-2.0.
+-- Modified for the Z-in-Q kernel: one proof unfolds `ModularForm.L` (no `ModularForm.L_apply_of_ne_zero` in the pinned Mathlib).
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.FunctionalEquation

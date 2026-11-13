@@ -1,0 +1,31 @@
+counts: {'IDENT': 1395, 'NOTE-ONLY': 0, 'MOD-NOTED': 9, 'MOD-UNNOTED': 20, 'NOPROV': 39}
+MOD-UNNOTED GroupTheory/GroupAction/Norm.lean TauCeti.GroupTheory.GroupAction.Norm
+MOD-UNNOTED GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean TauCeti.GroupTheory.SpecificGroups.Cyclic.PowMonoidHom
+MOD-UNNOTED NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber
+MOD-UNNOTED NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RaySubgroup
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Basic
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Ramification.lean TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Ramification
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Reciprocity.lean TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Reciprocity
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/ClassFormation.lean TauCeti.NumberTheory.ClassFieldTheory.Global.ClassFormation
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/CorestrictionLocalization.lean TauCeti.NumberTheory.ClassFieldTheory.Global.CorestrictionLocalization
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/Kummer/Index.lean TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Index
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/LocalArtin/Compatibility.lean TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Compatibility
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Frobenius
+MOD-UNNOTED NumberTheory/ClassFieldTheory/Global/Reciprocity.lean TauCeti.NumberTheory.ClassFieldTheory.Global.Reciprocity
+MOD-UNNOTED NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormLimitation
+MOD-UNNOTED NumberTheory/ModularForms/LFunction/Sign.lean TauCeti.NumberTheory.ModularForms.LFunction.Sign
+MOD-UNNOTED NumberTheory/NumberField/InfinitePlace/Completion/Real.lean TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Real
+MOD-UNNOTED RepresentationTheory/Cyclic/Norm.lean TauCeti.RepresentationTheory.Cyclic.Norm
+MOD-UNNOTED RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback.lean TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Pullback
+MOD-UNNOTED RingTheory/Polynomial/Cyclotomic/PrimePow.lean TauCeti.RingTheory.Polynomial.Cyclotomic.PrimePow
+MOD-UNNOTED Topology/Algebra/Star/Completion.lean TauCeti.Topology.Algebra.Star.Completion
+MOD-NOTED NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean TauCeti.NumberTheory.ClassFieldTheory.Formation.InvariantKernel
+MOD-NOTED NumberTheory/ModularForms/Basic.lean TauCeti.NumberTheory.ModularForms.Basic
+MOD-NOTED RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Discrete
+MOD-NOTED RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean TauCeti.RepresentationTheory.Homological.GroupCohomology.PrimeIndex
+MOD-NOTED RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean TauCeti.RepresentationTheory.Homological.TateCohomology.TrivialityCriterion
+MOD-NOTED Topology/Algebra/Group/Profinite/Generation.lean TauCeti.Topology.Algebra.Group.Profinite.Generation
+MOD-NOTED Topology/Algebra/Group/Profinite/Sylow/Basic.lean TauCeti.Topology.Algebra.Group.Profinite.Sylow.Basic
+MOD-NOTED Topology/Algebra/Group/Profinite/Sylow/Containment.lean TauCeti.Topology.Algebra.Group.Profinite.Sylow.Containment
+MOD-NOTED Topology/Algebra/Group/Profinite/Sylow/Existence.lean TauCeti.Topology.Algebra.Group.Profinite.Sylow.Existence
+NOPROV: Backport/Algebra/BigOperators/Finset/Range.lean Backport/Algebra/Group/PowMonoidHom.lean Backport/FieldTheory/Galois/Abelian/Basic.lean Backport/FieldTheory/Galois/Restriction.lean Backport/GroupTheory/Abelianization/Basic.lean Backport/GroupTheory/OrderOfElement/Basic.lean Backport/GroupTheory/SpecificGroups/Cyclic/Basic.lean Backport/Mathlib/Polynomial.lean Backport/NumberTheory/ClassFieldTheory/Brauer/CharacterFormula.lean Backport/NumberTheory/ClassFieldTheory/Formation/Layer/Inflation.lean Backport/NumberTheory/ClassFieldTheory/Global/Brauer/SumFormula.lean Backport/NumberTheory/ClassFieldTheory/Global/IdeleClass/SecondInequality.lean Backport/NumberTheory/ClassFieldTheory/Global/IdeleLocalization.lean Backport/NumberTheory/ClassFieldTheory/Global/Kummer/AuxiliaryPlaces.lean Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Ideles.lean Backport/NumberTheory/ClassFieldTheory/Global/Kummer/Norm.lean Backport/NumberTheory/ClassFieldTheory/Global/LiftingObstruction.lean Backport/NumberTheory/ClassFieldTheory/Global/PrescribedInvariant.lean Backport/NumberTheory/ClassFieldTheory/Global/PrimeDegreeDecomposition.lean Backport/NumberTheory/ClassFieldTheory/GlobalExistence/NormSubgroup.lean Backport/NumberTheory/Cyclotomic/FixingSubgroup.lean Backport/NumberTheory/NumberField/Global/Ideles/FiniteIdeal.lean Backport/NumberTheory/NumberField/Global/Ideles/Norm/Relative.lean Backport/NumberTheory/NumberField/Global/Ideles/Ray/ClassQuotient.lean Backport/NumberTheory/NumberField/Global/Ideles/Ray/OpenSubgroup.lean Backport/NumberTheory/NumberField/Global/RayClass/Rat.lean Backport/NumberTheory/NumberField/LocalGlobal/AbsoluteGaloisGroup.lean Backport/NumberTheory/NumberField/LocalGlobal/DecompositionGroup.lean Backport/NumberTheory/NumberField/LocalGlobal/Semilocal/Basic.lean Backport/NumberTheory/NumberField/Units/LocalPowerClass.lean Backport/RepresentationTheory/Homological/ContCohomology/CarryCocycle.lean Backport/RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Basic.lean Backport/RingTheory/ClassGroup/HeightOneSpectrum.lean Backport/RingTheory/DedekindDomain/AdicValuation/ValuativeRel.lean Backport/RingTheory/Polynomial/Cyclotomic/Basic.lean Backport/RingTheory/Polynomial/Distinguished.lean Backport/Topology/Algebra/ContinuousMonoidHom/Basic.lean MathlibBackport/Sylow.lean Notice.lean 

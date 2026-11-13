@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 97a5b23586f9, module TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Basic), Apache-2.0.
+-- Modified for the Z-in-Q kernel: extra imports of Backport/ modules (commit-97a5b235 declarations absent from the oct16 modules vendored here).
 module
 
 public import Mathlib.NumberTheory.Cyclotomic.Basic
