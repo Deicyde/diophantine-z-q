@@ -75,6 +75,9 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.HSyn.t37_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t39_of_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.specNonMeeting' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'HDec.PropTSGlue.verticalResidueDegree' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.snSpecializeUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.propTSAll_final''' depends on axioms: [propext, Classical.choice, Quot.sound]

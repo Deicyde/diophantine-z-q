@@ -39,11 +39,13 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r22 := r.r22,
     h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (41 fields): g0-assemble3's `GluePieces4` without
+/-- **The named Props left after assemble-port** (40 fields): g0-assemble3's `GluePieces4` without
 * `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
   together `PropTSGlue.specNonMeeting`);
 * `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
-  (`r14`, `r1b`, `r17`), the same Props. -/
+  (`r14`, `r1b`, `r17`), the same Props;
+* `analyticUniformizationOfDim`: follows from the textbook leaf T35 (`t35 : UniformizationExists`) by metrization2's
+  transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40). -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -53,9 +55,6 @@ structure GluePieces5 : Prop where
   x6-kummer §3.6). fs5-nocm's glue N2 `X6KummerFibre` is proved from it and `MobiusGlue`. -/
   x6ConicModel : X6Kummer.X6ConicModel
   -- ProductModelHeight (unif-dims, product-unif, infra-smooth-dim)
-  /-- metrization (via unif-dims), LEAF (the uniformization theorem with its dimension: `𝒢(ℂ)_τ ≅ ℂ^g/Λ`,
-  Mumford §1, §4; GAGA). -/
-  analyticUniformizationOfDim : ZInQ.Metrization.AnalyticUniformizationOfDim
   -- StableHeightBaseChange (height-bc; infra-stalks proved the other two)
   /-- height-bc, GLUE (BC-alg: `ψ` is injective on the Hodge line). -/
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
@@ -133,16 +132,17 @@ structure GluePieces5 : Prop where
   tateRamAtThree : UnramTate.TateRamAtThree
 
 
-/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research bundle. -/
-theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (gp : GluePieces5) : GluePieces4 :=
+/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research and textbook bundles. -/
+theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
+    GluePieces4 :=
   { verticalResidueSeparable := PropTSGlue.verticalResidueSeparable_of_degree PropTSGlue.verticalResidueDegree,
     snSpecialize := PropTSGlue.snSpecialize_of_unram PropTSGlue.snSpecializeUnram,
     r14Det := r.r14,
     r1bFamily := r.r1b,
     carayolR17 := r.r17,
+    analyticUniformizationOfDim := ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35,
     cmOptimalEmbedding := gp.cmOptimalEmbedding,
     x6ConicModel := gp.x6ConicModel,
-    analyticUniformizationOfDim := gp.analyticUniformizationOfDim,
     hodgeBCInjective := gp.hodgeBCInjective,
     omegaBaseChange := gp.omegaBaseChange,
     thetaRatiosAlgebraic := gp.thetaRatiosAlgebraic,
@@ -183,11 +183,11 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (gp : GluePieces5) 
     tateRamAtThree := gp.tateRamAtThree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (41 fields: 14 LEAF, 3 LEAF?,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (40 fields: 13 LEAF, 3 LEAF?,
 24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r gp)
+  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r t gp)
 
 end HSyn
 
@@ -203,6 +203,7 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
 #print axioms PropTSGlue.verticalResidueDegree
 #print axioms PropTSGlue.snSpecializeUnram
 #print axioms PropTSGlue.propTSAll_final''

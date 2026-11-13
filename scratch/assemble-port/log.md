@@ -63,3 +63,8 @@
   TailF 105 s, TailD 15 s: all VERIFIED exit 0, 0 errors, no sorry; TailD: 37 axiom reports, all
   [propext, Classical.choice, Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5`, `researchLeaves4_of_open2`,
   `t14a_proved`, `t36_proved` (TailD_out.txt).
+- Part e40 (mk/mk_e40.py): leaf-fold2's b09 L2041-2223 verbatim (metrization2's transport of T35 to group models):
+  `ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists`; g0-assemble3's e30 lacks this section.
+  GluePieces5 loses `analyticUniformizationOfDim` (LEAF; now from `t.t35`): 40 fields; `gluePieces4_of_gluePieces5`
+  takes `t`. TailF: VERIFIED exit 0, 107 s; TailD: VERIFIED exit 0, 39 s, 38 axiom reports all standard, incl.
+  `sixContactMin_of_leaves5` and `analyticUniformizationOfDim_of_uniformizationExists`.

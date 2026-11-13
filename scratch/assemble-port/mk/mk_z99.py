@@ -11,16 +11,19 @@ while i < len(lines):
     if any(d in l for d in DROP1): i += 1; continue
     if any(d in l for d in DROP_DOC): i += 2; continue
     if 'fibre-qm-period, LEAF (R1(b) in family form' in l: i += 5; continue  # doc + 4-line field r1bFamily
+    if 'metrization (via unif-dims), LEAF (the uniformization theorem' in l: i += 3; continue  # doc (2 lines) + field
     out.append(l); i += 1
 blk = '\n'.join(out)
-assert 'r1bFamily' not in blk and 'carayolR17' not in blk and 'r14Det :' not in blk
-blk = blk.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (41 fields): g0-assemble3's `GluePieces4` without
+assert 'analyticUniformizationOfDim' not in blk and 'r1bFamily' not in blk and 'carayolR17' not in blk and 'r14Det :' not in blk
+blk = blk.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (40 fields): g0-assemble3's `GluePieces4` without
 * `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
   together `PropTSGlue.specNonMeeting`);
 * `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
-  (`r14`, `r1b`, `r17`), the same Props. -/''').replace('structure GluePieces5', 'X').replace('structure GluePieces4', 'structure GluePieces5')
+  (`r14`, `r1b`, `r17`), the same Props;
+* `analyticUniformizationOfDim`: follows from the textbook leaf T35 (`t35 : UniformizationExists`) by metrization2's
+  transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40). -/''').replace('structure GluePieces5', 'X').replace('structure GluePieces4', 'structure GluePieces5')
 fields = [f for f in re.findall(r'^\s*(?:/--.*?-/\s*)?([a-zA-Z0-9]+) : ', blk, re.M) if f != 'h']
-assert len(fields) == 41, len(fields)
+assert len(fields) == 40, len(fields)
 rf = ['r1r2','r1rec','r3','r4','r5','r5count','r6','r7a','r7b','r8','r9a','r9b','r10','r11r12','r13','r14','r15','r16',
       'r18','r19','r20','r21','r22','h5fin']
 def assign(lst, src, special={}):
@@ -46,16 +49,16 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
 ''' % assign(rf, 'r', {'r14': 'eigenformRepExists_of_r14Det r.r14', 'r10': 'r.r10'})
 mid = '''
 
-/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research bundle. -/
-theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (gp : GluePieces5) : GluePieces4 :=
+/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research and textbook bundles. -/
+theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :\n    GluePieces4 :=
   { %s }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (41 fields: 14 LEAF, 3 LEAF?,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (40 fields: 13 LEAF, 3 LEAF?,
 24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r gp)
+  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r t gp)
 
 end HSyn
 
@@ -71,13 +74,15 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
 #print axioms PropTSGlue.verticalResidueDegree
 #print axioms PropTSGlue.snSpecializeUnram
 #print axioms PropTSGlue.propTSAll_final''
-''' % assign(['verticalResidueSeparable', 'snSpecialize', 'r14Det', 'r1bFamily', 'carayolR17'] + fields, 'gp', {
+''' % assign(['verticalResidueSeparable', 'snSpecialize', 'r14Det', 'r1bFamily', 'carayolR17', 'analyticUniformizationOfDim'] + fields, 'gp', {
     'verticalResidueSeparable': 'PropTSGlue.verticalResidueSeparable_of_degree PropTSGlue.verticalResidueDegree',
     'snSpecialize': 'PropTSGlue.snSpecialize_of_unram PropTSGlue.snSpecializeUnram',
-    'r14Det': 'r.r14', 'r1bFamily': 'r.r1b', 'carayolR17': 'r.r17'})
+    'r14Det': 'r.r14', 'r1bFamily': 'r.r1b', 'carayolR17': 'r.r17',
+    'analyticUniformizationOfDim': 'ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35'})
 open('parts/z99_bundle5.lean', 'w').write(hdr + blk.rstrip() + '\n' + mid)
 open('fields5.txt', 'w').write('\n'.join(fields) + '\n')
 print('ok', len(fields))

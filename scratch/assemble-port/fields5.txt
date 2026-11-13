@@ -1,6 +1,5 @@
 cmOptimalEmbedding
 x6ConicModel
-analyticUniformizationOfDim
 hodgeBCInjective
 omegaBaseChange
 thetaRatiosAlgebraic
