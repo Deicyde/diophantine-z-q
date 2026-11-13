@@ -61,3 +61,5 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
 - `T2Kernel.lean` (imports `ZInQKernel.HDecomp.Objects`; nothing copied but the proof):
   COMPILES, standard axioms. `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` (the
   kernel's definition) and `TBrauerPurityT2K.abhyankarDVR_objBridge : ObjBridge.AbhyankarDVR`.
+- Final check 2026-11-12 ~23:58 PST: all seven files recompiled one after another; no errors, no
+  sorry; every `#print axioms` = [propext, Classical.choice, Quot.sound].
