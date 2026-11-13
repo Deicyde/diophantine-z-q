@@ -95,3 +95,7 @@
   at a place w of ℚ̄ with good reduction of A at w∩e₁(K) and B at w∩e₂(K), inertia fixes every A_{e₁} → B_{e₂} under conj.
 - `conjAction_inertia`: hK (G2) + hgood (G3: good reduction of A at all places of K over p ∉ T) + InertiaFixesHoms ⇒ hinert. PROVED.
 - `homField_of_model_leaves`: G4 for A/K from HomFreeFinite + MorphismsDescend + InertiaFixesHoms, hypotheses hK, hgood, hdim.
+
+## Final check
+- `lake env lean scratch/g4-weilres/G4.lean`: 0 errors; 19 `#print axioms` lines, all [propext, Classical.choice, Quot.sound]; 0 `sorry` (grep).
+- Report docs/research/g4-weilres.md rewritten (headline `homField_of_model_leaves`); .fleet/g4-weilres.md written.

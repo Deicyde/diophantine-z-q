@@ -6,27 +6,34 @@ import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.Objects
 
 /-!
-# g4-weilres, part 1: Galois-theoretic unramifiedness gives ideal-theoretic unramifiedness
+# g4-weilres: glue step G4 of `docs/research/h-decomposition.md` (Weil restriction, Hom field)
 
-The converse of glue-b3-unram's `GlueB3Unram.inertia_le_of_unramifiedAt`. For a finite Galois
-`L ⊆ ℚ̄` and a prime `p`: if every inertia group `I_w ≤ G_ℚ` over `p` fixes `L` pointwise, then
-every prime of `𝓞 L` above `p` has ramification index `1` (glue-descent's `UnramifiedAt L p`, the
-form consumed by `GlueDescent.B3Q.b3_degree_le_QM`).
+Report: `docs/research/g4-weilres.md`. Headline: `G4WeilRes.homField_of_model_leaves`.
 
-Proof: Mathlib's profinite transitivity and its surjectivity of the stabilizer of a prime of the
-algebraic integers onto the residue automorphisms (`Ideal.Quotient.stabilizerHom_surjective_of_profinite`),
-over the fixed ring of `G_L`, lift an element of the finite inertia group `I(P | p) ≤ Gal(L/ℚ)` to
-an element of some `I_w`; the hypothesis kills it, and `|I(P | p)| = e(P | p)` (Mathlib).
-The pattern is glue-b3b's `exists_inertia_neg`, with `α` replaced by all of `L`.
+Contents, in order:
+* `G4Conj` (generic, any category with pullbacks): the comparison `cmp` between base changes
+  along `f₂ = s ≫ f₁` respects multiplication and unit; the conjugate `conj` of a morphism; the
+  conjugate of a monoid homomorphism is one (`conj_isMonHom`); multiplicativity, functoriality.
+* The bridge `GalUnramifiedOutside L T ↔ ∀ p ∉ T, UnramifiedAt L p` for finite Galois `L ⊆ ℚ̄`
+  (`galUnramifiedOutside_iff`; the new direction via Mathlib's profinite transitivity and
+  `Ideal.Quotient.stabilizerHom_surjective_of_profinite`, as in glue-b3b's `exists_inertia_neg`).
+* The Hom-field core (`homField_core`: Minkowski + infinite Galois theory) and its numerical form
+  (`homField_le_heightD`).
+* The Hom lattice of a finite family of abelian varieties over `ℚ̄`, its rank (leaf
+  `PkgI3.HomFreeFinite`), its `ℓ`-adic faithfulness.
+* The conjugates of a model `A/K` (`conjData`) and the conjugation action of `G_ℚ` on their Hom
+  lattice (`conjAction`, `conjActionExists`): the Weil-restriction step, constructed.
+* Continuity from EGA IV₃ 8.8.2 (`MorphismsDescend` → `conjAction_continuous`), inertia from good
+  reduction (`InertiaFixesHoms` → `conjAction_inertia`), the headline, and the consumers
+  (`b3_of_homField` for G7, `cm_degree_of_homField` for the CM branch).
 
-No leaf is used.
+Inputs are `def … : Prop` hypotheses; no `sorry`, no `axiom`.
 -/
-
 
 section ConjSec
 
 /-!
-# g4-weilres, part 2: conjugating homomorphisms of base-changed group objects
+## Part A: conjugating homomorphisms of base-changed group objects
 
 Generic category theory (any `C` with pullbacks). For a monoid object `X` over `S` and two base
 changes along `f₁, f₂ : T → S` with `f₂ = s ≫ f₁`, the comparison `g : X ×_{S,f₂} T → X ×_{S,f₁} T`
