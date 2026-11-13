@@ -1488,4 +1488,40 @@ theorem oddGauss_mul {m n : ℕ} (hmn : Nat.Coprime m n) (hm : 0 < m) (hn : 0 < 
   push_cast
   ring
 
+theorem oddGauss_one : OddGauss 1 := by
+  intro ν
+  simp [oddSum, jacobiSym.one_right]
+
+/-- **`OddGauss d` for odd squarefree `d` from the odd primes.** -/
+theorem oddGauss_of_prime (hP : ∀ p : ℕ, p.Prime → p ≠ 2 → OddGauss p) :
+    ∀ d : ℕ, Odd d → Squarefree d → OddGauss d := by
+  intro d
+  induction d using Nat.recOnPosPrimePosCoprime with
+  | prime_pow p k hp hk =>
+    intro hodd hsq
+    have hp' : p.Prime := hp
+    have hk1 : k = 1 := ((Nat.squarefree_pow_iff hp'.one_lt.ne' hk.ne').mp hsq).2
+    subst hk1
+    rw [pow_one] at hodd ⊢
+    exact hP p hp' (by rintro rfl; exact absurd hodd (by decide))
+  | zero => intro h; simp at h
+  | one => intro _ _; exact oddGauss_one
+  | coprime a b ha hb hab iha ihb =>
+    intro hodd hsq
+    have hoa : Odd a := (Nat.odd_mul.mp hodd).1
+    have hob : Odd b := (Nat.odd_mul.mp hodd).2
+    exact oddGauss_mul hab (by omega) (by omega) (iha hoa (Squarefree.of_mul_left hsq))
+      (ihb hob (Squarefree.of_mul_right hsq))
+
+/-- **The two literature Props from three elementary statements**: the Euler product of
+`L(ψ_d, s)` (`HeckeEuler`, about `ℤ[i]`), Gauss's theorem at split primes (`GaussSplit`), and the
+quadratic Gauss sum over `𝔽_p²` for odd primes `p` (`OddGauss p`). -/
+theorem literature_hecke_fe_of_euler_gauss_oddGaussPrime
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → GaussSplit d)
+    (hP : ∀ p : ℕ, p.Prime → p ≠ 2 → OddGauss p) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_euler_gauss_oddGauss hE hS fun d h5 hsq =>
+    oddGauss_of_prime hP d (Nat.odd_iff.mpr (by omega)) hsq
+
 end BpHeckeFE

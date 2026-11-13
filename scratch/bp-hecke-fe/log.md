@@ -76,3 +76,7 @@
   (Σ_{b∈(ℤ/d)²} (Nb/d) e(b·ν/d) = d (Nν/d)), `cdFourier_of_oddGauss`,
   `literature_hecke_fe_of_euler_gauss_oddGauss : (∀d, HeckeEuler d) → (∀d, GaussSplit d) →
    (∀d, OddGauss d) → HeckeContinuation5 ∧ Literature.FunctionalEquation5`.
+- (VERIFIED, compiled ~18:20) `crt_injective2`, `sum_crt2` (coprime m, n), `oddGauss_mul`
+  (OddGauss multiplicative), `oddGauss_one`, `oddGauss_of_prime` (odd squarefree d from odd primes),
+  `literature_hecke_fe_of_euler_gauss_oddGaussPrime : (∀d≡5(8) sqfree, HeckeEuler d) →
+   (∀ such d, GaussSplit d) → (∀ odd prime p, OddGauss p) → HeckeContinuation5 ∧ FunctionalEquation5`.
