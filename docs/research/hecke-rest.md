@@ -22,41 +22,49 @@ Model work only; no human has reviewed it. Marks used throughout:
 
 ## 1. Main result
 
-**All four targets are true and reduced in Lean.**
+**All four targets are true. Three are proved outright and one is reduced in Lean.**
 
-- `HeckeFibreSizes` is proved from three new leaves.
-- The two curve-theory targets now rest on two standard properties of the charts of `π`,
-  `ChartProper` and `ChartQuasiFinite`, and nothing else.
+- **`CurveNormChart`, `CurveChartInf`, and hence ts-hecke's `CurveGaloisChart`, are theorems.**
+  They have no hypotheses and use Mathlib only. There is no leaf and no remaining glue on the
+  curve side.
+- **`HeckeFibreSizes`** is proved from the kernel's `TorsionStructure` and three new **leaves** on
+  QM abelian surfaces (§2).
+- **`HeckeNoVertRam`** is reduced to `HeckeVertWitness`: one unramified vertical prime for each
+  `p > 324`. This is an equivalent "one prime instead of all" form; its content is the good
+  reduction of `Y₃` (§3).
 
-Everything compiles with standard axioms only (VERIFIED).
+Everything compiles with standard axioms only (VERIFIED). The composite theorem is:
 
 ```lean
+theorem HeckeRestAll.curveGaloisChart : CurveGaloisChart
+theorem HeckeRestCurve.curveNormChart : CurveNormChart
+theorem HeckeRestCurve.curveChartInf : CurveChartInf
 theorem HeckeRestAll.coverModelOfHecke_of_heckeRest (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
-    (hP : HeckeRestCurve.ChartProper) (hQ : HeckeRestCurve.ChartQuasiFinite)
     (hV : HeckeRestNV.HeckeVertWitness) : CoverModelOfHecke
 ```
 
 There is also the analogous `HeckeRestAll.propTSAll_of_heckeRest`, which goes through prop-ts-glue's
 `propTSAll_final`.
 
-| Target | Compiled reduction | What remains |
+| Target | Compiled result | What remains |
 |---|---|---|
+| `CurveNormChart` (hence `CurveGaloisChart`) | **theorem** `HeckeRestCurve.curveNormChart` | nothing |
+| `CurveChartInf` | **theorem** `HeckeRestCurve.curveChartInf` | nothing |
 | `HeckeFibreSizes` | `HeckeRest.heckeFibreSizes_of : TorsionStructure → QMAutCard → SerreRigidity3 → ALFixedPoints → HeckeFibreSizes` (with `M = 144`) | three **leaves** on QM pairs (§2) |
-| `CurveNormChart` (hence `CurveGaloisChart`) | `HeckeRestCurve.curveNormChart_of_pq : ChartProper → ChartQuasiFinite → CurveNormChart` | two glue Props of curve theory (§4) |
-| `CurveChartInf` | `HeckeRestCurve.curveChartInf_of_pq : ChartProper → ChartQuasiFinite → CurveChartInf` | the same two (§4) |
-| `HeckeNoVertRam` | `HeckeRestNV.heckeNoVertRam_of_witness : HeckeVertWitness → HeckeNoVertRam` | `HeckeVertWitness`: one unramified vertical prime. This is **equivalent** to the target, not weaker (§3) |
+| `HeckeNoVertRam` | `HeckeRestNV.heckeNoVertRam_of_witness : HeckeVertWitness → HeckeNoVertRam` | `HeckeVertWitness`, which is **equivalent** to the target (§3) |
 
-**Proved along the way, with no hypotheses:**
+**Effect on ts-hecke's composite.** ts-hecke's `coverModelOfHecke_of_tsHecke` had seven inputs:
 
-- `ChartNormal` and `ChartNormalD` (sections of smooth curves are normal);
-- `CurveSectionsDomain`;
-- `ChartDominant`, `ChartIrreducible`;
-- `InfFnField`, from `ChartFiniteInf` + `ChartIrreducible`;
-- the level-structure count `lvEquiv : Good ≃ Level3 P.q` (72 level structures);
-- Galois transitivity of ramification over a non-Dedekind base (`ramIdx_eq_of_under_eq`);
-- `ℚ(X) = Frac ℤ[X]` (`isFractionRing_int`).
+- three leaves: `Y3Connected`, `R1R2fp`, `TorsionStructure`;
+- four glue Props: `CurveGaloisChart`, `CurveChartInf`, `HeckeFibreSizes`, `HeckeNoVertRam`.
+
+The four glue Props are now replaced as follows:
+
+- `CurveGaloisChart` and `CurveChartInf` are discharged;
+- `HeckeFibreSizes` is replaced by three published-theorem leaves;
+- `HeckeNoVertRam` is replaced by its witness form.
 
 ### Lean files (VERIFIED: `lake env lean`, 0 errors)
 
@@ -64,12 +72,13 @@ All four files are assembled by `scratch/hecke-rest/assemble.py` from verbatim l
 
 | File | Contents | Time |
 |---|---|---|
-| `FibreSizes.lean` | aut-o-finite + Units + the target, then Part 1 | ~20 s |
-| `NoVert.lean` | prop-ts prefix + the target, then Part 2 | ~15 s |
-| `CurveChart.lean` | prop-ts prefix + image-plane value calculus + infra-smooth-dim/curve-glue copies + the targets, then Part 3 | ~35 s |
-| `HeckeRestAll.lean` | all of `TSHecke.lean` (7109 lines) + the three new parts + the composite | 46 s |
+| `FibreSizes.lean` | aut-o-finite + Units + the target, then Part 1 (`FibreSizesMain.lean.part`) | ~20 s |
+| `NoVert.lean` | prop-ts prefix + the target, then Part 2 (`NoVertMain.lean.part`) | ~15 s |
+| `CurveChart.lean` | prop-ts prefix + image-plane value calculus + infra-smooth-dim/curve-glue/ts-hecke copies + the targets, then Part 3 (`CurveChartMain`, `InfFnMain`, `PointsMain`, `ProperMain` `.lean.part`) | ~45 s |
+| `HeckeRestAll.lean` | all of `TSHecke.lean` (7109 lines) + the value calculus + all new parts + the composite (`AllMain.lean.part`) | ~50 s |
 
-- All 14 `#print axioms` lines of the new declarations read `[propext, Classical.choice, Quot.sound]`.
+- All 26 `#print axioms` lines of the new declarations in `HeckeRestAll.lean` read
+  `[propext, Classical.choice, Quot.sound]`.
 - The token `sorry` occurs only in comments.
 - The compiler outputs are in `compile_*.txt`, and the step-by-step record is in `log.md`.
 
@@ -192,58 +201,60 @@ The step from the DVR to `VertUnramWitness` is commutative algebra that can be p
 - `(B_Z)_Q` is a DVR dominated by `R`, hence equal to `R`;
 - so the length of `R/pR` is 1.
 
-## 4. `CurveNormChart` and `CurveChartInf`
+## 4. `CurveNormChart` and `CurveChartInf`: proved (`CurveChartMain`, `InfFnMain`, `PointsMain`, `ProperMain`)
 
-**Compiled (`CurveChartMain.lean.part`):**
+The proof uses Mathlib (4.35) only, plus verbatim copies of compiled project lemmas:
 
-- `ev_fromSpec`: the value of `s ∈ Γ(X, U)` at `Spec χ → Spec Γ(X, U) → X` is `χ s`. It uses
-  image-plane's value calculus (`ev_comp`, `ev_spec_top`).
-- `curveNormChart_of : ChartFinite → ChartNormal → CurveNormChart`:
-  - take `E = Frac Γ(Y, π.U)`;
-  - `Γ(Y, π.U) ≅ integralClosure ℚ[X] E` by `IsIntegralClosure.equiv`;
-  - `[E : ℚ(X)] < ∞` by `IsIntegralClosure.isLocalization` and `Module.Finite.of_isLocalization`;
-  - the chart is `Spec B ≅ Spec Γ(Y, U) → Y` through `IsAffineOpen.fromSpec`.
-- `curveChartInf_of : ChartFiniteInf → ChartNormalD → InfFnField → CurveChartInf`. It is the same
-  construction on `V = π⁻¹(P¹ ∖ {0})`, using the coordinate `s ↦ π.g`.
-- `loc_max_dvr`. The localizations of `Γ(Y, U)` at maximal ideals are integrally closed domains:
-  they are the local rings at closed points (`IsAffineOpen.isLocalization_stalk'`), which are DVRs
-  (infra-smooth-dim's stalk dimensions, curve-glue's `isDomain_of_dim_one`, Mathlib's DVR TFAE).
-  From this, **`chartNormalD`, `curveSectionsDomain` and `chartNormal` are theorems**.
-- `finite_of_proper_qf`. A proper, locally quasi-finite `W → 𝔸¹` given by `s ∈ Γ(Y, W)` has `W`
-  affine and `Γ(Y, W)` finite over `ℚ[X]`. The proof uses Mathlib's ZMT corollary
-  `IsFinite.of_isProper_of_locallyQuasiFinite`, together with `isAffine_of_isAffineHom` and
-  `IsFinite.SpecMap_iff`.
-- From these: `chartFinite_of`, `chartFiniteInf_of`, `curveNormChart_of_charts` and
-  `curveChartInf_of_charts`.
+- image-plane's value calculus `ev`/`ev_comp`/`ev_spec_top`;
+- infra-smooth-dim's stalk dimensions;
+- curve-glue's `isDomain_of_dim_one`;
+- ts-hecke's `exists_qbar_point` and `eq_of_forall_qbar`.
 
-**Proved after the first draft of this report (`InfFnMain.lean.part`, `PointsMain.lean.part`):**
+Notation: `U = π⁻¹(𝔸¹)`, `V = π⁻¹(P¹∖{0})`, and `secMor Y W s : W → 𝔸¹` is the morphism given by
+`s ∈ Γ(Y, W)`.
 
-- `infFnField_of : ChartFiniteInf → ChartIrreducible → InfFnField`. The steps:
-  - the chart's range is `U` (`range_chart_eq`, Jacobson);
-  - `h^*π.f = X` (`app_f_eq`, separation by `ℚ̄`-points);
-  - `h⁻¹(V) = D(X)`;
-  - `φ : Γ(Y, V) → Γ(Spec B, D(X)) = B[1/X] → E`;
-  - `φ` is injective by incomparability over `ℚ[s]`;
-  - `E = Frac Γ(Y, V)` via `h.appIso` and `Γ(Y, D(g)) = Γ(Y, V)[1/g]`.
-- `not_isOpen_closed_point`. No closed point of a smooth curve is open: its stalk has dimension 1,
-  while the spectrum of the stalk of an open point is a single point.
-- `infinite_closedPoints_of_isOpen` and `infinite_qbar_points`. A nonempty open subset of a smooth
-  curve over `ℚ` has infinitely many closed points (Jacobson), hence infinitely many `ℚ̄`-points.
-- `chartIrreducible`: the chart's image is dense, and the closure of an irreducible set is
-  irreducible.
-- `chartDominant`: `π⁻¹(𝔸¹) ≠ ∅`, `π⁻¹(P¹∖{0}) ≠ ∅`, and `π.f`, `π.g` satisfy no polynomial
-  relation. Otherwise `π` would take finitely many values on infinitely many `ℚ̄`-points.
+1. **The charts are proper** (`chartProper`, via `secMor_isProper`, Mathlib's
+   `IsProper.of_valuativeCriterion`, Stacks 0BX5).
+   - *Finite type, separated, quasi-compact.* These follow by cancellation from `W → Y → Spec ℚ`,
+     using `toSpecQ_eq`: all morphisms to `Spec ℚ` agree.
+   - *Valuative existence* (`secMor_existence`). Properness of `Y` lifts a valuation-ring point to
+     `Y`. Suppose its closed point left `W`. Then the whole point lies in the other chart `W'`, and
+     the pull-back `G` of `s'` is a non-unit. But `s · s' = 1` at the generic point, and
+     `s = ρ X` is integral there (`ev_secMor`), so `G` is a unit.
+2. **The charts are locally quasi-finite** (`chartQuasiFinite_of_proper`, `lqf_of_proper`).
+   - Stacks 02UP (`exists_isFinite_morphismRestrict_of_finite_preimage_singleton`) makes a proper
+     chart finite near every closed point of `𝔸¹` whose fibre is finite. These neighbourhoods cover
+     `𝔸¹` by the Jacobson property, and `IsFinite` is local on the target (`isFinite_of_iSup`).
+   - Closed fibres are finite. Their closed points carry `ℚ̄`-points whose `s`-values are roots of
+     a generator (`mem_secMor_iff`), so there are finitely many by the finite `π`-fibres. A locally
+     closed set with finitely many closed points consists of closed points (Jacobson).
+3. **The charts are finite and affine** (`finite_of_proper_qf`).
+   - Mathlib's ZMT corollary `IsFinite.of_isProper_of_locallyQuasiFinite` gives finiteness.
+   - `isAffine_of_isAffineHom` gives affineness, and `IsFinite.SpecMap_iff` gives a finite ring map.
+4. **Dominance and irreducibility** (`chartDominant`, `chartIrreducible`).
+   - No closed point of a smooth curve is open (`not_isOpen_closed_point`: the stalk has
+     dimension 1).
+   - Hence a nonempty open set has infinitely many closed points and `ℚ̄`-points
+     (`infinite_closedPoints_of_isOpen`, `infinite_qbar_points`).
+   - So `π` is not constantly `∞` on an open set. The chart's image is dense, and `π.f`, `π.g`
+     satisfy no polynomial relation.
+5. **Normality** (`chartNormalD`, `chartNormal`, `curveSectionsDomain`, `loc_max_dvr`). The
+   localizations of `Γ(Y, U)` at maximal ideals are local rings at closed points, regular of
+   dimension 1, hence DVRs.
+6. **The chart over `𝔸¹`** (`curveNormChart_of`).
+   - Take `E = Frac Γ(Y, U)`. Then `Γ(Y, U) ≅ integralClosure ℚ[X] E` by `IsIntegralClosure.equiv`.
+   - `[E : ℚ(X)] < ∞` by `IsIntegralClosure.isLocalization` and `Module.Finite.of_isLocalization`.
+   - The chart is `Spec B ≅ Spec Γ(Y, U) → Y`, with values computed by `ev_fromSpec`.
+7. **The chart at `∞` for the given `E`** (`infFnField_of`, `curveChartInf_of`).
+   - The given chart's range is `U` (`range_chart_eq`).
+   - `h^*π.f = X` (`app_f_eq`), and `h⁻¹V = D(X)`.
+   - `φ : Γ(Y, V) → B[1/X] ⊆ E` sends `π.g ↦ 1/X`. It is injective by incomparability over `ℚ[s]`.
+   - `E = Frac Γ(Y, V)` via `h.appIso` and `Γ(Y, D(g)) = Γ(Y, V)[1/g]`.
 
-**Remaining glue** (curve theory, no moduli; true; proof sketches are in the docstrings):
-
-| Prop | Content | Route |
-|---|---|---|
-| `ChartProper` | `π⁻¹(𝔸¹) → 𝔸¹` (by `π.f`) and `π⁻¹(P¹∖{0}) → 𝔸¹` (by `π.g`) are `IsProper` | valuative criterion (Mathlib `ValuativeCriterion`): a valuation-ring point with integral `π.f` cannot meet `π = ∞`, since `f g = 1` on `U ∩ V` |
-| `ChartQuasiFinite` | both are `LocallyQuasiFinite` | closed fibres from the finite `ℚ̄`-fibres; points over the generic point are generic points of components (the tools of `PointsMain` cover most of this). Given `ChartProper`, Mathlib's `exists_isFinite_morphismRestrict_of_finite_preimage_singleton` (Stacks 02UP) reduces it to the closed fibres. |
-
-**Self-review fix.** As first written, `ChartFiniteInf` and `ChartDominant` were **false** for
-`Y = ∅`: all their hypotheses hold, but `Γ(Y, V) = 0`. Both now assume `Nonempty Y.left`, which
-`curveChartInf_of` derives from `NormalizationModel`.
+**Self-review fix.** Two intermediate Props were false for `Y = ∅` as first written (`ChartFiniteInf`,
+`ChartDominant`: `Γ(Y, V) = 0`). Both now assume `Nonempty Y.left`, which `curveChartInf_of` derives
+from `NormalizationModel`. Since then both have been proved, as has every other intermediate curve
+Prop (`ChartFinite`, `ChartProper`, `ChartQuasiFinite`, `ChartIrreducible`, `InfFnField`).
 
 ## 5. Independent review (read-only model agent, no Lean)
 
@@ -259,13 +270,15 @@ The step from the DVR to `VertUnramWitness` is commutative algebra that can be p
 - `HeckeVertWitness` is equivalent to `HeckeNoVertRam` (stated in §3);
 - the canonical-coordinate caveat applies equally to the original target (§3).
 
-Part 3 (curves) was written after the review and has not been reviewed independently.
+Part 3 (curves) was written after the review. It is fully proved in Lean, so its correctness rests on the compiler. The only modelling question is whether the targets (ts-hecke's statements, unchanged) say what is intended.
 
 ## 6. What remains (for the announcement)
 
 | Prop | Kind | Where |
 |---|---|---|
-| `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | **leaves** (new) | §2.2 |
+| `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | **leaves** (new; published theorems on QM abelian surfaces) | §2.2 |
 | `Y3Connected`, `R1R2fp`, `ObjBridge.TorsionStructure` | leaves (existing) | ts-hecke |
-| `ChartProper`, `ChartQuasiFinite` | glue (curve theory) | §4 |
-| `HeckeVertWitness` | glue from a leaf (good reduction of `Y₃`), equivalent to `HeckeNoVertRam` | §3 |
+| `HeckeVertWitness` | glue from a leaf (good reduction of `Y₃` at `p ∤ 6`, Morita/Carayol), equivalent to `HeckeNoVertRam` | §3 |
+
+Nothing remains on the curve side: `CurveGaloisChart`, `CurveNormChart` and `CurveChartInf` are
+theorems.
