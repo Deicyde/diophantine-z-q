@@ -468,6 +468,29 @@ theorem type_eq_mu_mul (c : B) (hc : c ∈ O) (hcc : c * c = -6) :
     rw [hc']
     simp only [Ec, E0, muInv, mu, ofInt, hw, trd]; simp; ring
 
+/-- **The PEL form of every `Aut(𝒪)`-twist.** For a ring automorphism `α` of `𝒪`, `α(μ)² = −6`,
+so `α(μ) = μv` with `v ∈ 𝒪`, `nrd v = 1`, `v† = v`. Hence the type-`μ` polarization of the twisted
+object `(A, ι ∘ α)` is `λ ∘ ι(±v)` (the type-`α(μ)` polarization of `(A, ι)`), defined in families:
+the twist is an automorphism of the PEL moduli functor of type `μ`, as R1hecke needs. -/
+theorem twist_type (α : O ≃+* O) :
+    ∃ v ∈ O, ((α ⟨mu, mu_mem⟩ : O) : B) = mu * v ∧ nrd v = 1 ∧ dag v = v := by
+  have hm6 : ((-6 : O) : B) = -6 := by
+    first
+    | (push_cast; rfl)
+    | norm_num
+    | (rw [show (-6 : O) = -((6 : ℕ) : O) by norm_num, Subring.coe_neg, Subring.coe_natCast];
+       norm_num)
+  have hsq : ((α ⟨mu, mu_mem⟩ : O) : B) * ((α ⟨mu, mu_mem⟩ : O) : B) = -6 := by
+    have h1 : (⟨mu, mu_mem⟩ : O) * ⟨mu, mu_mem⟩ = -6 := by
+      apply Subtype.ext; rw [Subring.coe_mul, hm6]; exact mu_mul_mu
+    have h2 : α ((⟨mu, mu_mem⟩ : O) * ⟨mu, mu_mem⟩) = -6 := by rw [h1, map_neg, map_ofNat]
+    rw [map_mul] at h2
+    have := congrArg (fun z : O => (z : B)) h2
+    simp only [Subring.coe_mul] at this
+    rw [this, hm6]
+  obtain ⟨v, hv, h1, h2, h3, -⟩ := type_eq_mu_mul _ (α ⟨mu, mu_mem⟩).2 hsq
+  exact ⟨v, hv, h1, h2, h3⟩
+
 /-! ## §7 The Atkin–Lehner twists preserve the type `μ` -/
 
 /-- `χ₂ = i` (`i² = 2`). -/
@@ -546,3 +569,4 @@ end RvQMPolar
 #print axioms RvQMPolar.dag_conj_chi3
 #print axioms RvQMPolar.chi3_normalizes
 #print axioms RvQMPolar.w_eq_chi_mul
+#print axioms RvQMPolar.twist_type

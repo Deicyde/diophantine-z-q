@@ -44,3 +44,7 @@ eq_pm_E0_of_principal). New:
   with mu), `chi2_chi3` (= mu), `chi2_normalizes`, `chi3_normalizes`, `dag_conj_chi2/3/mu`
   ((chi x chi^-1)^dag = chi x^dag chi^-1), `w_eq_chi_mul` (bp-qmmoduli's w2 = 1+i+j and w3 = j
   are chi2, chi3 times units of norm -1).
+- `twist_type` (added, compiled, axioms [propext, Classical.choice, Quot.sound]): for every ring
+  automorphism alpha of O, alpha(mu) = mu*v with v in O, nrd v = 1, dag v = v. (The type-mu
+  polarization of (A, iota o alpha) is lambda o iota(+-v): the twist is a functor automorphism of
+  the PEL problem of type mu, in families.)
