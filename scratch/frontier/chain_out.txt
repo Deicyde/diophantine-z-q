@@ -115,7 +115,7 @@ open nodes: 112
   X6ConicModel                                  GluePieces5.x6ConicModel
 ===== scenario F
 edge check mismatches: 0
-open nodes: 92
+open nodes: 91
   AbVarSpreadsOut                               -
   BetaOnGenus7                                  -
   CMDescends                                    GluePieces5.cmDescends
@@ -202,7 +202,6 @@ open nodes: 92
   ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
   Thm35First                                    -
   TorsionStructure                              TextbookLeaves.t5
-  TwistDescent                                  GluePieces5.twistDescent
   TwistOrbitFinite                              -
   UniformizationExists                          TextbookLeaves.t35
   ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
@@ -244,4 +243,8 @@ def-text comparison (proved field vs g0-assemble3's def):
   HomLinearLift                       identical
   GoodRedTorsion                      identical
   QMEndRank                           identical
+  TwistDescent                        def not found in scratch/twist-descent/Dev.lean
   AnalyticUniformizationOfDim         def not found in scratch/leaf-fold2/parts/b20_fold.lean
+doc rows: 82 (82 distinct heads); F open minus never-projected: 81
+  in chain, not in doc: []
+  in doc, not in chain: ['AnalyticUniformizationOfDim']

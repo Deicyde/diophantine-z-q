@@ -146,6 +146,7 @@ edge("TateBridge35", "tateBridge35_of_neron_nmp", "60340bed", "scratch/frob-piec
      ["TateModuleFree", "AbVarSpreadsOut", "ProperSmoothGenConnected", "ReductionTorsionBijective",
       "NeronMappingAbelianScheme"], "F")
 edge("FibreSimple", None, None, None, [], "F", "derived inside g0-assemble3's `gluePieces_of_gluePieces4` (not an open Prop)")
+edge("TwistDescent", "twistDescent", "fdd133f1", "scratch/twist-descent/Dev.lean", [], "F")
 # field 3 bypassed by T35 in the HDec world (leaf-fold2)
 edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b38ee0c4",
      "scratch/leaf-fold2/parts/b20_fold.lean", ["UniformizationExists"], "F",
@@ -322,5 +323,30 @@ def main():
                 print(f"  {name:35s} {r}")
 
 
-if __name__ == "__main__":
+if __name__ == "__main__" and "doc" not in sys.argv:
     main()
+
+
+def doc_check(path="/home/jackmccarthy/dzq-wt/frontier/docs/research/frontier.md"):
+    """Compare the list in frontier.md (rows | Z-n | , | T-n | , | H-n | ) with the scenario-F open set."""
+    doc = open(path).read()
+    names = {}
+    for m in re.finditer(r"^\| ([ZTH])-(\d+) \| `([^`]*)`", doc, re.M):
+        cell = m.group(3)
+        if " : " in cell:
+            cell = cell.split(" : ", 1)[1]
+        names[f"{m.group(1)}-{m.group(2)}"] = head_of_type(cell)
+    open_, rows = expand("F")
+    fieldof = {}
+    for s, f, h in rows:
+        fieldof.setdefault(h, []).append(f)
+    never = {h for h, fl in fieldof.items() if all(f in UNUSED and f not in USED_IN_F for f in fl)}
+    want = {n for n, _ in open_} - never
+    have = set(names.values())
+    print(f"doc rows: {len(names)} ({len(have)} distinct heads); F open minus never-projected: {len(want)}")
+    print("  in chain, not in doc:", sorted(want - have))
+    print("  in doc, not in chain:", sorted(have - want))
+
+
+if __name__ == "__main__" and "doc" in sys.argv:
+    doc_check()
