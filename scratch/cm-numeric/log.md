@@ -3,7 +3,7 @@
 Task cm-numeric, 2026-11-13. Marks: VERIFIED (computed / compiled / read in a named source),
 STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`.
 
-## 09:15 start
+## 09:03 start
 - No earlier log: fresh start. Branch wip/cm-numeric already contains origin/wip/cm-points
   (`git merge origin/wip/cm-points`: already up to date). Lean sources of cm-points are
   `ZInQKernel/Contrib/TYZGenus/{CM,Package,RingClass,X0}.lean` (not built yet on this worktree).
@@ -20,7 +20,7 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
 - Class-7 genus point (VERIFIED, L1268, L1316–1318, L1260): `σ = 1`, `H'_n = H_n`, `Cl'_n = Cl_n`,
   so `Φ_0 = 2Cl_n` and `Z(n) = Σ_{t ∈ 2Cl_n} z_n^t ∈ A(H_n)`.
 
-## 09:50 class-7 base point computed (`class7.py`, output `class7.out`; PARI 2.17.2 via cypari2, 400 digits)
+## 09:07 class-7 base point computed (`class7.py`, output `class7.out`; PARI 2.17.2 via cypari2, 400 digits)
 - For n ∈ {7, 15, 23, 31, 39, 47, 55, 71}: `z_n` = image under x0-32's eta model `(xC, yC)` of
   `τ = (−δ + i√n)/(2A)`, `A = (n+δ²)/4`, δ least in [0,128) with δ² ≡ −n (mod 128). VERIFIED (computed):
   - the point is on `y² = x³ + 4x` (residual ≤ 1e−402);
@@ -33,14 +33,14 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
     degree `2h/g(n) = [L_n:ℚ]`, i.e. lies in the genus field (TYZ L2458 for class 7).
   - Example: n = 7: `z_7 = ((−1+√−7)/2, (3+√−7)/2)`; n = 23: `Z(23)` has `9x² − 7x + 2 = 0`.
 
-## 10:05 Lemma 3.21(4) for the pinned class-7 genus point (`lemma321_7.py`, `lemma321_7.out`)
+## 09:09 Lemma 3.21(4) for the pinned class-7 genus point (`lemma321_7.py`, `lemma321_7.out`)
 - For e ∈ {7, 15, 23, 31, 39, 47, 55, 71, 79, 87, 95, 103} (12 values): coordinates of `Z(e)`
   recognized (lindep, residual ≤ 1e−300) in the basis `Π √(p*)` of the genus field; β' applied by
   cm-points' `betaOneSign` on each `√D`; then `Z(e)^{β'} + Z(e) = g(e)·T`, `T = (2,−4) = tauG 1`, holds
   in all 12 cases (|diff| < 1e−400; g = 1,1,3,3,2,5,2,7,5,3,4,5). VERIFIED (computed). So pinning
   `Z7` by `[(e+δ²)/4, δ, 1]` makes Lemma 3.21(4) true on this sample, independently of TYZ's text.
 
-## 10:40 Shimura reciprocity direction (`shimura.py`, `shimura.out`)
+## 09:11 Shimura reciprocity direction (`shimura.py`, `shimura.out`)
 - Test of cm-points' leaf `CM.ShimuraReciprocity` exactly as stated: `Q'` computed from the lattice
   condition `(⟨1,τ'⟩, ⟨1/32,τ'⟩) = c·𝔭̄·(⟨1,τ⟩, ⟨1/32,τ⟩)`, `𝔭̄ = ⟨p, (−b−√D)/2⟩` (exact arithmetic in
   `ℚ(√D)`, adapted basis of the pair); Frobenius tested as `g(X) ≡ X^p mod (F, p, √D − b)` with
@@ -52,7 +52,7 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
   VERIFIED (computed): the direction in `ShimuraReciprocity` (Art(𝔭) : [𝔞] ↦ [𝔭⁻¹𝔞] = [𝔭̄𝔞]) is right,
   including the case `D = −320` (TYZ's order of conductor 4 for n = 5, conductor not prime to N = 32).
 
-## 10:55 TYZSigmaFixesZn and Prop 3.2(1) for class 5 (`sigma5.py`, `degrees5.py`, `*.out`)
+## 09:12 TYZSigmaFixesZn and Prop 3.2(1) for class 5 (`sigma5.py`, `degrees5.py`, `*.out`)
 - `sigmaClass n` (class of `(3+2√−n)𝒪_K ∩ O4`) contains `p𝒪 ∩ O4`-ideals for primes `p = a² + nb²`,
   `a` odd, `b ≡ 2 (mod 4)` (`a+b√−n ≡ 3a·(3+2√−n) mod 4𝒪_K`; by hand). Prime forms checked to lie in
   the order-2 class `(4,4,21)` for n = 5 (PARI `qfbred`).
