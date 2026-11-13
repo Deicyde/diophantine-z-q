@@ -30,3 +30,4 @@ open ZInQ.Contrib.TYZGenus.X0 ZInQ.Contrib.TYZDecomp.CurveA
 #print axioms phiC_ne_zero
 #print axioms xC_yC_fC_T_smul
 #print axioms eta_add_nat
+#print axioms phi_iPt

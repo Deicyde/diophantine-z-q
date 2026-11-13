@@ -62,10 +62,12 @@ abbrev curveX0 : WeierstrassCurve ℚ := curveA
 /-- `C₁ : y² = x³ − x` (Cremona `32a2`), syntactically `TYZDecomp.curveC 1`. -/
 abbrev curveC1 : WeierstrassCurve ℚ := shortCurve (-((1 : ℕ) : ℚ) ^ 2)
 
-/-- `y² = x³ − 11x − 14` (Cremona `32a3`), `2`-isogenous to `C₁` (kernel `⟨(−1, 0)⟩`). -/
+/-- `y² = x³ − 11x − 14` (Cremona `32a3`, label UNVERIFIED), the image of `C₁` under the
+`2`-isogeny with kernel `⟨(1, 0)⟩` (Vélu; computed by hand, not proved here). -/
 def curve32a3 : WeierstrassCurve ℚ := ⟨0, 0, 0, -11, -14⟩
 
-/-- `y² = x³ − 11x + 14` (Cremona `32a4`), `2`-isogenous to `C₁` (kernel `⟨(1, 0)⟩`). -/
+/-- `y² = x³ − 11x + 14` (Cremona `32a4`, label UNVERIFIED), the image of `C₁` under the
+`2`-isogeny with kernel `⟨(−1, 0)⟩` (Vélu; computed by hand, not proved here). -/
 def curve32a4 : WeierstrassCurve ℚ := ⟨0, 0, 0, -11, 14⟩
 
 /-! ## §2 The analytic model: eta quotients on `ℍ` -/
@@ -622,6 +624,42 @@ theorem psi_some {x y : Qbar} (h : curveC1bar.toAffine.Nonsingular x y) (hx : x 
   simp only [Point.some.injEq]
   exact ⟨e1, e2⟩
 
+
+/-! ### `ι`, `φ`, `ψ` are `ℤ[i]`-linear -/
+
+theorem nonsingular_iPtC1 {x y : Qbar} (h : curveC1bar.toAffine.Nonsingular x y) :
+    curveC1bar.toAffine.Nonsingular (-x) (iQ * y) := by
+  rw [WeierstrassCurve.Affine.nonsingular_iff', WeierstrassCurve.Affine.equation_iff'] at h ⊢
+  simp only [curveC1bar_a₁, curveC1bar_a₂, curveC1bar_a₃, curveC1bar_a₄, curveC1bar_a₆] at h ⊢
+  obtain ⟨he, hn⟩ := h
+  refine ⟨by linear_combination y ^ 2 * iQ_sq - he, ?_⟩
+  rcases hn with h | h
+  · left
+    intro h'
+    apply h
+    linear_combination h'
+  · right
+    intro h'
+    apply h
+    have : iQ * (2 * y) = 0 := by linear_combination h'
+    rcases mul_eq_zero.mp this with h0 | h0
+    · exact absurd h0 iQ_ne_zero
+    · linear_combination h0
+
+/-- `[i]` on `C₁(ℚ̄)`: `(x, y) ↦ (−x, iy)`. -/
+def iPtC1 : PtC1 → PtC1
+  | .zero => .zero
+  | .some x y h => .some (-x) (iQ * y) (nonsingular_iPtC1 h)
+
+theorem iota_iPt (P : PtA) : iota (iPt P) = iPtC1 (iota P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · simp only [iPt_some, iota_some, iPtC1, WeierstrassCurve.Affine.Point.some.injEq]
+    constructor <;> ring
+
+/-- **`φ` is `ℤ[i]`-linear**: `φ ∘ [i] = [i] ∘ φ`. -/
+theorem phi_iPt (P : PtA) : phi (iPt P) = iPtC1 (phi P) := by
+  rw [phi_apply, phi_apply, ← iota_iPt, iPt_add]
 
 /-! ## §7 `A[(1+i)³]` explicitly; half of TYZ Lemma 3.16 -/
 
