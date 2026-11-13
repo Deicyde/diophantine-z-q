@@ -64,7 +64,7 @@
 - Bundle `FibreSimplePieces` = FS1a, FS1b, FS5.
 
 ## FS1a proved, FS1b reduced to finiteness descent
-- 02:24 COMPILED (exit 0, 21 s; 19 s after bundle edit): `specMap_flat_surjective` (Spec L → Spec K flat and surjective,
+- 02:20 COMPILED (exit 0, 21 s; 19 s after bundle edit): `specMap_flat_surjective` (Spec L → Spec K flat and surjective,
   via `flat_and_surjective_SpecMap_iff` + `RingHom.faithfullyFlat_algebraMap_iff`), `baseChangeFaithful_proof :
   BaseChangeFaithful` (Mathlib instance `(Over.pullback f).Faithful` for surjective flat quasi-compact f, in
   Morphisms/FlatDescent.lean), `isogenyDescends_of : FiniteDescends → IsogenyDescends` (surjectivity via the base
