@@ -67,3 +67,10 @@
 - Compile (VERIFIED): first run: one `rw [AlgEquiv.smul_def]` failed (goal already unfolded);
   fixed. `G8Object.lean` (6723 lines) exit 0, 0 errors, 0 sorry, 1m53s; 54 axiom reports, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 5 (07:20 PST): text checks
+- python string comparison (VERIFIED): the `RhoRamWild`, `LinkedTateCore`, `LinkedTateCoreDR`
+  blocks of `part_ltcopy.lean` equal those of linked-tate's current working
+  `scratch/linked-tate/parts/95_linked.lean` (07:20) and of its commit dae5b706.
+- All other copies in `G8Object.lean` are produced by `sed` line ranges from the source files in
+  `build.sh` (verbatim by construction).
