@@ -2824,6 +2824,167 @@ theorem span_two_pow_five {R : Type*} [CommRing R] (g g' m N : R) (h1 : g + g' +
 
 end Thm36e
 
+
+section Thm36f
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+variable {n : ℕ} [NeZero n]
+
+theorem toC_ptT : toC Package.ptT = X0.ptTC := by
+  simp [toC, Package.ptT, X0.ptTC, WeierstrassCurve.Affine.Point.map, map_ofNat]
+
+theorem IsComplexConj.galPt_galPt {γ : GalQ} (hγ : IsComplexConj γ) (P : PtA) :
+    galPt γ (galPt γ P) = P := by
+  rw [← galPt_mul]
+  rcases P with _ | ⟨x, y, h⟩
+  · rfl
+  · obtain ⟨h', e'⟩ := galPt_some (γ * γ) h
+    rw [e', WeierstrassCurve.Affine.Point.some.injEq]
+    exact ⟨hγ.mul_self x, hγ.mul_self y⟩
+
+theorem t'K_mul_tbK (hn : n % 8 = 7) : t'K n * (32 * tbK n) = -1 := by
+  have h4 : (4 : ℚ) * A7 n = n + (tyzDelta n : ℚ) ^ 2 := by exact_mod_cast four_A7 hn
+  have hA : (A7 n : ℚ) ≠ 0 := (A7_pos hn).ne'
+  ext <;> simp [t'K, tbK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;> field_simp <;>
+    first | linear_combination (32 : ℚ) * h4 | linear_combination (-32 : ℚ) * h4 |
+      linear_combination (-1 : ℚ) * h4 | linear_combination h4 | ring1
+
+/-- **The Fricke step**: `z_{Q'} = T − z_{Q̄}` (`τ_{Q'} = −1/(32 τ_{Q̄})`). -/
+theorem heegnerPt_tyzForm7' (hF : X0.EtaModelFricke) (hA : CMAlgebraic) (hn : n % 8 = 7) :
+    heegnerPt (tyzForm7' n hn) = Package.ptT - heegnerPt (tyzForm7 n hn).conj := by
+  have hex := hA _ (tyzForm7 n hn).conj
+  have hW : ((tyzForm7' n hn).tauH : ℂ) = -1 / (32 * ((tyzForm7 n hn).conj.tauH : ℂ)) := by
+    have h1 : ((tyzForm7' n hn).tauH : ℂ) = kappaAlg n (t'K n) := by
+      rw [kappaAlg_apply, ← tyzForm7'_tau hn]; rfl
+    have h2 : ((tyzForm7 n hn).conj.tauH : ℂ) = kappaAlg n (tbK n) := by
+      rw [kappaAlg_apply, ← tyzForm7_conj_tau hn]; rfl
+    have hne : (32 * ((tyzForm7 n hn).conj.tauH : ℂ)) ≠ 0 := by
+      intro h0
+      have := congrArg Complex.im h0
+      simp at this
+      exact (tyzForm7 n hn).conj.tauH.im_pos.ne' this
+    rw [eq_div_iff hne, h1, h2]
+    have := congrArg (kappaAlg n) (t'K_mul_tbK hn)
+    simpa [map_ofNat] using this
+  have hfr := hF _ _ hW
+  apply heegnerPt_eq
+  rw [map_sub, toC_heegnerPt _ hex, toC_ptT, ← hfr]
+  abel
+
+/-- The class `[𝔭₂]^{−5}` is the class of `(32, ū)` (positive orientation) resp. `(32, u)`. -/
+theorem p2Class_inv_pow_five_pos (hn : n % 8 = 7) (hpos : PosOrient n) (h0 : Jub n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Jub n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
+  sorry
+
+theorem p2Class_inv_pow_five_neg (hn : n % 8 = 7) (hpos : ¬ PosOrient n) (h0 : Ju n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Ju n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
+  sorry
+
+theorem acts_transport (e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar) (ρ : GalQ)
+    (O : TauCeti.GlobalNumberFields.NumberFieldOrder (QNeg n))
+    (hO : O = TauCeti.GlobalNumberFields.maximalNumberFieldOrder (QNeg n))
+    (J : Ideal (𝓞 (QNeg n))) (hJO : J ∈ TauCeti.GlobalNumberFields.integralIdealsPrimeTo O.conductorModulus)
+    (hJ0 : J ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (h : ∀ x : hilbertField n, ρ (e (x : SeparableClosure (QNeg n))) =
+      e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+        (ClassGroup.mk0 ⟨J, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+          SeparableClosure (QNeg n))) :
+    ∀ x : TauCeti.ClassFieldTheory.ringClassField O, ρ (e (x : SeparableClosure (QNeg n))) =
+      e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv O (O.picClass ⟨J, hJO⟩) x :
+        TauCeti.ClassFieldTheory.ringClassField O) : SeparableClosure (QNeg n)) := by
+  subst hO
+  intro x
+  rw [picClass_maximal ⟨J, hJO⟩ hJ0]
+  exact h x
+
+theorem J_mem_primeTo (J : Ideal (𝓞 (QNeg n))) (hJ : (32 : 𝓞 (QNeg n)) ∈ J) :
+    J ∈ TauCeti.GlobalNumberFields.integralIdealsPrimeTo
+      (conductorOrder (QNeg n) 1).conductorModulus := by
+  rw [TauCeti.GlobalNumberFields.NumberFieldOrder.mem_integralIdealsPrimeTo_conductorModulus_iff]
+  refine ⟨fun h => ?_, ?_⟩
+  · rw [h, Ideal.mem_bot] at hJ
+    have h' := congrArg (algebraMap (𝓞 (QNeg n)) (QNeg n)) hJ
+    rw [map_ofNat, map_zero] at h'
+    norm_num at h'
+  · rw [(TauCeti.GlobalNumberFields.NumberFieldOrder.conductor_eq_top_iff _).2 (conductorOrder_one _)]
+    exact sup_top_eq _
+
+theorem J_mem_nzd (J : Ideal (𝓞 (QNeg n))) (hJ : (32 : 𝓞 (QNeg n)) ∈ J) :
+    J ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
+  apply mem_nonZeroDivisors_of_ne_zero
+  intro h
+  rw [h, Ideal.zero_eq_bot, Ideal.mem_bot] at hJ
+  have h' := congrArg (algebraMap (𝓞 (QNeg n)) (QNeg n)) hJ
+  rw [map_ofNat, map_zero] at h'
+  norm_num at h'
+
+theorem ιC_omega_cases (n : ℕ) [NeZero n] :
+    ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) ∨
+      ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        -(I * (Real.sqrt n : ℂ)) := by
+  set z := ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))
+  have hz : z ^ 2 = -(n : ℂ) := by
+    simp only [z]
+    rw [← map_pow, ← map_pow, ← map_pow]
+    simp [QuadraticAlgebra.omega_pow_two_eq_add]
+  have hs : (I * (Real.sqrt n : ℂ)) ^ 2 = -(n : ℂ) := by
+    rw [mul_pow, I_sq, ← Complex.ofReal_pow, Real.sq_sqrt (Nat.cast_nonneg n)]; simp
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 (hz.trans hs.symm) with h | h
+  · exact Or.inl h
+  · exact Or.inr h
+
+/-- **`TYZThm36Seven` from Shimura reciprocity (tyz-cm), the Fricke involution (x0-32) and
+algebraicity of CM points (cm-points).** -/
+theorem tyzThm36Seven_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
+    (hA : CMAlgebraic) : TYZThm36Seven := by
+  intro n _ hn hsq γ ρ hγ hρ
+  have h3 : n % 4 = 3 := by omega
+  have hD : -(n : ℤ) = discOf n 1 := by simp [discOf, h3]
+  have hfr := heegnerPt_tyzForm7' hF hA hn
+  have hconj : galPt γ (heegnerPt (tyzForm7 n hn)) = heegnerPt (tyzForm7 n hn).conj :=
+    cmComplexConj γ hγ _ _
+  have hz : tyzZ7 n = heegnerPt (tyzForm7 n hn) := by simp [tyzZ7, hn]
+  rw [hz, hconj, tauG_apply, one_smul]
+  have hsqrt : (0 : ℝ) < Real.sqrt n := Real.sqrt_pos.2 (by exact_mod_cast Nat.pos_of_ne_zero (NeZero.ne n))
+  by_cases hpos : PosOrient n
+  · have he : ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) := by
+      rcases ιC_omega_cases n with h | h
+      · exact h
+      · exfalso; unfold PosOrient at hpos; rw [h] at hpos; simp at hpos; linarith
+    have hJ32 : (32 : 𝓞 (QNeg n)) ∈ Jub n h3 := Ideal.subset_span (Set.mem_insert _ _)
+    have hJO := J_mem_primeTo _ hJ32
+    have hJ0 := J_mem_nzd _ hJ32
+    have hc := p2Class_inv_pow_five_pos hn hpos hJ0
+    have hρe := acts_transport (embed n) ρ (conductorOrder (QNeg n) 1) (conductorOrder_one _)
+      (Jub n h3) hJO hJ0 (by intro x; rw [← hc]; exact hρ x)
+    have hlat : idealLat n 1 (Jub n h3) * (tyzForm7' n hn).lat =
+        (tyzForm7 n hn).lat.map (LinearMap.mulLeft ℤ (kappa n (ubK n))) := by
+      rw [show idealLat n 1 (Jub n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Jub n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        lat_eq_map' _ (t'K n) (tyzForm7'_tau hn), lat_eq_map' _ (tK n) (tyzForm7_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latK7 hn hsq]
+    have hlatN : idealLat n 1 (Jub n h3) * (tyzForm7' n hn).latN =
+        (tyzForm7 n hn).latN.map (LinearMap.mulLeft ℤ (kappa n (ubK n))) := by
+      rw [show idealLat n 1 (Jub n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Jub n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        latN_eq_map' _ (t'K n) (tyzForm7'_tau hn), latN_eq_map' _ (tK n) (tyzForm7_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latNK7 hn hsq]
+    have hrec := hS n 1 hsq (embed n) he ⟨_, hJO⟩ ρ hρe (-(n : ℤ)) hD (tyzForm7 n hn)
+      (tyzForm7' n hn) (kappa n (ubK n)) hlat hlatN
+    rw [hrec, hfr]; abel
+  · sorry
+
+end Thm36f
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
