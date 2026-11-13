@@ -64,7 +64,10 @@ construction. A form that names them, with positive rank as its conclusion, is
 CR₃^Rk and CR₃^TYZ,Rk, and [the main theorem also holds](main-theorem-two-curves.md) under it and
 [under the positive-rank forms](main-theorem-positive-rank.md) of the hypothesis
 ([the positive-rank chapter](../rank/README.md)). CR₃ is not proved here; it is a
-hypothesis of the main theorem, and it implies pole completeness for the pole polynomial with the
+hypothesis of [the main theorem from three hypotheses](main-theorem-three-hypotheses.md) and of
+[the main theorem from two hypotheses](main-theorem-two-hypotheses.md), while
+[the main theorem](main-theorem.md) derives it from four statements about L-series. It implies pole
+completeness for the pole polynomial with the
 curves $x+\ell$.
 
 ## Depends on
