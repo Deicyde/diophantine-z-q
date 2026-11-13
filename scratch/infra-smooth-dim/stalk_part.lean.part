@@ -80,7 +80,68 @@ theorem exists_stalk_dim_of_smooth {K : Type*} [Field K] {X : Scheme}
   exact ⟨P.dimension, stalk_dim_of_chart f hU hV e P.dimension
     (P.isStandardSmoothOfRelativeDimension rfl) x hxV hx⟩
 
+/-- **Chart form.** Around every point of a smooth `K`-scheme there is an open set `V` and an
+`n` such that every closed point of `V` has local ring of dimension and embedding dimension `n`. -/
+theorem exists_nbhd_stalk_dim {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) :
+    ∃ (V : X.Opens) (n : ℕ), x ∈ V ∧ ∀ y ∈ V, IsClosed ({y} : Set X) →
+      ringKrullDim (X.presheaf.stalk y) = n ∧
+        (maximalIdeal (X.presheaf.stalk y)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ := Smooth.exists_isStandardSmooth f x
+  let _ := (f.appLE U V e).hom.toAlgebra
+  have h' : Algebra.IsStandardSmooth Γ(Spec (CommRingCat.of K), U) Γ(X, V) := h
+  have := h'.out
+  obtain ⟨ι, σ, _, _, ⟨P⟩⟩ := this
+  exact ⟨V, P.dimension, hxV, fun y hy hyc => stalk_dim_of_chart f hU hV e P.dimension
+    (P.isStandardSmoothOfRelativeDimension rfl) y hy hyc⟩
+
+/-- On an irreducible smooth `K`-scheme all closed points have local rings of the same
+dimension. -/
+theorem stalk_dim_eq_of_closed {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] [IrreducibleSpace X]
+    (z w : X) (hz : IsClosed ({z} : Set X)) (hw : IsClosed ({w} : Set X)) :
+    ringKrullDim (X.presheaf.stalk z) = ringKrullDim (X.presheaf.stalk w) := by
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  obtain ⟨Vz, nz, hzV, hz'⟩ := exists_nbhd_stalk_dim f z
+  obtain ⟨Vw, nw, hwV, hw'⟩ := exists_nbhd_stalk_dim f w
+  have hne : ((Vz : Set X) ∩ Vw).Nonempty :=
+    nonempty_preirreducible_inter Vz.2 Vw.2 ⟨z, hzV⟩ ⟨w, hwV⟩
+  obtain ⟨u, ⟨huz, huw⟩, hu⟩ :=
+    nonempty_inter_closedPoints hne (Vz.2.inter Vw.2).isLocallyClosed
+  rw [(hz' z hzV hz).1, (hw' w hwV hw).1, ← (hz' u huz hu).1, (hw' u huw hu).1]
+
+/-- **Dimension of an irreducible smooth `K`-scheme.** Its dimension equals the Krull dimension of
+the local ring at any closed point, which equals the embedding dimension there. -/
+theorem topologicalKrullDim_eq_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] [IrreducibleSpace X]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    topologicalKrullDim X = ringKrullDim (X.presheaf.stalk x) ∧
+      ((maximalIdeal (X.presheaf.stalk x)).spanFinrank : WithBot ℕ∞) =
+        ringKrullDim (X.presheaf.stalk x) := by
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  obtain ⟨n, hn1, hn2⟩ := exists_stalk_dim_of_smooth f x hx
+  refine ⟨?_, by rw [hn1, hn2]⟩
+  have hdim : topologicalKrullDim X = Order.krullDim X :=
+    Order.krullDim_eq_of_orderIso (irreducibleSetEquivPoints (α := X))
+  rw [hdim]
+  refine le_antisymm ?_ ?_
+  · rw [Order.krullDim_eq_iSup_coheight]
+    refine iSup_le fun y => ?_
+    obtain ⟨z, hz, hzc⟩ := nonempty_inter_closedPoints (Z := closure ({y} : Set X))
+      ⟨y, subset_closure rfl⟩ isClosed_closure.isLocallyClosed
+    have hyz : z ≤ y := specializes_iff_mem_closure.mpr hz
+    calc (Order.coheight y : WithBot ℕ∞) ≤ Order.coheight z := by
+          exact_mod_cast Order.coheight_anti hyz
+      _ = ringKrullDim (X.presheaf.stalk z) := (ringKrullDim_stalk_eq_coheight z).symm
+      _ = ringKrullDim (X.presheaf.stalk x) := stalk_dim_eq_of_closed f z x hzc hx
+      _ = ringKrullDim (X.presheaf.stalk x) := rfl
+  · rw [ringKrullDim_stalk_eq_coheight]
+    exact Order.coheight_le_krullDim x
+
 end InfraSmoothDim
+
+#print axioms InfraSmoothDim.topologicalKrullDim_eq_of_smooth
+
 
 #print axioms InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension
 #print axioms InfraSmoothDim.exists_stalk_dim_of_smooth
