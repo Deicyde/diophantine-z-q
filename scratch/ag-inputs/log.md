@@ -22,3 +22,18 @@ and state the rest as leaves.
   - `r1pi0Props_of_leaves : X6Props → R2X6Props → R5ptProps → R5fpCount → R2X6CMExact →
     ConnectedGeomConnected → CurveComponentDichotomy → AutModInnFinite →
     GeometricallyConnected X.hom` (proved).
+
+## Findings (review of pi0-x6 §2)
+
+- F1 (VERIFIED, compiled deduction; read) The Galois-component deduction is correct: the three
+  cases of `hcount` on `x₁, x₂, σx₁` close (`subsingleton_of_galois` recompiled).
+- F2 (VERIFIED as an argument; refs UNVERIFIED) Residue fields `ℚ(i)` over 0 and `ℚ(√−3)` over ∞
+  also follow from Shimura reciprocity `k·ℚ(P) = H_R = k` (h = 1) and `X^D(ℝ) = ∅`, independently
+  of the exact form of R5pt.
+- F3 (VERIFIED, read) pi0-x6's (d) is not pure AG: `over0`/`overInf` need finite `π₆`-fibres,
+  i.e. `Aut(𝒪)/Inn(𝒪^×)` finite (Skolem–Noether + Atkin–Lehner group finite). Now leaf
+  `AutModInnFinite`.
+- F4 (VERIFIED, read) (c) `R2X6CMExact` is not a bundle clause; derivable from `R2X6PropsIff` +
+  QM dichotomy + maximality of ℤ[i], ℤ[ζ₃] (c2, not in Lean) or adopted (c1).
+- F5 (VERIFIED as an argument) pi0-x6 F1 (the rv-blueprints parity sketch is incomplete) confirmed:
+  two degree-2 components would each be branched over 0, ∞, −16/27, and RH allows B = 4, g = 1.
