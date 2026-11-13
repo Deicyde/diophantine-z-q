@@ -1,0 +1,2 @@
+'HSyn.gluePieces2_of_3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.sixContactMin_of_leaves3' depends on axioms: [propext, Classical.choice, Quot.sound]

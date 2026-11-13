@@ -119,3 +119,15 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
 - c11_burnside: Burnside.lean body + `RvGP2.burnsideAbsIrred : G0Galois.BurnsideAbsIrred`
   (with `F' = AlgebraicClosure F`; matrices through `LinearMap.toMatrixAlgEquiv b`): exit 0 in 13 s,
   0 errors, no sorry, standard axioms (VERIFIED). Field 15 is not a leaf: it is a Mathlib theorem.
+
+## GluePieces3 (Lean)
+
+- c2 no longer carries metrization's ExtLine/part_dim (moved its `RvGP2.metrizationDimUnique` to c6, which
+  already contains them), so all checks can be imported together. All eleven checks recompiled to
+  oleans (`ctail.sh Check_X.lean Check_X`): each exit 0, 0 errors, no sorry, standard axioms.
+- final/c12_bundle.lean (imports Check_c1…c11): `structure HSyn.GluePieces3` (15 fields: mulIsogeny,
+  rigidityHom, analyticUniformizationUnique, metrizationExists, productMetrizationGeo,
+  hodgeLineBaseChange, thetaRatiosAlgebraic, r14Det, g9Glue, conjTwistNontrivial, g12Weight,
+  detTate, carayolR17, mobius : Pin.MobiusGlue, qmAt : ∃ Y Φ π, R1fp ∧ R2fp ∧ six …At forms),
+  `HSyn.gluePieces2_of_3 r t gp : GluePieces2`, `HSyn.sixContactMin_of_leaves3 r t gp :
+  ZInQ.SixContactMin`: exit 0 in 23 s, standard axioms (VERIFIED).

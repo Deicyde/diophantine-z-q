@@ -1802,6 +1802,9 @@ end HSyn.G0Split
 
 
 namespace RvGP2
+/-- Field 6 of `GluePieces2` is a theorem (metrization's proof). -/
+theorem metrizationDimUnique : ZInQ.G0HeightAdd.MetrizationDimUnique :=
+  ZInQ.Metrization.metrizationDimUnique
 /-- Field 7 of `GluePieces2` from def-faltings' `HodgeLatticeTheorem`, the uniformization leaf and
 one glue Prop (metrization's reduction). -/
 theorem metrizationExists (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
@@ -1814,5 +1817,6 @@ theorem productMetrizationGeo (hLS : ZInQ.Metrization.ProductLocalStructure)
   ZInQ.Metrization.productMetrizationGeo_of_local hLS hPL
 end RvGP2
 
+#print axioms RvGP2.metrizationDimUnique
 #print axioms RvGP2.metrizationExists
 #print axioms RvGP2.productMetrizationGeo

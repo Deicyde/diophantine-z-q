@@ -213,5 +213,6 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'RvGP2.metrizationDimUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RvGP2.metrizationExists' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RvGP2.productMetrizationGeo' depends on axioms: [propext, Classical.choice, Quot.sound]

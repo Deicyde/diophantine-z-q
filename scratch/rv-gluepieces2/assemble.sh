@@ -6,4 +6,5 @@
 cd "$(dirname "$0")"
 { echo "import LPrefix"; cat imports_extra.txt; echo; for p in parts/*.lean; do cat $p; echo; done; } > olean/TailBase.lean
 for c in checks/*.lean; do b=$(basename $c .lean); { echo "import TailBase"; echo; cat $c; } > olean/Check_$b.lean; done
+cp final/c12_bundle.lean olean/Check_c12_bundle.lean
 wc -l olean/TailBase.lean olean/Check_*.lean
