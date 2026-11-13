@@ -114,6 +114,11 @@ mentions x0-32's eta model, so their truth does not depend on x0-32's analytic l
 For x0-32's `x, y` all three conditions are proved (`isRatModFn_xC_of etaModelInvariant
 etaCuspGrowth xQExpRational`, same for `y`).
 
+Numerical sanity check of `CMValueRingClass` for `g = x`, `N = 32` (VERIFIED, mpmath 250 digits,
+PSLQ; `scratch/tyz-cm/cmvalue_check.py`): `[32,10,1]`, `D = −28`, `h = 1`: `x(τ_Q) = −1 + √−7`;
+`[32,18,3]`, `D = −60`, `h = 2`: `x(τ_Q) = −(2+√5) − √−3 ∈ ℚ(√5, √−3) = H_{−60}`; TYZ's `[96,−8,1]`,
+`D = −320`, `h = 8`: `x(τ_Q)` has degree 16 (no relation of degree ≤ 8).
+
 For the target only `CMValueRingClass` is needed (the trivial class); it is the classical
 statement "Heegner points of `X₀(N)` of discriminant `D` are defined over the ring class field",
 for all forms, with no Heegner condition `(f, N) = 1` or `gcd(A/N, B, NC) = 1` (the lattice
