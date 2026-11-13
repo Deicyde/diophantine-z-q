@@ -72,3 +72,31 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `purityGlobalDim2 : PurityGlobalDim2.{0} := TPurity3.purityGlobalDim2`;
   `propTSAll_of_pieces'` = the composite without the purity hypothesis.
 - Compile (23 s): 0 errors; 26 PropTSGlue axiom lines all standard (VERIFIED).
+
+## Step 6b: independent review result (read-only model agent, no Lean)
+- Verdict: no false, vacuous or trivial Prop. All open glue Props TRUE as stated in Lean
+  (SNVertical, SNHorizontalTransfer, SNSpecialize, KummerCompositum, KummerAbhyankarFin/Inf,
+  KummerOtherBranchFin/Inf (the latter true even with 0 ∈ S), KummerVerticalFin/Inf,
+  HeckeDegree/Branch/NoVertRam). HeckeNormalization TRUE iff Y₃ is ℚ-irreducible (SPECULATIVE
+  input, as in the docstring); if Y₃ were ℚ-reducible it would be false and the other Hecke Props
+  vacuous. Suggestion: split ℚ-irreducibility out as its own named Prop (done in step 8).
+- "∀ E with NormalizationModel" is a property of the cover (E determined up to iso; Jacobson
+  argument), so the Hecke "∀ E" pieces are not stronger than their "∃ E" forms.
+
+## Step 7 (08:32): SNHorizontalTransfer PROVED, compiled
+- Developed in `HorizTransfer.lean` (Mathlib only; compiled, standard axioms). Lemmas:
+  `isLocalization_field_self`, `int_notMem` (P ∩ ℤ = 0 when p ∉ P), `atPrime_congr`,
+  `snHorizontalTransfer_aux`. Route: S and B are localizations of C = integral closure of ℤ[X]
+  (`IsLocalization.integralClosure`); S_{Q'} and B_Q are both C_𝔮
+  (`isLocalization_isLocalization_atPrime_isLocalization`), hence C-isomorphic
+  (`IsLocalization.algEquiv`); e(Q) = 1 ⇒ ℚ[X] → B_Q formally unramified
+  (`Ideal.ramificationIdx_eq_one_iff`, char-0 residue fields) ⇒ ℤ[X] → B_Q ⇒ ℤ[X] → S_{Q'} ⇒
+  ℤ[X]_m → S_{Q'} (`of_restrictScalars`).
+- Lean pitfall: `Localization.AtPrime Q'` (CommSemiring-derived primeCompl) failed to synthesize
+  `CommRing` for Q' over the integral closure of ℤ[X]_m; writing `Localization Q'.primeCompl`
+  fixed it; `AlgEquiv.restrictScalars` mismatched instances, `AlgEquiv.ofRingEquiv` worked.
+- Pasted into the appendix: `snHorizontalTransfer : SNHorizontalTransfer`,
+  `specNonMeeting_of_pieces''' : PurityGlobalDim2 → SNVertical → SNSpecialize → SpecNonMeeting`;
+  `propTSAll_of_pieces'` no longer takes SNHorizontalTransfer.
+- Compile: 0 errors, 28 PropTSGlue axiom lines all standard; prefix IDENTICAL, purity copy
+  CONTAINED (VERIFIED).
