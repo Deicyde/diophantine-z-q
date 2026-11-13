@@ -1,0 +1,24 @@
+'LeafQM.AV.Pin.R1R2fp_of_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.fibre_conjugates_isomorphic_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.leaves_on_one_witness_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.unramified_over_branch_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.residue_unramified_over_branch_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.conj_iso_of_rational_pin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_relabel_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r2fp_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTriple_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.relabel_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.relabel_geometric_old' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.phi_part' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise_mor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTripleMor_of_mobius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness_mor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.cm_objects_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m5.747s
+user	0m4.482s
+sys	0m2.335s

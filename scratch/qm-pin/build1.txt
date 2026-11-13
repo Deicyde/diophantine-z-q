@@ -1,0 +1,19 @@
+⚠ [9048/9066] Replayed ZInQKernel.Hypotheses.PrimePattern
+warning: ZInQKernel/Hypotheses/PrimePattern.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9049/9066] Replayed ZInQKernel.Hypotheses.MordellWeil
+warning: ZInQKernel/Hypotheses/MordellWeil.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9051/9066] Replayed ZInQKernel.Model.Field.ShortWeierstrass
+warning: ZInQKernel/Model/Field/ShortWeierstrass.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9054/9066] Replayed ZInQKernel.Hypotheses.Height
+warning: ZInQKernel/Hypotheses/Height.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9058/9066] Replayed ZInQKernel.Syntax.Constants.PrimorialLiteral
+warning: ZInQKernel/Syntax/Constants/PrimorialLiteral.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9060/9066] Built ZInQ.NumericalTowerBounds (795ms)
+✔ [9061/9066] Built ZInQ.ExplicitCutoffBounds (1.6s)
+⚠ [9062/9066] Replayed ZInQKernel.Syntax.Constants.Fixed
+warning: ZInQKernel/Syntax/Constants/Fixed.lean: imports `ZInQ.ExplicitCutoffBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+Build completed successfully (9066 jobs).
+
+real	0m11.424s
+user	0m7.670s
+sys	0m4.006s
