@@ -1,0 +1,97 @@
+
+/-! ## §4. Smooth schemes and the kernel's `ffAlgebra` -/
+
+namespace CurveInfra
+
+open AlgebraicGeometry CategoryTheory
+
+/-- **Transcendence degree of the function field of a smooth integral scheme.** For `X` integral
+and smooth of relative dimension `n` over a field `K`, `trdeg_K K(X) = n`. Source (STANDARD;
+numbering UNVERIFIED): Hartshorne I Prop. 1.7/Thm. 1.8A with II.8; Stacks, *Varieties*, section
+"Smooth varieties". Glue: proved here from `dimEqTrdeg` and infra-smooth-dim's
+`topologicalKrullDim_eq_of_smoothOfRelativeDimension`. -/
+def SmoothTrdeg : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) [IsIntegral X] (f : X ⟶ Spec (CommRingCat.of K))
+    (n : ℕ) [SmoothOfRelativeDimension n f],
+    letI := fnFieldAlgebra K X f
+    Algebra.trdeg K X.functionField = n
+
+/-- **Two rational functions on a smooth integral curve are algebraically dependent.** The
+general form of curve-glue's (AD) at the level of function fields. Glue: proved here from
+`SmoothTrdeg` and `AlgDepOfTrdegOne`. -/
+def CurveFnFieldAlgDep : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) [IsIntegral X] (f : X ⟶ Spec (CommRingCat.of K))
+    [SmoothOfRelativeDimension 1 f],
+    letI := fnFieldAlgebra K X f
+    ∀ a b : X.functionField, ∃ P : MvPolynomial (Fin 2) K, P ≠ 0 ∧ MvPolynomial.aeval ![a, b] P = 0
+
+/-- **`DimEqTrdeg` with the kernel's `ZInQ.LeafPush2.ffAlgebra`** (`ZInQKernel/HDecomp/LeafPush2/R18.lean`),
+for `X : Over (Spec K)`. Glue: proved here. -/
+def DimEqTrdegOver : Prop :=
+  ∀ (K : Type) [Field K] (X : Over (Spec (CommRingCat.of K))) [IsIntegral X.left]
+    [LocallyOfFiniteType X.hom],
+    letI := ZInQ.LeafPush2.ffAlgebra X
+    topologicalKrullDim X.left = ((Algebra.trdeg K X.left.functionField).toENat : WithBot ℕ∞)
+
+/-- **`SmoothTrdeg` with the kernel's `ffAlgebra`**. Glue: proved here. -/
+def SmoothTrdegOver : Prop :=
+  ∀ (K : Type) [Field K] (X : Over (Spec (CommRingCat.of K))) [IsIntegral X.left]
+    (n : ℕ) [SmoothOfRelativeDimension n X.hom],
+    letI := ZInQ.LeafPush2.ffAlgebra X
+    Algebra.trdeg K X.left.functionField = n
+
+theorem smoothTrdeg : SmoothTrdeg := by
+  intro K _ X _ f n _
+  letI := fnFieldAlgebra K X f
+  haveI : Smooth f := SmoothOfRelativeDimension.smooth n f
+  have h1 := dim_eq_trdeg K X f
+  have h2 := InfraSmoothDim.topologicalKrullDim_eq_of_smoothOfRelativeDimension f n
+  rw [h1] at h2
+  have h3 : (Algebra.trdeg K X.functionField).toENat = n := by exact_mod_cast h2
+  exact Cardinal.toENat_eq_natCast.mp h3
+
+theorem curveFnFieldAlgDep : CurveFnFieldAlgDep := by
+  intro K _ X _ f _
+  letI := fnFieldAlgebra K X f
+  have h := smoothTrdeg K X f 1
+  exact algDepOfTrdegOne K X.functionField (by exact_mod_cast h)
+
+theorem dimEqTrdegOver : DimEqTrdegOver := by
+  intro K _ X _ _
+  exact dim_eq_trdeg K X.left X.hom
+
+theorem smoothTrdegOver : SmoothTrdegOver := by
+  intro K _ X _ n _
+  exact smoothTrdeg K X.left X.hom n
+
+/-- **On a smooth integral curve, the function field is algebraic over `K[x]` for every
+transcendental `x`** (with the kernel's `ffAlgebra`; compare the kernel's `HasSexticModel`, which
+asks for a transcendental `x`). Glue: proved here from `SmoothTrdegOver` and Mathlib's
+transcendence bases. -/
+def CurveAlgOverTranscendental : Prop :=
+  ∀ (K : Type) [Field K] (X : Over (Spec (CommRingCat.of K))) [IsIntegral X.left]
+    [SmoothOfRelativeDimension 1 X.hom],
+    letI := ZInQ.LeafPush2.ffAlgebra X
+    ∀ x : X.left.functionField, Transcendental K x →
+      Algebra.IsAlgebraic (Algebra.adjoin K {x}) X.left.functionField
+
+theorem curveAlgOverTranscendental : CurveAlgOverTranscendental := by
+  intro K _ X _ _
+  letI := ZInQ.LeafPush2.ffAlgebra X
+  intro x hxt
+  have h := smoothTrdegOver K X 1
+  have hx : AlgebraicIndependent K ![x] := algebraicIndependent_iff_transcendental.mpr hxt
+  have hb := hx.isTranscendenceBasis_of_trdeg_le_of_finite (by rw [h]; simp)
+  have := hb.isAlgebraic
+  rwa [show Set.range ![x] = {x} by simp] at this
+
+end CurveInfra
+
+#print axioms CurveInfra.dimEqTrdeg
+#print axioms CurveInfra.dimEqTrdegAlg
+#print axioms CurveInfra.algDepOfTrdegOne
+#print axioms CurveInfra.smoothTrdeg
+#print axioms CurveInfra.curveFnFieldAlgDep
+#print axioms CurveInfra.dimEqTrdegOver
+#print axioms CurveInfra.smoothTrdegOver
+#print axioms CurveInfra.curveAlgOverTranscendental
