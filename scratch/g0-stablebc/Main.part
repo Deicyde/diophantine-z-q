@@ -1,0 +1,169 @@
+
+/-! ## g0-stablebc: the piece `StableHeightBaseChange` -/
+
+namespace G0StableBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings
+
+/-- **Missing piece 6 (definition-level glue; used by E3-E4).** The *stable* Faltings
+height is invariant under finite extension of the number field (Faltings 1983 §1; Deligne,
+Sém. Bourbaki 616). For def-faltings' infimum this needs semistable reduction and the Néron
+models of H5 (`NeronModelMinimal`); it is a property of the definition, not a literature leaf.
+(Copied verbatim from `scratch/g0-split/Split.lean`.) -/
+def StableHeightBaseChange : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (A : ZInQ.DefFaltings.AbVar K),
+    stableFaltingsHeight (A.baseChange L) = stableFaltingsHeight A
+
+/-! ### Glue statements copied from `scratch/h5-neron/Reduction.lean` (verbatim, over this file's
+`AbVar`; h5-neron states them over the kernel's `PkgI3.AbVar`, the same structure) -/
+
+section H5NeronCopies
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-- `𝒢'` (over `𝓞_{L'}`) is the base change of `𝒢` (over `𝓞_L`) along `𝓞_L → 𝓞_{L'}`, as a group
+scheme: an isomorphism of group objects `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. (The identifications with
+`A_{L'}` are not compared; the height does not use them.) (copied from h5-neron) -/
+def IsBaseChangeOf {L L' : Type} [Field L] [NumberField L] [Algebra K L] [Field L']
+    [NumberField L'] [Algebra K L'] [Algebra L L'] (𝒢' : GroupModel A L') (𝒢 : GroupModel A L) :
+    Prop :=
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj
+    𝒢.G) := Functor.grpObjObj
+  ∃ e : 𝒢'.G ≅ (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G,
+    IsMonHom e.hom
+
+end H5NeronCopies
+
+/-- **Glue H4a** (h5-neron). The height of a fixed smooth model is invariant under base change:
+`ω_{𝒢_{L'}} = ω_𝒢 ⊗ 𝓞_{L'}` (flat base change of the conormal sheaf), the Arakelov degree is
+multiplied by `[L':L]`, and each `τ' : L' → ℂ` restricts to `τ = τ'|_L` with the same
+uniformization. (copied from h5-neron) -/
+def ModelHeightBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height = 𝒢.height
+
+/-- **Glue H4b** (h5-neron). A group model base-changes to a group model (smoothness,
+separatedness and quasi-compactness are stable under base change; the group structure is
+transported by the monoidal functor `Over.pullback`; the generic fibre is `A_L ×_L L' ≅ A_{L'}` by
+pullback pasting). (copied from h5-neron) -/
+def GroupModelBaseChangeExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L), ∃ 𝒢' : GroupModel A L', IsBaseChangeOf 𝒢' 𝒢
+
+/-- **The compositum** (proved in h5-neron; proof copied). Two number fields `L, L₀` over a
+number field `K` embed `K`-linearly in a common number field `L'`. -/
+theorem compositum (K : Type) [Field K] [NumberField K] (L L₀ : Type) [Field L] [NumberField L]
+    [Algebra K L] [Field L₀] [NumberField L₀] [Algebra K L₀] :
+    ∃ (L' : Type) (_ : Field L') (_ : NumberField L') (_ : Algebra K L') (_ : Algebra L L')
+      (_ : Algebra L₀ L'), IsScalarTower K L L' ∧ IsScalarTower K L₀ L' := by
+  let Ω := AlgebraicClosure K
+  haveI : Module.Finite K L := Module.Finite.of_restrictScalars_finite ℚ K L
+  haveI : Module.Finite K L₀ := Module.Finite.of_restrictScalars_finite ℚ K L₀
+  let eL : L →ₐ[K] Ω := IsAlgClosed.lift
+  let eL₀ : L₀ →ₐ[K] Ω := IsAlgClosed.lift
+  let E : IntermediateField K Ω := eL.fieldRange ⊔ eL₀.fieldRange
+  haveI : FiniteDimensional K eL.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL).toLinearEquiv
+  haveI : FiniteDimensional K eL₀.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL₀).toLinearEquiv
+  haveI : FiniteDimensional K E := IntermediateField.finiteDimensional_sup _ _
+  haveI : CharZero E := charZero_of_injective_algebraMap (algebraMap K E).injective
+  haveI : FiniteDimensional ℚ E := Module.Finite.trans K E
+  haveI : NumberField E := ⟨⟩
+  let f : L →ₐ[K] E := (IntermediateField.inclusion le_sup_left).comp
+    (AlgEquiv.ofInjectiveField eL).toAlgHom
+  let f₀ : L₀ →ₐ[K] E := (IntermediateField.inclusion le_sup_right).comp
+    (AlgEquiv.ofInjectiveField eL₀).toAlgHom
+  letI : Algebra L E := f.toRingHom.toAlgebra
+  letI : Algebra L₀ E := f₀.toRingHom.toAlgebra
+  refine ⟨E, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
+  · exact IsScalarTower.of_algebraMap_eq fun x => (f.commutes x).symm
+  · exact IsScalarTower.of_algebraMap_eq fun x => (f₀.commutes x).symm
+
+/-! ### New glue: pullback pasting for abelian varieties -/
+
+/-- **Glue (pullback pasting, `(A_L)_M ≅ A_M`).** For fields `K → L → M` (a scalar tower), the
+iterated base change `(A ×_K L) ×_L M` is isomorphic to `A ×_K M` as a group scheme over `M`
+(`Over.pullbackComp`, and `Spec` of the tower `K → L → M`). Category theory, no arithmetic. -/
+def BaseChangeCompIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L M : Type) [Field L] [Algebra K L] [Field M]
+    [Algebra K M] [Algebra L M] [IsScalarTower K L M],
+    ∃ e : ((A.baseChange L).baseChange M).X ≅ (A.baseChange M).X, IsMonHom e.hom
+
+/-! ### Transport of (metrized) group models along an isomorphism of generic fibres (proved) -/
+
+section Transport
+
+variable {K K' : Type} [Field K] [Field K'] {A : AbVar K} {B : AbVar K'}
+  {L : Type} [Field L] [NumberField L] [Algebra K L] [Algebra K' L]
+
+/-- A group model of `A_L` is a group model of `B_L` for any group-scheme isomorphism
+`A_L ≅ B_L`: same `𝒢`, generic-fibre identification composed with the isomorphism. -/
+noncomputable def transportModel (e : (A.baseChange L).X ≅ (B.baseChange L).X)
+    (he : IsMonHom e.hom) (𝒢 : GroupModel A L) : GroupModel B L where
+  G := 𝒢.G
+  gen := 𝒢.gen ≪≫ e
+  gen_hom := by
+    letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+    haveI := 𝒢.gen_hom
+    exact (inferInstance : IsMonHom (𝒢.gen.hom ≫ e.hom))
+
+/-- The same Hodge data metrize the transported model (the Hodge line, its lattice and the
+complex points depend only on `𝒢`, not on the identification of the generic fibre). -/
+noncomputable def transportMetrized (e : (A.baseChange L).X ≅ (B.baseChange L).X)
+    (he : IsMonHom e.hom) {g : ℕ} (Mm : MetrizedModel A L g) : MetrizedModel B L g where
+  model := transportModel e he Mm.model
+  hodge := Mm.hodge
+  lattice_eq := Mm.lattice_eq
+  arch := Mm.arch
+
+/-- Transport does not increase the height of a group model. Proved. -/
+theorem transportModel_height_le (e : (A.baseChange L).X ≅ (B.baseChange L).X)
+    (he : IsMonHom e.hom) (𝒢 : GroupModel A L) :
+    (transportModel e he 𝒢).height ≤ 𝒢.height := by
+  unfold GroupModel.height
+  refine le_iInf fun g => le_iInf fun Mm => le_iInf fun hM => ?_
+  subst hM
+  exact iInf_le_of_le g (iInf_le_of_le (transportMetrized e he Mm) (iInf_le_of_le rfl le_rfl))
+
+end Transport
+
+/-! ### The piece, from the glue (proved) -/
+
+/-- **`StableHeightBaseChange` from three glue statements** (`BaseChangeCompIso`, and h5-neron's
+`GroupModelBaseChangeExists` (H4b) and `ModelHeightBaseChange` (H4a)) and the proved
+`compositum`. `≥`: a model of `(A_L)_M` is a model of `A_M` (transport along `(A_L)_M ≅ A_M`).
+`≤`: a model `𝒢` of `A_E` base-changes to a model of `A_M` over a compositum `M` of `E` and `L`,
+with the same height (H4a, H4b), and is then a model of `(A_L)_M`. -/
+theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
+    (hbcE : GroupModelBaseChangeExists) (hbc : ModelHeightBaseChange) :
+    StableHeightBaseChange := by
+  intro K _ _ L _ _ _ A
+  rw [stableFaltingsHeight_eq_iInf_height, stableFaltingsHeight_eq_iInf_height]
+  apply le_antisymm
+  · refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+    obtain ⟨M, i1, i2, i3, i4, i5, t1, t2⟩ := compositum K E.L L
+    obtain ⟨𝒢', h𝒢'⟩ := hbcE K A E.L M 𝒢
+    obtain ⟨e, he⟩ := hcomp K A L M
+    have he' : IsMonHom e.symm.hom := (inferInstance : IsMonHom e.inv)
+    calc ⨅ (E' : FinExt L) (𝒢₁ : GroupModel (A.baseChange L) E'.L), 𝒢₁.height
+        ≤ (transportModel e.symm he' 𝒢').height :=
+          iInf_le_of_le (FinExt.mk M) (iInf_le_of_le _ le_rfl)
+      _ ≤ 𝒢'.height := transportModel_height_le _ _ _
+      _ = 𝒢.height := hbc K A E.L M 𝒢 𝒢' h𝒢'
+  · refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+    letI : Algebra K E.L := ((algebraMap L E.L).comp (algebraMap K L)).toAlgebra
+    haveI : IsScalarTower K L E.L := IsScalarTower.of_algebraMap_eq fun _ => rfl
+    obtain ⟨e, he⟩ := hcomp K A L E.L
+    calc ⨅ (E' : FinExt K) (𝒢₁ : GroupModel A E'.L), 𝒢₁.height
+        ≤ (transportModel e he 𝒢).height :=
+          iInf_le_of_le (FinExt.mk E.L) (iInf_le_of_le _ le_rfl)
+      _ ≤ 𝒢.height := transportModel_height_le _ _ _
+
+end G0StableBC
+
+#print axioms G0StableBC.stableHeightBaseChange_of_glue
