@@ -30,3 +30,27 @@
 - `exists_root_close`, `mem_inertiaSet_of_fix`: σ fixing all roots of X^{p^m} − X (m ≥ 1) ⇒ σ ∈ inertiaSet. PROVED.
 - TC build: `lake build` of TC Unramified/{Inertia.Basic,Existence}, FiniteExtension/IntermediateField,
   AlgebraicExtension/IntermediateField, Padics/AlgebraicClosure, LocalField/Padic: OK (3910 jobs).
+
+## Step 2b (TCPart.lean) — COMPILES (0 errors, no sorry)
+- `FrobData F q φ` (TC-free): 1<q, q = p^e, φ ∈ G_F, φ x = x^q on roots of X^{q^f}−X (f>0), every σ ∈ G_F acts on
+  the roots of X^{q^f}−X as x ↦ x^{q^k}.
+- `frobData_exists F : ∃ q φ, FrobData F q φ` PROVED from vendored TC: F gets TC's `finiteIntermediateField*`
+  structure (letI) over ℚ_p, Ω = PadicAlgCl p; q = Nat.card 𝓀[F] = p^{f} (`TauCeti.natCard_residueField`,
+  `Padic.natCard_residueField`); φ = `AlgEquiv.liftNormal` of `maximalUnramifiedFrobenius F Ω`; cyclicity from
+  `zpowers_frobeniusAlgEquiv` on `unramifiedExtension F Ω f` (`isUnramified_unramifiedExtension`).
+  No instance diamonds hit (letI of TC topology on ↥F works).
+
+## Step 2c (part_procyclic.lean) — COMPILES
+- `modEq_of_act` (exponent of the action on roots of X^{q^n}−X unique mod n; primitive (q^n−1)-th root of unity).
+- `f2_of_frobData` (F2: χ_n(σ) = exponent mod n; trivial on metric inertia by Metric, on G_K for
+  K = F ⊔ ℚ_p(roots of X^{q^n}−X)).
+- `f1_of_frobData` (F1: E = F(R), M = normal closure of K; uniform level N via a basis of the fixed field of
+  H₀ = image of Gal(Ω/E) in Gal(M/ℚ_p); Mathlib `InfiniteGalois.fixedField_fixingSubgroup`,
+  `IntermediateField.fixingSubgroup_fixedField`; τ ∈ Gal(Ω/E) is in metric inertia by `mem_inertiaSet_of_fix`).
+- `unramProcyclic_of_frobData` PROVED.
+
+## RESULT (UnramRoots.lean, built by build.sh) — COMPILES, no sorry, 12 s
+- `UnramRootsTask.unramRoots : G15Ram.UnramRoots p ℓ` (statement text identical to scratch/local-glue/part_twist.lean,
+  checked by diff; same namespace/opens; no shadowing defs in LocalGlue.lean).
+- `unramRoots_all`, `unramRoots_two` (the forms consumed by local-glue's tail_glue/part_pack).
+- `#print axioms`: [propext, Classical.choice, Quot.sound]. VERIFIED.
