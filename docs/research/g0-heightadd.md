@@ -18,20 +18,26 @@ it, from one new leaf, one field of the leaf bundle, one Prop that def-faltings 
 and three new glue Props** (VERIFIED, compiled):
 
 ```lean
-theorem HSyn.G0Split.heightAdditivity_of_split
+theorem HSyn.G0Split.heightAdditivity_of_geo
     (hN1 : ZInQ.H5Neron.NeronModelExists)                  -- leaf N1 (Néron)
     (h5 : LeafAdopt.H5)                                    -- = HSyn.ResearchLeaves.h5
     (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)   -- glue, stated in def-faltings
     (hD : ZInQ.G0HeightAdd.MetrizationDimUnique)           -- glue, new
     (hE : ZInQ.G0HeightAdd.MetrizationExists)              -- glue, new
-    (hP : ZInQ.G0HeightAdd.ProductMetrization) :           -- glue P2a, new
+    (hG : ZInQ.G0HeightAdd.ProductMetrizationGeo) :        -- glue P2a-geo, new
     HSyn.G0Split.HeightAdditivity
 ```
 
-There is also a coarser form,
-`heightAdditivity_of (hN1) (h5) (hH : ZInQ.H5Neron.ProductModelHeight) : HeightAdditivity`. Here
-`productModelHeight_of : U → MetrizationDimUnique → MetrizationExists → ProductMetrization →
-ProductModelHeight` connects the two forms.
+Two coarser forms are proved on the way (VERIFIED):
+- `heightAdditivity_of (hN1) (h5) (hH : ZInQ.H5Neron.ProductModelHeight)`, with glue P2 as one
+  hypothesis;
+- `heightAdditivity_of_split (hN1) (h5) (hU) (hD) (hE) (hP : ProductMetrization)`, with P2a
+  whole.
+
+They are connected by `productModelHeight_of : U → MetrizationDimUnique → MetrizationExists →
+ProductMetrization → ProductModelHeight` and `productMetrization_of_geo : ProductMetrizationGeo →
+ProductMetrization`. The second is the Arakelov-degree computation `modelHeight_add_of`: Hodge data
+whose index, coefficients and covolumes are multiplicative have additive model heights.
 
 `HeightAdditivity`, `IsProductOf` and `LeafAdopt.H5` are copied verbatim from
 `scratch/g0-split/Split.lean`. So are the definitions they use: lines 16667-18603 of that file,
@@ -41,7 +47,7 @@ the piece there with `r.h5`: `scratch/g0-heightadd/SplitIntegrated.lean` compile
 with 0 errors, and its `#print axioms` lists only the three standard axioms (VERIFIED).
 
 **The gap is not closed.** The four glue hypotheses U, `MetrizationDimUnique`,
-`MetrizationExists` and `ProductMetrization` are true (STANDARD, §3) but unproved. Each needs
+`MetrizationExists` and `ProductMetrizationGeo` are true (STANDARD, §3) but unproved. Each needs
 theory that Mathlib v4.35 lacks: the stalk of a fibre product of schemes, the rank of the
 cotangent space of a smooth group scheme, and the complex-analytic uniformization of `A(ℂ)`.
 
@@ -85,6 +91,11 @@ used, so h5-neron's caveat (a) about `LeafAdopt.H5` (base change across fields) 
    (`MetrizedModel.modelHeight_eq_of_model_eq`, def-faltings). Hence `h(𝒢P) = h(MP)`
    (`le_height_of_model`, `height_le_of_model`), and
    `h(𝒢₁) + h(𝒢₂) ≤ h(M₁) + h(M₂) = h(MP) = h(𝒢P)`.
+5. **`ProductMetrization` from `ProductMetrizationGeo`** (`productMetrization_of_geo`, new).
+   Faltings' formula gives
+   `h(D) = [L:ℚ]⁻¹(log #(Λ/𝓞s) − ½ Σ_σ log(|coeff_σ s|² covol(periods σ)))` for any nonzero
+   section `s` (`HodgeData.modelHeight_eq`, def-faltings). So multiplicativity of index,
+   coefficients and covolumes makes the heights add (`modelHeight_add_of`).
 
 ## 3. The hypotheses: leaf or glue, and why each is believed true
 
@@ -95,17 +106,18 @@ used, so h5-neron's caveat (a) about `LeafAdopt.H5` (base change across fields) 
 | `DefFaltings.AnalyticUniformizationUnique` (U) | glue (already stated in def-faltings, `Models.lean`) | two analytic uniformizations of `𝒢(ℂ)_τ` differ by a `ℂ`-linear automorphism | a holomorphic homomorphism of complex tori lifts to a linear map (STANDARD; Mumford, *Abelian varieties* §1, UNVERIFIED) | unproved |
 | `G0HeightAdd.MetrizationDimUnique` | glue (new) | two metrizations of one group model have the same `g` | both equal `dim A`. For `0 < g ≠ dim A`, `⋀^g ω` is not a line. `g = 0` is excluded for `dim A ≥ 1` because `Φ : ℂ⁰ → A_τ(ℂ)` would be onto (the argument of def-faltings' `MetrizedModel` docstring; STANDARD) | unproved |
 | `G0HeightAdd.MetrizationExists` | glue (new; correctness of def-faltings' definition) | every group model `𝒢` of `A_L` has a metrization | `HodgeLatticeTheorem` and `AnalyticUniformizationExists` (both stated in def-faltings), with `coeff_τ(1 ⊗ df) = jacDet Φ f`. This is `LeafAdopt.H5`'s caveat (nonempty index set), for each model | unproved |
-| `G0HeightAdd.ProductMetrization` (P2a) | glue (new) | metrizations of `𝒢₁` and `𝒢₂` (dimensions `g₁`, `g₂`) give one of `𝒢P ≅ 𝒢₁ × 𝒢₂` of dimension `g₁ + g₂` whose height is the sum | `ω_{𝒢₁×𝒢₂} = ω₁ ⊕ ω₂`; `⋀^{g₁+g₂}(ω₁ ⊕ ω₂) = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`; `Φ₁ × Φ₂` is a uniformization with kernel `Λ₁ × Λ₂`; `jacDet` and `covol` are multiplicative; the Arakelov degree is additive on tensor products of Hermitian lines (Faltings 1983 §1; Deligne, Sém. Bourbaki 616 §1; STANDARD, locators UNVERIFIED) | unproved |
+| `G0HeightAdd.ProductMetrization` (P2a) | glue (new) | metrizations of `𝒢₁` and `𝒢₂` (dimensions `g₁`, `g₂`) give one of `𝒢P ≅ 𝒢₁ × 𝒢₂` of dimension `g₁ + g₂` whose height is the sum | `ω_{𝒢₁×𝒢₂} = ω₁ ⊕ ω₂`; `⋀^{g₁+g₂}(ω₁ ⊕ ω₂) = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`; `Φ₁ × Φ₂` is a uniformization with kernel `Λ₁ × Λ₂`; `jacDet` and `covol` are multiplicative; the Arakelov degree is additive on tensor products of Hermitian lines (Faltings 1983 §1; Deligne, Sém. Bourbaki 616 §1; STANDARD, locators UNVERIFIED) | proved from P2a-geo (`productMetrization_of_geo`, via `modelHeight_add_of`) |
+| `G0HeightAdd.ProductMetrizationGeo` (P2a-geo) | glue (new) | for `𝒢P ≅ 𝒢₁ × 𝒢₂` and metrizations `M₁`, `M₂`: a metrization `MP` of `𝒢P` of dimension `g₁ + g₂`, with nonzero sections `s`, `s₁`, `s₂` of the three Hodge lattices whose index, coefficients `coeff σ` and period covolumes multiply | `s = p₁*s₁ ∧ p₂*s₂`; `⋀^{top}(ω₁ ⊕ ω₂) = ⋀ω₁ ⊗ ⋀ω₂`; norms of ideals multiply; `Φ₁ × Φ₂` (coordinates `Fin.append`) has lattice `Λ₁ × Λ₂` and a block-diagonal Jacobian (STANDARD) | unproved |
 | `H5Neron.ProductModelHeight` (P2) | glue | `h(𝒢₁) + h(𝒢₂) ≤ h(𝒢P)` | follows from the four rows above (`productModelHeight_of`, proved) | proved from U, DimUnique, Exists, P2a |
 
 Proved parts that the table relies on (VERIFIED, compiled here):
 - P1 `productGroupModelExists`, `NeronProp.tensor`, `isNeronModel_of_isProductModel` (h5-neron);
 - `isProductAbVar_of_isProductOf`, `height_le_of_model`, `le_height_of_model`,
-  `productModelHeight_of` (new).
+  `productModelHeight_of`, `modelHeight_add_of`, `productMetrization_of_geo` (new).
 
-Partial Lean toward P2a that is already in the file: the ideal-line case of degree additivity,
-`arakelovDegree_ofFractionalIdeal_mul` (def-faltings §14). The general case needs
-`HermitianLattice` tensor products, which have not been built.
+The Arakelov-degree part of P2a is proved for general Hodge data (`modelHeight_add_of`, from
+Faltings' formula `HodgeData.modelHeight_eq`). What is left in P2a-geo is purely geometric:
+constructing the product metrization and the three multiplicativities.
 
 **Consistency in dimension 0** (the only abelian variety Mathlib v4.35 can construct; §4). The
 three new glue Props hold for `A = B = C = 0` (`Spec K`), and every hypothesis of
@@ -122,7 +134,9 @@ tested: `metrizationExists_zero`, `metrizationDimUnique_zero` and `productMetriz
   the bridge; `heightAdditivity_of`; the P2 split; `heightAdditivity_of_split`.
 - `scratch/g0-heightadd/part_zero.lean`: the dimension-0 consistency check. It contains
   `AbVar.zero` for def-faltings' structure, copied from `PkgI3.AbVar.zero`, and h5-neron's part B.
-- `scratch/g0-heightadd/HeightAdd.lean` = `Prefix.lean` + the parts (`build.sh`). Check with
+- `scratch/g0-heightadd/part_prod.lean`: `modelHeight_add_of`, `ProductMetrizationGeo`,
+  `productMetrization_of_geo`, `heightAdditivity_of_geo`.
+- `scratch/g0-heightadd/HeightAdd.lean` = `Prefix.lean` + the three parts (`build.sh`). Check with
   `lake env lean scratch/g0-heightadd/HeightAdd.lean`.
 - `scratch/g0-heightadd/SplitIntegrated.lean` (`build_integrated.sh`): `Split.lean` with the
   proofs inserted. h5-neron's Néron part goes after the def-faltings section, and the bridge, the
@@ -134,8 +148,8 @@ tested: `metrizationExists_zero`, `metrizationDimUnique_zero` and `productMetriz
 
 In `Split.lean`, the field `additivity : HeightAdditivity` of `G0Split.MissingPieces` can be
 replaced by the leaf N1 (`NeronModelExists`) and the four glue Props U, `MetrizationDimUnique`,
-`MetrizationExists`, `ProductMetrization`, with
-`additivity := heightAdditivity_of_split hN1 r.h5 hU hD hE hP`. N1 then joins the leaf
+`MetrizationExists`, `ProductMetrizationGeo`, with
+`additivity := heightAdditivity_of_geo hN1 r.h5 hU hD hE hG`. N1 then joins the leaf
 count as a new research/textbook leaf (BLR 1.4/3). The paste is exactly what
 `SplitIntegrated.lean` does. That file compiled with 0 errors (3 min 26 s), and
 `heightAdditivity_of_split`, `glueOutputs_of_leaves` and `sixContactMin_of_leaves` all depend
@@ -143,7 +157,7 @@ only on `propext`, `Classical.choice` and `Quot.sound` (VERIFIED, log run 3).
 
 ## 6. What remains
 
-- Prove `ProductMetrization`, `MetrizationExists`, `MetrizationDimUnique` and U. All need
+- Prove `ProductMetrizationGeo`, `MetrizationExists`, `MetrizationDimUnique` and U. All need
   foundations absent from Mathlib v4.35 (SPECULATIVE sizes):
   - stalks and cotangent spaces of fibre products of schemes (P2a, medium-large);
   - the rank of `ω` for a smooth group scheme (DimUnique, `HodgeLatticeTheorem`; large);
