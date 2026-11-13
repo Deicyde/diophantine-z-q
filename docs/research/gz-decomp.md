@@ -399,6 +399,15 @@ nondegeneracy of `ĥ` and G4 as glue.
 8. *`chiD` and `HeegnerHyp` are the intended characters.* STANDARD and checked numerically (§2.2).
    **No defect.**
 
+9. *Lean semantics.* `D % 4 = 1` is `Int.emod`, so `(−3) % 4 = (−7) % 4 = 1` and `(−5) % 4 = 3`,
+   as intended. `Squarefree D` for negative `D` means `|D|` squarefree. Any two `Algebra ℚ K`
+   structures on a field agree. `rootNumber` matches Tau Ceti's sign syntactically (G3 compiles
+   against it). **No defect.**
+10. *Degenerate definitions.* If Tau Ceti's `Newform` type were empty or its Fricke sign junk, L2
+   and L3 could hold vacuously. L1, however, asserts the existence of newforms with prescribed
+   coefficients, and the sign is pinned by Tau Ceti's proved functional equation. So the three
+   leaves can only hold together if the definitions are not degenerate. **No defect.**
+
 **Review outcome.** No statement needed a repair. One open check is recorded: the level
 hypothesis of FH/BFH (item 3).
 
