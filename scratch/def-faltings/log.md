@@ -16,3 +16,11 @@
   and stableFaltingsHeight_eq_faltingsHeightGood (conditional forms, proved);
   §21 leaves: IsIsogeny, isogDeg, grKappa, R19_GaudronRemond, R20_FaltingsLemma5, R21_Bost (Props),
   stableFaltingsHeight_ne_bot_of_R21 (proved). Compile: no errors, no warnings (VERIFIED).
+- Added §18 UnifIndep: GroupModel.semilinear_ext_wedge, GroupModel.jacDet_comp (chain rule),
+  MetrizedModel.modelHeight_eq_of_model_eq (given AnalyticUniformizationUnique),
+  GroupModel.height, GroupModel.height_eq, stableFaltingsHeight_eq_iInf_height (all proved).
+- Added NeronSec: GroupModel.IsNeronModel (Néron mapping property), StableHeightFinite,
+  NeronModelMinimal (H5 statements), faltingsHeight (toReal) and faltingsHeight_coe (proved).
+- Added §22 (R18, R22: missing objects) and #print axioms block.
+- Compile (17:00): `lake env lean scratch/def-faltings/Faltings.lean`: no errors, no warnings;
+  every #print axioms line lists [propext, Classical.choice, Quot.sound] (VERIFIED).

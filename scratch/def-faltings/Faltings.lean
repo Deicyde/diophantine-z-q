@@ -1603,6 +1603,47 @@ theorem stableFaltingsHeight_eq_iInf_height (A : AbVar K) :
 
 end UnifIndep
 
+/-! ### The theorems that tie the definition to the literature (node H5), stated
+
+`IsNeronModel` is the Néron mapping property (BLR 1.2/1, UNVERIFIED locator), stated with
+Mathlib's objects: every morphism from the generic fibre of a smooth `𝓞_L`-scheme to `A_L`
+extends uniquely. H5 is unproved; it needs Néron models (existence: BLR 1.4/3), semistable
+reduction (SGA 7 IX 3.6) and the base change of semistable Néron models (SGA 7 IX 3.3), all
+absent from Mathlib (locators UNVERIFIED). -/
+
+section NeronSec
+
+variable {K : Type} [Field K]
+
+/-- **The Néron mapping property** for a group model `𝒩` of `A_L`. -/
+def GroupModel.IsNeronModel {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : GroupModel A L) : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of (𝓞 L)))) [Smooth Y.hom],
+    Function.Bijective fun f : Y ⟶ 𝒩.G =>
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).map f ≫ 𝒩.gen.hom
+
+/-- **H5, finiteness (statement).** Over a number field, the stable height is a real number. -/
+def StableHeightFinite : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K),
+    stableFaltingsHeight A ≠ ⊤ ∧ stableFaltingsHeight A ≠ ⊥
+
+/-- **H5, minimality of the Néron model (statement).** Over any `L`, the Néron model has the
+least height among group models (from the mapping property, `ω_𝒩 ⊆ ω_𝒢`, and
+`HodgeData.modelHeight_le_of_le`). -/
+def NeronModelMinimal : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒩 𝒢 : GroupModel A L), 𝒩.IsNeronModel → 𝒩.height ≤ 𝒢.height
+
+/-- The real-valued stable Faltings height. Meaningful only together with `StableHeightFinite`
+(`EReal.toReal` sends `⊤` and `⊥` to `0`); the leaves above therefore never use it. -/
+noncomputable def faltingsHeight (A : AbVar K) : ℝ := (stableFaltingsHeight A).toReal
+
+theorem faltingsHeight_coe (hfin : StableHeightFinite) [NumberField K] (A : AbVar K) :
+    (faltingsHeight A : EReal) = stableFaltingsHeight A :=
+  EReal.coe_toReal (hfin K A).1 (hfin K A).2
+
+end NeronSec
+
 /-! ## 19. Acceptance test AT1: elliptic curves
 
 `IsEllipticCurveOf A W` identifies an abelian variety with the elliptic curve of a Weierstrass
@@ -1819,6 +1860,35 @@ theorem stableFaltingsHeight_ne_bot_of_R21 (h : R21_Bost) {K : Type} [Field K] [
 
 end Leaves
 
+/-! ## 22. R18 and R22: not stated
+
+* **R22 (Pazuki, Bull. SMF 140 (2012), Cor. 1.3(2)).** The height side is available:
+  `stableFaltingsHeightDeligne` and `stableFaltingsHeightDeligne_eq` give
+  `h_D = h_F + log π` for surfaces, so the condition `X_D ≥ max(1, h_D(A))` of the consequence
+  form is expressible. Missing: principal polarizations, level-2 theta structures and the theta
+  (Fubini-Study) height `h_Θ(A)` of a principally polarized abelian surface (the theta constants
+  need the period matrix, i.e. AN3 together with the Riemann form). The genus-2 special case over
+  `faltingsHeightGood` is `PkgI5.PazukiGoodGenus2Literal` (scratch/rv-loc-leaves).
+* **R18 (Javanpeykar, ANT 8 (2014), Thm 1.1.1).** Missing: the genus of a smooth projective
+  curve over `ℚ̄` (differentials or `H¹`), Belyi maps (finite morphisms to `ℙ¹` unramified outside
+  `{0, 1, ∞}`, with their degree) and the Jacobian as an `AbVar` (node AV7). -/
+
 end ModelsSec
 
 end ZInQ.DefFaltings
+
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_le
+#print axioms ZInQ.DefFaltings.stableFaltingsHeightDeligne_eq
+#print axioms ZInQ.DefFaltings.GroupModel.semilinear_ext_wedge
+#print axioms ZInQ.DefFaltings.GroupModel.jacDet_comp
+#print axioms ZInQ.DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq
+#print axioms ZInQ.DefFaltings.GroupModel.height_eq
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_eq_iInf_height
+#print axioms ZInQ.DefFaltings.faltingsHeight_coe
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_eq_faltingsHeightEC
+#print axioms ZInQ.DefFaltings.HodgeData.modelHeight_eq_faltingsHeightGood
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_eq_faltingsHeightGood
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_ne_bot_of_R21
+#print axioms ZInQ.DefFaltings.HodgeData.modelHeight_recoord
+#print axioms ZInQ.DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
