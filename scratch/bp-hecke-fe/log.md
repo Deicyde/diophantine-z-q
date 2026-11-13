@@ -91,3 +91,5 @@
   `jacobiSym_eq_chiC`, `oddGauss_prime` (OddGauss p for odd primes p), and
   `literature_hecke_fe_of_heckeEuler_gaussSplit : (∀ d ≡ 5 (8) sqfree, HeckeEuler d) → GaussSplit 1 →
    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`. The Fourier side is fully proved.
+- (VERIFIED numerically, `remaining_check.py` → `out_remaining_check.txt`) GaussSplit 1 at the
+  29 primes p ≡ 1 (mod 4) below 300; HeckeEuler d for d ∈ {5, 13, 21, 29}, n ≤ 300: 0 failures.
