@@ -19,3 +19,11 @@
   `HSyn.T12_ArtinComparison` as hypotheses; both placeholders were removed from Leaves.lean by leaf-adopt2.
 - Tail run 3 (parts 05,10,20,30,40,50,60,80,90): VERIFIED exit 0, 0 errors, no `sorry`;
   `HSyn.gluePieces_of_gluePieces2`, `HSyn.sixContactMin_of_leaves2`: [propext, Classical.choice, Quot.sound].
+- g0-mod-field over Leaves.lean (TailMF.lean = LPrefix + 3 non-HDecomp kernel imports + ModField.lean lines
+  16-1036): compiles except `GlueWP3.leafHasse_of_T14`, `leafLocalTwo_of_T15` (kernel Descent/WP3.lean, not in
+  Leaves.lean); with WP3.lean copied (part 74): VERIFIED 0 errors.
+- Layer caveat (g0-mod-newform §3 step 4): `HSyn.abVarEquiv_baseChange`, `abVarEquiv_symm_baseChange` are `rfl`
+  (VERIFIED), `HSyn.commonConstituent_copy` is `Iff.rfl`; `HSyn.modularConstituent_of_G :
+  G0ModField.ModularConstituentG → G0Split.ModularConstituent` compiles (a direct `exact` of the anonymous
+  constructor hit a whnf heartbeat timeout; `refine` + `rw [abVarEquiv_symm_baseChange]` works).
+  `HSyn.modularConstituent_of_field t hCover hKer hSup hRest`: VERIFIED, standard axioms.
