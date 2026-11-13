@@ -13,12 +13,15 @@ Self-contained (Mathlib + project only; no `sorry`, no `axiom`).
   (stalk map at the origin), `bcCot`, `bcExt`, `bcHodge` (ψ = L' ⊗ ⋀^g π^*), `bcPts` (β on complex
   points); compatibility of germs and Jacobians (`jacDet_bcPts`); half of the lattice clause
   (`span_bcHodge_le`).
-* Part C (new): six glue statements over the natural map; two are proved here
-  (`ptsBaseChangeMul`, `ptsBaseChangeBij`) and `DetLatticeBC` is reduced to `OmegaBaseChange`.
-  Main results: `modelHeightBaseChange_of_main` and `hodgeLineBaseChange_of_main` (H4a and
-  `HodgeLineBaseChange`, verbatim, from `HodgeBCInjective`, `OmegaBaseChange`,
-  `UniformizationLift`, `JacobianPullbackSpan`), and `modelHeightBaseChangeGE_of_main` (the
-  descent half from the first two). -/
+* Part C (new): glue statements over the natural map. Proved here: `ptsBaseChangeMul`,
+  `ptsBaseChangeBij`, `detLatticeBC_of_omega`, `hodgeSpanBC_of`, `jacobianPullbackSpan_of`,
+  `uniformizationLift_of`.
+  **Main results** (finest form): `modelHeightBaseChange_of_glue5` and
+  `hodgeLineBaseChange_of_glue5` (H4a and `HodgeLineBaseChange`, verbatim, from the five glue
+  statements `HodgeBCInjective`, `CotangentSpanBC`, `OmegaBaseChange`,
+  `UniformizationLiftAnalytic`, `JacobianSemilinear`), and `modelHeightBaseChangeGE_of_main`
+  (the descent half from `HodgeBCInjective` and `OmegaBaseChange`). Coarser forms:
+  `_of_five`, `_of_main`, `_of_four`, `_of_glue`. -/
 
 namespace ZInQ.HeightBC
 
@@ -1144,9 +1147,12 @@ end LatticeHalf
 /-- **Glue BC-omega (flat base change of `e*Ω¹`, the hard inclusion).** Every element of
 `ω_{𝒢'} = Γ(Spec 𝓞_{L'}, e'*Ω¹_{𝒢'/𝓞_{L'}})` is an `𝓞_{L'}`-combination of pull-backs
 `π^*η`, `η ∈ ω_𝒢`. True: `e*Ω¹_{𝒢/𝓞_L}` is locally free (`𝒢` smooth), its formation commutes with
-base change (EGA IV 17.2.3, UNVERIFIED locator), and for the projective `𝓞_L`-module `ω_𝒢`,
-`Γ(Spec 𝓞_{L'}, f^*ω̃) = 𝓞_{L'} ⊗ ω_𝒢`. The other inclusion is proved (`bcCot_omega`). STANDARD.
-(It relies, like every statement about `ω`, on def-faltings' `omega` being `Γ(e*Ω¹)`.) -/
+base change (EGA IV 16.4.5 / 17.2.5, UNVERIFIED locators), and for the projective `𝓞_L`-module
+`ω_𝒢`, `Γ(Spec 𝓞_{L'}, f^*ω̃) = 𝓞_{L'} ⊗ ω_𝒢`. The other inclusion is proved (`bcCot_omega`).
+A model review notes that this inclusion needs less: `e` is a closed immersion (`𝒢` separated),
+`omegaAt s` is the image of the stalk of the quasi-coherent conormal `e^*(I/I²)`, and
+`I'_{e'(s')} = I_{e(s)} · 𝒪_{𝒢',e'(s')}` for the base-changed section, so
+`d(a · π^*f) = e'^#(a) · π^*(df)`; smoothness is not used. STANDARD. -/
 def OmegaBaseChange : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
     [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
@@ -1234,9 +1240,10 @@ def PtsBaseChangeBij : Prop :=
 composite with `β` is an analytic uniformization of `𝒢(ℂ)_σ` is an analytic uniformization of
 `𝒢'(ℂ)_{τ'}`: `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}` is covered by affine opens `Spec(R ⊗_{𝓞_L} 𝓞_{L'})`, whose
 regular functions are, locally, quotients of sums `∑ fᵢ ⊗ aᵢ`, so their values along `Φ'` are
-holomorphic where those of the `fᵢ` along `β ∘ Φ'` are. Openness of `Φ'⁻¹(U'(ℂ))` for opens `U'`
-defined over `L'` (not pulled back from `𝒢`): holomorphy of affine coordinates makes `β ∘ Φ'`
-continuous for the analytic topology, and `U'(ℂ)` is Zariski open in `A_σ ⊗ ℂ`. STANDARD. -/
+holomorphic where those of the `fᵢ` along `β ∘ Φ'` are (`evalAt_bcPts`). Openness of
+`Φ'⁻¹(U'(ℂ))` for opens `U'` defined over `L'` (not pulled back from `𝒢`): `U'` is a union of
+basic opens `D(h') ⊂ π⁻¹V`, and `{z ∈ dom (β ∘ Φ') V : h'(Φ' z) ≠ 0}` is open by continuity.
+Neither `Λ` nor the group clauses are used for these two clauses. STANDARD. -/
 def UniformizationLift : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
     [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
@@ -1349,9 +1356,11 @@ def JacobianSemilinear : Prop :=
     (Φ : (Fin g → ℂ) → 𝒢.Pts τ), 𝒢.IsAnalyticUniformization τ Λ Φ →
     ∃ J : 𝒢.hodgeSpace g →ₛₗ[τ] ℂ, ∀ f, 𝒢.jacDet Φ f = J (𝒢.wedge f)
 
-/-- **Glue BC-hspan (the image of `ψ` spans).** `L' · ψ(hodgeSpace g) = hodgeSpace' g`. With
-`HodgeBCInjective` this says `L' ⊗_L hodgeSpace ≅ hodgeSpace'` through `ψ`. True by cotangent base
-change `ω_{A_{L'}} = L' · π^*(ω_{A_L})` and multilinearity. STANDARD. -/
+/-- **Glue BC-hspan (the image of `ψ` spans).** `L' · ψ(hodgeSpace g) = hodgeSpace' g`. True by
+cotangent base change `ω_{A_{L'}} = L' · π^*(ω_{A_L})` and multilinearity; proved from
+`CotangentSpanBC` below (`hodgeSpanBC_of`). (The `L'`-linear extension `L' ⊗_L hodgeSpace →
+hodgeSpace'` is in fact an isomorphism, but that does not follow from this statement and
+`HodgeBCInjective` alone unless `hodgeSpace` is a line.) STANDARD. -/
 def HodgeSpanBC : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
     [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
@@ -1463,7 +1472,8 @@ theorem jacobianPullbackSpan_of (hJ : JacobianSemilinear) (hS : HodgeSpanBC) :
 /-- **Glue BC-lift-an (the analytic core of BC-lift).** If `β ∘ Φ'` is an analytic
 uniformization of `𝒢(ℂ)_σ`, then the sets `Φ'⁻¹(U'(ℂ))` are open and the regular functions of
 `𝒢'` are holomorphic along `Φ'`, for every open `U'` of `𝒢'` (including opens defined over `L'`
-and not pulled back from `𝒢`). Same justification as `UniformizationLift`. STANDARD. -/
+and not pulled back from `𝒢`). Same justification as `UniformizationLift` (affine opens
+`Spec(R ⊗_{𝓞_L} 𝓞_{L'})` and basic opens `D(h')`). STANDARD. -/
 def UniformizationLiftAnalytic : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
     [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']

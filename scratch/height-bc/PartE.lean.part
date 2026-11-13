@@ -1,0 +1,28 @@
+
+/-- Alias (added for this check): g0-split's statement names `ZInQ.DefFaltings.AbVar`, its
+verbatim copy of the kernel's `PkgI3.AbVar` (`LeafAdopt.abVarEquiv`); here it is the kernel's. -/
+abbrev ZInQ.DefFaltings.AbVar (K : Type) [Field K] : Type 1 := PkgI3.AbVar K
+
+
+%%MAINPART%%
+
+/-! # Part E: g0-split's piece `StableHeightBaseChange` from the five glue statements -/
+
+namespace ZInQ.HeightBC
+
+/-- g0-stablebc's `HodgeLineBaseChange` is this file's (verbatim copies, both over the kernel's
+objects). -/
+theorem g0_hodgeLine_iff : G0StableBC.HodgeLineBaseChange ↔ HodgeLineBaseChange := Iff.rfl
+
+/-- **`StableHeightBaseChange` (g0-split missing piece 6, verbatim) from the five glue statements
+of Part C**, through g0-stablebc's `stableHeightBaseChange_of_hodgeLine`. Proved. -/
+theorem stableHeightBaseChange_of_glue5 (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hJ : JacobianSemilinear) :
+    G0StableBC.StableHeightBaseChange :=
+  G0StableBC.stableHeightBaseChange_of_hodgeLine
+    (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_glue5 h1 hc hω hl hJ))
+
+end ZInQ.HeightBC
+
+#print axioms G0StableBC.stableHeightBaseChange_of_hodgeLine
+#print axioms ZInQ.HeightBC.stableHeightBaseChange_of_glue5
