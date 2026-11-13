@@ -207,9 +207,16 @@ The hypothesis is proved for the rational fibre `PK` (`conjTwist_of_rational`):
   (Mathlib only).
 - In g0-assemble / g0-mod-field, replace `hKer : KernelFieldExists` by
   `kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors t27 h5 hK hD`.
-- In `GluePieces2`:
-  - `ConjIsogMaps` (if listed) becomes `TwistDescent`, plus `KerUnitOpen` (shared with FS3);
-  - `EndTransport` and `RigidityHom` are discharged.
+- In g0-assemble's `GluePieces2` (docs/research/g0-assemble.md L76-88):
+  - field 13 `kernelFieldExists` (GLUE, QM-PIN) can be replaced by
+    `kernelFieldExists_of_descent hHFF hNOS hRay hTors t27 h5 hMul hD`. Its inputs are:
+    - bundle leaves T6, r7a, r6, t5, T27;
+    - field 4 FS5;
+    - field 1 `mulIsogeny`;
+    - the new glue `TwistDescent`.
+  - The QM-PIN dependence of field 13 then sits entirely in FS5, as kernel-field §4 found.
+    `TwistDescent` has no moduli data and is not QM-PIN.
+  - Field 2 `rigidityHom` is a theorem (mul-rigidity; restated here).
 - When merging into one file, keep a single copy of `RigidityHom`.
   - `assemble.sh` already omits MulRigidity.lean L184-203, which hold `RigidityHom` again and
     `rigidityHom`.
