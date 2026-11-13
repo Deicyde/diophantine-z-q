@@ -18,3 +18,10 @@
   (j/1728 Belyi on K_N, [K_N:ℚ(j)] ≤ N²); `X1ModelExists` (glue target / leaf); bundle `ModCurveLeaves`;
   glue `exists_J1`, `exists_J1_dim_le`, `exists_J1_quotient` (proved). `lake env lean`: exit 0, no errors,
   no warnings; every `#print axioms` ⊆ {propext, Classical.choice, Quot.sound}. VERIFIED.
+- 16:52 Frobenius predicate switched to the kernel's `GlueC10.IsFrobAt` (import
+  `ZInQKernel.HDecomp.C10.C10`; the predicate C10 consumes; equivalent to PkgI4.IsArithFrob at ℤ̄_𝔓).
+  Added `dualAct_mul`, `dualAct_one`, `frobOn_mul`, `frobOn_one`, `rhoF` (Representation of G_ℚ on the dual
+  of the ι-eigenfunctionals = the ι-component), `trace_rhoF`, `finrank_rhoF`, and the glue `rhoF_traces`
+  (R16 ⇒ 2-dim ρ with tr ρ(g) = ι(a_p) at IsFrobAt g p, p ∉ S ⊇ primes of Nℓ: the shape of C10's `hρ₅`).
+  `lake env lean`: exit 0, no errors, no warnings; all `#print axioms` ⊆ {propext, Classical.choice,
+  Quot.sound}. VERIFIED.

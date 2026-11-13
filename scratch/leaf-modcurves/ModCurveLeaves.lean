@@ -1,4 +1,5 @@
 import ZInQKernel.HDecomp.Objects
+import ZInQKernel.HDecomp.C10.C10
 import Mathlib
 
 /-!
@@ -11,8 +12,8 @@ statement over genuine definitions, and states the genus input of R18/E2.
 Layout.
 * §A (copied from `scratch/bp-modcurves/Gamma1Genus.lean`, lines 25-270): the Belyi degree and
   the genus formula of `Γ₁(N)`; `genus_Gamma1_le : genus (Γ₁ N) ≤ N²` (proved there and here).
-* §B (copied from `scratch/h-decomposition/Leaves.lean`, namespace `PkgI4`): `ℚ̄`, `G_ℚ`, places,
-  arithmetic Frobenius; Mathlib cusp forms on `Γ₁(N)`, `q`-coefficients, nebentypus, normalized
+* §B (copied from `scratch/h-decomposition/Leaves.lean`, namespace `PkgI4`): `ℚ̄`, `G_ℚ`;
+  arithmetic Frobenius is the kernel's `GlueC10.IsFrobAt`; Mathlib cusp forms on `Γ₁(N)`, `q`-coefficients, nebentypus, normalized
   eigenforms, newforms. New: the coefficient field `K_f`.
 * §C (copied from `scratch/bp-modcurves/ModularCurveDefs.lean`): the `j`-line, `E_j`,
   `K_N = ℚ(j)(x(P))`, and the affine chart `Y1j` (relative normalization of `Spec ℚ[j]` in `K_N`).
@@ -301,12 +302,11 @@ abbrev Qbar := AlgebraicClosure ℚ
 /-- `G_ℚ = Gal(ℚ̄/ℚ)` (definitionally `Field.absoluteGaloisGroup ℚ`). -/
 abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
 
-/-- `v` is a place of `ℚ̄` above the prime `p`. -/
-def LiesOver (v : ValuationSubring Qbar) (p : ℕ) : Prop := (p : Qbar) ∈ v.nonunits
-
-/-- `σ` is an arithmetic Frobenius at the place `v` above `p`. -/
-def IsArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) : Prop :=
-  σ ∈ v.decompositionSubgroup ℚ ∧ ∀ x ∈ v, σ x - x ^ p ∈ v.nonunits
+/-- Arithmetic Frobenius at `p` is the kernel's `GlueC10.IsFrobAt` (a prime `𝔓` of `ℤ̄` over
+`p` with `g x ≡ x^p mod 𝔓` on `ℤ̄`), the predicate consumed by C10. It is equivalent to
+`PkgI4.IsArithFrob` at the place `ℤ̄_𝔓` of `Leaves.lean` (valuation rings of `ℚ̄` containing `ℤ̄`
+are its localizations), so the choice does not change the leaf. -/
+abbrev IsFrobAt (g : GQ) (p : ℕ) : Prop := GlueC10.IsFrobAt g p
 
 /-- Cusp forms of weight `k` on `Γ₁(N)` (Mathlib). -/
 abbrev CF (N : ℕ) (k : ℤ) := CuspForm (CongruenceSubgroup.Gamma1 N : Subgroup (GL (Fin 2) ℝ)) k
@@ -577,6 +577,55 @@ def frobOn (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F �
     (σ : GQ) : eigenFun ℓ A θ emb →ₗ[PadicAlgCl ℓ] eigenFun ℓ A θ emb :=
   (dualAct ℓ A σ).restrict (dualAct_mem ℓ A θ emb σ)
 
+theorem dualAct_mul (A : AbVar ℚ) (σ τ : GQ) :
+    dualAct ℓ A (σ * τ) = dualAct ℓ A τ ∘ₗ dualAct ℓ A σ := by
+  apply LinearMap.ext; intro φ; apply LinearMap.ext; intro v
+  change φ (A.galRep ℓ (σ * τ) v) = φ (A.galRep ℓ σ (A.galRep ℓ τ v))
+  exact congrArg φ (LinearMap.congr_fun (map_mul (A.galRep ℓ) σ τ) v)
+
+theorem dualAct_one (A : AbVar ℚ) : dualAct ℓ A 1 = LinearMap.id := by
+  apply LinearMap.ext; intro φ; apply LinearMap.ext; intro v
+  change φ (A.galRep ℓ 1 v) = φ v
+  exact congrArg φ (LinearMap.congr_fun (map_one (A.galRep ℓ)) v)
+
+theorem frobOn_mul (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (σ τ : GQ) :
+    frobOn ℓ A θ emb (σ * τ) = frobOn ℓ A θ emb τ ∘ₗ frobOn ℓ A θ emb σ := by
+  apply LinearMap.ext; intro φ; apply Subtype.ext
+  change dualAct ℓ A (σ * τ) φ = dualAct ℓ A τ (dualAct ℓ A σ φ)
+  rw [dualAct_mul]; rfl
+
+theorem frobOn_one (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) : frobOn ℓ A θ emb 1 = LinearMap.id := by
+  apply LinearMap.ext; intro φ; apply Subtype.ext
+  change dualAct ℓ A 1 φ = φ
+  rw [dualAct_one]; rfl
+
+/-- **`ρ_{f,ι}` as a representation** (glue): `G_ℚ` acting on the dual of the
+`ι`-eigenfunctionals, i.e. on the `ι`-component of `V_ℓ(A) ⊗ ℚ̄_ℓ` itself (double dual), by
+`σ ↦ (frobOn σ)ᵀ`. -/
+def rhoF (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ) :
+    Representation (PadicAlgCl ℓ) GQ (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) where
+  toFun σ := (frobOn ℓ A θ emb σ).dualMap
+  map_one' := by rw [frobOn_one, LinearMap.dualMap_id]; rfl
+  map_mul' σ τ := by rw [frobOn_mul, ← LinearMap.dualMap_comp_dualMap]; rfl
+
+theorem trace_rhoF (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (h2 : Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2)
+    (σ : GQ) :
+    LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) =
+      LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) := by
+  have : Module.Finite (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+    Module.finite_of_finrank_pos (by omega)
+  exact LinearMap.trace_transpose' (frobOn ℓ A θ emb σ)
+
+theorem finrank_rhoF (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (h2 : Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2) :
+    Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 := by
+  have : Module.Finite (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+    Module.finite_of_finrank_pos (by omega)
+  rw [Subspace.dual_finrank_eq, h2]
+
 end R16
 
 /-- **R16. Eichler–Shimura in `J₁(N)`, existential form** (replaces the placeholder
@@ -611,8 +660,7 @@ def R16_EichlerShimuraJ1' : Prop :=
       A.dim = ((Module.finrank ℚ (coeffField f) : ℕ) : WithBot ℕ∞) ∧
       ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
         Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2 ∧
-        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ (v : ValuationSubring Qbar) (σ : GQ),
-          LiesOver v p → IsArithFrob σ v p →
+        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
           (∀ a : coeffField f, (a : ℂ) = coeff f p →
               LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) = emb a) ∧
           (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
@@ -709,14 +757,34 @@ theorem exists_J1_quotient (L : ModCurveLeaves) (N : ℕ) (hN : 0 < N)
       A.dim = ((Module.finrank ℚ (coeffField f) : ℕ) : WithBot ℕ∞) ∧
       ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
         Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2 ∧
-        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ (v : ValuationSubring Qbar) (σ : GQ),
-          LiesOver v p → IsArithFrob σ v p →
+        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
           (∀ a : coeffField f, (a : ℂ) = coeff f p →
               LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) = emb a) ∧
           (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
               LinearMap.det (frobOn ℓ A θ emb σ) = emb c * p) := by
   obtain ⟨J, hJ, hdim⟩ := exists_J1_dim_le L N hN
   exact ⟨J, hJ, hdim, L.r16 N χ f J hN hf hJ⟩
+
+/-- **Glue (proved), the shape of C10's hypothesis `hρ₅`**: from R16, for every newform `f` of
+level `N`, every `J₁(N)`, every prime `ℓ` and every embedding `ι : K_f → ℚ̄_ℓ`, a 2-dimensional
+representation `ρ` of `G_ℚ` over `ℚ̄_ℓ` (the `ι`-component of `V_ℓ(A_f)`) with
+`tr ρ(g) = ι(a_p)` at every Frobenius `g` at `p ∉ S`, for any `S` containing the primes of `Nℓ`. -/
+theorem rhoF_traces (hR16 : R16_EichlerShimuraJ1') (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ) (J : AbVar ℚ) (hJ : IsJ1 N J)
+    (ℓ : ℕ) [Fact ℓ.Prime] (S : Finset ℕ) (hS : ∀ p, p.Prime → p ∣ N * ℓ → p ∈ S) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ emb : coeffField f →+* PadicAlgCl ℓ,
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        ∀ (g : GQ) (p : ℕ), p.Prime → p ∉ S → IsFrobAt g p →
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g) =
+            emb ⟨coeff f p, coeff_mem_coeffField f p⟩ := by
+  obtain ⟨-, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  refine ⟨A, π, θ, hπ, fun emb => ?_⟩
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  refine ⟨finrank_rhoF ℓ A θ emb h2, fun g p hp hpS hg => ?_⟩
+  have hpN : ¬ p ∣ N * ℓ := fun hd => hpS (hS p hp hd)
+  rw [trace_rhoF ℓ A θ emb h2]
+  exact (hfr p hp hpN g hg).1 _ rfl
 
 end LeafModCurves
 
@@ -726,3 +794,4 @@ end LeafModCurves
 #print axioms LeafModCurves.dim_J1_le
 #print axioms LeafModCurves.exists_J1_dim_le
 #print axioms LeafModCurves.exists_J1_quotient
+#print axioms LeafModCurves.rhoF_traces
