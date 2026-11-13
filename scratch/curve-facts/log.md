@@ -56,3 +56,7 @@
 - PROVED smoothCurveNoIsolatedPoint_of : C1b → C1a (open point closed by Jacobson;
   IsMax in specialization order; Mathlib ringKrullDim_stalk_eq_coheight, Order.coheight_eq_zero).
 - curveFacts_of_leaves : C1b → C2K → C3K → CurveRatFactor ∧ CurveSurj.
+
+## Step 6: independent model review (fresh agent, statements only; not human)
+- C1a, C2K, C3K: all TRUE, none vacuous (P¹_K satisfies all hypotheses). C2K needs properness and
+  alg. closure, not smoothness; C3K needs char 0 and alg. closure. C1b not reviewed (STANDARD).

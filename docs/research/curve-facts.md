@@ -144,6 +144,22 @@ quantifies over an invented structure, and none is a disguised form of its conse
   - Mathlib's instances that properness and `SmoothOfRelativeDimension` are stable under base
     change.
 
+
+**Independent check (model, not human).** A fresh agent was given only the Lean statements of
+C1a, C2K and C3K and the kernel's `ToP1`/`ToP1.val`, and asked for counterexamples. It was not
+given C1b, which was added afterwards. Its findings:
+
+- All three are TRUE and none is vacuous: `X = P¹_K` satisfies every hypothesis.
+- C1a holds over every field, and properness is not needed.
+- C2K needs properness (`𝔸¹ ⊂ P¹` misses `∞`) and algebraic closedness (over `ℝ`, `t²` misses
+  negative values). Smoothness and dimension 1 are not needed: a closed irreducible image in
+  `P¹` is a point or everything, closed points are `K`-points, and the components are handled
+  through `connectedComponent`.
+- C3K needs characteristic 0 (`σ = t^p`) and algebraic closedness (over `ℝ`, `σ = t³`, `ρ = t`).
+  The case "`ρ ≡ ∞` on the component" is covered by `F = 1, G = 0`.
+- C1b (stalk dimension 1 at closed points of a smooth curve over a field) is standard. It is
+  stronger than C1a and was not part of the review.
+
 ## 4. What the Lean proofs do (`CurveFacts.lean`)
 
 - **§3 `geomCompFinite`** (C4).
