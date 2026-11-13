@@ -331,4 +331,91 @@ theorem tendsto_cusp_mul_div_q {M : ℕ} [NeZero M] (G : CuspForm ((Gamma1 M).ma
       simp only [UpperHalfPlane.coe_im, div_one]
       nlinarith [mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ j - 2) him.le) Real.pi_pos.le]
 
+
+/-! ### No newform of level dividing 16 -/
+
+theorem fricke32_im_pos (τ : ℍ) : 0 < (-1 / (32 * (τ : ℂ))).im := by
+  have := UpperHalfPlane.im_inv_neg_coe_pos
+    (⟨32 * (τ : ℂ), by simp; exact τ.im_pos⟩ : ℍ)
+  simpa [neg_div, inv_neg, one_div] using this
+
+theorem dirichletLift_eq_one {M : ℕ} [NeZero M] (g : Newform M 2) (hχ : g.χ = 1) :
+    g.dirichletLift = 1 := by
+  rw [Newform.dirichletLift_def, hχ]
+  ext u
+  simp
+
+/-- **There is no newform of level `M ∣ 16`, `2 ∣ M`, trivial character, with the eigenvalues
+of `f₁` at the odd primes.** -/
+theorem false_of_newform_dvd_16 {M : ℕ} [NeZero M] (hM16 : M ∣ 16) (hM2 : 2 ∣ M)
+    (g : Newform M 2) (hχ : g.χ = 1)
+    (hgood : ∀ p : ℕ, p.Prime → p ≠ 2 → coeff g p = heckeCoeff 1 p) : False := by
+  obtain ⟨hodd, heven⟩ := coeff_newform_odd_even hM16 hM2 g hχ hgood
+  obtain ⟨c, hc⟩ := newform_fricke g hχ
+  obtain ⟨j, hj⟩ : ∃ j, M * j = 32 := ⟨32 / M, Nat.mul_div_cancel' (hM16.trans ⟨2, rfl⟩)⟩
+  obtain ⟨j', hj'⟩ : ∃ j', M * j' = 16 := ⟨16 / M, Nat.mul_div_cancel' hM16⟩
+  have hMle : M ≤ 16 := Nat.le_of_dvd (by norm_num) hM16
+  have hj2 : 2 ≤ j := by
+    by_contra h
+    have : j ≤ 1 := by omega
+    have : M * j ≤ 16 * 1 := Nat.mul_le_mul hMle this
+    omega
+  have hj'1 : 0 < j' := Nat.pos_of_ne_zero (by rintro rfl; simp at hj')
+  have ha2 : j' = 1 → coeff g 2 = 0 := by
+    intro h1
+    subst h1
+    have hM : M = 16 := by simpa using hj'
+    subst hM
+    exact Newform.qExpansion_coeff_prime_eq_zero_of_sq_dvd g Nat.prime_two (by norm_num)
+      ⟨by norm_num, 1, by rw [dirichletLift_eq_one g hχ, DirichletCharacter.changeLevel_one]⟩
+  have hMj : (M : ℂ) * j = 32 := by exact_mod_cast hj
+  have hMj' : (M : ℂ) * j' = 16 := by exact_mod_cast hj'
+  -- the key identity
+  have key : ∀ τ : ℍ, -32 * F₁ τ = c * (j : ℂ) ^ 2 *
+      g.toCuspForm ⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩ -
+        coeff g 2 * c * (j' : ℂ) ^ 2 * g.toCuspForm ⟨(j' : ℂ) * τ, mul_im_pos_of_nat hj'1 τ⟩ := by
+    intro τ
+    have hτ0 : (τ : ℂ) ≠ 0 := τ.ne_zero
+    set w : ℍ := ⟨-1 / (32 * (τ : ℂ)), fricke32_im_pos τ⟩ with hw
+    have e1 := F₁_eq_sub g hodd heven w
+    have e2 : F₁ w = -32 * (τ : ℂ) ^ 2 * F₁ τ := F₁_fricke τ.im_pos
+    have hpt1 : (-1 / ((M : ℂ) * ((j : ℂ) * τ))) = -1 / (32 * (τ : ℂ)) := by
+      rw [← mul_assoc, hMj]
+    have hpt2 : (-1 / ((M : ℂ) * ((j' : ℂ) * τ))) = 2 * (-1 / (32 * (τ : ℂ))) := by
+      rw [← mul_assoc, hMj']; field_simp; ring
+    have e3 := hc ((j : ℂ) * τ) (mul_im_pos_of_nat (by omega) τ) (by rw [hpt1]; exact w.2)
+    have e4 := hc ((j' : ℂ) * τ) (mul_im_pos_of_nat hj'1 τ) (by rw [hpt2]; exact two_mul_im_pos w)
+    have hw1 : g.toCuspForm w = g.toCuspForm ⟨-1 / ((M : ℂ) * ((j : ℂ) * τ)),
+        by rw [hpt1]; exact w.2⟩ :=
+      congrArg g.toCuspForm (UpperHalfPlane.ext (by simp [hw, hpt1]))
+    have hw2 : g.toCuspForm ⟨2 * (w : ℂ), two_mul_im_pos w⟩ =
+        g.toCuspForm ⟨-1 / ((M : ℂ) * ((j' : ℂ) * τ)), by rw [hpt2]; exact two_mul_im_pos w⟩ :=
+      congrArg g.toCuspForm (UpperHalfPlane.ext (by simp [hw, hpt2]))
+    rw [e2, hw1, hw2, e3, e4] at e1
+    have hτ2 : (τ : ℂ) ^ 2 ≠ 0 := pow_ne_zero 2 hτ0
+    apply mul_left_cancel₀ hτ2
+    linear_combination e1
+  -- divide by `q` and let `Im τ → ∞`
+  have hL : Tendsto (fun τ : ℍ => -32 * (F₁ τ / Function.Periodic.qParam 1 (τ : ℂ))) atImInfty
+      (𝓝 (-32 * 1)) := tendsto_F₁_div_q.const_mul _
+  have hR : Tendsto (fun τ : ℍ => -32 * (F₁ τ / Function.Periodic.qParam 1 (τ : ℂ))) atImInfty
+      (𝓝 0) := by
+    have hA := (tendsto_cusp_mul_div_q g.toCuspForm hj2).const_mul (c * (j : ℂ) ^ 2)
+    have hB : Tendsto (fun τ : ℍ => coeff g 2 * c * (j' : ℂ) ^ 2 *
+        (g.toCuspForm ⟨(j' : ℂ) * τ, mul_im_pos_of_nat hj'1 τ⟩ /
+          Function.Periodic.qParam 1 (τ : ℂ))) atImInfty (𝓝 0) := by
+      by_cases h1 : j' = 1
+      · rw [ha2 h1]; simp
+      · have := (tendsto_cusp_mul_div_q g.toCuspForm (j := j') (by omega)).const_mul
+          (coeff g 2 * c * (j' : ℂ) ^ 2)
+        simpa using this
+    have := hA.sub hB
+    rw [mul_zero, sub_zero] at this
+    refine this.congr fun τ => ?_
+    rw [show -32 * (F₁ τ / Function.Periodic.qParam 1 (τ : ℂ)) =
+      (-32 * F₁ τ) / Function.Periodic.qParam 1 (τ : ℂ) by ring, key τ]
+    ring
+  have := tendsto_nhds_unique hL hR
+  norm_num at this
+
 end ZInQ.GZTheta
