@@ -178,7 +178,7 @@ namespace HSyn
 namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 theorem hom_of_common3 (r : ResearchLeaves3) (t : TextbookLeaves) {K : Type} [Field K]
     [NumberField K] (A J : PkgI3.AbVar K) (h : CommonConstituent A J) :

@@ -2,7 +2,7 @@
 19-73 are verbatim copies of g0-mod-field's definitions, part 75) -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q
 namespace G0ModField
 
 /-! ## Part 1 (proved): `FibreCoverOut` is a statement about the residue field of `y` alone -/

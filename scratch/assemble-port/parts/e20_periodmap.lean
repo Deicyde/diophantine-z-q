@@ -1110,7 +1110,7 @@ noncomputable section
 namespace HSyn.G0Split.FibreQM.PeriodMapH
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 open HSyn.G0Split.FibreQM
 
 /-- `Q/ℂ` has an `ι`-compatible analytic uniformization with kernel exactly `Λ_τ = ι(𝒪)(τ, 1)ᵀ`

@@ -37687,7 +37687,7 @@ noncomputable section
 namespace G0FibreSimple
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 open HSyn HSyn.G0Split
 open scoped Quaternion TensorProduct
 
@@ -40866,7 +40866,7 @@ of glue-descent (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`),
 -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField
 
@@ -41912,13 +41912,13 @@ theorem equivariant_of_asModule (ρ : Representation k G V) (σ : Representation
     ∃ e : V ≃ₗ[k] W, ∀ g v, e (ρ g v) = σ g (e v) := by
   refine ⟨{ toFun := fun v => σ.asModuleEquiv (φ (ρ.asModuleEquiv.symm v))
             invFun := fun w => ρ.asModuleEquiv (φ.symm (σ.asModuleEquiv.symm w))
-            map_add' := fun v w => by simp
+            map_add' := fun v w => by simp only [map_add]
             map_smul' := fun c v => by
               rw [ρ.asModuleEquiv_symm_map_smul, φ.map_smul,
                 Representation.asModuleEquiv_map_smul]
-              simp
-            left_inv := fun v => by simp
-            right_inv := fun w => by simp }, fun g v => ?_⟩
+              rw [AlgHom.commutes, Module.algebraMap_end_apply, RingHom.id_apply]
+            left_inv := fun v => by simp only [LinearEquiv.symm_apply_apply, LinearEquiv.apply_symm_apply]
+            right_inv := fun w => by simp only [LinearEquiv.symm_apply_apply, LinearEquiv.apply_symm_apply] }, fun g v => ?_⟩
   simp only [LinearEquiv.coe_mk, LinearMap.coe_mk, AddHom.coe_mk]
   rw [ρ.asModuleEquiv_symm_map_rho, φ.map_smul, Representation.asModuleEquiv_map_smul]
   simp
@@ -42875,7 +42875,7 @@ open scoped MatrixGroups ModularForm
 namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 namespace ThetaPt
 
@@ -52895,7 +52895,7 @@ section G0A3_a45_unramtate
 g0-mod-field's ModField.lean, i.e. part 75) -/
 -- (g0-assemble2) the file-level `open`s of ModField.lean (part 75), which TateBridge.lean inherits:
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 
 /-!
@@ -56095,7 +56095,7 @@ noncomputable section
 namespace FS5NoCM
 
 open CategoryTheory AlgebraicGeometry Limits
-open LeafQM.AV LeafQM.AV.Pin ZInQ ZInQ.JHeight PkgI3
+open LeafQM.AV LeafQM.AV.Pin _root_.ZInQ ZInQ ZInQ.JHeight PkgI3
 
 /-! ## §B The statement -/
 
@@ -57271,7 +57271,7 @@ section G0A3_a70_fibrecover
 19-73 are verbatim copies of g0-mod-field's definitions, part 75) -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q
 namespace G0ModField
 
 /-! ## Part 1 (proved): `FibreCoverOut` is a statement about the residue field of `y` alone -/
@@ -60498,7 +60498,7 @@ Everything above is a verbatim copy (see `assemble.sh`). This part proves
 section Part61
 
 open CategoryTheory AlgebraicGeometry Limits
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -60885,7 +60885,7 @@ end KernelCore
 /-! ## §6.4-6.5 G4's hypotheses on a rational fibre; the remaining Props; the headline -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -61055,7 +61055,7 @@ end G0ModField.KernelField
 -- (g0-assemble2) section FS5Copy (verbatim copy of g0-fibresimple's `FibreComTrivial`) is not repeated: part 40 defines it.
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -61390,7 +61390,7 @@ end G0ModField.KernelField
 end NoCMSplit
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -61896,7 +61896,7 @@ open scoped MatrixGroups ModularForm
 namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 namespace FibreQM
 
@@ -76195,7 +76195,7 @@ section LinkedDataSec
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace UnramTate
 
@@ -76680,7 +76680,7 @@ section LinkedRamSec
 noncomputable section
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace UnramTate
 
@@ -77452,7 +77452,7 @@ noncomputable section
 
 -- (g0-assemble3) the file-level opens of KfGlue.lean active from its L4741 and L4907 on (part a75 keeps them inside sections):
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 open scoped Quaternion TensorProduct
 
 /-! ## §6.10 `𝒪` is a maximal order (proved)
@@ -78036,7 +78036,7 @@ glue facts about `ℚ̄`-points of finite morphisms. Then `m_σ(x) = F_σ ∘ x 
 section KfGlueLevel1
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -78339,7 +78339,7 @@ with quasi-inverse `ι(N b⁻¹)` (so no quasi-inverse leaf is needed), and the 
 section KfGlueLevel2
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 /- `G0FibreSimple.MulIsogeny` is in Part MR (MulRigidity.lean L321-323, verbatim). -/
 
@@ -78625,7 +78625,7 @@ varieties with `𝒪`-action. -/
 section KfGlueLevel3
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -86103,7 +86103,7 @@ noncomputable section
 namespace HSyn.G0Split.FibreQM.PeriodMapH
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 open HSyn.G0Split.FibreQM
 
 /-- `Q/ℂ` has an `ι`-compatible analytic uniformization with kernel exactly `Λ_τ = ι(𝒪)(τ, 1)ᵀ`
@@ -91806,7 +91806,7 @@ namespace HSyn
 namespace G0Split
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 theorem hom_of_common3 (r : ResearchLeaves3) (t : TextbookLeaves) {K : Type} [Field K]
     [NumberField K] (A J : PkgI3.AbVar K) (h : CommonConstituent A J) :

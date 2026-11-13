@@ -2536,7 +2536,7 @@ Everything above is a verbatim copy (see `assemble.sh`). This part proves
 section Part61
 
 open CategoryTheory AlgebraicGeometry Limits
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -2923,7 +2923,7 @@ end KernelCore
 /-! ## §6.4-6.5 G4's hypotheses on a rational fibre; the remaining Props; the headline -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -3093,7 +3093,7 @@ end G0ModField.KernelField
 -- (g0-assemble2) section FS5Copy (verbatim copy of g0-fibresimple's `FibreComTrivial`) is not repeated: part 40 defines it.
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -3428,7 +3428,7 @@ end G0ModField.KernelField
 end NoCMSplit
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 

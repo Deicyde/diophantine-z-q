@@ -19,3 +19,13 @@
 - New part z99_bundle5.lean: `ResearchLeaves5` (R14 := `G0Galois.R14Det`), `GluePieces5` (43 fields = GluePieces4
   − verticalResidueSeparable, snSpecialize, r14Det), `gluePieces4_of_gluePieces5`, `sixContactMin_of_leaves5
   (r : ResearchLeaves5) (t : OpenTextbookLeaves) (gp : GluePieces5)`.
+- Prefix (LPrefix = Leaves.lean HDec, build_prefix.sh): VERIFIED exit 0, 0 errors, 556 s.
+- TailA run 1: 53 errors: `open ZInQ` inside `namespace HDec` opens only `HDec.ZInQ` (linter "Ambiguous namespace
+  `ZInQ`"), so the kernel's `heightD`, `heightQ`, `contactSet`, `Mult.S_mul`, … were unknown. Fix mk/open_zinq.py:
+  on `open` lines the bare token `ZInQ` → `_root_.ZInQ ZInQ` (13 parts, 22 lines). (`open PkgI4` resolving to
+  `HDec.PkgI4` is the intended copy; left.)
+- TailA run 2: 4 errors, all in part 77 `equivariant_of_asModule` (`simp` no longer closes `map_add'`, `map_smul'`,
+  `left_inv`, `right_inv` under Leaves.lean's extra kernel imports). Fixed with explicit `simp only [map_add]`,
+  `rw [AlgHom.commutes, Module.algebraMap_end_apply, RingHom.id_apply]`, `simp only [symm_apply_apply,
+  apply_symm_apply]` (tested in olean/T1.lean: exit 0). Statement unchanged.
+- TailA run 3: VERIFIED exit 0, 0 errors, no sorry, 69 s.

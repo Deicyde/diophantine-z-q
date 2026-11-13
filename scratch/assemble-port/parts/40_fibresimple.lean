@@ -32,7 +32,7 @@ noncomputable section
 namespace G0FibreSimple
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 open HSyn HSyn.G0Split
 open scoped Quaternion TensorProduct
 

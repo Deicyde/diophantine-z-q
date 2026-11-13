@@ -8,7 +8,7 @@ noncomputable section
 namespace FS5NoCM
 
 open CategoryTheory AlgebraicGeometry Limits
-open LeafQM.AV LeafQM.AV.Pin ZInQ ZInQ.JHeight PkgI3
+open LeafQM.AV LeafQM.AV.Pin _root_.ZInQ ZInQ ZInQ.JHeight PkgI3
 
 /-! ## §B The statement -/
 

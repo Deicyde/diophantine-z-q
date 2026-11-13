@@ -55,13 +55,13 @@ theorem equivariant_of_asModule (ρ : Representation k G V) (σ : Representation
     ∃ e : V ≃ₗ[k] W, ∀ g v, e (ρ g v) = σ g (e v) := by
   refine ⟨{ toFun := fun v => σ.asModuleEquiv (φ (ρ.asModuleEquiv.symm v))
             invFun := fun w => ρ.asModuleEquiv (φ.symm (σ.asModuleEquiv.symm w))
-            map_add' := fun v w => by simp
+            map_add' := fun v w => by simp only [map_add]
             map_smul' := fun c v => by
               rw [ρ.asModuleEquiv_symm_map_smul, φ.map_smul,
                 Representation.asModuleEquiv_map_smul]
-              simp
-            left_inv := fun v => by simp
-            right_inv := fun w => by simp }, fun g v => ?_⟩
+              rw [AlgHom.commutes, Module.algebraMap_end_apply, RingHom.id_apply]
+            left_inv := fun v => by simp only [LinearEquiv.symm_apply_apply, LinearEquiv.apply_symm_apply]
+            right_inv := fun w => by simp only [LinearEquiv.symm_apply_apply, LinearEquiv.apply_symm_apply] }, fun g v => ?_⟩
   simp only [LinearEquiv.coe_mk, LinearMap.coe_mk, AddHom.coe_mk]
   rw [ρ.asModuleEquiv_symm_map_rho, φ.map_smul, Representation.asModuleEquiv_map_smul]
   simp

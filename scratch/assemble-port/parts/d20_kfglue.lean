@@ -10,7 +10,7 @@ noncomputable section
 
 -- (g0-assemble3) the file-level opens of KfGlue.lean active from its L4741 and L4907 on (part a75 keeps them inside sections):
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ ZInQ.JHeight LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 open scoped Quaternion TensorProduct
 
 /-! ## §6.10 `𝒪` is a maximal order (proved)
@@ -594,7 +594,7 @@ glue facts about `ℚ̄`-points of finite morphisms. Then `m_σ(x) = F_σ ∘ x 
 section KfGlueLevel1
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
@@ -897,7 +897,7 @@ with quasi-inverse `ι(N b⁻¹)` (so no quasi-inverse leaf is needed), and the 
 section KfGlueLevel2
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 /- `G0FibreSimple.MulIsogeny` is in Part MR (MulRigidity.lean L321-323, verbatim). -/
 
@@ -1183,7 +1183,7 @@ varieties with `𝒪`-action. -/
 section KfGlueLevel3
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
 namespace G0ModField.KernelField
 
