@@ -9,12 +9,12 @@ import Mathlib.Tactic
 
 Mathlib only. §§1-4 are copied verbatim from `scratch/bp-qmmoduli/QMOrder.lean` §§1-4 (the order
 `𝒪`, `μ = 2j + k`, `x† = μ⁻¹x̄μ`, N5's form `E₀`, and the uniqueness theorem
-`eq_pm_E0_of_principal`), renamed into the namespace `RvQMPolar`. New here (§§5-7):
+`eq_pm_E0_of_principal`), renamed into the namespace `RvQMPolar`. New here (§§5-8):
 
 * §5 **Non-uniqueness without a fixed Rosati type.** `ν = 2j − k ∈ 𝒪` has `ν² = −6`; its form
   `E_ν(x, y) = trd(ν⁻¹xȳ)` is alternating, integral and unimodular on `𝒪` and compatible with
-  `x ↦ ν⁻¹x̄ν`, but is not a rational multiple of `E₀` and not compatible with `†`. So on every QM
-  torus `ℂ²/𝒪v` both `±E₀` and `±E_ν` give principal polarizations whose Rosati involution
+  `x ↦ ν⁻¹x̄ν`, but is not a rational multiple of `E₀` and not compatible with `†`. So (argued, not
+  compiled at the level of tori) on every QM torus `ℂ²/𝒪v` both `±E₀` and `±E_ν` give principal polarizations whose Rosati involution
   preserves `ι(𝒪)` (one sign each is positive): "the" principal polarization of `(A, ι)` is unique
   only after the type `μ` is fixed (`eq_pm_E0_of_principal`). `ν = −v μ v⁻¹` with `v = −1 + i` a
   unit of norm −1, so the two polarizations differ by the automorphism `ι(v)`.
@@ -28,7 +28,9 @@ Mathlib only. §§1-4 are copied verbatim from `scratch/bp-qmmoduli/QMOrder.lean
 * §8 **The sign step (existence over `ℂ`).** For every `j ∈ B_ℝ` with `j² = −1` (a complex
   structure commuting with `𝒪`), `x ↦ E₀(xj, x)` is definite (`riemann_sign`) and `E₀` is
   `j`-invariant (`E0R_mul_j`); `lemmaP_lattice`: exactly one of `±E₀` is a principal Riemann form.
-  With `eq_smul_E0` this is Lemma P on every QM torus `ℂ²/𝒪v`.
+  These are the lattice steps of Lemma P (characteristic 0) for N5's `μ` on `Λ = 𝒪`. Not compiled:
+  the identification of `E0R` with `E₀ ⊗ ℝ`, the combination with `eq_smul_E0`, the transport to
+  `Λ = 𝒪v`, Riemann forms ↔ polarizations, other `μ`, class number one and the descent from `ℂ`.
 
 No `sorry`, no `axiom`.
 -/
@@ -565,7 +567,7 @@ theorem w_eq_chi_mul :
   · ext <;> simp [ofInt]
   · norm_num [nrd]
 
-/-! ## §8 The sign step: existence of the type-`μ` polarization on every QM torus
+/-! ## §8 The sign step: existence of the type-`μ` Riemann form on the lattice `𝒪`
 
 `B_ℝ = (2,−3) ⊗ ℝ`. A complex structure on `H₁(A, ℝ) = B_ℝ` commuting with the left `𝒪`-action is
 right multiplication by some `j ∈ B_ℝ` with `j² = −1`. The Gram matrix of `x ↦ E₀(xj, x)` (in the
@@ -713,8 +715,11 @@ theorem riemann_sign (j : BR) (hj : j * j = -1) :
 /-- **Lemma P on the lattice.** For every complex structure `x ↦ xj` (`j ∈ B_ℝ`, `j² = −1`) on
 `H₁ = 𝒪`, exactly one rational multiple `r·E₀` of N5's form is principal (Gram determinant 1 on
 `𝒪`) and positive (`r·E₀(xj, x) > 0` for `x ≠ 0`); it is `J`-invariant by `E0R_mul_j`. By
-`eq_smul_E0` every alternating form for which `𝒪` acts with adjoint `†` is such a multiple. So
-every QM torus `ℂ²/𝒪v` has exactly one principal polarization of type `μ`. -/
+`eq_smul_E0` every alternating form for which `𝒪` acts with adjoint `†` is such a multiple (argued:
+the combination, the identification of `E0R` with `E₀ ⊗ ℝ`, the transport to a QM torus `ℂ²/𝒪v` and
+Riemann forms ↔ polarizations are not compiled). So, in characteristic 0 and for N5's `μ`, every
+QM torus `ℂ²/𝒪v` should have exactly one principal polarization of type `μ`; only the lattice
+statement below is in Lean. -/
 theorem lemmaP_lattice (j : BR) (hj : j * j = -1) :
     ∃! r : ℚ, (r • gram).det = 1 ∧ ∀ x : BR, x ≠ 0 → 0 < (r : ℝ) * E0R (x * j) x := by
   have hdet : ∀ r : ℚ, (r • gram).det = 1 → r = 1 ∨ r = -1 := by

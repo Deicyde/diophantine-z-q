@@ -206,8 +206,15 @@ end Level3
 /-! ## §3 The objects `(A, ι, η)`, their isomorphisms and classes, and the action of `Γ'` -/
 
 /-- **An abelian surface over `K` with QM by `𝒪` and a level-3 structure.** (No polarization:
-for this datum a principal polarization with Rosati involution `x ↦ μ⁻¹x̄μ` on `ι(𝒪)` exists and
-is unique, bp-qmmoduli §2.2, whose lattice core is `BPQM.eq_pm_E0_of_principal`.) -/
+by Lemma P (rv-qm-polar §0): for a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
+polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
+VERIFIED as an argument, lattice cores compiled for N5's `μ` on `Λ = 𝒪` only
+(`RvQMPolar.eq_pm_E0_of_principal`, `RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in
+`QM/Polar.lean`; the passage to polarizations of `A`, `Λ = 𝒪v`, class number one and the descent
+from `ℂ` are not compiled), published
+locators UNVERIFIED. Without fixing `μ` it is
+not unique.) (Wording copied from the kernel docstring in
+`ZInQKernel/HDecomp/QM/Structures.lean` by notes-fix2, issue #2 item 3.) -/
 structure QML3 (K : Type) [Field K] where
   A : AbVar K
   surface : A.dim = 2
@@ -1365,18 +1372,25 @@ theorem exists_fibre_object (h : R1R2fp) :
   rw [e, hx]
 
 /-- **Glue (compiled): A4 + A7 from the leaves alone.** From `R1R2fp`: for every rational
-`j₀`, there is an object `P` over `ℚ̄` at a point of `Y₃` over `j₀`, and every Galois conjugate of
-`P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic to that of `P`
-(through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for the fibre over
-`J(u) = j₀`. -/
+`j₀`, there are `Y₃` (with `R1fpProps`), `π : Y₃ → P¹` (with `R2fpProps`), a `ℚ̄`-point `y` of
+`Y₃` over `j₀` (`π(y) = j₀`) and the object `P` at `y` (`Φ y = [P]`), such that every Galois
+conjugate of `P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic
+to that of `P` (through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for
+the fibre over `J(u) = j₀`. (Strengthened by notes-fix2, issue #2 item 1, copying the kernel's
+statement and proof in `ZInQKernel/HDecomp/QM/Leaves.lean`: the earlier conclusion
+`∃ P, ∀ σ, …` did not mention `j₀`.) -/
 theorem fibre_conjugates_isomorphic (h : R1R2fp) (j₀ : ℚ) :
-    ∃ P : QML3 Qbar, ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
-      IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
-      ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
+      ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧
+        π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) ∧
+        ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
+          IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
   obtain ⟨Y, Φ, π, h1, h2, hfib⟩ := exists_fibre_object h
   obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ Qbar j₀))
-  exact ⟨P, fun σ => conj_twist_of_rational h1 π (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1)
-    y P hP j₀ hy σ⟩
+  exact ⟨Y, Φ, π, h1, h2, y, P, hP, hy, fun σ => conj_twist_of_rational h1 π
+    (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1) y P hP j₀ hy σ⟩
 
 /-- **All glue conclusions on one witness** (so that A4, A5's Lemma NV step 2, A7 and M1 use the
 same `Y₃` and `π`). -/

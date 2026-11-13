@@ -3,19 +3,24 @@ import Mathlib
 /-!
 # rv-blueprints: the existential R16 is invariant under isomorphism of the Jacobian (repair M1)
 
-Over Mathlib schemes and the repository's `PkgI3.AbVar` (copied below from
-`scratch/pkg-I3/I3.lean`, since scratch files cannot import each other: the structure, the
-commutativity instance, and nothing else).
+Mathlib only. Supports finding M1 of `docs/research/rv-blueprints.md` §2.3: bp-modcurves' leaf
+MC9 ("our model of `X₁(N)` is Shimura's canonical model") is not needed, because the existential
+R16 transfers along isomorphisms of `J`. The file declares exactly three things, in the namespace
+`BPModCurves`:
 
-* `IsCurve X` : `X → Spec K` is proper, smooth of relative dimension 1, geometrically connected.
-* `IsJacobian X P₀ J aj` : `aj : X → J` sends `P₀` to `0`, and every `K`-morphism `f : X → A` to an
-  abelian variety with `f(P₀) = 0` factors as `φ ∘ aj` for a unique homomorphism `φ : J → A`
-  (the Albanese property; for a curve the Albanese variety is the Jacobian: Milne, *Jacobian
-  varieties*, in Arithmetic Geometry (1986), Prop. 6.1, UNVERIFIED number).
-* `JacobianExists K` : the existence leaf (Weil 1948; Chow; Milne 1986, Thm 1.1 with Prop. 6.1,
-  UNVERIFIED numbers). This is a **leaf statement** (a `Prop`), not proved here.
-* `IsJacobian.unique` : any two Jacobians of `(X, P₀)` are isomorphic by a unique homomorphism
-  compatible with `aj` (glue, proved). This is the acceptance test for the predicate.
+* `AbVar K` : an abelian variety over a field `K`, i.e. a group object in schemes over `Spec K`
+  whose structure morphism is proper, smooth and geometrically integral (copied from the
+  repository's `PkgI3.AbVar`, `scratch/pkg-I3/I3.lean`, since scratch files cannot import each
+  other).
+* the instance `IsCommMonObj A.X` for `A : AbVar K` (an abelian variety is commutative), from
+  Mathlib's `isCommMonObj_of_isProper_of_geometricallyIntegral`.
+* `exists_quotient_transfer` (glue, proved): if `J ≅ J'` (with `e.inv` a monoid morphism) and some
+  surjective homomorphism `J → A` onto an abelian variety `A` satisfying `P A` exists, then one
+  exists from `J'` (compose with `e.inv`).
+
+No `sorry`, no `axiom`; no curves, Jacobians or Albanese predicates are defined here (those are in
+`Audit_Jacobian.lean`, from which this header was earlier copied by mistake; notes-fix2, issue #2
+item 6).
 -/
 
 namespace BPModCurves
