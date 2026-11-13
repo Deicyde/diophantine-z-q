@@ -47,8 +47,10 @@ Main findings:
      Hecke action by automorphisms of `Y₃` and the map to `P¹_j`. This drops three nodes of
      very large size from the critical path.
 2. **The polarization can be dropped from the moduli problem for this datum.**
-   - Fix `(A, ι)` with `ι : 𝒪 ↪ End(A)` in characteristic 0. Then a principal polarization whose
-     Rosati involution restricts to `x ↦ μ⁻¹x̄μ` on `𝒪` exists and is unique (§2.2).
+   - Fix an abelian surface `A` over a field `F` of characteristic 0 and `ι : 𝒪 ↪ End_F(A)`. Then,
+     for a fixed `μ`, a principal polarization over `F` whose Rosati involution restricts to
+     `x ↦ μ⁻¹x̄μ` on `𝒪` exists and is unique (§2.2; without fixing `μ` it is not unique; Lemma P of
+     rv-qm-polar §0).
    - So the field points of the PEL problem `(A, ι, λ, η)` and of the problem `(A, ι, η)`
      without `λ` coincide.
    - The lattice core of this argument is **proved in Lean** (`BPQM.eq_smul_E0`,

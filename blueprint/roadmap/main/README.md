@@ -14,6 +14,32 @@ project.
 
 - [The target statement](frozen-target.md)
 
+The main theorem proves the target from five hypotheses, none of them proved here: the minimal
+height hypothesis below (the one instance of the manuscript's Theorem 4.1 that the proof uses; not a
+published theorem, its proof combines refereed theorems and exact computations with new arguments,
+the manuscript's and this project's, reviewed only by AI models), and four statements about L-series
+of elliptic curves over $\mathbb Q$, from which the certified rank hypothesis CR₃ below follows.
+Three of the four are textbook theorems: the positive-rank half of Gross–Zagier, the functional
+equation of $L(C_d,s)$ for squarefree $d\equiv5\pmod8$, with conductor $32d^2$ and root number $-1$,
+stated on the strip $0<\operatorname{Re}s<2$, and Hecke's continuation of $L(C_d,s)$ to an entire
+function for every $d\ne0$. No original source of Hecke's continuation was read, and the original
+source of the conductor and the functional equation has not been read in full. The fourth is a
+consequence of Tian–Yuan–Zhang's Theorem 3.5(2) in one reading of its genus sums, reading A: for
+squarefree $d\equiv5\pmod8$, if $L(C_d,s)$ vanishes to order at least $2$ at $s=1$, two genus sums
+of class numbers are even. No refereed text found by the project's literature search, which AI
+agents carried out, states reading A explicitly; Tian–Yuan–Zhang's introductory theorem with the
+same parity criteria, read literally, is false; and their proof passes through their Proposition
+3.4, whose proof is only sketched in the arXiv version; the journal's proof was not assessed on this
+point. A new argument written for this project, Proposition N, reviewed twice by AI models and never
+by a human, derives reading A from unambiguous results of that version; its derivation from a
+restatement of those results is proved here, but no proof checks that the restatement matches the paper, and only AI models have compared it with the paper, and it is supporting evidence, not a hypothesis of the main theorem. The rest of this
+chapter follows the manuscript's inputs and ends with the other forms of the theorem: from the
+minimal height hypothesis, CR₃ and the manuscript's prime pattern; from the minimal height
+hypothesis and CR₃ alone; and from other forms of the rank hypothesis, among them those through
+which the proof passes.
+
+- [The main theorem](main-theorem.md)
+
 The manuscript proves it from six inputs. Three of them depend on deep arithmetic whose
 conclusions are nonetheless elementary statements. The six-contact height estimate bounds
 the height of a rational number by its odd contact support.
@@ -89,11 +115,11 @@ of the good slope primes, [Proposition D](../density/README.md).
 The catalogue bound is no longer an assumption of substance: the
 [progressions chapter](../progressions/README.md) proves it from an effective Dirichlet
 theorem. Under the remaining hypotheses (the minimal form of the height estimate, the certified
-rank hypothesis CR₃ and the twenty-two-prime pattern) the target holds; it also holds with pole
-completeness in place of CR₃, or with the two-slope pattern in place of the twenty-two-prime
-pattern.
+rank hypothesis CR₃ and the twenty-two-prime pattern) the target holds; this is the form of the
+theorem closest to the manuscript's inputs. It also holds with pole completeness in place of CR₃,
+or with the two-slope pattern in place of the twenty-two-prime pattern.
 
-- [The main theorem](main-theorem.md)
+- [The main theorem from three hypotheses](main-theorem-three-hypotheses.md)
 
 With route AP the prime pattern drops out, and the target holds under the minimal height
 hypothesis and CR₃ alone, or under the minimal height hypothesis and CR₃^Sel or CR₃^5b.
@@ -111,13 +137,14 @@ any of the equivalent forms that ask for infinitely many rational points instead
 - [The main theorem from positive rank on the two curves of a slot choice](main-theorem-two-curves.md)
 - [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
 
-The positive-rank form of CR₃^TYZ_Cl, CR₃^TYZ_Cl,Rk, follows from three statements about
-L-series: two textbook theorems (the functional equation of $L(C_d,s)$ with root number $-1$,
-stated on the strip $0<\operatorname{Re}s<2$, and the positive-rank half of Gross–Zagier) and
-Tian–Yuan–Zhang's row 5b, which rests on Proposition N, an unpublished argument written for this
-project and not refereed
-([the literature section of the positive-rank chapter](../rank/literature/README.md)). The target holds under
-the minimal height hypothesis or its $j$-form together with those three statements, and under the
-$j$-form and CR₃^TYZ_Cl,Rk.
+The positive-rank form of CR₃^TYZ_Cl, CR₃^TYZ_Cl,Rk, follows from three statements about L-series:
+two standard theorems (the functional equation of $L(C_d,s)$ with root number $-1$, whose original
+source has not been read in full, stated on the strip $0<\operatorname{Re}s<2$, and the
+positive-rank half of Gross–Zagier) and Tian–Yuan–Zhang's row 5b, which follows from the main
+theorem's other two L-series statements, Theorem 3.5(2) in reading A and Hecke's continuation ([the
+literature section of the positive-rank chapter](../rank/literature/README.md)). The target holds
+under the minimal height hypothesis or its $j$-form together with those three statements, and under
+the $j$-form and CR₃^TYZ_Cl,Rk; the first of these forms is the step through which the main theorem
+is proved.
 
 - [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)
