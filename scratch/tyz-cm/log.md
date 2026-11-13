@@ -34,3 +34,29 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
   `latK`/`latNK` (lattice identities in K), `phiC_add_half`, `ptTC_add_self` (2T = (0,0) in A(ℂ)),
   `phiC_N0`, `tyzForm'` (primitive: 1 = −(n+6)A − 2(n+6)B − (4n+23)C), `tau'_eq`,
   `exists_galQ_neg`, `exists_normalized_embed`, `fixes_iQ_of_sigma`.
+
+## 10:25 scope change
+- TYZSigmaFixesZn moved to cm-numeric (with Lemma318Literal, GenusPointLeafCM). ShimuraZn.lean (committed
+  8ca00d4d) left as is: `tyzSigmaFixesZn_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke)`.
+
+## 10:30 CMFieldOfDefinition ringClassFieldD reduced (VERIFIED, compiled; commit e6ac1310)
+- ShimuraField.lean: `cmFieldOfDefinition_of (hS : ShimuraReciprocityPic) : CM.CMFieldOfDefinition ringClassFieldD`;
+  `cmFieldTYZ_of_shimura : ShimuraReciprocityPic → Package.CMFieldOfDefinitionTYZ`;
+  `tyzThm35ReadingA_of_shimura` (3 L-leaves, ShimuraReciprocityPic, EtaModelFricke, Lemma318Literal, GenusPointLeafCM).
+  Axioms: propext, Classical.choice, Quot.sound.
+- Proof: J = 𝓞_K (trivial class) in ShimuraReciprocityPic; κ(O) ⊆ ℤ + ℤ·Aτ_Q (`kappa_order`, parity of
+  half-integral coordinates of 𝓞_K, m ≡ 3 vs m ≢ 3 mod 4), so κ(O)·L = L for L = ⟨1,τ⟩, ⟨1/32,τ⟩;
+  `InfiniteGalois.fixedField_fixingSubgroup`. No Heegner condition used.
+
+## 10:40 general leaf over ℚ(X₀(N)) (VERIFIED, compiled; commit da1bc29b)
+- ShimuraModFn.lean: `IsRatModFn N g` (Γ₀(N)-invariant, O(e^{2πk Im τ}) at every cusp γ∞, rational
+  q-expansion at ∞ converging on ℍ); leaf `ShimuraReciprocityModFn` (Gross form, any g, any N; does not
+  mention the eta model); `shimuraReciprocityPic_of (hS) (hx : IsRatModFn 32 xC) (hy : IsRatModFn 32 yC)`;
+  X0-specific: `XQExpRational`, `YQExpRational`, leaf `EtaCuspGrowth`; `cmFieldOfDefinition_of_modFn`.
+- Why not the j-route (x(τ) ∈ ℚ(j(τ), j(32τ))): as a statement about VALUES it fails at points where
+  (j, j_32) does not separate points of X₀(32) (singular points of Φ₃₂(X,Y) = 0); the Gross form avoids it.
+
+## 10:50 rational q-expansions proved (VERIFIED, compiled)
+- ShimuraQExp.lean: `xQExpRational : XQExpRational`, `yQExpRational : YQExpRational`;
+  `cmFieldOfDefinition_of_modFn' : ShimuraReciprocityModFn → X0.EtaModelInvariant → EtaCuspGrowth →
+  CM.CMFieldOfDefinition ringClassFieldD`. Axioms: the standard three.
