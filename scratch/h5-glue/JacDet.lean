@@ -231,6 +231,72 @@ theorem jacDet_comp_genMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) 
     𝒩.jacDet (fun z => Φ z ≫ f) t = 𝒢.jacDet Φ t' :=
   jacDet_comp_map 𝒢 𝒩 f Λ Φ hΦ (genMap 𝒢 𝒩 f) (genMap_germ 𝒢 𝒩 f) t t' ht
 
+/-! ### The induced map on cotangent spaces -/
+
+theorem isIso_stalkSpecializes_genMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] :
+    IsIso (𝒩.G.left.presheaf.stalkSpecializes
+      (Inseparable.of_eq (map_genericUnit' 𝒢 𝒩 f)).specializes) :=
+  Iso.isIso_hom (𝒩.G.left.presheaf.stalkCongr (Inseparable.of_eq (map_genericUnit' 𝒢 𝒩 f)).symm)
+
+theorem genMap_mem_maximalIdeal (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    (t : 𝒩.genStalk) (ht : t ∈ IsLocalRing.maximalIdeal 𝒩.genStalk) :
+    genMap 𝒢 𝒩 f t ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+  haveI := isIso_stalkSpecializes_genMap 𝒢 𝒩 f
+  set e := 𝒩.G.left.presheaf.stalkSpecializes
+    (Inseparable.of_eq (map_genericUnit' 𝒢 𝒩 f)).specializes
+  have h1 : e t ∈ IsLocalRing.maximalIdeal _ := by
+    rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff] at ht ⊢
+    intro hu
+    apply ht
+    have := hu.map (inv e).hom
+    rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+  have h2 := map_nonunit (f.left.stalkMap 𝒢.genericUnit).hom _ h1
+  exact h2
+
+/-- `genMap` is compatible with the structure maps from `𝓞_L`. -/
+theorem genMap_structMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] (r : 𝓞 L) :
+    genMap 𝒢 𝒩 f (𝒩.structMap r) = 𝒢.structMap r := by
+  have e1 : 𝒩.structMap r = 𝒩.G.left.presheaf.germ ⊤ 𝒩.genericUnit trivial
+      (𝒩.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) := rfl
+  have e2 : 𝒢.structMap r = 𝒢.G.left.presheaf.germ ⊤ 𝒢.genericUnit trivial
+      (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) := rfl
+  rw [e1, e2, genMap_germ 𝒢 𝒩 f ⊤ (show 𝒩.genericUnit ∈ (⊤ : 𝒩.G.left.Opens) from trivial)
+    (show 𝒢.genericUnit ∈ f.left ⁻¹ᵁ (⊤ : 𝒩.G.left.Opens) from trivial)]
+  have hw : f.left ≫ 𝒩.G.hom = 𝒢.G.hom := Over.w f
+  have : 𝒢.G.hom.appTop = 𝒩.G.hom.appTop ≫ f.left.appTop := by
+    rw [← hw, Scheme.Hom.comp_appTop]
+  rw [this, CommRingCat.comp_apply]
+  rfl
+
+/-- **The induced `𝓞_L`-linear map `ω_{𝒩_L} → ω_{𝒢_L}` on cotangent spaces at `ξ`** (`f^*`). -/
+noncomputable def cotMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] :
+    𝒩.cotangent →ₗ[𝓞 L] 𝒢.cotangent where
+  toFun x := Ideal.mapCotangent (IsLocalRing.maximalIdeal 𝒩.genStalk)
+    (IsLocalRing.maximalIdeal 𝒢.genStalk) (genMap 𝒢 𝒩 f).hom.toIntAlgHom
+    (fun t ht => genMap_mem_maximalIdeal 𝒢 𝒩 f t ht) x
+  map_add' x y := map_add _ x y
+  map_smul' r x := by
+    obtain ⟨m, rfl⟩ := Ideal.toCotangent_surjective _ x
+    let ψ := (genMap 𝒢 𝒩 f).hom.toIntAlgHom
+    have h : IsLocalRing.maximalIdeal 𝒩.genStalk ≤
+        (IsLocalRing.maximalIdeal 𝒢.genStalk).comap ψ :=
+      fun t ht => genMap_mem_maximalIdeal 𝒢 𝒩 f t ht
+    change Ideal.mapCotangent (IsLocalRing.maximalIdeal 𝒩.genStalk)
+        (IsLocalRing.maximalIdeal 𝒢.genStalk) ψ h (𝒩.structMap r • Ideal.toCotangent _ m) =
+      𝒢.structMap r • Ideal.mapCotangent (IsLocalRing.maximalIdeal 𝒩.genStalk)
+        (IsLocalRing.maximalIdeal 𝒢.genStalk) ψ h (Ideal.toCotangent _ m)
+    rw [← (Ideal.toCotangent _).map_smul, Ideal.mapCotangent_toCotangent,
+      Ideal.mapCotangent_toCotangent, ← (Ideal.toCotangent _).map_smul]
+    congr 1
+    apply Subtype.ext
+    simp only [SetLike.val_smul, smul_eq_mul, map_mul, ψ, RingHom.toIntAlgHom_apply]
+    rw [genMap_structMap]
+
+theorem cotMap_dCls (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    (t : IsLocalRing.maximalIdeal 𝒩.genStalk) :
+    cotMap 𝒢 𝒩 f (𝒩.dCls t) =
+      𝒢.dCls ⟨genMap 𝒢 𝒩 f t, genMap_mem_maximalIdeal 𝒢 𝒩 f t t.2⟩ := rfl
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -239,3 +305,6 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.germAlong_comp_eventuallyEq
 #print axioms ZInQ.H5Glue.jacDet_comp_map
 #print axioms ZInQ.H5Glue.jacDet_comp_genMap
+#print axioms ZInQ.H5Glue.genMap_structMap
+#print axioms ZInQ.H5Glue.cotMap
+#print axioms ZInQ.H5Glue.cotMap_dCls

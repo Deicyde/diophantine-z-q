@@ -79,3 +79,6 @@ docs/research/h5-neron.md.
   All axioms [propext, Classical.choice, Quot.sound].
 - `genMap 𝒢 𝒩 f : 𝒩.genStalk ⟶ 𝒢.genStalk` (stalkSpecializes ≫ stalkMap), `genMap_germ` (f^* on
   germs), `jacDet_comp_genMap`: compiled ~02:18, axioms standard.
+- `genMap_mem_maximalIdeal` (genMap is local), `genMap_structMap` (compatible with 𝓞_L),
+  `cotMap 𝒢 𝒩 f : 𝒩.cotangent →ₗ[𝓞 L] 𝒢.cotangent` (f^* on 𝔪_ξ/𝔪_ξ²), `cotMap_dCls` (rfl):
+  compiled ~02:20, axioms standard.
