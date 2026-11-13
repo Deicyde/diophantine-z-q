@@ -54,12 +54,12 @@ The target is `ZInQ.H5Neron.ProductModelHeight` (P2): `h(𝒢₁) + h(𝒢₂) �
    `ker(p₂ ∘ Φ)` and `ker(p₁ ∘ Φ)`, which are complementary complex subspaces. It is not AN3.
 4. **Correction inside this task.** The first draft of this note (commit 20550ab1) claimed the
    opposite, that AN3-type input is needed. An independent model review refuted it. I re-checked
-   every step (§2, log) and changed the verdict. The forcing lemmas of §1 stay true theorems
+   every step (§2, log) and changed the verdict. The forcing lemmas (§1 table; Lean §4) stay true theorems
    (P2 forces uniformizations of the factors from one of the product), but they are no evidence
    of AN3 strength: S-an provides that descent elementarily.
 5. **New proved pieces** (VERIFIED):
    - the product lattice `Λ₁ × Λ₂` is a full discrete lattice with
-     `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂` (`prodLattice_facts`, §5b; Mathlib measure theory). This
+     `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂` (`prodLattice_facts`, Lean §5b; Mathlib measure theory). This
      is the covolume clause needed by S-alg and by `ProductMetrizationGeo`;
    - `ptsEquiv` (complex points of a product are the product of the complex points, as groups);
    - `prodUnif_clauses` (the algebraic clauses of the product uniformization);
@@ -148,7 +148,7 @@ uniformizations.
 | `H5Neron.ProductModelHeight` (P2) | glue (target) | `h(𝒢₁) + h(𝒢₂) ≤ h(𝒢P)` (equality holds; Faltings 1983 §1, Deligne Sém. Bourbaki 616 §1, UNVERIFIED) | **reduced** to S-an + S-alg |
 | `ProductUnifSplits` (S-an, new) | glue, elementary analysis | a full-lattice uniformization of `𝒢P(ℂ)_τ` is `Φ₁ × Φ₂` after `T ∈ GL_g(ℂ)` | unproved; §2 |
 | `ProductMetrizationOfProductUnif` (S-alg, new) | glue, Hodge theory | a product-form metrization of `𝒢P` yields metrizations `M₁`, `M₂` with `h(M₁)+h(M₂) ≤ h(MP)` | unproved; §2 |
-| `ProductUnifAnalytic` (new) | glue, no AN3 | analytic clauses for `Φ₁ × Φ₂` (used by route U's `ProductMetrizationGeo`, not by the main route). Basic opens `D(Σ aᵢ ⊗ bᵢ)` of affine products form a basis; products of opens do not (EGA I 3.2.2 / Stacks 01JR, UNVERIFIED) | unproved |
+| `ProductUnifAnalytic` (new) | glue, no AN3 | analytic clauses for `Φ₁ × Φ₂` (a sub-step of route U's `ProductMetrizationGeo`; not used by the main route). Basic opens `D(Σ aᵢ ⊗ bᵢ)` of affine products form a basis; products of opens do not (EGA I 3.2.2 / Stacks 01JR, UNVERIFIED) | unproved |
 | `ProductMetrizationSplit` (S) | glue | P2 with attained infima. It is close to a restatement of P2 and is kept only as the hinge between S-an/S-alg and P2 | reduced to S-an + S-alg |
 | `MetrizationHeightUnique` (new), `AnalyticUniformizationUnique` (U), `MetrizationDimUnique`, `MetrizationExists`, `ProductMetrization`, `ProductMetrizationGeo` | glue (route U) | as in g0-heightadd; U and existence are AN3 | route U only; not needed for P2 |
 
@@ -159,14 +159,14 @@ No new literature leaf is introduced.
 - **S-an** (`ProductUnifSplits`), medium. It needs:
   - closed subgroups of `ℝⁿ` (not found in Mathlib v4.35; not searched exhaustively);
   - the identity theorem (in Mathlib: `AnalyticOnNhd.eqOn_of_preconnected_of_eventuallyEq`,
-    UNVERIFIED name);
+    `Mathlib/Analysis/Analytic/Uniqueness.lean`, VERIFIED by reading);
   - Baire;
   - `evalAt` along `pᵢ` and the Zariski-closedness of `p₁ x = 1`.
 - **S-alg** (`ProductMetrizationOfProductUnif`), large. It needs the stalk and cotangent space of
   a fibre product at the unit (`ω_{𝒢P} = ω₁ ⊕ ω₂`), `HodgeLatticeTheorem` for the factors,
   `⋀^{top}` of a direct sum, multiplicativity of `secIndex`, the block Jacobian, and the descent
-  of `jacDet` to `⋀^g`. The covolume of `Λ₁ × Λ₂` is **done**: `prodLattice_facts` (§5b,
-  VERIFIED). Constancy of `gᵢ(τ)` in `τ` and the `Fin.cast` reindexing are part of S-alg.
+  of `jacDet` to `⋀^g`. The covolume of `Λ₁ × Λ₂` is **done**: `prodLattice_facts` (Lean
+  §5b, VERIFIED). Constancy of `gᵢ(τ)` in `τ` and the `Fin.cast` reindexing are part of S-alg.
 
 ## 5. Integration
 
