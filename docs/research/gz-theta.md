@@ -290,3 +290,77 @@ The method (Euclidean multiplier of `η²`, Schreier generators checked by `deci
 modularity of any eta quotient of even weight built from `η²`-factors at any level, with no
 Dedekind sums. **Numerics** (VERIFIED): the eta law on 33 random `γ` and `E ≡ 0 (mod 12)` on 3000
 random `γ ∈ Γ₀(32)` (`scratch/gz-theta/eta_exp_check.py`).
+
+### 4.3 The `q`-series identity (`ThetaUnique.lean`, `TripleProduct.lean`, `JacobiGauss.lean`, `HeckeComb.lean`, `EtaTheta.lean`)
+
+* **Uniqueness** (`eq_zero_of_theta_fe`). For entire `f` with `f(z+1) = f(z)`,
+  `f(z+τ) = e^{−πi(τ+2z)} f(z)`: with `g_n(z) = f(z)e^{−2πinz}`, Cauchy's theorem on the rectangle
+  `[0,1] × [0, y]` (Mathlib `integral_boundary_rect_eq_zero_of_differentiableOn`; the vertical
+  sides cancel by periodicity) and a horizontal shift move `∫₀¹ g_n` to the segment `[τ, τ+1]`,
+  giving `a_n = e^{−πiτ(2n+1)} a_{n+1}`. So `a₀ = 0` forces all `a_n = 0`; Mathlib's
+  `has_pointwise_sum_fourier_series_of_summable` gives `f = 0` on `[0, 1)`, and the identity
+  theorem gives `f = 0`.
+* **Triple product** (`jacobiTheta₂_eq_jtpP`). `P(z) = ∏(1 − q^{2n+2})(1 + q^{2n+1}e(z))(1 + q^{2n+1}e(−z))`
+  is entire (Mathlib `hasProdLocallyUniformlyOn_nat_one_add` on half-planes `Im z > −R`), has
+  `θ`'s functional equations (`tprod_eq_zero_mul'` reindexing), and `P(0) ≠ 0`
+  (`tprod_one_add_ne_zero_of_summable`). Applying uniqueness to `a₀(P)θ − a₀(θ)P` gives
+  `θ = c(τ)P`. Then `θ(1/4; τ) = θ(1/2; 4τ)` (even/odd splitting of the `ℤ`-series, the odd part
+  cancels under `m ↦ −m−1`) and `P(1/4; τ) = P(1/2; 4τ)` (even/odd splitting of products) give
+  `c(τ) = c(4τ)`; `θ(1/2; τ') → 1` (`norm_jacobiTheta_sub_one_le`) and `P(1/2; τ') → 1`
+  (`tendsto_tprod_one_add_of_dominated_convergence`) along `τ' = 4^k τ` give `c = 1`.
+* **Jacobi, Gauss** (`hasSum_jacobi`, `hasSum_gauss`). `P(z) = (1 + q e(−z)) · A B(z) B(τ − z)`,
+  so at the zero `z₀ = (1+τ)/2` the derivative is `2πi A³`; with Mathlib's
+  `hasDerivAt_jacobiTheta₂_fst` this gives `∑ n e^{2πinz₀+πin²τ} = A³`. Gauss is `z = 1/2`.
+* **Combinatorics** (`heckeCoeff_one_eq_sum_Soe`, `sum_Fib_eq_heckeCoeff`).
+  `heckeCoeff 1 N = ∑_{a²+b²=N, a odd, b even} u(a,b) ⌊a/2⌋` with `u(2n+1, 2m) = (−1)^{n+m}`
+  (pairing `(b, a)` with `(a, b)`, and `u(−a, b) = −u(a, b)`).
+* **Assembly** (`etaThetaIdentity`). Jacobi and Gauss at `8τ`, product of the two `ℤ`-series
+  (`HasSum.mul`), times `q`, grouped by `N = (2n+1)² + (2m)²` (`HasSum.tsum_fiberwise`); the
+  product side is `η(4τ)²η(8τ)²` by even/odd splitting.
+
+### 4.4 Newness at level 32 (`New32.lean`)
+
+* `newform_fricke`: a newform `g` of level `M`, trivial character, satisfies
+  `g(−1/(Mτ)) = c τ² g(τ)` (Tau Ceti `Newform.normalizedFrickeOperatorCusp_eq_frickeSign_smul`,
+  Mathlib `slash_apply`). `F₁_fricke`: `f₁(−1/(32τ)) = −32 τ² f₁(τ)` (two uses of
+  `η(−1/z)² = −iz η(z)²`).
+* `coeff_newform_odd_even`, `F₁_eq_sub`: for `M ∣ 16`, `2 ∣ M`, the coefficients of `g` agree
+  with `heckeCoeff 1` at odd `n` and satisfy `a_{2n} = a₂ a_n` (Tau Ceti Diamond–Shurman 5.8.5
+  for `g.toEigenform`), so `f₁(τ) = g(τ) − a₂ g(2τ)`.
+* `tendsto_F₁_div_q`, `tendsto_cusp_mul_div_q`: `f₁/q → 1`; `G(jτ)/q → 0` for a cusp form `G` and
+  `j ≥ 2` (Mathlib `CuspFormClass.exp_decay_atImInfty`).
+* `false_of_newform_dvd_16`: the Fricke identity at `−1/(32τ)` gives
+  `−32 f₁(τ) = c (32/M)² g((32/M)τ) − a₂ c (16/M)² g((16/M)τ)`; divided by `q` the left side tends
+  to `−32`, the right side to `0` (`a₂ = 0` for `M = 16` by Tau Ceti
+  `Newform.qExpansion_coeff_prime_eq_zero_of_sq_dvd`, vendored).
+* `false_of_newform_level_one`: Mathlib `CuspForm.rank_eq_zero_of_weight_lt_twelve`.
+* `newAt32`: Diamond–Shurman 5.8.4 gives the newform `g` of level `M ∣ 32`; the five proper
+  divisors are excluded, and for `M = 32` Tau Ceti's
+  `Newform.eq_qExpansion_coeff_one_smul_of_forall_prime_heckeTCuspNat_eq_smul` gives `f₁ = g`.
+
+## 5. What remains, and how it could be closed
+
+**`AtkinLiTwistNew`** is the only open input of L1. It is a general theorem (Atkin–Li 1978,
+Thm 3.1), not in Tau Ceti. For the family at hand a direct proof along the lines of §4.4 looks
+feasible (SPECULATIVE; not attempted for lack of time):
+1. the Fricke identity `f_d(−1/(32d²τ)) = −χ_d(−32)·32 d² τ² f_d(τ)`, from Tau Ceti's
+   `CuspForm.twist_apply`, the factorization `T_{a/d} W_{32d²} ∝ W_{32} X_a T_{b/d}` with
+   `X_a = (d, −b; −32a, (32ab+1)/d) ∈ Γ₀(32)`, `b ≡ −(32a)⁻¹ (mod d)`, and
+   `𝓕χ_d(a) = χ_d(a) 𝓕χ_d(1)` (0 at non-units, `d` squarefree);
+2. the depletion `f_d = ∏_{p∣2d} (1 − a_p V_p + [p∤M] p V_{p²}) g` for the associated newform `g`
+   of level `M`;
+3. comparison of the first `q`-coefficients of the two sides of the Fricke identity (at `m = 1`
+   it forces `v₂(M) = 5`; at `m = p^j`, `j ≤ 2`, it forces `p² ∣ M` for odd `p ∣ d`, using
+   `a_p² = 1` for `p ∥ M` from Tau Ceti `Newforms/BadPrime/AtkinLehner.lean`).
+
+## 6. Reproduction
+
+```
+lake build ZInQKernel.Contrib.GZTheta.New32     # builds all fourteen files
+lake env lean scratch/gz-theta/Check.lean       # types, #print axioms (reductions, eta part)
+lake env lean scratch/gz-theta/Check2.lean      # triple product, q-series identity, CMForm32
+lake env lean scratch/gz-theta/Check3.lean      # NewAt32, the leaf from Atkin–Li, headline
+python3 -I scratch/gz-theta/qexp_check.py       # η(4τ)²η(8τ)² vs heckeCoeff 1, n ≤ 400
+python3 -I scratch/gz-theta/eta_exp_check.py    # eta multiplier numerics
+python3 ~/dzq-runs/tc/diffcheck2.py ~/dzq-wt/gz-theta   # vendored file: IDENT
+```
