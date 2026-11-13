@@ -25,3 +25,7 @@ TextbookLeaves, lines 19109-19200) after leaf-adopt. Base 01267822.
 - R5fp (15579), R5fpCount (15612): OK. Eichler count h(R) prod_{p|6}(1-(k/p)) = 2^{#inert} h(R)
   (type number 1); conductor = relIndex, 0 for non-orders so Coprime fails (R = Z excluded);
   b=0 field of moduli has degree h (e.g. Q(sqrt-6): degree 2, not containing k).
+
+## Baseline compile (VERIFIED)
+- `lake env lean scratch/h-decomposition/Leaves.lean`: EXIT 0, 3m39s, 0 errors, one `sorry`
+  (line 19202, `glueOutputs_of_leaves`); `sixContactMin_of_leaves` axioms include `sorryAx`.
