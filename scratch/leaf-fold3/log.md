@@ -35,3 +35,4 @@
 - olean/Check3.lean: `example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open3` compiles, so the
   conclusion is the kernel's own `ZInQ.SixContactMin`.
 - Counts: 26 + 20 + 16 + 6 = 68 (leaf-fold2: 26 + 18 + 13 + 9 = 66); glue 9 → 6, SPECULATIVE glue 2 → 0.
+- 12:40 olean/chain_log*.txt (compile logs with host paths) were committed by mistake in 0-2 commits before this; untracked and gitignored since.
