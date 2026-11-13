@@ -101,4 +101,14 @@ theorem igusaClebschSeparation_of_generic_bothSpecial (hG : SeparationGeneric)
     (hS : SeparationBothSpecial) : IgusaClebschSeparation :=
   igusaClebschSeparation_iff.mpr (igusaSeparationEq_of_generic_bothSpecial hG hS)
 
+/-- Covariance of Clebsch's quadratic covariants (degrees `3, 5, 7`, weights `8, 14, 20`):
+`yᵢ(e·(cx+d)⁶f((ax+b)/(cx+d))) = e^{dᵢ} (ad-bc)^{wᵢ} (cx+d)² yᵢ(f)((ax+b)/(cx+d))`.
+Checked numerically by `scratch/igusa-generic/cov_check.py`; proved in
+`ZInQKernel/Contrib/T28/Covariance.lean` (`T28.yvCovariance`). -/
+def YvCovariance : Prop :=
+  ∀ (L : Type) [Field L] [CharZero L] (f : Fin 7 → L) (a b c d e : L), a * d - b * c ≠ 0 →
+    ∀ i : Fin 3, yv (actC f a b c d e) i =
+      fun l => e ^ (![3, 5, 7] i) * (a * d - b * c) ^ (![8, 14, 20] i) *
+        T28SO3.qAct (yv f i) a b c d l
+
 end T28
