@@ -1,0 +1,6 @@
+olean/
+Base.lean
+*.out
+!compile.out
+Base4.lean
+!compile4.out
