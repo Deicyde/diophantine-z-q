@@ -1,6 +1,7 @@
 
 -- hdec-adopt4: leaf-push2 (`HDecomp.LeafPush2`), rv-qm-polar (`HDecomp.QM.Polar`) and
--- bp-analytic (`HDecomp.Analytic`); the bridge `HDecomp.LeafPush2.Bridge` (new).
+-- bp-analytic (`HDecomp.Analytic`); the bridges `HDecomp.LeafPush2.Bridge`,
+-- `HDecomp.LeafPush2.UnifBridge` (new).
 #print axioms ZInQ.LeafPush2.R18_real
 #print axioms ZInQ.LeafPush2.javanpeykarBound_pos
 #print axioms ZInQ.LeafPush2.javanpeykarBound_mono
@@ -21,6 +22,9 @@
 #print axioms ZInQ.LeafPush2.isSiegel_Omega
 #print axioms ZInQ.LeafPush2.isPeriodMatrix_qmLattice
 #print axioms ZInQ.LeafPush2.thetaConst_eq
+#print axioms ZInQ.LeafPush2.cEvalAt_eq_evalAt
+#print axioms ZInQ.LeafPush2.isUniformization_of_bp
+#print axioms ZInQ.LeafPush2.exists_isUniformization_of_leaf
 #print axioms RvQMPolar.two_principal_types
 #print axioms RvQMPolar.Enu_not_rosati_mu
 #print axioms RvQMPolar.type_eq_mu_mul

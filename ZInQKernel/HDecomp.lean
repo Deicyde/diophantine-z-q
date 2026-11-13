@@ -45,6 +45,7 @@ import ZInQKernel.HDecomp.LeafPush2.R18
 import ZInQKernel.HDecomp.LeafPush2.R22
 import ZInQKernel.HDecomp.LeafPush2.R3
 import ZInQKernel.HDecomp.LeafPush2.T
+import ZInQKernel.HDecomp.LeafPush2.UnifBridge
 import ZInQKernel.HDecomp.ModCurves.Defs
 import ZInQKernel.HDecomp.ModCurves.Genus
 import ZInQKernel.HDecomp.ModCurves.Glue
