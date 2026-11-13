@@ -123,3 +123,16 @@ HeckeFibreSizes, HeckeNoVertRam.
 - Composite updated (`AllMain.lean.part`): InfFnField replaced by ChartIrreducible.
   `HeckeRestAll.lean` recompiled: 0 errors; 16 HeckeRest* `#print axioms` lines, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 10. Lean: ChartIrreducible and ChartDominant proved (`PointsMain.lean.part`) — VERIFIED (compiled, 0 errors)
+- Proved: `not_isOpen_closed_point` (no closed point of a smooth curve is open: stalk dimension 1
+  vs. Spec of the stalk a single point via range_fromSpecStalk and the preimmersion
+  fromSpecStalk), `infinite_closedPoints_of_isOpen` (Jacobson), `infinite_qbar_points`,
+  `chartIrreducible` (chart image dense, closure of irreducible), `ev_secHom`,
+  `mem_roots_of_eval₂`, `chartDominant` (π.U ≠ ∅, π.V ≠ ∅, no polynomial relation for π.f, π.g:
+  values in a finite set on infinitely many ℚ̄-points contradict finite fibres),
+  `curveNormChart_of_pq : ChartProper → ChartQuasiFinite → CurveNormChart`,
+  `curveChartInf_of_pq : ChartProper → ChartQuasiFinite → CurveChartInf`.
+- Composite updated: `coverModelOfHecke_of_heckeRest` now takes only ChartProper and
+  ChartQuasiFinite on the curve side. `HeckeRestAll.lean` recompiled: 0 errors; 20 HeckeRest*
+  `#print axioms` lines, all [propext, Classical.choice, Quot.sound].

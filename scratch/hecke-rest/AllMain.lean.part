@@ -15,16 +15,14 @@ open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue PkgI3 TSHeck
 
 /-- **`CoverModelOfHecke` from hecke-rest's inputs** (compiled). Leaves: `Y3Connected`,
 `R1R2fp`, `TorsionStructure` (as in ts-hecke), `QMAutCard`, `SerreRigidity3`, `ALFixedPoints`
-(new). Glue: `ChartProper`, `ChartQuasiFinite`, `ChartDominant`, `ChartIrreducible` (curve theory,
-no moduli) and `HeckeVertWitness` (one unramified vertical prime: Lemma NV / good reduction). -/
+(new). Glue: `ChartProper`, `ChartQuasiFinite` (curve theory, no moduli) and `HeckeVertWitness` (one unramified vertical prime: Lemma NV / good reduction). -/
 theorem coverModelOfHecke_of_heckeRest (hconn : Y3Connected) (hRR : R1R2fp)
     (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hP : HeckeRestCurve.ChartProper) (hQ : HeckeRestCurve.ChartQuasiFinite)
-    (hD : HeckeRestCurve.ChartDominant) (hIrr : HeckeRestCurve.ChartIrreducible)
     (hV : HeckeRestNV.HeckeVertWitness) : CoverModelOfHecke :=
-  coverModelOfHecke_of_tsHecke' hconn hRR hT (HeckeRestCurve.curveNormChart_of_charts hP hQ hD)
-    (HeckeRestCurve.curveChartInf_of_charts' hP hQ hD hIrr) (HeckeRest.heckeFibreSizes_of hT hA hS hW)
+  coverModelOfHecke_of_tsHecke' hconn hRR hT (HeckeRestCurve.curveNormChart_of_pq hP hQ)
+    (HeckeRestCurve.curveChartInf_of_pq hP hQ) (HeckeRest.heckeFibreSizes_of hT hA hS hW)
     (HeckeRestNV.heckeNoVertRam_of_witness hV)
 
 /-- **`PropTSAll` from hecke-rest's inputs** (compiled; through ts-hecke's `propTSAll_of_tsHecke'`
@@ -36,11 +34,10 @@ theorem propTSAll_of_heckeRest (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM :
     (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure)
     (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
     (hP : HeckeRestCurve.ChartProper) (hQ : HeckeRestCurve.ChartQuasiFinite)
-    (hD : HeckeRestCurve.ChartDominant) (hIrr : HeckeRestCurve.ChartIrreducible)
     (hV : HeckeRestNV.HeckeVertWitness) : PropTSAll :=
   propTSAll_of_tsHecke' t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT
-    (HeckeRestCurve.curveNormChart_of_charts hP hQ hD)
-    (HeckeRestCurve.curveChartInf_of_charts' hP hQ hD hIrr)
+    (HeckeRestCurve.curveNormChart_of_pq hP hQ)
+    (HeckeRestCurve.curveChartInf_of_pq hP hQ)
     (HeckeRest.heckeFibreSizes_of hT hA hS hW) (HeckeRestNV.heckeNoVertRam_of_witness hV)
 
 end HeckeRestAll

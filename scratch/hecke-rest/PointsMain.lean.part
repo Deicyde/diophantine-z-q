@@ -1,0 +1,231 @@
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 3c: `ChartIrreducible` and `ChartDominant` proved
+
+No closed point of a smooth curve is open (its local ring has dimension 1, while an open point has
+no proper generization); so a nonempty open subset has infinitely many closed points (Jacobson),
+hence infinitely many `ℚ̄`-points. A `π`-fibre is finite, so `π` cannot be `∞` on a nonempty open
+set (`ChartIrreducible`: the chart's image is dense; `ChartDominant`: `π⁻¹(𝔸¹) ≠ ∅`), nor take
+finitely many values on one (`ChartDominant`: no polynomial relation for `π.f` or `π.g`).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestCurve
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin LeafQM.AV.Pin.ImagePlane PropTSRed TSHecke
+
+/-- **No closed point of a smooth curve is open** (compiled). -/
+theorem not_isOpen_closed_point {K : Type} [Field K] {X : Scheme.{0}}
+    (f : X ⟶ Spec (CommRingCat.of K)) [SmoothOfRelativeDimension 1 f] (x : X)
+    (hx : IsClosed ({x} : Set X)) : ¬ IsOpen ({x} : Set X) := by
+  intro ho
+  obtain ⟨hdim, -⟩ := InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension f 1 x hx
+  haveI hsub : Subsingleton (PrimeSpectrum (X.presheaf.stalk x)) := by
+    constructor
+    intro p q
+    apply (X.fromSpecStalk x).isEmbedding.injective
+    have hmem : ∀ r : PrimeSpectrum (X.presheaf.stalk x), X.fromSpecStalk x r = x := by
+      intro r
+      have hr : X.fromSpecStalk x r ∈ Set.range (X.fromSpecStalk x) := ⟨r, rfl⟩
+      rw [Scheme.range_fromSpecStalk] at hr
+      exact (hr.mem_open ho rfl : X.fromSpecStalk x r ∈ ({x} : Set X))
+    rw [hmem p, hmem q]
+  have hle : ringKrullDim (X.presheaf.stalk x) ≤ 0 := Order.krullDim_nonpos_of_subsingleton
+  rw [hdim] at hle
+  exact absurd hle (by decide)
+
+/-- **A nonempty open subset of a smooth curve over `ℚ` has infinitely many closed points**
+(compiled; Jacobson). -/
+theorem infinite_closedPoints_of_isOpen {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of ℚ))
+    [SmoothOfRelativeDimension 1 f] {W : Set X} (hW : IsOpen W) (hne : W.Nonempty) :
+    (W ∩ closedPoints X).Infinite := by
+  haveI : Smooth f := SmoothOfRelativeDimension.smooth 1 f
+  haveI : LocallyOfFiniteType f := inferInstance
+  haveI : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  intro hfin
+  have hclosed : ∀ S ⊆ W ∩ closedPoints X, IsClosed S := by
+    intro S hS
+    have hSfin : S.Finite := hfin.subset hS
+    rw [← Set.biUnion_of_singleton S]
+    exact hSfin.isClosed_biUnion fun y hy => (hS hy).2
+  have hWF : W ⊆ W ∩ closedPoints X := by
+    calc W ⊆ closure W := subset_closure
+      _ = closure (W ∩ closedPoints X) :=
+          (JacobsonSpace.closure_inter_closedPoints_eq_closure hW.isLocallyClosed).symm
+      _ = W ∩ closedPoints X := (hclosed _ le_rfl).closure_eq
+  obtain ⟨x, hxW⟩ := hne
+  have hxF := hWF hxW
+  have hopen : IsOpen ({x} : Set X) := by
+    have e : ({x} : Set X) = W ∩ ((W ∩ closedPoints X) \ {x})ᶜ := by
+      ext y
+      simp only [Set.mem_singleton_iff, Set.mem_inter_iff, Set.mem_compl_iff, Set.mem_diff,
+        not_and, not_not]
+      constructor
+      · rintro rfl; exact ⟨hxW, fun _ => rfl⟩
+      · rintro ⟨hyW, hy⟩; exact hy (hWF hyW)
+    rw [e]
+    exact hW.inter (hclosed _ Set.diff_subset).isOpen_compl
+  exact not_isOpen_closed_point f x hxF.2 hopen
+
+/-- **A nonempty open subset of a smooth curve over `ℚ` has infinitely many `ℚ̄`-points**
+(compiled). -/
+theorem infinite_qbar_points {Y : Over (Spec (CommRingCat.of ℚ))}
+    (hS : SmoothOfRelativeDimension 1 Y.hom) {W : Set Y.left} (hW : IsOpen W) (hne : W.Nonempty) :
+    {y : fieldPt Qbar ⟶ Y | ptOf y.left ∈ W}.Infinite := by
+  have hinf := infinite_closedPoints_of_isOpen Y.hom hW hne
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : Infinite ↥(W ∩ closedPoints Y.left) := hinf.to_subtype
+  have hch : ∀ z : ↥(W ∩ closedPoints Y.left),
+      ∃ y : fieldPt Qbar ⟶ Y, ptOf y.left = z := by
+    intro z
+    obtain ⟨y, hy⟩ := TSHeckeGal.exists_qbar_point Y.hom z (mem_closedPoints_iff.mp z.2.2)
+    exact ⟨Over.homMk y (TSHeckeGal.specQbar_to_specQ_eq' _ _), hy _⟩
+  choose F hF using hch
+  refine Set.infinite_of_injective_forall_mem (f := F) ?_ ?_
+  · intro z₁ z₂ h12
+    apply Subtype.ext
+    rw [← hF z₁, ← hF z₂, h12]
+  · intro z
+    show ptOf (F z).left ∈ W
+    rw [hF z]
+    exact z.2.1
+
+/-- **`ChartIrreducible` holds** (compiled). -/
+theorem chartIrreducible : ChartIrreducible := by
+  intro Y π hP hS hfin E _ _ _ _ _ hN
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  obtain ⟨h, hO, himg, hval⟩ := hN
+  haveI := hO
+  have hrange := range_chart_eq h himg hval
+  haveI : IrreducibleSpace (Spec (CommRingCat.of (integralClosure ℚ[X] E))) :=
+    inferInstanceAs (IrreducibleSpace (PrimeSpectrum (integralClosure ℚ[X] E)))
+  have hUirr : IsIrreducible (π.U : Set Y.left) := by
+    rw [← hrange, ← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ h.continuous.continuousOn
+  have hdense : closure (π.U : Set Y.left) = Set.univ := by
+    by_contra hne
+    have hWo : IsOpen (closure (π.U : Set Y.left))ᶜ := isClosed_closure.isOpen_compl
+    have hWne : ((closure (π.U : Set Y.left))ᶜ).Nonempty := Set.nonempty_compl.2 hne
+    apply infinite_qbar_points hS hWo hWne
+    apply (hfin OnePoint.infty).subset
+    intro y hy
+    show π.val (K := Qbar) y.left = OnePoint.infty
+    apply val_of_not_mem
+    intro hU
+    exact hy (subset_closure hU)
+  have := hUirr.closure
+  rw [hdense] at this
+  exact (irreducibleSpace_def _).2 this
+
+/-- The value of `p(s)` at a `ℚ̄`-point is `p` at the value of `s`. -/
+theorem ev_secHom {Y : Over (Spec (CommRingCat.of ℚ))} {W : Y.left.Opens} (s : Γ(Y.left, W))
+    (y : Spec (CommRingCat.of Qbar) ⟶ Y.left) (hx : ptOf y ∈ W) (p : ℚ[X]) :
+    ev y hx (secHom Y W s p) = Polynomial.eval₂ (algebraMap ℚ Qbar) (ev y hx s) p := by
+  rw [secHom, Polynomial.coe_eval₂RingHom, Polynomial.hom_eval₂]
+  congr 1
+  exact Subsingleton.elim _ _
+
+/-- A value that is a root of a nonzero `p` lies in the finite root set of `p`. -/
+theorem mem_roots_of_eval₂ {p : ℚ[X]} (hp : p ≠ 0) {t : Qbar}
+    (ht : Polynomial.eval₂ (algebraMap ℚ Qbar) t p = 0) :
+    t ∈ (p.map (algebraMap ℚ Qbar)).roots := by
+  rw [Polynomial.mem_roots (Polynomial.map_ne_zero hp), Polynomial.IsRoot,
+    Polynomial.eval_map]
+  exact ht
+
+/-- **`ChartDominant` holds** (compiled). -/
+theorem chartDominant : ChartDominant := by
+  classical
+  intro Y π hP hS hne hfin
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  -- `π` takes the value `∞` on the complement of `U`
+  have hUne : (π.U : Set Y.left).Nonempty := by
+    by_contra hU
+    rw [Set.not_nonempty_iff_eq_empty] at hU
+    apply infinite_qbar_points hS isOpen_univ Set.univ_nonempty
+    apply (hfin OnePoint.infty).subset
+    intro y _
+    show π.val (K := Qbar) y.left = OnePoint.infty
+    apply val_of_not_mem
+    intro hm
+    have : ptOf y.left ∈ (π.U : Set Y.left) := hm
+    rw [hU] at this
+    exact this
+  refine ⟨hUne, ?_, ?_⟩
+  · rw [injective_iff_map_eq_zero]
+    intro p hp
+    by_contra hp0
+    apply infinite_qbar_points hS π.U.isOpen hUne
+    apply (Set.Finite.biUnion (Multiset.finite_toSet (p.map (algebraMap ℚ Qbar)).roots)
+      (fun t _ => hfin (OnePoint.some t))).subset
+    intro y hy
+    let y₀ : Spec (CommRingCat.of Qbar) ⟶ Y.left := y.left
+    have hy' : ptOf y₀ ∈ π.U := hy
+    have h0 := congrArg (ev y₀ hy') hp
+    rw [map_zero, ev_secHom] at h0
+    refine Set.mem_biUnion (show _ ∈ {t | t ∈ (p.map (algebraMap ℚ Qbar)).roots} from mem_roots_of_eval₂ hp0 h0) ?_
+    show π.val (K := Qbar) y₀ = OnePoint.some (ev y₀ hy' π.f)
+    exact val_of_mem π y₀ hy'
+  · -- `V` is nonempty
+    have hVne : (π.V : Set Y.left).Nonempty := by
+      by_contra hV
+      rw [Set.not_nonempty_iff_eq_empty] at hV
+      apply infinite_qbar_points hS isOpen_univ Set.univ_nonempty
+      apply (hfin (OnePoint.some 0)).subset
+      intro y _
+      let y₀ : Spec (CommRingCat.of Qbar) ⟶ Y.left := y.left
+      have hyU : ptOf y₀ ∈ π.U := by
+        have : ptOf y₀ ∈ π.U ⊔ π.V := by rw [π.cover]; trivial
+        rcases this with h | h
+        · exact h
+        · have : ptOf y₀ ∈ (π.V : Set Y.left) := h
+          rw [hV] at this; exact this.elim
+      show π.val (K := Qbar) y₀ = OnePoint.some 0
+      rw [val_of_mem π y₀ hyU]
+      congr 1
+      rw [ev_eq_zero_iff, π.basicOpen_f]
+      intro h
+      have : ptOf y₀ ∈ (π.V : Set Y.left) := h.2
+      rw [hV] at this; exact this
+    rw [injective_iff_map_eq_zero]
+    intro p hp
+    by_contra hp0
+    apply infinite_qbar_points hS π.V.isOpen hVne
+    apply ((hfin OnePoint.infty).union (Set.Finite.biUnion
+      (Multiset.finite_toSet (p.map (algebraMap ℚ Qbar)).roots)
+      (fun t _ => hfin (OnePoint.some t⁻¹)))).subset
+    intro y hy
+    let y₀ : Spec (CommRingCat.of Qbar) ⟶ Y.left := y.left
+    have hy' : ptOf y₀ ∈ π.V := hy
+    have h0 := congrArg (ev y₀ hy') hp
+    rw [map_zero, ev_secHom] at h0
+    by_cases hU : ptOf y₀ ∈ π.U
+    · right
+      refine Set.mem_biUnion (show _ ∈ {t | t ∈ (p.map (algebraMap ℚ Qbar)).roots} from mem_roots_of_eval₂ hp0 h0) ?_
+      show π.val (K := Qbar) y₀ = OnePoint.some (ev y₀ hy' π.g)⁻¹
+      rw [val_of_mem π y₀ hU]
+      congr 1
+      exact eq_inv_of_mul_eq_one_left (ev_f_mul_g π y₀ hU hy')
+    · left
+      exact val_of_not_mem π y₀ hU
+
+/-- **`CurveNormChart` from `ChartProper` and `ChartQuasiFinite`** (compiled). -/
+theorem curveNormChart_of_pq (hP : ChartProper) (hQ : ChartQuasiFinite) : CurveNormChart :=
+  curveNormChart_of_charts hP hQ chartDominant
+
+/-- **`CurveChartInf` from `ChartProper` and `ChartQuasiFinite`** (compiled). -/
+theorem curveChartInf_of_pq (hP : ChartProper) (hQ : ChartQuasiFinite) : CurveChartInf :=
+  curveChartInf_of_charts' hP hQ chartDominant chartIrreducible
+
+end HeckeRestCurve
+
+end
+
+#print axioms HeckeRestCurve.chartIrreducible
+#print axioms HeckeRestCurve.chartDominant
+#print axioms HeckeRestCurve.curveNormChart_of_pq
+#print axioms HeckeRestCurve.curveChartInf_of_pq
