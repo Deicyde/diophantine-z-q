@@ -10,7 +10,9 @@
 #  5. part_main.lean (this task);
 #  6. ProductUnif.lean lines 1842-1904 (metrization's pullGerm, ProductHodgeLattice), verbatim;
 #  5b. DetProd.lean (this task) without import / #print, after part_main;
-#  7. part_phl.lean, part_final.lean (this task).
+#  7. part_phl.lean, part_final.lean (this task);
+#  8. infra-stalks' StalkPullback.lean, CotangentProduct.lean (verbatim copies in base/), part_pc.lean,
+#     part_pcfinal.lean, part_final2.lean (this task).
 # Prerequisite: lake build ZInQKernel.HDecomp.LeafPush2.T
 cd "$(dirname "$0")"
 PU=../product-unif/ProductUnif.lean
@@ -42,4 +44,12 @@ PU=../product-unif/ProductUnif.lean
   echo
   cat part_phl.lean
   cat part_final.lean
+  echo
+  grep -v '^import' base/StalkPullback_infra.lean
+  echo
+  grep -v '^import' base/CotangentProduct_infra.lean
+  echo
+  grep -v '^#print axioms' part_pc.lean
+  cat part_pcfinal.lean
+  cat part_final2.lean
 } > UnifDims.lean

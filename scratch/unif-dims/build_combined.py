@@ -6,7 +6,9 @@ ProductUnif.lean + its composite theorems) without #print lines; then metrizatio
 part_jacgerm / evalAt_mul lemmas, all copies of the same scratch/metrization sources), keeping the
 G0Dim section, `AnalyticUniformizationOfDim` and everything from `namespace ZInQ.Metrization2`;
 then Torsion.lean, part_main.lean, DetProd.lean, part_phl.lean, part_final.lean (this task;
-pullGerm and ProductHodgeLattice are already in ProductUnif.lean §3b), part_combined.lean."""
+pullGerm and ProductHodgeLattice are already in ProductUnif.lean §3b), part_combined.lean;
+then infra-stalks' StalkPullback.lean and CotangentProduct.lean (base/), part_pc.lean,
+part_pcfinal.lean, part_final2.lean, part_combined2.lean."""
 import re
 d = 'scratch/unif-dims/'
 def body(path):
@@ -29,5 +31,13 @@ out = ('import ZInQKernel.HDecomp.Faltings.H5Neron\nimport ZInQKernel.HDecomp.Le
        + body(d + 'DetProd.lean') + '\n\n'
        + open(d + 'part_phl.lean').read().split('#print axioms')[0] + '\n\n'
        + open(d + 'part_final.lean').read().split('#print axioms')[0] + '\n\n'
-       + open(d + 'part_combined.lean').read())
+       + open(d + 'part_combined.lean').read().split('#print axioms')[0] + '\n\n'
+       + body(d + 'base/StalkPullback_infra.lean') + '\n\n'
+       + body(d + 'base/CotangentProduct_infra.lean') + '\n\n'
+       + body(d + 'part_pc.lean') + '\n\n'
+       + open(d + 'part_pcfinal.lean').read().split('#print axioms')[0] + '\n\n'
+       + open(d + 'part_final2.lean').read().split('#print axioms')[0] + '\n\n'
+       + open(d + 'part_combined2.lean').read()
+       + '\n#print axioms ZInQ.UnifDims.productMetrizationOfProductUnif_of_cotangent\n'
+       + '#print axioms ZInQ.UnifDims.productModelHeight_of_cotangent\n')
 open(d + 'Combined.lean', 'w').write(out)
