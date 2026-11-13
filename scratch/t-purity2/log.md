@@ -81,3 +81,9 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   `brauerHasse2C_of_fin`, `leafHasse_iff_brauerHasseFin2C`, `localTwo2C_of_T15`,
   `leafLocalTwo_iff_localTwo2C`, `leaves_of_narrow : BrauerHasseFin2C → LocalTwo2C → LeafHasse ∧
   LeafLocalTwo`.
+- `T14T15Final.lean` (imports Mathlib + ZInQKernel.HDecomp.Descent.WP3; ProfiniteKernel +
+  T14Narrow concatenated): COMPILES, standard axioms. `BrauerHasseFin2Fin`, `LocalTwo2Fin`
+  (narrowed Props, topology-free), `brauerHasseFin2C_iff_fin`, `localTwo2C_iff_fin`,
+  `leaves_of_narrow_fin : BrauerHasseFin2Fin → LocalTwo2Fin → LeafHasse ∧ LeafLocalTwo`,
+  `narrow_fin_of_T14_T15 : BrauerHasse2C → BrauerReciprocity2C → LocalH2CardC →
+  BrauerHasseFin2Fin ∧ LocalTwo2Fin`.
