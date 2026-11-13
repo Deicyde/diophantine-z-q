@@ -114,3 +114,18 @@
   VERIFIED: `lake build ZInQKernel.Contrib.G9.Reduction` OK; `#print axioms` →
   [propext, Classical.choice, Quot.sound] for g9Glue_of_bridges, core_ht, core_dR, coef_descent.
 - T23 is not used by the proof (the counting replaces Fontaine's closure properties).
+
+## 04:2x session g9-derham-3c (parallel run): weights, dedup, handover
+- G9Weights.lean (VERIFIED: builds; axioms propext, Classical.choice, Quot.sound):
+  `DeRhamComparisonWeights` (R10's weight clause: htMultOver w = 0 for w ∉ {0,−1});
+  `htMult_eq_zero_of_R10w`; `g9_hasHTWeights : R10 → R10w → … → IsDeRham p r ∧ HasHTWeights p r {0,−1}`;
+  `g9_local : … → LocalIsDeRham p 2 ρ ∧ LocalHasHTWeights p ρ {0,−1}` (E ⊆ ℚ̄_p finite).
+- OverF.lean refactor: `DspPiEquiv`, `DspProdEquiv`, `overF_pos_rev` (Dsp(U) ≠ 0 ⇒ Dsp(V) ≠ 0);
+  lemma signatures unchanged; CoefDescent chain rebuilds (VERIFIED).
+- Local.lean imports I3Layer for `GlueI3.repBaseChange` (duplicate removed); renamed
+  `finrank_dvd_Dsp_of_emb`, `htSpace_eq_DspAct`, `htSpaceOver_eq_DspAct`, `ddrSpace_eq_DspAct`,
+  `ddrSpaceOver_eq_DspAct` (clashes with LocalCore). VERIFIED: a file importing G9Weights and
+  CoefDescent together compiles.
+- Coordination: the parallel session g9-derham-c7 owns Reduction.lean (G9Glue), docs/research/g9-derham.md
+  and .fleet/g9-derham.md; it will import G9.lean (`iotaDR`, `bdrAct_iotaDR`) to drop its
+  BdRContainsQbar bridge. This session writes no further Lean.
