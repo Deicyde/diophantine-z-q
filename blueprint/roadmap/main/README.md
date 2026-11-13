@@ -14,16 +14,18 @@ project.
 
 - [The target statement](frozen-target.md)
 
-The main theorem proves the target from five hypotheses, none of them proved here: the minimal
-height hypothesis below (the one instance of the manuscript's Theorem 4.1 that the proof uses; not a
+The main theorem proves the target from five hypotheses: the minimal
+height hypothesis below (not proved here; the one instance of the manuscript's Theorem 4.1 that the proof uses; not a
 published theorem, its proof combines refereed theorems and exact computations with new arguments,
 the manuscript's and this project's, reviewed only by AI models), and four statements about L-series
 of elliptic curves over $\mathbb Q$, from which the certified rank hypothesis CR₃ below follows.
 Three of the four are textbook theorems: the positive-rank half of Gross–Zagier, the functional
 equation of $L(C_d,s)$ for squarefree $d\equiv5\pmod8$, with conductor $32d^2$ and root number $-1$,
 stated on the strip $0<\operatorname{Re}s<2$, and Hecke's continuation of $L(C_d,s)$ to an entire
-function for every $d\ne0$. No original source of Hecke's continuation was read, and the original
-source of the conductor and the functional equation has not been read in full. The fourth is a
+function for every $d\ne0$. The last two are proved outright, from Gauss's count of the points
+of $y^2=x^3-x$ over finite fields, which is itself proved here; so the target follows from the
+minimal height hypothesis, Gross–Zagier and the fourth statement, none of which is proved here. The
+fourth is a
 consequence of Tian–Yuan–Zhang's Theorem 3.5(2) in one reading of its genus sums, reading A: for
 squarefree $d\equiv5\pmod8$, if $L(C_d,s)$ vanishes to order at least $2$ at $s=1$, two genus sums
 of class numbers are even. No refereed text found by the project's literature search, which AI
@@ -138,13 +140,15 @@ any of the equivalent forms that ask for infinitely many rational points instead
 - [The main theorem from the infinitely-many-points forms of the rank hypothesis](main-theorem-infinitely-many-points.md)
 
 The positive-rank form of CR₃^TYZ_Cl, CR₃^TYZ_Cl,Rk, follows from three statements about L-series:
-two standard theorems (the functional equation of $L(C_d,s)$ with root number $-1$, whose original
-source has not been read in full, stated on the strip $0<\operatorname{Re}s<2$, and the
+two standard theorems (the functional equation of $L(C_d,s)$ with root number $-1$, stated on the
+strip $0<\operatorname{Re}s<2$ and proved, and the
 positive-rank half of Gross–Zagier) and Tian–Yuan–Zhang's row 5b, which follows from the main
 theorem's other two L-series statements, Theorem 3.5(2) in reading A and Hecke's continuation ([the
 literature section of the positive-rank chapter](../rank/literature/README.md)). The target holds
 under the minimal height hypothesis or its $j$-form together with those three statements, and under
 the $j$-form and CR₃^TYZ_Cl,Rk; the first of these forms is the step through which the main theorem
-is proved.
+is proved. Since the functional equation and Hecke's continuation are proved, the target holds
+under the minimal height hypothesis, reading A and Gross–Zagier alone.
 
 - [The main theorem from the $j$-form and the L-series statements](main-theorem-literature.md)
+- [The main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main-theorem-reading-a-gross-zagier.md)

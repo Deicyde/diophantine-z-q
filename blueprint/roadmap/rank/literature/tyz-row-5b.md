@@ -25,8 +25,9 @@ compared with the arXiv version by AI agents, and Tian's expository articles wer
 only printed statement found is Smith's, which is unrefereed. The bound on the order follows from
 Proposition N, an unpublished argument from unambiguous statements of Tian, Yuan and Zhang that
 has not been refereed or checked by a human reader. The existence of the continuation is
-Hecke's, which Proposition N does not supply. It is not proved here except from two other
-hypotheses, reading A and Hecke's continuation.
+Hecke's, which Proposition N does not supply. It is not proved here except from reading A and
+Hecke's continuation; Hecke's continuation is proved
+([Hecke's continuation holds](hecke/hecke-continuation-holds.md)), and reading A is not proved here.
 
 ## Depends on
 

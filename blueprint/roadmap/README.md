@@ -10,8 +10,8 @@ an integer polynomial in 292,890,231,905 variables, of degree below $2\uparrow\u
 and with coefficients below $2\uparrow\uparrow 8$, whose rational zero projection to the
 first variable is exactly $\mathbb Z$.
 
-The [main theorem](main/main-theorem.md) proves it from five explicitly stated hypotheses, whose
-proofs lie far outside current formal libraries: the minimal form of the six-contact height estimate
+The [main theorem](main/main-theorem.md) proves it from five explicitly stated hypotheses: the
+minimal form of the six-contact height estimate
 (the one instance of the manuscript's Theorem 4.1 that the proof uses; not a published theorem, its
 proof combines refereed theorems and exact computations with new arguments, the manuscript's and
 this project's, reviewed only by AI models), and four statements about L-series of elliptic curves
@@ -19,8 +19,11 @@ over $\mathbb Q$. Three of the four are textbook theorems: the positive-rank hal
 the functional equation of the L-series of the congruent number curves $C_d$ for squarefree
 $d\equiv5\pmod8$, with conductor $32d^2$ and root number $-1$, stated on the strip
 $0<\operatorname{Re}s<2$, and Hecke's continuation of $L(C_d,s)$ to an entire function for every
-$d\ne0$. No original source of Hecke's continuation was read, and the original source of the
-conductor and the functional equation has not been read in full. The fourth is a consequence of
+$d\ne0$. The last two are proved outright, from Gauss's count of the points of $y^2=x^3-x$ over
+finite fields, which is itself proved here, so the target follows from the other three, which are
+not proved here and whose proofs lie far outside current formal libraries
+([the main theorem from the minimal height hypothesis, reading A and Gross–Zagier](main/main-theorem-reading-a-gross-zagier.md)).
+The fourth is a consequence of
 Tian–Yuan–Zhang's Theorem 3.5(2) in one reading of its genus sums, reading A: for squarefree
 $d\equiv5\pmod8$, if $L(C_d,s)$ vanishes to order at least $2$ at $s=1$, two genus sums of class
 numbers are even. No refereed text found by the project's literature search, which AI agents carried

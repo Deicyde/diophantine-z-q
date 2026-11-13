@@ -42,10 +42,13 @@ differentiable everywhere, with $F(s)=L(E,s)$ for $\operatorname{Re}s>3/2$. The 
   [the minimal height hypothesis](six-contact-min.md) and
   [the $j$-form of the height hypothesis](j-form/j-height-bound.md).
 
-The functional equation (Hecke and Deuring, with root number $-1$ for $d\equiv5\pmod8$ by
-Birch–Stephens) and Gross–Zagier (with an auxiliary imaginary quadratic field and modularity)
-follow from textbook theorems; no original source of Hecke's continuation was read, and the original
-source of the conductor and the functional equation has not been read in full. Row 5b is Tian–Yuan–Zhang's Theorem 3.5(2) for
+The functional equation, with root number $-1$ for squarefree $d\equiv5\pmod8$, is proved here
+from Gauss's count
+([the functional equation holds](../rank/literature/hecke/functional-equation-holds.md)), and so is
+Hecke's continuation
+([Hecke's continuation holds](../rank/literature/hecke/hecke-continuation-holds.md)); classically
+both are due to Hecke and Deuring, with the sign from Birch–Stephens. Gross–Zagier
+(with an auxiliary imaginary quadratic field and modularity) follows from textbook theorems. Row 5b is Tian–Yuan–Zhang's Theorem 3.5(2) for
 $d\equiv5\pmod8$ in reading A, in contrapositive form and for the row $(7,3)$ only, with Hecke's
 continuation for the existence of the continuation
 ([row 5b from reading A and Hecke's continuation](../rank/literature/tyz-row-5b-of-reading-a.md)).
@@ -64,8 +67,8 @@ manuscript's proof of the six-contact estimate gives before its last step. That 
 the manuscript's argument, replaces some of its steps with arguments written for this project and
 one with an argument from another version of the manuscript, and combines three of its bounds into
 one that the manuscript does not display; many of its steps, including all of the manuscript's
-new arguments, have had only automated reviews. It is not a published theorem. None of these
-hypotheses is proved here.
+new arguments, have had only automated reviews. It is not a published theorem. Apart from the
+functional equation, none of these hypotheses is proved here.
 
 **Proof sketch.** Taking $s=1$ in the functional equation gives
 [vanishing at the centre](../rank/literature/root-number-vanishing-of-functional-equation.md):

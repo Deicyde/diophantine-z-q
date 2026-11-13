@@ -30,7 +30,11 @@ the vanishing of $L(C_d,s)$ at $s=1$, and the Gross–Zagier statement
 The vanishing in turn follows from the textbook functional equation, with root number $-1$, on the strip
 $0<\operatorname{Re}s<2$
 ([the functional equation gives vanishing at the centre](literature/root-number-vanishing-of-functional-equation.md)).
-Those statements are themselves hypotheses, so CR₃^TYZ_Cl,Rk is not proved here.
+The functional equation is proved
+([the functional equation holds](literature/hecke/functional-equation-holds.md)), but row 5b and
+the Gross–Zagier statement are not proved here, so CR₃^TYZ_Cl,Rk is not proved here; it follows
+from reading A and the Gross–Zagier statement
+([the main theorem from the minimal height hypothesis, reading A and Gross–Zagier](../main/main-theorem-reading-a-gross-zagier.md)).
 
 ## Depends on
 

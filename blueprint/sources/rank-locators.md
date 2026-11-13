@@ -209,7 +209,8 @@ computation, namely that the model is minimal at every prime with good reduction
 additive reduction for $p\mid2d$, and that the coefficient at $p$ is $p-\#\{(x,y)\in\mathbb F_p^2:
 y^2=x^3-d^2x\}$ for $p\nmid2d$ and $0$ for $p\mid2d$, to remove the risk that the definition of
 $L(E,s)$ used here differs from the textbook one. Its third item ($a_p=0$ for $p\equiv3\pmod4$) and
-its optional Hasse's bound for $C_d$ are not proved here. The checks of the same facts by reading
+its optional Hasse's bound for $C_d$ are proved here (see the two sections below; AI-written,
+checked by Lean's kernel, no human has reviewed the proofs; `docs/research/contrib-tidy.md`). The checks of the same facts by reading
 and by PARI (wk-cr3 §3, rv-lit §2) are recorded under the L-series of an elliptic curve; the
 residual risk named in wk-cr3 §3, that no lemma connects the definition to point counts, is what
 this computation removes, for odd squarefree $d$.
@@ -220,6 +221,41 @@ and its Hasse–Weil L-function. `docs/research/cr3-trust.md` item D1 cites Chap
 for the conductor $32d^2$ of $C_d$ (odd squarefree $d$), as an unverified locator; no project note
 cites it for the zeta function or the point counts of $C_d$, and the chapter was not checked here.
 
+## The Hasse bound for the congruent number curves
+
+Hasse's bound $|a_p|\le2\sqrt p$ for an elliptic curve over $\mathbb F_p$ (H. Hasse, 1936;
+J. H. Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Graduate Texts in Mathematics 106,
+Springer (2009), Theorem V.1.1, a locator added here, cited by no project note and not checked)
+(STANDARD). For $y^2=x^3+ax$ the proof here is the elementary one
+through Jacobsthal sums $\varphi(a)=\sum_x\chi\bigl(x(x^2+a)\bigr)$: scaling
+$\varphi(at^2)=\chi(t)\varphi(a)$, the shifted products $\sum_a\chi((a+u)(a+v))$ through the Jacobi
+sum $J(\chi,\chi)=-\chi(-1)$, the second moment $\sum_a\varphi(a)^2=q(q-1)(1+\chi(-1))$, and
+$\varphi(a)^2\le4q$ by averaging over the square class of $a$. The documentation of the Lean proof here
+(`docs/research/p-side.md`, P4) cites B. C. Berndt, R. J. Evans and K. S. Williams, *Gauss and
+Jacobi Sums*, Wiley (1998), Chapter 6 (Jacobsthal sums), and K. Ireland and M. Rosen, *A Classical
+Introduction to Modern Number Theory*, 2nd ed., Graduate Texts in Mathematics 84, Springer (1990),
+Chapter 18 §3, for the evaluation $a_p=\pm2a$ when $p=a^2+b^2$; `docs/research/p-side.md` (P4)
+marks both chapter numbers UNVERIFIED (written without network access), and neither locator was
+checked here. The same scaling and second moment over $\mathbb F_p$ are cited under
+[Character sums](density-locators.md#character-sums) for the density chapter.
+
+`docs/research/wk-cr3.md` §4.2 lists Hasse's bound for $C_d$ as an optional item of the plan, and
+the section on the L-series of an elliptic curve above records the absolute convergence of
+$L(E,s)$ on $\operatorname{Re}s>3/2$ by Hasse's bound (STANDARD). For $C_d$ with odd squarefree
+$d$ both are proved here: $|a_p|\le2\sqrt p$, then $|a_{p^k}|\le(k+1)p^{k/2}$ from the recursion
+$a_{p^{k+2}}=a_pa_{p^{k+1}}-pa_{p^k}$, then $|a_n|\le\sigma_0(n)\sqrt n$, and absolute convergence
+by comparison with $\sum_n\sigma_0(n)n^{-(s-1/2)}$.
+
+## The coefficients of the congruent number curves at the primes 3 mod 4
+
+For a prime $p\equiv3\pmod4$ with $p\nmid2d$, $\#C_d(\mathbb F_p)=p+1$, so $a_p(C_d)=0$ and the local factor of $L(C_d,s)$ is $(1+p^{1-2s})^{-1}$: the map
+$x\mapsto-x$ sends $x^3-d^2x$ to its negative and $-1$ is not a square in $\mathbb F_p$, so the
+character sum $\sum_x\chi(x^3-d^2x)$ vanishes (STANDARD). No project note gives a locator for this
+fact. Koblitz, GTM 97, Chapter II (see the section on the L-series of the congruent number curves)
+and Ireland–Rosen, GTM 84, Chapter 18 are where it is expected; these locators were added here and
+not checked. `docs/research/wk-cr3.md` §4.2 lists it as the third item of the
+computation of $L(C_d,s)$; it is proved here.
+
 ## Hecke and Deuring
 
 $C_d$ has complex multiplication by $\mathbb Z[i]$, so $L(C_d,s)$ is the L-function of a Hecke
@@ -229,8 +265,16 @@ AI agents with web access, 2026-11-12, did not read an original source for it: i
 functional equation is UNVERIFIED as a complete original-supplier audit).
 `docs/research/wk-cr3.md` §1.2 (item "Analytic continuation") and
 §4.3 (proving this here would need Hecke L-functions of $\mathbb Q(i)$ and Deuring's identification
-of $L(C_d,s)$; out of reach); `docs/research/rv-lit.md` §1.1 (existence of the continuation for
-$C_d$) and the row for Hecke's continuation in the table of §1.2 (true, STANDARD).
+of $L(C_d,s)$; written before the proof recorded below); `docs/research/rv-lit.md` §1.1 (existence
+of the continuation for $C_d$) and the row for Hecke's continuation in the table of §1.2 (true,
+STANDARD).
+
+Both are proved here, with no hypotheses: Hecke's continuation for every $d\ne0$ and the functional
+equation for squarefree $d\equiv5\pmod8$, from Gauss's point count of $y^2=x^3-x$, itself proved
+(`docs/research/gauss-proof.md`, `docs/research/hecke-all.md`, `docs/research/contrib-tidy.md`).
+No human has reviewed these proofs; Lean's kernel checks them. The proofs follow Hecke's route,
+and the original sources above are still unread; see
+[the Hecke section](hecke-locators.md#the-hecke-section).
 
 ## The functional equation and the root number
 
@@ -258,6 +302,12 @@ points for $d=5,13,21$) and §3.2 (PARI gives conductor $32d^2$ and root number 
 `docs/research/wk-cr3.md`, the closing note (the adopted form holds on the strip only and
 suffices, since the proof uses $s=1$), and its §3 row for the functional equation only as
 superseded: it calls the all-$s$ draft true; see rv-lit §1.2 and its repair N1.
+
+The functional equation on the strip, for squarefree $d\equiv5\pmod8$, is proved here along
+Hecke's route, without reading the original sources; see
+[the Hecke section](hecke-locators.md#the-hecke-section). The proof gives the factor
+$(32d^2)^{s/2}$ of the completed function; it does not compute the conductor. The audit gaps
+above concern the citation, not the proof.
 
 ## Reading A of Tian-Yuan-Zhang
 

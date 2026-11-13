@@ -29,8 +29,8 @@ for $d\equiv5,6,7\pmod8$ (Birch–Stephens); restricted to the strip it gives th
 root number $-1$ for these $d$ is also printed by Tian, Yuan and Zhang, but no original source of
 the conductor and of the functional equation has been read in full. Only
 $s=1$ is used. The identity is not asserted off the strip; with the value $0$ at the poles of
-$\Gamma$ it would fail at $s=0$, where it would say $L(C_d,2)=0$. It is a hypothesis, not proved
-here.
+$\Gamma$ it would fail at $s=0$, where it would say $L(C_d,2)=0$. It is proved:
+[the functional equation holds](hecke/functional-equation-holds.md).
 
 ## Depends on
 
