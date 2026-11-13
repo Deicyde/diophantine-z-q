@@ -15,6 +15,12 @@ sed -n 3,182p scratch/mul-rigidity/MulRigidity.lean
 echo "end -- closes the noncomputable section opened at line 15 of the copy"
 echo "end PartMulRigidity"
 echo
+echo "/-! # Part PTS. scratch/kf-glue/Points.lean (new; the two point lemmas from Mathlib) -/"
+echo "section PartPoints"
+grep -v "^import " scratch/kf-glue/Points.lean
+echo "end -- closes Points.lean's noncomputable section"
+echo "end PartPoints"
+echo
 cat scratch/kf-glue/New.lean
 } > $O
 wc -l $O

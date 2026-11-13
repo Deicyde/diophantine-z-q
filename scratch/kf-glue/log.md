@@ -20,3 +20,15 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
 - `conjIsogMapsAt_of_semilinear`, `conjIsogMaps_of_semilinear : LiftQbarPoints → FiniteFibreQbarPoints →
   SemilinearIsogMaps → ConjIsogMaps`; axioms [propext, Classical.choice, Quot.sound].
 - m_σ(x) = Spec σ ≫ x ≫ F_σ (`semHom`); additivity from the scheme-level group-law clause.
+
+## Step 3. The two point lemmas proved from Mathlib — VERIFIED (compiled, build3.txt, rc=0)
+- `scratch/kf-glue/Points.lean` (Mathlib only; also compiles alone): `exists_section` (nonempty finite
+  scheme over Spec ℚ̄ has a section: maximal quotient of B = Γ(P) is ℚ̄ by `IsAlgClosed.ringHom_bijective_of_isIntegral`),
+  `finite_sections` (sections ↪ B →ₐ[ℚ̄] ℚ̄, finite by `Finite.algHom`), `liftQbar`, `finiteFibreQbar`
+  (via `pullback F y`).
+- `liftQbarPoints : LiftQbarPoints`, `finiteFibreQbarPoints : FiniteFibreQbarPoints`,
+  `conjIsogMaps_of_semilinearIsogMaps : SemilinearIsogMaps → ConjIsogMaps`,
+  `kernelFieldExists_of_semilinear` (5 leaves + FS5 + SemilinearIsogMaps). All axioms standard.
+- Finding (VERIFIED by reading Mathlib 4.35 `Sites/Fpqc.lean` L88-130): fpqc topology is subcanonical and
+  qc surjective flat morphisms are `EffectiveEpi`; so Galois descent of morphisms along Spec L' → Spec L is
+  Mathlib-derivable glue, not a literature leaf.

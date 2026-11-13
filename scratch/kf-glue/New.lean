@@ -307,9 +307,36 @@ theorem conjIsogMaps_of_semilinear (hLift : LiftQbarPoints) (hFib : FiniteFibreQ
   obtain ⟨F, hF⟩ := h Y Φ π hR1 hR2 j₀ y P hy hπ K PK hPK L hKL hfix
   exact conjIsogMapsAt_of_semilinear hLift hFib L _ _ F hF
 
+/-- **`LiftQbarPoints` holds** (proved from Mathlib, `scratch/kf-glue/Points.lean`: the pullback of
+`F` along `y` is a nonempty finite scheme `Spec B` over `Spec ℚ̄`; a maximal quotient of `B` is a
+finite field extension of `ℚ̄`, hence `ℚ̄`, giving a section). -/
+theorem liftQbarPoints : LiftQbarPoints := fun X Y F hF hs y =>
+  KfGluePoints.liftQbar X Y F hF hs y
+
+/-- **`FiniteFibreQbarPoints` holds** (proved from Mathlib: the points over `y` inject into the
+sections of the finite `Spec B → Spec ℚ̄`, i.e. into `B →ₐ[ℚ̄] ℚ̄`, finite by Mathlib's
+`Finite.algHom`). -/
+theorem finiteFibreQbarPoints : FiniteFibreQbarPoints := fun X Y F hF y =>
+  KfGluePoints.finiteFibreQbar X Y F hF y
+
+/-- **`ConjIsogMaps` from `SemilinearIsogMaps` alone (proved).** -/
+theorem conjIsogMaps_of_semilinearIsogMaps (h : SemilinearIsogMaps) : ConjIsogMaps :=
+  conjIsogMaps_of_semilinear liftQbarPoints finiteFibreQbarPoints h
+
+/-- `KernelFieldExists` with `ConjIsogMaps` replaced by `SemilinearIsogMaps`. -/
+theorem kernelFieldExists_of_semilinear (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hS : SemilinearIsogMaps) : KernelFieldExists :=
+  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_semilinearIsogMaps hS)
+
 end G0ModField.KernelField
 
 end KfGlueLevel1
 
 #print axioms G0ModField.KernelField.conjIsogMapsAt_of_semilinear
 #print axioms G0ModField.KernelField.conjIsogMaps_of_semilinear
+#print axioms G0ModField.KernelField.liftQbarPoints
+#print axioms G0ModField.KernelField.finiteFibreQbarPoints
+#print axioms G0ModField.KernelField.conjIsogMaps_of_semilinearIsogMaps
+#print axioms G0ModField.KernelField.kernelFieldExists_of_semilinear
