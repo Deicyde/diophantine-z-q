@@ -112,3 +112,18 @@
   ("does not fit in a 32-bit unsigned integer"); `Nat.mul_comm` works.
 - Compile: exit 0, 0 errors, no sorry; 27 printed declarations, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 9 (06:24-06:36 PST): tail integration
+- `scratch/local-data/Tail.lean` (built by `build_tail.sh`: verbatim scratch/g0-mod-newform/NewForm.lean
+  with 7 imports appended, G15Ram's G0Galois block and §1-§3 as in g15-ram's build_tail.sh, the
+  part_galois copies, part_local.lean, tail_part.lean). Needed `lake build` of NewForm's imports
+  (HDecomp.Assembly, ModCurves.Glue, …, 9552 jobs, ok).
+- `G0ModNewform.modularConstituent_tail_L` (proved): the tail of ModularConstituent with
+  hypothesis `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G8LocalPack 5 D.r5 (· ≠ 5) ∧
+  G8LocalPack 3 D.r3 (· = 5) ∧ G11Out T D.r5 ∧ G11Out T D.r3` (`G8LocalPack ℓ r P`: ∃ model,
+  G7 data with G8Out, G7Clauses and LocalGlue at p ∈ P).
+- First attempt failed only with "depends on noncomputable" (part_local outside a
+  noncomputable section in Tail); fixed by wrapping it in `noncomputable section … end`.
+- Compile (VERIFIED): `lake env lean scratch/local-data/Tail.lean` exit 0, 0 errors, no sorry,
+  ~90 s; `modularConstituent_tail_L` axioms [propext, Classical.choice, Quot.sound]
+  (tail_compile.out).

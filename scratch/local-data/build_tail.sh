@@ -25,6 +25,8 @@ G=../g15-ram/G15Ram.lean
   echo "end"
   echo
   sed -n "/^\/-! ## §3' (local-data)/,/^end G0GaloisSec/p" LocalData.lean
+  echo "noncomputable section"
   grep -v '^#print axioms' part_local.lean
+  echo "end"
   cat tail_part.lean
 } > Tail.lean

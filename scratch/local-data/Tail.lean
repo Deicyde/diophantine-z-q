@@ -3906,6 +3906,7 @@ end G0Galois
 end
 
 end G0GaloisSec
+noncomputable section
 
 /-! ## §4 (local-data). `LocalData p r` on G8's `r`, from G7's data
 
@@ -4941,6 +4942,7 @@ end LocalDataSec
 
 end G15Ram
 
+end
 
 /-! ## §5 (local-data). The tail of `ModularConstituent` with G15 fed by G7/G8 (proved) -/
 

@@ -1,6 +1,6 @@
 # local-data: `LocalData p r` (g15-ram) on G8's representation
 
-Task local-data, 2026-11-13. Lean: `scratch/local-data/LocalData.lean` (2532 lines). It is
+Task local-data, 2026-11-13. Lean: `scratch/local-data/LocalData.lean` (2536 lines). It is
 assembled by `scratch/local-data/build.sh` from three pieces: a verbatim copy of
 `scratch/g15-ram/G15Ram.lean` lines 8-1384, verbatim definitions from
 `scratch/g0-mod-galois/part_galois.lean`, and the new part `scratch/local-data/part_local.lean`.
@@ -178,6 +178,22 @@ The verbatim copies were checked with a python substring test (log step 6):
 - `scratch/g0-mod-galois/part_galois.lean` lines 23-40, 66-73, 83-88, 110-133, 142-153.
 
 ## 6. Integration
+
+**Compiled tail (VERIFIED).** `scratch/local-data/Tail.lean` is assembled by `build_tail.sh`. It
+consists of verbatim `scratch/g0-mod-newform/NewForm.lean`, then g15-ram's pieces as in its
+`build_tail.sh`, then this task's §3'-§4, then `tail_part.lean`. It proves
+`G0ModNewform.modularConstituent_tail_L`, which is g0-mod-newform's tail (the conclusion of
+G13-G16) with `G15RamG D u` replaced by
+
+```
+G8LocalPack 5 D.r5 (· ≠ 5) ∧ G8LocalPack 3 D.r3 (· = 5) ∧ G11Out T D.r5 ∧ G11Out T D.r3
+```
+
+Here `G8LocalPack ℓ r P` asks for a model and G7 data with three properties: `G8Out (rho Tm a β) r`,
+`G7Clauses β ε L`, and `LocalGlue` at every prime in `P`. `lake env lean
+scratch/local-data/Tail.lean` exits 0 with 0 errors and no `sorry` in about 90 s, and the axioms
+are standard (`scratch/local-data/tail_compile.out`).
+
 
 - `localData_of_g7` and `g15RamG_of_g7` give the newform tail the following replacement for its
   hypothesis on `D`: `D.r5` and `D.r3` come from G8 (`G8Out` on `rho Tm a β`), together with
