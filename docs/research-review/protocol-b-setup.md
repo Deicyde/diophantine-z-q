@@ -36,6 +36,9 @@ action twice. One token creates the initially blocked check; a fresh token
 finalizes it after the potentially long model review. The action revokes its
 tokens at job cleanup. The ordinary workflow token reads sources, posts comments
 and requests GitHub auto-merge. Only the App token writes the review check.
+The Actions job is named `Run reviewers and publish App check`. It is distinct
+from the App-issued `Protocol B / review` check, or `Protocol B / test review`
+in test mode. A green Actions job alone is not App acceptance.
 
 ## Review behavior
 
@@ -44,6 +47,12 @@ or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
 There is no fallback model. Unavailable sources, unfinished reviews and changed
 heads do not pass.
+
+A `read_file` lookup returning HTTP 404 produces a tool result identifying the
+missing path and pinned revision. For example, a newly added file may be absent
+at `base` but readable at `head`. The model can correct the request and continue.
+The failed lookup does not count as a source read. Permission errors, server
+failures and a missing blob after a successful file lookup still stop the run.
 
 The initially completed `action_required` check says that review has not been
 accepted. Finalization replaces that result. Cancellation or a lost runner
@@ -62,8 +71,9 @@ limit, the comment shows recent notes and links to the run artifact containing
 the complete notes. The review continues. After an interrupted run, retrieve
 any omitted observations from that artifact; an unavailable artifact leaves
 that part of the history unchecked. Completed reports are appended, and their
-findings are supplied to later reviews. HTTP failures are logged
-as infrastructure failures, not invented mathematical objections. Initial 429
+findings are supplied to later reviews. HTTP failures are logged. Except for the
+missing-file case above, they remain infrastructure failures rather than
+invented mathematical objections. Initial 429
 and 5xx responses from a model provider get at most two retries. Rate-limit
 retries wait at least 65 then 130 seconds, and respect a longer `Retry-After`
 up to five minutes. A longer requested wait stops the run rather than retrying

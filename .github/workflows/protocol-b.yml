@@ -26,7 +26,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  review:
+  run_reviewers:
+    name: Run reviewers and publish App check
     if: >-
       (vars.PROTOCOL_B_MODE == 'live' || vars.PROTOCOL_B_MODE == 'test') &&
       (github.event_name != 'issue_comment' ||
@@ -107,6 +108,13 @@ jobs:
               print(datetime.datetime.now(datetime.timezone.utc).isoformat(), message, flush=True)
 
 
+          class RequestError(RuntimeError):
+              """An HTTP failure with its status preserved for narrow caller handling."""
+              def __init__(self, detail):
+                  self.status = detail['status']
+                  super().__init__(json.dumps(detail))
+
+
           def request(url, headers, method="GET", data=None, stream=False):
               payload = None if data is None else json.dumps(data).encode()
               req = urllib.request.Request(url, data=payload, method=method,
@@ -117,7 +125,8 @@ jobs:
                   break
                 except urllib.error.HTTPError as error:
                   # Preserve the actual server error; never print headers containing credentials.
-                  body = error.read().decode("utf-8", errors="replace")
+                  with error:
+                      body = error.read().decode("utf-8", errors="replace")
                   safe_headers = {k: v for k, v in error.headers.items()
                                   if k.lower() in {"x-github-request-id", "request-id", "x-request-id",
                                                    "retry-after", "x-ratelimit-remaining", "x-ratelimit-reset"}}
@@ -145,7 +154,7 @@ jobs:
                       log(f"Provider HTTP {error.code}; retry {attempt+1}/2 after {delay}s before any stream output")
                       time.sleep(delay)
                       continue
-                  raise RuntimeError(json.dumps(detail)) from None
+                  raise RequestError(detail) from None
               if stream:
                   return response
               with response:
@@ -185,7 +194,14 @@ jobs:
                       raise ValueError("Source ref must be a commit")
                   if path.startswith("/") or any(p in {"", ".", ".."} for p in path.split("/")):
                       raise ValueError("Invalid repository path")
-                  value = self.call("/contents/" + urllib.parse.quote(path, safe="/") + "?ref=" + ref)
+                  try:
+                      value = self.call("/contents/" + urllib.parse.quote(path, safe="/") + "?ref=" + ref)
+                  except RequestError as error:
+                      if error.status != 404:
+                          raise
+                      # An added/deleted/renamed file can be absent at this pinned revision.
+                      # Review.run returns ValueError as a tool result, without counting a read.
+                      raise ValueError(f"File {path!r} was not found at commit {ref} (HTTP 404). Check the path and requested revision; the file may exist only at the other revision.") from None
                   if not isinstance(value, dict) or value.get("type") != "file":
                       raise ValueError("Not a regular file")
                   if value["size"] > 16_000_000:
