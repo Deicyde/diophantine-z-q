@@ -80,3 +80,12 @@
 - `embAct_symm_of_mem`: G_K fixes the embeddings of Galois K. `stabSub`: stabilizer subgroup.
 - `conjAction_continuous (hD : HomDescends)`: every lattice element has an open stabilizer. PROVED.
 - `homField_of_model'`: G4 for A/K from HomFreeFinite + HomDescends + hdim + hK + hinert.
+
+## G4.lean — continuity from EGA IV 8.8.2 proper (COMPILED; axioms VERIFIED standard)
+- `specIncl L`, `specEmb_factor`, `cmpL` (square A ×_{K,e} ℚ̄ → A ×_{K,e'} L).
+- `MorphismsDescend` (def, Prop; leaf candidate = EGA IV₃ 8.8.2(i) surjectivity for ℚ̄ = colim L, locator UNVERIFIED):
+  every φ : A_{e₁} → B_{e₂} over ℚ̄ comes from ψ over a number field L (φ ≫ cmpL = cmpL ≫ ψ).
+- `specGal_specIncl`: σ ∈ G_L fixes Spec ℚ̄ → Spec L.
+- `homDescends_of_morphismsDescend`: MorphismsDescend → HomDescends (descent bookkeeping). PROVED.
+- `homField_of_model_final`: leaves HomFreeFinite + MorphismsDescend; hypotheses hdim, hK, hinert.
+- G4.lean 1375 lines, 0 sorry, 17 printed theorems on [propext, Classical.choice, Quot.sound].

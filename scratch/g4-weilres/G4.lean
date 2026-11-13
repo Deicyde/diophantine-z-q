@@ -1132,6 +1132,81 @@ def HomDescends : Prop :=
         (hg : specEmb K e₂ = specGal σ ≫ specEmb K e₂),
         G4Conj.conj A.X B.X (specGal σ) hf hg φ = φ
 
+/-- `Spec ℚ̄ → Spec L` for a subfield `L ⊆ ℚ̄`. -/
+noncomputable abbrev specIncl (L : IntermediateField ℚ Qbar) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of L) :=
+  Spec.map (CommRingCat.ofHom (algebraMap L Qbar))
+
+/-- `Spec e = Spec(ℚ̄ ← L) ≫ Spec e'` when `e = (L ↪ ℚ̄) ∘ e'`. -/
+theorem specEmb_factor (L : IntermediateField ℚ Qbar) (e : K →ₐ[ℚ] Qbar) (e' : K →ₐ[ℚ] L)
+    (he : ∀ x, (e' x : Qbar) = e x) :
+    specEmb K e = specIncl L ≫ Spec.map (CommRingCat.ofHom (e' : K →+* L)) := by
+  rw [specEmb, specIncl, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact (he x).symm
+
+/-- The comparison `A ×_{K,e} ℚ̄ → A ×_{K,e'} L` (the base-change square along `Spec ℚ̄ → Spec L`). -/
+noncomputable def cmpL (L : IntermediateField ℚ Qbar) (X : CategoryTheory.Over (Spec (CommRingCat.of K)))
+    (e : K →ₐ[ℚ] Qbar) (e' : K →ₐ[ℚ] L) (he : ∀ x, (e' x : Qbar) = e x) :
+    Limits.pullback X.hom (specEmb K e) ⟶
+      Limits.pullback X.hom (Spec.map (CommRingCat.ofHom (e' : K →+* L))) :=
+  Limits.pullback.lift (Limits.pullback.fst _ _) (Limits.pullback.snd _ _ ≫ specIncl L)
+    (by rw [Limits.pullback.condition, specEmb_factor K L e e' he, Category.assoc])
+
+/-- **Input: EGA IV₃ 8.8.2 (i), surjectivity part, for `ℚ̄ = colim L` (locator UNVERIFIED).**
+Every morphism `A ×_{K,e₁} ℚ̄ → B ×_{K,e₂} ℚ̄` over `ℚ̄` between base changes of abelian
+varieties over a number field `K ⊆ ℚ̄` comes from a morphism `ψ : A ×_{K,e₁'} L → B ×_{K,e₂'} L`
+over a number field `L ⊆ ℚ̄` through which `e₁, e₂` factor (`φ` is the base change of `ψ`: it
+is the map compatible with `ψ` under the cartesian squares `cmpL`). Hypotheses of 8.8.2: `A`
+quasi-compact quasi-separated (proper), `B` locally of finite presentation (smooth). -/
+def MorphismsDescend : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (A B : AbVar K)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : (CategoryTheory.Over.pullback (specEmb K e₁)).obj A.X ⟶
+      (CategoryTheory.Over.pullback (specEmb K e₂)).obj B.X),
+    ∃ (L : IntermediateField ℚ Qbar) (_ : FiniteDimensional ℚ L) (e₁' e₂' : K →ₐ[ℚ] L)
+      (he₁ : ∀ x, (e₁' x : Qbar) = e₁ x) (he₂ : ∀ x, (e₂' x : Qbar) = e₂ x)
+      (ψ : Limits.pullback A.X.hom (Spec.map (CommRingCat.ofHom (e₁' : K →+* L))) ⟶
+        Limits.pullback B.X.hom (Spec.map (CommRingCat.ofHom (e₂' : K →+* L)))),
+      φ.left ≫ cmpL K L B.X e₂ e₂' he₂ = cmpL K L A.X e₁ e₁' he₁ ≫ ψ
+
+/-- `σ ∈ G_L` fixes `Spec ℚ̄ → Spec L`. -/
+theorem specGal_specIncl (L : IntermediateField ℚ Qbar) (σ : Gal) (hσ : σ ∈ L.fixingSubgroup) :
+    specGal σ ≫ specIncl L = specIncl L := by
+  rw [specGal, specIncl, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact (IntermediateField.mem_fixingSubgroup_iff L σ).mp hσ x x.2
+
+/-- **`HomDescends` from EGA IV₃ 8.8.2 (glue, proved): the descent bookkeeping.** A morphism
+that is the base change of one over `L` is fixed by conjugation through `G_L`. -/
+theorem homDescends_of_morphismsDescend (hM : MorphismsDescend) : HomDescends := by
+  intro K _ A B e₁ e₂ φ
+  obtain ⟨L, hL, e₁', e₂', he₁, he₂, ψ, hψ⟩ := hM K A B e₁ e₂ φ
+  refine ⟨L.fixingSubgroup, IntermediateField.fixingSubgroup_isOpen L, fun σ hσ hf hg => ?_⟩
+  symm
+  apply G4Conj.conj_unique
+  -- `cmp_σ ≫ cmpL = cmpL`
+  have hcL : ∀ (X : CategoryTheory.Over (Spec (CommRingCat.of K))) (e : K →ₐ[ℚ] Qbar)
+      (e' : K →ₐ[ℚ] L) (he : ∀ x, (e' x : Qbar) = e x)
+      (h : specEmb K e = specGal σ ≫ specEmb K e),
+      G4Conj.cmp X (specGal σ) h ≫ cmpL K L X e e' he = cmpL K L X e e' he := by
+    intro X e e' he h
+    apply Limits.pullback.hom_ext
+    · simp [cmpL]
+    · simp only [cmpL, Category.assoc, Limits.pullback.lift_snd]
+      rw [G4Conj.cmp_snd_assoc, specGal_specIncl L σ hσ]
+  apply Limits.pullback.hom_ext
+  · have e1 : Limits.pullback.fst B.X.hom (specEmb K e₂) =
+        cmpL K L B.X e₂ e₂' he₂ ≫ Limits.pullback.fst _ _ := by simp [cmpL]
+    rw [Category.assoc, G4Conj.cmp_fst, Category.assoc, e1, reassoc_of% hψ,
+      reassoc_of% (hcL A.X e₁ e₁' he₁ hf)]
+  · rw [Category.assoc, G4Conj.cmp_snd, Category.assoc]
+    have h1 : φ.left ≫ Limits.pullback.snd B.X.hom (specEmb K e₂) =
+        Limits.pullback.snd A.X.hom (specEmb K e₁) := CategoryTheory.Over.w φ
+    rw [reassoc_of% h1, h1, G4Conj.cmp_snd]
+
 /-- `G_K` fixes every embedding of the Galois field `K`. -/
 theorem embAct_symm_of_mem [IsGalois ℚ K] (σ : Gal) (hσ : σ ∈ K.fixingSubgroup)
     (e : K →ₐ[ℚ] Qbar) : (embAct K σ).symm e = e := by
@@ -1204,6 +1279,22 @@ theorem homField_of_model' (hHFF : HomFreeFinite) (hD : HomDescends) [FiniteDime
   homField_of_model K hHFF hKF A hdim (conjAction_continuous K hD A) T hK hinert
 
 
+
+/-- **G4 for a model `A/K`, final form.** Leaves: `PkgI3.HomFreeFinite` (Mumford §19 Thm 3) and
+`MorphismsDescend` (EGA IV₃ 8.8.2). Remaining hypotheses: `hdim` (dimension of base change),
+`hK` (G2's output) and `hinert` (inertia outside `T` trivial on the lattice: NOS + the action on
+Tate modules, see `inertia_of_tate`). -/
+theorem homField_of_model_final (hHFF : HomFreeFinite) (hM : MorphismsDescend)
+    [FiniteDimensional ℚ K] [IsGalois ℚ K] (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
+    (A : AbVar K) (hdim : ∀ e, ((conjData K A).A e).dim = 2)
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, conjAction K A s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, conjAction K A σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
+  homField_of_model' K hHFF (homDescends_of_morphismsDescend hM) hKF A hdim T hK hinert
 
 end Lattice
 
@@ -1278,5 +1369,7 @@ end G4WeilRes
 #print axioms G4WeilRes.homField_of_model
 #print axioms G4WeilRes.homField_of_model'
 #print axioms G4WeilRes.conjAction_continuous
+#print axioms G4WeilRes.homDescends_of_morphismsDescend
+#print axioms G4WeilRes.homField_of_model_final
 #print axioms G4WeilRes.tateHom_injective
 #print axioms G4WeilRes.inertia_of_tate
