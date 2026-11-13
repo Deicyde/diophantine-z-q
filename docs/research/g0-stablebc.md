@@ -117,6 +117,18 @@ def-faltings' index formula `#(I/𝓞x)·N(I) = |N(x)|` at `x = 1` and its
 `∑_{τ'} f(τ'|_L) = [L':L]·∑_σ f(σ)` (`sum_embeddings_comp`). With
 `[L':ℚ] = [L':L][L:ℚ]`, the two model heights in Faltings' formula `modelHeight_eq` agree.
 
+**The Hodge data of `𝒢'` (proved, `metrizationBaseChange_of_hodgeLine`).** Fix `0 ≠ w ∈ ⋀^g ω_𝒢`.
+`e : L' ≃ hodgeSpace'`, `c ↦ c·ψ(w)`, is an isomorphism because `hodgeSpace'` is an `L'`-line.
+The coefficient map at `τ'` is `coeff' τ' = (c ↦ τ'(c)·coeff_{τ'|_L}(w)) ∘ e⁻¹`. It satisfies
+`coeff'(ψ v) = coeff(v)`: write `v = a·w`, so `e⁻¹(ψ v) = a`. The rest of the data is as
+follows:
+- lattice `⋀^g ω_{𝒢'}`;
+- period lattices `periods(τ'|_L)`;
+- `isLattice` from `secIndex_baseChange`;
+- `arch` from the uniformization clause of `HodgeLineBaseChange` applied to `Mm.arch (τ'|_L)`.
+
+These data form a `MetrizedModel` with model `𝒢'` and `IsHodgeBaseChange`.
+
 h5-neron's finding stands: the Néron model does not commute with base change, only its identity
 component does. It does not affect this piece. The argument above never uses Néron models. It uses
 base change of an arbitrary smooth group model (H4b), which always holds, and the height
