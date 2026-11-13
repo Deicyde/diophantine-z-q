@@ -24,3 +24,9 @@
   - `g9GlueHT_of_abVarBaseChange : AbVarBaseChange → G9GlueHT` (proof = g9Glue_of_fieldEmb body).
   All axioms [propext, Classical.choice, Quot.sound].
 - origin/wip/g9-abvarbc: does not exist yet (06:45). Waiting for its .fleet report before the final closed theorem.
+
+## Step 1b (locators, 07:00)
+- Locators recorded in docs/research/r10-amend.md §2; all UNVERIFIED (no source on host). Only VERIFIED items:
+  manuscript L11003 cites Faltings 1988 Ch. III Thm 4.1 for the HT comparison; L10969 cites Milne Part I Thm 12.1(a).
+- galAct σ P = galHom σ ≫ P (σ on coordinates), left action: read in I4Layer.lean (VERIFIED, read).
+- Statement-change proposal (Leaves.lean: add PkgI4.DeRhamComparisonHT, ResearchLeaves.r10 := it) in r10-amend.md §3.
