@@ -93,3 +93,6 @@
    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`. The Fourier side is fully proved.
 - (VERIFIED numerically, `remaining_check.py` → `out_remaining_check.txt`) GaussSplit 1 at the
   29 primes p ≡ 1 (mod 4) below 300; HeckeEuler d for d ∈ {5, 13, 21, 29}, n ≤ 300: 0 failures.
+- (VERIFIED, compiled ~18:47) `GaussPointCount : Prop` (pure point count on y² = x³ − x at
+  p ≡ 1 mod 4, no L-function), `gaussSplit_one_of_pointCount`,
+  `literature_hecke_fe_of_heckeEuler_gaussPointCount`.

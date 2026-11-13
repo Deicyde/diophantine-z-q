@@ -1858,4 +1858,36 @@ theorem literature_hecke_fe_of_heckeEuler_gaussSplit
     have : Fact p.Prime := ⟨hp⟩
     exact oddGauss_prime hp2
 
+/-- **`GaussSplit 1` as a pure point count** (no L-function): for primes `p ≡ 1 (mod 4)`,
+`p − #{(x, y) ∈ 𝔽_p² : y² = x³ − x} = ¼ Σ_{a² + b² = p} u(a + bi)(a + bi)`. -/
+def GaussPointCount : Prop :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 →
+    (p : ℂ) - (Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - xy.1} : ℂ) =
+      (1 / 4) * ∑ q ∈ normFiber p, unitOf ((q.1 : ZMod 4), (q.2 : ZMod 4)) * gz 0 0 q
+
+theorem gaussSplit_one_of_pointCount (h : GaussPointCount) : GaussSplit 1 := by
+  intro p hp hp4 _
+  have : Fact p.Prime := ⟨hp⟩
+  have hp2 : p ≠ 2 := by rintro rfl; omega
+  have h21 : ¬ p ∣ 2 * 1 := by
+    intro h
+    rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+    · exact hp2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h)
+    · exact hp.one_lt.ne' (Nat.dvd_one.mp h)
+  rw [cdCoeff_eq_LFunction odd_one squarefree_one hp.ne_zero,
+    ZInQ.Literature.LFunction_cd_apply_prime_eq_sub_card odd_one squarefree_one p h21]
+  have hc := h p hp hp4
+  simp only [Nat.cast_one, one_pow, one_mul]
+  push_cast
+  rw [hc, heckeCoeff]
+  congr 1
+  refine Finset.sum_congr rfl fun q _ => ?_
+  rw [jacobiSym.one_right]; push_cast; ring
+
+/-- **Final form, with Gauss's theorem as a point count.** -/
+theorem literature_hecke_fe_of_heckeEuler_gaussPointCount
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d) (h1 : GaussPointCount) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_heckeEuler_gaussSplit hE (gaussSplit_one_of_pointCount h1)
+
 end BpHeckeFE
