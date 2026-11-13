@@ -10,7 +10,8 @@ lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_
 # The main theorem from the infinitely-many-points forms of the rank hypothesis
 
 Assume the minimal height hypothesis and the hypothesis CR₃^Inf. Then the target statement holds,
-as in [the main theorem](main-theorem.md). The theorem also holds under the
+as in [the main theorem from three hypotheses](main-theorem-three-hypotheses.md). The theorem
+also holds under the
 minimal height hypothesis and CR₃^TYZ,Inf, under the minimal height hypothesis and CR₃^TYZ_Cl,Inf,
 and under the minimal height hypothesis and CR₃^DL,Inf.
 

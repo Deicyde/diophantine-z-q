@@ -105,9 +105,11 @@ of $n$ (§4). The class-number form CR₃^TYZ_Cl is located in the locators of t
 $T_{5b}(n)=\sum_{d_0\equiv7,\,d_1\equiv3}g(d_0)g(d_1)\mathcal L_1(n/d_0d_1)$ is odd, then
 $\mathcal L(n)\ne0$ and $\operatorname{ord}_{s=1}L(C_n,s)=1$ (the note writes $E_n$ for $C_n$). It is proved
 from Tian–Yuan–Zhang's Theorem 3.5 (first assertion), Theorem 3.3 (the $\varepsilon$-classes of the
-recursion), Proposition 3.2(1), Lemmas 3.16, 3.18 and 3.21, Lemma 2.8, Proposition 2.3 and the
-recursion of their §3.1. §4.5 gives the recommended citation; their Theorem 1.2 must not be cited in
-its literal form. Proposition N is not refereed; it has two model reviews,
+recursion), Proposition 3.2(1), Lemmas 3.16, 3.18 and 3.21, Lemma 2.9 (the convolution identity,
+cited as Lemma 2.8 before the locator audit `docs/research/locators.md`, AI agents, 2026-11-12;
+Lemma 2.8 is the symmetry lemma), Proposition 2.3 and the recursion of their §3.1. §4.5 gives the
+recommended citation; their Theorem 1.2 (Theorem 1.4 of the journal version, per the same audit)
+must not be cited in its literal form. Proposition N is not refereed; it has two model reviews,
 `docs/research/rv-nt-tyz.md` and `docs/research/rv-prop-n.md` (the second written without the source
 text of Tian–Yuan–Zhang; verdict: it holds as stated, relative to the inputs as quoted, with
 presentational corrections recorded at the end of `docs/research/nt-tyz.md`).

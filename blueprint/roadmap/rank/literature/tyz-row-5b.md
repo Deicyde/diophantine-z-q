@@ -19,12 +19,14 @@ form and for the row $(7,3)$ only, with Hecke's continuation for the existence. 
 the conclusion is $\mathcal L(n)\ne0$, which they identify with order of vanishing at most one
 (for order one their definition of $\mathcal L(n)$ uses a regulator, and so rests on the rank
 part of the Birch–Swinnerton-Dyer conjecture in analytic rank one, which they cite from
-Coates–Wiles, Rubin, Gross–Zagier and Kolyvagin). No refereed text consulted here prints this
-form (the journal version of their paper and Tian's expository articles were not consulted); the
+Coates–Wiles, Rubin, Gross–Zagier and Kolyvagin). No refereed text found by the project's
+literature search, which AI agents carried out, prints this form (their journal version was
+compared with the arXiv version by AI agents, and Tian's expository articles were not read); the
 only printed statement found is Smith's, which is unrefereed. The bound on the order follows from
 Proposition N, an unpublished argument from unambiguous statements of Tian, Yuan and Zhang that
 has not been refereed or checked by a human reader. The existence of the continuation is
-Hecke's, which Proposition N does not supply. It is a hypothesis, not proved here.
+Hecke's, which Proposition N does not supply. It is not proved here except from two other
+hypotheses, reading A and Hecke's continuation.
 
 ## Depends on
 

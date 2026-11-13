@@ -1,5 +1,9 @@
 # wk-h: a plan for reducing H to well-known theorems
 
+*Note (loc-fix, 2026-11-12).* Lin–Yang's discriminant-6 example is arXiv:1807.00466v1 **Example 29**
+(pp. 20-21); v1's Example 30 treats discriminant 14 (locators.md item 3, read by the locator audit).
+The mentions of "Ex. 30" / "Example 30" below are corrected in place, each marked "(formerly Ex. 30)".
+
 Status: research note (task wk-h, 2026-11-11). The goal of the wave is to replace each hypothesis
 by Lean Props that are faithful statements of well-known published theorems, and to prove the
 current hypothesis from them in Lean. This note does that planning for H = `ZInQ.SixContactMin`.
@@ -90,7 +94,7 @@ The supplier locators are h-trust's and are not repeated.
 | Step | Class | Statement used from the literature, or the nature of the argument | Interface |
 | --- | --- | --- | --- |
 | A1 | B | quaternion datum and Riemann form (script `form_check.py`); LY 2020 eq. (3) is a convention | — |
-| A2 | W | Baba–Granath 2008 Thm 2.1, §3; LY 2020 Ex. 30: `X₆/W ≅ P¹_j`, elliptic points `j = 0, ∞, −16/27` of orders 4, 6, 2 at CM discriminants −4, −3, −24 | I1 |
+| A2 | W | Baba–Granath 2008 Thm 2.1, §3; LY 2020 v1 Ex. 29 (formerly Ex. 30): `X₆/W ≅ P¹_j`, elliptic points `j = 0, ∞, −16/27` of orbifold orders 4, 6, 2 (indices of `Y₃ → P¹_j`, not of `X₆ → X₆/W`, which has 2, 2, 2; loc-fix 2026-11-12) at CM discriminants −4, −3, −24 | I1 |
 | A3 | B | the degree `≤ 324`; inputs Vignéras LNM 800 Ch. II (local normalizers), Deligne 1979 §2.7 (Hecke action over `ℚ`) | I1 |
 | A4 | W | Shimura 1967, Deligne 1971, Kottwitz 1992: the canonical model of the level-3 curve is the fine moduli scheme of `(A, ι, λ, η)`; Mumford §21 (neatness) | I1 |
 | A5 | R | Lemma PR(i) (h-b1): `K` unramified outside `T`; inputs SGA 1 X 3.1 (purity), XIII 5.3 (Abhyankar), Shimura reciprocity | I1, I2 |

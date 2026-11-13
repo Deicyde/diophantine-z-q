@@ -1,5 +1,9 @@
 # tyz-t1: the constant of Tian–Yuan–Zhang's Theorem 3.3 (residual doubt T1)
 
+*Note (loc-fix, 2026-11-12).* TYZ's `char'` (L1868) and `multiples1` (L1919) are **Lemmas 3.14 and 3.15**
+of arXiv:1411.4728v1 (VERIFIED by counting the environments that share the theorem counter in §3 of
+`Period7.tex`, as loc-adopt did). This note called `char'` "Lemma 3.8"; corrected in place.
+
 Scope: the residual doubt T1 of `docs/research/rv-tyz-inputs.md` (on branch `wip/rv-tyz-inputs`). Proposition N
 (`docs/research/nt-tyz.md` §4) uses TYZ's Theorem 3.5, first assertion (input I3). Its proof rests on the
 formula of Theorem 3.3 (`GZ`, L1299–1311):
@@ -8,7 +12,7 @@ formula of Theorem 3.3 (`GZ`, L1299–1311):
 P_χ = ε(d₀, d₁) 2^{h₂(n)} 𝓛(d₁) 𝒫(d₀),      𝒫(d) = 2^{−1−ρ(d)} 𝓛(d) α_d,
 ```
 
-for the characters `χ = χ_{d₀,d₁}` of Lemma 3.8 (`char'`). TYZ reduce it to a height identity and then write
+for the characters `χ = χ_{d₀,d₁}` of Lemma 3.14 (`char'`). TYZ reduce it to a height identity and then write
 only that it follows from Theorem A.9 (`EGZ`) by "computations similar to" Theorem 2.1 (L2015). This note
 writes that computation out (§2), says what I3 and Proposition N need from it (§1), and tests it numerically
 (§3). Source: arXiv:1411.4728v1, `~/tyz-src/Period7.tex`, cited by line `Lnnnn`. Scripts and outputs:
@@ -39,7 +43,7 @@ whose script is named. **STANDARD** means a published theorem. **SPECULATIVE** m
    discriminant `−64n`. Over 30 values `n ≡ 5 (mod 8)` (`k ≤ 5`, `h(−64n) ≤ 1120`):
    - all 73 contributing pairs give `P_{χ_{d₀,d₁}}(n) = ±2^{h₂(n)−h₂(d₀)} 𝓛(d₁) P_{χ=1}(d₀)` exactly (modulo
      torsion), with `𝓛(d₁) ∈ {0, …, 7}`, `d₀` of both classes and rank-3 cases included;
-   - all 102 characters excluded by Lemma 3.8 give torsion.
+   - all 102 characters excluded by Lemma 3.14 give torsion.
    On 20 values `n ≡ 5, 7`, the absolute statement `P_{χ=1}(n) = ±2^{h₂(n)}𝒫(n)` (with `ρ(n)`) also holds
    exactly, so `γ₀ = 1`.
 
@@ -89,7 +93,7 @@ depends only on `n mod 8`: `h₂ = k` for `n ≡ 5, 6` (discriminant `−4n`), `
 ĥ(Σ_{t ∈ Cl_n} f(P)^t χ(t)) / (f, f)  =  κ² [O_K^× : ℤ^×]² · 4 · L′^{(S)}(½, π, χ) / ((f′, f′) |D|_𝔸^{1/2} (4π)³) · loc₂,
 ```
 
-Each factor, for `n ≡ 5, 6, 7` and `χ` as in Lemma 3.8:
+Each factor, for `n ≡ 5, 6, 7` and `χ` as in Lemma 3.14:
 
 | factor | value | depends on |
 |---|---|---|
@@ -122,7 +126,7 @@ constant is A.9's, provided A.9's height is `h_P`. §3.2 confirms this numerical
 
 **Dependence on `χ`.** There are three possible sources, and none contributes beyond the L-values:
 
-- *At 2.* Every contributing `χ` has `χ₂ = 1` (Lemma 3.8 (2)). So the `K₂^×`-invariant `f_n` of
+- *At 2.* Every contributing `χ` has `χ₂ = 1` (Lemma 3.14 (2)). So the `K₂^×`-invariant `f_n` of
   Proposition 3.1 (`choice`) is the Gross–Prasad vector for every such `χ`, and `L(½, π₂, χ₂)` is the same
   for all of them.
 - *At odd `p | n`.* Here `K_p/ℚ_p` is ramified, `π_p` is unramified, and `s = χ_p(ϖ_K) = ±1` depends on `χ`.
@@ -171,7 +175,7 @@ checks that every class is hit, and checks that the q-series has converged. Genu
 at a represented odd `m`.
 
 **The sign of `i`.** There are two candidate vectors, `f₀ ∓ f₀∘[i]`. Only `f₀ − f₀∘[i]` (relative to the
-component of `P_n`) makes the characters excluded by Lemma 3.8 vanish (`t21.py`, `out_t21.txt`). That is the
+component of `P_n`) makes the characters excluded by Lemma 3.14 vanish (`t21.py`, `out_t21.txt`). That is the
 `K₂^×`-invariant vector of Proposition 3.1, and it is used throughout.
 
 ### 3.2 Results
@@ -180,7 +184,7 @@ component of `P_n`) makes the characters excluded by Lemma 3.8 vanish (`t21.py`,
 of `n ≡ 5 (mod 8)` were 21, 85, 77, 69, 93, 205, 165, 357, 285, 861, 1005, 1365, 221, 445, 365, 141, 237,
 213, 253, 301, 565, 2149, 2165, 3269, 8749, 645, 2373, 12597, 23205, 44285. For every `e | n`:
 
-- `e ≡ 5, 7`: Lemma 3.8 excludes `χ_e`. All 102 such `P_χ` are torsion.
+- `e ≡ 5, 7`: Lemma 3.14 excludes `χ_e`. All 102 such `P_χ` are torsion.
 - `e = d₁ ≡ 1, 3`, `d₁ > 1`: the unique `m ∈ [−4m₀ − 64, 4m₀ + 64]` with `16 P_χ(n) ≡ m P_{χ=1}(d₀)` modulo
   `Λ` is `m = ±m₀`, where `m₀ = 16 · 2^{h₂(n)−h₂(d₀)} 𝓛(d₁)`. This holds for all 73 pairs. They include:
   - `𝓛(d₁) = 1, …, 7` (`d₁ = 43, 113, 307, 433, 467, 673`) and `𝓛(d₁) = 0` (`d₁ = 41, 65, 323, 1105, 1785, 4641`);

@@ -148,7 +148,7 @@ computation. "R\*" = what happens on the route of this note. Leaves `Lk` are §3
 | Node (N5 lines) | Content | Kind | R\* |
 | --- | --- | --- | --- |
 | A1 (410-420) | QM datum `B = (2,−3)`, `𝒪`, `μ`, Gram matrix of determinant 1 | BK (script `form_check.py`) + LIT (Lin–Yang convention) | kept: G1 |
-| A2 (420-422, 908) | `X₆/W ≅ P¹_j`, branch values `0, ∞, −16/27`, indices `4, 6, 2`, CM labels `−4, −3, −24` | LIT | kept: L1 |
+| A2 (420-422, 908) | `X₆/W ≅ P¹_j`, elliptic points `0, ∞, −16/27` of orbifold orders 4, 6, 2 (indices of `Y₃ → P¹_j`; the map `X₆ → X₆/W` has indices 2, 2, 2), CM labels `−4, −3, −24` (wording corrected 2026-11-12 by loc-fix, rv-nocm §3.2) | LIT | kept: L1 |
 | A3 (423-441) | level 3, normalizer action, `deg(Y₃ → P¹_j) ≤ 324` | BK (Vignéras, Deligne, script) | kept: G1 |
 | A4 (528) | `Y₃` = fine moduli scheme over `ℚ` of `(A, ι, λ, η)`, `K₃` neat | LIT (citation task, h-b1 §4A) | kept: L2 |
 | A5 (443-528) | Lemma PR(i): fibre field `K`, `[K:ℚ] ∣ 144`, unramified outside `T` | NEW (h-b1, rv-h-b1) | kept: G2 (L1-L3, L5, L6) |
@@ -202,8 +202,10 @@ now: yes / with new definitions (tier of the costliest one, §5) / no. "Lean" na
 elliptic points are at `j = 0, ∞, −16/27`, of orders `4, 6, 2`, the CM points of discriminants
 `−4, −3, −24`; the polarized QM surfaces over a finite nonzero `j` are those of the stated
 datum. Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 and the §3 datum (journal numbering
-UNVERIFIED; the 2005 preprint's Thm 1 is ASTRA-READ); Lin–Yang 2020, Example 30 (VERIFIED in
-arXiv v1 by h-v14). Exact (Props 3.7-3.10 not used). Objects: Shimura curves, canonical models,
+UNVERIFIED; the 2005 preprint's Thm 1 is ASTRA-READ); Lin–Yang 2020, arXiv v1 Example 29
+(content VERIFIED in arXiv v1 by h-v14 (the number corrected 2026-11-12 by loc-fix from "Example 30", which is v1's discriminant-14 example; locators.md item 3)). The orders `4, 6, 2` are orbifold orders;
+the indices of `Y₃ → P¹_j` equal them as glue (torsion-free normal level-3 group), and the map
+`X₆ → X₆/W` has indices 2, 2, 2 (rv-nocm §3.2; note added 2026-11-12 by loc-fix). Exact (Props 3.7-3.10 not used). Objects: Shimura curves, canonical models,
 moduli of QM surfaces. Statable: no (very large).
 
 **L2. Canonical model and moduli interpretation.** The canonical model over `ℚ` of the level-3
@@ -300,7 +302,8 @@ height satisfy `h_Θ ≤ ½X_D + C₂ log(X_D + 2)`. Bull. SMF 140 (2012), Cor. 
 
 **L27. The Hauptmodul in theta constants.** On the QM locus, `ψ₄ = 144j`, `χ₁₀ = −j³/4`, and with
 Igusa's theta expressions `j·(∑z_m⁸)⁵ = 3779136·(∏z_m)⁴`. Lin–Yang, Math. Z. 295 (2020), eqs.
-(13)-(14), Example 30; Igusa, Amer. J. Math. 89 (1967), pp. 833-834, 848; Lauter–Naehrig–Yang
+(13)-(14), arXiv v1 Example 29 (formerly cited as Example 30, v1's discriminant-14 example;
+corrected 2026-11-12 by loc-fix); Igusa, Amer. J. Math. 89 (1967), pp. 833-834, 848; Lauter–Naehrig–Yang
 (2015) §2.2; exact check `scratch/h-v14/igusa_check.py` (h-trust F1). Consequence (two papers
 and a computation; it could be split into L27a Lin–Yang and L27b Igusa). Statable: with new
 definitions (large plus very large). Lean: `Leaf_IgusaLinYang`.
