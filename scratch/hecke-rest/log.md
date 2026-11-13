@@ -136,3 +136,16 @@ HeckeFibreSizes, HeckeNoVertRam.
 - Composite updated: `coverModelOfHecke_of_heckeRest` now takes only ChartProper and
   ChartQuasiFinite on the curve side. `HeckeRestAll.lean` recompiled: 0 errors; 20 HeckeRest*
   `#print axioms` lines, all [propext, Classical.choice, Quot.sound].
+
+## Step 11. Lean: ChartQuasiFinite from ChartProper (`PointsMain.lean.part`) — VERIFIED (compiled, 0 errors)
+- Proved: `mem_secMor_iff` (q vanishes at secMor w iff q(s) vanishes at w; via
+  Scheme.Opens.toSpecΓ_preimage_basicOpen), `eval_eq_zero_of_mem`, `isFinite_of_iSup`
+  (IsFinite local on the target; needs `set_option backward.isDefEq.respectTransparency false`
+  for instance search, as in Mathlib), `lqf_of_proper` (closed fibres finite: closed points via
+  ℚ̄-points with s-values among roots of a generator, then Jacobson; Stacks 02UP gives finiteness
+  over neighbourhoods of closed points, which cover 𝔸¹), `chartQuasiFinite_of_proper`,
+  `curveNormChart_of_proper : ChartProper → CurveNormChart`,
+  `curveChartInf_of_proper : ChartProper → CurveChartInf`.
+- Composite: `coverModelOfHecke_of_heckeRest` takes only `ChartProper` on the curve side.
+  `HeckeRestAll.lean` recompiled: 0 errors; 22 HeckeRest* `#print axioms` lines, all
+  [propext, Classical.choice, Quot.sound].

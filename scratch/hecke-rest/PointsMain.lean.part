@@ -213,6 +213,155 @@ theorem chartDominant : ChartDominant := by
     · left
       exact val_of_not_mem π y₀ hU
 
+/-! ## `ChartQuasiFinite` from `ChartProper`
+
+Given properness, Mathlib's Stacks 02UP (`exists_isFinite_morphismRestrict_of_finite_preimage_singleton`)
+makes a chart finite over a neighbourhood of each closed point of `𝔸¹` with finite fibre; these
+neighbourhoods cover `𝔸¹` (Jacobson). A closed fibre is finite: its closed points carry `ℚ̄`-points
+with `s`-values among the roots of a generator, finitely many by the finite `π`-fibres, and a
+locally closed set whose closed points are finitely many consists of closed points (Jacobson). -/
+
+/-- **The point `secMor w` of `𝔸¹`**: `q` vanishes there iff `q(s)` vanishes at `w` (compiled). -/
+theorem mem_secMor_iff {Y : Over (Spec (CommRingCat.of ℚ))} {W : Y.left.Opens} (s : Γ(Y.left, W))
+    (w : W.toScheme) (q : ℚ[X]) :
+    q ∈ (secMor Y W s w).asIdeal ↔ W.ι w ∉ Y.left.basicOpen (secHom Y W s q) := by
+  have key := congrArg (fun O : W.toScheme.Opens => w ∈ O)
+    (Scheme.Opens.toSpecΓ_preimage_basicOpen W (secHom Y W s q))
+  simp only [eq_iff_iff] at key
+  change secHom Y W s q ∈ (W.toSpecΓ w).asIdeal ↔ _
+  rw [← not_iff_not, not_not]
+  exact key
+
+/-- A `ℚ̄`-point at a point of `W` over a point of `𝔸¹` containing `q`: `q(s(point)) = 0`. -/
+theorem eval_eq_zero_of_mem {Y : Over (Spec (CommRingCat.of ℚ))} {W : Y.left.Opens}
+    (s : Γ(Y.left, W)) (w : W.toScheme) (q : ℚ[X]) (hq : q ∈ (secMor Y W s w).asIdeal)
+    (p : Spec (CommRingCat.of Qbar) ⟶ Y.left) (hp : ptOf p = W.ι w) (hx : ptOf p ∈ W) :
+    Polynomial.eval₂ (algebraMap ℚ Qbar) (ev p hx s) q = 0 := by
+  rw [← ev_secHom, ev_eq_zero_iff, hp]
+  exact (mem_secMor_iff s w q).1 hq
+
+set_option backward.isDefEq.respectTransparency false in
+/-- Finiteness is local on the target (instance search needs the transparency option, as in
+Mathlib's own uses). -/
+theorem isFinite_of_iSup {X Y' : Scheme.{0}} (f : X ⟶ Y') {ι : Type} (U : ι → Y'.Opens)
+    (hU : iSup U = ⊤) (H : ∀ i, IsFinite (f ∣_ U i)) : IsFinite f :=
+  IsZariskiLocalAtTarget.of_iSup_eq_top U hU H
+
+/-- **A proper chart with finite `ℚ̄`-fibres of `s` is locally quasi-finite** (compiled). -/
+theorem lqf_of_proper (Y : Over (Spec (CommRingCat.of ℚ))) (hS : SmoothOfRelativeDimension 1 Y.hom)
+    (W : Y.left.Opens) (s : Γ(Y.left, W)) [IsProper (secMor Y W s)]
+    (hfinS : ∀ t : Qbar,
+      {y : fieldPt Qbar ⟶ Y | ∃ hy : ptOf y.left ∈ W, ev y.left hy s = t}.Finite) :
+    LocallyQuasiFinite (secMor Y W s) := by
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  have hclosedfib : ∀ y : Spec (CommRingCat.of ℚ[X]), IsClosed ({y} : Set _) →
+      (secMor Y W s ⁻¹' {y}).Finite := by
+    intro y hy
+    have hmax : y.asIdeal.IsMaximal := (PrimeSpectrum.isClosed_singleton_iff_isMaximal y).1 hy
+    have hne : y.asIdeal ≠ ⊥ := by
+      intro h0
+      have := hmax
+      rw [h0] at this
+      exact Polynomial.not_isField ℚ (Ring.isField_iff_maximal_bot.2 this)
+    obtain ⟨q₀, hq₀, hq₀ne⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hne
+    set C : Set Y.left := W.ι '' (secMor Y W s ⁻¹' {y}) with hCdef
+    have hC : ∀ z : ↥(C ∩ closedPoints Y.left), ∃ yQ : fieldPt Qbar ⟶ Y, ptOf yQ.left = z ∧
+        ∃ hy : ptOf yQ.left ∈ W, ev yQ.left hy s ∈ {t | t ∈ (q₀.map (algebraMap ℚ Qbar)).roots} := by
+      intro z
+      obtain ⟨⟨w, hw, hwz⟩, hzc⟩ := z.2
+      obtain ⟨p, hp⟩ := TSHeckeGal.exists_qbar_point Y.hom z (mem_closedPoints_iff.mp hzc)
+      have hpz : ptOf p = z := hp _
+      have hx : ptOf p ∈ W := by
+        rw [hpz, ← hwz]
+        have : W.ι w ∈ Set.range W.ι := ⟨w, rfl⟩
+        rwa [Scheme.Opens.range_ι] at this
+      refine ⟨Over.homMk p (TSHeckeGal.specQbar_to_specQ_eq' _ _), hpz, hx, ?_⟩
+      have hmem : q₀ ∈ (secMor Y W s w).asIdeal := by
+        have hw' : secMor Y W s w = y := hw
+        rw [hw']; exact hq₀
+      exact mem_roots_of_eval₂ hq₀ne
+        (eval_eq_zero_of_mem s w q₀ hmem p (hpz.trans hwz.symm) hx)
+    choose F hF using hC
+    have hCfin : (C ∩ closedPoints Y.left).Finite := by
+      by_contra hinf
+      haveI : Infinite ↥(C ∩ closedPoints Y.left) := Set.infinite_coe_iff.2 hinf
+      apply Set.infinite_of_injective_forall_mem (f := F)
+        (s := ⋃ t ∈ {t | t ∈ (q₀.map (algebraMap ℚ Qbar)).roots},
+          {y : fieldPt Qbar ⟶ Y | ∃ hy : ptOf y.left ∈ W, ev y.left hy s = t})
+      · intro z₁ z₂ h12
+        apply Subtype.ext
+        rw [← (hF z₁).1, ← (hF z₂).1, h12]
+      · intro z
+        obtain ⟨-, hx, hroot⟩ := hF z
+        exact Set.mem_biUnion hroot ⟨hx, rfl⟩
+      · exact (Multiset.finite_toSet _).biUnion fun t _ => hfinS t
+    have hClc : IsLocallyClosed C :=
+      (hy.preimage (secMor Y W s).continuous).isLocallyClosed.image
+        W.ι.isOpenEmbedding.isInducing W.ι.isOpenEmbedding.isOpen_range.isLocallyClosed
+    have hCF : C ⊆ C ∩ closedPoints Y.left := by
+      have hcl : IsClosed (C ∩ closedPoints Y.left) := by
+        rw [← Set.biUnion_of_singleton (C ∩ closedPoints Y.left)]
+        exact hCfin.isClosed_biUnion fun z hz => hz.2
+      calc C ⊆ closure C := subset_closure
+        _ = closure (C ∩ closedPoints Y.left) :=
+            (JacobsonSpace.closure_inter_closedPoints_eq_closure hClc).symm
+        _ = C ∩ closedPoints Y.left := hcl.closure_eq
+    exact Set.Finite.of_finite_image (hCfin.subset hCF) W.ι.isOpenEmbedding.injective.injOn
+  haveI : JacobsonSpace (Spec (CommRingCat.of ℚ[X])) :=
+    inferInstanceAs (JacobsonSpace (PrimeSpectrum ℚ[X]))
+  choose Vy hyV hVfin using fun (y : {y : Spec (CommRingCat.of ℚ[X]) // IsClosed ({y} : Set _)}) =>
+    exists_isFinite_morphismRestrict_of_finite_preimage_singleton (secMor Y W s) y.1
+      (hclosedfib y.1 y.2)
+  have hsup : iSup Vy = ⊤ := by
+    by_contra hne
+    have hSne : (SetLike.coe (iSup Vy))ᶜ.Nonempty := by
+      rw [Set.nonempty_compl]
+      intro h
+      apply hne
+      apply SetLike.coe_injective
+      rw [h, TopologicalSpace.Opens.coe_top]
+    obtain ⟨y₀, hy₀, hy₀c⟩ := nonempty_inter_closedPoints hSne
+      (iSup Vy).isOpen.isClosed_compl.isLocallyClosed
+    apply hy₀
+    exact (le_iSup Vy ⟨y₀, mem_closedPoints_iff.mp hy₀c⟩) (hyV ⟨y₀, mem_closedPoints_iff.mp hy₀c⟩)
+  haveI : IsFinite (secMor Y W s) := isFinite_of_iSup (secMor Y W s) Vy hsup hVfin
+  infer_instance
+
+/-- **`ChartQuasiFinite` from `ChartProper`** (compiled). -/
+theorem chartQuasiFinite_of_proper (hP : ChartProper) : ChartQuasiFinite := by
+  intro Y π h1 h2 h4
+  obtain ⟨hPU, hPV⟩ := hP Y π h1 h2 h4
+  constructor
+  · refine lqf_of_proper Y h2 π.U π.f fun t => (h4 (OnePoint.some t)).subset ?_
+    rintro y ⟨hy, hyt⟩
+    show π.val (K := Qbar) y.left = OnePoint.some t
+    rw [val_of_mem π y.left hy, hyt]
+  · refine lqf_of_proper Y h2 π.V π.g fun t =>
+      ((h4 OnePoint.infty).union (h4 (OnePoint.some t⁻¹))).subset ?_
+    rintro y ⟨hy, hyt⟩
+    let y₀ : Spec (CommRingCat.of Qbar) ⟶ Y.left := y.left
+    by_cases hU : ptOf y₀ ∈ π.U
+    · right
+      show π.val (K := Qbar) y₀ = OnePoint.some t⁻¹
+      rw [val_of_mem π y₀ hU]
+      congr 1
+      have hfg := ev_f_mul_g π y₀ hU hy
+      have hyt' : ev y₀ hy π.g = t := hyt
+      rw [hyt'] at hfg
+      exact eq_inv_of_mul_eq_one_left hfg
+    · left
+      exact val_of_not_mem π y₀ hU
+
+/-- **`CurveNormChart` from `ChartProper` alone** (compiled). -/
+theorem curveNormChart_of_proper (hP : ChartProper) : CurveNormChart :=
+  curveNormChart_of_charts hP (chartQuasiFinite_of_proper hP) chartDominant
+
+/-- **`CurveChartInf` from `ChartProper` alone** (compiled). -/
+theorem curveChartInf_of_proper (hP : ChartProper) : CurveChartInf :=
+  curveChartInf_of_charts' hP (chartQuasiFinite_of_proper hP) chartDominant chartIrreducible
+
 /-- **`CurveNormChart` from `ChartProper` and `ChartQuasiFinite`** (compiled). -/
 theorem curveNormChart_of_pq (hP : ChartProper) (hQ : ChartQuasiFinite) : CurveNormChart :=
   curveNormChart_of_charts hP hQ chartDominant
@@ -229,3 +378,5 @@ end
 #print axioms HeckeRestCurve.chartDominant
 #print axioms HeckeRestCurve.curveNormChart_of_pq
 #print axioms HeckeRestCurve.curveChartInf_of_pq
+#print axioms HeckeRestCurve.curveNormChart_of_proper
+#print axioms HeckeRestCurve.curveChartInf_of_proper
