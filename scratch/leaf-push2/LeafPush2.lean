@@ -1738,8 +1738,11 @@ Why it is a consequence of the printed theorem:
   (the Albanese property is stable under field extension; STANDARD, Milne 1986).
 * A Belyi function over `K` is one over `ℚ̄` of the same degree (characteristic 0, `K`
   algebraically closed in `K(X)`), so `deg_B(X_ℚ̄) ≤ d`, and the bound is monotone in `d`.
-* The stable height does not depend on the field of definition, and in either normalization
-  the bound holds for `h_F` (Deligne's `h_D = h_F + (g/2) log π ≥ h_F`; rv-blueprints §1.2).
+* The stable height does not depend on the field of definition, and in either of the two
+  normalizations in question (Faltings' `(i/2)^g`, Deligne's `(i/2π)^g`) the bound holds for
+  `h_F`, since `h_D = h_F + (g/2) log π ≥ h_F` (rv-blueprints §1.2). A normalization without the
+  `2^{-g}` factor would give `h = h_F − (g/2) log 2` and make this form stronger; the locator audit
+  read Javanpeykar's height as the stable Faltings height (leaf-push2 review: RISK, low).
 * **H5** (rv-blueprints F2): `stableFaltingsHeight` (an infimum over metrized smooth group
   models, `EReal`) equals the published height. Only the half "the Néron model over a semistable
   field is a metrized model with the published height" is used here (an upper bound on an
@@ -2206,7 +2209,7 @@ numbers.) With `ℚ ⊗`, this is `End⁰(A_ℂ) = End(H₁(A(ℂ),ℚ))` ∩ (H
 T11 used at G5/G10. -/
 def T11a_RiemannEnd : Prop :=
   ∀ (A : AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
-    IsUniformization (RingHom.id ℂ) Λ Φ →
+    A.dim = (g : WithBot ℕ∞) → IsUniformization (RingHom.id ℂ) Λ Φ →
     (∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ Λ, M z ∈ Λ) →
       ∃! f : AbVar.End A, ∀ z, Φ (M z) = Φ z ≫ f.hom) ∧
     (∀ f : AbVar.End A, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), ∀ z, Φ (M z) = Φ z ≫ f.hom)
@@ -2222,7 +2225,7 @@ def T11b_Rigidity : Prop :=
       (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ = ψ
 
 /-- Complex conjugation in `G_ℚ`: `c` restricts complex conjugation along some embedding
-`ℚ̄ ↪ ℂ`. -/
+`ℚ̄ ↪ ℂ`. (Duplicates `PkgI4.IsComplexConj` of Leaves.lean; to be identified at integration.) -/
 def IsComplexConj (c : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : Prop :=
   ∃ emb : AlgebraicClosure ℚ →ₐ[ℚ] ℂ, ∀ x, emb (c x) = starRingEnd ℂ (emb x)
 
@@ -2232,7 +2235,8 @@ Not a single published statement: Artin's comparison `V_ℓ(A) ≅ H₁(A(ℂ),�
 complex conjugation (SGA 4 XI 4.4; for abelian varieties elementary through `ℂ^g/Λ`: the
 `ℓⁿ`-torsion of `A(ℂ)` is `Φ(ℓ⁻ⁿΛ)`, and `A(ℚ̄)[ℓⁿ] → A(ℂ)[ℓⁿ]` is bijective by T5), plus the
 computation that an antiholomorphic involution of `ℂ^g/Λ` acts on `Λ ⊗ ℝ = ℂ^g` with eigenspaces
-of real dimension `g` (`ℂ^g = W ⊕ iW`). A **glue target** from `UniformizationExists` and T5. -/
+of real dimension `g` (`ℂ^g = W ⊕ iW`). A **glue target** from `UniformizationExists`, T5, T26
+(`V_ℓ` finite of rank `2g`) and the antiholomorphy of complex conjugation on `A(ℂ)` for `A/ℚ`. -/
 def T12_ComplexConjEigen : Prop :=
   ∀ (A : AbVar ℚ) (g : ℕ), A.dim = (g : WithBot ℕ∞) → ∀ (ℓ : ℕ) [Fact ℓ.Prime]
     (c : Field.absoluteGaloisGroup ℚ), IsComplexConj c →
@@ -2252,14 +2256,15 @@ theorem exists_isComplexConj : ∃ c : Field.absoluteGaloisGroup ℚ, IsComplexC
 /-- **T10, the part statable in Mathlib v4.35 (not the form used).** Mathlib has `ℓ`-adic
 cohomology as pro-étale cohomology, `Scheme.EllAdicCohomology X ℓ n` (Bhatt–Scholze 2015,
 Def. 6.8.1; `Mathlib/AlgebraicGeometry/Sites/ElladicCohomology.lean`), but only as an abelian group:
-no `ℤ_ℓ`-module structure and no pullback maps, hence no Galois action. What is statable is the
+no `ℤ_ℓ`-module structure and no pullback maps, hence no Galois action. `ℓ ≠ char K` as in
+Milne's theorem. What is statable is the
 underlying group isomorphism `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`: a consequence of Milne 1986,
 Thm 15.1(a) (UNVERIFIED number) together with the comparison of pro-étale and classical `ℓ`-adic
 cohomology for qcqs schemes (Bhatt–Scholze 2015 §5.6, UNVERIFIED number; Mathlib's docstring
 announces this comparison as future work). The form used (derive R10's Tate-module form) needs
 the Galois-equivariant version: `ℤ_ℓ`-linearity and functoriality of `EllAdicCohomology` in `X`. -/
 def T10_groupIso : Prop :=
-  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime],
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
     Nonempty ((A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃+
       Module.Dual ℤ_[ℓ] (A.T ℓ))
 

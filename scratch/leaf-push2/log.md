@@ -36,3 +36,12 @@ Compile command: `lake env lean scratch/leaf-push2/LeafPush2.lean` (one Lean pro
   every `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED. (Fixes on the way:
   `ι` is a reserved token under the opens of Part I, renamed `emb`; `IsComplexConj` takes the
   `AlgEquiv` type, not `Field.absoluteGaloisGroup ℚ`.)
+- 19:57 Independent model review (read-only subagent) of R18, R22, R3, T10-T12 and
+  `LadicCond.CarayolR17'` against h-decomposition.md, locators.md, rv-blueprints.md: no DEFECT.
+  RISKs: R18 normalization (low; docstring made explicit), R22 Pazuki Def. 2.6 coordinates
+  (UNVERIFIED, open), R3 tuple checked only against hdec-elementary (open), T10 ℓ = char K (fixed:
+  hypothesis `(ℓ : K) ≠ 0`). NOTEs applied: T11a now assumes `A.dim = g`; T12 docstring cites T26
+  and antiholomorphy; `IsComplexConj` duplicate of `PkgI4.IsComplexConj` noted. CarayolR17'
+  confirmed, no change.
+- 19:59 Recompiled: exit 0, no errors, no warnings; 15 `#print axioms` lines, all
+  [propext, Classical.choice, Quot.sound]. VERIFIED.

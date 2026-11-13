@@ -42,7 +42,7 @@ other nine come from earlier reports: R1, R2, R5 (leaf-qm-fp), R16 (leaf-modcurv
     is used.
 
 Compile: `lake env lean scratch/leaf-push2/LeafPush2.lean` gives exit 0, no errors and no
-warnings. Every `#print axioms` (16 lines, including the four leaf Props and every proved
+warnings. Every `#print axioms` (15 lines, including the four leaf Props and every proved
 theorem) is `[propext, Classical.choice, Quot.sound]` (VERIFIED). No `sorry`.
 
 The independent check is in §6.
@@ -183,7 +183,57 @@ Proved: `linYangTuple_onQMLocus`, `onQMLocus_of_linYangTuple`, `linYang_j_eq`
 
 ## 6. Independent check
 
-(Filled in after the read-only model review; see §6 below.)
+One read-only model review (subagent, 2026-11-12) checked every statement against
+h-decomposition.md, locators.md and rv-blueprints.md, given the code but not this report's
+conclusions. **Verdict: no DEFECT.** No statement is false, stronger than its source as
+described, or vacuous. This is a model review, not a human review.
+
+**What the reviewer confirmed:**
+- **R18.**
+  - `IsBelyiFunction` is the Belyi condition: places over finite places of `K(t)`, `e = 1`, `∞`
+    left free.
+  - `e = 1` over `K` is `e = 1` over `ℚ̄`, and `finrank K⟮t⟯ K(X)` is the degree over `ℚ̄`.
+  - The `K`-point and the `K`-rational Belyi function only weaken the statement.
+- **R22.**
+  - `IsUniformization` forces `Φ = exp ∘ T` with `Λ` a lattice.
+  - `IsSiegel` + `IsPeriodMatrix` = principal polarization + symplectic basis.
+  - The theta constants are standard, the sup-norm height is `≤` the `ℓ²` height, and the height
+    does not depend on the basis.
+- **R3.**
+  - The IC normalizations are the standard 15/10/60-term sums, and the J/I conversion is Igusa's.
+  - The weights 1, 2, 3, 5 are right.
+  - The product locus `[I₂:I₄:I₆:I₁₀] = [1:0:0:0]` is the J-point `[12:6:4:0]`. That is the tuple
+    at `j = 0` and at `j = ∞`, so the second disjunct is coherent (reviewer, from memory:
+    UNVERIFIED).
+- **T11a, T11b, T12, `UniformizationExists`:** true. T10's coefficient sheaf `C(U, ℤ_ℓ)` is the
+  right one.
+- **R17.** `CarayolR17'` is faithful and is the form D5/G15-G16 need. `inertiaSet`, `wildSet`,
+  `ramSet`, `swanAt` and `condExp` were checked; `condExp` equals the Weil–Deligne conductor.
+
+**RISKs and what was done:**
+1. **R18 normalization.** "Either normalization" covers only Faltings'/Deligne's. A normalization
+   without `2^{-g}` would make the stated form stronger. Low risk (the audit read the stable
+   Faltings height). *Done:* the docstring now says this explicitly.
+2. **R22: Pazuki's level-2 coordinates.** The coordinates of Def. 2.6 must be `θ[a;b](0,Ω)`, not
+   `θ(0,2Ω)` or squares. The leaf is a consequence only if Pazuki's `h_Θ ≥ h([θ[a;b](0,Ω)])`.
+   Already disclosed as UNVERIFIED. *Open:* read Def. 2.6.
+3. **R3: tuple and J-convention.** These are checked only against hdec-elementary's
+   transcription (`linYangTuple_onQMLocus`), not against Lin–Yang or Baba–Granath. *Open:* compare
+   with the printed (13)-(14).
+4. **T10: `ℓ = char K`.** The statement allowed `ℓ = char K`, outside Milne's hypothesis. *Done:*
+   added the hypothesis `(ℓ : K) ≠ 0`, which weakens the statement.
+
+**NOTEs and what was done:**
+- `T11a` did not tie `g` to `dim A`; it was true anyway. *Done:* added `A.dim = g`.
+- `T12` also needs T26 and antiholomorphy. *Done:* added to the docstring.
+- `IsComplexConj` duplicates `PkgI4.IsComplexConj`. *Done:* noted in the docstring.
+- `CarayolR17'` depends on `SwanIndependent`/`AdaptedExists`, through the choice in `swan`, and on
+  Casselman's `a(π_p) = v_p(N)`. Both are disclosed already.
+- The reviewer's own argument (Λ = 𝒪v, class number 1, `E_μ(αv, βv) = tr(μ⁻¹αβ̄)`) supports the
+  existence of a principal polarization of the fixed type, which R3 assumes. This is a model
+  argument, not a source; the repository label stays SPECULATIVE pending rv-qm-polar.
+
+Recompiled after these edits (§1).
 
 ## 7. What remains
 
