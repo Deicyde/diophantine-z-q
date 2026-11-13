@@ -35,3 +35,10 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
   `abhyankar_isDedekindDomain` (M/K finite separable, `integralClosure R M` Dedekind);
   `abhyankar_dvd_ramificationIdx`: in the leaf's setting, `n ∣ e(Q|𝔪)` for every prime `Q` of
   `integralClosure R M` over `𝔪` (lower half of the conclusion; tameness hypothesis unused).
+- `AbhyankarBricks.lean` extended: COMPILES, standard axioms.
+  `finrank_le_of_pow_eq` ([K(t):K] ≤ m); `ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq`
+  (DVR `R`, uniformizer `π`, `m` invertible, `M = K(t)`, `tᵐ = π` ⇒ every prime of
+  `integralClosure R M` over `𝔪` has e = m, f = 1; via Mathlib's
+  `Ideal.sum_ramification_inertia_eq_finrank` and `IsIntegralClosure.rank`);
+  `abhyankarDVR_conclusion_of_L_eq_K`: the exact conclusion of `PkgI2.AbhyankarDVR` (e = n and
+  separable residue extension, with the leaf's quotient-algebra instance) when `L = K`.

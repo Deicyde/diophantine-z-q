@@ -147,6 +147,93 @@ theorem abhyankar_dvd_ramificationIdx (π : R) (hπ : Irreducible π) (n : ℕ) 
 
 end Setting
 
+section KummerUniformizer
+
+set_option linter.unusedSectionVars false
+set_option linter.style.haveILetI false
+
+variable {R K M : Type*} [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field M] [Algebra K M] [Algebra R M] [IsScalarTower R K M]
+
+/-- `[K(t) : K] ≤ m` for a root `t` of `Xᵐ - π`. -/
+lemma finrank_le_of_pow_eq {π : R} {m : ℕ} (hm0 : 0 < m) {t : M}
+    (ht : t ^ m = algebraMap R M π) (hM : IntermediateField.adjoin K {t} = ⊤) :
+    Module.finrank K M ≤ m := by
+  have haev : aeval t (X ^ m - C (algebraMap R K π)) = 0 := by
+    rw [map_sub, map_pow, aeval_X, aeval_C, ← IsScalarTower.algebraMap_apply, ht, sub_self]
+  have hmon : (X ^ m - C (algebraMap R K π)).Monic := monic_X_pow_sub_C _ hm0.ne'
+  have hint : IsIntegral K t := ⟨_, hmon, by rw [← aeval_def]; exact haev⟩
+  rw [← ((IntermediateField.equivOfEq hM).trans IntermediateField.topEquiv).toLinearEquiv.finrank_eq,
+    IntermediateField.adjoin.finrank hint]
+  calc (minpoly K t).natDegree ≤ (X ^ m - C (algebraMap R K π)).natDegree :=
+        natDegree_le_of_dvd (minpoly.dvd K t haev) hmon.ne_zero
+    _ = m := natDegree_X_pow_sub_C
+
+/-- **Abhyankar's lemma for `L = K`, i.e. a Kummer extension by an `m`-th root of a uniformizer
+is totally ramified.** `R` a DVR with fraction field `K` and uniformizer `π`, `m ≥ 1` invertible in
+`R`, `M = K(t)` with `tᵐ = π`.  Every prime `Q` of `integralClosure R M` over `𝔪` has
+`e(Q|𝔪) = m` and `f(Q|𝔪) = 1` (so its residue field is `R/𝔪`, trivially separable). -/
+theorem ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq (π : R) (hπ : Irreducible π) (m : ℕ)
+    (hm0 : 0 < m) (hm : IsUnit (m : R)) (t : M) (ht : t ^ m = algebraMap R M π)
+    (hM : IntermediateField.adjoin K {t} = ⊤)
+    (Q : Ideal (integralClosure R M)) [Q.IsPrime] [Q.LiesOver (maximalIdeal R)] :
+    Q.ramificationIdx R = m ∧ Q.inertiaDeg R = 1 := by
+  haveI := abhyankar_isDedekindDomain (R := R) (K := K) (L := K) hπ hm0 hm ht hM
+  haveI := abhyankar_finiteDimensional (R := R) (K := K) (L := K) hm0 ht hM
+  haveI := abhyankar_isSeparable (R := R) (K := K) (L := K) hπ hm ht hM
+  have hdvd := abhyankar_dvd_ramificationIdx (R := R) (K := K) (L := K) π hπ m hm0 hm t ht hM Q
+  haveI : Module.Finite R (integralClosure R M) := IsIntegralClosure.finite R K M _
+  haveI : Module.IsTorsionFree R M := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective, IsScalarTower.algebraMap_eq R K M]
+    exact (algebraMap K M).injective.comp (IsFractionRing.injective R K)
+  haveI : Module.IsTorsionFree R (integralClosure R M) := inferInstance
+  have hrank : Module.finrank R (integralClosure R M) = Module.finrank K M :=
+    IsIntegralClosure.rank R K M _
+  have hsum := Ideal.sum_ramification_inertia_eq_finrank (maximalIdeal R) (integralClosure R M)
+  rw [hrank] at hsum
+  have hle := finrank_le_of_pow_eq (K := K) hm0 ht hM
+  have hQ : Q.ramificationIdx R * Q.inertiaDeg R ≤ m := by
+    refine le_trans ?_ (hsum.trans_le hle)
+    exact Finset.single_le_sum (f := fun q : (maximalIdeal R).primesOver (integralClosure R M) =>
+        q.1.ramificationIdx R * q.1.inertiaDeg R) (fun _ _ => Nat.zero_le _)
+      (Finset.mem_univ (Ideal.primesOver.mk (maximalIdeal R) Q))
+  have he0 : 0 < Q.ramificationIdx R := Ideal.ramificationIdx_pos R Q
+  have hf0 : 0 < Q.inertiaDeg R := Ideal.inertiaDeg_pos Q R
+  have hem : m ≤ Q.ramificationIdx R := Nat.le_of_dvd he0 hdvd
+  constructor
+  · nlinarith
+  · nlinarith
+
+/-- **`PkgI2.AbhyankarDVR`'s conclusion in the case `L = K`** (the leaf's exact conclusion:
+ramification index `n` and separable residue extension, with the leaf's quotient algebra
+instance). -/
+theorem abhyankarDVR_conclusion_of_L_eq_K (π : R) (hπ : Irreducible π) (n : ℕ) (hn0 : 0 < n)
+    (hn : IsUnit (n : R)) (t : M) (ht : t ^ n = algebraMap R M π)
+    (hM : IntermediateField.adjoin K {t} = ⊤)
+    (Q : Ideal (integralClosure R M)) [Q.IsPrime] [Q.LiesOver (maximalIdeal R)] :
+    Q.ramificationIdx R = n ∧
+      Algebra.IsSeparable (R ⧸ maximalIdeal R) (integralClosure R M ⧸ Q) := by
+  obtain ⟨he, hf⟩ := ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq π hπ n hn0 hn t ht hM Q
+  refine ⟨he, ?_⟩
+  haveI : Q.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal Q (maximalIdeal R)
+  rw [Ideal.inertiaDeg_eq_of_isMaximal (maximalIdeal R) Q] at hf
+  letI : Field (R ⧸ maximalIdeal R) := Ideal.Quotient.field _
+  letI : Field (integralClosure R M ⧸ Q) := Ideal.Quotient.field _
+  haveI : Module.Free (R ⧸ maximalIdeal R) (integralClosure R M ⧸ Q) :=
+    Module.Free.of_divisionRing _ _
+  have hbot := (Subalgebra.bot_eq_top_iff_finrank_eq_one (F := R ⧸ maximalIdeal R)
+    (E := integralClosure R M ⧸ Q)).mpr hf
+  refine ⟨fun x => ?_⟩
+  have hx : x ∈ (⊥ : Subalgebra (R ⧸ maximalIdeal R) (integralClosure R M ⧸ Q)) := by
+    rw [hbot]; trivial
+  obtain ⟨y, rfl⟩ := Algebra.mem_bot.mp hx
+  exact isSeparable_algebraMap y
+
+end KummerUniformizer
+
 end TBrauerPurity
 
 #print axioms TBrauerPurity.abhyankar_dvd_ramificationIdx
+#print axioms TBrauerPurity.ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq
+#print axioms TBrauerPurity.abhyankarDVR_conclusion_of_L_eq_K
