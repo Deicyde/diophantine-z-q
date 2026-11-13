@@ -146,3 +146,9 @@ docs/research/h5-neron.md.
 ## 18. Ingredient of H4a — PROVED (compiled ~02:43, scratch/h5-glue/BaseChangePts.lean)
 - `ptC_hom_comp_bO`, `ptCMapIso`, `ptsBaseChangeEquiv`: 𝒢'(ℂ)_{τ'} ≃ 𝒢(ℂ)_{τ'|_L} for 𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}.
   Axioms standard. The rest of H4a (ω base change, Arakelov degree, inf/sum) NOT attempted.
+
+## 19. Second review (read-only model, report vs H5Final.lean, ~02:45): Lean claims confirmed (project's
+NeronModelMinimal, copied statements identical, hypotheses of the final theorems exact); wording slips
+fixed (three of four glue, stale docstrings, map_genericUnit', BaseChangePts in table, P2 wording).
+H5Final.lean recompiled after docstring edits: 0 errors, standard axioms. All 12 scratch files
+recompiled sequentially ~02:44: 0 errors, standard axioms only.

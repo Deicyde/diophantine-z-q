@@ -1235,14 +1235,16 @@ theorem modelHeight_pullHodge_le {g : ℕ} (D : HodgeData L g V) (H : V' →ₗ[
 
 end Assembly
 
-/-- **Glue (stated): `L ⊗ ⋀^g f^*` is bijective for a generic isomorphism** (it is induced by the
+/-- **`L ⊗ ⋀^g f^*` is bijective for a generic isomorphism** (stated here; proved below as
+`hodgeMapBijective`) (it is induced by the
 ring isomorphism `genMap`, `stalkIso_of_genericIso`; STANDARD algebra). -/
 def HodgeMapBijective : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f], IsIso ((Over.pullback (jL L)).map f) →
     ∀ g : ℕ, Function.Bijective (hodgeMap 𝒢 𝒩 f g)
 
-/-- **Glue (stated): a Hodge line contains a nonzero lattice vector.** If `hodgeSpace g` is an
+/-- **A Hodge line contains a nonzero lattice vector** (stated here; proved below as
+`hodgeLatticeNonzero_of_omegaSpans omegaSpans`). If `hodgeSpace g` is an
 `L`-line, then `⋀^g ω_𝒩 ≠ 0` (`ω_𝒩` spans `ω_{A_L}`: `OmegaSpans`, proved in hodge-lattice; then
 the wedges of `ω_𝒩` span the line; STANDARD). -/
 def HodgeLatticeNonzero : Prop :=
@@ -2028,7 +2030,8 @@ theorem compositum (K : Type) [Field K] [NumberField K] (L L₀ : Type) [Field L
   · exact IsScalarTower.of_algebraMap_eq fun x => (f₀.commutes x).symm
 
 
-/-- **Glue (stated): an open immersion of group models does not increase the height.** If
+/-- **An open immersion of group models does not increase the height** (stated here; proved
+below as `openImmersionHeightLe`). If
 `f : 𝒰 → 𝒢` is a homomorphism of group models of `A_L` whose underlying morphism is an open
 immersion (so, by `genericIso_of_openImmersion`, an isomorphism on generic fibres), then
 `h(𝒰) ≤ h(𝒢)`: the unit section of `𝒢` factors through `𝒰` (`e_𝒢 = e_𝒰 ≫ f`), `f` induces
@@ -2048,8 +2051,8 @@ theorem openSubgroupHeight_of (hA : HeightAntitone) (hO : OpenImmersionHeightLe)
   have hi := genericIso_of_openImmersion 𝒰 𝒢 f
   exact le_antisymm (hO K A L 𝒰 𝒢 f hf hm hi) (hA K A L 𝒰 𝒢 f hm hi)
 
-/-- **H5 in the form R19-R21 need**, from the leaves N1, N2 and the two remaining glue
-statements `OpenImmersionHeightLe` and `ModelHeightBaseChange` (`NeronModelMinimal`,
+/-- **H5 in the form R19-R21 need**, from the leaves N1, N2 and `OpenImmersionHeightLe`,
+`ModelHeightBaseChange` (the former is proved below, giving `stableFaltingsHeight_eq_neron_all'`) (`NeronModelMinimal`,
 `GroupModelBaseChangeExists` are theorems; `OpenSubgroupHeight` follows). Same conclusion as h5-neron's
 `stableFaltingsHeight_eq_neron_all`. -/
 theorem stableFaltingsHeight_eq_neron_all (hN1 : NeronModelExists)

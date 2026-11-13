@@ -1,15 +1,15 @@
 # h5-glue (fleet note)
 
-**Main result.** Four of h5-neron's glue statements are now Lean theorems:
+**Main result.** Three of h5-neron's four glue statements are now Lean theorems:
 - `NeronModelMinimal` (the project's Prop in Height.lean);
 - `OpenSubgroupHeight` (M6);
 - `GroupModelBaseChangeExists` (H4b);
-- behind the first two, `HeightAntitone` (a homomorphism of group models that is a generic iso
-  does not increase the height) and `OpenImmersionHeightLe`.
+- also proved: two new intermediate statements, `HeightAntitone` (a homomorphism of group models
+  that is a generic iso does not increase the height) and `OpenImmersionHeightLe`.
 
 H5 in the multi-field form R19-R21 need (`stableFaltingsHeight_eq_neron_all'`, same conclusion as
 h5-neron's) now rests on leaves N1, N2 and one glue Prop, `ModelHeightBaseChange` (H4a);
-h5-neron's version needed six. Additivity h(A)+h(B) ≤ h(A×B) needs only N1 and
+h5-neron's version needed N1, N2 and four glue Props. Additivity h(A)+h(B) ≤ h(A×B) needs only N1 and
 `ProductModelHeight`.
 
 **What compiles.** `scratch/h5-glue/H5Final.lean` (self-contained, about 2630 lines, about 19 s):
@@ -31,8 +31,8 @@ Its main pieces:
   `OmegaSpans` (copied verbatim), not from dimension theory. So `NeronModelMinimal` is genuine
   glue, as h5-neron (d) said. An earlier draft and the model review thought the rank half of
   `HodgeLatticeTheorem` was needed; that is superseded.
-- `ProductModelHeight` probably needs AN3-type analytic input: a product uniformization has to
-  split into uniformizations of the factors (SPECULATIVE).
+- `ProductModelHeight` needs AN3-type analytic input, both existence and uniqueness: a product
+  uniformization has to split into uniformizations of the factors (SPECULATIVE).
 - The model review of the statements found nothing false or vacuous.
 
 **Remains.**

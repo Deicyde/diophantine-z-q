@@ -19,8 +19,9 @@ mathematics with a reference. **SPECULATIVE** = estimate. **UNVERIFIED** = locat
 
 ## 0. Main result
 
-**Proved** (VERIFIED, `scratch/h5-glue/H5Final.lean`). Four of h5-neron's glue statements and
-the multi-field H5 reduction:
+**Proved** (VERIFIED, `scratch/h5-glue/H5Final.lean`). Three of h5-neron's four glue statements
+(`NeronModelMinimal`, M6, H4b), two new intermediate statements, and the multi-field H5
+reduction:
 
 ```lean
 theorem ZInQ.H5Glue.neronModelMinimal : ZInQ.DefFaltings.NeronModelMinimal  -- the project's Prop
@@ -33,7 +34,8 @@ theorem ZInQ.H5Glue.openImmersionHeightLe : OpenImmersionHeightLe
 ```
 
 **H5 in the multi-field form that R19-R21 need now rests on the leaves N1, N2 and one glue
-statement, `ModelHeightBaseChange` (H4a).** h5-neron's version needed six:
+statement, `ModelHeightBaseChange` (H4a).** h5-neron's version needed the two leaves and four
+glue statements:
 
 ```lean
 theorem stableFaltingsHeight_eq_neron_all' (hN1 : NeronModelExists)
@@ -106,7 +108,7 @@ theorem stableFaltingsHeight_eq_neron_all' (hN1 : NeronModelExists)
 | `isOpenImmersion_pullback_map`, `isIso_of_openImmersion_self`, `genericIso_of_openImmersion` | open immersions of group models are generic isos | proved |
 | `ptsEquiv`, `pts_comp_bijective` | a generic iso is bijective on `ℂ`-points | proved |
 | `genericFibreStalkIso`, `fst_genericFibreUnit` | copied from hodge-lattice §9-§10 | proved |
-| `map_genericUnit`, `stalkIso_of_genericIso` | `f(ξ_𝒢) = ξ_𝒩`; `𝒪_{𝒩,f(ξ)} ≅ 𝒪_{𝒢,ξ}` along a generic iso | proved |
+| `map_genericUnit'` (`map_genericUnit` in `Stalk.lean`), `stalkIso_of_genericIso` | `f(ξ_𝒢) = ξ_𝒩`; `𝒪_{𝒩,f(ξ)} ≅ 𝒪_{𝒢,ξ}` along a generic iso | proved |
 | `evalAt_comp`, `isAnalyticUniformization_comp` | `Φ ↦ Φ ≫ f` transports analytic uniformizations, same period lattice | proved |
 | `germAlong_comp_eventuallyEq`, `jacDet_comp_map`, `genMap`, `jacDet_comp_genMap` | Jacobian determinants along `f` and the stalk map `genMap` | proved |
 | `genMap_structMap`, `cotMap`, `cotMap_omegaAt`, `cotMap_omega` | `f^* : ω_{𝒩_L} →ₗ[𝓞_L] ω_{𝒢_L}`; `f^*(ω_𝒩) ⊆ ω_𝒢` at every prime | proved |
@@ -124,7 +126,8 @@ theorem stableFaltingsHeight_eq_neron_all' (hN1 : NeronModelExists)
 | `stableFaltingsHeight_eq_neron_all` | H5, §0 | proved from N1, N2, `OpenImmersionHeightLe`, `ModelHeightBaseChange` |
 | `stableFaltingsHeight_add_le_of_productModelHeight` | `h(A)+h(B) ≤ h(C)` for `C ≅ A × B` | proved from N1, P2 |
 
-Copied verbatim from h5-neron (statements, namespace changed): `IsBaseChangeOf`,
+Copied verbatim from h5-neron (statements; namespace changed; in `IsBaseChangeOf` the section
+binders `{K} [Field K] {A}` are written out, giving the same signature): `IsBaseChangeOf`,
 `GroupModelBaseChangeExists`, `IsOpenSubgroupModel`, `NeronModelExists` (leaf N1),
 `SemistableNeronIdentityComponent` (leaf N2), `ModelHeightBaseChange`, `OpenSubgroupHeight`,
 `compositum` (with proof), and the product material (`NeronProp`, `IsProductAbVar`,
@@ -159,15 +162,22 @@ Build: `lake build ZInQKernel.HDecomp.Faltings.Leaves` (1m27 on this host), then
     the best `τ'` above it (a minimum is at most the average).
 
   SPECULATIVE size: L.
-- **`ProductModelHeight` (P2)**, for additivity only, is probably **not provable from the
-  definitions alone** (SPECULATIVE, argued, not checked in Lean).
+- **`ProductModelHeight` (P2)**, for additivity only, is not formal from the definitions: it
+  needs analytic results of the type of AN3, which Mathlib lacks (SPECULATIVE, argued, not
+  checked in Lean).
   - It says `h(𝒢₁) + h(𝒢₂) ≤ h(𝒢₁ × 𝒢₂)`. A metrization of the product must then yield
     metrizations of the factors.
   - That needs the uniformization of `𝒢₁ × 𝒢₂` to split, up to a linear change of coordinates,
     into uniformizations of the factors. This is analytic input of the type of
     `AnalyticUniformizationExists`/`Unique` (AN3).
-  - Without it, a factor could have no metrization (height `⊤`) while the product has one.
+  - Both halves of AN3 enter:
+    - existence (or the splitting itself), so that the factors are metrizable;
+    - uniqueness (`AnalyticUniformizationUnique`), to compare an arbitrary metrization of the
+      product with products of metrizations of the factors.
+  - Without them, a factor could have no metrization (height `⊤`) while the product has one;
+    when the other factor's height is not `⊥`, P2 then fails, since `⊥ + ⊤ = ⊥` in `EReal`.
   - Recommendation: state P2 with AN3 among its hypotheses, or classify it with AN3.
+  - H4a and M6 need no such input, because they transport through bijections on ℂ-points.
 - **N1, N2** remain literature leaves.
 
 ## 5. Recommended decomposition update (for integration after the announcement)
@@ -199,6 +209,12 @@ Findings:
 - **Documentation point:** `HeightAntitone` needs `isLattice` for `⋀^g ω_𝒩`. I then proved
   `HeightAntitone`, and that input comes from `OmegaSpans` (finding (a)). The review's suggestion
   that the rank half of `HodgeLatticeTheorem` is needed is therefore superseded.
+- A second read-only model review checked the report against `H5Final.lean`. It confirmed that
+  `neronModelMinimal` proves the project's `NeronModelMinimal` and that no project definition is
+  redefined. It confirmed that the copied statements match h5-neron, and that
+  `stableFaltingsHeight_eq_neron_all'` takes exactly N1, N2 and H4a. It flagged wording slips:
+  "four" glue statements proved where it is three, stale "Glue (stated)" docstrings, a wrong
+  name, a missing file in §3, and an overstated P2 claim. All are fixed.
 - **`OpenImmersionHeightLe`:** true, with no extra input. Now proved, with no `HodgeLatticeTheorem`
   input beyond `OmegaSpans`, which is used for the nonvanishing of `⋀^g ω_𝒰`.
 - The final proofs (`JacDet.lean`, `NeronMinimal.lean`, `H5Final.lean`) were not reviewed by a
