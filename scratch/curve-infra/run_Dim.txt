@@ -1,0 +1,3 @@
+'CurveInfra.dimEqTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.dimEqTrdegAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'CurveInfra.algDepOfTrdegOne' depends on axioms: [propext, Classical.choice, Quot.sound]

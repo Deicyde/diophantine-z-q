@@ -1,0 +1,52 @@
+scratch/period-map/DevHeavy.lean:134:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-map/DevHeavy.lean:136:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-map/DevHeavy.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevHeavy.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevHeavy.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevHeavy.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevHeavy.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevHeavy.lean:549:4: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
+scratch/period-map/DevHeavy.lean:549:22: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
+scratch/period-map/DevHeavy.lean:578:68: warning: this tactic is never executed
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.omegaSiegel_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevHeavy.lean:1035:2: warning: Try this: 
+  haveI̵
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+'HSyn.G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+real	0m17.359s
+user	0m26.573s
+sys	0m1.799s

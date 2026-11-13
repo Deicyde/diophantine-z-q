@@ -1,1 +1,7 @@
 TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.Vanishing
+TauCeti.NumberTheory.ModularForms.AtkinLehner.LevelRaise
+TauCeti.NumberTheory.ModularForms.AtkinLehner.NewSpace
+TauCeti.NumberTheory.ModularForms.AtkinLehner.OldSpace
+TauCeti.NumberTheory.ModularForms.AtkinLehner.Sign
+TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.AtkinLehner
+TauCeti.NumberTheory.ModularForms.Newforms.BadPrime.Descent
