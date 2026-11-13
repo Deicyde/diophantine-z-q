@@ -8,6 +8,7 @@ import ZInQKernel.Contrib.T14.Main
 import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.X1ConstantField
 import ZInQKernel.Contrib.FrobPieces.SmoothGeomConnIntegral
+import ZInQKernel.Contrib.SpreadOut.NumberField
 import ZInQKernel.Contrib.BrauerT14T15.Main
 import ZInQKernel.Contrib.LocalKW.T30
 import ZInQKernel.Contrib.KroneckerWeber.Leaves
@@ -104900,6 +104901,31 @@ end  -- assemble-port: closes an unclosed `noncomputable section` of the copied 
 
 end G0A3_z93_linkedfrob
 
+section G0A3_z94_spreadout
+/-! ## assemble-port: spread-out (N1-g1 `AbVarSpreadsOut` from three EGA IV leaves)
+
+spread-out proves, in the kernel module `ZInQKernel/Contrib/SpreadOut/NumberField.lean` (merged from origin/wip/spread-out,
+imported here through imports_tailD.txt), `ZInQ.Contrib.SpreadOut.NF.abVarSpreadsOut_of_ega`: the body of neron-lg's
+`AbVarSpreadsOut` for the kernel's `PkgI3.AbVar` (`ZInQKernel/HDecomp/Objects.lean`), from the leaves `EGAIV_8_8_2_ii`,
+`EGAIV_8_10_5_xii`, `EGAIV_17_7_8_ii` (`ZInQKernel/Contrib/SpreadOut/Spread.lean`, Mathlib-only statements). The theorem
+below applies it to frob-pieces' copy `FrobPiecesNeron.AbVarSpreadsOut` (over this file's `PkgI3.AbVar`, a structure with
+the same five fields): an abelian variety `B` of this file is sent to the kernel's `⟨B.X⟩`, and the conclusion, which
+mentions only `B.X` and its group structure, is accepted by unfolding. -/
+
+namespace HSyn
+
+/-- **N1-g1 from EGA IV₃ 8.8.2 (ii), EGA IV₃ 8.10.5 (xii), EGA IV₄ 17.7.8 (ii)** (spread-out). -/
+theorem abVarSpreadsOut_of_ega (h882 : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii)
+    (hpr : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii)
+    (hsm : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii) : FrobPiecesNeron.AbVarSpreadsOut :=
+  fun L _ _ B => _root_.ZInQ.Contrib.SpreadOut.NF.abVarSpreadsOut_of_ega h882 hpr hsm L ⟨B.X⟩
+
+end HSyn
+
+#print axioms HSyn.abVarSpreadsOut_of_ega
+
+end G0A3_z94_spreadout
+
 section G0A3_z95_bundle4
 /-! ## g0-assemble3: `ResearchLeaves4`, `GluePieces4`, `sixContactMin_of_leaves4`
 
@@ -107221,14 +107247,15 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
     r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (30 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
+/-- **The named Props left after assemble-port** (32 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
 fields proved or moved since (table: docs/research/assemble-port.md §2), plus linked-ram's `upperBreakBound` (LEAF?) and
 `betaTrivialAtTwo` (GLUE), which replace `kernelFieldBreaks`, and linked-ram's corrected `tateRamAtThreeD` (GLUE), which
 replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1),
 period-glue's leaves `gammaStarGen` (LEAF?) and `t11aRiemannHom` (LEAF), which replace `s8WeightExact` and
 `qmTwistLattice`, and ts-hecke's `y3Connected` (LEAF), `curveNormChart`, `curveChartInf`, `heckeFibreSizes` (GLUE), which
 replace `heckeIrreducible`, `heckeNormalizationIrr`, `heckeDegree` (proved from T5) and `heckeBranch`, and
-linked-frob's `abVarSpreadsOut` (GLUE), `properSmoothGenConnected` (LEAF?), T4, T3 (LEAF), which replace `linkedFrob`. -/
+linked-frob's and spread-out's three EGA IV leaves, `properSmoothGenConnected` (LEAF?), T4, T3 (LEAF), which replace
+`linkedFrob`. -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -107304,10 +107331,15 @@ structure GluePieces5 : Prop where
   /-- ts-hecke, GLUE (twist-fibre sizes 144/36/24/72 of `Y₃ → P¹`, from Shimura's uniformization and Baba–Granath §3.1).
   With `curveChartInf`, T5, `R1R2fp` and the proved `RamOfFibreCount` it gives `HeckeBranch` (`heckeBranch_of'`). -/
   heckeFibreSizes : TSHecke.HeckeFibreSizes
-  /-- linked-frob / neron-lg, GLUE (N1-g1: an abelian variety over a number field spreads out to an abelian scheme over
-  `𝓞_L[1/f]`; EGA IV₃ 8.8.2, 8.10.5 (xii), IV₄ 17.7.8 (ii); spread-out reduces it to these three EGA IV statements, not
-  folded). With the next three fields it gives linked-tate's `LinkedFrob` (`LinkedFrobRed.linkedFrob_of_neron_nmp`). -/
-  abVarSpreadsOut : FrobPiecesNeron.AbVarSpreadsOut
+  /-- spread-out, LEAF (EGA IV₃ 8.8.2 (ii): descent of schemes of finite presentation along a cofiltered limit with affine
+  transition maps; Stacks 01ZM; locators UNVERIFIED). With the next two it gives neron-lg's N1-g1 `AbVarSpreadsOut`
+  (`abVarSpreadsOut_of_ega`, part z94), which with the following fields gives `LinkedFrob`
+  (`LinkedFrobRed.linkedFrob_of_neron_nmp`). -/
+  egaIV_8_8_2_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_8_2_ii
+  /-- spread-out, LEAF (EGA IV₃ 8.10.5 (xii): descent of properness; Stacks 081F; UNVERIFIED). -/
+  egaIV_8_10_5_xii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_8_10_5_xii
+  /-- spread-out, LEAF (EGA IV₄ 17.7.8 (ii): descent of smoothness; Stacks 07RP; UNVERIFIED). -/
+  egaIV_17_7_8_ii : _root_.ZInQ.Contrib.SpreadOut.EGAIV_17_7_8_ii
   /-- frob-pieces, LEAF? (Zariski's connectedness theorem in the form used: a smooth proper `𝓞_L[1/f]`-scheme with
   geometrically connected generic fibre is geometrically connected; EGA III₁ 4.3). -/
   properSmoothGenConnected : FrobPiecesNeron.ProperSmoothGenConnected
@@ -107397,7 +107429,9 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
         (LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 hFS
           (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27)
           (UnramTate.linkedFrobRam_of
-              (LinkedFrobRed.linkedFrob_of_neron_nmp gp.abVarSpreadsOut gp.properSmoothGenConnected
+              (LinkedFrobRed.linkedFrob_of_neron_nmp
+                (abVarSpreadsOut_of_ega gp.egaIV_8_8_2_ii gp.egaIV_8_10_5_xii gp.egaIV_17_7_8_ii)
+                gp.properSmoothGenConnected
                 gp.reductionTorsionBijective gp.neronMappingAbelianScheme)
             (UnramTate.linkedRam_of' hG3
               (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
@@ -107406,8 +107440,8 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (30 fields: 14 LEAF, 6 LEAF?,
-10 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (32 fields: 17 LEAF, 6 LEAF?,
+9 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
   sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
@@ -107446,6 +107480,7 @@ end
 #print axioms UnramTate.kernelFieldBreaksHigh
 #print axioms G0ModField.KernelField.twistDescent
 #print axioms LinkedFrobRed.linkedFrob_of_neron_nmp
+#print axioms HSyn.abVarSpreadsOut_of_ega
 #print axioms TSHecke.heckeIrreducible_of_connected
 #print axioms TSHecke.heckeNormalizationIrr_of
 #print axioms TSHecke.heckeDegree_of_torsion

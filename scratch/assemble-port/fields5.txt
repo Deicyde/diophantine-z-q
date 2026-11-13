@@ -24,7 +24,9 @@ y3Connected
 curveNormChart
 curveChartInf
 heckeFibreSizes
-abVarSpreadsOut
+egaIV_8_8_2_ii
+egaIV_8_10_5_xii
+egaIV_17_7_8_ii
 properSmoothGenConnected
 reductionTorsionBijective
 neronMappingAbelianScheme

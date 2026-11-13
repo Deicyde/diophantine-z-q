@@ -120,3 +120,9 @@
 - GluePieces5: − linkedFrob (SPECULATIVE GLUE) ⇐ abVarSpreadsOut (GLUE N1-g1), properSmoothGenConnected (LEAF?),
   reductionTorsionBijective (T4 I2-Red, LEAF), neronMappingAbelianScheme (T3 I2-NMP, LEAF): 30 fields (14 LEAF, 6 LEAF?,
   10 GLUE). TailD: VERIFIED exit 0, 78 s, no sorryAx, all axiom reports standard.
+- Merged origin/wip/spread-out (report). Kernel import ZInQKernel.Contrib.SpreadOut.NumberField added to imports_tailD.txt
+  (lake build OK, 9052 jobs). Part z94: `HSyn.abVarSpreadsOut_of_ega : EGAIV_8_8_2_ii → EGAIV_8_10_5_xii → EGAIV_17_7_8_ii →
+  FrobPiecesNeron.AbVarSpreadsOut`, by `fun L _ _ B => NF.abVarSpreadsOut_of_ega h882 hpr hsm L ⟨B.X⟩` (this file's AbVar
+  sent to the kernel's AbVar, same five fields; accepted by unfolding). TailD VERIFIED exit 0.
+- GluePieces5: − abVarSpreadsOut (GLUE) ⇐ egaIV_8_8_2_ii, egaIV_8_10_5_xii, egaIV_17_7_8_ii (LEAF): 32 fields (17 LEAF,
+  6 LEAF?, 9 GLUE). TailD: VERIFIED exit 0, 76 s, no sorryAx, all axiom reports standard.
