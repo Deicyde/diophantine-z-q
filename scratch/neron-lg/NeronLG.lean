@@ -618,6 +618,108 @@ theorem semistableLocalToGlobal_of (hloc : NeronLocalOnBase) (hsp : AbVarSpreads
   obtain ⟨𝒰, hU1, hU2⟩ := h3 hloc K A L₀ hL₀ 𝒩₀ h𝒩₀ L' 𝒩' h𝒩' 𝒱 h𝒱
   exact ⟨𝒰, 𝒱, h𝒱, hU1, hU2⟩
 
+
+/-! ## §5. The whole Néron package: N1 and N2 from four leaves and six glue statements
+
+Copied verbatim from `scratch/tau-n1n2/N1N2.lean` (statements and proofs): N2, the leaf N1-self
+and its use, the local leaves N1-loc and N2-loc, and the two assembly theorems of tau-n1n2. -/
+
+/-- (verbatim) **Leaf N2 (semistable reduction and base change of the identity component).** For
+`A` over a number field `K` there are a finite extension `L₀/K` and a Néron model `𝒩₀` over
+`𝓞_{L₀}` such that for every finite extension `L'/L₀` and every Néron model `𝒩'` over `𝓞_{L'}`,
+there is a group model `𝒰` (the identity component `𝒩'⁰`) that is an open subgroup both of `𝒩'`
+and of a base change `𝒱` of `𝒩₀` (namely `𝒱 = 𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'}`, with
+`𝒰 = 𝒩₀⁰ ×_{𝓞_{L₀}} 𝓞_{L'}`). Consequence of SGA 7 IX Thm 3.6 (Grothendieck's semistable
+reduction theorem: `A_{L₀}` is semistable for some finite `L₀`) and SGA 7 IX Prop./Cor. 3.3 (in
+the semistable case `(𝒩_{L'})⁰ = (𝒩⁰)_{L'}`), with the openness of the identity component
+(SGA 3 VI_B 3.10) and the compatibility of Néron models with localization (BLR §1.2); all
+locators UNVERIFIED. -/
+def SemistableNeronIdentityComponent : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K),
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+        ∃ 𝒰 𝒱 : GroupModel A L', IsBaseChangeOf 𝒱 𝒩₀ ∧ IsOpenSubgroupModel 𝒰 𝒩' ∧
+          IsOpenSubgroupModel 𝒰 𝒱
+
+/-- **Leaf N1-self (BLR §1.4 Thm 3, literal form for `R = 𝓞_L`).** Every abelian variety `B` over
+a number field `L` has a Néron model over `𝓞_L`. Bosch–Lütkebohmert–Raynaud, *Néron Models*,
+§1.4 Thm 3 ("an abelian variety over the field of fractions of a Dedekind domain `R` has a Néron
+model over `R`"), UNVERIFIED locator; the group structure of the Néron model is the one induced
+by the mapping property (BLR §1.2), and "finite type" gives `QuasiCompact`. -/
+def NeronModelExistsSelf : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L), Nonempty (NeronModelOver (𝓞 L) L B)
+
+/-- A Néron model of `A_L` over `𝓞_L` (as `NeronModelOver`) is a Néron `GroupModel` of `A` over
+`L`: the fields coincide (`genericFibre L G` is by definition the pullback along `𝓞_L → L`). -/
+noncomputable def NeronModelOver.toGroupModel {K : Type} [Field K] {A : AbVar K} {L : Type}
+    [Field L] [NumberField L] [Algebra K L] (𝒩 : NeronModelOver (𝓞 L) L (A.baseChange L)) :
+    GroupModel A L where
+  G := 𝒩.G
+  gen := 𝒩.gen
+  gen_hom := 𝒩.gen_hom
+
+theorem NeronModelOver.toGroupModel_isNeronModel {K : Type} [Field K] {A : AbVar K} {L : Type}
+    [Field L] [NumberField L] [Algebra K L] (𝒩 : NeronModelOver (𝓞 L) L (A.baseChange L)) :
+    𝒩.toGroupModel.IsNeronModel :=
+  fun Y _ => 𝒩.neron Y
+
+/-- **N1 from N1-self (proved):** apply the literal published statement to `B = A_L`. -/
+theorem neronModelExists_of_self (h : NeronModelExistsSelf) : NeronModelExists := by
+  intro K _ A L _ _ _
+  obtain ⟨𝒩⟩ := h L (A.baseChange L)
+  exact ⟨𝒩.toGroupModel, 𝒩.toGroupModel_isNeronModel⟩
+
+/-- **Leaf N1-loc (Néron models over a discrete valuation ring).** For an abelian variety `B` over
+a number field `L` and a discrete valuation ring `O ⊂ L` with fraction field `L` (a valuation
+subring that is a DVR; these are the localizations `𝓞_{L,𝔭}` at the nonzero primes), `B` has a
+Néron model over `O`. BLR, *Néron Models*, §1.4 Thm 3 for the Dedekind domain `R = O` (in BLR the
+local case is §1.3 Cor. 2 (strictly henselian `R`) with étale descent §6.2; UNVERIFIED locators).
+A special case of the published theorem (only number fields, only DVRs). -/
+def LocalNeronModelExists : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (O : ValuationSubring L) [IsDiscreteValuationRing O]
+    (B : AbVar L), Nonempty (NeronModelOver O L B)
+
+/-- **N1-self from the local leaf and the glue (proved).** -/
+theorem neronModelExistsSelf_of_local (hloc : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hglue : NeronLocalToGlobal) : NeronModelExistsSelf :=
+  fun L _ _ B => hglue hab L B (fun O _ => hloc L O B)
+
+/-- **N1 from the local leaf and the glue (proved).** -/
+theorem neronModelExists_of_local (hloc : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hglue : NeronLocalToGlobal) : NeronModelExists :=
+  neronModelExists_of_self (neronModelExistsSelf_of_local hloc hab hglue)
+
+/-- **Leaf N2-loc (semistable reduction and the identity component, local form).** For an
+abelian variety `A` over a number field `K` and every DVR `O ⊂ K`, `LocalSemistableAt A O`.
+Consequence of SGA 7 I, Exp. IX, Thm 3.6 (Grothendieck: `A` acquires semistable reduction at all
+places over `O` after a finite extension `L₀`; e.g. `L₀ = K(A[m])`, `m ≥ 3` prime to the residue
+characteristic, by Exp. IX Prop. 4.7) and Exp. IX Prop./Cor. 3.3 (for semistable reduction the
+canonical morphism `(𝒩₀⁰)_{O'} → 𝒩'⁰` is an isomorphism, for any extension of DVRs), with the
+openness of the identity component of a smooth group scheme (SGA 3 VI_B 3.10). All locators
+UNVERIFIED. -/
+def LocalSemistableIdentityComponent : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
+    [IsDiscreteValuationRing O], LocalSemistableAt A O
+
+/-- **N2 from the local leaf N2-loc, the leaves N1 and N1-ab, and the glue (proved).** -/
+theorem semistableNeronIdentityComponent_of_local (hN1 : NeronModelExists)
+    (hab : AbelianSchemeIsNeron) (hloc : LocalSemistableIdentityComponent)
+    (hglue : SemistableLocalToGlobal) : SemistableNeronIdentityComponent :=
+  fun K _ _ A => hglue hN1 hab K A (fun O _ => hloc K A O)
+
+/-- **N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the glue N1-g1, N1-g2, N1-g3,
+N2-g1', N2-g2, N2-g3 (proved).** -/
+theorem n1_n2_of_leaves_and_glue (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hloc2 : LocalSemistableIdentityComponent) (hNL : NeronLocalOnBase)
+    (g1 : AbVarSpreadsOut) (g2 : NeronNearPoint) (g3 : NeronGlueAway) (g4 : GoodPlaceAnyField)
+    (g5 : LocalSemistableMono) (g6 : SemistableGlobalOfLocal) :
+    NeronModelExists ∧ SemistableNeronIdentityComponent :=
+  have hN1 : NeronModelExists := neronModelExists_of_local hloc1 hab (neronLocalToGlobal_of g1 hNL g2 g3)
+  ⟨hN1, semistableNeronIdentityComponent_of_local hN1 hab hloc2
+    (semistableLocalToGlobal_of hNL g1 (goodPlacesAnyField_of g4) g5 g6)⟩
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -629,3 +731,4 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.dvrAt_center
 #print axioms ZInQ.NeronLG.badPlaces_finite
 #print axioms ZInQ.NeronLG.goodPlacesAnyField_of
+#print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue
