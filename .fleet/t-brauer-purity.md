@@ -26,4 +26,6 @@ compile. **Statement audit:** all five Props are correct as stated (docs §2).
 `scratch/t-brauer-purity/{T2Kernel, T2Full, LocalH2RealKernel, LocalH2Real, KummerUnramified,
 KummerEtale, AbhyankarBricks}.lean`.
 
+Final recompile of all seven files at 23:58 PST: clean.
+
 Report: docs/research/t-brauer-purity.md. Log: scratch/t-brauer-purity/log.md.
