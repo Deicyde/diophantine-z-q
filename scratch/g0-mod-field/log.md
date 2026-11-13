@@ -41,3 +41,11 @@
   `descentDatum_of_conjugacy` (B1, N5 L645-663: `a_σ = |ker m_σ|^{-1/4}`, `ε = sgn c`; local constancy
   via `isLocallyConstant_of_openSubgroup` on `G_L × G_L`).
 - VERIFIED: 0 errors; all six `#print axioms` lines: [propext, Classical.choice, Quot.sound].
+
+## run15 (02:12): `a` pinned on G_L
+- Found (model check): `DescentDatum` without constraints on `a` over `G_L` leaves `a` free up to a
+  character `G_ℚ → ℝ_{>0}`; g0-mod-galois' `G7Out` asks `a = 1` on `G_{L'}`. Added to `DescentDatum`:
+  `a k = 1`, `a (σk) = a σ`, `a (kσ) = a σ` for `k ∈ G_L`; to `ConjugacyData`: the matching kernel-size
+  clauses (`|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|`). `descentDatum_of_conjugacy`
+  re-proved.
+- VERIFIED: 0 errors, all axioms standard.

@@ -74,6 +74,7 @@ abbrev PtQ (L : IF) (A : PkgI3.AbVar L) : Type := Additive (A.Pt Qbar)
 locally constant sign 2-cocycle of `G_ℚ` inflated from `Gal(L/ℚ)`, and it is the cocycle of `A`:
 there are maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` (`μ_σ : ^σA → A` the `B`-linear conjugacy isogeny over
 `L`, `σ` acting on coordinates) and reals `a_σ > 0` (`a_σ = (deg μ_σ)^{-1/4}`) with
+* `a` inflated from `Gal(L/ℚ)` with `a = 1` on `G_L`,
 * `m_σ` the Galois action of `σ` for `σ ∈ G_L` (`μ_σ = 1` there),
 * `m_{σk} = m_σ m_k`, `m_{kσ} = m_k m_σ` for `k ∈ G_L` (`μ` inflated from `Gal(L/ℚ)`, defined
   over `L`),
@@ -88,6 +89,7 @@ def DescentDatum (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) : Prop 
   IsSignCocycle ε ∧ InflatedFrom L ε ∧ ε 1 1 = 1 ∧
   ∃ (m : GQ → (PtQ L A →+ PtQ L A)) (a : GQ → ℝ),
     (∀ σ, 0 < a σ) ∧
+    (∀ σ k : GQ, k ∈ GQL L → a k = 1 ∧ a (σ * k) = a σ ∧ a (k * σ) = a σ) ∧
     (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
         m σ = MonoidHom.toAdditive (A.galAct σ')) ∧
     (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) ∧
@@ -131,7 +133,8 @@ geometric half).** Maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` with the first four 
 `DescentDatum`; the discrepancy `c(σ,τ) = n/d ∈ ℚ^×` with `d·m_σ m_τ = n·m_{στ}`, a 2-cocycle
 inflated from `Gal(L/ℚ)` with `c(1,1) = 1`; and degree multiplicativity in the form
 `|ker m_σ|·|ker m_τ| = c(σ,τ)⁴·|ker m_{στ}|` (`deg μ = |ker μ(ℚ̄)|` in characteristic 0,
-`deg[n] = n⁴` on a surface). -/
+`deg[n] = n⁴` on a surface); and `|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|` for
+`k ∈ G_L` (`m_k` is bijective; derivable from the first two clauses, kept as a clause). -/
 def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A))
     (c : GQ → GQ → ℚ) : Prop :=
   (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
@@ -147,7 +150,9 @@ def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A
   (∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) →
       c σ τ = c σ' τ') ∧
   c 1 1 = 1 ∧
-  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker)
+  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker) ∧
+  (∀ σ k : GQ, k ∈ GQL L → Nat.card (m k).ker = 1 ∧ Nat.card (m (σ * k)).ker = Nat.card (m σ).ker ∧
+      Nat.card (m (k * σ)).ker = Nat.card (m σ).ker)
 
 /-- `a_σ = |ker m_σ|^{-1/4}` (`= (deg μ_σ)^{-1/4}`, N5 L645). -/
 noncomputable def normA {L : IF} {A : PkgI3.AbVar L} (m : GQ → (PtQ L A →+ PtQ L A)) (σ : GQ) :
@@ -159,7 +164,7 @@ normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, and `(m, a 
 theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A)) (c : GQ → GQ → ℚ)
     (h : ConjugacyData L A m c) : DescentDatum L A (fun σ τ => sgnU (c σ τ)) := by
-  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg⟩ := h
+  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg, hkerL⟩ := h
   have hcard : ∀ σ, 0 < Nat.card (m σ).ker := fun σ => by
     haveI : Finite (m σ).ker := (hfin σ).2.to_subtype
     exact Nat.card_pos
@@ -179,13 +184,18 @@ theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois �
     · intro x hx
       show act τ x = act τ (act k₂ x)
       rw [mem_GQL.mp hk.2 x hx]
-  refine ⟨⟨hloc, fun σ τ => sgnU_sq _, fun σ τ ρ => ?_⟩, ?_, ?_, m, normA m, ?_, hgal, hinfl,
+  refine ⟨⟨hloc, fun σ τ => sgnU_sq _, fun σ τ ρ => ?_⟩, ?_, ?_, m, normA m, ?_, ?_, hgal, hinfl,
     hend, hfin, ?_⟩
   · rw [← sgnU_mul (hc _ _).1 (hc _ _).1, ← sgnU_mul (hc _ _).1 (hc _ _).1, hcoc]
   · exact fun σ σ' τ τ' h1 h2 => by simp only [hcinf σ σ' τ τ' h1 h2]
   · show sgnU (c 1 1) = 1
     rw [hc11]; unfold sgnU; simp
   · intro σ; unfold normA; exact Real.rpow_pos_of_pos (by exact_mod_cast hcard σ) _
+  · intro σ k hk
+    obtain ⟨h1, h2, h3⟩ := hkerL σ k hk
+    unfold normA
+    rw [h1, h2, h3]
+    simp
   · intro σ τ
     obtain ⟨hc0, n, d, hd, hcnd, hnd⟩ := hc σ τ
     have hn : n ≠ 0 := by
