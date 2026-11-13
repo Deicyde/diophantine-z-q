@@ -26,3 +26,19 @@
 - T5Mobius.lean (T5Torsion + copies of Level3.onto/range_le/torsor, level3_finite, twistClassFinite_of with hT replaced by TorsionStructureC + σ): COMPILES, standard axioms (VERIFIED):
   - `LeafQM.AV.Pin.mobiusGlue_of_T35 : ZInQ.LeafPush2.UniformizationExists → MobiusGlue`
   (GluePiecesPin.mobius from TextbookLeaves.t35 alone; T5's only use in MobiusGlue is at K = ℚ̄, g = 2, n = 3.)
+- T5Torsion.lean part 4b (VERIFIED, compiles, standard axioms):
+  - `TorsionCardNonC` (TorsionCard on fields with IsEmpty (K →+* ℂ)),
+  - `torsionStructure_of_uniformization_of_nonC : UniformizationExists → TorsionCardNonC → PkgI2.TorsionStructure.{0}`,
+  - `torsionStructureAt` (T5 at one K with σ : K →+* ℂ, same shape as `hT K A g n hdim hn hnK`).
+- T5Full.lean = T5Mobius.lean + part 6 (copies of A6's goodReduction_of_QM_rational3_of_alg / ' and
+  QM/Structures' hrat, QML3.goodReduction with T35 + τ : K →+* ℂ for T5): COMPILES, standard axioms (VERIFIED):
+  - `GlueA6Alg.goodReduction_of_QM_rational3_C`, `..._C'`, `LeafQM.AV.hratC`, `LeafQM.AV.QML3.goodReductionC`.
+
+## Consumers of T5 (VERIFIED by reading)
+- ZInQKernel/Contrib/Mobius/Glue.lean level3_finite ← twistClassFinite_of: K = Qbar (TwistClassFinite is over QML3 Qbar). Now `mobiusGlue_of_T35`.
+- ZInQKernel/HDecomp/QM/Structures.lean Level3.onto (n = 3, g = 2): K of the QML3 object.
+- ZInQKernel/HDecomp/A6/A6.lean goodReduction_of_QM_rational3* (n = 3^(2k), g = 2): K the field of the DVR; in the assembly
+  (G0Assemble2 good_of_QML3, line 59730) K : IntermediateField ℚ Qbar, finite over ℚ (a number field).
+- scratch/g0-assemble2 torsionBound3_of (line 56625): K = Qbar.
+- scratch/g0-assemble2 torsionCountPts_of_leaf (line 59756): L : IntermediateField ℚ Qbar.
+- All uses are at fields with a ring embedding into ℂ (Qbar → ℂ by IsAlgClosed.lift).
