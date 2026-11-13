@@ -179,4 +179,42 @@ theorem etaQuot32_slash_isZeroAtImInfty (γ : SL(2, ℤ)) :
     (C₁ * C₂)
   simpa using this
 
+
+/-! ### The cusp form -/
+
+theorem differentiableAt_etaQuot32 {z : ℂ} (hz : 0 < z.im) :
+    DifferentiableAt ℂ (fun z : ℂ => η (4 * z) ^ 2 * η (8 * z) ^ 2) z := by
+  have h4 : (4 * z) ∈ upperHalfPlaneSet := by
+    show 0 < (4 * z).im; simp; exact hz
+  have h8 : (8 * z) ∈ upperHalfPlaneSet := by
+    show 0 < (8 * z).im; simp; exact hz
+  have d4 : DifferentiableAt ℂ (fun z : ℂ => η (4 * z)) z :=
+    (differentiableAt_eta_of_mem_upperHalfPlaneSet h4).comp z
+      ((differentiableAt_id).const_mul 4)
+  have d8 : DifferentiableAt ℂ (fun z : ℂ => η (8 * z)) z :=
+    (differentiableAt_eta_of_mem_upperHalfPlaneSet h8).comp z
+      ((differentiableAt_id).const_mul 8)
+  exact (d4.pow 2).mul (d8.pow 2)
+
+/-- **`η(4τ)² η(8τ)² ∈ S₂(Γ₀(32))`.** -/
+def etaForm32 : CuspForm ((Gamma0 32).map (mapGL ℝ)) 2 where
+  toFun := etaQuot32
+  slash_action_eq' A hA := by
+    obtain ⟨γ, hγ, rfl⟩ := hA
+    have h := etaQuot32_slash_eq hγ
+    rw [ModularForm.SL_slash] at h
+    exact h
+  holo' := by
+    rw [UpperHalfPlane.mdifferentiable_iff]
+    refine .congr (fun z hz => (differentiableAt_etaQuot32 hz).differentiableWithinAt)
+      fun z hz => ?_
+    simp [etaQuot32, ofComplex_apply_of_im_pos hz]
+  zero_at_cusps' hc := by
+    rw [Subgroup.IsArithmetic.isCusp_iff_isCusp_SL2Z] at hc
+    rw [OnePoint.isZeroAt_iff_forall_SL2Z hc]
+    intro γ _
+    exact etaQuot32_slash_isZeroAtImInfty γ
+
+theorem coe_etaForm32 : (etaForm32 : ℍ → ℂ) = etaQuot32 := rfl
+
 end ZInQ.GZTheta
