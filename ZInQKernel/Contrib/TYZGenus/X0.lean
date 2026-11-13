@@ -1,5 +1,6 @@
 import Mathlib.AlgebraicGeometry.EllipticCurve.LFunction
 import Mathlib.NumberTheory.ModularForms.DedekindEta
+import Mathlib.NumberTheory.ModularForms.Discriminant
 import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
 import Mathlib.NumberTheory.ModularForms.Basic
 import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
@@ -37,6 +38,10 @@ memory). That is the curve `CurveA.curveA` of `TYZDecomp/CurveA.lean` (`ℚ`-iso
 * §11–§12 (proved) basic analytic facts: `x, y, f` are holomorphic on `ℍ`, `f` and `y` have no
   zeros there, `phiC τ = (x(τ), y(τ))` under `EtaModelEquation`, and `x, y, f` are invariant under
   `T = [[1,1],[0,1]] ∈ Γ₀(32)` (`xC_yC_fC_T_smul`, a piece of `EtaModelInvariant`).
+* §14 (proved) the Fricke involution on the eta quotients: `xC_fricke`, `yC_fricke`, and
+  `fC_fricke : f(−1/(32τ)) = −32τ² f(τ)` (`f` is a `W₃₂`-eigenform, eigenvalue `−1`).
+* §15 (proved) three of the eight cusp values of `CuspDictionary`: `∞`, `0`, `1/2`
+  (`cuspDictionary_partial`), and `x(z + 1/2) = x(z)`, `y(z + 1/2) = −y(z)`.
 * §13 (proved) `x, y, f` have real `q`-expansions: `η(−z̄) = conj η(z)` and
   `phiC (−τ̄) = conj (phiC τ)` (`phiC_neg_conj`), the analytic input for complex conjugation on
   Heegner points.
@@ -179,7 +184,8 @@ def CuspFormEta32 : Prop :=
 vertical paths `r + it`, `t → 0⁺`, `(x, y)` tends to `[0] ↦ (2,−4)`, `[1/2] ↦ (2,4)`,
 `[1/4] ↦ (−2,−4i)`, `[−1/4] ↦ (−2,4i)`, `[1/8] ↦ (−2i,0)`, `[−1/8] ↦ (2i,0)`, `[1/16] ↦ (0,0)`;
 and `|x| → ∞` at `∞`. VERIFIED numerically here (`scratch/x0-32/cusps.py`, `t = 10⁻³`, 6 digits),
-and it agrees with the PARI modular-symbol computation of `rv-tyz-inputs.md` §1.5a. -/
+and it agrees with the PARI modular-symbol computation of `rv-tyz-inputs.md` §1.5a. The cusps `∞`, `0`,
+`1/2` are PROVED (`cuspDictionary_partial`, §15); the five cusps `±1/4`, `±1/8`, `1/16` remain. -/
 def CuspDictionary : Prop :=
   (∀ r ∈ ({(0, 2, -4), (1 / 2, 2, 4), (1 / 4, -2, -4 * I), (-1 / 4, -2, 4 * I),
       (1 / 8, -2 * I, 0), (-1 / 8, 2 * I, 0), (1 / 16, 0, 0)} : Set (ℝ × ℂ × ℂ)),
@@ -225,8 +231,10 @@ def ptTC : PtAC := .some 2 (-4) nonsingular_TC
 `φ(W₃₂τ) + φ(τ) = T = (2, −4)`, i.e. `W₃₂` acts on `A` as `P ↦ T − P` (`W₃₂`-eigenvalue `−1` on
 `f`, root number `+1` of `A`; `W₃₂` swaps the cusps `∞ ↦ 0`, `O ↦ T`).
 
-VERIFIED numerically here (`scratch/x0-32/fricke.py`, three `τ`, 12 digits). Exact form: by
-`η(−1/z) = √(z/i) η(z)`, `x(W₃₂τ) = 2 + 8 η(2τ)η(16τ)²/(η(τ)²η(8τ))` (VERIFIED numerically). The
+VERIFIED numerically here (`scratch/x0-32/fricke.py`, three `τ`, 12 digits). Exact forms PROVED in
+§14 from Mathlib's `η(−1/z) = (√i)⁻¹√z η(z)`: `x(W₃₂τ) = 2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ))` (`xC_fricke`),
+`y(W₃₂τ) = −4η(2τ)²η(4τ)⁴/(η(τ)⁴η(8τ)²)` (`yC_fricke`), `f(W₃₂τ) = −32τ²f(τ)` (`fC_fricke`); what
+remains of this leaf is the eta identity saying that these are the coordinates of `T − (x, y)`. The
 action of `W_N` on the modular parametrization (`φ ∘ W_N = −w_N φ + φ(0)`, `w_N` the
 `W_N`-eigenvalue): STANDARD (e.g. Darmon, *Rational points on modular elliptic curves*, CBMS 101,
 §2; locator UNVERIFIED); used by TYZ (rv-tyz-inputs §1.5: "`[∞]^W = [0]`"). -/
@@ -1261,5 +1269,469 @@ theorem phiC_neg_conj (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = -starRingEnd 
     rw [e1, e2, map_zero]
 
 end Conj
+
+/-! ## §14 The Fricke involution `W₃₂ : τ ↦ −1/(32τ)` on `x, y, f` (proved)
+
+From Mathlib's `η(−1/z) = (√i)⁻¹ √z η(z)` (`ModularForm.eta_comp_eq_csqrt_I_inv`). In particular `f` is
+a `W₃₂`-eigenform with eigenvalue `−1` (`(f|₂W₃₂)(τ) = 32⁻¹τ⁻² f(−1/(32τ)) = −f(τ)`), the sign
+attached to root number `+1`. -/
+
+section Fricke
+
+open ModularForm
+
+/-- `c k = e^{(log k)/2} = √k` (as a complex number). -/
+def csq (k : ℕ) : ℂ := cexp (Real.log k / 2)
+
+theorem csq_mul {a b : ℕ} (ha : 0 < a) (hb : 0 < b) : csq (a * b) = csq a * csq b := by
+  unfold csq
+  rw [← Complex.exp_add]
+  congr 1
+  push_cast
+  rw [Real.log_mul (by positivity) (by positivity)]
+  push_cast
+  ring
+
+theorem csq_sq {k : ℕ} (hk : 0 < k) : csq k ^ 2 = k := by
+  unfold csq
+  rw [← Complex.exp_nat_mul]
+  have : ((2 : ℕ) : ℂ) * ((Real.log k : ℝ) / 2 : ℂ) = ((Real.log k : ℝ) : ℂ) := by push_cast; ring
+  rw [this, ← Complex.ofReal_exp, Real.exp_log (by exact_mod_cast hk)]
+  push_cast; rfl
+
+theorem csq_one : csq 1 = 1 := by simp [csq]
+
+theorem csq_ne_zero (k : ℕ) : csq k ≠ 0 := Complex.exp_ne_zero _
+
+theorem csqrt_natMul {k : ℕ} (hk : 0 < k) {z : ℂ} (hz : z ≠ 0) :
+    Complex.sqrt ((k : ℂ) * z) = csq k * Complex.sqrt z := by
+  have hk' : (0 : ℝ) < k := by exact_mod_cast hk
+  rw [_root_.sqrt_eq_exp (mul_ne_zero (by exact_mod_cast hk.ne') hz), _root_.sqrt_eq_exp hz,
+    show (k : ℂ) = ((k : ℝ) : ℂ) by push_cast; rfl, Complex.log_ofReal_mul hk' hz, csq,
+    ← Complex.exp_add]
+  congr 1
+  ring
+
+theorem csqrt_sq {z : ℂ} (hz : z ≠ 0) : Complex.sqrt z ^ 2 = z := by
+  rw [_root_.sqrt_eq_exp hz, ← Complex.exp_nat_mul]
+  rw [show ((2 : ℕ) : ℂ) * (Complex.log z / 2) = Complex.log z by push_cast; ring,
+    Complex.exp_log hz]
+
+/-- `η(−1/(kτ)) = (√i)⁻¹ · √k · √τ · η(kτ)`. -/
+theorem eta_neg_inv_natMul {k : ℕ} (hk : 0 < k) (τ : UpperHalfPlane) :
+    ModularForm.eta (-1 / ((k : ℂ) * τ)) =
+      (Complex.sqrt I)⁻¹ * (csq k * Complex.sqrt τ * ModularForm.eta ((k : ℂ) * τ)) := by
+  have hz := mul_mem_upperHalfPlaneSet hk τ
+  have h := ModularForm.eta_comp_eq_csqrt_I_inv hz
+  simp only [Function.comp, Pi.smul_apply, Pi.mul_apply, smul_eq_mul] at h
+  rw [h, csqrt_natMul hk τ.ne_zero]
+
+theorem etaD_fricke {d e : ℕ} (hd : 0 < d) (he : 0 < e) (hde : d * e = 32) (τ : UpperHalfPlane) :
+    etaD d (-1 / (32 * (τ : ℂ))) =
+      (Complex.sqrt I)⁻¹ * (csq e * Complex.sqrt τ * etaD e τ) := by
+  unfold etaD
+  have : (d : ℂ) * (-1 / (32 * (τ : ℂ))) = -1 / ((e : ℂ) * τ) := by
+    have hd' : (d : ℂ) ≠ 0 := by exact_mod_cast hd.ne'
+    have h32 : (32 : ℂ) = (d : ℂ) * e := by exact_mod_cast hde.symm
+    rw [h32]
+    field_simp [τ.ne_zero]
+  rw [this, eta_neg_inv_natMul he]
+
+theorem csq_values : csq 4 = 2 ∧ csq 16 = 4 ∧ csq 8 = 2 * csq 2 ∧ csq 32 = 4 * csq 2 := by
+  have h2 := csq_sq (k := 2) (by norm_num)
+  have h4 : csq 4 = 2 := by
+    rw [show (4 : ℕ) = 2 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), ← sq, h2]; norm_num
+  have h16 : csq 16 = 4 := by
+    rw [show (16 : ℕ) = 4 * 4 by norm_num, csq_mul (by norm_num) (by norm_num), h4]; norm_num
+  have h8 : csq 8 = 2 * csq 2 := by
+    rw [show (8 : ℕ) = 4 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), h4]
+  have h32 : csq 32 = 4 * csq 2 := by
+    rw [show (32 : ℕ) = 16 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), h16]
+  exact ⟨h4, h16, h8, h32⟩
+
+/-- **`x(W₃₂τ) = 2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ))`.** -/
+theorem xC_fricke (τ : UpperHalfPlane) :
+    xC (-1 / (32 * (τ : ℂ))) =
+      2 + 8 * (etaD 2 τ * etaD 16 τ ^ 2 / (etaD 1 τ ^ 2 * etaD 8 τ)) := by
+  unfold xC
+  rw [etaD_fricke (d := 2) (e := 16) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 16) (e := 2) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 32) (e := 1) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨-, h16, h8, -⟩ := csq_values
+  rw [h16, h8, csq_one]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hr : Complex.sqrt (τ : ℂ) ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq τ.ne_zero] at this; exact τ.ne_zero this
+  have hc := csq_ne_zero 2
+  have e1 := etaD_ne_zero (d := 1) (by norm_num) τ
+  have e8 := etaD_ne_zero (d := 8) (by norm_num) τ
+  field_simp
+  ring
+
+/-- **`y(W₃₂τ) = −4η(2τ)²η(4τ)⁴/(η(τ)⁴η(8τ)²)`.** -/
+theorem yC_fricke (τ : UpperHalfPlane) :
+    yC (-1 / (32 * (τ : ℂ))) =
+      -(4 * (etaD 2 τ ^ 2 * etaD 4 τ ^ 4 / (etaD 1 τ ^ 4 * etaD 8 τ ^ 2))) := by
+  unfold yC
+  rw [etaD_fricke (d := 8) (e := 4) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 16) (e := 2) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 32) (e := 1) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨h4, -, h8, -⟩ := csq_values
+  rw [h4, h8, csq_one]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hr : Complex.sqrt (τ : ℂ) ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq τ.ne_zero] at this; exact τ.ne_zero this
+  have hc := csq_ne_zero 2
+  have hc2 := csq_sq (k := 2) (by norm_num)
+  have e1 := etaD_ne_zero (d := 1) (by norm_num) τ
+  have e8 := etaD_ne_zero (d := 8) (by norm_num) τ
+  field_simp
+  push_cast at hc2
+  linear_combination (0 : ℂ) * hc2
+
+/-- **`f` is a `W₃₂`-eigenform with eigenvalue `−1`**: `f(−1/(32τ)) = −32τ² f(τ)`. -/
+theorem fC_fricke (τ : UpperHalfPlane) :
+    fC (-1 / (32 * (τ : ℂ))) = -32 * (τ : ℂ) ^ 2 * fC τ := by
+  unfold fC
+  rw [etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 8) (e := 4) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨h4, -, h8, -⟩ := csq_values
+  rw [h4, h8]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hI : Complex.sqrt I ^ 2 = I := csqrt_sq I_ne_zero
+  have hτ : Complex.sqrt (τ : ℂ) ^ 2 = τ := csqrt_sq τ.ne_zero
+  have hc2 := csq_sq (k := 2) (by norm_num)
+  push_cast at hc2
+  field_simp
+  linear_combination 16 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * Complex.sqrt (τ : ℂ) ^ 4 * hc2 +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (Complex.sqrt (τ : ℂ) ^ 2 + τ) * hτ +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (τ : ℂ) ^ 2 * (Complex.sqrt I ^ 2 + I) * hI +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (τ : ℂ) ^ 2 * Complex.I_sq
+
+end Fricke
+
+/-! ## §15 Three of the eight cusp values (proved; pieces of `CuspDictionary`)
+
+`|x(it)| → ∞` as `t → ∞` (cusp `∞ ↦ O`), `(x, y)(it) → (2, −4)` (cusp `0`) and `(x, y)(1/2 + it) → (2, 4)`
+(cusp `1/2`) as `t → 0⁺`, from the product expansion of `η`, the Fricke transforms of §14 and the
+half-period shift `x(z + 1/2) = x(z)`, `y(z + 1/2) = −y(z)`. -/
+
+section Cusps
+
+open Filter Topology
+
+/-- `F(q) = ∏ₙ (1 − q^{n+1})`. -/
+def prodF (q : ℂ) : ℂ := ∏' n : ℕ, (1 - q ^ (n + 1))
+
+theorem tendsto_prodF : Tendsto prodF (𝓝 0) (𝓝 1) := by
+  have := tendsto_tprod_one_add_of_dominated_convergence (𝓕 := 𝓝 (0 : ℂ)) (g := 0)
+    (f := fun (q : ℂ) (n : ℕ) ↦ -q ^ (n + 1)) (bound := fun n ↦ (1 / 2 : ℝ) ^ (n + 1))
+  simp only [Pi.zero_apply, norm_neg, norm_pow, add_zero, tprod_one] at this
+  unfold prodF
+  simp_rw [sub_eq_add_neg]
+  refine this
+    (by simpa only [pow_succ'] using (summable_geometric_of_abs_lt_one (by norm_num)).mul_left _)
+    (fun k ↦ by simpa using ((continuous_pow (M := ℂ) (k + 1)).tendsto 0).neg) ?_
+  filter_upwards [Metric.ball_mem_nhds (0 : ℂ) (by simp : (0 : ℝ) < 1 / 2)] with q hq k
+  exact pow_le_pow_left₀ (norm_nonneg _) (mem_ball_zero_iff.mp hq).le _
+
+theorem etaD_eq (d : ℕ) (z : ℂ) :
+    etaD d z = Function.Periodic.qParam 24 (d * z) * prodF (Function.Periodic.qParam 1 (d * z)) :=
+  rfl
+
+/-- `e^{2πi·c·(sI)} → 0` as `s → ∞`, for `c > 0`. -/
+theorem tendsto_cexp_sI {c : ℝ} (hc : 0 < c) :
+    Tendsto (fun s : ℝ => cexp (2 * Real.pi * I * c * (s * I))) atTop (𝓝 0) := by
+  rw [tendsto_zero_iff_norm_tendsto_zero]
+  have : ∀ s : ℝ, ‖cexp (2 * Real.pi * I * c * (s * I))‖ = Real.exp (-(2 * Real.pi * c) * s) := by
+    intro s
+    rw [Complex.norm_exp]
+    congr 1
+    have : 2 * Real.pi * I * c * (s * I) = ((-(2 * Real.pi * c) * s : ℝ) : ℂ) := by
+      push_cast; ring_nf; rw [I_sq]; ring
+    rw [this, Complex.ofReal_re]
+  simp_rw [this]
+  apply Real.tendsto_exp_atBot.comp
+  have hneg : -(2 * Real.pi * c) < 0 := by nlinarith [Real.pi_pos]
+  exact tendsto_id.const_mul_atTop_of_neg hneg
+
+theorem tendsto_qParam_sI {d : ℕ} (hd : 0 < d) (h : ℝ) (hh : 0 < h) :
+    Tendsto (fun s : ℝ => Function.Periodic.qParam h (d * (s * I))) atTop (𝓝 0) := by
+  have := tendsto_cexp_sI (c := d / h) (by positivity)
+  refine this.congr fun s => ?_
+  simp only [Function.Periodic.qParam]
+  congr 1
+  push_cast
+  field_simp
+
+theorem tendsto_prodF_sI {d : ℕ} (hd : 0 < d) :
+    Tendsto (fun s : ℝ => prodF (Function.Periodic.qParam 1 (d * (s * I)))) atTop (𝓝 1) :=
+  tendsto_prodF.comp (tendsto_qParam_sI hd 1 one_pos)
+
+/-- `w(z) = e^{2πiz/24}`. -/
+def wz (z : ℂ) : ℂ := cexp (2 * Real.pi * I * z / 24)
+
+theorem wz_ne_zero (z : ℂ) : wz z ≠ 0 := Complex.exp_ne_zero _
+
+theorem etaD_eq' (d : ℕ) (z : ℂ) :
+    etaD d z = wz z ^ d * prodF (Function.Periodic.qParam 1 (d * z)) := by
+  rw [etaD_eq]
+  congr 1
+  simp only [Function.Periodic.qParam, wz, ← Complex.exp_nat_mul]
+  congr 1
+  push_cast
+  ring
+
+theorem wz_pow_24 (z : ℂ) : wz z ^ 24 = cexp (2 * Real.pi * I * z) := by
+  simp only [wz, ← Complex.exp_nat_mul]
+  congr 1
+  push_cast
+  ring
+
+/-- `x = e(z)⁻² R(z) + 2`, `e(z) = e^{2πiz}`, `R` a ratio of the products `F`. -/
+theorem xC_decomp (z : ℂ) :
+    xC z = (prodF (Function.Periodic.qParam 1 (2 * z)) ^ 2 *
+        prodF (Function.Periodic.qParam 1 (16 * z)) /
+        (prodF (Function.Periodic.qParam 1 (4 * z)) *
+          prodF (Function.Periodic.qParam 1 (32 * z)) ^ 2)) /
+      cexp (2 * Real.pi * I * z) ^ 2 + 2 := by
+  unfold xC
+  rw [etaD_eq', etaD_eq', etaD_eq', etaD_eq', ← wz_pow_24]
+  push_cast
+  have hw := wz_ne_zero z
+  congr 1
+  rcases eq_or_ne (prodF (Function.Periodic.qParam 1 (4 * z)) *
+      prodF (Function.Periodic.qParam 1 (32 * z)) ^ 2) 0 with h0 | h0
+  · have h0' : wz z ^ 4 * prodF (Function.Periodic.qParam 1 (4 * z)) *
+        (wz z ^ 32 * prodF (Function.Periodic.qParam 1 (32 * z))) ^ 2 = 0 := by
+      rw [show wz z ^ 4 * prodF (Function.Periodic.qParam 1 (4 * z)) *
+        (wz z ^ 32 * prodF (Function.Periodic.qParam 1 (32 * z))) ^ 2 =
+        wz z ^ 68 * (prodF (Function.Periodic.qParam 1 (4 * z)) *
+          prodF (Function.Periodic.qParam 1 (32 * z)) ^ 2) by ring, h0, mul_zero]
+    rw [h0', h0]; simp
+  · field_simp
+
+theorem tendsto_prodF_sI' (d : ℕ) (hd : 0 < d) :
+    Tendsto (fun s : ℝ => prodF (Function.Periodic.qParam 1 ((d : ℂ) * (s * I)))) atTop (𝓝 1) :=
+  tendsto_prodF_sI hd
+
+/-- **Cusp `∞`**: `|x(it)| → ∞` as `t → ∞`. -/
+theorem tendsto_norm_xC_atTop :
+    Tendsto (fun t : ℝ => ‖xC (t * I)‖) atTop atTop := by
+  set R : ℝ → ℂ := fun t => prodF (Function.Periodic.qParam 1 (2 * (t * I))) ^ 2 *
+      prodF (Function.Periodic.qParam 1 (16 * (t * I))) /
+      (prodF (Function.Periodic.qParam 1 (4 * (t * I))) *
+        prodF (Function.Periodic.qParam 1 (32 * (t * I))) ^ 2) with hRdef
+  set e : ℝ → ℂ := fun t => cexp (2 * Real.pi * I * (t * I)) with hedef
+  have hR : Tendsto R atTop (𝓝 1) := by
+    have h2 := tendsto_prodF_sI' 2 (by norm_num)
+    have h16 := tendsto_prodF_sI' 16 (by norm_num)
+    have h4 := tendsto_prodF_sI' 4 (by norm_num)
+    have h32 := tendsto_prodF_sI' 32 (by norm_num)
+    push_cast at h2 h16 h4 h32
+    have := ((h2.pow 2).mul h16).div (h4.mul (h32.pow 2)) (by norm_num)
+    simp only [one_pow, mul_one, div_one] at this
+    exact this
+  have he0 : Tendsto (fun t => ‖e t‖) atTop (𝓝[>] 0) := by
+    refine tendsto_nhdsWithin_iff.mpr ⟨?_, Eventually.of_forall fun t => ?_⟩
+    · have := tendsto_cexp_sI (c := 1) one_pos
+      simp only [Complex.ofReal_one, mul_one] at this
+      exact (tendsto_zero_iff_norm_tendsto_zero.mp this)
+    · exact norm_pos_iff.mpr (Complex.exp_ne_zero _)
+  have hinv : Tendsto (fun t => ‖e t‖⁻¹ ^ 2) atTop atTop :=
+    (tendsto_pow_atTop two_ne_zero).comp he0.inv_tendsto_nhdsGT_zero
+  have hRn : Tendsto (fun t => ‖R t‖) atTop (𝓝 1) := by simpa using hR.norm
+  have h1 : Tendsto (fun t => ‖e t‖⁻¹ ^ 2 * ‖R t‖ + -2) atTop atTop :=
+    tendsto_atTop_add_const_right _ (-2) (hinv.atTop_mul_pos one_pos hRn)
+  refine tendsto_atTop_mono (fun t => ?_) h1
+  rw [xC_decomp]
+  change ‖e t‖⁻¹ ^ 2 * ‖R t‖ + -2 ≤ ‖R t / e t ^ 2 + 2‖
+  have : ‖R t / e t ^ 2‖ = ‖e t‖⁻¹ ^ 2 * ‖R t‖ := by
+    rw [norm_div, norm_pow, div_eq_mul_inv, mul_comm, inv_pow]
+  have h2 := norm_sub_norm_le (R t / e t ^ 2) (-2 : ℂ)
+  rw [sub_neg_eq_add] at h2
+  rw [← this]
+  norm_num at h2 ⊢
+  linarith
+
+abbrev pF (d : ℕ) (z : ℂ) : ℂ := prodF (Function.Periodic.qParam 1 ((d : ℂ) * z))
+
+theorem etaD_eq'' (d : ℕ) (z : ℂ) : etaD d z = wz z ^ d * pF d z := etaD_eq' d z
+
+/-- The Fricke-transformed `x`-quotient: `η(2z)η(16z)²/(η(z)²η(8z)) = e(z)·R'(z)`. -/
+theorem xW_decomp (z : ℂ) :
+    etaD 2 z * etaD 16 z ^ 2 / (etaD 1 z ^ 2 * etaD 8 z) =
+      cexp (2 * Real.pi * I * z) * (pF 2 z * pF 16 z ^ 2 / (pF 1 z ^ 2 * pF 8 z)) := by
+  rw [etaD_eq'', etaD_eq'', etaD_eq'', etaD_eq'', ← wz_pow_24]
+  have hw := wz_ne_zero z
+  rcases eq_or_ne (pF 1 z ^ 2 * pF 8 z) 0 with h0 | h0
+  · have h0' : (wz z ^ 1 * pF 1 z) ^ 2 * (wz z ^ 8 * pF 8 z) = 0 := by
+      rw [show (wz z ^ 1 * pF 1 z) ^ 2 * (wz z ^ 8 * pF 8 z) = wz z ^ 10 * (pF 1 z ^ 2 * pF 8 z)
+        by ring, h0, mul_zero]
+    rw [h0', h0]; simp
+  · field_simp
+
+/-- The Fricke-transformed `y`-quotient: `η(2z)²η(4z)⁴/(η(z)⁴η(8z)²) = R''(z)`. -/
+theorem yW_decomp (z : ℂ) :
+    etaD 2 z ^ 2 * etaD 4 z ^ 4 / (etaD 1 z ^ 4 * etaD 8 z ^ 2) =
+      pF 2 z ^ 2 * pF 4 z ^ 4 / (pF 1 z ^ 4 * pF 8 z ^ 2) := by
+  rw [etaD_eq'', etaD_eq'', etaD_eq'', etaD_eq'']
+  have hw := wz_ne_zero z
+  rcases eq_or_ne (pF 1 z ^ 4 * pF 8 z ^ 2) 0 with h0 | h0
+  · have h0' : (wz z ^ 1 * pF 1 z) ^ 4 * (wz z ^ 8 * pF 8 z) ^ 2 = 0 := by
+      rw [show (wz z ^ 1 * pF 1 z) ^ 4 * (wz z ^ 8 * pF 8 z) ^ 2 =
+        wz z ^ 20 * (pF 1 z ^ 4 * pF 8 z ^ 2) by ring, h0, mul_zero]
+    rw [h0', h0]; simp
+  · field_simp
+
+theorem tendsto_pF_sI (d : ℕ) (hd : 0 < d) :
+    Tendsto (fun s : ℝ => pF d (s * I)) atTop (𝓝 1) := tendsto_prodF_sI hd
+
+/-- `−1/(32τ') = tI` for `τ' = I/(32t)`. -/
+theorem fricke_tI {t : ℝ} (ht : 0 < t) :
+    ∃ τ' : UpperHalfPlane, (τ' : ℂ) = ((1 / (32 * t) : ℝ) : ℂ) * I ∧
+      -1 / (32 * (τ' : ℂ)) = (t : ℂ) * I := by
+  refine ⟨⟨((1 / (32 * t) : ℝ) : ℂ) * I, by simp; positivity⟩, rfl, ?_⟩
+  show -1 / (32 * (((1 / (32 * t) : ℝ) : ℂ) * I)) = (t : ℂ) * I
+  have ht' : (t : ℂ) ≠ 0 := by exact_mod_cast ht.ne'
+  push_cast
+  field_simp
+  rw [I_sq]
+
+theorem tendsto_s_nhdsGT : Tendsto (fun t : ℝ => 1 / (32 * t)) (𝓝[>] 0) atTop := by
+  have := (tendsto_inv_nhdsGT_zero (𝕜 := ℝ)).const_mul_atTop (show (0 : ℝ) < 1 / 32 by norm_num)
+  refine this.congr' (Eventually.of_forall fun t => ?_)
+  simp only
+  ring
+
+/-- **Cusp `0`**: `(x, y)(it) → (2, −4)` as `t → 0⁺`. -/
+theorem tendsto_cusp_zero :
+    Tendsto (fun t : ℝ => (xC ((0 : ℝ) + t * I), yC ((0 : ℝ) + t * I))) (𝓝[>] 0)
+      (𝓝 ((2 : ℂ), (-4 : ℂ))) := by
+  have hev : ∀ᶠ t : ℝ in 𝓝[>] (0 : ℝ), (xC ((0 : ℝ) + t * I), yC ((0 : ℝ) + t * I)) =
+      (2 + 8 * (cexp (2 * Real.pi * I * (((1 / (32 * t) : ℝ) : ℂ) * I)) *
+        (pF 2 (((1 / (32 * t) : ℝ) : ℂ) * I) * pF 16 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 2 /
+          (pF 1 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 2 * pF 8 (((1 / (32 * t) : ℝ) : ℂ) * I)))),
+       -(4 * (pF 2 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 2 * pF 4 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 4 /
+          (pF 1 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 4 * pF 8 (((1 / (32 * t) : ℝ) : ℂ) * I) ^ 2)))) := by
+    filter_upwards [self_mem_nhdsWithin] with t ht
+    obtain ⟨τ', hτ', hW⟩ := fricke_tI ht
+    rw [Complex.ofReal_zero, zero_add, ← hW, xC_fricke, yC_fricke, xW_decomp, yW_decomp, hτ']
+  refine Tendsto.congr' (EventuallyEq.symm hev) ?_
+  have hs := tendsto_s_nhdsGT
+  have he : Tendsto (fun s : ℝ => cexp (2 * Real.pi * I * ((s : ℂ) * I))) atTop (𝓝 0) := by
+    have := tendsto_cexp_sI (c := 1) one_pos
+    simpa using this
+  have h1 := tendsto_pF_sI 1 one_pos
+  have h2 := tendsto_pF_sI 2 two_pos
+  have h4 := tendsto_pF_sI 4 (by norm_num)
+  have h8 := tendsto_pF_sI 8 (by norm_num)
+  have h16 := tendsto_pF_sI 16 (by norm_num)
+  have hx : Tendsto (fun s : ℝ => 2 + 8 * (cexp (2 * Real.pi * I * ((s : ℂ) * I)) *
+      (pF 2 ((s : ℂ) * I) * pF 16 ((s : ℂ) * I) ^ 2 /
+        (pF 1 ((s : ℂ) * I) ^ 2 * pF 8 ((s : ℂ) * I))))) atTop (𝓝 2) := by
+    have := (tendsto_const_nhds (x := (2 : ℂ))).add ((tendsto_const_nhds (x := (8 : ℂ))).mul
+      (he.mul ((h2.mul (h16.pow 2)).div ((h1.pow 2).mul h8) (by norm_num))))
+    have hlim : (2 : ℂ) + 8 * (0 * (1 * 1 ^ 2 / (1 ^ 2 * 1))) = 2 := by norm_num
+    rw [hlim] at this
+    exact this
+  have hy : Tendsto (fun s : ℝ => -(4 * (pF 2 ((s : ℂ) * I) ^ 2 * pF 4 ((s : ℂ) * I) ^ 4 /
+      (pF 1 ((s : ℂ) * I) ^ 4 * pF 8 ((s : ℂ) * I) ^ 2)))) atTop (𝓝 (-4)) := by
+    have := ((tendsto_const_nhds (x := (4 : ℂ))).mul (((h2.pow 2).mul (h4.pow 4)).div
+      ((h1.pow 4).mul (h8.pow 2)) (by norm_num))).neg
+    have hlim : -((4 : ℂ) * (1 ^ 2 * 1 ^ 4 / (1 ^ 4 * 1 ^ 2))) = -4 := by norm_num
+    rw [hlim] at this
+    exact this
+  exact (hx.comp hs).prodMk_nhds (hy.comp hs)
+
+theorem etaD_add_half {d m : ℕ} (h : d = 2 * m) (z : ℂ) :
+    etaD d (z + 1 / 2) = cexp (2 * Real.pi * I / 24) ^ m * etaD d z := by
+  unfold etaD
+  rw [show (d : ℂ) * (z + 1 / 2) = d * z + (m : ℕ) by rw [h]; push_cast; ring, eta_add_nat,
+    ← Complex.exp_nat_mul]
+  congr 2
+  ring
+
+theorem cexp_pow_12 : cexp (2 * Real.pi * I / 24) ^ 12 = -1 := by
+  rw [← Complex.exp_nat_mul]
+  rw [show ((12 : ℕ) : ℂ) * (2 * Real.pi * I / 24) = Real.pi * I by push_cast; ring,
+    Complex.exp_pi_mul_I]
+
+/-- **`x(z + 1/2) = x(z)`** (`x` is a function of `q²`). -/
+theorem xC_add_half (z : ℂ) : xC (z + 1 / 2) = xC z := by
+  unfold xC
+  rw [etaD_add_half (m := 1) (by norm_num), etaD_add_half (m := 8) (by norm_num),
+    etaD_add_half (m := 2) (by norm_num), etaD_add_half (m := 16) (by norm_num)]
+  set c := cexp (2 * Real.pi * I / 24)
+  have hc : c ≠ 0 := Complex.exp_ne_zero _
+  have h24 := cexp_pow_24
+  congr 1
+  rcases eq_or_ne (etaD 4 z * etaD 32 z ^ 2) 0 with h0 | h0
+  · have : c ^ 2 * etaD 4 z * (c ^ 16 * etaD 32 z) ^ 2 = 0 := by
+      rw [show c ^ 2 * etaD 4 z * (c ^ 16 * etaD 32 z) ^ 2 = c ^ 34 * (etaD 4 z * etaD 32 z ^ 2)
+        by ring, h0, mul_zero]
+    rw [this, h0, div_zero, div_zero]
+  · have h0' : c ^ 2 * etaD 4 z * (c ^ 16 * etaD 32 z) ^ 2 ≠ 0 := by
+      rw [show c ^ 2 * etaD 4 z * (c ^ 16 * etaD 32 z) ^ 2 = c ^ 34 * (etaD 4 z * etaD 32 z ^ 2)
+        by ring]
+      exact mul_ne_zero (pow_ne_zero _ hc) h0
+    rw [div_eq_div_iff h0' h0]
+    have h34 : c ^ 34 = c ^ 10 := by
+      rw [show c ^ 34 = c ^ 10 * c ^ 24 by ring, h24, mul_one]
+    linear_combination (-(etaD 2 z ^ 2 * etaD 16 z * etaD 4 z * etaD 32 z ^ 2)) * h34
+
+/-- **`y(z + 1/2) = −y(z)`.** -/
+theorem yC_add_half (z : ℂ) : yC (z + 1 / 2) = -yC z := by
+  unfold yC
+  rw [etaD_add_half (m := 4) (by norm_num), etaD_add_half (m := 8) (by norm_num),
+    etaD_add_half (m := 2) (by norm_num), etaD_add_half (m := 16) (by norm_num), neg_neg, neg_eq_iff_eq_neg]
+  set c := cexp (2 * Real.pi * I / 24)
+  have hc : c ≠ 0 := Complex.exp_ne_zero _
+  have h24 := cexp_pow_24
+  have h12 := cexp_pow_12
+  rcases eq_or_ne (etaD 4 z ^ 2 * etaD 32 z ^ 4) 0 with h0 | h0
+  · have : (c ^ 2 * etaD 4 z) ^ 2 * (c ^ 16 * etaD 32 z) ^ 4 = 0 := by
+      rw [show (c ^ 2 * etaD 4 z) ^ 2 * (c ^ 16 * etaD 32 z) ^ 4 =
+        c ^ 68 * (etaD 4 z ^ 2 * etaD 32 z ^ 4) by ring, h0, mul_zero]
+    rw [this, h0, div_zero, div_zero, neg_zero]
+  · have h0' : (c ^ 2 * etaD 4 z) ^ 2 * (c ^ 16 * etaD 32 z) ^ 4 ≠ 0 := by
+      rw [show (c ^ 2 * etaD 4 z) ^ 2 * (c ^ 16 * etaD 32 z) ^ 4 =
+        c ^ 68 * (etaD 4 z ^ 2 * etaD 32 z ^ 4) by ring]
+      exact mul_ne_zero (pow_ne_zero _ hc) h0
+    rw [neg_div', div_eq_div_iff h0' h0]
+    have h68 : c ^ 68 = -c ^ 32 := by
+      rw [show c ^ 68 = c ^ 32 * (c ^ 24) * c ^ 12 by ring, h24, h12]; ring
+    linear_combination (etaD 8 z ^ 4 * etaD 16 z ^ 2 * etaD 4 z ^ 2 * etaD 32 z ^ 4) * h68
+
+/-- **Cusp `1/2`**: `(x, y)(1/2 + it) → (2, 4)` as `t → 0⁺`. -/
+theorem tendsto_cusp_half :
+    Tendsto (fun t : ℝ => (xC ((1 / 2 : ℝ) + t * I), yC ((1 / 2 : ℝ) + t * I))) (𝓝[>] 0)
+      (𝓝 ((2 : ℂ), (4 : ℂ))) := by
+  have hc : Continuous (fun p : ℂ × ℂ => (p.1, -p.2)) := by fun_prop
+  have h := (hc.tendsto ((2 : ℂ), (-4 : ℂ))).comp tendsto_cusp_zero
+  have hl : ((((2 : ℂ), (-4 : ℂ)).1, -((2 : ℂ), (-4 : ℂ)).2) : ℂ × ℂ) = ((2 : ℂ), (4 : ℂ)) := by
+    norm_num
+  rw [hl] at h
+  refine h.congr fun t => ?_
+  simp only [Function.comp, Prod.mk.injEq]
+  have e : (((1 / 2 : ℝ) : ℂ) + t * I) = ((0 : ℝ) + t * I) + 1 / 2 := by push_cast; ring
+  rw [e, xC_add_half, yC_add_half]
+  exact ⟨rfl, rfl⟩
+
+/-- **The proved part of `CuspDictionary`**: the cusps `∞`, `0`, `1/2`. -/
+theorem cuspDictionary_partial :
+    Tendsto (fun t : ℝ => ‖xC (t * I)‖) atTop atTop ∧
+    Tendsto (fun t : ℝ => (xC ((0 : ℝ) + t * I), yC ((0 : ℝ) + t * I))) (𝓝[>] 0)
+      (𝓝 ((2 : ℂ), (-4 : ℂ))) ∧
+    Tendsto (fun t : ℝ => (xC ((1 / 2 : ℝ) + t * I), yC ((1 / 2 : ℝ) + t * I))) (𝓝[>] 0)
+      (𝓝 ((2 : ℂ), (4 : ℂ))) :=
+  ⟨tendsto_norm_xC_atTop, tendsto_cusp_zero, tendsto_cusp_half⟩
+
+end Cusps
 
 end ZInQ.Contrib.TYZGenus.X0
