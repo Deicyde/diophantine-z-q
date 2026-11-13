@@ -24,3 +24,16 @@
   Tail.lean L40-116 (B6_isUnit … qm_embeds_end0) copied verbatim (VERIFIED by string inclusion).
   FS5NoCM.lean: exit 0, 11.4 s, 11 axioms lines standard (run1.txt). FS5Curves.lean: exit 0, 14.4 s,
   `fibreComTrivialFull_of_curves_leaves` standard (run2.txt). VERIFIED.
+- 06:05 §H (partH.lean): N1a-CM `ComOfMatrixEnd0` PROVED from T6 (`comOfMatrixEnd0_of_homFree`):
+  `commute_quat_scalar` (a matrix commuting with I, J, I²=2, J²=−3, JI=−IJ in M₂(K) is scalar; basis 1,I,J,IJ),
+  `adjRoot_numberField` (ℚ[X]/(X²−d), d<0, is a totally complex quadratic number field), `root_lin_indep(_int)`,
+  ψ : End_𝒪(A) → ℚ(√d) injective ring map, image integral (T6 finite) and of rank 2 in 𝒪_k (contains 1, s√d via FS4's
+  localization step) ⇒ finite index (`Submodule.finiteQuotientOfFreeOfRankEq`).
+  Hence N1a = `comIntOrQuadOrder_of_leaves (t27) (t6)`; final `fibreComTrivialFull_of_leaves'` and
+  `fibreComTrivialFull_of_curves_leaves` need only: bundle, R5fpCount, T27, T6, N1b (+T5) and MobiusGlue (or
+  CurveRatFactor, CurveSurj), N2.
+  FS5NoCM.lean (1168 lines): exit 0, 54 s (load 24), 16 axioms lines standard (run1.txt).
+  FS5Curves.lean (2456 lines): exit 0, 31 s, standard (run2.txt). VERIFIED.
+- Note (Lean pitfall): with `letI : Fact (Irreducible f)` in context, AdjoinRoot's Field-derived and CommRing-derived
+  instances do not unify at reducible transparency: `ring`/`linear_combination`/`rw [map_intCast]` fail; state helper
+  lemmas without the Fact (root_lin_indep) and pass through `exact`/`rfl`.

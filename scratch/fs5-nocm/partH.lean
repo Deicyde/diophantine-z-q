@@ -197,6 +197,13 @@ theorem root_lin_indep (d : ℚ) (hd : d < 0) (x y : ℚ)
     have hy2 : 0 < y ^ 2 := by positivity
     nlinarith [sq_nonneg x]
 
+/-- The same with integer coefficients. -/
+theorem root_lin_indep_int (d : ℚ) (hd : d < 0) (a c : ℤ)
+    (h : a • (1 : Kd[d]) + c • AdjoinRoot.root _ = 0) : a = 0 ∧ c = 0 := by
+  have := root_lin_indep d hd a c (by
+    rw [map_intCast, map_intCast]; rw [zsmul_eq_mul, zsmul_eq_mul, mul_one] at h; exact h)
+  exact ⟨by exact_mod_cast this.1, by exact_mod_cast this.2⟩
+
 /-- **N1a-CM proved from T6.** If `End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, then `End_𝒪(A)` is isomorphic
 to a subring of finite index of `𝒪_k`, `k = ℚ(√d)`: `1 ⊗ φ` (`φ ∈ End_𝒪(A)`) commutes with the
 images `I, J` of `i, j ∈ 𝒪` (`I² = 2`, `J² = −3`, `JI = −IJ`), hence is a scalar
@@ -238,6 +245,123 @@ theorem comOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) : ComOfMatrixEnd0
       (by rw [← map_mul, ← map_mul, hcommφ φ hφ oi])
       (by rw [← map_mul, ← map_mul, hcommφ φ hφ oj])
     rw [ha]; simp
-  sorry
+  -- the scalar map `ψ : End_𝒪(A) → ℚ(√d)`
+  let ψ : com q →+* Kd[d] :=
+    { toFun := fun φ => e ((1 : ℚ) ⊗ₜ[ℤ] (φ : AbVar.End A)) 0 0
+      map_one' := by
+        simp only [OneMemClass.coe_one]
+        rw [← Algebra.TensorProduct.one_def, map_one, Matrix.one_apply_eq]
+      map_mul' := fun φ φ' => by
+        simp only [MulMemClass.coe_mul]
+        rw [e1, map_mul, hsc φ φ.2, hsc φ' φ'.2, smul_mul_smul_comm, one_mul]
+        simp
+      map_zero' := by simp
+      map_add' := fun φ φ' => by simp [TensorProduct.tmul_add] }
+  have hψ : ∀ φ : com q, e ((1 : ℚ) ⊗ₜ[ℤ] (φ : AbVar.End A)) = ψ φ • 1 := fun φ => hsc φ φ.2
+  have hψinj : Function.Injective ψ := by
+    rw [injective_iff_map_eq_zero]
+    intro φ hφ0
+    have h0 : e ((1 : ℚ) ⊗ₜ[ℤ] (φ : AbVar.End A)) = 0 := by rw [hψ, hφ0, zero_smul]
+    rw [← map_zero e] at h0
+    exact Subtype.ext (tmul_one_injective hfree _ (e.injective h0))
+  -- an element `s√d` in the image (FS4's localization step)
+  set c' : AbVar.End0 A :=
+    e.symm ((AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ)) •
+      (1 : Matrix (Fin 2) (Fin 2) Kd[d])) with hc'
+  have hcen : ∀ x : AbVar.End0 A, c' * x = x * c' := by
+    intro x
+    apply e.injective
+    rw [map_mul, map_mul, hc', e.apply_symm_apply, smul_mul_assoc, one_mul, mul_smul_comm,
+      mul_one]
+  let f := TensorProduct.mk ℤ ℚ (AbVar.End A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) f :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ f).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := AbVar.End A) (S := ℚ))
+  obtain ⟨⟨φ₀, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) f c'
+  have hs' : (1 : ℚ) ⊗ₜ[ℤ] φ₀ = (s : ℤ) • c' := by
+    rw [Submonoid.smul_def] at hs; exact hs.symm
+  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have hφ₀ : φ₀ ∈ com q := by
+    rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    have key : (1 : ℚ) ⊗ₜ[ℤ] (q.iota a * φ₀ - φ₀ * q.iota a) = 0 := by
+      rw [TensorProduct.tmul_sub, e1, e1, hs', mul_smul_comm, smul_mul_assoc, ← smul_sub,
+        hcen, sub_self, smul_zero]
+    exact sub_eq_zero.mp (tmul_one_injective hfree _ key)
+  have hw : ψ ⟨φ₀, hφ₀⟩ = (s : ℤ) • AdjoinRoot.root _ := by
+    change e ((1 : ℚ) ⊗ₜ[ℤ] φ₀) 0 0 = _
+    rw [hs', map_zsmul, hc', e.apply_symm_apply]
+    simp
+  -- the order `R = ψ(End_𝒪(A))`
+  have hRint : ψ.range ≤ (integralClosure ℤ Kd[d]).toSubring := by
+    rintro _ ⟨φ, rfl⟩
+    have h1 : IsIntegral ℤ (φ : AbVar.End A) := Algebra.IsIntegral.isIntegral _
+    have h2 : IsIntegral ℤ φ :=
+      (isIntegral_algHom_iff ((com q).subtype.toIntAlgHom) Subtype.val_injective).mp h1
+    exact h2.map ψ.toIntAlgHom
+  refine ⟨Kd[d], inferInstance, hNF, hTC, finrank_adjRoot d, ψ.range, hRint, ?_,
+    ⟨RingEquiv.ofBijective ψ.rangeRestrict
+      ⟨fun a b h => hψinj (congrArg Subtype.val h), ψ.rangeRestrict_surjective⟩⟩⟩
+  -- finite index: `R ∩ 𝒪_k` has rank 2 (it contains `1` and `s√d`)
+  let fO : NumberField.RingOfIntegers Kd[d] →+ Kd[d] :=
+    (algebraMap (NumberField.RingOfIntegers Kd[d]) Kd[d]).toAddMonoidHom
+  have hrange : (integralClosure ℤ Kd[d]).toSubring.toAddSubgroup =
+      (⊤ : AddSubgroup (NumberField.RingOfIntegers Kd[d])).map fO := by
+    ext x
+    constructor
+    · intro hx; exact ⟨⟨x, hx⟩, trivial, rfl⟩
+    · rintro ⟨y, -, rfl⟩; exact y.2
+  unfold LeafQM.AV.conductor
+  suffices hsuff : (ψ.range.toAddSubgroup.comap fO).index ≠ 0 by
+    convert hsuff using 1
+    rw [← AddSubgroup.relIndex_top_right, AddSubgroup.relIndex_comap, ← hrange]
+    rfl
+  let N' : Submodule ℤ (NumberField.RingOfIntegers Kd[d]) :=
+    (ψ.range.toAddSubgroup.comap fO).toIntSubmodule
+  have hw' : IsIntegral ℤ ((s : ℤ) •
+      AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ)) := by
+    rw [← hw]; exact hRint ⟨_, rfl⟩
+  let w' : NumberField.RingOfIntegers Kd[d] := ⟨_, hw'⟩
+  have h1N : (1 : NumberField.RingOfIntegers Kd[d]) ∈ N' := by
+    show fO 1 ∈ ψ.range
+    rw [show fO 1 = 1 from map_one (algebraMap (NumberField.RingOfIntegers Kd[d]) Kd[d])]
+    exact ψ.range.one_mem
+  have hwN : w' ∈ N' := ⟨⟨φ₀, hφ₀⟩, hw⟩
+  have hv : LinearIndependent ℤ ![(⟨1, h1N⟩ : N'), ⟨w', hwN⟩] := by
+    rw [LinearIndependent.pair_iff]
+    intro a b hab
+    have hK := congrArg (fun z : N' => fO (z : NumberField.RingOfIntegers Kd[d])) hab
+    simp only [Submodule.coe_add, Submodule.coe_smul, map_add, map_zsmul, Submodule.coe_zero,
+      map_zero] at hK
+    have e1' : fO 1 = 1 := map_one (algebraMap (NumberField.RingOfIntegers Kd[d]) Kd[d])
+    have e2' : fO w' = (s : ℤ) •
+        AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ) := rfl
+    rw [e1', e2', smul_smul] at hK
+    obtain ⟨ha, hbs⟩ := root_lin_indep_int d hd _ _ hK
+    exact ⟨ha, (mul_eq_zero.mp hbs).resolve_right hs0⟩
+  have hfr : Module.finrank ℤ N' = Module.finrank ℤ (NumberField.RingOfIntegers Kd[d]) := by
+    apply le_antisymm (Submodule.finrank_le N')
+    rw [NumberField.RingOfIntegers.rank, finrank_adjRoot]
+    simpa using hv.fintype_card_le_finrank
+  have := Submodule.finiteQuotientOfFreeOfRankEq N' hfr
+  exact AddSubgroup.index_ne_zero_of_finite (hH := this)
+
+/-- **N1a proved from the leaves T27 (Yu) and T6.** -/
+theorem comIntOrQuadOrder_of_leaves (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) :
+    ComIntOrQuadOrder :=
+  comIntOrQuadOrder_of t27 t6 (comOfMatrixEnd0_of_homFree t6)
+
+/-- **FS5 with the repaired clauses, from the leaves and named glue**: the bundle, R5fpCount,
+T27, T6 and N1b (leaves), and `MobiusGlue` and N2 (glue). -/
+theorem fibreComTrivialFull_of_leaves' (hL : R1R2fpFull) (hM : MobiusGlue)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
+  fibreComTrivialFull_of hL hM (comIntOrQuadOrder_of_leaves t27 t6) hB hK hC
 
 end FS5NoCM
+
+#print axioms FS5NoCM.commute_quat_scalar
+#print axioms FS5NoCM.adjRoot_numberField
+#print axioms FS5NoCM.comOfMatrixEnd0_of_homFree
+#print axioms FS5NoCM.comIntOrQuadOrder_of_leaves
+#print axioms FS5NoCM.fibreComTrivialFull_of_leaves'
