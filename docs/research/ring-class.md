@@ -93,6 +93,16 @@ definition. Ingredients:
 * `ringClassFieldD_neg : d % 4 = 3 → Squarefree d → ringClassFieldD (−d) = ((hilbertField d).restrictScalars ℚ).map (embed d)`
   says that the field of TYZ's class-7 CM points (discriminant `−d`) is `H_d`.
 
+**(g) Two Galois facts TYZ use in the proof of Lemma 3.21** (`rv-tyz-inputs.md` §1.5):
+* **"`c` inverts `Cl'_n`"**: `conjGal_artin4 : conjGal τ σ hτ (artin4 d c) = artin4 d c⁻¹`. Here
+  `τ ∈ Aut(K_dˢ/ℚ)` acts on `K_d` by `σ ≠ 1`, and `conjGal` is `g ↦ τ g τ⁻¹` on `H_{d,4}`. The proof uses
+  Chebotarev for a prime `𝔭` in the class `c` with `σ𝔭` unramified. `isArithFrobAt_conjGal` shows that `τ`
+  carries the Frobenius at `Q | 𝔭` to a Frobenius at `τQ | σ𝔭`, and `picClass_conj` shows `[σ𝔭] = c⁻¹`.
+  The `ℚ̄` form, in cm-points' language, is `RingClassBridge.actsAsArtin4_conj : γ nontrivial on K_n →
+  ActsAsArtin4 ρ n c → ActsAsArtin4 (γ * ρ * γ⁻¹) n c⁻¹`.
+* **"`t ∈ Φ₀ ⊂ 2Cl'_n` fixes `i`"**: `artin4_sq_apply_of_sq` says the Artin symbols of squares fix every
+  `√q ∈ H_{n,4}` with `q ∈ K_n`. In `ℚ̄`, `RingClassBridge.fixes_iQ_of_actsAsArtin4_sq : ActsAsArtin4 ρ n (b ^ 2) → ρ iQ = iQ`.
+
 ## 2. The orders and fields TYZ uses (as quoted in the project notes; `Period7.tex` is not on this host)
 
 | TYZ object | where (TYZ arXiv v1 lines, via notes) | Lean (`RingClass.lean`) |
@@ -131,7 +141,7 @@ All line numbers are quoted from the notes, not re-read (STANDARD-as-quoted).
 * `ZInQKernel/Contrib/TYZGenus/RingClassTwo.lean`: `K(√a)` splitting, Chebotarev primes in Picard classes,
   `H'_d(√2) = H_{d,4}`.
 * `ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean`: `L_n(i) ⊆ H_n ⊆ H'_n`, `ℍ'_n = ⨆ H'_{d₀}`, `artinPrime`,
-  lifts of `2Cl`, `ringClassFieldD_neg`.
+  lifts of `2Cl`, `ringClassFieldD_neg`, squares fix `√q`, conjugation inverts Artin symbols.
 * `ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean`: proofs of cm-points' `HprimeNormal` and `IInH4`, and
   the main-theorem variants.
 * Vendored Tau Ceti (earlier in this task): the `RingClass.Field` closure, `RayClassField`,
@@ -180,6 +190,9 @@ Build: `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge ZInQKernel.Contri
 'ZInQ.Contrib.TYZGenus.RingClass.ringClassFieldD_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.RingClass.artinPrime_mk_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.RingClass.card_artinPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClassBridge.fixes_iQ_of_actsAsArtin4_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClass.conjGal_artin4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClassBridge.actsAsArtin4_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 (The round-1–3 declarations of `RingClass.lean`, such as `orderOf_sigmaClass`, were checked the same way;
 see `scratch/ring-class/log.md`.)
