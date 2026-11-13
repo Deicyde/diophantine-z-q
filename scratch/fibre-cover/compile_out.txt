@@ -6,3 +6,6 @@
 'G0ModField.fibreCoverExists_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.twistClassCard_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.fibreCoverExists_of_pinned'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.torsionBound3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.fibreCoverExists_of_leafTorsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.torsionBound3_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -57,7 +57,7 @@ All of them are `def … : Prop` in `FibreCover.lean`, each with a docstring.
 | Prop | kind | content | source | depends on the pin? |
 |---|---|---|---|---|
 | `TwistClassCard` | glue, **proved** from `TorsionBound3` + `InnerTwistCount` | the `Aut 𝒪`-twist class of a `QML3 ℚ̄` object has `≤ 324` isomorphism classes | N5 L425-441 (`≤ 4·|(𝒪/3𝒪)^*| ≤ 4·81`) | no (intrinsic) |
-| `TorsionBound3` | glue + textbook leaf | `A(ℚ̄)[3]` has `≤ 81` points for an abelian surface | the kernel's leaf `PkgI2.TorsionStructure` (Mumford §4) at `K = ℚ̄`, plus `A(ℚ̄) ↪ A(AlgebraicClosure ℚ̄)` | no |
+| `TorsionBound3` | glue, **proved** from the bundle's textbook leaf T5 | `A(ℚ̄)[3]` has `≤ 81` points for an abelian surface | `torsionBound3_of_t5 : PkgI2.TorsionStructure.{0} → TorsionBound3` (Mumford §4; `TextbookLeaves.t5`): `A(ℚ̄)[3] ↪ A(AlgebraicClosure ℚ̄)[3] ≃ (ℤ/3)⁴` | no |
 | `InnerTwistCount` | glue (a computation on `𝒪`) | every `α ∈ Aut 𝒪` is `w ∘ Ad u`, with `w` in a fixed set of `≤ 4` and `u ∈ 𝒪^×` | `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`; N5 L425-429; Skolem–Noether T13 (proved) | no |
 | `FibreUnramifiedOn Y₀ π₀` | glue | Prop. TS + Lemma NV on one curve: `ℚ(y)` is unramified outside `T(u)` for every `ℚ̄`-point `y` over `J(u)`, `u ∉ 𝒞` | N5 L484-529; h-decomposition G2 (inputs R1(d), R2, T1, T2) | no (one fixed curve) |
 | `CurvePinned Y₀ π₀` | glue (after qm-pin) | every `(Y, π)` admitting `Φ` with R1fp, R2fp is isomorphic to `(Y₀, π₀)` over `P¹` on `ℚ̄`-points | rv-g0pieces §4, repair 1 | this *is* the pin |
@@ -183,6 +183,8 @@ All results below are proved without `sorry`, with standard axioms, and are VERI
   - Level structures: `level3_eta_eq`, `level3_ext`, `level3_three`.
   - Isomorphisms: `innerIso`, `transportLevel`, `transportIso`.
   - Composites: `twistClassCard_of`, `fibreCoverExists_of_pinned'`.
+- **Part 7.** `spec_comp_injective`, `specIncl`, `torsionBound3_of`, `torsionBound3_of_t5`,
+  `fibreCoverExists_of_leafTorsion`.
 - **Part 5.**
   - Residue fields along morphisms: `residueImage_comp_le_self(_aux)`, `residueImage_comp_iso`.
   - The pin: `FibreUnramifiedOn`, `CurvePinned` (defs), `fibreUnramified_of_pinned`.
@@ -202,7 +204,7 @@ place of `FibreCoverExists`.
 - `FibreUnramifiedOn` on the genuine curve: Prop. TS from T1-T2 or Beckmann. This needs integral
   models of `Y₃ → P¹` and function-field Galois theory, which are not in Mathlib v4.35; it is the
   large item of h-decomposition G2.
-- `TorsionBound3`: bridge from the leaf `TorsionStructure`. `InnerTwistCount`: the normalizer of
-  N5's `𝒪`.
+- `InnerTwistCount`: the normalizer of N5's `𝒪`, `|N_B(𝒪)/ℚ^×𝒪^×| ≤ 4` (`TorsionBound3` is
+  proved from T5).
 - `CurvePinned`: depends on qm-pin.
 - `UnramifiedConjugates`: textbook; not in Mathlib v4.35 for `UnramifiedAt`.

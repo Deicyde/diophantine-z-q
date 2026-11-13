@@ -57,3 +57,12 @@
   `4·81 = 324`), `fibreCoverExists_of_pinned'`.
 - Pitfall: under `open MonObj`, `mul_one`/`mul_assoc`/`one_mul` resolve to MonObj lemmas; use `_root_.`.
 - VERIFIED: 0 errors, 0 warnings; all eight `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## run16-19: Part 7, TorsionBound3 from the bundle's leaf T5
+- Proved: `spec_comp_injective` (precomposition with `Spec L → Spec K` injective on points),
+  `specIncl`, `torsionBound3_of : ObjBridge.TorsionStructure → TorsionBound3` (`A(ℚ̄)[3]` injects
+  into `A(AlgebraicClosure ℚ̄)[3] ≃ (ZMod 3)^4`, 81 points), `torsionBound3_of_t5` (the bundle's
+  `TextbookLeaves.t5 : PkgI2.TorsionStructure.{0}`, via `ObjBridge.torsionStructure_iff`),
+  `fibreCoverExists_of_leafTorsion`.
+- Pitfall: `ι` is a token (GrpObj.inv notation) under these opens; rename binders.
+- VERIFIED: 0 errors, 0 warnings; all eleven `#print axioms`: [propext, Classical.choice, Quot.sound].

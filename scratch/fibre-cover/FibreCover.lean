@@ -575,6 +575,87 @@ theorem fibreCoverExists_of_pinned' (Y₀ : Over (Spec (CommRingCat.of ℚ))) (�
     (h0 : FibreUnramifiedOn Y₀ π₀) (hU : UnramifiedConjugates) : FibreCoverExists :=
   fibreCoverExists_of_pinned Y₀ π₀ (twistClassCard_of hT hW) hpin h0 hU
 
+/-! ## Part 7: `TorsionBound3` from the kernel's leaf `TorsionStructure` -/
+
+/-- Precomposition with `Spec L → Spec K` (a field extension) is injective on `K`-points. -/
+theorem spec_comp_injective {X : Scheme.{0}} {K L : Type} [Field K] [Field L] (i : K →+* L)
+    (z z' : Spec (CommRingCat.of K) ⟶ X)
+    (h : Spec.map (CommRingCat.ofHom i) ≫ z = Spec.map (CommRingCat.ofHom i) ≫ z') : z = z' := by
+  have h' := congrArg (Scheme.SpecToEquivOfField L X) h
+  rw [specToEquivOfField_comp, specToEquivOfField_comp] at h'
+  obtain ⟨⟨p1, f1⟩, hp1⟩ : ∃ q, Scheme.SpecToEquivOfField K X z = q := ⟨_, rfl⟩
+  obtain ⟨⟨p2, f2⟩, hp2⟩ : ∃ q, Scheme.SpecToEquivOfField K X z' = q := ⟨_, rfl⟩
+  rw [hp1, hp2] at h'
+  obtain ⟨rfl, hh⟩ := Sigma.mk.inj_iff.mp h'
+  have hf : f1 = f2 := by
+    ext a
+    apply i.injective
+    exact congrArg (fun φ : X.residueField p1 ⟶ CommRingCat.of L => φ a) (eq_of_heq hh)
+  apply (Scheme.SpecToEquivOfField K X).injective
+  rw [hp1, hp2, hf]
+
+/-- `Spec(AlgebraicClosure ℚ̄) → Spec ℚ̄` over `ℚ̄`. -/
+noncomputable def specIncl :
+    PkgI2.specOver Qbar (AlgebraicClosure Qbar) ⟶ PkgI3.AbVar.ptObj (K := Qbar) Qbar :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (algebraMap Qbar (AlgebraicClosure Qbar)))) (by
+    simp only [PkgI2.specOver, PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp, Algebra.algebraMap_self, RingHom.comp_id])
+
+/-- **`TorsionBound3` from the textbook leaf `TorsionStructure`** (`A(K̄)[3] ≅ (ℤ/3)⁴` at
+`K = ℚ̄`, `K̄ = AlgebraicClosure ℚ̄`): `A(ℚ̄)[3]` injects into `A(K̄)[3]`, which has `81` points. -/
+theorem torsionBound3_of (hT : ObjBridge.TorsionStructure) : TorsionBound3 := by
+  classical
+  intro A hA
+  obtain ⟨e, -⟩ := hT Qbar (ObjBridge.toGrp A) 2 3 (by rw [Nat.cast_ofNat]; exact hA)
+    (by norm_num) (by norm_num)
+  set Tset := PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure Qbar) 3 with hTset
+  have : Finite Tset := Finite.of_equiv _ e.symm
+  have hTfin : Tset.Finite := Set.toFinite Tset
+  have hcard : hTfin.toFinset.card = 81 := by
+    rw [← Set.ncard_eq_toFinset_card Tset hTfin, ← Nat.card_coe_set_eq, Nat.card_congr e,
+      Nat.card_eq_fintype_card, Fintype.card_fun, ZMod.card, Fintype.card_fin]
+    norm_num
+  let incl : Additive (A.Pt Qbar) → PkgI2.Pts (ObjBridge.toGrp A) (AlgebraicClosure Qbar) :=
+    fun x => specIncl ≫ Additive.toMul x
+  have hinj : Function.Injective incl := by
+    intro x y hxy
+    have hl : Spec.map (CommRingCat.ofHom (algebraMap Qbar (AlgebraicClosure Qbar))) ≫
+        (Additive.toMul x).left =
+        Spec.map (CommRingCat.ofHom (algebraMap Qbar (AlgebraicClosure Qbar))) ≫
+        (Additive.toMul y).left :=
+      congrArg (fun f => f.left) hxy
+    exact Additive.toMul.injective (Over.OverMorphism.ext (spec_comp_injective _ _ _ hl))
+  have htors : ∀ x : Additive (A.Pt Qbar), 3 • x = 0 → incl x ∈ Tset := by
+    intro x hx
+    show (specIncl ≫ Additive.toMul x) ^ 3 = 1
+    have h3 : Additive.toMul x ^ 3 = 1 := by
+      rw [← toMul_nsmul, hx]; rfl
+    have hpow : ∀ n : ℕ, specIncl ≫ Additive.toMul x ^ n = (specIncl ≫ Additive.toMul x) ^ n := by
+      intro n
+      induction n with
+      | zero => rw [pow_zero, pow_zero, MonObj.comp_one]
+      | succ n ih => rw [pow_succ, pow_succ, MonObj.comp_mul, ih]
+    rw [← hpow, h3, MonObj.comp_one]
+  have hsfin : {x : Additive (A.Pt Qbar) | 3 • x = 0}.Finite :=
+    Set.Finite.of_finite_image (hTfin.subset (by rintro _ ⟨x, hx, rfl⟩; exact htors x hx))
+      hinj.injOn
+  refine ⟨hsfin.toFinset, ?_, fun x hx => hsfin.mem_toFinset.mpr hx⟩
+  rw [← hcard]
+  exact Finset.card_le_card_of_injOn incl
+    (fun x hx => hTfin.mem_toFinset.mpr (htors x (hsfin.mem_toFinset.mp hx))) hinj.injOn
+
+/-- **The composite with the torsion count from the kernel's leaf.** -/
+theorem fibreCoverExists_of_leafTorsion (Y₀ : Over (Spec (CommRingCat.of ℚ)))
+    (π₀ : ToP1 Y₀.left) (hT : ObjBridge.TorsionStructure) (hW : InnerTwistCount)
+    (hpin : CurvePinned Y₀ π₀) (h0 : FibreUnramifiedOn Y₀ π₀) (hU : UnramifiedConjugates) :
+    FibreCoverExists :=
+  fibreCoverExists_of_pinned' Y₀ π₀ (torsionBound3_of hT) hW hpin h0 hU
+
+/-- The same with the leaf exactly as it appears in the bundle (`TextbookLeaves.t5 :
+PkgI2.TorsionStructure.{0}`, scratch/h-decomposition/Leaves.lean). -/
+theorem torsionBound3_of_t5 (t5 : PkgI2.TorsionStructure.{0}) : TorsionBound3 :=
+  torsionBound3_of (ObjBridge.torsionStructure_iff.mpr t5)
+
 end G0ModField
 
 #print axioms G0ModField.fibreCoverOut_iff
@@ -585,3 +666,6 @@ end G0ModField
 #print axioms G0ModField.fibreCoverExists_of_pinned
 #print axioms G0ModField.twistClassCard_of
 #print axioms G0ModField.fibreCoverExists_of_pinned'
+#print axioms G0ModField.torsionBound3_of
+#print axioms G0ModField.fibreCoverExists_of_leafTorsion
+#print axioms G0ModField.torsionBound3_of_t5
