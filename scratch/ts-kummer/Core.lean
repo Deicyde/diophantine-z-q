@@ -822,6 +822,91 @@ theorem compositum_core0 (hU : UnramCompositum)
   rw [h1] at htow
   exact Nat.eq_one_of_mul_eq_one_left htow.symm
 
+/-- A copy of `ℚ[X]` used as the source of a substitution `X ↦ r` (so that its module structure
+on the target `ℚ[X]` is the one induced by the substitution). -/
+def SrcPoly : Type := Polynomial ℚ
+
+instance : CommRing SrcPoly := inferInstanceAs (CommRing ℚ[X])
+instance : IsDomain SrcPoly := inferInstanceAs (IsDomain ℚ[X])
+instance : IsPrincipalIdealRing SrcPoly := inferInstanceAs (IsPrincipalIdealRing ℚ[X])
+instance : IsDedekindDomain SrcPoly := inferInstanceAs (IsDedekindDomain ℚ[X])
+instance : Algebra ℚ SrcPoly := inferInstanceAs (Algebra ℚ ℚ[X])
+
+/-- The identity `SrcPoly → ℚ[X]`. -/
+def SrcPoly.toPoly (f : SrcPoly) : ℚ[X] := f
+
+/-- Substitution `X ↦ r` (`r` non-constant) is unramified at every nonzero prime `g` of the target
+`ℚ[X]` not containing `r'`. -/
+theorem polyUnram (r : ℚ[X]) (hr : 0 < r.natDegree)
+    (hint : (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).IsIntegral)
+    (g : Ideal ℚ[X]) [hg : g.IsPrime] (hg0 : g ≠ ⊥) (hder : derivative r ∉ g) :
+    letI : Algebra SrcPoly ℚ[X] := (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).toAlgebra
+    g.ramificationIdx SrcPoly = 1 := by
+  letI : Algebra SrcPoly ℚ[X] := (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).toAlgebra
+  have hσ : ∀ f : SrcPoly, algebraMap SrcPoly ℚ[X] f = f.toPoly.comp r := fun f => rfl
+  have hinj : Function.Injective (algebraMap SrcPoly ℚ[X]) := by
+    rw [injective_iff_map_eq_zero]; intro f hf
+    change f.toPoly.comp r = 0 at hf
+    rw [comp_eq_zero_iff] at hf
+    rcases hf with hf | ⟨_, hr'⟩
+    · exact hf
+    · exfalso; rw [hr', natDegree_C] at hr; exact lt_irrefl 0 hr
+  haveI : Module.IsTorsionFree SrcPoly ℚ[X] :=
+    Module.isTorsionFree_iff_algebraMap_injective.mpr hinj
+  haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
+  set h := g.under SrcPoly with hh_def
+  have hh0 : h ≠ ⊥ := Ideal.IsIntegral.under_ne_bot SrcPoly hg0
+  obtain ⟨q, rfl⟩ := Submodule.IsPrincipal.principal g
+  obtain ⟨f, hf⟩ := Submodule.IsPrincipal.principal h
+  have hq0 : q ≠ 0 := fun h0 => hg0 (by rw [h0]; exact Submodule.span_singleton_eq_bot.mpr rfl)
+  have hqp : Prime q := (Ideal.span_singleton_prime hq0).mp hg
+  have hf0 : f ≠ 0 := fun h0 => hh0 (by rw [hf, h0]; exact Submodule.span_singleton_eq_bot.mpr rfl)
+  haveI hhp : h.IsPrime := Ideal.IsPrime.under _ _
+  have hfp : Prime f := by
+    have : (Ideal.span {f} : Ideal SrcPoly).IsPrime := by
+      have e : (Ideal.span {f} : Ideal SrcPoly) = h := hf.symm
+      rw [e]; exact hhp
+    exact (Ideal.span_singleton_prime hf0).mp this
+  have hfp' : Prime f.toPoly := hfp
+  haveI : (Ideal.span {q}).LiesOver h := ⟨rfl⟩
+  rw [← Ideal.ramificationIdx'_eq_ramificationIdx h (Ideal.span {q}) hh0]
+  apply Ideal.ramificationIdx'_spec
+  · rw [pow_one]; exact Ideal.map_comap_le
+  · have hfmem : f ∈ h := by rw [hf]; exact Submodule.mem_span_singleton_self f
+    have hFq : q ∣ f.toPoly.comp r := by
+      rw [← Ideal.mem_span_singleton, ← hσ]; exact hfmem
+    have hmap : h.map (algebraMap SrcPoly ℚ[X]) = Ideal.span {f.toPoly.comp r} := by
+      have e : h = Ideal.span {f} := hf
+      rw [e, Ideal.map_span, Set.image_singleton, hσ]
+    rw [hmap, Ideal.span_singleton_pow, Ideal.span_singleton_le_span_singleton]
+    intro hdvd
+    have h2 : q ∣ derivative (f.toPoly.comp r) := by
+      simpa using pow_sub_one_dvd_derivative_of_pow_dvd hdvd
+    rw [derivative_comp] at h2
+    rcases hqp.dvd_or_dvd h2 with h3 | h3
+    · exact hder (Ideal.mem_span_singleton.mpr h3)
+    · obtain ⟨u, v, huv⟩ := (hfp'.irreducible.separable : f.toPoly.Separable)
+      have := congrArg (fun t => t.comp r) huv
+      simp only [add_comp, mul_comp, one_comp] at this
+      have h4 : q ∣ 1 := by
+        rw [← this]
+        exact dvd_add (dvd_mul_of_dvd_right hFq _) (dvd_mul_of_dvd_right h3 _)
+      exact hqp.not_unit (isUnit_of_dvd_one h4)
+
+/-- An integral substitution `X ↦ r` makes `ℚ[X]` module-finite over the source. -/
+theorem finite_of_isIntegral (r : ℚ[X])
+    (hint : (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).IsIntegral) :
+    letI : Algebra SrcPoly ℚ[X] := (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).toAlgebra
+    Module.Finite SrcPoly ℚ[X] := by
+  letI : Algebra SrcPoly ℚ[X] := (Polynomial.eval₂RingHom C r : SrcPoly →+* ℚ[X]).toAlgebra
+  haveI : IsScalarTower ℚ SrcPoly ℚ[X] := IsScalarTower.of_algebraMap_eq (fun a => by
+    change C a = (C a).comp r
+    rw [C_comp])
+  haveI : Algebra.FiniteType SrcPoly ℚ[X] :=
+    Algebra.FiniteType.of_restrictScalars_finiteType (R := ℚ) (S := SrcPoly) (A := ℚ[X])
+  haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
+  exact Algebra.IsIntegral.finite
+
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
