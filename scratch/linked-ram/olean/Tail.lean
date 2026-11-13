@@ -609,6 +609,247 @@ theorem kernelFieldBreaks_of (hB : UpperBreakBound) (hW : UpperAbsWild)
     (h2 : BetaTrivialAtTwo) : KernelFieldBreaks :=
   kernelFieldBreaks_of_halves (kernelFieldBreaksLow_of hB hW h2) kernelFieldBreaksHigh
 
+/-! ### `UpperAbsWild`, proved -/
+
+section UpperWild
+
+open LadicCond
+
+variable {p : ℕ} [Fact p.Prime]
+
+theorem restr_image_finite (M : Fld p) [FiniteDimensional ℚ_[p] M] (S : Set (PkgI4.GQp p)) :
+    (restr M '' S).Finite := by
+  apply Set.Finite.subset (Set.finite_range (fun f : M →ₐ[ℚ_[p]] Kbar p => (f : M → Kbar p)))
+  rintro _ ⟨σ, -, rfl⟩
+  exact ⟨(σ.toAlgHom).comp M.val, rfl⟩
+
+theorem ramSet_anti (M : Fld p) {i j : ℕ} (hij : i ≤ j) : ramSet M j ⊆ ramSet M i := by
+  rintro σ ⟨ϖ, hϖ, h⟩
+  refine ⟨ϖ, hϖ, fun x hx hx1 => (h x hx hx1).trans ?_⟩
+  exact pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
+
+theorem ramSetR_anti (M : Fld p) {s t : ℝ} (hst : s ≤ t) : ramSetR M t ⊆ ramSetR M s := by
+  unfold ramSetR
+  split_ifs with ht hs hs
+  · exact le_rfl
+  · exact absurd (hst.trans ht) hs
+  · exact Set.subset_univ _
+  · exact ramSet_anti M (Int.toNat_le_toNat (Int.ceil_mono hst))
+
+theorem ramSetR_sub_zero (M : Fld p) {t : ℝ} (ht : -1 < t) : ramSetR M t ⊆ ramSet M 0 := by
+  unfold ramSetR
+  rw [if_neg (by linarith)]
+  exact ramSet_anti M (Nat.zero_le _)
+
+theorem one_mem_ramSetR (M : Fld p) {ϖ : Kbar p} (hϖ : IsUnif M ϖ) (t : ℝ) :
+    (1 : PkgI4.GQp p) ∈ ramSetR M t := by
+  unfold ramSetR
+  split_ifs
+  · exact Set.mem_univ _
+  · exact ⟨ϖ, hϖ, fun x _ _ => by simp⟩
+
+theorem one_le_ramCardR (M : Fld p) [FiniteDimensional ℚ_[p] M] {ϖ : Kbar p} (hϖ : IsUnif M ϖ)
+    (t : ℝ) : 1 ≤ ramCardR M t := by
+  have hfin := restr_image_finite M (ramSetR M t)
+  have hne : (restr M '' ramSetR M t).Nonempty := ⟨restr M 1, 1, one_mem_ramSetR M hϖ t, rfl⟩
+  haveI := hfin.to_subtype
+  haveI := hne.to_subtype
+  exact Nat.card_pos
+
+theorem ramCardR_le (M : Fld p) [FiniteDimensional ℚ_[p] M] {t : ℝ} (ht : -1 < t) :
+    ramCardR M t ≤ ramCard M 0 :=
+  Nat.card_mono (restr_image_finite M _) (Set.image_mono (ramSetR_sub_zero M ht))
+
+theorem ramCardR_zero (M : Fld p) : ramCardR M 0 = ramCard M 0 := by
+  unfold ramCardR ramCard ramSetR
+  rw [if_neg (by norm_num)]
+  simp
+
+theorem integrand_anti (M : Fld p) [FiniteDimensional ℚ_[p] M] :
+    Antitone (fun t : ℝ => (ramCardR M t : ℝ) / (ramCard M 0 : ℝ)) := by
+  intro s t hst
+  apply div_le_div_of_nonneg_right _ (Nat.cast_nonneg _)
+  exact_mod_cast Nat.card_mono (restr_image_finite M _) (Set.image_mono (ramSetR_anti M hst))
+
+theorem phiAt_le_self (M : Fld p) [FiniteDimensional ℚ_[p] M] {ϖ : Kbar p} (hϖ : IsUnif M ϖ)
+    {v : ℝ} (hv : 0 ≤ v) : phiAt M v ≤ v := by
+  have hg0 : 0 < (ramCard M 0 : ℝ) := by
+    rw [← ramCardR_zero]; exact_mod_cast one_le_ramCardR M hϖ 0
+  unfold phiAt
+  calc ∫ t in (0 : ℝ)..v, (ramCardR M t : ℝ) / (ramCard M 0 : ℝ)
+      ≤ ∫ t in (0 : ℝ)..v, (1 : ℝ) := by
+        apply intervalIntegral.integral_mono_on hv ((integrand_anti M).intervalIntegrable)
+          intervalIntegrable_const
+        intro t ht
+        rw [div_le_one hg0]
+        exact_mod_cast ramCardR_le M (by linarith [ht.1])
+    _ = v := by simp
+
+theorem le_phiAt (M : Fld p) [FiniteDimensional ℚ_[p] M] {ϖ : Kbar p} (hϖ : IsUnif M ϖ)
+    {v : ℝ} (hv : 0 ≤ v) : v / (ramCard M 0 : ℝ) ≤ phiAt M v := by
+  have hg0 : 0 < (ramCard M 0 : ℝ) := by
+    rw [← ramCardR_zero]; exact_mod_cast one_le_ramCardR M hϖ 0
+  unfold phiAt
+  calc v / (ramCard M 0 : ℝ) = ∫ t in (0 : ℝ)..v, (1 : ℝ) / (ramCard M 0 : ℝ) := by simp [div_eq_mul_inv]
+    _ ≤ ∫ t in (0 : ℝ)..v, (ramCardR M t : ℝ) / (ramCard M 0 : ℝ) := by
+        apply intervalIntegral.integral_mono_on hv intervalIntegrable_const
+          ((integrand_anti M).intervalIntegrable)
+        intro t _
+        apply div_le_div_of_nonneg_right _ hg0.le
+        exact_mod_cast one_le_ramCardR M hϖ t
+
+/-- Elements `z` with `‖z − 1‖ < 1` are closed under products and integer powers. -/
+theorem norm_mul_sub_one_lt {a b : Kbar p} (ha : ‖a - 1‖ < 1) (hb : ‖b - 1‖ < 1) :
+    ‖a * b - 1‖ < 1 := by
+  have hna : ‖a‖ = 1 := by
+    have : a = (a - 1) + 1 := by ring
+    rw [this, IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm (by rw [norm_one]; exact ha.ne)]
+    simp [ha.le]
+  have : a * b - 1 = a * (b - 1) + (a - 1) := by ring
+  rw [this]
+  refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _) (max_lt ?_ ha)
+  rw [norm_mul, hna, _root_.one_mul]; exact hb
+
+theorem norm_pow_sub_one_lt {a : Kbar p} (ha : ‖a - 1‖ < 1) (n : ℕ) : ‖a ^ n - 1‖ < 1 := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ]; exact norm_mul_sub_one_lt ih ha
+
+theorem norm_inv_sub_one_lt {a : Kbar p} (ha : ‖a - 1‖ < 1) : ‖a⁻¹ - 1‖ < 1 := by
+  have hna : ‖a‖ = 1 := by
+    have : a = (a - 1) + 1 := by ring
+    rw [this, IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm (by rw [norm_one]; exact ha.ne)]
+    simp [ha.le]
+  have ha0 : a ≠ 0 := by rintro rfl; simp at hna
+  have : a⁻¹ - 1 = (1 - a) * a⁻¹ := by field_simp
+  rw [this, norm_mul, norm_inv, hna, inv_one, _root_.mul_one, norm_sub_rev]; exact ha
+
+theorem norm_zpow_sub_one_lt {a : Kbar p} (ha : ‖a - 1‖ < 1) (k : ℤ) : ‖a ^ k - 1‖ < 1 := by
+  rcases Int.eq_nat_or_neg k with ⟨n, rfl | rfl⟩
+  · rw [zpow_natCast]; exact norm_pow_sub_one_lt ha n
+  · rw [zpow_neg, zpow_natCast]; exact norm_inv_sub_one_lt (norm_pow_sub_one_lt ha n)
+
+/-- In `M` with uniformizer `ϖ`, every nonzero absolute value is a power of `‖ϖ‖`. -/
+theorem norm_eq_zpow (M : Fld p) {ϖ : Kbar p} (hϖ : IsUnif M ϖ) (hr0 : 0 < ‖ϖ‖) {x : Kbar p}
+    (hx : x ∈ M) (hx0 : x ≠ 0) : ∃ k : ℤ, ‖x‖ = ‖ϖ‖ ^ k := by
+  set r := ‖ϖ‖ with hr
+  have hr1 : r < 1 := hϖ.2.1
+  have hϖ0 : ϖ ≠ 0 := norm_pos_iff.mp hr0
+  obtain ⟨n, hn1, hn2⟩ := exists_mem_Ioc_zpow (norm_pos_iff.mpr hx0) (one_lt_inv_iff₀.mpr ⟨hr0, hr1⟩)
+  refine ⟨-(n + 1), ?_⟩
+  have h1 : r ^ (-n) < ‖x‖ := by rw [← inv_zpow']; exact hn1
+  have h2 : ‖x‖ ≤ r ^ (-(n + 1)) := by rw [← inv_zpow']; exact hn2
+  by_contra hne
+  have hlt : ‖x‖ < r ^ (-(n + 1)) := lt_of_le_of_ne h2 hne
+  let z := x * ϖ ^ (n + 1)
+  have hz : z ∈ M := M.mul_mem hx (zpow_mem hϖ.1 _)
+  have hzn : ‖z‖ = ‖x‖ * r ^ (n + 1) := by rw [norm_mul, norm_zpow]
+  have hpos : 0 < r ^ (n + 1) := zpow_pos hr0 _
+  have hz1 : ‖z‖ < 1 := by
+    rw [hzn]
+    calc ‖x‖ * r ^ (n + 1) < r ^ (-(n + 1)) * r ^ (n + 1) := mul_lt_mul_of_pos_right hlt hpos
+      _ = 1 := by rw [← zpow_add₀ hr0.ne']; simp
+  have hzr : r < ‖z‖ := by
+    rw [hzn]
+    calc r = r ^ (-n) * r ^ (n + 1) := by rw [← zpow_add₀ hr0.ne']; simp
+      _ < ‖x‖ * r ^ (n + 1) := mul_lt_mul_of_pos_right h1 hpos
+  exact absurd (hϖ.2.2 z hz hz1) (not_le.mpr hzr)
+
+/-- At a level `M` with `σ ∈ G_1(M)`, `σ` is wild on `M`. -/
+theorem wild_on_of_ramSet (M : Fld p) {ϖ : Kbar p} (hϖ : IsUnif M ϖ) {σ : PkgI4.GQp p}
+    (hle : ∀ y ∈ M, ‖y‖ ≤ 1 → ‖σ y - y‖ ≤ ‖ϖ‖ ^ 2) :
+    ∀ x ∈ M, x ≠ 0 → ‖σ x - x‖ < ‖x‖ := by
+  set r := ‖ϖ‖ with hr
+  have hr1 : r < 1 := hϖ.2.1
+  have hr0 : 0 < r := by
+    have hpM : ((p : ℚ_[p]) : Kbar p) ∈ M := M.algebraMap_mem _
+    have hpn : ‖((p : ℚ_[p]) : Kbar p)‖ = (p : ℝ)⁻¹ := by
+      rw [PadicAlgCl.norm_extends, Padic.norm_p]
+    have hp1 : ‖((p : ℚ_[p]) : Kbar p)‖ < 1 := by
+      rw [hpn]; exact inv_lt_one_of_one_lt₀ (by exact_mod_cast (Fact.out : p.Prime).one_lt)
+    have := hϖ.2.2 _ hpM hp1
+    rw [hpn] at this
+    exact lt_of_lt_of_le (inv_pos.mpr (by exact_mod_cast (Fact.out : p.Prime).pos)) this
+  have hϖ0 : ϖ ≠ 0 := norm_pos_iff.mp hr0
+  intro x hx hx0
+  obtain ⟨k, hk⟩ := norm_eq_zpow M hϖ hr0 hx hx0
+  let w := x * ϖ ^ (-k)
+  have hwM : w ∈ M := M.mul_mem hx (zpow_mem hϖ.1 _)
+  have hw1 : ‖w‖ = 1 := by
+    rw [norm_mul, norm_zpow, hk, ← zpow_add₀ hr0.ne']; simp
+  have hw0 : w ≠ 0 := by rintro h; rw [h, norm_zero] at hw1; exact zero_ne_one hw1
+  have hxw : x = w * ϖ ^ k := by
+    show x = x * ϖ ^ (-k) * ϖ ^ k
+    rw [_root_.mul_assoc, ← zpow_add₀ hϖ0]; simp
+  have hb : ‖σ w * w⁻¹ - 1‖ < 1 := by
+    have : σ w * w⁻¹ - 1 = (σ w - w) * w⁻¹ := by field_simp
+    rw [this, norm_mul, norm_inv, hw1, inv_one, _root_.mul_one]
+    exact lt_of_le_of_lt (hle w hwM hw1.le) (pow_lt_one₀ hr0.le hr1 (by norm_num))
+  have ha : ‖σ ϖ * ϖ⁻¹ - 1‖ < 1 := by
+    have : σ ϖ * ϖ⁻¹ - 1 = (σ ϖ - ϖ) * ϖ⁻¹ := by field_simp
+    rw [this, norm_mul, norm_inv, ← hr]
+    have h := hle ϖ hϖ.1 hr1.le
+    calc ‖σ ϖ - ϖ‖ * r⁻¹ ≤ r ^ 2 * r⁻¹ := mul_le_mul_of_nonneg_right h (inv_nonneg.mpr hr0.le)
+      _ = r := by field_simp
+      _ < 1 := hr1
+  have hq : σ x * x⁻¹ = (σ w * w⁻¹) * (σ ϖ * ϖ⁻¹) ^ k := by
+    rw [hxw, map_mul, map_zpow₀, mul_zpow, mul_inv, inv_zpow]
+    field_simp
+  have hlt : ‖σ x * x⁻¹ - 1‖ < 1 := by
+    rw [hq]; exact norm_mul_sub_one_lt hb (norm_zpow_sub_one_lt ha k)
+  have : σ x - x = (σ x * x⁻¹ - 1) * x := by field_simp
+  rw [this, norm_mul]
+  have hxn : 0 < ‖x‖ := norm_pos_iff.mpr hx0
+  calc ‖σ x * x⁻¹ - 1‖ * ‖x‖ < 1 * ‖x‖ := mul_lt_mul_of_pos_right hlt hxn
+    _ = ‖x‖ := _root_.one_mul _
+
+/-- Positive upper groups lie in `G_1` at every finite level, hence act wildly there. -/
+theorem upperSet_wild (M : Fld p) [FiniteDimensional ℚ_[p] M] {u : ℝ} (hu : 0 < u)
+    {σ : PkgI4.GQp p} (hσ : σ ∈ upperSet M u) : ∀ x ∈ M, x ≠ 0 → ‖σ x - x‖ < ‖x‖ := by
+  have h0 := sInf_nonneg_of_pos M hu
+  unfold upperSet ramSetR at hσ
+  rw [if_neg (show ¬ _ ≤ (-1 : ℝ) by linarith)] at hσ
+  obtain ⟨ϖ, hϖ, hle⟩ := hσ
+  have hg0 : 0 < (ramCard M 0 : ℝ) := by
+    rw [← ramCardR_zero]; exact_mod_cast one_le_ramCardR M hϖ 0
+  have hne : {v : ℝ | -1 ≤ v ∧ u ≤ phiAt M v}.Nonempty := by
+    refine ⟨u * ramCard M 0, by nlinarith, ?_⟩
+    have := le_phiAt M hϖ (v := u * ramCard M 0) (by positivity)
+    rwa [mul_div_assoc, div_self hg0.ne', _root_.mul_one] at this
+  have hS : u ≤ sInf {v : ℝ | -1 ≤ v ∧ u ≤ phiAt M v} := by
+    apply le_csInf hne
+    rintro v ⟨-, hv⟩
+    by_cases hv0 : v ≤ 0
+    · have := phiAt_nonpos M hv0; linarith
+    · exact hv.trans (phiAt_le_self M hϖ (le_of_lt (not_le.mp hv0)))
+  have hn : 1 ≤ ⌈sInf {v : ℝ | -1 ≤ v ∧ u ≤ phiAt M v}⌉.toNat := by
+    have : (0 : ℝ) < sInf {v : ℝ | -1 ≤ v ∧ u ≤ phiAt M v} := lt_of_lt_of_le hu hS
+    have : (0 : ℤ) < ⌈sInf {v : ℝ | -1 ≤ v ∧ u ≤ phiAt M v}⌉ := Int.ceil_pos.mpr this
+    omega
+  apply wild_on_of_ramSet M hϖ
+  intro y hy hy1
+  refine (hle y hy hy1).trans ?_
+  exact pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega)
+
+end UpperWild
+
+/-- **`UpperAbsWild`, proved.** -/
+theorem upperAbsWild : UpperAbsWild := by
+  intro p _ u hu σ hσ x hx
+  let K : LadicCond.Fld p := IntermediateField.adjoin ℚ_[p] {x}
+  haveI hKfin : FiniteDimensional ℚ_[p] K :=
+    IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral x)
+  let M : LadicCond.Fld p := IntermediateField.normalClosure ℚ_[p] K (LadicCond.Kbar p)
+  have hM : LadicCond.IsFinGal M := ⟨inferInstance, inferInstance⟩
+  have hxM : x ∈ M :=
+    IntermediateField.le_normalClosure K (IntermediateField.mem_adjoin_simple_self ℚ_[p] x)
+  haveI : FiniteDimensional ℚ_[p] M := hM.1
+  exact upperSet_wild M hu (hσ M hM) x hxM hx
+
+/-- **`KernelFieldBreaks` from `UpperBreakBound` and `BetaTrivialAtTwo`** (`UpperAbsWild` proved). -/
+theorem kernelFieldBreaks_of' (hB : UpperBreakBound) (h2 : BetaTrivialAtTwo) : KernelFieldBreaks :=
+  kernelFieldBreaks_of_halves (kernelFieldBreaksLow_of hB upperAbsWild h2) kernelFieldBreaksHigh
+
 /-! ### `TateRamAtThree`, corrected -/
 
 /-- **Glue: the Tate module of the QM model at `p = 3`, with `[L:ℚ] ≤ D`** (linked-tate's
@@ -706,3 +947,5 @@ end LinkedRamMain
 #print axioms UnramTate.kernelFieldBreaks_of_halves
 #print axioms UnramTate.kernelFieldBreaks_of
 #print axioms UnramTate.linkedRam_of'
+#print axioms UnramTate.upperAbsWild
+#print axioms UnramTate.kernelFieldBreaks_of'

@@ -42,3 +42,10 @@
   `linkedRam_of'` (linked-tate's proof, `[L:ℚ] ≤ D` read from G7Data's last clause). All standard axioms.
 - Pitfall: nlinarith on a goal containing `(heightD : ℝ)` hit max recursion (huge literal); use explicit
   `mul_le_mul_of_nonneg_left (pow_le_pow_left₀ …)`.
+
+## Step 4: `UpperAbsWild` PROVED — VERIFIED (Tail.lean 0 errors; axioms standard)
+- Lemmas (namespace UnramTate, section UpperWild): `restr_image_finite`, `ramSet_anti`, `ramSetR_anti`, `one_le_ramCardR`,
+  `ramCardR_le`, `integrand_anti` (antitone ⇒ interval integrable), `phiAt_le_self` (φ(v) ≤ v, v ≥ 0), `le_phiAt`
+  (v/g₀ ≤ φ(v)), `norm_eq_zpow` (value group of M is ‖ϖ‖^ℤ, from IsUnif maximality), `wild_on_of_ramSet`
+  (σ ∈ G_1(M) ⇒ ‖σx−x‖ < ‖x‖ on M^×), `upperSet_wild` (u > 0: ψ(u) ≥ u > 0 so G^u(M) ⊆ G_1(M)), `upperAbsWild`.
+- `kernelFieldBreaks_of' (hB : UpperBreakBound) (h2 : BetaTrivialAtTwo) : KernelFieldBreaks`. VERIFIED.
