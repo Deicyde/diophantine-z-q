@@ -39,3 +39,6 @@
   `galH A ℓ σ := transportₗ ℓ (galIso A σ⁻¹) 1` (transport of structure along `1 × Spec(σ⁻¹)`),
   **`T10_TateDuality`** (∃ ℤ_ℓ-linear `φ : H¹ ≃ Dual(T_ℓ A)` with
   `φ (galH σ x) = (galT σ⁻¹).dualMap (φ x)`), `T10_linIso_of_tateDuality`. COMPILED, standard axioms.
+- T10Etale.lean: + `ext_precomp_iso_bijective`, `ext_postcomp_iso_bijective`, **`transport_bijective`**
+  (via `Functor.mapExt_bijective_of_preservesInjectiveObjects`; EnoughInjectives of the Grothendieck
+  abelian sheaf category found automatically). So `galH σ` is a bijection for every σ. COMPILED.

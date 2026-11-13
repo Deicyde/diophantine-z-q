@@ -1,6 +1,7 @@
 import Mathlib.AlgebraicGeometry.Sites.ElladicCohomology
 import Mathlib.AlgebraicGeometry.Morphisms.WeaklyEtale
 import Mathlib.Algebra.Homology.DerivedCategory.Ext.Map
+import Mathlib.Algebra.Homology.DerivedCategory.Ext.MapBijective
 import ZInQKernel.HDecomp.Objects
 
 /-! # t10-etale: T10 over Mathlib's `ℓ`-adic cohomology
@@ -254,6 +255,43 @@ noncomputable def transportₗ (e : X ≅ Y) (n : ℕ) :
   __ := transport ℓ e n
   map_smul' a x := transport_smul ℓ e n a x
 
+/-- Precomposition with an isomorphism is bijective on `Ext`. -/
+lemma ext_precomp_iso_bijective {C : Type*} [Category* C] [Abelian C] [HasExt.{u+1} C]
+    {A B Z : C} (i : A ≅ B) (n : ℕ) :
+    Function.Bijective ((Abelian.Ext.mk₀ i.hom).precomp Z (zero_add n)) := by
+  refine Function.bijective_iff_has_inverse.mpr
+    ⟨(Abelian.Ext.mk₀ i.inv).precomp Z (zero_add n), fun x => ?_, fun x => ?_⟩
+  · change (Abelian.Ext.mk₀ i.inv).comp ((Abelian.Ext.mk₀ i.hom).comp x (zero_add n)) (zero_add n) = x
+    rw [Abelian.Ext.mk₀_comp_mk₀_assoc, Iso.inv_hom_id, Abelian.Ext.mk₀_id_comp]
+  · change (Abelian.Ext.mk₀ i.hom).comp ((Abelian.Ext.mk₀ i.inv).comp x (zero_add n)) (zero_add n) = x
+    rw [Abelian.Ext.mk₀_comp_mk₀_assoc, Iso.hom_inv_id, Abelian.Ext.mk₀_id_comp]
+
+/-- Postcomposition with an isomorphism is bijective on `Ext`. -/
+lemma ext_postcomp_iso_bijective {C : Type*} [Category* C] [Abelian C] [HasExt.{u+1} C]
+    {A B Z : C} (i : A ≅ B) (n : ℕ) :
+    Function.Bijective ((Abelian.Ext.mk₀ i.hom).postcomp Z (add_zero n)) := by
+  refine Function.bijective_iff_has_inverse.mpr
+    ⟨(Abelian.Ext.mk₀ i.inv).postcomp Z (add_zero n), fun x => ?_, fun x => ?_⟩
+  · change (x.comp (Abelian.Ext.mk₀ i.hom) (add_zero n)).comp (Abelian.Ext.mk₀ i.inv) (add_zero n) = x
+    rw [Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, Iso.hom_inv_id,
+      Abelian.Ext.comp_mk₀_id]
+  · change (x.comp (Abelian.Ext.mk₀ i.inv) (add_zero n)).comp (Abelian.Ext.mk₀ i.hom) (add_zero n) = x
+    rw [Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, Iso.inv_hom_id,
+      Abelian.Ext.comp_mk₀_id]
+
+/-- **Non-degeneracy check: transport is bijective** (the sheaf equivalence is exact, fully faithful
+and preserves injectives, so it induces bijections on `Ext`). In particular the Galois action
+`galH` below is by automorphisms, never degenerate. -/
+lemma transport_bijective (e : X ≅ Y) (n : ℕ) : Function.Bijective (transport ℓ e n) := by
+  have h1 := (sheafEquiv e).functor.mapExt_bijective_of_preservesInjectiveObjects
+    ((constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ)) (F X ℓ) n
+  have h2 := ext_postcomp_iso_bijective
+    (Z := (sheafEquiv e).functor.obj
+      ((constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ)))
+    (ellIso ℓ e) n
+  have h3 := ext_precomp_iso_bijective (Z := F Y ℓ) (constIso e ↧(ULift ℤ)).symm n
+  exact h3.comp (h2.comp h1)
+
 end Transport
 
 /-! ## T10 as a `ℤ_ℓ`-linear isomorphism -/
@@ -405,4 +443,5 @@ end T10Etale
 #print axioms T10Etale.T10_linIso_zero
 #print axioms T10Etale.transport_smul
 #print axioms T10Etale.galIso
+#print axioms T10Etale.transport_bijective
 #print axioms T10Etale.T10_linIso_of_tateDuality
