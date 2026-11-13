@@ -38,3 +38,12 @@
   (HodgeLatticeTheorem, T35).
 - Rebuilt Metrization2.lean (6164 lines): `lake env lean` 0 errors in 45 s; no sorry, no axiom;
   all new `#print axioms`: propext, Classical.choice, Quot.sound (VERIFIED).
+- Kernel-world check: `lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.Faltings.Models`
+  (17 modules, 1 min 57 s). build_kernel.sh → Kernel.lean (imports ZInQKernel.HDecomp.LeafPush2.T;
+  appends metrization's part_g0dim, the statements AnalyticUniformizationOfDim, JacDetNondegenerate,
+  ProductLocalStructure and metrization's germ lemmas verbatim, plus this task's parts, with
+  `open PkgI3 (AbVar)` as in the kernel's Models.lean; no copy of T35 or of AbVar). `lake env lean`
+  0 errors (17.5 s); `#print axioms` of jacDetNondegenerate, productLocalStructure,
+  analyticUniformizationOfDim_of_uniformizationExists (the latter now against the kernel's own
+  ZInQ.LeafPush2.UniformizationExists over PkgI3.AbVar): propext, Classical.choice, Quot.sound
+  (VERIFIED).
