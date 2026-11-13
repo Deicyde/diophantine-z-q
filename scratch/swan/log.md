@@ -32,3 +32,9 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   `wildAt_of_ramSet_one`, `exists_finGal_mem` (normal closure of ℚ_p(x)). VERIFIED.
 - §8 `swan_final (h1 : SwanAtIntegral) (hH : HerbrandUpper)` : SwanIndependent ∀p ∧ SwanIntegral ∧ AdaptedExists ∀p.
   Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- §7b compiles: **H1 `SwanAtIntegral` PROVED** (`Swan.swanAtIntegral`): φ_L(j) = Φ_j = Σ_{i≤j} g_i/g_0
+  (`phiAt_nat`), φ_L affine on [j, j+1] (`phiAt_piece`), G^u(L) = G_{j+1}(L) for Φ_j < u ≤ Φ_{j+1}
+  (`upperSet_eq`), integrand = Σ_j c_{j+1}·1_{(Φ_j,Φ_{j+1}]} on (0,∞), integral = Σ c_{j+1}(Φ_{j+1} − Φ_j).
+- **`swan_main (hH : HerbrandUpper)` : SwanIndependent ∀p ∧ SwanIntegral ∧ AdaptedExists ∀p.** Axioms
+  [propext, Classical.choice, Quot.sound]. `lake env lean scratch/swan/Swan.lean` exit 0, 0 errors
+  (only deprecation warnings for if_pos/if_neg). Output in scratch/swan/compile.out. VERIFIED.

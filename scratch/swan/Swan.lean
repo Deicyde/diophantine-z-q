@@ -770,6 +770,224 @@ theorem upperAbsWild : UpperAbsWild := by
 
 end Wild2
 
+/-! ## §7b. H1 (`SwanAtIntegral`): the finite-level change of variables -/
+
+section ChangeVar
+
+variable {p : ℕ} [Fact p.Prime]
+
+open MeasureTheory
+
+/-- `g_i/g_0`. -/
+def wt (L : Fld p) (i : ℕ) : ℝ := (ramCard L i : ℝ) / (ramCard L 0 : ℝ)
+
+/-- `Φ_j = φ_L(j) = ∑_{i=1}^{j} g_i/g_0`. -/
+def Phi (L : Fld p) (j : ℕ) : ℝ := ∑ i ∈ Finset.range j, wt L (i + 1)
+
+theorem Phi_zero (L : Fld p) : Phi L 0 = 0 := by simp [Phi]
+
+theorem Phi_succ (L : Fld p) (j : ℕ) : Phi L (j + 1) = Phi L j + wt L (j + 1) := by
+  simp [Phi, Finset.sum_range_succ]
+
+theorem wt_pos {L : Fld p} (hL : IsFinGal L) (i : ℕ) : 0 < wt L i := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hL.1
+  unfold wt
+  exact div_pos (by exact_mod_cast Nat.pos_of_ne_zero (ramCard_ne_zero hL hϖ i))
+    (by exact_mod_cast Nat.pos_of_ne_zero (ramCard_ne_zero hL hϖ 0))
+
+theorem wt_ge {L : Fld p} (hL : IsFinGal L) (i : ℕ) : 1 / (ramCard L 0 : ℝ) ≤ wt L i := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hL.1
+  unfold wt
+  exact div_le_div_of_nonneg_right
+    (by exact_mod_cast Nat.one_le_iff_ne_zero.2 (ramCard_ne_zero hL hϖ i)) (Nat.cast_nonneg _)
+
+theorem Phi_strictMono {L : Fld p} (hL : IsFinGal L) : StrictMono (Phi L) :=
+  strictMono_nat_of_lt_succ fun j => by rw [Phi_succ]; linarith [wt_pos hL (j + 1)]
+
+theorem Phi_nonneg {L : Fld p} (hL : IsFinGal L) (j : ℕ) : 0 ≤ Phi L j := by
+  rw [← Phi_zero L]; exact (Phi_strictMono hL).monotone (Nat.zero_le j)
+
+theorem Phi_ge {L : Fld p} (hL : IsFinGal L) (j : ℕ) :
+    (j : ℝ) * (1 / (ramCard L 0 : ℝ)) ≤ Phi L j := by
+  induction j with
+  | zero => simp [Phi_zero]
+  | succ j ih => rw [Phi_succ]; push_cast; linarith [wt_ge hL (j + 1)]
+
+/-- On `(j, j+1]` the integrand of `φ_L` is `g_{j+1}/g_0`. -/
+theorem integrand_eq {L : Fld p} {j : ℕ} {t : ℝ} (h1 : (j : ℝ) < t) (h2 : t ≤ j + 1) :
+    (ramCardR L t : ℝ) / (ramCard L 0 : ℝ) = wt L (j + 1) := by
+  have hc : ⌈t⌉ = (j : ℤ) + 1 := Int.ceil_eq_iff.2 ⟨by push_cast; linarith, by push_cast; linarith⟩
+  have ht : ¬ t ≤ -1 := by have : (0 : ℝ) ≤ j := Nat.cast_nonneg j; linarith
+  unfold ramCardR ramSetR wt
+  rw [if_neg ht, hc]
+  rfl
+
+theorem integral_piece {L : Fld p} (j : ℕ) {t : ℝ} (h1 : (j : ℝ) ≤ t) (h2 : t ≤ j + 1) :
+    ∫ x in (j : ℝ)..t, (ramCardR L x : ℝ) / (ramCard L 0 : ℝ) = (t - j) * wt L (j + 1) := by
+  rw [intervalIntegral.integral_congr_ae (g := fun _ => wt L (j + 1)) ?_]
+  · rw [intervalIntegral.integral_const, smul_eq_mul]
+  · refine Filter.Eventually.of_forall fun x hx => ?_
+    rw [Set.uIoc_of_le h1] at hx
+    exact integrand_eq hx.1 (hx.2.trans h2)
+
+theorem integrable_phi {L : Fld p} (hL : IsFinGal L) (a b : ℝ) :
+    IntervalIntegrable (fun t => (ramCardR L t : ℝ) / (ramCard L 0 : ℝ)) volume a b :=
+  (ramCardR_anti hL).intervalIntegrable
+
+theorem phiAt_nat {L : Fld p} (hL : IsFinGal L) (j : ℕ) : phiAt L j = Phi L j := by
+  induction j with
+  | zero => simp [phiAt, Phi_zero]
+  | succ j ih =>
+    rw [phiAt] at ih ⊢
+    rw [← intervalIntegral.integral_add_adjacent_intervals (integrable_phi hL 0 j)
+      (integrable_phi hL j (j + 1 : ℕ)), ih, Phi_succ]
+    push_cast
+    rw [integral_piece j (t := (j : ℝ) + 1) (by linarith) le_rfl (L := L)]
+    ring
+
+theorem phiAt_piece {L : Fld p} (hL : IsFinGal L) (j : ℕ) {t : ℝ} (h1 : (j : ℝ) ≤ t)
+    (h2 : t ≤ j + 1) : phiAt L t = Phi L j + (t - j) * wt L (j + 1) := by
+  rw [← phiAt_nat hL j, phiAt, phiAt, ← intervalIntegral.integral_add_adjacent_intervals
+    (integrable_phi hL 0 j) (integrable_phi hL j t), integral_piece j h1 h2]
+
+theorem phiAt_mono {L : Fld p} (hL : IsFinGal L) {t t' : ℝ} (h : t ≤ t') :
+    phiAt L t ≤ phiAt L t' := by
+  rw [phiAt, phiAt, ← intervalIntegral.integral_add_adjacent_intervals
+    (integrable_phi hL 0 t) (integrable_phi hL t t')]
+  have : 0 ≤ ∫ x in t..t', (ramCardR L x : ℝ) / (ramCard L 0 : ℝ) :=
+    intervalIntegral.integral_nonneg h fun x _ => by positivity
+  linarith
+
+/-- **`G^u(L) = G_{j+1}(L)` for `Φ_j < u ≤ Φ_{j+1}`** (i.e. `⌈ψ_L(u)⌉ = j + 1`). -/
+theorem upperSet_eq {L : Fld p} (hL : IsFinGal L) {j : ℕ} {u : ℝ} (h1 : Phi L j < u)
+    (h2 : u ≤ Phi L (j + 1)) : upperSet L u = ramSet L (j + 1) := by
+  set S := {t : ℝ | -1 ≤ t ∧ u ≤ phiAt L t} with hS
+  have hj0 : (0 : ℝ) ≤ j := Nat.cast_nonneg j
+  have hw := wt_pos hL (j + 1)
+  have hmem : ((j : ℝ) + 1) ∈ S := by
+    refine ⟨by linarith, ?_⟩
+    have := phiAt_nat hL (j + 1)
+    push_cast at this
+    rw [this]; exact h2
+  have hbdd : BddBelow S := ⟨-1, fun t ht => ht.1⟩
+  have hle : sInf S ≤ j + 1 := csInf_le hbdd hmem
+  set t0 := (j : ℝ) + (u - Phi L j) / wt L (j + 1) with ht0
+  have ht0j : (j : ℝ) < t0 := by
+    have : 0 < (u - Phi L j) / wt L (j + 1) := div_pos (by linarith) hw
+    linarith
+  have ht0le : t0 ≤ j + 1 := by
+    have : (u - Phi L j) / wt L (j + 1) ≤ 1 := by
+      rw [div_le_one hw]; rw [Phi_succ] at h2; linarith
+    linarith
+  have hlb : ∀ t ∈ S, t0 ≤ t := by
+    rintro t ⟨-, ht⟩
+    by_contra hlt
+    push Not at hlt
+    by_cases htj : t ≤ j
+    · have := phiAt_mono hL htj
+      rw [phiAt_nat hL] at this
+      linarith
+    · push Not at htj
+      rw [phiAt_piece hL j htj.le (by linarith)] at ht
+      have : (t - j) * wt L (j + 1) < (t0 - j) * wt L (j + 1) :=
+        mul_lt_mul_of_pos_right (by linarith) hw
+      have e : (t0 - j) * wt L (j + 1) = u - Phi L j := by
+        rw [ht0]; field_simp; ring
+      linarith
+  have hgt : (j : ℝ) < sInf S := lt_of_lt_of_le ht0j (le_csInf ⟨_, hmem⟩ hlb)
+  have hc : ⌈sInf S⌉ = (j : ℤ) + 1 :=
+    Int.ceil_eq_iff.2 ⟨by push_cast; linarith, by push_cast; linarith⟩
+  show ramSetR L (sInf S) = _
+  unfold ramSetR
+  rw [if_neg (by linarith), hc]
+  rfl
+
+theorem exists_piece {L : Fld p} (hL : IsFinGal L) {u : ℝ} (hu : 0 < u) :
+    ∃ j : ℕ, Phi L j < u ∧ u ≤ Phi L (j + 1) := by
+  classical
+  have hg0 : 0 < (ramCard L 0 : ℝ) := by
+    have := wt_pos hL 0
+    unfold wt at this
+    rcases (div_pos_iff.1 this) with h | h
+    · exact h.2
+    · exact absurd h.2 (not_lt.2 (Nat.cast_nonneg _))
+  have hex : ∃ j : ℕ, u ≤ Phi L (j + 1) := by
+    obtain ⟨m, hm⟩ := exists_nat_gt (u * (ramCard L 0 : ℝ))
+    refine ⟨m, le_trans ?_ (Phi_ge hL (m + 1))⟩
+    rw [mul_one_div, le_div_iff₀ hg0]; push_cast; linarith
+  refine ⟨Nat.find hex, ?_, Nat.find_spec hex⟩
+  rcases Nat.eq_zero_or_eq_succ_pred (Nat.find hex) with h | h
+  · rw [h, Phi_zero]; exact hu
+  · have hmin := Nat.find_min hex (show (Nat.find hex).pred < Nat.find hex by omega)
+    push Not at hmin
+    rw [h]; exact hmin
+
+/-- **H1 (`SwanAtIntegral`) is proved.** -/
+theorem swanAtIntegral : SwanAtIntegral := by
+  intro p _ k _ n ρ L hL
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hL.1.1
+  obtain ⟨N, hN⟩ := eventuallyTrivial hL.1 hϖ
+  set c : ℕ → ℕ := fun i => codimInv ρ (ramSet L i ∩ wildSet) with hcdef
+  have hc0 : ∀ i, N ≤ i → c i = 0 := fun i hi =>
+    codimInv_eq_zero fun σ hσ => hL.2 σ ⟨hσ.2, hN i hi hσ.1⟩
+  -- left side: a finite sum
+  have hsupp : Function.support (fun i : ℕ => ((ramCard L (i + 1) : ℚ) / ramCard L 0) *
+      (codimInv ρ (ramSet L (i + 1) ∩ wildSet) : ℚ)) ⊆ ↑(Finset.range N) := by
+    intro i hi
+    simp only [Finset.coe_range, Set.mem_Iio]
+    by_contra hlt
+    apply hi
+    have : c (i + 1) = 0 := hc0 (i + 1) (by omega)
+    simp only [hcdef] at this
+    simp [this]
+  have hLHS : (swanAt L ρ : ℝ) = ∑ i ∈ Finset.range N, wt L (i + 1) * (c (i + 1) : ℝ) := by
+    rw [swanAt, finsum_eq_sum_of_support_subset _ hsupp]
+    push_cast
+    rfl
+  -- right side: the integrand is a finite sum of indicators
+  have hpt : ∀ u ∈ Set.Ioi (0 : ℝ), (codimInv ρ (upperSet L u ∩ wildSet) : ℝ) =
+      ∑ j ∈ Finset.range N,
+        (Set.Ioc (Phi L j) (Phi L (j + 1))).indicator (fun _ => (c (j + 1) : ℝ)) u := by
+    intro u hu
+    obtain ⟨j, h1, h2⟩ := exists_piece hL.1 hu
+    rw [upperSet_eq hL.1 h1 h2]
+    have hmono := (Phi_strictMono hL.1).monotone
+    have hterm : ∀ m, (Set.Ioc (Phi L m) (Phi L (m + 1))).indicator
+        (fun _ => (c (m + 1) : ℝ)) u = if j = m then (c (m + 1) : ℝ) else 0 := by
+      intro m
+      by_cases hm : j = m
+      · subst hm
+        rw [Set.indicator_of_mem (show u ∈ Set.Ioc (Phi L j) (Phi L (j + 1)) from ⟨h1, h2⟩),
+          if_pos rfl]
+      · rw [Set.indicator_of_notMem, if_neg hm]
+        rintro ⟨hm1, hm2⟩
+        rcases lt_or_gt_of_ne hm with hlt | hlt
+        · have := hmono (show j + 1 ≤ m by omega); linarith
+        · have := hmono (show m + 1 ≤ j by omega); linarith
+    rw [Finset.sum_congr rfl fun m _ => hterm m, Finset.sum_ite_eq (Finset.range N) j]
+    split_ifs with hj
+    · rfl
+    · have : c (j + 1) = 0 := hc0 (j + 1) (by simp at hj; omega)
+      simp only [hcdef] at this
+      simp [this]
+  have hint : ∀ j ∈ Finset.range N, Integrable
+      ((Set.Ioc (Phi L j) (Phi L (j + 1))).indicator (fun _ => (c (j + 1) : ℝ)))
+      (volume.restrict (Set.Ioi 0)) := by
+    intro j _
+    rw [integrable_indicator_iff measurableSet_Ioc]
+    refine IntegrableOn.restrict ?_
+    exact integrableOn_const (by simp [Real.volume_Ioc])
+  rw [hLHS, setIntegral_congr_fun measurableSet_Ioi hpt, integral_finsetSum _ hint]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  have hsub : Set.Ioc (Phi L j) (Phi L (j + 1)) ⊆ Set.Ioi 0 :=
+    Set.Ioc_subset_Ioi_self.trans (Set.Ioi_subset_Ioi (Phi_nonneg hL.1 j))
+  rw [setIntegral_indicator measurableSet_Ioc, Set.inter_eq_right.mpr hsub, setIntegral_const,
+    Real.volume_real_Ioc_of_le ((Phi_strictMono hL.1).monotone (Nat.le_succ j)), smul_eq_mul,
+    Phi_succ]
+  ring
+
+end ChangeVar
+
 /-! ## §8. Final form -/
 
 /-- **Main result.** `AdaptedExists` holds outright; `SwanIndependent` (every `p`) and
@@ -779,6 +997,13 @@ theorem swan_final (h1 : SwanAtIntegral) (hH : HerbrandUpper) :
     (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
       (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)) :=
   swan_all h1 upperAbsWild (upperAbsSurj_of_herbrand hH)
+
+/-- **Main result (final form).** `AdaptedExists` holds outright; `SwanIndependent` (every `p`)
+and `SwanIntegral` (L8) follow from the single leaf `HerbrandUpper` (Herbrand's theorem). -/
+theorem swan_main (hH : HerbrandUpper) :
+    (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
+      (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)) :=
+  swan_final swanAtIntegral hH
 
 end Swan
 
@@ -790,3 +1015,5 @@ end Swan
 #print axioms Swan.swan_all'
 #print axioms Swan.upperAbsWild
 #print axioms Swan.swan_final
+#print axioms Swan.swanAtIntegral
+#print axioms Swan.swan_main
