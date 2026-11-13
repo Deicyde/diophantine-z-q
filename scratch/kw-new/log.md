@@ -66,8 +66,30 @@
   * Fixes inside nov01 files: PrescribedInvariant line ~978 (`by simpa using hu` for a
     `Subgroup.toAddSubgroup` membership).
 
-## KW BUILD SUCCESS (03:47)
+## KW BUILD SUCCESS (~03:41)
 - `lake build ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber`:
   "Build completed successfully (5260 jobs)". VERIFIED.
 - Coordination: duplicate sessions kw-new-9f (stopped; its merges of origin/main and
   origin/wip/tc-port and its Leaves.lean rewrite kept) and kw-new-e3 (standing by).
+
+## Bridge (03:41-03:44)
+- ZInQKernel/Contrib/KroneckerWeber/Leaves.lean (rewritten by duplicate session kw-new-9f to use
+  the importable ZInQKernel.HDecomp.Textbook.KroneckerWeberUse from fork main c303557d; compiled
+  here): hSynKroneckerWeber : HSynKroneckerWeber, glueKroneckerWeber : GlueKroneckerWeber,
+  tSkolemKW_kroneckerWeber : TSkolemKW.KW.KroneckerWeber, kroneckerWeberCyclic :
+  TSkolemKW.KW.KroneckerWeberCyclic, dirichletCharacter_of_openKer, dirichletCharacter_of_continuous,
+  ker_ge_of_openKer, eq_of_agree_on_roots. All: [propext, Classical.choice, Quot.sound]. VERIFIED
+  (scratch/kw-new/Axioms.lean -> axioms-output.txt).
+- HSynKroneckerWeber / GlueKroneckerWeber texts checked verbatim against
+  scratch/h-decomposition/Leaves.lean:21206 and scratch/glue-assembly/Leaves.lean:19. VERIFIED.
+- ZInQKernel/Contrib/KroneckerWeber/DirichletCharacter.lean (my earlier draft) removed: the
+  Textbook module provides the same declarations.
+
+## All 44 nov01 modules build (03:44)
+- Last fixes: Backport AbsoluteGaloisGroup.Congr helper removed (declarations already in oct16);
+  Completion.Real omits its copy of exists_completionNormalizedAbsValue_eq (in oct16
+  Completion.Basic); Cyclotomic.Basic helper gains natDegree_cyclotomic_comp_X_add_one;
+  Star.Completion `fun_prop` replaced by explicit continuity. VERIFIED (buildlist, 44/44 rc=0).
+- Co-import: 5 moved-file modules clash with their oct16 predecessors (Stabilizer.Basic,
+  Cyclic.PowMonoidHom, UnitFiltration.Pow.Basic, FinitePlace.Basic, FDRep.Basic); the other 39 load
+  together with the bridge (scratch/kw-new/AllNov01.lean compiles). VERIFIED.
