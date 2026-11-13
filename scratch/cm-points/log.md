@@ -31,3 +31,13 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
   `Thm35First ℓ Z`, `Lemma321 Z`, bundled `GenusPointLeaf ℓ Hn`.
 - betaOneSign check (by hand): D = −1: sgn −1, odd part −1 ≡ 7 (mod 8) → −1; product +1, so a
   β₁-lift fixes i (TYZ L2581) ✓. D = 2 → +1; D = −2 → −1 (consistent: √−2 = i√2).
+
+## 08:20 Glue proved (Package.lean builds, `lake build ZInQKernel.Contrib.TYZGenus.Package`)
+- CM.lean: `mem_ptsOver_iff` (A(K) = points with coordinates in K), `iPt_mem`, `galPt_mem`,
+  `galPt_iPt` (F4: σ fixing i commutes with [i]) — VERIFIED (compiled).
+- Package.lean: `ptT_add_self : T + T = (0,0)`, `four_zsmul_ptT`, `tauG_eq_zero :
+  tauG y = 0 ↔ twoTwoI ∣ y` (TYZ L1386 for the pinned τ), `galPt_tauG` (β_τ),
+  `fixes_i_of_isBetaOneLift`, `Pseq_eq`, `Pseq_mem`, `genusData_of` (core: pinned objects give
+  `PropN.GenusData ℓ n`), `genusPackage_of_genusPointLeaf`, `genusPointLeaf_of_split`,
+  `genusPackage_of_split`, `tyzThm35ReadingA_of_split`.
+- `#print axioms tyzThm35ReadingA_of_split`: [propext, Classical.choice, Quot.sound] (VERIFIED).
