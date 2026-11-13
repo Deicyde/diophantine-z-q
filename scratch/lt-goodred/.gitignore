@@ -1,0 +1,5 @@
+olean/*.olean
+olean/*.ilean
+olean/*_out.txt
+olean/LGPrefix.lean
+olean/Tail.lean
