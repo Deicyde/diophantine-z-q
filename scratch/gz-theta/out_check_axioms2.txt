@@ -1,0 +1,30 @@
+etaThetaIdentity : EtaThetaIdentity
+cmForm32 : CMForm32
+heckeThetaNewform_of_newCM : NewCM → ZInQ.GZDecomp.HeckeThetaNewform
+heckeThetaNewform_of_badCoeffCM : BadCoeffCM → ZInQ.GZDecomp.HeckeThetaNewform
+exists_eigenform_heckeCoeff : ∀ (d : ℕ) [inst : NeZero d],
+  d % 4 = 1 →
+    Squarefree d →
+      ∃ E,
+        E.χ = 1 ∧
+          ∀ (n : ℕ),
+            (PowerSeries.coeff n) (UpperHalfPlane.qExpansion 1 ⇑E.toCuspForm) = ZInQ.Contrib.HeckeFE.heckeCoeff d n
+@jacobiTheta₂_eq_jtpP : ∀ {τ : ℂ}, 0 < τ.im → ∀ (z : ℂ), jacobiTheta₂ z τ = jtpP τ z
+@hasSum_jacobi : ∀ {τ : ℂ}, 0 < τ.im → HasSum (fun n => ↑n * jacobiTheta₂_term n ((1 + τ) / 2) τ) (jtpA τ ^ 3)
+@hasSum_gauss : ∀ {τ : ℂ},
+  0 < τ.im →
+    HasSum (fun n => jacobiTheta₂_term n (1 / 2) τ) (gp (qJ τ) (-1) 2 2 * gp (qJ τ) (-1) 2 1 * gp (qJ τ) (-1) 2 1)
+@eq_zero_of_theta_fe : ∀ {τ : ℂ} {f : ℂ → ℂ},
+  Differentiable ℂ f →
+    (∀ (z : ℂ), f (z + 1) = f z) →
+      (∀ (z : ℂ), f (z + τ) = Complex.exp (-↑Real.pi * Complex.I * (τ + 2 * z)) * f z) →
+        ∫ (x : ℝ) in 0..1, f ↑x = 0 → f = 0
+'ZInQ.GZTheta.etaThetaIdentity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.cmForm32' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_newCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_of_badCoeffCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.exists_eigenform_heckeCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.jacobiTheta₂_eq_jtpP' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.hasSum_jacobi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.hasSum_gauss' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.eq_zero_of_theta_fe' depends on axioms: [propext, Classical.choice, Quot.sound]
