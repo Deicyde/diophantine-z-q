@@ -25,14 +25,14 @@ theorem HDec.HSyn.sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenText
 **VERIFIED.** It has no `sorry`, and `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]`. The checks are in §5.
 
-The hypotheses are 67 named Props, and none of them is an `opaque` placeholder:
+The hypotheses are 66 named Props, and none of them is an `opaque` placeholder:
 
 | bundle | fields | kind |
 |---|---|---|
 | `OpenResearchLeaves2` | 26 | research-level leaves (R1-R22, H5). R1(b), R10, R14 and R17 appear in concrete or corrected form |
 | `OpenTextbookLeaves2` | 18 | textbook leaves |
 | `OpenAddedLeaves2` | 12 | leaves that the wave 26-27 reductions introduced: 9 LEAF, 3 LEAF? (composite leaf candidates) |
-| `OpenGlue2` | 11 | glue still to be proved by the project |
+| `OpenGlue2` | 10 | glue still to be proved by the project |
 
 **Count before and after.** Before, the open statement was g0-assemble2's
 `sixContactMin_of_leaves3` with leaf-fold's closures applied. That means `ResearchLeaves3` (24),
@@ -41,10 +41,10 @@ plus leaf-fold's `OpenTextbookLeaves` (26), plus `GluePieces3` (40).
 | | research leaves | textbook leaves | added leaves (LEAF/LEAF?) | glue | total |
 |---|---|---|---|---|---|
 | before (g0-assemble2 + leaf-fold) | 24 | 26 | 18 | 22 | **90** |
-| after (`sixContactMin_of_open2`) | 26 | 18 | 12 | 11 | **67** |
+| after (`sixContactMin_of_open2`) | 26 | 18 | 12 | 10 | **66** |
 
 The research-leaf count rises by two because two fields move into that bundle (see the first bullet
-below). Glue falls from 22 to 11, and the literature side (leaves) from 68 to 56. For comparison:
+below). Glue falls from 22 to 10, and the literature side (leaves) from 68 to 56. For comparison:
 - leaf-fold's own `sixContactMin_of_open` has 26 + 26 + 11 = 63 fields. Two of them are `opaque`,
   and its 11 glue pieces are the large unsplit ones.
 - g0-assemble2's `sixContactMin_of_leaves3` has 24 + 35 + 40 = 99 fields.
@@ -55,12 +55,12 @@ What changed:
   to the research leaves.
 - **Merged into existing leaves.** `r14Det` merges into R14, and `g9R10Weights` merges into
   R10 (`PkgI4.DeRhamComparisonHT`, r10-amend).
-- **Proved.** 12 fields are proved, and one more follows from a leaf already in the bundle:
+- **Proved.** 13 fields are proved, and one more follows from a leaf already in the bundle:
   - textbook leaves: T14(a′), T14(b′), T36, T37;
   - added leaves: `mulEtale` (through `MulIsogeny`), `constOrOntoAlgClosed`;
   - glue: `smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-    `endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`. That is
-    8 glue fields;
+    `endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`,
+    `unramifiedConjugates`. That is 9 glue fields;
   - from the textbook leaf T35: the glue `productMetrizationOfProductUnif` (unif-dims, with
     infra-smooth-dim's `TangentDimAtOrigin`).
 - **Derived.** T39 follows from T40.
@@ -105,6 +105,7 @@ proof is the imported or copied theorem, so Lean checks that the two statements 
 | `artinTorsionSurj`, `conjUniformization` | GLUE | no longer used: G10 comes from `G0Galois.conjTwistNontrivial_of_leaves : T5 → T26 → T35 → HomLinearLift → ConjTwistNontrivial` | conj-twist's §13-§16 copied (part b05). Its later commit added `[NumberField K]` to `ConjUniformization`, and a30's copy was updated (diff: no other change) | conj-twist |
 | `productUnifSplits` | GLUE | `ZInQ.ProductUnif.productUnifSplits` (no hypotheses) | product-unif §1-§3 copied (part b08, `mk_b08.sh`) | product-unif |
 | `productMetrizationOfProductUnif` | GLUE | **from T35**: `ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved` | unif-dims' `Combined.lean` chain copied (part b09, `mk_unifdims.py`; root lemmas in module `LF2UnifRoot`); `TangentDimAtOrigin` from infra-smooth-dim's `SmoothDimProps.lean` (module `LF2SmoothDim`, namespaces renamed `LF2.*`), transferred through `toAbVarK`. In metrization2's transport section a local field-by-field coercion `ZInQ.DefFaltings.AbVar → PkgI3.AbVar` (= `LeafAdopt.abVarEquiv`) is added, since Leaves.lean has two copies of the structure where the kernel has one | unif-dims, infra-smooth-dim, product-unif, metrization2 |
+| `unramifiedConjugates` | GLUE | `G0ModField.unramifiedConjugates` (Mathlib only) | `scratch/inner-twist/UnramConj.lean` verbatim as module `LF2UnramConj`, `exact` | inner-twist |
 | `cotangentSpanBC`, `uniformizationLiftAnalytic` | GLUE | `ZInQ.HeightBC.cotangentSpanBC`, `uniformizationLiftAnalytic` | infra-stalks' `HeightBCGlue.lean`: its Part 3 copied (part b07), its Part 1 as module `LF2Stalks` | infra-stalks |
 | `r1bFamily` | LEAF | moved to `OpenResearchLeaves2.r1b` (R1(b) concretely; it was the `opaque` `r1an`) | — | fibre-qm-period, g0-assemble2 |
 | `carayolR17` | LEAF | moved to `OpenResearchLeaves2.r17` (it was the `opaque` `r17`) | — | g0-mod-newform, g0-assemble2 |
@@ -193,18 +194,17 @@ the field's statement or role.
 | `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | LEAF | Mumford §7-8 | weil-pairing |
 | `divisiblePoints : WeilPairing.DivisiblePoints` | LEAF | Mumford §4 Appl. 2 | weil-pairing |
 
-### 2.4 `OpenGlue2` (11, all GLUE)
+### 2.4 `OpenGlue2` (10, all GLUE)
 
 | field | content | last touched; reductions available but not folded |
 |---|---|---|
-| `x6KummerFibre : FS5NoCM.X6KummerFibre` | the Kummer fibre of `X₆ → P¹` | fs5-nocm |
+| `x6KummerFibre : FS5NoCM.X6KummerFibre` | the Kummer fibre of `X₆ → P¹` | fs5-nocm; x6-kummer reduces it to `MobiusGlue` (proved here) and a new leaf `X6ConicModel` (§4) |
 | `hodgeBCInjective : HeightBC.HodgeBCInjective` | `ψ` injective on the Hodge line | height-bc, infra-stalks (open) |
 | `omegaBaseChange : HeightBC.OmegaBaseChange` | `ω` base-changes | height-bc, infra-stalks (open) |
 | `periodMapGlue : ∀ h, FibreQM.PeriodMapGlue …` | the period map's fibres and values | fibre-qm-period. period-map reduces it to `BaseChangeClassUnique`, `PiTwistC`, `QMTwistLattice`, `CMDescends` |
 | `hauptmodulUnique : FibreQM.HauptmodulUnique` | uniqueness of the normalized Hauptmodul | fibre-qm-period. period-map reduces it to `S8Nonzero`, `SphereFactorAffine` |
 | `cPtsTransport : FibreQM.CPtsTransport` | complex points along base change | fibre-qm-period |
 | `propTSAll : G0ModField.PropTSAll` | Prop. TS for every admissible cover; truth SPECULATIVE (fibre-cover §3.2) | fibre-cover. prop-ts reduces it to `KummerMeetGlue`, `SpecNonMeeting`, `CoverModelOfHecke` and others |
-| `unramifiedConjugates : G0ModField.UnramifiedConjugates` | a compositum of conjugates of an unramified field is unramified | fibre-cover |
 | `conjIsogMaps : KernelField.ConjIsogMaps` | the conjugacy maps `m_σ = μ_σ ∘ σ` | kernel-field (open) |
 | `modelG3 : G0AssembleMod.ModelG3` | G3 on G7's model | g0-assemble2. linked-tate reduces its own `QMModelG3` to `GoodRedTorsion`; that is a different Prop, not folded |
 | `linkedTateLocal : G0AssembleMod.LinkedTateLocal` | the linked Tate data with the Frobenius link and local data; truth SPECULATIVE | g0-assemble2 (g8-object's `LinkedTateObj` is a different Prop) |
@@ -238,6 +238,11 @@ fact that they are unused is VERIFIED by the compile.
   `hauptmodulUnique`, `qmDenZeroCM3`), prop-ts (`propTSAll`), linked-tate and g8-object (their own
   Props), and r1b-state (§1). Each replaces a field by other named Props, so folding it would not
   shrink the list of open statements. It would only rename them.
+- **x6-kummer.** It proves the glue `X6KummerFibre` from `MobiusGlue` and one new leaf
+  `X6ConicModel`, the conic model of `X₆ = X₀(6,1)` (VERIFIED, read in docs/research/x6-kummer.md).
+  This turns one glue Prop into one new leaf rather than closing it. Not folded: its file copies
+  fs5-nocm's §A, which part a60 already holds, so it would need de-duplication. It is the natural
+  next step.
 - **alg-frob-red** concerns frob-trace's route, not a field of `GluePieces3`.
 
 ## 5. Checks (VERIFIED)
@@ -247,7 +252,7 @@ fact that they are unused is VERIFIED by the compile.
   `LF2Stalks`.
 - Every module compiles with 0 errors and no `sorry` (times in `log.md`). `LPrefix` takes 582 s and
   `TailC` 193 s; each of the others takes under 110 s.
-- In TailE's output, all 26 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
+- In TailE's output, all 27 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
   These include `HDec.HSyn.sixContactMin_of_open2`, `gluePieces_of_open2` and every `*_proved`.
   The output is `scratch/leaf-fold2/olean/TailE_out.txt`, which is not committed: run `./ctail.sh TailE.lean TailE`.
 
