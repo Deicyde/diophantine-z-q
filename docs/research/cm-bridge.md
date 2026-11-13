@@ -50,9 +50,14 @@ derived from in TYZ.
 `TYZThm36Seven` in Lean (§12):
 
 ```lean
-def p2Ideal (n : ℕ) [NeZero n] : Ideal (𝓞 (QNeg n)) :=
+def PosOrient (n : ℕ) [NeZero n] : Prop :=
+  0 < (ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega))).im
+def p2Ideal (n : ℕ) [NeZero n] : Ideal (𝓞 (QNeg n)) :=   -- (open Classical)
   if h : n % 4 = 3 then
-    Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    if PosOrient n then
+      Ideal.span {2, ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
+    else
+      Ideal.span {2, 1 - ZInQ.RouteK.Redei.thetaO n h - (((tyzDelta n + 1) / 2 : ℕ) : 𝓞 (QNeg n))}
   else ⊤
 def p2Class (n : ℕ) [NeZero n] : Pic (OK n) :=
   (ClassGroup.mk0 ⟨p2Ideal n, p2Ideal_mem n⟩ : ClassGroup (𝓞 (QNeg n)))
@@ -63,9 +68,14 @@ def TYZThm36Seven : Prop :=
       galPt γ (tyzZ7 n) + galPt ρ (tyzZ7 n) = tauG 1
 ```
 
-* `𝔭₂ = (2, (√−n − δ)/2)` (`θ = (1+√−n)/2`, `δ = tyzDelta n`) is TYZ's place `v₂` with
-  `v₂(√−n − δ) ≥ 6` (L1424; `(√−n − δ)/2 ∈ 𝔭₂`, its conjugate is not, and `N((√−n−δ)/2) = (n+δ²)/4 ≡ 0
-  (mod 32)`). VERIFIED by hand and `N𝔭₂ = 2` is proved (`normP2`).
+* `𝔭₂` is the prime of `𝓞_{K_n}` whose image in `ℂ` (through ring-class's `embed n` and `CM`'s `ιC`)
+  is `(2, (i√n − δ)/2)`, `δ = tyzDelta n`: `(2, (√−n − δ)/2) = (2, θ − (δ+1)/2)` if `ιC(embed √−n) = +i√n`
+  (`PosOrient`), else its conjugate `(2, 1 − θ − (δ+1)/2)`. It is TYZ's place `v₂` with
+  `v₂(√−n − δ) ≥ 6` (L1424; `(√−n − δ)/2 ∈ 𝔭₂`, its conjugate is not, `N((√−n−δ)/2) = (n+δ²)/4 ≡ 0
+  (mod 32)`), with `√−n` read as `i√n` — the reading that the numerical check confirms (below);
+  `N𝔭₂ = 2` is proved for both branches (`normP2`). **The orientation is essential**: the first version
+  of this leaf used `(2, (√−n − δ)/2)` for the abstract `√−n`, so it depended on the arbitrary
+  embedding `embed n` and was false for one of the two choices (independent review, §5); fixed.
 * TYZ's `σ` is the geometric Artin map, uniformizers ↦ geometric Frobenius (L1247–1250, VERIFIED read),
   so `σ_{ϖ^5}` acts on the (unramified) Hilbert class field as `Frob_{v₂}^{−5} = Art([𝔭₂])^{−5}`;
   Tau Ceti's `ringClassArtinEquiv` is arithmetic (`isArithFrobAt_ringClassArtinEquiv_picClass`).
@@ -147,9 +157,16 @@ hits max recursion / a kernel deterministic timeout; proving the restriction ide
   prime `p ≡ 3 (mod 8)` inert in the `K_{d₀}`; none of this exists in Lean today.
 * `TYZSigmaShiftsF0`, `Thm35First`, the `𝓛`-leaves and `CM.CMFieldOfDefinition ringClassFieldD` were
   not attacked (the last is task tyz-cm's).
-* An independent AI review of the statement `TYZThm36Seven` was requested; see §5.
 
 ## 5. Review
 
-See the log (`scratch/cm-bridge/log.md`) for the outcome of the independent statement review of
-`TYZThm36Seven`.
+Independent statement review of `TYZThm36Seven` (AI subagent, read-only, no Lean, 2026-11-13; no human
+review). Checked against Period7.tex L1196–1210, L1235–1252, L1408–1428: (1) `𝔭₂` is TYZ's `v₂` — OK;
+(2) geometric `σ_{ϖ^5}` on `H_n` is the arithmetic `Art([𝔭₂])^{−5}` — OK; (3) `tyzZ7 n` is TYZ's `z_n`
+and the pinned `δ` cannot make the statement false (`z_n` depends on `δ mod 64` only; `δ ↦ −δ`
+conjugates `z_n` and `v₂` together) — OK; (4) `τ(1/2) = tauG 1 = (2, −4)` — OK; (5) not vacuous — OK.
+**Finding (blocking, fixed):** the first `p2Ideal` was not oriented relative to `ιC`, so the leaf was
+the wrong-sign statement (numerically false) for one of the two possible `embed n`. Fixed with
+`PosOrient` (§1); `normP2`, `betaOnGenus7`, `lemma321Seven_of'` and the main theorem recompiled
+unchanged otherwise. The reviewer also judged that `thm36_7.py` tests exactly the Lean statement under
+the `+i√n` orientation (Shimura direction taken from cm-numeric's VERIFIED `shimura.out`).
