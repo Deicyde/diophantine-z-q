@@ -112,3 +112,14 @@ docs/research/h5-neron.md.
 ## 14. HodgeLatticeNonzero from OmegaSpans — PROVED (compiled ~02:30, JacDet.lean)
 - `OmegaSpans` (copied verbatim from hodge-lattice §2, where it is PROVED: omegaSpans_of_omegaLocal omegaLocal).
 - `exists_smul_mem_omega`, `hodgeLatticeNonzero_of_omegaSpans`, `heightAntitone_of_omegaSpans`. Axioms standard.
+
+## 15. NeronModelMinimal and HeightAntitone — PROVED (compiled ~02:31, scratch/h5-glue/NeronMinimal.lean)
+- Self-contained file: hodge-lattice §1-§5 copied verbatim (for `omegaLocal`, `omegaSpans_of_omegaLocal`)
+  + JacDet.lean + Minimal.lean.
+- `omegaSpans : OmegaSpans`, `heightAntitone : HeightAntitone`,
+  `neronModelMinimal : ZInQ.DefFaltings.NeronModelMinimal` (the project's Prop from Height.lean).
+  #print axioms: [propext, Classical.choice, Quot.sound]; no sorry/axiom in the file. Compile ~13 s.
+- REVISES finding (a): the nonvanishing of ⋀^g ω_𝒩 needed for HodgeData.isLattice follows from
+  OmegaSpans (coherence of e*Ω¹, proved by hodge-lattice without dimension theory) together with the
+  transported finrank 1; no rank/dimension input (TangentDimAtOrigin, DimBaseChange) is needed.
+  So h5-neron's (d) "NeronModelMinimal is glue" is CORRECT, and it is now proved.
