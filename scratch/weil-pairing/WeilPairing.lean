@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.Objects
 import Mathlib.NumberTheory.Cyclotomic.CyclotomicCharacter
 import Mathlib.LinearAlgebra.Matrix.BilinearForm
+import ZInQKernel.HDecomp.Assembly.C8
 
 /-!
 # weil-pairing: polarizations and the Weil pairing over `PkgI3.AbVar`
@@ -436,4 +437,229 @@ theorem symmIsogeny_zero (K : Type) [Field K] : Nonempty (SymmIsogeny (AbVar.zer
   ⟨{ D := weilDualZero K, lam := (1 : End (AbVar.zero K)), isogeny := isIsogenyMor_id _,
      symm := fun _ _ _ _ => rfl }⟩
 
+/-! ## §5. The old consequence-form T9 (`LeafPush.T09_WeilPairing`), derived -/
+
+namespace OldT9
+
+universe u
+
+open PkgI2
+
+/-- Copied verbatim from `scratch/h-decomposition/Leaves.lean` (`LeafPush.T09_WeilPairing`, from
+leaf-push), with `Type u` replaced by `Type` (the build uses universe `0`). -/
+def T09_WeilPairing : Prop :=
+  ∀ (K : Type) [Field K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A],
+    ∃ d : ℕ, 0 < d ∧ ∃ e : ℕ → Pts A (AlgebraicClosure K) → Pts A (AlgebraicClosure K) →
+        AlgebraicClosure K,
+      ∀ n : ℕ, 0 < n → (n : K) ≠ 0 →
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
+          e n x y ^ n = 1) ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ x' ∈ torsion A (AlgebraicClosure K) n,
+          ∀ y ∈ torsion A (AlgebraicClosure K) n,
+            e n (x * x') y = e n x y * e n x' y ∧ e n y (x * x') = e n y x * e n y x') ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n, e n x x = 1) ∧
+        (∀ x ∈ torsion A (AlgebraicClosure K) n,
+          (∀ y ∈ torsion A (AlgebraicClosure K) n, e n x y = 1) → x ^ d = 1) ∧
+        (∀ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+          ∀ x ∈ torsion A (AlgebraicClosure K) n, ∀ y ∈ torsion A (AlgebraicClosure K) n,
+            e n (galAct A σ x) (galAct A σ y) = σ (e n x y)) ∧
+        (∀ m : ℕ, 0 < m → (m : K) ≠ 0 →
+          ∀ x ∈ torsion A (AlgebraicClosure K) (m * n),
+          ∀ y ∈ torsion A (AlgebraicClosure K) (m * n),
+            e n (x ^ m) (y ^ m) = e (m * n) x y ^ m)
+
+end OldT9
+
+section Old
+
+variable (A : Grp (Over (Spec (.of K)))) [PkgI2.IsAbelianVariety A]
+
+/-- A torsion point of `A` (I2's multiplicative points) as an element of `tors (ofGrp A) n`. -/
+def toT {n : ℕ} {x : PkgI2.Pts A (AlgebraicClosure K)} (hx : x ^ n = 1) :
+    tors (ObjBridge.ofGrp A) n :=
+  ⟨Additive.ofMul x, by rw [mem_tors]; change Additive.ofMul (x ^ n) = 0; rw [hx]; rfl⟩
+
+open Classical in
+/-- The old leaf's `e`, read off `e^λ`. -/
+def oldE (S : SymmIsogeny (ObjBridge.ofGrp A)) (n : ℕ) (x y : PkgI2.Pts A (AlgebraicClosure K)) :
+    AlgebraicClosure K :=
+  if h : x ^ n = 1 ∧ y ^ n = 1 then ((weil S.D S.lam n (toT A h.1) (toT A h.2)).val : _) else 1
+
+lemma oldE_eq (S : SymmIsogeny (ObjBridge.ofGrp A)) {n : ℕ} {x y : PkgI2.Pts A (AlgebraicClosure K)}
+    (hx : x ^ n = 1) (hy : y ^ n = 1) :
+    oldE A S n x y = ((weil S.D S.lam n (toT A hx) (toT A hy)).val : _) := by
+  classical
+  exact dite_eq_left_of_eq_true (eq_true ⟨hx, hy⟩)
+
+end Old
+
+/-- **The new T9 implies the old one.** `T09_SymmIsogenyExists` (over the definitions of §3)
+together with `IsogenyQuasiInverse` implies the consequence-form leaf
+`LeafPush.T09_WeilPairing` used by `scratch/h-decomposition/Leaves.lean` (`HSyn` bundle field
+`t9`). So the old leaf can be replaced by the two leaves of §4. -/
+theorem oldT9_of_symmIsogeny (h9 : T09_SymmIsogenyExists) (hQ : IsogenyQuasiInverse) :
+    OldT9.T09_WeilPairing := by
+  intro K _ A _
+  obtain ⟨S⟩ := h9 K (ObjBridge.ofGrp A)
+  obtain ⟨d, hd, ψ, hψ, -⟩ := hQ K _ _ S.lam S.isogeny
+  refine ⟨d, hd, oldE A S, fun n hn hnK => ⟨?_, ?_, ?_, ?_, ?_, ?_⟩⟩
+  · -- values in `μ_n`
+    intro x hx y hy
+    rw [oldE_eq A S hx hy, ← Units.val_pow_eq_pow_val, val_pow_eq_one, Units.val_one]
+  · -- bimultiplicative
+    intro x hx x' hx' y hy
+    have hxx' : (x * x') ^ n = 1 := by
+      change x ^ n = 1 at hx
+      change x' ^ n = 1 at hx'
+      rw [mul_pow, hx, hx', one_mul]
+    have e1 : toT A hxx' = toT A hx + toT A hx' := rfl
+    refine ⟨?_, ?_⟩
+    · rw [oldE_eq A S hxx' hy, oldE_eq A S hx hy, oldE_eq A S hx' hy, e1, val_mul_left,
+        Units.val_mul]
+    · rw [oldE_eq A S hy hxx', oldE_eq A S hy hx, oldE_eq A S hy hx', e1, val_mul_right,
+        Units.val_mul]
+  · -- alternating
+    intro x hx
+    rw [oldE_eq A S hx hx, S.symm n hn hnK, Mu.val_zero, Units.val_one]
+  · -- nondegenerate up to `d`
+    intro x hx H
+    have h0 : ∀ t : tors (ObjBridge.ofGrp A) n, weil S.D S.lam n (toT A hx) t = 0 := by
+      intro t
+      have ht : (Additive.toMul (t : P (ObjBridge.ofGrp A))) ^ n = 1 :=
+        Additive.ofMul.injective (nsmul_tors t)
+      have h1 := H _ ht
+      rw [oldE_eq A S hx ht] at h1
+      have h2 : toT A ht = t := rfl
+      rw [h2] at h1
+      exact Mu.val_injective (Units.val_eq_one.1 h1)
+    have h3 := weil_nondeg S.D S.lam hψ hn hnK (toT A hx) h0
+    exact Additive.ofMul.injective (congrArg Subtype.val h3)
+  · -- Galois-equivariant
+    intro σ x hx y hy
+    have hσx : (PkgI2.galAct A σ x) ^ n = 1 := by
+      change x ^ n = 1 at hx
+      rw [← PkgI2.galAct_pow, hx]
+      exact MonObj.comp_one _
+    have hσy : (PkgI2.galAct A σ y) ^ n = 1 := by
+      change y ^ n = 1 at hy
+      rw [← PkgI2.galAct_pow, hy]
+      exact MonObj.comp_one _
+    have ex : toT A hσx = galTors _ n σ (toT A hx) := rfl
+    have ey : toT A hσy = galTors _ n σ (toT A hy) := rfl
+    rw [oldE_eq A S hσx hσy, oldE_eq A S hx hy, ex, ey, weil_galois S.D S.lam hn hnK, galMu_val]
+  · -- compatibility
+    intro m hm hmK x hx y hy
+    have hmn : 0 < m * n := Nat.mul_pos hm hn
+    have hmnK : ((m * n : ℕ) : K) ≠ 0 := by rw [Nat.cast_mul]; exact mul_ne_zero hmK hnK
+    change x ^ (m * n) = 1 at hx
+    change y ^ (m * n) = 1 at hy
+    have hxm : (x ^ m) ^ n = 1 := by rw [← pow_mul, hx]
+    have hym : (y ^ m) ^ n = 1 := by rw [← pow_mul, hy]
+    have ex : toT A hxm = torsSmul _ m n (toT A hx) := rfl
+    have ey : torsIncl _ (dvd_mul_left n m) (torsMap S.lam n (toT A hym)) =
+        m • torsMap S.lam (m * n) (toT A hy) := by
+      apply Subtype.ext
+      change homP S.lam (Additive.ofMul (y ^ m)) = m • homP S.lam (Additive.ofMul y)
+      rw [← map_nsmul]
+      rfl
+    rw [oldE_eq A S hxm hym, oldE_eq A S hx hy, weil_apply, ex,
+      ← S.D.compat m n hm hn hmnK, ey, nsmul_right, Mu.val_nsmul, ← weil_apply,
+      Units.val_pow_eq_pow_val]
+
+/-! ## §6. The G12 input: the multiplier is cyclotomic; `det² = χ^{rank}` -/
+
+/-- `G_K` acts on `μ_n` through the mod-`n` cyclotomic character (Mathlib's
+`modularCyclotomicCharacter'`). -/
+lemma galMu_eq_nsmul (n : ℕ) [NeZero n] (σ : Gal K) (z : Mu K n) :
+    galMu n σ z =
+      (Units.val (modularCyclotomicCharacter' (AlgebraicClosure K) n σ.toRingEquiv)).val • z := by
+  apply Mu.val_injective
+  apply Units.ext
+  rw [galMu_val, Mu.val_nsmul, Units.val_pow_eq_pow_val]
+  have := modularCyclotomicCharacter'.spec' (AlgebraicClosure K) n σ.toRingEquiv
+    (Additive.toMul z).2
+  exact this
+
+/-- **Finite-level G12 input (proved).** For `n` invertible in `K`, `e^λ_n` has cyclotomic
+multiplier: `e^λ_n(σx, σy) = χ_n(σ) · e^λ_n(x, y)` (additively), `χ_n` the mod-`n` cyclotomic
+character. Hence `G_K` acts on `A[n]` through `GSp(e^λ_n)` with multiplier `χ_n`. -/
+theorem weil_cyclotomic {A : AbVar K} (D : WeilDual A) (lam : Hom A D.dual) {n : ℕ} [NeZero n]
+    (hnK : (n : K) ≠ 0) (σ : Gal K) (x y : tors A n) :
+    weil D lam n (galTors A n σ x) (galTors A n σ y) =
+      (Units.val (modularCyclotomicCharacter' (AlgebraicClosure K) n σ.toRingEquiv)).val •
+        weil D lam n x y := by
+  rw [weil_galois D lam (Nat.pos_of_ne_zero (NeZero.ne n)) hnK, galMu_eq_nsmul]
+
+/-- **The determinant identity (proved, linear algebra).** Let `B` be a bilinear form on a free
+module with basis `b` over a commutative ring, with Gram determinant a unit (a perfect
+pairing), and `f` a similitude with multiplier `c`: `B(f x, f y) = c B(x, y)`. Then
+`det(f)² = c^{rank}`. For `M = V_ℓ(A)`, `B` the `ℓ`-adic Weil pairing of `λ` (perfect on
+`V_ℓ`) and `f = ρ_ℓ(σ)`, `c = χ_ℓ(σ)`: `det ρ_ℓ(σ)² = χ_ℓ(σ)^{2g}`, the input
+`(det r₅)⁴ = χ⁴` on `G_F` (for `g = 2`) of C8's determinant argument. -/
+theorem det_sq_of_similitude {R M idx : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    [Fintype idx] [DecidableEq idx] (b : Module.Basis idx R M) (B : LinearMap.BilinForm R M)
+    (hB : IsUnit (LinearMap.BilinForm.toMatrix b B).det) (f : M →ₗ[R] M) (c : R)
+    (hf : ∀ x y, B (f x) (f y) = c * B x y) :
+    LinearMap.det f ^ 2 = c ^ Fintype.card idx := by
+  have hc : B.comp f f = c • B := by
+    ext x y
+    simp [hf]
+  have h1 := LinearMap.BilinForm.toMatrix_comp b b B f f
+  rw [hc, map_smul] at h1
+  have h2 := congrArg Matrix.det h1
+  rw [Matrix.det_smul, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose,
+    LinearMap.det_toMatrix] at h2
+  exact hB.mul_left_cancel (by linear_combination -h2)
+
+/-- Over a field: a nondegenerate `B` with multiplier `c` for `f` gives `det(f)² = c^{dim}`. -/
+theorem det_sq_of_similitude_field {F M : Type*} [Field F] [AddCommGroup M] [Module F M]
+    [FiniteDimensional F M] (B : LinearMap.BilinForm F M) (hB : B.Nondegenerate)
+    (f : M →ₗ[F] M) (c : F) (hf : ∀ x y, B (f x) (f y) = c * B x y) :
+    LinearMap.det f ^ 2 = c ^ Module.finrank F M := by
+  classical
+  let b := Module.finBasis F M
+  have hdet := (LinearMap.BilinForm.nondegenerate_iff_det_ne_zero b).1 hB
+  rw [det_sq_of_similitude b B (Ne.isUnit hdet) f c hf, Fintype.card_fin]
+
+/-- **The determinant argument with `det²` (proved).** C8's group-theoretic step from
+`(det r)⁴ = χ⁴` on a finite-index subgroup (what `det_sq_of_similitude` gives for `g = 2` and
+`V ⊗ E ≅ r ⊕ r`), instead of `GlueAssembly.twist_finite`'s `(det r)² = χ²` (which needs
+`det = χ^g`, i.e. the Pfaffian). -/
+theorem twist_finite_four {G E : Type*} [Group G] [Field E] (H : Subgroup G) [H.FiniteIndex]
+    (r ε χ ψ : G →* Eˣ) (hdet : ∀ g, r g = ε g * χ g * ψ g ^ 2)
+    (hH : ∀ h ∈ H, r h ^ 4 = χ h ^ 4) (hε : (Set.range ε).Finite) : (Set.range ψ).Finite := by
+  classical
+  let α : G →* Eˣ := r * χ⁻¹
+  have hαH : (α '' H).Finite := by
+    refine Set.Finite.subset ((Polynomial.nthRoots 4 (1 : E)).toFinset.finite_toSet.preimage
+      Units.val_injective.injOn) ?_
+    rintro _ ⟨h, hh, rfl⟩
+    simp only [Set.mem_preimage, Finset.mem_coe, Multiset.mem_toFinset]
+    rw [Polynomial.mem_nthRoots (by norm_num)]
+    have e : (α h) ^ 4 = 1 := by
+      simp only [α, MonoidHom.mul_apply, MonoidHom.inv_apply, mul_pow, inv_pow, hH h hh,
+        mul_inv_cancel]
+    have := congrArg Units.val e
+    simpa using this
+  have hα := GlueAssembly.finite_range_of_finiteIndex α H hαH
+  have hsq : (Set.range fun g => ψ g ^ 2) ⊆ (fun p : Eˣ × Eˣ => p.1 * p.2⁻¹) '' (Set.range α ×ˢ
+      Set.range ε) := by
+    rintro _ ⟨g, rfl⟩
+    refine ⟨(α g, ε g), ⟨⟨g, rfl⟩, ⟨g, rfl⟩⟩, ?_⟩
+    simp only [α, MonoidHom.mul_apply, MonoidHom.inv_apply, hdet]
+    apply Units.ext
+    simp only [Units.val_mul, Units.val_inv_eq_inv_val, Units.val_pow_eq_pow_val]
+    have h1 := (ε g).ne_zero
+    have h2 := (χ g).ne_zero
+    field_simp
+  exact GlueAssembly.finite_range_of_sq ψ (((hα.prod hε).image _).subset hsq)
+
 end WeilPairing
+
+#print axioms WeilPairing.oldT9_of_symmIsogeny
+#print axioms WeilPairing.symmIsogeny_zero
+#print axioms WeilPairing.weil_cyclotomic
+#print axioms WeilPairing.det_sq_of_similitude_field
+#print axioms WeilPairing.twist_finite_four
+#print axioms WeilPairing.weil_perfect_of_principal
+#print axioms WeilPairing.isSymmetric_pullback

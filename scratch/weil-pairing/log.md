@@ -17,3 +17,11 @@
 - FINDING: `WeilDual` is not unique (over K̄ any Â with Â[n] ≅ A[n] carries one); leaves over it
   must be existential. A leaf "∀ D D' f, ∃ dual morphism" would NOT be a consequence (SPECULATIVE
   counterexample over K̄: non-isogenous Â' of the same dimension). Not stated.
+- 23:23 §5-§6 COMPILE, axioms [propext, Classical.choice, Quot.sound] for all printed:
+  `OldT9.T09_WeilPairing` (verbatim copy of `LeafPush.T09_WeilPairing`, universe 0);
+  `oldT9_of_symmIsogeny : T09_SymmIsogenyExists → IsogenyQuasiInverse → OldT9.T09_WeilPairing`
+  (VERIFIED, compiled: the new T9 implies the old consequence form, all six clauses);
+  `galMu_eq_nsmul`, `weil_cyclotomic` (e^λ_n(σx,σy) = χ_n(σ)·e^λ_n(x,y), Mathlib's
+  `modularCyclotomicCharacter'`); `det_sq_of_similitude` (comm. ring, unit Gram det:
+  det(f)² = c^rank), `det_sq_of_similitude_field`; `twist_finite_four` (C8 determinant argument
+  from (det r)⁴ = χ⁴ on a finite-index subgroup).
