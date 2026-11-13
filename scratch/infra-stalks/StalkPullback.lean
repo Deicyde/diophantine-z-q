@@ -480,4 +480,56 @@ theorem stalkMap_congr_point_apply {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X} (
       f.stalkMap x' ((Y.presheaf.stalkCongr (.of_eq (congrArg f h))).hom z) :=
   ConcreteCategory.congr_hom (Scheme.Hom.stalkMap_congr_point f x x' h) z
 
+/-! ### Stalk maps between given points -/
+
+/-- The stalk map of `f` from `y` to `x`, for `f x = y`. -/
+noncomputable def Scheme.Hom.stalkMapAt {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) : Y.presheaf.stalk y ⟶ X.presheaf.stalk x :=
+  (Y.presheaf.stalkCongr (.of_eq h.symm)).hom ≫ f.stalkMap x
+
+instance {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y) :
+    IsLocalHom (f.stalkMapAt h).hom := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [CommRingCat.hom_comp]
+  infer_instance
+
+theorem Scheme.Hom.stalkMapAt_rfl {X Y : Scheme.{u}} (f : X ⟶ Y) (x : X) :
+    f.stalkMapAt (rfl : f x = f x) = f.stalkMap x := by
+  unfold Scheme.Hom.stalkMapAt
+  have : (Y.presheaf.stalkCongr (.of_eq (rfl : f x = f x).symm)).hom = 𝟙 _ :=
+    Y.presheaf.stalkSpecializes_refl _
+  rw [this, Category.id_comp]
+
+theorem Scheme.Hom.stalkMapAt_comp {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z) :
+    (f ≫ g).stalkMapAt hfg = g.stalkMapAt hg ≫ f.stalkMapAt hf := by
+  subst hf hg
+  rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl]
+  unfold Scheme.Hom.stalkMapAt
+  have : (Z.presheaf.stalkCongr (.of_eq hfg.symm)).hom = 𝟙 _ :=
+    Z.presheaf.stalkSpecializes_refl _
+  rw [this]
+  exact (Category.id_comp _).trans (Scheme.Hom.stalkMap_comp f g x)
+
+theorem Scheme.Hom.stalkMapAt_congr {X Y : Scheme.{u}} {f g : X ⟶ Y} (e : f = g) {x : X} {y : Y}
+    (hf : f x = y) (hg : g x = y) : f.stalkMapAt hf = g.stalkMapAt hg := by
+  subst e; rfl
+
+theorem Scheme.Hom.stalkMapAt_id {X : Scheme.{u}} (x : X) (h : (𝟙 X) x = x) :
+    Scheme.Hom.stalkMapAt (𝟙 X) h = 𝟙 _ := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [Scheme.Hom.stalkMap_id]
+  exact (Category.comp_id _).trans (X.presheaf.stalkSpecializes_refl _)
+
+theorem Scheme.Hom.map_stalkMapAt_maximalIdeal {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) :
+    Ideal.map (f.stalkMapAt h).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk y)) =
+      Ideal.map (f.stalkMap x).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk (f x))) := by
+  subst h; rw [Scheme.Hom.stalkMapAt_rfl]
+
+theorem Scheme.Hom.exists_stalkMapAt_eq {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) (b : Y.presheaf.stalk (f x)) :
+    ∃ c : Y.presheaf.stalk y, f.stalkMapAt h c = f.stalkMap x b := by
+  subst h; exact ⟨b, by rw [Scheme.Hom.stalkMapAt_rfl]⟩
+
 end AlgebraicGeometry

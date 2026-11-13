@@ -28,3 +28,13 @@
   then the section lemma). VERIFIED: 0 errors, 0 sorry, axioms [propext, Classical.choice, Quot.sound].
 - Corollaries: `kerUnitOpen_of_cotangentMulN : CotangentMulN → KerUnitOpen`,
   `mulIsogeny_of_cotangentMulN : CotangentMulN → G0FibreSimple.MulIsogeny` (standard axioms).
+- CotangentProduct.lean (Mathlib-only, VERIFIED compile): `IsLocalRing.sub_mem_maximalIdeal_sq_of_product`
+  (x ≡ φ₁ψ₁x + φ₂ψ₂x mod 𝔪_R² given retractions, cross terms in 𝔪², 𝔪_R = φ₁(𝔪)+φ₂(𝔪), residue field from either side),
+  `exists_sub_mem_sq_of_mem_map`, `map_mem_sq_of_le`.
+- StalkPullback.lean: `Scheme.Hom.stalkMapAt` (stalk map between given points) with `_rfl`, `_comp`, `_congr`, `_id`,
+  `map_stalkMapAt_maximalIdeal`, `exists_stalkMapAt_eq` (VERIFIED compile).
+- MulKer.lean + mulN_proof.lean.part: `MulRigidity.cotangentMulN : CotangentMulN` PROVED
+  (μ^♯a ≡ p₁^♯a + p₂^♯a mod 𝔪²_{(0,0)} on A ×_k A; cotangentMap additive on End A, zero at 0, id at 1, then
+  zsmul_one + map_zsmul). Hence **`MulRigidity.mulIsogeny : G0FibreSimple.MulIsogeny`** (a textbook leaf) and
+  `MulRigidity.kerUnitOpen : KerUnitOpen` are theorems. VERIFIED: 0 errors, 0 sorry, axioms
+  [propext, Classical.choice, Quot.sound] for cotangentMulN, mulIsogeny, kerUnitOpenOfCotangentSurj.

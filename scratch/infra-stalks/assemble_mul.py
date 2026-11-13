@@ -4,12 +4,16 @@ scratch/mul-rigidity/Mul.lean (after its imports) + ker_proof.lean.part. Run fro
 d='scratch/infra-stalks/'
 sp=open(d+'StalkPullback.lean').read()
 body=sp[sp.index('universe u'):]
+cp=open(d+'CotangentProduct.lean').read()
+cpbody=cp[cp.index('namespace IsLocalRing'):]
 mul=open('scratch/mul-rigidity/Mul.lean').read().split('\n')
 imports=[l for l in mul[:12] if l.startswith('import')]
 rest='\n'.join(mul[len(imports):])
 out=imports+['import Mathlib','',
  '/-! # infra-stalks: `KerUnitOpenOfCotangentSurj` (mul-rigidity) proved',
- 'Part 1: general lemmas copied from `StalkPullback.lean`. Part 2: verbatim',
- '`scratch/mul-rigidity/Mul.lean` (after its imports). Part 3: `ker_proof.lean.part`. -/','',
- body,'',rest,'',open(d+'ker_proof.lean.part').read()]
+ 'Part 1: general lemmas copied from `StalkPullback.lean` and `CotangentProduct.lean`. Part 2: verbatim',
+ '`scratch/mul-rigidity/Mul.lean` (after its imports). Part 3: `ker_proof.lean.part`,',
+ '`mulN_proof.lean.part` (`CotangentMulN`, hence `MulIsogeny`). -/','',
+ body,'',cpbody,'',rest,'',open(d+'ker_proof.lean.part').read(),'',
+ open(d+'mulN_proof.lean.part').read()]
 open(d+'MulKer.lean','w').write('\n'.join(out))
