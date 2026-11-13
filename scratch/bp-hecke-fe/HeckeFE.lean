@@ -2468,4 +2468,166 @@ theorem sum_mul_bij {z : ℤ × ℤ} {p n : ℕ} (hz : z.1 ^ 2 + z.2 ^ 2 = p) (h
     rw [toG_gmul, toG_surj, EuclideanDomain.mul_div_cancel' hz0 hγ.2]
   · intro β _; rfl
 
+theorem unit_mem_unitsZ {c : GaussianInt} (hcn : c.norm = 1) : (c.re, c.im) ∈ unitsZ := by
+  have h1 : c.re ^ 2 + c.im ^ 2 = 1 := by
+    have := Zsqrtd.norm_def c
+    rw [hcn] at this
+    linear_combination -this
+  rcases norm_eq_one_cases (c := (c.re, c.im)) h1 with h | h | h | h <;> rw [h] <;> simp [unitsZ]
+
+theorem norm_unitsZ {e : ℤ × ℤ} (he : e ∈ unitsZ) : (toG e).norm = 1 := by
+  rw [norm_toG]; exact (unitsZ_props he).2.2.2
+
+theorem psi_gmul_unit (d : ℕ) {e : ℤ × ℤ} (he : e ∈ unitsZ) (z : ℤ × ℤ) :
+    psi d (gmul e z) = psi d z := by
+  obtain ⟨h1, h2, h3, h4⟩ := psi_units d
+  simp only [unitsZ, Finset.mem_insert, Finset.mem_singleton] at he
+  rw [psi_mul]
+  rcases he with rfl | rfl | rfl | rfl <;> simp [h1, h2, h3, h4]
+
+section Split
+
+variable {p : ℕ} {a b : ℕ} (hp : p.Prime) (hp1 : p % 4 = 1) (hab : a ^ 2 + b ^ 2 = p)
+include hp hp1 hab
+
+theorem split_ne : a ≠ 0 ∧ b ≠ 0 ∧ a ≠ b := by
+  have hsq : ∀ c : ℕ, c ^ 2 ≠ p := by
+    intro c hc
+    have hdvd : c ∣ p := ⟨c, by rw [← hc]; ring⟩
+    rcases hp.eq_one_or_self_of_dvd c hdvd with h | h
+    · subst h; rw [one_pow] at hc; exact hp.one_lt.ne' hc.symm
+    · subst h
+      have : c * c = c * 1 := by nlinarith
+      have := Nat.eq_of_mul_eq_mul_left hp.pos this
+      exact hp.one_lt.ne' this
+  refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
+  · subst h; exact hsq b (by simpa using hab)
+  · subst h; exact hsq a (by simpa using hab)
+  · subst h; omega
+
+/-- `π = a + bi`. -/
+def piZ (a b : ℕ) : ℤ × ℤ := ((a : ℤ), (b : ℤ))
+
+theorem norm_piZ : (piZ a b).1 ^ 2 + (piZ a b).2 ^ 2 = p := by
+  simp only [piZ]; exact_mod_cast hab
+
+theorem norm_conj_piZ : (conjZ (piZ a b)).1 ^ 2 + (conjZ (piZ a b)).2 ^ 2 = p := by
+  simp only [piZ, conjZ, neg_sq]; exact_mod_cast hab
+
+/-- `π̄` does not divide `π` (they are not associate). -/
+theorem not_conj_dvd : ¬ toG (conjZ (piZ a b)) ∣ toG (piZ a b) := by
+  rintro ⟨c, hc⟩
+  obtain ⟨ha0, hb0, hab'⟩ := split_ne hp hp1 hab
+  have hcn : c.norm = 1 := by
+    have h := congrArg Zsqrtd.norm hc
+    rw [Zsqrtd.norm_mul, norm_toG, norm_toG, norm_piZ hp hp1 hab, norm_conj_piZ hp hp1 hab] at h
+    have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
+    exact ((mul_right_eq_self₀.mp h.symm).resolve_right hp0)
+  have hcU := unit_mem_unitsZ hcn
+  have hre := congrArg Zsqrtd.re hc
+  have him := congrArg Zsqrtd.im hc
+  simp only [toG, piZ, conjZ, Zsqrtd.re_mul, Zsqrtd.im_mul] at hre him
+  simp only [unitsZ, Finset.mem_insert, Finset.mem_singleton, Prod.mk.injEq] at hcU
+  rcases hcU with ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ <;> rw [h1, h2] at hre him <;>
+    simp at hre him <;> omega
+
+theorem prime_piZ : Prime (toG (piZ a b)) :=
+  prime_of_norm_prime hp (by rw [norm_toG]; exact norm_piZ hp hp1 hab)
+
+theorem prime_conj_piZ : Prime (toG (conjZ (piZ a b))) :=
+  prime_of_norm_prime hp (by rw [norm_toG]; exact norm_conj_piZ hp hp1 hab)
+
+theorem p_eq_mul : (p : GaussianInt) = toG (piZ a b) * toG (conjZ (piZ a b)) := by
+  rw [toG_conjZ, ← Zsqrtd.norm_eq_mul_conj, norm_toG, norm_piZ hp hp1 hab]; simp
+
+/-- Every `γ` with `p ∣ N γ` is divisible by `π` or `π̄`; by both iff `p ∣ γ`. -/
+theorem split_dvd {γ : GaussianInt} (hγ : (p : ℤ) ∣ γ.norm) :
+    (toG (piZ a b) ∣ γ ∨ toG (conjZ (piZ a b)) ∣ γ) ∧
+      (toG (piZ a b) ∣ γ ∧ toG (conjZ (piZ a b)) ∣ γ ↔ (p : GaussianInt) ∣ γ) := by
+  have hπ := prime_piZ hp hp1 hab
+  have hπ' := prime_conj_piZ hp hp1 hab
+  have hP := p_eq_mul hp hp1 hab
+  refine ⟨?_, ⟨fun ⟨h1, h2⟩ => ?_, fun h => ?_⟩⟩
+  · have h1 : toG (piZ a b) ∣ γ * star γ := by
+      rw [← Zsqrtd.norm_eq_mul_conj]
+      obtain ⟨k, hk⟩ := hγ
+      rw [hk]; push_cast
+      exact dvd_mul_of_dvd_left (hP ▸ dvd_mul_right _ _) _
+    rcases hπ.dvd_or_dvd h1 with h | h
+    · exact Or.inl h
+    · right
+      have := map_dvd (starRingEnd GaussianInt) h
+      simpa [toG_conjZ, starRingEnd_apply, star_star] using this
+  · obtain ⟨g1, hg1⟩ := h1
+    have : toG (conjZ (piZ a b)) ∣ toG (piZ a b) * g1 := hg1 ▸ h2
+    rcases hπ'.dvd_or_dvd this with h | h
+    · exact absurd h (not_conj_dvd hp hp1 hab)
+    · obtain ⟨g2, hg2⟩ := h
+      exact ⟨g2, by rw [hg1, hg2, hP]; ring⟩
+  · exact ⟨dvd_trans ⟨_, hP⟩ h, dvd_trans ⟨_, by rw [hP, mul_comm]⟩ h⟩
+
+open Classical in
+/-- `A_p = U·π ⊔ U·π̄`, as a sum. -/
+theorem sum_normFiber_prime (f : ℤ × ℤ → ℂ) :
+    ∑ x ∈ normFiber p, f x = ∑ e ∈ unitsZ, f (gmul e (piZ a b)) +
+      ∑ e ∈ unitsZ, f (gmul e (conjZ (piZ a b))) := by
+  have hπ0 : toG (piZ a b) ≠ 0 := (prime_piZ hp hp1 hab).ne_zero
+  have hπ'0 : toG (conjZ (piZ a b)) ≠ 0 := (prime_conj_piZ hp hp1 hab).ne_zero
+  have hP := p_eq_mul hp hp1 hab
+  have hinj : ∀ z : ℤ × ℤ, toG z ≠ 0 → Set.InjOn (fun e => gmul e z) (unitsZ : Set (ℤ × ℤ)) :=
+    fun z hz e1 _ e2 _ h => toG_injective (mul_right_cancel₀ hz (by
+      have := congrArg toG h; simpa [toG_gmul] using this))
+  have hset : normFiber p = unitsZ.image (fun e => gmul e (piZ a b)) ∪
+      unitsZ.image (fun e => gmul e (conjZ (piZ a b))) := by
+    ext x
+    simp only [Finset.mem_union, Finset.mem_image, mem_normFiber]
+    constructor
+    · intro hx
+      have hX : (toG x).norm = p := by rw [norm_toG]; exact hx
+      have hXp : Prime (toG x) := prime_of_norm_prime hp hX
+      have hXdvd : toG x ∣ toG (piZ a b) * toG (conjZ (piZ a b)) := by
+        rw [← hP]
+        exact ⟨star (toG x), by rw [← Zsqrtd.norm_eq_mul_conj, hX]; simp⟩
+      have key : ∀ z : ℤ × ℤ, (toG z).norm = p → toG x ∣ toG z →
+          ∃ e ∈ unitsZ, gmul e z = x := by
+        intro z hz ⟨c, hc⟩
+        have hcn : c.norm = 1 := by
+          have h := congrArg Zsqrtd.norm hc
+          rw [Zsqrtd.norm_mul, hz, hX] at h
+          have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
+          exact (mul_right_eq_self₀.mp h.symm).resolve_right hp0
+        have hcU := unit_mem_unitsZ hcn
+        have hcc : c * star c = 1 := by rw [← Zsqrtd.norm_eq_mul_conj, hcn]; simp
+        refine ⟨conjZ (c.re, c.im), (unitsZ_props hcU).2.1, toG_injective ?_⟩
+        rw [toG_gmul, toG_conjZ, toG_surj, hc]
+        calc star c * (toG x * c) = toG x * (c * star c) := by ring
+          _ = toG x := by rw [hcc, mul_one]
+      rcases hXp.dvd_or_dvd hXdvd with h | h
+      · exact Or.inl (key _ (by rw [norm_toG]; exact norm_piZ hp hp1 hab) h)
+      · exact Or.inr (key _ (by rw [norm_toG]; exact norm_conj_piZ hp hp1 hab) h)
+    · rintro (⟨e, he, rfl⟩ | ⟨e, he, rfl⟩)
+      · rw [← norm_toG, toG_gmul, Zsqrtd.norm_mul, norm_unitsZ he, one_mul, norm_toG,
+          norm_piZ hp hp1 hab]
+      · rw [← norm_toG, toG_gmul, Zsqrtd.norm_mul, norm_unitsZ he, one_mul, norm_toG,
+          norm_conj_piZ hp hp1 hab]
+  have hdisj : Disjoint (unitsZ.image (fun e => gmul e (piZ a b)))
+      (unitsZ.image (fun e => gmul e (conjZ (piZ a b)))) := by
+    rw [Finset.disjoint_left]
+    rintro x hx1 hx2
+    simp only [Finset.mem_image] at hx1 hx2
+    obtain ⟨e1, he1, rfl⟩ := hx1
+    obtain ⟨e2, he2, h2⟩ := hx2
+    apply not_conj_dvd hp hp1 hab
+    have h := congrArg toG h2
+    rw [toG_gmul, toG_gmul] at h
+    refine ⟨toG e2 * toG (conjZ e1), ?_⟩
+    have hee := (unitsZ_props he1).1
+    calc toG (piZ a b) = (toG e1 * toG (conjZ e1)) * toG (piZ a b) := by rw [hee, one_mul]
+      _ = toG (conjZ e1) * (toG e1 * toG (piZ a b)) := by ring
+      _ = toG (conjZ e1) * (toG e2 * toG (conjZ (piZ a b))) := by rw [h]
+      _ = _ := by ring
+  rw [hset, Finset.sum_union hdisj, Finset.sum_image (hinj _ hπ0), Finset.sum_image (hinj _ hπ'0)]
+
+end Split
+
 end BpHeckeFE
