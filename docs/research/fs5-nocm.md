@@ -1,10 +1,10 @@
-# fs5-nocm: FS5 `FibreComTrivial` (NoCM on the fibre) proved, with the repaired QM clauses, from leaves and two named Props
+# fs5-nocm: FS5 `FibreComTrivial` (NoCM on the fibre) proved, with the repaired QM clauses, from leaves, one new leaf and one named glue Prop
 
 Task fs5-nocm, 2026-11-13. Base 2dd83306, merged with `origin/wip/qm-pin` and
 `origin/wip/mobius-glue` (`origin/wip/g0-fibresimple` was already in the base).
 
 - Lean: `scratch/fs5-nocm/FS5NoCM.lean` and `scratch/fs5-nocm/FS5Curves.lean`, assembled from the
-  parts `part0`, `partB`, `partD`, `partE`, `partG`, `partH`, `partE2` by `assemble.sh`.
+  parts `part0`, `partB`, `partD`, `partE`, `partG`, `partH`, `partI`, `partE2` by `assemble.sh`.
 - Results log: `scratch/fs5-nocm/log.md`.
 - No file under `ZInQKernel/`, `blueprint/` or another task's directory was edited.
 - Model work only, no human review.
@@ -14,29 +14,36 @@ Task fs5-nocm, 2026-11-13. Base 2dd83306, merged with `origin/wip/qm-pin` and
 **Main result (VERIFIED, compiled).** g0-fibresimple's glue piece FS5 is proved in Lean. The
 statement is verbatim, with `R1fpProps` read as after qm-pin's full repair. Its inputs are:
 
-- leaves: the repaired QM leaf bundle, R5fpCount, T27 (Yu), T6 (Mumford), and one new leaf N1b;
+- leaves: the repaired QM leaf bundle, R5fpCount, T27 (Yu), T6 (Mumford), and one new leaf N1b′
+  `CMOptimalEmbedding`. N1b′ is Shimura's description of CM points: `End_𝒪(A) ≅ φ⁻¹(𝒪)` for an
+  embedding `φ : k → B`;
 - glue: one new named glue Prop N2, and mobius-glue's `MobiusGlue` (itself proved from
   `CurveRatFactor`, `CurveSurj` and T5).
 
 ```lean
 -- FS5NoCM.lean
-theorem FS5NoCM.fibreComTrivialFull_of_leaves' (hL : R1R2fpFull) (hM : MobiusGlue)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+theorem FS5NoCM.fibreComTrivialFull_of_leaves'' (hL : R1R2fpFull) (hM : MobiusGlue)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
     (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
 
 -- FS5Curves.lean (MobiusGlue replaced by mobius-glue's inputs)
-theorem FS5NoCM.fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull)
+theorem FS5NoCM.fibreComTrivialFull_of_curves_leaves' (hL : R1R2fpFull)
     (hRF : CurveRatFactor) (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
     (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
 ```
+
+The variants `fibreComTrivialFull_of_leaves'` and `fibreComTrivialFull_of_curves_leaves` take
+N1b `CMConductorCoprime6` in place of N1b′. N1b is the conductor statement itself, sourced to
+Eichler's optimal-embedding theory. It is a possible alternative leaf; N1b′ is closer to a
+printed statement.
 
 **Structure of the proof.**
 
 1. **FS5 for the leaf's own triple** (`fibreComTrivialOwn_of`). This is NoCM: rv-h-cm §7.2 with
    rv-nocm's corrected count `2^b h`. It is stated for every witness `(Y, Φ, X, Ψ, fY, π₆)` of the
    repaired bundle, not for a `Classical.choice` of one. It uses an intermediate Prop
-   `ComIntOrQuadOrder` (N1a), the leaf N1b and the glue N2.
+   `ComIntOrQuadOrder` (N1a), `CMConductorCoprime6` (N1b) and the glue N2.
 2. **Transfer to every triple** (`fibreComTrivialFull_of_own`). This is qm-pin's
    `pointwise_of_witness_mor`, given `MobiusGlue` and the CM objects of the bundle.
 3. **N1a is proved, not assumed** (`comIntOrQuadOrder_of_leaves`). By T27 at `B = (2,−3)`,
@@ -45,15 +52,22 @@ theorem FS5NoCM.fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull)
    - **CM case** (`comOfMatrixEnd0_of_homFree`): `End_𝒪(A)` is isomorphic to a subring of finite
      index of `𝒪_k`, where `k = ℚ(√d)` is shown in Lean to be a totally complex quadratic number
      field.
+4. **N1b is proved from the leaf N1b′** (`cmConductorCoprime6_of`). If `R = φ⁻¹(𝒪)`, then
+   `p ∤ [𝒪_k : R]` for `p = 2, 3` (`not_dvd_conductor_of_optimal`):
+   - otherwise Cauchy's theorem in `𝒪_k/R` gives `y ∉ R` with `p y ∈ R`;
+   - `φ(y)` has the minimal polynomial of `y`, which has integer coefficients, so `nrd φ(y) ∈ ℤ`;
+   - `φ(p y) = ofInt v` then has `p² ∣ nrd`, which forces `p ∣ v` (N5's `𝒪` is the set of integral
+     elements of `B_p`: finite checks modulo 4 and 9 by `decide`, `check2`, `check3`);
+   - so `φ(y) ∈ 𝒪` and `y ∈ R`, a contradiction.
 
-Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (16 lines in `run1.txt`, 2 in
-`run2.txt`). `lake env lean` exits 0: `FS5NoCM.lean` (1168 lines) in 54 s under load 24, and
-`FS5Curves.lean` (2456 lines) in 31 s.
+Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (20 lines in `run1.txt`, 3 in
+`run2.txt`). `lake env lean` exits 0: `FS5NoCM.lean` (1390 lines) in 24 s, and `FS5Curves.lean`
+(2684 lines) in 25 s.
 
 **Verdict on the statement.**
 
-- With the repaired clauses, FS5 is **true, and is now proved from leaves plus two pieces of
-  glue** (N2 and `MobiusGlue`).
+- With the repaired clauses, FS5 is **true, and is now proved from leaves (one of them new, N1b′)
+  plus two pieces of glue** (N2 and `MobiusGlue`).
 - The un-repaired FS5 (old `R1fpProps`) is kept in the file for reference. It is not a
   consequence of the leaves (g0-fibresimple §2).
 - After qm-pin's full edit is integrated, the two texts coincide.
@@ -69,7 +83,8 @@ Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (16 lines 
 | `MobiusGlue` | glue (existing) | `π' = π ∘ g` for two triples related by `Φ' = Φ ∘ g` | proved by mobius-glue from `CurveRatFactor`, `CurveSurj` (curve glue) and T5 |
 | N1a `ComIntOrQuadOrder` | glue (new), **proved** | `End_𝒪(A)` is `ℤ` or ≅ a subring of finite index of `𝒪_k`, `k` imaginary quadratic | `comIntOrQuadOrder_of_leaves` from T27, T6 |
 | N1a-CM `ComOfMatrixEnd0` | glue (new), **proved** | the CM case of N1a | `comOfMatrixEnd0_of_homFree` from T6 |
-| **N1b `CMConductorCoprime6`** | **leaf (new)** | if `End_𝒪(A) ≅ R`, an order of an imaginary quadratic `k`, then `(f(R), 6) = 1` | Eichler's local optimal-embedding numbers (Vignéras LNM 800, Ch. II §3 / Ch. III §5) with the CM-point/optimal-embedding correspondence (Jordan 1981 §3; González–Rotger 2006 §5). Locators UNVERIFIED |
+| N1b `CMConductorCoprime6` | **proved** from N1b′ (or usable as an alternative leaf) | if `End_𝒪(A) ≅ R`, an order of an imaginary quadratic `k`, then `(f(R), 6) = 1` | `cmConductorCoprime6_of`; as a leaf: Eichler's local optimal-embedding numbers (Vignéras LNM 800, Ch. II §3 / Ch. III §5) |
+| **N1b′ `CMOptimalEmbedding`** | **leaf (new)** | if `End_𝒪(A) ≅ R` (an order of `k`), then `R = φ⁻¹(𝒪)` for some `ℚ`-embedding `φ : k → B` | Shimura, Ann. of Math. 85 (1967); Jordan 1981 §3; González–Rotger 2006 §5 (`End_𝒪(A_τ) ≅ φ_τ(k) ∩ 𝒪`), transported to the given `k`. Locators UNVERIFIED |
 | **N2 `X6KummerFibre`** | **glue (new)** | on the bundle's `X₆`, for rational `j₀ ∉ {0, −16/27}`: (i) every point over `j₀` has residue field `ℚ(√−t₀, √(3(t₀−1)))`, `t₀ = 1 + 27j₀/16`; (ii) the fibre has four distinct `ℚ̄`-points | Elkies' Kummer model of `X₆ → X₆/W` (rv-h-cm §2.3-2.4, `GlueRepo.PR.fibre_iff`), plus transport to an arbitrary witness (§3.3). Not compiled |
 
 **What was proved here** (all compiled):
@@ -83,6 +98,8 @@ Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (16 lines 
   - The four-element count against `#CM(R) = 2`, and the case analysis on `b(k)`
     (`nocm_on_witness`).
 - **Transfer** to all triples (`fibreComTrivialFull_of_own`).
+- **N1b from N1b′** (`cmConductorCoprime6_of`, `not_dvd_conductor_of_optimal`, `dvd_of_sq_dvd_Qf`,
+  `check2`, `check3`, `nrd_ofInt`).
 - **N1a, case `End⁰ ≅ B`** (`com_int_of_end0_quat`):
   - the QM image of `B` is all of `End⁰` (g0-fibresimple's `qmBasis`; an injective map of
     4-dimensional spaces);
@@ -204,7 +221,14 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
 
 ### 3.3 Why the remaining new Props are true (arguments; SPECULATIVE where not marked)
 
-- **N1b (leaf).** Two published facts give it.
+- **N1b′ (leaf).** For `(A, ι)` over `ℂ` with CM, `A = ℂ²/𝒪v_τ`.
+  - `End_𝒪(A)` is the set of `b ∈ B^op` preserving `𝒪v_τ` and commuting with the complex
+    structure, i.e. `𝒪^op ∩ k_τ`. The canonical involution identifies `B^op ≅ B` and preserves
+    `𝒪`, so `End_𝒪(A) ≅ φ_τ(k) ∩ 𝒪`.
+  - Given an abstract `R ≅ End_𝒪(A)` inside `k`, the isomorphism extends to fraction fields
+    `σ : k ≅ k_τ` (`R` has rank 2), and `φ = φ_τ ∘ σ` has `φ⁻¹(𝒪) = R`.
+  - Characteristic 0 transfers the statement from `ℂ` to `ℚ̄`. Argued; locators UNVERIFIED.
+- **N1b (now proved from N1b′; as an alternative leaf).** Two published facts give it.
   - Eichler's local optimal-embedding number at a prime `p` ramified in `B` is
     `m_p(R) = 1 − {R/p}`. The Eichler symbol `{R/p}` equals `(k/p)` if `p ∤ f`, and 1 if `p | f`.
     So for `p | 6`, `p | f` gives `m_p = 0` (Vignéras Ch. II §3 / Ch. III §5, theorem numbers
@@ -244,8 +268,8 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
 
 | file | content | outcome |
 |---|---|---|
-| `FS5NoCM.lean` (1168 lines) | qm-pin block; §B statements; §C named Props; §D arithmetic; §E NoCM and transfer; §G N1a split (`B6_central_eq`, `com_int_of_end0_quat`, `comIntOrQuadOrder_of`); §H N1a-CM (`commute_quat_scalar`, `adjRoot_numberField`, `root_lin_indep`, `comOfMatrixEnd0_of_homFree`, `comIntOrQuadOrder_of_leaves`, `fibreComTrivialFull_of_leaves'`) | exit 0, 0 errors, no `sorry`; 16 `#print axioms` lines, all standard (`run1.txt`) |
-| `FS5Curves.lean` (2456 lines) | `MobiusGlue.lean` (lines 1-1439, plus imports) + qm-pin's `cm_objects_of_R1R2fp` + §B-§H + `fibreComTrivialFull_of_curves(_leaves)` | exit 0, 0 errors; standard axioms (`run2.txt`) |
+| `FS5NoCM.lean` (1390 lines) | qm-pin block; §B statements; §C named Props; §D arithmetic; §E NoCM and transfer; §G N1a split (`B6_central_eq`, `com_int_of_end0_quat`, `comIntOrQuadOrder_of`); §H N1a-CM (`commute_quat_scalar`, `adjRoot_numberField`, `root_lin_indep`, `comOfMatrixEnd0_of_homFree`, `comIntOrQuadOrder_of_leaves`, `fibreComTrivialFull_of_leaves'`); §I N1b from N1b′ (`check2`, `check3`, `dvd_of_sq_dvd_Qf`, `not_dvd_conductor_of_optimal`, `cmConductorCoprime6_of`, `fibreComTrivialFull_of_leaves''`) | exit 0, 0 errors, no `sorry`; 20 `#print axioms` lines, all standard (`run1.txt`) |
+| `FS5Curves.lean` (2684 lines) | `MobiusGlue.lean` (lines 1-1439, plus imports) + qm-pin's `cm_objects_of_R1R2fp` + §B-§I + `fibreComTrivialFull_of_curves(_leaves)(')` | exit 0, 0 errors; 3 lines, standard axioms (`run2.txt`) |
 
 Kernel modules used: `ZInQKernel.HDecomp.QM.Leaves`, `ZInQKernel.HDecomp.Repo.PRArith`,
 `ZInQKernel.Hypotheses.JHeight` and `ZInQKernel.HDecomp.Descent.B1Quat`.
@@ -264,15 +288,15 @@ two forms with `exact` or `rfl`.
    - `R1fpPropsFull` is `R1fpProps`, `R1R2fpFull` is `R1R2fp`, and `FibreComTrivialFull` is
      g0-fibresimple's `FibreComTrivial` verbatim.
    - Drop §B's copies, `r1fpPropsFull_iff` and `R1fpPropsFull.old`.
-   - Put §C-§H in a new module importing `QM.Leaves`, `Repo.PRArith`, `JHeight`, `Descent.B1Quat`
+   - Put §C-§I in a new module importing `QM.Leaves`, `Repo.PRArith`, `JHeight`, `Descent.B1Quat`
      and qm-pin's `QM/Pin.lean`. The Tail copies (`B6_isUnit` … `qm_embeds_end0`) are shared with
      g0-fibresimple's integration.
 2. **In g0-fibresimple's `FibreSimplePieces`.**
-   - Replace the field `comTrivial : FibreComTrivial` by `fibreComTrivialFull_of_leaves'`.
+   - Replace the field `comTrivial : FibreComTrivial` by `fibreComTrivialFull_of_leaves''`.
    - Its inputs are the bundle (`QMLeaves.r1r2`), `R5fpCount` (`QMLeaves.r5count`), T27 and T6
-     (`TextbookLeaves`), N1b, N2, and `MobiusGlue` (from mobius-glue's `mobiusGlue_of_curves`).
-3. **Lists.** Add N1b `CMConductorCoprime6` to the leaf list (Eichler/Vignéras with
-   Jordan/González–Rotger). Add N2 `X6KummerFibre` to the glue list.
+     (`TextbookLeaves`), N1b′, N2, and `MobiusGlue` (from mobius-glue's `mobiusGlue_of_curves`).
+3. **Lists.** Add N1b′ `CMOptimalEmbedding` to the leaf list (Shimura; Jordan; González–Rotger).
+   Add N2 `X6KummerFibre` to the glue list.
 
 ## 6. What remains
 
@@ -282,6 +306,6 @@ two forms with `exact` or `rfl`.
     the leaves;
   - the transport to an arbitrary witness, which needs the scheme fact "residue field = fixed field
     of the point's Galois stabilizer", rigidity, and qm-pin's comparison.
-- **N1b** (leaf). The locators are UNVERIFIED (no network). A human check of the
-  optimal-embedding correspondence is advisable, as it was for R5.
+- **N1b′** (leaf). The locators are UNVERIFIED (no network). A human check of Shimura's
+  `End_𝒪(A_τ) ≅ φ_τ(k) ∩ 𝒪`, and of the `B^op` convention, is advisable, as it was for R5.
 - `MobiusGlue`'s inputs (`CurveRatFactor`, `CurveSurj`) remain mobius-glue's open curve glue.
