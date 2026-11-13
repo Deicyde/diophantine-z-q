@@ -543,6 +543,40 @@ def dualAct (A : AbVar ℚ) (σ : GQ) :
   map_add' _ _ := LinearMap.add_comp _ _ _
   map_smul' _ _ := LinearMap.smul_comp _ _ _
 
+theorem homVAdd_apply (A : AbVar ℚ) (e : A.End) :
+    homVAdd ℓ A e = (homT (ℓ := ℓ) e).baseChange ℚ_[ℓ] := rfl
+
+theorem galRep_apply (A : AbVar ℚ) (σ : GQ) :
+    A.galRep ℓ σ = (A.galT (ℓ := ℓ) σ).baseChange ℚ_[ℓ] := rfl
+
+/-- `End⁰(A)` commutes with `G_ℚ` on `V_ℓ(A)` (endomorphisms are defined over `ℚ`; from the
+kernel's `PkgI3.homT_galT`). -/
+theorem endV_comm (A : AbVar ℚ) (σ : GQ) (x : A.End0) :
+    endV ℓ A x ∘ₗ A.galRep ℓ σ = A.galRep ℓ σ ∘ₗ endV ℓ A x := by
+  induction x using TensorProduct.inductionOn with
+  | tmul q e =>
+    have h1 : homT (ℓ := ℓ) e ∘ₗ A.galT σ = A.galT σ ∘ₗ homT e :=
+      LinearMap.ext fun t => homT_galT e σ t
+    simp only [endV, TensorProduct.liftAddHom_tmul, AddMonoidHom.mk'_apply, homVAdd_apply,
+      galRep_apply]
+    rw [LinearMap.smul_comp, LinearMap.comp_smul, ← LinearMap.baseChange_comp,
+      ← LinearMap.baseChange_comp, h1]
+  | add x y hx hy => simp only [map_add, LinearMap.add_comp, LinearMap.comp_add, hx, hy]
+
+/-- `G_ℚ` preserves the `ι`-eigenfunctionals (proved, so R16 below does not assume it). -/
+theorem dualAct_mem (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (σ : GQ) :
+    ∀ φ ∈ eigenFun ℓ A θ emb, dualAct ℓ A σ φ ∈ eigenFun ℓ A θ emb := by
+  intro φ hφ a
+  change (φ ∘ₗ A.galRep ℓ σ) ∘ₗ endV ℓ A (θ a) = emb a • (φ ∘ₗ A.galRep ℓ σ)
+  rw [LinearMap.comp_assoc, ← endV_comm, ← LinearMap.comp_assoc, hφ a, LinearMap.smul_comp]
+
+/-- `σ` acting on the `ι`-eigenfunctionals: the transpose of `σ` on the `ι`-component of
+`V_ℓ(A) ⊗ ℚ̄_ℓ`. -/
+def frobOn (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    (σ : GQ) : eigenFun ℓ A θ emb →ₗ[PadicAlgCl ℓ] eigenFun ℓ A θ emb :=
+  (dualAct ℓ A σ).restrict (dualAct_mem ℓ A θ emb σ)
+
 end R16
 
 /-- **R16. Eichler–Shimura in `J₁(N)`, existential form** (replaces the placeholder
@@ -551,7 +585,7 @@ Jacobian of `X₁(N)` over `ℚ` (`IsJ1`). Then `K_f` is a number field, and the
 variety `A` over `ℚ`, a surjective homomorphism `π : J → A` over `ℚ`, and a ring homomorphism
 `θ : K_f → End⁰_ℚ(A)`, with `dim A = [K_f : ℚ]`, such that for every prime `ℓ` and every
 embedding `ι : K_f → ℚ̄_ℓ`: the `ι`-component of `V_ℓ(A)` has dimension 2, and for every prime
-`p ∤ Nℓ` and every arithmetic Frobenius `σ` at a place above `p`, `σ` preserves it and acts with
+`p ∤ Nℓ` and every arithmetic Frobenius `σ` at a place above `p`, `σ` acts on it with
 trace `ι(a_p(f))` and determinant `ι(χ(p))·p`.
 
 Sources (a consequence of three published statements, none of them the zeta clause):
@@ -579,10 +613,116 @@ def R16_EichlerShimuraJ1' : Prop :=
         Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2 ∧
         ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ (v : ValuationSubring Qbar) (σ : GQ),
           LiesOver v p → IsArithFrob σ v p →
-          ∃ hσ : ∀ φ ∈ eigenFun ℓ A θ emb, dualAct ℓ A σ φ ∈ eigenFun ℓ A θ emb,
-            (∀ a : coeffField f, (a : ℂ) = coeff f p →
-              LinearMap.trace (PadicAlgCl ℓ) _ ((dualAct ℓ A σ).restrict hσ) = emb a) ∧
-            (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
-              LinearMap.det ((dualAct ℓ A σ).restrict hσ) = emb c * p)
+          (∀ a : coeffField f, (a : ℂ) = coeff f p →
+              LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) = emb a) ∧
+          (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
+              LinearMap.det (frobOn ℓ A θ emb σ) = emb c * p)
+
+/-! ## §G. The genus and Belyi inputs of E2 / R18 -/
+
+/-- **Leaf: `dim J₁(N)` is the genus of `Γ₁(N)`.** For `N ≥ 1` and `J` a Jacobian of `X₁(N)`,
+`dim J = 1 + μ/12 − ν₂/4 − ν₃/3 − ν∞/2` with `μ = [SL₂(ℤ) : ±Γ₁(N)]`, `ν₂`, `ν₃` the fixed points
+of `S`, `ST` and `ν∞` the `⟨T⟩`-orbits on `SL₂(ℤ)/±Γ₁(N)` (§A). Consequence of three published
+statements: the genus formula for `Γ\ℍ*` (Shimura 1971, Prop. 1.40, UNVERIFIED number);
+`X₁(N)_ℂ ≅ Γ₁(N)\ℍ*` for the canonical model (Shimura 1971 §6.7, UNVERIFIED) with leaf MC9 of
+bp-modcurves; `dim Jac X = genus X` (Milne 1986, Prop. 2.1 / Thm 1.1, UNVERIFIED). The formula was
+checked against the reference genus table for `N ≤ 30` (bp-modcurves `genus_check.py`). -/
+def DimJ1Genus : Prop :=
+  ∀ (N : ℕ) (J : AbVar ℚ), 0 < N → IsJ1 N J →
+    ∃ g : ℕ, J.dim = (g : WithBot ℕ∞) ∧ (g : ℚ) = genus (CongruenceSubgroup.Gamma1 N)
+
+/-- **Glue (proved): `dim J₁(N) ≤ N²`** (E2's `g ≤ N²`), from `DimJ1Genus` and
+`genus_Gamma1_le`. -/
+theorem dim_J1_le (h : DimJ1Genus) (N : ℕ) (hN : 0 < N) (J : AbVar ℚ) (hJ : IsJ1 N J) :
+    ∃ g : ℕ, J.dim = (g : WithBot ℕ∞) ∧ g ≤ N ^ 2 := by
+  have : NeZero N := ⟨hN.ne'⟩
+  obtain ⟨g, hg, hgen⟩ := h N J hN hJ
+  refine ⟨g, hg, ?_⟩
+  have h2 := genus_Gamma1_le N
+  rw [← hgen] at h2
+  exact_mod_cast h2
+
+/-- **Belyi function over `k`** (function-field form). `t ∈ F` is transcendental over `k`, and
+`k(t) ⊆ F` is unramified at every place `w` of `F/k` lying over a finite place of `k(t)` other
+than `t = 0`, `t = 1`: if `t ∈ w` and `q(t) ∈ 𝔪_w` for a monic irreducible `q ∈ k[T]` with
+`q ≠ T, T − 1` (then `w ∩ k(t) = k[t]_{(q)}`), then `q(t)` generates `𝔪_w` (ramification index 1).
+In characteristic 0 this is preserved by extending constants to `k̄`, so for the function field of
+a geometrically connected curve `X/k` it gives a Belyi map `X_k̄ → ℙ¹` of degree `[F : k(t)]`. -/
+def IsBelyiFunction (k F : Type) [Field k] [Field F] [Algebra k F] (t : F) : Prop :=
+  Transcendental k t ∧
+  ∀ w : ValuationSubring F, (∀ c : k, algebraMap k F c ∈ w) → t ∈ w →
+    ∀ q : Polynomial k, q.Monic → Irreducible q → q ≠ Polynomial.X → q ≠ Polynomial.X - 1 →
+      Polynomial.aeval t q ∈ w.nonunits →
+      ∀ x ∈ w.nonunits, ∃ y ∈ w, x = Polynomial.aeval t q * y
+
+/-- **Glue target (MC1, MC5 of bp-modcurves): the standard Belyi map of `X₁(N)`.** `j/1728` is a
+Belyi function on `K_N` over `ℚ`, of degree `[K_N : ℚ(j)] ≤ N²`. (Glazer N5 L868-870: "the genus
+and the degree of its standard Belyi map are at most `N²`".) Provable: `j` is unramified away
+from `j = 0, 1728, ∞` because `E_j` has good reduction there and `E[N]` is étale in
+characteristic 0; the degree bound is `FieldX1DegreeLe` of bp-modcurves. Not a leaf. -/
+def BelyiX1 : Prop :=
+  ∀ (N : ℕ) (P : EjBar.toAffine.Point), 0 < N → addOrderOf P = N →
+    IsBelyiFunction ℚ (fieldX1 P) (algebraMap Qj (fieldX1 P) (RatFunc.X / 1728)) ∧
+    Module.finrank Qj (fieldX1 P) ≤ N ^ 2
+
+/-! ## §H. Existence, the bundle, and the glue that C9, E1, E2 will consume -/
+
+/-- **Existence of a pointed model of `X₁(N)` over `ℚ`.** Glue target (MC4 + MC10 of
+bp-modcurves: the relative normalization of `ℙ¹_j` in `K_N` (`Y1j` is its affine chart) is a
+smooth proper geometrically connected curve with function field `K_N`, and it has a `ℚ`-rational
+cusp), or, as a leaf, the canonical model of Shimura 1971 §6.7 with a rational cusp
+(UNVERIFIED locators). The main theorem must consume it: without it every statement
+"`∀ J, IsJ1 N J → …`" is vacuous. -/
+def X1ModelExists : Prop :=
+  ∀ N : ℕ, 0 < N → ∃ (X : Over SpecQ) (_ : RatPt X), IsX1Model N X
+
+/-- **The modular-curve leaves** (plus the existence statement `X1ModelExists`, a glue target
+that may be taken as a leaf). -/
+structure ModCurveLeaves : Prop where
+  jac : JacobianExists ℚ
+  x1 : X1ModelExists
+  r16 : R16_EichlerShimuraJ1'
+  dimJ1 : DimJ1Genus
+
+/-- **Glue (proved): `J₁(N)` exists.** -/
+theorem exists_J1 (hJ : JacobianExists ℚ) (hX : X1ModelExists) (N : ℕ) (hN : 0 < N) :
+    ∃ J : AbVar ℚ, IsJ1 N J := by
+  obtain ⟨X, P₀, hXm⟩ := hX N hN
+  obtain ⟨J, aj, hJac⟩ := hJ X hXm.1 P₀
+  exact ⟨J, X, P₀, aj, hXm, hJac⟩
+
+/-- **Glue (proved), for E2**: a `J₁(N)` with `dim J₁(N) = g ≤ N²`. -/
+theorem exists_J1_dim_le (L : ModCurveLeaves) (N : ℕ) (hN : 0 < N) :
+    ∃ J : AbVar ℚ, IsJ1 N J ∧ ∃ g : ℕ, J.dim = (g : WithBot ℕ∞) ∧ g ≤ N ^ 2 := by
+  obtain ⟨J, hJ⟩ := exists_J1 L.jac L.x1 N hN
+  exact ⟨J, hJ, dim_J1_le L.dimJ1 N hN J hJ⟩
+
+/-- **Glue (proved), the form C9 consumes**: for a newform `f` of level `N`, a `J₁(N)` together
+with Shimura's quotient `A_f`, the `K_f`-action and the rank-2 `ι`-components with Frobenius
+traces `ι(a_p(f))`. -/
+theorem exists_J1_quotient (L : ModCurveLeaves) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ) :
+    ∃ J : AbVar ℚ, IsJ1 N J ∧ (∃ g : ℕ, J.dim = (g : WithBot ℕ∞) ∧ g ≤ N ^ 2) ∧
+    FiniteDimensional ℚ (coeffField f) ∧
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0),
+      Surjective π.hom.left ∧
+      A.dim = ((Module.finrank ℚ (coeffField f) : ℕ) : WithBot ℕ∞) ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2 ∧
+        ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ (v : ValuationSubring Qbar) (σ : GQ),
+          LiesOver v p → IsArithFrob σ v p →
+          (∀ a : coeffField f, (a : ℂ) = coeff f p →
+              LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) = emb a) ∧
+          (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
+              LinearMap.det (frobOn ℓ A θ emb σ) = emb c * p) := by
+  obtain ⟨J, hJ, hdim⟩ := exists_J1_dim_le L N hN
+  exact ⟨J, hJ, hdim, L.r16 N χ f J hN hf hJ⟩
 
 end LeafModCurves
+
+#print axioms LeafModCurves.genus_Gamma1_le
+#print axioms LeafModCurves.IsJacobian.unique
+#print axioms LeafModCurves.dualAct_mem
+#print axioms LeafModCurves.dim_J1_le
+#print axioms LeafModCurves.exists_J1_dim_le
+#print axioms LeafModCurves.exists_J1_quotient
