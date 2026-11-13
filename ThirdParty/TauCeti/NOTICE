@@ -60,6 +60,19 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
   Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
   NumberTheory/NumberField/Global/RayClass/Integral.
+- Commit 4d91513e (Tau Ceti main of 2026-11-13; the strong multiplicity one across
+  levels of Newforms/StrongMultiplicityOne/Basic.lean): Backport/ files added by the
+  Z-in-Q task atkin-li, compiled against the commit-5a01f5fe modules vendored here.
+  Whole modules that do not exist at commit 5a01f5fe (imports rewritten to the vendored
+  and Backport/ modules; each carries a "Modified" line):
+  NumberTheory/ModularForms/Newforms/{OldAtPrime,PrimeDecomposition,SupportAwayFromLevel}.
+  Declarations added after commit 5a01f5fe to modules whose commit-5a01f5fe version is
+  vendored: Data/Nat/Prime/Basic, NumberTheory/ModularForms/{Basic,Degeneracy},
+  NumberTheory/ModularForms/CongruenceSubgroups/Basic, NumberTheory/ModularForms/Fricke/
+  OldSpace, NumberTheory/ModularForms/Newforms/{Basic,Descent/CharacterSpace},
+  NumberTheory/ModularForms/Petersson/Trace, and the cross-level part of
+  NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Basic (as
+  Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean).
 
 Location in this repository
 ---------------------------
