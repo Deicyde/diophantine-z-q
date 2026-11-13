@@ -38,3 +38,18 @@
 - `PkgI6.hilbertDifferentFormula : PkgI6.HilbertDifferentFormula` (the verbatim leaf I6.7 = T20 local),
   VERIFIED: `lake env lean scratch/t-different/HilbertLocal.lean` compiles; axioms propext,
   Classical.choice, Quot.sound.  (Monogenic.lean development file folded in and removed.)
+
+## Step 4: T21 local reduced to a trace statement (compiled)
+- `scratch/t-different/DifferentBound.lean` (VERIFIED: compiles; axioms propext, Classical.choice,
+  Quot.sound):
+  * `TDifferent.map_maximalIdeal_eq_pow`: `𝔪_A B = 𝔪_B ^ e`, `e = Ideal.ramificationIdx (maximalIdeal B) A`.
+  * `PkgI6.differentBound_of_trace : TraceContainsRamificationIdx → DifferentBound`, where
+    `TraceContainsRamificationIdx` says `∃ z : B, intTrace A B z = (e : A)` (i.e. `e ∈ Tr_{B/A}(B)`),
+    and `DifferentBound` is the verbatim leaf I6.6 (T21 local).  Proof: if `e = 0` in `B` the
+    right side is `⊥`; else `(e) = 𝔪_A^k`, `𝔇 = 𝔪_B^d`, and `d ≥ e(k+1)` would make
+    `(𝔪_A^{k+1})B ∣ 𝔇`, contradicting Mathlib's `not_dvd_differentIdeal_of_intTrace_notMem` with
+    `Tr z = e ∉ 𝔪_A^{k+1}`.
+- Not proved: `TraceContainsRamificationIdx`.  The standard proof needs a Hensel root of a lift of
+  the minimal polynomial of a residue generator in `B` (the maximal unramified subring) and
+  transitivity of the trace; Mathlib 4.35 has Hensel only for `IsAdicComplete` rings
+  (`IsAdicComplete.henselianRing`) and no completeness of finite modules over complete rings.
