@@ -1,0 +1,1063 @@
+-- (leaf-fold3) scratch/hodge-bc2/hbc_proof.lean.part and omega_proof.lean.part verbatim
+
+/-! # hodge-bc2: `HodgeBCInjective` proved
+
+* `cotL`: the `L`-vector space structure on `ω_{A_L} = 𝔪_ξ/𝔪_ξ²`, through
+  `φ : L ≅ κ(η) → 𝒪_{𝒢,ξ}` (`η` the generic point of `Spec 𝓞_L`, `κ(η)` its function field);
+* `bcCot_smulL`: `π^*` is semilinear over `L → L'`;
+* `bcCot_core`: `π^*` maps `L`-independent vectors to `𝓞_{L'}`-independent vectors
+  (`cotangent_baseChange_injective` of infra-stalks at the generic unit, flatness of `κ(η')/κ(η)`);
+* `bcCot_basis`: an `L`-basis `b` of `ω_{A_L}` gives the `L'`-basis `π^* ∘ b` of `ω_{A_{L'}}`
+  (with `cotangentSpanBC`);
+* `hodgeBCInjective`: `ψ = bcHodge` maps the basis `1 ⊗ ιMulti_family b` of the Hodge space
+  (`extFracBasis`) to the basis `1 ⊗ ιMulti_family (π^* ∘ b)`, hence is injective and preserves
+  `finrank`. -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open scoped TensorProduct
+
+section HodgeBC2
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+theorem genericPt_eq_genericPoint (L : Type) [Field L] [NumberField L] :
+    genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) := by
+  rw [genericPoint_eq_bot_of_affine]; rfl
+
+/-- The stalk map at named points on germs. -/
+theorem stalkMapAt_germ' {X Y : Scheme.{0}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y)
+    (U : Y.Opens) (hy : y ∈ U) (hy' : f x ∈ U) (s : Γ(Y, U)) :
+    f.stalkMapAt h (Y.presheaf.germ U y hy s) = f.stalkMap x (Y.presheaf.germ U (f x) hy' s) := by
+  subst h; rw [Scheme.Hom.stalkMapAt_rfl]
+
+/-- The function field of `Spec 𝓞_L`. -/
+noncomputable abbrev FF (L : Type) [Field L] [NumberField L] : CommRingCat :=
+  (Spec (CommRingCat.of (𝓞 L))).functionField
+
+noncomputable instance (L : Type) [Field L] [NumberField L] : Algebra (𝓞 L) (FF L) :=
+  ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv ≫ (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤
+      (genericPoint (Spec (CommRingCat.of (𝓞 L)))) trivial).hom.toAlgebra
+
+instance (L : Type) [Field L] [NumberField L] : IsFractionRing (𝓞 L) (FF L) := by
+  have := functionField_isFractionRing_of_affine (CommRingCat.of (𝓞 L))
+  exact this
+
+theorem algebraMap_FF (L : Type) [Field L] [NumberField L] (a : 𝓞 L) :
+    algebraMap (𝓞 L) (FF L) a = (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤
+      (genericPoint (Spec (CommRingCat.of (𝓞 L)))) trivial
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a) := rfl
+
+/-- `L ≅ κ(η)`. -/
+noncomputable def σFF (L : Type) [Field L] [NumberField L] : L ≃ₐ[𝓞 L] FF L :=
+  IsLocalization.algEquiv (nonZeroDivisors (𝓞 L)) L (FF L)
+
+theorem hom_genericUnit' {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) :
+    𝒢.G.hom 𝒢.genericUnit = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+  (hom_genericUnit 𝒢).trans (genericPt_eq_genericPoint L)
+
+/-- `φ : L → 𝒪_{𝒢,ξ}` (through `κ(η)`). -/
+noncomputable def φL {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L) :
+    L →+* 𝒢.genStalk :=
+  (𝒢.G.hom.stalkMapAt (hom_genericUnit' 𝒢)).hom.comp (σFF L).toRingEquiv.toRingHom
+
+theorem φL_algebraMap {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (a : 𝓞 L) : φL 𝒢 (algebraMap (𝓞 L) L a) = 𝒢.structMap a := by
+  unfold φL
+  rw [RingHom.comp_apply]
+  change (𝒢.G.hom.stalkMapAt (hom_genericUnit' 𝒢)).hom ((σFF L) (algebraMap (𝓞 L) L a)) = _
+  rw [AlgEquiv.commutes, algebraMap_FF, structMap_eq_stalkMap]
+  exact stalkMapAt_germ' _ _ ⊤ trivial trivial _
+
+/-- **The `L`-vector space structure on `ω_{A_L}`.** -/
+noncomputable abbrev cotL {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : Module L 𝒢.cotangent :=
+  Module.compHom _ (φL 𝒢)
+
+theorem cotL_smul {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (c : L) (v : 𝒢.cotangent) :
+    (letI := cotL 𝒢; c • v) = φL 𝒢 c • v := rfl
+
+theorem cotL_isScalarTower {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : letI := cotL 𝒢; IsScalarTower (𝓞 L) L 𝒢.cotangent := by
+  letI := cotL 𝒢
+  refine ⟨fun r c v => ?_⟩
+  rw [cotL_smul, cotL_smul, Algebra.smul_def, map_mul, φL_algebraMap, mul_smul]
+  rfl
+
+/-- `mapCotangent` is semilinear along the ring map. -/
+theorem mapCotangent_smul' {R S : Type*} [CommRing R] [CommRing S] (I : Ideal R) (J : Ideal S)
+    (F : R →+* S) (hF : I ≤ J.comap F.toIntAlgHom) (r : R) (x : I.Cotangent) :
+    Ideal.mapCotangent I J F.toIntAlgHom hF (r • x) =
+      F r • Ideal.mapCotangent I J F.toIntAlgHom hF x := by
+  obtain ⟨m, rfl⟩ := I.toCotangent_surjective x
+  rw [← map_smul, Ideal.mapCotangent_toCotangent, Ideal.mapCotangent_toCotangent, ← map_smul]
+  congr 1
+  apply Subtype.ext
+  simp only [SetLike.val_smul, smul_eq_mul, map_mul, RingHom.toIntAlgHom_apply]
+
+variable {L L' : Type} [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L']
+    {𝒢 : GroupModel A L} {𝒢' : GroupModel A L'} {e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G}
+
+theorem bcCot_smul_genStalk (he : IsMonBC 𝒢 𝒢' e) (r : 𝒢.genStalk) (v : 𝒢.cotangent) :
+    bcCot he (r • v) = bcMap he r • bcCot he v :=
+  mapCotangent_smul' (IsLocalRing.maximalIdeal 𝒢.genStalk) (IsLocalRing.maximalIdeal 𝒢'.genStalk)
+    (bcMap he).hom (fun t ht => bcMap_mem_maximalIdeal he t ht) r v
+
+omit [NumberField L] [NumberField L'] in
+theorem algebraMap_ringOfIntegers_coe (a : 𝓞 L) :
+    algebraMap L L' (algebraMap (𝓞 L) L a) =
+      algebraMap (𝓞 L') L' (algebraMap (𝓞 L) (𝓞 L') a) := rfl
+
+theorem bcMap_φL (he : IsMonBC 𝒢 𝒢' e) (c : L) :
+    bcMap he (φL 𝒢 c) = φL 𝒢' (algebraMap L L' c) := by
+  have : (bcMap he).hom.comp (φL 𝒢) = (φL 𝒢').comp (algebraMap L L') := by
+    apply IsLocalization.ringHom_ext (nonZeroDivisors (𝓞 L))
+    ext a
+    simp only [RingHom.comp_apply]
+    rw [φL_algebraMap, bcMap_structMap, algebraMap_ringOfIntegers_coe, φL_algebraMap]
+  exact congrArg (fun F => F c) this
+
+/-- `π^*` is semilinear over `L → L'`. -/
+theorem bcCot_smulL (he : IsMonBC 𝒢 𝒢' e) (c : L) (v : 𝒢.cotangent) :
+    bcCot he (letI := cotL 𝒢; c • v) = (letI := cotL 𝒢'; algebraMap L L' c • bcCot he v) := by
+  rw [cotL_smul, cotL_smul, bcCot_smul_genStalk, bcMap_φL]
+
+/-- A local ring isomorphism induces an injective map on cotangent spaces. -/
+theorem mapCotangent_injective_of_isIso {R S : CommRingCat.{0}} [IsLocalRing R] [IsLocalRing S]
+    (E : R ⟶ S) [IsIso E] (hE : IsLocalRing.maximalIdeal R ≤
+      (IsLocalRing.maximalIdeal S).comap E.hom.toIntAlgHom) :
+    Function.Injective (Ideal.mapCotangent (IsLocalRing.maximalIdeal R)
+      (IsLocalRing.maximalIdeal S) E.hom.toIntAlgHom hE) := by
+  have hE' : IsLocalRing.maximalIdeal S ≤
+      (IsLocalRing.maximalIdeal R).comap (inv E).hom.toIntAlgHom := fun t ht =>
+    map_nonunit (inv E).hom t ht
+  have hinv : ∀ x, Ideal.mapCotangent _ _ (inv E).hom.toIntAlgHom hE'
+      (Ideal.mapCotangent _ _ E.hom.toIntAlgHom hE x) = x := by
+    intro x
+    obtain ⟨m, rfl⟩ := (IsLocalRing.maximalIdeal R).toCotangent_surjective x
+    rw [Ideal.mapCotangent_toCotangent, Ideal.mapCotangent_toCotangent]
+    congr 1
+    apply Subtype.ext
+    change (inv E).hom (E.hom m) = m
+    rw [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply]
+  intro x y hxy
+  rw [← hinv x, ← hinv y, hxy]
+
+/-- **Core of the injectivity of cotangent base change.** `𝓞_{L'}`-combinations of pull-backs of
+`L`-independent cotangent vectors vanish only trivially. From infra-stalks'
+`cotangent_baseChange_injective` at the generic unit and flatness of `κ(η')` over `κ(η)`. -/
+theorem bcCot_core (he : IsMonBC 𝒢 𝒢' e) {I : Type} (b : I → 𝒢.cotangent)
+    (hb : letI := cotL 𝒢; LinearIndependent L b) (s : Finset I) (a : I → 𝓞 L')
+    (h : ∑ i ∈ s, a i • bcCot he (b i) = 0) : ∀ i ∈ s, a i = 0 := by
+  classical
+  set ξ' := 𝒢'.genericUnit
+  set z := e.hom.left ξ'
+  set y0 := genericPoint (Spec (CommRingCat.of (𝓞 L')))
+  set s0 := genericPoint (Spec (CommRingCat.of (𝓞 L)))
+  have hx : pullback.fst 𝒢.G.hom (bO L L') z = 𝒢.genericUnit := by
+    rw [← Scheme.Hom.comp_apply]; exact bcProj_genericUnit he
+  have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+  have hy : pullback.snd 𝒢.G.hom (bO L L') z = y0 := by
+    rw [← Scheme.Hom.comp_apply, hsnd]; exact hom_genericUnit' 𝒢'
+  have hs : 𝒢.G.hom 𝒢.genericUnit = s0 := hom_genericUnit' 𝒢
+  have hys : bO L L' y0 = s0 := by
+    simp only [y0, s0, ← genericPt_eq_genericPoint]; exact bO_genericPt
+  have hS := maximalIdeal_stalk_genericPt L s0 (genericPt_eq_genericPoint L).symm
+  have hY := maximalIdeal_stalk_genericPt L' y0 (genericPt_eq_genericPoint L').symm
+  have hrat := rationalOver_genericUnit 𝒢
+  obtain ⟨Ψ, hΨ, hinj⟩ := cotangent_baseChange_injective 𝒢.G.hom (bO L L') z hx hy hs hys hS hY hrat
+  let Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s0
+  let Ox := 𝒢.G.left.presheaf.stalk 𝒢.genericUnit
+  let Oy := (Spec (CommRingCat.of (𝓞 L'))).presheaf.stalk y0
+  letI : Algebra Os Ox := (𝒢.G.hom.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra Os Oy := ((bO L L').stalkMapAt hys).hom.toAlgebra
+  letI : Field Os := inferInstanceAs (Field (Spec (CommRingCat.of (𝓞 L))).functionField)
+  -- germs of `𝓞_{L'}` at the generic point
+  let germY : 𝓞 L' → Oy := fun r => (Spec (CommRingCat.of (𝓞 L'))).presheaf.germ ⊤ y0 trivial
+    ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).inv r)
+  have germY_inj : ∀ r, germY r = 0 → r = 0 := by
+    intro r hr
+    by_contra hne
+    have hu := isUnit_germ_genericPt L' y0 (genericPt_eq_genericPoint L').symm r hne
+    exact hu.ne_zero hr
+  -- `b` is independent over `κ(η)`
+  let bb : I → (IsLocalRing.maximalIdeal Ox).Cotangent := b
+  have hbOs : LinearIndependent Os bb := by
+    letI := cotL 𝒢
+    rw [linearIndependent_iff'] at hb ⊢
+    intro t c hc i hi
+    have key := hb t (fun j => (σFF L).symm (c j)) (by
+      refine Eq.trans (Finset.sum_congr rfl fun j _ => ?_) hc
+      rw [cotL_smul]
+      change (𝒢.G.hom.stalkMapAt (hom_genericUnit' 𝒢)).hom ((σFF L) ((σFF L).symm (c j))) • b j = _
+      rw [AlgEquiv.apply_symm_apply]
+      rfl) i hi
+    simpa using key
+  have hli := Module.Flat.linearIndependent_one_tmul (S := Oy) hbOs
+  -- the element of `𝒪_{η'} ⊗ 𝔪_ξ/𝔪_ξ²`
+  set t : Oy ⊗[Os] (IsLocalRing.maximalIdeal Ox).Cotangent :=
+    ∑ i ∈ s, germY (a i) • ((1 : Oy) ⊗ₜ[Os] bb i)
+  have ht0 : t = 0 := by
+    choose β hβ using fun i => (IsLocalRing.maximalIdeal Ox).toCotangent_surjective (bb i)
+    let E := e.hom.left.stalkMap ξ'
+    have hE : IsLocalRing.maximalIdeal ((pullback 𝒢.G.hom (bO L L')).presheaf.stalk z) ≤
+        (IsLocalRing.maximalIdeal 𝒢'.genStalk).comap E.hom.toIntAlgHom := fun r hr =>
+      map_nonunit E.hom r hr
+    let Ecot := Ideal.mapCotangent _ _ E.hom.toIntAlgHom hE
+    have hEinj : Function.Injective Ecot := mapCotangent_injective_of_isIso E hE
+    -- `E ∘ ψY` on germs of `𝓞_{L'}` is the structure map of `𝒢'`
+    have hEY : ∀ r : 𝓞 L', E.hom ((pullback.snd 𝒢.G.hom (bO L L')).stalkMapAt hy |>.hom
+        (germY r)) = 𝒢'.structMap r := by
+      intro r
+      have h1 := stalkMapAt_comp_apply' e.hom.left (pullback.snd 𝒢.G.hom (bO L L'))
+        (rfl : e.hom.left ξ' = z) hy (by rw [hsnd]; exact hom_genericUnit' 𝒢') (germY r)
+      rw [Scheme.Hom.stalkMapAt_rfl] at h1
+      change (e.hom.left.stalkMap ξ').hom _ = _
+      rw [h1, Scheme.Hom.stalkMapAt_congr hsnd _ (hom_genericUnit' 𝒢'), structMap_eq_stalkMap]
+      exact stalkMapAt_germ' _ _ ⊤ trivial trivial _
+    -- `E ∘ ψX` is `bcMap`
+    have hEX : ∀ m : Ox, E.hom ((pullback.fst 𝒢.G.hom (bO L L')).stalkMapAt hx |>.hom m) =
+        bcMap he m := by
+      intro m
+      have h1 := stalkMapAt_comp_apply' e.hom.left (pullback.fst 𝒢.G.hom (bO L L'))
+        (rfl : e.hom.left ξ' = z) hx (bcProj_genericUnit he) m
+      rw [Scheme.Hom.stalkMapAt_rfl] at h1
+      change (e.hom.left.stalkMap ξ').hom _ = _
+      rw [h1]
+      rfl
+    apply hinj
+    simp only [map_zero]
+    apply hEinj
+    rw [map_zero]
+    simp only [t, map_sum]
+    refine Eq.trans (Finset.sum_congr rfl fun i _ => ?_) h
+    have hb' : b i = 𝒢.dCls (β i) := (hβ i).symm
+    rw [hb', bcCot_dCls, TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one,
+      show bb i = (IsLocalRing.maximalIdeal Ox).toCotangent (β i) from (hβ i).symm, hΨ]
+    simp only [Ecot]
+    rw [mapCotangent_smul', Ideal.mapCotangent_toCotangent, hEY]
+    refine congrArg (fun v : 𝒢'.cotangent => 𝒢'.structMap (a i) • v) ?_
+    unfold GroupModel.dCls
+    congr 1
+    exact Subtype.ext (hEX _)
+  intro i hi
+  rw [linearIndependent_iff'] at hli
+  exact germY_inj _ (hli s (fun j => germY (a j)) ht0 i hi)
+
+/-- `π^*` maps an `L`-basis to an `L'`-independent family. -/
+theorem bcCot_linearIndependent (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; LinearIndependent L' (fun i => bcCot he (b i)) := by
+  classical
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢'
+  rw [linearIndependent_iff']
+  intro s c hc i hi
+  obtain ⟨d, hd⟩ := IsLocalization.exist_integer_multiples (nonZeroDivisors (𝓞 L')) s c
+  let a : I → 𝓞 L' := fun j => if h : j ∈ s then (hd j h).choose else 0
+  have ha : ∀ j ∈ s, algebraMap (𝓞 L') L' (a j) = (d : 𝓞 L') • c j := by
+    intro j hj
+    simp only [a, dif_pos hj]
+    exact (hd j hj).choose_spec
+  have hsum : ∑ j ∈ s, a j • bcCot he (b j) = 0 := by
+    have : ∑ j ∈ s, a j • bcCot he (b j) = (d : 𝓞 L') • ∑ j ∈ s, c j • bcCot he (b j) := by
+      rw [Finset.smul_sum]
+      refine Finset.sum_congr rfl fun j hj => ?_
+      rw [← algebraMap_smul L' (a j), ha j hj, smul_assoc]
+    rw [this, hc, smul_zero]
+  have h0 := bcCot_core he (fun j => b j) b.linearIndependent s a hsum i hi
+  have h1 := ha i hi
+  rw [h0, map_zero, Algebra.smul_def] at h1
+  have hd0 : algebraMap (𝓞 L') L' (d : 𝓞 L') ≠ 0 :=
+    IsFractionRing.to_map_ne_zero_of_mem_nonZeroDivisors d.2
+  exact (mul_eq_zero.mp h1.symm).resolve_left hd0
+
+/-- `π^*` of an `L`-basis spans `ω_{A_{L'}}` over `L'` (from `cotangentSpanBC`). -/
+theorem bcCot_span [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; ⊤ ≤ Submodule.span L' (Set.range (fun i => bcCot he (b i))) := by
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢'
+  set W := Submodule.span L' (Set.range (fun i => bcCot he (b i)))
+  have hbc : ∀ u : 𝒢.cotangent, bcCot he u ∈ W := by
+    intro u
+    have hu : u ∈ Submodule.span L (Set.range b) := b.mem_span u
+    induction hu using Submodule.span_induction with
+    | mem x hx =>
+      obtain ⟨i, rfl⟩ := hx
+      exact Submodule.subset_span ⟨i, rfl⟩
+    | zero => rw [map_zero]; exact W.zero_mem
+    | add x y _ _ hx hy => rw [map_add]; exact W.add_mem hx hy
+    | smul c x _ hx =>
+      rw [bcCot_smulL]
+      exact W.smul_mem _ hx
+  have hspan := cotangentSpanBC K A L L' 𝒢 𝒢' e he
+  intro v _
+  have hv : v ∈ Submodule.span (𝓞 L') (Set.range (bcCot he)) := by rw [hspan]; trivial
+  have hle : Submodule.span (𝓞 L') (Set.range (bcCot he)) ≤ W.restrictScalars (𝓞 L') := by
+    rw [Submodule.span_le]
+    rintro _ ⟨u, rfl⟩
+    exact hbc u
+  exact hle hv
+
+/-- **`π^*` of an `L`-basis of `ω_{A_L}` is an `L'`-basis of `ω_{A_{L'}}`.** -/
+noncomputable def bcCotBasis [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) :
+    letI := cotL 𝒢'; Module.Basis I L' 𝒢'.cotangent :=
+  letI := cotL 𝒢'
+  Module.Basis.mk (bcCot_linearIndependent he b) (bcCot_span he b)
+
+theorem bcCotBasis_apply [IsScalarTower K L L'] (he : IsMonBC 𝒢 𝒢' e) {I : Type}
+    (b : letI := cotL 𝒢; Module.Basis I L 𝒢.cotangent) (i : I) :
+    bcCotBasis he b i = bcCot he (b i) := by
+  letI := cotL 𝒢'
+  exact Module.Basis.mk_apply _ _ i
+
+end HodgeBC2
+
+/-- **`HodgeBCInjective` holds** (height-bc glue BC-alg; statement verbatim). The natural map
+`ψ = bcHodge` sends the `L`-basis `1 ⊗ ιMulti_family b` of the Hodge space of `𝒢` (`b` an `L`-basis
+of `ω_{A_L}`, `extFracBasis`) to the `L'`-basis `1 ⊗ ιMulti_family (π^* ∘ b)` of that of `𝒢'`
+(`bcCotBasis`); it is `L`-semilinear, hence injective, and both spaces have bases indexed by the
+same set, hence the same `finrank`. -/
+theorem hodgeBCInjective : HodgeBCInjective := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he g
+  classical
+  letI := cotL 𝒢
+  letI := cotL 𝒢'
+  haveI := cotL_isScalarTower 𝒢
+  haveI := cotL_isScalarTower 𝒢'
+  let I := Module.Basis.ofVectorSpaceIndex L 𝒢.cotangent
+  let b : Module.Basis I L 𝒢.cotangent := Module.Basis.ofVectorSpace L 𝒢.cotangent
+  letI : LinearOrder I := linearOrderOfSTO WellOrderingRel
+  let b' := bcCotBasis he b
+  let B := ZInQ.HodgeBC2.extFracBasis (R := 𝓞 L) g b
+  let B' := ZInQ.HodgeBC2.extFracBasis (R := 𝓞 L') g b'
+  have hψ : ∀ s, bcHodge he g (B s) = B' s := by
+    intro s
+    simp only [B, B', ZInQ.HodgeBC2.extFracBasis_apply]
+    rw [bcHodge_tmul, map_one]
+    congr 1
+    simp only [exteriorPower.ιMulti_family]
+    rw [bcExt_ιMulti]
+    congr 1
+    funext j
+    simp only [Function.comp_apply, b', bcCotBasis_apply]
+  constructor
+  · intro v hv hψv
+    apply hv
+    have hsum : bcHodge he g v =
+        ∑ t ∈ (B.repr v).support, algebraMap L L' (B.repr v t) • B' t := by
+      conv_lhs => rw [← B.linearCombination_repr v, Finsupp.linearCombination_apply, Finsupp.sum]
+      rw [map_sum]
+      refine Finset.sum_congr rfl fun t _ => ?_
+      rw [bcHodge_smul, hψ]
+    rw [hψv] at hsum
+    have h0 := (linearIndependent_iff'.mp B'.linearIndependent) _ _ hsum.symm
+    rw [← B.linearCombination_repr v, Finsupp.linearCombination_apply, Finsupp.sum]
+    refine Finset.sum_eq_zero fun t ht => ?_
+    have : B.repr v t = 0 := (algebraMap L L').injective (by rw [h0 t ht, map_zero])
+    rw [this, zero_smul]
+  · rw [Module.finrank_eq_nat_card_basis B, Module.finrank_eq_nat_card_basis B']
+
+end ZInQ.HeightBC
+
+
+
+
+
+/-! # hodge-bc2: `OmegaBaseChange` from the localization property of `omegaAt`
+
+* Step A (`mem_of_forall_locSub`): a vector lies in a submodule `N` over a ring `R` if for every
+  maximal ideal `P` some `d ∉ P` has `d • v ∈ N`.
+* Step B (`omegaAt_bc_local`, conormal base change at a point `s'` of `Spec 𝓞_{L'}`): every
+  `v ∈ (ω_{𝒢'})_{s'}` has a multiple `d • v`, `d ∉ s'`, in `𝓞_{L'} · π^*((ω_𝒢)_{s})`, `s` the image
+  of `s'`. From infra-stalks' `pullback_stalkGen`: `I'_{e'(s')} = π^*(I_{e(s)}) · 𝒪_{𝒢',e'(s')}`.
+* `OmegaLocalization` (named Prop, one group model): `(ω_𝒢)_s` is the localization of `ω_𝒢` at `s`.
+* `omegaBaseChange_of_localization : OmegaLocalization → OmegaBaseChange`. -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open scoped TensorProduct
+
+/-! ### Step A: local–global for submodules -/
+
+/-- `{v | ∃ d ∉ P, d • v ∈ N}`. -/
+def locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M] (P : Ideal R) [P.IsPrime]
+    (N : Submodule R M) : Submodule R M where
+  carrier := {v | ∃ d : R, d ∉ P ∧ d • v ∈ N}
+  add_mem' := by
+    rintro v w ⟨d₁, h₁, hv⟩ ⟨d₂, h₂, hw⟩
+    refine ⟨d₁ * d₂, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim h₁ h₂, ?_⟩
+    have : (d₁ * d₂) • (v + w) = d₂ • (d₁ • v) + d₁ • (d₂ • w) := by
+      rw [smul_add, smul_smul, smul_smul, mul_comm d₂ d₁]
+    rw [this]
+    exact N.add_mem (N.smul_mem _ hv) (N.smul_mem _ hw)
+  zero_mem' := ⟨1, fun h => Ideal.IsPrime.ne_top ‹_› ((Ideal.eq_top_iff_one _).mpr h),
+    by rw [smul_zero]; exact N.zero_mem⟩
+  smul_mem' := by
+    rintro c v ⟨d, hd, hv⟩
+    exact ⟨d, hd, by rw [smul_comm]; exact N.smul_mem c hv⟩
+
+theorem mem_locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M] (P : Ideal R)
+    [P.IsPrime] (N : Submodule R M) (v : M) : v ∈ locSub P N ↔ ∃ d : R, d ∉ P ∧ d • v ∈ N :=
+  Iff.rfl
+
+/-- **Step A.** -/
+theorem mem_of_forall_locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    (N : Submodule R M) (v : M)
+    (h : ∀ (P : Ideal R) (hP : P.IsMaximal), haveI := hP.isPrime; v ∈ locSub P N) : v ∈ N := by
+  let J : Ideal R := N.comap (LinearMap.toSpanSingleton R M v)
+  by_cases hJ : J = ⊤
+  · have : (1 : R) ∈ J := hJ ▸ Submodule.mem_top
+    simpa [J] using this
+  · obtain ⟨P, hP, hJP⟩ := Ideal.exists_le_maximal J hJ
+    obtain ⟨d, hd, hdv⟩ := h P hP
+    exact absurd (hJP (by simpa [J] using hdv)) hd
+
+/-! ### Dedekind lemmas -/
+
+/-- A nonzero ideal of a Dedekind domain that is saturated at a nonzero prime `P₁` is not contained
+in any prime `P ≠ P₁` (it contains a power of `P₁`, by the DVR `R_{P₁}`). -/
+theorem exists_mem_not_mem_of_sat {R : Type*} [CommRing R] [IsDedekindDomain R] (P₁ P : Ideal R)
+    [P₁.IsPrime] [hP : P.IsPrime] (hP₁ : P₁ ≠ ⊥) (hne : P ≠ P₁) (J : Ideal R) (hJ : J ≠ ⊥)
+    (hsat : ∀ u ∉ P₁, ∀ d, u * d ∈ J → d ∈ J) : ∃ d ∈ J, d ∉ P := by
+  by_contra hcon
+  push_neg at hcon
+  have hJP : J ≤ P := fun d hd => hcon d hd
+  let Rp := Localization.AtPrime P₁
+  haveI : IsDiscreteValuationRing Rp :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain R hP₁ Rp
+  have hinj : Function.Injective (algebraMap R Rp) :=
+    IsLocalization.injective Rp P₁.primeCompl_le_nonZeroDivisors
+  have hmap : J.map (algebraMap R Rp) ≠ ⊥ := by
+    obtain ⟨c, hc, hc0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hJ
+    intro h
+    apply hc0
+    have : algebraMap R Rp c = 0 := by
+      rw [← Ideal.mem_bot, ← h]; exact Ideal.mem_map_of_mem _ hc
+    exact hinj (this.trans (map_zero _).symm)
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible Rp
+  obtain ⟨n, hn⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hmap hϖ
+  have hle : P₁ ^ n ≤ J := by
+    intro a ha
+    have hpow : (P₁ ^ n).map (algebraMap R Rp) = Ideal.span {ϖ ^ n} := by
+      rw [Ideal.map_pow, IsLocalization.AtPrime.map_eq_maximalIdeal, hϖ.maximalIdeal_eq,
+        Ideal.span_singleton_pow]
+    have ha' : algebraMap R Rp a ∈ J.map (algebraMap R Rp) := by
+      rw [hn, ← hpow]; exact Ideal.mem_map_of_mem _ ha
+    obtain ⟨⟨j, u⟩, hju⟩ := (IsLocalization.mem_map_algebraMap_iff P₁.primeCompl Rp).mp ha'
+    have hau : (u : R) * a = j := hinj (by rw [map_mul, mul_comm]; exact hju)
+    exact hsat u u.2 a (hau ▸ j.2)
+  have h1 : P₁ ≤ P := Ideal.IsPrime.le_of_pow_le (hle.trans hJP)
+  have hmax : P₁.IsMaximal := Ideal.IsPrime.isMaximal ‹_› hP₁
+  exact hne (hmax.eq_of_le hP.ne_top h1).symm
+
+/-- A closed subset of `Spec 𝓞_L` avoiding the generic point is finite. -/
+theorem finite_of_isClosed_not_genericPt (L : Type) [Field L] [NumberField L]
+    (Z : Set (Spec (CommRingCat.of (𝓞 L)))) (hZ : IsClosed Z) (hg : genericPt L ∉ Z) :
+    Z.Finite := by
+  obtain ⟨I, hI⟩ := (PrimeSpectrum.isClosed_iff_zeroLocus_ideal
+    (show Set (PrimeSpectrum (𝓞 L)) from Z)).mp hZ
+  have hI0 : I ≠ ⊥ := by
+    rintro rfl
+    apply hg
+    change (genericPt L : PrimeSpectrum (𝓞 L)) ∈ (show Set (PrimeSpectrum (𝓞 L)) from Z)
+    rw [hI]
+    intro x hx
+    simp only [Submodule.bot_coe, Set.mem_singleton_iff] at hx
+    rw [hx]; exact Ideal.zero_mem _
+  have hfin := Ideal.finite_minimalPrimes_of_isNoetherianRing (𝓞 L) I
+  refine (hfin.preimage (Set.injOn_of_injective
+    (fun p q (h : (p : PrimeSpectrum (𝓞 L)).asIdeal = (q : PrimeSpectrum (𝓞 L)).asIdeal) =>
+      PrimeSpectrum.ext h))).subset ?_
+  intro p hp
+  have hp' : (p : PrimeSpectrum (𝓞 L)) ∈ PrimeSpectrum.zeroLocus (I : Set (𝓞 L)) := by
+    rw [← hI]; exact hp
+  have hIp : I ≤ (p : PrimeSpectrum (𝓞 L)).asIdeal := fun x hx => hp' hx
+  refine ⟨⟨(p : PrimeSpectrum (𝓞 L)).isPrime, hIp⟩, fun q hq hqp => ?_⟩
+  have hq0 : q ≠ ⊥ := fun h => hI0 (le_bot_iff.mp (h ▸ hq.2))
+  have hqmax : q.IsMaximal := Ideal.IsPrime.isMaximal hq.1 hq0
+  exact (hqmax.eq_of_le (p : PrimeSpectrum (𝓞 L)).isPrime.ne_top hqp).symm.le
+
+section OmegaBC
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-! ### Sections and stalks -/
+
+theorem hom_unitSection {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) : 𝒢.G.hom (𝒢.unitSection s) = s := by
+  rw [← Scheme.Hom.comp_apply, unitSection_comp_hom]; rfl
+
+/-- `e^♯ ∘ G^♯ = id` on stalks at a point of the section. -/
+theorem unitSection_stalkMapAt_hom {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) {s : Spec (CommRingCat.of (𝓞 L))} {x : 𝒢.G.left}
+    (hx : 𝒢.unitSection s = x) (hG : 𝒢.G.hom x = s)
+    (gam : (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s) :
+    (𝒢.unitSection.stalkMapAt hx).hom ((𝒢.G.hom.stalkMapAt hG).hom gam) = gam := by
+  have hfg : (𝒢.unitSection ≫ 𝒢.G.hom) s = s := by rw [Scheme.Hom.comp_apply, hx, hG]
+  rw [stalkMapAt_comp_apply' _ _ hx hG hfg,
+    Scheme.Hom.stalkMapAt_congr (unitSection_comp_hom 𝒢) hfg
+      (show (𝟙 (Spec (CommRingCat.of (𝓞 L)))) s = s from rfl),
+    Scheme.Hom.stalkMapAt_id]
+  rfl
+
+/-- Elements of `I_{e(s)}` specialize into `𝔪_ξ`. -/
+theorem spec_mem_of_ker {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (f : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s))
+    (hf : (𝒢.unitSection.stalkMap s).hom f = 0) :
+    𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f ∈
+      IsLocalRing.maximalIdeal 𝒢.genStalk := by
+  intro hu
+  have h1 := hu.map (𝒢.unitSection.stalkMap (genericPt L)).hom
+  have hsp : genericPt L ⤳ s := (PrimeSpectrum.le_iff_specializes (genericPt L) s).mp bot_le
+  have h2 := Scheme.Hom.stalkSpecializes_stalkMap_apply 𝒢.unitSection (genericPt L) s hsp f
+  have h3 : (𝒢.unitSection.stalkMap (genericPt L)).hom
+      (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f) = 0 := by
+    have h2' := h2
+    rw [hf, map_zero] at h2'
+    exact h2'
+  have h4 : IsUnit ((𝒢.unitSection.stalkMap (genericPt L)).hom
+      (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f)) := h1
+  rw [h3] at h4
+  exact not_isUnit_zero h4
+
+/-- `structMap a` is the specialization of `G^♯(a)` at any point of the section. -/
+theorem structMap_eq_spec {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : Spec (CommRingCat.of (𝓞 L))) (a : 𝓞 L) :
+    𝒢.structMap a = 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+      ((𝒢.G.hom.stalkMapAt (hom_unitSection 𝒢 s)).hom
+        ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ s trivial
+          ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a))) := by
+  rw [stalkMapAt_germ' _ _ ⊤ (by trivial) (by trivial)]
+  erw [Scheme.Hom.germ_stalkMap_apply 𝒢.G.hom ⊤ (𝒢.unitSection s) (by trivial),
+    TopCat.Presheaf.germ_stalkSpecializes_apply]
+  rfl
+
+/-- `toCotangent (r x) = r • toCotangent x`. -/
+theorem toCotangent_mul {R : Type*} [CommRing R] [IsLocalRing R] (r x : R)
+    (hx : x ∈ IsLocalRing.maximalIdeal R) (hrx : r * x ∈ IsLocalRing.maximalIdeal R) :
+    (IsLocalRing.maximalIdeal R).toCotangent ⟨r * x, hrx⟩ =
+      r • (IsLocalRing.maximalIdeal R).toCotangent ⟨x, hx⟩ := by
+  rw [← map_smul]; rfl
+
+/-- **Elements of the stalk at a point of the section act on `ω_{A_L}` through `𝒪_{S,s}`.** -/
+theorem exists_act {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (r : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s)) :
+    ∃ p t : 𝓞 L, t ∉ s.asIdeal ∧ (IsUnit r → p ∉ s.asIdeal) ∧ ∀ v : 𝒢.cotangent,
+      t • (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) r • v) = p • v := by
+  haveI : s.asIdeal.IsPrime := s.isPrime
+  set Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s
+  letI : Algebra (𝓞 L) Os := ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv ≫
+    (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ s trivial).hom.toAlgebra
+  haveI : IsLocalization.AtPrime Os s.asIdeal := by
+    have := StructureSheaf.IsLocalization.to_stalk (CommRingCat.of (𝓞 L)) s
+    exact this
+  set sp := 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+  set Gat := (𝒢.G.hom.stalkMapAt (hom_unitSection 𝒢 s)).hom
+  set gam : Os := (𝒢.unitSection.stalkMap s).hom r
+  obtain ⟨⟨p, t⟩, hpt⟩ := IsLocalization.surj s.asIdeal.primeCompl gam
+  have hSM : ∀ a : 𝓞 L, 𝒢.structMap a = sp (Gat (algebraMap (𝓞 L) Os a)) :=
+    fun a => structMap_eq_spec 𝒢 s a
+  refine ⟨p, t, t.2, fun hr => ?_, fun v => ?_⟩
+  · intro hp
+    have hu : IsUnit (algebraMap (𝓞 L) Os p) := by
+      rw [← hpt]
+      exact (hr.map (𝒢.unitSection.stalkMap s).hom).mul
+        (IsLocalization.map_units Os (⟨t.1, t.2⟩ : s.asIdeal.primeCompl))
+    exact (IsLocalization.AtPrime.isUnit_to_map_iff Os s.asIdeal p).mp hu hp
+  · have hker : (𝒢.unitSection.stalkMap s).hom (r - Gat gam) = 0 := by
+      rw [map_sub]
+      have := unitSection_stalkMapAt_hom 𝒢 (rfl : 𝒢.unitSection s = 𝒢.unitSection s)
+        (hom_unitSection 𝒢 s) gam
+      rw [Scheme.Hom.stalkMapAt_rfl] at this
+      rw [this, sub_self]
+    have h1 : sp r • v = sp (Gat gam) • v := by
+      apply smul_cotangent_eq_of_sub_mem
+      rw [← map_sub]
+      exact spec_mem_of_ker 𝒢 s _ hker
+    change 𝒢.structMap t • (sp r • v) = 𝒢.structMap p • v
+    rw [h1, smul_smul, hSM, hSM, ← map_mul, ← map_mul, mul_comm, hpt]
+
+theorem stalkSpec_comp_apply {X : Scheme.{0}} {x y z : X} (h : x ⤳ y) (h' : y ⤳ z)
+    (t : X.presheaf.stalk z) :
+    X.presheaf.stalkSpecializes h (X.presheaf.stalkSpecializes h' t) =
+      X.presheaf.stalkSpecializes (h.trans h') t := by
+  rw [← CommRingCat.comp_apply, TopCat.Presheaf.stalkSpecializes_comp]
+
+theorem stalkSpec_self_apply {X : Scheme.{0}} {x : X} (h : x ⤳ x) (t : X.presheaf.stalk x) :
+    X.presheaf.stalkSpecializes h t = t := by
+  rw [show h = specializes_refl x from rfl, TopCat.Presheaf.stalkSpecializes_refl]
+  rfl
+
+variable {L L' : Type} [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L']
+    {𝒢 : GroupModel A L} {𝒢' : GroupModel A L'} {e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G}
+
+/-- **Step B: conormal base change at a point `s'` of `Spec 𝓞_{L'}`.** -/
+theorem omegaAt_bc_local (he : IsMonBC 𝒢 𝒢' e) (s' : Spec (CommRingCat.of (𝓞 L')))
+    (v : 𝒢'.cotangent) (hv : v ∈ 𝒢'.omegaAt s') :
+    haveI := s'.isPrime
+    v ∈ locSub s'.asIdeal (Submodule.span (𝓞 L') (bcCot he '' 𝒢.omegaAt (bO L L' s'))) := by
+  haveI := s'.isPrime
+  set N := Submodule.span (𝓞 L') (bcCot he '' 𝒢.omegaAt (bO L L' s'))
+  set x' := 𝒢'.unitSection s'
+  set p := bcProj 𝒢 𝒢' e
+  set sp' := 𝒢'.G.left.presheaf.stalkSpecializes (𝒢'.specializes_genericUnit s')
+  have hp : p x' = 𝒢.unitSection (bO L L' s') :=
+    (Scheme.Hom.comp_apply _ _ _).symm.trans
+      ((congrArg (fun φ => φ s') (bcProj_unit he)).trans (Scheme.Hom.comp_apply _ _ _))
+  have hx : 𝒢.unitSection (bO L L' s') = p x' := hp.symm
+  have hG : 𝒢.G.hom (p x') = bO L L' s' := by rw [hp]; exact hom_unitSection 𝒢 _
+  set eat := (𝒢.unitSection.stalkMapAt hx).hom
+  set Gat := (𝒢.G.hom.stalkMapAt hG).hom
+  set Kk := RingHom.ker eat
+  set T : Ideal (𝒢'.G.left.presheaf.stalk x') := Kk.map (p.stalkMap x').hom
+  set e' := (𝒢'.unitSection.stalkMap s').hom
+  -- `π^♯(I_{e(s)})` lies in `I'_{e'(s')}`
+  have hKker : ∀ k ∈ Kk, e' ((p.stalkMap x').hom k) = 0 := by
+    intro k hk
+    have hfg : (𝒢'.unitSection ≫ p) s' = p x' := Scheme.Hom.comp_apply _ _ _
+    have hfg' : (bO L L' ≫ 𝒢.unitSection) s' = p x' := by
+      rw [Scheme.Hom.comp_apply, hx]
+    have h1 := stalkMapAt_comp_apply' 𝒢'.unitSection p (rfl : 𝒢'.unitSection s' = x')
+      (rfl : p x' = p x') hfg k
+    rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl] at h1
+    change (𝒢'.unitSection.stalkMap s').hom ((p.stalkMap x').hom k) = 0
+    rw [h1, Scheme.Hom.stalkMapAt_congr (bcProj_unit he) hfg hfg',
+      ← stalkMapAt_comp_apply' (bO L L') 𝒢.unitSection (rfl : bO L L' s' = bO L L' s') hx hfg']
+    change (Scheme.Hom.stalkMapAt (bO L L') rfl).hom (eat k) = 0
+    rw [RingHom.mem_ker.mp hk, map_zero]
+  have hTker : ∀ u ∈ T, e' u = 0 := by
+    intro u hu
+    have hle : T ≤ RingHom.ker e' := Ideal.map_le_iff_le_comap.mpr fun k hk => by
+      rw [Ideal.mem_comap, RingHom.mem_ker]; exact hKker k hk
+    exact RingHom.mem_ker.mp (hle hu)
+  have hT𝔪 : ∀ u ∈ T, sp' u ∈ IsLocalRing.maximalIdeal 𝒢'.genStalk :=
+    fun u hu => spec_mem_of_ker 𝒢' s' u (hTker u hu)
+  -- generators of `T` give vectors of `π^*((ω_𝒢)_s)`
+  have hgenT : ∀ k ∈ Kk, ∀ h : sp' ((p.stalkMap x').hom k) ∈ IsLocalRing.maximalIdeal 𝒢'.genStalk,
+      𝒢'.dCls ⟨_, h⟩ ∈ N := by
+    intro k hk h
+    set spk := 𝒢.G.left.presheaf.stalkSpecializes
+      ((𝒢.specializes_genericUnit (bO L L' s')).trans (Inseparable.of_eq hx).specializes) k
+    set f := (𝒢.G.left.presheaf.stalkCongr (.of_eq hx.symm)).hom k
+    have hfker : f ∈ RingHom.ker (𝒢.unitSection.stalkMap (bO L L' s')).hom := hk
+    have hspf : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (bO L L' s')) f =
+        spk :=
+      stalkSpec_comp_apply (𝒢.specializes_genericUnit (bO L L' s')) (Inseparable.of_eq hx).specializes k
+    have hspk : spk ∈ IsLocalRing.maximalIdeal 𝒢.genStalk :=
+      hspf ▸ spec_mem_of_ker 𝒢 _ f hfker
+    have hmem : 𝒢.dCls ⟨spk, hspk⟩ ∈ 𝒢.omegaAt (bO L L' s') :=
+      Submodule.subset_span ⟨f, hfker, hspf ▸ hspk, by congr 1; exact Subtype.ext hspf.symm⟩
+    have hbc : sp' ((p.stalkMap x').hom k) = bcMap he spk := by
+      have h2 := Scheme.Hom.stalkSpecializes_stalkMap_apply p 𝒢'.genericUnit x'
+        (𝒢'.specializes_genericUnit s') k
+      change _ = (p.stalkMap 𝒢'.genericUnit).hom (𝒢.G.left.presheaf.stalkSpecializes _ spk)
+      rw [stalkSpec_comp_apply]
+      exact h2.symm
+    refine Submodule.subset_span ⟨_, hmem, ?_⟩
+    rw [bcCot_dCls]
+    congr 1
+    exact Subtype.ext hbc.symm
+  -- every element of `T` gives a vector of `locSub`
+  have hPr : ∀ u (hu : u ∈ T), 𝒢'.dCls ⟨sp' u, hT𝔪 u hu⟩ ∈ locSub s'.asIdeal N := by
+    intro u hu
+    induction hu using Submodule.span_induction with
+    | mem y hy =>
+      obtain ⟨k, hk, rfl⟩ := hy
+      exact ⟨1, fun h => Ideal.IsPrime.ne_top s'.isPrime ((Ideal.eq_top_iff_one _).mpr h),
+        by rw [one_smul]; exact hgenT k hk _⟩
+    | zero =>
+      have : (⟨sp' 0, hT𝔪 0 (Submodule.zero_mem _)⟩ : IsLocalRing.maximalIdeal 𝒢'.genStalk) = 0 :=
+        Subtype.ext (map_zero _)
+      rw [this, GroupModel.dCls, map_zero]; exact Submodule.zero_mem _
+    | add y z hy hz ihy ihz =>
+      have : (⟨sp' (y + z), hT𝔪 _ (Submodule.add_mem _ hy hz)⟩ :
+          IsLocalRing.maximalIdeal 𝒢'.genStalk) = ⟨sp' y, hT𝔪 y (show y ∈ T from hy)⟩ +
+            ⟨sp' z, hT𝔪 z (show z ∈ T from hz)⟩ :=
+        Subtype.ext (map_add _ _ _)
+      rw [this, GroupModel.dCls, map_add]; exact Submodule.add_mem _ ihy ihz
+    | smul r y hy ihy =>
+      obtain ⟨pr, tr, htr, -, hact⟩ := exists_act 𝒢' s' r
+      obtain ⟨d, hd, hdN⟩ := ihy
+      have hcot : 𝒢'.dCls ⟨sp' (r • y), hT𝔪 _ (Submodule.smul_mem _ r hy)⟩ =
+          sp' r • 𝒢'.dCls ⟨sp' y, hT𝔪 y (show y ∈ T from hy)⟩ := by
+        unfold GroupModel.dCls
+        refine (congrArg _ (Subtype.ext ?_)).trans
+          (map_smul (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent (sp' r)
+            ⟨sp' y, hT𝔪 y (show y ∈ T from hy)⟩)
+        simp only [smul_eq_mul, map_mul, SetLike.val_smul]
+      rw [hcot]
+      refine ⟨d * tr, fun h => (Ideal.IsPrime.mem_or_mem s'.isPrime h).elim hd htr, ?_⟩
+      rw [mul_comm, mul_smul, smul_comm tr d, hact, smul_comm d pr]
+      exact N.smul_mem pr hdN
+  -- `𝒪_{𝒢',x'}` is generated by `π^♯` and `G'^♯` (infra-stalks' `pullback_stalkGen`)
+  have hgen : StalkGen p 𝒢'.G.hom x' := by
+    have h0 := StalkGen.comp_of_isIso e.hom.left (pullback.fst 𝒢.G.hom (bO L L'))
+      (pullback.snd _ _) x' (pullback_stalkGen _ _ _)
+    have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+    rw [hsnd] at h0
+    exact h0
+  -- elements of the generated subring are `G'^♯(γ)` modulo `T`
+  have hdec : ∀ c ∈ (p.stalkMap x').hom.range ⊔ (𝒢'.G.hom.stalkMap x').hom.range,
+      ∃ gam, c - (𝒢'.G.hom.stalkMap x').hom gam ∈ T := by
+    intro c hc
+    have hR : (p.stalkMap x').hom.range ⊔ (𝒢'.G.hom.stalkMap x').hom.range ≤
+        Subring.closure (Set.range (p.stalkMap x').hom ∪ Set.range (𝒢'.G.hom.stalkMap x').hom) :=
+      sup_le (fun y hy => Subring.subset_closure (Or.inl (RingHom.mem_range.mp hy)))
+        (fun y hy => Subring.subset_closure (Or.inr (RingHom.mem_range.mp hy)))
+    suffices H : ∀ u (hu : u ∈ Subring.closure
+        (Set.range (p.stalkMap x').hom ∪ Set.range (𝒢'.G.hom.stalkMap x').hom)),
+        ∃ gam, u - (𝒢'.G.hom.stalkMap x').hom gam ∈ T from H c (hR hc)
+    intro u hu
+    induction hu using Subring.closure_induction with
+    | mem y hy =>
+      rcases hy with ⟨a, rfl⟩ | ⟨b, rfl⟩
+      · set c0 := (((Spec (CommRingCat.of (𝓞 L))).presheaf.stalkCongr
+          (.of_eq hG.symm)).hom (eat a))
+        have hGat : Gat (eat a) = (𝒢.G.hom.stalkMap (p x')).hom c0 := by
+          change ((((Spec (CommRingCat.of (𝓞 L))).presheaf.stalkCongr (.of_eq hG.symm)).hom ≫
+            𝒢.G.hom.stalkMap (p x')).hom (eat a)) = _
+          rw [CommRingCat.comp_apply]
+        have hk : a - (𝒢.G.hom.stalkMap (p x')).hom c0 ∈ Kk := by
+          rw [RingHom.mem_ker, ← hGat, map_sub, unitSection_stalkMapAt_hom 𝒢 hx hG, sub_self]
+        obtain ⟨c', hc'⟩ := exists_stalkMap_comp_eq p 𝒢'.G.hom 𝒢.G.hom (bO L L')
+          (bcProj_w 𝒢 𝒢' e) x' c0
+        refine ⟨(bO L L').stalkMap _ c', ?_⟩
+        rw [← hc', ← map_sub]
+        exact Ideal.mem_map_of_mem _ hk
+      · exact ⟨b, by rw [sub_self]; exact T.zero_mem⟩
+    | zero => exact ⟨0, by rw [map_zero, sub_self]; exact T.zero_mem⟩
+    | one => exact ⟨1, by rw [map_one, sub_self]; exact T.zero_mem⟩
+    | add y z _ _ hy hz =>
+      obtain ⟨b1, h1⟩ := hy
+      obtain ⟨b2, h2⟩ := hz
+      refine ⟨b1 + b2, ?_⟩
+      have : y + z - (𝒢'.G.hom.stalkMap x').hom (b1 + b2) =
+          (y - (𝒢'.G.hom.stalkMap x').hom b1) + (z - (𝒢'.G.hom.stalkMap x').hom b2) := by
+        rw [map_add]; ring
+      rw [this]; exact T.add_mem h1 h2
+    | neg y _ hy =>
+      obtain ⟨b1, h1⟩ := hy
+      refine ⟨-b1, ?_⟩
+      have : -y - (𝒢'.G.hom.stalkMap x').hom (-b1) = -(y - (𝒢'.G.hom.stalkMap x').hom b1) := by
+        rw [map_neg]; ring
+      rw [this]; exact T.neg_mem h1
+    | mul y z _ _ hy hz =>
+      obtain ⟨b1, h1⟩ := hy
+      obtain ⟨b2, h2⟩ := hz
+      refine ⟨b1 * b2, ?_⟩
+      have : y * z - (𝒢'.G.hom.stalkMap x').hom (b1 * b2) =
+          (y - (𝒢'.G.hom.stalkMap x').hom b1) * z +
+            (𝒢'.G.hom.stalkMap x').hom b1 * (z - (𝒢'.G.hom.stalkMap x').hom b2) := by
+        rw [map_mul]; ring
+      rw [this]
+      exact T.add_mem (T.mul_mem_right _ h1) (T.mul_mem_left _ h2)
+  -- the generators of `(ω_{𝒢'})_{s'}`
+  induction hv using Submodule.span_induction with
+  | mem m hm =>
+    obtain ⟨f', hf', hmem, rfl⟩ := hm
+    obtain ⟨c, hc, w, hw, hwu, hfw⟩ := hgen f'
+    obtain ⟨gam, hgam⟩ := hdec c hc
+    have hec : e' c = 0 := by rw [← hfw, map_mul, RingHom.mem_ker.mp hf', zero_mul]
+    have hegam : e' ((𝒢'.G.hom.stalkMap x').hom gam) = 0 := by
+      have h1 := hTker _ hgam
+      rw [map_sub, hec, zero_sub, neg_eq_zero] at h1
+      exact h1
+    have hgam0 : (𝒢'.G.hom.stalkMap x').hom gam = 0 := by
+      set CI := (Spec (CommRingCat.of (𝓞 L'))).presheaf.stalkCongr
+        (.of_eq (hom_unitSection 𝒢' s').symm)
+      have key := unitSection_stalkMapAt_hom 𝒢' (rfl : 𝒢'.unitSection s' = x')
+        (hom_unitSection 𝒢' s') (CI.inv gam)
+      rw [Scheme.Hom.stalkMapAt_rfl] at key
+      have h2 : (𝒢'.G.hom.stalkMapAt (hom_unitSection 𝒢' s')).hom (CI.inv gam) =
+          (𝒢'.G.hom.stalkMap x').hom gam := by
+        change ((CI.hom ≫ 𝒢'.G.hom.stalkMap x').hom (CI.inv gam)) = _
+        rw [CommRingCat.comp_apply, Iso.inv_hom_id_apply]
+      rw [h2] at key
+      change e' _ = _ at key
+      rw [hegam] at key
+      have hg0 : gam = 0 := by
+        have := congrArg CI.hom key
+        rwa [map_zero, Iso.inv_hom_id_apply, eq_comm] at this
+      rw [hg0, map_zero]
+    have hcT : c ∈ T := by rw [hgam0, sub_zero] at hgam; exact hgam
+    have hfwT : f' * w ∈ T := hfw ▸ hcT
+    obtain ⟨d, hd, hdN⟩ := hPr (f' * w) hfwT
+    have hcot : 𝒢'.dCls ⟨sp' (f' * w), hT𝔪 _ hfwT⟩ = sp' w • 𝒢'.dCls ⟨sp' f', hmem⟩ := by
+      unfold GroupModel.dCls
+      refine (congrArg _ (Subtype.ext ?_)).trans
+        (map_smul (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent (sp' w) ⟨sp' f', hmem⟩)
+      change sp' (f' * w) = sp' w * sp' f'
+      rw [map_mul, mul_comm]
+    obtain ⟨pw, tw, htw, hpw, hact⟩ := exists_act 𝒢' s' w
+    refine ⟨d * pw, fun h => (Ideal.IsPrime.mem_or_mem s'.isPrime h).elim hd (hpw hwu), ?_⟩
+    rw [mul_smul, ← hact, smul_comm d tw, ← hcot]
+    exact N.smul_mem tw hdN
+  | zero => exact Submodule.zero_mem _
+  | add y z _ _ hy hz => exact Submodule.add_mem _ hy hz
+  | smul r y _ hy => exact Submodule.smul_mem _ r hy
+
+/-! ### Toward `OmegaLocalization`: properties of the local lattices of one model -/
+
+/-- `(ω_𝒢)_s` is stable under `𝒪_{S,s}`: elements `u ∉ s` act injectively modulo it. -/
+theorem omegaAt_sat {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (u : 𝓞 L) (hu : u ∉ s.asIdeal) (w : 𝒢.cotangent)
+    (hw : u • w ∈ 𝒢.omegaAt s) : w ∈ 𝒢.omegaAt s := by
+  haveI : s.asIdeal.IsPrime := s.isPrime
+  set Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s
+  letI : Algebra (𝓞 L) Os := ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv ≫
+    (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ s trivial).hom.toAlgebra
+  haveI : IsLocalization.AtPrime Os s.asIdeal := by
+    have := StructureSheaf.IsLocalization.to_stalk (CommRingCat.of (𝓞 L)) s
+    exact this
+  set sp := 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+  set Gat := (𝒢.G.hom.stalkMapAt (hom_unitSection 𝒢 s)).hom
+  have hgu : IsUnit (algebraMap (𝓞 L) Os u) :=
+    IsLocalization.map_units Os (⟨u, hu⟩ : s.asIdeal.primeCompl)
+  set y := Gat (algebraMap (𝓞 L) Os u)
+  have hy : IsUnit y := hgu.map Gat
+  set y' : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s) := ↑(hy.unit⁻¹)
+  have hyy : y' * y = 1 := hy.unit.inv_mul
+  have hsy : 𝒢.structMap u = sp y := structMap_eq_spec 𝒢 s u
+  have hΦ : ∀ m ∈ 𝒢.omegaAt s, sp y' • m ∈ 𝒢.omegaAt s := by
+    intro m hm
+    induction hm using Submodule.span_induction with
+    | mem m hm =>
+      obtain ⟨f, hf, hmem, rfl⟩ := hm
+      have hf' : y' * f ∈ RingHom.ker (𝒢.unitSection.stalkMap s).hom := by
+        rw [RingHom.mem_ker, map_mul, RingHom.mem_ker.mp hf, mul_zero]
+      have hmem' : sp (y' * f) ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+        rw [map_mul]; exact Ideal.mul_mem_left _ _ hmem
+      apply Submodule.subset_span
+      refine ⟨_, hf', hmem', ?_⟩
+      unfold GroupModel.dCls
+      refine (map_smul (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent (sp y') ⟨_, hmem⟩).symm.trans
+        (congrArg _ (Subtype.ext ?_))
+      change sp y' * sp f = sp (y' * f)
+      rw [map_mul]
+    | zero => rw [smul_zero]; exact Submodule.zero_mem _
+    | add a b _ _ ha hb => rw [smul_add]; exact Submodule.add_mem _ ha hb
+    | smul r a _ ha =>
+      have : sp y' • (r • a) = r • (sp y' • a) := by
+        change sp y' • (𝒢.structMap r • a) = 𝒢.structMap r • (sp y' • a)
+        rw [smul_smul, smul_smul, mul_comm]
+      rw [this]; exact Submodule.smul_mem _ r ha
+  have hw' : sp y' • (u • w) = w := by
+    change sp y' • (𝒢.structMap u • w) = w
+    rw [hsy, smul_smul, ← map_mul, hyy, map_one, one_smul]
+  have := hΦ _ hw
+  rwa [hw'] at this
+
+/-- `(ω_𝒢)_s` is full: every `v ∈ ω_{A_L}` has a nonzero multiple in it. -/
+theorem omegaAt_full {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s₁ : Spec (CommRingCat.of (𝓞 L))) (v : 𝒢.cotangent) :
+    ∃ c : 𝓞 L, c ≠ 0 ∧ c • v ∈ 𝒢.omegaAt s₁ := by
+  obtain ⟨g, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent_surjective v
+  change ∃ c : 𝓞 L, c ≠ 0 ∧ c • 𝒢.dCls g ∈ 𝒢.omegaAt s₁
+  set x₁ := 𝒢.unitSection s₁
+  obtain ⟨U, hUaff, hx₁U, -⟩ := TopologicalSpace.Opens.isBasis_iff_nbhd.mp
+    𝒢.G.left.isBasis_affineOpens (show x₁ ∈ (⊤ : 𝒢.G.left.Opens) from trivial)
+  have hξU : 𝒢.genericUnit ∈ U := (𝒢.specializes_genericUnit s₁).mem_open U.isOpen hx₁U
+  letI := 𝒢.G.left.presheaf.algebra_section_stalk ⟨𝒢.genericUnit, hξU⟩
+  haveI hL := (show IsAffineOpen U from hUaff).isLocalization_stalk ⟨𝒢.genericUnit, hξU⟩
+  obtain ⟨⟨a, t⟩, hat⟩ := IsLocalization.surj
+    ((show IsAffineOpen U from hUaff).primeIdealOf ⟨_, hξU⟩).asIdeal.primeCompl (g : 𝒢.genStalk)
+  set ga := 𝒢.G.left.presheaf.germ U 𝒢.genericUnit hξU a
+  set gt := 𝒢.G.left.presheaf.germ U 𝒢.genericUnit hξU t
+  have hat' : (g : 𝒢.genStalk) * gt = ga := hat
+  have htu : IsUnit gt := IsLocalization.map_units 𝒢.genStalk t
+  -- `e^♯ a` vanishes on `e⁻¹ U`
+  have hzero : 𝒢.unitSection.app U a = 0 := by
+    have hηU : 𝒢.unitSection (genericPt L) ∈ U := by
+      unfold GroupModel.genericUnit at hξU; exact hξU
+    apply germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) (genericPt L)
+      (show genericPt L ∈ 𝒢.unitSection ⁻¹ᵁ U from hηU)
+    rw [map_zero, ← Scheme.Hom.germ_stalkMap_apply]
+    change (𝒢.unitSection.stalkMap (genericPt L)).hom ga = 0
+    rw [← hat']
+    erw [map_mul]
+    have hg0 : (𝒢.unitSection.stalkMap (genericPt L)).hom (g : 𝒢.genStalk) ∈
+        IsLocalRing.maximalIdeal _ := map_nonunit _ _ g.2
+    rw [maximalIdeal_stalk_genericPt L _ rfl] at hg0
+    rw [(Submodule.mem_bot _).mp hg0, zero_mul]
+  have ha₁ : 𝒢.G.left.presheaf.germ U x₁ hx₁U a ∈
+      RingHom.ker (𝒢.unitSection.stalkMap s₁).hom := by
+    rw [RingHom.mem_ker]
+    erw [Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection U s₁ hx₁U]
+    rw [hzero, map_zero]
+  have hspa : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s₁)
+      (𝒢.G.left.presheaf.germ U x₁ hx₁U a) = ga :=
+    TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _
+  have hga𝔪 : ga ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+    rw [← hat']; exact Ideal.mul_mem_right _ _ g.2
+  have hmem : 𝒢.dCls ⟨ga, hga𝔪⟩ ∈ 𝒢.omegaAt s₁ :=
+    Submodule.subset_span ⟨_, ha₁, hspa ▸ hga𝔪, by congr 1; exact Subtype.ext hspa.symm⟩
+  have hcot : 𝒢.dCls ⟨ga, hga𝔪⟩ = gt • 𝒢.dCls g := by
+    unfold GroupModel.dCls
+    refine (congrArg _ (Subtype.ext ?_)).trans
+      (map_smul (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent gt g)
+    change ga = gt * (g : 𝒢.genStalk)
+    rw [← hat', mul_comm]
+  obtain ⟨p, t', ht', hp, hact⟩ := exists_act 𝒢 (genericPt L) gt
+  have hsp : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L)) gt = gt :=
+    stalkSpec_self_apply _ _
+  refine ⟨p, fun h0 => hp htu (by rw [h0]; exact Submodule.zero_mem _), ?_⟩
+  rw [← hact, hsp, ← hcot]
+  exact Submodule.smul_mem _ t' hmem
+
+/-- A germ in `I_{e(s)}` extends over an open `W ∋ e(s)`; its class lies in `(ω_𝒢)_{s₁}` for every
+`s₁` with `e(s₁) ∈ W`. -/
+theorem omegaAt_open {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (f : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s))
+    (hf : f ∈ RingHom.ker (𝒢.unitSection.stalkMap s).hom)
+    (h : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f ∈
+      IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    ∃ W : 𝒢.G.left.Opens, 𝒢.unitSection s ∈ W ∧ ∀ s₁, 𝒢.unitSection s₁ ∈ W →
+      𝒢.dCls ⟨_, h⟩ ∈ 𝒢.omegaAt s₁ := by
+  obtain ⟨W, hxW, F, rfl⟩ := 𝒢.G.left.presheaf.exists_germ_eq f
+  refine ⟨W, hxW, fun s₁ hs₁ => ?_⟩
+  have hzero : 𝒢.unitSection.app W F = 0 := by
+    apply germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) s
+      (show s ∈ 𝒢.unitSection ⁻¹ᵁ W from hxW)
+    rw [map_zero, ← Scheme.Hom.germ_stalkMap_apply]
+    exact RingHom.mem_ker.mp hf
+  have hk : 𝒢.G.left.presheaf.germ W (𝒢.unitSection s₁) hs₁ F ∈
+      RingHom.ker (𝒢.unitSection.stalkMap s₁).hom := by
+    rw [RingHom.mem_ker]
+    erw [Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection W s₁ hs₁]
+    rw [hzero, map_zero]
+  have hξW : 𝒢.genericUnit ∈ W := (𝒢.specializes_genericUnit s).mem_open W.isOpen hxW
+  have h1 : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s₁)
+      (𝒢.G.left.presheaf.germ W (𝒢.unitSection s₁) hs₁ F) =
+      𝒢.G.left.presheaf.germ W 𝒢.genericUnit hξW F :=
+    TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _
+  have h2 : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+      (𝒢.G.left.presheaf.germ W (𝒢.unitSection s) hxW F) =
+      𝒢.G.left.presheaf.germ W 𝒢.genericUnit hξW F :=
+    TopCat.Presheaf.germ_stalkSpecializes_apply _ _ _ _
+  apply Submodule.subset_span
+  refine ⟨_, hk, h1 ▸ h2 ▸ h, ?_⟩
+  congr 1
+  exact Subtype.ext (h2.trans h1.symm)
+
+end OmegaBC
+
+/-- **Glue `OmegaLocalization` (the local lattices of `ω_𝒢` are its localizations).** For a group
+model `𝒢` over `𝓞_L` and a point `s` of `Spec 𝓞_L`, every vector of `(ω_𝒢)_s = omegaAt s` has a
+multiple `d • v` with `d ∉ s` lying in `ω_𝒢 = ⋂_t omegaAt t`. True: `omegaAt s` is the stalk at `s`
+of the coherent conormal sheaf `e^*(I/I²)` (`I` the ideal of the unit section), and the global
+sections of a coherent sheaf on the Dedekind scheme `Spec 𝓞_L` localize to its stalks (a germ at
+`s` extends over an open `U ∋ s`; at the finitely many closed points outside `U` the local lattices
+are full and `𝒪_t`-stable, and a suitable `d ∈ 𝔭_t^k ∖ s` clears them). A statement about one group
+model; glue (not a literature leaf). STANDARD (Hartshorne II.5.x / EGA I 1.3, UNVERIFIED locators). -/
+def OmegaLocalization : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : Spec (CommRingCat.of (𝓞 L))) (v : 𝒢.cotangent),
+    v ∈ 𝒢.omegaAt s → ∃ d : 𝓞 L, d ∉ s.asIdeal ∧ d • v ∈ 𝒢.omega
+
+/-- **`OmegaBaseChange` from `OmegaLocalization`** (Steps A and B). -/
+theorem omegaBaseChange_of_localization (hloc : OmegaLocalization) : OmegaBaseChange := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he v hv
+  set N := Submodule.span (𝓞 L') (bcCot he '' 𝒢.omega)
+  apply mem_of_forall_locSub N v
+  intro P hP
+  haveI := hP.isPrime
+  let s' : Spec (CommRingCat.of (𝓞 L')) := ⟨P, hP.isPrime⟩
+  have hv' : v ∈ 𝒢'.omegaAt s' := by
+    rw [GroupModel.omega, Submodule.mem_iInf] at hv; exact hv s'
+  obtain ⟨d, hd, hdv⟩ := omegaAt_bc_local he s' v hv'
+  have hle : Submodule.span (𝓞 L') (bcCot he '' 𝒢.omegaAt (bO L L' s')) ≤ locSub P N := by
+    rw [Submodule.span_le]
+    rintro _ ⟨w, hw, rfl⟩
+    obtain ⟨c, hc, hcw⟩ := hloc K A L 𝒢 (bO L L' s') w hw
+    refine ⟨algebraMap (𝓞 L) (𝓞 L') c, fun h => hc h, ?_⟩
+    rw [← map_smulₛₗ]
+    exact Submodule.subset_span ⟨_, hcw, rfl⟩
+  obtain ⟨d₂, hd₂, hd₂v⟩ := hle hdv
+  exact ⟨d₂ * d, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim hd₂ hd, by rw [mul_smul]; exact hd₂v⟩
+
+
+/-- **`OmegaLocalization` holds.** For a generator `df` of `(ω_𝒢)_s` (`f ∈ I_{e(s)}`): `f` extends
+over an open `W ∋ e(s)` (`omegaAt_open`), so `df ∈ (ω_𝒢)_{s₁}` whenever `e(s₁) ∈ W`; the other
+points form a finite set of closed points `≠ s` (`finite_of_isClosed_not_genericPt`); at each of
+them the ideal `{d | d • df ∈ (ω_𝒢)_{s₁}}` is nonzero (`omegaAt_full`) and saturated
+(`omegaAt_sat`), hence has an element `∉ s` (`exists_mem_not_mem_of_sat`); their product works. -/
+theorem omegaLocalization : OmegaLocalization := by
+  intro K _ A L _ _ _ 𝒢 s v hv
+  classical
+  haveI := s.isPrime
+  suffices key : 𝒢.omegaAt s ≤ locSub s.asIdeal 𝒢.omega from key hv
+  unfold GroupModel.omegaAt
+  rw [Submodule.span_le]
+  rintro _ ⟨f, hf, h, rfl⟩
+  obtain ⟨W, hsW, hW⟩ := omegaAt_open 𝒢 s f hf h
+  set m := 𝒢.dCls ⟨_, h⟩
+  set Z : Set (Spec (CommRingCat.of (𝓞 L))) := {s₁ | 𝒢.unitSection s₁ ∉ W}
+  have hZc : IsClosed Z := by
+    have : IsOpen ((𝒢.unitSection ⁻¹ᵁ W : (Spec (CommRingCat.of (𝓞 L))).Opens) :
+        Set (Spec (CommRingCat.of (𝓞 L)))) := (𝒢.unitSection ⁻¹ᵁ W).isOpen
+    exact this.isClosed_compl
+  have hξW : 𝒢.genericUnit ∈ W := (𝒢.specializes_genericUnit s).mem_open W.isOpen hsW
+  have hgen : genericPt L ∉ Z := fun h' => h' hξW
+  have hZfin := finite_of_isClosed_not_genericPt L Z hZc hgen
+  have hd : ∀ s₁ ∈ Z, ∃ d : 𝓞 L, d ∉ s.asIdeal ∧ d • m ∈ 𝒢.omegaAt s₁ := by
+    intro s₁ hs₁
+    haveI := s₁.isPrime
+    let J : Ideal (𝓞 L) := (𝒢.omegaAt s₁).comap (LinearMap.toSpanSingleton (𝓞 L) _ m)
+    have hJ0 : J ≠ ⊥ := by
+      obtain ⟨c, hc0, hc⟩ := omegaAt_full 𝒢 s₁ m
+      intro hJ
+      apply hc0
+      have : c ∈ J := hc
+      rw [hJ] at this
+      exact this
+    have hsat : ∀ u ∉ s₁.asIdeal, ∀ d, u * d ∈ J → d ∈ J := by
+      intro u hu d hud
+      apply omegaAt_sat 𝒢 s₁ u hu (d • m)
+      have : (u * d) • m ∈ 𝒢.omegaAt s₁ := hud
+      rwa [mul_smul] at this
+    have hne : s₁.asIdeal ≠ ⊥ := by
+      intro h0
+      apply hgen
+      have : s₁ = genericPt L := PrimeSpectrum.ext h0
+      rw [← this]; exact hs₁
+    have hss : s.asIdeal ≠ s₁.asIdeal := by
+      intro h0
+      apply hs₁
+      have : s = s₁ := PrimeSpectrum.ext h0
+      rw [← this]; exact hsW
+    obtain ⟨d, hdJ, hdP⟩ := exists_mem_not_mem_of_sat s₁.asIdeal s.asIdeal hne hss J hJ0 hsat
+    exact ⟨d, hdP, hdJ⟩
+  choose! dd hdd using hd
+  refine ⟨∏ s₁ ∈ hZfin.toFinset, dd s₁, ?_, ?_⟩
+  · intro hD
+    obtain ⟨s₁, hs₁, h1⟩ := Ideal.IsPrime.prod_mem_iff.mp hD
+    exact (hdd s₁ (hZfin.mem_toFinset.mp hs₁)).1 h1
+  · rw [GroupModel.omega, Submodule.mem_iInf]
+    intro s₁
+    by_cases hs₁ : s₁ ∈ Z
+    · rw [← Finset.mul_prod_erase _ _ (hZfin.mem_toFinset.mpr hs₁), mul_comm, mul_smul]
+      exact Submodule.smul_mem _ _ (hdd s₁ hs₁).2
+    · have : 𝒢.unitSection s₁ ∈ W := by
+        by_contra h'; exact hs₁ h'
+      exact Submodule.smul_mem _ _ (hW s₁ this)
+
+/-- **`OmegaBaseChange` holds** (height-bc glue BC-omega; statement verbatim). -/
+theorem omegaBaseChange : OmegaBaseChange :=
+  omegaBaseChange_of_localization omegaLocalization
+
+end ZInQ.HeightBC
+
+

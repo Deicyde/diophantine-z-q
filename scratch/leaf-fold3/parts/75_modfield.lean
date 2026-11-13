@@ -594,7 +594,8 @@ descent datum `ε` (B1), the Dirichlet character `χ` mod `N` (`N = ∏_{p ∈ T
 L677-683, which bounds the conductor of `β` at every prime, as G15 needs), the
 cochain `β` (locally constant, `β² = χ`, `∂β = ε`, twisted so that inertia outside `T` dies), and
 the kernel field `L' ⊇ L` of `β|_{G_L}`: `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`,
-`L'` unramified outside `T` (Galois form), and `A_{L'}` a model of `P`'s surface. -/
+`L'` unramified outside `T` (Galois form), and `A_{L'}` a model of `P`'s surface; and G4's bound
+`[L:ℚ] ≤ D` (added by g0-assemble3, as g8-object and linked-tate recommend). -/
 def G7Data (u : ℚ) (P : QML3 Qbar) (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ)
     [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF) (hLL' : L ≤ L') : Prop :=
   IsQMModel L A P ∧ DescentDatum L A ε ∧
@@ -606,7 +607,8 @@ def G7Data (u : ℚ) (P : QML3 Qbar) (L : IF) (A : PkgI3.AbVar L) (ε : GQ → G
   (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
   (Module.finrank ℚ L' : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
   GlueB3Unram.GalUnramifiedOutside L' (T u) ∧
-  IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P
+  IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P ∧
+  Module.finrank ℚ L ≤ heightD
 
 /-- **G7's output with the twist** (N5 L702-716): the data of `G7Data` exist. -/
 def G7OutUnr (u : ℚ) (P : QML3 Qbar) : Prop :=
@@ -640,7 +642,7 @@ theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : Leaf
     (Module.finrank ℚ L) (orderOf χ) hLD hord
   refine ⟨L, hfd, hgal, A, ε, N, hN, χ, fun x => β₁ x * (∏ q ∈ Q, GlueB3Unram.etaP q) x,
     L', hfd', hgal', hle, hA, hD, hram, hsupp, hlev, hβl₁.mul hηl, twist_sq (galChar χ) hβs₁ _ hη,
-    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA.isModelOver⟩
+    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA.isModelOver, hLD⟩
   calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by
         exact_mod_cast hdeg
     _ = 2 * (orderOf χ : ℝ) * Module.finrank ℚ L := by push_cast; ring
@@ -648,7 +650,7 @@ theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : Leaf
 
 theorem g7Out_of_g7OutUnr (u : ℚ) (P : QML3 Qbar) (h : G7OutUnr u P) : G7Out u P := by
   obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hA, hD, hram, -, -, hβl, hβs,
-    hβe, hGL', hdeg, -, hM⟩ := h
+    hβe, hGL', hdeg, -, hM, -⟩ := h
   exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
     hdeg, hM⟩
 
@@ -832,7 +834,7 @@ theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelF
   obtain ⟨M, J, hM, hJ, hMle, hCC⟩ := hRest Y Φ π u P hctx L A ε N χ β L' hle hdata
   haveI : NumberField L' := numberField_of_fd L'
   exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
-    hdata.2.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.2.1, hCC⟩
+    hdata.2.2.2.2.2.2.2.2.2.2.2.1, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.2.1, hCC⟩
 
 /-- **The same, with glue-descent's `LeafHasse`, `LeafLocalTwo` replaced by the bundle's T14-T15**
 (`PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`; `GlueWP3.leafHasse_of_T14`,
