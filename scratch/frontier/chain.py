@@ -296,13 +296,22 @@ def main():
             print("def-text comparison (proved field vs g0-assemble3's def):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
-            print("route T inputs (def text vs g0-assemble3):")
+            print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
             extra_defcheck()
 
 
 
 
-EXTRA_DEFS = [("3d1b90b5", "scratch/lt-local/LtLocal4.lean", ["LinkedTateLocal", "G7Data", "FibreSimple", "QMEndRank"])]
+EXTRA_DEFS = [("3d1b90b5", "scratch/lt-local/LtLocal4.lean", ["LinkedTateLocal", "G7Data", "FibreSimple", "QMEndRank"]),
+              # kernel copies of the leaves that W-kern files (route T, ts-hecke, frob-pieces) take as hypotheses
+              ("HEAD", "ZInQKernel/HDecomp/Objects.lean",
+               ["TateModuleFree", "ReductionTorsionBijective", "NeronMappingAbelianScheme", "RaynaudCriterion",
+                "TorsionStructure", "HomFreeFinite", "QMDichotomyYu", "CharPolyIndepOfEll"])]
+# cross-world identities among the route-T files (both sides outside W0)
+PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b5", "scratch/lt-local/LtLocal4.lean"),
+              ["TateBridge35"]),
+             (("b066d686", "scratch/unram-roots/UnramRoots.lean"), ("3d1b90b5", "scratch/lt-local/LtLocal4.lean"),
+              ["UnramRoots"])]
 
 
 def extra_defcheck():
@@ -312,6 +321,11 @@ def extra_defcheck():
         for n in names:
             A, B = c.def_texts_all(g3, n), c.def_texts_all(t, n)
             print(f"  {n:20s} {rev}:{path}: {'identical' if A and B and any(x in B for x in A) else 'DIFFERENT or missing'}")
+    for (ra, pa), (rb, pb), names in PAIR_DEFS:
+        ta, tb = c.show(ra, pa), c.show(rb, pb)
+        for n in names:
+            A, B = c.def_texts_all(ta, n), c.def_texts_all(tb, n)
+            print(f"  {n:20s} {ra}:{pa} vs {rb}:{pb}: {'identical' if A and B and any(x in B for x in A) else 'DIFFERENT or missing'}")
 
 
 def doc_check(path="/home/jackmccarthy/dzq-wt/frontier/docs/research/frontier.md"):

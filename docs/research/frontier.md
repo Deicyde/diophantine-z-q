@@ -336,7 +336,10 @@ the proving file and in g0-assemble3's file (35 of 37 comparisons, including the
 `ZInQKernel/HDecomp` defs); the other two have no def in the proving file (`TwistDescent` comes from kf-glue's `KfGlue`
 olean; `analyticUniformizationOfDim` is bypassed, not proved). For route T, the defs of `LinkedTateLocal`, `G7Data` (with `[L:ℚ] ≤ D`), `FibreSimple` and
 `QMEndRank` in lt-local's `LtLocal4.lean` are identical to g0-assemble3's; `FibreSimple` is derived inside g0-assemble3's
-assembly (`G0FibreSimple.fibreSimple_of_leaves` from bundle fields), so it is not an open Prop.
+assembly (`G0FibreSimple.fibreSimple_of_leaves` from bundle fields), so it is not an open Prop. `TateBridge35` has the same text in frob-pieces' and lt-local's files, `G15Ram.UnramRoots` in
+unram-roots' and lt-local's; and the W0 defs of the leaves that W-kern files take as hypotheses (`TateModuleFree`,
+`ReductionTorsionBijective`, `NeronMappingAbelianScheme`, `RaynaudCriterion`, `TorsionStructure`, `HomFreeFinite`,
+`QMDichotomyYu`, `CharPolyIndepOfEll`) are identical to the kernel's `ZInQKernel/HDecomp/Objects.lean` (VERIFIED).
 
 `python3 scratch/frontier/chain.py doc` compares the rows `Z-n`, `T-n`, `H-n` of this report with the scenario-F open
 set minus the never-projected fields: VERIFIED equal (79 rows), apart from H-56, which is listed for completeness and

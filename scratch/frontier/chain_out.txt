@@ -246,11 +246,21 @@ def-text comparison (proved field vs g0-assemble3's def):
   QMEndRank                           identical
   TwistDescent                        def not found in scratch/twist-descent/Dev.lean
   AnalyticUniformizationOfDim         def not found in scratch/leaf-fold2/parts/b20_fold.lean
-route T inputs (def text vs g0-assemble3):
+route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
   LinkedTateLocal      3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   G7Data               3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   FibreSimple          3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   QMEndRank            3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
+  TateModuleFree       HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  ReductionTorsionBijective HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  NeronMappingAbelianScheme HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  RaynaudCriterion     HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  TorsionStructure     HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  HomFreeFinite        HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  QMDichotomyYu        HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  CharPolyIndepOfEll   HEAD:ZInQKernel/HDecomp/Objects.lean: identical
+  TateBridge35         60340bed:scratch/frob-pieces/FrobPiecesFull.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
+  UnramRoots           b066d686:scratch/unram-roots/UnramRoots.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
 doc rows: 80 (80 distinct heads); F open minus never-projected: 79
   in chain, not in doc: []
   in doc, not in chain: ['AnalyticUniformizationOfDim']
