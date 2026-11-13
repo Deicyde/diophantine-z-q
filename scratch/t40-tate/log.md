@@ -14,3 +14,4 @@ Target: `ZInQ.RLeaf.TateCuspLaurent` (ZInQKernel/Contrib/RLeaf/X1RationalCusp.le
 ## Results
 - 09:32 TateCuspGlue.lean with `def TateLaurentTorsion` compiles (lake env lean). VERIFIED.
 - 10:15 Backport of tc-main (4d91513e) TateCurve.Homomorphism closure: 57 full modules under Backport/ + 5 extras files (decls absent from vendored oct16 versions); lake build ...TateCurve.Homomorphism succeeds. VERIFIED.
+- 10:35 TateCuspTorsion.lean: `ZInQ.RLeaf.TateCuspTorsion.tateLaurentTorsion : TateLaurentTorsion` compiles, axioms [propext, Classical.choice, Quot.sound]. VERIFIED (lake env lean). Normed field on ℚ((t)) = Valued.toNormedField with RankOne hom' = toNNReal 2 ∘ embedding.
