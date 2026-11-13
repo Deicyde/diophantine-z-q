@@ -237,14 +237,19 @@ Proof of `descend_of_leaf`:
 
 1. The three leaves AG-GC, AG-CD and AL. Each is textbook, and none is in Mathlib v4.35. Any of
    them could be formalized independently of this project.
-2. Input (c): adopt `R2X6CMExact` (c1), or derive it from `QMDichotomyYu` (c2). (c2) needs, in
-   Lean:
-   - the centralizer of `B` in `M₂(F)` (via the simplicity of `F ⊗ B`, available in
-     t-skolem-kw);
-   - `HomFreeFinite`, to make `com` an order;
-   - the maximality of `ℤ[i]` and `ℤ[ζ₃]`, proved in §5-§6.
-
-   Not done.
+2. Input (c): adopt `R2X6CMExact` (c1), or derive it from leaves already in the decomposition
+   (c2). Not done. A roadmap for (c2) (SPECULATIVE estimate: several hundred lines). Let `A` be a
+   QM surface over `ℚ̄` with `φ ∈ com q`, `φ² = −1`.
+   - Extend `ι : 𝒪 → End A` to `ι₀ : B →ₐ[ℚ] End⁰ A`. This uses the denominator construction of
+     `AGInO.extAut`. `B` is a division algebra and indefinite (`B1Quat`, `Objects`).
+   - Apply `QMDichotomyYu`. If `End⁰ A ≅ B`, then `E∘ι₀` is onto. The image of `φ` commutes
+     with `B`, so it is rational (`GlueDescent.B6_commute_i_j`), which contradicts `φ² = −1`.
+   - If `End⁰ A ≅ M₂(F)`, then `F ⊗ B → M₂(F)` is an isomorphism: `B ⊗ F` is simple by
+     `TSkolemKW.isSimpleRing_tensor`, and the dimensions agree. So the centralizer of `ι₀(B)` is
+     the scalars `F`, and `com ↪ F` is an injective ring map with `φ ↦ f`, `f² = −1`.
+   - `com` is a finitely generated `ℤ`-module (`HomFreeFinite`), so its image is integral and
+     equals `ℤ[f]`: `a + bf` integral forces `2a ∈ ℤ` and `a² + b² ∈ ℤ`, hence `a, b ∈ ℤ`.
+   - Then `com ≅ ℤ[i] ≅ 𝓞 ℚ(ζ₄)` (`AGIn.gaussEquiv`). The case `ℤ[ζ₃]` is the same.
 3. Locators: all theorem numbers above are from memory (UNVERIFIED). A human check of EGA IV₂
    §4.5, Hartshorne II.6.8, and the Atkin–Lehner group in Vignéras or Voight is needed before
    announcing.
