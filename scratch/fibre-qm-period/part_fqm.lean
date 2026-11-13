@@ -232,12 +232,11 @@ def IsHolP1At (h : UpperHalfPlane → OnePoint ℂ) (τ : UpperHalfPlane) : Prop
       ∀ᶠ z in nhds (τ : ℂ), ∀ hz : 0 < z.im,
         h ⟨z, hz⟩ = if g z = 0 then OnePoint.infty else (((g z)⁻¹ : ℂ) : OnePoint ℂ))
 
-/-- The analytic and CM clauses shared by `QMHauptmodul`'s `f` and the period map `h`: continuous
-and holomorphic into `P¹(ℂ)`, fibres exactly the `Γ*`-orbits, values `0, ∞, −16/27` at the fixed
-points of `ι(x)` for `x ∈ 𝒪` with `x² = −1`, `x² − x + 1 = 0`, `x² = −6`. -/
-def IsGammaStarHauptmodul (h : UpperHalfPlane → OnePoint ℂ) : Prop :=
-  Continuous h ∧ (∀ τ, IsHolP1At h τ) ∧
-    (∀ τ τ' : UpperHalfPlane, h τ = h τ' ↔ ∃ g ∈ PkgI1.GammaStar, g • τ = τ') ∧
+/-- The fibre and CM clauses of a normalized Hauptmodul of `Γ*`: fibres exactly the `Γ*`-orbits,
+values `0, ∞, −16/27` at the fixed points of `ι(x)` for `x ∈ 𝒪` with `x² = −1`, `x² − x + 1 = 0`,
+`x² = −6` (as in `PkgI1.QMHauptmodul`). -/
+def GammaStarFibresCM (h : UpperHalfPlane → OnePoint ℂ) : Prop :=
+  (∀ τ τ' : UpperHalfPlane, h τ = h τ' ↔ ∃ g ∈ PkgI1.GammaStar, g • τ = τ') ∧
     (∀ x : PkgI1.B, PkgI1.InO x → x * x = -1 → ∀ g : GL (Fin 2) ℝ,
       (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
         h τ = ((0 : ℂ) : OnePoint ℂ)) ∧
@@ -247,6 +246,11 @@ def IsGammaStarHauptmodul (h : UpperHalfPlane → OnePoint ℂ) : Prop :=
     (∀ x : PkgI1.B, PkgI1.InO x → x * x = -6 → ∀ g : GL (Fin 2) ℝ,
       (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
         h τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+/-- The clauses shared by `QMHauptmodul`'s `f` and the period map `h`: continuous, holomorphic into
+`P¹(ℂ)`, and `GammaStarFibresCM`. -/
+def IsGammaStarHauptmodul (h : UpperHalfPlane → OnePoint ℂ) : Prop :=
+  Continuous h ∧ (∀ τ, IsHolP1At h τ) ∧ GammaStarFibresCM h
 
 /-- **GLUE (moduli side of F1: the period map of `Y`, for one triple).** There is a function
 `h : ℍ → P¹(ℂ)` with the clauses `IsGammaStarHauptmodul` such that for every `ℚ̄`-point `y` with
@@ -271,6 +275,68 @@ def QMPeriodMap (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : To
       IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu →
       IotaCompatible Q Φu →
       h τ = (π.val (K := Qbar) y.left).map ιe
+
+/-- The clauses of R1(b)(b)-(c) for a map `τ ↦ y_τ` from `ℍ` to the complex points of `Y`: the
+object at `y_τ` is `ι`-compatibly `ℂ²/Λ_τ` (an `ι`-compatible uniformization with kernel exactly
+`Λ_τ = ι(𝒪)(τ, 1)ᵀ`), and `τ ↦ π(y_τ) ∈ P¹(ℂ)` is continuous and holomorphic. -/
+def IsR1bFamily (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (yτ : UpperHalfPlane → (fieldPt ℂ ⟶ Y)) : Prop :=
+  (∀ τ : UpperHalfPlane, ∃ P : QML3 ℂ, Φ ℂ (yτ τ) = M3.mk P ∧
+    ∃ Φu : (Fin 2 → ℂ) → CPts P.A (RingHom.id ℂ),
+      IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu ∧
+      IotaCompatible P Φu) ∧
+  Continuous (fun τ => π.val (K := ℂ) (yτ τ).left) ∧
+  ∀ τ, IsHolP1At (fun τ => π.val (K := ℂ) (yτ τ).left) τ
+
+/-- **LEAF (R1(b), complex uniformization, family form; a concrete replacement for the placeholder
+`HSyn.R01b_ComplexUniformization` at the triple `(Y, Φ, π)`).** There is a map `τ ↦ y_τ` from `ℍ`
+to `Y(ℂ)` such that the object at `y_τ` is `ℂ²/ι(𝒪)(τ, 1)ᵀ` with its `ι` (`IsR1bFamily`), and
+`τ ↦ π(y_τ)` is holomorphic into `P¹(ℂ)`.
+
+Source: Shimura, Ann. of Math. 85 (1967), Main Theorem I (the canonical model `V` of `Γ\ℍ` with a
+holomorphic `φ : ℍ → V(ℂ)` whose value at `τ` is the moduli point of `ℂ²/ι(𝒪)(τ, 1)ᵀ`); Deligne,
+Sém. Bourbaki 389 (1971), §4.15 (analytic families) (locators UNVERIFIED). Here
+`y_τ = φ(τ)` on the component of `Y₃(ℂ)` given by the level structure `η_τ(a) = ι(a)v_τ/3`, and
+`π ∘ φ` is holomorphic because `π` is a morphism. For the genuine `Y₃` this is the published
+statement composed with `π`; for another triple satisfying the repaired `R1fpProps` it follows by
+qm-pin's comparison (`g : Y' → Y` with `Φ' = Φ ∘ g` is bijective on points, hence an isomorphism,
+qm-pin §3.3; and `π' = π ∘ g` on `ℚ̄`-points forces equality as morphisms), so its truth does not
+depend on which triple `Classical.choice` picks. Rests on bp-qmmoduli §2.2 as `R1R2fpRep`. -/
+def R1bFamily (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
+  ∃ yτ : UpperHalfPlane → (fieldPt ℂ ⟶ Y), IsR1bFamily Y Φ π yτ
+
+/-- **GLUE (the period map is a normalized Hauptmodul and computes `π`).** For a family as in
+`R1bFamily`, `h(τ) = π(y_τ)` has the fibre and CM clauses `GammaStarFibresCM`, and for every
+`ℚ̄`-point `y` with object `P`, every `ι : ℚ̄ → ℂ`, every base change `Q/ℂ` of `P` and every
+`ι`-compatible uniformization of `Q.A` with kernel `Λ_τ`: `h(τ) = ι(π(y))`.
+
+Why true (model argument): (value) `Q` and `P_τ` are both `ι`-compatibly `ℂ²/Λ_τ`, so `Q ≅ P_τ` as
+QM pairs (GAGA: the analytic isomorphism is algebraic), and they differ at most in the level
+structure, a twist that `π` does not see (R2fp's fibre clause, extended from `ℚ̄`-points to
+`ℂ`-points because the fibre relation of `π` is algebraic); with `ToP1.val_comp`,
+`ι(π(y)) = π(y_ℂ) = π(y_τ)`. (fibres) `P_τ`, `P_τ'` are `Aut 𝒪`-twist-equivalent iff `τ' ∈ Γ*τ`
+(an `ι`-twisted-compatible linear isomorphism `ℂ²/Λ_τ → ℂ²/Λ_τ'` is `ι(u)` up to scalar,
+`u ∈ N_B(𝒪)` of positive norm; Shimura). (CM) at the fixed point of `ι(x)`, `ι(x)v_τ = λv_τ` and
+`z ↦ λz` is an `𝒪`-linear automorphism of `ℂ²/Λ_τ` with `λ² = −1` (resp. `λ² − λ + 1 = 0`,
+`λ² = −6`), so the pair has `HasCM4` (resp. `HasCM3`, `HasCM24`) and R2fp gives the value. Inputs
+not in Mathlib: GAGA, the extension of R2fp to `ℂ`-points, Shimura's description of isomorphisms
+of QM tori. Size: large. -/
+def PeriodMapGlue (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
+  ∀ yτ : UpperHalfPlane → (fieldPt ℂ ⟶ Y), IsR1bFamily Y Φ π yτ →
+    GammaStarFibresCM (fun τ => π.val (K := ℂ) (yτ τ).left) ∧
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∀ (τ : UpperHalfPlane) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)),
+      IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu →
+      IotaCompatible Q Φu →
+      π.val (K := ℂ) (yτ τ).left = (π.val (K := Qbar) y.left).map ιe
+
+/-- **`QMPeriodMap` from R1(b) in family form and the period-map glue (proved).** -/
+theorem qmPeriodMap_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (hR : R1bFamily Y Φ π) (hG : PeriodMapGlue Y Φ π) : QMPeriodMap Y Φ π := by
+  obtain ⟨yτ, hfam⟩ := hR
+  obtain ⟨hFC, hval⟩ := hG yτ hfam
+  exact ⟨fun τ => π.val (K := ℂ) (yτ τ).left, ⟨hfam.2.1, hfam.2.2, hFC⟩, hval⟩
 
 /-- **GLUE (complex analysis: uniqueness of the normalized Hauptmodul of `Γ*`).** A function
 `h : ℍ → P¹(ℂ)` with the clauses `IsGammaStarHauptmodul` equals `QMHauptmodul`'s `f`.
@@ -478,6 +544,20 @@ theorem fibreQMPeriod_of_parts' (h : R1R2fp) (hM : Pin.MobiusGlue) (hH : PkgI1.Q
     (hD : QMDenZeroCM3) (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_parts h hM hH (qmComplexUnif_of hE hS hL) hPM hHU hD hT
 
+/-- **Main result, finest form (proved):** `FibreQMPeriod` from
+* `Pin.MobiusGlue` (glue; proved by mobius-glue from `CurveRatFactor`, `CurveSurj` and T5),
+* `PkgI1.QMHauptmodul` (existing composite leaf), `UniformizationExistsC` (textbook leaf),
+  `R1bFamily` at the leaf's own triple (leaf: R1(b), concrete),
+* `UnifStructure`, `QMLatticeAlgebra`, `PeriodMapGlue` (own triple), `HauptmodulUnique`,
+  `QMDenZeroCM3`, `UnifTransport` (glue). -/
+theorem fibreQMPeriod_of_leaves_glue (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsC)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hS : UnifStructure) (hL : QMLatticeAlgebra) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_parts' h hM hH hE hS hL (qmPeriodMap_of _ _ _ hR hG) hHU hD hT
+
 end FibreQM
 
 end G0Split
@@ -500,3 +580,5 @@ end
 #print axioms HSyn.G0Split.FibreQM.isUniformization_comp
 #print axioms HSyn.G0Split.FibreQM.qmComplexUnif_of
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'
+#print axioms HSyn.G0Split.FibreQM.qmPeriodMap_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_leaves_glue

@@ -40,3 +40,6 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
 - run_dev4 (05:44): `Dev.lean` with Step 2d (`UniformizationExistsC`, `UnifStructure`, `QMLatticeAlgebra`,
   proved `isUniformization_comp`, `qmComplexUnif_of`, `fibreQMPeriod_of_parts'`): 0 errors, 5.0s; 14 axioms
   lines standard. VERIFIED.
+- run_dev5 (05:46): adds `GammaStarFibresCM` (IsGammaStarHauptmodul restructured as continuity ∧ holomorphy ∧
+  GammaStarFibresCM), `IsR1bFamily`, `R1bFamily` (concrete R1(b), family form), `PeriodMapGlue`,
+  proved `qmPeriodMap_of`, `fibreQMPeriod_of_leaves_glue`: 0 errors, 5.0s, 16 axioms lines standard. VERIFIED.
