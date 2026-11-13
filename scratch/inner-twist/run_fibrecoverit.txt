@@ -1,0 +1,31 @@
+scratch/inner-twist/FibreCoverIT.lean:594:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:594:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:594:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/inner-twist/FibreCoverIT.lean:608:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:608:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:612:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:612:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/inner-twist/FibreCoverIT.lean:608:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/inner-twist/FibreCoverIT.lean:612:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'G0ModField.innerTwistCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.unramifiedConjugates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.fibreCoverExists_of_propTS'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.fibreCoverExists_of_propTSAll'' depends on axioms: [propext, Classical.choice, Quot.sound]
