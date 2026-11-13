@@ -1,1 +1,3 @@
 'HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.qmLatticeTwistAlg_mpr' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

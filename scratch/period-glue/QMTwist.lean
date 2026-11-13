@@ -158,6 +158,152 @@ theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwi
       rw [hMeq, hc', hφ', Category.assoc]
     exact congrArg PkgI3.AbVar.Hom.hom (e1.trans e2.symm)
 
+/-! ## `QMLatticeTwistAlg`, direction `τ' ∈ Γ*τ ⇒ twist` (proved) -/
+
+open scoped Matrix
+
+/-- `ι(x)` as a complex matrix. -/
+def cM (x : LeafQM.B) : Matrix (Fin 2) (Fin 2) ℂ := (BPAnalytic.QM.iota x).map (fun r : ℝ => (r : ℂ))
+
+theorem qmMat_eq (a : LeafQM.O) : qmMat a = cM a := rfl
+
+theorem cM_mul (x y : LeafQM.B) : cM (x * y) = cM x * cM y := by
+  unfold cM
+  have : BPAnalytic.QM.iota (x * y) = BPAnalytic.QM.iota x * BPAnalytic.QM.iota y :=
+    PeriodMap.iota_mul x y
+  rw [this]
+  exact Matrix.map_mul (f := Complex.ofRealHom)
+
+theorem cM_one : cM 1 = 1 := by
+  unfold cM
+  have : BPAnalytic.QM.iota 1 = 1 := PeriodMap.iota_one
+  rw [this]
+  exact Matrix.map_one _ (by simp) (by simp)
+
+theorem latVec_eq (b : LeafQM.B) (τ : ℂ) : BPAnalytic.QM.latVec b τ = cM b *ᵥ ![τ, 1] := rfl
+
+theorem latVec_mul (x y : LeafQM.B) (τ : ℂ) :
+    BPAnalytic.QM.latVec (x * y) τ = cM x *ᵥ BPAnalytic.QM.latVec y τ := by
+  rw [latVec_eq, latVec_eq, cM_mul, Matrix.mulVec_mulVec]
+
+theorem latVec_ofInt (c : Fin 4 → ℤ) (τ : ℂ) :
+    ∑ i, c i • BPAnalytic.QM.qmVec τ i = BPAnalytic.QM.latVec (LeafQM.ofInt c) τ := by
+  ext k
+  fin_cases k <;>
+    simp [BPAnalytic.QM.qmVec, BPAnalytic.QM.latVec, BPAnalytic.QM.iota, BPAnalytic.QM.oBasis,
+      LeafQM.ofInt, BPAnalytic.QM.Mi, BPAnalytic.QM.Mj, Fin.sum_univ_four, Matrix.mulVec,
+      dotProduct, Fin.sum_univ_two] <;> ring
+
+theorem mem_qmLattice_iff {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 → ℂ) :
+    z ∈ BPAnalytic.QM.qmLattice hτ ↔ ∃ b : LeafQM.B, b ∈ LeafQM.O ∧ z = BPAnalytic.QM.latVec b τ := by
+  rw [BPAnalytic.QM.qmLattice_eq, Submodule.mem_span_range_iff_exists_fun]
+  constructor
+  · rintro ⟨c, hc⟩
+    exact ⟨LeafQM.ofInt c, ⟨c, rfl⟩, by rw [← hc, latVec_ofInt]⟩
+  · rintro ⟨b, ⟨c, rfl⟩, rfl⟩
+    exact ⟨c, latVec_ofInt c τ⟩
+
+theorem inO_iff (x : LeafQM.B) : PkgI1.InO x ↔ x ∈ LeafQM.O := by
+  refine ⟨fun h => mem_O_of_inO h, fun ⟨n, hn⟩ => ⟨n, ?_⟩⟩
+  rw [hn]
+  ext <;> simp [LeafQM.ofInt, PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+
+/-- **`QMLatticeTwistAlg`, (⇐) (proved).** -/
+theorem qmLatticeTwistAlg_mpr (τ τ' : UpperHalfPlane) (hg : ∃ g ∈ PkgI1.GammaStar, g • τ = τ') :
+    ∃ α : LeafQM.O ≃+* LeafQM.O, ∃ M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+      (∀ z, z ∈ BPAnalytic.QM.qmLattice τ.im_pos.ne' ↔
+        M z ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne') ∧
+      ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z) := by
+  obtain ⟨g, ⟨x, ⟨y, hxy, hyx, hN⟩, hgx, hdet⟩, hgτ⟩ := hg
+  have hN' : ∀ a : LeafQM.B, a ∈ LeafQM.O → y * a * x ∈ LeafQM.O ∧ x * a * y ∈ LeafQM.O := by
+    intro a ha
+    obtain ⟨h1, h2⟩ := hN a ((inO_iff a).mpr ha)
+    exact ⟨(inO_iff _).mp h2, (inO_iff _).mp h1⟩
+  have key1 : ∀ a : LeafQM.B, x * (y * a * x) * y = a := fun a => by
+    calc x * (y * a * x) * y = (x * y) * a * (x * y) := by noncomm_ring
+      _ = a := by rw [hxy, _root_.one_mul, _root_.mul_one]
+  have key2 : ∀ a : LeafQM.B, y * (x * a * y) * x = a := fun a => by
+    calc y * (x * a * y) * x = (y * x) * a * (y * x) := by noncomm_ring
+      _ = a := by rw [hyx, _root_.one_mul, _root_.mul_one]
+  let α : LeafQM.O ≃+* LeafQM.O :=
+    { toFun := fun a => ⟨y * a * x, (hN' a a.2).1⟩
+      invFun := fun a => ⟨x * a * y, (hN' a a.2).2⟩
+      left_inv := fun a => Subtype.ext (key1 a)
+      right_inv := fun a => Subtype.ext (key2 a)
+      map_mul' := fun a b => Subtype.ext (by
+        change y * ((a : LeafQM.B) * b) * x = (y * a * x) * (y * b * x)
+        calc y * ((a : LeafQM.B) * b) * x = y * a * 1 * b * x := by noncomm_ring
+          _ = y * a * (x * y) * b * x := by rw [hxy]
+          _ = (y * a * x) * (y * b * x) := by noncomm_ring)
+      map_add' := fun a b => Subtype.ext (by
+        change y * ((a : LeafQM.B) + b) * x = y * a * x + y * b * x
+        noncomm_ring) }
+  have hα : ∀ a : LeafQM.O, ((α a : LeafQM.O) : LeafQM.B) = y * a * x := fun a => rfl
+  have hgM : (g : Matrix (Fin 2) (Fin 2) ℝ).map (fun r : ℝ => (r : ℂ)) = cM x := by
+    rw [hgx]; rfl
+  set c := UpperHalfPlane.denom g τ with hc
+  have hc0 : c ≠ 0 := UpperHalfPlane.denom_ne_zero g τ
+  have hXY : cM x * cM y = 1 := by rw [← cM_mul, hxy, cM_one]
+  have hYX : cM y * cM x = 1 := by rw [← cM_mul, hyx, cM_one]
+  let Mf : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := c⁻¹ • Matrix.toLin' (cM x)
+  let Mg : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := c • Matrix.toLin' (cM y)
+  have h1 : Mf ∘ₗ Mg = LinearMap.id := by
+    refine LinearMap.ext fun z => ?_
+    simp only [Mf, Mg, LinearMap.comp_apply, LinearMap.smul_apply, Matrix.toLin'_apply,
+      LinearMap.id_apply, Matrix.mulVec_smul, Matrix.mulVec_mulVec, hXY, Matrix.one_mulVec,
+      smul_smul, inv_mul_cancel₀ hc0, one_smul]
+  have h2 : Mg ∘ₗ Mf = LinearMap.id := by
+    refine LinearMap.ext fun z => ?_
+    simp only [Mf, Mg, LinearMap.comp_apply, LinearMap.smul_apply, Matrix.toLin'_apply,
+      LinearMap.id_apply, Matrix.mulVec_smul, Matrix.mulVec_mulVec, hYX, Matrix.one_mulVec,
+      smul_smul, mul_inv_cancel₀ hc0, one_smul]
+  let M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ) := LinearEquiv.ofLinearMap Mf Mg h1 h2
+  have hM : ∀ z, M z = c⁻¹ • (cM x *ᵥ z) := fun z => rfl
+  -- `ι(x)(τ, 1)ᵀ = c (τ', 1)ᵀ`
+  have hτ' : ((τ' : UpperHalfPlane) : ℂ) = UpperHalfPlane.num g τ / c := by
+    rw [← hgτ]
+    exact UpperHalfPlane.coe_smul_of_det_pos (by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet) τ
+  have hv : cM x *ᵥ ![(τ : ℂ), 1] = c • ![((τ' : UpperHalfPlane) : ℂ), 1] := by
+    rw [← hgM, hτ']
+    ext k
+    fin_cases k
+    · have hc0' : (τ : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) +
+          ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ) ≠ 0 := by
+        have : ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) * τ +
+            ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ) ≠ 0 := hc0
+        rwa [mul_comm] at this
+      simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.num, hc,
+        UpperHalfPlane.denom]
+      field_simp
+    · simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, hc, UpperHalfPlane.denom]
+  have hlat : ∀ b : LeafQM.B, M (BPAnalytic.QM.latVec b τ) =
+      BPAnalytic.QM.latVec (x * b * y) τ' := by
+    intro b
+    rw [hM, ← latVec_mul]
+    have : x * b = (x * b * y) * x := by
+      calc x * b = x * b * 1 := (_root_.mul_one _).symm
+        _ = x * b * (y * x) := by rw [hyx]
+        _ = (x * b * y) * x := by noncomm_ring
+    conv_lhs => rw [this]
+    rw [latVec_mul, latVec_eq x, hv, Matrix.mulVec_smul, smul_smul, inv_mul_cancel₀ hc0,
+      one_smul, ← latVec_eq]
+  refine ⟨α, M, fun z => ⟨fun hz => ?_, fun hz => ?_⟩, fun a z => ?_⟩
+  · obtain ⟨b, hb, rfl⟩ := (mem_qmLattice_iff _ z).mp hz
+    rw [hlat]
+    exact (mem_qmLattice_iff _ _).mpr ⟨_, (hN' b hb).2, rfl⟩
+  · obtain ⟨b', hb', hzb⟩ := (mem_qmLattice_iff _ _).mp hz
+    have : z = BPAnalytic.QM.latVec (y * b' * x) τ := by
+      apply M.injective
+      rw [hzb, hlat, key1]
+    rw [this]
+    exact (mem_qmLattice_iff _ _).mpr ⟨_, (hN' b' hb').1, rfl⟩
+  · have e : x * (y * (a : LeafQM.B) * x) = a * x := by
+      calc x * (y * (a : LeafQM.B) * x) = (x * y) * a * x := by noncomm_ring
+        _ = a * x := by rw [hxy, _root_.one_mul]
+    rw [hM, hM, qmMat_eq, qmMat_eq, hα, Matrix.mulVec_smul, Matrix.mulVec_mulVec,
+      Matrix.mulVec_mulVec, ← cM_mul, ← cM_mul, e]
+
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmLatticeTwistAlg_mpr

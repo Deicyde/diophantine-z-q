@@ -76,3 +76,8 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   `IsHolC1At`, `chartInf`, `IsHolSphere` definitions (chart shape of IsHolP1At).
 - Note: a compile hung >10 min once (a `simp only [hz0, ite_true]; exact hs2` step); replaced by
   `rw [if_pos hz0]`; then 0 errors.
+
+## QMLatticeTwistAlg (⇐) — PROVED (VERIFIED, run_qmtwist.txt)
+- `QMTwist.lean`: `qmLatticeTwistAlg_mpr` (τ' ∈ Γ*τ ⇒ ∃ α, M with MΛ_τ = Λ_τ', equivariance).
+  α = conj by x (x ∈ N(𝒪)), M = (cτ+d)⁻¹ι(x); `mem_qmLattice_iff` (Λ_τ = {ι(b)v_τ : b ∈ 𝒪}),
+  `inO_iff` (PkgI1.InO ↔ LeafQM.O), `cM_mul`. Axioms standard.
