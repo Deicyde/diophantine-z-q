@@ -565,7 +565,186 @@ theorem scalar_of_commute (N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))
   ext k
   fin_cases k <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, a01, a10, a11]
 
+theorem cM_sub (a b : LeafQM.B) : cM (a - b) = cM a - cM b := by
+  rw [cM_apply, cM_apply, cM_apply]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp <;> ring
+
+theorem latVec_sub (a b : LeafQM.B) (τ : ℂ) :
+    BPAnalytic.QM.latVec (a - b) τ = BPAnalytic.QM.latVec a τ - BPAnalytic.QM.latVec b τ := by
+  rw [latVec_eq, latVec_eq, latVec_eq, cM_sub, Matrix.sub_mulVec]
+
+theorem cM_injective {a b : LeafQM.B} (h : cM a = cM b) : a = b := by
+  have h0 : BPAnalytic.QM.latVec (a - b) Complex.I = 0 := by
+    rw [latVec_sub, latVec_eq, latVec_eq, h, sub_self]
+  exact sub_eq_zero.mp (latVec_eq_zero (by simp) h0)
+
+/-- **`QMLatticeTwistAlg`, (⇒) (proved from Skolem–Noether).** -/
+theorem qmLatticeTwistAlg_mp (hSN : GlueDescent.LeafSkolemNoether) (τ τ' : UpperHalfPlane)
+    (h : ∃ α : LeafQM.O ≃+* LeafQM.O, ∃ M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+      (∀ z, z ∈ BPAnalytic.QM.qmLattice τ.im_pos.ne' ↔
+        M z ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne') ∧
+      ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z)) :
+    ∃ g ∈ PkgI1.GammaStar, g • τ = τ' := by
+  obtain ⟨α, M, hML, hMeq⟩ := h
+  obtain ⟨w, hw⟩ := PeriodGlue.AutOExt.autO_inner hSN α
+  set wv : LeafQM.B := (w : LeafQM.B) with hwvdef
+  set u : LeafQM.B := ((w⁻¹ : LeafQM.Bˣ) : LeafQM.B) with hudef
+  have hwu : wv * u = 1 := w.mul_inv
+  have huw : u * wv = 1 := w.inv_mul
+  have hα : ∀ a : LeafQM.O, ((α a : LeafQM.O) : LeafQM.B) = wv * a * u := hw
+  have hαs : ∀ c : LeafQM.O, ((α.symm c : LeafQM.O) : LeafQM.B) = u * c * wv := by
+    intro c
+    have h1 := hα (α.symm c)
+    rw [RingEquiv.apply_symm_apply] at h1
+    rw [h1]
+    calc ((α.symm c : LeafQM.O) : LeafQM.B) = (u * wv) * (α.symm c : LeafQM.B) * (u * wv) := by
+          rw [huw, _root_.one_mul, _root_.mul_one]
+      _ = u * (wv * (α.symm c : LeafQM.B) * u) * wv := by noncomm_ring
+  -- `N = M ∘ ι(w)` commutes with `ι(𝒪)`
+  let N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) :=
+    (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) ∘ₗ Matrix.toLin' (cM wv)
+  have hN : ∀ z, N z = M (cM wv *ᵥ z) := fun z => rfl
+  have hNa : ∀ a : LeafQM.O, ∀ z, N (cM a *ᵥ z) = cM a *ᵥ N z := by
+    intro a z
+    rw [hN, hN]
+    have e : wv * a = (wv * a * u) * wv := by
+      calc wv * (a : LeafQM.B) = wv * a * 1 := (_root_.mul_one _).symm
+        _ = wv * a * (u * wv) := by rw [huw]
+        _ = (wv * a * u) * wv := by noncomm_ring
+    rw [Matrix.mulVec_mulVec, ← cM_mul, e, cM_mul, ← Matrix.mulVec_mulVec, ← hα, ← qmMat_eq,
+      hMeq, qmMat_eq]
+  have qi_mem : (⟨0, 1, 0, 0⟩ : LeafQM.B) ∈ LeafQM.O :=
+    ⟨![0, 1, 0, 0], by ext <;> simp [LeafQM.ofInt]⟩
+  have qj_mem : (⟨0, 0, 1, 0⟩ : LeafQM.B) ∈ LeafQM.O :=
+    ⟨![-1, 0, 2, 0], by ext <;> simp [LeafQM.ofInt]⟩
+  obtain ⟨p, hp⟩ := scalar_of_commute N (hNa ⟨_, qi_mem⟩) (hNa ⟨_, qj_mem⟩)
+  have hMz : ∀ z, M z = p • (cM u *ᵥ z) := by
+    intro z
+    have hz : z = cM wv *ᵥ (cM u *ᵥ z) := by
+      rw [Matrix.mulVec_mulVec, ← cM_mul, hwu, cM_one, Matrix.one_mulVec]
+    calc M z = M (cM wv *ᵥ (cM u *ᵥ z)) := by rw [← hz]
+      _ = N (cM u *ᵥ z) := (hN _).symm
+      _ = p • (cM u *ᵥ z) := hp _
+  have hp0 : p ≠ 0 := by
+    intro h0
+    have h1 : M ![1, 0] = M 0 := by rw [hMz, h0, zero_smul, map_zero]
+    have := congrFun (M.injective h1) 0
+    simp at this
+  have hτ : (τ : ℂ).im ≠ 0 := τ.im_pos.ne'
+  -- `(τ', 1)ᵀ = p ι(x) (τ, 1)ᵀ` with `x = u b₁`
+  have hv1 : BPAnalytic.QM.latVec 1 τ' ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne' :=
+    (mem_qmLattice_iff _ _).mpr ⟨1, LeafQM.O.one_mem, rfl⟩
+  obtain ⟨b1, hb1, hz1⟩ := (mem_qmLattice_iff _ _).mp
+    ((hML (M.symm (BPAnalytic.QM.latVec 1 τ'))).mpr (by rw [M.apply_symm_apply]; exact hv1))
+  set x := u * b1 with hxdef
+  have hvx : BPAnalytic.QM.latVec 1 τ' = p • BPAnalytic.QM.latVec x τ := by
+    have h1 := congrArg M hz1
+    rw [M.apply_symm_apply] at h1
+    rw [h1, hMz, hxdef, latVec_mul]
+  have hv1' : BPAnalytic.QM.latVec 1 τ' = ![((τ' : UpperHalfPlane) : ℂ), 1] := by
+    rw [latVec_eq, cM_one, Matrix.one_mulVec]
+  have hlat' : ∀ b', BPAnalytic.QM.latVec b' τ' = p • BPAnalytic.QM.latVec (b' * x) τ := by
+    intro b'
+    rw [latVec_eq, ← hv1', hvx, Matrix.mulVec_smul, latVec_mul b' x]
+  -- `u 𝒪 ⊆ 𝒪 x`
+  have hA : ∀ b ∈ LeafQM.O, ∃ b' ∈ LeafQM.O, u * b = b' * x := by
+    intro b hb
+    have hm : M (BPAnalytic.QM.latVec b τ) ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne' :=
+      (hML _).mp ((mem_qmLattice_iff _ _).mpr ⟨b, hb, rfl⟩)
+    obtain ⟨b', hb', hbe⟩ := (mem_qmLattice_iff _ _).mp hm
+    refine ⟨b', hb', ?_⟩
+    rw [hMz, ← latVec_mul, hlat'] at hbe
+    have h2 : BPAnalytic.QM.latVec (u * b) τ = BPAnalytic.QM.latVec (b' * x) τ :=
+      smul_right_injective _ hp0 hbe
+    have h3 : BPAnalytic.QM.latVec (u * b - b' * x) τ = 0 := by rw [latVec_sub, h2, sub_self]
+    exact sub_eq_zero.mp (latVec_eq_zero hτ h3)
+  -- `b₁` is a unit of `𝒪`
+  obtain ⟨b', hb', hb'e⟩ := hA 1 LeafQM.O.one_mem
+  set e := wv * b' * u with hedef
+  have he : e ∈ LeafQM.O := by
+    have := (α ⟨b', hb'⟩).2
+    rwa [hα] at this
+  have heb1 : e * b1 = 1 := by
+    calc e * b1 = wv * (b' * (u * b1)) := by rw [hedef]; noncomm_ring
+      _ = wv * (u * 1) := by rw [← hxdef, ← hb'e]
+      _ = 1 := by rw [_root_.mul_one, hwu]
+  have hb1e : b1 * e = 1 := by
+    apply cM_injective
+    rw [cM_mul, cM_one]
+    have : cM e * cM b1 = 1 := by rw [← cM_mul, heb1, cM_one]
+    exact mul_eq_one_comm.mp this
+  set y := e * wv with hydef
+  have hxy : x * y = 1 := by
+    calc x * y = u * (b1 * e) * wv := by rw [hxdef, hydef]; noncomm_ring
+      _ = 1 := by rw [hb1e, _root_.mul_one, huw]
+  have hyx : y * x = 1 := by
+    calc y * x = e * (wv * u) * b1 := by rw [hxdef, hydef]; noncomm_ring
+      _ = 1 := by rw [hwu, _root_.mul_one, heb1]
+  have hnorm : ∀ z : PkgI1.B, PkgI1.InO z → PkgI1.InO (x * z * y) ∧ PkgI1.InO (y * z * x) := by
+    intro z hz
+    have hz' := (inO_iff z).mp hz
+    constructor
+    · rw [inO_iff]
+      have hc : b1 * z * e ∈ LeafQM.O :=
+        LeafQM.O.mul_mem (LeafQM.O.mul_mem hb1 hz') he
+      have := (α.symm ⟨_, hc⟩).2
+      rw [hαs] at this
+      have eq : x * z * y = u * (b1 * z * e) * wv := by rw [hxdef, hydef]; noncomm_ring
+      rw [eq]; exact this
+    · rw [inO_iff]
+      have hc := (α ⟨z, hz'⟩).2
+      rw [hα] at hc
+      have eq : y * z * x = e * (wv * z * u) * b1 := by rw [hxdef, hydef]; noncomm_ring
+      rw [eq]
+      exact LeafQM.O.mul_mem (LeafQM.O.mul_mem he hc) hb1
+  -- the element of `GL₂(ℝ)`
+  have hI1 : PkgI1.iota x * PkgI1.iota y = 1 := by
+    rw [← PeriodMap.iota_mul, hxy, PeriodMap.iota_one]
+  have hI2 : PkgI1.iota y * PkgI1.iota x = 1 := by
+    rw [← PeriodMap.iota_mul, hyx, PeriodMap.iota_one]
+  let g : GL (Fin 2) ℝ := ⟨PkgI1.iota x, PkgI1.iota y, hI1, hI2⟩
+  have hgm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x := rfl
+  have hgc : cM x = (g : Matrix (Fin 2) (Fin 2) ℝ).map (fun r : ℝ => (r : ℂ)) := rfl
+  -- `τ' = gτ`
+  have hcomp := hvx
+  rw [hv1', latVec_eq, hgc] at hcomp
+  have c0 := congrFun hcomp 0
+  have c1 := congrFun hcomp 1
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two] at c0 c1
+  have hden : UpperHalfPlane.denom g τ = p⁻¹ := by
+    have h1 : p * UpperHalfPlane.denom g τ = 1 := by
+      simp only [UpperHalfPlane.denom]; rw [c1]
+    rw [← mul_right_inj' hp0, h1, mul_inv_cancel₀ hp0]
+  have hnum : ((τ' : UpperHalfPlane) : ℂ) = UpperHalfPlane.num g τ / UpperHalfPlane.denom g τ := by
+    rw [hden, div_inv_eq_mul, c0]
+    simp only [UpperHalfPlane.num]; ring
+  have hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det := by
+    have him := UpperHalfPlane.moebius_im g τ
+    rw [← hnum] at him
+    have h1 : 0 < ((τ' : UpperHalfPlane) : ℂ).im := τ'.im_pos
+    have h2 : 0 < Complex.normSq (UpperHalfPlane.denom g τ) :=
+      Complex.normSq_pos.mpr (UpperHalfPlane.denom_ne_zero g τ)
+    have h3 : 0 < (τ : ℂ).im := τ.im_pos
+    rw [him, Matrix.GeneralLinearGroup.val_det_apply] at h1
+    have := (div_pos_iff_of_pos_right h2).mp h1
+    exact pos_of_mul_pos_left this h3.le
+  refine ⟨g, ⟨x, ⟨y, hxy, hyx, hnorm⟩, hgm, hdet⟩, ?_⟩
+  ext1
+  rw [UpperHalfPlane.coe_smul_of_det_pos (by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet),
+    ← hnum]
+
+/-- **`QMLatticeTwistAlg` (proved from Skolem–Noether).** -/
+theorem qmLatticeTwistAlg_of (hSN : GlueDescent.LeafSkolemNoether) : QMLatticeTwistAlg :=
+  fun τ τ' => ⟨qmLatticeTwistAlg_mp hSN τ τ', qmLatticeTwistAlg_mpr τ τ'⟩
+
+/-- **`QMTwistLattice` from the `Hom` form of T11a and Skolem–Noether (proved).** -/
+theorem qmTwistLattice_of' (hH : T11aRiemannHom) (hSN : GlueDescent.LeafSkolemNoether) :
+    QMTwistLattice :=
+  qmTwistLattice_of hH (qmLatticeTwistAlg_of hSN)
+
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmLatticeTwistAlg_mpr
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of'

@@ -81,3 +81,15 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
 - `QMTwist.lean`: `qmLatticeTwistAlg_mpr` (τ' ∈ Γ*τ ⇒ ∃ α, M with MΛ_τ = Λ_τ', equivariance).
   α = conj by x (x ∈ N(𝒪)), M = (cτ+d)⁻¹ι(x); `mem_qmLattice_iff` (Λ_τ = {ι(b)v_τ : b ∈ 𝒪}),
   `inO_iff` (PkgI1.InO ↔ LeafQM.O), `cM_mul`. Axioms standard.
+
+## QMLatticeTwistAlg — PROVED from LeafSkolemNoether (VERIFIED, run_qmtwist.txt)
+- `qmLatticeTwistAlg_of (hSN : GlueDescent.LeafSkolemNoether) : QMLatticeTwistAlg`;
+  `qmTwistLattice_of' (hH : T11aRiemannHom) (hSN) : QMTwistLattice`. Axioms standard.
+- `GlueDescent.LeafSkolemNoether` is the kernel's def (verbatim copy inside PGBase); the kernel proves
+  it (`TSkolemKW.leafSkolemNoether`, ZInQKernel/HDecomp/Textbook/SkolemNoether.lean), not importable
+  next to the scratch copy (namespace clash). So QMTwistLattice ⇐ T11aRiemannHom only, after integration.
+- (⇒) steps: Aut 𝒪 inner (`AutOExt.autO_inner`, extension copied from mobius-glue §7 + B6_inner);
+  N = M∘ι(w) commutes with ι(i), ι(j) ⇒ scalar (`scalar_of_commute`); M = p ι(u);
+  (τ',1) = p ι(x)(τ,1) with x = u b₁; u𝒪 ⊆ 𝒪x via `latVec_eq_zero` (b ↦ ι(b)(τ,1) injective);
+  b₁ ∈ 𝒪^× (`mul_eq_one_comm` on matrices, `cM_injective`); x normalizes 𝒪; det > 0 from
+  `moebius_im`.
