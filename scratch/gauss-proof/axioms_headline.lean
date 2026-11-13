@@ -1,0 +1,4 @@
+import ZInQKernel.Contrib.GaussFE.Headline
+#print axioms ZInQ.Contrib.GaussFE.certifiedRankTYZClRk_of_readingA_grossZagier
+#print axioms ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier
+#print axioms ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzInputs_grossZagier

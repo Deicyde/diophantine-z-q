@@ -24,3 +24,12 @@
   scratch/gauss-proof/axioms.lean → out_axioms.txt: all three depend on
   [propext, Classical.choice, Quot.sound]; `example : ZInQ.Literature.FunctionalEquation5 :=
   ZInQ.Contrib.functionalEquation5` elaborates (type is exactly the hypothesis).
+- Built ZInQKernel.MainLiterature (lake build, 5 min, success) for the headline file.
+- ZInQKernel/Contrib/GaussFE/Headline.lean. VERIFIED compiled (`lake env lean`, `lake build`):
+  `certifiedRankTYZClRk_of_readingA_grossZagier : TYZThm35ReadingA → GrossZagier →
+   RouteK.Rank.CertifiedRankTYZClRk`,
+  `frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier : SixContactMin → TYZThm35ReadingA →
+   GrossZagier → FrozenTarget`,
+  `frozenTarget_of_sixContactMin_tyzInputs_grossZagier : SixContactMin → PropN.TYZInputs →
+   GrossZagier → FrozenTarget`.
+  out_axioms_headline.txt: all three [propext, Classical.choice, Quot.sound].
