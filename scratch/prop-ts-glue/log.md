@@ -104,3 +104,13 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 ## Step 8 (08:36): HeckeNormalization split (reviewer's suggestion), compiled
 - `HeckeIrreducible` (SPECULATIVE input: Y is irreducible), `HeckeNormalizationIrr` (the chart for
   irreducible Y), `heckeNormalization_of_irr`. Compile: 0 errors, 29 standard axiom lines.
+
+## Step 9 (08:40): SNVertical reduced to VerticalResidueSeparable, compiled
+- New glue `VerticalResidueSeparable` (field theory: `[E:ℚ(X)] < p ⇒
+  HasSeparableResidueFieldsAt ℤ[X] C (pℤ[X])`, C the integral closure of ℤ[X] in E).
+- `snVertical_aux`/`snVertical_of_sep : VerticalResidueSeparable → SNVertical` (compiled): P = pℤ[X]_m
+  by heights (`IsLocalization.height_under`, `Ideal.height_add_one_le_of_lt_of_isPrime`);
+  NoVerticalRam gives e(𝔮) = 1; `Ideal.ramificationIdx_eq_one_iff`; C_𝔮 ≅ S_{Q'}; of_restrictScalars.
+- `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize →
+  SpecNonMeeting`; `propTSAll_of_pieces'` now takes VerticalResidueSeparable, SNSpecialize.
+- Compile: 0 errors, 31 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).

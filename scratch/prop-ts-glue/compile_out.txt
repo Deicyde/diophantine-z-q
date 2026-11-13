@@ -166,47 +166,85 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/prop-ts-glue/PropTSGlue.lean:2729:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2590:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2592:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2602:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2644:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp [one_add_one_eq_two] at h2
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/prop-ts-glue/PropTSGlue.lean:2658:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2885:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2729:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2885:28: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:2776:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2932:48: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:2777:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2933:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2777:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2933:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2915:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3071:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2949:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3105:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2949:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3105:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2951:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3107:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2953:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3109:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2954:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3110:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
@@ -223,6 +261,8 @@ Hint: Replace the deprecated name:
 'PropTSGlue.snHeightOne_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.specNonMeeting_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.snHorizontalTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snVertical_of_sep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces4' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.specNonMeeting_of_pieces'''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.kummerMeet_of_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coeff_X_pow_sub_C_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]

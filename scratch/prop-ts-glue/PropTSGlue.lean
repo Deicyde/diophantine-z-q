@@ -2555,6 +2555,162 @@ theorem specNonMeeting_of_pieces''' (hPur : PurityGlobalDim2.{0}) (hV : SNVertic
     (hS : SNSpecialize) : SpecNonMeeting :=
   specNonMeeting_of_pieces'' hPur hV snHorizontalTransfer hS
 
+theorem vertPrime_isPrime (p : ℕ) (hp : p.Prime) : (vertPrime p).IsPrime :=
+  (Ideal.isPrime_map_C_iff_isPrime _).mpr
+    ((Ideal.span_singleton_prime (by exact_mod_cast hp.ne_zero)).mpr
+      (Nat.prime_iff_prime_int.mp hp))
+
+theorem sep_congr {A B : Type*} [CommRing A] [CommRing B] [Algebra A B] {p q : Ideal A}
+    [p.IsPrime] [q.IsPrime] (h : p = q) [Algebra.HasSeparableResidueFieldsAt A B p] :
+    Algebra.HasSeparableResidueFieldsAt A B q := by
+  subst h
+  assumption
+
+/-- **Glue (field theory): residue fields at the vertical primes are separable when
+`[E : ℚ(X)] < p`** (the residue degree `f` of a prime of the integral closure of `ℤ[X]` over `pℤ[X]`
+is at most `[E : ℚ(X)] < p`, and an extension of degree `< p` in characteristic `p` is
+separable). -/
+def VerticalResidueSeparable : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime),
+    Module.finrank (RatFunc ℚ) E < p →
+    letI := intPolyAlg E
+    haveI := vertPrime_isPrime p hp
+    Algebra.HasSeparableResidueFieldsAt ℤ[X] (integralClosure ℤ[X] E) (vertPrime p)
+
+theorem snVertical_aux (hVS : VerticalResidueSeparable) (E : Type) [Field E]
+    [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (hdeg : Module.finrank (RatFunc ℚ) E < p) (hNV : NoVerticalRam E p)
+    (m : Ideal ℤ[X]) [m.IsMaximal] :
+    letI := locAlg E m
+    ∀ P : Ideal (Localization.AtPrime m), P.IsPrime → P.height = 1 →
+      algebraMap ℤ[X] (Localization.AtPrime m) (C (p : ℤ)) ∈ P →
+      Algebra.IsUnramifiedIn (integralClosure (Localization.AtPrime m) E) P := by
+  letI iE : Algebra (Localization.AtPrime m) E := locAlg E m
+  intro P hP hP1 hpP Q' hQ' hlies
+  letI iZ : Algebra ℤ[X] E := (zxMap E).toAlgebra
+  have hTR : IsScalarTower ℤ[X] (Localization.AtPrime m) E := by
+    apply IsScalarTower.of_algebraMap_eq'
+    exact (IsLocalization.lift_comp _).symm
+  let ιS : integralClosure ℤ[X] E →+* integralClosure (Localization.AtPrime m) E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := Localization.AtPrime m) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  letI aCS := ιS.toAlgebra
+  have hCSE : IsScalarTower (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E)
+      E := IsScalarTower.of_algebraMap_eq' rfl
+  have hZCS : IsScalarTower ℤ[X] (integralClosure ℤ[X] E)
+      (integralClosure (Localization.AtPrime m) E) := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    apply Subtype.ext
+    rw [IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E)]
+    change algebraMap (Localization.AtPrime m) E (algebraMap ℤ[X] _ x) = algebraMap ℤ[X] E x
+    exact (IsScalarTower.algebraMap_apply _ _ _ x).symm
+  have hlocE : IsLocalization (Algebra.algebraMapSubmonoid E m.primeCompl) E :=
+    isLocalization_field_self _ (fun x hx h0 => hx (by
+      rw [(zxMap_injective E) (h0.trans (map_zero _).symm)]; exact m.zero_mem))
+  have hlocS : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E)
+      m.primeCompl) (integralClosure (Localization.AtPrime m) E) :=
+    IsLocalization.integralClosure m.primeCompl
+  set 𝔮 : Ideal (integralClosure ℤ[X] E) :=
+    Q'.comap (algebraMap (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E))
+    with h𝔮
+  have h𝔮p : 𝔮.IsPrime := Ideal.IsPrime.comap _
+  -- `𝔮` lies over `pℤ[X]`
+  have hPunder : P.under ℤ[X] = vertPrime p := by
+    have hvp : (vertPrime p).IsPrime := vertPrime_isPrime p hp
+    have hle : vertPrime p ≤ P.under ℤ[X] := by
+      rw [vertPrime, Ideal.map_le_iff_le_comap, Ideal.span_le, Set.singleton_subset_iff]
+      exact hpP
+    have hPu : (P.under ℤ[X]).IsPrime := Ideal.IsPrime.under _ _
+    have hht : (P.under ℤ[X]).height = 1 := by
+      rw [IsLocalization.height_under m.primeCompl P, hP1]
+    by_contra hne
+    have hlt : vertPrime p < P.under ℤ[X] := lt_of_le_of_ne hle (Ne.symm hne)
+    have h1 := Ideal.height_add_one_le_of_lt_of_isPrime hlt
+    rw [hht] at h1
+    have h0 : (vertPrime p).height = 0 := by
+      by_contra hne0
+      have h1' : 1 ≤ (vertPrime p).height := by
+        rw [Order.one_le_iff_pos, pos_iff_ne_zero]
+        exact hne0
+      have h2 : (1 : ℕ∞) + 1 ≤ 1 := le_trans (add_le_add_left h1' 1) h1
+      have h3 : ((2 : ℕ) : ℕ∞) ≤ ((1 : ℕ) : ℕ∞) := by
+        simpa [one_add_one_eq_two] using h2
+      exact absurd (Nat.cast_le.mp h3) (by norm_num)
+    rw [Ideal.height_eq_zero_iff_eq_bot] at h0
+    have hCp : C (p : ℤ) ∈ vertPrime p := Ideal.mem_map_of_mem _ (Ideal.mem_span_singleton_self _)
+    rw [h0, Ideal.mem_bot, C_eq_zero] at hCp
+    exact hp.ne_zero (by exact_mod_cast hCp)
+  have h𝔮under : 𝔮.under ℤ[X] = vertPrime p := by
+    rw [← hPunder, hlies.over]
+    ext x
+    simp only [Ideal.mem_comap, h𝔮]
+    rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply ℤ[X]
+      (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E)]
+  have he1 : 𝔮.ramificationIdx ℤ[X] = 1 := hNV 𝔮 h𝔮p h𝔮under
+  -- finiteness of `C` over `ℤ[X]`
+  letI iZK : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  have hZK : IsFractionRing ℤ[X] (RatFunc ℚ) := isFractionRing_zx
+  have hZKE : IsScalarTower ℤ[X] (RatFunc ℚ) E := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply]
+    exact IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E _
+  have hfinC : Module.Finite ℤ[X] (integralClosure ℤ[X] E) :=
+    IsIntegralClosure.finite ℤ[X] (RatFunc ℚ) E (integralClosure ℤ[X] E)
+  have : Algebra.EssFiniteType ℤ[X] (integralClosure ℤ[X] E) := inferInstance
+  have hsep0 := hVS E p hp hdeg
+  have hvp : (vertPrime p).IsPrime := vertPrime_isPrime p hp
+  have hsep : Algebra.HasSeparableResidueFieldsAt ℤ[X] (integralClosure ℤ[X] E) (𝔮.under ℤ[X]) :=
+    sep_congr h𝔮under.symm
+  have hun𝔮 : Algebra.IsUnramifiedAt ℤ[X] 𝔮 := (Ideal.ramificationIdx_eq_one_iff).mp he1
+  have hL1 : IsLocalization.AtPrime (Localization Q'.primeCompl) 𝔮 :=
+    IsLocalization.isLocalization_isLocalization_atPrime_isLocalization
+      (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl)
+      (Localization Q'.primeCompl) Q'
+  let e : Localization Q'.primeCompl ≃ₐ[integralClosure ℤ[X] E] Localization.AtPrime 𝔮 :=
+    IsLocalization.algEquiv 𝔮.primeCompl _ _
+  have t1 : IsScalarTower ℤ[X] (integralClosure ℤ[X] E) (Localization Q'.primeCompl) := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    rw [IsScalarTower.algebraMap_apply (integralClosure ℤ[X] E)
+      (integralClosure (Localization.AtPrime m) E) (Localization Q'.primeCompl),
+      ← IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E)
+        (integralClosure (Localization.AtPrime m) E)]
+    rfl
+  have hZS : Algebra.FormallyUnramified ℤ[X] (Localization Q'.primeCompl) :=
+    Algebra.FormallyUnramified.of_equiv (A := Localization.AtPrime 𝔮)
+      (AlgEquiv.ofRingEquiv (f := (e.symm : Localization.AtPrime 𝔮 ≃+* Localization Q'.primeCompl))
+        (fun x => by
+          rw [IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E)
+              (Localization.AtPrime 𝔮),
+            IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E)
+              (Localization Q'.primeCompl)]
+          exact e.symm.commutes _))
+  have t3 : IsScalarTower ℤ[X] (Localization.AtPrime m) (Localization Q'.primeCompl) :=
+    inferInstance
+  exact Algebra.FormallyUnramified.of_restrictScalars ℤ[X] (Localization.AtPrime m)
+    (Localization Q'.primeCompl)
+
+/-- **`SNVertical` from `VerticalResidueSeparable`** (compiled): the prime `P ∋ p` of height one
+is `pℤ[X]_m` (heights, `IsLocalization.height_under`); the prime `𝔮 = Q' ∩ C` lies over
+`pℤ[X]`, so `NoVerticalRam` gives `e(𝔮) = 1`; with separable residue fields,
+`Ideal.ramificationIdx_eq_one_iff` makes `ℤ[X] → C_𝔮` formally unramified; `S_{Q'} ≅ C_𝔮`
+over `C`, so `ℤ[X]_m → S_{Q'}` is formally unramified. -/
+theorem snVertical_of_sep (hVS : VerticalResidueSeparable) : SNVertical :=
+  fun E _ _ _ _ _ p hp hdeg hNV _ _ m _ _ _ => snVertical_aux hVS E p hp hdeg hNV m
+
+/-- **`SpecNonMeeting` from purity, `VerticalResidueSeparable` and `SNSpecialize`** (compiled). -/
+theorem specNonMeeting_of_pieces4 (hPur : PurityGlobalDim2.{0}) (hVS : VerticalResidueSeparable)
+    (hS : SNSpecialize) : SpecNonMeeting :=
+  specNonMeeting_of_pieces''' hPur (snVertical_of_sep hVS) hS
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -3116,12 +3272,12 @@ theorem purityGlobalDim2 : PurityGlobalDim2.{0} := TPurity3.purityGlobalDim2
 
 /-- **The composite without the purity hypothesis.** -/
 theorem propTSAll_of_pieces' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
-    (hVert : SNVertical) (hS : SNSpecialize) (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue)
+    (hVS : VerticalResidueSeparable) (hS : SNSpecialize) (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue)
     (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue)
     (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) (hN : HeckeNormalization)
     (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) : PropTSAll :=
-  propTSAll_of_pieces t2 hR hM purityGlobalDim2 hVert snHorizontalTransfer hS hC hA hO hVF hAI hOI
-    hVI hN hD hB hV
+  propTSAll_of_pieces t2 hR hM purityGlobalDim2 (snVertical_of_sep hVS) snHorizontalTransfer hS hC hA
+    hO hVF hAI hOI hVI hN hD hB hV
 
 end PropTSGlue
 
@@ -3140,6 +3296,8 @@ end
 #print axioms PropTSGlue.snHeightOne_of_pieces
 #print axioms PropTSGlue.specNonMeeting_of_pieces''
 #print axioms PropTSGlue.snHorizontalTransfer
+#print axioms PropTSGlue.snVertical_of_sep
+#print axioms PropTSGlue.specNonMeeting_of_pieces4
 #print axioms PropTSGlue.specNonMeeting_of_pieces'''
 #print axioms PropTSGlue.kummerMeet_of_cases
 #print axioms PropTSGlue.coeff_X_pow_sub_C_nonneg
