@@ -39,13 +39,16 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r22 := r.r22,
     h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (40 fields): g0-assemble3's `GluePieces4` without
+/-- **The named Props left after assemble-port** (32 fields): g0-assemble3's `GluePieces4` without
 * `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
   together `PropTSGlue.specNonMeeting`);
 * `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
   (`r14`, `r1b`, `r17`), the same Props;
 * `analyticUniformizationOfDim`: follows from the textbook leaf T35 (`t35 : UniformizationExists`) by metrization2's
-  transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40). -/
+  transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40);
+* `cPtsTransport`, `baseChangeClassUnique`: proved by cpts-transport (part e45);
+* the six Kummer pieces `kummerAbhyankarFinGlue`, `kummerOtherBranchFin`, `kummerVerticalFin`, `kummerAbhyankarInfGlue`,
+  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12). -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -67,8 +70,6 @@ structure GluePieces5 : Prop where
   qmHauptmodul : PkgI1.QMHauptmodul
   /-- fibre-qm-period, LEAF (Eichler class number one for `𝒪`, lattice form). -/
   qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
-  /-- period-map, GLUE (base change of QM classes is unique). -/
-  baseChangeClassUnique : G0Split.FibreQM.PeriodMapH.BaseChangeClassUnique
   /-- period-map, GLUE (`π` is invariant under the QM twist, complex form), for the leaf's own triple. -/
   piTwistC : ∀ h : LeafAdopt.R1R2fpRep,
     G0Split.FibreQM.PeriodMapH.PiTwistC (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
@@ -86,16 +87,8 @@ structure GluePieces5 : Prop where
   s8WeightExact : G0Split.FibreQM.PeriodMap.S8WeightExact
   /-- period-map, LEAF (the valence formula for `Γ*`). -/
   valenceBoundGammaStar : G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar
-  /-- fibre-qm-period, GLUE (transport of complex points along base change). -/
-  cPtsTransport : G0Split.FibreQM.CPtsTransport
   -- ModularConstituent: G2 (fibre-cover; Prop. TS by prop-ts, prop-ts-glue)
   /-- prop-ts-glue, GLUE. -/ kummerCompositum : PropTSGlue.KummerCompositum
-  /-- prop-ts-glue, GLUE (`AbhyankarDVR → …`). -/ kummerAbhyankarFinGlue : PropTSGlue.KummerAbhyankarFinGlue
-  /-- prop-ts-glue, GLUE. -/ kummerOtherBranchFin : PropTSGlue.KummerOtherBranchFin
-  /-- prop-ts-glue, GLUE. -/ kummerVerticalFin : PropTSGlue.KummerVerticalFin
-  /-- prop-ts-glue, GLUE (`AbhyankarDVR → …`). -/ kummerAbhyankarInfGlue : PropTSGlue.KummerAbhyankarInfGlue
-  /-- prop-ts-glue, GLUE. -/ kummerOtherBranchInf : PropTSGlue.KummerOtherBranchInf
-  /-- prop-ts-glue, GLUE. -/ kummerVerticalInf : PropTSGlue.KummerVerticalInf
   /-- prop-ts-glue, GLUE (truth SPECULATIVE per its report). -/ heckeIrreducible : PropTSGlue.HeckeIrreducible
   /-- prop-ts-glue, GLUE. -/ heckeNormalizationIrr : PropTSGlue.HeckeNormalizationIrr
   /-- prop-ts-glue, GLUE. -/ heckeDegree : PropTSGlue.HeckeDegree
@@ -141,6 +134,14 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     r1bFamily := r.r1b,
     carayolR17 := r.r17,
     analyticUniformizationOfDim := ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35,
+    cPtsTransport := G0Split.FibreQM.cPtsTransport_proof,
+    baseChangeClassUnique := G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof,
+    kummerAbhyankarFinGlue := TsKummer.kummerAbhyankarFinGlue,
+    kummerOtherBranchFin := TsKummer.kummerOtherBranchFin,
+    kummerVerticalFin := TsKummer.kummerVerticalFin,
+    kummerAbhyankarInfGlue := TsKummer.kummerAbhyankarInfGlue,
+    kummerOtherBranchInf := TsKummer.kummerOtherBranchInf,
+    kummerVerticalInf := TsKummer.kummerVerticalInf,
     cmOptimalEmbedding := gp.cmOptimalEmbedding,
     x6ConicModel := gp.x6ConicModel,
     hodgeBCInjective := gp.hodgeBCInjective,
@@ -148,7 +149,6 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     thetaRatiosAlgebraic := gp.thetaRatiosAlgebraic,
     qmHauptmodul := gp.qmHauptmodul,
     qmClassNumberOne := gp.qmClassNumberOne,
-    baseChangeClassUnique := gp.baseChangeClassUnique,
     piTwistC := gp.piTwistC,
     qmTwistLattice := gp.qmTwistLattice,
     cmDescends := gp.cmDescends,
@@ -156,14 +156,7 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     sphereFactorAffine := gp.sphereFactorAffine,
     s8WeightExact := gp.s8WeightExact,
     valenceBoundGammaStar := gp.valenceBoundGammaStar,
-    cPtsTransport := gp.cPtsTransport,
     kummerCompositum := gp.kummerCompositum,
-    kummerAbhyankarFinGlue := gp.kummerAbhyankarFinGlue,
-    kummerOtherBranchFin := gp.kummerOtherBranchFin,
-    kummerVerticalFin := gp.kummerVerticalFin,
-    kummerAbhyankarInfGlue := gp.kummerAbhyankarInfGlue,
-    kummerOtherBranchInf := gp.kummerOtherBranchInf,
-    kummerVerticalInf := gp.kummerVerticalInf,
     heckeIrreducible := gp.heckeIrreducible,
     heckeNormalizationIrr := gp.heckeNormalizationIrr,
     heckeDegree := gp.heckeDegree,
@@ -183,7 +176,7 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     tateRamAtThree := gp.tateRamAtThree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (40 fields: 13 LEAF, 3 LEAF?,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (32 fields: 13 LEAF, 3 LEAF?,
 24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
@@ -203,6 +196,14 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms TsKummer.kummerAbhyankarFinGlue
+#print axioms TsKummer.kummerOtherBranchFin
+#print axioms TsKummer.kummerVerticalFin
+#print axioms TsKummer.kummerAbhyankarInfGlue
+#print axioms TsKummer.kummerOtherBranchInf
+#print axioms TsKummer.kummerVerticalInf
+#print axioms HSyn.G0Split.FibreQM.cPtsTransport_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
 #print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
 #print axioms PropTSGlue.verticalResidueDegree
 #print axioms PropTSGlue.snSpecializeUnram

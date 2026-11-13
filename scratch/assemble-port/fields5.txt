@@ -5,7 +5,6 @@ omegaBaseChange
 thetaRatiosAlgebraic
 qmHauptmodul
 qmClassNumberOne
-baseChangeClassUnique
 piTwistC
 qmTwistLattice
 cmDescends
@@ -13,14 +12,7 @@ s8Nonzero
 sphereFactorAffine
 s8WeightExact
 valenceBoundGammaStar
-cPtsTransport
 kummerCompositum
-kummerAbhyankarFinGlue
-kummerOtherBranchFin
-kummerVerticalFin
-kummerAbhyankarInfGlue
-kummerOtherBranchInf
-kummerVerticalInf
 heckeIrreducible
 heckeNormalizationIrr
 heckeDegree

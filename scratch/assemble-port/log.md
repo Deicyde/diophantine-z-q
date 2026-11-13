@@ -68,3 +68,7 @@
   GluePieces5 loses `analyticUniformizationOfDim` (LEAF; now from `t.t35`): 40 fields; `gluePieces4_of_gluePieces5`
   takes `t`. TailF: VERIFIED exit 0, 107 s; TailD: VERIFIED exit 0, 39 s, 38 axiom reports all standard, incl.
   `sixContactMin_of_leaves5` and `analyticUniformizationOfDim_of_uniformizationExists`.
+- Merged origin/wip/cpts-transport (report): part e45 (mk/mk_e45.py) = its CPtsTransport.lean + BCUnique.lean verbatim
+  minus import/#check/#print, + `end` for each file's `noncomputable section`, open_zinq. GluePieces5 loses
+  `cPtsTransport`, `baseChangeClassUnique` (GLUE, now `cPtsTransport_proof`, `baseChangeClassUnique_proof`): 38 fields.
+  TailF VERIFIED exit 0 (112 s); TailD VERIFIED exit 0 (24 s), no sorryAx.
