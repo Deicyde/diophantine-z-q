@@ -2073,12 +2073,14 @@ Appended (by `build.sh`) to verbatim copies of `scratch/unram-tate/TateBridge.le
 `scratch/g0-mod-field/ModField.lean` L1-1036 plus unram-tate's section `UnramTate`) and of
 `scratch/g14-trace/part_bridge.lean` (`G14Bridge.FrobTraceLink`, `G14Bridge.TateBridge35`).
 
-Main result: `FrobTrace.tateBridge35_of_algFrobLink (hT : PkgI3.TateModuleFree)
-(hF : AlgFrobLink) : G14Bridge.TateBridge35`. The operators are unram-tate's
-`Tm_ℓ g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹)` at `ℓ = 5, 3` (one points-level `m`, one `Θ`, one `h`), the
-scalars are `aQ g = βQ g / γQ(hgh⁻¹)` and `βQ` with `ιC ∘ βQ = β` in `ℚ̄` (proved,
+Main result: `FrobTrace.tateBridge35_of_algFrobRed (hT : PkgI3.TateModuleFree)
+(hR : AlgFrobRed) : G14Bridge.TateBridge35`, through the chain of proved implications
+`AlgFrobRed → AlgFrobOne → AlgFrobLink` and `tateBridge35_of_algFrobLink`. The operators are
+unram-tate's `Tm_ℓ g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹)` at `ℓ = 5, 3` (one points-level `m`, one `Θ`,
+one `h`), the scalars are `aQ g = βQ g / γQ(hgh⁻¹)` and `βQ` with `ιC ∘ βQ = β` in `ℚ̄` (proved,
 `scalarsQbar`), and the conjunct `FrobTraceLink` for these operators is derived from the glue
-Prop `AlgFrobLink` (reduction mod `p` of the algebraic maps `m_σ`, stated on `V_ℓ(A(ℚ̄))`).
+Prop `AlgFrobRed` (one reduction homomorphism `A(ℚ̄) → Ā(k̄)` intertwining `f = F ∘ - ∘ Spec(σ)`
+with an endomorphism of the reduction, bijective on prime-to-`p` torsion).
 No `sorry`, no `axiom`.
 -/
 
