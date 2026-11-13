@@ -2,7 +2,7 @@
 import right after it (same visibility). Imports of modules REPLACED by a full nov01 Backport copy
 (listed in REPLACED) are redirected to the copy."""
 import sys,os,re
-REPLACED={'ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PrescribedInvariant','ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryPlaces'}
+REPLACED={'ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PrescribedInvariant','ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryPlaces','ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Norm'}
 def helper(m):
     rel=m[len('ZInQKernel.Contrib.TauCeti.'):]
     p='ZInQKernel/Contrib/TauCeti/Backport/'+rel.replace('.','/')+'.lean'

@@ -19,12 +19,12 @@ for f in sys.argv[1:]:
     toks=set(t.split('.')[-1] for t in re.findall(r"[A-Za-z_][\w.']*",body))
     add=[]
     for h,names in helpers.items():
-        if h==me or ('import '+h) in s: continue
+        if h==me or ('public import '+h) in s: continue
         if 'Global.PrescribedInvariant' in h and 'Backport' in me: pass
         hit=names & toks
         if hit: add.append((h,sorted(hit)[:3]))
     if add:
         last=list(re.finditer(r'^(?:public\s+)?import\s+.*$',s,re.M))[-1]
-        s=s[:last.end()]+'\n'+'\n'.join('import '+h for h,_ in add)+s[last.end():]
+        s=s[:last.end()]+'\n'+'\n'.join('public import '+h for h,_ in add)+s[last.end():]
         open(f,'w').write(s)
         for h,hit in add: print(f.split('TauCeti/')[-1],'<-',h.split('Backport.')[-1],hit)

@@ -21,7 +21,7 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Unramifie
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.DecompositionGroup
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.RamificationIndex
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
-import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
+public import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
 import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.PrimesAbove
 
 public section

@@ -13,8 +13,8 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.
 import Mathlib.NumberTheory.Cyclotomic.PrimitiveRoots
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Open
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.ProductFormula
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.OpenSubgroup
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.OpenSubgroup
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative
 
 /-!
 # Admissible moduli, the conductor, and the real places

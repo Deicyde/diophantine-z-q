@@ -10,8 +10,8 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Lo
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Uniformizer
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Ideal.ArtinMap
 import ZInQKernel.Contrib.TauCeti.GroupTheory.Abelianization.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.Abelianization.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Abelian.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.Abelianization.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Abelian.Basic
 
 /-!
 # The global Artin symbol of a prime idele is arithmetic Frobenius

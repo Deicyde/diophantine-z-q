@@ -6,7 +6,6 @@ Authors: The Tau Ceti contributors
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 97a5b23586f9, module TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Index), Apache-2.0.
 module
 
-public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Norm
 public import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.ClassGroup.HeightOneSpectrum
 public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Units.LocalPowerClass
 public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.Ideles

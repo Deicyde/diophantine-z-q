@@ -16,26 +16,26 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Ch
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LayerInvariant
 import ZInQKernel.Contrib.TauCeti.FieldTheory.Normal.Embeddings
 import ZInQKernel.Contrib.TauCeti.GroupTheory.Abelianization.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.Abelianization.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.Abelianization.Basic
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeDegree
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.CorestrictionLocalization
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.Sequence
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Input
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition
 import ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.FixingSubgroup
 import ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Existence
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FinitePlace.Basic
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Basic
 import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Conjugation
 import ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.PrimitiveRoots
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleLocalization
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Brauer.CharacterFormula
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Formation.Layer.Inflation
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.Semilocal.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.Cyclotomic.FixingSubgroup
-import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.CarryCocycle
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleLocalization
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Brauer.CharacterFormula
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Formation.Layer.Inflation
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.Semilocal.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.Cyclotomic.FixingSubgroup
+public import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.CarryCocycle
 
 /-!
 # Idele classes with prescribed local invariants

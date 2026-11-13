@@ -14,9 +14,9 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Invari
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeDegree
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.LocalizationKernel
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrescribedInvariant
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.LiftingObstruction
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrescribedInvariant
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.LiftingObstruction
 
 /-!
 # The global invariant and the idele-class formation

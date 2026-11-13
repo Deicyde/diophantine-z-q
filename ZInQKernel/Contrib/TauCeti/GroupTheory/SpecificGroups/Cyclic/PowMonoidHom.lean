@@ -8,8 +8,8 @@ module
 
 public import Mathlib.GroupTheory.SpecificGroups.Cyclic
 import ZInQKernel.Contrib.TauCeti.GroupTheory.OrderOfElement.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.OrderOfElement.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.Algebra.Group.PowMonoidHom
+public import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.OrderOfElement.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.Algebra.Group.PowMonoidHom
 
 /-!
 # The `d`-th power criterion in a finite cyclic group

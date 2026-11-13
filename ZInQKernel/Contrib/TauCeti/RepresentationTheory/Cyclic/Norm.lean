@@ -10,8 +10,8 @@ public import Mathlib.RepresentationTheory.Basic
 public import Mathlib.GroupTheory.OrderOfElement
 import ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Basic
 import ZInQKernel.Contrib.TauCeti.Algebra.BigOperators.Finset.Range
-import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.SpecificGroups.Cyclic.Basic
-import ZInQKernel.Contrib.TauCeti.Backport.Algebra.BigOperators.Finset.Range
+public import ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.SpecificGroups.Cyclic.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.Algebra.BigOperators.Finset.Range
 
 /-!
 # The norm of a representation of a finite cyclic group

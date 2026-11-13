@@ -84,8 +84,9 @@ namespace TauCeti.ClassFieldTheory
 open CategoryTheory MonoidalCategory NormalLayer ContCohomology
 variable {K : Type} [Field K]
 variable [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K]
-open subgroup `H` of `G_K`, a character `ψ : H → ℚ/ℤ` with open kernel and `h ∈ H`, some invariant
 
+/-- **Every value of a character of an open subgroup is the invariant of a carry class.** For an
+open subgroup `H` of `G_K`, a character `ψ : H → ℚ/ℤ` with open kernel and `h ∈ H`, some invariant
 `b ∈ ((Kˢ)ˣ)^H` has `inv_H (b ∪ δψ) = ψ(h)`. -/
 theorem exists_subgroupInvMap_characterCarryCocycle_eq (H : Subgroup (AbsoluteGaloisGroup K))
     [H.FiniteIndex] (hH : IsOpen (H : Set (AbsoluteGaloisGroup K)))

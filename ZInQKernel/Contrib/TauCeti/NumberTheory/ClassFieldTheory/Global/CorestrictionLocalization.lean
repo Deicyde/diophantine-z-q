@@ -9,7 +9,7 @@ module
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.OpenSubgroup
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LayerInvariant
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Pullback
-import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
 
 /-!
 # Localization of corestricted idele classes

@@ -7,9 +7,15 @@ path=os.path.expanduser('~/tc-nov01/')+mod.replace('.','/')+'.lean'
 L=open(path,encoding='utf-8').read().split('\n')
 KW=r'(?:theorem|lemma|def|abbrev|instance|structure|class|inductive)'
 scopes=[['file','',[]]]
+# incom[i]: line i starts inside a comment block (so it is not a command)
+incom=[]; depth=0
+for line in L:
+    incom.append(depth>0)
+    depth+=line.count('/-')-line.count('-/')
+    depth=max(depth,0)
 def block_start(i):
     j=i
-    while j>0 and L[j-1].strip()!='' and (L[j-1].rstrip().endswith(' in') or not re.match(r'^\s*(end|namespace|section|variable|open|noncomputable section|public)\b',L[j-1])):
+    while j>0 and L[j-1].strip()!='' and (incom[j-1] or L[j-1].rstrip().endswith(' in') or not re.match(r'^\s*(end|namespace|section|variable|open|noncomputable section|public)\b',L[j-1])):
         j-=1
     return j
 def cmd_end(i):
@@ -28,7 +34,7 @@ while i<len(L):
     if m: scopes.append(['sec',m.group(1),[]]); i+=1; continue
     m=re.match(r'^end\b',line)
     if m and len(scopes)>1: scopes.pop(); i+=1; continue
-    if re.match(r'^(variable|open|universe|attribute \[local|local notation|scoped|set_option)\b',line) and not L[cmd_end(i)-1].rstrip().endswith(' in'):
+    if not incom[i] and re.match(r'^(variable|open|universe|attribute \[local|local notation|scoped|set_option)\b',line) and not L[cmd_end(i)-1].rstrip().endswith(' in'):
         e=cmd_end(i); scopes[-1][2].append('\n'.join(L[i:e])); i=e; continue
     m=re.match(r'^\s*(?:(?:private|protected|noncomputable|nonrec)\s+)*'+KW+r'\s+([^\s:({\[]+)',line)
     if m and (m.group(1) in names or m.group(1).split('.')[-1] in names):

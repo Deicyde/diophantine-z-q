@@ -12,7 +12,7 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExi
 public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup
 
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Reciprocity
-import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative
 
 /-!
 # Norm limitation and uniqueness for global norm subgroups
