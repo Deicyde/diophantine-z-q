@@ -85,6 +85,28 @@ theorem trace_rho_twist (Tm : GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
 
 end Twist
 
+/-- **The twist obstruction (proved).** If data `D` and `D'` share `r₅`, `ι₅`, `ι₃`, and the traces
+of `D'.r₃` are those of `D.r₃` times `χ`, then `G14TraceCompat` for both forces
+`(χ(τ) − 1)·tr r₃(τ) = 0` at almost every arithmetic Frobenius `τ` at which `tr r₅(τ)` is
+algebraic (all but finitely many, by G13). So at most one twist of `r₃` by a character of
+`Gal(K/ℚ)` can satisfy `G14TraceCompat`, unless `r₃` is isomorphic to its twist; which one is
+fixed by the descent data, not by `G7Out` at `ℓ = 3` (`g7Out_twist`). -/
+theorem twist_obstruction {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    (D D' : ModData K A) (h5 : D'.r5 = D.r5) (hι5 : D'.ι5 = D.ι5) (hι3 : D'.ι3 = D.ι3)
+    (χ : GQ → PadicAlgCl 3) (htw : ∀ τ, (D'.r3.mat τ).trace = χ τ * (D.r3.mat τ).trace)
+    (hc : G14TraceCompat D) (hc' : G14TraceCompat D') :
+    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ),
+      LiesOver v p → IsArithFrob τ v p → ∀ c : Qbar, (D.r5.mat τ).trace = D.ι5 c →
+        (χ τ - 1) * (D.r3.mat τ).trace = 0 := by
+  obtain ⟨S, hS⟩ := hc
+  obtain ⟨S', hS'⟩ := hc'
+  refine ⟨S ∪ S', fun p hp hpS v τ hv hτ c hc5 => ?_⟩
+  have h1 := hS p hp (fun h => hpS (Finset.mem_union_left _ h)) v τ hv hτ c hc5
+  have h2 := hS' p hp (fun h => hpS (Finset.mem_union_right _ h)) v τ hv hτ c
+    (by rw [h5, hι5]; exact hc5)
+  rw [htw, hι3, ← h1] at h2
+  linear_combination h2
+
 /-! ## §2. Traces through G8's intertwining (proved) -/
 
 /-- If `e : V ≃ ℚ̄_ℓ² × ℚ̄_ℓ²` intertwines `f g` with `m g ⊕ m g`, then `tr f(g) = 2 tr m(g)`. -/
@@ -293,6 +315,7 @@ end
 
 #print axioms G14Trace.g7Out_twist
 #print axioms G14Trace.trace_rho_twist
+#print axioms G14Trace.twist_obstruction
 #print axioms G14Trace.trace_of_intertwines
 #print axioms G14Trace.trace_eq_image
 #print axioms G14Trace.frobTraceLink_of_squares

@@ -22,10 +22,10 @@ Base: 2dd83306 (wip/integrate-w36b). Target: `G0ModNewform.G14TraceCompat D`
   same `PkgI3.AbVar`, `GlueDescent.rho`, and the leaf `PkgI3.CharPolyIndepOfEll` (T7).
 
 ## Compile outcomes
-- 04:21 lake build of the 7 NewForm imports + ZInQKernel.HDecomp.C10.Link: OK (6m51s).
-- run1 04:22 (`lake env lean scratch/g14-trace/G14Trace.lean`, 38 s): 2 errors in `g7Out_twist`
+- lake build of the 7 NewForm imports + ZInQKernel.HDecomp.C10.Link: OK (6m51s).
+- run1 (`lake env lean scratch/g14-trace/G14Trace.lean`, 38 s): 2 errors in `g7Out_twist`
   (rw under a lambda); everything else compiled.
-- run2 04:25: exit 0, no error, no `sorry`; 29 `#print axioms` (19 copied + 10 new) all
+- run2: exit 0, no error, no `sorry`; 29 `#print axioms` (19 copied + 10 new) all
   `[propext, Classical.choice, Quot.sound]` (VERIFIED).
 
 ## Statements (VERIFIED compiled, run2), namespace `G14Trace`
