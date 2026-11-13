@@ -5,7 +5,7 @@ https://github.com/elliotglazer/diophantine-z-q) constructs one polynomial P wit
 P(q, w) = 0 for some tuple w of rational numbers. This project checks that proof in the Lean 4 proof assistant,
 with the Mathlib library.
 
-- Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 62f394e5)
+- Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 533aa66c)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
 ## Status in three lines
@@ -163,7 +163,9 @@ J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki), 32 textbook the
   and elementary pieces of most other steps.
 - **Not statable in any Lean library today:** the Shimura curve as a moduli scheme with its canonical model,
   Néron models, X₁(N) and J₁(N) over Q, the stable Faltings height, and conductors of ℓ-adic representations.
-  Mathlib cannot yet construct a nonzero abelian variety.
+  Mathlib cannot yet construct a nonzero abelian variety. Drafts on main (under `scratch/`, not yet in the counts
+  above) now give a Lean definition of the stable Faltings height, whose non-vacuity checks are still open, and
+  concrete statements for several placeholder leaves (the Shimura-curve leaves and Eichler–Shimura in J₁(N)).
 - **Fallback route.** An alternative modularity route (Khare–Wintenberger with Ribet) needs 20 research-level
   theorems; one adversarial model review, and no human, found it sound subject to five repairs that are not yet
   written, and whether Ribet's 1992 proceedings paper was refereed is unchecked.
@@ -179,8 +181,8 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 62f394e5) the build completes
-(9,952 jobs); all 182 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the
+Every Lean change is built before it reaches main. At the current Lean (fork main 533aa66c) the build completes;
+all 272 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the
 reductions, the Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three
 standard axioms, with no `sorry`; `scripts/check_target.py` confirms the statement; and the blueprint checks pass
 (657 articles, 2,041 dependencies). An independent machine re-checked an earlier snapshot proposed for pull request
