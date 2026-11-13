@@ -275,5 +275,168 @@ theorem abhyankar_core (t2 : PkgI2.AbhyankarDVR.{0})
   have : n * Q'.ramificationIdx A = n * 1 := by rw [← htow, mul_one]
   exact Nat.eq_of_mul_eq_mul_left hn this
 
+/-! ## Verbatim copies (dev only) -/
+
+/-! ## Part 1: the function-field objects (genuine Mathlib definitions) -/
+
+/-- The affine coordinate ring at `∞` of `P¹_ℚ`: a copy of `ℚ[s]`, mapped to `ℚ(X)` by
+`s ↦ X⁻¹` (`Algebra InfCoord (RatFunc ℚ)` below). -/
+def InfCoord : Type := Polynomial ℚ
+
+noncomputable instance : CommRing InfCoord := inferInstanceAs (CommRing ℚ[X])
+
+noncomputable instance : Algebra InfCoord (RatFunc ℚ) :=
+  @RingHom.toAlgebra InfCoord (RatFunc ℚ) _ _
+    (Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) (RatFunc.X⁻¹) : ℚ[X] →+* RatFunc ℚ)
+
+/-- The local coordinate `s = 1/X` at `∞`, as an element of `InfCoord`. -/
+noncomputable def infUnif : InfCoord := (Polynomial.X : ℚ[X])
+
+/-- `ℚ[s] → E` through `ℚ(X)` (`s ↦ X⁻¹`). -/
+@[reducible] noncomputable def infAlg (E : Type) [Field E] [Algebra (RatFunc ℚ) E] : Algebra InfCoord E :=
+  ((algebraMap (RatFunc ℚ) E).comp (algebraMap InfCoord (RatFunc ℚ))).toAlgebra
+
+/-- `ℤ[X] → E` through `ℚ[X]` (coefficients `ℤ ⊆ ℚ`). -/
+@[reducible] noncomputable def intPolyAlg (E : Type) [Field E] [Algebra ℚ[X] E] : Algebra ℤ[X] E :=
+  ((algebraMap ℚ[X] E).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))).toAlgebra
+
+
+
+/-- **`E'` is the compositum `E(s)` along `X ↦ r(s)`**: a field embedding `ι : E → E'` sending the
+coordinate `X` of `ℚ(X) ⊆ E` to `r ∈ ℚ(s) ⊆ E'` (`s` the coordinate of the second `RatFunc ℚ`),
+with `E'` generated as a field by `ι(E)` and `s`. -/
+def KummerShape (E E' : Type) [Field E] [Field E'] [Algebra (RatFunc ℚ) E]
+    [Algebra (RatFunc ℚ) E'] (ι : E →+* E') (r : RatFunc ℚ) : Prop :=
+  ι (algebraMap (RatFunc ℚ) E RatFunc.X) = algebraMap (RatFunc ℚ) E' r ∧
+    Subfield.closure (Set.range ι ∪ {algebraMap (RatFunc ℚ) E' RatFunc.X}) = ⊤
+
+/-- The Kummer substitution at a finite branch point: `X = b + s^n / c`, i.e. `s^n = c (X − b)`. -/
+def rFin (b c : ℚ) (n : ℕ) : RatFunc ℚ :=
+  algebraMap ℚ[X] (RatFunc ℚ) (C (b * c) + X ^ n) / algebraMap ℚ[X] (RatFunc ℚ) (C c)
+
+/-- The Kummer substitution at `∞`: `X = c / s^n`, i.e. `s^n = c / X`. -/
+def rInf (c : ℚ) (n : ℕ) : RatFunc ℚ :=
+  algebraMap ℚ[X] (RatFunc ℚ) (C c) / algebraMap ℚ[X] (RatFunc ℚ) (X ^ n)
+
+/-- **Glue from T2 (Abhyankar's lemma), finite branch point.** If `E' = E(s)` with
+`s^n = c (X − b)` (`c ≠ 0`) and every prime of `B` over `X − b` has ramification index dividing
+`n`, then `E'/ℚ(s)` is unramified over `s = 0`. Proof: T2 (`PkgI2.AbhyankarDVR`) for the DVR
+`ℚ[X]_(X−b)` with uniformizer `c (X − b) = s^n` gives `e = n` over `X = b` for every prime of
+`E'`; `ℚ(s)/ℚ(X)` is totally ramified of index `n` at `s = 0`, and `e` is multiplicative in
+towers. -/
+def KummerAbhyankarFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rFin b c n) →
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime → Q.under ℚ[X] = Ideal.span {X - C b} →
+      Q.ramificationIdx ℚ[X] ∣ n) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.under ℚ[X] = Ideal.span {X} →
+      Q'.ramificationIdx ℚ[X] = 1
+
+/-- `KummerAbhyankarFin` is glue whose proof uses the bundle leaf T2. -/
+def KummerAbhyankarFinGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerAbhyankarFin
+
+/-! ### The case at `∞` -/
+
+/-- **Glue from T2 (Abhyankar's lemma), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`
+(`c ≠ 0`) and every prime of the integral closure of `ℚ[1/X]` in `E` over `1/X` has ramification
+index dividing `n`, then `E'/ℚ(s)` is unramified over `s = 0`. Proof: T2 for the DVR
+`ℚ[1/X]_(1/X)` with uniformizer `c · (1/X) = s^n`, and multiplicativity of `e`. -/
+def KummerAbhyankarInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rInf c n) →
+    (letI := infAlg E
+      ∀ Q : Ideal (integralClosure InfCoord E), Q.IsPrime →
+        Q.under InfCoord = Ideal.span {infUnif} → Q.ramificationIdx InfCoord ∣ n) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.under ℚ[X] = Ideal.span {X} →
+      Q'.ramificationIdx ℚ[X] = 1
+
+/-- `KummerAbhyankarInf` is glue whose proof uses the bundle leaf T2. -/
+def KummerAbhyankarInfGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerAbhyankarInf
+
+
 end TsKummer
-#print axioms TsKummer.abhyankar_core
+
+namespace TsKummer
+
+/-- `ℚ[X] → E'` through `ℚ(s)` is injective. -/
+theorem polyMap_injective (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] : Function.Injective (algebraMap ℚ[X] E') := by
+  rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E']
+  exact (algebraMap (RatFunc ℚ) E').injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+
+/-- `KummerShape` gives `E' = E(s)` as an intermediate-field statement. -/
+theorem adjoin_eq_top_of_shape {E E' : Type} [Field E] [Field E'] [Algebra (RatFunc ℚ) E]
+    [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E'] [IsScalarTower ℚ[X] (RatFunc ℚ) E']
+    (ι : E →+* E') (r : RatFunc ℚ) (h : KummerShape E E' ι r) :
+    letI := ι.toAlgebra
+    IntermediateField.adjoin E {algebraMap ℚ[X] E' X} = ⊤ := by
+  letI := ι.toAlgebra
+  apply IntermediateField.toSubfield_injective
+  rw [IntermediateField.adjoin_toSubfield, IntermediateField.top_toSubfield,
+    IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E', RatFunc.algebraMap_X]
+  exact h.2
+
+/-- An integral element for `σ` makes the whole polynomial ring integral (if `σ` fixes constants). -/
+theorem isIntegral_of_X (σ : ℚ[X] →+* ℚ[X]) (hC : ∀ a : ℚ, σ (C a) = C a)
+    (hX : σ.IsIntegralElem X) : σ.IsIntegral := by
+  intro f
+  induction f using Polynomial.induction_on with
+  | C a => rw [← hC a]; exact σ.isIntegralElem_map
+  | add f g hf hg => exact RingHom.IsIntegralElem.add σ hf hg
+  | monomial k a _ =>
+    rw [pow_succ, ← mul_assoc]
+    exact RingHom.IsIntegralElem.mul σ (by assumption) hX
+
+/-- **`KummerAbhyankarFinGlue` is proved** (from T2, via `abhyankar_core`). -/
+theorem kummerAbhyankarFinGlue : KummerAbhyankarFinGlue := by
+  intro t2 E _ _ _ _ _ E' _ _ _ _ _ ι b c n hn hc hshape hE Q' hQ'p hQ'
+  have hcu : IsUnit (C c : ℚ[X]) := Polynomial.isUnit_C.mpr (Ne.isUnit hc)
+  let σ : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C b + C c⁻¹ * X ^ n)
+  have hσC : ∀ a : ℚ, σ (C a) = C a := fun a => by simp [σ]
+  have hσX : σ X = C b + C c⁻¹ * X ^ n := by simp [σ]
+  have hsn : σ (C c * (X - C b)) = X ^ n := by
+    rw [map_mul, map_sub, hσC, hσC, hσX, add_sub_cancel_left, ← mul_assoc, ← C_mul,
+      mul_inv_cancel₀ hc, C_1, one_mul]
+  have hXint : σ.IsIntegralElem X := by
+    refine ⟨X ^ n - C (C c * (X - C b)), Polynomial.monic_X_pow_sub_C _ hn.ne', ?_⟩
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, hsn, sub_self]
+  have hσ : ∀ x, algebraMap ℚ[X] E' (σ x) = ι (algebraMap ℚ[X] E x) := by
+    have : (algebraMap ℚ[X] E').comp σ = ι.comp (algebraMap ℚ[X] E) := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        have := RingHom.ext_rat (((algebraMap ℚ[X] E').comp σ).comp C)
+          ((ι.comp (algebraMap ℚ[X] E)).comp C)
+        exact congrArg (fun g => g a) this
+      · simp only [RingHom.comp_apply]
+        rw [hσX, IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+          IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E', RatFunc.algebraMap_X, hshape.1]
+        congr 1
+        rw [rFin, eq_div_iff ((map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+          (C_ne_zero.mpr hc)), ← map_mul]
+        congr 1
+        have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+        rw [C_mul]
+        linear_combination (X ^ n) * h1
+    intro x
+    exact congrArg (fun g => g x) this
+  haveI : (Ideal.span {C c * (X - C b)} : Ideal ℚ[X]).IsPrime := by
+    rw [Ideal.span_singleton_mul_left_unit hcu]
+    exact (Ideal.span_singleton_prime (X_sub_C_ne_zero b)).mpr (prime_X_sub_C b)
+  haveI : (Ideal.span {X} : Ideal ℚ[X]).IsPrime :=
+    (Ideal.span_singleton_prime X_ne_zero).mpr prime_X
+  refine abhyankar_core t2 ℚ[X] (RatFunc ℚ) E E' ℚ[X] ι σ hσ (isIntegral_of_X σ hσC hXint)
+    (polyMap_injective E') (C c * (X - C b)) (mul_ne_zero (C_ne_zero.mpr hc) (X_sub_C_ne_zero b))
+    X X_ne_zero n hn hsn (adjoin_eq_top_of_shape ι _ hshape) ?_ Q' hQ'
+  intro Q hQ hQu
+  rw [Ideal.span_singleton_mul_left_unit hcu] at hQu
+  exact hE Q hQ hQu
+
+end TsKummer
+
+#print axioms TsKummer.kummerAbhyankarFinGlue
