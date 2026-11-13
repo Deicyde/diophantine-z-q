@@ -15,8 +15,8 @@ read them in the source. The source is not on this host, so no locator was re-re
 Layout.
 * §1. The three readings A, B, C of TYZ Theorem 3.5(2) for `n ≡ 5 (mod 8)` in its case
   `𝓛(n) = 0`, over genuine definitions; reading A in its literal two-sum form is
-  `TYZThm35ReadingA` (`readingA_iff`). B, C (and A′) are false (nt-tyz §1.4, exact computation at
-  `n = 26565`); `not_readingB_of` records the shape of the refutation.
+  `TYZThm35ReadingA` (`readingA_iff`). B, C (and rv-nt-tyz's D) are false (nt-tyz §1.4, exact computation at
+  `n = 26565`); `not_reading_of` records the shape of the refutation.
 * §2. TYZ's `𝓛` pinned by genuine definitions: on the classes `1, 3 (mod 8)` by the value at `s = 1`
   of the continuation of `L(C_m, s)` and the explicit period `Ω_m` (TYZ L338–353), on the class
   `5` by its zero set (TYZ L338–345). The leaves `TYZThm11Integral`, `TYZLcalOne`,
@@ -82,11 +82,11 @@ abbrev Thm35ReadingB : Prop := Thm35Reading S51B
 /-- Reading C (`d₁ > 1` distinguished). False: nt-tyz §1.4. -/
 abbrev Thm35ReadingC : Prop := Thm35Reading S51C
 
-/-- Reading A′ (found in this task's review, not in nt-tyz): `d₁ = 1` admitted *and* `d₁`
-distinguished, so a partition with `k` class-1 blocks is counted `k + 1` times
-(`d₁ = 1` or `d₁` one of the blocks). Its `(5, 1)` part is `T_5a + S₅₁^C`. False by the same
-computation as C (at `n = 26565`, `T_5a = 0`, `S₅₁^C = 1`). -/
-abbrev Thm35ReadingA' : Prop := Thm35Reading fun n => T5aCl n + S51C n
+/-- Reading D (rv-nt-tyz §5, finding A1): `d₁ = 1` admitted *and* `d₁` distinguished, so a
+partition with `k` class-1 blocks is counted `k + 1` times (`d₁ = 1` or `d₁` one of the blocks).
+Its `(5, 1)` part is `T_5a + S₅₁^C`. False, refuted in rv-nt-tyz at `n = 26565, 33117`
+(`T_5a = T_5b = 0`, `S₅₁^C = 1`). -/
+abbrev Thm35ReadingD : Prop := Thm35Reading fun n => T5aCl n + S51C n
 
 /-- **Reading A in its literal two-sum form is the premise `TYZThm35ReadingA`.** -/
 theorem readingA_iff : Thm35ReadingA ↔ TYZThm35ReadingA := by
@@ -101,8 +101,8 @@ theorem readingA_iff : Thm35ReadingA ↔ TYZThm35ReadingA := by
 
 /-- The shape of the refutation of a reading (nt-tyz §1.4): one `n ≡ 5` with `ord ≥ 2`,
 `T_5a(n) = T_5b(n) = 0` and odd `S₅₁(n)` refutes it. At `n = 26565 = 3·5·7·11·23` (and
-`n = 33117`) this holds for B and C: `rank C_n(ℚ) = 3` (three explicit points, Kummer images of
-dimension 5), hence `ord ≥ 2` by Gross–Zagier–Kolyvagin; `T_5a = T_5b = 0` and
+`n = 33117`) this holds for B, C and D: `rank C_n(ℚ) ≥ 3` (three explicit points, Kummer images of
+dimension 5; PARI's `ellrank` gives `= 3`), hence `ord ≥ 2` by Gross–Zagier–Kolyvagin; `T_5a = T_5b = 0` and
 `S51B = S51C = 1` with certified class groups (VERIFIED by nt-tyz, `scratch/nt-tyz/`; not
 re-run here). -/
 theorem not_reading_of {S51 : ℕ → ZMod 2} {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n)
@@ -156,15 +156,15 @@ def IsTYZLcal (ℓ : ℕ → ℤ) : Prop :=
     (ℓ n = 0 ↔ ¬ ∃ F : ℂ → ℂ, IsLContinuation (curveC n) F ∧ analyticOrderAt F 1 ≤ 1))
 
 /-- **Leaf TYZ-1.1a (TYZ Theorem 1.1, first assertion, odd case)**: for odd squarefree
-`m ≡ 1, 3 (mod 8)`, `𝓛(m)` is an integer. TYZ Theorem 1.1 (L371–380, for `n ≡ 1, 2, 3`) and
-Theorem 3.5(1); refereed (journal number of Theorem 1.1 UNVERIFIED: §1 was renumbered). -/
+`m ≡ 1, 3 (mod 8)`, `𝓛(m)` is an integer. TYZ Theorem 1.1 (L371–380, for `n ≡ 1, 2, 3`);
+refereed (journal number of Theorem 1.1 UNVERIFIED: §1 was renumbered). -/
 def TYZThm11Integral : Prop :=
   ∀ m : ℕ, Squarefree m → (m % 8 = 1 ∨ m % 8 = 3) → ∃ ℓ : ℤ, (ℓ : ℂ) ^ 2 = lcalSq m
 
 /-- **Leaf TYZ-L1 (`𝓛(1) = 1`)**: `L(E₁, 1) = Ω₁/8 = ¼ ∫₁^∞ dx/√(x³−x)`. TYZ L1082 ("Since
-`𝓛(1) = 1`", asserted); the classical value of `L(E, 1)` for `y² = x³ − x` (BSD for the conductor-32
-CM curve: Coates–Wiles, Rubin; or a direct evaluation of the Hecke L-value; exact textbook locator
-UNVERIFIED). Numerically VERIFIED to 10 digits (`scratch/rv-nt-tyz/calL_small.py`). -/
+`𝓛(1) = 1`", asserted); the exact value `L(E, 1)/Ω = 1/8` for `y² = x³ − x` (32a2), an exact
+evaluation (modular symbols, e.g. Cremona's tables; or Tunnell, Invent. Math. 72 (1983), at `n = 1`;
+locators UNVERIFIED). Not a consequence of the known cases of BSD: the factor `1/8` sits at `p = 2`. Numerically VERIFIED to 10 digits (`scratch/rv-nt-tyz/calL_small.py`). -/
 def TYZLcalOne : Prop := lcalSq 1 = 1
 
 /-- **Leaf TYZ-2.9 (TYZ Lemma 2.9 with Proposition 2.3, modulo 2)**, for every sign choice `ℓ` of

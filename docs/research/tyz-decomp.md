@@ -37,8 +37,8 @@ journal locators are UNVERIFIED.
 | `TYZThm11Integral` | TYZ Theorem 1.1, first assertion (L371–380), odd case | yes (journal number UNVERIFIED) | **yes** |
 | `TYZLcalOne` | TYZ L1082 ("Since `𝓛(1) = 1`", asserted); classical value of `L(E₁, 1)` | yes (asserted, not proved, in TYZ) | **yes** |
 | `TYZLemma29Mod2` (or the alternative `TYZThm11Mod2`) | TYZ Lemma 2.9 (L1062–1066) with Proposition 2.3 (L580–586), mod 2 (resp. Theorem 1.1, congruence, set-partition reading) | yes (Lemma 2.9: same number in the journal per `locators.md`) | **yes** |
-| `TYZGenusPackage` | TYZ §3: recursion (L1325–1330), Theorem 3.3 `ε`-classes (L1299–1311), Theorem 3.5 first assertion (L1353–1356, L1295), `τ` facts (L1383–1404, from Tian, Cambridge J. Math. 2 (2014)), Lemmas 3.16, 3.18, 3.21(1),(4) (L2182–2185, L2230–2232, L2504–2516), plus F4 (standard, unprinted) | yes, except F4 | **no**: bundled existential over the abstract `PropN.GenusData` (§3) |
-| `CurveA.TYZLemma316` (statable now; a field of the package, not used by the glue) | TYZ Lemma 3.16, second assertion (L2182–2185) | yes | **yes** |
+| `TYZGenusPackage` | TYZ §3: recursion (L1325–1330), Theorem 3.3 `ε`-classes (L1299–1311), Theorem 3.5 first assertion (L1353–1356, L1295), `τ` facts (L1383–1404, from Tian, Cambridge J. Math. 2 (2014)), Lemmas 3.16, 3.18, 3.21(1),(4) (L2182–2185, L2230–2232, L2504–2516), plus F4 (standard, unprinted) | yes, except F4; but see caveats 3–4 (field-by-field faithfulness reviewed by AI only; Theorem 3.3's constant rests on a computation TYZ do not print) | **no**: bundled existential over the abstract `PropN.GenusData` (§3) |
+| `CurveA.TYZLemma316` (statable now; an input to the justification of the package fields `β_τ`, `tors_mem_range`; not used by the glue) | TYZ Lemma 3.16, second assertion (L2182–2185) | yes | **yes** |
 
 Hecke's continuation, which the premise and the leaves presuppose, is a theorem of the fork
 (`ZInQ.Contrib.heckeContinuation`), not a leaf.
@@ -57,7 +57,7 @@ Hecke's continuation, which the premise and the leaves presuppose, is a theorem 
    would be unprovable (the rv-g0pieces failure mode). §3 lists the missing objects and the field-by-field
    sources, and §4.2 says what a pinned version needs.
 4. `readingA_iff`: reading A of TYZ Theorem 3.5(2), stated literally over genuine definitions (both sums),
-   *is* the premise. Readings B, C and a fourth reading A′ found in this task's review are stated too; all
+   *is* the premise. Readings B, C and the fourth reading D of rv-nt-tyz §5 are stated too; all
    three are false (nt-tyz §1.4 numbers; `not_reading_of` is the shape of the refutation).
 5. A finding about the existing encoding (F0, VERIFIED, already in the fork): by
    `ZInQ.Contrib.PSide.tyzInputs_iff_readingA_of_hecke`, the existing `PropN.TYZInputs`, whose `L` and
@@ -201,7 +201,7 @@ def Thm35Reading (S51 : ℕ → ZMod 2) : Prop :=
 | A: `d₁ = 1` admitted, set partitions | `T_5a(n)` | `Thm35ReadingA := Thm35Reading T5aCl` | **the one the route needs**; `readingA_iff : Thm35ReadingA ↔ TYZThm35ReadingA`; printed only by Smith (unrefereed) |
 | B: all `d_i > 1`, non-ordered (literal Theorem 1.2/1.4) | partitions with ≥ 2 blocks (`= T_5a + g(n)`, nt-tyz) | `Thm35ReadingB := Thm35Reading S51B` | false (`n = 26565`: `T_5a = T_5b = 0`, `S51B = 1`, `ord ≥ 2`) |
 | C: `d₁ > 1` distinguished | `Σ_π k(π) w(π)`, `k` = number of class-1 blocks | `Thm35ReadingC := Thm35Reading S51C` | false (same `n`, `S51C = 1`) |
-| A′: `d₁ = 1` admitted *and* distinguished (new here) | `T_5a + Σ_π k(π) w(π)` | `Thm35ReadingA'` | false (same `n`: `0 + 1`) |
+| D (rv-nt-tyz §5): `d₁ = 1` admitted *and* distinguished | `T_5a + Σ_π k(π) w(π)` | `Thm35ReadingD` | false (same `n`: `0 + 1`; refuted in rv-nt-tyz) |
 
 The hypothesis "`2^{−ρ(n)}𝓛(n)` even" is used only in its case `𝓛(n) = 0`, which is `ord_{s=1} ≥ 2` by the
 definition of `𝓛` (L338–345); so `Thm35Reading` is weaker than the printed theorem (case `𝓛(n) ≠ 0` even
@@ -259,9 +259,10 @@ def TYZThm11Mod2 : Prop :=
 rv-pn-encoding compared with the source; `Lam` is `PropN.Lam`, the set-partition sum.)
 
 * `TYZThm11Integral` is Theorem 1.1's first assertion restricted to odd `m` (weaker than printed).
-* `TYZLcalOne` is the number `L(C₁, 1) = ¼∫₁^∞dx/√(x³−x)` (`≈ 0.6555`); TYZ assert it (L1082). Classical
-  (BSD for `32a`, a CM curve of rank 0: `L/Ω = 1/8` with `Ω = 2∫₁^∞`); textbook locator UNVERIFIED;
-  numerically VERIFIED (`calL_small.py`).
+* `TYZLcalOne` is the number `L(C₁, 1) = ¼∫₁^∞dx/√(x³−x)` (`≈ 0.6555`); TYZ assert it (L1082). It is the
+  exact evaluation `L(E, 1)/Ω = 1/8` for 32a2 (`Ω = 2∫₁^∞`), from modular symbols (Cremona's tables) or
+  Tunnell (Invent. Math. 72 (1983), `n = 1`); locators UNVERIFIED. It does not follow from the known cases
+  of BSD (the factor `1/8` sits at `p = 2`). Numerically VERIFIED (`calL_small.py`).
 * `TYZLemma29Mod2` is unambiguous: the signs `ε` and the odd factor `w_K` at `m = 3` (rv-nt-tyz B1) vanish
   mod 2, and the universal quantifier over sign choices is harmless because `ℓ = ±𝓛` pointwise.
 * `TYZThm11Mod2` is the alternative: Theorem 1.1's congruence, in the set-partition reading that Lemma N1
@@ -310,8 +311,9 @@ TYZ's `A : 2y² = x³ + x` is `ℚ`-isomorphic to `y² = x³ + 4x` by `(x, y) �
 `= X₀(32)`; rv-tyz-inputs §1.5a). The isomorphism commutes with `[i]` and `Gal(ℚ̄/ℚ)` and preserves
 fields of definition. `A[(1+i)³] = {P : 2(P + [i]P) = 0}` because `(1+i)³ = 2i(1+i)` and `[i]` is an
 additive automorphism; the statement is independent of the choice of `i` (`(1−i)³` generates the same
-ideal). The leaf is a field of the package (`β_τ` and `tors_mem_range` go through `A[(1+i)³] = A(ℚ(i))`),
-but in the package it is stated over the abstract `M`, so the glue does not use `TYZLemma316`; it is
+ideal). The leaf is not a field of the package: it is one of the TYZ inputs that justify the fields `β_τ` and
+`tors_mem_range` (with L2581 and Lemma 3.18), which are stated over the abstract `M`; so the glue does
+not use `TYZLemma316`; it is
 included to show which TYZ inputs are statable over Mathlib today. Non-vacuity: `A(ℚ(i))` has the 8 points
 `O, (0,0), (2,±4), (−2,±4i), (±2i,0)` (rv-tyz-inputs §1.5a), and `lemma316_zero` checks `O`.
 
@@ -323,7 +325,9 @@ Beyond Proposition N (already in Lean), the glue is:
 
 * `isTYZLcal_lcalChoice`: from `TYZThm11Integral` and `TYZLcalOne`, a pinned `ℓ` exists (on class 5:
   `1` or `0` by the zero set). This is what makes the universal leaves `TYZLemma29Mod2`, `TYZThm11Mod2`
-  and `TYZGenusPackage` non-vacuous.
+  and `TYZGenusPackage` non-vacuous *given* `TYZThm11Integral` and `TYZLcalOne` (if the normalization of
+  `lcalSq` were wrong, those three could be vacuously true on their own; the glue stays sound because it
+  consumes all leaves together).
 * `tyzInputs_of_leaves`: the four leaves give `PropN.TYZInputs` with `L := lcalChoice` (I7 is the class-5
   clause of `IsTYZLcal`, by contraposition).
 * `tyzThm35ReadingA_of_leaves` (and `'` with `TYZThm11Mod2`): the premise.
@@ -372,11 +376,11 @@ does each clause pin the object it names; could it be vacuous; could it be stron
 |---|---|---|---|---|
 | `TYZThm11Integral` | yes: `lcalSq m` is `L(C_m,1)` (unique continuation) over an explicit real number. The model `shortCurve (−m²)` has `Δ = 64m⁶`, so `v_p(Δ) ≤ 6 < 12` at every prime for odd squarefree `m` and the model is minimal; even a model-dependent `LSeries` would give `L(E_m, s)` | no (an existential over `ℤ` with a fixed target; false if the normalization were wrong, not vacuous) | no: restricted to odd `m ≡ 1, 3`; signs free | OK. Residual risk: the normalization is a second-hand transcription (not re-read); a wrong power of 4 would make this leaf or `TYZLemma29Mod2` false, which the numerics of rv-tyz-inputs exclude on ~200 values |
 | `TYZLcalOne` | yes (a closed numerical identity) | no | no | OK; TYZ only assert it; classical value |
-| `TYZLemma29Mod2` | yes on classes 1, 3; `LemmaTwoEight` reads `ℓ` only on squarefree divisors of classes 1, 3 | universal over `ℓ`; non-vacuous because pinned `ℓ` exist (`isTYZLcal_lcalChoice`) | no: mod 2, signs and `w_K` drop; restricted to odd `m` | OK |
+| `TYZLemma29Mod2` | yes on classes 1, 3; `LemmaTwoEight` reads `ℓ` only on squarefree divisors of classes 1, 3 | universal over `ℓ`; non-vacuous given `TYZThm11Integral` and `TYZLcalOne` (`isTYZLcal_lcalChoice`) | no: mod 2, signs and `w_K` drop; restricted to odd `m` | OK |
 | `TYZThm11Mod2` | yes | as above | depends on reading "non-ordered, `d_i > 1`" as set partitions; Lemma N1 shows this is the only reading consistent with Lemma 2.9 | OK as an alternative; prefer `TYZLemma29Mod2` (unambiguous) |
-| `TYZGenusPackage` | **no** for `M, Z, P, ε, τ, β` (existential, by design); yes for `ℓ` (pinned) and `g` (genuine class group) | universal over `ℓ` (non-vacuous as above); each instance has real content (`genusData_nonempty_iff`) | no, given pn-design §2 and rv-pn-encoding (AI): every field is a consequence of a printed TYZ statement, except F4 (standard). Universal over sign choices: checked above | OK as one bundled leaf; **must not be split** (§3.2). Its trust is that of reading A (`genusPackage_iff_readingA`) |
+| `TYZGenusPackage` | **no** for `M, Z, P, ε, τ, β` (existential, by design); yes for `ℓ` (pinned) and `g` (genuine class group) | universal over `ℓ` (non-vacuous given `TYZThm11Integral`, `TYZLcalOne`); each instance has real content (`genusData_nonempty_iff`) | no, given pn-design §2 and rv-pn-encoding (AI): every field is a consequence of a printed TYZ statement, except F4 (standard). Universal over sign choices: checked above | OK as one bundled leaf; **must not be split** (§3.2). Its trust is that of reading A (`genusPackage_iff_readingA`) |
 | `CurveA.TYZLemma316` | yes (genuine curve, `ℚ̄`, `ℚ(i)`, explicit `[i]`) | no (8 points on each side; `O` checked) | no: exactly the printed second assertion, transported along a `ℚ`-isomorphism commuting with `[i]` | OK; not used by the glue |
-| `Thm35Reading S51` (readings) | yes (`T5aCl`, `T5bCl`, `S51B`, `S51C` are genuine finite sums) | no | weaker than Theorem 3.5(2) (only the case `𝓛(n) = 0`) | OK. New in this review: reading A′, also false |
+| `Thm35Reading S51` (readings) | yes (`T5aCl`, `T5bCl`, `S51B`, `S51C` are genuine finite sums) | no | weaker than Theorem 3.5(2) (only the case `𝓛(n) = 0`) | OK. Reading D (rv-nt-tyz §5) included, also false |
 
 Further points checked:
 
@@ -393,6 +397,27 @@ Further points checked:
   recursion of `d = d₀d₁`, so the adjustment is consistent.
 * *rv-g0pieces failure mode.* The only leaf with unpinned objects is the package, and it is not split; no
   two leaves share an unpinned object. The three genuine leaves share `lcalSq`, which is pinned.
+
+### 5.1 Second, independent review (AI subagent, 2026-11-13)
+
+An independent model reviewer read the two Lean files and this note against nt-tyz, pn-design,
+rv-tyz-inputs, rv-pn-encoding, `TYZInputs.lean`, `PropN.lean` and the PARI scripts, without seeing the
+review above. **No blocker.** It confirmed the pinning of `omegaInt`, `lcalSq` (including that a uniform
+normalization error would break `TYZLcalOne` and a `k`-dependent one integrality, since `𝓛(3) = ±1`),
+`lValOne`, `IsTYZLcal`, the soundness of quantifying over sign choices, the readings, `readingA_iff`, and
+`TYZLemma316` (model transport, `ker[(1+i)³]`, the 8 points). Its findings and their disposition:
+
+| # | finding | disposition |
+|---|---|---|
+| 1 | the fourth reading is rv-nt-tyz §5 reading D (already refuted there), not new | fixed: renamed `Thm35ReadingD`, credited |
+| 2 | `TYZLcalOne` was justified by "BSD (Coates–Wiles, Rubin)", which cannot give the 2-part `1/8` | fixed: exact evaluation (modular symbols / Tunnell), locators UNVERIFIED |
+| 3 | stale name `not_readingB_of` in the module docstring | fixed |
+| 4 | "Theorem 3.5(1)" cited for integrality on classes 1, 3 (Theorem 3.5 is about `n ≡ 5, 6, 7`) | fixed: dropped |
+| 5 | Lemma 3.16 called "a field of the package" | fixed: "an input to the justification of `β_τ`, `tors_mem_range`" |
+| 6 | non-vacuity of the universal leaves is conditional on `TYZThm11Integral`, `TYZLcalOne` | fixed in §4.1 and the table |
+| 7 | "`rank = 3`" in a docstring where only `≥ 3` is proved by the Kummer images | fixed |
+| 8 | the integrability of the `omegaInt` integrand is argued in prose only | see §5.2 |
+| 9 | the §0 table should point the package's "refereed" entry to caveats 3–4 | fixed |
 
 ## 6. Recommended citation and next steps
 

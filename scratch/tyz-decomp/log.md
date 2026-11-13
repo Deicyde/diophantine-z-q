@@ -36,3 +36,8 @@
   so lcalSq 1 = 8 L / Omega_1 = 1; agrees with calL_small.py (VERIFIED there by PARI).
 - 06:40 CurveA.lean extended and COMPILES: slope_iPt, iPt_some, iPt_add ([i] additive on A(Qbar)),
   iHom : PtA →+ PtA, iPt_iPt ([i]^2 = -1). Axioms standard three. (Report §4.2 item 1, first half.)
+- 07:30 independent AI review (subagent) of TYZDecomp.lean, CurveA.lean, tyz-decomp.md: no blocker,
+  9 findings (provenance of reading A' = rv-nt-tyz reading D; TYZLcalOne justification; stale names;
+  Thm 3.5(1) mis-cite; Lemma 3.16 "field" overclaim; conditional non-vacuity; rank >= 3; omegaInt
+  integrability only in prose; caveats in §0 table). 1-7, 9 fixed (Thm35ReadingA' renamed
+  Thm35ReadingD); TYZDecomp.lean recompiled OK.
