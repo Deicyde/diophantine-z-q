@@ -111,5 +111,52 @@ theorem commute_quat_scalar (I J : M2) (hI : I * I = (2 : K) • 1) (hJ : J * J 
   refine ⟨g 0, ?_⟩
   rw [hg1, hg2, hg3]; simp
 
+section AdjRoot
+
+open Polynomial
+
+variable (d : ℚ)
+
+/-- `X² − d` is irreducible over `ℚ` for `d < 0`. -/
+theorem irred_sq_sub (hd : d < 0) : Irreducible (X ^ 2 - C d : ℚ[X]) :=
+  X_pow_sub_C_irreducible_of_prime Nat.prime_two (fun b hb => by nlinarith [sq_nonneg b])
+
+theorem monic_sq_sub : (X ^ 2 - C d : ℚ[X]).Monic := monic_X_pow_sub_C _ two_ne_zero
+
+theorem finrank_adjRoot : Module.finrank ℚ (AdjoinRoot (X ^ 2 - C d : ℚ[X])) = 2 := by
+  rw [(AdjoinRoot.powerBasis' (monic_sq_sub d)).finrank]
+  exact natDegree_X_pow_sub_C
+
+theorem finite_adjRoot : Module.Finite ℚ (AdjoinRoot (X ^ 2 - C d : ℚ[X])) :=
+  (AdjoinRoot.powerBasis' (monic_sq_sub d)).finite
+
+theorem root_sq : (AdjoinRoot.root (X ^ 2 - C d : ℚ[X])) ^ 2 =
+    algebraMap ℚ (AdjoinRoot (X ^ 2 - C d : ℚ[X])) d := by
+  have h := AdjoinRoot.eval₂_root (X ^ 2 - C d : ℚ[X])
+  simp only [eval₂_sub, eval₂_X_pow, eval₂_C] at h
+  rw [AdjoinRoot.algebraMap_eq]
+  exact sub_eq_zero.mp h
+
+/-- For `d < 0`, `ℚ(√d)` (as `AdjoinRoot`, with its field structure) is a totally complex
+quadratic number field. -/
+theorem adjRoot_numberField (hd : d < 0) :
+    letI : Fact (Irreducible (X ^ 2 - C d : ℚ[X])) := ⟨irred_sq_sub d hd⟩
+    NumberField (AdjoinRoot (X ^ 2 - C d : ℚ[X])) ∧
+      NumberField.IsTotallyComplex (AdjoinRoot (X ^ 2 - C d : ℚ[X])) := by
+  let : Fact (Irreducible (X ^ 2 - C d : ℚ[X])) := ⟨irred_sq_sub d hd⟩
+  have : CharZero (AdjoinRoot (X ^ 2 - C d : ℚ[X])) :=
+    charZero_of_injective_algebraMap (algebraMap ℚ (AdjoinRoot (X ^ 2 - C d : ℚ[X]))).injective
+  have := finite_adjRoot d
+  refine ⟨{}, ⟨fun v => ?_⟩⟩
+  rw [← NumberField.InfinitePlace.not_isReal_iff_isComplex]
+  rintro ⟨φ, hφ, -⟩
+  have h2 : (hφ.embedding (AdjoinRoot.root (X ^ 2 - C d : ℚ[X]))) ^ 2 = (d : ℝ) := by
+    have := congrArg hφ.embedding (root_sq d)
+    rwa [map_pow, eq_ratCast (algebraMap ℚ (AdjoinRoot (X ^ 2 - C d : ℚ[X]))) d,
+      map_ratCast] at this
+  have hd' : (d : ℝ) < 0 := by exact_mod_cast hd
+  nlinarith [sq_nonneg (hφ.embedding (AdjoinRoot.root (X ^ 2 - C d : ℚ[X])))]
+
+end AdjRoot
+
 end FS5NoCM
-#print axioms FS5NoCM.commute_quat_scalar
