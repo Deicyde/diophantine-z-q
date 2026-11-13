@@ -10,6 +10,8 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Re
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.FinitePlace
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.InfinitePlace
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.CharacterCarry
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleLocalization
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.LiftingObstruction
 
 /-!
 # Local–global compatibility of the global Artin map

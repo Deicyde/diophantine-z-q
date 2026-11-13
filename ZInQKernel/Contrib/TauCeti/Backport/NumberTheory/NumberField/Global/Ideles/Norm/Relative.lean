@@ -9,6 +9,12 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Relative
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Norm.Continuity
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Extension
+public import ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Units
+public import ZInQKernel.Contrib.TauCeti.Topology.Algebra.ContinuousMonoidHom.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+import ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Index
 
 public section
 noncomputable section

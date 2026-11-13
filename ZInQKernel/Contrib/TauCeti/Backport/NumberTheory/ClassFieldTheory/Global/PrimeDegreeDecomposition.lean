@@ -11,6 +11,11 @@ module
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition
 public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.AbsoluteGaloisGroup
 public import ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic
+public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Map
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassField
+public import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.FrobeniusGeneration
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.AbsoluteGaloisGroup
 
 public section
 noncomputable section

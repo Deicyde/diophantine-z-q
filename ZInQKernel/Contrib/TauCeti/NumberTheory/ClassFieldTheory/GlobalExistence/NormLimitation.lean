@@ -9,8 +9,10 @@ module
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.AbelianLayer
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.ClassFormation
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup
 
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Reciprocity
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative
 
 /-!
 # Norm limitation and uniqueness for global norm subgroups

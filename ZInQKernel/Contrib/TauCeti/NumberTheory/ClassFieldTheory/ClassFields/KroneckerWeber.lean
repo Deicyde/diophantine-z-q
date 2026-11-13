@@ -11,6 +11,7 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExi
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Cyclotomic.RayClass
 
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RaySubgroup
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.RayClass.Rat
 
 /-!
 # The norm group of `ℚ(ζ_n)/ℚ` and the Kronecker–Weber theorem

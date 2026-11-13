@@ -9,6 +9,13 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.LocalizationKernel
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Compositum
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Splitting
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality
+import ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.Adjoin
+import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Torsion
 
 public section
 noncomputable section

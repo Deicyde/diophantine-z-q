@@ -10,6 +10,9 @@ module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.AbsoluteGaloisGroup
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Separable
+public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Map
+public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Restriction
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.DecompositionGroup
 
 public section
 noncomputable section

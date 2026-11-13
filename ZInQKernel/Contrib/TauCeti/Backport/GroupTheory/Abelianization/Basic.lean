@@ -9,6 +9,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.GroupTheory.Abelianization.Basic
+public import Mathlib.GroupTheory.Abelianization.Defs
 
 public section
 

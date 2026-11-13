@@ -9,6 +9,11 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.NormLimitation
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassField
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Refinement
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.Norm
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Open
 
 public noncomputable section
 

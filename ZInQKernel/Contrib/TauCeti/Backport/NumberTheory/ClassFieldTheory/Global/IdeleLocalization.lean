@@ -9,6 +9,20 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleLocalization
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.BaseChange
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Coefficients
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.InvariantSum
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Basic
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.FiniteAdele
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.InfiniteAdele
+import Mathlib.RingTheory.DedekindDomain.Different
+import ZInQKernel.Contrib.TauCeti.Data.DFinsupp.Basic
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Unramified
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.DecompositionGroup
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.RamificationIndex
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
+import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.PrimesAbove
 
 public section
 noncomputable section

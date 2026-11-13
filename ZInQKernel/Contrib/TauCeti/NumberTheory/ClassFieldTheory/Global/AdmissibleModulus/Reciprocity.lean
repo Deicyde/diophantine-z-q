@@ -9,7 +9,9 @@ module
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Ramification
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Frobenius
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.DecompositionGroup
+import ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Abelian.Basic
 
 /-!
 # Ray-class reciprocity

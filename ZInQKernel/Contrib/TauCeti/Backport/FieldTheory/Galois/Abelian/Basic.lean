@@ -9,6 +9,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Abelian.Basic
+public import Mathlib.FieldTheory.Galois.Abelian
 
 public section
 

@@ -13,6 +13,11 @@ public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Globa
 public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Away
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Exact
 public import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.DedekindDomain.AdicValuation.ValuativeRel
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Approximation.Weak
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.FiniteIdeal
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.Subgroup
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Basic
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Finite
 
 public section
 noncomputable section

@@ -9,6 +9,11 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.OpenSubgroup
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.Subgroup
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Connected
+import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Basic
+import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Connected
+import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Units
 
 public section
 noncomputable section

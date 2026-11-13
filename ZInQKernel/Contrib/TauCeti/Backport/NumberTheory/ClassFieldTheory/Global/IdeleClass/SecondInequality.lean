@@ -9,6 +9,12 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Index
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.FirstInequality
+import Mathlib.RingTheory.RootsOfUnity.AlgebraicallyClosed
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassField
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.CoprimeNorm
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeDegree
 
 public section
 noncomputable section

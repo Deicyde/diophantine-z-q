@@ -7,6 +7,10 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Norm
+public import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.ClassGroup.HeightOneSpectrum
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Units.LocalPowerClass
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.Ideles
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.Norm
 import Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure
 import Mathlib.NumberTheory.NumberField.Cyclotomic.Basic
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.FirstInequality

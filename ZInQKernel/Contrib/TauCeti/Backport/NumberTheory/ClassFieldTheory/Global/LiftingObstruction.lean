@@ -9,6 +9,10 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LiftingObstruction
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.CoefficientMap
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Formation
+public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.LongExact
+public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Periodic
 
 public noncomputable section
 

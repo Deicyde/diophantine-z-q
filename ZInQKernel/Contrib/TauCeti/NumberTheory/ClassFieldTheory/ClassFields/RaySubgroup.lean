@@ -11,6 +11,7 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClas
 
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormLimitation
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient
+import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient
 
 /-!
 # Extensions whose norm group is a ray subgroup

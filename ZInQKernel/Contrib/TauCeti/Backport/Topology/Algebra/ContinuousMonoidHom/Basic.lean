@@ -9,6 +9,13 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.Topology.Algebra.ContinuousMonoidHom.Basic
+public import Mathlib.Topology.Algebra.ContinuousMonoidHom
+public import Mathlib.Topology.Algebra.Group.Quotient
+public import Mathlib.Analysis.Complex.Basic
+public import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Units
+public import ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.FixedPoints
+public import ZInQKernel.Contrib.TauCeti.GroupTheory.OrderOfElement.Basic
+import Mathlib.RingTheory.RootsOfUnity.Basic
 
 public section
 

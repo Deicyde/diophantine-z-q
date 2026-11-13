@@ -11,6 +11,14 @@ module
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Rat
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.RingOfIntegers.Norm
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Ideal.IntegersRat
+public import Mathlib.Data.ZMod.QuotientRing
+public import Mathlib.Data.ZMod.Units
+public import Mathlib.RingTheory.Ideal.Norm.AbsNorm
+public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Exact
+import Mathlib.NumberTheory.NumberField.Units.Basic
+import ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.ZPowers
+import ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.KerEquiv
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Integral
 
 public section
 
