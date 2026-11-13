@@ -25,3 +25,4 @@
   new), every one exactly [propext, Classical.choice, Quot.sound]; no other output. The 65 new
   entries: scratch/hdec-adopt5a/axioms.txt. No line over 100 characters in the changed Lean files;
   `sorry`/`axiom` occur only in comments ("no `sorry`, no `axiom`").
+- 01:45 report docs/research/hdec-adopt5a.md written; adopt5a.py rerun: git status clean (byte-identical).
