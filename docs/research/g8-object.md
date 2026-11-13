@@ -3,6 +3,8 @@
 Task g8-object, 2026-11-13. Lean files:
 - `scratch/g8-object/part_obj.lean`: the object and the G15 restatement.
 - `scratch/g8-object/part_link.lean`: the full interface and the restated `GluePieces2` field.
+- `scratch/g8-object/part_split.lean`: `TmWild` split into a closed part, a `G_L`-clause and a
+  statement about `A/L` (§4.1).
 - `scratch/g8-object/part_ltcopy.lean`: a verbatim copy of three linked-tate Props.
 
 `scratch/g8-object/build.sh` assembles these into one checked environment,
@@ -29,9 +31,9 @@ true of the construction from Props on G7's data.**
 data `(Tm, a, β)`. `LocalDataG` implies `LocalData` for *every* `r` that carries G8's
 intertwining, and the proof is in Lean.
 
-VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 535 lines) exits 0 in 2 min with
-0 errors and no `sorry`. All 49 `#print axioms` reports are `[propext, Classical.choice,
-Quot.sound]`. They cover the 18 new theorems listed below plus the copied sources' own reports.
+VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 723 lines) exits 0 in 2 min with
+0 errors and no `sorry`. All 54 `#print axioms` reports are `[propext, Classical.choice,
+Quot.sound]`. They cover the 23 new theorems (§6) plus the copied sources' own reports.
 
 Main theorems (all in namespace `G8Object`):
 
@@ -178,6 +180,49 @@ The remaining glue on this route is `LinkedTateObj` (or `LinkedTateObjDR`). It c
      (N5 L797-798, L814-815).
    - At `p > D`, `L_v` is tame and so is its Galois closure (STANDARD).
 
+### 4.1 `TmWild` split further (part 3, `part_split.lean`; VERIFIED)
+
+`TmWild` is the one clause that mixes the `ℓ`-adic operators with the local field. It is split
+into three pieces.
+
+- **`ContainsL p L F`**: `F ⊇ j(L)` for an embedding `j : ℚ̄ → ℚ̄_p` with
+  `j(decomp σ x) = σ(j x)`.
+  - This is a closed condition on the chosen `F`. Such a `j` exists: it is the embedding that
+    `Field.absoluteGaloisGroup.map` chooses (g0-mod-newform's `decomp_spec`).
+  - `decomp_mem_fixing` (proved): it gives `decomp(G_F) ⊆ Fix(L)`.
+- **`OnL L A Tm a ψ`** (glue, independent of `p`; G7's `G_L`-clause after the Tate functor):
+  through `resQ L`, `a = 1` and `Tm = ψ⁻¹ ∘ tate_{A/L} ∘ ψ` for an isomorphism
+  `ψ : V_ℓ(A_{L'}) ≅ V_ℓ(A)`.
+  - It belongs with `TateBridge35`: it is the "`Tm_ℓ` from `m_σ`" content on `G_L`.
+  - Why true (SPECULATIVE in its Lean details): `DescentDatum` has `a = 1` and `m_σ = σ` on
+    `G_L`.
+  - `resQ L` uses the embedding `ℚ̄ → L̄` that Mathlib chooses. Its restriction to `L` may be a
+    nontrivial automorphism `σ₀` of the Galois field `L`. Then `V_ℓ(A_{L'})` is identified with
+    `V_ℓ(A^{σ₀})`, and the `L`-rational isogeny `μ_{σ₀} : A^{σ₀} → A` (`L` is the Hom field)
+    makes it `G_L`-isomorphic to `V_ℓ(A)`. So `ψ` exists in either case, which is why it is
+    existential.
+- **`WildTateTrivial p L A ℓ F`** (glue on `A/L` alone): for `σ ∈ G_F ∩ P_p` and `σ_L` with
+  `resQ L σ_L = decomp σ`, `tate_A(σ_L) = 1`. This is R6 + D2 at `p ≤ D`, and potential good
+  reduction at `p > D` (item 2 above).
+  - What remains is the transport of the kernel's `PkgI2.RaynaudCriterion` and
+    `D2_fixed_of_raynaud`, which are stated over a field with a DVR `O`, to `LadicCond`'s picture
+    `G_{ℚ_p} → G_ℚ`. g15-decomp's `ZInQ.Contrib.G15.Ladic` (`Lj j = ℚ_p(j L)`,
+    `decompEquivLj`, `mem_ramSet_iff`) is the natural starting point (SPECULATIVE).
+
+`tmWild_of_split` (proved, using g0-mod-field's `resQ_range`) gives `TmWild` from these three.
+`LocalDataS p L A ℓ β` is `LocalDataC` with `TmWild` replaced by `ContainsL ∧ WildTateTrivial`.
+It mentions only `G7Data`'s `L`, `A` and `β` and local fields: **no `ℓ`-adic operator**.
+`LinkedTateObjS` is `TateBridge35`'s data, `OnL` for `Tm₅` and `Tm₃`, and `LocalDataS`. The
+following are proved: `localDataC_of_S`, `linkedTateObj_of_S : LinkedTateObjS → LinkedTateObj`
+and `linkedTateData_of_S : T7 → LinkedTateObjS → LinkedTateData`.
+
+So the remaining glue on the split route is:
+- `TateBridge35` + `OnL`: the Tate functor on G7's descent datum, at `ℓ = 5, 3`, on `G_ℚ` and on
+  `G_L`;
+- `WildTateTrivial`: R6/D2 transported to `LadicCond`;
+- `BetaUpperC`/`BetaTameC`: T16/D3 on `G7Data`'s `β`;
+- the existence of `F`.
+
 On the object route (`interface_obj`), the other inputs are:
 - the leaves R9a, R9b, T26, T6, T7 and Burnside, and glue-ssbc's proved `SemisimpleBaseChange`;
 - g0-mod-newform's `DirichletOfFinite` (a `GluePieces2` field);
@@ -226,7 +271,7 @@ Assembly notes (VERIFIED):
 
 - `lake env lean scratch/g8-object/Dev.lean` (G15Ram + g0-mod-galois definitions + part_obj;
   45 s): exit 0, 0 errors. Axioms standard for the 7 part-1 theorems (VERIFIED, `dev.out`).
-- `lake env lean scratch/g8-object/G8Object.lean` (2 min 3 s): exit 0, 0 errors, 0 `sorry`. All 49
+- `lake env lean scratch/g8-object/G8Object.lean` (1 min 53 s): exit 0, 0 errors, 0 `sorry`. All 54
   axiom reports are `[propext, Classical.choice, Quot.sound]` (VERIFIED, `obj.out`). The new
   ones are:
   - `DescData.intertwines`, `DescData.g8Out`, `mat_eq_scalar_of_intertwines`,
@@ -235,4 +280,6 @@ Assembly notes (VERIFIED):
     `modularConstituent_tail_obj`;
   - `localDataG_of_C`, `rhoRamWild_of_localDataG`, `localRamWild_of_rhoRamWild`;
   - `linkedTateData_of_obj`, `linkedTateCore_of_obj`, `linkedTateCoreDR_of_objDR`,
-    `tateBridge35_of_objDR`, `localDataG_triv`.
+    `tateBridge35_of_objDR`, `localDataG_triv`;
+  - `decomp_mem_fixing`, `tmWild_of_split`, `localDataC_of_S`, `linkedTateObj_of_S`,
+    `linkedTateData_of_S`.
