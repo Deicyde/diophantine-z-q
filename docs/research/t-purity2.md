@@ -31,29 +31,41 @@ kernel's own definition; nothing is copied except proofs.
 
    The finite-place content of T15 (`|Br(ℚ_p)[2]| = 2`, local class field theory) is **not
    proved**, and neither is T14 (§4).
-3. **T1 (Zariski–Nagata, `PkgI2.PurityBranchLocus`) is equivalent to a narrower leaf T1′.**
-   T1′ = `TPurity2K.PurityBranchLocusFiniteGe2`: the same statement for a **module-finite** `R → S`,
-   with `dim S_q = dim R_p ≥ 2` and no quasi-finiteness hypothesis. Two glue steps are proved:
+3. **T1 (Zariski–Nagata, `PkgI2.PurityBranchLocus`) is equivalent to Nagata's form T1″.**
+   T1″ = `TPurity2K.PurityBranchLocusLocal`, stated over a regular **local** ring `R` with
+   `[Module.Finite R S]` and a prime `q` of `S` over `𝔪_R`, such that `S_q` is a normal domain,
+   `dim S_q = dim R ≥ 2`, and `R → S` is unramified at every height-one `q' ≤ q`. The conclusion is
+   `Algebra.IsEtaleAt R q`. There is no quasi-finiteness hypothesis and no localization of the base.
+   Three glue steps are proved:
    * **dimension one** (`purity_dim_one`). In dimension one, quasi-finiteness and Nakayama make
      `R_p → S_q` injective, so `R_p` is a DVR, `S_q` is torsion-free and hence flat, and
      flat + unramified ⇒ étale. Mathlib has the last step only under global flatness; I proved a
      local version, `isEtaleAt_of_isUnramifiedAt_of_flat_local`.
    * **reduction to finite algebras** (`purityBranchLocus_of_finite`), via Mathlib's Zariski Main
      Theorem: `S'[1/r] ≅ S[1/r]` with `S' ⊆ S` module-finite and `r ∉ q`. Every hypothesis
-     transfers along `S'_{q∩S'} ≅ S_q`, and the primes below `q` correspond.
+     transfers along `S'_{q∩S'} ≅ S_q`, and the primes below `q` correspond. Together with the
+     first step this gives T1′ = `PurityBranchLocusFiniteGe2` (finite, `dim ≥ 2`, base not yet
+     local).
+   * **reduction to a local base** (`finiteGe2_of_local`): localize at `p = q ∩ R`. Then `S_p` is
+     finite over `R_p`, `Q = qS_p` lies over `𝔪_{R_p}`, `(S_p)_Q ≅ S_q`, height-one primes
+     correspond, and étale over `R_p` implies étale over `R`.
 
-   Kernel form (`T1Kernel.lean`): `TPurity2K.purityBranchLocus_of_finiteGe2 :
-   PurityBranchLocusFiniteGe2.{0} → PkgI2.PurityBranchLocus.{0}`, the `ObjBridge` version, and the
-   converse `finiteGe2_of_purityBranchLocus`. So T1 ⇔ T1′. The theorem left in T1′ is the classical
-   Zariski–Nagata purity for a finite cover of a regular local ring by a normal one, in dimension
-   ≥ 2 (Nagata 1959, Illinois J. Math. 3; SGA 1 X 3.1/3.4; Auslander 1962 for dimension 2;
+   Kernel form (`T1Kernel.lean`):
+   * `TPurity2K.purityBranchLocus_of_local : PurityBranchLocusLocal.{u} → PkgI2.PurityBranchLocus.{u}`;
+   * the converse `local_of_purityBranchLocus`;
+   * the same pair for T1′ (`purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`);
+   * the `ObjBridge` versions.
+
+   So **T1 ⇔ T1′ ⇔ T1″**, all proved. The theorem left in T1″ is the classical Zariski–Nagata
+   purity of the branch locus for a finite cover of a regular local ring by a normal one, in
+   dimension ≥ 2 (Nagata 1959, Illinois J. Math. 3; Auslander 1962 for dimension 2; SGA 1 X 3.1;
    STANDARD, locators UNVERIFIED). It is not proved; §4 says what is missing.
 
 **Recommendations for the announcement.**
 * (i) T2 is glue: fill `t2` with `TBrauerPurityT2K.abhyankarDVR`.
-* (ii) Announce T1 as T1′ (`PurityBranchLocusFiniteGe2`). It is a special case of the published
-  statement, closer to the textbook form (finite covers), and its proof is provably equivalent to
-  T1's.
+* (ii) Announce T1 as T1″ (`PurityBranchLocusLocal`). It is a special case of the published
+  statement, it is Nagata's own form (regular local base, finite normal cover), and it is
+  provably equivalent to T1 in Lean.
 * (iii) Announce T15 as its finite-place uniqueness half. Glue uses only that half
   (`leafLocalTwo_of_T15`, WP3.lean:231, VERIFIED read). The `…Fin` forms give a contributor a
   statement free of topology. The existence half and the real place are not needed; the real
@@ -73,6 +85,11 @@ hypotheses `IsIntegrallyClosed S_q` and `IsRegularLocalRing R_p` remain. The cla
 both: normality for Serre's criterion, regularity for Auslander–Buchsbaum. The dimension-one proof
 here does not use normality.
 
+**T1″ `PurityBranchLocusLocal`.** This is T1′ over a base with `[IsRegularLocalRing R]` (which
+supplies Noetherian and local), with `q ∩ R = 𝔪_R`, `dim S_q = dim R` and `2 ≤ dim R`. It is the
+case `p = 𝔪` of T1′ once `R_𝔪 ≅ R` (`equivAtMaximal`), and `local_of_finiteGe2` proves this.
+`S = R` of dimension 2 shows it is not vacuous.
+
 **`H2TwoClassesFin`, `IsCocycle2Fin`, `IsCoboundary2Fin`, `BrauerHasse2Fin`,
 `BrauerReciprocity2Fin`.** Each is the kernel Prop with `Continuous` replaced by "invariant under
 right multiplication by some open normal subgroup" (two-sided for `ε`). The `_iff_fin` theorems
@@ -86,8 +103,9 @@ unchanged.
 | `EtaleLocal.lean` (Mathlib only) | `isEtaleAt_of_isUnramifiedAt_of_flat_local`: `R → S` finitely presented, `S_q` flat over `R_p`, unramified at `q` ⇒ `IsEtaleAt R q` | compiles |
 | `T1Dim1.lean` (Mathlib only; `PkgI2.PurityBranchLocus` copied verbatim) | `eq_bot_of_isPrime_of_ne_maximalIdeal` (Nakayama), `purity_dim_one`, `PurityBranchLocusGe2`, `purityBranchLocus_of_ge2`, `ge2_of_purityBranchLocus` | compiles |
 | `T1Finite.lean` (Mathlib only) | `exists_pow_mul_mem`, `isLocalization_atPrime_of_pow`, `locEquiv : S'_{P∩S'} ≃ₐ[R] S_P`, `PurityBranchLocusFinite`, `purityBranchLocus_of_finite` | compiles |
-| `T1Reduced.lean` (Mathlib only; copies of the two above) | `PurityBranchLocusFiniteGe2`, `purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus` | compiles |
-| **`T1Kernel.lean`** (imports `ZInQKernel.HDecomp.Objects`) | **`TPurity2K.purityBranchLocus_of_finiteGe2`**, `objBridge_purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus` | compiles |
+| `T1Local.lean` (Mathlib only) | `PurityBranchLocusLocal`, `locLocEquiv : (S_p)_Q ≃ₐ[R] S_{Q∩S}`, `equivAtMaximal`, `finiteGe2_of_local`, `local_of_finiteGe2` | compiles |
+| `T1Reduced.lean` (Mathlib only; copies of the three above) | `PurityBranchLocusFiniteGe2`, `PurityBranchLocusLocal`, `purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`, `purityBranchLocus_of_local`, `local_of_purityBranchLocus` | compiles |
+| **`T1Kernel.lean`** (imports `ZInQKernel.HDecomp.Objects`) | **`TPurity2K.purityBranchLocus_of_local`**, `local_of_purityBranchLocus`, `purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`, `objBridge_purityBranchLocus_of_local`, `objBridge_purityBranchLocus_of_finiteGe2` | compiles |
 | `ProfiniteCochains.lean` (Mathlib only; I6Base defs copied verbatim) | `exists_nhds_one_invariant`, `exists_openNormalSubgroup_invariant(₂)`, `continuous_of_invariant(₂)`, `isCocycle2_iff`, `isCoboundary2_iff`, `compactSpace_absoluteGaloisGroup`, `zeroDimensionalSpace_absoluteGaloisGroup` (char 0), `h2TwoClasses_iff_fin`, `localH2CardC_finite_iff_fin` | compiles |
 | **`ProfiniteKernel.lean`** (imports `ZInQKernel.HDecomp.Conductor.I6Base`) | **`TPurity2K.localH2CardC_iff_fin`, `brauerHasse2C_iff_fin`, `brauerReciprocity2C_iff_fin`** | compiles |
 | `scratch/t-brauer-purity/T2Kernel.lean` (t-brauer-purity's file, recompiled unchanged) | `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` | compiles at this base |
@@ -135,14 +153,14 @@ disconnected plus compact.
 
 ## 4. What remains
 
-* **T1′ (dimension ≥ 2, finite).** The classical proof has two parts. *Dimension 2* (Auslander):
+* **T1″ (dimension ≥ 2, finite, local base).** The classical proof has two parts. *Dimension 2* (Auslander):
   `S_q` normal of dimension 2 is Cohen–Macaulay (Serre's criterion), so it is free over `R_p` by
   Auslander–Buchsbaum, and the branch locus of a finite free map is the discriminant divisor.
   *Dimension ≥ 3*: either Nagata's reduction or Grothendieck's purity (SGA 2 X 3.4, UNVERIFIED).
   Mathlib v4.35 has depth and regular sequences but neither Serre's criterion nor
   Auslander–Buchsbaum (t-brauer-purity §4, VERIFIED by grep there). The consumer of T1 is Prop. TS
   for the degree-324! cover over a 2-dimensional base (`ℙ¹_ℤ`-type). It needs only dimension
-  `≤ 2`, so in practice it needs only the dimension-2 case of T1′ (SPECULATIVE: the consumer is not
+  `≤ 2`, so in practice it needs only the dimension-2 case of T1″ (SPECULATIVE: the consumer is not
   in Lean yet; h-decomposition.md G2, WP3).
 * **T15 at `ℚ_p` and T14.** Both need class field theory and the Kummer bridge
   `H²(G_K, ℤ/2) ≅ Br(K)[2]` (t-brauer-purity §4). The finiteness conjunct of T14 is elementary
@@ -160,6 +178,7 @@ lake build ZInQKernel.HDecomp.Objects ZInQKernel.HDecomp.Conductor.I6Base   # ol
 lake env lean scratch/t-purity2/EtaleLocal.lean
 lake env lean scratch/t-purity2/T1Dim1.lean
 lake env lean scratch/t-purity2/T1Finite.lean
+lake env lean scratch/t-purity2/T1Local.lean
 lake env lean scratch/t-purity2/T1Reduced.lean
 lake env lean scratch/t-purity2/T1Kernel.lean
 lake env lean scratch/t-purity2/ProfiniteCochains.lean
