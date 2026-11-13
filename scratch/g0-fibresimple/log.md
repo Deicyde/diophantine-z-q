@@ -49,7 +49,7 @@
   theorems (full_out.txt).
 
 ## FS2 proved
-- 02:16 COMPILED (exit 0, 18 s): `endDivisionOfSchemeIso_of_rigidity : RigidityHom → EndDivisionOfSchemeIso`.
+- 02:13 COMPILED (exit 0, 18 s): `endDivisionOfSchemeIso_of_rigidity : RigidityHom → EndDivisionOfSchemeIso`.
   New textbook leaf `RigidityHom` (Mumford §4 Cor. 1 / Milne Cor. 2.2, locators UNVERIFIED: a k-morphism of abelian
   varieties with η ≫ h = η is IsMonHom). Proof: ψ = e − e(0), ψ' = e⁻¹ ∘ (· + e(0)) in the group of morphisms into
   the group object; inverse to each other, preserve η, hence homomorphisms; conjugation.

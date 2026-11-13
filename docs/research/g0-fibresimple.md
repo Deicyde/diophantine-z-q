@@ -1,4 +1,4 @@
-# g0-fibresimple: g0-split's piece 4, `FibreSimple`, reduced to leaves and three glue Props; a gap in its quantifier
+# g0-fibresimple: g0-split's piece 4, `FibreSimple`, reduced to four leaves and two glue Props; a gap in its quantifier
 
 Task g0-fibresimple, 2026-11-13. Lean: `scratch/g0-fibresimple/FibreSimple.lean`. It is
 `scratch/g0-split/Split.lean` copied verbatim, followed by the new section `olean/Tail.lean`; it is
@@ -8,12 +8,12 @@ copied prefix (`build_prefix.sh`, `ctail.sh`). Log: `scratch/g0-fibresimple/log.
 ## 1. Result
 
 **Main result.** `HSyn.G0Split.FibreSimple` is proved in Lean. The statement is unchanged. The
-proof uses three leaves and three named glue Props:
+proof uses four leaves and two named glue Props:
 
 ```
 theorem G0FibreSimple.fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny)
-    (p : FibreSimplePieces) : HSyn.G0Split.FibreSimple
--- p bundles FS1 EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS5 FibreComTrivial
+    (hRig : RigidityHom) (p : FibreSimplePieces) : HSyn.G0Split.FibreSimple
+-- p bundles FS1 EndDivisionDescent and FS5 FibreComTrivial
 ```
 
 There is also a form with each input as its own hypothesis:
@@ -48,7 +48,8 @@ it FibreSimple, is **not known to follow from the published literature as stated
 |---|---|---|---|
 | T27 `PkgI3.QMDichotomyYu` | QM dichotomy `End⁰ ≅ B` or `M₂(ℚ(√d))` | Yu, JPAA 2013, Thm 1.1 | in `TextbookLeaves.t27` |
 | T6 `PkgI3.HomFreeFinite` | `Hom(A, B)` is a free `ℤ`-module of finite rank | Mumford §19 Thm 3 | in `TextbookLeaves.t6` |
-| `MulIsogeny` (**new**) | for `n ≠ 0`, `[n]` is finite and surjective (char 0) | Mumford §4, Application 2 (locator UNVERIFIED) | new textbook leaf; Mumford's statement with the degree `n^{2g}` dropped |
+| `MulIsogeny` (**new**) | for `n ≠ 0`, `[n]` is finite and surjective (char 0) | Mumford §4, Application 2 (over `k̄`); Milne (Cornell–Silverman 1986) Thm 8.2, over any field (locators UNVERIFIED) | new textbook leaf; Mumford's statement with the degree `n^{2g}` dropped |
+| `RigidityHom` (**new**) | a `k`-morphism of abelian varieties with `h(0) = 0` is a homomorphism | Mumford §4 Cor. 1; Milne (Cornell–Silverman 1986) Cor. 2.2, over any field (locators UNVERIFIED) | new textbook leaf |
 
 ### Glue pieces
 
@@ -59,7 +60,7 @@ it FibreSimple, is **not known to follow from the published literature as stated
 | FS4 `CentralizerOfMatrixEnd0` | G6, algebra | if `End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, then `com q` contains a non-integer | **proved from T6** (`centralizerOfMatrixEnd0_of_homFree`) |
 | FS3 `EndDivisionOfEnd0Division` | G5→simple | `End⁰(A)` a division ring ⇒ every nonzero endomorphism is an isogeny | **proved from T6 + `MulIsogeny`** (`end0Division_of_homFree`) |
 | FS1 `EndDivisionDescent` | model `A/K` | `EndDivision(A_L) ⇒ EndDivision(A)` for a field extension `L/K` | glue, unproved (descent of "finite, surjective" along `Spec L → Spec K`; faithfulness of base change) |
-| FS2 `EndDivisionOfSchemeIso` | rigidity | `A.X ≅ B.X` as `k`-schemes and `EndDivision B` ⇒ `EndDivision A` | glue, unproved (Mumford §4 Cor. 1: a scheme isomorphism is a group isomorphism after a translation) |
+| FS2 `EndDivisionOfSchemeIso` | rigidity | `A.X ≅ B.X` as `k`-schemes and `EndDivision B` ⇒ `EndDivision A` | **proved from `RigidityHom`** (`endDivisionOfSchemeIso_of_rigidity`: translate `e` by `-e(0)`, then conjugate) |
 | FS5 `FibreComTrivial` | G6, NoCM | for `u ∉ 𝒞` and every object `P` at a `ℚ̄`-point over `J(u)`, `End_𝒪(P.A) = ℤ` | glue, unproved; **carries the gap of §2** |
 
 ### Proof of FibreSimple from these
@@ -75,9 +76,10 @@ it FibreSimple, is **not known to follow from the published literature as stated
    isogeny.
 4. FS2 moves this to `A_ℚ̄`, and FS1 moves it down to `A`.
 
-**Truth of FS1-FS4 and `MulIsogeny`.** These are model checks with no human review. FS1, FS2 and
-`MulIsogeny` are textbook facts about abelian varieties over fields. FS3 and FS4 are now Lean
-proofs from T6 and `MulIsogeny`. The docstrings in `Tail.lean` give the arguments.
+**Truth of FS1 and of the two new leaves.** These are model checks with no human review. FS1,
+`MulIsogeny` and `RigidityHom` are textbook facts about abelian varieties over fields. FS2, FS3
+and FS4 are now Lean proofs from T6, `MulIsogeny` and `RigidityHom`. The docstrings in
+`Tail.lean` give the arguments.
 
 ## 2. Finding: `R1fpProps`, `R2fpProps` do not pin down `Φ`
 
@@ -152,19 +154,23 @@ published theorem, so it would have to be a computation; it is not recommended.
 
 - Compiles (VERIFIED, `Tail.lean` against the prefix olean, exit 0): everything in §1-§2.
   `#print axioms` gives only the standard three for `B6_isUnit`, `qm_embeds_end0`,
-  `centralizerOfMatrixEnd0_of_homFree`, `end0Division_of_homFree`, `fibreSimple_of_pieces`,
+  `centralizerOfMatrixEnd0_of_homFree`, `end0Division_of_homFree`,
+  `endDivisionOfSchemeIso_of_rigidity`, `fibreSimple_of_pieces`,
   `fibreSimple_of_pieces'`, `fibreSimple_of_pieces''`, `fibreSimple_of_leaves`,
   `r1fpProps_twistBy`, `r2fpProps_twistBy` and `fibreComTrivial_twisted`.
 - Standalone `scratch/g0-fibresimple/FibreSimple.lean` (Split.lean + Tail, 20474 lines),
   VERIFIED: `lake env lean` exits 0 in 174 s, with 0 errors and no `sorry`; the axioms are the
   standard three.
 - Remains:
-  - FS1 (descent) and FS2 (rigidity). Both are textbook abelian-variety facts; Mathlib has
-    `IsFinite.of_comp`, but has no rigidity lemma and no fpqc descent of finiteness for this
-    setting.
+  - FS1 (descent of "every nonzero endomorphism is an isogeny" along a field extension). It
+    needs two things: base change is faithful on homomorphisms, and "finite, surjective"
+    descends. Mathlib's fpqc descent files (`Morphisms/FlatDescent.lean`, `EffectiveEpi.lean`)
+    cover part of this; the bookkeeping for def-faltings' `baseChange` group structure is not
+    done.
   - FS5 (NoCM on the actual fibre), which needs the R1 repair of §3. After the repair it still
     needs the Kummer model of `X₆ → P¹`, González–Rotger (R5) and the class-number count of
     rv-h-cm §7.2.
 - Integration: append `olean/Tail.lean` (without its import line) after g0-split's section. In
-  `G0Split.MissingPieces`, `fibreSimple` can then be replaced by `MulIsogeny` plus
-  `FibreSimplePieces`, with T6 and T27 taken from `TextbookLeaves`.
+  `G0Split.MissingPieces` (or leaf-adopt3's `GluePieces`), `fibreSimple` can then be replaced
+  by `FibreSimplePieces` (FS1, FS5). The two textbook leaves `MulIsogeny` and `RigidityHom` go
+  into `TextbookLeaves`, and T6, T27 are taken from there.

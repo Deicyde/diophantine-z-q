@@ -286,10 +286,11 @@ theorem fibreSimple_of_pieces' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichoto
 
 /-! ## §4″ FS3 from T6 and the textbook leaf `MulIsogeny` -/
 
-/-- **Textbook leaf (Mumford, *Abelian varieties*, §4, Application 2 / §6; locator UNVERIFIED):
-multiplication by `n ≠ 0` is an isogeny** (finite and surjective, of degree `n^{2g}`), stated
-in characteristic `0` (where Mumford's statement holds with no restriction on `n`). This is
-Mumford's statement with the degree dropped, so a consequence of it. -/
+/-- **Textbook leaf (Mumford, *Abelian varieties*, §4, Application 2 / §6, over an algebraically
+closed field; Milne, *Abelian varieties* (Cornell–Silverman 1986), Thm 8.2, over any field;
+locators UNVERIFIED): multiplication by `n ≠ 0` is an isogeny** (finite and surjective, of degree
+`n^{2g}`), stated in characteristic `0`. The degree is dropped, so this is a consequence of the
+published statement. -/
 def MulIsogeny : Prop :=
   ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 →
     PkgI3.AbVar.IsIsogenyMor ((n : PkgI3.AbVar.End A).hom)
