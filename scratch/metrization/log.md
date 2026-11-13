@@ -66,7 +66,7 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
 
 ## Run 9-10: + part_jacdet — first attempt 6 errors (DecidableEq instance mismatch in
   `Function.update` under `rw`, ambiguous `mul_assoc`/`one_mul` with `open MonObj`); fixed with
-  `convert` and `_root_.` — COMPILED 04:44 (28 s; 0 errors)
+  `convert` and `_root_.` — COMPILED 04:42 (28 s; 0 errors)
 - new glue `JacDetMultilinear` (four calculus properties of `jacDet`: class invariance,
   slot additivity, `τ(a)`-scaling, vanishing on equal slots).
 - `jacDetDescends_of : JacDetMultilinear → JacDetDescends` PROVED (alternating map through
