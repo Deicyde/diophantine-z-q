@@ -108,3 +108,14 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   and the 12 later `open PkgI4…` lines widened to `_root_.PkgI4 ZInQ.Contrib.G9.PkgI4`: exit 0 in
   67 s, 0 errors. `RvGP2.g9Glue hBC hW : G0Galois.G9Glue` from `G9Bridge.AbVarBaseChange`,
   `G9Bridge.R10Weights`, standard axioms (VERIFIED).
+
+## Field 15 proved (Lean)
+
+- scratch/rv-gluepieces2/Burnside.lean (standalone, `import Mathlib`): `RvBurnside.adjoin_eq_top_of_algClosed`
+  (Schur `IsSimpleModule.algebraMap_end_bijective_of_isAlgClosed` + Jacobson density
+  `Module.Finite.toModuleEnd_moduleEnd_surjective`) and `RvBurnside.adjoin_eq_top_of_baseChange`
+  (span of base-changed elements ⊇ the F'-algebra; finrank count `finrank_linearMap`,
+  `finrank_baseChange`). `lake env lean`: 0 errors (linter warnings only).
+- c11_burnside: Burnside.lean body + `RvGP2.burnsideAbsIrred : G0Galois.BurnsideAbsIrred`
+  (with `F' = AlgebraicClosure F`; matrices through `LinearMap.toMatrixAlgEquiv b`): exit 0 in 13 s,
+  0 errors, no sorry, standard axioms (VERIFIED). Field 15 is not a leaf: it is a Mathlib theorem.
