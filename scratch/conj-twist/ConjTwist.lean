@@ -3,17 +3,26 @@ import ZInQKernel.HDecomp.LeafPush2.T
 /-! # conj-twist: `ConjTwistNontrivial` and `ConjTwistFromLeaves` (glue step G10 core)
 
 Check with `lake env lean scratch/conj-twist/ConjTwist.lean` (after
-`lake build ZInQKernel.HDecomp.LeafPush2.T`).
+`lake build ZInQKernel.HDecomp.LeafPush2.T`). No `sorry`; all `#print axioms` are standard.
 
-* §1 copies **verbatim** from `scratch/g10-odd/G10Odd.lean`: `ConjTwistNontrivial`,
-  `ConjTwistFromLeaves` and what they and the proofs below depend on (`resQ`, `qEmbRing`,
-  `resQ_spec`, `isComplexConj_mul_self`, `qEmbRing_bijective`, `range_stable`, and the proved
-  linear algebra `betti_skeleton_fd` with its lemmas).
-* §2 proves the `ℚ_ℓ`-form of Faltings' theorem needed here (`faltingsV`): a `G_K`-equivariant
-  map `V_ℓ(A) → V_ℓ(B)` lies in the `ℚ_ℓ`-span of `{V_ℓ(f) : f ∈ Hom(A, B)}`.
-* §3 moves the complex conjugation `c ∈ G_ℚ` to an automorphism `cc` of `K̄` (`conjData`).
-* §4 states the remaining glue `ConjBettiData` and proves `ConjTwistNontrivial` from
-  `TateModuleFree` (leaf T26) and `ConjBettiData`, and `ConjTwistFromLeaves` from `ConjBettiData`.
+**Main results** (end of file):
+* `conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic → ConjTwistFromLeaves`
+* `conjTwistNontrivial_final' : PkgI2.TorsionStructure → PkgI3.TateModuleFree →
+  UniformizationExists → HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`
+
+`HomLinearLift` (N2) is a textbook leaf (T11(a) in Hom form, Birkenhake–Lange 1.2.1);
+`ConjUniformizationAnalytic` (N3a-an) is glue (the two analytic clauses of `IsUniformization` for
+the complex conjugate of a uniformization, on the conjugate variety).
+
+* §1 verbatim copies from `scratch/g10-odd/G10Odd.lean` (`ConjTwistNontrivial`,
+  `ConjTwistFromLeaves`, `resQ`, `qEmbRing`, ..., `betti_skeleton_fd` with its lemmas).
+* §2 `faltingsV` (Faltings in `ℚ_ℓ`-form); §3 `conjData` (`c ∈ G_ℚ` as `cc ∈ Aut(K̄)`).
+* §4-§5 an intermediate route (`ConjBettiData`, `ConjBettiComparison`); §5 the conjugate variety
+  `conjVar`, the transport `c_*` (`conjPt`, `conjT`, `conjV`) and its twisted equivariance.
+* §6 `toC`, `twistC`, statements N1-N5, `toC_injective`, `toC_conjPt`; §7 naturality;
+  §8 `lattice_contradiction`; §9 `conjVarDim` (N5); §9b N3 from N2 + N3a; §10 the main
+  reduction `conjTwistNontrivial_of_latticeInj`; §11 the comparison `ℤ_ℓ ⊗ Λ ↪ T_ℓ(A)`;
+  §12 N1-surj; §13 N1-surj from T5; §14 N3a from its analytic clauses.
 -/
 
 noncomputable section

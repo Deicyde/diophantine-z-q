@@ -1,35 +1,32 @@
 # conj-twist (fleet summary)
 
 **Result.** Both `ConjTwistNontrivial` and `ConjTwistFromLeaves`, copied verbatim from
-scratch/g10-odd/G10Odd.lean, are proved in Lean from leaves and two smaller named glue Props.
-- `conjTwistNontrivial_main : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
-  HomLinearLift → ConjUniformization → ConjTwistNontrivial`.
-- `conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
-  ConjTwistFromLeaves`. T26 and T35 are already hypotheses of `ConjTwistFromLeaves`.
+scratch/g10-odd/G10Odd.lean, are proved in Lean.
+- `conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic → ConjTwistFromLeaves`.
+  T5, T26 and T35 are already hypotheses of `ConjTwistFromLeaves`.
+- `conjTwistNontrivial_final' : TorsionStructure (T5) → TateModuleFree (T26) →
+  UniformizationExists (T35) → HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`.
+  Faltings is a hypothesis inside `ConjTwistNontrivial`.
 
-File: `scratch/conj-twist/ConjTwist.lean`. It has no `sorry`, and every `#print axioms` is
-`[propext, Classical.choice, Quot.sound]`.
+File: `scratch/conj-twist/ConjTwist.lean` (1830 lines). It has no `sorry`, and all 32
+`#print axioms` are `[propext, Classical.choice, Quot.sound]`.
 
 **What compiles (proved).**
-- `faltingsV`: Faltings in ℚ_ℓ-form.
-- complex conjugation moved to `cc ∈ Aut(K̄)`.
-- The conjugate variety `conjVar A s`, the transport `c_*`, and its twisted equivariance.
-  g10-odd listed these as missing.
-- `toC_conjPt`: `c_*` is complex conjugation on points.
-- The Artin comparison `ℤ_ℓ ⊗ Λ ↪ T_ℓ(A)` from N1 (`tateLatticeInj_of_artinTorsion`) and its
-  naturality.
-- `dim A^s = dim A` (`conjVarDim`).
-- Injectivity of `A(K̄) → A(ℂ)` (`toC_injective`).
-- Injectivity of `twistC`, and the antilinear lift N3 from N2 + N3a (`conjAntiLiftLat_of`).
-- The Faltings + rationality + holomorphy contradiction on lattice matrices.
+- Faltings in ℚ_ℓ-form, and `c ∈ G_ℚ` as an involution `cc` of K̄.
+- The conjugate variety `A^s` (Over.pullback), the transport `c_*` on points, T_ℓ and V_ℓ, and its
+  twisted equivariance.
+- `dim A^s = dim A`.
+- `A(K̄) → A(ℂ)` is injective (Mathlib's `ext_of_isDominant_of_isSeparated`) and bijective on
+  torsion (counting via T5 and a lattice).
+- The Artin comparison `ℤ_ℓ ⊗ Λ ↪ T_ℓ(A)` and its naturality for homomorphisms and for `c_*`.
+- The antilinear lift of complex conjugation, built from N2.
+- The Faltings, rationality and holomorphy contradiction on integer lattice matrices.
 
 **What remains.**
-- Leaves: `FaltingsTate`, T26 and T35 (in the build), plus one new textbook leaf, `HomLinearLift`
-  (T11(a) in Hom form, Birkenhake–Lange 1.2.1). It cannot be derived from T11a, which covers only
-  End over ℂ.
-- Glue, STANDARD and true:
-  - `ArtinTorsionSurj`: torsion of `A(ℂ)` comes from `A(K̄)`, from T5 over K̄ and over ℂ.
-  - `ConjUniformization`: `z ↦ twistC(Φ z̄)` is a uniformization of the conjugate `A^s`.
-- The earlier glue `ConjAntiLift` (antilinear lift) is now proved from N2 and `ConjUniformization`.
+- One new textbook leaf, `HomLinearLift`: T11(a) in Hom form, Birkenhake–Lange 1.2.1. It cannot
+  be derived from T11a, which covers only End over ℂ.
+- One glue Prop, `ConjUniformizationAnalytic`: the two analytic clauses of `IsUniformization` for
+  `z ↦ twistC(Φ(z̄))` on `A^s`. It is STANDARD and true: regular functions of the base change are
+  conjugates of holomorphic functions.
 
 Report: docs/research/conj-twist.md; log: scratch/conj-twist/log.md.

@@ -94,7 +94,7 @@
   HomLinearLift → ConjUniformization → ConjTwistNontrivial`**,
   **`conjTwistFromLeaves_final : HomLinearLift → ConjUniformization → ConjTwistFromLeaves`**.
   Whole file: 0 errors, 0 sorry, all `#print axioms` standard. VERIFIED (compiled).
-- 2026-11-13 06:30 §14 added: `twistC_inj_aux'`, `twistC_surjective`, `twistC_mul`, glue def
+- 2026-11-13 06:25 §14 added: `twistC_inj_aux'`, `twistC_surjective`, `twistC_mul`, glue def
   `ConjUniformizationAnalytic` (N3a-an: only the two analytic clauses of IsUniformization for
   z ↦ twistC(Φ z̄): open preimages, holomorphic regular functions of A^s),
   **`conjUniformization_of_analytic`** (the three group-theoretic clauses proved),
