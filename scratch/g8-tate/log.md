@@ -46,7 +46,7 @@
 - Compile (VERIFIED): `lean -o olean/Prefix2.olean Prefix2.lean`: 1m11s, 0 errors.
   (linked-tate's Leaves-layer parts compile unchanged over the kernel-layer Prefix.)
 
-## Step 4 (09:50-10:10 PST): `OnL` for the canonical operators (part_onl.lean)
+## Step 4 (09:32-09:42 PST): `OnL` for the canonical operators (part_onl.lean)
 - New: `VX`, `tateMapX_comp`, `tateMapX_id`, `opV_conjE` (`opV(Ξ f Ξ⁻¹) = V(Ξ) opV(f) V(Ξ)⁻¹`),
   `VX_comp_symm`, `VXe`, `exists_equiv_of_quasiInv` (`f g = λ·1`, `g f = μ·1` ⟹ `f` invertible),
   `m_one` (`m 1 = id` from `DescentDatum`'s clauses), **`onL_canon`**: for any descent datum `m`
@@ -56,3 +56,21 @@
 - Compile (VERIFIED): `ctail.sh Part2.lean` (`import Prefix2` + part_onl): exit 0; axioms of
   `opV_conjE`, `exists_equiv_of_quasiInv`, `onL_canon`: `[propext, Classical.choice, Quot.sound]`.
   (`set_option maxHeartbeats 1000000 in` on `onL_canon`, as linked-tate's `linkedTateCoreDR_of`.)
+
+## Step 5 (09:42-10:00 PST): `TateBridgeOnL` proved (part_tb.lean)
+- `assemble.sh` builds the iteration file `Tail.lean` (`import Prefix2` + parts 1-5).
+- New: `EndRank4` (def, GLUE: `rank_ℤ End(A_{L'}) = 4` for every fibre context and G7 datum;
+  linked-tate derives it from `FibreSimple` + `QMEndRank` over Leaves.lean, not re-checked here),
+  `exists_preimage` (algebraic `z ∈ ℂ` is in the image of any `κ : ℚ̄ → ℂ`), `beta_pow_eq_one`,
+  `beta_conj` (`β(hkh⁻¹) = β(k)` for `k ∈ H` when `ε` is normalized on `H`),
+  **`tateBridgeOnL_of`**: T26 (`PkgI3.TateModuleFree`) + `EndRank4` + linked-tate's
+  `UnramTate.LinkedFrob` ⟹ `TateBridgeOnL`. Data: unram-tate's `tatePoints` `(Θ, h)`, G7Data's
+  descent datum, `Tm_ℓ = tmOf … ℓ`, `γ₀` from `scalarTransferQ`, `βQ = κ⁻¹ ∘ β`,
+  `aQ g = βQ g / γ₀(hgh⁻¹)`, `ε_ℓ = ∂(j_ℓ ∘ βQ)`, `j_ℓ = IsAlgClosed.lift`; the `key` block of
+  linked-tate's `linkedTateCoreDR_of` copied with these scalars; `OnL` from `onL_canon`;
+  `dim A_{L'} = 2` proved (`PK.surface`, kernel `dim_baseChange`).
+- **`linkedTateObjS_of_frob`**: R6 + I2-Tors + `UnramRoots 2 5` + T26 + `EndRank4` + `LinkedFrob`
+  ⟹ `G8Object.LinkedTateObjS`; **`linkedTateDataD_of_frob`**: + T7 ⟹ `G8Object.LinkedTateDataD`.
+- Compile (VERIFIED): `ctail.sh Tail.lean`: exit 0, 0 errors, no sorry; all axiom reports
+  `[propext, Classical.choice, Quot.sound]` (incl. `tateBridgeOnL_of`, `linkedTateObjS_of_frob`,
+  `linkedTateDataD_of_frob`).
