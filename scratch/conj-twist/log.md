@@ -46,3 +46,8 @@
   TateLattice → ConjVarDim → ConjTwistFromLeaves`. `ConjAntiLift` (N3) now also asserts
   `Function.Injective N` (true: N lifts the bijection twistC). Whole file: 0 errors, 0 sorry,
   14 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 05:55 §9 added: `ringHom_bijective_of_numberField`, **`conjVarDim : ConjVarDim`**
+  (N5 proved: Spec(s) iso ⇒ pullback.fst iso ⇒ homeomorphism ⇒ equal topologicalKrullDim),
+  `conjTwistNontrivial_of_lattice'` (T26 → T35 → N1 → N2 → N3 → N4 → ConjTwistNontrivial),
+  `conjTwistFromLeaves_of_lattice'` (N1 → N2 → N3 → N4 → ConjTwistFromLeaves). Whole file:
+  0 errors, 0 sorry, 17 `#print axioms` standard. VERIFIED (compiled).

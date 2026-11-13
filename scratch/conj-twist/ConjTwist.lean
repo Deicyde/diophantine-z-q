@@ -1122,6 +1122,41 @@ theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift
     (hN3 : ConjAntiLift) (hN4 : TateLattice) (hN5 : ConjVarDim) : ConjTwistFromLeaves :=
   fun _ _ h35 _ hT => conjTwistNontrivial_of_lattice hT h35 hN1 hN2 hN3 hN4 hN5
 
+/-! ## §9. N5 `ConjVarDim` (proved) -/
+
+/-- A ring endomorphism of a number field is bijective. -/
+theorem ringHom_bijective_of_numberField (K : Type) [Field K] [NumberField K] (s : K →+* K) :
+    Function.Bijective s := by
+  have hinj : Function.Injective s := s.injective
+  refine ⟨hinj, ?_⟩
+  have h := (LinearMap.injective_iff_surjective (f := s.toRatAlgHom.toLinearMap)).mp hinj
+  exact h
+
+/-- **N5 (proved).** For a number field, `dim A^s = dim A`: `Spec(s)` is an isomorphism, so the
+projection `A^s → A` is an isomorphism of schemes, hence a homeomorphism. -/
+theorem conjVarDim : ConjVarDim := by
+  intro K _ _ A s
+  have hb := ringHom_bijective_of_numberField K s
+  let e : K ≃+* K := RingEquiv.ofBijective s hb
+  haveI : IsIso (CommRingCat.ofHom s) :=
+    ⟨⟨CommRingCat.ofHom (e.symm : K →+* K), by ext x; exact e.symm_apply_apply x,
+      by ext x; exact e.apply_symm_apply x⟩⟩
+  have : IsIso (specS s) := by unfold specS; infer_instance
+  change topologicalKrullDim (conjVar A s).X.left = topologicalKrullDim A.X.left
+  exact IsHomeomorph.topologicalKrullDim_eq _
+    (Scheme.Hom.homeomorph (Limits.pullback.fst A.X.hom (specS s))).isHomeomorph
+
+/-- **`ConjTwistNontrivial` from T26, T35 and N1-N4 (proved; N5 is proved).** -/
+theorem conjTwistNontrivial_of_lattice' (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_lattice hT h35 hN1 hN2 hN3 hN4 conjVarDim
+
+/-- **`ConjTwistFromLeaves` from N1-N4 (proved).** -/
+theorem conjTwistFromLeaves_of_lattice' (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_of_lattice hN1 hN2 hN3 hN4 conjVarDim
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1138,3 +1173,6 @@ end G0Galois
 #print axioms G0Galois.lattice_contradiction
 #print axioms G0Galois.conjTwistNontrivial_of_lattice
 #print axioms G0Galois.conjTwistFromLeaves_of_lattice
+#print axioms G0Galois.conjVarDim
+#print axioms G0Galois.conjTwistNontrivial_of_lattice'
+#print axioms G0Galois.conjTwistFromLeaves_of_lattice'
