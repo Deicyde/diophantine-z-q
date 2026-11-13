@@ -391,7 +391,7 @@ def NonMeeting (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) (s₀ : ℚ) : 
 /-- **Glue from purity (T1, proved by t-purity3): specialization away from the branch locus.**
 For `E/ℚ(X)` finite with `[E : ℚ(X)] < p`, no vertical ramification at `p`, and a `p`-integral
 `s₀ ∈ ℚ` meeting no branch point mod `p`, every residue field of the integral closure of `ℚ[X]`
-in `E` over `X − s₀`, embedded in `ℚ̄`, is unramified at `p`. (Grothendieck's specialization of
+in `E` over `X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p`. (Grothendieck's specialization of
 étale covers; SGA 1 X; the proof via `purityGlobalDim2'` is sketched above.) -/
 def SpecNonMeeting : Prop :=
   ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
@@ -401,6 +401,7 @@ def SpecNonMeeting : Prop :=
       ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
         𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
         ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+          FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ)) ∧
           UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p
 
 /-- **Glue from Abhyankar's lemma: the Kummer reduction of the meeting case** (h-b1 §1.2, proof of
@@ -408,7 +409,8 @@ Prop. TS, second case, rewritten with a rational Kummer coordinate; see the Part
 specialization `t` with `n_b ∣ v_p(t − b)⁺` and `nInf ∣ (−v_p t)⁺`, there is a finite `E'/ℚ(s)`
 (a factor of `E ⊗ ℚ(s)`, `s` the Kummer coordinate) and a `p`-integral `s₀ ∈ ℚ` meeting no branch
 point of `E'` mod `p`, with no vertical ramification at `p`, such that the given residue field of
-`E` at `t` embeds in a residue field of `E'` at `s₀` (finite over `ℚ`). -/
+`E` at `t` embeds in a residue field of `E'` at `s₀`. The case where `t` meets no branch point is
+proved (`kummerStep_of_meet`); the glue is `KummerMeet`. -/
 def KummerStep : Prop :=
   ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
     [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
@@ -431,13 +433,86 @@ def KummerStep : Prop :=
           ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
             𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
             ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
-              FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ')) ∧
               IntermediateField.adjoin ℚ (Set.range φ) ≤
                 IntermediateField.adjoin ℚ (Set.range φ')
 
 /-- `KummerStep` is glue whose proof uses the bundle's textbook leaf T2 (Abhyankar's lemma, DVR
 form, `PkgI2.AbhyankarDVR`) at the branch point being met. -/
 def KummerGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerStep
+
+/-- **Glue from Abhyankar's lemma, the meeting case only**: `KummerStep` under the extra
+hypothesis that `t` meets a branch point mod `p` (`v_p(t) < 0`, or `v_p(t − b) > 0` for some
+`b ∈ S`). -/
+def KummerMeet : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
+    BranchData E S n nInf →
+    Module.finrank (RatFunc ℚ) E < p →
+    (∀ b ∈ S, 0 < n b ∧ n b < p) → 0 < nInf → nInf < p →
+    (∀ b ∈ S, 0 ≤ padicValRat p b) →
+    (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
+    NoVerticalRam E p →
+    ∀ t : ℚ, t ∉ S →
+      (∀ b ∈ S, n b ∣ (padicValRat p (t - b)).toNat) → nInf ∣ (-padicValRat p t).toNat →
+      (padicValRat p t < 0 ∨ ∃ b ∈ S, 0 < padicValRat p (t - b)) →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C t} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+        ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+          (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+          (s₀ : ℚ), Module.finrank (RatFunc ℚ) E' < p ∧ NoVerticalRam E' p ∧
+          0 ≤ padicValRat p s₀ ∧ NonMeeting E' p s₀ ∧
+          ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+            𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+            ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+              IntermediateField.adjoin ℚ (Set.range φ) ≤
+                IntermediateField.adjoin ℚ (Set.range φ')
+
+/-- `KummerMeet` is glue whose proof uses the bundle's leaf T2 (`PkgI2.AbhyankarDVR`). -/
+def KummerMeetGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerMeet
+
+theorem padicValRat_sub_nonneg (p : ℕ) [Fact p.Prime] {t b : ℚ} (ht : 0 ≤ padicValRat p t)
+    (hb : 0 ≤ padicValRat p b) (htb : t ≠ b) : 0 ≤ padicValRat p (t - b) := by
+  have h := padicValRat.min_le_padicValRat_add (p := p) (q := t) (r := -b)
+    (by rw [← sub_eq_add_neg]; exact sub_ne_zero.mpr htb)
+  rw [padicValRat.neg, ← sub_eq_add_neg] at h
+  exact le_trans (le_min ht hb) h
+
+/-- **The non-meeting case of `KummerStep` is proved** (`E' = E`, `s₀ = t`: the ramified primes
+lie over `X − b`, `b ∈ S`, by `BranchData`, and `f = X − b` is `p`-integral with `f(t)` a unit). -/
+theorem kummerStep_of_meet (h : KummerMeet) : KummerStep := by
+  intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf 𝔓 hP hU φ
+  by_cases hm : padicValRat p t < 0 ∨ ∃ b ∈ S, 0 < padicValRat p (t - b)
+  · exact h E S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+  push Not at hm
+  obtain ⟨ht0, hbt⟩ := hm
+  have : Fact p.Prime := ⟨hp⟩
+  refine ⟨E, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, t, hdeg,
+    hV, ht0, ?_, 𝔓, hP, hU, φ, le_rfl⟩
+  intro Q hQ he
+  obtain ⟨b, hbS, hb⟩ : ∃ b ∈ S, Q.under ℚ[X] = Ideal.span {X - C b} := by
+    by_contra hc
+    push Not at hc
+    exact he (hBr.1 Q hQ hc)
+  have htb : t ≠ b := fun e => ht (e ▸ hbS)
+  refine ⟨X - C b, ?_, ?_, ?_, ?_⟩
+  · rw [hb]
+    exact Ideal.mem_span_singleton_self _
+  · intro i
+    rw [coeff_sub, coeff_X, coeff_C]
+    by_cases h1 : 1 = i
+    · subst h1
+      simp
+    · by_cases h0 : i = 0
+      · subst h0
+        simp only [one_ne_zero, ↓reduceIte, zero_sub, padicValRat.neg]
+        exact hint b hbS
+      · simp [h1, h0]
+  · simp only [eval_sub, eval_X, eval_C]
+    exact sub_ne_zero.mpr htb
+  · simp only [eval_sub, eval_X, eval_C]
+    exact le_antisymm (hbt b hbS) (padicValRat_sub_nonneg p ht0 (hint b hbS) htb)
 
 /-- **Textbook: subfields inherit unramifiedness** (Neukirch, ANT I §8, multiplicativity of `e`
 in towers; Mathlib `Ideal.ramificationIdx_below_dvd` for flat towers). -/
@@ -472,9 +547,10 @@ theorem beckmannSITTame_of (h : BeckmannSIT) : BeckmannSITTame :=
 theorem beckmannSITTame_of_glue (hK : KummerStep) (hN : SpecNonMeeting)
     (hMono : UnramifiedMono) : BeckmannSITTame := by
   intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf 𝔓 hP hU φ
-  obtain ⟨E', _, _, _, _, _, s₀, hdeg', hV', hs₀, hNM, 𝔓', hP', hU', φ', hfin, hle⟩ :=
+  obtain ⟨E', _, _, _, _, _, s₀, hdeg', hV', hs₀, hNM, 𝔓', hP', hU', φ', hle⟩ :=
     hK E S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf 𝔓 hP hU φ
-  exact hMono _ _ hfin hle p (hN E' p hp hdeg' hV' s₀ hs₀ hNM 𝔓' hP' hU' φ')
+  obtain ⟨hfin, hun⟩ := hN E' p hp hdeg' hV' s₀ hs₀ hNM 𝔓' hP' hU' φ'
+  exact hMono _ _ hfin hle p hun
 
 /-- **Prop. TS from the tame form of Beckmann's theorem and the cover model** (as
 `propTS_of_coverModel`; the extra hypotheses hold as `4, 2, 6 < 324 < p`). -/
@@ -554,6 +630,14 @@ theorem propTSAll_of_bundle' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hKG : 
     (hN : SpecNonMeeting) (hM : MobiusGlue) (hC : CoverModelOfHecke) : PropTSAll :=
   propTSAll_of_bundle t2 hR hKG hN unramifiedMono hM hC
 
+/-- **The final composite**: `PropTSAll` from the bundle leaves T2 (`PkgI2.AbhyankarDVR`) and
+`R1R2fp`, and the glue `KummerMeetGlue`, `SpecNonMeeting`, `MobiusGlue` (kernel),
+`CoverModelOfHecke`. -/
+theorem propTSAll_of_bundle_meet (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
+    (hKG : KummerMeetGlue) (hN : SpecNonMeeting) (hM : MobiusGlue) (hC : CoverModelOfHecke) :
+    PropTSAll :=
+  propTSAll_of_bundle' t2 hR (fun t2' => kummerStep_of_meet (hKG t2')) hN hM hC
+
 end PropTSRed
 
 end
@@ -571,3 +655,6 @@ end
 #print axioms PropTSRed.propTSAll_of_bundle
 #print axioms PropTSRed.unramifiedMono
 #print axioms PropTSRed.propTSAll_of_bundle'
+#print axioms PropTSRed.padicValRat_sub_nonneg
+#print axioms PropTSRed.kummerStep_of_meet
+#print axioms PropTSRed.propTSAll_of_bundle_meet

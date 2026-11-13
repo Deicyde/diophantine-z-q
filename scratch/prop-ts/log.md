@@ -45,3 +45,12 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   CoverModelOfHecke → PropTSAll` (VERIFIED).
 - Note: this also proves fibre-cover's tower direction "subfield of unramified is unramified"
   (fibre-cover's `UnramifiedConjugates` is the other direction, compositum; not done).
+
+## Step 5 (07:15): non-meeting case of KummerStep proved
+- `SpecNonMeeting` conclusion now `FiniteDimensional ℚ L ∧ UnramifiedAt L p` (finiteness of the
+  residue field moved from KummerStep into the purity glue, where it belongs).
+- New: `KummerMeet` (KummerStep restricted to `v_p(t) < 0 ∨ ∃ b ∈ S, v_p(t − b) > 0`),
+  `KummerMeetGlue := AbhyankarDVR → KummerMeet`; theorems `padicValRat_sub_nonneg`,
+  `kummerStep_of_meet : KummerMeet → KummerStep`, `propTSAll_of_bundle_meet`.
+- Compile: 0 errors, 0 warnings; 16 `#print axioms`, all [propext, Classical.choice, Quot.sound]
+  (VERIFIED).

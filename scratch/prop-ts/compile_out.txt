@@ -11,3 +11,6 @@
 'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.unramifiedMono' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.propTSAll_of_bundle'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.padicValRat_sub_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.kummerStep_of_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
