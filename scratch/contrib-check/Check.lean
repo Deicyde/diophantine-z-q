@@ -23,7 +23,6 @@ import ZInQKernel.Contrib.Dim.IntegralHom
 import ZInQKernel.Contrib.Dim.LeafPush2
 import ZInQKernel.Contrib.Dim.HodgeLattice
 import ZInQKernel.Contrib.HeightBC.Main
-import of `ZInQKernel.Contrib.HeightBC.Main` and the lines below): the closed height base-change
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
