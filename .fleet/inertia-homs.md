@@ -26,3 +26,5 @@ theorem uses only propext, Classical.choice and Quot.sound. The new glue, all pr
 hgood (G3), all outside this task. h-decomposition's row G4 should cite
 `homField_of_model_leaves'` and record that `InertiaFixesHoms` was replaced. Report:
 docs/research/inertia-homs.md.
+
+Last updated 2026-11-13 02:21 PST.
