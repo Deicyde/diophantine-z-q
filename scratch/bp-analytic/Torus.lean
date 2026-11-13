@@ -908,6 +908,80 @@ theorem riemannTheta_Omega_add_period {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 
           2 * Real.pi * Complex.I * (intVec m ⬝ᵥ z)) * riemannTheta (Omega τ) z :=
   riemannTheta_add_period _ (Omega_transpose hτ) z m n
 
+/-! #### `Ω(τ)` lies in the Siegel space for `Im τ > 0` -/
+
+/-- Partial fractions: `Ω(τ) = A₀ + C/(τ+1) + B/(τ−3)` (found with sympy). -/
+def OmegaPF (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  (!![-1 + (√2 : ℂ) / 2, 1 - (√2 : ℂ); 1 - (√2 : ℂ), -2 + (√2 : ℂ)] :
+      Matrix (Fin 2) (Fin 2) ℂ) +
+    (τ + 1)⁻¹ • !![-((√2 : ℂ) + 2) / 2, 1 + (√2 : ℂ); 1 + (√2 : ℂ), -((√2 : ℂ) + 2)] +
+    (τ - 3)⁻¹ • !![3 * ((√2 : ℂ) - 2) / 2, -3 * ((√2 : ℂ) - 1); -3 * ((√2 : ℂ) - 1),
+      3 * ((√2 : ℂ) - 2)]
+
+theorem Fp_mul_OmegaPF {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * OmegaPF τ = Emat τ := by
+  have h2 := sqrt2_sq
+  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  rw [Fp, F0mat_eq, Pinv, Emat_eq, OmegaPF]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fin.sum_univ_two] <;> field_simp <;> ring_nf <;>
+    simp only [h2] <;> ring_nf
+
+theorem Omega_eq_PF {τ : ℂ} (hτ : τ.im ≠ 0) : Omega τ = OmegaPF τ := by
+  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
+  rw [Omega, ← Fp, ← Fp_mul_OmegaPF hτ, ← Matrix.mul_assoc, Matrix.nonsing_inv_mul _ hu,
+    Matrix.one_mul]
+
+/-- **`Ω(τ) ∈ 𝔥₂` for `Im τ > 0`.** `Im Ω(τ) = y·(C'/|τ+1|² + B'/|τ−3|²)` with `C'`, `B'` positive
+semidefinite of rank one with different kernels. -/
+theorem Omega_mem_siegelSpace {τ : ℂ} (hτ : 0 < τ.im) : Omega τ ∈ SiegelSpace 2 := by
+  have hτ' : τ.im ≠ 0 := hτ.ne'
+  refine ⟨Omega_transpose hτ', ?_⟩
+  rw [Matrix.posDef_iff_dotProduct_mulVec]
+  constructor
+  · show ((Omega τ).map Complex.im)ᴴ = (Omega τ).map Complex.im
+    rw [Matrix.conjTranspose_eq_transpose_of_trivial, ← Matrix.transpose_map,
+      Omega_transpose hτ']
+  · intro x hx
+    rw [Omega_eq_PF hτ']
+    have hs : (√2 : ℝ) ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+    have hp : 0 < Complex.normSq (τ + 1) :=
+      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
+    have hq : 0 < Complex.normSq (τ - 3) :=
+      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
+    simp [OmegaPF, dotProduct, mulVec, Fin.sum_univ_two, Complex.inv_im, Complex.inv_re]
+    set y := τ.im
+    set P := Complex.normSq (τ + 1)
+    set Q := Complex.normSq (τ - 3)
+    set r := √2
+    rw [show x 0 * ((-y / P * ((-2 + -r) / 2) + -y / Q * (3 * (r - 2) / 2)) * x 0 +
+          (-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 1) +
+        x 1 * ((-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 0 +
+          (-y / P * (-2 + -r) + -y / Q * (3 * (r - 2))) * x 1) =
+        y / P * ((r + 2) / 2 * (x 0 - r * x 1) ^ 2) + y / Q * (3 * (2 - r) / 2 * (x 0 + r * x 1) ^ 2)
+      by linear_combination (x 1 * y * (3 * r * x 1 + 6 * x 0 - 6 * x 1) / (2 * Q) +
+        x 1 * y * (-r * x 1 + 2 * x 0 - 2 * x 1) / (2 * P)) * hs]
+    have hr0 : 0 < r := Real.sqrt_pos.mpr two_pos
+    have hr2 : r < 2 := by nlinarith
+    have hA : 0 < y / P * ((r + 2) / 2) := mul_pos (div_pos hτ hp) (by linarith)
+    have hB : 0 < y / Q * (3 * (2 - r) / 2) := mul_pos (div_pos hτ hq) (by linarith)
+    by_contra hle
+    push Not at hle
+    have hu : (x 0 - r * x 1) ^ 2 = 0 := by
+      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
+        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
+    have hw : (x 0 + r * x 1) ^ 2 = 0 := by
+      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
+        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
+    have hu' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hu
+    have hw' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hw
+    have hx1 : x 1 = 0 := by
+      have : r * x 1 = 0 := by linarith
+      exact (mul_eq_zero.mp this).resolve_left hr0.ne'
+    have hx0 : x 0 = 0 := by linarith
+    exact hx (funext fun i => by fin_cases i <;> simp [hx0, hx1])
+
 end QM
 
 /-! ## §8. Continuous homomorphisms of tori are linear (node T2)

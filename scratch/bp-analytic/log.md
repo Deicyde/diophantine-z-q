@@ -84,3 +84,7 @@
   axioms standard.
 - Torus.lean §10: `nsmul_proj_eq_zero_iff` (n•[v] = 0 ↔ n•v ∈ Λ), `torsion_iff` (P^n = 1 ↔ P = φ[v] with n•v ∈ Λ).
   COMPILED; axioms standard.
+- Torus.lean §7: `OmegaPF` (partial fractions Ω(τ) = A₀ + C/(τ+1) + B/(τ−3), from sympy), `Fp_mul_OmegaPF`,
+  `Omega_eq_PF`, `Omega_mem_siegelSpace` (Ω(τ) ∈ 𝔥₂ for Im τ > 0: xᵀ Im Ω x = y/|τ+1|²·((√2+2)/2)(x₀−√2x₁)²
+  + y/|τ−3|²·(3(2−√2)/2)(x₀+√2x₁)²). COMPILED; axioms standard. pkg-I1's faithfulness claim (symmetric,
+  Im > 0, period matrix of ℂ²/Λ_τ) is now fully proved except the Riemann-form compatibility.
