@@ -16,6 +16,12 @@ path = "lean"
 [[lean_lib]]
 name = "ZInQKernel"
 
+# Opt-in scratch interface; not part of the default ZInQKernel build or CI.
+[[lean_lib]]
+name = "PkgI2Leaves"
+srcDir = "scratch/h-decomposition"
+roots = ["Leaves"]
+
 # Vendored Green-Tao proof (Vilin97/Autoformalization, green-tao/, Apache-2.0); see
 # ThirdParty/GreenTao/NOTICE.md.
 [[lean_lib]]
