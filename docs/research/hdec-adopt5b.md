@@ -7,7 +7,7 @@ Status: task hdec-adopt5b, 2026-11-13. Results log: `scratch/hdec-adopt5b/log.md
 
 ## Result
 
-VERIFIED (02:0x PST, after the last Lean change to the imported modules):
+VERIFIED (about 02:00 PST, after the last change to an imported module):
 
 - `lake build ZInQKernel` exits 0: "Build completed successfully (10006 jobs)", 7 min 58 s.
 - `lake env lean scripts/print_axioms.lean` exits 0. It prints 454 axiom lists, each exactly
@@ -15,7 +15,8 @@ VERIFIED (02:0x PST, after the last Lean change to the imported modules):
   `scratch/hdec-adopt5b/axioms.txt`.
 
 All five developments named by the task are adopted. Nothing was dropped except the second batch
-of `ring` proofs of t28-igusa's identities M3; see "Not adopted" for its status. There are 15
+of `ring` proofs of t28-igusa's identities M3. That batch compiles, but it costs 7.5 minutes
+and about 15 GB for three identities that close nothing (see "Not adopted"). There are 15
 new modules (about 7,670 lines) under `ZInQKernel/HDecomp/Textbook/`. All are imported from
 `ZInQKernel/HDecomp.lean` in one block after the last import line. The 58 axiom lines are one
 block at the end of `scripts/print_axioms.lean`.
@@ -118,12 +119,15 @@ Drafts not adopted because another file subsumes them:
 
 ## Not adopted (or pending)
 
-- **`Igusa/M3b`: the second batch of `ring` proofs (`m3_G23`, `m3_G33`, `m3_a112`).** The draft
-  log reports about 7 minutes for this batch, and a sibling identity (`a113`) reached 27 GB before
-  it was killed. The module is generated (`adopt5b.py --m3b`) but is NOT imported from
-  `HDecomp.lean`, so the build above does not include it. Build attempt: see the log (PENDING at
-  the time of writing). None of the reduction theorems needs these identities:
-  `igusaClebschSeparation_of` takes `M3Identities` as a hypothesis.
+- **`Igusa/M3b`: the second batch of `ring` proofs (`m3_G23`, `m3_G33`, `m3_a112`).** It
+  compiles (VERIFIED). `adopt5b.py --m3b` generates it as the module
+  `ZInQKernel.HDecomp.Textbook.Igusa.M3b`, and `lake build` of that module alone exits 0 in
+  7 min 34 s; the RSS, sampled every minute, was 11-15 GB. It is **not adopted**: it would add
+  about 7.5 minutes and about 15 GB to every clean build, against a 20 GB memory cap here and an
+  unknown one on CI. And it closes nothing: `M3Identities` still needs the eight unproved cubic
+  identities (`a113` … `a333`). The reduction `igusaClebschSeparation_of` takes `M3Identities`
+  as a hypothesis. So the file is not in the tree. An integrator who wants it runs the flag and
+  adds one import and three axiom lines.
 - **Downstream use of the new theorems.** The theorems are not used downstream yet. For example,
   the `HSyn.TextbookLeaves` fields `t13`, `t19`, `t22a`, `t22b` and the `BrauerNesbittChar0`
   hypothesis of `GlueC10.c10` could be discharged by them. That bundle lives in

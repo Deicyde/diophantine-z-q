@@ -18,3 +18,9 @@
 - `lake build ZInQKernel`: exit 0, "Build completed successfully (10006 jobs)", 7m58.
 - `lake env lean scripts/print_axioms.lean`: exit 0, 454 axiom lists, all exactly
   [propext, Classical.choice, Quot.sound] (58 new). List: axioms.txt.
+- Igusa/M3b (adopt5b.py --m3b: m3_G23, m3_G33, m3_a112) built alone with lake build: exit 0,
+  7m34, RSS sampled each minute 11-15 GB. Not imported: 7.5 min and ~15 GB on every clean build
+  for three identities that close nothing (M3Identities still needs the eight unproved cubic
+  ones). The file is removed from the tree; the flag regenerates it.
+- same.py: every draft declaration identical (whitespace-normalized) or a verbatim copy now
+  imported; exceptions only m3_G23/m3_G33/m3_a112 (M3b).
