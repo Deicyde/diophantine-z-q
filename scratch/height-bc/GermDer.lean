@@ -148,6 +148,58 @@ theorem germAlong_add_mul {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin 
     rw [hP, hz₁, hz₂, evalAt_mul 𝒢 (Φ z) W hz, evalAt_res 𝒢 (Φ z) i₁ hz r₁,
       evalAt_res 𝒢 (Φ z) i₂ hz r₂]
 
+/-- `appLE ⊤ ⊤` is `appTop`. -/
+theorem appLE_top_top {X Y : Scheme.{0}} (f : X ⟶ Y) (e : (⊤ : X.Opens) ≤ f ⁻¹ᵁ ⊤) :
+    f.appLE ⊤ ⊤ e = f.appTop :=
+  Scheme.Hom.appLE_eq_app (U := ⊤) f
+
+/-- **Structure sections take the value `τ(r)` at every complex point.** -/
+theorem evalAt_structSection {τ : L →+* ℂ} (p : 𝒢.Pts τ) (r : 𝓞 L) :
+    𝒢.evalAt p ⊤ (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) =
+      τ (algebraMap (𝓞 L) L r) := by
+  unfold GroupModel.evalAt
+  have h : ⊤ ≤ p.left ⁻¹ᵁ (⊤ : 𝒢.G.left.Opens) := fun x _ => trivial
+  rw [dif_pos h, appLE_top_top, ← CommRingCat.comp_apply, ← Scheme.Hom.comp_appTop]
+  have hw : p.left ≫ 𝒢.G.hom = Spec.map (CommRingCat.ofHom (τ.comp (algebraMap (𝓞 L) L))) :=
+    Over.w p
+  rw [hw]
+  have hN := congrArg (fun φ => (ConcreteCategory.hom φ)
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r))
+    (Scheme.ΓSpecIso_naturality (CommRingCat.ofHom (τ.comp (algebraMap (𝓞 L) L))))
+  refine hN.trans ?_
+  erw [CommRingCat.comp_apply, Iso.inv_hom_id_apply]
+  rfl
+
+/-- **Germs in `𝔪_ξ` vanish at the unit complex point.** -/
+theorem evalAt_one_eq_zero (τ : L →+* ℂ) (U : 𝒢.G.left.Opens) (hU : 𝒢.genericUnit ∈ U)
+    (s : Γ(𝒢.G.left, U))
+    (hs : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit hU s ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.evalAt (1 : 𝒢.Pts τ) U s = 0 := by
+  unfold GroupModel.evalAt
+  have h : ⊤ ≤ (1 : 𝒢.Pts τ).left ⁻¹ᵁ U := one_mem_dom 𝒢 τ hU
+  rw [dif_pos h]
+  have h1 : (1 : 𝒢.Pts τ).left = (GroupModel.ptC τ).hom ≫ 𝒢.unitSection := rfl
+  have hgen : genericPt L ∈ 𝒢.unitSection ⁻¹ᵁ U := hU
+  have hz : 𝒢.unitSection.app U s = 0 := by
+    apply germ_injective_of_isIntegral _ (genericPt L) hgen
+    rw [map_zero]
+    refine (Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection U (genericPt L) hgen s).symm.trans ?_
+    have hfield : IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L)) := by
+      have : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+        (genericPoint_eq_bot_of_affine (CommRingCat.of (𝓞 L))).symm
+      rw [this]
+      exact Field.toIsField _
+    have hloc := map_nonunit (𝒢.unitSection.stalkMap (genericPt L)).hom _
+      ((IsLocalRing.mem_maximalIdeal _).mp hs)
+    rw [IsLocalRing.isField_iff_maximalIdeal_eq.mp hfield] at hloc
+    exact hloc
+  have h2 : (1 : 𝒢.Pts τ).left.appLE U ⊤ h s =
+      ((GroupModel.ptC τ).hom.appLE (𝒢.unitSection ⁻¹ᵁ U) ⊤ h) (𝒢.unitSection.app U s) := by
+    have := Scheme.Hom.comp_appLE (GroupModel.ptC τ).hom 𝒢.unitSection U ⊤ h
+    exact congrArg (fun φ => (ConcreteCategory.hom φ) s) this
+  rw [h2, hz, map_zero]
+  exact map_zero _
+
 end GermDer
 
 end ZInQ.HeightBC
