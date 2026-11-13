@@ -61663,191 +61663,7 @@ Copied verbatim from `scratch/g0-fibresimple/olean/Tail.lean`: lines 38-117 (`B6
 `division_of_algEquiv`, `qmBasis`, `qm_embeds_end0`), 152-164 (FS4 `CentralizerOfMatrixEnd0`) and
 208-282 (FS4 proved from T6, `centralizerOfMatrixEnd0_of_homFree`). -/
 
-section FS4Copy
-
-noncomputable section
-
-open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV
-open scoped Quaternion TensorProduct
-
-namespace G0FibreSimple
-
-/-! ## §1 Proved glue: `B` is a division algebra -/
-
-/-- `B = (2, -3)_ℚ` is a division algebra: every nonzero element is a unit (the norm form
-`a² - 2b² + 3c² - 6d²` is anisotropic, `GlueDescent.aniso_rat`). -/
-theorem B6_isUnit (x : ℍ[ℚ, 2, -3]) (hx : x ≠ 0) : IsUnit x := by
-  set n := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 with hn_def
-  have hn : n ≠ 0 := fun h0 => by
-    obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ h0
-    exact hx (QuaternionAlgebra.ext h1 h2 h3 h4)
-  have hs : star x * x = algebraMap ℚ ℍ[ℚ, 2, -3] n := GlueDescent.B6_star_mul x
-  have hs' : x * star x = algebraMap ℚ ℍ[ℚ, 2, -3] n := by
-    rw [QuaternionAlgebra.mul_star_eq_coe]
-    congr 1
-    simp [QuaternionAlgebra.re_mul]
-    ring
-  refine ⟨⟨x, n⁻¹ • star x, ?_, ?_⟩, rfl⟩
-  · rw [mul_smul_comm, hs', Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
-  · rw [smul_mul_assoc, hs, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
-
-/-- Division transported along an algebra isomorphism. -/
-theorem division_of_algEquiv {D E : Type*} [Ring D] [Ring E] [Algebra ℚ D] [Algebra ℚ E]
-    (e : D ≃ₐ[ℚ] E) (hE : ∀ x : E, x ≠ 0 → IsUnit x) : ∀ x : D, x ≠ 0 → IsUnit x := by
-  intro x hx
-  have h1 : e x ≠ 0 := by
-    intro h; apply hx; rw [← e.symm_apply_apply x, h, map_zero]
-  have := (hE (e x) h1).map e.symm
-  rwa [e.symm_apply_apply] at this
-
-/-! ## §2 Proved glue: a QM structure gives `B →ₐ[ℚ] End⁰(A)` -/
-
-/-- `i ∈ 𝒪`. -/
-def oi : LeafQM.O := ⟨LeafQM.ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
-/-- `j = 2·(1+j)/2 - 1 ∈ 𝒪`. -/
-def oj : LeafQM.O := ⟨LeafQM.ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
-
-theorem coe_two_O : ((2 : LeafQM.O) : LeafQM.B) = 2 := map_ofNat LeafQM.O.subtype 2
-theorem coe_three_O : ((3 : LeafQM.O) : LeafQM.B) = 3 := map_ofNat LeafQM.O.subtype 3
-
-theorem oi_mul_oi : oi * oi = 2 := by
-  apply Subtype.ext
-  rw [coe_two_O, Subring.coe_mul]
-  ext <;> simp [oi, LeafQM.ofInt] <;> rfl
-
-theorem oj_mul_oj : oj * oj = -3 := by
-  apply Subtype.ext
-  rw [Subring.coe_neg, coe_three_O, Subring.coe_mul]
-  ext <;> simp [oj, LeafQM.ofInt] <;> rfl
-
-theorem oj_mul_oi : oj * oi = -(oi * oj) := by
-  apply Subtype.ext
-  rw [Subring.coe_neg, Subring.coe_mul, Subring.coe_mul]
-  ext <;> simp [oi, oj, LeafQM.ofInt]
-
-/-- **Glue (proved): the QM structure gives `B ↪ End⁰(A)`.** For a QM structure
-`ι : 𝒪 → End_k(A)` (`LeafQM.AV.QMStr`), the elements `1 ⊗ ι(i)`, `1 ⊗ ι(j)` of
-`End⁰(A) = ℚ ⊗ End(A)` satisfy `i² = 2`, `j² = -3`, `ji = -ij`, so `B = ℍ[ℚ,2,-3]` maps to
-`End⁰(A)` (`QuaternionAlgebra.Basis.liftHom`). This is Yu's hypothesis "`B` embeds in `End⁰(A)`"
-(injectivity is automatic: `B` is simple and `End⁰(A) ≠ 0` when a QM structure exists). -/
-def qmBasis {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
-    QuaternionAlgebra.Basis (PkgI3.AbVar.End0 A) (2 : ℚ) 0 (-3) :=
-  let g : LeafQM.O →+* PkgI3.AbVar.End0 A :=
-    (Algebra.TensorProduct.includeRight : PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A).toRingHom.comp
-      q.iota
-  { i := g oi
-    j := g oj
-    k := g oi * g oj
-    i_mul_i := by
-      rw [← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def, _root_.mul_one,
-        map_ofNat]
-    j_mul_j := by
-      rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Algebra.smul_def, _root_.mul_one, map_neg,
-        map_ofNat]
-    i_mul_j := rfl
-    j_mul_i := by
-      rw [← map_mul, oj_mul_oi, map_neg, map_mul, zero_smul, zero_sub] }
-
-theorem qm_embeds_end0 {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
-    Nonempty (ℍ[ℚ, 2, -3] →ₐ[ℚ] PkgI3.AbVar.End0 A) :=
-  ⟨(qmBasis q).liftHom⟩
-
-
-/-- **Glue piece FS4 (the CM case of Yu's dichotomy has a non-integral `𝒪`-centralizer).** If
-`End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, for an abelian variety with QM by `𝒪`, then the centralizer
-`End_𝒪(A) = com q` contains a non-integer. *Why true* (STANDARD linear algebra): the image of
-`B` in `M₂(k)`, `k = ℚ(√d)`, spans `M₂(k)` over `k` (`B ⊗ k` is simple of `k`-dimension 4), so
-its centralizer is the centre `k`; `n√d` lies in the image of `End(A)` for some `n ≥ 1`, and
-commutation and non-integrality pass from `End⁰(A)` to `End(A)` because `End(A)` is torsion-free
-(Mumford §19 Thm 3). Glue. -/
-def CentralizerOfMatrixEnd0 : Prop :=
-  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (q : QMStr A) (d : ℚ), d < 0 →
-    Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
-      Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d))) →
-    ∃ φ ∈ com q, ∀ n : ℤ, φ ≠ (n : PkgI3.AbVar.End A)
-
-
-/-! ## §4′ Proved: `CentralizerOfMatrixEnd0` from the leaf T6 (`PkgI3.HomFreeFinite`) -/
-
-/-- **FS4 is proved from T6** (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3: `Hom(A, B)` is a free
-`ℤ`-module; `TextbookLeaves.t6`). Proof: the scalar matrix `√d` is central in `M₂(ℚ(√d))`, so
-`c' = e⁻¹(√d)` is central in `End⁰(A)` and is not a rational scalar (`(√d)² = d < 0`); `ℚ ⊗ End(A)`
-is the localization of `End(A)` at `ℤ \ {0}`, so `s • c' = 1 ⊗ φ` for some `φ ∈ End(A)`,
-`s ≠ 0`; freeness makes `m ↦ 1 ⊗ m` injective, so `φ` commutes with `ι(𝒪)` and is not an
-integer. -/
-theorem centralizerOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) :
-    CentralizerOfMatrixEnd0 := by
-  intro k _ _ A q d hd hM
-  obtain ⟨e⟩ := hM
-  set c' : PkgI3.AbVar.End0 A :=
-    e.symm (Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d))) with hc'
-  have hcen : ∀ x : PkgI3.AbVar.End0 A, c' * x = x * c' := by
-    intro x
-    apply e.injective
-    rw [map_mul, map_mul, hc', e.apply_symm_apply]
-    exact (Matrix.scalar_commute _ (fun r' => Commute.all _ r') (e x)).eq
-  have hnq : ∀ t : ℚ, c' ≠ algebraMap ℚ _ t := by
-    intro t ht
-    have h1 : Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d)) =
-        algebraMap ℚ _ t := by
-      rw [← AlgEquiv.commutes e t, ← ht, hc', e.apply_symm_apply]
-    have h2 : AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d) =
-        AdjoinRoot.of (Polynomial.X ^ 2 - Polynomial.C d) t := by
-      have := congrFun (congrFun h1 0) 0
-      simpa [Matrix.scalar_apply, Matrix.algebraMap_eq_diagonal, AdjoinRoot.algebraMap_eq]
-        using this
-    have hdeg : (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ).degree ≠ 0 := by
-      rw [Polynomial.degree_X_pow_sub_C (by norm_num)]; norm_num
-    have h3 := AdjoinRoot.eval₂_root (Polynomial.X ^ 2 - Polynomial.C d)
-    simp only [Polynomial.eval₂_sub, Polynomial.eval₂_X_pow, Polynomial.eval₂_C] at h3
-    rw [h2, ← map_pow, ← map_sub] at h3
-    have h4 : t ^ 2 - d = 0 :=
-      (AdjoinRoot.of.injective_of_degree_ne_zero hdeg) (h3.trans (map_zero _).symm)
-    nlinarith [sq_nonneg t]
-  have hfree : Module.Free ℤ (PkgI3.AbVar.End A) := (hHF k A A).1
-  let f := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End A) 1
-  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) f :=
-    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ f).mpr
-      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End A) (S := ℚ))
-  obtain ⟨⟨φ, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) f c'
-  have hs' : (1 : ℚ) ⊗ₜ[ℤ] φ = (s : ℤ) • c' := by
-    rw [Submonoid.smul_def] at hs; exact hs.symm
-  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
-  have hinj : ∀ m : PkgI3.AbVar.End A, (1 : ℚ) ⊗ₜ[ℤ] m = 0 → m = 0 := by
-    intro m hm
-    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) f).mp hm
-    rw [Submonoid.smul_def] at hs'
-    exact (smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s')
-  refine ⟨φ, ?_, ?_⟩
-  · rw [com, Subring.mem_centralizer_iff]
-    rintro _ ⟨a, rfl⟩
-    have key : (1 : ℚ) ⊗ₜ[ℤ] (q.iota a * φ - φ * q.iota a) = 0 := by
-      have e1 : ∀ x y : PkgI3.AbVar.End A,
-          (1 : ℚ) ⊗ₜ[ℤ] (x * y) = ((1 : ℚ) ⊗ₜ[ℤ] x) * ((1 : ℚ) ⊗ₜ[ℤ] y) := by
-        intro x y; rw [Algebra.TensorProduct.tmul_mul_tmul, _root_.mul_one]
-      rw [TensorProduct.tmul_sub, e1, e1, hs', mul_smul_comm, smul_mul_assoc, ← smul_sub,
-        hcen, sub_self, smul_zero]
-    exact sub_eq_zero.mp (hinj _ key)
-  · intro n hn
-    apply hnq ((n : ℚ) / (s : ℤ))
-    have h1 : algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c' =
-        algebraMap ℚ (PkgI3.AbVar.End0 A) (n : ℚ) := by
-      rw [map_intCast, map_intCast, ← zsmul_eq_mul, ← hs', hn]
-      exact map_intCast (Algebra.TensorProduct.includeRight :
-        PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A) n
-    have hs1 : ((s : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr hs0
-    calc c' = algebraMap ℚ (PkgI3.AbVar.End0 A) (((s : ℤ) : ℚ)⁻¹) *
-          (algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c') := by
-          rw [← _root_.mul_assoc, ← map_mul, inv_mul_cancel₀ hs1, map_one, _root_.one_mul]
-      _ = algebraMap ℚ _ ((n : ℚ) / (s : ℤ)) := by
-          rw [h1, ← map_mul, div_eq_inv_mul]
-
-end G0FibreSimple
-
-end
-
-end FS4Copy
+-- (leaf-fold2) section FS4Copy deleted: part 40 declares B6_isUnit ... centralizerOfMatrixEnd0_of_homFree.
 
 
 /-! ## §6.10 `𝒪` is a maximal order (proved)
@@ -62194,7 +62010,7 @@ change `Q` of `PK` with `[Q] = [P]`, so `Q ≅ P`, and `endEqO_of_iso`). -/
 theorem endTransport_of (h : EndTransportBC) : EndTransport := by
   intro Y Φ π hR1 hR2 j₀ y P hy hπ hEndP K _ _ PK hPK L _ _ hKL hfix f
   obtain ⟨⟨yK, hyK, hyKP⟩, -⟩ := hPK
-  obtain ⟨Q, hQ, hbc⟩ := hR1.2.2.2 K Qbar K.val yK PK hyK
+  obtain ⟨Q, hQ, hbc⟩ := hR1.2.2.2.1 K Qbar K.val yK PK hyK
   have hQP : M3.mk Q = M3.mk P := hQ.symm.trans hyKP
   obtain ⟨e⟩ := Quotient.exact hQP
   exact h K PK Q hbc (endEqO_of_iso e hEndP) L hKL f
@@ -62223,17 +62039,7 @@ section RigCopy
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open scoped CategoryTheory.Obj
 
-namespace G0FibreSimple
-
-
-/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
-varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
-of `k`-schemes between abelian varieties that sends the identity to the identity is a
-homomorphism. -/
-def RigidityHom : Prop :=
-  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
-
-end G0FibreSimple
+-- (leaf-fold2) the copy of `G0FibreSimple.RigidityHom` is deleted: part 40 declares it.
 
 namespace G0ModField.KernelField
 
@@ -69479,6 +69285,8 @@ theorem xi'_mem_nonZeroDivisors :
 
 /-! ### Non-triviality: `ξ` is not nilpotent in `B_dR^+`, so `B_dR = B_dR^+[1/ξ] ≠ 0`. -/
 
+-- (leaf-fold2) instance-search budget, see mk_fix_c.py
+set_option synthInstance.maxHeartbeats 400000 in
 theorem ofPlus_xi'_pow_ne_zero (n : ℕ) : ofPlus O p (xi' p) ^ n ≠ 0 := by
   intro h
   set I := RingHom.ker (fontaineThetaInvertP O p)
