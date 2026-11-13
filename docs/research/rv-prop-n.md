@@ -11,6 +11,15 @@ Marks: **VERIFIED** (exact derivation here, or exact/PARI computation with a scr
 quotation of the TYZ source `Period7.tex`, which is not available on this host; this review could not
 compare it with the source.
 
+> **Locator correction (2026-11-12, loc-adopt).** The convolution lemma of input I2 (TYZ L1062–1066),
+> called "Lemma 2.8" when this review was written, is printed as **Lemma 2.9**; Lemma 2.8 is the
+> symmetry lemma (`lem2.6`). VERIFIED for arXiv v1 by recounting the shared §2 counter of
+> `Period7.tex` (nt-tyz's count skipped Definition 2.7, L842); the journal has the same numbers per
+> the locator audit `docs/research/locators.md` (AI agents, 2026-11-12). Numbers are corrected in
+> place. The same audit read the journal text: arXiv Theorem 1.2 is journal **Theorem 1.4**, and it
+> keeps "all `d_i > 1`", so the values refuting reading B refute journal Theorem 1.4 too. No
+> mathematical content of this review changed.
+
 ## Verdict
 
 **Proposition N holds as stated, relative to the inputs I1–I7 as quoted.** Every inference of §§4.3–4.4
@@ -62,12 +71,12 @@ of I1 the proof is sensitive to (§4.3, §5.3).
   representatives `Φ₀` of `2Cl` rather than of `Cl`, is `2^{−h₂(n)}Σ_χ P_χ`; then the recursion is the
   inductive form of Theorem 3.5's first assertion. *Quoted*; consistent (SPECULATIVE as to TYZ's exact
   normalization, which this review cannot read).
-- **I2** (Lemma 2.8 with Proposition 2.3). Used **only modulo 2**, in N1: the signs `ε = ±1`, the
+- **I2** (Lemma 2.9 with Proposition 2.3). Used **only modulo 2**, in N1: the signs `ε = ±1`, the
   equality `Σ = Q(m)` and `Q(m) ≡ g(m)` enter only through their reduction mod 2. The abstract check
   (§3) models I2 as a congruence only (random signs and random even errors in both `Q(m)` and `𝓛(m)`)
-  and N1 still holds in every trial. So a failure of Lemma 2.8 as an equality (for example at `m = 3`)
+  and N1 still holds in every trial. So a failure of Lemma 2.9 as an equality (for example at `m = 3`)
   does not affect Proposition N, provided the congruence holds (VERIFIED, as a statement about the
-  proof). What N1 does need is that the decompositions in Lemma 2.8 for `m ≡ 1` are **unordered**: with
+  proof). What N1 does need is that the decompositions in Lemma 2.9 for `m ≡ 1` are **unordered**: with
   ordered pairs, `𝓛(m)𝓛(1)` would appear twice and the induction would give no information on
   `𝓛(m)`. That is part of the quotation (L1068–1077).
 - **I3** (Theorem 3.5, first assertion): `𝓛(n) = 0 ⟹ P(n)` torsion. Used once. *Quoted.*
@@ -226,7 +235,7 @@ and the same assessment of every step of §§4.3–4.4. Point by point:
 | Point | rv-nt-tyz | this review |
 |---|---|---|
 | N1, N2, proof §4.4 | CORRECT (hand + 360 abstract configurations) | VERIFIED (hand + 453 abstract configurations, own code) |
-| I2 only mod 2 | B1: at `m = 3`, Lemma 2.8 and Theorem 2.1 differ by the odd factor `w_K = 3`; repair: quote I2 as a congruence | §2: I2 enters only mod 2; the abstract model perturbs `Q(m)` and `𝓛(m)` by even errors (a factor 3 is such an error), N1 unaffected. Same conclusion; the `w_K` diagnosis is rv-nt-tyz's (it needs the source) |
+| I2 only mod 2 | B1: at `m = 3`, Lemma 2.9 and Theorem 2.1 differ by the odd factor `w_K = 3`; repair: quote I2 as a congruence | §2: I2 enters only mod 2; the abstract model perturbs `Q(m)` and `𝓛(m)` by even errors (a factor 3 is such an error), N1 unaffected. Same conclusion; the `w_K` diagnosis is rv-nt-tyz's (it needs the source) |
 | F4 unused | B2 | correction 1 |
 | `ε` at `(5, 3)` irrelevant | B3, mutation at `(5,1)`, `(7,3)` | §4.3, mutation at `(5,1)`, `(7,1)`, `(7,3)`, and at all-`ε ≡ 1` |
 | single `β'` for all `e` | I5 row: TYZ's `β'₁` is any lift to `Gal(ℚ̄/ℚ)` (L2495–2500) | correction 2: should be said in nt-tyz; rv-nt-tyz's source check settles it |
@@ -258,11 +267,13 @@ Proposition N"). Suggested additions for the trust statement (task cr3-trust):
 1. Proposition N and its Lemmas N1, N2 are repository arguments with **two independent model reviews**
    (rv-nt-tyz, rv-prop-n) and no human review.
 2. Its TYZ inputs are: the recursion of §3.1, used only modulo 2 and only through "`ε = ±1` except at
-   `(5, 3)`"; Lemma 2.8 with Proposition 2.3, used only modulo 2 (Lemma 2.8 is misprinted or inconsistent
+   `(5, 3)`"; Lemma 2.9 with Proposition 2.3, used only modulo 2 (Lemma 2.9 is misprinted or inconsistent
    with Theorem 2.1 at `m = 3` by an odd factor, rv-nt-tyz B1); Theorem 3.5 (first assertion); Lemmas 3.16,
    3.18, 3.21(1), (4); Proposition 3.2(1). Proposition 3.4 and Theorem 1.2 are not used, and Theorem 1.2
-   in its literal form is false (now eight values: 26565, 33117 and the six of §5.3).
+   (journal Theorem 1.4) in its literal form is false (now eight values: 26565, 33117 and the six of §5.3).
 3. The quotations were checked against the arXiv source once (rv-nt-tyz), not against the journal text.
+   (2026-11-12: the AI locator audit `locators.md` compared the journal numbering and restriction, not
+   the inputs' quotations.)
 4. The step "analytic rank one ⟹ point of infinite order" (Gross–Zagier) is separate from Proposition N.
 
 ## 9. Next step

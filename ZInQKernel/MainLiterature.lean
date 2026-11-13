@@ -11,8 +11,12 @@ Theorem 1.1 of the manuscript (`FrozenTarget`) from the reductions of the two hy
 * CR₃ replaced by three literature Props over Mathlib's L-series
   (`Hypotheses/CR3Literature.lean`): `Literature.TYZRow5b`, `Literature.FunctionalEquation5`
   and `Literature.GrossZagier`;
-* `Literature.TYZRow5b` replaced in turn by `PropN.TYZInputs` (`Hypotheses/TYZInputs.lean`), the
-  Tian–Yuan–Zhang inputs of Proposition N, proved in `RouteK/PropN.lean`;
+* `Literature.TYZRow5b` replaced in turn by two leaves, Tian–Yuan–Zhang's Theorem 3.5(2) in
+  reading A (`Literature.TYZThm35ReadingA`) and Hecke's continuation
+  (`Literature.HeckeContinuation`), through `Literature.tyzRow5b_of_readingA`;
+* `Literature.TYZRow5b` replaced alternatively by `PropN.TYZInputs`
+  (`Hypotheses/TYZInputs.lean`), the Tian–Yuan–Zhang inputs of Proposition N, proved in
+  `RouteK/PropN.lean` (supporting evidence for `Literature.TYZThm35ReadingA`);
 * H replaced by its `j`-form `JHeight.JHeightBound Mult.S_mul` (`Hypotheses/JHeight.lean`),
   which implies `SixContactMin` in Lean.
 
@@ -36,6 +40,21 @@ theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyz
   exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk hH
     (Literature.certifiedRankTYZClRk_of_literature hT
       (Literature.rootNumberVanishing_of_functionalEquation hF) hG)
+
+/-- **Theorem 1.1 from `SixContactMin`, TYZ Theorem 3.5(2) in reading A, Hecke's continuation and
+two textbook statements.** As the `TYZRow5b` variant above, with `Literature.TYZRow5b` replaced by
+the two leaves `Literature.TYZThm35ReadingA` (Tian–Yuan–Zhang, Theorem 3.5(2) for `n ≡ 5 (mod 8)`
+in reading A, in the case `𝓛(n) = 0` of its hypothesis: `ord_{s=1} L(C_d, s) ≥ 2` makes `T5aCl d`
+and `T5bCl d` even) and `Literature.HeckeContinuation` (the entire continuation of `L(C_d, s)`).
+Lean derives `TYZRow5b` from the two (`Literature.tyzRow5b_of_readingA`). Proposition N
+(`PropN.tyzThm35ReadingA_of_tyzInputs`, `RouteK/PropN.lean`) derives `TYZThm35ReadingA` from
+unambiguous results of the paper and is supporting evidence for the first leaf, not a hypothesis
+here. -/
+theorem exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier
+    (hH : SixContactMin) (hA : Literature.TYZThm35ReadingA) (hC : Literature.HeckeContinuation)
+    (hF : Literature.FunctionalEquation5) (hG : Literature.GrossZagier) : FrozenTarget :=
+  exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier
+    hH (Literature.tyzRow5b_of_readingA hA hC) hF hG
 
 /-- **Theorem 1.1 from `SixContactMin`, the Tian–Yuan–Zhang inputs and two textbook statements.**
 As the `TYZRow5b` variant above, with `Literature.TYZRow5b` replaced by `PropN.TYZInputs`

@@ -28,7 +28,7 @@ no review of any kind.
    | # | Leaf | Main reference |
    | --- | --- | --- |
    | L1 | Canonical model of the level-3 discriminant-6 Shimura curve = fine moduli scheme over `ℚ` | Shimura 1967; Deligne 1971 Thm 4.21; Kottwitz 1992 |
-   | L2 | Branch data of `Y₃ → P¹_j` and the Igusa vector of the QM locus | Baba–Granath 2008 Thm 2.1; Lin–Yang 2020 Ex. 30, eqs. (13)-(14) |
+   | L2 | Branch data of `Y₃ → P¹_j` and the Igusa vector of the QM locus | Baba–Granath 2008 Thm 2.1; Lin–Yang 2020 arXiv v1 Example 29 (formerly cited as Ex. 30, which is v1's discriminant-14 example; locators.md item 3, corrected by loc-fix 2026-11-12), eqs. (13)-(14) |
    | L3 | Shimura reciprocity at the CM points of `X₆` | Shimura 1967; González–Rotger 2006 Thm 5.12, Prop. 5.6 |
    | L4 | Grothendieck's ℓ-adic monodromy theorem (quasi-unipotence on inertia) | SGA 7 I, Exp. I; Serre–Tate 1968, Appendix |
    | L5 | Faltings: semisimplicity and the Tate conjecture for endomorphisms | Faltings 1983, Satz 3, Satz 4 |
@@ -91,7 +91,7 @@ to §4.
 | Node | N5 lines | Content | Kind | Route K | Leaves / glue |
 | --- | --- | --- | --- | --- | --- |
 | A1 | L410-420 | QM datum `B = (2,−3)`, `𝒪`, `μ = 2j + ij`, Gram matrix of determinant 1, Rosati `a ↦ μ⁻¹āμ` | BOOKKEEPING | kept | G1 |
-| A2 | L420-422, L908-909 | `Y₃/Γ' ≅ P¹_j`, branch values `0, ∞, −16/27`, indices `4, 6, 2`, CM discriminants `−4, −3, −24` | LITERATURE | kept | L2 |
+| A2 | L420-422, L908-909 | `Y₃/Γ' ≅ P¹_j`, elliptic points `0, ∞, −16/27` of orbifold orders `4, 6, 2` (indices of `Y₃ → P¹_j`; the map `X₆ → X₆/W` has indices 2, 2, 2), CM discriminants `−4, −3, −24` (wording corrected 2026-11-12 by loc-fix, rv-nocm §3.2) | LITERATURE | kept | L2 |
 | A3 | L423-441 | `|N/𝔸_f^*K₀| = 4`, central ideles act trivially, `deg(Y₃ → P¹_j) ≤ 324` | NEW (N5) | kept | G2 (L1, F-e) |
 | A4 | L528 (h-b1 §4A) | `Y₃` is the fine moduli scheme of `(A, ι, λ, η)` over `ℚ` | LITERATURE | kept | L1, G3 |
 | A5 | L443-528 → h-b1 Lemma PR(i) | fibre field `K` Galois, `[K:ℚ] | 144`, unramified outside `T` | NEW (h-b1) | kept | G4 (L1, L2, L3, F-a, F-b) |
@@ -222,15 +222,22 @@ says what is missing.
 **L2. Branch data and the Igusa vector.**
 - *Statement.* (a) `Y₃/Γ' ≅ P¹_ℚ` with a coordinate `j`; the quotient map is branched exactly
   over `0, ∞, −16/27`, with ramification indices `4, 6, 2`, and these are the images of the CM
-  points of discriminants `−4, −3, −24`. (b) For a point `x ∈ Y₃(ℚ̄)` over `j ∉ {0, ∞}`, the
+  points of discriminants `−4, −3, −24`. *Note (loc-fix, 2026-11-12, after rv-nocm §3.2 and the
+  locator audit):* the indices `4, 6, 2` of `Y₃ → P¹_j` are not printed by Baba–Granath. What
+  Baba–Granath print (§3.1 elliptic-order table, p. 740 per locators.md) is that `Γ*\ℍ` has
+  elliptic points of orbifold orders `4, 6, 2` there; the indices of `Y₃ → P¹_j` equal them
+  because `Γ₃` is torsion-free and normal in `Γ*` (glue, `RvNocm.ramification_eq_orbifold_order`),
+  while the degree-4 map `X₆ → X₆/W` has indices `2, 2, 2`. So the index clause of (a) is glue
+  over the leaf, not part of it. (b) For a point `x ∈ Y₃(ℚ̄)` over `j ∉ {0, ∞}`, the
   principally polarized surface `(A_x, λ_x)` is the Jacobian of a genus-2 curve whose
   Igusa–Clebsch invariants satisfy
   `[I₂ : I₄ : I₆ : I₁₀] = [96(j+1) : 576j : 4608j(5j+4) : 4096j³]` in weighted projective space
   (`HDec.OnQMLocus`).
 - *Reference.* Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1, Lemma 3.1 and the §3 datum
   (not Props 3.7-3.10, whose printed proof has the defect recorded in rv-up §3); Lin–Yang,
-  Math. Z. 295 (2020), Ex. 30 and eqs. (13)-(14) (VERIFIED in arXiv v1 by h-v14; journal
-  numbers UNVERIFIED); the conversion `I₂ = 8J₂`, `I₄ = 4J₂² − 96J₄`, `I₆ = 8J₂³ − 160J₂J₄ −
+  Math. Z. 295 (2020), arXiv v1 Example 29 (discriminant 6) and eqs. (13)-(14) (content VERIFIED
+  in arXiv v1 by h-v14; the number corrected 2026-11-12 by loc-fix from "Ex. 30", v1's
+  discriminant-14 example, per locators.md item 3; journal numbers UNVERIFIED); the conversion `I₂ = 8J₂`, `I₄ = 4J₂² − 96J₄`, `I₆ = 8J₂³ − 160J₂J₄ −
   576J₆`, `I₁₀ = 4096J₁₀` (Igusa 1960; Mestre 1991 §1; UNVERIFIED locators, but cross-checked
   here against Thomae, log Step 2). The constant at `P₋₂₄` has an independent exact check
   (`scratch/rv-up/endo24.py`, `theta24.py`).
@@ -249,8 +256,10 @@ says what is missing.
   the CM points `CM(R) ⊂ X₆(ℚ̄)` are defined over the ring class field `H_R`, and
   `Gal(H_R/K) ≅ Pic(R)` acts on them through Shimura's reciprocity law. In the forms used:
   (i) González–Rotger 2006 Thm 5.12 (the field `ℚ(x)` of a CM point, with
-  `[H_R : ℚ(x)] ∈ {1, 2}` according to `D(R)`) and Prop. 5.6 (`#CM(R) = h(R)` under
-  `(f, 6) = 1`); (ii) Deligne 1971 §3: the CM points over the elliptic points of `P¹_j` are
+  `[H_R : ℚ(x)] ∈ {1, 2}` according to `D(R)`) and Prop. 5.6 (`#CM(R) = 2^{b(R)} h(R)` under
+  `(f, 6) = 1` and neither 2 nor 3 split in `K`, `b(R) = #{p | 6 inert in K}`, on `X₆ = X₀(6,1)`;
+  corrected 2026-11-12 by loc-fix after rv-nocm §3.1 from "`#CM(R) = h(R)`", which is false, e.g.
+  for `ℤ[i]`: `h = 1`, two CM points; NoCM uses the count only for `b(R) = 0`); (ii) Deligne 1971 §3: the CM points over the elliptic points of `P¹_j` are
   unramified at `p ≥ 5` (Lemma NV, h-b1 §3).
 - *Reference.* Shimura 1967 (main theorem of CM for the canonical model); Jordan, thesis
   (Harvard 1981); González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12, Prop. 5.6 (arXiv

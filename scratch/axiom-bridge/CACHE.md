@@ -5,8 +5,9 @@ It does not edit or replace `autoform-verify`, the root default target, branch
 protection, required-check settings, or any Astra/adversarial acceptance gate.
 Failures remain visible; only the diagnostic artifact upload is non-blocking.
 The workflow runs manually (`workflow_dispatch`) and on **any branch's** push or
-pull request changing `scratch/axiom-bridge/**`, its workflow, or its trusted
-`.github/axiom-cache.json` hash manifest.
+pull request changing the bridge, workflow, cache hash manifest, any repository
+`*.lean` source, or any `lakefile.toml`, `lake-manifest.json`, or `lean-toolchain`.
+This includes `Leaves.lean` and the root/local-helper packages the bridge imports.
 
 ## Owner setup: publish the already-verified cache
 

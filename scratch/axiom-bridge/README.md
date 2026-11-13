@@ -8,7 +8,8 @@ which makes the existing `scratch/h-decomposition/Leaves.lean` importable as
 
 ## Pins
 
-- Root base: `48b5f075e5509678c84685f0d1ec53febd10b1e5`
+- Original cache/source base: `48b5f075e5509678c84685f0d1ec53febd10b1e5`
+- Integration base for this refresh: `d5ea962c16450e26aed593501254b33f1d45f365`
 - Lean: `leanprover/lean4:v4.35.0`
 - Mathlib: `56a005855ea17e0b0958f73ec801ae140b0a1679`
 - Mordell: `82a30cb7857f6e3cfdb1be91f5533c0ccb57d493`

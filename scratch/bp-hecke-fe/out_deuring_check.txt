@@ -1,0 +1,8 @@
+d=1  n<=400  mismatches=0  cond=32 rootno=1
+d=5  n<=400  mismatches=0  cond=800 rootno=-1
+d=13  n<=400  mismatches=0  cond=5408 rootno=-1
+d=21  n<=400  mismatches=0  cond=14112 rootno=-1
+d=29  n<=400  mismatches=0  cond=26912 rootno=-1
+d=37  n<=400  mismatches=0  cond=43808 rootno=-1
+d=53  n<=400  mismatches=0  cond=89888 rootno=-1
+d=85  n<=400  mismatches=0  cond=231200 rootno=-1

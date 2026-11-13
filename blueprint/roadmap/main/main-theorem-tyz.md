@@ -10,8 +10,7 @@ lean: ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_
 # The main theorem from the Tian–Yuan–Zhang forms of the rank hypothesis
 
 Assume the minimal height hypothesis and the Tian–Yuan–Zhang form CR₃^TYZ of the certified rank
-hypothesis. Then the target statement holds, for the same polynomial as in
-[the main theorem](main-theorem.md). The theorem also holds under the minimal height hypothesis and
+hypothesis. Then the target statement holds. The theorem also holds under the minimal height hypothesis and
 the class-number form CR₃^TYZ_Cl.
 
 CR₃^TYZ asks, for every squarefree positive $d\equiv5\pmod8$ with $|\mathrm{Sel}_2(C_d)|=8$ and odd

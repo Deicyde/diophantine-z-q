@@ -1,0 +1,16 @@
+Gram [[Fraction(0, 1), Fraction(0, 1), Fraction(-1, 1), Fraction(1, 1)], [Fraction(0, 1), Fraction(0, 1), Fraction(1, 1), Fraction(-2, 1)], [Fraction(1, 1), Fraction(-1, 1), Fraction(0, 1), Fraction(0, 1)], [Fraction(-1, 1), Fraction(2, 1), Fraction(0, 1), Fraction(0, 1)]] det 1
+#units of O/2O: 12
+right multiplication by units preserves e_2: True
+#odd forms (Weierstrass points): 6 #even: 10
+orbits of (O/2O)^* on Weierstrass points: [6]
+element orders: [1, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3]
+subgroup of order 1 orbits [1, 1, 1, 1, 1, 1]
+subgroup of order 2 orbits [1, 1, 2, 2]
+subgroup of order 2 orbits [1, 1, 2, 2]
+subgroup of order 2 orbits [1, 1, 2, 2]
+subgroup of order 3 orbits [3, 3]
+subgroup of order 3 orbits [3, 3]
+subgroup of order 3 orbits [3, 3]
+subgroup of order 3 orbits [3, 3]
+subgroup of order 4 orbits [2, 2, 2]
+subgroup of order 12 orbits [6]

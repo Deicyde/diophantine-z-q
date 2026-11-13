@@ -1,0 +1,25 @@
+import ZInQKernel.MainLiterature
+import ZInQKernel.Contrib.HeckeAll.Provider
+import ZInQKernel.Contrib.GaussFE.Headline
+import ZInQKernel.Contrib.PSide.APZero
+import ZInQKernel.Contrib.PSide.BadPrimes
+import ZInQKernel.Contrib.PSide.Coeff
+import ZInQKernel.Contrib.PSide.Convergence
+import ZInQKernel.Contrib.PSide.Hasse
+import ZInQKernel.Contrib.PSide.Supersingular
+import ZInQKernel.Contrib.PSide.TYZInputsIff
+
+/-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
+`SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
+
+theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TYZThm35ReadingA)
+    (hG : ZInQ.Literature.GrossZagier) : ZInQ.FrozenTarget :=
+  ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier
+    hH hA ZInQ.Contrib.heckeContinuation ZInQ.Contrib.functionalEquation5 hG
+
+#print axioms ZInQ.Contrib.functionalEquation5
+#print axioms ZInQ.Contrib.heckeContinuation
+#print axioms contribCheck_headline
+#print axioms ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier
+#print axioms ZInQ.Contrib.PSide.tyzInputs_iff_readingA
+#print axioms ZInQ.Contrib.PSide.LSeriesSummable_cd

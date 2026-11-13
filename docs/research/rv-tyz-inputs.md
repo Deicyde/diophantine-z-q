@@ -13,12 +13,22 @@ script is named), **STANDARD** (a published theorem whose hypotheses hold as use
 or expectation not proved here). TYZ's numbering follows nt-tyz (one counter per section); where it matters the
 LaTeX label is given.
 
+> **Locator correction (2026-11-12, loc-adopt).** The convolution lemma of input I2 (L1062–1066),
+> called "Lemma 2.8" when this review was written, is printed as **Lemma 2.9**; the symmetry lemma
+> (`lem2.6`, L1009), called "Lemma 2.7", is **Lemma 2.8**. nt-tyz's count of the shared §2 counter
+> skipped Definition 2.7 (L842). VERIFIED for arXiv v1 by recounting `Period7.tex`; the journal has
+> the same numbers per the locator audit `docs/research/locators.md` (AI agents, 2026-11-12). The
+> numbers below are corrected in place. The same audit read the typeset journal text: arXiv
+> Theorem 1.2 is journal **Theorem 1.4**, still with "all `d_i > 1`". Line numbers are unchanged
+> and no verdict of this review changed.
+> Also corrected 2026-11-12 (loc-adopt, by the same recount of `Period7.tex`'s §3 counter, VERIFIED; not in the audit): `char'` (L1868) is **Lemma 3.14** and `multiples1` (L1919) is **Lemma 3.15**; this note formerly called them Lemma 3.8 and Lemma 3.9. Proposition 3.8 (`heckeaction5`) and Corollary 3.9 (`integral5`) are unchanged. `docs/research/tyz-t1.md` (outside this task's scope) still calls `char'` "Lemma 3.8".
+
 ## Verdict
 
 | input | TYZ result | verdict |
 |---|---|---|
-| I1 | recursion of §3.1 (L1320–1327); `ε`-classes of Theorem 3.3 | **holds as printed** (the `ε`-classes are proved by Lemma 3.9, re-derived here) |
-| I2 | Lemma 2.8 with Proposition 2.3 | **holds with repairs**: quote it modulo 2 (factor `w_K = 3` at `m = 3`, rv-nt-tyz B1, confirmed); Theorem 2.1 is false for ordered pairs at `m ≡ 3`, harmless for Lemma 2.8 (new) |
+| I1 | recursion of §3.1 (L1320–1327); `ε`-classes of Theorem 3.3 | **holds as printed** (the `ε`-classes are proved by Lemma 3.15 (`multiples1`), re-derived here) |
+| I2 | Lemma 2.9 with Proposition 2.3 | **holds with repairs**: quote it modulo 2 (factor `w_K = 3` at `m = 3`, rv-nt-tyz B1, confirmed); Theorem 2.1 is false for ordered pairs at `m ≡ 3`, harmless for Lemma 2.9 (new) |
 | I3 | Theorem 3.5, first assertion (L2343–2380) | **holds as printed, modulo one unprinted computation** in Theorem 3.3 (the explicit Gross–Zagier constant, "computations similar to … Theorem 2.1"). Proposition N needs only part of that constant (§2.3); doubtful only to the extent that this computation is unwritten |
 | I4 | Lemmas 3.16, 3.18 | **holds as printed**; proofs re-derived; verified numerically on 8 fields up to degree 64 |
 | I5 | Lemma 3.21(1), (4) | **holds as printed**, with two harmless imprecisions; its proof cites Theorem 3.6, whose explicit 2-adic matrix computations were verified by computer (one sign misprint, harmless) |
@@ -32,10 +42,10 @@ Theorem 2.1", which are not printed (L2014–2015). Proposition N is insensitive
 factor depending on `d₀` alone, and the uniform factor `2^{h₂(n)}`, drop out (§2.3, VERIFIED). What it needs is
 that the factor attached to `d₁` is `𝓛(d₁)` up to a 2-adic unit, and that factor comes from the same
 power-of-2 bookkeeping that Theorem 2.1 prints in full and that the numerics of I2 confirm (§3.1). Neither the
-false convention of Theorem 1.2 (the trivial factor `d₁ = 1`) nor the sketched Proposition 3.4 enters the proof
+false convention of Theorem 1.2 (journal Theorem 1.4; the trivial factor `d₁ = 1`) nor the sketched Proposition 3.4 enters the proof
 of any input (§1.8). Misprints found here, all harmless: the sign in one matrix decomposition of
-Proposition 3.8 (`heckeaction5`), `(4P)^c = 4P` for `−4P` in Lemma 3.9 (`multiples1`), the factor `w_K` in
-Lemma 2.8, and Theorem 2.1 read for ordered pairs at `n ≡ 3`.
+Proposition 3.8 (`heckeaction5`), `(4P)^c = 4P` for `−4P` in Lemma 3.15 (`multiples1`), the factor `w_K` in
+Lemma 2.9, and Theorem 2.1 read for ordered pairs at `n ≡ 3`.
 
 **What would settle the residual doubt.** Write out the explicit Gross–Zagier computation for
 `(E_{K_n}, χ_{d₀,d₁})` with TYZ's Theorem A.9 (`EGZ`, L3062) and check that the constant is uniform in `χ`;
@@ -52,14 +62,14 @@ or read the journal version (Asian J. Math. 21 (2017)) to see whether the refere
 *Status of the text.* The recursion is a definition. Its two ingredients are proved elsewhere:
 
 - `𝓛(d₁) ∈ ℤ` (Theorem 1.1, i.e. I2's recursion; see §1.2).
-- The `ε`-classes are part of Theorem 3.3. Its proof (L1865–2023): Lemma 3.8 (`char'`) restricts `χ` to
-  `χ_{d₀,d₁}`; Lemma 3.9 (`multiples1`) shows `4P(d₀, d₁) ∈ A(ℚ(√−d₀))^−` except for `(5, 3)`, where
+- The `ε`-classes are part of Theorem 3.3. Its proof (L1865–2023): Lemma 3.14 (`char'`) restricts `χ` to
+  `χ_{d₀,d₁}`; Lemma 3.15 (`multiples1`) shows `4P(d₀, d₁) ∈ A(ℚ(√−d₀))^−` except for `(5, 3)`, where
   `4P(d₀, d₁) ∈ A(ℚ(√d₀))^− = [i]A(ℚ(√−d₀))^−`; then Gross–Zagier and Kolyvagin make `E(K_{d₀})^−` of rank 1 when
   `L′ ≠ 0`, so `ε̄P_χ` and `𝒫(d₀)` are proportional, and equal heights fix the proportionality constant up to
   sign. Hence `ε ∈ {±1}`, resp. `{±i}`.
 
-*Checked here* (VERIFIED by hand): the case analysis of Lemma 3.8 (for `n ≡ 5` only `(5, 1)`, `(7, 3)` occur;
-for `n ≡ 7` only `(7, 1)`, `(5, 3)`); in Lemma 3.9, the fields `K_{d₀,d₁}`, the actions of `c`, `τ`, `cτ` on
+*Checked here* (VERIFIED by hand): the case analysis of Lemma 3.14 (for `n ≡ 5` only `(5, 1)`, `(7, 3)` occur;
+for `n ≡ 7` only `(7, 1)`, `(5, 3)`); in Lemma 3.15, the fields `K_{d₀,d₁}`, the actions of `c`, `τ`, `cτ` on
 them, `χ(σ_ϖ) = −1 ⟺ d₁ ≡ 3` for `n ≡ 7`, and the identity `[i]A(ℚ(√d₀))^− ⊂ A(ℚ(√−d₀))^−` (Galois
 equivariance of `[i]P`, case by case). One misprint: in the case `d₁ = 1` the proof says `(4P)^c = 4P`;
 the preceding lines give `(4P)^c = −4P`, which is what the conclusion `4P ∈ A(K_n)^−` needs (new, harmless).
@@ -77,7 +87,7 @@ Not touched.
 
 **Verdict: holds as printed.**
 
-### 1.2 I2: Lemma 2.8 with Proposition 2.3
+### 1.2 I2: Lemma 2.9 with Proposition 2.3
 
 *As used* (Lemma N1, modulo 2). For odd squarefree `m ≡ 1, 3 (mod 8)`:
 `Σ 𝓛(d₁)𝓛(d₂) ≡ g(m) (mod 2)` over non-ordered `m = d₁d₂` with `d₂ ≡ 1 (mod 8)` (each unordered pair once
@@ -85,7 +95,7 @@ when `m ≡ 1`), and `𝓛(1) = 1`.
 
 *TYZ's proof* (L990–1077): the character formula `Σ′ χ_{d₁,d₂}(t) = 2^{h₂(m)} δ_{2Cl}(t)` gives
 `Σ′ P(d₁, d₂) = 2^{h₂(m)} Q(m)` (L1001), the sum being over ordered decompositions for `m ≡ 1` and non-ordered
-ones for `m ≡ 3`; for `m ≡ 1` the symmetry `P(d₁, d₂) = P(d₂, d₁)` (Lemma 2.7, `lem2.6`) halves it; then
+ones for `m ≡ 3`; for `m ≡ 1` the symmetry `P(d₁, d₂) = P(d₂, d₁)` (Lemma 2.8, `lem2.6`) halves it; then
 Theorem 2.1 (`P(d₁, d₂) = ±2^{k−a} w_K 𝓛(d₁)𝓛(d₂)`, from the explicit Waldspurger formula, Theorem 4.2) gives the
 lemma. Proposition 2.3: `f_m` takes odd values on `(B̂^×)²`, and `t ∈ 2Cl_m` gives `f_m(t) = f_m(s²)`, so
 `Q(m) ≡ #2Cl_m = g(m)`.
@@ -98,27 +108,27 @@ lemma. Proposition 2.3: `f_m` takes odd values on `(B̂^×)²`, and `t ∈ 2Cl_m
 2. The powers of 2: `m ≡ 1`: `h₂ = k`, halving gives `2^{k−1}`; `m ≡ 3`: `h₂ = k − 1`. Theorem 2.1 gives
    `2^{k−1}w_K`. Its own exponent bookkeeping (`|P|² = 2^{4+c}w_K²(L₁/Ω₁)(L₂/Ω₂)` against
    `𝓛(d)² = L/(2^{2k(d)−2−a(d)}Ω_d)`) gives `2^{2k−2}` for odd `m` (`c = 0`) and `2^{2k}` for even `m` (`c = 1`).
-   So Lemma 2.8 holds with `w_K` on the left. It is printed without `w_K`, which matters only at `m = 3`
+   So Lemma 2.9 holds with `w_K` on the left. It is printed without `w_K`, which matters only at `m = 3`
    (`w_K = 3`) and at `m = 1`, where the derivation gives `2^{−1}` and the lemma is not used. This is
    rv-nt-tyz's B1, confirmed. Modulo 2 in `ℤ_(2)` the odd factor is harmless.
-3. Lemma 2.7 (symmetry, `m ≡ 1`): `g₀ = ai + bj + (c + √m)k` conjugates `τ(√−m)/√m` to `k`
+3. Lemma 2.8 (symmetry, `m ≡ 1`): `g₀ = ai + bj + (c + √m)k` conjugates `τ(√−m)/√m` to `k`
    (`v g₀ = −m + √m vk = √m g₀ k`); `Nrd g₀ = 2(m + c√m)` with `m + c√m ≡ 1 (mod 4)`, so `χ₀(g₀) = 1`; the other
    solutions are `g₀(u + vk)` with norms `u² + v²`. Correct.
 4. *New, harmless.* The proof of Theorem 2.1 says that `χ_{d₁,d₂}` is trivial on `K_{m,2}^×` iff `d₂* ≡ 1 (mod 8)`.
    For `m ≡ 3`, `K_{m,2} = ℚ₂(√5)` also contains `√d₂*` when `d₁* ≡ 1 (mod 8)`. So Theorem 2.1 is false read
    for ordered pairs at `m ≡ 3`: `P(1, 3) = P(3, 1) ≠ 0` (it is `χ = 1`), although `d₂ = 3 ≢ 1`. It is true for
-   the non-ordered pair, with the factor `≡ 1` put second, and that is how Lemma 2.8 uses it.
+   the non-ordered pair, with the factor `≡ 1` put second, and that is how Lemma 2.9 uses it.
 
 *Not re-derived:* Theorems 2.4 and 2.6 (explicit primitive test vectors; `f_δ = ±1` on `1 + 2O_{B,2}`), the
 explicit Waldspurger formula (Theorem 4.2, from Yuan–Zhang–Zhang's Theorem 1.4 and local computations in §4)
 and the Petersson-norm constants. A wrong power of 2 anywhere in them would break the integrality of `𝓛` or
 the congruence of Lemma N1. The computation of §3.1 tests both, on 30 values.
 
-*`d₁ = 1` / Proposition 3.4.* Lemma 2.8 says `d₁, d₂ > 0` and includes `d₂ = 1` explicitly; the meaning of
+*`d₁ = 1` / Proposition 3.4.* Lemma 2.9 says `d₁, d₂ > 0` and includes `d₂ = 1` explicitly; the meaning of
 "non-ordered" is forced by the derivation (halving by symmetry). Theorem 1.1's sentence "`d_i > 1`" agrees
 with the set-partition reading (Lemma N1). Not touched.
 
-**Verdict: holds with the repair "quote Lemma 2.8 modulo 2 (in `ℤ_(2)`)"**, plus the remark on Theorem 2.1.
+**Verdict: holds with the repair "quote Lemma 2.9 modulo 2 (in `ℤ_(2)`)"**, plus the remark on Theorem 2.1.
 
 ### 1.3 I3: Theorem 3.5, first assertion
 
@@ -307,7 +317,7 @@ All PARI 2.17.2 via cypari2; one computation at a time, at most 30 inputs per ch
 30 odd squarefree `m ≡ 1, 3 (mod 8)` (seeded random, `ω(m) = 1..6`, `m < 3·10⁶`, including `m = 3, 11`). For
 every divisor `d ≡ 1, 3 (mod 8)` of every `m` (about 200 values), `𝓛(d)² = L(E_d, 1)/(2^{2k−3}Ω_d)` from
 `lfun` is the square of an integer (TYZ Theorem 1.1's integrality, which pins the powers of 2 of Theorem 2.1
-and Lemma 2.8). Lemma 2.8 modulo 2 (`Σ 𝓛(d₁)𝓛(d₂) ≡ g(m)`, with 1 to 16 pairs per `m`) and Lemma N1
+and Lemma 2.9). Lemma 2.9 modulo 2 (`Σ 𝓛(d₁)𝓛(d₂) ≡ g(m)`, with 1 to 16 pairs per `m`) and Lemma N1
 (`𝓛(m) ≡ Λ(m)`) hold on all 30. `g` was computed independently by Rédei's 4-rank formula (unconditional) and
 by `quadclassunit`, and the two agree on every argument. The integer identity with `Q(m)` cannot be tested
 without the test vector `f_m`.
@@ -334,9 +344,9 @@ Together with §3.2's first part, 41 samples, none inconsistent with Proposition
 | # | where | finding | effect on Proposition N |
 |---|---|---|---|
 | T1 | Thm 3.3 proof, L2014–2015 | the explicit Gross–Zagier constant is "computations similar to … Theorem 2.1", not printed | Proposition N needs only its `χ`-uniformity (§2.3); residual doubt, settle by writing the computation |
-| T2 | Lemma 2.8 | factor `w_K` missing (rv-nt-tyz B1, confirmed) | none modulo 2 in `ℤ_(2)` |
-| T3 | Thm 2.1 and its proof | "trivial on `K₂^×` ⟺ `d₂* ≡ 1 (mod 8)`" incomplete at `n ≡ 3`; the theorem is false for ordered pairs (`P(1,3) ≠ 0`) | none: Lemma 2.8 uses non-ordered pairs |
-| T4 | Lemma 3.9, case `d₁ = 1` | `(4P)^c = 4P` should be `−4P` | none |
+| T2 | Lemma 2.9 | factor `w_K` missing (rv-nt-tyz B1, confirmed) | none modulo 2 in `ℤ_(2)` |
+| T3 | Thm 2.1 and its proof | "trivial on `K₂^×` ⟺ `d₂* ≡ 1 (mod 8)`" incomplete at `n ≡ 3`; the theorem is false for ordered pairs (`P(1,3) ≠ 0`) | none: Lemma 2.9 uses non-ordered pairs |
+| T4 | Lemma 3.15 (`multiples1`), case `d₁ = 1` | `(4P)^c = 4P` should be `−4P` | none |
 | T5 | Prop 3.8 (`heckeaction5`) | `w₀ϖε = D₃G₃(−R₃)`, sign misprint | none (`−I ∈ U`) |
 | T6 | Lemma 3.21 | equality in (1) shown only mod `ℤτ(1)`; for `n ≡ 7`, `β_j = σ_ϖ c` on `L_n` only; last step "checked easily", re-derived here | none |
 | T7 | Lemma 3.16 | "ring class field of conductor 4" of `ℚ(i)` should read ray class field mod 4 | none |
@@ -367,7 +377,9 @@ No finding affects the statement of any input.
 - Open from the arXiv text alone: (a) whether the journal version prints the computation behind Theorem 3.3's
   constant (T1); (b) whether it corrects T2–T7 and the last sentence of Theorem 1.2; (c) the numbering, since
   Zhang cites "Corollary 1.3" for what is Corollary 1.4 in v1 (nt-tyz §3). Only (a) bears on Proposition N, and
-  only through §2.3.
+  only through §2.3. (2026-11-12: the AI locator audit `locators.md` read the journal text. On (b), the last
+  sentence of Theorem 1.2, now journal Theorem 1.4, is not corrected: "all `d_i > 1`" is kept; on (c), §1 is
+  renumbered (1.2 → 1.4) while the convolution stays Lemma 2.9. (a) and T2–T7 were not checked by the audit.)
 
 ## 7. Ranking of next steps
 

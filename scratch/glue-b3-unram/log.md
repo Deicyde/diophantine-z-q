@@ -1,0 +1,15 @@
+# glue-b3-unram results log
+
+## Unram.lean (self-contained, `import Mathlib`)
+- Defs: `LiesOver w p := w.valuation p < 1`; `inertiaGQ w := (w.inertiaSubgroup ℚ).map (w.decompositionSubgroup ℚ).subtype`;
+  `GalUnramifiedOutside L' T` (every `I_w`, `w | p ∉ T`, fixes `L'`); `legChar p`, `etaP p` (Legendre char via `cyc p`).
+- Leaves (def : Prop): `LeafB3a` (unique loc. const. quadratic char of `I_w`, p odd), `LeafB3b` (`etaP p` nontrivial on every `I_w`, `w | p` odd),
+  `LeafConj` (places over p conjugate, σ⁻¹ I_{w'} σ ≤ I_w), `LeafFinRam` (open H ⊇ I_w for all but finitely many p).
+- Glue stated: `CycUnram` (cyc N trivial on I_w for p ∤ N).
+- `unramified_outside_of_leaves`: COMPILED (2026-11-11 ~00:00), axioms [propext, Classical.choice, Quot.sound].
+- `cycUnram : CycUnram`: PROVED (residue-field argument: `ζ = s(t)/t` has residue 1; if `ζ ≠ 1`, `∑_{i<N} ζ^i = 0` reduces to `N = 0` in the residue field, impossible as `p ∤ N`). Axioms [propext, Classical.choice, Quot.sound].
+- `unramified_outside` (main theorem from the four leaves only): COMPILED, axioms [propext, Classical.choice, Quot.sound]. Unram.lean 511 lines, `lake env lean` ~10 s.
+- `inertia_le_of_unramifiedAt` (bridge, one direction): `UnramifiedAt L p` (glue-descent's ideal-theoretic form) ⇒ `inertiaGQ w ≤ G_L` for every `w` over `p`. PROVED via `P = embW⁻¹(𝔪_w) ⊂ 𝓞 L`, `s|_L ∈ P.inertia Gal(L/ℚ)` (residue action), Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn` + `ramificationIdxIn_eq_ramificationIdx`. Axioms standard.
+- `unramified_outside_of_unramifiedAt`: main theorem with glue-descent's hypothesis form `∀ p : Nat.Primes, p ∉ T → UnramifiedAt L p`. COMPILED, axioms [propext, Classical.choice, Quot.sound]. Unram.lean 609 lines.
+- `finRam : LeafFinRam`: PROVED as glue. Open `H` ⇒ `K = fixedField H` finite, `L = normalClosure ℚ K ℚ̄` finite Galois with `G_L ≤ H`; `p ∤ discr L` ⇒ `UnramifiedAt L p` (Mathlib `NumberField.not_dvd_discr_iff_forall_mem` + `Ideal.ramificationIdx_eq_one`) ⇒ `I_w ≤ G_L` (bridge); exceptional primes ⊆ primeFactors |discr L|. Axioms standard.
+- `unramified_outside_final`: main theorem from THREE leaves (LeafB3a, LeafB3b, LeafConj), glue-descent hypothesis form. COMPILED, axioms [propext, Classical.choice, Quot.sound]. Unram.lean 673 lines.

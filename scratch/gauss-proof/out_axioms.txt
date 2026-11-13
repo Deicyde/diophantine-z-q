@@ -1,0 +1,4 @@
+ZInQ.Contrib.functionalEquation5 : ZInQ.Literature.FunctionalEquation5
+'ZInQ.Contrib.functionalEquation5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GaussFE.gaussPointCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GaussFE.literature_hecke_fe' depends on axioms: [propext, Classical.choice, Quot.sound]

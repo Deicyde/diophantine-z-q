@@ -12,7 +12,15 @@ first variable is exactly $\mathbb Z$.
 
 The theorem is proved from two explicitly stated arithmetic hypotheses, the six-contact height
 estimate and a certified rank hypothesis for congruent number curves, whose proofs lie far
-outside current formal libraries. The manuscript's other inputs are proved. Pole completeness
+outside current formal libraries. The positive-rank form of the class-number hypothesis, and so
+the certified rank hypothesis, also follows from three statements about L-series of elliptic
+curves: two textbook theorems (a functional equation on the critical strip and Gross–Zagier) and
+Tian–Yuan–Zhang's row 5b, which rests on Proposition N, an unpublished argument written for this
+project and not refereed. With that rank
+hypothesis or those three statements, the height hypothesis may also be assumed in its $j$-form, a
+bound on the height of the Hauptmodul value (not a published theorem) from which the minimal form
+is proved. The manuscript's other
+inputs are proved. Pole completeness
 follows from the certified rank hypothesis for a variant of the manuscript's pole polynomial,
 and also from positive rank of the congruent number curves that hypothesis covers, or of only the
 two curves the descent constructs; the bound for the prime catalogue follows from an effective

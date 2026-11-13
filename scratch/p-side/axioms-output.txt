@@ -1,0 +1,26 @@
+'ZInQ.Contrib.PSide.LFunction_cd_apply_prime_of_mod_four_eq_three' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.PSide.natCard_point_cd_of_mod_four_eq_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_neg_charSum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_prime_pow_succ_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_eq_zero_of_dvd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LFunction_cd_prime_pow_succ_succ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LFunction_cd_apply_prime_eq_sub_card_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.tyzInputs_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.tyzInputs_iff_readingA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.tyzInputs_of_readingA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_prime_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LFunction_cd_prime_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.jac_sq_le_four_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.recurrence_bound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_sq_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LSeriesSummable_cdCoeff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LSeriesSummable_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.abscissaOfAbsConv_cd_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.differentiableOn_LSeries_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.cdCoeff_prime_pow_of_mod_four_eq_three' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LFunction_cd_prime_pow_of_mod_four_eq_three' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

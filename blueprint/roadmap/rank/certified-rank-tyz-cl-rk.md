@@ -18,11 +18,19 @@ group of the ring of integers of $K$. Then $C_d(\mathbb Q)$ has a point of infin
 
 This is Tian–Yuan–Zhang with their own genus class numbers (Theorem 3.5, first assertion, with
 Theorem 3.3, Proposition 3.2, Lemmas 2.8, 3.16, 3.18, 3.21 and Proposition 2.3), as completed by
-Proposition N (nt-tyz §4, not refereed): if $T^{\mathrm{Cl}}_{5b}(d)$ is odd then their invariant
+Proposition N (nt-tyz §4; an unpublished argument written for this project, with two automated
+reviews and no human review): if $T^{\mathrm{Cl}}_{5b}(d)$ is odd then their invariant
 $\mathcal L(d)$ is nonzero, and since the root number is $-1$, $L(C_d,s)$ vanishes to order exactly
 one at $s=1$; followed by Gross–Zagier over an auxiliary imaginary quadratic field
 (Bump–Friedberg–Hoffstein), which gives $\operatorname{rank}C_d(\mathbb Q)\ge1$. No Rédei formula
-and no condition on $\mathrm{Sel}_2(C_d)$ enter. It is a hypothesis, not proved here.
+and no condition on $\mathrm{Sel}_2(C_d)$ enter. It follows from three statements about
+$L(C_d,s)$ and $L(E,s)$: Tian–Yuan–Zhang's row 5b, which rests on the unrefereed Proposition N,
+the vanishing of $L(C_d,s)$ at $s=1$, and the Gross–Zagier statement
+([Row 5b, vanishing at the centre and Gross–Zagier give CR₃^TYZ_Cl,Rk](literature/certified-rank-tyz-cl-rk-of-literature.md)).
+The vanishing in turn follows from the textbook functional equation, with root number $-1$, on the strip
+$0<\operatorname{Re}s<2$
+([the functional equation gives vanishing at the centre](literature/root-number-vanishing-of-functional-equation.md)).
+Those statements are themselves hypotheses, so CR₃^TYZ_Cl,Rk is not proved here.
 
 ## Depends on
 

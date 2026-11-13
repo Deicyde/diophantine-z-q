@@ -1,0 +1,31 @@
+ 18:17:43 up 1 day, 11:10, 11 users,  load average: 5.49, 4.69, 4.19
+Mem:             235         112          16           1         110         123
+Hodge: exit=0 secs=10
+ 18:17:53 up 1 day, 11:10, 11 users,  load average: 6.15, 4.87, 4.25
+Mem:             235         111          17           1         110         124
+Models: exit=0 secs=5
+ 18:17:58 up 1 day, 11:10, 11 users,  load average: 6.30, 4.92, 4.27
+Mem:             235         111          16           1         110         123
+Jacobian: exit=0 secs=5
+ 18:18:03 up 1 day, 11:10, 11 users,  load average: 6.12, 4.90, 4.27
+Mem:             235         111          16           1         110         123
+ModularCurveDefs: exit=0 secs=5
+ 18:18:08 up 1 day, 11:11, 11 users,  load average: 5.95, 4.89, 4.27
+Mem:             235         112          16           1         110         123
+TateNormalForm: exit=0 secs=5
+ 18:18:13 up 1 day, 11:11, 11 users,  load average: 7.55, 5.24, 4.38
+Mem:             235         112          16           1         110         123
+Gamma1Genus: exit=0 secs=6
+ 18:18:19 up 1 day, 11:11, 11 users,  load average: 7.14, 5.23, 4.39
+Mem:             235         112          16           1         110         123
+AnalyticModuli: exit=0 secs=6
+ 18:18:25 up 1 day, 11:11, 11 users,  load average: 7.29, 5.29, 4.42
+Mem:             235         112          16           1         110         123
+PointTransport: exit=0 secs=6
+ 18:18:31 up 1 day, 11:11, 11 users,  load average: 6.87, 5.24, 4.40
+Mem:             235         112          16           1         110         123
+QMOrder: exit=0 secs=6
+ 18:18:37 up 1 day, 11:11, 11 users,  load average: 6.72, 5.23, 4.41
+Mem:             235         112          16           1         110         123
+QMAbVar: exit=0 secs=22
+ALLDONE

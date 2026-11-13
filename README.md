@@ -6,12 +6,12 @@ Browse every statement of the formal proof there: its informal statement and pro
 statements it depends on, its Lean declarations with links into the source, and whether it is
 proved. The site is rebuilt from `main` after each passing verification run.
 
-> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from four explicit hypotheses,
+> **This fork** proves the 11/5 manuscript's Theorem 1.1 in Lean from five explicit hypotheses,
 > stated as `Prop`s, not axioms. The first is the six-contact height estimate (the manuscript's
 > Theorem 4.1), in the one instance `SixContactMin` from which both of the proof's uses follow. Its
 > proof combines refereed theorems and exact computations with new arguments, the manuscript's and
-> this repository's, that have been reviewed only by AI models. The other three are statements
-> about L-functions of elliptic curves over ℚ (Mathlib's `WeierstrassCurve.LSeries`), two of them
+> this repository's, that have been reviewed only by AI models. The other four are statements
+> about L-functions of elliptic curves over ℚ (Mathlib's `WeierstrassCurve.LSeries`), three of them
 > only about the congruent number curves `C_d : y² = x³ − d²x`. From them Lean derives the
 > positive-rank statement that the proof needs:
 >
@@ -22,33 +22,76 @@ proved. The site is rebuilt from `main` after each passing verification run.
 > - `Literature.FunctionalEquation5`: for squarefree `d ≡ 5 (mod 8)`, the functional equation of
 >   `L(C_d, s)` with conductor `32d²` and root number `−1` (Deuring, Hecke; Birch–Stephens 1966),
 >   stated on the strip `0 < Re s < 2`.
-> - `Literature.TYZRow5b`: for squarefree `d ≡ 5 (mod 8)` whose genus sum `T5bCl d` is odd,
->   `L(C_d, s)` vanishes to order at most 1 at `s = 1`. (`T5bCl d` is a sum, over certain set
->   partitions of the primes of `d`, of products of the orders of the subgroups of squares
->   `2Cl(ℚ(√−d_B))` in the class groups, where `d_B` is the product of a block's primes.) **No
->   refereed text that we have read states this.** It is what Tian–Yuan–Zhang's argument gives
->   (arXiv:1411.4728v1; the journal version, Asian J. Math. 21 (2017), has not been checked).
->   Theorem 1.2 of the arXiv version, read literally (every factor `d_i > 1`), is false: `d = 26565`
->   and `d = 33117` are counterexamples. Their proof of the intended reading, which counts each set
->   partition of the primes once, passes through a proposition whose proof is only sketched
->   ([docs/research/nt-tyz.md](docs/research/nt-tyz.md)). The statement used here is proved from
->   unambiguous results of that version, with Hecke's analytic continuation, by Proposition N (same
->   note, §4), a new argument reviewed twice by AI models and never by a human.
+> - `Literature.HeckeContinuation`: for every positive integer `d`, `L(C_d, s)`, defined by its
+>   Euler product for `Re s > 3/2`, extends to an entire function (Deuring, Hecke: `C_d` has
+>   complex multiplication by `ℤ[i]`, so `L(C_d, s)` is the L-function of a Hecke character of
+>   `ℚ(i)`; standard, but the locator audit cited below did not read an original source).
+> - `Literature.TYZThm35ReadingA`: for squarefree `d ≡ 5 (mod 8)`, if `L(C_d, s)` vanishes to order
+>   at least 2 at `s = 1`, then the genus sums `T5aCl d` and `T5bCl d` are both `0` in `ℤ/2`. Both
+>   are sums over set partitions of the primes of `d`, of the products over the blocks `B` of
+>   `#2Cl(ℚ(√−d_B))`, the order of the subgroup of squares in the class group, where `d_B` is the
+>   product of the primes in `B`; `T5aCl d` runs over the partitions with one block `≡ 5` and all
+>   others `≡ 1 (mod 8)`, and `T5bCl d` over those with one block `≡ 7`, one `≡ 3` and all others
+>   `≡ 1 (mod 8)`.
 >
-> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier`
+>   This is a consequence of Theorem 3.5(2) of Tian–Yuan–Zhang (TYZ), *Genus periods, genus points
+>   and congruent number problem* (arXiv:1411.4728v1; Asian J. Math. 21 (2017), 721–774), for
+>   `n = d ≡ 5 (mod 8)`, under one reading of its genus sums. TYZ write the decompositions of `n` as
+>   `n = d₀d₁⋯d_ℓ`; in reading A they are set partitions of the primes of `n`, each counted once,
+>   with a trivial factor `d₁ = 1` allowed. In that reading TYZ's two sums are `T5aCl d` and
+>   `T5aCl d + T5bCl d`, so their evenness is the conclusion above
+>   ([docs/research/nt-tyz.md](docs/research/nt-tyz.md) §1.3). `TYZThm35ReadingA` needs the
+>   theorem only when `𝓛(n) = 0`: the paper defines its invariant `𝓛(n)` from `L(C_n, 1)` or
+>   `L′(C_n, 1)` and sets it to `0` exactly when the order of vanishing at `s = 1` is at least 2.
+>   The printed hypothesis is a condition on TYZ's genus point `P(n)`, followed by an "i.e." that
+>   restates it as the evenness of `2^{−ρ(n)}𝓛(n)` and is not proved in the paper. When
+>   `𝓛(n) = 0`, the condition on `P(n)` follows directly from the first assertion of the paper's
+>   Theorem 3.5 and its Lemma 3.18 (nt-tyz.md §2.2, F6), so the "i.e." is not needed.
+>
+>   **No refereed text found by the project's literature search, which AI agents carried out,
+>   states reading A explicitly** (the one statement found, Smith, arXiv:1603.08479, Theorem 2.1,
+>   is unrefereed). TYZ's introductory theorem stating the same parity criteria (Theorem 1.2 of the
+>   arXiv version, Theorem 1.4 of the journal version) requires every factor `d_i > 1`, and read
+>   that way it is false: `d = 26565` and `d = 33117` are counterexamples, in both versions (exact
+>   class-group computations and explicit points giving rank at least 3, not checked in Lean;
+>   nt-tyz.md §1.4). The paper's proof of Theorem 3.5(2) passes through its Proposition 3.4,
+>   whose proof is only a sketch in the arXiv version; the journal's proof was not assessed on
+>   this point. The comparison of the arXiv and journal versions, including these theorem numbers,
+>   was an audit by AI agents with web access
+>   ([docs/research/locators.md](docs/research/locators.md)), not a check by a human.
+>
+>   As supporting evidence, not as a hypothesis: Proposition N (nt-tyz.md §4; a new argument
+>   reviewed twice by AI models and never by a human) proves `TYZThm35ReadingA` without
+>   Proposition 3.4, from unambiguous results of the paper, among them the convolution identity of
+>   its Lemma 2.9 (which the repository's notes and Lean names call Lemma 2.8). Lean checks that
+>   proof from `PropN.TYZInputs`, a hand encoding of those results in
+>   `ZInQKernel/Hypotheses/TYZInputs.lean` (`PropN.tyzThm35ReadingA_of_tyzInputs`); Lean does not
+>   check that the encoding matches the paper.
+>
+> From `Literature.TYZThm35ReadingA` and `Literature.HeckeContinuation`, Lean derives
+> (`Literature.tyzRow5b_of_readingA`) the intermediate statement `Literature.TYZRow5b`: for
+> squarefree `d ≡ 5 (mod 8)` with `T5bCl d` odd, `L(C_d, s)` vanishes to order at most 1 at
+> `s = 1`.
+>
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier`
 > (`ZInQKernel/MainLiterature.lean`) has no `sorry`, uses no `native_decide`, and depends only on
-> the axioms `propext`, `Classical.choice` and `Quot.sound`. Trust statements list every step,
-> published or not, with its source and how it was checked:
+> the axioms `propext`, `Classical.choice` and `Quot.sound`; so does the intermediate form
+> `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzRow5b_functionalEquation5_grossZagier`,
+> with `Literature.TYZRow5b` in place of `Literature.TYZThm35ReadingA` and
+> `Literature.HeckeContinuation`. Trust statements list every step, published or not, with its
+> source and how it was checked:
 > [docs/research/h-trust.md](docs/research/h-trust.md) for H, and
 > [docs/research/cr3-trust.md](docs/research/cr3-trust.md) for `CertifiedRankTYZClRk`, the
-> positive-rank statement that the three L-function statements split up;
+> positive-rank statement that Lean derives from the L-function statements;
 > [docs/research/wk-cr3.md](docs/research/wk-cr3.md) §3 (reviewed in
-> [docs/research/rv-lit.md](docs/research/rv-lit.md)) checks each of the three against its source.
+> [docs/research/rv-lit.md](docs/research/rv-lit.md)) checks `GrossZagier`, `FunctionalEquation5`
+> and `TYZRow5b` against their sources (the locator audit found that the original source of the
+> conductor and functional equation in `FunctionalEquation5` has not been fully read).
 > `CertifiedRankTYZClRk` itself, and weaker forms down to positive rank on the two curves per input
 > that the proof uses, give variants of the theorem ([KERNEL_PLAN.md](KERNEL_PLAN.md)).
 >
 > Everything else is proved in Lean, and every finite computation is checked by the kernel. That
-> includes every step from the three L-function statements, through `CertifiedRankTYZClRk`, to the
+> includes every step from the four L-function statements, through `CertifiedRankTYZClRk`, to the
 > certified-rank statement CR₃ that the construction uses (`ZInQ.CertifiedRank`: when the explicit
 > 2-Selmer system of `C_d` has 8 elements and contains a class `a` with `|a| ≡ 7 (mod 8)`, `C_d` has
 > a rational point with `x ∈ aℚ*²`): Rédei's formula, Theorem 3.6 and Corollary 4.4 of

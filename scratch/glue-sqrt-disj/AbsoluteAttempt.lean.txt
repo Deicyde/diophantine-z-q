@@ -1,0 +1,114 @@
+-- NOT COMPILED / NOT CLAIMED. Attempt (task glue-sqrt-disj, 01:00-01:14 PST) at the G_{Q_p}-level
+-- "if" direction of B2's criterion. It was appended to Disj.lean (inside `namespace GlueSqrtDisj`,
+-- after section MuField). Status at the last check: `restrictNormal_muField_trans` hit a kernel deterministic
+-- timeout (and with maxHeartbeats 2000000 the run did not finish in 10 minutes); the other pieces
+-- had only elaboration errors that were being fixed. Kept for the next prover.
+/-! ### From `G_{ℚ_p}` to the finite levels (the "if" direction of B2's criterion) -/
+
+section Absolute
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+local notation "Ω" => PadicAlgCl p
+
+theorem restrictNormal_eq_one_of_mem {K : IntermediateField ℚ_[p] Ω} [Normal ℚ_[p] K]
+    (g : Ω ≃ₐ[ℚ_[p]] Ω) (hg : g ∈ K.fixingSubgroup) : g.restrictNormal K = 1 :=
+  (AlgEquiv.restrictNormal_eq_one_iff K g).mpr (fun x hx => hg ⟨x, hx⟩)
+
+theorem mem_fixingSubgroup_of_restrictNormal_eq_one {K : IntermediateField ℚ_[p] Ω}
+    [Normal ℚ_[p] K] (g : Ω ≃ₐ[ℚ_[p]] Ω) (hg : g.restrictNormal K = 1) :
+    g ∈ K.fixingSubgroup :=
+  fun x => (AlgEquiv.restrictNormal_eq_one_iff K g).mp hg x.1 x.2
+
+/-- Restriction to `muField a` factors through restriction to `muField b` (`a ∣ b`). -/
+set_option maxHeartbeats 2000000 in
+theorem restrictNormal_muField_trans (a b : ℕ) [NeZero a] [NeZero b] [Fact (a ∣ b)]
+    (g : Ω ≃ₐ[ℚ_[p]] Ω) :
+    (g.restrictNormal (muField p b)).restrictNormal (muField p a) = g.restrictNormal (muField p a) := by
+  apply AlgEquiv.ext
+  intro x
+  apply Subtype.ext
+  have hcoe : ∀ y : muField p a,
+      ((algebraMap (muField p a) (muField p b) y : muField p b) : Ω) = (y : Ω) := fun _ => rfl
+  rw [← hcoe, AlgEquiv.restrictNormal_commutes, AlgEquiv.restrictNormal_apply, hcoe,
+    AlgEquiv.restrictNormal_apply]
+
+/-- **B2's local square-root criterion over `G_{ℚ_p}`, "if" direction, from I6.3 alone.**
+Let `χ` be a `ℚ/ℤ`-character of `G_{ℚ_p} = Gal(\bar ℚ_p/ℚ_p)` that is trivial on `Gal(\bar ℚ_p/M)`
+for a finite abelian `M/ℚ_p`. Let `τ ∈ G_{ℚ_p}` act by `ζ ↦ ζ⁻¹` on `p`-power roots of unity and
+trivially on roots of unity of order prime to `p`. If `χ(τ) = 0`, then `χ = 2ψ` for a character
+`ψ` of `G_{ℚ_p}` that is trivial on `Gal(\bar ℚ_p/L)` for a finite Galois `L`. Every prime `p`. -/
+theorem sqrt_criterion_absolute (hLKW : PkgI6.LocalKroneckerWeber p)
+    (χ : Additive (Ω ≃ₐ[ℚ_[p]] Ω) →+ AddCircle (1 : ℚ))
+    (M : IntermediateField ℚ_[p] Ω) [FiniteDimensional ℚ_[p] M] [IsAbelianGalois ℚ_[p] M]
+    (hχ : ∀ g ∈ M.fixingSubgroup, χ (Additive.ofMul g) = 0)
+    (τ : Ω ≃ₐ[ℚ_[p]] Ω) (hτp : ∀ (k : ℕ) (x : Ω), x ^ (p ^ k) = 1 → τ x = x⁻¹)
+    (hτm : ∀ (m : ℕ) (y : Ω), p.Coprime m → y ^ m = 1 → τ y = y)
+    (h0 : χ (Additive.ofMul τ) = 0) :
+    ∃ ψ : Additive (Ω ≃ₐ[ℚ_[p]] Ω) →+ AddCircle (1 : ℚ),
+      (∃ L : IntermediateField ℚ_[p] Ω, FiniteDimensional ℚ_[p] L ∧
+        ∀ g ∈ L.fixingSubgroup, ψ (Additive.ofMul g) = 0) ∧
+      ∀ g, 2 • ψ g = χ g := by
+  obtain ⟨k, m, hm0, hcop, hMK⟩ := le_muField_of_lkw p hLKW M
+  haveI : NeZero m := ⟨hm0.ne'⟩
+  set f := orderOf (ZMod.unitOfCoprime p hcop)
+  have hf : 0 < f := orderOf_pos _
+  haveI : NeZero (p ^ (2 * f) - 1) := ⟨by
+    have : p ^ 1 < p ^ (2 * f) := Nat.pow_lt_pow_right hp.out.one_lt (by omega)
+    have : 2 ≤ p := hp.out.two_le
+    simp only [pow_one] at *
+    omega⟩
+  haveI : Fact (p ^ k * m ∣ p ^ (k + 1) * (p ^ (2 * f) - 1)) := ⟨level_dvd p k m hcop⟩
+  set K := muField p (p ^ k * m)
+  set L := muField p (p ^ (k + 1) * (p ^ (2 * f) - 1))
+  -- descend `χ` to `Gal(K/ℚ_p)`
+  let r : Additive (Ω ≃ₐ[ℚ_[p]] Ω) →+ Additive Gal(K/ℚ_[p]) :=
+    MonoidHom.toAdditive (AlgEquiv.restrictNormalHom K : (Ω ≃ₐ[ℚ_[p]] Ω) →* Gal(K/ℚ_[p]))
+  have hr : Function.Surjective r := AlgEquiv.restrictNormalHom_surjective (F := ℚ_[p]) (K₁ := K) Ω
+  have hker : r.ker ≤ χ.ker := by
+    intro x hx
+    rw [AddMonoidHom.mem_ker] at hx ⊢
+    apply hχ
+    apply IntermediateField.fixingSubgroup_le hMK
+    apply mem_fixingSubgroup_of_restrictNormal_eq_one p
+    exact congrArg Additive.toMul hx
+  let χK : Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ) := r.liftOfSurjective hr ⟨χ, hker⟩
+  have hχK : ∀ g, χK (r g) = χ g := fun g =>
+    AddMonoidHom.liftOfRightInverse_comp_apply _ _ _ ⟨χ, hker⟩ g
+  -- `τ|_K` acts by `(-1, 1)`
+  have hτK : galToProd (p := p) (L := K) k m (τ.restrictNormal K) = (-1, 1) := by
+    have hz1 := zeta_pow_m (p := p) (L := K) k m
+    have hz2 := zeta_pow_pk (p := p) (L := K) k m
+    have hpk : 1 ≤ p ^ k := Nat.one_le_pow _ _ hp.out.pos
+    ext
+    · show ((hz1.autToPow ℚ_[p] (τ.restrictNormal K) : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = _
+      rw [GlueSqrtLocal.autToPow_eq_of_apply hz1 (τ.restrictNormal K) (p ^ k - 1) ?_]
+      · rw [Nat.cast_sub hpk, ZMod.natCast_self]; simp
+      · apply (algebraMap K Ω).injective
+        rw [AlgEquiv.restrictNormal_commutes, map_pow, hτp k _ (by simpa using congrArg (algebraMap K Ω) hz1.pow_eq_one)]
+        rw [← map_pow, ← map_inv₀]
+        congr 1
+        rw [eq_comm, ← mul_eq_one_iff_eq_inv₀ (hz1.ne_zero (NeZero.ne _)), ← pow_succ,
+          Nat.sub_add_cancel hpk, hz1.pow_eq_one]
+    · show ((hz2.autToPow ℚ_[p] (τ.restrictNormal K) : (ZMod m)ˣ) : ZMod m) = _
+      rw [GlueSqrtLocal.autToPow_eq_of_apply hz2 (τ.restrictNormal K) 1 ?_]
+      · simp
+      · apply (algebraMap K Ω).injective
+        rw [AlgEquiv.restrictNormal_commutes, pow_one,
+          hτm m _ hcop (by simpa using congrArg (algebraMap K Ω) hz2.pow_eq_one)]
+  have hχKτ : χK (Additive.ofMul (τ.restrictNormal K)) = 0 := by
+    have := hχK (Additive.ofMul τ)
+    rw [h0] at this
+    exact this
+  obtain ⟨ψL, hψL⟩ := (sqrt_criterion_muField p k m hcop (τ.restrictNormal K) hτK χK).mpr hχKτ
+  let rL : Additive (Ω ≃ₐ[ℚ_[p]] Ω) →+ Additive Gal(L/ℚ_[p]) :=
+    MonoidHom.toAdditive (AlgEquiv.restrictNormalHom L : (Ω ≃ₐ[ℚ_[p]] Ω) →* Gal(L/ℚ_[p]))
+  refine ⟨ψL.comp rL, ⟨L, inferInstance, fun g hg => ?_⟩, fun g => ?_⟩
+  · change ψL (Additive.ofMul (g.restrictNormal L)) = 0
+    rw [restrictNormal_eq_one_of_mem p g hg]
+    exact map_zero ψL
+  · change 2 • ψL (Additive.ofMul ((Additive.toMul g).restrictNormal L)) = χ g
+    rw [hψL, restrictNormal_muField_trans p (p ^ k * m) (p ^ (k + 1) * (p ^ (2 * f) - 1))]
+    exact hχK g
+
+end Absolute

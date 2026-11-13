@@ -1,0 +1,93 @@
+# bp-analytic results log
+
+## 2026-11-12
+
+- Torus.lean §1 (charts, manifold): `exists_gap`, `eventuallyEq_add_const`, `contDiffOn_of_sub_mem`,
+  `Torus`, `proj`, `proj_eq_iff`, `isAddQuotientCoveringMap_proj`, `isCoveringMap_proj`,
+  `isLocalHomeomorph_proj`, `chartOf` (+ API), `ChartedSpace E (Torus Λ)`, `transition_sub_mem`,
+  `IsManifold 𝓘(ℂ, E) ω (Torus Λ)`. COMPILED (lake env lean, 1m13s, warnings only).
+- Mathlib facts used (VERIFIED by reading .lake/packages/mathlib): `AddSubgroup.isAddQuotientCoveringMap_of_comm`
+  (Topology/Covering/Quotient.lean), `IsLocalHomeomorph.localInverseAt` (Topology/IsLocalHomeomorph.lean),
+  `isManifold_of_contDiffOn` (Geometry/Manifold/IsManifold/Basic.lean). Mathlib's
+  `Geometry/Manifold/Instances/Quotient.lean` gives only a `ChartedSpace` on `orbitRel.Quotient`; its TODO
+  is exactly the `IsManifold` instance built here.
+- Torus.lean §2-3: `contMDiff_proj` (proj analytic), `contMDiff_of_comp_proj`, `contMDiff_of_comp_proj₂`
+  (descent of C^n maps along proj), `lieAddGroup_torus : LieAddGroup 𝓘(ℂ, E) ω (Torus Λ)`,
+  `connectedSpace_torus`, `compactSpace_torus` (full lattice), `AddGroupLieAlgebra 𝓘(ℂ,E) (Torus Λ) = E` (rfl),
+  `torusExp : E →+ Torus Λ`, `torusExp_surjective`, `ker_torusExp : ker = Λ`, `contMDiff_torusExp`,
+  `contMDiff_torusExp_smul` (one-parameter subgroups analytic), `holomorphic_const` (Liouville on the torus,
+  from Mathlib `MDifferentiable.exists_eq_const_of_compactSpace`). COMPILED, no errors/warnings;
+  `#print axioms` on isManifold_torus, lieAddGroup_torus, compactSpace_torus, holomorphic_const, ker_torusExp,
+  contMDiff_torusExp_smul: [propext, Classical.choice, Quot.sound].
+- Torus.lean §4 (Siegel period lattice): `SiegelSpace g`, `periodVec`, `periodVec_linearIndependent`
+  (needs only det Im Ω ≠ 0), `card_periodIndex`, `periodBasis`, `periodLattice Ω hΩ` (= Ωℤ^g + ℤ^g), its
+  `DiscreteTopology`/`IsZLattice ℝ` instances (from Mathlib's ZSpan instances), `det_im_ne_zero_of_mem_siegelSpace`,
+  `mem_periodLattice_iff`, `SiegelTorus` with LieAddGroup/CompactSpace by inferInstance. COMPILED.
+- Torus.lean §5 (theta): `intVec`, `riemannTheta`, `riemannTheta_add_int`, `riemannTheta_add_mulVec`
+  (θ(z+Ωm) = exp(-πi mᵀΩm - 2πi mᵀz) θ(z) for Ωᵀ = Ω), `riemannTheta_add_period`, `thetaChar`,
+  `thetaChar_eq` (θ[c,d](Ω) = exp(πi cᵀΩc + 2πi cᵀd) θ(Ωc+d, Ω)), pkg-I1 `thetaConst` copied verbatim,
+  `thetaConst_eq_thetaChar`, `thetaConst_eq_riemannTheta`, `two_nsmul_proj_charPoint` ((Ωa+b)/2 is 2-torsion
+  on ℂ²/Λ_Ω). All by tsum reindexing (Equiv.tsum_eq, tsum_mul_left): no convergence hypothesis. COMPILED,
+  no errors, no warnings.
+- Torus.lean §6: `torusAddEquiv` (T : E ≃L[ℂ] E' with T(Λ) = Λ' gives E/Λ ≃+ E'/Λ'), `torusAddEquiv_proj`,
+  `torusAddEquiv_symm_proj`, `torusDiffeo : Torus Λ ≃ₘ^ω⟮𝓘(ℂ,E), 𝓘(ℂ,E')⟯ Torus Λ'` (biholomorphic), `torusDiffeo_apply`.
+  COMPILED, no warnings.
+- Torus.lean §7 (pkg-I1 QM lattice; pkg-I1 defs B, oBasis, Mi, Mj, iota, latVec, Emat, F0mat, Pinv, Omega
+  copied verbatim): `latVec0..3` (explicit: (τ,1), (√2τ,−√2), ((τ−3)/2,(τ+1)/2), (√2(τ−3)/2, −√2(τ+1)/2)),
+  `Emat_eq`, `F0mat_eq`, `Fp`, `det_Fp` (= −√2(τ−3)(τ+1)/2), `det_Fp_ne_zero` (Im τ ≠ 0), `Fp_mul_Omega`,
+  `qmVec`, `qmVec_linearIndependent` (over ℝ, Im τ ≠ 0), `qmBasis`, `qmLattice` (+ DiscreteTopology, IsZLattice),
+  `qmLattice_eq`, `QMTorus` (LieAddGroup, CompactSpace by inferInstance), `Fp_mulVec_periodVec(')`, `imgVec`,
+  `det_im_ne_zero_of_linearIndependent` (generic converse of §4), `imgVec_linearIndependent`, `span_imgVec`,
+  `FpEquiv`, `det_im_Omega_ne_zero`, `map_periodLattice_Omega` (F'(τ)(Ω(τ)ℤ²+ℤ²) = ι(𝒪)(τ,1)ᵀ),
+  `qmPeriodDiffeo : SiegelTorus (Omega τ) _ ≃ₘ^ω QMTorus hτ`, `qmPeriodDiffeo_add`, `qmPeriodDiffeo_proj`.
+  COMPILED, no warnings; axioms [propext, Classical.choice, Quot.sound] for qmPeriodDiffeo(_add),
+  det_im_Omega_ne_zero, torusDiffeo, thetaConst_eq_riemannTheta, riemannTheta_add_period, two_nsmul_proj_charPoint.
+- sympy (VERIFIED, computed): Ω(τ) symmetric; det Im Ω(x+iy) = 12y²/(((x−3)²+y²)((x+1)²+y²)) > 0 for y ≠ 0.
+- Uniformization.lean: AbVar, ptObj, Pt copied from ZInQKernel/HDecomp/Objects.lean; `PtIn`, `evalAt` (value of
+  f ∈ Γ(U, 𝒪_A) at a ℂ-point via `Scheme.Hom.appLE` and `Scheme.ΓSpecIso`), `UniformizationLeaf A` (AN3 in
+  coordinate form: ∃ g, full lattice Λ ⊂ ℂ^g, group iso φ : ℂ^g/Λ ≃+ A(ℂ) with (i) pullbacks of regular functions
+  analytic on open preimages, (ii) local holomorphic coordinates by g regular functions), `UniformizationLeafAll`.
+  COMPILED (statement only; a Prop, no sorry). `CommGroup (A.Pt ℂ)` found by inferInstance.
+- Torus.lean §7 additions: `sqrt2_sq`, `Fp_mul_Emat_transpose` (F'Eᵀ = EF'ᵀ), `Omega_transpose` (Ω(τ)ᵀ = Ω(τ) for
+  Im τ ≠ 0), `riemannTheta_Omega_add_period`. COMPILED.
+- Torus.lean §8 (node T2): `eventuallyEq_const_of_mem`, `exists_realLinear_lift` (continuous hom of tori is induced
+  by an ℝ-linear T with TΛ ⊆ Λ'; covering lift `IsCoveringMap.existsUnique_continuousMap_lifts`, additivity by
+  `PreconnectedSpace.constant`, `AddMonoidHom.toRealLinearMap`), `exists_complexLinear_lift` (holomorphic
+  (MDifferentiable) hom ⇒ ℂ-linear T, by comparing fderiv ℂ with the ℝ-derivative). COMPILED, no warnings;
+  axioms standard for exists_complexLinear_lift, exists_realLinear_lift, Omega_transpose,
+  riemannTheta_Omega_add_period.
+- Torus.lean §9 (node P3): `sigmaEquiv`, `stdRealBasis` (inl j ↦ i e_j, inr j ↦ e_j; Pi.basis of Complex.basisOneI
+  reindexed), `stdRealBasis_repr_inl/inr`, `volume_unitSquare`, `volume_fundamentalDomain_stdRealBasis` (= 1),
+  `toMatrix_periodVec` (= fromBlocks (Im Ω) 0 (Re Ω) 1), `covolume_periodLattice` (covol(Ωℤ^g+ℤ^g) = |det Im Ω|
+  for Lebesgue measure on ℂ^g), `covolume_periodLattice_of_mem` (= det Im Ω on the Siegel space). COMPILED;
+  axioms standard.
+- Leaf moved into Torus.lean §10 (Uniformization.lean deleted, superseded): `AbVar`, `ptObj`, `Pt` (copied),
+  `PtIn`, `evalAt`, `IsUniformization A Λ φ` (structure: (i) `holo`, (ii) `coords`, (iii) `open_map`: φ⁻¹
+  continuous for the topology of regular functions — added so that uniqueness is formal), `UniformizationLeaf`,
+  `UniformizationLeafAll`; glue `IsUniformization.continuous_comparison` (φ'⁻¹∘φ continuous) and
+  `IsUniformization.exists_realLinear` (two uniformizations differ by an ℝ-linear map with TΛ ⊆ Λ', via T2).
+  COMPILED; axioms standard.
+- Torus.lean §10 glue: `ptMap` (post-composition with an endomorphism α [IsMonHom α] on ℂ-points, additive),
+  `evalAt_comp` (f(P ≫ α) = (α^*f)(P), via `Scheme.Hom.comp_appLE`), `IsUniformization.continuous_endo`
+  (φ⁻¹∘α∘φ continuous), `IsUniformization.exists_realLinear_endo` (α acts on ℂ^g by an ℝ-linear T with
+  TΛ ⊆ Λ: the rational representation). COMPILED; axioms standard.
+- Torus.lean §10 glue (holomorphic): `IsUniformization.exists_complexLinear_endo` (End action is ℂ-linear:
+  T = (local inverse of the clause-(ii) coordinates) ∘ (pulled-back coordinates), Mathlib
+  `HasStrictFDerivAt.localInverse`, `AnalyticAt.hasStrictFDerivAt`), `IsUniformization.exists_complexLinear`
+  (two uniformizations differ by a ℂ-linear map with TΛ ⊆ Λ'). COMPILED; axioms standard.
+- Torus.lean §10: `eq_of_proj_eq` (uniqueness of continuous ℝ-linear lifts), `IsUniformization.exists_equiv`
+  (two uniformizations differ by T : ℂ^g ≃L[ℂ] ℂ^{g'} with T(Λ) = Λ'), `IsUniformization.dim_eq` (g = g').
+  COMPILED; axioms standard.
+- Torus.lean §10 (analytic representation): `analyticRep hφ α` (the ℂ-linear lift), `analyticRep_mem`,
+  `analyticRep_spec`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp` (ρ(β≫α) = ρ(α)∘ρ(β)),
+  `isMonHom_mul` (instance), `analyticRep_mul` (ρ(α*β) = ρ(α)+ρ(β), * = group law of Hom(A,A)). COMPILED;
+  axioms standard.
+- Torus.lean §10: `nsmul_proj_eq_zero_iff` (n•[v] = 0 ↔ n•v ∈ Λ), `torsion_iff` (P^n = 1 ↔ P = φ[v] with n•v ∈ Λ).
+  COMPILED; axioms standard.
+- Torus.lean §7: `OmegaPF` (partial fractions Ω(τ) = A₀ + C/(τ+1) + B/(τ−3), from sympy), `Fp_mul_OmegaPF`,
+  `Omega_eq_PF`, `Omega_mem_siegelSpace` (Ω(τ) ∈ 𝔥₂ for Im τ > 0: xᵀ Im Ω x = y/|τ+1|²·((√2+2)/2)(x₀−√2x₁)²
+  + y/|τ−3|²·(3(2−√2)/2)(x₀+√2x₁)²). COMPILED; axioms standard. pkg-I1's faithfulness claim (symmetric,
+  Im > 0, period matrix of ℂ²/Λ_τ) is now fully proved except the Riemann-form compatibility.
+- Independent model read-through of §10 (read-only subagent): no problem found; clauses (i)-(iii) judged true for
+  every AbVar ℂ, evalAt correct, not vacuous. Remarks adopted: locators (Mumford §1 + §4, SGA 1 XII 2.4/3.1/3.2),
+  differentials glue A6 is extra, torsion_iff uses only φ.

@@ -1,0 +1,41 @@
+scratch/rv-blueprints/Audit_QMAbVar.lean:331:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:331:66: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:331:66: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:337:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:337:66: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:337:66: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:343:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:343:27: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/rv-blueprints/Audit_QMAbVar.lean:343:27: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'BPQM.AV.not_qmStr_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.Level3.rightMul_eq_self' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.Level3.twist' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.QML3.Iso.refl' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.QML3.goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.isoSetoid' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.endBC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.intCast_mem_com' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.QMStr.baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.R5fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.R5fpCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPQM.AV.M3'.twist' depends on axioms: [propext, Classical.choice, Quot.sound]
+rv_audit: 176 declarations; non-standard axioms in 0: []
+exit=0 secs=22

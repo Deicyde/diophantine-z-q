@@ -6,11 +6,19 @@ on:
   push:
     paths:
       - 'scratch/axiom-bridge/**'
+      - '**/*.lean'
+      - '**/lakefile.toml'
+      - '**/lake-manifest.json'
+      - '**/lean-toolchain'
       - '.github/workflows/axiom-bridge.yml'
       - '.github/axiom-cache.json'
   pull_request:
     paths:
       - 'scratch/axiom-bridge/**'
+      - '**/*.lean'
+      - '**/lakefile.toml'
+      - '**/lake-manifest.json'
+      - '**/lean-toolchain'
       - '.github/workflows/axiom-bridge.yml'
       - '.github/axiom-cache.json'
 

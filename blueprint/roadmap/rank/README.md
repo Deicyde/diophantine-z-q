@@ -15,7 +15,8 @@ $\mathrm{Sel}_2(C_d)$, and $C_d(\mathbb Q)[2]$ has order $4$. So when $C_d(\math
 generated, a point of infinite order gives $|C_d(\mathbb Q)/2C_d(\mathbb Q)|\ge8$, and when
 $\mathrm{Sel}_2(C_d)$ has order $8$ the image is all of it. So CR₃^Sel, CR₃^TYZ and CR₃^TYZ_Cl have
 positive-rank forms that ask only for a point of infinite order on $C_d$. With Mordell–Weil for every $C_d$, proved in its own section, the positive-rank
-forms imply the original ones, and the positive-rank form of CR₃^Sel implies CR₃. The proof of pole completeness applies the hypothesis at only two curves, those of
+forms imply the original ones, and the positive-rank form of CR₃^Sel implies CR₃. A section
+derives CR₃^TYZ_Cl,Rk from three statements about L-series of elliptic curves. The proof of pole completeness applies the hypothesis at only two curves, those of
 a slot choice, and a further section states the positive-rank hypothesis for exactly those curves. A
 last section restates the positive-rank hypotheses with the conclusion that the equation
 $y^2=x^3-d^2x$ has infinitely many rational solutions, which mentions no group law.
@@ -52,6 +53,17 @@ CR₃^TYZ,Rk implies CR₃^Rk by Corollary 4.4 and Theorem 3.6.
 - [The class-number hypothesis in positive-rank form](certified-rank-tyz-cl-rk.md)
 - [CR₃^TYZ,Rk implies CR₃^Rk](certified-rank-rk-of-tyz-rk.md)
 - [CR₃^TYZ_Cl,Rk implies CR₃^TYZ,Rk](certified-rank-tyz-rk-of-cl-rk.md)
+
+## The class-number hypothesis from the literature
+
+CR₃^TYZ_Cl,Rk follows from Tian–Yuan–Zhang's row 5b, the functional equation of $L(C_d,s)$ for
+squarefree $d\equiv5\pmod8$ with root number $-1$ on the critical strip $0<\operatorname{Re}s<2$,
+and the positive-rank half of Gross–Zagier; none of the three is proved here. Row 5b in turn
+follows from their Theorem 3.5(2) in reading A together with Hecke's continuation of $L(C_d,s)$,
+two further statements that are not proved here; reading A is printed by no refereed text
+consulted here and rests on the unrefereed Proposition N.
+
+- [CR₃^TYZ_Cl,Rk from three literature statements](literature/README.md)
 
 ## Every Selmer class from positive rank
 
