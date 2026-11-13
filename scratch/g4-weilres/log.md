@@ -22,3 +22,14 @@
   Uses GlueRepo.TorsionFree.card_le_three_pow (Minkowski), InfiniteGalois.*, the bridge.
 - `G4WeilRes.homField_le_heightD`: with finrank K ≤ heightF0, r ≤ 16·heightF0² ⇒ finrank L ≤ heightD
   (GlueRepo.Numerics.a8_degree, ZInQ.Compiler.Precision.heightD_eq).
+
+## G4.lean — lattice, AbVar instantiation, feed to G7: COMPILED; axioms VERIFIED
+- `pi_rank_le`: ∏_{(i,j)∈n×n} of free finite ℤ-modules of rank ≤ c has finrank ≤ c·n².
+- `trivial_of_faithful`, `conj_trivial`: equivariant injective realization ⇒ trivial action transfers (N5 L559-561 algebra).
+- `HomLattice A := ∀ ij : Fin n × Fin n, PkgI3.AbVar.Hom (A ij.1) (A ij.2)` (A : Fin n → AbVar ℚ̄).
+- `homLattice_free (hHFF : PkgI3.HomFreeFinite)`: dim A i = 2 ⇒ HomLattice free, finite, finrank ≤ 16n².
+- `homField_of_conjugates`: HomFreeFinite + K (finrank ≤ F₀, Galois-unramified outside T) + n ≤ F₀ surfaces +
+  ρ : G_ℚ →* Aut_ℤ(HomLattice A) continuous, inertia-trivial outside T ⇒ Hom field L, finrank ≤ heightD, both unramified forms.
+- `b3_of_homField`: G4's L fed into `GlueDescent.B3Q.b3_degree_le_QM` (with T = ramSet S u); needs `hdesc`
+  (ε inflated from any field defining the lattice — G7's instantiation, hypothesis).
+- `#print axioms` of all six main theorems: [propext, Classical.choice, Quot.sound].

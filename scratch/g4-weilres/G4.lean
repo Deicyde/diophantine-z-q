@@ -3,6 +3,7 @@ import ZInQKernel.HDecomp.B3Unram.B3b
 import ZInQKernel.HDecomp.Repo.TorsionFree
 import ZInQKernel.HDecomp.Repo.Numerics
 import ZInQKernel.HDecomp.Descent.B3Assembly
+import ZInQKernel.HDecomp.Objects
 
 /-!
 # g4-weilres, part 1: Galois-theoretic unramifiedness gives ideal-theoretic unramifiedness
@@ -429,4 +430,154 @@ theorem homField_le_heightD (K : IntermediateField ℚ Qbar) [FiniteDimensional 
 
 end Core
 
+
+/-! ## The lattice of the conjugates: rank, faithfulness, and the abelian-variety instantiation
+
+The manuscript's `End(W₀_ℚ̄) = ⊕_{σ,τ} Hom(σA, τA)`: here the direct sum over ordered pairs of
+`n` abelian varieties over `ℚ̄` (the conjugates of `A`, `n ≤ [K:ℚ] ≤ F₀`), as a product of
+`PkgI3.AbVar.Hom` groups. -/
+
+section Lattice
+
+/-- **Rank of the lattice (glue, proved).** A product over ordered pairs `(i, j) ∈ n × n` of free
+finite `ℤ`-modules of rank `≤ c` is free and finite of rank `≤ c·n²`. -/
+theorem pi_rank_le {n c : ℕ} (H : Fin n × Fin n → Type*) [∀ ij, AddCommGroup (H ij)]
+    [∀ ij, Module.Free ℤ (H ij)] [∀ ij, Module.Finite ℤ (H ij)]
+    (hH : ∀ ij, Module.finrank ℤ (H ij) ≤ c) :
+    Module.finrank ℤ (∀ ij, H ij) ≤ c * n ^ 2 := by
+  rw [Module.finrank_pi_fintype]
+  calc ∑ ij, Module.finrank ℤ (H ij) ≤ ∑ _ij : Fin n × Fin n, c :=
+        Finset.sum_le_sum fun ij _ => hH ij
+    _ = c * n ^ 2 := by simp [Fintype.card_prod, sq, mul_comm]
+
+/-- **Inertia acts trivially on the lattice (glue, proved; N5 L559-561).** If the lattice `M`
+embeds equivariantly and injectively into a module `N` (in the application: `ℓ`-adic
+realization, `Hom(σA, τA) → Hom_{ℤ_ℓ}(T_ℓ σA, T_ℓ τA)`, injective by Mumford §19 Thm 3, the leaf
+`PkgI3.HomFreeFinite`), then every `s` acting trivially on `N` (in the application: inertia at
+`p ∉ T`, by Néron–Ogg–Shafarevich, the leaf `PkgI2.NeronOggShafarevich`) acts trivially on `M`. -/
+theorem trivial_of_faithful {G M N : Type*} [Group G] [AddCommGroup M] [AddCommGroup N]
+    (ρ : G →* (M ≃ₗ[ℤ] M)) (τ : G →* (N ≃ₗ[ℤ] N)) (ι : M →+ N) (hι : Function.Injective ι)
+    (heq : ∀ g m, ι (ρ g m) = τ g (ι m)) (s : G) (hs : τ s = 1) : ρ s = 1 := by
+  apply LinearEquiv.ext
+  intro m
+  apply hι
+  rw [heq, hs]
+  rfl
+
+/-- The `ℓ`-adic side: if `s` acts trivially on the Tate modules `T i`, it acts trivially on
+`Hom_{ℤ_ℓ}(T i, T j)` by conjugation. -/
+theorem conj_trivial {R : Type*} [CommRing R] {T₁ T₂ : Type*} [AddCommGroup T₁] [Module R T₁]
+    [AddCommGroup T₂] [Module R T₂] (a₁ : T₁ ≃ₗ[R] T₁) (a₂ : T₂ ≃ₗ[R] T₂) (h₁ : a₁ = 1)
+    (h₂ : a₂ = 1) (φ : T₁ →ₗ[R] T₂) :
+    (a₂ : T₂ →ₗ[R] T₂) ∘ₗ φ ∘ₗ (a₁.symm : T₁ →ₗ[R] T₁) = φ := by
+  subst h₁; subst h₂; rfl
+
+open PkgI3 PkgI3.AbVar CategoryTheory MonObj
+
+/-- The geometric Hom lattice of `n` abelian varieties over `ℚ̄`: `⊕_{(i,j)} Hom(A i, A j)`. -/
+abbrev HomLattice {n : ℕ} (A : Fin n → AbVar Qbar) : Type :=
+  ∀ ij : Fin n × Fin n, AbVar.Hom (A ij.1) (A ij.2)
+
+/-- **Mumford's bound on the lattice (from the leaf `HomFreeFinite`).** For abelian surfaces
+`A i` over `ℚ̄`, the lattice `⊕ Hom(A i, A j)` is free and finite of rank `≤ 16n²`. -/
+theorem homLattice_free (hHFF : HomFreeFinite) {n : ℕ} (A : Fin n → AbVar Qbar)
+    (hdim : ∀ i, (A i).dim = 2) :
+    Module.Free ℤ (HomLattice A) ∧ Module.Finite ℤ (HomLattice A) ∧
+      Module.finrank ℤ (HomLattice A) ≤ 16 * n ^ 2 := by
+  haveI : ∀ ij : Fin n × Fin n, Module.Free ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
+    fun ij => (hHFF Qbar (A ij.1) (A ij.2)).1
+  haveI : ∀ ij : Fin n × Fin n, Module.Finite ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
+    fun ij => (hHFF Qbar (A ij.1) (A ij.2)).2.1
+  refine ⟨inferInstance, inferInstance, pi_rank_le _ fun ij => ?_⟩
+  have h := (hHFF Qbar (A ij.1) (A ij.2)).2.2.1
+  rw [hdim, hdim] at h
+  have h16 : ((Module.finrank ℤ (AbVar.Hom (A ij.1) (A ij.2)) : ℕ∞) : WithBot ℕ∞) ≤
+      (((16 : ℕ) : ℕ∞) : WithBot ℕ∞) := by
+    refine h.trans (le_of_eq ?_)
+    rfl
+  exact_mod_cast h16
+
+/-- **G4 on the abelian-variety layer.** Let `K ⊆ ℚ̄` be finite Galois with `[K:ℚ] ≤ F₀`,
+unramified outside `T`; let `A 0, …, A (n-1)` be abelian surfaces over `ℚ̄` (the conjugates of
+the fibre object, `n ≤ F₀`), and let `G_ℚ` act `ℤ`-linearly on `⊕ Hom(A i, A j)` (the conjugation
+action; its construction is the open part of G4) continuously and with every inertia group over
+`p ∉ T` acting trivially. Then the Hom field `L ⊇ K` exists: finite Galois, `[L:ℚ] ≤ D`, every
+element of the lattice is fixed by `G_L`, and `L` is unramified outside `T` (both forms).
+Leaf used: `PkgI3.HomFreeFinite` (Mumford §19 Thm 3). -/
+theorem homField_of_conjugates (hHFF : HomFreeFinite)
+    (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
+    {n : ℕ} (hn : n ≤ ZInQ.heightF0) (A : Fin n → AbVar Qbar) (hdim : ∀ i, (A i).dim = 2)
+    (ρ : Gal →* (HomLattice A ≃ₗ[ℤ] HomLattice A))
+    (hcont : ∀ m : HomLattice A, IsOpen {σ : Gal | ρ σ m = m})
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, ρ s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) := by
+  obtain ⟨hfree, hfin, hrank⟩ := homLattice_free hHFF A hdim
+  have hr : Module.finrank ℤ (HomLattice A) ≤ 16 * ZInQ.heightF0 ^ 2 :=
+    hrank.trans (Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hn 2))
+  exact homField_le_heightD K hKF hr (Module.finBasisOfFinrankEq ℤ (HomLattice A) rfl) ρ hcont T
+    hK hinert
+
+end Lattice
+
+/-! ## What G7 receives: the Hom field feeds `GlueDescent.B3Q.b3_degree_le_QM`
+
+`b3_degree_le_QM` needs a finite Galois `L` with `[L:ℚ] ≤ D`, unramified outside `T = ramSet S u`
+(ideal-theoretic form), and the cocycle `ε` of the scalar descent data inflated from `Gal(L/ℚ)`.
+The first three are G4's output above; the last is G7's own instantiation (the descent data
+`μ_σ` are elements of the lattice, so a field defining the lattice defines `ε`), kept here as the
+hypothesis `hdesc`. -/
+
+section Feed
+
+/-- **G4 → G7.** The Hom field of `homField_le_heightD`, with `T = ramSet S u`, is a valid input
+of `GlueDescent.B3Q.b3_degree_le_QM`: the scalar-descent output (`χ`, `β`, `L' ⊇ L` Galois with
+`[L':ℚ] ≤ Q_R·M_S(u)`) follows. -/
+theorem b3_of_homField (hHasse : GlueDescent.B2Q.LeafHasse)
+    (hTwo : GlueDescent.B2Q.LeafLocalTwo) (hSq : GlueDescent.B2Q.LeafSqrtCrit)
+    (hUnr : GlueDescent.B2Q.LeafUnramified) (S : Finset ℕ) (hS : ∀ p ∈ S, p.Prime) (R : ℝ)
+    (hRD : (ZInQ.heightD : ℝ) ≤ R) (hRS : ∀ p ∈ S, (p : ℝ) ≤ R) (hR12 : (10 : ℝ) ^ 12 ≤ R)
+    (u : ℚ) {M : Type*} [AddCommGroup M]
+    (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
+    {r : ℕ} (hr : r ≤ 16 * ZInQ.heightF0 ^ 2) (b : Module.Basis (Fin r) ℤ M)
+    (ρ : Gal →* (M ≃ₗ[ℤ] M))
+    (hcont : ∀ m : M, IsOpen {σ : Gal | ρ σ m = m})
+    (hK : GalUnramifiedOutside K (GlueDescent.ramSet S u))
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ GlueDescent.ramSet S u → ∀ w : ValuationSubring Qbar,
+      LiesOver w p → ∀ s ∈ inertiaGQ w, ρ s = 1)
+    (hdesc : ∀ L : IntermediateField ℚ Qbar, (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) →
+      ∃ ε : GlueDescent.B2Q.GQ → GlueDescent.B2Q.GQ → ℂˣ, GlueDescent.B2.IsSignCocycle ε ∧
+        GlueDescent.B2Q.InflatedFrom L ε ∧ ε 1 1 = 1)
+    (η : GlueDescent.B2Q.GQ →* ℂˣ) (hη : ∀ x, η x ^ 2 = 1) (hηl : IsLocallyConstant η) :
+    ∃ (L : IntermediateField ℚ Qbar) (ε : GlueDescent.B2Q.GQ → GlueDescent.B2Q.GQ → ℂˣ)
+      (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GlueDescent.B2Q.GQ → ℂˣ)
+      (L' : IntermediateField ℚ Qbar),
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧ K ≤ L ∧
+      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = GlueDescent.B2Q.galChar χ x) ∧
+      (∀ x y, β x * β y = ε x y * β (x * y)) ∧
+      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
+      (Module.finrank ℚ L' : ℝ) ≤ ZInQ.heightQ R * ZInQ.contactSupport S u := by
+  obtain ⟨L, hfd, hgal, hKL, hdef, hdeg, -, hram⟩ :=
+    homField_le_heightD K hKF hr b ρ hcont (GlueDescent.ramSet S u) hK hinert
+  obtain ⟨ε, hε, hinf, h11⟩ := hdesc L hdef
+  obtain ⟨N, hN, χ, β, L', hβl, hβs, hβe, hle, hfd', hgal', -, hdeg'⟩ :=
+    GlueDescent.B3Q.b3_degree_le_QM hHasse hTwo hSq hUnr S hS R hRD hRS hR12 u L hdeg ε hε hinf
+      h11 hram η hη hηl
+  exact ⟨L, ε, N, hN, χ, β, L', hdeg, hKL, hβl, hβs, hβe, hle, hfd', hgal', hdeg'⟩
+
+end Feed
+
 end G4WeilRes
+
+#print axioms G4WeilRes.unramifiedAt_of_inertia_le
+#print axioms G4WeilRes.galUnramifiedOutside_iff
+#print axioms G4WeilRes.homField_core
+#print axioms G4WeilRes.homField_le_heightD
+#print axioms G4WeilRes.homField_of_conjugates
+#print axioms G4WeilRes.b3_of_homField
