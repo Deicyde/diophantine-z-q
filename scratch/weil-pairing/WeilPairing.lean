@@ -871,18 +871,20 @@ def DivisiblePoints : Prop :=
 variable {A : AbVar K} {ℓ : ℕ} [Fact ℓ.Prime]
 
 /-- A sequence of successive `ℓ`-th roots starting at `t`. -/
-def rootSeq (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (t : P A) : ℕ → P A
+def rootSeq {M : Type*} [AddCommGroup M] (hdiv : ∀ z : M, ∃ w : M, ℓ • w = z) (t : M) : ℕ → M
   | 0 => t
   | i + 1 => Classical.choose (hdiv (rootSeq hdiv t i))
 
 omit [Fact ℓ.Prime] in
-lemma rootSeq_succ (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (t : P A) (i : ℕ) :
-    ℓ • rootSeq hdiv t (i + 1) = rootSeq hdiv t i :=
+lemma rootSeq_succ {M : Type*} [AddCommGroup M] (hdiv : ∀ z : M, ∃ w : M, ℓ • w = z) (t : M)
+    (i : ℕ) : ℓ • rootSeq hdiv t (i + 1) = rootSeq hdiv t i :=
   Classical.choose_spec (hdiv (rootSeq hdiv t i))
 
-/-- `T_ℓ A → A[ℓᵏ]` is onto (glue, from `DivisiblePoints`). -/
-theorem tate_surj (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (k : ℕ) (t : P A)
-    (ht : ℓ ^ k • t = 0) : ∃ y : A.T ℓ, y.1 k = t := by
+omit [Fact ℓ.Prime] in
+/-- `T_ℓ M → M[ℓᵏ]` is onto when `M` is `ℓ`-divisible (glue; for `M = A(K̄)` from
+`DivisiblePoints`). -/
+theorem tate_surj {M : Type*} [AddCommGroup M] (hdiv : ∀ z : M, ∃ w : M, ℓ • w = z) (k : ℕ)
+    (t : M) (ht : ℓ ^ k • t = 0) : ∃ y : Tate.T ℓ M, y.1 k = t := by
   refine ⟨⟨fun j => ℓ ^ k • rootSeq hdiv t j, ?_, fun j => ?_⟩, ?_⟩
   · change ℓ ^ k • t = 0; exact ht
   · change ℓ • ℓ ^ k • rootSeq hdiv t (j + 1) = ℓ ^ k • rootSeq hdiv t j
@@ -974,6 +976,157 @@ theorem det_galRep_sq {ψ : Hom D.dual A} {d : ℕ} (hd : 0 < d)
 
 end Det
 
+
+/-! ## §9. `T_ℓ(μ) ↪ ℤ_ℓ` (proved), and the G12 determinant input from leaves alone -/
+
+section TMuEmbed
+
+variable {ℓ : ℕ} [Fact ℓ.Prime]
+
+/-- `K̄ˣ` is divisible. -/
+lemma units_divisible {n : ℕ} (hn : 0 < n) (z : Additive (AlgebraicClosure K)ˣ) :
+    ∃ w : Additive (AlgebraicClosure K)ˣ, n • w = z := by
+  obtain ⟨w, hw⟩ := IsAlgClosed.exists_pow_nat_eq ((Additive.toMul z : (AlgebraicClosure K)ˣ) :
+    AlgebraicClosure K) hn
+  have hw0 : w ≠ 0 := by
+    rintro rfl
+    rw [zero_pow hn.ne'] at hw
+    exact (Additive.toMul z).ne_zero hw.symm
+  refine ⟨Additive.ofMul (Units.mk0 w hw0), ?_⟩
+  apply Additive.toMul.injective
+  apply Units.ext
+  change ((Units.mk0 w hw0 ^ n : (AlgebraicClosure K)ˣ) : AlgebraicClosure K) = _
+  rw [Units.val_pow_eq_pow_val, Units.val_mk0, hw]
+
+variable (K ℓ) in
+/-- A generator of `T_ℓ(μ)`: a compatible system `(ζ_n)` with `ζ_n` of exact order `ℓⁿ`. -/
+lemma exists_tmu_gen [NeZero (ℓ : K)] :
+    ∃ g : TMu K ℓ, ∀ n, addOrderOf (g.1 n) = ℓ ^ n := by
+  have hl1 : 1 < ℓ := (Fact.out : ℓ.Prime).one_lt
+  have hl : 0 < ℓ := (Fact.out : ℓ.Prime).pos
+  obtain ⟨ξ, hξ⟩ := HasEnoughRootsOfUnity.exists_isPrimitiveRoot (AlgebraicClosure K) ℓ
+  let u : (AlgebraicClosure K)ˣ := Units.mk0 ξ (hξ.ne_zero hl.ne')
+  have ht : ℓ ^ 1 • Additive.ofMul u = 0 := by
+    apply Additive.toMul.injective
+    apply Units.ext
+    change ((u ^ ℓ ^ 1 : (AlgebraicClosure K)ˣ) : AlgebraicClosure K) = 1
+    rw [pow_one, Units.val_pow_eq_pow_val, Units.val_mk0, hξ.pow_eq_one]
+  have ht0 : Additive.ofMul u ≠ 0 := by
+    intro h
+    have h' : (u : AlgebraicClosure K) = 1 := by
+      rw [show u = 1 from Additive.ofMul.injective h, Units.val_one]
+    exact hξ.ne_one hl1 h'
+  obtain ⟨y, hy⟩ := tate_surj (units_divisible hl) 1 _ ht
+  refine ⟨y, fun n => ?_⟩
+  cases n with
+  | zero => rw [y.2.1, addOrderOf_zero, pow_zero]
+  | succ m =>
+    refine addOrderOf_eq_prime_pow ?_ (Tate.pow_smul_eq_zero y.2 (m + 1))
+    intro h
+    have h1 := iterate_smul y.2.2 1 m
+    rw [Nat.add_comm 1 m, h, hy] at h1
+    exact ht0 h1.symm
+
+/-- Discrete logarithms to a base of exact order `ℓⁿ` in `K̄ˣ`. -/
+lemma exists_dlog {g w : Additive (AlgebraicClosure K)ˣ} {n : ℕ} (hg : addOrderOf g = ℓ ^ n)
+    (hw : ℓ ^ n • w = 0) : ∃ c : ℕ, c • g = w := by
+  have hord : orderOf (Additive.toMul g) = ℓ ^ n := (addOrderOf_ofMul_eq_orderOf _).symm.trans hg
+  have h : IsPrimitiveRoot (Additive.toMul g) (ℓ ^ n) := IsPrimitiveRoot.iff_orderOf.2 hord
+  have hw' : Additive.toMul w ∈ rootsOfUnity (ℓ ^ n) (AlgebraicClosure K) := by
+    rw [mem_rootsOfUnity]
+    exact Additive.ofMul.injective hw
+  obtain ⟨i, -, hi⟩ := h.eq_pow_of_mem_rootsOfUnity hw'
+  exact ⟨i, congrArg Additive.ofMul hi⟩
+
+variable {g : TMu K ℓ} (hg : ∀ n, addOrderOf (g.1 n) = ℓ ^ n)
+
+/-- `dlog z n`: the exponent `c` with `z_n = c · ζ_n`. -/
+def dlog (z : TMu K ℓ) (n : ℕ) : ℕ :=
+  Classical.choose (exists_dlog (hg n) (Tate.pow_smul_eq_zero z.2 n))
+
+lemma dlog_spec (z : TMu K ℓ) (n : ℕ) : dlog hg z n • g.1 n = z.1 n :=
+  Classical.choose_spec (exists_dlog (hg n) (Tate.pow_smul_eq_zero z.2 n))
+
+include hg in
+lemma modEq_of_smul_eq {n a b : ℕ} (h : a • g.1 n = b • g.1 n) : (a : ZMod (ℓ ^ n)) = b := by
+  rw [ZMod.natCast_eq_natCast_iff, ← hg n]
+  exact (nsmul_eq_nsmul_iff_modEq).1 h
+
+lemma dlog_compat (z : TMu K ℓ) (n : ℕ) :
+    ((ℓ : ℤ) ^ n) ∣ ((dlog hg z (n + 1) : ℕ) : ℤ) - ((dlog hg z n : ℕ) : ℤ) := by
+  have h : dlog hg z (n + 1) • g.1 n = dlog hg z n • g.1 n := by
+    calc dlog hg z (n + 1) • g.1 n = dlog hg z (n + 1) • (ℓ • g.1 (n + 1)) := by rw [g.2.2 n]
+      _ = ℓ • (dlog hg z (n + 1) • g.1 (n + 1)) := smul_comm _ _ _
+      _ = ℓ • z.1 (n + 1) := by rw [dlog_spec]
+      _ = z.1 n := z.2.2 n
+      _ = dlog hg z n • g.1 n := (dlog_spec hg z n).symm
+  have h2 := modEq_of_smul_eq hg h
+  rw [ZMod.natCast_eq_natCast_iff] at h2
+  have h3 := (Nat.modEq_iff_dvd.1 h2.symm)
+  simpa using h3
+
+/-- The coordinate `T_ℓ(μ) → ℤ_ℓ`, `z ↦ lim dlog z n`. -/
+def tmuCoord (z : TMu K ℓ) : ℤ_[ℓ] :=
+  PadicInt.ofIntSeq _ (PadicInt.isCauSeq_padicNorm_of_pow_dvd_sub
+    (fun n => ((dlog hg z n : ℕ) : ℤ)) ℓ (dlog_compat hg z))
+
+lemma toZModPow_tmuCoord (z : TMu K ℓ) (n : ℕ) :
+    PadicInt.toZModPow n (tmuCoord hg z) = (dlog hg z n : ZMod (ℓ ^ n)) := by
+  unfold tmuCoord
+  rw [PadicInt.toZModPow_ofIntSeq_of_pow_dvd_sub _ _ (dlog_compat hg z)]
+  simp
+
+/-- **`T_ℓ(μ) ↪ ℤ_ℓ` (proved):** the coordinate is `ℤ_ℓ`-linear and injective. -/
+def tmuCoordLin : TMu K ℓ →ₗ[ℤ_[ℓ]] ℤ_[ℓ] where
+  toFun := tmuCoord hg
+  map_add' z z' := by
+    refine PadicInt.ext_of_toZModPow.1 fun n => ?_
+    rw [map_add, toZModPow_tmuCoord, toZModPow_tmuCoord, toZModPow_tmuCoord, ← Nat.cast_add]
+    apply modEq_of_smul_eq hg
+    rw [add_smul, dlog_spec, dlog_spec, dlog_spec]
+    rfl
+  map_smul' a z := by
+    refine PadicInt.ext_of_toZModPow.1 fun n => ?_
+    rw [RingHom.id_apply, smul_eq_mul, map_mul, toZModPow_tmuCoord, toZModPow_tmuCoord,
+      ← ZMod.natCast_zmod_val (PadicInt.toZModPow n a), ← Nat.cast_mul]
+    apply modEq_of_smul_eq hg
+    rw [dlog_spec, mul_smul, dlog_spec]
+    rfl
+
+lemma tmuCoordLin_injective : Function.Injective (tmuCoordLin hg) := by
+  intro z z' h
+  apply Subtype.ext; funext n
+  have h1 := congrArg (PadicInt.toZModPow n) h
+  change PadicInt.toZModPow n (tmuCoord hg z) = PadicInt.toZModPow n (tmuCoord hg z') at h1
+  rw [toZModPow_tmuCoord, toZModPow_tmuCoord, ZMod.natCast_eq_natCast_iff, ← hg n] at h1
+  rw [← dlog_spec hg z n, ← dlog_spec hg z' n]
+  exact (nsmul_eq_nsmul_iff_modEq).2 h1
+
+end TMuEmbed
+
+/-- **G12 determinant input (glue target, stated over Objects' `galRep`).** For an abelian
+variety `A/K`, a prime `ℓ` invertible in `K` and `σ ∈ G_K`: `det ρ_ℓ(σ)² = χ_ℓ(σ)^{rank T_ℓ A}`
+(`rank = 2g`). C8 item 1 in `det²` form (with `twist_finite_four`). -/
+def G12_DetInput : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] [NeZero (ℓ : K)] (σ : Gal K),
+    LinearMap.det (A.galRep ℓ σ) ^ 2 =
+      algebraMap ℤ_[ℓ] ℚ_[ℓ] ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv :
+        ℤ_[ℓ]ˣ) : ℤ_[ℓ]) ^ Module.finrank ℤ_[ℓ] (A.T ℓ)
+
+/-- **The G12 input from four leaves (proved).** T9 (restated), the isogeny quasi-inverse, the
+freeness of `T_ℓ A` (`PkgI3.TateModuleFree`, Objects) and the divisibility of `A(K̄)` imply
+`G12_DetInput`. -/
+theorem g12_detInput_of_leaves (h9 : T09_SymmIsogenyExists) (hQ : IsogenyQuasiInverse)
+    (hT : PkgI3.TateModuleFree) (hD : DivisiblePoints) : G12_DetInput := by
+  intro K _ A ℓ _ _ σ
+  obtain ⟨S⟩ := h9 K A
+  obtain ⟨d, hd, ψ, hψ, -⟩ := hQ K _ _ S.lam S.isogeny
+  obtain ⟨hfree, hfin, -⟩ := hT K A ℓ (NeZero.ne _)
+  obtain ⟨g, hg⟩ := exists_tmu_gen K ℓ
+  exact det_galRep_sq S.D S.lam hd hψ
+    (fun k t ht => tate_surj (hD K A ℓ (Fact.out : ℓ.Prime).pos) k t ht)
+    (tmuCoordLin hg) (tmuCoordLin_injective hg) σ
+
 end WeilPairing
 
 #print axioms WeilPairing.oldT9_of_symmIsogeny
@@ -983,3 +1136,8 @@ end WeilPairing
 #print axioms WeilPairing.twist_finite_four
 #print axioms WeilPairing.weil_perfect_of_principal
 #print axioms WeilPairing.isSymmetric_pullback
+#print axioms WeilPairing.tatePairing_cyclotomic
+#print axioms WeilPairing.tatePairing_left_ker
+#print axioms WeilPairing.det_galRep_sq
+#print axioms WeilPairing.tmuCoordLin_injective
+#print axioms WeilPairing.g12_detInput_of_leaves

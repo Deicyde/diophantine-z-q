@@ -31,3 +31,11 @@
   components e^λ_{ℓ^k}(x_k, y_k)); `tatePairing_self` (alternating), `tatePairing_galois`,
   `galTMu_eq_cyclotomic` (Mathlib `cyclotomicCharacter`), `tatePairing_cyclotomic`:
   E^λ(σx, σy) = χ_ℓ(σ)·E^λ(x, y) — the ℓ-adic G12/C8-item-1 input, PROVED from a `WeilDual`.
+- 23:35 §8-§9 COMPILE (axioms standard): `iterate_smul`, `eq_zero_of_coprime`, leaf
+  `DivisiblePoints`, `rootSeq`, `tate_surj` (T_ℓ M → M[ℓ^k] onto for ℓ-divisible M),
+  `tatePairing_left_ker` (E^λ has trivial left kernel given λψ = [d] and surjectivity),
+  `det_sq_of_similitude_domain`, `det_galRep_sq` (det ρ_ℓ(σ)² = χ_ℓ(σ)^{rank T_ℓ A} on V_ℓ A),
+  `units_divisible`, `exists_tmu_gen` (compatible ζ_n of exact order ℓ^n), `exists_dlog`, `dlog`,
+  `tmuCoord`, `tmuCoordLin` (T_ℓ(μ) →ₗ ℤ_ℓ), `tmuCoordLin_injective`; glue target
+  `G12_DetInput` and `g12_detInput_of_leaves : T09_SymmIsogenyExists → IsogenyQuasiInverse →
+  PkgI3.TateModuleFree → DivisiblePoints → G12_DetInput` (PROVED).
