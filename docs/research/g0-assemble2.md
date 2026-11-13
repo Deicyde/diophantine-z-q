@@ -31,7 +31,7 @@ The check was done in two ways (§5):
 - against the olean chain `LPrefix → TailA → TailB → TailC → TailD`;
 - on the flat file.
 
-**`GluePieces3` has 39 fields: 14 LEAF, 3 LEAF? and 22 GLUE (§2).** It contains every wave-27
+**`GluePieces3` has 41 fields: 15 LEAF, 3 LEAF? and 23 GLUE (§2).** It contains every wave-27
 result whose branch has a report. That covers all 24 tasks named in the assignment, plus g9-derham
 (§3.5). Compared with g0-assemble's `GluePieces2` (27 fields: 5 LEAF, 1 LEAF?, 21 GLUE), 13 glue
 Props of `GluePieces2` are now proved outright or proved from leaves:
@@ -64,7 +64,7 @@ field with its kind and its source report.
 - `researchLeaves3_of` shows that `ResearchLeaves3` is weaker than `ResearchLeaves`.
 
 So the final hypotheses are `ResearchLeaves3` (23 fields), `TextbookLeaves` (35 fields, unchanged)
-and `GluePieces3` (39 fields).
+and `GluePieces3` (41 fields).
 
 ## 1. How each `GluePieces` field is now obtained (`gluePieces_of_gluePieces3`)
 
@@ -76,7 +76,7 @@ and `GluePieces3` (39 fields).
 | `stableHeightBaseChange` | `stableHeightBaseChange_of_hodgeLine (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_glue4 …))` | `hodgeBCInjective`, `cotangentSpanBC`, `omegaBaseChange`, `uniformizationLiftAnalytic` |
 | `reverseIsogeny` | `reverseIsogeny_of_leaves3 r` | `r.r19`, `r.h5fin` |
 | `thetaPoint` | `thetaPointOfFibre_of_qm_ratios (fibreQMPeriod_main_rep …)` | `thetaRatiosAlgebraic`, `qmHauptmodul`, `t.t35`, `t.t11a`, `qmClassNumberOne`, `r1bFamily`, `periodMapGlue`, `hauptmodulUnique`, `qmDenZeroCM3`, `cPtsTransport`, `MobiusGlue` (as above), `r.r1r2` |
-| `modularConstituent` | `modularConstituent_of_field t (fibreCoverExists_of_propTSAll' …) (kernelFieldExists_of_split'' …) unramifiedSup_mf (afterG7_of3 …)` | G2: `t.t5`, `propTSAll`, `unramifiedConjugates`. G4: `t.t6`, `r.r7a`, `r.r6`, `t.t5`, `t.t27`, FS5, `oMaximal`, `endTransport`, `conjIsogMaps`. G8-G12: `burnsideAbsIrred`, `r14Det`, `g9Glue`, G10 from `artinTorsionSurj`, `homLinearLift`, `conjUniformization`, `t.t26`, `t.t35`; G12 from `senTwist`, `finiteImageHT`; DetTate from `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `t.t26`. G13-G16: `t.t17` (DirichletOfFinite), `carayolR17`, the Swan Props (proved). Joint: `modelG3G6`, `linkedTateLocal`, `t.t7` |
+| `modularConstituent` | `modularConstituent_of_field t (fibreCoverExists_of_propTSAll' …) (kernelFieldExists_of_split'' …) unramifiedSup_mf (afterG7_of3 …)` | G2: `t.t5`, `propTSAll`, `unramifiedConjugates`. G4: `t.t6`, `r.r7a`, `r.r6`, `t.t5`, `t.t27`, FS5, `oMaximal`, `endTransport`, `conjIsogMaps`. G8-G12: `burnsideAbsIrred`, `r14Det`, G9 from `g9AbVarBaseChange`, `g9R10Weights`; G10 from `artinTorsionSurj`, `homLinearLift`, `conjUniformization`, `t.t26`, `t.t35`; G12 from `senTwist`, `finiteImageHT`; DetTate from `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `t.t26`. G13-G16: `t.t17` (DirichletOfFinite), `carayolR17`, the Swan Props (proved). Joint: G3/G6 on G7's model from `FibreSimple` (above), `modelNoncomm`, `modelG3`; `linkedTateLocal`, `t.t7` |
 
 ## 2. `GluePieces3`: every field, its kind and its source
 
@@ -116,7 +116,8 @@ Locators are the source reports'. All are UNVERIFIED here, since there is no net
 | 25 | `conjIsogMaps : KernelField.ConjIsogMaps` | GLUE | the conjugacy maps `m_σ = μ_σ ∘ σ`, geometric part | kernel-field |
 | 26 | `burnsideAbsIrred : G0Galois.BurnsideAbsIrred` | LEAF | Burnside's theorem (Lang, *Algebra* XVII §3) | g0-mod-galois |
 | 27 | `r14Det : G0Galois.R14Det` | LEAF | R14 with its determinant clause (Shimura 1971 Thm 7.14; Deligne 1971) | g0-mod-galois |
-| 28 | `g9Glue : G0Galois.G9Glue` | GLUE | N5's de Rham descent lemma (reduced by g9-derham, §3.5) | g0-mod-galois, g9-derham |
+| 28a | `g9AbVarBaseChange : G9Bridge.AbVarBaseChange` | GLUE | F2: base change of an abelian variety along a field embedding (char 0), `V_ℓ` Galois-compatible (Mumford §4, §6; EGA IV 4.1.4) | g9-derham (§3.5) |
+| 28b | `g9R10Weights : G9Bridge.R10Weights` | LEAF | F1: HT multiplicities of `V_p(A)` vanish off `{0, −1}`, the vanishing half of the Hodge–Tate decomposition (Tate 1967; Faltings 1988); g9-derham recommends it as a clause of R10 | g9-derham (§3.5) |
 | 29 | `artinTorsionSurj : G0Galois.ArtinTorsionSurj` | GLUE | N1-surj: `n`-torsion of `A(ℂ)` comes from `A(K̄)` | conj-twist |
 | 30 | `homLinearLift : G0Galois.HomLinearLift` | LEAF | N2: homomorphisms lift to `ℂ`-linear maps of uniformizations (Birkenhake–Lange Prop. 1.2.1) | conj-twist |
 | 31 | `conjUniformization : G0Galois.ConjUniformization` | GLUE | N3a: conjugating a uniformization uniformizes the conjugate variety | conj-twist |
@@ -126,13 +127,14 @@ Locators are the source reports'. All are UNVERIFIED here, since there is no net
 | 35 | `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | LEAF | `fg = [d]`, `gf = [d]` (Mumford §7-8) | weil-pairing via g12-det |
 | 36 | `divisiblePoints : WeilPairing.DivisiblePoints` | LEAF | `A(K̄)` is divisible (Mumford §4 Appl. 2) | weil-pairing via g12-det |
 | 37 | `carayolR17 : LadicCond.CarayolR17'` | LEAF | R17 concretely (Carayol 1986, Thm (A)). Replaces the `opaque` `r17` | kernel, g0-mod-newform |
-| 38 | `modelG3G6 : G0AssembleMod.ModelG3G6` | GLUE | G3 and G6 on G7's model `A_{L'}` | g0-assemble |
+| 38a | `modelNoncomm : G0AssembleMod.ModelNoncomm` | GLUE | `End(A_{L'})` noncommutative on G7's model (elementary: `ι(𝒪)`, `endBaseChange`, `[24] ≠ 0`; SPECULATIVE small) | g0-assemble2 (§3.6; from g0-assemble's `ModelG3G6`) |
+| 38b | `modelG3 : G0AssembleMod.ModelG3` | GLUE | G3 on G7's model: inertia outside `T(u)` acts trivially on `V_5`, `V_3` (good reduction of the QM model, NOS) | g0-assemble2 (§3.6; from g0-assemble's `ModelG3G6`) |
 | 39 | `linkedTateLocal : G0AssembleMod.LinkedTateLocal` | GLUE | new (§3.3): one scalar pair `a, β`, `G7Out` at 5 and 3, `FrobTraceLink`, and `LocalData` for G8's `r₅`, `r₃` | g0-assemble2 (from g0-assemble, g14-trace, g15-ram) |
 
 Counts:
-- LEAF: 14 (1, 2, 5, 15, 16, 26, 27, 30, 32-37).
+- LEAF: 15 (1, 2, 5, 15, 16, 26, 27, 28b, 30, 32-37).
 - LEAF?: 3 (13, 14, 19).
-- GLUE: 22.
+- GLUE: 23.
 
 ## 3. What is new here
 
@@ -166,6 +168,8 @@ Counts:
 | `g12Weight` | `senTwist`, `finiteImageHT` | g12-det |
 | `detTate` | weil-pairing's three leaves and T26 | g12-det |
 | `linkedTateData` | `linkedTateLocal` and T7 | §3.3 |
+| `g9Glue` | `g9AbVarBaseChange`, `g9R10Weights` | g9-derham (§3.5) |
+| `modelG3G6` | `FibreSimple` (above), `modelNoncomm`, `modelG3` | §3.6 |
 
 ### 3.3 `LinkedTateData` reduced (new)
 
@@ -202,11 +206,32 @@ by g14-trace) and g15-ram §1-§3.
 
 ### 3.4 Placeholder removal: `ResearchLeaves3` (§0)
 
-### 3.5 g9-derham (attempted)
+### 3.5 g9-derham, folded
 
 `ZInQKernel/Contrib/G9/` (g9-derham) proves `G9Glue` from `G9Bridge.AbVarBaseChange` (glue) and
-`G9Bridge.R10Weights` (to be added to R10, per g9-derham). Part `a95_g9.lean` copies its
-17 proof files. The status of this attempt is in §5.
+`G9Bridge.R10Weights` (to be added to R10, per g9-derham). Part `a95_g9.lean` copies its 17 proof
+files in import order. Its `I3Layer`, `I4Layer` and `Statement` files are omitted: they restate,
+inside `ZInQ.Contrib.G9`, Leaves.lean's `PkgI3Sec`, `PkgI4Sec` and g0-mod-galois' `G9Glue`.
+Two name-resolution edits were needed, both recorded in the part's header:
+- `open _root_.PkgI4.DR` inside its reopened `PkgI4.DR`;
+- `open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4`, because `open` resolves only the innermost match.
+
+VERIFIED: 0 errors. `ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange` concludes part 70's `G9Glue`; the
+kernel accepts it in `gluePieces_of_gluePieces3`.
+
+### 3.6 `ModelG3G6` split (new)
+
+Part z85 proves `modelG3G6_of (hFS : G0Split.FibreSimple) (hNC : ModelNoncomm) (hG3 : ModelG3) :
+ModelG3G6`.
+- The division-ring clause of G6 on G7's model `A_{L'}` is `FibreSimple` itself. G7Data's last
+  clause `IsModelOver L' A_{L'} P` makes `A_{L'}` a `FibreOver` of the fibre context, with
+  `emb = algebraMap L' ℚ̄`, as in g0-mod-field's own `modularConstituent_of_ranges`.
+- So the NoCM content of g0-assemble's QM-PIN field `ModelG3G6` now comes from FS5 (fs5-nocm). What
+  is left is:
+  - `ModelNoncomm`: `End(A_{L'})` is noncommutative. This is elementary: `ι(𝒪) ⊆ End(PK.A)` by
+    `IsQMModel`, unram-tate's ring map `endBaseChange`, and `(2ij)² = 24 ≠ 0` in `End`. Not
+    formalized.
+  - `ModelG3`: G3, inertia outside `T(u)`.
 
 ## 4. Changes to earlier texts
 
@@ -255,3 +280,50 @@ by g14-trace) and g15-ram §1-§3.
 - **TailD** (z80, z90): 0 errors. The four theorems of §0 have standard axioms (VERIFIED,
   `olean/TailD_out.txt`).
 - **Flat file:** see the final paragraph of this section. It is updated when the run finishes.
+
+## 6. What remains, and what was not folded
+
+**The hypotheses of `sixContactMin_of_leaves3`:**
+- `ResearchLeaves3`: 23 research-level leaves;
+- `TextbookLeaves`: 35 textbook leaves, unchanged from Leaves.lean;
+- `GluePieces3`: 41 fields, namely 15 LEAF, 3 LEAF? and 23 GLUE.
+
+So the literature side is 23 + 35 + 15 + 3 = 76 named statements, and the project side is 23 glue
+Props. None of them is an `opaque` placeholder. The glue Props, grouped by area:
+- Moduli and curves: `x6KummerFibre`, `smoothStalkDimOne`, `ratFactorAlgClosed`, `propTSAll`,
+  `periodMapGlue`, `hauptmodulUnique`, `cPtsTransport`.
+- Arakelov: `productUnifSplits`, `productMetrizationOfProductUnif`, and the four height-bc Props.
+- Abelian varieties: `oMaximal`, `endTransport`, `conjIsogMaps`, `artinTorsionSurj`,
+  `conjUniformization`, `g9AbVarBaseChange`, `modelNoncomm`, `modelG3`.
+- Number theory: `unramifiedConjugates`.
+- Joint data glue: `linkedTateLocal`.
+
+Truth status, as in the source reports:
+- SPECULATIVE (model judgement): `propTSAll` (fibre-cover §3.2) and `linkedTateLocal`.
+- The others are STANDARD per their reports.
+
+**Not used:**
+- **metrization.** Its route to `ProductModelHeight` would leave six Props:
+  - `AnalyticUniformizationUnique`;
+  - `HodgeLatticeTheorem`;
+  - `AnalyticUniformizationOfDim`, a leaf;
+  - `JacDetNondegenerate`;
+  - `ProductLocalStructure`;
+  - `ProductHodgeLattice`.
+
+  product-height leaves two. metrization's results are correct but off the chosen route; they are
+  not copied.
+- **aut-o-finite.** Its `autOInnerFinite` is mobius-glue's (§7-§8, the same proof). Only its §9
+  (`Exact`, four classes) is copied, and it is used for `InnerTwistCount`.
+- **g4-weilres, inertia-homs, morph-descend.** These enter inside kernel-field's part, as its
+  `assemble.sh` does.
+
+**Caveats (SPECULATIVE, judgement):**
+- `r1bFamily` and `periodMapGlue` are stated, as fibre-qm-period's `fibreQMPeriod_main_rep` takes
+  them, for the triple that `Classical.choice` extracts from `R1R2fpRep`.
+  - `R1R2fpRep` is a `Prop`, so the `∀ h` adds nothing.
+  - A form quantified over every witness triple would read more naturally as a literature
+    statement. With pin-apply's repaired `R1fpProps`, the triple is unique up to a morphism, so the
+    two forms should agree. That is not proved here.
+- `qmHauptmodul`, `thetaRatiosAlgebraic` and `qmDenZeroCM3` are leaf candidates: composites of
+  published results, not single printed theorems.
