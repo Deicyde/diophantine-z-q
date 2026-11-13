@@ -60,3 +60,13 @@ Parts A + B + C plus part D:
   L₀ = K), `glue_zero` (ModelHeightBaseChange / OpenSubgroupHeight / ProductModelHeight shapes hold
   for zero AV group models since all heights are 0).
 - stableFaltingsHeight_eq_neron_all (stable height = Néron height over L₀ and over every L' ⊇ L₀): COMPILED in H5Neron.lean and Reduction.lean
+
+## Part E: scratch/h5-neron/ProductModel.lean — COMPILED 23:31; merged into H5Neron.lean (27 #print axioms,
+## all [propext, Classical.choice, Quot.sound]; 0 errors)
+- `isMonHom_prodComparisonIso` (prodComparison of Over.pullback is a monoid morphism).
+- `productGroupModelExists : ProductGroupModelExists` — glue P1 PROVED.
+- `stableFaltingsHeight_add_le'`: h(A)+h(B) ≤ h(C) from NeronModelExists, NeronModelMinimal,
+  ProductModelHeight only.
+- Independent model review (subagent, read-only) of H5Neron.lean: no PROBLEM; N1, N2 judged
+  consequences of BLR 1.4/3 and SGA 7 IX 3.6+3.3; all glue judged true; two docstring
+  inaccuracies (OpenSubgroupHeight "identity on A_L(ℂ)"; eq_neron_all "so A_{L₀} semistable") FIXED.
