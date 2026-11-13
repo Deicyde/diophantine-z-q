@@ -50,3 +50,10 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   `locEquiv : S'_{P∩S'} ≃ₐ[R] S_P` (r ∉ P); primes `q'' ≤ q ∩ S'` of `S'` lifted to `S` as
   `comap ψ 𝔪` with `ψ : S → S[1/r] ≅ S'[1/r] → S'_{q''}`; heights, unramifiedness, regularity,
   normality, dimension transported along `locEquiv`.
+- `T1Reduced.lean` (Mathlib only; copies of T1Dim1 + T1Finite): COMPILES, standard axioms.
+  `TPurity2.PurityBranchLocusFiniteGe2` (leaf for module-finite `R → S`, `dim S_q = dim R_p ≥ 2`,
+  no quasi-finiteness hypothesis), `purityBranchLocus_of_finiteGe2 : PurityBranchLocusFiniteGe2 →
+  PkgI2.PurityBranchLocus`, `finiteGe2_of_purityBranchLocus` (converse: the two are equivalent).
+- `T1Kernel.lean` now the kernel form of T1Reduced (imports ZInQKernel.HDecomp.Objects):
+  COMPILES, standard axioms. `TPurity2K.purityBranchLocus_of_finiteGe2`,
+  `objBridge_purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`.
