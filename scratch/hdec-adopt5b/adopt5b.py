@@ -133,7 +133,7 @@ emit('T10Etale.lean', src, L, imps + [H + 'LeafPush2.T'], ' (branch `wip/t10-eta
 
 # ---- t28-igusa: Igusa.lean split at its part boundaries (one `noncomputable section` in the
 # draft; each module reopens it). The second batch of `ring` proofs of M3 (G23, G33, a112, about
-# 7 minutes in the draft) is not adopted.
+# 7 minutes in the draft) is generated only with the flag --m3b.
 src = 't28-igusa/Igusa.lean'; L = rd(src)
 iSO3 = at(L, 'namespace T28SO3'); iSO3 = idx(L, lambda l: l.startswith('/-!'), iSO3 - 20)
 iM = at(L, '/-! ## Mestre')
@@ -150,4 +150,7 @@ emit('Igusa/Generic.lean', src, HD + L[iM:iA] + END, [H + 'Textbook.Igusa.SO3'],
      ', Mestre\'s step, the generic case and the reduction')
 emit('Igusa/M3a.lean', src, HD + L[iA:iB] + END, [H + 'Textbook.Igusa.Generic'],
      ', the first batch of `ring` proofs of M3')
+if '--m3b' in sys.argv:
+    emit('Igusa/M3b.lean', src, HD + L[iB:iEnd] + END, [H + 'Textbook.Igusa.M3a'],
+         ', the second batch of `ring` proofs of M3')
 print('\n'.join(made))
