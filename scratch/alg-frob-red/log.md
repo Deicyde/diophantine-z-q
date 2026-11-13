@@ -111,3 +111,4 @@
   from IsArithFrob through the injective κ(w) → κ(v)), FExtendCore (glue: FExtend with t = tSig fixed, no residue
   clause), fExtend_of_core : FExtendCore → FExtend, algFrobRed_of_core, tateBridge35_of_core.
 - Run 33: exit 0, no error; 79 axiom prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).
+- Final layout check (cmp, VERIFIED): AlgFrobRed.lean lines after the 4 imports = FrobTrace.lean minus its import line, then Rigidity.lean minus its 4 imports, byte-identical.

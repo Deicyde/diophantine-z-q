@@ -5,10 +5,15 @@ Task alg-frob-red, 2026-11-13. Lean: `scratch/alg-frob-red/part_red.lean`.
 task's file after verbatim copies of two sources:
 
 - frob-trace's three parts (`src_part_*.lean`), from `origin/wip/frob-trace:scratch/frob-trace/`
-  at commit 87ed8c54. Before the Rigidity imports were added, the first 2780 lines of the
-  assembled file were `cmp`-identical to frob-trace's `FrobTrace.lean` (VERIFIED).
+  at commit 87ed8c54.
 - `src_Rigidity.lean`, `cmp`-identical to `scratch/mul-rigidity/Rigidity.lean`. It provides
   `G0FibreSimple.rigidityHom`, which mul-rigidity proved from Mathlib.
+
+Checks on the assembled file (VERIFIED with `cmp`):
+- After its four import lines, it contains frob-trace's `FrobTrace.lean` (all but that file's
+  single import line).
+- Then comes the body of `Rigidity.lean` (all but its four import lines).
+- Both blocks are byte-identical to their sources.
 
 Log: `scratch/alg-frob-red/log.md`.
 
