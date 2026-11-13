@@ -203,4 +203,114 @@ theorem aeval_derivative_minpoly_eq_prod [Fintype (B ≃ₐ[A] B)] [DecidableEq 
 
 end Product
 
+/-! ### Hilbert's formula when `B = A[x]`. -/
+
+section Main
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Hilbert's different formula for a monogenic Galois extension of DVRs.** If `B = A[x]`
+(no completeness or residue-field hypothesis is needed for this step), then some `G_N` is trivial
+and `𝔇_{B/A} = 𝔪_B ^ ∑_{i<N} (|G_i| - 1)`. -/
+theorem hilbertDifferentFormula_of_adjoin_eq_top
+    (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)] {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1)) := by
+  classical
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  have : Finite (B ≃ₐ[A] B) := Finite.of_equiv _ (galRestrict A K L B).toEquiv
+  have := Fintype.ofFinite (B ≃ₐ[A] B)
+  have hD : differentIdeal A B =
+      Ideal.span {∏ σ ∈ Finset.univ.erase (1 : B ≃ₐ[A] B), (x - σ x)} := by
+    have h := conductor_mul_differentIdeal A K L x (adjoin_fractionRing_eq_top A B hx)
+    rw [conductor_eq_top_of_adjoin_eq_top hx, Ideal.top_mul,
+      aeval_derivative_minpoly_eq_prod A B hx] at h
+    exact h
+  have hne : ∀ σ : B ≃ₐ[A] B, σ ≠ 1 → x - σ x ≠ 0 := by
+    intro σ hσ h
+    apply hσ
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun y hy => by
+      rw [Set.mem_singleton_iff.mp hy]; exact (sub_eq_zero.mp h).symm)
+  have hn : ∀ σ : B ≃ₐ[A] B, ∃ n : ℕ, σ ≠ 1 → Ideal.span {x - σ x} = maximalIdeal B ^ n := by
+    intro σ
+    by_cases hσ : σ = 1
+    · exact ⟨0, fun h => (h hσ).elim⟩
+    · obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow (hne σ hσ)
+      exact ⟨n, fun _ => hn⟩
+  choose n hn using hn
+  have hmem : ∀ σ, σ ≠ 1 → ∀ k, (σ x - x ∈ maximalIdeal B ^ k ↔ k ≤ n σ) := by
+    intro σ hσ k
+    rw [← Submodule.neg_mem_iff, neg_sub, ← Ideal.span_singleton_le_iff_mem, hn σ hσ,
+      maximalIdeal_pow_le_iff]
+  have hH : ∀ i σ, σ ≠ 1 → (σ ∈ lowerRam A B i ↔ i < n σ) := by
+    intro i σ hσ
+    rw [lowerRam, mem_inertia_iff_of_adjoin hx, hmem σ hσ]
+    omega
+  set N := ∑ σ ∈ Finset.univ.erase (1 : B ≃ₐ[A] B), n σ
+  have hN : ∀ σ, σ ≠ 1 → n σ ≤ N := fun σ hσ =>
+    Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_erase.mpr ⟨hσ, Finset.mem_univ _⟩)
+  refine ⟨N, ?_, ?_⟩
+  · rw [eq_bot_iff]
+    intro σ hσ
+    rw [Subgroup.mem_bot]
+    by_contra h
+    have h1 := (hH N σ h).mp hσ
+    have h2 := hN σ h
+    omega
+  · rw [sum_card_sub_one (lowerRam A B) n N hH hN, hD, ← Ideal.prod_span_singleton,
+      ← Finset.prod_pow_eq_pow_sum]
+    exact Finset.prod_congr rfl fun σ hσ => hn σ (Finset.ne_of_mem_erase hσ)
+
+end Main
+
 end TDifferent
+
+/-! ### The leaf `PkgI6.HilbertDifferentFormula` (verbatim, Leaves.lean lines 5089-5100) and its
+reduction to monogenicity. -/
+
+namespace PkgI6
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- Verbatim copy of `PkgI6.HilbertDifferentFormula` (Leaves.lean line 5092), with `lowerRam`
+the verbatim copy `TDifferent.lowerRam`. -/
+def HilbertDifferentFormula : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)],
+    ∃ N : ℕ, TDifferent.lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (TDifferent.lowerRam A B i) - 1))
+
+/-- **Monogenicity (Serre, *Corps locaux*, III §6, Prop. 12; UNVERIFIED locator).** For a finite
+separable extension of complete discrete valuation rings whose residue field extension is
+separable (here: the residue field of `A` is perfect), `B = A[x]` for some `x ∈ B`. -/
+def MonogenicDVR : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)],
+    ∃ x : B, Algebra.adjoin A {x} = ⊤
+
+/-- **T20 (local) from monogenicity.** -/
+theorem hilbertDifferentFormula_of_monogenicDVR (h : MonogenicDVR) : HilbertDifferentFormula := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _ _
+  obtain ⟨x, hx⟩ := h A B
+  exact TDifferent.hilbertDifferentFormula_of_adjoin_eq_top A B hx
+
+end PkgI6
+
+#print axioms PkgI6.hilbertDifferentFormula_of_monogenicDVR

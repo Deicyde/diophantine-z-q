@@ -14,3 +14,17 @@
   * No lower/upper ramification groups, no Herbrand function, no monogenicity of complete DVR
     extensions (Serre III §6 Prop. 12) in Mathlib: grep for herbrand / ramificationGroup / monogenic
     finds nothing relevant.
+
+## Step 2 (22:30 PST): T20 local reduced to monogenicity (compiled)
+- `scratch/t-different/HilbertLocal.lean` (VERIFIED: compiles, axioms propext, Classical.choice,
+  Quot.sound):
+  * `TDifferent.aeval_derivative_minpoly_eq_prod`: for `B/A` with `A`, `B` integrally closed
+    domains, `B` finite torsion-free over `A`, `Frac B/Frac A` Galois, and `B = A[x]`:
+    `f'(x) = ∏_{σ ≠ 1} (x - σ x)` (`f = minpoly A x`, `σ ∈ B ≃ₐ[A] B`).
+  * `TDifferent.mem_inertia_iff_of_adjoin`: if `B = A[x]`, `σ ∈ G_I ↔ σ x - x ∈ I`.
+  * `TDifferent.sum_card_sub_one`: `∑_{i<N} (|G_i| - 1) = ∑_{σ≠1} i(σ)`.
+  * `TDifferent.hilbertDifferentFormula_of_adjoin_eq_top`: DVRs `A → B`, finite, torsion-free,
+    separable and Galois fraction fields, `B = A[x]` ⇒ the conclusion of
+    `PkgI6.HilbertDifferentFormula` (no completeness or perfectness used).
+  * `PkgI6.hilbertDifferentFormula_of_monogenicDVR : MonogenicDVR → HilbertDifferentFormula`, where
+    `MonogenicDVR` = Serre, Corps locaux III §6 Prop. 12 (UNVERIFIED locator): `∃ x, A[x] = B`.
