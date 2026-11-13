@@ -20,9 +20,16 @@ theorem productModelHeight_of_salg (hH : DefFaltings.HodgeLatticeTheorem)
   ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits
     (productMetrizationOfProductUnif_of hH hD hJ hP)
 
+/-- **P2 from the finest reduction (proved).** -/
+theorem productModelHeight_of_salg' (hH : DefFaltings.HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hJ : JacDetDescends) (hS : ProductHodgeSections) :
+    ZInQ.H5Neron.ProductModelHeight :=
+  productModelHeight_of_salg hH hD hJ (productHodgeAdd_of hS)
+
 end ZInQ.ProductUnif
 
 #print axioms ZInQ.ProductUnif.productUnifSplits
+#print axioms ZInQ.ProductUnif.productModelHeight_of_salg'
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg
 '''

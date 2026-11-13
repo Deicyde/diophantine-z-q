@@ -1736,6 +1736,77 @@ theorem productMetrizationOfProductUnif_of (hH : HodgeLatticeTheorem) (hD : Prod
   exact hP K A B C L 𝒢₁ 𝒢₂ g MP e d₁ d₂ hd D₁ D₂ rfl rfl
     (fun τ => ⟨Φ₁ τ, Φ₂ τ, hu₁ τ, hu₂ τ, hc₁ τ, hc₂ τ, hper τ, hco τ⟩)
 
+/-- **Glue S-alg-3a (sections of the Hodge lattices in product form).** Under the hypotheses of
+`ProductHodgeAdd`, there are nonzero `s ∈ ⋀^g ω_{MP}`, `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` whose lattice indices
+and coefficients multiply.
+
+Why true (STANDARD). `ω_{MP} = ω₁ ⊕ ω₂` (pull back along the projections, restrict along the unit
+sections of the other factor), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`
+locally where the `sᵢ` do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂`
+in a tensor product of invertible modules is multiplicative). For coefficients: write `s₁`, `s₂`
+as `𝓞_L`-combinations of wedges; on `p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block
+diagonal, so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Unproved. -/
+def ProductHodgeSections : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (D₁ : HodgeData L g₁ (𝒢₁.hodgeSpace g₁))
+    (D₂ : HodgeData L g₂ (𝒢₂.hodgeSpace g₂)),
+    D₁.lattice = 𝒢₁.detLattice g₁ → D₂.lattice = 𝒢₂.detLattice g₂ →
+    (∀ τ : L →+* ℂ, ∃ (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+      𝒢₁.IsAnalyticUniformization τ (D₁.periods τ) Φ₁ ∧
+      𝒢₂.IsAnalyticUniformization τ (D₂.periods τ) Φ₂ ∧
+      (∀ f, D₁.coeff τ (𝒢₁.wedge f) = 𝒢₁.jacDet Φ₁ f) ∧
+      (∀ f, D₂.coeff τ (𝒢₂.wedge f) = 𝒢₂.jacDet Φ₂ f) ∧
+      (∀ z, z ∈ MP.hodge.periods τ ↔
+        (fun i => z (Fin.cast hg i)) ∈ prodLattice (D₁.periods τ) (D₂.periods τ)) ∧
+      ∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+        MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    ∃ (s : MP.model.hodgeSpace g) (s₁ : 𝒢₁.hodgeSpace g₁) (s₂ : 𝒢₂.hodgeSpace g₂),
+      s ∈ MP.hodge.lattice ∧ s ≠ 0 ∧ s₁ ∈ D₁.lattice ∧ s₁ ≠ 0 ∧ s₂ ∈ D₂.lattice ∧ s₂ ≠ 0 ∧
+      secIndex MP.hodge.lattice s = secIndex D₁.lattice s₁ * secIndex D₂.lattice s₂ ∧
+      ∀ τ, MP.hodge.coeff τ s = D₁.coeff τ s₁ * D₂.coeff τ s₂
+
+/-- The covolume of a lattice in product form, up to the coordinate cast (proved, from
+product-height's `prodLattice_facts`). -/
+theorem covolume_of_cast {g g₁ g₂ : ℕ} (hg : g₁ + g₂ = g) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) [DiscreteTopology Λ₁]
+    [IsZLattice ℝ Λ₁] [DiscreteTopology Λ₂] [IsZLattice ℝ Λ₂]
+    (h : ∀ z, z ∈ Λ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) :
+    ZLattice.covolume Λ = ZLattice.covolume Λ₁ * ZLattice.covolume Λ₂ := by
+  subst hg
+  have hΛ : Λ = prodLattice Λ₁ Λ₂ := by
+    ext z
+    rw [h z]
+    rfl
+  subst hΛ
+  obtain ⟨-, -, hc⟩ := prodLattice_facts Λ₁ Λ₂
+  exact hc
+
+/-- **`ProductHodgeAdd` from `ProductHodgeSections` (proved).** The covolumes multiply
+(`covolume_of_cast`) and `modelHeight_add_of` gives equality of heights. -/
+theorem productHodgeAdd_of (h : ProductHodgeSections) : ProductHodgeAdd := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ g₁ g₂ hg D₁ D₂ hl₁ hl₂ hform
+  obtain ⟨s, s₁, s₂, hs, hs0, hs₁, hs₁0, hs₂, hs₂0, hidx, hco⟩ :=
+    h K A B C L 𝒢₁ 𝒢₂ g MP e g₁ g₂ hg D₁ D₂ hl₁ hl₂ hform
+  have hcov : ∀ τ, ZLattice.covolume (MP.hodge.periods τ) =
+      ZLattice.covolume (D₁.periods τ) * ZLattice.covolume (D₂.periods τ) := by
+    intro τ
+    obtain ⟨-, -, -, -, -, -, hper, -⟩ := hform τ
+    have := D₁.periods_discrete τ
+    have := D₁.periods_isZLattice τ
+    have := D₂.periods_discrete τ
+    have := D₂.periods_isZLattice τ
+    exact covolume_of_cast hg _ _ _ hper
+  subst hg
+  exact (modelHeight_add_of MP.hodge D₁ D₂ hs hs0 hs₁ hs₁0 hs₂ hs₂0 hidx hco hcov).ge
+
+/-- **S-alg from `HodgeLatticeTheorem`, `ProductUnifDims`, `JacDetDescends` and
+`ProductHodgeSections` (proved).** -/
+theorem productMetrizationOfProductUnif_of' (hH : HodgeLatticeTheorem) (hD : ProductUnifDims)
+    (hJ : JacDetDescends) (hS : ProductHodgeSections) : ProductMetrizationOfProductUnif :=
+  productMetrizationOfProductUnif_of hH hD hJ (productHodgeAdd_of hS)
+
 end SAlg
 
 end ZInQ.ProductUnif
@@ -1752,8 +1823,15 @@ theorem productModelHeight_of_salg (hH : DefFaltings.HodgeLatticeTheorem)
   ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits
     (productMetrizationOfProductUnif_of hH hD hJ hP)
 
+/-- **P2 from the finest reduction (proved).** -/
+theorem productModelHeight_of_salg' (hH : DefFaltings.HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hJ : JacDetDescends) (hS : ProductHodgeSections) :
+    ZInQ.H5Neron.ProductModelHeight :=
+  productModelHeight_of_salg hH hD hJ (productHodgeAdd_of hS)
+
 end ZInQ.ProductUnif
 
 #print axioms ZInQ.ProductUnif.productUnifSplits
+#print axioms ZInQ.ProductUnif.productModelHeight_of_salg'
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg

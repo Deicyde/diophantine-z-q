@@ -13,7 +13,7 @@ Task product-unif. Imports only the kernel module `ZInQKernel.HDecomp.Faltings.H
   `ZInQ.ProductHeight`, same names): §5 `ptsProj`, `ptsProj_bijective`, `ptsEquiv`, `prodLattice`,
   `prodUnif`, `prodUnif_clauses` (lines 404-469), §6b `dom_comp` … `proj_analyticClauses`
   (lines 800-862), and the two glue Props `ProductUnifSplits`, `ProductMetrizationOfProductUnif`
-  (lines 864-922), unchanged.
+  (lines 864-922), `modelHeight_add_of` (lines 242-287) and §5b (lines 525-701), unchanged.
 * §1 Elementary analysis (copied from `Analysis.lean`, Mathlib only).
 * §2 Points of an affine open are determined by the values of its regular functions.
 * §3 **`productUnifSplits : ProductUnifSplits`** (proved).
@@ -219,6 +219,237 @@ def ProductMetrizationOfProductUnif : Prop :=
     ∃ (g₁ g₂ : ℕ) (M₁ : MetrizedModel A L g₁) (M₂ : MetrizedModel B L g₂),
       M₁.model = 𝒢₁ ∧ M₂.model = 𝒢₂ ∧
       M₁.hodge.modelHeight + M₂.hodge.modelHeight ≤ MP.hodge.modelHeight
+
+
+/-! Further verbatim copies from `scratch/product-height/ProductHeight.lean`: lines 242-287
+(`modelHeight_add_of`) and 525-701 (§5b, product lattice), then `end LatticeProd`. -/
+
+section HodgeAdd
+
+variable {K : Type*} [Field K] [NumberField K]
+variable {V V₁ V₂ : Type*} [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+  [AddCommGroup V₁] [Module K V₁] [Module (𝓞 K) V₁] [IsScalarTower (𝓞 K) K V₁]
+  [AddCommGroup V₂] [Module K V₂] [Module (𝓞 K) V₂] [IsScalarTower (𝓞 K) K V₂]
+
+/-- **Additivity of the model height (copied from g0-heightadd, proved).** If the Hodge data `D`
+(dimension `g₁ + g₂`) has a nonzero section `s` whose lattice index, coefficients and period
+covolumes are the products of those of nonzero sections `s₁`, `s₂` of `D₁`, `D₂`, then
+`h(D) = h(D₁) + h(D₂)`. -/
+theorem modelHeight_add_of {g₁ g₂ : ℕ} (D : HodgeData K (g₁ + g₂) V) (D₁ : HodgeData K g₁ V₁)
+    (D₂ : HodgeData K g₂ V₂) {s : V} {s₁ : V₁} {s₂ : V₂} (hs : s ∈ D.lattice) (hs0 : s ≠ 0)
+    (hs₁ : s₁ ∈ D₁.lattice) (hs₁0 : s₁ ≠ 0) (hs₂ : s₂ ∈ D₂.lattice) (hs₂0 : s₂ ≠ 0)
+    (hidx : secIndex D.lattice s = secIndex D₁.lattice s₁ * secIndex D₂.lattice s₂)
+    (hcoeff : ∀ σ, D.coeff σ s = D₁.coeff σ s₁ * D₂.coeff σ s₂)
+    (hcov : ∀ σ, ZLattice.covolume (D.periods σ) =
+      ZLattice.covolume (D₁.periods σ) * ZLattice.covolume (D₂.periods σ)) :
+    D.modelHeight = D₁.modelHeight + D₂.modelHeight := by
+  rw [D.modelHeight_eq hs hs0, D₁.modelHeight_eq hs₁ hs₁0, D₂.modelHeight_eq hs₂ hs₂0]
+  have ht : ∀ σ : K →+* ℂ, torusMetricSq (D.periods σ) (D.coeff σ s) =
+      torusMetricSq (D₁.periods σ) (D₁.coeff σ s₁) *
+        torusMetricSq (D₂.periods σ) (D₂.coeff σ s₂) := by
+    intro σ
+    simp only [torusMetricSq, hcoeff σ, hcov σ, norm_mul]
+    ring
+  have hlog : ∀ σ : K →+* ℂ, Real.log (torusMetricSq (D.periods σ) (D.coeff σ s)) =
+      Real.log (torusMetricSq (D₁.periods σ) (D₁.coeff σ s₁)) +
+        Real.log (torusMetricSq (D₂.periods σ) (D₂.coeff σ s₂)) := by
+    intro σ
+    rw [ht σ]
+    have := D₁.periods_discrete σ
+    have := D₁.periods_isZLattice σ
+    have := D₂.periods_discrete σ
+    have := D₂.periods_isZLattice σ
+    exact Real.log_mul (torusMetricSq_pos _ (D₁.coeff_apply_ne_zero σ hs₁0)).ne'
+      (torusMetricSq_pos _ (D₂.coeff_apply_ne_zero σ hs₂0)).ne'
+  have hi₁ : (secIndex D₁.lattice s₁ : ℝ) ≠ 0 :=
+    Nat.cast_ne_zero.mpr (D₁.hodgeBundle.secIndex_ne_zero hs₁ hs₁0)
+  have hi₂ : (secIndex D₂.lattice s₂ : ℝ) ≠ 0 :=
+    Nat.cast_ne_zero.mpr (D₂.hodgeBundle.secIndex_ne_zero hs₂ hs₂0)
+  rw [hidx, Nat.cast_mul, Real.log_mul hi₁ hi₂, Finset.sum_congr rfl (fun σ _ => hlog σ),
+    Finset.sum_add_distrib]
+  ring
+
+end HodgeAdd
+
+/-! ## §5b. The product lattice (copied from `Lattice.lean`, which compiles standalone)
+
+`Λ₁ × Λ₂` is a full discrete lattice with `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`
+(`prodLattice_facts`, proved): the covolume clause of `ProductMetrizationGeo` and of S-alg for
+the product lattice. -/
+
+section LatticeProd
+
+open Module ZSpan
+
+section LatticeGeneral
+
+variable {E₁ E₂ : Type*}
+  [NormedAddCommGroup E₁] [NormedSpace ℝ E₁] [FiniteDimensional ℝ E₁] [MeasurableSpace E₁]
+  [BorelSpace E₁]
+  [NormedAddCommGroup E₂] [NormedSpace ℝ E₂] [FiniteDimensional ℝ E₂] [MeasurableSpace E₂]
+  [BorelSpace E₂]
+  (Λ₁ : Submodule ℤ E₁) (Λ₂ : Submodule ℤ E₂)
+
+omit [NormedSpace ℝ E₁] [FiniteDimensional ℝ E₁] [MeasurableSpace E₁] [BorelSpace E₁]
+  [NormedSpace ℝ E₂] [FiniteDimensional ℝ E₂] [MeasurableSpace E₂] [BorelSpace E₂] in
+theorem discreteTopology_prod [DiscreteTopology Λ₁] [DiscreteTopology Λ₂] :
+    DiscreteTopology (Λ₁.prod Λ₂) := by
+  let f : Λ₁.prod Λ₂ → Λ₁ × Λ₂ := fun x =>
+    (⟨x.1.1, (Submodule.mem_prod.mp x.2).1⟩, ⟨x.1.2, (Submodule.mem_prod.mp x.2).2⟩)
+  have hf : Continuous f := by
+    refine Continuous.prodMk ?_ ?_
+    · exact (continuous_fst.comp continuous_subtype_val).subtype_mk _
+    · exact (continuous_snd.comp continuous_subtype_val).subtype_mk _
+  have hinj : Function.Injective f := by
+    intro x y h
+    simp only [f, Prod.mk.injEq, Subtype.mk.injEq] at h
+    exact Subtype.ext (Prod.ext h.1 h.2)
+  rw [discreteTopology_iff_isOpen_singleton]
+  intro x
+  have : ({x} : Set (Λ₁.prod Λ₂)) = f ⁻¹' {f x} := by
+    ext y
+    simp only [Set.mem_singleton_iff, Set.mem_preimage, hinj.eq_iff]
+  rw [this]
+  exact (isOpen_discrete _).preimage hf
+
+instance instDiscreteTopologyProd [DiscreteTopology Λ₁] [DiscreteTopology Λ₂] :
+    DiscreteTopology (Λ₁.prod Λ₂) :=
+  discreteTopology_prod Λ₁ Λ₂
+
+instance instIsZLatticeProd [DiscreteTopology Λ₁] [DiscreteTopology Λ₂] [IsZLattice ℝ Λ₁]
+    [IsZLattice ℝ Λ₂] : IsZLattice ℝ (Λ₁.prod Λ₂) := by
+  refine ⟨?_⟩
+  rw [eq_top_iff]
+  rintro ⟨x, y⟩ -
+  have hx : x ∈ Submodule.span ℝ (Λ₁ : Set E₁) := by rw [IsZLattice.span_top]; trivial
+  have hy : y ∈ Submodule.span ℝ (Λ₂ : Set E₂) := by rw [IsZLattice.span_top]; trivial
+  have h1 : Submodule.map (LinearMap.inl ℝ E₁ E₂) (Submodule.span ℝ (Λ₁ : Set E₁)) ≤
+      Submodule.span ℝ ((Λ₁.prod Λ₂ : Submodule ℤ (E₁ × E₂)) : Set (E₁ × E₂)) := by
+    rw [Submodule.map_span]
+    apply Submodule.span_mono
+    rintro _ ⟨a, ha, rfl⟩
+    exact Submodule.mem_prod.mpr ⟨ha, Λ₂.zero_mem⟩
+  have h2 : Submodule.map (LinearMap.inr ℝ E₁ E₂) (Submodule.span ℝ (Λ₂ : Set E₂)) ≤
+      Submodule.span ℝ ((Λ₁.prod Λ₂ : Submodule ℤ (E₁ × E₂)) : Set (E₁ × E₂)) := by
+    rw [Submodule.map_span]
+    apply Submodule.span_mono
+    rintro _ ⟨a, ha, rfl⟩
+    exact Submodule.mem_prod.mpr ⟨Λ₁.zero_mem, ha⟩
+  have : ((x, y) : E₁ × E₂) = LinearMap.inl ℝ E₁ E₂ x + LinearMap.inr ℝ E₁ E₂ y := by simp
+  rw [this]
+  exact Submodule.add_mem _ (h1 ⟨x, hx, rfl⟩) (h2 ⟨y, hy, rfl⟩)
+
+/-- Unique translates into the fundamental domain of a basis, for the lattice itself. -/
+theorem exists_unique_add_mem {E : Type*} [NormedAddCommGroup E] [NormedSpace ℝ E]
+    [FiniteDimensional ℝ E] (L : Submodule ℤ E) [DiscreteTopology L] [IsZLattice ℝ L]
+    {κ : Type*} [Fintype κ] (b : Basis κ ℤ L) (x : E) :
+    ∃! l : L, (l : E) + x ∈ fundamentalDomain (b.ofZLatticeBasis ℝ) := by
+  have hs := b.ofZLatticeBasis_span ℝ
+  obtain ⟨v, hv, hu⟩ := exist_unique_vadd_mem_fundamentalDomain (b.ofZLatticeBasis ℝ) x
+  refine ⟨⟨v, hs.le v.2⟩, hv, fun l hl => ?_⟩
+  have := hu ⟨l, hs.ge l.2⟩ hl
+  have h : ((⟨(l : E), hs.ge l.2⟩ : Submodule.span ℤ (Set.range (b.ofZLatticeBasis ℝ))) : E) =
+      (v : E) := congrArg Subtype.val this
+  exact Subtype.ext h
+
+theorem isAddFundamentalDomain_prod [DiscreteTopology Λ₁] [DiscreteTopology Λ₂]
+    [IsZLattice ℝ Λ₁] [IsZLattice ℝ Λ₂] {κ₁ κ₂ : Type*} [Fintype κ₁] [Fintype κ₂]
+    (b₁ : Basis κ₁ ℤ Λ₁) (b₂ : Basis κ₂ ℤ Λ₂) (μ₁ : Measure E₁) (μ₂ : Measure E₂) :
+    IsAddFundamentalDomain (Λ₁.prod Λ₂)
+      (fundamentalDomain (b₁.ofZLatticeBasis ℝ) ×ˢ fundamentalDomain (b₂.ofZLatticeBasis ℝ))
+      (μ₁.prod μ₂) := by
+  refine IsAddFundamentalDomain.mk' (((fundamentalDomain_measurableSet _).prod
+    (fundamentalDomain_measurableSet _)).nullMeasurableSet) fun x => ?_
+  obtain ⟨l₁, h₁, u₁⟩ := exists_unique_add_mem Λ₁ b₁ x.1
+  obtain ⟨l₂, h₂, u₂⟩ := exists_unique_add_mem Λ₂ b₂ x.2
+  refine ⟨⟨((l₁ : E₁), (l₂ : E₂)), Submodule.mem_prod.mpr ⟨l₁.2, l₂.2⟩⟩, ⟨h₁, h₂⟩, ?_⟩
+  rintro ⟨⟨y₁, y₂⟩, hy⟩ hm
+  obtain ⟨hm₁, hm₂⟩ := hm
+  have e1 := u₁ ⟨y₁, (Submodule.mem_prod.mp hy).1⟩ hm₁
+  have e2 := u₂ ⟨y₂, (Submodule.mem_prod.mp hy).2⟩ hm₂
+  apply Subtype.ext
+  exact Prod.ext (congrArg Subtype.val e1) (congrArg Subtype.val e2)
+
+/-- **`covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`** (proved). -/
+theorem covolume_prod [DiscreteTopology Λ₁] [DiscreteTopology Λ₂] [IsZLattice ℝ Λ₁]
+    [IsZLattice ℝ Λ₂] (μ₁ : Measure E₁) (μ₂ : Measure E₂) [μ₁.IsAddHaarMeasure]
+    [μ₂.IsAddHaarMeasure] :
+    ZLattice.covolume (Λ₁.prod Λ₂) (μ₁.prod μ₂) =
+      ZLattice.covolume Λ₁ μ₁ * ZLattice.covolume Λ₂ μ₂ := by
+  let b₁ := Free.chooseBasis ℤ Λ₁
+  let b₂ := Free.chooseBasis ℤ Λ₂
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain (Λ₁.prod Λ₂) (μ₁.prod μ₂)
+      (isAddFundamentalDomain_prod Λ₁ Λ₂ b₁ b₂ μ₁ μ₂),
+    ZLattice.covolume_eq_measure_fundamentalDomain Λ₁ μ₁ (ZLattice.isAddFundamentalDomain b₁ μ₁),
+    ZLattice.covolume_eq_measure_fundamentalDomain Λ₂ μ₂ (ZLattice.isAddFundamentalDomain b₂ μ₂),
+    measureReal_def, measureReal_def, measureReal_def, Measure.prod_prod, ENNReal.toReal_mul]
+
+end LatticeGeneral
+
+section LatticeSplit
+
+/-- `ℂ^{g₁+g₂} ≅ ℂ^{g₁} × ℂ^{g₂}`, `z ↦ (z ∘ castAdd, z ∘ natAdd)`. -/
+def splitLE (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) ≃ₗ[ℝ] (Fin g₁ → ℂ) × (Fin g₂ → ℂ) where
+  toFun z := (fun i => z (Fin.castAdd g₂ i), fun i => z (Fin.natAdd g₁ i))
+  invFun p := Fin.append p.1 p.2
+  map_add' _ _ := rfl
+  map_smul' _ _ := rfl
+  left_inv _ := Fin.append_castAdd_natAdd
+  right_inv p := by ext i <;> simp
+
+/-- The continuous version. -/
+noncomputable def splitCL (g₁ g₂ : ℕ) : (Fin (g₁ + g₂) → ℂ) ≃L[ℝ] (Fin g₁ → ℂ) × (Fin g₂ → ℂ) :=
+  (splitLE g₁ g₂).toContinuousLinearEquiv
+
+theorem splitCL_apply (g₁ g₂ : ℕ) (z : Fin (g₁ + g₂) → ℂ) :
+    splitCL g₁ g₂ z = (fun i => z (Fin.castAdd g₂ i), fun i => z (Fin.natAdd g₁ i)) := rfl
+
+theorem splitCL_measurePreserving (g₁ g₂ : ℕ) :
+    MeasurePreserving (splitCL g₁ g₂) volume volume := by
+  have h1 := MeasurePreserving.symm _
+    (volume_measurePreserving_piCongrLeft (fun _ : Fin (g₁ + g₂) => ℂ) finSumFinEquiv)
+  have h2 := volume_measurePreserving_sumPiEquivProdPi (fun _ : Fin g₁ ⊕ Fin g₂ => ℂ)
+  have h := h2.comp h1
+  convert h using 1
+  funext z
+  rw [splitCL_apply]
+  ext i
+  · simp only [Function.comp_apply, MeasurableEquiv.coe_sumPiEquivProdPi,
+      Equiv.sumPiEquivProdPi_apply]
+    show z _ = (Equiv.piCongrLeft (fun _ => ℂ) finSumFinEquiv).symm z (Sum.inl i)
+    rw [Equiv.piCongrLeft_symm_apply, finSumFinEquiv_apply_left]
+  · simp only [Function.comp_apply, MeasurableEquiv.coe_sumPiEquivProdPi,
+      Equiv.sumPiEquivProdPi_apply]
+    show z _ = (Equiv.piCongrLeft (fun _ => ℂ) finSumFinEquiv).symm z (Sum.inr i)
+    rw [Equiv.piCongrLeft_symm_apply, finSumFinEquiv_apply_right]
+
+theorem prodLattice_eq_comap {g₁ g₂ : ℕ} (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) :
+    prodLattice Λ₁ Λ₂ = ZLattice.comap ℝ (Λ₁.prod Λ₂) (splitCL g₁ g₂).toLinearMap := by
+  ext z
+  simp only [prodLattice, Submodule.mem_inf, Submodule.mem_comap]
+  rfl
+
+/-- **The product lattice is a full discrete lattice with `covol = covol Λ₁ · covol Λ₂`**
+(proved). -/
+theorem prodLattice_facts {g₁ g₂ : ℕ} (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) [DiscreteTopology Λ₁] [IsZLattice ℝ Λ₁]
+    [DiscreteTopology Λ₂] [IsZLattice ℝ Λ₂] :
+    ∃ _ : DiscreteTopology (prodLattice Λ₁ Λ₂), IsZLattice ℝ (prodLattice Λ₁ Λ₂) ∧
+      ZLattice.covolume (prodLattice Λ₁ Λ₂) = ZLattice.covolume Λ₁ * ZLattice.covolume Λ₂ := by
+  have h01 : (volume : Measure (Fin g₁ → ℂ)).IsAddHaarMeasure := inferInstance
+  have h02 : (volume : Measure (Fin g₂ → ℂ)).IsAddHaarMeasure := inferInstance
+  have : (volume : Measure ((Fin g₁ → ℂ) × (Fin g₂ → ℂ))).IsAddHaarMeasure :=
+    Measure.prod.instIsAddHaarMeasure (volume : Measure (Fin g₁ → ℂ))
+      (volume : Measure (Fin g₂ → ℂ))
+  rw [prodLattice_eq_comap]
+  refine ⟨inferInstance, inferInstance, ?_⟩
+  rw [ZLattice.covolume_comap (Λ₁.prod Λ₂) volume volume (splitCL_measurePreserving g₁ g₂)]
+  exact covolume_prod Λ₁ Λ₂ volume volume
+
+end LatticeSplit
+
+end LatticeProd
 
 end ZInQ.ProductHeight
 
@@ -981,6 +1212,77 @@ theorem productMetrizationOfProductUnif_of (hH : HodgeLatticeTheorem) (hD : Prod
   exact hP K A B C L 𝒢₁ 𝒢₂ g MP e d₁ d₂ hd D₁ D₂ rfl rfl
     (fun τ => ⟨Φ₁ τ, Φ₂ τ, hu₁ τ, hu₂ τ, hc₁ τ, hc₂ τ, hper τ, hco τ⟩)
 
+/-- **Glue S-alg-3a (sections of the Hodge lattices in product form).** Under the hypotheses of
+`ProductHodgeAdd`, there are nonzero `s ∈ ⋀^g ω_{MP}`, `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` whose lattice indices
+and coefficients multiply.
+
+Why true (STANDARD). `ω_{MP} = ω₁ ⊕ ω₂` (pull back along the projections, restrict along the unit
+sections of the other factor), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`
+locally where the `sᵢ` do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂`
+in a tensor product of invertible modules is multiplicative). For coefficients: write `s₁`, `s₂`
+as `𝓞_L`-combinations of wedges; on `p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block
+diagonal, so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Unproved. -/
+def ProductHodgeSections : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (D₁ : HodgeData L g₁ (𝒢₁.hodgeSpace g₁))
+    (D₂ : HodgeData L g₂ (𝒢₂.hodgeSpace g₂)),
+    D₁.lattice = 𝒢₁.detLattice g₁ → D₂.lattice = 𝒢₂.detLattice g₂ →
+    (∀ τ : L →+* ℂ, ∃ (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+      𝒢₁.IsAnalyticUniformization τ (D₁.periods τ) Φ₁ ∧
+      𝒢₂.IsAnalyticUniformization τ (D₂.periods τ) Φ₂ ∧
+      (∀ f, D₁.coeff τ (𝒢₁.wedge f) = 𝒢₁.jacDet Φ₁ f) ∧
+      (∀ f, D₂.coeff τ (𝒢₂.wedge f) = 𝒢₂.jacDet Φ₂ f) ∧
+      (∀ z, z ∈ MP.hodge.periods τ ↔
+        (fun i => z (Fin.cast hg i)) ∈ prodLattice (D₁.periods τ) (D₂.periods τ)) ∧
+      ∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+        MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    ∃ (s : MP.model.hodgeSpace g) (s₁ : 𝒢₁.hodgeSpace g₁) (s₂ : 𝒢₂.hodgeSpace g₂),
+      s ∈ MP.hodge.lattice ∧ s ≠ 0 ∧ s₁ ∈ D₁.lattice ∧ s₁ ≠ 0 ∧ s₂ ∈ D₂.lattice ∧ s₂ ≠ 0 ∧
+      secIndex MP.hodge.lattice s = secIndex D₁.lattice s₁ * secIndex D₂.lattice s₂ ∧
+      ∀ τ, MP.hodge.coeff τ s = D₁.coeff τ s₁ * D₂.coeff τ s₂
+
+/-- The covolume of a lattice in product form, up to the coordinate cast (proved, from
+product-height's `prodLattice_facts`). -/
+theorem covolume_of_cast {g g₁ g₂ : ℕ} (hg : g₁ + g₂ = g) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) [DiscreteTopology Λ₁]
+    [IsZLattice ℝ Λ₁] [DiscreteTopology Λ₂] [IsZLattice ℝ Λ₂]
+    (h : ∀ z, z ∈ Λ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) :
+    ZLattice.covolume Λ = ZLattice.covolume Λ₁ * ZLattice.covolume Λ₂ := by
+  subst hg
+  have hΛ : Λ = prodLattice Λ₁ Λ₂ := by
+    ext z
+    rw [h z]
+    rfl
+  subst hΛ
+  obtain ⟨-, -, hc⟩ := prodLattice_facts Λ₁ Λ₂
+  exact hc
+
+/-- **`ProductHodgeAdd` from `ProductHodgeSections` (proved).** The covolumes multiply
+(`covolume_of_cast`) and `modelHeight_add_of` gives equality of heights. -/
+theorem productHodgeAdd_of (h : ProductHodgeSections) : ProductHodgeAdd := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ g₁ g₂ hg D₁ D₂ hl₁ hl₂ hform
+  obtain ⟨s, s₁, s₂, hs, hs0, hs₁, hs₁0, hs₂, hs₂0, hidx, hco⟩ :=
+    h K A B C L 𝒢₁ 𝒢₂ g MP e g₁ g₂ hg D₁ D₂ hl₁ hl₂ hform
+  have hcov : ∀ τ, ZLattice.covolume (MP.hodge.periods τ) =
+      ZLattice.covolume (D₁.periods τ) * ZLattice.covolume (D₂.periods τ) := by
+    intro τ
+    obtain ⟨-, -, -, -, -, -, hper, -⟩ := hform τ
+    have := D₁.periods_discrete τ
+    have := D₁.periods_isZLattice τ
+    have := D₂.periods_discrete τ
+    have := D₂.periods_isZLattice τ
+    exact covolume_of_cast hg _ _ _ hper
+  subst hg
+  exact (modelHeight_add_of MP.hodge D₁ D₂ hs hs0 hs₁ hs₁0 hs₂ hs₂0 hidx hco hcov).ge
+
+/-- **S-alg from `HodgeLatticeTheorem`, `ProductUnifDims`, `JacDetDescends` and
+`ProductHodgeSections` (proved).** -/
+theorem productMetrizationOfProductUnif_of' (hH : HodgeLatticeTheorem) (hD : ProductUnifDims)
+    (hJ : JacDetDescends) (hS : ProductHodgeSections) : ProductMetrizationOfProductUnif :=
+  productMetrizationOfProductUnif_of hH hD hJ (productHodgeAdd_of hS)
+
 end SAlg
 
 end ZInQ.ProductUnif
@@ -989,3 +1291,5 @@ end ZInQ.ProductUnif
 #print axioms ZInQ.ProductUnif.kerSub_facts
 #print axioms ZInQ.ProductUnif.productUnifSplits
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of
+#print axioms ZInQ.ProductUnif.productHodgeAdd_of
+#print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of'
