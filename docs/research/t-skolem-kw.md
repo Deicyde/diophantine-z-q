@@ -147,6 +147,12 @@ of C8: `ψ` takes values in `\bar ℚ₅^×`), from the cyclic case alone.
 - `ker_ge_of_kroneckerWeberCyclic`, `eq_of_agree_on_roots_cyclic`: as below, for `ψ : G_ℚ →* Eˣ`
   (`E` a field), from `KroneckerWeberCyclic`: `Gal(L/ℚ) ≅ G_ℚ / ker ψ ≅ im ψ ⊆ Eˣ` is cyclic
   (Mathlib's `isCyclic_of_injective_ringHom`).
+- **`dirichletCharacter_of_kroneckerWeberCyclic`** (the final form): for `ψ : G_ℚ →* Eˣ` with
+  open kernel there are `m ≥ 1` and `χ : DirichletCharacter E m` (Mathlib's) with
+  `ψ σ = χ (cycChar m σ)` for all `σ`, where `cycChar m : G_ℚ →* (ℤ/m)ˣ` is Mathlib's
+  `modularCyclotomicCharacter` on `\bar ℚ`. Uses `cycChar_surjective` (proved: irreducibility of
+  cyclotomic polynomials over `ℚ` through `IsCyclotomicExtension.autEquivPow`, lifted to `G_ℚ` by
+  `AlgEquiv.liftNormal`).
 - `ker_ge_of_kroneckerWeber`: `ψ : G_ℚ →* G` (`G` commutative) with open kernel kills every `σ`
   fixing the `m`-th roots of unity, for some `m ≥ 1` (fixed field of `ker ψ` is finite abelian
   by infinite Galois theory; T17 embeds it in `ℚ(ζ_m)`; normality puts it inside the field
@@ -175,5 +181,5 @@ side now rests on `ChebotarevExists` and on the trace and semisimplicity inputs 
   `iso_of_trace_eq_frob_finite`, the `TextbookLeaves` bundle fields `t13`, `t19`) by the theorems
   here, and the bundle field `t18 : FrobeniusDense` by `frobeniusDense_of_chebotarev` applied to
   the finite form. The definitions are verbatim, so each replacement is a one-line term.
-- The identification of the `m` above with a Dirichlet character `(ℤ/m)ˣ → G` through Mathlib's
-  `modularCyclotomicCharacter` (a few lines of bookkeeping; not written).
+- C8 downstream of the Dirichlet character: absorbing `χ` into the newform `f` (C9) needs
+  `χ` as a complex character through embeddings `\bar ℚ ↪ ℂ, \bar ℚ₅` (not in scope here).
