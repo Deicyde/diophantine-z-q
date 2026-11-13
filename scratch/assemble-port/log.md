@@ -106,3 +106,8 @@
 - FLAT CHECK (27-field state, before ts-hecke): AssemblePort.lean 101 778 lines, md5 ea746d85…: VERIFIED exit 0 in
   1021 s, 0 errors, no sorry; 272 axiom reports (check_axioms.py, multi-line joined), all [propext, Classical.choice,
   Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5` (flat_summary.txt, flat_out.txt).
+- Merged origin/wip/ts-hecke (report). Part e14 (mk/mk_tshecke.py) = its TSHecke.lean without the three copies this file
+  has (PropTSGlue = e10, AutOFinite = a57, SmoothStalk in b20/a70): CIcopy, GenericFibre, RamCount, Units, GaloisPart,
+  TSHeckeMain. GluePieces5: − heckeIrreducible (⇐ new LEAF y3Connected), − heckeDegree (proved from T5),
+  − heckeNormalizationIrr (⇐ new GLUE curveNormChart + T5), − heckeBranch (⇐ new GLUE curveChartInf, heckeFibreSizes +
+  T5 + R1R2fp): 27 fields (12 LEAF, 5 LEAF?, 10 GLUE). TailF 147 s, TailD 33 s: VERIFIED exit 0, 0 errors, no sorryAx.
