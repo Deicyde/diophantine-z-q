@@ -21,11 +21,20 @@
   `x6KummerFibre_of_model' : MobiusGlue → X6KummerModel → X6KummerFibre`.
   `lake env lean scratch/x6-kummer/X6Kummer.lean`: exit 0, 0 errors, 33 s, load ~15; all 6
   `#print axioms` = [propext, Classical.choice, Quot.sound] (VERIFIED).
-- 07:00 N1b.lean = part0 + partN (fs5-nocm partI verbatim minus its last theorem): exit 0, 9 s;
+- 06:56 N1b.lean = part0 + partN (fs5-nocm partI verbatim minus its last theorem): exit 0, 9 s;
   `dvd_of_sq_dvd_Qf`, `not_dvd_conductor_of_optimal`, `cmConductorCoprime6_of :
   CMOptimalEmbedding → CMConductorCoprime6` re-verified on this base, standard axioms (VERIFIED).
-- 07:08 partE (conic form): `ConicPt`, `conicGal`, `ConicModel`, `X6ConicModel` (leaf N2-L′),
+- 06:58 partE (conic form): `ConicPt`, `conicGal`, `ConicModel`, `X6ConicModel` (leaf N2-L′),
   `conic_fibre_iff`, `kummerFibreEquiv_of_conic`, `x6KummerModel_of_conic`,
   `x6KummerFibre_of_conic : MobiusGlue → X6ConicModel → X6KummerFibre`.
   X6Kummer.lean (part0,B,C,R,D,E): exit 0, 0 errors, 33 s; 8 `#print axioms` lines, all
   [propext, Classical.choice, Quot.sound] (run1.txt) (VERIFIED).
+- 07:00 String comparison with scratch/fs5-nocm/FS5NoCM.lean: `X6KummerFibre`, `CMConductorCoprime6`,
+  `R1R2fpFullProps`, `R1fpPropsFull`, `R1R2fpFull` identical (VERIFIED).
+- 07:00 conic_check.py (sympy + PARI; output conic_check.txt) (VERIFIED): fixed points of the
+  sign-change involutions: X->-X: [0:±√-3:1] (j=-16/27); Y->-Y: [±i:0:1] (j=0);
+  (X,Y)->(-X,-Y): [1:±√-3:0] (j=∞). Hilbert symbols of (-3,-3) and (-1,-3): -1 at 3 and ∞ only
+  (2,5,7: +1). t(0)=1, t(-16/27)=0. Five sample rational j0: four distinct points on C, π=j0.
+- 07:10 docs/research/x6-kummer.md written. N1b verdict: true; consequence of CMOptimalEmbedding
+  (Shimura's description, published) + compiled Eichler half; not provable from Eichler's local
+  theory alone (STANDARD argument in report §4).
