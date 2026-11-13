@@ -123,3 +123,11 @@ docs/research/h5-neron.md.
   OmegaSpans (coherence of e*Ω¹, proved by hodge-lattice without dimension theory) together with the
   transported finrank 1; no rank/dimension input (TangentDimAtOrigin, DimBaseChange) is needed.
   So h5-neron's (d) "NeronModelMinimal is glue" is CORRECT, and it is now proved.
+
+## 16. Final combined file scratch/h5-glue/H5Final.lean — COMPILED ~02:32 (0 errors; 8 #print axioms,
+## all [propext, Classical.choice, Quot.sound]; ~2360 lines, ~18 s)
+- = NeronMinimal.lean + H5Glue.lean §1 (H4b), §3 (open subgroups), §5 (copied statements, reduction)
+  + Additivity.lean's h5-neron product material.
+- `stableFaltingsHeight_eq_neron_all (hN1 hN2 hO hbc)`: H5 multi-field form from leaves N1, N2 and glue
+  OpenImmersionHeightLe, ModelHeightBaseChange ONLY.
+- `stableFaltingsHeight_add_le_of_productModelHeight (hN1 hH)`: additivity from N1 and P2 only.
