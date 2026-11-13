@@ -20,7 +20,8 @@ construction.
 - positive upper groups are wild (`upperWild`);
 - wild inertia fixes tame extensions (`wildFixTame`, by an averaging argument);
 - `modularConstituent_tail_R`: g0-mod-newform's tail with `G15RamG` replaced by these pieces,
-  with no new local-field hypothesis.
+  with no new local-field hypothesis;
+- a non-vacuity check: `LocalData` holds for the trivial representation (`localData_trivRep`).
 
 **Compiles:** `lake env lean scratch/g15-ram/G15Ram.lean` (about 15 s) and
 `scratch/g15-ram/Tail.lean` (assembled by `build_tail.sh`, about 40 s); both give 0 errors.
