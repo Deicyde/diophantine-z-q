@@ -10782,6 +10782,40 @@ theorem exists_localGlue35_of_algFrobRed (hT : PkgI3.TateModuleFree)
       u P L A ε N χ β L' hLL' hD hdim hrk hLD
   exact ⟨aQ, βQ, ιC, Φ5, Φ3, Tm5, Tm3, hιβ, hF, h5, h3⟩
 
+/-- **G15's `LocalData p r` at every `p ≠ ℓ` for every `r` that G8 attaches to these data
+(proved; leaves I3.M0, R6, I2-Tors).** local-data's `localData_of_g7` applied to the output of
+`exists_localGlue_of_leaves'`: the `G7Clauses` hypothesis is now discharged. -/
+theorem exists_localData_of_leaves (hT : PkgI3.TateModuleFree)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
+    (hD : G7Data u P L A ε N χ β L' hLL')
+    (hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2)
+    (hrk : Module.finrank ℤ
+      (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4)
+    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∃ (Φ : ℂ ≃+* PadicAlgCl ℓ)
+      (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ))
+      (c : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a : PkgI4.GQ → PadicAlgCl ℓ)
+      (uu : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ)),
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _ Tm c
+        (fun g h => Φ (ε g h : ℂ)) a (fun g => Φ (β g : ℂ)) uu ∧
+      ∀ (r : PkgI4.GaloisRep ℓ 2),
+        @G0Galois.G8Out L' _ (numberField_of_fd L')
+          (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _
+          (GlueDescent.rho Tm a (fun g => Φ (β g : ℂ))) r →
+        ∀ (p : ℕ) (hp : p.Prime), p ≠ ℓ → @G15Ram.LocalData p ⟨hp⟩ ℓ _ r := by
+  obtain ⟨Φ, Tm, c, a, uu, h7, hCl, -, hG⟩ :=
+    exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD hdim hrk hLD ℓ
+  refine ⟨Φ, Tm, c, a, uu, h7, fun r h8 p hp hpℓ => ?_⟩
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI : NumberField L' := numberField_of_fd L'
+  exact G15Ram.localData_of_g7 h8 hCl (hG p hp hpℓ)
+
 end KWFix
 
 end
@@ -10807,3 +10841,4 @@ end KWFixFinalSec
 #print axioms KWFix.exists_localGlue_of_leaves'
 #print axioms KWFix.exists_localGlue_of_g4Out
 #print axioms KWFix.exists_localGlue35_of_algFrobRed
+#print axioms KWFix.exists_localData_of_leaves
