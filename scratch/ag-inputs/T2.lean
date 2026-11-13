@@ -263,7 +263,7 @@ theorem autModInnFinite_of (hSN : GlueDescent.LeafSkolemNoether) (hAL : AtkinLeh
           _ = _ := by simp only [mul_assoc]
       rw [this]
       exact O.mul_mem (O.mul_mem (u : O).2 h) ((u⁻¹ : Oˣ) : O).2
-  refine ⟨conjAut t ht, ⟨t, htT, by classical exact dif_pos ht⟩, u, fun a => ?_⟩
+  refine ⟨conjAut t ht, ⟨t, htT, dite_eq_left ht⟩, u, fun a => ?_⟩
   apply Subtype.ext
   rw [← extAut_coe, hb, hformula]
   rfl

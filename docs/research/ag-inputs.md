@@ -49,7 +49,7 @@ are UNVERIFIED (no network).
    | Leaf | Lean | Content | Source | Status |
    | --- | --- | --- | --- | --- |
    | AG-GC | `AGIn.ConnectedGeomConnected` | `k` algebraically closed, `Y → Spec k` proper, `Y` connected ⇒ geometrically connected | EGA IV₂ (4.5.1), (4.5.8); Stacks, Varieties, §"Geometrically connected schemes" (UNVERIFIED numbers) | STANDARD; a consequence of the published statement, which needs neither "proper" nor more than separable closedness |
-   | AG-CD | `AGIn.CurveComponentDichotomy` | `X` proper smooth of relative dimension 1 over `ℚ`, `π : X → P¹`: on each connected component of `X_ℚ̄`, `π` hits every value of `P¹(ℚ̄)` at a `ℚ̄`-point, or some value is hit at infinitely many | Hartshorne II.6.8 (constant or surjective); normal Noetherian ⇒ components irreducible (Stacks); Nullstellensatz (UNVERIFIED numbers) | STANDARD (consequence of the listed theorems) |
+   | AG-CD | `AGIn.CurveComponentDichotomy` (proved from AG-CD1 `ComponentInfinite` and AG-CD2 `ConstOrSurj`, `curveComponentDichotomy_of`) | `X` proper smooth of relative dimension 1 over `ℚ`, `π : X → P¹`: on each connected component of `X_ℚ̄`, `π` hits every value of `P¹(ℚ̄)` at a `ℚ̄`-point, or some value is hit at infinitely many | Hartshorne II.6.8 (constant or surjective); normal Noetherian ⇒ components irreducible (Stacks); Nullstellensatz (UNVERIFIED numbers) | STANDARD (consequence of the listed theorems) |
    | SN | `GlueDescent.LeafSkolemNoether` | automorphisms of a finite-dimensional central simple algebra are inner | Skolem–Noether | **proved** (t-skolem-kw, `TSkolemKW.leafSkolemNoether`; identical statement, VERIFIED by reading both) |
    | AL | `AGInO.AtkinLehnerFinite` | `N_{B^×}(𝒪)/ℚ^×𝒪^×` finite: finite `T ⊆ B^×` with every normalizing `b = r·t·u` | Vignéras LNM 800 Ch. II–III; Voight GTM 288 Ch. 18, §28.9 (UNVERIFIED locators): an elementary abelian 2-group of rank `≤ #{p ∣ D}` | STANDARD (consequence) |
 
@@ -175,9 +175,8 @@ The only `X₆`-specific inputs are the bundle clauses and (c).
 ## 2. Lean (`scratch/ag-inputs/AGInputs.lean`)
 
 All of the following is VERIFIED:
-- `lake env lean scratch/ag-inputs/AGInputs.lean` exits 0, with no errors. There is one
-  deprecation warning (`dif_pos`).
-- 19 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
+- `lake env lean scratch/ag-inputs/AGInputs.lean` exits 0, with no errors and no warnings.
+- 20 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
   (`compile_out.txt`).
 - The file contains no `sorry` and no `axiom`.
 - It imports `ZInQKernel.HDecomp.QM.Leaves` and `ZInQKernel.HDecomp.Descent.B1Quat` (built
@@ -191,6 +190,8 @@ All of the following is VERIFIED:
 | 8 | `AGIn.spec_rat_ext` | any two `Spec L → Spec ℚ` agree | proved |
 | 8 | `AGIn.descend_of_leaf` | AG-GC, `IsProper X.hom`, `X_ℚ̄` connected ⇒ `GeometricallyConnected X.hom` | proved |
 | 9 | `AGIn.CurveComponentDichotomy` | leaf AG-CD (above), over `Xbar`, `compOf`, `ToP1.val` | leaf (def) |
+| 9 | `AGIn.ComponentInfinite`, `AGIn.ConstOrSurj` | AG-CD1: each component of `X_ℚ̄` has infinitely many `ℚ̄`-points; AG-CD2: `π` on a component is constant or surjective (Hartshorne II.6.8) | leaves (def) |
+| 9 | `AGIn.curveComponentDichotomy_of` | AG-CD1 + AG-CD2 ⇒ AG-CD | proved |
 | 9 | `AGIn.meets_fibre_of_finite` | AG-CD + finite fibres ⇒ every component of `X_ℚ̄` meets every fibre | proved |
 | 9 | `AGIn.qmIsoOfConj` | `q₁(a) = q₂(u a u⁻¹)` ⇒ `q₂(u⁻¹) : (A, q₁) ≅ (A, q₂)` | proved |
 | 9 | `AGIn.AutModInnFinite` | finite `S ⊆ Aut(𝒪)`, every `α = s ∘ Ad(u)` | def (glue target, proved in §10) |

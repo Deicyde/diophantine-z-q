@@ -913,6 +913,38 @@ def CurveComponentDichotomy : Prop :=
       (∃ v : OnePoint Qbar, Set.Infinite
           {x : fieldPt Qbar ⟶ X | compOf x = t ∧ π.val (K := Qbar) x.left = v})
 
+/-- **Leaf AG-CD1 (STANDARD).** Every connected component of `X_ℚ̄` contains infinitely many
+`ℚ̄`-points, for `X` proper and smooth of relative dimension 1 over `ℚ`. *Why true*: the component
+is an irreducible (smooth ⇒ normal; Stacks, UNVERIFIED tag 033M) scheme of finite type and
+dimension 1 over `ℚ̄`, so it has infinitely many closed points, and these are `ℚ̄`-points
+(Hilbert's Nullstellensatz; Hartshorne I.1 / II Ex. 2.? UNVERIFIED numbers); distinct closed
+points give distinct `x` (`ptOf x` is the point). -/
+def ComponentInfinite : Prop :=
+  ∀ (X : Over (Spec (CommRingCat.of ℚ))), IsProper X.hom → SmoothOfRelativeDimension 1 X.hom →
+    ∀ t : _root_.ConnectedComponents (Xbar X),
+      Set.Infinite {x : fieldPt Qbar ⟶ X | compOf x = t}
+
+/-- **Leaf AG-CD2 (STANDARD).** A morphism `π : X → P¹` on a connected component of `X_ℚ̄`
+(`X` proper smooth of relative dimension 1 over `ℚ`) is constant or surjective, on `ℚ̄`-points.
+*Published*: Hartshorne, *Algebraic Geometry*, II.6.8 (a morphism from a complete nonsingular
+curve to a curve is constant or surjective; UNVERIFIED number), applied to the component, which
+is a complete nonsingular irreducible curve over `ℚ̄`, and to `P¹_ℚ̄`; closed points of `P¹_ℚ̄`
+are `ℚ̄`-points and closed fibres contain closed points (Nullstellensatz). -/
+def ConstOrSurj : Prop :=
+  ∀ (X : Over (Spec (CommRingCat.of ℚ))), IsProper X.hom → SmoothOfRelativeDimension 1 X.hom →
+    ∀ (π : ToP1 X.left) (t : _root_.ConnectedComponents (Xbar X)),
+      (∀ v : OnePoint Qbar, ∃ x : fieldPt Qbar ⟶ X,
+          compOf x = t ∧ π.val (K := Qbar) x.left = v) ∨
+      (∃ v : OnePoint Qbar, ∀ x : fieldPt Qbar ⟶ X, compOf x = t → π.val (K := Qbar) x.left = v)
+
+/-- **AG-CD from AG-CD1 and AG-CD2** (glue, proved). -/
+theorem curveComponentDichotomy_of (h1 : ComponentInfinite) (h2 : ConstOrSurj) :
+    CurveComponentDichotomy := by
+  intro X hp hs π t
+  rcases h2 X hp hs π t with h | ⟨v, hv⟩
+  · exact Or.inl h
+  · exact Or.inr ⟨v, (h1 X hp hs t).mono fun x hx => ⟨hx, hv x hx⟩⟩
+
 variable {X : Over (Spec (CommRingCat.of ℚ))}
 
 /-- **Every component meets every fibre**, from the leaf and finite fibres. -/
@@ -1276,7 +1308,7 @@ theorem autModInnFinite_of (hSN : GlueDescent.LeafSkolemNoether) (hAL : AtkinLeh
           _ = _ := by simp only [mul_assoc]
       rw [this]
       exact O.mul_mem (O.mul_mem (u : O).2 h) ((u⁻¹ : Oˣ) : O).2
-  refine ⟨conjAut t ht, ⟨t, htT, by classical exact dif_pos ht⟩, u, fun a => ?_⟩
+  refine ⟨conjAut t ht, ⟨t, htT, dite_eq_left ht⟩, u, fun a => ?_⟩
   apply Subtype.ext
   rw [← extAut_coe, hb, hformula]
   rfl
@@ -1374,3 +1406,4 @@ end AGInLA
 #print axioms AGInO.autModInnFinite_of
 #print axioms AGInO.r1pi0Props_of_leaves'
 #print axioms AGInLA.r1R2fpRep_of_noPi0
+#print axioms AGIn.curveComponentDichotomy_of

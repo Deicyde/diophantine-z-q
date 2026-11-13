@@ -51,3 +51,11 @@ and state the rest as leaves.
   `AGInO.r1pi0Props_of_leaves' : X6Props → R2X6Props → R5ptProps → R5fpCount → R2X6CMExact →
   ConnectedGeomConnected → CurveComponentDichotomy → LeafSkolemNoether → AtkinLehnerFinite →
   GeometricallyConnected X.hom`.
+- L5 (VERIFIED, compiled 01:52 PST, `lake env lean scratch/ag-inputs/AGInputs.lean`, exit 0, no
+  errors, no warnings; 20 `#print axioms` lines all standard): `AGInLA.R1pi0Props`,
+  `R2X6PropsIff`, `R1R2fpRep` (verbatim copies of `LeafAdopt.*` from
+  scratch/h-decomposition/Leaves.lean, checked by a substring script), `R1R2fpRepNoPi0`,
+  `r1R2fpRep_of_noPi0 : R1R2fpRepNoPi0 → R5fpCount → ConnectedGeomConnected →
+  CurveComponentDichotomy → LeafSkolemNoether → AtkinLehnerFinite → R1R2fpRep`;
+  AG-CD split: `ComponentInfinite` (AG-CD1), `ConstOrSurj` (AG-CD2),
+  `curveComponentDichotomy_of`; `dif_pos` replaced by `dite_eq_left`.
