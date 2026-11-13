@@ -1,7 +1,7 @@
 # cm-bridge: CM leaves rewired to ring class field theory; `GenusFieldLeLni` proved; TYZ Lemma 3.21(4) reduced to TYZ Theorem 3.6(3) with all glue proved
 
 Task cm-bridge, 2026-11-13. Lean: `scratch/cm-bridge/Bridge.lean` (imports the built
-`ZInQKernel.Contrib.TYZGenus.RingClassBridge`; no `sorry`, no `axiom`; 2120 lines). Numerical check:
+`ZInQKernel.Contrib.TYZGenus.RingClassBridge`; no `sorry`, no `axiom`; about 3100 lines). Numerical check:
 `scratch/cm-bridge/thm36_7.py` → `thm36_7.out` (PARI/GP via cypari2, 400 digits, helper `heeg.py` copied
 from cm-numeric). Results log: `scratch/cm-bridge/log.md`. Axiom audit: `scratch/cm-bridge/audit-out.txt`.
 Marks: **VERIFIED** (compiled, computed, or read in a named source), **STANDARD**, **SPECULATIVE**,
@@ -9,17 +9,25 @@ Marks: **VERIFIED** (compiled, computed, or read in a named source), **STANDARD*
 
 ## 0. Main result
 
+Two final theorems (namespace `ZInQ.Contrib.TYZGenus.CMBridge`; both VERIFIED compiled with
+`lake env lean`, axioms `[propext, Classical.choice, Quot.sound]`):
+
 ```lean
 theorem tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
     (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
     (hcm : CM.CMFieldOfDefinition ringClassFieldD) (hsh : TYZSigmaShiftsF0)
     (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
     (h5 : Lemma321Five) (h36 : TYZThm36Seven) : ZInQ.Literature.TYZThm35ReadingA
+
+theorem tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hcm : CM.CMFieldOfDefinition ringClassFieldD) (hs : TYZSigmaFixesZn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (hS : TyzCm.ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
+    (hA : CMAlgebraic) : ZInQ.Literature.TYZThm35ReadingA
 ```
 
-(namespace `ZInQ.Contrib.TYZGenus.CMBridge`; VERIFIED compiled with `lake env lean`, axioms
-`[propext, Classical.choice, Quot.sound]`.) Compared with cm-numeric's
-`tyzThm35ReadingA_of_pinnedLeaves` (13 hypotheses), **seven hypotheses are gone**:
+Compared with cm-numeric's `tyzThm35ReadingA_of_pinnedLeaves` (13 hypotheses):
 
 | cm-numeric hypothesis | status now | how |
 |---|---|---|
@@ -27,13 +35,21 @@ theorem tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma32
 | `HprimeNormal` | proved | ring-class's `RingClassBridge.hprimeNormal` |
 | `CMFieldOfDefinitionTYZ` | derived from `CM.CMFieldOfDefinition ringClassFieldD` | `cmFieldTYZ_of_ringClassD` (ring-class) |
 | `CMFieldOfDefinition7` | derived from `CM.CMFieldOfDefinition ringClassFieldD` | `cmFieldOfDefinition7_of` (§10; `ringClassFieldD_neg`) |
-| `TYZSigmaFixesZn` | derived from `TYZSigmaShiftsF0` | `tyzSigmaFixesZn_of'` (§10; `IInHprime` now proved, `iInHprime` from `Lni_le_Hprimebar`) |
+| `TYZSigmaFixesZn` | derived from `TYZSigmaShiftsF0` (first theorem) | `tyzSigmaFixesZn_of'` (§10; `IInHprime` proved via `Lni_le_Hprimebar`) |
 | `GenusFieldLeLni` | **proved** | `genusFieldLeLni` (§11) |
-| `Lemma321Seven` (TYZ Lemma 3.21(4)) | **derived from TYZ Theorem 3.6(3)** (`TYZThm36Seven`) | `lemma321Seven_of'` (§12–§13; all glue proved) |
+| `Lemma321Seven` (TYZ Lemma 3.21(4)) | **derived from TYZ Theorem 3.6(3)** (`TYZThm36Seven`), all glue proved | `lemma321Seven_of'` (§12–§13) |
+| — `TYZThm36Seven` itself | **derived from textbook CM** (second theorem) | `tyzThm36Seven_of : ShimuraReciprocityPic → EtaModelFricke → CMAlgebraic → TYZThm36Seven` (§14) |
 
-So both CM leaves of the class-7 branch collapse into the single general CM leaf that task tyz-cm
-works on, and the class-7 genus-point lemma is replaced by the more primary printed theorem it is
-derived from in TYZ.
+So the whole class-7 branch now rests on textbook CM: tyz-cm's leaf `ShimuraReciprocityPic` (main
+theorem of complex multiplication for Heegner points of `X₀(32)`, Gross's form; copied verbatim from
+branch `wip/tyz-cm`), x0-32's leaf `X0.EtaModelFricke` (the Fricke involution acts on `A` as
+`P ↦ T − P`) and cm-points' leaf `CM.CMAlgebraic` (CM values are algebraic). tyz-cm derives
+`CM.CMFieldOfDefinition ringClassFieldD` from `ShimuraReciprocityPic` and `TYZSigmaFixesZn` from
+`ShimuraReciprocityPic` + `EtaModelFricke` (their branch, not on this base); combined with the second
+theorem, **the CM side of TYZ reading A would rest on `ShimuraReciprocityPic`, `EtaModelFricke`,
+`CMAlgebraic`** (textbook) plus the TYZ-specific `Lemma318Literal`, `Thm35First`, `Lemma321Five`
+and the three `𝓛`-leaves (SPECULATIVE until both branches are integrated and the combination is
+compiled).
 
 ## 1. Remaining leaves (the hypotheses of the main theorem)
 
@@ -45,7 +61,11 @@ derived from in TYZ.
 | `Lemma318Literal HHprime` | torsion of `A(ℍ'_n)` is killed by `2(1+[i])` | TYZ Lemma `torsion2`, L2230 (VERIFIED read) | leaf (unchanged; §4) |
 | `Thm35First ℓ tyzZ` | TYZ Thm 3.3/3.5 for the pinned genus points | TYZ | leaf (unchanged) |
 | `Lemma321Five` | TYZ Lemma 3.21(1) for the pinned class-5 genus points | TYZ L2508–2510 | leaf (unchanged; §4) |
-| `TYZThm36Seven` | **new**: `γ(z_n) + ρ(z_n) = τ(1/2)` for complex conjugation `γ` and `ρ|_{H_n} = Art([𝔭₂])^{−5}` | TYZ Theorem `CM point2`(3), L1424–1427 (VERIFIED read) | leaf; VERIFIED numerically (12/12) |
+| `TYZThm36Seven` (first theorem only) | **new**: `γ(z_n) + ρ(z_n) = τ(1/2)` for complex conjugation `γ` and `ρ|_{H_n} = Art([𝔭₂])^{−5}` | TYZ Theorem `CM point2`(3), L1424–1427 (VERIFIED read) | leaf; VERIFIED numerically (12/12); derived in §14 from the next three |
+| `TyzCm.ShimuraReciprocityPic` (second theorem) | main theorem of CM for Heegner points of `X₀(32)`, Gross's form | Shimura 1971 Thm 5.4, Gross 1984 §3 (tyz-cm's docstring; numbers UNVERIFIED) | leaf (tyz-cm's, verbatim copy) |
+| `X0.EtaModelFricke` (second theorem) | `φ(−1/(32τ)) + φ(τ) = T` | STANDARD (Atkin–Lehner on the modular parametrization; x0-32) | leaf (x0-32's) |
+| `CM.CMAlgebraic` (second theorem) | every Heegner value `φ(τ_Q)` is an algebraic point | Shimura 1971 (cm-points) | leaf (cm-points'); needed because `TYZThm36Seven` is not junk-safe |
+| `TYZSigmaFixesZn` (second theorem) | `σ_{1+2ϖ}` fixes `z_n` | TYZ Thm 3.6(1); tyz-cm derives it from `ShimuraReciprocityPic` + `EtaModelFricke` | leaf here |
 
 `TYZThm36Seven` in Lean (§12):
 
@@ -132,6 +152,18 @@ Assembly `betaOnGenus7_of`: the equalizer of `σ ∘ embed` and `γρ ∘ embed`
 (`IsComplexConj.apply_sqrt`), `ρ√p* = χ_p([𝔭₂])√p* = (2/p)√p*` (`ZMod.exists_sq_eq_two_iff`), and
 `betaOneSign(p*) = sgn(p*)·(2/p)` (`betaOneSign_pstar`).
 
+**§14 `tyzThm36Seven_of : ShimuraReciprocityPic → EtaModelFricke → CMAlgebraic → TYZThm36Seven`.**
+TYZ's proof of Theorem 3.6(3) (Prop. 3.9, L1799–1855) in Gross's language: with `Q = [(n+δ²)/4, δ, 1]`,
+`Q' = [32, δ, (n+δ²)/128]` (`tyzForm7'`), `J = (32, ū) = 𝔭̄₂^5` (`span_two_pow_five`; class
+`[𝔭₂]^{−5}` by `span_two_mul_span_two`, `mk0_inv_of_mul`), the lattice identities
+`κ(J)·(⟨1,τ_{Q'}⟩, ⟨1/32,τ_{Q'}⟩) = ū·(⟨1,τ_Q⟩, ⟨1/32,τ_Q⟩)` (`latK7`, `latNK7`; proved in `K` from
+`𝓞_K = ℤ + ℤū`, `int_coords3`, and transported by `κ`), so Shimura reciprocity gives
+`ρ(z_Q) = z_{Q'}`; `τ_{Q'} = −1/(32 τ_{Q̄})`, so the Fricke leaf gives `z_{Q'} = T − z_{Q̄}`
+(`heegnerPt_tyzForm7'`, using `CMAlgebraic` for `Q̄`); and `z_{Q̄} = γ(z_Q)` (`cmComplexConj`). If
+`embed n` has the other orientation, the same argument runs with `e = γ ∘ embed`, `ρ' = γργ⁻¹`,
+`J = (32, u)` and the conjugate forms (`latK7c`, `latNK7c`). The forms, lattice identity and Fricke
+identity were checked numerically first (`plan36.out`).
+
 ## 3. Compile status
 
 `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` (clean), then
@@ -156,7 +188,9 @@ hits max recursion / a kernel deterministic timeout; proving the restriction ide
   total ramification of `℘` in `F(A[℘])`, ramification bounds in `ℍ'_n`, and supersingular reduction at a
   prime `p ≡ 3 (mod 8)` inert in the `K_{d₀}`; none of this exists in Lean today.
 * `TYZSigmaShiftsF0`, `Thm35First`, the `𝓛`-leaves and `CM.CMFieldOfDefinition ringClassFieldD` were
-  not attacked (the last is task tyz-cm's).
+  not attacked (the last is task tyz-cm's; `TYZSigmaFixesZn` is tyz-cm's too).
+* The combination with tyz-cm's theorems (`cmFieldOfDefinition_of`, `tyzSigmaFixesZn_of`) was not
+  compiled here (their files are not on this base); see §0.
 
 ## 5. Review
 
