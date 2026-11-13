@@ -44,7 +44,8 @@ theorem y{n}c{k}_eq {{K : Type*}} [Field K] [CharZero K] (a : Fin 7 → K) :
 for n in range(1,4):
     for k in range(3):
         unf=", ".join(zs(n,k))
-        w(f'''theorem z{n}c{k}_map {{R S : Type*}} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
+        w(f'''set_option linter.unusedSimpArgs false in
+theorem z{n}c{k}_map {{R S : Type*}} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z{n}c{k} t) = z{n}c{k} (fun i => φ (t i)) := by
   simp only [{unf}, map_add, map_neg, map_mul, map_pow, map_ofNat]
 ''')
@@ -54,7 +55,8 @@ dsimp='''derivative_add, derivative_sub, derivative_neg, derivative_mul, derivat
 for n in range(1,4):
     for k,rhs in [(0,f"z{n}c1 t"),(1,f"2 * z{n}c2 t"),(2,"0")]:
         unf=", ".join(zs(n,k)+(zs(n,k+1) if k<2 else []))
-        w(f'''set_option maxHeartbeats 4000000 in
+        w(f'''set_option linter.unusedSimpArgs false in
+set_option maxHeartbeats 4000000 in
 theorem z{n}c{k}_deriv {{K : Type*}} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
     (h3 : derivative (t 3) = 4 * t 4) (h4 : derivative (t 4) = 5 * t 5)

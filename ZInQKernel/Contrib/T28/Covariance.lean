@@ -496,42 +496,52 @@ theorem y3c2_eq {K : Type*} [Field K] [CharZero K] (a : Fin 7 → K) :
   simp only [y3c2_0, y3c2_1, y3c2_2, y3c2_3, y3c2_4, y3c2, z3c2_0, z3c2_1, z3c2_2, z3c2_3, z3c2]
   ring
 
+set_option linter.unusedSimpArgs false in
 theorem z1c0_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z1c0 t) = z1c0 (fun i => φ (t i)) := by
   simp only [z1c0, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z1c1_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z1c1 t) = z1c1 (fun i => φ (t i)) := by
   simp only [z1c1, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z1c2_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z1c2 t) = z1c2 (fun i => φ (t i)) := by
   simp only [z1c2, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z2c0_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z2c0 t) = z2c0 (fun i => φ (t i)) := by
   simp only [z2c0, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z2c1_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z2c1 t) = z2c1 (fun i => φ (t i)) := by
   simp only [z2c1_0, z2c1_1, z2c1, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z2c2_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z2c2 t) = z2c2 (fun i => φ (t i)) := by
   simp only [z2c2, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z3c0_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z3c0 t) = z3c0 (fun i => φ (t i)) := by
   simp only [z3c0_0, z3c0_1, z3c0_2, z3c0_3, z3c0, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z3c1_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z3c1 t) = z3c1 (fun i => φ (t i)) := by
   simp only [z3c1_0, z3c1_1, z3c1_2, z3c1_3, z3c1, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 theorem z3c2_map {R S : Type*} [CommRing R] [CommRing S] (φ : R →+* S) (t : Fin 7 → R) :
     φ (z3c2 t) = z3c2 (fun i => φ (t i)) := by
   simp only [z3c2_0, z3c2_1, z3c2_2, z3c2_3, z3c2, map_add, map_neg, map_mul, map_pow, map_ofNat]
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z1c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -544,6 +554,7 @@ theorem z1c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z1c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -556,6 +567,7 @@ theorem z1c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z1c2_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -568,6 +580,7 @@ theorem z1c2_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z2c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -580,6 +593,7 @@ theorem z2c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z2c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -592,6 +606,7 @@ theorem z2c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z2c2_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -604,6 +619,7 @@ theorem z2c2_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z3c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -616,6 +632,7 @@ theorem z3c0_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z3c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
@@ -628,6 +645,7 @@ theorem z3c1_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (
     h5, h6]
   ring
 
+set_option linter.unusedSimpArgs false in
 set_option maxHeartbeats 4000000 in
 theorem z3c2_deriv {K : Type*} [Field K] (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h1 : derivative (t 1) = 2 * t 2) (h2 : derivative (t 2) = 3 * t 3)
