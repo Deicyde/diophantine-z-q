@@ -1000,4 +1000,52 @@ theorem ringClassFieldD_tyz {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
 
 end ByDiscriminant
 
+section EmbeddingIndependence
+
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZDecomp.CurveA
+
+/-- The image in `ℚ̄` of a normal subfield of an algebraic closure of `ℚ` does not depend on the
+embedding. -/
+theorem map_eq_map_of_normal {m : ℕ} [NeZero m]
+    (E : IntermediateField ℚ (SeparableClosure (QNeg m))) [Normal ℚ E]
+    (φ ψ : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar) : E.map φ = E.map ψ := by
+  have hb := (Algebra.IsAlgebraic.algHom_bijective₂ φ
+    (IsAlgClosed.lift : Qbar →ₐ[ℚ] SeparableClosure (QNeg m))).1
+  let e := AlgEquiv.ofBijective φ hb
+  let ρ : Qbar →ₐ[ℚ] Qbar := ψ.comp e.symm.toAlgHom
+  have hρ : ρ.comp φ = ψ := by
+    ext x
+    simp only [ρ, AlgHom.comp_apply, AlgEquiv.toAlgHom_eq_coe, AlgHom.coe_coe]
+    congr 1
+    exact e.symm_apply_apply x
+  have : Normal ℚ (E.map φ) := Normal.of_algEquiv (E.equivMap φ)
+  rw [← hρ, ← IntermediateField.map_map, IntermediateField.normal_iff_forall_map_eq.1 inferInstance ρ]
+
+/-- **`ringClassFieldBar m f` does not depend on the embedding `K_mˢ → ℚ̄`.** -/
+theorem ringClassFieldBar_eq_map (m f : ℕ) [NeZero m] [NeZero f]
+    (φ : SeparableClosure (QNeg m) →ₐ[ℚ] Qbar) :
+    ((ringClassField (conductorOrder (QNeg m) f)).restrictScalars ℚ).map φ =
+      ringClassFieldBar m f := by
+  haveI : Normal ℚ ((ringClassField (conductorOrder (QNeg m) f)).restrictScalars ℚ) := by
+    rw [ringClassField_eq_ringSubfield]
+    exact normal_ringSubfield _
+  rw [ringClassFieldBar_eq]
+  exact map_eq_map_of_normal _ φ (embed m)
+
+/-- **`H4bar d` does not depend on the embedding.** -/
+theorem H4bar_eq_map' (d : ℕ) [NeZero d] (φ : SeparableClosure (QNeg d) →ₐ[ℚ] Qbar) :
+    ((H4 d).restrictScalars ℚ).map φ = H4bar d := by
+  haveI := normal_H4 d
+  rw [H4bar_eq_map]
+  exact map_eq_map_of_normal _ φ (embed d)
+
+/-- **`Hprimebar d` does not depend on the embedding.** -/
+theorem Hprimebar_eq_map' (d : ℕ) [NeZero d] (φ : SeparableClosure (QNeg d) →ₐ[ℚ] Qbar) :
+    ((Hprime d).restrictScalars ℚ).map φ = Hprimebar d := by
+  haveI := normal_Hprime d
+  rw [Hprimebar_eq_map]
+  exact map_eq_map_of_normal _ φ (embed d)
+
+end EmbeddingIndependence
+
 end ZInQ.Contrib.TYZGenus.RingClass

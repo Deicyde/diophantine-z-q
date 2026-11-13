@@ -83,3 +83,6 @@
   (ringClassFieldD (−64n) = H4bar n for squarefree n ≡ 5 mod 8).
 - Bridge: `cmFieldTYZ_of_ringClassD` (CM.CMFieldOfDefinition ringClassFieldD → CMFieldOfDefinitionTYZ),
   `tyzThm35ReadingA_of_cmLeaves_ringClassD`, `normalFields_HHprime'`.
+- ~09:05 embedding independence (VERIFIED, build success): `map_eq_map_of_normal`, `ringClassFieldBar_eq_map`,
+  `H4bar_eq_map'`, `Hprimebar_eq_map'` (the images in ℚ̄ of ring class fields, H_{d,4}, H'_d do not depend
+  on the ℚ-embedding K_dˢ → ℚ̄).
