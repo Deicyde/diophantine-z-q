@@ -72271,7 +72271,8 @@ end
 end G0A2_z90_bundle3
 
 end HDec
-/-! ## leaf-fold2: scratch/image-plane/ImagePlaneFinal.lean (task image-plane), verbatim minus imports; root namespace, over the kernel's objects -/
+/-! ## leaf-fold2: the root-namespace modules (image-plane's ImagePlaneFinal.lean verbatim, LF2Stalks, LF2UnifRoot, LF2SmoothDim, LF2UnramConj), each in its own section so that its file-level opens do not leak -/
+section LF2Root_ImagePlane
 
 /-!
 # mobius-glue: the `π`-half of qm-pin's comparison of two triples
@@ -76958,6 +76959,10 @@ end
 #print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
 
+end
+end LF2Root_ImagePlane
+
+section LF2Root_Stalks
 
 /-! leaf-fold2: scratch/infra-stalks/HeightBCGlue.lean lines 3-850 (its Part 1: general stalk lemmas), verbatim; root namespace. -/
 
@@ -77809,6 +77814,9 @@ theorem exists_localStructure_pullback {F : Type u} [Field F] {R : CommRingCat.{
 
 end AlgebraicGeometry
 
+end LF2Root_Stalks
+
+section LF2Root_UnifRoot
 
 /-! leaf-fold2: unif-dims' root-namespace lemmas (see mk_unifdims.py) -/
 
@@ -77989,6 +77997,9 @@ theorem sub_mem_maximalIdeal_sq_of_product₂ {R O₁ O₂ : Type*} [CommRing R]
 end IsLocalRing
 
 
+end LF2Root_UnifRoot
+
+section LF2Root_SmoothDim
 
 /-! # Dimension theory of smooth schemes over a field, and the glue Props (§0-§4 = SmoothStalk.lean verbatim)
 
@@ -78624,6 +78635,9 @@ theorem tangentDimAtOrigin : TangentDimAtOrigin := by
 end LF2.HodgeLattice
 
 
+end LF2Root_SmoothDim
+
+section LF2Root_UnramConj
 
 /-!
 # inner-twist: `G0ModField.UnramifiedConjugates` (from `scratch/fibre-cover/FibreCover.lean`), proved
@@ -78822,11 +78836,15 @@ theorem unramifiedConjugates : UnramifiedConjugates := by
 
 end G0ModField
 
+#print axioms G0ModField.inertia_le_fixing
+#print axioms G0ModField.unramifiedConjugates
 #check @G0ModField.UnramifiedConjugates
 example : G0ModField.UnramifiedConjugates = ∀ (α : AlgebraicClosure ℚ) (p : ℕ),
     GlueDescent.B2Q.UnramifiedAt (IntermediateField.adjoin ℚ {α}) p →
     GlueDescent.B2Q.UnramifiedAt
       (IntermediateField.adjoin ℚ ((minpoly ℚ α).rootSet (AlgebraicClosure ℚ))) p := rfl
+
+end LF2Root_UnramConj
 
 namespace HDec
 

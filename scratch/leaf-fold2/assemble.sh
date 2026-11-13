@@ -25,6 +25,9 @@ EIMP='import ZInQKernel.Contrib.T14.Main
 import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.X1ConstantField'
 IPIMP=$( (grep '^import ' ../image-plane/ImagePlaneFinal.lean; echo 'import ZInQKernel.HDecomp.Objects'; grep '^import ' LF2UnramConj.lean.src) )
+rootbody() { echo "section LF2Root_$2"; grep -v '^import ' $1; echo;
+  k=$(( $(grep -c '^noncomputable section' $1) - $(grep -c '^end *$' $1) )); for i in $(seq 1 $k); do echo "end"; done
+  echo "end LF2Root_$2"; echo; }
 bodyA() { echo "$HDR"; for p in $A; do cat $p; echo; done; echo "end HDec"; }
 bodyB() { echo "$HDR"; wrap $B; echo "end HDec"; }
 bodyC() { echo "$HDR"; wrap $C; echo "end HDec"; }
@@ -45,11 +48,11 @@ NIMP=$(grep -c '^import ' olean/LPrefix.lean)
 { grep '^import ' olean/LPrefix.lean; echo "$EIMP"; echo "$IPIMP" | grep -v -x -F "$(grep '^import ' olean/LPrefix.lean)";
   grep -v '^import ' olean/LPrefix.lean; echo;
   bodyA; bodyB; bodyC; bodyD;
-  echo "/-! ## leaf-fold2: scratch/image-plane/ImagePlaneFinal.lean (task image-plane), verbatim minus imports; root namespace, over the kernel's objects -/"
-  grep -v '^import ' ../image-plane/ImagePlaneFinal.lean; echo;
-  grep -v '^import ' LF2Stalks.lean.src; echo;
-  grep -v '^import ' LF2UnifRoot.lean.src; echo;
-  grep -v '^import ' LF2SmoothDim.lean.src; echo;
-  grep -v '^import ' LF2UnramConj.lean.src | grep -v '^#print'; echo;
+  echo "/-! ## leaf-fold2: the root-namespace modules (image-plane's ImagePlaneFinal.lean verbatim, LF2Stalks, LF2UnifRoot, LF2SmoothDim, LF2UnramConj), each in its own section so that its file-level opens do not leak -/"
+  rootbody ../image-plane/ImagePlaneFinal.lean ImagePlane
+  rootbody LF2Stalks.lean.src Stalks
+  rootbody LF2UnifRoot.lean.src UnifRoot
+  rootbody LF2SmoothDim.lean.src SmoothDim
+  rootbody LF2UnramConj.lean.src UnramConj
   bodyE; } > Leaves2.lean
 wc -l olean/*.lean Leaves2.lean
