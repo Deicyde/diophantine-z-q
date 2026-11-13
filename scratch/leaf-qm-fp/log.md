@@ -1,6 +1,6 @@
 # leaf-qm-fp results log
 
-Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean process at a time).
+Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean process at a time). Since the A6 section the file imports `ZInQKernel.HDecomp.A6.A6` (prebuilt olean present in this worktree; otherwise `lake build ZInQKernel.HDecomp.A6.A6` first).
 
 ## 2026-11-12
 
@@ -64,3 +64,8 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   `Level3.range_le`, and `Level3.torsor` (two level structures on one (A, ι) differ by right
   multiplication by an element of 𝒪 invertible mod 3: the count of A3). Consequence: all of A[3]
   is K-rational (A6's hypothesis `hrat`). COMPILES, 20 s, standard axioms.
+- 17:3x A6 on the leaves' objects: import switched to `ZInQKernel.HDecomp.A6.A6`; copied
+  bp-qmmoduli's `oi`, `oj`, `hI`, `hJ`, `hIJ`; new `galAct_bcPt` (K-points are Galois-fixed) and
+  `hrat` (all of A[3] Galois-fixed, from `Level3.onto`); `QML3.goodReduction` [CharZero K] from
+  `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` via
+  `GlueA6Alg.goodReduction_of_QM_rational3'`. COMPILES, 24 s, standard axioms.

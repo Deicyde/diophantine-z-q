@@ -1,4 +1,4 @@
-import ZInQKernel.HDecomp.Objects
+import ZInQKernel.HDecomp.A6.A6
 import Mathlib.AlgebraicGeometry.ResidueField
 import Mathlib.Algebra.Module.RingHom
 import Mathlib.NumberTheory.NumberField.Discriminant.Defs
@@ -503,6 +503,118 @@ theorem Level3.torsor (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K
     (Level3.range_le hT ⟨P.A, P.surface, P.q, e'⟩ P.e)
 
 end Onto
+
+/-! ### Glue A6 on the objects of the leaves (good reduction away from 3) -/
+
+/-- `i ∈ 𝒪`. -/
+def oi : O := ⟨ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
+/-- `j = −1 + 2·(1+j)/2 ∈ 𝒪`. -/
+def oj : O := ⟨ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
+
+theorem oi_mul_oi : oi * oi = 2 := by
+  apply Subtype.ext
+  change ofInt ![0, 1, 0, 0] * ofInt ![0, 1, 0, 0] = (2 : B)
+  ext <;> simp [ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+theorem oj_mul_oj : oj * oj = -3 := by
+  apply Subtype.ext
+  change ofInt ![-1, 0, 2, 0] * ofInt ![-1, 0, 2, 0] = -(3 : B)
+  ext <;> simp [ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+theorem oj_mul_oi_add : oj * oi + oi * oj = 0 := by
+  apply Subtype.ext
+  change ofInt ![-1, 0, 2, 0] * ofInt ![0, 1, 0, 0] + ofInt ![0, 1, 0, 0] * ofInt ![-1, 0, 2, 0]
+    = (0 : B)
+  ext <;> simp [ofInt]
+
+section A6
+
+open ObjBridge
+
+variable (P : QML3 K)
+
+local notation "Kb" => AlgebraicClosure K
+
+theorem act_mul_apply (a b : O) (y : Additive (P.A.Pt Kb)) :
+    qmAct P.q Kb (a * b) y = qmAct P.q Kb a (qmAct P.q Kb b y) := by
+  rw [map_mul]; rfl
+
+theorem hI (x : PkgI2.Pts (toGrp P.A) Kb) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom) ≫
+      (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom = x ^ 2 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_pow]
+  change qmAct P.q Kb oi (qmAct P.q Kb oi (Additive.ofMul x)) = _
+  rw [← act_mul_apply, oi_mul_oi, map_ofNat]
+  rfl
+
+theorem hJ (x : PkgI2.Pts (toGrp P.A) Kb) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom) ≫
+      (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom * x ^ 3 = 1 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_mul, ofMul_pow, ofMul_one]
+  have h : qmAct P.q Kb (oj * oj) (Additive.ofMul x : Additive (P.A.Pt Kb))
+      = -((3 : ℕ) • (Additive.ofMul x : Additive (P.A.Pt Kb))) := by
+    rw [oj_mul_oj, map_neg, map_ofNat]; rfl
+  rw [act_mul_apply] at h
+  exact (congrArg (· + (3 : ℕ) • (Additive.ofMul x : Additive (P.A.Pt Kb))) h).trans
+    (neg_add_cancel _)
+
+theorem hIJ (x : PkgI2.Pts (toGrp P.A) Kb) :
+    (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom) ≫
+        (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom *
+      (x ≫ (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oj)).hom.hom) ≫
+        (grpOfHom (A := toGrp P.A) (B := toGrp P.A) (P.q.iota oi)).hom.hom = 1 := by
+  apply Additive.ofMul.injective
+  rw [ofMul_mul, ofMul_one]
+  have h : qmAct P.q Kb (oj * oi + oi * oj)
+      (Additive.ofMul x : Additive (P.A.Pt Kb)) = 0 := by
+    rw [oj_mul_oi_add, map_zero]; rfl
+  rw [map_add] at h
+  have h2 : qmAct P.q Kb (oj * oi) (Additive.ofMul x : Additive (P.A.Pt Kb)) +
+      qmAct P.q Kb (oi * oj) (Additive.ofMul x : Additive (P.A.Pt Kb)) = 0 := h
+  rw [act_mul_apply, act_mul_apply] at h2
+  exact h2
+
+/-- `K`-points base-changed to `K̄` are Galois-fixed. -/
+theorem galAct_bcPt (σ : Kb ≃ₐ[K] Kb) (y : P.A.Pt K) :
+    PkgI2.galAct (toGrp P.A) σ (bcPt P.A y) = bcPt P.A y := by
+  have : PkgI2.galHom Kb σ ≫ toKbar K = toKbar K := by
+    apply Over.OverMorphism.ext
+    change Spec.map (CommRingCat.ofHom (σ : Kb →+* Kb)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap K Kb)) =
+      Spec.map (CommRingCat.ofHom (algebraMap K Kb))
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp
+  change PkgI2.galHom Kb σ ≫ toKbar K ≫ y = toKbar K ≫ y
+  rw [← Category.assoc, this]
+
+/-- All of `A[3]` is Galois-fixed (from `Level3.onto`). -/
+theorem hrat [CharZero K] (hT : ObjBridge.TorsionStructure) (σ : Kb ≃ₐ[K] Kb)
+    (x : PkgI2.Pts (toGrp P.A) Kb) (hx : x ∈ PkgI2.torsion (toGrp P.A) Kb 3) :
+    PkgI2.galAct (toGrp P.A) σ x = x := by
+  obtain ⟨a, rfl⟩ := Level3.onto hT P x hx
+  exact galAct_bcPt P σ _
+
+/-- **Glue A6 on the objects of the leaves**: every `QML3` object over a field of characteristic
+0 has good reduction at every DVR in which 3 is a unit, from the kernel's leaves
+`NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` (via
+`GlueA6Alg.goodReduction_of_QM_rational3'`). With R1fp, this applies to the fibre object over
+`J(u)` (A4 + A6). -/
+theorem QML3.goodReduction [CharZero K] (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hRay : PkgI2.RaynaudCriterion.{0}) (hTors : PkgI2.TorsionStructure.{0})
+    (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov] (h3 : IsUnit (3 : Ov)) :
+    PkgI2.HasGoodReduction (toGrp P.A) Ov := by
+  have hdim : topologicalKrullDim (toGrp P.A).X.left = ((2 : ℕ) : WithBot ℕ∞) := P.surface
+  exact GlueA6Alg.goodReduction_of_QM_rational3' hNOS hRay hTors Ov (toGrp P.A) hdim
+    (grpOfHom (P.q.iota oi)) (grpOfHom (P.q.iota oj)) (hI P) (hJ P) (hIJ P) h3
+    (hrat P hTors)
+
+end A6
 
 /-! ## §4 QM pairs `(A, ι)` (the objects of `X₆ = X₀(6,1)`), the centralizer and CM -/
 
@@ -1221,6 +1333,7 @@ end LeafQM
 #print axioms LeafQM.AV.cm_of_val
 #print axioms LeafQM.AV.Level3.onto
 #print axioms LeafQM.AV.Level3.torsor
+#print axioms LeafQM.AV.QML3.goodReduction
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
