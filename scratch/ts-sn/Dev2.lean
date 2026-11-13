@@ -3321,5 +3321,50 @@ theorem snSpecialize_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra
     Module.Finite.of_surjective (IsScalarTower.toAlgHom (Localization.AtPrime m)
       (integralClosure (Localization.AtPrime m) E) A).toLinearMap hsurj
   haveI : IsNoetherianRing A := isNoetherian_of_tower (Localization.AtPrime m) inferInstance
+  -- the values on `ℤ[X]`
+  have hRAg : ∀ g : ℤ[X], ((algebraMap (Localization.AtPrime m) A
+      (algebraMap ℤ[X] (Localization.AtPrime m) g) : A) : L) = algebraMap ℚ L (ev g) :=
+    fun g => hψR g
+  have hd0 : ((s₀.den : ℤ) : L) ≠ 0 := by
+    rw [Int.cast_natCast, Nat.cast_ne_zero]; exact s₀.den_nz
+  have hpd : ¬ (p : ℤ) ∣ (s₀.den : ℤ) := fun h =>
+    not_dvd_den_of_nonneg p s₀ hs₀ (Int.natCast_dvd_natCast.mp h)
+  have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hne : m ≠ ⊤ := Ideal.IsMaximal.ne_top ‹_›
+  -- (1) the integers prime to `p` are units of `A`
+  have hunit : ∀ n : ℤ, ¬ (p : ℤ) ∣ n → IsUnit (n : A) := by
+    intro n hn
+    have hu : IsUnit (algebraMap ℤ[X] (Localization.AtPrime m) (C n)) :=
+      IsLocalization.map_units (Localization.AtPrime m)
+        (⟨C n, C_notMem p m hne hpm n hn⟩ : m.primeCompl)
+    have : (n : A) = algebraMap (Localization.AtPrime m) A
+        (algebraMap ℤ[X] (Localization.AtPrime m) (C n)) := by
+      rw [eq_intCast C n, map_intCast, map_intCast]
+    rw [this]
+    exact hu.map _
+  -- (2) elements of `m` map into `p A`
+  have hMx : ∀ g ∈ m, ∃ r : Localization.AtPrime m,
+      algebraMap (Localization.AtPrime m) A (algebraMap ℤ[X] (Localization.AtPrime m) g) =
+        (p : A) * algebraMap (Localization.AtPrime m) A r := by
+    intro g hg
+    obtain ⟨k, n₀, hn₀, hdiv⟩ := homog_data p s₀ hs₀ m hpm hsm g
+    obtain ⟨n₁, hn₁⟩ := hdiv.mp hg
+    have hdk : C ((s₀.den : ℤ) ^ k) ∈ m.primeCompl := C_notMem p m hne hpm _ (fun h =>
+      hpd (hpr.dvd_of_dvd_pow h))
+    refine ⟨IsLocalization.mk' (Localization.AtPrime m) (C n₁) ⟨_, hdk⟩, ?_⟩
+    apply Subtype.ext
+    rw [Subring.coe_mul, Subring.coe_natCast, hRAg, hRA]
+    have hmk := IsLocalization.mk'_spec (Localization.AtPrime m) (C n₁) ⟨_, hdk⟩
+    have h2 : ψR (IsLocalization.mk' (Localization.AtPrime m) (C n₁) ⟨_, hdk⟩) *
+        ((s₀.den : ℤ) : L) ^ k = (n₁ : L) := by
+      have := congrArg ψR hmk
+      rw [map_mul, hψR, hψR] at this
+      simpa [ev] using this
+    have h1 : (n₀ : L) = ((s₀.den : ℤ) : L) ^ k * algebraMap ℚ L (ev g) := by
+      have := congrArg (algebraMap ℚ L) hn₀
+      simpa [hev] using this
+    have h3 : (n₀ : L) = (p : L) * (n₁ : L) := by rw [hn₁]; push_cast; ring
+    apply mul_left_cancel₀ (pow_ne_zero k hd0)
+    linear_combination -h1 + h3 - (p : L) * h2
   sorry
 end PropTSGlue
