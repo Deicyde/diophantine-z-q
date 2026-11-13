@@ -37,3 +37,7 @@
   (Jacobson space); geomCompInfinite_of : C1a → GeomCompInfinite (S_ℚ̄ Noetherian, Jacobson via
   LocallyOfFiniteType.jacobsonSpace; closed points ↔ ℚ̄-points via Mathlib's pointOfClosedPoint).
 - curveFacts_of_named : C1a → C2 → C3 → CurveRatFactor ∧ CurveSurj.
+
+## Step 3: verbatim check, report
+- py/verbatim.py: CurveRatFactor, CurveSurj, ratEval IDENTICAL to scratch/mobius-glue (VERIFIED).
+- docs/research/curve-facts.md written (result, definitions, truth arguments, survey, remaining).
