@@ -5,3 +5,7 @@
 'PropTSRed.propTS_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.propTSAll_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.propTSAll_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]

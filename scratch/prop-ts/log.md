@@ -25,3 +25,14 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
 - Copied with proofs from fibre-cover: `spec_to_specQ_eq`, `exists_factor_of_residueImage_le`,
   `residueImage_le_aux`, `residueImage_comp_le_self_aux`.
 - Sanity: `example (h : BeckmannSIT) := h (RatFunc ℚ)` elaborates (instances satisfiable).
+
+## Step 3 (06:50): Beckmann as glue from purity + T2 (Abhyankar), compiled
+- New defs: `NonMeeting`, `SpecNonMeeting` (glue from purity, t-purity3), `KummerStep`,
+  `KummerGlue := PkgI2.AbhyankarDVR.{0} → KummerStep`, `UnramifiedMono` (textbook),
+  `BeckmannSITTame` (BeckmannSIT + `0 < n_b < p`, `0 < nInf < p`).
+- New theorems, standard axioms (VERIFIED): `beckmannSITTame_of`, `beckmannSITTame_of_glue :
+  KummerStep → SpecNonMeeting → UnramifiedMono → BeckmannSITTame`, `propTS_of_coverModel_tame`,
+  `propTSAll_of_bundle : AbhyankarDVR → R1R2fp → KummerGlue → SpecNonMeeting → UnramifiedMono →
+  MobiusGlue → CoverModelOfHecke → PropTSAll`.
+- `NonMeeting` requires `f.eval s₀ ≠ 0` explicitly (padicValRat p 0 = 0 would otherwise let a
+  vanishing f count as a unit).

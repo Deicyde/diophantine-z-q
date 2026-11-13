@@ -356,6 +356,174 @@ theorem propTSAll_of_leaves (hB : BeckmannSIT) (hR : R1R2fp) (hM : MobiusGlue)
 /-- The leaf's instance binders are satisfiable by the genuine objects: `ℚ(X)` itself. -/
 example (h : BeckmannSIT) := h (RatFunc ℚ)
 
+/-! ## Part 7: Beckmann's theorem as glue from purity (t-purity3, proved) and Abhyankar (T2)
+
+h-b1 §1.2 proves the case of Beckmann's theorem we use from Zariski–Nagata purity and Abhyankar's
+lemma. We split the unramified consequence into three Props:
+
+* `SpecNonMeeting` (glue from purity): the case where the specialization point meets no branch
+  point mod `p`. Proof (not compiled): at the closed point `m = (p, X − s₀)` of `ℤ_(p)[X]` the
+  height-one primes are `(p)` (unramified: `NoVerticalRam` and `[E : ℚ(X)] < p`) and `(g)` with `g`
+  primitive irreducible and `p ∣ g(s₀)`; a ramified `(g)` is excluded by `NonMeeting` (Gauss's
+  lemma: `f ∈ gℚ[X]` `p`-integral gives `f = g h` in `ℤ_(p)[X]`, so `p ∣ f(s₀)`). So the integral
+  closure of `ℤ_(p)[X]_m` in `E` (normal, finite, torsion-free) is étale over the 2-dimensional
+  regular local ring (`TPurity3.purityGlobalDim2'`, proved in `scratch/t-purity3/PurityDim2.lean`);
+  base change along `X ↦ s₀` gives an étale `ℤ_(p)`-algebra whose fraction fields are the
+  residue fields `B/𝔓`, so these are unramified at `p`.
+* `KummerStep` (glue from Abhyankar's lemma, the bundle's leaf T2 `PkgI2.AbhyankarDVR`): the
+  meeting case reduces to the non-meeting case. If `t` meets `b ∈ S` with `m = v_p(t − b)`,
+  `n_b ∣ m`, write `t − b = p^m u` and adjoin `s` with `s^{n_b} = c (X − b)`, `c = u^{n_b − 1}`;
+  then `s₀ = p^{m/n_b} u ∈ ℚ` lies over `t`; by Abhyankar (DVR form at `X = b`) `E(s)/ℚ(s)` is
+  unramified over `s = 0`, its other finite branch points `s^{n_b} = c (b' − b)` are units at
+  `s₀`, and `ℚ(s)/ℚ(X)` is unramified at the Gauss valuation (`p ∤ n_b`), so `NoVerticalRam`
+  persists. At `∞` (`v_p(t) < 0`) use `s^{nInf} = c / X`. If `t` meets nothing, `E' = E`,
+  `s₀ = t`.
+* `UnramifiedMono` (textbook): a subfield of a number field unramified at `p` is unramified at `p`
+  (multiplicativity of ramification indices in towers). -/
+
+/-- `s₀` meets no branch point of `E/ℚ(X)` mod `p`: every ramified prime `Q` of the integral
+closure of `ℚ[X]` in `E` contains a `p`-integral polynomial `f` with `f(s₀)` a `p`-adic unit. -/
+def NonMeeting (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) (s₀ : ℚ) : Prop :=
+  ∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime → Q.ramificationIdx ℚ[X] ≠ 1 →
+    ∃ f ∈ Q.under ℚ[X], (∀ i, 0 ≤ padicValRat p (f.coeff i)) ∧ f.eval s₀ ≠ 0 ∧
+      padicValRat p (f.eval s₀) = 0
+
+/-- **Glue from purity (T1, proved by t-purity3): specialization away from the branch locus.**
+For `E/ℚ(X)` finite with `[E : ℚ(X)] < p`, no vertical ramification at `p`, and a `p`-integral
+`s₀ ∈ ℚ` meeting no branch point mod `p`, every residue field of the integral closure of `ℚ[X]`
+in `E` over `X − s₀`, embedded in `ℚ̄`, is unramified at `p`. (Grothendieck's specialization of
+étale covers; SGA 1 X; the proof via `purityGlobalDim2'` is sketched above.) -/
+def SpecNonMeeting : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    Module.finrank (RatFunc ℚ) E < p → NoVerticalRam E p →
+    ∀ s₀ : ℚ, 0 ≤ padicValRat p s₀ → NonMeeting E p s₀ →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+          UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p
+
+/-- **Glue from Abhyankar's lemma: the Kummer reduction of the meeting case** (h-b1 §1.2, proof of
+Prop. TS, second case, rewritten with a rational Kummer coordinate; see the Part 7 header). For a
+specialization `t` with `n_b ∣ v_p(t − b)⁺` and `nInf ∣ (−v_p t)⁺`, there is a finite `E'/ℚ(s)`
+(a factor of `E ⊗ ℚ(s)`, `s` the Kummer coordinate) and a `p`-integral `s₀ ∈ ℚ` meeting no branch
+point of `E'` mod `p`, with no vertical ramification at `p`, such that the given residue field of
+`E` at `t` embeds in a residue field of `E'` at `s₀` (finite over `ℚ`). -/
+def KummerStep : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
+    BranchData E S n nInf →
+    Module.finrank (RatFunc ℚ) E < p →
+    (∀ b ∈ S, 0 < n b ∧ n b < p) → 0 < nInf → nInf < p →
+    (∀ b ∈ S, 0 ≤ padicValRat p b) →
+    (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
+    NoVerticalRam E p →
+    ∀ t : ℚ, t ∉ S →
+      (∀ b ∈ S, n b ∣ (padicValRat p (t - b)).toNat) → nInf ∣ (-padicValRat p t).toNat →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C t} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+        ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+          (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+          (s₀ : ℚ), Module.finrank (RatFunc ℚ) E' < p ∧ NoVerticalRam E' p ∧
+          0 ≤ padicValRat p s₀ ∧ NonMeeting E' p s₀ ∧
+          ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+            𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+            ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+              FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ')) ∧
+              IntermediateField.adjoin ℚ (Set.range φ) ≤
+                IntermediateField.adjoin ℚ (Set.range φ')
+
+/-- `KummerStep` is glue whose proof uses the bundle's textbook leaf T2 (Abhyankar's lemma, DVR
+form, `PkgI2.AbhyankarDVR`) at the branch point being met. -/
+def KummerGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerStep
+
+/-- **Textbook: subfields inherit unramifiedness** (Neukirch, ANT I §8, multiplicativity of `e`
+in towers; Mathlib `Ideal.ramificationIdx_below_dvd` for flat towers). -/
+def UnramifiedMono : Prop :=
+  ∀ L L' : IntermediateField ℚ Qbar, FiniteDimensional ℚ L' → L ≤ L' →
+    ∀ p : ℕ, UnramifiedAt L' p → UnramifiedAt L p
+
+/-- **Beckmann's theorem, tame form**: `BeckmannSIT` with the extra hypotheses `0 < n_b < p`,
+`0 < nInf < p` (weaker than `BeckmannSIT`, `beckmannSITTame_of`). -/
+def BeckmannSITTame : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
+    BranchData E S n nInf →
+    Module.finrank (RatFunc ℚ) E < p →
+    (∀ b ∈ S, 0 < n b ∧ n b < p) → 0 < nInf → nInf < p →
+    (∀ b ∈ S, 0 ≤ padicValRat p b) →
+    (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
+    NoVerticalRam E p →
+    ∀ t : ℚ, t ∉ S →
+      (∀ b ∈ S, n b ∣ (padicValRat p (t - b)).toNat) → nInf ∣ (-padicValRat p t).toNat →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C t} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+          UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p
+
+theorem beckmannSITTame_of (h : BeckmannSIT) : BeckmannSITTame :=
+  fun E _ _ _ _ _ _ S n nInf p hp hBr hdeg _ _ _ hint hdist hV t ht hn hinf 𝔓 hP hU φ =>
+    h E S n nInf p hp hBr hdeg hint hdist hV t ht hn hinf 𝔓 hP hU φ
+
+/-- **Beckmann's theorem (tame form) from the three glue pieces** (compiled). -/
+theorem beckmannSITTame_of_glue (hK : KummerStep) (hN : SpecNonMeeting)
+    (hMono : UnramifiedMono) : BeckmannSITTame := by
+  intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf 𝔓 hP hU φ
+  obtain ⟨E', _, _, _, _, _, s₀, hdeg', hV', hs₀, hNM, 𝔓', hP', hU', φ', hfin, hle⟩ :=
+    hK E S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf 𝔓 hP hU φ
+  exact hMono _ _ hfin hle p (hN E' p hp hdeg' hV' s₀ hs₀ hNM 𝔓' hP' hU' φ')
+
+/-- **Prop. TS from the tame form of Beckmann's theorem and the cover model** (as
+`propTS_of_coverModel`; the extra hypotheses hold as `4, 2, 6 < 324 < p`). -/
+theorem propTS_of_coverModel_tame (hB : BeckmannSITTame) (Y : Over (Spec (CommRingCat.of ℚ)))
+    (π : ToP1 Y.left) (h : CoverModel Y π) : PropTS Y π := by
+  obtain ⟨E, _, _, _, _, _, _, hM, ⟨hdeg, hBr⟩, hV⟩ := h
+  intro t y ht0 htb hπ p hp h4 h6 h2
+  obtain ⟨𝔓, hP, hU, φ, hres⟩ := hM t y hπ
+  rw [hres]
+  have : Fact (p : ℕ).Prime := ⟨p.2⟩
+  have h16 := padicValRat_16_27 p (by omega)
+  have hne : (-16 / 27 : ℚ) ≠ 0 := by norm_num
+  refine hB E {0, -16 / 27} nY3 6 p p.2 hBr (by omega) ?_ (by norm_num) (by omega) ?_ ?_
+    (hV p p.2 hp) t ?_ ?_ h6 𝔓 hP hU φ
+  · intro b _
+    unfold nY3
+    split_ifs <;> omega
+  · intro b hb
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hb
+    rcases hb with rfl | rfl
+    · simp
+    · rw [show (-16 / 27 : ℚ) = -(16 / 27) by ring, padicValRat.neg, h16]
+  · intro b hb b' hb' hbb
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hb hb'
+    rcases hb with rfl | rfl <;> rcases hb' with rfl | rfl
+    · exact absurd rfl hbb
+    · rw [show (0 : ℚ) - -16 / 27 = 16 / 27 by ring, h16]
+    · rw [show (-16 / 27 : ℚ) - 0 = -(16 / 27) by ring, padicValRat.neg, h16]
+    · exact absurd rfl hbb
+  · simp only [Finset.mem_insert, Finset.mem_singleton, not_or]
+    exact ⟨ht0, htb⟩
+  · intro b hb
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hb
+    rcases hb with rfl | rfl
+    · simpa [nY3] using h4
+    · rw [show t - -16 / 27 = t + 16 / 27 by ring]
+      simpa [nY3, hne] using h2
+
+/-- **The composite without a Beckmann leaf**: `PropTSAll` from the bundle leaves T2
+(`PkgI2.AbhyankarDVR`) and `R1R2fp`, the glue `KummerGlue`, `SpecNonMeeting` (from purity),
+`UnramifiedMono` (textbook), the kernel glue `MobiusGlue`, and `CoverModelOfHecke`. -/
+theorem propTSAll_of_bundle (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hKG : KummerGlue)
+    (hN : SpecNonMeeting) (hMono : UnramifiedMono) (hM : MobiusGlue)
+    (hC : CoverModelOfHecke) : PropTSAll := by
+  obtain ⟨Y₀, Φ₀, π₀, h1, hh, h2⟩ := R1R2fp_Y hR
+  exact propTSAll_of_witness hM hR h1 h2
+    (propTS_of_coverModel_tame (beckmannSITTame_of_glue (hKG t2) hN hMono) Y₀ π₀
+      (hC Y₀ Φ₀ π₀ h1 hh h2))
+
 end PropTSRed
 
 end
@@ -367,3 +535,7 @@ end
 #print axioms PropTSRed.propTS_transfer
 #print axioms PropTSRed.propTSAll_of_witness
 #print axioms PropTSRed.propTSAll_of_leaves
+#print axioms PropTSRed.beckmannSITTame_of
+#print axioms PropTSRed.beckmannSITTame_of_glue
+#print axioms PropTSRed.propTS_of_coverModel_tame
+#print axioms PropTSRed.propTSAll_of_bundle
