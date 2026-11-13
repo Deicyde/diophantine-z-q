@@ -34,3 +34,31 @@ RepresentationTheory.Homological.GroupCohomology.PrimeIndex,
 RepresentationTheory.Homological.TateCohomology.TrivialityCriterion,
 Topology.Algebra.Group.Profinite.Generation, Topology.Algebra.Group.Profinite.Sylow.{Basic,Containment,Existence}
 (all under ZInQKernel.Contrib.TauCeti.).
+
+## Step 1: ThirdParty/TauCeti/
+- ~/tc-oct16 (5a01f5fe3621126cccf9ba22e700493cbc7b7156) has no NOTICE file; neither has ~/tc-nov01. VERIFIED (ls).
+- ThirdParty/TauCeti/LICENSE = `cp ~/tc-oct16/LICENSE`; `cmp` identical. ~/tc-nov01/LICENSE is byte-identical
+  to it too. VERIFIED.
+- ThirdParty/TauCeti/NOTICE written by hand (source, commits 5a01f5fe / 97a5b235, location, copyright line,
+  license line, modified-file convention and list, original files MathlibBackport/Sylow.lean, Notice.lean).
+
+## Step 2: THIRD_PARTY_NOTICES.md
+- One bullet added under "Vendored Lean code", after the Green–Tao bullet, same structure.
+- THIRD_PARTY_NOTICES.md is not listed in SHA256SUMS. VERIFIED (grep).
+
+## Finding for task kw-new / the integrator (not on this branch)
+- `diffcheck.py` on `git archive origin/wip/kw-new ZInQKernel/Contrib/TauCeti` (0cd896f3): 1201 files,
+  1135 identical to tcport output; 8 tc-port diffs as above; 19 nov01-sourced files differ from the
+  tcport output of ~/tc-nov01 and carry no "Modified for the Z-in-Q kernel" line; 37 files under
+  Backport/ carry Tau Ceti's header and a "-- Backported from Tau Ceti (…)" line (no provenance line
+  in tcport format, so not compared). VERIFIED (computed). The 19 files:
+  GroupTheory/GroupAction/Norm, GroupTheory/SpecificGroups/Cyclic/PowMonoidHom,
+  NumberTheory/ClassFieldTheory/ClassFields/{KroneckerWeber,RaySubgroup},
+  NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/{Basic,Ramification,Reciprocity},
+  NumberTheory/ClassFieldTheory/Global/{ClassFormation,CorestrictionLocalization,Reciprocity},
+  NumberTheory/ClassFieldTheory/Global/Kummer/Index,
+  NumberTheory/ClassFieldTheory/Global/LocalArtin/{Compatibility,Frobenius},
+  NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation,
+  NumberTheory/NumberField/InfinitePlace/Completion/Real, RepresentationTheory/Cyclic/Norm,
+  RepresentationTheory/Homological/ContCohomology/Corestriction/Mackey/Pullback,
+  RingTheory/Polynomial/Cyclotomic/PrimePow, Topology/Algebra/Star/Completion.
