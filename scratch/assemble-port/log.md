@@ -38,3 +38,8 @@
   Run 2 (only `open _root_.X` added): still 101. Fix mk/root_ns.py: such blocks become `section APRoot_X` + `open
   _root_.X`, each top-level named declaration `N` → `_root_.X.N` (same full names as before; b10: 47, e30: 3).
   Run 3: VERIFIED exit 0, 0 errors, 62 s.
+- TailF (d10-f20, incl. regenerated e10): VERIFIED exit 0, 0 errors, 102 s (no edits).
+- TailD (z80-z99): VERIFIED exit 0, 0 errors, no sorry, 9 s; 30 `#print axioms` reports, all
+  [propext, Classical.choice, Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5`, `gluePieces4_of_gluePieces5`,
+  `ResearchLeaves5.toR4`, `PropTSGlue.specNonMeeting`, `propTSAll_final''`, `textbookLeaves_of_open`
+  (TailD_out.txt).
