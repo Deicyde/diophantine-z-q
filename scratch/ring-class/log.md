@@ -105,11 +105,11 @@
 
 (Round 4–7 headings corrected to commit times from `git log`.)
 - 08:44 report docs/research/ring-class.md written.
-- 08:55 (VERIFIED, build success, axioms standard): appended to RingClassGenus.lean `exists_lift_picSquares`
+- 08:47 (VERIFIED, build success, axioms standard): appended to RingClassGenus.lean `exists_lift_picSquares`
   (R ⊆ Pic(O)² mapped bijectively onto Cl(K)², #R = #Cl(K)²), `exists_lift_picSquares_O4` (#R = gCl n),
   `ringClassFieldD_neg` (ring class field of disc −d, d ≡ 3 mod 4 squarefree, = H_d).
 - Finding: TYZ's exact definition of Φ₀ ("Φ₀ = Φ ∩ 2Cl′_n", rv-tyz-inputs §1.3) is not recorded precisely
   enough on this host to pin Φ in cm-points' GenusPointLeafCM; not attempted.
-- 09:00 (VERIFIED, build success, axioms standard): `artinPrime d : Pic (O4 d) ⧸ zpowers (sigmaClass d) ≃*
+- 08:48 (VERIFIED, build success, axioms standard): `artinPrime d : Pic (O4 d) ⧸ zpowers (sigmaClass d) ≃*
   Gal(Hprime d/QNeg d)` (Artin isomorphism for H'_d = TYZ's Cl'_d), `artinPrime_mk_apply` (restriction of
   ringClassArtinEquiv), `card_artinPrime`; instances FiniteDimensional/IsGalois for `Hprime d`.
