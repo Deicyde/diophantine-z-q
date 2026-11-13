@@ -26,6 +26,7 @@ import chainlib as c
 MAIN = "HEAD"
 G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
+AP = ("ddc1d8eb", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (31 glue fields)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
@@ -43,7 +44,7 @@ edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.le
       "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_leaves5", *B5, ["ResearchLeaves4", "TextbookLeaves", "GluePieces5"])
+edge("SixContactMin", "sixContactMin_of_leaves5", *AP, ["OpenResearchLeaves2", "OpenTextbookLeaves2", "GluePieces5"])
 # textbook fields proved in Contrib (kernel world) -- F only (in W0 they are bundle fields)
 KDEF = {"AbhyankarDVR": "Objects.lean", "BrauerHasse2C": "Conductor/I6Base.lean",
         "BrauerReciprocity2C": "Conductor/I6Base.lean", "LocalH2CardC": "Conductor/I6Base.lean",
@@ -80,9 +81,8 @@ edge("HodgeBCInjective", "hodgeBCInjective", "116dc2f2", "scratch/hodge-bc2/Hodg
 edge("OmegaBaseChange", "omegaBaseChange", "116dc2f2", "scratch/hodge-bc2/IntegrationBC.lean", [], "F")
 PM = "scratch/period-map/DevHeavy.lean"
 edge("S8Nonzero", "s8Nonzero_proof", "cbe9fe4c", "scratch/period-glue/S8.lean", [], "F", deffile=PM)
-edge("SphereFactorAffine", "sphereFactorAffine_proof", "80af6547", "scratch/period-glue/part_sphere.lean", [], "F",
-     "proof on period-glue-b, a branch stopped at 10:12 (its last commit is an unchecked snapshot; 80af6547 itself is checked)",
-     deffile="scratch/period-glue/PGLight.lean")
+edge("SphereFactorAffine", "sphereFactorAffine_proof", "7e1531df", "scratch/period-glue/SFA.lean", [], "F",
+     "period-glue final", deffile="scratch/period-map/DevHeavy.lean")
 edge("PiTwistC", "piTwistC_of", "cbe9fe4c", "scratch/period-glue/PiTwist.lean",
      ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "TwistOrbitFinite", "FibreTransferC"], "F",
      "instantiated at the triple chosen from R1R2fpRep (r1r2): Y, Φ, π, R1fpProps, R2fpProps come from r1r2", deffile=PM)
@@ -121,7 +121,7 @@ GR = ("53ba766f", "scratch/lt-goodred/GoodRed.lean")
 edge("GoodRedTorsion", "goodRedTorsion", *GR, [], "F")
 edge("QMEndRank", "qmEndRank_of_leaves", *GR, ["HomFreeFinite", "QMDichotomyYu"], "F")
 # route T for the linked-Tate block: LinkedTateLocal replaces fields linkedFrob, kernelFieldBreaks, tateRamAtThree
-edge("LinkedFrob+KernelFieldBreaks+TateRamAtThree", "linkedTateLocal_of_tateBridge35", "3d1b90b5",
+edge("UpperBreakBound+BetaSignAtTwo", "linkedTateLocal_of_tateBridge35", "3d1b90b5",
      "scratch/lt-local/LtLocal4.lean",
      ["RaynaudCriterion", "TorsionStructure", "UnramRoots", "UnramRoots", "TateBridge35", "FibreSimple", "QMEndRank"],
      "F", "route T: proves g0-assemble2's `LinkedTateLocal`, which g0-assemble3 rebuilt from the three fields; "
@@ -136,6 +136,8 @@ edge("AbVarSpreadsOut", "frobPiecesNeron_abVarSpreadsOut", "aa304ed7", "scratch/
      ["EGAIV_8_8_2_ii", "EGAIV_8_10_5_xii", "EGAIV_17_7_8_ii"], "F")
 edge("FibreSimple", None, None, None, [], "F", "derived inside g0-assemble3's `gluePieces_of_gluePieces4` (not an open Prop)")
 edge("TwistDescent", "twistDescent", "fdd133f1", "scratch/twist-descent/Dev.lean", [], "F")
+edge("TateModuleFree", "tateModuleFree_of_torsionStructure", "58ac8d0b", "scratch/t5-torsion/Tate.lean",
+     ["TorsionStructure"], "F", deffile="ZInQKernel/HDecomp/Objects.lean")
 # field 3 bypassed by T35 in the HDec world (leaf-fold2)
 edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b38ee0c4",
      "scratch/leaf-fold2/parts/b20_fold.lean", ["UniformizationExists"], "F",
@@ -143,14 +145,14 @@ edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b
 
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
-    "ResearchLeaves4": (G3, "ResearchLeaves4"),
-    "TextbookLeaves": (G3, "TextbookLeaves"),
-    "GluePieces5": (B5, "GluePieces5"),
+    "OpenResearchLeaves2": (AP, "OpenResearchLeaves2"),
+    "OpenTextbookLeaves2": (AP, "OpenTextbookLeaves2"),
+    "GluePieces5": (AP, "GluePieces5"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
-UNUSED = {"r1rec", "r3", "r4", "r5", "r7b", "r8", "t1", "t3", "t4", "t10", "t16b", "t20", "t21", "t28", "t29a", "t29b"}
+UNUSED = {"r1rec", "r3", "r5", "r7b", "r8", "t10"}  # never projected in g0-assemble3; assemble-port has the same consumers
 # fields that become used on route F (an F edge takes them as hypotheses)
-USED_IN_F = {"r4", "t3", "t4"}
+USED_IN_F = set()
 
 # ---------------------------------------------------------------- classification of open nodes (the report's list)
 # label -> (premise, strict class)
@@ -237,8 +239,10 @@ def expand(sc):
         fl = c.structure_fields(c.show(rev, path), short)
         fields[sname] = [(f, head_of_type(t)) for f, t in fl]
     # F: the three linked-Tate fields are replaced together by route T
-    route_T = {"LinkedFrob", "KernelFieldBreaks", "TateRamAtThree"}
+    route_T = {"UpperBreakBound", "BetaSignAtTwo"}
+    global REACHED
     seen, open_, rows = set(), [], []
+    REACHED = seen
     stack = [("FrozenTarget", "root")]
     while stack:
         node, src = stack.pop()
@@ -249,7 +253,7 @@ def expand(sc):
             for f, h in fields[node]:
                 rows.append((node, f, h))
                 if sc == "F" and h in route_T:
-                    stack.append(("LinkedFrob+KernelFieldBreaks+TateRamAtThree", f"{node}.{f}"))
+                    stack.append(("UpperBreakBound+BetaSignAtTwo", f"{node}.{f}"))
                     continue
                 stack.append((h, f"{node}.{f}"))
             continue
@@ -263,13 +267,18 @@ def expand(sc):
     return open_, rows
 
 
+REACHED = set()
+
+
 def defcheck():
     """Compare def texts of bundle-field Props proved in another file (check 3)."""
-    g3 = c.show(*G3)
+    g3 = c.show(*AP)
     out = []
     for e in E:
         if "F" not in e["sc"] or e["thm"] is None or "+" in e["concl"]:
             continue
+        if e["concl"] not in REACHED:
+            continue  # edge not on the scenario-F route
         if e["rev"] == MAIN and not e["deffile"]:
             continue
         name = c.short_of(e["concl"])
@@ -307,7 +316,7 @@ def main():
                 tag = "  [never projected]"
             print(f"  {n:45s} {where}{tag}")
         if sc == "F":
-            print("def-text comparison (proved field vs g0-assemble3's def):")
+            print("def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F route only):")
             for name, r in defcheck():
                 print(f"  {name:35s} {r}")
             print("route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):")
@@ -329,7 +338,7 @@ PAIR_DEFS = [(("60340bed", "scratch/frob-pieces/FrobPiecesFull.lean"), ("3d1b90b
 
 
 def extra_defcheck():
-    g3 = c.show(*G3)
+    g3 = c.show(*AP)
     for rev, path, names in EXTRA_DEFS:
         t = c.show(rev, path)
         for n in names:
