@@ -36,37 +36,12 @@ def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
     E.append(dict(concl=concl, thm=thm, rev=rev, file=path, hyps=hyps, sc=sc, note=note, deffile=deffile))
 
 
-# --- top (compiled here)
-edge("FrozenTarget", "frozenTarget_of_open_main", MAIN, "scratch/frontier/TopChain.lean",
-     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "CMFieldOfDefinition",
-      "TYZSigmaFixesZn", "Lemma318Literal", "GenusPointLeafCM", "FHNonvanishing", "GrossZagierHeegner"], "A")
-# F: top split through GZDecomp + the finest TYZ graph
-edge("FrozenTarget", "frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner",
-     "6f77abb1", "ZInQKernel/Contrib/GZTheta/NewCMFinal.lean",
-     ["SixContactMin", "TYZThm35ReadingA", "FHNonvanishing", "GrossZagierHeegner"], "F")
-# --- TYZ, finest (cm-bridge + tyz-cm)
-CMB = ("441c607c", "scratch/cm-bridge/Bridge.lean")
-TCM = "66d92d11"
-edge("TYZThm35ReadingA", "tyzThm35ReadingA_of_pinnedLeaves", *CMB,
-     ["TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "CMFieldOfDefinitionTYZ", "IInH4", "TYZSigmaFixesZn",
-      "HprimeNormal", "Lemma318Literal", "CMFieldOfDefinition7", "GenusFieldLeLni", "Thm35First",
-      "Lemma321Five", "Lemma321Seven"], "F")
-edge("IInH4", "iInH4", MAIN, "ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean", [], "F")
-edge("HprimeNormal", "hprimeNormal", MAIN, "ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean", [], "F")
-edge("GenusFieldLeLni", "genusFieldLeLni", *CMB, [], "F")
-edge("CMFieldOfDefinition7", "cmFieldOfDefinition7_of", *CMB, ["CMFieldOfDefinition"], "F")
-edge("Lemma321Seven", "lemma321Seven_of", *CMB, ["CMFieldOfDefinition7", "TYZThm36Seven", "BetaOnGenus7"], "F")
-edge("CMFieldOfDefinitionTYZ", "cmFieldTYZ_of_shimura", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraField.lean",
-     ["ShimuraReciprocityPic"], "F")
-edge("CMFieldOfDefinition", "cmFieldOfDefinition_of", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraField.lean",
-     ["ShimuraReciprocityPic"], "F")
-edge("TYZSigmaFixesZn", "tyzSigmaFixesZn_of", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraZn.lean",
-     ["ShimuraReciprocityPic", "EtaModelFricke"], "F")
-edge("ShimuraReciprocityPic", "shimuraReciprocityPic_of", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean",
-     ["ShimuraReciprocityModFn", "IsRatModFn", "IsRatModFn"], "F")
-edge("IsRatModFn", "isRatModFn_xC_of", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraModFn.lean",
-     ["EtaModelInvariant", "EtaCuspGrowth", "XQExpRational"], "F", "the yC instance has the same inputs with YQExpRational")
-edge("XQExpRational", "xQExpRational", TCM, "ZInQKernel/Contrib/TYZGenus/ShimuraQExp.lean", [], "F")
+# --- top (compiled here): scratch/frontier/TYZChain.lean, which contains tyz-cm's and cm-bridge's
+# reductions verbatim; both scenarios use it.  (TopChain.lean is the fork-main-only variant.)
+edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.lean",
+     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "CMValueRingClass",
+      "EtaModelInvariant", "TYZSigmaShiftsF0", "Lemma318Literal", "Thm35First", "Lemma321Five", "TYZThm36Seven",
+      "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
 edge("SixContactMin", "sixContactMin_of_leaves5", *B5, ["ResearchLeaves4", "TextbookLeaves", "GluePieces5"])

@@ -1,13 +1,13 @@
 ===== scenario A
 edge check mismatches: 0
-open nodes: 112
+open nodes: 115
   AbhyankarDVR                                  TextbookLeaves.t2
   AnalyticUniformizationOfDim                   GluePieces5.analyticUniformizationOfDim
   BrauerHasse2C                                 TextbookLeaves.t14a
   BrauerReciprocity2C                           TextbookLeaves.t14b
   CMDescends                                    GluePieces5.cmDescends
-  CMFieldOfDefinition                           -
   CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+  CMValueRingClass                              -
   CarayolR17'                                   GluePieces5.carayolR17
   CharPolyIndepOfEll                            TextbookLeaves.t7
   ChebotarevExists                              TextbookLeaves.t18
@@ -18,11 +18,11 @@ open nodes: 112
   EigenformHT                                   ResearchLeaves4.r13
   EigenformRepExists                            ResearchLeaves4.r14
   EigenformTwist                                TextbookLeaves.t24
+  EtaModelInvariant                             -
   FHNonvanishing                                -
   FaltingsSemisimple                            ResearchLeaves4.r9a
   FaltingsTate                                  ResearchLeaves4.r9b
   FiniteImageHT                                 GluePieces5.finiteImageHT
-  GenusPointLeafCM                              -
   GoodRedTorsion                                GluePieces5.goodRedTorsion
   GrossZagierHeegner                            -
   GrothendieckMonodromy                         ResearchLeaves4.r8  [never projected]
@@ -49,6 +49,7 @@ open nodes: 112
   KummerVerticalInf                             GluePieces5.kummerVerticalInf
   LeafUnramified                                TextbookLeaves.t31
   Lemma318Literal                               -
+  Lemma321Five                                  -
   LinkedFrob                                    GluePieces5.linkedFrob
   LocalH2CardC                                  TextbookLeaves.t15
   LocalKroneckerWeber                           TextbookLeaves.t16a
@@ -100,12 +101,14 @@ open nodes: 112
   T29b_SplitNormalizer                          TextbookLeaves.t29b  [never projected]
   TYZLcalOne                                    -
   TYZLemma29Mod2                                -
-  TYZSigmaFixesZn                               -
+  TYZSigmaShiftsF0                              -
   TYZThm11Integral                              -
+  TYZThm36Seven                                 -
   TateModuleFree                                TextbookLeaves.t26
   TateRamAtThree                                GluePieces5.tateRamAtThree
   ThetaModularity                               ResearchLeaves4.r4  [never projected]
   ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
+  Thm35First                                    -
   TorsionStructure                              TextbookLeaves.t5
   TwistDescent                                  GluePieces5.twistDescent
   UniformizationExists                          TextbookLeaves.t35
@@ -115,11 +118,11 @@ open nodes: 112
   X6ConicModel                                  GluePieces5.x6ConicModel
 ===== scenario F
 edge check mismatches: 0
-open nodes: 91
+open nodes: 89
   AbVarSpreadsOut                               -
-  BetaOnGenus7                                  -
   CMDescends                                    GluePieces5.cmDescends
   CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
+  CMValueRingClass                              -
   CarayolR17'                                   GluePieces5.carayolR17
   CharPolyIndepOfEll                            TextbookLeaves.t7
   CurveChartInf                                 -
@@ -132,8 +135,6 @@ open nodes: 91
   EigenformHT                                   ResearchLeaves4.r13
   EigenformRepExists                            ResearchLeaves4.r14
   EigenformTwist                                TextbookLeaves.t24
-  EtaCuspGrowth                                 -
-  EtaModelFricke                                -
   EtaModelInvariant                             -
   FHNonvanishing                                -
   FaltingsSemisimple                            ResearchLeaves4.r9a
@@ -182,7 +183,6 @@ open nodes: 91
   ReductionTorsionBijective                     TextbookLeaves.t4
   SenTwist                                      GluePieces5.senTwist
   SerreTatePotentialGood                        ResearchLeaves4.r7b  [never projected]
-  ShimuraReciprocityModFn                       -
   StableHeightFinite                            ResearchLeaves4.h5fin
   T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
   T09_WeilPairing                               TextbookLeaves.t9
@@ -195,6 +195,7 @@ open nodes: 91
   T29b_SplitNormalizer                          TextbookLeaves.t29b  [never projected]
   TYZLcalOne                                    -
   TYZLemma29Mod2                                -
+  TYZSigmaShiftsF0                              -
   TYZThm11Integral                              -
   TYZThm36Seven                                 -
   TateModuleFree                                TextbookLeaves.t26
@@ -250,6 +251,6 @@ route T inputs (def text vs g0-assemble3):
   G7Data               3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   FibreSimple          3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   QMEndRank            3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
-doc rows: 82 (82 distinct heads); F open minus never-projected: 81
+doc rows: 80 (80 distinct heads); F open minus never-projected: 79
   in chain, not in doc: []
   in doc, not in chain: ['AnalyticUniformizationOfDim']
