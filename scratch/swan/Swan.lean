@@ -607,6 +607,56 @@ theorem WildAt.zpow {σ : GQp p} {a : Kbar p} (ha : WildAt σ a) (n : ℤ) : Wil
   · rw [zpow_natCast]; exact hn m
   · rw [zpow_neg, zpow_natCast]; exact (hn m).inv
 
+/-- **`G_1(L)` acts wildly on `L`.** If `σ ∈ ramSet L 1` then `‖σx − x‖ < ‖x‖` for every
+`x ∈ L`, `x ≠ 0`: write `x = y ϖ^a` with `‖y‖ = 1` (discreteness of `‖L^×‖`, from `IsUnif`); then
+`‖σy − y‖ ≤ ‖ϖ‖² < 1` and `‖σϖ − ϖ‖ ≤ ‖ϖ‖² < ‖ϖ‖`, and `WildAt` is multiplicative. -/
+theorem wildAt_of_ramSet_one {L : Fld p} {σ : GQp p} (hσ : σ ∈ ramSet L 1) {x : Kbar p}
+    (hx : x ∈ L) (hx0 : x ≠ 0) : WildAt σ x := by
+  obtain ⟨ϖ, hϖ, hb⟩ := hσ
+  set r := ‖ϖ‖ with hrdef
+  have hr1 : r < 1 := hϖ.2.1
+  have hpL : (p : Kbar p) ∈ L := by
+    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  have hr0 : 0 < r := by
+    have h1 := hϖ.2.2 (p : Kbar p) hpL isUnif_bot.2.1
+    have h2 : 0 < ‖(p : Kbar p)‖ := by
+      rw [norm_p_kbar]; exact inv_pos.2 (Nat.cast_pos.2 (Fact.out : p.Prime).pos)
+    exact lt_of_lt_of_le h2 h1
+  have hϖ0 : ϖ ≠ 0 := norm_pos_iff.1 hr0
+  have hr2 : r ^ (1 + 1) < r :=
+    calc r ^ (1 + 1) = r * r := by ring
+      _ < r * 1 := mul_lt_mul_of_pos_left hr1 hr0
+      _ = r := mul_one r
+  have hwϖ : WildAt σ ϖ := ⟨hϖ0, lt_of_le_of_lt (hb ϖ hϖ.1 hr1.le) hr2⟩
+  have hx0' : 0 < ‖x‖ := norm_pos_iff.2 hx0
+  obtain ⟨n, hn1, hn2⟩ := exists_mem_Ioc_zpow hx0' (one_lt_inv₀ hr0 |>.2 hr1)
+  set y := x * ϖ ^ (n + 1) with hydef
+  have hyL : y ∈ L := L.mul_mem hx (zpow_mem hϖ.1 _)
+  have hy : ‖y‖ = ‖x‖ * r ^ (n + 1) := by rw [hydef, norm_mul, norm_zpow]
+  have hrn : r ^ (n + 1) = r ^ n * r := by rw [zpow_add_one₀ hr0.ne']
+  have hrinv : ∀ m : ℤ, r⁻¹ ^ m * r ^ m = 1 := by
+    intro m; rw [← mul_zpow, inv_mul_cancel₀ hr0.ne', one_zpow]
+  have hrpos : 0 < r ^ (n + 1) := zpow_pos hr0 _
+  have hyle : ‖y‖ ≤ 1 := by
+    rw [hy, ← hrinv (n + 1)]
+    exact mul_le_mul_of_nonneg_right hn2 hrpos.le
+  have hygt : r < ‖y‖ := by
+    rw [hy]
+    calc r = r⁻¹ ^ n * r ^ (n + 1) := by rw [hrn, ← mul_assoc, hrinv n, one_mul]
+      _ < ‖x‖ * r ^ (n + 1) := mul_lt_mul_of_pos_right hn1 hrpos
+  have hy1 : ‖y‖ = 1 := by
+    rcases hyle.lt_or_eq with h | h
+    · exact absurd (hϖ.2.2 y hyL h) (not_le.2 hygt)
+    · exact h
+  have hy0 : y ≠ 0 := by intro h; rw [h, norm_zero] at hy1; exact zero_ne_one hy1
+  have hwy : WildAt σ y := ⟨hy0, by
+    rw [hy1]; exact lt_of_le_of_lt (hb y hyL hyle) (hr2.trans hr1)⟩
+  have hxe : x = y * ϖ ^ (-(n + 1)) := by
+    rw [hydef, mul_assoc, ← zpow_add₀ hϖ0, add_neg_cancel, zpow_zero, mul_one]
+  rw [hxe]
+  exact hwy.mul (hwϖ.zpow _)
+
 end Wild2
 
 end Swan

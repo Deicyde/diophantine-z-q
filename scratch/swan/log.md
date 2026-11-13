@@ -26,3 +26,4 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   property + Mathlib's `CompactSpace Gal(K/k)` for Galois K/k), `swan_all'` (H1, H2, HerbrandUpper ⇒ all
   three). Leaf `HerbrandUpper` = Serre IV §3 Prop. 14 (UNVERIFIED numbering) over LadicCond's upperSet;
   same theorem as PkgI6.HerbrandQuotient (I6.8). Axioms standard. VERIFIED.
+- 04:36 §7 part 1 compiles: `wildAt_of_ramSet_one` (σ ∈ ramSet L 1 ⇒ ‖σx−x‖<‖x‖ on L^×), WildAt closure. VERIFIED.
