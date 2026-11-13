@@ -89,3 +89,9 @@
 - `homDescends_of_morphismsDescend`: MorphismsDescend → HomDescends (descent bookkeeping). PROVED.
 - `homField_of_model_final`: leaves HomFreeFinite + MorphismsDescend; hypotheses hdim, hK, hinert.
 - G4.lean 1375 lines, 0 sorry, 17 printed theorems on [propext, Classical.choice, Quot.sound].
+
+## G4.lean — inertia from good reduction (COMPILED; axioms VERIFIED standard)
+- `InertiaFixesHoms` (def, Prop; input = Serre–Tate 1968 Thm 1 + Mumford §19 Thm 3 + equivariance glue, derivation not formalized):
+  at a place w of ℚ̄ with good reduction of A at w∩e₁(K) and B at w∩e₂(K), inertia fixes every A_{e₁} → B_{e₂} under conj.
+- `conjAction_inertia`: hK (G2) + hgood (G3: good reduction of A at all places of K over p ∉ T) + InertiaFixesHoms ⇒ hinert. PROVED.
+- `homField_of_model_leaves`: G4 for A/K from HomFreeFinite + MorphismsDescend + InertiaFixesHoms, hypotheses hK, hgood, hdim.

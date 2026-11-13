@@ -1296,6 +1296,76 @@ theorem homField_of_model_final (hHFF : HomFreeFinite) (hM : MorphismsDescend)
       GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
   homField_of_model' K hHFF (homDescends_of_morphismsDescend hM) hKF A hdim T hK hinert
 
+/-! ### Inertia from good reduction
+
+`InertiaFixesHoms` is the input: at a place `w` of `ℚ̄` where both varieties have good reduction,
+inertia fixes every homomorphism between their base changes. It is a consequence of
+Néron–Ogg–Shafarevich (Serre–Tate 1968, Thm 1: inertia acts trivially on `T_ℓ` for `ℓ ≠ p`; the
+leaf `PkgI2.NeronOggShafarevich`) and the faithfulness of the `ℓ`-adic realization (Mumford §19
+Thm 3; `tateHom_injective` above), through the equivariance of the realization under
+conjugation. That equivariance is glue that is not formalized here. Stated over the genuine
+objects (`PkgI2.HasGoodReduction`, `inertiaGQ`, `G4Conj.conj`). -/
+
+/-- **Input (Serre–Tate 1968 Thm 1 + Mumford §19 Thm 3 + equivariance; derivation not
+formalized).** -/
+def InertiaFixesHoms : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (A B : AbVar K)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : (CategoryTheory.Over.pullback (specEmb K e₁)).obj A.X ⟶
+      (CategoryTheory.Over.pullback (specEmb K e₂)).obj B.X)
+    (w : ValuationSubring Qbar),
+    PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap (e₁ : K →+* Qbar)) →
+    PkgI2.HasGoodReduction (ObjBridge.toGrp B) (w.comap (e₂ : K →+* Qbar)) →
+    ∀ s ∈ inertiaGQ w, ∀ (hf : specEmb K e₁ = specGal s ≫ specEmb K e₁)
+      (hg : specEmb K e₂ = specGal s ≫ specEmb K e₂),
+      G4Conj.conj A.X B.X (specGal s) hf hg φ = φ
+
+/-- **The inertia hypothesis of G4 (glue, proved from `InertiaFixesHoms`).** If `K` is unramified
+outside `T` and `A` has good reduction at every place of `K` above every `p ∉ T` (G3's output),
+inertia above `p ∉ T` acts trivially on the Hom lattice of the conjugates. -/
+theorem conjAction_inertia (hI : InertiaFixesHoms) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (A : AbVar K) (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hgood : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ e : K →ₐ[ℚ] Qbar, PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap (e : K →+* Qbar))) :
+    ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, conjAction K A s = 1 := by
+  intro p hp hpT w hw
+  intro (σ : Gal) (hσ : σ ∈ inertiaGQ w)
+  have hσK : σ ∈ K.fixingSubgroup := hK p hp hpT w hw hσ
+  apply LinearEquiv.ext
+  intro m
+  show conjAct K A σ m = m
+  funext ij
+  obtain ⟨i, j⟩ := ij
+  apply AbVar.Hom.ext'
+  rw [conjAct_apply, conjHom_hom]
+  have aux : ∀ (i' j' : K →ₐ[ℚ] Qbar) (hi : i' = i) (hj : j' = j)
+      (hf : specEmb K i = specGal σ ≫ specEmb K i')
+      (hg : specEmb K j = specGal σ ≫ specEmb K j'),
+      G4Conj.conj A.X A.X (specGal σ) hf hg (m (i', j')).hom = (m (i, j)).hom := by
+    intro i' j' hi hj hf hg
+    subst hi hj
+    exact hI K A A i' j' (m (i', j')).hom w (hgood p hp hpT w hw i') (hgood p hp hpT w hw j')
+      σ hσ hf hg
+  exact aux _ _ (embAct_symm_of_mem K σ hσK i) (embAct_symm_of_mem K σ hσK j) _ _
+
+/-- **G4 for a model `A/K`, all analytic inputs as leaves.** Leaves/inputs: `HomFreeFinite`
+(Mumford §19 Thm 3), `MorphismsDescend` (EGA IV₃ 8.8.2), `InertiaFixesHoms` (Serre–Tate +
+Mumford + equivariance). Hypotheses from other glue steps: `hK` (G2), `hgood` (G3), `hdim`
+(dimension of base change, missing from Mathlib). -/
+theorem homField_of_model_leaves (hHFF : HomFreeFinite) (hM : MorphismsDescend)
+    (hI : InertiaFixesHoms) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
+    (A : AbVar K) (hdim : ∀ e, ((conjData K A).A e).dim = 2)
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hgood : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ e : K →ₐ[ℚ] Qbar, PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap (e : K →+* Qbar))) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, conjAction K A σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
+  homField_of_model_final K hHFF hM hKF A hdim T hK (conjAction_inertia K hI A T hK hgood)
+
 end Lattice
 
 /-! ## What G7 receives: the Hom field feeds `GlueDescent.B3Q.b3_degree_le_QM`
@@ -1371,5 +1441,7 @@ end G4WeilRes
 #print axioms G4WeilRes.conjAction_continuous
 #print axioms G4WeilRes.homDescends_of_morphismsDescend
 #print axioms G4WeilRes.homField_of_model_final
+#print axioms G4WeilRes.conjAction_inertia
+#print axioms G4WeilRes.homField_of_model_leaves
 #print axioms G4WeilRes.tateHom_injective
 #print axioms G4WeilRes.inertia_of_tate
