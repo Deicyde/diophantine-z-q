@@ -61,3 +61,9 @@
   `toMatrix_periodVec` (= fromBlocks (Im Ω) 0 (Re Ω) 1), `covolume_periodLattice` (covol(Ωℤ^g+ℤ^g) = |det Im Ω|
   for Lebesgue measure on ℂ^g), `covolume_periodLattice_of_mem` (= det Im Ω on the Siegel space). COMPILED;
   axioms standard.
+- Leaf moved into Torus.lean §10 (Uniformization.lean deleted, superseded): `AbVar`, `ptObj`, `Pt` (copied),
+  `PtIn`, `evalAt`, `IsUniformization A Λ φ` (structure: (i) `holo`, (ii) `coords`, (iii) `open_map`: φ⁻¹
+  continuous for the topology of regular functions — added so that uniqueness is formal), `UniformizationLeaf`,
+  `UniformizationLeafAll`; glue `IsUniformization.continuous_comparison` (φ'⁻¹∘φ continuous) and
+  `IsUniformization.exists_realLinear` (two uniformizations differ by an ℝ-linear map with TΛ ⊆ Λ', via T2).
+  COMPILED; axioms standard.

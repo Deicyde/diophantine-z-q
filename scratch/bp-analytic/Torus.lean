@@ -1104,3 +1104,161 @@ theorem covolume_periodLattice_of_mem {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω 
 end Covolume
 
 end BPAnalytic
+
+/-! ## §10. LEAF: the analytic uniformization of a complex abelian variety (node AN3 / N14)
+
+`UniformizationLeaf A` is AN3 of docs/research/bp-faltings.md (= N14 of bp-qmmoduli.md) in
+"coordinate form": it needs **no analytification**. It quantifies over
+
+* the group `A(ℂ)` of `ℂ`-points of the project's `AbVar` (copied from
+  `ZInQKernel/HDecomp/Objects.lean`), a commutative group by Mathlib;
+* regular functions `f ∈ Γ(U, 𝒪_A)` on Zariski opens `U`, evaluated at `ℂ`-points;
+* the complex torus `ℂ^g ⧸ Λ` of §1-§3;
+* analyticity of functions on open subsets of `ℂ^g`.
+
+`IsUniformization A Λ φ` says that the group isomorphism `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` is analytic for the
+analytic structure of `A(ℂ)`:
+(i) every regular function pulls back to a holomorphic function on an open set;
+(ii) at every point some `g` regular functions pull back to a local biholomorphism;
+(iii) `φ⁻¹` is continuous for the topology defined by regular functions (the analytic topology of
+`A(ℂ)`, which on an affine open is the subspace topology of `ℂ^n`).
+The leaf is a consequence of Mumford, *Abelian varieties*, §1 (a compact connected complex Lie
+group is a torus) applied to `A^an` (Serre, GAGA §2; SGA 1 XII §1); locators UNVERIFIED. It is not
+stronger than the published statement. -/
+
+namespace BPAnalytic.Uniformization
+
+open CategoryTheory AlgebraicGeometry Limits MonObj
+
+universe u
+
+/-- (copied from Objects.lean, `PkgI3.AbVar`) An abelian variety over a field `K`: a group object
+in schemes over `Spec K` whose structure morphism is proper, smooth and geometrically integral. -/
+structure AbVar (K : Type u) [Field K] where
+  /-- the underlying `K`-scheme -/
+  X : Over (Spec (CommRingCat.of K))
+  [grp : GrpObj X]
+  [proper : IsProper X.hom]
+  [smooth : Smooth X.hom]
+  [geomInt : GeometricallyIntegral X.hom]
+
+attribute [instance] AbVar.grp AbVar.proper AbVar.smooth AbVar.geomInt
+
+namespace AbVar
+
+variable {K : Type u} [Field K]
+
+/-- (copied from Objects.lean) Commutativity is a Mathlib theorem. -/
+instance (A : AbVar K) : IsCommMonObj A.X :=
+  isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+
+variable (L : Type u) [Field L] [Algebra K L]
+
+/-- (copied from Objects.lean) `Spec L` as a `K`-scheme. -/
+def ptObj : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K L)))
+
+/-- (copied from Objects.lean) The group `A(L)` of `L`-points: `K`-morphisms `Spec L → A`. -/
+abbrev Pt (A : AbVar K) : Type u := ptObj (K := K) L ⟶ A.X
+
+end AbVar
+
+example (A : AbVar ℂ) : CommGroup (A.Pt ℂ) := inferInstance
+
+variable (A : AbVar ℂ)
+
+/-- The `ℂ`-point `P` lies in the Zariski open `U`. -/
+def PtIn (P : A.Pt ℂ) (U : A.X.left.Opens) : Prop := ⊤ ≤ P.left ⁻¹ᵁ U
+
+open Classical in
+/-- The value `f(P) ∈ ℂ` of a regular function `f ∈ Γ(U, 𝒪_A)` at a `ℂ`-point `P ∈ U`
+(`0` if `P ∉ U`; only used on `U`). -/
+def evalAt (U : A.X.left.Opens) (f : Γ(A.X.left, U)) (P : A.Pt ℂ) : ℂ :=
+  if h : PtIn A P U then
+    ((P.left.appLE U ⊤ h) ≫ (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom).hom f
+  else 0
+
+/-- The group isomorphism `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` is an isomorphism of complex Lie groups. -/
+structure IsUniformization {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)) : Prop where
+  /-- (i) regular functions are holomorphic on open sets -/
+  holo : ∀ (U : A.X.left.Opens) (f : Γ(A.X.left, U)),
+    IsOpen {v : Fin g → ℂ | PtIn A (Additive.toMul (φ (proj Λ v))) U} ∧
+    AnalyticOnNhd ℂ (fun v => evalAt A U f (Additive.toMul (φ (proj Λ v))))
+      {v | PtIn A (Additive.toMul (φ (proj Λ v))) U}
+  /-- (ii) at every point, `g` regular functions give local holomorphic coordinates -/
+  coords : ∀ v₀ : Fin g → ℂ, ∃ (U : A.X.left.Opens) (f : Fin g → Γ(A.X.left, U))
+    (e : (Fin g → ℂ) ≃L[ℂ] (Fin g → ℂ)),
+    PtIn A (Additive.toMul (φ (proj Λ v₀))) U ∧
+    HasFDerivAt (fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))))
+      (e : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) v₀
+  /-- (iii) `φ⁻¹` is continuous for the topology defined by regular functions -/
+  open_map : ∀ v₀ : Fin g → ℂ, ∀ N ∈ 𝓝 (proj Λ v₀), ∃ (U : A.X.left.Opens) (k : ℕ)
+    (f : Fin k → Γ(A.X.left, U)) (ε : ℝ), 0 < ε ∧
+    PtIn A (Additive.toMul (φ (proj Λ v₀))) U ∧
+    ∀ P : A.Pt ℂ, PtIn A P U →
+      (∀ i, ‖evalAt A U (f i) P - evalAt A U (f i) (Additive.toMul (φ (proj Λ v₀)))‖ < ε) →
+      ∃ q ∈ N, Additive.toMul (φ q) = P
+
+/-- **LEAF (AN3, coordinate form).** Analytic uniformization of a complex abelian variety:
+`A(ℂ) ≅ ℂ^g ⧸ Λ` as complex Lie groups, with `Λ` a full lattice. -/
+def UniformizationLeaf : Prop :=
+  ∃ (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) (_ : DiscreteTopology Λ) (_ : IsZLattice ℝ Λ)
+    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)), IsUniformization A Λ φ
+
+/-- The leaf for every complex abelian variety. -/
+def UniformizationLeafAll : Prop := ∀ A : AbVar ℂ, UniformizationLeaf A
+
+/-! ### Glue: the uniformization is unique up to a linear map of lattices -/
+
+variable {A}
+
+/-- **Uniqueness (continuity).** For two uniformizations of the same `A`, the comparison map
+`φ'⁻¹ ∘ φ : ℂ^g ⧸ Λ → ℂ^{g'} ⧸ Λ'` is continuous. -/
+theorem IsUniformization.continuous_comparison {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+    {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (hφ' : IsUniformization A Λ' φ') : Continuous (φ.trans φ'.symm) := by
+  rw [(QuotientAddGroup.isQuotientMap_mk Λ.toAddSubgroup).continuous_iff,
+    continuous_iff_continuousAt]
+  intro v₀
+  set w₀ := ((φ.trans φ'.symm) (proj Λ v₀)).out
+  have hw₀ : proj Λ' w₀ = (φ.trans φ'.symm) (proj Λ v₀) := QuotientAddGroup.out_eq' _
+  have hφw : φ' (proj Λ' w₀) = φ (proj Λ v₀) := by
+    rw [hw₀, AddEquiv.trans_apply, AddEquiv.apply_symm_apply]
+  rw [ContinuousAt, Filter.tendsto_def]
+  intro N' hN'
+  rw [Function.comp_apply, ← hw₀] at hN'
+  obtain ⟨U, k, f, ε, hε, hU0, hsep⟩ := hφ'.open_map w₀ N' hN'
+  rw [hφw] at hU0 hsep
+  have hopen : ∀ᶠ v in 𝓝 v₀, PtIn A (Additive.toMul (φ (proj Λ v))) U :=
+    (hφ.holo U 0).1.mem_nhds hU0
+  have hall : ∀ᶠ v in 𝓝 v₀, ∀ i, dist (evalAt A U (f i) (Additive.toMul (φ (proj Λ v))))
+      (evalAt A U (f i) (Additive.toMul (φ (proj Λ v₀)))) < ε := by
+    rw [Filter.eventually_all]
+    intro i
+    exact (((hφ.holo U (f i)).2 v₀ hU0).continuousAt).eventually (Metric.ball_mem_nhds _ hε)
+  filter_upwards [hopen, hall] with v hv hvi
+  obtain ⟨q, hqN, hq⟩ := hsep _ hv (fun i => by simpa [dist_eq_norm] using hvi i)
+  have hq' : φ' q = φ (proj Λ v) := Additive.toMul.injective hq
+  have : (φ.trans φ'.symm) (proj Λ v) = q := by
+    rw [AddEquiv.trans_apply, ← hq', AddEquiv.symm_apply_apply]
+  show (φ.trans φ'.symm) (proj Λ v) ∈ N'
+  rw [this]; exact hqN
+
+/-- **Uniqueness of the uniformization up to a linear map.** Two uniformizations of the same `A`
+differ by an `ℝ`-linear map carrying `Λ` into `Λ'` (and, symmetrically, back): the period lattice
+of `A` is well defined up to isomorphism. -/
+theorem IsUniformization.exists_realLinear {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ'] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+    {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ), (∀ v ∈ Λ, T v ∈ Λ') ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := exists_realLinear_lift Λ Λ' (φ.trans φ'.symm).toAddMonoidHom
+    (hφ.continuous_comparison hφ')
+  refine ⟨T, hTΛ, fun v => ?_⟩
+  rw [← hT v]
+  simp
+
+end BPAnalytic.Uniformization
