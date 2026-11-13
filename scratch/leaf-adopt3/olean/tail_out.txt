@@ -1,0 +1,999 @@
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:611:0: warning: automatically included section variable(s) unused in theorem `TDifferent.filtR_zero`:
+  [Fintype G]
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:615:0: warning: automatically included section variable(s) unused in theorem `TDifferent.card_eq_sum`:
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:634:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:638:22: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:653:41: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:666:8: warning: `intervalIntegral.integral_finset_sum` has been deprecated: Use `intervalIntegral.integral_finsetSum` instead
+
+Hint: Replace the deprecated name:
+  intervalIntegral.integral_finset_̵s̵S̲um
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:675:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:688:47: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:692:21: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:724:0: warning: automatically included section variable(s) unused in theorem `TDifferent.phiF_zero`:
+  [Fintype G]
+  [DecidableEq G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:743:61: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:733:0: warning: automatically included section variable(s) unused in theorem `TDifferent.fiber_sum`:
+  [DecidableEq G]
+  [DecidableEq H]
+  [Fintype Q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [DecidableEq G] [DecidableEq H] [Fintype Q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:750:0: warning: automatically included section variable(s) unused in theorem `TDifferent.coset_min`:
+  [Fintype G]
+  [DecidableEq G]
+  [Fintype H]
+  [DecidableEq H]
+  [Fintype Q]
+  [DecidableEq Q]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Fintype G] [DecidableEq G] [Fintype H] [DecidableEq H] [Fintype Q] [DecidableEq Q] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:812:20: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:814:52: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:817:21: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:819:52: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:831:21: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:833:38: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:837:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:879:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:879:41: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:986:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1004:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1009:50: warning: Variable name `ΓQ` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _ΓQ
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1065:31: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1072:35: warning: `if_false` has been deprecated: Use `ite_false` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵f̵a̵l̵s̵e̵i̲t̲e̲_̲f̲a̲l̲s̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1127:31: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1347:0: warning: automatically included section variable(s) unused in theorem `TDifferent.finite_algEquiv`:
+  [IsIntegrallyClosed A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsIntegrallyClosed A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1407:0: warning: automatically included section variable(s) unused in theorem `TDifferent.isGaloisGroup_tower`:
+  [Module.IsTorsionFree A C]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Module.IsTorsionFree A C] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1467:0: warning: automatically included section variable(s) unused in theorem `TDifferent.adjoin_tower_eq_top`:
+  [IsDomain A]
+  [IsIntegrallyClosed A]
+  [IsDomain C]
+  [Module.IsTorsionFree A C]
+  [IsDomain B]
+  [IsIntegrallyClosed B]
+  [Module.Finite A B]
+  [Module.IsTorsionFree A B]
+  [IsGalois (FractionRing A) (FractionRing B)]
+  [Module.IsTorsionFree C B]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain
+  A] [IsIntegrallyClosed
+  A] [IsDomain
+  C] [Module.IsTorsionFree A
+  C] [IsDomain
+  B] [IsIntegrallyClosed
+  B] [Module.Finite A
+  B] [Module.IsTorsionFree A B] [IsGalois (FractionRing A) (FractionRing B)] [Module.IsTorsionFree C B] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1529:63: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1847:0: warning: automatically included section variable(s) unused in theorem `TDifferent.aeval_derivative_minpoly_eq_prod`:
+  [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra.IsSeparable (FractionRing A) (FractionRing B)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1987:0: warning: automatically included section variable(s) unused in theorem `TDifferent.repr_mem_of_mem_smul_top`:
+  [IsDomain A]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain A] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:1994:0: warning: automatically included section variable(s) unused in theorem `TDifferent.exists_limit`:
+  [IsDomain B]
+  [IsDiscreteValuationRing B]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain B] [IsDiscreteValuationRing B] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:2434:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:3182:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4153:50: warning: This simp argument is unused:
+  Units.val_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4153:65: warning: This simp argument is unused:
+  Units.val_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4172:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4241:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4289:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtLocal.isIntegral_iff_spectralNorm_le_one`:
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4308:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtLocal.spectralNorm_mul'`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4770:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtDisj.zeta_pow_m`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4776:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtDisj.zeta_pow_pk`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4789:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtDisj.fix_of_autToPow_eq_one`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4954:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4986:12: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4991:12: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4986:12: warning: Unused tactic linter: `(dsimp only;
+  rw [Units.val_neg, Units.val_one, map_neg, map_one, Units.val_neg, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:4991:12: warning: Unused tactic linter: `(dsimp only; rw [Units.val_one, map_one, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5245:0: warning: automatically included section variable(s) unused in theorem `GlueSqrtDisj.level_dvd`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5333:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5335:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5346:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5381:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5382:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5479:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5480:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5481:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5637:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5739:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5740:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5775:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5777:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5789:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5793:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:5839:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:7432:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:7570:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:7647:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:7710:0: warning: automatically included section variable(s) unused in theorem `ZInQ.DefFaltings.HodgeLattice.isUnit_germ_iff`:
+  [NumberField L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:7806:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8016:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8089:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8094:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8185:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8274:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8275:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8323:7: warning: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8323:42: warning: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8355:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8414:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8423:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8424:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8809:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:8839:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9102:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9103:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9107:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9109:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9111:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9112:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9113:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9114:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9119:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9120:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9220:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9268:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9270:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9272:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9274:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:9960:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10083:6: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10085:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10144:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10185:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10478:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10479:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:10512:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12311:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12334:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12428:46: warning: Variable name `A` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _A
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12524:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12542:24: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/leaf-adopt3/scratch/leaf-adopt3/olean/Tail.lean:12563:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HSyn.weight_match' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.inertiaTrivial_of_goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.D2_fixed_of_raynaud' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueConductor.D1_genuine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueConductor.level_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueConductor.fourth_pow_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.sixContactMin_of_glueOutputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.f1_algebra' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.equiv_of_lyVec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.exists_hom_ne_zero_of_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.finrank_equivEnd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI6.eq_of_same_finite_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.twist_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.index_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.mulHeight_le_mulHeightL2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.invariants_ne_bot_of_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueDescent.B3Q.b3_degree_le_QM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueRepo.PR.inertia_orders_eq_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueRepo.PR.fibre_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.sq_principalUnits_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.sixContactMin_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.goodReduction_of_QM_rational3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI6.artinConductor_le_of_upper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI6.sq_principalUnits' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.C2_absolutelyIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.E1_exists_hom_ne_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.equivariantDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.gram_det' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.cm4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.cm24' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.G6_sub_F2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.Ju_ne_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.elkies_t' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.elkies_t_sub_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI1.thetaRatio_invariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.logHeight_Phi_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.transfer_of_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.weight_match_coh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.sixContactMinAt_of_glueOutputs' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueAssembly.pazuki_numerics' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.range_tateHomZl_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueDescent.B2Q.b2_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueConductor.exists_sq_eq_one_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI6.cob_of_same_finite_support' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueA6Alg.Alg.core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueA6Alg.Alg.exists_valuationSubring_comap_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.quatUnipotentTrivial' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.goodReduction_of_QM_rational3_of_alg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI2.goodReduction_of_QM_rational3'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.trace_indep_of_ell' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PkgI3.trace_eq_trace_of_ell' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.iso_of_trace_eq_frob_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.frobDense_of_chebotarev' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.eq_of_eq_on_frob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.iso_of_trace_eq_on_frob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.iso_three_of_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.semisimple_of_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.trace_half' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.frobLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.frobDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueC10.c10' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.ramificationIdx_le_factorial_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.D1_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.index_localSub' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.D1_local'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.ramificationIdx_le_factorial_of_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.D1_krasner' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueD1Local.D1_krasner'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.homEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.endMulEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.homRankBound_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.charpolyIndependentOfEll_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.neronOggShafarevich_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.i3Leaves_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.charPolyIndepOfEll_iff_grp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.exists_hom_ne_one_of_equivariant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.finrank_equivEnd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.ofGrp_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.homT_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ObjBridge.homT_id' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t32a_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t32b_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.leafB3a_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GlueB3Unram.unramified_outside_noLeaf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.R1fp_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.R5fpWeak_of_R5fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.conj_iso_of_rational' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.cm_of_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Level3.onto' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Level3.torsor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.QML3.goodReduction' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.residue_unramified_over_branch' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.exists_fibre_object' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.fibre_conjugates_isomorphic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.leaves_on_one_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.genus_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.IsJacobian.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.dim_J1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.exists_J1_dim_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.exists_J1_quotient' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.rhoF_traces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.g13_constituent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafModCurves.rhoF_attached' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.stableFaltingsHeight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.stableFaltingsHeight_eq_iInf_height' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.stableFaltingsHeightDeligne_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.stableFaltingsHeight_ne_bot_of_R21' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafAdopt.r2X6PropsIff_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafAdopt.cmExists_of_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafAdopt.R1R2fp_of_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafAdopt.R5fp_iff_R5fpStrong' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.sixContactMin_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafAdopt.abVarEquiv_dim' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.stableFaltingsHeight' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R18_real' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.javanpeykarBound_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.javanpeykarBound_mono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R22_plus3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.isSiegel_I' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.linYangTuple_onQMLocus' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.onQMLocus_of_linYangTuple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.linYang_j_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R03_of_algClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.exists_isComplexConj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.T10_groupIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R03_LinYang' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R22_Pazuki' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.LeafPush2.R18_Javanpeykar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.isComplexConj_leafPush2_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.glueOutputs_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.transfer_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.javanpeykarJ1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.thetaPazuki' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.isogenousProduct' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.semisimpleBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.r18Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.r22Concrete_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.heightAdditivity_of_h5neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.hodgeLatticeTheorem_of_dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t13_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t19_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t22a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t22b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t20_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.t21_local_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.frobeniusDense' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.leafSqrtCrit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.t10_groupIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.x1ModelExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.TextbookLeaves.exists_J1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.modCurveLeaves_of_bundles' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.glueDescent_leafSkolemNoether' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.pkgI6_brauerNesbittChar0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSkolemKW.C10.c10_of_chebotarev' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.leafAdopt_r1pi0Props_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.leafAdopt_r1pi0Props_of_X6Props' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.H5Neron.stableFaltingsHeight_add_le'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X1Belyi.belyiX1_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X1Belyi.x1ModelExists_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'E1Sub.vSurjOfSurjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.rhoF_semisimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.rhoF_continuous' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_R14' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_r5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c10_via_c9' depends on axioms: [propext, Classical.choice, Quot.sound]
+'C9Rhof.c9_hsyn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.x1BelyiOnModel_of_belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
