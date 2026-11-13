@@ -10,18 +10,30 @@ marked UNVERIFIED.
 ## 0. Main result
 
 Two textbook leaves about elliptic curves are now **proved outright**. Each closed theorem has
-exactly the leaf's Prop as its type, with no hypotheses. As a consequence, the glue target
-`LeafModCurves.BelyiX1` (E2's Belyi half, consumed through `G0Split.x1BelyiOnModel_of_belyiX1`)
-now holds with no hypotheses. All of this is VERIFIED: `lake build ZInQKernel.Contrib.RLeaf.BelyiX1`
-succeeds, and every `#print axioms` line reads `[propext, Classical.choice, Quot.sound]`.
+exactly the leaf's Prop as its type, with no hypotheses. Consequences:
+- the glue target `LeafModCurves.BelyiX1` (E2's Belyi half, consumed through
+  `G0Split.x1BelyiOnModel_of_belyiX1`) holds with no hypotheses;
+- a third leaf, **T39**, is derived from **T40**;
+- T40 is reduced to two named statements: Igusa's transitivity and the Tate curve at `j = ∞`.
+
+All of this is VERIFIED: `lake build ZInQKernel.Contrib.RLeaf.X1RationalCusp` (which imports the
+other four files) succeeds, and every `#print axioms` line reads
+`[propext, Classical.choice, Quot.sound]`.
 
 | Declaration | Type (exact) | File |
 |---|---|---|
 | `ZInQ.RLeaf.t36_torsionStructure` | `X1Belyi.TorsionStructure` (leaf **T36**) | `ZInQKernel/Contrib/RLeaf/T36Torsion.lean` |
 | `ZInQ.RLeaf.T37.t37_goodReductionUnramified` | `X1Belyi.GoodReductionUnramified` (leaf **T37**) | `ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean` |
 | `ZInQ.RLeaf.belyiX1` | `LeafModCurves.BelyiX1` (glue target) | `ZInQKernel/Contrib/RLeaf/BelyiX1.lean` |
-| `ZInQ.RLeaf.x1Leaves_of` | `X1Belyi.CurveOfFunctionFieldQ → X1Belyi.X1ConstantField → X1Belyi.X1RationalCusp → X1Belyi.X1Leaves` | same |
-| `ZInQ.RLeaf.x1ModelExists_of` | `X1Belyi.CurveOfFunctionFieldQ → X1Belyi.X1ConstantField → X1Belyi.X1RationalCusp → LeafModCurves.X1ModelExists` | same |
+| `ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp` | `X1Belyi.X1RationalCusp → X1Belyi.X1ConstantField` (**T39 ⇐ T40**) | `ZInQKernel/Contrib/RLeaf/X1ConstantField.lean` |
+| `ZInQ.RLeaf.constantFieldIsQ_of_hasRationalPlace` | `∀ (F : Type) [Field F] [Algebra Qj F], X1Belyi.HasRationalPlace F → X1Belyi.ConstantFieldIsQ F` | same |
+| `ZInQ.RLeaf.x1Leaves_of_t38_t40` | `X1Belyi.CurveOfFunctionFieldQ → X1Belyi.X1RationalCusp → X1Belyi.X1Leaves` | same |
+| `ZInQ.RLeaf.x1ModelExists_of_t38_t40` | `X1Belyi.CurveOfFunctionFieldQ → X1Belyi.X1RationalCusp → LeafModCurves.X1ModelExists` | same |
+| `ZInQ.RLeaf.x1RationalCusp_of_igusa_tate` | `IgusaTransitive → TateCuspLaurent → X1Belyi.X1RationalCusp` (**T40 reduced**) | `ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean` |
+| `ZInQ.RLeaf.x1RationalCusp_of_igusa_tateCusp` | `IgusaTransitive → TateCusp → X1Belyi.X1RationalCusp` | same |
+| `ZInQ.RLeaf.x1ConstantField_of_igusa_tate` | `IgusaTransitive → TateCuspLaurent → X1Belyi.X1ConstantField` | same |
+| `ZInQ.RLeaf.x1ModelExists_of_t38_igusa_tate` | `X1Belyi.CurveOfFunctionFieldQ → IgusaTransitive → TateCuspLaurent → LeafModCurves.X1ModelExists` | same |
+| `ZInQ.RLeaf.x1Leaves_of`, `ZInQ.RLeaf.x1ModelExists_of` | the same with T38, T39, T40 as hypotheses | `BelyiX1.lean` |
 
 The leaf statements, verbatim from `ZInQKernel/HDecomp/ModCurves/X1Belyi.lean`:
 
@@ -46,7 +58,32 @@ def GoodReductionUnramified : Prop :=
         x = algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) p) * y
 ```
 
-`#print axioms` output (VERIFIED, from the build log):
+The two new named Props of the T40 reduction (in `X1RationalCusp.lean`, namespace `ZInQ.RLeaf`):
+
+```lean
+/-- Igusa transitivity (consequence of Igusa 1959). -/
+def IgusaTransitive : Prop :=
+  ∀ (N : ℕ) (P P' : EjBar.toAffine.Point), 0 < N → addOrderOf P = N → addOrderOf P' = N →
+    ∃ σ : Kbar ≃ₐ[Qj] Kbar, σ (xCoord P) = xCoord P'
+
+/-- The Tate curve at `j = ∞`, embedding form. -/
+def TateCuspLaurent : Prop :=
+  ∀ N : ℕ, 0 < N → ∃ (P : EjBar.toAffine.Point) (ψ : fieldX1 P →+* LaurentSeries ℚ),
+    addOrderOf P = N ∧ (∀ c : ℚ, ψ (X1Belyi.ratHom (fieldX1 P) c) = HahnSeries.C c) ∧
+    ψ (algebraMap Qj (fieldX1 P) RatFunc.X) ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ)
+```
+
+Both are consequences of published theorems (STANDARD).
+- `IgusaTransitive`: Igusa, Amer. J. Math. 81 (1959), says the geometric Galois group of
+  `ℚ(j)(E_j[N])` contains `SL₂(ℤ/N)` modulo `±1`, and `SL₂(ℤ/N)` acts transitively on the vectors
+  of exact order `N`. See also Shimura 1971 §6.1 and Lang, *Elliptic functions*, Ch. 6 (numbers
+  UNVERIFIED).
+- `TateCuspLaurent`: the Tate curve, Silverman ATAEC V.3-V.5, UNVERIFIED numbers. Over `ℚ((q))`,
+  `E_j ≅ E_q` because `E₄/E₆ ∈ 1 + qℚ[[q]]` is a square; `j = 1/q + 744 + ⋯`; the point
+  `q^{1/N}` has exact order `N` with `x(q^{1/N}) ∈ ℚ((t))`, `t = q^{1/N}`; and the root of the
+  primitive division polynomial picks out the `P₀` with the extension `ψ`.
+
+`#print axioms` output (VERIFIED, from the build logs):
 
 ```
 'ZInQ.RLeaf.nTors_eq_torsionBy' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -56,13 +93,28 @@ def GoodReductionUnramified : Prop :=
 'ZInQ.RLeaf.belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1Leaves_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1ModelExists_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.constantFieldIsQ_of_hasRationalPlace' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1Leaves_of_t38_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ModelExists_of_t38_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.hasRationalPlace_of_algEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.hasRationalPlace_of_laurent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_igusa_tateCusp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ConstantField_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ModelExists_of_t38_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-**Effect on the leaf list.** T36 and T37 leave the textbook list, which goes from 35 leaves to 33.
-The `x1` field of `TextbookLeaves` (`X1Belyi.X1Leaves`) now needs only T38, T39 and T40
-(`x1Leaves_of`). `BelyiX1` needs nothing, and `X1ModelExists` needs only T38-T40
-(`x1ModelExists_of`). No research-level leaf changes, because none of them is about elliptic
-curves (§1).
+**Effect on the leaf list.**
+- T36 and T37 leave the textbook list as proved.
+- T39 leaves it as a consequence of T40.
+- The textbook count goes from 35 to 32.
+- The `x1` field of `TextbookLeaves` (`X1Belyi.X1Leaves`) now needs only T38 and T40
+  (`x1Leaves_of_t38_t40`).
+- `BelyiX1` needs nothing; `X1ModelExists` needs only T38 and T40.
+- If T40 is replaced by its two suppliers (`x1RationalCusp_of_igusa_tate`), the elliptic inputs of
+  the `X₁(N)` side are exactly Igusa's theorem and the Tate curve.
+- No research-level leaf changes, because none of them is about elliptic curves (§1).
 
 ## 1. Survey: which leaves are about elliptic curves
 
@@ -113,8 +165,8 @@ Even with both, the `g = 1` statements do not discharge the leaves, which the pr
 |---|---|---|---|
 | **T36** `X1Belyi.TorsionStructure` | `E[N] ≅ (ℤ/N)²` over `K = K̄`, char 0 | Silverman, AEC Cor. III.6.4(b) (UNVERIFIED number) | **proved here** (Tau Ceti `WeierstrassCurve.torsion_addEquiv_prod`) |
 | **T37** `X1Belyi.GoodReductionUnramified` | NOS over `k(T)`, residue characteristic 0 | Serre–Tate 1968 Thm 1; AEC VII.4.1, VIII.1.5(b) (UNVERIFIED numbers) | **proved here** (§2) |
-| T39 `X1Belyi.X1ConstantField` | `ℚ` is algebraically closed in `K_N` | Igusa 1959; Shimura 1971 §6.2, Prop. 6.9 (UNVERIFIED) | open; needs Igusa's theorem (the monodromy of `E_j[N]` over `ℚ̄(j)` is `SL₂(ℤ/N)` up to `±1`); large |
-| T40 `X1Belyi.X1RationalCusp` | `K_N` has a degree-1 place | Tate curve, Silverman ATAEC V.3.1; Ogg 1973 (UNVERIFIED) | open; needs the same Igusa transitivity (all points of exact order `N` are conjugate up to sign) plus a Tate-curve embedding `K_N → ℚ((q^{1/N}))`; Tau Ceti has the analytic Tate curve (TateCurve/, oct16); large |
+| T39 `X1Belyi.X1ConstantField` | `ℚ` is algebraically closed in `K_N` | Igusa 1959; Shimura 1971 §6.2, Prop. 6.9 (UNVERIFIED) | **derived from T40 here** (`x1ConstantField_of_x1RationalCusp`): a degree-one place forces constant field `ℚ` |
+| T40 `X1Belyi.X1RationalCusp` | `K_N` has a degree-1 place | Tate curve, Silverman ATAEC V.3.1; Ogg 1973 (UNVERIFIED) | **reduced here** to `IgusaTransitive` and `TateCuspLaurent` (`x1RationalCusp_of_igusa_tate`). Without Igusa only one local orbit at `∞` is visible (for `N > 12` the only rational places are cusps, by Mazur). Tau Ceti's Tate uniformization with its homomorphism property and torsion is main-only (TateCurve/Homomorphism, Torsion, Uniformization), so `TateCuspLaurent` is a large backport. `IgusaTransitive` is research-level |
 | T38 `X1Belyi.CurveOfFunctionFieldQ` | curves from function fields | Hartshorne I.6, II.6.7 | not elliptic; very large |
 | T5, T9, T26 | torsion, Weil pairing, Tate module of abelian varieties | Mumford | Tau Ceti has `g = 1` only (`card_ker_mulByIntIsogeny`, `tateModuleWeilPairing`, `free_tateModule`); the leaves are used at `g = 2`; not discharged |
 
@@ -167,10 +219,12 @@ a torsion point over `\overline{k(T)}`, and `w` is a valuation ring of `F = k(T)
 
 ## 4. What remains (not proved)
 
-- T39, T40: both need Igusa's theorem. A reduction to (i) Igusa transitivity on the points of exact
-  order `N` up to sign and (ii) one Tate-curve point with an embedding `K_N → ℚ((q^{1/N}))` is
-  sketched in §1.2. It is not in Lean.
-- T38: not elliptic.
+- `IgusaTransitive` and `TateCuspLaurent`, the two suppliers of T40 and so of T39. The first is
+  Igusa's theorem: research-level and not in Lean. The second needs Tau Ceti main's Tate
+  uniformization (Lean v4.36) and a normed-field structure on `ℚ((t))`: a large backport.
+- T38: not elliptic, very large.
 - Research leaves: none is elliptic (§1.1).
 
-No statement change is proposed.
+No statement change is proposed. One remark for the leaf bookkeeping (not a change): T39 is now a
+consequence of T40 inside Lean, so a future bundle can drop the field `constants` of
+`X1Belyi.X1Leaves`.
