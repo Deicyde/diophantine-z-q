@@ -235,6 +235,27 @@ theorem tateWildKE_of_torsFixWildE {K : Type} [Field K] [NumberField K] {A : Pkg
   exact ⟨E, hEfd, hLvE, hdeg, fun σ hσ =>
     ⟨(hw σ hσ).1, fun σ' hσ' => tate_eq_one_of_torsFix A ℓ σ' ((hw σ hσ).2 σ' hσ')⟩⟩
 
+/-- **Glue at `p ∈ {3, 5}`, `p ≠ ℓ` (as `TorsFixWildE` without the `β` clause, which is
+automatic at odd `p`: `torsFixWildE_of_odd`).** Some finite `E ⊇ L_v` with
+`[E:ℚ_p] ≤ G₀·[L_v:ℚ_p]` has every wild `σ ∈ G_E` fixing `A(K̄)[ℓⁿ]` through `G_K`. Glazer:
+`E = L_v(A_L[5])` (`p = 3`), `L_v(A_L[3])` (`p = 5`), for the model `A_L` over `L`; R6 and D2. -/
+def TorsFixWildOdd {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧ Lv (p := p) L ≤ E ∧
+    Module.finrank ℚ_[p] E ≤ ZInQ.heightG0 * Module.finrank ℚ_[p] (Lv (p := p) L) ∧
+    ∀ σ ∈ fixSet E ∩ wildSet, ∀ σ' : Field.absoluteGaloisGroup K,
+      G0Galois.resQ K σ' = decomp p σ →
+        ∀ (n : ℕ) (P : A.Pt (AlgebraicClosure K)), P ^ (ℓ ^ n) = 1 → A.galAct σ' P = P
+
+/-- At odd `p`, `TorsFixWildOdd` and G7's clauses give `TorsFixWildE` (proved). -/
+theorem torsFixWildE_of_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
+    {A : PkgI3.AbVar K} {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
+    {L : IntermediateField ℚ PkgI4.Qbar} (hC : G7Clauses β ε L)
+    (h : TorsFixWildOdd (p := p) A ℓ L) : TorsFixWildE (p := p) A ℓ β L := by
+  obtain ⟨E, hEfd, hLvE, hdeg, hw⟩ := h
+  exact ⟨E, hEfd, hLvE, hdeg, fun σ hσ => ⟨beta_wild_of_clauses hp2 hC hσ.2
+    (decomp_fix_of_le (fun _ hx => hLvE (embP_mem_Lv hx)) hσ.1), hw σ hσ⟩⟩
+
 end LocalGlueSec
 
 end G15Ram
@@ -627,3 +648,4 @@ end
 #print axioms G15Ram.wild_pow_fix_field
 #print axioms G15Ram.wildIter_of_ptFinite
 #print axioms G15Ram.tateWildK_of_leaves'
+#print axioms G15Ram.torsFixWildE_of_odd

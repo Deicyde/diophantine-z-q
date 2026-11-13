@@ -95,3 +95,14 @@
 - Compile: `lake env lean scratch/local-glue/TailK.lean` exit 0, 0 errors, no sorry, ~50 s;
   axioms of `modularConstituent_tail_K` [propext, Classical.choice, Quot.sound]
   (tail_compile.out).
+
+## Step 7 (07:23-07:30 PST): leaf-and-bridge packs
+- Proved (VERIFIED, compiled, axioms standard): `torsFixWildE_of_odd` (odd p: G7Clauses +
+  `TorsFixWildOdd` (new glue def: TorsFixWildE without the β clause) ⇒ TorsFixWildE);
+  `G0ModNewform.G7LocalPackR` (new def: G7Out, G8Out, G7Clauses, KerWild, PtFinite A, and at
+  p ∈ P: RaynaudPlace A 3 ∧ RaynaudPlace A 7 if p ≥ 7, TorsFixWildOdd if 3 ≤ p ≤ 5,
+  TorsFixWildE ∧ BetaUpper if p = 2); `g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure)
+  (hPℓ : ∀ p, P p → p ≠ ℓ) : G7LocalPackR ℓ r P → G7LocalPackK ℓ r P`; `g15RamG_of_packR`;
+  in TailK.lean `modularConstituent_tail_R` (tail with I2-Tors and G7LocalPackR).
+- Compile: LocalGlue.lean exit 0, no sorry, all printed axioms standard; TailK.lean exit 0,
+  no sorry, `modularConstituent_tail_R` axioms [propext, Classical.choice, Quot.sound].

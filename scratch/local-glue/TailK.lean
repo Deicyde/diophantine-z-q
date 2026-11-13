@@ -5254,6 +5254,27 @@ theorem tateWildKE_of_torsFixWildE {K : Type} [Field K] [NumberField K] {A : Pkg
   exact ⟨E, hEfd, hLvE, hdeg, fun σ hσ =>
     ⟨(hw σ hσ).1, fun σ' hσ' => tate_eq_one_of_torsFix A ℓ σ' ((hw σ hσ).2 σ' hσ')⟩⟩
 
+/-- **Glue at `p ∈ {3, 5}`, `p ≠ ℓ` (as `TorsFixWildE` without the `β` clause, which is
+automatic at odd `p`: `torsFixWildE_of_odd`).** Some finite `E ⊇ L_v` with
+`[E:ℚ_p] ≤ G₀·[L_v:ℚ_p]` has every wild `σ ∈ G_E` fixing `A(K̄)[ℓⁿ]` through `G_K`. Glazer:
+`E = L_v(A_L[5])` (`p = 3`), `L_v(A_L[3])` (`p = 5`), for the model `A_L` over `L`; R6 and D2. -/
+def TorsFixWildOdd {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧ Lv (p := p) L ≤ E ∧
+    Module.finrank ℚ_[p] E ≤ ZInQ.heightG0 * Module.finrank ℚ_[p] (Lv (p := p) L) ∧
+    ∀ σ ∈ fixSet E ∩ wildSet, ∀ σ' : Field.absoluteGaloisGroup K,
+      G0Galois.resQ K σ' = decomp p σ →
+        ∀ (n : ℕ) (P : A.Pt (AlgebraicClosure K)), P ^ (ℓ ^ n) = 1 → A.galAct σ' P = P
+
+/-- At odd `p`, `TorsFixWildOdd` and G7's clauses give `TorsFixWildE` (proved). -/
+theorem torsFixWildE_of_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
+    {A : PkgI3.AbVar K} {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
+    {L : IntermediateField ℚ PkgI4.Qbar} (hC : G7Clauses β ε L)
+    (h : TorsFixWildOdd (p := p) A ℓ L) : TorsFixWildE (p := p) A ℓ β L := by
+  obtain ⟨E, hEfd, hLvE, hdeg, hw⟩ := h
+  exact ⟨E, hEfd, hLvE, hdeg, fun σ hσ => ⟨beta_wild_of_clauses hp2 hC hσ.2
+    (decomp_fix_of_le (fun _ hx => hLvE (embP_mem_Lv hx)) hσ.1), hw σ hσ⟩⟩
+
 end LocalGlueSec
 
 end G15Ram
@@ -5680,6 +5701,50 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
   obtain ⟨K₃, _, _, A₃, Tm₃, a₃, β₃, ε₃, L₃, h8₃, hC₃, hG₃⟩ := g8LocalPack_of_K h3
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
+/-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
+At `p ≥ 7`: `RaynaudPlace A 3`, `RaynaudPlace A 7` (R6 at the place) and `PtFinite A`; at
+`p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaUpper`. With the leaf I2-Tors
+and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
+def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)) (c ε : GQ → GQ → PadicAlgCl ℓ)
+    (a β : GQ → PadicAlgCl ℓ) (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ))
+    (L : IntermediateField ℚ Qbar),
+    G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
+    G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧ G15Ram.PtFinite A ∧
+    ∀ (p : ℕ) (hp : p.Prime), P p →
+      (7 ≤ p → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3 ∧ @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
+      (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
+      (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧
+        @G15Ram.BetaUpper p ⟨hp⟩ ℓ _ β (@G15Ram.Lv p ⟨hp⟩ L) U0)
+
+/-- **`G7LocalPackK` from `G7LocalPackR`, the leaf I2-Tors and `p ≠ ℓ` on `P` (proved).** -/
+theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
+    {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackR ℓ r P) :
+    G7LocalPackK ℓ r P := by
+  obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hPt, hloc⟩ := h
+  refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨hR, hO, h2⟩ := hloc p hp hP
+  refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => (h2 h2').2⟩
+  · obtain ⟨hR3, hR7⟩ := hR h7p
+    exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
+      (G15Ram.wildIter_of_ptFinite hPt) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
+      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) hR3 hR7
+  · by_cases hp2 : p = 2
+    · exact (h2 hp2).1
+    · have h3 : 3 ≤ p := by have := hp.two_le; omega
+      exact G15Ram.torsFixWildE_of_odd hp2 hC (hO h3 h5)
+
+/-- **`G15RamG` from the leaf-and-bridge packs and I2-Tors (proved).** -/
+theorem g15RamG_of_packR (hTors : ObjBridge.TorsionStructure) {L : Type} [Field L]
+    [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : G7LocalPackR 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackR 3 D.r3 (fun p => p = 5))
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) : G15RamG D u :=
+  g15RamG_of_packK D u (g7LocalPackK_of_R hTors (fun _ h => h) h5)
+    (g7LocalPackK_of_R hTors (fun p h => by rw [h]; norm_num) h3) h11₅ h11₃
+
 end G0ModNewform
 
 end
@@ -5713,6 +5778,27 @@ theorem modularConstituent_tail_K (lv : NewformLeaves) (hJac : JacobianExists �
   exact modularConstituent_tail_L lv hJac hX hSw hL8 hAd A u
     ⟨D, h12, hc, g8LocalPack_of_K h5, g8LocalPack_of_K h3, h11a, h11b⟩
 
+/-- **G13-G16 with the local glue in leaf-and-bridge form (GLUE, proved).** As
+`modularConstituent_tail_K`, with `G7LocalPackR` and the leaf I2-Tors (`g7LocalPackK_of_R`). -/
+theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hTors : ObjBridge.TorsionStructure)
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
+      G7LocalPackR 5 D.r5 (fun p => p ≠ 5) ∧ G7LocalPackR 3 D.r3 (fun p => p = 5) ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5 ∧
+      G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
+  exact modularConstituent_tail_K lv hJac hX hSw hL8 hAd A u
+    ⟨D, h12, hc, g7LocalPackK_of_R hTors (fun _ h => h) h5,
+      g7LocalPackK_of_R hTors (fun p h => by rw [h]; norm_num) h3, h11a, h11b⟩
+
 end G0ModNewform
 
 #print axioms G0ModNewform.modularConstituent_tail_K
+#print axioms G0ModNewform.modularConstituent_tail_R
