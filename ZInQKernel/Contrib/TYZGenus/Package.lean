@@ -6,10 +6,15 @@ import ZInQKernel.Contrib.TYZGenus.RingClass
 # cm-points: TYZ's genus-point package as genuine leaves plus glue
 
 Task cm-points (2026-11-13). Report: `docs/research/cm-points.md`; log: `scratch/cm-points/log.md`.
-Owner: cm-points. Imports `TYZGenus/CM.lean` (this task); the ring class fields of
-`TYZGenus/RingClass.lean` (task ring-class) and the modular curve of `TYZGenus/X0.lean`
-(task x0-32) enter through the parameters `Hn` (TYZ's `ℍ'_n`) and `Z` (TYZ's genus points) and
-are bridged once those files are merged.
+Owner: cm-points. Imports `TYZGenus/CM.lean` (this task, which imports x0-32's `TYZGenus/X0.lean`)
+and ring-class's `TYZGenus/RingClass.lean`. §5–§6 work with parameters `Hn` (TYZ's `ℍ'_n`) and `Z`
+(TYZ's genus points); §7 instantiates `Hn := RingClass.HHprime`; §8 pins the class-5 genus points by
+the Heegner points of `CM.lean`.
+
+**Main theorem** (`tyzThm35ReadingA_of_cm`, §8): the three genuine `𝓛`-leaves of `TYZDecomp.Leaves`,
+`TYZZnOverHprime` (`z_n ∈ A(H'_n)`), `HprimeNormal` (`H'_d/ℚ` normal), `Lemma318 HHprime` (TYZ Lemma
+3.18) and the bundled `GenusPointLeafCM` (existential only over TYZ's choice of `Φ₀`, the class-7
+genus points, `ε` and the lift `β'`) give `Literature.TYZThm35ReadingA`.
 
 `ZInQ.Contrib.TYZDecomp.TYZGenusPackage` asks, for each pinned `ℓ` and squarefree `n ≡ 5 (mod 8)`,
 for `PropN.GenusData ℓ n`, a structure over an *abstract* `ℤ[i]`-module `M` with abstract `τ`, `β`,
@@ -27,7 +32,8 @@ for `PropN.GenusData ℓ n`, a structure over an *abstract* `ℤ[i]`-module `M` 
 Then the fields of `GenusData` split into separate leaves (each about pinned objects) and glue:
 `τ_eq_zero` and `β_τ` are proved here (explicit points), `[i]`-linearity of `β` (TYZ's F4) is proved,
 and the leaves are TYZ Lemma 3.18 (`Lemma318`), the normality of `ℍ'_n` (`NormalFields`, F5), `i ∈ ℍ'_n`
-(`IContained`), and the genus-point statements (`GenusPtsDefined`, `Thm35First`, `Lemma321`).
+(`IContained`, proved for ring-class's `ℍ'_n`), and the genus-point statements (`GenusPtsDefined`,
+`Thm35First`, `Lemma321`).
 
 No `sorry`, no `axiom`.
 -/
