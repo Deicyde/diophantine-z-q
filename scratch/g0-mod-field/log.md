@@ -72,3 +72,18 @@
   `Algebra ℚ L'` and `map`'s local one. Proof outline (true): `g : ℚ̄ → \bar L'` maps `L'` onto the
   image of `L'` (normality, `AlgHom.fieldRange_of_normal`), so `resQ σ` fixes `L'`; conversely lift
   `τ ∈ Fix(L')` by `AlgEquiv.restrictNormalHom_surjective`. Left as the named Prop; file removed.
+
+## run23-26 (02:25): three truth repairs of the interface (model checks)
+1. `KernelFieldExists` quantified over every `K`-model `A` of `P`: FALSE in general (a twist of the
+   fibre by a cocycle ramified at `p ∉ T` has bad reduction at `p`, so `E` may ramify outside `T`).
+   Fix: new `RationalFibre Y Φ P K PK` (a `K`-point `yK` of `Y₃` with object `PK : QML3 K` whose base
+   change carries `P`, and `PK.A` a model); `G2Out`, `FibreCoverOut` produce it; `KernelFieldExists`
+   quantifies over it.
+2. `AfterG7` quantifies over every `G7Data`; with `A` an arbitrary model the same twist problem breaks
+   G11/G15. Fix: new `IsQMModel L A P` (`A` is the base change of `PK.A` for a `QML3` object `PK`
+   over `K ≤ L`; good reduction away from 3 by G3) replaces `IsModelOver L A P` in `G4Out`, `G7Out`,
+   `G7Data`; `IsQMModel.isModelOver` proved.
+3. `G7Data` allowed any `χ` with modulus supported on `T`; `χ λ²` with `λ` wild at a large `p ∈ T`
+   would break G15's exponent bound `≤ 2`. Fix: clause `∃ T₋ ⊆ T, N = chiLevel T₋`
+   (`= ∏ lev p`, `lev 2 = 4`); `b2_of_leaves_level` (copy of `b2_of_leaves` exposing the level) proves it.
+- VERIFIED: 0 errors; all eight `#print axioms`: [propext, Classical.choice, Quot.sound].

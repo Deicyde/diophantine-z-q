@@ -22,7 +22,7 @@ covers G2, G4, G7-G16 of docs/research/h-decomposition.md §3. This file takes t
 G2 (fibre field `K`), G4 (Hom field `L`, `[L:ℚ] ≤ D`), G7 (scalar descent to `L'`,
 `[L':ℚ] ≤ Q·M`), for `S = S_mul`, `R = D` (the instance `SixContactMin`).
 
-Outputs (`def … : Prop`): `G2Out u P`, `G4Out u P`, `G7Out u P`, and the clause list `G7Data`
+Outputs (`def … : Prop`): `G2Out Y Φ u P` (with `RationalFibre`), `G4Out u P`, `G7Out u P`, and the clause list `G7Data`
 with `G7OutUnr u P` (G7 with the twist: `L'` unramified outside `T`), for a `ℚ̄`-object `P` of
 `Y₃` over `J(u)` (`FibreCtx`). The descent datum of B1 on the actual `A` is `DescentDatum`
 (maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)`, `a_σ`, sign cocycle `ε`).
@@ -64,6 +64,19 @@ noncomputable def T (u : ℚ) : Finset ℕ := GlueDescent.ramSet Mult.S_mul u
 def IsModelOver (L : IF) (A : PkgI3.AbVar L) (P : QML3 Qbar) : Prop :=
   Nonempty ((A.baseChange Qbar).X ≅ P.A.X)
 
+/-- The algebra `L → L'` for `L ≤ L'`. -/
+@[instance_reducible] noncomputable def incAlg {L L' : IF} (h : L ≤ L') : Algebra L L' :=
+  (IntermediateField.inclusion h).toRingHom.toAlgebra
+
+/-- **`A/L` is a QM model of `P`**: the base change to `L` of the abelian surface of an object
+`PK` of `Y₃`'s moduli problem (QM by `𝒪` with level-3 structure) over a subfield `K ≤ L`, itself a
+model of `P`'s surface. Such an `A` has good reduction away from `3` (G3,
+`LeafQM.AV.QML3.goodReduction`), unlike an arbitrary model (a twist by a cocycle ramified at
+`p ∉ T` has bad reduction at `p`), so the later steps (G11, G15) hold for every such `A`. -/
+def IsQMModel (L : IF) (A : PkgI3.AbVar L) (P : QML3 Qbar) : Prop :=
+  ∃ (K : IF) (hKL : K ≤ L) (PK : QML3 K), IsModelOver K PK.A P ∧
+    A = @PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)
+
 /-- **The fibre context** (the hypotheses of `ModularConstituent`): moduli data `(Y, Φ, π)` with
 R1-R2's clauses, `u ∉ 𝒞`, and a `ℚ̄`-point `y` of `Y₃` carrying the object `P` and lying over
 `J(u)`. -/
@@ -73,15 +86,27 @@ def FibreCtx (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 
   ∃ y : fieldPt Qbar ⟶ Y, Φ Qbar y = M3.mk P ∧
     π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u))
 
+/-- **A rational fibre over `K`** (Glazer N5 L528: "Choose a fiber `A/K`"): `PK` is an object of
+`Y₃` over `K ⊆ ℚ̄` at a `K`-point `yK` whose base change to `ℚ̄` carries `P` (so `yK` lies over the
+`ℚ̄`-point of `P`, `Φ` being a bijection), and `PK.A` is a model of `P`'s surface. Unlike an
+arbitrary `K`-model (a twist of `PK.A` by a cocycle ramified outside `T` can have bad
+reduction there), `PK.A` is the fibre of the universal family and has good reduction away
+from `3` (G3). -/
+def RationalFibre (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (P : QML3 Qbar) (K : IF)
+    (PK : QML3 K) : Prop :=
+  (∃ yK : fieldPt K ⟶ Y, Φ K yK = M3.mk PK ∧ Φ Qbar (fieldMap K.val ≫ yK) = M3.mk P) ∧
+    IsModelOver K PK.A P
+
 /-! ## The outputs of G2, G4, G7 -/
 
 /-- **G2's output (Lemma PR(i), N5 L524-529).** A finite Galois `K ⊆ ℚ̄` with `[K:ℚ] ≤ F₀ = 324!`,
-unramified outside `T`, over which `P`'s surface has a model (Glazer: "Choose a fiber `A/K`"). -/
-def G2Out (u : ℚ) (P : QML3 Qbar) : Prop :=
+unramified outside `T`, with a rational fibre `PK/K` over `P` (Glazer: "Choose a fiber `A/K`";
+`RationalFibre`). -/
+def G2Out (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ) (P : QML3 Qbar) : Prop :=
   ∃ (K : IF) (_ : FiniteDimensional ℚ K) (_ : IsGalois ℚ K),
     Module.finrank ℚ K ≤ heightF0 ∧
     (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) ∧
-    ∃ A : PkgI3.AbVar K, IsModelOver K A P
+    ∃ PK : QML3 K, RationalFibre Y Φ P K PK
 
 /-- `A(ℚ̄)` as an additive group, for `A` over `L ⊆ ℚ̄`. -/
 abbrev PtQ (L : IF) (A : PkgI3.AbVar L) : Type := Additive (A.Pt Qbar)
@@ -243,17 +268,13 @@ theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois �
     rw [e1, key]
 
 /-- **G4's output (N5 L532-563 and the B1 normalization L632-663).** A finite Galois `L ⊆ ℚ̄`
-(the Hom field) with `[L:ℚ] ≤ D`, unramified outside `T`, a model `A/L` of `P`'s surface, and
+(the Hom field) with `[L:ℚ] ≤ D`, unramified outside `T`, a QM model `A/L` of `P` (`IsQMModel`), and
 the descent datum `ε` of `A` (`DescentDatum`). -/
 def G4Out (u : ℚ) (P : QML3 Qbar) : Prop :=
   ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L),
     Module.finrank ℚ L ≤ heightD ∧
     (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
-    ∃ (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ), IsModelOver L A P ∧ DescentDatum L A ε
-
-/-- The algebra `L → L'` for `L ≤ L'`. -/
-@[instance_reducible] noncomputable def incAlg {L L' : IF} (h : L ≤ L') : Algebra L L' :=
-  (IntermediateField.inclusion h).toRingHom.toAlgebra
+    ∃ (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ), IsQMModel L A P ∧ DescentDatum L A ε
 
 /-- **G7's output (B2-B3, N5 L664-716).** The data of G4 (`L`, `A/L`, `ε`), and: a Dirichlet
 character `χ` mod `N`, a locally constant cochain `β : G_ℚ → ℂ^×` with `β² = χ` and `∂β = ε`, and
@@ -262,7 +283,7 @@ the kernel field `L' ⊇ L` of `β|_{G_L}`: finite Galois, `G_{L'} = G_L ∩ ker
 def G7Out (u : ℚ) (P : QML3 Qbar) : Prop :=
   ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
     (ε : GQ → GQ → ℂˣ),
-    IsModelOver L A P ∧ DescentDatum L A ε ∧
+    IsQMModel L A P ∧ DescentDatum L A ε ∧
     (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
   ∃ (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
     (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
@@ -294,6 +315,11 @@ theorem isModelOver_baseChange {L L' : IF} (h : L ≤ L') (A : PkgI3.AbVar L) (P
   obtain ⟨e⟩ := hA
   exact ⟨baseChangeTrans h A ≪≫ e⟩
 
+theorem IsQMModel.isModelOver {L : IF} {A : PkgI3.AbVar L} {P : QML3 Qbar}
+    (h : IsQMModel L A P) : IsModelOver L A P := by
+  obtain ⟨K, hKL, PK, hPK, rfl⟩ := h
+  exact isModelOver_baseChange hKL PK.A P hPK
+
 /-! ## G7 from G4 (proved) -/
 
 /-- `max S_mul ≤ D` (copied from `ZInQKernel/Main.lean`, `ZInQ.Mult.le_heightD_of_mem_S_mul`). -/
@@ -318,9 +344,70 @@ theorem g7Out_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqr
     b3_degree_le_QM hHasse hTwo hSq hUnr Mult.S_mul hS (heightD : ℝ) le_rfl hRS hR12 u L hLD
       ε hε hinf h11 hram 1 (fun _ => by simp) (IsLocallyConstant.const 1)
   exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
-    hdeg, isModelOver_baseChange hle A P hA⟩
+    hdeg, isModelOver_baseChange hle A P hA.isModelOver⟩
 
 /-! ## G7 with the twist: `L'` unramified outside `T` (proved) -/
+
+/-- **B2 over `G_ℚ` with the level of `χ` exposed** (the proof of
+`GlueDescent.B2Q.b2_of_leaves`, copied; the only change is the extra output
+`N = chiLevel T₋ = ∏_{p ∈ T₋} lev p` with `T₋ ⊆ T`, `lev 2 = 4`, `lev p = p`). -/
+theorem b2_of_leaves_level (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
+    (hUnr : LeafUnramified)
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε)
+    (T : Finset ℕ) (hT : ∀ p ∈ T, p.Prime)
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :
+    ∃ (N : ℕ) (hN : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ),
+      (∃ Tm ⊆ T, N = chiLevel Tm) ∧
+      (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T) ∧
+      orderOf χ ≤ 2 * ∏ p ∈ T.filter (· ≠ 2), (p - 1) ∧
+      IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
+      ∀ x y, β x * β y = ε x y * β (x * y) := by
+  classical
+  let Tm := T.filter (fun p => ∃ hp : p.Prime, ¬ SignCob (pull (resp ⟨p, hp⟩) ε))
+  have hloc : ∀ p : Nat.Primes, ¬ SignCob (pull (resp p) ε) ↔ (p : ℕ) ∈ Tm := by
+    intro p
+    constructor
+    · intro h
+      refine Finset.mem_filter.2 ⟨?_, p.2, h⟩
+      by_contra hpT
+      exact h (hUnr L ε hε hinf p (hram p hpT))
+    · intro h
+      obtain ⟨_, hp, h'⟩ := Finset.mem_filter.1 h
+      exact h'
+  have hTmP : ∀ q ∈ Tm, q.Prime := fun q hq => hT q (Finset.filter_subset _ _ hq)
+  haveI hN : NeZero (chiLevel Tm) := ⟨(chiLevel_pos Tm hTmP).ne'⟩
+  obtain ⟨_, hsupp, hord⟩ := exists_chi T Tm hT (Finset.filter_subset _ _)
+  let χ := chi Tm
+  let β₀ : GQ → ℂˣ := fun x => sqrtU (galChar χ x)
+  have hβ₀ : ∀ x, β₀ x ^ 2 = galChar χ x := fun x => sqrtU_sq _
+  have hl : IsLocallyConstant β₀ := (galChar_isLocallyConstant χ).comp sqrtU
+  have agree : ∀ p : Nat.Primes,
+      SignCob (pull (resp p) ε) ↔ SignCob (pull (resp p) (dB β₀)) := by
+    intro p
+    rw [pull_dB, signCob_dB_iff ((galChar χ).comp (resp p)) (β₀ ∘ resp p) (fun x => hβ₀ _)
+      (hl.comp_continuous (resp_continuous p))]
+    obtain ⟨u, hu1, hu2⟩ := exists_crt_unit (chiLevel Tm) p p.2
+    have hsq := hSq p (chiLevel Tm) χ u hu1 hu2
+    have hsq' : (∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧
+        ∀ x, φ x ^ 2 = ((galChar χ).comp (resp p)) x) ↔ χ.toUnitHom u = 1 := hsq
+    rw [hsq', chi_toUnitHom_crt Tm hTmP p p.2 u hu1 hu2]
+    by_cases h : (p : ℕ) ∈ Tm
+    · rw [if_pos h]
+      have hne : (-1 : ℂˣ) ≠ 1 := by
+        intro h1
+        have := congrArg (fun z : ℂˣ => (z : ℂ)) h1
+        norm_num at this
+      constructor
+      · intro hc; exact absurd hc ((hloc p).mpr h)
+      · intro h1; exact absurd h1 hne
+    · rw [if_neg h]
+      simp only [iff_true]
+      by_contra hc
+      exact h ((hloc p).mp hc)
+  obtain ⟨β, hβl, hβs, hβe⟩ := exists_beta (G := GQ) GQp resp resp_continuous hHasse hTwo ε hε
+    (galChar χ) β₀ hβ₀ hl agree
+  exact ⟨chiLevel Tm, hN, χ, β, ⟨Tm, Finset.filter_subset _ _, rfl⟩, hsupp, hord, hβl, hβs, hβe⟩
 
 /-- **B3 from a given B2 cochain** (the proof of `GlueDescent.B3Q.b3_of_leaves`, copied, with
 `b2_of_leaves`' output taken as hypotheses so that the twist `η` may depend on it). -/
@@ -387,15 +474,18 @@ theorem two_mem_T (u : ℚ) : 2 ∈ T u :=
 
 /-- **The data of G7, clause by clause** (the interface handed to G8-G16). For the fibre `P`
 over `J(u)`: the Hom field `L` (finite Galois, unramified outside `T`), the model `A/L` with its
-descent datum `ε` (B1), the Dirichlet character `χ` mod `N` (`N` supported on `T`), the
+descent datum `ε` (B1), the Dirichlet character `χ` mod `N` (`N = ∏_{p ∈ T₋} lev p` for some
+`T₋ ⊆ T`, `lev 2 = 4`, `lev p = p`: `χ` is a product of odd characters mod `p` and mod `4`, N5
+L677-683, which bounds the conductor of `β` at every prime, as G15 needs), the
 cochain `β` (locally constant, `β² = χ`, `∂β = ε`, twisted so that inertia outside `T` dies), and
 the kernel field `L' ⊇ L` of `β|_{G_L}`: `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`,
 `L'` unramified outside `T` (Galois form), and `A_{L'}` a model of `P`'s surface. -/
 def G7Data (u : ℚ) (P : QML3 Qbar) (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ)
     [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF) (hLL' : L ≤ L') : Prop :=
-  IsModelOver L A P ∧ DescentDatum L A ε ∧
+  IsQMModel L A P ∧ DescentDatum L A ε ∧
   (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
   (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T u) ∧
+  (∃ Tm ⊆ T u, N = chiLevel Tm) ∧
   IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
   (∀ x y, β x * β y = ε x y * β (x * y)) ∧
   (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
@@ -423,8 +513,8 @@ theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : Leaf
     rcases Finset.mem_union.mp hp with h | h
     · exact hS p h
     · exact Nat.prime_of_mem_primeFactors h
-  obtain ⟨N, hN, χ, β₁, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
-    b2_of_leaves hHasse hTwo hSq hUnr L ε hε hinf (T u) hT hram
+  obtain ⟨N, hN, χ, β₁, hlev, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
+    b2_of_leaves_level hHasse hTwo hSq hUnr L ε hε hinf (T u) hT hram
   have hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1 :=
     inflatedNormalized_of L ε hε hinf h11
   obtain ⟨Q, -, hη, hηl, hunr⟩ := GlueB3Unram.unramified_outside_noLeaf L (T u) (two_mem_T u)
@@ -434,16 +524,16 @@ theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : Leaf
   have hdegR := degree_le_QM Mult.S_mul hS (heightD : ℝ) le_rfl hRS hR12 u
     (Module.finrank ℚ L) (orderOf χ) hLD hord
   refine ⟨L, hfd, hgal, A, ε, N, hN, χ, fun x => β₁ x * (∏ q ∈ Q, GlueB3Unram.etaP q) x,
-    L', hfd', hgal', hle, hA, hD, hram, hsupp, hβl₁.mul hηl, twist_sq (galChar χ) hβs₁ _ hη,
-    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA⟩
+    L', hfd', hgal', hle, hA, hD, hram, hsupp, hlev, hβl₁.mul hηl, twist_sq (galChar χ) hβs₁ _ hη,
+    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA.isModelOver⟩
   calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by
         exact_mod_cast hdeg
     _ = 2 * (orderOf χ : ℝ) * Module.finrank ℚ L := by push_cast; ring
     _ ≤ _ := hdegR
 
 theorem g7Out_of_g7OutUnr (u : ℚ) (P : QML3 Qbar) (h : G7OutUnr u P) : G7Out u P := by
-  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hA, hD, hram, -, hβl, hβs, hβe,
-    hGL', hdeg, -, hM⟩ := h
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hA, hD, hram, -, -, hβl, hβs,
+    hβe, hGL', hdeg, -, hM⟩ := h
   exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
     hdeg, hM⟩
 
@@ -451,18 +541,20 @@ theorem g7Out_of_g7OutUnr (u : ℚ) (P : QML3 Qbar) (h : G7OutUnr u P) : G7Out u
 
 /-- **G2's input, the fibre cover (Prop. TS + Lemma NV, N5 L509-529; remaining).** There is a
 separable `f ∈ ℚ[X]` of degree `≤ 324` (the fibre of the normalized cover of `P¹_u` over `u`)
-whose splitting field `K = ℚ(roots of f) ⊆ ℚ̄` is unramified outside `T` and carries a model of
-`P`'s surface. -/
-def FibreCoverOut (u : ℚ) (P : QML3 Qbar) : Prop :=
+whose splitting field `K = ℚ(roots of f) ⊆ ℚ̄` is unramified outside `T` and contains the residue
+field of the point of `P` (a rational fibre `PK/K`, `RationalFibre`). -/
+def FibreCoverOut (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ) (P : QML3 Qbar) :
+    Prop :=
   ∃ f : Polynomial ℚ, f.Separable ∧ f.natDegree ≤ 324 ∧
     (∀ p : Nat.Primes, (p : ℕ) ∉ T u →
       UnramifiedAt (IntermediateField.adjoin ℚ (f.rootSet Qbar)) p) ∧
-    ∃ A : PkgI3.AbVar (IntermediateField.adjoin ℚ (f.rootSet Qbar)),
-      IsModelOver (IntermediateField.adjoin ℚ (f.rootSet Qbar)) A P
+    ∃ PK : QML3 (IntermediateField.adjoin ℚ (f.rootSet Qbar)),
+      RationalFibre Y Φ P (IntermediateField.adjoin ℚ (f.rootSet Qbar)) PK
 
 /-- **G2, proved from the fibre cover**: the splitting field is Galois of degree `≤ 324!`
 (`GlueRepo.Numerics.splitting_degree_le`). -/
-theorem g2Out_of_cover (u : ℚ) (P : QML3 Qbar) (h : FibreCoverOut u P) : G2Out u P := by
+theorem g2Out_of_cover (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (u : ℚ)
+    (P : QML3 Qbar) (h : FibreCoverOut Y Φ u P) : G2Out Y Φ u P := by
   obtain ⟨f, hs, hd, hram, A, hA⟩ := h
   have hsp : f.IsSplittingField ℚ (IntermediateField.adjoin ℚ (f.rootSet Qbar)) :=
     IntermediateField.adjoin_rootSet_isSplittingField (IsAlgClosed.splits _)
@@ -505,13 +597,13 @@ def KernelFieldOut (u : ℚ) (P : QML3 Qbar) (K : IF) (A : PkgI3.AbVar K) : Prop
 
 /-- **G4, proved from the kernel field**: `L = E ⊔ K` is finite Galois, unramified outside `T`
 (`UnramifiedSup`), `[L:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D` (Minkowski,
-`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), `A_L` is a model of
-`P`'s surface (`isModelOver_baseChange`), and B1's normalization gives the descent datum
+`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), `A_L = (PK.A)_L` is a QM
+model of `P` (`IsQMModel`), and B1's normalization gives the descent datum
 (`descentDatum_of_conjugacy`). -/
 theorem g4Out_of_kernelField (hSup : UnramifiedSup) (u : ℚ) (P : QML3 Qbar) (K : IF)
     [FiniteDimensional ℚ K] [IsGalois ℚ K] (hK : Module.finrank ℚ K ≤ heightF0)
-    (hramK : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) (A : PkgI3.AbVar K)
-    (hA : IsModelOver K A P) (h : KernelFieldOut u P K A) : G4Out u P := by
+    (hramK : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) (PK : QML3 K)
+    (hPK : IsModelOver K PK.A P) (h : KernelFieldOut u P K PK.A) : G4Out u P := by
   obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, m, c, hCD⟩ := h
   have hE : Module.finrank ℚ E ≤ 3 ^ (r ^ 2) := hEG ▸ GlueRepo.TorsionFree.card_le_three_pow G
   have hdeg : Module.finrank ℚ ↥(E ⊔ K) ≤ heightD :=
@@ -519,7 +611,7 @@ theorem g4Out_of_kernelField (hSup : UnramifiedSup) (u : ℚ) (P : QML3 Qbar) (K
   have : IsGalois ℚ ↥(E ⊔ K) := IsGalois.mk
   exact ⟨E ⊔ K, inferInstance, inferInstance, hdeg,
     fun p hp => hSup E K p (hramE p hp) (hramK p hp), _, _,
-    isModelOver_baseChange le_sup_right A P hA, descentDatum_of_conjugacy _ _ m c hCD⟩
+    ⟨K, le_sup_right, PK, hPK, rfl⟩, descentDatum_of_conjugacy _ _ m c hCD⟩
 
 /-! ## The remaining glue as Props, and the composite -/
 
@@ -528,10 +620,10 @@ R1(d), R2, T1, T2; the valuation case analysis is proved, `GlueRepo.PR.inertia_o
 and Lemma NV step 2, `LeafQM.AV.residue_unramified_over_branch`). -/
 def FibreCoverExists : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
-    (P : QML3 Qbar), FibreCtx Y Φ π u P → FibreCoverOut u P
+    (P : QML3 Qbar), FibreCtx Y Φ π u P → FibreCoverOut Y Φ u P
 
 /-- **Remaining (G4 + B1): the kernel field of `Res_{K/ℚ} A` and the descent datum on the Hom
-field**, for every field `K` and model as in G2's output (h-decomposition G4: inputs R2, R3, T6,
+field**, for every field `K` and rational fibre `PK/K` as in G2's output (h-decomposition G4: inputs R2, R3, T6,
 R7a, T28; A7 proved, `LeafQM.AV.fibre_conjugates_isomorphic`; B1's algebra proved,
 glue-descent `B1Quat`, `Cochain`; uses NoCM (G6) for `End⁰(A_ℚ̄) = B`). -/
 def KernelFieldExists : Prop :=
@@ -539,7 +631,7 @@ def KernelFieldExists : Prop :=
     (P : QML3 Qbar), FibreCtx Y Φ π u P →
     ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K], Module.finrank ℚ K ≤ heightF0 →
       (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) →
-      ∀ A : PkgI3.AbVar K, IsModelOver K A P → KernelFieldOut u P K A
+      ∀ PK : QML3 K, RationalFibre Y Φ P K PK → KernelFieldOut u P K PK.A
 
 /-- **G2 → G4 → G7 (proved)**: from the two remaining glue Props and the four B2 leaves, every
 fibre context has G7's output. -/
@@ -547,9 +639,9 @@ theorem fieldDescent (hCover : FibreCoverExists) (hKer : KernelFieldExists) (hSu
     (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
     (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
     (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7Out u P := by
-  obtain ⟨K, hfK, hgK, hK, hramK, A, hA⟩ := g2Out_of_cover u P (hCover Y Φ π u P hctx)
+  obtain ⟨K, hfK, hgK, hK, hramK, PK, hPK⟩ := g2Out_of_cover Y Φ u P (hCover Y Φ π u P hctx)
   exact g7Out_of_g4Out hHasse hTwo hSq hUnr u P
-    (g4Out_of_kernelField hSup u P K hK hramK A hA (hKer Y Φ π u P hctx K hK hramK A hA))
+    (g4Out_of_kernelField hSup u P K hK hramK PK hPK.2 (hKer Y Φ π u P hctx K hK hramK PK hPK))
 
 /-- **G2 → G4 → G7 with the twist (proved)**: as `fieldDescent`, with `L'` unramified outside `T`
 and the clause list `G7Data`. -/
@@ -558,9 +650,9 @@ theorem fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
     (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
     (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
     (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7OutUnr u P := by
-  obtain ⟨K, hfK, hgK, hK, hramK, A, hA⟩ := g2Out_of_cover u P (hCover Y Φ π u P hctx)
+  obtain ⟨K, hfK, hgK, hK, hramK, PK, hPK⟩ := g2Out_of_cover Y Φ u P (hCover Y Φ π u P hctx)
   exact g7OutUnr_of_g4Out hHasse hTwo hSq hUnr u P
-    (g4Out_of_kernelField hSup u P K hK hramK A hA (hKer Y Φ π u P hctx K hK hramK A hA))
+    (g4Out_of_kernelField hSup u P K hK hramK PK hPK.2 (hKer Y Φ π u P hctx K hK hramK PK hPK))
 
 /-! ## How G7's output feeds `ModularConstituent` -/
 
@@ -625,7 +717,7 @@ theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelF
   obtain ⟨M, J, hM, hJ, hMle, hCC⟩ := hRest Y Φ π u P hctx L A ε N χ β L' hle hdata
   haveI : NumberField L' := numberField_of_fd L'
   exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
-    hdata.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.1, hCC⟩
+    hdata.2.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.2.1, hCC⟩
 
 /-- **The same, with glue-descent's `LeafHasse`, `LeafLocalTwo` replaced by the bundle's T14-T15**
 (`PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`; `GlueWP3.leafHasse_of_T14`,
@@ -696,7 +788,7 @@ theorem galoisG2Out_of_g7Data (hRes : ResQRange) (u : ℚ) (P : QML3 Qbar) (L : 
   intro p hp hpT v hv σ hσ
   rw [hRes L']
   have hv' : GlueB3Unram.LiesOver v p := hv
-  exact h.2.2.2.2.2.2.2.2.2.1 p hp hpT v hv' (Subgroup.mem_map_of_mem _ hσ)
+  exact h.2.2.2.2.2.2.2.2.2.2.1 p hp hpT v hv' (Subgroup.mem_map_of_mem _ hσ)
 
 /-- **Bridge 2 (remaining; the Tate functor on the descent datum, §3 of the report).** From G7's
 data, the rank-4 endomorphism ring and `dim A_{L'} = 2` (G5-G6, A9; `model_dim`), for every `ℓ`:
