@@ -6,7 +6,7 @@ Task twist-descent, 2026-11-13. Base: fork main 57a7fa26 + `origin/wip/kf-glue`,
 ## 1. Main result
 
 **VERIFIED (compiled).** `lake env lean scratch/twist-descent/TwistDescent.lean` exits 0 with no
-`sorry` and no error (`scratch/twist-descent/build3.txt`, 1m24s wall). Every new `#print axioms`
+`sorry` and no error (`scratch/twist-descent/build3.txt`, 1m24s wall; rechecked after the last edit of the Contrib file in `build4.txt`: rc=0, all 35 `#print axioms` lines standard). Every new `#print axioms`
 line gives `[propext, Classical.choice, Quot.sound]`.
 
 kf-glue's glue Prop `TwistDescent` is proved with its statement unchanged. So is kf-glue's
