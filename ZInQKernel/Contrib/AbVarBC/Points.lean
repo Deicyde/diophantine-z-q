@@ -128,7 +128,7 @@ noncomputable def trPt (φ : Ω ≃ₐ[K] Ω₂) : A.Pt Ω ≃* A.Pt Ω₂ where
   invFun x := trHom φ.symm ≫ x
   left_inv p := by simp [← Category.assoc, trHom_symm_comp]
   right_inv x := by simp [← Category.assoc, trHom_comp_symm]
-  map_mul' p q := MonObj.comp_mul _ _ _
+  map_mul' _ _ := MonObj.comp_mul _ _ _
 
 /-- `trPt φ` carries the action of `σ` to that of `φσφ⁻¹`. -/
 theorem trPt_galAct (φ : Ω ≃ₐ[K] Ω₂) (σ : Ω ≃ₐ[K] Ω) (σ₂ : Ω₂ ≃ₐ[K] Ω₂)
@@ -188,7 +188,7 @@ instance epi_extHom (κ : Ω →ₐ[K] Ω₂) : Epi (extHom κ) := by
 noncomputable def extPt (κ : Ω →ₐ[K] Ω₂) : A.Pt Ω →* A.Pt Ω₂ where
   toFun p := extHom κ ≫ p
   map_one' := MonObj.comp_one _
-  map_mul' p q := MonObj.comp_mul _ _ _
+  map_mul' _ _ := MonObj.comp_mul _ _ _
 
 theorem extPt_apply (κ : Ω →ₐ[K] Ω₂) (p : A.Pt Ω) : extPt A κ p = extHom κ ≫ p := rfl
 
