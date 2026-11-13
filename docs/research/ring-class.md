@@ -82,6 +82,17 @@ definition. Ingredients:
 * `HHprime_eq_iSup`: for squarefree `n ≡ 5 (mod 8)`, `ℍ'_n = ⨆_{d₀ ∣ n, d₀ ≡ 5 (8)} H'_{d₀}`. The factor
   `L_n(i)` in TYZ's L1320 is redundant.
 
+**(f) `Cl'_d`, lifts of `2Cl`, class 7** (also `RingClassGenus.lean`):
+* `artinPrime d : Pic (O4 d) ⧸ Subgroup.zpowers (sigmaClass d) ≃* Gal(Hprime d/QNeg d)` is the Artin
+  isomorphism for `H'_d` (TYZ's `Cl'_d`). `artinPrime_mk_apply` shows it is the restriction of Tau Ceti's
+  `ringClassArtinEquiv`. `card_artinPrime` gives its degree.
+* `exists_lift_picSquares_O4 n`: there is `R ⊆ Pic(O_{n,4})²` that `Pic O_{n,4} → Cl(K_n)` maps
+  bijectively onto `Cl(K_n)²`, with `#R = gCl n = g(n)`. Such sets are the candidates for TYZ's `Φ₀`.
+  TYZ's exact definition of `Φ₀` ("`Φ₀ = Φ ∩ 2Cl′_n`", `rv-tyz-inputs.md` §1.3) is not recorded precisely
+  enough on this host to pin cm-points' `Φ`.
+* `ringClassFieldD_neg : d % 4 = 3 → Squarefree d → ringClassFieldD (−d) = ((hilbertField d).restrictScalars ℚ).map (embed d)`
+  says that the field of TYZ's class-7 CM points (discriminant `−d`) is `H_d`.
+
 ## 2. The orders and fields TYZ uses (as quoted in the project notes; `Period7.tex` is not on this host)
 
 | TYZ object | where (TYZ arXiv v1 lines, via notes) | Lean (`RingClass.lean`) |
@@ -119,7 +130,8 @@ All line numbers are quoted from the notes, not re-read (STANDARD-as-quoted).
   ring class fields by discriminant, embedding independence.
 * `ZInQKernel/Contrib/TYZGenus/RingClassTwo.lean`: `K(√a)` splitting, Chebotarev primes in Picard classes,
   `H'_d(√2) = H_{d,4}`.
-* `ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean`: `L_n(i) ⊆ H_n ⊆ H'_n`, `ℍ'_n = ⨆ H'_{d₀}`.
+* `ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean`: `L_n(i) ⊆ H_n ⊆ H'_n`, `ℍ'_n = ⨆ H'_{d₀}`, `artinPrime`,
+  lifts of `2Cl`, `ringClassFieldD_neg`.
 * `ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean`: proofs of cm-points' `HprimeNormal` and `IInH4`, and
   the main-theorem variants.
 * Vendored Tau Ceti (earlier in this task): the `RingClass.Field` closure, `RayClassField`,
@@ -164,6 +176,10 @@ Build: `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge ZInQKernel.Contri
 'ZInQ.Contrib.TYZGenus.RingClass.adjSqrt_le_hilbertField' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.RingClass.Lni_le_Hprimebar' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZGenus.RingClass.HHprime_eq_iSup' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClass.exists_lift_picSquares_O4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClass.ringClassFieldD_neg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClass.artinPrime_mk_apply' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.RingClass.card_artinPrime' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 (The round-1–3 declarations of `RingClass.lean`, such as `orderOf_sigmaClass`, were checked the same way;
 see `scratch/ring-class/log.md`.)
