@@ -39,3 +39,10 @@ Setup: g0-assemble3's compiled olean chain (LPrefix..TailF, worktree g0-assemble
   `HSyn.sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) : ZInQ.SixContactMin`;
   `HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap'` (= `fibreQMPeriod_periodMap` without `hBC`, `hCP`).
 - Output `Bundle5_out.txt`: exit 0, 0 errors, no sorry, 14 s; all 30 `#print axioms` lines standard.
+
+## Step 4 (10:35): flat-file check — VERIFIED
+
+- `mk_flat.sh` regenerates g0-assemble3's `G0Assemble3.lean` exactly (md5 b5a4fb97…, = its flat_md5.txt) and appends
+  Bundle5.lean from `section CPtsTransportSec` on → `Flat5.lean` (90 931 lines, gitignored).
+- `lake env lean scratch/cpts-transport/Flat5.lean`: exit 0 in 918 s, 0 errors, no sorry; 218 axiom reports, all
+  standard (script parse), incl. `HSyn.sixContactMin_of_leaves5`. Output `Flat5_out.txt`.

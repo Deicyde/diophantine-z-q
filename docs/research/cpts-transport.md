@@ -145,7 +145,7 @@ they are not committed. Each file starts with `import TailF` and is compiled wit
 | `CPtsTransport.lean` | §1 | exit 0, 0 errors, no sorry, 6 s; axioms of `cPts_of_isPullback` and `cPtsTransport_proof` standard |
 | `BCUnique.lean` | §2 | exit 0, 0 errors, no sorry, 5 s; axioms standard |
 | `Bundle5.lean` (from `mk_bundle5.py`) | g0-assemble3's `TailD.lean` body (parts z80-z95), §1, §2, `GluePieces5`, `gluePieces4_of_gluePieces5`, `sixContactMin_of_leaves5`, `fibreQMPeriod_periodMap'` | exit 0, 0 errors, no sorry, 14 s; all 30 axiom reports standard |
-| `Flat5.lean` (from `mk_flat.sh`; not committed, 90 931 lines) | g0-assemble3's flat `G0Assemble3.lean` (md5-identical) plus everything of `Bundle5.lean` after the TailD body | FLAT_RESULT |
+| `Flat5.lean` (from `mk_flat.sh`; not committed, 90 931 lines) | g0-assemble3's flat `G0Assemble3.lean` (md5-identical) plus everything of `Bundle5.lean` after the TailD body | exit 0 in 918 s, 0 errors, no sorry; 218 `#print axioms` reports (parsed by script, multi-line included), all `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`, `gluePieces4_of_gluePieces5`, `cPtsTransport_proof`, `baseChangeClassUnique_proof` |
 
 ## 6. Integration notes
 
