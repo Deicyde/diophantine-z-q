@@ -26,27 +26,34 @@
    - (c) "CM **exactly** by `ℤ[i]`" (resp. `ℤ[ζ₃]`) at the points over `0` (resp. `∞`). The
      bundle's `HasCM4` says only that `com` contains some `φ` with `φ² = −1`.
    - (d) algebraic geometry over `ℚ̄`, which Mathlib does not have.
-3. **Lean** (VERIFIED, compiled, standard axioms only). The arithmetic and Galois-theoretic core is
-   proved from the bundle's clauses, in `scratch/pi0-x6/Core.lean`:
-   `Pi0X6.subsingleton_of_bundle`. It assumes three things:
-   - the closed facts about `ℚ(i)` and `ℚ(√−3)` (`b = 1`, `#Pic = 1`, conductor coprime to 6);
-   - (c);
-   - (d), which is three hypotheses on a Galois-compatible map `c : X(ℚ̄) → S`.
+3. **Lean** (VERIFIED: compiled, standard axioms only). The file is
+   `scratch/pi0-x6/Pi0X6.lean`. It proves
 
-   For `S = π₀(X_ℚ̄)` the conclusion `Subsingleton S` is `π₀(X₆_ℚ̄) = 1`.
-4. **The full clause `R1pi0Props X := GeometricallyConnected X.hom` cannot be proved in Lean
-   today.** Step (d) needs:
-   - connected components of `X ×_ℚ Spec ℚ̄` and the `Aut(ℚ̄/ℚ)`-action on them;
-   - nonconstant maps from proper curves onto `P¹`;
-   - the Nullstellensatz for closed points;
-   - "connected over `ℚ̄` ⇒ connected over every field".
+   `Pi0X6.r1pi0Props_of_bundle : R5ptProps X Ψ → R5fpCount → R2X6CMExact Ψ π₆ → AGInputs π₆ →
+   GeometricallyConnected X.hom`.
 
-   All of this is standard (glue by the task's definition), but none of it is in Mathlib v4.35.
+   The conclusion is exactly the clause `LeafAdopt.R1pi0Props X`. The four hypotheses:
+   - `R5ptProps X Ψ` and `R5fpCount` are clauses of the bundle, used as they are.
+   - The closed number-theoretic facts are all **proved**: for `ℚ(i) = ℚ(ζ₄)` and
+     `ℚ(√−3) = ℚ(ζ₃)`, `inertCount6 = 1`, `#Pic 𝓞 = 1`, conductor 1, degree 2, totally complex.
+   - `R2X6CMExact` is input (c) in the form c1: R2's CM clauses at `0` and `∞` with
+     `com ≃+* 𝓞_k`. It is a consequence of Baba–Granath, exactly as the bundle's `HasCM` form is.
+   - `AGInputs` is input (d), stated over Mathlib's `ConnectedComponents (X ×_ℚ Spec ℚ̄)`. Its
+     Galois-compatibility part is **proved** (`compOf_galois`). Three fields are left open:
+     - `over0`: every connected component of `X_ℚ̄` contains a `ℚ̄`-point over `0`;
+     - `overInf`: the same over `∞`;
+     - `descend`: `π₀(X_ℚ̄) = 1` implies `GeometricallyConnected`.
+4. **The clause `R1pi0Props` is therefore glue modulo (c) and the three fields of `AGInputs`.**
+   - The fields of `AGInputs` are standard algebraic geometry: curves over `ℚ̄`, and connectedness
+     under field extension. Mathlib v4.35 does not have them, so they are open glue, not leaves.
+   - (c) is a restatement of a published clause in its printed meaning (option c1). It can also
+     be derived as glue from the leaf `PkgI3.QMDichotomyYu` (option c2, not done).
+   - **No new literature leaf is needed** on this route.
 
-   **Recommendation:** keep `R1pi0Props` as a clause counted inside R1, as leaf-adopt did. The
-   argument of §2 shows it is a consequence of González–Rotger and Baba–Granath (with R1 on points)
-   plus standard algebraic geometry. It no longer rests only on Deligne 1971 §2, whose locator is
-   UNVERIFIED.
+   **Recommendation:** until the algebraic geometry exists in Lean, keep `R1pi0Props` as a
+   clause counted inside R1, as leaf-adopt did. Record that it follows from González–Rotger
+   (R5pt, R5count) and Baba–Granath (R2) plus standard algebraic geometry. This removes its sole
+   dependence on Deligne 1971 §2, whose locator is UNVERIFIED.
 
 ## 1. The sketch, checked
 
@@ -71,7 +78,7 @@ gives `2g(C) − 2 = −4 + B`, where `B` is the number of ramification points. 
 even, and `B ≥ 3` allows `B = 4`. To exclude a fourth branch value one must know that every point
 with a nontrivial stabilizer lies over `{0, ∞, −16/27}`. Two facts would give this:
 - the three involutions of `W` each have exactly 2 fixed points, at `CM(−4)`, `CM(−3)` and
-  `CM(−24)`, by Ogg's fixed-point count;
+  `CM(−24)`, by Ogg's fixed-point count (UNVERIFIED locator);
 - `Γ*` has exactly three elliptic orbits (Baba–Granath).
 
 Neither is a clause of `R1R2fpRep`. The step does not use the bundle's residue-field clause
@@ -139,55 +146,72 @@ Consistency check (SPECULATIVE, from memory): Elkies' model of `X₀(6,1)` is th
     Skolem–Noether (leaf T13), `Aut(𝒪) = N_B(𝒪)/ℚ^×`, and `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`, a computation
     for the explicit `𝒪` (Vignéras, UNVERIFIED locator);
   - the image of a component is closed and irreducible and not a point, so it is all of `P¹`;
-  - `G` acts on `X̄` by `id × Spec σ`, compatibly with `X̄(ℚ̄) = X(ℚ̄)`;
+  - `G` acts on `X̄` by `id × Spec σ`, compatibly with `X̄(ℚ̄) = X(ℚ̄)`. This piece is now
+    **proved in Lean** (`compOf_galois`, §3);
   - connected over `ℚ̄` implies connected over every field `K ⊇ ℚ`, which is what Mathlib's
     `GeometricallyConnected` asks.
 
-## 3. Lean (`scratch/pi0-x6/`)
+## 3. Lean (`scratch/pi0-x6/Pi0X6.lean`)
 
-All results below are VERIFIED. `lake env lean scratch/pi0-x6/Core.lean` gives 0 errors and
-0 warnings. `#print axioms` on the main declarations shows only `propext`, `Classical.choice` and
-`Quot.sound`. The file imports `ZInQKernel.HDecomp.QM.Leaves` and uses its genuine definitions:
-`R5ptProps`, `R5fpCount`, `ToP1`, `residueImage`, `fieldPt`, `fieldMap`, `com`, `inertCount6`,
-`conductor`. `Field.lean` is the standalone copy of §1.
+All results below are VERIFIED:
+- `lake env lean scratch/pi0-x6/Pi0X6.lean` exits 0 with no errors and no warnings;
+- 9 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
+  (`scratch/pi0-x6/compile_out.txt`);
+- the file contains no `sorry` and no `axiom`.
 
-| Declaration | Statement |
-| --- | --- |
-| `sqrt_neg_one_not_mem` | `z² = −1`, `s² = −3` in `ℚ̄` ⇒ `z ∉ ℚ⟮s⟯` |
-| `exists_fix_moves` | ∃ `σ : ℚ̄ ≃ₐ[ℚ] ℚ̄` with `σ s = s`, `σ z ≠ z` (via `InfiniteGalois.fixedField_fixingSubgroup`) |
-| `galPt` | `σ · x = fieldMap σ ≫ x` on `X(ℚ̄)` |
-| `spec_comp_eq_self_iff`, `galPt_eq_self_iff` | `σ · x = x` ↔ `σ` fixes `residueImage x` pointwise |
-| `galPt_eq_self_iff_of_eq_adjoin` | if `ℚ(x) = ℚ⟮z⟯`: `σ · x = x ↔ σ z = z` |
-| `val_galPt` | `π(σ · x) = σ(π x)` |
-| `subsingleton_of_galois` | **core**, stated below |
-| `eq_adjoin_of_finrank_two` | a degree-2 subfield of `ℚ̄` receiving `k ∋ w`, `w² = d` non-square, is `ℚ⟮z⟯`, `z² = d` |
-| `residue_eq_adjoin_of_R5pt` | from `R5ptProps` with `inertCount6 k = 1`, `#Pic R = 1`: the residue field of a point with `com ≅ R` is `ℚ⟮z⟯`, `z² = d` |
-| `fibre_le_two_of_R5count` | from `R5fpCount` and `hexact`: at most 2 `ℚ̄`-points over the value |
-| `subsingleton_of_bundle` | the core with its arithmetic hypotheses discharged from `R5ptProps` and `R5fpCount` |
+It imports `ZInQKernel.HDecomp.QM.Leaves` and uses its genuine definitions: `R5ptProps`,
+`R5fpCount`, `ToP1`, `residueImage`, `fieldPt`, `fieldMap`, `com`, `inertCount6`, `conductor`,
+`QMPair`, `pairSetoid`. From Mathlib it uses `GeometricallyConnected`, `pullback`,
+`ConnectedComponents` and `CyclotomicField`.
 
-The core `subsingleton_of_galois` states: let `c : X(ℚ̄) → S` be Galois-compatible
-(`c x = c x' → c(σx) = c(σx')`), and let every class contain a point over `0` and a point over
-`∞`. Suppose there are at most 2 points over `0`, each with residue field `ℚ⟮z⟯`, `z² = −1`, and
-every point over `∞` has residue field `ℚ⟮s⟯`, `s² = −3`. Then `Subsingleton S`.
+| § | Declaration | Statement |
+| --- | --- | --- |
+| 1 | `sqrt_neg_one_not_mem`, `exists_fix_moves` | `z² = −1`, `s² = −3` in `ℚ̄` ⇒ `z ∉ ℚ⟮s⟯`, and ∃ `σ ∈ Aut(ℚ̄/ℚ)` with `σ s = s`, `σ z ≠ z` |
+| 2 | `galPt`, `galPt_eq_self_iff` | `σ · x := fieldMap σ ≫ x`; `σ · x = x` ↔ `σ` fixes `residueImage x` |
+| 3 | `subsingleton_of_galois` | **core**, stated below |
+| 4 | `residue_eq_adjoin_of_R5pt` | from `R5ptProps`: the residue field of a point with `com ≅ R` is `ℚ⟮z⟯`, `z² = d` (when `b = 1`, `#Pic R = 1`, `k = ℚ(√d)`) |
+| 4 | `fibre_le_two_of_R5count` | from `R5fpCount`: at most `2^1·1 = 2` points over the value |
+| 4 | `subsingleton_of_bundle` | the core, with residue fields and count discharged from the two clauses |
+| 5 | `gaussEquiv : GaussianInt ≃+* 𝓞 ℚ(ζ₄)` | built with `Zsqrtd.lift` and the integral power basis |
+| 5 | `inertCount6_K4 = 1`, `pic_R4 = 1`, `conductor_R4 = 1`, `finrank_K4 = 2` | 3 is prime and 2 is not prime in `ℤ[i]` (`GaussianInt.prime_iff_mod_four_eq_three_of_nat_prime`); PID |
+| 6 | `exists_coord`, `coord_eq_zero`, `dvd_iff_coord` | `𝓞 ℚ(ζ₃) = ℤ ⊕ ℤζ₃` |
+| 6 | `inertCount6_K3 = 1`, `pic_R3 = 1`, `conductor_R3 = 1`, `finrank_K3 = 2` | `3 ∣ λ²` but `3 ∤ λ` (`λ = ζ₃ − 1`); 2 is prime (parity table over `ZMod 2`, `decide`); `three_pid` |
+| 7 | `R2X6CMExact` | input (c), option c1: `π₆ = 0 ↔ com ≃+* 𝓞_{ℚ(ζ₄)}` and `π₆ = ∞ ↔ com ≃+* 𝓞_{ℚ(ζ₃)}` |
+| 7 | `Xbar`, `ptOf`, `compOf`, `galXbar` | `X_ℚ̄ := pullback X.hom (Spec ℚ̄ → Spec ℚ)`; the point and the component of `x`; `σ` acting as `id × Spec σ⁻¹` |
+| 7 | `ptOf_galPt`, `compOf_galois` | `pt(σ · x) = galXbar σ (pt x)`; **Galois compatibility of components, proved** |
+| 7 | `AGInputs` | `over0`, `overInf`, `descend` (unproved algebraic geometry; see §2 (d)) |
+| 7 | `subsingleton_components_of_bundle` | `Subsingleton (ConnectedComponents (Xbar X))` |
+| 7 | `r1pi0Props_of_bundle` | `GeometricallyConnected X.hom` |
 
-The hypotheses of `subsingleton_of_bundle` that remain open are listed below. Each is either a
-closed fact or one of the inputs (c) and (d) of §2:
-- `hb₄ : inertCount6 k₄ = 1`, `hh₄ : Nat.card (Pic R₄) = 1`, `hc₄ : (conductor R₄).Coprime 6`,
-  and the same at `k₃`. These are closed number theory for `ℚ(i)` and `ℚ(√−3)` with `R` the ring
-  of integers. Mathlib has `three_pid` for `ℚ(ζ₃)` and inertia degrees in cyclotomic fields
-  (`IsCyclotomicExtension.Rat.inertiaDegIn_eq_of_not_dvd`). It has no PID result for `ℚ(i)` as a
-  cyclotomic field; `GaussianInt` is Euclidean, but it would have to be identified with
-  `𝓞 ℚ(ζ₄)`. Not done.
-- `hexact₄`, `hexact₃`: input (c).
-- `hc`, `h0`, `hinf`: input (d), with `S = π₀(X_ℚ̄)`.
+The core `subsingleton_of_galois` states: let `c : X(ℚ̄) → S` be Galois-compatible, and let every
+class contain a point over `0` and a point over `∞`. Suppose there are at most 2 points over `0`,
+each with residue field `ℚ⟮z⟯`, `z² = −1`, and every point over `∞` has residue field `ℚ⟮s⟯`,
+`s² = −3`. Then `Subsingleton S`.
+
+**Non-vacuity of the hypotheses.** Each hypothesis holds for the genuine `X₆`:
+- (c) is the printed content of Baba–Granath's CM points;
+- `AGInputs` is standard algebraic geometry (§2 (d)).
+
+None of them is a disguised form of the conclusion:
+- `over0` and `overInf` say that every component meets two fibres;
+- `descend` is the general equivalence "connected over `ℚ̄`" ⇔ "geometrically connected", which
+  holds for every `ℚ`-scheme (SPECULATIVE in this generality: Stacks states it with
+  `k ⊂ k̄`, UNVERIFIED tag). It is not specific to `X₆`.
 
 ## 4. What remains
 
-1. **(d)**: the algebraic geometry of §2 over `ℚ̄`, and the step from `π₀(X_ℚ̄) = 1` to
-   `GeometricallyConnected X.hom`. This is large and needs Mathlib development.
-2. **(c)**: either restate R2's CM clauses with `com ≃+* R` (option c1), or derive (c) from
-   `QMDichotomyYu` (option c2).
-3. The closed facts about `ℚ(i)` and `ℚ(√−3)`.
-4. A human check of §2 (SPECULATIVE until reviewed).
+1. The fields of `AGInputs`. These are glue that needs Mathlib development, and none of it exists
+   in v4.35:
+   - `over0` and `overInf` need:
+     - smooth proper curves over `ℚ̄`: components are irreducible of dimension 1, with infinitely
+       many closed points;
+     - nonconstant maps from them onto `P¹`;
+     - the finiteness of the fibres of `π₆`: twist orbits, with `Aut(𝒪)/Inn(𝒪^×) ≅ (ℤ/2)²`
+       computed from Skolem–Noether (leaf T13);
+     - the Nullstellensatz for closed points.
+   - `descend` needs "connected over `ℚ̄` ⇒ connected over every field".
+2. (c): either adopt `R2X6CMExact` (option c1, a restatement of Baba–Granath's clause) or derive
+   it from `QMDichotomyYu` (option c2).
+3. A human check of §2 (SPECULATIVE until reviewed).
 
-Until items 1-3 are done, `R1pi0Props` stays a clause of the bundle.
+Until item 1 is done, `R1pi0Props` stays a clause of the bundle.
