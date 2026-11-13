@@ -20,7 +20,7 @@
 
 ## Step 2: SNSpecialize PROVED (scratch/ts-sn/TSSN.lean), compiled 2026-11-13 ~10:00 PST
 - `TSSN.lean` = verbatim `PropTSGlue.lean` (`check_prefix.py`: PREFIX IDENTICAL) + appendix.
-- `lake env lean scratch/ts-sn/TSSN.lean`: 0 errors, 0 sorry, 71 linter warnings; all 70
+- `lake env lean scratch/ts-sn/TSSN.lean`: 0 errors, 0 sorry, 71 linter warnings; all 69
   `#print axioms` lines `[propext, Classical.choice, Quot.sound]` (VERIFIED, compile_out.txt).
 - New theorems: `homog_data` (g ∈ m ↔ p ∣ d^k g(s₀)), `snSpecialize_aux`, `snSpecialize :
   SNSpecialize`, `verticalResidueSeparable : VerticalResidueSeparable`, `specNonMeeting :
