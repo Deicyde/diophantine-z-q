@@ -10,13 +10,12 @@ open CategoryTheory AlgebraicGeometry
 
 /-- **G13-G16 with G15's open Prop reduced (GLUE, proved).** As `modularConstituent_tail_G`, with
 `G15RamG D u` replaced by g15-ram's pieces on `D` (`G15Ram.LocalData`, G11's output) and the
-closed local-field glue `G15Ram.LadicDVRModel`, `G15Ram.WildFixTame`. -/
+closed local-field glue `G15Ram.LadicDVRModel` (the DVR model of a finite Galois `F ⊆ ℚ̄_p`). -/
 theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
     (hX : X1ModelExists)
     (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
     (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
     (hM : ∀ (p : ℕ) [Fact p.Prime], G15Ram.LadicDVRModel p)
-    (hWT : ∀ (p : ℕ) [Fact p.Prime], G15Ram.WildFixTame p)
     {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
     (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
       (∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @G15Ram.LocalData p ⟨hp⟩ 5 _ D.r5) ∧
@@ -28,7 +27,7 @@ theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists �
       CommonConstituent A (J.baseChange L) := by
   obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
   exact modularConstituent_tail_G lv hJac hX hSw hL8 hAd A u
-    ⟨D, h12, hc, G15Ram.g15RamG_of_model hM hWT D u h5 h3 h11a h11b⟩
+    ⟨D, h12, hc, G15Ram.g15RamG_of_dvrModel hM D u h5 h3 h11a h11b⟩
 
 end G0ModNewform
 

@@ -2975,6 +2975,188 @@ theorem upperWild : UpperWild p := by
 
 end Wild
 
+/-! ## §2d. Wild inertia fixes tame extensions (proved) -/
+
+section Tame
+
+variable {p : ℕ} [Fact p.Prime]
+
+theorem wildSet_mul {σ τ : GQp p} (hσ : σ ∈ wildSet) (hτ : τ ∈ wildSet) : σ * τ ∈ wildSet := by
+  intro x hx
+  have hτx : τ x ≠ 0 := (map_ne_zero τ).mpr hx
+  have he : (σ * τ) x - x = (σ (τ x) - τ x) + (τ x - x) := by
+    rw [AlgEquiv.mul_apply]; ring
+  rw [he]
+  refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _) (max_lt ?_ (hτ x hx))
+  have := hσ (τ x) hτx
+  rwa [norm_aut'] at this
+
+theorem wildSet_pow {σ : GQp p} (hσ : σ ∈ wildSet) (k : ℕ) : σ ^ k ∈ wildSet := by
+  induction k with
+  | zero => rw [pow_zero]; exact one_mem_wildSet
+  | succ k ih => rw [pow_succ]; exact wildSet_mul ih hσ
+
+theorem norm_natCast_kbar {m : ℕ} (hm : ¬ p ∣ m) : ‖(m : Kbar p)‖ = 1 := by
+  have h := PadicAlgCl.norm_extends p (m : ℚ_[p])
+  have e : ((m : ℚ_[p]) : PadicAlgCl p) = (m : Kbar p) := map_natCast (algebraMap ℚ_[p] _) m
+  rw [e] at h
+  rw [h, Padic.norm_natCast_eq_one_iff]
+  exact ((Nat.Prime.coprime_iff_not_dvd Fact.out).mpr hm)
+
+/-- In an ultrametric normed group, a finite sum of terms of norm `< c` has norm `< c`. -/
+theorem norm_sum_range_lt {f : ℕ → Kbar p} {c : ℝ} (hc : 0 < c) (m : ℕ)
+    (hf : ∀ k < m, ‖f k‖ < c) : ‖∑ k ∈ Finset.range m, f k‖ < c := by
+  induction m with
+  | zero => simpa using hc
+  | succ m ih =>
+    rw [Finset.sum_range_succ]
+    refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _)
+      (max_lt (ih fun k hk => hf k (by omega)) (hf m (by omega)))
+
+/-- **The averaging argument.** A wild `σ` with `σ^m x = x`, `p ∤ m`, fixes `x`. -/
+theorem fix_of_wild_pow {σ : GQp p} (hσ : σ ∈ wildSet) {m : ℕ} (hm0 : 0 < m) (hpm : ¬ p ∣ m)
+    {x : Kbar p} (hx : (σ ^ m) x = x) : σ x = x := by
+  set S := ∑ k ∈ Finset.range m, (σ ^ k) x with hS
+  have hσS : σ S = S := by
+    have h1 : σ S = ∑ k ∈ Finset.range m, (σ ^ (k + 1)) x := by
+      rw [hS, map_sum]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [pow_succ', AlgEquiv.mul_apply]
+    have h2 := Finset.sum_range_succ' (fun k => (σ ^ k) x) m
+    have h3 := Finset.sum_range_succ (fun k => (σ ^ k) x) m
+    simp only [pow_zero, AlgEquiv.one_apply] at h2
+    rw [hx] at h3
+    rw [h1]
+    rw [← hS] at h3
+    linear_combination -(h3.symm.trans h2)
+  have hkS : ∀ k : ℕ, (σ ^ k) S = S := by
+    intro k
+    induction k with
+    | zero => rw [pow_zero, AlgEquiv.one_apply]
+    | succ k ih => rw [pow_succ', AlgEquiv.mul_apply, ih, hσS]
+  have hm : (m : Kbar p) ≠ 0 := by
+    intro h
+    have := norm_natCast_kbar (p := p) hpm
+    rw [h, norm_zero] at this
+    exact zero_ne_one this
+  set y := (m : Kbar p)⁻¹ * S with hy
+  have hky : ∀ k : ℕ, (σ ^ k) y = y := by
+    intro k
+    rw [hy, map_mul, map_inv₀, map_natCast, hkS]
+  set z := x - y with hz
+  have hz0 : z = 0 := by
+    by_contra hne
+    have hsum : ∑ k ∈ Finset.range m, (z - (σ ^ k) z) = (m : Kbar p) * z := by
+      have hterm : ∀ k ∈ Finset.range m, z - (σ ^ k) z = x - (σ ^ k) x := by
+        intro k _
+        rw [hz, map_sub, hky]
+        ring
+      rw [Finset.sum_congr rfl hterm, Finset.sum_sub_distrib, ← hS, Finset.sum_const,
+        Finset.card_range, nsmul_eq_mul, hz, hy, mul_sub, ← mul_assoc, mul_inv_cancel₀ hm,
+        one_mul]
+    have hlt : ‖∑ k ∈ Finset.range m, (z - (σ ^ k) z)‖ < ‖z‖ := by
+      apply norm_sum_range_lt (norm_pos_iff.mpr hne)
+      intro k _
+      rw [norm_sub_rev]
+      exact wildSet_pow hσ k z hne
+    rw [hsum, norm_mul, norm_natCast_kbar hpm, one_mul] at hlt
+    exact lt_irrefl _ hlt
+  have hxy : x = y := sub_eq_zero.mp hz0
+  rw [hxy]
+  have := hky 1
+  rwa [pow_one] at this
+
+/-- The inertia subgroup at level `F`, pulled back: `{σ | ‖σx − x‖ < 1 for x ∈ 𝓞_F}`. -/
+def inertiaSub (F : Fld p) (hF : IsFinGal F) : Subgroup (GQp p) where
+  carrier := {σ | ∀ x ∈ F, ‖x‖ ≤ 1 → ‖σ x - x‖ < 1}
+  one_mem' := by
+    intro x _ _
+    simp
+  mul_mem' := by
+    intro σ τ hσ hτ x hx hx1
+    have hτx : τ x ∈ F := apply_mem hF τ hx
+    have he : (σ * τ) x - x = (σ (τ x) - τ x) + (τ x - x) := by
+      rw [AlgEquiv.mul_apply]; ring
+    rw [he]
+    refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _) (max_lt ?_ (hτ x hx hx1))
+    exact hσ (τ x) hτx (by rw [norm_aut']; exact hx1)
+  inv_mem' := by
+    intro σ hσ x hx hx1
+    have hσx : σ⁻¹ x ∈ F := apply_mem hF σ⁻¹ hx
+    have h1 : ‖σ⁻¹ x‖ ≤ 1 := by rw [norm_aut']; exact hx1
+    have h2 := hσ (σ⁻¹ x) hσx h1
+    have he : σ (σ⁻¹ x) = x := by
+      rw [← AlgEquiv.mul_apply, mul_inv_cancel, AlgEquiv.one_apply]
+    rw [he, norm_sub_rev] at h2
+    exact h2
+
+theorem ramSet_zero_eq (F : Fld p) (hF : IsFinGal F) :
+    ramSet F 0 = (inertiaSub F hF : Set (GQp p)) := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hF.1
+  ext σ
+  constructor
+  · rintro ⟨ϖ', hϖ', h⟩ x hx hx1
+    have := h x hx hx1
+    rw [zero_add, pow_one] at this
+    exact lt_of_le_of_lt this hϖ'.2.1
+  · intro h
+    refine ⟨ϖ, hϖ, fun x hx hx1 => ?_⟩
+    rw [zero_add, pow_one]
+    exact hϖ.2.2 _ (F.sub_mem (apply_mem hF σ hx) hx) (h x hx hx1)
+
+/-- `e(F/ℚ_p) = |G_0|` as the order of a subgroup of `Gal(F/ℚ_p)`. -/
+theorem ramCard_zero_eq (F : Fld p) (hF : IsFinGal F) :
+    haveI : Normal ℚ_[p] F := hF.2.to_normal
+    ramCard F 0 =
+      Nat.card ((inertiaSub F hF).map (AlgEquiv.restrictNormalHom F)) := by
+  haveI : Normal ℚ_[p] F := hF.2.to_normal
+  set φ : (F ≃ₐ[ℚ_[p]] F) → (F → Kbar p) := fun s x => ((s x : F) : Kbar p) with hφ
+  have hφinj : Function.Injective φ := by
+    intro s t h
+    ext x
+    have := congrFun h x
+    exact this
+  have himg : restr F '' ramSet F 0 =
+      φ '' ((inertiaSub F hF).map (AlgEquiv.restrictNormalHom F) : Set _) := by
+    rw [ramSet_zero_eq F hF, Subgroup.coe_map, Set.image_image]
+    refine Set.image_congr fun σ _ => ?_
+    funext x
+    simp only [hφ, restr]
+    exact (AlgEquiv.restrictNormalHom_apply F σ x).symm
+  unfold ramCard
+  rw [himg, Nat.card_image_of_injective hφinj]
+  rfl
+
+/-- **`WildFixTame` (GLUE, proved).** If `F/ℚ_p` is finite Galois with `p ∤ e(F/ℚ_p)`, wild
+inertia fixes `F`. The restriction `s` of a wild `σ` lies in the inertia subgroup, of order `e`,
+so its order `m` is prime to `p`; the averaging `y = m⁻¹ ∑_{k<m} σ^k x` then gives `σx = x`. -/
+theorem wildFixTame : WildFixTame p := by
+  intro F hF hpe σ hσ x hx
+  haveI : Normal ℚ_[p] F := hF.2.to_normal
+  set s := AlgEquiv.restrictNormalHom F σ with hs
+  have hσI : σ ∈ inertiaSub F hF := by
+    intro y _ hy1
+    by_cases hy0 : y = 0
+    · simp [hy0]
+    · exact lt_of_lt_of_le (hσ y hy0) hy1
+  have hsK : s ∈ (inertiaSub F hF).map (AlgEquiv.restrictNormalHom F) := ⟨σ, hσI, rfl⟩
+  have hdvd : orderOf s ∣ ramCard F 0 := by
+    rw [ramCard_zero_eq F hF]
+    have := orderOf_dvd_natCard (⟨s, hsK⟩ : (inertiaSub F hF).map (AlgEquiv.restrictNormalHom F))
+    rwa [Subgroup.orderOf_mk] at this
+  have he0 : ramCard F 0 ≠ 0 := Nat.one_le_iff_ne_zero.mp (one_le_ramCard hF 0)
+  have hm0 : 0 < orderOf s :=
+    Nat.pos_of_ne_zero fun h => he0 (by rw [h] at hdvd; exact zero_dvd_iff.mp hdvd)
+  have hpm : ¬ p ∣ orderOf s := fun h => hpe (h.trans hdvd)
+  have hsm : AlgEquiv.restrictNormalHom F (σ ^ orderOf s) = 1 := by
+    rw [map_pow, ← hs, pow_orderOf_eq_one]
+  have hfix : (σ ^ orderOf s) x = x := by
+    have := (AlgEquiv.restrictNormal_eq_one_iff F (σ ^ orderOf s)).mp hsm x hx
+    exact this
+  exact fix_of_wild_pow hσ hm0 hpm hfix
+
+end Tame
+
 /-! ## §2c. `HilbertSerreLadic` from T20 + T21 (proved by t-different) and a DVR model -/
 
 section Bridge
@@ -3126,6 +3308,19 @@ theorem g15RamG_of_model
   g15RamG_of_hilbertSerre (fun p _ => hilbertSerre_of_model (hM p)) (fun p _ => upperWild) hWT
     D u h5 h3 h11₅ h11₃
 
+/-- **`G15RamG` with all closed local-field glue proved except the DVR model (GLUE, proved).**
+Hypotheses: the transport `LadicDVRModel`, the data of G7-G8 on `D` (`LocalData`), and G11's
+output on `D`. -/
+theorem g15RamG_of_dvrModel
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModel p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_model hM (fun p _ => wildFixTame) D u h5 h3 h11₅ h11₃
+
 end Reduction
 
 end G15Ram
@@ -3143,13 +3338,12 @@ open CategoryTheory AlgebraicGeometry
 
 /-- **G13-G16 with G15's open Prop reduced (GLUE, proved).** As `modularConstituent_tail_G`, with
 `G15RamG D u` replaced by g15-ram's pieces on `D` (`G15Ram.LocalData`, G11's output) and the
-closed local-field glue `G15Ram.LadicDVRModel`, `G15Ram.WildFixTame`. -/
+closed local-field glue `G15Ram.LadicDVRModel` (the DVR model of a finite Galois `F ⊆ ℚ̄_p`). -/
 theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
     (hX : X1ModelExists)
     (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
     (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
     (hM : ∀ (p : ℕ) [Fact p.Prime], G15Ram.LadicDVRModel p)
-    (hWT : ∀ (p : ℕ) [Fact p.Prime], G15Ram.WildFixTame p)
     {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
     (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
       (∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @G15Ram.LocalData p ⟨hp⟩ 5 _ D.r5) ∧
@@ -3161,7 +3355,7 @@ theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists �
       CommonConstituent A (J.baseChange L) := by
   obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
   exact modularConstituent_tail_G lv hJac hX hSw hL8 hAd A u
-    ⟨D, h12, hc, G15Ram.g15RamG_of_model hM hWT D u h5 h3 h11a h11b⟩
+    ⟨D, h12, hc, G15Ram.g15RamG_of_dvrModel hM D u h5 h3 h11a h11b⟩
 
 end G0ModNewform
 

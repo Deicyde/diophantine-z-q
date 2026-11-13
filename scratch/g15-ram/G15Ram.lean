@@ -705,7 +705,8 @@ theorem wildFixTame : WildFixTame p := by
     have := orderOf_dvd_natCard (⟨s, hsK⟩ : (inertiaSub F hF).map (AlgEquiv.restrictNormalHom F))
     rwa [Subgroup.orderOf_mk] at this
   have he0 : ramCard F 0 ≠ 0 := Nat.one_le_iff_ne_zero.mp (one_le_ramCard hF 0)
-  have hm0 : 0 < orderOf s := Nat.pos_of_ne_zero fun h => he0 (by rw [h] at hdvd; exact zero_dvd_iff.mp hdvd)
+  have hm0 : 0 < orderOf s :=
+    Nat.pos_of_ne_zero fun h => he0 (by rw [h] at hdvd; exact zero_dvd_iff.mp hdvd)
   have hpm : ¬ p ∣ orderOf s := fun h => hpe (h.trans hdvd)
   have hsm : AlgEquiv.restrictNormalHom F (σ ^ orderOf s) = 1 := by
     rw [map_pow, ← hs, pow_orderOf_eq_one]
