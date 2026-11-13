@@ -52,3 +52,10 @@
 - `cm_degree_of_homField`: 1 ≤ [L:ℚ] ≤ heightD as reals (the `d` of `GlueAssembly.CMOutput`). COMPILED.
 - G4.lean: 760 lines, 0 `sorry`, compiles with `lake env lean scratch/g4-weilres/G4.lean` (needs oleans of
   ZInQKernel.HDecomp.{B3Unram.B3b, Repo.TorsionFree, Repo.Numerics, Descent.B3Assembly, Objects}: `lake build` them first).
+
+## G4.lean — ℓ-adic faithfulness (COMPILED; axioms VERIFIED standard)
+- `tateHom_injective (hHFF)`: Hom(A,B) → Hom_{ℤ_ℓ}(T_ℓA, T_ℓB) injective for ℓ invertible
+  (HomFreeFinite's injectivity on ℤ_ℓ ⊗ Hom + flatness of the free module Hom).
+- `tateLattice`, `tateLattice_injective`: componentwise realization of HomLattice, injective over ℚ̄.
+- `inertia_of_tate`: equivariant τ on the realization with inertia trivial ⇒ `hinert`.
+- File: 0 `sorry` (grep), all 12 printed theorems on [propext, Classical.choice, Quot.sound].

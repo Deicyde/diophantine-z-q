@@ -497,6 +497,71 @@ theorem homLattice_free (hHFF : HomFreeFinite) {Idx : Type} [Fintype Idx] (A : I
     rfl
   exact_mod_cast h16
 
+/-- **The `ℓ`-adic realization is faithful (from the leaf `HomFreeFinite`).** `Hom(A, B) →
+Hom_{ℤ_ℓ}(T_ℓ A, T_ℓ B)` is injective for `ℓ` invertible in `k`: `HomFreeFinite` gives
+injectivity on `ℤ_ℓ ⊗ Hom(A, B)`, and `Hom(A, B) → ℤ_ℓ ⊗ Hom(A, B)` is injective because
+`Hom(A, B)` is free (flat) and `ℤ → ℤ_ℓ` is injective. This is the `ι` of `trivial_of_faithful`
+in the application (N5 L559-561). -/
+theorem tateHom_injective (hHFF : HomFreeFinite) {k : Type} [Field k] (A B : AbVar k)
+    (ℓ : ℕ) [Fact ℓ.Prime] (hℓ : (ℓ : k) ≠ 0) : Function.Injective (tateHom ℓ A B) := by
+  have hinj := (hHFF k A B).2.2.2 ℓ hℓ
+  haveI : Module.Free ℤ (AbVar.Hom A B) := (hHFF k A B).1
+  let j : AbVar.Hom A B →ₗ[ℤ] TensorProduct ℤ ℤ_[ℓ] (AbVar.Hom A B) :=
+    ((Algebra.linearMap ℤ ℤ_[ℓ]).rTensor (AbVar.Hom A B)).comp
+      (TensorProduct.lid ℤ (AbVar.Hom A B)).symm.toLinearMap
+  have hj : Function.Injective j := by
+    have h1 : Function.Injective (Algebra.linearMap ℤ ℤ_[ℓ]) := by
+      intro a b hab
+      exact Int.cast_injective hab
+    exact (Module.Flat.rTensor_preserves_injective_linearMap _ h1).comp
+      (TensorProduct.lid ℤ (AbVar.Hom A B)).symm.injective
+  have hcomp : ∀ f, tateHomZl ℓ A B (j f) = tateHom ℓ A B f := by
+    intro f
+    have hjf : j f = (1 : ℤ_[ℓ]) ⊗ₜ[ℤ] f := by
+      show (Algebra.linearMap ℤ ℤ_[ℓ]).rTensor (AbVar.Hom A B)
+        ((TensorProduct.lid ℤ (AbVar.Hom A B)).symm f) = _
+      erw [TensorProduct.lid_symm_apply, LinearMap.rTensor_tmul]
+      congr 1
+    rw [hjf]
+    exact (TensorProduct.lift.tmul _ _).trans (one_smul _ _)
+  intro f g hfg
+  apply hj
+  apply hinj
+  rw [hcomp, hcomp]
+  exact hfg
+
+
+/-- The `ℓ`-adic realization of the lattice: `f ↦ (T_ℓ(f_{ij}))_{ij}`. -/
+noncomputable def tateLattice (ℓ : ℕ) [Fact ℓ.Prime] {Idx : Type} (A : Idx → AbVar Qbar) :
+    HomLattice A →+ (∀ ij : Idx × Idx, (A ij.1).T ℓ →ₗ[ℤ_[ℓ]] (A ij.2).T ℓ) :=
+  Pi.addMonoidHom fun ij => (tateHom ℓ (A ij.1) (A ij.2)).comp (Pi.evalAddMonoidHom _ ij)
+
+/-- The realization of the lattice is injective (leaf `HomFreeFinite`; `ℓ ≠ 0` in `ℚ̄`). -/
+theorem tateLattice_injective (hHFF : HomFreeFinite) (ℓ : ℕ) [hℓ : Fact ℓ.Prime] {Idx : Type}
+    (A : Idx → AbVar Qbar) : Function.Injective (tateLattice ℓ A) := by
+  intro f g h
+  funext ij
+  have hne : (ℓ : Qbar) ≠ 0 := Nat.cast_ne_zero.mpr hℓ.out.ne_zero
+  exact tateHom_injective hHFF (A ij.1) (A ij.2) ℓ hne (congrFun h ij)
+
+/-- **The inertia hypothesis from the `ℓ`-adic side (glue, proved).** If `G_ℚ` acts on the
+realization `∏ Hom_{ℤ_ℓ}(T_ℓ A_i, T_ℓ A_j)` compatibly with `ρ` (equivariance: open, needs the
+action on points), and inertia over `p ∉ T` acts trivially there (Néron–Ogg–Shafarevich for the
+conjugates, which have good reduction above `p ∉ T`, G3), then `hinert` of
+`homField_of_conjugates` holds. -/
+theorem inertia_of_tate (hHFF : HomFreeFinite) (ℓ : ℕ) [Fact ℓ.Prime] {Idx : Type}
+    (A : Idx → AbVar Qbar) (ρ : Gal →* (HomLattice A ≃ₗ[ℤ] HomLattice A))
+    (τ : Gal →* ((∀ ij : Idx × Idx, (A ij.1).T ℓ →ₗ[ℤ_[ℓ]] (A ij.2).T ℓ) ≃ₗ[ℤ]
+      (∀ ij : Idx × Idx, (A ij.1).T ℓ →ₗ[ℤ_[ℓ]] (A ij.2).T ℓ)))
+    (heq : ∀ σ m, tateLattice ℓ A (ρ σ m) = τ σ (tateLattice ℓ A m)) (T : Finset ℕ)
+    (htate : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, τ s = 1) :
+    ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, ρ s = 1 :=
+  fun p hp hpT w hw s hs => trivial_of_faithful ρ τ (tateLattice ℓ A)
+    (tateLattice_injective hHFF ℓ A) heq s (htate p hp hpT w hw s hs)
+
+
 /-- **G4 on the abelian-variety layer.** Let `K ⊆ ℚ̄` be finite Galois with `[K:ℚ] ≤ F₀`,
 unramified outside `T`; let `A 0, …, A (n-1)` be abelian surfaces over `ℚ̄` (the conjugates of
 the fibre object, indexed by a finite type of size `≤ F₀`, e.g. the embeddings `K → ℚ̄`), and let `G_ℚ` act `ℤ`-linearly on `⊕ Hom(A i, A j)` (the conjugation
@@ -758,3 +823,5 @@ end G4WeilRes
 #print axioms G4WeilRes.isConjAction_unique
 #print axioms G4WeilRes.conjData
 #print axioms G4WeilRes.homField_of_model
+#print axioms G4WeilRes.tateHom_injective
+#print axioms G4WeilRes.inertia_of_tate
