@@ -79,3 +79,13 @@
   * `span_sub_eq_span_prod` (Serre IV §1 Prop. 3, ideal form: `(σy - y)B = (∏_{s↦σ}(x - sx))`).
   * `card_lowerRam_zero`: `|H_0| = e(B/C)` via Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn`
     (separable residue fields from the perfect residue field of `A`, `tower_top`).
+
+## Step 7: T22a (Herbrand's theorem, upper numbering) PROVED; files consolidated
+- `scratch/t-different/Herbrand.lean` (VERIFIED: compiles; axioms propext, Classical.choice,
+  Quot.sound): `PkgI6.herbrandQuotient : PkgI6.HerbrandQuotient` and
+  `PkgI6.herbrandTransitivity : PkgI6.HerbrandTransitivity` (verbatim leaves I6.8, I6.9).
+  * `herbrand_lemma` (Serre IV §3 Lemma 5: `r(G_u) = (G/H)_{φ_{B/C}(u)}`), `nQ_eq`
+    (`i_{G/H}(σ) = φ_{B/C}(m_σ - 1) + 1`), `exists_phiF_eq` (IVT on the min-formula),
+    `sInf_phiF` (`ψ(v)` computed), `upper_map` (abstract Prop. 14), `herbrand_quotient`
+    (any `r` with the compatibility equals `resHom`).
+- The development files `Genuine.lean`, `HerbrandT22.lean` were merged into `Herbrand.lean`.
