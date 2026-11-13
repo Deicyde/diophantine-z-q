@@ -47,6 +47,8 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HSyn.sixContactMin_of_leaves4'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.ResearchLeaves4.toR3' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.UnifDims.productModelHeight_of_unifOfDim' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.unramifiedConjugates' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.x6KummerFibre_of_conic' depends on axioms: [propext, Classical.choice, Quot.sound]
 'MulRigidity.mulIsogeny' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlue_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'RvGP2.burnsideAbsIrred' depends on axioms: [propext, Classical.choice, Quot.sound]

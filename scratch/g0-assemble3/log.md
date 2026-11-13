@@ -27,3 +27,12 @@
   bound) → `.1`. Run 2: VERIFIED exit 0, 0 errors, no sorry, 9 s; `#print axioms` of `HSyn.sixContactMin_of_leaves4`,
   `gluePieces_of_gluePieces4`, `sixContactMin_of_leaves4'`, `ResearchLeaves4.toR3`, g0-assemble2's
   `sixContactMin_of_leaves3` and 15 component theorems: all [propext, Classical.choice, Quot.sound].
+- Found two earlier results not folded by g0-assemble2 (reports on the base): inner-twist proves
+  `G0ModField.UnramifiedConjugates` (Mathlib only) and x6-kummer proves fs5-nocm's N2 `X6KummerFibre` from
+  `MobiusGlue` and the leaf `X6Kummer.X6ConicModel`. Parts f10 (UnramConj.lean minus its copy of the def and of
+  `numberField_of_fd`, = part 75's: run 1 'already declared') and f20 (x6-kummer partB-E; part0 = a60, partR = a15).
+  GluePieces4: `unramifiedConjugates` removed, `x6KummerFibre` → `x6ConicModel` (46 fields: 14 LEAF, 3 LEAF?, 29 GLUE).
+- TailF (with f10, f20) to olean: VERIFIED exit 0, 0 errors, 103 s. TailD: VERIFIED exit 0, 0 errors, 62 s; 24 axiom
+  reports, all [propext, Classical.choice, Quot.sound] (incl. sixContactMin_of_leaves4, unramifiedConjugates,
+  x6KummerFibre_of_conic).
+- First flat-file run (before f10/f20) killed after ~10 min to free the Lean slot (0 errors in its output so far).

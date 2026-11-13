@@ -88809,6 +88809,755 @@ end ZInQ.UnifDims
 
 end G0A3_e30_unifdims
 
+section G0A3_f10_unramconj
+/-! ## g0-assemble3: inner-twist's proof of `G0ModField.UnramifiedConjugates` (scratch/inner-twist/UnramConj.lean,
+verbatim minus imports, module docstring, its verbatim copy of the def `UnramifiedConjugates` (lines 30-38; = part a70,
+fibre-cover) and the trailing `#print`/`#check`/`example` lines; its `numberField_of_fd`, = part 75's, omitted). Mathlib only. -/
+
+
+open NumberField
+open LeafQM.AV GlueDescent.B2Q
+
+namespace G0ModField
+
+
+/-! ## The abstract step: inertia fixes an unramified subfield -/
+
+section Abstract
+
+variable {K L : Type} [Field K] [Field L] [NumberField K] [NumberField L] [Algebra K L]
+  [IsGalois ℚ L]
+
+/-- **Inertia fixes the integers of an unramified subfield.** For number fields `K → L`, `L/ℚ`
+Galois, `K` unramified at `p` (every prime of `𝓞 K` containing `p` has `e = 1` over `ℤ`), a prime
+`Q ∋ p` of `𝓞 L` and `g ∈ I(Q) ≤ Gal(L/ℚ)`: `g` fixes the image of `𝓞 K`. -/
+theorem inertia_le_fixing (p : ℕ)
+    (hK : ∀ P : Ideal (𝓞 K), P.IsPrime → ((p : ℤ) : 𝓞 K) ∈ P → P.ramificationIdx ℤ = 1)
+    (Q : Ideal (𝓞 L)) [hQ : Q.IsPrime] (hpQ : ((p : ℤ) : 𝓞 L) ∈ Q) (g : L ≃ₐ[ℚ] L)
+    (hg : g ∈ Q.inertia (L ≃ₐ[ℚ] L)) (y : 𝓞 K) :
+    g • algebraMap (𝓞 K) (𝓞 L) y = algebraMap (𝓞 K) (𝓞 L) y := by
+  let G := L ≃ₐ[ℚ] L
+  let H : Subgroup G := fixingSubgroup G (Set.range (algebraMap (𝓞 K) (𝓞 L)))
+  have : IsGaloisGroup H (𝓞 K) (𝓞 L) := IsGaloisGroup.of_isScalarTower G ℤ (𝓞 L) (𝓞 K)
+  let QK : Ideal (𝓞 K) := Q.under (𝓞 K)
+  have : QK.IsPrime := Ideal.IsPrime.under (𝓞 K) Q
+  have : Algebra.HasSeparableResidueFieldsAt (𝓞 K) (𝓞 L) QK :=
+    Algebra.HasSeparableResidueFieldsAt.tower_top (Q.under ℤ) QK
+  have hpQK : ((p : ℤ) : 𝓞 K) ∈ QK := by
+    show algebraMap (𝓞 K) (𝓞 L) ((p : ℤ) : 𝓞 K) ∈ Q
+    rw [map_intCast]; exact hpQ
+  have he1 : QK.ramificationIdx ℤ = 1 := hK QK inferInstance hpQK
+  have htower : Q.ramificationIdx ℤ = QK.ramificationIdx ℤ * Q.ramificationIdx (𝓞 K) :=
+    Ideal.ramificationIdx_tower (R := ℤ) QK Q
+  have hcardH : Nat.card (Q.inertia H) = Q.ramificationIdx (𝓞 K) := by
+    rw [Ideal.card_inertia_eq_ramificationIdxIn (G := H) QK Q,
+      Ideal.ramificationIdxIn_eq_ramificationIdx QK Q H]
+  have hcardG : Nat.card (Q.inertia G) = Q.ramificationIdx ℤ := by
+    rw [Ideal.card_inertia_eq_ramificationIdxIn (G := G) (Q.under ℤ) Q,
+      Ideal.ramificationIdxIn_eq_ramificationIdx (Q.under ℤ) Q G]
+  have hcard : Nat.card ((Q.inertia G).subgroupOf H) = Nat.card (Q.inertia G) := by
+    rw [hcardG, htower, he1, _root_.one_mul, ← hcardH]; rfl
+  have hle : Q.inertia G ≤ H := by
+    have h1 : Nat.card ((Q.inertia G) ⊓ H : Subgroup G) = Nat.card (Q.inertia G) := by
+      rw [← hcard, ← Subgroup.subgroupOf_map_subtype]
+      exact Subgroup.card_map_of_injective H.subtype_injective
+    have h2 : (Q.inertia G) ⊓ H = Q.inertia G :=
+      Subgroup.eq_of_le_of_card_ge inf_le_left h1.ge
+    exact inf_eq_left.mp h2
+  exact (mem_fixingSubgroup_iff G).mp (hle hg) _ ⟨y, rfl⟩
+
+
+/-- **Inertia fixes an unramified subfield** (`K = Frac(𝓞 K)`). -/
+theorem inertia_fixes_field (p : ℕ)
+    (hK : ∀ P : Ideal (𝓞 K), P.IsPrime → ((p : ℤ) : 𝓞 K) ∈ P → P.ramificationIdx ℤ = 1)
+    (Q : Ideal (𝓞 L)) [hQ : Q.IsPrime] (hpQ : ((p : ℤ) : 𝓞 L) ∈ Q) (g : L ≃ₐ[ℚ] L)
+    (hg : g ∈ Q.inertia (L ≃ₐ[ℚ] L)) (x : K) : g (algebraMap K L x) = algebraMap K L x := by
+  obtain ⟨a, b, -, rfl⟩ := IsFractionRing.div_surjective (A := 𝓞 K) x
+  have h : ∀ y : 𝓞 K, g (algebraMap K L (algebraMap (𝓞 K) K y)) =
+      algebraMap K L (algebraMap (𝓞 K) K y) := fun y =>
+    congrArg (fun z : 𝓞 L => (z : L)) (inertia_le_fixing p hK Q hpQ g hg y)
+  rw [map_div₀, map_div₀, h a, h b]
+
+omit [IsGalois ℚ L] in
+/-- **Conjugation of inertia**: `σ⁻¹ I(Q) σ ⊆ I(σ⁻¹ Q)`, where `σ⁻¹ Q = {x | σ x ∈ Q}`. -/
+theorem conj_mem_inertia (Q : Ideal (𝓞 L)) (g σ : L ≃ₐ[ℚ] L)
+    (hg : g ∈ Q.inertia (L ≃ₐ[ℚ] L)) :
+    σ⁻¹ * g * σ ∈ (Q.comap (MulSemiringAction.toRingHom (L ≃ₐ[ℚ] L) (𝓞 L) σ)).inertia
+      (L ≃ₐ[ℚ] L) := by
+  rw [Ideal.mem_inertia] at hg ⊢
+  intro x
+  show MulSemiringAction.toRingHom (L ≃ₐ[ℚ] L) (𝓞 L) σ ((σ⁻¹ * g * σ) • x - x) ∈ Q
+  rw [map_sub]
+  simp only [MulSemiringAction.toRingHom_apply, mul_smul, smul_inv_smul]
+  exact hg (σ • x)
+
+end Abstract
+
+-- (g0-assemble3) `numberField_of_fd` omitted: part 75 has `G0ModField.numberField_of_fd` with the same statement.
+
+/-- **`UnramifiedConjugates`, proved** (no leaf, no glue Prop). -/
+theorem unramifiedConjugates : UnramifiedConjugates := by
+  classical
+  intro α p hK
+  have hαint : IsIntegral ℚ α := Algebra.IsIntegral.isIntegral α
+  have hf0 : minpoly ℚ α ≠ 0 := minpoly.ne_zero hαint
+  set K : IntermediateField ℚ Qbar := IntermediateField.adjoin ℚ {α} with hKdef
+  set L : IntermediateField ℚ Qbar :=
+    IntermediateField.adjoin ℚ ((minpoly ℚ α).rootSet Qbar) with hLdef
+  have hroot : ∀ β ∈ (minpoly ℚ α).rootSet Qbar, β ∈ L :=
+    fun β hβ => IntermediateField.subset_adjoin _ _ hβ
+  have hαroot : α ∈ (minpoly ℚ α).rootSet Qbar :=
+    (Polynomial.mem_rootSet).2 ⟨hf0, minpoly.aeval ℚ α⟩
+  have hαL : α ∈ L := hroot α hαroot
+  have hKL : K ≤ L := IntermediateField.adjoin_simple_le_iff.2 hαL
+  have : Polynomial.IsSplittingField ℚ L (minpoly ℚ α) :=
+    IntermediateField.adjoin_rootSet_isSplittingField (IsAlgClosed.splits _)
+  have : FiniteDimensional ℚ L := Polynomial.IsSplittingField.finiteDimensional L (minpoly ℚ α)
+  have : IsGalois ℚ L :=
+    IsGalois.of_separable_splitting_field (minpoly.irreducible hαint).separable
+  have : FiniteDimensional ℚ K := IntermediateField.adjoin.finiteDimensional hαint
+  have : NumberField K := numberField_of_fd K
+  have : NumberField L := numberField_of_fd L
+  let : Algebra K L := (IntermediateField.inclusion hKL).toRingHom.toAlgebra
+  intro Q hQ hpQ
+  -- every element of the inertia group fixes every root of `minpoly α`
+  have hfix : ∀ g ∈ Q.inertia (L ≃ₐ[ℚ] L), ∀ β (hβ : β ∈ (minpoly ℚ α).rootSet Qbar),
+      g ⟨β, hroot β hβ⟩ = ⟨β, hroot β hβ⟩ := by
+    intro g hg β hβ
+    have hβ0 : Polynomial.aeval β (minpoly ℚ α) = 0 := ((Polynomial.mem_rootSet).1 hβ).2
+    have hmin : minpoly ℚ (⟨β, hroot β hβ⟩ : L) = minpoly ℚ (⟨α, hαL⟩ : L) := by
+      rw [← minpoly.algHom_eq L.val Subtype.val_injective (⟨β, hroot β hβ⟩ : L),
+        ← minpoly.algHom_eq L.val Subtype.val_injective (⟨α, hαL⟩ : L)]
+      exact (minpoly.eq_of_irreducible_of_monic (minpoly.irreducible hαint) hβ0
+        (minpoly.monic hαint)).symm
+    obtain ⟨σ, hσ⟩ := (Normal.minpoly_eq_iff_mem_orbit (F := ℚ) (E := L)).mp hmin
+    -- `σ⁻¹ g σ` lies in the inertia group of `σ⁻¹ Q`, which contains `p`
+    let Q' : Ideal (𝓞 L) := Q.comap (MulSemiringAction.toRingHom (L ≃ₐ[ℚ] L) (𝓞 L) σ)
+    have : Q'.IsPrime := Ideal.comap_isPrime _ _
+    have hpQ' : ((p : ℤ) : 𝓞 L) ∈ Q' := by
+      show MulSemiringAction.toRingHom (L ≃ₐ[ℚ] L) (𝓞 L) σ ((p : ℤ) : 𝓞 L) ∈ Q
+      rw [map_intCast]; exact hpQ
+    have h1 := inertia_fixes_field (K := K) (L := L) p hK Q' hpQ' (σ⁻¹ * g * σ)
+      (conj_mem_inertia Q g σ hg) ⟨α, IntermediateField.mem_adjoin_simple_self ℚ α⟩
+    have h2 : algebraMap K L ⟨α, IntermediateField.mem_adjoin_simple_self ℚ α⟩ =
+        (⟨α, hαL⟩ : L) := rfl
+    rw [h2] at h1
+    have h3 : (⟨β, hroot β hβ⟩ : L) = σ ⟨α, hαL⟩ := hσ.symm
+    rw [h3]
+    have h4 := congrArg σ h1
+    simpa [AlgEquiv.mul_apply] using h4
+  -- hence the inertia group is trivial
+  have htriv : ∀ g ∈ Q.inertia (L ≃ₐ[ℚ] L), g = 1 := by
+    intro g hg
+    let s : Qbar ≃ₐ[ℚ] Qbar := g.liftNormal Qbar
+    have hs : ∀ y : L, s (y : Qbar) = ((g y : L) : Qbar) :=
+      fun y => AlgEquiv.liftNormal_commutes g Qbar y
+    have hsroot : ∀ β ∈ (minpoly ℚ α).rootSet Qbar, s β = β := by
+      intro β hβ
+      have := hs ⟨β, hroot β hβ⟩
+      rw [hfix g hg β hβ] at this
+      exact this
+    have hL' : L ≤ IntermediateField.fixedField (Subgroup.zpowers s) := by
+      rw [hLdef, IntermediateField.adjoin_le_iff]
+      intro β hβ
+      rw [SetLike.mem_coe, IntermediateField.mem_fixedField_iff]
+      intro f hf
+      have hsβ : s ∈ MulAction.stabilizer (Qbar ≃ₐ[ℚ] Qbar) β :=
+        MulAction.mem_stabilizer_iff.mpr (hsroot β hβ)
+      exact MulAction.mem_stabilizer_iff.mp ((Subgroup.zpowers_le.mpr hsβ) hf)
+    apply AlgEquiv.ext
+    intro y
+    apply Subtype.ext
+    have hy := hL' y.2 ⟨s, Subgroup.mem_zpowers s⟩
+    rw [← hs]
+    exact hy
+  have hcard : Nat.card (Q.inertia (L ≃ₐ[ℚ] L)) = 1 := by
+    rw [Nat.card_eq_one_iff_unique]
+    refine ⟨⟨fun a b => Subtype.ext ((htriv a a.2).trans (htriv b b.2).symm)⟩, ⟨1⟩⟩
+  rw [← Ideal.ramificationIdxIn_eq_ramificationIdx (Q.under ℤ) Q (L ≃ₐ[ℚ] L),
+    ← Ideal.card_inertia_eq_ramificationIdxIn (G := L ≃ₐ[ℚ] L) (Q.under ℤ) Q, hcard]
+
+end G0ModField
+
+
+end G0A3_f10_unramconj
+
+section G0A3_f20_x6kummer
+/-! ## g0-assemble3: x6-kummer (scratch/x6-kummer/part{B,C,D,E}.lean, verbatim): N2 `FS5NoCM.X6KummerFibre` from
+`MobiusGlue` and the leaf `X6KummerFibre.X6ConicModel` (`X6Kummer.x6KummerFibre_of_conic`). part0 (§A, fs5-nocm's
+definitions, = part a60) and partR (mul-rigidity's Rigidity.lean, = part a15) are not repeated. -/
+section G0A3x6_partB
+noncomputable section
+
+namespace X6Kummer
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM.AV LeafQM.AV.Pin PkgI3 FS5NoCM
+
+/-! ## §B Galois action on `ℚ̄`-points and residue fields (glue, compiled) -/
+
+/-- A `ℚ`-subfield of `ℚ̄` is determined by the automorphisms fixing it pointwise (infinite Galois
+theory: `E = (ℚ̄)^{Gal(ℚ̄/E)}`, `InfiniteGalois.fixedField_fixingSubgroup`). -/
+theorem intermediateField_eq_of_fix_iff (E E' : IntermediateField ℚ Qbar)
+    (h : ∀ σ : Qbar ≃ₐ[ℚ] Qbar, (∀ z ∈ E, σ z = z) ↔ (∀ z ∈ E', σ z = z)) : E = E' := by
+  have hs : E.fixingSubgroup = E'.fixingSubgroup := by
+    ext σ
+    rw [IntermediateField.mem_fixingSubgroup_iff, IntermediateField.mem_fixingSubgroup_iff]
+    exact h σ
+  rw [← InfiniteGalois.fixedField_fixingSubgroup E, hs,
+    InfiniteGalois.fixedField_fixingSubgroup]
+
+/-- An automorphism fixing a set fixes the `ℚ`-subfield it generates. -/
+theorem fix_adjoin_iff (σ : Qbar ≃ₐ[ℚ] Qbar) (S : Set Qbar) :
+    (∀ z ∈ IntermediateField.adjoin ℚ S, σ z = z) ↔ ∀ s ∈ S, σ s = s := by
+  constructor
+  · intro h s hs
+    exact h s (IntermediateField.subset_adjoin ℚ S hs)
+  · intro h
+    have key : ((σ : Qbar →ₐ[ℚ] Qbar).comp (IntermediateField.adjoin ℚ S).val) =
+        (IntermediateField.adjoin ℚ S).val :=
+      IntermediateField.adjoin_algHom_ext ℚ (fun s hs => h s hs)
+    intro z hz
+    exact congrArg (fun φ : IntermediateField.adjoin ℚ S →ₐ[ℚ] Qbar => φ ⟨z, hz⟩) key
+
+/-- Scheme form of `galPt_eq_self_iff`. -/
+theorem spec_comp_eq_self_iff {Z : Scheme.{0}} (σ : Qbar ≃ₐ[ℚ] Qbar)
+    (y : Spec (CommRingCat.of Qbar) ⟶ Z) :
+    Spec.map (CommRingCat.ofHom ((σ : Qbar →ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫ y = y ↔
+      ∀ s ∈ Set.range (Scheme.SpecToEquivOfField Qbar Z y).2, σ s = s := by
+  constructor
+  · intro h
+    have e := congrArg (Scheme.SpecToEquivOfField Qbar Z) h
+    rw [specToEquivOfField_comp] at e
+    have e2 := eq_of_heq (Sigma.mk.inj_iff.mp e).2
+    rintro _ ⟨w, rfl⟩
+    exact ConcreteCategory.congr_hom e2 w
+  · intro h
+    apply (Scheme.SpecToEquivOfField Qbar Z).injective
+    rw [specToEquivOfField_comp]
+    refine Sigma.ext rfl (heq_of_eq ?_)
+    ext w
+    exact h _ ⟨w, rfl⟩
+
+/-- **The stabilizer of a `ℚ̄`-point is the fixing group of its residue field**: for
+`σ ∈ Aut(ℚ̄/ℚ)` and `x : Spec ℚ̄ → X` over `ℚ`, `x ∘ Spec σ = x` iff `σ` fixes the image
+`ℚ(x) ⊆ ℚ̄` of the residue field pointwise. (A `ℚ̄`-point is its scheme point `p` together with an
+embedding `κ(p) ↪ ℚ̄`; composing with `Spec σ` keeps `p` and composes the embedding with `σ`.) -/
+theorem galPt_eq_self_iff {X : Over (Spec (CommRingCat.of ℚ))} (σ : Qbar ≃ₐ[ℚ] Qbar)
+    (x : fieldPt Qbar ⟶ X) :
+    fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x = x ↔
+      ∀ z ∈ residueImage (X := X.left) x.left, σ z = z := by
+  rw [show residueImage (X := X.left) x.left = IntermediateField.adjoin ℚ
+    (Set.range (Scheme.SpecToEquivOfField Qbar X.left x.left).2) from rfl, fix_adjoin_iff]
+  rw [← spec_comp_eq_self_iff σ x.left]
+  constructor
+  · intro h
+    exact congrArg (fun z : fieldPt Qbar ⟶ X => z.left) h
+  · intro h
+    exact Over.OverMorphism.ext h
+
+/-- The value of `π₆` at `σ·x` is `σ(π₆(x))`; on a rational value it is unchanged. -/
+theorem galPt_mem_fibre {X : Over (Spec (CommRingCat.of ℚ))} (π₆ : ToP1 X.left)
+    (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) (j : ℚ)
+    (hx : π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j)) :
+    π₆.val (K := Qbar) (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x).left =
+      OnePoint.some (algebraMap ℚ Qbar j) := by
+  have e := ToP1.val_comp π₆ (((σ : Qbar →ₐ[ℚ] Qbar)) : Qbar →+* Qbar) (y := x.left)
+  refine e.trans ?_
+  rw [hx]
+  change OnePoint.some (σ (algebraMap ℚ Qbar j)) = _
+  rw [AlgEquiv.commutes]
+
+/-! ## §C The root-pair algebra -/
+
+theorem ne_neg_self' {a : Qbar} (ha : a ≠ 0) : a ≠ -a := by
+  intro h
+  apply ha
+  have h2 : (2 : Qbar) * a = 0 := by linear_combination h
+  rcases mul_eq_zero.mp h2 with h3 | h3
+  · exact absurd h3 two_ne_zero
+  · exact h3
+
+theorem fix_iff_of_sq_eq (σ : Qbar ≃ₐ[ℚ] Qbar) {p a : Qbar} (h : p ^ 2 = a ^ 2) :
+    σ p = p ↔ σ a = a := by
+  rcases sq_eq_sq_iff_eq_or_eq_neg.mp h with rfl | rfl
+  · rfl
+  · rw [map_neg, neg_inj]
+
+/-! ## §D The points form of the Kummer model and the reduction of N2 -/
+
+/-- **The Kummer description of the fibres of `π₆` over rational values, on `ℚ̄`-points**
+(the points form of Elkies' model, see `X6KummerModel`): for rational `j₀ ∉ {0, −16/27}`, with
+`t₀ = 1 + 27 j₀/16`, a bijection between the `ℚ̄`-points of `X` over `j₀` and the pairs
+`(a, b) ∈ ℚ̄²` with `a² = −t₀`, `b² = 3(t₀ − 1)`, equivariant for `Aut(ℚ̄/ℚ)` (acting on points
+by `x ↦ x ∘ Spec σ` and on pairs coordinatewise). -/
+def KummerFibreEquiv (X : Over (Spec (CommRingCat.of ℚ))) (π₆ : ToP1 X.left) : Prop :=
+  ∀ j₀ : ℚ, j₀ ≠ 0 → j₀ ≠ -16 / 27 →
+    ∃ e : {x : fieldPt Qbar ⟶ X //
+          π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀)} ≃
+        {p : Qbar × Qbar // p.1 ^ 2 = -algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ∧
+          p.2 ^ 2 = 3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1)},
+      ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X)
+        (hx : π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀))
+        (hσx : π₆.val (K := Qbar) (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x).left =
+          OnePoint.some (algebraMap ℚ Qbar j₀)),
+        (e ⟨fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x, hσx⟩).1 =
+          (σ (e ⟨x, hx⟩).1.1, σ (e ⟨x, hx⟩).1.2)
+
+/-- **N2′ (intermediate)**: the Kummer description on every witness of the repaired bundle. -/
+def X6KummerEquiv : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left), R1R2fpFullProps Y Φ X Ψ fY π₆ → KummerFibreEquiv X π₆
+
+/-- **N2 from its points form (compiled).** (i) The residue field of `x` is the fixed field of
+its stabilizer (`galPt_eq_self_iff`, infinite Galois theory); by the equivariant bijection the
+stabilizer of `x` is that of its pair `(a₁, b₁) = (±a, ±b)`, i.e. the fixing group of
+`ℚ(a, b)`. (ii) The four pairs `(±a, ±b)` are distinct (`t₀ ≠ 0, 1`). -/
+theorem x6KummerFibre_of_equiv (hE : X6KummerEquiv) : X6KummerFibre := by
+  intro Y Φ X Ψ fY π₆ hW j₀ hj0 hj1
+  obtain ⟨e, he⟩ := hE Y Φ X Ψ fY π₆ hW j₀ hj0 hj1
+  have ht0 : algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ≠ 0 := by
+    rw [map_ne_zero]
+    intro h
+    apply hj1
+    linear_combination (16 / 27 : ℚ) * h
+  have ht1 : algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1 ≠ 0 := by
+    rw [← map_one (algebraMap ℚ Qbar), ← map_sub, map_ne_zero]
+    intro h
+    apply hj0
+    linear_combination (16 / 27 : ℚ) * h
+  constructor
+  · intro x hx a b ha hb
+    apply intermediateField_eq_of_fix_iff
+    intro σ
+    rw [← galPt_eq_self_iff, fix_adjoin_iff]
+    have hp := (e ⟨x, hx⟩).2
+    have hσx := galPt_mem_fibre π₆ σ x j₀ hx
+    have key : fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x = x ↔
+        (σ (e ⟨x, hx⟩).1.1 = (e ⟨x, hx⟩).1.1 ∧ σ (e ⟨x, hx⟩).1.2 = (e ⟨x, hx⟩).1.2) := by
+      constructor
+      · intro h
+        have h1 := he σ x hx hσx
+        have h2 : e ⟨fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x, hσx⟩ = e ⟨x, hx⟩ :=
+          congrArg e (Subtype.ext h)
+        rw [h2] at h1
+        exact ⟨(congrArg Prod.fst h1).symm, (congrArg Prod.snd h1).symm⟩
+      · rintro ⟨h1, h2⟩
+        have h3 := he σ x hx hσx
+        have h4 : e ⟨fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x, hσx⟩ = e ⟨x, hx⟩ := by
+          apply Subtype.ext
+          rw [h3, h1, h2]
+        exact congrArg Subtype.val (e.injective h4)
+    rw [key, fix_iff_of_sq_eq σ (hp.1.trans ha.symm), fix_iff_of_sq_eq σ (hp.2.trans hb.symm)]
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff, forall_eq_or_imp, forall_eq]
+  · obtain ⟨a, ha⟩ := IsAlgClosed.exists_pow_nat_eq (-algebraMap ℚ Qbar (1 + 27 * j₀ / 16))
+      two_pos
+    obtain ⟨b, hb⟩ := IsAlgClosed.exists_pow_nat_eq
+      (3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1)) two_pos
+    have ha0 : a ≠ 0 := by
+      rintro rfl
+      apply ht0
+      linear_combination ha
+    have hb0 : b ≠ 0 := by
+      rintro rfl
+      apply ht1
+      linear_combination (-1 / 3 : Qbar) * hb
+    have na := ne_neg_self' ha0
+    have nb := ne_neg_self' hb0
+    have na' : -a ≠ a := fun h => na h.symm
+    have nb' : -b ≠ b := fun h => nb h.symm
+    let pr : Fin 4 → Qbar × Qbar := ![(a, b), (-a, b), (a, -b), (-a, -b)]
+    have hpr : ∀ i, (pr i).1 ^ 2 = -algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ∧
+        (pr i).2 ^ 2 = 3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1) := by
+      intro i
+      fin_cases i <;> simp [pr, ha, hb]
+    have hinj : Function.Injective pr := by
+      intro i j hij
+      fin_cases i <;> fin_cases j <;> simp [pr, Prod.ext_iff, na, nb, na', nb'] at hij ⊢
+    refine ⟨fun i => (e.symm ⟨pr i, hpr i⟩).1, ?_, fun i => (e.symm ⟨pr i, hpr i⟩).2⟩
+    intro i j hij
+    have h1 := e.symm.injective (Subtype.ext hij)
+    exact hinj (congrArg Subtype.val h1)
+
+end X6Kummer
+
+end
+end G0A3x6_partB
+
+section G0A3x6_partC
+noncomputable section
+
+namespace X6Kummer
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM.AV LeafQM.AV.Pin PkgI3 FS5NoCM
+
+/-! ## §E Transport of the Kummer description between witnesses -/
+
+/-- **N2-L (leaf, new): Elkies' Kummer model of `X₆ → X₆/W ≅ P¹`, on `ℚ̄`-points of one
+witness.** Some witness `(Y₃, Φ, X₆, Ψ, fY, π₆)` of the (repaired) leaf bundle has the Kummer
+description of the fibres of `π₆` over rational `j₀ ∉ {0, −16/27}` (`KummerFibreEquiv`).
+
+*Published statement* (Elkies, "Shimura curve computations", ANTS-III, LNCS 1423 (1998), §3 on
+`X*(6)` and its double covers; Kurihara, J. Fac. Sci. Univ. Tokyo 25 (1979), `X₀(6,1)` as the
+conic `x² + y² + 3 = 0`; locators UNVERIFIED): `X₆ = X₀(6,1)` is the smooth conic
+`C : Y² + 3X² + 3Z² = 0` over `ℚ`, the Atkin–Lehner group acts by the sign changes of `X`, `Y`,
+and the quotient map `X₆ → X₆/W ≅ P¹` is `t = −X²/Z²` in Elkies' coordinate `t` on `X*(6)`
+(`t = 0, 1, ∞` at the CM points of discriminants `−24, −4, −3`), i.e. `j = 16(t − 1)/27` in the
+normalization of R2fp (`j = 0, ∞, −16/27` at `−4, −3, −24`: the Möbius map is fixed by the three
+values). *Why the points form is a consequence*: over `j₀ ∈ ℚ` (`Z ≠ 0`, scale `Z = 1`) the points
+of `C(ℚ̄)` are the `(X, Y) = (a, b)` with `a² = −t₀`, `b² = −3a² − 3 = 3(t₀ − 1)`; the bijection
+`C(ℚ̄) ≅ X₆(ℚ̄)` of an isomorphism of `ℚ`-schemes commutes with `Aut(ℚ̄/ℚ)`. The constants `−1, 3`
+are the ones of rv-h-cm §2.3, checked against González–Rotger Thm 5.12 on all 24 rational CM
+points of Elkies' table by rv-nocm §1.3 Part B; the conic `Y² + 3X² + 3 = 0` and Kurihara's
+`x² + y² + 3 = 0` both correspond to the quaternion algebra `(−1, −3)_ℚ`, ramified at `{3, ∞}`
+(so they are isomorphic over `ℚ`; both have no real point). Existential over the witness, like
+`LeafQM.AV.R1R2fp` itself: the genuine objects (Shimura–Deligne `Y₃`, the canonical model `X₆`,
+Baba–Granath's `π₆`) are a witness. -/
+def X6KummerModel : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left), R1R2fpFullProps Y Φ X Ψ fY π₆ ∧ KummerFibreEquiv X π₆
+
+/-- **Glue (new): base change of a QM pair over `ℚ̄` along `σ ∈ Aut(ℚ̄/ℚ)` is unique up to
+isomorphism of QM pairs.** Two pullback squares of `P.A → Spec ℚ̄` along `Spec σ` give a
+`ℚ̄`-isomorphism `Q.A ≅ Q'.A` (uniqueness of pullbacks, `IsPullback.isoIsPullback`) commuting with
+`ι` (both sides agree after the pullback projections) and fixing the identity sections; a pointed
+morphism of abelian varieties is a homomorphism (rigidity, Mumford §4 Cor. 1; proved in Lean by
+mul-rigidity, `G0FibreSimple.rigidityHom`), so it is an isomorphism of QM pairs. -/
+def PairBaseChangeUnique : Prop :=
+  ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (P Q Q' : QMPair Qbar),
+    IsBaseChangeOfPair (σ : Qbar →+* Qbar) P Q → IsBaseChangeOfPair (σ : Qbar →+* Qbar) P Q' →
+      Nonempty (QMIso Q.q Q'.q)
+
+/-- CM objects of the three kinds from one witness of the repaired bundle (the kernel's
+`cm_objects_of_R1R2fp`). -/
+theorem cm_objects_of_props {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {fY : Y ⟶ X} {π₆ : ToP1 X.left} (h : R1R2fpFullProps Y Φ X Ψ fY π₆) :
+    (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q) :=
+  cm_objects_of_R1R2fp ⟨Y, Φ, X, Ψ, fY, π₆, h⟩
+
+/-- **Transport (compiled from `MobiusGlue` and `PairBaseChangeUnique`).** If one witness
+`W₀` of the repaired bundle has the Kummer description, every witness `W` has it. The map
+`H = Ψ₀⁻¹ ∘ Ψ : X(ℚ̄) ≃ X₀(ℚ̄)` satisfies `π₆ = π₀ ∘ H` (qm-pin's `phi_part` gives
+`g : Y → Y₀` with `Φ = Φ₀ ∘ g`; `MobiusGlue` gives `π₆ ∘ fY = π₀ ∘ f₀ ∘ g`; `H ∘ fY = f₀ ∘ g` by
+the forgetful clause; `fY` is onto `X(ℚ̄)`) and commutes with `Aut(ℚ̄/ℚ)` (the Galois clause of
+`X6Props` on both witnesses, and `PairBaseChangeUnique`). -/
+theorem kummerFibreEquiv_transport (hM : MobiusGlue) (hB : PairBaseChangeUnique)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀}
+    {X₀ : Over (Spec (CommRingCat.of ℚ))} {Ψ₀ : (fieldPt Qbar ⟶ X₀) ≃ Quotient (pairSetoid Qbar)}
+    {f₀ : Y₀ ⟶ X₀} {π₀ : ToP1 X₀.left} (h₀ : R1R2fpFullProps Y₀ Φ₀ X₀ Ψ₀ f₀ π₀)
+    (hK₀ : KummerFibreEquiv X₀ π₀)
+    {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {fY : Y ⟶ X} {π₆ : ToP1 X.left} (h : R1R2fpFullProps Y Φ X Ψ fY π₆) :
+    KummerFibreEquiv X π₆ := by
+  obtain ⟨g, hg⟩ := phi_part (R1fpProps.univ h₀.1) h.1
+  have hR₀ := R2fpProps_of_X6 h₀.2.2.1 h₀.2.2.2.1
+  have hR := R2fpProps_of_X6 h.2.2.1 h.2.2.2.1
+  have hπ := hM Y₀ Y Φ₀ Φ _ _ g h₀.1 hR₀ h.1 hR (cm_objects_of_props h₀) hg
+  obtain ⟨-, -, -, hgal, -, hf⟩ := h.2.2.1
+  obtain ⟨-, -, -, hgal₀, -, hf₀⟩ := h₀.2.2.1
+  obtain ⟨-, hs⟩ := h.2.2.2.2.2.2.1
+  let H : (fieldPt Qbar ⟶ X) ≃ (fieldPt Qbar ⟶ X₀) := Ψ.trans Ψ₀.symm
+  have hH : ∀ x, Ψ₀ (H x) = Ψ x := fun x => Ψ₀.apply_symm_apply _
+  have hHy : ∀ y : fieldPt Qbar ⟶ Y, H (y ≫ fY) = (y ≫ g) ≫ f₀ := by
+    intro y
+    apply Ψ₀.injective
+    rw [hH, hf y _ ((hg Qbar y).trans (Quotient.out_eq _).symm),
+      hf₀ (y ≫ g) _ (Quotient.out_eq _).symm]
+  have hπH : ∀ x, π₆.val (K := Qbar) x.left = π₀.val (K := Qbar) (H x).left := by
+    intro x
+    obtain ⟨y, rfl⟩ := hs x
+    rw [hHy y]
+    calc π₆.val (K := Qbar) (y ≫ fY).left = (π₆.comp fY.left).val (K := Qbar) y.left :=
+          (ToP1.val_comp_right π₆ fY.left y.left).symm
+      _ = (π₀.comp f₀.left).val (K := Qbar) (y ≫ g).left := hπ y
+      _ = π₀.val (K := Qbar) ((y ≫ g) ≫ f₀).left := ToP1.val_comp_right π₀ f₀.left (y ≫ g).left
+  have hgalH : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X),
+      H (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) = fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ H x := by
+    intro σ x
+    apply Ψ₀.injective
+    rw [hH]
+    obtain ⟨Q, hQ, hbQ⟩ := hgal σ x (Quotient.out (Ψ x)) (Quotient.out_eq _).symm
+    obtain ⟨Q', hQ', hbQ'⟩ := hgal₀ σ (H x) (Quotient.out (Ψ x))
+      ((hH x).trans (Quotient.out_eq _).symm)
+    rw [hQ, hQ']
+    obtain ⟨i⟩ := hB σ _ Q Q' hbQ hbQ'
+    exact Quotient.sound ⟨i⟩
+  intro j₀ hj0 hj1
+  obtain ⟨e₀, he₀⟩ := hK₀ j₀ hj0 hj1
+  let F : {x : fieldPt Qbar ⟶ X //
+        π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀)} ≃
+      {x : fieldPt Qbar ⟶ X₀ //
+        π₀.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀)} :=
+    H.subtypeEquiv (fun x => by rw [hπH x])
+  refine ⟨F.trans e₀, ?_⟩
+  intro σ x hx hσx
+  have hmem := galPt_mem_fibre π₀ σ (H x) j₀ ((hπH x).symm.trans hx)
+  have h1 : F ⟨fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x, hσx⟩ =
+      ⟨fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ H x, hmem⟩ := Subtype.ext (hgalH σ x)
+  simp only [Equiv.trans_apply]
+  rw [h1]
+  exact he₀ σ (H x) _ hmem
+
+/-- **N2′ from the leaf N2-L and glue (compiled).** -/
+theorem x6KummerEquiv_of_model (hM : MobiusGlue) (hB : PairBaseChangeUnique)
+    (hL : X6KummerModel) : X6KummerEquiv := by
+  obtain ⟨Y₀, Φ₀, X₀, Ψ₀, f₀, π₀, h₀, hK₀⟩ := hL
+  intro Y Φ X Ψ fY π₆ h
+  exact kummerFibreEquiv_transport hM hB h₀ hK₀ h
+
+/-- **N2 `X6KummerFibre` from the leaf N2-L `X6KummerModel`, the existing curve glue
+`MobiusGlue` and the new glue `PairBaseChangeUnique` (compiled).** -/
+theorem x6KummerFibre_of_model (hM : MobiusGlue) (hB : PairBaseChangeUnique)
+    (hL : X6KummerModel) : X6KummerFibre :=
+  x6KummerFibre_of_equiv (x6KummerEquiv_of_model hM hB hL)
+
+end X6Kummer
+
+
+end
+end G0A3x6_partC
+
+section G0A3x6_partD
+noncomputable section
+
+namespace X6Kummer
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM.AV LeafQM.AV.Pin PkgI3 FS5NoCM
+
+/-! ## §F `PairBaseChangeUnique` is a theorem (pullback uniqueness and rigidity) -/
+
+/-- The identity `ℚ̄`-point of an abelian variety over `ℚ̄`, as a morphism of schemes, is the
+underlying morphism of the unit `η`. -/
+theorem one_pt_left (A : AbVar Qbar) :
+    (1 : A.Pt Qbar).left = (η[A.X]).left := by
+  rw [Hom.one_def, Over.comp_left, Over.toUnit_left]
+  change Spec.map (CommRingCat.ofHom (algebraMap Qbar Qbar)) ≫ _ = _
+  rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id, Category.id_comp]
+
+/-- **`PairBaseChangeUnique` holds.** The two pullback squares give `e : Q.A ≅ Q'.A` over
+`Spec ℚ̄` (`IsPullback.isoIsPullback`); `e` and `e⁻¹` fix the identity sections and commute with
+`ι` (checked after the pullback projections, `IsPullback.hom_ext`); by rigidity
+(`G0FibreSimple.rigidityHom`, mul-rigidity) both are homomorphisms. -/
+theorem pairBaseChangeUnique : PairBaseChangeUnique := by
+  intro σ P Q Q' ⟨g, hpb, hι, h1⟩ ⟨g', hpb', hι', h1'⟩
+  rw [one_pt_left, one_pt_left] at h1 h1'
+  let e := hpb.isoIsPullback _ _ hpb'
+  have ehf : e.hom ≫ g' = g := by simp [e]
+  have ehs : e.hom ≫ Q'.A.X.hom = Q.A.X.hom := by simp [e]
+  have eif : e.inv ≫ g = g' := by simp [e]
+  have eis : e.inv ≫ Q.A.X.hom = Q'.A.X.hom := by simp [e]
+  let eH : Q.A.X ⟶ Q'.A.X := Over.homMk e.hom ehs
+  let eI : Q'.A.X ⟶ Q.A.X := Over.homMk e.inv eis
+  have hη : η[Q.A.X] ≫ eH = η[Q'.A.X] := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left]
+    apply hpb'.hom_ext
+    · change ((η[Q.A.X]).left ≫ e.hom) ≫ g' = (η[Q'.A.X]).left ≫ g'
+      rw [Category.assoc, ehf]
+      exact h1.trans h1'.symm
+    · change ((η[Q.A.X]).left ≫ e.hom) ≫ Q'.A.X.hom = (η[Q'.A.X]).left ≫ Q'.A.X.hom
+      rw [Category.assoc, ehs, Over.w, Over.w]
+  have hη' : η[Q'.A.X] ≫ eI = η[Q.A.X] := by
+    rw [← hη, Category.assoc]
+    have : eH ≫ eI = 𝟙 _ := by
+      apply Over.OverMorphism.ext
+      exact e.hom_inv_id
+    rw [this, Category.comp_id]
+  have : IsMonHom eH := G0FibreSimple.rigidityHom Qbar Q.A Q'.A eH hη
+  have : IsMonHom eI := G0FibreSimple.rigidityHom Qbar Q'.A Q.A eI hη'
+  refine ⟨⟨AbVar.Hom.mk' eH, AbVar.Hom.mk' eI, ?_, ?_, ?_⟩⟩
+  · apply Over.OverMorphism.ext
+    exact e.hom_inv_id
+  · apply Over.OverMorphism.ext
+    exact e.inv_hom_id
+  · intro a
+    simp only [AbVar.Hom.hom_mk']
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left, Over.comp_left]
+    apply hpb'.hom_ext
+    · change ((Q.q.iota a).hom.left ≫ e.hom) ≫ g' = (e.hom ≫ (Q'.q.iota a).hom.left) ≫ g'
+      rw [Category.assoc, ehf, hι a, Category.assoc, hι' a, ← Category.assoc, ehf]
+    · change ((Q.q.iota a).hom.left ≫ e.hom) ≫ Q'.A.X.hom =
+        (e.hom ≫ (Q'.q.iota a).hom.left) ≫ Q'.A.X.hom
+      rw [Category.assoc, ehs, Category.assoc, Over.w, Over.w, ehs]
+
+/-- **N2 `X6KummerFibre` from the leaf N2-L `X6KummerModel` and the curve glue `MobiusGlue`
+(compiled; `PairBaseChangeUnique` is now a theorem).** -/
+theorem x6KummerFibre_of_model' (hM : MobiusGlue) (hL : X6KummerModel) : X6KummerFibre :=
+  x6KummerFibre_of_model hM pairBaseChangeUnique hL
+
+end X6Kummer
+
+
+end
+end G0A3x6_partD
+
+section G0A3x6_partE
+noncomputable section
+
+namespace X6Kummer
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM.AV LeafQM.AV.Pin PkgI3 FS5NoCM
+
+/-! ## §G The leaf in its global (conic) form, and the fibre form from it -/
+
+/-- The `ℚ̄`-points of the conic `C : Y² + 3X² + 3Z² = 0`: the affine part `Z = 1`
+(`(X, Y) = (p.1, p.2)` with `p.2² + 3 p.1² + 3 = 0`) and the two points at infinity `[1 : b : 0]`,
+`b² = −3`. -/
+abbrev ConicPt : Type :=
+  {p : Qbar × Qbar // p.2 ^ 2 + 3 * p.1 ^ 2 + 3 = 0} ⊕ {b : Qbar // b ^ 2 = -3}
+
+/-- `Aut(ℚ̄/ℚ)` acting on `C(ℚ̄)` coordinatewise (`C` is defined over `ℚ`). -/
+def conicGal (σ : Qbar ≃ₐ[ℚ] Qbar) : ConicPt → ConicPt
+  | Sum.inl p => Sum.inl ⟨(σ p.1.1, σ p.1.2), by
+      have h := congrArg σ p.2
+      simp only [map_add, map_mul, map_pow, map_ofNat, map_zero] at h
+      exact h⟩
+  | Sum.inr b => Sum.inr ⟨σ b.1, by
+      have h := congrArg σ b.2
+      simp only [map_pow, map_neg, map_ofNat] at h
+      exact h⟩
+
+/-- **The conic model of `(X₆, π₆)` on `ℚ̄`-points**: a bijection `X(ℚ̄) ≃ C(ℚ̄)` commuting with
+`Aut(ℚ̄/ℚ)`, under which `π₆ = −16(X² + Z²)/(27 Z²)` (so `∞` at the points at infinity). -/
+def ConicModel (X : Over (Spec (CommRingCat.of ℚ))) (π₆ : ToP1 X.left) : Prop :=
+  ∃ e : (fieldPt Qbar ⟶ X) ≃ ConicPt,
+    (∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X),
+      e (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) = conicGal σ (e x)) ∧
+    (∀ (x : fieldPt Qbar ⟶ X) p, e x = Sum.inl p →
+      π₆.val (K := Qbar) x.left = OnePoint.some (-16 * (p.1.1 ^ 2 + 1) / 27)) ∧
+    (∀ (x : fieldPt Qbar ⟶ X) b, e x = Sum.inr b → π₆.val (K := Qbar) x.left = OnePoint.infty)
+
+/-- **N2-L′ (leaf, new; the global form of `X6KummerModel`): `X₆ = X₀(6,1)` is the conic
+`Y² + 3X² + 3Z² = 0` with `π₆ = −16(X² + Z²)/(27 Z²)`, on `ℚ̄`-points of one witness.**
+
+*Published statement* (Kurihara, J. Fac. Sci. Univ. Tokyo 25 (1979): `X₀(6,1) : x² + y² + 3 = 0`;
+Elkies, ANTS-III, LNCS 1423 (1998), §3: `X*(6) = X₆/W` with coordinate `t`, `t = 0, 1, ∞` at the
+CM points of discriminants `−24, −4, −3`, and `X₆ = X*(6)(√−t, √(3(t − 1)))`; locators
+UNVERIFIED, no network). Put `X = √−t`, `Y = √(3(t−1))`, `Z = 1`: then `Y² + 3X² + 3 = 0`,
+`t = −X²/Z²`, `W` acts by the sign changes, and `j = 16(t − 1)/27 = −16(X² + Z²)/(27 Z²)` is the
+coordinate of R2fp (`j = 0, ∞, −16/27` at `−4, −3, −24`; a Möbius map is fixed by three values).
+An isomorphism of `ℚ`-schemes `X₆ ≅ C` gives a bijection on `ℚ̄`-points commuting with
+`Aut(ℚ̄/ℚ)`, compatible with the maps to `P¹`. Consistency checks (VERIFIED by computation in
+`scratch/x6-kummer/conic_check.py`): the involutions `X ↦ −X`, `Y ↦ −Y`, `(X,Y) ↦ (−X,−Y)` fix
+exactly the two points over `j = −16/27`, `0`, `∞` respectively (Riemann–Hurwitz for a
+`(ℤ/2)²`-cover of `P¹` by a genus-0 curve); the residue fields there are `ℚ(√−3)`, `ℚ(i)`,
+`ℚ(√−3)`, as González–Rotger Thm 5.12 (the bundle's `R5ptProps`) requires for `ℤ[√−6]` (`b = 0`,
+`h = 2`), `ℤ[i]` (`b = 1`, `h = 1`, contains `ℚ(i)`), `ℤ[ζ₃]` (`b = 1`, `h = 1`, contains
+`ℚ(√−3)`); `C` and Kurihara's conic both correspond to `(−1, −3)_ℚ`, ramified at `{3, ∞}`. The
+fibre fields `ℚ(√−t, √(3(t−1)))` were checked against González–Rotger Thm 5.12 on all 24 rational
+CM points of Elkies' table by rv-nocm §1.3 Part B. -/
+def X6ConicModel : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left), R1R2fpFullProps Y Φ X Ψ fY π₆ ∧ ConicModel X π₆
+
+/-- The fibre condition on the affine conic: `−16(a² + 1)/27 = j₀` iff `a² = −t₀`, and then
+`b² = 3(t₀ − 1)`. -/
+theorem conic_fibre_iff (j₀ : ℚ) (a b : Qbar) (hab : b ^ 2 + 3 * a ^ 2 + 3 = 0) :
+    (-16 * (a ^ 2 + 1) / 27 = algebraMap ℚ Qbar j₀) ↔
+      (a ^ 2 = -algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ∧
+        b ^ 2 = 3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1)) := by
+  have ht : algebraMap ℚ Qbar (1 + 27 * j₀ / 16) = 1 + 27 * algebraMap ℚ Qbar j₀ / 16 := by
+    simp only [map_add, map_one, map_div₀, map_mul, map_ofNat]
+  rw [ht]
+  constructor
+  · intro h
+    refine ⟨by linear_combination (-27 / 16 : Qbar) * h, by linear_combination hab + (81 / 16 : Qbar) * h⟩
+  · rintro ⟨h1, -⟩
+    linear_combination (-16 / 27 : Qbar) * h1
+
+/-- **The fibre form from the conic form (compiled).** -/
+theorem kummerFibreEquiv_of_conic {X : Over (Spec (CommRingCat.of ℚ))} {π₆ : ToP1 X.left}
+    (hC : ConicModel X π₆) : KummerFibreEquiv X π₆ := by
+  obtain ⟨e, he, hin, hinf⟩ := hC
+  intro j₀ _ _
+  -- every point of the fibre is affine
+  have aff : ∀ x : fieldPt Qbar ⟶ X,
+      π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+      ∃ p, e x = Sum.inl p := by
+    intro x hx
+    rcases hex : e x with p | b
+    · exact ⟨p, rfl⟩
+    · rw [hinf x b hex] at hx
+      exact absurd hx (by simp [OnePoint.infty, OnePoint.some])
+  have val_of : ∀ (x : fieldPt Qbar ⟶ X) p, e x = Sum.inl p →
+      π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+      -16 * (p.1.1 ^ 2 + 1) / 27 = algebraMap ℚ Qbar j₀ := by
+    intro x p hp hx
+    rw [hin x p hp] at hx
+    exact Option.some.inj hx
+  let g : ConicPt → Qbar × Qbar := Sum.elim (fun p => p.1) (fun _ => (0, 0))
+  have hg : ∀ (x : fieldPt Qbar ⟶ X),
+      π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+      (g (e x)).1 ^ 2 = -algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ∧
+        (g (e x)).2 ^ 2 = 3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1) := by
+    intro x hx
+    obtain ⟨p, hp⟩ := aff x hx
+    rw [hp]
+    exact (conic_fibre_iff j₀ p.1.1 p.1.2 p.2).mp (val_of x p hp hx)
+  let f : {x : fieldPt Qbar ⟶ X //
+        π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀)} →
+      {p : Qbar × Qbar // p.1 ^ 2 = -algebraMap ℚ Qbar (1 + 27 * j₀ / 16) ∧
+        p.2 ^ 2 = 3 * (algebraMap ℚ Qbar (1 + 27 * j₀ / 16) - 1)} :=
+    fun x => ⟨g (e x.1), hg x.1 x.2⟩
+  have hbij : Function.Bijective f := by
+    constructor
+    · rintro ⟨x, hx⟩ ⟨x', hx'⟩ h
+      obtain ⟨p, hp⟩ := aff x hx
+      obtain ⟨p', hp'⟩ := aff x' hx'
+      have h1 : g (e x) = g (e x') := congrArg Subtype.val h
+      rw [hp, hp'] at h1
+      have h2 : p = p' := Subtype.ext h1
+      apply Subtype.ext
+      apply e.injective
+      rw [hp, hp', h2]
+    · rintro ⟨⟨a, b⟩, hab⟩
+      have hon : b ^ 2 + 3 * a ^ 2 + 3 = 0 := by
+        obtain ⟨h1, h2⟩ := hab
+        linear_combination h2 + 3 * h1
+      let c : ConicPt := Sum.inl ⟨(a, b), hon⟩
+      have hx : π₆.val (K := Qbar) (e.symm c).left = OnePoint.some (algebraMap ℚ Qbar j₀) := by
+        rw [hin (e.symm c) ⟨(a, b), hon⟩ (e.apply_symm_apply c)]
+        congr 1
+        exact (conic_fibre_iff j₀ a b hon).mpr hab
+      refine ⟨⟨e.symm c, hx⟩, ?_⟩
+      apply Subtype.ext
+      change g (e (e.symm c)) = (a, b)
+      rw [e.apply_symm_apply]
+      rfl
+  refine ⟨Equiv.ofBijective f hbij, ?_⟩
+  intro σ x hx hσx
+  change g (e (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x)) = (σ (g (e x)).1, σ (g (e x)).2)
+  obtain ⟨p, hp⟩ := aff x hx
+  rw [he σ x, hp]
+  rfl
+
+/-- **N2 from the conic leaf (compiled).** -/
+theorem x6KummerModel_of_conic (hL : X6ConicModel) : X6KummerModel := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h, hC⟩ := hL
+  exact ⟨Y, Φ, X, Ψ, fY, π₆, h, kummerFibreEquiv_of_conic hC⟩
+
+/-- **N2 `X6KummerFibre` from the conic leaf `X6ConicModel` and `MobiusGlue` (compiled).** -/
+theorem x6KummerFibre_of_conic (hM : MobiusGlue) (hL : X6ConicModel) : X6KummerFibre :=
+  x6KummerFibre_of_model' hM (x6KummerModel_of_conic hL)
+
+end X6Kummer
+
+
+end
+end G0A3x6_partE
+
+end G0A3_f20_x6kummer
+
 section G0A3_z80_leaves3
 /-! ## g0-assemble2: `ResearchLeaves3`, the research bundle without placeholders
 
@@ -89538,8 +90287,10 @@ structure GluePieces4 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
-  /-- fs5-nocm, GLUE (N2: the Kummer fibre of `X₆ → P¹` over `t(u)`). -/
-  x6KummerFibre : FS5NoCM.X6KummerFibre
+  /-- x6-kummer, LEAF (N2-L′: `X₆` is the conic `Y² + 3X² + 3Z² = 0` with `π₆ = −16(X² + Z²)/(27Z²)` on
+  `ℚ̄`-points of one witness of the leaf bundle; Elkies 1998 §3, Kurihara 1979; a consequence of the published model,
+  x6-kummer §3.6). fs5-nocm's glue N2 `X6KummerFibre` is proved from it and `MobiusGlue`. -/
+  x6ConicModel : X6Kummer.X6ConicModel
   -- ProductModelHeight (unif-dims, product-unif, infra-smooth-dim)
   /-- metrization (via unif-dims), LEAF (the uniformization theorem with its dimension: `𝒢(ℂ)_τ ≅ ℂ^g/Λ`,
   Mumford §1, §4; GAGA). -/
@@ -89597,8 +90348,6 @@ structure GluePieces4 : Prop where
   /-- prop-ts-glue, GLUE. -/ heckeDegree : PropTSGlue.HeckeDegree
   /-- prop-ts-glue, GLUE. -/ heckeBranch : PropTSGlue.HeckeBranch
   /-- prop-ts-glue, GLUE (Lemma NV). -/ heckeNoVertRam : PropTSGlue.HeckeNoVertRam
-  /-- fibre-cover, GLUE (a compositum of conjugates of a field unramified at `p` is unramified at `p`). -/
-  unramifiedConjugates : G0ModField.UnramifiedConjugates
   -- ModularConstituent: G4 (kernel-field, kf-glue)
   /-- kf-glue, GLUE (Galois descent of the twisted isomorphisms). -/
   twistDescent : G0ModField.KernelField.TwistDescent
@@ -89641,7 +90390,8 @@ theorem mobiusGlue_of_t5' (t : TextbookLeaves) : LeafQM.AV.Pin.MobiusGlue :=
 theorem fibreComTrivial_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
     G0FibreSimple.FibreComTrivial :=
   fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r.toR3)
-    (mobiusGlue_of_t5' t) t.t27 t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
+    (mobiusGlue_of_t5' t) t.t27 t.t6 gp.cmOptimalEmbedding
+    (X6Kummer.x6KummerFibre_of_conic (mobiusGlue_of_t5' t) gp.x6ConicModel) r.r5count)
 
 /-- `FibreSimple` from `GluePieces4` (fs1-descend, mul-rigidity, infra-stalks' `MulIsogeny`, fs5-nocm). -/
 theorem fibreSimple_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
@@ -89696,7 +90446,7 @@ theorem gluePieces_of_gluePieces4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp
     gp.thetaRatiosAlgebraic
   modularConstituent := modularConstituent_of_field t
     (G0ModField.fibreCoverExists_of_propTSAll' t.t5 (propTSAll_of_gp4 r t gp)
-      gp.unramifiedConjugates)
+      G0ModField.unramifiedConjugates)
     (G0ModField.KernelField.kernelFieldExists_of_descent t.t6 r.r7a r.r6 t.t5 t.t27
       (fibreComTrivial_of_gp4 r t gp) MulRigidity.mulIsogeny gp.twistDescent)
     UnramTate.unramifiedSup_mf
@@ -89739,6 +90489,8 @@ end
 #print axioms HSyn.sixContactMin_of_leaves4'
 #print axioms HSyn.ResearchLeaves4.toR3
 #print axioms ZInQ.UnifDims.productModelHeight_of_unifOfDim
+#print axioms G0ModField.unramifiedConjugates
+#print axioms X6Kummer.x6KummerFibre_of_conic
 #print axioms MulRigidity.mulIsogeny
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
 #print axioms RvGP2.burnsideAbsIrred

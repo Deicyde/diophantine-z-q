@@ -729,8 +729,10 @@ structure GluePieces4 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
   cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
-  /-- fs5-nocm, GLUE (N2: the Kummer fibre of `X₆ → P¹` over `t(u)`). -/
-  x6KummerFibre : FS5NoCM.X6KummerFibre
+  /-- x6-kummer, LEAF (N2-L′: `X₆` is the conic `Y² + 3X² + 3Z² = 0` with `π₆ = −16(X² + Z²)/(27Z²)` on
+  `ℚ̄`-points of one witness of the leaf bundle; Elkies 1998 §3, Kurihara 1979; a consequence of the published model,
+  x6-kummer §3.6). fs5-nocm's glue N2 `X6KummerFibre` is proved from it and `MobiusGlue`. -/
+  x6ConicModel : X6Kummer.X6ConicModel
   -- ProductModelHeight (unif-dims, product-unif, infra-smooth-dim)
   /-- metrization (via unif-dims), LEAF (the uniformization theorem with its dimension: `𝒢(ℂ)_τ ≅ ℂ^g/Λ`,
   Mumford §1, §4; GAGA). -/
@@ -788,8 +790,6 @@ structure GluePieces4 : Prop where
   /-- prop-ts-glue, GLUE. -/ heckeDegree : PropTSGlue.HeckeDegree
   /-- prop-ts-glue, GLUE. -/ heckeBranch : PropTSGlue.HeckeBranch
   /-- prop-ts-glue, GLUE (Lemma NV). -/ heckeNoVertRam : PropTSGlue.HeckeNoVertRam
-  /-- fibre-cover, GLUE (a compositum of conjugates of a field unramified at `p` is unramified at `p`). -/
-  unramifiedConjugates : G0ModField.UnramifiedConjugates
   -- ModularConstituent: G4 (kernel-field, kf-glue)
   /-- kf-glue, GLUE (Galois descent of the twisted isomorphisms). -/
   twistDescent : G0ModField.KernelField.TwistDescent
@@ -832,7 +832,8 @@ theorem mobiusGlue_of_t5' (t : TextbookLeaves) : LeafQM.AV.Pin.MobiusGlue :=
 theorem fibreComTrivial_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
     G0FibreSimple.FibreComTrivial :=
   fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r.toR3)
-    (mobiusGlue_of_t5' t) t.t27 t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
+    (mobiusGlue_of_t5' t) t.t27 t.t6 gp.cmOptimalEmbedding
+    (X6Kummer.x6KummerFibre_of_conic (mobiusGlue_of_t5' t) gp.x6ConicModel) r.r5count)
 
 /-- `FibreSimple` from `GluePieces4` (fs1-descend, mul-rigidity, infra-stalks' `MulIsogeny`, fs5-nocm). -/
 theorem fibreSimple_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
@@ -887,7 +888,7 @@ theorem gluePieces_of_gluePieces4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp
     gp.thetaRatiosAlgebraic
   modularConstituent := modularConstituent_of_field t
     (G0ModField.fibreCoverExists_of_propTSAll' t.t5 (propTSAll_of_gp4 r t gp)
-      gp.unramifiedConjugates)
+      G0ModField.unramifiedConjugates)
     (G0ModField.KernelField.kernelFieldExists_of_descent t.t6 r.r7a r.r6 t.t5 t.t27
       (fibreComTrivial_of_gp4 r t gp) MulRigidity.mulIsogeny gp.twistDescent)
     UnramTate.unramifiedSup_mf
@@ -930,6 +931,8 @@ end
 #print axioms HSyn.sixContactMin_of_leaves4'
 #print axioms HSyn.ResearchLeaves4.toR3
 #print axioms ZInQ.UnifDims.productModelHeight_of_unifOfDim
+#print axioms G0ModField.unramifiedConjugates
+#print axioms X6Kummer.x6KummerFibre_of_conic
 #print axioms MulRigidity.mulIsogeny
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
 #print axioms RvGP2.burnsideAbsIrred
