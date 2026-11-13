@@ -521,4 +521,88 @@ theorem tyzLemma316_iff :
     TYZLemma316 ↔ ∀ P : PtA, IsDefinedOver Qi P → 2 • (P + iPt P) = 0 :=
   ⟨fun h P hP => (h P).mp hP, fun h P => ⟨h P, lemma316_mpr P⟩⟩
 
+
+/-! ## §2.4 `φ` and `ψ` are defined over `ℚ` (Galois-equivariant) -/
+
+open WeierstrassCurve.Affine in
+theorem phi_zero_zero (h0 : curveAbar.toAffine.Nonsingular 0 0) : phi (.some 0 0 h0) = 0 := by
+  have : (Point.some 0 0 h0 : PtA) + iPt (Point.some 0 0 h0) = 0 := by
+    rw [iPt_some]
+    apply Point.add_of_Y_eq
+    · ring
+    · simp only [negY, curveAbar_a₁, curveAbar_a₃]; ring
+  rw [phi_apply, this, map_zero]
+
+open WeierstrassCurve.Affine in
+theorem psi_zero_zero (h0 : curveC1bar.toAffine.Nonsingular 0 0) : psi (.some 0 0 h0) = 0 := by
+  rw [psi_apply, iotaInv_some]
+  generalize_proofs H
+  have e : ((1 - iQ) ^ 2 * 0 : Qbar) = 0 := by ring
+  have e' : ((1 - iQ) ^ 3 * 0 : Qbar) = 0 := by ring
+  revert H
+  rw [e, e']
+  intro H
+  rw [iPt_some, sub_eq_zero]
+  simp only [neg_zero, mul_zero]
+
+open WeierstrassCurve.Affine in
+/-- **`φ` commutes with `Gal(ℚ̄/ℚ)`** (it is a `ℚ`-rational isogeny). -/
+theorem phi_map (σ : Qbar →ₐ[ℚ] Qbar) (P : PtA) :
+    phi (Point.map (W' := curveA) σ P) = Point.map (W' := curveC1) σ (phi P) := by
+  rcases P with _ | ⟨x, y, h⟩
+  · rw [show (Point.zero : PtA) = 0 from rfl, map_zero, map_zero, map_zero]
+  by_cases hx : x = 0
+  · subst hx
+    have he := (nonsingular_iff' _ _).mp h |>.1
+    rw [equation_iff'] at he
+    simp only [curveAbar_a₁, curveAbar_a₂, curveAbar_a₃, curveAbar_a₄, curveAbar_a₆] at he
+    have hy : y = 0 := by
+      have : y ^ 2 = 0 := by linear_combination he
+      exact pow_eq_zero_iff (n := 2) (by norm_num) |>.mp this
+    subst hy
+    rw [phi_zero_zero h, map_zero, Point.map_some]
+    have e : ∀ pf : curveAbar.toAffine.Nonsingular (σ 0) (σ 0),
+        (Point.some (σ 0) (σ 0) pf : PtA) = Point.some 0 0 h := fun pf => by
+      simp only [Point.some.injEq, map_zero, and_self]
+    rw [e]
+    exact phi_zero_zero h
+  have hσx : σ x ≠ 0 := by
+    intro h0; apply hx; exact (map_eq_zero_iff σ σ.toRingHom.injective).mp h0
+  obtain ⟨h', hphi⟩ := phi_some h hx
+  rw [hphi, Point.map_some, Point.map_some]
+  obtain ⟨h'', hphi'⟩ :=
+    phi_some ((WeierstrassCurve.Affine.baseChange_nonsingular (W := curveA) σ.injective _ _).mpr h) hσx
+  rw [hphi', Point.some.injEq]
+  constructor <;> simp [map_div₀, map_mul, map_pow, map_sub, map_ofNat]
+
+open WeierstrassCurve.Affine in
+/-- **`ψ` commutes with `Gal(ℚ̄/ℚ)`.** -/
+theorem psi_map (σ : Qbar →ₐ[ℚ] Qbar) (Q : PtC1) :
+    psi (Point.map (W' := curveC1) σ Q) = Point.map (W' := curveA) σ (psi Q) := by
+  rcases Q with _ | ⟨x, y, h⟩
+  · rw [show (Point.zero : PtC1) = 0 from rfl, map_zero, map_zero, map_zero]
+  by_cases hx : x = 0
+  · subst hx
+    have he := (nonsingular_iff' _ _).mp h |>.1
+    rw [equation_iff'] at he
+    simp only [curveC1bar_a₁, curveC1bar_a₂, curveC1bar_a₃, curveC1bar_a₄, curveC1bar_a₆] at he
+    have hy : y = 0 := by
+      have : y ^ 2 = 0 := by linear_combination he
+      exact pow_eq_zero_iff (n := 2) (by norm_num) |>.mp this
+    subst hy
+    rw [psi_zero_zero h, map_zero, Point.map_some]
+    have e : ∀ pf : curveC1bar.toAffine.Nonsingular (σ 0) (σ 0),
+        (Point.some (σ 0) (σ 0) pf : PtC1) = Point.some 0 0 h := fun pf => by
+      simp only [Point.some.injEq, map_zero, and_self]
+    rw [e]
+    exact psi_zero_zero h
+  have hσx : σ x ≠ 0 := by
+    intro h0; apply hx; exact (map_eq_zero_iff σ σ.toRingHom.injective).mp h0
+  obtain ⟨h', hpsi⟩ := psi_some h hx
+  rw [hpsi, Point.map_some, Point.map_some]
+  obtain ⟨h'', hpsi'⟩ :=
+    psi_some ((WeierstrassCurve.Affine.baseChange_nonsingular (W := curveC1) σ.injective _ _).mpr h) hσx
+  rw [hpsi', Point.some.injEq]
+  constructor <;> simp [map_div₀, map_mul, map_pow, map_add, map_one]
+
 end ZInQ.Contrib.TYZGenus.X0
