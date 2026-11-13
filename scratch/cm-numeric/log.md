@@ -39,3 +39,30 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
   cm-points' `betaOneSign` on each `√D`; then `Z(e)^{β'} + Z(e) = g(e)·T`, `T = (2,−4) = tauG 1`, holds
   in all 12 cases (|diff| < 1e−400; g = 1,1,3,3,2,5,2,7,5,3,4,5). VERIFIED (computed). So pinning
   `Z7` by `[(e+δ²)/4, δ, 1]` makes Lemma 3.21(4) true on this sample, independently of TYZ's text.
+
+## 10:40 Shimura reciprocity direction (`shimura.py`, `shimura.out`)
+- Test of cm-points' leaf `CM.ShimuraReciprocity` exactly as stated: `Q'` computed from the lattice
+  condition `(⟨1,τ'⟩, ⟨1/32,τ'⟩) = c·𝔭̄·(⟨1,τ⟩, ⟨1/32,τ⟩)`, `𝔭̄ = ⟨p, (−b−√D)/2⟩` (exact arithmetic in
+  `ℚ(√D)`, adapted basis of the pair); Frobenius tested as `g(X) ≡ X^p mod (F, p, √D − b)` with
+  `F = Π_r (X − x_r) ∈ K[X]` over one Heegner point per class (`B ≡ β mod 64`) and `g ∈ K[X]`
+  interpolating `x_r ↦ x(Q'_r)` (recognized in `K` with error 0 at 400 digits).
+- D ∈ {−23, −47, −71, −31, −39, −320}, 26 pairs (D, p) (p ≤ 41 split): Frobenius = multiplication by
+  `𝔭̄` in all 26; `B' ≡ B (mod 64)` holds automatically; `F mod 𝔓` squarefree; the opposite direction
+  (multiplication by `𝔭`) fails for all 24 pairs where `[𝔭]` has order > 2 (orders 3, 4, 5, 7).
+  VERIFIED (computed): the direction in `ShimuraReciprocity` (Art(𝔭) : [𝔞] ↦ [𝔭⁻¹𝔞] = [𝔭̄𝔞]) is right,
+  including the case `D = −320` (TYZ's order of conductor 4 for n = 5, conductor not prime to N = 32).
+
+## 10:55 TYZSigmaFixesZn and Prop 3.2(1) for class 5 (`sigma5.py`, `degrees5.py`, `*.out`)
+- `sigmaClass n` (class of `(3+2√−n)𝒪_K ∩ O4`) contains `p𝒪 ∩ O4`-ideals for primes `p = a² + nb²`,
+  `a` odd, `b ≡ 2 (mod 4)` (`a+b√−n ≡ 3a·(3+2√−n) mod 4𝒪_K`; by hand). Prime forms checked to lie in
+  the order-2 class `(4,4,21)` for n = 5 (PARI `qfbred`).
+- n ∈ {5, 13, 21, 29, 37}, 3 primes each (15 cases): `ShimuraReciprocity` gives
+  `ρ(f₀(P_n)) = P_{Q'}` and numerically `P_{Q'} − f₀(P_n) = (0,0) = τ(1)` in all 15 cases, hence
+  `ρ(z_n) = z_n` (|diff| = 0 at 400 digits) since `(1−[i])(0,0) = O`. VERIFIED (computed, modulo the
+  leaf ShimuraReciprocity checked above). So `TYZSigmaFixesZn` is numerically true; sharper form:
+  `Art(sigmaClass) f₀(P_n) = f₀(P_n) + (0,0)`.
+- Degrees (n = 5, 13): `x, y` of `f₀(P_n)` have degree 16 = `[H_{n,4}:ℚ]`; `y(z_n)` degree 8 =
+  `4h(−4n) = [H'_n:ℚ]`, `x(z_n)` degree 4 = `[H_n:ℚ]` (TYZ Prop 3.2(1),(4)). n = 21: algdep at
+  400 digits too short for degree 32 (only lower bounds 27/29 found): precision-limited, not a finding.
+- Bug caught and fixed during the run: first version used `(−b'−8√−n)/2` with coordinates in `√D`
+  (factor 8 wrong); output regenerated.
