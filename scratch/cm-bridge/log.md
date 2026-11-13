@@ -95,3 +95,6 @@
   `tyzThm36Seven_of_shimuraModFn : ShimuraReciprocityModFn → TYZThm36Seven`, and
   **`tyzThm35ReadingA_of_lcal_shimuraModFn_lemma318_thm35First_lemma321Five`**: TYZ reading A from the three
   𝓛-leaves, `Shimura.ShimuraReciprocityModFn` (one textbook CM leaf), `Lemma318Literal`, `Thm35First`, `Lemma321Five`.
+- Final check (2026-11-13 ~12:00 PST): `lake env lean scratch/cm-bridge/Bridge.lean` 0 errors; 32 audited declarations,
+  all [propext, Classical.choice, Quot.sound] (VERIFIED). Not attempted: Lemma321Five (needs β₁-lift existence via
+  Kummer theory, principal genus theorem for 𝒪_{n,4}, pinned TYZ 3.6(1)); Lemma318Literal.
