@@ -68,6 +68,19 @@ Repository: https://github.com/TauCetiProject/TauCeti
   file (commit 97a5b235): NumberTheory/ClassFieldTheory/ClassField
   (classField_fixingOpenNormalSubgroup, isAbelianClassFieldLayer_fixingOpenNormalSubgroup;
   the proof of the first is rewritten, as its note line says).
+- Commit 4d91513e (Tau Ceti main of 2026-11-13; the strong multiplicity one across
+  levels of Newforms/StrongMultiplicityOne/Basic.lean): Backport/ files added by the
+  Z-in-Q task atkin-li, compiled against the commit-5a01f5fe modules vendored here.
+  Whole modules that do not exist at commit 5a01f5fe (imports rewritten to the vendored
+  and Backport/ modules; each carries a "Modified" line):
+  NumberTheory/ModularForms/Newforms/{OldAtPrime,PrimeDecomposition,SupportAwayFromLevel}.
+  Declarations added after commit 5a01f5fe to modules whose commit-5a01f5fe version is
+  vendored: Data/Nat/Prime/Basic, NumberTheory/ModularForms/{Basic,Degeneracy},
+  NumberTheory/ModularForms/CongruenceSubgroups/Basic, NumberTheory/ModularForms/Fricke/
+  OldSpace, NumberTheory/ModularForms/Newforms/{Basic,Descent/CharacterSpace},
+  NumberTheory/ModularForms/Petersson/Trace, and the cross-level part of
+  NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Basic (as
+  Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean).
 
 Location in this repository
 ---------------------------
@@ -104,6 +117,11 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
 - Backport/NumberTheory/ClassFieldTheory/ClassField.lean (task ring-class: one proof rewritten)
+- Backport/NumberTheory/ModularForms/Newforms/OldAtPrime.lean (task atkin-li: imports)
+- Backport/NumberTheory/ModularForms/Newforms/PrimeDecomposition.lean (task atkin-li: imports)
+- Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean (task
+  atkin-li: part of the module; one call adapted to a commit-5a01f5fe signature)
+- Backport/NumberTheory/ModularForms/Newforms/SupportAwayFromLevel.lean (task atkin-li: imports)
 - GroupTheory/GroupAction/Norm.lean
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean

@@ -1,0 +1,5 @@
+ZInQ.GZTheta.newformUniqueAcrossLevels : ZInQ.GZTheta.NewformUniqueAcrossLevels
+ZInQ.GZTheta.atkinLiTwistNew : ZInQ.GZTheta.AtkinLiTwistNew
+'ZInQ.GZTheta.newformUniqueAcrossLevels' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.atkinLiTwistNew' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_via_atkinLi' depends on axioms: [propext, Classical.choice, Quot.sound]

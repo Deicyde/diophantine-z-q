@@ -1,0 +1,7 @@
+ZInQ.GZTheta.heckeThetaNewform : ZInQ.GZDecomp.HeckeThetaNewform
+ZInQ.GZTheta.newCM : ZInQ.GZTheta.NewCM
+'ZInQ.GZTheta.newCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
