@@ -529,4 +529,46 @@ theorem two_nsmul_proj_charPoint (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ)
 
 end Theta
 
+
+/-! ## §6. Linear changes of coordinates: biholomorphic group isomorphisms of tori -/
+
+section Iso
+
+variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace ℂ E']
+
+/-- A `ℂ`-linear isomorphism `T : E ≃ E'` with `T(Λ) = Λ'` induces a group isomorphism
+`E ⧸ Λ ≃ E' ⧸ Λ'`. -/
+def torusAddEquiv (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
+    Torus Λ ≃+ Torus Λ' :=
+  QuotientAddGroup.congr _ _ T.toLinearEquiv.toAddEquiv (by
+    rw [← hT]
+    ext v
+    simp [AddSubgroup.mem_map, Submodule.mem_map])
+
+theorem torusAddEquiv_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E) :
+    torusAddEquiv Λ Λ' T hT (proj Λ v) = proj Λ' (T v) := rfl
+
+theorem torusAddEquiv_symm_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E') :
+    (torusAddEquiv Λ Λ' T hT).symm (proj Λ' v) = proj Λ (T.symm v) := rfl
+
+/-- **The induced map is biholomorphic**: an analytic diffeomorphism `E ⧸ Λ ≃ E' ⧸ Λ'`, additive
+by `torusAddEquiv`. -/
+def torusDiffeo (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
+    Torus Λ ≃ₘ^ω⟮𝓘(ℂ, E), 𝓘(ℂ, E')⟯ Torus Λ' where
+  toEquiv := (torusAddEquiv Λ Λ' T hT).toEquiv
+  contMDiff_toFun := contMDiff_of_comp_proj Λ
+    ((contMDiff_proj Λ').comp (contMDiff_iff_contDiff.mpr T.contDiff))
+  contMDiff_invFun := contMDiff_of_comp_proj Λ'
+    ((contMDiff_proj Λ).comp (contMDiff_iff_contDiff.mpr T.symm.contDiff))
+
+theorem torusDiffeo_apply (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (q : Torus Λ) :
+    torusDiffeo Λ Λ' T hT q = torusAddEquiv Λ Λ' T hT q := rfl
+
+end Iso
+
 end BPAnalytic

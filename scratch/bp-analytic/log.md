@@ -29,3 +29,6 @@
   `thetaConst_eq_thetaChar`, `thetaConst_eq_riemannTheta`, `two_nsmul_proj_charPoint` ((Ωa+b)/2 is 2-torsion
   on ℂ²/Λ_Ω). All by tsum reindexing (Equiv.tsum_eq, tsum_mul_left): no convergence hypothesis. COMPILED,
   no errors, no warnings.
+- Torus.lean §6: `torusAddEquiv` (T : E ≃L[ℂ] E' with T(Λ) = Λ' gives E/Λ ≃+ E'/Λ'), `torusAddEquiv_proj`,
+  `torusAddEquiv_symm_proj`, `torusDiffeo : Torus Λ ≃ₘ^ω⟮𝓘(ℂ,E), 𝓘(ℂ,E')⟯ Torus Λ'` (biholomorphic), `torusDiffeo_apply`.
+  COMPILED, no warnings.
