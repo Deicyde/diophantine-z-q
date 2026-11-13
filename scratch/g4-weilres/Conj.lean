@@ -124,46 +124,47 @@ end Cmp
 
 section ConjMor
 
-variable (X Y : Over S) {f₁ f₂ : T ⟶ S} (s : T ⟶ T) (h : f₂ = s ≫ f₁)
+variable (X Y : Over S) {f₁ f₂ g₁ g₂ : T ⟶ S} (s : T ⟶ T) (hf : f₂ = s ≫ f₁) (hg : g₂ = s ≫ g₁)
 
-/-- Two maps into `Y ×_{f₂} T` agreeing after `cmp` and after the structure map are equal. -/
-theorem ext_cmp {Z : C} (a b : Z ⟶ pullback Y.hom f₂) (h1 : a ≫ cmp Y s h = b ≫ cmp Y s h)
-    (h2 : a ≫ pullback.snd Y.hom f₂ = b ≫ pullback.snd Y.hom f₂) : a = b := by
+/-- Two maps into `Y ×_{g₂} T` agreeing after `cmp` and after the structure map are equal. -/
+theorem ext_cmp {Z : C} (a b : Z ⟶ pullback Y.hom g₂) (h1 : a ≫ cmp Y s hg = b ≫ cmp Y s hg)
+    (h2 : a ≫ pullback.snd Y.hom g₂ = b ≫ pullback.snd Y.hom g₂) : a = b := by
   apply pullback.hom_ext _ h2
-  rw [← cmp_fst Y s h, ← Category.assoc, h1, Category.assoc]
+  rw [← cmp_fst Y s hg, ← Category.assoc, h1, Category.assoc]
 
-/-- **The conjugate of a morphism** `φ : X_{f₁} → Y_{f₁}` (over `T`): the morphism
-`X_{f₂} → Y_{f₂}` with `σφ ∘ cmp = cmp ∘ φ` (`conj_cmp`), unique (`conj_unique`). -/
-noncomputable def conj (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) :
-    (Over.pullback f₂).obj X ⟶ (Over.pullback f₂).obj Y :=
-  Over.homMk (pullback.lift (cmp X s h ≫ φ.left ≫ pullback.fst Y.hom f₁)
+/-- **The conjugate of a morphism** `φ : X_{f₁} → Y_{g₁}` (over `T`): the morphism
+`X_{f₂} → Y_{g₂}` with `σφ ∘ cmp = cmp ∘ φ` (`conj_cmp`), unique (`conj_unique`). -/
+noncomputable def conj (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (Over.pullback f₂).obj X ⟶ (Over.pullback g₂).obj Y :=
+  Over.homMk (pullback.lift (cmp X s hf ≫ φ.left ≫ pullback.fst Y.hom g₁)
     (pullback.snd X.hom f₂) (by
       rw [Category.assoc, Category.assoc, pullback.condition]
-      have hw : φ.left ≫ pullback.snd Y.hom f₁ = pullback.snd X.hom f₁ := Over.w φ
-      rw [reassoc_of% hw, cmp_snd_assoc, h]))
+      have hw : φ.left ≫ pullback.snd Y.hom g₁ = pullback.snd X.hom f₁ := Over.w φ
+      rw [reassoc_of% hw, cmp_snd_assoc, hg]))
     (pullback.lift_snd _ _ _)
 
 @[reassoc]
-theorem conj_cmp (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) :
-    (conj X Y s h φ).left ≫ cmp Y s h = cmp X s h ≫ φ.left := by
+theorem conj_cmp (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (conj X Y s hf hg φ).left ≫ cmp Y s hg = cmp X s hf ≫ φ.left := by
   apply pullback.hom_ext
   · simp only [Category.assoc, cmp_fst]
     exact pullback.lift_fst _ _ _
   · simp only [Category.assoc, cmp_snd]
-    have hw : φ.left ≫ pullback.snd Y.hom f₁ = pullback.snd X.hom f₁ := Over.w φ
+    have hw : φ.left ≫ pullback.snd Y.hom g₁ = pullback.snd X.hom f₁ := Over.w φ
     rw [hw, cmp_snd]
     exact pullback.lift_snd_assoc _ _ _ _
 
-theorem conj_unique (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y)
-    (ψ : (Over.pullback f₂).obj X ⟶ (Over.pullback f₂).obj Y)
-    (hψ : ψ.left ≫ cmp Y s h = cmp X s h ≫ φ.left) : ψ = conj X Y s h φ := by
+theorem conj_unique (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y)
+    (ψ : (Over.pullback f₂).obj X ⟶ (Over.pullback g₂).obj Y)
+    (hψ : ψ.left ≫ cmp Y s hg = cmp X s hf ≫ φ.left) : ψ = conj X Y s hf hg φ := by
   apply Over.OverMorphism.ext
-  apply ext_cmp Y s h
+  apply ext_cmp Y s hg
   · rw [hψ, conj_cmp]
-  · exact (Over.w ψ).trans (Over.w (conj X Y s h φ)).symm
+  · exact (Over.w ψ).trans (Over.w (conj X Y s hf hg φ)).symm
 
-theorem tensor_cmp2 (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) :
-    (conj X Y s h φ ⊗ₘ conj X Y s h φ).left ≫ cmp2 Y s h = cmp2 X s h ≫ (φ ⊗ₘ φ).left := by
+theorem tensor_cmp2 (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (conj X Y s hf hg φ ⊗ₘ conj X Y s hf hg φ).left ≫ cmp2 Y s hg =
+      cmp2 X s hf ≫ (φ ⊗ₘ φ).left := by
   apply pullback.hom_ext
   · rw [Category.assoc, cmp2_fst, Category.assoc]
     erw [Over.tensorHom_left_fst_assoc, Over.tensorHom_left_fst]
@@ -174,25 +175,25 @@ theorem tensor_cmp2 (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).ob
 
 /-- **The conjugate of a monoid homomorphism is a monoid homomorphism.** -/
 theorem conj_isMonHom [MonObj X] [MonObj Y]
-    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) [IsMonHom φ] :
-    IsMonHom (conj X Y s h φ) where
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) [IsMonHom φ] :
+    IsMonHom (conj X Y s hf hg φ) where
   one_hom := by
     apply Over.OverMorphism.ext
-    apply ext_cmp Y s h
+    apply ext_cmp Y s hg
     · rw [Over.comp_left, Category.assoc, conj_cmp, ← Category.assoc, cmp_one, Category.assoc,
         ← Over.comp_left, IsMonHom.one_hom, cmp_one]
     · exact (Over.w _).trans (Over.w _).symm
   mul_hom := by
     apply Over.OverMorphism.ext
-    apply ext_cmp Y s h
+    apply ext_cmp Y s hg
     · rw [Over.comp_left, Category.assoc, conj_cmp, ← Category.assoc, cmp_mul, Category.assoc,
         ← Over.comp_left, IsMonHom.mul_hom, Over.comp_left, Over.comp_left, Category.assoc,
-        cmp_mul, reassoc_of% (tensor_cmp2 X Y s h φ)]
+        cmp_mul, reassoc_of% (tensor_cmp2 X Y s hf hg φ)]
     · exact (Over.w _).trans (Over.w _).symm
 
-theorem lift_cmp2 (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) :
-    (lift (conj X Y s h φ) (conj X Y s h ψ)).left ≫ cmp2 Y s h =
-      cmp X s h ≫ (lift φ ψ).left := by
+theorem lift_cmp2 (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (lift (conj X Y s hf hg φ) (conj X Y s hf hg ψ)).left ≫ cmp2 Y s hg =
+      cmp X s hf ≫ (lift φ ψ).left := by
   rw [Over.lift_left, Over.lift_left]
   apply pullback.hom_ext
   · rw [Category.assoc, cmp2_fst, pullback.lift_fst_assoc, Category.assoc, pullback.lift_fst,
@@ -201,15 +202,15 @@ theorem lift_cmp2 (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).o
       conj_cmp]
 
 /-- **Conjugation is multiplicative** for the pointwise product of morphisms into a monoid. -/
-theorem conj_mul [MonObj Y] (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) :
-    conj X Y s h (φ * ψ) = conj X Y s h φ * conj X Y s h ψ := by
+theorem conj_mul [MonObj Y] (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf hg (φ * ψ) = conj X Y s hf hg φ * conj X Y s hf hg ψ := by
   symm
   apply conj_unique
   rw [Hom.mul_def, Hom.mul_def, Over.comp_left, Over.comp_left, Category.assoc, cmp_mul,
     ← Category.assoc, lift_cmp2, Category.assoc]
 
 theorem conj_one [MonObj Y] :
-    conj X Y s h (1 : (Over.pullback f₁).obj X ⟶ (Over.pullback f₁).obj Y) = 1 := by
+    conj X Y s hf hg (1 : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) = 1 := by
   symm
   apply conj_unique
   rw [Hom.one_def, Hom.one_def, Over.comp_left, Over.comp_left, Category.assoc, cmp_one,
@@ -220,7 +221,45 @@ theorem conj_one [MonObj Y] :
   have e2 : (toUnit ((Over.pullback f₁).obj X)).left = pullback.snd X.hom f₁ :=
     (Category.comp_id _).symm.trans (Over.w (toUnit ((Over.pullback f₁).obj X)))
   rw [e1, e2]
-  exact (cmp_snd X s h).symm
+  exact (cmp_snd X s hf).symm
+
+/-- Conjugation along equal maps `s = s'` agrees. -/
+theorem conj_congr {s' : T ⟶ T} (hs : s = s') (hf' : f₂ = s' ≫ f₁) (hg' : g₂ = s' ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf hg φ = conj X Y s' hf' hg' φ := by
+  subst hs; rfl
+
+/-- `cmp` along the identity is the identity. -/
+theorem cmp_self (hs : s = 𝟙 T) (hf₀ : f₁ = s ≫ f₁) : cmp X s hf₀ = 𝟙 _ := by
+  apply pullback.hom_ext
+  · simp
+  · rw [cmp_snd, hs, Category.comp_id, Category.id_comp]
+
+/-- Conjugation along the identity is the identity. -/
+theorem conj_self (hs : s = 𝟙 T) (hf₀ : f₁ = s ≫ f₁) (hg₀ : g₁ = s ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf₀ hg₀ φ = φ := by
+  symm
+  apply conj_unique
+  rw [cmp_self X s hs hf₀, cmp_self Y s hs hg₀]
+  erw [Category.comp_id, Category.id_comp]
+
+/-- `cmp` composes. -/
+theorem cmp_comp {f₃ : T ⟶ S} (s' : T ⟶ T) (h₃₂ : f₃ = s' ≫ f₂) (h₃₁ : f₃ = (s' ≫ s) ≫ f₁) :
+    cmp X (s' ≫ s) h₃₁ = cmp X s' h₃₂ ≫ cmp X s hf := by
+  apply pullback.hom_ext
+  · simp
+  · simp
+
+/-- **Conjugation composes.** -/
+theorem conj_comp {f₃ g₃ : T ⟶ S} (s' : T ⟶ T) (hf₃₂ : f₃ = s' ≫ f₂) (hg₃₂ : g₃ = s' ≫ g₂)
+    (hf₃₁ : f₃ = (s' ≫ s) ≫ f₁) (hg₃₁ : g₃ = (s' ≫ s) ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y (s' ≫ s) hf₃₁ hg₃₁ φ = conj X Y s' hf₃₂ hg₃₂ (conj X Y s hf hg φ) := by
+  symm
+  apply conj_unique
+  rw [cmp_comp Y s hg s' hg₃₂ hg₃₁, cmp_comp X s hf s' hf₃₂ hf₃₁, conj_cmp_assoc, conj_cmp,
+    Category.assoc]
 
 end ConjMor
 
