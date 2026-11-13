@@ -41,5 +41,6 @@ is a literature statement (67 in all).
 - The 67 literature statements; 7 of them are LEAF? composites, which the frontier task's stricter rule would count as
   GLUE.
 - leaf-fold3, a parallel assembly, has 6 glue Props; this one has 3.
+- Nothing in the Lean was left unchecked. Every statement above was compiled in this task (flat file and olean chain).
 
 Report: `docs/research/assemble-port.md`. Log: `scratch/assemble-port/log.md`.
