@@ -2466,6 +2466,20 @@ theorem g15Ram_of_G {L : Type} [Field L] [NumberField L] {A : AbVar L} (D : ModD
   · obtain ⟨h1, h2, h3⟩ := (h p hp).2 h5
     exact ⟨h1, h2, fun hS hM => localUnram_of_unramifiedAt p D.r3 (h3 hS hM)⟩
 
+/-- **G13-G16, final form (GLUE, proved).** As `modularConstituent_tail`, with G15's open part
+`G15RamG` (D1-D4's ramification statements on G8's `r_ℓ`, and G11's output). -/
+theorem modularConstituent_tail_G (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L) := by
+  obtain ⟨D, h12, hc, hram⟩ := h
+  exact modularConstituent_tail lv hJac hX hSw hL8 hAd A u ⟨D, h12, hc, g15Ram_of_G D u hram⟩
+
 end G0ModNewform
 
 end
@@ -2488,3 +2502,4 @@ end
 #print axioms G0ModNewform.g12Spec_of_galois
 #print axioms G0ModNewform.localUnram_of_unramifiedAt
 #print axioms G0ModNewform.g15Ram_of_G
+#print axioms G0ModNewform.modularConstituent_tail_G
