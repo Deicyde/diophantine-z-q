@@ -119,6 +119,7 @@ theorem convergesToOne_iff {s : Set G} :
   rw [mem_cofinite, ← Set.finite_image_iff Subtype.val_injective.injOn]
   congr!
   simp
+  rfl
 
 /-- Every finite subset converges to one. -/
 theorem _root_.Set.Finite.convergesToOne {s : Set G} (hs : s.Finite) : ConvergesToOne s := by

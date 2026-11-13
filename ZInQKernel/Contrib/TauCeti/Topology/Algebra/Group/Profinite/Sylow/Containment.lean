@@ -7,6 +7,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Existence
+import ZInQKernel.Contrib.TauCeti.MathlibBackport.Sylow
 import ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Map
 import ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Map
 
