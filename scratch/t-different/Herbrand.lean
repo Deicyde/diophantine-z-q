@@ -129,6 +129,218 @@ theorem phiF_formula (Γ : ℕ → Subgroup G) (n : G → ℕ)
   rw [← Finset.sum_congr rfl hterm, Finset.sum_add_distrib]
   ring
 
+theorem phiF_ge (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {u : ℝ} (hu : -1 ≤ u) : -1 ≤ phiF Γ u := by
+  have h := phiF_formula Γ n hΓ hu
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h2 : 0 ≤ (u + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (u + 1) :=
+    add_nonneg (by linarith) (Finset.sum_nonneg fun s _ => le_min (Nat.cast_nonneg _) (by linarith))
+  rw [← h] at h2
+  by_contra hlt
+  push Not at hlt
+  nlinarith
+
+theorem phiF_mono (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a b : ℝ} (ha : -1 ≤ a) (hab : a ≤ b) :
+    phiF Γ a ≤ phiF Γ b := by
+  have h1 := phiF_formula Γ n hΓ ha
+  have h2 := phiF_formula Γ n hΓ (ha.trans hab)
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h3 : (a + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (a + 1) ≤
+      (b + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (b + 1) :=
+    add_le_add (by linarith) (Finset.sum_le_sum fun s _ => min_le_min_left _ (by linarith))
+  rw [← h1, ← h2] at h3
+  have := le_of_mul_le_mul_left h3 hg0
+  linarith
+
+theorem phiF_zero (Γ : ℕ → Subgroup G) : phiF Γ 0 = 0 := by simp [phiF]
+
 end Abstract
+
+section Trans
+
+variable {G H Q : Type*} [Group G] [Fintype G] [DecidableEq G] [Group H] [Fintype H]
+  [DecidableEq H] [Group Q] [Fintype Q] [DecidableEq Q]
+
+theorem fiber_sum (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s) (s0 : G) (f : G → ℝ) :
+    ∑ s ∈ Finset.univ.filter (fun s => r s = r s0), f s = ∑ h : H, f (s0 * ι h) := by
+  symm
+  apply Finset.sum_nbij (fun h => s0 * ι h)
+  · intro h _
+    simp [Finset.mem_filter, map_mul, (hexact (ι h)).mpr ⟨h, rfl⟩]
+  · intro a _ b _ e
+    exact hι (mul_left_cancel e)
+  · intro s hs
+    simp only [Finset.coe_filter, Finset.mem_univ, true_and, Set.mem_setOf_eq] at hs
+    obtain ⟨h, hh⟩ := (hexact (s0⁻¹ * s)).mp (by rw [map_mul, map_inv, hs, inv_mul_cancel])
+    exact ⟨h, Finset.mem_coe.mpr (Finset.mem_univ _), by simp [hh]⟩
+  · intro h _; rfl
+
+/-- **Coset lemma** (Serre IV §3): if `s'` has maximal `i_G` in its coset `s'H` and `s'H ≠ H`,
+then `i_G(s' h) = min(i_G(s'), i_G(h))` for `h ∈ H`, `h ≠ 1`. -/
+theorem coset_min (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s) {s' : G} (hs' : r s' ≠ 1)
+    (hmax : ∀ s, r s = r s' → nG s ≤ nG s') {h : H} (hh : h ≠ 1) :
+    nG (s' * ι h) = min (nG s') (nG (ι h)) := by
+  have hιh : ι h ≠ 1 := fun e => hh (hι (e.trans (map_one ι).symm))
+  have hrι : r (ι h) = 1 := (hexact (ι h)).mpr ⟨h, rfl⟩
+  have hrp : r (s' * ι h) = r s' := by rw [map_mul, hrι, mul_one]
+  have hp1 : s' * ι h ≠ 1 := fun e => hs' (by rw [← hrp, e, map_one])
+  have hs1 : s' ≠ 1 := fun e => hs' (by rw [e, map_one])
+  apply le_antisymm
+  · rcases lt_or_ge (nG (ι h)) (nG s') with hk | hk
+    · rw [min_eq_right hk.le]
+      by_contra hlt
+      push Not at hlt
+      have h1 : s' * ι h ∈ ΓG (nG (ι h)) := (hG _ _ hp1).mpr hlt
+      have h2 : s' ∈ ΓG (nG (ι h)) := (hG _ _ hs1).mpr hk
+      have h3 : ι h ∈ ΓG (nG (ι h)) := by
+        have := (ΓG (nG (ι h))).mul_mem ((ΓG _).inv_mem h2) h1
+        rwa [← mul_assoc, inv_mul_cancel, one_mul] at this
+      exact lt_irrefl _ ((hG _ _ hιh).mp h3)
+    · rw [min_eq_left hk]
+      exact hmax _ hrp
+  · by_contra hlt
+    push Not at hlt
+    have h2 : s' ∈ ΓG (nG (s' * ι h)) := (hG _ _ hs1).mpr (lt_of_lt_of_le hlt (min_le_left _ _))
+    have h3 : ι h ∈ ΓG (nG (s' * ι h)) := (hG _ _ hιh).mpr (lt_of_lt_of_le hlt (min_le_right _ _))
+    exact lt_irrefl _ ((hG _ _ hp1).mp ((ΓG _).mul_mem h2 h3))
+
+/-- **Transitivity of Herbrand's function, abstract form** (Serre IV §3 Prop. 15, from IV §1
+Prop. 3 = `hP3`). `ι : H → G` and `r : G → Q` form an exact sequence `1 → H → G → Q → 1`,
+`ΓG`, `ΓQ` are filtrations with index functions `nG`, `nQ`, and the filtration of `H` is the
+induced one. -/
+theorem phiF_trans (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {u : ℝ} (hu : -1 ≤ u) :
+    phiF ΓG u = phiF ΓQ (phiF (fun i => (ΓG i).comap ι) u) := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  have hh0 : (0 : ℝ) < Nat.card (ΓH 0) := by exact_mod_cast Nat.card_pos
+  -- the identity `|G_0| (φ_G(w)+1) = |H_0| |Q_0| (φ_Q(φ_H(w))+1)`
+  have main : ∀ w : ℝ, -1 ≤ w → (Nat.card (ΓG 0) : ℝ) * (phiF ΓG w + 1) =
+      (Nat.card (ΓH 0) : ℝ) * ((Nat.card (ΓQ 0) : ℝ) * (phiF ΓQ (phiF ΓH w) + 1)) := by
+    intro w hw
+    set v := phiF ΓH w with hv_def
+    have hv : -1 ≤ v := phiF_ge ΓH nH hH hw
+    rw [phiF_formula ΓG nG hG hw, phiF_formula ΓQ nQ hQ hv]
+    let F : G → ℝ := fun s => if s = 1 then w + 1 else min (nG s : ℝ) (w + 1)
+    let FQ : Q → ℝ := fun σ => if σ = 1 then v + 1 else min (nQ σ : ℝ) (v + 1)
+    have hF : (w + 1) + ∑ s ∈ Finset.univ.erase 1, min (nG s : ℝ) (w + 1) = ∑ s, F s := by
+      rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : G))]
+      simp only [F, if_pos rfl]
+      congr 1
+      exact Finset.sum_congr rfl fun s hs => by rw [if_neg (Finset.ne_of_mem_erase hs)]
+    have hFQ : (v + 1) + ∑ σ ∈ Finset.univ.erase 1, min (nQ σ : ℝ) (v + 1) = ∑ σ, FQ σ := by
+      rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : Q))]
+      simp only [FQ, if_pos rfl]
+      congr 1
+      exact Finset.sum_congr rfl fun σ hσ => by rw [if_neg (Finset.ne_of_mem_erase hσ)]
+    rw [hF, hFQ, Finset.mul_sum, ← Finset.sum_fiberwise Finset.univ r F]
+    refine Finset.sum_congr rfl fun σ _ => ?_
+    obtain ⟨s0, hs0⟩ := hr σ
+    by_cases hσ : σ = 1
+    · -- the fibre over `1` is `H`
+      subst hσ
+      have := fiber_sum ι hι r hexact 1 F
+      rw [map_one] at this
+      rw [this]
+      have hHf := phiF_formula ΓH nH hH hw
+      rw [← hv_def] at hHf
+      simp only [FQ, if_pos rfl]
+      rw [hHf, ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))]
+      simp only [one_mul, F, map_one, if_pos rfl]
+      congr 1
+      refine Finset.sum_congr rfl fun h hh => ?_
+      have hh1 : h ≠ 1 := Finset.ne_of_mem_erase hh
+      rw [if_neg (fun e => hh1 ((hι1 h).mp e))]
+    · -- a coset `s'H ≠ H`, with `s'` of maximal `i_G`
+      obtain ⟨s', hs'mem, hs'max⟩ := Finset.exists_max_image
+        (Finset.univ.filter (fun s => r s = σ)) nG ⟨s0, by simp [hs0]⟩
+      have hrs' : r s' = σ := by simpa using hs'mem
+      have hmax : ∀ s, r s = r s' → nG s ≤ nG s' := fun s hs =>
+        hs'max s (by simp [hs, hrs'])
+      have hs'1 : r s' ≠ 1 := hrs' ▸ hσ
+      set m := nG s' with hm
+      have hfib : ∀ f : G → ℝ, ∑ s ∈ Finset.univ.filter (fun s => r s = σ), f s =
+          ∑ h : H, f (s' * ι h) := fun f => by
+        rw [← hrs']; exact fiber_sum ι hι r hexact s' f
+      have hcos : ∀ h : H, h ≠ 1 → nG (s' * ι h) = min m (nH h) := fun h hh =>
+        coset_min ΓG nG hG ι hι r hexact hs'1 hmax hh
+      have hne1 : ∀ h : H, s' * ι h ≠ 1 := fun h e => by
+        have := congrArg r e
+        rw [map_mul, (hexact (ι h)).mpr ⟨h, rfl⟩, mul_one, map_one] at this
+        exact hs'1 this
+      -- `nQ σ = φ_H(m - 1) + 1`
+      have hm1 : -1 ≤ (m : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) m; linarith
+      have hHm := phiF_formula ΓH nH hH hm1
+      have hnQ : (nQ σ : ℝ) = phiF ΓH ((m : ℝ) - 1) + 1 := by
+        have hP := hP3 σ hσ
+        rw [show (Nat.card ((ΓG 0).comap ι) : ℝ) = Nat.card (ΓH 0) from rfl, hfib,
+          ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))] at hP
+        simp only [map_one, mul_one] at hP
+        rw [Finset.sum_congr rfl (fun h hh => by
+          rw [hcos h (Finset.ne_of_mem_erase hh)])] at hP
+        have : (Nat.card (ΓH 0) : ℝ) * nQ σ = (Nat.card (ΓH 0) : ℝ) * (phiF ΓH ((m : ℝ) - 1) + 1) := by
+          rw [hP, hHm, sub_add_cancel]
+          congr 1
+          refine Finset.sum_congr rfl fun h _ => ?_
+          push_cast
+          exact min_comm _ _
+        exact mul_left_cancel₀ hh0.ne' this
+      -- the fibre sum
+      set w1 := min (m : ℝ) (w + 1) - 1 with hw1
+      have hw1' : -1 ≤ w1 := by
+        have : 0 ≤ min (m : ℝ) (w + 1) := le_min (Nat.cast_nonneg _) (by linarith)
+        linarith
+      have hHw1 := phiF_formula ΓH nH hH hw1'
+      rw [hfib]
+      simp only [F, if_neg (hne1 _), FQ, if_neg hσ]
+      have hmin : min (nQ σ : ℝ) (v + 1) = phiF ΓH w1 + 1 := by
+        rw [hnQ, hv_def]
+        have hmono : ∀ {a b : ℝ}, -1 ≤ a → a ≤ b → phiF ΓH a ≤ phiF ΓH b :=
+          fun ha hab => phiF_mono ΓH nH hH ha hab
+        have : min (phiF ΓH ((m : ℝ) - 1)) (phiF ΓH w) = phiF ΓH (min ((m : ℝ) - 1) w) := by
+          rcases le_total ((m : ℝ) - 1) w with h | h
+          · rw [min_eq_left h, min_eq_left (hmono hm1 h)]
+          · rw [min_eq_right h, min_eq_right (hmono hw h)]
+        rw [min_add_add_right, this]
+        congr 2
+        rw [hw1]
+        rcases le_total (m : ℝ) (w + 1) with h | h
+        · rw [min_eq_left h, min_eq_left (by linarith)]
+        · rw [min_eq_right h, min_eq_right (by linarith)]; ring
+      have hL : ∑ h : H, min (nG (s' * ι h) : ℝ) (w + 1) = min (m : ℝ) (w + 1) +
+          ∑ h ∈ Finset.univ.erase 1, min (nH h : ℝ) (min (m : ℝ) (w + 1)) := by
+        rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H)), map_one, mul_one]
+        congr 1
+        refine Finset.sum_congr rfl fun h hh => ?_
+        rw [hcos h (Finset.ne_of_mem_erase hh)]
+        push_cast
+        rw [min_comm (m : ℝ) (nH h : ℝ), min_assoc]
+      rw [hmin, hHw1, hL, show w1 + 1 = min (m : ℝ) (w + 1) by rw [hw1]; ring]
+  -- conclude
+  have h0 := main 0 (by norm_num)
+  rw [phiF_zero, phiF_zero, phiF_zero, zero_add, mul_one, mul_one] at h0
+  have hu' := main u hu
+  rw [← mul_assoc, ← h0] at hu'
+  have hg0 : (0 : ℝ) < Nat.card (ΓG 0) := by exact_mod_cast Nat.card_pos
+  have := mul_left_cancel₀ hg0.ne' hu'
+  linarith
+
+end Trans
 
 end TDifferent
