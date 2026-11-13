@@ -20,3 +20,13 @@ Lines copied by script (python slice of the source lines, no edit): Copies secti
   nonzero prime, contradiction; `Ideal.span_eq_top_iff_finite`).
 - `neronOverAway_of_abelian` PROVED (abelian scheme over 𝓞_L[1/f] is Néron by N1-ab; IsDomain,
   IsDedekindDomain, IsFractionRing of the localization from Mathlib).
+
+## NeronLG.lean §4 — COMPILED 06:08 (0 errors; all 6 #print axioms: propext, Classical.choice, Quot.sound)
+- `LocalSemistableWith A O L₀` (body of `LocalSemistableAt`), `localSemistableAt_iff` (Iff.rfl).
+- Glue `GoodPlacesAnyField` (N2-g1), `LocalSemistableMono` (N2-g2), `SemistableGlobalOfLocal` (N2-g3).
+- `compositumFinset` PROVED (Finset induction over `H5Neron.compositum`).
+- `semistableCommonField` PROVED (N2-g1 + N2-g2 + compositum: one `L₀` for all DVRs).
+- `semistableLocalToGlobal_of : NeronLocalOnBase → AbVarSpreadsOut → GoodPlacesAnyField →
+  LocalSemistableMono → SemistableGlobalOfLocal → SemistableLocalToGlobal` PROVED (𝒱 from the
+  build's proved H4b `H5Neron.groupModelBaseChangeExists`).
+- Lean note: `ι` is a reserved token here (open NumberField?); renamed binder to `I`.

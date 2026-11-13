@@ -344,7 +344,159 @@ theorem neronOverAway_of_abelian (hab : AbelianSchemeIsNeron) {L : Type} [Field 
     IsFractionRing.isFractionRing_of_isDomain_of_isLocalization (Submonoid.powers f) R L
   exact ⟨⟨G, gen, hgen, fun Y _ => hab L R B G gen hgen Y⟩⟩
 
+
+/-! ## §4. `SemistableLocalToGlobal` reduced to three smaller glue statements and the leaf NL -/
+
+/-- The body of `LocalSemistableAt A O` for a fixed field `L₀` (`localSemistableAt_iff`). -/
+def LocalSemistableWith {K : Type} [Field K] (A : AbVar K) (O : ValuationSubring K) (L₀ : Type)
+    [Field L₀] [NumberField L₀] [Algebra K L₀] : Prop :=
+    ∀ (O₀ : ValuationSubring L₀) [IsDiscreteValuationRing O₀], O₀.comap (algebraMap K L₀) = O →
+    ∀ (𝒩₀ : NeronModelOver O₀ L₀ (A.baseChange L₀)) (L' : Type) [Field L'] [NumberField L']
+      [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L'] (O' : ValuationSubring L')
+      [IsDiscreteValuationRing O'] (hO' : O'.comap (algebraMap L₀ L') = O₀)
+      (𝒩' : NeronModelOver O' L' (A.baseChange L')),
+      letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G) :=
+        Functor.grpObjObj
+      ∃ (U : Over (Spec (CommRingCat.of O'))) (_ : GrpObj U) (i : U ⟶ 𝒩'.G)
+        (j : U ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G),
+        IsOpenImmersion i.left ∧ IsMonHom i ∧ IsOpenImmersion j.left ∧ IsMonHom j ∧
+        pullback.fst U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) ≫ j.left ≫
+            pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO'))) =
+          ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map i).left ≫
+            𝒩'.gen.hom.left ≫ bcProj A L₀ L' ≫ 𝒩₀.gen.inv.left ≫
+            pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)))
+
+theorem localSemistableAt_iff {K : Type} [Field K] (A : AbVar K) (O : ValuationSubring K) :
+    LocalSemistableAt A O ↔
+      ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+        LocalSemistableWith A O L₀ := Iff.rfl
+
+/-- **Glue N2-g1 (good places need no extension).** Given the leaf N1-ab and the glue N1-g1: for
+`A` over a number field `K` there is a finite set `T` of valuation subrings of `K` such that at
+every DVR `O ∉ T` the local statement holds for **every** finite extension `L₀`. Proof (STANDARD,
+not in Mathlib): by N1-g1, `A` extends to an abelian scheme `𝒜` over `𝓞_K[1/f]`, `f ≠ 0`; let `T`
+be the (finitely many) DVRs of `K` in which `f` is not a unit. For `O ∉ T`, every `O₀ ⊂ L₀` over
+`O` and `O' ⊂ L'` over `O₀`, the base changes `𝒜_{O₀}`, `𝒜_{O'}` are abelian schemes, hence Néron
+models (N1-ab), so `𝒩₀ ≅ 𝒜_{O₀}` and `𝒩' ≅ 𝒜_{O'} = 𝒜_{O₀} ×_{O₀} O'` by group isomorphisms
+compatible with `gen` (`NeronModelOver.uniqueIso` of tau-n1n2); take `U = 𝒩'`, `i = 𝟙` and `j`
+the composite isomorphism, which satisfies the generic-fibre equation because every isomorphism
+used is compatible with `gen`. Locators: EGA IV₃ 8.8.2, 8.10.5 (UNVERIFIED). -/
+def GoodPlacesAnyField : Prop :=
+  AbelianSchemeIsNeron → AbVarSpreadsOut →
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K), ∃ T : Finset (ValuationSubring K),
+    ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], O ∉ T →
+      ∀ (L₀ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀], LocalSemistableWith A O L₀
+
+/-- **Glue N2-g2 (the local statement persists in larger fields).** Given the leaves N1 and NL:
+if the local statement at `O` holds for `L₀`, it holds for every finite extension `L₁ ⊇ L₀`.
+Proof (STANDARD, not in Mathlib): given `O₁ ⊂ L₁` over `O`, `𝒩₁`, `L' ⊇ L₁`, `O' ⊂ L'` over `O₁`
+and `𝒩'`, put `O₀ = O₁ ∩ L₀` (a DVR over `O`) and let `𝒩₀` be a Néron model over `O₀` (the
+localization of the global Néron model of N1, Néron by NL). Apply the `L₀`-statement twice: to
+`(O₀, 𝒩₀, L', O', 𝒩')`, giving `U → 𝒩'`, `j : U → 𝒩₀ ×_{O₀} O'`, and to `(O₀, 𝒩₀, L₁, O₁, 𝒩₁)`,
+giving `U₁ → 𝒩₁`, `j₁ : U₁ → 𝒩₀ ×_{O₀} O₁`. Base-change the second to `O'` and take for the new
+`U` the intersection of the two open subgroups `j(U)` and `(j₁)_{O'}(U₁ ×_{O₁} O')` of
+`𝒩₀ ×_{O₀} O'`, with the induced open immersions into `𝒩'` and `𝒩₁ ×_{O₁} O'`. The generic-fibre
+equation for the new pair follows from the two old ones, since two `L₁`-morphisms into `A_{L₁}`
+agree once they agree after `A_{L₁} → A_{L₀}` (`A_{L₁} = A_{L₀} ×_{L₀} L₁`). No further
+literature input. -/
+def LocalSemistableMono : Prop :=
+  NeronModelExists → NeronLocalOnBase →
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
+    [IsDiscreteValuationRing O] (L₀ L₁ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀]
+    [Field L₁] [NumberField L₁] [Algebra K L₁] [Algebra L₀ L₁] [IsScalarTower K L₀ L₁],
+    LocalSemistableWith A O L₀ → LocalSemistableWith A O L₁
+
+/-- **Glue N2-g3 (one field for all places: local identity components glue).** Given the leaf
+NL: if the local statement holds for one field `L₀` at every DVR of `K`, then for every Néron
+model `𝒩₀` over `𝓞_{L₀}`, every finite `L' ⊇ L₀`, every Néron model `𝒩'` over `𝓞_{L'}` and every
+base change `𝒱` of `𝒩₀`, some group model `𝒰` is an open subgroup of `𝒩'` and of `𝒱`. Proof
+(STANDARD, not in Mathlib): localize `𝒩₀`, `𝒩'` at the DVRs of `L₀`, `L'` (Néron by NL). At every
+prime the local statement gives open immersions `i : U → 𝒩'`, `j : U → 𝒱` compatible on generic
+fibres; since `U` is flat its generic fibre is schematically dense and the targets are separated,
+so `i = c ∘ j` for the canonical morphism `c : 𝒱 → 𝒩'` (Néron property of `𝒩'`; `𝒱` is smooth).
+Hence `c` is an open immersion on `j(U)`, an open subgroup containing the identity component of the
+fibre, at every prime. Take `𝒰 = 𝒱⁰`, the identity component (open in `𝒱` and quasi-compact over
+the noetherian base, SGA 3 VI_B 3.10); `c|_{𝒰}` is an open immersion over every local ring of the
+base, hence (finite presentation, EGA IV₃ 8.10.5) an open immersion; `𝒰_{L'} = 𝒱_{L'}` since the
+generic fibre is connected, which gives `gen`. Locators UNVERIFIED. -/
+def SemistableGlobalOfLocal : Prop :=
+  NeronLocalOnBase →
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (L₀ : Type) [Field L₀] [NumberField L₀]
+    [Algebra K L₀],
+    (∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], LocalSemistableWith A O L₀) →
+    ∀ (𝒩₀ : GroupModel A L₀), 𝒩₀.IsNeronModel →
+    ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L']
+      (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel → ∀ 𝒱 : GroupModel A L', IsBaseChangeOf 𝒱 𝒩₀ →
+        ∃ 𝒰 : GroupModel A L', IsOpenSubgroupModel 𝒰 𝒩' ∧ IsOpenSubgroupModel 𝒰 𝒱
+
+/-- **Finitely many number fields embed in a common one (proved),** by iterating
+`H5Neron.compositum`. -/
+theorem compositumFinset (K : Type) [Field K] [NumberField K] {I : Type} (F : I → Type)
+    [∀ i, Field (F i)] [∀ i, NumberField (F i)] [∀ i, Algebra K (F i)] (s : Finset I) :
+    ∃ (M : Type) (_ : Field M) (_ : NumberField M) (_ : Algebra K M),
+      ∀ i ∈ s, ∃ (_ : Algebra (F i) M), IsScalarTower K (F i) M := by
+  classical
+  induction s using Finset.induction_on with
+  | empty =>
+    exact ⟨K, inferInstance, inferInstance, inferInstance,
+      fun i hi => absurd hi (Finset.notMem_empty i)⟩
+  | @insert a s ha ih =>
+    obtain ⟨M, iM1, iM2, iM3, hM⟩ := ih
+    obtain ⟨M', i1, i2, i3, i4, i5, t1, t2⟩ := ZInQ.H5Neron.compositum K M (F a)
+    refine ⟨M', i1, i2, i3, fun i hi => ?_⟩
+    rcases Finset.mem_insert.1 hi with rfl | hi
+    · exact ⟨i5, t2⟩
+    · obtain ⟨iFM, tFM⟩ := hM i hi
+      letI : Algebra (F i) M' := ((algebraMap M M').comp (algebraMap (F i) M)).toAlgebra
+      refine ⟨this, IsScalarTower.of_algebraMap_eq fun x => ?_⟩
+      show algebraMap K M' x = algebraMap M M' (algebraMap (F i) M (algebraMap K (F i) x))
+      rw [← IsScalarTower.algebraMap_apply K (F i) M, ← IsScalarTower.algebraMap_apply K M M']
+
+/-- **One field `L₀` for all places (proved from N2-g1 and N2-g2).** Take the compositum of the
+fields given at the finitely many places of `T`. -/
+theorem semistableCommonField (h1 : GoodPlacesAnyField) (h2 : LocalSemistableMono)
+    (hN1 : NeronModelExists) (hab : AbelianSchemeIsNeron) (hloc : NeronLocalOnBase)
+    (hsp : AbVarSpreadsOut) (K : Type) [Field K] [NumberField K] (A : AbVar K)
+    (hA : ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], LocalSemistableAt A O) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+      ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], LocalSemistableWith A O L₀ := by
+  classical
+  obtain ⟨T, hT⟩ := h1 hab hsp K A
+  have hch : ∀ O : ValuationSubring K, ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀)
+      (_ : Algebra K L₀), IsDiscreteValuationRing O → LocalSemistableWith A O L₀ := by
+    intro O
+    by_cases hO : IsDiscreteValuationRing O
+    · obtain ⟨L₀, i1, i2, i3, h⟩ := hA O
+      exact ⟨L₀, i1, i2, i3, fun _ => h⟩
+    · exact ⟨K, inferInstance, inferInstance, inferInstance, fun h => absurd h hO⟩
+  choose F iF1 iF2 iF3 hF using hch
+  obtain ⟨M, iM1, iM2, iM3, hM⟩ := compositumFinset K F T
+  refine ⟨M, iM1, iM2, iM3, fun O hO => ?_⟩
+  by_cases hOT : O ∈ T
+  · obtain ⟨iFM, tFM⟩ := hM O hOT
+    exact h2 hN1 hloc K A O (F O) M (hF O hO)
+  · exact hT O hOT M
+
+/-- **`SemistableLocalToGlobal` from the leaf NL and the glue N1-g1, N2-g1, N2-g2, N2-g3
+(proved).** `𝒩₀` comes from N1 and `𝒱` from the proved glue H4b
+(`H5Neron.groupModelBaseChangeExists`). -/
+theorem semistableLocalToGlobal_of (hloc : NeronLocalOnBase) (hsp : AbVarSpreadsOut)
+    (h1 : GoodPlacesAnyField) (h2 : LocalSemistableMono) (h3 : SemistableGlobalOfLocal) :
+    SemistableLocalToGlobal := by
+  intro hN1 hab K _ _ A hA
+  obtain ⟨L₀, i1, i2, i3, hL₀⟩ := semistableCommonField h1 h2 hN1 hab hloc hsp K A hA
+  obtain ⟨𝒩₀, h𝒩₀⟩ := hN1 K A L₀
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, ?_⟩
+  intro L' _ _ _ _ _ 𝒩' h𝒩'
+  obtain ⟨𝒱, h𝒱⟩ := ZInQ.H5Neron.groupModelBaseChangeExists K A L₀ L' 𝒩₀
+  obtain ⟨𝒰, hU1, hU2⟩ := h3 hloc K A L₀ hL₀ 𝒩₀ h𝒩₀ L' 𝒩' h𝒩' 𝒱 h𝒱
+  exact ⟨𝒰, 𝒱, h𝒱, hU1, hU2⟩
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
 #print axioms ZInQ.NeronLG.neronOverAway_of_abelian
+#print axioms ZInQ.NeronLG.localSemistableAt_iff
+#print axioms ZInQ.NeronLG.compositumFinset
+#print axioms ZInQ.NeronLG.semistableCommonField
+#print axioms ZInQ.NeronLG.semistableLocalToGlobal_of
