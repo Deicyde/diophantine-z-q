@@ -3,8 +3,8 @@
 **Main result.** The opaque placeholders R01 (Shimura–Deligne), R02 (Baba–Granath) and R05
 (González–Rotger) of the H decomposition now have concrete Lean statements in field-point form,
 over the kernel's `PkgI3.AbVar` and Mathlib schemes. They are in
-`scratch/leaf-qm-fp/QMLeaves.lean`, which compiles (`lake env lean`, about 24 s; it imports `ZInQKernel.HDecomp.A6.A6`) with no `sorry`
-and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.sound. The note is
+`scratch/leaf-qm-fp/QMLeaves.lean`, which compiles (`lake env lean`, about 25 s; it imports
+`ZInQKernel.HDecomp.A6.A6`) with no `sorry` and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.sound. The note is
 `docs/research/leaf-qm-fp.md`.
 
 **The leaves** (bundle `LeafQM.AV.QMLeaves`):
@@ -32,7 +32,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
 
 **Glue proved from the leaves (compiled).**
 - A7's statement (`conj_iso_of_rational`): conjugates of a fibre object with rational j are
-  twist-equivalent, so the abelian surfaces are isomorphic over ℚ̄.
+  twist-equivalent, so the abelian surfaces are isomorphic over ℚ̄. Together with A4 and from
+  `R1R2fp` alone this is `fibre_conjugates_isomorphic`.
 - h-b1 M9 on `X₆` (`cm_of_val`): the fibres over 0, ∞, −16/27 are CM points by ℤ[i], ℤ[ζ₃],
   ℤ[√−6]. This uses invariance of CM under isomorphism and twist.
 - R2 on `Y₃` from R2 on `X₆` (`R1R2fp_Y`).
@@ -61,7 +62,8 @@ clauses, `N* = 1`.
 - degree theory of finite morphisms of curves;
 - Galois/inertia theory of the function-field cover `ℚ(Y^{(1)})/ℚ(j)`;
 - the Kummer model of `X₆ → P¹`, with the fibre field `ℚ(i)`;
-- residue field of a point versus field of moduli;
+- (optional, needs rigidity) residue field of a point versus field of moduli; the point forms
+  `R1recProps` and `R5ptProps` avoid it;
 - the final class count for A3;
 - A4 plumbing to residue fields over number fields.
 
