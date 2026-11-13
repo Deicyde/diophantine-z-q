@@ -1,5 +1,7 @@
 import Mathlib
 
+noncomputable section
+
 /-! # g0-reverseisog: the glue piece `ReverseIsogeny` (G17 after Poincaré)
 
 Self-contained (imports only Mathlib). Sections 1-2 are verbatim copies from
@@ -290,29 +292,45 @@ theorem isogeny_of_product {L : Type} [Field L] (A J Z : PkgI3.AbVar L)
     (P : ZInQ.DefFaltings.AbVar L) (f : PkgI3.AbVar.Hom A J) (g : PkgI3.AbVar.Hom Z J)
     (hP : G0Split.IsProductOf P.X A.X Z.X)
     (hiso : PkgI3.AbVar.IsIsogenyMor (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom)) :
-    ∃ h : P.X ⟶ ((LeafAdopt.abVarEquiv L).symm J).X, ZInQ.DefFaltings.IsIsogeny h := by
+    ∃ h : P.X ⟶ J.X, IsMonHom h ∧ IsFinite h.left ∧ Surjective h.left := by
   obtain ⟨p₁, p₂, hp₁, hp₂, hlift⟩ := hP
   obtain ⟨hfin, hsurj⟩ := hiso
-  let m : A.X ⊗ Z.X ⟶ J.X := fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom
-  have hm : lift p₁ p₂ ≫ m = p₁ ≫ f.hom * p₂ ≫ g.hom := by
-    simp only [m, MonObj.comp_mul, lift_fst_assoc, lift_snd_assoc]
+  have hm : lift p₁ p₂ ≫ (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom) =
+      p₁ ≫ f.hom * p₂ ≫ g.hom := by
+    simp only [MonObj.comp_mul, lift_fst_assoc, lift_snd_assoc]
   have hmon : IsMonHom (p₁ ≫ f.hom * p₂ ≫ g.hom) := by
     change IsMonHom (lift (p₁ ≫ f.hom) (p₂ ≫ g.hom) ≫ μ[J.X])
     infer_instance
-  refine ⟨lift p₁ p₂ ≫ m, ?_, ?_, ?_⟩
+  refine ⟨lift p₁ p₂ ≫ (fst A.X Z.X ≫ f.hom * snd A.X Z.X ≫ g.hom), ?_, ?_, ?_⟩
   · rw [hm]; exact hmon
   · rw [Over.comp_left]
-    haveI : IsFinite m.left := hfin
     infer_instance
   · rw [Over.comp_left]
-    haveI : Surjective m.left := hsurj
     infer_instance
 
 /-- **`ReverseIsogeny` (G17 after Poincaré), proved from the leaf `IsogenyQuasiInverse`.** -/
 theorem reverseIsogeny (hQ : IsogenyQuasiInverse) : G0Split.ReverseIsogeny := by
   intro L _ _ A J Z P f g hP hiso
   obtain ⟨h, hh⟩ := isogeny_of_product A J Z P f g hP hiso
+  replace hh : ZInQ.DefFaltings.IsIsogeny (A := P) (B := (LeafAdopt.abVarEquiv L).symm J) h := hh
   obtain ⟨ψ, n, -, hψ, -, -⟩ := hQ L P ((LeafAdopt.abVarEquiv L).symm J) h hh
   exact ⟨ψ, hψ, dim_eq_of_isogenies h ψ hh hψ⟩
 
 end G0RevIsog
+
+/-! ## 4. Checks -/
+
+namespace G0RevIsog
+
+open CategoryTheory MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- Sanity: in the leaf, `(𝟙 A.X) ^ n` is multiplication by `n` for the group-object structure
+(`[2]_A = μ ∘ (id, id)`). -/
+example {K : Type} [Field K] (A : ZInQ.DefFaltings.AbVar K) :
+    (𝟙 A.X) ^ 2 = lift (𝟙 A.X) (𝟙 A.X) ≫ μ[A.X] := by
+  rw [pow_two]; rfl
+
+end G0RevIsog
+
+#print axioms G0RevIsog.reverseIsogeny
+#print axioms G0RevIsog.topologicalKrullDim_le_of_specializing
