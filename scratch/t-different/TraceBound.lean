@@ -194,6 +194,128 @@ theorem exists_root_of_residue {g : A[X]} {x : B} (hgx : aeval x g ∈ maximalId
 
 end Hensel
 
+section Trace
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+
+set_option linter.deprecated false in
+set_option synthInstance.maxHeartbeats 400000 in
+set_option maxHeartbeats 1000000 in
+/-- **`e ∈ Tr_{B/A}(B)`.** With `u ∈ B` a Hensel root of a monic lift `g` of the minimal polynomial
+of a generator of `k_B/k_A`, and `E = K(u)` (so `[E : K] = f`, `[L : E] = e`), the element
+`z = u^{f-1} / g'(u) ∈ B` has `Tr_{E/K}(z) = 1` (Euler; Mathlib's `traceDual_powerBasis_eq`), hence
+`Tr_{L/K}(z) = Tr_{E/K}(e z) = e`. -/
+theorem exists_intTrace_eq_ramificationIdx :
+    ∃ z : B, Algebra.intTrace A B z = ((Ideal.ramificationIdx (maximalIdeal B) A : ℕ) : A) := by
+  classical
+  set e := Ideal.ramificationIdx (maximalIdeal B) A
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have : Module.Finite (ResidueField A) (ResidueField B) := inferInstance
+  have : Algebra.IsSeparable (ResidueField A) (ResidueField B) := inferInstance
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element (ResidueField A) (ResidueField B)
+  have hαint : IsIntegral (ResidueField A) α := Algebra.IsIntegral.isIntegral α
+  have hres : ∀ (P : A[X]) (y : B), residue B (aeval y P) = aeval (residue B y) P := by
+    intro P y
+    have := Polynomial.aeval_algHom_apply (IsScalarTower.toAlgHom A B (ResidueField B)) y P
+    simpa [ResidueField.algebraMap_eq] using this.symm
+  set f := (minpoly (ResidueField A) α).natDegree with hf_def
+  have hf : Module.finrank (ResidueField A) (ResidueField B) = f := by
+    rw [hf_def, ← IntermediateField.adjoin.finrank hαint, hα, IntermediateField.finrank_top']
+  have hf0 : 0 < f := minpoly.natDegree_pos hαint
+  obtain ⟨g, hgmap, hgdeg, hgmon⟩ := Polynomial.lifts_and_natDegree_eq_and_monic
+    ((Polynomial.mem_lifts _).mpr
+      (Polynomial.map_surjective (residue A) residue_surjective (minpoly (ResidueField A) α)))
+    (minpoly.monic hαint)
+  have hgα : aeval α g = 0 := by
+    rw [← minpoly.aeval (ResidueField A) α, ← hgmap, ← ResidueField.algebraMap_eq,
+      aeval_map_algebraMap]
+  have hg'α : aeval α (derivative g) ≠ 0 := by
+    have := (Algebra.IsSeparable.isSeparable (ResidueField A) α).aeval_derivative_ne_zero
+      (minpoly.aeval (ResidueField A) α)
+    rwa [← hgmap, derivative_map, ← ResidueField.algebraMap_eq, aeval_map_algebraMap] at this
+  obtain ⟨x, hx⟩ := residue_surjective α
+  have hgx : aeval x g ∈ maximalIdeal B := (residue_eq_zero_iff _).mp (by rw [hres, hx, hgα])
+  have hg'x : IsUnit (aeval x (derivative g)) := by
+    rw [← residue_ne_zero_iff_isUnit, hres, hx]; exact hg'α
+  obtain ⟨u, hu, hux⟩ := exists_root_of_residue A B hgx hg'x
+  have hures : residue B u = α := by
+    rw [← sub_add_cancel u x, map_add, (residue_eq_zero_iff _).mpr hux, zero_add, hx]
+  have hg'u : IsUnit (aeval u (derivative g)) := by
+    rw [← residue_ne_zero_iff_isUnit, hres, hures]; exact hg'α
+  obtain ⟨w, hw⟩ := hg'u.exists_right_inv
+  have hAu : IsIntegral A u := Algebra.IsIntegral.isIntegral u
+  have hmin : minpoly A u = g := by
+    have hdvd : minpoly A u ∣ g := minpoly.isIntegrallyClosed_dvd hAu hu
+    refine (eq_of_monic_of_dvd_of_natDegree_le (minpoly.monic hAu) hgmon hdvd ?_).symm
+    rw [hgdeg]
+    have h1 : minpoly (ResidueField A) α ∣ (minpoly A u).map (residue A) := by
+      apply minpoly.dvd
+      rw [← ResidueField.algebraMap_eq, aeval_map_algebraMap, ← hures, ← hres, minpoly.aeval,
+        map_zero]
+    calc _
+        ≤ ((minpoly A u).map (residue A)).natDegree :=
+          natDegree_le_of_dvd h1 ((minpoly.monic hAu).map _).ne_zero
+      _ = (minpoly A u).natDegree := (minpoly.monic hAu).natDegree_map _
+  -- the field `E = K(u)`
+  set u' := algebraMap B L u
+  have hKu : IsIntegral K u' := Algebra.IsIntegral.isIntegral _
+  have hminK : minpoly K u' = g.map (algebraMap A K) := by
+    rw [minpoly.isIntegrallyClosed_eq_field_fractions K L hAu, hmin]
+  have hfE : Module.finrank K (IntermediateField.adjoin K {u'}) = f := by
+    rw [IntermediateField.adjoin.finrank hKu, hminK, hgmon.natDegree_map, hgdeg]
+  -- the fundamental identity `e f = [L : K]`
+  have hfund : e * f = Module.finrank K L := by
+    have := Ideal.ramificationIdx_mul_inertiaDeg_of_isLocalRing (R := A) (S := B) K L
+      (p := maximalIdeal A) (IsDiscreteValuationRing.not_a_field A)
+    rw [Ideal.ramificationIdx'_eq_ramificationIdx (maximalIdeal A) (maximalIdeal B)
+      (IsDiscreteValuationRing.not_a_field A), Ideal.inertiaDeg'_algebraMap] at this
+    rw [← this, ← hf]
+    rfl
+  have hEL : Module.finrank (IntermediateField.adjoin K {u'}) L = e := by
+    have h := Module.finrank_mul_finrank K (IntermediateField.adjoin K {u'}) L
+    rw [hfE, ← hfund] at h
+    exact Nat.eq_of_mul_eq_mul_left hf0 (h.trans (mul_comm _ _))
+  -- Euler: `Tr_{E/K}(u^{f-1} / g'(u)) = 1`
+  let pb := IntermediateField.adjoin.powerBasis hKu
+  have hdim : pb.dim = f := by
+    rw [IntermediateField.adjoin.powerBasis_dim, hminK, hgmon.natDegree_map, hgdeg]
+  let i : Fin pb.dim := ⟨f - 1, by omega⟩
+  have hgen : pb.gen = IntermediateField.AdjoinSimple.gen K u' := rfl
+  have h1 := Module.Basis.trace_traceDual_mul pb.basis i i
+  rw [if_pos rfl, Module.Basis.traceDual_powerBasis_eq, PowerBasis.coe_basis] at h1
+  have hcoeff : (minpolyDiv K pb.gen).coeff (f - 1) = 1 := by
+    have hnd : (minpolyDiv K pb.gen).natDegree = f - 1 := by
+      rw [natDegree_minpolyDiv, hgen, IntermediateField.minpoly_gen, hminK,
+        hgmon.natDegree_map, hgdeg]
+    rw [← hnd]
+    exact minpolyDiv_monic (IntermediateField.adjoin.powerBasis hKu).isIntegral_gen
+  simp only [i, hcoeff] at h1
+  -- transport to `L`
+  set cE : IntermediateField.adjoin K {u'} :=
+    1 / aeval pb.gen (derivative (minpoly K pb.gen)) * pb.gen ^ (f - 1) with hcE
+  have hcEL : algebraMap (IntermediateField.adjoin K {u'}) L cE = algebraMap B L (w * u ^ (f - 1)) := by
+    have hw' : algebraMap B L w = (algebraMap B L (aeval u (derivative g)))⁻¹ :=
+      eq_inv_of_mul_eq_one_right (by rw [← map_mul, hw, map_one])
+    rw [hcE, map_mul, map_div₀, map_one, map_pow, ← aeval_algebraMap_apply, hgen,
+      IntermediateField.AdjoinSimple.algebraMap_gen, IntermediateField.minpoly_gen, hminK,
+      derivative_map, aeval_map_algebraMap, map_mul, map_pow, hw', aeval_algebraMap_apply,
+      one_div]
+  refine ⟨w * u ^ (f - 1), ?_⟩
+  apply IsFractionRing.injective A K
+  rw [Algebra.algebraMap_intTrace_fractionRing, ← hcEL, ← Algebra.trace_trace (S := IntermediateField.adjoin K {u'}),
+    Algebra.trace_algebraMap, hEL, map_nsmul, h1, map_natCast, nsmul_eq_mul, mul_one]
+
+end Trace
+
 end TDifferent
 
-#print axioms TDifferent.exists_root_of_residue
+#print axioms TDifferent.exists_intTrace_eq_ramificationIdx
