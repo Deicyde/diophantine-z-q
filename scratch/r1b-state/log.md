@@ -54,3 +54,8 @@
   `HauptmodulHolomorphic` (theta only), `FamilyOrbits`, `FamilyCMValues`, `CMPointsExist`
   (`familyHauptmodul_of_parts`), and `fibreQMPeriod_of_r1b_fine`. Clean, 0 errors; axioms
   standard (VERIFIED).
+- run21-25: Part7_CM: `cmPointsExist` proved (`ι(i+j)` fixes `√2+i`, `ι((1+j)/2)` fixes `i√3`,
+  `ι(2j+ij)` fixes `i√(9+6√2)`; Mathlib's `UpperHalfPlane.coe_smul_of_det_pos`), so
+  `fibreQMPeriod_of_r1b_final` takes seven glue Props. 0 errors, no `sorry`; all audited
+  theorems `[propext, Classical.choice, Quot.sound]` (VERIFIED; one intermediate run showed
+  `sorryAx` from an unsolved goal, fixed).

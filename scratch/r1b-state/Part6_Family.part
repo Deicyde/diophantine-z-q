@@ -94,7 +94,7 @@ def FamilyCMValues : Prop :=
       (x * x - x + 1 = 0 → π.val (K := ℂ) (y τ).left = OnePoint.infty) ∧
       (x * x = -6 → π.val (K := ℂ) (y τ).left = ((-16 / 27 : ℂ) : OnePoint ℂ))
 
-/-- **Elementary (not compiled): CM points exist in `ℍ`.** E.g. `ι(i + j)` fixes `√2 + i`,
+/-- **Elementary (proved below, `cmPointsExist`): CM points exist in `ℍ`.** E.g. `ι(i + j)` fixes `√2 + i`,
 `ι((1+j)/2)` fixes `i√3`, `ι(2j + ij)` fixes `i√(9+6√2)` (pkg-I1's numerics, `jden_check.py`). -/
 def CMPointsExist : Prop :=
   (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x = -1 ∧
