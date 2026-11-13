@@ -22,3 +22,13 @@ docs/research/h5-neron.md.
 - `HeightAntitone` (glue, STATED): f : 𝒢.G ⟶ 𝒩.G, IsMonHom f, IsIso (F.map f) ⇒ 𝒩.height ≤ 𝒢.height.
 - `neronModelMinimal_of_heightAntitone : HeightAntitone → NeronModelMinimal`: compiled.
   All three #print axioms: [propext, Classical.choice, Quot.sound].
+
+## 3. Open subgroup models are generic isomorphisms — PROVED (compiled 02:12, scratch/h5-glue/OpenSub.lean)
+- `isOpenImmersion_pullback_map`: Over.pullback j sends open immersions to open immersions
+  (IsPullback.of_bot pasting + MorphismProperty.of_isPullback).
+- `isIso_of_openImmersion_self`: an open immersion B.X ⟶ B.X over Spec L of an AbVar is an iso
+  (universally closed via proper + separated; image clopen nonempty in the irreducible B.X —
+  GeometricallyIrreducible.irreducibleSpace_of_subsingleton; isIso_iff_isOpenImmersion_and_surjective).
+- `genericIso_of_openImmersion`: f : 𝒰.G ⟶ 𝒢.G with f.left an open immersion ⇒ IsIso (F.map f).
+  All three: axioms [propext, Classical.choice, Quot.sound]. This is the "on generic fibres it is an
+  isomorphism" clause of h5-neron's OpenSubgroupHeight docstring, now a Lean proof.
