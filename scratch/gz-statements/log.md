@@ -27,3 +27,7 @@
   Compiled, standard axioms (VERIFIED).
 - check_heegner.py: 30 pairs (N, D) with HeegnerHyp, D odd fundamental: D ≡ β² mod 4N, (D,N)=1,
   Kronecker (D/p) = 1 for p | N in all 30 (VERIFIED, out_check_heegner.txt; sympy via uv offline).
+- jacobiSym_prime_eq_legendreSym: (p/|D|) = (D/p) for odd primes p, D odd imaginary fund. disc.
+  heegnerHyp_iff_split: HeegnerHyp N D ↔ (2∣N → D ≡ 1 mod 8) ∧ ∀ odd p ∣ N, D nonzero square mod p.
+  Compiled, standard axioms; 18 declarations in Check.lean, all [propext, Classical.choice,
+  Quot.sound] (VERIFIED).

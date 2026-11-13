@@ -79,4 +79,49 @@ theorem jacobiSym_two_eq_one_iff {D : ℤ} (hD : IsOddImagFundDisc D) :
   · intro h
     rw [if_pos (by omega)]
 
+/-- **`chiD` at an odd prime is the Legendre symbol `(D / p)`** (quadratic reciprocity, using
+`|D| ≡ 3 mod 4`). -/
+theorem jacobiSym_prime_eq_legendreSym {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) {D : ℤ}
+    (hD : IsOddImagFundDisc D) : jacobiSym (p : ℤ) D.natAbs = legendreSym p D := by
+  have h3 := natAbs_mod_four_of_isOddImagFundDisc hD
+  have hoddD : Odd D.natAbs := Nat.odd_iff.mpr (by omega)
+  have hpodd : Odd p := (Fact.out : p.Prime).odd_of_ne_two hp2
+  have hDeq : D = -((D.natAbs : ℕ) : ℤ) := by have := hD.1; omega
+  rw [jacobiSym.legendreSym.to_jacobiSym]
+  conv_rhs => rw [hDeq]
+  rw [jacobiSym.neg _ hpodd]
+  have hp4 : p % 4 = 1 ∨ p % 4 = 3 := Nat.odd_mod_four_iff.mp (Nat.odd_iff.mp hpodd)
+  rcases hp4 with h1 | h3p
+  · rw [jacobiSym.quadratic_reciprocity_one_mod_four h1 hoddD, ZMod.χ₄_nat_one_mod_four h1,
+      one_mul]
+  · rw [jacobiSym.quadratic_reciprocity_three_mod_four h3p h3, ZMod.χ₄_nat_three_mod_four h3p,
+      neg_one_mul]
+
+/-- **`HeegnerHyp` is the splitting condition.** For an odd imaginary fundamental discriminant
+`D`, `HeegnerHyp N D` holds exactly when `D ≡ 1 (mod 8)` if `2 ∣ N`, and `D` is a nonzero square
+modulo every odd prime `p ∣ N`: the classical criteria for `p` to split in `ℚ(√D)`. -/
+theorem heegnerHyp_iff_split {N : ℕ} {D : ℤ} (hD : IsOddImagFundDisc D) :
+    HeegnerHyp N D ↔ (2 ∣ N → D % 8 = 1) ∧
+      ∀ p : ℕ, p.Prime → p ≠ 2 → p ∣ N → (D : ZMod p) ≠ 0 ∧ IsSquare (D : ZMod p) := by
+  constructor
+  · intro h
+    refine ⟨fun h2 => (jacobiSym_two_eq_one_iff hD).mp (by exact_mod_cast h 2 Nat.prime_two h2),
+      fun p hp hp2 hpN => ?_⟩
+    have : Fact p.Prime := ⟨hp⟩
+    have hl := h p hp hpN
+    rw [jacobiSym_prime_eq_legendreSym hp2 hD] at hl
+    have h0 : (D : ZMod p) ≠ 0 := by
+      intro h0
+      rw [(legendreSym.eq_zero_iff p D).mpr h0] at hl
+      exact absurd hl (by norm_num)
+    exact ⟨h0, (legendreSym.eq_one_iff p h0).mp hl⟩
+  · rintro ⟨h2, hodd⟩ p hp hpN
+    by_cases hp2 : p = 2
+    · subst hp2
+      exact_mod_cast (jacobiSym_two_eq_one_iff hD).mpr (h2 hpN)
+    · have : Fact p.Prime := ⟨hp⟩
+      obtain ⟨h0, hsq⟩ := hodd p hp hp2 hpN
+      rw [jacobiSym_prime_eq_legendreSym hp2 hD]
+      exact (legendreSym.eq_one_iff p h0).mpr hsq
+
 end ZInQ.GZStatements

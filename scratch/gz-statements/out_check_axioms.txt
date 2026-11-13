@@ -59,3 +59,10 @@ grossZagierHeegnerCd_of_grossZagier : ZInQ.Literature.GrossZagier → GrossZagie
 'ZInQ.GZStatements.jacobiSym_neg_level' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.coprime_of_heegnerHyp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.jacobiSym_two_eq_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+@jacobiSym_prime_eq_legendreSym : ∀ {p : ℕ} [inst : Fact (Nat.Prime p)],
+  p ≠ 2 → ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → jacobiSym (↑p) D.natAbs = legendreSym p D
+@heegnerHyp_iff_split : ∀ {N : ℕ} {D : ℤ},
+  ZInQ.GZDecomp.IsOddImagFundDisc D →
+    (ZInQ.GZDecomp.HeegnerHyp N D ↔ (2 ∣ N → D % 8 = 1) ∧ ∀ (p : ℕ), Nat.Prime p → p ≠ 2 → p ∣ N → ↑D ≠ 0 ∧ IsSquare ↑D)
+'ZInQ.GZStatements.jacobiSym_prime_eq_legendreSym' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.heegnerHyp_iff_split' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -36,3 +36,7 @@ open ZInQ.GZStatements
 #print axioms jacobiSym_neg_level
 #print axioms coprime_of_heegnerHyp
 #print axioms jacobiSym_two_eq_one_iff
+#check @jacobiSym_prime_eq_legendreSym
+#check @heegnerHyp_iff_split
+#print axioms jacobiSym_prime_eq_legendreSym
+#print axioms heegnerHyp_iff_split
