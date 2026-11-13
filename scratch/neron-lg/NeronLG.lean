@@ -307,8 +307,9 @@ theorem spec_square {R L : Type} [CommRing R] [Field L] [Algebra R L] (O : Valua
   rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, hφ]
 
 /-- For `R → O ⊂ L` (compatible with the maps to `L`), the identification of the generic fibre of
-the base change `G ×_R O` with `B`: `(G ×_R O) ×_O L ≅ G ×_R L ≅ B`. -/
-noncomputable def bcGenO {R L : Type} [CommRing R] [Field L] [Algebra R L] {B : AbVar L}
+the base change `G ×_R O` with `B`: `(G ×_R O) ×_O L ≅ G ×_R L ≅ B`. An `irreducible_def`: if the kernel may
+unfold it (through the `eqToIso` in `pbEqIso`), checking `isMonHom_bcGenO` times out. -/
+noncomputable irreducible_def bcGenO {R L : Type} [CommRing R] [Field L] [Algebra R L] {B : AbVar L}
     (G : Over (Spec (CommRingCat.of R)))
     (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X)
     (O : ValuationSubring L) (φ : R →+* O) (hφ : (algebraMap O L).comp φ = algebraMap R L) :
@@ -337,6 +338,81 @@ def NeronLocalOnBase : Prop :=
         (hφ : (algebraMap O L).comp φ = algebraMap R L),
         IsNeronOver O L B ((Over.pullback (Spec.map (CommRingCat.ofHom φ))).obj G)
           (bcGenO G gen O φ hφ)
+
+/-! ### Localizing a Néron model at a DVR (proved from NL) -/
+
+section BcGenO
+
+variable {R L : Type} [CommRing R] [Field L] [Algebra R L] {B : AbVar L}
+    (G : Over (Spec (CommRingCat.of R)))
+    (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X)
+    (O : ValuationSubring L) (φ : R →+* O) (hφ : (algebraMap O L).comp φ = algebraMap R L)
+
+/-! Separate lemmas: the same chain stated in one term makes the kernel time out. -/
+
+theorem bcGenO_hom₁ : (bcGenO G gen O φ hφ).hom = ((ZInQ.H5Neron.pbCompIso _ _ G).symm ≪≫
+    ZInQ.H5Neron.pbEqIso (spec_square O φ hφ) G ≪≫ gen).hom :=
+  congrArg Iso.hom (bcGenO_def G gen O φ hφ)
+
+theorem bcGenO_hom₂ : ((ZInQ.H5Neron.pbCompIso _ _ G).symm ≪≫
+    ZInQ.H5Neron.pbEqIso (spec_square O φ hφ) G ≪≫ gen).hom =
+    (ZInQ.H5Neron.pbCompIso _ _ G).symm.hom ≫
+      (ZInQ.H5Neron.pbEqIso (spec_square O φ hφ) G ≪≫ gen).hom :=
+  Iso.trans_hom _ _
+
+omit [Algebra R L] in
+theorem bcGenO_hom₃ : (ZInQ.H5Neron.pbCompIso (Spec.map (CommRingCat.ofHom (algebraMap O L)))
+    (Spec.map (CommRingCat.ofHom φ)) G).symm.hom =
+    ZInQ.H5Neron.pbCompInv (Spec.map (CommRingCat.ofHom (algebraMap O L)))
+      (Spec.map (CommRingCat.ofHom φ)) G :=
+  ZInQ.H5Neron.pbCompIso_symm_hom _ _ _
+
+theorem bcGenO_hom₄ : (ZInQ.H5Neron.pbEqIso (spec_square O φ hφ) G ≪≫ gen).hom =
+    ZInQ.H5Neron.pbEq (spec_square O φ hφ) G ≫ gen.hom :=
+  (Iso.trans_hom _ _).trans (congrArg₂ (· ≫ ·) (ZInQ.H5Neron.pbEqIso_hom _ _) rfl)
+
+theorem bcGenO_hom : (bcGenO G gen O φ hφ).hom =
+      ZInQ.H5Neron.pbCompInv (Spec.map (CommRingCat.ofHom (algebraMap O L)))
+        (Spec.map (CommRingCat.ofHom φ)) G ≫ ZInQ.H5Neron.pbEq (spec_square O φ hφ) G ≫ gen.hom :=
+  (bcGenO_hom₁ G gen O φ hφ).trans ((bcGenO_hom₂ G gen O φ hφ).trans
+    (congrArg₂ (· ≫ ·) (bcGenO_hom₃ G O φ) (bcGenO_hom₄ G gen O φ hφ)))
+
+end BcGenO
+
+theorem isMonHom_bcGenO {R L : Type} [CommRing R] [Field L] [Algebra R L] {B : AbVar L}
+    (G : Over (Spec (CommRingCat.of R))) [GrpObj G]
+    (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X)
+    (hgen : letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
+      Functor.grpObjObj
+      IsMonHom gen.hom)
+    (O : ValuationSubring L) (φ : R →+* O) (hφ : (algebraMap O L).comp φ = algebraMap R L) :
+    letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom φ))).obj G) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O L)))).obj
+      ((Over.pullback (Spec.map (CommRingCat.ofHom φ))).obj G)) := Functor.grpObjObj
+    IsMonHom (bcGenO G gen O φ hφ).hom := by
+  have h1 := ZInQ.H5Neron.isMonHom_pbCompInv (Spec.map (CommRingCat.ofHom (algebraMap O L)))
+    (Spec.map (CommRingCat.ofHom φ)) G
+  have h2 := ZInQ.H5Neron.isMonHom_pbEq (spec_square O φ hφ) G
+  rw [bcGenO_hom]
+  infer_instance
+
+/-- **A Néron model over `𝓞_L` localizes to a Néron model over every DVR `O ⊂ L` (proved from
+the leaf NL, ⇒).** This is the "localization" step used in the sketches of N2-g2 and N2-g3. -/
+theorem neronModelOver_localize (hNL : NeronLocalOnBase) {L : Type} [Field L] [NumberField L]
+    {B : AbVar L} (𝒩 : NeronModelOver (𝓞 L) L B) (O : ValuationSubring L)
+    [IsDiscreteValuationRing O] : Nonempty (NeronModelOver O L B) := by
+  have hφ : (algebraMap O L).comp (toO O) = algebraMap (𝓞 L) L := RingHom.ext fun _ => rfl
+  have hN := (hNL L (𝓞 L) B 𝒩.G 𝒩.gen).1 𝒩.neron O (toO O) hφ
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (toO O)))).obj 𝒩.G) :=
+    Functor.grpObjObj
+  haveI : Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom (toO O)))).obj 𝒩.G).hom := by
+    dsimp; infer_instance
+  haveI : IsSeparated ((Over.pullback (Spec.map (CommRingCat.ofHom (toO O)))).obj 𝒩.G).hom := by
+    dsimp; infer_instance
+  haveI : QuasiCompact ((Over.pullback (Spec.map (CommRingCat.ofHom (toO O)))).obj 𝒩.G).hom := by
+    dsimp; infer_instance
+  exact ⟨⟨_, bcGenO 𝒩.G 𝒩.gen O (toO O) hφ, isMonHom_bcGenO 𝒩.G 𝒩.gen 𝒩.gen_hom O (toO O) hφ,
+    fun Y _ => hN Y⟩⟩
 
 /-! ## §3. `NeronLocalToGlobal` reduced to three smaller glue statements and the leaf NL
 
@@ -379,11 +455,15 @@ and NL: if `B` extends to an abelian scheme `𝒜` over `𝓞_L[1/f]` (`f ≠ 0`
 𝓞_L[1/h]`, so it spreads out to a smooth separated group scheme `G` of finite type over some
 `𝓞_L[1/h]`, `h ∉ v`, with `G ×_{𝓞_L[1/h]} 𝓞_{L,v} ≅ 𝒩_v` and the generic-fibre identification
 spread out (EGA IV₃ 8.8.2, 8.10.5, IV₄ 17.7.8). On `𝓞_L[1/fh]` the canonical morphism `G → 𝒜`
-(Néron property of `𝒜`, leaf N1-ab) is an isomorphism on generic fibres, hence over some
-`𝓞_L[1/fhh']`, `h' ∉ v` (EGA IV₃ 8.8.2.5); choose `h'' ∉ v` lying in the finitely many other
-primes containing `f` (prime avoidance) and put `g = hh'h''`. Over `𝓞_L[1/g]`, `G` is `𝒩_v` at
-`v` and the abelian scheme `𝒜` at every other point, so it is Néron at every `𝓞_{L,w}` (N1-ab
-for `w ≠ v`) and hence Néron over `𝓞_L[1/g]` (leaf NL). Locators UNVERIFIED. -/
+(Néron property of `𝒜`, leaf N1-ab) is an isomorphism on generic fibres, hence over a dense open
+of `Spec 𝓞_L[1/fh]` (EGA IV₃ 8.8.2.5), whose complement is a finite set `Z` of closed points. If
+`f ∈ v` then `v ∉ D(fh) ⊇ Z`; if `f ∉ v` then `G → 𝒜` is already an isomorphism at `v` (both
+sides are Néron over `𝓞_{L,v}`: `𝒩_v`, and `𝒜_{𝓞_{L,v}}` by N1-ab), so `v ∉ Z`. By prime avoidance
+choose `h' ∉ v` lying in every point of `Z` and in every other prime containing `f`, and put
+`g = hh'`. Over `𝓞_L[1/g]`, `G` is `𝒩_v` at `v` and `≅ 𝒜` near every other point `w`, so
+`G ×_{𝓞_L[1/g]} 𝓞_{L,w}` is Néron for every `w` (`𝒩_v` at `v`; for `w ≠ v` an abelian scheme over
+`𝓞_{L,w}`, Néron by N1-ab; the Néron property transports along isomorphisms compatible with
+`gen`), hence `G` is Néron over `𝓞_L[1/g]` (leaf NL, ⇐). Locators UNVERIFIED. -/
 def NeronNearPoint : Prop :=
   AbelianSchemeIsNeron → NeronLocalOnBase →
   ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L) (f : 𝓞 L), f ≠ 0 → HasAbelianSchemeAway L B f →
@@ -399,7 +479,8 @@ isomorphisms compatible with `gen`, which satisfy the cocycle condition by uniqu
 the schemes (`Scheme.GlueData`), the group laws and `gen`; smooth and separated are local on the
 base and the glued scheme is quasi-compact over `𝓞_L` (finite cover); the mapping property holds
 because morphisms from a smooth `Y` are constructed on the pieces `Y|_{D(gᵢ)}` and glue by
-uniqueness. No literature input. -/
+uniqueness. No literature input. (Elements `gᵢ = 0` are harmless: `NeronOverAway L B 0` holds
+vacuously, since no presentation of the zero ring maps to `L`, and `D(0) = ∅`.) -/
 def NeronGlueAway : Prop :=
   ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L) (s : Finset (𝓞 L)),
     Ideal.span (s : Set (𝓞 L)) = ⊤ → (∀ g ∈ s, NeronOverAway L B g) →
@@ -477,7 +558,7 @@ be the (finitely many) DVRs of `K` in which `f` is not a unit. For `O ∉ T`, ev
 models (N1-ab), so `𝒩₀ ≅ 𝒜_{O₀}` and `𝒩' ≅ 𝒜_{O'} = 𝒜_{O₀} ×_{O₀} O'` by group isomorphisms
 compatible with `gen` (`NeronModelOver.uniqueIso` of tau-n1n2); take `U = 𝒩'`, `i = 𝟙` and `j`
 the composite isomorphism, which satisfies the generic-fibre equation because every isomorphism
-used is compatible with `gen`. Locators: EGA IV₃ 8.8.2, 8.10.5 (UNVERIFIED). -/
+used is compatible with `gen`. (Spreading out is the hypothesis N1-g1; no locator is needed.) -/
 def GoodPlacesAnyField : Prop :=
   AbelianSchemeIsNeron → AbVarSpreadsOut →
   ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K), ∃ T : Finset (ValuationSubring K),
@@ -522,9 +603,11 @@ localization of the global Néron model of N1, Néron by NL). Apply the `L₀`-s
 giving `U₁ → 𝒩₁`, `j₁ : U₁ → 𝒩₀ ×_{O₀} O₁`. Base-change the second to `O'` and take for the new
 `U` the intersection of the two open subgroups `j(U)` and `(j₁)_{O'}(U₁ ×_{O₁} O')` of
 `𝒩₀ ×_{O₀} O'`, with the induced open immersions into `𝒩'` and `𝒩₁ ×_{O₁} O'`. The generic-fibre
-equation for the new pair follows from the two old ones, since two `L₁`-morphisms into `A_{L₁}`
-agree once they agree after `A_{L₁} → A_{L₀}` (`A_{L₁} = A_{L₀} ×_{L₀} L₁`). No further
-literature input. -/
+equation for the new pair follows from the two old ones: both sides land in `𝒩₁` and factor
+uniquely through its generic fibre `≅ A_{L₁}`; two morphisms over `L₁` into `A_{L₁} = A_{L₀} ×_{L₀}
+L₁` agree once their composites with `A_{L₁} → A_{L₀}` agree; morphisms over `L₀` into the generic
+fibre of `𝒩₀` are determined by their composite to `𝒩₀`; and
+`bcProj A L₀ L' = bcProj A L₁ L' ≫ bcProj A L₀ L₁`. No further literature input. -/
 def LocalSemistableMono : Prop :=
   NeronModelExists → NeronLocalOnBase →
   ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
@@ -539,7 +622,9 @@ base change `𝒱` of `𝒩₀`, some group model `𝒰` is an open subgroup of 
 (STANDARD, not in Mathlib): localize `𝒩₀`, `𝒩'` at the DVRs of `L₀`, `L'` (Néron by NL). At every
 prime the local statement gives open immersions `i : U → 𝒩'`, `j : U → 𝒱` compatible on generic
 fibres; since `U` is flat its generic fibre is schematically dense and the targets are separated,
-so `i = c ∘ j` for the canonical morphism `c : 𝒱 → 𝒩'` (Néron property of `𝒩'`; `𝒱` is smooth).
+so `i = c ∘ j` for the canonical morphism `c : 𝒱 → 𝒩'` (Néron property of `𝒩'`; `𝒱` is smooth;
+`c` is built from the isomorphism `e` of `IsBaseChangeOf 𝒱 𝒩₀` and `𝒩₀.gen`, not from `𝒱.gen`,
+which `IsBaseChangeOf` does not compare with `e`).
 Hence `c` is an open immersion on `j(U)`, an open subgroup containing the identity component of the
 fibre, at every prime. Take `𝒰 = 𝒱⁰`, the identity component (open in `𝒱` and quasi-compact over
 the noetherian base, SGA 3 VI_B 3.10); `c|_{𝒰}` is an open immersion over every local ring of the
@@ -732,3 +817,4 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.badPlaces_finite
 #print axioms ZInQ.NeronLG.goodPlacesAnyField_of
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue
+#print axioms ZInQ.NeronLG.neronModelOver_localize
