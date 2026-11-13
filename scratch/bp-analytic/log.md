@@ -32,3 +32,14 @@
 - Torus.lean §6: `torusAddEquiv` (T : E ≃L[ℂ] E' with T(Λ) = Λ' gives E/Λ ≃+ E'/Λ'), `torusAddEquiv_proj`,
   `torusAddEquiv_symm_proj`, `torusDiffeo : Torus Λ ≃ₘ^ω⟮𝓘(ℂ,E), 𝓘(ℂ,E')⟯ Torus Λ'` (biholomorphic), `torusDiffeo_apply`.
   COMPILED, no warnings.
+- Torus.lean §7 (pkg-I1 QM lattice; pkg-I1 defs B, oBasis, Mi, Mj, iota, latVec, Emat, F0mat, Pinv, Omega
+  copied verbatim): `latVec0..3` (explicit: (τ,1), (√2τ,−√2), ((τ−3)/2,(τ+1)/2), (√2(τ−3)/2, −√2(τ+1)/2)),
+  `Emat_eq`, `F0mat_eq`, `Fp`, `det_Fp` (= −√2(τ−3)(τ+1)/2), `det_Fp_ne_zero` (Im τ ≠ 0), `Fp_mul_Omega`,
+  `qmVec`, `qmVec_linearIndependent` (over ℝ, Im τ ≠ 0), `qmBasis`, `qmLattice` (+ DiscreteTopology, IsZLattice),
+  `qmLattice_eq`, `QMTorus` (LieAddGroup, CompactSpace by inferInstance), `Fp_mulVec_periodVec(')`, `imgVec`,
+  `det_im_ne_zero_of_linearIndependent` (generic converse of §4), `imgVec_linearIndependent`, `span_imgVec`,
+  `FpEquiv`, `det_im_Omega_ne_zero`, `map_periodLattice_Omega` (F'(τ)(Ω(τ)ℤ²+ℤ²) = ι(𝒪)(τ,1)ᵀ),
+  `qmPeriodDiffeo : SiegelTorus (Omega τ) _ ≃ₘ^ω QMTorus hτ`, `qmPeriodDiffeo_add`, `qmPeriodDiffeo_proj`.
+  COMPILED, no warnings; axioms [propext, Classical.choice, Quot.sound] for qmPeriodDiffeo(_add),
+  det_im_Omega_ne_zero, torusDiffeo, thetaConst_eq_riemannTheta, riemannTheta_add_period, two_nsmul_proj_charPoint.
+- sympy (VERIFIED, computed): Ω(τ) symmetric; det Im Ω(x+iy) = 12y²/(((x−3)²+y²)((x+1)²+y²)) > 0 for y ≠ 0.

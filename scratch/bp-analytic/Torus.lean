@@ -830,6 +830,50 @@ theorem span_imgVec {τ : ℂ} :
       show qmVec τ 3 ∈ _
       rw [e]; exact h
 
+
+/-- `F'(τ)` as a continuous `ℂ`-linear automorphism of `ℂ²`. -/
+def FpEquiv {τ : ℂ} (hτ : τ.im ≠ 0) : (Fin 2 → ℂ) ≃L[ℂ] (Fin 2 → ℂ) :=
+  (Matrix.toLinearEquiv' (Fp τ)
+    (Matrix.invertibleOfIsUnitDet _ (Ne.isUnit (det_Fp_ne_zero hτ)))).toContinuousLinearEquiv
+
+theorem FpEquiv_apply {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) : FpEquiv hτ v = Fp τ *ᵥ v := rfl
+
+/-- **`det Im Ω(τ) ≠ 0`** for `Im τ ≠ 0` (so `Ω(τ)ℤ² + ℤ²` is a full lattice). -/
+theorem det_im_Omega_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : ((Omega τ).map Complex.im).det ≠ 0 := by
+  apply det_im_ne_zero_of_linearIndependent
+  apply LinearIndependent.of_comp ((Matrix.toLin' (Fp τ)).restrictScalars ℝ)
+  have : ((Matrix.toLin' (Fp τ)).restrictScalars ℝ) ∘ periodVec (Omega τ) = imgVec τ := by
+    funext k
+    simp only [Function.comp_apply, LinearMap.coe_restrictScalars, Matrix.toLin'_apply]
+    exact Fp_mulVec_periodVec' hτ k
+  rw [this]
+  exact imgVec_linearIndependent hτ
+
+/-- **`F'(τ)` carries the Siegel lattice `Ω(τ)ℤ² + ℤ²` onto the QM lattice `ι(𝒪)(τ, 1)ᵀ`.** -/
+theorem map_periodLattice_Omega {τ : ℂ} (hτ : τ.im ≠ 0) :
+    (periodLattice (Omega τ) (det_im_Omega_ne_zero hτ)).map
+      ((FpEquiv hτ).toLinearEquiv.toLinearMap.restrictScalars ℤ) = qmLattice hτ := by
+  rw [periodLattice, coe_periodBasis, Submodule.map_span, ← Set.range_comp, qmLattice_eq,
+    ← span_imgVec]
+  congr 2
+  funext k
+  exact Fp_mulVec_periodVec' hτ k
+
+/-- **`Ω(τ)` is a period matrix of the QM torus**: `F'(τ)` induces a biholomorphic group
+isomorphism `ℂ² ⧸ (Ω(τ)ℤ² + ℤ²) ≃ ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`. -/
+def qmPeriodDiffeo {τ : ℂ} (hτ : τ.im ≠ 0) :
+    SiegelTorus (Omega τ) (det_im_Omega_ne_zero hτ) ≃ₘ^ω⟮𝓘(ℂ, Fin 2 → ℂ), 𝓘(ℂ, Fin 2 → ℂ)⟯
+      QMTorus hτ :=
+  torusDiffeo _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)
+
+/-- It is additive (a group isomorphism). -/
+theorem qmPeriodDiffeo_add {τ : ℂ} (hτ : τ.im ≠ 0) (p q : SiegelTorus (Omega τ) (det_im_Omega_ne_zero hτ)) :
+    qmPeriodDiffeo hτ (p + q) = qmPeriodDiffeo hτ p + qmPeriodDiffeo hτ q :=
+  map_add (torusAddEquiv _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)) p q
+
+theorem qmPeriodDiffeo_proj {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) :
+    qmPeriodDiffeo hτ (proj _ v) = proj (qmLattice hτ) (Fp τ *ᵥ v) := rfl
+
 end QM
 
 end BPAnalytic
