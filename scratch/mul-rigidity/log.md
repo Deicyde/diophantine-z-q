@@ -26,3 +26,13 @@
   surjective: clopen nonempty range in irreducible A), `mulIsogeny_of_mulEtale : MulEtale → MulIsogeny`,
   `mulUnramified_of_mulEtale`, `mulIsogeny_of_mulUnramified : MulUnramified → QuasiFiniteEndSurjective →
   MulIsogeny`. Axioms: propext, Classical.choice, Quot.sound. VERIFIED.
+- 05:36 COMPILED (exit 0): `ne_of_specializes_of_lqf` (LQF maps strict specializations to distinct points; fibres
+  discrete), `surjective_of_lqf_self` (LQF closed self-map of an irreducible Noetherian scheme is surjective:
+  generic-point orbit ξ ⤳ fξ ⤳ f²ξ ⤳ … would be a strictly decreasing chain of closed sets), and
+  **`quasiFiniteEndSurjective : QuasiFiniteEndSurjective`** (A.X.left Noetherian via
+  `LocallyOfFiniteType.isLocallyNoetherian` + `QuasiCompact.compactSpace_of_compactSpace`; irreducible via
+  `GeometricallyIrreducible.irreducibleSpace_of_subsingleton`). Hence
+  **`mulIsogeny_of_mulUnramified' : MulUnramified → MulIsogeny`**. Axioms: propext, Classical.choice, Quot.sound.
+  So `QuasiFiniteEndSurjective` (stated as a dimension-theory leaf) is NOT a leaf: Mathlib proves it, no dimension
+  theory needed. Remaining leaf for MulIsogeny: `MulUnramified` (char 0, n ≠ 0 ⇒ FormallyUnramified [n].left),
+  implied by `MulEtale` (`mulUnramified_of_mulEtale`).

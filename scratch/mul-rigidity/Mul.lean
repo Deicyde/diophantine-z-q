@@ -4,6 +4,8 @@ import Mathlib.AlgebraicGeometry.Morphisms.Etale
 import Mathlib.AlgebraicGeometry.Morphisms.FormallyUnramified
 import Mathlib.AlgebraicGeometry.Morphisms.UniversallyOpen
 import Mathlib.RingTheory.Unramified.LocalStructure
+import Mathlib.AlgebraicGeometry.Noetherian
+import Mathlib.Topology.NoetherianSpace
 
 /-!
 # mul-rigidity: the textbook leaf `MulIsogeny` reduced to smaller named Props
@@ -54,6 +56,54 @@ theorem isIsogenyMor_of_lqf_of_isOpenMap (A : PkgI3.AbVar K) (f : A.X ⟶ A.X)
   have hne : (Set.range f.left.base).Nonempty :=
     ⟨_, ⟨η[A.X].left (IsLocalRing.closedPoint K), rfl⟩⟩
   exact Set.range_eq_univ.mp (hcl.eq_univ hne)
+
+/-- Under a locally quasi-finite morphism, a strict specialization maps to two distinct points
+(the fibres are discrete, Mathlib `Scheme.Hom.isDiscrete_preimage_singleton`). -/
+theorem ne_of_specializes_of_lqf {X Y : Scheme} (f : X ⟶ Y) [LocallyQuasiFinite f]
+    {x y : X} (hxy : x ⤳ y) (hne : x ≠ y) : f x ≠ f y := by
+  intro heq
+  have hd := (f.isDiscrete_preimage_singleton (f y)).to_subtype
+  let x' : (f.base ⁻¹' {f y} : Set X) := ⟨x, heq⟩
+  let y' : (f.base ⁻¹' {f y} : Set X) := ⟨y, rfl⟩
+  have h' : x' ⤳ y' := (subtype_specializes_iff x' y').mpr hxy
+  exact hne (congrArg Subtype.val h'.eq)
+
+/-- **A locally quasi-finite closed self-map of an irreducible Noetherian scheme is
+surjective.** If `f ξ ≠ ξ` for the generic point `ξ`, then `ξ ⤳ f ξ ⤳ f² ξ ⤳ ⋯` are strict
+specializations (continuity, and `ne_of_specializes_of_lqf`), so the closures `cl{fᵐ ξ}` form a
+strictly decreasing chain of closed sets, contradicting Noetherianity. So `ξ ∈ range f`, which is
+closed, hence everything. -/
+theorem surjective_of_lqf_self {X : Scheme} [IrreducibleSpace X] [TopologicalSpace.NoetherianSpace X]
+    (f : X ⟶ X) [LocallyQuasiFinite f] (hc : IsClosedMap f.base) :
+    Function.Surjective f.base := by
+  set ξ := genericPoint X
+  have hξ : ∀ x : X, ξ ⤳ x := fun x => (genericPoint_spec X).specializes trivial
+  have hfix : f ξ = ξ := by
+    by_contra hne
+    let s : ℕ → X := fun m => (f.base)^[m] ξ
+    have hs : ∀ m, s m ⤳ s (m + 1) ∧ s m ≠ s (m + 1) := by
+      intro m
+      induction m with
+      | zero => exact ⟨hξ _, fun h => hne h.symm⟩
+      | succ m ih =>
+        have e1 : s (m + 1) = f (s m) := Function.iterate_succ_apply' _ _ _
+        have e2 : s (m + 1 + 1) = f (s (m + 1)) := Function.iterate_succ_apply' _ _ _
+        rw [e1, e2]
+        exact ⟨ih.1.map f.base.hom.continuous, ne_of_specializes_of_lqf f ih.1 ih.2⟩
+    let c : ℕ → TopologicalSpace.Closeds X := fun m => ⟨closure {s m}, isClosed_closure⟩
+    have hc' : StrictAnti c := by
+      refine strictAnti_nat_of_succ_lt fun m => ?_
+      refine lt_of_le_of_ne ?_ ?_
+      · change closure {s (m + 1)} ⊆ closure {s m}
+        exact specializes_iff_closure_subset.mp (hs m).1
+      · intro h
+        have h2 : closure {s (m + 1)} = closure {s m} := congrArg SetLike.coe h
+        exact (hs m).2 (inseparable_iff_closure_eq.mpr h2.symm).eq
+    exact not_strictAnti_of_wellFoundedLT c hc'
+  intro y
+  have hy : y ∈ closure {ξ} := specializes_iff_mem_closure.mp (hξ y)
+  exact (hc.isClosed_range.closure_subset_iff.mpr
+    (Set.singleton_subset_iff.mpr ⟨ξ, hfix⟩)) hy
 
 end MulRigidity
 
@@ -122,7 +172,22 @@ theorem mulIsogeny_of_mulUnramified (h1 : MulUnramified) (h2 : QuasiFiniteEndSur
   have := locallyQuasiFinite_of_formallyUnramified ((n : PkgI3.AbVar.End A).hom).left
   exact ⟨IsFinite.of_isProper_of_locallyQuasiFinite _, h2 k A _ inferInstance⟩
 
+/-- **`QuasiFiniteEndSurjective` holds** (proved from Mathlib; it is not a leaf). -/
+theorem quasiFiniteEndSurjective : QuasiFiniteEndSurjective := by
+  intro k _ A f hf
+  have := isProper_left A A f.hom
+  have : IrreducibleSpace A.X.left :=
+    GeometricallyIrreducible.irreducibleSpace_of_subsingleton (f := A.X.hom)
+  have : CompactSpace A.X.left := QuasiCompact.compactSpace_of_compactSpace A.X.hom
+  have : IsNoetherian A.X.left := { __ := LocallyOfFiniteType.isLocallyNoetherian A.X.hom }
+  exact ⟨surjective_of_lqf_self f.hom.left f.hom.left.isClosedMap⟩
+
+/-- **`MulIsogeny` from the single leaf `MulUnramified`** (glue proved here). -/
+theorem mulIsogeny_of_mulUnramified' (h : MulUnramified) : G0FibreSimple.MulIsogeny :=
+  mulIsogeny_of_mulUnramified h quasiFiniteEndSurjective
+
 end MulRigidity
 
 #print axioms MulRigidity.mulIsogeny_of_mulEtale
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified
+#print axioms MulRigidity.mulIsogeny_of_mulUnramified'
