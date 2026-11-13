@@ -70,7 +70,8 @@ L = rd('glue-vigneras/Global.lean')
 # inside a parenthesized tactic sequence)
 F = '        first | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide) | (exfalso; revert h3; decide)\n'
 assert F in L
-L = [l if l != F else F[:F.rindex(' |')] + '\n          | (exfalso; revert h3; decide)\n' for l in L]
+L = [l if l != F else ('        first\n          | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide)\n'
+                       '          | (exfalso; revert h3; decide)\n') for l in L]
 emit('Vigneras/Global.lean', 'glue-vigneras/Global.lean', L, imps(L))
 # Square-root criterion: SqrtLocal (its copy of `exists_half_iff` becomes a call to
 # `GlueI6Rest.exists_half_iff`); Disj (its copy of SqrtLocal's lines 84-242 and of
