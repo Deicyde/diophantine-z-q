@@ -663,10 +663,11 @@ abbrev PtEquiv (Y : Over (Spec (CommRingCat.of ℚ))) : Type 1 :=
 /-! ## §8 The leaves -/
 
 /-- **R1fp, clause list** (for a candidate `Y₃` with its bijections `Φ`): `Y` is proper and smooth
-of relative dimension 1 over `ℚ`, and `Φ` is natural in the field: the class of a point pulled
-back along `f : K → L` is the base change of the class. -/
+of relative dimension 1 over `ℚ`, has a `ℚ̄`-point (a guard against vacuity: with `Y = ∅` every
+other clause would hold if `QML3` were mis-encoded as empty), and `Φ` is natural in the field: the
+class of a point pulled back along `f : K → L` is the base change of the class. -/
 def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
-  IsProper Y.hom ∧ SmoothOfRelativeDimension 1 Y.hom ∧
+  IsProper Y.hom ∧ SmoothOfRelativeDimension 1 Y.hom ∧ Nonempty (fieldPt Qbar ⟶ Y) ∧
   ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
     (y : fieldPt K ⟶ Y) (P : QML3 K), Φ K y = M3.mk P →
       ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q
@@ -702,7 +703,7 @@ forgetful morphism `fY : Y₃ → X₆` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-
 def X6Props (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) : Prop :=
-  IsProper X.hom ∧ SmoothOfRelativeDimension 1 X.hom ∧
+  IsProper X.hom ∧ SmoothOfRelativeDimension 1 X.hom ∧ Nonempty (fieldPt Qbar ⟶ X) ∧
   (∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar),
     Ψ x = Quotient.mk _ P → ∃ Q : QMPair Qbar,
       Ψ (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) = Quotient.mk _ Q ∧
@@ -762,7 +763,7 @@ theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
     {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
     {fY : Y ⟶ X} {π₆ : ToP1 X.left} (hX : X6Props Y Φ X Ψ fY)
     (h2 : R2X6Props X Ψ π₆) : R2fpProps Y Φ (π₆.comp fY.left) := by
-  obtain ⟨-, -, -, -, hf⟩ := hX
+  obtain ⟨-, -, -, -, -, hf⟩ := hX
   intro y y' P Q hP hQ
   have h := h2 (y ≫ fY) (y' ≫ fY) P.forget Q.forget (hf y P hP) (hf y' Q hQ)
   have e : ∀ z : fieldPt Qbar ⟶ Y,
@@ -790,7 +791,16 @@ projective curve `Y₃/ℚ`.
 datum `λ` exists and is unique in characteristic 0; SPECULATIVE until reviewed, lattice core
 proved as `BPQM.eq_pm_E0_of_principal`; not needed on Buzzard's route), and puts `η` on
 `K`-points (equivalent in characteristic 0, §2 docstring). `Y` is **not** required to be
-geometrically connected (it has two geometric components over `ℚ(√−3)`, bp-qmmoduli §2.1). -/
+geometrically connected (it has two geometric components over `ℚ(√−3)`, bp-qmmoduli §2.1).
+
+*Status of the faithfulness claim.* (i) Audit verdict on R1 (locators.md): "UNVERIFIED as the full
+literal leaf; qualified CONSEQUENCE": the specialization of Deligne's PEL model to this functor
+(lattice, polarization-compatible level structure, PEL conditions, component convention,
+`E(G,h) = ℚ`) still needs a human check. (ii) On the Shimura–Deligne route the leaf is "published
+theorem + bp-qmmoduli §2.2" (existence and uniqueness of `λ` for `(A, ι)`), and §2.2 is
+SPECULATIVE (unreviewed; uniqueness checked by the leaf-qm-fp review, existence over `ℂ` by class
+number one and the sign argument, unformalized). On Buzzard's route no polarization enters, but
+whether his Thm 2.1 covers full level 3 directly is UNVERIFIED. -/
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
 
@@ -813,7 +823,11 @@ subgroup preserving the level and the datum acts). *Why faithful*: `twist α` an
 are natural automorphisms of the moduli functor (they are defined for families over any base:
 `(A, ι, η) ↦ (A, ι∘α, η∘α)` and `η ↦ η(·u)`), so by Yoneda each is induced by an automorphism of
 the representing scheme. This is a consequence of R1(a) alone; on field points it is this
-clause. (`α = Ad n`, `n ∈ N_B(𝒪)`, by Skolem–Noether T13; `u` acts through `(𝒪/3𝒪)^×`,
+clause. (With `λ` in the functor: `(A, ι∘α, η∘α)` has Rosati type `α⁻¹(μ)`, not `μ`, unless
+`α(μ) ∈ ℚ^×μ`; a matching `λ' = ±λ∘ι(μ⁻¹μ')`, `μ'` rescaled to norm 6, is defined in families, so
+the twist is still a functor automorphism. Alternatively: `n ∈ N_B(𝒪)` normalizes `K₃`, so right
+translation by `n_f` is an automorphism of `Y₃` over `E(G,X) = ℚ`; this is the "subgroup
+preserving level and datum" of the audit.) (`α = Ad n`, `n ∈ N_B(𝒪)`, by Skolem–Noether T13; `u` acts through `(𝒪/3𝒪)^×`,
 `Level3.rightMul_eq_self`.)
 
 *R2fp, published statement* (Baba–Granath, Canad. J. Math. 60 (2008), Thm 2.1 p. 737 and
@@ -826,7 +840,11 @@ nothing; identifying `π` with N5's `J` is F1's business, `PkgI1.QMHauptmodul`).
 two `ℚ̄`-points have the same image in `X₆/W` iff their `(A, ι)` are `W`-conjugate, i.e.
 `(A', ι') ≅ (A, ι ∘ Ad w)`; `Aut(𝒪) = N_B(𝒪)/ℚ^×` (Skolem–Noether) and inner twists are trivial
 on classes (`ι(u)` is an isomorphism `(A, ι∘Ad u) ≅ (A, ι)`), so `W`-conjugacy is
-`∃ α ∈ Aut 𝒪`. **Not asserted**: the orbifold orders `(4, 6, 2)` (they are not ramification
+`∃ α ∈ Aut 𝒪`. The CM clauses need each of `CM(−4)`, `CM(−3)`, `CM(−24)` (two points on `X₆`
+each: `2^b h` with `(b, h) = (1,1), (1,1), (0,2)`) to be a single `W`-orbit, i.e. one point of
+`X₆/W`: this is Baba–Granath's §3.1 elliptic-order table (p. 740, read by the audit; signature
+`(0; 2, 4, 6)`, forced by `1/3 ÷ 4 = 1/12 = 1 − 1/2 − 1/4 − 1/6`), not Thm 2.1/Lemma 3.1 alone.
+**Not asserted**: the orbifold orders `(4, 6, 2)` (they are not ramification
 indices of `X₆ → X₆/W`, which are `(2, 2, 2)`; the indices `(4, 6, 2)` of `Y₃ → P¹` are glue,
 `RvNocm.ramification_eq_orbifold_order`). Composite: R2fp's fibre clause uses R1 (the forgetful
 morphism `Y₃ → X₆` and the moduli interpretation of `X₆`) together with Baba–Granath. -/
@@ -862,7 +880,7 @@ theorem conj_twist_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEq
     (σ : Qbar ≃ₐ[ℚ] Qbar) :
     ∃ Q : QML3 Qbar, IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
       ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
-  obtain ⟨-, -, hnat⟩ := h1
+  obtain ⟨-, -, -, hnat⟩ := h1
   obtain ⟨Q, hQ, hbc⟩ := hnat Qbar Qbar (σ : Qbar →ₐ[ℚ] Qbar) y P hP
   refine ⟨Q, hbc, (hfib y _ P Q hP hQ).1 ?_⟩
   calc π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) := hj
@@ -885,7 +903,7 @@ theorem conj_iso_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEqui
     ∃ Q₁ Q₂ : QML3 Qbar, IsBaseChangeOf (e₁ : K →+* Qbar) P Q₁ ∧
       IsBaseChangeOf (e₂ : K →+* Qbar) P Q₂ ∧
       ∃ α : O ≃+* O, Nonempty (QMIso (Q₁.q.twist α) Q₂.q) := by
-  obtain ⟨-, -, hnat⟩ := h1
+  obtain ⟨-, -, -, hnat⟩ := h1
   obtain ⟨Q₁, hQ₁, hb₁⟩ := hnat K Qbar e₁ y P hP
   obtain ⟨Q₂, hQ₂, hb₂⟩ := hnat K Qbar e₂ y P hP
   refine ⟨Q₁, Q₂, hb₁, hb₂, ((h2 _ _ Q₁ Q₂ hQ₁ hQ₂).1).1 ?_⟩
@@ -940,7 +958,8 @@ Thm 5.8, pp. 943-944, read by the audit in arXiv v1/v2 and the journal: YES on `
 CM point `x ∈ X₀(6,1)` by an order `R` of conductor `f`, `(f, 6) = 1`, of an imaginary quadratic
 `k`: `ℚ(x) = H_R` (the ring class field, `[H_R : ℚ] = 2h(R)`) if `D(R) ≠ 1`, and `ℚ(x)` is a
 specified subfield of index 2 of `H_R` if `D(R) = 1`; `D(R)` = product of the primes `p ∣ 6`
-inert in `k` (rv-nocm §3.1, h-decomposition R5).
+inert in `k` (rv-nocm §3.1, h-decomposition R5); the printed condition is
+`D(R)·N*(R) ≠ 1`, and `N*(R) = 1` at `N = 1`.
 
 *Lean form*: for a QM pair over `ℚ̄` with `End_𝒪(A) ≅ R`,
 `[ℚ(x) : ℚ] = 2h(R)` if `b(k) ≥ 1` and `h(R)` if `b(k) = 0`, `h(R) = #Pic(R)`; and if
@@ -949,7 +968,8 @@ inert in `k` (rv-nocm §3.1, h-decomposition R5).
 `b = 2`, degree 2) against a fibre field `ℚ(i)`.
 
 *Why faithful*: the degree of the printed field; `ℚ(x)` is the field of moduli for the coarse
-space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)` (polarization unique, as in R1fp);
+space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)`, which uses bp-qmmoduli §2.2
+(the polarization exists and is unique; SPECULATIVE, see `R1fp`);
 "CM by `R`" is `End_𝒪(A) = com ι ≅ R`. Only points of `X₆` (no level structure, no quotient). The
 reading `D(R) = ∏_{p | 6 inert in k} p` is the audited one (checked on Elkies' 24 rows by
 rv-nocm Part B); `R5fpWeak` below drops the case split. -/
@@ -983,7 +1003,8 @@ corrected count.** For an order `R` of conductor prime to 6 in an imaginary quad
 occurring as some `End_𝒪(A)` (equivalently, embedding optimally in `𝒪`, so neither 2 nor 3
 splits in `k`), the number of isomorphism classes of QM pairs over `ℚ̄` with `End_𝒪(A) ≅ R` (the
 CM points by `R` on `X₆ = X₀(6,1)`) is `2^{b(R)} h(R)`. *Why faithful*: `#CM(R) =
-2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs. **Not** the
+2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs (bp-qmmoduli
+§2.2, SPECULATIVE). **Not** the
 false `h(R)` (disc −19: `h = 1`, four points). -/
 def R5fpCount : Prop :=
   ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
@@ -996,7 +1017,11 @@ def R5fpCount : Prop :=
 
 /-- **The bundle of this file's leaves** (replacing the placeholders `R01_ShimuraDeligne`,
 `R02_BabaGranath`, `R05_GonzalezRotger` of `scratch/h-decomposition/Leaves.lean`, in their
-field-point forms). -/
+field-point forms). Faithfulness of every leaf (`R1rec` too, whose objects are identified with points of `Y₃`)
+rests on the published theorems **plus**
+bp-qmmoduli §2.2 (the polarization of a QM pair `(A, ι)` exists and is unique; SPECULATIVE until
+reviewed), because `QML3`/`QMPair` omit `λ`. Polarizations cannot be stated in Lean today
+(no dual abelian variety), so §2.2 cannot be carried as a separate Lean hypothesis. -/
 structure QMLeaves : Prop where
   r1r2 : R1R2fp
   r1rec : R1rec

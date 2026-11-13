@@ -44,3 +44,11 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   `specToEquivOfField_comp_right`, `ToP1.val_comp_right` ((π∘h)(y) = π(h∘y)). The leaf no longer
   asserts a separate π on Y₃: `X6Props` lost its π-clause, `R1R2fp` quantifies only π₆ on X₆,
   and `R1R2fp_Y` produces π := π₆.comp fY.left with `R2fpProps` (compiled). COMPILES.
+- 17:1x adversarial model review (subagent, read-only): no DEFECT; RISKs: (1) every leaf rests on
+  bp-qmmoduli §2.2 (polarization exists and is unique, SPECULATIVE) because QML3/QMPair omit λ;
+  (2) no vacuity guard. NOTEs: audit verdict missing in R1fp docstring; R1hecke ignores λ;
+  CM clauses of R2 need Baba–Granath's §3.1 table (single W-orbit), not Thm 2.1/Lemma 3.1 alone;
+  R5 printed condition is D(R)N*(R) ≠ 1 with N* = 1; Nat.card/finrank are 0 on infinite inputs.
+  Applied: `Nonempty (fieldPt Qbar ⟶ Y)` in R1fpProps and `Nonempty (fieldPt Qbar ⟶ X)` in
+  X6Props; docstrings of R1fp, R1R2fp (R1hecke, R2), R5fp, R5fpCount, QMLeaves repaired.
+  COMPILES, 19 s, all axioms standard.
