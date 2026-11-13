@@ -8,10 +8,12 @@ depends on in `FSPrefix.lean`) is proved below (`fibreSimple_of_pieces`) from
 
 * the leaves T27 (`PkgI3.QMDichotomyYu`, Yu 2013 Thm 1.1) and T6 (`PkgI3.HomFreeFinite`,
   Mumford §19 Thm 3), fields `t27`, `t6` of `TextbookLeaves`, and
-* the textbook leaf `MulIsogeny` (Mumford §4: `[n]` is an isogeny), and
-* three named glue Props (`EndDivisionDescent`, `EndDivisionOfSchemeIso`, `FibreComTrivial`),
+* the textbook leaves `MulIsogeny` (Mumford §4: `[n]` is an isogeny) and `RigidityHom`
+  (Mumford §4 Cor. 1: a morphism preserving `0` is a homomorphism), and
+* two named glue Props (`EndDivisionDescent`, `FibreComTrivial`),
 
-with four proved glue lemmas: `End⁰(A)` a division algebra ⇒ nonzero endomorphisms are isogenies
+with five proved glue lemmas: simplicity is invariant under isomorphism of `k`-schemes
+(`endDivisionOfSchemeIso_of_rigidity`, from `RigidityHom`), `End⁰(A)` a division algebra ⇒ nonzero endomorphisms are isogenies
 (`end0Division_of_homFree`, from T6 and `MulIsogeny`), the QM structure gives `B = ℍ[ℚ,2,-3] →ₐ[ℚ] End⁰(A)`
 (`qm_embeds_end0`), `B` is a division algebra (`B6_isUnit`), and the CM case of Yu's dichotomy
 has a non-integral `𝒪`-centralizer (`centralizerOfMatrixEnd0_of_homFree`, from T6).
@@ -346,19 +348,84 @@ theorem fibreSimple_of_pieces'' (t6 : PkgI3.HomFreeFinite) (t27 : PkgI3.QMDichot
     (h5 : FibreComTrivial) : FibreSimple :=
   fibreSimple_of_pieces' t6 t27 h1 h2 (end0Division_of_homFree t6 hMul) h5
 
-/-- The three unproved glue pieces as one bundle (FS3 is proved from T6 and `MulIsogeny`, FS4
-from T6). -/
+
+/-! ## §4‴ FS2 from the textbook leaf `RigidityHom` -/
+
+/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
+varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
+of `k`-schemes between abelian varieties that sends the identity to the identity is a
+homomorphism. -/
+def RigidityHom : Prop :=
+  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
+
+/-- **FS2 is proved from `RigidityHom`.** For a `k`-isomorphism `e : A.X ≅ B.X`, put
+`b = e(0)`, `ψ = e - b` and `ψ' = e⁻¹ ∘ (· + b)` (translations, in the group of morphisms into
+the group object). They are inverse, preserve the identity, hence are homomorphisms by rigidity;
+conjugation by them carries nonzero endomorphisms of `A` to nonzero endomorphisms of `B`, and
+"finite and surjective" back. -/
+theorem endDivisionOfSchemeIso_of_rigidity (hR : RigidityHom) : EndDivisionOfSchemeIso := by
+  intro k _ A B ⟨e⟩ hB
+  set b : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ B.X := η[A.X] ≫ e.hom with hb
+  set ψ : A.X ⟶ B.X := e.hom * (toUnit A.X ≫ b⁻¹) with hψdef
+  set ψ' : B.X ⟶ A.X := (𝟙 B.X * (toUnit B.X ≫ b)) ≫ e.inv with hψ'def
+  have hu : η[A.X] ≫ toUnit A.X = 𝟙 _ := toUnit_unique _ _
+  have hu' : η[B.X] ≫ toUnit B.X = 𝟙 _ := toUnit_unique _ _
+  have h1 : ψ ≫ ψ' = 𝟙 A.X := by
+    rw [hψ'def, ← Category.assoc, MonObj.comp_mul, Category.comp_id,
+      ← Category.assoc, toUnit_unique (ψ ≫ toUnit B.X) (toUnit A.X), hψdef, _root_.mul_assoc,
+      ← MonObj.comp_mul, inv_mul_cancel, MonObj.comp_one, _root_.mul_one, e.hom_inv_id]
+  have h2 : ψ' ≫ ψ = 𝟙 B.X := by
+    have k1 : ψ' ≫ e.hom = 𝟙 B.X * (toUnit B.X ≫ b) := by
+      rw [hψ'def, Category.assoc, e.inv_hom_id, Category.comp_id]
+    have k2 : ψ' ≫ toUnit A.X ≫ b⁻¹ = toUnit B.X ≫ b⁻¹ := by
+      rw [← Category.assoc, toUnit_unique (ψ' ≫ toUnit A.X) (toUnit B.X)]
+    rw [hψdef, MonObj.comp_mul, k1, k2, _root_.mul_assoc, ← MonObj.comp_mul, mul_inv_cancel,
+      MonObj.comp_one, _root_.mul_one]
+  have h3 : η[A.X] ≫ ψ = η[B.X] := by
+    rw [hψdef, MonObj.comp_mul, ← Category.assoc, hu, Category.id_comp, ← hb, mul_inv_cancel,
+      MonObj.one_eq_one]
+  have h4 : η[B.X] ≫ ψ' = η[A.X] := by
+    rw [hψ'def, ← Category.assoc, MonObj.comp_mul, Category.comp_id, ← Category.assoc, hu',
+      Category.id_comp, MonObj.one_eq_one, _root_.one_mul, hb, Category.assoc, e.hom_inv_id,
+      Category.comp_id]
+  have hψ : IsMonHom ψ := hR k A B ψ h3
+  have hψ' : IsMonHom ψ' := hR k B A ψ' h4
+  intro f hf
+  let g : PkgI3.AbVar.End B := PkgI3.AbVar.Hom.mk' (ψ' ≫ f.hom ≫ ψ)
+  have hfg : f.hom = ψ ≫ g.hom ≫ ψ' := by
+    change f.hom = ψ ≫ (ψ' ≫ f.hom ≫ ψ) ≫ ψ'
+    simp only [Category.assoc, h1, Category.comp_id]
+    rw [← Category.assoc, h1, Category.id_comp]
+  have hg0 : g ≠ 0 := by
+    intro hg
+    apply hf
+    apply PkgI3.AbVar.Hom.ext'
+    rw [hfg, hg, PkgI3.AbVar.Hom.hom_zero, MonObj.one_comp, MonObj.comp_one,
+      PkgI3.AbVar.Hom.hom_zero]
+  obtain ⟨hfin, hsurj⟩ := hB g hg0
+  have : IsIso ψ.left := ⟨ψ'.left, by rw [← Over.comp_left, h1]; rfl,
+    by rw [← Over.comp_left, h2]; rfl⟩
+  have : IsIso ψ'.left := ⟨ψ.left, by rw [← Over.comp_left, h2]; rfl,
+    by rw [← Over.comp_left, h1]; rfl⟩
+  rw [hfg]
+  show IsFinite (ψ ≫ g.hom ≫ ψ').left ∧ Surjective (ψ ≫ g.hom ≫ ψ').left
+  rw [Over.comp_left, Over.comp_left]
+  exact ⟨inferInstance, inferInstance⟩
+
+/-- The two unproved glue pieces as one bundle (FS2 is proved from `RigidityHom`, FS3 from T6
+and `MulIsogeny`, FS4 from T6). -/
 structure FibreSimplePieces : Prop where
   descent : EndDivisionDescent
-  schemeIso : EndDivisionOfSchemeIso
   comTrivial : FibreComTrivial
 
 /-- **`FibreSimple` from the leaf bundle** (`TextbookLeaves.t6` = Mumford §19 Thm 3,
-`TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaf `MulIsogeny` (Mumford §4) and the three
-glue pieces FS1, FS2, FS5.** -/
-theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny)
+`TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaves `MulIsogeny` (Mumford §4) and
+`RigidityHom` (Mumford §4 Cor. 1), and the two glue pieces FS1 (descent along a field extension)
+and FS5 (NoCM on the fibre).** -/
+theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom)
     (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces'' t.t6 t.t27 hMul p.descent p.schemeIso p.comTrivial
+  fibreSimple_of_pieces'' t.t6 t.t27 hMul p.descent (endDivisionOfSchemeIso_of_rigidity hRig)
+    p.comTrivial
 
 /-! ## §5 Finding: `R1fpProps`, `R2fpProps` do not determine `Φ` on closed points
 
@@ -444,6 +511,7 @@ end
 #print axioms G0FibreSimple.fibreSimple_of_pieces'
 #print axioms G0FibreSimple.end0Division_of_homFree
 #print axioms G0FibreSimple.fibreSimple_of_pieces''
+#print axioms G0FibreSimple.endDivisionOfSchemeIso_of_rigidity
 #print axioms G0FibreSimple.r1fpProps_twistBy
 #print axioms G0FibreSimple.r2fpProps_twistBy
 #print axioms G0FibreSimple.fibreComTrivial_twisted

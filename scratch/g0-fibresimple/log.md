@@ -44,6 +44,14 @@
   EndDivisionDescent, FS2 EndDivisionOfSchemeIso, FS5 FibreComTrivial. Standard axioms.
 
 ## Standalone
-- 02:15 `lake env lean scratch/g0-fibresimple/FibreSimple.lean` (20474 lines = Split.lean + Tail): exit 0 in 174 s,
+- 02:11 `lake env lean scratch/g0-fibresimple/FibreSimple.lean` (20474 lines = Split.lean + Tail): exit 0 in 174 s,
   0 errors, no `sorry` warning; `#print axioms` standard three for HSyn.glueOutputs_of_leaves and all 11 new
   theorems (full_out.txt).
+
+## FS2 proved
+- 02:16 COMPILED (exit 0, 18 s): `endDivisionOfSchemeIso_of_rigidity : RigidityHom → EndDivisionOfSchemeIso`.
+  New textbook leaf `RigidityHom` (Mumford §4 Cor. 1 / Milne Cor. 2.2, locators UNVERIFIED: a k-morphism of abelian
+  varieties with η ≫ h = η is IsMonHom). Proof: ψ = e − e(0), ψ' = e⁻¹ ∘ (· + e(0)) in the group of morphisms into
+  the group object; inverse to each other, preserve η, hence homomorphisms; conjugation.
+- `fibreSimple_of_leaves (t : TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom) (p : FibreSimplePieces)`,
+  bundle = FS1 EndDivisionDescent, FS5 FibreComTrivial.
