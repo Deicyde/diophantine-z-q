@@ -12,3 +12,14 @@
 - Mathlib v4.35.0 has no Skolem–Noether and no simplicity of tensor products (grep, VERIFIED).
   ATLAS (`~/aq/atlas-lean`, `MathlibExt.Algebra.Central.SkolemNoether.skolem_noether`) has the
   automorphism case only; not copied (own proof, general two-map form).
+
+## T19 Brauer–Nesbitt (char 0) — PkgI6 form PROVED (VERIFIED, compiled)
+- File: `scratch/t-skolem-kw/BrauerNesbitt.lean` (imports only Mathlib).
+- Statement copied verbatim: `PkgI6.BrauerNesbittChar0` (= `GlueC10.BrauerNesbittChar0`).
+- Theorem `TSkolemKW.brauerNesbittChar0 : BrauerNesbittChar0`; axioms propext, Classical.choice,
+  Quot.sound.
+- General form proved: `brauerNesbitt_module` — for any `k`-algebra `R` (char k = 0), finite-dim
+  semisimple `R`-modules with equal traces `r ↦ tr_k(r|M)` are isomorphic.
+- Auxiliary: `isNilpotent_of_trace_pow_eq_zero` (char 0: all `tr(f^j) = 0`, `j ≥ 1` ⇒ `f`
+  nilpotent; not in Mathlib v4.35.0 by grep), `exists_injective_of_trace_eq`.
+- No Brauer–Nesbitt in Mathlib v4.35.0, ATLAS, or (per prereq-survey) Tau Ceti.
