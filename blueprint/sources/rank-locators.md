@@ -7,7 +7,8 @@ of a slot choice is reviewed in the project-authored note `docs/research/rv-cr3-
 `KERNEL_PLAN.md`. The section deriving CR₃^TYZ_Cl,Rk from three literature statements follows the
 project-authored notes `docs/research/wk-cr3.md` (the plan and the statements) and
 `docs/research/rv-lit.md` (its model review, whose verdict is to adopt with two changes), with the
-paragraph of `KERNEL_PLAN.md` that records the result. These are notes written for this project,
+paragraph of `KERNEL_PLAN.md` that records the result. Its subsection computing $L(C_d,s)$
+follows §4.2 of the project-authored note `docs/research/wk-cr3.md`. These are notes written for this project,
 not published sources. The standard
 facts on the 2-descent and on heights, and the deep theorems behind the hypotheses, are cited at
 the end.
@@ -118,7 +119,8 @@ $L(C_d,s)$ vanishes to order at most one at $s=1$ when $T^{\rm Cl}_{5b}(d)=1$. T
 textbook theorems; the third is Tian–Yuan–Zhang's Theorem 3.5(2) in the reading that Proposition N
 proves, which no refereed text prints (KERNEL_PLAN's wording). Of the texts read for this project,
 only Smith's unrefereed preprint prints that reading (`docs/research/nt-tyz.md` Verdict 1 and §3:
-the journal version of Tian–Yuan–Zhang and Tian's two expository articles were not read).
+Tian's two expository articles were not read; the journal version of Tian–Yuan–Zhang was compared
+with the arXiv version only by the locator audit, see Reading A of Tian-Yuan-Zhang).
 
 `docs/research/rv-lit.md`, cited first: §0 (verdict: adopt, with the functional equation restricted
 to $0<\operatorname{Re}s<2$ and the Gross–Zagier statement renamed with its twist supplier
@@ -149,9 +151,10 @@ on 20 squarefree $d\equiv5\pmod8$ below 4000). `docs/research/rv-lit.md` §2 (th
 reading for every residue characteristic, including split and nonsplit multiplicative reduction at
 $2$ and $3$, and, for a transcription of that recipe (the defined series itself cannot be computed),
 against PARI's coefficients up to $n=300$ on 29 curves, non-minimal models among
-them, with no mismatch). No proved statement links the defined series to point counts; a mismatch
-would make the literature statements false, not vacuous (`docs/research/wk-cr3.md` §3, residual
-risk). The normalization is arithmetic, with centre $s=1$; the series converges
+them, with no mismatch). `docs/research/wk-cr3.md` §3 (residual risk) records that no proved statement linked the
+defined series to point counts, and that a mismatch would make the literature statements false,
+not vacuous; for $C_d$ with odd squarefree $d$ the link is now proved (see the L-series of the
+congruent number curves below), and for other curves it is not. The normalization is arithmetic, with centre $s=1$; the series converges
 absolutely for $\operatorname{Re}s>3/2$ by Hasse's bound (STANDARD; wk-cr3 §3, rv-lit §1.1).
 
 ## Entire continuation
@@ -167,11 +170,64 @@ and for $C_d$ by Deuring and Hecke (STANDARD), so the statements that quantify o
 continuations are not vacuous; and since a continuation is not identically zero, its order of
 vanishing at $s=1$ is finite.
 
+## Minimal equations over a discrete valuation ring
+
+Over a discrete valuation ring with valuation $v$: a change of variables $x=u^2x'+r$,
+$y=u^3y'+su^2x'+t$ multiplies $\Delta$ by $u^{-12}$ and $c_4$ by $u^{-4}$; an equation with
+coefficients in the ring and $v(\Delta)<12$ is minimal; two minimal equations differ by a change of
+variables with $u$ a unit and $r,s,t$ in the ring; and for a minimal equation the reduction is good
+if $v(\Delta)=0$, multiplicative if $v(\Delta)>0$ and $v(c_4)=0$, and additive if $v(\Delta)>0$ and
+$v(c_4)>0$. J. H. Silverman, *The Arithmetic of Elliptic Curves*, 2nd ed., Springer (2009), §III.1
+(changes of variables, Table 3.1), §VII.1 (minimal equations: the criterion $v(\Delta)<12$ and the
+uniqueness up to a change of variables with $u$ a unit) and Proposition VII.5.1 (the reduction
+types). `docs/research/rv-lit.md` §2 (an AI model review) cites Proposition VII.5.1 and checks by
+reading that the local polynomial used for $L(E,s)$ takes the minimal equation over the completion,
+with these reduction types and Silverman's factors; `docs/research/wk-cr3.md` (an AI-authored
+project note) §1.2 (item "The L-function") records the same check. The section numbers other than
+VII.5.1 are not cited by any project note and were not checked against the book. That the local
+polynomial at a place of good reduction, or of additive reduction with nonzero discriminant, can be
+read off any minimal equation, not only a chosen one, is proved here from minimality: for nonzero
+discriminant, a change of variables between two minimal equations has $v(u)=0$ (the unit half of
+Silverman's uniqueness statement). A change of variables, and an isomorphism of fields applied to
+the coefficients, preserve the number of points over a field (STANDARD).
+
+## The L-series of the congruent number curves
+
+For odd squarefree $d$, the equation $y^2=x^3-d^2x$ has $\Delta=64d^6=(2d)^6$ and $c_4=48d^2$; it is
+minimal at every prime, since $p^{12}\nmid(2d)^6$; it has good reduction at the primes $p\nmid2d$
+and additive reduction at $2$ and at the primes $p\mid d$. So the local factor of $L(C_d,s)$ is
+$1-a_pT+pT^2$ with $a_p=p+1-\#C_d(\mathbb F_p)=p-\#\{(x,y)\in\mathbb F_p^2:y^2=x^3-d^2x\}$ at the
+primes $p\nmid2d$, and $1$ at the primes $p\mid2d$, where the coefficient $a_p$ is $0$; the
+coefficients are multiplicative, and $L(C_d,s)$ is the Dirichlet series of the Euler product over
+the primes $p\nmid2d$. The formula $a_p=p-\#\{(x,y)\}$ holds only at the primes $p\nmid2d$; the
+minimality and the additive reduction are stated for odd squarefree $d$, while good reduction at
+$p\nmid2d$ holds for every $d$. The completion of $\mathbb Q$ at $p$ is $\mathbb Q_p$, with valuation
+ring $\mathbb Z_p$, uniformizer $p$ and residue field $\mathbb F_p$ (STANDARD).
+
+`docs/research/wk-cr3.md` (an AI-authored project note) §4.2 ("Medium investment"): the plan of this
+computation, namely that the model is minimal at every prime with good reduction for $p\nmid2d$ and
+additive reduction for $p\mid2d$, and that the coefficient at $p$ is $p-\#\{(x,y)\in\mathbb F_p^2:
+y^2=x^3-d^2x\}$ for $p\nmid2d$ and $0$ for $p\mid2d$, to remove the risk that the definition of
+$L(E,s)$ used here differs from the textbook one. Its third item ($a_p=0$ for $p\equiv3\pmod4$) and
+its optional Hasse's bound for $C_d$ are not proved here. The checks of the same facts by reading
+and by PARI (wk-cr3 §3, rv-lit §2) are recorded under the L-series of an elliptic curve; the
+residual risk named in wk-cr3 §3, that no lemma connects the definition to point counts, is what
+this computation removes, for odd squarefree $d$.
+
+N. Koblitz, *Introduction to Elliptic Curves and Modular Forms*, 2nd ed., Graduate Texts in
+Mathematics 97, Springer (1993), Chapter II: the zeta function of $y^2=x^3-n^2x$ over $\mathbb F_p$
+and its Hasse–Weil L-function. `docs/research/cr3-trust.md` item D1 cites Chapter II of this book
+for the conductor $32d^2$ of $C_d$ (odd squarefree $d$), as an unverified locator; no project note
+cites it for the zeta function or the point counts of $C_d$, and the chapter was not checked here.
+
 ## Hecke and Deuring
 
 $C_d$ has complex multiplication by $\mathbb Z[i]$, so $L(C_d,s)$ is the L-function of a Hecke
 character of $\mathbb Q(i)$ (Deuring; Hecke), which is entire and satisfies a functional equation
-(STANDARD; locators not checked). `docs/research/wk-cr3.md` §1.2 (item "Analytic continuation") and
+(STANDARD; locators not checked; the primary-source locator audit `docs/research/locators.md`,
+AI agents with web access, 2026-11-12, did not read an original source for it: its row for the
+functional equation is UNVERIFIED as a complete original-supplier audit).
+`docs/research/wk-cr3.md` §1.2 (item "Analytic continuation") and
 §4.3 (proving this here would need Hecke L-functions of $\mathbb Q(i)$ and Deuring's identification
 of $L(C_d,s)$; out of reach); `docs/research/rv-lit.md` §1.1 (existence of the continuation for
 $C_d$) and the row for Hecke's continuation in the table of §1.2 (true, STANDARD).
@@ -182,7 +238,11 @@ With $\Lambda(s)=N^{s/2}(2\pi)^{-s}\Gamma(s)L(C_d,s)$, the functional equation i
 $\Lambda(2-s)=w\Lambda(s)$, with conductor $N=32d^2$ for odd squarefree $d$ and root number $w=-1$
 for $d\equiv5,6,7\pmod8$: Deuring and Hecke for the functional equation, and B. J. Birch and
 N. M. Stephens, Topology 5 (1966), for the sign, cited as `docs/research/cr3-trust.md` B9 cites it
-(title and pages not checked here). The conductor $32d^2$ for odd squarefree $d$ is standard
+(title and pages not checked here). The locator audit `docs/research/locators.md` (row
+FunctionalEquation5) did not read Birch–Stephens's theorem or page, and found that the conductor
+$32d^2$ and the functional equation still need a fully read original source (UNVERIFIED); the
+root number $-1$ for squarefree $d\equiv5,6,7\pmod8$ is printed in Tian–Yuan–Zhang's table
+(arXiv:1411.4728v1, p. 2 of the PDF; journal p. 722). The conductor $32d^2$ for odd squarefree $d$ is standard
 (`docs/research/cr3-trust.md` §1, D1, cites Koblitz, GTM 97, Ch. II; locator not checked); it is
 checked with PARI for 20 squarefree $d\equiv5\pmod8$ below 4000 (`docs/research/wk-cr3.md` §3)
 and for the first 30 such $d$, from $5$ to $285$ (`docs/research/rv-lit.md` §3.2). The statement
@@ -202,25 +262,35 @@ superseded: it calls the all-$s$ draft true; see rv-lit §1.2 and its repair N1.
 ## Reading A of Tian-Yuan-Zhang
 
 Theorem and proposition numbers are those of arXiv:1411.4728v1 (Theorem 3.5 is label `m3`), the
-only version read; the journal version (Asian J. Math. 21 (2017)) was not read and its numbering
-may differ (`docs/research/nt-tyz.md` §1.1 and the numbering warning of §3).
+version the project's notes read (`docs/research/nt-tyz.md` §1.1 and the numbering warning of §3).
+The primary-source locator audit `docs/research/locators.md` (AI agents with web access,
+2026-11-12; not a human check; rows "TYZRow5b / reading A: arXiv" and "TYZ journal comparison")
+read the author-hosted typeset journal version (Asian J. Math. 21 (2017), no. 4, 721–774): there
+Theorem 3.5(2) is on p. 740 and the proof of Proposition 3.4 on pp. 751–753; the arXiv Theorem 1.2
+is Theorem 1.4 (pp. 723–724), which keeps the restriction that every factor exceed $1$, while the
+journal's Theorem 1.2 is a different result; and neither version's Theorem 3.5(2) settles the
+partition convention. The journal's proof was not assessed on Proposition 3.4.
 For $n\equiv5\pmod8$ the second sum of Tian–Yuan–Zhang's Theorem 3.5(2) has terms of two types,
 $(7,3)$ and $(5,1)$, and the $(5,1)$ terms admit three readings. Reading A admits $d_1=1$, so the
 blocks other than the one $\equiv5$ form any, possibly empty, partition into blocks $\equiv1\pmod8$;
 the sum is then $T^{\rm Cl}_{5a}(n)$, and the theorem says that if $2^{-\rho(n)}\mathcal L(n)$ is
 even then $T^{\rm Cl}_{5a}(n)$ and $T^{\rm Cl}_{5b}(n)$ are both even (their sums, with
 $g(d)=\#2\mathrm{Cl}(\mathbb Q(\sqrt{-d}))$; the vault's $T^{\rm Cl}$). The printed Theorem 3.5(2) permits reading A, and their
-proof of Proposition 3.4 needs it; the printed Theorem 1.2, whose last sentence selects the other
-readings, is false as written (for $n=26565$ and $33117$, which have rank $3$ and so $\mathcal L(n)=0$, the
+proof of Proposition 3.4 needs it; the printed Theorem 1.2 (journal Theorem 1.4), whose last
+sentence selects the other readings, is false as written in both versions (for $n=26565$ and $33117$, which have rank $3$ and so $\mathcal L(n)=0$, the
 second sum under those readings is odd; nt-tyz §1.4) and is not cited
-(`docs/research/nt-tyz.md` §1.3–1.4). The hypothesis "$2^{-\rho(n)}\mathcal L(n)$ even" is
-replaced by the stronger hypothesis $\mathcal L(n)=0$ (so the statement is weaker than theirs), that is, order of vanishing at least two (nt-tyz §2.2, fact F6, and
-§4.1). Proposition N proves reading A in this form (its first sentence) from unambiguous statements
+(`docs/research/nt-tyz.md` §1.3–1.4). Only the case $\mathcal L(n)=0$, that is, order of
+vanishing at least two, is needed. The printed hypothesis is a condition on their genus point
+$P(n)$, followed by an "i.e." that restates it as "$2^{-\rho(n)}\mathcal L(n)$ even" and is not
+proved in the paper; when $\mathcal L(n)=0$ the condition on $P(n)$ follows from the first
+assertion of their Theorem 3.5 and their Lemma 3.18, so the "i.e." is not needed (nt-tyz §2.2,
+fact F6, and §4.1). Proposition N proves reading A in this form (its first sentence) from unambiguous statements
 of Tian–Yuan–Zhang (nt-tyz §4); it is unpublished, written for this project, with two model reviews (rv-nt-tyz,
 rv-prop-n) and no human review. The only printed statement of reading A found is
 A. Smith, arXiv:1603.08479, Theorem 2.1, with the two sums as separate rows; it is unrefereed. The
-journal version of Tian–Yuan–Zhang and Tian's expository articles (Notices of the ICCM 5 (2017);
-Proc. ICM 2022) were not read (nt-tyz §3; wk-cr3 §0).
+journal version of Tian–Yuan–Zhang was compared only by the locator audit, as above, and Tian's
+expository articles (Notices of the ICCM 5 (2017); Proc. ICM 2022) were not read (nt-tyz §3;
+wk-cr3 §0).
 
 `docs/research/wk-cr3.md` §1.1 (reading A is the true form; row 5a is rejected as an alternative;
 the smallest gap is Lemmas N1, N2 and fact F5 of Proposition N) and the §3 rows for row 5b and for
@@ -262,8 +332,10 @@ definition uses a regulator, and so presupposes the rank part of the Birch–Swi
 conjecture in analytic rank one, which they cite from Coates–Wiles, Rubin, Gross–Zagier and
 Kolyvagin (`docs/research/cr3-trust.md` B9).
 Theorem, lemma and section numbers here and in Reading A of Tian-Yuan-Zhang are those of
-arXiv:1411.4728v1; the journal version was not read and its numbering may differ
-(`docs/research/nt-tyz.md` §1.1, the numbering warning in §3, and §5.2 item 2).
+arXiv:1411.4728v1 (`docs/research/nt-tyz.md` §1.1, the numbering warning in §3, and §5.2 item 2).
+The locator audit `docs/research/locators.md` (AI agents) read the journal version: Theorem 1.2
+is renumbered Theorem 1.4 there, Theorem 3.5(2) keeps its number (p. 740), and the convolution
+lemma is Lemma 2.9 in both versions; the other numbers were not compared.
 
 ## Gross-Zagier
 

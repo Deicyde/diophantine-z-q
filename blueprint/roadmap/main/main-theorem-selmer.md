@@ -24,7 +24,8 @@ twenty-two-prime pattern.
 
 **Proof sketch.** Proposition 0 identifies the explicit system with the 2-Selmer group, so
 CR₃^Sel implies CR₃; then apply [the main theorem from two hypotheses](main-theorem-two-hypotheses.md)
-(or, with the twenty-two-prime pattern, [the main theorem](main-theorem.md), and with the two
+(or, with the twenty-two-prime pattern,
+[the main theorem from three hypotheses](main-theorem-three-hypotheses.md), and with the two
 statements of route AP, its intermediate forms). Under CR₃^5b, Corollary 4.4 first gives CR₃^Sel,
 and the form with the minimal height hypothesis and CR₃^Sel applies (with the twenty-two-prime
 pattern, the form with CR₃^Sel and the pattern).
@@ -40,7 +41,7 @@ pattern, the form with CR₃^Sel and the pattern).
 
 - [CR₃ from its Selmer form](../selmer/certified-rank-of-sel.md)
 - [The main theorem from two hypotheses](main-theorem-two-hypotheses.md)
-- [The main theorem](main-theorem.md)
+- [The main theorem from three hypotheses](main-theorem-three-hypotheses.md)
 - [CR₃^Sel from the row-5b hypothesis](../rank-5b/certified-rank-sel-of-5b.md)
 
 ## Sources

@@ -44,14 +44,22 @@ differentiable everywhere, with $F(s)=L(E,s)$ for $\operatorname{Re}s>3/2$. The 
 
 The functional equation (Hecke and Deuring, with root number $-1$ for $d\equiv5\pmod8$ by
 Birch–Stephens) and Gross–Zagier (with an auxiliary imaginary quadratic field and modularity)
-follow from textbook theorems. Row 5b is Tian–Yuan–Zhang's Theorem 3.5(2) for $d\equiv5\pmod8$ in
-reading A, in contrapositive form and for the row $(7,3)$ only, with Hecke's continuation for the
-existence of the continuation
+follow from textbook theorems; no original source of Hecke's continuation was read, and the original
+source of the conductor and the functional equation has not been read in full. Row 5b is Tian–Yuan–Zhang's Theorem 3.5(2) for
+$d\equiv5\pmod8$ in reading A, in contrapositive form and for the row $(7,3)$ only, with Hecke's
+continuation for the existence of the continuation
 ([row 5b from reading A and Hecke's continuation](../rank/literature/tyz-row-5b-of-reading-a.md)).
-The only printed statement of reading A found so far is in an unrefereed preprint (the journal
-version of their paper and Tian's expository accounts were not read); a proof written for this
-project (Proposition N), with two automated reviews and no human review, derives it from their
-unambiguous statements. The $j$-form is the bound that the project's trust statement for the
+[The main theorem](main-theorem.md) replaces row 5b by reading A and Hecke's continuation, from
+which row 5b follows, and its proof goes through the first form here. No refereed text found by
+the project's literature search, which AI agents carried out, states reading A explicitly; the one
+statement found is in an unrefereed preprint. Tian, Yuan and Zhang's introductory theorem with the same parity
+criteria (Theorem 1.2 of the arXiv version, Theorem 1.4 of the journal version) requires every
+factor to exceed $1$, and read that way it is false in both versions; their proof of
+Theorem 3.5(2) passes through a proposition whose proof is only a sketch in the arXiv version, and
+the journal's proof was not assessed on this point. The comparison of the two versions was made
+by AI agents, not checked by a human, and Tian's expository accounts were not read. A proof written
+for this project (Proposition N), with two automated reviews and no human review, derives reading A
+from their unambiguous statements. The $j$-form is the bound that the project's trust statement for the
 manuscript's proof of the six-contact estimate gives before its last step. That statement follows
 the manuscript's argument, replaces some of its steps with arguments written for this project and
 one with an argument from another version of the manuscript, and combines three of its bounds into

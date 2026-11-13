@@ -14,8 +14,8 @@ UNVERIFIED (no network).
 **`Leaves.lean` now states 48 of the 56 leaves of the H decomposition concretely, plus three of the
 four parts of a 49th (R1). Only 7 leaves and R1(b) remain `opaque` placeholders** (before: 40 of
 54, 14 placeholders). VERIFIED: `lake env lean scratch/h-decomposition/Leaves.lean` exits 0
-(3m13s, 19.2k lines). There is one `sorry`, the same as before (`HSyn.glueOutputs_of_leaves`),
-8 `opaque` and no `axiom`. All 118 `#print axioms` give `propext`, `Classical.choice`, `Quot.sound`,
+(3m13s, 19,350 lines). There is one `sorry`, the same as before (`HSyn.glueOutputs_of_leaves`),
+8 `opaque` and no `axiom`. All 115 `#print axioms` lines (114 declarations; `HSyn.sixContactMin_of_leaves` is printed twice) give `propext`, `Classical.choice`, `Quot.sound`,
 except `HSyn.sixContactMin_of_leaves`, which adds `sorryAx` through that `sorry`.
 
 | Leaf | Before | Now (Lean name) | Source report |
@@ -60,7 +60,7 @@ h-decomposition §0, §2.1, §6 R7):
 
 ## 1. How the files were folded (VERIFIED)
 
-The four report files import kernel modules: `ZInQKernel.HDecomp.A6.A6`, `.Objects` and
+Two of the four report files (QMLeaves, ModCurveLeaves) import kernel modules; T32a.lean and Faltings.lean import only Mathlib. The kernel modules imported are `ZInQKernel.HDecomp.A6.A6`, `.Objects` and
 `.C10.C10`. Their namespaces `PkgI2`, `PkgI3`, `ObjBridge` and `GlueC10` are also defined in
 `Leaves.lean`, so `Leaves.lean` cannot import them. `scratch/leaf-adopt/fold.py` therefore copied
 their bodies verbatim as four sections, placed after `LeafPushSec`:
@@ -77,7 +77,7 @@ resolve to `Leaves.lean`'s copies, which are the kernel's: `PkgI3.AbVar`,
 `ObjBridge.TorsionStructure`, `ObjBridge.dim`, `GlueC10.IsFrobAt`, `GlueC10.Zbar`. A fifth section,
 `LeafAdoptSec`, is new. It contains the repairs (§2), H5 and `LeafAdopt.abVarEquiv`. The last of
 these is a proved equivalence between def-faltings' copy `ZInQ.DefFaltings.AbVar` and
-`PkgI3.AbVar`; they have the same four fields, and the equivalence preserves `dim` by `rfl`.
+`PkgI3.AbVar`; they have the same five fields (`X` and four instances), and the equivalence preserves `dim` by `rfl`.
 
 The first compile after the insertion had 0 errors (3m29s). So did the compile after the bundle
 edits (3m13s).
@@ -121,7 +121,7 @@ The adopted files also introduce glue targets, which are unproved and are not le
 
 ## 4. What compiles
 
-- `lake env lean scratch/h-decomposition/Leaves.lean`: exit 0, one `sorry` warning (L19192,
+- `lake env lean scratch/h-decomposition/Leaves.lean`: exit 0, one `sorry` warning (L19202 after f2aa85b1's 10 header lines; L19192 at the time of run3;
   `glueOutputs_of_leaves`), 3m13s (VERIFIED, run3; see the log).
 - New `#print axioms`: `HSyn.t32a_glue`, `t32b_glue`, `leafB3a_glue`,
   `GlueB3Unram.unramified_outside_noLeaf`, the adopted leaf-qm-fp, leaf-modcurves and def-faltings

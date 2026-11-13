@@ -1,0 +1,38 @@
+base decls 1683, new decls 2407; changed 3, removed 1, added 725
+CHANGED:
+   HSyn.TextbookLeaves
+   HSyn.glueOutputs_of_leaves
+   HSyn.sixContactMin_of_leaves
+REMOVED:
+   HSyn.T10_TateDuality
+ADDED (namespaces):
+   C9Rhof: 34
+   E1Sub: 50
+   GlueI3: 2
+   GlueI6Rest: 1
+   GlueSSBC: 13
+   GlueSqrtDisj: 33
+   GlueSqrtLocal: 43
+   HSyn: 8
+   HSyn.G0Split: 37
+   HSyn.TextbookLeaves: 6
+   Pi0X6: 73
+   PkgI3: 2
+   PkgI3.RhoCont: 12
+   PkgI3.Tate: 13
+   PkgI6: 11
+   T10Etale: 60
+   T30: 31
+   TDifferent: 55
+   TSkolemKW: 32
+   TSkolemKW.C10: 2
+   TSkolemKW.HS: 17
+   TSkolemKW.KW: 19
+   TSkolemKW.Twist: 3
+   X1Belyi: 26
+   ZInQ.DefFaltings.HodgeLattice: 73
+   ZInQ.H5Neron: 61
+   ZInQ.H5Neron.AbVar: 1
+   ZInQ.H5Neron.GroupModel: 1
+   ZInQ.H5Neron.GroupModel.IsNeronModel: 2
+   ZInQ.H5Neron.NeronProp: 4
