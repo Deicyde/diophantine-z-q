@@ -100,3 +100,9 @@
 - Hypotheses of g9_deRham: R10 (`DeRhamComparison`) + G8 local output; T23 and T10 NOT used.
 - Scope: K = ℚ_p and F/ℚ_p Galois (h-trust C3 "Galois choice"); N5's lemma allows K/ℚ_ℓ finite and
   F/K arbitrary finite — not covered.
+
+## 05:00 CoefDescent.lean
+- `coef_descent` (VERIFIED, `lake env lean` no errors): F/ℚ_p finite Galois, ρ : G_F-rep on V,
+  R : G_{ℚ_p} →* GL₂(ℚ̄_p), e' : ℚ̄_p ⊗ V ≃ₗ[ℚ̄_p] ℚ̄_p²×ℚ̄_p² intertwining ρ|G_F with R∘gf ⊕ R∘gf ⇒
+  ∃ E ⊆ ℚ̄_p finite, ρE : G_{ℚ_p} →* GL₂(E) with map ρE = R, eE : E ⊗ V ≃ₗ[E] E²×E² intertwining.
+  No topology (coset representatives of the finite G_{ℚ_p}/G_F replace Baire).
