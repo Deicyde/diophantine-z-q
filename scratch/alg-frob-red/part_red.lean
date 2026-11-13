@@ -571,6 +571,157 @@ theorem tateBridge35_of_split (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_split hG hS hR hM h2 h3)
 
+/-! ## 5. `ReductionFrobGood` from the extension of `F` and the twisted Frobenius -/
+
+/-- `σ` restricted to `O_v`, for `σ` in the decomposition group of `v`. -/
+def sigV {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ) (hσ : σ ∈ v.decompositionSubgroup ℚ) :
+    v →+* v where
+  toFun y := ⟨σ y, by
+    have h : σ • v = v := hσ
+    have h2 := ValuationSubring.smul_mem_pointwise_smul σ (y : PkgI4.Qbar) v y.2
+    rw [h, AlgEquiv.smul_def] at h2
+    exact h2⟩
+  map_one' := Subtype.ext (map_one σ)
+  map_mul' a b := Subtype.ext (map_mul σ _ _)
+  map_zero' := Subtype.ext (map_zero σ)
+  map_add' a b := Subtype.ext (map_add σ _ _)
+
+/-- An arithmetic Frobenius acts on `κ(v)` as `z ↦ z^p` (proved from `IsArithFrob`). -/
+theorem residue_sigV {v : ValuationSubring PkgI4.Qbar} {σ : PkgI4.GQ} {p : ℕ}
+    (hσ : PkgI4.IsArithFrob σ v p) (y : v) :
+    IsLocalRing.residue v (sigV σ hσ.1 y) = IsLocalRing.residue v y ^ p := by
+  rw [← map_pow, ← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff,
+    ← ValuationSubring.coe_mem_nonunits_iff]
+  have h := hσ.2 y y.2
+  simpa [sigV] using h
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`FExtend` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
+§1.2), applied to the conjugate model).** At a place `v ∣ p` with an abelian scheme `𝒜/O_w`,
+`e : 𝒜_L ≅ A`, `σ` an arithmetic Frobenius at `v`, `F : A → A` finite surjective and
+`f(x) = F ∘ x ∘ Spec(σ)` additive: there are a ring endomorphism `t` of `O_w` (it is
+`σ⁻¹|_{O_w}`) and a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` such that `t` induces
+`Frob⁻¹` on `κ(w)` (`t(a)^p ≡ a`), `F̃` maps the unit section to itself (over `Spec t`), and
+`F̃` extends `F`: whenever `x'` is the lift of `x`, `Spec(σ|_{O_v}) ≫ x' ≫ F̃` is a lift of `f x`.
+
+Why it is true: `f(x) ∈ A(ℚ̄)` for all `x` forces `F` to lie over `Spec(σ⁻¹|_L)`, so `F` is an
+`L`-morphism `A → A^{(t)}`; `A^{(t)}` is the generic fibre of the base change `𝒜^{(t)}` of `𝒜`
+along `t|_{O_w}` (`σ ∈ D(v)`, so `t(O_w) = O_w`), and I2-NMP extends it to `𝒜 → 𝒜^{(t)}`, i.e.
+`F̃`; the lift identity holds on the generic point, and `F̃` fixes `0` since `f(0) = 0` and `𝒜`
+is separated over the integral `Spec O_w`. `t(a)^p ≡ a` since `σ` acts on `κ(v)` as `z ↦ z^p`. -/
+def FExtend : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
+    ∀ p : ℕ, p.Prime →
+      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
+        (hσ : PkgI4.IsArithFrob σ v p)
+        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
+          𝒜 ≅ ObjBridge.toGrp A)
+        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F) →
+        ∃ (Ft : 𝒜.X.left ⟶ 𝒜.X.left) (t : Ow L v →+* Ow L v),
+          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom t) ∧
+          (∀ a, IsLocalRing.residue (Ow L v) (t a) ^ p = IsLocalRing.residue (Ow L v) a) ∧
+          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom t) ≫ (η[𝒜.X]).left ∧
+          ∀ (x : PtQ L A)
+            (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
+            genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
+            ∃ x'' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
+              genMap v 𝒜 e (f x) = Spec.map (CommRingCat.ofHom v.subtype) ≫ x''.left ∧
+              x''.left = Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft
+
+/-- **`FrobMorph` (GLUE; the absolute Frobenius of the special fibre twisted by `F̄`).** Let `O`
+be a local ring with residue field `k` of characteristic `p`, `𝒜/O` an abelian scheme,
+`t : O → O` a ring map inducing `Frob⁻¹` on `k` (`t(a)^p ≡ a`) and `F̃ : 𝒜 → 𝒜` a morphism over
+`Spec(t)` fixing the unit section. Then there is a `k`-morphism `β` of the special fibre
+`Ā = sf 𝒜` fixing `0` with `β ∘ y = F̃ ∘ y ∘ Spec(z ↦ z^p)` on `k̄`-points (after projecting to
+`𝒜`).
+
+Why it is true: `β = Fr_Ā ≫ F̄`, with `Fr_Ā` the absolute Frobenius of the `𝔽_p`-scheme `Ā`
+(over `Fr_{Spec k} = Spec(z ↦ z^p)`) and `F̄ = F̃ ×_{Spec t} Spec(t̄)` the base change (over
+`Spec t̄`, `t̄ = Frob⁻¹`); `β` lies over `Spec(t̄) ∘ Spec(Frob) = id`; on a point,
+`y ≫ Fr_Ā = Fr_{Spec k̄} ≫ y` (naturality of the absolute Frobenius), and `Fr_Ā, F̄` fix `0`. The
+absolute Frobenius of schemes is not in Mathlib 4.35. -/
+def FrobMorph : Prop :=
+  ∀ (O : Type) [CommRing O] [IsLocalRing O] (p : ℕ), p.Prime →
+    CharP (IsLocalRing.ResidueField O) p →
+    ∀ (𝒜 : Grp (Over (Spec (.of O)))) [PkgI2.IsAbelianScheme 𝒜]
+      (Ft : 𝒜.X.left ⟶ 𝒜.X.left) (t : O →+* O),
+      Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom t) →
+      (∀ a, IsLocalRing.residue O (t a) ^ p = IsLocalRing.residue O a) →
+      (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom t) ≫ (η[𝒜.X]).left →
+      ∃ β : (sf 𝒜).X ⟶ (sf 𝒜).X, η[(sf 𝒜).X] ≫ β = η[(sf 𝒜).X] ∧
+        ∀ (y : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (IsLocalRing.ResidueField O)))
+          (φ : AlgebraicClosure (IsLocalRing.ResidueField O) →+*
+            AlgebraicClosure (IsLocalRing.ResidueField O)),
+          (∀ z, φ z = z ^ p) →
+          (y ≫ β).left ≫
+              pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) =
+            Spec.map (CommRingCat.ofHom φ) ≫ y.left ≫
+              pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue O))) ≫ Ft
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`ReductionFrobGood` from `SmoothGeomConnIntegral`, `FExtend` and `FrobMorph` (proved)**,
+with rigidity (`G0FibreSimple.rigidityHom`, proved from Mathlib by mul-rigidity, copied
+verbatim): `ᾱ = β` is a homomorphism because it fixes `0`; the reduction of `f x` is computed
+from the lift `Spec(σ|_{O_v}) ≫ x' ≫ F̃` and `residue_sigV` (`σ` is `z ↦ z^p` on `κ(v)`, and
+`j` commutes with `z ↦ z^p`). -/
+theorem reductionFrobGood_of (hS : SmoothGeomConnIntegral) (hE : FExtend) (hFr : FrobMorph) :
+    ReductionFrobGood := by
+  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
+  obtain ⟨Ft, t, hover, hres, hzero, hlift⟩ := hE L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
+  haveI := charP_kw (L := L) hp hv
+  obtain ⟨β, hβ0, hβ⟩ := hFr (Ow L v) p hp inferInstance 𝒜 Ft t hover hres hzero
+  haveI hAV := sf_isAbelianVariety hS 𝒜
+  haveI hmon : IsMonHom β := G0FibreSimple.rigidityHom _ (ObjBridge.ofGrp (sf 𝒜))
+    (ObjBridge.ofGrp (sf 𝒜)) β hβ0
+  refine ⟨Grp.homMk β, fun j x y ⟨x', hx', hy⟩ => ?_⟩
+  obtain ⟨x'', hx'', hx''eq⟩ := hlift x x' hx'
+  refine ⟨x'', hx'', ?_⟩
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI : CharP (AlgebraicClosure (kw L v)) p :=
+    charP_of_injective_algebraMap (algebraMap (kw L v) _).injective p
+  have h1 := hβ y (frobenius _ p) (fun z => rfl)
+  have hring : Spec.map (CommRingCat.ofHom (frobenius (AlgebraicClosure (kw L v)) p)) ≫
+      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) =
+      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
+        Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) := by
+    simp only [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext z
+    simp only [RingHom.comp_apply, residue_sigV hσ, map_pow, frobenius_def]
+  have h3 := congrArg (fun m => Spec.map (CommRingCat.ofHom
+    (frobenius (AlgebraicClosure (kw L v)) p)) ≫ m ≫ Ft) hy
+  have h5 : Spec.map (CommRingCat.ofHom (frobenius (AlgebraicClosure (kw L v)) p)) ≫
+      (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
+        x'.left) ≫ Ft =
+      Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
+        Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft := by
+    have h4 := congrArg (fun m => m ≫ x'.left ≫ Ft) hring
+    simp only [Category.assoc] at h4 ⊢
+    exact h4
+  have h2 := (congrArg (fun m => Spec.map (CommRingCat.ofHom
+    (frobenius (AlgebraicClosure (kw L v)) p)) ≫ m) (Category.assoc y.left _ Ft).symm).trans
+    (h3.trans h5)
+  rw [hx''eq]
+  exact h1.trans h2
+
+/-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
+`SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
+`FExtend`, `FrobMorph` (proved).** -/
+theorem algFrobRed_of_fine (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hR : ResidueAlgClosure) (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend)
+    (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
+  algFrobRed_of_split hG hS hR hM h2 (reductionFrobGood_of hS hE hFr)
+
+/-- **`TateBridge35` from I3.M0 and the seven pieces (proved).** -/
+theorem tateBridge35_of_fine (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hR : ResidueAlgClosure) (hM : RedRelMul)
+    (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_fine hG hS hR hM h2 hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -593,3 +744,8 @@ end
 #print axioms AlgFrobRedRed.reductionMapGood_of
 #print axioms AlgFrobRedRed.algFrobRed_of_split
 #print axioms AlgFrobRedRed.tateBridge35_of_split
+#print axioms AlgFrobRedRed.sigV
+#print axioms AlgFrobRedRed.residue_sigV
+#print axioms AlgFrobRedRed.reductionFrobGood_of
+#print axioms AlgFrobRedRed.algFrobRed_of_fine
+#print axioms AlgFrobRedRed.tateBridge35_of_fine

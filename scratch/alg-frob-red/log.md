@@ -38,3 +38,15 @@
   ReductionFrobGood → FrobTrace.AlgFrobRed, tateBridge35_of_split (adds PkgI3.TateModuleFree).
 - Run 10: `lake env lean scratch/alg-frob-red/AlgFrobRed.lean` exit 0, no error, no sorry; 18 AlgFrobRedRed axiom
   prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Run 11-13: ReductionFrobGood from FExtend + FrobMorph + rigidity
+- src_Rigidity.lean: verbatim copy of scratch/mul-rigidity/Rigidity.lean (cmp-identical; G0FibreSimple.rigidityHom,
+  proved from Mathlib). build.sh adds its three Mathlib imports at the top and its body after frob-trace's parts.
+- New defs: sigV (σ restricted to O_v for σ ∈ D(v)). New Props: FExtend (glue: I2-NMP on the conjugate model; F̃ over
+  Spec t, t ≡ Frob⁻¹ on κ(w), F̃ fixes the unit section, lift of f x = Spec(σ|O_v) ≫ x' ≫ F̃), FrobMorph (glue: the
+  k-morphism β = Fr_Ā ≫ F̄ of the special fibre, fixing 0, β ∘ y = F̃ ∘ y ∘ Spec(z ↦ z^p) on k̄-points).
+- Proved: residue_sigV (σ acts on κ(v) as z ↦ z^p, from IsArithFrob), reductionFrobGood_of : SmoothGeomConnIntegral →
+  FExtend → FrobMorph → ReductionFrobGood (ᾱ = β is a homomorphism by rigidityHom), algFrobRed_of_fine,
+  tateBridge35_of_fine.
+- Run 13: exit 0, no error, no sorry; 24 axiom prints (23 AlgFrobRedRed + G0FibreSimple.rigidityHom), all
+  [propext, Classical.choice, Quot.sound] (VERIFIED).
