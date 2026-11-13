@@ -23,3 +23,8 @@
   ZInQ.LeafPush2.UniformizationExists → ZInQ.Metrization.AnalyticUniformizationOfDim` (apply T35 to
   A_L over L at σ = τ; dim A_L = dim A by G0Dim.dim_baseChange). Compiles, 0 errors; axioms
   propext, Classical.choice, Quot.sound (VERIFIED).
+- build.sh → Metrization2.lean (5735 lines, `import Mathlib` only): `lake env lean
+  scratch/metrization2/Metrization2.lean` 0 errors in 26 s (Mathlib loaded); no `sorry`, no `axiom`
+  (grep); `#print axioms` of jacDetNondegenerate_of, productLocalStructure_of,
+  metrizationExists_of_productMap, analyticUniformizationOfDim_of_uniformizationExists,
+  HSyn.G0Split.heightAdditivity_of_metrization_v4: propext, Classical.choice, Quot.sound (VERIFIED).
