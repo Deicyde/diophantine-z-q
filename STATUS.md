@@ -7,7 +7,7 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 033423ee, which adds
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 0fd61065, which adds
   proofs of two of the headline's five hypotheses and a proof of H from literature theorems and named glue
   statements)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
@@ -21,11 +21,13 @@ with the Mathlib library.
   them, the functional equation and Hecke's continuation, are now proved in Lean (on the development fork, not
   yet upstream). The other two are Gross–Zagier, a published theorem combined with standard results, and one
   reading of a theorem of Tian, Yuan and Zhang that no refereed text we found states explicitly (caveats below).
+  On the fork, Gross–Zagier is further split into three published theorems with all the glue proved.
 - **Open, and most of the remaining work:** H. In Lean, H now follows with no gaps from 58 theorems from the
   literature (23 research-level, 35 textbook; 56 of them stated over genuine definitions) and 10 named glue
   statements, the manuscript's new arguments and this project's replacements, which the project must still prove.
-  A review found that three of the glue statements must be restated; the repair exists and is being integrated.
-  The glue has been reviewed only by AI models, not by a human.
+  A review found that three of the glue statements could not be proved as first stated; the leaf on the Shimura
+  curve now pins down its moduli map, and with one more glue statement the three are equivalent to their
+  statements for that map. The glue has been reviewed only by AI models, not by a human.
 
 So formalizing the literature theorems alone would not yet complete the proof.
 
@@ -37,7 +39,7 @@ So formalizing the literature theorems alone would not yet complete the proof.
 | Theorem 1.1 from H and the positive-rank statement | proved in Lean |
 | The positive-rank statement from items 1 to 4 below | proved in Lean |
 | Items 2 and 3: the functional equation and Hecke's continuation | proved in Lean on the development fork, not yet upstream |
-| Item 1: Gross–Zagier | a published theorem combined with standard results; assumed |
+| Item 1: Gross–Zagier | a published theorem combined with standard results; assumed (on the fork, split into three published theorems with the glue proved) |
 | Item 4: Tian–Yuan–Zhang, reading A | not printed in this form in any refereed text we found; assumed |
 | H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; assumed |
 | H from 58 literature theorems and 10 glue statements | proved in Lean, in `scratch/h-decomposition/Leaves.lean` (checked separately from the library build) |
@@ -82,7 +84,11 @@ curve (`WeierstrassCurve.LSeries`):
 1. `Literature.GrossZagier`: if an analytic continuation of L(E, s) has a simple zero at s = 1, then E(Q) has a
    point of infinite order, for every elliptic curve E over Q. This is Gross–Zagier (1986) with an auxiliary
    quadratic twist (Bump–Friedberg–Hoffstein 1990) and modularity (Breuil–Conrad–Diamond–Taylor 2001), not one
-   printed sentence.
+   printed sentence. The proof needs it only for C_d with d ≡ 5 (mod 8) squarefree, and on the fork
+   `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` replaces it by three statements:
+   that the theta series of the Hecke character of C_d is a newform (Hecke, Shimura), the nonvanishing of
+   central twisted values (Friedberg–Hoffstein, Bump–Friedberg–Hoffstein), and Gross–Zagier with Gross's
+   conjugation relation, with all the glue proved (docs/research/gz-decomp.md).
 2. `Literature.FunctionalEquation5`: for squarefree d ≡ 5 (mod 8), the functional equation of L(C_d, s) with
    conductor 32d² and root number −1 (Deuring, Hecke; Birch–Stephens 1966), stated on the strip 0 < Re s < 2,
    which avoids the points where Mathlib's Gamma function takes the conventional value 0; a textbook consequence.
@@ -122,7 +128,9 @@ standard facts TYZ use without printing (one of them Hecke's continuation, now p
 has been checked only by AI models. The Lean proof follows a new argument, Proposition N (docs/research/nt-tyz.md,
 section 4), that AI models reviewed twice and no human has reviewed. Conversely, Lean proves that reading A
 implies `PropN.TYZInputs` given Hecke's continuation (`ZInQ.Contrib.PSide.tyzInputs_iff_readingA_of_hecke`), so
-the encoding is exactly as strong as item 4.
+the encoding is exactly as strong as item 4. A further reduction (docs/research/tyz-decomp.md) derives item 4 in
+Lean from three printed results of Tian, Yuan and Zhang, stated over genuine definitions, and one bundled
+statement for the genus points of their section 3, which, given the three, is equivalent to item 4.
 
 ### H, the six-contact height estimate
 
@@ -189,22 +197,27 @@ textbook theorems are now glue, and five of them are proved), and 20 glue steps.
 - **Textbook leaves proved** since 2026-11-12: Skolem–Noether, Brauer–Nesbitt in characteristic 0, Herbrand's
   theorem and the local square-root criterion (from local Kronecker–Weber) are proved and folded into
   `Leaves.lean` as glue. Kronecker–Weber, local Kronecker–Weber, Chebotarev's theorem (finite form), the global
-  forms of Hilbert's different formula and of the different bound, and the existence of a newform with the
-  eigenvalues of a Hecke eigenform are proved under `ZInQKernel/Contrib/`, using the class field theory and
-  modular forms of the Tau Ceti library (Apache-2.0), which is vendored there with its license and notice; the
-  local forms of the different formula and bound, and Abhyankar's lemma, are proved as scratch files. These prove
-  verbatim restatements of the leaves and are not yet folded into `Leaves.lean`. On fork branches, Zariski–Nagata
-  purity is proved in the form the proof uses (over a regular base of dimension at most 2), and so is the
-  vanishing of unramified local classes. The Clebsch–Bolza–Igusa separation of binary sextics is proved in one
-  direction, with the other reduced to sextics with equal invariants.
+  forms of Hilbert's different formula and of the different bound, the existence of a newform with the
+  eigenvalues of a Hecke eigenform, the computation of local `H²(G_{ℚ_v}, ℤ/2)` in cochain form, and the
+  vanishing of unramified local classes, and Brauer–Hasse–Noether with reciprocity for `H²(G_ℚ, ℤ/2)`, are proved
+  under `ZInQKernel/Contrib/`; most of these proofs use the
+  class field theory and modular forms of the Tau Ceti library (Apache-2.0), which is vendored there (its license
+  and notice files are in `ThirdParty/TauCeti/`, and the vendored files that were modified carry the change
+  notices that Apache-2.0 §4(b) asks for, as a script checks). The local forms of the different formula and bound, and Abhyankar's lemma, are proved as scratch
+  files. These prove verbatim restatements of the leaves and are not yet folded into `Leaves.lean`. On a fork
+  branch, Zariski–Nagata purity is proved in the form the proof uses (over a regular base of dimension at most 2).
+  The Clebsch–Bolza–Igusa separation of binary sextics is proved in one direction, with the other reduced to
+  sextics with equal invariants.
 - **The top theorem.** `HSyn.sixContactMin_of_leaves` proves `ZInQ.SixContactMin` from the two bundles of
   leaves and a bundle of ten named glue statements (`HSyn.GluePieces`), with no `sorry` and only the standard
   axioms. Of the ten, four are proved as scratch files (two from Mathlib alone, one with no hypotheses, one from
   two leaves and another of the ten), four are reduced to smaller named statements, and two are open; these
-  results are not yet folded into `Leaves.lean`. A review found that three of the ten cannot be proved from the
-  leaves as stated, because the leaves on the Shimura curve do not pin down its moduli map (the review judged all
-  three true for the genuine map); a repair that pins the map in the leaf exists and is being integrated. Until it
-  lands, the theorem rests on glue statements that will be restated.
+  results are not yet folded into `Leaves.lean`. A review found that three of the ten could not be proved from
+  the leaves as first stated, because the leaves on the Shimura curve did not pin down its moduli map. The leaf
+  R1 now pins it, with two clauses taken from the same Shimura–Deligne theorem (their locators are unverified);
+  with them, each of the three is equivalent to its statement for that map, given one more glue statement
+  (`MobiusGlue`, reduced to a few named facts about curves and a textbook leaf). `HSyn.sixContactMin_of_leaves_pin`
+  proves H from the leaves and this repaired bundle of 11 glue statements.
 - **Proved glue, as separate lemmas** (each from its leaves; adopted into the kernel-checked library under
   `ZInQKernel/HDecomp/`, now 86 modules, or as scratch files on the fork's main; no `sorry`): the step G4 (the Hom
   field), from leaves alone; the adelic bookkeeping of the normalizer of the quaternion order, with
@@ -241,12 +254,12 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 033423ee, checked as 1c2fc980,
-which differs only by STATUS.md and license notices) the build completes;
-all 526 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the reductions, the
+Every Lean change is built before it reaches main. At the current Lean (fork main 0fd61065, checked as 322303a2,
+which differs only by STATUS.md) the build completes;
+all 542 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the reductions, the
 Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three standard axioms,
-with no `sorry`; all 1,469 files under `ZInQKernel/Contrib/` build (11,338 jobs; most of them are the vendored Tau
-Ceti library), and the two proofs of hypotheses depend only on the same axioms; `scripts/check_target.py` confirms the statement; `scratch/h-decomposition/Leaves.lean` compiles
+with no `sorry`; all 1,539 files under `ZInQKernel/Contrib/` build (most of them are the vendored Tau Ceti
+library), and the two proofs of hypotheses depend only on the same axioms; `scripts/check_target.py` confirms the statement; `scratch/h-decomposition/Leaves.lean` compiles
 with no error and no `sorry`, and `HSyn.sixContactMin_of_leaves` depends only on the standard axioms; the site
 builds with no problems; and the blueprint audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
 #24 (before Proposition N): 9,923 jobs, 80 declarations with standard axioms, and an audit replay of 33,548
