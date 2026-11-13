@@ -7,6 +7,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.ArtinMap
+public import ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Restriction
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.ClassFormation
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.Norm
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.UnitsLayer

@@ -13,6 +13,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.CharacterCarry
+import ZInQKernel.Contrib.TauCeti.Backport.Mathlib.Polynomial
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LayerInvariant
 import ZInQKernel.Contrib.TauCeti.FieldTheory.Normal.Embeddings
 import ZInQKernel.Contrib.TauCeti.GroupTheory.Abelianization.Basic
@@ -975,7 +976,7 @@ theorem exists_ideleSumLocalInv_eq_apply_absoluteGaloisGroupMap
       (QuotientGroup.mk' L.relativeTop : L.ground.toSubgroup →* L.Gal).toAdditive,
       AddSubgroup.isOpen_mono
         (H₁ := Subgroup.toAddSubgroup (G := L.ground.toSubgroup) L.relativeTop)
-        (fun u hu ↦ by simp [(QuotientGroup.eq_one_iff u.toMul).2 hu])
+        (fun u hu ↦ by simp [(QuotientGroup.eq_one_iff u.toMul).2 (by simpa using hu)])
         ((L.ground.toSubgroup.subgroupOf_isOpen L.top.toSubgroup L.top.isOpen).preimage
           continuous_toMul), fun _ ↦ rfl⟩
   obtain ⟨y, hy⟩ := exists_ideleSumLocalInv_eq_apply_of_fixingSubgroup L χ' χ hχ hχχ' hF w τ' τ hτ
