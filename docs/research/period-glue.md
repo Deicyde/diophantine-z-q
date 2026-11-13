@@ -274,8 +274,8 @@ The Lean statement:
    - UNVERIFIED numbers.
 2. **Signature** `(0; 2, 4, 6)` of `Γ*/ℚ^× = N_B(𝒪)⁺/ℚ^×`, `B` of discriminant 6. Sources:
    - Takeuchi, *Commensurability classes of arithmetic triangle groups*, J. Fac. Sci. Univ.
-     Tokyo 24 (1977): the class II with `(2, 4, 6)` and quaternion algebra over `ℚ` ramified at
-     `{2, 3}`;
+     Tokyo 24 (1977): its table of the 85 arithmetic triangle groups lists `(2, 4, 6)` with the
+     quaternion algebra over `ℚ` ramified at `{2, 3}` (the table entry was not read);
    - Elkies, *Shimura curve computations*, ANTS-III (1998), §3: `X*(6)` and the `(2,4,6)` group;
    - Baba–Granath (2008), §3.1.
    - UNVERIFIED numbers.
@@ -304,15 +304,16 @@ The Lean statement:
 1. **CM abelian varieties are defined over `ℚ̄`.** An abelian variety over `ℂ` of CM type is
    isomorphic to the base change of one defined over a number field.
    - Shimura–Taniyama, *Complex multiplication of abelian varieties and its applications to
-     number theory* (1961), §12.4, Proposition 26.
-   - Shimura, *Abelian varieties with complex multiplication and modular functions* (1998),
-     Proposition 26.
-   - UNVERIFIED numbers.
+     number theory* (1961);
+   - Shimura, *Abelian varieties with complex multiplication and modular functions* (1998), §12
+     (models over number fields);
+   - no proposition number is given: the numbers recalled from memory could not be checked
+     offline. UNVERIFIED.
    - It applies: `HasCM4` gives an endomorphism `φ` commuting with `ι(𝒪)`, `φ² = −1`. So
      `End⁰(A)` contains `B ⊗ ℚ(i)`, `A` is isogenous to `E²` with `E` CM, and `A` is of CM type.
 2. **Endomorphisms are rigid.** For abelian varieties over an algebraically closed field `k` of
    characteristic 0 and `k ⊆ K`, `Hom_k(A,B) = Hom_K(A_K,B_K)`. This is the kernel's T11b
-   (Mumford; Conrad, *Chow's K/k-image and K/k-trace*, Thm. 3.19; UNVERIFIED). It carries `ι`
+   (Mumford; Conrad, *Chow's K/k-image and K/k-trace*; theorem number UNVERIFIED). It carries `ι`
    and the CM endomorphism down to `ℚ̄`.
 3. **The level structure descends.** `A[3](ℚ̄) = A[3](ℂ)`, both of order `3⁴`.
 
