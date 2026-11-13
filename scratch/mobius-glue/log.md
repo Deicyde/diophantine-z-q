@@ -24,3 +24,9 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
 - §5 mobiusGlue_of_named : CurveRatFactor → CurveSurj → ObjBridge.TorsionStructure →
   AutOInnerFinite → MobiusGlue. compiled.
 - run (04:50): 0 errors, 0 warnings; 6 `#print axioms`, all [propext, Classical.choice, Quot.sound]. VERIFIED.
+- §6 phi_part, SameTripleMor, transfer_pointwise_mor, sameTripleMor_of_mobius, pointwise_of_witness_mor
+  copied from QMPin.lean (identical text, python compare, VERIFIED); new sameTripleMor_of_named,
+  pointwise_of_witness_named (named facts in place of MobiusGlue). run (05:10): 0 errors; 8
+  `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED.
+- Hypotheses of MobiusGlue actually used by the proof: h1' (Y' proper, smooth rel. dim 1, has a
+  ℚ̄-point), h2, h2', hCM, hg, and Φ' Qbar bijective. h1 (R1fpPropsU Y Φ), R1fam/R1univ of Y' unused.
