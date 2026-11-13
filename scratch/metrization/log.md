@@ -138,3 +138,15 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetNondegenerate →
   ProductUniformizationAnalytic → ProductHodgeLattice → HeightAdditivity`. Axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 24: + part_produnif2 — COMPILED 05:16 (1 min 26 s; 0 errors)
+- new glue `ProductLocalStructure` (pure algebraic geometry at complex points: near `(p₁, p₂)`,
+  membership in `U` and a section of `U` are given by sums of products of regular functions on
+  `V₁ ⊂ 𝒢₁`, `V₂ ⊂ 𝒢₂`).
+- `prodPts_local`, `productUniformizationAnalytic_of : ProductLocalStructure →
+  ProductUniformizationAnalytic` PROVED (open neighbourhoods `O ∩ H⁻¹{0}ᶜ`, quotient of
+  holomorphic functions). `productMetrizationGeo_of_local : ProductLocalStructure →
+  ProductHodgeLattice → ProductMetrizationGeo`; `HSyn.G0Split.heightAdditivity_of_metrization_v3 :
+  N1 → H5 → U → HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetNondegenerate →
+  ProductLocalStructure → ProductHodgeLattice → HeightAdditivity`. Axioms [propext,
+  Classical.choice, Quot.sound]. VERIFIED.
