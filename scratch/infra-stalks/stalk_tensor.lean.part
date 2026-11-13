@@ -1,0 +1,348 @@
+
+/-! # The stalk of a fibre product is a localization of the tensor product of stalks
+
+For `z ∈ X ×_S Y` over `x ∈ X`, `y ∈ Y`, `s ∈ S`, the ring map
+`Φ : 𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y} → 𝒪_{X ×_S Y, z}` is a localization at the prime `Φ⁻¹(𝔪_z)`:
+every element of `𝒪_z` is `Φ a / Φ u` with `Φ u` a unit, and `Φ t = 0` implies `u t = 0` for some
+`u` with `Φ u` a unit (`pullback_stalk_tensor_isLocalization`; Stacks 01JT, EGA I 3.6.5,
+UNVERIFIED locators). -/
+
+namespace AlgebraicGeometry
+
+open CategoryTheory Limits TensorProduct
+
+/-- `Spec.map φ` on germs of global sections, at a named point. -/
+theorem stalkMapAt_germ_ΓSpecIso_inv {R S : CommRingCat.{u}} (φ : R ⟶ S) (t : Spec S)
+    {r0 : Spec R} (h : Spec.map φ t = r0) (a : R) :
+    (Spec.map φ).stalkMapAt h ((Spec R).presheaf.germ ⊤ r0 trivial ((Scheme.ΓSpecIso R).inv a)) =
+      (Spec S).presheaf.germ ⊤ t trivial ((Scheme.ΓSpecIso S).inv (φ a)) := by
+  subst h
+  rw [Scheme.Hom.stalkMapAt_rfl]
+  exact (germ_ΓSpecIso_inv_map φ t a).symm
+
+theorem stalkMapAt_comp_apply' {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z) (c : Z.presheaf.stalk z) :
+    (f.stalkMapAt hf).hom ((g.stalkMapAt hg).hom c) = ((f ≫ g).stalkMapAt hfg).hom c := by
+  rw [Scheme.Hom.stalkMapAt_comp f g hf hg hfg]
+  rfl
+
+/-- **Stalks of a fibre product.** See the section docstring. The points are named:
+`x = fst z`, `y = snd z`, `s = f x = g y`; the algebra structures are `f^♯ : 𝒪_s → 𝒪_x` and
+`g^♯ : 𝒪_s → 𝒪_y`. -/
+theorem pullback_stalk_tensor_isLocalization {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Φ : (X.presheaf.stalk x) ⊗[S.presheaf.stalk s] (Y.presheaf.stalk y) →+*
+        (pullback f g).presheaf.stalk z,
+      (∀ a b, Φ (a ⊗ₜ b) =
+        ((pullback.fst f g).stalkMapAt hx).hom a * ((pullback.snd f g).stalkMapAt hy).hom b) ∧
+      (∀ r : (pullback f g).presheaf.stalk z, ∃ a u, IsUnit (Φ u) ∧ r * Φ u = Φ a) ∧
+      (∀ t, Φ t = 0 → ∃ u, IsUnit (Φ u) ∧ u * t = 0) := by
+  let Ox := X.presheaf.stalk x
+  let Oy := Y.presheaf.stalk y
+  let Os := S.presheaf.stalk s
+  let Oz := (pullback f g).presheaf.stalk z
+  letI : Algebra Os Ox := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra Os Oy := (g.stalkMapAt hys).hom.toAlgebra
+  let ψX := ((pullback.fst f g).stalkMapAt hx).hom
+  let ψY := ((pullback.snd f g).stalkMapAt hy).hom
+  letI : Algebra Os Oz := (ψX.comp (f.stalkMapAt hs).hom).toAlgebra
+  have hzs1 : (pullback.fst f g ≫ f) z = s := by rw [Scheme.Hom.comp_apply, hx, hs]
+  have hzs2 : (pullback.snd f g ≫ g) z = s := by rw [Scheme.Hom.comp_apply, hy, hys]
+  -- the two composites `𝒪_s → 𝒪_z` agree
+  have hc0 : ∀ r : Os, ψY ((g.stalkMapAt hys).hom r) = ψX ((f.stalkMapAt hs).hom r) := by
+    intro r
+    rw [stalkMapAt_comp_apply' (pullback.snd f g) g hy hys hzs2,
+      stalkMapAt_comp_apply' (pullback.fst f g) f hx hs hzs1,
+      Scheme.Hom.stalkMapAt_congr pullback.condition.symm hzs2 hzs1]
+  let ψXa : Ox →ₐ[Os] Oz := { ψX with commutes' := fun r => rfl }
+  let ψYa : Oy →ₐ[Os] Oz := { ψY with commutes' := fun r => hc0 r }
+  have hcomm : ∀ a b, Commute (ψXa a) (ψYa b) := fun a b => Commute.all _ _
+  let Φ : Ox ⊗[Os] Oy →+* Oz := (Algebra.TensorProduct.lift ψXa ψYa hcomm).toRingHom
+  have hΦ : ∀ a b, Φ (a ⊗ₜ b) = ψX a * ψY b := fun a b => rfl
+  refine ⟨Φ, hΦ, ?_, ?_⟩
+  -- surjectivity half, from `pullback_stalkGen`
+  · intro r
+    obtain ⟨c, hc, w, hw, hwu, hrw⟩ := pullback_stalkGen f g z r
+    have hle : ((pullback.fst f g).stalkMap z).hom.range ⊔
+        ((pullback.snd f g).stalkMap z).hom.range ≤ Φ.range := by
+      refine sup_le ?_ ?_
+      · rintro _ ⟨a', rfl⟩
+        obtain ⟨a, ha⟩ := Scheme.Hom.exists_stalkMapAt_eq (pullback.fst f g) hx a'
+        exact ⟨a ⊗ₜ 1, by rw [hΦ, map_one, mul_one]; exact ha⟩
+      · rintro _ ⟨b', rfl⟩
+        obtain ⟨b, hb⟩ := Scheme.Hom.exists_stalkMapAt_eq (pullback.snd f g) hy b'
+        exact ⟨1 ⊗ₜ b, by rw [hΦ, map_one, one_mul]; exact hb⟩
+    obtain ⟨a, rfl⟩ := hle hc
+    obtain ⟨u, rfl⟩ := hle hw
+    exact ⟨a, u, hwu, hrw⟩
+  -- kernel half, through affine charts
+  · intro t ht
+    let 𝒱 := S.affineOpenCover
+    let R := 𝒱.X (𝒱.idx s)
+    let jV : Spec R ⟶ S := 𝒱.f (𝒱.idx s)
+    have hsV : f x ∈ Set.range jV := by rw [hs]; exact 𝒱.covers _
+    obtain ⟨A, jU, _, φ, hxU, eU⟩ := exists_affine_chart_over f jV x hsV
+    have hsV' : g y ∈ Set.range jV := by rw [hys]; exact 𝒱.covers _
+    obtain ⟨B, jW, _, ψ, hyW, eW⟩ := exists_affine_chart_over g jV y hsV'
+    letI : Algebra R A := φ.hom.toAlgebra
+    letI : Algebra R B := ψ.hom.toAlgebra
+    let m := pullback.map (Spec.map φ) (Spec.map ψ) f g jU jW jV eU eW
+    have hz : z ∈ Set.range m := by
+      rw [Scheme.Pullback.range_map]
+      exact ⟨by rw [Set.mem_preimage, hx]; exact hxU, by rw [Set.mem_preimage, hy]; exact hyW⟩
+    obtain ⟨t0', ht0'⟩ := hz
+    let e := pullbackSpecIso R A B
+    let T := CommRingCat.of (A ⊗[R] B)
+    let m' : Spec T ⟶ pullback f g := e.inv ≫ m
+    let iL := CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom : A →+* A ⊗[R] B)
+    let iR := CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+      B →ₐ[R] A ⊗[R] B).toRingHom
+    have h1 : m' ≫ pullback.fst f g = Spec.map iL ≫ jU := by
+      simp only [m', m, e, Category.assoc, pullback.lift_fst]
+      rw [← Category.assoc]
+      exact congrArg (· ≫ jU) (pullbackSpecIso_inv_fst R A B)
+    have h2 : m' ≫ pullback.snd f g = Spec.map iR ≫ jW := by
+      simp only [m', m, e, Category.assoc, pullback.lift_snd]
+      rw [← Category.assoc]
+      exact congrArg (· ≫ jW) (pullbackSpecIso_inv_snd R A B)
+    let t0 := e.hom t0'
+    have hmt0 : m' t0 = z := by
+      have he : e.inv (e.hom t0') = t0' := by
+        rw [← Scheme.Hom.comp_apply, Iso.hom_inv_id]; rfl
+      simp only [m', t0]
+      rw [Scheme.Hom.comp_apply, he, ht0']
+    -- chart points
+    let a0 := Spec.map iL t0
+    let b0 := Spec.map iR t0
+    let r0 := Spec.map φ a0
+    have ha0 : jU a0 = x := by
+      have : (m' ≫ pullback.fst f g) t0 = x := by rw [Scheme.Hom.comp_apply, hmt0, hx]
+      rw [h1, Scheme.Hom.comp_apply] at this
+      exact this
+    have hb0 : jW b0 = y := by
+      have : (m' ≫ pullback.snd f g) t0 = y := by rw [Scheme.Hom.comp_apply, hmt0, hy]
+      rw [h2, Scheme.Hom.comp_apply] at this
+      exact this
+    have hφψ : φ ≫ iL = ψ ≫ iR := by
+      ext r
+      change φ r ⊗ₜ[R] (1 : B) = (1 : A) ⊗ₜ[R] ψ r
+      rw [show φ r = r • (1 : A) from (Algebra.algebraMap_eq_smul_one r),
+        show ψ r = r • (1 : B) from (Algebra.algebraMap_eq_smul_one r), TensorProduct.smul_tmul]
+    have hr0' : Spec.map ψ b0 = r0 := by
+      change (Spec.map iR ≫ Spec.map ψ) t0 = (Spec.map iL ≫ Spec.map φ) t0
+      rw [← Spec.map_comp, ← Spec.map_comp, hφψ]
+    have hr0 : jV r0 = s := by
+      change (Spec.map φ ≫ jV) a0 = s
+      rw [eU, Scheme.Hom.comp_apply, ha0, hs]
+    -- germ maps and the stalk isomorphisms of the charts
+    let germT : T →+* (Spec T).presheaf.stalk t0 :=
+      ((Scheme.ΓSpecIso T).inv ≫ (Spec T).presheaf.germ ⊤ t0 trivial).hom
+    let germA : A →+* (Spec A).presheaf.stalk a0 :=
+      ((Scheme.ΓSpecIso A).inv ≫ (Spec A).presheaf.germ ⊤ a0 trivial).hom
+    let germB : B →+* (Spec B).presheaf.stalk b0 :=
+      ((Scheme.ΓSpecIso B).inv ≫ (Spec B).presheaf.germ ⊤ b0 trivial).hom
+    let germR : R →+* (Spec R).presheaf.stalk r0 :=
+      ((Scheme.ΓSpecIso R).inv ≫ (Spec R).presheaf.germ ⊤ r0 trivial).hom
+    let κT := m'.stalkMapAt hmt0
+    let κA := jU.stalkMapAt ha0
+    let κB := jW.stalkMapAt hb0
+    let κR := jV.stalkMapAt hr0
+    haveI : IsIso κT := by
+      simp only [κT, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κA := by
+      simp only [κA, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κB := by
+      simp only [κB, Scheme.Hom.stalkMapAt]; infer_instance
+    haveI : IsIso κR := by
+      simp only [κR, Scheme.Hom.stalkMapAt]; infer_instance
+    have inj : ∀ {P Q : CommRingCat.{u}} (κ : P ⟶ Q) [IsIso κ], Function.Injective κ.hom :=
+      fun κ _ => (ConcreteCategory.bijective_of_isIso κ).1
+    have invκ : ∀ {P Q : CommRingCat.{u}} (κ : P ⟶ Q) [IsIso κ] (q : Q), κ.hom ((inv κ).hom q) = q :=
+      fun κ _ q => by rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+    let γA : A →+* Ox := (inv κA).hom.comp germA
+    let γB : B →+* Oy := (inv κB).hom.comp germB
+    let γR : R →+* Os := (inv κR).hom.comp germR
+    let Θ : T →+* Oz := (inv κT).hom.comp germT
+    -- compatibilities
+    have hγA : ∀ α, κA.hom (γA α) = germA α := fun α => invκ κA _
+    have hγB : ∀ β, κB.hom (γB β) = germB β := fun β => invκ κB _
+    have hγR : ∀ r, κR.hom (γR r) = germR r := fun r => invκ κR _
+    have hΘ : ∀ w, κT.hom (Θ w) = germT w := fun w => invκ κT _
+    have c1 : ∀ r, γA (φ r) = (f.stalkMapAt hs).hom (γR r) := by
+      intro r
+      apply inj κA
+      rw [hγA]
+      have hpt : (jU ≫ f) a0 = s := by rw [Scheme.Hom.comp_apply, ha0, hs]
+      rw [stalkMapAt_comp_apply' jU f ha0 hs hpt,
+        Scheme.Hom.stalkMapAt_congr eU.symm hpt (by rw [Scheme.Hom.comp_apply]; exact hr0),
+        ← stalkMapAt_comp_apply' (Spec.map φ) jV rfl hr0, hγR]
+      exact (stalkMapAt_germ_ΓSpecIso_inv φ a0 rfl r).symm
+    have c2 : ∀ r, γB (ψ r) = (g.stalkMapAt hys).hom (γR r) := by
+      intro r
+      apply inj κB
+      rw [hγB]
+      have hpt : (jW ≫ g) b0 = s := by rw [Scheme.Hom.comp_apply, hb0, hys]
+      rw [stalkMapAt_comp_apply' jW g hb0 hys hpt,
+        Scheme.Hom.stalkMapAt_congr eW.symm hpt
+          (by rw [Scheme.Hom.comp_apply, hr0']; exact hr0),
+        ← stalkMapAt_comp_apply' (Spec.map ψ) jV hr0' hr0, hγR]
+      exact (stalkMapAt_germ_ΓSpecIso_inv ψ b0 hr0' r).symm
+    have c3A : ∀ α, ψX (γA α) = Θ (α ⊗ₜ[R] 1) := by
+      intro α
+      apply inj κT
+      rw [hΘ]
+      have hpt : (m' ≫ pullback.fst f g) t0 = x := by rw [Scheme.Hom.comp_apply, hmt0, hx]
+      rw [stalkMapAt_comp_apply' m' (pullback.fst f g) hmt0 hx hpt,
+        Scheme.Hom.stalkMapAt_congr h1 hpt (by rw [Scheme.Hom.comp_apply]; exact ha0),
+        ← stalkMapAt_comp_apply' (Spec.map iL) jU rfl ha0, hγA]
+      exact stalkMapAt_germ_ΓSpecIso_inv iL t0 rfl α
+    have c3B : ∀ β, ψY (γB β) = Θ ((1 : A) ⊗ₜ[R] β) := by
+      intro β
+      apply inj κT
+      rw [hΘ]
+      have hpt : (m' ≫ pullback.snd f g) t0 = y := by rw [Scheme.Hom.comp_apply, hmt0, hy]
+      rw [stalkMapAt_comp_apply' m' (pullback.snd f g) hmt0 hy hpt,
+        Scheme.Hom.stalkMapAt_congr h2 hpt (by rw [Scheme.Hom.comp_apply]; exact hb0),
+        ← stalkMapAt_comp_apply' (Spec.map iR) jW rfl hb0, hγB]
+      exact stalkMapAt_germ_ΓSpecIso_inv iR t0 rfl β
+    -- the map `A ⊗[R] B → 𝒪_x ⊗[𝒪_s] 𝒪_y`
+    letI : Algebra R (Ox ⊗[Os] Oy) := ((algebraMap Os (Ox ⊗[Os] Oy)).comp γR).toAlgebra
+    let fA : A →ₐ[R] Ox ⊗[Os] Oy :=
+      { (Algebra.TensorProduct.includeLeftRingHom : Ox →+* Ox ⊗[Os] Oy).comp γA with
+        commutes' := fun r => by
+          change γA (φ r) ⊗ₜ[Os] (1 : Oy) = algebraMap Os (Ox ⊗[Os] Oy) (γR r)
+          rw [c1, Algebra.TensorProduct.algebraMap_apply]
+          rfl }
+    let fB : B →ₐ[R] Ox ⊗[Os] Oy :=
+      { (Algebra.TensorProduct.includeRight : Oy →ₐ[Os] Ox ⊗[Os] Oy).toRingHom.comp γB with
+        commutes' := fun r => by
+          change (1 : Ox) ⊗ₜ[Os] γB (ψ r) = algebraMap Os (Ox ⊗[Os] Oy) (γR r)
+          rw [c2, Algebra.TensorProduct.algebraMap_apply']
+          rfl }
+    let ι : T →+* Ox ⊗[Os] Oy :=
+      (Algebra.TensorProduct.lift fA fB (fun _ _ => Commute.all _ _)).toRingHom
+    have hι : ∀ α β, ι (α ⊗ₜ β) = γA α ⊗ₜ γB β := by
+      intro α β
+      change fA α * fB β = _
+      change (γA α ⊗ₜ[Os] (1 : Oy)) * ((1 : Ox) ⊗ₜ[Os] γB β) = _
+      rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+    have hΦι : ∀ w, Φ (ι w) = Θ w := by
+      intro w
+      induction w using TensorProduct.induction_on with
+      | zero => rw [map_zero, map_zero, map_zero]
+      | add w₁ w₂ h₁ h₂ => rw [map_add, map_add, map_add, h₁, h₂]
+      | tmul α β =>
+        rw [hι, hΦ, c3A, c3B, ← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+    -- every element of `𝒪_x`, `𝒪_y` is a fraction of chart elements
+    have locA : ∀ a : Ox, ∃ α u : A, IsUnit (γA u) ∧ a * γA u = γA α := by
+      intro a
+      letI : Algebra Γ(Spec A, ⊤) ((Spec A).presheaf.stalk a0) :=
+        ((Spec A).presheaf.germ ⊤ a0 trivial).hom.toAlgebra
+      have hL : IsLocalization.AtPrime ((Spec A).presheaf.stalk a0)
+          ((isAffineOpen_top (Spec A)).primeIdealOf ⟨a0, trivial⟩).asIdeal :=
+        (isAffineOpen_top (Spec A)).isLocalization_stalk ⟨a0, trivial⟩
+      obtain ⟨⟨p, q⟩, hpq⟩ := @IsLocalization.surj _ _ _ _ _ _ hL (κA.hom a)
+      have hq := @IsLocalization.map_units _ _ _ _ _ _ hL q
+      refine ⟨(Scheme.ΓSpecIso A).hom p, (Scheme.ΓSpecIso A).hom q.1, ?_, ?_⟩
+      · have : germA ((Scheme.ΓSpecIso A).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) q.1)
+        have h' : IsUnit (κA.hom (γA ((Scheme.ΓSpecIso A).hom q.1))) := by
+          rw [hγA, this]; exact hq
+        have := h'.map (inv κA).hom
+        rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+      · apply inj κA
+        rw [map_mul, hγA, hγA]
+        have e1 : germA ((Scheme.ΓSpecIso A).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) q.1)
+        have e2 : germA ((Scheme.ΓSpecIso A).hom p) = algebraMap _ _ p :=
+          congrArg ((Spec A).presheaf.germ ⊤ a0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso A) p)
+        rw [e1, e2]
+        exact hpq
+    have locB : ∀ b : Oy, ∃ β v : B, IsUnit (γB v) ∧ b * γB v = γB β := by
+      intro b
+      letI : Algebra Γ(Spec B, ⊤) ((Spec B).presheaf.stalk b0) :=
+        ((Spec B).presheaf.germ ⊤ b0 trivial).hom.toAlgebra
+      have hL : IsLocalization.AtPrime ((Spec B).presheaf.stalk b0)
+          ((isAffineOpen_top (Spec B)).primeIdealOf ⟨b0, trivial⟩).asIdeal :=
+        (isAffineOpen_top (Spec B)).isLocalization_stalk ⟨b0, trivial⟩
+      obtain ⟨⟨p, q⟩, hpq⟩ := @IsLocalization.surj _ _ _ _ _ _ hL (κB.hom b)
+      have hq := @IsLocalization.map_units _ _ _ _ _ _ hL q
+      refine ⟨(Scheme.ΓSpecIso B).hom p, (Scheme.ΓSpecIso B).hom q.1, ?_, ?_⟩
+      · have : germB ((Scheme.ΓSpecIso B).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) q.1)
+        have h' : IsUnit (κB.hom (γB ((Scheme.ΓSpecIso B).hom q.1))) := by
+          rw [hγB, this]; exact hq
+        have := h'.map (inv κB).hom
+        rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+      · apply inj κB
+        rw [map_mul, hγB, hγB]
+        have e1 : germB ((Scheme.ΓSpecIso B).hom q.1) = algebraMap _ _ q.1 :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) q.1)
+        have e2 : germB ((Scheme.ΓSpecIso B).hom p) = algebraMap _ _ p :=
+          congrArg ((Spec B).presheaf.germ ⊤ b0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso B) p)
+        rw [e1, e2]
+        exact hpq
+    -- clear denominators in `t`
+    have hden : ∀ t' : Ox ⊗[Os] Oy, ∃ (u : A) (v : B) (t₀ : T), IsUnit (γA u) ∧ IsUnit (γB v) ∧
+        (γA u ⊗ₜ[Os] γB v) * t' = ι t₀ := by
+      intro t'
+      induction t' using TensorProduct.induction_on with
+      | zero => exact ⟨1, 1, 0, by simp, by simp, by simp⟩
+      | tmul a b =>
+        obtain ⟨α, u, hu, hau⟩ := locA a
+        obtain ⟨β, v, hv, hbv⟩ := locB b
+        refine ⟨u, v, α ⊗ₜ β, hu, hv, ?_⟩
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_comm (γA u), mul_comm (γB v), hau, hbv, hι]
+      | add t₁ t₂ h₁ h₂ =>
+        obtain ⟨u₁, v₁, s₁, hu₁, hv₁, e₁⟩ := h₁
+        obtain ⟨u₂, v₂, s₂, hu₂, hv₂, e₂⟩ := h₂
+        refine ⟨u₁ * u₂, v₁ * v₂, (u₂ ⊗ₜ v₂) * s₁ + (u₁ ⊗ₜ v₁) * s₂,
+          by rw [map_mul]; exact hu₁.mul hu₂, by rw [map_mul]; exact hv₁.mul hv₂, ?_⟩
+        rw [map_add, map_mul ι, map_mul ι, hι, hι, ← e₁, ← e₂, mul_add]
+        congr 1
+        · rw [← mul_assoc, Algebra.TensorProduct.tmul_mul_tmul, map_mul γA, map_mul γB,
+            mul_comm (γA u₁), mul_comm (γB v₁)]
+        · rw [← mul_assoc, Algebra.TensorProduct.tmul_mul_tmul, map_mul γA, map_mul γB]
+    obtain ⟨u, v, t₀, hu, hv, htu⟩ := hden t
+    have hΘ0 : Θ t₀ = 0 := by
+      rw [← hΦι, ← htu, map_mul, ht, mul_zero]
+    have hgerm0 : germT t₀ = 0 := by
+      rw [← hΘ, hΘ0, map_zero]
+    letI : Algebra Γ(Spec T, ⊤) ((Spec T).presheaf.stalk t0) :=
+      ((Spec T).presheaf.germ ⊤ t0 trivial).hom.toAlgebra
+    have hLT : IsLocalization.AtPrime ((Spec T).presheaf.stalk t0)
+        ((isAffineOpen_top (Spec T)).primeIdealOf ⟨t0, trivial⟩).asIdeal :=
+      (isAffineOpen_top (Spec T)).isLocalization_stalk ⟨t0, trivial⟩
+    have h0' : algebraMap Γ(Spec T, ⊤) ((Spec T).presheaf.stalk t0)
+        ((Scheme.ΓSpecIso T).inv t₀) = 0 := hgerm0
+    obtain ⟨w, hw⟩ := (@IsLocalization.map_eq_zero_iff _ _ _ _ _ _ hLT _).mp h0'
+    let w₀ : T := (Scheme.ΓSpecIso T).hom w.1
+    have hww : w₀ * t₀ = 0 := by
+      have := congrArg (Scheme.ΓSpecIso T).hom hw
+      rwa [map_mul, map_zero, Iso.inv_hom_id_apply] at this
+    refine ⟨ι w₀ * (γA u ⊗ₜ[Os] γB v), ?_, ?_⟩
+    · rw [map_mul, hΦι, hΦ]
+      refine IsUnit.mul ?_ ((hu.map ψX).mul (hv.map ψY))
+      have hgw : IsUnit (germT w₀) := by
+        have e1 : germT w₀ = algebraMap _ _ w.1 :=
+          congrArg ((Spec T).presheaf.germ ⊤ t0 trivial).hom
+            (Iso.hom_inv_id_apply (Scheme.ΓSpecIso T) w.1)
+        rw [e1]
+        exact @IsLocalization.map_units _ _ _ _ _ _ hLT w
+      have h' : IsUnit (κT.hom (Θ w₀)) := by rw [hΘ]; exact hgw
+      have := h'.map (inv κT).hom
+      rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+    · rw [mul_assoc, htu, ← map_mul, hww, map_zero]
+
+end AlgebraicGeometry
+
+#print axioms AlgebraicGeometry.pullback_stalk_tensor_isLocalization
