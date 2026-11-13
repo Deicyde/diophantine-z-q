@@ -831,6 +831,84 @@ theorem toC_conjPt {K : Type} [Field K] (A : PkgI3.AbVar K) (s : K →+* K)
   ext x
   exact hι x
 
+/-! ## §7. Naturality of the comparison of N4 (proved from N1)
+
+With N1, the formula of N4 pins `α`, and `α` is natural: for a homomorphism `f` with linear lift
+`M` (N2), `T_ℓ(f) ∘ α_A = α_B ∘ (M ⊗ 1)` on `1 ⊗ Λ_A`; for `c_*` with antilinear lift `N` (N3),
+`c_* ∘ α_A = α_{A^s} ∘ (N ⊗ 1)` on `1 ⊗ Λ_A`. These are the two compatibilities
+`β⁻¹ V(f) α = φ ⊗ 1` and `β⁻¹ c_* α = F ⊗ 1` of `ConjBettiComparison`, before tensoring with `ℚ`
+and `ℚ_ℓ`. -/
+
+/-- The lattice point `λ` lies in the kernel of `Φ`, and a linear lift maps lattices to lattices:
+`Φ_B(Mλ) = f(Φ_A(λ)) = f(1) = 1`. -/
+theorem lift_mem_lattice {K : Type} [Field K] {A B : PkgI3.AbVar K} {σ : K →+* ℂ} {g h : ℕ}
+    {ΛA : Submodule ℤ (Fin g → ℂ)} {ΛB : Submodule ℤ (Fin h → ℂ)}
+    {ΦA : (Fin g → ℂ) → CPts A σ} {ΦB : (Fin h → ℂ) → CPts B σ}
+    (hA : IsUniformization σ ΛA ΦA) (hB : IsUniformization σ ΛB ΦB) (f : PkgI3.AbVar.Hom A B)
+    (M : (Fin g → ℂ) → (Fin h → ℂ)) (hM : ∀ z, ΦB (M z) = ΦA z ≫ f.hom) (lam : ΛA) :
+    M lam ∈ ΛB := by
+  rw [← hB.2.1, hM, (hA.2.1 _).mpr lam.2]
+  exact MonObj.one_comp f.hom
+
+/-- **Naturality for homomorphisms (proved from N1).** -/
+theorem homT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] {A B : PkgI3.AbVar K}
+    (emb : AlgebraicClosure K →+* ℂ) {g h : ℕ} {ΛA : Submodule ℤ (Fin g → ℂ)}
+    {ΛB : Submodule ℤ (Fin h → ℂ)}
+    {ΦA : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))}
+    {ΦB : (Fin h → ℂ) → CPts B (emb.comp (algebraMap K (AlgebraicClosure K)))}
+    (ℓ : ℕ) [Fact ℓ.Prime]
+    (αA : TensorProduct ℤ ℤ_[ℓ] ΛA ≃ₗ[ℤ_[ℓ]] A.T ℓ)
+    (hαA : ∀ (lam : ΛA) (n : ℕ), toC A emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n)) =
+        ΦA (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
+    (αB : TensorProduct ℤ ℤ_[ℓ] ΛB ≃ₗ[ℤ_[ℓ]] B.T ℓ)
+    (hαB : ∀ (lam : ΛB) (n : ℕ), toC B emb (Additive.toMul ((αB (1 ⊗ₜ lam)).1 n)) =
+        ΦB (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin h → ℂ)))
+    (f : PkgI3.AbVar.Hom A B) (M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ))
+    (hM : ∀ z, ΦB (M z) = ΦA z ≫ f.hom) (lam : ΛA) (hlam : M lam ∈ ΛB) :
+    PkgI3.AbVar.homT f (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ ⟨M lam, hlam⟩) := by
+  apply Subtype.ext; funext n
+  apply Additive.toMul.injective
+  apply (hN1 K B emb 1 one_pos).1
+  change toC B emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n) ≫ f.hom) = _
+  rw [hαB]
+  change embHom emb ≫ Additive.toMul ((αA (1 ⊗ₜ lam)).1 n) ≫ f.hom = _
+  rw [← Category.assoc]
+  change toC A emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n)) ≫ f.hom = _
+  rw [hαA, ← hM, map_smul]
+
+/-- **Naturality for `c_*` (proved from N1 and `toC_conjPt`).** -/
+theorem conjT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (s : K →+* K) (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k)) (emb : AlgebraicClosure K →+* ℂ)
+    (hι : ∀ x, emb (cc x) = starRingEnd ℂ (emb x))
+    (h : (emb.comp (algebraMap K _)).comp s = (starRingEnd ℂ).comp (emb.comp (algebraMap K _)))
+    {g : ℕ} {Λ Λ' : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))}
+    {Φ' : (Fin g → ℂ) → CPts (conjVar A s) (emb.comp (algebraMap K (AlgebraicClosure K)))}
+    (ℓ : ℕ) [Fact ℓ.Prime]
+    (α : TensorProduct ℤ ℤ_[ℓ] Λ ≃ₗ[ℤ_[ℓ]] A.T ℓ)
+    (hα : ∀ (lam : Λ) (n : ℕ), toC A emb (Additive.toMul ((α (1 ⊗ₜ lam)).1 n)) =
+        Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
+    (α' : TensorProduct ℤ ℤ_[ℓ] Λ' ≃ₗ[ℤ_[ℓ]] (conjVar A s).T ℓ)
+    (hα' : ∀ (lam : Λ') (n : ℕ),
+        toC (conjVar A s) emb (Additive.toMul ((α' (1 ⊗ₜ lam)).1 n)) =
+        Φ' (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
+    (N : (Fin g → ℂ) →ₗ[ℝ] (Fin g → ℂ))
+    (hN : ∀ z, Φ' (N z) = twistC A (emb.comp (algebraMap K _)) s h (Φ z))
+    (lam : Λ) (hlam : N lam ∈ Λ') :
+    conjT A s cc hs ℓ (α (1 ⊗ₜ lam)) = α' (1 ⊗ₜ ⟨N lam, hlam⟩) := by
+  apply Subtype.ext; funext n
+  apply Additive.toMul.injective
+  apply (hN1 K (conjVar A s) emb 1 one_pos).1
+  change toC (conjVar A s) emb (conjPt A s cc hs (Additive.toMul ((α (1 ⊗ₜ lam)).1 n))) = _
+  rw [hα', toC_conjPt A s cc hs emb hι h, hα, ← hN]
+  congr 1
+  have e : ∀ v : Fin g → ℂ, ((ℓ : ℂ) ^ n)⁻¹ • v = (((ℓ : ℝ) ^ n)⁻¹ : ℝ) • v := fun v => by
+    ext i
+    rw [Pi.smul_apply, Pi.smul_apply, smul_eq_mul, Complex.real_smul]
+    push_cast; rfl
+  rw [e, e, map_smul]
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -842,3 +920,5 @@ end G0Galois
 #print axioms G0Galois.conjTwistNontrivial_of_comparison
 #print axioms G0Galois.conjTwistFromLeaves_of_comparison
 #print axioms G0Galois.toC_conjPt
+#print axioms G0Galois.homT_tateLattice
+#print axioms G0Galois.conjT_tateLattice

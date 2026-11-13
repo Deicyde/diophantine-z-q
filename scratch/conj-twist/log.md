@@ -35,3 +35,7 @@
   N2 `HomLinearLift` (textbook leaf, BL 1.2.1 Hom form), `conjHom`, `conjCs`, `mapPtIso`,
   `twistC`, N3 `ConjAntiLift` (glue), N5 `ConjVarDim` (glue); proved `toC_conjPt`
   (toC(c_* P) = twistC(toC P)). Compiles, 0 errors; axioms standard. VERIFIED (compiled).
+- 2026-11-13 05:47 §7 added: `lift_mem_lattice` (a lift of a homomorphism maps Λ_A into Λ_B),
+  `homT_tateLattice` (N1 ⇒ T_ℓ(f) α_A(1⊗λ) = α_B(1⊗Mλ)), `conjT_tateLattice`
+  (N1 + toC_conjPt ⇒ c_* α_A(1⊗λ) = α_{A^s}(1⊗Nλ)). Compiles, 0 errors, axioms standard.
+  VERIFIED (compiled).
