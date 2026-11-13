@@ -22,3 +22,15 @@
   `productUnifDims_of_unifOfDim`, **`productUnifDims_of_uniformizationExists :
   ZInQ.LeafPush2.UniformizationExists → ZInQ.ProductUnif.ProductUnifDims`**.
   First compile: 0 errors, 10 s; all 7 `#print axioms` standard (VERIFIED). No sorry, no axiom.
+- `lake build ZInQKernel.HDecomp.Faltings.HodgeLattice`: success (VERIFIED).
+- `part_phl.lean` appended (with metrization's `pullGerm`, `ProductHodgeLattice` verbatim from
+  ProductUnif.lean l. 1842-1904): new glue Props `ProductCotangent` (geometry: cotangent space and
+  conormal lattice of a product model), `DetLatticeProd` (pure algebra: determinant lattice of a
+  direct sum, index multiplicative); proved `dimBaseChange : HodgeLattice.DimBaseChange` (from
+  G0Dim.dim_baseChange), `rank_tensor_of_bijective`, **`productHodgeLattice_of : ProductCotangent →
+  DetLatticeProd → HodgeLattice.CotangentRank → Metrization.AnalyticUniformizationOfDim →
+  Metrization.ProductHodgeLattice`**, `productHodgeLattice_of_tangent` (same with
+  `TangentDimAtOrigin` and T35). First compile: 0 errors, 11 s, all `#print axioms` standard
+  (VERIFIED).
+- infra-stalks (origin/wip/infra-stalks 7667e59b, checked 07:30): has not closed
+  `ProductHodgeLattice` (stalk infrastructure only, no fleet report yet).
