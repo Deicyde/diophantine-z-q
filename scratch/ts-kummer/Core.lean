@@ -1502,9 +1502,142 @@ theorem infTransfer (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[
     rw [← Localization.AtPrime.comap_maximalIdeal (I := h)]
     exact hm2
 
+/-- Compatibility of the Kummer substitution at `∞` (`1/X ↦ s^n/c`) with `ι`. -/
+theorem infSubst_compat {E E' : Type} [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] (ι : E →+* E') (c : ℚ) (n : ℕ) (hc : c ≠ 0)
+    (hshape : KummerShape E E' ι (rInf c n)) :
+    letI := infAlg E
+    ∀ x : InfCoord, algebraMap ℚ[X] E'
+      ((Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n) : ℚ[X] →+* ℚ[X]) x) =
+        ι (algebraMap InfCoord E x) := by
+  letI := infAlg E
+  let σ0 : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n)
+  have hσX : σ0 X = C c⁻¹ * X ^ n := by simp [σ0]
+  have : ((algebraMap ℚ[X] E').comp σ0 : ℚ[X] →+* E') =
+      (ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E') := by
+    apply Polynomial.ringHom_ext
+    · intro a
+      have := RingHom.ext_rat (((algebraMap ℚ[X] E').comp σ0).comp C)
+        (((ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E')).comp C)
+      exact congrArg (fun g => g a) this
+    · simp only [RingHom.comp_apply]
+      rw [hσX]
+      change algebraMap ℚ[X] E' (C c⁻¹ * X ^ n) =
+        ι (algebraMap (RatFunc ℚ) E (eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ X))
+      rw [eval₂_X, map_inv₀ (algebraMap (RatFunc ℚ) E), map_inv₀ ι, hshape.1,
+        ← map_inv₀ (algebraMap (RatFunc ℚ) E'),
+        IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E']
+      congr 1
+      have hCc : algebraMap ℚ[X] (RatFunc ℚ) (C c) ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr (C_ne_zero.mpr hc)
+      rw [rInf, inv_div, eq_div_iff hCc, ← map_mul]
+      congr 1
+      have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+      linear_combination (X ^ n) * h1
+  intro x
+  exact congrArg (fun g => g x) this
+
+/-- **`KummerOtherBranchInf` from `UnramCompositum`.** -/
+theorem kummerOtherBranchInf_of_unram (hU : UnramCompositum) : KummerOtherBranchInf := by
+  intro E _ _ _ _ _ E' _ _ _ _ _ ι c n hn hc hshape S hE Q' hQ'p hQ'e
+  classical
+  letI := infAlg E
+  letI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+  letI : IsDedekindDomain InfCoord := inferInstanceAs (IsDedekindDomain ℚ[X])
+  letI : Algebra ℚ InfCoord := inferInstanceAs (Algebra ℚ ℚ[X])
+  haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+  haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq' rfl
+  let σ0 : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n)
+  let σ : InfCoord →+* ℚ[X] := σ0
+  have hσC : ∀ a : ℚ, σ0 (C a) = C a := fun a => by simp [σ0]
+  have hσX : σ0 X = C c⁻¹ * X ^ n := by simp [σ0]
+  have hsn : σ0 (C c * X) = X ^ n := by
+    rw [map_mul, hσC, hσX, ← mul_assoc, ← C_mul, mul_inv_cancel₀ hc, C_1, one_mul]
+  have hXint : σ0.IsIntegralElem X := by
+    refine ⟨X ^ n - C (C c * X), Polynomial.monic_X_pow_sub_C _ hn.ne', ?_⟩
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, hsn, sub_self]
+  have hint : σ0.IsIntegral := isIntegral_of_X σ0 hσC hXint
+  have hrdeg : 0 < (C c⁻¹ * X ^ n : ℚ[X]).natDegree := by
+    rw [natDegree_C_mul_X_pow n _ (inv_ne_zero hc)]; exact hn
+  have hσinj : Function.Injective σ0 := by
+    rw [injective_iff_map_eq_zero]; intro f hf
+    change f.comp (C c⁻¹ * X ^ n) = 0 at hf
+    rw [comp_eq_zero_iff] at hf
+    rcases hf with hf | ⟨_, hr'⟩
+    · exact hf
+    · exfalso
+      have := congrArg natDegree hr'
+      rw [natDegree_C] at this; omega
+  have hσu : ∀ g' : Ideal ℚ[X], g'.IsPrime → X ∉ g' → σ infUnif ∉ g' := by
+    intro g' hg'p hXg' hm
+    change σ0 X ∈ g' at hm
+    rw [hσX] at hm
+    rcases hg'p.mem_or_mem hm with h1 | h1
+    · exact hg'p.ne_top (Ideal.eq_top_of_isUnit_mem _ h1
+        (isUnit_C.mpr (Ne.isUnit (inv_ne_zero hc))))
+    · exact hXg' (hg'p.mem_of_pow_mem n h1)
+  by_contra hcon
+  push_neg at hcon
+  obtain ⟨hne, hS'⟩ := hcon
+  apply hQ'e
+  set g := Q'.under ℚ[X] with hg_def
+  haveI hgp : g.IsPrime := Ideal.IsPrime.under _ _
+  have hQ'0 : Q' ≠ ⊥ := by rintro rfl; exact hQ'e (Ideal.ramificationIdx_bot_eq_one _)
+  have hg0 : g ≠ ⊥ := Ideal.IsIntegral.under_ne_bot ℚ[X] hQ'0
+  have hXg : X ∉ g := fun hX => hne (eq_span_X_of_mem g hX)
+  set h := g.comap σ with hh_def
+  haveI hhp : h.IsPrime := Ideal.IsPrime.comap σ
+  have hh0 : h ≠ ⊥ := by
+    letI : Algebra SrcPoly ℚ[X] := (σ0 : SrcPoly →+* ℚ[X]).toAlgebra
+    haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
+    exact Ideal.IsIntegral.under_ne_bot SrcPoly hg0
+  have hu : infUnif ∉ h := hσu g hgp hXg
+  have hadj : letI := ι.toAlgebra
+      IntermediateField.adjoin E (Set.range (algebraMap ℚ[X] E')) = ⊤ := by
+    letI := ι.toAlgebra
+    refine eq_top_iff.mpr ((adjoin_eq_top_of_shape ι _ hshape).symm.le.trans
+      (IntermediateField.adjoin.mono _ _ _ ?_))
+    rintro _ rfl
+    exact ⟨X, rfl⟩
+  refine compositum_core0 hU InfCoord (RatFunc ℚ) E E' ℚ[X] ι σ
+    (infSubst_compat ι c n hc hshape) (finite_of_isIntegral _ hint) hσinj (polyMap_injective E')
+    h hh0 hadj ?_ ?_ Q' rfl
+  · intro Q hQ hQu
+    obtain ⟨QX, hQXp, heq, hb⟩ := infTransfer E h hu Q hQ hQu
+    rw [← heq]
+    apply hE QX hQXp
+    intro b' hb' hQXb
+    obtain ⟨hb'0, hmem⟩ := hb b' hQXb
+    apply hS' b' hb' hb'0
+    have hm : σ (toInf (C b' * X - 1)) ∈ g := hmem
+    have e : (C b' * X ^ n - C c : ℚ[X]) = C c * σ (toInf (C b' * X - 1)) := by
+      change _ = C c * σ0 (C b' * X - 1)
+      rw [map_sub, map_mul, hσC, hσX, map_one]
+      have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+      linear_combination (-(C b' * X ^ n)) * h1
+    rw [e]; exact Ideal.mul_mem_left _ _ hm
+  · intro g' hg'p hg'
+    have hg'0 : g' ≠ ⊥ := by
+      rintro rfl
+      apply hh0
+      rw [← hg']
+      exact Ideal.comap_bot_of_injective σ hσinj
+    have hXg' : X ∉ g' := by
+      intro hX
+      apply hu
+      rw [← hg']
+      have : σ0 X ∈ g' := by
+        rw [hσX]; exact Ideal.mul_mem_left _ _ (Ideal.pow_mem_of_mem _ hX n hn)
+      exact this
+    have hder := derivative_notMem 0 c n hn hc g' hXg'
+    rw [C_0, zero_add] at hder
+    exact polyUnram _ hrdeg hint g' hg'0 hder
+
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
 #print axioms TsKummer.compositum_core0
 #print axioms TsKummer.kummerOtherBranchFin_of_unram
 #print axioms TsKummer.unramCompositum
+#print axioms TsKummer.kummerOtherBranchInf_of_unram
