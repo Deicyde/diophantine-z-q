@@ -37,3 +37,8 @@
 - (VERIFIED, compiled ~17:55) `ech a b p = e(a p₁ + b p₂)`, `hasSum_gaussThetaDual`
   (dual kernel = Σ_p −i·gz₀₀(p)·e(a p₁ + b p₂)·exp(−π gq₀₀(p) t)), `hasSum_gaussLambdaDual`
   (its Mellin transform as a lattice Dirichlet series, Re s > 3/2).
+- (VERIFIED, compiled ~18:00) `fourierHat M c ν = Σ_j c(j) e(j·ν/M)`, `lambdaC M c = Σ_j c(j) Λ_{j/M}`
+  (entire), `lambdaC_eq` (π^{−s}Γ(s)T_c(s) = M (M²)^{−s} Λ_c(s), Re s > 3/2), `dual_eq`,
+  `FourierRel M c κ : Prop` (ĉ((1+i)μ) = κ c(μ), ĉ = 0 off (1+i)ℤ[i]), `fourierRel_const_mul`,
+  `mulOneAddI_injective`, `fourier_tsum_eq`, `lambdaC_two_sub`:
+  FourierRel M c κ → ∀ s, Λ_c(2−s) = −iκ(1+i)·2^{−s}·M·(M²)^{−s}·Λ_c(s) (identity theorem).

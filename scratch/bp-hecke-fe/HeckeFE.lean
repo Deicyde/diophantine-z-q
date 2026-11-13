@@ -553,4 +553,132 @@ theorem hasSum_gaussLambdaDual (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
       · push_cast; ring_nf
       · push_cast; linarith
 
+/-! ### The functional equation of periodic twists, given a Fourier relation -/
+
+/-- The finite Fourier transform `ĉ(ν) = Σ_{j ∈ (ℤ/M)²} c(j) e((j₁ν₁ + j₂ν₂)/M)`. -/
+noncomputable def fourierHat (M : ℕ) (c : ZMod M × ZMod M → ℂ) (p : ℤ × ℤ) : ℂ :=
+  ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+    ech (((j.1 : ℕ) : ℝ) / (M : ℝ)) (((j.2 : ℕ) : ℝ) / (M : ℝ)) p
+
+/-- The completed twisted L-function `Λ_c = Σ_j c(j) Λ_{j/M}` (entire). -/
+noncomputable def lambdaC (M : ℕ) (c : ZMod M × ZMod M → ℂ) (s : ℂ) : ℂ :=
+  ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+    gaussLambda (((j.1 : ℕ) : ℝ) / (M : ℝ)) (((j.2 : ℕ) : ℝ) / (M : ℝ)) s
+
+theorem differentiable_lambdaC (M : ℕ) (c : ZMod M × ZMod M → ℂ) :
+    Differentiable ℂ (lambdaC M c) :=
+  Differentiable.fun_sum fun _ _ => (differentiable_gaussLambda _ _).const_mul _
+
+/-- `Λ_c(s) = M^{2s−1} π^{−s} Γ(s) T_c(s)`, in the form `π^{−s}Γ(s)T_c(s) = M (M²)^{−s} Λ_c(s)`. -/
+theorem lambdaC_eq (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    π ^ (-s) * Gamma s * twistedL M c s =
+      (M : ℂ) * (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s := by
+  rw [twistedL_eq M c hs, lambdaC, Finset.mul_sum, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [← (hasSum_gaussLambda _ _ hs).tsum_eq, gaussL]
+  simp_rw [mul_div_assoc]
+  rw [tsum_mul_left]
+  simp only [cpow_neg]
+  ring
+
+/-- The dual side as a Dirichlet series with the Fourier transform. -/
+theorem dual_eq (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+      gaussLambdaDual (((j.1 : ℕ) : ℝ) / (M : ℝ)) (((j.2 : ℕ) : ℝ) / (M : ℝ)) s =
+    π ^ (-s) * Gamma s * (-I) *
+      ∑' p : ℤ × ℤ, fourierHat M c p * gz 0 0 p / (gq 0 0 p : ℂ) ^ s := by
+  have h := hasSum_sum (s := Finset.univ) fun (j : Fin M × Fin M) _ =>
+    (hasSum_gaussLambdaDual (((j.1 : ℕ) : ℝ) / (M : ℝ)) (((j.2 : ℕ) : ℝ) / (M : ℝ)) hs).mul_left
+      (c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)))
+  rw [← h.tsum_eq, ← tsum_mul_left]
+  refine tsum_congr fun p => ?_
+  rw [fourierHat, Finset.sum_mul, Finset.sum_div, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  ring
+
+/-- The Fourier relation: `ĉ` vanishes off `(1+i)ℤ[i]` and `ĉ((1+i)μ) = κ c(μ)`. -/
+def FourierRel (M : ℕ) (c : ZMod M × ZMod M → ℂ) (κ : ℂ) : Prop :=
+  (∀ μ : ℤ × ℤ, fourierHat M c (μ.1 - μ.2, μ.1 + μ.2) = κ * c ((μ.1 : ZMod M), (μ.2 : ZMod M))) ∧
+  (∀ ν : ℤ × ℤ, Odd (ν.1 + ν.2) → fourierHat M c ν = 0)
+
+theorem fourierRel_const_mul {M : ℕ} {c : ZMod M × ZMod M → ℂ} {κ : ℂ} (h : FourierRel M c κ)
+    (r : ℂ) : FourierRel M (fun x => r * c x) κ := by
+  have hh : ∀ p, fourierHat M (fun x => r * c x) p = r * fourierHat M c p := fun p => by
+    rw [fourierHat, fourierHat, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun j _ => by ring
+  refine ⟨fun μ => ?_, fun ν hν => ?_⟩
+  · rw [hh, h.1 μ]; ring
+  · rw [hh, h.2 ν hν, mul_zero]
+
+/-- `μ ↦ (1 + i) μ` on `ℤ²`. -/
+def mulOneAddI (μ : ℤ × ℤ) : ℤ × ℤ := (μ.1 - μ.2, μ.1 + μ.2)
+
+theorem mulOneAddI_injective : Function.Injective mulOneAddI := by
+  intro x y h
+  simp only [mulOneAddI, Prod.mk.injEq] at h
+  ext <;> omega
+
+theorem fourier_tsum_eq (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {κ : ℂ}
+    (hF : FourierRel M c κ) (s : ℂ) :
+    ∑' p : ℤ × ℤ, fourierHat M c p * gz 0 0 p / (gq 0 0 p : ℂ) ^ s =
+      κ * (1 + I) * (2 : ℂ) ^ (-s) * twistedL M c s := by
+  set f := fun p : ℤ × ℤ => fourierHat M c p * gz 0 0 p / (gq 0 0 p : ℂ) ^ s
+  have hsupp : Function.support f ⊆ Set.range mulOneAddI := by
+    intro ν hν
+    by_cases hpar : Odd (ν.1 + ν.2)
+    · exact absurd (by simp [f, hF.2 ν hpar]) hν
+    · rw [Int.not_odd_iff_even] at hpar
+      obtain ⟨k, hk⟩ := hpar
+      refine ⟨(k, k - ν.1), ?_⟩
+      simp only [mulOneAddI]
+      ext <;> simp; omega
+  rw [← mulOneAddI_injective.tsum_eq hsupp, twistedL, ← tsum_mul_left]
+  refine tsum_congr fun μ => ?_
+  simp only [f, mulOneAddI]
+  rw [hF.1 μ]
+  have hz : gz 0 0 (μ.1 - μ.2, μ.1 + μ.2) = (1 + I) * gz 0 0 μ := by
+    simp only [gz]; push_cast; ring_nf; rw [I_sq]; ring
+  have hq : gq 0 0 (μ.1 - μ.2, μ.1 + μ.2) = 2 * gq 0 0 μ := by
+    simp only [gq]; push_cast; ring
+  rw [hz, hq, ofReal_mul, mul_cpow_ofReal_nonneg (by norm_num) (gq_nonneg _ _ _), cpow_neg]
+  push_cast
+  field_simp
+
+/-- **Functional equation of `Λ_c`** under the Fourier relation:
+`Λ_c(2 − s) = −iκ(1+i) · 2^{−s} · M · (M²)^{−s} · Λ_c(s)` for all `s`. -/
+theorem lambdaC_two_sub (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {κ : ℂ}
+    (hF : FourierRel M c κ) (s : ℂ) :
+    lambdaC M c (2 - s) = -I * κ * (1 + I) * (2 : ℂ) ^ (-s) * (M : ℂ) *
+      (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s := by
+  have hM2 : (((M : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast pow_ne_zero 2 (Nat.cast_ne_zero.mpr (NeZero.ne M))
+  have : NeZero (((M : ℝ) ^ 2 : ℝ) : ℂ) := ⟨hM2⟩
+  have hdiff1 : Differentiable ℂ (fun s => lambdaC M c (2 - s)) :=
+    (differentiable_lambdaC M c).comp ((differentiable_const _).sub differentiable_id)
+  have hdiff2 : Differentiable ℂ (fun s => -I * κ * (1 + I) * (2 : ℂ) ^ (-s) * (M : ℂ) *
+      (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s) := by
+    refine (((Differentiable.const_mul ?_ _).mul_const _).mul ?_).mul (differentiable_lambdaC M c)
+    · exact (differentiable_const_cpow_of_neZero (2 : ℂ)).comp differentiable_id.neg
+    · exact (differentiable_const_cpow_of_neZero _).comp differentiable_id.neg
+  -- agreement on `Re s > 3/2`
+  have hU : {s : ℂ | 3 / 2 < s.re} ∈ nhds (2 : ℂ) :=
+    (isOpen_lt continuous_const Complex.continuous_re).mem_nhds (by norm_num)
+  have hev : (fun s => lambdaC M c (2 - s)) =ᶠ[nhds (2 : ℂ)] (fun s => -I * κ * (1 + I) *
+      (2 : ℂ) ^ (-s) * (M : ℂ) * (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s) := by
+    refine Filter.mem_of_superset hU fun s hs' => ?_
+    have hs : 3 / 2 < s.re := hs'
+    have h1 : lambdaC M c (2 - s) = ∑ j : Fin M × Fin M,
+        c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+          gaussLambdaDual (((j.1 : ℕ) : ℝ) / (M : ℝ)) (((j.2 : ℕ) : ℝ) / (M : ℝ)) s := by
+      rw [lambdaC]
+      exact Finset.sum_congr rfl fun j _ => by rw [gaussLambda_two_sub]
+    show lambdaC M c (2 - s) = _
+    rw [h1, dual_eq M c hs, fourier_tsum_eq M c hF s]
+    have h2 := lambdaC_eq M c hs
+    linear_combination (-I * κ * (1 + I) * (2 : ℂ) ^ (-s)) * h2
+  have hfa := Complex.analyticOnNhd_univ_iff_differentiable.mpr hdiff1
+  have hga := Complex.analyticOnNhd_univ_iff_differentiable.mpr hdiff2
+  exact hfa.eqOn_of_preconnected_of_eventuallyEq hga isPreconnected_univ (Set.mem_univ 2) hev
+    (Set.mem_univ s)
+
 end BpHeckeFE
