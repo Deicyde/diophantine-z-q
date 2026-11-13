@@ -1,7 +1,7 @@
 # leaf-modcurves: `X₁(N)`, `J₁(N)` over `ℚ` and a concrete R16
 
 Task leaf-modcurves, 2026-11-12, following `docs/research/bp-modcurves.md`. The Lean file is
-`scratch/leaf-modcurves/ModCurveLeaves.lean` (about 840 lines; it imports the kernel modules
+`scratch/leaf-modcurves/ModCurveLeaves.lean` (1025 lines; it imports the kernel modules
 `ZInQKernel.HDecomp.Objects` and `ZInQKernel.HDecomp.C10.C10`). The results log is
 `scratch/leaf-modcurves/log.md`.
 
@@ -18,7 +18,8 @@ host has no network).
    `R16_EichlerShimuraJ1` of `scratch/h-decomposition/Leaves.lean`. It uses only Mathlib, the
    kernel's `PkgI3.AbVar` with its Tate module and Galois representation, and the kernel's
    `GlueC10.IsFrobAt`. It is a consequence of Shimura 1973 Thm 1 (**unconditional clauses
-   only**), the rank-2 freeness of `V_ℓ(A_f)` and the Eichler–Shimura congruence relation. It
+   only**), the rank-2 freeness of `V_ℓ(A_f)` and the printed characteristic polynomial of
+   Frobenius on `V_ℓ(A_f)`, which rests on the Eichler–Shimura congruence relation. It
    never uses the zeta clause, so Thm 1's Fricke/`Γ₀` condition plays no role (§3). VERIFIED that
    it compiles; the faithfulness argument is in §3.
 2. **`X₁(N)` over `ℚ` is defined by its function field.** `IsX1Model N X` says: `X` is a smooth
@@ -56,11 +57,16 @@ host has no network).
      2-dimensional `G_ℚ`-stable space of functionals on `V_ℓ(J₁(N))` with Frobenius trace
      `ι(a_p)` and determinant `ι(χ(p))p`. This is the "2-dimensional subquotient of
      `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`" of the former R16 placeholder, now derived.
+   - **`rhoF_attached`** (C9 bridge). Given `ιC : ℚ̄ → ℂ` and `ιL : ℚ̄ → ℚ̄_ℓ`, R16's `ρ_{f,ι}`
+     with `ι = ιL ∘ ιC⁻¹` (`embOf`) satisfies the trace clause of `Leaves.lean`'s
+     `PkgI4.GaloisRep.AttachedTo`. At `p ∤ Nℓ` there is `α ∈ ℚ̄` with `ιC α = a_p(f)`, and
+     `tr ρ(σ) = ιL α` for every `PkgI4.IsArithFrob σ`.
 6. **An independent model review** found no false, over-strong or vacuous leaf. Its one
    sourcing finding is applied (§6).
 7. **What remains before C9, E1, E2 can be instantiated** is listed in §5. In short:
-   - C9 needs bridges from R16's `ρ_{f,ι}` to the abstract eigenform representation of
-     `EigenformRepExists` and to C8's `r₅`.
+   - C9: the trace half is done (`rhoF_traces`, `rhoF_attached`). Still open: semisimplicity and
+     continuity of `rhoF` (both medium), after which Brauer–Nesbitt identifies `rhoF` with R14's
+     representation and with C8's `r₅`.
    - E1 needs `ρ_{f,ι}` as a *sub*representation of `V_ℓ(J₁(N)_{L'}) ⊗ E`. This comes from
      Poincaré reducibility (leaf T8) and a base-change-of-Tate-modules lemma.
    - E2 needs R18, so it is blocked on the Faltings height (WP10). Its genus half is done
@@ -71,7 +77,7 @@ host has no network).
 ## §1. What compiles (VERIFIED: `lake env lean scratch/leaf-modcurves/ModCurveLeaves.lean`, exit 0, no errors, no warnings, no `sorry`)
 
 Every `#print axioms` (for `genus_Gamma1_le`, `IsJacobian.unique`, `dualAct_mem`, `dim_J1_le`,
-`exists_J1_dim_le`, `exists_J1_quotient`, `rhoF_traces`, `isFrobAt_of_isArithFrob`, `g13_constituent`) gives `propext`, `Classical.choice`,
+`exists_J1_dim_le`, `exists_J1_quotient`, `rhoF_traces`, `isFrobAt_of_isArithFrob`, `g13_constituent`, `rhoF_attached`) gives `propext`, `Classical.choice`,
 `Quot.sound`.
 
 | § | Content | Origin |
@@ -85,6 +91,7 @@ Every `#print axioms` (for `genus_Gamma1_le`, `IsJacobian.unique`, `dualAct_mem`
 | G | **`DimJ1Genus`** (leaf), `dim_J1_le` (proved), `IsBelyiFunction`, `BelyiX1` (glue target) | new |
 | H | `X1ModelExists`, `ModCurveLeaves` (bundle), `exists_J1`, `exists_J1_dim_le`, `exists_J1_quotient`, `rhoF_traces` (all proved) | new |
 | I | `homV`, `VSurjOfSurjective` (glue target), `homV_galRep`, `pullback`, `pullback_injective`, `pullback_dualAct`, **`g13_constituent`** (proved) | new |
+| J | `exists_preimage` (algebraic numbers lie in `ιC(ℚ̄)`), `embOf` (`ιL ∘ ιC⁻¹` on `K_f`), `embOf_spec`, **`rhoF_attached`** (proved) | new |
 
 ---
 
@@ -265,7 +272,7 @@ field of degree `d`: `h_F(J_ℚ̄) ≤ 13·10⁶·g·d⁵`". Here `g := dim J` u
 
 | Step | What the kernel consumes | What this task supplies | What remains |
 | --- | --- | --- | --- |
-| **C9** (`r₅ ≅ ρ_{f,ι₅}`, feeding `GlueC10.c10`'s `ρ₅`, `hρ₅`, `h₅`) | a representation `ρ₅` over a field `k₅` with `tr ρ₅(g) = ι₅(a p)` at `IsFrobAt g p`, `p ∉ S`; and `h₅ : tr r₅ = tr ρ₅` | **`rhoF_traces`**: `ρ₅ := rhoF 5 A θ ι` on a 2-dimensional `ℚ̄₅`-space, `C := coeffField f`, `a p := ⟨a_p(f), _⟩`, `hρ₅` exactly, for any `S ⊇` primes of `5N` | (a) **`h₅`**: C8's `r₅` and `rhoF` have equal Frobenius traces. This needs R14's `EigenformRepExists` (attached `GaloisRep` with `ιC`, `ιL` on `ℚ̄`) and R16's `ρ_{f,ι}` matched by Brauer–Nesbitt (`BrauerNesbittChar0`, already a kernel Prop). That in turn needs semisimplicity of `rhoF` (Faltings' `FaltingsSemisimple` for `A_f`, plus `V'_ι` being a direct summand: linear algebra), continuity of `rhoF` (as glue-rho-cont did for `V_ℓ`), and the bridge `emb = ιL ∘ ιC⁻¹` on `K_f ⊂ ιC(ℚ̄)` (small). (b) The newform `f` comes from C8's eigenform by twisting and Li (`EigenformTwist`, `NewformOfEigenform`, already Props in `Leaves.lean`). (c) The `GaloisRep` (matrix) to `Representation` bridge (small). |
+| **C9** (`r₅ ≅ ρ_{f,ι₅}`, feeding `GlueC10.c10`'s `ρ₅`, `hρ₅`, `h₅`) | a representation `ρ₅` over a field `k₅` with `tr ρ₅(g) = ι₅(a p)` at `IsFrobAt g p`, `p ∉ S`; and `h₅ : tr r₅ = tr ρ₅` | **`rhoF_traces`**: `ρ₅ := rhoF 5 A θ ι` on a 2-dimensional `ℚ̄₅`-space, `C := coeffField f`, `a p := ⟨a_p(f), _⟩`, `hρ₅` exactly, for any `S ⊇` primes of `5N` | (a) **`h₅`**: C8's `r₅` and `rhoF` have equal Frobenius traces. This needs R14's `EigenformRepExists` (attached `GaloisRep` with `ιC`, `ιL` on `ℚ̄`) and R16's `ρ_{f,ι}` matched by Brauer–Nesbitt (`BrauerNesbittChar0`, already a kernel Prop). The trace half is **done**: `rhoF_attached` gives `rhoF` exactly the `AttachedTo` trace clause, with `ι = embOf ιC ιL`. Still open: semisimplicity of `rhoF` (Faltings' `FaltingsSemisimple` for `A_f`, plus `V'_ι` being a direct summand: linear algebra, medium) and continuity of `rhoF` (as glue-rho-cont did for `V_ℓ`; medium). (b) The newform `f` comes from C8's eigenform by twisting and Li (`EigenformTwist`, `NewformOfEigenform`, already Props in `Leaves.lean`). (c) The `GaloisRep` (matrix) to `Representation` bridge (small). |
 | **E1** (`A × Z → J₁(N)` over `L'`, from `PkgI3.E1_exists_hom_ne_zero`) | `J : AbVar L'`; subrepresentations `U ⊂ V_ℓ(A) ⊗ E`, `U' ⊂ V_ℓ(J) ⊗ E` with an equivariant isomorphism | `exists_J1_quotient`: `J₁(N)/ℚ`, `π : J ↠ A_f`, `ρ_{f,ι}` as a **quotient** of `V_ℓ(A_f) ⊗ ℚ̄_ℓ`; **`g13_constituent`**: `ρ_{f,ι}^∨` as a 2-dimensional `G_ℚ`-stable space of functionals on `V_ℓ(J₁(N))`, i.e. `ρ_{f,ι}` as a quotient of `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` (modulo the glue target `VSurjOfSurjective`) | (a) **sub, not quotient**: Poincaré reducibility (leaf T8, `PkgI3.PoincareReducibility`) gives an abelian subvariety of `J` isogenous to `A_f`, so `V_ℓ(A_f) ↪ V_ℓ(J)`. Alternatively, Faltings' semisimplicity (R9a) of `V_ℓ(J)` turns `g13_constituent`'s quotient into a sub. Medium glue. `VSurjOfSurjective` itself is standard glue (T8 plus isogenies being isomorphisms on `V_ℓ`). (b) Base change to `L'`: `PkgI3.AbVar.baseChange` exists in the kernel; the identification `V_ℓ(J_{L'}) ≅ V_ℓ(J)|_{G_{L'}}` (points over `\overline{L'}` against points over `ℚ̄`) is open glue, medium. (c) `Dual(eigenFun) ≅ V'_ι ⊂ V' = V_ℓ ⊗ ℚ̄_ℓ` as a subrepresentation (linear algebra, small-medium). (d) The application of T8 at E1 already needs `EndDivision A` (h-decomposition G17). |
 | **E2** (`NonCMOutput`: `2 ≤ g ≤ N²`, `h_F(J₁(N)) ≤ 1.3·10⁷N¹²`) | real numbers `g = dim J₁(N)`, `hFJ` | **`exists_J1_dim_le`**: `g = dim J₁(N) ≤ N²` (from the leaf `DimJ1Genus` and the proved `genus_Gamma1_le`) | (a) `2 ≤ g`: from E1, since `A` is isogenous to a subvariety of `J₁(N)`, `dim A = 2` (glue, small once E1 is done). (b) `hFJ ≤ 1.3·10⁷N¹²`: **R18 (Javanpeykar) needs the Faltings height (WP10, very large)**. Its other inputs are a Belyi function of degree `≤ N²` (**`BelyiX1`**, glue target, large: bp-modcurves MC5) and `g ≤ N²` (done modulo `DimJ1Genus`). (c) Existence of `J₁(N)`: `X1ModelExists` (glue target MC4 + MC10, or a leaf: Shimura's canonical model with a rational cusp) and `JacobianExists` (leaf). |
 
