@@ -28,9 +28,14 @@ log: `scratch/cm-numeric/log.md`. Marks: **VERIFIED** (computed, compiled, or re
    > 2. `B' ≡ B (mod 64)` comes out automatically. D = −320 is TYZ's conductor-4 order for n = 5.
 4. **`TYZSigmaFixesZn` holds numerically, in a sharper form**: the Artin symbol of `sigmaClass n` maps
    `f₀(P_n)` to `f₀(P_n) + (0,0)` (n = 5, 13, 21, 29, 37; 15 cases), so it fixes
-   `z_n = (1 − [i])f₀(P_n)`. Lemma 3.21(1) for class 5 (n = 5, 13, 37; both choices of Φ₀, 8 lifts each)
-   also holds (30 cases), for either sign `1 ∓ [i]` in `z_n`.
-5. **Lean (Class7.lean):** every genus point is pinned (`CMNumeric.tyzZ := tyzGenusPt Phi0 Z7`), and
+   `z_n = (1 − [i])f₀(P_n)`. The sharper form is TYZ's Proposition `heckeaction5`(1) (L1488–1490,
+   `Q^{1+2ϖ} = Q + τ(1)`) transported by Shimura reciprocity; in Lean it is the leaf `TYZSigmaShiftsF0`,
+   and `tyzSigmaFixesZn_of : TYZSigmaShiftsF0 → IInHprime → TYZSigmaFixesZn` is proved. Lemma 3.21(1)
+   for class 5 (n = 5, 13, 37; both choices of Φ₀, 8 lifts each) also holds (30 cases).
+5. **The `[i]`-sign of cm-points' `tyzZn` agrees with a printed identity** (cm-points caveat 5): TYZ
+   Thm 3.6(1) (L1413) prints `z̄_n = −z_n + τ(1)`; numerically `conj(z) + z = (0,0)` holds for
+   `z = (1 − [i])f₀(P_n)` and fails for `(1 + [i])f₀(P_n)`, n = 5, 13, 21, 29, 37, 53, 61 (`conj5.out`).
+6. **Lean (Class7.lean):** every genus point is pinned (`CMNumeric.tyzZ := tyzGenusPt Phi0 Z7`), and
    `GenusPointLeafCM` splits into closed leaves about pinned objects:
 
    ```lean
@@ -66,9 +71,9 @@ Leaves (`def … : Prop`, about pinned objects):
 | `Lemma321Seven` | ∀ β₁-lift σ: `Z7 e^σ + Z7 e = g(e)·τ(1/2)` | TYZ Lemma 3.21(4), L2514–2516 | leaf; VERIFIED numerically (12 e) |
 | `Lemma321Five` | ∃ β₁-lift σ: `tyzZ e^σ + tyzZ e ∈ g(e)τ((1−i)/2) + ℤτ(1)` for e ∣ n, e ≡ 5 | TYZ Lemma 3.21(1), L2496–2512 (any lifting, any Φ₀) | leaf; numerically supported (n = 5, 13, 37 with Φ₀ = {1}, {σ}) |
 | `Thm35First ℓ tyzZ` | cm-points' statement for the pinned `tyzZ` | TYZ Thm 3.3/3.5 | leaf (unchanged) |
-| `Class7GenusPtDefined` | `Z7 e ∈ A(L_e(i))` | TYZ L2455–2458 | **glue**: `class7GenusPtDefined_of` from `CMFieldOfDefinition7` + `GenusFieldLeLni` |
+| `Class7GenusPtDefined` | `Z7 e ∈ A(L_e(i))` | TYZ L2558 | **glue**: `class7GenusPtDefined_of` from `CMFieldOfDefinition7` + `GenusFieldLeLni` |
 | `IInHprime` | `i ∈ H'_n` (n ≡ 5) | genus theory + TYZ Prop 3.2(1) | leaf (textbook), only for §7's alternative |
-| `TYZSigmaShiftsF0` | Artin(`sigmaClass`) `f₀(P_n) = f₀(P_n) + (0,0)` | **not printed**; VERIFIED numerically (15 cases) | computation, not a leaf |
+| `TYZSigmaShiftsF0` | Artin(`sigmaClass`) `f₀(P_n) = f₀(P_n) + (0,0)` | TYZ Prop `heckeaction5`(1), L1488–1490 (VERIFIED read) + Shimura reciprocity at `P_n`; VERIFIED numerically (15 cases) | leaf (alternative to `TYZSigmaFixesZn`, independent of the `[i]`-sign) |
 
 ## 2. Glue proved (Class7.lean)
 
@@ -103,10 +108,34 @@ generic-order Artin lemmas) and uses `decide +kernel` (no `native_decide`).
 
 * `CMFieldOfDefinition H`, `TYZSigmaFixesZn`, `Lemma318Literal` stay unproved in Lean: they are
   theorems of CM theory / TYZ for all `n`, and no finite computation proves them. The computation made
-  `TYZSigmaFixesZn` concrete (`TYZSigmaShiftsF0`, a statement about one explicit Heegner point and its
-  Galois conjugate) but that sharper form is not printed anywhere, so it is not a leaf.
+  `TYZSigmaFixesZn` concrete (`TYZSigmaShiftsF0`: one explicit Heegner point and its Galois conjugate
+  differ by `(0,0)`), which is TYZ's printed Hecke-action identity plus Shimura reciprocity.
 * `Lemma318Literal` (torsion of `A(ℍ'_n)`) is not testable with these tools (fields of degree ≥ 2^k·h).
-* The sign of `[i]` in `tyzZn` (cm-points caveat 5) is not singled out by any of the checks here:
-  `TYZSigmaFixesZn` and Lemma 3.21(1) hold for both `1 − [i]` and `1 + [i]`.
+* `TYZSigmaFixesZn` and Lemma 3.21(1) do not single out the `[i]`-sign of `tyzZn` (both hold for
+  `1 ∓ [i]`); TYZ's `z̄_n = −z_n + τ(1)` does, and selects cm-points' `1 − [i]` (`conj5.out`).
+* Independent review (AI subagent, statements only, 2026-11-13): no blocking finding; minor docstring
+  fixes applied (log). Noted: `IsPhi0` (squares in `Pic(O4)`) picks from a nonempty subfamily of
+  TYZ's admissible `Φ₀`, harmless since TYZ's proof works for any choice (L2547–2554).
 * `GenusFieldLeLni` stays a leaf: ring-class proves the genus field has degree `2^{t−1}` and is cut
   out by the genus characters (`genusField_eq_fixedField_chi`), but not that it equals `ℚ(√p*)`.
+
+## 5. Leaves of the finest main theorem (`tyzThm35ReadingA_of_pinnedLeaves`)
+
+`TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2` (tyz-decomp); `CMFieldOfDefinitionTYZ`,
+`TYZSigmaFixesZn` (or `TYZSigmaShiftsF0` + `IInHprime`, via `tyzSigmaFixesZn_of`), `Lemma318Literal HHprime`
+(cm-points); `IInH4`, `HprimeNormal` (ring-class's targets); and new here, all about pinned objects:
+`CMFieldOfDefinition7`, `GenusFieldLeLni`, `Thm35First ℓ tyzZ`, `Lemma321Five`, `Lemma321Seven`.
+cm-points' bundled `GenusPointLeafCM` (existential over Φ₀, class-7 points, ε, σ) is no longer needed:
+`genusPointLeafCM_of_pinned` derives it.
+
+## 6. Numerical checks: index
+
+| script | checks | cases | outcome |
+|---|---|---|---|
+| `class7.py` | class-7 point on A, δ-independence, field = H_n, Z(n) over genus field | 8 n | all pass |
+| `lemma321_7.py` | Lemma 3.21(4) for pinned Z(e) | 12 e | all pass |
+| `shimura.py` | direction of `CM.ShimuraReciprocity` | 26 (D,p) | 𝔭̄: 26/26; 𝔭: fails 24/24 (ord > 2) |
+| `sigma5.py` | Art(sigmaClass) f₀ = f₀ + (0,0); TYZSigmaFixesZn | 15 | all pass |
+| `degrees5.py` | degrees of f₀(P_n), z_n (Prop 3.2(1),(4)) | 3 n | pass for n = 5, 13; n = 21 precision-limited |
+| `lemma321_5.py` | Lemma 3.21(1), class 5, Φ₀ = {1}, {σ} | 30 | all pass (both `[i]`-signs) |
+| `conj5.py` | z̄_n = −z_n + τ(1) (TYZ Thm 3.6(1)) | 7 n | `1 − [i]`: 7/7; `1 + [i]`: 0/7 |
