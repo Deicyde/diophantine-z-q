@@ -6,20 +6,38 @@ import ZInQKernel.RouteK.Rank.LFunctionCd
 import ZInQKernel.Hypotheses.CR3Literature
 
 /-!
-# Weight-two theta kernels over shifted copies of `ℤ[i]`
+# Hecke's theory for `C_d : y² = x³ − d²x` over `ℤ[i]`
 
-For `a, b ∈ ℝ/ℤ` the function
-`gaussTheta a b x = Σ_{(m,n) ∈ ℤ²} ((m+a) + i(n+b)) exp(−π((m+a)² + (n+b)²) x)`
-is the product decomposition `oddKernel a · evenKernel b + i · evenKernel a · oddKernel b`
-of Mathlib's Hurwitz kernels. It satisfies the weight-two transformation law
-`gaussTheta a b (1/x) = x² · gaussThetaDual a b x` and decays exponentially at `∞`, so it
-forms a strong FE-pair (`Mathlib.NumberTheory.LSeries.AbstractFuncEq`) with `k = 2`, `ε = 1`.
-Its Mellin transform is entire and satisfies `Λ(2 − s) = Λ^dual(s)`.
+The shared development behind the providers `ZInQ.Contrib.functionalEquation5` (`GaussFE/`) and
+`ZInQ.Contrib.heckeContinuation` (`HeckeAll/`), copied from `scratch/bp-hecke-fe/HeckeFE.lean` with
+only the namespace changed (to `ZInQ.Contrib.HeckeFE`).
+
+* **Theta kernels.** For `a, b ∈ ℝ/ℤ` the function
+  `gaussTheta a b x = Σ_{(m,n) ∈ ℤ²} ((m+a) + i(n+b)) exp(−π((m+a)² + (n+b)²) x)`
+  is `oddKernel a · evenKernel b + i · evenKernel a · oddKernel b` (Mathlib's Hurwitz kernels).
+  It satisfies `gaussTheta a b (1/x) = x² · gaussThetaDual a b x` and decays exponentially, so
+  it is a strong FE-pair (`Mathlib.NumberTheory.LSeries.AbstractFuncEq`) with `k = 2`, `ε = 1`:
+  its Mellin transform is entire and satisfies `Λ(2 − s) = Λ^dual(s)`.
+* **Periodic twists.** The Mellin transform is the lattice Dirichlet series
+  `Σ_{α ∈ ℤ[i]} c(α mod M) α N(α)^{−s}`; grouping by the norm gives an ordinary Dirichlet
+  series. A Fourier relation between `c` and its dual gives the functional equation.
+* **The Hecke character `ψ_d`** (`psi`, `heckeCoeff`): completely multiplicative (node B1),
+  with Euler product `HeckeEuler` (nodes B2a–B2c: `heckeMult`, `heckePrimePowSplit`).
+* **Deuring's identity** `DeuringCd d : L(C_d, s) = L(ψ_d, s)` coefficientwise, at primes
+  `p ≢ 1 (mod 4)` (node B4) and at split primes from `GaussSplit d`, reduced to `GaussSplit 1`
+  by quadratic twisting and to `GaussPointCount` (Gauss's count of `y² = x³ − x` over `𝔽_p`).
+* **The Fourier identity** `CdFourier` from the odd quadratic Gauss sums (node C2: CRT, the
+  2-part, `OddGauss p` for odd primes `p`).
+
+Main results: `literature_hecke_fe_of_gaussPointCount : GaussPointCount →
+HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`, `deuringCd_of_gaussPointCount` and
+`certifiedRankTYZClRk_of_gaussPointCount`. `GaussPointCount` itself is proved in
+`ZInQKernel.Contrib.GaussFE.FunctionalEquation5` (`GaussFE.gaussPointCount`).
 -/
 
 open Complex Real Set Filter Asymptotics HurwitzZeta
 
-namespace ZInQ.Contrib.GaussFE
+namespace ZInQ.Contrib.HeckeFE
 
 /-- The weight-two theta kernel of the shifted lattice `(a, b) + ℤ²`, with the linear
 form `x + iy`. -/
@@ -2721,4 +2739,4 @@ theorem certifiedRankTYZClRk_of_gaussPointCount (hA : ZInQ.Literature.TYZThm35Re
   certifiedRankTYZClRk_of_elementary hA hG (fun d _ _ => heckeMult d)
     (fun d _ _ => heckePrimePowSplit d) h1
 
-end ZInQ.Contrib.GaussFE
+end ZInQ.Contrib.HeckeFE

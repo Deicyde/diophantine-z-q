@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.HeckeAll.HeckeFE
+import ZInQKernel.Contrib.HeckeFE.Basic
 import ZInQKernel.Contrib.HeckeAll.LocalCd
 import ZInQKernel.Contrib.HeckeAll.Iso
 
@@ -16,7 +16,7 @@ for every `d ≠ 0`. The route:
    and `n ≠ 0`, with the Jacobi symbol `(d/n)` (`cdCoeff_twist`). At `p ∤ 2d` this is
    `a_p(C_d) = (d/p) a_p(C_1)` (the substitution `x ↦ dx`); at `p ∣ d` both sides vanish; at
    `p = 2` both sides vanish because `a_{2^k}(C_1) = 0`.
-4. **Deuring for `d = 1`** (`HeckeFE.lean`, from `GaussPointCount`): `cdCoeff 1 n =
+4. **Deuring for `d = 1`** (`Contrib/HeckeFE/Basic.lean`, from `GaussPointCount`): `cdCoeff 1 n =
    ¼ Σ_{N α = n} u(α) α`.
 5. So `L(C_d, s) = Σ_α c(α mod 4d) α N(α)^{−s}` with `c(α) = ¼ (d/N α) u(α)`, a function on
    `(ℤ/4d)²` because `N α mod 4d` depends only on `α mod 4d` and `J(d | ·)` is periodic mod `4d` on
@@ -25,7 +25,7 @@ for every `d ≠ 0`. The route:
 
 namespace ZInQ.Contrib.HeckeAll
 
-open ZInQ.Literature
+open ZInQ.Literature ZInQ.Contrib.HeckeFE
 
 /-! ### The Jacobi symbol `J(d | ·)` is completely multiplicative -/
 
@@ -271,9 +271,9 @@ end ZInQ.Contrib.HeckeAll
 namespace ZInQ.Contrib
 
 /-- **Hecke's continuation for every `C_d`, `d ≠ 0`, from Gauss's point count** on
-`y² = x³ − x` (`HeckeAll.GaussPointCount`, copied verbatim from `scratch/bp-hecke-fe/HeckeFE.lean`).
+`y² = x³ − x` (`HeckeFE.GaussPointCount`, from the shared copy `Contrib/HeckeFE/Basic.lean`).
 -/
-theorem heckeContinuation_of_gaussPointCount (h1 : HeckeAll.GaussPointCount) :
+theorem heckeContinuation_of_gaussPointCount (h1 : HeckeFE.GaussPointCount) :
     ZInQ.Literature.HeckeContinuation := by
   intro d hd
   obtain ⟨b, a, hab, hsq⟩ := exists_sq_mul_squarefree d
@@ -284,8 +284,8 @@ theorem heckeContinuation_of_gaussPointCount (h1 : HeckeAll.GaussPointCount) :
 
 /-- **Both textbook CR₃ Props from Gauss's point count**: `HeckeContinuation` (every `d ≠ 0`, this
 file) and `FunctionalEquation5` (bp-hecke-fe, `literature_hecke_fe_of_gaussPointCount`). -/
-theorem heckeContinuation_functionalEquation5_of_gaussPointCount (h1 : HeckeAll.GaussPointCount) :
+theorem heckeContinuation_functionalEquation5_of_gaussPointCount (h1 : HeckeFE.GaussPointCount) :
     ZInQ.Literature.HeckeContinuation ∧ ZInQ.Literature.FunctionalEquation5 :=
-  ⟨heckeContinuation_of_gaussPointCount h1, (HeckeAll.literature_hecke_fe_of_gaussPointCount h1).2⟩
+  ⟨heckeContinuation_of_gaussPointCount h1, (HeckeFE.literature_hecke_fe_of_gaussPointCount h1).2⟩
 
 end ZInQ.Contrib

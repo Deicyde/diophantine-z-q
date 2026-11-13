@@ -1,10 +1,10 @@
-import ZInQKernel.Contrib.GaussFE.HeckeFE
+import ZInQKernel.Contrib.HeckeFE.Basic
 import ZInQKernel.Contrib.GaussFE.Gauss
 
 /-!
 # `ZInQ.Literature.FunctionalEquation5`, proved
 
-`HeckeFE.lean` (the bp-hecke-fe development, copied verbatim up to the namespace) proves
+`ZInQKernel.Contrib.HeckeFE.Basic` (the bp-hecke-fe development, shared with `HeckeAll/`) proves
 `HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5` from `GaussPointCount`, Gauss's count
 of the points of `y² = x³ − x` over `𝔽_p` at primes `p ≡ 1 (mod 4)`. `Gauss.lean` proves that count
 in the form `#{y² = x³ − x} = p + 2A` with `A + Bi` of norm `p` and `−(A + Bi)` primary
@@ -14,7 +14,7 @@ in the form `#{y² = x³ − x} = p + 2A` with `A + Bi` of norm `p` and `−(A +
 
 namespace ZInQ.Contrib.GaussFE
 
-open Complex
+open Complex ZInQ.Contrib.HeckeFE
 
 /-- `ψ₁(z) + ψ₁(z̄)`. -/
 noncomputable def psiPair (z : ℤ × ℤ) : ℂ := psi 1 z + psi 1 (conjZ z)
