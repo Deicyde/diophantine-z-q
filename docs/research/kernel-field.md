@@ -1,9 +1,9 @@
-# kernel-field: `KernelFieldExists` (G4 + B1) from five leaves and three named glue Props
+# kernel-field: `KernelFieldExists` (G4 + B1) from six leaves and two named glue Props
 
 Task kernel-field, 2026-11-13.
-- Lean: `scratch/kernel-field/KernelField.lean` (about 5400 lines). `scratch/kernel-field/assemble.sh`
-  generates it from verbatim copies plus the new part, `scratch/kernel-field/New.lean` (about
-  1680 lines).
+- Lean: `scratch/kernel-field/KernelField.lean` (5659 lines). `scratch/kernel-field/assemble.sh`
+  generates it from verbatim copies plus the new part, `scratch/kernel-field/New.lean` (1903
+  lines).
 - Results log: `scratch/kernel-field/log.md`. Compiler output: `scratch/kernel-field/build_final.txt`.
 - Lattice check: `scratch/kernel-field/omax_cosets.py`.
 - Base: `wip/integrate-w36b` (2dd83306), merged with `origin/wip/qm-pin` and
@@ -12,27 +12,29 @@ Task kernel-field, 2026-11-13.
 ## 1. Main result
 
 **g0-mod-field's `KernelFieldExists` is proved in Lean with its statement unchanged.** The inputs
-are five leaves and three named glue Props. VERIFIED: `lake env lean
+are six leaves and two named glue Props. VERIFIED: `lake env lean
 scratch/kernel-field/KernelField.lean` gives 0 errors and no `declaration uses 'sorry'` (about
-70 s). `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for every theorem listed
+75 s). `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for every theorem listed
 in §2.
 
 ```
-theorem G0ModField.KernelField.kernelFieldExists_of_final
+theorem G0ModField.KernelField.kernelFieldExists_of_rigidity
     (hHFF : PkgI3.HomFreeFinite)              -- leaf T6, TextbookLeaves.t6 (Mumford §19 Thm 3)
     (hNOS : PkgI2.NeronOggShafarevich.{0})    -- leaf, ResearchLeaves.r7a (Serre–Tate 1968 Thm 1)
     (hRay : PkgI2.RaynaudCriterion.{0})       -- leaf, ResearchLeaves.r6
     (hTors : PkgI2.TorsionStructure.{0})      -- leaf, TextbookLeaves.t5 (A(K̄)[n] ≅ (ℤ/n)^{2g})
     (t27 : PkgI3.QMDichotomyYu)               -- leaf T27, TextbookLeaves.t27 (Yu 2013 Thm 1.1)
+    (hRig : G0FibreSimple.RigidityHom)        -- textbook leaf (g0-fibresimple): Mumford §4 Cor. 1
     (h5 : G0FibreSimple.FibreComTrivial)      -- glue FS5 (g0-fibresimple): End_𝒪(P.A) = ℤ (NoCM)
-    (hb : EndTransport)                       -- glue: End(P.A) = ι(𝒪) moves to the Hom field
     (hG : ConjIsogMaps)                       -- glue: the conjugacy maps m_σ (geometric part)
     : G0ModField.KernelFieldExists
 ```
 
-The five leaves are fields of the bundles in `scratch/h-decomposition/Leaves.lean`: r6 and r7a
-of `ResearchLeaves`; t5, t6 and t27 of `TextbookLeaves`. VERIFIED by reading L32972-33100.
-Locators are UNVERIFIED. FS5 is g0-fibresimple's piece, copied verbatim (VERIFIED by `diff`).
+Five of the leaves are fields of the bundles in `scratch/h-decomposition/Leaves.lean`: r6 and r7a
+of `ResearchLeaves`; t5, t6 and t27 of `TextbookLeaves` (VERIFIED by reading L32972-33100).
+`RigidityHom` is g0-fibresimple's new textbook leaf (rigidity: a morphism of abelian varieties
+preserving the identity is a homomorphism). It is not yet in the bundles. Locators are
+UNVERIFIED. FS5 and `RigidityHom` are copied verbatim from g0-fibresimple's `Tail.lean`.
 
 **The task's two requests.**
 
@@ -76,8 +78,10 @@ Locators are UNVERIFIED. FS5 is g0-fibresimple's piece, copied verbatim (VERIFIE
 | `int_of_integral`, `oMaximal` | **`𝒪` is a maximal order.** An element of `B` integral over `ℤ` has integral reduced trace and norm (Gauss's lemma). For `x` in an order `R ⊇ 𝒪`, `24·nrd(x)` is a quadratic form in the four traces `trd(x·eᵢ)`, and the congruences mod 3 and mod 8 (`decide`) put `x` in `𝒪`. Python check: of the 36 classes of `𝒪^∨/𝒪`, only `0` has integral norm |
 | `endEqOFibre_of` | `End_𝒪(P.A) = ℤ ⟹ End(P.A) = ι(𝒪)`, from T27, T6 (via FS4) and `oMaximal` |
 | `conjMaps_of_qm` | `TorsCount` + `End = ι(𝒪)` + the geometric clauses ⟹ `ConjMaps` |
+| `endEqO_of_iso`, `endTransport_of` | `End = ι(𝒪)` moves along a `QML3` isomorphism. R1's naturality at `K ⊆ ℚ̄` gives the base change `Q` of `PK` with `[Q] = [P]` |
+| `endTransportBC_of_rigidity` | **`End(Q.A) = ι_Q(𝒪) ⟹ End_L(A_L) = ι_L(𝒪)` from `RigidityHom`.** `(A_L)_ℚ̄` and `Q.A` are two pullbacks of `PK.A` along `Spec ℚ̄ → Spec K` (pasting; `isoIsPullback`). The isomorphism preserves the identity (`η(0) = 0`, `G4Conj.one_left_fst`), so it is a homomorphism by rigidity. It carries `ι_L(a)_ℚ̄` to `ι_Q(a)` (`pullback.lift_fst`). Base change `L → ℚ̄` is faithful (`endBC_injective`, bp-qmmoduli) |
 | `conjIsogMapsAt_bot` | sanity check: the new clause list is satisfiable (an abelian variety over `ℚ` with its Galois action) |
-| `kernelFieldExists_of_pieces`, `_of_leaves`, `_of_leaves_FS5`, `_of_split`, `_of_split'`, `_of_split''`, `_of_final` | the successive reductions (§3) |
+| `kernelFieldExists_of_pieces`, `_of_leaves`, `_of_leaves_FS5`, `_of_split`, `_of_split'`, `_of_split''`, `_of_final`, `_of_final'`, `_of_rigidity` | the successive reductions (§3) |
 
 ## 3. What remains (glue, not leaves)
 
@@ -95,28 +99,27 @@ Locators are UNVERIFIED. FS5 is g0-fibresimple's piece, copied verbatim (VERIFIE
      - A7 `conj_twist_of_rational` (kernel, valid for every R1fp-R2fp triple);
      - `blinear_of_twisted_iso`, which gives `μ_σ`.
    - Missing (model check, no human review):
-     - moving `μ_σ` from `P` to the conjugates `conjData K PK.A`. This needs `EndTransport`'s
-       rigidity point below;
+     - moving `μ_σ` from `P` to the conjugates `conjData K PK.A`. The same pasting and rigidity
+       argument as `endTransportBC_of_rigidity` applies;
      - Galois descent of the `G_L`-fixed `μ_σ` to `L`;
      - the quasi-inverse `ψ μ_στ = [e]` (Mumford §8; the same input as g0-split's
        `ReverseIsogeny`);
      - points-level bookkeeping for `m_σ = μ_σ∘σ`, and the semilinear `F_σ`.
    - It holds for CM fibres too.
-2. **`EndTransport`** (medium). If `End(P.A) = ι_P(𝒪)`, then `End_L(A_L) = ι_L(𝒪)`.
-   - R1's naturality at `K → ℚ̄` gives a base change `Q` of `PK` with `[Q] = [P]`, so `Q ≅ P` as
-     `QML3` objects.
-   - Base change `End_L → End_ℚ̄` is injective (bp-qmmoduli's `endBC_injective`).
-   - **Finding (VERIFIED by reading `IsBaseChangeOf`, `IsModelOver`):** these record only a
-     pullback square of schemes (with `ι` and `η` compatible), not the group law. So the
-     identification `(A_L)_ℚ̄ ≅ Q.A` is a homomorphism only by rigidity. `η(0) = 0` gives
-     `0 ↦ 0`, and g0-fibresimple's leaf `RigidityHom` (Mumford §4 Cor. 1) applies.
+2. **`EndTransport` is now proved from the leaf `RigidityHom`** (`endTransport_of`,
+   `endTransportBC_of_rigidity`).
+   - **Finding** (VERIFIED by reading `IsBaseChangeOf` and `IsModelOver`): these record only a
+     pullback square of schemes (with `ι` and `η` compatible), not the group law.
+   - So the identification `(A_L)_ℚ̄ ≅ Q.A` is a homomorphism only by rigidity. `η(0) = 0` gives
+     `0 ↦ 0`, and rigidity then applies.
 3. **`G0FibreSimple.FibreComTrivial`** (FS5, owned by g0-fibresimple). For `u ∉ 𝒞`,
    `End_𝒪(P.A) = ℤ`. Of the inputs above, it is the only one whose truth for an arbitrary triple
    depends on pinning `Φ`. qm-pin's repair (`R1famProps`, `R1univProps`, `MobiusGlue`) transfers
    it from the leaf's own triple.
 
 Intermediate Props that are now theorems: `TorsionCountPts`, `ConjMapsOnHomField`,
-`ConjMapsNoCM`, `EndEqOOnHomField`, `EndEqOFibre`, `OMaximal`.
+`ConjMapsNoCM`, `EndEqOOnHomField`, `EndEqOFibre`, `OMaximal`, `EndTransport`,
+`EndTransportBC`.
 
 ## 4. Findings
 
@@ -126,7 +129,8 @@ Intermediate Props that are now theorems: `TorsionCountPts`, `ConjMapsOnHomField
   - Then `f ↦ μ_σ ^σf μ_σ⁻¹` restricts to `σ|_F` on the centre. When `σ` moves `F`, it is not
     inner, so no `m_σ` commutes with all of `End_L(A_L)`.
   - So the quantifier over all triples carries FS5's pinning issue. The split isolates that issue
-    in FS5 alone: `ConjIsogMaps` and `EndTransport` hold for every triple (model check).
+    in FS5 alone: `ConjIsogMaps` holds for every triple (model check), and `EndTransport` is
+    proved.
 - **`KernelFieldOut` does not use `P`, and links `G` to `E` only by `[E:ℚ] = |G|`.** Neither is a
   defect.
   - The degree bound needs only the cardinality.
@@ -141,8 +145,9 @@ Intermediate Props that are now theorems: `TorsionCountPts`, `ConjMapsOnHomField
   - `G4Closed.lean` 1867-1897;
   - `Dim.lean` 107-305;
   - `ModField.lean` 17-end;
-  - from `Tail.lean`: FS5, lines 38-117, 152-164 (FS4) and 208-282;
-  - from `QMAbVar.lean`: `endBC`, lines 528-556, with `AbVar` qualified.
+  - from `Tail.lean`: FS5, lines 38-117, 152-164 (FS4), 208-282 and 357-363 (`RigidityHom`);
+  - from `QMAbVar.lean`: `endBC`, lines 528-556, and lines 558-575 (faithful base change,
+    `endBC_injective`), with `AbVar` qualified.
 
 ## 5. Integration
 
@@ -150,7 +155,7 @@ Intermediate Props that are now theorems: `TorsionCountPts`, `ConjMapsOnHomField
 `HDecomp/Textbook/SkolemNoether`. It can follow ModField.lean, InertiaHoms/G4Closed, Dim.lean
 and Tail.lean as a module. In g0-mod-field's `fieldDescentUnr` and
 `modularConstituent_of_ranges_T14`, replace `hKer : KernelFieldExists` by
-`kernelFieldExists_of_final hHFF hNOS hRay hTors t27 h5 hb hG`.
+`kernelFieldExists_of_rigidity hHFF hNOS hRay hTors t27 hRig h5 hG`.
 
 ## 6. Labels
 
@@ -160,7 +165,7 @@ and Tail.lean as a module. In g0-mod-field's `fieldDescentUnr` and
   `FibreCtx`, `RationalFibre`; `homField_core`, `homField_of_model_leaves'`; `QML3.goodReduction`,
   `TorsionStructure`, `conj_twist_of_rational`, `R1fpProps`, `IsBaseChangeOf`, `QMIso`,
   `LeafSkolemNoether`, `B6_commute_i_j`, `aniso_rat`; FS5 and FS4.
-- **SPECULATIVE (model check, no human review):** the truth arguments for `ConjIsogMaps` and
-  `EndTransport`, and the CM finding of §4.
+- **SPECULATIVE (model check, no human review):** the truth argument for `ConjIsogMaps`, and the
+  CM finding of §4.
 - **UNVERIFIED locators:** Mumford §19 Thm 3, §4 Cor. 1, §8; Serre–Tate 1968 Thm 1; Yu 2013
   Thm 1.1; Vignéras III §5.
