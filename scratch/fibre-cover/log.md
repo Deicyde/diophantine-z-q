@@ -17,3 +17,12 @@
   `FibreFieldOut` (def), `fibreCoverOut_iff` (R1fp: FibreCoverOut Y Φ u P ↔ FibreFieldOut (residueImage y) u),
   `fibreCoverOut_indep` (two moduli bijections Φ, Φ' with R1fp on the same Y, same point y: G2 agrees).
 - VERIFIED: `lake env lean scratch/fibre-cover/FibreCover.lean`: 0 errors, 0 warnings.
+
+## run4-5: Parts 2-3, the reduction
+- Proved: `fibreFieldOut_of` (primitive element `β` of `F`, `f = minpoly ℚ β`: separable, degree
+  `[F:ℚ] ≤ 324`, `F ≤ ℚ(roots f)`; unramified via the textbook Prop `UnramifiedConjugates`).
+- Named Props: `UnramifiedConjugates` (textbook), `FibreDegree` (glue), `FibreUnramified`
+  (glue, Prop. TS + Lemma NV; pinning caveat).
+- Proved: `fibreCoverExists_of : FibreDegree → FibreUnramified → UnramifiedConjugates → FibreCoverExists`.
+- VERIFIED: 0 errors; `#print axioms` of `fibreCoverOut_iff`, `fibreCoverOut_indep`,
+  `fibreCoverExists_of`: [propext, Classical.choice, Quot.sound].

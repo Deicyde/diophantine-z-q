@@ -169,4 +169,89 @@ theorem fibreCoverOut_indep {Y : Over (Spec (CommRingCat.of ℚ))} {Φ Φ' : PtE
     FibreCoverOut Y Φ u P ↔ FibreCoverOut Y Φ' u P' :=
   (fibreCoverOut_iff h1 hy u).trans (fibreCoverOut_iff h1' hy' u).symm
 
+/-! ## Part 2 (proved): the field part from a degree bound and unramifiedness of `ℚ(y)` -/
+
+/-- **Textbook (STANDARD): the Galois closure of an unramified field is unramified.** If
+`ℚ(α) ⊆ ℚ̄` is unramified at `p`, so is the splitting field `ℚ(roots of minpoly α)`, which is
+the compositum of the conjugates `σℚ(α) ≅ ℚ(α)`; a compositum of number fields unramified at `p`
+is unramified at `p` (Neukirch, *Algebraic Number Theory*, Ch. I §9 or Ch. III §2, the
+compositum of unramified extensions; UNVERIFIED locator). Not in Mathlib v4.35 for
+`UnramifiedAt` (cf. g0-mod-field's `UnramifiedSup`, the Galois case). -/
+def UnramifiedConjugates : Prop :=
+  ∀ (α : Qbar) (p : ℕ), UnramifiedAt (IntermediateField.adjoin ℚ {α}) p →
+    UnramifiedAt (IntermediateField.adjoin ℚ ((minpoly ℚ α).rootSet Qbar)) p
+
+/-- **The field part from `[F:ℚ] ≤ 324` and `F` unramified outside `T(u)`**: take `f` the
+minimal polynomial of a primitive element of `F` (separable in characteristic 0, of degree
+`[F:ℚ]`); its splitting field contains `F` and is unramified outside `T(u)` by
+`UnramifiedConjugates`. -/
+theorem fibreFieldOut_of (hU : UnramifiedConjugates) (F : IF) [FiniteDimensional ℚ F]
+    (hd : Module.finrank ℚ F ≤ 324) (u : ℚ)
+    (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt F p) : FibreFieldOut F u := by
+  obtain ⟨β, hF⟩ : ∃ β : Qbar, IntermediateField.adjoin ℚ {β} = F := by
+    obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ F
+    refine ⟨α, le_antisymm ?_ ?_⟩
+    · rw [IntermediateField.adjoin_simple_le_iff]; exact α.2
+    · intro x hx
+      have h1 : (⟨x, hx⟩ : F) ∈ IntermediateField.adjoin ℚ {α} := by
+        rw [hα]; exact IntermediateField.mem_top
+      have h2 : x ∈ (IntermediateField.adjoin ℚ {α}).map F.val := ⟨⟨x, hx⟩, h1, rfl⟩
+      rw [IntermediateField.adjoin_map, Set.image_singleton] at h2
+      exact h2
+  subst hF
+  have hint : IsIntegral ℚ β := Algebra.IsIntegral.isIntegral _
+  refine ⟨minpoly ℚ β, (minpoly.irreducible hint).separable, ?_, fun p hp => hU _ p (hram p hp), ?_⟩
+  · rw [← IntermediateField.adjoin.finrank hint]; exact hd
+  · rw [IntermediateField.adjoin_simple_le_iff]
+    exact IntermediateField.subset_adjoin ℚ _
+      ((Polynomial.mem_rootSet).2 ⟨minpoly.ne_zero hint, minpoly.aeval ℚ _⟩)
+
+/-! ## Part 3: the remaining glue as named Props, and `FibreCoverExists` from them -/
+
+/-- **Glue (G2, degree; Glazer N5 L436-441 and L524-526): the residue field of a point over
+`J(u)` has degree `≤ 324`.** For moduli data with R1fp, R2fp, `u ∉ 𝒞`, and a `ℚ̄`-point `y`
+with object `P` over `J(u)`, the residue field `ℚ(y) ⊆ ℚ̄` is finite over `ℚ` of degree `≤ 324`.
+Argument (glue): the `ℚ`-embeddings of `ℚ(y)` give distinct points `σy` of the fibre over the
+rational value `J(u)` (`ToP1.val_comp`), which `Φ` maps injectively into the `Aut 𝒪`-twist class
+of `P` (R2fp); that class has at most `4·|(𝒪/3𝒪)^×| ≤ 324` elements (`TwistClassCard`). This
+step does not depend on which triple `(Y, Φ, π)` is used. -/
+def FibreDegree : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (P : QML3 Qbar) (y : fieldPt Qbar ⟶ Y), R1fpProps Y Φ → R2fpProps Y Φ π →
+    u ∉ contactSet → Φ Qbar y = M3.mk P →
+    π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)) →
+    ∃ _ : FiniteDimensional ℚ (residueImage (X := Y.left) y.left),
+      Module.finrank ℚ (residueImage (X := Y.left) y.left) ≤ 324
+
+/-- **Glue (G2, ramification: Prop. TS + Lemma NV, Glazer N5 L484-529; h-decomposition G2 with
+inputs R1(d), R2, T1, T2): the residue field of a point over `J(u)` is unramified outside
+`T(u) = S_mul ∪ supp M_{S_mul}(u)`.** For the genuine `(Y₃, π)` this is the manuscript's local
+calculation: `Y₃ → P¹` has a proper smooth model over `ℤ[1/30]` branched only over `0, ∞, −16/27`
+with tame indices; the pullback by `J` has indices `2, 6, 2`, normalized to `2, 1, 1`; the fibre
+over `u` is unramified at `p ∉ T(u)` (the valuation case analysis is proved,
+`GlueRepo.PR.inertia_orders_eq_one_iff`; Lemma NV step 2 is proved,
+`LeafQM.AV.residue_unramified_over_branch`). **Pinning caveat** (fibre-cover §3): as stated it
+quantifies over every `(Y, π)` satisfying R1fp, R2fp for some `Φ`; these clauses constrain
+`(Y, π)` only through field points, so the genuine proof applies only once `(Y, π)` is pinned
+(task qm-pin). Relabelings of `Φ` alone do not matter (`fibreCoverOut_indep`). -/
+def FibreUnramified : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (P : QML3 Qbar) (y : fieldPt Qbar ⟶ Y), R1fpProps Y Φ → R2fpProps Y Φ π →
+    u ∉ contactSet → Φ Qbar y = M3.mk P →
+    π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)) →
+    ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt (residueImage (X := Y.left) y.left) p
+
+/-- **`FibreCoverExists` from the degree bound, Prop. TS + Lemma NV on `ℚ(y)`, and the textbook
+fact on Galois closures** (the rational fibre itself is proved from R1fp, `rationalFibre_of_le`). -/
+theorem fibreCoverExists_of (hD : FibreDegree) (hR : FibreUnramified)
+    (hU : UnramifiedConjugates) : FibreCoverExists := by
+  intro Y Φ π u P ⟨h1, h2, hu, y, hy, hπ⟩
+  rw [fibreCoverOut_iff h1 hy u]
+  obtain ⟨hfd, hd⟩ := hD Y Φ π u P y h1 h2 hu hy hπ
+  exact fibreFieldOut_of hU _ hd u (hR Y Φ π u P y h1 h2 hu hy hπ)
+
 end G0ModField
+
+#print axioms G0ModField.fibreCoverOut_iff
+#print axioms G0ModField.fibreCoverOut_indep
+#print axioms G0ModField.fibreCoverExists_of
