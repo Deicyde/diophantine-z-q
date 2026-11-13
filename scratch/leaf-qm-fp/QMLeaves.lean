@@ -573,14 +573,60 @@ def R1heckeProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop 
 /-- **R2fp, clause list**: a morphism `π : Y → P¹` whose fibres on `ℚ̄`-points are exactly the
 classes with `Aut(𝒪)`-twist-equivalent underlying QM pairs (the `W`-orbits on `X₆`), and which
 takes the values `0, ∞, −16/27` at the CM points of discriminants `−4, −3, −24`. -/
-def R2fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
-  ∃ π : ToP1 Y.left, ∀ (y y' : fieldPt Qbar ⟶ Y) (P Q : QML3 Qbar),
+def R2fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
+  ∀ (y y' : fieldPt Qbar ⟶ Y) (P Q : QML3 Qbar),
     Φ Qbar y = M3.mk P → Φ Qbar y' = M3.mk Q →
       (π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left ↔
           ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
       (HasCM4 P.q → π.val (K := Qbar) y.left = OnePoint.some 0) ∧
       (HasCM3 P.q → π.val (K := Qbar) y.left = OnePoint.infty) ∧
       (HasCM24 P.q → π.val (K := Qbar) y.left = OnePoint.some (-16 / 27))
+
+/-- The `Aut(𝒪)`-twist of a QM pair (the `W`-action on `X₆`, inner twists being trivial on
+classes). -/
+def QMPair.twist (P : QMPair K) (α : O ≃+* O) : QMPair K := ⟨P.A, P.surface, P.q.twist α⟩
+
+/-- **The level-one curve `X₆ = X₀(6,1)`, clause list** (coarse moduli on `ℚ̄`-points): `X` is a
+proper smooth curve over `ℚ`; `Ψ : X(ℚ̄) ≃ {QM pairs over ℚ̄}/≅` is Galois-equivariant; each twist
+`α ∈ Aut 𝒪` is induced by an automorphism of `X` over `ℚ` (the Atkin–Lehner group `W`); the
+forgetful morphism `fY : Y₃ → X₆` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-points; `π = π₆ ∘ fY`. -/
+def X6Props (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left) : Prop :=
+  IsProper X.hom ∧ SmoothOfRelativeDimension 1 X.hom ∧
+  (∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar),
+    Ψ x = Quotient.mk _ P → ∃ Q : QMPair Qbar,
+      Ψ (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x) = Quotient.mk _ Q ∧
+      IsBaseChangeOfPair (σ : Qbar →+* Qbar) P Q) ∧
+  (∀ α : O ≃+* O, ∃ g : X ≅ X, ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar),
+    Ψ x = Quotient.mk _ P → Ψ (x ≫ g.hom) = Quotient.mk _ (P.twist α)) ∧
+  (∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    Ψ (y ≫ fY) = Quotient.mk _ P.forget) ∧
+  (∀ y : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left)
+
+/-- **R2 on `X₆` (Baba–Granath), clause list**: `π₆ : X₆ → X₆/W ≅ P¹`; two `ℚ̄`-points have the
+same value iff their QM pairs are `Aut(𝒪)`-twists of each other (`W`-conjugate); the CM points
+of discriminants `−4, −3, −24` go to `0, ∞, −16/27`. -/
+def R2X6Props (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
+  ∀ (x x' : fieldPt Qbar ⟶ X) (P Q : QMPair Qbar),
+    Ψ x = Quotient.mk _ P → Ψ x' = Quotient.mk _ Q →
+      (π₆.val (K := Qbar) x.left = π₆.val (K := Qbar) x'.left ↔
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
+      (HasCM4 P.q → π₆.val (K := Qbar) x.left = OnePoint.some 0) ∧
+      (HasCM3 P.q → π₆.val (K := Qbar) x.left = OnePoint.infty) ∧
+      (HasCM24 P.q → π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
+
+/-- **Glue (compiled): R2 on `Y₃` from R2 on `X₆`** through the forgetful morphism. -/
+theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {fY : Y ⟶ X} {π₆ : ToP1 X.left} (hX : X6Props Y Φ π X Ψ fY π₆)
+    (h2 : R2X6Props X Ψ π₆) : R2fpProps Y Φ π := by
+  obtain ⟨-, -, -, -, hf, hπ⟩ := hX
+  intro y y' P Q hP hQ
+  have h := h2 (y ≫ fY) (y' ≫ fY) P.forget Q.forget (hf y P hP) (hf y' Q hQ)
+  rw [hπ y, hπ y']
+  exact h
 
 /-- **Leaf R1fp (field-point form of Shimura–Deligne R1(a)).**
 
@@ -605,7 +651,18 @@ geometrically connected (it has two geometric components over `ℚ(√−3)`, bp
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
 
-/-- **Leaves R1fp + R1hecke + R2fp on one `Y`** (the form the glue consumes).
+/-- **Leaves R1fp + R1hecke + R1 at level one + R2fp, on one `Y₃` and one `X₆`** (the form the
+glue consumes; `R1R2fp_Y` extracts the `Y₃` form).
+
+*R1 at level one (`X6Props`), published statement*: `X₆ = X₀(6,1)` (Shimura's curve for the
+maximal order, no level) is a coarse moduli space over `ℚ` for `(A, ι, λ)` (Shimura 1967, Deligne
+1971 as for R1fp; UNVERIFIED as a literal locator, the audit read Deligne's §§4.9-4.17); the
+Atkin–Lehner group acts on it over `ℚ`. *Why faithful*: coarse moduli give `X₆(ℚ̄) = {(A, ι)}/≅`
+Galois-equivariantly in characteristic 0; the twists `(A, ι) ↦ (A, ι∘α)` are natural in families,
+so the coarse space inherits them; `Y₃ → X₆` exists by the coarse universal property; `π := π₆ ∘
+fY`. Smooth proper curve: `X₆` is the quotient of `ℍ` by a cocompact Fuchsian group without
+cusps; its canonical model is smooth projective over `ℚ` (it is a smooth curve because a
+coarse space of a one-dimensional smooth DM stack in characteristic 0 is a normal curve).
 
 *R1hecke, published statement*: the finite-adelic normalizer of `K₃` acts on `Y₃` over `ℚ`
 (Deligne 1971 §§4.15-4.21, Deligne 1979 §2.7, UNVERIFIED; the audit: at fixed level only the
@@ -631,12 +688,20 @@ indices of `X₆ → X₆/W`, which are `(2, 2, 2)`; the indices `(4, 6, 2)` of 
 `RvNocm.ramification_eq_orbifold_order`). Composite: R2fp's fibre clause uses R1 (the forgetful
 morphism `Y₃ → X₆` and the moduli interpretation of `X₆`) together with Baba–Granath. -/
 def R1R2fp : Prop :=
-  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y),
-    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ π X Ψ fY π₆ ∧ R2X6Props X Ψ π₆
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, h1, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, -, h1, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
+
+/-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
+theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
+  obtain ⟨Y, Φ, π, X, Ψ, fY, π₆, h1, hh, hX, h2⟩ := h
+  exact ⟨Y, Φ, π, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
 `π`-value is rational. Then every Galois conjugate of `P` (its base change `Q` along `σ`) has an
@@ -784,3 +849,4 @@ end LeafQM
 #print axioms LeafQM.AV.QMLeaves
 #print axioms LeafQM.AV.ToP1.val_comp
 #print axioms LeafQM.AV.conj_twist_of_rational
+#print axioms LeafQM.AV.R1R2fp_Y
