@@ -45,3 +45,15 @@
   Leaves.lean l.33739) by `productModelHeight_of_splits hS hA`. `lake env lean`: 0 errors,
   8 min 29 s; `productModelHeight_of_splits`, `productModelHeight_of_geo` standard axioms only
   (VERIFIED). The generated 34k-line file is not committed (regenerate with the script).
+- `Lattice.lean` (Mathlib only; standalone): `discreteTopology_prod`, `instIsZLatticeProd`,
+  `exists_unique_add_mem`, `isAddFundamentalDomain_prod`, `covolume_prod`
+  (`covol(Λ₁ × Λ₂, μ₁.prod μ₂) = covol Λ₁ · covol Λ₂`), `splitCL_measurePreserving`,
+  `prodLattice_eq_comap`, `prodLattice_facts` (product lattice discrete, full, covolume
+  multiplicative). Compile iterations: name `discreteTopology_iff_isOpen_singleton`, `hs.le`
+  instead of `▸`, `piCongrLeft` symm by `show` + `Equiv.piCongrLeft_symm_apply`, explicit
+  `Measure.prod.instIsAddHaarMeasure` for the product volume. Final: 0 errors, 2/2 axioms
+  standard (VERIFIED).
+- Merged into `ProductHeight.lean` as §5b (binder `ι` renamed `κ`: `ι` is a token under the
+  file's opens), plus `prodUnif_fullLattice` (from `ProductUnifAnalytic`: the product of
+  full-lattice uniformizations is one, with multiplicative covolume). Compile: 0 errors,
+  21/21 `#print axioms` standard (VERIFIED).
