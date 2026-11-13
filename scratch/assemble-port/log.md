@@ -144,3 +144,18 @@
 - FINAL FLAT CHECK (31-field state): AssemblePort.lean 110 743 lines, md5 9bd33802…: VERIFIED exit 0 in 1079 s,
   0 errors, no sorry, 285 axiom reports all [propext, Classical.choice, Quot.sound], incl.
   `HDec.HSyn.sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5` (flat_summary.txt, flat_out.txt).
+- STRETCH (lt-local route). Part z93z (mk/mk_z93z.py) = lg-kerwild's KerWild.lean body + lt-local's part_tools, part_g7,
+  part_main, part_rank, part_gp4, with every top-level declaration already declared in AssemblePort.lean removed
+  (mk/dedup_part.py, mk/decls.py: 274 + 6 declarations; a removed copy resolves to this file's text, e.g. the fixed
+  G7Data, as lt-local's LtLocal4 variant). Runs: (1) part sorted before z93 under the locale's collation (z93b) → renamed
+  z93z; (2) decl parser fixed (block comments; all occurrences dropped); dedup also drops `set_option … in`/`open … in`
+  prefixes; `ι` (a token here) renamed `ιq` in part_tools; (3) VERIFIED 0 errors: `LTLocal.linkedTateLocal_of_tateBridge35`
+  compiles over this file's objects.
+- Merged origin/wip/frob-contrib (report). Kernel import ZInQKernel.Contrib.UnramRoots.Main (lake build OK). Part z94b:
+  `HSyn.unramRoots_proved p ℓ : G15Ram.UnramRoots p ℓ := _root_.UnramRootsTask.unramRoots` (kernel statement accepted for
+  this file's copy by unfolding). VERIFIED.
+- z99: `LinkedTateData` now from `G0AssembleMod.linkedTateData_of_local t.t7 (LTLocal.linkedTateLocal_of_tateBridge35 r.r6
+  t.t5 (unramRoots_proved 2 5) (unramRoots_proved 2 3) (FrobPiecesGood.tateBridge35_of_neron_nmp t.t26 (abVarSpreadsOut_of_ega
+  …) gp.properSmoothGenConnected gp.reductionTorsionBijective gp.neronMappingAbelianScheme) hFS (qmEndRank_of_leaves t.t6
+  t.t27))`. GluePieces5 loses upperBreakBound (LEAF?), betaSignAtTwo (GLUE): 29 fields (18 LEAF, 7 LEAF?, 4 GLUE).
+  TailD: VERIFIED exit 0, 130 s, no sorryAx, all axiom reports standard.

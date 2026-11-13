@@ -14,8 +14,6 @@ finiteImageHT
 t09SymmIsogenyExists
 isogenyQuasiInverse
 divisiblePoints
-upperBreakBound
-betaSignAtTwo
 gammaStarGen
 t11aRiemannHom
 y3Connected
