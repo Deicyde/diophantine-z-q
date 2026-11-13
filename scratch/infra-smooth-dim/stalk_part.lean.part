@@ -1,0 +1,86 @@
+
+/-! ## §4 Scheme stalks (task infra-smooth-dim) -/
+
+namespace InfraSmoothDim
+
+open CategoryTheory AlgebraicGeometry
+
+/-- The algebraic theorem over a base ring that is a field (without a `Field` instance). -/
+theorem ringKrullDim_and_spanFinrank_of_isField {R S : Type*} [CommRing R] [CommRing S]
+    (hR : IsField R) (φ : R →+* S) (n : ℕ) (h : φ.IsStandardSmoothOfRelativeDimension n)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = n ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = n := by
+  let _ := hR.toField
+  let _ := φ.toAlgebra
+  obtain ⟨ι, σ, _, _, P, hP⟩ :=
+    (h : @Algebra.IsStandardSmoothOfRelativeDimension n R S _ _ φ.toAlgebra).out
+  rw [← hP]
+  exact ringKrullDim_and_spanFinrank_localization P m
+
+/-- Sections of `Spec K` over a nonempty open form a field. -/
+theorem isField_sections_spec (K : Type*) [Field K] (U : (Spec (CommRingCat.of K)).Opens)
+    (hU : (U : Set (Spec (CommRingCat.of K))).Nonempty) :
+    IsField Γ(Spec (CommRingCat.of K), U) := by
+  have hUt : U = ⊤ := by
+    obtain ⟨z, hz⟩ := hU
+    refine eq_top_iff.mpr fun y _ => ?_
+    have : Subsingleton (Spec (CommRingCat.of K)) :=
+      inferInstanceAs (Subsingleton (PrimeSpectrum K))
+    rwa [Subsingleton.elim y z]
+  subst hUt
+  exact (Scheme.ΓSpecIso (CommRingCat.of K)).commRingCatIsoToRingEquiv.toMulEquiv.isField
+    (Field.toIsField K)
+
+/-- **Local form.** If `f : X → Spec K` is standard smooth of relative dimension `n` on an affine
+chart `V → U` containing a closed point `x`, then `dim 𝒪_{X,x} = n` and `𝔪_x` is spanned by `n`
+elements (so `dim_{κ(x)} 𝔪_x/𝔪_x² = n`). -/
+theorem stalk_dim_of_chart {K : Type*} [Field K] {X : Scheme} (f : X ⟶ Spec (CommRingCat.of K))
+    {U : (Spec (CommRingCat.of K)).Opens} (hU : IsAffineOpen U) {V : X.Opens} (hV : IsAffineOpen V)
+    (e : V ≤ f ⁻¹ᵁ U) (n : ℕ)
+    (h : RingHom.IsStandardSmoothOfRelativeDimension n (f.appLE U V e).hom)
+    (x : X) (hxV : x ∈ V) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  have hR := isField_sections_spec K U ⟨f.base x, e hxV⟩
+  have hmax := hV.primeIdealOf_isMaximal_of_isClosed ⟨x, hxV⟩ hx
+  obtain ⟨h1, h2⟩ := ringKrullDim_and_spanFinrank_of_isField hR _ n h
+    (hV.primeIdealOf ⟨x, hxV⟩).asIdeal
+  let _ := X.presheaf.algebra_section_stalk ⟨x, hxV⟩
+  have := hV.isLocalization_stalk ⟨x, hxV⟩
+  let eq : Localization.AtPrime (hV.primeIdealOf ⟨x, hxV⟩).asIdeal ≃+* X.presheaf.stalk x :=
+    (IsLocalization.algEquiv (hV.primeIdealOf ⟨x, hxV⟩).asIdeal.primeCompl _ _).toRingEquiv
+  constructor
+  · rw [← ringKrullDim_eq_of_ringEquiv eq, h1]
+  · rw [← map_ringEquiv_maximalIdeal eq, Ideal.spanFinrank_map_eq_of_ringEquiv, h2]
+
+/-- **Smooth of relative dimension `n` over a field.** At every closed point, the local ring has
+Krull dimension `n` and embedding dimension `n` (it is a regular local ring of dimension `n`). -/
+theorem stalk_dim_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ :=
+    SmoothOfRelativeDimension.exists_isStandardSmoothOfRelativeDimension (n := n) (f := f) x
+  exact stalk_dim_of_chart f hU hV e n h x hxV hx
+
+/-- **Smooth over a field.** At every closed point, the local ring is regular: its Krull dimension
+equals its embedding dimension, and both equal the relative dimension of a standard smooth chart
+around the point. -/
+theorem exists_stalk_dim_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) (hx : IsClosed ({x} : Set X)) :
+    ∃ n : ℕ, ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ := Smooth.exists_isStandardSmooth f x
+  let _ := (f.appLE U V e).hom.toAlgebra
+  have h' : Algebra.IsStandardSmooth Γ(Spec (CommRingCat.of K), U) Γ(X, V) := h
+  have := h'.out
+  obtain ⟨ι, σ, _, _, ⟨P⟩⟩ := this
+  exact ⟨P.dimension, stalk_dim_of_chart f hU hV e P.dimension
+    (P.isStandardSmoothOfRelativeDimension rfl) x hxV hx⟩
+
+end InfraSmoothDim
+
+#print axioms InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension
+#print axioms InfraSmoothDim.exists_stalk_dim_of_smooth
