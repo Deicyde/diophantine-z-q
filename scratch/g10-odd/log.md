@@ -20,3 +20,8 @@
 ## Compile outcomes
 - 2026-11-13 04:18 `lake env lean scratch/g10-odd/G10Odd.lean`: no errors, no warnings (after
   `lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`).
+- 2026-11-13 04:24 §4-§5 added (T12K split, totally real case, corrected statement): compiles,
+  no errors. New: `T12K_ComplexConjEigen` (glue target), `ConjTwistOutside` (glue),
+  `not_pm_one_of_mem_range`, `g10Glue_of_T12K_conjTwistOutside`, `isOdd_of_T12K_of_forall_mem`,
+  `G10GlueConcrete`, `ConjTwistFromLeaves`, `g10GlueConcrete_of_conjTwistFromLeaves`,
+  `g10Out_of_conjTwist` (the conclusion without the opaque hypotheses). VERIFIED (compiled).

@@ -216,10 +216,14 @@ theorem galRep_eq_of_central {K : Type} [Field K] [NumberField K] (A : PkgI3.AbV
     simp only [hm]
   exact baseChange_injective' ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) ht
 
-/-- **`G10Glue` from `ConjTwistNontrivial` (proved).** The opaque hypotheses `T11_RiemannGAGA`,
-`T12_ArtinComparison` and the rank, division and noncommutativity hypotheses are not used. -/
-theorem g10Glue_of_conjTwist (h : ConjTwistNontrivial) : G10Glue := by
-  intro _ _ hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+/-- **The conclusion of `G10Glue` from `ConjTwistNontrivial` (proved),** without the opaque
+hypotheses and without the rank, division and noncommutativity hypotheses. -/
+theorem g10Out_of_conjTwist (h : ConjTwistNontrivial) (hF : PkgI3.FaltingsTate) (K : Type)
+    [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hdim : A.dim = 2) (hI : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) :
+    G10Out r := by
   apply isOdd_of_not_pm_one
   intro c hc
   have key := h hF K A ℓ hdim c hc
@@ -228,5 +232,154 @@ theorem g10Glue_of_conjTwist (h : ConjTwistNontrivial) : G10Glue := by
     exact key (galRep_eq_of_central A r e hI c (fun X => by rw [h1, _root_.one_mul, _root_.mul_one]))
   · intro h1
     exact key (galRep_eq_of_central A r e hI c (fun X => by rw [h1]; simp))
+
+/-- **`G10Glue` from `ConjTwistNontrivial` (proved).** The opaque hypotheses `T11_RiemannGAGA`,
+`T12_ArtinComparison` and the rank, division and noncommutativity hypotheses are not used. -/
+theorem g10Glue_of_conjTwist (h : ConjTwistNontrivial) : G10Glue := by
+  intro _ _ hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  exact g10Out_of_conjTwist h hF K A ℓ r e hdim hI
+
+/-! ## §4. Split by whether `c ∈ G_K`, through a number-field form of T12 -/
+
+/-- **T12 over a number field (GLUE target, unproved; same proof as `T12_ComplexConjEigen`).**
+For an abelian variety `A` of dimension `g` over a number field `K` and `σ ∈ G_K` whose image in
+`G_ℚ` is a complex conjugation (so `σ` fixes `K` pointwise through a real embedding), `σ` acts on
+`V_ℓ(A)` with `+1`- and `−1`-eigenspaces of dimension `g` each. Source: Artin's comparison at the
+real place (SGA 4 XI 4.4; for abelian varieties through the uniformization T35 and T5, as for
+`ZInQ.LeafPush2.T12_ComplexConjEigen`) plus the eigenspace computation for an antiholomorphic
+involution of `ℂ^g/Λ`. `T12_ComplexConjEigen` is the case `K = ℚ` up to the inner automorphism
+by which `resQ ℚ` differs from the identity. -/
+def T12K_ComplexConjEigen : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime] (σ : Field.absoluteGaloisGroup K), PkgI4.IsComplexConj (resQ K σ) →
+      Module.finrank ℚ_[ℓ] (LinearMap.ker (A.galRep ℓ σ - 1)) = g ∧
+        Module.finrank ℚ_[ℓ] (LinearMap.ker (A.galRep ℓ σ + 1)) = g
+
+/-- **G10 core outside `G_K` (GLUE, unproved; STANDARD).** `ConjTwistNontrivial` restricted to
+complex conjugations not in (the image of) `G_K`; same proof (Faltings, Artin comparison at `ι`
+for the conjugate variety `A^c`, holomorphy). -/
+def ConjTwistOutside : Prop :=
+  PkgI3.FaltingsTate →
+  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime], A.dim = 2 → ∀ c : PkgI4.GQ, PkgI4.IsComplexConj c → c ∉ (resQ K).range →
+    ¬ ∀ σ τ : Field.absoluteGaloisGroup K, resQ K τ = c * resQ K σ * c⁻¹ →
+      A.galRep ℓ τ = A.galRep ℓ σ
+
+theorem conjTwistOutside_of_conjTwistNontrivial (h : ConjTwistNontrivial) : ConjTwistOutside :=
+  fun hF K _ _ _ A ℓ _ hd c hc _ => h hF K A ℓ hd c hc
+
+/-- `±1` on `V_ℓ(A)` is incompatible with eigenspaces of dimension `2` for both signs. -/
+theorem ker_two_eq_bot {V : Type*} [AddCommGroup V] [Module ℚ_[ℓ] V] (f : V →ₗ[ℚ_[ℓ]] V)
+    (hf : f = 1 ∨ f = -1) : LinearMap.ker (f + 1) = ⊥ ∨ LinearMap.ker (f - 1) = ⊥ := by
+  have two : (2 : ℚ_[ℓ]) ≠ 0 := two_ne_zero
+  rcases hf with rfl | rfl
+  · left
+    rw [LinearMap.ker_eq_bot']
+    intro v hv
+    have : (2 : ℚ_[ℓ]) • v = 0 := by
+      rw [two_smul]; simpa using hv
+    exact (smul_eq_zero.mp this).resolve_left two
+  · right
+    rw [LinearMap.ker_eq_bot']
+    intro v hv
+    have : (2 : ℚ_[ℓ]) • v = 0 := by
+      rw [two_smul]
+      have : -v - v = 0 := by simpa using hv
+      have h2 : v + v = -(-v - v) := by abel
+      rw [h2, this, neg_zero]
+    exact (smul_eq_zero.mp this).resolve_left two
+
+/-- **Inside `G_K` (proved from `T12K_ComplexConjEigen`).** If `c = resQ K σ` is a complex
+conjugation and `ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K` with `dim A = 2`, then `r(c) ≠ ±1`. -/
+theorem not_pm_one_of_mem_range (hT : T12K_ComplexConjEigen) {K : Type} [Field K]
+    [NumberField K] (A : PkgI3.AbVar K) (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hdim : A.dim = 2) (hI : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e)
+    (σ : Field.absoluteGaloisGroup K) (hc : PkgI4.IsComplexConj (resQ K σ)) :
+    r.mat (resQ K σ) ≠ 1 ∧ r.mat (resQ K σ) ≠ -1 := by
+  have hd : A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hdim]; rfl
+  obtain ⟨h1, h2⟩ := hT K A 2 hd ℓ σ hc
+  have reduce : ∀ (s : Module.End ℚ_[ℓ] (A.V ℓ)) (M : Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)),
+      r.mat (resQ K σ) = M → (∀ v, e (s.baseChange (PadicAlgCl ℓ) v) =
+        (M.mulVec (e v).1, M.mulVec (e v).2)) → A.galRep ℓ σ = s := by
+    intro s M hM hs
+    apply baseChange_injective' ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+    apply LinearMap.ext; intro v
+    apply e.injective
+    have h := hI σ v
+    simp only [hM] at h
+    exact h.trans (hs v).symm
+  have fin0 : ∀ W : Submodule ℚ_[ℓ] (A.V ℓ), W = ⊥ → Module.finrank ℚ_[ℓ] W = 0 := by
+    rintro W rfl; exact finrank_bot _ _
+  constructor
+  · intro hm
+    have hs : A.galRep ℓ σ = 1 := reduce 1 1 hm (fun v => by
+      simp [LinearMap.baseChange_one])
+    rcases ker_two_eq_bot (A.galRep ℓ σ) (Or.inl hs) with h | h
+    · have := fin0 _ h; omega
+    · have := fin0 _ h; omega
+  · intro hm
+    have hs : A.galRep ℓ σ = -1 := reduce (-1) (-1) hm (fun v => by
+      rw [LinearMap.baseChange_neg, LinearMap.baseChange_one]
+      simp only [Matrix.neg_mulVec, Matrix.one_mulVec]
+      ext <;> simp)
+    rcases ker_two_eq_bot (A.galRep ℓ σ) (Or.inr hs) with h | h
+    · have := fin0 _ h; omega
+    · have := fin0 _ h; omega
+
+/-- **`G10Glue` from `T12K_ComplexConjEigen` and `ConjTwistOutside` (proved).** -/
+theorem g10Glue_of_T12K_conjTwistOutside (hT : T12K_ComplexConjEigen)
+    (hO : ConjTwistOutside) : G10Glue := by
+  intro _ _ hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  apply isOdd_of_not_pm_one
+  intro c hc
+  by_cases hmem : c ∈ (resQ K).range
+  · obtain ⟨σ, rfl⟩ := hmem
+    exact not_pm_one_of_mem_range hT A r e hdim hI σ hc
+  · have key := hO hF K A ℓ hdim c hc hmem
+    constructor
+    · intro h1
+      exact key (galRep_eq_of_central A r e hI c (fun X => by
+        rw [h1, _root_.one_mul, _root_.mul_one]))
+    · intro h1
+      exact key (galRep_eq_of_central A r e hI c (fun X => by rw [h1]; simp))
+
+/-- **Totally real case (proved from `T12K_ComplexConjEigen` alone):** if every complex
+conjugation lies in (the image of) `G_K`, e.g. `K` totally real, `r` is odd. -/
+theorem isOdd_of_T12K_of_forall_mem (hT : T12K_ComplexConjEigen) {K : Type} [Field K]
+    [NumberField K] (A : PkgI3.AbVar K) (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hdim : A.dim = 2) (hI : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e)
+    (hall : ∀ c, PkgI4.IsComplexConj c → c ∈ (resQ K).range) : r.IsOdd := by
+  apply isOdd_of_not_pm_one
+  intro c hc
+  obtain ⟨σ, rfl⟩ := hall c hc
+  exact not_pm_one_of_mem_range hT A r e hdim hI σ hc
+
+/-! ## §5. Corrected statement over the concrete leaves -/
+
+open ZInQ.LeafPush2 in
+/-- **G10, corrected statement (GLUE).** `G10Glue` with the opaque placeholders
+`HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison` replaced by the concrete textbook leaves of
+`ZInQKernel/HDecomp/LeafPush2/T.lean`: T11(a) `T11a_RiemannEnd`, T11(b) `T11b_Rigidity` and T35
+`UniformizationExists` (T12 is glue, so it is not a hypothesis). The conclusion is unchanged. -/
+def G10GlueConcrete : Prop :=
+  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → PkgI3.FaltingsTate →
+  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+    A.dim = 2 → Module.finrank ℤ (PkgI3.AbVar.End A) = 4 → PkgI3.EndDivision A →
+    (∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x) →
+    Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e → G10Out r
+
+open ZInQ.LeafPush2 in
+/-- **G10 core from the leaves (GLUE, unproved; STANDARD).** `ConjTwistNontrivial` with T11(a),
+T11(b) and T35 available: what its proof (docstring of `ConjTwistNontrivial`, §6) uses. -/
+def ConjTwistFromLeaves : Prop :=
+  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → ConjTwistNontrivial
+
+theorem g10GlueConcrete_of_conjTwistFromLeaves (h : ConjTwistFromLeaves) : G10GlueConcrete := by
+  intro h11a h11b h35 hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  exact g10Out_of_conjTwist (h h11a h11b h35) hF K A ℓ r e hdim hI
 
 end G0Galois
