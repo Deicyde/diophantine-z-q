@@ -1104,4 +1104,56 @@ theorem psi_unit_mul (d : ℕ) (p : ℤ × ℤ) :
   obtain ⟨-, h2, h3, -⟩ := psi_units d
   exact ⟨by rw [psi_mul, h3, one_mul], by rw [psi_mul, h2, one_mul]⟩
 
+/-! ### `CdFourier` from the odd quadratic Gauss sum (node C2): CRT and the 2-part -/
+
+/-- The CRT parametrization `(a, b) ↦ d a + 4 b` of `ℤ / 4d`, `d` odd. -/
+theorem crt_injective {d : ℕ} (hd : Odd d) :
+    Function.Injective fun x : Fin 4 × Fin d =>
+      ((d * x.1 + 4 * x.2) % (4 * d) : ℕ) := by
+  rintro ⟨a, b⟩ ⟨a', b'⟩ h
+  simp only at h
+  have hM : d * a + 4 * b ≡ d * a' + 4 * b' [MOD 4 * d] := h
+  have h4 : d * a ≡ d * a' [MOD 4] := by
+    have := hM.of_mul_right d
+    have e1 : d * a + 4 * b ≡ d * a [MOD 4] := by
+      simp [Nat.ModEq, Nat.add_mul_mod_self_left]
+    have e2 : d * a' + 4 * b' ≡ d * a' [MOD 4] := by
+      simp [Nat.ModEq, Nat.add_mul_mod_self_left]
+    exact e1.symm.trans (this.trans e2)
+  have hdd : d * a + 4 * b ≡ d * a' + 4 * b' [MOD d] := hM.of_mul_left 4
+  have hd' : 4 * b ≡ 4 * b' [MOD d] := by
+    have e1 : d * a + 4 * b ≡ 4 * b [MOD d] := by
+      simp [Nat.ModEq]
+    have e2 : d * a' + 4 * b' ≡ 4 * b' [MOD d] := by
+      simp [Nat.ModEq]
+    exact e1.symm.trans (hdd.trans e2)
+  have hc4 : Nat.gcd 4 d = 1 := by
+    have : Nat.Coprime 2 d := (Nat.coprime_two_left).mpr hd
+    exact Nat.Coprime.pow_left 2 this
+  have ha := Nat.ModEq.cancel_left_of_coprime hc4 h4
+  have hb := Nat.ModEq.cancel_left_of_coprime (by rw [Nat.gcd_comm]; exact hc4) hd'
+  have ha' : (a : ℕ) = a' := by
+    have := ha; unfold Nat.ModEq at this
+    rwa [Nat.mod_eq_of_lt a.2, Nat.mod_eq_of_lt a'.2] at this
+  have hb' : (b : ℕ) = b' := by
+    have := hb; unfold Nat.ModEq at this
+    rwa [Nat.mod_eq_of_lt b.2, Nat.mod_eq_of_lt b'.2] at this
+  rw [Fin.ext ha', Fin.ext hb']
+
+/-- **CRT for sums**: for a `4d`-periodic `g`, `Σ_{j mod 4d} g(j) = Σ_{a mod 4} Σ_{b mod d} g(da + 4b)`. -/
+theorem sum_crt {d : ℕ} (hd : Odd d) (g : ℤ → ℂ) (hg : ∀ x : ℤ, g x = g (x % (4 * d : ℕ))) :
+    ∑ j : Fin (4 * d), g j = ∑ a : Fin 4, ∑ b : Fin d, g (d * a + 4 * b) := by
+  have hd0 : 0 < d := hd.pos
+  rw [← Finset.sum_product']
+  let φ : Fin 4 × Fin d → Fin (4 * d) := fun x =>
+    ⟨(d * x.1 + 4 * x.2) % (4 * d), Nat.mod_lt _ (by positivity)⟩
+  have hinj : Function.Injective φ := fun x y h => crt_injective hd (Fin.ext_iff.mp h)
+  have hbij : Function.Bijective φ := by
+    rw [Fintype.bijective_iff_injective_and_card]
+    exact ⟨hinj, by simp [Fintype.card_fin, Fintype.card_prod]⟩
+  refine (Fintype.sum_bijective φ hbij _ _ fun x => ?_).symm
+  simp only [φ]
+  rw [hg (d * x.1 + 4 * x.2)]
+  congr 1
+
 end BpHeckeFE
