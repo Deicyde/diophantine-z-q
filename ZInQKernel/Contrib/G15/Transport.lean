@@ -109,6 +109,157 @@ theorem card_decompGroup_eq_finrank :
 
 end Basic
 
+
+/-! ## Intermediate fields: `Gal(L_w/K_u) ↔ D_P ∩ Gal(L/K)` and `[K_u : ℚ_v] = [D_P : D_P ∩ Gal(L/K)]` -/
+
+section Intermediate
+
+variable (v : HeightOneSpectrum (𝓞 ℚ)) (w : HeightOneSpectrum (𝓞 L)) [w.asIdeal.LiesOver v.asIdeal]
+  (K : IntermediateField ℚ L) (u : HeightOneSpectrum (𝓞 K))
+  [u.asIdeal.LiesOver v.asIdeal] [w.asIdeal.LiesOver u.asIdeal]
+
+/-- The canonical map `K_u → L_w` is `ℚ_v`-linear. -/
+theorem completionAlgHom_algebraMap (x : v.adicCompletion ℚ) :
+    HeightOneSpectrum.completionAlgHom u w (algebraMap (v.adicCompletion ℚ) (u.adicCompletion K) x) =
+      algebraMap (v.adicCompletion ℚ) (w.adicCompletion L) x := by
+  have h := HeightOneSpectrum.completionAlgHom_comp (K := ℚ) (M := K) (L := L) v u w
+  have h2 := congrArg (fun f => f x) h
+  simp only [AlgHom.comp_apply, AlgHom.restrictScalars_apply] at h2
+  rw [HeightOneSpectrum.algebraMap_eq_completionAlgHom,
+    HeightOneSpectrum.algebraMap_eq_completionAlgHom]
+  exact h2
+
+/-- The canonical map `K_u → L_w` as a `ℚ_v`-algebra map. -/
+def inclQv : u.adicCompletion K →ₐ[v.adicCompletion ℚ] w.adicCompletion L where
+  toRingHom := (HeightOneSpectrum.completionAlgHom u w).toRingHom
+  commutes' x := completionAlgHom_algebraMap v w K u x
+
+theorem inclQv_apply (z : u.adicCompletion K) :
+    inclQv v w K u z = HeightOneSpectrum.completionAlgHom u w z := rfl
+
+/-- The image of `K_u` in `L_w`, an intermediate field of `L_w/ℚ_v`. -/
+abbrev localField : IntermediateField (v.adicCompletion ℚ) (w.adicCompletion L) :=
+  (inclQv v w K u).fieldRange
+
+/-- `K_u ≅ (its image in L_w)` over `ℚ_v`. -/
+def localFieldEquiv : u.adicCompletion K ≃ₐ[v.adicCompletion ℚ] localField v w K u :=
+  AlgEquiv.ofInjectiveField (inclQv v w K u)
+
+theorem finrank_localField :
+    Module.finrank (v.adicCompletion ℚ) (localField v w K u) =
+      Module.finrank (v.adicCompletion ℚ) (u.adicCompletion K) :=
+  (localFieldEquiv v w K u).toLinearEquiv.finrank_eq.symm
+
+/-- The image of `x ∈ K` in `L_w` lies in the image of `K_u`. -/
+theorem algebraMap_mem_localField (x : K) :
+    algebraMap L (w.adicCompletion L) (x : L) ∈ localField v w K u := by
+  refine ⟨algebraMap K (u.adicCompletion K) x, ?_⟩
+  show HeightOneSpectrum.completionAlgHom u w _ = _
+  exact HeightOneSpectrum.adicCompletionExtension_coe K L u w x
+
+variable [IsGalois ℚ L]
+
+/-- **`D_P ∩ Gal(L/K)` is `Gal(L_w/K_u)`, elementwise.** `σ ∈ D_P` fixes `K` iff its continuous
+extension `σ̂ ∈ Gal(L_w/ℚ_v)` fixes the image of `K_u`. -/
+theorem mem_localSub_iff (σ : GlueD1Local.decompGroup L w.asIdeal) :
+    σ ∈ GlueD1Local.localSub L K w.asIdeal ↔
+      decompEquiv v w σ ∈ (localField v w K u).fixingSubgroup := by
+  rw [Subgroup.mem_subgroupOf, IntermediateField.mem_fixingSubgroup_iff,
+    IntermediateField.mem_fixingSubgroup_iff]
+  constructor
+  · intro hσ y hy
+    obtain ⟨z, rfl⟩ := hy
+    -- `σ̂ ∘ ι` and `ι` are continuous ring maps `K_u → L_w` that agree on `K`
+    have key : ((decompEquiv v w σ).toRingEquiv.toRingHom.comp
+        (HeightOneSpectrum.completionAlgHom u w).toRingHom) =
+        (HeightOneSpectrum.completionAlgHom u w).toRingHom := by
+      apply HeightOneSpectrum.eq_completionAlgHom_of_continuous u w
+      · exact (HeightOneSpectrum.continuous_decompositionHom (v := v) (w := w) σ).comp
+          (HeightOneSpectrum.continuous_completionAlgHom u w)
+      · intro x
+        simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe]
+        have hx : HeightOneSpectrum.completionAlgHom u w (algebraMap K (u.adicCompletion K) x) =
+            algebraMap L (w.adicCompletion L) (algebraMap K L x) :=
+          HeightOneSpectrum.adicCompletionExtension_coe K L u w x
+        rw [hx]
+        show decompEquiv v w σ (algebraMap L (w.adicCompletion L) (algebraMap K L x)) = _
+        rw [decompEquiv_algebraMap]
+        congr 1
+        exact hσ x x.2
+    have := congrArg (fun f => f z) key
+    simpa [inclQv_apply] using this
+  · intro h x hx
+    apply (algebraMap L (w.adicCompletion L)).injective
+    rw [← decompEquiv_algebraMap v w]
+    exact h _ (algebraMap_mem_localField v w K u ⟨x, hx⟩)
+
+/-- **`decompEquiv` maps `D_P ∩ Gal(L/K)` onto `Gal(L_w/K_u)`** (the fixing subgroup of the image
+of `K_u` in `Gal(L_w/ℚ_v)`). -/
+theorem map_localSub_decompEquiv :
+    (GlueD1Local.localSub L K w.asIdeal).map (decompEquiv v w).toMonoidHom =
+      (localField v w K u).fixingSubgroup := by
+  ext τ
+  constructor
+  · rintro ⟨σ, hσ, rfl⟩
+    exact (mem_localSub_iff v w K u σ).mp hσ
+  · intro hτ
+    refine ⟨(decompEquiv v w).symm τ, ?_, by simp⟩
+    show (decompEquiv v w).symm τ ∈ GlueD1Local.localSub L K w.asIdeal
+    rw [mem_localSub_iff v w K u]
+    simpa using hτ
+
+/-- **The local degree is the index**: `[K_u : ℚ_v] = [D_P : D_P ∩ Gal(L/K)]`. -/
+theorem index_localSub_eq_finrank :
+    (GlueD1Local.localSub L K w.asIdeal).index =
+      Module.finrank (v.adicCompletion ℚ) (u.adicCompletion K) := by
+  rw [← finrank_localField v w K u, IntermediateField.finrank_eq_fixingSubgroup_index,
+    ← map_localSub_decompEquiv v w K u]
+  exact (Subgroup.index_map_of_bijective (f := (decompEquiv v w).toMonoidHom)
+    (decompEquiv v w).bijective _).symm
+
+/-- Galois theory: if `M/F` is finite Galois and `M` is the normal closure of `E`, then the fixing
+subgroup of `E` has trivial normal core. -/
+theorem normalCore_fixingSubgroup_eq_bot {F M : Type*} [Field F] [Field M] [Algebra F M]
+    [FiniteDimensional F M] [IsGalois F M] (E : IntermediateField F M)
+    (h : IntermediateField.normalClosure F E M = ⊤) : E.fixingSubgroup.normalCore = ⊥ := by
+  set N := E.fixingSubgroup.normalCore
+  have : N.Normal := Subgroup.normalCore_normal _
+  have hK : E ≤ IntermediateField.fixedField N := by
+    intro x hx
+    rw [IntermediateField.mem_fixedField_iff]
+    intro σ hσ
+    exact (IntermediateField.mem_fixingSubgroup_iff E σ).mp
+      (Subgroup.normalCore_le _ hσ) x hx
+  have htop : IntermediateField.fixedField N = ⊤ := by
+    rw [eq_top_iff, ← h]
+    exact (IntermediateField.normalClosure_le_iff_of_normal).mpr hK
+  rw [← IntermediateField.fixingSubgroup_fixedField N, htop, IntermediateField.fixingSubgroup_top]
+
+/-- A group isomorphism carrying `H` onto `H'` carries trivial normal core to trivial normal
+core. -/
+theorem normalCore_eq_bot_of_map_equiv {G G' : Type*} [Group G] [Group G'] (e : G ≃* G')
+    (H : Subgroup G) (H' : Subgroup G') (hmap : H.map e.toMonoidHom = H')
+    (hcore : H'.normalCore = ⊥) : H.normalCore = ⊥ := by
+  have hN : (H.normalCore.map e.toMonoidHom).Normal :=
+    (Subgroup.normalCore_normal H).map e.toMonoidHom e.surjective
+  have hle : H.normalCore.map e.toMonoidHom ≤ H'.normalCore := by
+    rw [Subgroup.normal_le_normalCore, ← hmap]
+    exact Subgroup.map_mono (Subgroup.normalCore_le H)
+  rw [hcore, le_bot_iff] at hle
+  exact (Subgroup.map_eq_bot_iff_of_injective (f := e.toMonoidHom) _ e.injective).mp hle
+
+/-- **"`L_w` is the Galois closure of `K_u/ℚ_v`" gives the kernel's core condition**: if the
+normal closure of the image of `K_u` in `L_w/ℚ_v` is `L_w`, then `D_P ∩ Gal(L/K)` has trivial
+normal core in `D_P` (the hypothesis `hcore` of `GlueD1Local.D1_local`). -/
+theorem normalCore_localSub_eq_bot
+    (hclos : IntermediateField.normalClosure (v.adicCompletion ℚ) (localField v w K u)
+      (w.adicCompletion L) = ⊤) :
+    (GlueD1Local.localSub L K w.asIdeal).normalCore = ⊥ :=
+  normalCore_eq_bot_of_map_equiv (decompEquiv v w) _ _ (map_localSub_decompEquiv v w K u)
+    (normalCore_fixingSubgroup_eq_bot _ hclos)
+
+end Intermediate
+
 end ZInQ.Contrib.G15
 
 end

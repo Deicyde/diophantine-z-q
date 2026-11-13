@@ -13,3 +13,8 @@
   mem_ramGroup_iff_decompositionHom_mem, decompEquiv (D_P ≃* Gal(L_w/ℚ_v)), decompEquiv_algebraMap,
   map_ramGroup_decompEquiv, ramCard_eq_card_localRam(_fun), ramGroup_ne_bot_iff,
   card_decompGroup_eq_finrank. VERIFIED (compiled).
+- 04:18 Intermediate section compiles (`lake env lean`): completionAlgHom_algebraMap, inclQv, localField,
+  localFieldEquiv, finrank_localField, algebraMap_mem_localField, mem_localSub_iff,
+  map_localSub_decompEquiv (D_P ∩ Gal(L/K) ↦ fixingSubgroup of K_u in L_w), index_localSub_eq_finrank
+  ([K_u:ℚ_v] = index), normalCore_fixingSubgroup_eq_bot, normalCore_eq_bot_of_map_equiv,
+  normalCore_localSub_eq_bot. VERIFIED (compiled).
