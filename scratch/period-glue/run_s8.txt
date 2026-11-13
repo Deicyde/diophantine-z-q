@@ -1,0 +1,1 @@
+'HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

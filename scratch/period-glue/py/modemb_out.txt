@@ -1,0 +1,20 @@
+Gram of symplectic basis: [[0, 0, 1, 0], [0, 0, 0, 1], [-1, 0, 0, 0], [0, -1, 0, 0]]
+small units: 338
+g2 = mu = 2j+ij: x=(0, 0, 2, 1) nrd=6 u=(-1, 0, 0, 0) y=(0, 0, -2, -1) symplectic=True
+   M = [[-1, 0, 0, 0], [0, 1, 0, 0], [0, -1, -1, 0], [1, 0, 0, 1]]
+   Omega(g tau) = M.Omega(tau): True
+   det g * det(C Om + D) (t-3)(t+1) / (denom^2 (gt-3)(gt+1)) = 1
+g4 = 1+i+j: x=(1, 1, 1, 0) nrd=2 u=(-1, 1/2, 0, 1/2) y=(0, 1, 0, 0) symplectic=True
+   M = [[1, 0, 1, -2], [0, 1, -2, 2], [0, 1, -1, 2], [1, 0, 1, -1]]
+   Omega(g tau) = M.Omega(tau): True
+   det g * det(C Om + D) (t-3)(t+1) / (denom^2 (gt-3)(gt+1)) = -1
+g6 = j(1+j)/2: x=(-3/2, 0, 1/2, 0) nrd=3 u=(-1/2, 1/2, 1/2, 1/2) y=(0, 0, -1, -1) symplectic=True
+   M = [[0, 0, 0, -1], [0, 0, 1, 0], [0, 1, -1, 2], [-1, 0, -1, 1]]
+   Omega(g tau) = M.Omega(tau): True
+   det g * det(C Om + D) (t-3)(t+1) / (denom^2 (gt-3)(gt+1)) = -1
+product g2 = mu = 2j+ij * g4 = 1+i+j * g6 = j(1+j)/2 = (9, 6, -3, 0) 
+product g2 = mu = 2j+ij * g6 = j(1+j)/2 * g4 = 1+i+j = (3, 0, -3, 0) 
+product g4 = 1+i+j * g2 = mu = 2j+ij * g6 = j(1+j)/2 = (3, -9, -9, -3) 
+product g4 = 1+i+j * g6 = j(1+j)/2 * g2 = mu = 2j+ij = (9, -6, -9, -6) 
+product g6 = j(1+j)/2 * g2 = mu = 2j+ij * g4 = 1+i+j = (9, 3, -3, 3) 
+product g6 = j(1+j)/2 * g4 = 1+i+j * g2 = mu = 2j+ij = (3, 0, -9, -6) 
