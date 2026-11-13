@@ -52,3 +52,9 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
   TwistDescent for PK), `semilinearTwistIsos_of_descent` (π(yK) = j₀ in K from Φ injective + val_comp),
   `conjIsogMaps_of_descent : MulIsogeny → TwistDescent → ConjIsogMaps`, `kernelFieldExists_of_descent`.
   All axioms standard.
+
+## Step 6. MulIsogeny's reductions included — VERIFIED (compiled, build6.txt, rc=0, no sorry)
+- Assembly now includes MulRigidity.lean L205-604 verbatim (Mul.lean body; my MulIsogeny copy removed).
+- `conjIsogMaps_of_kerUnitOpen : KerUnitOpen → TwistDescent → ConjIsogMaps`,
+  `conjIsogMaps_of_cotangent : KerUnitOpenOfCotangentSurj → CotangentMulN → TwistDescent → ConjIsogMaps`,
+  `kernelFieldExists_of_kerUnitOpen` (6 leaves: T6, NOS, Raynaud, TorsionStructure, T27, KerUnitOpen; glue: FS5, TwistDescent).

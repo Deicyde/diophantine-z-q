@@ -351,18 +351,7 @@ section KfGlueLevel2
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 
-namespace G0FibreSimple
-
-/-- **Textbook leaf (Mumford, *Abelian varieties*, §4, Application 2 / §6, over an algebraically
-closed field; Milne, *Abelian varieties* (Cornell–Silverman 1986), Thm 8.2, over any field;
-locators UNVERIFIED): multiplication by `n ≠ 0` is an isogeny** (finite and surjective, of degree
-`n^{2g}`), stated in characteristic `0`. The degree is dropped, so this is a consequence of the
-published statement. -/
-def MulIsogeny : Prop :=
-  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (n : ℤ), n ≠ 0 →
-    PkgI3.AbVar.IsIsogenyMor ((n : PkgI3.AbVar.End A).hom)
-
-end G0FibreSimple
+/- `G0FibreSimple.MulIsogeny` is in Part MR (MulRigidity.lean L321-323, verbatim). -/
 
 namespace G0ModField.KernelField
 
@@ -824,6 +813,28 @@ theorem kernelFieldExists_of_descent (hHFF : PkgI3.HomFreeFinite)
     (hD : TwistDescent) : KernelFieldExists :=
   kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_descent hMul hD)
 
+/-- **`ConjIsogMaps` from mul-rigidity's leaf `KerUnitOpen` and `TwistDescent` (proved).** -/
+theorem conjIsogMaps_of_kerUnitOpen (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
+    ConjIsogMaps :=
+  conjIsogMaps_of_descent (MulRigidity.mulIsogeny_of_kerUnitOpen hK) hD
+
+/-- **`ConjIsogMaps` from glue only (proved):** mul-rigidity's two cotangent glue statements and
+`TwistDescent`. -/
+theorem conjIsogMaps_of_cotangent (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
+    (h2 : MulRigidity.CotangentMulN) (hD : TwistDescent) : ConjIsogMaps :=
+  conjIsogMaps_of_descent (MulRigidity.mulIsogeny_of_cotangent h1 h2) hD
+
+/-- **`KernelFieldExists`, final form (proved).** Leaves: `HomFreeFinite` (T6),
+`NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27),
+`KerUnitOpen` (mul-rigidity; implied by the published `MulEtale`). Glue: FS5 `FibreComTrivial`
+(g0-fibresimple) and `TwistDescent` (Galois descent). -/
+theorem kernelFieldExists_of_kerUnitOpen (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) (hD : TwistDescent) :
+    KernelFieldExists :=
+  kernelFieldExists_of_five hHFF hNOS hRay hTors t27 h5 (conjIsogMaps_of_kerUnitOpen hK hD)
+
 end G0ModField.KernelField
 
 end KfGlueLevel3
@@ -843,3 +854,6 @@ end KfGlueLevel3
 #print axioms G0ModField.KernelField.semilinearTwistIsos_of_descent
 #print axioms G0ModField.KernelField.conjIsogMaps_of_descent
 #print axioms G0ModField.KernelField.kernelFieldExists_of_descent
+#print axioms G0ModField.KernelField.conjIsogMaps_of_kerUnitOpen
+#print axioms G0ModField.KernelField.conjIsogMaps_of_cotangent
+#print axioms G0ModField.KernelField.kernelFieldExists_of_kerUnitOpen
