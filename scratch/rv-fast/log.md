@@ -57,3 +57,14 @@ ringClassFieldD at a junk argument.
   (χ φ = 1 ≠ 0 in ZMod 2). 6 axiom prints all [propext, Classical.choice, Quot.sound].
 - Statement: `def UnramRoots` byte-identical to scratch/local-glue/part_twist.lean and to the copy in KerWild.lean
   (diff); no def of fixSet/inertiaSet/Fld/GQp in local-glue/*.lean, KerWild.lean, UnramRoots.lean (grep).
+
+## afr-absfrob compile (VERIFIED, 11:20)
+- `lake env lean scratch/rv-fast/AbsFrobCheck.lean` (Mathlib only): exit 0, 0 errors; appended checks:
+  `fr p (Spec R) _ = Spec.map (powHom p R h)`, `(fr p X hX).base x = x`. absFrob, fr_naturality, fr_Spec:
+  [propext, Classical.choice, Quot.sound].
+- `lake build` of the ZInQKernel imports of AfrAbsFrob.lean + KerWild.lean (9200 jobs, ok);
+  `lake env lean scratch/rv-fast/AfrCheck.lean`: exit 0, 0 errors, 1m30s. Appended: fExtendGen_of_nmp has type
+  `PkgI2.NeronMappingAbelianScheme.{0} → AlgFrobRedRed.FExtendGen`, absFrob : AbsFrob. Axiom prints
+  (absFrob, fExtendGen_of_nmp, fExtendCore_of_nmp, algFrobRed_of_nmp, tateBridge35_of_nmp, hom_spec_eq_of_point,
+  ringHom_eq_of_normal + the copied file's own) all standard.
+- cmp: src_AlgFrobRed.lean ≡ scratch/alg-frob-red/AlgFrobRed.lean; AbsFrob block ≡ part_red.lean's.
