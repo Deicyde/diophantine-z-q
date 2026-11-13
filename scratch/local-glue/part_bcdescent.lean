@@ -192,6 +192,26 @@ theorem descentPts_baseChange (A₀ : PkgI3.AbVar L) (hdim : A₀.dim = 2) :
   ⟨inferInstance, conjModel hLL' A₀, φL hLL' A₀, (dim_conjModel hLL' A₀).trans hdim,
     fun σ₀ σ' h P => φL_galAct hLL' A₀ σ₀ σ' h P⟩
 
+/-- **`LocalGlue` on G7's construction (proved).** For g0-mod-field's data: `L ≤ L'` finite
+Galois in `ℚ̄`, `A₀ : AbVar L` with `dim A₀ = 2`, G7Out for `(A₀)_{L'}` over `K = L'`, G7's clauses,
+the kernel-field clause `G_{L'} = G_L ∩ ker β_ℂ`, and the transport `β = ι ∘ β_ℂ` with `ι`
+injective, `LocalGlue p Tm a β L` holds at every `p ≠ ℓ`, from the leaves R6 and I2-Tors and the
+textbook Prop `UnramRoots` (used at `p = 2`). -/
+theorem localGlue_of_baseChange {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (hU : UnramRoots p ℓ) (hpℓ : p ≠ ℓ) [IsGalois ℚ L'] (A₀ : PkgI3.AbVar L)
+    (hdim₀ : A₀.dim = 2)
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb (bcL' hLL' A₀) ℓ)}
+    {c ε : GQ → GQ → PadicAlgCl ℓ} {a β : GQ → PadicAlgCl ℓ}
+    {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb (bcL' hLL' A₀) ℓ)}
+    (h7 : G0Galois.G7Out (bcL' hLL' A₀) ℓ Tm c ε a β u) (hC : G7Clauses β ε L)
+    (βC : GQ → ℂˣ) (hker : ∀ σ : GQ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1)
+    (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ) (hι : Function.Injective ιC)
+    (hβ : ∀ g, β g = (ιC (βC g) : PadicAlgCl ℓ)) :
+    LocalGlue (p := p) Tm a β L :=
+  localGlue_of_unramRoots hR6 hTors hU hpℓ h7 hC (kerWild_of_g7Data βC hker ιC hι hβ)
+    (fun _ => descentPts_baseChange hLL' A₀ hdim₀)
+
 end BCDescentSec
 
 
@@ -200,3 +220,4 @@ end G15Ram
 end
 
 #print axioms G15Ram.descentPts_baseChange
+#print axioms G15Ram.localGlue_of_baseChange

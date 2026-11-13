@@ -8,7 +8,8 @@
 # mk_neron_block.sh) + bc_block.lean (verbatim scratch/unram-tate/BCPoints.lean l.14-142, made by
 # mk_bc_block.sh) + part_raynaud.lean (§7c, new) + resq_block.lean (verbatim
 # scratch/g0-assemble/parts/75_modfield.lean l.786, l.895-985, renamed; mk_resq_block.sh)
-# + part_descent.lean (§7d, new) + part_twist.lean (§7e, new) + part_pack.lean (§8: verbatim `G8LocalPack` from
+# + part_descent.lean (§7d, new) + part_twist.lean (§7e, new) + part_bcdescent.lean (§7f, new)
+# + part_pack.lean (§8: verbatim `G8LocalPack` from
 # scratch/local-data/tail_part.lean, then new).
 cd "$(dirname "$0")"
 {

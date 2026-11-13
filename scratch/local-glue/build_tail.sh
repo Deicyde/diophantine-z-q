@@ -16,6 +16,7 @@ cd "$(dirname "$0")"
   cat resq_block.lean
   grep -v '^#print axioms' part_descent.lean
   grep -v '^#print axioms' part_twist.lean
+  grep -v '^#print axioms' part_bcdescent.lean
   sed '/^-- BEGIN verbatim copy/,/^-- END verbatim copy/d' part_pack.lean | grep -v '^#print axioms'
   cat tail_glue.lean
 } > TailK.lean
