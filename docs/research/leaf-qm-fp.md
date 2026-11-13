@@ -50,6 +50,15 @@ Glue proved in the same file from these leaves (VERIFIED, compiled):
 field `ℚ(i)`. So `R5fp` carries the containment `k ↪ ℚ(x)` when `b(k) ≥ 1`. bp-qmmoduli's
 `R5fp` (degree in `{h, 2h}`) is too weak for A10.
 
+**Dependence on an unreviewed claim** (found by the review, §6). `QML3` and `QMPair` omit the
+polarization. So the faithfulness of every leaf rests on the published theorems **plus**
+bp-qmmoduli §2.2: for a QM pair `(A, ι)` in characteristic 0, a principal polarization with Rosati
+involution `x ↦ μ⁻¹x̄μ` exists and is unique. §2.2 is SPECULATIVE. Its uniqueness half was
+checked by the review; its existence half (class number one and the sign argument) is
+unformalized. Polarizations cannot be stated in Lean today, so this cannot be split off as a Lean
+hypothesis. Buzzard's polarization-free moduli problem would remove it (UNVERIFIED for full
+level 3).
+
 What is not done: no leaf is proved (they are leaves). The steps A2-A5 and A10 still need glue
 that Mathlib cannot support today, listed in §4: degree theory of finite morphisms of curves,
 Galois theory of the function field of `Y₃` over `ℚ(j)`, the explicit model of `X₆ → P¹`, and
@@ -126,7 +135,7 @@ printed one or a consequence of it, never stronger.
 
 ```lean
 def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
-  IsProper Y.hom ∧ SmoothOfRelativeDimension 1 Y.hom ∧
+  IsProper Y.hom ∧ SmoothOfRelativeDimension 1 Y.hom ∧ Nonempty (fieldPt Qbar ⟶ Y) ∧
   ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
     (y : fieldPt K ⟶ Y) (P : QML3 K), Φ K y = M3.mk P →
       ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q
@@ -140,6 +149,9 @@ def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
   - Alternatively Buzzard, Duke Math. J. 87 (1997), Thm 2.1, Cor. 2.3 (UNVERIFIED), which has
     no polarization.
 - **Faithful.**
+  - The clause `Nonempty (fieldPt Qbar ⟶ Y)` guards against vacuity, as the review asked: if
+    `QML3` were mis-encoded as empty, `Y = ∅` would satisfy every other clause. `X6Props` has
+    the same guard.
   - Restricting the representing isomorphism to `Spec K` gives the bijections and their
     naturality; projective implies proper.
   - `M3 K` drops `λ`. bp-qmmoduli §2.2 argues that `λ` exists and is unique for this datum in
@@ -200,6 +212,10 @@ def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
 - **Not asserted: the orbifold orders `(4, 6, 2)`.** They are not ramification indices of
   `X₆ → X₆/W`, whose indices are `(2,2,2)` (audit; rv-nocm §2). The indices `(4,6,2)` of
   `Y₃ → P¹` are glue (`RvNocm.ramification_eq_orbifold_order`).
+- The CM clauses need each of `CM(−4)`, `CM(−3)`, `CM(−24)` to be a single `W`-orbit. Each
+  has two points on `X₆`, by `2^b h`. This comes from Baba–Granath's §3.1 elliptic-order table
+  (p. 740, read by the audit; signature `(0; 2, 4, 6)`), not from Thm 2.1 and Lemma 3.1 alone
+  (review, §6).
 - `CMExists`: the "distinguished points" of Lemma 3.1 are images of CM points. CM points by `R`
   exist iff `R` embeds optimally in `𝒪` (Shimura/Eichler, STANDARD). The three orders do embed,
   via `i + j`, `(1 + j)/2` and `μ`.
@@ -238,7 +254,8 @@ v1/v2 and the journal, YES on `X₀(D, N)`):
 - Thm 5.12 (p. 946): `ℚ(x) = H_R` if `D(R) ≠ 1`, and a specified index-2 subfield of `H_R` if
   `D(R) = 1`;
 - Prop. 5.6 (p. 943): `#CM(R) = 2^{#{p | D(R)N(R)}} h(R)`;
-- here `D(R) = ∏_{p | 6 inert in k} p` (rv-nocm §3.1, h-decomposition R5).
+- here `D(R) = ∏_{p | 6 inert in k} p` (rv-nocm §3.1, h-decomposition R5). The printed
+  condition is `D(R)·N*(R) ≠ 1`, with `N*(R) = 1` at `N = 1`.
 
 **Faithful.**
 - The degree of the printed field: `[H_R : ℚ] = 2h(R)`, and `H_R ⊇ k`. `h(R) = #CommRing.Pic R`.
@@ -293,9 +310,9 @@ None is research-level, but (1)-(3) are M-L each (SPECULATIVE).
 
 ## 5. Risks and open checks
 
-1. **§2.2 of bp-qmmoduli** (the polarization is determined by `(A, ι)`) is assumed by every
-   leaf through `M3` and `QMPair`. It is SPECULATIVE until reviewed, or it can be avoided by
-   Buzzard's polarization-free moduli problem (UNVERIFIED).
+1. **§2.2 of bp-qmmoduli** (the polarization exists and is determined by `(A, ι)`) is assumed by
+   every leaf through `M3` and `QMPair` (§0). It is SPECULATIVE until a human review, or it can
+   be avoided by Buzzard's polarization-free moduli problem (UNVERIFIED).
 2. **The audit's qualifications on R1**: the specialization of Deligne's PEL model to this
    functor. Human check needed.
 3. **`Level3` on `K`-points** is equivalent to the moduli problem's level structure only in
@@ -306,12 +323,44 @@ None is research-level, but (1)-(3) are M-L each (SPECULATIVE).
    `ℚ`. The conditions `D(f) = D(g) = U ∩ V` are what make the value `∞` on `V ∖ U` correct.
 6. **`R5fp`'s case split** relies on the audited reading `D(R) = ∏_{p | 6, inert} p`. Its
    containment clause uses `H_R ⊇ k`, true for ring class fields.
-7. The definitions are **uninhabited in Lean today**: Mathlib cannot construct a nonzero
+7. `Nat.card` and `Module.finrank` return 0 on infinite inputs. The true sets and fields are
+   finite, so nothing is false, but a mis-encoded field of moduli would fail silently.
+8. The definitions are **uninhabited in Lean today**: Mathlib cannot construct a nonzero
    abelian variety. So the leaves cannot be tested on an example; sanity theorems
    (`not_qmStr_zero`, the compiled glue) are the tests.
-8. An adversarial model review of the statements was run (§6). It is a model review, not a
+9. An adversarial model review of the statements was run (§6). It is a model review, not a
    human review.
 
 ## 6. Review
 
-(See the end of this note; filled in after the adversarial review.)
+An adversarial model review ran on 2026-11-12: a subagent, read-only, with no access to this
+note's reasoning, given the Lean file and the source notes (h-decomposition, locators,
+rv-nocm, bp-qmmoduli, h-trust, rv-h-cm). It was asked to check each leaf for being stronger than
+published, false through a definition, vacuous, or wrongly referenced.
+
+**Verdict: no DEFECT.**
+
+- **Checked correct:**
+  - `Level3` on `K`-points (81 = `#A[3]`; `M3 K = ∅` when `√−3 ∉ K`, matching `Y(K) = ∅`);
+  - the directions in `IsBaseChangeOf` and in the naturality clauses;
+  - `stab3`/`stabPair` (closed under inverses, so `Subgroup.closure` and `σ` versus `σ⁻¹` do not
+    matter);
+  - `ToP1` (exactly a morphism to `P¹_ℤ`);
+  - `HasCM*`, `com ≃+* R`, `conductor`, `inertCount6`, `A.dim = 2`, universes;
+  - the twist classes are the `W`-orbits (`1 + i` has norm −1);
+  - the orbifold orders are not asserted;
+  - the Baba–Granath and González–Rotger locators match locators.md.
+- **RISKs:**
+  - the dependence on bp-qmmoduli §2.2 (§0, §5 item 1);
+  - the missing vacuity guard (now added).
+- **NOTEs:**
+  - the audit's verdict was missing from the R1fp docstring;
+  - R1hecke's justification ignored `λ`: the twist changes the Rosati type to `α⁻¹(μ)`. It is
+    repaired either by a matching `λ'` defined in families, or by right translation by
+    `n ∈ N_B(𝒪)`, which normalizes `K₃`;
+  - the CM clauses need Baba–Granath's §3.1 table;
+  - `N*(R) = 1`;
+  - `Nat.card`/`finrank` are 0 on infinite inputs.
+
+All were applied to the docstrings and to this note. The file recompiles (VERIFIED). This is a
+model review, not a human review.
