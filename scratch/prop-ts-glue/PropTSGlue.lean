@@ -2980,6 +2980,29 @@ def HeckeNormalization : Prop :=
       (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
       (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
 
+/-- **Glue (SPECULATIVE input, h-b1 M10 style; split out on the reviewer's advice): `Y₃` is
+`ℚ`-irreducible.** For a triple with R1fp, R1hecke and R2fp, the underlying space of `Y` is
+irreducible. (`Y₃` has two geometric components, `π₀ = ℤ̂^×/nrd(K₃) ≅ (ℤ/3)^×`; they should be
+conjugate over `ℚ(√−3)` by Deligne's reciprocity law on `π₀`. If this failed, `HeckeNormalization`
+would be false, and `CoverModelWitness` with `FunctionFieldModel` would be the form to use.) -/
+def HeckeIrreducible : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π → IrreducibleSpace Y.left
+
+/-- **Glue (curve theory; h-b1 M1, M2, M8): the normalization chart of an irreducible `Y`.**
+`HeckeNormalization` under the extra hypothesis that `Y` is irreducible. -/
+def HeckeNormalizationIrr : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π → IrreducibleSpace Y.left →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
+      (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
+
+/-- `HeckeNormalization` from its two parts (compiled). -/
+theorem heckeNormalization_of_irr (hI : HeckeIrreducible) (hN : HeckeNormalizationIrr) :
+    HeckeNormalization :=
+  fun Y Φ π h1 hh h2 => hN Y Φ π h1 hh h2 (hI Y Φ π h1 hh h2)
+
 /-- **Glue from leaves (h-b1 M3): the degree.** For a triple as above and any `E` carrying the
 normalization chart, `[E : ℚ(X)] ≤ 324` (it divides `|Γ'| = 144`). `NormalizationModel` pins `B`
 (and so `E = Frac B`) up to isomorphism, so this is a property of the cover. -/
@@ -3126,6 +3149,7 @@ end
 #print axioms PropTSGlue.kummerMeetGlue_of_pieces'
 #print axioms PropTSGlue.coverModelOfHeckeN_of_pieces
 #print axioms PropTSGlue.coverModelOfHecke_of_pieces
+#print axioms PropTSGlue.heckeNormalization_of_irr
 #print axioms PropTSGlue.propTSAll_of_pieces
 #print axioms PropTSGlue.purityGlobalDim2
 #print axioms PropTSGlue.propTSAll_of_pieces'

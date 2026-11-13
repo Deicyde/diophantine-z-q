@@ -232,6 +232,7 @@ Hint: Replace the deprecated name:
 'PropTSGlue.kummerMeetGlue_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHeckeN_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHecke_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.heckeNormalization_of_irr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.purityGlobalDim2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]

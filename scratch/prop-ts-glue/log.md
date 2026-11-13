@@ -100,3 +100,7 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   `propTSAll_of_pieces'` no longer takes SNHorizontalTransfer.
 - Compile: 0 errors, 28 PropTSGlue axiom lines all standard; prefix IDENTICAL, purity copy
   CONTAINED (VERIFIED).
+
+## Step 8 (08:36): HeckeNormalization split (reviewer's suggestion), compiled
+- `HeckeIrreducible` (SPECULATIVE input: Y is irreducible), `HeckeNormalizationIrr` (the chart for
+  irreducible Y), `heckeNormalization_of_irr`. Compile: 0 errors, 29 standard axiom lines.
