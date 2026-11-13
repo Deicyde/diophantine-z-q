@@ -19,3 +19,13 @@
   from Mathlib `MDifferentiable.exists_eq_const_of_compactSpace`). COMPILED, no errors/warnings;
   `#print axioms` on isManifold_torus, lieAddGroup_torus, compactSpace_torus, holomorphic_const, ker_torusExp,
   contMDiff_torusExp_smul: [propext, Classical.choice, Quot.sound].
+- Torus.lean §4 (Siegel period lattice): `SiegelSpace g`, `periodVec`, `periodVec_linearIndependent`
+  (needs only det Im Ω ≠ 0), `card_periodIndex`, `periodBasis`, `periodLattice Ω hΩ` (= Ωℤ^g + ℤ^g), its
+  `DiscreteTopology`/`IsZLattice ℝ` instances (from Mathlib's ZSpan instances), `det_im_ne_zero_of_mem_siegelSpace`,
+  `mem_periodLattice_iff`, `SiegelTorus` with LieAddGroup/CompactSpace by inferInstance. COMPILED.
+- Torus.lean §5 (theta): `intVec`, `riemannTheta`, `riemannTheta_add_int`, `riemannTheta_add_mulVec`
+  (θ(z+Ωm) = exp(-πi mᵀΩm - 2πi mᵀz) θ(z) for Ωᵀ = Ω), `riemannTheta_add_period`, `thetaChar`,
+  `thetaChar_eq` (θ[c,d](Ω) = exp(πi cᵀΩc + 2πi cᵀd) θ(Ωc+d, Ω)), pkg-I1 `thetaConst` copied verbatim,
+  `thetaConst_eq_thetaChar`, `thetaConst_eq_riemannTheta`, `two_nsmul_proj_charPoint` ((Ωa+b)/2 is 2-torsion
+  on ℂ²/Λ_Ω). All by tsum reindexing (Equiv.tsum_eq, tsum_mul_left): no convergence hypothesis. COMPILED,
+  no errors, no warnings.

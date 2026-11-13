@@ -264,4 +264,269 @@ theorem holomorphic_const [FiniteDimensional ℂ E] [IsZLattice ℝ Λ] {f : Tor
     (hf : MDifferentiable 𝓘(ℂ, E) 𝓘(ℂ, F) f) : ∃ v : F, f = Function.const _ v :=
   hf.exists_eq_const_of_compactSpace
 
+
+/-! ## §4. The period lattice `Ωℤ^g + ℤ^g` of a point of the Siegel space
+
+For `Ω` with `det (Im Ω) ≠ 0` (in particular `Ω ∈ 𝔥_g`), the `2g` vectors "columns of `Ω`" and
+"standard basis" form an `ℝ`-basis of `ℂ^g`; their `ℤ`-span is a full lattice, and
+`ℂ^g ⧸ (Ωℤ^g + ℤ^g)` is a compact connected complex Lie group by §1-§3. -/
+
+section Siegel
+
+open Matrix
+
+variable {g : ℕ}
+
+/-- The Siegel upper half-space of degree `g` (pkg-I1's `SiegelH2` is the case `g = 2`). -/
+def SiegelSpace (g : ℕ) : Set (Matrix (Fin g) (Fin g) ℂ) :=
+  {Ω | Ωᵀ = Ω ∧ (Ω.map Complex.im).PosDef}
+
+/-- The `2g` period vectors: the columns of `Ω`, then the standard basis vectors. -/
+def periodVec (Ω : Matrix (Fin g) (Fin g) ℂ) : Fin g ⊕ Fin g → (Fin g → ℂ)
+  | Sum.inl j => fun i => Ω i j
+  | Sum.inr j => Pi.single j 1
+
+theorem periodVec_linearIndependent (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) : LinearIndependent ℝ (periodVec Ω) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  have hcoord : ∀ i, (∑ j, (c (Sum.inl j) : ℂ) * Ω i j) + (c (Sum.inr i) : ℂ) = 0 := by
+    intro i
+    have := congrFun hc i
+    simp only [Fintype.sum_sum_type, Finset.sum_apply, Pi.smul_apply,
+      periodVec, Pi.zero_apply] at this
+    rw [← this]
+    congr 1
+    simp [Pi.single_apply, Complex.real_smul]
+  -- imaginary parts: `(Im Ω) a = 0`
+  have ha : (Ω.map Complex.im) *ᵥ (fun j => c (Sum.inl j)) = 0 := by
+    funext i
+    have := congrArg Complex.im (hcoord i)
+    simp only [Complex.add_im, Complex.ofReal_im, add_zero, Complex.zero_im] at this
+    rw [Complex.im_sum] at this
+    simp only [Complex.im_ofReal_mul] at this
+    simp only [Matrix.mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply]
+    rw [← this]
+    exact Finset.sum_congr rfl fun j _ => mul_comm _ _
+  have ha0 := Matrix.eq_zero_of_mulVec_eq_zero hΩ ha
+  have hb : ∀ i, c (Sum.inr i) = 0 := by
+    intro i
+    have := hcoord i
+    have hz : ∀ j, (c (Sum.inl j) : ℂ) = 0 := fun j => by
+      simpa using congrFun ha0 j
+    simp only [hz, zero_mul, Finset.sum_const_zero, zero_add, Complex.ofReal_eq_zero] at this
+    exact this
+  rintro (j | j)
+  · simpa using congrFun ha0 j
+  · exact hb j
+
+theorem card_periodIndex : Fintype.card (Fin g ⊕ Fin g) = Module.finrank ℝ (Fin g → ℂ) := by
+  rw [Module.finrank_pi_fintype, Fintype.card_sum, Fintype.card_fin]
+  simp [Complex.finrank_real_complex]
+  ring
+
+/-- The real basis of `ℂ^g` given by the period vectors. -/
+def periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    Module.Basis (Fin g ⊕ Fin g) ℝ (Fin g → ℂ) :=
+  basisOfLinearIndependentOfCardEqFinrank' _ (periodVec_linearIndependent Ω hΩ) card_periodIndex
+
+theorem coe_periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    ⇑(periodBasis Ω hΩ) = periodVec Ω := by
+  simp [periodBasis]
+
+/-- **The period lattice `Λ_Ω = Ωℤ^g + ℤ^g`.** -/
+def periodLattice (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    Submodule ℤ (Fin g → ℂ) :=
+  Submodule.span ℤ (Set.range (periodBasis Ω hΩ))
+
+instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    DiscreteTopology (periodLattice Ω hΩ) := by
+  unfold periodLattice; infer_instance
+
+instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    IsZLattice ℝ (periodLattice Ω hΩ) := by
+  unfold periodLattice; infer_instance
+
+theorem det_im_ne_zero_of_mem_siegelSpace {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω ∈ SiegelSpace g) :
+    (Ω.map Complex.im).det ≠ 0 :=
+  h.2.det_pos.ne'
+
+/-- Membership: `v ∈ Λ_Ω ↔ v = Ω m + n` with `m n ∈ ℤ^g`. -/
+theorem mem_periodLattice_iff (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0)
+    (v : Fin g → ℂ) :
+    v ∈ periodLattice Ω hΩ ↔
+      ∃ m n : Fin g → ℤ, v = Ω *ᵥ (fun j => (m j : ℂ)) + (fun j => (n j : ℂ)) := by
+  rw [periodLattice, coe_periodBasis, Submodule.mem_span_range_iff_exists_fun]
+  constructor
+  · rintro ⟨c, rfl⟩
+    refine ⟨fun j => c (Sum.inl j), fun j => c (Sum.inr j), ?_⟩
+    funext i
+    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
+      mul_comm]
+  · rintro ⟨m, n, rfl⟩
+    refine ⟨Sum.elim m n, ?_⟩
+    funext i
+    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
+      mul_comm]
+
+/-- The abelian variety (complex torus) attached to a point `Ω` of the Siegel space. -/
+abbrev SiegelTorus (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :=
+  Torus (periodLattice Ω hΩ)
+
+example (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    LieAddGroup 𝓘(ℂ, Fin g → ℂ) ω (SiegelTorus Ω hΩ) := inferInstance
+
+example (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    CompactSpace (SiegelTorus Ω hΩ) := inferInstance
+
+end Siegel
+
+
+/-! ## §5. Riemann's theta function on `ℂ^g ⧸ Λ_Ω`
+
+`θ(z, Ω) = Σ_{n ∈ ℤ^g} exp(πi nᵀΩn + 2πi nᵀz)`. Quasi-periodicity under `Λ_Ω` (which says that `θ`
+is a section of a line bundle on the torus `ℂ^g ⧸ Λ_Ω`), and the identification of pkg-I1's
+theta constants with values of `θ` at the 2-torsion points `(Ωa + b)/2`. All identities are
+proved for `tsum` by reindexing, so they hold with no convergence hypothesis. -/
+
+section Theta
+
+open Matrix Complex
+
+variable {g : ℕ}
+
+/-- `ℤ^g ⊂ ℂ^g`. -/
+def intVec (n : Fin g → ℤ) : Fin g → ℂ := fun j => (n j : ℂ)
+
+theorem intVec_sub (k m : Fin g → ℤ) : intVec (k - m) = intVec k - intVec m := by
+  funext j; simp [intVec]
+
+theorem intVec_dotProduct (n m : Fin g → ℤ) :
+    intVec n ⬝ᵥ intVec m = ((n ⬝ᵥ m : ℤ) : ℂ) := by
+  simp [intVec, dotProduct]
+
+/-- Riemann's theta function. -/
+def riemannTheta (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) : ℂ :=
+  ∑' n : Fin g → ℤ,
+    exp (Real.pi * I * (intVec n ⬝ᵥ (Ω *ᵥ intVec n)) + 2 * Real.pi * I * (intVec n ⬝ᵥ z))
+
+theorem dotProduct_mulVec_symm {Ω : Matrix (Fin g) (Fin g) ℂ} (hΩ : Ωᵀ = Ω) (a b : Fin g → ℂ) :
+    b ⬝ᵥ (Ω *ᵥ a) = a ⬝ᵥ (Ω *ᵥ b) := by
+  rw [dotProduct_mulVec, ← mulVec_transpose, hΩ, dotProduct_comm]
+
+/-- Periodicity under `ℤ^g`. -/
+theorem riemannTheta_add_int (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) (m : Fin g → ℤ) :
+    riemannTheta Ω (z + intVec m) = riemannTheta Ω z := by
+  unfold riemannTheta
+  congr 1
+  funext n
+  rw [dotProduct_add, intVec_dotProduct, mul_add, ← add_assoc, exp_add]
+  have : exp (2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ)) = 1 := by
+    rw [show 2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ) = ((n ⬝ᵥ m : ℤ) : ℂ) * (2 * Real.pi * I) by ring]
+    exact exp_int_mul_two_pi_mul_I _
+  rw [this, mul_one]
+
+/-- **Quasi-periodicity under `Ωℤ^g`**: `θ(z + Ωm) = exp(-πi mᵀΩm - 2πi mᵀz) θ(z)`. -/
+theorem riemannTheta_add_mulVec (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
+    (z : Fin g → ℂ) (m : Fin g → ℤ) :
+    riemannTheta Ω (z + Ω *ᵥ intVec m) =
+      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
+        riemannTheta Ω z := by
+  unfold riemannTheta
+  rw [← (Equiv.subRight m).tsum_eq, ← tsum_mul_left]
+  congr 1
+  funext k
+  simp only [Equiv.subRight_apply, intVec_sub]
+  rw [← exp_add]
+  congr 1
+  set a := intVec k
+  set b := intVec m
+  have hs := dotProduct_mulVec_symm hΩ a b
+  simp only [mulVec_sub, sub_dotProduct, dotProduct_sub, dotProduct_add]
+  rw [hs]
+  ring
+
+/-- Quasi-periodicity under the whole period lattice `Λ_Ω`. -/
+theorem riemannTheta_add_period (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
+    (z : Fin g → ℂ) (m n : Fin g → ℤ) :
+    riemannTheta Ω (z + (Ω *ᵥ intVec m + intVec n)) =
+      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
+        riemannTheta Ω z := by
+  rw [← add_assoc, riemannTheta_add_int, riemannTheta_add_mulVec Ω hΩ]
+
+/-- Theta function with characteristic `(c, d) ∈ ℂ^g × ℂ^g`, at `z = 0`:
+`θ[c, d](Ω) = Σ_n exp(πi (n+c)ᵀΩ(n+c) + 2πi (n+c)ᵀd)`. -/
+def thetaChar (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) : ℂ :=
+  ∑' n : Fin g → ℤ,
+    exp (Real.pi * I * ((intVec n + c) ⬝ᵥ (Ω *ᵥ (intVec n + c))) + 2 * Real.pi * I * ((intVec n + c) ⬝ᵥ d))
+
+/-- **Theta constants are values of `θ` at torsion points**:
+`θ[c, d](Ω) = exp(πi cᵀΩc + 2πi cᵀd) · θ(Ωc + d, Ω)`. -/
+theorem thetaChar_eq (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω) :
+    thetaChar c d Ω =
+      exp (Real.pi * I * (c ⬝ᵥ (Ω *ᵥ c)) + 2 * Real.pi * I * (c ⬝ᵥ d)) * riemannTheta Ω (Ω *ᵥ c + d) := by
+  unfold thetaChar riemannTheta
+  rw [← tsum_mul_left]
+  congr 1
+  funext n
+  rw [← exp_add]
+  congr 1
+  set a := intVec n
+  have hs := dotProduct_mulVec_symm hΩ a c
+  simp only [mulVec_add, add_dotProduct, dotProduct_add]
+  rw [hs]
+  ring
+
+/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
+abbrev Char2 := (Fin 2 → Fin 2) × (Fin 2 → Fin 2)
+
+/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
+def thetaConst (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ :=
+  ∑' n : Fin 2 → ℤ,
+    let v : Fin 2 → ℂ := fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2
+    Complex.exp (Real.pi * I * (v ⬝ᵥ (Ω *ᵥ v)) + Real.pi * I * (v ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)))
+
+/-- The half-integral vectors `a/2`, `b/2` of a characteristic. -/
+def charHalf (a : Fin 2 → Fin 2) : Fin 2 → ℂ := fun k => ((a k : ℕ) : ℂ) / 2
+
+/-- pkg-I1's `thetaConst m` is `θ[a/2, b/2]`. -/
+theorem thetaConst_eq_thetaChar (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) :
+    thetaConst m Ω = thetaChar (charHalf m.1) (charHalf m.2) Ω := by
+  unfold thetaConst thetaChar
+  congr 1
+  funext n
+  have hv : (fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2) = intVec n + charHalf m.1 := by
+    funext k; simp [intVec, charHalf]
+  simp only [hv]
+  congr 1
+  have : ((intVec n + charHalf m.1) ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)) =
+      2 * ((intVec n + charHalf m.1) ⬝ᵥ charHalf m.2) := by
+    simp only [dotProduct, charHalf, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun k _ => by ring
+  rw [this]
+  ring
+
+/-- **F1's theta constants are values of Riemann's theta function at the 2-torsion points**
+`(Ωa + b)/2` of the torus `ℂ² ⧸ Λ_Ω`. -/
+theorem thetaConst_eq_riemannTheta (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) (hΩ : Ωᵀ = Ω) :
+    thetaConst m Ω =
+      exp (Real.pi * I * (charHalf m.1 ⬝ᵥ (Ω *ᵥ charHalf m.1)) +
+          2 * Real.pi * I * (charHalf m.1 ⬝ᵥ charHalf m.2)) *
+        riemannTheta Ω (Ω *ᵥ charHalf m.1 + charHalf m.2) := by
+  rw [thetaConst_eq_thetaChar, thetaChar_eq _ _ _ hΩ]
+
+/-- The point `Ω(a/2) + b/2` is 2-torsion on `ℂ² ⧸ Λ_Ω`. -/
+theorem two_nsmul_proj_charPoint (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    (2 : ℕ) • proj (periodLattice Ω hΩ) (Ω *ᵥ charHalf m.1 + charHalf m.2) = 0 := by
+  rw [proj, ← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
+  show _ ∈ periodLattice Ω hΩ
+  rw [mem_periodLattice_iff]
+  refine ⟨fun k => ((m.1 k : ℕ) : ℤ), fun k => ((m.2 k : ℕ) : ℤ), ?_⟩
+  have h2 : ∀ a : Fin 2 → Fin 2, (2 : ℕ) • charHalf a = fun k => (((a k : ℕ) : ℤ) : ℂ) := by
+    intro a; funext k; simp [charHalf]; ring
+  rw [nsmul_add, ← mulVec_smul, h2, h2]
+
+end Theta
+
 end BPAnalytic
