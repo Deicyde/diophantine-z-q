@@ -87,3 +87,12 @@
 - Attempt 2: T35 transport and this task's T35-taking theorems dropped; tail
   `productModelHeight_of_leaves : AnalyticUniformizationOfDim → TangentDimAtOrigin →
   ZInQ.H5Neron.ProductModelHeight` over Leaves.lean's definitions. (Outcome below.)
+- Attempt 2 failed only on a name (`ZInQ.ProductUnif.productModelHeight_of_local` lives in
+  product-unif's WithProductHeight tail, not in ProductUnif §1-§4). Attempt 3 (tail inlines
+  `productModelHeight_of_splits productUnifSplits (productMetrizationOfProductUnif_of_local …)`):
+  **0 errors, 8 min 18 s**; `productUnifDims_of_unifOfDim`, `detLatticeProd`, `productCotangent`,
+  `productHodgeLattice_of`, **`productModelHeight_of_leaves : AnalyticUniformizationOfDim →
+  TangentDimAtOrigin → ZInQ.H5Neron.ProductModelHeight`** (Leaves.lean's own definitions, the type
+  of `GluePieces.productModelHeight`): standard axioms (VERIFIED).
+- Final recompile after docstring edits (UnifDims, Combined, PC, DetProd, Torsion): 0 errors,
+  no sorryAx, all `#print axioms` standard (VERIFIED).
