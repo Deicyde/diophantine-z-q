@@ -376,7 +376,7 @@ def lyVec (j : K) : Fin 4 → K := ![12 * (j + 1), 6 * (j ^ 2 + j + 1), 4 * (j ^
 
 end Igusa
 
-/-! ## Ring-generic copies of the Igusa polynomials and the explicit action -/
+/-! ## Ring-generic Igusa polynomials and the explicit action -/
 
 def J2R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-480 : R) * a 0 * a 6 +
@@ -459,9 +459,7 @@ def J6R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-32 : R) * a 2 * a 3 ^ 4 * a 4 +
     (4 : R) * a 3 ^ 6
 
-set_option maxHeartbeats 4000000 in
-set_option maxRecDepth 100000 in
-def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
+def J10R0 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-11943936 : R) * a 0 ^ 5 * a 6 ^ 5 +
     (9953280 : R) * a 0 ^ 4 * a 1 * a 5 * a 6 ^ 4 +
     (15925248 : R) * a 0 ^ 4 * a 2 * a 4 * a 6 ^ 4 +
@@ -486,7 +484,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (3993600 : R) * a 0 ^ 3 * a 1 * a 4 ^ 2 * a 5 ^ 3 * a 6 +
     (-640000 : R) * a 0 ^ 3 * a 1 * a 4 * a 5 ^ 5 +
     (-3538944 : R) * a 0 ^ 3 * a 2 ^ 3 * a 6 ^ 4 +
-    (11943936 : R) * a 0 ^ 3 * a 2 ^ 2 * a 3 * a 5 * a 6 ^ 3 +
+    (11943936 : R) * a 0 ^ 3 * a 2 ^ 2 * a 3 * a 5 * a 6 ^ 3
+
+def J10R1 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-4423680 : R) * a 0 ^ 3 * a 2 ^ 2 * a 4 ^ 2 * a 6 ^ 3 +
     (-1658880 : R) * a 0 ^ 3 * a 2 ^ 2 * a 4 * a 5 ^ 2 * a 6 ^ 2 +
     (384000 : R) * a 0 ^ 3 * a 2 ^ 2 * a 5 ^ 4 * a 6 +
@@ -511,7 +511,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (6912000 : R) * a 0 ^ 2 * a 1 ^ 3 * a 3 * a 6 ^ 4 +
     (-460800 : R) * a 0 ^ 2 * a 1 ^ 3 * a 4 * a 5 * a 6 ^ 3 +
     (104960 : R) * a 0 ^ 2 * a 1 ^ 3 * a 5 ^ 3 * a 6 ^ 2 +
-    (11059200 : R) * a 0 ^ 2 * a 1 ^ 2 * a 2 ^ 2 * a 6 ^ 4 +
+    (11059200 : R) * a 0 ^ 2 * a 1 ^ 2 * a 2 ^ 2 * a 6 ^ 4
+
+def J10R2 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-8017920 : R) * a 0 ^ 2 * a 1 ^ 2 * a 2 * a 3 * a 5 * a 6 ^ 3 +
     (-1658880 : R) * a 0 ^ 2 * a 1 ^ 2 * a 2 * a 4 ^ 2 * a 6 ^ 3 +
     (2239488 : R) * a 0 ^ 2 * a 1 ^ 2 * a 2 * a 4 * a 5 ^ 2 * a 6 ^ 2 +
@@ -536,7 +538,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-1474560 : R) * a 0 ^ 2 * a 1 * a 2 * a 3 * a 4 ^ 3 * a 6 ^ 2 +
     (2598912 : R) * a 0 ^ 2 * a 1 * a 2 * a 3 * a 4 ^ 2 * a 5 ^ 2 * a 6 +
     (-524800 : R) * a 0 ^ 2 * a 1 * a 2 * a 3 * a 4 * a 5 ^ 4 +
-    (-163840 : R) * a 0 ^ 2 * a 1 * a 2 * a 4 ^ 4 * a 5 * a 6 +
+    (-163840 : R) * a 0 ^ 2 * a 1 * a 2 * a 4 ^ 4 * a 5 * a 6
+
+def J10R3 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (40960 : R) * a 0 ^ 2 * a 1 * a 2 * a 4 ^ 3 * a 5 ^ 3 +
     (-1617408 : R) * a 0 ^ 2 * a 1 * a 3 ^ 4 * a 5 * a 6 ^ 2 +
     (1492992 : R) * a 0 ^ 2 * a 1 * a 3 ^ 3 * a 4 ^ 2 * a 6 ^ 2 +
@@ -561,7 +565,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-638976 : R) * a 0 ^ 2 * a 2 ^ 2 * a 3 * a 4 ^ 3 * a 5 * a 6 +
     (143360 : R) * a 0 ^ 2 * a 2 ^ 2 * a 3 * a 4 ^ 2 * a 5 ^ 3 +
     (131072 : R) * a 0 ^ 2 * a 2 ^ 2 * a 4 ^ 5 * a 6 +
-    (-32768 : R) * a 0 ^ 2 * a 2 ^ 2 * a 4 ^ 4 * a 5 ^ 2 +
+    (-32768 : R) * a 0 ^ 2 * a 2 ^ 2 * a 4 ^ 4 * a 5 ^ 2
+
+def J10R4 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-1244160 : R) * a 0 ^ 2 * a 2 * a 3 ^ 4 * a 4 * a 6 ^ 2 +
     (41472 : R) * a 0 ^ 2 * a 2 * a 3 ^ 4 * a 5 ^ 2 * a 6 +
     (718848 : R) * a 0 ^ 2 * a 2 * a 3 ^ 3 * a 4 ^ 2 * a 5 * a 6 +
@@ -586,7 +592,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-409600 : R) * a 0 * a 1 ^ 3 * a 2 * a 5 ^ 5 +
     (-345600 : R) * a 0 * a 1 ^ 3 * a 3 ^ 3 * a 6 ^ 3 +
     (506880 : R) * a 0 * a 1 ^ 3 * a 3 ^ 2 * a 4 * a 5 * a 6 ^ 2 +
-    (-53248 : R) * a 0 * a 1 ^ 3 * a 3 ^ 2 * a 5 ^ 3 * a 6 +
+    (-53248 : R) * a 0 * a 1 ^ 3 * a 3 ^ 2 * a 5 ^ 3 * a 6
+
+def J10R5 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-30720 : R) * a 0 * a 1 ^ 3 * a 3 * a 4 ^ 3 * a 6 ^ 2 +
     (-174592 : R) * a 0 * a 1 ^ 3 * a 3 * a 4 ^ 2 * a 5 ^ 2 * a 6 +
     (40960 : R) * a 0 * a 1 ^ 3 * a 3 * a 4 * a 5 ^ 4 +
@@ -611,7 +619,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (41472 : R) * a 0 * a 1 ^ 2 * a 3 ^ 4 * a 4 * a 6 ^ 2 +
     (-27648 : R) * a 0 * a 1 ^ 2 * a 3 ^ 3 * a 4 ^ 2 * a 5 * a 6 +
     (6144 : R) * a 0 * a 1 ^ 2 * a 3 ^ 3 * a 4 * a 5 ^ 3 +
-    (6144 : R) * a 0 * a 1 ^ 2 * a 3 ^ 2 * a 4 ^ 4 * a 6 +
+    (6144 : R) * a 0 * a 1 ^ 2 * a 3 ^ 2 * a 4 ^ 4 * a 6
+
+def J10R6 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-1536 : R) * a 0 * a 1 ^ 2 * a 3 ^ 2 * a 4 ^ 3 * a 5 ^ 2 +
     (1769472 : R) * a 0 * a 1 * a 2 ^ 4 * a 3 * a 6 ^ 3 +
     (-163840 : R) * a 0 * a 1 * a 2 ^ 4 * a 4 * a 5 * a 6 ^ 2 +
@@ -636,7 +646,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-262144 : R) * a 0 * a 2 ^ 6 * a 6 ^ 3 +
     (196608 : R) * a 0 * a 2 ^ 5 * a 3 * a 5 * a 6 ^ 2 +
     (131072 : R) * a 0 * a 2 ^ 5 * a 4 ^ 2 * a 6 ^ 2 +
-    (-147456 : R) * a 0 * a 2 ^ 5 * a 4 * a 5 ^ 2 * a 6 +
+    (-147456 : R) * a 0 * a 2 ^ 5 * a 4 * a 5 ^ 2 * a 6
+
+def J10R7 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (27648 : R) * a 0 * a 2 ^ 5 * a 5 ^ 4 +
     (-147456 : R) * a 0 * a 2 ^ 4 * a 3 ^ 2 * a 4 * a 6 ^ 2 +
     (6144 : R) * a 0 * a 2 ^ 4 * a 3 ^ 2 * a 5 ^ 2 * a 6 +
@@ -661,7 +673,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (576000 : R) * a 1 ^ 4 * a 2 * a 3 ^ 2 * a 6 ^ 3 +
     (-524800 : R) * a 1 ^ 4 * a 2 * a 3 * a 4 * a 5 * a 6 ^ 2 +
     (40960 : R) * a 1 ^ 4 * a 2 * a 3 * a 5 ^ 3 * a 6 +
-    (-230400 : R) * a 1 ^ 4 * a 2 * a 4 ^ 3 * a 6 ^ 2 +
+    (-230400 : R) * a 1 ^ 4 * a 2 * a 4 ^ 3 * a 6 ^ 2
+
+def J10R8 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (261120 : R) * a 1 ^ 4 * a 2 * a 4 ^ 2 * a 5 ^ 2 * a 6 +
     (-49152 : R) * a 1 ^ 4 * a 2 * a 4 * a 5 ^ 4 +
     (-230400 : R) * a 1 ^ 4 * a 3 ^ 3 * a 5 * a 6 ^ 2 +
@@ -686,7 +700,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (91136 : R) * a 1 ^ 3 * a 2 * a 3 ^ 2 * a 4 ^ 2 * a 5 * a 6 +
     (-20480 : R) * a 1 ^ 3 * a 2 * a 3 ^ 2 * a 4 * a 5 ^ 3 +
     (-18432 : R) * a 1 ^ 3 * a 2 * a 3 * a 4 ^ 4 * a 6 +
-    (4608 : R) * a 1 ^ 3 * a 2 * a 3 * a 4 ^ 3 * a 5 ^ 2 +
+    (4608 : R) * a 1 ^ 3 * a 2 * a 3 * a 4 ^ 3 * a 5 ^ 2
+
+def J10R9 {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (27648 : R) * a 1 ^ 3 * a 3 ^ 5 * a 6 ^ 2 +
     (-18432 : R) * a 1 ^ 3 * a 3 ^ 4 * a 4 * a 5 * a 6 +
     (4096 : R) * a 1 ^ 3 * a 3 ^ 4 * a 5 ^ 3 +
@@ -709,6 +725,9 @@ def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
     (-1024 : R) * a 1 ^ 2 * a 2 ^ 2 * a 3 ^ 2 * a 4 ^ 3 * a 6 +
     (256 : R) * a 1 ^ 2 * a 2 ^ 2 * a 3 ^ 2 * a 4 ^ 2 * a 5 ^ 2
 
+def J10R {R : Type*} [CommRing R] (a : Fin 7 → R) : R :=
+    J10R0 a + J10R1 a + J10R2 a + J10R3 a + J10R4 a + J10R5 a + J10R6 a + J10R7 a + J10R8 a + J10R9 a
+
 def actC {K : Type*} [Field K] (f : Fin 7 → K) (A B C D E : K) : Fin 7 → K :=
   ![(1 : K) * f 0 * D ^ 6 * E + (1 : K) * f 1 * B * D ^ 5 * E + (1 : K) * f 2 * B ^ 2 * D ^ 4 * E + (1 : K) * f 3 * B ^ 3 * D ^ 3 * E + (1 : K) * f 4 * B ^ 4 * D ^ 2 * E + (1 : K) * f 5 * B ^ 5 * D * E + (1 : K) * f 6 * B ^ 6 * E,
     (6 : K) * f 0 * C * D ^ 5 * E + (1 : K) * f 1 * A * D ^ 5 * E + (5 : K) * f 1 * B * C * D ^ 4 * E + (2 : K) * f 2 * A * B * D ^ 4 * E + (4 : K) * f 2 * B ^ 2 * C * D ^ 3 * E + (3 : K) * f 3 * A * B ^ 2 * D ^ 3 * E + (3 : K) * f 3 * B ^ 3 * C * D ^ 2 * E + (4 : K) * f 4 * A * B ^ 3 * D ^ 2 * E + (2 : K) * f 4 * B ^ 4 * C * D * E + (5 : K) * f 5 * A * B ^ 4 * D * E + (1 : K) * f 5 * B ^ 5 * C * E + (6 : K) * f 6 * A * B ^ 5 * E,
@@ -722,11 +741,15 @@ def actC {K : Type*} [Field K] (f : Fin 7 → K) (A B C D E : K) : Fin 7 → K :
 section Basic
 variable {K : Type*} [Field K]
 
+theorem J2_eq (a : Fin 7 → K) : J2 a = J2R a := rfl
+theorem J4_eq (a : Fin 7 → K) : J4 a = J4R a := rfl
+theorem J6_eq (a : Fin 7 → K) : J6 a = J6R a := rfl
+
 set_option maxHeartbeats 4000000 in
 set_option maxRecDepth 100000 in
 theorem J10_eq (a : Fin 7 → K) : J10 a = J10R a := by
-  simp only [J10, j10Data, J10R, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil,
-    Fin.prod_univ_seven]
+  simp only [J10, j10Data, J10R, J10R0, J10R1, J10R2, J10R3, J10R4, J10R5, J10R6, J10R7, J10R8,
+    J10R9, List.map_cons, List.map_nil, List.sum_cons, List.sum_nil, Fin.prod_univ_seven]
   norm_num
   ring
 
@@ -748,6 +771,38 @@ theorem sexticAct_eq (f : Fin 7 → K) (M : Matrix (Fin 2) (Fin 2) K) (e : K) :
   simp
 
 end Basic
+
+section Act
+variable {K : Type*} [Field K]
+
+/-- The cocycle identity: acting by `M` then by `N` is acting by `M * N`. -/
+theorem actC_actC (f : Fin 7 → K) (a b c d e a' b' c' d' e' : K) :
+    actC (actC f a b c d e) a' b' c' d' e' =
+      actC f (a * a' + b * c') (a * b' + b * d') (c * a' + d * c') (c * b' + d * d') (e * e') := by
+  funext i; fin_cases i <;> simp [actC] <;> ring
+
+theorem actC_scale (f : Fin 7 → K) (a b c d e : K) :
+    actC f a b c d e = fun i => e * actC f a b c d 1 i := by
+  funext i; fin_cases i <;> simp [actC] <;> ring
+
+theorem actC_diag (f : Fin 7 → K) (s t : K) :
+    actC f s 0 0 t 1 = fun i => s ^ (i : ℕ) * t ^ (6 - (i : ℕ)) * f i := by
+  funext i; fin_cases i <;> simp [actC] <;> ring
+
+theorem actC_swap (f : Fin 7 → K) : actC f 0 1 1 0 1 = fun i => f (Fin.rev i) := by
+  funext i; fin_cases i <;> simp [actC] <;> rfl
+
+/-- Coefficients of `f(x + b)`. -/
+def tr (f : Fin 7 → K) (b : K) : Fin 7 → K :=
+  fun i => ∑ k : Fin 7, f k * ((k : ℕ).choose i : K) * b ^ ((k : ℕ) - i)
+
+theorem actC_trans (f : Fin 7 → K) (b : K) : actC f 1 b 0 1 1 = tr f b := by
+  funext i; fin_cases i <;> simp [actC, tr, Fin.sum_univ_seven, Nat.choose] <;> ring
+
+theorem tr_zero (f : Fin 7 → K) : tr f 0 = f := by
+  funext i; fin_cases i <;> simp [tr, Fin.sum_univ_seven]
+
+end Act
 
 end PkgI1
 
