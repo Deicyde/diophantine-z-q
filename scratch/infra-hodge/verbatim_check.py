@@ -41,5 +41,8 @@ if os.path.exists('scratch/infra-hodge/ProductSplit.lean'):
       ('def ProductMetrizationOfProductUnif verbatim from scratch/g0-assemble2/parts/a25_productheight.lean',
        blk(open('scratch/g0-assemble2/parts/a25_productheight.lean').read(), 'ProductMetrizationOfProductUnif')),
       ('def ProductMetrizationOfProductUnif verbatim from scratch/product-height/ProductHeight.lean',
-       blk(ph, 'ProductMetrizationOfProductUnif'))])
+       blk(ph, 'ProductMetrizationOfProductUnif')),
+      ('ProductHeight.lean body (after import)', ph.split('\n', 1)[1]),
+      ('infra-stalks StalkPullback body', sp), ('infra-stalks CotangentProduct body', cp),
+      ('hodge-bc2 ExtFrac.lean body', ef)])
 print('ALL OK' if ok else 'FAILURES')
