@@ -29,9 +29,11 @@ The leaves, bundled as `LeafQM.AV.QMLeaves`:
 | `R5fpCount` | R5(i) | on `X₆`: `#CM(R) = 2^{b(R)} h(R)` | González–Rotger 2006, Prop. 5.6 |
 
 Glue proved in the same file from these leaves (VERIFIED, compiled):
-- `R1R2fp_Y` and `R2fpProps_of_X6`: the R2 clauses on `Y₃` (fibres of `π = π₆ ∘ fY` and CM values),
-  from the clauses on `X₆`.
-- `ToP1.val_comp`: `π(y ∘ Spec f) = f(π(y))` for a morphism to `P¹` given by charts.
+- `R1R2fp_Y` and `R2fpProps_of_X6`: the morphism `π = π₆ ∘ fY : Y₃ → P¹` (`ToP1.comp`, the
+  pullback of charts) with the R2 clauses on `Y₃` (fibres and CM values), from the clauses on
+  `X₆`.
+- `ToP1.val_comp` (`π(y ∘ Spec f) = f(π(y))`) and `ToP1.val_comp_right`
+  (`(π ∘ h)(y) = π(h ∘ y)`), for morphisms to `P¹` given by charts.
 - **`conj_iso_of_rational`: step A7's statement.** Let `y` be a `K`-point of `Y` with rational
   `π`-value and object `P`. For any two embeddings `K → ℚ̄`, the two base changes of `P` exist as
   objects, and their QM pairs are `Aut(𝒪)`-twists of each other. In particular their abelian
@@ -108,7 +110,8 @@ All in namespace `LeafQM.AV` of `QMLeaves.lean`.
   - `ToP1.val π y ∈ OnePoint K` is the value at a `K`-point. It is computed with Mathlib's
     `Scheme.SpecToEquivOfField` and `Scheme.evaluation`: `f(x)` mapped to `K` if `x ∈ U`, and
     `∞` otherwise.
-  - `ToP1.val_comp` is its naturality.
+  - `ToP1.val_comp` is its naturality. `ToP1.comp h π` composes with a morphism of schemes,
+    and `ToP1.val_comp_right` computes its values.
 - **Field points**: `fieldPt K` (`Spec K` over `Spec ℚ`), `fieldMap f`, and `PtEquiv Y`
   (`∀ K, (Spec K ⟶ Y) ≃ M3 K`).
 - For R5: `conductor R = [𝒪_k : R]` (via `AddSubgroup.relIndex`) and
@@ -170,8 +173,9 @@ def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
   - `X` is proper and smooth of relative dimension 1 over `ℚ`;
   - `Ψ : X(ℚ̄) ≃ {QM pairs over ℚ̄}/≅` is Galois-equivariant (`IsBaseChangeOfPair`);
   - each twist `α` is induced by an automorphism of `X` (the group `W`);
-  - `fY : Y → X` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-points;
-  - `π.val y = π₆.val (y ≫ fY)`.
+  - `fY : Y → X` is `(A, ι, η) ↦ (A, ι)` on `ℚ̄`-points.
+
+  The morphism `Y₃ → P¹` is then `π₆.comp fY.left`, with no further assumption.
 - `R2X6Props`, for `ℚ̄`-points `x, x'` with pairs `P, Q`:
   - `π₆(x) = π₆(x') ↔ ∃ α ∈ Aut 𝒪, (A_P, ι_P∘α) ≅ (A_Q, ι_Q)`;
   - `HasCM4 → π₆ = 0`, `HasCM3 → π₆ = ∞`, `HasCM24 → π₆ = −16/27`.
