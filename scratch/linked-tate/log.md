@@ -55,3 +55,7 @@
   lemma-name fixes `inv_le_one₀`, `Padic.norm_p`, `IsLocalRing.ResidueField.residue_smul`; run 2 clean), then as part
   98c (`UnramTate.embP`, `embP_decomp`, `localInertiaGlobal_at`, `localInertiaGlobal`). Tail: VERIFIED 0 errors,
   standard axioms; GluePieces3 field `localInertiaGlobal` removed (31 fields); `sixContactMin_of_leaves3` standard.
+- `UpperAbsInertia` PROVED: standalone over Mathlib (scratch/linked-tate/test/UpperAbs.lean; fixes: `IntermediateField.
+  normalClosure` with explicit args), then part 98d (`phiAt_nonpos`, `sInf_nonneg_of_pos`, `upperSet_sub`,
+  `upperAbs_subset_inertiaSet'`, `upperAbsInertia`). Tail: VERIFIED 0 errors, standard axioms; GluePieces3 field removed
+  (30 fields); `sixContactMin_of_leaves3` standard.
