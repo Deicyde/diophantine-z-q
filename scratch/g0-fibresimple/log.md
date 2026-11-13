@@ -73,3 +73,7 @@
   `RingHom.Finite.codescendsAlong_faithfullyFlat` and `HasAffineProperty.descendsAlong_of_affineAnd` but no
   `IsAffineHom` descent instance) and FS5 `FibreComTrivial`.
 - 15 `#print axioms` lines, all [propext, Classical.choice, Quot.sound].
+
+## Final standalone check
+- 02:24 `lake env lean scratch/g0-fibresimple/FibreSimple.lean` (20644 lines): exit 0 in 165 s, 0 errors, no `sorry`;
+  15 G0FibreSimple `#print axioms` lines and HSyn.glueOutputs_of_leaves all [propext, Classical.choice, Quot.sound].

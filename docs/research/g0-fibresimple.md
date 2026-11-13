@@ -164,7 +164,7 @@ computation, not a published theorem.
 ## 4. What compiles, what remains
 
 - Compiles (VERIFIED): `scratch/g0-fibresimple/FibreSimple.lean` (Split.lean verbatim + Tail)
-  with `lake env lean`: exit 0, no errors, no `sorry` (see the log for time and size).
+  with `lake env lean` (20644 lines): exit 0 in 165 s, no errors, no `sorry`.
   `#print axioms` gives the standard three for `HSyn.glueOutputs_of_leaves` and for each of
   `B6_isUnit`, `qm_embeds_end0`, `centralizerOfMatrixEnd0_of_homFree`,
   `end0Division_of_homFree`, `endDivisionOfSchemeIso_of_rigidity`, `endDivisionDescent_of`,
