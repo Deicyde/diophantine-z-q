@@ -503,6 +503,393 @@ end
 #print axioms HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv
 #print axioms HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of
 
+/-! ## period-map: `ThetaOmegaAnalytic` from `OmegaSiegel` (the theta series converge locally uniformly)
+
+`thetaOmegaAnalytic_of : OmegaSiegel → ThetaOmegaAnalytic`. `OmegaSiegel` (`Ω(τ) ∈ 𝔥₂` for `τ ∈ ℍ`)
+is a closed-form computation (VERIFIED with sympy, `py/omega_sym.py`). The proof: the entries of
+`Ω` are holomorphic on `ℍ` (adjugate formula; `det(F₀P⁻¹) = −√2(τ−3)(τ+1)/2`); near `τ₀` the form
+`w ↦ wᵀ Im Ω(τ) w` is bounded below by `c|w|²` uniformly (`(p+r)Q(w) − (pr−q²)|w|² =
+(pw₀+qw₁)² + (qw₀+rw₁)²`, continuity); so each theta term is bounded by a summable Gaussian
+(Mathlib's Jacobi-theta bound) and the series is holomorphic (`differentiableOn_tsum_of_summable_norm`). -/
+
+noncomputable section
+
+namespace HSyn.G0Split.FibreQM.PeriodMap
+
+open Complex Filter Topology Matrix
+
+/-- **GLUE (computational).** For `τ ∈ ℍ`, `Ω(τ)` lies in the Siegel upper half-space `𝔥₂`
+(pkg-I1's `SiegelH2`: symmetric with positive definite imaginary part).
+
+VERIFIED symbolically (`py/omega_sym.py`, sympy; output `omega_sym_out.txt`): `Ω(τ)` is symmetric,
+and with `τ = x + iy`, `det Im Ω = 12y²/(|τ − 3|²|τ + 1|²)` and
+`(Im Ω)₁₁ = 2y((4 − √2)|τ|² − 6√2x + 12 + 3√2)/(|τ − 3|²|τ + 1|²)`, positive for `y > 0` (the
+quadratic in `x` has discriminant `72 − 168 < 0`). Conceptually: `Ω(τ)` is the period matrix of
+the principally polarized QM surface `ℂ²/Λ_τ` in a symplectic basis (Riemann's relations). A Lean
+proof is a finite computation with the explicit rational entries. Size: small-medium. -/
+def OmegaSiegel : Prop := ∀ τ : ℂ, 0 < τ.im → PkgI1.Omega τ ∈ PkgI1.SiegelH2
+
+theorem latVec_apply (x : PkgI1.B) (τ : ℂ) (r : Fin 2) :
+    PkgI1.latVec x τ r = (PkgI1.iota x r 0 : ℂ) * τ + (PkgI1.iota x r 1 : ℂ) := by
+  simp [PkgI1.latVec, Matrix.mulVec, dotProduct, Fin.sum_univ_two]
+
+theorem differentiable_F0P (i j : Fin 2) :
+    Differentiable ℂ (fun τ => (PkgI1.F0mat τ * PkgI1.Pinv) i j) := by
+  simp only [Matrix.mul_apply, Fin.sum_univ_two, PkgI1.F0mat, Matrix.of_apply]
+  fin_cases i <;> fin_cases j <;> simp [latVec_apply] <;> fun_prop
+
+theorem differentiable_E (i j : Fin 2) : Differentiable ℂ (fun τ => PkgI1.Emat τ i j) := by
+  simp only [PkgI1.Emat, Matrix.of_apply]
+  fin_cases i <;> fin_cases j <;> simp [latVec_apply] <;> fun_prop
+
+theorem det_F0P (τ : ℂ) :
+    (PkgI1.F0mat τ * PkgI1.Pinv).det = -(√2 : ℂ) * (τ - 3) * (τ + 1) / 2 := by
+  rw [Matrix.det_mul, Matrix.det_fin_two, Matrix.det_fin_two]
+  simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis,
+    Matrix.mul_apply, Fin.sum_univ_two]
+  ring
+
+theorem det_F0P_ne {τ : ℂ} (hτ : τ.im ≠ 0) : (PkgI1.F0mat τ * PkgI1.Pinv).det ≠ 0 := by
+  rw [det_F0P]
+  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have hs : (√2 : ℂ) ≠ 0 := by
+    rw [Ne, Complex.ofReal_eq_zero]; exact Real.sqrt_ne_zero'.mpr two_pos
+  have : -(√2 : ℂ) * (τ - 3) * (τ + 1) ≠ 0 := mul_ne_zero (mul_ne_zero (neg_ne_zero.mpr hs) h3) h1
+  exact div_ne_zero this two_ne_zero
+
+theorem differentiableAt_inv_mul {A E : ℂ → Matrix (Fin 2) (Fin 2) ℂ} {τ : ℂ}
+    (hA : ∀ i j, DifferentiableAt ℂ (fun σ => A σ i j) τ)
+    (hE : ∀ i j, DifferentiableAt ℂ (fun σ => E σ i j) τ) (hd : (A τ).det ≠ 0) (i j : Fin 2) :
+    DifferentiableAt ℂ (fun σ => ((A σ)⁻¹ * E σ) i j) τ := by
+  have h1 : ∀ σ, ((A σ)⁻¹ * E σ) i j =
+      ((A σ).det)⁻¹ * ∑ k, adjugate (A σ) i k * E σ k j := by
+    intro σ
+    rw [Matrix.inv_def, Matrix.smul_mul, Matrix.smul_apply, Ring.inverse_eq_inv', smul_eq_mul,
+      Matrix.mul_apply]
+  simp_rw [h1]
+  have hdet : DifferentiableAt ℂ (fun σ => (A σ).det) τ := by
+    simp_rw [Matrix.det_fin_two]
+    exact ((hA 0 0).mul (hA 1 1)).sub ((hA 0 1).mul (hA 1 0))
+  refine (hdet.inv hd).mul ?_
+  have hadj : ∀ i k, DifferentiableAt ℂ (fun σ => adjugate (A σ) i k) τ := by
+    intro i k
+    simp_rw [Matrix.adjugate_fin_two]
+    fin_cases i <;> fin_cases k <;> simp <;> first | exact hA _ _ | exact (hA _ _).neg
+  exact DifferentiableAt.fun_sum (fun k _ => (hadj i k).mul (hE k j))
+
+theorem differentiableAt_omega {τ : ℂ} (hτ : τ.im ≠ 0) (i j : Fin 2) :
+    DifferentiableAt ℂ (fun σ => PkgI1.Omega σ i j) τ :=
+  differentiableAt_inv_mul (A := fun σ => PkgI1.F0mat σ * PkgI1.Pinv) (E := PkgI1.Emat)
+    (fun i j => (differentiable_F0P i j) τ) (fun i j => (differentiable_E i j) τ)
+    (det_F0P_ne hτ) i j
+
+/-- The summand of `thetaConst m (Ω τ)`. -/
+def thTerm (m : PkgI1.Char2) (n : Fin 2 → ℤ) (τ : ℂ) : ℂ :=
+  let v : Fin 2 → ℂ := fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2
+  Complex.exp (Real.pi * I * (v ⬝ᵥ (PkgI1.Omega τ *ᵥ v)) +
+    Real.pi * I * (v ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)))
+
+theorem thetaConst_omega (m : PkgI1.Char2) (τ : ℂ) :
+    PkgI1.thetaConst m (PkgI1.Omega τ) = ∑' n, thTerm m n τ := rfl
+
+/-- The real vector `n + a/2`. -/
+def wv (m : PkgI1.Char2) (n : Fin 2 → ℤ) (k : Fin 2) : ℝ := (n k : ℝ) + ((m.1 k : ℕ) : ℝ) / 2
+
+/-- `wᵀ Im Ω(τ) w`. -/
+def qf (τ : ℂ) (w : Fin 2 → ℝ) : ℝ :=
+  w 0 ^ 2 * (PkgI1.Omega τ 0 0).im +
+    w 0 * w 1 * ((PkgI1.Omega τ 0 1).im + (PkgI1.Omega τ 1 0).im) +
+    w 1 ^ 2 * (PkgI1.Omega τ 1 1).im
+
+theorem norm_thTerm (m : PkgI1.Char2) (n : Fin 2 → ℤ) (τ : ℂ) :
+    ‖thTerm m n τ‖ = Real.exp (-Real.pi * qf τ (wv m n)) := by
+  rw [thTerm, Complex.norm_exp]
+  congr 1
+  simp [qf, wv, dotProduct, Matrix.mulVec, Fin.sum_univ_two, Complex.mul_re, Complex.mul_im]
+  ring
+
+theorem quad_lower (p q r w0 w1 : ℝ) (h : 0 < p + r) :
+    (p * r - q ^ 2) / (p + r) * (w0 ^ 2 + w1 ^ 2) ≤
+      w0 ^ 2 * p + w0 * w1 * (2 * q) + w1 ^ 2 * r := by
+  rw [div_mul_eq_mul_div, div_le_iff₀ h]
+  nlinarith [sq_nonneg (p * w0 + q * w1), sq_nonneg (q * w0 + r * w1)]
+
+theorem wv_sq_ge (m : PkgI1.Char2) (n : Fin 2 → ℤ) (k : Fin 2) :
+    (n k : ℝ) ^ 2 - |(n k : ℝ)| ≤ wv m n k ^ 2 := by
+  have h0 : (0 : ℝ) ≤ ((m.1 k : ℕ) : ℝ) := Nat.cast_nonneg _
+  have h1 : ((m.1 k : ℕ) : ℝ) ≤ 1 := by exact_mod_cast Nat.lt_succ_iff.mp (m.1 k).isLt
+  rw [wv]
+  have ha : -|(n k : ℝ)| ≤ (n k : ℝ) * ((m.1 k : ℕ) : ℝ) := by
+    rcases le_total 0 (n k : ℝ) with h | h
+    · rw [abs_of_nonneg h]; nlinarith
+    · rw [abs_of_nonpos h]; nlinarith
+  nlinarith [sq_nonneg (((m.1 k : ℕ) : ℝ) / 2)]
+
+/-- The Gaussian bound (Mathlib's Jacobi-theta bound with `T = c`, `S = c/2`). -/
+def gb (c : ℝ) (k : ℤ) : ℝ := Real.exp (-Real.pi * (c * (k : ℝ) ^ 2 - 2 * (c / 2) * |(k : ℝ)|))
+
+theorem summable_gb2 {c : ℝ} (hc : 0 < c) :
+    Summable (fun n : Fin 2 → ℤ => gb c (n 0) * gb c (n 1)) := by
+  have h1 : Summable (gb c) := by
+    refine (summable_pow_mul_jacobiTheta₂_term_bound (c / 2) hc 0).congr fun k => ?_
+    simp only [gb, pow_zero, one_mul, Int.cast_abs]
+  have h2 : Summable (fun p : ℤ × ℤ => gb c p.1 * gb c p.2) :=
+    h1.mul_of_nonneg h1 (fun _ => (Real.exp_pos _).le) (fun _ => (Real.exp_pos _).le)
+  exact (finTwoArrowEquiv ℤ).summable_iff.mpr h2
+
+theorem norm_thTerm_le {c : ℝ} (hc : 0 < c) (m : PkgI1.Char2) (n : Fin 2 → ℤ) (τ : ℂ)
+    (hq : ∀ w : Fin 2 → ℝ, c * (w 0 ^ 2 + w 1 ^ 2) ≤ qf τ w) :
+    ‖thTerm m n τ‖ ≤ gb c (n 0) * gb c (n 1) := by
+  rw [norm_thTerm, gb, gb, ← Real.exp_add, Real.exp_le_exp]
+  have h := hq (wv m n)
+  have h0 := wv_sq_ge m n 0
+  have h1 := wv_sq_ge m n 1
+  have hp := Real.pi_pos
+  have h2 : c * (((n 0 : ℝ) ^ 2 - |(n 0 : ℝ)|) + ((n 1 : ℝ) ^ 2 - |(n 1 : ℝ)|)) ≤ qf τ (wv m n) :=
+    le_trans (mul_le_mul_of_nonneg_left (add_le_add h0 h1) hc.le) h
+  have h3 := mul_le_mul_of_nonneg_left h2 hp.le
+  nlinarith [h3]
+
+/-- **`ThetaOmegaAnalytic` from `OmegaSiegel` (proved).** -/
+theorem thetaOmegaAnalytic_of (hS : OmegaSiegel) : ThetaOmegaAnalytic := by
+  -- each theta constant along `Ω` is analytic at every `τ₀ ∈ ℍ`
+  have hθ : ∀ τ₀ ∈ U, ∀ m : PkgI1.Char2,
+      AnalyticAt ℂ (fun τ => PkgI1.thetaConst m (PkgI1.Omega τ)) τ₀ := by
+    intro τ₀ hτ₀ m
+    have hτ₀' : (0 : ℝ) < τ₀.im := hτ₀
+    obtain ⟨hsym, hpd⟩ := hS τ₀ hτ₀'
+    set p : ℂ → ℝ := fun τ => (PkgI1.Omega τ 0 0).im with hp
+    set q : ℂ → ℝ := fun τ => ((PkgI1.Omega τ 0 1).im + (PkgI1.Omega τ 1 0).im) / 2 with hq
+    set r : ℂ → ℝ := fun τ => (PkgI1.Omega τ 1 1).im with hr
+    have hcont : ∀ i j, ContinuousAt (fun τ => (PkgI1.Omega τ i j).im) τ₀ := fun i j =>
+      Complex.continuous_im.continuousAt.comp (differentiableAt_omega hτ₀'.ne' i j).continuousAt
+    have hp0 : 0 < p τ₀ := by
+      have := hpd.diag_pos (i := 0); simpa [hp] using this
+    have hr0 : 0 < r τ₀ := by
+      have := hpd.diag_pos (i := 1); simpa [hr] using this
+    have hsym01 : PkgI1.Omega τ₀ 1 0 = PkgI1.Omega τ₀ 0 1 := by
+      have := congrFun (congrFun hsym 0) 1; simpa using this
+    have hdet0 : 0 < p τ₀ * r τ₀ - q τ₀ ^ 2 := by
+      have := hpd.det_pos
+      rw [Matrix.det_fin_two] at this
+      simp only [Matrix.map_apply] at this
+      rw [hsym01] at this
+      simp only [hp, hq, hr, hsym01]
+      nlinarith [this]
+    set g : ℂ → ℝ := fun τ => (p τ * r τ - q τ ^ 2) / (p τ + r τ) with hg
+    have hg0 : 0 < g τ₀ := div_pos hdet0 (add_pos hp0 hr0)
+    have hpc : ContinuousAt p τ₀ := hcont 0 0
+    have hrc : ContinuousAt r τ₀ := hcont 1 1
+    have hqc : ContinuousAt q τ₀ := ((hcont 0 1).add (hcont 1 0)).div_const 2
+    have hgc : ContinuousAt g τ₀ :=
+      ((hpc.mul hrc).sub (hqc.pow 2)).div (hpc.add hrc) (add_pos hp0 hr0).ne'
+    have hev : ∀ᶠ τ in 𝓝 τ₀, τ ∈ U ∧ 0 < p τ + r τ ∧ g τ₀ / 2 < g τ := by
+      refine (show ∀ᶠ τ in 𝓝 τ₀, τ ∈ U from isOpen_U.mem_nhds hτ₀).and ((?_ : ∀ᶠ τ in 𝓝 τ₀, 0 < p τ + r τ).and ?_)
+      · exact (hpc.add hrc).eventually (lt_mem_nhds (add_pos hp0 hr0))
+      · exact hgc.eventually (lt_mem_nhds (half_lt_self hg0))
+    obtain ⟨ε, hε, hball⟩ := Metric.eventually_nhds_iff_ball.mp hev
+    set c := g τ₀ / 2 with hcdef
+    have hc : 0 < c := half_pos hg0
+    have hq_ball : ∀ τ ∈ Metric.ball τ₀ ε, ∀ w : Fin 2 → ℝ, c * (w 0 ^ 2 + w 1 ^ 2) ≤ qf τ w := by
+      intro τ hτ w
+      obtain ⟨-, hpr, hgt⟩ := hball τ hτ
+      have hl := quad_lower (p τ) (q τ) (r τ) (w 0) (w 1) hpr
+      have hw : 0 ≤ w 0 ^ 2 + w 1 ^ 2 := by positivity
+      calc c * (w 0 ^ 2 + w 1 ^ 2) ≤ g τ * (w 0 ^ 2 + w 1 ^ 2) :=
+            mul_le_mul_of_nonneg_right hgt.le hw
+        _ ≤ _ := by
+          refine hl.trans (le_of_eq ?_)
+          simp only [qf, hp, hq, hr]
+          ring
+    have hdiff : ∀ n, DifferentiableOn ℂ (thTerm m n) (Metric.ball τ₀ ε) := by
+      intro n σ hσ
+      have hσU : (0 : ℝ) < σ.im := (hball σ hσ).1
+      have hΩ := fun i j => differentiableAt_omega hσU.ne' i j
+      apply DifferentiableAt.differentiableWithinAt
+      set V : Fin 2 → ℂ := fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2 with hV
+      set Bv : Fin 2 → ℂ := fun k => ((m.2 k : ℕ) : ℂ) with hBv
+      have key : thTerm m n = fun τ => Complex.exp (Real.pi * I * (V ⬝ᵥ (PkgI1.Omega τ *ᵥ V)) +
+          Real.pi * I * (V ⬝ᵥ Bv)) := rfl
+      have hq : DifferentiableAt ℂ (fun τ => V ⬝ᵥ (PkgI1.Omega τ *ᵥ V)) σ := by
+        simp only [dotProduct, Matrix.mulVec]
+        refine DifferentiableAt.fun_sum fun i _ => ?_
+        refine DifferentiableAt.const_mul (DifferentiableAt.fun_sum fun j _ => ?_) _
+        exact (hΩ i j).mul_const _
+      rw [key]
+      exact ((hq.const_mul _).add_const _).cexp
+    have hdon : DifferentiableOn ℂ (fun τ => PkgI1.thetaConst m (PkgI1.Omega τ))
+        (Metric.ball τ₀ ε) :=
+      differentiableOn_tsum_of_summable_norm (summable_gb2 hc) hdiff Metric.isOpen_ball
+        (fun n τ hτ => norm_thTerm_le hc m n τ (hq_ball τ hτ))
+    exact hdon.analyticAt (Metric.ball_mem_nhds τ₀ hε)
+  refine ⟨fun τ₀ hτ₀ => ?_, fun τ₀ hτ₀ => ?_⟩
+  · show AnalyticAt ℂ (fun τ => ∑ m ∈ PkgI1.evenChars, PkgI1.thetaConst m (PkgI1.Omega τ) ^ 8) τ₀
+    exact Finset.analyticAt_fun_sum _ (fun m _ => (hθ τ₀ hτ₀ m).pow 8)
+  · show AnalyticAt ℂ (fun τ => ∏ m ∈ PkgI1.evenChars, PkgI1.thetaConst m (PkgI1.Omega τ) ^ 2) τ₀
+    exact Finset.analyticAt_fun_prod _ (fun m _ => (hθ τ₀ hτ₀ m).pow 2)
+
+end HSyn.G0Split.FibreQM.PeriodMap
+
+end
+
+#print axioms HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_of
+
+/-! ## period-map: `OmegaSiegel` proved (closed form of `Ω(τ)`)
+
+`Ω(τ) = adj(F₀P⁻¹)E / det(F₀P⁻¹)` with `det(F₀P⁻¹) = −√2(τ−3)(τ+1)/2` and the adjugate product `Nf`
+computed by `py/omega_lean.py` (entries reduced mod `√2² = 2`; the `linear_combination` coefficients
+are the quotients printed there). With `τ = x + iy`, `Im Ω_ij = A_ij/|d|²` where
+`A₀₀ = (y/2)((4−√2)(x²+y²) − 6√2x + 12 + 3√2)`, `A₁₁ = 2A₀₀`, and
+`A₀₀A₁₁ − A₀₁² = 3y²|τ−3|²|τ+1|²`. -/
+
+noncomputable section
+
+namespace HSyn.G0Split.FibreQM.PeriodMap
+
+open Complex Matrix
+
+/-- `det(F₀(τ)P⁻¹)`. -/
+def dF (τ : ℂ) : ℂ := -(√2 : ℂ) * (τ - 3) * (τ + 1) / 2
+
+/-- `adj(F₀(τ)P⁻¹)·E(τ)`, entries reduced mod `√2² = 2`. -/
+def Nf (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  !![(√2 : ℂ) * (τ ^ 2 / 2 + τ - 3 / 2) - τ ^ 2 / 2 - 3 / 2,
+     (√2 : ℂ) * (-τ ^ 2 / 2 - τ + 3 / 2) + τ ^ 2 + 3;
+     (√2 : ℂ) * (-τ ^ 2 / 2 - τ + 3 / 2) + τ ^ 2 + 3,
+     (√2 : ℂ) * (τ ^ 2 + 2 * τ - 3) - τ ^ 2 - 3]
+
+theorem adjE_eq (τ : ℂ) : adjugate (PkgI1.F0mat τ * PkgI1.Pinv) * PkgI1.Emat τ = Nf τ := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.adjugate_fin_two, Matrix.mul_apply, Fin.sum_univ_two, PkgI1.F0mat, PkgI1.Pinv,
+      PkgI1.Emat, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Nf]
+  · ring
+  · linear_combination (τ ^ 2 / 2 + 3 / 2) * sqrt2_sq
+  · ring
+  · linear_combination (-τ ^ 2 / 2 - 3 / 2) * sqrt2_sq
+
+theorem omega_eq (τ : ℂ) (i j : Fin 2) : PkgI1.Omega τ i j = Nf τ i j / dF τ := by
+  have h : PkgI1.Omega τ = (PkgI1.F0mat τ * PkgI1.Pinv)⁻¹ * PkgI1.Emat τ := rfl
+  rw [h, Matrix.inv_def, Matrix.smul_mul, Matrix.smul_apply, Ring.inverse_eq_inv', smul_eq_mul,
+    adjE_eq, det_F0P, dF]
+  ring
+
+/-- `A₀₀/(y/2)`. -/
+def Qf (x y : ℝ) : ℝ := (4 - √2) * (x ^ 2 + y ^ 2) - 6 * √2 * x + 12 + 3 * √2
+
+theorem Qf_pos (x y : ℝ) : 0 < Qf x y := by
+  have hs := sqrt2_sq'
+  have h4 : 0 < 4 - √2 := by
+    have : √2 < 2 := by
+      rw [show (2 : ℝ) = √4 by rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.sqrt_sq (by norm_num)]]
+      exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+    linarith
+  have hid : (4 - √2) * Qf x y = ((4 - √2) * x - 3 * √2) ^ 2 + ((4 - √2) * y) ^ 2 + 24 := by
+    unfold Qf; linear_combination (-12 : ℝ) * hs
+  have : 0 < (4 - √2) * Qf x y := by rw [hid]; positivity
+  exact pos_of_mul_pos_right this h4.le
+
+theorem A00_eq (τ : ℂ) :
+    (Nf τ 0 0).im * (dF τ).re - (Nf τ 0 0).re * (dF τ).im = τ.im / 2 * Qf τ.re τ.im := by
+  simp [Nf, dF, Qf, Complex.mul_re, Complex.mul_im, pow_two]
+  linear_combination (τ.re ^ 2 * τ.im + τ.im ^ 3 + 3 * τ.im) * sqrt2_sq'
+
+theorem A01_eq (τ : ℂ) : (Nf τ 0 1).im * (dF τ).re - (Nf τ 0 1).re * (dF τ).im =
+    τ.im * (√2 * τ.re ^ 2 + 6 * √2 * τ.re + √2 * τ.im ^ 2 - 3 * √2 - 2 * τ.re ^ 2 -
+      2 * τ.im ^ 2 - 6) := by
+  simp [Nf, dF, Complex.mul_re, Complex.mul_im, pow_two]
+  linear_combination (-τ.re ^ 2 * τ.im - τ.im ^ 3 - 3 * τ.im) * sqrt2_sq'
+
+theorem A11_eq (τ : ℂ) :
+    (Nf τ 1 1).im * (dF τ).re - (Nf τ 1 1).re * (dF τ).im = τ.im * Qf τ.re τ.im := by
+  simp [Nf, dF, Qf, Complex.mul_re, Complex.mul_im, pow_two]
+  linear_combination (2 * τ.re ^ 2 * τ.im + 2 * τ.im ^ 3 + 6 * τ.im) * sqrt2_sq'
+
+theorem det_A (x y : ℝ) :
+    y / 2 * Qf x y * (y * Qf x y) - y * (√2 * x ^ 2 + 6 * √2 * x + √2 * y ^ 2 - 3 * √2 -
+      2 * x ^ 2 - 2 * y ^ 2 - 6) * (y * (√2 * x ^ 2 + 6 * √2 * x + √2 * y ^ 2 - 3 * √2 -
+      2 * x ^ 2 - 2 * y ^ 2 - 6)) =
+      3 * y ^ 2 * ((x - 3) ^ 2 + y ^ 2) * ((x + 1) ^ 2 + y ^ 2) := by
+  unfold Qf
+  linear_combination (-x ^ 4 * y ^ 2 / 2 - 6 * x ^ 3 * y ^ 2 - x ^ 2 * y ^ 4 - 15 * x ^ 2 * y ^ 2 -
+    6 * x * y ^ 4 + 18 * x * y ^ 2 - y ^ 6 / 2 + 3 * y ^ 4 - 9 * y ^ 2 / 2) * sqrt2_sq'
+
+/-- A real symmetric `2 × 2` matrix with `M₀₀ > 0` and `det M > 0` is positive definite. -/
+theorem posDef_fin_two {M : Matrix (Fin 2) (Fin 2) ℝ} (hs : M 1 0 = M 0 1) (h0 : 0 < M 0 0)
+    (hd : 0 < M 0 0 * M 1 1 - M 0 1 * M 1 0) : M.PosDef := by
+  rw [Matrix.posDef_iff_dotProduct_mulVec]
+  refine ⟨?_, fun v hv => ?_⟩
+  · ext i j
+    fin_cases i <;> fin_cases j <;> simp [Matrix.conjTranspose_apply, hs]
+  · simp only [star_trivial, dotProduct, Matrix.mulVec, Fin.sum_univ_two]
+    rw [hs] at hd ⊢
+    by_cases h1 : v 1 = 0
+    · have h0' : v 0 ≠ 0 := by
+        intro h; apply hv; funext i; fin_cases i <;> simp [h, h1]
+      rw [h1]
+      have : 0 < v 0 * v 0 := mul_self_pos.mpr h0'
+      nlinarith
+    · have : 0 < v 1 * v 1 := mul_self_pos.mpr h1
+      have key : M 0 0 * (v 0 * (M 0 0 * v 0 + M 0 1 * v 1) + v 1 * (M 0 1 * v 0 + M 1 1 * v 1)) =
+          (M 0 0 * v 0 + M 0 1 * v 1) ^ 2 + (M 0 0 * M 1 1 - M 0 1 * M 0 1) * (v 1 * v 1) := by ring
+      have hpos : 0 < M 0 0 * (v 0 * (M 0 0 * v 0 + M 0 1 * v 1) +
+          v 1 * (M 0 1 * v 0 + M 1 1 * v 1)) := by
+        rw [key]; positivity
+      exact pos_of_mul_pos_right hpos h0.le
+
+/-- **`OmegaSiegel` (proved).** -/
+theorem omegaSiegel_proof : OmegaSiegel := by
+  intro τ hτ
+  have hne : dF τ ≠ 0 := by
+    have := det_F0P_ne hτ.ne'
+    rwa [det_F0P] at this
+  have hn : 0 < Complex.normSq (dF τ) := Complex.normSq_pos.mpr hne
+  have him : ∀ i j, (PkgI1.Omega τ i j).im =
+      ((Nf τ i j).im * (dF τ).re - (Nf τ i j).re * (dF τ).im) / Complex.normSq (dF τ) := by
+    intro i j
+    rw [omega_eq, Complex.div_im]
+    ring
+  have hsym : PkgI1.Omega τ 1 0 = PkgI1.Omega τ 0 1 := by
+    rw [omega_eq, omega_eq]; rfl
+  refine ⟨?_, ?_⟩
+  · ext i j
+    fin_cases i <;> fin_cases j <;> simp [Matrix.transpose_apply, hsym]
+  · apply posDef_fin_two
+    · simp only [Matrix.map_apply, hsym]
+    · simp only [Matrix.map_apply]
+      rw [him, A00_eq]
+      exact div_pos (mul_pos (half_pos hτ) (Qf_pos _ _)) hn
+    · simp only [Matrix.map_apply]
+      rw [hsym, him 0 0, him 1 1, him 0 1, A00_eq, A11_eq, A01_eq]
+      rw [div_mul_div_comm, div_mul_div_comm, ← sub_div, det_A]
+      apply div_pos _ (mul_pos hn hn)
+      have h3 : 0 < (τ.re - 3) ^ 2 + τ.im ^ 2 := by positivity
+      have h1 : 0 < (τ.re + 1) ^ 2 + τ.im ^ 2 := by positivity
+      positivity
+
+/-- **`ThetaOmegaAnalytic` (proved).** -/
+theorem thetaOmegaAnalytic_proof : ThetaOmegaAnalytic := thetaOmegaAnalytic_of omegaSiegel_proof
+
+/-- **`HauptmodulUnique` from `S8Nonzero` and `SphereFactorAffine` (proved).** -/
+theorem hauptmodulUnique_of' (hS : S8Nonzero) (hSF : SphereFactorAffine) : HauptmodulUnique :=
+  hauptmodulUnique_of thetaOmegaAnalytic_proof hS hSF
+
+/-- **`QMDenZeroCM3` from `S8Nonzero`, `S8Weight8`, `S8OrderCM3` and `ValenceBoundGammaStar`
+(proved).** -/
+theorem qmDenZeroCM3_of' (hS : S8Nonzero) (hW : S8Weight8) (hO : S8OrderCM3)
+    (hV : ValenceBoundGammaStar) : QMDenZeroCM3 :=
+  qmDenZeroCM3_of thetaOmegaAnalytic_proof hS hW hO hV
+
+end HSyn.G0Split.FibreQM.PeriodMap
+
+end
+
+#print axioms HSyn.G0Split.FibreQM.PeriodMap.omegaSiegel_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of'
+#print axioms HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'
+
 /-! ## period-map (heavy part): `PeriodMapGlue` from strictly smaller named Props
 
 Task period-map, 2026-11-13. `PeriodMapGlue Y Φ π` (fibre-qm-period, above, unchanged) is proved
@@ -796,20 +1183,20 @@ theorem periodMapGlue_own (h : R1R2fp) (hBC : BaseChangeClassUnique)
 /-- **`FibreQMPeriod` with the three targets replaced by their named pieces (proved).** Leaves:
 `R1R2fp`, `PkgI1.QMHauptmodul`, T35, T11a, `QMClassNumberOne`, `R1bFamily`,
 `ValenceBoundGammaStar`. Glue: `Pin.MobiusGlue` (proved by mobius-glue), `BaseChangeClassUnique`,
-`PiTwistC`, `QMTwistLattice`, `PiCMC`, `ThetaOmegaAnalytic`, `S8Nonzero`,
+`PiTwistC`, `QMTwistLattice`, `PiCMC`, `S8Nonzero`,
 `SphereFactorAffine`, `S8Weight8`, `S8OrderCM3`, `CPtsTransport`. -/
 theorem fibreQMPeriod_periodMap (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hBC : BaseChangeClassUnique) (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h))
     (hTL : QMTwistLattice) (hCM : PiCMC (ownY h) (ownΦ h) (ownπ h))
-    (hT : PeriodMap.ThetaOmegaAnalytic) (hS : PeriodMap.S8Nonzero)
+    (hS : PeriodMap.S8Nonzero)
     (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8Weight8)
     (hO : PeriodMap.S8OrderCM3) (hV : PeriodMap.ValenceBoundGammaStar)
     (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_main h hM hH hE hR11 hCN hR
     (periodMapGlue_own h hBC hPT hTL hCM (cmFixedHasCM_of hR11))
-    (PeriodMap.hauptmodulUnique_of hT hS hSF) (PeriodMap.qmDenZeroCM3_of hT hS hW hO hV) hCP
+    (PeriodMap.hauptmodulUnique_of' hS hSF) (PeriodMap.qmDenZeroCM3_of' hS hW hO hV) hCP
 
 end HSyn.G0Split.FibreQM.PeriodMapH
 

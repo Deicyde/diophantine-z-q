@@ -78,3 +78,15 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
 - run_theta3: 0 errors; `thetaOmegaAnalytic_of : OmegaSiegel → ThetaOmegaAnalytic`, axioms standard. VERIFIED.
 - run_light_full2: `lake env lean scratch/period-map/PMLight.lean` (light_base + part_light + part_theta): 0 errors, 12s,
   all axioms lines standard. VERIFIED.
+
+## OmegaSiegel (part_siegel.lean)
+- omega_lean.py (omega_lean_out.txt): with s = √2 symbolic, adj(F₀P⁻¹)E reduced mod s²-2 (`Nf`), det = -s(τ-3)(τ+1)/2,
+  A_ij = Im(N_ij conj d): A00 = (y/2)Q, A11 = yQ, Q = (4-s)(x²+y²) - 6sx + 12 + 3s; A00A11 - A01² = 3y²|τ-3|²|τ+1|²;
+  quotients by s²-2 for each `linear_combination`. VERIFIED (sympy).
+- run_siegel1: 2 errors (omega_eq final step; det_A stated with ^2 vs a*a). Fixed.
+- run_siegel2: 0 errors; `omegaSiegel_proof : OmegaSiegel`, `thetaOmegaAnalytic_proof : ThetaOmegaAnalytic`,
+  `hauptmodulUnique_of' : S8Nonzero → SphereFactorAffine → HauptmodulUnique`,
+  `qmDenZeroCM3_of' : S8Nonzero → S8Weight8 → S8OrderCM3 → ValenceBoundGammaStar → QMDenZeroCM3`; axioms standard. VERIFIED.
+- run_heavy12: DevHeavy = import PMBase + part_light + part_theta + part_siegel + part_heavy: 0 errors, 18 axioms lines,
+  none with sorryAx; `fibreQMPeriod_periodMap` no longer takes `ThetaOmegaAnalytic`. VERIFIED.
+- run_light_full3: lake env lean PMLight.lean (light_base+part_light+part_theta+part_siegel): see run_light_full3.txt
