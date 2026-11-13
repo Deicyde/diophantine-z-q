@@ -185,7 +185,7 @@ theorem qmModelG3_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePi
 /-- Prop. TS for every admissible cover (prop-ts, prop-ts-glue). -/
 theorem propTSAll_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
     G0ModField.PropTSAll :=
-  PropTSGlue.propTSAll_of_pieces'' t.t2 (LeafAdopt.R1R2fp_of_rep r.r1r2) (mobiusGlue_of_t5' t)
+  PropTSGlue.propTSAll_of_pieces'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) (mobiusGlue_of_t5' t)
     gp.verticalResidueSeparable gp.snSpecialize gp.kummerCompositum gp.kummerAbhyankarFinGlue
     gp.kummerOtherBranchFin gp.kummerVerticalFin gp.kummerAbhyankarInfGlue gp.kummerOtherBranchInf
     gp.kummerVerticalInf gp.heckeIrreducible gp.heckeNormalizationIrr gp.heckeDegree gp.heckeBranch

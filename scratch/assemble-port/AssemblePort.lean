@@ -4,6 +4,9 @@ import ZInQKernel.Compiler.Precision.HeightConstant
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Progressions.Final.Instance
 import ZInQKernel.Size.Constants.T
+import ZInQKernel.Contrib.T14.Main
+import ZInQKernel.Contrib.T28.Assemble
+import ZInQKernel.Contrib.RLeaf.X1ConstantField
 import ZInQKernel.Contrib.BrauerT14T15.Main
 import ZInQKernel.Contrib.LocalKW.T30
 import ZInQKernel.Contrib.KroneckerWeber.Leaves
@@ -33389,10 +33392,10 @@ structure ResearchLeaves : Prop where
 
 /-- **The textbook foundations** (note §2.2), bundled. -/
 structure TextbookLeaves : Prop where
-  t1 : PkgI2.PurityBranchLocus.{0}
-  t2 : PkgI2.AbhyankarDVR.{0}
-  t3 : PkgI2.NeronMappingAbelianScheme.{0}
-  t4 : PkgI2.ReductionTorsionBijective.{0}
+  -- leaf-fold2: field `t1` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t2` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t3` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t4` deleted (no proof on the route uses it; g0-assemble2 §7)
   t5 : PkgI2.TorsionStructure.{0}
   t6 : PkgI3.HomFreeFinite
   t7 : PkgI3.CharPolyIndepOfEll
@@ -33417,7 +33420,7 @@ structure TextbookLeaves : Prop where
   t14b : PkgI6.BrauerReciprocity2C
   t15 : PkgI6.LocalH2CardC
   t16a : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p
-  t16b : PkgI6.LocalReciprocityUpper
+  -- leaf-fold2: field `t16b` deleted (no proof on the route uses it; g0-assemble2 §7)
   /-- T17 narrowed (t-skolem-kw, leaf-adopt3): Kronecker–Weber for cyclic `L/ℚ`, the case C8
   uses; a consequence of `HSyn.KroneckerWeber` (`TSkolemKW.kroneckerWeberCyclic_of_hsyn`). C8's
   use form is proved from it (`TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic`). -/
@@ -33426,8 +33429,8 @@ structure TextbookLeaves : Prop where
   `HSyn.FrobeniusDense` is proved from it (`TSkolemKW.hsyn_t18_of_chebotarev`). -/
   t18 : PkgI6.ChebotarevExists
   -- leaf-adopt3: T19 (Brauer–Nesbitt, char 0) is proved (t-skolem-kw, `TSkolemKW.hsyn_t19`).
-  t20 : GlueConductor.HilbertDifferentFormula
-  t21 : GlueConductor.SerreDifferentBound
+  -- leaf-fold2: field `t20` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t21` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-adopt3: T20, T21 in local form are proved (t-different: `PkgI6.hilbertDifferentFormula`,
   -- `PkgI6.differentBound`); the global forms above remain leaves. T22 (both parts) is proved
   -- (`PkgI6.herbrandQuotient`, `PkgI6.herbrandTransitivity`), no longer a field.
@@ -33436,9 +33439,9 @@ structure TextbookLeaves : Prop where
   t25 : PkgI4.NewformOfEigenform
   t26 : PkgI3.TateModuleFree
   t27 : PkgI3.QMDichotomyYu
-  t28 : PkgI1.IgusaClebschSeparation
-  t29a : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29a_DivisionNormalizer p
-  t29b : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29b_SplitNormalizer p
+  -- leaf-fold2: field `t28` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t29a` deleted (no proof on the route uses it; g0-assemble2 §7)
+  -- leaf-fold2: field `t29b` deleted (no proof on the route uses it; g0-assemble2 §7)
   -- leaf-adopt3: T30 is proved from T16(a) (t30-adelic, `T30.leafSqrtCrit_of_t16a`).
   t31 : GlueDescent.B2Q.LeafUnramified
   -- leaf-adopt: T32 is glue (`HSyn.t32a_glue`, `HSyn.t32b_glue`), no longer a field.
@@ -35548,10 +35551,6 @@ theorem researchLeaves_of_open (r : OpenResearchLeaves) : ResearchLeaves where
   h5 := r.h5
 
 theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
-  t1 := t.t1
-  t2 := t2_proved
-  t3 := t.t3
-  t4 := t.t4
   t5 := t.t5
   t6 := t.t6
   t7 := t.t7
@@ -35564,19 +35563,13 @@ theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
   t14b := t.t14b
   t15 := t15_proved
   t16a := t16a_proved
-  t16b := t.t16b
   t17 := t17_proved
   t18 := t18_proved
-  t20 := t20_proved
-  t21 := t21_proved
   t23 := t.t23
   t24 := t.t24
   t25 := t25_proved
   t26 := t.t26
   t27 := t.t27
-  t28 := t.t28
-  t29a := t.t29a
-  t29b := t.t29b
   t31 := t31_proved
   t33 := t.t33
   t34 := t.t34
@@ -92480,7 +92473,7 @@ theorem qmModelG3_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePi
 /-- Prop. TS for every admissible cover (prop-ts, prop-ts-glue). -/
 theorem propTSAll_of_gp4 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces4) :
     G0ModField.PropTSAll :=
-  PropTSGlue.propTSAll_of_pieces'' t.t2 (LeafAdopt.R1R2fp_of_rep r.r1r2) (mobiusGlue_of_t5' t)
+  PropTSGlue.propTSAll_of_pieces'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) (mobiusGlue_of_t5' t)
     gp.verticalResidueSeparable gp.snSpecialize gp.kummerCompositum gp.kummerAbhyankarFinGlue
     gp.kummerOtherBranchFin gp.kummerVerticalFin gp.kummerAbhyankarInfGlue gp.kummerOtherBranchInf
     gp.kummerVerticalInf gp.heckeIrreducible gp.heckeNormalizationIrr gp.heckeDegree gp.heckeBranch
@@ -92580,28 +92573,63 @@ end
 
 end G0A3_z95_bundle4
 
-section G0A3_z99_bundle5
-/-! ## assemble-port: `ResearchLeaves5`, `GluePieces5`, `sixContactMin_of_leaves5`
+section G0A3_z98_fold2
+/-! ## assemble-port: leaf-fold2's textbook folds and open leaf bundles
 
-Task assemble-port, 2026-11-13. g0-assemble3's `sixContactMin_of_leaves4` (part z95), ported onto the HDec `Leaves.lean`
-(every part sits in `namespace HDec`), with:
-* prop-ts-glue's final results (part e10 regenerated from `scratch/prop-ts-glue/PropTSGlue.lean` at 3d41b3d5):
-  `VerticalResidueSeparable` (from `verticalResidueDegree`) and `SNSpecialize` (from `snSpecializeUnram`) are theorems,
-  so `SpecNonMeeting` is (`PropTSGlue.specNonMeeting`); the two fields are dropped;
-* leaf-fold's closed textbook leaves (in `Leaves.lean`): `TextbookLeaves` is replaced by `OpenTextbookLeaves`
-  (`textbookLeaves_of_open`: T2, T15, T16(a), T17, T18, T20, T21, T25, T31 proved);
-* R14 with its determinant clause as the research leaf (`ResearchLeaves5.r14 : G0Galois.R14Det`, as leaf-fold's
-  `OpenResearchLeaves`), so `GluePieces4.r14Det` is no longer a separate field. -/
+Verbatim slices of `scratch/leaf-fold2/parts/b20_fold.lean` (leaf-fold2, 5a41b70a), generated by `mk/mk_z98.py`: the
+textbook leaves closed since leaf-fold (imports `ZInQKernel.Contrib.T14.Main`, `ZInQKernel.Contrib.T28.Assemble`,
+`ZInQKernel.Contrib.RLeaf.X1ConstantField`), `OpenResearchLeaves2`, `OpenTextbookLeaves2`, `researchLeaves3_of_open2`,
+`x1Leaves_of_open2`, `textbookLeaves_of_open2`. leaf-fold2's other proofs (image-plane, infra-stalks, AbVarBC,
+unif-dims, conj-twist, inner-twist) are not copied: g0-assemble3's parts b10-f20 fold the same results. -/
 
 noncomputable section
 
 namespace HSyn
 
-/-- **The research leaves after assemble-port**: `ResearchLeaves4` with `r14` the published R14 with its determinant
-clause (`G0Galois.R14Det`, g0-mod-galois; Shimura 1971 Thm 7.14, Deligne 1971; locators UNVERIFIED), which implies
-the old `EigenformRepExists` (`eigenformRepExists_of_r14Det`). -/
-structure ResearchLeaves5 : Prop where
+open CategoryTheory AlgebraicGeometry G0Split
+
+/-! ### Textbook leaves closed since leaf-fold -/
+
+/-- **T14(a′) proved** (task t1415-tc / `ZInQKernel/Contrib/T14/Main.lean`). -/
+theorem t14a_proved : PkgI6.BrauerHasse2C := _root_.ZInQ.Contrib.T14.brauerHasse2C
+
+/-- **T14(b′) proved** (`ZInQKernel/Contrib/T14/Main.lean`). -/
+theorem t14b_proved : PkgI6.BrauerReciprocity2C := _root_.ZInQ.Contrib.T14.brauerReciprocity2C
+
+/-- **T28 proved** (`ZInQKernel/Contrib/T28/Assemble.lean`). T28 is not used by the proof (its
+field was deleted from `TextbookLeaves`, see `mk_prefix.py`); recorded for completeness. -/
+theorem t28_proved : PkgI1.IgusaClebschSeparation :=
+  _root_.T28.igusaClebschSeparation_proved
+
+/-- **T36 proved** (`ZInQKernel/Contrib/RLeaf/T36Torsion.lean`). -/
+theorem t36_proved : X1Belyi.TorsionStructure := _root_.ZInQ.RLeaf.t36_torsionStructure
+
+/-- **T37 proved** (`ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean`). -/
+theorem t37_proved : X1Belyi.GoodReductionUnramified :=
+  _root_.ZInQ.RLeaf.T37.t37_goodReductionUnramified
+
+/-- **T39 from T40** (`ZInQKernel/Contrib/RLeaf/X1ConstantField.lean`): a degree-one place of
+`K_N` makes `ℚ` algebraically closed in `K_N`. -/
+theorem t39_of_t40 (h : X1Belyi.X1RationalCusp) : X1Belyi.X1ConstantField :=
+  _root_.ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp h
+
+/-- **The research-level leaves still open** (leaf-fold2). `ResearchLeaves3` (g0-assemble2: no
+`opaque` placeholder) with four fields in their published, corrected or concrete form:
+* `r1b`: R1(b) concretely, in family form (fibre-qm-period's `R1bFamily`; was `GluePieces3.r1bFamily`
+  and, before that, the `opaque` `r1an`);
+* `r10`: R10 corrected (`PkgI4.DeRhamComparisonHT`, with the multiplicity-0 clause; g9-derham,
+  r10-amend);
+* `r14`: R14 corrected (`G0Galois.R14Det`, with the determinant clause; was also
+  `GluePieces3.r14Det`);
+* `r17`: R17 concretely (`LadicCond.CarayolR17'`, Carayol 1986 Thm (A); was
+  `GluePieces3.carayolR17` and, before that, the `opaque` `r17`). -/
+structure OpenResearchLeaves2 : Prop where
   r1r2 : LeafAdopt.R1R2fpRep
+  /-- R1(b), concrete (family form), for the triple of the leaf bundle. -/
+  r1b : ∀ h : LeafAdopt.R1R2fpRep,
+    G0Split.FibreQM.R1bFamily (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
   r1rec : LeafQM.AV.R1rec
   r3 : ZInQ.LeafPush2.R03_LinYang
   r4 : PkgI1.ThetaModularity
@@ -92613,24 +92641,134 @@ structure ResearchLeaves5 : Prop where
   r8 : PkgI2.GrothendieckMonodromy.{0}
   r9a : PkgI3.FaltingsSemisimple
   r9b : PkgI3.FaltingsTate
-  /-- R10 amended (r10-amend): `deRhamComparisonHT_iff : DeRhamComparisonHT ↔ PkgI4.DeRhamComparison ∧
-  G9Bridge.R10Weights`. -/
-  r10 : ZInQ.Contrib.R10.DeRhamComparisonHT
+  /-- R10 corrected (with multiplicity `0` off `{0, −1}`). -/
+  r10 : PkgI4.DeRhamComparisonHT
   r11r12 : PkgI4.PanBerger
   r13 : PkgI4.EigenformHT
-  /-- R14 with the determinant clause (was `ResearchLeaves4.r14 : EigenformRepExists` plus `GluePieces4.r14Det`). -/
+  /-- R14 corrected (with the determinant clause). -/
   r14 : G0Galois.R14Det
   r15 : DeligneSerreConseq
   r16 : LeafModCurves.R16_EichlerShimuraJ1'
+  /-- R17, concrete (Carayol 1986, Thm (A)). -/
+  r17 : LadicCond.CarayolR17'
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
   r21 : ZInQ.DefFaltings.R21_Bost
   r22 : ZInQ.LeafPush2.R22_Pazuki
+  /-- H5's finiteness half (its `NeronModelMinimal` half is proved, h5-glue). -/
   h5fin : ZInQ.DefFaltings.StableHeightFinite
 
-/-- `ResearchLeaves5` gives `ResearchLeaves4` (drop R14's determinant clause). -/
-theorem ResearchLeaves5.toR4 (r : ResearchLeaves5) : ResearchLeaves4 :=
+/-- **The textbook leaves still open** (leaf-fold2): `TextbookLeaves` without the ten fields no
+proof uses (deleted, `mk_prefix.py`), without the eight proved fields (`t14a`, `t14b` here;
+`t15`, `t16a`, `t17`, `t18`, `t25`, `t31` by leaf-fold), and with `x1` (T36-T40) cut to T38 and
+T40 (T36, T37 proved; T39 follows from T40). -/
+structure OpenTextbookLeaves2 : Prop where
+  t5 : PkgI2.TorsionStructure.{0}
+  t6 : PkgI3.HomFreeFinite
+  t7 : PkgI3.CharPolyIndepOfEll
+  t8 : PkgI3.PoincareReducibility
+  t9 : LeafPush.T09_WeilPairing.{0}
+  t10 : T10Etale.T10_TateDuality
+  t11a : ZInQ.LeafPush2.T11a_RiemannEnd
+  t11b : ZInQ.LeafPush2.T11b_Rigidity
+  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
+  t24 : EigenformTwist
+  t26 : PkgI3.TateModuleFree
+  t27 : PkgI3.QMDichotomyYu
+  t33 : LeafModCurves.JacobianExists ℚ
+  t34 : LeafModCurves.DimJ1Genus
+  t35 : ZInQ.LeafPush2.UniformizationExists
+  /-- T38 (x1-belyi): a function field over `ℚ` with constant field `ℚ` is that of a smooth
+  proper curve. -/
+  t38 : X1Belyi.CurveOfFunctionFieldQ
+  /-- T40 (x1-belyi): `K_N` has a degree-one place. -/
+  t40 : X1Belyi.X1RationalCusp
+  t41 : ZInQ.H5Neron.NeronModelExists
+
+theorem researchLeaves3_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves3 where
+  r1r2 := r.r1r2
+  r1rec := r.r1rec
+  r3 := r.r3
+  r4 := r.r4
+  r5 := r.r5
+  r5count := r.r5count
+  r6 := r.r6
+  r7a := r.r7a
+  r7b := r.r7b
+  r8 := r.r8
+  r9a := r.r9a
+  r9b := r.r9b
+  r10 := PkgI4.deRhamComparison_of_HT r.r10
+  r11r12 := r.r11r12
+  r13 := r.r13
+  r14 := eigenformRepExists_of_r14Det r.r14
+  r15 := r.r15
+  r16 := r.r16
+  r18 := r.r18
+  r19 := r.r19
+  r20 := r.r20
+  r21 := r.r21
+  r22 := r.r22
+  h5fin := r.h5fin
+
+theorem x1Leaves_of_open2 (t : OpenTextbookLeaves2) : X1Belyi.X1Leaves where
+  torsion := t36_proved
+  goodRed := t37_proved
+  curve := t.t38
+  constants := t39_of_t40 t.t40
+  cusp := t.t40
+
+theorem textbookLeaves_of_open2 (t : OpenTextbookLeaves2) : TextbookLeaves where
+  t5 := t.t5
+  t6 := t.t6
+  t7 := t.t7
+  t8 := t.t8
+  t9 := t.t9
+  t10 := t.t10
+  t11a := t.t11a
+  t11b := t.t11b
+  t14a := t14a_proved
+  t14b := t14b_proved
+  t15 := t15_proved
+  t16a := t16a_proved
+  t17 := t17_proved
+  t18 := t18_proved
+  t23 := t.t23
+  t24 := t.t24
+  t25 := t25_proved
+  t26 := t.t26
+  t27 := t.t27
+  t31 := t31_proved
+  t33 := t.t33
+  t34 := t.t34
+  t35 := t.t35
+  x1 := x1Leaves_of_open2 t
+  t41 := t.t41
+
+end HSyn
+
+end
+
+end G0A3_z98_fold2
+
+section G0A3_z99_bundle5
+/-! ## assemble-port: `GluePieces5`, `sixContactMin_of_leaves5`
+
+Task assemble-port, 2026-11-13. g0-assemble3's `sixContactMin_of_leaves4` (part z95), ported onto leaf-fold2's base
+(`scratch/h-decomposition/Leaves.lean` with the ten unused `TextbookLeaves` fields deleted, every part in `namespace
+HDec`; leaf-fold2's bundles `OpenResearchLeaves2`, `OpenTextbookLeaves2`, part z98), with prop-ts-glue's final results
+(part e10 regenerated from `scratch/prop-ts-glue/PropTSGlue.lean` at 3d41b3d5): `VerticalResidueSeparable` and
+`SNSpecialize` are theorems (so is `SpecNonMeeting`). -/
+
+noncomputable section
+
+namespace HSyn
+
+/-- leaf-fold2's research bundle gives g0-assemble3's `ResearchLeaves4`: R14 without its determinant clause
+(`eigenformRepExists_of_r14Det`); R10 amended in leaf-fold's form `PkgI4.DeRhamComparisonHT` is r10-amend's
+`ZInQ.Contrib.R10.DeRhamComparisonHT` (the same statement, two copies; accepted by unfolding). -/
+theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
   { r1r2 := r.r1r2,
     r1rec := r.r1rec,
     r3 := r.r3,
@@ -92656,9 +92794,11 @@ theorem ResearchLeaves5.toR4 (r : ResearchLeaves5) : ResearchLeaves4 :=
     r22 := r.r22,
     h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (43 fields): `GluePieces4` without `verticalResidueSeparable`,
-`snSpecialize` (proved by prop-ts-glue: `verticalResidueDegree`, `snSpecializeUnram`; together `specNonMeeting`) and
-`r14Det` (merged into the research leaf `ResearchLeaves5.r14`, as leaf-fold did). -/
+/-- **The named Props left after assemble-port** (41 fields): g0-assemble3's `GluePieces4` without
+* `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
+  together `PropTSGlue.specNonMeeting`);
+* `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
+  (`r14`, `r1b`, `r17`), the same Props. -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -92683,11 +92823,6 @@ structure GluePieces5 : Prop where
   qmHauptmodul : PkgI1.QMHauptmodul
   /-- fibre-qm-period, LEAF (Eichler class number one for `𝒪`, lattice form). -/
   qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
-  /-- fibre-qm-period, LEAF (R1(b) in family form; Shimura 1967 Main Thm I). -/
-  r1bFamily : ∀ h : LeafAdopt.R1R2fpRep,
-    G0Split.FibreQM.R1bFamily (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
-      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
-      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
   /-- period-map, GLUE (base change of QM classes is unique). -/
   baseChangeClassUnique : G0Split.FibreQM.PeriodMapH.BaseChangeClassUnique
   /-- period-map, GLUE (`π` is invariant under the QM twist, complex form), for the leaf's own triple. -/
@@ -92739,8 +92874,6 @@ structure GluePieces5 : Prop where
   /-- weil-pairing, LEAF (Mumford §4 Appl. 2). -/
   divisiblePoints : WeilPairing.DivisiblePoints
   -- ModularConstituent: G13-G16
-  /-- R17 concretely, LEAF (Carayol 1986, Thm (A)). -/
-  carayolR17 : LadicCond.CarayolR17'
   -- ModularConstituent: joint glue on G7's data (linked-tate)
   /-- linked-tate, GLUE (G3 on the QM model: inertia above `p ∉ {3, ℓ}` fixes `ℓⁿ`-torsion, given NOS). -/
   goodRedTorsion : LinkedTate.GoodRedTorsion
@@ -92755,11 +92888,13 @@ structure GluePieces5 : Prop where
   tateRamAtThree : UnramTate.TateRamAtThree
 
 
-/-- **`GluePieces4` from `GluePieces5`**: the two prop-ts-glue fields are theorems, `r14Det` is the research leaf. -/
-theorem gluePieces4_of_gluePieces5 (r : ResearchLeaves5) (gp : GluePieces5) : GluePieces4 :=
+/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research bundle. -/
+theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (gp : GluePieces5) : GluePieces4 :=
   { verticalResidueSeparable := PropTSGlue.verticalResidueSeparable_of_degree PropTSGlue.verticalResidueDegree,
     snSpecialize := PropTSGlue.snSpecialize_of_unram PropTSGlue.snSpecializeUnram,
     r14Det := r.r14,
+    r1bFamily := r.r1b,
+    carayolR17 := r.r17,
     cmOptimalEmbedding := gp.cmOptimalEmbedding,
     x6ConicModel := gp.x6ConicModel,
     analyticUniformizationOfDim := gp.analyticUniformizationOfDim,
@@ -92768,7 +92903,6 @@ theorem gluePieces4_of_gluePieces5 (r : ResearchLeaves5) (gp : GluePieces5) : Gl
     thetaRatiosAlgebraic := gp.thetaRatiosAlgebraic,
     qmHauptmodul := gp.qmHauptmodul,
     qmClassNumberOne := gp.qmClassNumberOne,
-    r1bFamily := gp.r1bFamily,
     baseChangeClassUnique := gp.baseChangeClassUnique,
     piTwistC := gp.piTwistC,
     qmTwistLattice := gp.qmTwistLattice,
@@ -92797,30 +92931,36 @@ theorem gluePieces4_of_gluePieces5 (r : ResearchLeaves5) (gp : GluePieces5) : Gl
     t09SymmIsogenyExists := gp.t09SymmIsogenyExists,
     isogenyQuasiInverse := gp.isogenyQuasiInverse,
     divisiblePoints := gp.divisiblePoints,
-    carayolR17 := gp.carayolR17,
     goodRedTorsion := gp.goodRedTorsion,
     qmEndRank := gp.qmEndRank,
     linkedFrob := gp.linkedFrob,
     kernelFieldBreaks := gp.kernelFieldBreaks,
     tateRamAtThree := gp.tateRamAtThree }
 
-/-- **G0 after assemble-port** (no `sorry`, standard axioms): the open research leaves (`ResearchLeaves5`, 24 fields),
-leaf-fold's open textbook leaves (`OpenTextbookLeaves`, 26 fields) and `GluePieces5` (43 fields) imply
-`ZInQ.SixContactMin`. -/
-theorem sixContactMin_of_leaves5 (r : ResearchLeaves5) (t : OpenTextbookLeaves) (gp : GluePieces5) :
+/-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (41 fields: 14 LEAF, 3 LEAF?,
+24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
+theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leaves4 r.toR4 (textbookLeaves_of_open t) (gluePieces4_of_gluePieces5 r gp)
+  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r gp)
 
 end HSyn
 
 end
 
-#print axioms HSyn.ResearchLeaves5.toR4
+#print axioms HSyn.researchLeaves4_of_open2
 #print axioms HSyn.gluePieces4_of_gluePieces5
 #print axioms HSyn.sixContactMin_of_leaves5
+#print axioms HSyn.textbookLeaves_of_open2
+#print axioms HSyn.t14a_proved
+#print axioms HSyn.t14b_proved
+#print axioms HSyn.t36_proved
+#print axioms HSyn.t37_proved
+#print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms PropTSGlue.verticalResidueDegree
+#print axioms PropTSGlue.snSpecializeUnram
 #print axioms PropTSGlue.propTSAll_final''
-#print axioms HSyn.textbookLeaves_of_open
 
 end G0A3_z99_bundle5
 
