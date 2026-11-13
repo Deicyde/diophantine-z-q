@@ -25,3 +25,9 @@
   `modularCyclotomicCharacter'`); `det_sq_of_similitude` (comm. ring, unit Gram det:
   det(f)² = c^rank), `det_sq_of_similitude_field`; `twist_finite_four` (C8 determinant argument
   from (det r)⁴ = χ⁴ on a finite-index subgroup).
+- §7 COMPILES: `wv` (non-dependent e^λ_n on A(K̄)), `wv_eq/pow/one/add_left/add_right/
+  nsmul_left/nsmul_right/compat/galois`; `TMu K ℓ = T_ℓ(μ)` (Objects' `Tate.T` of K̄ˣ), `galTMu`;
+  `tatePairing D lam hℓ : T_ℓ A →ₗ[ℤ_ℓ] T_ℓ A →ₗ[ℤ_ℓ] T_ℓ(μ)` (the ℓ-adic Weil pairing,
+  components e^λ_{ℓ^k}(x_k, y_k)); `tatePairing_self` (alternating), `tatePairing_galois`,
+  `galTMu_eq_cyclotomic` (Mathlib `cyclotomicCharacter`), `tatePairing_cyclotomic`:
+  E^λ(σx, σy) = χ_ℓ(σ)·E^λ(x, y) — the ℓ-adic G12/C8-item-1 input, PROVED from a `WeilDual`.

@@ -654,6 +654,193 @@ theorem twist_finite_four {G E : Type*} [Group G] [Field E] (H : Subgroup G) [H.
     field_simp
   exact GlueAssembly.finite_range_of_sq ψ (((hα.prod hε).image _).subset hsq)
 
+
+/-! ## §7. The `ℓ`-adic Weil pairing on `T_ℓ A`, with cyclotomic multiplier -/
+
+section Adic
+
+variable {A : AbVar K} (D : WeilDual A) (lam : Hom A D.dual)
+
+open Classical in
+/-- `e^λ_n` on all of `A(K̄)`, as a unit of `K̄` (junk value `1` off `A[n]`); a non-dependent
+form used to pass to the limit. -/
+def wv (n : ℕ) (x y : P A) : (AlgebraicClosure K)ˣ :=
+  if h : n • x = 0 ∧ n • y = 0 then (weil D lam n ⟨x, h.1⟩ ⟨y, h.2⟩).val else 1
+
+variable {D lam}
+
+lemma wv_eq {n : ℕ} {x y : P A} (hx : n • x = 0) (hy : n • y = 0) :
+    wv D lam n x y = (weil D lam n ⟨x, hx⟩ ⟨y, hy⟩).val := by
+  classical
+  exact dite_eq_left_of_eq_true (eq_true ⟨hx, hy⟩)
+
+lemma wv_pow (n : ℕ) (x y : P A) : wv D lam n x y ^ n = 1 := by
+  classical
+  unfold wv
+  split_ifs
+  · exact val_pow_eq_one _ _ _
+  · exact one_pow n
+
+lemma wv_one (x y : P A) : wv D lam 1 x y = 1 := by
+  simpa using wv_pow (D := D) (lam := lam) 1 x y
+
+lemma wv_add_left {n : ℕ} {x x' y : P A} (hx : n • x = 0) (hx' : n • x' = 0) (hy : n • y = 0) :
+    wv D lam n (x + x') y = wv D lam n x y * wv D lam n x' y := by
+  have hxx' : n • (x + x') = 0 := by rw [smul_add, hx, hx', add_zero]
+  rw [wv_eq hxx' hy, wv_eq hx hy, wv_eq hx' hy]
+  exact val_mul_left _ ⟨x, hx⟩ ⟨x', hx'⟩ _
+
+lemma wv_add_right {n : ℕ} {x y y' : P A} (hx : n • x = 0) (hy : n • y = 0) (hy' : n • y' = 0) :
+    wv D lam n x (y + y') = wv D lam n x y * wv D lam n x y' := by
+  have hyy' : n • (y + y') = 0 := by rw [smul_add, hy, hy', add_zero]
+  rw [wv_eq hx hyy', wv_eq hx hy, wv_eq hx hy']
+  exact val_mul_right _ _ ⟨y, hy⟩ ⟨y', hy'⟩
+
+lemma wv_nsmul_left {n : ℕ} (c : ℕ) {x y : P A} (hx : n • x = 0) (hy : n • y = 0) :
+    wv D lam n (c • x) y = wv D lam n x y ^ c := by
+  have hcx : n • (c • x) = 0 := by rw [smul_comm, hx, smul_zero]
+  rw [wv_eq hcx hy, wv_eq hx hy, ← Mu.val_nsmul, ← nsmul_left]
+  rfl
+
+lemma wv_nsmul_right {n : ℕ} (c : ℕ) {x y : P A} (hx : n • x = 0) (hy : n • y = 0) :
+    wv D lam n x (c • y) = wv D lam n x y ^ c := by
+  have hcy : n • (c • y) = 0 := by rw [smul_comm, hy, smul_zero]
+  rw [wv_eq hx hcy, wv_eq hx hy, ← Mu.val_nsmul, ← nsmul_right]
+  rfl
+
+/-- Compatibility: `e^λ_n(m x, m y) = e^λ_{mn}(x, y)^m`. -/
+lemma wv_compat {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hK : ((m * n : ℕ) : K) ≠ 0) {x y : P A}
+    (hx : (m * n) • x = 0) (hy : (m * n) • y = 0) :
+    wv D lam n (m • x) (m • y) = wv D lam (m * n) x y ^ m := by
+  have hmx : n • (m • x) = 0 := by rw [← mul_smul, mul_comm, hx]
+  have hmy : n • (m • y) = 0 := by rw [← mul_smul, mul_comm, hy]
+  have ex : (⟨m • x, hmx⟩ : tors A n) = torsSmul A m n ⟨x, hx⟩ := rfl
+  have ey : torsIncl _ (dvd_mul_left n m) (torsMap lam n ⟨m • y, hmy⟩) =
+      m • torsMap lam (m * n) ⟨y, hy⟩ := by
+    apply Subtype.ext
+    change homP lam (m • y) = m • homP lam y
+    rw [map_nsmul]
+  rw [wv_eq hmx hmy, wv_eq hx hy, weil_apply, ex, ← D.compat m n hm hn hK, ey, nsmul_right,
+    Mu.val_nsmul, ← weil_apply]
+
+/-- `G_K`-equivariance: `e^λ_n(σx, σy) = σ(e^λ_n(x, y))`. -/
+lemma wv_galois {n : ℕ} (hn : 0 < n) (hnK : (n : K) ≠ 0) (σ : Gal K) {x y : P A}
+    (hx : n • x = 0) (hy : n • y = 0) :
+    wv D lam n (galP A σ x) (galP A σ y) =
+      Units.map (σ : AlgebraicClosure K →* AlgebraicClosure K) (wv D lam n x y) := by
+  have hσx : n • galP A σ x = 0 := by rw [← map_nsmul, hx, map_zero]
+  have hσy : n • galP A σ y = 0 := by rw [← map_nsmul, hy, map_zero]
+  have ex : (⟨galP A σ x, hσx⟩ : tors A n) = galTors A n σ ⟨x, hx⟩ := rfl
+  have ey : (⟨galP A σ y, hσy⟩ : tors A n) = galTors A n σ ⟨y, hy⟩ := rfl
+  rw [wv_eq hσx hσy, wv_eq hx hy, ex, ey, weil_galois D lam hn hnK]
+  rfl
+
+variable (D lam)
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `T_ℓ(μ) = lim μ_{ℓᵏ}(K̄)`, as Objects' `Tate.T` of `K̄ˣ`. -/
+abbrev TMu (K : Type) [Field K] (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  Tate.T ℓ (Additive (AlgebraicClosure K)ˣ)
+
+/-- `G_K` acting on `T_ℓ(μ)`. -/
+def galTMu (σ : Gal K) : TMu K ℓ →ₗ[ℤ_[ℓ]] TMu K ℓ :=
+  Tate.map (MonoidHom.toAdditive (Units.map (σ : AlgebraicClosure K →* AlgebraicClosure K)))
+
+omit [Fact ℓ.Prime] in
+lemma tors_pow {x : A.T ℓ} (k : ℕ) : (ℓ ^ k) • x.1 k = 0 := Tate.pow_smul_eq_zero x.2 k
+
+/-- The components `e^λ_{ℓᵏ}(x_k, y_k)`. -/
+def tateSeq (x y : A.T ℓ) : ℕ → Additive (AlgebraicClosure K)ˣ :=
+  fun k => Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k))
+
+variable {ℓ}
+
+lemma tateSeq_mem (hℓ : (ℓ : K) ≠ 0) (x y : A.T ℓ) : tateSeq D lam ℓ x y ∈ Tate.T ℓ _ := by
+  refine ⟨?_, fun k => ?_⟩
+  · change Additive.ofMul (wv D lam (ℓ ^ 0) _ _) = 0
+    rw [pow_zero, wv_one]
+    rfl
+  · change Additive.ofMul (wv D lam (ℓ ^ (k + 1)) (x.1 (k + 1)) (y.1 (k + 1)) ^ ℓ) =
+      Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k))
+    congr 1
+    have hl : 0 < ℓ := (Fact.out : ℓ.Prime).pos
+    have hK : ((ℓ * ℓ ^ k : ℕ) : K) ≠ 0 := by
+      rw [Nat.cast_mul, Nat.cast_pow]; exact mul_ne_zero hℓ (pow_ne_zero _ hℓ)
+    have hx : (ℓ * ℓ ^ k) • x.1 (k + 1) = 0 := by rw [← pow_succ']; exact tors_pow ℓ (k + 1)
+    have hy : (ℓ * ℓ ^ k) • y.1 (k + 1) = 0 := by rw [← pow_succ']; exact tors_pow ℓ (k + 1)
+    rw [← x.2.2 k, ← y.2.2 k, wv_compat hl (pow_pos hl k) hK hx hy, pow_succ']
+
+/-- **The `ℓ`-adic Weil pairing** `E^λ : T_ℓ A × T_ℓ A → T_ℓ(μ)`, `ℤ_ℓ`-bilinear, with
+components `e^λ_{ℓᵏ}(x_k, y_k)`. -/
+def tatePairing (hℓ : (ℓ : K) ≠ 0) : A.T ℓ →ₗ[ℤ_[ℓ]] A.T ℓ →ₗ[ℤ_[ℓ]] TMu K ℓ :=
+  LinearMap.mk₂ ℤ_[ℓ] (fun x y => ⟨tateSeq D lam ℓ x y, tateSeq_mem D lam hℓ x y⟩)
+    (fun x x' y => Subtype.ext <| funext fun k => by
+      change Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k + x'.1 k) (y.1 k)) =
+        Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k) * wv D lam (ℓ ^ k) (x'.1 k) (y.1 k))
+      rw [wv_add_left (tors_pow ℓ k) (tors_pow ℓ k) (tors_pow ℓ k)])
+    (fun a x y => Subtype.ext <| funext fun k => by
+      change Additive.ofMul (wv D lam (ℓ ^ k) ((PadicInt.toZModPow k a).val • x.1 k) (y.1 k)) =
+        Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k) ^ (PadicInt.toZModPow k a).val)
+      rw [wv_nsmul_left _ (tors_pow ℓ k) (tors_pow ℓ k)])
+    (fun x y y' => Subtype.ext <| funext fun k => by
+      change Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k + y'.1 k)) =
+        Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k) * wv D lam (ℓ ^ k) (x.1 k) (y'.1 k))
+      rw [wv_add_right (tors_pow ℓ k) (tors_pow ℓ k) (tors_pow ℓ k)])
+    (fun a x y => Subtype.ext <| funext fun k => by
+      change Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) ((PadicInt.toZModPow k a).val • y.1 k)) =
+        Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k) ^ (PadicInt.toZModPow k a).val)
+      rw [wv_nsmul_right _ (tors_pow ℓ k) (tors_pow ℓ k)])
+
+lemma tatePairing_apply (hℓ : (ℓ : K) ≠ 0) (x y : A.T ℓ) (k : ℕ) :
+    (tatePairing D lam hℓ x y).1 k = Additive.ofMul (wv D lam (ℓ ^ k) (x.1 k) (y.1 k)) := rfl
+
+/-- `E^λ` is alternating when `λ` is symmetric. -/
+theorem tatePairing_self (hS : IsSymmetric D lam) (hℓ : (ℓ : K) ≠ 0) (x : A.T ℓ) :
+    tatePairing D lam hℓ x x = 0 := by
+  have hl : 0 < ℓ := (Fact.out : ℓ.Prime).pos
+  apply Subtype.ext; funext k
+  rw [tatePairing_apply, wv_eq (tors_pow ℓ k) (tors_pow ℓ k),
+    hS (ℓ ^ k) (pow_pos hl k) (by rw [Nat.cast_pow]; exact pow_ne_zero _ hℓ)]
+  rfl
+
+/-- `E^λ` is `G_K`-equivariant: `E^λ(σx, σy) = σ E^λ(x, y)`. -/
+theorem tatePairing_galois (hℓ : (ℓ : K) ≠ 0) (σ : Gal K) (x y : A.T ℓ) :
+    tatePairing D lam hℓ (A.galT σ x) (A.galT σ y) = galTMu ℓ σ (tatePairing D lam hℓ x y) := by
+  have hl : 0 < ℓ := (Fact.out : ℓ.Prime).pos
+  apply Subtype.ext; funext k
+  change Additive.ofMul (wv D lam (ℓ ^ k) (galP A σ (x.1 k)) (galP A σ (y.1 k))) =
+    Additive.ofMul (Units.map (σ : AlgebraicClosure K →* AlgebraicClosure K)
+      (wv D lam (ℓ ^ k) (x.1 k) (y.1 k)))
+  rw [wv_galois (pow_pos hl k) (by rw [Nat.cast_pow]; exact pow_ne_zero _ hℓ) σ (tors_pow ℓ k)
+    (tors_pow ℓ k)]
+
+/-- `G_K` acts on `T_ℓ(μ)` through the `ℓ`-adic cyclotomic character (Mathlib's
+`cyclotomicCharacter`). -/
+theorem galTMu_eq_cyclotomic [NeZero (ℓ : K)] (σ : Gal K) (z : TMu K ℓ) :
+    galTMu ℓ σ z = ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) • z := by
+  apply Subtype.ext; funext k
+  have hz : ((Additive.toMul (z.1 k) : (AlgebraicClosure K)ˣ) : AlgebraicClosure K) ^ ℓ ^ k = 1 := by
+    have h := Tate.pow_smul_eq_zero z.2 k
+    have h' : (Additive.toMul (z.1 k)) ^ ℓ ^ k = 1 := Additive.ofMul.injective h
+    rw [← Units.val_pow_eq_pow_val, h', Units.val_one]
+  have := cyclotomicCharacter.spec ℓ (n := k) σ.toRingEquiv _ hz
+  change Additive.ofMul (Units.map (σ : AlgebraicClosure K →* AlgebraicClosure K)
+      (Additive.toMul (z.1 k))) = Additive.ofMul ((Additive.toMul (z.1 k)) ^ _)
+  congr 1
+  apply Units.ext
+  rw [Units.coe_map, Units.val_pow_eq_pow_val]
+  exact this
+
+/-- **The `ℓ`-adic G12 input (proved):** `E^λ(σx, σy) = χ_ℓ(σ) · E^λ(x, y)`, i.e. `G_K` acts on
+`T_ℓ A` through `GSp(E^λ)` with the cyclotomic multiplier (C8 item 1). -/
+theorem tatePairing_cyclotomic [NeZero (ℓ : K)] (σ : Gal K) (x y : A.T ℓ) :
+    tatePairing D lam (NeZero.ne _) (A.galT σ x) (A.galT σ y) =
+      ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) •
+        tatePairing D lam (NeZero.ne _) x y := by
+  rw [tatePairing_galois, galTMu_eq_cyclotomic]
+
+end Adic
+
 end WeilPairing
 
 #print axioms WeilPairing.oldT9_of_symmIsogeny
