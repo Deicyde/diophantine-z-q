@@ -21,3 +21,22 @@
   **`dim_bc_of_g7Data`**: `G7Data` ⟹ `dim A_{L'} = 2` (IsModelOver + P.surface + g0-dim).
 - Compile (VERIFIED): `ctail.sh T2.lean` (import Base + parts 1-2): exit 0, 8 s; both axiom
   reports `[propext, Classical.choice, Quot.sound]`.
+
+## Step 3 (10:10-10:45): part_copy.lean, part_main.lean
+- part_copy.lean: verbatim copies from G0Assemble2.lean: `G0ModNewform.Vb` (l.41358-41360),
+  `G14Trace` header + `FrobTraceLink` (l.62238-62242, 62356-62373), `HSyn.G0AssembleMod` header +
+  `LinkedTateLocal` (l.63903-63947). Containment checked by a python substring test (VERIFIED).
+  Name resolution: G0Assemble2 resolves `Qbar`, `GQ` in `LinkedTateLocal` in its own context; here
+  the section-level opens of its `section G0A2_a85_linked` (`open GlueDescent GlueC10 PkgI3`) are
+  used. All candidates are reducible abbrevs of `AlgebraicClosure ℚ` / `Qbar ≃ₐ[ℚ] Qbar`.
+  Without them: "unknown identifier"; with them also over `G14Trace`: "ambiguous" (PkgI4 vs
+  GlueC10), so `G14Trace` is copied outside them (as in G0Assemble2, where Link.lean's `end`
+  closes that section first).
+- part_main.lean (namespace `LTLocal`): defs `ModelEndRank4` (GLUE), `G7DegreeBound` (GLUE,
+  expected false as stated), `LinkedTateLocalD` (LinkedTateLocal + premise
+  `Module.finrank ℚ L ≤ ZInQ.heightD`); theorems `localGlue_at`,
+  **`linkedTateLocalD_of_tateBridge35`** (R6, I2-Tors, `UnramRoots 2 5`, `UnramRoots 2 3`,
+  `G14Bridge.TateBridge35`, `ModelEndRank4` ⟹ `LinkedTateLocalD`), `linkedTateLocal_of_D`,
+  `linkedTateLocalD_of_local`, `modelEndRank4_of_localD`.
+- Compile (VERIFIED): `mk_test.sh; ctail.sh T3.lean` (import Base + parts 1-4): exit 0, 10 s;
+  8 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`, no sorry.

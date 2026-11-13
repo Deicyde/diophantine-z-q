@@ -1,0 +1,8 @@
+#print axioms LTLocal.exists_equiv_extending
+#print axioms LTLocal.g7Clauses_of_transport
+#print axioms LTLocal.dim_bc_of_g7Data
+#print axioms LTLocal.localGlue_at
+#print axioms LTLocal.linkedTateLocalD_of_tateBridge35
+#print axioms LTLocal.linkedTateLocal_of_D
+#print axioms LTLocal.linkedTateLocalD_of_local
+#print axioms LTLocal.modelEndRank4_of_localD
