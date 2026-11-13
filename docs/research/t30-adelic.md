@@ -4,7 +4,7 @@ Status: research note (task t30-adelic, 2026-11-12). Lean: `scratch/t30-adelic/S
 (T30), `scratch/t30-adelic/Adelic.lean` and `scratch/t30-adelic/G1Count.lean` (G1-adelic). Log:
 `scratch/t30-adelic/log.md`. Every file compiles with `lake env lean` (after
 `lake build ZInQKernel.HDecomp.Sqrt.Disj ZInQKernel.HDecomp.Descent.B2Glue
-ZInQKernel.HDecomp.Vigneras.Local`), has no `sorry`, and `#print axioms` of every main theorem is
+ZInQKernel.HDecomp.Vigneras.Local ZInQKernel.HDecomp.Repo.A1Quaternion`), has no `sorry`, and `#print axioms` of every main theorem is
 `[propext, Classical.choice, Quot.sound]` (VERIFIED).
 
 ## 1. Main results
@@ -26,7 +26,8 @@ iff `χ(u) = 1`. `PkgI6.LocalKroneckerWeber p` is leaf T16 of `ZInQKernel/HDecom
 can be removed from the list of literature theorems. The "if" direction needs no Kronecker–Weber
 (`T30.sqrt_of_chi'`).
 
-**G1-adelic: the adelic normalizer quotient and the count of A3.** (VERIFIED, compiled)
+**G1-adelic: the adelic normalizer quotient and the count of A3, `|Γ'| = 144`.** (VERIFIED,
+compiled)
 
 Objects (`Adelic.lean`, namespace `G1Adelic`), over the existing definitions
 `GlueVigneras.Bp p = ℍ[ℚ_p, 2, 0, -3]` and `GlueVigneras.Op p` (N5's `𝒪 ⊗ ℤ_p`):
@@ -48,6 +49,10 @@ Objects (`Adelic.lean`, namespace `G1Adelic`), over the existing definitions
 | `relIndex_eq_four` | `[N : 𝔸_f^× K₀] = 4` |
 | `conj_mem_K3`, `sup_K3_normal` | `N` normalizes `K₃`, so `𝔸_f^× K₃` is normal in `N` and `Γ' = N/𝔸_f^×K₃` is a group |
 | `gamma_count` | `[N : 𝔸_f^× K₃] = 4 · [K₀ : (𝔸_f^× ∩ K₀) K₃]`, i.e. `|Γ'| = |N/𝔸_f^×K₀| · |K₀/ℤ̂^×K₃|` |
+| `Zint`, `Zhat_inf_K0` | `ℤ̂^× = ∏_p ℤ_p^×` (central scalars) and `𝔸_f^× ∩ K₀ = ℤ̂^×` |
+| `R3`, `card_units_R3`, `redHom`, `redHom_eq_one_iff`, `redHom_surjective`, `redHom_scalar` | `𝒪/3𝒪` as a monoid (glue-repo's `mul3`), `|(𝒪/3𝒪)^×| = 72`, the reduction `K₀ → (𝒪/3𝒪)^×` is surjective with kernel `K₃`, `ℤ̂^×` maps onto `{±1}` |
+| `relIndex_K3` | `[K₀ : ℤ̂^× K₃] = 36` |
+| `gamma_order`, `gamma_count_Zint` | **`|Γ'| = [N : 𝔸_f^× K₃] = 4 · 36 = 144 = 2⁴3²`** (h-b1 M3, now a Lean theorem) |
 
 `G1Count.lean` has the count as generic group theory (`G1Count.index_count`: for `K₃ ≤ K₀`, `Z`
 normal and `Z K₃` normal, `[G : Z K₃] = [G : Z K₀] · [K₀ : (Z ∩ K₀) K₃]`, with Dedekind's modular
@@ -103,15 +108,26 @@ is `IntermediateField.inclusion` plus `IntermediateField.coe_inclusion` (`coe_al
   generators.
 - `gamma_count`: `relIndex_mul_relIndex` and `relIndex_sup_right` inside the group `N` (where
   `𝔸_f^× K₃` is normal), and the modular law.
+- `relIndex_K3`: `redHom u` is the reduction mod 3 of the N5-coordinates of `u_3`
+  (`PadicInt.toZMod` composed with `ZMod.ringEquivCongr`); multiplicative by `combp_mul`; kernel
+  `K₃` because `ker toZMod = (3)`; surjective because a lift `x` of a unit of `𝒪/3𝒪` has
+  `nrd x ≡ nrd3 ≠ 0 mod 3`, so `‖nrd x‖ = 1` and `x ∈ 𝒪_3^×` (`mem_OpUnits_iff`), placed at the
+  component `3` (`unitSingle`). `(𝔸_f^×∩K₀) K₃` is the preimage of `{±1}` (scalars `c ∈ ℤ_3^×`
+  reduce to `c mod 3 ∈ {±1}`; `−1` is a scalar), so the index is `72/2`
+  (`Subgroup.index_comap_of_surjective`, `index_mul_card`).
+
+Pitfalls (VERIFIED): `ZMod ((P3 : Nat.Primes) : ℕ)` is not reducibly `ZMod 3`; making `P3` an
+`abbrev` breaks instance lookup for the local quotient (`Hloc P3 _`), so the reduction goes
+through `ZMod.ringEquivCongr rfl`; the type synonym `R3` with its own `Monoid` must stay a `def`,
+with an identity `R3.mk` so that rewriting keeps terms well-typed.
 
 ## 4. What remains
 
-- **`[K₀ : ℤ̂^× K₃] = 36`**, hence `|Γ'| = 144` (h-b1 M3). Needs the reduction
-  `K₀ → (𝒪/3𝒪)^×` as a surjective homomorphism with kernel `K₃` (surjectivity: a lift of a unit
-  of `𝒪/3𝒪` has `v_3(nrd) = 0`, so it is in `𝒪_3^×` by `GlueVigneras.mem_OpUnits_iff`), image of
-  `ℤ̂^×` = `{±1}`, and glue-repo's `card_units_mod3` (72). Not formalized here (see §5 if added).
-- `𝔸_f^× ∩ K₀ = ℤ̂^×` (componentwise `ℤ_p^×` scalars) is not stated separately; `gamma_count`
-  uses `Zhat ⊓ K0` directly.
+- The identification of `B̂` (restricted product of the `B_p`) with `ℍ[𝔸ᶠ[ℤ, ℚ], 2, 0, −3]` over
+  Mathlib's `FiniteAdeleRing` (and of `Zhat` with `𝔸ᶠ[ℤ, ℚ]^×`) is not formalized; it is a
+  reindexing (`Rat.HeightOneSpectrum.primesEquiv`), the componentwise isomorphisms
+  `Padic.adicCompletionEquiv`, `PadicInt.adicCompletionIntegersEquiv`, and the remark that
+  `𝒪_p = ℤ_p⟨1, i, j, k⟩` for `p ≠ 2`.
 - The other parts of A3 (the Hecke action of `Γ'` on `Y₃` over `ℚ`, quotient `P¹_j`, `deg ≤ |Γ'|`)
   are outside this task.
 - Integration: `T30.leafSqrtCrit_of_localKroneckerWeber` can replace the hypothesis `t30` of
@@ -122,4 +138,5 @@ is `IntermediateField.inclusion` plus `IntermediateField.coe_inclusion` (`coe_al
 - h-decomposition T30 (`GlueDescent.B2Q.LeafSqrtCrit`): LEAF → **GLUE-proved from T16**
   (`PkgI6.LocalKroneckerWeber`). The literature list loses T30.
 - G1 "adelic bookkeeping open" → **proved**: `N/(𝔸_f^×K₀)` ≅ the restricted product of the local
-  quotients (order 4), and `|Γ'| = 4 · |K₀/ℤ̂^×K₃|`; the factor `|K₀/ℤ̂^×K₃| = 36` remains.
+  quotients (order 4), `|K₀/ℤ̂^×K₃| = 36`, and `|Γ'| = 144` (h-b1 M3: VERIFIED by script before,
+  now a Lean theorem, `G1Adelic.gamma_order`).
