@@ -164,6 +164,176 @@ theorem sphereFactorAffine_of (hA : HolP1OpenMap) (hB : HolP1FactorHol) (hC : Sp
   | infty => rw [hinf, OnePoint.map_infty]
   | coe z => rw [hab, OnePoint.map_some]
 
+/-! ### `HolP1OpenMap` (proved) -/
+
+theorem chartInf_injective : Function.Injective chartInf := by
+  intro w w' h
+  unfold chartInf at h
+  by_cases hw : w = 0 <;> by_cases hw' : w' = 0
+  · rw [hw, hw']
+  · rw [if_pos hw, if_neg hw'] at h; exact absurd h.symm (OnePoint.coe_ne_infty _)
+  · rw [if_neg hw, if_pos hw'] at h; exact absurd h (OnePoint.coe_ne_infty _)
+  · rw [if_neg hw, if_neg hw'] at h
+    exact inv_injective (OnePoint.coe_injective h)
+
+theorem nhds_le_map_chartInf : 𝓝 (OnePoint.infty : OnePoint ℂ) ≤ map chartInf (𝓝 0) := by
+  intro s hs
+  rw [Filter.mem_map] at hs
+  obtain ⟨ε, hε, hball⟩ := Metric.mem_nhds_iff.mp hs
+  rw [OnePoint.nhds_infty_eq, Filter.mem_sup, Filter.mem_map, Filter.mem_pure]
+  have h0 : chartInf 0 ∈ s := hball (Metric.mem_ball_self hε)
+  have hc0 : chartInf 0 = OnePoint.infty := by simp [chartInf]
+  rw [hc0] at h0
+  refine ⟨?_, h0⟩
+  rw [hasBasis_coclosedCompact.mem_iff]
+  refine ⟨Metric.closedBall 0 ε⁻¹, ⟨Metric.isClosed_closedBall, isCompact_closedBall 0 _⟩, ?_⟩
+  intro z hz
+  simp only [Set.mem_compl_iff, Metric.mem_closedBall, dist_zero_right, not_le] at hz
+  have hz0 : z ≠ 0 := by
+    intro h; rw [h, norm_zero] at hz; linarith [inv_pos.mpr hε]
+  have hmem : z⁻¹ ∈ Metric.ball (0 : ℂ) ε := by
+    rw [Metric.mem_ball, dist_zero_right, norm_inv]
+    exact inv_lt_of_inv_lt₀ hε hz
+  have := hball hmem
+  rw [Set.mem_preimage, chartInf, if_neg (inv_ne_zero hz0), inv_inv] at this
+  exact this
+
+/-- The chart of a holomorphic `P¹`-valued map at a point. -/
+theorem chart_of_isHolP1At {g : UpperHalfPlane → OnePoint ℂ} {τ : UpperHalfPlane}
+    (hg : IsHolP1At g τ) :
+    ∃ (F : ℂ → OnePoint ℂ) (G : ℂ → ℂ), Function.Injective F ∧
+      𝓝 (F (G τ)) ≤ map F (𝓝 (G τ)) ∧
+      ∃ r > 0, (∀ z ∈ Metric.ball (τ : ℂ) r, 0 < z.im) ∧
+        AnalyticOnNhd ℂ G (Metric.ball (τ : ℂ) r) ∧
+        ∀ z (hz : 0 < z.im), z ∈ Metric.ball (τ : ℂ) r → g ⟨z, hz⟩ = F (G z) := by
+  have him : ∀ᶠ z in 𝓝 (τ : ℂ), 0 < z.im :=
+    (isOpen_lt continuous_const Complex.continuous_im).mem_nhds τ.im_pos
+  rcases hg with ⟨G, hG, hev⟩ | ⟨G, hG, hG0, hev⟩
+  · obtain ⟨r, hr, hb⟩ := Metric.eventually_nhds_iff_ball.mp
+      ((hev.and hG.eventually_analyticAt).and him)
+    exact ⟨(↑), G, OnePoint.coe_injective, (OnePoint.isOpenEmbedding_coe.map_nhds_eq _).ge,
+      r, hr, fun z hz => (hb z hz).2, fun z hz => (hb z hz).1.2,
+      fun z hz hzb => (hb z hzb).1.1 hz⟩
+  · obtain ⟨r, hr, hb⟩ := Metric.eventually_nhds_iff_ball.mp
+      ((hev.and hG.eventually_analyticAt).and him)
+    refine ⟨chartInf, G, chartInf_injective, ?_, r, hr, fun z hz => (hb z hz).2,
+      fun z hz => (hb z hz).1.2, fun z hz hzb => (hb z hzb).1.1 hz⟩
+    rw [hG0]
+    have : chartInf 0 = OnePoint.infty := by simp [chartInf]
+    rw [this]
+    exact nhds_le_map_chartInf
+
+theorem eventually_coe_iff {τ : UpperHalfPlane} {P : UpperHalfPlane → Prop} :
+    (∀ᶠ σ in 𝓝 τ, P σ) ↔ ∀ᶠ z in 𝓝 (τ : ℂ), ∀ hz : 0 < z.im, P ⟨z, hz⟩ := by
+  rw [← UpperHalfPlane.isOpenEmbedding_coe.map_nhds_eq, Filter.eventually_map]
+  constructor
+  · intro h
+    filter_upwards [h] with σ hσ
+    intro hz
+    exact hσ
+  · intro h
+    filter_upwards [h] with σ hσ
+    exact hσ σ.im_pos
+
+/-- **`HolP1OpenMap` (proved).** -/
+theorem holP1OpenMap_proof : HolP1OpenMap := by
+  intro g hg hnc
+  choose F G hFi hFn r hr hpos hGan hgFG using fun τ => chart_of_isHolP1At (hg τ)
+  have hgτ : ∀ τ : UpperHalfPlane, g τ = F τ (G τ τ) := fun τ =>
+    hgFG τ τ τ.im_pos (Metric.mem_ball_self (hr τ))
+  -- `g = F τ ∘ G τ` near `τ`, as a filter statement on `ℍ`
+  have hloc : ∀ τ : UpperHalfPlane, ∀ᶠ σ in 𝓝 τ, g σ = F τ (G τ σ) := by
+    intro τ
+    rw [eventually_coe_iff]
+    filter_upwards [Metric.ball_mem_nhds _ (hr τ)] with z hz hzi
+    exact hgFG τ z hzi hz
+  set S : Set UpperHalfPlane := {τ | ∀ᶠ σ in 𝓝 τ, g σ = g τ} with hSdef
+  have hSopen : IsOpen S := by
+    rw [isOpen_iff_mem_nhds]
+    intro τ hτ
+    obtain ⟨U, hU, hUo, hτU⟩ := eventually_nhds_iff.mp hτ
+    filter_upwards [hUo.mem_nhds hτU] with σ hσ
+    show ∀ᶠ σ' in 𝓝 σ, g σ' = g σ
+    filter_upwards [hUo.mem_nhds hσ] with σ' hσ'
+    rw [hU σ' hσ', hU σ hσ]
+  -- if `g` is locally constant at some point of a chart ball, it is constant on the ball
+  have hball_const : ∀ τ : UpperHalfPlane, ∀ σ : UpperHalfPlane,
+      (σ : ℂ) ∈ Metric.ball (τ : ℂ) (r τ) → σ ∈ S →
+      Set.EqOn (G τ) (fun _ => G τ σ) (Metric.ball (τ : ℂ) (r τ)) := by
+    intro τ σ hσB hσS
+    apply (hGan τ).eqOn_of_preconnected_of_eventuallyEq analyticOnNhd_const
+      (convex_ball _ _).isPreconnected hσB
+    have h1 := eventually_coe_iff.mp hσS
+    filter_upwards [h1, Metric.isOpen_ball.mem_nhds hσB] with z hz hzB
+    apply hFi τ
+    rw [← hgFG τ z (hpos τ z hzB) hzB, hz (hpos τ z hzB), hgFG τ σ σ.im_pos hσB]
+  have hSclosed : IsClosed S := by
+    rw [← isOpen_compl_iff, isOpen_iff_mem_nhds]
+    intro τ hτ
+    show ∀ᶠ σ in 𝓝 τ, σ ∉ S
+    rw [eventually_coe_iff]
+    filter_upwards [Metric.ball_mem_nhds _ (hr τ)] with z hzB hzi hzS
+    apply hτ
+    have hc := hball_const τ ⟨z, hzi⟩ hzB hzS
+    show ∀ᶠ σ in 𝓝 τ, g σ = g τ
+    rw [eventually_coe_iff]
+    filter_upwards [Metric.ball_mem_nhds _ (hr τ)] with w hwB hwi
+    rw [hgFG τ w hwi hwB, hgτ τ, hc hwB, hc (Metric.mem_ball_self (hr τ))]
+  have hSempty : S = ∅ := by
+    rcases isClopen_iff.mp ⟨hSclosed, hSopen⟩ with h | h
+    · exact h
+    · exfalso
+      obtain ⟨τ0, τ1, hne⟩ := hnc
+      set T : Set UpperHalfPlane := {σ | g σ = g τ0} with hT
+      have hTo : IsOpen T := by
+        rw [isOpen_iff_mem_nhds]
+        intro σ hσ
+        have : σ ∈ S := h ▸ Set.mem_univ σ
+        filter_upwards [this] with σ' hσ'
+        show g σ' = g τ0
+        rw [hσ']; exact hσ
+      have hTc : IsClosed T := by
+        rw [← isOpen_compl_iff, isOpen_iff_mem_nhds]
+        intro σ hσ
+        have : σ ∈ S := h ▸ Set.mem_univ σ
+        filter_upwards [this] with σ' hσ'
+        show ¬ g σ' = g τ0
+        rw [hσ']; exact hσ
+      rcases isClopen_iff.mp ⟨hTc, hTo⟩ with hT0 | hT1
+      · have : τ0 ∈ T := rfl
+        rw [hT0] at this; exact this
+      · have : τ1 ∈ T := hT1 ▸ Set.mem_univ τ1
+        exact hne this.symm
+  -- open mapping at every point
+  rw [isOpenMap_iff_nhds_le]
+  intro τ
+  have hnot : ¬ ∀ᶠ z in 𝓝 (τ : ℂ), G τ z = G τ τ := by
+    intro hc
+    have : τ ∈ S := by
+      show ∀ᶠ σ in 𝓝 τ, g σ = g τ
+      rw [eventually_coe_iff]
+      filter_upwards [hc, Metric.ball_mem_nhds _ (hr τ)] with z hz hzB hzi
+      rw [hgFG τ z hzi hzB, hgτ τ, hz]
+    rw [hSempty] at this; exact this
+  have hopen := ((hGan τ) τ (Metric.mem_ball_self (hr τ))).eventually_constant_or_nhds_le_map_nhds
+  rcases hopen with h | h
+  · exact absurd h hnot
+  · calc 𝓝 (g τ) = 𝓝 (F τ (G τ τ)) := by rw [hgτ]
+      _ ≤ map (F τ) (𝓝 (G τ τ)) := hFn τ
+      _ ≤ map (F τ) (map (G τ) (𝓝 (τ : ℂ))) := Filter.map_mono h
+      _ = map (fun σ : UpperHalfPlane => F τ (G τ σ)) (𝓝 τ) := by
+          rw [Filter.map_map, ← UpperHalfPlane.isOpenEmbedding_coe.map_nhds_eq, Filter.map_map]
+          rfl
+      _ = map g (𝓝 τ) := Filter.map_congr (by
+          filter_upwards [hloc τ] with σ hσ
+          exact hσ.symm)
+
+/-- **`SphereFactorAffine` from `HolP1FactorHol` and `SphereInjAffine` (proved).** -/
+theorem sphereFactorAffine_of' (hB : HolP1FactorHol) (hC : SphereInjAffine) :
+    SphereFactorAffine :=
+  sphereFactorAffine_of holP1OpenMap_proof hB hC
+
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.holP1OpenMap_proof
