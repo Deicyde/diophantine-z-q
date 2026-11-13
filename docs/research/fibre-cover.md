@@ -11,7 +11,9 @@ Model work only; no human review.
 ## 1. Main result
 
 **`FibreCoverExists` is not refuted, and the relabeling of rv-g0pieces does not break it.**
-It is reduced in Lean to strictly smaller named Props, two of which are already proved.
+It is reduced in Lean to five strictly smaller named Props (one bundle leaf, T5, and four open);
+the intermediate Props `TorsionBound3`, `TwistClassCard`, `FibreDegree` and `FibreUnramifiedOn`
+are proved from them.
 VERIFIED: `lake env lean scratch/fibre-cover/FibreCover.lean` gives 0 errors and 0 warnings;
 all 14 `#print axioms` lines list only `[propext, Classical.choice, Quot.sound]`.
 
