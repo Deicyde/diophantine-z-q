@@ -2134,6 +2134,127 @@ theorem char_eq_sgn_zpow (hp : p.Prime) (hp2 : p ≠ 2) (hw : LiesOver w p) (g :
     | rfl
     | exact (not_inertia_neg hp hp2 hw τ hτ z hvz (by rw [h]; ring)).elim
 
+theorem neg_ne_self_of_ne_zero {g : Qbar} (hg0 : g ≠ 0) : -g ≠ g := fun h =>
+  hg0 (by linear_combination (-1 / 2 : Qbar) * h)
+
+open Classical in
+/-- The quadratic character `η_g : τ ↦ τ(g)/g` of `I_w`, for `g² ∈ ℤ`, `g ≠ 0`, as a map to `ℤˣ`. -/
+noncomputable def etaG (w : ValuationSubring Qbar) (g : Qbar) {c : ℤ} (hg : g ^ 2 = (c : Qbar))
+    (hg0 : g ≠ 0) : LeafPush.inertiaQ w →* ℤˣ where
+  toFun τ := if (τ : Gal) g = g then 1 else -1
+  map_one' := by simp
+  map_mul' σ τ := by
+    have hne := neg_ne_self_of_ne_zero hg0
+    rcases smul_sq_cases hg (σ : Gal) with h1 | h1 <;>
+      rcases smul_sq_cases hg (τ : Gal) with h2 | h2 <;>
+      simp [AlgEquiv.mul_apply, h1, h2, hne]
+
+open Classical in
+theorem etaG_apply (w : ValuationSubring Qbar) (g : Qbar) {c : ℤ} (hg : g ^ 2 = (c : Qbar))
+    (hg0 : g ≠ 0) (τ : LeafPush.inertiaQ w) :
+    etaG w g hg hg0 τ = if (τ : Gal) g = g then 1 else -1 := rfl
+
+theorem etaG_continuous (w : ValuationSubring Qbar) (g : Qbar) {c : ℤ}
+    (hg : g ^ 2 = (c : Qbar)) (hg0 : g ≠ 0) : Continuous (etaG w g hg hg0) := by
+  let U : Subgroup (LeafPush.inertiaQ w) :=
+    (MulAction.stabilizer Gal g).comap (LeafPush.inertiaQ w).subtype
+  have hU : IsOpen (U : Set (LeafPush.inertiaQ w)) :=
+    (stabilizer_isOpen_of_isIntegral (K := ℚ) (L := Qbar) g).preimage continuous_subtype_val
+  refine IsLocallyConstant.continuous (isLocallyConstant_of_openSubgroup U hU _ ?_)
+  intro σ k hk
+  have hk' : (k : Gal) g = g := MulAction.mem_stabilizer_iff.mp hk
+  rw [etaG_apply, etaG_apply, Subgroup.coe_mul, AlgEquiv.mul_apply, hk']
+
+/-- **T32(a) is glue** (proved from Mathlib, via glue-b3b's `exists_inertia_neg`): for an odd
+prime `p` and `w` over `ℤ_(p)`, the continuous characters `I_w → ℤˣ` number exactly two. -/
+theorem t32a : LeafPush.T32a_TameQuadratic := by
+  classical
+  intro p hp hp2 O hO w hwO
+  have hw : LiesOver w p := liesOver_of_isAtPrime O hO w hwO
+  obtain ⟨g, hg'⟩ := IsAlgClosed.exists_pow_nat_eq (p : Qbar) two_pos
+  have hg : g ^ 2 = ((p : ℤ) : Qbar) := by rw [hg']; simp
+  have hp0 : ((p : ℤ) : Qbar) ≠ 0 := by exact_mod_cast hp.ne_zero
+  have hg0 : g ≠ 0 := by rintro rfl; rw [zero_pow two_ne_zero] at hg; exact hp0 hg.symm
+  obtain ⟨σ, hσ⟩ := exists_neg_of_sq hg
+    (not_isSquare_of_squarefree (Int.squarefree_natCast.mpr hp.squarefree) hp dvd_rfl)
+  obtain ⟨τ₀, hτ₀, hτ₀g⟩ := exists_inertia_neg p hp w hw g p hg (by simp) σ hσ
+  have hne := neg_ne_self_of_ne_zero hg0
+  have hητ₀ : etaG w g hg hg0 ⟨τ₀, hτ₀⟩ = -1 := by
+    rw [etaG_apply]
+    show (if τ₀ g = g then (1 : ℤˣ) else -1) = -1
+    rw [if_neg (by rw [hτ₀g]; exact hne)]
+  have hZ : (-1 : ℤˣ) ≠ 1 := by decide
+  rw [Nat.card_eq_two_iff]
+  refine ⟨⟨1, continuous_const⟩, ⟨etaG w g hg hg0, etaG_continuous w g hg hg0⟩, ?_, ?_⟩
+  · intro h
+    have := congrArg (fun x : {χ : LeafPush.inertiaQ w →* ℤˣ // Continuous χ} => x.1 ⟨τ₀, hτ₀⟩) h
+    simp only [MonoidHom.one_apply] at this
+    rw [hητ₀] at this
+    exact hZ this.symm
+  · ext ⟨χ, hχ⟩
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff, Set.mem_univ, iff_true]
+    obtain ⟨k, hk⟩ := char_eq_sgn_zpow hp hp2 hw g hg τ₀ hτ₀ hτ₀g χ hχ
+    rcases Int.even_or_odd k with hk2 | hk2
+    · left
+      apply Subtype.ext
+      refine MonoidHom.ext fun x => ?_
+      obtain ⟨τ, hτ⟩ := x
+      have h := hk τ hτ
+      have hs : sgnG g τ ^ k = 1 := by
+        unfold sgnG; split_ifs
+        · exact one_zpow k
+        · exact hk2.neg_one_zpow
+      rw [hs] at h
+      show χ ⟨τ, hτ⟩ = 1
+      have h' : ((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) = 1 := by exact_mod_cast h
+      apply Units.val_injective
+      rw [h', Units.val_one]
+    · right
+      apply Subtype.ext
+      refine MonoidHom.ext fun x => ?_
+      obtain ⟨τ, hτ⟩ := x
+      have h := hk τ hτ
+      show χ ⟨τ, hτ⟩ = etaG w g hg hg0 ⟨τ, hτ⟩
+      rw [etaG_apply]
+      unfold sgnG at h
+      split_ifs at h ⊢ with hτg
+      · rw [one_zpow] at h
+        have h' : ((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) = 1 := by exact_mod_cast h
+        apply Units.val_injective
+        rw [h', Units.val_one]
+      · rw [hk2.neg_one_zpow] at h
+        have h' : ((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) = -1 := by exact_mod_cast h
+        apply Units.val_injective
+        rw [h', Units.val_neg, Units.val_one]
+
+/-- **B3 (v) rests on no leaf** (glue-t32a): glue-b3b's `unramified_outside_t32a` with T32(a)
+discharged by `t32a`. -/
+theorem unramified_outside_noLeaf
+    (L : IntermediateField ℚ Qbar) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (T : Finset ℕ) (h2 : 2 ∈ T) (hram : ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p)
+    (ε : GQ → GQ → ℂˣ)
+    (hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (hN : ∀ q, q.Prime → q ∣ N → q ∈ T)
+    (β : GQ → ℂˣ) (hβl : IsLocallyConstant β) (hβs : ∀ x, β x ^ 2 = galChar χ x)
+    (hβe : ∀ x y, β x * β y = ε x y * β (x * y)) :
+    ∃ Q : Finset ℕ, (∀ q ∈ Q, q.Prime ∧ q ∉ T) ∧
+      (∀ x, (∏ q ∈ Q, etaP q) x ^ 2 = 1) ∧ IsLocallyConstant ⇑(∏ q ∈ Q, etaP q) ∧
+      ∀ L' : IntermediateField ℚ Qbar,
+        (∀ σ, σ ∈ L'.fixingSubgroup ↔
+          σ ∈ L.fixingSubgroup ∧ β σ * (∏ q ∈ Q, etaP q) σ = 1) →
+        GalUnramifiedOutside L' T :=
+  unramified_outside_t32a t32a L T h2 hram ε hεN χ hN β hβl hβs hβe
+
+/-- `LeafB3a` (glue-b3-unram's form of the unique quadratic character of tame inertia) is glue. -/
+theorem leafB3a : LeafB3a := leafB3a_of_t32a t32a
+
 end T32a
 
 end GlueB3Unram
+
+#print axioms GlueB3Unram.exists_kummer
+#print axioms GlueB3Unram.val_pow_eq_zpow
+#print axioms GlueB3Unram.char_eq_sgn_zpow
+#print axioms GlueB3Unram.t32a
+#print axioms GlueB3Unram.leafB3a
+#print axioms GlueB3Unram.unramified_outside_noLeaf
