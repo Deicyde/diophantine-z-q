@@ -23,3 +23,11 @@ TateBridge, Bridge35, FrobTrace, Rigidity, AlgFrobRed, FExtend, Pieces, LinkedSt
 - Run chain2: LinkedFrob failed (`Add (PtQ L A)`, `tmOf_eq` unknown): without ModField's file-level opens, `GQ` auto-bound
   as an implicit variable. Fixed by putting the two ModField `open` lines before parts/10 (as in linked-frob's file).
 - Run chain3: LinkedFrob exit 0. Run main1: Main exit 0. All 10 modules build, no `sorry` warnings.
+
+## Step 3: Check.lean (VERIFIED)
+- scratch/frobchain-contrib/Check.lean = scratch/contrib-check/Check.lean + `import ZInQKernel.Contrib.FrobChain.Main`
+  + `#check`s (the chain's statements elaborate as `Prop`, no auto-bound arguments) + 32 `#print axioms` lines.
+- First run: missing olean ZInQ.PoleValuation; `lake build` of Check's 21 imports: exit 0, 388 s (11655 jobs).
+- `lake env lean scratch/frobchain-contrib/Check.lean`: exit 0 in 7 s, no error; 48 axiom reports (16 contrib-check
+  + 32 frob chain), all [propext, Classical.choice, Quot.sound] (4 line-wrapped). Output: Check.out.
+- No import clash between the FrobChain modules and the contrib-check modules (same file imports both).
