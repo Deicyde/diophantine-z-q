@@ -17,3 +17,10 @@
   (finrank L' V' = 1 → finrank L V = 1; an injective semilinear ψ does not bound dim_L V) and
   (ii) descent of uniformizations from 𝒢'(ℂ)_τ' to 𝒢(ℂ)_{τ'|L}. `HodgeLineBaseChangeDescent` adds
   exactly these two clauses (same ψ).
+- Natural.lean (04:53): construction of the natural map compiles (0 errors, no sorry):
+  `bO_genericPt`, `bO_appTop`, `IsMonBC` (IsBaseChangeOf ↔ ∃ e, IsMonBC e), `bcProj` (π = e.hom.left ≫ fst),
+  `bcProj_w`, `bcProj_unit` (e'∘π = bO∘e, from IsMonHom e.hom and `obj.η_def`), `bcProj_genericUnit` (π ξ' = ξ),
+  `bcMap` (𝒪_{𝒢,ξ} → 𝒪_{𝒢',ξ'}), `bcMap_germ`, `bcMap_mem_maximalIdeal`, `bcMap_structMap`,
+  `bcCot` (semilinear over 𝓞_L → 𝓞_{L'}), `bcAlt`, `bcExt` (⋀^g π^*, via compHom restriction of scalars),
+  `bcHodge` (ψ = L' ⊗ ⋀^g π^*, via `TensorProduct.liftAddHom`), `bcHodge_smul` (L-semilinear),
+  `bcHodge_wedge` (ψ(wedge f) = wedge'(π^* f)).

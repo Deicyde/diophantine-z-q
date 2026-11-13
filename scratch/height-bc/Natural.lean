@@ -180,6 +180,97 @@ noncomputable def bcCot (he : IsMonBC 𝒢 𝒢' e) :
 theorem bcCot_dCls (he : IsMonBC 𝒢 𝒢' e) (t : IsLocalRing.maximalIdeal 𝒢.genStalk) :
     bcCot he (𝒢.dCls t) = 𝒢'.dCls ⟨bcMap he t, bcMap_mem_maximalIdeal he t t.2⟩ := rfl
 
+/-! ### The map of Hodge lines `ψ : ⋀^g ω_{A_L} → ⋀^g ω_{A_{L'}}` -/
+
+open scoped TensorProduct
+open ExteriorAlgebra
+
+/-- The `𝓞_L`-module structure on `⋀^g_{𝓞_{L'}} ω_{A_{L'}}` by restriction of scalars. -/
+noncomputable abbrev extRes (𝒢' : GroupModel A L') (g : ℕ) :
+    Module (𝓞 L) (exteriorPower (𝓞 L') g 𝒢'.cotangent) :=
+  Module.compHom _ (algebraMap (𝓞 L) (𝓞 L'))
+
+theorem bcCot_update (he : IsMonBC 𝒢 𝒢' e) {g : ℕ} [DecidableEq (Fin g)]
+    (m : Fin g → 𝒢.cotangent) (i : Fin g) (z : 𝒢.cotangent) :
+    (fun j => bcCot he (Function.update m i z j)) =
+      Function.update (fun j => bcCot he (m j)) i (bcCot he z) := by
+  funext j
+  exact Function.apply_update (fun _ => bcCot he) m i z j
+
+/-- `v ↦ π^*v₁ ∧ ⋯ ∧ π^*v_g`, alternating over `𝓞_L`. -/
+noncomputable def bcAlt (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) :
+    letI := extRes (L := L) 𝒢' g
+    𝒢.cotangent [⋀^Fin g]→ₗ[𝓞 L] exteriorPower (𝓞 L') g 𝒢'.cotangent :=
+  letI := extRes (L := L) 𝒢' g
+  { toFun := fun v => exteriorPower.ιMulti (𝓞 L') g (fun i => bcCot he (v i))
+    map_update_add' := by
+      intro _ m i x y
+      simp only [bcCot_update he, map_add]
+      exact (exteriorPower.ιMulti (𝓞 L') g).map_update_add _ i _ _
+    map_update_smul' := by
+      intro _ m i r x
+      simp only [bcCot_update he, map_smulₛₗ]
+      exact (exteriorPower.ιMulti (𝓞 L') g).map_update_smul _ i _ _
+    map_eq_zero_of_eq' := by
+      intro v i j hv hij
+      exact (exteriorPower.ιMulti (𝓞 L') g).map_eq_zero_of_eq _ (by simp only [hv]) hij }
+
+/-- `⋀^g π^* : ⋀^g_{𝓞_L} ω_{A_L} → ⋀^g_{𝓞_{L'}} ω_{A_{L'}}`, additive and semilinear. -/
+noncomputable def bcExt (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) :
+    exteriorPower (𝓞 L) g 𝒢.cotangent →+ exteriorPower (𝓞 L') g 𝒢'.cotangent :=
+  letI := extRes (L := L) 𝒢' g
+  (exteriorPower.alternatingMapLinearEquiv (bcAlt he g)).toAddMonoidHom
+
+theorem bcExt_ιMulti (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) (v : Fin g → 𝒢.cotangent) :
+    bcExt he g (exteriorPower.ιMulti (𝓞 L) g v) =
+      exteriorPower.ιMulti (𝓞 L') g (fun i => bcCot he (v i)) := by
+  letI := extRes (L := L) 𝒢' g
+  exact exteriorPower.alternatingMapLinearEquiv_apply_ιMulti (bcAlt he g) v
+
+theorem bcExt_smul (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) (r : 𝓞 L)
+    (x : exteriorPower (𝓞 L) g 𝒢.cotangent) :
+    bcExt he g (r • x) = algebraMap (𝓞 L) (𝓞 L') r • bcExt he g x := by
+  letI := extRes (L := L) 𝒢' g
+  exact (exteriorPower.alternatingMapLinearEquiv (bcAlt he g)).map_smul r x
+
+/-- **The natural map of Hodge spaces** `ψ = L' ⊗ ⋀^g π^* : hodgeSpace g → hodgeSpace' g`. -/
+noncomputable def bcHodge (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) :
+    𝒢.hodgeSpace g →+ 𝒢'.hodgeSpace g :=
+  TensorProduct.liftAddHom
+    (AddMonoidHom.mk' (fun a : L => AddMonoidHom.mk'
+      (fun x => algebraMap L L' a ⊗ₜ[𝓞 L'] bcExt he g x)
+      (fun x y => by rw [map_add, TensorProduct.tmul_add]))
+      (fun a b => by
+        ext x
+        simp only [AddMonoidHom.mk'_apply, AddMonoidHom.add_apply, map_add,
+          TensorProduct.add_tmul]))
+    (fun r a x => by
+      simp only [AddMonoidHom.mk'_apply]
+      rw [bcExt_smul, ← TensorProduct.smul_tmul, Algebra.smul_def, Algebra.smul_def, map_mul]
+      rfl)
+
+theorem bcHodge_tmul (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) (a : L)
+    (x : exteriorPower (𝓞 L) g 𝒢.cotangent) :
+    bcHodge he g (a ⊗ₜ[𝓞 L] x) = algebraMap L L' a ⊗ₜ[𝓞 L'] bcExt he g x := rfl
+
+theorem bcHodge_smul (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) (c : L) (v : 𝒢.hodgeSpace g) :
+    bcHodge he g (c • v) = algebraMap L L' c • bcHodge he g v := by
+  induction v using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a x =>
+    rw [TensorProduct.smul_tmul', bcHodge_tmul, bcHodge_tmul, TensorProduct.smul_tmul',
+      smul_eq_mul, smul_eq_mul, map_mul]
+  | add x y hx hy => rw [smul_add, map_add, map_add, hx, hy, smul_add]
+
+/-- `ψ(1 ⊗ df₁ ∧ ⋯ ∧ df_g) = 1 ⊗ d(π^*f₁) ∧ ⋯ ∧ d(π^*f_g)`. -/
+theorem bcHodge_wedge (he : IsMonBC 𝒢 𝒢' e) {g : ℕ}
+    (f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    bcHodge he g (𝒢.wedge f) =
+      𝒢'.wedge (fun i => ⟨bcMap he (f i), bcMap_mem_maximalIdeal he _ (f i).2⟩) := by
+  unfold GroupModel.wedge
+  rw [bcHodge_tmul, map_one, bcExt_ιMulti]
+  rfl
+
 end Construction
 
 end ZInQ.HeightBC
