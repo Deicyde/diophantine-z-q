@@ -155,3 +155,12 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   HeckeNormalizationIrr, HeckeDegree, HeckeBranch, HeckeNoVertRam).
 - Unproved (open glue, not attempted to completion): SNSpecialize (route in report §6), the seven
   Kummer pieces, the five Hecke pieces.
+
+## Step 15: finiteness half of SNSpecialize PROVED, compiled
+- `finiteDimensional_residue` (B finite over ℚ[X] via `IsIntegralClosure.finite`; ℚ[X] acts on
+  B/𝔓 through X ↦ s₀, `X_sub_C_dvd_sub_C_eval`; adjoin of a finite set of algebraic elements).
+- New glue `SNSpecializeUnram` (only the `UnramifiedAt` conclusion); `snSpecialize_of_unram`;
+  `propTSAll_final'` (13 open glue Props with SNSpecializeUnram).
+- Lean pitfall: `map_add`/`map_zero` on `Ideal.Quotient.mk 𝔓` for 𝔓 an ideal of an
+  `integralClosure` timed out in typeclass search; `RingHom.map_add` etc. worked.
+- Compile: 0 errors, 41 PropTSGlue axiom lines all standard; prefix IDENTICAL, purity CONTAINED.

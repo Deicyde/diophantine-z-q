@@ -2945,6 +2945,70 @@ theorem specNonMeeting_of_specialize (hS : SNSpecialize) : SpecNonMeeting :=
   specNonMeeting_of_pieces4 TPurity3.purityGlobalDim2
     (verticalResidueSeparable_of_degree verticalResidueDegree) hS
 
+/-- **The finiteness half of `SNSpecialize` is a theorem**: the residue field of `B` at a prime
+over `X − s₀`, embedded in `ℚ̄`, generates a number field (`B` is a finite `ℚ[X]`-module, and
+`ℚ[X]` acts on `B/𝔓` through `X ↦ s₀`). -/
+theorem finiteDimensional_residue (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (s₀ : ℚ)
+    (𝔓 : Ideal (integralClosure ℚ[X] E)) (hU : 𝔓.under ℚ[X] = Ideal.span {X - C s₀})
+    (φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar) :
+    FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ)) := by
+  have hfin : Module.Finite ℚ[X] (integralClosure ℚ[X] E) :=
+    IsIntegralClosure.finite ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
+  obtain ⟨s, hs⟩ := hfin.fg_top
+  set T : Set Qbar := (fun b => φ (Ideal.Quotient.mk 𝔓 b)) '' (s : Set _) with hTdef
+  have hTfin : Finite T := Set.Finite.to_subtype (s.finite_toSet.image _)
+  have key : ∀ f : ℚ[X], φ (Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f)) =
+      algebraMap ℚ Qbar (f.eval s₀) := by
+    intro f
+    have hmem : f - C (f.eval s₀) ∈ 𝔓.under ℚ[X] := by
+      rw [hU, Ideal.mem_span_singleton]
+      exact X_sub_C_dvd_sub_C_eval
+    have h1 : Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f) =
+        Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) (C (f.eval s₀))) := by
+      rw [Ideal.Quotient.eq, ← map_sub]
+      exact hmem
+    rw [h1]
+    have hsub : ((φ.comp (Ideal.Quotient.mk 𝔓)).comp
+        ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp C) : ℚ →+* Qbar) = algebraMap ℚ Qbar :=
+      Subsingleton.elim _ _
+    exact congrArg (fun g : ℚ →+* Qbar => g (f.eval s₀)) hsub
+  have hle : IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ T := by
+    rw [IntermediateField.adjoin_le_iff]
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
+    have hb : b ∈ Submodule.span ℚ[X] (s : Set (integralClosure ℚ[X] E)) := hs ▸ Submodule.mem_top
+    induction hb using Submodule.span_induction with
+    | mem y hy => exact IntermediateField.subset_adjoin _ _ ⟨y, hy, rfl⟩
+    | zero => rw [RingHom.map_zero, RingHom.map_zero]; exact zero_mem _
+    | add y z _ _ hy hz => rw [RingHom.map_add, RingHom.map_add]; exact add_mem hy hz
+    | smul f y _ hy =>
+      rw [Algebra.smul_def, RingHom.map_mul, RingHom.map_mul, key]
+      exact mul_mem (IntermediateField.algebraMap_mem _ _) hy
+  have hT : FiniteDimensional ℚ (IntermediateField.adjoin ℚ T) :=
+    IntermediateField.finiteDimensional_adjoin (fun x _ => Algebra.IsIntegral.isIntegral x)
+  exact FiniteDimensional.of_injective (IntermediateField.inclusion hle).toLinearMap
+    (IntermediateField.inclusion_injective hle)
+
+/-- **The unramified half of `SNSpecialize`** (glue): as `SNSpecialize`, with only the
+conclusion `UnramifiedAt`. -/
+def SNSpecializeUnram : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    ∀ s₀ : ℚ, 0 ≤ padicValRat p s₀ →
+    ∀ (m : Ideal ℤ[X]) [m.IsMaximal], C (p : ℤ) ∈ m → C (s₀.den : ℤ) * X - C s₀.num ∈ m →
+      letI := locAlg E m
+      Algebra.Etale (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+          UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p
+
+/-- `SNSpecialize` from its unramified half (compiled). -/
+theorem snSpecialize_of_unram (h : SNSpecializeUnram) : SNSpecialize :=
+  fun E _ _ _ _ _ p hp s₀ hs₀ m _ hpm hsm het 𝔓 hP hU φ =>
+    ⟨finiteDimensional_residue E s₀ 𝔓 hU φ, h E p hp s₀ hs₀ m hpm hsm het 𝔓 hP hU φ⟩
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -3548,6 +3612,17 @@ theorem propTSAll_final (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.Mo
     (specNonMeeting_of_specialize hS) hM
     (coverModelOfHecke_of_pieces (heckeNormalization_of_irr hI hNI) hD hB hV)
 
+/-- **The final composite, with `SNSpecializeUnram`**: `PropTSAll` from the bundle leaves T2 and
+`R1R2fp`, the kernel glue `MobiusGlue`, and 13 open glue Props (`SNSpecializeUnram`, seven
+Kummer pieces, five Hecke pieces). -/
+theorem propTSAll_final' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecializeUnram) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_final t2 hR hM (snSpecialize_of_unram hS) hC hA hO hVF hAI hOI hVI hI hNI hD hB hV
+
 end PropTSGlue
 
 end
@@ -3585,6 +3660,9 @@ end
 #print axioms PropTSGlue.verticalResidueDegree
 #print axioms PropTSGlue.specNonMeeting_of_specialize
 #print axioms PropTSGlue.propTSAll_final
+#print axioms PropTSGlue.finiteDimensional_residue
+#print axioms PropTSGlue.snSpecialize_of_unram
+#print axioms PropTSGlue.propTSAll_final'
 #print axioms PropTSGlue.isSeparable_of_finrank_lt
 #print axioms PropTSGlue.verticalResidueSeparable_of_degree
 #print axioms PropTSGlue.functionFieldModel_transfer
