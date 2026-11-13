@@ -57,3 +57,10 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   `Level3.exists_mul_of_range_le` (two level structures on one (A, ι) with range η' ⊆ range η
   differ by right multiplication by some u₀ ∈ 𝒪 invertible mod 3𝒪; over K̄ the range condition
   is the 81 = 81 count from TorsionStructure, not proved here). COMPILES.
+- 17:2x proved, from the kernel leaf `ObjBridge.TorsionStructure`: `Level3.onto` (in char 0 every
+  3-torsion K̄-point of A is the image of a level point: 𝒪/3𝒪 ↪ A(K)[3] ↪ A(K̄)[3], 81 = 81, by
+  `ofInt_injective`, `bcPt_injective` (Spec K̄ → Spec K is an epimorphism,
+  `Flat.epi_of_flat_of_surjective`) and `Fintype.bijective_iff_injective_and_card`),
+  `Level3.range_le`, and `Level3.torsor` (two level structures on one (A, ι) differ by right
+  multiplication by an element of 𝒪 invertible mod 3: the count of A3). Consequence: all of A[3]
+  is K-rational (A6's hypothesis `hrat`). COMPILES, 20 s, standard axioms.

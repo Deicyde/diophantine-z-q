@@ -375,6 +375,135 @@ theorem Level3.exists_mul_of_range_le {A : AbVar K} {q : QMStr A} (e e' : Level3
 
 end Classes
 
+/-! ### Glue for A3 and A6: a level structure is onto `A(K̄)[3]` (from `TorsionStructure`) -/
+
+section Onto
+
+open ObjBridge
+
+instance specMap_flat (L : Type) [Field L] [Algebra K L] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap K L))) := by
+  rw [HasRingHomProperty.Spec_iff (P := @Flat)]
+  exact RingHom.flat_algebraMap_iff.mpr inferInstance
+
+instance specMap_surjective (L : Type) [Field L] [Algebra K L] :
+    Surjective (Spec.map (CommRingCat.ofHom (algebraMap K L))) :=
+  ⟨fun _ => ⟨IsLocalRing.closedPoint L, Subsingleton.elim _ _⟩⟩
+
+variable (K) in
+/-- `Spec K̄ → Spec K` over `K`. -/
+def toKbar : PkgI2.specOver K (AlgebraicClosure K) ⟶ AbVar.ptObj (K := K) K :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))) (by
+    simp only [PkgI2.specOver, AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp])
+
+/-- A `K`-point as a `K̄`-point. -/
+def bcPt (A : AbVar K) (y : A.Pt K) : PkgI2.Pts (toGrp A) (AlgebraicClosure K) := toKbar K ≫ y
+
+theorem bcPt_injective (A : AbVar K) : Function.Injective (bcPt A) := by
+  intro y y' h
+  have : Epi (Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))) :=
+    Flat.epi_of_flat_of_surjective _
+  apply Over.OverMorphism.ext
+  exact (cancel_epi (Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K))))).1
+    (congrArg CommaMorphism.left h)
+
+theorem ofInt_injective : Function.Injective ofInt := by
+  intro n m h
+  have h0 : (n 0 : ℚ) + (n 2 : ℚ) / 2 = m 0 + (m 2 : ℚ) / 2 := congrArg QuaternionAlgebra.re h
+  have h1 : (n 1 : ℚ) + (n 3 : ℚ) / 2 = m 1 + (m 3 : ℚ) / 2 := congrArg QuaternionAlgebra.imI h
+  have h2 : (n 2 : ℚ) / 2 = (m 2 : ℚ) / 2 := congrArg QuaternionAlgebra.imJ h
+  have h3 : (n 3 : ℚ) / 2 = (m 3 : ℚ) / 2 := congrArg QuaternionAlgebra.imK h
+  have e2 : (n 2 : ℚ) = m 2 := by linarith
+  have e3 : (n 3 : ℚ) = m 3 := by linarith
+  have e0 : (n 0 : ℚ) = m 0 := by linarith
+  have e1 : (n 1 : ℚ) = m 1 := by linarith
+  funext i
+  fin_cases i
+  · exact_mod_cast e0
+  · exact_mod_cast e1
+  · exact_mod_cast e2
+  · exact_mod_cast e3
+
+theorem ofInt_sub (n m : Fin 4 → ℤ) : ofInt n - ofInt m = ofInt (n - m) := by
+  ext <;> simp [ofInt] <;> ring
+
+theorem three_mul_ofInt (k : Fin 4 → ℤ) : (3 : B) * ofInt k = ofInt (fun i => 3 * k i) := by
+  ext <;> simp [ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+
+/-- The level points are 3-torsion as `K̄`-points. -/
+theorem Level3.bcPt_pow_three {A : AbVar K} {q : QMStr A} (e : Level3 q) (a : O) :
+    bcPt A (Additive.toMul (e.eta a)) ^ 3 = 1 := by
+  have h3 : (3 : ℕ) • e.eta a = 0 := by
+    rw [← map_nsmul, e.ker]
+    exact ⟨a, by simp [nsmul_eq_mul]⟩
+  have : Additive.toMul (e.eta a) ^ 3 = 1 := by
+    rw [← toMul_nsmul, h3]; rfl
+  rw [bcPt, ← MonObj.comp_pow, this]
+  exact MonObj.comp_one _
+
+/-- The element `n₀ + n₁ i + n₂ (1+j)/2 + n₃ (i+k)/2` of `𝒪` with `nᵢ ∈ {0,1,2}` lifting `c`. -/
+def liftO (c : Fin 4 → ZMod 3) : O := ⟨ofInt (fun i => ((c i).val : ℤ)), ⟨_, rfl⟩⟩
+
+/-- **A level structure is onto `A(K̄)[3]`** (given the kernel's leaf `TorsionStructure`, in
+characteristic 0): `𝒪/3𝒪 ↪ A(K)[3] ↪ A(K̄)[3]`, and both ends have `3^4 = 81` elements. So the
+image of `η` is all of `A[3]`, which is therefore `K`-rational (the hypothesis `hrat` of the
+kernel's A6). -/
+theorem Level3.onto (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (x : PkgI2.Pts (toGrp P.A) (AlgebraicClosure K)) (hx : x ^ 3 = 1) :
+    ∃ a : O, bcPt P.A (Additive.toMul (P.e.eta a)) = x := by
+  have hdim : ObjBridge.dim (toGrp P.A) = ((2 : ℕ) : WithBot ℕ∞) := by
+    change P.A.dim = _
+    rw [P.surface]; rfl
+  obtain ⟨e, -⟩ := hT K (toGrp P.A) 2 3 hdim (by norm_num) (Nat.cast_ne_zero.mpr (by norm_num))
+  let F : (Fin 4 → ZMod 3) → PkgI2.torsion (toGrp P.A) (AlgebraicClosure K) 3 := fun c =>
+    ⟨bcPt P.A (Additive.toMul (P.e.eta (liftO c))), P.e.bcPt_pow_three _⟩
+  have hF : Function.Injective F := by
+    intro c c' h
+    have h1 : bcPt P.A (Additive.toMul (P.e.eta (liftO c))) =
+        bcPt P.A (Additive.toMul (P.e.eta (liftO c'))) := congrArg Subtype.val h
+    have h2 := Additive.toMul.injective (bcPt_injective P.A h1)
+    obtain ⟨d, hd⟩ := (P.e.eq_iff _ _).1 h2
+    obtain ⟨k, hk⟩ := d.2
+    have h3 : ofInt (fun i => ((c i).val : ℤ)) - ofInt (fun i => ((c' i).val : ℤ)) =
+        3 * ofInt k := by
+      have := congrArg Subtype.val hd
+      have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+      simp only [liftO, hk, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33] at this
+      exact this
+    rw [ofInt_sub, three_mul_ofInt] at h3
+    have h4 := ofInt_injective h3
+    funext i
+    have h5 := congrFun h4 i
+    simp only [Pi.sub_apply] at h5
+    have h6 : (((c i).val : ℤ) : ZMod 3) - (((c' i).val : ℤ) : ZMod 3) = 0 := by
+      rw [← Int.cast_sub, h5]; push_cast
+      rw [show (3 : ZMod 3) = 0 from rfl, zero_mul]
+    simpa [sub_eq_zero] using h6
+  have hbij : Function.Bijective (e ∘ F) :=
+    (Fintype.bijective_iff_injective_and_card _).2 ⟨e.injective.comp hF, by simp⟩
+  obtain ⟨c, hc⟩ := hbij.2 (e ⟨x, hx⟩)
+  exact ⟨liftO c, congrArg Subtype.val (e.injective hc)⟩
+
+/-- Two level structures on one `(A, ι)` have the same range (given `TorsionStructure`). -/
+theorem Level3.range_le (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (e' : Level3 P.q) (a : O) : ∃ b : O, e'.eta a = P.e.eta b := by
+  obtain ⟨b, hb⟩ := Level3.onto hT P _ (e'.bcPt_pow_three a)
+  exact ⟨b, (Additive.toMul.injective (bcPt_injective P.A hb)).symm⟩
+
+/-- **The level-structure torsor (A3), unconditional given `TorsionStructure`**: any two level
+structures on one `(A, ι)` over a field of characteristic 0 differ by right multiplication by an
+element of `𝒪` invertible mod `3𝒪`. So a fibre of `Y₃ → X₆` over `ℚ̄` has at most
+`#(𝒪/3𝒪)^× = 72` points (`Units72`). -/
+theorem Level3.torsor (hT : ObjBridge.TorsionStructure) [CharZero K] (P : QML3 K)
+    (e' : Level3 P.q) :
+    ∃ u₀ v₀ : O, (∃ c : O, v₀ * u₀ - 1 = 3 * c) ∧ ∀ a : O, e'.eta a = P.e.eta (a * u₀) :=
+  Level3.exists_mul_of_range_le P.e e' (Level3.range_le hT P e')
+    (Level3.range_le hT ⟨P.A, P.surface, P.q, e'⟩ P.e)
+
+end Onto
+
 /-! ## §4 QM pairs `(A, ι)` (the objects of `X₆ = X₀(6,1)`), the centralizer and CM -/
 
 /-- An isomorphism of QM pairs: an `𝒪`-equivariant isomorphism. -/
@@ -1090,6 +1219,8 @@ end LeafQM
 #print axioms LeafQM.AV.R1R2fp_Y
 #print axioms LeafQM.AV.conj_iso_of_rational
 #print axioms LeafQM.AV.cm_of_val
+#print axioms LeafQM.AV.Level3.onto
+#print axioms LeafQM.AV.Level3.torsor
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
