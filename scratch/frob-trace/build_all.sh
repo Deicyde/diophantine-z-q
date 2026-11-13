@@ -5,15 +5,16 @@
 # exactly as scratch/g14-trace/build.sh does), plus part_compose.lean.
 cd "$(dirname "$0")"
 {
-  grep '^import' part_tate_src.lean
+  # g14-trace's imports first, in its order, then those of part_tate_src.lean
   echo "import ZInQKernel.HDecomp.ModCurves.Glue"
+  echo "import ZInQKernel.HDecomp.I3Linalg.C2"
+  echo "import ZInQKernel.HDecomp.I3Linalg.RhoCont"
   echo "import ZInQKernel.HDecomp.I3Linalg.TateBC"
   echo "import ZInQKernel.HDecomp.Conductor.Level"
+  echo "import ZInQKernel.HDecomp.Assembly"
   echo "import ZInQKernel.HDecomp.C10.Link"
   echo "import ZInQKernel.Main"
-  grep -v '^import' part_tate_src.lean
-  cat part_bridge_src.lean
-  cat part_frob.lean
+  grep '^import' part_tate_src.lean
   echo
   echo "/-! Copied from scratch/c9-rhof/C9.lean (compiled there), lines 4-632. -/"
   echo "section C9Copy"
@@ -31,5 +32,9 @@ cd "$(dirname "$0")"
   cat part_new_g14.lean
   echo
   cat part_g14_g14.lean
+  echo
+  grep -v '^import' part_tate_src.lean
+  cat part_bridge_src.lean
+  cat part_frob.lean
   cat part_compose.lean
 } > FrobTraceAll.lean

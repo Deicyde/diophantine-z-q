@@ -113,6 +113,21 @@ Notation: `σ' = gτg⁻¹` is an arithmetic Frobenius at `v' = g(v)`, and `w = 
   all points. Its hypothesis (`f` of the given shape) is met by G7's maps `m_σ`.
 - `AlgFrobLink` allows any `N ≠ 0`. That makes it weaker than the `N = 1` statement, and it is
   what `FrobCompare` uses.
+- Like `TateBridge`, `TateBridge35` does not tie `Tm_ℓ` to `m_σ` in its statement (its docstring
+  says so). So its `FrobTraceLink` conjunct constrains the operators chosen jointly with `G7Out`,
+  not "the" operator built from `m`. That is enough for G14, which uses only traces, and the
+  construction here does use the operators built from `m`.
+- Review: one model review (read-only; no human review) of `AlgFrobLink`, `AlgFrobOne`,
+  `AlgFrobRed`, `TateBridge35` and `FrobTraceLink`. It found all three glue Props true as stated
+  (with `N = 1`), not vacuous and not degenerate:
+  - `S` is quantified before `p, v, τ, g, f`;
+  - the reduction is taken at `g(v)`, where `gτg⁻¹` is a Frobenius;
+  - `red` exists on all points, by the valuative criterion for the non-noetherian `O_{g(v)}`;
+  - the torsion clauses follow from `𝒜[ℓⁿ]` being finite étale and `O_{g(v)}` Henselian.
+
+  It found two slips in the `AlgFrobLink` docstring (`w = v ∩ L` for `g(v) ∩ L`, and `m_τ` for
+  `m_{gτg⁻¹}`), both fixed. The finiteness and surjectivity hypotheses on `F` are not needed for
+  truth; they are harmless.
 
 ## 5. What compiles, what remains
 
