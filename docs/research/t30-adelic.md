@@ -23,8 +23,10 @@ prime `p`, Dirichlet character `χ` mod `N` and `u ∈ (ℤ/N)^×` with `u ≡ �
 iff `χ(u) = 1`. `PkgI6.LocalKroneckerWeber p` is leaf T16 of `ZInQKernel/HDecomp/Conductor/I6Base.lean`
 (finite abelian `L ⊆ \bar ℚ_p` lies in some `ℚ_p(μ_n)`). So the H decomposition's leaf `t30` of
 `HSyn` (`scratch/h-decomposition/Leaves.lean`, field `t30`) follows from its field `t16a`, and T30
-can be removed from the list of literature theorems. The "if" direction needs no Kronecker–Weber
-(`T30.sqrt_of_chi'`).
+can be removed from the list of literature theorems: `T30.leafSqrtCrit_of_t16a` takes exactly
+`HSyn`'s `t16a : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p`. Per prime,
+`T30.sqrtCrit_at p (hLKW : PkgI6.LocalKroneckerWeber p)` gives the criterion at `p`. The "if"
+direction needs no Kronecker–Weber (`T30.sqrt_of_chi'`).
 
 **G1-adelic: the adelic normalizer quotient and the count of A3, `|Γ'| = 144`.** (VERIFIED,
 compiled)
@@ -127,7 +129,11 @@ with an identity `R3.mk` so that rewriting keeps terms well-typed.
   Mathlib's `FiniteAdeleRing` (and of `Zhat` with `𝔸ᶠ[ℤ, ℚ]^×`) is not formalized; it is a
   reindexing (`Rat.HeightOneSpectrum.primesEquiv`), the componentwise isomorphisms
   `Padic.adicCompletionEquiv`, `PadicInt.adicCompletionIntegersEquiv`, and the remark that
-  `𝒪_p = ℤ_p⟨1, i, j, k⟩` for `p ≠ 2`.
+  `𝒪_p = ℤ_p⟨1, i, j, k⟩` for `p ≠ 2`. An attempt for `Zhat` (log, 23:07) stopped on two Mathlib
+  obstacles: `PadicInt.adicCompletionIntegersEquiv ℤ p` does not elaborate here ("synthesized type
+  class instance is not definitionally equal": the `ℤ`-algebra structure on `adicCompletionIntegers`),
+  and unfolding `Padic.adicCompletionEquiv` (a `ContinuousAlgEquiv.cast` along
+  `primesEquiv (primesEquiv.symm p) = p`) gives kernel deterministic timeouts.
 - The other parts of A3 (the Hecke action of `Γ'` on `Y₃` over `ℚ`, quotient `P¹_j`, `deg ≤ |Γ'|`)
   are outside this task.
 - Integration: `T30.leafSqrtCrit_of_localKroneckerWeber` can replace the hypothesis `t30` of

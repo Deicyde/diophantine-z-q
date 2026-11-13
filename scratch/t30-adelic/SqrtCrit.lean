@@ -570,11 +570,14 @@ end Main
 
 /-! ### The leaf -/
 
-/-- **T30: the local square-root criterion `LeafSqrtCrit` (leaf L-B2c) follows from local
-Kronecker–Weber (leaf T16, `PkgI6.LocalKroneckerWeber`) at every prime.** -/
-theorem leafSqrtCrit_of_localKroneckerWeber
-    (hLKW : ∀ p : Nat.Primes, PkgI6.LocalKroneckerWeber (p : ℕ)) : LeafSqrtCrit := by
-  intro p N _ χ u hu1 hu2
+/-- **T30 at one prime:** the square-root criterion at `p` follows from local Kronecker–Weber at
+`p` (only the "only if" direction uses it). -/
+theorem sqrtCrit_at (p : Nat.Primes) (hLKW : PkgI6.LocalKroneckerWeber (p : ℕ)) (N : ℕ) [NeZero N]
+    (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ N.factorization p)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod (N / (p : ℕ) ^ N.factorization p)) = 1) :
+    (∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = galChar χ (resp p x)) ↔
+      χ.toUnitHom u = 1 := by
   have hN : N = (p : ℕ) ^ N.factorization p * (N / (p : ℕ) ^ N.factorization p) :=
     (Nat.ordProj_mul_ordCompl_eq_self N p).symm
   have hcopN' := Nat.coprime_ordCompl p.2 (NeZero.ne N)
@@ -582,11 +585,23 @@ theorem leafSqrtCrit_of_localKroneckerWeber
     ⟨fun h => NeZero.ne N (by rw [hN, h, mul_zero])⟩
   constructor
   · rintro ⟨φ, hφl, hφ⟩
-    exact chi_of_sqrt' p (hLKW p) N _ _ hN hcopN' χ u hu1 hu2 φ hφl hφ
+    exact chi_of_sqrt' p hLKW N _ _ hN hcopN' χ u hu1 hu2 φ hφl hφ
   · intro hχ
     exact sqrt_of_chi' p N _ _ hN hcopN' χ u hu1 hu2 hχ
+
+/-- **T30: the local square-root criterion `LeafSqrtCrit` (leaf L-B2c) follows from local
+Kronecker–Weber (leaf T16, `PkgI6.LocalKroneckerWeber`) at every prime.** -/
+theorem leafSqrtCrit_of_localKroneckerWeber
+    (hLKW : ∀ p : Nat.Primes, PkgI6.LocalKroneckerWeber (p : ℕ)) : LeafSqrtCrit :=
+  fun p N _ χ u hu1 hu2 => sqrtCrit_at p (hLKW p) N χ u hu1 hu2
+
+/-- The same with T16 in the form of the field `t16a` of `HSyn` (`scratch/h-decomposition`). -/
+theorem leafSqrtCrit_of_t16a (h : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p) :
+    LeafSqrtCrit :=
+  leafSqrtCrit_of_localKroneckerWeber fun p => h (p : ℕ)
 
 end T30
 
 /-! Axiom audit. -/
 #print axioms T30.leafSqrtCrit_of_localKroneckerWeber
+#print axioms T30.leafSqrtCrit_of_t16a

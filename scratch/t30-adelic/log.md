@@ -47,3 +47,6 @@
   Ring.toIntAlgebra on `adicCompletionIntegers`), and (ii) unfolding `Padic.adicCompletionEquiv` to reach
   `padicEquiv_bijOn` gives a kernel deterministic timeout (even via `simp only`/`rw` with
   `ContinuousAlgEquiv.symm_trans_apply`, `cast_symm_apply`). Not pursued further.
+- 23:12 SqrtCrit.lean: added `T30.sqrtCrit_at` (per prime) and `T30.leafSqrtCrit_of_t16a` (HSyn's `t16a` form).
+  Final check (sequential `lake env lean`): SqrtCrit, G1Count, Adelic: no error, no sorry, all `#print axioms`
+  = [propext, Classical.choice, Quot.sound]. VERIFIED.
