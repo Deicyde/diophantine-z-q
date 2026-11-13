@@ -80,6 +80,57 @@ theorem resHom_eq_one_iff (g : B ≃ₐ[A] B) :
     rw [resHom_apply]
     exact h.commutes c
 
+include A in
+omit [IsGalois (FractionRing A) (FractionRing C)] [Module.Finite A C] in
+/-- `B ≃ₐ[C] B` is a Galois group of `B/C`. -/
+theorem isGaloisGroup_tower : IsGaloisGroup (B ≃ₐ[C] B) C B := by
+  have := finite_algEquiv A B
+  have := isGaloisGroup_algEquiv A B
+  have hG := IsGaloisGroup.of_isScalarTower (B ≃ₐ[A] B) A B C
+  refine ⟨inferInstance, inferInstance, ⟨fun b hb => ?_⟩⟩
+  refine hG.isInvariant.isInvariant b (fun g => ?_)
+  have hg : ∀ c : C, (g : B ≃ₐ[A] B) (algebraMap C B c) = algebraMap C B c := fun c =>
+    (mem_fixingSubgroup_iff _).mp g.2 _ ⟨c, rfl⟩
+  have := hb (AlgEquiv.ofRingEquiv (f := ((g : B ≃ₐ[A] B) : B ≃+* B)) hg)
+  exact this
+
 end Tower
+
+section Product
+
+/-- If `S = R[x]` and `|Aut_R(S)| = deg minpoly`, the minimal polynomial splits as
+`∏_σ (X - σ x)`. -/
+theorem minpoly_map_eq_prod {R S : Type*} [CommRing R] [IsDomain R] [IsIntegrallyClosed R]
+    [CommRing S] [IsDomain S] [Algebra R S] [Module.IsTorsionFree R S]
+    [Fintype (S ≃ₐ[R] S)] {x : S} (hint : IsIntegral R x) (hx : Algebra.adjoin R {x} = ⊤)
+    (hcard : Fintype.card (S ≃ₐ[R] S) = (minpoly R x).natDegree) :
+    (minpoly R x).map (algebraMap R S) = ∏ σ : S ≃ₐ[R] S, (X - C (σ x)) := by
+  classical
+  have hinj : Function.Injective (fun σ : S ≃ₐ[R] S => σ x) := by
+    intro σ τ h
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun y hy => by
+      rw [Set.mem_singleton_iff.mp hy]; exact h)
+  set T : Multiset S := Finset.univ.val.map (fun σ : S ≃ₐ[R] S => σ x)
+  set f := (minpoly R x).map (algebraMap R S)
+  have hf0 : f ≠ 0 := ((minpoly.monic hint).map _).ne_zero
+  have hTroots : T ≤ f.roots := by
+    rw [Multiset.le_iff_subset (Multiset.Nodup.map hinj Finset.univ.nodup)]
+    intro y hy
+    obtain ⟨σ, -, rfl⟩ := Multiset.mem_map.mp hy
+    rw [mem_roots hf0, IsRoot.def, eval_map_algebraMap]
+    have : aeval (σ x) (minpoly R x) = σ (aeval x (minpoly R x)) :=
+      (Polynomial.aeval_algHom_apply (σ : S →ₐ[R] S) x _)
+    rw [this, minpoly.aeval, map_zero]
+  have hfT : f = (T.map fun a => X - C a).prod := by
+    refine eq_of_monic_of_dvd_of_natDegree_le (monic_multiset_prod_of_monic _ _
+      fun a _ => monic_X_sub_C a) ((minpoly.monic hint).map _)
+      ((Multiset.prod_X_sub_C_dvd_iff_le_roots hf0 T).mpr hTroots) ?_
+    rw [natDegree_multiset_prod_X_sub_C_eq_card, (minpoly.monic hint).natDegree_map, ← hcard]
+    simp [T]
+  rw [hfT, Finset.prod_eq_multiset_prod, Multiset.map_map]
+  rfl
+
+end Product
 
 end TDifferent
