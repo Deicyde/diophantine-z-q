@@ -57,3 +57,14 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
 - No PARI on this host (cypari2 not installed; installing needs the network, forbidden), so the
   direction of `ShimuraReciprocity` (Frobenius at 𝔭 ↦ multiplication by 𝔭̄ = p𝔭⁻¹) is not checked
   numerically: STANDARD (Shimura 1971 Thm 5.4 / Silverman ATAEC II, numbers UNVERIFIED).
+
+## 08:10 §8 CM bridge (Package.lean builds)
+- Defs/leaves: `ActsAsArtin4 ρ d c` (ρ acts on H_{d,4} ⊂ ℚ̄ as Tau Ceti's Artin symbol of c),
+  `CMFieldOfDefinitionTYZ` (f₀(P_n) ∈ A(H_{n,4})), `TYZSigmaFixesZn` (σ_{1+2ϖ} fixes z_n: Shimura
+  reciprocity in TYZ's form), `TYZZnOverHprime` (z_n ∈ A(H'_n)), `tyzGenusPt Φ Z7`,
+  `GenusPointLeafCM ℓ` (bundled leaf, existential only over Φ₀-choice, class-7 genus points, ε, β').
+- Proved: `cmFieldTYZ_of` (CM-2 with H(−64n) ≤ H_{n,4} gives the TYZ instance), `Lni_mono`,
+  `tyzGenusSum_mem` (class-5 genus sums lie in A(ℍ'_n) for every Φ), `genusPtsDefined_of`,
+  `genusPackage_of_cm`, `tyzThm35ReadingA_of_cm`; axioms of the latter: standard three (VERIFIED).
+- Finding (from rv-pn-encoding, VERIFIED there against the source): "Lemma 3.21 holds for any choice
+  of Φ₀ (L2547–2554)"; g(n) = #Φ₀ = #2Cl_n. So leaving Φ existential is faithful.
