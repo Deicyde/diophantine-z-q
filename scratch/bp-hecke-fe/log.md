@@ -110,3 +110,9 @@
   TYZThm35ReadingA → GrossZagier → (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
   RouteK.Rank.CertifiedRankTYZClRk (CR₃ without HeckeContinuation and FunctionalEquation5).
   (MainLiterature/RankVariants not imported: their olean chain was out of date in this worktree.)
+- (VERIFIED, compiled ~19:20; axioms standard) node B2a DONE: `toG`, `norm_toG`, `toG_gmul`,
+  `toG_injective`, `norm_eq_one_cases`, `norm_gcd_eq` (N(gcd(γ,m)) = m for Nγ = mn coprime; Bezout),
+  `unitsZ`, `conjZ`, `unitsZ_props`, `toG_conjZ`, `card_mul_fiber` (fibres of (α,β) ↦ αβ have 4
+  elements), `gmul_mem_normFiber`, `heckeCoeff_zero`, `heckeMult` (HeckeMult d for all d), and
+  `literature_hecke_fe_of_split_gaussPointCount : (∀ d ≡ 5 (8) sqfree, HeckePrimePowSplit d) →
+   GaussPointCount → HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.

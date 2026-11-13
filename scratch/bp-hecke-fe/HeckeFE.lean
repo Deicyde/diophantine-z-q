@@ -2348,4 +2348,50 @@ theorem card_mul_fiber {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hmn : Nat.Coprime 
     rw [toG_gmul, toG_gmul, hα0] at h1
     exact toG_injective (mul_right_cancel₀ hD0 h1)
 
+theorem gmul_mem_normFiber {m n : ℕ} {a b : ℤ × ℤ} (ha : a ∈ normFiber m) (hb : b ∈ normFiber n) :
+    gmul a b ∈ normFiber (m * n) := by
+  rw [mem_normFiber] at ha hb ⊢
+  have h := congrArg Zsqrtd.norm (toG_gmul a b)
+  rw [Zsqrtd.norm_mul, norm_toG, norm_toG, norm_toG, ha, hb] at h
+  rw [h]; push_cast; ring
+
+theorem heckeCoeff_zero (d : ℕ) : heckeCoeff d 0 = 0 := by
+  rw [heckeCoeff]
+  refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
+  have h := mem_normFiber.mp hq
+  push_cast at h
+  have h1 : q.1 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
+  have h2 : q.2 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
+  simp [gz, h1, h2]
+
+/-- **`HeckeMult d` holds for every `d`.** -/
+theorem heckeMult (d : ℕ) : HeckeMult d := by
+  intro m n hmn
+  rcases Nat.eq_zero_or_pos m with rfl | hm
+  · rw [Nat.coprime_zero_left] at hmn; subst hmn
+    simp [heckeCoeff_one]
+  rcases Nat.eq_zero_or_pos n with rfl | hn
+  · rw [Nat.coprime_zero_right] at hmn; subst hmn
+    simp [heckeCoeff_one]
+  have key : 4 * ∑ y ∈ normFiber (m * n), psi d y =
+      (∑ a ∈ normFiber m, psi d a) * (∑ b ∈ normFiber n, psi d b) := by
+    rw [Finset.sum_mul_sum, ← Finset.sum_product']
+    simp_rw [← psi_mul]
+    rw [← Finset.sum_fiberwise_of_maps_to' (s := normFiber m ×ˢ normFiber n)
+      (t := normFiber (m * n)) (g := fun x : (ℤ × ℤ) × (ℤ × ℤ) => gmul x.1 x.2)
+      (fun x hx => gmul_mem_normFiber (Finset.mem_product.mp hx).1 (Finset.mem_product.mp hx).2)
+      (psi d), Finset.mul_sum]
+    refine Finset.sum_congr rfl fun y hy => ?_
+    rw [Finset.sum_const, card_mul_fiber hm hn hmn hy]
+    simp
+  rw [heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi]
+  linear_combination (1 / 16) * key
+
+/-- **Final form**: the two literature Props from the prime-power recursion of `heckeCoeff` at
+split primes (a statement about `ℤ[i]`) and Gauss's point count on `y² = x³ − x`. -/
+theorem literature_hecke_fe_of_split_gaussPointCount
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckePrimePowSplit d) (h1 : GaussPointCount) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_mult_split_gaussPointCount (fun d _ _ => heckeMult d) hS h1
+
 end BpHeckeFE
