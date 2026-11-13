@@ -841,6 +841,139 @@ theorem tatePairing_cyclotomic [NeZero (ℓ : K)] (σ : Gal K) (x y : A.T ℓ) :
 
 end Adic
 
+
+/-! ## §8. Nondegeneracy of `E^λ` and `det ρ_ℓ(σ)² = χ_ℓ(σ)^{2g}` -/
+
+section Det
+
+/-- Iterating `ℓ • u(i+1) = u i`. -/
+lemma iterate_smul {M : Type*} [AddCommGroup M] {ℓ : ℕ} {u : ℕ → M}
+    (hu : ∀ i, ℓ • u (i + 1) = u i) (k a : ℕ) : ℓ ^ a • u (k + a) = u k := by
+  induction a with
+  | zero => simp
+  | succ a ih => rw [pow_succ, mul_smul, ← Nat.add_assoc, hu, ih]
+
+/-- If `a • x = 0` and `b • x = 0` with `a, b` coprime then `x = 0`. -/
+lemma eq_zero_of_coprime {M : Type*} [AddCommGroup M] {x : M} {a b : ℕ} (hab : a.Coprime b)
+    (ha : a • x = 0) (hb : b • x = 0) : x = 0 := by
+  have h1 := addOrderOf_dvd_of_nsmul_eq_zero ha
+  have h2 := addOrderOf_dvd_of_nsmul_eq_zero hb
+  have h3 : addOrderOf x ∣ 1 := by
+    rw [← hab.gcd_eq_one]; exact Nat.dvd_gcd h1 h2
+  exact AddMonoid.addOrderOf_eq_one_iff.1 (Nat.dvd_one.1 h3)
+
+/-- **Leaf (divisibility of `A(K̄)`).** For `n ≥ 1`, `[n] : A → A` is an isogeny (of degree
+`n^{2g}`), hence surjective, hence surjective on `K̄`-points (Mumford §4, Application 2, and §6;
+UNVERIFIED numbering). -/
+def DivisiblePoints : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (n : ℕ), 0 < n → ∀ z : P A, ∃ w : P A, n • w = z
+
+variable {A : AbVar K} {ℓ : ℕ} [Fact ℓ.Prime]
+
+/-- A sequence of successive `ℓ`-th roots starting at `t`. -/
+def rootSeq (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (t : P A) : ℕ → P A
+  | 0 => t
+  | i + 1 => Classical.choose (hdiv (rootSeq hdiv t i))
+
+omit [Fact ℓ.Prime] in
+lemma rootSeq_succ (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (t : P A) (i : ℕ) :
+    ℓ • rootSeq hdiv t (i + 1) = rootSeq hdiv t i :=
+  Classical.choose_spec (hdiv (rootSeq hdiv t i))
+
+/-- `T_ℓ A → A[ℓᵏ]` is onto (glue, from `DivisiblePoints`). -/
+theorem tate_surj (hdiv : ∀ z : P A, ∃ w : P A, ℓ • w = z) (k : ℕ) (t : P A)
+    (ht : ℓ ^ k • t = 0) : ∃ y : A.T ℓ, y.1 k = t := by
+  refine ⟨⟨fun j => ℓ ^ k • rootSeq hdiv t j, ?_, fun j => ?_⟩, ?_⟩
+  · change ℓ ^ k • t = 0; exact ht
+  · change ℓ • ℓ ^ k • rootSeq hdiv t (j + 1) = ℓ ^ k • rootSeq hdiv t j
+    rw [smul_comm, rootSeq_succ]
+  · change ℓ ^ k • rootSeq hdiv t k = t
+    have := iterate_smul (rootSeq_succ hdiv t) 0 k
+    rwa [Nat.zero_add] at this
+
+variable (D : WeilDual A) (lam : Hom A D.dual)
+
+/-- **`E^λ` has trivial left kernel (proved)**, given a quasi-inverse `ψ` of `λ` (`λψ = [d]`)
+and the surjectivity of `T_ℓ A → A[ℓᵏ]`. -/
+theorem tatePairing_left_ker {ψ : Hom D.dual A} {d : ℕ} (hd : 0 < d)
+    (hψ : ∀ z : P D.dual, homP lam (homP ψ z) = d • z) (hℓ : (ℓ : K) ≠ 0)
+    (hsurj : ∀ (k : ℕ) (t : P A), ℓ ^ k • t = 0 → ∃ y : A.T ℓ, y.1 k = t)
+    (x : A.T ℓ) (hx : ∀ y, tatePairing D lam hℓ x y = 0) : x = 0 := by
+  have hl : 0 < ℓ := (Fact.out : ℓ.Prime).pos
+  -- `d • x_k = 0` for every `k`
+  have hdk : ∀ k, d • x.1 k = 0 := by
+    intro k
+    have hkK : ((ℓ ^ k : ℕ) : K) ≠ 0 := by rw [Nat.cast_pow]; exact pow_ne_zero _ hℓ
+    have h := weil_nondeg D lam hψ (pow_pos hl k) hkK ⟨x.1 k, tors_pow ℓ k⟩ (fun t => by
+      obtain ⟨y, hy⟩ := hsurj k t (nsmul_tors t)
+      have h1 := congrArg (fun z : TMu K ℓ => z.1 k) (hx y)
+      simp only [tatePairing_apply] at h1
+      have h2 : wv D lam (ℓ ^ k) (x.1 k) (y.1 k) = 1 := Additive.ofMul.injective h1
+      have h3 : (⟨y.1 k, tors_pow ℓ k⟩ : tors A (ℓ ^ k)) = t := Subtype.ext hy
+      rw [wv_eq (tors_pow ℓ k) (tors_pow ℓ k), h3] at h2
+      exact Mu.val_injective h2)
+    exact congrArg Subtype.val h
+  obtain ⟨a, d', hd', rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd hd.ne' ℓ
+    (Fact.out : ℓ.Prime).one_lt.ne'
+  apply Subtype.ext; funext k
+  have hcop : d'.Coprime (ℓ ^ k) :=
+    Nat.Coprime.pow_right k ((Nat.coprime_comm.1 ((Fact.out : ℓ.Prime).coprime_iff_not_dvd.2 hd')))
+  refine eq_zero_of_coprime hcop ?_ (tors_pow ℓ k)
+  have h := hdk (k + a)
+  rw [mul_comm, mul_smul, iterate_smul x.2.2 k a] at h
+  exact h
+
+/-- `det(f)² = c^{rank}` over a domain, for a bilinear form with nonzero Gram determinant. -/
+theorem det_sq_of_similitude_domain {R M idx : Type*} [CommRing R] [IsDomain R] [AddCommGroup M]
+    [Module R M] [Fintype idx] [DecidableEq idx] (b : Module.Basis idx R M)
+    (B : LinearMap.BilinForm R M) (hB : (LinearMap.BilinForm.toMatrix b B).det ≠ 0)
+    (f : M →ₗ[R] M) (c : R) (hf : ∀ x y, B (f x) (f y) = c * B x y) :
+    LinearMap.det f ^ 2 = c ^ Fintype.card idx := by
+  have hc : B.comp f f = c • B := by
+    ext x y
+    simp [hf]
+  have h1 := LinearMap.BilinForm.toMatrix_comp b b B f f
+  rw [hc, map_smul] at h1
+  have h2 := congrArg Matrix.det h1
+  rw [Matrix.det_smul, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose,
+    LinearMap.det_toMatrix] at h2
+  exact mul_left_cancel₀ hB (by linear_combination -h2)
+
+/-- **G12 input on `V_ℓ A` (proved from the hypotheses).** Let `λ : A → Â` be symmetric with a
+quasi-inverse (`λψ = [d]`), `ℓ` invertible in `K`, `T_ℓ A` free of finite rank (leaf
+`PkgI3.TateModuleFree`), `T_ℓ A → A[ℓᵏ]` onto (from `DivisiblePoints`), and `iota : T_ℓ(μ) → ℤ_ℓ` an
+injective `ℤ_ℓ`-linear map (glue target `TateMuEmbeds`). Then for every `σ ∈ G_K`,
+`det ρ_ℓ(σ)² = χ_ℓ(σ)^{rank T_ℓ A}` on `V_ℓ A` (`= χ^{4}` for an abelian surface): C8 item 1. -/
+theorem det_galRep_sq {ψ : Hom D.dual A} {d : ℕ} (hd : 0 < d)
+    (hψ : ∀ z : P D.dual, homP lam (homP ψ z) = d • z) [NeZero (ℓ : K)]
+    [Module.Free ℤ_[ℓ] (A.T ℓ)] [Module.Finite ℤ_[ℓ] (A.T ℓ)]
+    (hsurj : ∀ (k : ℕ) (t : P A), ℓ ^ k • t = 0 → ∃ y : A.T ℓ, y.1 k = t)
+    (iota : TMu K ℓ →ₗ[ℤ_[ℓ]] ℤ_[ℓ]) (hiota : Function.Injective iota) (σ : Gal K) :
+    LinearMap.det (A.galRep ℓ σ) ^ 2 =
+      algebraMap ℤ_[ℓ] ℚ_[ℓ] ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) :
+        ℤ_[ℓ]) ^ Module.finrank ℤ_[ℓ] (A.T ℓ) := by
+  classical
+  set hℓ : (ℓ : K) ≠ 0 := NeZero.ne _
+  let B : LinearMap.BilinForm ℤ_[ℓ] (A.T ℓ) := (tatePairing D lam hℓ).compr₂ iota
+  have hB : ∀ x y, B (A.galT σ x) (A.galT σ y) =
+      ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) * B x y := by
+    intro x y
+    simp only [B, LinearMap.compr₂_apply]
+    rw [tatePairing_cyclotomic, map_smul, smul_eq_mul]
+  have hsep : B.SeparatingLeft := by
+    intro x hx
+    exact tatePairing_left_ker D lam hd hψ hℓ hsurj x fun y => hiota (by
+      rw [map_zero]; exact hx y)
+  have hnd : B.Nondegenerate := LinearMap.BilinForm.Nondegenerate.ofSeparatingLeft hsep
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  have hdet := (LinearMap.BilinForm.nondegenerate_iff_det_ne_zero b).1 hnd
+  have key := det_sq_of_similitude_domain b B hdet (A.galT σ) _ hB
+  rw [← Module.finrank_eq_card_chooseBasisIndex] at key
+  change LinearMap.det ((A.galT σ).baseChange ℚ_[ℓ]) ^ 2 = _
+  rw [LinearMap.det_baseChange, ← map_pow, key, map_pow]
+
+end Det
+
 end WeilPairing
 
 #print axioms WeilPairing.oldT9_of_symmIsogeny
