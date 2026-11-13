@@ -1,0 +1,35 @@
+# hecke-rest results log
+
+Base: wip/hecke-rest (b7cdba8e) + merge of origin/wip/ts-hecke. Targets (verbatim in
+scratch/ts-hecke/TSHecke.lean): CurveGaloisChart (via CurveNormChart), CurveChartInf,
+HeckeFibreSizes, HeckeNoVertRam.
+
+## Step 0. Kernel oleans
+- `lake build ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue
+  ZInQKernel.HDecomp.Textbook.SkolemNoether`: built (9057 jobs), VERIFIED.
+
+## Step 1. Computation for HeckeFibreSizes (`fibre_sizes.py`, output `fibre_sizes.out`) — VERIFIED (computed)
+- |O/3O| = 81, |(O/3O)^x| = 72 = #{nrd ≢ 0 mod 3}.
+- CM elements in O: x^2 = -1 (e.g. (-1,-1,2,0)), x^2 - x + 1 = 0 (e.g. (-1,-2,3,1)), x^2 = -6
+  (e.g. (-2,-2,4,1)); unit groups of orders 4, 6, 2.
+- No nontrivial finite-order unit is ≡ 1 mod 3O (nrd(g-1) ∈ {1,2,3,4}; 9 | nrd of 3O).
+- Right multiplication by these unit groups on (O/3O)^x is free: 18, 12, 36 orbits.
+- Elliptic μ ∈ O of norm m ∈ {2,3,6}, trace t (t^2 < 4m): the field Q(sqrt(t^2-4m)) embeds in B
+  only for (m,t) = (2,2) [Q(i)], (3,0),(3,3) [Q(sqrt-3)], (6,0) [Q(sqrt-6)]; Q(sqrt-2),
+  Q(sqrt-7), Q(sqrt-11), Q(sqrt-5), Q(sqrt-15), Q(sqrt-23) do not embed (2 or 3 splits).
+- tt_k * tt_l is a rational multiple of tt_(k xor l) (W = (Z/2)^2).
+- Sizes r*72/a: generic 4*36 = 144; CM4 2*18 = 36; CM3 2*12 = 24; CM24 2*36 = 72; 144 divides
+  4*36, 6*24, 2*72.
+
+## Step 2. Lean: HeckeFibreSizes (`FibreSizes.lean`, assembled by `assemble.py`) — VERIFIED (compiled, 0 errors, ~20 s)
+- Verbatim copies from TSHecke.lean: 3563-4606 (aut-o-finite), 5511-5717 (Units), 6132-6135
+  (twistFibre), 6154-6213 (Count), 6215-6227 (exists_sub_liftO), 6553-6577 (HeckeFibreSizes).
+- New leaves (defs, docstrings with sources): `QMAutCard` (|Aut(A,ι)| = 4/6/2 by CM type, CM
+  types exclusive), `SerreRigidity3` (finite-order endomorphism fixing A[3] is 1),
+  `ALFixedPoints` ((A, ι∘t_m) ≅ (A, ι) for m = 1,2,3 ⇒ CM by Z[i], Z[ζ3], Z[√-6]).
+- Proved: `lvEquiv : Good ≃ Level3 P.q` (72 level structures, from TorsionStructure),
+  `rep_rep : rep k (rep l a) = rep (xr k l) a`, `push_injective` (Serre), `fibre_card`
+  (each fibre of (k,c) ↦ class has s·a elements), `ncard_mul : #twistFibre · s · a = 288`,
+  `heckeFibreSizes_of : TorsionStructure → QMAutCard → SerreRigidity3 → ALFixedPoints →
+  HeckeFibreSizes` (M = 144).
+- `#print axioms`: heckeFibreSizes_of, ncard_mul: [propext, Classical.choice, Quot.sound].
