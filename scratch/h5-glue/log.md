@@ -108,3 +108,7 @@ docs/research/h5-neron.md.
 - `isIso_genMap`, `cotMap_bijective` (f^* on 𝔪/𝔪² bijective: genMap a local ring iso, comap of 𝔪²),
   `baseChange_map_bijective`, `hodgeMapBijective : HodgeMapBijective`,
   `heightAntitone_of_hodgeLatticeNonzero : HodgeLatticeNonzero → HeightAntitone`. Axioms standard.
+
+## 14. HodgeLatticeNonzero from OmegaSpans — PROVED (compiled ~02:30, JacDet.lean)
+- `OmegaSpans` (copied verbatim from hodge-lattice §2, where it is PROVED: omegaSpans_of_omegaLocal omegaLocal).
+- `exists_smul_mem_omega`, `hodgeLatticeNonzero_of_omegaSpans`, `heightAntitone_of_omegaSpans`. Axioms standard.

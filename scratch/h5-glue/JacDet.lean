@@ -837,6 +837,91 @@ theorem hodgeMapBijective : HodgeMapBijective := by
 theorem heightAntitone_of_hodgeLatticeNonzero (hn : HodgeLatticeNonzero) : HeightAntitone :=
   heightAntitone_of hodgeMapBijective hn
 
+/-! ### `HodgeLatticeNonzero` from `OmegaSpans` (proved; `OmegaSpans` is proved in hodge-lattice) -/
+
+/-- (copied verbatim from `scratch/hodge-lattice/HodgeLattice.lean` §2, where it is proved as
+`omegaSpans_of_omegaLocal omegaLocal`) `ω_𝒢` spans `ω_{A_L}` over `L`. -/
+def OmegaSpans : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L),
+    Submodule.span L (Set.range fun x : 𝒢.omega => (1 : L) ⊗ₜ[𝓞 L] (x : 𝒢.cotangent)) = ⊤
+
+/-- Every cotangent vector has a nonzero `𝓞_L`-multiple in `ω`. -/
+theorem exists_smul_mem_omega (h : OmegaSpans) (𝒩 : GroupModel A L) (x : 𝒩.cotangent) :
+    ∃ D : 𝓞 L, D ≠ 0 ∧ D • x ∈ 𝒩.omega := by
+  have hx : (1 : L) ⊗ₜ[𝓞 L] x ∈ Submodule.span L
+      (Set.range fun w : 𝒩.omega => (1 : L) ⊗ₜ[𝓞 L] (w : 𝒩.cotangent)) := by
+    rw [h K A L 𝒩]; trivial
+  obtain ⟨c, hc⟩ := Finsupp.mem_span_range_iff_exists_finsupp.mp hx
+  obtain ⟨d, hd⟩ := IsLocalization.exist_integer_multiples (nonZeroDivisors (𝓞 L)) c.support c
+  choose a ha using fun w (hw : w ∈ c.support) => hd w hw
+  set y : 𝒩.cotangent := ∑ w ∈ c.support.attach, a w.1 w.2 • (w.1 : 𝒩.cotangent) with hy_def
+  have hy : y ∈ 𝒩.omega := Submodule.sum_mem _ fun w _ => Submodule.smul_mem _ _ w.1.2
+  have key : (TensorProduct.mk (𝓞 L) L 𝒩.cotangent 1) ((d : 𝓞 L) • x) =
+      TensorProduct.mk (𝓞 L) L 𝒩.cotangent 1 y := by
+    simp only [TensorProduct.mk_apply, hy_def, TensorProduct.tmul_sum, TensorProduct.tmul_smul]
+    rw [← hc, Finsupp.sum, Finset.smul_sum, ← Finset.sum_attach]
+    refine Finset.sum_congr rfl fun w _ => ?_
+    symm
+    rw [← algebraMap_smul L (a w.1 w.2), ha w.1 w.2, smul_assoc]
+  have : IsLocalizedModule (nonZeroDivisors (𝓞 L)) (TensorProduct.mk (𝓞 L) L 𝒩.cotangent 1) :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors (𝓞 L)) L _).mpr
+      (TensorProduct.isBaseChange _ _ _)
+  obtain ⟨e, he⟩ := IsLocalizedModule.exists_of_eq (S := nonZeroDivisors (𝓞 L)) key
+  refine ⟨(e : 𝓞 L) * d, mul_ne_zero (nonZeroDivisors.ne_zero e.2)
+    (nonZeroDivisors.ne_zero d.2), ?_⟩
+  have he' : (e : 𝓞 L) • ((d : 𝓞 L) • x) = (e : 𝓞 L) • y := he
+  rw [mul_smul, he']
+  exact Submodule.smul_mem _ _ hy
+
+/-- **`HodgeLatticeNonzero` from `OmegaSpans`** (proved). -/
+theorem hodgeLatticeNonzero_of_omegaSpans (h : OmegaSpans) : HodgeLatticeNonzero := by
+  intro K _ A L _ _ _ 𝒩 g hfin
+  by_contra hcon
+  simp only [not_exists, not_and, not_not] at hcon
+  have hpure : ∀ v : Fin g → 𝒩.cotangent,
+      (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v = 0 := by
+    intro v
+    choose D hD hDm using fun i => exists_smul_mem_omega h 𝒩 (v i)
+    have h1 : exteriorPower.ιMulti (𝓞 L) g (fun i => D i • v i) =
+        (∏ i, D i) • exteriorPower.ιMulti (𝓞 L) g v :=
+      MultilinearMap.map_smul_univ _ _ _
+    have h2 : (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g (fun i => D i • v i) = 0 :=
+      hcon _ (Submodule.subset_span ⟨fun i => ⟨D i • v i, hDm i⟩, rfl⟩)
+    rw [h1, TensorProduct.tmul_smul, ← algebraMap_smul L] at h2
+    have hP : algebraMap (𝓞 L) L (∏ i, D i) ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective (𝓞 L) L)).mpr
+        (Finset.prod_ne_zero_iff.mpr fun i _ => hD i)
+    calc (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v
+        = (algebraMap (𝓞 L) L (∏ i, D i))⁻¹ • (algebraMap (𝓞 L) L (∏ i, D i) •
+          ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v)) := by
+          rw [smul_smul, inv_mul_cancel₀ hP, one_smul]
+      _ = 0 := by rw [h2, smul_zero]
+  have hall : ∀ x : 𝒩.hodgeSpace g, x = 0 := by
+    intro x
+    induction x using TensorProduct.inductionOn with
+    | tmul l y =>
+      have hy : y ∈ Submodule.span (𝓞 L) (Set.range (exteriorPower.ιMulti (𝓞 L) g)) := by
+        rw [exteriorPower.ιMulti_span]; trivial
+      induction hy using Submodule.span_induction with
+      | mem z hz =>
+        obtain ⟨v, rfl⟩ := hz
+        have : l ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v =
+            l • ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v) := by
+          rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one]
+        rw [this, hpure, smul_zero]
+      | zero => rw [TensorProduct.tmul_zero]
+      | add a b _ _ ha hb => rw [TensorProduct.tmul_add, ha, hb, add_zero]
+      | smul r a _ ha => rw [TensorProduct.tmul_smul, ha, smul_zero]
+    | add x y hx hy => rw [hx, hy, add_zero]
+  haveI : Subsingleton (𝒩.hodgeSpace g) := ⟨fun a b => (hall a).trans (hall b).symm⟩
+  rw [Module.finrank_zero_of_subsingleton] at hfin
+  exact zero_ne_one hfin
+
+/-- **`HeightAntitone` from `OmegaSpans`** (proved; `OmegaSpans` is a theorem of hodge-lattice). -/
+theorem heightAntitone_of_omegaSpans (h : OmegaSpans) : HeightAntitone :=
+  heightAntitone_of_hodgeLatticeNonzero (hodgeLatticeNonzero_of_omegaSpans h)
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -855,3 +940,5 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.heightAntitone_of
 #print axioms ZInQ.H5Glue.hodgeMapBijective
 #print axioms ZInQ.H5Glue.heightAntitone_of_hodgeLatticeNonzero
+#print axioms ZInQ.H5Glue.hodgeLatticeNonzero_of_omegaSpans
+#print axioms ZInQ.H5Glue.heightAntitone_of_omegaSpans
