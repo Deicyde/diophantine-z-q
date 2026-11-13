@@ -21,3 +21,12 @@
   (F1) ∀ K ⊇ F finite, ∀ σ ∈ G_F, σ = φ^k τ g, τ ∈ G_F ∩ inertiaSet, g ∈ G_K;
   (F2) ∀ n ≥ 1, ∃ χ : G_F → ℤ/n hom, χ φ = 1, χ = 0 on G_F ∩ inertiaSet and on some open G_K.
 - `unramRoots_of_unramProcyclic : UnramProcyclic p → G15Ram.UnramRoots p ℓ` PROVED.
+
+## Step 2a (Metric.lean) — COMPILES (0 errors, no sorry), imports only LadicCond
+- `fix_of_mem_inertiaSet_of_pow_eq_one`: σ ∈ inertiaSet, x^N = 1, N>0, p∤N ⇒ σ x = x. PROVED.
+- `fix_of_mem_inertiaSet_of_pow_eq_self`: σ ∈ inertiaSet, x^M = x, 1<M, p∣M ⇒ σ x = x. PROVED.
+- `exists_pow_sub_lt_one`: ‖x‖ ≤ 1 ⇒ ∃ m ≥ 1, ‖x^{p^m} − x‖ < 1 (residue field of the unit ball, minpoly
+  coefficients integral via `spectralValue_le_one_iff`, Frobenius pigeonhole). PROVED.
+- `exists_root_close`, `mem_inertiaSet_of_fix`: σ fixing all roots of X^{p^m} − X (m ≥ 1) ⇒ σ ∈ inertiaSet. PROVED.
+- TC build: `lake build` of TC Unramified/{Inertia.Basic,Existence}, FiniteExtension/IntermediateField,
+  AlgebraicExtension/IntermediateField, Padics/AlgebraicClosure, LocalField/Padic: OK (3910 jobs).
