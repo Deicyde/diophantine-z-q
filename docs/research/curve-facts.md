@@ -6,30 +6,45 @@ another task's directory was edited. Model work only; no human has reviewed it.
 
 ## 1. Result
 
-**Both curve facts of mobius-glue are proved in Lean from three smaller named facts.** One fact
-is a textbook leaf and two are glue; the proof also uses two auxiliary facts proved here from
-Mathlib. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles with 0 errors and axioms
-`[propext, Classical.choice, Quot.sound]` (VERIFIED, `run5.txt`):
+**Both curve facts of mobius-glue are proved in Lean from three smaller named facts, each stated
+over an arbitrary field (algebraically closed for the two curve leaves), as in Hartshorne.** One
+is a textbook leaf and two are glue. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles
+with 0 errors and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run6.txt`):
 
 ```lean
-theorem curveFacts_of_named (h1 : SmoothCurveNoIsolatedPoint) (h2 : GeomCompConstOrOnto)
-    (h3 : GeomCompRatFactor) : CurveRatFactor ∧ CurveSurj
+theorem curveFacts_of_algClosed (h1 : SmoothCurveNoIsolatedPoint) (h2 : ConstOrOntoAlgClosed)
+    (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj
 ```
 
-- `CurveSurj` uses only C1a and C2 (`curveSurj_of_comp`, `geomCompInfinite_of`).
-- `CurveRatFactor` uses only C2 and C3 (`curveRatFactor_of_comp`).
+- `CurveSurj` uses only C1a and C2K.
+- `CurveRatFactor` uses only C2K and C3K.
 
 | name | kind | content | status |
 |---|---|---|---|
 | `SmoothCurveNoIsolatedPoint` (C1a) | glue (dimension theory) | if `X → Spec K` is smooth of relative dimension 1 over any field `K`, then no point of `X` is open | STANDARD; true (§3); not in Mathlib |
-| `GeomCompConstOrOnto` (C2) | **textbook leaf** | on each geometric component of a proper smooth curve `S/ℚ`, a map `σ : S → P¹` is constant on `ℚ̄`-points or takes every value in `P¹(ℚ̄)` | Hartshorne II.6.8 (UNVERIFIED numbering); not in Mathlib |
-| `GeomCompRatFactor` (C3) | glue (textbook consequence) | on a geometric component where `σ` is nonconstant, a map `ρ` constant on the `σ`-fibres is `[F : G] ∘ σ` with `F, G` coprime | STANDARD (§3); not in Mathlib |
-| `GeomCompFinite` (C4) | glue | `S_ℚ̄` has finitely many connected components meeting `ℚ̄`-points | **proved** from Mathlib (`geomCompFinite`) |
-| `Mob.exists_interp` | glue | any assignment of `P¹(K)`-values at finitely many nodes is realised by a coprime pair `[F : G]` | **proved** (Lagrange interpolation) |
+| `ConstOrOntoAlgClosed` (C2K) | **textbook leaf** | `X` proper and smooth of relative dimension 1 over an algebraically closed `K`, and `σ : X → P¹`: on the `K`-points of each connected component of `X`, `σ` is constant or takes every value in `P¹(K)` | Hartshorne II.6.8 (UNVERIFIED numbering); not in Mathlib |
+| `RatFactorAlgClosed` (C3K) | glue (textbook consequence) | the same setting with `char K = 0`: on a connected component where `σ` is nonconstant, a map `ρ` constant on the `σ`-fibres is `[F : G] ∘ σ` with `F, G ∈ K[X]` coprime | STANDARD (§3); not in Mathlib |
+
+The proof also uses the following intermediate statements, all proved in Lean:
+
+| name | content | proof |
+|---|---|---|
+| `GeomCompInfinite` (C1) | each geometric component of a proper smooth curve `S/ℚ` has infinitely many `ℚ̄`-points | from C1a (`geomCompInfinite_of`) |
+| `GeomCompConstOrOnto` (C2) | C2K for `S/ℚ`, with `ℚ̄`-points and geometric components | from C2K by base change to `ℚ̄` (`geomCompConstOrOnto_of`) |
+| `GeomCompRatFactor` (C3) | C3K for `S/ℚ` | from C3K by base change (`geomCompRatFactor_of`) |
+| `GeomCompFinite` (C4) | `S_ℚ̄` has finitely many connected components meeting `ℚ̄`-points | from Mathlib (`geomCompFinite`) |
+| `Mob.exists_interp` | any assignment of `P¹(K)`-values at finitely many nodes is realised by a coprime pair `[F : G]` | Lagrange interpolation |
+
+The chain is:
+
+- `curveSurj_of_comp : C1 → C2 → CurveSurj`;
+- `curveRatFactor_of_comp : C2 → C3 → CurveRatFactor` (with C4 and interpolation);
+- `curveFacts_of_named : C1a → C2 → C3 → …`;
+- `curveFacts_of_algClosed : C1a → C2K → C3K → …`.
 
 Combined with mobius-glue's `mobiusGlue_of_curves (hRF : CurveRatFactor) (hSu : CurveSurj)
-(hT : ObjBridge.TorsionStructure)`, qm-pin's `MobiusGlue` therefore rests on C1a, C2, C3 and the
-existing textbook leaf T5.
+(hT : ObjBridge.TorsionStructure)`, qm-pin's `MobiusGlue` therefore rests on C1a, C2K, C3K and
+the existing textbook leaf T5.
 
 **Verbatim copies.** `CurveRatFactor`, `CurveSurj` and `Mob.ratEval` were copied into
 `CurveFacts.lean` §0. The script `scratch/curve-facts/py/verbatim.py` compares each declaration
@@ -55,8 +70,10 @@ hence locally irreducible. Every ingredient is Mathlib's: `pullback`, `pullback.
 
 ## 3. The named facts and why they are true
 
-All three take the hypotheses of the original facts: `S : Over (Spec ℚ)`, `IsProper S.hom` and
-`SmoothOfRelativeDimension 1 S.hom`.
+The ℚ̄-forms C2 and C3 below take the hypotheses of the original facts: `S : Over (Spec ℚ)`,
+`IsProper S.hom` and `SmoothOfRelativeDimension 1 S.hom`. The leaves actually assumed are their
+field-level forms C2K and C3K (end of this section). The truth arguments are the same, with `C` a
+connected component of `X` instead of `S_ℚ̄`.
 
 - **C1a `SmoothCurveNoIsolatedPoint`**: `∀ K [Field K] (X : Scheme) (f : X ⟶ Spec K),
   SmoothOfRelativeDimension 1 f → ∀ x, ¬ IsOpen {x}`.
@@ -108,6 +125,22 @@ quantifies over an invented structure, and none is a disguised form of its conse
 - The glue that combines components (the fibre condition across components, finiteness of
   components, interpolation when every component is constant) and the passage from points of
   `S_ℚ̄` to `ℚ̄`-points of `S` are proved in Lean.
+
+**Field-level forms (§7 of the Lean file).**
+
+- C2K and C3K quantify over every algebraically closed field `K : Type`, every scheme
+  `X : Scheme.{0}` and every proper `f : X ⟶ Spec K` smooth of relative dimension 1.
+- `K`-points are sections `p` with `p ≫ f = 𝟙`; components are
+  `connectedComponent (ptOf p)`, where `ptOf p` is the point of `p`.
+- C3K adds `[CharZero K]`. It is false in characteristic `p`: take `X = P¹`, `σ = ρ^p`. Frobenius
+  is bijective on `K`-points, so `ρ` is constant on the `σ`-fibres, but `ρ` is not a rational
+  function of `σ`.
+- The ℚ̄-versions C2 and C3 follow by base change to `ℚ̄`, through these steps (all proved):
+  - `y ↦ bcPt y`, with inverse `ptOfSection`;
+  - `bcPt_ptOfSection`;
+  - `σ(y) = (σ ∘ pr₁)(bcPt y)` (`val_bcPt`, from the kernel's `ToP1.val_comp_right`);
+  - Mathlib's instances that properness and `SmoothOfRelativeDimension` are stable under base
+    change.
 
 ## 4. What the Lean proofs do (`CurveFacts.lean`)
 
