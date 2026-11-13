@@ -398,6 +398,135 @@ theorem curveFacts_of_named (h1 : SmoothCurveNoIsolatedPoint) (h2 : GeomCompCons
     (h3 : GeomCompRatFactor) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_comp (geomCompInfinite_of h1) h2 h3
 
+/-! ## §7 C2 and C3 over an algebraically closed field (Hartshorne's setting)
+
+The leaves C2 and C3 are restated for a proper smooth curve `X` over an arbitrary algebraically
+closed field `K`, its `K`-points (sections `p : Spec K → X` of the structure map) and a connected
+component of `X`. `GeomCompConstOrOnto` and `GeomCompRatFactor` follow by base change to `ℚ̄`. -/
+
+/-- The point of `X` at which a field point `p : Spec K → X` sits. -/
+abbrev ptOf {K : Type} [Field K] {X : Scheme.{0}} (p : Spec (CommRingCat.of K) ⟶ X) : X :=
+  (Scheme.SpecToEquivOfField K X p).1
+
+/-- **(C2K) Constant or onto on a connected component** (Hartshorne, *Algebraic Geometry*,
+Prop. II.6.8, UNVERIFIED numbering: a morphism from a complete nonsingular curve over an
+algebraically closed field to a curve is constant or surjective; here applied to a connected
+component of `X`, a complete nonsingular irreducible curve, and the target `P¹`, whose closed
+points are its `K`-points). Textbook leaf. -/
+def ConstOrOntoAlgClosed : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → σ.val p = σ.val p₀) ∨
+      (∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p = t)
+
+open Polynomial in
+/-- **(C3K) Factorization on a connected component where `σ` is nonconstant**, over an
+algebraically closed field of characteristic 0 (in characteristic `p` the Frobenius
+`σ = ρ^p` is a counterexample). Glue (a standard consequence of textbook results, see
+`docs/research/curve-facts.md` §3). -/
+def RatFactorAlgClosed : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] [CharZero K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p ≠ σ.val p₀) →
+      (∀ p₁ p₂ : Spec (CommRingCat.of K) ⟶ X, p₁ ≫ f = 𝟙 _ → p₂ ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p₁) = connectedComponent (ptOf p₀) →
+        connectedComponent (ptOf p₂) = connectedComponent (ptOf p₀) →
+        σ.val p₁ = σ.val p₂ → ρ.val p₁ = ρ.val p₂) →
+      ∃ F G : K[X], IsCoprime F G ∧ ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t : K,
+        σ.val p = OnePoint.some t → ρ.val p = Mob.ratEval F G t
+
+section Dictionary
+
+variable {S : Over (Spec (CommRingCat.of ℚ))}
+
+/-- The structure map `S_ℚ̄ → Spec ℚ̄`. -/
+abbrev bcSnd (S : Over (Spec (CommRingCat.of ℚ))) : bcQbar S ⟶ Spec (CommRingCat.of Qbar) :=
+  pullback.snd S.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+
+theorem bcPt_snd (y : fieldPt Qbar ⟶ S) : bcPt y ≫ bcSnd S = 𝟙 _ :=
+  pullback.lift_snd _ _ _
+
+/-- The `ℚ̄`-point of `S` over `ℚ` underlying a section of `S_ℚ̄ → Spec ℚ̄`. -/
+def ptOfSection (p : Spec (CommRingCat.of Qbar) ⟶ bcQbar S) (hp : p ≫ bcSnd S = 𝟙 _) :
+    fieldPt Qbar ⟶ S :=
+  Over.homMk (p ≫ pullback.fst _ _) (by
+    change (p ≫ pullback.fst _ _) ≫ S.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))
+    rw [Category.assoc, pullback.condition, ← Category.assoc]
+    change (p ≫ bcSnd S) ≫ _ = _
+    rw [hp, Category.id_comp])
+
+theorem bcPt_ptOfSection (p : Spec (CommRingCat.of Qbar) ⟶ bcQbar S) (hp : p ≫ bcSnd S = 𝟙 _) :
+    bcPt (ptOfSection p hp) = p := by
+  apply pullback.hom_ext
+  · exact pullback.lift_fst _ _ _
+  · exact (pullback.lift_snd _ _ _).trans hp.symm
+
+/-- `σ(y) = (σ ∘ pr₁)(bcPt y)`. -/
+theorem val_bcPt (σ : ToP1 S.left) (y : fieldPt Qbar ⟶ S) :
+    (σ.comp (pullback.fst _ _)).val (bcPt y) = σ.val (K := Qbar) y.left := by
+  rw [ToP1.val_comp_right]
+  exact congrArg _ (pullback.lift_fst _ _ _)
+
+end Dictionary
+
+/-- **C2 from C2K.** -/
+theorem geomCompConstOrOnto_of (h : ConstOrOntoAlgClosed) : GeomCompConstOrOnto := by
+  intro S hP hS σ y₀
+  have hPf : IsProper (bcSnd S) := inferInstance
+  have hSf : SmoothOfRelativeDimension 1 (bcSnd S) := inferInstance
+  rcases h Qbar (bcQbar S) (bcSnd S) hPf hSf (σ.comp (pullback.fst _ _)) (bcPt y₀)
+    (bcPt_snd y₀) with hc | ho
+  · left
+    intro y hy
+    rw [← val_bcPt, ← val_bcPt]
+    exact hc (bcPt y) (bcPt_snd y) hy
+  · right
+    intro t
+    obtain ⟨p, hp, hcc, hv⟩ := ho t
+    refine ⟨ptOfSection p hp, ?_, ?_⟩
+    · show connectedComponent (ptOf (bcPt (ptOfSection p hp))) = _
+      rw [bcPt_ptOfSection]; exact hcc
+    · rw [← val_bcPt, bcPt_ptOfSection]; exact hv
+
+/-- **C3 from C3K.** -/
+theorem geomCompRatFactor_of (h : RatFactorAlgClosed) : GeomCompRatFactor := by
+  intro S hP hS σ ρ y₀ hne hfib
+  have hPf : IsProper (bcSnd S) := inferInstance
+  have hSf : SmoothOfRelativeDimension 1 (bcSnd S) := inferInstance
+  have hcc : ∀ (p : Spec (CommRingCat.of Qbar) ⟶ bcQbar S) (hp : p ≫ bcSnd S = 𝟙 _),
+      geomComp (ptOfSection p hp) = connectedComponent (ptOf p) := by
+    intro p hp
+    show connectedComponent (ptOf (bcPt (ptOfSection p hp))) = _
+    rw [bcPt_ptOfSection]
+  obtain ⟨F, G, hcop, hR⟩ := h Qbar (bcQbar S) (bcSnd S) hPf hSf (σ.comp (pullback.fst _ _))
+    (ρ.comp (pullback.fst _ _)) (bcPt y₀) (bcPt_snd y₀) (by
+      obtain ⟨y, hy, hv⟩ := hne
+      refine ⟨bcPt y, bcPt_snd y, hy, ?_⟩
+      rw [val_bcPt, val_bcPt]; exact hv) (by
+      intro p₁ p₂ hp₁ hp₂ h₁ h₂ hv
+      have e₁ := val_bcPt σ (ptOfSection p₁ hp₁)
+      have e₂ := val_bcPt σ (ptOfSection p₂ hp₂)
+      have f₁ := val_bcPt ρ (ptOfSection p₁ hp₁)
+      have f₂ := val_bcPt ρ (ptOfSection p₂ hp₂)
+      rw [bcPt_ptOfSection] at e₁ e₂ f₁ f₂
+      rw [f₁, f₂]
+      refine hfib _ _ ((hcc p₁ hp₁).trans h₁) ((hcc p₂ hp₂).trans h₂) ?_
+      rw [← e₁, ← e₂]; exact hv)
+  refine ⟨F, G, hcop, fun y t hy ht => ?_⟩
+  rw [← val_bcPt] at ht ⊢
+  exact hR (bcPt y) (bcPt_snd y) hy t ht
+
+/-- **Both curve facts from C1a, C2K, C3K** (the leaves in Hartshorne's setting). -/
+theorem curveFacts_of_algClosed (h1 : SmoothCurveNoIsolatedPoint) (h2 : ConstOrOntoAlgClosed)
+    (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_named h1 (geomCompConstOrOnto_of h2) (geomCompRatFactor_of h3)
+
 end Pin
 
 end AV
@@ -409,3 +538,4 @@ end
 #print axioms LeafQM.AV.Pin.curveFacts_of_comp
 #print axioms LeafQM.AV.Pin.geomCompFinite
 #print axioms LeafQM.AV.Pin.curveFacts_of_named
+#print axioms LeafQM.AV.Pin.curveFacts_of_algClosed

@@ -37,3 +37,4 @@ Hint: Replace the deprecated name:
 'LeafQM.AV.Pin.curveFacts_of_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.Pin.geomCompFinite' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.Pin.curveFacts_of_named' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_algClosed' depends on axioms: [propext, Classical.choice, Quot.sound]

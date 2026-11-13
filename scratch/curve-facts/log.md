@@ -41,3 +41,11 @@
 ## Step 3: verbatim check, report
 - py/verbatim.py: CurveRatFactor, CurveSurj, ratEval IDENTICAL to scratch/mobius-glue (VERIFIED).
 - docs/research/curve-facts.md written (result, definitions, truth arguments, survey, remaining).
+
+## Step 4: leaves over an algebraically closed field (compiled, EXIT 0, run6.txt; std axioms)
+- named Props ConstOrOntoAlgClosed (C2K) and RatFactorAlgClosed (C3K, with [CharZero K]):
+  any alg. closed K : Type, X : Scheme, f : X ⟶ Spec K proper, smooth rel. dim 1, σ (ρ) : ToP1 X,
+  K-points = sections p (p ≫ f = 𝟙), components = connectedComponent (ptOf p).
+- PROVED: dictionary (bcSnd, bcPt_snd, ptOfSection, bcPt_ptOfSection, val_bcPt);
+  geomCompConstOrOnto_of : C2K → C2; geomCompRatFactor_of : C3K → C3;
+  curveFacts_of_algClosed : C1a → C2K → C3K → CurveRatFactor ∧ CurveSurj.
