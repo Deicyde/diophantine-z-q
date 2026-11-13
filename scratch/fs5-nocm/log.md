@@ -37,3 +37,6 @@
 - Note (Lean pitfall): with `letI : Fact (Irreducible f)` in context, AdjoinRoot's Field-derived and CommRing-derived
   instances do not unify at reducible transparency: `ring`/`linear_combination`/`rw [map_intCast]` fail; state helper
   lemmas without the Fact (root_lin_indep) and pass through `exact`/`rfl`.
+- 06:10 Re-ran scratch/rv-nocm/nocm_check.py (~/pyenv/bin/python -I): output identical to rv-nocm's
+  nocm_check.output.txt; Part B: the Kummer-model fibre field Q(√−t, √3(t−1)) agrees with González–Rotger Thm 5.12 on
+  all 24 rational CM rows (VERIFIED, reproduced) — evidence for N2's constants.
