@@ -131,3 +131,14 @@ docs/research/h5-neron.md.
 - `stableFaltingsHeight_eq_neron_all (hN1 hN2 hO hbc)`: H5 multi-field form from leaves N1, N2 and glue
   OpenImmersionHeightLe, ModelHeightBaseChange ONLY.
 - `stableFaltingsHeight_add_le_of_productModelHeight (hN1 hH)`: additivity from N1 and P2 only.
+
+## 17. OpenImmersionHeightLe and OpenSubgroupHeight — PROVED (compiled ~02:37, H5Final.lean Part 4)
+- `stalk_ker_eq`, `stalk_spec_eq` (R1's computations as equations), `genMap_mem_maximalIdeal_iff`,
+  `omegaAt_le_cotMap`, `omega_le_cotMap` (open immersion: ω_𝒰 ⊆ f^*ω_𝒢), `detLattice_le_hodgeMap`,
+  `isAnalyticUniformization_of_comp` (inverse transport through an open immersion: dom via
+  preimage_image_eq, sections via IsOpenImmersion.appIso), `openImmersionHeightLe`,
+  `openSubgroupHeight : OpenSubgroupHeight`,
+  `stableFaltingsHeight_eq_neron_all' (hN1 hN2 hbc)`: H5 multi-field form from N1, N2 and
+  ModelHeightBaseChange ONLY.
+- H5Final.lean (now includes Part 4; H5Final2 renamed to H5Final): 0 errors, 9 #print axioms all
+  [propext, Classical.choice, Quot.sound], no sorry/axiom; ~19 s.

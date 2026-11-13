@@ -1,6 +1,6 @@
 import ZInQKernel.HDecomp.Faltings.Leaves
 
-/-! # h5-glue: `NeronModelMinimal` and `HeightAntitone` are theorems
+/-! # h5-glue: `NeronModelMinimal`, `OpenSubgroupHeight`, H4b are theorems; H5 from N1, N2, H4a
 
 Self-contained (Mathlib + project only; no `sorry`, no `axiom`).
 * Part 1 (namespace `ZInQ.DefFaltings.HodgeLattice`): `scratch/hodge-lattice/HodgeLattice.lean`
@@ -8,10 +8,13 @@ Self-contained (Mathlib + project only; no `sorry`, no `axiom`).
 * Part 2 (namespace `ZInQ.H5Glue`): `scratch/h5-glue/JacDet.lean` (transport along a generic
   isomorphism; `heightAntitone_of_omegaSpans`) and `scratch/h5-glue/Minimal.lean` (the Néron
   comparison map; `neronModelMinimal_of_heightAntitone`).
-* Final: `heightAntitone : HeightAntitone`, `neronModelMinimal : NeronModelMinimal`.
+* Final of Part 2: `heightAntitone : HeightAntitone`, `neronModelMinimal : NeronModelMinimal`.
 * Part 3: from `H5Glue.lean` §1, §3, §5 and `Additivity.lean` (h5-neron's product material copied
   verbatim): H4b, open subgroups, the reduction, and additivity, with `HeightAntitone` and
-  `NeronModelMinimal` discharged. -/
+  `NeronModelMinimal` discharged.
+* Part 4: `openImmersionHeightLe` (inverse transport through open immersions),
+  `openSubgroupHeight`, `stableFaltingsHeight_eq_neron_all'` (H5 from N1, N2,
+  `ModelHeightBaseChange`). -/
 
 /-! # `HodgeLatticeTheorem`: the algebraic reduction (task hodge-lattice)
 
@@ -2350,13 +2353,282 @@ theorem stableFaltingsHeight_add_le_of_productModelHeight (hN1 : NeronModelExist
 
 end ProductProof
 
+
+/-! ## Part 4: `OpenImmersionHeightLe` (the inverse transport) -/
+
+section OpenHeight
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- The kernel computation of `cotMap_omegaAt`, as an equation. -/
+theorem stalk_ker_eq (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    (s : Spec (CommRingCat.of (𝓞 L))) (hp : f.left (𝒢.unitSection s) = 𝒩.unitSection s)
+    (g : 𝒩.G.left.presheaf.stalk (𝒩.unitSection s)) :
+    (𝒢.unitSection.stalkMap s) (f.left.stalkMap (𝒢.unitSection s)
+      (𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes g)) =
+      (𝒩.unitSection.stalkMap s) g := by
+  have hE := unitSection_comp 𝒢 𝒩 f
+  set T := 𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes
+  have h1 := Scheme.Hom.stalkMap_comp 𝒢.unitSection f.left s
+  have h2 := Scheme.Hom.stalkMap_congr_hom _ _ hE s
+  have h1' : (𝒢.unitSection.stalkMap s) (f.left.stalkMap (𝒢.unitSection s) (T g)) =
+      ((𝒢.unitSection ≫ f.left).stalkMap s) (T g) := by
+    have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h1
+    exact this.symm
+  have h2' : ((𝒢.unitSection ≫ f.left).stalkMap s) (T g) =
+      (𝒩.unitSection.stalkMap s) ((𝒩.G.left.presheaf.stalkCongr
+        (Inseparable.of_eq (hE ▸ rfl))).hom (T g)) := by
+    have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h2
+    exact this
+  rw [h1', h2']
+  have h4 : ∀ y : 𝒩.G.left.presheaf.stalk (𝒩.unitSection s), y = g →
+      (𝒩.unitSection.stalkMap s) y = (𝒩.unitSection.stalkMap s) g := by
+    rintro y rfl; rfl
+  apply h4
+  show 𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).symm.specializes (T g) = g
+  exact (stalkSpecializes_stalkSpecializes_apply _ _ g).trans (stalkSpecializes_self_apply _ g)
+
+/-- The specialization computation of `cotMap_omegaAt`, as an equation. -/
+theorem stalk_spec_eq (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    (s : Spec (CommRingCat.of (𝓞 L))) (hp : f.left (𝒢.unitSection s) = 𝒩.unitSection s)
+    (g : 𝒩.G.left.presheaf.stalk (𝒩.unitSection s)) :
+    𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+      (f.left.stalkMap (𝒢.unitSection s)
+        (𝒩.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes g)) =
+      genMap 𝒢 𝒩 f (𝒩.G.left.presheaf.stalkSpecializes (𝒩.specializes_genericUnit s) g) := by
+  rw [← Scheme.Hom.stalkSpecializes_stalkMap_apply]
+  unfold genMap
+  rw [CommRingCat.comp_apply]
+  congr 1
+  rw [stalkSpecializes_stalkSpecializes_apply, stalkSpecializes_stalkSpecializes_apply]
+
+theorem genMap_mem_maximalIdeal_iff (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    [IsIso ((Over.pullback (jL L)).map f)] (x : 𝒩.genStalk) :
+    genMap 𝒢 𝒩 f x ∈ IsLocalRing.maximalIdeal 𝒢.genStalk ↔
+      x ∈ IsLocalRing.maximalIdeal 𝒩.genStalk := by
+  haveI := isIso_genMap 𝒢 𝒩 f
+  let e : 𝒩.genStalk ≃+* 𝒢.genStalk := (asIso (genMap 𝒢 𝒩 f)).commRingCatIsoToRingEquiv
+  simp only [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+  exact not_congr (isUnit_map_iff e x)
+
+/-- **For an open immersion, `(ω_𝒰)_s ⊆ f^* (ω_𝒢)_s`** at every `s`. -/
+theorem omegaAt_le_cotMap (𝒰 𝒢 : GroupModel A L) (f : 𝒰.G ⟶ 𝒢.G) [IsMonHom f]
+    [IsOpenImmersion f.left] [IsIso ((Over.pullback (jL L)).map f)]
+    (s : Spec (CommRingCat.of (𝓞 L))) (x : 𝒰.cotangent) (hx : x ∈ 𝒰.omegaAt s) :
+    ∃ y ∈ 𝒢.omegaAt s, cotMap 𝒰 𝒢 f y = x := by
+  have hE := unitSection_comp 𝒰 𝒢 f
+  have hp : f.left (𝒰.unitSection s) = 𝒢.unitSection s :=
+    (Scheme.Hom.comp_apply _ _ _).symm.trans (congrArg (fun φ => φ s) hE)
+  induction hx using Submodule.span_induction with
+  | mem x hx =>
+    obtain ⟨g, hg, hmem, rfl⟩ := hx
+    have hiso1 : IsIso (f.left.stalkMap (𝒰.unitSection s)) :=
+      (IsOpenImmersion.iff_isIso_stalkMap.mp inferInstance).2 _
+    have hiso2 : IsIso (𝒢.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes) :=
+      Iso.isIso_hom (𝒢.G.left.presheaf.stalkCongr (Inseparable.of_eq hp).symm)
+    let Ψ := 𝒢.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes ≫
+      f.left.stalkMap (𝒰.unitSection s)
+    haveI : IsIso Ψ := inferInstance
+    set g₀ := (inv Ψ) g
+    have hg₀ : f.left.stalkMap (𝒰.unitSection s)
+        (𝒢.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes g₀) = g := by
+      show Ψ (inv Ψ g) = g
+      rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+    have hker := stalk_ker_eq 𝒰 𝒢 f s hp g₀
+    rw [hg₀] at hker
+    have hspec := stalk_spec_eq 𝒰 𝒢 f s hp g₀
+    rw [hg₀] at hspec
+    have hmem₀ : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) g₀ ∈
+        IsLocalRing.maximalIdeal 𝒢.genStalk := by
+      rw [← genMap_mem_maximalIdeal_iff 𝒰 𝒢 f, ← hspec]; exact hmem
+    refine ⟨𝒢.dCls ⟨_, hmem₀⟩, Submodule.subset_span ⟨g₀, ?_, hmem₀, rfl⟩, ?_⟩
+    · rw [RingHom.mem_ker, ← hker]; exact hg
+    · rw [cotMap_dCls]
+      congr 1
+      exact Subtype.ext hspec.symm
+  | zero => exact ⟨0, zero_mem _, map_zero _⟩
+  | add x y _ _ hx hy =>
+    obtain ⟨a, ha, rfl⟩ := hx
+    obtain ⟨b, hb, rfl⟩ := hy
+    exact ⟨a + b, add_mem ha hb, map_add _ _ _⟩
+  | smul r x _ hx =>
+    obtain ⟨a, ha, rfl⟩ := hx
+    exact ⟨r • a, Submodule.smul_mem _ r ha, map_smul _ _ _⟩
+
+/-- **For an open immersion, `ω_𝒰 ⊆ f^* ω_𝒢`.** -/
+theorem omega_le_cotMap (𝒰 𝒢 : GroupModel A L) (f : 𝒰.G ⟶ 𝒢.G) [IsMonHom f]
+    [IsOpenImmersion f.left] [IsIso ((Over.pullback (jL L)).map f)]
+    (x : 𝒰.cotangent) (hx : x ∈ 𝒰.omega) : ∃ y ∈ 𝒢.omega, cotMap 𝒰 𝒢 f y = x := by
+  obtain ⟨y, hy⟩ := (cotMap_bijective 𝒰 𝒢 f).2 x
+  refine ⟨y, ?_, hy⟩
+  rw [GroupModel.omega, Submodule.mem_iInf] at hx ⊢
+  intro s
+  obtain ⟨y', hy', hy'x⟩ := omegaAt_le_cotMap 𝒰 𝒢 f s x (hx s)
+  rwa [(cotMap_bijective 𝒰 𝒢 f).1 (hy'x.trans hy.symm)] at hy'
+
+theorem detLattice_le_hodgeMap (𝒰 𝒢 : GroupModel A L) (f : 𝒰.G ⟶ 𝒢.G) [IsMonHom f]
+    [IsOpenImmersion f.left] [IsIso ((Over.pullback (jL L)).map f)] (g : ℕ)
+    (x : 𝒰.hodgeSpace g) (hx : x ∈ 𝒰.detLattice g) :
+    ∃ y ∈ 𝒢.detLattice g, hodgeMap 𝒰 𝒢 f g y = x := by
+  induction hx using Submodule.span_induction with
+  | mem z hz =>
+    obtain ⟨v, rfl⟩ := hz
+    choose w hw hwv using fun i => omega_le_cotMap 𝒰 𝒢 f (v i : 𝒰.cotangent) (v i).2
+    refine ⟨(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g w,
+      Submodule.subset_span ⟨fun i => ⟨w i, hw i⟩, rfl⟩, ?_⟩
+    rw [hodgeMap_wedge]
+    simp only [hwv]
+  | zero => exact ⟨0, zero_mem _, map_zero _⟩
+  | add a b _ _ ha hb =>
+    obtain ⟨c, hc, rfl⟩ := ha
+    obtain ⟨d, hd, rfl⟩ := hb
+    exact ⟨c + d, add_mem hc hd, map_add _ _ _⟩
+  | smul r a _ ha =>
+    obtain ⟨c, hc, rfl⟩ := ha
+    refine ⟨r • c, Submodule.smul_mem _ r hc, ?_⟩
+    rw [← algebraMap_smul L r c, LinearMap.map_smul, algebraMap_smul]
+
+/-- **Inverse transport of analytic uniformizations through an open immersion.** -/
+theorem isAnalyticUniformization_of_comp (𝒰 𝒢 : GroupModel A L) (f : 𝒰.G ⟶ 𝒢.G) [IsMonHom f]
+    [IsOpenImmersion f.left] [IsIso ((Over.pullback (jL L)).map f)] (τ : L →+* ℂ) {g : ℕ}
+    (Λ : Submodule ℤ (Fin g → ℂ)) (Ψ : (Fin g → ℂ) → 𝒰.Pts τ)
+    (h : 𝒢.IsAnalyticUniformization τ Λ (fun z => Ψ z ≫ f)) :
+    𝒰.IsAnalyticUniformization τ Λ Ψ := by
+  obtain ⟨hmul, hker, hsurj, hopen, hdiff⟩ := h
+  have hb := pts_comp_bijective 𝒰 𝒢 f τ
+  have hdom : ∀ V, 𝒰.dom Ψ V = 𝒢.dom (fun z => Ψ z ≫ f) (f.left ''ᵁ V) := by
+    intro V
+    ext z
+    show ⊤ ≤ (Ψ z).left ⁻¹ᵁ V ↔ ⊤ ≤ (Ψ z ≫ f).left ⁻¹ᵁ (f.left ''ᵁ V)
+    have : (Ψ z ≫ f).left ⁻¹ᵁ (f.left ''ᵁ V) = (Ψ z).left ⁻¹ᵁ V := by
+      show (Ψ z).left ⁻¹ᵁ (f.left ⁻¹ᵁ (f.left ''ᵁ V)) = _
+      rw [Scheme.Hom.preimage_image_eq]
+    rw [this]
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro z w
+    apply hb.1
+    show Ψ (z + w) ≫ f = (Ψ z * Ψ w) ≫ f
+    rw [MonObj.mul_comp]
+    exact hmul z w
+  · intro z
+    rw [← hker z]
+    constructor
+    · intro h1
+      show Ψ z ≫ f = 1
+      rw [h1, MonObj.one_comp]
+    · intro h1
+      apply hb.1
+      show Ψ z ≫ f = 1 ≫ f
+      rw [MonObj.one_comp]
+      exact h1
+  · intro p
+    obtain ⟨z, hz⟩ := hsurj (p ≫ f)
+    exact ⟨z, hb.1 hz⟩
+  · intro V
+    rw [hdom]
+    exact hopen _
+  · intro V s
+    rw [hdom]
+    refine (hdiff (f.left ''ᵁ V) ((f.left.appIso V).inv s)).congr fun z hz => ?_
+    have hz' : z ∈ 𝒰.dom Ψ V := (hdom V).symm ▸ hz
+    rw [evalAt_comp, evalAt_res 𝒰 (Ψ z) (homOfLE (Scheme.Hom.preimage_image_eq f.left V).ge) hz']
+    congr 1
+    have hh : f.left.app (f.left ''ᵁ V) ≫
+        𝒰.G.left.presheaf.map (homOfLE (Scheme.Hom.preimage_image_eq f.left V).ge).op =
+        (f.left.appIso V).hom := by
+      rw [Scheme.Hom.appIso_hom]
+      rfl
+    rw [← CommRingCat.comp_apply, hh, ← CommRingCat.comp_apply, Iso.inv_hom_id,
+      CommRingCat.id_apply]
+
+end OpenHeight
+
+/-- **Glue `OpenImmersionHeightLe`, proved.** -/
+theorem openImmersionHeightLe : OpenImmersionHeightLe := by
+  intro K _ A L _ _ _ 𝒰 𝒢 f hf hm hi
+  haveI := hf
+  haveI := hm
+  unfold GroupModel.height
+  refine le_iInf fun g => le_iInf fun M => le_iInf fun hM => ?_
+  subst hM
+  have hbij := hodgeMapBijective K A L 𝒰 M.model f hi g
+  let e := LinearEquiv.ofBijective (hodgeMap 𝒰 M.model f g) hbij
+  have hfin : Module.finrank L (𝒰.hodgeSpace g) = 1 :=
+    e.finrank_eq.symm.trans M.hodge.finrank_eq_one
+  obtain ⟨v, hv, hv0⟩ := hodgeLatticeNonzero_of_omegaSpans omegaSpans K A L 𝒰 g hfin
+  let H : 𝒰.hodgeSpace g →ₗ[L] M.model.hodgeSpace g := e.symm
+  have hinj : Function.Injective H := e.symm.injective
+  have hle : ∀ x ∈ 𝒰.detLattice g, H x ∈ M.hodge.lattice := by
+    intro x hx
+    obtain ⟨y, hy, rfl⟩ := detLattice_le_hodgeMap 𝒰 M.model f g x hx
+    have : H (hodgeMap 𝒰 M.model f g y) = y := e.symm_apply_apply y
+    rw [this, M.lattice_eq]
+    exact hy
+  have hv0' : H v ≠ 0 := fun h0 => hv0 (hinj (h0.trans (map_zero H).symm))
+  have hne := secIndex_ne_zero_of_mem M.hodge (hle v hv) hv0'
+  have hlat : ∃ s ∈ 𝒰.detLattice g, s ≠ 0 ∧ secIndex (𝒰.detLattice g) s ≠ 0 :=
+    ⟨v, hv, hv0, (secIndex_le_of_map H hinj _ _ hle hv hne).1⟩
+  haveI := isIso_genMap 𝒰 M.model f
+  let M' : MetrizedModel A L g :=
+    { model := 𝒰
+      hodge := pullHodge M.hodge H hinj (𝒰.detLattice g) hfin hlat
+      lattice_eq := rfl
+      arch := fun τ => by
+        obtain ⟨Φ, hΦ, hc⟩ := M.arch τ
+        let Ψ : (Fin g → ℂ) → 𝒰.Pts τ := fun z =>
+          (Equiv.ofBijective _ (pts_comp_bijective 𝒰 M.model f τ)).symm (Φ z)
+        have hΦΨ : (fun z => Ψ z ≫ f) = Φ := funext fun z =>
+          (Equiv.ofBijective _ (pts_comp_bijective 𝒰 M.model f τ)).apply_symm_apply (Φ z)
+        have hU : 𝒰.IsAnalyticUniformization τ (M.hodge.periods τ) Ψ :=
+          isAnalyticUniformization_of_comp 𝒰 M.model f τ _ Ψ (hΦΨ ▸ hΦ)
+        refine ⟨Ψ, hU, fun t => ?_⟩
+        let t₀ : Fin g → IsLocalRing.maximalIdeal M.model.genStalk := fun i =>
+          ⟨(inv (genMap 𝒰 M.model f)) (t i), by
+            rw [← genMap_mem_maximalIdeal_iff 𝒰 M.model f, ← CommRingCat.comp_apply,
+              IsIso.inv_hom_id, CommRingCat.id_apply]
+            exact (t i).2⟩
+        have ht : ∀ i, (t i : 𝒰.genStalk) = genMap 𝒰 M.model f (t₀ i) := fun i => by
+          show _ = genMap 𝒰 M.model f ((inv (genMap 𝒰 M.model f)) (t i))
+          rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+        have hw : 𝒰.wedge t = hodgeMap 𝒰 M.model f g (M.model.wedge t₀) := by
+          rw [hodgeMap_wedgeGerm]
+          congr 1
+          funext i
+          exact Subtype.ext (ht i)
+        show M.hodge.coeff τ (H (𝒰.wedge t)) = _
+        have hH : H (𝒰.wedge t) = M.model.wedge t₀ := by
+          rw [hw]; exact e.symm_apply_apply _
+        rw [hH, hc, ← jacDet_comp_genMap 𝒰 M.model f _ Ψ hU t₀ t ht, hΦΨ] }
+  calc (⨅ (g' : ℕ) (M'' : MetrizedModel A L g') (_ : M''.model = 𝒰),
+        (M''.hodge.modelHeight : EReal)) ≤ (M'.hodge.modelHeight : EReal) :=
+        iInf_le_of_le g (iInf_le_of_le M' (iInf_le_of_le rfl le_rfl))
+    _ ≤ (M.hodge.modelHeight : EReal) :=
+        EReal.coe_le_coe_iff.mpr (modelHeight_pullHodge_le M.hodge H hinj _ hfin hlat hle)
+
+/-- **`OpenSubgroupHeight` (glue M6), proved.** -/
+theorem openSubgroupHeight : OpenSubgroupHeight :=
+  openSubgroupHeight_of heightAntitone openImmersionHeightLe
+
+/-- **H5 in the form R19-R21 need, from the leaves N1, N2 and the one remaining glue statement
+`ModelHeightBaseChange`.** -/
+theorem stableFaltingsHeight_eq_neron_all' (hN1 : NeronModelExists)
+    (hN2 : SemistableNeronIdentityComponent) (hbc : ModelHeightBaseChange) (K : Type) [Field K]
+    [NumberField K] (A : AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+        stableFaltingsHeight A = 𝒩'.height :=
+  stableFaltingsHeight_eq_neron_all hN1 hN2 openImmersionHeightLe hbc K A
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.heightAntitone
 #print axioms ZInQ.H5Glue.neronModelMinimal
 #print axioms ZInQ.H5Glue.groupModelBaseChangeExists
-#print axioms ZInQ.H5Glue.genericIso_of_openImmersion
-#print axioms ZInQ.H5Glue.openSubgroupHeight_of
+#print axioms ZInQ.H5Glue.openImmersionHeightLe
+#print axioms ZInQ.H5Glue.openSubgroupHeight
 #print axioms ZInQ.H5Glue.stableFaltingsHeight_eq_neron_all
+#print axioms ZInQ.H5Glue.stableFaltingsHeight_eq_neron_all'
 #print axioms ZInQ.H5Glue.productGroupModelExists
 #print axioms ZInQ.H5Glue.stableFaltingsHeight_add_le_of_productModelHeight
