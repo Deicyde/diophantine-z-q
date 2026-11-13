@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 940 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (988 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
@@ -58,7 +58,11 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
 | `isModelOver_baseChange`, `baseChangeTrans` | — | `(A_{L'})_ℚ̄ ≅ A_ℚ̄` (Mathlib's `Over.pullbackComp`) |
 | `b3_of_cochain` | B3 | glue-descent's `b3_of_leaves` proof with B2's cochain as a hypothesis, so that the twist can depend on it |
 | `g7Out_of_g4Out` | G7 (B2-B3) | `GlueDescent.B3Q.b3_degree_le_QM` at `S_mul`, `D`, `η = 1` |
-| `g7OutUnr_of_g4Out` | G7 with the twist (N5 L664-716) | `b2_of_leaves`, `GlueB3Unram.unramified_outside_noLeaf` (B3(v), no leaf), `b3_of_cochain`, `degree_le_QM` |
+| `b2_of_leaves_level` | B2 | glue-descent's `b2_of_leaves` proof, copied, exposing the level `N = chiLevel T₋` of `χ` |
+| `g7OutUnr_of_g4Out` | G7 with the twist (N5 L664-716) | `b2_of_leaves_level`, `GlueB3Unram.unramified_outside_noLeaf` (B3(v), no leaf), `b3_of_cochain`, `degree_le_QM` |
+| `galAct_bijective`, `card_ker_GL`, `IsQMModel.isModelOver` | — | the Galois action on `A(ℚ̄)` is bijective; kernel sizes on `G_L`; a QM model is a model |
+| `resQ_comm'`, `resQ_range`, `resQRange` | bridge | the image of `Field.absoluteGaloisGroup.map` for `L'` is `Fix(L')` |
+| `galoisG2Out_of_g7Data` | bridge | g0-mod-galois' `G2Out L' T` from `G7Data` |
 | `fieldDescent`, `fieldDescentUnr` | G2 → G4 → G7 | the above |
 | `modularConstituent_of_ranges(_T14)` | piece 10 | `fieldDescentUnr` and `AfterG7` |
 
@@ -71,7 +75,7 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
    Small to medium.
 2. `FibreCoverExists` (G2: Prop. TS + Lemma NV on the actual fibre). For each fibre context:
    a separable `f ∈ ℚ[X]` with `deg f ≤ 324`, whose splitting field `K ⊆ ℚ̄` is unramified
-   outside `T` and carries a model of `P`. Proved inputs: the valuation case analysis
+   outside `T` and carries a rational fibre `PK` over `P` (`RationalFibre`). Proved inputs: the valuation case analysis
    `GlueRepo.PR.inertia_orders_eq_one_iff` and Lemma NV step 2. Missing: the degree theory of
    curves and the function-field Galois theory (leaf-qm-fp §4). Large.
 3. `KernelFieldExists` (G4 + B1's geometric half). For each fibre context and each `K`, `A/K` as
@@ -79,7 +83,8 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
    endomorphism lattice of `Res_{K/ℚ} A`; its Galois image, a finite `G ≤ GL_r(ℤ)`; the kernel
    field `E` with `[E:ℚ] = |G|`, unramified outside `T`; and `ConjugacyData` on `A_{E⊔K}`. The
    last is the maps `m_σ = μ_σ∘σ` with `μ_σ` the `B`-linear conjugacy isogenies (Skolem-Noether,
-   which uses NoCM, G6), the rational discrepancy `c` and the kernel sizes. Medium-large. It
+   which uses NoCM, G6), the rational discrepancy `c`, the kernel sizes and the scheme morphisms `F_σ`.
+   Medium-large. It
    needs Weil restriction, Tate modules of `W₀` and Skolem-Noether (T13,
    `GlueDescent.LeafSkolemNoether`, proved by t-skolem-kw per its report).
 4. `AfterG7`: the ranges G8-G16, owned by g0-mod-galois and g0-mod-newform (§3). Connecting
@@ -149,7 +154,7 @@ this. This is SPECULATIVE until the next ranges are checked against it.
 **Into `ModularConstituent` (proved: `modularConstituent_of_ranges`).** The theorem takes
 `G7Data`'s `L'` as `⟨L'⟩ : GlueAssembly.NF` (a number field by `numberField_of_fd`) and
 `emb = algebraMap L' ℚ̄`. It takes the model as `A_{L'}`, the base change of `A/L` along
-`incAlg hLL'`. Then `G7Data`'s ninth clause is `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`, its eleventh is the
+`incAlg hLL'`. Then `G7Data`'s tenth clause is `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`, its twelfth (last) is the
 model clause (closed by defeq, since `emb.toAlgebra` and the intermediate-field instance give the
 same `algebraMap`), and `AfterG7` gives `N`, `J₁(N)` and the common constituent.
 
@@ -184,17 +189,19 @@ inputs are per `ℓ` over an abstract number field `K` (= `L'`), via `resQ K`:
   (g0-split's `model_dim`). `rank End = 4` is G5-G6, outside this range. **Stated in Lean** as the
   Prop `TateBridge`: `G7Data` + `dim A_{L'} = 2` + `rank_ℤ End(A_{L'}) = 4` gives, for every
   prime `ℓ`, data with `GaloisCopy.G7Out (A_{L'}) ℓ`.
-* G16 (g0-mod-newform) uses `[L':ℚ]` only through `N ≤ QM²`. The `G7Data` clause
-  `(∀ q prime, q ∣ N → q ∈ T)` with `N` the modulus of `χ` serves the conductor bound G15
-  (`β` is ramified only in `T` after the twist).
+* g0-mod-newform (G13-G16; read `wip/g0-mod-newform` at 8ab403b1) takes G8-G12's `ModData`
+  and leaves open `G14TraceCompat`. Their docstring says it must be proved from the relative
+  Frobenius composed with the reduction of `μ̄_σ`, which is why `DescentDatum` records the
+  scheme morphisms `F_σ`. The open `G15LocalBounds` uses the level of `χ` (clause
+  `N = chiLevel T₋`) and the good reduction of `A` away from 3 (`IsQMModel`).
 
 ## 4. Checks
 
 * **The remaining Props are true given Glazer's argument** (model check). The fibre of the
   normalized cover over `u` is finite étale of degree `≤ 324`, so it is `Spec ℚ[X]/(f)` with `f`
   separable. Its splitting field contains every residue field, and `y` factors through it with
-  the given embedding into `ℚ̄`. `Y₃` is a fine moduli space (level 3), so `P` has a model over
-  `K`. `KernelFieldOut`: Glazer's `E` with its image in `GL_r(ℤ)` (`r` can be taken `≤ 16F₀²`), and
+  the given embedding into `ℚ̄`. So `y` is a `K`-point, and its object `PK` is a
+  `RationalFibre`. `KernelFieldOut`: Glazer's `E` with its image in `GL_r(ℤ)` (`r` can be taken `≤ 16F₀²`), and
   `ConjugacyData` as in §2.
 * **No hypothesis is a disguised conclusion.** `G7Data`'s numerical clause
   `[L':ℚ] ≤ Q_D·M` is proved from `[L:ℚ] ≤ D`, the order of `χ` and glue-descent's constants. It
@@ -211,9 +218,20 @@ inputs are per `ℓ` over an abstract number field `K` (= `L'`), via `resQ K`:
 `ModField.lean` imports only `ZInQKernel/HDecomp/` modules plus `Hypotheses/JHeight`,
 `Multiplication/Certificate/ConstantsProperties`, `Progressions/Final/Instance` and
 `Size/Constants/T`. So it can become `ZInQKernel/HDecomp/ModField.lean` as it stands. Its
-namespace is `G0ModField` and nothing in it is a copy except `CommonConstituent`,
-`le_heightD_of_mem_S_mul` and `b3_of_cochain`. To close `G0Split.ModularConstituent` in
+namespace is `G0ModField`. The only copies in it are `CommonConstituent`,
+`le_heightD_of_mem_S_mul`, `b2_of_leaves_level`, `b3_of_cochain` and the `GaloisCopy` section
+(g0-mod-galois' definitions). To close `G0Split.ModularConstituent` in
 `Split.lean`, prove `AfterG7` (or replace it by the composite of g0-mod-galois' and
 g0-mod-newform's theorems through the bridge of §3), then use `modularConstituent_of_ranges_T14`.
 `MissingPieces.modularConstituent` is then replaced by `FibreCoverExists`, `KernelFieldExists`,
-`UnramifiedSup` and `AfterG7`'s pieces.
+`UnramifiedSup`, `TateBridge` and the other two ranges' named pieces.
+
+## 6. Not done
+
+* `UnramifiedSup` is not proved. It needs inertia groups of a compositum over Mathlib's
+  `Ideal.ramificationIdx`. Mathlib has `Ideal.card_inertia_eq_ramificationIdxIn`, but no
+  compositum lemma.
+* `TateBridge` is stated, not proved.
+* No satisfiability check of `ConjugacyData` on a concrete `A` was compiled. Mathlib v4.35
+  constructs no nonzero abelian variety, and on the zero variety `F_σ` must be
+  `Spec(σ|_L⁻¹)`, which needs the restriction `Gal(ℚ̄/ℚ) → Gal(L/ℚ)` spelled out.
