@@ -28,3 +28,10 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
 - `KummerEtale.lean` (Mathlib only): COMPILES, standard axioms.
   `etale_adjoinRoot_X_pow_sub_C : 0 < e → IsUnit (e : A) → IsUnit u → Algebra.Etale A (AdjoinRoot (X^e - C u))`
   (standard étale pair (Xᵉ-u, 1)); an ingredient of Abhyankar (T2), not T2 itself.
+- `AbhyankarBricks.lean` (Mathlib only, the instance context of `PkgI2.AbhyankarDVR` verbatim):
+  COMPILES, standard axioms. `dvd_ramificationIdx_of_pow_eq` (general: DVR `R`, uniformizer `π`,
+  Dedekind `S`, `tⁿ = π` in `S`, `𝔪S ≠ ⊥` ⇒ `n ∣ Q.ramificationIdx R` for `Q` over `𝔪`);
+  `abhyankar_isScalarTower_RLM`, `abhyankar_finiteDimensional`, `abhyankar_isSeparable`,
+  `abhyankar_isDedekindDomain` (M/K finite separable, `integralClosure R M` Dedekind);
+  `abhyankar_dvd_ramificationIdx`: in the leaf's setting, `n ∣ e(Q|𝔪)` for every prime `Q` of
+  `integralClosure R M` over `𝔪` (lower half of the conclusion; tameness hypothesis unused).
