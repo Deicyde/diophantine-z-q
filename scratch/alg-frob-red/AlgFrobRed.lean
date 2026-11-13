@@ -3933,6 +3933,118 @@ theorem redRelMul : RedRelMul := by
     exact (congrArg Over.Hom.left key).trans (Category.assoc _ _ _)
 
 
+/-! ## 8. `RedTorsionQbar` from the leaf I2-Red (transport along `L‾ ≅ ℚ̄`) -/
+
+section RedMul2
+
+open scoped CategoryTheory.Obj
+
+/-- The adjunction bijection `Hom(g_! T, M) ≃ Hom(T, g^* M)` is multiplicative. -/
+theorem pb_mul {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S')
+    (p q : (Over.map g).obj T ⟶ M) :
+    (Over.mapPullbackAdj g).homEquiv T M (p * q) =
+      (Over.mapPullbackAdj g).homEquiv T M p * (Over.mapPullbackAdj g).homEquiv T M q := by
+  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+    Functor.map_mul, MonObj.comp_mul]
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- The adjunction bijection sends `1` to `1`. -/
+theorem pb_one {S S' : Scheme} (g : S' ⟶ S) (M : Over S) [MonObj M] (T : Over S') :
+    (Over.mapPullbackAdj g).homEquiv T M 1 = 1 := by
+  rw [Adjunction.homEquiv_unit, Functor.map_one, MonObj.comp_one]
+
+end RedMul2
+
+/-- `pb_mul` at the group law of `(Over.pullback g).mapGrp.obj G`. -/
+theorem pb_mul' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
+    (p q : (Over.map g).obj T ⟶ G.X) (r u w : T ⟶ ((Over.pullback g).mapGrp.obj G).X)
+    (hr : r = (Over.mapPullbackAdj g).homEquiv T G.X (p * q))
+    (hu : u = (Over.mapPullbackAdj g).homEquiv T G.X p)
+    (hw : w = (Over.mapPullbackAdj g).homEquiv T G.X q) : r = u * w := by
+  subst hr hu hw
+  exact pb_mul g G.X T p q
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- `pb_one` at the group law of `(Over.pullback g).mapGrp.obj G`. -/
+theorem pb_one' {S S' : Scheme} (g : S' ⟶ S) (G : Grp (Over S)) (T : Over S')
+    (r : T ⟶ ((Over.pullback g).mapGrp.obj G).X)
+    (hr : r = (Over.mapPullbackAdj g).homEquiv T G.X 1) : r = 1 := by
+  subst hr
+  exact pb_one g G.X T
+
+/-- **`OwDVR` (GLUE, standard: a valuation ring of a number field in which `p` is not a unit is
+the localization of `𝓞_L` at a nonzero prime, a DVR; e.g. Neukirch, *Algebraic Number Theory*,
+Ch. II (locator UNVERIFIED)).** Needed to apply I2-Red, whose base is a DVR. -/
+def OwDVR : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar) (p : ℕ), p.Prime →
+    PkgI4.LiesOver v p → IsDiscreteValuationRing (Ow L v)
+
+/-- The place `w = ψ⁻¹(v)` of `L‾` for an `L`-isomorphism `ψ : L‾ ≅ ℚ̄`. -/
+abbrev wOf {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar) :
+    ValuationSubring (AlgebraicClosure L) :=
+  v.comap (ψ : AlgebraicClosure L →+* PkgI4.Qbar)
+
+theorem hw_of {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) :
+    (wOf ψ v).comap (algebraMap L (AlgebraicClosure L)) = Ow L v := by
+  ext x
+  simp [ValuationSubring.mem_comap]
+
+/-- `ψ` restricted to `O_w ≅ O_v`. -/
+def psiW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar) :
+    wOf ψ v ≃+* v where
+  toFun y := ⟨ψ y, y.2⟩
+  invFun z := ⟨ψ.symm z, by
+    show ψ (ψ.symm z) ∈ v
+    rw [AlgEquiv.apply_symm_apply]
+    exact z.2⟩
+  left_inv y := Subtype.ext (ψ.symm_apply_apply _)
+  right_inv z := Subtype.ext (ψ.apply_symm_apply _)
+  map_mul' a b := Subtype.ext (map_mul ψ _ _)
+  map_add' a b := Subtype.ext (map_add ψ _ _)
+
+theorem psiW_toW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (a : Ow L v) :
+    psiW ψ v (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v) a) = PkgI2.toW (Ow L v) v rfl a :=
+  Subtype.ext (by
+    show ψ (algebraMap L (AlgebraicClosure L) (a : L)) = algebraMap L PkgI4.Qbar (a : L)
+    exact ψ.commutes _)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- `Spec(j ∘ κ(ψ)) : Spec κ(w)‾ → Spec κ(w')` over `Spec O_w`, where `w' = ψ⁻¹(v)` (an
+isomorphism when `j` is bijective). -/
+def iotaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
+    (Over.map (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).obj
+        (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) ⟶
+      Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) :=
+  Over.homMk (Spec.map (CommRingCat.ofHom
+      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) (by
+    simp only [Over.mk_hom, Over.map_obj_hom, PkgI2.specOver]
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext a
+    simp only [RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingHom.coe_coe,
+      IsLocalRing.ResidueField.mapEquiv_apply, IsLocalRing.ResidueField.map_residue]
+    rw [psiW_toW ψ v a]
+    exact hjc a)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- `Θ`: I2's `κ(w')`-points of `𝒜` to `κ(w)‾`-points of the special fibre. -/
+def thetaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
+    PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)) :=
+  (Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).homEquiv
+    _ 𝒜.X (iotaW ψ v j hjc ≫ y)
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
