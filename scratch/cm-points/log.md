@@ -41,3 +41,19 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
   `PropN.GenusData ℓ n`), `genusPackage_of_genusPointLeaf`, `genusPointLeaf_of_split`,
   `genusPackage_of_split`, `tyzThm35ReadingA_of_split`.
 - `#print axioms tyzThm35ReadingA_of_split`: [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## 07:50 Merged origin/wip/x0-32 and origin/wip/ring-class; bridges proved
+- CM.lean now uses x0-32's `X0.phiC : ℍ → A(ℂ)` (eta quotients) as the modular parametrization:
+  `heegnerPt Q` = the point `P ∈ A(ℚ̄)` with `toC P = X0.phiC τ_Q`. Dropped my own ℘/`latA`/`modParam`
+  pin (duplicate of x0-32's model). Proved `ιC_iQ : ιC iQ = I`, `toC_injective`, `toC_heegnerPt`,
+  `heegnerPt_eq` (pinning), `cmPoint_im`, `genusSum_mem`.
+- Package.lean §7 with ring-class's `HHprime n = ℍ'_n`: proved `iContained_HHprime`
+  (i ∈ ℍ'_n), `normal_Lni` (L_n(i)/ℚ normal), `normalFields_HHprime` (ℍ'_n/ℚ normal given all
+  `Hprimebar d` normal), `Hprimebar_le_HHprime`, `genusSum_mem_HHprime`, `genusPackage_of_ringClass`,
+  `tyzThm35ReadingA_of_ringClass`. New leaf `HprimeNormal`.
+- Lean pitfall: `IntermediateField.normal_iSup` has `{ι : Type*}`; a Finset-bounded `⨆ d ∈ s` (Prop
+  index) makes elaboration time out at whnf; rewrite with `iSup_subtype'` first.
+- `#print axioms tyzThm35ReadingA_of_ringClass`: [propext, Classical.choice, Quot.sound] (VERIFIED).
+- No PARI on this host (cypari2 not installed; installing needs the network, forbidden), so the
+  direction of `ShimuraReciprocity` (Frobenius at 𝔭 ↦ multiplication by 𝔭̄ = p𝔭⁻¹) is not checked
+  numerically: STANDARD (Shimura 1971 Thm 5.4 / Silverman ATAEC II, numbers UNVERIFIED).
