@@ -93,3 +93,12 @@ docs/research/h5-neron.md.
 - `hodgeMap 𝒢 𝒩 f g := (exteriorPower.map g cotMap).baseChange L : 𝒩.hodgeSpace g →ₗ[L] 𝒢.hodgeSpace g`,
   `hodgeMap_wedge`, `hodgeMap_detLattice` (maps ⋀^g ω_𝒩 into ⋀^g ω_𝒢), `hodgeMap_wedgeGerm`
   (wedge t ↦ wedge (genMap ∘ t)). Axioms standard. Bijectivity of hodgeMap NOT proved.
+
+## 12. Assembly: HeightAntitone from two algebraic glue statements — PROVED (compiled ~02:25, JacDet.lean)
+- `secIndex_ne_zero_of_mem` (in a Hodge line every nonzero lattice vector has finite index),
+  `secIndex_le_of_map` (indices along an injective map into a lattice), `pullHodge` (pull back
+  HodgeData along an injective L-linear map onto a new lattice), `modelHeight_pullHodge_le`.
+- `HodgeMapBijective` (glue, STATED): hodgeMap bijective for a generic iso f.
+- `HodgeLatticeNonzero` (glue, STATED): finrank_L (𝒩.hodgeSpace g) = 1 ⇒ ∃ v ∈ 𝒩.detLattice g, v ≠ 0.
+- `heightAntitone_of : HodgeMapBijective → HodgeLatticeNonzero → HeightAntitone` — axioms standard.
+  (HeightAntitone restated verbatim as in Minimal.lean.)

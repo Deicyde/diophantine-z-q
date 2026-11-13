@@ -408,6 +408,177 @@ theorem hodgeMap_wedgeGerm (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) 
   rw [hodgeMap_wedge]
   rfl
 
+/-! ### Assembly: `HeightAntitone` from two algebraic statements -/
+
+section Assembly
+
+variable {V V' : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V]
+  [AddCommGroup V'] [Module L V'] [Module (𝓞 L) V'] [IsScalarTower (𝓞 L) L V']
+
+omit [Algebra K L] in
+/-- In a Hodge line, every nonzero lattice vector has finite index. -/
+theorem secIndex_ne_zero_of_mem {g : ℕ} (D : HodgeData L g V) {v : V} (hv : v ∈ D.lattice)
+    (hv0 : v ≠ 0) : secIndex D.lattice v ≠ 0 := by
+  obtain ⟨s, hs, hs0, hsi⟩ := D.isLattice
+  obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' s hs0).mp D.finrank_eq_one v
+  obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := 𝓞 L) c
+  have hb0 : (b : 𝓞 L) ≠ 0 := nonZeroDivisors.ne_zero hb
+  have hb' : algebraMap (𝓞 L) L b ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective (𝓞 L) L)).mpr hb0
+  have ha0 : a ≠ 0 := by
+    rintro rfl
+    rw [map_zero, zero_div, zero_smul] at hc
+    exact hv0 hc.symm
+  have key : b • v = a • s := by
+    rw [← hc, ← algebraMap_smul L b, smul_smul, ← algebraMap_smul L a]
+    congr 1
+    field_simp
+  have h1 := secIndex_smul D.lattice hv hv0 b
+  have h2 := secIndex_smul D.lattice hs hs0 a
+  rw [key, h2] at h1
+  intro h
+  rw [h, mul_zero] at h1
+  have hna : (Algebra.norm ℤ a).natAbs ≠ 0 :=
+    Int.natAbs_ne_zero.mpr (Algebra.norm_ne_zero_iff.mpr ha0)
+  exact mul_ne_zero hna hsi h1
+
+omit [NumberField L] in
+theorem map_span_singleton_toAddSubgroup (H : V' →ₗ[L] V) (v₀ : V') :
+    (Submodule.span (𝓞 L) {v₀}).toAddSubgroup.map H.toAddMonoidHom =
+      (Submodule.span (𝓞 L) {H v₀}).toAddSubgroup := by
+  ext x
+  simp only [AddSubgroup.mem_map, Submodule.mem_toAddSubgroup, Submodule.mem_span_singleton,
+    LinearMap.toAddMonoidHom_coe]
+  constructor
+  · rintro ⟨y, ⟨c, rfl⟩, rfl⟩
+    exact ⟨c, by rw [← algebraMap_smul L c, ← algebraMap_smul L c, map_smul]⟩
+  · rintro ⟨c, rfl⟩
+    exact ⟨c • v₀, ⟨c, rfl⟩, by rw [← algebraMap_smul L c, ← algebraMap_smul L c, map_smul]⟩
+
+omit [NumberField L] in
+/-- Indices along an injective map into a lattice. -/
+theorem secIndex_le_of_map (H : V' →ₗ[L] V) (hH : Function.Injective H)
+    (Λ' : Submodule (𝓞 L) V') (Λ : Submodule (𝓞 L) V) (hle : ∀ x ∈ Λ', H x ∈ Λ) {v₀ : V'}
+    (hv₀ : v₀ ∈ Λ') (hne : secIndex Λ (H v₀) ≠ 0) :
+    secIndex Λ' v₀ ≠ 0 ∧ secIndex Λ' v₀ ≤ secIndex Λ (H v₀) := by
+  have hinj : Function.Injective H.toAddMonoidHom := hH
+  have e1 : secIndex Λ' v₀ = ((Submodule.span (𝓞 L) {v₀}).toAddSubgroup.map H.toAddMonoidHom).relIndex
+      (Λ'.toAddSubgroup.map H.toAddMonoidHom) :=
+    (AddSubgroup.relIndex_map_map_of_injective _ _ hinj).symm
+  rw [map_span_singleton_toAddSubgroup] at e1
+  have hAB : (Submodule.span (𝓞 L) {H v₀}).toAddSubgroup ≤ Λ'.toAddSubgroup.map H.toAddMonoidHom := by
+    rw [← map_span_singleton_toAddSubgroup]
+    exact AddSubgroup.map_mono (fun x hx => by
+      simp only [Submodule.mem_toAddSubgroup] at hx ⊢
+      exact (Submodule.span_le.mpr (by simpa using hv₀)) hx)
+  have hBC : Λ'.toAddSubgroup.map H.toAddMonoidHom ≤ Λ.toAddSubgroup := by
+    rintro _ ⟨y, hy, rfl⟩
+    exact hle y hy
+  have hmul := AddSubgroup.relIndex_mul_relIndex _ _ _ hAB hBC
+  have hne' : secIndex Λ (H v₀) = (Submodule.span (𝓞 L) {H v₀}).toAddSubgroup.relIndex
+      Λ.toAddSubgroup := rfl
+  rw [e1]
+  have hmul' := hmul.trans hne'.symm
+  exact ⟨left_ne_zero_of_mul (hmul'.symm ▸ hne), Nat.le_of_dvd (Nat.pos_of_ne_zero hne)
+    (Dvd.intro _ hmul')⟩
+
+omit [NumberField L] in
+/-- Pull back Hodge data along an injective `L`-linear map onto a new lattice. -/
+noncomputable def pullHodge {g : ℕ} (D : HodgeData L g V) (H : V' →ₗ[L] V)
+    (hH : Function.Injective H) (Λ' : Submodule (𝓞 L) V') (hfin : Module.finrank L V' = 1)
+    (hlat : ∃ s ∈ Λ', s ≠ 0 ∧ secIndex Λ' s ≠ 0) : HodgeData L g V' where
+  lattice := Λ'
+  finrank_eq_one := hfin
+  isLattice := hlat
+  periods := D.periods
+  periods_discrete := D.periods_discrete
+  periods_isZLattice := D.periods_isZLattice
+  coeff τ := (D.coeff τ).comp H
+  coeff_ne_zero τ := by
+    obtain ⟨s, -, hs0, -⟩ := hlat
+    intro h
+    have h1 := LinearMap.congr_fun h s
+    have hHs : H s ≠ 0 := fun h0 => hs0 (hH (h0.trans (map_zero H).symm))
+    exact D.coeff_apply_ne_zero τ hHs h1
+
+omit [Algebra K L] in
+theorem modelHeight_pullHodge_le {g : ℕ} (D : HodgeData L g V) (H : V' →ₗ[L] V)
+    (hH : Function.Injective H) (Λ' : Submodule (𝓞 L) V') (hfin : Module.finrank L V' = 1)
+    (hlat : ∃ s ∈ Λ', s ≠ 0 ∧ secIndex Λ' s ≠ 0) (hle : ∀ x ∈ Λ', H x ∈ D.lattice) :
+    (pullHodge D H hH Λ' hfin hlat).modelHeight ≤ D.modelHeight := by
+  obtain ⟨v₀, hv₀, hv0, -⟩ := hlat
+  have hHv0 : H v₀ ≠ 0 := fun h0 => hv0 (hH (h0.trans (map_zero H).symm))
+  have hne := secIndex_ne_zero_of_mem D (hle v₀ hv₀) hHv0
+  obtain ⟨hpos, hle'⟩ := secIndex_le_of_map H hH Λ' D.lattice hle hv₀ hne
+  rw [(pullHodge D H hH Λ' hfin _).modelHeight_eq hv₀ hv0,
+    D.modelHeight_eq (hle v₀ hv₀) hHv0]
+  have hd : (0 : ℝ) < Module.finrank ℚ L := by exact_mod_cast Module.finrank_pos
+  apply div_le_div_of_nonneg_right _ hd.le
+  have : Real.log (secIndex Λ' v₀) ≤ Real.log (secIndex D.lattice (H v₀)) :=
+    Real.log_le_log (by exact_mod_cast Nat.pos_of_ne_zero hpos) (by exact_mod_cast hle')
+  show Real.log (secIndex Λ' v₀) - (1 / 2) * ∑ σ : L →+* ℂ,
+      Real.log (torusMetricSq (D.periods σ) (D.coeff σ (H v₀))) ≤ _
+  linarith
+
+end Assembly
+
+/-- **Glue (stated): `L ⊗ ⋀^g f^*` is bijective for a generic isomorphism** (it is induced by the
+ring isomorphism `genMap`, `stalkIso_of_genericIso`; STANDARD algebra). -/
+def HodgeMapBijective : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f], IsIso ((Over.pullback (jL L)).map f) →
+    ∀ g : ℕ, Function.Bijective (hodgeMap 𝒢 𝒩 f g)
+
+/-- **Glue (stated): a Hodge line contains a nonzero lattice vector.** If `hodgeSpace g` is an
+`L`-line, then `⋀^g ω_𝒩 ≠ 0` (`ω_𝒩` spans `ω_{A_L}`: `OmegaSpans`, proved in hodge-lattice; then
+the wedges of `ω_𝒩` span the line; STANDARD). -/
+def HodgeLatticeNonzero : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : GroupModel A L) (g : ℕ), Module.finrank L (𝒩.hodgeSpace g) = 1 →
+      ∃ v₀ ∈ 𝒩.detLattice g, v₀ ≠ 0
+
+/-- **Glue (as in `Minimal.lean`)** -/
+def HeightAntitone : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G), IsMonHom f →
+    IsIso ((Over.pullback (jL L)).map f) → 𝒩.height ≤ 𝒢.height
+
+/-- **`HeightAntitone` from `HodgeMapBijective` and `HodgeLatticeNonzero`** (proved). -/
+theorem heightAntitone_of (hb : HodgeMapBijective) (hn : HodgeLatticeNonzero) :
+    HeightAntitone := by
+  intro K _ A L _ _ _ 𝒢 𝒩 f hm hi
+  haveI := hm
+  unfold GroupModel.height
+  refine le_iInf fun g => le_iInf fun M => le_iInf fun hM => ?_
+  subst hM
+  have hbij := hb K A L M.model 𝒩 f hi g
+  set H := hodgeMap M.model 𝒩 f g
+  have hfin : Module.finrank L (𝒩.hodgeSpace g) = 1 :=
+    (LinearEquiv.ofBijective H hbij).finrank_eq.trans M.hodge.finrank_eq_one
+  obtain ⟨v₀, hv₀, hv0⟩ := hn K A L 𝒩 g hfin
+  have hle : ∀ x ∈ 𝒩.detLattice g, H x ∈ M.hodge.lattice := fun x hx => by
+    rw [M.lattice_eq]; exact hodgeMap_detLattice _ _ f g x hx
+  have hHv0 : H v₀ ≠ 0 := fun h0 => hv0 (hbij.1 (h0.trans (map_zero H).symm))
+  have hne := secIndex_ne_zero_of_mem M.hodge (hle v₀ hv₀) hHv0
+  have hlat : ∃ s ∈ 𝒩.detLattice g, s ≠ 0 ∧ secIndex (𝒩.detLattice g) s ≠ 0 :=
+    ⟨v₀, hv₀, hv0, (secIndex_le_of_map H hbij.1 _ _ hle hv₀ hne).1⟩
+  let M' : MetrizedModel A L g :=
+    { model := 𝒩
+      hodge := pullHodge M.hodge H hbij.1 (𝒩.detLattice g) hfin hlat
+      lattice_eq := rfl
+      arch := fun τ => by
+        obtain ⟨Φ, hΦ, hc⟩ := M.arch τ
+        refine ⟨fun z => Φ z ≫ f, isAnalyticUniformization_comp _ _ f τ _ Φ hΦ, fun t => ?_⟩
+        show M.hodge.coeff τ (H (𝒩.wedge t)) = _
+        rw [hodgeMap_wedgeGerm, hc, jacDet_comp_genMap M.model 𝒩 f _ Φ hΦ t
+          (fun i => ⟨genMap M.model 𝒩 f (t i), genMap_mem_maximalIdeal _ _ f _ (t i).2⟩)
+          (fun i => rfl)] }
+  calc (⨅ (g' : ℕ) (M'' : MetrizedModel A L g') (_ : M''.model = 𝒩),
+        (M''.hodge.modelHeight : EReal)) ≤ (M'.hodge.modelHeight : EReal) :=
+        iInf_le_of_le g (iInf_le_of_le M' (iInf_le_of_le rfl le_rfl))
+    _ ≤ (M.hodge.modelHeight : EReal) :=
+        EReal.coe_le_coe_iff.mpr (modelHeight_pullHodge_le M.hodge H hbij.1 _ hfin hlat hle)
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -422,3 +593,5 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.cotMap_omega
 #print axioms ZInQ.H5Glue.hodgeMap_detLattice
 #print axioms ZInQ.H5Glue.hodgeMap_wedgeGerm
+#print axioms ZInQ.H5Glue.modelHeight_pullHodge_le
+#print axioms ZInQ.H5Glue.heightAntitone_of
