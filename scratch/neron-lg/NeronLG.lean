@@ -837,6 +837,131 @@ theorem n1_n2_of_leaves_and_glue (hloc1 : LocalNeronModelExists) (hab : AbelianS
   ⟨hN1, semistableNeronIdentityComponent_of_local hN1 hab hloc2
     (semistableLocalToGlobal_of hNL g1 (goodPlacesAnyField_of g4) g5 g6)⟩
 
+
+/-! ## §6. Proof of the glue N2-g1' (`GoodPlaceAnyField`) from N1-ab
+
+At a DVR `O` containing `1/f`, the abelian scheme `𝒜` over `𝓞_K[1/f]` base-changes to `O₀`; it is
+Néron there (N1-ab), so the given `𝒩₀` is proper (`NeronModelOver.uniqueIso`). Hence
+`𝒱 = 𝒩₀ ×_{O₀} O'` is smooth and proper, Néron over `O'` (N1-ab again), and the canonical
+isomorphism `φ : 𝒩' ≅ 𝒱` (uniqueness) is the required `j`, with `U = 𝒩'` and `i = 𝟙`. The
+generic-fibre equation reduces to the compatibility of the canonical identification `gen𝒱` with
+the projections (`genV_compat`). -/
+
+section Pasting
+
+open ZInQ.H5Neron (pbCompInv pbCompHom pbEq pbCompIso pbEqIso)
+
+theorem pbCompInv_fst {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z) :
+    (pbCompInv f g G).left ≫ pullback.fst G.hom (f ≫ g) =
+      pullback.fst (pullback.snd G.hom g) f ≫ pullback.fst G.hom g := by
+  have h := conjugateEquiv_counit ((Over.mapPullbackAdj f).comp (Over.mapPullbackAdj g))
+    (Over.mapPullbackAdj (f ≫ g)) (Over.mapComp f g).hom G
+  have h2 := congrArg CommaMorphism.left h
+  simp only [Over.mapPullbackAdj_counit_app, Adjunction.comp_counit_app] at h2
+  simp [pbCompInv, Over.pullbackComp, conjugateIsoEquiv, Over.mapComp]
+
+theorem pbCompHom_fst {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z) :
+    (pbCompHom f g G).left ≫ pullback.fst (pullback.snd G.hom g) f ≫ pullback.fst G.hom g =
+      pullback.fst G.hom (f ≫ g) := by
+  rw [← pbCompInv_fst, ← Category.assoc, ← Over.comp_left]
+  have : pbCompHom f g G ≫ pbCompInv f g G = 𝟙 _ := (pbCompIso f g G).hom_inv_id
+  rw [this, Over.id_left, Category.id_comp]
+
+theorem pbEq_fst {X Y : Scheme.{0}} {f g : X ⟶ Y} (h : f = g) (G : Over Y) :
+    (pbEq h G).left ≫ pullback.fst G.hom g = pullback.fst G.hom f := by
+  subst h
+  simp [pbEq, pbEqIso]
+
+theorem pbMap_fst {X Y : Scheme.{0}} (d : X ⟶ Y) {G H : Over Y} (m : G ⟶ H) :
+    ((Over.pullback d).map m).left ≫ pullback.fst H.hom d = pullback.fst G.hom d ≫ m.left := by
+  simp [Over.pullback]
+
+variable {S₀ S₁ T₀ T₁ : Scheme.{0}} (a : T₁ ⟶ S₁) (b : S₁ ⟶ S₀) (c : T₀ ⟶ S₀) (d : T₁ ⟶ T₀)
+  (sq : a ≫ b = d ≫ c) (G : Over S₀) (X : Over T₀) (gen : (Over.pullback c).obj G ≅ X)
+
+/-- Base change of a generic-fibre identification along a commutative square
+`T₁ → S₁ → S₀ = T₁ → T₀ → S₀`: `(G ×_{S₀} S₁) ×_{S₁} T₁ ≅ G ×_{S₀} T₁ ≅ (G ×_{S₀} T₀) ×_{T₀} T₁ ≅
+X ×_{T₀} T₁`. -/
+noncomputable def genSq :
+    (Over.pullback a).obj ((Over.pullback b).obj G) ≅ (Over.pullback d).obj X :=
+  (pbCompIso a b G).symm ≪≫ pbEqIso sq G ≪≫ pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen
+
+theorem genSq_hom₁ : (genSq a b c d sq G X gen).hom = ((pbCompIso a b G).symm ≪≫ pbEqIso sq G ≪≫
+    pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom := rfl
+
+theorem genSq_hom₂ : (pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom =
+    pbCompHom d c G ≫ (Over.pullback d).map gen.hom :=
+  (Iso.trans_hom _ _).trans (congrArg₂ (· ≫ ·) (ZInQ.H5Neron.pbCompIso_hom _ _ _) rfl)
+
+theorem genSq_hom₃ : (pbEqIso sq G ≪≫ pbCompIso d c G ≪≫ (Over.pullback d).mapIso gen).hom =
+    pbEq sq G ≫ pbCompHom d c G ≫ (Over.pullback d).map gen.hom :=
+  (Iso.trans_hom _ _).trans (congrArg₂ (· ≫ ·) (ZInQ.H5Neron.pbEqIso_hom _ _)
+    (genSq_hom₂ c d G X gen))
+
+theorem genSq_hom : (genSq a b c d sq G X gen).hom =
+    pbCompInv a b G ≫ pbEq sq G ≫ pbCompHom d c G ≫ (Over.pullback d).map gen.hom :=
+  (genSq_hom₁ a b c d sq G X gen).trans ((Iso.trans_hom _ _).trans
+    (congrArg₂ (· ≫ ·) (ZInQ.H5Neron.pbCompIso_symm_hom _ _ _) (genSq_hom₃ a b c d sq G X gen)))
+
+theorem isMonHom_genSq [GrpObj G] [GrpObj X]
+    (hgen : letI : GrpObj ((Over.pullback c).obj G) := Functor.grpObjObj
+      IsMonHom gen.hom) :
+    letI : GrpObj ((Over.pullback b).obj G) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback a).obj ((Over.pullback b).obj G)) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback d).obj X) := Functor.grpObjObj
+    IsMonHom (genSq a b c d sq G X gen).hom := by
+  letI : GrpObj ((Over.pullback c).obj G) := Functor.grpObjObj
+  have c1 := ZInQ.H5Neron.isMonHom_pbCompInv a b G
+  have c2 := ZInQ.H5Neron.isMonHom_pbEq sq G
+  have c3 := ZInQ.H5Neron.isMonHom_pbCompHom d c G
+  rw [genSq_hom]
+  infer_instance
+
+include sq in
+theorem genSq_cond : (pullback.fst ((Over.pullback b).obj G).hom a ≫ pullback.fst G.hom b) ≫ G.hom =
+    (pullback.snd ((Over.pullback b).obj G).hom a ≫ d) ≫ c := by
+  have hc : pullback.fst ((Over.pullback b).obj G).hom a ≫ pullback.snd G.hom b =
+      pullback.snd ((Over.pullback b).obj G).hom a ≫ a := pullback.condition
+  simp only [Category.assoc]
+  rw [pullback.condition (f := G.hom) (g := b), reassoc_of% hc, sq]
+
+/-- The first projection of `genSq`: `(G ×_{S₀} S₁) ×_{S₁} T₁ → G ×_{S₀} T₀ → X`. -/
+theorem genSq_fst : (genSq a b c d sq G X gen).hom.left ≫ pullback.fst X.hom d =
+    pullback.lift (pullback.fst _ a ≫ pullback.fst G.hom b) (pullback.snd _ a ≫ d)
+      (genSq_cond a b c d sq G) ≫ gen.hom.left := by
+  rw [genSq_hom, Over.comp_left, Over.comp_left, Over.comp_left, Category.assoc, Category.assoc,
+    Category.assoc, pbMap_fst, ← Category.assoc (pbCompHom d c G).left]
+  have e : (pbCompHom d c G).left ≫ pullback.fst ((Over.pullback c).obj G).hom d =
+      pullback.lift (pullback.fst G.hom (d ≫ c)) (pullback.snd G.hom (d ≫ c) ≫ d)
+        (by rw [pullback.condition, Category.assoc]) := by
+    apply pullback.hom_ext
+    · rw [pullback.lift_fst, Category.assoc]
+      exact pbCompHom_fst d c G
+    · rw [pullback.lift_snd, Category.assoc]
+      have hc : pullback.fst ((Over.pullback c).obj G).hom d ≫ pullback.snd G.hom c =
+          pullback.snd ((Over.pullback c).obj G).hom d ≫ d := pullback.condition
+      have h : (pbCompHom d c G).left ≫ pullback.snd ((Over.pullback c).obj G).hom d =
+          pullback.snd G.hom (d ≫ c) := Over.w (pbCompHom d c G)
+      rw [hc, reassoc_of% h]
+  have e2 : (pbCompInv a b G).left ≫ (pbEq sq G).left ≫
+      pullback.lift (pullback.fst G.hom (d ≫ c)) (pullback.snd G.hom (d ≫ c) ≫ d)
+        (by rw [pullback.condition, Category.assoc]) =
+      pullback.lift (pullback.fst _ a ≫ pullback.fst G.hom b) (pullback.snd _ a ≫ d)
+        (genSq_cond a b c d sq G) := by
+    apply pullback.hom_ext
+    · simp only [Category.assoc, pullback.lift_fst]
+      rw [pbEq_fst, pbCompInv_fst]
+      rfl
+    · simp only [Category.assoc, pullback.lift_snd]
+      have h1 : (pbEq sq G).left ≫ pullback.snd G.hom (d ≫ c) = pullback.snd G.hom (a ≫ b) :=
+        Over.w (pbEq sq G)
+      have h2 : (pbCompInv a b G).left ≫ pullback.snd G.hom (a ≫ b) =
+          pullback.snd ((Over.pullback b).obj G).hom a := Over.w (pbCompInv a b G)
+      rw [reassoc_of% h1, reassoc_of% h2]
+  rw [e, reassoc_of% e2]
+
+end Pasting
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
