@@ -1822,6 +1822,123 @@ end BCPoints
 theorem tateBridge_of_tateModuleFree (hT : PkgI3.TateModuleFree) : TateBridge :=
   tateBridge_of_tatePoints tatePoints hT
 
+/-! ## `UnramifiedSup` in this context (proof copied from scratch/unram-tate/UnramSup.lean) -/
+
+section Sup
+
+open NumberField
+
+instance instGaloisQbar' : IsGalois ℚ (AlgebraicClosure ℚ) := {}
+
+/-- A finite intermediate field is a number field. -/
+theorem numberField_of_fd'' (L : IF) [FiniteDimensional ℚ L] : NumberField L :=
+  { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+
+/-- For a finite Galois `L` unramified at `p` and a prime `P ∋ p` of `𝓞 L`, the inertia group
+`I(P) ≤ Gal(L/ℚ)` is trivial (`#I(P) = e(P) = 1`). -/
+theorem inertia_trivial' (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (p : ℕ)
+    (hL : UnramifiedAt L p) (P : Ideal (𝓞 L)) [hP : P.IsPrime] (hpP : ((p : ℤ) : 𝓞 L) ∈ P)
+    (g : L ≃ₐ[ℚ] L) (hg : g ∈ P.inertia (L ≃ₐ[ℚ] L)) : g = 1 := by
+  haveI : NumberField L := numberField_of_fd'' L
+  have he : P.ramificationIdx ℤ = 1 := hL P hP hpP
+  have hcard : Nat.card (P.inertia (L ≃ₐ[ℚ] L)) = 1 := by
+    rw [Ideal.card_inertia_eq_ramificationIdxIn (G := L ≃ₐ[ℚ] L) (P.under ℤ) P,
+      Ideal.ramificationIdxIn_eq_ramificationIdx (P.under ℤ) P (L ≃ₐ[ℚ] L), he]
+  have hsub : Subsingleton (P.inertia (L ≃ₐ[ℚ] L)) := (Nat.card_eq_one_iff_unique.mp hcard).1
+  have := Subsingleton.elim (⟨g, hg⟩ : P.inertia (L ≃ₐ[ℚ] L)) 1
+  exact congrArg Subtype.val this
+
+/-- `𝓞 E → 𝓞 M` for `E ≤ M`. -/
+noncomputable def incO' {E M : IF} (h : E ≤ M) : 𝓞 E →+* 𝓞 M :=
+  RingOfIntegers.mapRingHom (IntermediateField.inclusion h).toRingHom
+
+theorem incO'_coe {E M : IF} (h : E ≤ M) (x : 𝓞 E) :
+    (((incO' h x : 𝓞 M) : M) : Qbar) = ((x : E) : Qbar) := rfl
+
+/-- **Restriction of inertia.** If `E ≤ M` are finite Galois, `E` unramified at `p`, `Q ∋ p` a
+prime of `𝓞 M` and `g ∈ I(Q)`, then a lift `s ∈ G_ℚ` of `g` fixes `E` pointwise. -/
+theorem lift_fixes' (E M : IF) [FiniteDimensional ℚ E] [FiniteDimensional ℚ M] [IsGalois ℚ E]
+    [IsGalois ℚ M] (hEM : E ≤ M) (p : ℕ) (hE : UnramifiedAt E p) (Q : Ideal (𝓞 M))
+    [hQ : Q.IsPrime] (hpQ : ((p : ℤ) : 𝓞 M) ∈ Q) (g : M ≃ₐ[ℚ] M)
+    (hg : g ∈ Q.inertia (M ≃ₐ[ℚ] M)) (s : Qbar ≃ₐ[ℚ] Qbar)
+    (hs : ∀ y : M, s (y : Qbar) = ((g y : M) : Qbar)) :
+    ∀ x ∈ E, s x = x := by
+  let QE : Ideal (𝓞 E) := Q.comap (incO' hEM)
+  haveI : QE.IsPrime := Ideal.comap_isPrime _ _
+  have hpQE : ((p : ℤ) : 𝓞 E) ∈ QE := by
+    show incO' hEM ((p : ℤ) : 𝓞 E) ∈ Q
+    rw [map_intCast]; exact hpQ
+  let gE : E ≃ₐ[ℚ] E := s.restrictNormal E
+  have hgE : ∀ x : E, ((gE x : E) : Qbar) = s (x : Qbar) :=
+    fun x => AlgEquiv.restrictNormal_commutes s E x
+  have hmem : gE ∈ QE.inertia (E ≃ₐ[ℚ] E) := by
+    rw [Ideal.mem_inertia]
+    intro x
+    show incO' hEM (gE • x - x) ∈ Q
+    have hx : incO' hEM (gE • x) = g • incO' hEM x := by
+      apply Subtype.ext; apply Subtype.ext
+      show ((gE (x : E) : E) : Qbar) = ((g ((incO' hEM x : 𝓞 M) : M) : M) : Qbar)
+      rw [hgE, ← hs]; rfl
+    rw [map_sub, hx]
+    exact (Ideal.mem_inertia.mp hg) (incO' hEM x)
+  have h1 := inertia_trivial' E p hE QE hpQE gE hmem
+  intro x hx
+  have := hgE ⟨x, hx⟩
+  rw [h1] at this
+  exact this.symm
+
+/-- **`UnramifiedSup`, proved** (no leaf). -/
+theorem unramifiedSup_mf : G0ModField.UnramifiedSup := by
+  intro E K _ _ _ _ p hE hK
+  let M : IF := E ⊔ K
+  haveI : FiniteDimensional ℚ M := inferInstance
+  haveI : IsGalois ℚ M := IsGalois.mk
+  haveI : NumberField M := numberField_of_fd'' M
+  intro Q hQ hpQ
+  have htriv : ∀ g ∈ Q.inertia (M ≃ₐ[ℚ] M), g = 1 := by
+    intro g hg
+    let s : Qbar ≃ₐ[ℚ] Qbar := g.liftNormal Qbar
+    have hs : ∀ y : M, s (y : Qbar) = ((g y : M) : Qbar) :=
+      fun y => AlgEquiv.liftNormal_commutes g Qbar y
+    have hEf := lift_fixes' E M le_sup_left p hE Q hpQ g hg s hs
+    have hKf := lift_fixes' K M le_sup_right p hK Q hpQ g hg s hs
+    have hE' : E ≤ IntermediateField.fixedField (Subgroup.zpowers s) :=
+      (IntermediateField.le_iff_le _ _).mpr
+        ((Subgroup.zpowers_le).mpr ((IntermediateField.mem_fixingSubgroup_iff E s).mpr hEf))
+    have hK' : K ≤ IntermediateField.fixedField (Subgroup.zpowers s) :=
+      (IntermediateField.le_iff_le _ _).mpr
+        ((Subgroup.zpowers_le).mpr ((IntermediateField.mem_fixingSubgroup_iff K s).mpr hKf))
+    have hM := sup_le hE' hK'
+    apply AlgEquiv.ext
+    intro y
+    apply Subtype.ext
+    have hy := hM y.2 ⟨s, Subgroup.mem_zpowers s⟩
+    rw [← hs]
+    exact hy
+  have hcard : Nat.card (Q.inertia (M ≃ₐ[ℚ] M)) = 1 := by
+    rw [Nat.card_eq_one_iff_unique]
+    refine ⟨⟨fun a b => Subtype.ext ((htriv a a.2).trans (htriv b b.2).symm)⟩, ⟨1⟩⟩
+  rw [← Ideal.ramificationIdxIn_eq_ramificationIdx (Q.under ℤ) Q (M ≃ₐ[ℚ] M),
+    ← Ideal.card_inertia_eq_ramificationIdxIn (G := M ≃ₐ[ℚ] M) (Q.under ℤ) Q, hcard]
+
+
+end Sup
+
+/-- **G2 → G4 → G7 with the twist, without `UnramifiedSup`** (g0-mod-field's `fieldDescentUnr`
+with `unramifiedSup_mf`). -/
+theorem fieldDescentUnr' (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
+    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7OutUnr u P :=
+  fieldDescentUnr hCover hKer unramifiedSup_mf hHasse hTwo hSq hUnr Y Φ π u P hctx
+
+/-- **Piece 10 without `UnramifiedSup`** (g0-mod-field's `modularConstituent_of_ranges_T14`). -/
+theorem modularConstituent_of_ranges_T14' (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hH : PkgI6.BrauerHasse2C) (hR : PkgI6.BrauerReciprocity2C)
+    (hC : PkgI6.LocalH2CardC) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
+    (hRest : AfterG7) : ModularConstituentG :=
+  modularConstituent_of_ranges_T14 hCover hKer unramifiedSup_mf hH hR hC hSq hUnr hRest
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
@@ -1836,3 +1953,5 @@ end UnramTate
 #print axioms UnramTate.tateBridge_of_tatePoints
 #print axioms UnramTate.tatePoints
 #print axioms UnramTate.tateBridge_of_tateModuleFree
+#print axioms UnramTate.unramifiedSup_mf
+#print axioms UnramTate.modularConstituent_of_ranges_T14'

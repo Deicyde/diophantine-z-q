@@ -55,3 +55,6 @@
 - `tateBridge_of_tateModuleFree : PkgI3.TateModuleFree → G0ModField.TateBridge` PROVED.
 - Final check (05:10): `lake env lean` on UnramSup, QuatUnits, BCPoints, TateBridge: exit 0, 0 errors, no sorry;
   all `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED.
+- Added to TateBridge.lean: `unramifiedSup_mf : G0ModField.UnramifiedSup` (UnramSup proof copied), and
+  `fieldDescentUnr'`, `modularConstituent_of_ranges_T14'` = g0-mod-field's composites without `hSup`.
+  VERIFIED compiled (exit 0, no error, no sorry), standard axioms (05:15).
