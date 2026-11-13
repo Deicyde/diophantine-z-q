@@ -247,7 +247,7 @@ discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 | run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of` standard axioms |
 | run_s8 | `S8.lean` (PGLight) | 0 errors; `s8Nonzero_iff`, `s8Nonzero_proof` standard axioms |
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
-| run_sfa | `SFA.lean` (PGLight) | SFA_STATUS |
+| run_sfa | `SFA.lean` (PGLight) | 0 errors; `sphereFactorAffine_of` standard axioms |
 
 To reproduce, from the repository root:
 1. the prereq build;

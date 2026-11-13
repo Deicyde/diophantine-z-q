@@ -1,35 +1,10 @@
-scratch/period-glue/SFA.lean:87:11: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
-  G z0
-in the target expression
-  Tendsto (fun x => ‖G x‖) (𝓝 z0) (𝓝 ((fun x => ‖G x‖) z0))
-
-G : ℂ → ℂ
-z0 : ℂ
-hG : ContinuousAt G z0
-h0 : G z0 = 0
-s : Set (OnePoint ℂ)
-hs1 : OnePoint.some ⁻¹' s ∈ coclosedCompact ℂ
-hs2 : OnePoint.infty ∈ s
-t : Set ℂ
-hts : tᶜ ⊆ OnePoint.some ⁻¹' s
-htc : IsCompact t
-R : ℝ
-hR : t ⊆ Metric.closedBall 0 R
-R' : ℝ := max R 1
-hR' : R' = max R 1
-hR'pos : 0 < R'
-this : Tendsto (fun x => ‖G x‖) (𝓝 z0) (𝓝 ((fun x => ‖G x‖) z0))
-⊢ Tendsto (fun x => ‖G x‖) (𝓝 z0) (𝓝 0)
-scratch/period-glue/SFA.lean:93:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/SFA.lean:92:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/SFA.lean:94:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/SFA.lean:93:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-'HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of' depends on axioms: [propext,
- sorryAx,
- Classical.choice,
- Quot.sound]
-exit 1
+'HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0

@@ -66,3 +66,13 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   g6 g4⁻¹ is of order 2 in PSL2; fixed points √2+i, i√3; cosh d = √3 (by hand, see GammaStarGen).
 - `GammaStarGen`: LEAF candidate (published signature (0;2,4,6) + Poincaré polygon theorem +
   covolume); flagged for human check.
+
+## SphereFactorAffine — REDUCED (VERIFIED, run_sfa.txt)
+- `SFA.lean`: `sphereFactorAffine_of (hA : HolP1OpenMap) (hB : HolP1FactorHol) (hC : SphereInjAffine)`.
+  Axioms standard. Proved: `continuousAt_of_isHolP1At` (IsHolP1At ⇒ continuity into OnePoint ℂ,
+  via `tendsto_ite_inv`), φ := h∘f⁻¹ well defined, injective, continuous (f open), φ(∞) = ∞.
+- Named glue: HolP1OpenMap (open mapping, P¹-valued), HolP1FactorHol (removable singularities /
+  local inverse), SphereInjAffine (injective holomorphic self-map of P¹ fixing ∞ is affine);
+  `IsHolC1At`, `chartInf`, `IsHolSphere` definitions (chart shape of IsHolP1At).
+- Note: a compile hung >10 min once (a `simp only [hz0, ite_true]; exact hs2` step); replaced by
+  `rw [if_pos hz0]`; then 0 errors.
