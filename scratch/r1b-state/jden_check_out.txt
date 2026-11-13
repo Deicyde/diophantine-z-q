@@ -1,0 +1,8 @@
+disc -3  (x = (1+j)/2)       tau = (0.0 + 1.73205080757j)             |sum th^8| = 6.4709e-30 |prod th| = 1.0426e-31 jNum/jDen = (jDen = 0)
+disc -4  (x = i+j)           tau = (1.41421356237 + 1.0j)             |sum th^8| = 33.908     |prod th| = 1.3279e-30 jNum/jDen = (1.731129502e-121 - 1.968785593e-121j)
+disc -24 (x = mu = 2j+ij)    tau = (0.0 + 4.18154055035j)             |sum th^8| = 38.382     |prod th| = 1.9011     jNum/jDen = (-0.5925925926 + 9.225278483e-31j)
+sample                       tau = (0.0 + 1.0j)                       |sum th^8| = 13.595     |prod th| = 0.77632    jNum/jDen = (-2.95583361 + 3.190804058e-29j)
+sample                       tau = (0.3 + 0.7j)                       |sum th^8| = 66.425     |prod th| = 1.917      jNum/jDen = (-0.02092304201 + 0.03345896876j)
+sample                       tau = (1.39329491716 + 0.869319740912j)  |sum th^8| = 47.327     |prod th| = 0.71181    jNum/jDen = (-0.00408604971 - 7.302704834e-16j)
+sample                       tau = (-0.5 + 1.2j)                      |sum th^8| = 7.7534     |prod th| = 0.43344    jNum/jDen = (-3.614453397 + 3.097589361j)
+sample                       tau = (2.0 + 0.5j)                       |sum th^8| = 108.38     |prod th| = 5.2031     jNum/jDen = (0.1121300559 - 0.1474198762j)

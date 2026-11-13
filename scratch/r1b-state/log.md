@@ -35,3 +35,14 @@
   `η(ab) = ι(a)η(b)`. So neither compatibility clause is inconsistent on the torus side.
 - In the build, `ZInQ.DefFaltings` uses `PkgI3.AbVar` itself (`Faltings/Models.lean`:
   `open PkgI3 (AbVar)`), so `LeafAdopt.abVarEquiv` is the identity there (VERIFIED, read).
+
+## Numerical check (`jden_check.py`, output `jden_check_out.txt`; mpmath 30 digits, N = 18)
+- disc −3 point `τ = i√3` (fixed point of `ι((1+j)/2)`): `|Σθ⁸| ≈ 6e-30`, `|∏θ| ≈ 1e-31`: jDen = 0
+  AND jNum = 0, so Lean's `jNum/jDen = 0` there while `π = ∞` (the x/0 trap is real; VERIFIED
+  numerically).
+- disc −4 point `τ = √2 + i`: `|Σθ⁸| = 33.9`, `|∏θ| ≈ 1e-30`: jDen ≠ 0, `jNum/jDen ≈ 0 = π`.
+- disc −24 point `τ = 4.1815…i`: `jNum/jDen = −0.592592… = −16/27`.
+- five sample points (incl. the u = 1 fibre point `τ_u ≈ 1.3933 + 0.8693i`, where
+  `jNum/jDen = −0.0040860 = J(1)`): `|Σθ⁸|` between 7.7 and 108, nonzero.
+- So at both elliptic CM points −3, −4 the type-μ polarization of `Ω(τ)` has `∏θ = 0`
+  (a product polarization), as the review's trap says.
