@@ -40,4 +40,4 @@ statements remain (`…_mono`).
 - **Locators.** Check NL's locator and the EGA/SGA locators.
 - **Integration.** Add NL to `TextbookLeaves` and the glue Props to `GluePieces`.
 
-Report: `docs/research/neron-lg.md`. Log: `scratch/neron-lg/log.md`.
+Report: `docs/research/neron-lg.md`. Log: `scratch/neron-lg/log.md`. Final check 2026-11-13 07:12 PST.
