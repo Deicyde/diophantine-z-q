@@ -91,3 +91,23 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
 - Every element of Gal(H_e/K_e) extends to Gal(H_{e,4}/K_e) (`AlgHom.liftNormal` to `K_eˢ`, then
   `AlgEquiv.restrictNormal` to `H_{e,4}`, normal by Tau Ceti's `isAbelianGalois_ringClassField`), so
   `Phi0 e` satisfies `IsPhi0` for every `e ≠ 0` (no junk value). Compiles; axioms standard (audit-out.txt).
+
+## Independent review (AI subagent, statements only) and follow-ups
+- No blocking finding. Reviewer re-derived the fixed point / form `[(n+δ²)/4, δ, 1]`, δ+64 = Γ₀(32) move
+  (τ ↦ τ/(1−32τ)), betaOneSign, and the implication TYZ L2515 ⇒ `Lemma321Seven` (σ with IsBetaOneLift
+  agrees with a genuine lift on `L_e(i)`). Notes: `IsPhi0`'s first clause (square in Pic(O4)) is
+  stronger than TYZ's (restriction in 2Cl'), so the Lean choices are a nonempty subfamily of TYZ's —
+  harmless under "any choice" (supported by TYZ's proof L2547–2554).
+- Applied: `Class7GenusPtDefined` docstring now cites L2558 (VERIFIED read: "H_n' = H_n and thus Z(n)
+  is already defined over L_n"); `Lemma321Five` docstring records the numerics.
+- Finding (VERIFIED read, L1488–1490): TYZ's Proposition `heckeaction5`(1) prints `Q^{1+2ϖ} = Q + τ(1)`
+  for every `Q ∈ X_U(ℂ)`; with Shimura reciprocity this is `TYZSigmaShiftsF0`, so that statement is a
+  published consequence (now labelled a leaf), matching `sigma5.out`. `TYZSigmaFixesZn` itself is TYZ
+  Thm 3.6(1) (L1411–1413, VERIFIED read).
+
+## Sign of [i] in tyzZn settled by a printed identity (`conj5.py`, `conj5.out`)
+- TYZ Thm 3.6(1) (L1413) prints `z̄_n = −z_n + τ(1)`. For n ∈ {5, 13, 21, 29, 37, 53, 61}:
+  `conj(z) + z = (0,0)` holds for `z = (1 − [i])f₀(P_n)` (cm-points' `tyzZn`) in all 7 cases and fails
+  for `(1 + [i])f₀(P_n)` in all 7 (x-coordinate 1, 1/9, …). VERIFIED (computed): cm-points' caveat (5)
+  (the `[i]`-sign of `tyzZn`, under `ιC(i) = I`) agrees with a printed TYZ identity.
+- Class7.lean recompiled after docstring edits: no errors/warnings, 13 audited declarations standard.

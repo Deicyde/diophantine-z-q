@@ -276,11 +276,12 @@ the coordinates generate exactly `H_n` for n = 7, …, 71 (`class7.out`). Instan
 def CMFieldOfDefinition7 : Prop :=
   ∀ n : ℕ, n % 8 = 7 → Squarefree n → tyzZ7 n ∈ ptsOver (hilbertBar n)
 
-/-- **Leaf TYZ-2458 (field of definition of the class-7 genus point)**: for squarefree `e ≡ 7
-(mod 8)`, `Z(e) ∈ A(L_e(i))`, `L_e(i) = ℚ(i, √p : p ∣ e)`. TYZ L2455–2458 ("`Z(n)` is defined over
-`L_n`", from `z_n ∈ A(H_n)` and genus theory: the subfield of `H_e` fixed by `2Cl_e` is the genus field
-`ℚ(√p* : p ∣ e) ⊆ L_e(i)`, L2525). Refereed. Numerically the coordinates of `Z(e)` have degree
-`[L_e : ℚ]` and lie in `ℚ(√p* : p ∣ e)` for 12 values of `e` (`lemma321_7.out`). -/
+/-- **Leaf TYZ-2558 (field of definition of the class-7 genus point)**: for squarefree `e ≡ 7
+(mod 8)`, `Z(e) ∈ A(L_e(i))`, `L_e(i) = ℚ(i, √p : p ∣ e)`. TYZ L2558 ("`H_n' = H_n` and thus `Z(n)` is
+already defined over `L_n`", n ≡ 7), from `z_n ∈ A(H_n)` and genus theory (the subfield of `H_e` fixed
+by `2Cl_e` is the genus field `ℚ(√p* : p ∣ e) ⊆ L_e(i)`, L2525). Refereed. Proved as glue below
+(`class7GenusPtDefined_of`). Numerically the coordinates of `Z(e)` lie in `ℚ(√p* : p ∣ e)` for 12
+values of `e` (`lemma321_7.out`). -/
 def Class7GenusPtDefined : Prop :=
   ∀ e : ℕ, e % 8 = 7 → Squarefree e → Z7 e ∈ ptsOver (Lni e)
 
@@ -296,7 +297,8 @@ def Lemma321Seven : Prop :=
 /-- **Leaf TYZ-3.21(1) (pinned)**: for squarefree `n ≡ 5 (mod 8)` there is `σ` with
 `IsBetaOneLift σ` such that `Z(e)^{σ} + Z(e) ∈ g(e)τ((1−i)/2) + ℤτ(1)` for every `e ∣ n`,
 `e ≡ 5 (mod 8)`, `Z(e) = Σ_{t ∈ Φ₀(e)} t(z_e)`. TYZ Lemma 3.21(1) (L2496–2512, for any lifting `β'`
-and any choice of `Φ₀`, L2547–2554). Refereed. Not checked numerically. -/
+and any choice of `Φ₀`, L2547–2554). Refereed. VERIFIED numerically for n = 5, 13, 37 with both
+choices `Φ₀ = {1}, {σ}` and 8 lifts each (`lemma321_5.out`; uses ShimuraReciprocity). -/
 def Lemma321Five : Prop :=
   ∀ n : ℕ, n % 8 = 5 → Squarefree n →
     ∃ σ : GalQ, IsBetaOneLift σ ∧
@@ -387,10 +389,13 @@ the genus field of `ℚ(√−n)`, hence in `H_n`; Cox Thm 6.1, UNVERIFIED numbe
 Prop. 3.2(1): `σ_{1+2ϖ} ∈ Gal(H_{n,4}/H_n)`, L1253–1256). Refereed (textbook + TYZ). -/
 def IInHprime : Prop := ∀ n : ℕ, n % 8 = 5 → Squarefree n → iQ ∈ Hprimebar n
 
-/-- **The Galois action of `σ_{1+2ϖ}` on `f₀(P_n)` is translation by `τ(1) = (0,0)`.** NOT a printed
-statement (so not a leaf): VERIFIED numerically for n = 5, 13, 21, 29, 37 (3 primes each,
-`sigma5.out`) from `CM.ShimuraReciprocity` (direction VERIFIED numerically, `shimura.out`). It is
-what TYZ's Corollary 3.9 amounts to for the pinned `f₀(P_n)`. -/
+/-- **Leaf TYZ-3.7(1)+SR (the Galois action of `σ_{1+2ϖ}` on `f₀(P_n)` is translation by
+`τ(1) = (0,0)`)**. Consequence of TYZ's Proposition `heckeaction5`(1) (L1488–1490: `Q^{1+2ϖ} = Q + τ(1)`
+for every `Q ∈ X_U(ℂ)`; proposition number UNVERIFIED) and Shimura's reciprocity law at the CM point
+`P_n` (`σ_t P_n = P_n^t`), `f₀` being defined over `ℚ`. Refereed. VERIFIED numerically for
+n = 5, 13, 21, 29, 37 (3 primes each, `sigma5.out`, through `CM.ShimuraReciprocity`, whose direction is
+VERIFIED in `shimura.out`). Unlike `TYZSigmaFixesZn` (printed as TYZ Thm 3.6(1), L1413) it does not
+involve the `[i]`-sign of `CM.tyzZn`. -/
 def TYZSigmaShiftsF0 : Prop :=
   ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 5 → Squarefree n →
     ∀ ρ : GalQ, ActsAsArtin4 ρ n (sigmaClass n) → galPt ρ (tyzHeegnerPt n) = tyzHeegnerPt n + pt00
