@@ -55,3 +55,10 @@
   ModelHeightBaseChange := Iff.rfl`; `stableFaltingsHeight_eq_neron_of_main` (h5-glue's H5, multi-field form,
   from leaves N1, N2 and HodgeBCInjective, OmegaBaseChange, UniformizationLift, JacobianPullbackSpan):
   axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- Final.lean (~05:05): new glue `JacobianSemilinear` (one group model: jacDet Φ factors through wedge
+  by a τ-semilinear map), `HodgeSpanBC` (L'·ψ(hodgeSpace) = hodgeSpace'), `UniformizationLiftAnalytic`
+  (openness + holomorphy clauses only). Proved: `jacobianPullbackSpan_of` (BC-span ⇐ AN-jac ∧ BC-hspan),
+  `uniformizationLift_of` (BC-lift ⇐ BC-lift-an, group clauses from β bijective hom).
+  VERIFIED: `modelHeightBaseChange_of_five`, `hodgeLineBaseChange_of_five` (from HodgeBCInjective,
+  HodgeSpanBC, OmegaBaseChange, UniformizationLiftAnalytic, JacobianSemilinear); 18 `#print axioms`, all
+  [propext, Classical.choice, Quot.sound]; 0 errors.

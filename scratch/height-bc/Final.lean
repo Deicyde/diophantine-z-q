@@ -1335,6 +1335,124 @@ theorem ptsBaseChangeMul : PtsBaseChangeMul := by
     rw [Over.comp_left, Category.assoc]
     exact (pullback.lift_snd _ _ _).symm
 
+/-- **Glue AN-jac (the Jacobian is a semilinear function of the wedge).** For an analytic
+uniformization `Φ` of `𝒢(ℂ)_τ` (any group model, any `g`), `f ↦ jacDet Φ f` factors through
+`wedge` by a `τ`-semilinear map on the Hodge space. True: near `0`, `t ↦ germAlong Φ t` is a ring
+homomorphism into germs of holomorphic functions (`Φ(0) = 1` lies over `ξ`, the sets `dom Φ U`
+are open), so `D(t) = d(germAlong Φ t)(0)` is a derivation at evaluation at `0`: it kills `𝔪_ξ²`
+and is `τ`-semilinear on `𝔪_ξ/𝔪_ξ²` (structure sections are constant `τ(r)` along `Φ`), and
+`det(D(fᵢ)(e_j))` is alternating in the `dfᵢ`; it extends to `L ⊗ ⋀^g` by `a ⊗ x ↦ τ(a) J(x)`.
+A statement about one group model; analytic glue. STANDARD. -/
+def JacobianSemilinear : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → 𝒢.Pts τ), 𝒢.IsAnalyticUniformization τ Λ Φ →
+    ∃ J : 𝒢.hodgeSpace g →ₛₗ[τ] ℂ, ∀ f, 𝒢.jacDet Φ f = J (𝒢.wedge f)
+
+/-- **Glue BC-hspan (the image of `ψ` spans).** `L' · ψ(hodgeSpace g) = hodgeSpace' g`. With
+`HodgeBCInjective` this says `L' ⊗_L hodgeSpace ≅ hodgeSpace'` through `ψ`. True by cotangent base
+change `ω_{A_{L'}} = L' · π^*(ω_{A_L})` and multilinearity. STANDARD. -/
+def HodgeSpanBC : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L') (e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G)
+    (he : IsMonBC 𝒢 𝒢' e) (g : ℕ),
+    Submodule.span L' (Set.range (bcHodge he g)) = ⊤
+
+open ExteriorAlgebra in
+/-- **BC-span from AN-jac and BC-hspan** (proved). -/
+theorem jacobianPullbackSpan_of (hJ : JacobianSemilinear) (hS : HodgeSpanBC) :
+    JacobianPullbackSpan := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he τ' g Λ Φ' hΦ' c' hc f'
+  obtain ⟨J, hJf⟩ := hJ K A L' 𝒢' τ' Λ Φ' hΦ'
+  suffices hcJ : c' = J by rw [hcJ, hJf]
+  have hwedge : ∀ f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk,
+      c' (bcHodge he g (𝒢.wedge f)) = J (bcHodge he g (𝒢.wedge f)) := by
+    intro f
+    rw [bcHodge_wedge, hc f, hJf]
+  have hagree : ∀ v, c' (bcHodge he g v) = J (bcHodge he g v) := by
+    intro v
+    induction v using TensorProduct.induction_on with
+    | zero => simp
+    | tmul a x =>
+      have hx : x ∈ Submodule.span (𝓞 L) (Set.range (exteriorPower.ιMulti (𝓞 L) g)) := by
+        rw [exteriorPower.ιMulti_span]; trivial
+      induction hx using Submodule.span_induction generalizing a with
+      | mem y hy =>
+        obtain ⟨v, rfl⟩ := hy
+        choose f hf using fun i => (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent_surjective (v i)
+        have h1 : a ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v = a • 𝒢.wedge f := by
+          unfold GroupModel.wedge GroupModel.dCls
+          rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one]
+          congr 2
+          funext i
+          exact (hf i).symm
+        rw [h1, bcHodge_smul, map_smulₛₗ, map_smulₛₗ, hwedge f]
+      | zero => simp
+      | add y z _ _ hy hz =>
+        rw [TensorProduct.tmul_add, map_add, map_add, map_add, hy, hz]
+      | smul r y _ hy =>
+        rw [← TensorProduct.smul_tmul]
+        exact hy _
+    | add x y hx hy => rw [map_add, map_add, map_add, hx, hy]
+  apply LinearMap.ext
+  intro w
+  have hw : w ∈ Submodule.span L' (Set.range (bcHodge he g)) := by
+    rw [hS K A L L' 𝒢 𝒢' e he g]; trivial
+  induction hw using Submodule.span_induction with
+  | mem y hy =>
+    obtain ⟨v, rfl⟩ := hy
+    exact hagree v
+  | zero => simp
+  | add x y _ _ hx hy => rw [map_add, map_add, hx, hy]
+  | smul a y _ hy => rw [map_smulₛₗ, map_smulₛₗ, hy]
+
+/-- **Glue BC-lift-an (the analytic core of BC-lift).** If `β ∘ Φ'` is an analytic
+uniformization of `𝒢(ℂ)_σ`, then the sets `Φ'⁻¹(U'(ℂ))` are open and the regular functions of
+`𝒢'` are holomorphic along `Φ'`, for every open `U'` of `𝒢'` (including opens defined over `L'`
+and not pulled back from `𝒢`). Same justification as `UniformizationLift`. STANDARD. -/
+def UniformizationLiftAnalytic : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L') (e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G),
+    IsMonBC 𝒢 𝒢' e → ∀ (σ : L →+* ℂ) (τ' : L' →+* ℂ) (hστ : τ'.comp (algebraMap L L') = σ)
+    {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) (Φ' : (Fin g → ℂ) → 𝒢'.Pts τ'),
+    𝒢.IsAnalyticUniformization σ Λ (fun z => bcPts e σ τ' hστ (Φ' z)) →
+      (∀ U, IsOpen (𝒢'.dom Φ' U)) ∧
+        ∀ U (s : Γ(𝒢'.G.left, U)),
+          DifferentiableOn ℂ (fun z => 𝒢'.evalAt (Φ' z) U s) (𝒢'.dom Φ' U)
+
+/-- **BC-lift from its analytic core** (the group clauses come from `β` being a bijective
+homomorphism: `ptsBaseChangeMul`, `ptsBaseChangeBij`). Proved. -/
+theorem uniformizationLift_of (h : UniformizationLiftAnalytic) : UniformizationLift := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ g Λ Φ' hU
+  obtain ⟨hopen, hdiff⟩ := h K A L L' 𝒢 𝒢' e he σ τ' hστ Λ Φ' hU
+  obtain ⟨hmul, hker, hsurj, -, -⟩ := hU
+  have hbij := ptsBaseChangeBij K A L L' 𝒢 𝒢' e he σ τ' hστ
+  have hm := ptsBaseChangeMul K A L L' 𝒢 𝒢' e he σ τ' hστ
+  have h1 : bcPts e σ τ' hστ (1 : 𝒢'.Pts τ') = 1 := by
+    have := hm 1 1
+    rw [_root_.mul_one] at this
+    exact mul_eq_left.mp this.symm
+  refine ⟨?_, ?_, ?_, hopen, hdiff⟩
+  · intro z w
+    apply hbij.1
+    rw [hm]
+    exact hmul z w
+  · intro z
+    rw [← hker z]
+    constructor
+    · intro hz
+      show bcPts e σ τ' hστ (Φ' z) = 1
+      rw [hz, h1]
+    · intro hz
+      apply hbij.1
+      rw [h1]
+      exact hz
+  · intro p
+    obtain ⟨z, hz⟩ := hsurj (bcPts e σ τ' hστ p)
+    exact ⟨z, hbij.1 hz⟩
+
 /-- **Descent of analytic uniformizations along `β`** (proved, from BC-pts-mul and BC-pts-bij). -/
 theorem isAnalyticUniformization_bcPts (hm : PtsBaseChangeMul) (hb : PtsBaseChangeBij)
     {K : Type} [Field K] {A : AbVar K} {L L' : Type} [Field L] [NumberField L] [Algebra K L]
@@ -1455,6 +1573,21 @@ theorem modelHeightBaseChangeGE_of_main (h1 : HodgeBCInjective) (hω : OmegaBase
     ModelHeightBaseChangeGE :=
   modelHeightBaseChangeGE_of_two h1 (detLatticeBC_of_omega hω)
 
+/-- **Main result (finest form): glue H4a (`ModelHeightBaseChange`, verbatim) from five glue
+statements**: BC-alg (`HodgeBCInjective`), BC-hspan (`HodgeSpanBC`), BC-omega
+(`OmegaBaseChange`), BC-lift-an (`UniformizationLiftAnalytic`), AN-jac (`JacobianSemilinear`).
+Proved. -/
+theorem modelHeightBaseChange_of_five (h1 : HodgeBCInjective) (hS : HodgeSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hJ : JacobianSemilinear) :
+    ModelHeightBaseChange :=
+  modelHeightBaseChange_of_main h1 hω (uniformizationLift_of hl) (jacobianPullbackSpan_of hJ hS)
+
+/-- **`HodgeLineBaseChange` (verbatim) from the same five glue statements.** -/
+theorem hodgeLineBaseChange_of_five (h1 : HodgeBCInjective) (hS : HodgeSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hJ : JacobianSemilinear) :
+    HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_main h1 hω (uniformizationLift_of hl) (jacobianPullbackSpan_of hJ hS)
+
 #print axioms modelHeightBaseChange_of_descent
 #print axioms hodgeLineBaseChangeDescent_of_glue
 #print axioms modelHeightBaseChange_of_glue
@@ -1469,5 +1602,9 @@ theorem modelHeightBaseChangeGE_of_main (h1 : HodgeBCInjective) (hω : OmegaBase
 #print axioms modelHeightBaseChange_of_main
 #print axioms hodgeLineBaseChange_of_main
 #print axioms modelHeightBaseChangeGE_of_main
+#print axioms jacobianPullbackSpan_of
+#print axioms uniformizationLift_of
+#print axioms modelHeightBaseChange_of_five
+#print axioms hodgeLineBaseChange_of_five
 
 end ZInQ.HeightBC
