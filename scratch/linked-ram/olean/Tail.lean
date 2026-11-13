@@ -435,26 +435,20 @@ theorem kernelFieldBreaks_of_halves (hL : KernelFieldBreaksLow) (hH : KernelFiel
   intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD p hp
   exact ⟨hL u P L A ε N χ β L' hLL' hD p hp, hH u P L A ε N χ β L' hLL' hD p hp⟩
 
-/-- **`KernelFieldBreaksHigh`, proved.** For `p > D ≥ [L:ℚ]`, a wild `σ` fixes `L` (orbits of
-size `< p`), acts trivially on `μ_N` (`p² ∤ N`), so `β(decomp σ)² = χ(decomp σ) = 1`; and some
-`p`-power of `decomp σ` fixes `L'`, so `β(decomp σ)^{p^a} = 1`; `p` is odd, so `β(decomp σ) = 1`. -/
-theorem kernelFieldBreaksHigh : KernelFieldBreaksHigh := by
-  intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD p hp
-  letI : Fact p.Prime := ⟨hp⟩
-  intro hpD σ hσ
+/-- **The `β`-step for a wild element at an odd prime** (shared by both halves): for G7 data, an
+odd prime `p` and a wild `σ ∈ G_{ℚ_p}` with `decomp p σ ∈ G_L`, `decomp p σ ∈ G_{L'}`. -/
+theorem mem_GQL'_of_wild {u : ℚ} {P : LeafQM.AV.QML3 Qbar} {L : IF} [FiniteDimensional ℚ L]
+    [IsGalois ℚ L] {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ} [NeZero N]
+    {χ : DirichletCharacter ℂ N} {β : GQ → ℂˣ} {L' : IF} [FiniteDimensional ℚ L'] [IsGalois ℚ L']
+    {hLL' : L ≤ L'} (hD : G7Data u P L A ε N χ β L' hLL') {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2)
+    {σ : PkgI4.GQp p} (hσ : σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp p)))
+    (hgL : PkgI4.decomp p σ ∈ GQL L) : PkgI4.decomp p σ ∈ GQL L' := by
+  have hp : p.Prime := Fact.out
   have hw : LinkedRamWild.IsWild σ := hσ
   have he : ∀ x, embP p (PkgI4.decomp p σ x) = σ (embP p x) := embP_decomp p σ
-  obtain ⟨_, hDD, -, -, ⟨Tm, hTm, hNlev⟩, -, hβsq, hβmul, hL', -, -, -, hLD⟩ := hD
+  obtain ⟨_, hDD, -, -, ⟨Tm, hTm, hNlev⟩, -, hβsq, hβmul, hL', -, -, -, -⟩ := hD
   obtain ⟨-, hinf, h11, -⟩ := hDD
-  have h3 := three_le_heightD
-  have hp2 : p ≠ 2 := by
-    rintro rfl; push_cast at hpD; linarith
-  have hLp : Module.finrank ℚ L < p := by
-    have : (Module.finrank ℚ L : ℝ) < p := lt_of_le_of_lt (by exact_mod_cast hLD) hpD
-    exact_mod_cast this
   set g := PkgI4.decomp p σ with hg
-  -- `g ∈ G_L`
-  have hgL : g ∈ GQL L := LinkedRamWild.fix_of_finrank (embP p) g hw he L hLp
   -- `β` is multiplicative on `G_L`
   have hε1 : ∀ x y : GQ, x ∈ GQL L → y ∈ GQL L → ε x y = 1 := by
     intro x y hx hy
@@ -495,6 +489,213 @@ theorem kernelFieldBreaksHigh : KernelFieldBreaksHigh := by
     rwa [hcop.gcd_eq_one, pow_one] at this
   exact (hL' g).mpr ⟨hgL, hβg⟩
 
+/-- **`KernelFieldBreaksHigh`, proved.** For `p > D ≥ [L:ℚ]`, a wild `σ` fixes `L` (orbits of
+size `< p`), acts trivially on `μ_N` (`p² ∤ N`), so `β(decomp σ)² = χ(decomp σ) = 1`; and some
+`p`-power of `decomp σ` fixes `L'`, so `β(decomp σ)^{p^a} = 1`; `p` is odd, so `β(decomp σ) = 1`. -/
+theorem kernelFieldBreaksHigh : KernelFieldBreaksHigh := by
+  intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD p hp
+  letI : Fact p.Prime := ⟨hp⟩
+  intro hpD σ hσ
+  have hw : LinkedRamWild.IsWild σ := hσ
+  have he : ∀ x, embP p (PkgI4.decomp p σ x) = σ (embP p x) := embP_decomp p σ
+  have h3 := three_le_heightD
+  have hp2 : p ≠ 2 := by
+    rintro rfl; push_cast at hpD; linarith
+  have hLp : Module.finrank ℚ L < p := by
+    have : (Module.finrank ℚ L : ℝ) < p := lt_of_le_of_lt (by exact_mod_cast hD.2.2.2.2.2.2.2.2.2.2.2.2) hpD
+    exact_mod_cast this
+  exact mem_GQL'_of_wild hD hp2 hσ (LinkedRamWild.fix_of_finrank (embP p) _ hw he L hLp)
+
+/-! ### The wild half: reduced to a local break bound, wildness of upper groups, and `p = 2` -/
+
+/-- **Leaf candidate (LEAF?, textbook composite): the absolute break bound** (Glazer's
+manuscript L796-811, from Serre, *Local Fields*, Ch. III §6 (different bound
+`δ ≤ e − 1 + e·v_p(e)`) and Ch. IV §1-§3 (Hilbert's formula `δ = Σ_{i≥0}(|G_i| − 1)`, Herbrand's
+function); numbering UNVERIFIED): for a finite extension `F/ℚ_p` of degree `a` inside `ℚ̄_p`, every
+element of the absolute upper ramification group `G_{ℚ_p}^u` with `u > 4a²` fixes `F` pointwise.
+(The normal closure has degree `≤ a!`; its last upper break is `≤ 2δ/e ≤ 2(1 + log₂ a!) ≤ 4a²`.)
+Stated over `LadicCond`'s definitions of `G_{ℚ_p}^u` (Serre IV §3). -/
+def UpperBreakBound : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (F : LadicCond.Fld p) [FiniteDimensional ℚ_[p] F] (u : ℝ),
+    4 * (Module.finrank ℚ_[p] F : ℝ) ^ 2 < u →
+      ∀ σ ∈ LadicCond.upperAbs p u, ∀ x ∈ F, σ x = x
+
+/-- **Glue (definitions): positive upper groups are wild.** For `u > 0`, `G_{ℚ_p}^u ⊆ P_p`
+(`ψ(u) ≥ u > 0`, so `G^u(M) ⊆ G_1(M)` at every finite Galois level `M`; Serre IV §3). -/
+def UpperAbsWild : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (u : ℝ), 0 < u →
+    LadicCond.upperAbs p u ⊆ (LadicCond.wildSet : Set (PkgI4.GQp p))
+
+/-- **Glue: `β` on high upper groups at `2`** (Glazer L826-843: local reciprocity, the
+`2`-primary factor of `χ` has conductor `≤ 4`, the logarithm on `U_F^{e+1}`, and
+`ψ_{F/ℚ_2}(u) ≥ u`). For G7 data and `u > U₀`, `β(decomp₂ σ) = 1` for `σ ∈ G_{ℚ_2}^u` with
+`decomp₂ σ ∈ G_L`. GLUE (truth: STANDARD route, Glazer's argument). -/
+def BetaTrivialAtTwo : Prop :=
+  ∀ (u : ℚ) (P : LeafQM.AV.QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N)
+    (β : GQ → ℂˣ) (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : Fact (2 : ℕ).Prime := ⟨Nat.prime_two⟩
+    ∀ t : ℝ, G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 2 t,
+      PkgI4.decomp 2 σ ∈ GQL L → β (PkgI4.decomp 2 σ) = 1
+
+/-- `4 D² < U₀ = 4 (D G₀)²`. -/
+theorem four_D_sq_lt_U0 : 4 * ((ZInQ.heightD : ℕ) : ℝ) ^ 2 < G0ModNewform.U0 := by
+  unfold G0ModNewform.U0
+  have hD : (1 : ℝ) ≤ (ZInQ.heightD : ℝ) := by
+    have := three_le_heightD; linarith
+  have hG : (2 : ℝ) ≤ (ZInQ.heightG0 : ℝ) := by
+    unfold ZInQ.heightG0; norm_num
+  push_cast
+  nlinarith [mul_le_mul_of_nonneg_left hG (show (0 : ℝ) ≤ ZInQ.heightD by linarith)]
+
+/-- **High upper groups fix a number field of degree `≤ D`** (from `UpperBreakBound`): for
+`x ∈ L`, `F = ℚ_p(embP x)` has degree `≤ deg minpoly_ℚ x ≤ [L:ℚ] ≤ D`, and `4D² < U₀`. -/
+theorem decomp_mem_GQL_of_breaks (hB : UpperBreakBound) {p : ℕ} [Fact p.Prime] (L : IF)
+    [FiniteDimensional ℚ L] (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) {t : ℝ}
+    (ht : G0ModNewform.U0 < t) {σ : PkgI4.GQp p} (hσ : σ ∈ LadicCond.upperAbs p t) :
+    PkgI4.decomp p σ ∈ GQL L := by
+  refine (mem_GQL (σ := PkgI4.decomp p σ)).mpr ?_
+  intro x hx
+  apply (embP p).injective
+  rw [show act (PkgI4.decomp p σ) x = PkgI4.decomp p σ x from rfl, embP_decomp]
+  let y : PadicAlgCl p := embP p x
+  have hyint : IsIntegral ℚ_[p] y := Algebra.IsIntegral.isIntegral y
+  let F : LadicCond.Fld p := IntermediateField.adjoin ℚ_[p] {y}
+  haveI : FiniteDimensional ℚ_[p] F := IntermediateField.adjoin.finiteDimensional hyint
+  have hdeg : Module.finrank ℚ_[p] F ≤ ZInQ.heightD := by
+    have h1 : Module.finrank ℚ_[p] F = (minpoly ℚ_[p] y).natDegree :=
+      IntermediateField.adjoin.finrank hyint
+    have hq0 : (minpoly ℚ x).map (algebraMap ℚ ℚ_[p]) ≠ 0 :=
+      Polynomial.map_ne_zero (minpoly.ne_zero (Algebra.IsIntegral.isIntegral x))
+    have h2 : minpoly ℚ_[p] y ∣ (minpoly ℚ x).map (algebraMap ℚ ℚ_[p]) := by
+      apply minpoly.dvd
+      rw [Polynomial.aeval_map_algebraMap]
+      rw [show Polynomial.aeval y (minpoly ℚ x) = (embP p).toRatAlgHom (Polynomial.aeval x (minpoly ℚ x))
+        from Polynomial.aeval_algHom_apply (embP p).toRatAlgHom x _, minpoly.aeval, map_zero]
+    have h3 : (minpoly ℚ x).natDegree ≤ Module.finrank ℚ L := by
+      rw [show x = ((⟨x, hx⟩ : L) : Qbar) from rfl, ← IntermediateField.minpoly_eq]
+      exact minpoly.natDegree_le _
+    rw [h1]
+    calc (minpoly ℚ_[p] y).natDegree ≤ ((minpoly ℚ x).map (algebraMap ℚ ℚ_[p])).natDegree :=
+          Polynomial.natDegree_le_of_dvd h2 hq0
+      _ = (minpoly ℚ x).natDegree := Polynomial.natDegree_map _
+      _ ≤ Module.finrank ℚ L := h3
+      _ ≤ ZInQ.heightD := hLD
+  have hlt : 4 * (Module.finrank ℚ_[p] F : ℝ) ^ 2 < t := by
+    refine lt_of_le_of_lt ?_ (lt_trans four_D_sq_lt_U0 ht)
+    have : (Module.finrank ℚ_[p] F : ℝ) ≤ (ZInQ.heightD : ℝ) := by exact_mod_cast hdeg
+    exact mul_le_mul_of_nonneg_left (pow_le_pow_left₀ (Nat.cast_nonneg _) this 2) (by norm_num)
+  exact hB p F t hlt σ hσ y (IntermediateField.mem_adjoin_simple_self ℚ_[p] y)
+
+/-- **`KernelFieldBreaksLow` from the break bound, wildness of positive upper groups, and the
+prime `2`.** -/
+theorem kernelFieldBreaksLow_of (hB : UpperBreakBound) (hW : UpperAbsWild)
+    (h2 : BetaTrivialAtTwo) : KernelFieldBreaksLow := by
+  intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD p hp
+  letI : Fact p.Prime := ⟨hp⟩
+  intro _ t ht σ hσ
+  have hgL : PkgI4.decomp p σ ∈ GQL L :=
+    decomp_mem_GQL_of_breaks hB L hD.2.2.2.2.2.2.2.2.2.2.2.2 ht hσ
+  by_cases hp2 : p = 2
+  · subst hp2
+    have hβ := h2 u P L A ε N χ β L' hLL' hD t ht σ hσ hgL
+    exact (hD.2.2.2.2.2.2.2.2.1 _).mpr ⟨hgL, hβ⟩
+  · have hU0 : 0 < t := lt_of_le_of_lt U0_nonneg ht
+    exact mem_GQL'_of_wild hD hp2 (hW p t hU0 hσ) hgL
+
+/-- **`KernelFieldBreaks` from `UpperBreakBound`, `UpperAbsWild`, `BetaTrivialAtTwo`.** -/
+theorem kernelFieldBreaks_of (hB : UpperBreakBound) (hW : UpperAbsWild)
+    (h2 : BetaTrivialAtTwo) : KernelFieldBreaks :=
+  kernelFieldBreaks_of_halves (kernelFieldBreaksLow_of hB hW h2) kernelFieldBreaksHigh
+
+/-! ### `TateRamAtThree`, corrected -/
+
+/-- **Glue: the Tate module of the QM model at `p = 3`, with `[L:ℚ] ≤ D`** (linked-tate's
+`TateRamAtThree` with the degree bound that `G7Data` carries; Glazer L814-821: over
+`F = L_v(A[5])`, of degree `≤ D·|GL₄(𝔽₅)| = D G₀`, Raynaud's criterion gives semistable reduction,
+wild inertia acts trivially on `V₅`, and `G_{ℚ_3}^t ⊆ G_F ∩ P_3` for `t > U₀ = 4(DG₀)²`). GLUE. -/
+def TateRamAtThreeD : Prop :=
+  ∀ (K L L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hKL : K ≤ L) (hLL' : L ≤ L')
+    (PK : LeafQM.AV.QML3 K), Module.finrank ℚ L ≤ ZInQ.heightD →
+    letI : NumberField L' := numberField_of_fd L'
+    ∀ t : ℝ, G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 3 t,
+      ∀ σ' : Field.absoluteGaloisGroup L', G0Galois.resQ L' σ' = PkgI4.decomp 3 σ →
+        G0Galois.tate (@PkgI3.AbVar.baseChange L _
+          (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) 5 σ' = 1
+
+/-- The old form implies the corrected one. -/
+theorem tateRamAtThreeD_of (h : TateRamAtThree) : TateRamAtThreeD :=
+  fun K L L' _ _ hKL hLL' PK _ => h K L L' hKL hLL' PK
+
+/-- **`LinkedRam`, proved** from G3, `KernelFieldBreaks`, the two proved Mathlib Props and the
+corrected `TateRamAtThreeD` (linked-tate's `linkedRam_of`, with `[L:ℚ] ≤ D` taken from `G7Data`). -/
+theorem linkedRam_of' (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
+    (hLI : LocalInertiaGlobal) (hUI : UpperAbsInertia) (h3 : TateRamAtThreeD) : LinkedRam := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD Θ h hΘ m a n d h1 h2 hmL h4 h5 h6 h7 h8
+    gam g0 g1 g2 g3 hgam1 j5 j3
+  haveI hNF : NumberField L' := numberField_of_fd L'
+  have hK' := hK u P L A ε N χ β L' hLL' hD
+  have hLD : Module.finrank ℚ L ≤ ZInQ.heightD := hD.2.2.2.2.2.2.2.2.2.2.2.2
+  obtain ⟨K, hKL, PK, -, rfl⟩ := hD.1
+  have hnorm : (L'.fixingSubgroup).Normal :=
+    (InfiniteGalois.normal_iff_isGalois L').mpr inferInstance
+  -- on `G_{L'}`, `ρ` is the Tate action
+  have hρ : ∀ (ℓ : ℕ) [Fact ℓ.Prime] (j : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ) (g : PkgI4.GQ),
+      g ∈ GQL L' →
+      (∀ σ'' : Field.absoluteGaloisGroup L', G0Galois.resQ L' σ'' = g →
+        G0Galois.tate (@PkgI3.AbVar.baseChange L _
+          (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ σ'' = 1) →
+      GlueDescent.rho (tmOf hLL' _ Θ h m ℓ) (fun _ => j 1) (fun g => j (gam (h * g * h⁻¹))) g
+        = 1 := by
+    intro ℓ _ j g hg ht
+    obtain ⟨σ'', hσ''⟩ : g ∈ (@GaloisCopy.resQ L' _ hNF).range := by
+      rw [resQRange L']; exact hg
+    subst hσ''
+    have hcj : h * (@GaloisCopy.resQ L' _ hNF σ'') * h⁻¹ ∈ GQL L' := hnorm.conj_mem _ hg h
+    unfold GlueDescent.rho
+    rw [tmOf_resQ hLL' _ Θ h hΘ m hmL ℓ σ'']
+    have ht' : GaloisCopy.tate (@PkgI3.AbVar.baseChange L _
+        (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ σ'' = 1 :=
+      ht σ'' rfl
+    have hγ : gam (h * (@GaloisCopy.resQ L' _ hNF σ'') * h⁻¹) = 1 := hgam1 _ hcj
+    rw [ht']
+    show ((j (gam (h * (@GaloisCopy.resQ L' _ hNF σ'') * h⁻¹)))⁻¹ * j 1) • (1 : Module.End _ _) = 1
+    rw [hγ, map_one, inv_one, _root_.one_mul, one_smul]
+  intro p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  have hG5 := hG3 K L L' hKL hLL' PK 5
+  have hG3' := hG3 K L L' hKL hLL' PK 3
+  refine ⟨fun hp5 => ⟨fun hpD t ht σ hσ => ?_, fun hpD σ hσ => ?_⟩,
+    fun hp5 => ⟨fun hpD t ht σ hσ => ?_, fun hpD σ hσ => ?_⟩⟩
+  · -- `ρ₅`, `p ≠ 5`, `p ≤ D`
+    have hσI := hUI p t (lt_of_le_of_lt U0_nonneg ht) hσ
+    refine hρ 5 j5 _ ((hK' p hp).1 hpD t ht σ hσ) (fun σ'' hσ'' => ?_)
+    by_cases hp3 : p = 3
+    · subst hp3
+      exact h3 K L L' hKL hLL' PK hLD t ht σ hσ σ'' hσ''
+    · exact tate_trivial_of_g3 hLI hG5 p hp3 hp5 σ hσI σ'' hσ''
+  · -- `ρ₅`, `p ≠ 5`, `p > D`
+    have hσI := LadicCond.wildSet_subset_inertiaSet hσ
+    have hp3 : p ≠ 3 := by
+      intro h3'
+      subst h3'
+      have := three_le_heightD
+      push_cast at hpD
+      linarith
+    exact hρ 5 j5 _ ((hK' p hp).2 hpD σ hσ)
+      (fun σ'' hσ'' => tate_trivial_of_g3 hLI hG5 p hp3 hp5 σ hσI σ'' hσ'')
+  · -- `ρ₃`, `p = 5`, `p ≤ D`
+    have hσI := hUI p t (lt_of_le_of_lt U0_nonneg ht) hσ
+    have hp3 : p ≠ 3 := by omega
+    exact hρ 3 j3 _ ((hK' p hp).1 hpD t ht σ hσ)
+      (fun σ'' hσ'' => tate_trivial_of_g3 hLI hG3' p hp3 hp3 σ hσI σ'' hσ'')
+  · -- `ρ₃`, `p = 5`, `p > D`
+    have hσI := LadicCond.wildSet_subset_inertiaSet hσ
+    have hp3 : p ≠ 3 := by omega
+    exact hρ 3 j3 _ ((hK' p hp).2 hpD σ hσ)
+      (fun σ'' hσ'' => tate_trivial_of_g3 hLI hG3' p hp3 hp3 σ hσI σ'' hσ'')
+
 end UnramTate
 
 end
@@ -503,3 +704,5 @@ end LinkedRamMain
 
 #print axioms UnramTate.kernelFieldBreaksHigh
 #print axioms UnramTate.kernelFieldBreaks_of_halves
+#print axioms UnramTate.kernelFieldBreaks_of
+#print axioms UnramTate.linkedRam_of'

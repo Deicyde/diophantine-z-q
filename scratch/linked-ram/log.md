@@ -31,3 +31,14 @@
   Proof: p > D ≥ [L:ℚ] ⇒ decomp σ ∈ G_L (W4 via minpoly); p odd (D ≥ 3); p² ∤ N = chiLevel Tm
   (`not_sq_dvd_chiLevel`) ⇒ cyc N (decomp σ) = 1 (`cyc_decomp_eq_one`, modularCyclotomicCharacter.unique) ⇒ β(g)² = 1;
   ε = 1 on G_L×G_L (InflatedFrom, ε 1 1 = 1) ⇒ β multiplicative on G_L; g^(p^a) ∈ G_{L'} ⇒ β(g)^(p^a) = 1 ⇒ β(g) = 1.
+
+## Step 3: wild half reduced; corrected TateRamAtThree — VERIFIED (Tail.lean 0 errors, standard axioms)
+- `mem_GQL'_of_wild` (shared β-step: G7Data, p odd, σ wild, decomp σ ∈ G_L ⇒ decomp σ ∈ G_{L'}).
+- New Props: `UpperBreakBound` (LEAF?: absolute break bound 4a² for F/ℚ_p of degree a; Glazer L796-811 from Serre III §6,
+  IV §1-3), `UpperAbsWild` (GLUE, definitions: G^u ⊆ wild for u > 0), `BetaTrivialAtTwo` (GLUE: Glazer L826-843).
+- `four_D_sq_lt_U0 : 4 D² < U0`; `decomp_mem_GQL_of_breaks` (UpperBreakBound ⇒ decomp(G^t) ⊆ G_L for [L:ℚ] ≤ D, t > U0,
+  applied to F = ℚ_p(embP x) per x ∈ L); `kernelFieldBreaksLow_of`, `kernelFieldBreaks_of (hB hW h2) : KernelFieldBreaks`.
+- `TateRamAtThreeD` (TateRamAtThree + hypothesis `finrank ℚ L ≤ heightD`), `tateRamAtThreeD_of` (old ⇒ new),
+  `linkedRam_of'` (linked-tate's proof, `[L:ℚ] ≤ D` read from G7Data's last clause). All standard axioms.
+- Pitfall: nlinarith on a goal containing `(heightD : ℝ)` hit max recursion (huge literal); use explicit
+  `mul_le_mul_of_nonneg_left (pow_le_pow_left₀ …)`.
