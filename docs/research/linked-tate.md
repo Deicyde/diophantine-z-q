@@ -28,6 +28,9 @@ network). Model work only; no human review.
   - the leaves T7 and I3.M0 (= T26);
   - `FibreSimple`;
   - three new glue Props, `QMEndRank`, `LinkedFrob` and `LinkedRam`.
+  - `LinkedRam` is proved in turn (`linkedRam_of`) from G3 (`QMModelG3`) and four smaller glue
+    Props: `KernelFieldBreaks` (field-theoretic), `LocalInertiaGlobal` and `UpperAbsInertia`
+    (definitions), and `TateRamAtThree` (D1-D2 at the prime 3).
 
   The ℓ = 5 and ℓ = 3 operator data are constructed. They are unram-tate's Tate-functor
   construction, run once with one scalar function `γ₀ : G_ℚ → ℚ̄`. So the scalar link that
@@ -35,10 +38,11 @@ network). Model work only; no human review.
 - **End to end:** `HSyn.sixContactMin_of_leaves3 r t gp3 : ZInQ.SixContactMin`. Here
   `GluePieces3` is g0-assemble's `GluePieces2`:
   - with fields 1-25 copied verbatim;
-  - with fields 27 `modelG3G6` and 28 `linkedTateData` replaced by four fields,
-    `goodRedTorsion`, `qmEndRank`, `linkedFrob` and `linkedRam`.
+  - with fields 27 `modelG3G6` and 28 `linkedTateData` replaced by seven fields:
+    `goodRedTorsion`, `qmEndRank`, `linkedFrob`, `kernelFieldBreaks`, `localInertiaGlobal`,
+    `upperAbsInertia` and `tateRamAtThree`.
 
-  That makes 29 fields, against 27. Proof: `gluePieces2_of_gluePieces3`, then g0-assemble's
+  That makes 32 fields, against 27. Proof: `gluePieces2_of_gluePieces3`, then g0-assemble's
   `sixContactMin_of_leaves2`.
 
 ```lean
@@ -51,6 +55,8 @@ theorem HSyn.LinkedTate.linkedTateData_of_frobRam (hM : PkgI3.CharPolyIndepOfEll
     (hT : PkgI3.TateModuleFree) (hFS : HSyn.G0Split.FibreSimple) (hR : QMEndRank)
     (hFR : UnramTate.LinkedFrobRam) : HSyn.G0AssembleMod.LinkedTateData
 theorem UnramTate.linkedFrobRam_of (hF : LinkedFrob) (hR : LinkedRam) : LinkedFrobRam
+theorem UnramTate.linkedRam_of (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
+    (hLI : LocalInertiaGlobal) (hUI : UpperAbsInertia) (h3 : TateRamAtThree) : LinkedRam
 theorem HSyn.LinkedTate.afterG7_of_final (r t m hDF hCar hSw hL8 hAd)
     (hFS : FibreSimple) (hB : GoodRedG3Bridge) (hR : QMEndRank)
     (hF : UnramTate.LinkedFrob) (hRam : UnramTate.LinkedRam) : G0ModField.AfterG7
@@ -98,7 +104,11 @@ pin-apply strengthened by `R1famProps` and `R1univProps`.
 | `HSyn.LinkedTate.GoodRedTorsion` | **glue (new)** | The same hypotheses as `GoodRedG3Bridge`; the conclusion is at the level of points: inertia of `G_{L'}` above `p ∉ {3, ℓ}` fixes every `ℓⁿ`-torsion point of `A_{L,L'}(\bar{L'})`. This is where NOS's `InertiaTrivialOn` lives; only places, `resQ` and base-change points are transported. | G3 |
 | `HSyn.LinkedTate.QMEndRank` | **glue (new, literature-backed)** | For a `QML3` object over `K ≤ L ≤ L'` with `EndDivision`, `rank_ℤ End(A_{L,L'}) = 4`. | the `rank = 4` conjunct of `G7Out` |
 | `UnramTate.LinkedFrob` | **glue (new)** | g14-trace's `FrobTraceLink` for the canonical operators `tmOf … 5`, `tmOf … 3`, for every transport `(Θ, h)` and every points-level descent datum `(m, a, n, d)` | G14 |
-| `UnramTate.LinkedRam` | **glue (new)** | `RhoRamWild` (clauses (i)-(ii) of `LocalRam`, for the descended operator `ρ_ℓ` itself) for `ρ₅` at `p ≠ 5` and `ρ₃` at `p = 5`, built from the canonical operators, for every choice of the data | G15 clauses (i)-(ii) |
+| `UnramTate.LinkedRam` | glue (new; proved from the next four rows and G3: `linkedRam_of`) | `RhoRamWild` (clauses (i)-(ii) of `LocalRam`, for the descended operator `ρ_ℓ` itself) for `ρ₅` at `p ≠ 5` and `ρ₃` at `p = 5`, built from the canonical operators, for every choice of the data | G15 clauses (i)-(ii) |
+| `UnramTate.KernelFieldBreaks` | **glue (new)** | For every G7 data: for `p ≤ D`, `decomp p (G_{ℚ_p}^t) ⊆ G_{L'}` for `t > U₀`; for `p > D`, `decomp p (wild inertia) ⊆ G_{L'}`. This is a statement about the field `L'` alone. | G15 (i)-(ii) |
+| `UnramTate.LocalInertiaGlobal` | **glue (new, definitions)** | `decomp p` maps the inertia set of `G_{ℚ_p}` into the inertia group of a place of `ℚ̄` above `p`. | G15, through G3 |
+| `UnramTate.UpperAbsInertia` | **glue (new, definitions)** | `upperAbs p t ⊆ inertiaSet` for `t > 0`. | G15, through G3 |
+| `UnramTate.TateRamAtThree` | **glue (new)** | For a `QML3` object and `t > U₀`, every `σ' ∈ G_{L'}` with image in `G_{ℚ_3}^t` acts trivially on `ℚ̄₅ ⊗ V₅` of the model (D1-D2 at `p = 3`). | G15 (i) for `ρ₅` at `p = 3` |
 
 Intermediate named Props, all proved from the rows above:
 - `QMModelG3`: G3 on base changes of `QML3` objects;
@@ -227,6 +237,32 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
     constant on `G_{L'}`-cosets, which is a character of `Gal(L'/ℚ)`.
   - In both cases the ratio of the two `ρ_ℓ` is a character of `G_ℚ` trivial on `G_{L'}`.
 
+### 4.4 `LinkedRam` reduced (proved: `UnramTate.linkedRam_of`)
+
+On `G_{L'}` the canonical operators are the Tate action: `tmOf_resQ`, which is unram-tate's
+`hTres` for any admissible `(Θ, h, m)`. Also `β' = j ∘ γ₀ ∘ cj` equals `1` there, because
+`G_{L'}` is normal and `γ₀ = 1` on it. So `ρ_ℓ(g) = tate(σ'')` whenever `g = resQ σ'' ∈ G_{L'}`.
+
+For each clause of `RhoRamWild`, `KernelFieldBreaks` puts `g = decomp p σ` into `G_{L'}`. It then
+remains to show that the Tate action of a preimage is trivial:
+- **`p ∉ {3, ℓ}`.** This is G3 (`QMModelG3` gives `G3Out … ℓ {3}`). `σ` lies in local inertia
+  (`UpperAbsInertia`, or LadicCond's `wildSet_subset_inertiaSet`), and `LocalInertiaGlobal` turns
+  that into the inertia hypothesis of `G3Out` (`tate_trivial_of_g3`).
+- **`p = 3`.** This occurs only for `ρ₅` in clause (i), since `3 ≤ D` excludes clause (ii). It is
+  `TateRamAtThree`.
+- The cases `ℓ = 3`, `p = 5` and `ℓ = 5`, `p ≠ 5` never meet `p = ℓ`.
+
+VERIFIED.
+
+**Truth** (SPECULATIVE):
+- `LocalInertiaGlobal` and `UpperAbsInertia` follow from the definitions. For the first, the place
+  is the comap of `{‖x‖ ≤ 1}` along `decomp`'s embedding `ℚ̄ → ℚ̄_p`. For the second, an index
+  `t > 0` gives a lower index `ψ(t) ≥ 0`, so `G^t ⊆ G_0` at every finite level.
+- `KernelFieldBreaks` (ii) holds because `L'` is tame at `p > D` (§4.3).
+- `KernelFieldBreaks` (i) is the point to review (§4.3).
+- `TateRamAtThree` is Glazer's D1-D2 at 3. QM surfaces have potentially good reduction, and the
+  field cutting out the finite inertia image must have upper breaks `≤ U₀` at 3.
+
 ## 5. Findings
 
 - **The scalar link is constructible.** g14-trace's F1 (`TateBridge` ties neither the `ℓ = 3`
@@ -246,7 +282,7 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
 
 - **`scratch/linked-tate/olean/Tail.lean`.** It is `import LPrefix` followed by every part:
   - g0-assemble's parts 05-90;
-  - 92, 93, 95, 96, 97, 98 and 99.
+  - 92, 93, 95, 96, 97, 98, 98b and 99.
 
   It is compiled against the olean of `Leaves.lean` + `imports_extra.txt`. VERIFIED: 0 errors, no
   `sorry`, and every axiom report is `[propext, Classical.choice, Quot.sound]`. The declarations:
@@ -255,6 +291,7 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
     `linkedTateCore_of`, `linkedTateData_of`, `afterG7_of_linked`, `afterG7_of_linked'`,
     `linkedTateData_of_frobRam`, `afterG7_of_final`, `tate_eq_one_of_torsion` and
     `goodRedG3Bridge_of_torsion`;
+  - `UnramTate` (part 98b): `tmOf_resQ`, `tate_trivial_of_g3` and `linkedRam_of`;
   - `UnramTate`: `tateBridge_of_tateModuleFree`, `scalarTransferQ`, `linkedTateCoreDR_of` and
     `linkedFrobRam_of`;
   - `HSyn`: `gluePieces2_of_gluePieces3`, `sixContactMin_of_leaves3`, and g0-assemble's
@@ -283,8 +320,10 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
   the bundles; either could be added as a leaf.
 - **`LinkedFrob`.** Néron models, reduction and Serre–Tate on PkgI3 objects. g14-trace's square
   form `FrobSquaresLink` splits it into the kernel's three squares.
-- **`LinkedRam`.** D1-D4 on the canonical `ρ_ℓ`. The bound on the upper breaks of `L'` at `p ≤ D`
-  should be checked (§4.3).
+- **`LinkedRam`**, reduced to four Props:
+  - `KernelFieldBreaks`: the upper breaks of `L'` at `p ≤ D` should be checked (§4.3);
+  - `TateRamAtThree`: D1-D2 at `p = 3`;
+  - `LocalInertiaGlobal` and `UpperAbsInertia`: Mathlib-level glue.
 - **`FibreSimple`.** Unchanged: g0-fibresimple's FS1b and FS5, plus pin-apply's `MobiusGlue`.
 - **Integration.** `GluePieces3` and `sixContactMin_of_leaves3` are in
   `scratch/linked-tate/parts/99_bundle3.lean`. g0-assemble's own files are untouched.
