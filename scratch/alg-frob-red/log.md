@@ -14,3 +14,16 @@
   algFrobRedAt_of_good : GoodRedCofinite → AlgFrobRedGood → AlgFrobRedAt, algFrobRed_of_good, tateBridge35_of_good.
 - Run 2: `lake env lean scratch/alg-frob-red/AlgFrobRed.lean` exit 0, no error, ~46 s; all axiom prints
   [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Run 3-6: local glue split (all compiled)
+- New defs: Ow L v = v ∩ L, kw L v = κ(w), sf 𝒜 (special fibre, base change of the Grp along Spec κ(O) → Spec O),
+  RedRel v 𝒜 e j x y (reduction relation: lift x' : Spec O_v → 𝒜 with I2 IsReductionOf's generic clause, and
+  y ≫ pr₁ = Spec j ≫ Spec(residue) ≫ x').
+- New Props: SmoothGeomConnIntegral (leaf candidate, textbook), ReductionMapGood (glue: valuative criterion; j and red),
+  RedTorsionQbar (glue: I2-Red transported to ℚ̄ / sf / j), ReductionFrobGood (glue: NMP + Frobenius + rigidity).
+- Proved: sf_isAbelianVariety (proper/smooth/geom. connected by Mathlib base-change instances + SmoothGeomConnIntegral),
+  charP_kw, isUnit_cast_of_ne, algFrobRedGood_of : SmoothGeomConnIntegral → ReductionMapGood → RedTorsionQbar →
+  ReductionFrobGood → AlgFrobRedGood, algFrobRed_of_pieces, tateBridge35_of_pieces.
+- Run 6: exit 0, no error, no sorry; all 10 AlgFrobRedRed axiom prints [propext, Classical.choice, Quot.sound] (VERIFIED).
+- Note: RedRel and the three Props need `set_option synthInstance.maxHeartbeats 400000` (Monoidal instance of
+  Over.pullback along Spec(O_w → L) times out at 20000).
