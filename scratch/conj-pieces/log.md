@@ -11,3 +11,9 @@ Build: `lake build ZInQKernel.HDecomp.LeafPush2.T` (2 min, cached), then `lake e
   `mem_range_emb` (integral over σ(K) ⇒ in ι(K̄)). Copies verbatim (VERIFIED by diff):
   `ArtinTorsionSurj`, `toC`, `embHom` (conj-twist), `MulIsogeny` (g0-assemble parts/40).
   0 errors, 0 sorry; `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 07:35 `scratch/conj-pieces/Holo.lean`: new textbook leaf `HoloHomLift` (N2′: a
+  homomorphism `Ψ : ℂ^g → B(ℂ)_σ` holomorphic in the `IsUniformization` sense factors as
+  `Φ_B ∘ M`, `M` ℂ-linear; Mumford §1 + Birkenhake–Lange Prop. 1.2.1, UNVERIFIED numbers).
+  Proved `cDom_comp` (rfl), `cEvalAt_comp` (pullback of regular functions), and
+  **`homLinearLift_of_holoHomLift : HoloHomLift → HomLinearLift`**. `HomLinearLift` copied
+  verbatim (VERIFIED by diff). 0 errors, 0 sorry, axioms standard. VERIFIED (compiled).
