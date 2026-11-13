@@ -1077,14 +1077,14 @@ theorem conjL_I {g : ℕ} (z : Fin g → ℂ) :
     conjL g (Complex.I • z) = -(Complex.I • conjL g z) := by
   funext i; simp [conjL]
 
-/-- **N3a. The conjugate of a uniformization (GLUE, unproved; STANDARD).** If `σ ∘ s = conj ∘ σ`
+/-- **N3a. The conjugate of a uniformization (GLUE; reduced in §14-§15).** For a number field, if `σ ∘ s = conj ∘ σ`
 and `Φ` uniformizes `A(ℂ)_σ` with kernel `Λ`, then `z ↦ twistC(Φ(z̄))` uniformizes `A^s(ℂ)_σ`
 with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_{conj∘σ}`, and on affine charts
 `twistC` conjugates the values of regular functions, so `z ↦ s(twistC(Φ z̄)) = conj(s'(Φ z))`-type
 compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
 homomorphism.) -/
 def ConjUniformization : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
@@ -1755,7 +1755,7 @@ affine charts `twistC` conjugates the values of regular functions, and `z ↦ co
 holomorphic when `f` is; Mumford §1, GAGA.) These are the last two clauses of
 `IsUniformization`; the first three are proved (`conjUniformization_of_analytic`). -/
 def ConjUniformizationAnalytic : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
@@ -1766,7 +1766,7 @@ def ConjUniformizationAnalytic : Prop :=
 
 /-- **N3a from its analytic clauses (proved).** -/
 theorem conjUniformization_of_analytic (h : ConjUniformizationAnalytic) : ConjUniformization := by
-  intro K _ A σ s hs g Λ Φ hd hΦ
+  intro K _ _ A σ s hs g Λ Φ hd hΦ
   obtain ⟨h4, h5⟩ := h K A σ s hs g Λ Φ hd hΦ
   refine ⟨fun z w => ?_, fun z => ?_, fun Q => ?_, h4, h5⟩
   · beta_reduce
@@ -1793,6 +1793,94 @@ theorem conjTwistNontrivial_final' (h5 : PkgI2.TorsionStructure.{0})
 theorem conjTwistFromLeaves_final' (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) :
     ConjTwistFromLeaves :=
   conjTwistFromLeaves_final hN2 (conjUniformization_of_analytic hN3)
+
+/-! ## §15. N3a-an from an evaluation identity (proved reduction)
+
+The analytic clauses follow from a purely scheme-theoretic identity (`TwistCEval`): for a number
+field, every open `U` of `A^s` is the preimage of an open `V` of `A`, and the value of a section
+of `A^s` over `U` at `twistC Q` is the complex conjugate of the value of a section of `A` over `V`
+at `Q`. With it, `ψ = twistC ∘ Φ ∘ conj` has open domains `conj⁻¹(cDom Φ V)` and its coordinate
+functions are `z ↦ conj(F(z̄))` with `F` holomorphic (`differentiableOn_conj_conj`). -/
+
+theorem conjL_smul {g : ℕ} (c : ℂ) (v : Fin g → ℂ) :
+    conjL g (c • v) = starRingEnd ℂ c • conjL g v := by
+  funext i; simp [conjL]
+
+/-- **`z ↦ conj(F(z̄))` is holomorphic where `F` is (proved).** -/
+theorem differentiableOn_conj_conj {g : ℕ} {F : (Fin g → ℂ) → ℂ} {S : Set (Fin g → ℂ)}
+    (hF : DifferentiableOn ℂ F S) :
+    DifferentiableOn ℂ (fun z => starRingEnd ℂ (F (conjL g z))) (conjL g ⁻¹' S) := by
+  intro x hx
+  obtain ⟨F', hF'⟩ := hF (conjL g x) hx
+  let cV : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ) := LinearMap.toContinuousLinearMap (conjL g)
+  let Gl : (Fin g → ℂ) →ₗ[ℂ] ℂ :=
+    { toFun := fun v => starRingEnd ℂ (F' (conjL g v))
+      map_add' := fun v w => by simp [map_add]
+      map_smul' := fun c v => by simp [conjL_smul, map_smul, smul_eq_mul] }
+  let G' : (Fin g → ℂ) →L[ℂ] ℂ := LinearMap.toContinuousLinearMap Gl
+  have h1 : HasFDerivWithinAt (fun z => F (conjL g z)) ((F'.restrictScalars ℝ).comp cV)
+      (conjL g ⁻¹' S) x :=
+    (hF'.restrictScalars ℝ).comp x cV.hasFDerivWithinAt (fun z hz => hz)
+  have h2 := (Complex.conjCLE : ℂ →L[ℝ] ℂ).hasFDerivAt.comp_hasFDerivWithinAt x h1
+  have h3 : HasFDerivWithinAt (fun z => starRingEnd ℂ (F (conjL g z))) G' (conjL g ⁻¹' S) x := by
+    refine h2.of_restrictScalars ℝ ?_
+    ext v
+    rfl
+  exact h3.differentiableWithinAt
+
+/-- **N3a-ev. Values of sections at twisted points (GLUE, unproved; STANDARD; no analysis).**
+For a number field `K` (so `A^s → A` is an isomorphism), every open `U` of `A^s` corresponds to an
+open `V` of `A` with `twistC Q ∈ U ↔ Q ∈ V`, and every section `f` of `A^s` over `U` to a section
+`f'` of `A` over `V` with `f(twistC Q) = conj(f'(Q))`. (`fst ∘ twistC Q = Q ∘ Spec(conj)` as maps
+`Spec ℂ → A`; take `V = fst(U)`, `f = fst^* f'`; `Spec(conj)^*` is `conj` on `Γ(Spec ℂ) = ℂ`.) -/
+def TwistCEval : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (U : (conjVar A s).X.left.Opens),
+    ∃ V : A.X.left.Opens,
+      (∀ Q : CPts A σ, (⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U ↔ ⊤ ≤ Q.left ⁻¹ᵁ V)) ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ Q : CPts A σ,
+        ⊤ ≤ Q.left ⁻¹ᵁ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h Q) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt Q V f')
+
+/-- **N3a-an (number fields) from N3a-ev (proved).** -/
+theorem conjUniformizationAnalytic_of_eval (hE : TwistCEval) : ConjUniformizationAnalytic := by
+  intro K _ _ A σ s h g Λ Φ hd hΦ
+  have hdom : ∀ U, ∃ V : A.X.left.Opens,
+      ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U =
+        conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ z,
+        z ∈ conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt (Φ (conjL g z)) V f') := by
+    intro U
+    obtain ⟨V, hV, hf⟩ := hE K A σ s h U
+    refine ⟨V, ?_, fun f => ?_⟩
+    · ext z
+      exact hV (Φ (conjL g z))
+    · obtain ⟨f', hf'⟩ := hf f
+      exact ⟨f', fun z hz => hf' _ hz⟩
+  have hcont : Continuous (conjL g) :=
+    (LinearMap.toContinuousLinearMap (conjL g)).continuous
+  refine ⟨fun U => ?_, fun U f => ?_⟩
+  · obtain ⟨V, hV, -⟩ := hdom U
+    rw [hV]
+    exact (hΦ.2.2.2.1 V).preimage hcont
+  · obtain ⟨V, hV, hf⟩ := hdom U
+    obtain ⟨f', hf'⟩ := hf f
+    rw [hV]
+    exact (differentiableOn_conj_conj (hΦ.2.2.2.2 V f')).congr fun z hz => hf' z hz
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-ev (proved).** -/
+theorem conjTwistNontrivial_final'' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hE : TwistCEval) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final' h5 hT h35 hN2 (conjUniformizationAnalytic_of_eval hE)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-ev (proved).** -/
+theorem conjTwistFromLeaves_final'' (hN2 : HomLinearLift) (hE : TwistCEval) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final' hN2 (conjUniformizationAnalytic_of_eval hE)
 
 end G0Galois
 
@@ -1828,3 +1916,7 @@ end G0Galois
 #print axioms G0Galois.conjUniformization_of_analytic
 #print axioms G0Galois.conjTwistNontrivial_final'
 #print axioms G0Galois.conjTwistFromLeaves_final'
+#print axioms G0Galois.differentiableOn_conj_conj
+#print axioms G0Galois.conjUniformizationAnalytic_of_eval
+#print axioms G0Galois.conjTwistNontrivial_final''
+#print axioms G0Galois.conjTwistFromLeaves_final''

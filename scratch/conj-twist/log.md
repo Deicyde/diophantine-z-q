@@ -103,3 +103,13 @@
   **`conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 32 `#print axioms` standard.
   VERIFIED (compiled).
+- 2026-11-13 06:31 §15 added: `conjL_smul`, **`differentiableOn_conj_conj`** (z ↦ conj(F(z̄))
+  holomorphic on conj⁻¹ S when F is on S; via ℝ-derivatives and
+  `HasFDerivWithinAt.of_restrictScalars`), glue def `TwistCEval` (N3a-ev: scheme-theoretic,
+  number fields: opens/sections of A^s correspond to those of A with f(twistC Q) = conj(f'(Q))),
+  **`conjUniformizationAnalytic_of_eval`**, `ConjUniformization` and
+  `ConjUniformizationAnalytic` now for number fields (weaker; all that is used),
+  **`conjTwistNontrivial_final'' : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → TwistCEval → ConjTwistNontrivial`**, **`conjTwistFromLeaves_final'' :
+  HomLinearLift → TwistCEval → ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 36
+  `#print axioms` standard. VERIFIED (compiled).
