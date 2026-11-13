@@ -70,3 +70,14 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   Kernel: `TPurity2K.purityBranchLocus_of_local : PurityBranchLocusLocal.{u} →
   PkgI2.PurityBranchLocus.{u}`, `local_of_purityBranchLocus` (converse),
   `objBridge_purityBranchLocus_of_local`; plus the T1′ versions. So T1 ⇔ T1′ ⇔ T1″.
+- Read: the only consumer of bundle fields `t14a`, `t14b`, `t15` is
+  `GlueWP3.b3_degree_le_QM_of_T14_T15` (ZInQKernel/HDecomp/Descent/WP3.lean:290-307), via
+  `leafHasse_of_T14` / `leafLocalTwo_of_T15` into `GlueDescent.B3Q.b3_degree_le_QM` (takes
+  `LeafHasse`, `LeafLocalTwo`); `cob_of_same_finite_support` (I6Base) has no consumer (grep).
+  Reciprocity is used only via `real_of_finite` (parity with an empty set; finiteness conjunct unused).
+- `T14Narrow.lean` (imports ZInQKernel.HDecomp.Descent.WP3, built with `lake build`): COMPILES,
+  standard axioms. `TPurity2K.BrauerHasseFin2C` (cochain LeafHasse: coboundary at every finite p
+  ⇒ coboundary), `LocalTwo2C` (T15 finite-place uniqueness half), `brauerHasseFin2C_of_T14`,
+  `brauerHasse2C_of_fin`, `leafHasse_iff_brauerHasseFin2C`, `localTwo2C_of_T15`,
+  `leafLocalTwo_iff_localTwo2C`, `leaves_of_narrow : BrauerHasseFin2C → LocalTwo2C → LeafHasse ∧
+  LeafLocalTwo`.
