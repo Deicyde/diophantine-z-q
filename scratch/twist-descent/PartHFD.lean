@@ -1,0 +1,147 @@
+/-! # twist-descent, part HFD: descent of `G_L`-invariant morphisms between conjugates
+
+For a number field `K ⊆ ℚ̄`, an abelian variety `B/K`, a finite Galois `L ⊆ ℚ̄` and two embeddings
+`e₁L, e₂L : K → L`, a `ℚ̄`-morphism `φ : B ×_{K,e₁} ℚ̄ → B ×_{K,e₂} ℚ̄` (`eᵢ = (L ↪ ℚ̄) ∘ eᵢL`) that
+commutes with the Galois translates by `G_L` is the base change of a morphism
+`B ×_{K,e₁L} L → B ×_{K,e₂L} L` (`hfd`). Proof: EGA IV₃ 8.8.2 (`MorphDescend.exists_descend`,
+proved) descends `φ` to a finite `L₁ ⊇ L`; pass to the normal closure `L'` of `L₁`; the descended
+morphism is `Gal(L'/L)`-invariant (checked after the epimorphism `B_{ℚ̄} → B_{L'}`), so it descends
+to `L` by `TwistDescentGD.descend` (Galois descent along `L'/L`, from Mathlib's fpqc descent). -/
+
+section TwistDescentHFD
+
+open CategoryTheory AlgebraicGeometry Limits
+open TwistDescentXC
+
+namespace TwistDescentHFD
+
+/-- `Spec` of a ring map. -/
+noncomputable abbrev sp {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) :
+    Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of R) :=
+  Spec.map (CommRingCat.ofHom f)
+
+theorem sp_comp_eq {R₁ R₂ R₃ : Type} [CommRing R₁] [CommRing R₂] [CommRing R₃] (s : R₁ →+* R₂)
+    (t : R₂ →+* R₃) (u : R₁ →+* R₃) (h : ∀ x, t (s x) = u x) : sp t ≫ sp s = sp u := by
+  rw [sp, sp, sp, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact h x
+
+theorem sp_eq {R₁ R₂ R₃ : Type} [CommRing R₁] [CommRing R₂] [CommRing R₃] (s : R₁ →+* R₂)
+    (t : R₂ →+* R₃) (u : R₁ →+* R₃) (h : ∀ x, t (s x) = u x) : sp u = sp t ≫ sp s :=
+  (sp_comp_eq s t u h).symm
+
+theorem sp_id_eq {R : Type} [CommRing R] (t : R →+* R) (h : ∀ x, t x = x) : sp t = 𝟙 _ := by
+  rw [sp, ← Spec.map_id]
+  congr 1
+  ext x
+  exact h x
+
+abbrev Qbar : Type := AlgebraicClosure ℚ
+
+variable {K : IntermediateField ℚ Qbar} (B : PkgI3.AbVar K)
+
+/-- `ℚ̄ → B_{L'}` comparisons are epimorphisms (flat surjective quasi-compact base change). -/
+theorem xc_epi {L : IntermediateField ℚ Qbar} (eL : K →+* L) (e : K →+* Qbar)
+    (h : sp e = sp (algebraMap L Qbar) ≫ sp eL) : Epi (xc B.X (sp (algebraMap L Qbar)) h) :=
+  TwistDescentGD.epi_of_isPullback_field (xc_isPullback B.X _ h)
+
+/-- **Hom-field descent.** -/
+theorem hfd {L : IntermediateField ℚ Qbar} [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (e₁L e₂L : K →+* L) (e₁ e₂ : K →+* Qbar)
+    (h₁ : sp e₁ = sp (algebraMap L Qbar) ≫ sp e₁L) (h₂ : sp e₂ = sp (algebraMap L Qbar) ≫ sp e₂L)
+    (he₁ : ∀ x, (e₁L x : Qbar) = e₁ x) (he₂ : ∀ x, (e₂L x : Qbar) = e₂ x)
+    (φ : pullback B.X.hom (sp e₁) ⟶ pullback B.X.hom (sp e₂))
+    (hφ : φ ≫ pullback.snd _ _ = pullback.snd _ _)
+    (hinv : ∀ k : Qbar ≃ₐ[ℚ] Qbar, k ∈ L.fixingSubgroup →
+      ∀ (k₁ : sp e₁ = sp (k : Qbar →+* Qbar) ≫ sp e₁) (k₂ : sp e₂ = sp (k : Qbar →+* Qbar) ≫ sp e₂),
+        xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ φ = φ ≫ xc B.X (sp (k : Qbar →+* Qbar)) k₂) :
+    ∃ φL : pullback B.X.hom (sp e₁L) ⟶ pullback B.X.hom (sp e₂L),
+      xc B.X (sp (algebraMap L Qbar)) h₁ ≫ φL = φ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ := by
+  have hm₁ : ∀ x, e₁ x ∈ L := fun x => he₁ x ▸ (e₁L x).2
+  have hm₂ : ∀ x, e₂ x ∈ L := fun x => he₂ x ▸ (e₂L x).2
+  obtain ⟨L₁, ψ, hψ⟩ := MorphDescend.exists_descend L B.X B.X e₁ e₂ hm₁ hm₂ φ hφ
+  obtain ⟨L₁, hfin₁, hLL₁⟩ := L₁
+  let L' : IntermediateField ℚ Qbar := IntermediateField.normalClosure ℚ L₁ Qbar
+  have hL₁L' : L₁ ≤ L' := IntermediateField.le_normalClosure L₁
+  have hLL' : L ≤ L' := hLL₁.trans hL₁L'
+  let _ : Algebra L L' := G0ModField.incAlg hLL'
+  have : IsScalarTower ℚ L L' := IsScalarTower.of_algebraMap_eq fun x => rfl
+  have : FiniteDimensional ℚ L₁ := hfin₁
+  have : FiniteDimensional ℚ L' := inferInstance
+  have : IsGalois ℚ L' := inferInstance
+  have : FiniteDimensional L L' := FiniteDimensional.right ℚ L L'
+  have : IsGalois L L' := IsGalois.tower_top_of_isGalois ℚ L L'
+  -- the maps at level `L'`
+  let e₁' : K →+* L' := (algebraMap L L').comp e₁L
+  have hq : sp e₁' = sp (algebraMap L L') ≫ sp e₁L := sp_eq _ _ _ fun _ => rfl
+  let q : pullback B.X.hom (sp e₁') ⟶ pullback B.X.hom (sp e₁L) := xc B.X (sp (algebraMap L L')) hq
+  have hpb := xc_isPullback B.X (sp (algebraMap L L')) hq
+  let r₁ := MorphDescend.restrL L e₁ hm₁ ⟨L₁, hfin₁, hLL₁⟩
+  let r₂ := MorphDescend.restrL L e₂ hm₂ ⟨L₁, hfin₁, hLL₁⟩
+  have ha : sp e₁' = sp (IntermediateField.inclusion hL₁L' : L₁ →+* L') ≫ sp r₁ :=
+    sp_eq _ _ _ fun x => Subtype.ext (he₁ x).symm
+  have hb : sp r₂ = sp (IntermediateField.inclusion hLL₁ : L →+* L₁) ≫ sp e₂L :=
+    sp_eq _ _ _ fun x => Subtype.ext (he₂ x)
+  let f : pullback B.X.hom (sp e₁') ⟶ pullback B.X.hom (sp e₂L) :=
+    xc B.X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha ≫ ψ ≫
+      xc B.X (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb
+  have hQ' : sp e₁ = sp (algebraMap L' Qbar) ≫ sp e₁' := sp_eq _ _ _ fun x => (he₁ x)
+  have hepi : Epi (xc B.X (sp (algebraMap L' Qbar)) hQ') := xc_epi B e₁' e₁ hQ'
+  -- `f` after `ℚ̄ → L'` is `φ ≫ (ℚ̄ → L)`
+  have hfQ : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ f = φ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ := by
+    have c1 : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫
+        xc B.X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha =
+        MorphDescend.cmp L B.X e₁ hm₁ ⟨L₁, hfin₁, hLL₁⟩ :=
+      xc_comp_eq B.X _ _ _ _ (sp (algebraMap L₁ Qbar)) (sp_eq _ _ _ fun _ => rfl)
+        (sp_comp_eq _ _ _ fun _ => rfl)
+    have c2 : MorphDescend.cmp L B.X e₂ hm₂ ⟨L₁, hfin₁, hLL₁⟩ ≫
+        xc B.X (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb =
+        xc B.X (sp (algebraMap L Qbar)) h₂ :=
+      xc_comp_eq B.X _ _ (sp (algebraMap L₁ Qbar)) (sp_eq _ _ _ fun _ => rfl) _ _
+        (sp_comp_eq _ _ _ fun _ => rfl)
+    simp only [f]
+    rw [← Category.assoc, c1, ← reassoc_of% hψ, c2]
+  obtain ⟨φL, hφL⟩ := TwistDescentGD.descend hpb f (fun g => by
+    have hc : sp e₁' = sp (g : L' →+* L') ≫ sp e₁' :=
+      sp_eq _ _ _ fun x => g.commutes (e₁L x)
+    refine ⟨xc B.X (sp (g : L' →+* L')) hc, ?_, xc_snd _ _ _, ?_⟩
+    · exact xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => g.commutes y)
+    · -- lift `g` to `k ∈ G_ℚ`
+      obtain ⟨k, hk⟩ := AlgEquiv.restrictNormalHom_surjective (F := ℚ) (K₁ := L') (E := Qbar)
+        (g.restrictScalars ℚ)
+      have hkx : ∀ x : L', k (x : Qbar) = (g x : Qbar) := fun x => by
+        rw [← AlgEquiv.restrictNormalHom_apply L' k x, hk]; rfl
+      have hkL : k ∈ L.fixingSubgroup := by
+        rw [IntermediateField.mem_fixingSubgroup_iff]
+        intro y hy
+        have := hkx (algebraMap L L' ⟨y, hy⟩)
+        rw [g.commutes] at this
+        exact this
+      have hkL' : ∀ y : L, k (y : Qbar) = y := fun y =>
+        (IntermediateField.mem_fixingSubgroup_iff L k).mp hkL y y.2
+      have k₁ : sp e₁ = sp (k : Qbar →+* Qbar) ≫ sp e₁ :=
+        sp_eq _ _ _ fun x => by rw [← he₁ x]; exact hkL' _
+      have k₂ : sp e₂ = sp (k : Qbar →+* Qbar) ≫ sp e₂ :=
+        sp_eq _ _ _ fun x => by rw [← he₂ x]; exact hkL' _
+      have hu : sp e₁ = sp ((algebraMap L' Qbar).comp (g : L' →+* L')) ≫ sp e₁' :=
+        sp_eq _ _ _ fun x => by
+          show ((g (algebraMap L L' (e₁L x)) : L') : Qbar) = e₁ x
+          rw [g.commutes]; exact he₁ x
+      have c4 : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ xc B.X (sp (g : L' →+* L')) hc =
+          xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ xc B.X (sp (algebraMap L' Qbar)) hQ' :=
+        (xc_comp_eq B.X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun _ => rfl)).trans
+          (xc_comp_eq B.X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun x => hkx x)).symm
+      have c5 : xc B.X (sp (k : Qbar →+* Qbar)) k₂ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ =
+          xc B.X (sp (algebraMap L Qbar)) h₂ :=
+        xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => hkL' y)
+      rw [← cancel_epi (xc B.X (sp (algebraMap L' Qbar)) hQ'), ← Category.assoc, c4,
+        Category.assoc, hfQ, ← Category.assoc, hinv k hkL k₁ k₂, Category.assoc, c5])
+  refine ⟨φL, ?_⟩
+  have c3 : xc B.X (sp (algebraMap L Qbar)) h₁ = xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ q :=
+    (xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun _ => rfl)).symm
+  rw [c3, Category.assoc, hφL, hfQ]
+
+end TwistDescentHFD
+
+end TwistDescentHFD
