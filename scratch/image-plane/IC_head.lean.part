@@ -1,0 +1,14 @@
+import Mathlib
+import ZInQKernel.HDecomp.QM.Pairs
+
+/-!
+# image-plane, part 1: (IC) `ImageClosed` is a theorem
+
+Task image-plane (2026-11-13). The Prop `ImageClosed` is copied verbatim from
+`scratch/curve-glue/AlgDep.lean.part`, together with `ptOf`, `Alg.evalXY` and the value
+calculus of `scratch/curve-glue/C2K.lean` §1-§2 and the `ToP1` lemmas of its §4 (verbatim).
+See `docs/research/image-plane.md`.
+
+No `sorry`, no `axiom`.
+-/
+
