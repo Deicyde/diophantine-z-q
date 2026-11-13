@@ -57,3 +57,5 @@
   file's opens), plus `prodUnif_fullLattice` (from `ProductUnifAnalytic`: the product of
   full-lattice uniformizations is one, with multiplicative covolume). Compile: 0 errors,
   21/21 `#print axioms` standard (VERIFIED).
+- Integration check re-run on the final `ProductHeight.lean` (with §5b): 0 errors, 8 min 14 s;
+  `productModelHeight_of_splits`, `productModelHeight_of_geo` standard axioms (VERIFIED).

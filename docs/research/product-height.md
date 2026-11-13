@@ -4,7 +4,7 @@ Status: research note (task product-height, 2026-11-13).
 - **Lean:** `scratch/product-height/ProductHeight.lean`. It imports only the kernel module
   `ZInQKernel.HDecomp.Faltings.H5Neron` (no scratch import). It compiles with
   `lake env lean scratch/product-height/ProductHeight.lean` in about 1 min. There is no `sorry`
-  and no `axiom`, and all 18 `#print axioms` list only `propext`, `Classical.choice` and
+  and no `axiom`, and all 21 `#print axioms` list only `propext`, `Classical.choice` and
   `Quot.sound` (VERIFIED, log).
 - **Results log:** `scratch/product-height/log.md`.
 - No file under `ZInQKernel/` or `blueprint/` was edited, and no other task's notes or scratch
@@ -57,7 +57,14 @@ The target is `ZInQ.H5Neron.ProductModelHeight` (P2): `h(𝒢₁) + h(𝒢₂) �
    every step (§2, log) and changed the verdict. The forcing lemmas of §1 stay true theorems
    (P2 forces uniformizations of the factors from one of the product), but they are no evidence
    of AN3 strength: S-an provides that descent elementarily.
-5. **Route U** (g0-heightadd's reduction, now on the kernel's types) is also compiled:
+5. **New proved pieces** (VERIFIED):
+   - the product lattice `Λ₁ × Λ₂` is a full discrete lattice with
+     `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂` (`prodLattice_facts`, §5b; Mathlib measure theory). This
+     is the covolume clause needed by S-alg and by `ProductMetrizationGeo`;
+   - `ptsEquiv` (complex points of a product are the product of the complex points, as groups);
+   - `prodUnif_clauses` (the algebraic clauses of the product uniformization);
+   - `recoordM` (change of linear coordinates of a metrized model; the height is unchanged).
+6. **Route U** (g0-heightadd's reduction, now on the kernel's types) is also compiled:
    `productModelHeight_of_geo : U → MetrizationDimUnique → MetrizationExists →
    ProductMetrizationGeo → P2`. It uses AN3 (U, and existence inside `MetrizationExists`), so the
    recommended route is the AN3-free one of item 2.
@@ -76,6 +83,9 @@ The target is `ZInQ.H5Neron.ProductModelHeight` (P2): `h(𝒢₁) + h(𝒢₂) �
 | `prodUnif_clauses` | `z ↦ (Φ₁ z₁, Φ₂ z₂)` (coordinates `Fin.append`) is a homomorphism, onto, with kernel exactly `prodLattice Λ₁ Λ₂` |
 | `prodUnif_isAnalyticUniformization` | with glue `ProductUnifAnalytic`, `Φ₁ × Φ₂` is an analytic uniformization of the product |
 | `proj_comp_unif` | `p₁ ∘ Φ` is a surjective homomorphism onto `𝒢₁(ℂ)_τ` |
+| `covolume_prod`, `isAddFundamentalDomain_prod`, `instIsZLatticeProd`, `discreteTopology_prod` | for full lattices `Λᵢ ⊂ Eᵢ` and Haar measures, `Λ₁ × Λ₂ ⊂ E₁ × E₂` is a full lattice and `covol(Λ₁ × Λ₂, μ₁ × μ₂) = covol Λ₁ · covol Λ₂` (§5b; also standalone in `Lattice.lean`, Mathlib only) |
+| `splitCL_measurePreserving`, `prodLattice_eq_comap`, `prodLattice_facts` | `prodLattice Λ₁ Λ₂ ⊂ ℂ^{g₁+g₂}` is a full discrete lattice with `covol = covol Λ₁ · covol Λ₂` |
+| `prodUnif_fullLattice` | with `ProductUnifAnalytic`: a product of full-lattice uniformizations is one, with multiplicative covolume |
 | `le_of_productModelHeight` | P2 bounds every metrization of the product below |
 | `metrizable_left/right_of_productModelHeight`, `analyticUnif_left_of_productModelHeight` | P2, a metrization of the product and `h(other factor) ≠ ⊥` give a metrization, hence a full-lattice uniformization, of the factor |
 | `metrizationHeightUnique_of` | `U → MetrizationDimUnique → MetrizationHeightUnique` |
@@ -154,10 +164,9 @@ No new literature leaf is introduced.
   - `evalAt` along `pᵢ` and the Zariski-closedness of `p₁ x = 1`.
 - **S-alg** (`ProductMetrizationOfProductUnif`), large. It needs the stalk and cotangent space of
   a fibre product at the unit (`ω_{𝒢P} = ω₁ ⊕ ω₂`), `HodgeLatticeTheorem` for the factors,
-  `⋀^{top}` of a direct sum, multiplicativity of `secIndex`, the block Jacobian, the descent of
-  `jacDet` to `⋀^g`, and the covolume of `Λ₁ × Λ₂`. For the last, Mathlib has
-  `ZLattice.covolume_comap`, `measurePreserving_sumPiEquivProdPi`, `IsAddFundamentalDomain.mk'`
-  and `ZSpan.exist_unique_vadd_mem_fundamentalDomain`.
+  `⋀^{top}` of a direct sum, multiplicativity of `secIndex`, the block Jacobian, and the descent
+  of `jacDet` to `⋀^g`. The covolume of `Λ₁ × Λ₂` is **done**: `prodLattice_facts` (§5b,
+  VERIFIED). Constancy of `gᵢ(τ)` in `τ` and the `Fin.cast` reindexing are part of S-alg.
 
 ## 5. Integration
 
@@ -170,7 +179,7 @@ No new literature leaf is introduced.
   together with
   `example (hS : ProductUnifSplits) (hA : ProductMetrizationOfProductUnif) :
   ZInQ.H5Neron.ProductModelHeight := productModelHeight_of_splits hS hA`.
-  - `lake env lean` on the result gives 0 errors in 8.5 min.
+  - `lake env lean` on the result gives 0 errors (8.5 min; re-run on the final file, 8.2 min).
   - `productModelHeight_of_splits` and `productModelHeight_of_geo` use only the standard axioms
     there.
   - The generated file is not committed (log).
