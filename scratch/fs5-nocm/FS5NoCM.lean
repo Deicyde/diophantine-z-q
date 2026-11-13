@@ -291,7 +291,8 @@ ring of integers of an imaginary quadratic field `k`, of finite index (`conducto
 `End⁰(A) ≅ B` or `≅ M₂(k)` with `k` imaginary quadratic; the centralizer of `B` is `ℚ`, resp. the
 centre `k` (FS4's argument, `centralizerOfMatrixEnd0_of_homFree`); `com ι = End(A) ∩ com⁰` is a
 finitely generated (T6) subring of `ℚ`, resp. of `k`, of rank 1, resp. 2, and integral over `ℤ`,
-hence `ℤ`, resp. an order of `k`. Glue from T27 and T6 (not compiled here). -/
+hence `ℤ`, resp. an order of `k`. Glue; **proved** from T27 and T6 in §G-§H
+(`comIntOrQuadOrder_of_leaves`). -/
 def ComIntOrQuadOrder : Prop :=
   ∀ P : QMPair Qbar, (∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : AbVar.End P.A)) ∨
     ∃ (k : Type) (_ : Field k) (_ : NumberField k) (_ : NumberField.IsTotallyComplex k),
@@ -307,7 +308,8 @@ locators UNVERIFIED), and an order of conductor `f` embeds optimally in the maxi
 quaternion division algebra over `ℚ_p` only if `p ∤ f` and `p` does not split in `k` (Vignéras,
 *Arithmétique des algèbres de quaternions*, LNM 800, Ch. II §3 / Ch. III §5, theorem numbers
 UNVERIFIED; for `p ∤ f`: `k ∩ 𝒪_p = 𝒪_{k,p}` because `𝒪_p` is the set of integral elements).
-A consequence of the published statements (only the conductor half is kept). -/
+A consequence of the published statements (only the conductor half is kept). **Proved** in §I
+from the leaf `CMOptimalEmbedding` (Shimura's description of CM points), `cmConductorCoprime6_of`. -/
 def CMConductorCoprime6 : Prop :=
   ∀ (P : QMPair Qbar) (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
     Module.finrank ℚ k = 2 → ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring →
@@ -766,8 +768,8 @@ theorem com_int_of_end0_quat (hHF : PkgI3.HomFreeFinite) {k : Type} [Field k]
 of `k`-dimension 4 and maps to `M₂(k)`), so the centralizer of `B` in `End⁰(A)` is the centre
 `k = ℚ(√d)`; `com ι = End(A) ∩ k` is a finitely generated `ℤ`-module (T6) of integral elements
 (`End(A)` is finite over `ℤ`), containing `ℤ` and a non-integer `n√d` (FS4,
-`centralizerOfMatrixEnd0_of_homFree`), hence a subring of finite index of `𝒪_k`. Glue (not
-compiled: building `k` and the order as Lean objects from the isomorphism). -/
+`centralizerOfMatrixEnd0_of_homFree`), hence a subring of finite index of `𝒪_k`. Glue;
+**proved** from T6 in §H (`comOfMatrixEnd0_of_homFree`). -/
 def ComOfMatrixEnd0 : Prop :=
   ∀ (A : AbVar Qbar) (q : QMStr A) (d : ℚ), d < 0 →
     Nonempty (AbVar.End0 A ≃ₐ[ℚ]
