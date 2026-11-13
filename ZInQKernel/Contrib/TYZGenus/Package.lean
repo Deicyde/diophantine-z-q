@@ -6,10 +6,15 @@ import ZInQKernel.Contrib.TYZGenus.RingClass
 # cm-points: TYZ's genus-point package as genuine leaves plus glue
 
 Task cm-points (2026-11-13). Report: `docs/research/cm-points.md`; log: `scratch/cm-points/log.md`.
-Owner: cm-points. Imports `TYZGenus/CM.lean` (this task); the ring class fields of
-`TYZGenus/RingClass.lean` (task ring-class) and the modular curve of `TYZGenus/X0.lean`
-(task x0-32) enter through the parameters `Hn` (TYZ's `ℍ'_n`) and `Z` (TYZ's genus points) and
-are bridged once those files are merged.
+Owner: cm-points. Imports `TYZGenus/CM.lean` (this task, which imports x0-32's `TYZGenus/X0.lean`)
+and ring-class's `TYZGenus/RingClass.lean`. §5–§6 work with parameters `Hn` (TYZ's `ℍ'_n`) and `Z`
+(TYZ's genus points); §7 instantiates `Hn := RingClass.HHprime`; §8 pins the class-5 genus points by
+the Heegner points of `CM.lean`.
+
+**Main theorem** (`tyzThm35ReadingA_of_cm`, §8): the three genuine `𝓛`-leaves of `TYZDecomp.Leaves`,
+`TYZZnOverHprime` (`z_n ∈ A(H'_n)`), `HprimeNormal` (`H'_d/ℚ` normal), `Lemma318 HHprime` (TYZ Lemma
+3.18) and the bundled `GenusPointLeafCM` (existential only over TYZ's choice of `Φ₀`, the class-7
+genus points, `ε` and the lift `β'`) give `Literature.TYZThm35ReadingA`.
 
 `ZInQ.Contrib.TYZDecomp.TYZGenusPackage` asks, for each pinned `ℓ` and squarefree `n ≡ 5 (mod 8)`,
 for `PropN.GenusData ℓ n`, a structure over an *abstract* `ℤ[i]`-module `M` with abstract `τ`, `β`,
@@ -27,7 +32,8 @@ for `PropN.GenusData ℓ n`, a structure over an *abstract* `ℤ[i]`-module `M` 
 Then the fields of `GenusData` split into separate leaves (each about pinned objects) and glue:
 `τ_eq_zero` and `β_τ` are proved here (explicit points), `[i]`-linearity of `β` (TYZ's F4) is proved,
 and the leaves are TYZ Lemma 3.18 (`Lemma318`), the normality of `ℍ'_n` (`NormalFields`, F5), `i ∈ ℍ'_n`
-(`IContained`), and the genus-point statements (`GenusPtsDefined`, `Thm35First`, `Lemma321`).
+(`IContained`, proved for ring-class's `ℍ'_n`), and the genus-point statements (`GenusPtsDefined`,
+`Thm35First`, `Lemma321`).
 
 No `sorry`, no `axiom`.
 -/
@@ -241,6 +247,13 @@ def IsBetaOneLift (σ : GalQ) : Prop :=
   ∀ D : ℤ, Squarefree D → ∀ r : Qbar, r ^ 2 = (D : Qbar) → σ r = (betaOneSign D : Qbar) * r
 
 /-! ## §5. The leaves (parameters: `Hn n = ℍ'_n ⊆ ℚ̄`, `Z e` = TYZ's genus point `Z(e)`) -/
+
+/-! **Soundness note (review 2026-11-13).** `GenusPtsDefined`, `Thm35First` and `Lemma321` take the
+genus points `Z` as a *free parameter*. They are closed leaves only once `Z` is pinned by a
+definition; asserted separately with their own `∃ Z` they would not be about the same points (e.g.
+`Z = 0` satisfies `GenusPtsDefined`). The glue theorems that take them (`genusPackage_of_split`,
+`genusPackage_of_ringClass`, …) are sound because one `Z` is shared, but the closed form used by the
+main theorem is the bundled `GenusPointLeafCM` (§8). -/
 
 /-- **Leaf RC-i**: `i ∈ ℍ'_n` (TYZ L1321: `ℍ'_n = L_n(i)·Π H'_{d₀}`; definitional once
 `RingClass.lean` defines `ℍ'_n`). -/
@@ -576,5 +589,368 @@ theorem tyzThm35ReadingA_of_ringClass (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
   tyzThm35ReadingA_of_leaves h11 h1 h29 (genusPackage_of_ringClass Z hHp h318 hZ h35 h321)
 
 end RingClassBridge
+
+/-! ## §8. TYZ's genus points through CM points; Shimura reciprocity in TYZ's form -/
+
+section CMBridge
+open ZInQ.Contrib.TYZGenus.RingClass TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+  ZInQ.RouteK.Rank5b
+
+/-- `ρ ∈ Gal(ℚ̄/ℚ)` acts on `H_{d,4} ⊂ ℚ̄` as the Artin symbol of `c ∈ Pic(𝒪_{d,4})`
+(through ring-class's embedding `embed d : K_dˢ → ℚ̄` and Tau Ceti's `ringClassArtinEquiv`). -/
+def ActsAsArtin4 (ρ : GalQ) (d : ℕ) [NeZero d] (c : Pic (O4 d)) : Prop :=
+  ∀ x : H4 d, ρ (embed d (x : SeparableClosure (QNeg d))) =
+    embed d ((artin4 d c x : H4 d) : SeparableClosure (QNeg d))
+
+/-- **Leaf CM-2-TYZ (field of definition of TYZ's Heegner point)**: for squarefree `n ≡ 5 (mod 8)`,
+`f₀(P_n)` (the Heegner point of `[16(n+1), −8, 1]`, discriminant `−64n`, order `𝒪_{n,4} = ℤ[4√−n]`)
+is defined over the ring class field `H_{n,4}`. The instance `H(−64n) = H_{n,4}` of
+`CM.CMFieldOfDefinition` (`cmFieldTYZ_of`). Sources: main theorem of complex multiplication /
+Shimura reciprocity for `X₀(N)` (Shimura 1971 Thm. 5.4 and Ch. 6; Gross 1984 §3; UNVERIFIED
+numbers); TYZ Proposition 3.2 (L1253–1260). Refereed. -/
+def CMFieldOfDefinitionTYZ : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → tyzHeegnerPt n ∈ ptsOver (H4bar n)
+
+theorem cmFieldTYZ_of {H : ℤ → IntermediateField ℚ Qbar} (h : CMFieldOfDefinition H)
+    (hH : ∀ n : ℕ, n % 8 = 5 → Squarefree n → H (-64 * n) ≤ H4bar n) : CMFieldOfDefinitionTYZ := by
+  intro n hn hsq
+  have h1 := h (-64 * n) (tyzForm n hn)
+  simp only [tyzHeegnerPt, hn, ↓reduceDIte]
+  rw [mem_ptsOver_iff] at h1 ⊢
+  revert h1
+  rcases heegnerPt (tyzForm n hn) with _ | ⟨x, y, _⟩
+  · intro _; trivial
+  · intro h1; exact ⟨hH n hn hsq h1.1, hH n hn hsq h1.2⟩
+
+/-- **Leaf TYZ-3.6 (Shimura reciprocity in TYZ's form, Corollary 3.9 / Theorem 3.6)**: `σ_{1+2ϖ}`
+fixes `z_n = f_n(P_n)`: every `ρ` acting on `H_{n,4}` as the Artin symbol of
+`sigmaClass n` fixes `z_n`. TYZ Corollary 3.9 (`π(1+2ϖ)f_n = f_n`) with Shimura reciprocity on
+`P_n = [h, 1]` (rv-tyz-inputs §1.5, L1433–1683, re-derived there); refereed. Here `z_n` is
+`CM.tyzZn n = (1 − [i]) f₀(P_n)` (the translation of TYZ's `f_n(P_n)` to `X₀(32)` of
+`tyz-t1.md` §3.1, AI-derived and checked numerically there). -/
+def TYZSigmaFixesZn : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 5 → Squarefree n →
+    ∀ ρ : GalQ, ActsAsArtin4 ρ n (sigmaClass n) → galPt ρ (tyzZn n) = tyzZn n
+
+/-- **Leaf TYZ-3.2 (the field of `z_n`)**: `z_n ∈ A(H'_n)`. Consequence of `CMFieldOfDefinitionTYZ`
+(`z_n ∈ A(H_{n,4})`, since `i ∈ H_{n,4}`) and `TYZSigmaFixesZn` (`H'_n` is the fixed field of
+`σ_{1+2ϖ}`, TYZ Proposition 3.2(1)); stated as one leaf (the Galois-theoretic deduction through
+ring-class's embedding is not formalized). Refereed (TYZ L1253–1260, Theorem 3.6). -/
+def TYZZnOverHprime : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → tyzZn n ∈ ptsOver (Hprimebar n)
+
+theorem Lni_mono {e n : ℕ} (h : e ∣ n) (hn : n ≠ 0) : Lni e ≤ Lni n := by
+  apply IntermediateField.adjoin.mono
+  rintro x (hx | ⟨p, hp, hx⟩)
+  · exact Or.inl hx
+  · exact Or.inr ⟨p, Nat.primeFactors_mono h hn hp, hx⟩
+
+theorem Lni_le_HHprime (n : ℕ) : Lni n ≤ HHprime n := le_sup_left
+
+/-- **Glue: TYZ's class-5 genus points lie in `A(ℍ'_n)`**, for *every* choice of the finite set `Φ`
+of automorphisms (TYZ's `Φ₀`), from `z_e ∈ A(H'_e)` and normality of `H'_e`. -/
+theorem tyzGenusSum_mem (hz : TYZZnOverHprime) (hN : HprimeNormal) {n e : ℕ} (hsq : Squarefree n)
+    (he : e ∈ n.divisors) (he5 : e % 8 = 5) (Φ : Finset GalQ) :
+    genusSum Φ (tyzZn e) ∈ ptsOver (HHprime n) := by
+  have hse : Squarefree e := hsq.squarefree_of_dvd (Nat.dvd_of_mem_divisors he)
+  exact genusSum_mem_HHprime he he5 (hN e he5 hse) Φ (hz e he5 hse)
+
+/-- **Glue for `GenusPtsDefined`**: if `Z` is TYZ's genus-point sum on class 5 (any `Φ e`) and
+`Z(e) ∈ A(L_e)` on class 7 (TYZ L2558), then `GenusPtsDefined HHprime Z`. -/
+theorem genusPtsDefined_of (hz : TYZZnOverHprime) (hN : HprimeNormal) (Φ : ℕ → Finset GalQ)
+    (Z : ℕ → PtA) (h5 : ∀ e, e % 8 = 5 → Z e = genusSum (Φ e) (tyzZn e))
+    (h7 : ∀ e, e % 8 = 7 → Squarefree e → Z e ∈ ptsOver (Lni e)) : GenusPtsDefined HHprime Z := by
+  intro n hn hsq e he hec
+  rcases hec with he5 | he7
+  · rw [h5 e he5]; exact tyzGenusSum_mem hz hN hsq he he5 (Φ e)
+  · have hn0 : n ≠ 0 := by omega
+    have hse : Squarefree e := hsq.squarefree_of_dvd (Nat.dvd_of_mem_divisors he)
+    have hle : Lni e ≤ HHprime n := (Lni_mono (Nat.dvd_of_mem_divisors he) hn0).trans (Lni_le_HHprime n)
+    have := h7 e he7 hse
+    rw [mem_ptsOver_iff] at this ⊢
+    revert this
+    rcases Z e with _ | ⟨x, y, _⟩
+    · intro _; trivial
+    · intro h; exact ⟨hle h.1, hle h.2⟩
+
+/-- TYZ's genus points with the class-5 ones pinned by CM: `Z(e) = Σ_{t ∈ Φ e} t(z_e)` for
+`e ≡ 5 (mod 8)` (TYZ L1318, `z_e = CM.tyzZn e`), and `Z7 e` otherwise (class 7: TYZ's `f_e(P_e)` for
+`e ≡ 7` is not pinned here, see `docs/research/cm-points.md` §4). -/
+def tyzGenusPt (Φ : ℕ → Finset GalQ) (Z7 : ℕ → PtA) (e : ℕ) : PtA :=
+  if e % 8 = 5 then genusSum (Φ e) (tyzZn e) else Z7 e
+
+/-- **The remaining bundled leaf, CM form**: for each squarefree `n ≡ 5 (mod 8)` there are a choice
+`Φ` of TYZ's sets `Φ₀` (TYZ: any choice works, L2547–2554), class-7 genus points `Z7 e ∈ A(L_e)`
+(TYZ L2558), `ε` and a lifting `β'` such that Theorem 3.3/3.5 (first assertion) and Lemma 3.21(1),
+(4) hold for the genus points `tyzGenusPt Φ Z7`, whose class-5 values are pinned by the Heegner
+points of `CM.lean`. Strictly finer than `GenusPointLeaf` (and than `TYZGenusPackage`). -/
+def GenusPointLeafCM (ℓ : ℕ → ℤ) : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n → ∃ (Φ : ℕ → Finset GalQ) (Z7 : ℕ → PtA),
+    (∀ e ∈ n.divisors, e % 8 = 7 → Z7 e ∈ ptsOver (Lni e)) ∧
+    (∃ ε : ℕ → ℕ → GaussianInt, EpsClasses n ε ∧
+      (ℓ n = 0 → IsOfFinAddOrder (Pseq ℓ ε (tyzGenusPt Φ Z7) n))) ∧
+    (∃ σ : GalQ, IsBetaOneLift σ ∧
+      (∀ e ∈ n.divisors, e % 8 = 5 → ∃ k : ℤ,
+        galPt σ (tyzGenusPt Φ Z7 e) + tyzGenusPt Φ Z7 e = (gNat e : ℤ) • tauG ⟨1, -1⟩ + k • tauG 2) ∧
+      (∀ e ∈ n.divisors, e % 8 = 7 →
+        galPt σ (tyzGenusPt Φ Z7 e) + tyzGenusPt Φ Z7 e = (gNat e : ℤ) • tauG 1))
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Glue, CM form**: `z_e ∈ A(H'_e)`, normality of the `H'_d`, Lemma 3.18 for `ℍ'_n` and the CM-form
+bundled leaf give `TYZGenusPackage`. -/
+theorem genusPackage_of_cm (hz : TYZZnOverHprime) (hN : HprimeNormal) (h318 : Lemma318 HHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : TYZGenusPackage := by
+  refine genusPackage_of_genusPointLeaf HHprime iContained_HHprime (normalFields_HHprime hN) h318
+    fun ℓ hℓ n hn hsq => ?_
+  obtain ⟨Φ, Z7, h7, hP, hβ⟩ := hG ℓ hℓ n hn hsq
+  refine ⟨tyzGenusPt Φ Z7, fun e he hec => ?_, hP, hβ⟩
+  rcases hec with he5 | he7
+  · simp only [tyzGenusPt, he5, ↓reduceIte]
+    exact tyzGenusSum_mem hz hN hsq he he5 (Φ e)
+  · have hn0 : n ≠ 0 := by omega
+    have hle : Lni e ≤ HHprime n :=
+      (Lni_mono (Nat.dvd_of_mem_divisors he) hn0).trans (Lni_le_HHprime n)
+    have h75 : ¬ e % 8 = 5 := by omega
+    simp only [tyzGenusPt, h75, ↓reduceIte]
+    have := h7 e he he7
+    rw [mem_ptsOver_iff] at this ⊢
+    revert this
+    rcases Z7 e with _ | ⟨x, y, _⟩
+    · intro _; trivial
+    · intro h; exact ⟨hle h.1, hle h.2⟩
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **The premise `TYZThm35ReadingA` from the CM-form leaves.** -/
+theorem tyzThm35ReadingA_of_cm (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hz : TYZZnOverHprime) (hN : HprimeNormal) (h318 : Lemma318 HHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_leaves h11 h1 h29 (genusPackage_of_cm hz hN h318 hG)
+
+end CMBridge
+
+/-! ## §9. `τ(½ℤ[i]) = A[(1+i)³]`: Lemma 3.18 in TYZ's literal form -/
+
+section Literal318
+open WeierstrassCurve.Affine
+
+theorem iPt_ptT_eq : iPt ptT = .some (-2) (-4 * iQ) (by
+    have := nonsingular_iPt nonsingular_T
+    convert this using 1; ring) := by
+  rw [ptT, iPt_some, Point.some.injEq]; constructor <;> ring
+
+theorem nonsingular_m2iQ : curveAbar.toAffine.Nonsingular (-2 * iQ) 0 := by
+  rw [WeierstrassCurve.Affine.nonsingular_iff', WeierstrassCurve.Affine.equation_iff']
+  simp only [curveAbar_a₁, curveAbar_a₂, curveAbar_a₃, curveAbar_a₄, curveAbar_a₆]
+  have hi := iQ_sq
+  refine ⟨by linear_combination (8 * iQ) * hi, Or.inl ?_⟩
+  intro h
+  have : (8 : Qbar) = 0 := by linear_combination h + 12 * hi
+  norm_num at this
+
+/-- `τ((1+i)/2) = T + [i]T = (−2i, 0)`. -/
+theorem ptT_add_iPt_ptT : ptT + iPt ptT = .some (-2 * iQ) 0 nonsingular_m2iQ := by
+  rw [iPt_ptT_eq, ptT]
+  have hx : (2 : Qbar) ≠ -2 := by norm_num
+  rw [Point.add_of_X_ne hx, Point.some.injEq]
+  have hi := iQ_sq
+  have hs : curveAbar.toAffine.slope 2 (-2) (-4) (-4 * iQ) = -1 + iQ := by
+    rw [slope_of_X_ne hx]
+    field_simp
+    ring
+  simp only [addX, addY, negAddY, negY, hs, curveAbar_a₁, curveAbar_a₂, curveAbar_a₃]
+  constructor
+  · linear_combination hi
+  · linear_combination (3 - iQ) * hi
+
+theorem iPt_some_m2iQ : iPt (.some (-2 * iQ) 0 nonsingular_m2iQ) =
+    .some (2 * iQ) 0 (by
+      have := nonsingular_iPt nonsingular_m2iQ
+      convert this using 1 <;> ring) := by
+  rw [iPt_some, Point.some.injEq]; constructor <;> ring
+
+/-- **The eight points of `A[(1+i)³]` (x0-32's `X0.IsTorsI3`) are values of the pinned `τ`.** -/
+theorem isTorsI3_mem_range (P : PtA) (h : X0.IsTorsI3 P) : ∃ y : GaussianInt, tauG y = P := by
+  rcases P with _ | ⟨x, y, hP⟩
+  · exact ⟨0, map_zero tauG⟩
+  simp only [X0.IsTorsI3, Set.mem_insert_iff, Set.mem_singleton_iff, Prod.mk.injEq] at h
+  rcases h with ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ |
+    ⟨rfl, rfl⟩
+  · exact ⟨⟨2, 0⟩, by rw [tauG_mk, two_zsmul_ptT, zero_zsmul, add_zero]; rfl⟩
+  · exact ⟨⟨-1, 0⟩, by rw [tauG_mk, neg_one_zsmul, zero_zsmul, add_zero, neg_ptT]⟩
+  · exact ⟨⟨1, 0⟩, by rw [tauG_mk, one_zsmul, zero_zsmul, add_zero]; rfl⟩
+  · refine ⟨⟨0, -1⟩, ?_⟩
+    rw [tauG_mk, neg_one_zsmul, zero_zsmul, zero_add, iPt_ptT_eq, Point.neg_some, Point.some.injEq]
+    simp only [negY, curveAbar_a₁, curveAbar_a₃]
+    exact ⟨trivial, by ring⟩
+  · exact ⟨⟨0, 1⟩, by rw [tauG_mk, one_zsmul, zero_zsmul, zero_add, iPt_ptT_eq]⟩
+  · refine ⟨⟨1, -1⟩, ?_⟩
+    have e : ptT - iPt ptT = -iPt (ptT + iPt ptT) := by rw [iPt_add, iPt_iPt]; abel
+    rw [tauG_mk, one_zsmul, neg_one_zsmul, ← sub_eq_add_neg, e, ptT_add_iPt_ptT, iPt_some_m2iQ,
+      Point.neg_some, Point.some.injEq]
+    simp only [negY, curveAbar_a₁, curveAbar_a₃]
+    exact ⟨trivial, by ring⟩
+  · exact ⟨⟨1, 1⟩, by rw [tauG_mk, one_zsmul, one_zsmul, ptT_add_iPt_ptT]⟩
+
+theorem gi_smul (P : PtA) : (ZInQ.PropN.gi : GaussianInt) • P = iPt P := by
+  have h1 : (ZInQ.PropN.gi).re = 0 := rfl
+  have h2 : (ZInQ.PropN.gi).im = 1 := rfl
+  rw [gsmul_def, h1, h2, zero_zsmul, one_zsmul, zero_add]
+
+/-- `2(P + [i]P) = (2 + 2i)•P`. -/
+theorem two_nsmul_add_iPt (P : PtA) : 2 • (P + iPt P) = (ZInQ.PropN.twoTwoI : GaussianInt) • P := by
+  rw [gsmul_def]
+  show 2 • (P + iPt P) = (2 : ℤ) • P + (2 : ℤ) • iPt P
+  rw [two_nsmul, two_zsmul, two_zsmul]; abel
+
+/-- **Leaf TYZ-3.18, literal form**: for squarefree `n ≡ 5 (mod 8)`, `A(ℍ'_n)_tors ⊆ A[(1+i)³]`,
+i.e. every torsion point `P` of `A(ℍ'_n)` satisfies `2(P + [i]P) = 0`. TYZ Lemma 3.18 (L2230–2232),
+literally (no `τ`); refereed. Equivalent to `Lemma318` (`lemma318_iff_literal`). -/
+def Lemma318Literal (Hn : ℕ → IntermediateField ℚ Qbar) : Prop :=
+  ∀ n : ℕ, n % 8 = 5 → Squarefree n →
+    ∀ P ∈ ptsOver (Hn n), IsOfFinAddOrder P → 2 • (P + iPt P) = 0
+
+/-- **`Lemma318` (with the pinned `τ`) is TYZ's literal Lemma 3.18**: `τ(½ℤ[i]) = A[(1+i)³]`, by
+x0-32's explicit list `X0.two_nsmul_add_iPt_eq_zero_iff` and `tauG_eq_zero`. So the leaf does not
+depend on TYZ's fact (1) about `τ`. -/
+theorem lemma318_iff_literal (Hn : ℕ → IntermediateField ℚ Qbar) :
+    Lemma318 Hn ↔ Lemma318Literal Hn := by
+  constructor
+  · intro h n hn hsq P hP ht
+    obtain ⟨y, rfl⟩ := h n hn hsq P hP ht
+    rw [two_nsmul_add_iPt, tauG_apply, smul_smul, ← tauG_apply, tauG_eq_zero]
+    exact Dvd.intro y rfl
+  · intro h n hn hsq P hP ht
+    exact isTorsI3_mem_range P ((X0.two_nsmul_add_iPt_eq_zero_iff P).mp (h n hn hsq P hP ht))
+
+open ZInQ.Contrib.TYZDecomp ZInQ.Contrib.TYZGenus.RingClass in
+/-- **Main theorem, literal Lemma 3.18**: as `tyzThm35ReadingA_of_cm`, with TYZ Lemma 3.18 in its
+literal form `A(ℍ'_n)_tors ⊆ A[(1+i)³]`. -/
+theorem tyzThm35ReadingA_of_cm' (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hz : TYZZnOverHprime) (hN : HprimeNormal) (h318 : Lemma318Literal HHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_cm h11 h1 h29 hz hN ((lemma318_iff_literal HHprime).mpr h318) hG
+
+end Literal318
+
+/-! ## §10. Galois descent: `TYZZnOverHprime` from CM leaves -/
+
+section Descent
+open ZInQ.Contrib.TYZGenus.RingClass TauCeti.ClassFieldTheory TauCeti.GlobalNumberFields
+  ZInQ.RouteK.Rank5b
+
+variable (d : ℕ) [NeZero d]
+
+/-- `H_{d,4}` restricted to `ℚ`-scalars. -/
+abbrev H4Q : IntermediateField ℚ (SeparableClosure (QNeg d)) := (H4 d).restrictScalars ℚ
+
+theorem H4bar_eq : H4bar d = (H4Q d).map (embed d) := by
+  simp only [H4bar, NeZero.ne d, ↓reduceDIte]
+
+/-- The ring automorphism of `H_{d,4}` (as `ℚ`-subfield) given by `g ∈ Gal(H_{d,4}/K_d)`. -/
+def gQ (g : Gal(H4 d/QNeg d)) : H4Q d ≃+* H4Q d := g.toRingEquiv
+
+/-- The induced automorphism of `H4bar d ⊂ ℚ̄`. -/
+def gBar (g : Gal(H4 d/QNeg d)) : (H4Q d).map (embed d) ≃ₐ[ℚ] (H4Q d).map (embed d) :=
+  AlgEquiv.ofRingEquiv (f := ((IntermediateField.equivMap (H4Q d) (embed d)).toRingEquiv.symm.trans
+    ((gQ d g).trans (IntermediateField.equivMap (H4Q d) (embed d)).toRingEquiv)))
+    (fun q => by simp)
+
+/-- **Every `g ∈ Gal(H_{d,4}/K_d)` is induced by an automorphism of `ℚ̄`.** -/
+theorem exists_actsAsArtin4 (c : Pic (O4 d)) : ∃ ρ : GalQ, ActsAsArtin4 ρ d c := by
+  let χ := gBar d (artin4 d c)
+  refine ⟨AlgEquiv.ofBijective (χ.toAlgHom.liftNormal Qbar) (AlgHom.normal_bijective _ _ _ _), ?_⟩
+  intro x
+  have hx : embed d (x : SeparableClosure (QNeg d)) =
+      algebraMap ((H4Q d).map (embed d)) Qbar (IntermediateField.equivMap (H4Q d) (embed d) x) := rfl
+  rw [AlgEquiv.ofBijective_apply, hx, AlgHom.liftNormal_commutes]
+  have e : χ (IntermediateField.equivMap (H4Q d) (embed d) x) =
+      IntermediateField.equivMap (H4Q d) (embed d) (artin4 d c x) := by
+    simp only [χ, gBar, gQ, AlgEquiv.ofRingEquiv_apply]
+    change IntermediateField.equivMap (H4Q d) (embed d) (artin4 d c
+      ((IntermediateField.equivMap (H4Q d) (embed d)).symm
+        (IntermediateField.equivMap (H4Q d) (embed d) x))) = _
+    have h := AlgEquiv.symm_apply_apply (IntermediateField.equivMap (H4Q d) (embed d))
+      (show ↥(H4Q d) from x)
+    exact congrArg (fun y : ↥(H4Q d) => IntermediateField.equivMap (H4Q d) (embed d)
+      (show ↥(H4Q d) from artin4 d c (show ↥(H4 d) from y))) h
+  show algebraMap _ Qbar (χ (IntermediateField.equivMap (H4Q d) (embed d) x)) = _
+  rw [e]
+  rfl
+
+omit [NeZero d] in
+theorem Hprimebar_eq [NeZero d] : Hprimebar d = ((Hprime d).restrictScalars ℚ).map (embed d) := by
+  simp only [Hprimebar, NeZero.ne d, ↓reduceDIte]
+
+/-- **Galois descent to `H'_d`**: a point of `H_{d,4} ⊂ ℚ̄` fixed by every `ρ` acting as `σ_{1+2ϖ}`
+lies in `H'_d`. -/
+theorem mem_Hprimebar_of_fixed {x : Qbar} (hx : x ∈ H4bar d)
+    (hfix : ∀ ρ : GalQ, ActsAsArtin4 ρ d (sigmaClass d) → ρ x = x) : x ∈ Hprimebar d := by
+  rw [H4bar_eq] at hx
+  obtain ⟨y, hy, rfl⟩ := hx
+  obtain ⟨ρ, hρ⟩ := exists_actsAsArtin4 d (sigmaClass d)
+  have h1 : ρ (embed d y) =
+      embed d ((artin4 d (sigmaClass d) ⟨y, hy⟩ : H4 d) : SeparableClosure (QNeg d)) := hρ ⟨y, hy⟩
+  have h0 : ρ (embed d y) = embed d y := hfix ρ hρ
+  rw [h0] at h1
+  have h2 : (artin4 d (sigmaClass d)) ⟨y, hy⟩ = ⟨y, hy⟩ :=
+    Subtype.ext ((embed d).injective h1).symm
+  rw [Hprimebar_eq]
+  refine ⟨y, ?_, rfl⟩
+  show y ∈ Hprime d
+  rw [Hprime, show y = (⟨y, hy⟩ : H4 d).1 from rfl, IntermediateField.mem_lift,
+    IntermediateField.mem_fixedField_iff]
+  intro f hf
+  obtain ⟨k, rfl⟩ := Subgroup.mem_zpowers_iff.mp hf
+  have hst : artin4 d (sigmaClass d) ∈ MulAction.stabilizer (Gal(H4 d/QNeg d)) (⟨y, hy⟩ : H4 d) :=
+    h2
+  exact (MulAction.stabilizer _ _).zpow_mem hst k
+
+omit [NeZero d]
+
+/-- **Leaf GT (`i ∈ H_{n,4}`)**: for squarefree `n ≡ 5 (mod 8)`, `i` lies in the ring class field
+`H_{n,4}`. Genus theory: `K_n(i) = K_n(√n)` is contained in the genus field of `K_n = ℚ(√−n)`
+(`d_K = −4n`, genus field `K(√p* : p ∣ n, √−1)`; Cox, *Primes of the form x² + ny²*, Thm. 6.1 /
+§6.C, UNVERIFIED numbers), hence in `H_n ⊆ H_{n,4}` (ring-class's target `HilbertLeH4`); also
+`tyz-t1.md` §3.1 ("`ψ` the character of `K(i)/K = K(√n)/K`, which is unramified"). Refereed
+(textbook). -/
+def IInH4 : Prop := ∀ n : ℕ, n % 8 = 5 → Squarefree n → iQ ∈ H4bar n
+
+/-- **`TYZZnOverHprime` is glue**: from the field of definition of the Heegner point
+(`CMFieldOfDefinitionTYZ`, Shimura), `i ∈ H_{n,4}` (`IInH4`, genus theory) and Shimura reciprocity
+in TYZ's form (`TYZSigmaFixesZn`, TYZ Cor. 3.9), by Galois descent from `H_{n,4}` to `H'_n`
+(`mem_Hprimebar_of_fixed`, through Tau Ceti's Artin map and ring-class's embedding). -/
+theorem tyzZnOverHprime_of (h1 : CMFieldOfDefinitionTYZ) (hi : IInH4) (hs : TYZSigmaFixesZn) :
+    TYZZnOverHprime := by
+  intro n hn hsq
+  have : NeZero n := ⟨by omega⟩
+  have hP := h1 n hn hsq
+  have hz : tyzZn n ∈ ptsOver (H4bar n) :=
+    (ptsOver (H4bar n)).sub_mem hP (iPt_mem (hi n hn hsq) hP)
+  have hfixz := hs n inferInstance hn hsq
+  rw [mem_ptsOver_iff] at hz ⊢
+  revert hz hfixz
+  rcases tyzZn n with _ | ⟨x, y, h⟩
+  · intro _ _; trivial
+  · intro hz hfixz
+    have hc : ∀ ρ : GalQ, ActsAsArtin4 ρ n (sigmaClass n) → ρ x = x ∧ ρ y = y := by
+      intro ρ hρ
+      have e := hfixz ρ hρ
+      obtain ⟨h', e'⟩ := galPt_some ρ h
+      rw [e', WeierstrassCurve.Affine.Point.some.injEq] at e
+      exact e
+    exact ⟨mem_Hprimebar_of_fixed n hz.1 fun ρ hρ => (hc ρ hρ).1,
+      mem_Hprimebar_of_fixed n hz.2 fun ρ hρ => (hc ρ hρ).2⟩
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem, finest form**: the premise from the three `𝓛`-leaves, the CM leaves
+`CMFieldOfDefinitionTYZ` (Shimura) and `TYZSigmaFixesZn` (TYZ Cor. 3.9), genus theory `IInH4`,
+`HprimeNormal`, TYZ Lemma 3.18 (literal) and the bundled `GenusPointLeafCM`. -/
+theorem tyzThm35ReadingA_of_cmLeaves (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
+    (h29 : TYZLemma29Mod2) (hcm : CMFieldOfDefinitionTYZ) (hi : IInH4) (hs : TYZSigmaFixesZn)
+    (hN : HprimeNormal) (h318 : Lemma318Literal HHprime)
+    (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_cm' h11 h1 h29 (tyzZnOverHprime_of hcm hi hs) hN h318 hG
+
+end Descent
 
 end ZInQ.Contrib.TYZGenus.Package
