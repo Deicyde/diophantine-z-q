@@ -681,6 +681,163 @@ theorem modularConstituent_tail (lv : NewformLeaves) (hJac : JacobianExists ℚ)
   obtain ⟨D, h12, hc, hram⟩ := h
   exact g16Out_with_J1 hJac hX u (g13_g16_ram lv hSw hL8 hAd u D h12 hc hram)
 
+/-! ## §9. Bridge from g0-mod-galois's interface (draft at origin/wip/g0-mod-galois ad7f14c2)
+
+The definitions `resQ`, `Vb`, `tate`, `Intertwines`, `G8Out` (here `GalG8Out`), `G12Out` (here
+`GalG12Out`) are copied verbatim from
+`scratch/g0-mod-galois/part_galois.lean` (namespace `G0Galois` there), over the kernel's objects. -/
+
+section Bridge
+
+/-- (copied from g0-mod-galois) The restriction map `G_K → G_ℚ`. -/
+def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
+    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+
+/-- (copied from g0-mod-galois) `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
+abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+
+/-- (copied from g0-mod-galois) The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
+def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
+  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+
+/-- (copied from g0-mod-galois) `e` intertwines `f g` with `r(g) ⊕ r(g)`. -/
+def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
+  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+
+/-- (copied from g0-mod-galois) **Output of G8.** -/
+def GalG8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ)) (r : GaloisRep ℓ 2) : Prop :=
+  (∀ σ, ρ (resQ K σ) = tate A ℓ σ) ∧
+  ∃ e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ),
+    Intertwines ρ r.mat e ∧
+    Algebra.adjoin (PadicAlgCl ℓ) (Set.range fun σ => r.mat (resQ K σ)) = ⊤
+
+/-- (copied from g0-mod-galois) **Output of G12** at `ℓ = 5`: `ψ` of finite image. -/
+def GalG12Out (r : GaloisRep 5 2) : Prop :=
+  ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N 2) (ψ : GaloisChar 5)
+    (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (S : Finset ℕ),
+    0 < N ∧ PkgI4.IsNormalizedEigenform g χ ∧ (Set.range ψ.toHom).Finite ∧
+    r.AttachedUpToTwist ψ ιC ιL g S
+
+/-- **Kronecker–Weber at Frobenius (GLUE, unproved; from T17 `KroneckerWeber`).** A continuous
+character `ψ : G_ℚ → ℚ̄_ℓ^×` of finite image is, at arithmetic Frobenius outside a finite set,
+a Dirichlet character `ψD mod m` through `ιC`, `ιL`: `ψ` factors through
+`Gal(ℚ(ζ_m)/ℚ) ≅ (ℤ/m)^×` (T17), arithmetic Frobenius at `p ∤ m` maps to `p`, and the values
+(roots of unity) lie in `ιL(ℚ̄)`. -/
+def DirichletOfFinite : Prop :=
+  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ψ : GaloisChar ℓ), (Set.range ψ.toHom).Finite →
+    ∀ (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ),
+    ∃ (m : ℕ) (ψD : DirichletCharacter ℂ m) (S : Finset ℕ), 0 < m ∧
+      ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+        ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+          (ψ.toHom τ : PadicAlgCl ℓ) = ιL β
+
+/-- **G12Out ⇒ PanOutput (GLUE, proved from `DirichletOfFinite`).** -/
+theorem panOutput_of_G12Out (hDF : DirichletOfFinite) (r : GaloisRep 5 2) (h : GalG12Out r) :
+    ∃ (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl 5), PanOutput ιC ιL r := by
+  obtain ⟨M, χ, g, ψ, ιC, ιL, S, hM, hg, hfin, hatt⟩ := h
+  obtain ⟨m, ψD, S', hm, hψ⟩ := hDF 5 ψ hfin ιC ιL
+  refine ⟨ιC, ιL, M, χ, g, m, ψD, ψ, S ∪ S', hM, hg, hm, fun p hp hpS => ?_,
+    fun p hp hpS => hψ p hp (fun h => hpS (Finset.mem_union_right _ h))⟩
+  exact hatt p hp (fun h => hpS (Finset.mem_union_left _ h))
+
+/-- The embedding `ℚ̄ → K̄` underlying Mathlib's `Field.absoluteGaloisGroup.map`: it intertwines
+`resQ K τ` with `τ`. -/
+theorem resQ_spec (K : Type) [Field K] [NumberField K] :
+    ∃ i : AlgebraicClosure ℚ →+* AlgebraicClosure K, ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x,
+      i (resQ K τ x) = τ (i x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) := g.toAlgebra
+  refine ⟨g.toRingHom, fun τ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) τ)
+    (AlgebraicClosure ℚ) x
+
+/-- **G8Out ⇒ IsConstituentOf (GLUE, proved).** `U = ker(pr₂ ∘ e)` is the constituent. -/
+theorem isConstituentOf_of_GalG8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
+    (ℓ : ℕ) [Fact ℓ.Prime] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (r : GaloisRep ℓ 2) (h : GalG8Out A ℓ ρ r)
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K)
+    (hi : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x, i (resQ K τ x) = τ (i x)) :
+    IsConstituentOf ℓ A i r := by
+  obtain ⟨hres, e, he, -⟩ := h
+  let W : Submodule (PadicAlgCl ℓ) (Vb A ℓ) :=
+    LinearMap.ker ((LinearMap.snd (PadicAlgCl ℓ) _ _) ∘ₗ e.toLinearMap)
+  have hW : ∀ v, v ∈ W ↔ (e v).2 = 0 := fun v => Iff.rfl
+  have hstab : ∀ (σ : Field.absoluteGaloisGroup K) (w : Vb A ℓ), w ∈ W →
+      GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ w ∈ W := by
+    intro σ w hw
+    rw [hW] at hw ⊢
+    have h1 := he (resQ K σ) w
+    rw [hres σ] at h1
+    change (e (tate A ℓ σ w)).2 = 0
+    rw [h1, hw, Matrix.mulVec_zero]
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)) :=
+    { toSubmodule := W
+      apply_mem_toSubmodule := fun σ w hw => hstab σ w hw }
+  let f : U.toSubmodule →ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) :=
+    (LinearMap.fst (PadicAlgCl ℓ) _ _) ∘ₗ e.toLinearMap ∘ₗ W.subtype
+  have hmemW : ∀ w : Fin 2 → PadicAlgCl ℓ, e.symm (w, 0) ∈ W := fun w => by
+    rw [hW, LinearEquiv.apply_symm_apply]
+  let eU : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) :=
+    { f with
+      invFun := fun w => ⟨e.symm (w, 0), hmemW w⟩
+      left_inv := fun u => by
+        apply Subtype.ext
+        change e.symm ((e u).1, 0) = u
+        have hu : (e u).2 = 0 := (hW u).mp u.2
+        rw [← hu, Prod.mk.eta, LinearEquiv.symm_apply_apply]
+      right_inv := fun w => by
+        change (e (e.symm (w, 0))).1 = w
+        rw [LinearEquiv.apply_symm_apply] }
+  have hσ : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (σ : GQ), (∀ x, i (σ x) = τ (i x)) →
+      σ = resQ K τ := by
+    intro τ σ hστ
+    ext x
+    apply i.toRingHom.injective
+    change i (σ x) = i (resQ K τ x)
+    rw [hστ, hi]
+  refine ⟨U, eU, ?_, fun τ σ hστ u => ?_⟩
+  · intro hbot
+    have hmem : e.symm ((Pi.single 0 1 : Fin 2 → PadicAlgCl ℓ), 0) ∈ U.toSubmodule := hmemW _
+    rw [hbot] at hmem
+    have h0 : e.symm ((Pi.single 0 1 : Fin 2 → PadicAlgCl ℓ), 0) = 0 := hmem
+    have h1 := congrArg (fun v => (e v).1 0) h0
+    simp at h1
+  · rw [hσ τ σ hστ]
+    change (e (tate A ℓ τ u)).1 = toRep r (resQ K τ) ((e u).1)
+    have h1 := he (resQ K τ) u
+    rw [hres τ] at h1
+    rw [h1, toRep_apply, Matrix.toLin'_apply]
+
+/-- **G12Spec from g0-mod-galois's outputs (GLUE, proved from `DirichletOfFinite`).** Their
+`G8Out` at `ℓ = 5` and `ℓ = 3` and `G12Out r₅` give data `D` with `G12Spec D`. -/
+theorem g12Spec_of_galois (hDF : DirichletOfFinite) {K : Type} [Field K] [NumberField K]
+    (A : PkgI3.AbVar K) (ρ5 : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
+    (ρ3 : PkgI4.GQ → Module.End (PadicAlgCl 3) (Vb A 3)) (r5 : GaloisRep 5 2)
+    (r3 : GaloisRep 3 2) (h5 : GalG8Out A 5 ρ5 r5) (h3 : GalG8Out A 3 ρ3 r3) (h12 : GalG12Out r5)
+    (ι3 : Qbar →ₐ[ℚ] PadicAlgCl 3) :
+    ∃ D : ModData K A, D.r5 = r5 ∧ D.r3 = r3 ∧ D.ι3 = ι3 ∧ G12Spec D := by
+  obtain ⟨i0, hi0⟩ := resQ_spec K
+  let i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := i0.toRatAlgHom
+  have hi : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x, i (resQ K τ x) = τ (i x) := hi0
+  obtain ⟨ιC, ιL, hpan⟩ := panOutput_of_G12Out hDF r5 h12
+  have hirr : ∀ {ℓ : ℕ} [Fact ℓ.Prime] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+      (r : GaloisRep ℓ 2), GalG8Out A ℓ ρ r → r.IsIrreducible := by
+    intro ℓ _ ρ r h
+    obtain ⟨-, -, -, hadj⟩ := h
+    rw [PkgI4.GaloisRep.IsIrreducible, eq_top_iff, ← hadj]
+    exact Algebra.adjoin_mono (Set.range_subset_iff.mpr fun σ => ⟨resQ K σ, rfl⟩)
+  exact ⟨⟨i, ιC, ιL, ι3, r5, r3⟩, rfl, rfl, rfl, hirr ρ5 r5 h5, hirr ρ3 r3 h3,
+    isConstituentOf_of_GalG8Out A 5 ρ5 r5 h5 i hi, isConstituentOf_of_GalG8Out A 3 ρ3 r3 h3 i hi, hpan⟩
+
+end Bridge
+
 end G0ModNewform
 
 end
@@ -699,3 +856,5 @@ end
 #print axioms G0ModNewform.localBound_of_ram
 #print axioms G0ModNewform.g13_g16_ram
 #print axioms G0ModNewform.modularConstituent_tail
+#print axioms G0ModNewform.isConstituentOf_of_GalG8Out
+#print axioms G0ModNewform.g12Spec_of_galois
