@@ -241,8 +241,9 @@ and its sequel). The value: `τ ↦ π(P_τ)` (R1(b)(c)) and the function `f` of
 `PkgI1.QMHauptmodul` (a consequence of R2-R4) are Hauptmoduln of `Γ*\ℍ = X₆/W` with the same
 values `0, ∞, -16/27` at the CM points of discriminants `-4, -3, -24` (`R2fpProps`), so they are
 equal (a Möbius map fixing three points is the identity); `jDen(Ω(τ)) ≠ 0` because `J(u) ≠ ∞`
-and `χ₁₀(Ω(τ)) ≠ 0` for the simple surface `A` (`FibreSimple`). This inherits the SPECULATIVE
-premise bp-qmmoduli §2.2 (the polarization of the QM object is `Trd(μ⁻¹xȳ)`). Size: large (it
+and `χ₁₀(Ω(τ)) ≠ 0` for the simple surface `A` (`FibreSimple`). The polarization of the QM
+object plays no role (`f` and `π` are compared as functions of `τ`); like every leaf-qm-fp object
+this inherits the SPECULATIVE premise bp-qmmoduli §2.2 through `R1fpProps`, `R2fpProps`. Size: large (it
 needs the analytification of `Y₃` and of the universal family, rv-blueprints Q3). -/
 def FibreQMPeriodAll : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
@@ -324,6 +325,21 @@ end ThetaPt
 
 end G0Split
 
+open G0Split in
+/-- **g0-split's main theorem with missing piece 9 replaced by its parts (proved).** As
+`glueOutputs_of_leaves`, with `ThetaPointOfFibre` replaced by `UniformizationExistsNF`,
+`FibreQMPeriodAll` and `ThetaNullAlgebraic` (`DimBaseChange` is already a hypothesis). -/
+theorem glueOutputs_of_leaves_thetaParts (r : ResearchLeaves) (t : TextbookLeaves)
+    (hR18 : R18_JavanpeykarConcrete) (hR22 : R22_PazukiConcrete)
+    (hDimF : DimFinite) (hDim : DimBaseChange) (hBelyi : X1BelyiOnModel) (hSimp : FibreSimple)
+    (hAdd : HeightAdditivity) (hBC : StableHeightBaseChange) (hProdE : ProductExists)
+    (hRev : ReverseIsogeny) (hU : ThetaPt.UniformizationExistsNF)
+    (hQM : ThetaPt.FibreQMPeriodAll) (hAlg : ThetaPt.ThetaNullAlgebraic)
+    (hMod : ModularConstituent) :
+    GlueAssembly.GlueOutputs ZInQ.Mult.S_mul :=
+  glueOutputs_of_leaves r t hR18 hR22 hDimF hDim hBelyi hSimp hAdd hBC hProdE hRev
+    (ThetaPt.thetaPointOfFibre_of_parts hDim hU hQM hAlg) hMod
+
 end HSyn
 
 end
@@ -332,3 +348,4 @@ end
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of
 #print axioms HSyn.G0Split.ThetaPt.fibreThetaF1_of
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_parts
+#print axioms HSyn.glueOutputs_of_leaves_thetaParts
