@@ -7,6 +7,7 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Basic
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.DecompositionGroup
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Compatibility
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Conductor.Basic
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.RamifiedSupport.Basic
