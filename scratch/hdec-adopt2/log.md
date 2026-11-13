@@ -29,8 +29,10 @@
 - 16:59 `lake build ZInQKernel`: exit 0 (incremental, 25 s; the full build before it took
   5 min 20 s and failed only at `Vigneras.Global` and its importers). VERIFIED.
 - 16:59 `lake env lean scripts/print_axioms.lean`: 272 `#print axioms` lines, 272 outputs, each
-  exactly `[propext, Classical.choice, Quot.sound]` (python check of the joined output). 93 of
-  them are the new section (`scratch/hdec-adopt2/axioms_section.lean`). Output saved as
+  exactly `[propext, Classical.choice, Quot.sound]` (python check of the joined output). 90 of
+  them are the new section (`scratch/hdec-adopt2/axioms_section.lean`; 182 before). (Corrected
+  by notes-fix2, issue #2 item 7: this line said 93, which is the line count of
+  `axioms_section.lean`, its 3 header lines included; it has 90 `#print axioms` lines.) Output saved as
   `scratch/hdec-adopt2/axioms.txt` (it contains no file paths). VERIFIED.
 - Checks on the new modules, `HDecomp.lean` and the new print_axioms lines: no line over 100
   characters (python, counting characters); no `sorry`/`admit`/`axiom` declaration (grep).
