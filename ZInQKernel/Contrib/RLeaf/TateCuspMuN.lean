@@ -1,4 +1,5 @@
 import ZInQKernel.Contrib.RLeaf.TateCuspGlue
+import ZInQKernel.Contrib.RLeaf.IgusaLocal
 import ZInQKernel.Contrib.TauCeti.Backport.AlgebraicGeometry.EllipticCurve.TateCurve.Homomorphism
 import ZInQKernel.Contrib.TauCeti.Backport.RingTheory.HahnSeries.Map
 
@@ -196,5 +197,87 @@ theorem uR_mem {Ω : Type*} [Field Ω] [CharZero Ω] (ι : LaurentSeries ℚ →
       rw [← h2]; field_simp; ring
     rw [this, hT2]
     exact div_mem (sub_mem (div_mem (hιR _) ha2R) (hιR _)) ⟨12, map_ofNat ι 12⟩
+
+/-! ### The Tate curve over `ℚ((t))` and its `j`-invariant -/
+
+/-- `E_t` over `ℚ((t))`. -/
+def WL : WeierstrassCurve (LaurentSeries ℚ) := tateCurveAt (tK ℚ) (norm_tK_lt_one ℚ)
+
+instance : WL.IsElliptic := by unfold WL; infer_instance
+
+theorem WL_j_not_mem : WL.j ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ) := by
+  rintro ⟨F, hF⟩
+  have h1 : Valued.v WL.j ≤ 1 := (LaurentSeries.val_le_one_iff_eq_coe ℚ _).mpr ⟨F, hF⟩
+  rw [← Valued.toNormedField.norm_le_one_iff] at h1
+  unfold WL at h1
+  rw [norm_tateCurveAt_j] at h1
+  have hq := norm_tK_lt_one ℚ
+  have hpos : 0 < ‖((tK ℚ : (LaurentSeries ℚ)ˣ) : LaurentSeries ℚ)‖ :=
+    norm_pos_iff.mpr (Units.ne_zero _)
+  have := (one_lt_inv₀ hpos).mpr hq
+  linarith
+
+/-- `ℚ(j) → ℚ((t))`, `j ↦ j(E_t)`. -/
+def phiL : Qj →+* LaurentSeries ℚ := TateCuspGlue.phi WL.j WL_j_not_mem
+
+/-! ### Level `N`: `K = ℚ(ζ_N)`, `L' = K((t))`, `Ω = \overline{L'}` -/
+
+section Level
+
+variable (N : ℕ) [NeZero N]
+
+abbrev KN := CyclotomicField N ℚ
+abbrev LN := LaurentSeries (KN N)
+abbrev ΩN := AlgebraicClosure (LN N)
+
+instance : CharZero (ΩN N) := algebraRat.charZero _
+
+/-- `ℚ((t)) → ℚ(ζ_N)((t))`. -/
+def inclN : LaurentSeries ℚ →+* LN N := HahnSeries.mapRingHom (algebraMap ℚ (KN N))
+
+/-- `ℚ((t)) → Ω`. -/
+def ιN : LaurentSeries ℚ →+* ΩN N := (algebraMap (LN N) (ΩN N)).comp (inclN N)
+
+/-- `Ω` as a `ℚ(j)`-algebra through `j ↦ j(E_t)`. -/
+@[reducible] def algQjΩ : Algebra Qj (ΩN N) := ((ιN N).comp phiL).toAlgebra
+
+attribute [local instance] algQjΩ
+
+theorem algebraMap_Qj_ΩN (a : Qj) : algebraMap Qj (ΩN N) a = ιN N (phiL a) := rfl
+
+/-- The coefficientwise action of `g ∈ Gal(K/ℚ)` on `K((t))`. -/
+def sigmaN (g : KN N ≃ₐ[ℚ] KN N) : LN N ≃+* LN N :=
+  RingEquiv.ofRingHom (HahnSeries.mapRingHom (g : KN N →+* KN N))
+    (HahnSeries.mapRingHom (g.symm : KN N →+* KN N))
+    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
+    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
+
+theorem sigmaN_inclN (g : KN N ≃ₐ[ℚ] KN N) (z : LaurentSeries ℚ) :
+    sigmaN N g (inclN N z) = inclN N z := by
+  show HahnSeries.mapRingHom (g : KN N →+* KN N) (HahnSeries.mapRingHom _ z) = _
+  ext n
+  simp [inclN, HahnSeries.coeff_mapRingHom]
+
+/-- The automorphism of `Ω` extending `σ_g`; it fixes `ℚ(j)`. -/
+def tauN (g : KN N ≃ₐ[ℚ] KN N) : ΩN N ≃ₐ[Qj] ΩN N :=
+  AlgEquiv.ofRingEquiv (f := IsAlgClosure.equivOfEquiv (ΩN N) (ΩN N) (sigmaN N g)) fun a => by
+    rw [algebraMap_Qj_ΩN, ιN, RingHom.comp_apply, IsAlgClosure.equivOfEquiv_algebraMap,
+      sigmaN_inclN]
+
+theorem tauN_algebraMap (g : KN N ≃ₐ[ℚ] KN N) (s : LN N) :
+    tauN N g (algebraMap (LN N) (ΩN N) s) = algebraMap (LN N) (ΩN N) (sigmaN N g s) :=
+  IsAlgClosure.equivOfEquiv_algebraMap _ _ _ s
+
+theorem tauN_ιN (g : KN N ≃ₐ[ℚ] KN N) (z : LaurentSeries ℚ) : tauN N g (ιN N z) = ιN N z := by
+  rw [ιN, RingHom.comp_apply, tauN_algebraMap, sigmaN_inclN]
+
+theorem continuous_sigmaN (g : KN N ≃ₐ[ℚ] KN N) : Continuous (sigmaN N g) :=
+  continuous_mapRingHom (g : KN N →+* KN N)
+
+theorem sigmaN_tK (g : KN N ≃ₐ[ℚ] KN N) :
+    Units.map (sigmaN N g : LN N →+* LN N).toMonoidHom (tK (KN N)) = tK (KN N) :=
+  mapRingHom_tK (g : KN N →+* KN N)
+
+end Level
 
 end ZInQ.RLeaf.TateCuspMuN
