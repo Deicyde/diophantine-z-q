@@ -27,8 +27,8 @@ compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Tors
    `σ : K →+* ℂ` (hence characteristic 0). `torsionStructureAt` has exactly the shape of the
    kernel's use `hT K A g n hdim hn hnK`, plus `σ`.
 
-2. **Every consumer of T5 in the H proof follows from T35.** Each one applies T5 only at `ℚ̄` or
-   at a subfield of `ℚ̄` (§3):
+2. **Every consumer of T5 in the H proof follows from T35.** Each one applies T5 only at `ℚ̄`, at
+   a subfield of `ℚ̄`, or at a number field (§3):
    ```lean
    theorem LeafQM.AV.Pin.mobiusGlue_of_T35 (hU : ZInQ.LeafPush2.UniformizationExists) :
        LeafQM.AV.Pin.MobiusGlue                       -- closes GluePiecesPin.mobius
@@ -53,7 +53,8 @@ compiles in about 10 s once the imported `ZInQKernel` modules are built. `T5Tors
    - The group structure `A(K̄)[n] ≅ (ℤ/n)^{2g}` follows by pure algebra; that is proved here.
    - `TorsionCardNonC`: `TorsionCard` on the fields with no ring map to `ℂ`. These are the fields
      of positive characteristic, and those of characteristic 0 with transcendence degree above the
-     continuum.
+     continuum (STANDARD: a field of characteristic 0 embeds in `ℂ` iff its transcendence degree
+     over `ℚ` is at most `𝔠`).
 
 4. **T26 (`PkgI3.TateModuleFree`) is glue given T5.** T26 says `T_ℓ A` is free of rank `2 dim A`
    over `ℤ_ℓ`.
@@ -165,6 +166,12 @@ For an abelian group `M` with `#M[ℓⁿ] = ℓ^{nr}` for all `n`:
 - T5 at `ℓⁿ` supplies the counts, with `r = 2g`.
 
 **Part 9.** T26 corollaries.
+
+**Part 10.** Embeddings `numberFieldToC`, `subfieldQbarToC`, and T5 at number fields and at
+subfields of `ℚ̄` from T35.
+
+**Part 11.** `T_ℓ A → A(K̄)[ℓᵏ]` is onto, from the counts (`exists_tate_lift_level`): the
+successive `ℓ`-th roots of `t` stay in `A[ℓ^{k+j}]` because `ℓ : A[ℓ^{k+j+1}] → A[ℓ^{k+j}]` is onto.
 
 ## 3. The consumers of T5, and how to rewire them (VERIFIED by reading)
 
