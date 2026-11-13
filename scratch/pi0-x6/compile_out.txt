@@ -7,4 +7,5 @@
 'Pi0X6.subsingleton_components_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Pi0X6.r1pi0Props_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
 'Pi0X6.compOf_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.r1pi0Props_of_X6Props' depends on axioms: [propext, Classical.choice, Quot.sound]
 exit 0

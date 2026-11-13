@@ -29,8 +29,10 @@
 3. **Lean** (VERIFIED: compiled, standard axioms only). The file is
    `scratch/pi0-x6/Pi0X6.lean`. It proves
 
-   `Pi0X6.r1pi0Props_of_bundle : R5ptProps X Ψ → R5fpCount → R2X6CMExact Ψ π₆ → AGInputs π₆ →
-   GeometricallyConnected X.hom`.
+   `Pi0X6.r1pi0Props_of_X6Props : X6Props Y Φ X Ψ fY → R5ptProps X Ψ → R5fpCount →
+   R2X6CMExact Ψ π₆ → AGInputs π₆ → GeometricallyConnected X.hom`.
+
+   `X6Props` is used only for one `ℚ̄`-point; `r1pi0Props_of_bundle` takes that point directly.
 
    The conclusion is exactly the clause `LeafAdopt.R1pi0Props X`. The four hypotheses:
    - `R5ptProps X Ψ` and `R5fpCount` are clauses of the bundle, used as they are.
@@ -42,7 +44,7 @@
      Galois-compatibility part is **proved** (`compOf_galois`). Three fields are left open:
      - `over0`: every connected component of `X_ℚ̄` contains a `ℚ̄`-point over `0`;
      - `overInf`: the same over `∞`;
-     - `descend`: `π₀(X_ℚ̄) = 1` implies `GeometricallyConnected`.
+     - `descend`: `ConnectedSpace X_ℚ̄` implies `GeometricallyConnected X.hom`.
 4. **The clause `R1pi0Props` is therefore glue modulo (c) and the three fields of `AGInputs`.**
    - The fields of `AGInputs` are standard algebraic geometry: curves over `ℚ̄`, and connectedness
      under field extension. Mathlib v4.35 does not have them, so they are open glue, not leaves.
@@ -155,7 +157,7 @@ Consistency check (SPECULATIVE, from memory): Elkies' model of `X₀(6,1)` is th
 
 All results below are VERIFIED:
 - `lake env lean scratch/pi0-x6/Pi0X6.lean` exits 0 with no errors and no warnings;
-- 9 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
+- 10 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
   (`scratch/pi0-x6/compile_out.txt`);
 - the file contains no `sorry` and no `axiom`.
 
@@ -181,7 +183,8 @@ It imports `ZInQKernel.HDecomp.QM.Leaves` and uses its genuine definitions: `R5p
 | 7 | `ptOf_galPt`, `compOf_galois` | `pt(σ · x) = galXbar σ (pt x)`; **Galois compatibility of components, proved** |
 | 7 | `AGInputs` | `over0`, `overInf`, `descend` (unproved algebraic geometry; see §2 (d)) |
 | 7 | `subsingleton_components_of_bundle` | `Subsingleton (ConnectedComponents (Xbar X))` |
-| 7 | `r1pi0Props_of_bundle` | `GeometricallyConnected X.hom` |
+| 7 | `connectedSpace_of_subsingleton` | subsingleton components and a point give `ConnectedSpace` |
+| 7 | `r1pi0Props_of_bundle`, `r1pi0Props_of_X6Props` | `GeometricallyConnected X.hom` (the `ℚ̄`-point comes from `X6Props`) |
 
 The core `subsingleton_of_galois` states: let `c : X(ℚ̄) → S` be Galois-compatible, and let every
 class contain a point over `0` and a point over `∞`. Suppose there are at most 2 points over `0`,
@@ -194,9 +197,9 @@ each with residue field `ℚ⟮z⟯`, `z² = −1`, and every point over `∞` h
 
 None of them is a disguised form of the conclusion:
 - `over0` and `overInf` say that every component meets two fibres;
-- `descend` is the general equivalence "connected over `ℚ̄`" ⇔ "geometrically connected", which
-  holds for every `ℚ`-scheme (SPECULATIVE in this generality: Stacks states it with
-  `k ⊂ k̄`, UNVERIFIED tag). It is not specific to `X₆`.
+- `descend` is one direction of the general fact that a `k`-scheme is geometrically connected iff
+  its base change to `k̄` is connected (Stacks, Varieties, "geometrically connected"; UNVERIFIED
+  tag). It holds for every `ℚ`-scheme and is not specific to `X₆`.
 
 ## 4. What remains
 

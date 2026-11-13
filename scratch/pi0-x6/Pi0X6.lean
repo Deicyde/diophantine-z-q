@@ -771,13 +771,14 @@ Mathlib v4.35 lacks the theory).** For `X₆` with `π₆`:
 (components are smooth proper irreducible curves over `ℚ̄`; `π₆` is nonconstant on each since its
 fibres are finite twist orbits, `Aut(𝒪)/Inn(𝒪^×) ≅ (ℤ/2)²`; the image is closed, irreducible, not
 a point, hence `P¹`; closed points are `ℚ̄`-points);
-(iii) connected over `ℚ̄` implies geometrically connected (Stacks, Varieties; UNVERIFIED tag). -/
+(iii) connected over `ℚ̄` implies geometrically connected, for any `ℚ`-scheme (Stacks, Varieties,
+"geometrically connected"; UNVERIFIED tag). -/
 structure AGInputs (π₆ : ToP1 X.left) : Prop where
   over0 : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ x : fieldPt Qbar ⟶ X,
     compOf x = t ∧ π₆.val (K := Qbar) x.left = OnePoint.some 0
   overInf : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ y : fieldPt Qbar ⟶ X,
     compOf y = t ∧ π₆.val (K := Qbar) y.left = OnePoint.infty
-  descend : Subsingleton (_root_.ConnectedComponents (Xbar X)) → GeometricallyConnected X.hom
+  descend : ConnectedSpace (Xbar X) → GeometricallyConnected X.hom
 
 /-- **`π₀(X₆_ℚ̄) = 1` (glue, compiled) from the bundle's clauses `R5ptProps`, `R5fpCount`, the
 exact-CM clause `R2X6CMExact`, and the algebraic-geometry inputs `AGInputs` (unproved).** The
@@ -792,12 +793,29 @@ theorem subsingleton_components_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotien
     (fun x P hP h0 => ((hex x P hP).1).1 h0) (fun x P hP hi => ((hex x P hP).2).1 hi)
     compOf compOf_galois hag.over0 hag.overInf
 
+/-- Subsingleton components and a point give a connected space. -/
+theorem connectedSpace_of_subsingleton {α : Type*} [TopologicalSpace α] (x : α)
+    (h : Subsingleton (_root_.ConnectedComponents α)) : ConnectedSpace α := by
+  have hu : connectedComponent x = Set.univ := Set.eq_univ_of_forall fun y =>
+    ConnectedComponents.coe_eq_coe'.1 (Subsingleton.elim (ConnectedComponents.mk y) _)
+  exact { isPreconnected_univ := hu ▸ isPreconnected_connectedComponent, toNonempty := ⟨x⟩ }
+
 /-- **The clause `R1pi0Props X` (`GeometricallyConnected X.hom`) from `R5ptProps`, `R5fpCount`,
-`R2X6CMExact` and `AGInputs`.** -/
+`R2X6CMExact`, `AGInputs` and one `ℚ̄`-point of `X` (`X6Props` supplies it).** -/
 theorem r1pi0Props_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
     {π₆ : ToP1 X.left} (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (hex : R2X6CMExact Ψ π₆)
-    (hag : AGInputs π₆) : GeometricallyConnected X.hom :=
-  hag.descend (subsingleton_components_of_bundle h5 hcnt hex hag)
+    (hag : AGInputs π₆) (x₀ : fieldPt Qbar ⟶ X) : GeometricallyConnected X.hom :=
+  hag.descend (connectedSpace_of_subsingleton (ptOf x₀)
+    (subsingleton_components_of_bundle h5 hcnt hex hag))
+
+/-- **The same, from the repaired bundle's clauses on one `X₆`**: `X6Props` (for the `ℚ̄`-point),
+`R5ptProps`, plus `R5fpCount`, `R2X6CMExact`, `AGInputs`. -/
+theorem r1pi0Props_of_X6Props {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)} {fY : Y ⟶ X} {π₆ : ToP1 X.left}
+    (h6 : X6Props Y Φ X Ψ fY) (h5 : R5ptProps X Ψ) (hcnt : R5fpCount)
+    (hex : R2X6CMExact Ψ π₆) (hag : AGInputs π₆) : GeometricallyConnected X.hom := by
+  obtain ⟨-, -, ⟨x₀⟩, -, -, -⟩ := h6
+  exact r1pi0Props_of_bundle h5 hcnt hex hag x₀
 
 end Final
 
@@ -812,3 +830,4 @@ end Pi0X6
 #print axioms Pi0X6.subsingleton_components_of_bundle
 #print axioms Pi0X6.r1pi0Props_of_bundle
 #print axioms Pi0X6.compOf_galois
+#print axioms Pi0X6.r1pi0Props_of_X6Props

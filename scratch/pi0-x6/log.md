@@ -88,3 +88,8 @@ information: Galois action on the geometric components. Inputs:
   Field/Core/ClosedQi/ClosedQ3 files are removed, they are in git history). Final compile:
   `lake env lean scratch/pi0-x6/Pi0X6.lean`, exit 0, no errors, no warnings; output in
   `compile_out.txt` (9 `#print axioms`, all `[propext, Classical.choice, Quot.sound]`).
+- L9 (VERIFIED, compiled, exit 0, no errors/warnings, 10 audited declarations standard axioms):
+  `AGInputs.descend` restated as `ConnectedSpace (Xbar X) → GeometricallyConnected X.hom` (the
+  Subsingleton form is false for empty `X`); `connectedSpace_of_subsingleton` proved;
+  `r1pi0Props_of_bundle` takes a `ℚ̄`-point `x₀`; `r1pi0Props_of_X6Props` takes it from
+  `X6Props` (clause 3).
