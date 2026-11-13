@@ -71,3 +71,22 @@ theorem HSyn.sixContactMin_of_leaves (r) (t) (hR18) (hR22) (m : G0Split.MissingP
 | `h_A + h_Z ≤ h_F(J) + L/2` | E4 (R20 + additivity) | R20 proved in; additivity = missing piece 4; base change = piece 5 |
 | `-(3/2) g ≤ h_Z` | E4 (R21) | proved (`transfer_core`) with `dim Z ≤ g` from piece 6 |
 | CM disjunct | not used (G6 NoCM) | — |
+
+## Later runs (VERIFIED)
+
+- run10: `IsogenousProduct` became a proved theorem (`isogenousProduct`) from three new pieces
+  `DimFinite`, `ProductExists`, `ReverseIsogeny`: 0 errors.
+- run11 (final, 20024 lines, 2m25s): pieces renumbered smallest first (1 `DimFinite`,
+  2 `DimBaseChange`, 3 `X1BelyiOnModel`, 4 `FibreSimple`, 5 `HeightAdditivity`,
+  6 `StableHeightBaseChange`, 7 `ProductExists`, 8 `ReverseIsogeny`, 9 `ThetaPointOfFibre`,
+  10 `ModularConstituent`). 0 errors, no `declaration uses sorry`; `#print axioms` all
+  `[propext, Classical.choice, Quot.sound]`: `HSyn.glueOutputs_of_leaves`,
+  `HSyn.sixContactMin_of_leaves`, `G0Split.transfer_core`, `G0Split.javanpeykarJ1`,
+  `G0Split.thetaPazuki`, `G0Split.isogenousProduct`, `G0Split.semisimpleBaseChange`.
+- Final signature: `glueOutputs_of_leaves r t hR18 hR22 hDimF hDim hBelyi hSimp hAdd hBC hProdE hRev
+  hThetaPt hMod`. In the table above, "piece 6" = `ProductExists` + `ReverseIsogeny` (+ `DimFinite`),
+  "pieces 2-4" = R18 with `X1BelyiOnModel`, `HeightAdditivity`, `StableHeightBaseChange`, and
+  "piece 7" / "piece 8" = `ThetaPointOfFibre` / `ModularConstituent` (numbering of the first log).
+- Truth check of each piece (model reasoning, SPECULATIVE where it depends on def-faltings or
+  bp-qmmoduli §2.2): see docs/research/g0-split.md §3. NoCM for every rational `u ∉ 𝒞`: h-trust A10
+  (read).
