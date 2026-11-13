@@ -1,0 +1,8 @@
+'X6Kummer.galPt_eq_self_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.x6KummerFibre_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.kummerFibreEquiv_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.x6KummerFibre_of_model' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.pairBaseChangeUnique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.x6KummerFibre_of_model'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.kummerFibreEquiv_of_conic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'X6Kummer.x6KummerFibre_of_conic' depends on axioms: [propext, Classical.choice, Quot.sound]
