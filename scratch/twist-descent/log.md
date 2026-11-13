@@ -1,0 +1,18 @@
+# twist-descent results log
+
+Base: fork main 57a7fa26 + merge of origin/wip/kf-glue.
+
+## Step 0. Truth of `TwistDescent` (kf-glue, New.lean L685-698)
+- Decision: TRUE as stated (argument below; VERIFIED by the compiled proof once complete).
+  For σ ∈ G_ℚ: the hypothesis gives a twisted iso φ : B_{e₀} ≅ B_{σ⁻¹e₀} over ℚ̄ (e₀ = K ↪ ℚ̄);
+  Ē_σ = φ ≫ cmp_{σ⁻¹} is σ⁻¹-semilinear on B_{e₀} = (B_L)_{ℚ̄}; it descends to B_L because
+  L is a Hom field (φ is fixed by G_L-conjugation). E_σ, α_σ depend only on σ|_L (coset constancy),
+  with E = 𝟙, α = id on the trivial coset; α_σ := α_hyp⁻¹ matches the direction of the ι-clause.
+
+## Step 1. Galois descent of morphisms from Mathlib — VERIFIED (compiled, `lake build`)
+- `ZInQKernel/Contrib/TwistDescent/GaloisDescent.lean` (Mathlib only), namespace `TwistDescentGD`:
+  `exists_open_gal` (u v : Z → Spec k' agreeing over Spec k, k'/k finite Galois ⇒ locally
+  v = u ≫ Spec g; primitive element + `Algebra.IsInvariant.charpoly_mem_lifts`),
+  `descend` (Galois-invariant f : X' → Y factors through X' = X ×_k k' → X; EffectiveEpi from
+  Mathlib `Sites/Fpqc.lean` + `Scheme.hom_ext_of_forall`), `epi_of_isPullback_field`,
+  `effectiveEpi_of_isPullback_field` (any field extension).
