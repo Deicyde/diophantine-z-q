@@ -363,6 +363,151 @@ theorem metrizable_right_of_productModelHeight (h : ProductModelHeight)
 
 end Forces
 
+/-- **`ProductModelHeight` forces AN3-existence on the left factor** (proved): if the product
+model has a metrization and `h(𝒢₂) ≠ ⊥`, then at every `τ` the complex points `𝒢₁(ℂ)_τ` have an
+analytic uniformization with a full discrete lattice as kernel: the conclusion of
+`AnalyticUniformizationExists` for `𝒢₁`, obtained from the product's. -/
+theorem analyticUnif_left_of_productModelHeight (h : ProductModelHeight)
+    {K : Type} [Field K] {A B C : AbVar K} {eC : C.X ≅ A.X ⊗ B.X} {L : Type} [Field L]
+    [NumberField L] [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L}
+    {𝒢₂ : GroupModel B L} (hPM : IsProductModel eC 𝒢P 𝒢₁ 𝒢₂) {g : ℕ}
+    (MP : MetrizedModel C L g) (hMP : MP.model = 𝒢P) (h₂ : 𝒢₂.height ≠ ⊥) (τ : L →+* ℂ) :
+    ∃ (g₁ : ℕ) (Λ : Submodule ℤ (Fin g₁ → ℂ)) (Φ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ),
+      ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ 𝒢₁.IsAnalyticUniformization τ Λ Φ := by
+  obtain ⟨g₁, M₁, rfl⟩ := metrizable_left_of_productModelHeight h hPM MP hMP h₂
+  obtain ⟨Φ, hΦ, -⟩ := M₁.arch τ
+  exact ⟨g₁, _, Φ, M₁.hodge.periods_discrete τ, M₁.hodge.periods_isZLattice τ, hΦ⟩
+
+/-! ## §5. Complex points of a product model, and the product uniformization (algebraic half)
+
+For `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂` with homomorphic components, `𝒢P(ℂ)_τ ≅ 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` as groups
+(`ptsEquiv`, proved). For uniformizations `Φ₁`, `Φ₂` of the factors, the product
+`Φ(z) = (Φ₁(z₁), Φ₂(z₂))` (`z = Fin.append z₁ z₂`) satisfies the three algebraic clauses of
+`IsAnalyticUniformization` with kernel `Λ₁ × Λ₂` (`prodUnif_clauses`, proved); the two analytic
+clauses (openness of `Φ⁻¹(U(ℂ))`, holomorphy of regular functions along `Φ`) are the glue Prop
+`ProductUnifAnalytic`. This is the "easy" direction (products of uniformizations), used by
+`ProductMetrizationGeo`; it is not the splitting of §1. -/
+
+section Points
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+  {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L} {𝒢₂ : GroupModel B L}
+
+/-- The two projections on complex points, as one homomorphism. -/
+noncomputable def ptsProj (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] (τ : L →+* ℂ) : 𝒢P.Pts τ →* 𝒢₁.Pts τ × 𝒢₂.Pts τ :=
+  (IsMonHom.monoidHom (e.hom ≫ fst _ _) (GroupModel.ptC τ)).prod
+    (IsMonHom.monoidHom (e.hom ≫ snd _ _) (GroupModel.ptC τ))
+
+theorem ptsProj_bijective (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] (τ : L →+* ℂ) : Function.Bijective (ptsProj e τ) := by
+  constructor
+  · intro p q hpq
+    simp only [ptsProj, MonoidHom.prod_apply, IsMonHom.monoidHom_apply, Prod.mk.injEq] at hpq
+    rw [← cancel_mono e.hom]
+    apply CartesianMonoidalCategory.hom_ext
+    · simpa only [Category.assoc] using hpq.1
+    · simpa only [Category.assoc] using hpq.2
+  · rintro ⟨a, b⟩
+    refine ⟨lift a b ≫ e.inv, ?_⟩
+    simp only [ptsProj, MonoidHom.prod_apply, IsMonHom.monoidHom_apply, Category.assoc,
+      Iso.inv_hom_id_assoc, lift_fst, lift_snd]
+
+/-- **`𝒢P(ℂ)_τ ≅ 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` as groups (proved).** -/
+noncomputable def ptsEquiv (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] (τ : L →+* ℂ) : 𝒢P.Pts τ ≃* 𝒢₁.Pts τ × 𝒢₂.Pts τ :=
+  MulEquiv.ofBijective (ptsProj e τ) (ptsProj_bijective e τ)
+
+/-- The lattice `Λ₁ × Λ₂ ⊂ ℂ^{g₁+g₂}` (coordinates `Fin.append`). -/
+def prodLattice {g₁ g₂ : ℕ} (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) :
+    Submodule ℤ (Fin (g₁ + g₂) → ℂ) :=
+  Λ₁.comap (LinearMap.funLeft ℤ ℂ (Fin.castAdd g₂)) ⊓
+    Λ₂.comap (LinearMap.funLeft ℤ ℂ (Fin.natAdd g₁))
+
+/-- The product uniformization `z ↦ (Φ₁(z₁), Φ₂(z₂))`. -/
+noncomputable def prodUnif (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ : ℕ} (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ) : (Fin (g₁ + g₂) → ℂ) → 𝒢P.Pts τ := fun z =>
+  (ptsEquiv e τ).symm (Φ₁ fun i => z (Fin.castAdd g₂ i), Φ₂ fun i => z (Fin.natAdd g₁ i))
+
+/-- **The algebraic clauses of `IsAnalyticUniformization` for the product (proved).** -/
+theorem prodUnif_clauses (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)}
+    {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)} {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ}
+    {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ} (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) :
+    (∀ z w, prodUnif e Φ₁ Φ₂ (z + w) = prodUnif e Φ₁ Φ₂ z * prodUnif e Φ₁ Φ₂ w) ∧
+    (∀ z, prodUnif e Φ₁ Φ₂ z = 1 ↔ z ∈ prodLattice Λ₁ Λ₂) ∧
+    Function.Surjective (prodUnif e Φ₁ Φ₂) := by
+  obtain ⟨m₁, k₁, s₁, -, -⟩ := h₁
+  obtain ⟨m₂, k₂, s₂, -, -⟩ := h₂
+  refine ⟨fun z w => ?_, fun z => ?_, fun p => ?_⟩
+  · simp only [prodUnif, ← map_mul, Prod.mk_mul_mk]
+    congr 2
+    · exact m₁ _ _
+    · exact m₂ _ _
+  · simp only [prodUnif, MulEquiv.map_eq_one_iff, Prod.mk_eq_one, k₁, k₂, prodLattice,
+      Submodule.mem_inf, Submodule.mem_comap]
+    rfl
+  · obtain ⟨z₁, hz₁⟩ := s₁ (ptsEquiv e τ p).1
+    obtain ⟨z₂, hz₂⟩ := s₂ (ptsEquiv e τ p).2
+    refine ⟨Fin.append z₁ z₂, ?_⟩
+    simp only [prodUnif, Fin.append_left, Fin.append_right, hz₁, hz₂, Prod.mk.eta,
+      MulEquiv.symm_apply_apply]
+
+/-- **Glue (analytic half of the product uniformization).** For analytic uniformizations `Φ₁`,
+`Φ₂` of the factors, the product uniformization satisfies the two analytic clauses of
+`IsAnalyticUniformization`: each `Φ⁻¹(U(ℂ))` is open and each regular function on an open of
+`𝒢P` is holomorphic along `Φ` there. Why true (STANDARD): the affine products
+`U₁ ×_{𝓞_L} U₂ = Spec(R₁ ⊗ R₂)` cover `𝒢₁ ×_{𝓞_L} 𝒢₂`, and their basic opens `D(f)`,
+`f = Σ aᵢ ⊗ bᵢ`, form a basis (products of opens alone do not: the Zariski topology of a product
+is finer than the product topology). On `U₁ × U₂` the preimage under `Φ` is
+`Φ₁⁻¹(U₁) × Φ₂⁻¹(U₂)` (open), the value of `a ⊗ b` at `Φ z` is `a(Φ₁ z₁) b(Φ₂ z₂)` (holomorphic),
+so `Φ⁻¹(D(f))` is open and the sections `h / fⁿ` of `D(f)` are holomorphic along `Φ`; both
+properties are local (EGA I 3.2.2 / Stacks 01JR for the affine product, UNVERIFIED). Needs
+Mathlib's affine fibre products (`pullbackSpecIso`) and the comparison of evaluations; unproved.
+No AN3 input. -/
+def ProductUnifAnalytic : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ)) (Λ₂ : Submodule ℤ (Fin g₂ → ℂ))
+    (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ) (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+      (∀ U, IsOpen (𝒢P.dom (prodUnif e Φ₁ Φ₂) U)) ∧
+      (∀ U (s : Γ(𝒢P.G.left, U)),
+        DifferentiableOn ℂ (fun z => 𝒢P.evalAt (prodUnif e Φ₁ Φ₂ z) U s)
+          (𝒢P.dom (prodUnif e Φ₁ Φ₂) U))
+
+/-- **The product of analytic uniformizations is an analytic uniformization of the product
+model, with lattice `Λ₁ × Λ₂`** (proved from `ProductUnifAnalytic`). -/
+theorem prodUnif_isAnalyticUniformization (hA : ProductUnifAnalytic)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g₁ g₂ : ℕ} {Λ₁ : Submodule ℤ (Fin g₁ → ℂ)}
+    {Λ₂ : Submodule ℤ (Fin g₂ → ℂ)} {Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ}
+    {Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ} (h₁ : 𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁)
+    (h₂ : 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂) :
+    𝒢P.IsAnalyticUniformization τ (prodLattice Λ₁ Λ₂) (prodUnif e Φ₁ Φ₂) := by
+  obtain ⟨hm, hk, hs⟩ := prodUnif_clauses e h₁ h₂
+  obtain ⟨ho, hd⟩ := hA K A B C L 𝒢P 𝒢₁ 𝒢₂ e τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ h₁ h₂
+  exact ⟨hm, hk, hs, ho, hd⟩
+
+/-- The splitting direction, formal part: for any uniformization `Φ` of the product, `p₁ ∘ Φ`
+is a surjective homomorphism `ℂ^g → 𝒢₁(ℂ)_τ` (proved). Its kernel `Φ⁻¹(1 × 𝒢₂(ℂ)_τ)` is not
+discrete when `𝒢₂(ℂ)_τ` is infinite; extracting a uniformization of `𝒢₁` from it is the
+AN3-type step of §4. -/
+theorem proj_comp_unif (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
+    [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Φ : (Fin g → ℂ) → 𝒢P.Pts τ} (hΦ : 𝒢P.IsAnalyticUniformization τ Λ Φ) :
+    (∀ z w, (ptsEquiv e τ (Φ (z + w))).1 = (ptsEquiv e τ (Φ z)).1 * (ptsEquiv e τ (Φ w)).1) ∧
+    Function.Surjective fun z => (ptsEquiv e τ (Φ z)).1 := by
+  obtain ⟨m, -, s, -, -⟩ := hΦ
+  refine ⟨fun z w => by rw [m, map_mul, Prod.fst_mul], fun a => ?_⟩
+  obtain ⟨z, hz⟩ := s ((ptsEquiv e τ).symm (a, 1))
+  exact ⟨z, by simp only [hz, MulEquiv.apply_symm_apply]⟩
+
+end Points
+
 end ZInQ.ProductHeight
 
 #print axioms ZInQ.ProductHeight.copy_iff
@@ -374,3 +519,8 @@ end ZInQ.ProductHeight
 #print axioms ZInQ.ProductHeight.productMetrizationSplit_of
 #print axioms ZInQ.ProductHeight.metrizable_left_of_productModelHeight
 #print axioms ZInQ.ProductHeight.metrizable_right_of_productModelHeight
+#print axioms ZInQ.ProductHeight.analyticUnif_left_of_productModelHeight
+#print axioms ZInQ.ProductHeight.ptsEquiv
+#print axioms ZInQ.ProductHeight.prodUnif_clauses
+#print axioms ZInQ.ProductHeight.prodUnif_isAnalyticUniformization
+#print axioms ZInQ.ProductHeight.proj_comp_unif
