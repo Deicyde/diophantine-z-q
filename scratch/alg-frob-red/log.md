@@ -50,3 +50,18 @@
   tateBridge35_of_fine.
 - Run 13: exit 0, no error, no sorry; 24 axiom prints (23 AlgFrobRedRed + G0FibreSimple.rigidityHom), all
   [propext, Classical.choice, Quot.sound] (VERIFIED).
+
+## Run 14-15: ResidueAlgClosure split
+- New Props: ResidueAlgClosed (κ(v) algebraically closed, every valuation subring v of ℚ̄), ResidueAlgebraic
+  (κ(v) algebraic over κ(w) for the map induced by O_w → O_v).
+- Proved: instance isLocalHom_toW, residueAlgClosure_of : ResidueAlgClosed → ResidueAlgebraic → ResidueAlgClosure
+  (IsAlgClosure.equiv; needs synthInstance.maxHeartbeats 400000).
+- Run 15: exit 0, no error; 26 axiom prints, all standard (VERIFIED).
+
+## Review (one model review, read-only, no human review; 2026-11-13 ~07:35)
+- Verdict: all twelve Props TRUE as stated, none vacuous. Checked: FExtend's direction residue(t a)^p = residue a is the
+  right one (t = σ⁻¹|O_w; the other direction would be false); FrobMorph's point formula is consistent with β over id;
+  ∀ j in ReductionFrobGood/RedRelMul harmless (incompatible j: RedRel empty); RedTorsionQbar holds for every compatible j
+  (O_v strictly henselian, 𝒜[m] finite étale); GoodRedCofinite, SmoothGeomConnIntegral standard (locators UNSURE).
+- Remarks (no truth issue): IsFinite/Surjective F unused in FExtend, ReductionFrobGood; Bijective j redundant in
+  RedTorsionQbar given compatibility; FrobMorph does not need 𝒜 abelian.

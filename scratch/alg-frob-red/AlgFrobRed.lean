@@ -3692,6 +3692,58 @@ theorem reductionFrobGood_of (hS : SmoothGeomConnIntegral) (hE : FExtend) (hFr :
   rw [hx''eq]
   exact h1.trans h2
 
+/-! ## 6. `ResidueAlgClosure` from two statements on residue fields -/
+
+/-- `O_w → O_v` is a local homomorphism (proved). -/
+instance isLocalHom_toW (L : IF) (v : ValuationSubring PkgI4.Qbar) :
+    IsLocalHom (PkgI2.toW (Ow L v) v rfl) := by
+  refine ⟨fun a ha => ?_⟩
+  by_contra hna
+  have h1 : ((a : Ow L v) : L) ∈ (Ow L v).nonunits :=
+    ValuationSubring.coe_mem_nonunits_iff.mpr ((IsLocalRing.mem_maximalIdeal _).mpr hna)
+  have h2 : ((PkgI2.toW (Ow L v) v rfl a : v) : PkgI4.Qbar) ∈ v.nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or] at h1 ⊢
+    show algebraMap L PkgI4.Qbar (a : L) = 0 ∨ (algebraMap L PkgI4.Qbar (a : L))⁻¹ ∉ v
+    rcases h1 with h | h
+    · left; rw [h, map_zero]
+    · right; rw [← map_inv₀]; exact h
+  exact (IsLocalRing.mem_maximalIdeal _).mp (ValuationSubring.coe_mem_nonunits_iff.mp h2) ha
+
+/-- **`ResidueAlgClosed` (GLUE, standard: the residue field of a valuation ring of an
+algebraically closed field is algebraically closed; e.g. Engler–Prestel, *Valued fields* (2005),
+Thm 3.2.11 (locator UNVERIFIED)).** Proof idea: lift a monic polynomial to `O_v`, take a root in
+`ℚ̄`; it is integral over `O_v`, hence in `O_v`; reduce. -/
+def ResidueAlgClosed : Prop :=
+  ∀ v : ValuationSubring PkgI4.Qbar, IsAlgClosed (IsLocalRing.ResidueField v)
+
+/-- **`ResidueAlgebraic` (GLUE, standard: the residue extension of an algebraic extension of
+valued fields is algebraic; Bourbaki, *Alg. Comm.* VI §8.1, Engler–Prestel Cor. 3.2.3 (locators
+UNVERIFIED)).** `κ(v)` is algebraic over `κ(w)`, `w = v ∩ L`, for the map induced by
+`O_w → O_v`. -/
+def ResidueAlgebraic : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar),
+    @Algebra.IsAlgebraic (kw L v) (IsLocalRing.ResidueField v) _ _
+      (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`ResidueAlgClosure` from `ResidueAlgClosed` and `ResidueAlgebraic` (proved):** `κ(v)` is an
+algebraic closure of `κ(w)`, so `IsAlgClosure.equiv` gives `j`. -/
+theorem residueAlgClosure_of (h1 : ResidueAlgClosed) (h2 : ResidueAlgebraic) :
+    ResidueAlgClosure := by
+  intro L _ v p _ _
+  letI : Algebra (kw L v) (IsLocalRing.ResidueField v) :=
+    (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
+  haveI : IsAlgClosed (IsLocalRing.ResidueField v) := h1 v
+  haveI : Algebra.IsAlgebraic (kw L v) (IsLocalRing.ResidueField v) := h2 L v
+  haveI : IsAlgClosure (kw L v) (IsLocalRing.ResidueField v) := ⟨inferInstance, inferInstance⟩
+  let e := IsAlgClosure.equiv (kw L v) (IsLocalRing.ResidueField v) (AlgebraicClosure (kw L v))
+  refine ⟨e.toRingEquiv.toRingHom, e.bijective, fun a => ?_⟩
+  have h3 : IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a) =
+      algebraMap (kw L v) (IsLocalRing.ResidueField v) (IsLocalRing.residue (Ow L v) a) :=
+    (IsLocalRing.ResidueField.map_residue _ a).symm
+  show e (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) = _
+  rw [h3, AlgEquiv.commutes]
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
@@ -3731,5 +3783,7 @@ end
 #print axioms AlgFrobRedRed.sigV
 #print axioms AlgFrobRedRed.residue_sigV
 #print axioms AlgFrobRedRed.reductionFrobGood_of
+#print axioms AlgFrobRedRed.isLocalHom_toW
+#print axioms AlgFrobRedRed.residueAlgClosure_of
 #print axioms AlgFrobRedRed.algFrobRed_of_fine
 #print axioms AlgFrobRedRed.tateBridge35_of_fine
