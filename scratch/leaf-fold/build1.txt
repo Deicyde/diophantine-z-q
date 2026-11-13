@@ -1,0 +1,1464 @@
+✔ [2946/2958] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Units (2.4s)
+✔ [2947/2959] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.ZPowers (2.5s)
+✔ [2948/2967] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.ClosedSubgroup (2.7s)
+✔ [2954/2970] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Lift (3.3s)
+✔ [2955/2970] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.MulDvd (860ms)
+✔ [2956/2970] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.FixedPoints (3.5s)
+✔ [2957/2971] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.TypeTags (838ms)
+✔ [2958/2975] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Algebraic (4.1s)
+✔ [2959/2975] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.AlgHom (823ms)
+✔ [2960/2979] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IsSepClosed (4.4s)
+✔ [2963/2981] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.ForcedDiscrete (938ms)
+✔ [2964/2981] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.QuotientAddGroup (969ms)
+✔ [2965/2981] Built ZInQKernel.Contrib.TauCeti.GroupTheory.OrderOfElement.Basic (1.4s)
+✔ [2966/2981] Built ZInQKernel.Contrib.TauCeti.Topology.Discrete (844ms)
+✔ [2967/2983] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Restriction (5.2s)
+✔ [2968/2989] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Map (834ms)
+✔ [2971/2994] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.FixedField (3.2s)
+✔ [2972/2994] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.OpenNormalSubgroup (1.1s)
+✔ [2973/2994] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Hom.Lift (529ms)
+✔ [2977/2996] Built ZInQKernel.Contrib.TauCeti.FieldTheory.KrullTopology (1.5s)
+✔ [2978/2996] Built ZInQKernel.Contrib.TauCeti.Algebra.Exact.Hom (923ms)
+✔ [2979/2996] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Hom.Instances (780ms)
+✔ [2981/2996] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Action (1.1s)
+✔ [2982/2997] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle (2.8s)
+✔ [2983/3067] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.Discrete (1.2s)
+✔ [3179/3200] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Quotient.Basic (1.4s)
+✔ [3180/3200] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.ZMod.Extend (1.1s)
+✔ [3182/3208] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ContinuousMonoidHom.Basic (2.7s)
+✔ [3192/3208] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.ZMod (1.2s)
+✔ [3193/3209] Built ZInQKernel.Contrib.TauCeti.Algebra.Algebra.NatCast (734ms)
+✔ [3194/3210] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle.Topology (1.4s)
+✔ [3195/3210] Built ZInQKernel.Contrib.TauCeti.Topology.LocallyConstant.Compact (795ms)
+✔ [3197/3224] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Units.Basic (954ms)
+✔ [3209/3229] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.SmoothDiscrete.Basic (4.3s)
+✔ [3210/3229] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.Equiv (666ms)
+✔ [3212/3229] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.Grp.FilteredColimits (892ms)
+✔ [3213/3230] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Basic (3.7s)
+✔ [3214/3232] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.End.Centralizer (888ms)
+✔ [3216/3232] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.LocallyConstant (1.1s)
+✔ [3217/3236] Built ZInQKernel.Contrib.TauCeti.RingTheory.LocalRing.Basic (1.1s)
+✔ [3218/3236] Built ZInQKernel.Contrib.TauCeti.RingTheory.SimpleModule.Basic (1.2s)
+✔ [3219/3236] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Intertwining (1.7s)
+✔ [3220/3239] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.InternalHom.Basic (3.0s)
+✔ [3221/3239] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Descent (1.0s)
+✔ [3222/3239] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Equiv.Basic (1.1s)
+✔ [3224/3255] Built ZInQKernel.Contrib.TauCeti.RingTheory.KrullSchmidt.Indecomposable (1.3s)
+✔ [3233/3255] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Basic (1.2s)
+✔ [3235/3255] Built ZInQKernel.Contrib.TauCeti.Algebra.MonoidAlgebra.MapDomain (1.0s)
+✔ [3236/3285] Built ZInQKernel.Contrib.TauCeti.RingTheory.Semisimple.DoubleCentralizer (1.9s)
+✔ [3255/3285] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Subrepresentation (1.7s)
+✔ [3257/3287] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Pi (1.2s)
+✔ [3258/3287] Built ZInQKernel.Contrib.TauCeti.RingTheory.Semisimple.Schur (1.8s)
+✔ [3259/3287] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.LowDegree (4.5s)
+✔ [3261/3287] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Basis (1.4s)
+✔ [3262/3291] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Map (3.9s)
+✔ [3263/3291] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.ChangeOfGroup (2.2s)
+✔ [3266/3291] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.FixedPoints (1.2s)
+✔ [3267/3291] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Basic (959ms)
+✔ [3268/3295] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.OfModule (1.6s)
+✔ [3270/3297] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Separation (1.1s)
+✔ [3272/3297] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ConstMulAction (1.5s)
+✔ [3273/3299] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Basic (2.7s)
+✔ [3274/3300] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.FDRep (2.6s)
+✔ [3275/3303] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Quotient.Section (972ms)
+✔ [3277/3303] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Subrepresentation (1.0s)
+✔ [3278/3305] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Exact (1.3s)
+✔ [3279/3305] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Module.Quotient (1.2s)
+✔ [3280/3305] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Irreducible (1.8s)
+✔ [3281/3307] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Section (1.3s)
+✔ [3282/3308] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Homogeneous (1.7s)
+✔ [3283/3313] Built ZInQKernel.Contrib.TauCeti.Topology.CompactOpen (931ms)
+✔ [3284/3313] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.AsModule (2.3s)
+✔ [3285/3499] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.EqToHom (1.2s)
+✔ [3626/3920] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Extension (4.5s)
+✔ [3891/4281] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ShortExact (4.0s)
+✔ [3892/4281] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.ShortComplex.PreservesHomology (866ms)
+✔ [4596/4947] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Homology (1.0s)
+✔ [7114/7471] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.RestrictScalars (1.7s)
+✔ [9123/9153] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CompactDiscrete (1.5s)
+✔ [9124/9154] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Invariants (3.6s)
+✔ [9125/9154] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Invariants (2.8s)
+✔ [9126/9154] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Functoriality (1.3s)
+✔ [9128/9155] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Coset.Basic (1.3s)
+✔ [9129/9155] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.RestrictScalars (2.4s)
+✔ [9130/9157] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Invariants (1.0s)
+✔ [9131/9157] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Quotient (2.6s)
+✔ [9132/9158] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.LowDegree (1.8s)
+✔ [9133/9161] Built ZInQKernel.Contrib.TauCeti.CategoryTheory.Linear.FullyFaithful (943ms)
+✔ [9134/9161] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.CharacterTable.ClassFunction (1.8s)
+✔ [9135/9161] Built ZInQKernel.Contrib.TauCeti.CategoryTheory.Skeletal (721ms)
+✔ [9136/9166] Built ZInQKernel.Contrib.TauCeti.CategoryTheory.Action.Restriction (969ms)
+✔ [9137/9166] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Coefficients (6.4s)
+✔ [9138/9166] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.PiTransport (656ms)
+✔ [9139/9172] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Projection (4.7s)
+✔ [9140/9172] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.Subrepresentation (1.3s)
+✔ [9141/9173] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.OfMulAction (1.5s)
+✔ [9142/9176] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Finite (809ms)
+✔ [9143/9176] Built ZInQKernel.Contrib.TauCeti.Algebra.MonoidAlgebra.TensorProduct (1.0s)
+✔ [9144/9179] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Simple.Basic (2.0s)
+✔ [9145/9179] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Basic (1.1s)
+✔ [9146/9181] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.ShortComplex.ShortExact (1.5s)
+✔ [9147/9181] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Restriction (1.4s)
+✔ [9148/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.TensorShortExact (1.5s)
+✔ [9149/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ExplicitFunctoriality (6.3s)
+✔ [9150/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.LongExactSequence (1.7s)
+✔ [9151/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Coinduced (3.8s)
+✔ [9152/9183] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.Torsion.Basic (1.5s)
+✔ [9153/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.OfMulAction (2.2s)
+✔ [9154/9183] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.FiniteExtension (9.9s)
+✔ [9155/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Conjugation.Basic (2.7s)
+✔ [9156/9183] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.GroupCohomologyIso.Basic (3.0s)
+✔ [9157/9187] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Explicit (3.7s)
+✔ [9158/9187] Built ZInQKernel.Contrib.TauCeti.Algebra.AddCircle (1.7s)
+✔ [9159/9189] Built ZInQKernel.Contrib.TauCeti.Data.Int.WithZero (959ms)
+✔ [9160/9192] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.AbsoluteValue (1.1s)
+✔ [9161/9192] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Transitivity (3.0s)
+✔ [9162/9192] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CochainComparison (6.1s)
+✔ [9163/9192] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Conjugation.Restriction (2.5s)
+✔ [9164/9192] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Inflation.Basic (5.4s)
+✔ [9165/9193] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Discrete.Order (1.8s)
+✔ [9166/9193] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.RootMonic (1.5s)
+✔ [9167/9194] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.ValuativeRel.Extension (1.0s)
+✔ [9168/9196] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.ValuativeRel.Basic (1.1s)
+✔ [9169/9198] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiveTerm (2.1s)
+✔ [9170/9198] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.DegreeTwoDescent (1.8s)
+✔ [9171/9201] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Permutation (3.8s)
+✔ [9172/9201] Built ZInQKernel.Contrib.TauCeti.Algebra.CharP.LocalRing (987ms)
+✔ [9173/9202] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.NormalizedValuation (2.5s)
+✔ [9174/9202] Built ZInQKernel.Contrib.TauCeti.RingTheory.DiscreteValuationRing.Basic (1.2s)
+✔ [9175/9203] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CocycleComparison (4.2s)
+✔ [9176/9203] Built ZInQKernel.Contrib.TauCeti.RingTheory.DiscreteValuationRing.Orthogonality (1.2s)
+✔ [9177/9204] Built ZInQKernel.Contrib.TauCeti.RingTheory.AdicCompletion.Pi (1.2s)
+✔ [9178/9205] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.NormedField (1.8s)
+✔ [9179/9205] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.NatCastValuation (1.9s)
+✔ [9180/9206] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Uniformizer (1.7s)
+✔ [9181/9206] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.FiniteQuotient.Colimit (4.4s)
+✔ [9182/9209] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Units (1.3s)
+✔ [9183/9211] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.TrivialSubgroup (4.6s)
+✔ [9184/9211] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Transgression (5.7s)
+✔ [9185/9211] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Basic (3.5s)
+✔ [9186/9212] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Coinduced (1.3s)
+✔ [9187/9214] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.AlgebraicExtension.Basic (3.4s)
+✔ [9188/9214] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.DimensionShift (2.1s)
+✔ [9189/9214] Built ZInQKernel.Contrib.TauCeti.RingTheory.Unramified.LocalRing (1.3s)
+✔ [9190/9214] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Functoriality (26s)
+✔ [9191/9217] Built ZInQKernel.Contrib.TauCeti.RingTheory.AdicCompletion.Pow (1.1s)
+✔ [9192/9217] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.RamificationIndex (3.6s)
+✔ [9193/9217] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Pow (2.3s)
+✔ [9194/9217] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.FiniteExtension.Basic (1.8s)
+✔ [9195/9217] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.DimensionShift (1.4s)
+✔ [9196/9218] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.CharpolyRev (1.2s)
+✔ [9197/9218] Built ZInQKernel.Contrib.TauCeti.RingTheory.Henselian.Basic (2.2s)
+✔ [9198/9218] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Map (1.8s)
+✔ [9199/9222] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.AutomorphismAction (1.4s)
+✔ [9200/9222] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Henselian (1.8s)
+✔ [9201/9224] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.InflationRestriction (2.3s)
+✔ [9202/9225] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Henselian (1.3s)
+✔ [9203/9226] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.FiniteFiltration (810ms)
+✔ [9204/9230] Built ZInQKernel.Contrib.TauCeti.RingTheory.Unramified.AlgEquiv (1.3s)
+✔ [9205/9231] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.IntegerRing.Basic (3.6s)
+✔ [9206/9231] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.PrimesAbove (1.6s)
+✔ [9207/9231] Built ZInQKernel.Contrib.TauCeti.Algebra.Ring.Action.End (949ms)
+✔ [9208/9232] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Inertia (995ms)
+✔ [9209/9233] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Quotient (8.6s)
+✔ [9210/9233] Built ZInQKernel.Contrib.TauCeti.RingTheory.LocalRing.Pointwise (1.0s)
+✔ [9211/9233] Built ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Log (908ms)
+✔ [9212/9238] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Norm (1.5s)
+✔ [9213/9238] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.PrimesOver (1.5s)
+✔ [9214/9238] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.RamificationGroup (1.3s)
+✔ [9215/9239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.InertiaDegree (2.4s)
+✔ [9216/9240] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Carry (824ms)
+✔ [9217/9240] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.Opposite (978ms)
+✔ [9218/9241] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.GaloisAction (3.7s)
+✔ [9219/9242] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.Resolution (1.8s)
+✔ [9220/9242] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.Galois (2.4s)
+✔ [9221/9244] Built ZInQKernel.Contrib.TauCeti.RingTheory.LocalRing.RamificationGroup (2.1s)
+✔ [9222/9244] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.LinearMap.Cardinality (910ms)
+✔ [9223/9246] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.Ext.ProjectiveResolution (1.8s)
+✔ [9224/9246] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Finite (1.3s)
+✔ [9225/9247] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.KerEquiv (900ms)
+✔ [9226/9247] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.LowDegree (4.0s)
+✔ [9227/9249] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Basic (4.3s)
+✔ [9228/9250] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Norm.Basic (3.3s)
+✔ [9229/9250] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Units.Basic (576ms)
+✔ [9230/9250] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.RamificationGroup (2.3s)
+✔ [9231/9250] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Resolution (2.7s)
+✔ [9232/9250] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.PowMonoidHom (1.1s)
+✔ [9233/9250] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.NSmul (2.6s)
+✔ [9234/9251] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Norm.Unramified.Basic (3.4s)
+✔ [9235/9263] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.FiniteCyclic (3.0s)
+✔ [9236/9263] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Periodic (4.4s)
+✔ [9237/9265] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.ResidueCorrespondence (3.2s)
+✔ [9238/9265] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.PowerClassGroup.Basic (1.1s)
+✔ [9239/9268] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Finite (1.1s)
+✔ [9240/9268] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Functoriality (5.6s)
+✔ [9241/9268] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Basic (1.2s)
+✔ [9242/9268] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.IntegrallyClosed (1.1s)
+✔ [9243/9271] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.PadicValNat (1.2s)
+✔ [9244/9271] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.PowSubPow (1.3s)
+✔ [9245/9280] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ValuativeRel.HasSum (1.2s)
+✔ [9246/9283] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Transitive (1.1s)
+✔ [9247/9283] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.LocalRing (1.4s)
+✔ [9248/9284] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Map (1.2s)
+✔ [9249/9284] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.HerbrandQuotient (2.2s)
+✔ [9250/9284] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Indicator (927ms)
+✔ [9251/9284] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Graded (3.5s)
+✔ [9252/9284] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.IntUnitsPower (1.3s)
+✔ [9253/9288] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Normal.Embeddings (1.5s)
+✔ [9254/9289] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Henselian (1.4s)
+✔ [9255/9289] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Basic (1.4s)
+✔ [9256/9289] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Two (1.3s)
+✔ [9257/9293] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Norm (2.1s)
+✔ [9258/9293] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CarryCocycle (2.6s)
+✔ [9259/9295] Built ZInQKernel.Contrib.TauCeti.RingTheory.Henselian.Teichmuller (1.6s)
+✔ [9260/9295] Built ZInQKernel.Contrib.TauCeti.GroupTheory.TransversalWord (1.6s)
+✔ [9261/9295] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.LongExact (4.1s)
+✔ [9262/9295] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Induced (1.4s)
+✔ [9263/9302] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.QuotSMulTop (1.5s)
+✔ [9264/9302] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.RestrictScalars (1.1s)
+✔ [9265/9304] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.TransversalWord (1.1s)
+✔ [9266/9304] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Resolution.Basic (3.8s)
+✔ [9267/9304] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Teichmuller (2.4s)
+✔ [9268/9305] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.NormalBasis (3.5s)
+✔ [9269/9305] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Coinvariants (1.7s)
+✔ [9270/9305] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Coinduced (1.9s)
+✔ [9271/9305] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.AlgebraicExtension.IntermediateField (1.5s)
+✔ [9272/9305] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Adjoin.EqTop (1.4s)
+✔ [9273/9306] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Filtration (2.1s)
+✔ [9274/9306] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitsDecomposition (2.8s)
+✔ [9275/9313] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Frobenius (2.9s)
+⚠ [9276/9313] Built ZInQKernel.HDecomp.Conductor.Dyadic (55s)
+warning: ZInQKernel/HDecomp/Conductor/Dyadic.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9277/9313] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Basic (4.9s)
+✔ [9278/9316] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Prod (1.2s)
+✔ [9279/9317] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.FiniteExtension.IntermediateField (2.3s)
+✔ [9280/9317] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.QuotientPow (1.2s)
+✔ [9281/9319] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.MultiplicativeGroup (2.6s)
+✔ [9282/9319] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.Basic (3.1s)
+✔ [9283/9319] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.InnerConjugation (6.8s)
+✔ [9284/9319] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Trace.Exact (1.4s)
+✔ [9285/9319] Built ZInQKernel.Contrib.TauCeti.RingTheory.PowerBasis (1.0s)
+✔ [9286/9323] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Submodule.DirectedUnion (1.0s)
+✔ [9287/9326] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.DeltaNaturality (2.7s)
+✔ [9288/9326] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.AlgebraicExtension.Tower (1.3s)
+✔ [9289/9335] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.Adjoin (1.2s)
+✔ [9290/9337] Built ZInQKernel.Contrib.TauCeti.RingTheory.Trace.QuotientPow (1.7s)
+✔ [9291/9337] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Commutator (1.5s)
+✔ [9292/9343] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Basic (1.1s)
+✔ [9293/9343] Built ZInQKernel.Contrib.TauCeti.GroupTheory.PGroup (1.3s)
+✔ [9294/9344] Built ZInQKernel.Contrib.TauCeti.RingTheory.DiscreteValuationRing.Uniformizer (1.8s)
+✔ [9295/9344] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.PowerSubgroup.Basic (3.3s)
+✔ [9296/9345] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Solvable (1.1s)
+✔ [9297/9346] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.Basic (1.1s)
+⚠ [9298/9346] Built ZInQKernel.HDecomp.Conductor.I6Base (5.9s)
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:138:17: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:142:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:239:17: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:243:8: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:506:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:532:8: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:532:8: Unused tactic linter: `exact Ideal.isMaximal_comap_of_isIntegral_of_isMaximal P` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Conductor/I6Base.lean:568:49: Variable name `he1` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _he1
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9299/9347] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different (2.6s)
+✔ [9300/9347] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Uniformizer (1.9s)
+✔ [9301/9347] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Solvable (1.5s)
+✔ [9302/9347] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.GaloisClosure (1.4s)
+✔ [9303/9347] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Padic (1.9s)
+✔ [9304/9347] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.ProP (1.3s)
+✔ [9305/9348] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.ScalarTower (1.0s)
+✔ [9306/9353] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FiniteGaloisIntermediateField (1.1s)
+✔ [9307/9353] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Basic (3.9s)
+✔ [9308/9353] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.RestrictedProduct.TopologicalSpace (1.1s)
+✔ [9309/9353] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.AbsoluteRamificationIndex (1.9s)
+✔ [9310/9356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Basic (1.7s)
+✔ [9311/9356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Basic (3.9s)
+✔ [9312/9356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Refinement (2.6s)
+✔ [9313/9358] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Logarithm (2.3s)
+⚠ [9314/9358] Built ZInQKernel.Contrib.BrauerT14T15.Real (4.5s)
+warning: ZInQKernel/Contrib/BrauerT14T15/Real.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9315/9358] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Completion (3.1s)
+✔ [9316/9358] Built ZInQKernel.Contrib.TauCeti.Analysis.Normed.Ring.WithAbs (1.1s)
+✔ [9317/9358] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.PowMonoidHom (954ms)
+✔ [9318/9358] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.RamificationGroup (4.9s)
+✔ [9319/9358] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Basic (1.7s)
+✔ [9320/9362] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Approximation (2.0s)
+✔ [9321/9363] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.RestrictScalars (42s)
+✔ [9322/9363] Built ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Factors (1.6s)
+✔ [9323/9363] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Criterion (3.1s)
+✔ [9324/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Restriction (2.9s)
+✔ [9325/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.GaloisAction (2.1s)
+✔ [9326/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Solvable (1.8s)
+✔ [9327/9368] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Block (1.1s)
+✔ [9328/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Extension (1.9s)
+✔ [9329/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Conjugation (4.5s)
+✔ [9330/9368] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Basic (2.5s)
+✔ [9331/9368] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.Basic (1.9s)
+✔ [9332/9368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.BaseChange (2.2s)
+✔ [9333/9368] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Pi (1.5s)
+✔ [9334/9372] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.ValuationSequence (2.2s)
+✔ [9335/9375] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.ValuationOfNeZero (1.5s)
+✔ [9336/9375] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.RestrictedProduct.ContinuousRng (953ms)
+✔ [9337/9375] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.CoefficientMap (2.6s)
+✔ [9338/9375] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Basic (2.4s)
+✔ [9339/9379] Built ZInQKernel.Contrib.TauCeti.RingTheory.NormTrace.Pi (1.4s)
+✔ [9340/9379] Built ZInQKernel.Contrib.TauCeti.Algebra.BigOperators.Finprod (977ms)
+✔ [9341/9379] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.RestrictedProduct.Units (1.0s)
+✔ [9342/9386] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.CohomologyComparison (5.9s)
+✔ [9343/9386] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Existence (5.0s)
+✔ [9344/9386] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FinitePlace (1.6s)
+✔ [9345/9386] Built ZInQKernel.Contrib.TauCeti.RingTheory.FractionalIdeal.Operations (1.6s)
+✔ [9346/9386] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Factorization (1.7s)
+✔ [9347/9386] Built ZInQKernel.Contrib.TauCeti.Algebra.Algebra.Subalgebra.Lattice (894ms)
+✔ [9348/9386] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Lattice (5.0s)
+✔ [9349/9386] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Units (1.5s)
+✔ [9350/9387] Built ZInQKernel.Contrib.TauCeti.RingTheory.AdjoinRoot.Factors (1.8s)
+✔ [9351/9387] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SelmerGroup (1.7s)
+✔ [9352/9387] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Finiteness (1.6s)
+✔ [9353/9388] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ComparisonDegreeTwo (2.4s)
+✔ [9354/9388] Built ZInQKernel.Contrib.TauCeti.RingTheory.ClassGroup.Basic (1.4s)
+✔ [9355/9388] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Basic (1.8s)
+✔ [9356/9389] Built ZInQKernel.Contrib.TauCeti.Analysis.AbsoluteValue.Equivalence (1.3s)
+✔ [9357/9393] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.Ring.Units (1.2s)
+✔ [9358/9397] Built ZInQKernel.Contrib.TauCeti.RingTheory.ClassGroup.HeightOneSpectrum (1.6s)
+✔ [9359/9397] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Unit (1.7s)
+✔ [9360/9397] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Basic (3.2s)
+✔ [9361/9400] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Hilbert90 (4.1s)
+✔ [9362/9400] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicCompletionExtension (2.7s)
+✔ [9363/9400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.SignApproximation (1.7s)
+✔ [9364/9400] Built ZInQKernel.Contrib.TauCeti.Analysis.Normed.Ring.Ultra (1.4s)
+✔ [9365/9400] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Approximation (1.6s)
+✔ [9366/9400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.TotallyPositive (2.2s)
+✔ [9367/9400] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.ClassGroup (2.9s)
+✔ [9368/9400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.TateCohomology (6.9s)
+✔ [9369/9404] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Inflation (2.7s)
+✔ [9370/9404] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Extension (2.0s)
+✔ [9371/9404] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.Signature.Basic (1.7s)
+✔ [9372/9404] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.ValuativeRel (2.7s)
+✔ [9373/9404] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Basic (2.5s)
+✔ [9374/9407] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Solvable (6.5s)
+✔ [9375/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.HerbrandQuotient (1.6s)
+✔ [9376/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.AlgebraicClosure (3.4s)
+✔ [9377/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Extension (2.0s)
+✔ [9378/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.Signature.Surjective (1.6s)
+✔ [9379/9407] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.ValuativeExtension (1.8s)
+✔ [9380/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.One (2.0s)
+✔ [9381/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Units (9.9s)
+✔ [9382/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.UnitFiltration.Unramified (1.9s)
+✔ [9383/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.Signature.Integer (1.8s)
+✔ [9384/9407] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.GaloisAction (2.5s)
+✔ [9385/9408] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.RamificationIndex (1.9s)
+✔ [9386/9408] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.InertiaDegree (2.4s)
+✔ [9387/9412] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Completion (1.0s)
+✔ [9388/9414] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Place (1.8s)
+⚠ [9389/9414] Built ZInQKernel.Contrib.BrauerT14T15.Kummer2 (13s)
+warning: ZInQKernel/Contrib/BrauerT14T15/Kummer2.lean:142:5: Variable name `hε` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hε
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [9390/9414] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.LocalDegree (1.7s)
+✔ [9391/9417] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Approximation.Weak (3.9s)
+✔ [9392/9419] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.IntegersExtension (2.2s)
+✔ [9393/9419] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.LocallyCompact (1.7s)
+✔ [9394/9426] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Module.ModuleTopology (1.3s)
+✔ [9395/9426] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Norm (2.2s)
+✔ [9396/9427] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.LocallyCompact (1.6s)
+✔ [9397/9427] Built ZInQKernel.Contrib.TauCeti.RingTheory.NormTrace.BaseChange (2.1s)
+✔ [9398/9428] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.IntegralClosure (2.4s)
+✔ [9399/9433] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.GaloisDescent.Range (1.7s)
+✔ [9400/9434] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.Basic (3.0s)
+✔ [9401/9434] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.FiniteIdeal (1.9s)
+✔ [9402/9434] Built ZInQKernel.Contrib.TauCeti.RingTheory.Frobenius (1.5s)
+✔ [9403/9434] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Semilocal (2.4s)
+✔ [9404/9434] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.LiesOver (1.3s)
+✔ [9405/9435] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.IntegralSqrt (1.5s)
+✔ [9406/9436] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Norm (1.8s)
+✔ [9407/9436] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.SeparableDegree (1.6s)
+✔ [9408/9439] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LegendreSymbol.Frobenius (1.7s)
+✔ [9409/9439] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Range (814ms)
+✔ [9410/9439] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.RingEquiv (931ms)
+✔ [9411/9440] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.InfiniteBaseChange (2.9s)
+✔ [9412/9450] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Extension (2.4s)
+✔ [9413/9450] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.Integers (4.6s)
+✔ [9414/9450] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.UniformRing (1.5s)
+✔ [9415/9450] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Basic (17s)
+✔ [9416/9455] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius (2.8s)
+✔ [9417/9455] Built ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Index (1.3s)
+✔ [9418/9455] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.IsGaloisGroup (1.3s)
+✔ [9419/9455] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Neighborhood (1.2s)
+✔ [9420/9455] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.OpenSubgroup.FiniteIndex (1.1s)
+✔ [9421/9455] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Valued.WithVal (2.3s)
+✔ [9422/9458] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.FiniteBaseChange (3.0s)
+✔ [9423/9458] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.DecompositionGroup (2.7s)
+✔ [9424/9458] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Kummer (26s)
+✔ [9425/9458] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FixedField (1.9s)
+✔ [9426/9460] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Transport (1.8s)
+✔ [9427/9460] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Subgroup (2.2s)
+✔ [9428/9462] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.ThirdIso (1.2s)
+✔ [9429/9462] Built ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Index (944ms)
+✔ [9430/9462] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.BaseChange (2.8s)
+✔ [9431/9462] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Transfer.Basic (1.6s)
+✔ [9432/9462] Built ZInQKernel.Contrib.TauCeti.Algebra.TensorProduct.BaseChange (6.0s)
+✔ [9433/9462] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.FixedField.Inertia (2.5s)
+✔ [9434/9462] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Functoriality (1.9s)
+✔ [9435/9468] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.AbelianLayer (1.8s)
+✔ [9436/9469] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.GaloisMaps (2.3s)
+✔ [9437/9469] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.GaloisDescent (2.5s)
+✔ [9438/9469] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Transitivity (3.9s)
+✔ [9439/9470] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Coset (1.3s)
+✔ [9440/9470] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.DecompositionGroup (3.6s)
+✔ [9441/9470] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.NegativeCorestriction (1.8s)
+✔ [9442/9474] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.GaloisDescent (2.0s)
+✔ [9443/9474] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.GroundNorm (1.9s)
+✔ [9444/9474] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Quotient (1.2s)
+✔ [9445/9476] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Basic (4.4s)
+✔ [9446/9476] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.RelativeNorm (2.6s)
+✔ [9447/9477] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.GaloisAction (2.9s)
+✔ [9448/9484] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Shapiro (5.7s)
+✔ [9449/9484] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Restriction (2.1s)
+✔ [9450/9490] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Shapiro (3.1s)
+✔ [9451/9492] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.LowDegree (1.5s)
+✔ [9452/9492] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Restriction (12s)
+✔ [9453/9497] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.LongExactSequence (1.8s)
+✔ [9454/9500] Built ZInQKernel.Contrib.TauCeti.Algebra.MonoidAlgebra.Augmentation (1.5s)
+✔ [9455/9500] Built ZInQKernel.Contrib.TauCeti.Algebra.Ring.NegOnePow (1.2s)
+✔ [9456/9502] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.Linear (1.1s)
+✔ [9457/9502] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.FiniteIndex (4.4s)
+✔ [9458/9502] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.IntegralUnits (4.5s)
+✔ [9459/9502] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.TensorInvariant (2.6s)
+✔ [9460/9502] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Linear (1.9s)
+✔ [9461/9503] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.Augmentation.Basic (2.5s)
+✔ [9462/9503] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.DimensionShift (3.4s)
+✔ [9463/9503] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Transfer.Basic (2.6s)
+✔ [9464/9505] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.DegreeZero (2.1s)
+✔ [9465/9505] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.FiniteAdele (3.2s)
+✔ [9466/9505] Built ZInQKernel.Contrib.TauCeti.CategoryTheory.Limits.Shapes.Biproduct (1.0s)
+✔ [9467/9505] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Transfer.Delta (2.1s)
+✔ [9468/9510] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.ZeroLeft (2.3s)
+✔ [9469/9510] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.HomologySequenceLemmas (2.3s)
+✔ [9470/9510] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Transfer.Naturality (2.0s)
+✔ [9471/9510] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.GaloisAction (4.2s)
+✔ [9472/9513] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Transfer.Trans (1.8s)
+✔ [9473/9513] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.BaseChange (14s)
+✔ [9474/9513] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Augmentation (11s)
+✔ [9475/9514] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Basic (9.8s)
+✔ [9476/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Product (3.2s)
+✔ [9477/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Corestriction (14s)
+✔ [9478/9515] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.SIdeles (3.5s)
+✔ [9479/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupHomology.Transfer.Abelianization (2.2s)
+✔ [9480/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Trans (2.3s)
+✔ [9481/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Sylow (1.6s)
+✔ [9482/9515] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.TrivialInt (1.9s)
+✔ [9483/9516] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.TrivialityCriterion (1.8s)
+✔ [9484/9516] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Corestriction (3.4s)
+✔ [9485/9519] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Abelianization (2.2s)
+✔ [9486/9522] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Positive (6.4s)
+✔ [9487/9522] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.ClassFormation (2.0s)
+✔ [9488/9522] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Connecting.LowDegree (2.6s)
+✔ [9489/9525] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.Embedding.ExtendHomology.Basic (1.2s)
+✔ [9490/9525] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.HomologySequence (11s)
+✔ [9491/9525] Built ZInQKernel.Contrib.BrauerT14T15.BaseChange2 (10s)
+✔ [9492/9528] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Cup (1.0s)
+✔ [9493/9528] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.Embedding.ExtendHomology.Sequence (1.7s)
+✔ [9494/9528] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Coefficients (31s)
+✔ [9495/9528] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.AllDegrees (2.6s)
+✔ [9496/9528] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Corestriction (4.6s)
+✔ [9497/9528] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.DegreeZero (1.8s)
+✔ [9498/9528] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.IsoCriterion (2.0s)
+✔ [9499/9528] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Boundary (3.5s)
+✔ [9500/9531] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Connecting.GroupCohomology (3.1s)
+✔ [9501/9533] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Connecting.GroupHomology (3.5s)
+✔ [9502/9533] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Delta (3.9s)
+✔ [9503/9533] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Restriction.Basic (1.0s)
+✔ [9504/9535] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.GenericCorestriction (2.6s)
+✔ [9505/9535] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.RatAddCircle (1.3s)
+✔ [9506/9535] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.TateTheorem (2.3s)
+✔ [9507/9538] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Restriction (3.9s)
+✔ [9508/9538] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Restriction.Delta (2.5s)
+✔ [9509/9539] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Formation (6.2s)
+✔ [9510/9539] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Complex.Circle (1.5s)
+✔ [9511/9539] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Rep.Trivial (1.4s)
+✔ [9512/9540] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Functoriality (2.8s)
+✔ [9513/9540] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Theorem (1.8s)
+✔ [9514/9542] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.ArtinLowDegree (1.9s)
+✔ [9515/9546] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.TrivialRestrictionTrans (2.0s)
+✔ [9516/9546] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.CharacterModule (1.6s)
+✔ [9517/9548] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Restriction.AllDegrees (3.2s)
+✔ [9518/9553] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.GradedComm (2.1s)
+✔ [9519/9555] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Conjugation (2.3s)
+✔ [9520/9555] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Associativity (3.0s)
+✔ [9521/9555] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Corestriction.ConnectingMap (7.3s)
+✔ [9522/9555] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Character (3.4s)
+✔ [9523/9555] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Complex (1.3s)
+✔ [9524/9555] Built ZInQKernel.Contrib.TauCeti.Data.DFinsupp.Basic (793ms)
+✔ [9525/9559] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Complex (1.3s)
+✔ [9526/9559] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Equiv (1.4s)
+✔ [9527/9561] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Congr (3.9s)
+✔ [9528/9563] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Corestriction.Naturality (2.5s)
+✔ [9529/9563] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.CharacterCarry (2.2s)
+✔ [9530/9563] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Character (2.9s)
+✔ [9531/9565] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.ChangeOfGroup (3.2s)
+✔ [9532/9565] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Archimedean (1.6s)
+✔ [9533/9565] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Shapiro (1.5s)
+✔ [9534/9568] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LiftingObstruction (8.9s)
+✔ [9535/9568] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.DecompositionGroup (2.9s)
+✔ [9536/9568] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Congr (3.2s)
+✔ [9537/9570] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Corestriction (3.3s)
+✔ [9538/9570] Built ZInQKernel.Contrib.TauCeti.SetTheory.Cardinal.Finite (860ms)
+✔ [9539/9571] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Character (2.8s)
+✔ [9540/9573] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Pi (1.0s)
+✔ [9541/9574] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.ChangeOfGroup (3.4s)
+✔ [9542/9574] Built ZInQKernel.Contrib.TauCeti.Data.Setoid.Basic (680ms)
+✔ [9543/9579] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.NormalizerQuotient.Basic (1.2s)
+✔ [9544/9579] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.InfiniteGaloisAction (2.5s)
+✔ [9545/9579] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Pointwise (896ms)
+✔ [9546/9583] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Pi (2.3s)
+✔ [9547/9583] Built ZInQKernel.Contrib.TauCeti.Algebra.MonoidAlgebra.Basis (1.0s)
+✔ [9548/9586] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Naturality (3.4s)
+✔ [9549/9590] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Cyclic (80s)
+✔ [9550/9590] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Tate.Inflation (2.8s)
+✔ [9551/9590] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupAction.OrbitRelQuotient (2.1s)
+✔ [9552/9590] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Discriminant.Basic (1.6s)
+✔ [9553/9590] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.FiniteSIdeles (4.1s)
+✔ [9554/9595] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.NormIndex (1.4s)
+✔ [9555/9595] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Augmentation.Basic (2.7s)
+✔ [9556/9595] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.InfiniteAdele (2.6s)
+✔ [9557/9595] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.LocalH2Bound (2.8s)
+✔ [9558/9595] Built ZInQKernel.Contrib.TauCeti.NumberTheory.DedekindDomain.RelNorm (1.9s)
+✔ [9559/9595] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Stabilizer (1.4s)
+✔ [9560/9595] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Discriminant.Separable (1.0s)
+✔ [9561/9595] Built ZInQKernel.Contrib.TauCeti.Algebra.Homology.ModuleCat.Basic (1.4s)
+✔ [9562/9596] Built ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Archimedean (1.8s)
+✔ [9563/9596] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Real (4.8s)
+✔ [9564/9596] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.ArtinMap (4.2s)
+✔ [9565/9596] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Permutation.Basic (2.2s)
+✔ [9566/9596] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Discriminant.Ramification (1.7s)
+✔ [9567/9596] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.InfiniteIdeles (3.1s)
+✔ [9568/9596] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.DirectedUnion (1.6s)
+✔ [9569/9596] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.Relative (1.8s)
+✔ [9570/9598] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.TrivialLayer (1.8s)
+✔ [9571/9601] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.InfinitePlace (2.1s)
+✔ [9572/9601] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.SemilocalUnits (2.6s)
+✔ [9573/9601] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Permutation.Augmentation (1.6s)
+✔ [9574/9601] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.Ramification (1.9s)
+✔ [9575/9601] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.ConjAct (940ms)
+✔ [9576/9602] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Limit (1.3s)
+✔ [9577/9602] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.NormLimitation (2.1s)
+✔ [9578/9602] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PlacePermutation.Basic (2.1s)
+✔ [9579/9602] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.FiniteSIdeles (2.5s)
+✔ [9580/9602] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.RamifiedSupport.Basic (1.9s)
+✔ [9581/9605] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.TopologicalAbelianization (3.1s)
+✔ [9582/9609] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.Level (17s)
+✔ [9583/9609] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.AbsoluteArtinMap (2.5s)
+✔ [9584/9609] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PlacePermutation.Archimedean (2.0s)
+✔ [9585/9609] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Cyclic (7.5s)
+✔ [9586/9615] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Iso (1.4s)
+✔ [9587/9622] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.ModuleCat.Topology.Zero (1.2s)
+✔ [9588/9627] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Monoid (1.1s)
+✔ [9589/9631] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.InfiniteIdeles (1.9s)
+✔ [9590/9631] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced (2.9s)
+✔ [9591/9631] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.TopRep.Res (1.4s)
+✔ [9592/9631] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Coprime (916ms)
+✔ [9593/9636] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Restriction (1.4s)
+✔ [9594/9637] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.DegreeZero (5.0s)
+✔ [9595/9637] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Continuous.Coinduced (1.9s)
+✔ [9596/9637] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.SIdeles (3.4s)
+✔ [9597/9641] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Torsion (1.6s)
+✔ [9598/9641] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Discrete (4.9s)
+✔ [9599/9641] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.ContinuousAut.Basic (1.6s)
+✔ [9600/9641] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.UnitsLayer (9.0s)
+✔ [9601/9641] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Formation (11s)
+✔ [9602/9641] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.InflationRestriction (1.8s)
+✔ [9603/9641] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Unramified (22s)
+✔ [9604/9641] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Quotient (2.4s)
+✔ [9605/9641] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Layer.Inflation (4.3s)
+✔ [9606/9641] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Transitivity (3.2s)
+✔ [9607/9644] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ContinuousCohomologyIso (6.7s)
+✔ [9608/9644] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Exact (2.4s)
+✔ [9609/9645] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PlacewiseCohomology (5.8s)
+✔ [9610/9649] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Functor (5.4s)
+✔ [9611/9649] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Shapiro.Basic (5.2s)
+✔ [9612/9649] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Layer.Hom (3.4s)
+✔ [9613/9649] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.FieldArtinMap (3.7s)
+✔ [9614/9649] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Norm.Open (2.2s)
+✔ [9615/9649] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Trace.Basic (1.8s)
+✔ [9616/9649] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.ConjugateSubgroups (2.0s)
+✔ [9617/9651] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Additive (16s)
+✔ [9618/9651] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Layer.Equiv (3.2s)
+✔ [9619/9651] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Trace.DegreeTwo (2.1s)
+✔ [9620/9658] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Coinduced.Acyclic (4.6s)
+✔ [9621/9658] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.Hom.MonoidWithZero (898ms)
+✔ [9622/9658] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.Group.Subgroup (833ms)
+✔ [9623/9658] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Trace.DegreeOne (2.3s)
+✔ [9624/9659] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Continuous.Basic (1.4s)
+✔ [9625/9662] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.ValueGroupTransport (1.3s)
+✔ [9626/9662] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.ExactCochains.Basic (2.0s)
+✔ [9627/9662] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.Group.ConvexSubgroup (2.2s)
+✔ [9628/9664] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Quotient (1.8s)
+✔ [9629/9664] Built ZInQKernel.Contrib.TauCeti.Algebra.Polynomial.XPowSubC (1.4s)
+✔ [9630/9666] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.MaximalUnramified (12s)
+✔ [9631/9666] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Generation (1.5s)
+✔ [9632/9666] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Kummer.Extension (1.7s)
+✔ [9633/9668] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.CharacteristicGroup (2.5s)
+✔ [9634/9672] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.GeneratingTuples (1.1s)
+✔ [9635/9672] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.FiniteQuotients (1.3s)
+✔ [9636/9672] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Map (7.4s)
+✔ [9637/9672] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Continuous.TopologicallyNilpotent (1.5s)
+✔ [9638/9673] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.OpenSubgroup.TopologicallyFinitelyGenerated (1.5s)
+✔ [9639/9675] Built ZInQKernel.Contrib.TauCeti.Topology.Compactness.InverseSystem (1.0s)
+✔ [9640/9675] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.GaloisModule (17s)
+✔ [9641/9676] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Generation (2.2s)
+✔ [9642/9678] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ValuativeRel.ContinuousRingHom (1.5s)
+✔ [9643/9679] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Hopfian (1.2s)
+✔ [9644/9679] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.FinEquiv (942ms)
+✔ [9645/9679] Built ZInQKernel.Contrib.TauCeti.Algebra.CharZero.Idempotent (782ms)
+✔ [9646/9681] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Prime.Basic (763ms)
+✔ [9647/9683] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IntermediateField.Map (1.5s)
+✔ [9648/9686] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.FiniteQuotients (1.5s)
+✔ [9649/9686] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Divisibility (1.2s)
+✔ [9650/9686] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Ring.Ideal (1.2s)
+✔ [9651/9689] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.ContinuousMulEquiv (1.1s)
+✔ [9652/9692] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Maximal (7.0s)
+✔ [9653/9692] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.Extension (1.2s)
+✔ [9654/9692] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.ContinuousAut.Characteristic (1.5s)
+✔ [9655/9692] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.GroupAction.TypeTags (1.1s)
+✔ [9656/9695] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.HomologySequence (11s)
+✔ [9657/9695] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Completion (2.3s)
+✔ [9658/9695] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Supernatural (1.3s)
+✔ [9659/9695] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.Product (1.3s)
+✔ [9660/9695] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Schreier (1.4s)
+✔ [9661/9695] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.MaximalProP (2.0s)
+✔ [9662/9696] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.DimensionShifting.Basic (2.7s)
+✔ [9663/9696] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Torsion (2.6s)
+✔ [9664/9696] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Order (1.2s)
+✔ [9665/9696] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.Basic (2.0s)
+✔ [9666/9699] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Rank (1.6s)
+✔ [9667/9701] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.Subgroup (1.4s)
+✔ [9668/9709] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassField (25s)
+✔ [9669/9712] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.Order (1.3s)
+✔ [9670/9715] Built ZInQKernel.Contrib.TauCeti.MathlibBackport.Sylow (999ms)
+✔ [9671/9715] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Index.Basic (1.4s)
+✔ [9672/9715] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.Ring (1.6s)
+✔ [9673/9715] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.TopologicalAbelianization.Lift (1.2s)
+✔ [9674/9716] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Basic (1.2s)
+✔ [9675/9717] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Functoriality (1.1s)
+✔ [9676/9717] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.RingHoms (11s)
+✔ [9677/9717] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Existence (1.5s)
+✔ [9678/9717] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.TrivialF2 (7.5s)
+✔ [9679/9717] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.ZMod (3.7s)
+✔ [9680/9717] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.Character (1.3s)
+✔ [9681/9720] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.UnitsLayer (4.8s)
+✔ [9682/9720] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Shapiro.Canonical (10s)
+✔ [9683/9720] Built ZInQKernel.Contrib.TauCeti.Algebra.Ring.IdempotentUnits (1.0s)
+✔ [9684/9723] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Invariant (21s)
+✔ [9685/9724] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Containment (1.5s)
+✔ [9686/9724] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.PadicPow (1.0s)
+✔ [9687/9724] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.InverseLimit (2.2s)
+✔ [9688/9724] Built ZInQKernel.Contrib.TauCeti.Data.Nat.ExactDivisor (1.7s)
+✔ [9689/9724] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Quotient.Pi.SpanSingleton (1.3s)
+✔ [9690/9728] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalInvariant (2.1s)
+✔ [9691/9729] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.Sylow.Commutative (1.6s)
+✔ [9692/9729] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.CyclotomicCharacter (1.5s)
+✔ [9693/9729] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.ExactDivisor (1.2s)
+✔ [9694/9731] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ProP.PadicInt.Basic (1.9s)
+✔ [9695/9731] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.PadicIntegers (1.5s)
+✔ [9696/9731] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IsRealClosed.Real (1.4s)
+✔ [9697/9734] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Cup.Cyclic (11s)
+✔ [9698/9734] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.PadicInt (2.2s)
+✔ [9699/9734] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ExplicitCyclotomicSymbol.Basic (2.2s)
+✔ [9700/9737] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Norm (1.8s)
+✔ [9701/9743] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Archimedean.ClassFormation (9.6s)
+✔ [9702/9743] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.PrincipalUnits (2.1s)
+✔ [9703/9744] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.Irreducible (2.0s)
+✔ [9704/9744] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.AlgebraicallyClosed (1.5s)
+✔ [9705/9744] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.Component (2.1s)
+✔ [9706/9746] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Pow (990ms)
+✔ [9707/9746] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.PrimitiveRoots (1.6s)
+✔ [9708/9746] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.Range (2.5s)
+✔ [9709/9747] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Shapiro.AllDegrees (10s)
+✔ [9710/9747] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.Surjectivity (2.7s)
+✔ [9711/9749] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.Norm.Trace (3.1s)
+✔ [9712/9749] Built ZInQKernel.Contrib.TauCeti.Data.Nat.GCD (715ms)
+✔ [9713/9750] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.Decomposition (1.9s)
+✔ [9714/9750] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.InvariantSum (9.2s)
+✔ [9715/9750] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Units (1.3s)
+✔ [9716/9750] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ExplicitCyclotomicSymbol.ProductFormula (2.1s)
+✔ [9717/9750] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.Adjoin (1.7s)
+✔ [9718/9750] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.FiniteExtension (3.8s)
+✔ [9719/9754] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal.Norm.Units (2.4s)
+✔ [9720/9754] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.Galois (1.6s)
+✔ [9721/9754] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Profinite.ZHat.Pow (2.1s)
+✔ [9722/9756] Built ZInQKernel.Contrib.TauCeti.Algebra.Squarefree (1.4s)
+✔ [9723/9756] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Center (1.4s)
+✔ [9724/9760] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.AbsoluteGaloisGroup (1.8s)
+✔ [9725/9762] Built ZInQKernel.Contrib.TauCeti.Algebra.Algebra.Tower (903ms)
+✔ [9726/9767] Built ZInQKernel.Contrib.TauCeti.RingTheory.Norm.Congruence (1.4s)
+✔ [9727/9767] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.Discrete.Normalize (1.7s)
+✔ [9728/9768] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.RelativeBrauerLocalization (4.2s)
+✔ [9729/9768] Built ZInQKernel.Contrib.TauCeti.RingTheory.RamificationInertia.Bijective (1.5s)
+✔ [9730/9768] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Norm.AbsNorm (1.3s)
+✔ [9731/9768] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.Derivative (1.6s)
+✔ [9732/9772] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Basic (1.8s)
+✔ [9733/9772] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.PrimePower (1.3s)
+✔ [9734/9772] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.Tower (2.6s)
+✔ [9735/9773] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.LocalizationKernel (2.8s)
+✔ [9736/9778] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.Ramification (1.8s)
+✔ [9737/9778] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.ProP (1.4s)
+✔ [9738/9778] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Ideal.IntegersRat (2.1s)
+✔ [9739/9779] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.ZHat (7.7s)
+✔ [9740/9779] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.Aut (1.5s)
+✔ [9741/9780] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.Orientation (1.5s)
+✔ [9742/9780] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.TwoPowerCharacter (2.3s)
+✔ [9743/9785] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Tower (1.9s)
+✔ [9744/9785] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.OrderOf (1.4s)
+✔ [9745/9785] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.Frobenius (1.0s)
+✔ [9746/9785] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.PrimeIdeal (1.7s)
+✔ [9747/9789] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Cyclotomic.Map (1.9s)
+✔ [9748/9792] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.ComplexConjugation.Basic (1.8s)
+✔ [9749/9792] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.Tower (1.6s)
+✔ [9750/9792] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Algebra.Norm (1.3s)
+✔ [9751/9794] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.NormValuation (2.0s)
+✔ [9752/9794] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.ComplexConjugation.Cyclotomic (1.5s)
+✔ [9753/9794] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Norm.Basic (2.9s)
+✔ [9754/9795] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Inertia.Basic (6.1s)
+✔ [9755/9795] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.ResidueDegree (1.7s)
+✔ [9756/9795] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.PrimeIndex (1.6s)
+✔ [9757/9795] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Norm.Continuity (1.0s)
+✔ [9758/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Inertia.Cyclotomic (1.5s)
+✔ [9759/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.CyclicSubextension (2.4s)
+✔ [9760/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Coordinate (2.1s)
+✔ [9761/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.OrdinaryUnits (2.1s)
+✔ [9762/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.LocalDegree (2.3s)
+✔ [9763/9796] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Norm.Galois (1.7s)
+✔ [9764/9800] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeDegree (2.6s)
+✔ [9765/9804] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.FiniteGeneration (1.4s)
+✔ [9766/9805] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Relative (3.1s)
+✔ [9767/9805] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ExplicitCyclotomicSymbol.Norm (7.3s)
+✔ [9768/9805] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Power (1.5s)
+✔ [9769/9805] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Mult (1.5s)
+✔ [9770/9806] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Height (1.7s)
+✔ [9771/9806] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Galois (1.7s)
+✔ [9772/9806] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.ZLattice.BaseChange (1.5s)
+✔ [9773/9807] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Splitting (3.9s)
+✔ [9774/9808] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Rank (2.2s)
+✔ [9775/9808] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.DetDescent (1.3s)
+✔ [9776/9809] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.LocalizedModule.Lift (1.1s)
+✔ [9777/9811] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Height.NumberField (2.6s)
+✔ [9778/9816] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Hom (1.4s)
+✔ [9779/9819] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.SUnit.Basic (1.7s)
+✔ [9780/9819] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.PermutationModule (1.2s)
+✔ [9781/9819] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Submodule (1.1s)
+✔ [9782/9819] Built ZInQKernel.Contrib.TauCeti.Algebra.Category.FGModuleCat.Basic (1.8s)
+✔ [9783/9824] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.Log.Embedding (3.1s)
+✔ [9784/9832] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Support (1.8s)
+✔ [9785/9832] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.SUnitsCohomology (3.6s)
+✔ [9786/9832] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.FixingSubgroup (1.6s)
+✔ [9787/9832] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.TensorProduct.Quotient (2.2s)
+✔ [9788/9832] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleLocalization (31s)
+✔ [9789/9835] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.RamificationLocus (1.5s)
+✔ [9790/9841] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.CoprimeNorm (3.5s)
+⚠ [9791/9841] Built ZInQKernel.HDecomp.Conductor.SqrtChar (5.3s)
+warning: ZInQKernel/HDecomp/Conductor/SqrtChar.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9792/9841] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.RamifiedPrimes (1.8s)
+⚠ [9793/9841] Built ZInQKernel.HDecomp.Descent.B2Glue (5.5s)
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:53:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.pull_dB`:
+  [TopologicalSpace Γ]
+  [TopologicalSpace Δ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] [TopologicalSpace Δ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:70:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.dB_mul`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:73:0: automatically included section variable(s) unused in theorem `GlueDescent.B2.dB_inv`:
+  [TopologicalSpace Γ]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [TopologicalSpace Γ] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:351:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:369:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Descent/B2Glue.lean:371:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9794/9842] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.Away (2.2s)
+✔ [9795/9844] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.Congruence (1.9s)
+✔ [9796/9844] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.BaseChange (7.1s)
+✔ [9797/9844] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Adeles.Away (1.6s)
+✔ [9798/9849] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Range (2.5s)
+✔ [9799/9853] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.AllDegrees (41s)
+✔ [9800/9853] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Modulus (2.4s)
+✔ [9801/9853] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Ideal.UnitsAway (1.5s)
+✔ [9802/9853] Built ZInQKernel.Contrib.TauCeti.RingTheory.Localization.DenIdeal (1.1s)
+✔ [9803/9854] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.CoprimeCoset (1.0s)
+✔ [9804/9856] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Lattice (2.3s)
+✔ [9805/9856] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Quotient.DedekindDomain (1.4s)
+⚠ [9806/9856] Built ZInQKernel.HDecomp.Sqrt.SqrtLocal (5.9s)
+warning: ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean:335:50: This simp argument is unused:
+  Units.val_neg
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_one]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean:335:65: This simp argument is unused:
+  Units.val_one
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_neg]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean:354:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean:423:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9807/9858] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Lattice (1.7s)
+✔ [9808/9858] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.Connected (1.5s)
+✔ [9809/9859] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Basic (2.4s)
+✔ [9810/9859] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Basic (2.2s)
+✔ [9811/9859] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Connected (1.0s)
+✔ [9812/9862] Built ZInQKernel.Contrib.BrauerT14T15.LocalT15 (55s)
+✔ [9813/9863] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCohomology.Lattice (2.1s)
+✔ [9814/9863] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.PowerSubgroup.Open (1.6s)
+✔ [9815/9863] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.Norm (20s)
+✔ [9816/9863] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Quotient (2.1s)
+✔ [9817/9864] Built ZInQKernel.Contrib.TauCeti.Backport.Topology.Algebra.ContinuousMonoidHom.Basic (1.2s)
+✔ [9818/9864] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Congruence (3.7s)
+✔ [9819/9864] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.DecompositionGroup (1.8s)
+✔ [9820/9864] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Congruence (1.7s)
+✔ [9821/9866] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Norm.Relative (1.0s)
+✔ [9822/9866] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Units (2.8s)
+✔ [9823/9867] Built ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Restriction (1.1s)
+✔ [9824/9868] Built ZInQKernel.Contrib.BrauerT14T15.T15 (4.0s)
+✔ [9825/9869] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.Subgroup (1.9s)
+✔ [9826/9869] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Residue (1.0s)
+✔ [9827/9869] Built ZInQKernel.Contrib.TauCeti.Backport.RingTheory.ClassGroup.HeightOneSpectrum (1.4s)
+✔ [9828/9872] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Lifting (2.2s)
+✔ [9829/9873] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.HerbrandQuotient (2.1s)
+✔ [9830/9873] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.LocalUnit (1.6s)
+✔ [9831/9873] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Closure (746ms)
+✔ [9832/9874] Built ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.Basic (953ms)
+✔ [9833/9877] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.OpenSubgroup (1.0s)
+✔ [9834/9877] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.TrivialF2 (11s)
+✔ [9835/9877] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Finite.EulerCriterion (1.1s)
+✔ [9836/9881] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Finite (2.5s)
+✔ [9837/9881] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Power (2.1s)
+✔ [9838/9881] Built ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.PowFiber (1.1s)
+⚠ [9839/9881] Built ZInQKernel.HDecomp.Sqrt.Disj (9.1s)
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:21:0: automatically included section variable(s) unused in theorem `GlueSqrtLocal.isIntegral_iff_spectralNorm_le_one`:
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:40:0: automatically included section variable(s) unused in theorem `GlueSqrtLocal.spectralNorm_mul'`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:502:0: automatically included section variable(s) unused in theorem `GlueSqrtDisj.zeta_pow_m`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:508:0: automatically included section variable(s) unused in theorem `GlueSqrtDisj.zeta_pow_pk`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:521:0: automatically included section variable(s) unused in theorem `GlueSqrtDisj.fix_of_autToPow_eq_one`:
+  [Algebra ℤ_[p] L]
+  [IsScalarTower ℤ_[p] ℚ_[p] L]
+  [FiniteDimensional ℚ_[p] L]
+  [IsGalois ℚ_[p] L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:686:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:718:12: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:723:12: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:718:12: Unused tactic linter: `(dsimp only;
+  rw [Units.val_neg, Units.val_one, map_neg, map_one, Units.val_neg, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:723:12: Unused tactic linter: `(dsimp only; rw [Units.val_one, map_one, Units.val_one])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+warning: ZInQKernel/HDecomp/Sqrt/Disj.lean:977:0: automatically included section variable(s) unused in theorem `GlueSqrtDisj.level_dvd`:
+  hp
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit hp in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [9840/9883] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.LinearIndependent.MonoidHom (1.1s)
+✔ [9841/9883] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.OpenSubgroup (1.8s)
+✔ [9842/9883] Built ZInQKernel.Contrib.TauCeti.RingTheory.Frobenius.PowerResidue (1.5s)
+✔ [9843/9883] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.PowerSubgroup.Units (1.8s)
+✔ [9844/9883] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.UnitGroup (1.2s)
+✔ [9845/9885] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient (2.8s)
+✔ [9846/9885] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.DescendedInvariant (5.9s)
+✔ [9847/9887] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.FirstInequality (5.8s)
+✔ [9848/9887] Built ZInQKernel.Contrib.TauCeti.Backport.RingTheory.DedekindDomain.AdicValuation.ValuativeRel (1.6s)
+✔ [9849/9887] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.UnitPowerClasses (1.8s)
+✔ [9850/9892] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Map (972ms)
+✔ [9851/9892] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.FiniteIdeal (1.6s)
+✔ [9852/9892] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Kummer.Degree (4.3s)
+✔ [9853/9892] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Ideles (2.0s)
+✔ [9854/9895] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Open (2.5s)
+✔ [9855/9896] Built ZInQKernel.Contrib.TauCeti.Analysis.Real.PowerClasses (1.4s)
+✔ [9856/9897] Built ZInQKernel.Contrib.TauCeti.FieldTheory.IsAlgClosed.PowerClasses (1.2s)
+✔ [9857/9898] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Normalizer (814ms)
+✔ [9858/9898] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Abelian.Basic (1.2s)
+✔ [9859/9899] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Conjugation (7.9s)
+✔ [9860/9899] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.Kummer.LocalUnit (2.1s)
+✔ [9861/9899] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Conj (1.3s)
+✔ [9862/9899] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.Ideles (2.6s)
+✔ [9863/9903] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Places.PowerClasses (2.1s)
+✔ [9864/9903] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.Restriction (1.8s)
+✔ [9865/9906] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.UnramifiedTower (1.4s)
+⚠ [9866/9913] Built ZInQKernel.Contrib.LocalKW.SqrtCrit (8.6s)
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:87:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:89:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:100:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:135:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:136:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:233:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:234:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:235:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:391:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:493:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:494:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:529:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:531:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:543:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:547:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/LocalKW/SqrtCrit.lean:593:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [9867/9915] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Surjective (3.0s)
+✔ [9868/9915] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.ZMod.Span.Basic (1.2s)
+✔ [9869/9915] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.Splitting (1.7s)
+✔ [9870/9915] Built ZInQKernel.Contrib.TauCeti.RingTheory.RamificationInertia.Unramified (1.5s)
+✔ [9871/9915] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality (8.5s)
+✔ [9872/9915] Built ZInQKernel.Contrib.TauCeti.GroupTheory.ExponentPrime (1.2s)
+✔ [9873/9928] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.LocalPowerClass (4.0s)
+✔ [9874/9928] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.FrobeniusGeneration (2.2s)
+✔ [9875/9928] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.RamifiedSupport.Tower (1.7s)
+✔ [9876/9930] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.SplitsCompletely.Basic (1.5s)
+✔ [9877/9931] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.Unramified (1.6s)
+✔ [9878/9932] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Basic (1.7s)
+✔ [9879/9932] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Units.LocalPowerClass (1.8s)
+✔ [9880/9932] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.SplitsCompletely.GaloisClosure (2.8s)
+✔ [9881/9933] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Spectrum (2.9s)
+✔ [9882/9934] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Principal.Basic (1.2s)
+✔ [9883/9935] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.ArtinSymbol (2.2s)
+✔ [9884/9935] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Naturality (2.1s)
+✔ [9885/9935] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.Ramification (1.0s)
+✔ [9886/9935] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.OpenSubgroup (8.4s)
+⚠ [9887/9935] Built ZInQKernel.Contrib.TauCeti.Backport.Mathlib.Polynomial (939ms)
+warning: ZInQKernel/Contrib/TauCeti/Backport/Mathlib/Polynomial.lean:22:6: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+✔ [9888/9937] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.InvariantKernel (2.6s)
+✔ [9889/9937] Built ZInQKernel.Contrib.TauCeti.GroupTheory.Abelianization.Basic (794ms)
+✔ [9890/9937] Built ZInQKernel.Contrib.TauCeti.Backport.GroupTheory.Abelianization.Basic (795ms)
+✔ [9891/9940] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.Dedekind.Basic (1.7s)
+✔ [9892/9941] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Finite (955ms)
+✔ [9893/9941] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.Factorization (2.5s)
+✔ [9894/9941] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.Unramified (2.2s)
+✔ [9895/9941] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Ideal.ArtinMap (2.7s)
+✔ [9896/9947] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.FractionalIdealDivisor.Basic (1.5s)
+✔ [9897/9947] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Basic (1.4s)
+✔ [9898/9947] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.ClassFunction (1.8s)
+✔ [9899/9947] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LayerInvariant (11s)
+✔ [9900/9950] Built ZInQKernel.Contrib.TauCeti.GroupTheory.GroupAction.Burnside (877ms)
+✔ [9901/9951] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.SplitBasis (1.0s)
+✔ [9902/9951] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.LocalDegree (2.1s)
+✔ [9903/9952] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Conjugate (3.5s)
+✔ [9904/9952] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.ClassGroup (2.8s)
+✔ [9905/9953] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.WeilDivisor.FractionalIdealDivisor.NthRoot (2.0s)
+✔ [9906/9953] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Pullback (2.3s)
+✔ [9907/9953] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Orbits (1.6s)
+✔ [9908/9953] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Input (1.4s)
+✔ [9909/9957] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.Sequence (2.2s)
+✔ [9910/9958] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Mackey.Subgroup (1.3s)
+✔ [9911/9959] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.FiniteDimensional.Basic (5.3s)
+✔ [9912/9959] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.LayerInvariant (8.7s)
+✔ [9913/9959] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Separable (1.5s)
+✔ [9914/9959] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FinitePlace.Basic (1.7s)
+✔ [9915/9961] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Basic (4.1s)
+✔ [9916/9962] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Character (1.8s)
+✔ [9917/9962] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.AbsoluteGaloisGroup (3.4s)
+✔ [9918/9963] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LiftIndependence (6.8s)
+✔ [9919/9965] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.SInteger.SelmerGroup.Radical (1.8s)
+✔ [9920/9965] Built ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.CarryCocycle (1.5s)
+✔ [9921/9965] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Mackey.Basic (2.1s)
+✔ [9922/9968] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Formation.Layer.Inflation (1.9s)
+✔ [9923/9968] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.SUnitRadical (1.9s)
+✔ [9924/9968] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition (8.2s)
+✔ [9925/9970] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.Cyclotomic.FixingSubgroup (1.4s)
+✔ [9926/9972] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.Semilocal.Basic (2.8s)
+✔ [9927/9974] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryPlaces (10s)
+✔ [9928/9977] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Ker (907ms)
+✔ [9929/9979] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.LocalGlobal.AbsoluteGaloisGroup (3.9s)
+✔ [9930/9979] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.DecompositionRestrict (2.1s)
+✔ [9931/9981] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.LiftingObstruction (2.4s)
+✔ [9932/9987] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleLocalization (7.6s)
+✔ [9933/9987] Built ZInQKernel.Contrib.TauCeti.Analysis.Normed.Algebra.NoSmallSubgroups (1.3s)
+✔ [9934/9989] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic (2.0s)
+✔ [9935/9989] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ClassFormation (8.0s)
+✔ [9936/9989] Built ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.Abelian.Basic (1.1s)
+✔ [9937/9989] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Frobenius (2.0s)
+✔ [9938/9992] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.CongruenceQuotient (1.0s)
+✔ [9939/9992] Built ZInQKernel.Contrib.TauCeti.Backport.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic (1.5s)
+✔ [9940/9992] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.IntegralIdeal (2.2s)
+✔ [9941/9992] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.Reciprocity (2.2s)
+✔ [9942/10003] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Integral (2.1s)
+✔ [9943/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup (4.1s)
+✔ [9944/10006] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRing.Away (1.5s)
+✔ [9945/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Exact (2.3s)
+✔ [9946/10006] Built ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Pullback (2.4s)
+✔ [9947/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.LocalExistence.NormSubgroup (4.3s)
+✔ [9948/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.RingOfIntegers.Norm (1.2s)
+✔ [9949/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Reciprocity (4.5s)
+✔ [9950/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.Basic (1.7s)
+✔ [9951/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Rat (2.0s)
+✔ [9952/10006] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrimeDegreeDecomposition (8.0s)
+✔ [9953/10006] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.Ideles.Ray.ClassQuotient (1.7s)
+✔ [9954/10006] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup (4.0s)
+✔ [9955/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Conductor.Basic (1.9s)
+✔ [9956/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.Primitive (1.6s)
+✔ [9957/10006] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.ExponentNorms (2.3s)
+✔ [9958/10010] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.NumberField.Global.RayClass.Rat (1.6s)
+✔ [9959/10012] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Cyclotomic.RayClass (1.0s)
+✔ [9960/10012] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.HeckeCharacter.Basic (2.4s)
+✔ [9961/10012] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.RingOfIntegers.Transport (1.2s)
+✔ [9962/10017] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryIdeles (2.4s)
+⚠ [9963/10017] Built ZInQKernel.HDecomp.Conductor.LadicCond (7.3s)
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:421:29: `dite_cond_eq_true` has been deprecated: Use `dite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:640:21: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+✔ [9964/10017] Built ZInQKernel.Contrib.TauCeti.Order.Northcott.Basic (1.2s)
+✔ [9965/10017] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.Archimedean.ArtinMap (5.8s)
+✔ [9966/10019] Built ZInQKernel.Contrib.TauCeti.Algebra.Ring.Subgroup (827ms)
+✔ [9967/10021] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.HeckeCharacter.FiniteOrder (2.2s)
+✔ [9968/10021] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Basic (1.9s)
+✔ [9969/10025] Built ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.Operations (1.3s)
+✔ [9970/10025] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.InfinitePlace (2.5s)
+✔ [9971/10025] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.HeckeCharacter.Conductor (1.8s)
+✔ [9972/10029] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.CorestrictionLocalization (9.8s)
+✔ [9973/10029] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.NormCoeff (2.0s)
+✔ [9974/10029] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.AlgEquiv (1.4s)
+✔ [9975/10029] Built ZInQKernel.Contrib.TauCeti.Analysis.Asymptotics.Lemmas (1.1s)
+✔ [9976/10029] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.Norm (4.0s)
+✔ [9977/10033] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.Conductor (1.7s)
+✔ [9978/10033] Built ZInQKernel.Contrib.TauCeti.NumberTheory.RamificationInertia.NumberField (1.5s)
+✔ [9979/10033] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.RamifiedPrimes (1.7s)
+⚠ [9980/10035] Built ZInQKernel.HDecomp.Textbook.KroneckerWeberUse (5.5s)
+warning: ZInQKernel/HDecomp/Textbook/KroneckerWeberUse.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [9981/10035] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.FrobeniusPrimeSet (2.0s)
+✔ [9982/10035] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Convolution.Basic (2.5s)
+✔ [9983/10035] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.Count (1.1s)
+✔ [9984/10038] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Restriction (12s)
+✔ [9985/10038] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.SubgroupConductor.Basic (1.8s)
+✔ [9986/10044] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.HalfPlaneIdentity (1.5s)
+✔ [9987/10044] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Weight (3.5s)
+✔ [9988/10044] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Conjugate (1.3s)
+✔ [9989/10046] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Twist (1.3s)
+✔ [9990/10046] Built ZInQKernel.Contrib.TauCeti.GroupTheory.SpecificGroups.Cyclic.OrderCount (2.1s)
+✔ [9991/10046] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Basic (2.2s)
+✔ [9992/10046] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.IrreducibleOfUnramified (3.1s)
+✔ [9993/10046] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.SumCoeff (1.7s)
+✔ [9994/10048] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.Crossing.TaggedCount (1.1s)
+✔ [9995/10048] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.VonMangoldt (1.8s)
+✔ [9996/10048] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Trivial (1.0s)
+✔ [9997/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Regroup (1.9s)
+✔ [9998/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Counting (2.0s)
+✔ [9999/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Data (1.9s)
+✔ [10000/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.Crossing.CrossingConstant (1.1s)
+✔ [10001/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.AuxiliaryPrime (1.7s)
+✔ [10002/10049] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Index (6.8s)
+✔ [10003/10053] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Count.Basic (1.8s)
+✔ [10004/10053] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.MainTerm (1.6s)
+✔ [10005/10060] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.PowerIndex (1.9s)
+✔ [10006/10060] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.HigherPrimePowers (2.1s)
+✔ [10007/10060] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.AbelSummation (2.5s)
+✔ [10008/10060] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.FractionalIdeal (1.4s)
+✔ [10009/10060] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Estimates (2.8s)
+✔ [10010/10061] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.Sum (2.2s)
+✔ [10011/10062] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality (2.8s)
+✔ [10012/10062] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.UnitAction (1.5s)
+✔ [10013/10063] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.IdealLattice (1.8s)
+✔ [10014/10063] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.SignCut (1.0s)
+✔ [10015/10063] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.Psi (2.2s)
+✔ [10016/10066] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Weight (1.0s)
+✔ [10017/10068] Built ZInQKernel.Contrib.TauCeti.Algebra.Module.ZLattice.Basic (1.5s)
+✔ [10018/10068] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Group.Measure (1.2s)
+✔ [10019/10068] Built ZInQKernel.Contrib.TauCeti.Topology.MetricSpace.DiscreteAddSubgroup (1.0s)
+✔ [10020/10068] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Analytic (2.5s)
+✔ [10021/10072] Built ZInQKernel.Contrib.TauCeti.Topology.Frontier (936ms)
+✔ [10022/10072] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.CongruenceLattice (2.2s)
+✔ [10023/10072] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Measure.Haar.Hausdorff (1.5s)
+✔ [10024/10074] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.Basic (2.2s)
+✔ [10025/10076] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.VonMangoldt (2.3s)
+✔ [10026/10077] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Cyclotomic.Basic (2.6s)
+✔ [10027/10079] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ArtinMap (12s)
+✔ [10028/10079] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Restrict (1.0s)
+✔ [10029/10083] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Units.Dirichlet (1.7s)
+✔ [10030/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.Ray.Coset (1.7s)
+✔ [10031/10084] Built ZInQKernel.Contrib.TauCeti.RingTheory.NormTrace.Prod (1.1s)
+✔ [10032/10084] Built ZInQKernel.Contrib.TauCeti.Topology.MetricSpace.LipschitzParametrizable (2.0s)
+✔ [10033/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.IntegerSet (1.0s)
+✔ [10034/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.NormLeOne (1.7s)
+✔ [10035/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.ClassNumber (1.7s)
+✔ [10036/10084] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Totient (1.7s)
+✔ [10037/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Cancellation (2.3s)
+✔ [10038/10084] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Count.Reindex (1.8s)
+✔ [10039/10089] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.MulVolume (1.8s)
+✔ [10040/10089] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Log.OneDivSub (1.2s)
+✔ [10041/10090] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.BigOperators.Sum.Slack (793ms)
+✔ [10042/10092] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.CanonicalEmbedding.NormLeOneLipschitz (2.1s)
+✔ [10043/10092] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.Ray.Ideal.Set (1.8s)
+✔ [10044/10092] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.InfiniteSum.Real (1.5s)
+✔ [10045/10092] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.Orbit (1.9s)
+✔ [10046/10094] Built ZInQKernel.Contrib.TauCeti.NumberTheory.GeometryOfNumbers.BoundaryCount (2.6s)
+✔ [10047/10094] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Convergence (1.8s)
+✔ [10048/10094] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.ZetaSumPartition (1.6s)
+✔ [10049/10094] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.DirichletDensityBounds (1.6s)
+✔ [10050/10094] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Complex.LogBounds (1.7s)
+✔ [10051/10097] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.Lipschitz (2.4s)
+✔ [10052/10098] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.CharacterFormula (6.6s)
+✔ [10053/10098] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.Ray.Ideal.Count (2.5s)
+✔ [10054/10101] Built ZInQKernel.Contrib.TauCeti.Analysis.PSeries (1.8s)
+✔ [10055/10101] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.DirichletDensity.Basic (1.8s)
+✔ [10056/10101] Built ZInQKernel.Contrib.TauCeti.NumberTheory.GeometryOfNumbers.LatticePointCount (2.3s)
+✔ [10057/10102] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Basic (1.8s)
+✔ [10058/10102] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Pow.Bounds (1.5s)
+✔ [10059/10102] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.Volume (2.2s)
+✔ [10060/10105] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Order.Field (1.2s)
+✔ [10061/10105] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.ResidueDegree (2.1s)
+✔ [10062/10110] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.LatticeCount (2.1s)
+✔ [10063/10115] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Log.NegLogOneSub (1.8s)
+✔ [10064/10115] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.LogIntegral (2.4s)
+✔ [10065/10115] Built ZInQKernel.Contrib.TauCeti.Analysis.Analytic.OfScalars (1.5s)
+✔ [10066/10116] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Counting.RayFundamentalDomain.MainTerm (2.2s)
+✔ [10067/10116] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.BranchLogRoot (1.7s)
+✔ [10068/10117] Built ZInQKernel.Contrib.TauCeti.RingTheory.PowerSeries.Log (2.7s)
+✔ [10069/10117] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.DedekindZeta.Tail (1.8s)
+✔ [10070/10117] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Deriv (1.9s)
+✔ [10071/10117] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.DedekindZeta.Basic (1.9s)
+✔ [10072/10117] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Brauer.CharacterFormula (6.0s)
+✔ [10073/10117] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Count.Asymptotic (2.2s)
+✔ [10074/10118] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Transfer (1.9s)
+✔ [10075/10119] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Branch (1.7s)
+✔ [10076/10119] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Coeff (2.1s)
+✔ [10077/10119] Built ZInQKernel.Contrib.TauCeti.Analysis.Asymptotics.SumWindow (2.1s)
+✔ [10078/10119] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.IdealZetaSum (1.0s)
+✔ [10079/10122] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Character.PartialSums (1.8s)
+✔ [10080/10122] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Positivity (1.4s)
+✔ [10081/10123] Built ZInQKernel.Contrib.TauCeti.Analysis.Fourier.Decay (1.5s)
+✔ [10082/10125] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.DirichletDensity.Negligible (1.9s)
+✔ [10083/10125] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Cyclotomic.Cancellation (1.0s)
+✔ [10084/10131] Built ZInQKernel.Contrib.TauCeti.Analysis.Fourier.RiemannLebesgue (1.5s)
+✔ [10085/10131] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.ImproperIntegrals (2.3s)
+✔ [10086/10131] Built ZInQKernel.Contrib.TauCeti.Analysis.Fourier.Integrable (1.4s)
+✔ [10087/10132] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.PowerSeries.Log.Deriv (6.7s)
+✔ [10088/10132] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Continuity (1.4s)
+✔ [10089/10133] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Integral.ExpDamped (1.6s)
+✔ [10090/10151] Built ZInQKernel.Contrib.TauCeti.Analysis.Fourier.Continuous (1.4s)
+✔ [10091/10157] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Data (5.4s)
+✔ [10092/10157] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Deriv (6.5s)
+✔ [10093/10160] Built ZInQKernel.Contrib.TauCeti.Algebra.Order.BigOperators.Sum.ByParts (954ms)
+✔ [10094/10167] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.PosSemidef (1.7s)
+✔ [10095/10167] Built ZInQKernel.Contrib.TauCeti.Analysis.Bochner.CharFun.PosDef (1.8s)
+✔ [10096/10169] Built ZInQKernel.Contrib.TauCeti.NumberTheory.AbelSummation (2.4s)
+✔ [10097/10169] Built ZInQKernel.Contrib.TauCeti.Analysis.Calculus.ContDiff.Scaling (1.4s)
+✔ [10098/10171] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Fourier (2.4s)
+✔ [10099/10171] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.LogDeriv (1.9s)
+✔ [10100/10172] Built ZInQKernel.Contrib.TauCeti.Analysis.SpecialFunctions.Trigonometric.NonnegCombination (1.5s)
+✔ [10101/10172] Built ZInQKernel.Contrib.TauCeti.Analysis.Asymptotics.InvSubOne (1.2s)
+✔ [10102/10172] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.FourierAtom (1.5s)
+✔ [10103/10172] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Nonvanishing (1.3s)
+✔ [10104/10172] Built ZInQKernel.Contrib.TauCeti.Data.Set.Restrict (801ms)
+✔ [10105/10175] Built ZInQKernel.Contrib.TauCeti.Analysis.Matrix.PosSemidef (1.8s)
+✔ [10106/10177] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.Summable (1.6s)
+✔ [10107/10177] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Limit (1.8s)
+✔ [10108/10180] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.ThreeFourOne (1.4s)
+✔ [10109/10180] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.SplitsCompletely (1.6s)
+✔ [10110/10180] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Kernel.Bounds (1.4s)
+✔ [10111/10183] Built ZInQKernel.Contrib.TauCeti.Analysis.Distribution.SchwartzSpace.Cutoff (2.4s)
+✔ [10112/10184] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Eval (2.0s)
+✔ [10113/10184] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Basic (1.7s)
+✔ [10114/10186] Built ZInQKernel.Contrib.TauCeti.GroupTheory.FiniteAbelian.CharacterOrthogonality (1.7s)
+✔ [10115/10186] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Asymptotic (1.9s)
+✔ [10116/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.Partition (1.9s)
+✔ [10117/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.FiberCount (1.9s)
+✔ [10118/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Frobenius.FixedField.Fiber (1.8s)
+✔ [10119/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.Convergence (1.0s)
+✔ [10120/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.ThreeFourOne (2.6s)
+✔ [10121/10187] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimesAboveRamifiedPrimes (1.7s)
+✔ [10122/10187] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Pullback (1.6s)
+✔ [10123/10187] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Function.Kernel (1.4s)
+✔ [10124/10187] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Normalize (1.5s)
+✔ [10125/10188] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Function.Closure (1.5s)
+✔ [10126/10188] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Orthogonality (1.8s)
+✔ [10127/10188] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Continuity (2.1s)
+✔ [10128/10188] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.Discard (1.6s)
+✔ [10129/10188] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.Tower (2.4s)
+✔ [10130/10191] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.Limits (1.5s)
+✔ [10131/10193] Built ZInQKernel.Contrib.TauCeti.Analysis.Bochner.Gaussian.Basic (1.8s)
+✔ [10132/10197] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.EulerProduct.Logarithm.VonMangoldtCoeff (2.8s)
+✔ [10133/10197] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.BoundaryGrowth (3.2s)
+✔ [10134/10197] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.DedekindZeta (2.3s)
+✔ [10135/10199] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.ConjFinite (818ms)
+✔ [10136/10199] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.FixedField.FiberCount (3.9s)
+✔ [10137/10199] Built ZInQKernel.Contrib.TauCeti.Topology.Algebra.Order.LiminfLimsup (1.1s)
+✔ [10138/10200] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Cyclotomic.FixedField (2.1s)
+✔ [10139/10203] Built ZInQKernel.Contrib.TauCeti.Analysis.PositiveDefinite.AddGroup (2.4s)
+✔ [10140/10203] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Nonvanishing (1.8s)
+✔ [10141/10203] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.Finrank (2.1s)
+✔ [10142/10209] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.CharacterExpansion (1.0s)
+✔ [10143/10209] Built ZInQKernel.Contrib.TauCeti.RingTheory.Localization.Finiteness (1.1s)
+✔ [10144/10209] Built ZInQKernel.Contrib.TauCeti.Analysis.Bochner.CharFun.PositiveDefinite (1.5s)
+✔ [10145/10210] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Cyclotomic.Compositum (2.2s)
+✔ [10146/10210] Built ZInQKernel.Contrib.TauCeti.RingTheory.LocalRing.Monogenic (1.5s)
+✔ [10147/10210] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.TotallyRamified (2.3s)
+✔ [10148/10212] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.DualFamily (1.0s)
+✔ [10149/10214] Built ZInQKernel.Contrib.TauCeti.Analysis.Bochner.Fourier.Convention (1.7s)
+✔ [10150/10214] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.TaggedFixedField (1.8s)
+✔ [10151/10214] Built ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.Minpoly (1.3s)
+✔ [10152/10217] Built ZInQKernel.Contrib.TauCeti.RingTheory.DiscreteValuationRing.Monogenic (1.3s)
+✔ [10153/10217] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.Monogenic (1.4s)
+✔ [10154/10217] Built ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.AddValuation (943ms)
+✔ [10155/10217] Built ZInQKernel.Contrib.TauCeti.Analysis.Bochner.Fourier.Nonneg (3.0s)
+✔ [10156/10217] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Monogenic (2.0s)
+✔ [10157/10221] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Basic (3.8s)
+✔ [10158/10221] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.Multiplicity (1.9s)
+✔ [10159/10223] Built ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Eisenstein.Basic (1.1s)
+✔ [10160/10223] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Monogenic (2.1s)
+✔ [10161/10225] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.TamelyRamified.Basic (2.3s)
+✔ [10162/10225] Built ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Eisenstein.Minpoly (1.2s)
+✔ [10163/10227] Built ZInQKernel.Contrib.TauCeti.RingTheory.Polynomial.Eisenstein.DiscreteValuationRing (1.3s)
+✔ [10164/10227] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Hilbert (2.2s)
+✔ [10165/10230] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.RamificationGroup (2.3s)
+✔ [10166/10230] Built ZInQKernel.Contrib.TauCeti.Analysis.Fourier.NonnegTestFunction (5.2s)
+✔ [10167/10230] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Different.Tower (2.3s)
+✔ [10168/10230] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Unramified.Factorization (2.4s)
+✔ [10169/10230] Built ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation.NatCastValuation (1.7s)
+✔ [10170/10230] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Eisenstein.PowerBasis (2.9s)
+✔ [10171/10233] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Exponent (4.0s)
+✔ [10172/10236] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Chebyshev (2.3s)
+✔ [10173/10236] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Unramified (49s)
+✔ [10174/10237] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Tower (2.6s)
+✔ [10175/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Eisenstein.TotallyRamified (2.7s)
+✔ [10176/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Approximation (2.4s)
