@@ -215,8 +215,8 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
 
 | file | content | outcome |
 |---|---|---|
-| `FS5NoCM.lean` (~520 lines) | qm-pin block, §B statements, §C named Props, §D arithmetic, §E `nocm_on_witness`, `fibreComTrivialOwn_of`, `fibreComTrivialFull_of_own`, `fibreComTrivialFull_of` | exit 0, 0 errors, no `sorry`; 7 `#print axioms` lines, all standard (`run1.txt`) |
-| `FS5Curves.lean` (~2000 lines) | `MobiusGlue.lean` (lines 1-1439, plus two imports) + qm-pin's `cm_objects_of_R1R2fp` + the same §B-§E + `fibreComTrivialFull_of_curves` | exit 0, 0 errors; `fibreComTrivialFull_of_curves` standard axioms (`run2.txt`) |
+| `FS5NoCM.lean` (568 lines) | qm-pin block, §B statements, §C named Props, §D arithmetic, §E `nocm_on_witness`, `fibreComTrivialOwn_of`, `fibreComTrivialFull_of_own`, `fibreComTrivialFull_of` | exit 0, 0 errors, no `sorry`; 7 `#print axioms` lines, all standard (`run1.txt`) |
+| `FS5Curves.lean` (1855 lines) | `MobiusGlue.lean` (lines 1-1439, plus two imports) + qm-pin's `cm_objects_of_R1R2fp` + the same §B-§E + `fibreComTrivialFull_of_curves` | exit 0, 0 errors; `fibreComTrivialFull_of_curves` standard axioms (`run2.txt`) |
 
 Kernel modules used: `ZInQKernel.HDecomp.QM.Leaves`, `ZInQKernel.HDecomp.Repo.PRArith`,
 `ZInQKernel.Hypotheses.JHeight` (and `ZInQKernel.HDecomp.Textbook.SkolemNoether` for
