@@ -22,13 +22,16 @@ N5 with line numbers.
 Lean (VERIFIED, compiled with `lake env lean`, one process at a time). Every blueprint file
 compiles with no error and no `sorry`. An appended audit command runs `Lean.collectAxioms` on
 **every** declaration of each file, 629 declarations in all, and finds no axiom other than
-`propext`, `Classical.choice`, `Quot.sound` (§4). The review adds four compiled files, all with
+`propext`, `Classical.choice`, `Quot.sound` (§4). The review adds three compiled files and an appended audit fragment, all with
 standard axioms only:
 - `Normalizations.lean`: the normalization arithmetic for R19, R21 and R22.
 - `R5Repair.lean`: the repaired R5 statement `R5fpStrong`, with a proof that it implies the
-  blueprint's `R5fp`.
-- `R16Transfer.lean`: the existential R16 transfers along isomorphisms of `J`.
-- `audit_tail.lean`: the axiom audit.
+  blueprint's `R5fp` (the file is `QMAbVar.lean` minus its `#print axioms` block, plus these).
+- `R16Transfer.lean`: the existential R16 transfers along isomorphisms of `J` as group objects
+  (`[IsMonHom e.inv]`). Its module header, copied from `Jacobian.lean`, describes declarations
+  the file does not contain.
+- `audit_tail.lean`: the axiom audit (a fragment appended to each file, not a compiled file of
+  its own).
 
 Computations (VERIFIED): `at3_check.py` re-derives the normalization value of AT3, and
 `sheet_check.py` checks the sign claim of bp-qmmoduli §2.2 on 30 samples.
@@ -72,7 +75,7 @@ equals the published height. Directions (VERIFIED in Lean, `Normalizations.lean`
 | Leaf | Holds as stated in h-decomposition? | Why |
 | --- | --- | --- |
 | R18 Javanpeykar `h_F(Jac X) ≤ 13·10⁶ g d⁵` | yes, in either normalization | an upper bound on `h_D ≥ h_F` bounds `h_F` (`faltings_le_deligne`) |
-| R19 Gaudron–Rémond, `κ(A)` with `max(h_F(A), log[K:ℚ], 1)` | **yes only if** Gaudron–Rémond's `h` is the original Faltings normalization (locators.md read it so) | `κ` is monotone in the height, so the `h_F` form is the stronger statement (`faltings_kappa_le`); an `h_D`-normalized original would not imply it |
+| R19 Gaudron–Rémond, `κ(A)` with `max(h_F(A), log[K:ℚ], 1)` | **yes only if** Gaudron–Rémond's `h` is the original Faltings normalization (locators.md read it so) | `κ` is monotone in the height, so the `h_F` form is the stronger statement (`faltings_kappa_le` proves only the inner `max` inequality; monotonicity of `κ` is not in Lean); an `h_D`-normalized original would not imply it |
 | R20 Faltings Lemma 5 | yes | a difference of heights; for stable heights, base change to a common semistable field (H4/H5) |
 | R21 Bost, `h_F ≥ −(3/2) dim A` | yes, in either normalization | `bost_F_of_D`: `h_D ≥ −(g/2)log 2π` gives `h_F ≥ −(g/2)log(2π²) ≥ −(3/2)g`, since `log(2π²) < 3` (proved) |
 | R22 Pazuki, hardened `X_D = max(1, h_F + 3)` | yes | `log π < 3` (`log_pi_lt_three`) |
@@ -86,8 +89,9 @@ opposite inequality, `h(A × Z) ≤ h(A) + h(Z)`. The needed direction holds bec
 the Néron mapping property (a product of Néron models is a Néron model), but it needs M5 and H5.
 Hence:
 - bp-faltings §2.6, row H7, "from AV6, AR3 and the covolume of a product lattice", is incomplete;
-- the h-decomposition remark under R20, "Additivity and invariance under base change of the
-  stable height follow from the definition: glue", is false for additivity.
+- the former h-decomposition remark under R20, "Additivity and invariance under base change of the
+  stable height follow from the definition: glue", is false for additivity (corrected since, in
+  h-decomposition.md by leaf-adopt, crediting this finding).
 
 Invariance under base change does follow from H4 alone: extensions of `L` are cofinal among
 extensions of `K`, by taking composita.
@@ -183,7 +187,8 @@ MC9 ("`ℚ`-isomorphism between the `K_N` model and Shimura's canonical model") 
 (§3, §4, §6, §10 item 2). The blueprint never defines Shimura's canonical model, so as a Lean
 leaf it would be stated over an undefined object. It is also not needed. Every clause of the
 existential R16 except the surjection `π : J ↠ A` concerns `A` alone. So the conclusion
-transfers along any isomorphism `J ≅ J'` (`exists_quotient_transfer`, VERIFIED compiled), in
+transfers along any isomorphism `J ≅ J'` of group objects (`exists_quotient_transfer`, which
+assumes `[IsMonHom e.inv]`; VERIFIED compiled), in
 particular between the Jacobians of `ℚ`-isomorphic models.
 
 The `ℚ`-isomorphism of the `K_N` model with Shimura's model is a classical fact that belongs to
@@ -377,7 +382,7 @@ Review files (compiled, standard axioms only):
 | File | Content |
 | --- | --- |
 | `Normalizations.lean` | `log_two_pi_sq_lt_three`, `bost_F_of_D`, `log_pi_lt_three`, `faltings_le_deligne`, `faltings_kappa_le` |
-| `R5Repair.lean` | a copy of `QMAbVar.lean`, plus `R5fpStrong` and `R5fp_of_R5fpStrong` |
+| `R5Repair.lean` | a copy of `QMAbVar.lean` minus its `#print axioms` block, plus `R5fpStrong` and `R5fp_of_R5fpStrong` |
 | `R16Transfer.lean` | `exists_quotient_transfer` (over bp-modcurves' `AbVar` copy) |
 
 ## 5. Not checked

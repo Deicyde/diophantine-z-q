@@ -1,0 +1,4 @@
+'LeafQM.AV.r1r2_relabel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.r1fp_exotic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.relabelPt_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+real	2m5.224s

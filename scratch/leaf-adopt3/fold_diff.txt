@@ -1,0 +1,51 @@
+t-skolem-kw: 100 decls; identical 63; differ 2; not in Leaves.lean 35
+   DIFF TSkolemKW.C10.brauerNesbittChar0'
+   DIFF TSkolemKW.C10.c10_of_chebotarev
+   MISSING TSkolemKW.C10.ChebotarevExists
+   MISSING TSkolemKW.C10.Qbar
+   MISSING TSkolemKW.C10.GQ
+   MISSING TSkolemKW.C10.Zbar
+   MISSING TSkolemKW.C10.IsFrobAt
+   MISSING TSkolemKW.C10.FrobDense
+   MISSING TSkolemKW.C10.FrobLift
+   MISSING TSkolemKW.C10.toZbar
+   MISSING TSkolemKW.C10.toZbar_coe
+   MISSING TSkolemKW.C10.card_quot
+   MISSING TSkolemKW.C10.restrictNormal_eq_of_frob
+   MISSING TSkolemKW.C10.FrobExistsAt
+   MISSING TSkolemKW.C10.toZbar_injective
+   MISSING TSkolemKW.C10.frobLift_of_frobExistsAt
+   MISSING TSkolemKW.C10.FrobOn
+   MISSING TSkolemKW.C10.FrobExistsFinite
+   MISSING TSkolemKW.C10.frobOn_anti
+   MISSING TSkolemKW.C10.isClosed_frobOn
+   MISSING TSkolemKW.C10.frobExistsAt_of_finite
+   MISSING TSkolemKW.C10.frobExistsFinite
+   MISSING TSkolemKW.C10.frobLift
+   MISSING TSkolemKW.C10.frobDense_of_chebotarev
+   MISSING TSkolemKW.C10.frobDense
+   MISSING TSkolemKW.C10.BrauerNesbittChar0
+   MISSING TSkolemKW.C10.IsUnramFrob
+   MISSING TSkolemKW.C10.isUnramFrob_all
+   MISSING TSkolemKW.C10.iso_of_trace_eq_frob_finite
+   MISSING TSkolemKW.C10.eq_of_eq_on_frob
+   MISSING TSkolemKW.C10.trace_eq_matrix
+   MISSING TSkolemKW.C10.continuous_trace
+   MISSING TSkolemKW.C10.iso_of_trace_eq_on_frob
+   MISSING TSkolemKW.C10.iso_three_of_five
+   MISSING TSkolemKW.C10.semisimple_of_le
+   MISSING TSkolemKW.C10.trace_half
+   MISSING TSkolemKW.C10.c10
+t-different: 76 decls; identical 76; differ 0; not in Leaves.lean 0
+t30-adelic: 31 decls; identical 31; differ 0; not in Leaves.lean 0
+t10-etale: 60 decls; identical 58; differ 1; not in Leaves.lean 1
+   DIFF T10Etale.T10_groupIso_of_linIso
+   MISSING T10Etale.T10_groupIso
+pi0-x6: 71 decls; identical 71; differ 0; not in Leaves.lean 0
+hodge-lattice: 73 decls; identical 73; differ 0; not in Leaves.lean 0
+h5-neron: 65 decls; identical 65; differ 0; not in Leaves.lean 0
+x1-belyi: 25 decls; identical 25; differ 0; not in Leaves.lean 0
+e1-sub: 50 decls; identical 49; differ 1; not in Leaves.lean 0
+   DIFF E1Sub.bcPt
+c9-rhof: 32 decls; identical 32; differ 0; not in Leaves.lean 0
+g0-split: 47 decls; identical 0; differ 0; not in Leaves.lean 47
