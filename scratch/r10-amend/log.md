@@ -14,3 +14,13 @@
 - Compiled (VERIFIED, lake build ZInQKernel.Contrib.R10.Amend, 104 s): deRhamComparison_of_HT, r10Weights_of_HT,
   deRhamComparisonWeights_of_HT, deRhamComparisonHT_iff (↔ DeRhamComparison ∧ R10Weights), htMultOver_eq_of_HT;
   all axioms [propext, Classical.choice, Quot.sound].
+
+## Step 3a (G9 with amended R10, 06:50)
+- ZInQKernel/Contrib/R10/Glue.lean compiled (VERIFIED, lake build ZInQKernel.Contrib.R10.Glue; one deprecation
+  warning `TensorProduct.induction_on`, copied from g9-derham's Reduction.lean):
+  - `G9GlueHT` (G9Glue with R10 := DeRhamComparisonHT, T23 dropped), `G9GlueHT'` (T23 kept);
+  - `g9GlueHT'_of_g9GlueHT : G9GlueHT → G9GlueHT'`;
+  - `g9Glue_of_HT : AbVarBaseChange → DeRhamComparisonHT → G9Glue`;
+  - `g9GlueHT_of_abVarBaseChange : AbVarBaseChange → G9GlueHT` (proof = g9Glue_of_fieldEmb body).
+  All axioms [propext, Classical.choice, Quot.sound].
+- origin/wip/g9-abvarbc: does not exist yet (06:45). Waiting for its .fleet report before the final closed theorem.
