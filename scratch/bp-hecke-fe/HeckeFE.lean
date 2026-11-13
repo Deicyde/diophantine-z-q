@@ -2247,4 +2247,105 @@ theorem norm_gcd_eq {γ : GaussianInt} {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hm
       _ < m * n := mul_lt_mul_of_pos_right hlt (by exact_mod_cast hn)
   linarith
 
+/-- The four units of `ℤ[i]` in `ℤ²`. -/
+def unitsZ : Finset (ℤ × ℤ) := {(1, 0), (-1, 0), (0, 1), (0, -1)}
+
+/-- Conjugation `(a, b) ↦ (a, −b)` (the inverse on units). -/
+def conjZ (e : ℤ × ℤ) : ℤ × ℤ := (e.1, -e.2)
+
+theorem unitsZ_props {e : ℤ × ℤ} (he : e ∈ unitsZ) :
+    toG e * toG (conjZ e) = 1 ∧ conjZ e ∈ unitsZ ∧ conjZ (conjZ e) = e ∧
+      e.1 ^ 2 + e.2 ^ 2 = 1 := by
+  simp only [unitsZ, Finset.mem_insert, Finset.mem_singleton] at he
+  rcases he with rfl | rfl | rfl | rfl <;>
+    refine ⟨?_, by decide, by simp [conjZ], by norm_num⟩ <;>
+    ext <;> simp [toG, conjZ, Zsqrtd.re_mul, Zsqrtd.im_mul]
+
+theorem toG_conjZ (e : ℤ × ℤ) : toG (conjZ e) = star (toG e) := by
+  ext <;> simp [toG, conjZ]
+
+/-- **The fibre of `(α, β) ↦ αβ` over `γ` has four elements.** -/
+theorem card_mul_fiber {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hmn : Nat.Coprime m n)
+    {y : ℤ × ℤ} (hy : y ∈ normFiber (m * n)) :
+    ((normFiber m ×ˢ normFiber n).filter fun x => gmul x.1 x.2 = y).card = 4 := by
+  set Y := toG y
+  have hY : Y.norm = (m * n : ℕ) := by rw [norm_toG]; exact mem_normFiber.mp hy
+  set D := EuclideanDomain.gcd Y (m : GaussianInt)
+  have hD : D.norm = m := norm_gcd_eq hm hn hmn hY
+  have hD0 : D ≠ 0 := by
+    intro h; rw [h] at hD; simp at hD; omega
+  have hDY : D ∣ Y := EuclideanDomain.gcd_dvd_left _ _
+  set Q := Y / D
+  have hYDQ : D * Q = Y := EuclideanDomain.mul_div_cancel' hD0 hDY
+  have hQ : Q.norm = n := by
+    have := congrArg Zsqrtd.norm hYDQ
+    rw [Zsqrtd.norm_mul, hY, hD] at this
+    have hm0 : (m : ℤ) ≠ 0 := by exact_mod_cast hm.ne'
+    push_cast at this
+    exact mul_left_cancel₀ hm0 this
+  set α0 : ℤ × ℤ := (D.re, D.im)
+  set β0 : ℤ × ℤ := (Q.re, Q.im)
+  have hα0 : toG α0 = D := rfl
+  have hβ0 : toG β0 = Q := rfl
+  set F := fun e : ℤ × ℤ => (gmul e α0, gmul (conjZ e) β0)
+  have hfib : ((normFiber m ×ˢ normFiber n).filter fun x => gmul x.1 x.2 = y) = unitsZ.image F := by
+    ext x
+    simp only [Finset.mem_filter, Finset.mem_product, mem_normFiber, Finset.mem_image]
+    constructor
+    · rintro ⟨⟨ha, hb⟩, hxy⟩
+      set A := toG x.1
+      set B := toG x.2
+      have hA : A.norm = m := by rw [norm_toG]; exact ha
+      have hAB : A * B = Y := by rw [← toG_gmul, hxy]
+      have hAm : A ∣ (m : GaussianInt) := by
+        refine ⟨star A, ?_⟩
+        rw [← Zsqrtd.norm_eq_mul_conj, hA]; simp
+      have hAD : A ∣ D := EuclideanDomain.dvd_gcd ⟨B, hAB.symm⟩ hAm
+      obtain ⟨c, hc⟩ := hAD
+      have hcn : c.norm = 1 := by
+        have := congrArg Zsqrtd.norm hc
+        rw [Zsqrtd.norm_mul, hA, hD] at this
+        have hm0 : (m : ℤ) ≠ 0 := by exact_mod_cast hm.ne'
+        exact (mul_right_eq_self₀.mp this.symm).resolve_right hm0
+      have hcU : (c.re, c.im) ∈ unitsZ := by
+        have h1 : c.re ^ 2 + c.im ^ 2 = 1 := by
+          have := Zsqrtd.norm_def c
+          rw [hcn] at this
+          linear_combination -this
+        rcases norm_eq_one_cases (c := (c.re, c.im)) h1 with h | h | h | h <;>
+          rw [h] <;> simp [unitsZ]
+      have hcc : c * star c = 1 := by rw [← Zsqrtd.norm_eq_mul_conj, hcn]; simp
+      refine ⟨conjZ (c.re, c.im), (unitsZ_props hcU).2.1, ?_⟩
+      have hA' : A = D * star c := by
+        calc A = A * (c * star c) := by rw [hcc, mul_one]
+          _ = D * star c := by rw [hc]; ring
+      have hB' : B = c * Q := by
+        have h1 : D * (star c * B) = D * Q := by rw [hYDQ, ← hAB, hA']; ring
+        have h2 := mul_left_cancel₀ hD0 h1
+        calc B = (c * star c) * B := by rw [hcc, one_mul]
+          _ = c * Q := by rw [mul_assoc, h2]
+      simp only [F]
+      refine Prod.ext (toG_injective ?_) (toG_injective ?_)
+      · rw [toG_gmul, toG_conjZ, hα0]; exact (hA'.trans (mul_comm _ _)).symm
+      · rw [toG_gmul, (unitsZ_props hcU).2.2.1, hβ0]; exact hB'.symm
+    · rintro ⟨e, he, rfl⟩
+      obtain ⟨hee, -, -, hen⟩ := unitsZ_props he
+      have hen' : (toG e).norm = 1 := by rw [norm_toG]; exact hen
+      have hcn' : (toG (conjZ e)).norm = 1 := by
+        rw [toG_conjZ, Zsqrtd.norm_conj]; exact hen'
+      refine ⟨⟨?_, ?_⟩, ?_⟩
+      · rw [← norm_toG, toG_gmul, Zsqrtd.norm_mul, hen', hα0, hD, one_mul]
+      · rw [← norm_toG, toG_gmul, Zsqrtd.norm_mul, hcn', hβ0, hQ, one_mul]
+      · apply toG_injective
+        simp only [F]
+        rw [toG_gmul, toG_gmul, toG_gmul, hα0, hβ0, show toG y = D * Q from hYDQ.symm]
+        linear_combination (D * Q) * hee
+  rw [hfib, Finset.card_image_of_injOn]
+  · rfl
+  · intro e1 he1 e2 he2 h
+    simp only [F, Prod.mk.injEq] at h
+    have h1 := congrArg toG h.1
+    rw [toG_gmul, toG_gmul, hα0] at h1
+    exact toG_injective (mul_right_cancel₀ hD0 h1)
+
 end BpHeckeFE
