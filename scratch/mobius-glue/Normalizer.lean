@@ -232,6 +232,274 @@ theorem dvd_of_prime_dvd_nrd (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt
   · exact absurd h h6
   · exact hpZ.dvd_of_dvd_pow h
 
+/-! ### The primes 2 and 3 -/
+
+theorem two_dvd_mulCoord_ei (n : Fin 4 → ℤ) (h : (2 : ℤ) ∣ nrdZ n) :
+    ∀ l, (2 : ℤ) ∣ mulCoord n ei l := by
+  have hz : ((nrdZ n : ℤ) : ZMod 2) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mpr h
+  simp only [nrdZ] at hz
+  push_cast at hz
+  have key : ∀ a b c d : ZMod 2,
+      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a = 0 ∧ c = 0 := by
+    decide
+  obtain ⟨h0, h2⟩ := key _ _ _ _ hz
+  have d0 : (2 : ℤ) ∣ n 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h0
+  have d2 : (2 : ℤ) ∣ n 2 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h2
+  intro l
+  fin_cases l <;> simp [mulCoord, ei] <;> omega
+
+theorem three_dvd_mulCoord_ej (n : Fin 4 → ℤ) (h : (3 : ℤ) ∣ nrdZ n) :
+    ∀ l, (3 : ℤ) ∣ mulCoord n ej l := by
+  have hz : ((nrdZ n : ℤ) : ZMod 3) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr h
+  simp only [nrdZ] at hz
+  push_cast at hz
+  have key : ∀ a b c d : ZMod 3,
+      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a - c = 0 ∧ b - d = 0 := by
+    decide
+  obtain ⟨h0, h1⟩ := key _ _ _ _ hz
+  have d0 : (3 : ℤ) ∣ n 0 - n 2 :=
+    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h0)
+  have d1 : (3 : ℤ) ∣ n 1 - n 3 :=
+    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h1)
+  intro l
+  fin_cases l <;> simp [mulCoord, ej] <;> omega
+
+/-! ### Closure of `T` under right multiplication by `i` and `j` -/
+
+theorem T_mem_iff (t : Bˣ) : t ∈ T ↔ t = 1 ∨ t = ui ∨ t = uj ∨ t = ui * uj := Iff.rfl
+
+theorem T_mul_ui : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
+    (t : B) * (ui : B) = algebraMap ℚ B c * (t' : B) := by
+  intro t ht
+  rcases ht with rfl | rfl | rfl | rfl
+  · exact ⟨1, one_ne_zero, ui, by simp [T], by simp⟩
+  · refine ⟨2, two_ne_zero, 1, by simp [T], ?_⟩
+    change ofInt ei * ofInt ei = _
+    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ei, QuaternionAlgebra.algebraMap_eq]
+  · refine ⟨-1, by norm_num, ui * uj, by simp [T], ?_⟩
+    change ofInt ej * ofInt ei = _ * (ofInt ei * ofInt ej)
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+  · refine ⟨-2, by norm_num, uj, by simp [T], ?_⟩
+    change ofInt ei * ofInt ej * ofInt ei = _ * ofInt ej
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+
+theorem T_mul_uj : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
+    (t : B) * (uj : B) = algebraMap ℚ B c * (t' : B) := by
+  intro t ht
+  rcases ht with rfl | rfl | rfl | rfl
+  · exact ⟨1, one_ne_zero, uj, by simp [T], by simp⟩
+  · exact ⟨1, one_ne_zero, ui * uj, by simp [T], by simp⟩
+  · refine ⟨-3, by norm_num, 1, by simp [T], ?_⟩
+    change ofInt ej * ofInt ej = _
+    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+  · refine ⟨-3, by norm_num, ui, by simp [T], ?_⟩
+    change ofInt ei * ofInt ej * ofInt ej = _ * ofInt ei
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+
+/-- Rearranging `q v t i = (q c) v t'` for central `c`. -/
+theorem rearrange (q c : ℚ) (V Tt I T' : B) (h : Tt * I = algebraMap ℚ B c * T') :
+    algebraMap ℚ B q * V * Tt * I = algebraMap ℚ B (q * c) * V * T' := by
+  rw [mul_assoc (algebraMap ℚ B q * V), h, ← mul_assoc, mul_assoc (algebraMap ℚ B q),
+    ← Algebra.commutes c V, ← mul_assoc, ← map_mul]
+
+theorem mulCoord_smul_right (n m : Fin 4 → ℤ) (z : ℤ) :
+    mulCoord n (fun l => z * m l) = fun l => z * mulCoord n m l := by
+  funext l; fin_cases l <;> simp [mulCoord] <;> ring
+
+theorem mulCoord_smul_left (n m : Fin 4 → ℤ) (z : ℤ) :
+    mulCoord (fun l => z * n l) m = fun l => z * mulCoord n m l := by
+  funext l; fin_cases l <;> simp [mulCoord] <;> ring
+
+theorem nrdZ_smul (n : Fin 4 → ℤ) (z : ℤ) : nrdZ (fun l => z * n l) = z ^ 2 * nrdZ n := by
+  simp [nrdZ]; ring
+
+/-! ### The descent -/
+
+theorem descent (m : ℕ) : ∀ (u : Bˣ) (n : Fin 4 → ℤ), (u : B) = ofInt n →
+    (nrdZ n).natAbs = m → IsNorm u →
+    ∃ q : ℚ, q ≠ 0 ∧ ∃ v : Oˣ, ∃ t ∈ T, (u : B) = algebraMap ℚ B q * ((v : O) : B) * t := by
+  induction m using Nat.strong_induction_on with
+  | _ m ih =>
+  intro u n hu hm hN
+  have hN0 := nrdZ_ne_zero u n hu
+  by_cases h1 : m = 1
+  · have hsq : nrdZ n * nrdZ n = 1 := by
+      have : (nrdZ n).natAbs = 1 := hm.trans h1
+      rcases Int.natAbs_eq_iff.mp this with h | h <;> rw [h] <;> norm_num
+    set w : Fin 4 → ℤ := fun l => nrdZ n * conjC n l with hw_def
+    have hw1 : mulCoord n w = ![1, 0, 0, 0] := by
+      rw [hw_def, mulCoord_smul_right, mulCoord_conjC]
+      funext l; fin_cases l <;> simp [hsq]
+    have hw2 : mulCoord w n = ![1, 0, 0, 0] := by
+      rw [hw_def, mulCoord_smul_left, mulCoord_conjC']
+      funext l; fin_cases l <;> simp [hsq]
+    let v : Oˣ :=
+      ⟨⟨ofInt n, n, rfl⟩, ⟨ofInt w, w, rfl⟩,
+        Subtype.ext (by
+          change ofInt n * ofInt w = 1
+          rw [ofInt_mul, hw1, ofInt_one]),
+        Subtype.ext (by
+          change ofInt w * ofInt n = 1
+          rw [ofInt_mul, hw2, ofInt_one])⟩
+    refine ⟨1, one_ne_zero, v, 1, by simp [T], ?_⟩
+    rw [map_one, one_mul, Units.val_one, mul_one]
+    exact hu
+  · have hm0 : m ≠ 0 := by
+      rintro rfl; exact hN0 (Int.natAbs_eq_zero.mp hm)
+    set p := m.minFac with hp_def
+    have hp : p.Prime := Nat.minFac_prime h1
+    have hpd : (p : ℤ) ∣ nrdZ n := by
+      rw [Int.natCast_dvd, hm]; exact Nat.minFac_dvd m
+    have hp1 : 2 ≤ p := hp.two_le
+    by_cases hp2 : p = 2
+    · have h2 : (2 : ℤ) ∣ nrdZ n := by rw [hp2] at hpd; exact_mod_cast hpd
+      have hc := two_dvd_mulCoord_ei n h2
+      set n' : Fin 4 → ℤ := fun l => mulCoord n ei l / 2 with hn'_def
+      have hn' : mulCoord n ei = fun l => 2 * n' l :=
+        funext fun l => (Int.mul_ediv_cancel' (hc l)).symm
+      have hu' : ((u * ui⁻¹ : Bˣ) : B) = ofInt n' := by
+        change (u : B) * (((2 : ℚ)⁻¹) • ofInt ei) = _
+        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
+        norm_num
+      have hmul : mulCoord n' ei = n := by
+        apply AV.ofInt_injective
+        rw [← ofInt_mul, ← hu', ← hu]
+        change ((u * ui⁻¹ : Bˣ) : B) * ((ui : Bˣ) : B) = u
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e := nrdZ_mul n' ei
+        rw [hmul, nrdZ_ei] at e
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        have h2' : (-2 : ℤ).natAbs = 2 := rfl
+        rw [← hm, e, Int.natAbs_mul, h2']
+        omega
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (u * ui⁻¹) n' hu' rfl (hN.mul isNorm_ui.inv)
+      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_ui t ht
+      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
+      have : (u : B) = ((u * ui⁻¹ : Bˣ) : B) * ui := by
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      rw [this, he, rearrange q c _ _ _ _ htc]
+    by_cases hp3 : p = 3
+    · have h3 : (3 : ℤ) ∣ nrdZ n := by rw [hp3] at hpd; exact_mod_cast hpd
+      have hc := three_dvd_mulCoord_ej n h3
+      set n' : Fin 4 → ℤ := fun l => -(mulCoord n ej l / 3) with hn'_def
+      have hn' : mulCoord n ej = fun l => (-3) * n' l := by
+        funext l
+        simp only [hn'_def]
+        rw [mul_neg, neg_mul, neg_neg, Int.mul_ediv_cancel' (hc l)]
+      have hu' : ((u * uj⁻¹ : Bˣ) : B) = ofInt n' := by
+        change (u : B) * (((-3 : ℚ)⁻¹) • ofInt ej) = _
+        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
+        norm_num
+      have hmul : mulCoord n' ej = n := by
+        apply AV.ofInt_injective
+        rw [← ofInt_mul, ← hu', ← hu]
+        change ((u * uj⁻¹ : Bˣ) : B) * ((uj : Bˣ) : B) = u
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e := nrdZ_mul n' ej
+        rw [hmul, nrdZ_ej] at e
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        have h3' : (3 : ℤ).natAbs = 3 := rfl
+        rw [← hm, e, Int.natAbs_mul, h3']
+        omega
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (u * uj⁻¹) n' hu' rfl (hN.mul isNorm_uj.inv)
+      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_uj t ht
+      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
+      have : (u : B) = ((u * uj⁻¹ : Bˣ) : B) * uj := by
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      rw [this, he, rearrange q c _ _ _ _ htc]
+    · have hdiv := dvd_of_prime_dvd_nrd u n hu hN p hp hp2 hp3 hpd
+      set n' : Fin 4 → ℤ := fun l => n l / p with hn'_def
+      have hn' : n = fun l => (p : ℤ) * n' l :=
+        funext fun l => (Int.mul_ediv_cancel' (hdiv l)).symm
+      have hp0 : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
+      have hpi : ((p : ℚ)⁻¹) ≠ 0 := inv_ne_zero hp0
+      have hu' : ((sc _ hpi * u : Bˣ) : B) = ofInt n' := by
+        change algebraMap ℚ B ((p : ℚ)⁻¹) * u = _
+        rw [← Algebra.smul_def, hu, hn', ← smul_ofInt, smul_smul]
+        push_cast
+        rw [inv_mul_cancel₀ hp0, one_smul]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e : nrdZ n = (p : ℤ) ^ 2 * nrdZ n' := by rw [hn', nrdZ_smul]
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        rw [← hm, e, Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast]
+        have : 4 ≤ p ^ 2 := by nlinarith
+        have : (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs := by
+          have : 1 * (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs :=
+            Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
+          simpa using this
+        exact this
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (sc _ hpi * u) n' hu' rfl ((isNorm_sc _ hpi).mul hN)
+      refine ⟨p * q, mul_ne_zero hp0 hq, v, t, ht, ?_⟩
+      have : (u : B) = algebraMap ℚ B (p : ℚ) * ((sc _ hpi * u : Bˣ) : B) := by
+        change _ = _ * (algebraMap ℚ B ((p : ℚ)⁻¹) * u)
+        rw [← mul_assoc, ← map_mul, mul_inv_cancel₀ hp0, map_one, one_mul]
+      rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+/-! ### `NormalizerFinite` -/
+
+theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
+  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
+  ext <;> simp [ofInt]
+
+theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
+  rw [Algebra.smul_def, map_natCast]
+  exact O.mul_mem (natCast_mem O n) hx
+
+theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
+  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
+
+/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
+theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
+  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
+  refine ⟨m, by positivity, ?_⟩
+  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
+  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
+  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
+  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
+  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
+    ext
+    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
+  rw [e]
+  exact mem_O_of_int z0 z1 z2 z3
+
+
+/-- Copy of `AutOExt.NormalizerFinite` (`MobiusGlue.lean` §7). -/
+def NormalizerFinite : Prop :=
+  ∃ T : Set Bˣ, T.Finite ∧ ∀ u : Bˣ, (∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) →
+    ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B)
+
+/-- **`N(𝒪)/ℚ^×𝒪^×` is finite** (represented by `{1, i, j, ij}`). -/
+theorem normalizerFinite : NormalizerFinite := by
+  refine ⟨T, T_finite, fun u hu => ?_⟩
+  obtain ⟨m, hm, ⟨n, hn⟩⟩ := exists_nat_smul_mem (u : B)
+  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hu0 : ((sc _ hm0 * u : Bˣ) : B) = ofInt n := by
+    change algebraMap ℚ B m * u = _
+    rw [← Algebra.smul_def]; exact hn
+  have hN : IsNorm u := by
+    intro a ha
+    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
+    simpa [mul_assoc] using ha
+  obtain ⟨q, hq, v, t, ht, he⟩ := descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
+  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
+  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : Bˣ) : B) := by
+    change _ = _ * (algebraMap ℚ B m * u)
+    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
+  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
 end NormDev
 
 end LeafQM
+
+#print axioms LeafQM.NormDev.normalizerFinite

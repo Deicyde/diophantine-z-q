@@ -45,3 +45,15 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
   ZInQKernel.HDecomp.Textbook.SkolemNoether) + `mobiusGlue_of_normalizer : CurveRatFactor → CurveSurj →
   ObjBridge.TorsionStructure → AutOExt.NormalizerFinite → MobiusGlue`. run (04:52): 0 errors;
   10 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Normalizer.lean (imports ZInQKernel.HDecomp.QM.Structures)
+- py/normalizer_identity.py (~/pyenv/bin/python -I): mulCoord n m = coordinates of ofInt n * ofInt m
+  (symbolic check); nrd(ofInt x) = x0²+x0x2−2x1²−2x1x3+x2²−2x3²; conj = (x0+x2, −x1, −x2, −x3);
+  the 16 forms coord_l(x e_k x̄) have Smith form diag (1,1,1,1,1,6,6,6,6,6) on the 10 monomials;
+  PARI matsolvemod gives integer λ with 6 x_l² = Σ λ·forms (checked symbolically, 0 residue);
+  x·i ∈ 2O when 2 | nrd(x) (all 16 residues), x·j ∈ 3O when 3 | nrd(x) (all 81 residues). VERIFIED (computed).
+- Lean: units ui, uj; T = {1, i, j, ij}; IsNorm (closed under *, ⁻¹, ℚ^×; i, j normalize O);
+  nrdZ_ne_zero, inv_eq (u⁻¹ = nrd⁻¹ ū); nrd_dvd_coords; six_sq_identities (ring);
+  dvd_of_prime_dvd_nrd (p ∤ 6); two_dvd_mulCoord_ei, three_dvd_mulCoord_ej (decide over ZMod 2, ZMod 3);
+  T_mul_ui, T_mul_uj; descent (strong induction on |nrd|); normalizerFinite : NormalizerFinite.
+  run (05:00): 0 errors; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
