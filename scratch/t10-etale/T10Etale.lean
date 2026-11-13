@@ -205,21 +205,31 @@ instance (e : X ≅ Y) : (sheafEquiv e).functor.Additive where
 noncomputable def ellIso (e : X ≅ Y) : (sheafEquiv e).functor.obj (F X ℓ) ≅ F Y ℓ :=
   ObjectProperty.isoMk _ (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => rfl))
 
+/-- The image `(X → Y)` of the terminal object `X → X`; terminal in `Y.ProEt`. -/
+noncomputable def isTerminalImg (e : X ≅ Y) :
+    IsTerminal ((proEtEquiv e).functor.obj (terminalProEt X)) :=
+  (isTerminalProEt X).isTerminalObj _
+
+/-- `constantSheaf_X ⋙ (sheafEquiv e).functor ⊣` sections at the image of the terminal object. -/
+noncomputable def adjL (e : X ≅ Y) :
+    constantSheaf (Scheme.ProEt.topology X) Ab.{u+1} ⋙ (sheafEquiv e).functor ⊣
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+  ((constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).comp
+    (sheafEquiv e).toAdjunction).ofNatIsoRight
+    (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => by simp only [Iso.refl_hom]; rfl))
+
+/-- `constantSheaf_Y ⊣` sections at the image of the terminal object. -/
+noncomputable def adjR (e : X ≅ Y) :
+    constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1} ⊣
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+  constantSheafAdj (Scheme.ProEt.topology Y) Ab.{u+1} (isTerminalImg e)
+
 /-- The sheaf equivalence carries constant sheaves to constant sheaves (uniqueness of left
 adjoints of the global-sections functor). -/
 noncomputable def constIso (e : X ≅ Y) (A : Ab.{u+1}) :
     (sheafEquiv e).functor.obj ((constantSheaf (Scheme.ProEt.topology X) Ab.{u+1}).obj A) ≅
       (constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1}).obj A :=
-  let hT' : IsTerminal ((proEtEquiv e).functor.obj (terminalProEt X)) :=
-    (isTerminalProEt X).isTerminalObj _
-  let adj1 := (constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).comp
-    (sheafEquiv e).toAdjunction
-  let adj2 := constantSheafAdj (Scheme.ProEt.topology Y) Ab.{u+1} hT'
-  let iso : (sheafEquiv e).inverse ⋙ (sheafSections _ _).obj (op (terminalProEt X)) ≅
-      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
-    NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => by
-      simp only [Iso.refl_hom]; rfl)
-  (Adjunction.leftAdjointUniq (adj1.ofNatIsoRight iso) adj2).app A
+  (Adjunction.leftAdjointUniq (adjL e) (adjR e)).app A
 
 /-- **Transport of `ℓ`-adic cohomology along a scheme isomorphism** `e : X ≅ Y`
 (`e_* = (e⁻¹)^*`). -/
@@ -291,6 +301,52 @@ lemma transport_bijective (e : X ≅ Y) (n : ℕ) : Function.Bijective (transpor
     (ellIso ℓ e) n
   have h3 := ext_precomp_iso_bijective (Z := F Y ℓ) (constIso e ↧(ULift ℤ)).symm n
   exact h3.comp (h2.comp h1)
+
+lemma transport_mk₀ (e : X ≅ Y)
+    (g : (constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ) ⟶ F X ℓ) :
+    transport ℓ e 0 (Abelian.Ext.mk₀ g) = Abelian.Ext.mk₀ ((constIso e _).inv ≫
+      (sheafEquiv e).functor.map g ≫ (ellIso ℓ e).hom) := by
+  change (Abelian.Ext.mk₀ (constIso e _).inv).comp (((Abelian.Ext.mk₀ g).mapExactFunctor
+    (sheafEquiv e).functor).comp (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero 0)) (zero_add 0) = _
+  rw [Abelian.Ext.mapExactFunctor_mk₀, Abelian.Ext.mk₀_comp_mk₀, Abelian.Ext.mk₀_comp_mk₀]
+
+lemma unit_ellIso_sections (e : X ≅ Y) (z : ULift.{u+1} C(X, ℤ_[ℓ])) :
+    (((sheafEquiv e).toAdjunction.homEquiv (F X ℓ) (F Y ℓ)) (ellIso ℓ e).hom).hom.app
+      (op (terminalProEt X)) z = z := by
+  rw [Adjunction.homEquiv_unit]
+  simp only [sheafEquiv, ellIso, Equivalence.sheafCongr, Equivalence.toAdjunction_unit]
+  simp
+  have h2 : ((proEtEquiv e).inverse.obj ((proEtEquiv e).functor.obj (terminalProEt X))).hom =
+      𝟙 X := by
+    change (𝟙 X ≫ e.hom) ≫ e.inv = 𝟙 X
+    simp
+  have h : ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left ≫ 𝟙 X =
+      ((proEtEquiv e).inverse.obj ((proEtEquiv e).functor.obj (terminalProEt X))).hom := by
+    simpa [terminalProEt, proEtEquiv, proEtMap] using
+      ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).w
+  have hw : ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left = 𝟙 X :=
+    (Category.comp_id _).symm.trans (h.trans h2)
+  show (⟨z.down.comp ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left.base.hom⟩ :
+    ULift.{u+1} C(X, ℤ_[ℓ])) = z
+  rw [hw]
+  rfl
+
+lemma transport_homEquiv (e : X ≅ Y) {A : Ab.{u+1}}
+    (g : (constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj A ⟶ F X ℓ) :
+    (adjR e).homEquiv _ _ ((constIso e A).inv ≫ (sheafEquiv e).functor.map g ≫ (ellIso ℓ e).hom) =
+      (constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).homEquiv _ _ g := by
+  rw [Adjunction.homEquiv_naturality_right, constIso, Iso.app_inv,
+    Adjunction.leftAdjointUniq_inv_app]
+  erw [Adjunction.homEquiv_leftAdjointUniq_hom_app]
+  rw [← Adjunction.homEquiv_unit]
+  erw [adjL, Adjunction.homEquiv_ofNatIsoRight_apply, Adjunction.comp_homEquiv]
+  erw [Equiv.trans_apply, Adjunction.homEquiv_naturality_left,
+    Adjunction.homEquiv_naturality_right]
+  rw [Category.assoc]
+  simp only [NatIso.ofComponents_hom_app, Iso.refl_hom]
+  ext y
+  simp only [CategoryTheory.comp_apply]
+  exact unit_ellIso_sections ℓ e _
 
 end Transport
 
