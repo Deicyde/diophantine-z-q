@@ -44,3 +44,7 @@
 - §13 (in progress) COMPILED: `pstar`, `isSquare_pstar_iff` (QR in finite-field form with p*: IsSquare (p* : F) ↔
   IsSquare (|F| : ZMod p), from Mathlib's `quadraticChar_odd_prime`, `quadraticChar_neg_one`), `genusStar n =
   K_n(√p* : p ∣ n)`, `chi_eq_one_of_isSquare_pstar`, `genusField_le_genusStar` (Bauer). VERIFIED compiled.
+- §13 COMPILED: `betaOnGenus7_of : SqrtPstarInHilbert → ArtinPstarChi → NormP2 → BetaOnGenus7`
+  (equalizer field `eqField`; `IsComplexConj.apply_sqrt` γ(√D) = sgn(D)√D; `betaOneSign_pstar`;
+  χ_p([𝔭₂]^{−5}) = χ_p([𝔭₂]) = legBit p 2 via `chi_mk0` + NormP2; `ZMod.exists_sq_eq_two_iff`). Remaining glue for
+  BETA-7: SqrtPstarInHilbert (√p* ∈ H_n), ArtinPstarChi (Art(c)√p* = χ_p(c)√p*), NormP2 (N𝔭₂ = 2).

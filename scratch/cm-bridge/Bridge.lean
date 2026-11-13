@@ -1395,6 +1395,216 @@ theorem genusField_le_genusStar (hn : n % 4 = 3) (hsq : Squarefree n) (h1 : 1 < 
 
 end BetaSeven
 
+/-! ### Assembly of glue BETA-7 from genus theory -/
+
+section BetaAssembly
+
+open ZInQ.RouteK.Redei
+open scoped nonZeroDivisors
+
+/-- **Glue GT-H (genus theory, `n ≡ 3 (mod 4)`)**: `√p* ∈ H_n` for every prime `p ∣ n` (Gauss; Cox,
+*Primes of the form x² + ny²*, Thm. 6.1, UNVERIFIED number). -/
+def SqrtPstarInHilbert : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 4 = 3 → Squarefree n → ∀ p ∈ n.primeFactors,
+    adjSqrt (QNeg n) (pstar p) ≤ hilbertField n
+
+/-- **Glue GT-ART (genus characters as Artin characters)**: for squarefree `n ≡ 3 (mod 4)`, `p ∣ n`
+and `c ∈ Cl(K_n)`, the Artin symbol of `c` acts on `√p* ∈ H_n` by the genus character `χ_p(c)`
+(`RouteK.Redei.chi`, `χ_p([𝔞]) = (N𝔞 / p)`). Classical (Gauss genus theory; Frobenius on `K_n(√p*)`
+plus quadratic reciprocity). -/
+def ArtinPstarChi : Prop :=
+  ∀ n : ℕ, ∀ _ : NeZero n, n % 4 = 3 → Squarefree n → ∀ (q : n.primeFactors) (c : Pic (OK n))
+    (hs : sqrtK (QNeg n) (pstar q) ∈ hilbertField n),
+    ((ringClassArtinEquiv (OK n) c ⟨_, hs⟩ : hilbertField n) : SeparableClosure (QNeg n)) =
+      (if chi n q c = 1 then 1 else -1) * sqrtK (QNeg n) (pstar q)
+
+/-- **Glue NORM-2**: `N𝔭₂ = 2` for `n ≡ 7 (mod 8)` (computation). -/
+def NormP2 : Prop := ∀ n : ℕ, ∀ _ : NeZero n, n % 8 = 7 → Ideal.absNorm (p2Ideal n) = 2
+
+/-- Complex conjugation on a square root of a nonzero integer `D`: `γ(√D) = sgn(D)·√D`. -/
+theorem IsComplexConj.apply_sqrt {γ : GalQ} (hγ : IsComplexConj γ) {D : ℤ} (hD : D ≠ 0) {r : Qbar}
+    (hr : r ^ 2 = (D : Qbar)) : γ r = (if D < 0 then -1 else 1) * r := by
+  apply ιC_injective
+  rw [hγ]
+  have hz : ιC r ^ 2 = (D : ℂ) := by rw [← map_pow, hr, map_intCast]
+  have hre := congrArg Complex.re hz
+  have him := congrArg Complex.im hz
+  simp only [pow_two, Complex.mul_re, Complex.mul_im, Complex.intCast_re, Complex.intCast_im] at hre him
+  split_ifs with hneg
+  · have h0 : (ιC r).re = 0 := by
+      rcases mul_eq_zero.1 (show (ιC r).re * (ιC r).im = 0 by linarith) with h | h
+      · exact h
+      · exfalso
+        rw [h] at hre
+        have : (0 : ℝ) ≤ (ιC r).re * (ιC r).re := mul_self_nonneg _
+        have : (D : ℝ) < 0 := by exact_mod_cast hneg
+        linarith
+    rw [map_mul, map_neg, map_one, neg_one_mul, Complex.ext_iff, Complex.conj_re, Complex.conj_im,
+      Complex.neg_re, Complex.neg_im, h0]
+    exact ⟨by simp, rfl⟩
+  · have h0 : (ιC r).im = 0 := by
+      rcases mul_eq_zero.1 (show (ιC r).re * (ιC r).im = 0 by linarith) with h | h
+      · exfalso
+        rw [h] at hre
+        have : (0 : ℝ) ≤ (ιC r).im * (ιC r).im := mul_self_nonneg _
+        have : (0 : ℝ) < D := by
+          have : (0 : ℤ) < D := lt_of_le_of_ne (not_lt.1 hneg) (Ne.symm hD)
+          exact_mod_cast this
+        linarith
+      · exact h
+    rw [map_mul, map_one, one_mul, Complex.ext_iff, Complex.conj_re, Complex.conj_im, h0]
+    exact ⟨rfl, by simp⟩
+
+/-- The equalizer of `f ∘ embed` and `g ∘ embed`, as a field over `K_n` when `f`, `g` agree on `K_n`. -/
+def eqField (n : ℕ) [NeZero n] (f g : GalQ)
+    (hK : ∀ k : QNeg n, f (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k)) =
+      g (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k))) :
+    IntermediateField (QNeg n) (SeparableClosure (QNeg n)) :=
+  { AlgHom.equalizer ((f : Qbar →ₐ[ℚ] Qbar).comp (embed n)) ((g : Qbar →ₐ[ℚ] Qbar).comp (embed n)) with
+    algebraMap_mem' := hK
+    inv_mem' := fun x hx => by
+      show f (embed n x⁻¹) = g (embed n x⁻¹)
+      simp only [map_inv₀]
+      exact congrArg _ hx }
+
+theorem mem_eqField {n : ℕ} [NeZero n] {f g : GalQ} {hK} {x : SeparableClosure (QNeg n)} :
+    x ∈ eqField n f g hK ↔ f (embed n x) = g (embed n x) := Iff.rfl
+
+theorem sqf_neg {x : ℤ} (h : Squarefree x) : Squarefree (-x) := fun y hy => h y ((dvd_neg).1 hy)
+
+theorem squarefree_pstar {p : ℕ} (hp : p.Prime) : Squarefree (pstar p) := by
+  have h : Squarefree (p : ℤ) := Int.squarefree_natCast.2 hp.squarefree
+  unfold pstar; split_ifs
+  · exact h
+  · exact sqf_neg h
+
+theorem betaOneSign_pstar {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) :
+    betaOneSign (pstar p) = (if pstar p < 0 then -1 else 1) *
+      (if p % 8 = 1 ∨ p % 8 = 7 then 1 else -1) := by
+  have hodd : p % 2 = 1 := (Nat.Prime.mod_two_eq_one_iff_ne_two (Fact.mk hp).out).2 hp2
+  unfold betaOneSign oddPartSqfree pstar
+  have h8 : p % 8 = 1 ∨ p % 8 = 3 ∨ p % 8 = 5 ∨ p % 8 = 7 := by omega
+  rcases h8 with h | h | h | h
+  · have h4 : p % 4 = 1 := by omega
+    simp only [h4, if_true, h, true_or]
+    have : ¬ (2 : ℤ) ∣ (p : ℤ) := by omega
+    simp only [this, if_false]
+    have : (p : ℤ) % 8 = 1 := by omega
+    simp [this]
+  · have h4 : ¬ p % 4 = 1 := by omega
+    simp only [h4, if_false]
+    have : ¬ (2 : ℤ) ∣ -(p : ℤ) := by omega
+    simp only [this, if_false]
+    have : (-(p : ℤ)) % 8 = 5 := by omega
+    simp [this, h]
+  · have h4 : p % 4 = 1 := by omega
+    simp only [h4, if_true]
+    have : ¬ (2 : ℤ) ∣ (p : ℤ) := by omega
+    simp only [this, if_false]
+    have : (p : ℤ) % 8 = 5 := by omega
+    simp [this, h]
+  · have h4 : ¬ p % 4 = 1 := by omega
+    simp only [h4, if_false]
+    have : ¬ (2 : ℤ) ∣ -(p : ℤ) := by omega
+    simp only [this, if_false]
+    have : (-(p : ℤ)) % 8 = 1 := by omega
+    simp [this, h]
+
+theorem mul_two_inv_pow_five : ∀ x : Multiplicative (ZMod 2), x⁻¹ ^ 5 = x := by decide
+
+/-- **Glue BETA-7 from genus theory** (`SqrtPstarInHilbert`, `ArtinPstarChi`, `NormP2`). -/
+theorem betaOnGenus7_of (hsH : SqrtPstarInHilbert) (hart : ArtinPstarChi) (hnorm : NormP2) :
+    BetaOnGenus7 := by
+  intro n _ hn hsq σ γ ρ hσ hγ hρ x hx
+  have h3 : n % 4 = 3 := by omega
+  simp only [genusBar, NeZero.ne n, ↓reduceDIte] at hx
+  obtain ⟨y, hy, rfl⟩ := hx
+  have hyS : y ∈ genusStar n := genusField_le_genusStar h3 hsq (by omega) hy
+  have hfixK : ∀ k : QNeg n, ρ (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k)) =
+      embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k) := by
+    intro k
+    have h := hρ (algebraMap (QNeg n) (hilbertField n) k)
+    rw [AlgEquiv.commutes] at h
+    exact h
+  set w := embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)
+  have hw2 : w ^ 2 = ((-(n : ℤ) : ℤ) : Qbar) := by
+    simp only [w]
+    rw [← map_pow, ← map_pow]
+    simp [QuadraticAlgebra.omega_pow_two_eq_add]
+  have hn0 : (-(n : ℤ)) ≠ 0 := by have := NeZero.ne n; omega
+  have hsqn : Squarefree (-(n : ℤ)) := sqf_neg (Int.squarefree_natCast.2 hsq)
+  have hbn : betaOneSign (-(n : ℤ)) = -1 := by
+    unfold betaOneSign oddPartSqfree
+    have h2 : ¬ (2 : ℤ) ∣ -(n : ℤ) := by omega
+    have h8 : (-(n : ℤ)) % 8 = 1 := by omega
+    have hlt : -(n : ℤ) < 0 := by omega
+    simp [h2, h8, hlt, NeZero.ne n]
+  have hσw : σ w = -w := by
+    rw [hσ _ hsqn w hw2, hbn]; simp
+  have hγw : γ w = -w := by
+    rw [hγ.apply_sqrt hn0 hw2, if_pos (by omega)]; simp
+  have hK : ∀ k : QNeg n, σ (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k)) =
+      (γ * ρ) (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) k)) := by
+    intro k
+    rw [AlgEquiv.mul_apply, hfixK, algebraMap_eq_re_im, map_add, map_mul, AlgHom.commutes,
+      AlgHom.commutes, map_add, map_mul, AlgEquiv.commutes, AlgEquiv.commutes, map_add, map_mul,
+      AlgEquiv.commutes, AlgEquiv.commutes]
+    show _ + _ * σ w = _ + _ * γ w
+    rw [hσw, hγw]
+  have hle : genusStar n ≤ eqField n σ (γ * ρ) hK := by
+    rw [genusStar, IntermediateField.adjoin_le_iff]
+    rintro _ ⟨a, ha, rfl⟩
+    obtain ⟨p, hp, rfl⟩ := Finset.mem_image.1 ha
+    have hpp := Nat.prime_of_mem_primeFactors hp
+    have hp2 : p ≠ 2 := by
+      rintro rfl
+      obtain ⟨m, hm⟩ := Nat.dvd_of_mem_primeFactors hp
+      omega
+    have hs : sqrtK (QNeg n) (pstar p) ∈ hilbertField n :=
+      hsH n inferInstance h3 hsq p hp (IntermediateField.mem_adjoin_simple_self _ _)
+    set r := embed n (sqrtK (QNeg n) (pstar p))
+    have hr2 : r ^ 2 = ((pstar p : ℤ) : Qbar) := by
+      simp only [r]; rw [← map_pow, sqrtK_sq, map_intCast]
+    have hps0 : pstar p ≠ 0 := by unfold pstar; split_ifs <;> simp [hpp.ne_zero]
+    rw [SetLike.mem_coe, mem_eqField, AlgEquiv.mul_apply]
+    have hρr : ρ r = (if chi n ⟨p, hp⟩ (((p2Class n)⁻¹ ^ 5 : Pic (OK n))) = 1 then 1 else -1) * r := by
+      have h1 := hρ ⟨_, hs⟩
+      rw [hart n inferInstance h3 hsq ⟨p, hp⟩ _ hs] at h1
+      rw [show r = embed n (sqrtK (QNeg n) (pstar p)) from rfl, h1, map_mul]
+      split_ifs <;> simp [r]
+    have hchi : chi n ⟨p, hp⟩ (((p2Class n)⁻¹ ^ 5 : Pic (OK n))) = chi n ⟨p, hp⟩ (p2Class n) := by
+      erw [map_pow, map_inv, mul_two_inv_pow_five]
+    have hp2' : ¬ p ∣ Ideal.absNorm (p2Ideal n) := by
+      rw [hnorm n inferInstance hn]
+      intro h
+      exact hp2 ((Nat.prime_dvd_prime_iff_eq hpp Nat.prime_two).1 h)
+    have hchi2 : chi n ⟨p, hp⟩ (p2Class n) =
+        Multiplicative.ofAdd (ZInQ.RouteK.legBit p ((2 : ℕ) : ℤ)) := by
+      have := chi_mk0 n (Nat.odd_iff.mpr (by omega)) hsq ⟨p, hp⟩ ⟨p2Ideal n, p2Ideal_mem n⟩ hp2'
+      rw [hnorm n inferInstance hn] at this
+      exact this
+    have hleg : (chi n ⟨p, hp⟩ (p2Class n) = 1) ↔ (p % 8 = 1 ∨ p % 8 = 7) := by
+      haveI := Fact.mk hpp
+      rw [hchi2, ← ZMod.exists_sq_eq_two_iff hp2]
+      unfold ZInQ.RouteK.legBit
+      split_ifs with h
+      · simp only [ofAdd_zero, true_iff]; simpa using h
+      · simp only [Nat.cast_ofNat, Int.cast_ofNat] at h
+        simp only [h, iff_false]
+        decide
+    rw [hρr, map_mul, hγ.apply_sqrt hps0 hr2, hσ _ (squarefree_pstar hpp) r hr2,
+      betaOneSign_pstar hpp hp2, hchi]
+    by_cases hc : p % 8 = 1 ∨ p % 8 = 7
+    · rw [if_pos (hleg.2 hc), if_pos hc]
+      split_ifs <;> simp
+    · rw [if_neg (fun h => hc (hleg.1 h)), if_neg hc]
+      split_ifs <;> simp
+  have := hle hyS
+  rw [mem_eqField, AlgEquiv.mul_apply] at this
+  exact this
+
+end BetaAssembly
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem after §10–§12** (`Lemma321Seven` replaced by TYZ Thm 3.6(3) + glue BETA-7). -/
 theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
