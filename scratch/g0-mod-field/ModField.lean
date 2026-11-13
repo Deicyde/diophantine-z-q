@@ -98,6 +98,124 @@ def DescentDatum (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) : Prop 
     (∀ σ τ, ∃ n d : ℤ, n ≠ 0 ∧ d ≠ 0 ∧ d • (m σ).comp (m τ) = n • m (σ * τ) ∧
         (((a σ * a τ * ((n : ℝ) / d) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ))
 
+/-! ## B1's normalization (proved): from conjugacy isogenies to the sign cocycle -/
+
+/-- The sign of a rational, as `±1 ∈ ℂ^×` (`1` for `q > 0`). -/
+noncomputable def sgnU (q : ℚ) : ℂˣ := if 0 < q then 1 else -1
+
+theorem sgnU_sq (q : ℚ) : sgnU q ^ 2 = 1 := by
+  unfold sgnU; split_ifs <;> simp
+
+theorem sgnU_mul {q r : ℚ} (hq : q ≠ 0) (hr : r ≠ 0) : sgnU (q * r) = sgnU q * sgnU r := by
+  unfold sgnU
+  rcases lt_or_gt_of_ne hq with hq' | hq' <;> rcases lt_or_gt_of_ne hr with hr' | hr'
+  · rw [if_pos (mul_pos_of_neg_of_neg hq' hr'), if_neg (not_lt.2 hq'.le),
+      if_neg (not_lt.2 hr'.le)]; simp
+  · rw [if_neg (not_lt.2 (mul_neg_of_neg_of_pos hq' hr').le), if_neg (not_lt.2 hq'.le),
+      if_pos hr']; simp
+  · rw [if_neg (not_lt.2 (mul_neg_of_pos_of_neg hq' hr').le), if_pos hq',
+      if_neg (not_lt.2 hr'.le)]; simp
+  · rw [if_pos (mul_pos hq' hr'), if_pos hq', if_pos hr']; simp
+
+/-- `sgn(q)·|q| = q`, in `ℂ`. -/
+theorem sgnU_mul_abs (q : ℚ) : ((sgnU q : ℂˣ) : ℂ) * ((|(q : ℝ)| : ℝ) : ℂ) = ((q : ℝ) : ℂ) := by
+  unfold sgnU
+  split_ifs with h
+  · have : (0 : ℝ) < q := by exact_mod_cast h
+    rw [abs_of_pos this]; simp
+  · have : (q : ℝ) ≤ 0 := by exact_mod_cast not_lt.1 h
+    rw [abs_of_nonpos this]; push_cast; ring
+
+/-- **The conjugacy isogenies before normalization (N5 L632-645; the content of G4 + B1's
+geometric half).** Maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` with the first four clauses of
+`DescentDatum`; the discrepancy `c(σ,τ) = n/d ∈ ℚ^×` with `d·m_σ m_τ = n·m_{στ}`, a 2-cocycle
+inflated from `Gal(L/ℚ)` with `c(1,1) = 1`; and degree multiplicativity in the form
+`|ker m_σ|·|ker m_τ| = c(σ,τ)⁴·|ker m_{στ}|` (`deg μ = |ker μ(ℚ̄)|` in characteristic 0,
+`deg[n] = n⁴` on a surface). -/
+def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A))
+    (c : GQ → GQ → ℚ) : Prop :=
+  (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
+      m σ = MonoidHom.toAdditive (A.galAct σ')) ∧
+  (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) ∧
+  (∀ (σ : GQ) (f : PkgI3.AbVar.End A),
+      (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
+        (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) ∧
+  (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) ∧
+  (∀ σ τ, c σ τ ≠ 0 ∧ ∃ n d : ℤ, d ≠ 0 ∧ c σ τ = n / d ∧
+      d • (m σ).comp (m τ) = n • m (σ * τ)) ∧
+  (∀ σ τ ρ, c (σ * τ) ρ * c σ τ = c τ ρ * c σ (τ * ρ)) ∧
+  (∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) →
+      c σ τ = c σ' τ') ∧
+  c 1 1 = 1 ∧
+  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker)
+
+/-- `a_σ = |ker m_σ|^{-1/4}` (`= (deg μ_σ)^{-1/4}`, N5 L645). -/
+noncomputable def normA {L : IF} {A : PkgI3.AbVar L} (m : GQ → (PtQ L A →+ PtQ L A)) (σ : GQ) :
+    ℝ := (Nat.card (m σ).ker : ℝ) ^ (-(1 / 4 : ℝ))
+
+/-- **B1's normalization, proved** (N5 L645-663): from the conjugacy isogenies, `ε = sgn c` is a
+normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, and `(m, a = |ker m|^{-1/4},
+ε)` is a descent datum. -/
+theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A)) (c : GQ → GQ → ℚ)
+    (h : ConjugacyData L A m c) : DescentDatum L A (fun σ τ => sgnU (c σ τ)) := by
+  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg⟩ := h
+  have hcard : ∀ σ, 0 < Nat.card (m σ).ker := fun σ => by
+    haveI : Finite (m σ).ker := (hfin σ).2.to_subtype
+    exact Nat.card_pos
+  -- the sign cocycle
+  have hloc : IsLocallyConstant (Function.uncurry fun σ τ => sgnU (c σ τ)) := by
+    refine isLocallyConstant_of_openSubgroup ((GQL L).prod (GQL L))
+      (by rw [Subgroup.coe_prod]; exact L.fixingSubgroup_isOpen.prod L.fixingSubgroup_isOpen)
+      _ ?_
+    rintro ⟨σ, τ⟩ ⟨k₁, k₂⟩ hk
+    rw [Subgroup.mem_prod] at hk
+    simp only [Function.uncurry_apply_pair, Prod.mk_mul_mk]
+    congr 1
+    refine (hcinf σ (σ * k₁) τ (τ * k₂) ?_ ?_).symm
+    · intro x hx
+      show act σ x = act σ (act k₁ x)
+      rw [mem_GQL.mp hk.1 x hx]
+    · intro x hx
+      show act τ x = act τ (act k₂ x)
+      rw [mem_GQL.mp hk.2 x hx]
+  refine ⟨⟨hloc, fun σ τ => sgnU_sq _, fun σ τ ρ => ?_⟩, ?_, ?_, m, normA m, ?_, hgal, hinfl,
+    hend, hfin, ?_⟩
+  · rw [← sgnU_mul (hc _ _).1 (hc _ _).1, ← sgnU_mul (hc _ _).1 (hc _ _).1, hcoc]
+  · exact fun σ σ' τ τ' h1 h2 => by simp only [hcinf σ σ' τ τ' h1 h2]
+  · show sgnU (c 1 1) = 1
+    rw [hc11]; unfold sgnU; simp
+  · intro σ; unfold normA; exact Real.rpow_pos_of_pos (by exact_mod_cast hcard σ) _
+  · intro σ τ
+    obtain ⟨hc0, n, d, hd, hcnd, hnd⟩ := hc σ τ
+    have hn : n ≠ 0 := by
+      rintro rfl; apply hc0; rw [hcnd]; simp
+    refine ⟨n, d, hn, hd, hnd, ?_⟩
+    have hx : (0 : ℝ) < Nat.card (m σ).ker := by exact_mod_cast hcard σ
+    have hy : (0 : ℝ) < Nat.card (m τ).ker := by exact_mod_cast hcard τ
+    have hz : (0 : ℝ) < Nat.card (m (σ * τ)).ker := by exact_mod_cast hcard (σ * τ)
+    have hdegR : (Nat.card (m σ).ker : ℝ) * Nat.card (m τ).ker =
+        |(c σ τ : ℝ)| ^ 4 * Nat.card (m (σ * τ)).ker := by
+      have := congrArg (fun q : ℚ => (q : ℝ)) (hdeg σ τ)
+      push_cast at this
+      rw [this, pow_abs, abs_of_nonneg (by positivity)]
+    have hcR : ((n : ℝ) / d) = (c σ τ : ℝ) := by rw [hcnd]; push_cast; rfl
+    have habs : (0 : ℝ) < |(c σ τ : ℝ)| := abs_pos.mpr (by exact_mod_cast hc0)
+    have key : normA m σ * normA m τ * |(c σ τ : ℝ)| = normA m (σ * τ) := by
+      unfold normA
+      rw [← Real.mul_rpow hx.le hy.le, hdegR, Real.mul_rpow (by positivity) hz.le]
+      rw [show |(c σ τ : ℝ)| ^ 4 = |(c σ τ : ℝ)| ^ ((4 : ℕ) : ℝ) by norm_cast,
+        ← Real.rpow_mul habs.le]
+      rw [show ((4 : ℕ) : ℝ) * (-(1 / 4 : ℝ)) = -1 by norm_num, Real.rpow_neg_one]
+      field_simp
+    rw [hcR]
+    have e1 : ((normA m σ * normA m τ * (c σ τ : ℝ) : ℝ) : ℂ) =
+        ((sgnU (c σ τ) : ℂˣ) : ℂ) * ((normA m σ * normA m τ * |(c σ τ : ℝ)| : ℝ) : ℂ) := by
+      have h := sgnU_mul_abs (c σ τ)
+      push_cast at h ⊢
+      linear_combination (-((normA m σ : ℂ) * (normA m τ : ℂ))) * h
+    rw [e1, key]
+
 /-- **G4's output (N5 L532-563 and the B1 normalization L632-663).** A finite Galois `L ⊆ ℚ̄`
 (the Hom field) with `[L:ℚ] ≤ D`, unramified outside `T`, a model `A/L` of `P`'s surface, and
 the descent datum `ε` of `A` (`DescentDatum`). -/
@@ -346,32 +464,36 @@ and model `A/K` as in G2's output: `W₀ = Res_{K/ℚ} A` has endomorphism latti
 the image of `G_ℚ` on it is a finite subgroup `G ≤ GL_r(ℤ)` with kernel field `E`
 (`[E:ℚ] = |G|`), unramified outside `T` (inertia at `p ∉ T` acts trivially on the Tate module of
 `W₀`, which has good reduction there); and the base change `A_L` of `A` to the Hom field
-`L = E ⊔ K` carries a descent datum `ε` (Skolem-Noether correction and normalization of the
-conjugacy isogenies `μ_σ`, B1). -/
+`L = E ⊔ K` carries conjugacy isogenies `μ_σ : ^σA → A` over `L`, `B`-linear after the
+Skolem-Noether correction, with rational discrepancy (`ConjugacyData`; B1's normalization to a
+sign cocycle is proved, `descentDatum_of_conjugacy`). -/
 def KernelFieldOut (u : ℚ) (P : QML3 Qbar) (K : IF) (A : PkgI3.AbVar K) : Prop :=
   ∃ (r : ℕ), r ≤ 16 * heightF0 ^ 2 ∧
   ∃ (G : Subgroup (GL (Fin r) ℤ)) (_ : Finite G) (E : IF) (_ : FiniteDimensional ℚ E)
     (_ : IsGalois ℚ E), Module.finrank ℚ E = Nat.card G ∧
     (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt E p) ∧
-    ∃ ε : GQ → GQ → ℂˣ,
-      DescentDatum (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) ε
+    ∃ (m : GQ → (PtQ (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) →+
+        PtQ (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right))))
+      (c : GQ → GQ → ℚ),
+      ConjugacyData (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) m c
 
 /-- **G4, proved from the kernel field**: `L = E ⊔ K` is finite Galois, unramified outside `T`
 (`UnramifiedSup`), `[L:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D` (Minkowski,
-`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), and `A_L` is a model of
-`P`'s surface (`isModelOver_baseChange`). -/
+`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), `A_L` is a model of
+`P`'s surface (`isModelOver_baseChange`), and B1's normalization gives the descent datum
+(`descentDatum_of_conjugacy`). -/
 theorem g4Out_of_kernelField (hSup : UnramifiedSup) (u : ℚ) (P : QML3 Qbar) (K : IF)
     [FiniteDimensional ℚ K] [IsGalois ℚ K] (hK : Module.finrank ℚ K ≤ heightF0)
     (hramK : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) (A : PkgI3.AbVar K)
     (hA : IsModelOver K A P) (h : KernelFieldOut u P K A) : G4Out u P := by
-  obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, ε, hD⟩ := h
+  obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, m, c, hCD⟩ := h
   have hE : Module.finrank ℚ E ≤ 3 ^ (r ^ 2) := hEG ▸ GlueRepo.TorsionFree.card_le_three_pow G
   have hdeg : Module.finrank ℚ ↥(E ⊔ K) ≤ heightD :=
     GlueRepo.Numerics.a8_field E K Compiler.Precision.heightD_eq hK hE hr
   have : IsGalois ℚ ↥(E ⊔ K) := IsGalois.mk
   exact ⟨E ⊔ K, inferInstance, inferInstance, hdeg,
-    fun p hp => hSup E K p (hramE p hp) (hramK p hp), _, ε,
-    isModelOver_baseChange le_sup_right A P hA, hD⟩
+    fun p hp => hSup E K p (hramE p hp) (hramK p hp), _, _,
+    isModelOver_baseChange le_sup_right A P hA, descentDatum_of_conjugacy _ _ m c hCD⟩
 
 /-! ## The remaining glue as Props, and the composite -/
 
@@ -482,6 +604,7 @@ theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelF
 end G0ModField
 
 #print axioms G0ModField.fieldDescent
+#print axioms G0ModField.descentDatum_of_conjugacy
 #print axioms G0ModField.g7Out_of_g4Out
 #print axioms G0ModField.g7OutUnr_of_g4Out
 #print axioms G0ModField.fieldDescentUnr

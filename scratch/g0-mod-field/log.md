@@ -31,3 +31,13 @@
 - VERIFIED: 0 errors; axioms of `modularConstituent_of_ranges`, `fieldDescentUnr`:
   [propext, Classical.choice, Quot.sound]. The emb.toAlgebra clause closed by the G7Data clause
   directly (defeq of `(algebraMap L' ℚ̄).toAlgebra` with the intermediate-field instance).
+
+## run11-14 (02:11): B1 normalization proved; KernelFieldOut refined
+- `KernelFieldOut u P K A` now asks only for `E` (Galois image `G ≤ GL_r(ℤ)`, `r ≤ 16F₀²`,
+  `[E:ℚ] = |G|`, `E` unramified outside `T`) and `ConjugacyData` on the base change `A_{E⊔K}`;
+  the model over `E ⊔ K` is proved (`isModelOver_baseChange`), the unramifiedness of `E ⊔ K` is the
+  named standard Prop `UnramifiedSup`.
+- New: `sgnU`, `sgnU_sq`, `sgnU_mul`, `sgnU_mul_abs`, `ConjugacyData`, `normA`,
+  `descentDatum_of_conjugacy` (B1, N5 L645-663: `a_σ = |ker m_σ|^{-1/4}`, `ε = sgn c`; local constancy
+  via `isLocallyConstant_of_openSubgroup` on `G_L × G_L`).
+- VERIFIED: 0 errors; all six `#print axioms` lines: [propext, Classical.choice, Quot.sound].
