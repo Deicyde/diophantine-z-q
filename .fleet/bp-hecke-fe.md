@@ -1,7 +1,7 @@
 # bp-hecke-fe (fleet summary)
 
 **Main result (VERIFIED: compiled with `lake env lean`, no `sorry`, axioms propext/Classical.choice/Quot.sound).**
-`scratch/bp-hecke-fe/HeckeFE.lean` (about 2700 lines) proves
+`scratch/bp-hecke-fe/HeckeFE.lean` (about 2720 lines, compiles in under a minute) proves
 
     literature_hecke_fe_of_gaussPointCount :
       GaussPointCount → HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5
