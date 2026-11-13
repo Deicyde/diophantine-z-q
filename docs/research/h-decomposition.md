@@ -164,6 +164,13 @@ scratch/h-decomposition/Leaves.lean`, see §2.3.)
   the reduction of R1's clause `π₀(X₆) = 1` (pi0-x6; the clause stays in R1, as recommended).
 - Counts: **23 research-level leaves** (21 concrete; R17 and R1(b) placeholders) and **35
   textbook leaves** (all concrete), **58** in all, **56 concrete**.
+- **pin-apply (2026-11-13): the QM leaf R1 pins `Φ`.** qm-pin's clauses `R1famProps` (`Φ` induced
+  by a family over `Y`) and `R1univProps` (families over proper smooth curves are classified) are
+  in `R1fpProps`, in the kernel (`ZInQKernel/HDecomp/QM/Leaves.lean`, new `QM/Pin.lean`) and in
+  `Leaves.lean`; both still compile without `sorry`, with standard axioms. Pieces 4, 9, 10 are now
+  equivalent to their statements for one triple, given the named curve glue `MobiusGlue`
+  (`HSyn.GluePiecesPin`, `HSyn.sixContactMin_of_leaves_pin`; §3, "The QM pieces and the pin").
+  The leaf count is unchanged: the two clauses belong to R1, from the same R1(a).
 
 **Locator audit (loc-adopt, 2026-11-12).** The locator audit (`docs/research/locators.md`, 2026-11-12, AI agents with web access; not a human review) read the primary texts of most
 research-level leaves; its corrections are applied in this list, in §1 (route K), in §2 and in
@@ -555,6 +562,20 @@ qualifications. Shimura 1967 (Main Thms I-II) and Kottwitz 1992 (§5) were not r
 *Lean (leaf-adopt, 2026-11-12).* Parts (a), (c), (d) are **concrete** (leaf-qm-fp, field-point
 form): in the bundle field `LeafAdopt.R1R2fpRep` (`R1fpProps`: a proper smooth curve `Y/ℚ` with a
 nonempty set of `ℚ̄`-points and `Y(K) ≃ M3 K` natural in fields `K ⊇ ℚ`, with base change;
+**pin clauses (qm-pin, integrated by pin-apply 2026-11-13)**: `R1famProps`, `Φ` is induced by a
+family `𝒜 → Y` (`QMFamily`: proper and smooth of relative dimension 2, endomorphisms `ι(a)` over
+`Y`, sections `η(a)`), i.e. every object in the class `Φ_K(y)` is the fibre `y*𝒜` (`IsFibreOf`: a
+pullback square compatible with `ι` and `η`); and `R1univProps`, every such family over a proper
+smooth curve `S/ℚ` whose field fibres are objects is classified by a morphism `S → Y`. Source:
+Shimura–Deligne R1(a) itself (representability of the PEL functor; Deligne 1971 Thm 4.21, Cor. 5.7,
+Ex. 5.8) under Lemma P: the universal object with `λ` forgotten (Yoneda), and the existence half of
+the universal property on proper smooth curves, which also uses rigidity (Mumford GIT Ch. 6) and
+the extension of the polarization over a normal base (Faltings–Chai I.2.7); these two locator
+numbers are UNVERIFIED, and a human check of qm-pin §2.1 is advisable. The pin clauses repair the
+defect found by rv-g0pieces (the old clauses did not determine `Φ`: any natural relabeling of the
+points of `Y` kept them, `r1fp_exotic`). Lean: `ZInQKernel/HDecomp/QM/Leaves.lean` and
+`Leaves.lean`, with the comparison lemmas in `ZInQKernel/HDecomp/QM/Pin.lean` (`phi_part`,
+`r1fpPin_relabel_iff`, `pointwise_of_witness_mor`; docs/research/pin-apply.md);
 `R1heckeProps`: `Aut 𝒪` twists and `𝒪^×` act by automorphisms of `Y`; `X6Props`: R1 at level
 one, `X₆(ℚ̄) ≃ {QM pairs}/≅` Galois-equivariantly, `W`, the forgetful `Y₃ → X₆`; `R1recProps`:
 residue fields at the three elliptic CM points unramified at `p ≥ 5`) and `LeafQM.AV.R1rec`
@@ -1154,14 +1175,29 @@ Sizes SPECULATIVE (g0-split).
 | 1 | `G0Split.DimFinite` (`dimFinite`) | definition level (G17) | open | small |
 | 2 | `G0Split.DimBaseChange` (`dimBaseChange`) | definition level (E2, G17; also gives `HodgeLatticeTheorem` with two Props, hodge-lattice) | open | medium |
 | (3) | `G0Split.X1BelyiOnModel` (no longer a field) | E2, Belyi half | **proved** (leaf-adopt3): `G0Split.x1BelyiOnModel_of_belyiX1` (transport along `ℚ(X) ≅ K_N`) with `BelyiX1` from T36, T37 (x1-belyi) | — |
-| 4 | `G0Split.FibreSimple` (`fibreSimple`) | G5-G6 on `A` | open (cores proved: T27 at `(2,−3)`, `fibre_free`, `cm_of_val`) | medium |
+| 4 | `G0Split.FibreSimple` (`fibreSimple`) | G5-G6 on `A` | open (cores proved: T27 at `(2,−3)`, `fibre_free`, `cm_of_val`); pin-apply: equivalent, given `MobiusGlue`, to `FibreSimpleAt` for any one triple satisfying the repaired `R1fpProps`, `R2fpProps` (`G0Split.fibreSimple_iff_at`) | medium |
 | 5 | `ZInQ.H5Neron.ProductModelHeight` (`productModelHeight`) | E4 at model level | open; replaces g0-split's `HeightAdditivity`, now proved from it with T41 and H5 | medium |
 | 6 | `G0Split.StableHeightBaseChange` (`stableHeightBaseChange`) | definition level (E3-E4) | open (h5-neron: needs a Néron-model transport glue not yet stated) | large |
 | 7 | `G0Split.ProductExists` (`productExists`) | G17 | open | large |
 | 8 | `G0Split.ReverseIsogeny` (`reverseIsogeny`) | G17 after Poincaré | open | large |
-| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | open | very large |
-| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open (cores proved, including C9, E1's `VSurjOfSurjective`, C10, B3, D1-D5) | very large |
+| 9 | `G0Split.ThetaPointOfFibre` (`thetaPoint`) | G19, F1 on `A` | open; pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.thetaPointOfFibre_iff_at`) | very large |
+| 10 | `G0Split.ModularConstituent` (`modularConstituent`) | G2, G4, G7-G16 | open (cores proved, including C9, E1's `VSurjOfSurjective`, C10, B3, D1-D5); pin-apply: equivalent, given `MobiusGlue`, to its one-triple form (`G0Split.modularConstituent_iff_at`) | very large |
 | 11 | `HeightCopiesAgree` (`heightCopies`) | transport between the two textual copies of the stable Faltings height | open (pure transport, WP1) | medium |
+| 12 | `LeafQM.AV.Pin.MobiusGlue` (`mobius`, only in `GluePiecesPin`) | qm-pin's curve glue: if `g : Y' → Y` compares two triples on `Φ`, then `π' = π ∘ g` on `ℚ̄`-points (Möbius map fixing `0, ∞, −16/27`) | open: argued (qm-pin §3.2); mobius-glue (not yet integrated) proves it from `CurveRatFactor`, `CurveSurj`, `AutOInnerFinite` and the leaf T5 | medium |
+
+**The QM pieces and the pin (pin-apply, 2026-11-13; VERIFIED by `lake env lean`).** Pieces 4, 9, 10
+quantify over every triple `(Y, Φ, π)` satisfying `R1fpProps` and `R2fpProps`. Before qm-pin this
+made them false or unprovable: a relabeled `Φ` also satisfied the clauses (rv-g0pieces). With the
+pin clauses, `phi_part` (proved from `R1univProps`) compares any two triples on `Φ` by a morphism
+`g : Y' → Y`, and `MobiusGlue` (piece 12) gives `π' = π ∘ g`. So each piece is equivalent to its
+statement `…At Y₀ Φ₀ π₀` for any one triple (`G0Split.fibreSimple_iff_at`,
+`thetaPointOfFibre_iff_at`, `modularConstituent_iff_at`), e.g. the leaf's own, and to the
+`∃`-form `…W` (`G0Split.qmPieces_iff_w`, which takes a triple from the QM leaf bundle). The
+bundle `HSyn.GluePiecesPin` is `GluePieces` with pieces 4, 9, 10 in `∃`-form plus `MobiusGlue`:
+`HSyn.gluePieces_of_pin r : GluePiecesPin → GluePieces`, `HSyn.gluePiecesPin_of`, and
+`HSyn.sixContactMin_of_leaves_pin r t gp`. `GluePieces` and `HSyn.sixContactMin_of_leaves` are
+unchanged. The wave-26 Props that rv-g0pieces held back (FS5 `FibreComTrivial`, `FibreQMPeriod`,
+`KernelFieldExists`) can now be stated for the pinned triple; this was not done here.
 
 Route K replaces G9, G10, G12, G14 by **GK1** (Lemma GL₂: `r_ℓ` is a constituent of `V_ℓ(B₀)` for a
 GL₂-type `ℚ`-simple factor `B₀` of `Res_{L'/ℚ}A`, and `B₀,L' ∼ A^k`; inputs R9, T8, Weil
