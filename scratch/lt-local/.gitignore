@@ -1,3 +1,4 @@
 olean/
 Base.lean
 *.out
+!compile.out

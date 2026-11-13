@@ -1,0 +1,1496 @@
+scratch/lt-local/LtLocal.lean:254:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:262:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:262:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:263:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:265:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:267:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:418:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:458:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:611:64: warning: Variable name `hm0` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hm0
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:706:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:729:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:917:0: warning: automatically included section variable(s) unused in theorem `G15Ram.isIntegral_iff_norm_le_one`:
+  [FiniteDimensional ℚ_[p] ↥F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] ↥F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:1018:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1019:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1020:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1024:0: warning: automatically included section variable(s) unused in theorem `G15Ram.torsionFree_OF`:
+  [FiniteDimensional ℚ_[p] ↥F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] ↥F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:1041:0: warning: automatically included section variable(s) unused in theorem `G15Ram.norm_unif_pos`:
+  [FiniteDimensional ℚ_[p] ↥F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] ↥F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:1086:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1100:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1158:0: warning: automatically included section variable(s) unused in theorem `G15Ram.coe_galRestrict`:
+  [FiniteDimensional ℚ_[p] ↥F]
+  [IsGalois ℚ_[p] ↥F]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ_[p] ↥F] [IsGalois ℚ_[p] ↥F] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:1166:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1190:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1204:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1234:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1258:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1259:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1260:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1261:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1262:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1263:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1349:73: warning: Variable name `p` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _p
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:1363:27: warning: Variable name `p` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _p
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:1722:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1723:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1796:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1797:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1919:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1959:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1960:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1976:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:1977:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2018:70: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:2151:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2152:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2153:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2171:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2173:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2175:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2302:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2555:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2556:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2842:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2958:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2965:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:2990:0: warning: automatically included section variable(s) unused in theorem `G15Ram.fixed_of_unipSq_of_iterate'`:
+  [NumberField K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:3062:0: warning: automatically included section variable(s) unused in theorem `G15Ram.galAct_inv_galAct`:
+  [NumberField K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:3104:0: warning: automatically included section variable(s) unused in theorem `G15Ram.galAct_galAct`:
+  [NumberField K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:3146:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3149:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3150:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3215:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3218:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3325:67: warning: This simp argument is unused:
+  Category.id_comp
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Functor.const_obj_obj, Functor.const_obj_map]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:3449:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/lt-local/LtLocal.lean:3674:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/lt-local/LtLocal.lean:3675:10: warning: `mul_le_one₀` has been deprecated: No replacement, use constituent lemmas from proof.
+scratch/lt-local/LtLocal.lean:3678:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/lt-local/LtLocal.lean:3806:15: warning: This simp argument is unused:
+  Subring.coe_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [OneMemClass.coe_one] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:3902:15: warning: This simp argument is unused:
+  Subring.coe_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [OneMemClass.coe_one] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:3932:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3934:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3950:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3965:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3968:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3969:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3976:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:3994:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4087:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4089:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4090:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4100:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4106:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4107:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4110:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4111:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4113:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4114:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4118:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4232:22: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/lt-local/LtLocal.lean:4295:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4357:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4358:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4364:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4365:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4460:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4473:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4495:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4496:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4617:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4620:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4629:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4634:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4716:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4632:25: warning: Unused tactic linter: `beta_reduce` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:4633:34: warning: Unused tactic linter: `beta_reduce` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:4805:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:4814:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:4854:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:4855:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:5014:0: warning: automatically included section variable(s) unused in theorem `G15Ram.tower_comp`:
+  [FiniteDimensional ℚ ↥L]
+  [FiniteDimensional ℚ ↥L']
+  [IsGalois ℚ ↥L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [FiniteDimensional ℚ ↥L] [FiniteDimensional ℚ ↥L'] [IsGalois ℚ ↥L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:5017:9: warning: Variable name `x` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _x
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:5029:0: warning: automatically included section variable(s) unused in theorem `G15Ram.θL_apply`:
+  [IsGalois ℚ ↥L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsGalois ℚ ↥L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/lt-local/LtLocal.lean:5539:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5539:48: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5540:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5541:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5541:62: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5542:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5543:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5543:62: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5544:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5545:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5545:34: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5545:46: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5657:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:5884:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:5901:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/lt-local/LtLocal.lean:5909:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/lt-local/LtLocal.lean:5865:15: warning: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:5959:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6093:28: warning: Variable name `P` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _P
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:6223:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6297:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6299:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6300:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6310:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6316:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6317:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6320:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6321:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6323:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6324:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6328:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6553:8: warning: This simp argument is unused:
+  wPP
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPJ, wJJ, hPP,
+    hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:6554:29: warning: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, add_zero, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:6554:39: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:6554:49: warning: This simp argument is unused:
+  zero_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:6554:59: warning: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero,
+    zero_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/lt-local/LtLocal.lean:6555:14: warning: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:6555:27: warning: Unused tactic linter: `(simp only [sub_sub_cancel, sub_self, smul_zero])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:6555:79: warning: Unused tactic linter: `skip` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:6555:27: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/lt-local/LtLocal.lean:6555:79: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/lt-local/LtLocal.lean:6581:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:6581:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/lt-local/LtLocal.lean:6593:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/lt-local/LtLocal.lean:6593:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/lt-local/LtLocal.lean:6682:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6808:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6810:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6817:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6818:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6821:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6822:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6824:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6825:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:6849:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/lt-local/LtLocal.lean:6929:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7014:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7015:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7016:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7017:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7018:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7019:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7025:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7026:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7029:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7030:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7032:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7033:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7095:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7120:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7147:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7148:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7149:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7336:2: warning: `LinearEquiv.ofLinear` has been deprecated: Use `LinearEquiv.ofLinearMap` instead
+
+Hint: Replace the deprecated name:
+  LinearEquiv.ofLinearM̲a̲p̲
+scratch/lt-local/LtLocal.lean:7606:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/lt-local/LtLocal.lean:7762:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7771:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7772:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7773:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:7810:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8510:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8551:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8553:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8656:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8692:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8875:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8906:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8996:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:8997:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9008:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9009:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9337:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9357:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9366:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9354:5: warning: Variable name `hU3` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU3
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/lt-local/LtLocal.lean:9390:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/lt-local/LtLocal.lean:9533:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'LTLocal.exists_equiv_extending' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.g7Clauses_of_transport' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.dim_bc_of_g7Data' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.localGlue_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.linkedTateLocalD_of_tateBridge35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.linkedTateLocal_of_D' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.linkedTateLocalD_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.modelEndRank4_of_localD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.endDivision_of_fibreSimple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.modelEndRank4_of_qmEndRank' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LTLocal.linkedTateLocalD_of_tateBridge35'' depends on axioms: [propext, Classical.choice, Quot.sound]
