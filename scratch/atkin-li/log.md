@@ -18,3 +18,4 @@
 - 10:05 VERIFIED (compiled): GZTheta/ALFricke.lean — twist_fricke: (G⊗(·/r))(−1/(Mr²τ)) = c r² χ(−M) τ² (G⊗χ)(τ) for G ∈ S₂(Γ₁(M), 1) with G(−1/(Mz)) = c z² G(z), r odd squarefree coprime to M.
 - 10:20 VERIFIED (compiled): GZTheta/ALBasic.lean — def NewformUniqueAcrossLevels (Miyake 4.6.19/4.6.20, TC main level_eq_and_coe_eq_of_comp_unitsMap_eq); newform_fricke_ne; twistJ, exists_eigenformAway_twist.
 - 10:35 VERIFIED (compiled): GZTheta/ALRep.lean — exists_coeff_rep (needs NewformUniqueAcrossLevels), fun_rep_of_coeff_rep.
+- 10:55 VERIFIED (compiled): GZTheta/ALArith.lean — level_eq_of_reps: from H = Σ_{e|P} c_e b(·/e), Fricke κH = c_g Σ c_e (P/e)² b(·/(P/e)), H(p^j)=0 at p|P, v_p(N)=2 ⇒ M' = N (via ν = Dirichlet inverse of b, c = H⋆ν multiplicative).
