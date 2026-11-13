@@ -187,4 +187,112 @@ theorem F₁_shift_fricke {d : ℕ} (hd : 0 < d) {a b : ℤ} (hab : (d : ℤ) �
     rw [← hprod]; ring
   linear_combination (-32 : ℂ) * etaQuot32 τ' * this
 
+
+/-! ### The Fricke identity for `f_d` -/
+
+/-- A sum over `ZMod d` of terms vanishing at the non-units is a sum over the units. -/
+theorem sum_zmod_eq_sum_units {d : ℕ} [NeZero d] (f : ZMod d → ℂ)
+    (hf : ∀ a : ZMod d, ¬ IsUnit a → f a = 0) :
+    ∑ a : ZMod d, f a = ∑ u : (ZMod d)ˣ, f (u : ZMod d) := by
+  symm
+  refine Fintype.sum_of_injective (fun u : (ZMod d)ˣ => (u : ZMod d)) Units.val_injective _ _
+    (fun a ha => hf a (fun hu => ha ⟨hu.unit, rfl⟩)) (fun u => rfl)
+
+/-- `σ(u) = −(32 u)⁻¹` on the units modulo odd `d`. -/
+def sig {d : ℕ} [NeZero d] (h32 : Nat.Coprime 32 d) (u : (ZMod d)ˣ) : (ZMod d)ˣ :=
+  -(ZMod.unitOfCoprime 32 h32 * u)⁻¹
+
+theorem sig_sig {d : ℕ} [NeZero d] (h32 : Nat.Coprime 32 d) (u : (ZMod d)ˣ) :
+    sig h32 (sig h32 u) = u := by
+  unfold sig
+  rw [mul_neg, inv_neg, neg_neg, mul_inv_rev, inv_inv, mul_comm (ZMod.unitOfCoprime 32 h32) u,
+    mul_inv_cancel_right]
+
+theorem jacobiChar_sig {d : ℕ} [NeZero d] (h32 : Nat.Coprime 32 d) (u : (ZMod d)ˣ) :
+    jacobiChar d ((sig h32 u : (ZMod d)ˣ) : ZMod d) =
+      jacobiChar d ((-32 : ℤ) : ZMod d) * jacobiChar d (u : ZMod d) := by
+  unfold sig
+  rw [Units.val_neg, show -((((ZMod.unitOfCoprime 32 h32 * u)⁻¹ : (ZMod d)ˣ)) : ZMod d) =
+    (-1 : ZMod d) * (((ZMod.unitOfCoprime 32 h32 * u)⁻¹ : (ZMod d)ˣ) : ZMod d) by ring,
+    map_mul, jacobiChar_inv_unit, Units.val_mul, map_mul, ZMod.coe_unitOfCoprime]
+  have : ((-32 : ℤ) : ZMod d) = (-1 : ZMod d) * ((32 : ℕ) : ZMod d) := by push_cast; ring
+  rw [this, map_mul]
+  ring
+
+theorem sig_spec {d : ℕ} [NeZero d] (h32 : Nat.Coprime 32 d) (u : (ZMod d)ˣ) :
+    (d : ℤ) ∣ 32 * ((u : ZMod d).val : ℤ) * (((sig h32 u : (ZMod d)ˣ) : ZMod d).val : ℤ) + 1 := by
+  rw [← ZMod.intCast_zmod_eq_zero_iff_dvd]
+  push_cast
+  simp only [ZMod.natCast_val, ZMod.cast_id', id]
+  unfold sig
+  rw [Units.val_neg, mul_neg]
+  have : (32 : ZMod d) * (u : ZMod d) =
+      ((ZMod.unitOfCoprime 32 h32 * u : (ZMod d)ˣ) : ZMod d) := by
+    rw [Units.val_mul, ZMod.coe_unitOfCoprime]; push_cast; ring
+  rw [this, Units.mul_inv]
+  ring
+
+/-- **The Fricke involution on `f_d`**:
+`f_d(−1/(32 d² τ)) = −32 d² (−32/d) τ² f_d(τ)`. -/
+theorem cmForm_fricke {d : ℕ} [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) (τ : ℍ)
+    (hτ' : 0 < (-1 / (32 * (d : ℂ) ^ 2 * τ)).im) :
+    cmForm etaForm32 d ⟨-1 / (32 * (d : ℂ) ^ 2 * τ), hτ'⟩ =
+      -32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d) * (τ : ℂ) ^ 2 *
+        cmForm etaForm32 d τ := by
+  have hodd : Odd d := odd_of_mod_four hd4
+  have hd0 : 0 < d := Nat.pos_of_ne_zero (NeZero.ne d)
+  have h32 : Nat.Coprime 32 d := by
+    have : Nat.Coprime (2 ^ 5) d := Nat.Coprime.pow_left 5 (Nat.coprime_two_left.mpr hodd)
+    simpa using this
+  have hval : ∀ (a : ZMod d) (w : ℍ), (restrict32 etaForm32) (((a.val : ℝ) / d) +ᵥ w) =
+      F₁ (((a.val : ℕ) : ℂ) / d + w) := by
+    intro a w
+    show etaQuot32 (((a.val : ℝ) / d) +ᵥ w) = _
+    simp only [etaQuot32, F₁, UpperHalfPlane.coe_vadd]
+    push_cast; rfl
+  rw [cmForm, CuspForm.twist_apply, CuspForm.twist_apply]
+  simp only [hval]
+  set χ := jacobiChar d with hχ
+  have hdft : ∀ k, ZMod.dft (⇑χ) k = χ k * ZMod.dft (⇑χ) 1 := dft_jacobiChar d hsq hodd
+  generalize ZMod.dft (⇑χ) 1 = G at hdft
+  simp only [hdft]
+  -- the left sum, over the units
+  have hL : ∑ a : ZMod d, χ a * G * F₁ (((a.val : ℕ) : ℂ) / d +
+        -1 / (32 * (d : ℂ) ^ 2 * τ)) =
+      ∑ u : (ZMod d)ˣ, χ (u : ZMod d) * G * (-32 * (d : ℂ) ^ 2 * (τ : ℂ) ^ 2 *
+        F₁ ((τ : ℂ) + ((((sig h32 u : (ZMod d)ˣ) : ZMod d).val : ℕ) : ℂ) / d)) := by
+    rw [sum_zmod_eq_sum_units _ (fun a ha => by rw [MulChar.map_nonunit _ ha]; ring)]
+    refine Finset.sum_congr rfl fun u _ => ?_
+    have h := F₁_shift_fricke hd0 (sig_spec h32 u) τ
+    push_cast at h
+    rw [show (((u : ZMod d).val : ℕ) : ℂ) / d + -1 / (32 * (d : ℂ) ^ 2 * τ) =
+      (((u : ZMod d).val : ℕ) : ℂ) / d - 1 / (32 * (d : ℂ) ^ 2 * τ) by ring, h]
+  -- reindex by `σ`
+  have hR : ∑ u : (ZMod d)ˣ, χ (u : ZMod d) * G * (-32 * (d : ℂ) ^ 2 * (τ : ℂ) ^ 2 *
+        F₁ ((τ : ℂ) + ((((sig h32 u : (ZMod d)ˣ) : ZMod d).val : ℕ) : ℂ) / d)) =
+      -32 * (d : ℂ) ^ 2 * χ ((-32 : ℤ) : ZMod d) * (τ : ℂ) ^ 2 *
+        ∑ b : ZMod d, χ b * G * F₁ (((b.val : ℕ) : ℂ) / d + τ) := by
+    rw [sum_zmod_eq_sum_units (fun b => χ b * G * F₁ (((b.val : ℕ) : ℂ) / d + τ))
+      (fun a ha => by rw [MulChar.map_nonunit _ ha]; ring), Finset.mul_sum]
+    let e : (ZMod d)ˣ ≃ (ZMod d)ˣ := ⟨sig h32, sig h32, sig_sig h32, sig_sig h32⟩
+    refine Fintype.sum_equiv e _ _ fun u => ?_
+    simp only [e, Equiv.coe_fn_mk]
+    have hχσ := jacobiChar_sig h32 u
+    have hχσσ : χ (u : ZMod d) = χ ((-32 : ℤ) : ZMod d) *
+        χ ((sig h32 u : (ZMod d)ˣ) : ZMod d) := by
+      have := jacobiChar_sig h32 (sig h32 u)
+      rw [sig_sig] at this
+      exact this
+    rw [hχσσ]
+    have hsq32 : χ ((-32 : ℤ) : ZMod d) ^ 2 = 1 := by
+      have hu : IsUnit (((-32 : ℤ) : ZMod d)) := by
+        have : IsUnit (((32 : ℕ) : ZMod d)) := (ZMod.isUnit_iff_coprime 32 d).mpr h32
+        have h' : ((-32 : ℤ) : ZMod d) = -((32 : ℕ) : ZMod d) := by push_cast; ring
+        rw [h']; exact this.neg
+      exact jacobiChar_sq_unit d hu.unit
+    rw [add_comm (τ : ℂ)]
+    ring
+  rw [hL, hR]
+  ring
+
 end ZInQ.GZTheta
