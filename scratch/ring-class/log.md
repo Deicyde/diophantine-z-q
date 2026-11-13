@@ -73,3 +73,13 @@
 - New ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean: `hprimeNormal : HprimeNormal`, `iInH4 : IInH4`,
   `tyzThm35ReadingA_of_cmLeaves_ringClass` (cm-points' finest main theorem minus these two hypotheses).
 - #print axioms (scratch/ring-class/AuditBridge.lean): all [propext, Classical.choice, Quot.sound].
+
+## ~08:50 round 5 (VERIFIED, lake build RingClassBridge success; axioms standard three)
+- ConjInverse/Normality sections generalized from O4 d to every `conductorOrder (QNeg d) f`.
+- Ring class fields by discriminant: `ringClassFieldBar m f`, `normal_ringClassFieldBar` (every order
+  ℤ + f𝓞_K of an imaginary quadratic field: ring class field normal over ℚ), `sqfPart` (squarefree part,
+  `squarefree_eq_of_sq_mul_eq` uniqueness), `condD` (conductor), `condD_spec` (|D| = f²|d_K| for D < 0,
+  D ≡ 0,1 mod 4), `ringClassFieldD D`, `normal_ringClassFieldD`, `ringClassFieldD_tyz`
+  (ringClassFieldD (−64n) = H4bar n for squarefree n ≡ 5 mod 8).
+- Bridge: `cmFieldTYZ_of_ringClassD` (CM.CMFieldOfDefinition ringClassFieldD → CMFieldOfDefinitionTYZ),
+  `tyzThm35ReadingA_of_cmLeaves_ringClassD`, `normalFields_HHprime'`.

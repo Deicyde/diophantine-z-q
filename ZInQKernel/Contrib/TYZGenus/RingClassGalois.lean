@@ -866,4 +866,138 @@ theorem iQ_mem_H4bar (hd : d ≠ 0) : iQ ∈ H4bar d := by
 
 end IInH4
 
+section ByDiscriminant
+
+open ZInQ.RouteK.Rank5b ZInQ.Contrib.TYZDecomp.CurveA
+
+/-- The ring class field of `ℤ + f𝓞_{K_m}` (`K_m = ℚ(√−m)`) as a subfield of `ℚ̄` (through the
+fixed embedding `embed m`; `⊥` if `m = 0` or `f = 0`). It is normal over `ℚ`
+(`normal_ringClassFieldBar`), so it does not depend on the embedding. -/
+def ringClassFieldBar (m f : ℕ) : IntermediateField ℚ Qbar :=
+  if h : m = 0 ∨ f = 0 then ⊥ else
+    haveI : NeZero m := ⟨fun h' => h (Or.inl h')⟩
+    haveI : NeZero f := ⟨fun h' => h (Or.inr h')⟩
+    ((ringClassField (conductorOrder (QNeg m) f)).restrictScalars ℚ).map (embed m)
+
+theorem ringClassFieldBar_eq (m f : ℕ) [NeZero m] [NeZero f] :
+    ringClassFieldBar m f =
+      ((ringClassField (conductorOrder (QNeg m) f)).restrictScalars ℚ).map (embed m) := by
+  simp [ringClassFieldBar, NeZero.ne m, NeZero.ne f]
+
+theorem ringClassFieldBar_four (d : ℕ) : ringClassFieldBar d 4 = H4bar d := by
+  rcases eq_or_ne d 0 with rfl | hd
+  · simp [ringClassFieldBar, H4bar_zero]
+  · haveI : NeZero d := ⟨hd⟩
+    rw [ringClassFieldBar_eq, H4bar_eq_map]
+
+theorem ringClassField_eq_ringSubfield (m f : ℕ) [NeZero m] [NeZero f] :
+    ringClassField (conductorOrder (QNeg m) f) =
+      ringSubfield (⊥ : Subgroup (Pic (conductorOrder (QNeg m) f))) := by
+  rw [ringSubfield, Subgroup.map_bot, IntermediateField.fixedField_bot, IntermediateField.lift_top]
+
+/-- **The ring class field of every order `ℤ + f𝓞_K` of an imaginary quadratic field is normal
+over `ℚ`.** -/
+theorem normal_ringClassFieldBar (m f : ℕ) : Normal ℚ (ringClassFieldBar m f) := by
+  by_cases h : m = 0 ∨ f = 0
+  · rw [ringClassFieldBar, dif_pos h]
+    exact Normal.of_algEquiv (IntermediateField.botEquiv ℚ Qbar).symm
+  · haveI : NeZero m := ⟨fun h' => h (Or.inl h')⟩
+    haveI : NeZero f := ⟨fun h' => h (Or.inr h')⟩
+    rw [ringClassFieldBar_eq]
+    haveI : Normal ℚ ((ringClassField (conductorOrder (QNeg m) f)).restrictScalars ℚ) := by
+      rw [ringClassField_eq_ringSubfield]
+      exact normal_ringSubfield _
+    exact Normal.of_algEquiv (IntermediateField.equivMap _ (embed m))
+
+/-- The squarefree part of `N`: `N = b² · sqfPart N` with `sqfPart N` squarefree (unique for
+`N ≠ 0`, `squarefree_eq_of_sq_mul_eq`). -/
+def sqfPart (N : ℕ) : ℕ := (Nat.sq_mul_squarefree N).choose
+
+theorem sqfPart_spec (N : ℕ) : ∃ b, b ^ 2 * sqfPart N = N ∧ Squarefree (sqfPart N) :=
+  (Nat.sq_mul_squarefree N).choose_spec
+
+/-- Uniqueness of the squarefree part. -/
+theorem squarefree_eq_of_sq_mul_eq {a b c e : ℕ} (h : b ^ 2 * a = e ^ 2 * c) (h0 : b ^ 2 * a ≠ 0)
+    (ha : Squarefree a) (hc : Squarefree c) : a = c := by
+  have ha0 : a ≠ 0 := fun h' => h0 (by rw [h', mul_zero])
+  have hb0 : b ≠ 0 := fun h' => h0 (by rw [h']; simp)
+  have h0' : e ^ 2 * c ≠ 0 := h ▸ h0
+  have hc0 : c ≠ 0 := fun h' => h0' (by rw [h', mul_zero])
+  have he0 : e ≠ 0 := fun h' => h0' (by rw [h']; simp)
+  apply Nat.eq_of_factorization_eq ha0 hc0
+  intro p
+  have h1 := congrArg (fun x => x.factorization p) h
+  simp only [Nat.factorization_mul (pow_ne_zero 2 hb0) ha0,
+    Nat.factorization_mul (pow_ne_zero 2 he0) hc0, Nat.factorization_pow, Finsupp.add_apply,
+    Finsupp.smul_apply, smul_eq_mul] at h1
+  have h2 := ha.natFactorization_le_one p
+  have h3 := hc.natFactorization_le_one p
+  omega
+
+/-- The conductor of the order of discriminant `D < 0`: `|D| = f² |d_K|` with `m = sqfPart |D|`
+and `d_K = −m` if `m ≡ 3 (mod 4)`, `d_K = −4m` otherwise (`condD_spec`). -/
+def condD (D : ℤ) : ℕ :=
+  if sqfPart D.natAbs % 4 = 3 then Nat.sqrt (D.natAbs / sqfPart D.natAbs)
+  else Nat.sqrt (D.natAbs / (4 * sqfPart D.natAbs))
+
+/-- **The ring class field of discriminant `D`**, as a subfield of `ℚ̄`: for `D < 0`, Tau Ceti's
+ring class field of `ℤ + f𝓞_K`, `K = ℚ(√D) = ℚ(√−sqfPart|D|)`, `f = condD D` — for
+`D ≡ 0, 1 (mod 4)` this is the order of discriminant `D` (`condD_spec`); `⊥` for `D ≥ 0`. This is
+the family `H` intended in cm-points' leaf `CM.CMFieldOfDefinition H`. -/
+def ringClassFieldD (D : ℤ) : IntermediateField ℚ Qbar :=
+  if D < 0 then ringClassFieldBar (sqfPart D.natAbs) (condD D) else ⊥
+
+theorem normal_ringClassFieldD (D : ℤ) : Normal ℚ (ringClassFieldD D) := by
+  by_cases hD : D < 0
+  · rw [ringClassFieldD, if_pos hD]
+    exact normal_ringClassFieldBar _ _
+  · rw [ringClassFieldD, if_neg hD]
+    exact Normal.of_algEquiv (IntermediateField.botEquiv ℚ Qbar).symm
+
+/-- `condD` is the conductor: `|D| = f² |d_K|` for `D < 0`, `D ≡ 0, 1 (mod 4)`. -/
+theorem condD_spec {D : ℤ} (h4 : D % 4 = 0 ∨ D % 4 = 1) (hD : D < 0) :
+    (if sqfPart D.natAbs % 4 = 3 then condD D ^ 2 * sqfPart D.natAbs
+      else condD D ^ 2 * (4 * sqfPart D.natAbs)) = D.natAbs := by
+  obtain ⟨b, hb, hs⟩ := sqfPart_spec D.natAbs
+  have hm0 : sqfPart D.natAbs ≠ 0 := fun h => by rw [h, mul_zero] at hb; omega
+  have hm4 : ¬ 4 ∣ sqfPart D.natAbs := fun h => by
+    have := hs 2 (by simpa using h)
+    simp at this
+  have hDa : (D.natAbs : ℤ) = -D := by omega
+  rw [condD]
+  split_ifs with h3
+  · rw [Nat.div_eq_of_eq_mul_left (Nat.pos_of_ne_zero hm0) hb.symm, Nat.sqrt_eq', hb]
+  · have hbe : 2 ∣ b := by
+      by_contra hb2
+      obtain ⟨k, rfl⟩ : ∃ k, b = 2 * k + 1 := ⟨b / 2, by omega⟩
+      obtain ⟨t, ht⟩ : ∃ t, (2 * k + 1) ^ 2 * sqfPart D.natAbs = sqfPart D.natAbs + 4 * t :=
+        ⟨(k ^ 2 + k) * sqfPart D.natAbs, by ring⟩
+      rw [ht] at hb
+      omega
+    obtain ⟨c, rfl⟩ := hbe
+    have hb' : D.natAbs = c ^ 2 * (4 * sqfPart D.natAbs) := by
+      calc D.natAbs = (2 * c) ^ 2 * sqfPart D.natAbs := hb.symm
+        _ = _ := by ring
+    rw [Nat.div_eq_of_eq_mul_left (by omega) hb', Nat.sqrt_eq']
+    exact hb'.symm
+
+theorem sqfPart_sixtyfour_mul {n : ℕ} (hsq : Squarefree n) (hn : n ≠ 0) : sqfPart (64 * n) = n := by
+  obtain ⟨b, hb, hs⟩ := sqfPart_spec (64 * n)
+  exact squarefree_eq_of_sq_mul_eq (e := 8) (by rw [hb]; ring) (by rw [hb]; omega) hs hsq
+
+/-- **TYZ's ring class field is the ring class field of discriminant `−64n`**: for squarefree
+`n ≡ 5 (mod 8)`, `ringClassFieldD (−64n) = H_{n,4}`. -/
+theorem ringClassFieldD_tyz {n : ℕ} (hn : n % 8 = 5) (hsq : Squarefree n) :
+    ringClassFieldD (-64 * n) = H4bar n := by
+  have hn0 : n ≠ 0 := by omega
+  have hab : (-64 * (n : ℤ)).natAbs = 64 * n := by omega
+  have hs : sqfPart (64 * n) = n := sqfPart_sixtyfour_mul hsq hn0
+  have hc : condD (-64 * n) = 4 := by
+    rw [condD, hab, hs, if_neg (by omega),
+      Nat.div_eq_of_eq_mul_left (by omega : 0 < 4 * n) (by ring : 64 * n = 16 * (4 * n))]
+    exact Nat.sqrt_eq' 4
+  rw [ringClassFieldD, if_pos (by omega), hc, hab, hs, ringClassFieldBar_four]
+
+end ByDiscriminant
+
 end ZInQ.Contrib.TYZGenus.RingClass
