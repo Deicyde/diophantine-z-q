@@ -237,3 +237,15 @@
   TailK.lean exit 0, no sorry, tail_K/R/D/U standard axioms.
 - Remaining for LocalGlue on G7's data: leaves R6, I2-Tors (in the bundles); textbook UnramRoots;
   glue KerWild (missing clause of G7Out/TateBridge) and DescentPts (p ≤ 5).
+
+## Step 17 (08:40-08:50 PST): report, KerWild from G7Data's clause
+- docs/research/local-glue.md rewritten (main result `localGlue_of_unramRoots`); .fleet/local-glue.md
+  written.
+- Finding G8 (VERIFIED, read scratch/g0-assemble/parts/75_modfield.lean l.1002-1020): `TateBridge`
+  outputs G7Out with ℚ̄_ℓ-valued β' and no relation to G7Data's β or to L' = ker β; KerWild is not
+  derivable from its output.
+- Proved (VERIFIED, compiled, standard axioms): `kerWild_of_g7Data` — from `G_{L'} = G_L ∩ ker β_ℂ`
+  (G7Data's clause; `GQL L = L.fixingSubgroup` in ZInQKernel/HDecomp/Descent/B3Assembly.lean l.36),
+  `L'` finite Galois, `β = ι ∘ β_ℂ` with `ι` injective ⟹ `KerWild L' β L` (via copied `resQ_range`).
+  So the correction to TateBridge is: also output `β' = ι ∘ β` with `ι` injective.
+- Compile: LocalGlue.lean exit 0, no sorry, 73 printed declarations standard.

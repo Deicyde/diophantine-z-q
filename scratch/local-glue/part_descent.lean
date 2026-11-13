@@ -365,6 +365,26 @@ theorem localGlue_of_descent (hR6 : ObjBridge.RaynaudCriterion)
   localGlue_of_leaves hR6 hTors hpℓ h7 hC hK
     (fun h5 => tateWildKE_of_descent hR6 hTors hC (hD h5) (Ne.symm hpℓ) hB) hB
 
+/-- **`KerWild` from G7Data's kernel-field clause (proved).** If `L'` is finite Galois,
+`G_{L'} = G_L ∩ ker β_ℂ` (g0-mod-field `G7Data`/`G7Out`: `σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1`, with
+`GQL L = L.fixingSubgroup`), and the `ℚ̄_ℓ`-valued `β` is `ι ∘ β_ℂ` for an injective
+`ι : ℂ^× →* ℚ̄_ℓ^×`, then `KerWild L' β L` for G7Out's model field `K = L'`. This is the clause that
+g0-assemble's `TateBridge` must add to its output (finding G8). -/
+theorem kerWild_of_g7Data {ℓ : ℕ} [Fact ℓ.Prime] {L L' : IntermediateField ℚ PkgI4.Qbar}
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (βC : GQ → ℂˣ)
+    (hker : ∀ σ : GQ, σ ∈ L'.fixingSubgroup ↔ σ ∈ L.fixingSubgroup ∧ βC σ = 1)
+    (ιC : ℂˣ →* (PadicAlgCl ℓ)ˣ) (hι : Function.Injective ιC) {β : GQ → PadicAlgCl ℓ}
+    (hβ : ∀ g, β g = (ιC (βC g) : PadicAlgCl ℓ)) : KerWild L' β L := by
+  intro g hgL hg1
+  have h1 : ιC (βC g) = ιC 1 := by
+    rw [map_one]
+    exact Units.ext (by rw [Units.val_one, ← hβ g, hg1])
+  have h2 : βC g = 1 := hι h1
+  have h3 : g ∈ L'.fixingSubgroup :=
+    (hker g).mpr ⟨(IntermediateField.mem_fixingSubgroup_iff _ _).mpr hgL, h2⟩
+  rw [RQ.resQ_range L']
+  exact h3
+
 end DescentSec
 
 end G15Ram
@@ -377,3 +397,4 @@ end
 #print axioms G15Ram.torsFixWildE_of_twist
 #print axioms G15Ram.tateWildKE_of_descent
 #print axioms G15Ram.localGlue_of_descent
+#print axioms G15Ram.kerWild_of_g7Data
