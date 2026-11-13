@@ -71,3 +71,15 @@ HeckeFibreSizes, HeckeNoVertRam.
   Γ(Y, π.U) ≅ integralClosure ℚ[X] E by IsIntegralClosure.equiv, FiniteDimensional via
   IsIntegralClosure.isLocalization + Module.Finite.of_isLocalization).
 - `#print axioms HeckeRestCurve.curveNormChart_of`: [propext, Classical.choice, Quot.sound].
+
+## Step 6. Lean: CurveChartInf and normality (`CurveChart.lean`) — VERIFIED (compiled, 0 errors, ~35 s)
+- Added verbatim copies: TSHecke.lean 6526-6551 (NormalizationModelInf,
+  CurveChartInf), 4613-5002 (infra-smooth-dim stalk dimensions), 5010-5173 (curve-glue CI copy).
+- New glue Props: `ChartFiniteInf` (π.V affine, ℚ[s] → Γ(Y, π.V), s ↦ π.g, injective and
+  finite), `InfFnField` (E is the fraction field of Γ(Y, π.V) via a map with π.g ↦ 1/X).
+- Proved: `curveChartInf_of : ChartFiniteInf → ChartNormalD → InfFnField → CurveChartInf`;
+  `loc_max_dvr` (localizations of Γ(Y,U) at maximal ideals are integrally closed domains);
+  `chartNormalD`, `curveSectionsDomain`, `chartNormal` (both normality Props are theorems);
+  `curveNormChart_of' : ChartFinite → CurveNormChart`;
+  `curveChartInf_of' : ChartFiniteInf → InfFnField → CurveChartInf`.
+- `#print axioms` (5 lines): [propext, Classical.choice, Quot.sound].

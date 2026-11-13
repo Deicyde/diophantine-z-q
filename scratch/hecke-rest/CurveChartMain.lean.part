@@ -46,7 +46,7 @@ nonempty affine open form an integrally closed domain. *Proof* (STANDARD; Hartsh
 II.6.2A, Stacks 033B/0567; locators UNVERIFIED): `Y` is reduced and irreducible, hence integral;
 its local rings at closed points are regular of dimension 1 (curve-glue, infra-smooth-dim:
 `isDomain_of_dim_one`, stalk dimensions), hence DVRs; a domain whose localizations at all maximal
-ideals are integrally closed is integrally closed. Glue, not a leaf. -/
+ideals are integrally closed is integrally closed. Glue; **proved below** (`chartNormal`). -/
 def ChartNormal : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
     SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left → IsAffineOpen U →
@@ -152,7 +152,7 @@ def ChartFiniteInf : Prop :=
 
 /-- **Glue (smooth curves are normal), domain form.** On a smooth curve `Y/ℚ`, if the sections over
 an affine open form a domain, the domain is integrally closed (local rings at closed points are
-DVRs; Hartshorne I.6, Stacks 033B; locators UNVERIFIED). Glue, not a leaf. -/
+DVRs; Hartshorne I.6, Stacks 033B; locators UNVERIFIED). Glue; **proved below** (`chartNormalD`). -/
 def ChartNormalD : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
     SmoothOfRelativeDimension 1 Y.hom → IsAffineOpen U → IsDomain Γ(Y.left, U) →
@@ -263,9 +263,108 @@ theorem curveChartInf_of (hF : ChartFiniteInf) (hND : ChartNormalD) (hFF : InfFn
       apply val_of_not_mem
       exact fun hU => h ⟨hU, hmem⟩
 
+/-! ## `ChartNormalD` proved; `ChartNormal` reduced to its domain part -/
+
+/-- **The localizations of `Γ(Y, U)` at maximal ideals are discrete valuation rings** (as domains
+that are integrally closed): they are the local rings of `Y` at closed points, regular of
+dimension 1 (infra-smooth-dim's `stalk_dim_of_smoothOfRelativeDimension`, curve-glue's
+`isDomain_of_dim_one`, Mathlib's DVR TFAE). -/
+theorem loc_max_dvr (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens)
+    (hS : SmoothOfRelativeDimension 1 Y.hom) (hU : IsAffineOpen U) (p : Ideal Γ(Y.left, U))
+    (hpm : p.IsMaximal) :
+    IsDomain (Localization.AtPrime p) ∧ IsIntegrallyClosed (Localization.AtPrime p) := by
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  haveI : IsLocallyNoetherian Y.left := LocallyOfFiniteType.isLocallyNoetherian Y.hom
+  let q : PrimeSpectrum Γ(Y.left, U) := ⟨p, hpm.isPrime⟩
+  let x : Y.left := hU.fromSpec q
+  have hxU : x ∈ U := by
+    have : x ∈ Set.range hU.fromSpec.base := ⟨q, rfl⟩
+    rwa [hU.range_fromSpec] at this
+  have hxc : IsClosed ({x} : Set Y.left) := by
+    apply isClosed_singleton_of_isLocallyClosed_singleton
+    have hq : IsClosed ({q} : Set ↥(Spec Γ(Y.left, U))) :=
+      (PrimeSpectrum.isClosed_singleton_iff_isMaximal q).2 hpm
+    have h2 := hq.isLocallyClosed.image hU.fromSpec.isOpenEmbedding.isInducing
+      hU.fromSpec.isOpenEmbedding.isOpen_range.isLocallyClosed
+    have e2 : (hU.fromSpec.base '' {q} : Set Y.left) = {x} := Set.image_singleton
+    rw [e2] at h2
+    exact h2
+  obtain ⟨hdim, hspan⟩ := InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension Y.hom 1 x hxc
+  have hdim' : ringKrullDim (Y.left.presheaf.stalk x) = 1 := by rw [hdim]; rfl
+  have hspan' : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).spanFinrank = 1 := hspan
+  haveI : IsDomain (Y.left.presheaf.stalk x) := CIcopy.CurveGlueCI.isDomain_of_dim_one hdim' hspan'
+  have hnf : ¬ IsField (Y.left.presheaf.stalk x) := fun h => by
+    have h0 := ringKrullDim_eq_zero_of_isField h
+    rw [hdim'] at h0
+    exact one_ne_zero h0
+  have hprin : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).IsPrincipal := by
+    have hfg : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).FG := IsNoetherian.noetherian _
+    obtain ⟨s, hs, hsp⟩ := Submodule.FG.exists_span_set_encard_eq_spanFinrank hfg
+    rw [hspan'] at hs
+    obtain ⟨t, rfl⟩ := Set.encard_eq_one.1 (by exact_mod_cast hs)
+    exact ⟨⟨t, hsp.symm⟩⟩
+  have key : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).IsPrincipal ↔
+      (IsIntegrallyClosed (Y.left.presheaf.stalk x) ∧
+        ∃! P : Ideal (Y.left.presheaf.stalk x), P ≠ ⊥ ∧ P.IsPrime) :=
+    (IsDiscreteValuationRing.TFAE _ hnf).out 5 4
+  haveI : IsIntegrallyClosed (Y.left.presheaf.stalk x) := (key.mp hprin).1
+  letI : Algebra Γ(Y.left, U) (Y.left.presheaf.stalk x) :=
+    TopCat.Presheaf.algebra_section_stalk Y.left.presheaf ⟨x, hxU⟩
+  haveI : IsLocalization.AtPrime (Y.left.presheaf.stalk x) p := hU.isLocalization_stalk' q hxU
+  let eq := (IsLocalization.algEquiv p.primeCompl (Y.left.presheaf.stalk x)
+      (Localization.AtPrime p)).toRingEquiv
+  exact ⟨eq.symm.toMulEquiv.isDomain _, IsIntegrallyClosed.of_equiv eq⟩
+
+/-- **`ChartNormalD` holds** (compiled). -/
+theorem chartNormalD : ChartNormalD := by
+  intro Y U hS hU hdom
+  exact IsIntegrallyClosed.of_localization_maximal fun p _ hpm => (loc_max_dvr Y U hS hU p hpm).2
+
+/-- **Glue (smooth irreducible curves are integral).** The sections of a smooth irreducible curve
+over a nonempty affine open form a domain. -/
+def CurveSectionsDomain : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
+    SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left → IsAffineOpen U →
+    (U : Set Y.left).Nonempty → IsDomain Γ(Y.left, U)
+
+/-- **`CurveSectionsDomain` holds** (compiled): `Γ(Y, U)` is reduced (its localizations at maximal
+ideals are domains) and `Spec Γ(Y, U) ≅ U` is irreducible, so `Spec Γ(Y, U)` is integral. -/
+theorem curveSectionsDomain : CurveSectionsDomain := by
+  intro Y U hS hI hU hne
+  haveI : IsReduced Γ(Y.left, U) := isReduced_ofLocalizationMaximal _ fun J hJ => by
+    haveI := (loc_max_dvr Y U hS hU J hJ).1
+    infer_instance
+  have hUirr : IsIrreducible (U : Set Y.left) :=
+    ⟨hne, (IrreducibleSpace.isIrreducible_univ Y.left).2.open_subset U.isOpen
+      (Set.subset_univ _)⟩
+  haveI : IrreducibleSpace (Spec Γ(Y.left, U)) :=
+    @Function.Surjective.irreducibleSpace _ _ _ _ hU.isoSpec.hom.base
+      hU.isoSpec.hom.base.hom.continuous hU.isoSpec.hom.surjective
+      (Subtype.irreducibleSpace hUirr)
+  exact (affine_isIntegral_iff _).1 (isIntegral_of_irreducibleSpace_of_isReduced _)
+
+/-- **`ChartNormal` holds** (compiled), from `curveSectionsDomain` and `chartNormalD`. -/
+theorem chartNormal : ChartNormal := by
+  intro Y U hS hI hU hne
+  haveI := curveSectionsDomain Y U hS hI hU hne
+  exact ⟨inferInstance, chartNormalD Y U hS hU inferInstance⟩
+
+/-- **`CurveNormChart` from `ChartFinite` alone** (compiled). -/
+theorem curveNormChart_of' (hF : ChartFinite) : CurveNormChart :=
+  curveNormChart_of hF chartNormal
+
+/-- **`CurveChartInf` from `ChartFiniteInf` and `InfFnField`** (compiled). -/
+theorem curveChartInf_of' (hF : ChartFiniteInf) (hFF : InfFnField) : CurveChartInf :=
+  curveChartInf_of hF chartNormalD hFF
+
 end HeckeRestCurve
 
 end
 
 #print axioms HeckeRestCurve.curveNormChart_of
 #print axioms HeckeRestCurve.curveChartInf_of
+#print axioms HeckeRestCurve.chartNormalD
+#print axioms HeckeRestCurve.curveNormChart_of'
+#print axioms HeckeRestCurve.curveChartInf_of'

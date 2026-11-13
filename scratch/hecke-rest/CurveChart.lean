@@ -9,7 +9,8 @@ theory (assembled by `scratch/hecke-rest/assemble.py`)
 Verbatim copies: `scratch/ts-hecke/TSHecke.lean` lines 6-889 (prop-ts prefix, with
 `NormalizationModel`) 6444-6455 (`CurveNormChart`) and 6526-6551 (`NormalizationModelInf`, `CurveChartInf`), the
 targets, inside `namespace TSHecke`;
-`scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
+`scratch/ts-hecke/TSHecke.lean` lines 4613-5002 and 5010-5173 (infra-smooth-dim's stalk dimensions,
+curve-glue's `isDomain_of_dim_one`); `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
 `ev_res`, `ev_comp`, `ev_spec_top`, `val_of_mem`, ...). New work below the last banner.
 No `sorry`, no `axiom`.
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
@@ -1114,6 +1115,562 @@ end LeafQM
 
 end
 
+section SmoothStalkCopy
+/-! # Local rings of smooth schemes over a field (§0-§3 = StdSmoothLocal.lean verbatim)
+
+Task infra-smooth-dim. Mathlib-only. (Lemmas from `MaxHeight.lean` and `CotQuot.lean` are copied
+verbatim in §0, since scratch files cannot import each other.)
+
+**Main result.** If `S` is a standard smooth algebra of relative dimension `n` over a field `k` and
+`𝔪` is a maximal ideal of `S`, then `S_𝔪` has Krull dimension `n` and its maximal ideal is spanned by
+`n` elements (so `S_𝔪` is regular, and `dim_κ 𝔪/𝔪² = n`).
+
+Proof: write `S = k[x_ι]/(f_σ)` with invertible Jacobian, `M` the preimage of `𝔪`. Krull's height
+theorem and `ht M = |ι|` give `dim S_𝔪 ≥ |ι| - |σ|`; the derivatives `∂f_i/∂x_{map j}` show that
+the `f_i` have linearly independent classes in `M A_M / M² A_M`, so killing them lowers the embedding
+dimension `|ι|` of the regular local ring `k[x]_M` by `|σ|`; and `dim ≤ edim`. -/
+
+open Ideal IsLocalRing
+
+namespace InfraSmoothDim
+
+/-! ## §0 Copied from `MaxHeight.lean` and `CotQuot.lean` -/
+
+theorem height_isMaximal_mvPolynomial (k : Type*) [Field k] :
+    ∀ (ι : Type) [Finite ι] (M : Ideal (MvPolynomial ι k)) [M.IsMaximal],
+      M.height = Nat.card ι := by
+  intro ι _
+  induction ι using Finite.induction_empty_option with
+  | of_equiv e H =>
+    intro M _
+    have e' := (MvPolynomial.renameEquiv k e).toRingEquiv
+    have : (M.map e'.symm).IsMaximal := map_isMaximal_of_equiv e'.symm
+    rw [← e'.symm.height_map M, H, Nat.card_congr e]
+  | h_empty =>
+    intro M _
+    have h1 := Ideal.height_le_ringKrullDim_of_ne_top (I := M) IsPrime.ne_top'
+    rw [MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, ringKrullDim_eq_zero_of_field]
+      at h1
+    simp only [Nat.card_of_isEmpty, CharP.cast_eq_zero, add_zero] at h1
+    simp only [Nat.card_of_isEmpty, CharP.cast_eq_zero]
+    exact_mod_cast nonpos_iff_eq_zero.mp (by exact_mod_cast h1)
+  | @h_option α _ IH =>
+    intro M _
+    let e := (MvPolynomial.optionEquivLeft k α).toRingEquiv
+    let P := M.map e
+    have : P.IsMaximal := map_isMaximal_of_equiv e
+    let p := P.comap (Polynomial.C : MvPolynomial α k →+* _)
+    have : p.IsMaximal := Polynomial.isMaximal_comap_C_of_isJacobsonRing P
+    have : P.LiesOver p := ⟨rfl⟩
+    rw [← e.height_map M, Polynomial.height_eq_height_add_one p P, IH p]
+    simp [Nat.card_eq_fintype_card, Fintype.card_option]
+
+theorem spanFinrank_add_card_le {B C : Type*} [CommRing B] [IsLocalRing B] [IsNoetherianRing B]
+    [CommRing C] [IsLocalRing C] (ψ : B →+* C)
+    (hmap : (maximalIdeal B).map ψ = maximalIdeal C)
+    {σ : Type*} [Fintype σ] (f : σ → maximalIdeal B)
+    (hf : LinearIndependent (ResidueField B) (fun i => (maximalIdeal B).toCotangent (f i)))
+    (hker : ∀ i, ψ (f i) = 0) :
+    (maximalIdeal C).spanFinrank + Fintype.card σ ≤ (maximalIdeal B).spanFinrank := by
+  classical
+  set κ := ResidueField B
+  set V := CotangentSpace B
+  let v : σ → V := fun i => (maximalIdeal B).toCotangent (f i)
+  let W : Submodule κ V := Submodule.span κ (Set.range v)
+  have hW : Module.finrank κ W = Fintype.card σ := finrank_span_eq_card hf
+  have hVW := Submodule.finrank_quotient_add_finrank W
+  set d := Module.finrank κ (V ⧸ W)
+  let b := Module.finBasis κ (V ⧸ W)
+  have hsurj : Function.Surjective
+      (fun x : maximalIdeal B => W.mkQ ((maximalIdeal B).toCotangent x)) :=
+    (Submodule.mkQ_surjective W).comp (Ideal.toCotangent_surjective _)
+  choose g hg using fun j : Fin d => hsurj (b j)
+  -- the classes of `f` and `g` span `V`
+  let s : Set (maximalIdeal B) := Set.range f ∪ Set.range g
+  have hspan : Submodule.span κ ((maximalIdeal B).toCotangent '' s) = ⊤ := by
+    have h1 : W ≤ Submodule.span κ ((maximalIdeal B).toCotangent '' s) := by
+      refine Submodule.span_le.mpr ?_
+      rintro _ ⟨i, rfl⟩
+      exact Submodule.subset_span ⟨f i, Or.inl ⟨i, rfl⟩, rfl⟩
+    have h2 : (Submodule.span κ ((maximalIdeal B).toCotangent '' s)).map W.mkQ = ⊤ := by
+      rw [eq_top_iff, ← b.span_eq, Submodule.span_le]
+      rintro _ ⟨j, rfl⟩
+      rw [← hg j]
+      exact Submodule.mem_map_of_mem (Submodule.subset_span ⟨g j, Or.inr ⟨j, rfl⟩, rfl⟩)
+    have := Submodule.comap_map_mkQ W (Submodule.span κ ((maximalIdeal B).toCotangent '' s))
+    rw [h2, Submodule.comap_top, sup_eq_right.mpr h1] at this
+    exact this.symm
+  have hspanB : Submodule.span B s = ⊤ := (CotangentSpace.span_image_eq_top_iff).mp hspan
+  have hmB : maximalIdeal B = Ideal.span (((↑) : maximalIdeal B → B) '' s) := by
+    have := congrArg (Submodule.map (maximalIdeal B).subtype) hspanB
+    rw [Submodule.map_span, Submodule.map_top, Submodule.range_subtype] at this
+    exact this.symm
+  have hmC : maximalIdeal C = Ideal.span (Set.range fun j => ψ (g j)) := by
+    rw [← hmap, congrArg (Ideal.map ψ) hmB, Ideal.map_span]
+    refine le_antisymm (Ideal.span_le.mpr ?_) (Ideal.span_le.mpr ?_)
+    · rintro _ ⟨_, ⟨x, hx | hx, rfl⟩, rfl⟩
+      · obtain ⟨i, rfl⟩ := hx
+        simp [hker i]
+      · obtain ⟨j, rfl⟩ := hx
+        exact Ideal.subset_span ⟨j, rfl⟩
+    · rintro _ ⟨j, rfl⟩
+      exact Ideal.subset_span ⟨_, ⟨g j, Or.inr ⟨j, rfl⟩, rfl⟩, rfl⟩
+  have hle : (maximalIdeal C).spanFinrank ≤ d := by
+    rw [hmC]
+    have := Submodule.spanFinrank_span_le_ncard_of_finite (R := C)
+      (Set.finite_range fun j => ψ (g j))
+    refine this.trans ?_
+    have h3 : (Set.range fun j => ψ (g j)).ncard ≤ Nat.card (Fin d) := by
+      rw [← Set.image_univ]
+      exact (Set.ncard_image_le Set.finite_univ).trans (Set.ncard_univ _).le
+    rw [Nat.card_fin] at h3
+    exact h3
+  rw [spanFinrank_maximalIdeal_eq_finrank_cotangentSpace B]
+  change _ ≤ Module.finrank κ V
+  omega
+
+/-! ## §1 Derivatives vanish modulo `M` on `M²` -/
+
+theorem derivation_mem_of_mem_sq {R A : Type*} [CommRing R] [CommRing A] [Algebra R A]
+    (D : Derivation R A A) {M : Ideal A} {x : A} (hx : x ∈ M ^ 2) : D x ∈ M := by
+  rw [pow_two] at hx
+  refine Submodule.mul_induction_on hx ?_ ?_
+  · intro a ha b hb
+    rw [Derivation.leibniz, smul_eq_mul, smul_eq_mul]
+    exact add_mem (M.mul_mem_right _ ha) (M.mul_mem_right _ hb)
+  · intro x y hx hy
+    rw [map_add]
+    exact add_mem hx hy
+
+/-! ## §2 The main theorem -/
+
+variable {k S : Type*} [Field k] [CommRing S] [Algebra k S]
+variable {ι σ : Type} [Finite ι] [Finite σ]
+
+/-- The class of a relation in the cotangent space of `k[x]_M`. -/
+noncomputable def relCot (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) (i : σ) : maximalIdeal (Localization.AtPrime M) :=
+  ⟨algebraMap P.Ring (Localization.AtPrime M) (P.relation i), by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal]
+    exact Ideal.mem_map_of_mem _ (hker (P.relation_mem_ker i))⟩
+
+theorem exists_residue_algebraMap_eq {R : Type*} [CommRing R] (M : Ideal R) [M.IsMaximal]
+    (x : ResidueField (Localization.AtPrime M)) :
+    ∃ a : R, residue _ (algebraMap R (Localization.AtPrime M) a) = x := by
+  obtain ⟨y, hy⟩ :=
+    (IsLocalization.AtPrime.equivQuotMaximalIdeal M (Localization.AtPrime M)).surjective x
+  obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective y
+  rw [IsLocalization.AtPrime.equivQuotMaximalIdeal_apply_mk] at hy
+  exact ⟨a, hy⟩
+
+omit [Finite ι] in
+theorem jacobiMatrix_det_notMem [Fintype σ] [DecidableEq σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) : P.jacobiMatrix.det ∉ M := by
+  intro hdet
+  have hu := P.jacobian_isUnit
+  rw [P.jacobian_eq_jacobiMatrix_det] at hu
+  obtain ⟨u, hu⟩ := hu.exists_right_inv
+  obtain ⟨a', rfl⟩ := P.algebraMap_surjective u
+  have h1 : P.jacobiMatrix.det * a' - 1 ∈ M := hker (by
+    show _ ∈ RingHom.ker (algebraMap P.Ring S)
+    rw [RingHom.mem_ker, map_sub, map_mul, hu, map_one, sub_self])
+  have h2 : P.jacobiMatrix.det * a' ∈ M := M.mul_mem_right _ hdet
+  have : (1 : P.Ring) ∈ M := by simpa using M.sub_mem h2 h1
+  exact (Ideal.IsMaximal.ne_top inferInstance) ((Ideal.eq_top_iff_one M).mpr this)
+
+omit [Finite ι] in
+/-- If `∑ aᵢ fᵢ ∈ M²` then every `aᵢ ∈ M` (differentiate and invert the Jacobian mod `M`). -/
+theorem coeffs_mem_of_sum_mem_sq [Fintype σ] [DecidableEq σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring) [M.IsMaximal]
+    (hker : P.ker ≤ M) (a : σ → P.Ring) (hy2 : ∑ i, a i * P.relation i ∈ M ^ 2) :
+    ∀ i, a i ∈ M := by
+  have hrM : ∀ i, P.relation i ∈ M := fun i => hker (P.relation_mem_ker i)
+  have hder : ∀ j : σ, ∑ i, a i * MvPolynomial.pderiv (P.map j) (P.relation i) ∈ M := by
+    intro j
+    have h1 := derivation_mem_of_mem_sq (MvPolynomial.pderiv (P.map j)) hy2
+    have h2 : MvPolynomial.pderiv (P.map j) (∑ i, a i * P.relation i) =
+        ∑ i, a i * MvPolynomial.pderiv (P.map j) (P.relation i)
+        + ∑ i, P.relation i * MvPolynomial.pderiv (P.map j) (a i) := by
+      simp only [map_sum, Derivation.leibniz, smul_eq_mul, Finset.sum_add_distrib]
+    rw [h2] at h1
+    have h3 : ∑ i, P.relation i * MvPolynomial.pderiv (P.map j) (a i) ∈ M :=
+      Ideal.sum_mem _ fun i _ => M.mul_mem_right _ (hrM i)
+    have := M.sub_mem h1 h3
+    rwa [add_sub_cancel_right] at this
+  let _ : Field (P.Ring ⧸ M) := Ideal.Quotient.field M
+  let J := P.jacobiMatrix.map (Ideal.Quotient.mk M)
+  have hJ : J.det ≠ 0 := by
+    rw [show J.det = Ideal.Quotient.mk M P.jacobiMatrix.det from (RingHom.map_det _ _).symm,
+      Ne, Ideal.Quotient.eq_zero_iff_mem]
+    exact jacobiMatrix_det_notMem P M hker
+  have hv : Matrix.mulVec J (fun i => Ideal.Quotient.mk M (a i)) = 0 := by
+    ext j
+    simp only [Matrix.mulVec, dotProduct, J, Matrix.map_apply, Pi.zero_apply]
+    rw [← Ideal.Quotient.eq_zero_iff_mem.mpr (hder j), map_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [P.jacobiMatrix_apply, map_mul, mul_comm]
+  have := Matrix.eq_zero_of_mulVec_eq_zero hJ hv
+  intro i
+  have hi := congrFun this i
+  rwa [Pi.zero_apply, Ideal.Quotient.eq_zero_iff_mem] at hi
+
+omit [Finite ι] in
+/-- A relation among the cotangent classes, with coefficients lifted to `k[x]`, gives an element
+`∑ aᵢ fᵢ` of `M²`. -/
+theorem sum_mem_sq_of_cotangent [Fintype σ]
+    (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring) [M.IsMaximal]
+    (hker : P.ker ≤ M) (a : σ → P.Ring)
+    (hc : ∑ i, algebraMap P.Ring (Localization.AtPrime M) (a i) •
+      (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i) = 0) :
+    ∑ i, a i * P.relation i ∈ M ^ 2 := by
+  rw [← IsLocalization.AtPrime.under_maximalIdeal_pow M (Localization.AtPrime M) 2,
+    Ideal.mem_comap]
+  simp_rw [← map_smul, ← map_sum, Ideal.toCotangent_eq_zero] at hc
+  convert hc using 1
+  rw [Submodule.coe_sum, map_sum]
+  refine Finset.sum_congr rfl fun i _ => ?_
+  rw [Submodule.coe_smul, smul_eq_mul, map_mul]
+  rfl
+
+omit [Finite ι] in
+/-- The relations of a submersive presentation have linearly independent classes in the cotangent
+space of `k[x]_M`, for any maximal ideal `M ⊇ ker (k[x] → S)`. -/
+theorem linearIndependent_relCot (P : Algebra.SubmersivePresentation k S ι σ) (M : Ideal P.Ring)
+    [M.IsMaximal] (hker : P.ker ≤ M) :
+    LinearIndependent (ResidueField (Localization.AtPrime M))
+      (fun i => (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i)) := by
+  classical
+  have := Fintype.ofFinite σ
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  choose a ha using exists_residue_algebraMap_eq M
+  have hc' : ∑ i, algebraMap P.Ring (Localization.AtPrime M) (a (c i)) •
+      (maximalIdeal (Localization.AtPrime M)).toCotangent (relCot P M hker i) = 0 := by
+    rw [← hc]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [← algebraMap_smul (ResidueField (Localization.AtPrime M)), ResidueField.algebraMap_eq,
+      ha (c i)]
+  have hmem := coeffs_mem_of_sum_mem_sq P M hker (fun i => a (c i))
+    (sum_mem_sq_of_cotangent P M hker _ hc')
+  intro i
+  rw [← ha (c i), residue_eq_zero_iff, ← Localization.AtPrime.map_eq_maximalIdeal]
+  exact Ideal.mem_map_of_mem _ (hmem i)
+
+/-! ## §3 Dimension and embedding dimension of `S_𝔪` -/
+
+/-- **Main algebraic theorem.** For a submersive presentation `P` of `S` over a field `k` and a
+maximal ideal `𝔪` of `S`: `dim S_𝔪 = P.dimension` and `𝔪 S_𝔪` is spanned by `P.dimension`
+elements (and no fewer). -/
+theorem ringKrullDim_and_spanFinrank_localization (P : Algebra.SubmersivePresentation k S ι σ)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = P.dimension ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = P.dimension := by
+  classical
+  have := Fintype.ofFinite σ
+  have hφs : Function.Surjective (algebraMap P.Ring S) := P.algebraMap_surjective
+  have hkerφ : ∀ x ∈ P.ker, algebraMap P.Ring S x = 0 := fun x hx => hx
+  obtain ⟨M, hMdef⟩ : ∃ M, M = m.comap (algebraMap P.Ring S) := ⟨_, rfl⟩
+  have : M.IsMaximal := hMdef ▸ Ideal.comap_isMaximal_of_surjective _ hφs
+  have hker : P.ker ≤ M := fun x hx => by
+    rw [hMdef, Ideal.mem_comap, hkerφ x hx]
+    exact m.zero_mem
+  have : IsNoetherianRing S := isNoetherianRing_of_surjective _ _ _ hφs
+  -- lower bound (Krull's height theorem)
+  have hM : M.height = Nat.card ι := height_isMaximal_mvPolynomial k ι M
+  have hK := Ideal.height_le_height_add_spanFinrank_of_le hker
+  have hspan : P.ker.spanFinrank ≤ Nat.card σ := by
+    rw [← P.span_range_relation_eq_ker]
+    refine (Submodule.spanFinrank_span_le_ncard_of_finite (Set.finite_range _)).trans ?_
+    rw [← Set.image_univ]
+    exact (Set.ncard_image_le Set.finite_univ).trans (Set.ncard_univ _).le
+  have hquot : (M.map (Ideal.Quotient.mk P.ker)).height = m.height := by
+    let e : (P.Ring ⧸ P.ker) ≃+* S := RingHom.quotientKerEquivOfSurjective hφs
+    refine (e.height_map _).symm.trans (congrArg Ideal.height ?_)
+    change Ideal.map (e : P.Ring ⧸ P.ker →+* S) _ = m
+    rw [Ideal.map_map]
+    have : (e : P.Ring ⧸ P.ker →+* S).comp (Ideal.Quotient.mk P.ker) = algebraMap P.Ring S :=
+      RingHom.ext fun x => RingHom.quotientKerEquivOfSurjective_apply_mk hφs x
+    rw [this, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  rw [hquot, hM] at hK
+  have hdimC : ringKrullDim (Localization.AtPrime m) = m.height :=
+    IsLocalization.AtPrime.ringKrullDim_eq_height m (Localization.AtPrime m)
+  -- upper bound (embedding dimension)
+  let ψ := Localization.localRingHom M m (algebraMap P.Ring S) hMdef
+  have hcomp : ψ.comp (algebraMap P.Ring (Localization.AtPrime M)) =
+      (algebraMap S (Localization.AtPrime m)).comp (algebraMap P.Ring S) := by
+    ext x
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+  have hmap : (maximalIdeal (Localization.AtPrime M)).map ψ =
+      maximalIdeal (Localization.AtPrime m) := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal, ← Localization.AtPrime.map_eq_maximalIdeal,
+      Ideal.map_map, hcomp, ← Ideal.map_map, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  have hkill : ∀ i, ψ (relCot P M hker i) = 0 := by
+    intro i
+    change ψ (algebraMap P.Ring (Localization.AtPrime M) (P.relation i)) = 0
+    rw [← RingHom.comp_apply, hcomp, RingHom.comp_apply, hkerφ _ (P.relation_mem_ker i), map_zero]
+  have hU := spanFinrank_add_card_le ψ hmap (relCot P M hker) (linearIndependent_relCot P M hker)
+    hkill
+  have hB : ((maximalIdeal (Localization.AtPrime M)).spanFinrank : WithBot ℕ∞) = Nat.card ι := by
+    rw [IsRegularLocalRing.spanFinrank_maximalIdeal,
+      IsLocalization.AtPrime.ringKrullDim_eq_height M (Localization.AtPrime M), hM]
+    rfl
+  have hB' : (maximalIdeal (Localization.AtPrime M)).spanFinrank = Nat.card ι := by
+    exact_mod_cast hB
+  have hle := ringKrullDim_le_spanFinrank_maximalIdeal (Localization.AtPrime m)
+  rw [hdimC] at hle
+  have hle' : m.height ≤ ((maximalIdeal (Localization.AtPrime m)).spanFinrank : ℕ∞) := by
+    exact_mod_cast hle
+  obtain ⟨h, hh⟩ := ENat.ne_top_iff_exists.mp (ne_top_of_le_ne_top (ENat.natCast_ne_top _) hle')
+  rw [← hh] at hle' hK
+  rw [hB', Fintype.card_eq_nat_card] at hU
+  rw [hdimC, ← hh]
+  simp only [Algebra.Presentation.dimension]
+  have hK' : Nat.card ι ≤ h + P.ker.spanFinrank := by exact_mod_cast hK
+  have hle'' : h ≤ (maximalIdeal (Localization.AtPrime m)).spanFinrank := by exact_mod_cast hle'
+  constructor
+  · have : h = Nat.card ι - Nat.card σ := by omega
+    rw [this]; rfl
+  · omega
+
+end InfraSmoothDim
+
+
+/-! ## §4 Scheme stalks (task infra-smooth-dim) -/
+
+namespace InfraSmoothDim
+
+open CategoryTheory AlgebraicGeometry
+
+/-- The algebraic theorem over a base ring that is a field (without a `Field` instance). -/
+theorem ringKrullDim_and_spanFinrank_of_isField {R S : Type*} [CommRing R] [CommRing S]
+    (hR : IsField R) (φ : R →+* S) (n : ℕ) (h : φ.IsStandardSmoothOfRelativeDimension n)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = n ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = n := by
+  let _ := hR.toField
+  let _ := φ.toAlgebra
+  obtain ⟨ι, σ, _, _, P, hP⟩ :=
+    (h : @Algebra.IsStandardSmoothOfRelativeDimension n R S _ _ φ.toAlgebra).out
+  rw [← hP]
+  exact ringKrullDim_and_spanFinrank_localization P m
+
+/-- Sections of `Spec K` over a nonempty open form a field. -/
+theorem isField_sections_spec (K : Type*) [Field K] (U : (Spec (CommRingCat.of K)).Opens)
+    (hU : (U : Set (Spec (CommRingCat.of K))).Nonempty) :
+    IsField Γ(Spec (CommRingCat.of K), U) := by
+  have hUt : U = ⊤ := by
+    obtain ⟨z, hz⟩ := hU
+    refine eq_top_iff.mpr fun y _ => ?_
+    have : Subsingleton (Spec (CommRingCat.of K)) :=
+      inferInstanceAs (Subsingleton (PrimeSpectrum K))
+    rwa [Subsingleton.elim y z]
+  subst hUt
+  exact (Scheme.ΓSpecIso (CommRingCat.of K)).commRingCatIsoToRingEquiv.toMulEquiv.isField
+    (Field.toIsField K)
+
+/-- **Local form.** If `f : X → Spec K` is standard smooth of relative dimension `n` on an affine
+chart `V → U` containing a closed point `x`, then `dim 𝒪_{X,x} = n` and `𝔪_x` is spanned by `n`
+elements (so `dim_{κ(x)} 𝔪_x/𝔪_x² = n`). -/
+theorem stalk_dim_of_chart {K : Type*} [Field K] {X : Scheme} (f : X ⟶ Spec (CommRingCat.of K))
+    {U : (Spec (CommRingCat.of K)).Opens} (hU : IsAffineOpen U) {V : X.Opens} (hV : IsAffineOpen V)
+    (e : V ≤ f ⁻¹ᵁ U) (n : ℕ)
+    (h : RingHom.IsStandardSmoothOfRelativeDimension n (f.appLE U V e).hom)
+    (x : X) (hxV : x ∈ V) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  have hR := isField_sections_spec K U ⟨f.base x, e hxV⟩
+  have hmax := hV.primeIdealOf_isMaximal_of_isClosed ⟨x, hxV⟩ hx
+  obtain ⟨h1, h2⟩ := ringKrullDim_and_spanFinrank_of_isField hR _ n h
+    (hV.primeIdealOf ⟨x, hxV⟩).asIdeal
+  let _ := X.presheaf.algebra_section_stalk ⟨x, hxV⟩
+  have := hV.isLocalization_stalk ⟨x, hxV⟩
+  let eq : Localization.AtPrime (hV.primeIdealOf ⟨x, hxV⟩).asIdeal ≃+* X.presheaf.stalk x :=
+    (IsLocalization.algEquiv (hV.primeIdealOf ⟨x, hxV⟩).asIdeal.primeCompl _ _).toRingEquiv
+  constructor
+  · rw [← ringKrullDim_eq_of_ringEquiv eq, h1]
+  · rw [← map_ringEquiv_maximalIdeal eq, Ideal.spanFinrank_map_eq_of_ringEquiv, h2]
+
+/-- **Smooth of relative dimension `n` over a field.** At every closed point, the local ring has
+Krull dimension `n` and embedding dimension `n` (it is a regular local ring of dimension `n`). -/
+theorem stalk_dim_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    ringKrullDim (X.presheaf.stalk x) = n ∧
+      (maximalIdeal (X.presheaf.stalk x)).spanFinrank = n := by
+  obtain ⟨U, hU, V, hV, hxV, e, h⟩ :=
+    SmoothOfRelativeDimension.exists_isStandardSmoothOfRelativeDimension (n := n) (f := f) x
+  exact stalk_dim_of_chart f hU hV e n h x hxV hx
+end InfraSmoothDim
+
+end SmoothStalkCopy
+
+section CICopy
+
+open CategoryTheory AlgebraicGeometry
+
+namespace CIcopy
+
+def ComponentIrreducible : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsIrreducible (connectedComponent x)
+
+/-! ## (CI) proved: components of a proper smooth curve are irreducible (task curve-glue)
+
+Uses task infra-smooth-dim's `InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension` (local rings
+at closed points have Krull dimension 1 and principal maximal ideal). -/
+
+namespace CurveGlueCI
+
+open CategoryTheory AlgebraicGeometry IsLocalRing
+
+/-- **A Noetherian local ring of Krull dimension 1 with principal maximal ideal is a domain.**
+(Krull intersection theorem: every nonzero element is `π^n · unit`; `π` is not nilpotent since the
+dimension is positive.) -/
+theorem isDomain_of_dim_one {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
+    (hdim : ringKrullDim R = 1) (hspan : (maximalIdeal R).spanFinrank = 1) : IsDomain R := by
+  classical
+  have hfg : (maximalIdeal R).FG := IsNoetherian.noetherian _
+  obtain ⟨s, hs, hspan'⟩ := Submodule.FG.exists_span_set_encard_eq_spanFinrank hfg
+  rw [hspan] at hs
+  obtain ⟨π, rfl⟩ := Set.encard_eq_one.1 (by exact_mod_cast hs)
+  -- `π` is not nilpotent
+  have hπ : ∀ n : ℕ, π ^ n ≠ 0 := by
+    intro n hn
+    have hsub : ∀ p : PrimeSpectrum R, p.asIdeal = maximalIdeal R := by
+      intro p
+      refine le_antisymm (le_maximalIdeal p.2.ne_top) ?_
+      rw [← hspan', Ideal.span_le, Set.singleton_subset_iff]
+      exact p.2.mem_of_pow_mem n (by rw [hn]; exact p.asIdeal.zero_mem)
+    have : Subsingleton (PrimeSpectrum R) :=
+      ⟨fun p q => PrimeSpectrum.ext ((hsub p).trans (hsub q).symm)⟩
+    have h0 : ringKrullDim R = 0 := Order.krullDim_eq_zero
+    rw [hdim] at h0
+    norm_num at h0
+  -- every nonzero element is `π ^ n * unit`
+  have hdec : ∀ a : R, a ≠ 0 → ∃ (n : ℕ) (u : R), IsUnit u ∧ a = π ^ n * u := by
+    intro a ha
+    have hex : ∃ k : ℕ, a ∉ maximalIdeal R ^ k := by
+      by_contra! h
+      apply ha
+      have := Ideal.iInf_pow_eq_bot_of_isLocalRing (maximalIdeal R) (maximalIdeal.isMaximal R).ne_top
+      rw [← Submodule.mem_bot R, ← this, Submodule.mem_iInf]
+      exact h
+    let k := Nat.find hex
+    have hk : a ∉ maximalIdeal R ^ k := Nat.find_spec hex
+    have hk0 : k ≠ 0 := by
+      intro h0
+      apply hk
+      rw [h0, pow_zero, Ideal.one_eq_top]
+      exact Submodule.mem_top
+    obtain ⟨n, hn⟩ : ∃ n, k = n + 1 := Nat.exists_eq_succ_of_ne_zero hk0
+    have hmem : a ∈ maximalIdeal R ^ n := by
+      have := Nat.find_min hex (show n < k by omega)
+      push Not at this
+      exact this
+    rw [← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton'] at hmem
+    obtain ⟨u, hu⟩ := hmem
+    refine ⟨n, u, ?_, by rw [← hu, mul_comm]⟩
+    by_contra hu'
+    have hum : u ∈ maximalIdeal R := (mem_maximalIdeal u).2 hu'
+    rw [← hspan', Ideal.mem_span_singleton'] at hum
+    obtain ⟨w, hw⟩ := hum
+    apply hk
+    rw [hn, ← hspan', Ideal.span_singleton_pow, Ideal.mem_span_singleton']
+    exact ⟨w, by rw [← hu, ← hw]; ring⟩
+  have : NoZeroDivisors R := by
+    refine ⟨fun {a b} hab => ?_⟩
+    by_contra hne
+    push Not at hne
+    obtain ⟨n, u, hu, rfl⟩ := hdec a hne.1
+    obtain ⟨m, v, hv, rfl⟩ := hdec b hne.2
+    have : π ^ (n + m) * (u * v) = 0 := by rw [← hab]; ring
+    exact hπ (n + m) ((hu.mul hv).mul_left_eq_zero.mp this)
+  exact NoZeroDivisors.to_isDomain R
+
+/-- **Two irreducible components meeting at a point with a domain stalk coincide.** -/
+theorem irreducibleComponent_eq_of_isDomain_stalk {X : Scheme} {Z₁ Z₂ : Set X}
+    (h₁ : Z₁ ∈ irreducibleComponents X) (h₂ : Z₂ ∈ irreducibleComponents X) {y : X}
+    (hy₁ : y ∈ Z₁) (hy₂ : y ∈ Z₂) (hdom : IsDomain (X.presheaf.stalk y)) : Z₁ = Z₂ := by
+  let G : Set X := Set.range (X.fromSpecStalk y)
+  have hG : IsIrreducible G := by
+    have : IrreducibleSpace (Spec (X.presheaf.stalk y)) := PrimeSpectrum.irreducibleSpace
+    show IsIrreducible (Set.range (X.fromSpecStalk y))
+    rw [← Set.image_univ]
+    exact (IrreducibleSpace.isIrreducible_univ _).image _ (X.fromSpecStalk y).continuous.continuousOn
+  have key : ∀ Z ∈ irreducibleComponents X, y ∈ Z → Z = closure G := by
+    intro Z hZ hyZ
+    have hcl : IsClosed Z := isClosed_of_mem_irreducibleComponents Z hZ
+    have hgen := hZ.1.isGenericPoint_genericPoint hcl
+    have hspec : hZ.1.genericPoint ⤳ y := by
+      rw [specializes_iff_mem_closure, hgen.def]; exact hyZ
+    have hmem : hZ.1.genericPoint ∈ G := by
+      show _ ∈ Set.range (X.fromSpecStalk y)
+      rw [Scheme.range_fromSpecStalk]; exact hspec
+    have hsub : Z ⊆ closure G := by
+      rw [← hgen.def]
+      exact closure_mono (Set.singleton_subset_iff.2 hmem)
+    exact (hZ.eq_of_subset hG.closure hsub)
+  rw [key Z₁ h₁ hy₁, key Z₂ h₂ hy₂]
+
+end CurveGlueCI
+
+/-- **(CI), proved** (from infra-smooth-dim's stalk dimensions). -/
+theorem componentIrreducible : ComponentIrreducible := by
+  intro K _ X f hP hS x
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  have : SmoothOfRelativeDimension 1 f := hS
+  -- stalks at closed points are domains
+  have hdom : ∀ y : X, IsClosed ({y} : Set X) → IsDomain (X.presheaf.stalk y) := by
+    intro y hy
+    obtain ⟨h1, h2⟩ := InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension f 1 y hy
+    exact CurveGlueCI.isDomain_of_dim_one (by exact_mod_cast h1) h2
+  -- irreducible components are pairwise disjoint
+  have hdisj : ∀ Z₁ ∈ irreducibleComponents X, ∀ Z₂ ∈ irreducibleComponents X,
+      (Z₁ ∩ Z₂).Nonempty → Z₁ = Z₂ := by
+    intro Z₁ h₁ Z₂ h₂ hne
+    have hcl : IsClosed (Z₁ ∩ Z₂) :=
+      (isClosed_of_mem_irreducibleComponents Z₁ h₁).inter (isClosed_of_mem_irreducibleComponents Z₂ h₂)
+    obtain ⟨y, ⟨hy₁, hy₂⟩, hyc⟩ := nonempty_inter_closedPoints hne hcl.isLocallyClosed
+    exact CurveGlueCI.irreducibleComponent_eq_of_isDomain_stalk h₁ h₂ hy₁ hy₂
+      (hdom y (mem_closedPoints_iff.mp hyc))
+  -- the irreducible component of `x` is clopen
+  set Z := irreducibleComponent x with hZ
+  have hZc : IsClosed Z := isClosed_irreducibleComponent
+  have hZmem := irreducibleComponent_mem_irreducibleComponents x
+  have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := X)
+  have hcompl : Zᶜ = ⋃ Z' ∈ {Z' ∈ irreducibleComponents X | Z' ≠ Z}, Z' := by
+    ext z
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_ofPred_eq, exists_prop]
+    constructor
+    · intro hz
+      refine ⟨irreducibleComponent z, ⟨irreducibleComponent_mem_irreducibleComponents z, ?_⟩,
+        mem_irreducibleComponent⟩
+      intro h
+      exact hz (h ▸ mem_irreducibleComponent)
+    · rintro ⟨Z', ⟨hZ', hne⟩, hzZ'⟩ hzZ
+      exact hne (hdisj Z' hZ' Z hZmem ⟨z, hzZ', hzZ⟩)
+  have hZo : IsOpen Z := by
+    rw [← isClosed_compl_iff, hcompl]
+    exact (hfin.subset fun Z' hZ' => hZ'.1).isClosed_biUnion fun Z' hZ' =>
+      isClosed_of_mem_irreducibleComponents Z' hZ'.1
+  have h1 : connectedComponent x ⊆ Z :=
+    (IsClopen.connectedComponent_subset ⟨hZc, hZo⟩ mem_irreducibleComponent)
+  have h2 : Z ⊆ connectedComponent x :=
+    isIrreducible_irreducibleComponent.isConnected.subset_connectedComponent mem_irreducibleComponent
+  rw [Set.Subset.antisymm h1 h2]
+  exact isIrreducible_irreducibleComponent
+
+
+end CIcopy
+
+end CICopy
+
 
 noncomputable section
 
@@ -1214,7 +1771,7 @@ nonempty affine open form an integrally closed domain. *Proof* (STANDARD; Hartsh
 II.6.2A, Stacks 033B/0567; locators UNVERIFIED): `Y` is reduced and irreducible, hence integral;
 its local rings at closed points are regular of dimension 1 (curve-glue, infra-smooth-dim:
 `isDomain_of_dim_one`, stalk dimensions), hence DVRs; a domain whose localizations at all maximal
-ideals are integrally closed is integrally closed. Glue, not a leaf. -/
+ideals are integrally closed is integrally closed. Glue; **proved below** (`chartNormal`). -/
 def ChartNormal : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
     SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left → IsAffineOpen U →
@@ -1320,7 +1877,7 @@ def ChartFiniteInf : Prop :=
 
 /-- **Glue (smooth curves are normal), domain form.** On a smooth curve `Y/ℚ`, if the sections over
 an affine open form a domain, the domain is integrally closed (local rings at closed points are
-DVRs; Hartshorne I.6, Stacks 033B; locators UNVERIFIED). Glue, not a leaf. -/
+DVRs; Hartshorne I.6, Stacks 033B; locators UNVERIFIED). Glue; **proved below** (`chartNormalD`). -/
 def ChartNormalD : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
     SmoothOfRelativeDimension 1 Y.hom → IsAffineOpen U → IsDomain Γ(Y.left, U) →
@@ -1431,9 +1988,108 @@ theorem curveChartInf_of (hF : ChartFiniteInf) (hND : ChartNormalD) (hFF : InfFn
       apply val_of_not_mem
       exact fun hU => h ⟨hU, hmem⟩
 
+/-! ## `ChartNormalD` proved; `ChartNormal` reduced to its domain part -/
+
+/-- **The localizations of `Γ(Y, U)` at maximal ideals are discrete valuation rings** (as domains
+that are integrally closed): they are the local rings of `Y` at closed points, regular of
+dimension 1 (infra-smooth-dim's `stalk_dim_of_smoothOfRelativeDimension`, curve-glue's
+`isDomain_of_dim_one`, Mathlib's DVR TFAE). -/
+theorem loc_max_dvr (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens)
+    (hS : SmoothOfRelativeDimension 1 Y.hom) (hU : IsAffineOpen U) (p : Ideal Γ(Y.left, U))
+    (hpm : p.IsMaximal) :
+    IsDomain (Localization.AtPrime p) ∧ IsIntegrallyClosed (Localization.AtPrime p) := by
+  haveI : Smooth Y.hom := SmoothOfRelativeDimension.smooth 1 Y.hom
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  haveI : IsLocallyNoetherian Y.left := LocallyOfFiniteType.isLocallyNoetherian Y.hom
+  let q : PrimeSpectrum Γ(Y.left, U) := ⟨p, hpm.isPrime⟩
+  let x : Y.left := hU.fromSpec q
+  have hxU : x ∈ U := by
+    have : x ∈ Set.range hU.fromSpec.base := ⟨q, rfl⟩
+    rwa [hU.range_fromSpec] at this
+  have hxc : IsClosed ({x} : Set Y.left) := by
+    apply isClosed_singleton_of_isLocallyClosed_singleton
+    have hq : IsClosed ({q} : Set ↥(Spec Γ(Y.left, U))) :=
+      (PrimeSpectrum.isClosed_singleton_iff_isMaximal q).2 hpm
+    have h2 := hq.isLocallyClosed.image hU.fromSpec.isOpenEmbedding.isInducing
+      hU.fromSpec.isOpenEmbedding.isOpen_range.isLocallyClosed
+    have e2 : (hU.fromSpec.base '' {q} : Set Y.left) = {x} := Set.image_singleton
+    rw [e2] at h2
+    exact h2
+  obtain ⟨hdim, hspan⟩ := InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension Y.hom 1 x hxc
+  have hdim' : ringKrullDim (Y.left.presheaf.stalk x) = 1 := by rw [hdim]; rfl
+  have hspan' : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).spanFinrank = 1 := hspan
+  haveI : IsDomain (Y.left.presheaf.stalk x) := CIcopy.CurveGlueCI.isDomain_of_dim_one hdim' hspan'
+  have hnf : ¬ IsField (Y.left.presheaf.stalk x) := fun h => by
+    have h0 := ringKrullDim_eq_zero_of_isField h
+    rw [hdim'] at h0
+    exact one_ne_zero h0
+  have hprin : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).IsPrincipal := by
+    have hfg : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).FG := IsNoetherian.noetherian _
+    obtain ⟨s, hs, hsp⟩ := Submodule.FG.exists_span_set_encard_eq_spanFinrank hfg
+    rw [hspan'] at hs
+    obtain ⟨t, rfl⟩ := Set.encard_eq_one.1 (by exact_mod_cast hs)
+    exact ⟨⟨t, hsp.symm⟩⟩
+  have key : (IsLocalRing.maximalIdeal (Y.left.presheaf.stalk x)).IsPrincipal ↔
+      (IsIntegrallyClosed (Y.left.presheaf.stalk x) ∧
+        ∃! P : Ideal (Y.left.presheaf.stalk x), P ≠ ⊥ ∧ P.IsPrime) :=
+    (IsDiscreteValuationRing.TFAE _ hnf).out 5 4
+  haveI : IsIntegrallyClosed (Y.left.presheaf.stalk x) := (key.mp hprin).1
+  letI : Algebra Γ(Y.left, U) (Y.left.presheaf.stalk x) :=
+    TopCat.Presheaf.algebra_section_stalk Y.left.presheaf ⟨x, hxU⟩
+  haveI : IsLocalization.AtPrime (Y.left.presheaf.stalk x) p := hU.isLocalization_stalk' q hxU
+  let eq := (IsLocalization.algEquiv p.primeCompl (Y.left.presheaf.stalk x)
+      (Localization.AtPrime p)).toRingEquiv
+  exact ⟨eq.symm.toMulEquiv.isDomain _, IsIntegrallyClosed.of_equiv eq⟩
+
+/-- **`ChartNormalD` holds** (compiled). -/
+theorem chartNormalD : ChartNormalD := by
+  intro Y U hS hU hdom
+  exact IsIntegrallyClosed.of_localization_maximal fun p _ hpm => (loc_max_dvr Y U hS hU p hpm).2
+
+/-- **Glue (smooth irreducible curves are integral).** The sections of a smooth irreducible curve
+over a nonempty affine open form a domain. -/
+def CurveSectionsDomain : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
+    SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left → IsAffineOpen U →
+    (U : Set Y.left).Nonempty → IsDomain Γ(Y.left, U)
+
+/-- **`CurveSectionsDomain` holds** (compiled): `Γ(Y, U)` is reduced (its localizations at maximal
+ideals are domains) and `Spec Γ(Y, U) ≅ U` is irreducible, so `Spec Γ(Y, U)` is integral. -/
+theorem curveSectionsDomain : CurveSectionsDomain := by
+  intro Y U hS hI hU hne
+  haveI : IsReduced Γ(Y.left, U) := isReduced_ofLocalizationMaximal _ fun J hJ => by
+    haveI := (loc_max_dvr Y U hS hU J hJ).1
+    infer_instance
+  have hUirr : IsIrreducible (U : Set Y.left) :=
+    ⟨hne, (IrreducibleSpace.isIrreducible_univ Y.left).2.open_subset U.isOpen
+      (Set.subset_univ _)⟩
+  haveI : IrreducibleSpace (Spec Γ(Y.left, U)) :=
+    @Function.Surjective.irreducibleSpace _ _ _ _ hU.isoSpec.hom.base
+      hU.isoSpec.hom.base.hom.continuous hU.isoSpec.hom.surjective
+      (Subtype.irreducibleSpace hUirr)
+  exact (affine_isIntegral_iff _).1 (isIntegral_of_irreducibleSpace_of_isReduced _)
+
+/-- **`ChartNormal` holds** (compiled), from `curveSectionsDomain` and `chartNormalD`. -/
+theorem chartNormal : ChartNormal := by
+  intro Y U hS hI hU hne
+  haveI := curveSectionsDomain Y U hS hI hU hne
+  exact ⟨inferInstance, chartNormalD Y U hS hU inferInstance⟩
+
+/-- **`CurveNormChart` from `ChartFinite` alone** (compiled). -/
+theorem curveNormChart_of' (hF : ChartFinite) : CurveNormChart :=
+  curveNormChart_of hF chartNormal
+
+/-- **`CurveChartInf` from `ChartFiniteInf` and `InfFnField`** (compiled). -/
+theorem curveChartInf_of' (hF : ChartFiniteInf) (hFF : InfFnField) : CurveChartInf :=
+  curveChartInf_of hF chartNormalD hFF
+
 end HeckeRestCurve
 
 end
 
 #print axioms HeckeRestCurve.curveNormChart_of
 #print axioms HeckeRestCurve.curveChartInf_of
+#print axioms HeckeRestCurve.chartNormalD
+#print axioms HeckeRestCurve.curveNormChart_of'
+#print axioms HeckeRestCurve.curveChartInf_of'
