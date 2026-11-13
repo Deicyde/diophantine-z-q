@@ -1,4 +1,4 @@
-# period-glue: period-map's six glue Props — three proved, two reduced to leaves alone, one to leaves plus one AG glue Prop
+# period-glue: period-map's six glue Props — three proved, two reduced to leaves alone, one to leaves plus one AG glue Prop (`FibreGenericC`)
 
 Task period-glue, 2026-11-13. Base 6f296292 (contains origin/wip/period-map). Lean:
 `scratch/period-glue/` (results log `log.md`). No file under `ZInQKernel/`, `blueprint/` or another
@@ -17,7 +17,7 @@ true and not vacuous. Every theorem below compiles with no `sorry` and only the 
 | `SphereFactorAffine` | **PROVED** from Mathlib alone. Three complex-analysis lemmas are proved on the way: the open mapping theorem for `ℍ → P¹`, removable singularities through a branched cover, and injective holomorphic maps of `P¹` | `SFA.lean`: `sphereFactorAffine_proof` |
 | `S8WeightExact` | **REDUCED to two leaves, no glue left**: Igusa's `ThetaModularity` (pkg-I1, unchanged) and `GammaStarGen` (leaf candidate, §5.3) | `W8.lean`: `s8WeightExact_of` |
 | `QMTwistLattice` | **REDUCED to one textbook leaf**, `T11aRiemannHom`, plus Skolem–Noether, which the kernel proves | `QMTwist.lean`: `qmTwistLattice_of'` |
-| `PiTwistC` | **REDUCED to leaves plus one glue Prop.** The leaves are R1fp, R1hecke and R2fp (all three in the own-triple bundle) and T5 (`TorsionStructure`). One supporting fact is proved by mobius-glue (`AutOInnerFinite`). The remaining glue is `FibreTransferC`, a Jacobson-type transfer from `ℚ̄`- to `ℂ`-points | `PiTwist.lean`: `piTwistC_of`, `twistOrbitFinite_of'` |
+| `PiTwistC` | **REDUCED to leaves plus one glue Prop.** The leaves are R1fp, R1hecke and R2fp (all three in the own-triple bundle) and T5 (`TorsionStructure`). One supporting fact is proved by mobius-glue (`AutOInnerFinite`). The remaining glue is `FibreGenericC`, the generic-fibre half of a transfer from `ℚ̄`- to `ℂ`-points. The other half, `ToP1AgreeC`, is proved | `PiTwist.lean`: `piTwistC_of`, `twistOrbitFinite_of'`, `fibreTransferC_of'` |
 
 ```lean
 theorem s8Nonzero_proof : S8Nonzero
@@ -30,6 +30,8 @@ theorem piTwistC_of (Y Φ π) (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
     (hT : TwistOrbitFinite Y Φ) (hF : FibreTransferC Y π) : PiTwistC Y Φ π
 theorem twistOrbitFinite_of' (Y Φ) (hH : R1heckeProps Y Φ) (hT : ObjBridge.TorsionStructure)
     (hA : AutOInnerFinite) : TwistOrbitFinite Y Φ
+theorem fibreTransferC_of' (Y π) (hG : FibreGenericC Y π) : FibreTransferC Y π
+theorem toP1AgreeC_proof (Y) : ToP1AgreeC Y
 ```
 
 The namespace is `HSyn.G0Split.FibreQM.PeriodGlue`. Two hypotheses are proved outside this task:
@@ -50,7 +52,7 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hHom : T11aRiemannHom)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hTors : ObjBridge.TorsionStructure) (hAI : AutOInnerFinite)
-    (hFT : FibreTransferC (ownY h) (ownπ h))
+    (hFG : FibreGenericC (ownY h) (ownπ h))
     (hSN : GlueDescent.LeafSkolemNoether) (hD : CMDescends)
     (hTM : PkgI1.ThetaModularity) (hG : GammaStarGen)
     (hV : PeriodMap.ValenceBoundGammaStar) (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod
@@ -63,7 +65,7 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
   - SN, which the kernel proves.
 - **Glue proved by another task:** `MobiusGlue` (mobius-glue / image-plane) and
   `AutOInnerFinite` (mobius-glue).
-- **Glue still open:** `FibreTransferC` and the inherited `CPtsTransport`.
+- **Glue still open:** `FibreGenericC` (§4) and the inherited `CPtsTransport`.
 
 **Effect on period-map's three targets.**
 - `HauptmodulUnique ⇐ S8Nonzero, SphereFactorAffine`. Both are now theorems, so
@@ -73,7 +75,7 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
 - `PeriodMapGlue` at the own triple. It now needs:
   - the leaves R1fp, R1hecke, R2fp, T5, `T11aRiemannHom` and `CMDescends`;
   - SN and `AutOInnerFinite` (proved elsewhere);
-  - the glue `FibreTransferC`.
+  - the glue `FibreGenericC`.
 
 ## 2. What was proved
 
@@ -181,7 +183,8 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
 
 ### 2.6 `PiTwistC` (`PiTwist.lean`)
 
-- **Reduction** (`piTwistC_of`). `PiTwistC ⇐ R1fp, R2fp, TwistOrbitFinite, FibreTransferC`.
+- **Reduction** (`piTwistC_of`). `PiTwistC ⇐ R1fp, R2fp, TwistOrbitFinite, FibreTransferC`;
+  then `FibreTransferC ⇐ ToP1AgreeC + FibreGenericC` (`fibreTransferC_of`).
   - On `ℚ̄`-points: the R2fp fibres equal the twist classes, which equal the `G`-orbits.
   - `FibreTransferC` carries this to `ℂ`-points.
   - On `ℂ`-points, `TwistOrbitFinite` turns the `G`-orbits back into twist classes.
@@ -195,6 +198,15 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
     (`UnitLiftMod3`) and then to a representative in `U`. `Φ` is injective, which gives
     `y' = y ≫ g_t ≫ h_u`.
   - (⇐) Forget the level structure.
+- **`ToP1AgreeC`** (`toP1AgreeC_proof`, density of closed points).
+  - A closed point of a scheme locally of finite type over `ℚ` is the point of a `ℚ̄`-point
+    (`exists_qbarPt`). This uses Mathlib's `isClosed_singleton_iff_locallyOfFiniteType`, Zariski's
+    lemma `finite_of_finite_type_of_isJacobsonRing`, and `IsAlgClosed.lift`.
+  - So the chart domains of `σ`, `ρ` contain the same closed points. Then `σ.U \ ρ.U`, being
+    locally closed and without closed points, is empty (`nonempty_inter_closedPoints`).
+  - The difference of the chart functions vanishes at all closed points. So its non-vanishing
+    locus is empty (Jacobson), and it vanishes in every residue field
+    (`basicOpen_eq_bot_iff_forall_evaluation_eq_zero`). No reducedness is needed.
 - **`UnitLiftMod3`** (`unitLiftMod3_proof`, a finite computation).
   - `nrd` is multiplicative (`nrdZ_mulCoord`), so `u₀` invertible mod 3 gives `3 ∤ nrd(u₀)`.
   - A table of 72 units with coordinates at most 3 (`py/unit_table.py`) covers every class with
@@ -206,9 +218,9 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
 |---|---|---|---|
 | `GammaStarGen` | **LEAF candidate** (flagged, §5.3) | `Γ* ⊆ ⟨ι(1+i+j), ι((j−3)/2), ℚ^×⟩` | signature `(0;2,4,6)` + Poincaré + covolume; numerically checked on 30 independent elements |
 | `T11aRiemannHom` | **LEAF** (textbook) | analytic representation of `Hom(A, A')` for uniformized `A, A'/ℂ` | Mumford §1, Birkenhake–Lange Prop. 1.2.1, GAGA (UNVERIFIED locators). The kernel's `T11aRiemannEnd` is its case `A = A'` (`t11aRiemannEnd_of_hom`) |
-| `FibreTransferC Y π` | **GLUE (AG)**, open; split into `ToP1AgreeC` and `FibreGenericC` | for `Y` proper smooth over `ℚ`: fibres of `π` = `G`-orbits on `ℚ̄`-points ⇒ on `ℂ`-points | §4 |
-| `ToP1AgreeC Y` | GLUE (AG, textbook density), open | two maps `Y → P¹` agreeing on `ℚ̄`-points agree on `ℂ`-points | §4 |
-| `FibreGenericC Y π` | GLUE (AG), open | (⇒) half of `FibreTransferC` | §4 |
+| `FibreGenericC Y π` | **GLUE (AG)**, open | for `Y` proper smooth over `ℚ`: if the fibres of `π` on `ℚ̄`-points are the `G`-orbits, two `ℂ`-points with equal `π`-values are in one `G`-orbit | §4 |
+| `FibreTransferC Y π` | glue, **reduced to `FibreGenericC`** | (⇐) and (⇒) of the transfer | §2.6 |
+| `ToP1AgreeC Y` | glue, **PROVED** | two maps `Y → P¹` agreeing on `ℚ̄`-points agree on `ℂ`-points | §2.6 |
 | `AutOInnerFinite` | glue, proved by mobius-glue | `Aut 𝒪` is finite mod conjugation by `𝒪^×` | copy of mobius-glue's statement |
 | `QMLatticeTwistAlg` | glue, **PROVED** (from SN) | twist relation on QM lattices ⇔ `τ' ∈ Γ*τ` | §2.4 |
 | `TwistOrbitFinite Y Φ` | glue, **PROVED** from R1hecke, T5, `AutOInnerFinite` | twist relation = orbits of a finite `G ⊆ Aut(Y)` (`ℚ̄`, `ℂ`) | §2.6 |
@@ -225,41 +237,32 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
   fibre-qm-period's `IsHolP1At`. All three lemmas built on them are proved, so no new leaf rests
   on these definitions.
 
-## 4. What remains: `FibreTransferC` (AG glue) and how to prove it
+## 4. What remains: `FibreGenericC` (AG glue) and how to prove it
 
-**Split** (`fibreTransferC_of`, compiled). `FibreTransferC ⇐ ToP1AgreeC + FibreGenericC`.
-- `ToP1AgreeC` covers (⇐). It is the textbook density statement: two maps to `P¹` that agree on
-  `ℚ̄`-points of a reduced finite-type `ℚ`-scheme agree on `ℂ`-points. It is applied to `π ∘ g`
-  and `π`.
-- `FibreGenericC` is the hard half (⇒). Its hypothesis forces `π` to be non-constant on every
-  component, since `G`-orbits are finite and a component has infinitely many `ℚ̄`-points.
-  - Over closed points it reduces to `ℚ̄`.
-  - Over generic points of components it needs the Jacobson argument below.
+**Statement.** `Y` is proper smooth over `ℚ` and `G` is a finite set of automorphisms with
+`ℚ̄`-fibres of `π` equal to the `G`-orbits. If two `ℂ`-points have `π(y) = π(y')`, then
+`y' = y ≫ g` for some `g ∈ G`. It is the (⇒) half of `FibreTransferC`. The (⇐) half is
+`ToP1AgreeC`, proved. Both halves are needed: period-map's `periodMapGlue_of` uses the full iff for
+the fibre clause.
 
-Both halves are needed: period-map's `periodMapGlue_of` uses the full iff for the fibre clause.
+**Model proof.** Work on `P = Y ×_ℚ Y`, locally of finite type over `ℚ`, hence Jacobson.
+1. Let `A = {p : π∘pr₁ and π∘pr₂ agree at p}`. It is closed. In the charts of the two maps it is
+   cut out by `f₁ − f₂`, `g₁ − g₂`, `f₁g₂ − 1` and `g₁f₂ − 1` on the four pieces of an open cover;
+   the same chart bookkeeping as in `toP1AgreeC_proof`.
+2. Let `Γ = ⋃_{g ∈ G} (fst ≫ g, snd)⁻¹(range Δ)`. It is closed: `Y` is separated, so the
+   diagonal `Δ` is a closed immersion.
+3. `A \ Γ` is locally closed. A closed point of it would be the point of a `ℚ̄`-point
+   (`exists_qbarPt` applied to `P`), that is, a pair of `ℚ̄`-points with equal `π`-values outside
+   every graph, which contradicts the hypothesis. So `A ⊆ Γ`.
+4. The `ℂ`-point `(y, y')` lies in `A`, hence in some `(fst ≫ g, snd)⁻¹(range Δ)`.
+5. A field-valued point whose image lies in `range Δ` has equal compositions with the two
+   projections. The residue maps of `pr₁` and `pr₂` at `Δ(q)` are both sections of the injective
+   map `κ(Δ q) → κ(q)`. This gives `y ≫ g = y'`.
 
-**Statement.** `Y` is proper smooth of relative dimension 1 over `ℚ`, and `G` is a finite set of
-automorphisms. If the fibres of `π` on `ℚ̄`-points are the `G`-orbits, then the same holds on
-`ℂ`-points.
-
-**Model proof.**
-1. Let `E = {(p,q) ∈ Y ×_ℚ Y : π(p) = π(q)}`, the equalizer of `π∘pr₁` and `π∘pr₂`. It is closed,
-   since `P¹` is separated.
-2. Let `Γ = ⋃_{g∈G} graph(g)`. It is closed, since `Y` is separated and `G` is finite.
-3. Both are closed in the finite-type `ℚ`-scheme `Y×Y`, which is Jacobson. So each is the closure
-   of its closed points.
-4. Closed points are images of `ℚ̄`-points. On these `E` and `Γ` agree by hypothesis, so `E = Γ`.
-5. A `ℂ`-point lies in `E` iff `π(y) = π(y')`. It lies in `Γ` iff it factors through some
-   `graph(g) ≅ Y`, which is reduced because `Y` is smooth.
-
-**What is needed in Lean.**
-- Turn the charts of `ToP1` into a morphism to `P¹`, or work chart by chart.
-- Equalizers and graphs as closed subschemes.
-- Jacobson density of closed points, using Mathlib's `JacobsonSpace`.
-
-Size: medium-large. An alternative is to split the `ℂ`-points by the image point: closed points
-reduce to `ℚ̄` through one embedding `ℚ̄ → ℂ`, and generic points of components need the
-function-field form of the statement.
+All ingredients exist in Mathlib v4.35: `JacobsonSpace`, `nonempty_inter_closedPoints`,
+`IsSeparated`, `pullback.diagonal`, `SpecToEquivOfField_eq_iff`, `residueFieldMap_comp`. Steps 1-4
+reuse `toP1AgreeC_proof`'s lemmas. Step 5 is the dependent-type bookkeeping with
+`residueFieldCongr`, which this task did not finish. Size: medium.
 
 ## 5. The two flagged leaves, restated, plus `GammaStarGen`
 
@@ -382,7 +385,7 @@ is independent of the generators. Greedy reduction of `cosh d(γp, p)` by the ve
 | run_light_base | `build_light.sh`: `PGLight.lean` = period-map's PMLight.lean | 0 errors, 1m25s |
 | run_bcu | `BCU.lean` (PGBase) | 0 errors; standard axioms |
 | run_qmtwist | `QMTwist.lean` (PGBase) | 0 errors; `qmTwistLattice_of`, `qmLatticeTwistAlg_mpr`, `qmTwistLattice_of'` standard axioms |
-| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `fibreTransferC_of`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
+| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `fibreTransferC_of`, `toP1AgreeC_proof`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
 | run_s8 | `S8.lean` (PGLight) | 0 errors; `s8Nonzero_iff`, `s8Nonzero_proof` standard axioms |
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
 | run_sfa | `SFA.lean` (PGLight) | 0 errors; `holP1OpenMap_proof`, `holP1FactorHol_proof`, `sphereInjAffine_proof`, `sphereFactorAffine_proof` standard axioms |
