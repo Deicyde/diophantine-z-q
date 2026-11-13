@@ -1,0 +1,881 @@
+{
+  "schema": "issue37-public-roadmap-source-graph-projection/v1",
+  "scope": "Read-only pinned source accuracy projection, not final mathematical acceptance or proof of Hilbert10",
+  "serving_identity": "unknown",
+  "overall_hilbert10_goal_complete": false,
+  "compiled_or_replayed_by_this_review": false,
+  "revisions": {
+    "M": "54de47e9a0e82c587493dad34926e9de79715ac7",
+    "64I": "0b09211e7eeaa084e00fcf16e84887026aea6530",
+    "64F": "ff76d64fed503a0227f1718a115da67749e83343",
+    "62I": "4abd51a3359f10c00c6654b5772d5e91cee0dcfd",
+    "62F": "e303a42543e9adf89aa70075372b622f4870a770",
+    "45": "0de69c5d3cfe0eb55002338e6aaba82e370ff34c",
+    "47": "2f9a9d9f382559298e78baf3a04f03267935bf06",
+    "50": "8fe1eaa079bfa11b9241d2377ca7102d0a54fb22",
+    "59": "654de7f4730388b92f58e2d3adb093ab7f753ce0",
+    "67": "e59744800718947195dcba72db0cae131e13ef28",
+    "41": "2757349fbd8ca613340b679bbd149f78c2baba6b"
+  },
+  "identity_checks": [
+    {
+      "from": "64I",
+      "to": "64F",
+      "scope": [
+        "ZInQKernel/Contrib/GaussFE",
+        "ZInQKernel/Contrib/HeckeAll",
+        "ZInQKernel/Contrib/HeckeFE"
+      ],
+      "git_diff_empty": true,
+      "commit_identities_equal": false
+    },
+    {
+      "from": "62I",
+      "to": "62F",
+      "scope": [
+        "ZInQKernel/HDecomp",
+        "ZInQKernel/Target.lean",
+        "ZInQKernel/MainLiterature.lean"
+      ],
+      "git_diff_empty": true,
+      "commit_identities_equal": false
+    },
+    {
+      "from": "M",
+      "to": "62I",
+      "scope": [
+        "ZInQKernel/Target.lean",
+        "ZInQKernel/MainLiterature.lean",
+        "ZInQKernel/HDecomp/Assembly.lean"
+      ],
+      "byte_equal": true
+    },
+    {
+      "from": "M",
+      "to": "62I",
+      "scope": [
+        "ZInQKernel/HDecomp/Objects.lean"
+      ],
+      "byte_equal": false,
+      "protected_statement_route": "canonical QMDichotomy versus QMDichotomyYu plus indefiniteness"
+    }
+  ],
+  "sources": {
+    "target": {
+      "revision": "M",
+      "path": "ZInQKernel/Target.lean",
+      "lines": [
+        18,
+        26
+      ],
+      "git_blob": "eaf28428304f3389b0378c692b0f5fbe093cc2ff",
+      "sha256": "2de06773d55dd9e2c25e671c1cbfe72dc39965ad25025b4e75a676db6220377e"
+    },
+    "quarantine": {
+      "revision": "M",
+      "path": "lean/Frozen/BoundedIntegerPolynomial.lean",
+      "lines": [
+        12,
+        21
+      ]
+    },
+    "main_literature": {
+      "revision": "M",
+      "path": "ZInQKernel/MainLiterature.lean",
+      "lines": [
+        37,
+        96
+      ],
+      "git_blob": "caecc27ad917afd4aab2690e4828af4ab16d8cce"
+    },
+    "analytic": {
+      "revision": "M",
+      "path": "ZInQKernel/Hypotheses/CR3Literature.lean",
+      "lines": [
+        44,
+        201
+      ]
+    },
+    "rank_endpoint": {
+      "revision": "M",
+      "path": "ZInQKernel/RouteK/RankVariants.lean",
+      "lines": [
+        69,
+        72
+      ]
+    },
+    "ap_endpoint": {
+      "revision": "M",
+      "path": "ZInQKernel/MainGreenTao.lean",
+      "lines": [
+        38,
+        48
+      ]
+    },
+    "gt": {
+      "revision": "M",
+      "path": "ZInQKernel/External/GreenTaoDense.lean",
+      "lines": [
+        28,
+        33
+      ]
+    },
+    "density": {
+      "revision": "M",
+      "path": "ZInQKernel/Density/PropDFinal.lean",
+      "lines": [
+        24,
+        29
+      ]
+    },
+    "assembly": {
+      "revision": "M",
+      "path": "ZInQKernel/Assembly/Top/Assembly.lean",
+      "lines": [
+        31,
+        70
+      ]
+    },
+    "six_contact": {
+      "revision": "M",
+      "path": "ZInQKernel/Hypotheses/HeightMin.lean",
+      "lines": [
+        50,
+        52
+      ]
+    },
+    "jheight": {
+      "revision": "M",
+      "path": "ZInQKernel/Hypotheses/JHeight.lean",
+      "lines": [
+        246,
+        265
+      ]
+    },
+    "height_assembly": {
+      "revision": "M",
+      "path": "ZInQKernel/HDecomp/Assembly.lean",
+      "lines": [
+        502,
+        681
+      ]
+    },
+    "objects": {
+      "revision": "M",
+      "path": "ZInQKernel/HDecomp/Objects.lean",
+      "lines": [
+        423,
+        491
+      ],
+      "git_blob": "1816c72167afa5dc6a46b2e149d25586a589cf6b"
+    },
+    "headline64": {
+      "revision": "64F",
+      "path": "ZInQKernel/Contrib/GaussFE/Headline.lean",
+      "lines": [
+        19,
+        35
+      ],
+      "git_blob": "7c0be2a4d83d49a723458b80e88bf15e03f0ce89",
+      "sha256": "d45095529d1903b53b43d7e1bd25b0c0fec1aa911c450b42085a4d3d6ad616c0"
+    },
+    "hecke64": {
+      "revision": "64F",
+      "path": "ZInQKernel/Contrib/HeckeAll/Provider.lean",
+      "lines": [
+        10,
+        11
+      ],
+      "git_blob": "ce11f3904bb77c3d98e980d63c8036b2395cc7c6"
+    },
+    "fe64": {
+      "revision": "64F",
+      "path": "ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean",
+      "lines": [
+        53,
+        108
+      ],
+      "git_blob": "5aba929a6c591591a1ee36382018218d8c5c8f9c"
+    },
+    "restricted_hecke": {
+      "revision": "64F",
+      "path": "ZInQKernel/Contrib/HeckeFE/Basic.lean",
+      "lines": [
+        1048,
+        1061
+      ]
+    },
+    "full_hecke": {
+      "revision": "64F",
+      "path": "ZInQKernel/Contrib/HeckeAll/Continuation.lean",
+      "lines": [
+        277,
+        290
+      ]
+    },
+    "tyz45": {
+      "revision": "45",
+      "path": "ZInQKernel/Contrib/TYZEquivalence/Equivalence.lean",
+      "lines": [
+        28,
+        131
+      ]
+    },
+    "qm": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/QM/Leaves.lean",
+      "lines": [
+        335,
+        541
+      ]
+    },
+    "qm_structure": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/QM/Structures.lean",
+      "lines": [
+        116,
+        158
+      ]
+    },
+    "c10": {
+      "revision": "M",
+      "path": "ZInQKernel/HDecomp/C10/C10.lean",
+      "lines": [
+        394,
+        468
+      ]
+    },
+    "squares": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/C10/Link.lean",
+      "lines": [
+        372,
+        463
+      ],
+      "git_blob": "1ea58d639bf12d9914493d557764248b6df02c6f",
+      "sha256": "0c72f9e57e7557aa61dd7c1fc847111f639d7b86105b9939aabb46e1e7e81b55"
+    },
+    "c9": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/ModCurves/C9.lean",
+      "lines": [
+        108,
+        632
+      ],
+      "git_blob": "acf4a40a4ace927386af8c9ef89bff27dd76f7d5",
+      "sha256": "b9f665f27f518831af64d27e4a299ed5a7b311aad7f87c9fa334c60eacb62f70"
+    },
+    "j1": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/ModCurves/Defs.lean",
+      "lines": [
+        173,
+        225
+      ]
+    },
+    "ssbc": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/I3Linalg/C2.lean",
+      "lines": [
+        441,
+        816
+      ]
+    },
+    "rhocont": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/I3Linalg/RhoCont.lean",
+      "lines": [
+        369,
+        403
+      ]
+    },
+    "tatebc": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/I3Linalg/TateBC.lean",
+      "lines": [
+        84,
+        98
+      ]
+    },
+    "bn47": {
+      "revision": "47",
+      "path": "ZInQKernel/Contrib/BrauerNesbitt/Bridge.lean",
+      "lines": [
+        21,
+        26
+      ]
+    },
+    "cheb50": {
+      "revision": "50",
+      "path": "ZInQKernel/Contrib/FrobeniusDensity/FiniteDensity.lean",
+      "lines": [
+        102,
+        108
+      ]
+    },
+    "t1850": {
+      "revision": "50",
+      "path": "ZInQKernel/Contrib/FrobeniusDensity/ClosedProof.lean",
+      "lines": [
+        20,
+        39
+      ]
+    },
+    "d159": {
+      "revision": "59",
+      "path": "ZInQKernel/Contrib/ConductorBounds/D1.lean",
+      "lines": [
+        24,
+        34
+      ]
+    },
+    "kw67": {
+      "revision": "67",
+      "path": "ZInQKernel/Contrib/KroneckerWeber/GlobalPrimePowerAssembly.lean",
+      "lines": [
+        39,
+        67
+      ],
+      "git_blob": "03a3f1e22a3dcedfd5c62a0b1e2ed8430eaa58a3",
+      "sha256": "c3c36a70c77f5f8075605fcd93cc528d8988e3aa44ee84a44bd208aa7a15d670"
+    },
+    "cond62": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/Conductor/LadicCond.lean",
+      "lines": [
+        413,
+        488
+      ]
+    },
+    "level": {
+      "revision": "M",
+      "path": "ZInQKernel/HDecomp/Conductor/Level.lean",
+      "lines": [
+        67,
+        72
+      ]
+    },
+    "height62": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/Faltings/Height.lean",
+      "lines": [
+        59,
+        65
+      ],
+      "additional_lines": [
+        [
+          282,
+          299
+        ]
+      ]
+    },
+    "h5": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/Faltings/H5Neron.lean",
+      "lines": [
+        701,
+        727
+      ],
+      "additional_lines": [
+        [
+          810,
+          854
+        ]
+      ]
+    },
+    "height_leaves": {
+      "revision": "62I",
+      "path": "ZInQKernel/HDecomp/Faltings/Leaves.lean",
+      "lines": [
+        59,
+        101
+      ]
+    },
+    "hsyn41": {
+      "revision": "41",
+      "path": "ZInQKernel/Targets/H/Defs/HSyn.lean",
+      "lines": [
+        11,
+        26
+      ]
+    },
+    "local494_statement": {
+      "path": "source/ZInQKernel/Contrib/LocalSquareRoot/LocalKWStatement.lean",
+      "lines": [
+        13,
+        22
+      ],
+      "sha256": "244fea5f409fab95e54a9a32e46c4871f9aea3494fb8f61be6514cb907e1567e",
+      "source_scope": "unpublished LocalKW source/type packet, excluded from this consolidation; raw verification not passed"
+    },
+    "local494_provider": {
+      "path": "source/ZInQKernel/Contrib/LocalSquareRoot/LocalKroneckerWeber.lean",
+      "lines": [
+        31,
+        57
+      ],
+      "sha256": "7a6883c5d5a2985210adbae8165a5f48eb354f9d212a117496648dcb41e6d096",
+      "source_scope": "unpublished LocalKW source/type packet, excluded from this consolidation; raw verification not passed"
+    }
+  },
+  "nodes": [
+    {
+      "id": "FrozenTarget",
+      "declaration": "ZInQ.FrozenTarget",
+      "kind": "final_polynomial_definition",
+      "status": "conditional_routes_only_in_inspected_chain",
+      "type": "exists integer polynomial in Fin 292890231905, degree < hyperoperation 4 2 7, coeff natAbs < hyperoperation 4 2 8, rational zero projection exactly integer casts",
+      "source": "target"
+    },
+    {
+      "id": "quarantined_unconditional",
+      "kind": "not_usable_supplier",
+      "status": "sorry_body",
+      "source": "quarantine"
+    },
+    {
+      "id": "Hilbert10Q",
+      "kind": "intended_final_undecidability",
+      "status": "formal_transfer_not_identified_in_bounded_canonical_scope",
+      "required": "effective integer-to-rational polynomial-solvability reduction using closed integrality definition plus integer undecidability theorem"
+    },
+    {
+      "id": "H",
+      "declaration": "ZInQ.SixContactMin",
+      "kind": "actual_height_input",
+      "status": "not_supplied_in_inspected_chain",
+      "source": "six_contact"
+    },
+    {
+      "id": "JHeight",
+      "declaration": "ZInQ.JHeight.JHeightBound Mult.S_mul",
+      "status": "input_not_constructed",
+      "source": "jheight"
+    },
+    {
+      "id": "GlueOutputs",
+      "declaration": "GlueAssembly.GlueOutputs Mult.S_mul",
+      "status": "object_backed_input_not_constructed",
+      "source": "height_assembly"
+    },
+    {
+      "id": "finiteContactMirror",
+      "status": "source_binding_unresolved_not_global_absence",
+      "required": "exact mirror theorem type/proof and bridge to canonical SixContactMin",
+      "excluded_inference": "HSyn definition-only extraction is not H supplier",
+      "source": "hsyn41"
+    },
+    {
+      "id": "TYZReadingA",
+      "declaration": "ZInQ.Literature.TYZThm35ReadingA",
+      "status": "remaining_analytic_input",
+      "source": "analytic"
+    },
+    {
+      "id": "GrossZagier",
+      "declaration": "ZInQ.Literature.GrossZagier",
+      "status": "remaining_actual_point_input",
+      "source": "analytic"
+    },
+    {
+      "id": "Hecke",
+      "declaration": "ZInQ.Contrib.heckeContinuation",
+      "status": "source_declared_closed_exact_provider_not_compiled_here",
+      "domain": "all natural d != 0",
+      "source": "hecke64"
+    },
+    {
+      "id": "Hecke5",
+      "declaration": "HeckeFE.HeckeContinuation5",
+      "status": "restricted_closed_source_route",
+      "domain": "squarefree d == 5 mod 8",
+      "source": "restricted_hecke"
+    },
+    {
+      "id": "FE5",
+      "declaration": "ZInQ.Contrib.functionalEquation5",
+      "status": "source_declared_closed_exact_provider_not_compiled_here",
+      "domain": "squarefree d == 5 mod 8, all continuations, strip 0<Re s<2",
+      "source": "fe64"
+    },
+    {
+      "id": "TYZInputs",
+      "declaration": "ZInQ.PropN.TYZInputs",
+      "status": "equivalent_analytic_obligation_not_closed_by_abstract_witness",
+      "source": "tyz45"
+    },
+    {
+      "id": "ParityOrderOne",
+      "declaration": "ZInQ.PropN.ParitySupportedOrderOne",
+      "status": "remaining_analytic_input",
+      "domain": "support of either T5aCl or T5bCl, not only row5b",
+      "source": "tyz45"
+    },
+    {
+      "id": "CR",
+      "declaration": "ZInQ.RouteK.Rank.CertifiedRankTYZClRk",
+      "status": "conditionally_derived",
+      "source": "rank_endpoint"
+    },
+    {
+      "id": "SlopeRouteAP",
+      "status": "closed_source_suppliers_in_main",
+      "sources": [
+        "gt",
+        "density",
+        "ap_endpoint"
+      ]
+    },
+    {
+      "id": "QMActual",
+      "status": "construction_input_remaining",
+      "source": "qm",
+      "required": "R1R2fp and one actual surface/fibre at canonical Jmap u with downstream identity"
+    },
+    {
+      "id": "hSq",
+      "declaration": "hSq of GlueC10Link.c10_of_squares",
+      "status": "natural_data_input_remaining",
+      "source": "squares",
+      "required": "every arithmetic Frobenius outside S; same L/k/A/A_sigma/mu/Abar/Abar_prime/F/mubar/nonzero N at ell=3 and ell=5; both reduction squares and Psi conjugation"
+    },
+    {
+      "id": "C9Data",
+      "status": "attachment_input_remaining",
+      "source": "c9",
+      "required": "actual J1(N), newform/coefficient embeddings, continuous semisimple r, arithmetic Frobenius attachment; twisted route also hpsi"
+    },
+    {
+      "id": "FaltingsActual",
+      "status": "arithmetic_inputs_remaining",
+      "source": "objects",
+      "required": "FaltingsSemisimple/FaltingsTate/TateModuleFree/HomFreeFinite/CharPolyIndepOfEll on same actual objects"
+    },
+    {
+      "id": "SSBC",
+      "declaration": "GlueI3.semisimpleBaseChange",
+      "status": "source_declared_closed_algebraic_reduction",
+      "source": "ssbc"
+    },
+    {
+      "id": "RhoCont",
+      "status": "proved_reduction_from_free_finite_Tate",
+      "source": "rhocont"
+    },
+    {
+      "id": "TateBC",
+      "declaration": "PkgI3.Tate.map_bijective",
+      "status": "proved_reduction_from_injective_same_group_map_and_finite_free_equal_rank",
+      "source": "tatebc"
+    },
+    {
+      "id": "BN",
+      "status": "source_declared_closed_exact_both_interfaces",
+      "source": "bn47"
+    },
+    {
+      "id": "Chebotarev",
+      "status": "source_declared_closed_exact_both_finite_interfaces",
+      "source": "cheb50"
+    },
+    {
+      "id": "C10",
+      "status": "proved_conditional_compatible_system_glue",
+      "sources": [
+        "c10",
+        "squares",
+        "c9"
+      ]
+    },
+    {
+      "id": "D1",
+      "declaration": "ZInQ.Contrib.ConductorBounds.D1_closed",
+      "status": "two_literature_leaves_supplied_14_residual_binders",
+      "source": "d159",
+      "required": "actual field/prime/ramification e<=a!, nontrivial group and remaining displayed binders"
+    },
+    {
+      "id": "hU_hB",
+      "status": "remaining_global_KW_arithmetic_inputs",
+      "source": "kw67",
+      "required": "hU and hB on SAME enlarged cyclotomicCompositum L n; arbitrary finite prime S; intended original S is application choice"
+    },
+    {
+      "id": "GlobalKW",
+      "status": "conditional_embedding_not_unrestricted_T17",
+      "source": "kw67"
+    },
+    {
+      "id": "LocalKW494",
+      "status": "compiled_type_packet_reported_no_unmodified_raw_PASS_resource_blocked",
+      "sources": [
+        "local494_statement",
+        "local494_provider"
+      ],
+      "reported_peak_resource": "approximately 140 GiB; parent report, not measured here",
+      "not_equivalent_to": [
+        "registered_T16",
+        "unrestricted_global_T17",
+        "H",
+        "whole_raw_validation"
+      ]
+    },
+    {
+      "id": "ConductorLevel",
+      "status": "actual_adapted_Carayol_factorization_inputs_remaining",
+      "sources": [
+        "cond62",
+        "level"
+      ],
+      "required": "SwanIndependent/AdaptedExists as used; same N in newform, small/large/outside exponent clauses and J1(N)"
+    },
+    {
+      "id": "ActualHeightTheta",
+      "status": "object_height_and_theta_inputs_remaining",
+      "sources": [
+        "height62",
+        "h5",
+        "height_leaves",
+        "height_assembly"
+      ],
+      "required": "same A/J/Z/Lprime, finite stable heights, actual degree/height inequalities and theta Phi=Jmap"
+    },
+    {
+      "id": "CombinedValidation",
+      "status": "parent_owned_not_proved_by_source_union",
+      "required": "exact tree and standard-axiom checks, authentic normal and required raw validation; no diagnostic substitution"
+    },
+    {
+      "id": "ReviewedIntegration",
+      "status": "parent_owned_protected_routes_separate",
+      "required": "consumer identities and historical audit contract carry-forward; no fabricated acceptance or obsolete App gate"
+    }
+  ],
+  "edges": [
+    {
+      "from": [
+        "H",
+        "TYZReadingA",
+        "Hecke",
+        "FE5",
+        "GrossZagier"
+      ],
+      "to": "FrozenTarget",
+      "kind": "canonical_five_input_theorem",
+      "source": "main_literature"
+    },
+    {
+      "from": [
+        "H",
+        "TYZReadingA",
+        "GrossZagier"
+      ],
+      "to": "FrozenTarget",
+      "kind": "PR64_folded_three_input_theorem_using_Gauss_and_restricted_Hecke5",
+      "source": "headline64"
+    },
+    {
+      "from": [
+        "H",
+        "TYZInputs",
+        "GrossZagier"
+      ],
+      "to": "FrozenTarget",
+      "kind": "PR64_folded_alternate_with_FE5",
+      "source": "headline64"
+    },
+    {
+      "from": [
+        "TYZReadingA",
+        "Hecke",
+        "FE5",
+        "GrossZagier"
+      ],
+      "to": "CR",
+      "kind": "continuation_TYZ_root_number_simple_zero_actual_infinite_order_point",
+      "source": "analytic"
+    },
+    {
+      "from": [
+        "H",
+        "CR"
+      ],
+      "to": "FrozenTarget",
+      "kind": "rank_endpoint_with_AP_suppliers_inherited",
+      "source": "rank_endpoint"
+    },
+    {
+      "from": [
+        "TYZInputs"
+      ],
+      "to": "ParityOrderOne",
+      "kind": "iff_not_closed_analytic_proof",
+      "source": "tyz45"
+    },
+    {
+      "from": [
+        "TYZReadingA",
+        "Hecke"
+      ],
+      "to": "TYZInputs",
+      "kind": "conditional_equivalence_support_continuation_supplied",
+      "source": "tyz45"
+    },
+    {
+      "from": [
+        "GlueOutputs"
+      ],
+      "to": "JHeight",
+      "kind": "proved_numerical_join",
+      "source": "height_assembly"
+    },
+    {
+      "from": [
+        "JHeight"
+      ],
+      "to": "H",
+      "kind": "proved_implication_not_input_supplier",
+      "source": "jheight"
+    },
+    {
+      "from": [
+        "QMActual"
+      ],
+      "to": "hSq",
+      "kind": "construction_application_still_required",
+      "source": "squares"
+    },
+    {
+      "from": [
+        "hSq",
+        "C9Data",
+        "FaltingsActual",
+        "BN",
+        "Chebotarev"
+      ],
+      "to": "C10",
+      "kind": "conditional_source_glue_requires_actual_continuity_semisimplicity_and_common_trace_data",
+      "source": "squares"
+    },
+    {
+      "from": [
+        "FaltingsActual",
+        "SSBC"
+      ],
+      "to": "C10",
+      "kind": "partial_semisimplicity_route_not_all_inputs",
+      "source": "c9"
+    },
+    {
+      "from": [
+        "hU_hB"
+      ],
+      "to": "GlobalKW",
+      "kind": "positive_level_exact_embedding_conditional",
+      "source": "kw67"
+    },
+    {
+      "from": [
+        "LocalKW494"
+      ],
+      "to": "hU_hB",
+      "kind": "not_automatic_global_compositum_join_remains",
+      "source": "kw67"
+    },
+    {
+      "from": [
+        "D1",
+        "C10",
+        "ConductorLevel"
+      ],
+      "to": "ActualHeightTheta",
+      "kind": "same_level_isogeny_height_construction_remaining",
+      "sources": [
+        "level",
+        "height_leaves"
+      ]
+    },
+    {
+      "from": [
+        "QMActual",
+        "ActualHeightTheta"
+      ],
+      "to": "GlueOutputs",
+      "kind": "actual_object_to_numerical_output_bridge_remaining",
+      "source": "height_assembly"
+    },
+    {
+      "from": [
+        "FrozenTarget"
+      ],
+      "to": "Hilbert10Q",
+      "kind": "further_effective_formal_undecidability_transfer_required"
+    },
+    {
+      "from": [
+        "CombinedValidation",
+        "ReviewedIntegration"
+      ],
+      "to": "FrozenTarget",
+      "kind": "validation_integration_are_distinct_from_proving_remaining_premises"
+    }
+  ],
+  "priority": [
+    {
+      "id": "P1",
+      "target": "QMActual"
+    },
+    {
+      "id": "P2",
+      "target": "hSq"
+    },
+    {
+      "id": "P3",
+      "target": "C9Data"
+    },
+    {
+      "id": "P4",
+      "target": "FaltingsActual",
+      "reuse": [
+        "SSBC",
+        "RhoCont",
+        "TateBC"
+      ]
+    },
+    {
+      "id": "P5",
+      "targets": [
+        "hU_hB",
+        "ConductorLevel",
+        "ActualHeightTheta"
+      ]
+    },
+    {
+      "id": "P6",
+      "targets": [
+        "H",
+        "TYZReadingA",
+        "GrossZagier",
+        "CombinedValidation",
+        "ReviewedIntegration",
+        "FrozenTarget",
+        "Hilbert10Q"
+      ]
+    }
+  ],
+  "nonduplication": {
+    "point_base_change": "existing point/group-map lane",
+    "tate_consumer": "existing same-M Tate/linear/rank lane",
+    "relative_frobenius": "existing relative/prime-field Frobenius adapter lane"
+  },
+  "limits": [
+    "source statement/proof inspection, not new compiler or raw-kernel evidence",
+    "formal transfer absence observation bounded to 693 tracked canonical Lean sources and inspected endpoints, not every repository or possible spelling",
+    "unread finiteContact/H mirror not assessed",
+    "primary literature and whole historical arithmetic proof not re-audited",
+    "PR62 alternate protected statement route not accepted or overwritten",
+    "component source packets and prior preliminary reviews are not final arithmetic acceptance"
+  ],
+  "projection": "Explicit public-safe projection of private read-only source graph; not byte-identical original and not a compile/replay/acceptance report",
+  "original_graph_sha256": "cc2c9c257001f487cbcc9e8d09c17e6f9d3c88a010e7321e8f1a63bde2e18d08"
+}
