@@ -1325,7 +1325,8 @@ variety `A` over a number field `K` and a DVR `O ⊂ K` there is a finite extens
 the local statement holds for every finite extension `L₁ ⊇ L₀`. Consequence of SGA 7 I, Exp. IX,
 Thm 3.6 (semistable reduction after a finite extension `L₀`) and Prop./Cor. 3.3 (semistable
 reduction persists under further extensions and then `(𝒩₁⁰)_{O'} ≅ 𝒩'⁰` for every extension of
-DVRs), with SGA 3 VI_B 3.10. All locators UNVERIFIED. Implies N2-loc
+DVRs), with SGA 3 VI_B 3.10; the persistence step uses that `O₁ ∩ L₀` is a DVR over `O`
+(`isDiscreteValuationRing_comap`, §9). All locators UNVERIFIED. Independent model review: OK. Implies N2-loc
 (`localSemistableIdentityComponent_of_mono`). -/
 def LocalSemistableIdentityComponentMono : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
@@ -1391,6 +1392,112 @@ theorem h5neron_n1_n2_of_leaves_and_glue_mono (hloc1 : LocalNeronModelExists)
     neronModelExists_of_local hloc1 hab (neronLocalToGlobal_of g1 hNL (neronNearPoint_of g2) g3)
   ⟨hN1, semistableNeronIdentityComponent_of_mono hN1 hab hNL g1 hloc2 g6⟩
 
+
+/-! ## §9. Every proper valuation subring of a number field is a DVR; restriction of DVRs
+
+A step towards N2-g2 (`O₀ = O₁ ∩ L₀` is a DVR). -/
+
+section Restrict
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- The center of a valuation subring `O ≠ ⊤` of a number field on `𝓞_K`: a nonzero prime. -/
+def center' (O : ValuationSubring K) (hO : O ≠ ⊤) :
+    IsDedekindDomain.HeightOneSpectrum (𝓞 K) where
+  asIdeal := (IsLocalRing.maximalIdeal O).comap (toO O)
+  isPrime := Ideal.comap_isPrime _ _
+  ne_bot := by
+    obtain ⟨y, hy⟩ : ∃ y : K, y ∉ O := by
+      by_contra h
+      push_neg at h
+      exact hO (eq_top_iff.2 fun y _ => h y)
+    have hy0 : y ≠ 0 := fun h => hy (h ▸ O.zero_mem)
+    have hyi : y⁻¹ ∈ O := (O.mem_or_inv_mem y).resolve_left hy
+    let x : O := ⟨y⁻¹, hyi⟩
+    have hx : x ∈ IsLocalRing.maximalIdeal O := by
+      rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+      intro hu
+      obtain ⟨u, hu'⟩ := hu
+      apply hy
+      have : ((u⁻¹ : Oˣ) : O) * x = 1 := by rw [← hu']; exact u.inv_mul
+      have h2 : ((((u⁻¹ : Oˣ) : O) : K)) * y⁻¹ = 1 := congrArg Subtype.val this
+      have h3 : y = (((u⁻¹ : Oˣ) : O) : K) := by
+        field_simp at h2
+        exact h2.symm
+      rw [h3]; exact (((u⁻¹ : Oˣ) : O)).2
+    have hx0 : x ≠ 0 := fun h => inv_ne_zero hy0 (congrArg Subtype.val h)
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (𝓞 K) (x : K)
+    have hb0 : algebraMap (𝓞 K) K b ≠ 0 := by
+      rw [ne_eq, map_eq_zero_iff _ (IsFractionRing.injective (𝓞 K) K)]
+      exact nonZeroDivisors.ne_zero hb
+    have ha : toO O a = x * toO O b := by
+      apply Subtype.ext
+      rw [toO_coe, Subring.coe_mul, toO_coe, ← hab, div_mul_cancel₀ _ hb0]
+    intro hbot
+    have hmem : a ∈ (IsLocalRing.maximalIdeal O).comap (toO O) := by
+      rw [Ideal.mem_comap, ha]; exact Ideal.mul_mem_right _ _ hx
+    rw [hbot, Ideal.mem_bot] at hmem
+    apply hx0
+    apply Subtype.ext
+    rw [← hab, hmem, map_zero, zero_div]; rfl
+
+/-- **Every valuation subring `O ≠ ⊤` of a number field is `𝓞_{K,v}` (proved).** -/
+theorem dvrAt_center' (O : ValuationSubring K) (hO : O ≠ ⊤) : dvrAt (center' O hO) = O := by
+  apply ValuationSubring.eq_of_le_of_ne_top _ _ hO
+  intro x hx
+  obtain ⟨n, d, hnd⟩ :=
+    IsDedekindDomain.HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer (center' O hO) x hx
+  have hd : IsUnit (toO O d) := by
+    by_contra h
+    exact d.2 ((IsLocalRing.mem_maximalIdeal _).2 h)
+  have hvd : O.valuation (algebraMap (𝓞 K) K d) = 1 := (O.valuation_eq_one_iff _).1 hd
+  apply O.mem_of_valuation_le_one
+  have h2 := congrArg O.valuation hnd
+  rw [map_mul, hvd, _root_.mul_one] at h2
+  rw [h2]
+  exact O.valuation_le_one (toO O n)
+
+/-- Every valuation subring `O ≠ ⊤` of a number field is a DVR. -/
+theorem isDiscreteValuationRing_of_ne_top (O : ValuationSubring K) (hO : O ≠ ⊤) :
+    IsDiscreteValuationRing O := by
+  rw [← dvrAt_center' O hO]
+  infer_instance
+
+end Restrict
+
+/-- **The restriction `O₁ ∩ L₀` of a DVR `O₁` of a finite extension `L₁ ⊇ L₀` of number fields is a
+DVR of `L₀` (proved).** -/
+theorem isDiscreteValuationRing_comap {L₀ L₁ : Type} [Field L₀] [NumberField L₀] [Field L₁]
+    [NumberField L₁] [Algebra L₀ L₁] (O₁ : ValuationSubring L₁) [IsDiscreteValuationRing O₁] :
+    IsDiscreteValuationRing (O₁.comap (algebraMap L₀ L₁)) := by
+  apply isDiscreteValuationRing_of_ne_top
+  intro htop
+  have hall : ∀ x : L₀, algebraMap L₀ L₁ x ∈ O₁ := fun x => by
+    have : x ∈ O₁.comap (algebraMap L₀ L₁) := by rw [htop]; exact ValuationSubring.mem_top x
+    exact this
+  have hne : O₁ ≠ ⊤ := by
+    intro h
+    obtain ⟨x, hx, hx0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot
+      (IsDiscreteValuationRing.not_a_field O₁)
+    have hall' : ∀ y : L₁, y ∈ O₁ := by
+      intro y; rw [h]; exact ValuationSubring.mem_top y
+    have hinv : ((x : L₁))⁻¹ ∈ O₁ := hall' _
+    have hu : IsUnit x := by
+      refine isUnit_iff_exists_inv.2 ⟨⟨_, hinv⟩, Subtype.ext ?_⟩
+      rw [Subring.coe_mul]
+      exact mul_inv_cancel₀ (fun h => hx0 (Subtype.ext h))
+    exact (IsLocalRing.mem_maximalIdeal _).1 hx hu
+  obtain ⟨y, hy⟩ : ∃ y : L₁, y ∉ O₁ := by
+    by_contra h
+    push_neg at h
+    exact hne (eq_top_iff.2 fun y _ => h y)
+  letI : Algebra L₀ O₁ := ((algebraMap L₀ L₁).codRestrict O₁.toSubring hall).toAlgebra
+  haveI : IsScalarTower L₀ O₁ L₁ := IsScalarTower.of_algebraMap_eq fun _ => rfl
+  haveI : Module.Finite L₀ L₁ := Module.Finite.of_restrictScalars_finite ℚ L₀ L₁
+  have hint : IsIntegral O₁ y := (Algebra.IsIntegral.isIntegral (R := L₀) y).tower_top
+  obtain ⟨z, hz⟩ := IsIntegrallyClosed.isIntegral_iff.1 hint
+  exact hy (hz ▸ z.2)
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1415,3 +1522,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.hasAbelianSchemeAway_zero
 #print axioms ZInQ.NeronLG.localSemistableIdentityComponent_of_mono
 #print axioms ZInQ.NeronLG.h5neron_n1_n2_of_leaves_and_glue_mono
+#print axioms ZInQ.NeronLG.isDiscreteValuationRing_of_ne_top
+#print axioms ZInQ.NeronLG.isDiscreteValuationRing_comap

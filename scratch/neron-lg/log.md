@@ -102,3 +102,14 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
   `semistableCommonField_mono`, `semistableNeronIdentityComponent_of_mono`,
   `h5neron_n1_n2_of_leaves_and_glue_mono` (build's N1 ∧ N2 from N1-loc, N1-ab, N2-loc⁺, NL and the
   four glue N1-g1, N1-g2(bad), N1-g3, N2-g3) PROVED.
+
+## Review of §8 (subagent, read-only) — 07:10
+N2-loc⁺ OK: a consequence of SGA 7 IX 3.6 + 3.3 (+ SGA 3 VI_B 3.10), not stronger; not vacuous,
+not trivially satisfiable; Lean instance binders as intended; N2-loc⁺ is itself derivable from
+N2-loc + N2-g2 + localNeronModelsOf. One docstring point (O₁ ∩ L₀ is a DVR over O) added.
+
+## NeronLG.lean §9 — COMPILED 07:13 (0 errors; 24 #print axioms, all standard)
+- `center'`, `dvrAt_center'`: every valuation subring O ≠ ⊤ of a number field is 𝓞_{K,v} PROVED.
+- `isDiscreteValuationRing_of_ne_top` PROVED.
+- `isDiscreteValuationRing_comap`: O₁ ∩ L₀ is a DVR for a DVR O₁ of a finite extension L₁ ⊇ L₀
+  of number fields PROVED (a step of N2-g2 and of the N2-loc⁺ argument).
