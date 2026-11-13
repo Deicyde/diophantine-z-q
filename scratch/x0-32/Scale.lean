@@ -605,4 +605,81 @@ theorem psi_map (σ : Qbar →ₐ[ℚ] Qbar) (Q : PtC1) :
   rw [hpsi', Point.some.injEq]
   constructor <;> simp [map_div₀, map_mul, map_pow, map_add, map_one]
 
+
+/-! ## §1.1 Invariants of the class `32a` over `ℚ` -/
+
+section Invariants
+
+open WeierstrassCurve
+
+theorem curveX0_c₄ : curveX0.c₄ = -192 := by
+  simp [curveX0, curveA, shortCurve, c₄, b₂, b₄]; norm_num
+theorem curveX0_Δ : curveX0.Δ = -4096 := by
+  simp [curveX0, curveA, shortCurve, Δ, b₂, b₄, b₆, b₈]; norm_num
+theorem curveC1_c₄ : curveC1.c₄ = 48 := by
+  simp [curveC1, shortCurve, c₄, b₂, b₄]; norm_num
+theorem curveC1_Δ : curveC1.Δ = 64 := by
+  simp [curveC1, shortCurve, Δ, b₂, b₄, b₆, b₈]; norm_num
+theorem curve32a3_c₄ : curve32a3.c₄ = 528 := by
+  simp [curve32a3, c₄, b₂, b₄]; norm_num
+theorem curve32a3_Δ : curve32a3.Δ = 512 := by
+  simp [curve32a3, Δ, b₂, b₄, b₆, b₈]; norm_num
+theorem curve32a4_c₄ : curve32a4.c₄ = 528 := by
+  simp [curve32a4, c₄, b₂, b₄]; norm_num
+theorem curve32a4_Δ : curve32a4.Δ = 512 := by
+  simp [curve32a4, Δ, b₂, b₄, b₆, b₈]; norm_num
+
+instance curveX0_isElliptic : curveX0.IsElliptic :=
+  ⟨isUnit_iff_ne_zero.mpr (by rw [curveX0_Δ]; norm_num)⟩
+instance curveC1_isElliptic : curveC1.IsElliptic :=
+  ⟨isUnit_iff_ne_zero.mpr (by rw [curveC1_Δ]; norm_num)⟩
+instance curve32a3_isElliptic : curve32a3.IsElliptic :=
+  ⟨isUnit_iff_ne_zero.mpr (by rw [curve32a3_Δ]; norm_num)⟩
+instance curve32a4_isElliptic : curve32a4.IsElliptic :=
+  ⟨isUnit_iff_ne_zero.mpr (by rw [curve32a4_Δ]; norm_num)⟩
+
+/-- `j(X₀(32)) = 1728` (CM by `ℤ[i]`). -/
+theorem curveX0_j : curveX0.j = 1728 := by
+  rw [j_eq, curveX0_Δ, curveX0_c₄]; norm_num
+/-- `j(C₁) = 1728`. -/
+theorem curveC1_j : curveC1.j = 1728 := by
+  rw [j_eq, curveC1_Δ, curveC1_c₄]; norm_num
+/-- `j(32a3) = j(32a4) = 287496 = 66³` (CM by `ℤ[2i]`). -/
+theorem curve32a3_j : curve32a3.j = 287496 := by
+  rw [j_eq, curve32a3_Δ, curve32a3_c₄]; norm_num
+theorem curve32a4_j : curve32a4.j = 287496 := by
+  rw [j_eq, curve32a4_Δ, curve32a4_c₄]; norm_num
+
+/-- **`X₀(32) ≇ C₁` over `ℚ`**: no change of variables over `ℚ` maps `y² = x³ + 4x` to
+`y² = x³ − x` (it would need `u⁴ = −4`). -/
+theorem not_exists_variableChange_X0_C1 : ¬ ∃ C : VariableChange ℚ, C • curveX0 = curveC1 := by
+  rintro ⟨C, hC⟩
+  have h := congrArg WeierstrassCurve.c₄ hC
+  rw [variableChange_c₄, curveX0_c₄, curveC1_c₄] at h
+  have h0 : (0 : ℚ) ≤ ((C.u⁻¹ : ℚˣ) : ℚ) ^ 4 := by positivity
+  nlinarith
+
+/-- **`X₀(32) ≅ C₁` over `ℚ(i)`**: the change of variables `x = u²x'`, `y = u³y'` with `u = 1 − i`
+maps `y² = x³ + 4x` to `y² = x³ − x`. -/
+def isoVC : VariableChange Qbar :=
+  ⟨Units.mk0 (1 - iQ) isScale_iotaInv.ne, 0, 0, 0⟩
+
+theorem isoVC_smul : isoVC • curveAbar = curveC1bar := by
+  have hu : ((isoVC.u⁻¹ : Qbarˣ) : Qbar) = (1 + iQ) / 2 := by
+    simp only [isoVC, Units.val_inv_eq_inv_val, Units.val_mk0]
+    have h1 : (1 - iQ) ≠ 0 := isScale_iotaInv.ne
+    field_simp
+    linear_combination iQ_sq
+  ext
+  · rw [variableChange_a₁, curveC1bar_a₁, curveAbar_a₁]; simp [isoVC]
+  · rw [variableChange_a₂, curveC1bar_a₂, curveAbar_a₂, curveAbar_a₁]; simp [isoVC]
+  · rw [variableChange_a₃, curveC1bar_a₃, curveAbar_a₃, curveAbar_a₁]; simp [isoVC]
+  · rw [variableChange_a₄, curveC1bar_a₄, curveAbar_a₄, curveAbar_a₃, curveAbar_a₂,
+      curveAbar_a₁, hu]
+    simp only [isoVC]
+    linear_combination ((5 : Qbar) / 4 + iQ + 1 / 4 * iQ ^ 2) * iQ_sq
+  · rw [variableChange_a₆, curveC1bar_a₆, curveAbar_a₆]; simp [isoVC]
+
+end Invariants
+
 end ZInQ.Contrib.TYZGenus.X0
