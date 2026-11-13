@@ -41,3 +41,7 @@ information: Galois action on the geometric components. Inputs:
 ## Lean (scratch/pi0-x6/)
 
 (entries below as compiled)
+- L1 (VERIFIED, compiled 23:03, `lake env lean scratch/pi0-x6/Field.lean`, no errors/warnings):
+  `Pi0X6.sqrt_neg_one_not_mem` (`z² = −1`, `s² = −3` in `ℚ̄` ⇒ `z ∉ ℚ⟮s⟯`) and
+  `Pi0X6.exists_fix_moves` (∃ `σ ∈ Aut(ℚ̄/ℚ)`, `σ s = s`, `σ z ≠ z`; via
+  `InfiniteGalois.fixedField_fixingSubgroup`).
