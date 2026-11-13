@@ -39,3 +39,6 @@
 - (VERIFIED, `lake env lean scratch/hecke-all/ComposeTest.lean`, no errors) a GaussPointCount over independent
   verbatim copies of normFiber/unitOf/gz is accepted by `heckeContinuation_of_gaussPointCount` (definitional
   unfolding), so a proof of the gauss-proof task's copy composes directly.
+- (VERIFIED, compiled; axioms standard) `ZInQ.Contrib.heckeContinuation_functionalEquation5_of_gaussPointCount :
+  GaussPointCount → Literature.HeckeContinuation ∧ Literature.FunctionalEquation5`. Axiom check file:
+  scratch/hecke-all/axioms.lean.

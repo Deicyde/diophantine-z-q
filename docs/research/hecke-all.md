@@ -15,7 +15,11 @@ theorem ZInQ.Contrib.heckeContinuation_of_gaussPointCount (h1 : HeckeAll.GaussPo
     ZInQ.Literature.HeckeContinuation
 ```
 
-(`HeckeAll` here stands for the namespace `ZInQ.Contrib.HeckeAll`.) `GaussPointCount` is copied verbatim
+(`HeckeAll` here stands for the namespace `ZInQ.Contrib.HeckeAll`.) Together with bp-hecke-fe's functional
+equation, which is copied here, both textbook CR₃ Props follow from the same hypothesis
+(VERIFIED, compiled, standard axioms):
+`ZInQ.Contrib.heckeContinuation_functionalEquation5_of_gaussPointCount : HeckeAll.GaussPointCount →
+Literature.HeckeContinuation ∧ Literature.FunctionalEquation5`. `GaussPointCount` is copied verbatim
 from `scratch/bp-hecke-fe/HeckeFE.lean`. It says that for primes `p ≡ 1 (mod 4)`,
 `p − #{y² = x³ − x}(𝔽_p) = ¼ Σ_{a²+b²=p} u(a+bi)(a+bi)`. The statement is over local copies of
 `normFiber`, `unitOf` and `gz`. A `GaussPointCount` stated over another verbatim copy of those

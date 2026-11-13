@@ -282,4 +282,10 @@ theorem heckeContinuation_of_gaussPointCount (h1 : HeckeAll.GaussPointCount) :
   obtain ⟨F, hF, hFeq⟩ := HeckeAll.isLContinuation_of_squarefree h1 hsq
   exact ⟨F, hF, fun s hs => by rw [hFeq s hs, HeckeAll.LSeries_cd_sq_mul a b hsq.ne_zero hb s]⟩
 
+/-- **Both textbook CR₃ Props from Gauss's point count**: `HeckeContinuation` (every `d ≠ 0`, this
+file) and `FunctionalEquation5` (bp-hecke-fe, `literature_hecke_fe_of_gaussPointCount`). -/
+theorem heckeContinuation_functionalEquation5_of_gaussPointCount (h1 : HeckeAll.GaussPointCount) :
+    ZInQ.Literature.HeckeContinuation ∧ ZInQ.Literature.FunctionalEquation5 :=
+  ⟨heckeContinuation_of_gaussPointCount h1, (HeckeAll.literature_hecke_fe_of_gaussPointCount h1).2⟩
+
 end ZInQ.Contrib
