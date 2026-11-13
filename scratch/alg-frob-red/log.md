@@ -88,3 +88,6 @@
   congrArg/trans chains and a `show` at the mapGrp type.
 - Added algFrobRed_of_five / tateBridge35_of_five (pieces: GoodRedCofinite, SmoothGeomConnIntegral, RedTorsionQbar,
   FExtend, FrobMorph); compile check in the next run.
+- Run 23 (after ./build.sh): exit 0, no error; 64 `#print axioms` lines in the file (frob-trace's, rigidityHom, and 37
+  AlgFrobRedRed), all [propext, Classical.choice, Quot.sound]; `sorry` occurs only in comments (VERIFIED).
+  Note: run 22's count was on a stale AlgFrobRed.lean for the last two theorems; run 23 is the check of the final file.

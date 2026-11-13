@@ -3985,6 +3985,23 @@ theorem tateBridge35_of_main (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_main hG hS hM h2 hE hFr)
 
+/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite` and
+`SmoothGeomConnIntegral` and the glue `RedTorsionQbar`, `FExtend`, `FrobMorph` (proved).**
+Proved here (or in Mathlib / mul-rigidity): conjugating the place, isolating the finite set, the
+special fibre as an abelian variety (from `SmoothGeomConnIntegral`), the residue characteristic and
+the units `ℓⁿ`, the valuative criterion (existence and uniqueness of lifts), `κ(v) ≅ κ(w)‾`
+(`residueAlgClosed`, `residueAlgebraic`), the reduction map as a homomorphism (`redRelMul`),
+`σ = Frob` on `κ(v)`, rigidity. -/
+theorem algFrobRed_of_five (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
+  algFrobRed_of_main hG hS redRelMul h2 hE hFr
+
+/-- **`TateBridge35` from I3.M0 and the five pieces (proved).** -/
+theorem tateBridge35_of_five (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) :
+    G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_five hG hS h2 hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -4024,3 +4041,5 @@ end
 #print axioms AlgFrobRedRed.tateBridge35_of_final
 #print axioms AlgFrobRedRed.algFrobRed_of_main
 #print axioms AlgFrobRedRed.tateBridge35_of_main
+#print axioms AlgFrobRedRed.algFrobRed_of_five
+#print axioms AlgFrobRedRed.tateBridge35_of_five
