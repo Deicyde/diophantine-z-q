@@ -62,3 +62,7 @@
   VERIFIED: `modelHeightBaseChange_of_five`, `hodgeLineBaseChange_of_five` (from HodgeBCInjective,
   HodgeSpanBC, OmegaBaseChange, UniformizationLiftAnalytic, JacobianSemilinear); 18 `#print axioms`, all
   [propext, Classical.choice, Quot.sound]; 0 errors.
+- Final.lean (~05:00): `CotangentSpanBC` (𝓞_{L'}-span of π^*(ω_{A_L}) is ω_{A_{L'}}) and
+  `hodgeSpanBC_of : CotangentSpanBC → HodgeSpanBC` (proved, multilinearity). VERIFIED:
+  `modelHeightBaseChange_of_glue5`, `hodgeLineBaseChange_of_glue5` from HodgeBCInjective, CotangentSpanBC,
+  OmegaBaseChange, UniformizationLiftAnalytic, JacobianSemilinear; 21 `#print axioms`, all standard.
