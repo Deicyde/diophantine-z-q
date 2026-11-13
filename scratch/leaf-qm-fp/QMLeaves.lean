@@ -330,6 +330,49 @@ def M3.rightMul (u : Oˣ) : M3 K → M3 K :=
 theorem M3.twist_mk (α : O ≃+* O) (P : QML3 K) : M3.twist α (M3.mk P) = M3.mk (P.twist α) :=
   rfl
 
+
+/-! ### Glue for A3: composition laws of `Γ'` on classes, and the level-structure torsor -/
+
+theorem Level3.ext' {A : AbVar K} {q : QMStr A} {e e' : Level3 q} (h : e.eta = e'.eta) :
+    e = e' := by
+  cases e; cases e'; cases h; rfl
+
+theorem Level3.rightMul_rightMul {A : AbVar K} {q : QMStr A} (e : Level3 q) (u v : Oˣ) :
+    (e.rightMul u).rightMul v = e.rightMul (v * u) := by
+  apply Level3.ext'
+  ext a
+  simp [Level3.rightMul, _root_.mul_assoc]
+
+theorem QML3.rightMul_rightMul (P : QML3 K) (u v : Oˣ) :
+    (P.rightMul u).rightMul v = P.rightMul (v * u) := by
+  simp only [QML3.rightMul, Level3.rightMul_rightMul]
+
+theorem M3.rightMul_rightMul (u v : Oˣ) (c : M3 K) :
+    M3.rightMul v (M3.rightMul u c) = M3.rightMul (v * u) c := by
+  induction c using Quotient.inductionOn with
+  | h P => exact congrArg M3.mk (QML3.rightMul_rightMul P u v)
+
+/-- **The level-structure torsor (algebraic core).** Two level structures `η, η'` on the same
+`(A, ι)` such that the image of `η'` lies in that of `η` differ by right multiplication by an
+element `u₀ ∈ 𝒪` that is a unit modulo `3𝒪`. (Over `K̄` the containment holds for all pairs:
+both images are `A[3]`, by `TorsionStructure`, 81 = 81. So a geometric fibre of `Y₃ → X₆` has at
+most `#(𝒪/3𝒪)^× = 72` points, `Units72`; this is A3's count.) -/
+theorem Level3.exists_mul_of_range_le {A : AbVar K} {q : QMStr A} (e e' : Level3 q)
+    (h' : ∀ a, ∃ b, e'.eta a = e.eta b) (h : ∀ a, ∃ b, e.eta a = e'.eta b) :
+    ∃ u₀ v₀ : O, (∃ c : O, v₀ * u₀ - 1 = 3 * c) ∧ ∀ a : O, e'.eta a = e.eta (a * u₀) := by
+  obtain ⟨u₀, hu⟩ := h' 1
+  obtain ⟨v₀, hv⟩ := h 1
+  have hlin : ∀ a, e'.eta a = e.eta (a * u₀) := by
+    intro a
+    calc e'.eta a = e'.eta (a * 1) := by rw [_root_.mul_one]
+      _ = qmAct q K a (e'.eta 1) := e'.linear a 1
+      _ = qmAct q K a (e.eta u₀) := by rw [hu]
+      _ = e.eta (a * u₀) := (e.linear a u₀).symm
+  refine ⟨u₀, v₀, ?_, hlin⟩
+  have h1 : e.eta (v₀ * u₀) = e.eta 1 := by rw [← hlin, ← hv]
+  obtain ⟨c, hc⟩ := (e.eq_iff _ _).1 h1
+  exact ⟨c, hc⟩
+
 end Classes
 
 /-! ## §4 QM pairs `(A, ι)` (the objects of `X₆ = X₀(6,1)`), the centralizer and CM -/
@@ -1047,5 +1090,7 @@ end LeafQM
 #print axioms LeafQM.AV.R1R2fp_Y
 #print axioms LeafQM.AV.conj_iso_of_rational
 #print axioms LeafQM.AV.cm_of_val
+#print axioms LeafQM.AV.Level3.exists_mul_of_range_le
+#print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
 #print axioms LeafQM.AV.HasCM3.of_iso

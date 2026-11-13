@@ -52,3 +52,8 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   Applied: `Nonempty (fieldPt Qbar ⟶ Y)` in R1fpProps and `Nonempty (fieldPt Qbar ⟶ X)` in
   X6Props; docstrings of R1fp, R1R2fp (R1hecke, R2), R5fp, R5fpCount, QMLeaves repaired.
   COMPILES, 19 s, all axioms standard.
+- 17:1x A3 glue proved: `Level3.ext'`, `Level3.rightMul_rightMul`, `QML3.rightMul_rightMul`,
+  `M3.rightMul_rightMul` (the 𝒪^× action on classes is an action), and
+  `Level3.exists_mul_of_range_le` (two level structures on one (A, ι) with range η' ⊆ range η
+  differ by right multiplication by some u₀ ∈ 𝒪 invertible mod 3𝒪; over K̄ the range condition
+  is the 81 = 81 count from TorsionStructure, not proved here). COMPILES.
