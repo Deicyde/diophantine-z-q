@@ -51,3 +51,11 @@ Start 2026-11-12 22:53 PST. Base 01267822. Build of ZInQKernel.HDecomp.Faltings.
   NeronModelMinimal, ProductGroupModelExists, ProductModelHeight.
 - FINDING: the E4 direction of additivity needs NO semistable reduction (rv-blueprints F1 said it
   needs H5 = Néron + semistable base change): comparing over each L separately suffices.
+
+## Combined file scratch/h5-neron/H5Neron.lean — COMPILED (no errors; all 24 #print axioms
+## list only propext, Classical.choice, Quot.sound)
+Parts A + B + C plus part D:
+- `isMonHom_of_iso_unit`, `neron_zero_iso_unit` (a Néron model of the zero AV is ≅ 𝟙, via uniqueIso),
+  `neronModelExists_zero` (N1 for zero AV), `semistableNeronIdentityComponent_zero` (N2 for zero AV,
+  L₀ = K), `glue_zero` (ModelHeightBaseChange / OpenSubgroupHeight / ProductModelHeight shapes hold
+  for zero AV group models since all heights are 0).
