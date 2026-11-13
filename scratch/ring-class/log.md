@@ -95,3 +95,10 @@
   (N(3+2√−d) = 9+4d), `exists_prime_picClass_eq` (Chebotarev: every Pic(O_{d,4}) class has primes outside any
   finite set), `not_adjSqrt_two_le_Hprime` (√2 ∉ H'_d, d ≡ 5 mod 8), `Hprime_sup_sqrt_two`
   (H'_d ⊔ K_d(√2) = H_{d,4}: TYZ Prop 3.2(1)'s first assertion, a faithfulness check of `Hprime`).
+
+## ~10:05 round 7 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassGenus` success; axioms standard)
+- New ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean (from scratch G4): `conductorOrder_one` (ℤ + 1·𝓞 = maximal
+  order), `hilbertField_eq_ringSubfield`, `norm_eq_sq_add` (N β = t² + w, k² = 4nw for n ≡ 1 mod 4),
+  `norm_mod_four`, `norm_sq_mod_prime` (N β ≡ t² mod p for p | n, n squarefree), `adjSqrt_le_hilbertField`
+  (K_n(√−1), K_n(√p) ⊆ H_n: explicit genus theory), `Lni_le_Hprimebar` (L_n(i) ⊆ H'_n),
+  `HHprime_eq_iSup` (ℍ'_n = ⨆_{d₀ | n, d₀ ≡ 5 (8)} H'_{d₀} for squarefree n ≡ 5 mod 8).
