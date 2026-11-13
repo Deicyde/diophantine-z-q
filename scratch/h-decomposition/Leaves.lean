@@ -15142,15 +15142,66 @@ abbrev PtEquiv (Y : Over (Spec (CommRingCat.of ℚ))) : Type 1 :=
 
 /-! ## §8 The leaves -/
 
+/-- **A family of level-3 QM abelian surfaces over a scheme `S`** (qm-pin; the data of an object
+of the moduli problem over `S`, without the group law, which rigidity recovers): a scheme
+`𝒜 → S`, proper and smooth of relative dimension 2, with endomorphisms `ι(a)` over `S`
+(`a ∈ 𝒪`) and sections `η(a) : S → 𝒜` (`a ∈ 𝒪`; for the universal object, the images of the
+constant sections under the level structure `(𝒪/3𝒪)_S ≅ 𝒜[3]`). -/
+structure QMFamily (S : Scheme.{0}) where
+  F : Over S
+  proper : IsProper F.hom
+  smooth : SmoothOfRelativeDimension 2 F.hom
+  iota : O → (F.left ⟶ F.left)
+  iota_over : ∀ a : O, iota a ≫ F.hom = F.hom
+  eta : O → (S ⟶ F.left)
+  eta_sec : ∀ a : O, eta a ≫ F.hom = 𝟙 S
+
+/-- **`P` is the fibre of the family `𝒜` at the field point `y : Spec K → S`** (qm-pin): a
+morphism `g : P.A → 𝒜` making `P.A → Spec K` the pullback of `𝒜 → S` along `y`, carrying `ι_P`
+to `ι_𝒜` and the level points `η_P(a)` to the sections `η_𝒜(a)` (the shape of
+`IsBaseChangeOf`). -/
+def IsFibreOf {S : Scheme.{0}} (𝒜 : QMFamily S) {K : Type} [Field K]
+    (y : Spec (CommRingCat.of K) ⟶ S) (P : QML3 K) : Prop :=
+  ∃ g : P.A.X.left ⟶ 𝒜.F.left,
+    IsPullback g P.A.X.hom 𝒜.F.hom y ∧
+    (∀ a : O, (P.q.iota a).hom.left ≫ g = g ≫ 𝒜.iota a) ∧
+    (∀ a : O, (Additive.toMul (P.e.eta a)).left ≫ g = y ≫ 𝒜.eta a)
+
+/-- **R1fam, clause** (qm-pin, repairing rv-g0pieces §4): `Φ` is induced by a family: there is a
+family `𝒜` over `Y` (the universal object of R1(a), polarization forgotten) such that the class
+`Φ_K(y)` of every field point is the class of the fibre `y*𝒜`. Without it, `Φ` composed with a
+non-geometric natural relabeling of the points of `Y` satisfies every other clause
+(rv-g0pieces `r1fp_relabel`, `r1fp_exotic`). -/
+def R1famProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+  ∃ 𝒜 : QMFamily Y.left, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y) (P : QML3 K),
+    Φ K y = M3.mk P → IsFibreOf 𝒜 y.left P
+
+/-- **R1univ, clause** (qm-pin; the existence half of R1(a)'s universal property, on families
+over proper smooth curves `S/ℚ`): every family over `S` all of whose field fibres are objects is
+classified by a morphism `g : S → Y`: the class of the object at `s ≫ g` is the fibre at `s`.
+With `R1famProps` it makes the comparison of two triples satisfying the clause lists a Lean
+proof plus one piece of curve glue (`scratch/qm-pin/QMPin.lean`: `phi_part`, `MobiusGlue`). -/
+def R1univProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+  ∀ (S : Over (Spec (CommRingCat.of ℚ))), IsProper S.hom → SmoothOfRelativeDimension 1 S.hom →
+    ∀ 𝒜' : QMFamily S.left,
+      (∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ S), ∃ P : QML3 K,
+        IsFibreOf 𝒜' s.left P) →
+      ∃ g : S ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ S) (P : QML3 K),
+        IsFibreOf 𝒜' s.left P → Φ K (s ≫ g) = M3.mk P
+
 /-- **R1fp, clause list** (for a candidate `Y₃` with its bijections `Φ`): `Y` is proper and smooth
 of relative dimension 1 over `ℚ`, has a `ℚ̄`-point (a guard against vacuity: with `Y = ∅` every
-other clause would hold if `QML3` were mis-encoded as empty), and `Φ` is natural in the field: the
-class of a point pulled back along `f : K → L` is the base change of the class. -/
+other clause would hold if `QML3` were mis-encoded as empty), `Φ` is natural in the field (the
+class of a point pulled back along `f : K → L` is the base change of the class), and `Φ` is
+induced by a family over `Y` (`R1famProps`, added by qm-pin: it pins `Φ` up to automorphisms of
+`Y`), and every family over a proper smooth curve with object fibres is classified by a morphism
+to `Y` (`R1univProps`, added by qm-pin: it makes the comparison provable). -/
 def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
   IsProper Y.hom ∧ SmoothOfRelativeDimension 1 Y.hom ∧ Nonempty (fieldPt Qbar ⟶ Y) ∧
-  ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
+  (∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
     (y : fieldPt K ⟶ Y) (P : QML3 K), Φ K y = M3.mk P →
-      ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q
+      ∃ Q : QML3 L, Φ L (fieldMap f ≫ y) = M3.mk Q ∧ IsBaseChangeOf (f : K →+* L) P Q) ∧
+  R1famProps Y Φ ∧ R1univProps Y Φ
 
 /-- **R1hecke, clause list**: each operation `twist α` (`α ∈ Aut 𝒪`) and `rightMul u`
 (`u ∈ 𝒪^×`) of `Γ'` on the moduli problem is induced by an automorphism of `Y` over `ℚ`. -/
@@ -15424,7 +15475,7 @@ theorem conj_twist_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEq
     (σ : Qbar ≃ₐ[ℚ] Qbar) :
     ∃ Q : QML3 Qbar, IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
       ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
-  obtain ⟨-, -, -, hnat⟩ := h1
+  obtain ⟨-, -, -, hnat, -, -⟩ := h1
   obtain ⟨Q, hQ, hbc⟩ := hnat Qbar Qbar (σ : Qbar →ₐ[ℚ] Qbar) y P hP
   refine ⟨Q, hbc, (hfib y _ P Q hP hQ).1 ?_⟩
   calc π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) := hj
@@ -15447,7 +15498,7 @@ theorem conj_iso_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEqui
     ∃ Q₁ Q₂ : QML3 Qbar, IsBaseChangeOf (e₁ : K →+* Qbar) P Q₁ ∧
       IsBaseChangeOf (e₂ : K →+* Qbar) P Q₂ ∧
       ∃ α : O ≃+* O, Nonempty (QMIso (Q₁.q.twist α) Q₂.q) := by
-  obtain ⟨-, -, -, hnat⟩ := h1
+  obtain ⟨-, -, -, hnat, -, -⟩ := h1
   obtain ⟨Q₁, hQ₁, hb₁⟩ := hnat K Qbar e₁ y P hP
   obtain ⟨Q₂, hQ₂, hb₂⟩ := hnat K Qbar e₂ y P hP
   refine ⟨Q₁, Q₂, hb₁, hb₂, ((h2 _ _ Q₁ Q₂ hQ₁ hQ₂).1).1 ?_⟩
@@ -15673,6 +15724,317 @@ structure QMLeaves : Prop where
   r1rec : R1rec
   r5 : R5fp
   r5count : R5fpCount
+
+namespace Pin
+
+/-! ## §3 The relabeling attack, re-run
+
+`relabel Φ τ` and `IsNaturalRelabel` are rv-g0pieces' definitions (copied). Candidate content of
+a new kernel module `ZInQKernel/HDecomp/QM/Pin.lean` (task qm-pin), after the full patch. -/
+
+theorem R1fpProps.fam {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h : R1fpProps Y Φ) : R1famProps Y Φ :=
+  h.2.2.2.2.1
+
+theorem R1fpProps.univ {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h : R1fpProps Y Φ) : R1univProps Y Φ :=
+  h.2.2.2.2.2
+
+
+/-- (rv-g0pieces) A family of bijections of the field points of `Y`, natural in the field. -/
+def IsNaturalRelabel (Y : Over (Spec (CommRingCat.of ℚ)))
+    (τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)) : Prop :=
+  ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
+    (y : fieldPt K ⟶ Y), τ L (fieldMap f ≫ y) = fieldMap f ≫ τ K y
+
+/-- (rv-g0pieces) `Φ` precomposed with a relabeling `τ`. -/
+def relabel {Y : Over (Spec (CommRingCat.of ℚ))} (Φ : PtEquiv Y)
+    (τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)) : PtEquiv Y :=
+  fun K _ _ => (τ K).trans (Φ K)
+
+/-- **What survives of rv-g0pieces' `r1fp_relabel`** (full list). A natural relabeling keeps the
+repaired clause list iff some family `𝒜'` over `Y` has the object of `τ y` as its fibre at every
+`y`, and the relabeled `Φ` still classifies families. -/
+theorem r1fpPin_relabel_iff {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
+    (h : R1fpProps Y Φ) (hτ : IsNaturalRelabel Y τ) :
+    R1fpProps Y (relabel Φ τ) ↔
+      (∃ 𝒜' : QMFamily Y.left, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y)
+        (P : QML3 K), Φ K (τ K y) = M3.mk P → IsFibreOf 𝒜' y.left P) ∧
+      R1univProps Y (relabel Φ τ) := by
+  constructor
+  · intro h'
+    exact ⟨R1fpProps.fam h', R1fpProps.univ h'⟩
+  · rintro ⟨hf, hu⟩
+    obtain ⟨hp, hs, hpt, hnat, -, -⟩ := h
+    refine ⟨hp, hs, hpt, ?_, hf, hu⟩
+    intro K L _ _ _ _ f y P hP
+    obtain ⟨Q, hQ, hb⟩ := hnat K L f (τ K y) P hP
+    refine ⟨Q, ?_, hb⟩
+    show Φ L (τ L (fieldMap f ≫ y)) = _
+    rw [hτ K L f y]
+    exact hQ
+
+/-- The relabeling of field points by an automorphism `g` of `Y`: `y ↦ y ≫ g`. -/
+def autRelabel {Y : Over (Spec (CommRingCat.of ℚ))} (g : Y ≅ Y) :
+    ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y) :=
+  fun _ _ _ =>
+    { toFun := fun y => y ≫ g.hom
+      invFun := fun y => y ≫ g.inv
+      left_inv := fun y => by simp
+      right_inv := fun y => by simp }
+
+theorem autRelabel_natural {Y : Over (Spec (CommRingCat.of ℚ))} (g : Y ≅ Y) :
+    IsNaturalRelabel Y (autRelabel g) := by
+  intro K L _ _ _ _ f y
+  show (fieldMap f ≫ y) ≫ g.hom = fieldMap f ≫ (y ≫ g.hom)
+  rw [Category.assoc]
+
+/-- The family transported along an automorphism `g` of `S`: same total space, structure map
+`𝒜 → S → S` through `g⁻¹`, sections `η ∘ g`. Its fibre at `y` is the fibre of `𝒜` at `y ≫ g`. -/
+def QMFamily.transport {S : Scheme.{0}} (𝒜 : QMFamily S) (g : S ≅ S) : QMFamily S where
+  F := Over.mk (𝒜.F.hom ≫ g.inv)
+  proper := by
+    have := 𝒜.proper
+    show IsProper (𝒜.F.hom ≫ g.inv)
+    infer_instance
+  smooth := by
+    have := 𝒜.smooth
+    show SmoothOfRelativeDimension 2 (𝒜.F.hom ≫ g.inv)
+    exact inferInstanceAs (SmoothOfRelativeDimension (2 + 0) (𝒜.F.hom ≫ g.inv))
+  iota := 𝒜.iota
+  iota_over a := by
+    show 𝒜.iota a ≫ 𝒜.F.hom ≫ g.inv = 𝒜.F.hom ≫ g.inv
+    rw [← Category.assoc, 𝒜.iota_over]
+  eta a := g.hom ≫ 𝒜.eta a
+  eta_sec a := by
+    show (g.hom ≫ 𝒜.eta a) ≫ 𝒜.F.hom ≫ g.inv = 𝟙 S
+    rw [Category.assoc, ← Category.assoc (𝒜.eta a), 𝒜.eta_sec, Category.id_comp, g.hom_inv_id]
+
+theorem isFibreOf_transport {S : Scheme.{0}} (𝒜 : QMFamily S) (g : S ≅ S) {K : Type} [Field K]
+    (y : Spec (CommRingCat.of K) ⟶ S) (P : QML3 K) (h : IsFibreOf 𝒜 (y ≫ g.hom) P) :
+    IsFibreOf (QMFamily.transport 𝒜 g) y P := by
+  obtain ⟨g₀, hpb, hι, hη⟩ := h
+  refine ⟨g₀, ?_, hι, ?_⟩
+  · have sq : IsPullback (𝟙 𝒜.F.left) 𝒜.F.hom (𝒜.F.hom ≫ g.inv) g.inv :=
+      IsPullback.of_horiz_isIso ⟨by simp⟩
+    have := hpb.paste_horiz sq
+    rw [Category.comp_id, Category.assoc, g.hom_inv_id, Category.comp_id] at this
+    exact this
+  · intro a
+    exact (hη a).trans (Category.assoc _ _ _)
+
+/-- **Harmless relabelings survive** (so the repaired leaf pins `Φ` only up to `Aut(Y)`, as the
+published theorem does): relabeling by an automorphism of `Y` keeps `R1fpProps`. -/
+theorem r1fpPin_aut {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h : R1fpProps Y Φ) (g : Y ≅ Y) : R1fpProps Y (relabel Φ (autRelabel g)) := by
+  refine (r1fpPin_relabel_iff h (autRelabel_natural g)).2 ⟨?_, ?_⟩
+  · obtain ⟨𝒜, h𝒜⟩ := R1fpProps.fam h
+    refine ⟨QMFamily.transport 𝒜 ((Over.forget _).mapIso g), fun K _ _ y P hP => ?_⟩
+    apply isFibreOf_transport
+    exact h𝒜 K (y ≫ g.hom) P hP
+  · intro S hp hs 𝒜' hall
+    obtain ⟨g', hg'⟩ := R1fpProps.univ h S hp hs 𝒜' hall
+    refine ⟨g' ≫ g.inv, fun K _ _ s P hP => ?_⟩
+    show Φ K ((s ≫ g' ≫ g.inv) ≫ g.hom) = M3.mk P
+    rw [Category.assoc, Category.assoc, Iso.inv_hom_id, Category.comp_id]
+    exact hg' K s P hP
+
+/-- ... and keeps `R2fpProps` with `π ∘ g`. -/
+theorem r2fp_aut {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    (h : R2fpProps Y Φ π) (g : Y ≅ Y) :
+    R2fpProps Y (relabel Φ (autRelabel g)) (π.comp g.hom.left) := by
+  intro y y' P Q hP hQ
+  have e : ∀ z : fieldPt Qbar ⟶ Y,
+      (π.comp g.hom.left).val (K := Qbar) z.left = π.val (K := Qbar) (z ≫ g.hom).left :=
+    fun z => ToP1.val_comp_right π g.hom.left z.left
+  rw [e y, e y']
+  exact h (y ≫ g.hom) (y' ≫ g.hom) P Q hP hQ
+
+/-- Two triples are **the same up to an isomorphism** `g : Y' ≅ Y` of the schemes: classes and
+`π`-values of `ℚ̄`-points correspond. -/
+def SameTriple (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
+    (π : ToP1 Y.left) (π' : ToP1 Y'.left) : Prop :=
+  ∃ g : Y' ≅ Y, (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'),
+      Φ' K y = Φ K (y ≫ g.hom)) ∧
+    ∀ y : fieldPt Qbar ⟶ Y', π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g.hom).left
+
+theorem sameTriple_aut {Y : Over (Spec (CommRingCat.of ℚ))} (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (g : Y ≅ Y) : SameTriple Y Y Φ (relabel Φ (autRelabel g)) π (π.comp g.hom.left) :=
+  ⟨g, fun _ _ _ _ => rfl, fun y => ToP1.val_comp_right π g.hom.left y.left⟩
+
+/-- **Pointwise fibre statements transfer along `SameTriple`.** Each of `FibreSimple`,
+`ThetaPointOfFibre`, `ModularConstituent` (g0-split) is, for fixed `(Y, Φ, π)`, of the form
+`∀ u, ∀ y P, Φ y = [P] → π(y) = J(u) → R_u(P)` (for the first two, `FibreOver` is
+`∃ emb y P, Φ y = [P] ∧ π y = J(u) ∧ …`, and `R_u(P)` absorbs `∀ K A emb, A_ℚ̄ ≅ P.A → …`). -/
+theorem transfer_pointwise {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : SameTriple Y Y' Φ Φ' π π') (t : OnePoint Qbar) (R : QML3 Qbar → Prop)
+    (h : ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      π.val (K := Qbar) y.left = t → R P) :
+    ∀ (y' : fieldPt Qbar ⟶ Y') (P : QML3 Qbar), Φ' Qbar y' = M3.mk P →
+      π'.val (K := Qbar) y'.left = t → R P := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  intro y' P hP ht
+  exact h (y' ≫ g.hom) P ((hΦ Qbar y').symm.trans hP) ((hπ y').symm.trans ht)
+
+/-- The `∃`-form (`FibreOver`'s shape) transfers too. -/
+theorem transfer_exists {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : SameTriple Y Y' Φ Φ' π π') (t : OnePoint Qbar) (R : QML3 Qbar → Prop)
+    (h : ∃ (y' : fieldPt Qbar ⟶ Y') (P : QML3 Qbar), Φ' Qbar y' = M3.mk P ∧
+      π'.val (K := Qbar) y'.left = t ∧ R P) :
+    ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧
+      π.val (K := Qbar) y.left = t ∧ R P := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  obtain ⟨y', P, hP, ht, hR⟩ := h
+  exact ⟨y' ≫ g.hom, P, (hΦ Qbar y').symm.trans hP, (hπ y').symm.trans ht, hR⟩
+
+/-- **The uniqueness statement that closes the attack** (argued in `docs/research/qm-pin.md` §3,
+from R1(a)'s universal property, rigidity, and the quotient argument for `π`; **not compiled**):
+any two triples satisfying the repaired clauses are the same up to an isomorphism of schemes. For
+the old clauses it is false (rv-g0pieces: `relabel Φ τ` for a non-geometric `τ`). -/
+def PinUnique : Prop :=
+  ∀ (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
+    (π : ToP1 Y.left) (π' : ToP1 Y'.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R1fpProps Y' Φ' → R2fpProps Y' Φ' π' →
+      SameTriple Y Y' Φ Φ' π π'
+
+/-- **Under `PinUnique`, a fibre statement for one triple is a fibre statement for all**: the
+universal quantifier over `(Y, Φ, π)` in g0-split's three pieces costs nothing beyond the
+statement for the leaf's own triple. -/
+theorem pointwise_of_witness (hU : PinUnique) {Y₀ : Over (Spec (CommRingCat.of ℚ))}
+    {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left} (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀)
+    (R : OnePoint Qbar → QML3 Qbar → Prop)
+    (h : ∀ t (y : fieldPt Qbar ⟶ Y₀) (P : QML3 Qbar), Φ₀ Qbar y = M3.mk P →
+      π₀.val (K := Qbar) y.left = t → R t P) :
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π →
+      ∀ t (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+        π.val (K := Qbar) y.left = t → R t P :=
+  fun Y Φ π h1' h2' t =>
+    transfer_pointwise (hU Y₀ Y Φ₀ Φ π₀ π h1 h2 h1' h2') t (R t) (h t)
+
+/-- **Under `PinUnique`, every surviving relabeling is geometric.** If `relabel Φ τ` (with any
+`π'`) again satisfies the repaired clause list, then `τ` is `y ↦ y ≫ g` for an automorphism `g`
+of `Y`, on field points over every field, and `π'` is `π ∘ g` on `ℚ̄`-points. This is the precise
+sense in which the relabeling attack of rv-g0pieces no longer applies (given `PinUnique`). -/
+theorem relabel_geometric (hU : PinUnique) {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π π' : ToP1 Y.left}
+    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
+    (h1' : R1fpProps Y (relabel Φ τ)) (h2' : R2fpProps Y (relabel Φ τ) π') :
+    ∃ g : Y ≅ Y, (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), τ K y = y ≫ g.hom) ∧
+      ∀ y : fieldPt Qbar ⟶ Y, π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g.hom).left := by
+  obtain ⟨g, hΦ, hπ⟩ := hU Y Y Φ (relabel Φ τ) π π' h1 h2 h1' h2'
+  exact ⟨g, fun K _ _ y => (Φ K).injective (hΦ K y), hπ⟩
+
+/-! ## §4 Optional strengthening for provability: the universal property on families
+
+`PinUnique` needs R1(a)'s universal property, which the leaf does not carry. The clause
+`R1univProps` carries it on families over proper smooth curves (all the comparison needs). With
+it, the `Φ`-half of the comparison is compiled (`phi_part`), and what remains is
+`MobiusGlue` (a morphism of curves `Y' → P¹` with the fibres and the three values of `π ∘ g` is
+`π ∘ g`): algebraic geometry of curves, glue, not a leaf. -/
+
+/-- **The `Φ`-half of the comparison (compiled).** If `(Y, Φ)` has the universal property and
+`(Y', Φ')` satisfies the repaired clause list, then `Φ' = Φ ∘ g` for a morphism `g : Y' → Y`. -/
+theorem phi_part {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    (hU : R1univProps Y Φ) (h1' : R1fpProps Y' Φ') :
+    ∃ g : Y' ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'),
+      Φ' K y = Φ K (y ≫ g) := by
+  obtain ⟨hp', hs', -, -, ⟨𝒜', h𝒜'⟩, -⟩ := h1'
+  have hall : ∀ (K : Type) [Field K] [Algebra ℚ K] (s : fieldPt K ⟶ Y'), ∃ P : QML3 K,
+      IsFibreOf 𝒜' s.left P :=
+    fun K _ _ s => ⟨Quotient.out (Φ' K s), h𝒜' K s _ (Quotient.out_eq _).symm⟩
+  obtain ⟨g, hg⟩ := hU Y' hp' hs' 𝒜' hall
+  refine ⟨g, fun K _ _ y => ?_⟩
+  rw [hg K y _ (h𝒜' K y _ (Quotient.out_eq _).symm)]
+  exact (Quotient.out_eq _).symm
+
+/-- `SameTriple` with a morphism in place of an isomorphism (all the transfer needs). -/
+def SameTripleMor (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
+    (π : ToP1 Y.left) (π' : ToP1 Y'.left) : Prop :=
+  ∃ g : Y' ⟶ Y, (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'),
+      Φ' K y = Φ K (y ≫ g)) ∧
+    ∀ y : fieldPt Qbar ⟶ Y', π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g).left
+
+theorem transfer_pointwise_mor {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : SameTripleMor Y Y' Φ Φ' π π') (t : OnePoint Qbar) (R : QML3 Qbar → Prop)
+    (h : ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      π.val (K := Qbar) y.left = t → R P) :
+    ∀ (y' : fieldPt Qbar ⟶ Y') (P : QML3 Qbar), Φ' Qbar y' = M3.mk P →
+      π'.val (K := Qbar) y'.left = t → R P := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  intro y' P hP ht
+  exact h (y' ≫ g) P ((hΦ Qbar y').symm.trans hP) ((hπ y').symm.trans ht)
+
+/-- **Glue (not compiled; argued in the report §3.4).** Given a morphism `g : Y' → Y` with
+`Φ' = Φ ∘ g`, and CM objects of the three kinds, the two morphisms `π'` and `π ∘ g` to `P¹`
+agree on `ℚ̄`-points: they have the same fibres (both `R2fpProps`), so `π' = h ∘ π ∘ g` with `h`
+a bijection of `P¹(ℚ̄)` which is a morphism (graph argument on each geometric component of
+`Y'`), hence a Möbius map, and `h` fixes `0, ∞, −16/27`. Algebraic geometry of curves. -/
+def MobiusGlue : Prop :=
+  ∀ (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
+    (π : ToP1 Y.left) (π' : ToP1 Y'.left) (g : Y' ⟶ Y),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R1fpProps Y' Φ' → R2fpProps Y' Φ' π' →
+    ((∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q)) →
+    (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'), Φ' K y = Φ K (y ≫ g)) →
+    ∀ y : fieldPt Qbar ⟶ Y', π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g).left
+
+/-- **The comparison from `R1univProps` and `MobiusGlue` (compiled).** -/
+theorem sameTripleMor_of_mobius (hM : MobiusGlue)
+    (hCM : (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q))
+    {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (h1' : R1fpProps Y' Φ')
+    (h2' : R2fpProps Y' Φ' π') : SameTripleMor Y Y' Φ Φ' π π' := by
+  obtain ⟨g, hg⟩ := phi_part (R1fpProps.univ h1) h1'
+  exact ⟨g, hg, hM Y Y' Φ Φ' π π' g h1 h2 h1' h2' hCM hg⟩
+
+/-- **Pieces from the witness, with `R1univProps` (compiled).** A fibre statement proved for one
+triple satisfying the fully repaired list holds for every such triple, given `MobiusGlue` and CM
+objects (the latter from the leaves: `CMExists` and `X6Surj`). -/
+theorem pointwise_of_witness_mor (hM : MobiusGlue)
+    (hCM : (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q))
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀)
+    (R : OnePoint Qbar → QML3 Qbar → Prop)
+    (h : ∀ t (y : fieldPt Qbar ⟶ Y₀) (P : QML3 Qbar), Φ₀ Qbar y = M3.mk P →
+      π₀.val (K := Qbar) y.left = t → R t P) :
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π →
+      ∀ t (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+        π.val (K := Qbar) y.left = t → R t P :=
+  fun _ _ _ h1' h2' t =>
+    transfer_pointwise_mor (sameTripleMor_of_mobius hM hCM h1 h2 h1' h2') t (R t) (h t)
+
+/-- CM objects of the three kinds, from the leaf bundle (`CMExists` on `X₆` and the second half
+of `X6Surj`, through the forgetful clause of `X6Props` and `QMIso`-invariance). -/
+theorem cm_objects_of_R1R2fp (h : R1R2fp) :
+    (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q) := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, -, -, hX, -, ⟨⟨x₄, P₄, h₄, c₄⟩, ⟨x₃, P₃, h₃, c₃⟩, ⟨x₂, P₂, h₂, c₂⟩⟩,
+    -, ⟨-, hs⟩, -⟩ := h
+  obtain ⟨-, -, -, -, -, hf⟩ := hX
+  have key : ∀ x : fieldPt Qbar ⟶ X, ∀ P : QMPair Qbar, Ψ x = Quotient.mk _ P →
+      ∃ Q : QML3 Qbar, Nonempty (QMIso P.q Q.q) := by
+    intro x P hP
+    obtain ⟨y, rfl⟩ := hs x
+    refine ⟨Quotient.out (Φ Qbar y), ?_⟩
+    have e := hf y _ (Quotient.out_eq _).symm
+    rw [hP] at e
+    exact Quotient.exact e
+  obtain ⟨Q₄, ⟨g₄⟩⟩ := key x₄ P₄ h₄
+  obtain ⟨Q₃, ⟨g₃⟩⟩ := key x₃ P₃ h₃
+  obtain ⟨Q₂, ⟨g₂⟩⟩ := key x₂ P₂ h₂
+  exact ⟨⟨Q₄, HasCM4.of_iso g₄ c₄⟩, ⟨Q₃, HasCM3.of_iso g₃ c₃⟩, ⟨Q₂, HasCM24.of_iso g₂ c₂⟩⟩
+
+end Pin
 
 end AV
 
@@ -33717,6 +34079,159 @@ theorem hom_of_common (r : ResearchLeaves) (t : TextbookLeaves) {K : Type} [Fiel
   obtain ⟨ℓ, _, E, _, _, U, U', e, hU, he⟩ := h
   exact PkgI3.E1_exists_hom_ne_zero r.r9a r.r9b t.t26 semisimpleBaseChange A J ℓ E U U' hU e he
 
+/-! ### qm-pin's comparison: the three QM pieces reduce to one triple (task pin-apply)
+
+`FibreSimple`, `ThetaPointOfFibre` and `ModularConstituent` quantify over every triple
+`(Y, Φ, π)` satisfying `R1fpProps` and `R2fpProps`. With qm-pin's repaired `R1fpProps`
+(`R1famProps`, `R1univProps`), any two such triples are compared by a morphism `g : Y' → Y` with
+`Φ' = Φ ∘ g` (`LeafQM.AV.Pin.phi_part`, proved) and `π' = π ∘ g` (`LeafQM.AV.Pin.MobiusGlue`, a
+named glue Prop). So each piece is equivalent to its statement for any single triple satisfying the
+clauses (`fibreSimple_iff_at` etc.), for instance the leaf's own triple; the `…W` forms state the
+piece for some triple. The relabeling attack of rv-g0pieces no longer applies
+(`LeafQM.AV.Pin.r1fpPin_relabel_iff`). -/
+
+/-- `FibreSimple` for one triple `(Y, Φ, π)`. -/
+def FibreSimpleAt (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) :
+    Prop :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
+      PkgI3.EndDivision (LeafAdopt.abVarEquiv K.K A)
+
+/-- `ThetaPointOfFibre` for one triple `(Y, Φ, π)`. -/
+def ThetaPointOfFibreAt (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (π : ToP1 Y.left) : Prop :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
+    ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+      (Φu : (Fin 2 → ℂ) → ZInQ.LeafPush2.CPts (LeafAdopt.abVarEquiv K.K A) σ), ZInQ.LeafPush2.IsUniformization σ Λ Φu ∧
+    ∃ Ω : Matrix (Fin 2) (Fin 2) ℂ, ZInQ.LeafPush2.IsSiegel Ω ∧ ZInQ.LeafPush2.IsPeriodMatrix Λ Ω ∧
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* ℂ) (z : ZInQ.LeafPush2.Char2 → L.K) (c : ℂ), c ≠ 0 ∧
+      (∀ m, emb (z m) = c * ZInQ.LeafPush2.thetaConst Ω m) ∧
+    ∃ (K' : GlueAssembly.NF) (z' : Fin 10 → K'.K),
+      3779136 * (∏ i, z' i) ^ 4 / (∑ i, z' i ^ 8) ^ 5 = algebraMap ℚ K'.K (Jmap u) ∧
+      Height.logHeight z' / Module.finrank ℚ K'.K ≤ ZInQ.LeafPush2.absLogHeight z
+
+/-- `ModularConstituent` for one triple `(Y, Φ, π)`. -/
+def ModularConstituentAt (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (π : ToP1 Y.left) : Prop :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* Qbar) (A : ZInQ.DefFaltings.AbVar L.K) (N : ℕ)
+      (J : PkgI3.AbVar ℚ),
+      (letI : Algebra L.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) ∧
+      0 < N ∧ LeafModCurves.IsJ1 N J ∧
+      (N : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ^ 2 ∧
+      (Module.finrank ℚ L.K : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
+      CommonConstituent (LeafAdopt.abVarEquiv L.K A)
+        (LeafAdopt.abVarEquiv L.K (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K))
+
+/-- The three pieces are their `…At` forms for every triple satisfying the clauses (definitional). -/
+theorem fibreSimple_eq_forall_at : FibreSimple ↔ ∀ (Y : Over (Spec (CommRingCat.of ℚ)))
+    (Φ : PtEquiv Y) (π : ToP1 Y.left), R1fpProps Y Φ → R2fpProps Y Φ π → FibreSimpleAt Y Φ π :=
+  Iff.rfl
+
+theorem thetaPointOfFibre_eq_forall_at : ThetaPointOfFibre ↔
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π → ThetaPointOfFibreAt Y Φ π :=
+  Iff.rfl
+
+theorem modularConstituent_eq_forall_at : ModularConstituent ↔
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π → ModularConstituentAt Y Φ π :=
+  Iff.rfl
+
+/-- `FibreOver` (an `∃`-form) transfers along a comparison morphism (qm-pin `transfer_exists`,
+for `SameTripleMor`). -/
+theorem fibreOver_of_sameTripleMor {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : LeafQM.AV.Pin.SameTripleMor Y Y' Φ Φ' π π') {u : ℚ} {K : GlueAssembly.NF}
+    {A : ZInQ.DefFaltings.AbVar K.K} (h : FibreOver Y' Φ' π' u K A) : FibreOver Y Φ π u K A := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  obtain ⟨emb, y, P, hP, hy, hiso⟩ := h
+  exact ⟨emb, y ≫ g, P, (hΦ Qbar y).symm.trans hP, (hπ y).symm.trans hy, hiso⟩
+
+/-- **The comparison from the leaves** (qm-pin `sameTripleMor_of_mobius`, CM objects from
+`cm_objects_of_R1R2fp`): any two triples satisfying the repaired clause lists are compared by a
+morphism, given `MobiusGlue`. -/
+theorem sameTripleMor_of_leaves (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ' : PtEquiv Y'}
+    {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (h1' : R1fpProps Y' Φ')
+    (h2' : R2fpProps Y' Φ' π') : LeafQM.AV.Pin.SameTripleMor Y Y' Φ Φ' π π' :=
+  LeafQM.AV.Pin.sameTripleMor_of_mobius hM (LeafQM.AV.Pin.cm_objects_of_R1R2fp hQM) h1 h2 h1' h2'
+
+theorem fibreSimple_of_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) (h : FibreSimpleAt Y₀ Φ₀ π₀) :
+    FibreSimple :=
+  fun _ _ _ h1' h2' u hu K A hF =>
+    h u hu K A (fibreOver_of_sameTripleMor (sameTripleMor_of_leaves hM hQM h1 h2 h1' h2') hF)
+
+theorem thetaPointOfFibre_of_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) (h : ThetaPointOfFibreAt Y₀ Φ₀ π₀) :
+    ThetaPointOfFibre :=
+  fun _ _ _ h1' h2' u hu K A hF =>
+    h u hu K A (fibreOver_of_sameTripleMor (sameTripleMor_of_leaves hM hQM h1 h2 h1' h2') hF)
+
+theorem modularConstituent_of_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) (h : ModularConstituentAt Y₀ Φ₀ π₀) :
+    ModularConstituent := by
+  intro Y Φ π h1' h2' u hu y P hP hy
+  obtain ⟨g, hΦ, hπ⟩ := sameTripleMor_of_leaves hM hQM h1 h2 h1' h2'
+  exact h u hu (y ≫ g) P ((hΦ Qbar y).symm.trans hP) ((hπ y).symm.trans hy)
+
+/-- **`FibreSimple` is its statement for any one triple** satisfying the repaired clauses (given
+`MobiusGlue`): the universal quantifier over `(Y, Φ, π)` costs nothing. -/
+theorem fibreSimple_iff_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) :
+    FibreSimple ↔ FibreSimpleAt Y₀ Φ₀ π₀ :=
+  ⟨fun h => h Y₀ Φ₀ π₀ h1 h2, fibreSimple_of_at hM hQM h1 h2⟩
+
+theorem thetaPointOfFibre_iff_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) :
+    ThetaPointOfFibre ↔ ThetaPointOfFibreAt Y₀ Φ₀ π₀ :=
+  ⟨fun h => h Y₀ Φ₀ π₀ h1 h2, thetaPointOfFibre_of_at hM hQM h1 h2⟩
+
+theorem modularConstituent_iff_at (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) :
+    ModularConstituent ↔ ModularConstituentAt Y₀ Φ₀ π₀ :=
+  ⟨fun h => h Y₀ Φ₀ π₀ h1 h2, modularConstituent_of_at hM hQM h1 h2⟩
+
+/-- `FibreSimple` for some triple satisfying the clauses. -/
+def FibreSimpleW : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧ FibreSimpleAt Y Φ π
+
+/-- `ThetaPointOfFibre` for some triple satisfying the clauses. -/
+def ThetaPointOfFibreW : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧ ThetaPointOfFibreAt Y Φ π
+
+/-- `ModularConstituent` for some triple satisfying the clauses. -/
+def ModularConstituentW : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧ ModularConstituentAt Y Φ π
+
+/-- **The three QM pieces are equivalent to their one-triple forms** (given the QM leaf bundle,
+which supplies a triple, and `MobiusGlue`). -/
+theorem qmPieces_iff_w (hM : LeafQM.AV.Pin.MobiusGlue) (hQM : LeafQM.AV.R1R2fp) :
+    (FibreSimple ↔ FibreSimpleW) ∧ (ThetaPointOfFibre ↔ ThetaPointOfFibreW) ∧
+      (ModularConstituent ↔ ModularConstituentW) := by
+  obtain ⟨Y, Φ, π, h1, h2, -⟩ := LeafQM.AV.exists_fibre_object hQM
+  refine ⟨⟨fun h => ⟨Y, Φ, π, h1, h2, h Y Φ π h1 h2⟩, ?_⟩,
+    ⟨fun h => ⟨Y, Φ, π, h1, h2, h Y Φ π h1 h2⟩, ?_⟩,
+    ⟨fun h => ⟨Y, Φ, π, h1, h2, h Y Φ π h1 h2⟩, ?_⟩⟩
+  · rintro ⟨Y₀, Φ₀, π₀, h1₀, h2₀, h⟩; exact fibreSimple_of_at hM hQM h1₀ h2₀ h
+  · rintro ⟨Y₀, Φ₀, π₀, h1₀, h2₀, h⟩; exact thetaPointOfFibre_of_at hM hQM h1₀ h2₀ h
+  · rintro ⟨Y₀, Φ₀, π₀, h1₀, h2₀, h⟩; exact modularConstituent_of_at hM hQM h1₀ h2₀ h
+
+
 end G0Split
 
 /-- **The glue pieces** (g0-split's missing pieces, smallest first, without piece 3 (proved here)
@@ -33830,6 +34345,44 @@ the three bundles `ResearchLeaves`, `TextbookLeaves`, `GluePieces`. -/
 theorem sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces) :
     ZInQ.SixContactMin :=
   sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t gp)
+
+/-- **The glue pieces, one-triple form** (task pin-apply, after qm-pin): `GluePieces` with the
+three QM pieces 4, 9, 10 stated for some triple satisfying the repaired clause lists
+(`G0Split.FibreSimpleW`, `ThetaPointOfFibreW`, `ModularConstituentW`) and qm-pin's curve glue
+`MobiusGlue` as an eleventh named piece. Given the leaves, it is equivalent to `GluePieces` plus
+`MobiusGlue` (`gluePieces_of_pin`, `gluePiecesPin_of`). -/
+structure GluePiecesPin : Prop where
+  dimFinite : G0Split.DimFinite
+  dimBaseChange : G0Split.DimBaseChange
+  /-- 4. G5-G6 on the fibre surface, for one triple. -/
+  fibreSimple : G0Split.FibreSimpleW
+  productModelHeight : ZInQ.H5Neron.ProductModelHeight
+  stableHeightBaseChange : G0Split.StableHeightBaseChange
+  productExists : G0Split.ProductExists
+  reverseIsogeny : G0Split.ReverseIsogeny
+  /-- 9. G19 on the fibre surface, for one triple. -/
+  thetaPoint : G0Split.ThetaPointOfFibreW
+  /-- 10. G2, G4, G7-G16, for one triple. -/
+  modularConstituent : G0Split.ModularConstituentW
+  heightCopies : HeightCopiesAgree
+  /-- 12. qm-pin's curve glue: two triples compared on `Φ` by `g` are compared on `π` by `g`. -/
+  mobius : LeafQM.AV.Pin.MobiusGlue
+
+theorem gluePieces_of_pin (r : ResearchLeaves) (gp : GluePiecesPin) : GluePieces := by
+  obtain ⟨a, b, c, d, e, f, g, h, i, j, hM⟩ := gp
+  obtain ⟨h4, h9, h10⟩ := G0Split.qmPieces_iff_w hM (LeafAdopt.R1R2fp_of_rep r.r1r2)
+  exact ⟨a, b, h4.2 c, d, e, f, g, h9.2 h, h10.2 i, j⟩
+
+theorem gluePiecesPin_of (r : ResearchLeaves) (gp : GluePieces) (hM : LeafQM.AV.Pin.MobiusGlue) :
+    GluePiecesPin := by
+  obtain ⟨a, b, c, d, e, f, g, h, i, j⟩ := gp
+  obtain ⟨h4, h9, h10⟩ := G0Split.qmPieces_iff_w hM (LeafAdopt.R1R2fp_of_rep r.r1r2)
+  exact ⟨a, b, h4.1 c, d, e, f, g, h9.1 h, h10.1 i, j, hM⟩
+
+/-- **G0, one-triple form** (no `sorry`): the leaves and `GluePiecesPin` imply `SixContactMin`. -/
+theorem sixContactMin_of_leaves_pin (r : ResearchLeaves) (t : TextbookLeaves)
+    (gp : GluePiecesPin) : ZInQ.SixContactMin :=
+  sixContactMin_of_leaves r t (gluePieces_of_pin r gp)
 
 /-- **G20 alone** (the existing proof in `ZInQKernel`), for reference. -/
 example (h : ZInQ.JHeight.JHeightBound ZInQ.Mult.S_mul) : ZInQ.SixContactMin :=
@@ -34022,3 +34575,18 @@ end
 #print axioms C9Rhof.c10_via_c9
 #print axioms C9Rhof.c9_hsyn
 #print axioms HSyn.G0Split.x1BelyiOnModel_of_belyiX1
+-- pin-apply: qm-pin comparison
+#print axioms LeafQM.AV.Pin.r1fpPin_relabel_iff
+#print axioms LeafQM.AV.Pin.r1fpPin_aut
+#print axioms LeafQM.AV.Pin.r2fp_aut
+#print axioms LeafQM.AV.Pin.phi_part
+#print axioms LeafQM.AV.Pin.sameTripleMor_of_mobius
+#print axioms LeafQM.AV.Pin.pointwise_of_witness_mor
+#print axioms LeafQM.AV.Pin.cm_objects_of_R1R2fp
+#print axioms HSyn.G0Split.fibreSimple_iff_at
+#print axioms HSyn.G0Split.thetaPointOfFibre_iff_at
+#print axioms HSyn.G0Split.modularConstituent_iff_at
+#print axioms HSyn.G0Split.qmPieces_iff_w
+#print axioms HSyn.gluePieces_of_pin
+#print axioms HSyn.gluePiecesPin_of
+#print axioms HSyn.sixContactMin_of_leaves_pin
