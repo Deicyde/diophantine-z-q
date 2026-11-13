@@ -87,3 +87,16 @@
   ⇒ `IsDeRham p ρE`.
 - Aux: `overF_count_gen` (no finiteness), `finrank_dvd_Dsp`, `core_count`, `Dsp_gf_eq`,
   identifications `ddrSpace_eq_Dsp`, `htSpace_eq_Dsp`, `ddrSpaceOver_eq_Dsp`, `htSpaceOver_eq_Dsp`.
+
+## 03:50 G9 proved (VERIFIED: lake build ZInQKernel.Contrib.G9.G9 OK; #print axioms = propext,
+## Classical.choice, Quot.sound for every theorem below)
+- KerTheta.lean: verbatim copy of scratch/bdr-kertheta/KerTheta.lean minus its PkgI4.Cp block
+  (diff-identical to I4Layer's), namespace ZInQ.Contrib.G9.
+- HenselEmb.lean: `exists_hensel_lift`, `hensel_lift_natural`, `root_eq_of_theta` (abstract).
+- BdREmb.lean: `bdrAct_mul`, `bdrAct_one`, `bdrActHom`; `thetaPlusCp_bdrPlusMap` (θ⁺ equivariant);
+  `thetaPlusCp_qpToPlus` (θ⁺ is ℚ_p-linear; proof: separatedness, ring homs ℤ_p → 𝓞_ℂ_p agree).
+- G9.lean: `iotaDR`, `bdrAct_iotaDR` (F' ⊆ B_dR equivariantly); `isDeRham_of_R10`; `g9_deRham`
+  (IsDeRham p r ∧ htMult p r 0 = 1 ∧ htMult p r (-1) = 1); `g9_localIsDeRham` (LocalIsDeRham form).
+- Hypotheses of g9_deRham: R10 (`DeRhamComparison`) + G8 local output; T23 and T10 NOT used.
+- Scope: K = ℚ_p and F/ℚ_p Galois (h-trust C3 "Galois choice"); N5's lemma allows K/ℚ_ℓ finite and
+  F/K arbitrary finite — not covered.
