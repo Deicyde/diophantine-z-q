@@ -41,3 +41,8 @@
   PkgI3.TateModuleFree → DivisiblePoints → G12_DetInput` (PROVED).
 - §10 COMPILES: `polarization_zero` (T9⁺ holds at A = 0), `weil_ne_zero_of`.
 - §11 COMPILES: `muO`, `oElt`, `RosatiTypeMu`, leaf candidate `LemmaP_Exists` (existence half only), `lemmaP_zero_vacuous`. File imports ZInQKernel.HDecomp.{Objects, Assembly.C8, QM.Structures} (oleans built with lake build).
+- 00:0x review (fresh model agent, read-only): no SERIOUS issue in the leaves. Acted on its
+  points: added the field `WeilDual.dualEnd` (every endomorphism has a dual) and the lemma
+  `exists_dualEnd`; `Polarization` docstring now says up to sign; `LemmaP_Exists` relabelled a
+  leaf CANDIDATE (it composes several results); fixed the docstring on non-uniqueness.
+  Recompiled: 0 errors, 12/12 standard-axiom prints.

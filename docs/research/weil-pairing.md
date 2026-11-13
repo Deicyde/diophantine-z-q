@@ -91,14 +91,14 @@ of perfect Galois-equivariant pairings `A[n] × Â[n] → μ_n`. The genuine dua
 | `galTors`, `galMu`, `torsMap` | `G_K` on `A[n]`, on `μ_n`; `f : A → B` on `A[n]` | Objects' `galAct`, `ptMap` |
 | `Pairing A B n` | `A[n] →+ B[n] →+ μ_n` | — |
 | `IsPerfect`, `IsAlternating`, `IsGalEquivariant`, `pull` | as named; pull-back along `A(K̄) → A'(K̄)` | — |
-| `WeilDual A` | `Â`, `e_n`, perfect, equivariant, `e_{mn}(x, y) = e_n(mx, y)` (`n` invertible in `K`) | Mumford §20 (UNVERIFIED §) |
+| `WeilDual A` | `Â`, `e_n`, perfect, equivariant, `e_{mn}(x, y) = e_n(mx, y)` (`n` invertible in `K`), every `f ∈ End A` has a dual | Mumford §20 (UNVERIFIED §) |
 | `IsDualHom DA DB f g` | `e_n(x, g y) = e_n(f x, y)` | Mumford §20 (5) (UNVERIFIED) |
 | `weil D λ n` | `e^λ_n(x, y) = e_n(x, λ y)` | Mumford §§20, 23 |
 | `IsSymmetric D λ` | every `e^λ_n` alternating | Mumford §23 (UNVERIFIED) |
 | `SymmIsogeny A` | `D`, `λ : A → Â`, `IsIsogenyMor λ` (Objects: finite and surjective), symmetric | — |
 | `IsQuasiInverse f g d` | `f g = [d]`, `g f = [d]` on `K̄`-points | — |
 | `RosatiPositive S` | for `φ ≠ 0` in `End A` with dual `φ^∨` and quasi-inverse `ψ` of exponent `d`: `tr_{T_ℓ}(φ ∘ ψ φ^∨ λ)` is a positive integer | Mumford §21 Thm 1 (UNVERIFIED) |
-| `Polarization A` | `SymmIsogeny` with `RosatiPositive` | Mumford §23 |
+| `Polarization A` | `SymmIsogeny` with `RosatiPositive` (up to sign: `−φ_L` qualifies) | Mumford §23 |
 | `SymmIsogeny.IsPrincipal` | `λ` an isomorphism | — |
 | `wv`, `tatePairing D λ hℓ` | `e^λ` on all of `A(K̄)` (junk `1` off `A[n]`); `E^λ` on `T_ℓ A` with components `e^λ_{ℓᵏ}(x_k, y_k)`, `ℤ_ℓ`-bilinear | — |
 | `TMu K ℓ`, `galTMu`, `tmuCoordLin` | `T_ℓ(μ)` (Objects' `Tate.T` of `K̄ˣ`), `G_K` on it, coordinate `T_ℓ(μ) ↪ ℤ_ℓ` | — |
@@ -117,7 +117,7 @@ None is used by a theorem of the build yet. Each is existential in the dual (see
 | `T09plus_PolarizationExists` | every `A/K` has a `Polarization` | as T9, plus Mumford §21 Thm 1 | C |
 | `IsogenyQuasiInverse` | isogeny `f` has `g`, `d ≥ 1` with `fg = [d]`, `gf = [d]` on points | Mumford §7 Rem. / §8 (UNVERIFIED); Milne 1986 §7-8 (UNVERIFIED) | C |
 | `DivisiblePoints` | `A(K̄)` is divisible | `[n]` is an isogeny, Mumford §4 App. 2 (UNVERIFIED) | C |
-| `LemmaP_Exists` | a QM surface over a field of char 0 has a principal polarization of Rosati type `μ` | rv-qm-polar Lemma P (existence half; its sources UNVERIFIED there) | C |
+| `LemmaP_Exists` (candidate) | a QM surface over a field of char 0 has a principal polarization of Rosati type `μ` | rv-qm-polar Lemma P (existence half; its sources UNVERIFIED there) | C |
 
 Not stated, because it would be false or unsafe over `WeilDual` (§0): dual morphisms exist for
 every `WeilDual`, and the uniqueness half of Lemma P.
@@ -157,8 +157,31 @@ every `WeilDual`, and the uniqueness half of Lemma P.
   and then `twist_finite_four`.
 - **Positivity uses**: `RosatiPositive` is stated but not used. Lemma P's uniqueness half needs
   the genuine dual.
-- One adversarial review of the statements was requested from a fresh agent; see §5.
+- `LemmaP_Exists` must be split before it can count as a leaf (§5 item 1).
 
 ## 5. Review
 
-(Filled in below after the review returns.)
+One adversarial model review (fresh agent, reading only; no human review) checked every leaf
+against the genuine objects (`D = (Pic⁰, e_n)`, `λ = φ_L`). It found **no statement false,
+stronger than the literature, or vacuous**. It confirmed:
+- `compat` (Mumford's `e_{mn}(x, y) = e_n(mx, y)`), the perfect and Galois clauses in every
+  characteristic for `n` invertible, and the direction of `IsDualHom`;
+- `IsSymmetric` (`e^L_n(x, x) = 1`), the composition order in `RosatiPositive`, and
+  `IsogenyQuasiInverse` and `DivisiblePoints` in every characteristic;
+- `trd(ofInt n) = 2n₀ + n₂`, `μ² = −6`, and the equivalence of `RosatiTypeMu` with
+  `ι(b)† = ι(μ⁻¹b̄μ)`;
+- that `OldT9.T09_WeilPairing` is verbatim.
+
+Its remarks, and what was done about each (the file recompiles, VERIFIED):
+1. `LemmaP_Exists` combines several results (Rotger over `ℂ`, Lefschetz, descent) and is not one
+   published theorem. It is now labelled a leaf **candidate**, not a leaf. To become a leaf it
+   must be split into a published `ℂ`-statement and a descent step.
+2. `RosatiPositive` and `RosatiTypeMu` constrain only those `φ` that have a dual. Fixed: the
+   field `WeilDual.dualEnd` now requires every endomorphism to have a dual (true for `Pic⁰`;
+   lemma `WeilDual.exists_dualEnd`), so both conditions apply to every `φ`. T9 is now slightly
+   stronger and still a consequence of Mumford. `weilDualZero` and `oldT9_of_symmIsogeny` still
+   compile.
+3. `Polarization` is a polarization *up to sign*: `−φ_L` also qualifies. The docstring now says
+   so. It is safe only in existential leaves, which is how it is used.
+4. The docstring on the non-uniqueness of `WeilDual` is corrected: it needs compatible
+   isomorphisms of the torsion, and even `Â = A` works over `K̄`.

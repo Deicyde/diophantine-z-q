@@ -252,7 +252,8 @@ perfect and `G_K`-equivariant, and compatible: `e_{mn}(x, y) = e_n(m x, y)` for 
 The genuine dual `Â = Pic⁰_{A/K}` with Mumford's `e_n` is one (STANDARD; Mumford §§8, 13, 20 over
 `K̄`, and the pairing is defined over `K`). Mathlib has no Picard scheme (no line bundles on
 schemes), so `Pic⁰` cannot be defined here. CAUTION: a `WeilDual` is not unique; over an
-algebraically closed `K` any `Â` with `Â[n] ≅ A[n]` for all `n` carries one. Hence leaves over
+algebraically closed `K` any `Â` with compatible isomorphisms `Â[n] ≅ A[n]` (all `n` invertible
+in `K`) carries one, even `Â = A`. Hence leaves over
 `WeilDual` must be *existential* (`∃ D : WeilDual A, …`, witnessed by `Pic⁰`); a leaf of the form
 `∀ D : WeilDual A, …` need not be a consequence of the literature (see the report). -/
 structure WeilDual (A : AbVar K) where
@@ -265,12 +266,21 @@ structure WeilDual (A : AbVar K) where
   compat : ∀ m n : ℕ, 0 < m → 0 < n → ((m * n : ℕ) : K) ≠ 0 →
     ∀ (x : tors A (m * n)) (y : tors dual n),
       (e (m * n) x (torsIncl dual (dvd_mul_left n m) y)).val = (e n (torsSmul A m n x) y).val
+  /-- every endomorphism has a dual (for `Pic⁰`: `f ↦ f^∨`, Mumford §8, §20 (5); UNVERIFIED);
+  added after review so that Rosati conditions are never vacuous for lack of duals -/
+  dualEnd : ∀ f : End A, ∃ fv : End dual, ∀ n : ℕ, 0 < n → (n : K) ≠ 0 →
+    ∀ x y, e n x (torsMap fv n y) = e n (torsMap f n x) y
 
 /-- `g : B̂ → Â` is dual to `f : A → B`: `e_n(x, g y) = e_n(f x, y)` for all `n` invertible in `K`
 (Mumford §20, (5); UNVERIFIED numbering). -/
 def IsDualHom {A B : AbVar K} (DA : WeilDual A) (DB : WeilDual B) (f : Hom A B)
     (g : Hom DB.dual DA.dual) : Prop :=
   ∀ n : ℕ, 0 < n → (n : K) ≠ 0 → ∀ x y, DA.e n x (torsMap g n y) = DB.e n (torsMap f n x) y
+
+/-- Every endomorphism has a dual (field `dualEnd`). -/
+lemma WeilDual.exists_dualEnd {A : AbVar K} (D : WeilDual A) (f : End A) :
+    ∃ fv : End D.dual, IsDualHom D D f fv :=
+  D.dualEnd f
 
 /-- The dual morphism is unique on all torsion of order invertible in `K` (perfectness). -/
 lemma IsDualHom.unique {A B : AbVar K} {DA : WeilDual A} {DB : WeilDual B} {f : Hom A B}
@@ -324,7 +334,8 @@ structure SymmIsogeny (A : AbVar K) where
 def IsQuasiInverse {A B : AbVar K} (f : Hom A B) (g : Hom B A) (d : ℕ) : Prop :=
   (∀ z : P B, homP f (homP g z) = d • z) ∧ ∀ x : P A, homP g (homP f x) = d • x
 
-/-- **Rosati positivity** of `λ`: for every nonzero `φ ∈ End(A)` with dual `φ^∨` and every
+/-- (With `WeilDual.dualEnd`, every `φ` has some `φv`, so this is not vacuous.)
+**Rosati positivity** of `λ`: for every nonzero `φ ∈ End(A)` with dual `φ^∨` and every
 quasi-inverse `ψ` of `λ` of exponent `d ≥ 1` (so that `d·φ† = ψ φ^∨ λ`, `φ†` the Rosati
 involution), the trace of `φ ∘ (d φ†)` on `T_ℓ A` is a positive integer, for every prime `ℓ`
 invertible in `K` (Mumford §21, Thm 1: `Tr(φ φ†) > 0` for `φ ≠ 0`; Tr the trace of the
@@ -338,7 +349,10 @@ def RosatiPositive {A : AbVar K} (S : SymmIsogeny A) : Prop :=
             (homT (ℓ := ℓ) (WeilPairing.comp (WeilPairing.comp (WeilPairing.comp S.lam φv) ψ) φ))
             = (t : ℤ_[ℓ])
 
-/-- **A polarization**: a symmetric isogeny with Rosati positivity. -/
+/-- **A polarization (up to sign)**: a symmetric isogeny with Rosati positivity. CAUTION: `-λ` has
+the same Rosati involution, so `-φ_L` also qualifies (and on a product, `λ₁ × (-λ₂)`); the
+genuine notion (ampleness) is not expressible without line bundles. Safe only in existential
+leaves; a leaf `∀ S : Polarization A, …` would be unsafe. -/
 structure Polarization (A : AbVar K) extends SymmIsogeny A where
   pos : RosatiPositive toSymmIsogeny
 
@@ -431,6 +445,7 @@ def weilDualZero (K : Type) [Field K] : WeilDual (AbVar.zero K) where
   perfect _ _ _ := isPerfect_zero_iff.2 ⟨tors_zero_eq _, tors_zero_eq _⟩
   galois _ _ _ σ x y := by simp
   compat _ _ _ _ _ _ _ := rfl
+  dualEnd _ := ⟨0, fun _ _ _ _ _ => rfl⟩
 
 lemma isIsogenyMor_id (X : Over (Spec (CommRingCat.of K))) : IsIsogenyMor (𝟙 X) := by
   unfold IsIsogenyMor
@@ -1173,7 +1188,8 @@ def RosatiTypeMu {A : AbVar K} (q : QMStr A) (S : SymmIsogeny A) (g : Hom S.D.du
     q.iota muO * WeilPairing.comp (WeilPairing.comp S.lam bv) g =
       ((2 * n 0 + n 2 : ℤ) : End A) * q.iota muO - q.iota (oElt n) * q.iota muO
 
-/-- **Lemma P, existence (leaf candidate; rv-qm-polar §0, C1-C3).** An abelian surface over a
+/-- **Lemma P, existence (leaf CANDIDATE, not a leaf: it combines Rotger's results over `ℂ`, the
+Lefschetz principle and Galois descent, not one published theorem; rv-qm-polar §0, C1-C3).** An abelian surface over a
 field of characteristic `0` with QM by `𝒪` carries a principal polarization of Rosati type `μ`.
 Published inputs as listed in `docs/research/rv-qm-polar.md` §1.2 (Rotger; Buzzard 1997 p. 592
 for the uniqueness; Milne for descent), all UNVERIFIED here. Existential in the dual, hence safe
