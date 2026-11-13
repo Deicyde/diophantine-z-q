@@ -1,0 +1,10 @@
+p=5 S=2 J=(1+2j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=13 S=-6 J=(-3+2j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=17 S=-2 J=(-1+4j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=29 S=10 J=(5+2j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=37 S=2 J=(1-6j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=41 S=-10 J=(-5+4j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=53 S=-14 J=(-7+2j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=61 S=10 J=(5-6j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=73 S=6 J=(3+8j)  S=2ReJ:True |J|^2=p:True -J primary:True
+p=89 S=-10 J=(-5+8j)  S=2ReJ:True |J|^2=p:True -J primary:True
