@@ -1,5 +1,8 @@
 import Mathlib
 import ZInQKernel.HDecomp.B3Unram.B3b
+import ZInQKernel.HDecomp.Repo.TorsionFree
+import ZInQKernel.HDecomp.Repo.Numerics
+import ZInQKernel.HDecomp.Descent.B3Assembly
 
 /-!
 # g4-weilres, part 1: Galois-theoretic unramifiedness gives ideal-theoretic unramifiedness
@@ -284,5 +287,146 @@ theorem galUnramifiedOutside_iff (L : IntermediateField ℚ Qbar)
     GalUnramifiedOutside L T ↔ ∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p :=
   ⟨unramifiedAt_of_galUnramifiedOutside L T, fun h p hp hpT w hw =>
     inertia_le_of_unramifiedAt L p hp (h ⟨p, hp⟩ hpT) w hw⟩
+
+
+/-! ## The Hom field: the core theorem (Minkowski + infinite Galois theory + the bridge)
+
+N5 L544-563, with the Weil restriction `W₀ = Res_{K/ℚ} A` replaced by what the argument uses of
+it: a free `ℤ`-module `M` of rank `r` (the geometric endomorphism lattice of `W₀`, i.e. the direct
+sum of the Hom groups among the conjugates of `A`) with a `ℤ`-linear action of `G_ℚ` that is
+continuous (every element has an open stabilizer: each geometric homomorphism is defined over a
+number field) and on which every inertia group over a prime `p ∉ T` acts trivially. -/
+
+section Core
+
+variable {M : Type*} [AddCommGroup M]
+
+/-- The `GL_r(ℤ)`-realization of the automorphisms of a free `ℤ`-module with a basis. -/
+noncomputable def toGL {r : ℕ} (b : Module.Basis (Fin r) ℤ M) :
+    (M ≃ₗ[ℤ] M) →* Matrix.GeneralLinearGroup (Fin r) ℤ :=
+  (Units.map (LinearMap.toMatrixAlgEquiv b).toMonoidHom).comp
+    (LinearMap.GeneralLinearGroup.generalLinearEquiv ℤ M).symm.toMonoidHom
+
+theorem toGL_injective {r : ℕ} (b : Module.Basis (Fin r) ℤ M) :
+    Function.Injective (toGL b) := by
+  intro f g h
+  have h1 := congrArg (fun u : Matrix.GeneralLinearGroup (Fin r) ℤ =>
+    (u : Matrix (Fin r) (Fin r) ℤ)) h
+  have h2 : (f : M →ₗ[ℤ] M) = g := (LinearMap.toMatrixAlgEquiv b).injective h1
+  exact LinearEquiv.toLinearMap_injective h2
+
+theorem toGL_eq_one_iff {r : ℕ} (b : Module.Basis (Fin r) ℤ M) (f : M ≃ₗ[ℤ] M) :
+    toGL b f = 1 ↔ f = 1 :=
+  ⟨fun h => toGL_injective b (h.trans (map_one _).symm), fun h => by rw [h, map_one]⟩
+
+/-- An automorphism is the identity iff it fixes a basis. -/
+theorem eq_one_iff_basis {ι : Type*} (b : Module.Basis ι ℤ M) (f : M ≃ₗ[ℤ] M) :
+    f = 1 ↔ ∀ i, f (b i) = b i := by
+  constructor
+  · intro h i; rw [h]; rfl
+  · intro h
+    apply LinearEquiv.toLinearMap_injective
+    apply b.ext
+    intro i
+    simpa using h i
+
+/-- **G4, the Hom field (core, proved).** Let `K ⊆ ℚ̄` be finite Galois, unramified outside `T`
+(Galois form), and let `G_ℚ` act `ℤ`-linearly on a free `ℤ`-module `M` with basis indexed by
+`Fin r`, continuously (open stabilizers), with every inertia group over every prime `p ∉ T`
+acting trivially. Then there is a finite Galois `L ⊇ K` such that `G_L` acts trivially on `M`
+(`L` defines every element of `M`), `[L:ℚ] ≤ [K:ℚ]·3^{r²}` (Minkowski), and `L` is unramified
+outside `T`, in both the Galois form and glue-descent's ideal-theoretic form. -/
+theorem homField_core (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    {r : ℕ} (b : Module.Basis (Fin r) ℤ M) (ρ : Gal →* (M ≃ₗ[ℤ] M))
+    (hcont : ∀ m : M, IsOpen {σ : Gal | ρ σ m = m})
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, ρ s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) ∧
+      Module.finrank ℚ L ≤ Module.finrank ℚ K * 3 ^ (r ^ 2) ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) := by
+  classical
+  let ρ' : Gal →* Matrix.GeneralLinearGroup (Fin r) ℤ := (toGL b).comp ρ
+  have hker : ρ'.ker = ρ.ker := by
+    ext σ
+    simp only [MonoidHom.mem_ker]
+    exact toGL_eq_one_iff b (ρ σ)
+  -- the kernel is open
+  have hset : (ρ.ker : Set Gal) = ⋂ i, {σ : Gal | ρ σ (b i) = b i} := by
+    ext σ
+    simp only [SetLike.mem_coe, MonoidHom.mem_ker, Set.mem_iInter, Set.mem_ofPred_eq]
+    exact eq_one_iff_basis b (ρ σ)
+  have hNopen : IsOpen (ρ.ker : Set Gal) := by
+    rw [hset]; exact isOpen_iInter_of_finite fun i => hcont (b i)
+  have hNclosed : IsClosed (ρ.ker : Set Gal) := Subgroup.isClosed_of_isOpen _ hNopen
+  let NC : ClosedSubgroup Gal := { toSubgroup := ρ.ker, isClosed' := hNclosed }
+  let E : IntermediateField ℚ Qbar := IntermediateField.fixedField NC.toSubgroup
+  have hE : E.fixingSubgroup = ρ.ker := InfiniteGalois.fixingSubgroup_fixedField NC
+  haveI hEfd : FiniteDimensional ℚ E :=
+    (InfiniteGalois.isOpen_iff_finite E).mp (by
+      show IsOpen (E.fixingSubgroup : Set Gal)
+      rw [hE]; exact hNopen)
+  haveI hEgal : IsGalois ℚ E :=
+    (InfiniteGalois.normal_iff_isGalois E).mp (by rw [hE]; exact ρ.normal_ker)
+  -- `[E:ℚ] = |ρ(G_ℚ)| ≤ 3^{r²}`
+  have hcardE : Module.finrank ℚ E = Nat.card ρ'.range := by
+    rw [← IsGalois.card_aut_eq_finrank]
+    have e1 := QuotientGroup.quotientKerEquivOfSurjective (AlgEquiv.restrictNormalHom (F := ℚ)
+      (K₁ := Qbar) E) (AlgEquiv.restrictNormalHom_surjective (E := Qbar))
+    have e2 := QuotientGroup.quotientKerEquivRange ρ'
+    have c1 : Nat.card (E ≃ₐ[ℚ] E) =
+        (AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) E).ker.index :=
+      (Nat.card_congr e1.toEquiv).symm
+    have c2 : Nat.card ρ'.range = ρ'.ker.index := (Nat.card_congr e2.toEquiv).symm
+    rw [c1, c2, IntermediateField.restrictNormalHom_ker, hE, hker]
+  haveI : Finite ρ'.range := by
+    apply Nat.finite_of_card_ne_zero
+    rw [← hcardE]; exact Module.finrank_pos.ne'
+  have hE3 : Module.finrank ℚ E ≤ 3 ^ (r ^ 2) := by
+    rw [hcardE]; exact GlueRepo.TorsionFree.card_le_three_pow ρ'.range
+  -- `L = E ⊔ K`
+  refine ⟨E ⊔ K, inferInstance, inferInstance, le_sup_right, ?_, ?_, ?_, ?_⟩
+  · intro σ hσ
+    have h1 : σ ∈ E.fixingSubgroup := IntermediateField.fixingSubgroup_antitone le_sup_left hσ
+    rw [hE] at h1
+    exact h1
+  · calc Module.finrank ℚ ↥(E ⊔ K) ≤ Module.finrank ℚ E * Module.finrank ℚ K :=
+          IntermediateField.finrank_sup_le E K
+      _ ≤ 3 ^ (r ^ 2) * Module.finrank ℚ K := Nat.mul_le_mul_right _ hE3
+      _ = Module.finrank ℚ K * 3 ^ (r ^ 2) := Nat.mul_comm _ _
+  · have hgal : GalUnramifiedOutside (E ⊔ K) T := by
+      intro p hp hpT w hw s hs
+      rw [IntermediateField.fixingSubgroup_sup]
+      refine ⟨?_, hK p hp hpT w hw hs⟩
+      rw [hE]
+      exact hinert p hp hpT w hw s hs
+    exact hgal
+  · apply unramifiedAt_of_galUnramifiedOutside
+    intro p hp hpT w hw s hs
+    rw [IntermediateField.fixingSubgroup_sup]
+    refine ⟨?_, hK p hp hpT w hw hs⟩
+    rw [hE]
+    exact hinert p hp hpT w hw s hs
+
+/-- **G4 with the manuscript's numbers.** If `[K:ℚ] ≤ F₀ = 324!` and `r ≤ 16F₀²` (N5 L547-548),
+the Hom field has `[L:ℚ] ≤ D = F₀·3^{256F₀⁴}` (`ZInQ.heightD`). -/
+theorem homField_le_heightD (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
+    {r : ℕ} (hr : r ≤ 16 * ZInQ.heightF0 ^ 2) (b : Module.Basis (Fin r) ℤ M)
+    (ρ : Gal →* (M ≃ₗ[ℤ] M))
+    (hcont : ∀ m : M, IsOpen {σ : Gal | ρ σ m = m})
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, ρ s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) := by
+  obtain ⟨L, h1, h2, hKL, hdef, hdeg, hgal, hram⟩ := homField_core K b ρ hcont T hK hinert
+  refine ⟨L, h1, h2, hKL, hdef, ?_, hgal, hram⟩
+  exact hdeg.trans (GlueRepo.Numerics.a8_degree ZInQ.Compiler.Precision.heightD_eq hKF le_rfl hr)
+
+end Core
 
 end G4WeilRes
