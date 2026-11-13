@@ -53,7 +53,7 @@ def IsQMUnifLevel (P : QML3 ℂ) {τ : ℂ} (hτ : τ.im ≠ 0)
 /-! ## §2 Complex points of `Y` and regular functions on them -/
 
 /-- The scheme point of `X` under a complex point `y : Spec ℂ → X`. -/
-def ptOfS {X : Scheme.{0}} (y : Spec (CommRingCat.of ℂ) ⟶ X) : X :=
+abbrev ptOfS {X : Scheme.{0}} (y : Spec (CommRingCat.of ℂ) ⟶ X) : X :=
   (Scheme.SpecToEquivOfField ℂ X y).1
 
 open Classical in
