@@ -189,4 +189,135 @@ theorem normalizer_component {x : BAˣ} (hx : x ∈ Nhat) (p : Nat.Primes) :
     have := (hx (single p y)).mpr h1 p
     rwa [single_apply_self] at this
 
+/-! ### `Z K₀` is detected componentwise -/
+
+theorem Zhat_le_center : Zhat ≤ Subgroup.center BAˣ := by
+  intro z hz
+  rw [Subgroup.mem_center_iff]
+  intro g
+  apply Units.ext
+  apply RestrictedProduct.ext
+  intro p
+  obtain ⟨c, hc⟩ := hz p
+  rw [Units.val_mul, Units.val_mul, RestrictedProduct.mul_apply, RestrictedProduct.mul_apply, hc,
+    Algebra.commutes]
+
+instance Zhat_normal : Zhat.Normal := Subgroup.normal_of_le_center Zhat_le_center
+
+theorem comp_mem_OpUnits {k : BAˣ} (hk : k ∈ K0) (p : Nat.Primes) :
+    comp p k ∈ OpUnits (p : ℕ) := ⟨hk.1 p, hk.2 p⟩
+
+/-- Elements of `Z K₀` are componentwise in `ℚ_p^× 𝒪_p^×`. -/
+theorem comp_mem_scal_of_mem_sup {x : BAˣ} (hx : x ∈ Zhat ⊔ K0) (p : Nat.Primes) :
+    comp p x ∈ scalOpUnits (p : ℕ) := by
+  have hx' : x ∈ ((Zhat ⊔ K0 : Subgroup BAˣ) : Set BAˣ) := hx
+  rw [Subgroup.normal_mul] at hx'
+  obtain ⟨z, hz, k, hk, rfl⟩ := hx'
+  obtain ⟨c, hc⟩ := hz p
+  have hc0 : c ≠ 0 := by
+    rintro rfl
+    have h1 : (z : BA) p * ((z⁻¹ : BAˣ) : BA) p = 1 := by
+      rw [← RestrictedProduct.mul_apply, Units.mul_inv]; rfl
+    rw [hc, map_zero, zero_mul] at h1
+    exact zero_ne_one h1
+  refine ⟨Units.mk0 c hc0, comp p k, comp_mem_OpUnits hk p, ?_⟩
+  rw [map_mul, Units.val_mul, comp_val p z, hc, Units.val_mk0, Algebra.smul_def]
+
+/-- At `p ∤ 6`, components of the normalizer are in `ℚ_p^× 𝒪_p^×` (`unramified_normalizer`). -/
+theorem comp_mem_scal_of_unramified {x : BAˣ} (hx : x ∈ Nhat) (p : Nat.Primes)
+    (h2 : (p : ℕ) ≠ 2) (h3 : (p : ℕ) ≠ 3) : comp p x ∈ scalOpUnits (p : ℕ) :=
+  unramified_normalizer (p : ℕ) h2 h3 (comp p x)
+    (fun y hy => (normalizer_component hx p y).mp hy)
+
+/-- Componentwise `ℚ_p^× 𝒪_p^×` implies `Z K₀` (the scalars are chosen `1` at the cofinitely
+many `p` where `x_p ∈ 𝒪_p^×`). -/
+theorem mem_sup_of_forall {x : BAˣ}
+    (hx : ∀ p : Nat.Primes, comp p x ∈ scalOpUnits (p : ℕ)) : x ∈ Zhat ⊔ K0 := by
+  classical
+  have hcof : ∀ᶠ p : Nat.Primes in Filter.cofinite, comp p x ∈ OpUnits (p : ℕ) := by
+    filter_upwards [(x : BA).2, ((x⁻¹ : BAˣ) : BA).2] with p h1 h2
+    exact ⟨h1, h2⟩
+  let c : ∀ p : Nat.Primes, ℚ_[(p : ℕ)]ˣ := fun p =>
+    if h : comp p x ∈ OpUnits (p : ℕ) then 1 else (hx p).choose
+  have hc1 : ∀ p : Nat.Primes, comp p x ∈ OpUnits (p : ℕ) → c p = 1 := fun p h => dite_eq_left h
+  have hcu : ∀ p : Nat.Primes, ∃ u ∈ OpUnits (p : ℕ), ((comp p x : (Bp (p : ℕ))ˣ) : Bp (p : ℕ)) =
+      ((c p : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]) • (u : Bp (p : ℕ)) := by
+    intro p
+    by_cases h : comp p x ∈ OpUnits (p : ℕ)
+    · exact ⟨comp p x, h, by rw [hc1 p h]; simp⟩
+    · have := (hx p).choose_spec
+      simp only [c, dite_eq_right h]
+      exact this
+  let z : BA := ⟨fun p => algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) ((c p : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]),
+    by
+      filter_upwards [hcof] with p hp
+      rw [hc1 p hp, Units.val_one, map_one]
+      exact (OpSub (p : ℕ)).one_mem⟩
+  let z' : BA := ⟨fun p => algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ))
+      (((c p)⁻¹ : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]), by
+      filter_upwards [hcof] with p hp
+      rw [hc1 p hp, inv_one, Units.val_one, map_one]
+      exact (OpSub (p : ℕ)).one_mem⟩
+  have hzz' : z * z' = 1 := by
+    refine RestrictedProduct.ext _ _ (fun p => ?_)
+    rw [RestrictedProduct.mul_apply, RestrictedProduct.one_apply]
+    show algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) _ * algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) _ = 1
+    rw [← map_mul, Units.mul_inv, map_one]
+  have hz'z : z' * z = 1 := by
+    refine RestrictedProduct.ext _ _ (fun p => ?_)
+    rw [RestrictedProduct.mul_apply, RestrictedProduct.one_apply]
+    show algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) _ * algebraMap ℚ_[(p : ℕ)] (Bp (p : ℕ)) _ = 1
+    rw [← map_mul, Units.inv_mul, map_one]
+  let zU : BAˣ := ⟨z, z', hzz', hz'z⟩
+  have hzZ : zU ∈ Zhat := fun p => ⟨_, rfl⟩
+  have hk : zU⁻¹ * x ∈ K0 := by
+    constructor
+    · intro p
+      obtain ⟨u, hu, hxu⟩ := hcu p
+      show z' p * (x : BA) p ∈ Op (p : ℕ)
+      show algebraMap _ _ (((c p)⁻¹ : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]) * (x : BA) p ∈ Op (p : ℕ)
+      rw [← comp_val, hxu, ← Algebra.smul_def, smul_smul, Units.inv_mul, one_smul]
+      exact hu.1
+    · intro p
+      obtain ⟨u, hu, hxu⟩ := hcu p
+      rw [mul_inv_rev, inv_inv]
+      show ((x⁻¹ : BAˣ) : BA) p * z p ∈ Op (p : ℕ)
+      show ((x⁻¹ : BAˣ) : BA) p * algebraMap _ _ ((c p : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]) ∈
+        Op (p : ℕ)
+      rw [← comp_inv_val]
+      have e : (((comp p x)⁻¹ : (Bp (p : ℕ))ˣ) : Bp (p : ℕ)) =
+          (((c p)⁻¹ : ℚ_[(p : ℕ)]ˣ) : ℚ_[(p : ℕ)]) • ((u⁻¹ : (Bp (p : ℕ))ˣ) : Bp (p : ℕ)) := by
+        apply Units.inv_eq_of_mul_eq_one_right
+        rw [hxu, smul_mul_smul_comm, Units.mul_inv, Units.mul_inv, one_smul]
+      rw [e, ← Algebra.commutes, ← Algebra.smul_def, smul_smul, Units.mul_inv, one_smul]
+      exact hu.2
+  have e : x = zU * (zU⁻¹ * x) := by group
+  rw [e]
+  exact Subgroup.mul_mem_sup hzZ hk
+
+/-- **The identification of `N/(Z K₀)` with the restricted product of the local quotients.**
+`x ∈ N` lies in `Z K₀` iff each component `x_p` lies in `ℚ_p^× 𝒪_p^×`. -/
+theorem mem_sup_iff_forall {x : BAˣ} :
+    x ∈ Zhat ⊔ K0 ↔ ∀ p : Nat.Primes, comp p x ∈ scalOpUnits (p : ℕ) :=
+  ⟨fun h => comp_mem_scal_of_mem_sup h, mem_sup_of_forall⟩
+
+/-- The primes `2` and `3`. -/
+def P2 : Nat.Primes := ⟨2, Nat.prime_two⟩
+def P3 : Nat.Primes := ⟨3, Nat.prime_three⟩
+
+/-- **The local quotients are trivial at `p ∤ 6`**: for `x ∈ N`, `x ∈ Z K₀` iff
+`x_2 ∈ ℚ_2^× 𝒪_2^×` and `x_3 ∈ ℚ_3^× 𝒪_3^×`. -/
+theorem mem_sup_iff {x : BAˣ} (hx : x ∈ Nhat) :
+    x ∈ Zhat ⊔ K0 ↔ comp P2 x ∈ scalOpUnits ((P2 : Nat.Primes) : ℕ) ∧
+      comp P3 x ∈ scalOpUnits ((P3 : Nat.Primes) : ℕ) := by
+  rw [mem_sup_iff_forall]
+  refine ⟨fun h => ⟨h P2, h P3⟩, fun ⟨h2, h3⟩ p => ?_⟩
+  by_cases hp2 : (p : ℕ) = 2
+  · have : p = P2 := Subtype.ext hp2
+    subst this; exact h2
+  by_cases hp3 : (p : ℕ) = 3
+  · have : p = P3 := Subtype.ext hp3
+    subst this; exact h3
+  exact comp_mem_scal_of_unramified hx p hp2 hp3
+
 end G1Adelic
