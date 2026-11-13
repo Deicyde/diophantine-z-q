@@ -153,4 +153,69 @@ theorem sub_smul_not_mem (w : Ideal (𝓞 L)) [hw : w.IsMaximal] (he : w.ramific
     have := sub_mem h2 hb.1
     rwa [sub_sub_cancel] at this
 
+omit [NumberField L] [IsGalois ℚ L] in
+theorem prod_lift_not_mem (w : Ideal (𝓞 L)) [hw : w.IsPrime] (s : Multiset L)
+    (hs : ∀ x ∈ s, ∃ y : 𝓞 L, (y : L) = x ∧ y ∉ w) : ∃ z : 𝓞 L, (z : L) = s.prod ∧ z ∉ w := by
+  induction s using Multiset.induction_on with
+  | empty => exact ⟨1, by simp, fun h => hw.ne_top ((Ideal.eq_top_iff_one w).2 h)⟩
+  | cons a s ih =>
+    obtain ⟨z, hz, hzw⟩ := ih (fun x hx => hs x (Multiset.mem_cons_of_mem hx))
+    obtain ⟨y, hy, hyw⟩ := hs a (Multiset.mem_cons_self a s)
+    exact ⟨y * z, by simp [hy, hz], fun h => (hw.mem_or_mem h).elim hyw hzw⟩
+
+theorem derivative_minpoly_not_mem (w : Ideal (𝓞 L)) [hw : w.IsPrime] (b : 𝓞 L)
+    (hgood : ∀ τ : G, τ • b ≠ b → b - τ • b ∉ w) :
+    aeval b (derivative (minpoly ℤ b)) ∉ w := by
+  classical
+  have hint : IsIntegral ℤ (b : L) := b.isIntegral_coe
+  have hintQ : IsIntegral ℚ (b : L) := hint.tower_top
+  set f := (minpoly ℚ (b : L)).map (algebraMap ℚ L) with hf
+  have hsplit : f.Splits := Normal.splits inferInstance (b : L)
+  have hmonic : f.Monic := (minpoly.monic hintQ).map _
+  have hroot : (b : L) ∈ f.roots := by
+    rw [mem_roots hmonic.ne_zero, IsRoot, hf, eval_map_algebraMap, minpoly.aeval]
+  have hder := hsplit.eval_root_derivative hmonic hroot
+  have hminZ : (minpoly ℤ b).map (algebraMap ℤ L) = f := by
+    rw [hf, minpoly.isIntegrallyClosed_eq_field_fractions' ℚ hint, Polynomial.map_map,
+      ← IsScalarTower.algebraMap_eq]
+    congr 1
+    exact (minpoly.algebraMap_eq (FaithfulSMul.algebraMap_injective (𝓞 L) L) b).symm
+  have hcoe : ((aeval b (derivative (minpoly ℤ b)) : 𝓞 L) : L) = eval (b : L) (derivative f) := by
+    rw [← hminZ, derivative_map, eval_map_algebraMap]
+    exact (aeval_algebraMap_apply L b _).symm
+  have hsep : f.Separable := Polynomial.Separable.map (Algebra.IsSeparable.isSeparable ℚ (b : L))
+  have hnd : f.roots.Nodup := nodup_roots hsep
+  obtain ⟨z, hz, hzw⟩ := prod_lift_not_mem w ((f.roots.erase (b : L)).map (fun c => (b : L) - c))
+    (by
+      intro x hx
+      obtain ⟨c, hc, rfl⟩ := Multiset.mem_map.1 hx
+      have hcb : c ≠ (b : L) := (hnd.mem_erase_iff.1 hc).1
+      have hcr : c ∈ f.roots := Multiset.mem_of_mem_erase hc
+      have hc0 : aeval c (minpoly ℚ (b : L)) = 0 := by
+        have := (mem_roots hmonic.ne_zero).1 hcr
+        rwa [IsRoot, hf, eval_map_algebraMap] at this
+      have hmin : minpoly ℚ c = minpoly ℚ (b : L) :=
+        (minpoly.eq_of_irreducible_of_monic (minpoly.irreducible hintQ) hc0
+          (minpoly.monic hintQ)).symm
+      obtain ⟨τ, hτ⟩ := (Normal.minpoly_eq_iff_mem_orbit (F := ℚ) (E := L)).1 hmin
+      have hτ' : (((τ • b : 𝓞 L)) : L) = c := hτ
+      refine ⟨b - τ • b, ?_, hgood τ ?_⟩
+      · show (b : L) - ((τ • b : 𝓞 L) : L) = (b : L) - c
+        rw [hτ']
+      · intro h; apply hcb; rw [← hτ', h])
+  have : aeval b (derivative (minpoly ℤ b)) = z :=
+    RingOfIntegers.ext (by rw [hcoe, hder, hz])
+  rw [this]; exact hzw
+
+/-- **Global output.** For a maximal ideal `w ∋ p` of `𝓞 L` with ramification index `1`, there is
+`b₀ ∈ 𝓞 L` such that every `b ∈ b₀ + p 𝓞 L` has `(minpoly ℤ b)'(b) ∉ w`. -/
+theorem exists_base (w : Ideal (𝓞 L)) [hw : w.IsMaximal] (hw0 : w ≠ ⊥)
+    (he : w.ramificationIdx ℤ = 1) {p : ℕ} (hp : (p : 𝓞 L) ∈ w) :
+    ∃ b₀ : 𝓞 L, ∀ y : 𝓞 L,
+      aeval (b₀ + p * y) (derivative (minpoly ℤ (b₀ + p * y))) ∉ w := by
+  obtain ⟨θ, hθ0, hθ⟩ := exists_gen w hw0
+  obtain ⟨b₀, hb₀⟩ := exists_isGood w θ
+  exact ⟨b₀, fun y => derivative_minpoly_not_mem w _
+    (sub_smul_not_mem w he hθ0 hθ (isGood_add hb₀ hp y))⟩
+
 end T31
