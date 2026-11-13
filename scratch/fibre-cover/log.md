@@ -45,3 +45,15 @@
   `fibreCoverExists_of_twistClassCard`, `fibreCoverExists_of_pinned`.
 - VERIFIED: 0 errors, 0 warnings; all six `#print axioms`: [propext, Classical.choice, Quot.sound]
   (scratch/fibre-cover/compile_out.txt).
+
+## run12-15: Part 6, TwistClassCard reduced
+- New Props: `TorsionBound3` (glue + textbook leaf: `A(ℚ̄)[3]` has `≤ 81` points for `dim A = 2`;
+  from `PkgI2.TorsionStructure` at `K = ℚ̄` plus `A(ℚ̄) ↪ A(AlgebraicClosure ℚ̄)`, not compiled),
+  `InnerTwistCount` (glue: every `α ∈ Aut 𝒪` is `w ∘ Ad u`, `w` in a fixed set of `≤ 4`,
+  `u ∈ 𝒪^×`; `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`, N5 L425-429).
+- Proved: `level3_eta_eq`, `level3_ext` (η determined by η(1)), `level3_three` (`3•η(1) = 0`),
+  `innerIso` (`ι∘w∘Ad u ≅ ι∘w` via `ι(w u⁻¹)`), `transportLevel`, `transportIso`,
+  `twistClassCard_of : TorsionBound3 → InnerTwistCount → TwistClassCard` (image of `W × A[3]`,
+  `4·81 = 324`), `fibreCoverExists_of_pinned'`.
+- Pitfall: under `open MonObj`, `mul_one`/`mul_assoc`/`one_mul` resolve to MonObj lemmas; use `_root_.`.
+- VERIFIED: 0 errors, 0 warnings; all eight `#print axioms`: [propext, Classical.choice, Quot.sound].

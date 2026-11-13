@@ -450,6 +450,131 @@ theorem fibreCoverExists_of_pinned (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π
     (hU : UnramifiedConjugates) : FibreCoverExists :=
   fibreCoverExists_of_twistClassCard hC (fibreUnramified_of_pinned Y₀ π₀ hpin h0) hU
 
+/-! ## Part 6: `TwistClassCard` from 3-torsion and the Atkin–Lehner count -/
+
+/-- **Glue + textbook leaf (`|A[3]| = 3⁴` for an abelian surface; Mumford §4, the kernel's leaf
+`PkgI2.TorsionStructure`, which is stated for `A(K̄)[n]`, `K̄ = AlgebraicClosure K`): the
+`3`-torsion of `A(ℚ̄)` has at most `81` points.** From `TorsionStructure` at `K = ℚ̄` and the
+injection `A(ℚ̄) → A(AlgebraicClosure ℚ̄)` (glue, not compiled here). -/
+def TorsionBound3 : Prop :=
+  ∀ A : PkgI3.AbVar Qbar, A.dim = 2 → ∃ s : Finset (Additive (A.Pt Qbar)), s.card ≤ 81 ∧
+    ∀ x : Additive (A.Pt Qbar), 3 • x = 0 → x ∈ s
+
+/-- **Glue (computation on N5's maximal order `𝒪` of discriminant 6): `Aut 𝒪` modulo inner
+automorphisms by units has at most 4 elements.** Every `α ∈ Aut 𝒪` is `w ∘ Ad u` with `w` in a
+fixed set of `≤ 4` automorphisms and `u ∈ 𝒪^×`. Reason: `Aut 𝒪 = N_B(𝒪)/ℚ^×` (Skolem–Noether,
+T13, proved) and `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`, the Atkin–Lehner group `W` of the two ramified primes
+(Vignéras, *Arithmétique des algèbres de quaternions*, Ch. II §1 / Ch. III §5, UNVERIFIED
+locator; N5 L425-429: "at each of the two division primes its quotient … has order two"). -/
+def InnerTwistCount : Prop :=
+  ∃ W : Finset (LeafQM.O ≃+* LeafQM.O), W.card ≤ 4 ∧
+    ∀ α : LeafQM.O ≃+* LeafQM.O, ∃ w ∈ W, ∃ u : (LeafQM.O)ˣ,
+      ∀ a : LeafQM.O, α a = w (u * a * ↑u⁻¹)
+
+section TwistCount
+
+variable {K : Type} [Field K]
+
+/-- A level structure is determined by `η(1)`: `η(a) = a·η(1)`. -/
+theorem level3_eta_eq {A : PkgI3.AbVar K} {q : QMStr A} (e : Level3 q) (a : LeafQM.O) :
+    e.eta a = qmAct q K a (e.eta 1) := by
+  rw [← e.linear, _root_.mul_one]
+
+theorem level3_ext {A : PkgI3.AbVar K} {q : QMStr A} (e e' : Level3 q)
+    (h : e.eta 1 = e'.eta 1) : e = e' := by
+  have heta : e.eta = e'.eta :=
+    AddMonoidHom.ext fun a => by rw [level3_eta_eq e a, level3_eta_eq e' a, h]
+  cases e; cases e'
+  cases heta
+  rfl
+
+/-- `η(1)` is a `3`-torsion point. -/
+theorem level3_three {A : PkgI3.AbVar K} {q : QMStr A} (e : Level3 q) : 3 • e.eta 1 = 0 := by
+  rw [← map_nsmul, nsmul_eq_mul, _root_.mul_one]
+  exact (e.ker _).mpr ⟨1, by rw [_root_.mul_one]; rfl⟩
+
+/-- The inner twist `ι ∘ w ∘ Ad u` is isomorphic to `ι ∘ w`, by `ι(w(u))^{-1}`. -/
+noncomputable def innerIso {A : PkgI3.AbVar K} (q : QMStr A) (w : LeafQM.O ≃+* LeafQM.O) (u : (LeafQM.O)ˣ)
+    (α : LeafQM.O ≃+* LeafQM.O) (hα : ∀ a, α a = w (u * a * ↑u⁻¹)) :
+    QMIso (q.twist α) (q.twist w) where
+  φ := q.iota (w ↑u⁻¹)
+  ψ := q.iota (w ↑u)
+  left := by
+    show (q.iota (w ↑u) * q.iota (w ↑u⁻¹)).hom = (1 : PkgI3.AbVar.End A).hom
+    rw [← map_mul, ← map_mul, Units.mul_inv, map_one, map_one]
+  right := by
+    show (q.iota (w ↑u⁻¹) * q.iota (w ↑u)).hom = (1 : PkgI3.AbVar.End A).hom
+    rw [← map_mul, ← map_mul, Units.inv_mul, map_one, map_one]
+  equivariant a := by
+    show (q.iota (w ↑u⁻¹) * q.iota (α a)).hom = (q.iota (w a) * q.iota (w ↑u⁻¹)).hom
+    rw [hα, ← map_mul, ← map_mul, ← map_mul, ← map_mul, ← _root_.mul_assoc, ← _root_.mul_assoc,
+      Units.inv_mul, _root_.one_mul]
+
+/-- Transport of a level structure along a QM isomorphism. -/
+noncomputable def transportLevel {A A' : PkgI3.AbVar K} {q : QMStr A} {q' : QMStr A'} (θ : QMIso q q')
+    (e : Level3 q) : Level3 q' where
+  eta := (PkgI3.AbVar.ptMap (L := K) θ.φ).toAdditive.comp e.eta
+  linear a b := by
+    change Additive.ofMul (Additive.toMul (e.eta (a * b)) ≫ θ.φ.hom) =
+      Additive.ofMul ((Additive.toMul (e.eta b) ≫ θ.φ.hom) ≫ (q'.iota a).hom)
+    rw [e.linear]
+    change Additive.ofMul ((Additive.toMul (e.eta b) ≫ (q.iota a).hom) ≫ θ.φ.hom) = _
+    rw [Category.assoc, θ.equivariant a, Category.assoc]
+  ker a := by
+    have hinv : Function.LeftInverse (PkgI3.AbVar.ptMap (L := K) θ.ψ).toAdditive
+        (PkgI3.AbVar.ptMap (L := K) θ.φ).toAdditive := fun x => by
+      change Additive.ofMul ((Additive.toMul x ≫ θ.φ.hom) ≫ θ.ψ.hom) = x
+      rw [Category.assoc, θ.left, Category.comp_id]; rfl
+    rw [AddMonoidHom.comp_apply, map_eq_zero_iff _ hinv.injective, e.ker]
+
+/-- The transported object is isomorphic to the original. -/
+noncomputable def transportIso (Q : QML3 K) {A' : PkgI3.AbVar K} (hs : A'.dim = 2) {q' : QMStr A'}
+    (θ : QMIso Q.q q') : Q.Iso ⟨A', hs, q', transportLevel θ Q.e⟩ where
+  φ := θ.φ
+  ψ := θ.ψ
+  left := θ.left
+  right := θ.right
+  equivariant := θ.equivariant
+  level _ := rfl
+
+end TwistCount
+
+/-- **`TwistClassCard` from the 3-torsion bound and the Atkin–Lehner count** (Glazer's
+`4·81 = 324`): a class in the twist class of `P` is `[(A, ι∘w, η')]` for `w ∈ W` and a level
+structure `η'`, which is determined by the `3`-torsion point `η'(1)`. -/
+theorem twistClassCard_of (hT : TorsionBound3) (hW : InnerTwistCount) : TwistClassCard := by
+  classical
+  intro P
+  obtain ⟨s3, hs3, hs3P⟩ := hT P.A P.surface
+  obtain ⟨W, hWc, hWα⟩ := hW
+  let F : (LeafQM.O ≃+* LeafQM.O) × Additive (P.A.Pt Qbar) → M3 Qbar := fun wx =>
+    if h : ∃ e : Level3 (P.q.twist wx.1), e.eta 1 = wx.2 then
+      M3.mk ⟨P.A, P.surface, P.q.twist wx.1, h.choose⟩ else M3.mk P
+  refine ⟨(W ×ˢ s3).image F, ?_, ?_⟩
+  · calc ((W ×ˢ s3).image F).card ≤ (W ×ˢ s3).card := Finset.card_image_le
+      _ = W.card * s3.card := Finset.card_product _ _
+      _ ≤ 4 * 81 := Nat.mul_le_mul hWc hs3
+      _ = 324 := by norm_num
+  · rintro Q ⟨α, ⟨f⟩⟩
+    obtain ⟨w, hw, u, hu⟩ := hWα α
+    let θ : QMIso Q.q (P.q.twist w) := f.symm.trans (innerIso P.q w u α hu)
+    let e' := transportLevel θ Q.e
+    have hx : e'.eta 1 ∈ s3 := hs3P _ (level3_three e')
+    have hex : ∃ e : Level3 (P.q.twist w), e.eta 1 = e'.eta 1 := ⟨e', rfl⟩
+    have hF : F (w, e'.eta 1) = M3.mk Q := by
+      dsimp only [F]
+      rw [dite_eq_left hex, level3_ext _ _ hex.choose_spec]
+      exact (Quotient.sound (⟨transportIso Q P.surface θ⟩ : Nonempty _)).symm
+    rw [← hF]
+    exact Finset.mem_image_of_mem F (Finset.mem_product.mpr ⟨hw, hx⟩)
+
+/-- **The composite with the twist count reduced**: `FibreCoverExists` from the 3-torsion
+bound, the Atkin–Lehner count, the pin, Prop. TS + Lemma NV on one curve, and the textbook fact. -/
+theorem fibreCoverExists_of_pinned' (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left)
+    (hT : TorsionBound3) (hW : InnerTwistCount) (hpin : CurvePinned Y₀ π₀)
+    (h0 : FibreUnramifiedOn Y₀ π₀) (hU : UnramifiedConjugates) : FibreCoverExists :=
+  fibreCoverExists_of_pinned Y₀ π₀ (twistClassCard_of hT hW) hpin h0 hU
+
 end G0ModField
 
 #print axioms G0ModField.fibreCoverOut_iff
@@ -458,3 +583,5 @@ end G0ModField
 #print axioms G0ModField.fibreDegree_of
 #print axioms G0ModField.fibreCoverExists_of_twistClassCard
 #print axioms G0ModField.fibreCoverExists_of_pinned
+#print axioms G0ModField.twistClassCard_of
+#print axioms G0ModField.fibreCoverExists_of_pinned'
