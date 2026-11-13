@@ -16,7 +16,11 @@ of the literature in this note is UNVERIFIED**: it is written from memory and mu
 ## 0. Main result
 
 **Neither leaf is stronger than the published theorem it cites, and neither is vacuous.** Each
-is a consequence of its source, with the textbook facts that are folded in and named below. Both
+is a consequence of its source, with the textbook facts that are folded in and named below. For
+`FHNonvanishing` this holds provided Friedberg–Hoffstein's theorem has the generality listed in
+§6 H1: every level, dihedral `π` allowed, arbitrary local data on a finite `S`. That generality
+is recalled but UNVERIFIED. The restricted form needs it only for one CM newform of level `32 d²`
+per `d`. Both
 are stated over genuine definitions: Tau Ceti's `Newform`, the root number pinned by Tau Ceti's
 proved functional equation, and Mathlib's `WeierstrassCurve.LFunction`, `Affine.Point` and
 `jacobiSym`. No statement needs a repair. The gaps found are of two kinds:
