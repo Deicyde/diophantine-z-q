@@ -1718,6 +1718,178 @@ theorem betaOnGenus7_of (hsH : SqrtPstarInHilbert) (hart : ArtinPstarChi) (hnorm
 
 end BetaAssembly
 
+/-! ### Glue GT-ART proved: the Artin symbols act on `√p*` by the genus characters -/
+
+section ArtinChi
+
+open ZInQ.RouteK.Redei IsDedekindDomain
+open scoped nonZeroDivisors
+
+variable {n : ℕ} [NeZero n]
+
+/-- The subfield of `H_n` cut out by `S ≤ Cl(K_n)`. -/
+abbrev maxSubfield (S : Subgroup (Pic (OK n))) :
+    IntermediateField (QNeg n) (SeparableClosure (QNeg n)) :=
+  IntermediateField.lift
+    (IntermediateField.fixedField (S.map (ringClassArtinEquiv (OK n)).toMonoidHom))
+
+instance (S : Subgroup (Pic (OK n))) : FiniteDimensional (QNeg n) (maxSubfield S) :=
+  LinearEquiv.finiteDimensional (IntermediateField.liftAlgEquiv _).toLinearEquiv
+
+instance (S : Subgroup (Pic (OK n))) : IsGalois (QNeg n) (maxSubfield S) := by
+  have : (S.map (ringClassArtinEquiv (OK n)).toMonoidHom).Normal := Subgroup.normal_of_comm _
+  exact IsGalois.of_algEquiv (IntermediateField.liftAlgEquiv _)
+
+theorem mem_primeTo_max (𝔭 : HeightOneSpectrum (𝓞 (QNeg n)))
+    (h : ¬ (conductorOrder (QNeg n) 1).conductor ≤ 𝔭.asIdeal) :
+    𝔭.asIdeal ∈ integralIdealsPrimeTo (OK n).conductorModulus := by
+  have := mem_primeTo_of_not_le (f := 1) 𝔭 h
+  rwa [conductorOrder_one] at this
+
+/-- The genus character as a subgroup of `Cl(K_n) = Pic(𝓞_{K_n})`. -/
+abbrev kerChi (q : n.primeFactors) : Subgroup (Pic (OK n)) := (chi n q).ker
+
+/-- Away from `2n`: `𝔭` splits in the fixed field of `ker χ_q` iff it splits in `K_n(√q*)`. -/
+theorem splitSet_kerChi_iff (hn : n % 4 = 3) (hsq : Squarefree n) (q : n.primeFactors)
+    (𝔭 : HeightOneSpectrum (𝓞 (QNeg n)))
+    (hT1 : ¬ (conductorOrder (QNeg n) 1).conductor ≤ 𝔭.asIdeal)
+    (h2n : ((2 * n : ℕ) : 𝓞 (QNeg n)) ∉ 𝔭.asIdeal) :
+    𝔭 ∈ splitSet (QNeg n) (maxSubfield (kerChi q)) ↔
+      𝔭 ∈ splitSet (QNeg n) (adjSqrt (QNeg n) (pstar q)) := by
+  have hodd : Odd n := Nat.odd_iff.mpr (by omega)
+  have hJ := mem_primeTo_max 𝔭 hT1
+  have : ((⟨𝔭.asIdeal, hJ⟩ : integralIdealsPrimeTo (OK n).conductorModulus) :
+    Ideal (𝓞 (QNeg n))).IsMaximal := 𝔭.isMaximal
+  have hqp := Nat.prime_of_mem_primeFactors q.2
+  have hq2 : (q : ℕ) ≠ 2 := by
+    intro h
+    have := Nat.dvd_of_mem_primeFactors q.2
+    rw [h] at this
+    exact (Nat.not_even_iff_odd.2 hodd) (even_iff_two_dvd.2 this)
+  have h2a : ((2 * pstar q : ℤ) : 𝓞 (QNeg n)) ∉ 𝔭.asIdeal := by
+    intro h; apply h2n
+    obtain ⟨n', hn'⟩ := Nat.dvd_of_mem_primeFactors q.2
+    have e2 : 2 * n = 2 * (q : ℕ) * n' := by rw [mul_assoc, ← hn']
+    have hcast : ((2 * n : ℕ) : 𝓞 (QNeg n)) =
+        ((2 * pstar q : ℤ) : 𝓞 (QNeg n)) *
+          ((if (q : ℕ) % 4 = 1 then 1 else -1 : ℤ) * n' : 𝓞 (QNeg n)) := by
+      rw [congrArg (Nat.cast (R := 𝓞 (QNeg n))) e2]
+      unfold pstar
+      split_ifs <;> push_cast <;> ring
+    rw [hcast]
+    exact 𝔭.asIdeal.mul_mem_right _ h
+  rw [mem_splitSet_iff (OK n) _ ⟨_, hJ⟩ 𝔭 rfl]
+  change chi n q ((OK n).picClass ⟨_, hJ⟩) = 1 ↔ _
+  rw [picClass_maximal ⟨_, hJ⟩ (mem_nonZeroDivisors_of_ne_zero 𝔭.ne_bot),
+    mem_splitSet_adjSqrt_iff 𝔭 h2a]
+  have := Fact.mk hqp
+  letI := Ideal.Quotient.field 𝔭.asIdeal
+  haveI : Finite (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) := Ring.HasFiniteQuotients.finiteQuotient 𝔭.ne_bot
+  letI := Fintype.ofFinite (𝓞 (QNeg n) ⧸ 𝔭.asIdeal)
+  obtain ⟨hchar, hcharq⟩ := residue_facts 𝔭 h2n q.2
+  have hN : Ideal.absNorm 𝔭.asIdeal = Fintype.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal) := by
+    rw [Ideal.absNorm_apply, Submodule.cardQuot_apply, Nat.card_eq_fintype_card]
+  have hqN : ¬ (q : ℕ) ∣ Ideal.absNorm 𝔭.asIdeal := by
+    rw [hN]
+    intro hd
+    obtain ⟨k, hk, hcard⟩ := FiniteField.card (𝓞 (QNeg n) ⧸ 𝔭.asIdeal)
+      (ringChar (𝓞 (QNeg n) ⧸ 𝔭.asIdeal))
+    rw [hcard] at hd
+    exact hcharq ((Nat.prime_dvd_prime_iff_eq hqp hk).1 (hqp.dvd_of_dvd_pow hd)).symm
+  have hc := chi_mk0 n hodd hsq q ⟨𝔭.asIdeal, mem_nonZeroDivisors_of_ne_zero 𝔭.ne_bot⟩ hqN
+  rw [hc, isSquare_pstar_iff hchar hq2 hcharq]
+  unfold ZInQ.RouteK.legBit
+  rw [hN, Int.cast_natCast]
+  split_ifs with h
+  · simp only [ofAdd_zero, true_iff]; exact h
+  · simp only [h, iff_false]; decide
+
+/-- **The fixed field of `ker χ_q` is `K_n(√q*)`** (Bauer, both directions). -/
+theorem maxSubfield_kerChi (hn : n % 4 = 3) (hsq : Squarefree n) (q : n.primeFactors) :
+    maxSubfield (kerChi q) = adjSqrt (QNeg n) (pstar q) := by
+  have hI : (conductorOrder (QNeg n) 1).conductor * Ideal.span {((2 * n : ℕ) : 𝓞 (QNeg n))} ≠ ⊥ := by
+    rw [Ne, Ideal.mul_eq_bot, not_or]
+    refine ⟨(conductorOrder (QNeg n) 1).conductor_ne_bot, ?_⟩
+    rw [Ideal.span_singleton_eq_bot]
+    exact_mod_cast (show 2 * n ≠ 0 by have := NeZero.ne n; omega)
+  have key : ∀ 𝔭 : HeightOneSpectrum (𝓞 (QNeg n)),
+      𝔭 ∉ {𝔭 : HeightOneSpectrum (𝓞 (QNeg n)) | (conductorOrder (QNeg n) 1).conductor *
+        Ideal.span {((2 * n : ℕ) : 𝓞 (QNeg n))} ≤ 𝔭.asIdeal} →
+      (𝔭 ∈ splitSet (QNeg n) (maxSubfield (kerChi q)) ↔
+        𝔭 ∈ splitSet (QNeg n) (adjSqrt (QNeg n) (pstar q))) := fun 𝔭 hT =>
+    splitSet_kerChi_iff hn hsq q 𝔭 (fun h => hT (le_trans Ideal.mul_le_left h))
+      (fun h => hT (le_trans Ideal.mul_le_right ((Ideal.span_singleton_le_iff_mem _).2 h)))
+  apply le_antisymm
+  · exact le_of_splitSet_diff_subset _ (finite_le_primes _ hI)
+      fun 𝔭 ⟨h𝔭, hT⟩ => (key 𝔭 hT).2 h𝔭
+  · exact le_of_splitSet_diff_subset _ (finite_le_primes _ hI)
+      fun 𝔭 ⟨h𝔭, hT⟩ => (key 𝔭 hT).1 h𝔭
+
+/-- **Glue GT-ART proved.** -/
+theorem artinPstarChi : ArtinPstarChi := by
+  intro n _ hn hsq q c hs
+  set s := sqrtK (QNeg n) (pstar q)
+  set g := ringClassArtinEquiv (OK n) c
+  set s' : hilbertField n := ⟨s, hs⟩
+  have hs2 : s' ^ 2 = algebraMap (QNeg n) (hilbertField n) ((pstar q : ℤ) : QNeg n) := by
+    apply Subtype.ext
+    show s ^ 2 = algebraMap (QNeg n) (SeparableClosure (QNeg n)) ((pstar q : ℤ) : QNeg n)
+    rw [sqrtK_sq, map_intCast]
+  have hg2 : ((g s' : hilbertField n) : SeparableClosure (QNeg n)) ^ 2 = s ^ 2 := by
+    have h0 : (g s') ^ 2 = algebraMap (QNeg n) (hilbertField n) ((pstar q : ℤ) : QNeg n) := by
+      rw [← map_pow, hs2, AlgEquiv.commutes]
+    have h' := congrArg Subtype.val h0
+    change ((g s' : hilbertField n) : SeparableClosure (QNeg n)) ^ 2 =
+      algebraMap (QNeg n) (SeparableClosure (QNeg n)) ((pstar q : ℤ) : QNeg n) at h'
+    rw [h', map_intCast, sqrtK_sq]
+  have hmemE : s ∈ maxSubfield (kerChi q) := by
+    rw [maxSubfield_kerChi hn hsq q]; exact IntermediateField.mem_adjoin_simple_self _ _
+  have hfix_iff : g s' = s' ↔ chi n q c = 1 := by
+    constructor
+    · intro hfix
+      have hle : adjSqrt (QNeg n) (pstar q) ≤
+          IntermediateField.lift (IntermediateField.fixedField (Subgroup.zpowers g)) := by
+        rw [IntermediateField.adjoin_le_iff, Set.singleton_subset_iff]
+        exact mem_lift_fixedField_zpowers g s' hfix
+      rw [← maxSubfield_kerChi hn hsq q] at hle
+      have hle' : IntermediateField.fixedField ((kerChi q).map (ringClassArtinEquiv (OK n)).toMonoidHom) ≤
+          IntermediateField.fixedField (Subgroup.zpowers g) := fun x hx =>
+        (IntermediateField.mem_lift x).1 (hle ((IntermediateField.mem_lift x).2 hx))
+      have hZ : Subgroup.zpowers g ≤ (kerChi q).map (ringClassArtinEquiv (OK n)).toMonoidHom := by
+        rw [← IntermediateField.fixingSubgroup_fixedField
+          ((kerChi q).map (ringClassArtinEquiv (OK n)).toMonoidHom)]
+        exact (IntermediateField.le_iff_le _ _).1 (le_trans hle' le_rfl)
+      obtain ⟨c', hc', hce⟩ := Subgroup.mem_map.1 (hZ (Subgroup.mem_zpowers g))
+      rw [(ringClassArtinEquiv (OK n)).injective hce] at hc'
+      exact hc'
+    · intro hc
+      have h1 := (IntermediateField.mem_lift s').1 hmemE
+      rw [IntermediateField.mem_fixedField_iff] at h1
+      exact h1 g (Subgroup.mem_map_of_mem _ hc)
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 hg2 with h | h
+  · have hc : chi n q c = 1 := hfix_iff.1 (Subtype.ext h)
+    rw [h, if_pos hc, one_mul]
+  · have hc : chi n q c ≠ 1 := by
+      intro hc
+      have h' := congrArg Subtype.val (hfix_iff.2 hc)
+      rw [h] at h'
+      have h2 : (2 : SeparableClosure (QNeg n)) * s = 0 := by
+        change -s = s at h'; linear_combination -h'
+      have hs0 : s ≠ 0 := by
+        intro h0
+        have := sqrtK_sq (QNeg n) (pstar q)
+        rw [← show s = sqrtK (QNeg n) (pstar q) from rfl, h0] at this
+        have hp0 : pstar q ≠ 0 := by
+          unfold pstar; split_ifs <;> simp [(Nat.prime_of_mem_primeFactors q.2).ne_zero]
+        simp at this
+        exact hp0 (by exact_mod_cast this.symm)
+      rcases mul_eq_zero.1 h2 with h2 | h2
+      · exact two_ne_zero h2
+      · exact hs0 h2
+    rw [h, if_neg hc]; ring
+
+end ArtinChi
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem after §10–§12** (`Lemma321Seven` replaced by TYZ Thm 3.6(3) + glue BETA-7). -/
 theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
@@ -1778,3 +1950,5 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms sqrtPstarInHilbert
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms betaOnGenus7_of
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms artinPstarChi

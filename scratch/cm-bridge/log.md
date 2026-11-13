@@ -51,3 +51,8 @@
 - `sqrtPstarInHilbert : SqrtPstarInHilbert` PROVED (VERIFIED compiled, standard axioms): `norm_sq_mod_prime3`
   (4N(β) ≡ t² mod p for n ≡ 3 (4)), `adjSqrt_pstar_le_hilbertField` (Bauer, as ring-class's
   `adjSqrt_le_hilbertField`, with `isSquare_pstar_iff`). BETA-7 now rests on ArtinPstarChi + NormP2.
+- `artinPstarChi : ArtinPstarChi` PROVED (VERIFIED compiled, standard axioms): `maxSubfield S` (fixed field of
+  Art(S) in H_n, finite Galois), `splitSet_kerChi_iff` (away from 2n, 𝔭 splits in the fixed field of ker χ_q
+  iff q* is a square mod 𝔭, via `mem_splitSet_iff`, `picClass_maximal`, `chi_mk0`, `isSquare_pstar_iff`),
+  `maxSubfield_kerChi` (= K_n(√q*), Bauer both ways), Galois correspondence (`fixingSubgroup_fixedField`,
+  `le_iff_le`). BETA-7 now rests on NormP2 only.
