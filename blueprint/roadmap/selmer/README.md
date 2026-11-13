@@ -4,7 +4,8 @@ article_id: af_e32388e618d70d75466eb859
 
 # Proposition 0: the explicit system is the 2-Selmer group
 
-The certified rank hypothesis CR₃ of the main theorem is stated on the explicit linear system
+The certified rank hypothesis CR₃, which the main theorem derives from four statements about
+L-series, is stated on the explicit linear system
 $\Sigma(\mathcal C_d)$ of the [Route K chapter](../route-k/README.md), built from classes modulo
 $8$ and Legendre symbols. Proposition 0 says that for squarefree $d\equiv5\pmod8$ the solutions of
 this system are, in coordinates, the 2-Selmer group of the congruent number curve

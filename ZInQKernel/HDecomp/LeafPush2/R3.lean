@@ -146,8 +146,10 @@ with an affine model `y² = a ∏ (x − rᵢ)` (six distinct roots) on the Lin�
 
 Why it is a consequence (citation chain, not Lean leaves):
 * `(A, ι)` carries a principal polarization of the fixed type, so it is a point of `X₆` with a
-  value `j ∈ ℙ¹` of the Hauptmodul of `X₆/W` (bp-qmmoduli §2.2, existence of the polarization:
-  SPECULATIVE in the repository, under review in rv-qm-polar; Baba–Granath Thm 2.1 for `X₆/W`).
+  value `j ∈ ℙ¹` of the Hauptmodul of `X₆/W` (existence of the polarization: Lemma P
+  (rv-qm-polar §0), for a fixed `μ` the type-`μ` principal polarization of `(A, ι)` exists and
+  is unique in characteristic 0; VERIFIED as an argument, lattice cores compiled in
+  `QM/Polar.lean`, published locators UNVERIFIED; Baba–Granath Thm 2.1 for `X₆/W`).
 * `j ≠ 0, ∞`: Lin–Yang's assertion, forgetting the polarization (`≅` of group schemes).
 * `j ∈ {0, ∞}`: the tuple has `J₁₀ = 0` there (in weighted-projective coordinates), so the
   principally polarized surface is not the Jacobian of a smooth curve, hence a product of elliptic

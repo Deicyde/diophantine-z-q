@@ -25,9 +25,12 @@ variable (ℓ : ℕ) [Fact ℓ.Prime]
 def homV {J A : AbVar ℚ} (π : Hom J A) : J.V ℓ →ₗ[ℚ_[ℓ]] A.V ℓ :=
   (homT (ℓ := ℓ) π).baseChange ℚ_[ℓ]
 
-/-- **Glue target (standard): a surjective homomorphism of abelian varieties is surjective on
-`V_ℓ`.** (By Poincaré reducibility, T8, `π` restricts to an isogeny on an abelian subvariety, and
-isogenies are isomorphisms on `V_ℓ`; Mumford §19, UNVERIFIED.) Not a literature leaf: glue. -/
+/-- **Glue (standard): a surjective homomorphism of abelian varieties is surjective on `V_ℓ`.**
+Not a literature leaf: glue. Proved in `ZInQKernel.HDecomp.ModCurves.E1Sub` as
+`E1Sub.vSurjOfSurjective` from `FaltingsSemisimple`, `FaltingsTate` and `TateModuleFree`,
+without Poincaré reducibility or isogeny theory (e1-sub §1): the image of `V_ℓ(π)` has a
+Galois-stable complement, which Faltings' Tate theorem and the injectivity of `π^*` on
+homomorphisms (`π` is dominant and `A` separated) force to vanish. -/
 def VSurjOfSurjective : Prop :=
   ∀ (J A : AbVar ℚ) (π : Hom J A) (ℓ : ℕ) [Fact ℓ.Prime], Surjective π.hom.left →
     Function.Surjective (homV ℓ π)

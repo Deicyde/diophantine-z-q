@@ -30,7 +30,8 @@ lines) under `ZInQKernel/HDecomp/`, imported from `ZInQKernel/HDecomp.lean`.
 
 Every declaration of the drafts that is kept has the same whitespace-normalized text (statement
 and proof) as in the draft (`same.py`, VERIFIED): T32a 19/19 (after the copied part), modular
-curves 84/99, QM 143/143, Faltings 133/138. The 20 missing names are exactly the verbatim copies
+curves 84/99, QM 143/143, Faltings 133/138. (Since then notes-fix strengthened the kernel's
+`LeafQM.AV.fibre_conjugates_isomorphic`, so that one QM declaration now differs from the draft.) The 20 missing names are exactly the verbatim copies
 replaced by imports, and two renamed definitions (below). Leaves stay `def … : Prop`. There is no
 `sorry` and no `axiom` (grep, VERIFIED), and no line of the new modules is longer than 100
 characters (awk, VERIFIED).

@@ -42,7 +42,10 @@ Glue proved in the same file from these leaves (VERIFIED, compiled):
   surfaces are isomorphic over `ℚ̄`. The variant `conj_twist_of_rational` does the same for
   `σ ∈ Aut(ℚ̄/ℚ)`. **`fibre_conjugates_isomorphic`** combines it with A4 and uses `R1R2fp`
   alone: for every rational `j₀` there is an object `P` over `ℚ̄`, at a point over `j₀`, all of
-  whose Galois conjugates have abelian surfaces isomorphic to `P`'s.
+  whose Galois conjugates have abelian surfaces isomorphic to `P`'s. (The statement in
+  `QMLeaves.lean` concludes only `∃ P, ∀ σ, …`, with `j₀` used in the proof alone; the kernel copy
+  in `ZInQKernel/HDecomp/QM/Leaves.lean` states the point `y` with `π(y) = j₀` and `Φ y = [P]`,
+  notes-fix, factcheck-w34b item 1.)
 - **`cm_of_val`: h-b1 M9 on `X₆`.** Every `ℚ̄`-point over `0`, `∞`, `−16/27` has CM by `ℤ[i]`,
   `ℤ[ζ₃]`, `ℤ[√−6]` respectively. It uses `conjHom` and `HasCM*.of_iso`, `hasCM*_twist`: the CM
   predicates are invariant under isomorphisms and twists.
@@ -85,7 +88,9 @@ field `ℚ(i)`. So `R5fp` carries the containment `k ↪ ℚ(x)` when `b(k) ≥ 
 **Dependence on an unreviewed claim** (found by the review, §6). `QML3` and `QMPair` omit the
 polarization. So the faithfulness of every leaf rests on the published theorems **plus**
 bp-qmmoduli §2.2: for a QM pair `(A, ι)` in characteristic 0, a principal polarization with Rosati
-involution `x ↦ μ⁻¹x̄μ` exists and is unique. §2.2 is SPECULATIVE. Its uniqueness half was
+involution `x ↦ μ⁻¹x̄μ` exists and is unique. §2.2 is SPECULATIVE. (Superseded: this premise is now
+Lemma P of rv-qm-polar §0, with the type `μ` fixed, VERIFIED as an argument; see rv-qm-polar §4
+repair 2.) Its uniqueness half was
 checked by the review; its existence half (class number one and the sign argument) is
 unformalized. Polarizations cannot be stated in Lean today, so this cannot be split off as a Lean
 hypothesis. Buzzard's polarization-free moduli problem would remove it (UNVERIFIED for full
@@ -132,7 +137,7 @@ All in namespace `LeafQM.AV` of `QMLeaves.lean`.
   `conjHom`, `HasCM*.of_iso`.
 - **Base change as a relation.** `IsBaseChangeOf f P Q` (`f : K →+* L`) says there is a
   morphism `g : Q.A → P.A` such that:
-  - the square over `Spec L → Spec K` is a pullback (`Mathlib.IsPullback`);
+  - the square over `Spec L → Spec K` is a pullback (`CategoryTheory.IsPullback`);
   - `g` commutes with `ι`;
   - `g` carries `η_Q` to `η_P` (at `a = 0` this is the identity section; by rigidity, Mumford
     §4 Cor. 1, `g` then respects the group laws).
@@ -188,7 +193,7 @@ def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
     naturality; projective implies proper.
   - `M3 K` drops `λ`. bp-qmmoduli §2.2 argues that `λ` exists and is unique for this datum in
     characteristic 0 (SPECULATIVE until reviewed; its lattice core is proved there,
-    `BPQM.eq_pm_E0_of_principal`). Buzzard's route does not need this.
+    `BPQM.eq_pm_E0_of_principal`; now Lemma P of rv-qm-polar §0, for a fixed type `μ`). Buzzard's route does not need this.
   - `η` lives on `K`-points (§1).
   - `Y` is **not** required to be geometrically connected: it has two components over
     `ℚ(√−3)` (bp-qmmoduli §2.1). Requiring connectedness would make the leaf false.
@@ -333,9 +338,9 @@ v1/v2 and the journal, YES on `X₀(D, N)`):
   `W(R) × Gal(H_R/k)` is not stated, because the adopted NoCM proof (rv-h-cm §7.2) does not use
   it.
 
-Integration (SPECULATIVE plan): the definitions of §1 should become one kernel module (with
-bp-qmmoduli's `QMOrder.lean`), say `ZInQKernel/HDecomp/QM/`. The `HSyn.Leaves` fields `r1`, `r2`,
-`r5` would then be replaced by `QMLeaves`.
+Integration (done by leaf-adopt): the definitions of §1 are the kernel module
+`ZInQKernel/HDecomp/QM/`, and `HSyn.ResearchLeaves` uses `LeafAdopt.R1R2fpRep` (with `R2X6PropsIff`
+and `R1pi0Props`), `R1rec`, `R5fp` and `R5fpCount`; R1(b) is `R01b_ComplexUniformization`.
 
 ## 4. How the glue steps A2-A5, A7, A10 consume these leaves, and what is missing
 
@@ -348,7 +353,7 @@ Size tiers as in bp-qmmoduli (S < 500 lines, M 500-3 000, L 3 000-15 000; SPECUL
 | **A4** (an object `(A, ι, λ, η)` over the residue field of a point) | `R1fpProps`, `X6Surj` | **`exists_fibre_object`** (over every `t ∈ P¹(ℚ̄)` a point of `Y₃` with an object); `Quotient.out (Φ K y)` is a `QML3 K` with `A.dim = 2` for any field point | (i) A point of `Y` with residue field `κ` as a morphism `fieldPt κ ⟶ Y`: Mathlib's `fromSpecResidueField` plus the `ℚ`-algebra structure on `κ`. S. (ii) `λ`, if a consumer (Faltings height, T9/R22) needs it: polarizations (N12, L-VL). |
 | **A5** (Prop. TS, Lemma NV, h-b1 M1-M10) | `R1fpProps` (generic point through `K = ℚ(Y)`), `R1heckeProps` (M1), `R2fpProps` (`π`, fibres), `CMExists` with `cm_of_val` (M9), `R1recProps` (Lemma NV step 2) | `cm_of_val`; **`residue_unramified_over_branch`** (Lemma NV step 2: residue fields of the points over the three branch values are unramified at `p ≥ 5`); `ToP1.val_comp` (M2's "all points over `j₀` have the same residue field" is an orbit statement once `Γ'` and Galois commute) | (i) M2: the `ℚ`-irreducible component `Y^{(1)}`, its function field `M = ℚ(Y^{(1)})` (Mathlib `Scheme.functionField`), the action of `Γ'` on `M`, and the fixed field `π^*ℚ(j)` (Artin). This needs "`π` is the quotient by `Γ'`", from the fibre clause plus degree theory. M-L. (ii) M8: the fibre field as the residue field of `M` at a place over `j₀`. Lemma NV and M8 need only residue fields of points, which is why `R1recProps` is stated on points: the field-of-moduli bridge needs rigidity (§2.4). (iii) Prop. TS itself: h-b1's glue with T1-T2 (purity, Abhyankar). (iv) Lemma NV steps 3-4: decomposition and inertia groups (Mathlib has `Ideal.inertia`), plus the indices of A2. M4's indices: as in A2. |
 | **A7** (the conjugates of `A` are geometrically isomorphic) | `R1fpProps`, `R2fpProps`, `X6Surj` | **`conj_iso_of_rational`** (the statement of A7 for any `K`-point with rational `π`-value), `conj_twist_of_rational`, and **`fibre_conjugates_isomorphic`** (A4 + A7 from `R1R2fp` alone) | Only the plumbing to the manuscript's `A`: identify the fibre surface with the object at a `K`-point over `j₀ = J(u) ∈ ℚ` (A4), and `π = J` (F1, or just "`π(y) = J(u)` is rational", true for any coordinate in which the fibre lies over a rational point). The Igusa-vector route of N5 is not needed: R2's fibre clause suffices (h-trust A7 remark, now a proof). |
-| **A10** (NoCM, rv-h-cm §7.2) | `R5ptProps` (residue fields of points of `X₆`; or `R5fp` for fields of moduli), with the containment, `R5fpCount`, `R2X6Props`, `CMExists`, `X6Props` (W and Galois) | `com_twist`, `comEquiv` and `HasCM*.of_iso` (the CM order is a class invariant, and `W·x ⊆ CM(R)`), `cm_of_val` (`CM(ℤ[i])` = the fibre over `t = 1`, i.e. `j = 0`, as rv-nocm requires) | (i) **The model** `ℚ(t)(√(−t), √(3(t−1)))` of `X₆ → P¹` and the fibre over `t(u)` with residue field `ℚ(i)` (rv-h-cm §2.3: Kummer theory over `ℚ(t)`, with the twist constants from the fields of the elliptic points, i.e. `R5fp` at discs −4, −3, −24). This needs the function field of `X₆` and degree-4 Galois covers of `P¹`. M-L. (ii) Nothing more on fields: `R5ptProps` is already on residue fields of points. The equality of residue field and `fieldOfModuliPair` would need rigidity, and it is not needed. (iii) `com = ℤ ⇒ End⁰(A_ℚ̄) = B`: the A9 dichotomy (T27), separate. (iv) The arithmetic: `h(R) = 1 ⇒ R = ℤ[i]` given `2 ∤ f`, class numbers, etc. S. |
+| **A10** (NoCM, rv-h-cm §7.2) | `R5ptProps` (residue fields of points of `X₆`; or `R5fp` for fields of moduli), with the containment, `R5fpCount`, `R2X6Props`, `CMExists`, `X6Props` (W and Galois) | `com_twist`, `comEquiv` and `HasCM*.of_iso` (the CM order is a class invariant, and `W·x ⊆ CM(R)`), `cm_of_val` with `R2X6Props` (`cm_of_val` gives one inclusion, the `R2X6Props` clause the converse: `CM(ℤ[i])` = the fibre of `π₆` over `0`; no `t` or `j` coordinate is in Lean) | (i) **The model** `ℚ(t)(√(−t), √(3(t−1)))` of `X₆ → P¹` and the fibre over `t(u)` with residue field `ℚ(i)` (rv-h-cm §2.3: Kummer theory over `ℚ(t)`, with the twist constants from the fields of the elliptic points, i.e. `R5fp` at discs −4, −3, −24). This needs the function field of `X₆` and degree-4 Galois covers of `P¹`. M-L. (ii) Nothing more on fields: `R5ptProps` is already on residue fields of points. The equality of residue field and `fieldOfModuliPair` would need rigidity, and it is not needed. (iii) `com = ℤ ⇒ End⁰(A_ℚ̄) = B`: the A9 dichotomy (T27), separate. (iv) The arithmetic: `h(R) = 1 ⇒ R = ℤ[i]` given `2 ∤ f`, class numbers, etc. S. |
 
 **Summary of what remains.** The leaves needed by A2-A5, A7 and A10 are now all concrete. A7 is
 proved from them up to plumbing. A2, A3, A5 and A10 still need four pieces of glue absent from
@@ -365,7 +370,8 @@ None is research-level, but (1)-(3) are M-L each (SPECULATIVE).
 
 1. **§2.2 of bp-qmmoduli** (the polarization exists and is determined by `(A, ι)`) is assumed by
    every leaf through `M3` and `QMPair` (§0). It is SPECULATIVE until a human review, or it can
-   be avoided by Buzzard's polarization-free moduli problem (UNVERIFIED).
+   be avoided by Buzzard's polarization-free moduli problem (UNVERIFIED). (Now Lemma P of
+   rv-qm-polar §0, in characteristic 0 with `μ` fixed; VERIFIED as an argument, locators UNVERIFIED.)
 2. **The audit's qualifications on R1**: the specialization of Deligne's PEL model to this
    functor. Human check needed.
 3. **`Level3` on `K`-points** is equivalent to the moduli problem's level structure only in

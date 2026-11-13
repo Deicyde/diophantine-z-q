@@ -1,4 +1,4 @@
-# Z is Diophantine in Q: status of the Lean formalization (2026-11-12)
+# Z is Diophantine in Q: status of the Lean formalization (2026-11-13)
 
 The manuscript *Z is Diophantine in Q* (November 5, 2026; `diophantine_zq.pdf` in
 https://github.com/elliotglazer/diophantine-z-q) constructs one polynomial P with integer coefficients such that a rational number q is an integer exactly when
@@ -7,8 +7,8 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 98ff8701, which adds glue
-  proved since then)
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 883c4ddf, which adds
+  proofs of two of the headline's five hypotheses and glue for H proved since then)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
 ## Status in three lines
@@ -16,12 +16,14 @@ with the Mathlib library.
 - **Proved in Lean, with no gaps:** the manuscript's Theorem 1.1, in exactly the form frozen upstream, follows
   from two inputs: H, a height bound (the manuscript's Theorem 4.1), and a positive-rank statement for certain
   congruent number curves.
-- **Reduced in Lean:** the positive-rank statement follows from four statements about L-functions. Three are
-  published theorems or textbook consequences of them; the fourth is one reading of a theorem of Tian, Yuan and
-  Zhang that no refereed text we found states explicitly (caveats below).
+- **Reduced in Lean:** the positive-rank statement follows from four statements about L-functions, and two of
+  them, the functional equation and Hecke's continuation, are now proved in Lean (on the development fork, not
+  yet upstream). The other two are Gross–Zagier, a published theorem combined with standard results, and one
+  reading of a theorem of Tian, Yuan and Zhang that no refereed text we found states explicitly (caveats below).
 - **Open, and most of the remaining work:** H. On paper it follows from 23 research-level theorems, 33 textbook
-  theorems and 20 glue steps (the manuscript's new arguments and this project's replacements). Most of the glue
-  is not yet in Lean, and it has been reviewed only by AI models, not by a human.
+  theorems and 20 glue steps (the manuscript's new arguments and this project's replacements). 53 of those 56
+  theorems are stated in Lean. Most of the glue is not yet in Lean, and it has been reviewed only by AI models,
+  not by a human.
 
 So formalizing the literature theorems alone would not yet complete the proof.
 
@@ -32,15 +34,17 @@ So formalizing the literature theorems alone would not yet complete the proof.
 | The construction of P and every finite computation about it (variables, degree, coefficients) | proved in Lean, no hypotheses |
 | Theorem 1.1 from H and the positive-rank statement | proved in Lean |
 | The positive-rank statement from items 1 to 4 below | proved in Lean |
-| Items 1 to 3: Gross–Zagier, the functional equation, Hecke's continuation | published theorems or textbook consequences; assumed |
+| Items 2 and 3: the functional equation and Hecke's continuation | proved in Lean on the development fork, not yet upstream |
+| Item 1: Gross–Zagier | a published theorem combined with standard results; assumed |
 | Item 4: Tian–Yuan–Zhang, reading A | not printed in this form in any refereed text we found; assumed |
 | H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; assumed |
 
 "Proved in Lean" means the Lean kernel checked it, with no `sorry` (unproved step), no `native_decide` (trusted
 external evaluation), and only the standard axioms `propext`, `Classical.choice`, `Quot.sound`. "Assumed" means
-stated in Lean as a proposition and passed as a hypothesis, never as an axiom. Everything except these five
-hypotheses is machine-checked, so a reader needs to trust only the five statements, not the rest of the
-manuscript's argument.
+stated in Lean as a proposition and passed as a hypothesis, never as an axiom. On the development fork three
+hypotheses remain: H, Gross–Zagier and reading A. Everything else is machine-checked, so a reader needs to trust
+only those three statements, not the rest of the manuscript's argument. Upstream's headline still lists all five
+until the two proofs are merged there.
 
 ## The statement checked
 
@@ -52,8 +56,13 @@ identical, up to whitespace, to upstream's frozen statement of Theorem 1.1 in `l
 
 The headline Lean theorem is
 `ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier`
-(`ZInQKernel/MainLiterature.lean`); its name lists its five hypotheses. Other variants, listed in README.md, take
-other forms of the positive-rank statement, for example `Literature.TYZRow5b` in place of items 3 and 4.
+(`ZInQKernel/MainLiterature.lean`); its name lists its five hypotheses, and upstream's CI registers each of them as
+a target (`KERNEL_CONTRACT.json`). On the fork, `ZInQ.Contrib.functionalEquation5` and
+`ZInQ.Contrib.heckeContinuation` prove two of them, with exactly the registered names and types, and
+`ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier`
+(`ZInQKernel/Contrib/GaussFE/Headline.lean`) proves `ZInQ.FrozenTarget` from the other three. Other variants,
+listed in README.md, take other forms of the positive-rank statement, for example `Literature.TYZRow5b` in place
+of items 3 and 4.
 
 ## The hypotheses
 
@@ -74,8 +83,10 @@ curve (`WeierstrassCurve.LSeries`):
 2. `Literature.FunctionalEquation5`: for squarefree d ≡ 5 (mod 8), the functional equation of L(C_d, s) with
    conductor 32d² and root number −1 (Deuring, Hecke; Birch–Stephens 1966), stated on the strip 0 < Re s < 2,
    which avoids the points where Mathlib's Gamma function takes the conventional value 0; a textbook consequence.
+   **Proved in Lean** on the fork (`ZInQ.Contrib.functionalEquation5`).
 3. `Literature.HeckeContinuation`: for every positive integer d, L(C_d, s), defined by its Euler product for
    Re s > 3/2, extends to an entire function (Deuring, Hecke: C_d has complex multiplication by Z[i]); standard.
+   **Proved in Lean** on the fork (`ZInQ.Contrib.heckeContinuation`).
 4. `Literature.TYZThm35ReadingA`: for squarefree d ≡ 5 (mod 8), if L(C_d, s) vanishes to order at least 2 at
    s = 1, then T5aCl(d) and T5bCl(d) are both even. This is Theorem 3.5(2) of Tian–Yuan–Zhang (arXiv:1411.4728v1;
    Asian J. Math. 21 (2017)) for n = d, in one reading of its genus sums ("reading A": the decompositions of n are
@@ -86,9 +97,9 @@ curve (`WeierstrassCurve.LSeries`):
 How they combine: the functional equation with root number −1 makes L(C_d, s) vanish at s = 1; when T5bCl(d) is
 odd, items 3 and 4 bound the order of vanishing by 1 (this is the statement `Literature.TYZRow5b`, which the Lean
 theorem `Literature.tyzRow5b_of_readingA` proves from them); so the zero is simple, and item 1 gives a point of
-infinite order. A draft on the fork (`scratch/bp-hecke-fe`) proves item 2, and item 3 for squarefree d ≡ 5 (mod 8)
-(item 3 asks for every d), from one classical statement, Gauss's count of the points of C_d over finite fields
-(1814); it is not yet part of the headline.
+infinite order. Items 2 and 3 are proved in Lean from Gauss's count (1814) of the points of y² = x³ − x over
+finite fields, which is proved in Lean too, through theta series over Z[i] and Mathlib's functional-equation pairs
+(docs/research/gauss-proof.md, docs/research/hecke-all.md).
 
 **Caveats on item 4.** No refereed text found by the project's literature search (carried out by AI agents)
 states reading A explicitly; the one statement found (Smith, arXiv:1603.08479, Theorem 2.1) is unrefereed. TYZ's
@@ -104,9 +115,11 @@ no human has checked it.
 
 **Supporting evidence, not a hypothesis of the headline.** `TYZRow5b` and `TYZThm35ReadingA` are also proved in
 Lean from `PropN.TYZInputs`, which encodes consequences of results printed in the arXiv version together with two
-standard facts TYZ use without printing (one of them Hecke's continuation); the encoding's faithfulness has been
-checked only by AI models. The Lean proof follows a new argument, Proposition N (docs/research/nt-tyz.md,
-section 4), that AI models reviewed twice and no human has reviewed.
+standard facts TYZ use without printing (one of them Hecke's continuation, now proved); the encoding's faithfulness
+has been checked only by AI models. The Lean proof follows a new argument, Proposition N (docs/research/nt-tyz.md,
+section 4), that AI models reviewed twice and no human has reviewed. Conversely, Lean proves that reading A
+implies `PropN.TYZInputs` given Hecke's continuation (`ZInQ.Contrib.PSide.tyzInputs_iff_readingA_of_hecke`), so
+the encoding is exactly as strong as item 4.
 
 ### H, the six-contact height estimate
 
@@ -130,7 +143,10 @@ several further inputs that are no longer hypotheses:
 
 On the positive-rank side, Lean proves Rédei's formula, the identification of Mathlib's L-series of C_d with the
 classical one, the reduction of the positive-rank statement to items 1 to 4, and Proposition N from the encoded
-inputs `PropN.TYZInputs`.
+inputs `PropN.TYZInputs`. On the fork it also proves Gauss's point count, items 2 and 3, the basic facts about the
+coefficients of L(C_d, s) (multiplicativity and the recursion at prime powers, a_p = 0 for p ≡ 3 (mod 4), Hasse's
+bound, absolute convergence for Re s > 3/2) and the equivalence of the encoded inputs with reading A
+(docs/research/p-side.md).
 
 ## What is left: the decomposition of H
 
@@ -141,40 +157,60 @@ level-3 Shimura curve of discriminant 6, Baba–Granath, Lin–Yang, Igusa, Gonz
 Grothendieck, Faltings 1983 twice (semisimplicity and the Tate conjecture; the Faltings height under isogeny),
 de Rham comparison, Berger, Pan's Fontaine–Mazur theorem, Saito or Kato, Deligne, Deligne–Serre, Shimura on
 J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki, and the theorem that the stable Faltings height is
-finite and attained by Néron models), 33 textbook theorems in six groups (among them the existence of Jacobians and
-the dimension of J₁(N); a further textbook statement used earlier is now proved), and 20 glue steps.
+finite and attained by Néron models), 33 textbook theorems in six groups (among them the existence of Jacobians,
+the dimension of J₁(N) and the analytic uniformization of abelian varieties; two statements counted earlier as
+textbook theorems are now glue, and one of them is proved), and 20 glue steps.
 
 - **Citations.** An audit of the citations against the primary sources by AI agents with web access
   (docs/research/locators.md) corrected several theorem and example numbers, and the corrections are applied.
-  Some locators (Faltings 1983, Serre–Tate, SGA 7, Bost's constant, Shimura 1967) are still unverified. Several
+  Some locators, among them Faltings 1983, Serre–Tate, SGA 7, Bost's constant and Shimura 1967, are still
+  unverified (the note lists them all). Several
   leaves are derived or assembled forms of the printed theorems, which the note flags for a check that they are
   not stronger than published.
-- **Repairs.** Reviews on 2026-11-12 found three leaves misstated, and all three are repaired on main: the
+- **Repairs.** Reviews on 2026-11-12 found three leaves misstated, and all three are repaired on the fork's main
+  (upstream's main still has the first statement of Yu's dichotomy): the
   González–Rotger count of CM points now carries the factor 2^b(R) (the step that uses it holds with the correct
   count); the Lean statement of Yu's QM dichotomy (a textbook leaf) now includes Yu's hypothesis that the
   quaternion algebra is indefinite (as first written it was stronger than published); and the branching data of
   the Atkin–Lehner quotient is reworded.
-- **Stated in Lean.** 48 of the 56 leaves are stated over genuine definitions in
+- **Stated in Lean.** 53 of the 56 leaves are stated over genuine definitions in
   `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`); one more, on the Shimura
-  curve, is stated in part, and the other 7 are named placeholders with no content until their definitions exist.
-  Drafts for five of those seven are written and not yet folded in.
+  curve, is stated in part, and the other 2 (Carayol's theorem and the comparison of the Tate module with étale
+  cohomology) are named placeholders with no content until their definitions exist. Each leaf on the Shimura curve
+  has folded into it a lemma that fixes the type of the principal polarization of a QM abelian surface (Lemma P of
+  docs/research/rv-qm-polar.md, published locators unverified), and the leaves about the Faltings height are not
+  yet known to be non-vacuous.
+- **Textbook leaves proved** since 2026-11-12, as scratch files on the fork's main, not yet folded into
+  `Leaves.lean`: Skolem–Noether, Brauer–Nesbitt in characteristic 0, Herbrand's theorem, and the local forms of
+  Hilbert's different formula and of the different bound. The local square-root criterion follows from local
+  Kronecker–Weber, so it is now glue; the density of Frobenius elements is reduced to the finite form of
+  Chebotarev's theorem and Kronecker–Weber to its cyclic case, and the Clebsch–Bolza–Igusa separation of binary
+  sextics is proved in one direction, with the other reduced to sextics with equal invariants. On a further
+  branch, Abhyankar's lemma is proved and Zariski–Nagata purity is reduced to Nagata's local form.
 - **The top theorem.** "Leaves imply H" is stated in Lean, with the leaves as hypotheses and `ZInQ.SixContactMin`
   as conclusion. Its proof has exactly one `sorry` (`HSyn.glueOutputs_of_leaves`, which does not yet use the
   leaves): it stands for most of the glue, from the leaves to a numerical interface that is itself essentially a
-  height bound. Only the last steps, from that interface to H, are proved on that path.
+  height bound. Only the last steps, from that interface to H, are proved on that path. On fork branches
+  (`wip/g0-split` and its follow-ups) that `sorry` is split into ten named glue statements, each a `def … : Prop`
+  that names its glue step, and several of them are already proved from Mathlib and the leaves. A review found
+  that two of the ten cannot be proved as stated, because the leaves on the Shimura curve do not pin down its
+  moduli map; a repair is under way. Until it lands, the split does not show that the leaves imply H.
 - **Proved glue, as separate lemmas** (each from its leaves; adopted into the kernel-checked library under
-  `ZInQKernel/HDecomp/`, no `sorry`; not yet connected to the top theorem): the whole last stretch of the glue
-  (from the level bound, the theta point and the height inequalities to H), the manuscript's Brauer and cochain steps,
-  good reduction of the abelian surface away from 3, parts of absolute irreducibility and of the nonzero
-  homomorphism step (modulo one named algebra statement, `SemisimpleBaseChange`), the Galois side of the trace
-  comparison, the degree bound of the conductor estimate in local form, two further steps of the conductor bound,
-  and elementary pieces of most other steps.
-- **Still missing from every Lean library:** the definitions behind the remaining placeholders: the moduli
-  interpretation of the Shimura curve, X₁(N) and J₁(N) over Q, conductors of ℓ-adic representations, ℓ-adic étale
-  cohomology and analytification (section 4 of the note). Mathlib cannot yet construct a nonzero abelian variety;
-  a bridge to the Jacobians of the AxiomMath/Mordell library is on a branch of the fork, waiting for a build cache.
-  The stable Faltings height now has a Lean definition, and three of the height leaves are stated over it; whether
-  that definition is non-vacuous is still open.
+  `ZInQKernel/HDecomp/`, now 65 modules, or as scratch files on the fork's main; no `sorry`; not yet connected to
+  the top theorem): the adelic bookkeeping of the normalizer of the quaternion order, with |Γ'| = 144; the model
+  of X₁(N) over Q and its Belyi map, from five leaves; the Galois representation of a newform as a
+  subrepresentation of the Tate module of J₁(N), its semisimplicity and continuity, and its comparison with two
+  other Galois representations; the whole last stretch of the glue (from the level bound, the theta point and the
+  height inequalities to H); the manuscript's Brauer and cochain steps; good reduction of the abelian surface away
+  from 3; parts of absolute irreducibility and of the nonzero homomorphism step (modulo one named algebra
+  statement, `SemisimpleBaseChange`); the Galois side of the trace comparison; the degree bound of the conductor
+  estimate in local form; two further steps of the conductor bound; and elementary pieces of most other steps.
+- **Still missing from every Lean library:** the definitions behind the remaining placeholders: conductors of
+  ℓ-adic representations, ℓ-adic étale cohomology with its Galois action, and the complex uniformization of the
+  Shimura curve (section 4 of the note). Mathlib cannot yet construct a nonzero abelian variety; a bridge to the
+  Jacobians of the AxiomMath/Mordell library is on a branch of the fork, waiting for a build cache. The stable
+  Faltings height has a Lean definition, and the six height leaves are stated over it; whether that definition is
+  non-vacuous is still open.
 - **Fallback route.** An alternative modularity route (Khare–Wintenberger with Ribet) needs 20 research-level
   theorems; one adversarial model review, and no human, found it sound subject to five repairs that are not yet
   written, and whether Ribet's 1992 proceedings paper was refereed is unchecked.
@@ -183,6 +219,9 @@ the dimension of J₁(N); a further textbook statement used earlier is now prove
 
 Claim a subgoal in the tracking issue https://github.com/elliotglazer/diophantine-z-q/issues/37 before
 starting; it lists targets that can be started now, the definitions to build, the leaves, and the open glue.
+Of upstream's five registered targets, two have proofs on the fork (`ZInQ.Contrib.heckeContinuation`,
+`ZInQ.Contrib.functionalEquation5`) and three are open: `ZInQ.Contrib.sixContactMin` (H),
+`ZInQ.Contrib.tyzThm35ReadingA` and `ZInQ.Contrib.grossZagier`.
 Pull requests go to the main branch of https://github.com/elliotglazer/diophantine-z-q, whose
 `docs/lean-contributions.md` explains how to submit a proof; a pull request merges only after the repository's
 required independent review check passes. The work packages, with
@@ -192,11 +231,13 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 98ff8701) the build completes;
-all 332 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the
-reductions, the Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three
-standard axioms, with no `sorry`; `scripts/check_target.py` confirms the statement; and the blueprint checks pass
-(657 articles, 2,041 dependencies). An independent machine re-checked an earlier snapshot proposed for pull request
+Every Lean change is built before it reaches main. At the current Lean (fork main 883c4ddf, checked as bd0998a9,
+which differs only by one research note) the build completes (9,991 jobs); all 399 declarations listed in
+`scripts/print_axioms.lean` (the headline and its variants, the reductions, the Proposition N lemmas, and the glue
+lemmas of the decomposition of H) depend only on the three standard axioms, with no `sorry`; all 15 modules under
+`ZInQKernel/Contrib/` build, and the two proofs of hypotheses and the three-hypothesis theorem depend only on the
+same axioms; `scripts/check_target.py` confirms the statement; the site builds with no problems; and the blueprint
+audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
 #24 (before Proposition N): 9,923 jobs, 80 declarations with standard axioms, and an audit replay of 33,548
 declarations with 0 open statements. GitHub has disabled Actions on the fork since 2026-11-10, so these checks run
 on the project's own machines; on the upstream repository, the kernel build and an exact-target audit run as a
@@ -208,6 +249,8 @@ required check on every pull request to main (since #36).
 - docs/research/h-decomposition.md: the leaves of H (section 2), the glue steps with their Lean status (section 3),
   the missing definitions (section 4), work packages for contributors (section 5), and risks (section 6).
 - docs/research/h-trust.md: the proof of Theorem 4.1 step by step, with every supplier and its review status.
+- docs/research/gauss-proof.md, docs/research/hecke-all.md, docs/research/p-side.md: the Lean proofs of items 2
+  and 3 and of the facts about the coefficients of L(C_d, s).
 - docs/research/locators.md: the audit of the literature citations against primary sources.
 - KERNEL_PLAN.md: how the proof is organized in Lean, and how to build and check it.
 - The blueprint site above: every statement with its dependencies and its Lean declaration.

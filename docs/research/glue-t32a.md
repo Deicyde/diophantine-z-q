@@ -1,7 +1,7 @@
 # glue-t32a: T32(a) is glue, and B3 (v) now rests on no leaf
 
 Status: research note (task glue-t32a, 2026-11-12). Lean: `scratch/glue-t32a/T32a.lean`
-(self-contained, `import Mathlib`, 2260 lines; lines 8-1817 are `scratch/glue-b3b/B3b.lean`
+(self-contained, `import Mathlib`, 2266 lines; lines 9-1816 are `scratch/glue-b3b/B3b.lean` L3-1810
 verbatim, and the new material starts at the comment `# glue-t32a`). Log: `scratch/glue-t32a/log.md`.
 
 ## Verdict
@@ -9,7 +9,8 @@ verbatim, and the new material starts at the comment `# glue-t32a`). Log: `scrat
 1. **(VERIFIED, compiled.)** `GlueB3Unram.t32a : LeafPush.T32a_TameQuadratic` is proved in Lean.
    This is leaf **T32(a)** of the synthesis bundle (`TextbookLeaves.t32a`). Its statement and the
    definitions it uses (`GQ`, `IsAtPrime`, `inertiaQ`) are `diff`-identical to
-   `scratch/h-decomposition/Leaves.lean` L11908-11932. In words: for an odd prime `p` and a
+   `scratch/h-decomposition/Leaves.lean` L11908-11932 (L11918-11941 at 01267822; integrated since as
+   `ZInQKernel/HDecomp/B3Unram/T32a.lean`). In words: for an odd prime `p` and a
    valuation subring `w` of `ℚ̄` with `w ∩ ℚ = ℤ_(p)`, there are exactly two continuous
    homomorphisms `I_w → ℤˣ`, where `I_w` is Mathlib's `ValuationSubring.inertiaSubgroup` pushed into
    `G_ℚ` with the Krull topology.
@@ -25,7 +26,7 @@ verbatim, and the new material starts at the comment `# glue-t32a`). Log: `scrat
    about 21 s with 0 errors.
 4. Effect on the decomposition. Both parts of T32 are now glue: T32(b) by glue-b3b (`t32b`) and
    T32(a) here. Once the files are integrated, leaf T32 (two Props) can be dropped from
-   `TextbookLeaves`.
+   `TextbookLeaves` (done: T32 is no longer a `TextbookLeaves` field; `HSyn.t32a_glue`).
 
 ## The proof (no ramification groups, no tame-inertia structure)
 
@@ -76,13 +77,15 @@ covered by the case "`n` odd". Mathlib inputs (VERIFIED by compilation):
   `Nat.card_eq_two_iff`.
 
 From the project's earlier glue: `residue_inertia` (glue-b3-unram), `val_intCast_eq_one`,
+`val_natCast_ne_zero`, `smul_sq_cases`,
 `liesOver_of_isAtPrime`, `exists_neg_of_sq`, `not_isSquare_of_squarefree`, `exists_inertia_neg`,
 `leafB3a_of_t32a` and `unramified_outside_t32a` (glue-b3b), `isLocallyConstant_of_openSubgroup`
 (glue-descent).
 
 ## What remains
 
-Nothing for T32 or B3 (v). For integration, `ZInQKernel/HDecomp/` would need the content of
+Nothing for T32 or B3 (v). (Integrated since: `ZInQKernel/HDecomp/B3Unram/T32a.lean`, and
+`HSyn.t32a_glue` in `Leaves.lean`.) The original plan: for integration, `ZInQKernel/HDecomp/` would need the content of
 `T32a.lean` as a module (it already contains glue-b3-unram, glue-conj and glue-b3b). The `LeafPush`
 definitions would then be imported from the Leaves module instead of copied, and the field
 `TextbookLeaves.t32a` (and `t32b`) would be filled by `GlueB3Unram.t32a` (`GlueB3Unram.t32b`). No

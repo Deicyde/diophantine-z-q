@@ -30,7 +30,7 @@ from TYZ reading A, Gross–Zagier and `GaussPointCount` (`certifiedRankTYZClRk_
 **The leaf.** `GaussPointCount` says: for every prime `p ≡ 1 (mod 4)`,
 `p − #{(x, y) ∈ 𝔽_p² : y² = x³ − x} = π + π̄`. Here `p = ππ̄` in `ℤ[i]` and `π ≡ 1 (mod 2 + 2i)` is
 primary. The right-hand side is written as `¼ Σ_{a² + b² = p} u(a + bi)(a + bi)`, where `u` is the
-16-entry unit table `unitOf`. This is Gauss's theorem (1814). In textbook form it is Ireland–Rosen,
+16-entry table `unitOf` (8 unit entries on `(ℤ/4)²`, 0 elsewhere). This is Gauss's theorem (1814). In textbook form it is Ireland–Rosen,
 *A Classical Introduction to Modern Number Theory*, Ch. 18 §4, the point count of
 `y² = x³ − Dx` with `D = 1` (STANDARD; theorem number UNVERIFIED). It is refereed and classical,
 and it mentions only `𝔽_p`, `ℤ²` and a finite table: no elliptic-curve library, no L-function.
@@ -290,7 +290,7 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `FourierRel M c κ`, `fourierRel_const_mul`, `mulOneAddI_injective`, `fourier_tsum_eq` | the Fourier relation and the reindexing `ν = (1+i)μ` |
 | `lambdaC_two_sub` | `FourierRel M c κ ⟹ Λ_c(2−s) = −iκ(1+i)·2^{−s}·M·(M²)^{−s}·Λ_c(s)` for all `s` |
 | `CdFourier d : Prop`, `jacobiSym_two_of_mod_eight`, `const_identity` | `FourierRel (4d) (cdChar d) (4d(1+i)(2/d))`; `(2/d) = −1`; the conductor bookkeeping |
-| `functionalEquation5_of_deuring_fourier`, `functionalEquation5_of_deuring_fourier'` | `DeuringCd d ∧ CdFourier d ⟹` the functional equation for `d`; the Literature Prop `FunctionalEquation5` from both for all `d` |
+| `functionalEquation5_of_deuring_fourier`, `functionalEquation5_of_deuring_fourier'` | `DeuringCd d ∧ CdFourier d ⟹` the functional equation for `d` (the first also assumes `d ≡ 5 (mod 8)` and `d` squarefree); the Literature Prop `FunctionalEquation5` from both for all `d` |
 | `sum_quadraticChar_cd_eq_zero`, `card_cd_affine_of_mod_four_eq_three`, `cdCoeff_prime_of_mod_four_eq_three` | `p ≡ 3 (mod 4)`: `Σ_x ((x³−d²x)/p) = 0`, `#{y² = x³ − d²x} = p`, `a_p = 0` |
 | `deuring_prime_of_mod_four_eq_three`, `deuring_prime_of_dvd`, `deuring_two` | `DeuringCd` at `n = p` for `p ≡ 3 (mod 4)`, `p ∣ d`, `p = 2` |
 | `heckeEulerPoly`, `HeckeEuler d : Prop`, `map_invOfUnit_one`, `cdCoeff_prime_eq`, `deuringCd_of_heckeEuler` | the Euler product of `heckeCoeff`; with agreement at all primes it gives `DeuringCd d` |
