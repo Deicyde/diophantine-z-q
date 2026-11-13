@@ -1175,6 +1175,57 @@ theorem thetaW_surjective {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar
   exact IsIso.hom_inv_id_assoc (Spec.map (CommRingCat.ofHom
     (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) z.left
 
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **I2's reduction relation gives `RedRel`** (transport along `ψ`; proved). -/
+theorem redRel_of_isReductionOf {L : IF} {A : PkgI3.AbVar L}
+    (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+    (x : A.Pt (AlgebraicClosure L))
+    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X)
+    (h : PkgI2.IsReductionOf 𝒜 e (wOf ψ v) (hw_of ψ v) x y) :
+    RedRel v 𝒜 e j (Additive.ofMul (UnramTate.trPt A ψ x)) (thetaW ψ v 𝒜 j hjc y) := by
+  obtain ⟨xw, hg, hc⟩ := h
+  have hov : (Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) ≫ xw.left) ≫ 𝒜.X.hom =
+      (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
+    rw [Category.assoc, Over.w xw]
+    simp only [Over.mk_hom]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext a
+    exact congrArg Subtype.val (psiW_toW ψ v a)
+  refine ⟨Over.homMk _ hov, ?_, ?_⟩
+  · have hring : Spec.map (CommRingCat.ofHom (ψ : AlgebraicClosure L →+* PkgI4.Qbar)) ≫
+        Spec.map (CommRingCat.ofHom (wOf ψ v).subtype) =
+        Spec.map (CommRingCat.ofHom v.subtype) ≫
+          Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) := by
+      rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+      rfl
+    have h1 := congrArg (Spec.map (CommRingCat.ofHom
+      (ψ : AlgebraicClosure L →+* PkgI4.Qbar)) ≫ ·) hg
+    have h2 := congrArg (· ≫ xw.left) hring
+    simp only [Category.assoc] at h2
+    exact ((Category.assoc _ _ _).trans h1).trans ((Category.assoc _ _ _).symm.trans
+      ((congrArg (· ≫ xw.left) hring).trans (Category.assoc _ _ _)))
+  · have hring : Spec.map (CommRingCat.ofHom
+        (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) ≫
+        Spec.map (CommRingCat.ofHom (IsLocalRing.residue (wOf ψ v))) =
+        Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom (IsLocalRing.residue v)) ≫
+          Spec.map (CommRingCat.ofHom (psiW ψ v : wOf ψ v →+* v)) := by
+      rw [← Spec.map_comp, ← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+        ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+      rfl
+    refine (thetaW_left ψ v 𝒜 j hjc y).trans ?_
+    rw [hc]
+    have h3 := congrArg (· ≫ xw.left) hring
+    simp only [Category.assoc] at h3
+    exact h3
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
