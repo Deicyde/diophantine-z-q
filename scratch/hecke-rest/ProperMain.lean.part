@@ -1,0 +1,220 @@
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 3d: `ChartProper` proved (valuative criterion)
+
+`secMor Y W s : W → 𝔸¹` is locally of finite type, separated and quasi-compact by cancellation
+from `W → Y → Spec ℚ` (all morphisms to `Spec ℚ` agree). For the existence part of the valuative
+criterion (Mathlib's `IsProper.of_valuativeCriterion`, Stacks 0BX5): a valuation-ring point of
+`𝔸¹` with a `Frac`-point of `W` lifts to `Y` (properness of `Y`); if its closed point left `W`, the
+whole point would lie in `W'` (the other chart), and the pull-back `G` of `s'` would be a non-unit
+of the valuation ring, while `s · s' = 1` at the generic point with `s` integral there.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestCurve
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin LeafQM.AV.Pin.ImagePlane PropTSRed TSHecke
+
+/-- **Any two morphisms to `Spec ℚ` agree** (compiled). -/
+theorem toSpecQ_eq {X : Scheme.{0}} (a b : X ⟶ Spec (CommRingCat.of ℚ)) : a = b := by
+  have key : ∀ c : X ⟶ Spec (CommRingCat.of ℚ),
+      c = X.toSpecΓ ≫ Spec.map ((Scheme.ΓSpecIso (CommRingCat.of ℚ)).inv ≫ c.appTop) := by
+    intro c
+    rw [Spec.map_comp, ← Category.assoc, ← Scheme.toSpecΓ_naturality, Category.assoc,
+      toSpecΓ_SpecMap_ΓSpecIso_inv, Category.comp_id]
+  rw [key a, key b]
+  congr 2
+  exact CommRingCat.hom_ext (Subsingleton.elim _ _)
+
+/-- `W → 𝔸¹ → Spec ℚ` is `W → Y → Spec ℚ`. -/
+theorem secMor_comp (Y : Over (Spec (CommRingCat.of ℚ))) (W : Y.left.Opens) (s : Γ(Y.left, W)) :
+    secMor Y W s ≫ Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X])) = W.ι ≫ Y.hom :=
+  toSpecQ_eq _ _
+
+/-- **The value of `s` at a field point of `W` over `Spec ρ`** is `ρ X` (compiled). -/
+theorem ev_secMor {K : Type} [Field K] {Y : Over (Spec (CommRingCat.of ℚ))} {W : Y.left.Opens}
+    (s : Γ(Y.left, W)) (q : Spec (CommRingCat.of K) ⟶ W.toScheme)
+    (ρ : CommRingCat.of ℚ[X] ⟶ CommRingCat.of K) (h : q ≫ secMor Y W s = Spec.map ρ)
+    (hx : ptOf (q ≫ W.ι) ∈ W) : ev (q ≫ W.ι) hx s = ρ X := by
+  have e1 := ev_spec_top ρ X
+  rw [← h, ev_comp] at e1
+  have e2 : (secMor Y W s).app ⊤ ((Scheme.ΓSpecIso (CommRingCat.of ℚ[X])).inv X) =
+      W.topIso.inv s := by
+    change (secMor Y W s).appTop _ = _
+    rw [secMor, Scheme.Hom.comp_appTop, CommRingCat.comp_apply]
+    have e : (Spec.map (CommRingCat.ofHom (secHom Y W s))).appTop
+        ((Scheme.ΓSpecIso (CommRingCat.of ℚ[X])).inv X) =
+        (Scheme.ΓSpecIso Γ(Y.left, W)).inv (secHom Y W s X) := by
+      rw [← CommRingCat.comp_apply, ← Scheme.ΓSpecIso_inv_naturality]
+      rfl
+    rw [e, Scheme.Opens.toSpecΓ_appTop, CommRingCat.comp_apply, Iso.inv_hom_id_apply]
+    show W.topIso.inv (Polynomial.eval₂ (cQ Y W) s X) = _
+    rw [Polynomial.eval₂_X]
+  rw [e2] at e1
+  rw [ev_comp, ← e1]
+  have e3 : W.ι.app W s = W.toScheme.presheaf.map (homOfLE (le_top : W.ι ⁻¹ᵁ W ≤ ⊤)).op
+      (W.topIso.inv s) := by
+    have hmor : ∀ {U₁ U₂ U₃ : (Y.left.Opens)ᵒᵖ} (a : U₁ ⟶ U₂) (b : U₂ ⟶ U₃) (c : U₁ ⟶ U₃),
+        Y.left.presheaf.map a ≫ Y.left.presheaf.map b = Y.left.presheaf.map c := by
+      intro U₁ U₂ U₃ a b c
+      rw [← Functor.map_comp]
+      exact congrArg _ (Subsingleton.elim _ _)
+    change Y.left.presheaf.map _ s = Y.left.presheaf.map _ (Y.left.presheaf.map _ s)
+    first
+    | (erw [← ConcreteCategory.comp_apply, ← Functor.map_comp]; rfl)
+    | (simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp]; rfl)
+    | (erw [← ConcreteCategory.comp_apply, hmor])
+  rw [e3]
+  exact ev_res _ _ _ _
+
+/-- **The existence part of the valuative criterion for a chart** (compiled). -/
+theorem secMor_existence (Y : Over (Spec (CommRingCat.of ℚ))) [IsProper Y.hom]
+    (W W' : Y.left.Opens) (s : Γ(Y.left, W)) (s' : Γ(Y.left, W')) (hcov : W ⊔ W' = ⊤)
+    (hinv : ∀ (K : Type) [Field K] (p : Spec (CommRingCat.of K) ⟶ Y.left) (hW : ptOf p ∈ W)
+      (hW' : ptOf p ∈ W'), ev p hW s * ev p hW' s' = 1)
+    (hbo : Y.left.basicOpen s' = W ⊓ W') :
+    ValuativeCriterion.Existence (secMor Y W s) := by
+  intro S
+  obtain ⟨ρ, hρ⟩ : ∃ ρ : CommRingCat.of ℚ[X] ⟶ CommRingCat.of S.R, S.i₂ = Spec.map ρ :=
+    ⟨Spec.preimage S.i₂, (Spec.map_preimage _).symm⟩
+  let alg : CommRingCat.of S.R ⟶ CommRingCat.of S.K := CommRingCat.ofHom (algebraMap S.R S.K)
+  have halg : Function.Injective (algebraMap S.R S.K) := IsFractionRing.injective S.R S.K
+  let S' : ValuativeCommSq Y.hom :=
+    { R := S.R, K := S.K, i₁ := S.i₁ ≫ W.ι,
+      i₂ := S.i₂ ≫ Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X])),
+      commSq := ⟨toSpecQ_eq _ _⟩ }
+  have hYv : ValuativeCriterion Y.hom := by
+    have h : (ValuativeCriterion ⊓ @QuasiCompact ⊓ @QuasiSeparated ⊓ @LocallyOfFiniteType)
+        Y.hom := by
+      rw [← IsProper.eq_valuativeCriterion]; infer_instance
+    exact h.1.1.1
+  obtain ⟨⟨l', hl1, hl2⟩⟩ := (hYv.existence S').exists_lift
+  have hl1' : Spec.map alg ≫ l' = S.i₁ ≫ W.ι := hl1
+  -- the value of `s` at the generic point
+  have hxW : ptOf (S.i₁ ≫ W.ι) ∈ W := by
+    rw [ptOf_comp]
+    have : W.ι (ptOf S.i₁) ∈ Set.range W.ι := ⟨_, rfl⟩
+    rwa [Scheme.Opens.range_ι] at this
+  have hsq : S.i₁ ≫ secMor Y W s = Spec.map (ρ ≫ alg) := by
+    rw [Spec.map_comp, ← hρ]; exact S.commSq.w
+  have hsval : ev (S.i₁ ≫ W.ι) hxW s = algebraMap S.R S.K (ρ X) :=
+    ev_secMor s S.i₁ (ρ ≫ alg) hsq hxW
+  -- the closed point stays in `W`
+  have hc : l' (IsLocalRing.closedPoint S.R) ∈ W := by
+    by_contra hcW
+    have hcW' : l' (IsLocalRing.closedPoint S.R) ∈ W' := by
+      have : l' (IsLocalRing.closedPoint S.R) ∈ W ⊔ W' := by rw [hcov]; trivial
+      rcases this with h | h
+      · exact absurd h hcW
+      · exact h
+    have hall : ∀ x, l' x ∈ W' := fun x =>
+      ((IsLocalRing.specializes_closedPoint x).map l'.continuous).mem_open W'.isOpen hcW'
+    have pre : l' ⁻¹ᵁ W' = ⊤ := top_unique fun x _ => hall x
+    set G : S.R := (Scheme.ΓSpecIso (CommRingCat.of S.R)).hom (res pre.ge (l'.app W' s')) with hGdef
+    have hGinv : (Scheme.ΓSpecIso (CommRingCat.of S.R)).inv G = res pre.ge (l'.app W' s') := by
+      rw [hGdef, Iso.hom_inv_id_apply]
+    have hG : G ∈ IsLocalRing.maximalIdeal S.R := by
+      have h1 : l' (IsLocalRing.closedPoint S.R) ∉ Y.left.basicOpen s' := by
+        rw [hbo]; exact fun h => hcW h.1
+      have h2 : IsLocalRing.closedPoint S.R ∉ (Spec (CommRingCat.of S.R)).basicOpen
+          (l'.app W' s') := by
+        rw [← Scheme.preimage_basicOpen]; exact h1
+      have h3 : IsLocalRing.closedPoint S.R ∉ (Spec (CommRingCat.of S.R)).basicOpen
+          ((Scheme.ΓSpecIso (CommRingCat.of S.R)).inv G) := by
+        rw [hGinv, res, Scheme.basicOpen_res, top_inf_eq]; exact h2
+      rw [basicOpen_eq_of_affine] at h3
+      by_contra hn
+      exact h3 ((PrimeSpectrum.mem_basicOpen _ _).2 hn)
+    -- the value of `s'` at the generic point
+    have hxW' : ptOf (S.i₁ ≫ W.ι) ∈ W' := by
+      rw [← hl1', ptOf_comp]; exact hall _
+    have hs'val : ev (S.i₁ ≫ W.ι) hxW' s' = algebraMap S.R S.K G := by
+      have hx2 : ptOf (Spec.map alg ≫ l') ∈ W' := by rw [ptOf_comp]; exact hall _
+      have e : ev (Spec.map alg ≫ l') hx2 s' = algebraMap S.R S.K G := by
+        rw [ev_comp, ← ev_res _ pre.ge (show ptOf (Spec.map alg) ∈
+          (⊤ : (Spec (CommRingCat.of S.R)).Opens) from trivial), ← hGinv, ev_spec_top]
+        rfl
+      have hgen : ∀ (p : Spec (CommRingCat.of S.K) ⟶ Y.left) (hp : p = S.i₁ ≫ W.ι)
+          (h1 : ptOf p ∈ W') (h2 : ptOf (S.i₁ ≫ W.ι) ∈ W'), ev p h1 s' = ev (S.i₁ ≫ W.ι) h2 s' := by
+        rintro _ rfl _ _; rfl
+      rw [← hgen _ hl1' hx2 hxW', e]
+    have hprod := hinv S.K (S.i₁ ≫ W.ι) hxW hxW'
+    rw [hsval, hs'val, ← map_mul, ← map_one (algebraMap S.R S.K)] at hprod
+    have h1 : ρ X * G = 1 := halg hprod
+    have hunit : IsUnit G := ⟨⟨G, ρ X, by rw [mul_comm]; exact h1, h1⟩, rfl⟩
+    exact (IsLocalRing.mem_maximalIdeal _).1 hG hunit
+  have hrange : Set.range l' ⊆ Set.range W.ι := by
+    rw [Scheme.Opens.range_ι]
+    rintro _ ⟨x, rfl⟩
+    exact ((IsLocalRing.specializes_closedPoint x).map l'.continuous).mem_open W.isOpen hc
+  let l := IsOpenImmersion.lift W.ι l' hrange
+  have hfl : Spec.map alg ≫ l = S.i₁ := by
+    rw [← cancel_mono W.ι, Category.assoc, IsOpenImmersion.lift_fac]
+    exact hl1'
+  have hfr : l ≫ secMor Y W s = S.i₂ := by
+    have h1 : Spec.map alg ≫ (l ≫ secMor Y W s) = Spec.map alg ≫ S.i₂ := by
+      rw [← Category.assoc, hfl]; exact S.commSq.w
+    rw [hρ] at h1 ⊢
+    rw [← Spec.map_preimage (l ≫ secMor Y W s)] at h1 ⊢
+    rw [← Spec.map_comp, ← Spec.map_comp] at h1
+    have h2 := Spec.map_injective h1
+    congr 1
+    refine CommRingCat.hom_ext (RingHom.ext fun a => ?_)
+    apply halg
+    exact congrArg (fun φ : CommRingCat.of ℚ[X] ⟶ CommRingCat.of S.K => φ.hom a) h2
+  exact ⟨⟨⟨l, hfl, hfr⟩⟩⟩
+
+/-- **A chart is proper** (compiled). -/
+theorem secMor_isProper (Y : Over (Spec (CommRingCat.of ℚ))) [IsProper Y.hom]
+    (W W' : Y.left.Opens) (s : Γ(Y.left, W)) (s' : Γ(Y.left, W')) (hcov : W ⊔ W' = ⊤)
+    (hinv : ∀ (K : Type) [Field K] (p : Spec (CommRingCat.of K) ⟶ Y.left) (hW : ptOf p ∈ W)
+      (hW' : ptOf p ∈ W'), ev p hW s * ev p hW' s' = 1)
+    (hbo : Y.left.basicOpen s' = W ⊓ W') : IsProper (secMor Y W s) := by
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : IsLocallyNoetherian Y.left := LocallyOfFiniteType.isLocallyNoetherian Y.hom
+  have e := secMor_comp Y W s
+  haveI : LocallyOfFiniteType
+      (secMor Y W s ≫ Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X]))) := by
+    rw [e]; infer_instance
+  haveI : IsSeparated (secMor Y W s ≫ Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X]))) := by
+    rw [e]; infer_instance
+  haveI : QuasiCompact (secMor Y W s ≫ Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X]))) := by
+    rw [e]; infer_instance
+  haveI : LocallyOfFiniteType (secMor Y W s) :=
+    locallyOfFiniteType_of_comp _ (Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X])))
+  haveI : IsSeparated (secMor Y W s) :=
+    IsSeparated.of_comp _ (Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X])))
+  haveI : QuasiCompact (secMor Y W s) :=
+    QuasiCompact.of_comp _ (Spec.map (CommRingCat.ofHom (algebraMap ℚ ℚ[X])))
+  exact IsProper.of_valuativeCriterion _
+    (ValuativeCriterion.iff.2 ⟨secMor_existence Y W W' s s' hcov hinv hbo,
+      IsSeparated.valuativeCriterion _⟩)
+
+/-- **`ChartProper` holds** (compiled). -/
+theorem chartProper : ChartProper := by
+  intro Y π hP hS hfin
+  haveI := hP
+  refine ⟨secMor_isProper Y π.U π.V π.f π.g π.cover ?_ π.basicOpen_g,
+    secMor_isProper Y π.V π.U π.g π.f (by rw [sup_comm]; exact π.cover) ?_
+      (by rw [π.basicOpen_f, inf_comm])⟩
+  · intro K _ p hU hV
+    exact ev_f_mul_g π p hU hV
+  · intro K _ p hV hU
+    rw [mul_comm]
+    exact ev_f_mul_g π p hU hV
+
+/-- **`CurveNormChart` is a theorem** (compiled; with ts-hecke's `curveGaloisChart_of`,
+`CurveGaloisChart` follows). -/
+theorem curveNormChart : CurveNormChart := curveNormChart_of_proper chartProper
+
+/-- **`CurveChartInf` is a theorem** (compiled). -/
+theorem curveChartInf : CurveChartInf := curveChartInf_of_proper chartProper
+
+end HeckeRestCurve
+
+end
+
+#print axioms HeckeRestCurve.chartProper
+#print axioms HeckeRestCurve.curveNormChart
+#print axioms HeckeRestCurve.curveChartInf
