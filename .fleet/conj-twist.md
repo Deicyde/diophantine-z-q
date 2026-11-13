@@ -2,13 +2,13 @@
 
 **Result.** Both `ConjTwistNontrivial` and `ConjTwistFromLeaves`, copied verbatim from
 scratch/g10-odd/G10Odd.lean, are proved in Lean.
-- `conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic → ConjTwistFromLeaves`.
+- `conjTwistFromLeaves_final'' : HomLinearLift → TwistCEval → ConjTwistFromLeaves`.
   T5, T26 and T35 are already hypotheses of `ConjTwistFromLeaves`.
-- `conjTwistNontrivial_final' : TorsionStructure (T5) → TateModuleFree (T26) →
-  UniformizationExists (T35) → HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`.
+- `conjTwistNontrivial_final'' : TorsionStructure (T5) → TateModuleFree (T26) →
+  UniformizationExists (T35) → HomLinearLift → TwistCEval → ConjTwistNontrivial`.
   Faltings is a hypothesis inside `ConjTwistNontrivial`.
 
-File: `scratch/conj-twist/ConjTwist.lean` (1830 lines). It has no `sorry`, and all 32
+File: `scratch/conj-twist/ConjTwist.lean` (1922 lines). It has no `sorry`, and all 36
 `#print axioms` are `[propext, Classical.choice, Quot.sound]`.
 
 **What compiles (proved).**
@@ -25,8 +25,10 @@ File: `scratch/conj-twist/ConjTwist.lean` (1830 lines). It has no `sorry`, and a
 **What remains.**
 - One new textbook leaf, `HomLinearLift`: T11(a) in Hom form, Birkenhake–Lange 1.2.1. It cannot
   be derived from T11a, which covers only End over ℂ.
-- One glue Prop, `ConjUniformizationAnalytic`: the two analytic clauses of `IsUniformization` for
-  `z ↦ twistC(Φ(z̄))` on `A^s`. It is STANDARD and true: regular functions of the base change are
-  conjugates of holomorphic functions.
+- One glue Prop, `TwistCEval`, purely scheme-theoretic with no analysis. For a number field,
+  opens and sections of `A^s` correspond to those of `A` (`A^s → A` is an isomorphism), with
+  `f(twistC Q) = conj(f'(Q))`. It is STANDARD and true.
+- The analytic part is proved, including `differentiableOn_conj_conj`: `z ↦ conj(F(z̄))` is
+  holomorphic.
 
 Report: docs/research/conj-twist.md; log: scratch/conj-twist/log.md.

@@ -1,23 +1,24 @@
 # conj-twist: `ConjTwistNontrivial` and `ConjTwistFromLeaves` (G10 core)
 
-Task conj-twist, 2026-11-13. Lean: `scratch/conj-twist/ConjTwist.lean` (1830 lines). Check it
+Task conj-twist, 2026-11-13. Lean: `scratch/conj-twist/ConjTwist.lean` (1922 lines). Check it
 with `lake env lean scratch/conj-twist/ConjTwist.lean` after
-`lake build ZInQKernel.HDecomp.LeafPush2.T`. It has no `sorry`, and all 32 `#print axioms` give
+`lake build ZInQKernel.HDecomp.LeafPush2.T`. It has no `sorry`, and all 36 `#print axioms` give
 `[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled 2026-11-13). Log:
 `scratch/conj-twist/log.md`.
 
 ## Result
 
-**`ConjTwistFromLeaves` is proved in Lean from one new textbook leaf and one analytic glue
-Prop. `ConjTwistNontrivial` also needs the leaves already in the build.** VERIFIED, compiled:
+**`ConjTwistFromLeaves` is proved in Lean from one new textbook leaf and one glue Prop. The glue
+is purely scheme-theoretic, with no analysis. `ConjTwistNontrivial` also needs the leaves already
+in the build.** VERIFIED, compiled:
 
 ```
-G0Galois.conjTwistFromLeaves_final' :
-  HomLinearLift → ConjUniformizationAnalytic → ConjTwistFromLeaves
+G0Galois.conjTwistFromLeaves_final'' :
+  HomLinearLift → TwistCEval → ConjTwistFromLeaves
 
-G0Galois.conjTwistNontrivial_final' :
+G0Galois.conjTwistNontrivial_final'' :
   PkgI2.TorsionStructure → PkgI3.TateModuleFree → ZInQ.LeafPush2.UniformizationExists →
-  HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial
+  HomLinearLift → TwistCEval → ConjTwistNontrivial
 ```
 
 `ConjTwistNontrivial` and `ConjTwistFromLeaves` are copied verbatim from
@@ -38,13 +39,19 @@ changed.
 | `PkgI3.TateModuleFree` (T26) | leaf (in build) | `T_ℓ A` free of rank `2 dim A` | Mumford §4, §18-19 |
 | `UniformizationExists` (T35) | leaf (in build) | `A(ℂ)_σ ≅ ℂ^g/Λ`, analytic, `Λ` a full lattice | Mumford §1, GAGA |
 | `HomLinearLift` (N2) | **textbook leaf** (new) | for uniformizations `Φ_A, Φ_B` of `A(ℂ)_σ, B(ℂ)_σ` (`g = dim`), every `f ∈ Hom_K(A,B)` lifts to a `ℂ`-linear `M` with `Φ_B(Mz) = f(Φ_A z)` | Birkenhake–Lange, *Complex abelian varieties*, Prop. 1.2.1, with holomorphy of algebraic morphisms (Mumford §1). UNVERIFIED numbers. `T11a_RiemannEnd`'s second half is the case `A = B` over `ℂ`. |
-| `ConjUniformizationAnalytic` (N3a-an) | glue | let `σ∘s = conj∘σ`, `Φ` a uniformization of `A(ℂ)_σ`, and `ψ(z) = twistC(Φ(z̄))`, where `twistC : A(ℂ)_σ → A^s(ℂ)_σ` is `Q ↦ Q ∘ Spec(conj)` read through `A^s(ℂ)_σ = A(ℂ)_{σ∘s}`. Then `ψ⁻¹(U(ℂ))` is open and every regular function of `A^s` on `U` is holomorphic along `ψ`, for every open `U` of `A^s` | On an affine chart `Spec(R ⊗_{K,s} K)`, the value of `r ⊗ k` at `ψ(z)` is `conj(r(Φ(z̄)))·σ(k)`, and `z ↦ conj(f(z̄))` is holomorphic when `f` is. STANDARD |
+| `TwistCEval` (N3a-ev) | glue (algebraic geometry only) | for a number field `K`, `σ∘s = conj∘σ`, and every open `U` of `A^s`, there is an open `V` of `A` with `twistC Q ∈ U ↔ Q ∈ V`. Every section `f` of `A^s` over `U` has a section `f'` of `A` over `V` with `f(twistC Q) = conj(f'(Q))` for `Q ∈ V`. Here `twistC : A(ℂ)_σ → A^s(ℂ)_σ` is `Q ↦ Q ∘ Spec(conj)` read through `A^s(ℂ)_σ = A(ℂ)_{σ∘s}` | `s` is an automorphism, so `fst : A^s → A` is an isomorphism, and `fst ∘ twistC Q = Q ∘ Spec(conj)`. Take `V = fst(U)` and `f = fst^* f'`. `Spec(conj)^*` acts as `conj` on `Γ(Spec ℂ) = ℂ`. STANDARD |
 
-Both new Props are true by the arguments in the table, and both are stated over the project's
-genuine objects: `PkgI3.AbVar`, `CPts`, `IsUniformization`, `cDom`, `cEvalAt`, and the new
-concrete `conjVar`, `twistC` and `conjL`. N2 is a consequence of a published statement, not a
-strengthening. N3a-an is exactly the two analytic clauses of `IsUniformization` for `ψ`. The three
-group-theoretic clauses are proved (`conjUniformization_of_analytic`).
+The analytic glue of the previous version is now proved:
+- `ConjUniformizationAnalytic` (N3a-an), from `TwistCEval` via
+  `conjUniformizationAnalytic_of_eval`, using `differentiableOn_conj_conj`: `z ↦ conj(F(z̄))` is
+  holomorphic on `ℂ^g` where `F` is;
+- `ConjUniformization` (N3a), via `conjUniformization_of_analytic`;
+- the antilinear lift (N3), via `conjAntiLiftLat_of`.
+
+Both new Props are true by the arguments in the table. Both are stated over the project's
+genuine objects (`PkgI3.AbVar`, `CPts`, `IsUniformization`, `cEvalAt`, `Γ`, `Opens`) and the new
+concrete `conjVar` and `twistC`. N2 is a consequence of a published statement, not a
+strengthening.
 
 ## How the proof goes (all compiled)
 
@@ -66,6 +73,9 @@ group-theoretic clauses are proved (`conjUniformization_of_analytic`).
    - N2 gives `ℂ`-linear lifts `M_f`. N2 and N3a give an injective antilinear lift `N` of
      `twistC` (`conjAntiLiftLat_of`): N2 is applied to `id` of `A^s` with `ψ` and `Φ_B`, and
      `eq_zero_of_real_smul_mem` gives injectivity.
+   - Here `ψ = twistC ∘ Φ ∘ conj` is a uniformization:
+     - the group clauses by `twistC_mul`, `twistC_injective`, `twistC_surjective`;
+     - the analytic clauses from `TwistCEval` and `differentiableOn_conj_conj`.
    - Lifts map lattices to lattices (`lift_mem_lattice`).
 5. **Artin comparison** (§11-§13).
    - `toC : A(K̄) → A(ℂ)`, `P ↦ P ∘ Spec ι`, is injective (`toC_injective`, via Mathlib's
@@ -95,24 +105,25 @@ Each of these is now proved, or implied by the two remaining Props.
 
 - **F1 (VERIFIED, compiled).** `ConjTwistNontrivial` is true and is not vacuous. g10-odd's
   `exists_resQ_conj` shows that the twist condition constrains every `σ`. The proof derives it
-  from published results and the true glue N3a-an. The rank-4, division and noncommutativity
+  from published results and the true glue `TwistCEval`. The rank-4, division and noncommutativity
   hypotheses of `G10Glue` play no role. `IsGalois ℚ K` is used only to make `cc` preserve `K`.
 - **F2 (VERIFIED, compiled).** Everything g10-odd listed as missing is now a Lean definition or
   theorem: the conjugate variety, `c_*`, the Artin comparison at `ι` with its compatibility with
-  `c_*`, and the instantiation of the Betti argument. The only analytic input is the leaf N2 plus
-  N3a-an. The opaque placeholders T11 and T12 of `G10Glue` (g10-odd F1) are not used.
+  `c_*`, and the instantiation of the Betti argument. The only analytic input is the leaf N2. The
+  remaining glue `TwistCEval` is algebraic. The opaque placeholders T11 and T12 of `G10Glue` (g10-odd F1) are not used.
 - **F3 (argument).** `HomLinearLift` cannot be derived from `T11a_RiemannEnd`. T11a covers only
   `End` of an abelian variety over `ℂ`. `Hom(A, A^s)` over a number field would need products, or
   base change plus a transport of `IsUniformization`, neither of which is available. So N2 is a
   new leaf from the same sources as T11(a). The proof uses it twice: for `Hom(A, A^s)`, and for
   `id_{A^s}` to compare two uniformizations.
 - **F4 (VERIFIED, compiled).** T11(a) and T11(b), hypotheses of `ConjTwistFromLeaves`, are unused.
-- **F5 (next step).** N3a-an is about regular functions of a base change `A ×_{Spec s} Spec K`
-  evaluated at conjugated points. Formalizing it needs the affine-chart description of sections of
-  a pullback and the holomorphy of `z ↦ conj(f(z̄))`. No covering or lifting theory is needed.
+- **F5 (next step).** `TwistCEval` is a statement about the pullback `A ×_{Spec s} Spec K` along
+  an isomorphism. It concerns the projection `fst`, the adjunction description
+  `(homEquiv g).left ≫ fst = g.left`, `appLE` of composites, and `ΓSpecIso` naturality for
+  `Spec(conj)`. All of these exist in Mathlib, so it should be formalizable without new leaves.
 
 ## Integration recommendation
 
 Replace `odd : G10Glue` in g0-mod-galois's `GaloisPieces` by the pair
-`HomLinearLift` (leaf) and `ConjUniformizationAnalytic` (glue). Then use
-`conjTwistFromLeaves_final'` with g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`.
+`HomLinearLift` (leaf) and `TwistCEval` (glue). Then use `conjTwistFromLeaves_final''` with
+g10-odd's `g10GlueConcrete_of_conjTwistFromLeaves`.
