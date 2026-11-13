@@ -250,4 +250,123 @@ theorem mem_maximalIdeal_pow {x : OE E} (i : ℕ) :
 
 end DVR
 
+/-! ## §3. `Gal(𝓞_E/ℤ_p)` and the ramification dictionary -/
+
+section Galois
+
+variable [FiniteDimensional ℚ_[p] E] [IsGalois ℚ_[p] E]
+
+/-- `G_{ℚ_p} → Gal(E/ℚ_p) ≅ Gal(𝓞_E/ℤ_p)` (restriction, then Mathlib's `galRestrict`). -/
+def res : GQp p →* (OE E ≃ₐ[ℤ_[p]] OE E) :=
+  (galRestrict ℤ_[p] ℚ_[p] E (OE E)).toMonoidHom.comp (AlgEquiv.restrictNormalHom E)
+
+theorem res_apply (σ : GQp p) (x : OE E) : ((res E σ x : OE E) : Kbar p) = σ (x : Kbar p) := by
+  have h1 := algebraMap_galRestrict_apply ℤ_[p] (AlgEquiv.restrictNormalHom E σ) x
+  have h2 := AlgEquiv.restrictNormal_commutes σ E (algebraMap (OE E) E x)
+  rw [← algebraMap_OE_coe, ← algebraMap_OE_coe E x]
+  change ((algebraMap (OE E) E (galRestrict ℤ_[p] ℚ_[p] E (OE E)
+    (AlgEquiv.restrictNormalHom E σ) x) : E) : Kbar p) = _
+  rw [h1]
+  exact h2
+
+theorem res_surjective : Function.Surjective (res E) :=
+  (galRestrict ℤ_[p] ℚ_[p] E (OE E)).surjective.comp (AlgEquiv.restrictNormalHom_surjective _)
+
+/-- Every `x ∈ E` has `p^k x ∈ 𝓞_E` for some `k`. -/
+theorem exists_pow_mul_mem {x : Kbar p} (hx : x ∈ E) : ∃ k : ℕ, (p : Kbar p) ^ k * x ∈ OE E := by
+  have hpL : (p : Kbar p) ∈ E := by
+    rw [← map_natCast (algebraMap ℚ_[p] (Kbar p)) p]
+    exact IntermediateField.algebraMap_mem _ _
+  have hp1 : ‖(p : Kbar p)‖ < 1 := isUnif_bot.2.1
+  obtain ⟨k, hk⟩ := exists_pow_lt_of_lt_one (show (0 : ℝ) < 1 / (‖x‖ + 1) by positivity) hp1
+  refine ⟨k, E.mul_mem (pow_mem hpL k) hx, ?_⟩
+  rw [norm_mul, norm_pow]
+  rw [lt_div_iff₀ (by positivity)] at hk
+  nlinarith [norm_nonneg x, pow_nonneg (norm_nonneg (p : Kbar p)) k]
+
+theorem res_eq_iff {σ τ : GQp p} : res E σ = res E τ ↔ ∀ x ∈ E, σ x = τ x := by
+  constructor
+  · intro h x hx
+    obtain ⟨k, hk⟩ := exists_pow_mul_mem E hx
+    have h1 := res_apply E σ ⟨_, hk⟩
+    rw [h, res_apply] at h1
+    simp only [map_mul, map_pow, map_natCast] at h1
+    have hp0 : ((p : Kbar p)) ^ k ≠ 0 := pow_ne_zero _ (Nat.cast_ne_zero.2 (Fact.out : p.Prime).ne_zero)
+    exact (mul_left_cancel₀ hp0 h1).symm
+  · intro h
+    ext x
+    rw [res_apply, res_apply, h _ x.2.1]
+
+theorem ramSet_iff {σ : GQp p} {i : ℕ} :
+    σ ∈ ramSet E i ↔ res E σ ∈ PkgI6.lowerRam ℤ_[p] (OE E) i := by
+  rw [PkgI6.mem_lowerRam]
+  constructor
+  · rintro ⟨ϖ, hϖ, hb⟩ b
+    rw [mem_maximalIdeal_pow, Subalgebra.coe_sub, res_apply, ← (isUnif_unif E).norm_eq hϖ]
+    exact hb b b.2.1 b.2.2
+  · intro h
+    refine ⟨_, isUnif_unif E, fun x hx hx1 => ?_⟩
+    have := (mem_maximalIdeal_pow E i).1 (h ⟨x, hx, hx1⟩)
+    rwa [Subalgebra.coe_sub, res_apply] at this
+
+theorem ramSetR_iff {σ : GQp p} {t : ℝ} :
+    σ ∈ ramSetR E t ↔ res E σ ∈ PkgI6.lowerRamR ℤ_[p] (OE E) t := by
+  unfold ramSetR PkgI6.lowerRamR
+  split_ifs
+  · exact ⟨fun _ => Subgroup.mem_top _, fun _ => trivial⟩
+  · exact ramSet_iff E
+
+/-- Two maps that separate the same pairs have images of the same cardinality. -/
+theorem card_image_eq {α β γ : Type*} (F : α → β) (G : α → γ) (hFG : ∀ a b, F a = F b ↔ G a = G b)
+    (S : Set α) : Nat.card (F '' S) = Nat.card (G '' S) := by
+  refine Nat.card_congr (Equiv.ofBijective
+    (fun y => ⟨G y.2.choose, Set.mem_image_of_mem _ y.2.choose_spec.1⟩) ⟨?_, ?_⟩)
+  · intro y1 y2 h
+    have h' : G y1.2.choose = G y2.2.choose := congrArg Subtype.val h
+    apply Subtype.ext
+    rw [← y1.2.choose_spec.2, ← y2.2.choose_spec.2]
+    exact (hFG _ _).2 h'
+  · rintro ⟨_, a, ha, rfl⟩
+    refine ⟨⟨F a, a, ha, rfl⟩, Subtype.ext ?_⟩
+    exact (hFG _ _).1 (⟨F a, a, ha, rfl⟩ : F '' S).2.choose_spec.2
+
+theorem coe_lowerRamR (t : ℝ) :
+    (PkgI6.lowerRamR ℤ_[p] (OE E) t : Set (OE E ≃ₐ[ℤ_[p]] OE E)) = res E '' ramSetR E t := by
+  ext s
+  constructor
+  · intro hs
+    obtain ⟨σ, rfl⟩ := res_surjective E s
+    exact ⟨σ, (ramSetR_iff E).2 hs, rfl⟩
+  · rintro ⟨σ, hσ, rfl⟩
+    exact (ramSetR_iff E).1 hσ
+
+theorem card_lowerRamR (t : ℝ) :
+    Nat.card (PkgI6.lowerRamR ℤ_[p] (OE E) t) = ramCardR E t := by
+  rw [← SetLike.coe_sort_coe, coe_lowerRamR, ramCardR]
+  refine (card_image_eq (restr E) (res E) (fun a b => ?_) _).symm
+  rw [restr_eq_iff', res_eq_iff]
+where
+  restr_eq_iff' {a b : GQp p} : restr E a = restr E b ↔ ∀ x ∈ E, a x = b x :=
+    ⟨fun h x hx => congrFun h ⟨x, hx⟩, fun h => funext fun x => h x x.2⟩
+
+theorem ramCardR_zero : ramCardR E 0 = ramCard E 0 := by
+  unfold ramCardR ramSetR ramCard
+  rw [if_neg (by norm_num)]
+  simp
+
+theorem herbrandPhi_eq : PkgI6.herbrandPhi ℤ_[p] (OE E) = phiAt E := by
+  funext u
+  unfold PkgI6.herbrandPhi phiAt
+  congr 1
+  funext t
+  rw [card_lowerRamR, card_lowerRamR, ramCardR_zero]
+
+theorem upperSet_iff {σ : GQp p} {v : ℝ} :
+    σ ∈ upperSet E v ↔ res E σ ∈ PkgI6.upperRam ℤ_[p] (OE E) v := by
+  unfold upperSet PkgI6.upperRam
+  rw [herbrandPhi_eq]
+  exact ramSetR_iff E
+
+end Galois
+
 end SwanBridge
