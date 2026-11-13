@@ -76,3 +76,13 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
   definition of `z_n` (the check does not single out the sign). Φ₀ = {σ} (σ = σ_ϖ², realized by a prime
   a² + nb², a even, b odd): `σ(z_n) − z_n = (0,0)` and the inclusion holds in all 6 cases.
   VERIFIED (computed, modulo the leaves ShimuraReciprocity and the proved cmComplexConj).
+
+## Lean: Class7.lean compiles (`lake env lean scratch/cm-numeric/Class7.lean`, no errors, no warnings)
+- Needed `lake build ZInQKernel.Contrib.TYZGenus.Package` first (10092 jobs, built clean).
+- Pitfalls fixed: `decide` on `tyzDelta` hits maxRecDepth → `decide +kernel`; generic-order version of
+  cm-points' `exists_actsAsArtin4` and the `ActsAsArtinO` lemmas need `set_option maxRecDepth 8000`;
+  `IntermediateField.map` membership shows `↑(embed d) y` vs `(embed d) y` (fix: `change`, and state
+  `have h1 : ρ (embed d y) = … := hρ ⟨y, hy⟩` by defeq instead of `rw [hρ ⟨y,hy⟩]`).
+- `#print axioms` for 12 declarations (incl. `tyzThm35ReadingA_of_pinnedLeaves`,
+  `class7GenusPtDefined_of`, `tyzSigmaFixesZn_of`, `exists_actsAsArtinO`, `tyzDelta_spec`):
+  `[propext, Classical.choice, Quot.sound]` (`audit-out.txt`). VERIFIED.

@@ -28,6 +28,8 @@ No `sorry`, no `axiom`.
 
 noncomputable section
 
+set_option maxRecDepth 8000
+
 namespace ZInQ.Contrib.TYZGenus.CMNumeric
 
 open ZInQ.Contrib.TYZDecomp.CurveA ZInQ.Contrib.TYZGenus.CM ZInQ.Contrib.TYZGenus.Package
@@ -108,7 +110,7 @@ theorem tyzDelta_mod (n : ℕ) : tyzDelta n = tyzDelta (n % 128) := by
   rw [Nat.add_mod (d * d) n, Nat.add_mod (d * d) (n % 128), Nat.mod_mod]
 
 theorem tyzDelta_spec_aux : ∀ m < 128, m % 8 = 7 → (tyzDelta m * tyzDelta m + m) % 128 = 0 := by
-  decide
+  decide +kernel
 
 theorem tyzDelta_spec {n : ℕ} (hn : n % 8 = 7) : (tyzDelta n * tyzDelta n + n) % 128 = 0 := by
   have h := tyzDelta_spec_aux (n % 128) (Nat.mod_lt _ (by norm_num)) (by omega)
@@ -161,14 +163,10 @@ section ArtinO
 variable (d : ℕ) [NeZero d] (O : NumberFieldOrder (QNeg d))
 
 /-- `ρ ∈ Gal(ℚ̄/ℚ)` acts on the ring class field of `O` (inside `ℚ̄` through ring-class's `embed d`)
-as Tau Ceti's Artin symbol of `c ∈ Pic(O)`. For `O = O4 d` this is `Package.ActsAsArtin4`
-(`actsAsArtinO_O4`). -/
+as Tau Ceti's Artin symbol of `c ∈ Pic(O)` (for `O = O4 d` the same shape as `Package.ActsAsArtin4`). -/
 def ActsAsArtinO (ρ : GalQ) (c : Pic O) : Prop :=
   ∀ x : ringClassField O, ρ (embed d (x : SeparableClosure (QNeg d))) =
     embed d ((ringClassArtinEquiv O c x : ringClassField O) : SeparableClosure (QNeg d))
-
-theorem actsAsArtinO_O4 (ρ : GalQ) (c : Pic (O4 d)) : ActsAsArtinO d (O4 d) ρ c ↔ ActsAsArtin4 ρ d c :=
-  Iff.rfl
 
 /-- The ring class field restricted to `ℚ`-scalars. -/
 abbrev RQ : IntermediateField ℚ (SeparableClosure (QNeg d)) := (ringClassField O).restrictScalars ℚ
@@ -312,7 +310,7 @@ theorem lemma321_of (h5 : Lemma321Five) (h7 : Lemma321Seven) : Lemma321 tyzZ := 
   refine ⟨σ, hσ, h5', fun e he he7 => ?_⟩
   have hse : Squarefree e := hsq.squarefree_of_dvd (Nat.dvd_of_mem_divisors he)
   rw [tyzZ_seven he7]
-  exact h7 e he7 hse
+  exact h7 e he7 hse σ hσ
 
 theorem genusPtsDefined_tyzZ (hz : TYZZnOverHprime) (hN : HprimeNormal) (h7 : Class7GenusPtDefined) :
     GenusPtsDefined HHprime tyzZ :=
@@ -372,14 +370,14 @@ theorem fixed_of_mem_Hprimebar (d : ℕ) [NeZero d] {x : Qbar} (hx : x ∈ Hprim
   rw [Hprimebar_eq] at hx
   obtain ⟨y, hy, rfl⟩ := hx
   have hy' : y ∈ H4 d := Hprime_le_H4 d hy
-  have h1 := hρ ⟨y, hy'⟩
+  have h1 : ρ (embed d y) =
+      embed d ((artin4 d (sigmaClass d) ⟨y, hy'⟩ : H4 d) : SeparableClosure (QNeg d)) := hρ ⟨y, hy'⟩
+  change ρ (embed d y) = embed d y
   rw [h1]
   congr 1
-  have hy2 : (⟨y, hy'⟩ : H4 d) ∈ IntermediateField.fixedField
-      (Subgroup.zpowers (artin4 d (sigmaClass d))) := by
-    have := hy
-    rw [Hprime, show y = (⟨y, hy'⟩ : H4 d).1 from rfl, IntermediateField.mem_lift] at this
-    exact this
+  have hy3 : (⟨y, hy'⟩ : H4 d).1 ∈ IntermediateField.lift
+      (IntermediateField.fixedField (Subgroup.zpowers (artin4 d (sigmaClass d)))) := hy
+  have hy2 := (IntermediateField.mem_lift _).mp hy3
   rw [IntermediateField.mem_fixedField_iff] at hy2
   exact congrArg Subtype.val (hy2 _ (Subgroup.mem_zpowers _))
 
@@ -442,7 +440,10 @@ theorem actsO_mem {ρ : GalQ} {c : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c
     (hx : x ∈ hilbertBar d) : ρ x ∈ hilbertBar d := by
   rw [hilbertBar_eq] at hx ⊢
   obtain ⟨y, hy, rfl⟩ := hx
-  rw [hρ ⟨y, hy⟩]
+  have h1 : ρ (embed d y) = embed d ((ringClassArtinEquiv (OK d) c ⟨y, hy⟩ : ringClassField (OK d)) :
+      SeparableClosure (QNeg d)) := hρ ⟨y, hy⟩
+  change ρ (embed d y) ∈ _
+  rw [h1]
   exact ⟨_, (ringClassArtinEquiv (OK d) c ⟨y, hy⟩).2, rfl⟩
 
 theorem actsO_agree {ρ ρ' : GalQ} {c : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c)
@@ -450,7 +451,12 @@ theorem actsO_agree {ρ ρ' : GalQ} {c : Pic (OK d)} (hρ : ActsAsArtinO d (OK d
   intro x hx
   rw [hilbertBar_eq] at hx
   obtain ⟨y, hy, rfl⟩ := hx
-  rw [hρ ⟨y, hy⟩, hρ' ⟨y, hy⟩]
+  have h1 : ρ (embed d y) = embed d ((ringClassArtinEquiv (OK d) c ⟨y, hy⟩ : ringClassField (OK d)) :
+      SeparableClosure (QNeg d)) := hρ ⟨y, hy⟩
+  have h2 : ρ' (embed d y) = embed d ((ringClassArtinEquiv (OK d) c ⟨y, hy⟩ : ringClassField (OK d)) :
+      SeparableClosure (QNeg d)) := hρ' ⟨y, hy⟩
+  change ρ (embed d y) = ρ' (embed d y)
+  rw [h1, h2]
 
 theorem actsO_mul {ρ ρ' : GalQ} {c c' : Pic (OK d)} (hρ : ActsAsArtinO d (OK d) ρ c)
     (hρ' : ActsAsArtinO d (OK d) ρ' c') : ActsAsArtinO d (OK d) (ρ * ρ') (c * c') := by
@@ -464,10 +470,10 @@ theorem sum_sqClasses_mul {s : Pic (OK d)} (hs : s ∈ picSquares (OK d)) (f : P
     ∑ c ∈ sqClasses d, f (s * c) = ∑ c ∈ sqClasses d, f c := by
   refine Finset.sum_nbij' (fun c => s * c) (fun c => s⁻¹ * c) ?_ ?_ ?_ ?_ ?_
   · intro c hc
-    simp only [Finset.mem_coe, mem_sqClasses] at hc ⊢
+    simp only [mem_sqClasses] at hc ⊢
     exact (picSquares (OK d)).mul_mem hs hc
   · intro c hc
-    simp only [Finset.mem_coe, mem_sqClasses] at hc ⊢
+    simp only [mem_sqClasses] at hc ⊢
     exact (picSquares (OK d)).mul_mem ((picSquares (OK d)).inv_mem hs) hc
   · intro c _; simp
   · intro c _; simp
@@ -514,8 +520,10 @@ theorem mem_genusBar_of_fixed {x : Qbar} (hx : x ∈ hilbertBar d)
   rw [genusField, show y = (⟨y, hy⟩ : ringClassField (OK d)).1 from rfl, IntermediateField.mem_lift,
     IntermediateField.mem_fixedField_iff]
   rintro f ⟨s, hs, rfl⟩
-  have h1 := liftMax_spec d s ⟨y, hy⟩
-  rw [hfix s hs] at h1
+  have h1 : liftMax d s (embed d y) = embed d ((ringClassArtinEquiv (OK d) s ⟨y, hy⟩ :
+      ringClassField (OK d)) : SeparableClosure (QNeg d)) := liftMax_spec d s ⟨y, hy⟩
+  have h0 : liftMax d s (embed d y) = embed d y := hfix s hs
+  rw [h0] at h1
   exact Subtype.ext ((embed d).injective h1).symm
 
 /-- **Leaf GT-7 (genus theory)**: for squarefree `e ≡ 7 (mod 8)` the genus field of `ℚ(√−e)` (the
@@ -561,3 +569,29 @@ theorem tyzThm35ReadingA_of_pinnedLeaves (h11 : TYZThm11Integral) (h1 : TYZLcalO
   tyzThm35ReadingA_of_pinned h11 h1 h29 hcm hi hs hN h318 (class7GenusPtDefined_of hcm7 hg) h35 h5 h7'
 
 end ZInQ.Contrib.TYZGenus.CMNumeric
+
+/-! ## Axiom audit (output in `scratch/cm-numeric/audit-out.txt`) -/
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms tyzDelta_spec
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms exists_actsAsArtinO
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms lemma321_of
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms genusPointLeafCM_of_pinned
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms genusPointLeaf_of_pinned
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms tyzThm35ReadingA_of_pinned
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms tyzThm35ReadingA_of_pinned'
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms tyzSigmaFixesZn_of
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms galPt_Z7
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms class7GenusPtDefined_of
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms tyzThm35ReadingA_of_pinnedLeaves
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms Copy.genusPointLeafCM_eq
