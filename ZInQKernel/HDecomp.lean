@@ -63,6 +63,22 @@ import ZInQKernel.HDecomp.Sqrt.Disj
 import ZInQKernel.HDecomp.Sqrt.SqrtLocal
 import ZInQKernel.HDecomp.Vigneras.Global
 import ZInQKernel.HDecomp.Vigneras.Local
+-- hdec-adopt5b: t-different, t-skolem-kw, t30-adelic, t10-etale, t28-igusa
+import ZInQKernel.HDecomp.Textbook.BrauerNesbitt
+import ZInQKernel.HDecomp.Textbook.C10Closed
+import ZInQKernel.HDecomp.Textbook.ChebotarevCyclotomic
+import ZInQKernel.HDecomp.Textbook.Different
+import ZInQKernel.HDecomp.Textbook.FrobeniusDense
+import ZInQKernel.HDecomp.Textbook.G1Adelic
+import ZInQKernel.HDecomp.Textbook.G1Count
+import ZInQKernel.HDecomp.Textbook.Igusa.Forward
+import ZInQKernel.HDecomp.Textbook.Igusa.Generic
+import ZInQKernel.HDecomp.Textbook.Igusa.M3a
+import ZInQKernel.HDecomp.Textbook.Igusa.SO3
+import ZInQKernel.HDecomp.Textbook.KroneckerWeberUse
+import ZInQKernel.HDecomp.Textbook.SkolemNoether
+import ZInQKernel.HDecomp.Textbook.T10Etale
+import ZInQKernel.HDecomp.Textbook.T30SqrtCrit
 
 /-! The glue of `docs/research/h-decomposition.md` (tasks hdec-adopt, hdec-adopt2,
 hdec-adopt3, hdec-adopt4): every adopted module.
