@@ -1,0 +1,13 @@
+ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd : ZInQ.SixContactMin → ZInQ.Literature.TYZThm35ReadingA → ZInQ.GZDecomp.GrossZagierCd → ZInQ.FrozenTarget ZInQ.GZDecomp.grossZagierCd_of_leaves' : ZInQ.GZDecomp.HeckeThetaNewform → ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.GZDecomp.GrossZagierCd ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves : ZInQ.SixContactMin → ZInQ.Literature.TYZThm35ReadingA → ZInQ.GZDecomp.HeckeThetaNewform → ZInQ.GZDecomp.FHNonvanishing → ZInQ.GZDecomp.GrossZagierHeegner → ZInQ.FrozenTarget 
+'ZInQ.GZDecomp.grossZagierCd_of_grossZagier' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzInputs_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.modular_cd' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.isEntireCont_of_isLContinuation' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.signOfSimpleZero' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.exists_rat_point_of_heegner' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.exists_isEntireCont_twist' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.exists_quadratic_field' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.grossZagierCd_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.grossZagierCd_of_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves' depends on axioms: [propext, Classical.choice, Quot.sound] 

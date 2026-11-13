@@ -60,3 +60,14 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
   on this host, `cypari2` is not in the uv cache, and network installs are not allowed. Earlier
   evidence reused: rv-cr3-trust §2.1 (`N(C_d) = 32d²` and `ε(C_d) = −1` on 30 values; a Heegner `D`
   with `L(C_d^D, 1) ≠ 0`, `|D| ≤ 455`, for 16 values; `out_indep_check.txt`).
+
+## Report
+- `docs/research/gz-decomp.md` written (main result, leaf/glue tables, scope answer, review).
+- Review item: nebentypus of L1 checked by hand from `HeckeFE/Basic.lean:443-475`
+  (`unitOf(α mod 4)·α` = primary associate; `ψ_d((m)) = χ_{−4}(m) m`; Miyake's character
+  `χ_{−4}ω_ψ` trivial). VERIFIED by reading.
+- TC `cuspFormsNew` = Petersson orthogonal complement of the level raises (`Newforms/Basic.lean:105,
+  202`). VERIFIED by reading.
+- tc-main: `ModularCurve/Gamma/Zero.lean` (moduli problem `[Γ₀(N)]`), no coarse `X₀(N)`; lattice
+  theta series only (`ModularForms/ThetaSeries/`); no Gross–Zagier/Waldspurger/Friedberg–Hoffstein
+  (grep). VERIFIED.
