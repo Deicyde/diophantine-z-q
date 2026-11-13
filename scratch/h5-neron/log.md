@@ -29,3 +29,25 @@ Start 2026-11-12 22:53 PST. Base 01267822. Build of ZInQKernel.HDecomp.Faltings.
   `stableHeightFinite_zero`, `isIsogeny_id_zero`, `isogDeg_zero_le_one`, `one_le_grKappa`,
   `R19_zero`, `R20_zero`, `R21_zero` (the three leaves hold for A = B = zero, all hypotheses
   satisfiable: x = 0, the identity is an isogeny).
+
+## Part C: scratch/h5-neron/Reduction.lean — COMPILED 23:12 (axioms propext, Classical.choice, Quot.sound)
+- defs `IsBaseChangeOf 𝒢' 𝒢` (group-object iso to 𝒢 ×_{𝓞L} 𝓞L'), `IsOpenSubgroupModel 𝒰 𝒢`.
+- leaves (Props): `NeronModelExists` (BLR 1.4/3, UNVERIFIED), `SemistableNeronIdentityComponent`
+  (SGA 7 IX 3.6 + 3.3, UNVERIFIED).
+- glue (Props, unproved): `ModelHeightBaseChange`, `GroupModelBaseChangeExists`, `OpenSubgroupHeight`
+  (+ existing `NeronModelMinimal`).
+- proved: `compositum` (two number fields over K in a common number field, inside AlgebraicClosure K);
+  `stableFaltingsHeight_eq_neron` (∃ L₀, Néron 𝒩₀ over L₀ with stableFaltingsHeight A = 𝒩₀.height).
+- FINDING: the Néron model does not commute with base change even for semistable A (component groups
+  grow: Tate curves; STANDARD); only the identity component does. So the leaf is phrased via a common
+  open subgroup, and `OpenSubgroupHeight` is needed. def-faltings/rv-blueprints said "base change of
+  semistable Néron models (SGA 7 IX 3.3)" without this caveat.
+
+## Part A addendum (Neron.lean) — COMPILED 23:14
+- `NeronProp.of_iso` (transport along isos), `IsProductAbVar C A B`, `bcProd`, `IsProductModel`,
+  `isNeronModel_of_isProductModel` (product of Néron group models is Néron).
+- glue Props: `ProductGroupModelExists`, `ProductModelHeight` (≤ direction).
+- `stableFaltingsHeight_add_le`: h(A) + h(B) ≤ h(C) for C ≅ A × B, from NeronModelExists,
+  NeronModelMinimal, ProductGroupModelExists, ProductModelHeight.
+- FINDING: the E4 direction of additivity needs NO semistable reduction (rv-blueprints F1 said it
+  needs H5 = Néron + semistable base change): comparing over each L separately suffices.
