@@ -1,0 +1,11 @@
+# frob-contrib log
+- 10:18 merged origin/wip/afr-absfrob (2ffcf322) and origin/wip/unram-roots (b066d686); no changes to ZInQKernel/ or ThirdParty/ from either merge.
+- 10:20 Statement check: `def UnramRoots` block identical to scratch/local-glue/LocalGlue.lean (diff empty); `def AbsFrob` block cmp-identical to scratch/alg-frob-red/AlgFrobRed.lean. No namespace clash (G15Ram, UnramRootsTask, AbsFrobDef, AlgFrobRedRed not in ZInQKernel/). All five TC modules imported by TCPart are already vendored -> no new vendoring.
+- 10:21 TC oleans reused from ~/dzq-wt/unram-roots/.lake/build (cp -a --reflink).
+- 10:30 lake build AbsFrob.Basic, AbsFrob.AlgFrobRed: OK (9049 jobs, mostly replay, 8 min). AbsFrob.Sanity: two rw [fr_Spec] left proof mvars; fixed; lake env lean Sanity.lean: no errors. VERIFIED.
+- 10:56 UnramRoots.Sanity lake build killed by harness background time limit (was rebuilding LadicCond); load 155 > 150 -> holding.
+- 11:08 load back to 17. lake build UnramRoots chain: Reduction, Metric, FrobData, Procyclic, Main OK (warnings only); Sanity had 3 errors (Padic.nonarchimedean name, CharZero via charZero_of_injective_algebraMap, Decidable -> open scoped Classical in); fixed.
+- 11:12 lake build of all 9 new modules: exit 0 (build_all.txt). CheckFrob.lean: 13 declarations, all [propext, Classical.choice, Quot.sound], no sorryAx (run_CheckFrob.txt). VERIFIED.
+- 11:14 seeded ZInQKernel oleans from ~/dzq-wt/dim-contrib (cp -an); lake build of all Check.lean imports: exit 0 (11259 jobs, build_checkdeps.txt).
+- 11:15 lake env lean scratch/frob-contrib/Check.lean: all 26 #print axioms standard, no sorryAx (run_Check.txt). VERIFIED.
+- body diff of adopted modules vs scratch sources: identical (modulo imports/adoption comment/noncomputable section/#print).
