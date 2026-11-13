@@ -1,0 +1,260 @@
+/-! # infra-hodge, part 3: determinant ideals and indices (pure algebra)
+
+* `detIdeal b W = span_R {b.det v | v ∈ W^ι} ⊆ L`;
+  `detIdeal (u.prod w) (W₁ × W₂) = detIdeal u W₁ * detIdeal w W₂` (`detIdeal_prod`: expand
+  `det(a + b)` multilinearly; a term is `0` unless exactly `g₁` columns come from `W₁`, and then
+  it is `± det_u · det_w` after sorting the columns).
+* `idx I = [I : 𝓞_L·1]` is multiplicative on `𝓞_L`-submodules of `L` containing `1`
+  (`idx_mul`: via integral ideals `J` with `𝓞_L J = n I` and `Ideal.absNorm`).
+* `delta b : L ⊗_{𝓞_L} ⋀^n_{𝓞_L} V → L`, `1 ⊗ ιMulti v ↦ b.det v`, is injective
+  (`delta_injective`, via hodge-bc2's `extFracEquiv`), so indices of lattices in the Hodge line
+  are indices of determinant ideals (`relIndex_detLat`). -/
+
+namespace ZInQ.InfraHodge
+
+open scoped TensorProduct
+open Module NumberField
+
+section DetIdeal
+
+variable {R L : Type*} [CommRing R] [Field L] [Algebra R L]
+
+/-- The `R`-submodule of `L` spanned by the determinants `b.det v` of families in `W`. -/
+noncomputable def detIdeal {V : Type*} [AddCommGroup V] [Module L V] [Module R V]
+    {ι : Type*} [Fintype ι] [DecidableEq ι] (b : Basis ι L V) (W : Submodule R V) :
+    Submodule R L :=
+  Submodule.span R (Set.range fun v : ι → W => b.det (fun i => (v i : V)))
+
+variable {V₁ V₂ : Type*} [AddCommGroup V₁] [Module L V₁] [AddCommGroup V₂] [Module L V₂]
+
+theorem det_prod_block {ι₁ ι₂ : Type*} [Fintype ι₁] [DecidableEq ι₁] [Fintype ι₂]
+    [DecidableEq ι₂] (u : Basis ι₁ L V₁) (w : Basis ι₂ L V₂) (x : ι₁ → V₁) (y : ι₂ → V₂) :
+    (u.prod w).det (Sum.elim (fun i => (x i, (0 : V₂))) (fun j => ((0 : V₁), y j))) =
+      u.det x * w.det y := by
+  rw [Basis.det_apply, Basis.det_apply, Basis.det_apply]
+  have : (u.prod w).toMatrix (Sum.elim (fun i => (x i, (0 : V₂))) (fun j => ((0 : V₁), y j))) =
+      Matrix.fromBlocks (u.toMatrix x) 0 0 (w.toMatrix y) := by
+    ext (a | a) (b | b) <;>
+      simp [Basis.toMatrix_apply, Basis.prod_repr_inl, Basis.prod_repr_inr]
+  rw [this, Matrix.det_fromBlocks_zero₂₁]
+
+variable [Module R V₁] [IsScalarTower R L V₁] [Module R V₂] [IsScalarTower R L V₂]
+
+theorem detIdeal_prod {g₁ g₂ : ℕ} (u : Basis (Fin g₁) L V₁) (w : Basis (Fin g₂) L V₂)
+    (W₁ : Submodule R V₁) (W₂ : Submodule R V₂) :
+    detIdeal (u.prod w) (W₁.prod W₂) = detIdeal u W₁ * detIdeal w W₂ := by
+  classical
+  haveI := Module.Finite.of_basis u
+  haveI := Module.Finite.of_basis w
+  apply le_antisymm
+  · rw [detIdeal, Submodule.span_le]
+    rintro _ ⟨v, rfl⟩
+    have hv1 : ∀ k, (v k : V₁ × V₂).1 ∈ W₁ := fun k => ((Submodule.mem_prod).mp (v k).2).1
+    have hv2 : ∀ k, (v k : V₁ × V₂).2 ∈ W₂ := fun k => ((Submodule.mem_prod).mp (v k).2).2
+    set a : (Fin g₁ ⊕ Fin g₂) → V₁ × V₂ := fun k => ((v k : V₁ × V₂).1, 0) with ha
+    set b : (Fin g₁ ⊕ Fin g₂) → V₁ × V₂ := fun k => (0, (v k : V₁ × V₂).2) with hb
+    have hvab : (fun k => (v k : V₁ × V₂)) = a + b := by
+      funext k; ext <;> simp [a, b]
+    show (u.prod w).det (fun k => (v k : V₁ × V₂)) ∈ _
+    rw [hvab, show (u.prod w).det (a + b) = (u.prod w).det.toMultilinearMap (a + b) from rfl,
+      MultilinearMap.map_add_univ]
+    refine Submodule.sum_mem _ fun S _ => ?_
+    by_cases h0 : (u.prod w).det.toMultilinearMap (S.piecewise a b) = 0
+    · rw [h0]; exact zero_mem _
+    have hli : LinearIndependent L (S.piecewise a b) :=
+      ((u.prod w).is_basis_iff_det.mpr (isUnit_iff_ne_zero.mpr h0)).1
+    have hS1 : S.card ≤ g₁ := by
+      have h1 : LinearIndependent L (fun k : S => (v k : V₁ × V₂).1) := by
+        refine LinearIndependent.of_comp (LinearMap.inl L V₁ V₂) ?_
+        have h2 := hli.comp (fun k : S => (k : Fin g₁ ⊕ Fin g₂)) Subtype.val_injective
+        convert h2 using 1
+        funext k
+        simp [Finset.piecewise_eq_of_mem _ _ _ k.2, a]
+      have := h1.fintype_card_le_finrank
+      rwa [Module.finrank_eq_card_basis u, Fintype.card_coe, Fintype.card_fin] at this
+    have hS2 : Sᶜ.card ≤ g₂ := by
+      have h1 : LinearIndependent L (fun k : (Sᶜ : Finset _) => (v k : V₁ × V₂).2) := by
+        refine LinearIndependent.of_comp (LinearMap.inr L V₁ V₂) ?_
+        have h2 := hli.comp (fun k : (Sᶜ : Finset _) => (k : Fin g₁ ⊕ Fin g₂))
+          Subtype.val_injective
+        convert h2 using 1
+        funext k
+        have hk : (k : Fin g₁ ⊕ Fin g₂) ∉ S := Finset.mem_compl.mp k.2
+        simp [Finset.piecewise_eq_of_notMem _ _ _ hk, b]
+      have := h1.fintype_card_le_finrank
+      rwa [Module.finrank_eq_card_basis w, Fintype.card_coe, Fintype.card_fin] at this
+    have hcard : S.card + Sᶜ.card = g₁ + g₂ := by
+      rw [Finset.card_add_card_compl, Fintype.card_sum, Fintype.card_fin, Fintype.card_fin]
+    have hS : S.card = g₁ := by omega
+    have e₁ : {k // k ∈ S} ≃ Fin g₁ := Fintype.equivFinOfCardEq (by rw [Fintype.card_coe, hS])
+    have e₂ : {k // k ∉ S} ≃ Fin g₂ := Fintype.equivFinOfCardEq (by
+      rw [Fintype.card_subtype_compl, Fintype.card_coe, Fintype.card_sum, Fintype.card_fin,
+        Fintype.card_fin]
+      omega)
+    let σ : Equiv.Perm (Fin g₁ ⊕ Fin g₂) :=
+      (Equiv.sumCongr e₁.symm e₂.symm).trans (Equiv.sumCompl (fun k => k ∈ S))
+    set x' : Fin g₁ → V₁ := fun i => (v (e₁.symm i) : V₁ × V₂).1
+    set y' : Fin g₂ → V₂ := fun j => (v (e₂.symm j) : V₁ × V₂).2
+    have hcomp : S.piecewise a b ∘ σ =
+        Sum.elim (fun i => (x' i, (0 : V₂))) (fun j => ((0 : V₁), y' j)) := by
+      funext k
+      rcases k with i | j
+      · show S.piecewise a b ((e₁.symm i : {k // k ∈ S}) : Fin g₁ ⊕ Fin g₂) = (x' i, 0)
+        rw [Finset.piecewise_eq_of_mem _ _ _ (e₁.symm i).2]
+      · show S.piecewise a b ((e₂.symm j : {k // k ∉ S}) : Fin g₁ ⊕ Fin g₂) = (0, y' j)
+        rw [Finset.piecewise_eq_of_notMem _ _ _ (e₂.symm j).2]
+    have hperm := (u.prod w).det.map_perm (S.piecewise a b) σ
+    rw [hcomp, det_prod_block] at hperm
+    have hmem : u.det x' * w.det y' ∈ detIdeal u W₁ * detIdeal w W₂ :=
+      Submodule.mul_mem_mul (Submodule.subset_span ⟨fun i => ⟨x' i, hv1 _⟩, rfl⟩)
+        (Submodule.subset_span ⟨fun j => ⟨y' j, hv2 _⟩, rfl⟩)
+    have : (u.prod w).det.toMultilinearMap (S.piecewise a b) =
+        Equiv.Perm.sign σ • (u.det x' * w.det y') := by
+      rw [hperm, smul_smul, Int.units_mul_self, one_smul]
+      rfl
+    rw [this, Units.smul_def]
+    exact zsmul_mem hmem _
+  · rw [detIdeal, detIdeal, Submodule.span_mul_span, Submodule.span_le]
+    rintro _ ⟨_, ⟨x, rfl⟩, _, ⟨y, rfl⟩, rfl⟩
+    refine Submodule.subset_span ⟨Sum.elim (fun i => ⟨((x i : V₁), 0),
+      Submodule.mem_prod.mpr ⟨(x i).2, zero_mem _⟩⟩) (fun j => ⟨(0, (y j : V₂)),
+      Submodule.mem_prod.mpr ⟨zero_mem _, (y j).2⟩⟩), ?_⟩
+    show (u.prod w).det (fun k => ((Sum.elim (fun i => (⟨((x i : V₁), 0), _⟩ : W₁.prod W₂))
+      (fun j => ⟨(0, (y j : V₂)), _⟩) k : W₁.prod W₂) : V₁ × V₂)) =
+        u.det (fun i => (x i : V₁)) * w.det (fun j => (y j : V₂))
+    rw [← det_prod_block u w (fun i => (x i : V₁)) (fun j => (y j : V₂))]
+    congr 1
+    funext k
+    rcases k with i | j <;> rfl
+
+end DetIdeal
+
+section Index
+
+variable {L : Type*} [Field L] [NumberField L]
+
+/-- `idx I = [I : 𝓞_L · 1]` (`0` if infinite). -/
+noncomputable def idx (I : Submodule (𝓞 L) L) : ℕ :=
+  (Submodule.span (𝓞 L) {(1 : L)}).toAddSubgroup.relIndex I.toAddSubgroup
+
+theorem index_toAddSubgroup_ideal (J : Ideal (𝓞 L)) : J.toAddSubgroup.index = Ideal.absNorm J := by
+  rw [Ideal.absNorm_apply, Submodule.cardQuot_apply]
+  rfl
+
+theorem map_linearMap_span_singleton (n : 𝓞 L) :
+    Submodule.map (Algebra.linearMap (𝓞 L) L) (Ideal.span {n}) = Submodule.span (𝓞 L) {(n : L)} := by
+  rw [Ideal.span, Submodule.map_span, Set.image_singleton]
+  rfl
+
+/-- `idx I · N(J) = N(n)` when `𝓞_L J = n I` and `1 ∈ I`. -/
+theorem idx_mul_absNorm (I : Submodule (𝓞 L) L) (J : Ideal (𝓞 L)) (n : 𝓞 L) (hn : n ≠ 0)
+    (h1 : (1 : L) ∈ I) (hJ : Submodule.map (Algebra.linearMap (𝓞 L) L) J = Submodule.span (𝓞 L) {(n : L)} * I) :
+    idx I * Ideal.absNorm J = Ideal.absNorm (Ideal.span {n}) := by
+  have hnL : (n : L) ≠ 0 := by
+    intro h; exact hn (RingOfIntegers.coe_eq_zero_iff.mp h)
+  let μ : L →+ L := AddMonoidHom.mulLeft (n : L)
+  have hμ : Function.Injective μ := fun x y h => mul_left_cancel₀ hnL h
+  let μl : L →ₗ[𝓞 L] L := LinearMap.mulLeft (𝓞 L) (n : L)
+  have hmap : ∀ N : Submodule (𝓞 L) L, N.toAddSubgroup.map μ = (N.map μl).toAddSubgroup := by
+    intro N; rw [Submodule.map_toAddSubgroup]; rfl
+  have hmulI : I.map μl = Submodule.span (𝓞 L) {(n : L)} * I := by
+    rw [Submodule.span_singleton_mul]
+    rfl
+  have hmul1 : (Submodule.span (𝓞 L) {(1 : L)}).map μl = Submodule.span (𝓞 L) {(n : L)} := by
+    rw [Submodule.map_span, Set.image_singleton]
+    simp [μl]
+  let alg : 𝓞 L →+ L := (algebraMap (𝓞 L) L).toAddMonoidHom
+  have halg : Function.Injective alg := RingOfIntegers.coe_injective
+  have hmapA : ∀ N : Ideal (𝓞 L), N.toAddSubgroup.map alg =
+      (Submodule.map (Algebra.linearMap (𝓞 L) L) N).toAddSubgroup := by
+    intro N; rw [Submodule.map_toAddSubgroup]; rfl
+  have hnJ : Ideal.span {n} ≤ J := by
+    rw [Ideal.span_le, Set.singleton_subset_iff]
+    have : (n : L) ∈ Submodule.map (Algebra.linearMap (𝓞 L) L) J := by
+      rw [hJ]; exact Submodule.mem_span_singleton_mul.mpr ⟨1, h1, mul_one _⟩
+    obtain ⟨m, hm, hmn⟩ := Submodule.mem_map.mp this
+    rwa [RingOfIntegers.coe_injective hmn] at hm
+  unfold idx
+  rw [← AddSubgroup.relIndex_map_map_of_injective _ _ hμ, hmap, hmap, hmulI, hmul1, ← hJ,
+    ← map_linearMap_span_singleton, ← hmapA, ← hmapA,
+    AddSubgroup.relIndex_map_map_of_injective _ _ halg, ← index_toAddSubgroup_ideal,
+    ← index_toAddSubgroup_ideal, ← AddSubgroup.relIndex_top_right, ← AddSubgroup.relIndex_top_right,
+    AddSubgroup.relIndex_mul_relIndex _ _ _ (Submodule.toAddSubgroup_mono hnJ) le_top]
+
+theorem idx_le_mul {I₁ I₂ : Submodule (𝓞 L) L} (h1 : (1 : L) ∈ I₂) : I₁ ≤ I₁ * I₂ :=
+  fun x hx => by simpa using Submodule.mul_mem_mul hx h1
+
+theorem one_le_span {I : Submodule (𝓞 L) L} (h1 : (1 : L) ∈ I) :
+    Submodule.span (𝓞 L) {(1 : L)} ≤ I := by
+  rw [Submodule.span_le, Set.singleton_subset_iff]; exact h1
+
+/-- **Indices multiply**: `[I₁I₂ : 𝓞] = [I₁ : 𝓞][I₂ : 𝓞]` for `1 ∈ I₁, I₂`. -/
+theorem idx_mul {I₁ I₂ : Submodule (𝓞 L) L} (h₁ : (1 : L) ∈ I₁) (h₂ : (1 : L) ∈ I₂) :
+    idx (I₁ * I₂) = idx I₁ * idx I₂ := by
+  have tower : ∀ {I I' : Submodule (𝓞 L) L}, (1 : L) ∈ I → I ≤ I' →
+      idx I' = idx I * I.toAddSubgroup.relIndex I'.toAddSubgroup := by
+    intro I I' hI hII'
+    unfold idx
+    rw [AddSubgroup.relIndex_mul_relIndex _ _ _ (Submodule.toAddSubgroup_mono (one_le_span hI))
+      (Submodule.toAddSubgroup_mono hII')]
+  by_cases hz₁ : idx I₁ = 0
+  · rw [hz₁, zero_mul, tower h₁ (idx_le_mul h₂), hz₁, zero_mul]
+  by_cases hz₂ : idx I₂ = 0
+  · rw [hz₂, mul_zero, mul_comm I₁, tower h₂ (idx_le_mul h₁), hz₂, zero_mul]
+  -- both indices finite
+  have hint : ∀ {I : Submodule (𝓞 L) L}, idx I ≠ 0 →
+      Submodule.span (𝓞 L) {(((idx I).factorial : 𝓞 L) : L)} * I ≤
+        Submodule.span (𝓞 L) {(1 : L)} := by
+    intro I hI y hy
+    obtain ⟨x, hx, rfl⟩ := Submodule.mem_span_singleton_mul.mp hy
+    have := AddSubgroup.nsmul_mem_of_relIndex_ne_zero_of_dvd hI (a := x) hx
+      (n := (idx I).factorial) (fun m hm hm' => Nat.dvd_factorial hm hm')
+    have h' := (AddSubgroup.mem_inf.mp this).1
+    rw [nsmul_eq_mul] at h'
+    simpa using h'
+  have hrange : Submodule.span (𝓞 L) {(1 : L)} ≤ LinearMap.range (Algebra.linearMap (𝓞 L) L) := by
+    rw [Submodule.span_le, Set.singleton_subset_iff]
+    exact ⟨1, by simp⟩
+  have hfac : ∀ I : Submodule (𝓞 L) L, ((idx I).factorial : 𝓞 L) ≠ 0 :=
+    fun I => Nat.cast_ne_zero.mpr (Nat.factorial_ne_zero _)
+  set n₁ : 𝓞 L := ((idx I₁).factorial : 𝓞 L)
+  set n₂ : 𝓞 L := ((idx I₂).factorial : 𝓞 L)
+  set J₁ : Ideal (𝓞 L) := Submodule.comap (Algebra.linearMap (𝓞 L) L)
+    (Submodule.span (𝓞 L) {(n₁ : L)} * I₁)
+  set J₂ : Ideal (𝓞 L) := Submodule.comap (Algebra.linearMap (𝓞 L) L)
+    (Submodule.span (𝓞 L) {(n₂ : L)} * I₂)
+  have hJ₁ : Submodule.map (Algebra.linearMap (𝓞 L) L) J₁ =
+      Submodule.span (𝓞 L) {(n₁ : L)} * I₁ := by
+    rw [Submodule.map_comap_eq, inf_eq_right]
+    exact (hint hz₁).trans hrange
+  have hJ₂ : Submodule.map (Algebra.linearMap (𝓞 L) L) J₂ =
+      Submodule.span (𝓞 L) {(n₂ : L)} * I₂ := by
+    rw [Submodule.map_comap_eq, inf_eq_right]
+    exact (hint hz₂).trans hrange
+  have hJ : Submodule.map (Algebra.linearMap (𝓞 L) L) (J₁ * J₂) =
+      Submodule.span (𝓞 L) {((n₁ * n₂ : 𝓞 L) : L)} * (I₁ * I₂) := by
+    rw [show Submodule.map (Algebra.linearMap (𝓞 L) L) (J₁ * J₂) =
+      Submodule.map (Algebra.ofId (𝓞 L) L).toLinearMap ((J₁ : Submodule (𝓞 L) (𝓞 L)) * J₂) from rfl,
+      Submodule.map_mul]
+    erw [hJ₁, hJ₂]
+    have hc : ((n₁ * n₂ : 𝓞 L) : L) = (n₁ : L) * (n₂ : L) := by simp
+    rw [hc, ← Set.singleton_mul_singleton, ← Submodule.span_mul_span]
+    ring
+  have e₁ := idx_mul_absNorm I₁ J₁ n₁ (hfac I₁) h₁ hJ₁
+  have e₂ := idx_mul_absNorm I₂ J₂ n₂ (hfac I₂) h₂ hJ₂
+  have e₁₂ := idx_mul_absNorm (I₁ * I₂) (J₁ * J₂) (n₁ * n₂) (mul_ne_zero (hfac I₁) (hfac I₂))
+    (by simpa using Submodule.mul_mem_mul h₁ h₂) hJ
+  rw [map_mul, ← Ideal.span_singleton_mul_span_singleton, map_mul, ← e₁, ← e₂] at e₁₂
+  have hne : Ideal.absNorm J₁ * Ideal.absNorm J₂ ≠ 0 := by
+    refine mul_ne_zero (fun h => ?_) (fun h => ?_)
+    · rw [h, mul_zero, eq_comm, Ideal.absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot] at e₁
+      exact hfac I₁ e₁
+    · rw [h, mul_zero, eq_comm, Ideal.absNorm_eq_zero_iff, Ideal.span_singleton_eq_bot] at e₂
+      exact hfac I₂ e₂
+  apply Nat.eq_of_mul_eq_mul_right (Nat.pos_of_ne_zero hne)
+  rw [e₁₂]
+  ring
+
+end Index
+
+end ZInQ.InfraHodge
