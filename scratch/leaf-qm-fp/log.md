@@ -32,3 +32,6 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   (the three CM points exist). `R1R2fp` := ∃ Y Φ π X Ψ fY π₆, R1fpProps ∧ R1heckeProps ∧
   X6Props ∧ R2X6Props ∧ CMExists. Proved: `R2fpProps_of_X6`, `R1R2fp_Y` (the Y₃ form).
   COMPILES, 19 s, axioms standard.
+- 17:35 proved `conj_iso_of_rational` (A7 in the manuscript's form: for a K-point with rational
+  π-value and embeddings e₁ e₂ : K → ℚ̄, the base changes exist and their QM pairs are twists, so
+  the abelian surfaces are isomorphic over ℚ̄), from R1fpProps + R2fpProps only. COMPILES.

@@ -739,6 +739,32 @@ theorem conj_twist_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEq
     _ = π.val (K := Qbar) (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ y).left :=
         (π.val_comp (σ : Qbar →+* Qbar) y.left).symm
 
+/-- **Glue A7 (compiled), the manuscript's form.** Let `y` be a `K`-point of `Y` (e.g. `K` the
+fibre field) with object `P` and rational `π`-value. For any two embeddings `ι₁, ι₂ : K → ℚ̄`, the
+two base changes `P ⊗_{ι₁} ℚ̄`, `P ⊗_{ι₂} ℚ̄` exist as objects and their QM pairs are
+`Aut(𝒪)`-twists of each other; in particular their abelian surfaces are isomorphic over `ℚ̄`
+("every conjugate `σA` is isomorphic to `A` over `ℚ̄`", pkg-I1 (I1-out)(ii)). Uses only
+`R1fpProps` (naturality) and `R2fpProps` (fibre clause), via `ToP1.val_comp`. -/
+theorem conj_iso_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
+    {K : Type} [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y) (P : QML3 K) (hP : Φ K y = M3.mk P)
+    (j₀ : ℚ) (hj : π.val (K := K) y.left = OnePoint.some (algebraMap ℚ K j₀))
+    (e₁ e₂ : K →ₐ[ℚ] Qbar) :
+    ∃ Q₁ Q₂ : QML3 Qbar, IsBaseChangeOf (e₁ : K →+* Qbar) P Q₁ ∧
+      IsBaseChangeOf (e₂ : K →+* Qbar) P Q₂ ∧
+      ∃ α : O ≃+* O, Nonempty (QMIso (Q₁.q.twist α) Q₂.q) := by
+  obtain ⟨-, -, hnat⟩ := h1
+  obtain ⟨Q₁, hQ₁, hb₁⟩ := hnat K Qbar e₁ y P hP
+  obtain ⟨Q₂, hQ₂, hb₂⟩ := hnat K Qbar e₂ y P hP
+  refine ⟨Q₁, Q₂, hb₁, hb₂, ((h2 _ _ Q₁ Q₂ hQ₁ hQ₂).1).1 ?_⟩
+  have e : ∀ e : K →ₐ[ℚ] Qbar, π.val (K := Qbar) (fieldMap e ≫ y).left =
+      OnePoint.some (algebraMap ℚ Qbar j₀) := by
+    intro e
+    calc π.val (K := Qbar) (fieldMap e ≫ y).left
+        = (π.val (K := K) y.left).map (e : K →+* Qbar) := π.val_comp (e : K →+* Qbar) y.left
+      _ = OnePoint.some (algebraMap ℚ Qbar j₀) := by rw [hj]; simp
+  rw [e e₁, e e₂]
+
 /-- The underlying abelian surfaces of a QM-pair twist are isomorphic (A7's conclusion). -/
 theorem QMIso.nonempty_abVarIso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'}
     (f : QMIso q q') : ∃ (φ : AbVar.Hom A A') (ψ : AbVar.Hom A' A),
@@ -862,3 +888,4 @@ end LeafQM
 #print axioms LeafQM.AV.ToP1.val_comp
 #print axioms LeafQM.AV.conj_twist_of_rational
 #print axioms LeafQM.AV.R1R2fp_Y
+#print axioms LeafQM.AV.conj_iso_of_rational
