@@ -15,3 +15,4 @@
   `leafHasse : GlueDescent.B2Q.LeafHasse`: all `[propext, Classical.choice, Quot.sound]`
   (scratch/kummer-index/axioms.txt).
 - No new Tau Ceti module vendored; no vendored file edited.
+- diffcheck2: 19 MOD-UNNOTED, all pre-existing on main 033423ee (none from this task); list in mod-unnoted-preexisting.txt.
