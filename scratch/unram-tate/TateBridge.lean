@@ -1215,8 +1215,215 @@ theorem iO_jO : iO * jO = -(jO * iO) := by
     Subring.coe_one, jO, hO, iO]
   ext <;> simp [LeafQM.ofInt] <;> norm_num
 
+/-! ## The named glue pieces -/
+
+/-- **Glue piece TB-i (points of a base change; `\overline{L'} ≅ ℚ̄` over `L'`).** For
+`L ≤ L'` with `L'/ℚ` finite Galois and `A/L`: an additive bijection
+`Θ : A(ℚ̄) ≅ A_{L'}(\overline{L'})` and `h ∈ G_ℚ` such that `Θ` carries the action of
+`h · resQ(σ) · h⁻¹` on `A(ℚ̄)` (an `L`-automorphism of `ℚ̄`) to the action of `σ ∈ G_{L'}` on
+`A_{L'}(\overline{L'})`. Proof plan: `A_{L'}(Ω) = A(Ω)` for every `L'`-algebra `Ω` (universal
+property of `Over.pullback`, compatible with the group law since the pullback functor is
+monoidal), and `Θ` is induced by an `L'`-isomorphism `φ : \overline{L'} ≅ ℚ̄`
+(`IsAlgClosure.equiv`); then `h = φ ∘ g` for the embedding `g : ℚ̄ → \overline{L'}` of
+`Field.absoluteGaloisGroup.map` (`resQ_comm'`). Not in Mathlib v4.35 as such. -/
+def TatePoints : Prop :=
+  ∀ (L L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L') (A : PkgI3.AbVar L),
+    ∃ (Θ : PtQ L A ≃+ PtA (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) (h : PkgI4.GQ),
+      ∀ (σ : Field.absoluteGaloisGroup L') (σ' : Qbar ≃ₐ[L] Qbar),
+        (∀ x, σ' x = (h * (@GaloisCopy.resQ L' _ (numberField_of_fd L') σ) * h⁻¹) x) →
+        ∀ x, Θ (MonoidHom.toAdditive (A.galAct σ') x) =
+          MonoidHom.toAdditive ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).galAct σ)
+            (Θ x)
+
+/-- **Glue piece TB-ii (base change of endomorphisms).** For `K ≤ L` and `A/K`, a ring
+homomorphism `End_K(A) → End_L(A_L)` (`f ↦ f_L`: `Over.pullback` is a monoidal functor, so it
+maps monoid morphisms to monoid morphisms and preserves composition, identities and the
+pointwise sum). -/
+def EndBaseChange : Prop :=
+  ∀ (K L : IF) (hKL : K ≤ L) (A : PkgI3.AbVar K),
+    Nonempty (PkgI3.AbVar.End A →+*
+      PkgI3.AbVar.End (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)))
+
+/-- **Glue piece TB-iii (scalars into `ℚ̄_ℓ`; algebra).** The data of B1/B2 (`a > 0` real,
+`c = n/d`, `ε`, `β` complex, with `a_σ a_τ c(σ,τ) = ε(σ,τ) a_{στ}` and `∂β = ε`, both constant
+on cosets of the open subgroup `G_{L'}` and `1` on it) give `gam : G_ℚ → ℚ̄_ℓ^×` with `∂gam = c`,
+constant on `G_{L'}`-cosets and `1` on `G_{L'}`. Proof plan: `gam_ℂ = β/a` satisfies
+`gam_σ gam_τ = c(σ,τ) gam_{στ}`; it takes finitely many values (cosets of `G_{L'}`, finite index),
+each algebraic (`gam_σ^r ∈ ℚ^×` for `σ^r ∈ G_{L'}`), so they generate a number field
+`F ⊆ ℂ`; embed `F → ℚ̄_ℓ` (`IsAlgClosed.lift`). -/
+def ScalarTransfer : Prop :=
+  ∀ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (ℓ : ℕ) [Fact ℓ.Prime] (a : GQ → ℝ)
+    (β : GQ → ℂˣ) (ε : GQ → GQ → ℂˣ) (n d : GQ → GQ → ℤ),
+    (∀ σ τ, d σ τ ≠ 0) →
+    (∀ σ τ, (((a σ * a τ * ((n σ τ : ℝ) / d σ τ) : ℝ) : ℂ)) =
+      (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ)) →
+    (∀ σ τ, β σ * β τ = ε σ τ * β (σ * τ)) →
+    (∀ σ, 0 < a σ) →
+    (∀ σ, ∀ k ∈ GQL L', a (σ * k) = a σ ∧ β (σ * k) = β σ) →
+    (∀ k ∈ GQL L', a k = 1 ∧ β k = 1) →
+    ∃ gam : GQ → PadicAlgCl ℓ, (∀ σ, gam σ ≠ 0) ∧
+      (∀ σ τ, gam σ * gam τ = ((n σ τ : PadicAlgCl ℓ) / (d σ τ : PadicAlgCl ℓ)) * gam (σ * τ)) ∧
+      (∀ σ, ∀ k ∈ GQL L', gam (σ * k) = gam σ) ∧ (∀ k ∈ GQL L', gam k = 1)
+
+/-- **Glue piece TB-iv (continuity of the Tate representation over `ℚ̄_ℓ`).** For a number
+field `K` and `A/K`, every matrix coefficient `σ ↦ f(ρ_ℓ(σ) v)` of `ℚ̄_ℓ ⊗ V_ℓ(A)` is continuous
+on `G_K`. From glue-rho-cont (`ZInQKernel/HDecomp/I3Linalg/RhoCont.lean`,
+`continuous_galRep_of_tateModuleFree`: continuity on `V_ℓ(A)`, given the leaf I3.M0
+`TateModuleFree`) and the finite dimension of `V_ℓ(A)` (same leaf). -/
+def TateCont : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (f : Module.Dual (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ)) (v : GaloisCopy.Vb A ℓ),
+    Continuous fun σ : Field.absoluteGaloisGroup K => f (GaloisCopy.tate A ℓ σ v)
+
+/-- **Glue piece TB-v (Galois topology).** For finite Galois `L' ⊆ ℚ̄`, `resQ L' : G_{L'} → G_ℚ`
+is an open embedding (continuous by Mathlib, `Field.absoluteGaloisGroup.map` is a continuous
+homomorphism; injective; `G_{L'}` compact, `G_ℚ` Hausdorff; image `Fix(L')` open, `ResQRange`). -/
+def ResQEmbedding : Prop :=
+  ∀ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'],
+    Topology.IsOpenEmbedding (@GaloisCopy.resQ L' _ (numberField_of_fd L'))
+
+/-! ## The assembly -/
+
+/-- `ε(σ, k) = 1` for `k ∈ G_L` (inflation and normalization). -/
+theorem eps_right_one (L : IF) (ε : GQ → GQ → ℂˣ) (hεc : IsSignCocycle ε)
+    (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1) (σ k : GQ) (hk : k ∈ GQL L) : ε σ k = 1 := by
+  have h1 : ε σ k = ε σ 1 :=
+    hinf σ σ k 1 (fun _ _ => rfl) (fun x hx => by rw [mem_GQL.mp hk x hx]; rfl)
+  have h2 := hεc.2.2 σ 1 1
+  rw [_root_.mul_one, _root_.one_mul, h11, _root_.one_mul] at h2
+  rw [h1]
+  exact mul_left_cancel (a := ε σ 1) (by rw [h2, _root_.mul_one])
+
+set_option maxHeartbeats 1000000 in
+/-- **`TateBridge` from the five glue pieces** (and the proved `opVHom`, `matrixUnits_of_quat`,
+`resQRange`, glue-descent's `rho_map_mul`). `Tm g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹)`,
+`c = ε' = n/d` at `(hgh⁻¹, hg'h⁻¹)`, `a = 1`, `β' g = gam(hgh⁻¹)`; the matrix units are those of
+`I, J`, the images of `i, j ∈ 𝒪` under `opV(Θ ∘ (QM action on A(ℚ̄)) ∘ Θ⁻¹)`. -/
+theorem tateBridge_of_pieces (hP : TatePoints) (hE : EndBaseChange) (hS : ScalarTransfer)
+    (hC : TateCont) (hR : ResQEmbedding) : TateBridge := by
+  intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD _hdim _hrank ℓ _
+  haveI hNF : NumberField L' := numberField_of_fd L'
+  obtain ⟨hQM, hDD, -, -, -, -, -, hβe, hL', -, -, -⟩ := hD
+  obtain ⟨hεc, hinf, h11, m, a, ha0, haL, hmL, hmLL, hmEnd, -, hmc, -⟩ := hDD
+  choose n d hn hd hnd hna using hmc
+  obtain ⟨iot⟩ : Nonempty (LeafQM.O →+* PkgI3.AbVar.End A) := by
+    obtain ⟨K, hKL, PK, -, rfl⟩ := hQM
+    exact ⟨(hE K L hKL PK.A).some.comp PK.q.iota⟩
+  obtain ⟨Θ, h, hΘ⟩ := hP L L' hLL' A
+  have hLL'G : ∀ k, k ∈ GQL L' → k ∈ GQL L := fun k hk => ((hL' k).mp hk).1
+  have hβL' : ∀ k, k ∈ GQL L' → β k = 1 := fun k hk => ((hL' k).mp hk).2
+  obtain ⟨gam, hgam0, hgamc, hgamcos, hgam1⟩ := hS L' ℓ a β ε n d hd hna hβe ha0
+    (fun σ k hk => ⟨(haL σ k (hLL'G k hk)).2.1, by
+      have := hβe σ k
+      rw [hβL' k hk, _root_.mul_one, eps_right_one L ε hεc hinf h11 σ k (hLL'G k hk),
+        _root_.one_mul] at this
+      exact this.symm⟩)
+    (fun k hk => ⟨(haL 1 k (hLL'G k hk)).1, hβL' k hk⟩)
+  -- notation
+  let R : AddMonoid.End (PtQ L A) →+* Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ) :=
+    (opVHom (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ).comp (conjE Θ)
+  let cj : PkgI4.GQ → GQ := fun g => h * g * h⁻¹
+  have hcj : ∀ g g₂, cj (g * g₂) = cj g * cj g₂ := fun g g₂ => by
+    show h * (g * g₂) * h⁻¹ = (h * g * h⁻¹) * (h * g₂ * h⁻¹)
+    group
+  let m' : GQ → AddMonoid.End (PtQ L A) := m
+  let Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ) := fun g => R (m' (cj g))
+  let c' : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ := fun g g₂ =>
+    ((n (cj g) (cj g₂) : PadicAlgCl ℓ) / (d (cj g) (cj g₂) : PadicAlgCl ℓ))
+  let a' : PkgI4.GQ → PadicAlgCl ℓ := fun _ => 1
+  let β' : PkgI4.GQ → PadicAlgCl ℓ := fun g => gam (cj g)
+  -- matrix units
+  let QM : LeafQM.O →+* Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ) :=
+    R.comp ((LeafQM.AV.endPt A Qbar).comp iot)
+  obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq (2 : PadicAlgCl ℓ) (by norm_num : 0 < 2)
+  have hI : QM iO * QM iO = (2 : PadicAlgCl ℓ) • (1 : Module.End (PadicAlgCl ℓ) _) := by
+    rw [← map_mul, iO_sq, map_add, map_one, two_smul]
+  have hJ : QM jO * QM jO = (-3 : PadicAlgCl ℓ) • (1 : Module.End (PadicAlgCl ℓ) _) := by
+    rw [← map_mul, jO_sq, map_neg, map_add, map_add, map_one]
+    module
+  have hIJ : QM iO * QM jO = -(QM jO * QM iO) := by
+    rw [← map_mul, iO_jO, map_neg, map_mul]
+  obtain ⟨uu, huu⟩ := matrixUnits_of_quat s hs two_ne_zero three_ne_zero _ _ hI hJ hIJ
+  have hcomm : ∀ (g : PkgI4.GQ) (o : LeafQM.O), Commute (Tm g) (QM o) := by
+    intro g o
+    apply Commute.map _ R
+    exact hmEnd (cj g) (iot o)
+  -- the relations
+  have hT : ∀ g g₂, Tm g * Tm g₂ = c' g g₂ • Tm (g * g₂) := by
+    intro g g₂
+    have h0 : d (cj g) (cj g₂) • (m' (cj g) * m' (cj g₂)) = n (cj g) (cj g₂) • m' (cj g * cj g₂) :=
+      hnd (cj g) (cj g₂)
+    have h1 := congrArg R h0
+    rw [map_zsmul, map_zsmul, ← hcj] at h1
+    have h1' : d (cj g) (cj g₂) • (Tm g * Tm g₂) = n (cj g) (cj g₂) • Tm (g * g₂) := by
+      show d (cj g) (cj g₂) • (R (m' (cj g)) * R (m' (cj g₂))) = _
+      rw [← map_mul]; exact h1
+    have h2 : (d (cj g) (cj g₂) : PadicAlgCl ℓ) • (Tm g * Tm g₂) =
+        (n (cj g) (cj g₂) : PadicAlgCl ℓ) • Tm (g * g₂) :=
+      (Int.cast_smul_eq_zsmul (PadicAlgCl ℓ) _ _).trans
+        (h1'.trans (Int.cast_smul_eq_zsmul (PadicAlgCl ℓ) _ _).symm)
+    have hd0 : (d (cj g) (cj g₂) : PadicAlgCl ℓ) ≠ 0 := Int.cast_ne_zero.mpr (hd _ _)
+    show _ = ((n (cj g) (cj g₂) : PadicAlgCl ℓ) / (d (cj g) (cj g₂) : PadicAlgCl ℓ)) • _
+    rw [div_eq_inv_mul, ← smul_smul, ← h2, smul_smul, inv_mul_cancel₀ hd0, one_smul]
+  have ha : ∀ g g₂, a' g * a' g₂ * c' g g₂ = c' g g₂ * a' (g * g₂) := by
+    intro g g₂; simp only [a', _root_.one_mul, _root_.mul_one]
+  have hβ : ∀ g g₂, β' g * β' g₂ = c' g g₂ * β' (g * g₂) := by
+    intro g g₂; simp only [β', c']; rw [hcj]; exact hgamc _ _
+  have hβ0 : ∀ g, β' g ≠ 0 := fun g => hgam0 _
+  -- `G_{L'}` is normal
+  have hnorm : (L'.fixingSubgroup).Normal :=
+    (InfiniteGalois.normal_iff_isGalois L').mpr inferInstance
+  have hres : ∀ σ : Field.absoluteGaloisGroup L',
+      cj (@GaloisCopy.resQ L' _ hNF σ) ∈ GQL L' := by
+    intro σ
+    have : (@GaloisCopy.resQ L' _ hNF σ) ∈ L'.fixingSubgroup := by
+      rw [← resQRange L']; exact ⟨σ, rfl⟩
+    exact hnorm.conj_mem _ this h
+  have hTres : ∀ σ : Field.absoluteGaloisGroup L',
+      Tm (@GaloisCopy.resQ L' _ hNF σ) = GaloisCopy.tate (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ σ := by
+    intro σ
+    have hτ := hres σ
+    let σ' : Qbar ≃ₐ[L] Qbar :=
+      AlgEquiv.ofRingEquiv (f := (act (cj (@GaloisCopy.resQ L' _ hNF σ))).toRingEquiv)
+        (fun x => (mem_GQL.mp (hLL'G _ hτ)) x x.2)
+    have hm := hmL (cj (@GaloisCopy.resQ L' _ hNF σ)) σ' (fun x => rfl)
+    rw [tate_eq_opV]
+    show opV (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ (conjE Θ (m' (cj _))) = _
+    congr 1
+    refine DFunLike.ext _ _ fun x => ?_
+    show Θ (m (cj (@GaloisCopy.resQ L' _ hNF σ)) (Θ.symm x)) = _
+    rw [hm]
+    show Θ (MonoidHom.toAdditive (A.galAct σ') (Θ.symm x)) = _
+    rw [hΘ σ σ' (fun x => rfl) (Θ.symm x), AddEquiv.apply_symm_apply]
+  have hrho1 : ∀ σ : Field.absoluteGaloisGroup L',
+      GlueDescent.rho Tm a' β' (@GaloisCopy.resQ L' _ hNF σ) = GaloisCopy.tate (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ σ := by
+    intro σ
+    unfold GlueDescent.rho
+    rw [hTres σ]
+    simp only [β', a', hgam1 _ (hres σ), inv_one, _root_.mul_one, one_smul]
+  refine ⟨Tm, c', c', a', β', uu, _hdim, _hrank, hT, ha, hβ, hβ0, fun σ => ⟨hTres σ, rfl, hgam1 _ (hres σ)⟩,
+    fun g i j => huu i j (Tm g) (hcomm g iO) (hcomm g jO), ?_⟩
+  -- continuity
+  intro f v
+  rw [continuous_iff_continuousAt]
+  intro g₀
+  let e₀ : Field.absoluteGaloisGroup L' → PkgI4.GQ := fun σ => g₀ * @GaloisCopy.resQ L' _ hNF σ
+  have he₀ : Topology.IsOpenEmbedding e₀ :=
+    (Homeomorph.mulLeft g₀).isOpenEmbedding.comp (hR L')
+  have he₀1 : e₀ 1 = g₀ := by simp only [e₀, map_one, _root_.mul_one]
+  have hcomp : (fun g => f (GlueDescent.rho Tm a' β' g v)) ∘ e₀ =
+      fun σ => (f ∘ₗ GlueDescent.rho Tm a' β' g₀) (GaloisCopy.tate (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ σ v) := by
+    funext σ
+    simp only [Function.comp_apply, e₀, LinearMap.comp_apply]
+    rw [← GlueDescent.rho_map_mul Tm c' c' a' β' hT ha hβ hβ0, hrho1, Module.End.mul_apply]
+  have hc : ContinuousAt ((fun g => f (GlueDescent.rho Tm a' β' g v)) ∘ e₀) 1 := by
+    rw [hcomp]; exact (hC L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _ v).continuousAt
+  rw [he₀.continuousAt_iff, he₀1] at hc
+  exact hc
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
 #print axioms UnramTate.matrixUnits_of_quat
 #print axioms UnramTate.jO_sq
+#print axioms UnramTate.tateBridge_of_pieces

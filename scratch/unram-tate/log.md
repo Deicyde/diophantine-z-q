@@ -14,3 +14,13 @@
 - `UnramTate.matrixUnits_of_quat`: over a field `E` with `2,3 ≠ 0`, `s² = 2`, operators `I, J` on `V` with
   `I² = 2`, `J² = -3`, `IJ = -JI` give `MatrixUnits2 E V` (glue-descent's structure) whose units commute with every
   operator commuting with `I` and `J`. VERIFIED: compiled, axioms [propext, Classical.choice, Quot.sound] (04:30).
+
+## TateBridge (scratch/g0-mod-field/ModField.lean L1021-1035): reduction (scratch/unram-tate/TateBridge.lean)
+- File = ModField.lean L1-1036 verbatim (so `G0ModField.TateBridge` is the statement as written) + section `UnramTate`.
+- Proved (no sorry): `opVHom` (ring hom End(A(K̄)) → End_{ℚ̄_ℓ}(ℚ̄_ℓ ⊗ V_ℓ A), from pkg-I3's `Tate.map`), `conjE`,
+  `matrixUnits_of_quat` (copy), `iO_sq`, `jO_sq`, `iO_jO` (i² = 2, j² = -3, ij = -ji in 𝒪), `eps_right_one`,
+  and `tateBridge_of_pieces : TatePoints → EndBaseChange → ScalarTransfer → TateCont → ResQEmbedding → TateBridge`.
+  VERIFIED: `lake env lean` exit 0, axioms [propext, Classical.choice, Quot.sound] (2026-11-13 ~04:55).
+- Construction: Tm g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹), c = ε' = n/d (at conjugated arguments), a = 1, β' g = γ(hgh⁻¹),
+  matrix units of I = opV(Θ∘ι(i)∘Θ⁻¹), J likewise; continuity: ρ(g₀·resQ σ) = ρ(g₀)·tate σ (rho_map_mul) + open embedding.
+- Named glue pieces (all glue, no new leaf): TatePoints, EndBaseChange, ScalarTransfer, TateCont, ResQEmbedding.
