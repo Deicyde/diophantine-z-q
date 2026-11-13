@@ -210,4 +210,74 @@ theorem jtpP_add_tau {τ : ℂ} (hτ : 0 < τ.im) (z : ℂ) :
   rw [this]
   ring
 
+
+/-! ### Nonvanishing on the real line -/
+
+theorem one_add_ne_zero_of_norm_lt {w : ℂ} (hw : ‖w‖ < 1) : 1 + w ≠ 0 := by
+  intro h
+  have : w = -1 := by linear_combination h
+  rw [this] at hw
+  simp at hw
+
+theorem jtpB_ne_zero_of_real {τ : ℂ} (hτ : 0 < τ.im) (x : ℝ) : jtpB τ x ≠ 0 := by
+  refine tprod_one_add_ne_zero_of_summable (fun n => one_add_ne_zero_of_norm_lt ?_)
+    (summable_jtpB_term hτ x)
+  rw [norm_mul, norm_pow, norm_eJ]
+  simp only [ofReal_im, mul_zero, Real.exp_zero, mul_one]
+  exact pow_lt_one₀ (norm_nonneg _) (norm_qJ_lt_one hτ) (by omega)
+
+theorem jtpP_ne_zero_of_real {τ : ℂ} (hτ : 0 < τ.im) (x : ℝ) : jtpP τ x ≠ 0 := by
+  unfold jtpP
+  refine mul_ne_zero (mul_ne_zero (jtpA_ne_zero hτ) (jtpB_ne_zero_of_real hτ x)) ?_
+  have := jtpB_ne_zero_of_real hτ (-x)
+  simpa using this
+
+/-! ### `θ` is proportional to the product -/
+
+theorem intervalIntegrable_of_differentiable {g : ℂ → ℂ} (hg : Differentiable ℂ g) :
+    IntervalIntegrable (fun x : ℝ => g x) MeasureTheory.volume 0 1 :=
+  (hg.continuous.comp continuous_ofReal).intervalIntegrable _ _
+
+theorem exists_jacobiTheta₂_eq_const_mul {τ : ℂ} (hτ : 0 < τ.im) :
+    ∃ c : ℂ, ∀ z, jacobiTheta₂ z τ = c * jtpP τ z := by
+  set a := ∫ x : ℝ in (0 : ℝ)..1, jtpP τ x with ha_def
+  set b := ∫ x : ℝ in (0 : ℝ)..1, jacobiTheta₂ x τ with hb_def
+  have hθd : Differentiable ℂ (fun z => jacobiTheta₂ z τ) :=
+    fun z => differentiableAt_jacobiTheta₂_fst z hτ
+  have hPd := differentiable_jtpP hτ
+  have ha : a ≠ 0 := by
+    intro ha0
+    have := eq_zero_of_theta_fe (τ := τ) hPd (jtpP_add_one τ) (jtpP_add_tau hτ) ha0
+    exact jtpP_ne_zero_of_real hτ 0 (by simpa using congrFun this 0)
+  have hf := eq_zero_of_theta_fe (τ := τ) (f := fun z => a * jacobiTheta₂ z τ - b * jtpP τ z)
+    ((hθd.const_mul a).sub (hPd.const_mul b))
+    (fun z => by simp only [jacobiTheta₂_add_left, jtpP_add_one])
+    (fun z => by simp only [jacobiTheta₂_add_left', jtpP_add_tau hτ]; ring)
+    (by
+      rw [intervalIntegral.integral_sub
+        ((intervalIntegrable_of_differentiable hθd).const_mul a)
+        ((intervalIntegrable_of_differentiable hPd).const_mul b),
+        intervalIntegral.integral_const_mul, intervalIntegral.integral_const_mul]
+      rw [← ha_def, ← hb_def]
+      ring)
+  refine ⟨b / a, fun z => ?_⟩
+  have := congrFun hf z
+  simp only [Pi.zero_apply] at this
+  field_simp
+  linear_combination this
+
+/-- The proportionality constant, read at `z = 1/2`. -/
+def jtpC (τ : ℂ) : ℂ := jacobiTheta₂ (1 / 2) τ / jtpP τ (1 / 2)
+
+theorem jtpP_half_ne_zero {τ : ℂ} (hτ : 0 < τ.im) : jtpP τ (1 / 2) ≠ 0 := by
+  have := jtpP_ne_zero_of_real hτ (1 / 2)
+  simpa using this
+
+theorem jacobiTheta₂_eq_jtpC_mul {τ : ℂ} (hτ : 0 < τ.im) (z : ℂ) :
+    jacobiTheta₂ z τ = jtpC τ * jtpP τ z := by
+  obtain ⟨c, hc⟩ := exists_jacobiTheta₂_eq_const_mul hτ
+  have hcc : c = jtpC τ := by
+    rw [jtpC, hc, mul_div_assoc, div_self (jtpP_half_ne_zero hτ), mul_one]
+  rw [hc, hcc]
+
 end ZInQ.GZTheta
