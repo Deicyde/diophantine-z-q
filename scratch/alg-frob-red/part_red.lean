@@ -1049,7 +1049,8 @@ def iotaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : Valuation
     exact hjc a)
 
 set_option synthInstance.maxHeartbeats 400000 in
-/-- `Θ`: I2's `κ(w')`-points of `𝒜` to `κ(w)‾`-points of the special fibre. -/
+/-- `Θ`: I2's `κ(w')`-points of `𝒜` to `κ(w)‾`-points of the special fibre (the adjunction
+bijection applied to `ι ≫ y`, written out). -/
 def thetaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : ValuationSubring PkgI4.Qbar)
     (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
     (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
@@ -1058,8 +1059,121 @@ def thetaW {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar) (v : Valuatio
     (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
         (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
     PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)) :=
-  (Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))))).homEquiv
-    _ 𝒜.X (iotaW ψ v j hjc ≫ y)
+  Over.homMk (pullback.lift (iotaW ψ v j hjc ≫ y).left
+    (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))).hom (Over.w (iotaW ψ v j hjc ≫ y)))
+    (pullback.lift_snd _ _ _)
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem thetaW_left {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
+    (thetaW ψ v 𝒜 j hjc y).left ≫
+        pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) =
+      Spec.map (CommRingCat.ofHom
+        (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) ≫ y.left :=
+  pullback.lift_fst _ _ _
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem thetaW_symm {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+    (y : Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) :
+    ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm (thetaW ψ v 𝒜 j hjc y) =
+      iotaW ψ v j hjc ≫ y :=
+  Over.OverMorphism.ext (thetaW_left ψ v 𝒜 j hjc y)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- `Θ` as a monoid homomorphism. -/
+def thetaHom {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
+    (Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v))))) ⟶ 𝒜.X) →*
+      PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v)) where
+  toFun := thetaW ψ v 𝒜 j hjc
+  map_one' := by
+    apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
+    rw [thetaW_symm, MonObj.comp_one]
+    have h := pb_one' (Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v)))) 𝒜
+      (PkgI2.specOver (kw L v) (AlgebraicClosure (kw L v))) _ rfl
+    exact (((Over.mapPullbackAdj _).homEquiv _ 𝒜.X).symm_apply_eq.mpr h.symm).symm
+  map_mul' y₁ y₂ := by
+    apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
+    rw [thetaW_symm, MonObj.comp_mul]
+    exact ((pb_symm_mul' _ 𝒜 _ (thetaW ψ v 𝒜 j hjc y₁) (thetaW ψ v 𝒜 j hjc y₂)).trans
+      (by rw [thetaW_symm, thetaW_symm])).symm
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem iotaW_isIso_left {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j) :
+    IsIso (Spec.map (CommRingCat.ofHom
+      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) := by
+  have hb : Function.Bijective (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom) :=
+    hjb.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).bijective
+  haveI : IsIso (CommRingCat.ofHom
+      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)) :=
+    (RingEquiv.ofBijective _ hb).toCommRingCatIso.isIso_hom
+  infer_instance
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem thetaW_injective {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j)
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
+    Function.Injective (thetaW ψ v 𝒜 j hjc) := by
+  intro y₁ y₂ h
+  haveI := iotaW_isIso_left ψ v j hjb
+  have h1 := congrArg ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm h
+  rw [thetaW_symm, thetaW_symm] at h1
+  have h2 := congrArg Over.Hom.left h1
+  apply Over.OverMorphism.ext
+  exact (cancel_epi (Spec.map (CommRingCat.ofHom
+    (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom)))).mp h2
+
+set_option synthInstance.maxHeartbeats 400000 in
+theorem thetaW_surjective {L : IF} (ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar)
+    (v : ValuationSubring PkgI4.Qbar) (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (hjb : Function.Bijective j)
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a)) :
+    Function.Surjective (thetaW ψ v 𝒜 j hjc) := by
+  intro yt
+  haveI := iotaW_isIso_left ψ v j hjb
+  let z := ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+    (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm yt
+  have hz2 : z.left ≫ 𝒜.X.hom = (iotaW ψ v j hjc).left ≫ (Over.mk (Spec.map (CommRingCat.ofHom
+      ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v)))))).hom :=
+    (Over.w z).trans (Over.w (iotaW ψ v j hjc)).symm
+  have hw : (inv (Spec.map (CommRingCat.ofHom
+      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) ≫ z.left) ≫ 𝒜.X.hom =
+      (Over.mk (Spec.map (CommRingCat.ofHom ((IsLocalRing.residue (wOf ψ v)).comp
+        (PkgI2.toW (Ow L v) (wOf ψ v) (hw_of ψ v)))))).hom :=
+    (Category.assoc _ _ _).trans ((congrArg (inv (Spec.map (CommRingCat.ofHom
+      (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) ≫ ·) hz2).trans
+      (IsIso.inv_hom_id_assoc _ _))
+  refine ⟨Over.homMk _ hw, ?_⟩
+  apply ((Over.mapPullbackAdj (Spec.map (CommRingCat.ofHom
+    (IsLocalRing.residue (Ow L v))))).homEquiv _ 𝒜.X).symm.injective
+  rw [thetaW_symm]
+  apply Over.OverMorphism.ext
+  exact IsIso.hom_inv_id_assoc (Spec.map (CommRingCat.ofHom
+    (j.comp (IsLocalRing.ResidueField.mapEquiv (psiW ψ v)).toRingHom))) z.left
 
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
