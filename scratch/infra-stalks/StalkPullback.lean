@@ -474,4 +474,10 @@ theorem isOpenImmersion_of_section_of_maximalIdeal_eq_bot {k : Type u} [Field k]
     exact (ConcreteCategory.isIso_iff_bijective _).mpr ⟨hinj, hsurj⟩
   exact IsOpenImmersion.of_isIso_stalkMap u hemb
 
+theorem stalkMap_congr_point_apply {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X} (h : x = x')
+    (z : Y.presheaf.stalk (f x)) :
+    (X.presheaf.stalkCongr (.of_eq h)).hom (f.stalkMap x z) =
+      f.stalkMap x' ((Y.presheaf.stalkCongr (.of_eq (congrArg f h))).hom z) :=
+  ConcreteCategory.congr_hom (Scheme.Hom.stalkMap_congr_point f x x' h) z
+
 end AlgebraicGeometry

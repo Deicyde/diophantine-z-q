@@ -16,3 +16,15 @@
   Ingredients: pullback_stalkGen transported along e (iso), maximal ideal at generic point of Spec 𝓞_{L'} is ⊥
   (function field), RationalOver at the generic unit (unit section), denominators cleared with N ∈ ℤ, s ∣ N
   (Ideal.under_lt_under_of_integral_mem_sdiff), N invertible in both local rings (germ_injective_of_isIntegral).
+- StalkPullback.lean additions (VERIFIED, compile 0 errors): `StalkGen.symm`, `rationalOver_of_retraction`,
+  `maximalIdeal_stalk_spec_field`, `mem_maximalIdeal_of_iso`, `stalkMap_comp_eq_zero_of_maximalIdeal_eq_bot`,
+  `stalkMap_congr_point_apply`, **`isOpenImmersion_of_section_of_maximalIdeal_eq_bot`** (q : P ⟶ Spec k locally of
+  finite type, u a section, stalk at u pt a field ⇒ u open immersion; via isClosedImmersion_of_comp_eq_id,
+  QuasiFiniteAt ↔ open point of fibre, IsOpenImmersion.of_isIso_stalkMap).
+
+## MulKer.lean (= StalkPullback body + verbatim scratch/mul-rigidity/Mul.lean + ker_proof.lean.part; assemble_mul.py)
+- `MulRigidity.kerUnitOpenOfCotangentSurj : KerUnitOpenOfCotangentSurj` PROVED (Nakayama:
+  m₀ = f^♯(m₀)𝒪₀; stalk of ker f = A ×_{f,A,e} Spec k at the unit point is a field by maximalIdeal_eq_of_stalkGen;
+  then the section lemma). VERIFIED: 0 errors, 0 sorry, axioms [propext, Classical.choice, Quot.sound].
+- Corollaries: `kerUnitOpen_of_cotangentMulN : CotangentMulN → KerUnitOpen`,
+  `mulIsogeny_of_cotangentMulN : CotangentMulN → G0FibreSimple.MulIsogeny` (standard axioms).
