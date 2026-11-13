@@ -10,3 +10,9 @@
 - Test1.lean: `smulEnd X ℓ a` (multiplication by `a ∈ ℤ_ℓ` on `U ↦ ULift C(U.left, ℤ_ℓ)`, naturality
   by `rfl`), lemmas `smulEnd_one/mul/add/zero`, and
   `instance : Module ℤ_[ℓ] (X.EllAdicCohomology ℓ n)` via `Sheaf.H.map`. COMPILED (no sorry), ~65 s.
+- T10Etale.lean (renamed from Test1): + `H0Equiv : X.EllAdicCohomology ℓ 0 ≃ₗ[ℤ_[ℓ]] C(X, ℤ_[ℓ])`
+  (via `Sheaf.H.equiv₀` at the terminal object `X → X` of `X.ProEt` and its naturality),
+  `nontrivial_H0 [Nonempty X]`, `H0Equiv_smul`. COMPILED. Needs
+  `set_option backward.isDefEq.respectTransparency.types false` (else `ContainsIdentities
+  @WeaklyEtale` is not found) and an explicit `import Mathlib.AlgebraicGeometry.Morphisms.WeaklyEtale`
+  (Proetale.lean imports it privately).

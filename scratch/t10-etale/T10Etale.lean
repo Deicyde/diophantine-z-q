@@ -1,6 +1,20 @@
 import Mathlib.AlgebraicGeometry.Sites.ElladicCohomology
+import Mathlib.AlgebraicGeometry.Morphisms.WeaklyEtale
+import ZInQKernel.HDecomp.Objects
+
+/-! # t10-etale: T10 over Mathlib's `ℓ`-adic cohomology
+
+Mathlib v4.35 defines `Scheme.EllAdicCohomology X ℓ n` (pro-étale cohomology with coefficients in
+the sheaf `U ↦ C(U, ℤ_ℓ)`, Bhatt–Scholze 2015 Def. 6.8.1) as an abelian group only. This file
+1. gives it its `ℤ_ℓ`-module structure (multiplication by `a ∈ ℤ_ℓ` on the coefficient sheaf,
+   applied through the functoriality `Sheaf.H.map` of sheaf cohomology);
+2. checks the structure is the expected one: `H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)`;
+3. states T10 as a `ℤ_ℓ`-linear isomorphism `H¹(A_K̄, ℤ_ℓ) ≃ₗ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`.
+-/
 
 open CategoryTheory Limits AlgebraicGeometry
+
+set_option backward.isDefEq.respectTransparency.types false
 
 universe u
 namespace T10Etale
@@ -9,6 +23,7 @@ variable (X : Scheme.{u}) (ℓ : ℕ) [Fact ℓ.Prime]
 noncomputable abbrev F : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1} :=
   (sheafCompose _ AddCommGrpCat.uliftFunctor.{u + 1}).obj (X.ellAdicSheaf ℓ)
 
+/-- The sections of the coefficient sheaf are `ULift C(U, ℤ_ℓ)` (by `rfl`). -/
 example (U : X.ProEt) : ((F X ℓ).obj.obj (Opposite.op U) : Type (u+1)) = ULift.{u+1} C(U.left, ℤ_[ℓ]) := rfl
 
 /-- multiplication by `a` on `ULift C(U, ℤ_ℓ)`. -/
@@ -81,5 +96,41 @@ noncomputable instance (n : ℕ) : Module ℤ_[ℓ] (X.EllAdicCohomology ℓ n) 
     have h := Sheaf.H.map_add_apply (0 : F X ℓ ⟶ F X ℓ) 0 (x : (F X ℓ).H n)
     rw [add_zero] at h
     simpa using h
+
+
+lemma smul_def {n : ℕ} (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ n) :
+    a • x = Sheaf.H.map (smulEnd X ℓ a) n x := rfl
+
+/-! ## Sanity check: `H⁰(X, ℤ_ℓ) = C(X, ℤ_ℓ)` as `ℤ_ℓ`-modules -/
+
+/-- `X → X` is the terminal object of the pro-étale site of `X`. -/
+noncomputable def terminalProEt : X.ProEt :=
+  MorphismProperty.Over.mk ⊤ (𝟙 X) (MorphismProperty.id_mem _ X)
+
+noncomputable def isTerminalProEt : IsTerminal (terminalProEt X) :=
+  MorphismProperty.Over.mkIdTerminal @WeaklyEtale X
+
+/-- **`H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)`.** The global sections of the coefficient sheaf, with
+`ℤ_ℓ` acting by multiplication. This shows the module structure above is the expected one, and
+that `EllAdicCohomology` is not trivially zero. -/
+noncomputable def H0Equiv : X.EllAdicCohomology ℓ 0 ≃ₗ[ℤ_[ℓ]] C(X, ℤ_[ℓ]) where
+  __ := (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)).trans
+    (AddEquiv.ulift : ULift.{u+1} C(X, ℤ_[ℓ]) ≃+ C(X, ℤ_[ℓ]))
+  map_smul' a x := by
+    change (show ULift.{u+1} C(X, ℤ_[ℓ]) from
+        (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)) (Sheaf.H.map (smulEnd X ℓ a) 0 x)).down
+      = ContinuousMap.const X a *
+        (show ULift.{u+1} C(X, ℤ_[ℓ]) from (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)) x).down
+    rw [← Sheaf.H.equiv₀_naturality]
+    rfl
+
+/-- `H⁰` of a nonempty scheme is a nonzero `ℤ_ℓ`-module. -/
+lemma nontrivial_H0 [Nonempty X] : Nontrivial (X.EllAdicCohomology ℓ 0) :=
+  (H0Equiv X ℓ).toEquiv.nontrivial
+
+/-- The `ℤ_ℓ`-action on `H⁰` is the multiplication of functions. -/
+lemma H0Equiv_smul (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ 0) :
+    H0Equiv X ℓ (a • x) = ContinuousMap.const X a * H0Equiv X ℓ x :=
+  (H0Equiv X ℓ).map_smul a x
 
 end T10Etale
