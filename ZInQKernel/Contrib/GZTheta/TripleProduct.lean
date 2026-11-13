@@ -280,4 +280,169 @@ theorem jacobiTheta₂_eq_jtpC_mul {τ : ℂ} (hτ : 0 < τ.im) (z : ℂ) :
     rw [jtpC, hc, mul_div_assoc, div_self (jtpP_half_ne_zero hτ), mul_one]
   rw [hc, hcc]
 
+
+/-! ### `c(τ) = c(4τ)`: the product side -/
+
+theorem summable_geom_lin {q : ℂ} (hq : ‖q‖ < 1) (c : ℂ) (k m : ℕ) (hk : 0 < k) :
+    Summable (fun n : ℕ => ‖c * q ^ (k * n + m)‖) := by
+  have h1 : ‖q‖ ^ k < 1 := pow_lt_one₀ (norm_nonneg _) hq hk.ne'
+  have : Summable (fun n : ℕ => (‖q‖ ^ k) ^ n) :=
+    summable_geometric_of_lt_one (by positivity) h1
+  refine (this.mul_left (‖c‖ * ‖q‖ ^ m)).congr fun n => ?_
+  rw [norm_mul, norm_pow, pow_add, pow_mul]
+  ring
+
+theorem multipliable_geom_lin {q : ℂ} (hq : ‖q‖ < 1) (c : ℂ) (k m : ℕ) (hk : 0 < k) :
+    Multipliable (fun n : ℕ => 1 + c * q ^ (k * n + m)) :=
+  multipliable_one_add_of_summable (summable_geom_lin hq c k m hk)
+
+/-- `∏ (1 + c q^{kn+m})`, the shape of all products below. -/
+def gp (q c : ℂ) (k m : ℕ) : ℂ := ∏' n : ℕ, (1 + c * q ^ (k * n + m))
+
+theorem gp_mul_gp {q : ℂ} (hq : ‖q‖ < 1) (c d : ℂ) (k m : ℕ) (hk : 0 < k) :
+    gp q c k m * gp q d k m = ∏' n : ℕ, ((1 + c * q ^ (k * n + m)) * (1 + d * q ^ (k * n + m))) :=
+  ((multipliable_geom_lin hq c k m hk).tprod_mul (multipliable_geom_lin hq d k m hk)).symm
+
+theorem gp_even_mul_odd {q : ℂ} (hq : ‖q‖ < 1) (c : ℂ) (k m : ℕ) (hk : 0 < k) :
+    gp q c (2 * k) m * gp q c (2 * k) (k + m) = gp q c k m := by
+  unfold gp
+  rw [← tprod_even_mul_odd (f := fun n : ℕ => 1 + c * q ^ (k * n + m))]
+  · congr 1
+    · exact tprod_congr fun n => by ring_nf
+    · exact tprod_congr fun n => by ring_nf
+  · exact (multipliable_geom_lin hq c (2 * k) m (by omega)).congr fun n => by ring_nf
+  · exact (multipliable_geom_lin hq c (2 * k) (k + m) (by omega)).congr fun n => by ring_nf
+
+theorem jtpA_eq_gp (τ : ℂ) : jtpA τ = gp (qJ τ) (-1) 2 2 := by
+  unfold jtpA gp
+  exact tprod_congr fun n => by ring
+
+theorem jtpB_eq_gp (τ z : ℂ) : jtpB τ z = gp (qJ τ) (eJ z) 2 1 := by
+  unfold jtpB gp
+  exact tprod_congr fun n => by ring
+
+theorem qJ_four_mul (τ : ℂ) : qJ (4 * τ) = qJ τ ^ 4 := by
+  rw [qJ, qJ, ← Complex.exp_nat_mul]; ring_nf
+
+theorem gp_pow (q c : ℂ) (j k m : ℕ) : gp (q ^ j) c k m = gp q c (j * k) (j * m) := by
+  unfold gp
+  exact tprod_congr fun n => by rw [← pow_mul]; ring_nf
+
+theorem eJ_quarter : eJ (1 / 4) = I := by
+  rw [eJ, show 2 * (π : ℂ) * I * (1 / 4) = (π / 2 : ℂ) * I by ring, Complex.exp_mul_I]
+  rw [show (π : ℂ) / 2 = ((π / 2 : ℝ) : ℂ) by push_cast; ring, ← Complex.ofReal_cos,
+    ← Complex.ofReal_sin, Real.cos_pi_div_two, Real.sin_pi_div_two]
+  simp
+
+theorem eJ_half : eJ (1 / 2) = -1 := by
+  rw [eJ, show 2 * (π : ℂ) * I * (1 / 2) = π * I by ring, Complex.exp_pi_mul_I]
+
+/-- **The product side of `c(τ) = c(4τ)`**: `P(1/4; τ) = P(1/2; 4τ)`. -/
+theorem jtpP_quarter {τ : ℂ} (hτ : 0 < τ.im) : jtpP τ (1 / 4) = jtpP (4 * τ) (1 / 2) := by
+  have hq := norm_qJ_lt_one hτ
+  set q := qJ τ
+  unfold jtpP
+  rw [jtpA_eq_gp, jtpA_eq_gp, jtpB_eq_gp, jtpB_eq_gp, jtpB_eq_gp, jtpB_eq_gp, qJ_four_mul,
+    eJ_quarter, show -(1 / 4 : ℂ) = (-1 : ℂ) * (1 / 4) by ring,
+    show -(1 / 2 : ℂ) = (-1 : ℂ) * (1 / 2) by ring]
+  have em : ∀ w : ℂ, eJ ((-1 : ℂ) * w) = (eJ w)⁻¹ := fun w => by rw [neg_one_mul, eJ_neg]
+  rw [em, em, eJ_quarter, eJ_half, Complex.inv_I, inv_neg, inv_one]
+  simp only [gp_pow]
+  norm_num only
+  -- left side: `A(q) · ∏(1 + i q^{2n+1}) ∏(1 − i q^{2n+1})`
+  rw [mul_assoc, gp_mul_gp hq I (-I) 2 1 (by norm_num)]
+  have h1 : (∏' n : ℕ, ((1 + I * q ^ (2 * n + 1)) * (1 + -I * q ^ (2 * n + 1)))) =
+      gp q 1 4 2 := by
+    unfold gp
+    refine tprod_congr fun n => ?_
+    have : I * I = -1 := Complex.I_mul_I
+    ring_nf
+    rw [Complex.I_sq]
+    ring
+  rw [h1]
+  -- `A(q) = ∏(1 − q^{4n+2}) ∏(1 − q^{4n+4})`
+  rw [← gp_even_mul_odd hq (-1) 2 2 (by norm_num)]
+  norm_num only
+  have h2 : gp q (-1) 4 2 * gp q 1 4 2 = gp q (-1) 8 4 := by
+    rw [gp_mul_gp hq (-1) 1 4 2 (by norm_num)]
+    unfold gp
+    refine tprod_congr fun n => ?_
+    ring
+  have h3 := gp_even_mul_odd hq (-1) 4 4 (by norm_num)
+  norm_num only at h3
+  rw [show gp q (-1) 4 2 * gp q (-1) 4 4 * gp q 1 4 2 =
+    (gp q (-1) 4 2 * gp q 1 4 2) * gp q (-1) 4 4 by ring, h2, ← h3]
+  ring
+
+/-! ### `c(τ) = c(4τ)`: the series side -/
+
+theorem jacobiTheta₂_term_quarter_odd (τ : ℂ) (m : ℤ) :
+    jacobiTheta₂_term (2 * (-m - 1) + 1) (1 / 4) τ = -jacobiTheta₂_term (2 * m + 1) (1 / 4) τ := by
+  unfold jacobiTheta₂_term
+  have : 2 * π * I * ((2 * (-m - 1) + 1 : ℤ) : ℂ) * (1 / 4) +
+      π * I * ((2 * (-m - 1) + 1 : ℤ) : ℂ) ^ 2 * τ =
+      (2 * π * I * ((2 * m + 1 : ℤ) : ℂ) * (1 / 4) + π * I * ((2 * m + 1 : ℤ) : ℂ) ^ 2 * τ) +
+        (π * I + ((-m - 1 : ℤ) : ℂ) * (2 * π * I)) := by
+    push_cast; ring
+  rw [this, Complex.exp_add, Complex.exp_add, Complex.exp_add, Complex.exp_int_mul_two_pi_mul_I,
+    Complex.exp_pi_mul_I]
+  ring
+
+/-- **The series side of `c(τ) = c(4τ)`**: `θ(1/4; τ) = θ(1/2; 4τ)`. -/
+theorem jacobiTheta₂_quarter {τ : ℂ} (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 4) τ = jacobiTheta₂ (1 / 2) (4 * τ) := by
+  set f : ℤ → ℂ := fun n => jacobiTheta₂_term n (1 / 4) τ with hfdef
+  have hf : HasSum f (jacobiTheta₂ (1 / 4) τ) := hasSum_jacobiTheta₂_term _ hτ
+  have h4 : 0 < (4 * τ).im := by simp; linarith
+  have he : HasSum (f ∘ fun m : ℤ => 2 * m) (jacobiTheta₂ (1 / 2) (4 * τ)) := by
+    refine (hasSum_jacobiTheta₂_term (1 / 2) h4).congr_fun fun m => ?_
+    simp only [Function.comp_apply, hfdef, jacobiTheta₂_term]
+    congr 1
+    push_cast
+    ring
+  have hos : Summable (f ∘ fun m : ℤ => 2 * m + 1) :=
+    hf.summable.comp_injective (fun a b h => by simpa using h)
+  have ho : HasSum (f ∘ fun m : ℤ => 2 * m + 1) 0 := by
+    let σ : ℤ ≃ ℤ := (Equiv.neg ℤ).trans (Equiv.subRight 1)
+    have hσ : ∀ m, σ m = -m - 1 := fun m => rfl
+    have hS : ∑' m, (f ∘ fun m : ℤ => 2 * m + 1) m = -∑' m, (f ∘ fun m : ℤ => 2 * m + 1) m := by
+      conv_lhs => rw [← σ.tsum_eq]
+      rw [← tsum_neg]
+      refine tsum_congr fun m => ?_
+      simp only [Function.comp_apply, hσ, hfdef]
+      exact jacobiTheta₂_term_quarter_odd τ m
+    have h0 : ∑' m, (f ∘ fun m : ℤ => 2 * m + 1) m = 0 := by
+      have := hS; linear_combination this / 2
+    rw [← h0]
+    exact hos.hasSum
+  have hcompl : IsCompl (Set.range fun m : ℤ => 2 * m) (Set.range fun m : ℤ => 2 * m + 1) := by
+    rw [isCompl_iff, disjoint_iff, codisjoint_iff]
+    constructor
+    · ext n
+      simp only [Set.inf_eq_inter, Set.mem_inter_iff, Set.mem_range, Set.bot_eq_empty,
+        Set.mem_empty_iff_false, iff_false, not_and, forall_exists_index]
+      rintro a rfl ⟨b, hb⟩
+      omega
+    · ext n
+      simp only [Set.sup_eq_union, Set.mem_union, Set.mem_range, Set.top_eq_univ, Set.mem_univ,
+        iff_true]
+      rcases Int.even_or_odd' n with ⟨k, rfl | rfl⟩
+      · exact Or.inl ⟨k, rfl⟩
+      · exact Or.inr ⟨k, rfl⟩
+  have he' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m) (fun a b h => by simpa using h)).mpr he
+  have ho' := (Function.Injective.hasSum_range_iff (f := f)
+    (g := fun m : ℤ => 2 * m + 1) (fun a b h => by simpa using h)).mpr ho
+  have := HasSum.add_isCompl (f := f) hcompl he' ho'
+  rw [add_zero] at this
+  exact hf.unique this
+
+/-- **`c(τ) = c(4τ)`.** -/
+theorem jtpC_four_mul {τ : ℂ} (hτ : 0 < τ.im) : jtpC τ = jtpC (4 * τ) := by
+  have h4 : 0 < (4 * τ).im := by simp; linarith
+  have e := jacobiTheta₂_eq_jtpC_mul hτ (1 / 4)
+  rw [jacobiTheta₂_quarter hτ, jtpP_quarter hτ] at e
+  rw [show jtpC (4 * τ) = jacobiTheta₂ (1 / 2) (4 * τ) / jtpP (4 * τ) (1 / 2) from rfl, e,
+    mul_div_assoc, div_self (jtpP_half_ne_zero h4), mul_one]
+
 end ZInQ.GZTheta
