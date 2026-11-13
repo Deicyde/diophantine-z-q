@@ -30,3 +30,12 @@
 - Adelic.lean, K₃ and the count (VERIFIED, standard axioms): `K3` (u ∈ K₀, u_3 ≡ 1 mod 3𝒪_3),
   `K0_le_Nhat`, `Zhat_le_Nhat`, `conj_mem_K3` (N normalizes K₃), `sup_K3_normal`,
   `gamma_count : (Zhat ⊔ K3).relIndex Nhat = 4 * ((Zhat ⊓ K0) ⊔ K3).relIndex K0`.
+- Adelic.lean, |Γ'| = 144 (VERIFIED, compiles, no sorry, `#print axioms gamma_order` standard):
+  `R3` (𝒪/3𝒪 as a monoid on glue-repo's `mul3`), `card_units_R3` (= 72, from `card_units_mod3`),
+  `red`, `redHom : K0 →* R3ˣ`, `redHom_eq_one_iff` (kernel = K₃), `redHom_surjective` (a lift with
+  nrd a 3-adic unit is in 𝒪_3^×), `redHom_scalar` (ℤ̂^× ↦ ±1), `subgroupOf_eq_comap`,
+  `relIndex_K3 : ((Zhat ⊓ K0) ⊔ K3).relIndex K0 = 36`, `gamma_order : (Zhat ⊔ K3).relIndex Nhat = 144`.
+  Pitfall: `ZMod ((P3 : Nat.Primes) : ℕ)` vs `ZMod 3`; making P3 an `abbrev` breaks instance lookup
+  (discrimination tree reduces the projection); fix: compose `PadicInt.toZMod` with
+  `ZMod.ringEquivCongr (rfl : q3 = 3)` (`t3`). `R3` must stay a `def` (own Monoid), with `R3.mk` to keep
+  rewrite targets well-typed.

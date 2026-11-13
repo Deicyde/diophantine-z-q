@@ -1,5 +1,6 @@
 import Mathlib
 import ZInQKernel.HDecomp.Vigneras.Local
+import ZInQKernel.HDecomp.Repo.A1Quaternion
 
 /-!
 # t30-adelic, part G1-adelic (b): the adelic normalizer quotient of A3
@@ -615,9 +616,375 @@ theorem gamma_count :
   rw [← hsup, Subgroup.relIndex_sup_right, Subgroup.relIndex_subgroupOf hK0N,
     ← Subgroup.inf_relIndex_right, sup_inf_eq Zhat K0 K3 K3_le_K0]
 
+/-! ### `[K₀ : ℤ̂^× K₃] = 36`, hence `|Γ'| = 144` -/
+
+open GlueRepo.A1 (mul3 one3 nrd3 isUnit3_iff card_units_mod3)
+
+/-- `𝒪/3𝒪` in N5's coordinates (glue-repo's `mul3`, `one3`). -/
+def R3 : Type := Fin 4 → ZMod 3
+
+instance : Monoid R3 where
+  mul := mul3
+  one := one3
+  mul_assoc a b c := by
+    show mul3 (mul3 a b) c = mul3 a (mul3 b c)
+    funext k; fin_cases k <;> simp [mul3] <;> ring
+  one_mul a := by
+    show mul3 one3 a = a
+    funext k; fin_cases k <;> simp [mul3, one3]
+  mul_one a := by
+    show mul3 a one3 = a
+    funext k; fin_cases k <;> simp [mul3, one3]
+
+/-- The identity `(Fin 4 → ZMod 3) → R3`. -/
+def R3.mk (f : Fin 4 → ZMod 3) : R3 := f
+
+theorem R3_mul_def (a b : R3) : a * b = R3.mk (mul3 a b) := rfl
+theorem R3_one_def : (1 : R3) = R3.mk one3 := rfl
+
+theorem card_units_R3 : Nat.card R3ˣ = 72 := by
+  let e : R3ˣ ≃ {x : Fin 4 → ZMod 3 // ∃ y, mul3 x y = one3 ∧ mul3 y x = one3} :=
+    { toFun := fun u => ⟨u.val, u.inv, u.val_inv, u.inv_val⟩
+      invFun := fun x => ⟨x.1, x.2.choose, x.2.choose_spec.1, x.2.choose_spec.2⟩
+      left_inv := fun u => Units.ext rfl
+      right_inv := fun x => rfl }
+  rw [Nat.card_congr e, Nat.card_eq_fintype_card, Fintype.card_subtype, card_units_mod3]
+
+theorem q3_eq : q3 = 3 := rfl
+
+/-- Reduction `ℤ_3 → ℤ/3`. -/
+noncomputable def t3 : ℤ_[q3] →+* ZMod 3 :=
+  (ZMod.ringEquivCongr q3_eq).toRingHom.comp PadicInt.toZMod
+
+theorem t3_eq_zero_iff (z : ℤ_[q3]) : t3 z = 0 ↔ PadicInt.toZMod z = 0 := by
+  constructor
+  · intro h
+    apply (ZMod.ringEquivCongr q3_eq).injective
+    rw [map_zero]; exact h
+  · intro h
+    show (ZMod.ringEquivCongr q3_eq) (PadicInt.toZMod z) = 0
+    rw [h, map_zero]
+
+theorem t3_three : t3 (3 : ℤ_[q3]) = 0 := by
+  rw [map_ofNat]; decide
+
+/-- Coordinates of `x ∈ B_3` in N5's basis, as `3`-adic integers when integral. -/
+noncomputable def zc (x : Bp q3) (k : Fin 4) : ℤ_[q3] :=
+  if h : ‖coord q3 x k‖ ≤ 1 then ⟨coord q3 x k, h⟩ else 0
+
+theorem coord_combp (n : Fin 4 → ℤ_[q3]) (k : Fin 4) : coord q3 (combp q3 n) k = n k := by
+  fin_cases k <;> simp [coord, combp] <;> ring
+
+theorem zc_combp (n : Fin 4 → ℤ_[q3]) : zc (combp q3 n) = n := by
+  funext k
+  have h := coord_combp n k
+  have hn : ‖coord q3 (combp q3 n) k‖ ≤ 1 := by rw [h]; exact PadicInt.norm_le_one _
+  simp only [zc, hn, ↓reduceDIte]
+  apply Subtype.ext
+  exact h
+
+theorem combp_injective : Function.Injective (combp q3) := by
+  intro n m h
+  rw [← zc_combp n, ← zc_combp m, h]
+
+/-- Reduction `𝒪_3 → 𝒪/3𝒪`. -/
+noncomputable def red (x : Bp q3) : R3 := fun k => t3 (zc x k)
+
+theorem red_combp (n : Fin 4 → ℤ_[q3]) : red (combp q3 n) = R3.mk (fun k => t3 (n k)) := by
+  unfold red R3.mk
+  rw [zc_combp]
+
+theorem t3_two : t3 (2 : ℤ_[q3]) = 2 := map_ofNat t3 2
+
+theorem red_mul {x y : Bp q3} (hx : x ∈ Op q3) (hy : y ∈ Op q3) : red (x * y) = red x * red y := by
+  obtain ⟨n, rfl⟩ := hx
+  obtain ⟨m, rfl⟩ := hy
+  rw [combp_mul, red_combp, red_combp, red_combp, R3_mul_def]
+  congr 1
+  funext k; fin_cases k <;> simp [combMulp, mul3, R3.mk, t3_two]
+
+theorem red_one : red 1 = 1 := by
+  rw [← combp_one, red_combp, R3_one_def]
+  congr 1
+  funext k; fin_cases k <;> simp [one3]
+
+theorem smul_combp (w : Fin 4 → ℤ_[q3]) :
+    (3 : ℚ_[q3]) • combp q3 w = combp q3 (fun k => 3 * w k) := by
+  have h3 : ((3 : ℤ_[q3]) : ℚ_[q3]) = 3 := by
+    rw [show (3 : ℤ_[q3]) = ((3 : ℕ) : ℤ_[q3]) by norm_num, PadicInt.coe_natCast]; norm_num
+  ext <;> simp [combp, h3] <;> ring
+
+theorem combp_mem_I3_iff (m : Fin 4 → ℤ_[q3]) :
+    combp q3 m ∈ I3 ↔ ∀ k, t3 (m k) = 0 := by
+  constructor
+  · rintro ⟨w, hw⟩ k
+    rw [smul_combp] at hw
+    have := congrFun (combp_injective hw) k
+    rw [this, map_mul, t3_three, zero_mul]
+  · intro h
+    have hw : ∀ k, ∃ w : ℤ_[q3], m k = 3 * w := by
+      intro k
+      have hm : m k ∈ IsLocalRing.maximalIdeal ℤ_[q3] := by
+        rw [← PadicInt.ker_toZMod]; exact (t3_eq_zero_iff _).mp (h k)
+      rw [PadicInt.maximalIdeal_eq_span_p, Ideal.mem_span_singleton] at hm
+      obtain ⟨w, hw⟩ := hm
+      exact ⟨w, by rw [hw]; rfl⟩
+    choose w hw using hw
+    exact ⟨w, by rw [smul_combp]; congr 1; funext k; exact hw k⟩
+
+/-- The reduction `K₀ → (𝒪/3𝒪)^×`. -/
+noncomputable def redHom : K0 →* R3ˣ where
+  toFun u :=
+    { val := red (((u : BAˣ) : BA) P3)
+      inv := red ((((u : BAˣ)⁻¹ : BAˣ) : BA) P3)
+      val_inv := by
+        rw [← red_mul (u.2.1 P3) (u.2.2 P3), ← RestrictedProduct.mul_apply, Units.mul_inv,
+          RestrictedProduct.one_apply, red_one]
+      inv_val := by
+        rw [← red_mul (u.2.2 P3) (u.2.1 P3), ← RestrictedProduct.mul_apply, Units.inv_mul,
+          RestrictedProduct.one_apply, red_one] }
+  map_one' := by
+    apply Units.ext
+    show red (((1 : BAˣ) : BA) P3) = 1
+    rw [Units.val_one, RestrictedProduct.one_apply, red_one]
+  map_mul' u v := by
+    apply Units.ext
+    show red ((((u : BAˣ) * (v : BAˣ) : BAˣ) : BA) P3) = red (((u : BAˣ) : BA) P3) *
+      red (((v : BAˣ) : BA) P3)
+    rw [Units.val_mul, RestrictedProduct.mul_apply, red_mul (u.2.1 P3) (v.2.1 P3)]
+
+theorem redHom_val (u : K0) : ((redHom u : R3ˣ) : R3) = red (((u : BAˣ) : BA) P3) := rfl
+
+theorem redHom_eq_one_iff (u : K0) : redHom u = 1 ↔ (u : BAˣ) ∈ K3 := by
+  obtain ⟨n, hn⟩ := u.2.1 P3
+  have e1 : ((u : BAˣ) : BA) P3 - 1 = combp q3 (n - ![1, 0, 0, 0]) := by
+    rw [← hn, ← combp_one, sub_eq_add_neg, combp_neg, combp_add, sub_eq_add_neg]
+  constructor
+  · intro h
+    refine ⟨u.2, ?_⟩
+    rw [e1, combp_mem_I3_iff]
+    have h' := congrArg Units.val h
+    rw [redHom_val, ← hn, red_combp, Units.val_one, R3_one_def] at h'
+    have h'' : (fun k => t3 (n k)) = one3 := h'
+    intro k
+    have := congrFun h'' k
+    fin_cases k <;> simp_all [one3]
+  · rintro ⟨-, h3⟩
+    rw [e1, combp_mem_I3_iff] at h3
+    apply Units.ext
+    rw [redHom_val, ← hn, red_combp, Units.val_one, R3_one_def]
+    congr 1
+    funext k
+    have := h3 k
+    fin_cases k <;> simp_all [one3, sub_eq_zero]
+
+theorem star_mul_eq3 (x : Bp q3) : star x * x = algebraMap ℚ_[q3] (Bp q3) (nrd q3 x) := by
+  ext <;> simp [nrd, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+    QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+
+theorem redHom_surjective : Function.Surjective redHom := by
+  intro a
+  let n : Fin 4 → ℤ_[q3] := fun k => (((a : R3) k).val : ℤ_[q3])
+  have hn : ∀ k, t3 (n k) = (a : R3) k := fun k => by
+    simp only [n, map_natCast, ZMod.natCast_zmod_val]
+  have hnrd3 : nrd3 (a : R3) ≠ 0 := (isUnit3_iff (a : R3)).mp ⟨a.inv, a.val_inv, a.inv_val⟩
+  set N0 : ℤ_[q3] := (n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2) + (-2) * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2)
+    with hN0
+  have hnrd : nrd q3 (combp q3 n) = (N0 : ℚ_[q3]) := by
+    have h2 : ((2 : ℤ_[q3]) : ℚ_[q3]) = 2 := by
+      rw [show (2 : ℤ_[q3]) = ((2 : ℕ) : ℤ_[q3]) by norm_num, PadicInt.coe_natCast]; norm_num
+    rw [nrd_coord]
+    simp only [coord_combp, hN0, PadicInt.coe_add, PadicInt.coe_mul, PadicInt.coe_pow,
+      PadicInt.coe_neg, h2]
+  have hN0z : t3 N0 = nrd3 (a : R3) := by
+    simp only [hN0, map_add, map_mul, map_pow, map_neg, hn, nrd3]
+    have : t3 (2 : ℤ_[q3]) = 2 := map_ofNat _ 2
+    rw [this]; ring
+  have hN1 : ‖N0‖ = 1 := norm_eq_one_of_toZMod_ne (fun h0 => hnrd3 (by
+    rw [← hN0z]; exact (t3_eq_zero_iff N0).mpr h0))
+  have hnrd1 : ‖nrd q3 (combp q3 n)‖ = 1 := by rw [hnrd, PadicInt.norm_coe, hN1]
+  have hne : nrd q3 (combp q3 n) ≠ 0 := by
+    intro h; rw [h, norm_zero] at hnrd1; exact zero_ne_one hnrd1
+  let X : (Bp q3)ˣ :=
+    { val := combp q3 n
+      inv := (nrd q3 (combp q3 n))⁻¹ • star (combp q3 n)
+      val_inv := by
+        rw [mul_smul_comm, mul_star_eq, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hne, map_one]
+      inv_val := by
+        rw [smul_mul_assoc, star_mul_eq3, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hne,
+          map_one] }
+  have hX : X ∈ OpUnits q3 := (mem_OpUnits_iff q3 (Or.inr rfl) X).mpr hnrd1
+  have hk : unitSingle P3 X ∈ K0 := by
+    constructor
+    · intro q
+      rw [← comp_val]
+      by_cases h : q = P3
+      · subst h; rw [comp_unitSingle_self]; exact hX.1
+      · rw [comp_unitSingle_ne h]; exact (OpSub (q : ℕ)).one_mem
+    · intro q
+      rw [← comp_inv_val]
+      by_cases h : q = P3
+      · subst h; rw [comp_unitSingle_self]; exact hX.2
+      · rw [comp_unitSingle_ne h, inv_one]; exact (OpSub (q : ℕ)).one_mem
+  refine ⟨⟨unitSingle P3 X, hk⟩, Units.ext ?_⟩
+  rw [redHom_val]
+  show red (((unitSingle P3 X : BAˣ) : BA) P3) = (a : R3)
+  rw [← comp_val, comp_unitSingle_self]
+  show red (combp q3 n) = (a : R3)
+  rw [red_combp]
+  change (fun k => t3 (n k)) = _
+  funext k
+  exact hn k
+
+/-- `-1 ∈ (𝒪/3𝒪)^×`. -/
+def m1 : R3ˣ where
+  val := fun k => -one3 k
+  inv := fun k => -one3 k
+  val_inv := by
+    show mul3 _ _ = one3
+    funext k; fin_cases k <;> simp [mul3, one3]
+  inv_val := by
+    show mul3 _ _ = one3
+    funext k; fin_cases k <;> simp [mul3, one3]
+
+theorem m1_sq : m1 ^ 2 = 1 := by
+  apply Units.ext
+  rw [Units.val_pow_eq_pow_val, pow_two, Units.val_one, R3_mul_def, R3_one_def]
+  congr 1
+
+theorem m1_ne_one : m1 ≠ 1 := by
+  intro h
+  have h1 : ((m1 : R3ˣ) : R3) = ((1 : R3ˣ) : R3) := congrArg Units.val h
+  have h2 : (fun k => -one3 k : Fin 4 → ZMod 3) = one3 := h1
+  have h3 := congrFun h2 0
+  simp [one3] at h3
+  exact absurd h3 (by decide)
+
+theorem mem_zpowers_m1 {g : R3ˣ} : g ∈ Subgroup.zpowers m1 ↔ g = 1 ∨ g = m1 := by
+  constructor
+  · intro h
+    obtain ⟨k, rfl⟩ := Subgroup.mem_zpowers_iff.mp h
+    rcases Int.even_or_odd' k with ⟨j, rfl | rfl⟩
+    · left; rw [zpow_mul, zpow_ofNat, m1_sq, one_zpow]
+    · right; rw [zpow_add, zpow_mul, zpow_ofNat, m1_sq, one_zpow, one_mul, zpow_one]
+  · rintro (rfl | rfl)
+    · exact Subgroup.one_mem _
+    · exact Subgroup.mem_zpowers m1
+
+theorem card_zpowers_m1 : Nat.card (Subgroup.zpowers m1) = 2 := by
+  rw [Nat.card_zpowers]
+  exact orderOf_eq_prime m1_sq m1_ne_one
+
+/-- The scalar `-1 ∈ 𝔸_f^× ∩ K₀`. -/
+theorem neg_one_mem_Zhat : (-1 : BAˣ) ∈ Zhat := fun p => ⟨-1, by
+  rw [Units.val_neg, Units.val_one, map_neg, map_one]; rfl⟩
+
+theorem neg_one_mem_K0 : (-1 : BAˣ) ∈ K0 := by
+  refine ⟨fun p => ?_, fun p => ?_⟩
+  · rw [Units.val_neg, Units.val_one]
+    exact (OpSub (p : ℕ)).neg_mem (OpSub (p : ℕ)).one_mem
+  · rw [inv_neg, inv_one, Units.val_neg, Units.val_one]
+    exact (OpSub (p : ℕ)).neg_mem (OpSub (p : ℕ)).one_mem
+
+theorem redHom_neg_one : redHom ⟨-1, neg_one_mem_K0⟩ = m1 := by
+  apply Units.ext
+  rw [redHom_val]
+  show red ((((-1 : BAˣ) : BAˣ) : BA) P3) = (m1 : R3)
+  rw [Units.val_neg, Units.val_one]
+  show red (-1 : Bp q3) = _
+  rw [← combp_one, combp_neg, red_combp]
+  change (fun k => t3 ((-![1, 0, 0, 0] : Fin 4 → ℤ_[q3]) k)) = (fun k => -one3 k)
+  funext k; fin_cases k <;> simp [one3]
+
+/-- Scalars in `K₀` reduce to `±1`. -/
+theorem redHom_scalar {z : BAˣ} (hz : z ∈ Zhat) (hz0 : z ∈ K0) :
+    redHom ⟨z, hz0⟩ = 1 ∨ redHom ⟨z, hz0⟩ = m1 := by
+  obtain ⟨c, hc⟩ := hz P3
+  obtain ⟨d, hd⟩ := (Zhat.inv_mem hz) P3
+  have hcO := hz0.1 P3
+  have hdO := hz0.2 P3
+  rw [hc] at hcO
+  rw [hd] at hdO
+  have hcoord : ∀ e : ℚ_[q3], coord q3 (algebraMap ℚ_[q3] (Bp q3) e) = ![e, 0, 0, 0] := by
+    intro e; funext k; fin_cases k <;> simp [coord]
+  have hc1 : ‖c‖ ≤ 1 := by
+    have := (mem_Op_iff_coord q3 _).mp hcO 0; rw [hcoord] at this; simpa using this
+  have hd1 : ‖d‖ ≤ 1 := by
+    have := (mem_Op_iff_coord q3 _).mp hdO 0; rw [hcoord] at this; simpa using this
+  have hcd : c * d = 1 := by
+    have h1 : ((z : BAˣ) : BA) P3 * ((z⁻¹ : BAˣ) : BA) P3 = 1 := by
+      rw [← RestrictedProduct.mul_apply, Units.mul_inv]; rfl
+    rw [hc, hd, ← map_mul] at h1
+    exact (algebraMap ℚ_[q3] (Bp q3)).injective (by rw [h1, map_one])
+  let c' : ℤ_[q3] := ⟨c, hc1⟩
+  let d' : ℤ_[q3] := ⟨d, hd1⟩
+  have hcd' : c' * d' = 1 := Subtype.ext hcd
+  have hcomb : algebraMap ℚ_[q3] (Bp q3) c = combp q3 ![c', 0, 0, 0] := by
+    ext <;> simp [combp, c']
+  have hred : ((redHom ⟨z, hz0⟩ : R3ˣ) : R3) = R3.mk ![t3 c', 0, 0, 0] := by
+    rw [redHom_val]
+    show red (((z : BAˣ) : BA) P3) = _
+    rw [hc, hcomb, red_combp]
+    congr 1
+    funext k; fin_cases k <;> simp
+  have hne : t3 c' ≠ 0 := by
+    intro h0
+    have := congrArg t3 hcd'
+    rw [map_mul, h0, zero_mul, map_one] at this
+    exact zero_ne_one this
+  have hcases : ∀ t : ZMod 3, t ≠ 0 → t = 1 ∨ t = -1 := by decide
+  rcases hcases _ hne with h | h
+  · left
+    apply Units.ext
+    rw [hred, h, Units.val_one, R3_one_def]
+    congr 1
+  · right
+    apply Units.ext
+    rw [hred, h]
+    change (![(-1 : ZMod 3), 0, 0, 0] : Fin 4 → ZMod 3) = (fun k => -one3 k)
+    funext k; fin_cases k <;> simp [one3]
+
+instance Zhat_inf_K0_normal : (Zhat ⊓ K0).Normal :=
+  Subgroup.normal_of_le_center (inf_le_left.trans Zhat_le_center)
+
+theorem subgroupOf_eq_comap :
+    ((Zhat ⊓ K0) ⊔ K3).subgroupOf K0 = (Subgroup.zpowers m1).comap redHom := by
+  ext u
+  rw [Subgroup.mem_subgroupOf, Subgroup.mem_comap, mem_zpowers_m1]
+  constructor
+  · intro hu
+    have hu' : (u : BAˣ) ∈ (((Zhat ⊓ K0) ⊔ K3 : Subgroup BAˣ) : Set BAˣ) := hu
+    rw [Subgroup.normal_mul] at hu'
+    obtain ⟨z, ⟨hzZ, hzK⟩, k, hk, hzk⟩ := hu'
+    have e : u = ⟨z, hzK⟩ * ⟨k, hk.1⟩ := Subtype.ext hzk.symm
+    rw [e, map_mul, (redHom_eq_one_iff ⟨k, hk.1⟩).mpr hk, mul_one]
+    exact redHom_scalar hzZ hzK
+  · rintro (h | h)
+    · exact Subgroup.mem_sup_right ((redHom_eq_one_iff u).mp h)
+    · have h1 : redHom (⟨-1, neg_one_mem_K0⟩ * u) = 1 := by
+        rw [map_mul, redHom_neg_one, h, ← pow_two, m1_sq]
+      have hk := (redHom_eq_one_iff _).mp h1
+      have e : (u : BAˣ) = (-1 : BAˣ) * ((-1 : BAˣ) * (u : BAˣ)) := by
+        rw [← mul_assoc, neg_one_mul, neg_neg, one_mul]
+      rw [e]
+      exact Subgroup.mul_mem_sup ⟨neg_one_mem_Zhat, neg_one_mem_K0⟩ hk
+
+/-- **`[K₀ : ℤ̂^× K₃] = 36`** (`ℤ̂^× = 𝔸_f^× ∩ K₀`): `(𝒪/3𝒪)^×` has 72 elements and `ℤ̂^×`
+reduces onto `{±1}`. -/
+theorem relIndex_K3 : ((Zhat ⊓ K0) ⊔ K3).relIndex K0 = 36 := by
+  rw [Subgroup.relIndex, subgroupOf_eq_comap, Subgroup.index_comap_of_surjective _ redHom_surjective]
+  have h := Subgroup.index_mul_card (Subgroup.zpowers m1)
+  rw [card_zpowers_m1, card_units_R3] at h
+  omega
+
+/-- **`|Γ'| = [N : 𝔸_f^× K₃] = 144 = 2⁴ 3²`** (h-b1 M3). -/
+theorem gamma_order : (Zhat ⊔ K3).relIndex Nhat = 144 := by
+  rw [gamma_count, relIndex_K3]
+
 end G1Adelic
 
 #print axioms G1Adelic.relIndex_eq_four
 #print axioms G1Adelic.mem_sup_iff_forall
 #print axioms G1Adelic.normalizer_component
 #print axioms G1Adelic.gamma_count
+#print axioms G1Adelic.gamma_order
