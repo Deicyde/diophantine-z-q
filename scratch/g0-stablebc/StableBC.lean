@@ -1741,6 +1741,18 @@ def ModelHeightBaseChange : Prop :=
     [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
     (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height = 𝒢.height
 
+/-- **Glue H4a, the inequality half (used here).** `h(𝒢_{L'}) ≤ h(𝒢)` for a group model `𝒢` and
+a base change `𝒢'` of it. Strictly weaker than `ModelHeightBaseChange` (`modelHeightBaseChangeLE`
+below). Same justification (h5-neron §2): `ω` of a smooth model commutes with base change, the
+Arakelov degree is multiplied by `[L':L]`, and `𝒢'(ℂ)_{τ'} = 𝒢(ℂ)_{τ'|_L}`. -/
+def ModelHeightBaseChangeLE : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height ≤ 𝒢.height
+
+theorem modelHeightBaseChangeLE (h : ModelHeightBaseChange) : ModelHeightBaseChangeLE :=
+  fun K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 => (h K A L L' 𝒢 𝒢' h𝒢).le
+
 /-- **Glue H4b** (h5-neron). A group model base-changes to a group model (smoothness,
 separatedness and quasi-compactness are stable under base change; the group structure is
 transported by the monoidal functor `Over.pullback`; the generic fibre is `A_L ×_L L' ≅ A_{L'}` by
@@ -1923,12 +1935,12 @@ end Transport
 /-! ### The piece, from the glue (proved) -/
 
 /-- **`StableHeightBaseChange` from three glue statements** (`BaseChangeCompIso`, and h5-neron's
-`GroupModelBaseChangeExists` (H4b) and `ModelHeightBaseChange` (H4a)) and the proved
+`GroupModelBaseChangeExists` (H4b) and the `≤` half `ModelHeightBaseChangeLE` of H4a) and the proved
 `compositum`. `≥`: a model of `(A_L)_M` is a model of `A_M` (transport along `(A_L)_M ≅ A_M`).
 `≤`: a model `𝒢` of `A_E` base-changes to a model of `A_M` over a compositum `M` of `E` and `L`,
-with the same height (H4a, H4b), and is then a model of `(A_L)_M`. -/
+with no larger height (H4a `≤`, H4b), and is then a model of `(A_L)_M`. -/
 theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
-    (hbcE : GroupModelBaseChangeExists) (hbc : ModelHeightBaseChange) :
+    (hbcE : GroupModelBaseChangeExists) (hbc : ModelHeightBaseChangeLE) :
     StableHeightBaseChange := by
   intro K _ _ L _ _ _ A
   rw [stableFaltingsHeight_eq_iInf_height, stableFaltingsHeight_eq_iInf_height]
@@ -1942,7 +1954,7 @@ theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
         ≤ (transportModel e.symm he' 𝒢').height :=
           iInf_le_of_le (FinExt.mk M) (iInf_le_of_le _ le_rfl)
       _ ≤ 𝒢'.height := transportModel_height_le _ _ _
-      _ = 𝒢.height := hbc K A E.L M 𝒢 𝒢' h𝒢'
+      _ ≤ 𝒢.height := hbc K A E.L M 𝒢 𝒢' h𝒢'
   · refine le_iInf fun E => le_iInf fun 𝒢 => ?_
     letI : Algebra K E.L := ((algebraMap L E.L).comp (algebraMap K L)).toAlgebra
     haveI : IsScalarTower K L E.L := IsScalarTower.of_algebraMap_eq fun _ => rfl
@@ -1952,15 +1964,21 @@ theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
           iInf_le_of_le (FinExt.mk E.L) (iInf_le_of_le _ le_rfl)
       _ ≤ 𝒢.height := transportModel_height_le _ _ _
 
-/-- **`StableHeightBaseChange` from glue H4a alone** (`BaseChangeCompIso` and H4b are proved
-above). -/
-theorem stableHeightBaseChange_of_modelHeightBaseChange (hbc : ModelHeightBaseChange) :
+/-- **`StableHeightBaseChange` from the inequality half of glue H4a alone** (`BaseChangeCompIso`
+and H4b are proved above). -/
+theorem stableHeightBaseChange_of_modelHeightBaseChangeLE (hbc : ModelHeightBaseChangeLE) :
     StableHeightBaseChange :=
   stableHeightBaseChange_of_glue baseChangeCompIso groupModelBaseChangeExists hbc
+
+/-- **`StableHeightBaseChange` from h5-neron's glue H4a.** -/
+theorem stableHeightBaseChange_of_modelHeightBaseChange (hbc : ModelHeightBaseChange) :
+    StableHeightBaseChange :=
+  stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE hbc)
 
 end G0StableBC
 
 #print axioms G0StableBC.stableHeightBaseChange_of_glue
 #print axioms G0StableBC.baseChangeCompIso
 #print axioms G0StableBC.groupModelBaseChangeExists
+#print axioms G0StableBC.stableHeightBaseChange_of_modelHeightBaseChangeLE
 #print axioms G0StableBC.stableHeightBaseChange_of_modelHeightBaseChange

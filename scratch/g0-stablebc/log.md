@@ -19,3 +19,5 @@
   stableHeightBaseChange_of_modelHeightBaseChange.
   VERIFIED: StableHeightBaseChange ⇐ ModelHeightBaseChange (h5-neron glue H4a) alone.
   H4b (h5-neron's kernel-timeout item) is now proved.
+- run3 (02:00): added `ModelHeightBaseChangeLE` (the `≤` half of H4a, strictly weaker) and
+  `stableHeightBaseChange_of_modelHeightBaseChangeLE`; 0 errors, no sorry; all axioms standard.
