@@ -1321,4 +1321,45 @@ theorem g2G_table :
     (∀ n1 n2 : ZMod 4, (n1 + n2).val % 2 = 1 → g2G (n1, n2) = 0) := by
   decide
 
+/-- **The odd quadratic Gauss sum over `(ℤ/d)²`** (node C2, odd part):
+`Σ_{b ∈ (ℤ/d)²} (N(b)/d) e((b₁ν₁ + b₂ν₂)/d) = d (N(ν)/d)`. Numerically VERIFIED for
+`d ∈ {5, 13, 21, 3, 7}` (`fourier_check.py`); for prime `d = p` it is `g(χ_p)² χ_p(−1) = p`
+(`p ≡ 1 (mod 4)`) or the quadratic Gauss sum of `𝔽_{p²}` (`p ≡ 3 (mod 4)`). -/
+def OddGauss (d : ℕ) : Prop :=
+  ∀ ν : ℤ × ℤ, oddSum d ν = d * (jacobiSym (ν.1 ^ 2 + ν.2 ^ 2) d : ℂ)
+
+/-- **`CdFourier` from the odd Gauss sum** (the CRT and the 2-part are proved). -/
+theorem cdFourier_of_oddGauss {d : ℕ} (hd4 : d % 4 = 1) (hO : OddGauss d) : CdFourier d := by
+  have : NeZero d := ⟨by omega⟩
+  refine ⟨fun μ => ?_, fun ν hν => ?_⟩
+  · rw [fourierHat_cd_eq hd4, g2Sum_eq, hO, cdChar_intCast]
+    push_cast
+    rw [g2G_table.1, map_mul, map_mul, ← unitOf_eq_unitG]
+    have hN : (μ.1 - μ.2) ^ 2 + (μ.1 + μ.2) ^ 2 = 2 * (μ.1 ^ 2 + μ.2 ^ 2) := by ring
+    simp only [hN, jacobiSym.mul_left]
+    push_cast
+    have h4 : GaussianInt.toComplex 4 = 4 := map_ofNat _ 4
+    simp [GaussianInt.toComplex_def', h4]
+    ring
+  · rw [fourierHat_cd_eq hd4, g2Sum_eq]
+    have hpar : (((ν.1 : ZMod 4) + (ν.2 : ZMod 4))).val % 2 = 1 := by
+      have h := ZMod.val_intCast (n := 4) (ν.1 + ν.2)
+      push_cast at h
+      obtain ⟨k, hk⟩ := hν
+      have : ((((ν.1 : ZMod 4) + (ν.2 : ZMod 4))).val : ℤ) % 2 = 1 := by rw [h]; omega
+      omega
+    rw [g2G_table.2 _ _ hpar]
+    simp
+
+/-- **The two literature Props from three elementary statements**: the Euler product of
+`L(ψ_d, s)` (`HeckeEuler`, about `ℤ[i]`), Gauss's theorem at split primes (`GaussSplit`), and the
+odd quadratic Gauss sum (`OddGauss`). -/
+theorem literature_hecke_fe_of_euler_gauss_oddGauss
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → GaussSplit d)
+    (hO : ∀ d : ℕ, d % 8 = 5 → Squarefree d → OddGauss d) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_euler_gauss_fourier hE hS fun d h5 hsq =>
+    cdFourier_of_oddGauss (by omega) (hO d h5 hsq)
+
 end BpHeckeFE

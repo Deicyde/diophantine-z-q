@@ -68,3 +68,11 @@
 - Node B1: `unitG` (unitOf in ℤ[i]), `unitOf_eq_unitG`, `unitG_mul` (by `decide`, 256 cases),
   `gmul`, `psi d p = (Np/d)·u(p)·p`, `psi_mul` (ψ_d completely multiplicative),
   `heckeCoeff_eq_sum_psi`, `psi_units` (ψ_d = 1 on ±1, ±i), `psi_unit_mul`.
+- (VERIFIED, compiled ~18:25; `#print axioms` standard) node C2 except the odd Gauss sum:
+  `crt_injective`, `sum_crt` (Σ_{j mod 4d} g = Σ_{a mod 4} Σ_{b mod d} g(da+4b)),
+  `g2Sum`, `oddSum`, `cexp_shift`, `intCast_emod_eq`, `fourierHat_cd_eq` (ĉ_d = g2Sum · oddSum,
+  d ≡ 1 mod 4), `iPow`, `cexp_two_pi_I_div_four`, `g2G`, `g2Sum_eq`, `g2G_table` (decide:
+  g2G((1+i)μ) = 4(1+i)u(μ), g2G = 0 off (1+i)ℤ[i]), `OddGauss d : Prop`
+  (Σ_{b∈(ℤ/d)²} (Nb/d) e(b·ν/d) = d (Nν/d)), `cdFourier_of_oddGauss`,
+  `literature_hecke_fe_of_euler_gauss_oddGauss : (∀d, HeckeEuler d) → (∀d, GaussSplit d) →
+   (∀d, OddGauss d) → HeckeContinuation5 ∧ Literature.FunctionalEquation5`.
