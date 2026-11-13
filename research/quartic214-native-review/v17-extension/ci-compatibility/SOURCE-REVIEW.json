@@ -1,0 +1,191 @@
+{
+  "schema": "pr30-ci-compatibility-source-review/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "reviewed_at": "2026-11-13T12:02:24.802258+00:00",
+  "decision": "accepted_within_source_scope",
+  "source_commit": "210737569d215c6167bd46280fbf5f3de1da7667",
+  "controller_acceptance": false,
+  "mathematical_acceptance_renewed": false,
+  "reviewed_file_pins": [
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "sha256": "ae41982344f5a213d0b334e6bd397131af118b05a6fc96f425e5e8c05d94762c",
+      "bytes": 1818
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
+      "bytes": 2202
+    },
+    {
+      "path": ".github/workflows/version16-checks.yml",
+      "sha256": "bd4d1bfb0227dd97bf8aa19b2d4e639f0d171b39275f27cb6b23d2ab593ef3b1",
+      "bytes": 642
+    },
+    {
+      "path": "research/version17/ci-compatibility/BINDINGS.json",
+      "sha256": "62c574f7d493e2e826a0e18b93ff66fc856398f602eed573a941aab8f78fefc4",
+      "bytes": 3923
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/CITATION.bib",
+      "sha256": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d",
+      "bytes": 5882
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/manuscripts-README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
+      "bytes": 2185
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "bytes": 1818
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/version16-checks.yml",
+      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b",
+      "bytes": 611
+    },
+    {
+      "path": "research/version17/ci-compatibility/README.md",
+      "sha256": "f6b6b5b8fac551a7d152e5bb947220520181d1a0a330a0c23d623e550092b20a",
+      "bytes": 1762
+    },
+    {
+      "path": "research/version17/ci-compatibility/run.py",
+      "sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+      "bytes": 6529
+    },
+    {
+      "path": "research/version17/historical-continuation/CONTINUATION.json",
+      "sha256": "99ec3dc3f7252627ec5d283e7a5f738345b7c0389b955229ec5c3cbb74e6ceff",
+      "bytes": 4939
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/CONTINUATION.json",
+      "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
+      "bytes": 4939
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/quartic214-manuscript.yml",
+      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
+      "bytes": 2195
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/REVIEW.json",
+      "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
+      "bytes": 3314
+    }
+  ],
+  "original_failure_logs": [
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234454.log",
+      "sha256": "13cd31c1ec5a330244863cd9dfbf9e53d933bd32877ac6e83171ca5a6ede3590",
+      "bytes": 21027
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234328.log",
+      "sha256": "c0f6a2eb9df6bdd59ab7057c6d59d93f3d3d67d60449104b61e35f109fdfc236",
+      "bytes": 44252
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234775.log",
+      "sha256": "f42b76867c1ca95821f9022e7498285ee616e36d5aa18f677f62014aa9c8f8f2",
+      "bytes": 48038
+    }
+  ],
+  "adverse_execution_findings": [
+    {
+      "id": "CI-V16-METADATA",
+      "job": 131864234454,
+      "observed": "Original Version16 correction checker rejects current CITATION.bib against its frozen historical manifest. Source inspection also identifies the historical manuscripts README binding and changed checker-workflow identity.",
+      "repair": "The exact original command reads only its three named metadata archives. All manifest proof/artifact entries remain live current reads.",
+      "status": "source repair independently accepted; full successor replay and current CI remain required",
+      "native_group": "PROTECTED-ACCEPTANCE-PENDING",
+      "applications": [
+        "PR30-INTEGRATION-POLICY",
+        "PR30-DELIVERY"
+      ]
+    },
+    {
+      "id": "CI-MAIN-SELECTOR",
+      "job": 131864234328,
+      "observed": "Original deterministic assembly exits because the current Version17 selector differs from its frozen Version16 foundation profile.",
+      "repair": "Both original assembly and correction commands receive exactly the original selector identity. Current Version17 selector validation runs first; formulas, source assembly and all rejection controls remain unchanged.",
+      "status": "source repair independently accepted; full successor replay and current CI remain required",
+      "native_group": "PROTECTED-ACCEPTANCE-PENDING",
+      "applications": [
+        "PR30-INTEGRATION-POLICY",
+        "PR30-DELIVERY"
+      ]
+    },
+    {
+      "id": "CI-REV2-SELECTOR",
+      "job": 131864234775,
+      "observed": "Original revision2 source-map check reports stale-bound-source for its historical selector identity.",
+      "repair": "The original reviewed-artifacts/self-test command receives only the archived selector and its own historical workflow identity. Source map and proof bytes remain live; the old manifest has no other external mismatch at the reviewed source commit.",
+      "status": "source repair independently accepted; full successor replay and current CI remain required",
+      "native_group": "PROTECTED-ACCEPTANCE-PENDING",
+      "applications": [
+        "PR30-INTEGRATION-POLICY",
+        "PR30-DELIVERY"
+      ]
+    }
+  ],
+  "ci_runner_domains": {
+    "version16-check": [
+      "CITATION.bib",
+      "manuscripts/README.md",
+      ".github/workflows/version16-checks.yml"
+    ],
+    "main-assemble": [
+      "docs/current-manuscript.json"
+    ],
+    "main-corrections": [
+      "docs/current-manuscript.json"
+    ],
+    "revision2-check": [
+      "docs/current-manuscript.json",
+      ".github/workflows/quartic214-manuscript-revision2.yml"
+    ]
+  },
+  "original_adapter_domain": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md",
+    "docs/current-manuscript.json",
+    "docs/release-policy.md"
+  ],
+  "evidence": [
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/SOURCE-CHECK.json",
+      "sha256": "7c6b69429cdd958dca96d0939a865f0c35722732fd2010b8256ed72d90aa270b",
+      "bytes": 4426
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NAVIGATION-REVIEW.json",
+      "sha256": "d866a99660017b4db7a08c248b1a327719023b8f73c70c65f5ad33bbc4599c87",
+      "bytes": 3585
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NATIVE-PIN-IMPACT.json",
+      "sha256": "22fdf9404c16a550a6428ffe66974cd377f850340d071367e2884db192c3a3c6",
+      "bytes": 1310
+    }
+  ],
+  "findings_disposition": "The three concrete failures are preserved as new execution subfindings of the already-open current-CI operational condition, with distinct causes and repairs. They are not retrospectively declared resolved by historical I1. No mathematical objection is introduced, removed or merged. The31 original native disposition objects remain byte-exact; final current CI and exact-target/controller obligations remain open.",
+  "unchanged_native_scope": "Changed-path object scan and textual path scan find no occurrence in current canonical CONNECTIONS, DOSSIER, PROFILE or31 FINDINGS. All25 mathematical source pins,40 uses and related finding locations therefore remain unchanged. Ordinary application file pins, current integration contract and selected policy/delivery support reports require successor binding.",
+  "review_reasoning": [
+    "The runner permits four fixed commands and their exact arguments, without forwarding arbitrary commands. Each context patches only its enumerated absolute metadata paths and restores readers and argv on normal and exceptional exit.",
+    "Actual current selector/source/PDF/build validation runs before any historical substitution. Twenty exact file bindings cover original commands, archived/current metadata and the runner. Source changes or added/missing entries fail binding validation.",
+    "Independent fixtures verified archive identity against raw historical Git, current bindings, live proof reads, normal/exception restoration, and rejection of wrong command, write argument, proof substitution and stale original/current metadata bytes.",
+    "Workflow edits keep original PDF rebuilds, source checks, self-tests, resource limits, audit checks and final artifact comparison. The revised receiving workflow additionally triggers for version17 compatibility files.",
+    "Only the current main-workflow pin changes in the existing continuation record. Its unchanged validator accepted all24 exact bindings,9 frozen authorities and the genuine successor receipt. Its original four-domain scope remains separate from the new per-mode runner domains."
+  ],
+  "limits": [
+    "Full successor workflow replay is pending at this source-review freeze; later execution evidence must attribute author-run replay correctly.",
+    "The author read-only-export mount failure is a preserved replay-harness failure; the original negative control needs a temporary directory. A writable isolated export requires complete byte verification after execution.",
+    "No new final manifest, replacement ZIP, native target tuple, authenticated ACK or protected App result is claimed by this source report."
+  ]
+}

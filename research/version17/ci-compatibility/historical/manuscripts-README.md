@@ -1,0 +1,35 @@
+# Manuscripts
+
+The current manuscript is **Version 16**, dated November 11, 2026:
+
+- [PDF: quartic_v16.pdf](quartic_v16.pdf)
+- [TeX: quartic_v16.tex](quartic_v16.tex)
+- [Correction inventory and review scope](../research/version16/README.md)
+- [Research handoff](../research/version16/CUMULATIVE-HANDOFF.md)
+
+The [Version 15 PDF](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.pdf), [TeX](../research/version15/snapshots/v15-222-004/manuscript/quartic_v15.tex) and [research records](../research/version15/README.md) remain unchanged.
+
+Version 14 and its [reductions, inventory and review scopes](../docs/manuscript-revisions/version14/GUIDE.md) remain available below.
+
+## Earlier versions
+
+These files are preserved byte for byte. Historical inventories retain their original logical filenames; the current validation commands resolve them to the archive folder. [RELOCATION.json](RELOCATION.json) records every path and SHA-256 digest.
+
+| Version | PDF | TeX |
+| --- | --- | --- |
+| 14 | [PDF](quartic_v14.pdf) | [TeX](quartic_v14.tex) |
+| 13 | [PDF](quartic_v13.pdf) | [TeX](quartic_v13.tex) |
+| 12 | [PDF](quartic_v12.pdf) | [TeX](quartic_v12.tex) |
+| 11 | [PDF](quartic_v11.pdf) | [TeX](quartic_v11.tex) |
+| 10 | [PDF](quartic_v10.pdf) | [TeX](quartic_v10.tex) |
+| 9 | [PDF](quartic_v9.pdf) | [TeX](quartic_v9.tex) |
+| 8 | [PDF](archive/quartic_v8.pdf) | [TeX](archive/quartic_v8.tex) |
+| 7 | [PDF](archive/quartic_v7.pdf) | [TeX](archive/quartic_v7.tex) |
+| 5 | [PDF](archive/quartic_1272.pdf) | [TeX](archive/quartic_1272.tex) |
+| 4 | [PDF](archive/quartic_4973.pdf) | [TeX](archive/quartic_4973.tex) |
+| 3 | [PDF](archive/quartic_9625.pdf) | [TeX](archive/quartic_9625.tex) |
+| 2 | [PDF](archive/quartic_12504.pdf) | [TeX](archive/quartic_12504.tex) |
+
+The separately attributed [October 11 manuscript](../October%2011%20Manuscript/README.md) remains in its original folder. Version 6 is preserved in the [Version 6 release](https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-962-version-6).
+
+Version 10 addresses [Issue 2](../docs/manuscript-revisions/version10/README.md). Its polynomial tables and bounds are unchanged from Version 9.

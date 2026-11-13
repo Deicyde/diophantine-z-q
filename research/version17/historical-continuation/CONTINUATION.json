@@ -14,8 +14,8 @@
   "bindings": [
     {
       "path": ".github/workflows/quartic214-manuscript.yml",
-      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
-      "bytes": 2195
+      "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
+      "bytes": 2202
     },
     {
       "path": ".github/workflows/research-checks.yml",

@@ -37,11 +37,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install --no-install-recommends -y texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils
       - name: Verify deterministic source assembly
-        run: python -B research/quartic214-manuscript/assemble.py --check
+        run: python -B research/version17/ci-compatibility/run.py main-assemble
       - name: Check corrected formulas and stale-source rejection
         run: |
           ulimit -v 1048576
-          python -B research/quartic214-manuscript/check_source_corrections.py
+          python -B research/version17/ci-compatibility/run.py main-corrections
       - name: Rebuild the PDF serially within its resource limits
         run: python -B research/quartic214-manuscript/build_pdf.py --check
       - name: Check scoped correction review and artifact bindings

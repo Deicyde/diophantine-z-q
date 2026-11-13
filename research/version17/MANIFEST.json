@@ -3,7 +3,7 @@
   "version": 17,
   "previous_archive_sha256": "703b75f3bf4eee5a94d2e7cd12fcab92fd6f8d101422cb4248b36afccf0b11d9",
   "previous_archive_bytes": 287551307,
-  "inventory_source_git_tree": "2fb60cb8510f944406f1f87c2351e8e1d2284f58",
+  "inventory_source_git_tree": "459b5c2bac46215a6f7b5ce5375912b0148f9906",
   "source_bytes": "raw-git-blobs",
   "scope": "Every regular file in the explicitly selected Git tree, except the two cycle exclusions. Git blobs and executable bits are preserved without checkout normalization or archive export filters. Historical byte/mode matches are individually verified.",
   "cycle_exclusions": [
@@ -61,8 +61,8 @@
     },
     {
       "path": ".github/workflows/quartic214-manuscript-revision2.yml",
-      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
-      "git_blob": "80fe5483d29094a1c033a0ef2fb0d259f9ff7748",
+      "sha256": "ae41982344f5a213d0b334e6bd397131af118b05a6fc96f425e5e8c05d94762c",
+      "git_blob": "f0252bed8a36b2256bf119b1622c71761845f4a9",
       "git_mode": "100644",
       "bytes": 1818,
       "delivery": "overlay"
@@ -77,10 +77,10 @@
     },
     {
       "path": ".github/workflows/quartic214-manuscript.yml",
-      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
-      "git_blob": "3ab64c3c7f9130aabeefe1e5be8be898a7ec5a6f",
+      "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
+      "git_blob": "43d62a69ac9b987780ead479ab921d2b1b76f041",
       "git_mode": "100644",
-      "bytes": 2195,
+      "bytes": 2202,
       "delivery": "overlay"
     },
     {
@@ -133,14 +133,11 @@
     },
     {
       "path": ".github/workflows/version16-checks.yml",
-      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b",
-      "git_blob": "332befcc640a7586080b2ccbb83b81f6c1ba390f",
+      "sha256": "bd4d1bfb0227dd97bf8aa19b2d4e639f0d171b39275f27cb6b23d2ab593ef3b1",
+      "git_blob": "f99d17fc7548a8cf4d6837c4b2c23191a71df89b",
       "git_mode": "100644",
-      "bytes": 611,
-      "delivery": "verified_base",
-      "base_member_chain": [
-        "overlay/.github/workflows/version16-checks.yml"
-      ]
+      "bytes": 642,
+      "delivery": "overlay"
     },
     {
       "path": ".gitignore",
@@ -43425,6 +43422,86 @@
       "git_blob": "982c68cb41fe16727e787fda25f422846a222eda",
       "git_mode": "100644",
       "bytes": 2852,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/DELIVERY-SUPPORT-REVIEW.json",
+      "sha256": "d18c4ea974f98329ef9c26330c8ae8f40663cf0dd0e869e6ffd96d42bcbab8e7",
+      "git_blob": "dd2eed3d350066392402e2c094322e8a8169b10d",
+      "git_mode": "100644",
+      "bytes": 18866,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/EXECUTION-REVIEW.json",
+      "sha256": "781d281d54068101fd048256b8f6942b793d4408ec9468514ab439aa04e600f7",
+      "git_blob": "3fa3b0792093ee2b7db5f44a2514cf6c6f639854",
+      "git_mode": "100644",
+      "bytes": 21799,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NATIVE-PIN-IMPACT.json",
+      "sha256": "22fdf9404c16a550a6428ffe66974cd377f850340d071367e2884db192c3a3c6",
+      "git_blob": "8882fb6ef39a441ca40d5844c772bbeccbd2c8c9",
+      "git_mode": "100644",
+      "bytes": 1310,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NAVIGATION-REVIEW.json",
+      "sha256": "d866a99660017b4db7a08c248b1a327719023b8f73c70c65f5ad33bbc4599c87",
+      "git_blob": "4239afb2485f3524c7acffec2d3e1735fa584ab2",
+      "git_mode": "100644",
+      "bytes": 3585,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/PUBLIC-COPY-BINDINGS.json",
+      "sha256": "edee0bc14dd133615f07fe665614561d40d38102967155b6b7cbdd8ce9d64cac",
+      "git_blob": "e33f7bb50388f66509567c8a9aac106ecb6ff65a",
+      "git_mode": "100644",
+      "bytes": 2853,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/SOURCE-CHECK.json",
+      "sha256": "7c6b69429cdd958dca96d0939a865f0c35722732fd2010b8256ed72d90aa270b",
+      "git_blob": "b95237b5d54114e63d88da19d37698465512088b",
+      "git_mode": "100644",
+      "bytes": 4426,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/SOURCE-REVIEW.json",
+      "sha256": "333c732f8c5f1ab31cad5b9d3ebb6e86d10abe0566dcc289cc14640640d88764",
+      "git_blob": "e16857fea4618d4ae00d046137a8e4abee80240f",
+      "git_mode": "100644",
+      "bytes": 10070,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234328.log",
+      "sha256": "c0f6a2eb9df6bdd59ab7057c6d59d93f3d3d67d60449104b61e35f109fdfc236",
+      "git_blob": "8b3177dda30a329d999a3df984260e144ada02df",
+      "git_mode": "100644",
+      "bytes": 44252,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234454.log",
+      "sha256": "13cd31c1ec5a330244863cd9dfbf9e53d933bd32877ac6e83171ca5a6ede3590",
+      "git_blob": "6c77c4851544fa8f4db095851e23b6cd42c3c2cd",
+      "git_mode": "100644",
+      "bytes": 21027,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234775.log",
+      "sha256": "f42b76867c1ca95821f9022e7498285ee616e36d5aa18f677f62014aa9c8f8f2",
+      "git_blob": "256f239dbe281e58cb88dce9afc664bc3053429a",
+      "git_mode": "100644",
+      "bytes": 48038,
       "delivery": "overlay"
     },
     {
@@ -115778,9 +115855,65 @@
       "delivery": "overlay"
     },
     {
+      "path": "research/version17/ci-compatibility/BINDINGS.json",
+      "sha256": "62c574f7d493e2e826a0e18b93ff66fc856398f602eed573a941aab8f78fefc4",
+      "git_blob": "0c3327f2df10fc0449867de385c290302e6786ee",
+      "git_mode": "100644",
+      "bytes": 3923,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/README.md",
+      "sha256": "f6b6b5b8fac551a7d152e5bb947220520181d1a0a330a0c23d623e550092b20a",
+      "git_blob": "6bfc986247632a1bd7fddde667bac307a8896f90",
+      "git_mode": "100644",
+      "bytes": 1762,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/CITATION.bib",
+      "sha256": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d",
+      "git_blob": "ab69fdf724db85dddf208df49759743e0f4121d5",
+      "git_mode": "100644",
+      "bytes": 5882,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/manuscripts-README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
+      "git_blob": "4cec06e9d0f8f3d9dad548497982adc2c40f683f",
+      "git_mode": "100644",
+      "bytes": 2185,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "git_blob": "80fe5483d29094a1c033a0ef2fb0d259f9ff7748",
+      "git_mode": "100644",
+      "bytes": 1818,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/version16-checks.yml",
+      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b",
+      "git_blob": "332befcc640a7586080b2ccbb83b81f6c1ba390f",
+      "git_mode": "100644",
+      "bytes": 611,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/ci-compatibility/run.py",
+      "sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+      "git_blob": "48971637f399200429fa46551cd50d6165287f37",
+      "git_mode": "100644",
+      "bytes": 6529,
+      "delivery": "overlay"
+    },
+    {
       "path": "research/version17/historical-continuation/CONTINUATION.json",
-      "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
-      "git_blob": "20737d9495fd91c371fc4bf043a13c99288d1170",
+      "sha256": "99ec3dc3f7252627ec5d283e7a5f738345b7c0389b955229ec5c3cbb74e6ceff",
+      "git_blob": "301f0869b527543d0f7fc40951966189e767f814",
       "git_mode": "100644",
       "bytes": 4939,
       "delivery": "overlay"
@@ -115803,10 +115936,10 @@
     },
     {
       "path": "research/version17/historical-continuation/REVIEW.json",
-      "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
-      "git_blob": "f6b2cc282b6b351293824c6d703d23f7e381a8e6",
+      "sha256": "d866a99660017b4db7a08c248b1a327719023b8f73c70c65f5ad33bbc4599c87",
+      "git_blob": "4239afb2485f3524c7acffec2d3e1735fa584ab2",
       "git_mode": "100644",
-      "bytes": 3314,
+      "bytes": 3585,
       "delivery": "overlay"
     },
     {
@@ -115823,6 +115956,30 @@
       "git_blob": "5a0b481390ef830bb51526d7b75a7d8de2bb943f",
       "git_mode": "100644",
       "bytes": 16623,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/CONTINUATION.json",
+      "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
+      "git_blob": "20737d9495fd91c371fc4bf043a13c99288d1170",
+      "git_mode": "100644",
+      "bytes": 4939,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/REVIEW.json",
+      "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
+      "git_blob": "f6b2cc282b6b351293824c6d703d23f7e381a8e6",
+      "git_mode": "100644",
+      "bytes": 3314,
+      "delivery": "overlay"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/ci-routing-before/quartic214-manuscript.yml",
+      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
+      "git_blob": "3ab64c3c7f9130aabeefe1e5be8be898a7ec5a6f",
+      "git_mode": "100644",
+      "bytes": 2195,
       "delivery": "overlay"
     },
     {

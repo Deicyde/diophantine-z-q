@@ -1,0 +1,533 @@
+﻿2026-11-13T11:41:35.7053894Z Current runner version: '2.338.2'
+2026-11-13T11:41:35.7080191Z ##[group]Runner Image Provisioner
+2026-11-13T11:41:35.7081187Z Hosted Compute Agent
+2026-11-13T11:41:35.7081797Z Version: 20261103.629
+2026-11-13T11:41:35.7082382Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-13T11:41:35.7083090Z Build Date: 2026-11-03T17:26:59Z
+2026-11-13T11:41:35.7083734Z Worker ID: {3feea2ca-397e-4ca5-ba35-c155f2bb22fa}
+2026-11-13T11:41:35.7084384Z Region: eastus3
+2026-11-13T11:41:35.7084908Z Cloud: Azure
+2026-11-13T11:41:35.7085430Z ##[endgroup]
+2026-11-13T11:41:35.7087376Z ##[group]Operating System
+2026-11-13T11:41:35.7087980Z Ubuntu
+2026-11-13T11:41:35.7088462Z 24.04.5
+2026-11-13T11:41:35.7088949Z LTS
+2026-11-13T11:41:35.7089411Z ##[endgroup]
+2026-11-13T11:41:35.7089917Z ##[group]Runner Image
+2026-11-13T11:41:35.7090502Z Image: ubuntu-24.04
+2026-11-13T11:41:35.7091089Z Version: 20261111.370.1
+2026-11-13T11:41:35.7092387Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.370/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-13T11:41:35.7093770Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.370
+2026-11-13T11:41:35.7094665Z ##[endgroup]
+2026-11-13T11:41:35.7095681Z ##[group]GITHUB_TOKEN Permissions
+2026-11-13T11:41:35.7098437Z Contents: read
+2026-11-13T11:41:35.7099060Z Metadata: read
+2026-11-13T11:41:35.7099628Z ##[endgroup]
+2026-11-13T11:41:35.7102151Z Secret source: Actions
+2026-11-13T11:41:35.7103042Z Cache mode: write
+2026-11-13T11:41:35.7103854Z Prepare workflow directory
+2026-11-13T11:41:35.7448042Z Prepare all required actions
+2026-11-13T11:41:35.7499955Z Getting action download info
+2026-11-13T11:41:35.9935973Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-13T11:41:36.1597086Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-13T11:41:36.4520426Z Complete job name: Serial TeX/PDF and manuscript review bindings
+2026-11-13T11:41:36.5571764Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-11-13T11:41:36.5572766Z with:
+2026-11-13T11:41:36.5573216Z   repository: elliotglazer/diophantine-z-q
+2026-11-13T11:41:36.5577181Z   token: ***
+2026-11-13T11:41:36.5577600Z   ssh-strict: true
+2026-11-13T11:41:36.5578002Z   ssh-user: git
+2026-11-13T11:41:36.5578410Z   persist-credentials: true
+2026-11-13T11:41:36.5578855Z   clean: true
+2026-11-13T11:41:36.5579269Z   sparse-checkout-cone-mode: true
+2026-11-13T11:41:36.5579746Z   fetch-depth: 1
+2026-11-13T11:41:36.5580142Z   fetch-tags: false
+2026-11-13T11:41:36.5580548Z   show-progress: true
+2026-11-13T11:41:36.5580948Z   lfs: false
+2026-11-13T11:41:36.5581329Z   submodules: false
+2026-11-13T11:41:36.5581743Z   set-safe-directory: true
+2026-11-13T11:41:36.5582217Z   allow-unsafe-pr-checkout: false
+2026-11-13T11:41:36.5582981Z ##[endgroup]
+2026-11-13T11:41:37.1151879Z Syncing repository: elliotglazer/diophantine-z-q
+2026-11-13T11:41:37.1155994Z ##[group]Getting Git version info
+2026-11-13T11:41:37.1157827Z Working directory is '/home/runner/work/diophantine-z-q/diophantine-z-q'
+2026-11-13T11:41:37.1160203Z [command]/usr/bin/git version
+2026-11-13T11:41:37.1561967Z git version 2.56.1
+2026-11-13T11:41:37.1588567Z ##[endgroup]
+2026-11-13T11:41:37.1608556Z Temporarily overriding HOME='/home/runner/work/_temp/0d68b61f-1162-47d0-8498-642637467954' before making global git config changes
+2026-11-13T11:41:37.1611684Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T11:41:37.1614330Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/diophantine-z-q/diophantine-z-q
+2026-11-13T11:41:37.1674418Z Deleting the contents of '/home/runner/work/diophantine-z-q/diophantine-z-q'
+2026-11-13T11:41:37.1682227Z ##[group]Initializing the repository
+2026-11-13T11:41:37.1686855Z [command]/usr/bin/git init /home/runner/work/diophantine-z-q/diophantine-z-q
+2026-11-13T11:41:37.1815629Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-13T11:41:37.1817746Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-13T11:41:37.1818850Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-13T11:41:37.1819740Z hint: call:
+2026-11-13T11:41:37.1820192Z hint:
+2026-11-13T11:41:37.1820807Z hint: 	git config --global init.defaultBranch <name>
+2026-11-13T11:41:37.1821518Z hint:
+2026-11-13T11:41:37.1822502Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-13T11:41:37.1824386Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-13T11:41:37.1825894Z hint:
+2026-11-13T11:41:37.1827093Z hint: 	git branch -m <name>
+2026-11-13T11:41:37.1828165Z hint:
+2026-11-13T11:41:37.1829411Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-13T11:41:37.1831696Z Initialized empty Git repository in /home/runner/work/diophantine-z-q/diophantine-z-q/.git/
+2026-11-13T11:41:37.1848218Z [command]/usr/bin/git remote add origin https://github.com/elliotglazer/diophantine-z-q
+2026-11-13T11:41:37.2075375Z ##[endgroup]
+2026-11-13T11:41:37.2077278Z ##[group]Disabling automatic garbage collection
+2026-11-13T11:41:37.2081709Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-13T11:41:37.2119098Z ##[endgroup]
+2026-11-13T11:41:37.2120564Z ##[group]Setting up auth
+2026-11-13T11:41:37.2128661Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T11:41:37.2169275Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T11:41:37.2702529Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T11:41:37.2735707Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T11:41:37.2928862Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T11:41:37.2963286Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T11:41:37.3175507Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-13T11:41:37.3220991Z ##[endgroup]
+2026-11-13T11:41:37.3221864Z ##[group]Fetching the repository
+2026-11-13T11:41:37.3241868Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +7efb4a182bebf11550248333eedb3407228e704c:refs/remotes/pull/30/merge
+2026-11-13T11:41:51.5261322Z From https://github.com/elliotglazer/diophantine-z-q
+2026-11-13T11:41:51.5262129Z  * [new ref]         7efb4a182bebf11550248333eedb3407228e704c -> pull/30/merge
+2026-11-13T11:41:51.5264621Z ##[endgroup]
+2026-11-13T11:41:51.5265370Z ##[group]Determining the checkout info
+2026-11-13T11:41:51.5269240Z ##[endgroup]
+2026-11-13T11:41:51.5274170Z [command]/usr/bin/git sparse-checkout disable
+2026-11-13T11:41:51.5340234Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-13T11:41:51.5371494Z ##[group]Checking out the ref
+2026-11-13T11:41:51.5376220Z [command]/usr/bin/git checkout --progress --force refs/remotes/pull/30/merge
+2026-11-13T11:41:52.5960507Z Updating files:  25% (3492/13877)
+2026-11-13T11:41:52.6159228Z Updating files:  26% (3609/13877)
+2026-11-13T11:41:52.6393498Z Updating files:  27% (3747/13877)
+2026-11-13T11:41:52.6744901Z Updating files:  28% (3886/13877)
+2026-11-13T11:41:52.7207748Z Updating files:  29% (4025/13877)
+2026-11-13T11:41:52.7471360Z Updating files:  30% (4164/13877)
+2026-11-13T11:41:52.7899944Z Updating files:  31% (4302/13877)
+2026-11-13T11:41:52.8134893Z Updating files:  32% (4441/13877)
+2026-11-13T11:41:52.8213838Z Updating files:  33% (4580/13877)
+2026-11-13T11:41:52.8769855Z Updating files:  34% (4719/13877)
+2026-11-13T11:41:52.9817128Z Updating files:  35% (4857/13877)
+2026-11-13T11:41:53.0285909Z Updating files:  36% (4996/13877)
+2026-11-13T11:41:53.0568797Z Updating files:  37% (5135/13877)
+2026-11-13T11:41:53.1327798Z Updating files:  38% (5274/13877)
+2026-11-13T11:41:53.1519640Z Updating files:  39% (5413/13877)
+2026-11-13T11:41:53.3505078Z Updating files:  40% (5551/13877)
+2026-11-13T11:41:53.3581586Z Updating files:  41% (5690/13877)
+2026-11-13T11:41:53.4006532Z Updating files:  42% (5829/13877)
+2026-11-13T11:41:53.4198328Z Updating files:  43% (5968/13877)
+2026-11-13T11:41:53.4554663Z Updating files:  44% (6106/13877)
+2026-11-13T11:41:53.4623006Z Updating files:  45% (6245/13877)
+2026-11-13T11:41:53.4726088Z Updating files:  46% (6384/13877)
+2026-11-13T11:41:53.4817563Z Updating files:  47% (6523/13877)
+2026-11-13T11:41:53.4949805Z Updating files:  48% (6661/13877)
+2026-11-13T11:41:53.5438746Z Updating files:  49% (6800/13877)
+2026-11-13T11:41:53.5562254Z Updating files:  50% (6939/13877)
+2026-11-13T11:41:53.5619527Z Updating files:  50% (7011/13877)
+2026-11-13T11:41:53.5759519Z Updating files:  51% (7078/13877)
+2026-11-13T11:41:53.5896645Z Updating files:  52% (7217/13877)
+2026-11-13T11:41:53.6044493Z Updating files:  53% (7355/13877)
+2026-11-13T11:41:53.6334896Z Updating files:  54% (7494/13877)
+2026-11-13T11:41:53.6461288Z Updating files:  55% (7633/13877)
+2026-11-13T11:41:53.6545572Z Updating files:  56% (7772/13877)
+2026-11-13T11:41:53.6606224Z Updating files:  57% (7910/13877)
+2026-11-13T11:41:53.6679195Z Updating files:  58% (8049/13877)
+2026-11-13T11:41:53.6781646Z Updating files:  59% (8188/13877)
+2026-11-13T11:41:53.7439030Z Updating files:  60% (8327/13877)
+2026-11-13T11:41:53.7641360Z Updating files:  61% (8465/13877)
+2026-11-13T11:41:53.7739240Z Updating files:  62% (8604/13877)
+2026-11-13T11:41:53.8051064Z Updating files:  63% (8743/13877)
+2026-11-13T11:41:53.8144567Z Updating files:  64% (8882/13877)
+2026-11-13T11:41:53.8223571Z Updating files:  65% (9021/13877)
+2026-11-13T11:41:53.8336184Z Updating files:  66% (9159/13877)
+2026-11-13T11:41:53.8898845Z Updating files:  67% (9298/13877)
+2026-11-13T11:41:54.2173744Z Updating files:  68% (9437/13877)
+2026-11-13T11:41:54.2345405Z Updating files:  69% (9576/13877)
+2026-11-13T11:41:54.2580369Z Updating files:  70% (9714/13877)
+2026-11-13T11:41:54.2903014Z Updating files:  71% (9853/13877)
+2026-11-13T11:41:54.2969562Z Updating files:  72% (9992/13877)
+2026-11-13T11:41:54.3071913Z Updating files:  73% (10131/13877)
+2026-11-13T11:41:54.3191458Z Updating files:  74% (10269/13877)
+2026-11-13T11:41:54.3238936Z Updating files:  75% (10408/13877)
+2026-11-13T11:41:54.3650995Z Updating files:  76% (10547/13877)
+2026-11-13T11:41:54.5624516Z Updating files:  77% (10686/13877)
+2026-11-13T11:41:54.6719182Z Updating files:  77% (10783/13877)
+2026-11-13T11:41:54.7379157Z Updating files:  78% (10825/13877)
+2026-11-13T11:41:54.7565425Z Updating files:  79% (10963/13877)
+2026-11-13T11:41:54.7728002Z Updating files:  80% (11102/13877)
+2026-11-13T11:41:54.7856409Z Updating files:  81% (11241/13877)
+2026-11-13T11:41:54.8083801Z Updating files:  82% (11380/13877)
+2026-11-13T11:41:54.8170243Z Updating files:  83% (11518/13877)
+2026-11-13T11:41:54.8341241Z Updating files:  84% (11657/13877)
+2026-11-13T11:41:54.8657676Z Updating files:  85% (11796/13877)
+2026-11-13T11:41:54.8750625Z Updating files:  86% (11935/13877)
+2026-11-13T11:41:54.8872498Z Updating files:  87% (12073/13877)
+2026-11-13T11:41:55.0894896Z Updating files:  88% (12212/13877)
+2026-11-13T11:41:55.1468535Z Updating files:  89% (12351/13877)
+2026-11-13T11:41:55.1636548Z Updating files:  90% (12490/13877)
+2026-11-13T11:41:55.4199540Z Updating files:  91% (12629/13877)
+2026-11-13T11:41:55.4415792Z Updating files:  92% (12767/13877)
+2026-11-13T11:41:55.4595328Z Updating files:  93% (12906/13877)
+2026-11-13T11:41:55.4904134Z Updating files:  94% (13045/13877)
+2026-11-13T11:41:55.5152523Z Updating files:  95% (13184/13877)
+2026-11-13T11:41:55.5367301Z Updating files:  96% (13322/13877)
+2026-11-13T11:41:55.5589081Z Updating files:  97% (13461/13877)
+2026-11-13T11:41:55.6631721Z Updating files:  97% (13523/13877)
+2026-11-13T11:41:55.7551343Z Updating files:  98% (13600/13877)
+2026-11-13T11:41:55.8830940Z Updating files:  99% (13739/13877)
+2026-11-13T11:41:55.8831833Z Updating files: 100% (13877/13877)
+2026-11-13T11:41:55.8832290Z Updating files: 100% (13877/13877), done.
+2026-11-13T11:41:55.9538549Z Note: switching to 'refs/remotes/pull/30/merge'.
+2026-11-13T11:41:55.9538873Z 
+2026-11-13T11:41:55.9539156Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-13T11:41:55.9539713Z changes and commit them, and you can discard any commits you make in this
+2026-11-13T11:41:55.9540259Z state without impacting any branches by switching back to a branch.
+2026-11-13T11:41:55.9540583Z 
+2026-11-13T11:41:55.9540798Z If you want to create a new branch to retain commits you create, you may
+2026-11-13T11:41:55.9541372Z do so (now or later) by using -c with the switch command. Example:
+2026-11-13T11:41:55.9541673Z 
+2026-11-13T11:41:55.9541810Z   git switch -c <new-branch-name>
+2026-11-13T11:41:55.9542008Z 
+2026-11-13T11:41:55.9542136Z Or undo this operation with:
+2026-11-13T11:41:55.9542322Z 
+2026-11-13T11:41:55.9542438Z   git switch -
+2026-11-13T11:41:55.9542577Z 
+2026-11-13T11:41:55.9542823Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-13T11:41:55.9543175Z 
+2026-11-13T11:41:55.9543563Z HEAD is now at 7efb4a1 Merge 210737569d215c6167bd46280fbf5f3de1da7667 into a5937595cde3e3db00975b81e5171cdef92c801a
+2026-11-13T11:41:55.9612274Z ##[endgroup]
+2026-11-13T11:41:55.9654788Z [command]/usr/bin/git log -1 --format=%H
+2026-11-13T11:41:55.9684630Z 7efb4a182bebf11550248333eedb3407228e704c
+2026-11-13T11:41:56.0213829Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-13T11:41:56.0214223Z with:
+2026-11-13T11:41:56.0214456Z   python-version: 3.12.14
+2026-11-13T11:41:56.0214723Z   check-latest: false
+2026-11-13T11:41:56.0217683Z   token: ***
+2026-11-13T11:41:56.0217912Z   update-environment: true
+2026-11-13T11:41:56.0218164Z   allow-prereleases: false
+2026-11-13T11:41:56.0218403Z   freethreaded: false
+2026-11-13T11:41:56.0218618Z ##[endgroup]
+2026-11-13T11:41:56.1626366Z ##[group]Installed versions
+2026-11-13T11:41:56.1647824Z Version 3.12.14 was not found in the local cache
+2026-11-13T11:41:56.1837051Z (node:2345) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-13T11:41:56.1837769Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-13T11:41:56.9328323Z Version 3.12.14 is available for downloading
+2026-11-13T11:41:56.9330571Z Download from "https://github.com/actions/python-versions/releases/download/3.12.14-31661455385/python-3.12.14-linux-24.04-x64.tar.gz"
+2026-11-13T11:41:57.6125947Z Extract downloaded archive
+2026-11-13T11:41:57.6254780Z [command]/usr/bin/tar xz --warning=no-unknown-keyword --overwrite -C /home/runner/work/_temp/ec0d3684-9598-41f7-b997-e7d143c2d2c6 -f /home/runner/work/_temp/77ee7460-2083-4100-a8f4-e73a001c212e
+2026-11-13T11:41:59.9687992Z Execute installation script
+2026-11-13T11:41:59.9782509Z Check if Python hostedtoolcache folder exist...
+2026-11-13T11:41:59.9782899Z Create Python 3.12.14 folder
+2026-11-13T11:41:59.9793940Z Copy Python binaries to hostedtoolcache folder
+2026-11-13T11:42:00.2553881Z Create additional symlinks (Required for the UsePythonVersion Azure Pipelines task and the setup-python GitHub Action)
+2026-11-13T11:42:00.2596547Z Upgrading pip...
+2026-11-13T11:42:02.0195986Z Collecting pip
+2026-11-13T11:42:02.0938375Z Downloading pip-26.3-py3-none-any.whl.metadata (4.6 kB)
+2026-11-13T11:42:02.1162773Z Downloading pip-26.3-py3-none-any.whl (2.0 MB)
+2026-11-13T11:42:02.2029867Z ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 2.0/2.0 MB 38.1 MB/s eta 0:00:00
+2026-11-13T11:42:02.2030470Z 
+2026-11-13T11:42:02.2232155Z Installing collected packages: pip
+2026-11-13T11:42:02.2233179Z Attempting uninstall: pip
+2026-11-13T11:42:02.2253062Z Found existing installation: pip 25.0.1
+2026-11-13T11:42:02.2515125Z Uninstalling pip-25.0.1:
+2026-11-13T11:42:02.2561820Z Successfully uninstalled pip-25.0.1
+2026-11-13T11:42:03.1552461Z Successfully installed pip-26.3
+2026-11-13T11:42:03.2227761Z Create complete file
+2026-11-13T11:42:03.2269340Z Successfully set up CPython (3.12.14)
+2026-11-13T11:42:03.2270922Z ##[endgroup]
+2026-11-13T11:42:03.2436496Z ##[group]Run sudo apt-get update
+2026-11-13T11:42:03.2437131Z [36;1msudo apt-get update[0m
+2026-11-13T11:42:03.2437704Z [36;1msudo apt-get install --no-install-recommends -y texlive-latex-extra texlive-fonts-recommended lmodern poppler-utils[0m
+2026-11-13T11:42:03.2457643Z shell: /usr/bin/bash -e {0}
+2026-11-13T11:42:03.2457934Z env:
+2026-11-13T11:42:03.2458212Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:42:03.2458659Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-11-13T11:42:03.2459098Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:42:03.2459473Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:42:03.2459842Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:42:03.2460216Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-11-13T11:42:03.2460529Z ##[endgroup]
+2026-11-13T11:42:03.3210515Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-13T11:42:03.3464872Z Get:6 https://packages.microsoft.com/ubuntu/24.04/prod noble InRelease [3600 B]
+2026-11-13T11:42:03.3641056Z Hit:2 http://azure.archive.ubuntu.com/ubuntu noble InRelease
+2026-11-13T11:42:03.3756472Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble-updates InRelease [126 kB]
+2026-11-13T11:42:03.4164226Z Get:7 https://packages.microsoft.com/ubuntu/24.04/prod noble/main arm64 Packages [697 kB]
+2026-11-13T11:42:03.4221665Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble-backports InRelease [126 kB]
+2026-11-13T11:42:03.4365085Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble-security InRelease [126 kB]
+2026-11-13T11:42:03.4385053Z Get:8 https://packages.microsoft.com/ubuntu/24.04/prod noble/main amd64 Packages [767 kB]
+2026-11-13T11:42:03.5447464Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 Packages [1450 kB]
+2026-11-13T11:42:03.5826272Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble-updates/main Translation-en [315 kB]
+2026-11-13T11:42:03.5958732Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe amd64 Packages [1713 kB]
+2026-11-13T11:42:03.6122718Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble-updates/universe Translation-en [345 kB]
+2026-11-13T11:42:03.6259835Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted amd64 Packages [1883 kB]
+2026-11-13T11:42:03.6447073Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble-updates/restricted Translation-en [430 kB]
+2026-11-13T11:42:03.6577173Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble-updates/multiverse Translation-en [14.6 kB]
+2026-11-13T11:42:03.6691387Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble-security/main amd64 Packages [1195 kB]
+2026-11-13T11:42:03.6888385Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble-security/main Translation-en [238 kB]
+2026-11-13T11:42:03.6991909Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble-security/universe amd64 Packages [1228 kB]
+2026-11-13T11:42:03.7715257Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-security/universe Translation-en [248 kB]
+2026-11-13T11:42:03.8021288Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted amd64 Packages [1788 kB]
+2026-11-13T11:42:03.8660189Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble-security/restricted Translation-en [411 kB]
+2026-11-13T11:42:07.4023703Z Fetched 13.1 MB in 1s (9576 kB/s)
+2026-11-13T11:42:08.6522369Z Reading package lists...
+2026-11-13T11:42:08.6926148Z Reading package lists...
+2026-11-13T11:42:08.9680132Z Building dependency tree...
+2026-11-13T11:42:08.9687626Z Reading state information...
+2026-11-13T11:42:09.2083825Z The following additional packages will be installed:
+2026-11-13T11:42:09.2086209Z   fonts-lmodern libapache-pom-java libcommons-logging-java
+2026-11-13T11:42:09.2089844Z   libcommons-parent-java libfontbox-java libkpathsea6 libpaper-utils libpaper1
+2026-11-13T11:42:09.2095032Z   libpdfbox-java libpoppler134 libpotrace0 libptexenc1 libsynctex2 libteckit0
+2026-11-13T11:42:09.2102968Z   libtexlua53-5 libzzip-0-13t64 preview-latex-style t1utils texlive-base
+2026-11-13T11:42:09.2103783Z   texlive-binaries texlive-latex-base texlive-latex-recommended
+2026-11-13T11:42:09.2104368Z   texlive-pictures xfonts-encodings xfonts-utils
+2026-11-13T11:42:09.2119665Z Suggested packages:
+2026-11-13T11:42:09.2120308Z   libavalon-framework-java libexcalibur-logkit-java liblog4j1.2-java
+2026-11-13T11:42:09.2121170Z   ghostscript gv | postscript-viewer perl-tk xpdf | pdf-viewer xzdec
+2026-11-13T11:42:09.2121964Z   texlive-binaries-sse2 hintview texlive-fonts-recommended-doc
+2026-11-13T11:42:09.2122788Z   texlive-latex-base-doc wp2latex icc-profiles libfile-which-perl
+2026-11-13T11:42:09.2123378Z   texlive-latex-extra-doc texlive-science texlive-latex-recommended-doc
+2026-11-13T11:42:09.2123899Z   texlive-luatex texlive-pstricks dot2tex prerex texlive-pictures-doc vprerex
+2026-11-13T11:42:09.2124300Z Recommended packages:
+2026-11-13T11:42:09.2124572Z   poppler-data dvisvgm tex-gyre tipa default-jre
+2026-11-13T11:42:09.2124949Z   libspreadsheet-parseexcel-perl texlive-plain-generic
+2026-11-13T11:42:09.6434027Z The following NEW packages will be installed:
+2026-11-13T11:42:09.6437195Z   fonts-lmodern libapache-pom-java libcommons-logging-java
+2026-11-13T11:42:09.6441466Z   libcommons-parent-java libfontbox-java libkpathsea6 libpaper-utils libpaper1
+2026-11-13T11:42:09.6447202Z   libpdfbox-java libpoppler134 libpotrace0 libptexenc1 libsynctex2 libteckit0
+2026-11-13T11:42:09.6457194Z   libtexlua53-5 libzzip-0-13t64 lmodern poppler-utils preview-latex-style
+2026-11-13T11:42:09.6458067Z   t1utils texlive-base texlive-binaries texlive-fonts-recommended
+2026-11-13T11:42:09.6458677Z   texlive-latex-base texlive-latex-extra texlive-latex-recommended
+2026-11-13T11:42:09.6459164Z   texlive-pictures xfonts-encodings xfonts-utils
+2026-11-13T11:42:09.7125112Z 0 upgraded, 29 newly installed, 0 to remove and 20 not upgraded.
+2026-11-13T11:42:09.7125526Z Need to get 105 MB of archives.
+2026-11-13T11:42:09.7125903Z After this operation, 363 MB of additional disk space will be used.
+2026-11-13T11:42:09.7126313Z Get:1 file:/etc/apt/apt-mirrors.txt Mirrorlist [144 B]
+2026-11-13T11:42:09.7697318Z Get:2 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 fonts-lmodern all 2.005-1 [4799 kB]
+2026-11-13T11:42:09.9232225Z Get:3 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libapache-pom-java all 29-2 [5284 B]
+2026-11-13T11:42:09.9754599Z Get:4 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libcommons-parent-java all 56-1 [10.7 kB]
+2026-11-13T11:42:10.0212483Z Get:5 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libcommons-logging-java all 1.3.0-1ubuntu1 [63.8 kB]
+2026-11-13T11:42:10.1912114Z Get:6 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libkpathsea6 amd64 2023.20230311.66589-9build3 [63.0 kB]
+2026-11-13T11:42:10.2324203Z Get:7 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libpaper1 amd64 1.1.29build1 [13.4 kB]
+2026-11-13T11:42:10.2878899Z Get:8 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libpaper-utils amd64 1.1.29build1 [8650 B]
+2026-11-13T11:42:10.3257228Z Get:9 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 libpoppler134 amd64 24.02.0-1ubuntu9.11 [1118 kB]
+2026-11-13T11:42:10.3811868Z Get:10 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libpotrace0 amd64 1.16-2build1 [17.7 kB]
+2026-11-13T11:42:10.4326439Z Get:11 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libptexenc1 amd64 2023.20230311.66589-9build3 [40.4 kB]
+2026-11-13T11:42:10.4970192Z Get:12 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libsynctex2 amd64 2023.20230311.66589-9build3 [59.6 kB]
+2026-11-13T11:42:10.5337872Z Get:13 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libteckit0 amd64 2.5.12+ds1-1 [411 kB]
+2026-11-13T11:42:10.5887062Z Get:14 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 libtexlua53-5 amd64 2023.20230311.66589-9build3 [123 kB]
+2026-11-13T11:42:10.6739988Z Get:15 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libzzip-0-13t64 amd64 0.13.72+dfsg.1-1.2build1 [28.1 kB]
+2026-11-13T11:42:10.7310059Z Get:16 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-encodings all 1:1.0.5-0ubuntu2 [578 kB]
+2026-11-13T11:42:10.7827866Z Get:17 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 xfonts-utils amd64 1:7.7+6build3 [94.4 kB]
+2026-11-13T11:42:10.8396535Z Get:18 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 lmodern all 2.005-1 [9542 kB]
+2026-11-13T11:42:10.9831486Z Get:19 http://azure.archive.ubuntu.com/ubuntu noble-updates/main amd64 poppler-utils amd64 24.02.0-1ubuntu9.11 [212 kB]
+2026-11-13T11:42:11.0848571Z Get:20 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 preview-latex-style all 13.2-1 [347 kB]
+2026-11-13T11:42:11.1406017Z Get:21 http://azure.archive.ubuntu.com/ubuntu noble/main amd64 t1utils amd64 1.41-4build3 [61.3 kB]
+2026-11-13T11:42:11.1875169Z Get:22 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-binaries amd64 2023.20230311.66589-9build3 [8529 kB]
+2026-11-13T11:42:11.3330534Z Get:23 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-base all 2023.20240207-1 [21.7 MB]
+2026-11-13T11:42:11.5829633Z Get:24 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-fonts-recommended all 2023.20240207-1 [4973 kB]
+2026-11-13T11:42:11.6946544Z Get:25 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-latex-base all 2023.20240207-1 [1238 kB]
+2026-11-13T11:42:11.7442249Z Get:26 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libfontbox-java all 1:1.8.16-5 [208 kB]
+2026-11-13T11:42:11.7855697Z Get:27 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 libpdfbox-java all 1:1.8.16-5 [5521 kB]
+2026-11-13T11:42:11.8828407Z Get:28 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-latex-recommended all 2023.20240207-1 [8826 kB]
+2026-11-13T11:42:12.0004463Z Get:29 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-pictures all 2023.20240207-1 [16.7 MB]
+2026-11-13T11:42:12.2371984Z Get:30 http://azure.archive.ubuntu.com/ubuntu noble/universe amd64 texlive-latex-extra all 2023.20240207-1 [19.2 MB]
+2026-11-13T11:42:12.8445847Z Preconfiguring packages ...
+2026-11-13T11:42:12.9045909Z Fetched 105 MB in 3s (36.7 MB/s)
+2026-11-13T11:42:12.9277541Z Selecting previously unselected package fonts-lmodern.
+2026-11-13T11:42:12.9543710Z (Reading database ... 
+2026-11-13T11:42:12.9544156Z (Reading database ... 5%
+2026-11-13T11:42:12.9544536Z (Reading database ... 10%
+2026-11-13T11:42:12.9544972Z (Reading database ... 15%
+2026-11-13T11:42:12.9545392Z (Reading database ... 20%
+2026-11-13T11:42:12.9545900Z (Reading database ... 25%
+2026-11-13T11:42:12.9546286Z (Reading database ... 30%
+2026-11-13T11:42:12.9546555Z (Reading database ... 35%
+2026-11-13T11:42:12.9547021Z (Reading database ... 40%
+2026-11-13T11:42:12.9547267Z (Reading database ... 45%
+2026-11-13T11:42:12.9547501Z (Reading database ... 50%
+2026-11-13T11:42:12.9605680Z (Reading database ... 55%
+2026-11-13T11:42:13.0995137Z (Reading database ... 60%
+2026-11-13T11:42:13.3026034Z (Reading database ... 65%
+2026-11-13T11:42:13.4530483Z (Reading database ... 70%
+2026-11-13T11:42:13.6565806Z (Reading database ... 75%
+2026-11-13T11:42:13.8116024Z (Reading database ... 80%
+2026-11-13T11:42:13.9987885Z (Reading database ... 85%
+2026-11-13T11:42:14.1664688Z (Reading database ... 90%
+2026-11-13T11:42:14.3158523Z (Reading database ... 95%
+2026-11-13T11:42:14.3159128Z (Reading database ... 100%
+2026-11-13T11:42:14.3159840Z (Reading database ... 216752 files and directories currently installed.)
+2026-11-13T11:42:14.3206118Z Preparing to unpack .../00-fonts-lmodern_2.005-1_all.deb ...
+2026-11-13T11:42:14.3229333Z Unpacking fonts-lmodern (2.005-1) ...
+2026-11-13T11:42:14.4138361Z Selecting previously unselected package libapache-pom-java.
+2026-11-13T11:42:14.4266283Z Preparing to unpack .../01-libapache-pom-java_29-2_all.deb ...
+2026-11-13T11:42:14.4276637Z Unpacking libapache-pom-java (29-2) ...
+2026-11-13T11:42:14.4664300Z Selecting previously unselected package libcommons-parent-java.
+2026-11-13T11:42:14.4792722Z Preparing to unpack .../02-libcommons-parent-java_56-1_all.deb ...
+2026-11-13T11:42:14.4802485Z Unpacking libcommons-parent-java (56-1) ...
+2026-11-13T11:42:14.4983716Z Selecting previously unselected package libcommons-logging-java.
+2026-11-13T11:42:14.5112290Z Preparing to unpack .../03-libcommons-logging-java_1.3.0-1ubuntu1_all.deb ...
+2026-11-13T11:42:14.5123390Z Unpacking libcommons-logging-java (1.3.0-1ubuntu1) ...
+2026-11-13T11:42:14.5434191Z Selecting previously unselected package libkpathsea6:amd64.
+2026-11-13T11:42:14.5563215Z Preparing to unpack .../04-libkpathsea6_2023.20230311.66589-9build3_amd64.deb ...
+2026-11-13T11:42:14.5581991Z Unpacking libkpathsea6:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:14.5780040Z Selecting previously unselected package libpaper1:amd64.
+2026-11-13T11:42:14.5907044Z Preparing to unpack .../05-libpaper1_1.1.29build1_amd64.deb ...
+2026-11-13T11:42:14.5916201Z Unpacking libpaper1:amd64 (1.1.29build1) ...
+2026-11-13T11:42:14.6107736Z Selecting previously unselected package libpaper-utils.
+2026-11-13T11:42:14.6234079Z Preparing to unpack .../06-libpaper-utils_1.1.29build1_amd64.deb ...
+2026-11-13T11:42:14.6246020Z Unpacking libpaper-utils (1.1.29build1) ...
+2026-11-13T11:42:14.6650525Z Selecting previously unselected package libpoppler134:amd64.
+2026-11-13T11:42:14.6780752Z Preparing to unpack .../07-libpoppler134_24.02.0-1ubuntu9.11_amd64.deb ...
+2026-11-13T11:42:14.6790494Z Unpacking libpoppler134:amd64 (24.02.0-1ubuntu9.11) ...
+2026-11-13T11:42:14.7118427Z Selecting previously unselected package libpotrace0:amd64.
+2026-11-13T11:42:14.7248749Z Preparing to unpack .../08-libpotrace0_1.16-2build1_amd64.deb ...
+2026-11-13T11:42:14.7257865Z Unpacking libpotrace0:amd64 (1.16-2build1) ...
+2026-11-13T11:42:14.7443649Z Selecting previously unselected package libptexenc1:amd64.
+2026-11-13T11:42:14.7574416Z Preparing to unpack .../09-libptexenc1_2023.20230311.66589-9build3_amd64.deb ...
+2026-11-13T11:42:14.7583763Z Unpacking libptexenc1:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:14.7772386Z Selecting previously unselected package libsynctex2:amd64.
+2026-11-13T11:42:14.7903310Z Preparing to unpack .../10-libsynctex2_2023.20230311.66589-9build3_amd64.deb ...
+2026-11-13T11:42:14.7915125Z Unpacking libsynctex2:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:14.8110060Z Selecting previously unselected package libteckit0:amd64.
+2026-11-13T11:42:14.8238093Z Preparing to unpack .../11-libteckit0_2.5.12+ds1-1_amd64.deb ...
+2026-11-13T11:42:14.8248534Z Unpacking libteckit0:amd64 (2.5.12+ds1-1) ...
+2026-11-13T11:42:14.8513365Z Selecting previously unselected package libtexlua53-5:amd64.
+2026-11-13T11:42:14.8640827Z Preparing to unpack .../12-libtexlua53-5_2023.20230311.66589-9build3_amd64.deb ...
+2026-11-13T11:42:14.8649221Z Unpacking libtexlua53-5:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:14.8843497Z Selecting previously unselected package libzzip-0-13t64:amd64.
+2026-11-13T11:42:14.8970309Z Preparing to unpack .../13-libzzip-0-13t64_0.13.72+dfsg.1-1.2build1_amd64.deb ...
+2026-11-13T11:42:14.8977816Z Unpacking libzzip-0-13t64:amd64 (0.13.72+dfsg.1-1.2build1) ...
+2026-11-13T11:42:14.9159908Z Selecting previously unselected package xfonts-encodings.
+2026-11-13T11:42:14.9289203Z Preparing to unpack .../14-xfonts-encodings_1%3a1.0.5-0ubuntu2_all.deb ...
+2026-11-13T11:42:14.9296448Z Unpacking xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-11-13T11:42:14.9549888Z Selecting previously unselected package xfonts-utils.
+2026-11-13T11:42:14.9678064Z Preparing to unpack .../15-xfonts-utils_1%3a7.7+6build3_amd64.deb ...
+2026-11-13T11:42:14.9686084Z Unpacking xfonts-utils (1:7.7+6build3) ...
+2026-11-13T11:42:15.0009668Z Selecting previously unselected package lmodern.
+2026-11-13T11:42:15.0159444Z Preparing to unpack .../16-lmodern_2.005-1_all.deb ...
+2026-11-13T11:42:15.0167006Z Unpacking lmodern (2.005-1) ...
+2026-11-13T11:42:15.2179368Z Selecting previously unselected package poppler-utils.
+2026-11-13T11:42:15.2311591Z Preparing to unpack .../17-poppler-utils_24.02.0-1ubuntu9.11_amd64.deb ...
+2026-11-13T11:42:15.2320614Z Unpacking poppler-utils (24.02.0-1ubuntu9.11) ...
+2026-11-13T11:42:15.2564288Z Selecting previously unselected package preview-latex-style.
+2026-11-13T11:42:15.2693755Z Preparing to unpack .../18-preview-latex-style_13.2-1_all.deb ...
+2026-11-13T11:42:15.2701515Z Unpacking preview-latex-style (13.2-1) ...
+2026-11-13T11:42:15.2902784Z Selecting previously unselected package t1utils.
+2026-11-13T11:42:15.3031461Z Preparing to unpack .../19-t1utils_1.41-4build3_amd64.deb ...
+2026-11-13T11:42:15.3038095Z Unpacking t1utils (1.41-4build3) ...
+2026-11-13T11:42:15.3233923Z Selecting previously unselected package texlive-binaries.
+2026-11-13T11:42:15.3362559Z Preparing to unpack .../20-texlive-binaries_2023.20230311.66589-9build3_amd64.deb ...
+2026-11-13T11:42:15.3429562Z Unpacking texlive-binaries (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:15.5017165Z Selecting previously unselected package texlive-base.
+2026-11-13T11:42:15.5151224Z Preparing to unpack .../21-texlive-base_2023.20240207-1_all.deb ...
+2026-11-13T11:42:15.5164595Z Unpacking texlive-base (2023.20240207-1) ...
+2026-11-13T11:42:16.6029546Z Selecting previously unselected package texlive-fonts-recommended.
+2026-11-13T11:42:16.6174583Z Preparing to unpack .../22-texlive-fonts-recommended_2023.20240207-1_all.deb ...
+2026-11-13T11:42:16.6182802Z Unpacking texlive-fonts-recommended (2023.20240207-1) ...
+2026-11-13T11:42:17.0381359Z Selecting previously unselected package texlive-latex-base.
+2026-11-13T11:42:17.0524280Z Preparing to unpack .../23-texlive-latex-base_2023.20240207-1_all.deb ...
+2026-11-13T11:42:17.0533530Z Unpacking texlive-latex-base (2023.20240207-1) ...
+2026-11-13T11:42:17.2678271Z Selecting previously unselected package libfontbox-java.
+2026-11-13T11:42:17.2835502Z Preparing to unpack .../24-libfontbox-java_1%3a1.8.16-5_all.deb ...
+2026-11-13T11:42:17.2843253Z Unpacking libfontbox-java (1:1.8.16-5) ...
+2026-11-13T11:42:17.3028128Z Selecting previously unselected package libpdfbox-java.
+2026-11-13T11:42:17.3160801Z Preparing to unpack .../25-libpdfbox-java_1%3a1.8.16-5_all.deb ...
+2026-11-13T11:42:17.3168578Z Unpacking libpdfbox-java (1:1.8.16-5) ...
+2026-11-13T11:42:17.3540996Z Selecting previously unselected package texlive-latex-recommended.
+2026-11-13T11:42:17.3675637Z Preparing to unpack .../26-texlive-latex-recommended_2023.20240207-1_all.deb ...
+2026-11-13T11:42:17.3684048Z Unpacking texlive-latex-recommended (2023.20240207-1) ...
+2026-11-13T11:42:17.9790483Z Selecting previously unselected package texlive-pictures.
+2026-11-13T11:42:17.9935207Z Preparing to unpack .../27-texlive-pictures_2023.20240207-1_all.deb ...
+2026-11-13T11:42:17.9943770Z Unpacking texlive-pictures (2023.20240207-1) ...
+2026-11-13T11:42:18.8162821Z Selecting previously unselected package texlive-latex-extra.
+2026-11-13T11:42:18.8318945Z Preparing to unpack .../28-texlive-latex-extra_2023.20240207-1_all.deb ...
+2026-11-13T11:42:18.8327356Z Unpacking texlive-latex-extra (2023.20240207-1) ...
+2026-11-13T11:42:19.8099624Z Setting up libpaper1:amd64 (1.1.29build1) ...
+2026-11-13T11:42:19.9630273Z 
+2026-11-13T11:42:19.9631166Z Creating config file /etc/papersize with new version
+2026-11-13T11:42:20.0535542Z Setting up libpoppler134:amd64 (24.02.0-1ubuntu9.11) ...
+2026-11-13T11:42:20.0549201Z Setting up preview-latex-style (13.2-1) ...
+2026-11-13T11:42:20.0701880Z Setting up libfontbox-java (1:1.8.16-5) ...
+2026-11-13T11:42:20.0716120Z Setting up libpaper-utils (1.1.29build1) ...
+2026-11-13T11:42:20.0729803Z Setting up libzzip-0-13t64:amd64 (0.13.72+dfsg.1-1.2build1) ...
+2026-11-13T11:42:20.0744636Z Setting up libteckit0:amd64 (2.5.12+ds1-1) ...
+2026-11-13T11:42:20.0757870Z Setting up libapache-pom-java (29-2) ...
+2026-11-13T11:42:20.0770613Z Setting up xfonts-encodings (1:1.0.5-0ubuntu2) ...
+2026-11-13T11:42:20.0786917Z Setting up t1utils (1.41-4build3) ...
+2026-11-13T11:42:20.0802170Z Setting up libtexlua53-5:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:20.0815911Z Setting up libkpathsea6:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:20.0830146Z Setting up fonts-lmodern (2.005-1) ...
+2026-11-13T11:42:20.0851774Z Setting up poppler-utils (24.02.0-1ubuntu9.11) ...
+2026-11-13T11:42:20.0866548Z Setting up libsynctex2:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:20.0880881Z Setting up libpotrace0:amd64 (1.16-2build1) ...
+2026-11-13T11:42:20.0895436Z Setting up libpdfbox-java (1:1.8.16-5) ...
+2026-11-13T11:42:20.0910124Z Setting up libcommons-parent-java (56-1) ...
+2026-11-13T11:42:20.0923352Z Setting up libcommons-logging-java (1.3.0-1ubuntu1) ...
+2026-11-13T11:42:20.0942724Z Setting up xfonts-utils (1:7.7+6build3) ...
+2026-11-13T11:42:20.0979388Z Setting up libptexenc1:amd64 (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:20.0994468Z Setting up texlive-binaries (2023.20230311.66589-9build3) ...
+2026-11-13T11:42:20.1045938Z update-alternatives: using /usr/bin/xdvi-xaw to provide /usr/bin/xdvi.bin (xdvi.bin) in auto mode
+2026-11-13T11:42:20.1081445Z update-alternatives: using /usr/bin/bibtex.original to provide /usr/bin/bibtex (bibtex) in auto mode
+2026-11-13T11:42:20.1130443Z Setting up lmodern (2.005-1) ...
+2026-11-13T11:42:20.1944631Z Setting up texlive-base (2023.20240207-1) ...
+2026-11-13T11:42:20.6968454Z tl-paper: setting paper size for dvips to a4: /var/lib/texmf/dvips/config/config-paper.ps
+2026-11-13T11:42:20.8775579Z tl-paper: setting paper size for dvipdfmx to a4: /var/lib/texmf/dvipdfmx/dvipdfmx-paper.cfg
+2026-11-13T11:42:21.0557870Z tl-paper: setting paper size for xdvi to a4: /var/lib/texmf/xdvi/XDvi-paper
+2026-11-13T11:42:21.2354361Z tl-paper: setting paper size for pdftex to a4: /var/lib/texmf/tex/generic/tex-ini-files/pdftexconfig.tex
+2026-11-13T11:42:21.6556402Z Setting up texlive-latex-base (2023.20240207-1) ...
+2026-11-13T11:42:21.6611587Z Setting up texlive-latex-recommended (2023.20240207-1) ...
+2026-11-13T11:42:21.6641921Z Setting up texlive-pictures (2023.20240207-1) ...
+2026-11-13T11:42:21.6688023Z Setting up texlive-fonts-recommended (2023.20240207-1) ...
+2026-11-13T11:42:21.6732194Z Setting up texlive-latex-extra (2023.20240207-1) ...
+2026-11-13T11:42:21.6802403Z Processing triggers for tex-common (6.18) ...
+2026-11-13T11:42:21.8302831Z Running mktexlsr. This may take some time... done.
+2026-11-13T11:42:22.2176599Z Running updmap-sys. This may take some time... done.
+2026-11-13T11:42:22.2392533Z Running mktexlsr /var/lib/texmf ... done.
+2026-11-13T11:42:22.3265659Z Building format(s) --all.
+2026-11-13T11:43:00.6852050Z 	This may take some time... done.
+2026-11-13T11:43:00.6921278Z Processing triggers for install-info (7.1-3build2) ...
+2026-11-13T11:43:00.8030928Z Processing triggers for fontconfig (2.15.0-1.1ubuntu2) ...
+2026-11-13T11:43:01.1322825Z Processing triggers for libc-bin (2.39-0ubuntu8.9) ...
+2026-11-13T11:43:01.1636503Z Processing triggers for man-db (2.12.0-4build2) ...
+2026-11-13T11:43:01.1659916Z Not building database; man-db/auto-update is not 'true'.
+2026-11-13T11:43:01.7835818Z 
+2026-11-13T11:43:01.7837011Z Running kernel seems to be up-to-date.
+2026-11-13T11:43:01.7837362Z 
+2026-11-13T11:43:01.7837507Z No services need to be restarted.
+2026-11-13T11:43:01.7837755Z 
+2026-11-13T11:43:01.7837930Z No containers need to be restarted.
+2026-11-13T11:43:01.7838180Z 
+2026-11-13T11:43:01.7838372Z No user sessions are running outdated binaries.
+2026-11-13T11:43:01.7838686Z 
+2026-11-13T11:43:01.7839006Z No VM guests are running outdated hypervisor (qemu) binaries on this host.
+2026-11-13T11:43:02.9468094Z ##[group]Run python -B research/quartic214-manuscript/assemble.py --check
+2026-11-13T11:43:02.9468774Z [36;1mpython -B research/quartic214-manuscript/assemble.py --check[0m
+2026-11-13T11:43:02.9483609Z shell: /usr/bin/bash -e {0}
+2026-11-13T11:43:02.9483885Z env:
+2026-11-13T11:43:02.9484167Z   pythonLocation: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:43:02.9484600Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib/pkgconfig
+2026-11-13T11:43:02.9485025Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:43:02.9485405Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:43:02.9485775Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.12.14/x64
+2026-11-13T11:43:02.9486155Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.12.14/x64/lib
+2026-11-13T11:43:02.9486473Z ##[endgroup]
+2026-11-13T11:43:03.0005397Z Current foundation profile changed; source transition needs review
+2026-11-13T11:43:03.0067248Z ##[error]Process completed with exit code 1.
+2026-11-13T11:43:03.0226611Z Post job cleanup.
+2026-11-13T11:43:03.1089882Z [command]/usr/bin/git version
+2026-11-13T11:43:03.1131301Z git version 2.56.1
+2026-11-13T11:43:03.1170424Z Temporarily overriding HOME='/home/runner/work/_temp/4df16929-a2e9-4f64-a81b-52c039fc30dc' before making global git config changes
+2026-11-13T11:43:03.1174142Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-13T11:43:03.1177307Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/diophantine-z-q/diophantine-z-q
+2026-11-13T11:43:03.1218415Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-13T11:43:03.1260905Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-13T11:43:03.1519506Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-13T11:43:03.1548677Z http.https://github.com/.extraheader
+2026-11-13T11:43:03.1575413Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-13T11:43:03.1608539Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-13T11:43:03.1898253Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-13T11:43:03.1942596Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-13T11:43:03.2568213Z Cleaning up orphan processes
+2026-11-13T11:43:03.2904485Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

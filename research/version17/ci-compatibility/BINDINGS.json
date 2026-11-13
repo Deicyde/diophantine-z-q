@@ -1,0 +1,111 @@
+{
+  "schema": "v17-historical-ci-bindings/v1",
+  "authors": [
+    "/root",
+    "/root/pr30_final_repair_review"
+  ],
+  "role": "author bindings only; no independent acceptance",
+  "source_commit": "210737569d215c6167bd46280fbf5f3de1da7667",
+  "files": [
+    {
+      "path": ".github/workflows/quartic214-manuscript-revision2.yml",
+      "sha256": "ae41982344f5a213d0b334e6bd397131af118b05a6fc96f425e5e8c05d94762c",
+      "bytes": 1818
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "b4daf95ed8a941419b5c63bdbfa812dc5793fed0e75fdb6475b9ea672943a012",
+      "bytes": 2202
+    },
+    {
+      "path": ".github/workflows/version16-checks.yml",
+      "sha256": "bd4d1bfb0227dd97bf8aa19b2d4e639f0d171b39275f27cb6b23d2ab593ef3b1",
+      "bytes": 642
+    },
+    {
+      "path": "CITATION.bib",
+      "sha256": "8cf406db3c1d6a0f51e7277e1f6a5ad0daaba3d8cb3f64a067e15168edfd6371",
+      "bytes": 6340
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890",
+      "bytes": 517
+    },
+    {
+      "path": "manuscripts/README.md",
+      "sha256": "12ae4a1956f7d1837b14d0c65d4c3d592677bd1ef3e85bab394e1d976b342cda",
+      "bytes": 2458
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/MANIFEST.json",
+      "sha256": "899edad018881cb161d7b3e329d46f636dcefd8dbb343d096e6bb57b49c47d01",
+      "bytes": 5363
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/SOURCE_SPANS.json",
+      "sha256": "e1b6f466573269008f10e06db106b15841545663a1de8b3ebe5203a8f188de55",
+      "bytes": 439656
+    },
+    {
+      "path": "research/quartic214-manuscript-revision2/check_records.py",
+      "sha256": "bc9c7cfca2421501b524d93e67cecf8e29dde5ec57fe31cf620ce93e2a65c820",
+      "bytes": 11453
+    },
+    {
+      "path": "research/quartic214-manuscript/assemble.py",
+      "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549",
+      "bytes": 47054
+    },
+    {
+      "path": "research/quartic214-manuscript/check_source_corrections.py",
+      "sha256": "5b6ca65b310b46f18d1bea5c4dde5b86da040378bdc33e3184b8c9a1911b9769",
+      "bytes": 5079
+    },
+    {
+      "path": "research/version16/MANIFEST.json",
+      "sha256": "94cb88c6729b9ec5fb493f5243e448f026a684ad001cf3d75fe5098fb9cbbe43",
+      "bytes": 10747
+    },
+    {
+      "path": "research/version16/check.py",
+      "sha256": "8cf0c312006d6d7a567eef4a84c833991f6e8991ec530c1580983f06d8df403f",
+      "bytes": 6452
+    },
+    {
+      "path": "research/version17/ci-compatibility/README.md",
+      "sha256": "f6b6b5b8fac551a7d152e5bb947220520181d1a0a330a0c23d623e550092b20a",
+      "bytes": 1762
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/CITATION.bib",
+      "sha256": "d205ad1ea6262b118268c1f5988d797f1197a02aa017e3cb41daa8e85d92062d",
+      "bytes": 5882
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/manuscripts-README.md",
+      "sha256": "b7b6df5e897f98b3966ee12c36400c27fb7d487ce3474babec3c9cbc1db7c23d",
+      "bytes": 2185
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/quartic214-manuscript-revision2.yml",
+      "sha256": "55ff3e5952a9344f185fa0d8b58a0f5047c7150c9b4ad2fbb3041a3be69725b1",
+      "bytes": 1818
+    },
+    {
+      "path": "research/version17/ci-compatibility/historical/version16-checks.yml",
+      "sha256": "1d4c7fd0a708af79c87ac9fc402a7ed8ef8ba9e40f2d7aab9b9e3bc003a9645b",
+      "bytes": 611
+    },
+    {
+      "path": "research/version17/ci-compatibility/run.py",
+      "sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+      "bytes": 6529
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "bytes": 517
+    }
+  ]
+}

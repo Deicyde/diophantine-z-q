@@ -18,18 +18,16 @@
   ],
   "record": {
     "path": "research/version17/historical-continuation/CONTINUATION.json",
-    "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
+    "sha256": "99ec3dc3f7252627ec5d283e7a5f738345b7c0389b955229ec5c3cbb74e6ceff",
     "bytes": 4939
   },
-  "reviewed_at": "2026-11-13T11:25:16.429836+00:00",
+  "reviewed_at": "2026-11-13T11:59:29.613280+00:00",
   "limitations": [
-    "Only these four historical identities are substituted. Navigation is routed through old.safe and selector/policy through the original validator read, with explicit test overrides preserved. Every other path remains current.",
-    "The initial strict two-path adapter failure is preserved in the author record. The four-domain scope is explicit and separately reviewed, not a silent enlargement.",
-    "The old validator, authority manifests, old receipt and all old controls remain required. Its output describes its own historical two-path scope, followed by the new four-domain result.",
-    "Current selector validation and the Research checks trusted-event version rule are separate mandatory current checks. Historical acceptance does not certify the new mathematical document.",
-    "The independent Linux run used the existing offline image, read-only repository,512MiB Docker cap,one CPU and original resource limit; original22, prior integration22 and new9 controls passed.",
-    "Task strings and passing structural tests do not authenticate a reviewer or establish protected acceptance.",
-    "The cited earlier Linux run concerns the original worktree-pin attempt. This successor independently verifies the author replacement changes only two canonical SHA256/byte-count pairs, checks all24 current bindings and9 frozen authorities, and preserves the unchanged adapter. A fresh canonical-export full execution is a separate final check."
+    "This receipt accepts the unchanged four-path historical-continuation adapter against its successor record. Exactly one binding changes: the current main workflow now invokes the separately reviewed fixed CI compatibility runner for two original commands. No mathematical source or old authority changes.",
+    "The original adapter domain remains exactly README.md, .github/workflows/quartic214-manuscript.yml, docs/current-manuscript.json and docs/release-policy.md. The separate CI runner has its own explicitly enumerated per-mode domains; this receipt does not silently expand the original domain.",
+    "Independent source checks verify all twenty runner bindings, exact archived Git bytes, all four fixed commands and arguments, normal and exceptional read restoration, live proof reads, and rejection of command, argument, proof-path and stale-binding substitutions.",
+    "The prior canonical full Linux execution remains evidence only for its prior record. The new source/record checks are complete; full successor workflow execution is pending and must be recorded separately before final delivery acceptance.",
+    "Current selector validation precedes historical reads. All original validators, rejection controls, source/PDF checks and current version policy remain required. This is not mathematical reacceptance, authenticated controller acceptance or permission to publish."
   ],
   "evidence_files": [
     {
@@ -51,10 +49,21 @@
       "path": ".github/workflows/research-checks.yml",
       "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
       "bytes": 10001
+    },
+    {
+      "path": "research/version17/ci-compatibility/run.py",
+      "sha256": "9601536405b2a39d75801055ab32771dd2cf536e82694d7f7a1c8ca7a99e370f",
+      "bytes": 6529
+    },
+    {
+      "path": "research/version17/ci-compatibility/BINDINGS.json",
+      "sha256": "62c574f7d493e2e826a0e18b93ff66fc856398f602eed573a941aab8f78fefc4",
+      "bytes": 3923
     }
   ],
   "prior_review": {
-    "path": "research/quartic214-native-review/v17-extension/NAVIGATION-REVIEW.json",
-    "sha256": "8ebbe831b5ca18b9ddae91a5eb8a08a809d809cd06ff6240080ee32ee3f74253"
+    "path": "research/quartic214-native-review/v17-extension/canonical/NAVIGATION-REVIEW.json",
+    "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
+    "bytes": 3314
   }
 }

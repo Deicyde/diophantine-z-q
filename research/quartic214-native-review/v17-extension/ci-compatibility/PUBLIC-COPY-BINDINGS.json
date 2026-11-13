@@ -1,0 +1,65 @@
+{
+  "files": [
+    {
+      "source": "SOURCE-REVIEW.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/SOURCE-REVIEW.json",
+      "sha256": "333c732f8c5f1ab31cad5b9d3ebb6e86d10abe0566dcc289cc14640640d88764"
+    },
+    {
+      "source": "SOURCE-CHECK.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/SOURCE-CHECK.json",
+      "sha256": "7c6b69429cdd958dca96d0939a865f0c35722732fd2010b8256ed72d90aa270b"
+    },
+    {
+      "source": "NAVIGATION-REVIEW.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NAVIGATION-REVIEW.json",
+      "sha256": "d866a99660017b4db7a08c248b1a327719023b8f73c70c65f5ad33bbc4599c87"
+    },
+    {
+      "source": "NATIVE-PIN-IMPACT.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/NATIVE-PIN-IMPACT.json",
+      "sha256": "22fdf9404c16a550a6428ffe66974cd377f850340d071367e2884db192c3a3c6"
+    },
+    {
+      "source": "EXECUTION-REVIEW.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/EXECUTION-REVIEW.json",
+      "sha256": "781d281d54068101fd048256b8f6942b793d4408ec9468514ab439aa04e600f7"
+    },
+    {
+      "source": "DELIVERY-SUPPORT-REVIEW.json",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/DELIVERY-SUPPORT-REVIEW.json",
+      "sha256": "d18c4ea974f98329ef9c26330c8ae8f40663cf0dd0e869e6ffd96d42bcbab8e7"
+    },
+    {
+      "source": "original-job-logs/131864234328.log",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234328.log",
+      "sha256": "c0f6a2eb9df6bdd59ab7057c6d59d93f3d3d67d60449104b61e35f109fdfc236"
+    },
+    {
+      "source": "original-job-logs/131864234454.log",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234454.log",
+      "sha256": "13cd31c1ec5a330244863cd9dfbf9e53d933bd32877ac6e83171ca5a6ede3590"
+    },
+    {
+      "source": "original-job-logs/131864234775.log",
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/ci-compatibility/original-job-logs/131864234775.log",
+      "sha256": "f42b76867c1ca95821f9022e7498285ee616e36d5aa18f677f62014aa9c8f8f2"
+    }
+  ],
+  "additional_active_copy": {
+    "source": "NAVIGATION-REVIEW.json",
+    "side": "head",
+    "path": "research/version17/historical-continuation/REVIEW.json",
+    "sha256": "d866a99660017b4db7a08c248b1a327719023b8f73c70c65f5ad33bbc4599c87"
+  },
+  "boundary": "No artifact in this list binds a future manifest, archive or itself. Final production and target review remains offside."
+}

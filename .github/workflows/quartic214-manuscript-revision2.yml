@@ -4,6 +4,7 @@ on:
   pull_request:
     paths:
       - 'research/quartic214-manuscript-revision2/**'
+      - 'research/version17/**'
       - 'research/quartic214-manuscript/**'
       - 'research/quartic214-manuscript-review/**'
       - 'research/quartic214-protocol-d-progress/**'
@@ -40,7 +41,7 @@ jobs:
       - name: Check current receiving bindings and rejection controls
         run: |
           ulimit -v 524288
-          python -B research/quartic214-manuscript-revision2/check_records.py --self-test --reviewed-artifacts
+          python -B research/version17/ci-compatibility/run.py revision2-check
       - name: Check retained audit history
         run: python -B scripts/check_audit_history.py --self-test
       - name: Require unchanged committed artifacts

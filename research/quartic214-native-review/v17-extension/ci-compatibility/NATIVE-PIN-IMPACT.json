@@ -1,0 +1,22 @@
+{
+  "schema": "pr30-ci-native-pin-impact/v1",
+  "examined_changed_paths": [
+    ".github/workflows/quartic214-manuscript-revision2.yml",
+    ".github/workflows/quartic214-manuscript.yml",
+    ".github/workflows/version16-checks.yml",
+    "research/version17/ci-compatibility/BINDINGS.json",
+    "research/version17/ci-compatibility/README.md",
+    "research/version17/ci-compatibility/historical/CITATION.bib",
+    "research/version17/ci-compatibility/historical/manuscripts-README.md",
+    "research/version17/ci-compatibility/historical/quartic214-manuscript-revision2.yml",
+    "research/version17/ci-compatibility/historical/version16-checks.yml",
+    "research/version17/ci-compatibility/run.py",
+    "research/version17/historical-continuation/CONTINUATION.json",
+    "research/version17/historical-continuation/REVIEW.json",
+    "research/version17/historical-continuation/historical/ci-routing-before/CONTINUATION.json",
+    "research/version17/historical-continuation/historical/ci-routing-before/REVIEW.json",
+    "research/version17/historical-continuation/historical/ci-routing-before/quartic214-manuscript.yml"
+  ],
+  "occurrences": [],
+  "scope": "Exact object paths in current native records; original records remain immutable. No mathematical source or original finding disposition changes."
+}
