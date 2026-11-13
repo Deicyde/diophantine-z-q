@@ -56,9 +56,12 @@ Sizes are SPECULATIVE.
 | `ThetaRatiosAlgebraic` | LEAF candidate (the literature form) | same hypotheses; some `θ_{m₀}(0,Ω) ≠ 0` and every ratio `θ_m(0,Ω)/θ_{m₀}(0,Ω)` is an algebraic number. It implies `ThetaNullAlgebraic` (**proved**, `thetaNullAlgebraic_of_ratios`: `L = ℚ(ratios) ⊆ ℂ`, `c = θ_{m₀}⁻¹`) | as for `ThetaNullAlgebraic`; nonvanishing: at most one even theta constant vanishes in genus 2 (Igusa, UNVERIFIED locator) | — (cited) |
 | `FibreThetaF1` | GLUE, **proved** from `FibreQMPeriod` | some uniformization of the fibre has a period matrix `Ω ∈ 𝔥₂` with `j_θ(Ω) = J(u)` | — | done |
 
-`ThetaNullAlgebraic` is not one printed theorem, so it is a leaf *candidate*: a published
-composite to be checked by a human, not a leaf in the strict sense of the task. Splitting it
-needs a polarization object on `PkgI3.AbVar`, which the project does not have.
+Neither `ThetaNullAlgebraic` nor `ThetaRatiosAlgebraic` is one printed theorem. Each composes
+published results (algebraicity of the polarization given by `Ω`, then algebraicity of theta
+ratios for a principally polarized abelian variety over `ℚ̄`), so both are leaf *candidates*
+for a human to check, not leaves in the strict sense of the task. `ThetaRatiosAlgebraic` is the
+closer of the two to the printed form. Splitting either along the composition needs a
+polarization object on `PkgI3.AbVar`, which the project does not have.
 
 ### Proved glue (new Lean, all in `part_theta.lean`)
 
@@ -139,8 +142,9 @@ These are model checks, with no human review.
     polarization) would have to be refined first. Whether a QM surface of discriminant 6 has a
     unique principal polarization is UNVERIFIED (Rotger's counts).
   * `UniformizationExistsNF`: from bp-analytic's `UniformizationLeafAll` via base change along
-    `σ`, with `g = 2` from `IsUniformization.dim_eq`. This is a transport between the kernel's
-    `AbVar` and `PkgI3.AbVar`, not done here.
+    `σ`. This needs (a) a transport between the kernel's `AbVar` and `PkgI3.AbVar` and between
+    `ℂ`-points of `A_ℂ` and `CPts A σ`, and (b) the identification of the uniformization's `g`
+    with `dim A = 2`. UnifBridge's docstring says (b) is not yet done. Neither is done here.
 * **Integration:** append `part_theta.lean` after g0-split's section, and add
   `import ZInQKernel.HDecomp.Analytic.QMLattice` (needed for `qmLattice`, `Omega_mem_siegelSpace`,
   `map_periodLattice_Omega`). No name in `Split.lean` clashes with bp-analytic's `BPAnalytic`
