@@ -60,3 +60,8 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   block omitted: exit 0 in 29 s, 0 errors. Standard axioms (VERIFIED) for
   `RvGP2.swanIndependent` (field 24), `RvGP2.swanIntegral` (field 25), `RvGP2.adaptedExists`
   (field 26), stated with G0Assemble's `LadicCond` constants.
+- c4_dirichlet: body of x1-dirichlet's Dirichlet.lean; first run: "Ambiguous term" Qbar/GQ
+  (Leaves.lean's `TSkolemKW.KW` declares its own `Qbar`, `GQ`); with `open TSkolemKW.KW hiding Qbar GQ`
+  (the only change): exit 0 in 16 s. `RvGP2.dirichletOfFinite (t : HSyn.TextbookLeaves) :
+  G0ModNewform.DirichletOfFinite := X1Dirichlet.dirichletOfFinite_of_kroneckerWeberCyclic t.t17`,
+  standard axioms (VERIFIED). Field 22 follows from the bundle leaf t17.
