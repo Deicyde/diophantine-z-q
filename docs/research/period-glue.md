@@ -1,4 +1,4 @@
-# period-glue: period-map's six glue Props — two proved, four reduced (one of them to a textbook leaf alone)
+# period-glue: period-map's six glue Props — three proved, two reduced to leaves only, one reduced to two smaller glue Props
 
 Task period-glue, 2026-11-13. Base 6f296292 (contains origin/wip/period-map). Lean:
 `scratch/period-glue/` (results log `log.md`). No file under `ZInQKernel/`, `blueprint/` or another
@@ -17,7 +17,7 @@ true and not vacuous. Every theorem below compiles with no `sorry` and only the 
 | `S8WeightExact` | **REDUCED to two leaves, no glue left**: Igusa's `ThetaModularity` (pkg-I1, unchanged) and `GammaStarGen` (leaf candidate) | `W8.lean`: `s8WeightExact_of` |
 | `QMTwistLattice` | **REDUCED to one textbook leaf**, `T11aRiemannHom`, plus Skolem–Noether, which the kernel proves; the intermediate glue `QMLatticeTwistAlg` is proved | `QMTwist.lean`: `qmTwistLattice_of'` |
 | `PiTwistC` | REDUCED: R1fp, R2fp (existing leaves) + `TwistOrbitFinite`, `FibreTransferC` (glue) | `PiTwist.lean`: `piTwistC_of` |
-| `SphereFactorAffine` | REDUCED: `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine` (glue, textbook complex analysis) | `SFA.lean`: `sphereFactorAffine_of` |
+| `SphereFactorAffine` | **PROVED** from Mathlib alone, via three complex-analysis lemmas, each proved: `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine` | `SFA.lean`: `sphereFactorAffine_proof` |
 
 ```lean
 theorem s8Nonzero_proof : S8Nonzero
@@ -28,8 +28,7 @@ theorem qmTwistLattice_of' (hH : T11aRiemannHom) (hSN : GlueDescent.LeafSkolemNo
 theorem qmLatticeTwistAlg_of (hSN : GlueDescent.LeafSkolemNoether) : QMLatticeTwistAlg
 theorem piTwistC_of (Y Φ π) (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
     (hT : TwistOrbitFinite Y Φ) (hF : FibreTransferC Y π) : PiTwistC Y Φ π
-theorem sphereFactorAffine_of (hA : HolP1OpenMap) (hB : HolP1FactorHol)
-    (hC : SphereInjAffine) : SphereFactorAffine
+theorem sphereFactorAffine_proof : SphereFactorAffine
 ```
 (Namespace `HSyn.G0Split.FibreQM.PeriodGlue`. `GlueDescent.LeafSkolemNoether` is the kernel's
 definition, copied verbatim inside the scratch base. The kernel proves it
@@ -38,8 +37,8 @@ be imported next to the scratch copy, because the namespaces clash; at integrati
 is replaced by the kernel theorem.)
 
 **End to end** (`fibreQMPeriod_periodGlue`, compiled in one file, `build_all.sh`). This is
-period-map's `fibreQMPeriod_periodMap` with the six targets replaced by the results above, and
-with `T11aRiemannEnd` derived from `T11aRiemannHom`:
+period-map's `fibreQMPeriod_periodMap` with the six targets replaced by the results above. In
+addition, `T11aRiemannEnd` is derived from `T11aRiemannHom`.
 
 ```lean
 theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
@@ -47,7 +46,6 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hTO : TwistOrbitFinite (ownY h) (ownΦ h)) (hFT : FibreTransferC (ownY h) (ownπ h))
     (hSN : GlueDescent.LeafSkolemNoether) (hD : CMDescends)
-    (hOM : HolP1OpenMap) (hFH : HolP1FactorHol) (hSI : SphereInjAffine)
     (hTM : PkgI1.ThetaModularity) (hG : GammaStarGen)
     (hV : PeriodMap.ValenceBoundGammaStar) (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod
 ```
@@ -59,12 +57,12 @@ The hypotheses fall into three groups.
   - SN, proved in the kernel.
 - **Glue proved elsewhere:** `MobiusGlue` (mobius-glue).
 - **Glue still open:**
-  - `TwistOrbitFinite`, `FibreTransferC`;
-  - `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine`;
+  - `TwistOrbitFinite`, `FibreTransferC` (from `PiTwistC`);
   - `CPtsTransport`, inherited.
 
 **Effect on period-map's targets.**
-- `HauptmodulUnique ⇐ S8Nonzero, SphereFactorAffine`: now ⇐ the three complex-analysis glue Props.
+- `HauptmodulUnique ⇐ S8Nonzero, SphereFactorAffine`: both are proved, so period-map's
+  `hauptmodulUnique_of'` makes `HauptmodulUnique` a theorem from Mathlib alone.
 - `QMDenZeroCM3 ⇐ S8Nonzero, S8WeightExact, ValenceBoundGammaStar`: now ⇐ `ThetaModularity`,
   `GammaStarGen`, `ValenceBoundGammaStar`. All three are leaves (one existing, two candidates for a
   human check, §4). There is no glue left in `QMDenZeroCM3`.
@@ -154,6 +152,29 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
   - So `x` normalizes `𝒪`.
   - `det ι(x) > 0` follows from `Im τ' > 0` (`moebius_im`).
 
+### 2.5 `SphereFactorAffine` (complex analysis on `P¹`, `SFA.lean`)
+
+- **Reduction** (`sphereFactorAffine_of`). Define `φ := h ∘ f⁻¹`. It is well defined, injective
+  and fixes `∞`. It is continuous because `f` is open; this uses `continuousAt_of_isHolP1At`:
+  holomorphy into `P¹` implies continuity.
+- **`HolP1OpenMap`** (`holP1OpenMap_proof`):
+  - in charts, `g = C ∘ G` with `C ∈ {coe, 1/·}` and `G` analytic;
+  - the set where `g` is locally constant is clopen, by the identity theorem on chart balls, and
+    `ℍ` is connected;
+  - so `g` is nowhere locally constant, and Mathlib's
+    `AnalyticAt.eventually_constant_or_nhds_le_map_nhds` gives openness.
+- **`SphereInjAffine`** (`sphereInjAffine_proof`):
+  - `f = φ|ℂ` is entire and injective;
+  - pick `z₁` with `f'(z₁) ≠ 0`; then `r = 1/dslope f z₁ = (z−z₁)/(f(z)−f(z₁))` is entire;
+  - near `∞`, `f(z) = 1/G(1/z)` with `G(0) = 0`, so `r(z) → G'(0)`;
+  - Liouville (`apply_eq_of_tendsto_cocompact`) makes `r` constant, so `f` is affine.
+- **`HolP1FactorHol`** (`holP1FactorHol_proof`).
+  - `core_removable`: if `Ψ ∘ A = H` with `A, H` analytic, `A` nonconstant and `Ψ` continuous,
+    then `Ψ` is analytic. Off the isolated critical points of `A`, Mathlib's
+    `analyticAt_comp_iff_of_deriv_ne_zero` applies (an analytic local inverse). The open mapping
+    theorem covers a punctured neighbourhood, and the removable singularity theorem finishes.
+  - It is applied in the source and target charts of `P¹` (`toC`, `invC`, `chartInf`).
+
 ## 3. The new named Props
 
 | Prop | kind | statement (informal) | argument / source | size |
@@ -163,9 +184,9 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
 | `QMLatticeTwistAlg` | GLUE, **PROVED** from SN (kernel-proved) | `∃ α ∈ Aut 𝒪, M ∈ GL₂(ℂ)` with `MΛ_τ = Λ_τ'`, `M ι(α a) = ι(a) M` ⇔ `τ' ∈ Γ*τ` | §2.4 | done |
 | `TwistOrbitFinite Y Φ` | GLUE (moduli) | on `ℚ̄`- and `ℂ`-points, the twist relation = orbits of a finite set `G ⊆ Aut(Y)` | R1hecke automorphisms; `rightMul` through `𝒪/3𝒪`; `Aut 𝒪/Inn` finite (mobius-glue); level structures over `K̄` differ by `(𝒪/3𝒪)^×`, the image of `𝒪^×` (strong approximation, or a finite check on 72 units) | medium |
 | `FibreTransferC Y π` | GLUE (AG) | for `Y` proper smooth over `ℚ`: fibres of `π` = `G`-orbits on `ℚ̄`-points ⇒ on `ℂ`-points | `{π(p)=π(q)}` and `⋃ graph(g)` are closed in `Y×Y`; Jacobson; equal on closed points | medium |
-| `HolP1OpenMap` | GLUE (textbook) | non-constant holomorphic `ℍ → P¹` is open | open mapping theorem in charts (Mathlib `AnalyticOnNhd.is_constant_or_isOpen`) + identity theorem | small-medium |
-| `HolP1FactorHol` | GLUE (textbook) | `h = φ ∘ f`, `f` onto holomorphic, `φ` continuous ⇒ `φ` holomorphic on `P¹` | local inverse off critical values; removable singularity | medium |
-| `SphereInjAffine` | GLUE (textbook) | injective holomorphic `φ : P¹ → P¹`, `φ(∞) = ∞` ⇒ affine | entire with pole at `∞` ⇒ polynomial; injective ⇒ degree 1 | medium |
+| `HolP1OpenMap` | GLUE, **PROVED** | non-constant holomorphic `ℍ → P¹` is open | §2.5 | done |
+| `HolP1FactorHol` | GLUE, **PROVED** | `h = φ ∘ f`, `f` onto holomorphic, `φ` continuous ⇒ `φ` holomorphic on `P¹` | §2.5 | done |
+| `SphereInjAffine` | GLUE, **PROVED** | injective holomorphic `φ : P¹ → P¹`, `φ(∞) = ∞` ⇒ affine | §2.5 | done |
 
 **Checks on the new statements** (model checks):
 - `FibreTransferC` carries the hypotheses `IsProper Y.hom` and `SmoothOfRelativeDimension 1 Y.hom`.
@@ -274,10 +295,14 @@ discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 
 **What the human should check.** The orientation (rotation senses) in Poincaré's theorem.
 
+**Numerical check** (`py/gen_check.py`, VERIFIED). The sample is the first 30 elements of
+`N(𝒪)⁺` with coordinates `|n_k| ≤ 4` in N5's basis and `nrd ∈ {1,2,3,6}`, found by a search that
+is independent of the generators. Greedy reduction of `cosh d(γp, p)` by the vertex stabilizers
+`⟨g₄⟩`, `⟨g₆⟩`, `⟨g₂⟩` brings all 30 to a rational scalar.
+
 ## 5. What remains
 
 - **Glue, moduli and algebraic geometry.** `TwistOrbitFinite` and `FibreTransferC`.
-- **Glue, complex analysis.** `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine`.
 - **Leaves for a human check.** `ValenceBoundGammaStar`, `CMDescends`, `GammaStarGen` (§4), and the
   textbook `T11aRiemannHom`.
 - **Inherited.** period-map's other inputs are unchanged (`R1bFamily` vs r1b-state, `CPtsTransport`,
@@ -297,7 +322,8 @@ discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
 | run_sfa | `SFA.lean` (PGLight) | 0 errors; `sphereFactorAffine_of` standard axioms |
 | run_qmtwist (final) | `QMTwist.lean` (PGBase), with `QMLatticeTwistAlg` | 0 errors; `qmTwistLattice_of'`, `qmLatticeTwistAlg_mpr` standard axioms |
-| run_all | `build_all.sh`: `PGAll.lean` = import PGBase + all six files + `final_part.lean` | 0 errors; all seven headline theorems, among them `fibreQMPeriod_periodGlue`, standard axioms |
+| run_sfa (final) | `SFA.lean` (PGLight), with the three lemmas | 0 errors; `holP1OpenMap_proof`, `holP1FactorHol_proof`, `sphereInjAffine_proof`, `sphereFactorAffine_proof` standard axioms |
+| run_all | `build_all.sh`: `PGAll.lean` = import PGBase + all six files + `final_part.lean` | 0 errors, exit 0; all seven headline theorems, among them `fibreQMPeriod_periodGlue`, standard axioms |
 
 To reproduce, from the repository root:
 1. the prereq build;

@@ -112,3 +112,8 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   analytic inverse off isolated critical points, `analyticAt_comp_iff_of_deriv_ne_zero`, open mapping,
   `Complex.analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt`); chart bookkeeping with
   `toC`, `invC`, `continuous_chartInf`, `not_isOpen_singleton_P1`.
+
+## GammaStarGen numerical check (VERIFIED, py/gen_check_out.txt)
+- First 30 elements of N(O)^+ (|n_k| ≤ 4, nrd ∈ {1,2,3,6}, normalizing O; independent search):
+  greedy reduction of cosh d(γp, p) by vertex stabilizers ⟨g4⟩, ⟨g6⟩, ⟨g2⟩ reaches a rational
+  scalar for all 30.
