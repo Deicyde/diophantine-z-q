@@ -25,7 +25,7 @@ The conclusion is delivered in the exact form that g0-mod-newform's range takes 
 `FiniteCharDirichlet` (the Kronecker–Weber step).
 
 VERIFIED: `lake env lean scratch/g0-mod-galois/ModGalois.lean` gives 0 errors and no
-`declaration uses sorry` (run11, 2m31s). `#print axioms` gives `[propext, Classical.choice,
+`declaration uses sorry` (run13, 2m33s, after the review's docstring repairs). `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for these theorems:
 - `G0Galois.g8`, `g11`, `g12`;
 - `g8_g12`, `g8_g12_of_leaves`;
@@ -110,7 +110,7 @@ namespaces (`G0ModField`, `G0ModNewform`). Here they are `G0Galois.G2Out` and so
 | `G2Out K T` | G2 (PR(i)) | every inertia element of `G_ℚ` above `p ∉ T` lies in `resQ K (G_K)` (`K = L'` unramified outside `T`) |
 | `G3Out A ℓ T` | G3 (PR(ii)) + R7a | for `p ∉ T`, `p ≠ ℓ`, inertia elements of `G_K` above `p` act trivially on `ℚ̄_ℓ ⊗ V_ℓ(A)` (instantiation of `PkgI2.inertiaTrivial_of_goodReduction`) |
 | `G6Out A` | G5-G6 | `End_K(A)` is a division ring (`PkgI3.EndDivision`) and is noncommutative |
-| `G7Out A ℓ Tm c ε a β u` | G7 (+ A9, G4) | `dim A = 2`; `rank_ℤ End_K(A) = 4`; operators `Tm σ = a_σμ_σ∘σ` with `Tm g Tm h = c(g,h) Tm(gh)`; `a_g a_h c(g,h) = ε(g,h) a_{gh}`; `β_gβ_h = ε(g,h)β_{gh}`, `β ≠ 0`; on `G_{L'}`: `Tm = tate`, `a = β = 1`; matrix units `u` commuting with every `Tm σ`; weak continuity of `β⁻¹ a Tm` |
+| `G7Out A ℓ Tm c ε a β u` | G7 (+ A9, G4) | `dim A = 2`; `rank_ℤ End_K(A) = 4`; operators `Tm σ = μ_σ∘σ` (without `a_σ`; `ρ = β⁻¹ a Tm`) with `Tm g Tm h = c(g,h) Tm(gh)`; `a_g a_h c(g,h) = ε(g,h) a_{gh}`; `β_gβ_h = ε(g,h)β_{gh}`, `β ≠ 0`; on `G_{L'}`: `Tm = tate`, `a = β = 1`; matrix units `u` commuting with every `Tm σ`; weak continuity of `β⁻¹ a Tm` |
 
 **Outputs of this range.**
 
@@ -130,7 +130,7 @@ Sizes are SPECULATIVE (small < 500 lines, medium 0.5-3k, large 3-10k).
 |---|---|---|---|---|
 | `BurnsideAbsIrred` (replaces `G8Matrix`, which is proved from it) | a representation of a monoid on a finite-dimensional `F`-space that stays irreducible after every field extension has image generating `M_n(F)` (any basis) | none: a textbook leaf | Burnside (Lang, *Algebra* XVII §3; Curtis–Reiner §27; locators UNVERIFIED). Mathlib's `jacobson_density` is the route to a proof | small-medium |
 | `G9Glue` | R10 → T23 → (`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r\|G_K ⊕ r\|G_K`, `dim A = 2` ⇒ `G9Out r`) | R10 (`DeRhamComparison`), T23 | N5's appendix lemma (h-trust C3, two model reviews) with the Galois choice of the local field. Needs base change of `PkgI3.AbVar` to a completion, the identification of pkg-I3's and pkg-I4's `AbVar` copies, and the reduction to a finite coefficient field | medium-large |
-| `G10Glue` | T11 → T12 → R9b → (`K` Galois, `End_K(A)` rank 4, division, noncommutative, the same splitting ⇒ `r` odd) | T11, T12 (opaque placeholders), R9b | N5 L742-751 (h-trust C5). For any extension `r`, `φ = ρ(c)∘c⁻¹` is `B`-linear and in `Hom(A^c, A) ⊗ ℚ̄_ℓ` (Faltings), so it equals `a·μ_c`, and the Betti argument applies. SPECULATIVE as a reduction; each step STANDARD or model-reviewed | medium (needs analytification) |
+| `G10Glue` | T11 → T12 → R9b → (`K` Galois, `End_K(A)` rank 4, division, noncommutative, the same splitting ⇒ `r` odd) | T11, T12 (opaque placeholders), R9b | N5 L742-751 (h-trust C5). `r(c)² = 1`. If `r(c) = ±1`, then `c` induces a `G_K`-equivariant map `V_ℓ(cA) → V_ℓ(A)`, which lies in `Hom(cA, A) ⊗ ℚ_ℓ` (Faltings) and is the antiholomorphic `F_∞` (Artin comparison). That contradicts holomorphy (T11), so `det r(c) = −1`. The model review gave this argument; it uses only `K` Galois. SPECULATIVE until written | medium (needs analytification) |
 | `G12Weight` | R14 → R13 → R15 → T18 → T19 → (Pan's output for an irreducible `r` with weights `{0,−1}` ⇒ `∃ n, {n, n+1−k} = {0,−1}`) | R13, R14, R15, T18, T19 | `r ≅ ρ_g ⊗ ψ` (Chebotarev, Brauer–Nesbitt), weights of a twist shift by the weight of `ψ`. For `k = 1`, Deligne–Serre gives weights `{0,0}`, which contradicts `{0,−1}` (h-trust C8) | medium (HT weights of tensor products) |
 | `R14Det` (leaf, replaces the R14 clause that `G12Det` needed) | R14 with its published determinant: the semisimple `ρ_g` attached to `g` has `det ρ_g = ε·χ_ℓ^{k−1}`, `ε` of finite image | none: a leaf (Shimura 1971 Thm 7.14, Deligne 1971, Deligne–Serre 1974; locators UNVERIFIED) | the published theorems state the determinant | — |
 | `DetTate` | `det(tate A ℓ σ) = χ_ℓ(resQ σ)^{dim A}` on `G_K` | (T9) | Weil pairing of a polarization: `G_K` acts through `GSp_{2g}` with multiplier `χ_ℓ` (Mumford §20, §23; STANDARD) | medium (T9's pairing on torsion → determinant on `V_ℓ`) |
@@ -250,6 +250,29 @@ embedding gives `CommonConstituent`), an alternative to their `g13` for the last
   `B`-action does.
 - **T11, T12 are opaque placeholders** in the bundle. `G10Glue` names them as inputs for
   documentation only; logically they carry no content.
+
+## 5b. Independent review (one model review, read-only, 2026-11-13; no human review)
+
+A subagent reviewed `part_galois.lean`, `part_matrix.lean`, `part_det.lean` and
+`part_bundle.lean` against the definitions in `Split.lean`. It judged all nine named Props
+(`G8Matrix`, `BurnsideAbsIrred`, `G9Glue`, `G10Glue`, `G12Weight`, `DetTate`, `ResQFiniteIndex`,
+`FiniteCharDirichlet`, `R14Det`) TRUE about the genuine objects. It judged the inputs `G2Out`,
+`G3Out`, `G6Out`, `G7Out` satisfiable and consistent, and none a disguised conclusion.
+
+It checked the normalizations: arithmetic `cyclotomicCharacter`, `galAct` covariant, the weight of
+`ℚ_p(1)` equal to `−1`, and `det ρ_g = χ(p)p^{k−1}` at arithmetic Frobenius. It also checked the
+edge cases `ℓ = 2` and `ℓ = p`.
+
+Defects found, all in docstrings, and repaired:
+- **D1 (substantive).** The `G7Out` docstring said `Tm σ = a_σ μ_σ ∘ σ`. Since `ρ = β⁻¹ a Tm`, the
+  formal relations need `Tm σ = μ_σ ∘ σ`. g0-mod-field's `TateBridge` already builds `Tm` from
+  `m_σ = μ_σ ∘ σ`, so it matches.
+- **D2.** `G10Glue`'s Schur argument needed absolute irreducibility, which was not stated. It is
+  replaced by the direct non-scalar `r(c)` argument.
+- **D3.** `G12Weight`'s argument assumed `ψ` Hodge–Tate. It now argues with Sen weights; the
+  statement is unaffected.
+- **D4.** The polarization exists over `K`; the docstring of `G12Det` now says so.
+- **D5.** `L'` must be finite Galois. It is taken as such, which g0-mod-field's `G7Data` supplies.
 
 ## 6. Status of the files
 

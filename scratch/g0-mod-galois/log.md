@@ -69,3 +69,8 @@
   `map` (`AlgEquiv.restrictNormal_commutes`). Test file /tmp/g0mg/TestRes.lean (import Mathlib, 8 s):
   0 errors. A script check finds the five definitions identical, token for token, to their copies.
 - run12 (2m30s): VERIFIED 0 errors, 0 sorry; all eleven G0Galois theorems on standard axioms.
+- Model review (subagent, read-only, no Lean): all nine named Props and four inputs judged TRUE and
+  non-vacuous. Docstring defects D1 (`Tm σ = μ_σ∘σ`, not `a_σ μ_σ∘σ`), D2 (G10 argument), D3 (Sen
+  weights), D4, D5 repaired.
+- run13 (2m33s): after the docstring repairs. VERIFIED 0 errors, 0 sorry; ten G0Galois theorems on
+  standard axioms.

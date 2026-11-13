@@ -40,8 +40,9 @@ identical to the current definitions.
 This file also proves that bridge itself (`newformG12Out_of_galois`, with `FiniteCharDirichlet`).
 
 **Compiles.** `lake env lean scratch/g0-mod-galois/ModGalois.lean` (`Split.lean` + four parts,
-`build.sh`) gives 0 errors and no `sorry`. The axioms are standard for all eleven main theorems
-(run12).
+`build.sh`) gives 0 errors and no `sorry`. The axioms are standard for all ten main theorems
+(run13). One model review (read-only) judged all nine named Props and four inputs true; it found
+one docstring defect (`Tm σ = μ_σ∘σ`, without `a_σ`), now fixed.
 
 **Finding.** The bundle's R14 omits the published `det ρ_g = ε χ^{k−1}`, which the determinant
 argument needs. This file states it as `R14Det`. Recommendation: replace the bundle's R14 by it.

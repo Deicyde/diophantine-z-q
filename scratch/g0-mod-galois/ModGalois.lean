@@ -20037,7 +20037,7 @@ G8-G12 (h-decomposition §3; N5 L719-768; h-trust C1-C8):
 
 Inputs are the outputs of the earlier glue steps, as `def … : Prop`: `G2Out` (the field is
 unramified outside `T`), `G3Out` (the Tate action is unramified outside `T ∪ {ℓ}`), `G7Out` (the
-scalar-descent data `T_σ = a_σ μ_σ ∘ σ`, `β`, and the matrix units of `B ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`).
+scalar-descent data `T_σ = μ_σ ∘ σ`, `a`, `β`, and the matrix units of `B ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`).
 The coefficient field is `ℚ̄_ℓ = PadicAlgCl ℓ` throughout (Pan's coefficients). The remaining
 unproved glue is named: `G8Matrix` (linear algebra), `G9Glue`, `G10Glue`, `G12Weight`, `G12Det`.
 Proved here: G8 from `G7Out`, C2 and `G8Matrix`; G11 from `G2Out`, `G3Out` and G8's output, with
@@ -20134,10 +20134,12 @@ def G3Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [
 /-- **Output of G7 (scalar descent, N5 L632-716) at the coefficient prime `ℓ`**, together with
 the outputs of G4-G6 that G8 uses. `A` is the model over `K = L'` (an abelian surface with
 `End_K(A)` of rank 4, the maximal order case of `End⁰ = B`: A9's output). The data are:
-operators `Tm σ = a_σ μ_σ ∘ σ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` with the cocycle `c` (`Tm g Tm h = c(g,h) Tm(gh)`),
+operators `Tm σ = μ_σ ∘ σ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` (without `a_σ`: `GlueDescent.rho` multiplies by
+`β_σ⁻¹ a_σ`, giving N5's `ρ_ℓ(σ) = β(σ)⁻¹ a_σ μ_σ ∘ σ`) with the cocycle `c` (`Tm g Tm h = c(g,h) Tm(gh)`),
 the scalars `a` and the cochain `β` with `a_g a_h c(g,h) = ε(g,h) a_{gh}` and
 `β_g β_h = ε(g,h) β_{gh}` (`∂β = ε`, B2-B3), all trivial on `G_{L'}` where `Tm` is the Tate
-action (`L'` is the kernel field of `β|G_L`); a system of `2 × 2` matrix units (the image of
+action (`L'` contains the kernel field of `β|G_L`; it is taken finite Galois over `ℚ`, as
+g0-mod-field's `G7Data` supplies, which `G10Glue` needs); a system of `2 × 2` matrix units (the image of
 `B ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`) commuting with every `Tm σ` (`μ_σ` is `B`-linear); and continuity of
 `σ ↦ β_σ⁻¹ a_σ Tm σ` (glue-rho-cont proved continuity on `G_K`; finite index gives the rest). -/
 def G7Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
@@ -20246,13 +20248,14 @@ def G9Glue : Prop :=
 /-- **G10, oddness (GLUE, unproved; h-trust C5, model reviews).** From T11 (Riemann, GAGA) and T12
 (Artin comparison) with R9b (Faltings): if `K` is Galois over `ℚ`, `A/K` an abelian surface with
 `End_K(A)` of rank 4, a division ring (`PkgI3.EndDivision`) and noncommutative (so `End⁰_K(A)`
-is a quaternion algebra over `ℚ`, indefinite by Albert), and `r : G_ℚ → GL₂(ℚ̄_ℓ)` with
-`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K`, then `r` is odd. Argument (SPECULATIVE as a reduction, each step
-STANDARD): (1) N5 L742-751 shows that the descended extension `ρ_ℓ ≅ r_ℓ ⊕ r_ℓ` (built from the
-quasi-isogenies `μ_σ : σA → A`, which exist by Faltings since `V_ℓ(σA) ≅ V_ℓ(A)`) has
-`det r_ℓ(c) = −1`, by the Betti involution exchanging the Hodge summands; (2) any two
-extensions `r, r'` of the absolutely irreducible `r|G_K` with `G_K` normal differ by a character
-`θ` of `G_ℚ/G_K` (Schur), so `det r'(c) = θ(c)² det r(c) = det r(c)` since `c² = 1`. -/
+is a quaternion algebra over `ℚ`), and `r : G_ℚ → GL₂(ℚ̄_ℓ)` with
+`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K`, then `r` is odd. Argument (model review, SPECULATIVE until
+written; each step STANDARD): `r(c)² = 1`; if `r(c) = ±1` then `ρ(c)` is scalar and, `G_K` being
+normal, `c` induces a `G_K`-equivariant map `V_ℓ(cA) → V_ℓ(A)`, which by Faltings (R9b) lies in
+`Hom(cA, A) ⊗ ℚ_ℓ`; by Artin comparison (T12) it is the antiholomorphic `F_∞`, a rational map,
+contradicting holomorphy of homomorphisms (T11). So `r(c)` is not scalar, and `det r(c) = −1`.
+(This is N5 L742-751's Betti argument; the rank/division/noncommutativity hypotheses are not
+needed by it but are kept, being true for Glazer's `A`.) -/
 def G10Glue : Prop :=
   HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison → PkgI3.FaltingsTate →
   ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
@@ -20267,9 +20270,11 @@ def G10Glue : Prop :=
 level), R15 (Deligne–Serre for `k = 1`), T18 (Chebotarev) and T19 (Brauer–Nesbitt): if an
 irreducible `r : G_ℚ → GL₂(ℚ̄₅)` with weights `{0, −1}` at 5 is attached to a normalized eigenform
 `g` of weight `k ≥ 1` up to a continuous twist `ψ` outside a finite set, then the weights of `r`
-are `{n, n + 1 − k}` for an integer `n` (the Hodge–Tate weight of `ψ|G_{ℚ₅}`). Argument:
-`r ≅ ρ_g ⊗ ψ` (traces agree on a dense set, both semisimple); for `k ≥ 2` the weights of
-`ρ_g ⊗ ψ` are `{0,1−k} + n`; for `k = 1`, `ρ_g` has finite image, hence weights `{0, 0}`, so
+are `{n, n + 1 − k}` for an integer `n`. Argument: `r ≅ ρ_g ⊗ ψ` (traces agree on a dense set,
+both semisimple); the Sen weights of `ρ_g ⊗ ψ` are `{0, 1−k} + s` (`s` the Sen weight of `ψ`,
+a priori not an integer); equality with `{0, −1}` forces `s = 0`, `k = 2` for `k ≥ 2`
+(model review: `ψ` itself need not be Hodge–Tate a priori, so the argument goes through Sen
+weights); for `k = 1`, `ρ_g` has finite image, hence weights `{0, 0}`, so
 `r` would have equal weights, contradicting `{0, −1}` (so the hypotheses are inconsistent). -/
 def G12Weight : Prop :=
   HSyn.EigenformRepExists → PkgI4.EigenformHT → HSyn.DeligneSerreConseq → HSyn.FrobeniusDense →
@@ -20285,7 +20290,7 @@ def G12Weight : Prop :=
 For `r` as in G8's output on the model `A/K` and `r ≅ ρ_g ⊗ ψ` with `g` of weight 2 and
 nebentypus `χ`: there are characters `det r`, `ε` (the nebentypus as a Galois character, of
 finite image), `χ_cyc` (the 5-adic cyclotomic character) of `G_ℚ` and a finite-index subgroup
-`H` (`G_F`, `F ⊇ K` Galois with a polarization over `F`) with `det r = ε · χ_cyc · ψ²`
+`H` (`G_K`: a polarization exists over `K`) with `det r = ε · χ_cyc · ψ²`
 (`det ρ_g = ε χ_cyc` at `k = 2`, the determinant clause of R14 as published) and
 `(det r)² = χ_cyc²` on `H` (T9: `det V₅(A) = χ_cyc²` on `G_F`, with `V₅(A) ≅ r ⊕ r`). The
 group theory that turns this into the finiteness of `ψ` is `GlueAssembly.twist_finite`
