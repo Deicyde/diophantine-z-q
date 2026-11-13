@@ -490,3 +490,49 @@ end T5Torsion
 #print axioms T5Torsion.torsionStructure_of_torsionCard
 #print axioms T5Torsion.torsionStructureC_of_uniformization
 #print axioms T5Torsion.torsionCard_of_uniformization
+
+/-! ## Part 4b: full T5 from T35 and the count on fields that do not embed in `ℂ` -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion Pts)
+
+/-- **`TorsionCard` on the fields with no ring embedding into `ℂ`** (positive characteristic, or
+characteristic `0` of transcendence degree `> 𝔠`). The restriction of `TorsionCard` (Mumford §4)
+to these fields: a consequence of the published statement. -/
+def TorsionCardNonC : Prop :=
+  ∀ (K : Type) [Field K], IsEmpty (K →+* ℂ) →
+    ∀ (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : K) ≠ 0 →
+        Nat.card (torsion A (AlgebraicClosure K) n) = n ^ (2 * g)
+
+/-- **`TorsionCard` from T35 and `TorsionCardNonC`** (case split on the existence of `K → ℂ`). -/
+theorem torsionCard_of_uniformization_of_nonC (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hN : TorsionCardNonC) : TorsionCard.{0} := by
+  intro K _ A _ g n hg hn hnK
+  rcases isEmpty_or_nonempty (K →+* ℂ) with h | h
+  · exact hN K h A g n hg hn hnK
+  · exact torsionCard_of_uniformization hU h.some A g n hg hn
+
+/-- **Full T5 (`PkgI2.TorsionStructure.{0}` = `TextbookLeaves.t5`) from T35 and
+`TorsionCardNonC`.** -/
+theorem torsionStructure_of_uniformization_of_nonC (hU : ZInQ.LeafPush2.UniformizationExists)
+    (hN : TorsionCardNonC) : PkgI2.TorsionStructure.{0} :=
+  torsionStructure_of_torsionCard (torsionCard_of_uniformization_of_nonC hU hN)
+
+/-- **T5 at one field with an embedding into `ℂ`, in the exact shape of the kernel's use**
+`hT K A g n hdim hn hnK` (drop-in for consumers that apply T5 at `ℚ̄`, a subfield of `ℚ̄`, or a
+number field). -/
+theorem torsionStructureAt (hU : ZInQ.LeafPush2.UniformizationExists) {K : Type} [Field K]
+    (σ : K →+* ℂ) (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A] (g n : ℕ)
+    (hg : topologicalKrullDim A.X.left = (g : WithBot ℕ∞)) (hn : 0 < n) (_ : (n : K) ≠ 0) :
+    ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+      ∀ x y : torsion A (AlgebraicClosure K) n,
+        ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y :=
+  torsionStructureC_of_uniformization hU K σ A g n hg hn
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_uniformization_of_nonC
+#print axioms T5Torsion.torsionStructureAt
