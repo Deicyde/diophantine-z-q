@@ -36,8 +36,11 @@ while i<len(L):
         while e<len(L) and not (L[e].strip()=='' and (e+1>=len(L) or (L[e+1][:1] not in (' ','')))): e+=1
         ns='.'.join(x[1] for x in scopes if x[0]=='ns')
         out.append(f'-- namespace: {ns}  (nov01 line {s+1})')
+        inns=False
         for sc in scopes:
-            for c in sc[2]: out.append('-- scope: '+c.replace('\n','\n-- scope: '))
+            if sc[0]=='ns': inns=True
+            tag='-- scope: ' if inns else '-- scopeout: '
+            for c in sc[2]: out.append(tag+c.replace('\n','\n'+tag))
         out.extend(L[s:e]); out.append('')
         i=e; continue
     i+=1

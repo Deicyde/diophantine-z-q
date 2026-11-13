@@ -13,6 +13,7 @@ public import Mathlib.GroupTheory.SpecificGroups.Cyclic
 
 public section
 
+section
 namespace TauCeti
 
 /-- Summing a function over the powers `1, g, …, gⁿ⁻¹` of a generator of a finite cyclic group
@@ -26,5 +27,6 @@ theorem sum_range_orderOf_eq_sum {G M : Type*} [Group G] [Fintype G] [AddCommMon
       (Equiv.subtypeUnivEquiv hg)).sum_comp f)
 
 end TauCeti
+end
 
 end

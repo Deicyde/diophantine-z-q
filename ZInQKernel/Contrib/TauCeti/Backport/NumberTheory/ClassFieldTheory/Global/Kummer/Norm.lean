@@ -10,7 +10,7 @@ module
 
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.Norm
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryIdeles
-public import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryPlaces
+public import ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Kummer.AuxiliaryPlaces
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Discriminant.RamifiedSupport.Basic
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.Norm.Surjective
 public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Kummer.LocalDegree
@@ -21,6 +21,7 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Semilocal
 public section
 noncomputable section
 
+section
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension
 namespace TauCeti.ClassFieldTheory
@@ -70,6 +71,7 @@ theorem exists_auxiliaryKummerIdeleClassSubgroup_le_range_ideleClassNormMap
       (fun v hv _ ↦ hsplit v hv) hram⟩
 
 end TauCeti.ClassFieldTheory
+end
 
 end
 end

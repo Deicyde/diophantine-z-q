@@ -13,6 +13,7 @@ public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.
 
 public noncomputable section
 
+section
 open TauCeti
 namespace RingEquiv
 
@@ -28,7 +29,9 @@ def separableClosureCongr (e : K ≃+* L) :
   exact separableClosureRingEquiv K L σ
 
 end RingEquiv
+end
 
+section
 open TauCeti
 namespace IntermediateField
 
@@ -43,5 +46,6 @@ def separableClosureCongr : IntermediateField L (SeparableClosure L) :=
     simp)
 
 end IntermediateField
+end
 
 end

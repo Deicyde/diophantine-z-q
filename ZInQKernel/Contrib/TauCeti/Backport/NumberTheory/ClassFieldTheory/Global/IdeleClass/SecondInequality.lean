@@ -19,6 +19,7 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.PrimeD
 public section
 noncomputable section
 
+section
 open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -37,7 +38,9 @@ theorem subsingleton_h1_globalFormation
       index_range_ideleClassNormMap_le_of_finrank_prime F L p hfin) Lay
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -56,6 +59,7 @@ theorem natCard_H2_globalFormation_dvd_degree
       index_range_ideleClassNormMap_le_of_finrank_prime F L p hfin) Lay
 
 end TauCeti.ClassFieldTheory
+end
 
 end
 end

@@ -17,6 +17,7 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.Ideles.
 
 public noncomputable section
 
+section
 open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -36,7 +37,9 @@ def globalGroundOrderIso :
     (globalGroundEquiv K).symm.comapAddSubgroup.trans AddSubgroup.toIntSubmodule
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -53,7 +56,9 @@ theorem mem_globalGroundOrderIso {H : Subgroup (IdeleClassGroup (𝓞 K) K)}
   Iff.rfl
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IntermediateField NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -73,5 +78,6 @@ theorem globalGroundOrderIso_globalNormSubgroup (V : OpenNormalSubgroup (Absolut
     Formation.mem_normSubgroup]
 
 end TauCeti.ClassFieldTheory
+end
 
 end

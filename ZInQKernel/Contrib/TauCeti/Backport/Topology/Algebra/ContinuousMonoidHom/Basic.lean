@@ -19,6 +19,7 @@ import Mathlib.RingTheory.RootsOfUnity.Basic
 
 public section
 
+section
 namespace ContinuousMonoidHom
 
 variable {G : Type*} [Group G] [TopologicalSpace G]
@@ -32,7 +33,9 @@ def subgroupComap {H : Type*} [Group H] [TopologicalSpace H] (f : H →ₜ* G)
   continuous_toFun := (f.continuous.comp continuous_subtype_val).subtype_mk _
 
 end ContinuousMonoidHom
+end
 
+section
 namespace ContinuousMonoidHom
 
 variable {G : Type*} [Group G] [TopologicalSpace G]
@@ -43,5 +46,20 @@ theorem subgroupComap_apply_coe {H : Type*} [Group H] [TopologicalSpace H] (f : 
   (rfl)
 
 end ContinuousMonoidHom
+end
+
+section
+namespace ContinuousMonoidHom
+
+variable {G : Type*} [Group G] [TopologicalSpace G]
+
+/-- An element of `f⁻¹(U)` acts through `f.subgroupComap U` as its image under `f`. -/
+theorem subgroupComap_smul {H : Type*} [Group H] [TopologicalSpace H] (f : H →ₜ* G)
+    (U : Subgroup G) {α : Type*} [SMul G α] (x : U.comap (f : H →* G)) (a : α) :
+    f.subgroupComap U x • a = f x • a :=
+  (rfl)
+
+end ContinuousMonoidHom
+end
 
 end

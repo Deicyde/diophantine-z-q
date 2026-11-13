@@ -14,11 +14,12 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.FiniteAdeleRi
 
 public section
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
-namespace IsDedekindDomain.HeightOneSpectrum
-
   IsDedekindDomain.FiniteAdeleRing NumberField NumberField.InfinitePlace
 open scoped NumberField
+namespace IsDedekindDomain.HeightOneSpectrum
+
 variable {R : Type*} [CommRing R] [IsDedekindDomain R]
 variable {K : Type*} [Field K] [Algebra R K] [IsFractionRing R K]
 
@@ -32,5 +33,6 @@ theorem toFractionalIdeal_toFiniteIdele_ofAdicCompletion_of_eq_exp_neg_one
   rw [toFractionalIdeal_toFiniteIdele_ofAdicCompletion, hu, WithZero.log_exp, neg_neg, zpow_one]
 
 end IsDedekindDomain.HeightOneSpectrum
+end
 
 end

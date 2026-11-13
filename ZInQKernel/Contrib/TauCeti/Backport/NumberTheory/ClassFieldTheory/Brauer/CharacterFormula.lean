@@ -23,9 +23,10 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ClassForma
 public section
 noncomputable section
 
-open CategoryTheory MonoidalCategory NormalLayer ContCohomology
+section
 namespace TauCeti.ClassFieldTheory
 
+open CategoryTheory MonoidalCategory NormalLayer ContCohomology
 variable {K : Type} [Field K]
 variable [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K]
 
@@ -75,10 +76,12 @@ theorem subgroupInvMap_characterCarryCocycle_of_mk_eq_artinMap {L : Type} [Field
   rfl
 
 end TauCeti.ClassFieldTheory
+end
 
-open CategoryTheory MonoidalCategory NormalLayer ContCohomology
+section
 namespace TauCeti.ClassFieldTheory
 
+open CategoryTheory MonoidalCategory NormalLayer ContCohomology
 variable {K : Type} [Field K]
 variable [ValuativeRel K] [TopologicalSpace K] [IsNonarchimedeanLocalField K]
 open subgroup `H` of `G_K`, a character `ψ : H → ℚ/ℤ` with open kernel and `h ∈ H`, some invariant
@@ -114,6 +117,7 @@ theorem exists_subgroupInvMap_characterCarryCocycle_eq (H : Subgroup (AbsoluteGa
     (subgroupInvMap_characterCarryCocycle_of_mk_eq_artinMap E.val ψ hψ b ρ hρ).trans hρS⟩
 
 end TauCeti.ClassFieldTheory
+end
 
 end
 end

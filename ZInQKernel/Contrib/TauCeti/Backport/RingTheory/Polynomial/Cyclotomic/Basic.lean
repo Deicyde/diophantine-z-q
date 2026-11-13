@@ -13,6 +13,7 @@ public import Mathlib.RingTheory.Polynomial.Cyclotomic.Basic
 
 public section
 
+section
 namespace Polynomial
 
 variable {R : Type*} [Ring R]
@@ -22,5 +23,6 @@ theorem monic_cyclotomic_comp_X_add_one (n : ℕ) : ((cyclotomic n R).comp (X + 
   simpa using (cyclotomic.monic n R).comp_X_add_C 1
 
 end Polynomial
+end
 
 end

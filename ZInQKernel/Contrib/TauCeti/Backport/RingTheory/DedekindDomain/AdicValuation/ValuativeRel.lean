@@ -18,6 +18,7 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.AdicValuation
 public section
 noncomputable section
 
+section
 open ValuativeRel Valued.integer
 open scoped WithZero
 namespace IsDedekindDomain.HeightOneSpectrum
@@ -40,6 +41,7 @@ theorem isUniformizer_iff_valued_eq_exp_neg_one [Finite (R ⧸ v.asIdeal)]
   simp [inv_eq_iff_eq_inv, ← WithZero.exp_eq_coe_ofAdd]
 
 end IsDedekindDomain.HeightOneSpectrum
+end
 
 end
 end

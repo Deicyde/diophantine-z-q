@@ -17,7 +17,22 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.RootsOfUnity.PrimitiveRoots
 public section
 
 section
+open IntermediateField
 
+/-- **The kernel of the cyclotomic character is open** in the Krull topology: it fixes the finite
+extension `K(μ_m) = K(ζ)`. -/
+theorem IsPrimitiveRoot.isOpen_ker_autToPow {K M : Type*} [Field K] [Field M] [Algebra K M]
+    {m : ℕ} [NeZero m] {ζ : M} (hζ : IsPrimitiveRoot ζ m) :
+    IsOpen ((hζ.autToPow K).ker : Set Gal(M/K)) := by
+  have : FiniteDimensional K K⟮ζ⟯ :=
+    adjoin.finiteDimensional ((hζ.isIntegral (NeZero.pos m)).tower_top (A := K))
+  rw [← hζ.fixingSubgroup_adjoin_nth_roots_eq_ker_autToPow,
+    ← hζ.adjoin_singleton_eq_adjoin_nth_roots]
+  exact K⟮ζ⟯.fixingSubgroup_isOpen
+
+end
+
+section
 open IntermediateField
 
 /-- **A character of `(ℤ / m)ˣ` read on the cyclotomic character has open kernel**: its kernel

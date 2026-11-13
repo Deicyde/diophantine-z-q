@@ -17,11 +17,12 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.De
 public section
 noncomputable section
 
+section
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
-open TauCeti
 namespace AlgHom
 
+open TauCeti
 variable {K F E : Type*} [Field K] [NumberField K] [Field F] [NumberField F] [Field E]
   [NumberField E] [Algebra K F] [Algebra K E] [Algebra F E] [IsScalarTower K F E]
 
@@ -94,6 +95,7 @@ theorem exists_absoluteGaloisGroupMap_apply_eq_of_mem_stabilizer [IsGalois F E]
   exact τ.injective h
 
 end AlgHom
+end
 
 end
 end

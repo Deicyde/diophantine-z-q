@@ -15,6 +15,7 @@ public import Mathlib.RingTheory.Polynomial.Eisenstein.Distinguished
 
 public section
 
+section
 namespace Polynomial.IsDistinguishedAt
 
 variable {O : Type*} [CommRing O] {I : Ideal O} {F : O[X]} {p e : ℕ}
@@ -32,5 +33,6 @@ theorem natCast_dvd_pow_of_aeval_eq_zero (hF : F.IsDistinguishedAt I)
   rwa [Ideal.map_span, Set.image_singleton, map_natCast, Ideal.mem_span_singleton] at h'
 
 end Polynomial.IsDistinguishedAt
+end
 
 end

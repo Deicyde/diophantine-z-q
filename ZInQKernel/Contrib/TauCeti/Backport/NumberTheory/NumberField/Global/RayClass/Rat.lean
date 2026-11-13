@@ -22,6 +22,7 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClass.Integ
 
 public section
 
+section
 open IsDedekindDomain NumberField
 open scoped nonZeroDivisors NumberField
 namespace TauCeti.GlobalNumberFields
@@ -46,7 +47,9 @@ theorem dvd_ratModulus_iff {𝔪 : Modulus ℚ} :
     NumberField.RingOfIntegers.natCast_dvd_natCast]
 
 end TauCeti.GlobalNumberFields
+end
 
+section
 open IsDedekindDomain NumberField
 open scoped nonZeroDivisors NumberField
 namespace TauCeti.GlobalNumberFields
@@ -63,5 +66,6 @@ theorem dvd_ratModulus_absNorm (𝔪 : Modulus ℚ) :
   dvd_ratModulus_iff.mpr dvd_rfl
 
 end TauCeti.GlobalNumberFields
+end
 
 end

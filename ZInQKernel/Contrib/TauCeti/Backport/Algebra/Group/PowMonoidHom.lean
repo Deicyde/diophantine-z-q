@@ -16,6 +16,7 @@ import Mathlib.Tactic.NormNum
 
 public section
 
+section
 namespace TauCeti
 
 /-- In a commutative group all of whose elements satisfy `y ^ n = 1`, the `d`-th powers are
@@ -41,5 +42,6 @@ theorem range_powMonoidHom_gcd {G : Type*} [CommGroup G] {n : ℕ} (hn : ∀ y :
       Nat.div_mul_cancel (Nat.gcd_dvd_right _ _)]
 
 end TauCeti
+end
 
 end

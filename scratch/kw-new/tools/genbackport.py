@@ -29,12 +29,14 @@ for m,names in groups.items():
     out=HDR.replace('{m}',m)+'\n'+sec+'\n\n'
     for blk in ex.split('-- namespace: ')[1:]:
         ns=blk.split('  (')[0].strip(); body=blk.split('\n',1)[1].rstrip()+'\n'
+        so=[l[len('-- scopeout: '):] for l in body.split('\n') if l.startswith('-- scopeout: ')]
         sc=[l[len('-- scope: '):] for l in body.split('\n') if l.startswith('-- scope: ')]
-        body='\n'.join(l for l in body.split('\n') if not l.startswith('-- scope: '))
+        body='\n'.join(l for l in body.split('\n') if not l.startswith('-- scope'))
         scs='\n'.join(sc)+'\n\n' if sc else ''
-        out+=(f'namespace {ns}\n\n{scs}{body}\nend {ns}\n\n' if ns else f'section\n\n{scs}{body}\nend\n\n')
+        sos='\n'.join(so)+'\n' if so else ''
+        out+=(f'section\n{sos}namespace {ns}\n\n{scs}{body}\nend {ns}\nend\n\n' if ns else f'section\n{sos}\n{scs}{body}\nend\n\n')
     out+='end\n'*(2 if sec.count('section')==2 else 1)
-    d='ZInQKernel/Contrib/TauCeti/Backport/'+'/'.join(m.split('.')[1:])+'.lean'
+    d=os.environ.get('OUTROOT','')+'ZInQKernel/Contrib/TauCeti/Backport/'+'/'.join(m.split('.')[1:])+'.lean'
     os.makedirs(os.path.dirname(d),exist_ok=True)
     if os.path.exists(d) and '--force' not in sys.argv: print('exists',d); continue
     open(d,'w').write(out); print('wrote',d)

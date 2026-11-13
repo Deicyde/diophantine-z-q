@@ -16,6 +16,7 @@ import Mathlib.FieldTheory.Finite.Basic
 
 public section
 
+section
 namespace TauCeti
 
 /-- If `x ^ n = 1` in a monoid, then every power `x ^ d` is killed by the `(n / gcd(n, d))`-th
@@ -31,5 +32,6 @@ theorem pow_pow_div_gcd_eq_one {M : Type*} [Monoid M] {x : M} {n : ℕ} (hx : x 
     Nat.mul_div_assoc _ (Nat.gcd_dvd_right _ _), pow_mul, hx, one_pow]
 
 end TauCeti
+end
 
 end

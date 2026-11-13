@@ -19,6 +19,7 @@ import ZInQKernel.Contrib.TauCeti.RingTheory.Valuation.UnitGroup
 
 public noncomputable section
 
+section
 open IsDedekindDomain NumberField TauCeti
 namespace Set
 
@@ -42,5 +43,6 @@ theorem exists_mem_unit_of_unitLocalPowerClassMap_surjective
   exact ⟨b, congrArg Subtype.val hb⟩
 
 end Set
+end
 
 end

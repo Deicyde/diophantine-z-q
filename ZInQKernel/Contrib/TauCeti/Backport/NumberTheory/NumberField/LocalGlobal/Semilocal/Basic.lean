@@ -19,11 +19,12 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.PrimesOver
 public section
 noncomputable section
 
+section
 open IsDedekindDomain NumberField Module
 open scoped TensorProduct NumberField AdicCompletionExtension Valued
-open IsDedekindDomain.HeightOneSpectrum
 namespace TauCeti
 
+open IsDedekindDomain.HeightOneSpectrum
 local notation "𝒪" => _root_.NumberField.RingOfIntegers
 variable {K : Type*} [Field K] [NumberField K] (L : Type*) [Field L] [NumberField L] [Algebra K L]
   (v : HeightOneSpectrum (𝒪 K))
@@ -86,6 +87,7 @@ theorem exists_algHom_adicCompletion_eq {M : Type*} [CommRing M] [IsDomain M] [A
   rfl
 
 end TauCeti
+end
 
 end
 end

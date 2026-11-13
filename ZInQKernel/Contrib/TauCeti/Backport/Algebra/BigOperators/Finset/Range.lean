@@ -21,6 +21,7 @@ import Mathlib.Tactic.Ring
 
 public section
 
+section
 namespace Finset
 
 /-- A product over `range (n * q)` is the product of `q` consecutive blocks of `n` factors. -/
@@ -33,5 +34,6 @@ theorem prod_range_mul_eq_prod_prod {M : Type*} [CommMonoid M] (f : ℕ → M) (
   | succ q ih => rw [Nat.mul_succ, prod_range_add, ih, prod_range_succ]
 
 end Finset
+end
 
 end

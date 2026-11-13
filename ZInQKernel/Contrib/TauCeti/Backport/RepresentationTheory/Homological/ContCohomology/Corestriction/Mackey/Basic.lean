@@ -9,15 +9,18 @@ Authors: The Tau Ceti contributors
 module
 
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic
+-- `explicitMackeyTerm2_apply` unfolds a definition whose body the oct16 module does not expose.
+import all ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Mackey.Basic
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.Corestriction.Basic
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Induction.Mackey.Basic
 
 public section
 
+section
 open scoped Pointwise
+universe u v
 namespace TauCeti.ContCohomology
 
-universe u v
 variable (G : Type u) [Group G] (M : Type v) [AddCommGroup M] [DistribMulAction G M]
   (U V : Subgroup G)
 variable [U.FiniteIndex]
@@ -40,5 +43,6 @@ theorem explicitMackeyTerm2_apply (s : G) (x : H2 U M) :
   (rfl)
 
 end TauCeti.ContCohomology
+end
 
 end

@@ -20,11 +20,12 @@ import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.AbsoluteG
 public section
 noncomputable section
 
+section
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
+variable {K : Type} [Field K] [NumberField K]
 namespace AlgHom
 
-variable {K : Type} [Field K] [NumberField K]
 open TauCeti TauCeti.ClassFieldTheory
 
 /-- **A prime-degree Galois extension is realized by a local absolute Galois group.** Let `F` be a
@@ -47,12 +48,14 @@ theorem exists_absoluteGaloisGroupMap_apply_eq_of_finrank_prime {F E : Type} [Fi
   exact ⟨_, τ, fun σ ↦ hτ σ (hw ▸ Subgroup.mem_top σ)⟩
 
 end AlgHom
+end
 
+section
 open IsDedekindDomain NumberField
 open scoped AdicCompletionExtension Pointwise
+variable {K : Type} [Field K] [NumberField K]
 namespace TauCeti.ClassFieldTheory.NormalLayer
 
-variable {K : Type} [Field K] [NumberField K]
 open TauCeti IntermediateField
 
 /-- **A prime-degree layer has a surjective decomposition map at some finite place.** Let
@@ -96,6 +99,7 @@ theorem exists_surjective_absoluteGaloisGroupMap_of_degree_prime
   exact hg x
 
 end TauCeti.ClassFieldTheory.NormalLayer
+end
 
 end
 end

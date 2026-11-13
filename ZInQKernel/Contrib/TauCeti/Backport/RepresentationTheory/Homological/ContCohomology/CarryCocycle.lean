@@ -16,9 +16,10 @@ public import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.LocallyConstant
 public section
 noncomputable section
 
-open groupCohomology
+section
 namespace TauCeti.ContCohomology
 
+open groupCohomology
 universe u v uH uN
 variable {G : Type u} [Group G] [TopologicalSpace G]
 variable [ContinuousMul G]
@@ -44,6 +45,7 @@ theorem explicitMap2_characterCarryCocycle_eq_zero {H : Type uH} [Group H] [Topo
   rfl
 
 end TauCeti.ContCohomology
+end
 
 end
 end

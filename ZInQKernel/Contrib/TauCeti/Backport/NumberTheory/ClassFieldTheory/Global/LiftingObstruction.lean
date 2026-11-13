@@ -16,6 +16,7 @@ public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.TateCo
 
 public noncomputable section
 
+section
 open CategoryTheory TauCeti.ContCohomology
 namespace TauCeti.ClassFieldTheory
 
@@ -32,5 +33,6 @@ theorem ideleToClassH2_apply (x : L.H (ideleFormation K) 2) :
   rfl
 
 end TauCeti.ClassFieldTheory
+end
 
 end

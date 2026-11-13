@@ -22,11 +22,12 @@ public import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.Global.RayClas
 public section
 noncomputable section
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
-namespace TauCeti.GlobalNumberFields
-
   NumberField
 open scoped NumberField nonZeroDivisors
+namespace TauCeti.GlobalNumberFields
+
 variable {K : Type*} [Field K] [NumberField K] {𝔪 : Modulus K}
 
 /-- **Comparison of ray subgroups along a transition map**: for `𝔪 ∣ 𝔫`, the ray subgroup of `𝔪`
@@ -40,12 +41,14 @@ theorem raySubgroup_le_raySubgroup_iff {𝔪 𝔫 : Modulus K} (h : 𝔪 ∣ �
   exact Subgroup.comap_le_comap_of_surjective (rayClassQuotient_surjective 𝔫)
 
 end TauCeti.GlobalNumberFields
+end
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum IsDedekindDomain.FiniteAdeleRing
-namespace TauCeti.GlobalNumberFields
-
   NumberField
 open scoped NumberField nonZeroDivisors
+namespace TauCeti.GlobalNumberFields
+
 variable {K : Type*} [Field K] [NumberField K] {𝔪 : Modulus K}
 
 /-- **The ray class of a uniformizer at a finite place is the ray class of the prime.** For a
@@ -74,6 +77,7 @@ theorem rayClassQuotient_ofAdicCompletion_of_isUniformizer {v : HeightOneSpectru
   exact Units.ext ((coe_unitOfPrime v K).trans hI.symm)
 
 end TauCeti.GlobalNumberFields
+end
 
 end
 end

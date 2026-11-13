@@ -15,7 +15,6 @@ public import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.Factorization
 public section
 
 section
-
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum
 open scoped nonZeroDivisors
 variable {R : Type*} [CommRing R] [IsDedekindDomain R]

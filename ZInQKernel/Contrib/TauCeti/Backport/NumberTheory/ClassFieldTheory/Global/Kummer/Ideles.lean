@@ -19,6 +19,7 @@ import ZInQKernel.Contrib.TauCeti.GroupTheory.Index.Map
 
 public noncomputable section
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -37,7 +38,9 @@ theorem mem_auxiliaryKummerIdeleSubgroup_one_iff_union
   · exact fun h v hvS hvT ↦ h v fun hv ↦ hv.elim hvS hvT
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -53,7 +56,9 @@ theorem unitEmbedding_mem_auxiliaryKummerIdeleSubgroup_one_iff
     IdeleGroup.forall_valued_ideleFiniteCoord_unitEmbedding_eq_one_iff]
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -69,7 +74,9 @@ theorem comap_unitEmbedding_auxiliaryKummerIdeleSubgroup_one
   Subgroup.ext (unitEmbedding_mem_auxiliaryKummerIdeleSubgroup_one_iff S T)
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -85,7 +92,9 @@ theorem auxiliaryKummerIdeleClassSubgroup_def
   (rfl)
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -107,7 +116,9 @@ theorem auxiliaryKummerIdeleClassSubgroup_one_eq_top
     ⟨x, (mem_auxiliaryKummerIdeleSubgroup_one_iff_union S T x).2 hx, hc⟩
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -127,7 +138,9 @@ theorem auxiliaryKummerIdeleSubgroup_one_mk_surjective
     (auxiliaryKummerIdeleClassSubgroup_one_eq_top S T hST)
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -148,7 +161,9 @@ private theorem map_subgroupOf_auxiliaryKummerIdeleSubgroup
     (inf_eq_left.mpr (auxiliaryKummerIdeleSubgroup_le_one S T n))
 
 end TauCeti.ClassFieldTheory
+end
 
+section
 open IsDedekindDomain NumberField
 namespace TauCeti.ClassFieldTheory
 
@@ -189,5 +204,6 @@ theorem index_auxiliaryKummerIdeleClassSubgroup_mul_relIndex
   exact hmul
 
 end TauCeti.ClassFieldTheory
+end
 
 end

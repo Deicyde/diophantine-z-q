@@ -26,9 +26,10 @@ import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.OpenSubgroup.FiniteInde
 public section
 noncomputable section
 
-open _root_.groupCohomology ContCohomology
+section
 namespace TauCeti.ClassFieldTheory.NormalLayer
 
+open _root_.groupCohomology ContCohomology
 variable {G : Type} [Group G] [TopologicalSpace G] [IsTopologicalGroup G] [CompactSpace G]
   [TotallyDisconnectedSpace G] (L : NormalLayer G) {F : Formation G}
   {M : Type} [AddCommGroup M] [DistribMulAction G M] (e : M ≃+ F.toRep.V)
@@ -63,6 +64,7 @@ theorem explicitInfl2_artinCharacterCup (a' : F.level L.ground)
   exact (groundLevelEquiv_symm_apply_coe _ _ a').trans ha.symm
 
 end TauCeti.ClassFieldTheory.NormalLayer
+end
 
 end
 end

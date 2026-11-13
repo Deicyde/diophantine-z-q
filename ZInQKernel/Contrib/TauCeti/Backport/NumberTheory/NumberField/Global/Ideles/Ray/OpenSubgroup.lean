@@ -18,11 +18,12 @@ import ZInQKernel.Contrib.TauCeti.Topology.Algebra.Group.Units
 public section
 noncomputable section
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum NumberField Filter Topology
 open scoped NumberField NumberField.AdeleRing WithZero
-open TauCeti.GlobalNumberFields
 namespace OpenSubgroup
 
+open TauCeti.GlobalNumberFields
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- **The conductor of an open subgroup of the idele class group**: the least modulus whose ray
@@ -33,12 +34,14 @@ def ideleClassConductor (U : OpenSubgroup (IdeleClassGroup (𝓞 K) K)) : Modulu
     (exists_raySubgroup_le_of_isOpen U.toSubgroup U.isOpen)
 
 end OpenSubgroup
+end
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum NumberField Filter Topology
 open scoped NumberField NumberField.AdeleRing WithZero
-open TauCeti.GlobalNumberFields
 namespace OpenSubgroup
 
+open TauCeti.GlobalNumberFields
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- The ray subgroup of the conductor of `U` lies in `U`. -/
@@ -48,12 +51,14 @@ theorem raySubgroup_ideleClassConductor_le (U : OpenSubgroup (IdeleClassGroup (�
     (exists_raySubgroup_le_of_isOpen U.toSubgroup U.isOpen)
 
 end OpenSubgroup
+end
 
+section
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum NumberField Filter Topology
 open scoped NumberField NumberField.AdeleRing WithZero
-open TauCeti.GlobalNumberFields
 namespace OpenSubgroup
 
+open TauCeti.GlobalNumberFields
 variable {K : Type*} [Field K] [NumberField K]
 
 /-- **The universal property of the conductor**: the conductor of `U` divides `𝔪` exactly when the
@@ -73,6 +78,7 @@ theorem ideleClassConductor_dvd_iff {U : OpenSubgroup (IdeleClassGroup (𝓞 K) 
   exact heq ▸ Modulus.gcd_dvd_right _ _
 
 end OpenSubgroup
+end
 
 end
 end

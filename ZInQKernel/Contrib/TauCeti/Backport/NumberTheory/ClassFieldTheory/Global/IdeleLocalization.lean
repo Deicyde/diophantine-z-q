@@ -27,10 +27,11 @@ import ZInQKernel.Contrib.TauCeti.RingTheory.DedekindDomain.PrimesAbove
 public section
 noncomputable section
 
-open IsDedekindDomain _root_.NumberField ContCohomology
-open scoped TensorProduct
+section
 namespace TauCeti.ClassFieldTheory
 
+open IsDedekindDomain _root_.NumberField ContCohomology
+open scoped TensorProduct
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 variable {w : InfinitePlace K}
@@ -64,11 +65,13 @@ theorem exists_ideleCoeffInfiniteComponent_ideleCoeffOfIntermediateField_eq
   exact congrArg (fun ψ : E →ₐ[K] _ ↦ ψ x) hτ
 
 end TauCeti.ClassFieldTheory
+end
+
+section
+namespace TauCeti.ClassFieldTheory
 
 open IsDedekindDomain _root_.NumberField ContCohomology
 open scoped TensorProduct
-namespace TauCeti.ClassFieldTheory
-
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 open scoped AdicCompletionExtension
@@ -101,11 +104,13 @@ theorem exists_ideleCoeffComponent_ideleExtension_eq :
   exact τ'.commutes _
 
 end TauCeti.ClassFieldTheory
+end
+
+section
+namespace TauCeti.ClassFieldTheory
 
 open IsDedekindDomain _root_.NumberField ContCohomology
 open scoped TensorProduct
-namespace TauCeti.ClassFieldTheory
-
 variable {K : Type} [Field K] [NumberField K] {v : HeightOneSpectrum (𝓞 K)}
 local notation "Ω" => FiniteGaloisIntermediateField K (SeparableClosure K)
 open scoped AdicCompletionExtension
@@ -135,6 +140,7 @@ theorem exists_ideleCoeffInfiniteComponent_ideleExtension_eq (w : InfinitePlace 
   exact Units.ext (τ'.commutes _)
 
 end TauCeti.ClassFieldTheory
+end
 
 end
 end

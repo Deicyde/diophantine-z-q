@@ -19,6 +19,7 @@ import ZInQKernel.Contrib.TauCeti.GroupTheory.QuotientGroup.Index
 public section
 noncomputable section
 
+section
 open IsDedekindDomain NumberField NumberField.InfinitePlace
 open scoped AdicCompletionExtension NumberField.LiesOver
 namespace TauCeti.GlobalNumberFields
@@ -39,6 +40,7 @@ theorem range_ideleClassNormMap_le_of_algHom {M : Type*} [Field M] [NumberField 
   exact ⟨ideleClassNormMap L M y, DFunLike.congr_fun (ideleClassNormMap_comp K L M) y⟩
 
 end TauCeti.GlobalNumberFields
+end
 
 end
 end

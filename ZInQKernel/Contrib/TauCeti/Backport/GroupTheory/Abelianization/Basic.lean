@@ -13,6 +13,7 @@ public import Mathlib.GroupTheory.Abelianization.Defs
 
 public section
 
+section
 namespace Abelianization
 
 variable {G : Type*} [Group G]
@@ -22,5 +23,6 @@ theorem of_injective [IsMulCommutative G] : Function.Injective (of (G := G)) :=
   (MonoidHom.ker_eq_bot_iff _).1 (by rw [ker_of, commutator_eq_bot])
 
 end Abelianization
+end
 
 end

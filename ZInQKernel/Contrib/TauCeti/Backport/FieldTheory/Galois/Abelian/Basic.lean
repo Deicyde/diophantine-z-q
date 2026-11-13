@@ -13,6 +13,7 @@ public import Mathlib.FieldTheory.Galois.Abelian
 
 public section
 
+section
 namespace TauCeti
 
 variable {K L : Type*} [Field K] [Field L] [Algebra K L] [IsGalois K L]
@@ -27,5 +28,6 @@ theorem algEquiv_commute_of_isAbelianGalois [IsAbelianGalois K L] :
   Commute.all
 
 end TauCeti
+end
 
 end
