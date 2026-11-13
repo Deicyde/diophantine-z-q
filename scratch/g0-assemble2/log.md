@@ -48,3 +48,7 @@
   vanishing; g9-derham recommends it as a clause of R10), via `ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange`
   (40 fields: 15 LEAF, 3 LEAF?, 22 GLUE). TailC (with a95) to olean 158 s, TailD 6 s: VERIFIED 0 errors,
   four main theorems standard axioms.
+- Part z85: `ModelG3G6` from `G0Split.FibreSimple` (EndDivision of G7's model `A_{L'}`, a `FibreOver` via G7Data's
+  `IsModelOver`), `ModelNoncomm` and `ModelG3` (`modelG3G6_of`). GluePieces3: `modelG3G6` replaced by
+  `modelNoncomm`, `modelG3` (41 fields: 15 LEAF, 3 LEAF?, 23 GLUE); `fibreSimple_of_gp3` factored out.
+  TailD: VERIFIED first run, 0 errors, four main theorems standard axioms.

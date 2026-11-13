@@ -107,8 +107,11 @@ structure GluePieces3 : Prop where
   /-- R17 concretely, LEAF (Carayol 1986, Thm (A)). -/
   carayolR17 : LadicCond.CarayolR17'
   -- ModularConstituent: joint glue on G7's data (g0-assemble)
-  /-- g0-assemble, GLUE (G3 and G6 on G7's model). -/
-  modelG3G6 : G0AssembleMod.ModelG3G6
+  /-- g0-assemble2, GLUE: `End(A_{L'})` noncommutative on G7's model (elementary; the division-ring
+  half of g0-assemble's `ModelG3G6` follows from `FibreSimple`, part z85). -/
+  modelNoncomm : G0AssembleMod.ModelNoncomm
+  /-- g0-assemble2, GLUE: G3 on G7's model (the other half of `ModelG3G6`). -/
+  modelG3 : G0AssembleMod.ModelG3
   /-- g0-assemble2 (from g14-trace, g15-ram), GLUE: linked Tate data with the Frobenius link and
   the local data (replaces g0-assemble's `LinkedTateData`). -/
   linkedTateLocal : G0AssembleMod.LinkedTateLocal
@@ -139,14 +142,19 @@ theorem fibreComTrivial_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : 
   fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r)
     (mobiusGlue_of_gp3 t gp) t.t27 t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
 
+/-- `FibreSimple` from `GluePieces3` (fs1-descend, mul-rigidity, fs5-nocm). -/
+theorem fibreSimple_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
+    G0Split.FibreSimple :=
+  G0FibreSimple.fibreSimple_of_leaves t
+    (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale) G0FibreSimple.rigidityHom
+    ⟨G0FibreSimple.finiteDescends_proof, fibreComTrivial_of_gp3 r t gp⟩
+
 /-- **`GluePieces` from `GluePieces3` and the leaf bundles** (g0-assemble2). -/
 theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
     GluePieces where
   dimFinite := G0Split.dimFinite
   dimBaseChange := G0Split.dimBaseChange
-  fibreSimple := G0FibreSimple.fibreSimple_of_leaves t
-    (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale) G0FibreSimple.rigidityHom
-    ⟨G0FibreSimple.finiteDescends_proof, fibreComTrivial_of_gp3 r t gp⟩
+  fibreSimple := fibreSimple_of_gp3 r t gp
   productModelHeight := ZInQ.ProductHeight.productModelHeight_of_splits gp.productUnifSplits
     gp.productMetrizationOfProductUnif
   stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
@@ -175,7 +183,8 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp
         G0AssembleMod.resQFiniteIndex⟩
       (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
       Swan.swanIndependent_proved Swan.swanIntegral_proved
-      Swan.adaptedExists_proved gp.modelG3G6
+      Swan.adaptedExists_proved
+      (G0AssembleMod.modelG3G6_of (fibreSimple_of_gp3 r t gp) gp.modelNoncomm gp.modelG3)
       (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
   heightCopies := G0HeightCopies.heightCopiesAgree
 
