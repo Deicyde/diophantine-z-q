@@ -24,3 +24,14 @@
 - Compile (VERIFIED): `ctail.sh Part.lean` (= part_tools + part_local): exit 0, 49 s, no sorry;
   axioms of `exists_complex_equiv`, `exists_finGal_tame`, `g7Clauses_of_g7Data`, `descentPts_self`,
   `localDataS_of_g7Data`: `[propext, Classical.choice, Quot.sound]`.
+
+## Step 2 (09:50-10:05 PST): `LinkedTateObjS` reduced to `TateBridgeOnL` (part_link.lean)
+- New: `TateBridgeOnL` (def, GLUE): the text of g8-object's `LinkedTateObjS` with its two
+  `LocalDataS` conjuncts deleted (produced by a python string replacement from `part_split.lean`).
+- **`linkedTateObjS_of_onL`**: R6 + I2-Tors + `UnramRoots 2 5` + `TateBridgeOnL` ⟹
+  `G8Object.LinkedTateObjS`. `dim A = 2` from `G7Out`'s `dim A_{L'} = 2` and the kernel's
+  `PkgI3.AbVar.dim_baseChange` (`ZInQKernel/Contrib/AbVarBC/Dim.lean`).
+- **`linkedTateDataD_of_onL`**: + T7 ⟹ `G8Object.LinkedTateDataD` (via g8-object's
+  `linkedTateDataD_of_S`).
+- Compile (VERIFIED): `ctail.sh Part.lean` (= part_tools + part_local + part_link): exit 0, 60 s;
+  all axiom reports `[propext, Classical.choice, Quot.sound]`, no sorry.
