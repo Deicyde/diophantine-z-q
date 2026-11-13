@@ -109,3 +109,23 @@ main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").re
 out3 = "\n".join(parts3) + "\n" + main3
 open("scratch/hecke-rest/CurveChart.lean", "w", encoding="utf-8").write(out3)
 print("wrote CurveChart", out3.count("\n"), "lines")
+
+# ---- HeckeRestAll.lean: all of TSHecke.lean + image-plane value calculus + the three new parts
+HEADER4 = """
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest: the integrated file (assembled by `scratch/hecke-rest/assemble.py`)
+
+Above: `scratch/ts-hecke/TSHecke.lean`, all 7109 lines, verbatim. Below: the value calculus of
+`scratch/image-plane/AlgDepProof.lean` (lines 15-171, 277-322, verbatim) and the new parts of
+`FibreSizes.lean`, `NoVert.lean`, `CurveChart.lean` (their `*Main.lean.part` files, verbatim),
+then the composite theorems. No `sorry`, no `axiom`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+"""
+COMPOSITE = open("scratch/hecke-rest/AllMain.lean.part", encoding="utf-8").read()
+parts4 = ["\n".join(src), HEADER4, irng(15, 171), "", irng(277, 322), "",
+          "end ImagePlane", "", "end Pin", "", "end AV", "", "end LeafQM", "", "end", "",
+          open("scratch/hecke-rest/FibreSizesMain.lean.part", encoding="utf-8").read(),
+          main2, main3, COMPOSITE]
+out4 = "\n".join(parts4)
+open("scratch/hecke-rest/HeckeRestAll.lean", "w", encoding="utf-8").write(out4)
+print("wrote HeckeRestAll", out4.count("\n"), "lines")

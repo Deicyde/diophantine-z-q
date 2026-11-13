@@ -1,0 +1,51 @@
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest: the composite
+
+ts-hecke's `CoverModelOfHecke` and `PropTSAll` composites with hecke-rest's reductions of its four
+glue inputs: `CurveNormChart` (hence `CurveGaloisChart`) and `CurveChartInf` from the chart Props,
+`HeckeFibreSizes` from three leaves on QM pairs, `HeckeNoVertRam` from `HeckeVertWitness`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestAll
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue PkgI3 TSHecke
+
+/-- **`CoverModelOfHecke` from hecke-rest's inputs** (compiled). Leaves: `Y3Connected`,
+`R1R2fp`, `TorsionStructure` (as in ts-hecke), `QMAutCard`, `SerreRigidity3`, `ALFixedPoints`
+(new). Glue: `ChartProper`, `ChartQuasiFinite`, `ChartDominant`, `InfFnField` (curve theory, no
+moduli) and `HeckeVertWitness` (one unramified vertical prime: Lemma NV / good reduction). -/
+theorem coverModelOfHecke_of_heckeRest (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hP : HeckeRestCurve.ChartProper) (hQ : HeckeRestCurve.ChartQuasiFinite)
+    (hD : HeckeRestCurve.ChartDominant) (hFF : HeckeRestCurve.InfFnField)
+    (hV : HeckeRestNV.HeckeVertWitness) : CoverModelOfHecke :=
+  coverModelOfHecke_of_tsHecke' hconn hRR hT (HeckeRestCurve.curveNormChart_of_charts hP hQ hD)
+    (HeckeRestCurve.curveChartInf_of_charts hP hQ hD hFF) (HeckeRest.heckeFibreSizes_of hT hA hS hW)
+    (HeckeRestNV.heckeNoVertRam_of_witness hV)
+
+/-- **`PropTSAll` from hecke-rest's inputs** (compiled; through ts-hecke's `propTSAll_of_tsHecke'`
+and prop-ts-glue's `propTSAll_final`). -/
+theorem propTSAll_of_heckeRest (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hSN : SNSpecialize) (hC : KummerCompositum)
+    (hKA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure)
+    (hA : HeckeRest.QMAutCard) (hS : HeckeRest.SerreRigidity3) (hW : HeckeRest.ALFixedPoints)
+    (hP : HeckeRestCurve.ChartProper) (hQ : HeckeRestCurve.ChartQuasiFinite)
+    (hD : HeckeRestCurve.ChartDominant) (hFF : HeckeRestCurve.InfFnField)
+    (hV : HeckeRestNV.HeckeVertWitness) : PropTSAll :=
+  propTSAll_of_tsHecke' t2 hR hM hSN hC hKA hO hVF hAI hOI hVI hconn hT
+    (HeckeRestCurve.curveNormChart_of_charts hP hQ hD)
+    (HeckeRestCurve.curveChartInf_of_charts hP hQ hD hFF)
+    (HeckeRest.heckeFibreSizes_of hT hA hS hW) (HeckeRestNV.heckeNoVertRam_of_witness hV)
+
+end HeckeRestAll
+
+end
+
+#print axioms HeckeRestAll.coverModelOfHecke_of_heckeRest
+#print axioms HeckeRestAll.propTSAll_of_heckeRest

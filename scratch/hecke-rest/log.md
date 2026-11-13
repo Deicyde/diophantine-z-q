@@ -99,3 +99,13 @@ HeckeFibreSizes, HeckeNoVertRam.
   `Y = ∅` (Γ(Y, V) = 0, so injectivity and nonemptiness fail; all other hypotheses hold).
   Both now assume `Nonempty Y.left`; `curveChartInf_of` derives it from `NormalizationModel`
   (Spec B ≠ ∅ maps into Y). Recompiled: 0 errors, standard axioms.
+
+## Step 8. Integrated file (`HeckeRestAll.lean`) — VERIFIED (compiled, 0 errors, 46 s)
+- TSHecke.lean (all 7109 lines) + image-plane value calculus + the three `*Main.lean.part`
+  files + `AllMain.lean.part`; verbatim by construction (`assemble.py` copies line ranges).
+- `HeckeRestAll.coverModelOfHecke_of_heckeRest` : Y3Connected → R1R2fp → TorsionStructure →
+  QMAutCard → SerreRigidity3 → ALFixedPoints → ChartProper → ChartQuasiFinite → ChartDominant →
+  InfFnField → HeckeVertWitness → CoverModelOfHecke.
+- `HeckeRestAll.propTSAll_of_heckeRest` (same, through propTSAll_of_tsHecke').
+- All 14 HeckeRest* `#print axioms` lines: [propext, Classical.choice, Quot.sound]. No `sorry`
+  token in any scratch/hecke-rest Lean file.
