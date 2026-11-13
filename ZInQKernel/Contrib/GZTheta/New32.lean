@@ -15,7 +15,7 @@ The associated newform `g` of `f₁ = η(4τ)²η(8τ)²` (Tau Ceti, Diamond–S
   because `4 ∣ 16`: Tau Ceti, Miyake 4.6.17).
 -/
 
-open Complex Filter ModularForm UpperHalfPlane CongruenceSubgroup HeckeRing.GL2
+open Complex Filter ModularForm CongruenceSubgroup HeckeRing.GL2
   Matrix.SpecialLinearGroup
 open UpperHalfPlane hiding I
 open scoped Real Topology MatrixGroups
@@ -193,5 +193,60 @@ theorem coeff_newform_odd_even {M : ℕ} [NeZero M] (hM16 : M ∣ 16) (hM2 : 2 �
     change coeff g (2 ^ k * m) = coeff g (2 ^ k) * coeff g m at e2
     rw [show 2 * (2 ^ k * m) = 2 ^ (k + 1) * m by ring, e1, e2, h2pow, h2pow, pow_succ']
     ring
+
+
+/-! ### `f₁ = g − a₂ V₂ g` -/
+
+theorem qParam_two_mul (τ : ℂ) :
+    Function.Periodic.qParam 1 (2 * τ) = Function.Periodic.qParam 1 τ ^ 2 := by
+  simp only [Function.Periodic.qParam, ← Complex.exp_nat_mul]
+  congr 1; push_cast; ring
+
+theorem two_mul_im_pos (τ : ℍ) : 0 < (2 * (τ : ℂ)).im := by simp; exact τ.im_pos
+
+/-- **`f₁(τ) = g(τ) − a₂(g) g(2τ)`** under the coefficient facts. -/
+theorem F₁_eq_sub {M : ℕ} [NeZero M] (g : Newform M 2)
+    (hodd : ∀ n : ℕ, n % 2 = 1 → coeff g n = heckeCoeff 1 n)
+    (heven : ∀ n : ℕ, coeff g (2 * n) = coeff g 2 * coeff g n) (τ : ℍ) :
+    F₁ τ = g.toCuspForm τ - coeff g 2 * g.toCuspForm ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩ := by
+  set q := Function.Periodic.qParam 1 (τ : ℂ) with hq
+  set a : ℕ → ℂ := fun n => coeff g n with ha
+  have hΓ := TauCeti.one_mem_strictPeriods_Gamma1_map M
+  have hg : HasSum (fun n => a n * q ^ n) (g.toCuspForm τ) :=
+    ModularForm.hasSum_qExpansion g.toCuspForm one_pos hΓ τ
+  have hg2 : HasSum (fun n => a n * (q ^ 2) ^ n)
+      (g.toCuspForm ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩) := by
+    have := ModularForm.hasSum_qExpansion g.toCuspForm one_pos hΓ ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩
+    simpa [qParam_two_mul, ha, hq, coeff] using this
+  have hF : HasSum (fun n => heckeCoeff 1 n * q ^ n) (F₁ τ) := by
+    have := etaThetaIdentity τ
+    have hq' : q = cexp (2 * π * I * τ) := by simp [hq, Function.Periodic.qParam]
+    rw [hq']; exact this
+  -- split the `g`-series
+  have hs := hg.summable
+  have hse : HasSum (fun m => a (2 * m) * q ^ (2 * m)) (coeff g 2 * g.toCuspForm
+      ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩) := by
+    refine (hg2.mul_left (coeff g 2)).congr_fun fun m => ?_
+    simp only [ha, heven, pow_mul]
+    ring
+  have hso : HasSum (fun m => a (2 * m + 1) * q ^ (2 * m + 1))
+      (g.toCuspForm τ - coeff g 2 * g.toCuspForm ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩) := by
+    have hsum_o : Summable (fun m => a (2 * m + 1) * q ^ (2 * m + 1)) :=
+      hs.comp_injective (i := fun m : ℕ => 2 * m + 1) (fun x y h => by simpa using h)
+    have := HasSum.even_add_odd (f := fun n => a n * q ^ n) hse hsum_o.hasSum
+    have hu := this.unique hg
+    rw [← hu]; simp only [add_sub_cancel_left]; exact hsum_o.hasSum
+  -- split the `f₁`-series
+  have hFs := hF.summable
+  have hFe : HasSum (fun m => heckeCoeff 1 (2 * m) * q ^ (2 * m)) 0 := by
+    simp only [heckeCoeff_one_even, zero_mul]; exact hasSum_zero
+  have hFo : HasSum (fun m => heckeCoeff 1 (2 * m + 1) * q ^ (2 * m + 1))
+      (g.toCuspForm τ - coeff g 2 * g.toCuspForm ⟨2 * (τ : ℂ), two_mul_im_pos τ⟩) := by
+    refine hso.congr_fun fun m => ?_
+    simp only [ha]
+    rw [hodd (2 * m + 1) (by omega)]
+  have := HasSum.even_add_odd (f := fun n => heckeCoeff 1 n * q ^ n) hFe hFo
+  rw [zero_add] at this
+  exact hF.unique this
 
 end ZInQ.GZTheta
