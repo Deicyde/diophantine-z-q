@@ -38,3 +38,12 @@
   zsmul_one + map_zsmul). Hence **`MulRigidity.mulIsogeny : G0FibreSimple.MulIsogeny`** (a textbook leaf) and
   `MulRigidity.kerUnitOpen : KerUnitOpen` are theorems. VERIFIED: 0 errors, 0 sorry, axioms
   [propext, Classical.choice, Quot.sound] for cotangentMulN, mulIsogeny, kerUnitOpenOfCotangentSurj.
+- LocalStructure.lean (Mathlib-only, VERIFIED compile, standard axioms): `evalPt`, `secOf`, `evalPt_secOf`,
+  `exists_fin_sum_tmul(₂)`, `SpecMap_mem_basicOpen_iff`, `exists_chart_point`,
+  **`exists_localStructure_pullback`** (f : X ⟶ Spec R, g : Y ⟶ Spec R, W : X ×_R Y ⟶ P, s ∈ Γ(P,U), F-points
+  p₁,p₂ with (p₁,p₂) ∈ W⁻¹U: opens V₁ ∋ p₁, V₂ ∋ p₂ and sections a,c on V₁, b,d on V₂ with H = Σ c⊗d ≠ 0 at (p₁,p₂),
+  and for all F-points of V₁×V₂ with H ≠ 0: in W⁻¹U and s·H = Σ a⊗b).
+- ProductLocalStructure.lean (= StalkPullback body + local_structure part + verbatim scratch/metrization/Metrization.lean
+  + pls_proof.lean.part): **`ZInQ.Metrization.productLocalStructure : ProductLocalStructure`** PROVED;
+  `productUniformizationAnalytic`, `productMetrizationGeo_of_hodgeLattice (hPL)`,
+  `HSyn.G0Split.heightAdditivity_of_metrization_v4` (v3 minus hLS). VERIFIED: 0 errors, 0 sorry, standard axioms, 36 s.
