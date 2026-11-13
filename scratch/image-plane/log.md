@@ -17,3 +17,15 @@ C2K <- (L) <- (L0) leaf; (CI) proved from infra-smooth-dim.
   complement of a union of basic opens, so closed; image under pullback.snd closed
   (Mathlib `universallyClosed_snd`, `Scheme.Hom.isClosedMap`); S = vanishingIdeal of the image;
   closed points of the fibre are K-points (curve-glue's `exists_point_of_isLocallyClosed`).
+
+## 2. (AD) `AlgDep` PROVED from C1b + C2K + (CI) (VERIFIED, compiled)
+- File: scratch/image-plane/AlgDepProof.lean (mk_ad.sh: IC parts + ADbase (verbatim defs of
+  ConstOrOntoAlgClosed, ComponentIrreducible, SmoothStalkDimOne, AlgDep) + AD.lean.part).
+- `theorem algDep_of (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)
+   (hI : ComponentIrreducible) : AlgDep` — 0 errors, 0 warnings, axioms standard
+  (run_AlgDepProof.txt). C1b and (CI) are proved (infra-smooth-dim, curve-glue).
+- Lemma `ImagePlane.finite_of_closed_ssubset`: Noetherian scheme, closed points have stalk dim 1,
+  W irreducible closed, Y ⊊ W closed ⇒ Y finite (chain x < η(Y') < η(W) gives coheight ≥ 2,
+  Mathlib `ringKrullDim_stalk_eq_coheight`).
+- Proof: σ constant ⇒ P = x − c or 1; else W \ V_σ = {σ = 0} finite, so finitely many u with
+  (0,u) hit; pick u outside (K infinite); some Q ∈ S (IC equations) has Q(0,u) ≠ 0; P = Q.
