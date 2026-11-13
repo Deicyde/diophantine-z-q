@@ -22,4 +22,5 @@ local-to-global transport not in Lean (route sketched in the report §5; T20 and
 completeness, which helps).
 
 **Compiles.** `lake env lean scratch/t-different/{Statements,HilbertLocal,DifferentBound,Herbrand}.lean`
-(6 s, 9 s, 41 s, 17 s).  Report: `docs/research/t-different.md`; log: `scratch/t-different/log.md`.
+(6 s, 9 s, 41 s, 17 s); all four proofs deduplicated in one file `scratch/t-different/All.lean`
+(52 s), ready to fold into Leaves.lean.  Report: `docs/research/t-different.md`; log: `scratch/t-different/log.md`.
