@@ -51,3 +51,11 @@
   `conjTwistNontrivial_of_lattice'` (T26 → T35 → N1 → N2 → N3 → N4 → ConjTwistNontrivial),
   `conjTwistFromLeaves_of_lattice'` (N1 → N2 → N3 → N4 → ConjTwistFromLeaves). Whole file:
   0 errors, 0 sorry, 17 `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:05 §10 added: `TateLatticeInj` (N4': α only injective), `tateLatticeInj_of_tateLattice`,
+  **`conjTwistNontrivial_of_latticeInj : TateModuleFree → UniformizationExists → ArtinTorsion →
+  HomLinearLift → ConjAntiLift → TateLatticeInj → ConjTwistNontrivial`** (flatness of ℚ_ℓ over
+  ℤ_ℓ, postcomposition with ℚ_ℓ ⊗ α_B injective, matrices on ℚ_ℓ ⊗ (ℤ_ℓ ⊗ Λ)); old
+  `conjTwistNontrivial_of_lattice` now derived from it (N5 discharged by `conjVarDim`);
+  `conjTwistFromLeaves_of_latticeInj`, `conjTwistFromLeaves_of_lattice`. Naturality lemmas
+  generalized to linear α. Whole file: 0 errors, 0 sorry, 17 `#print axioms` standard.
+  VERIFIED (compiled).

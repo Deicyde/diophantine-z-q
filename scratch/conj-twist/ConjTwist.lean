@@ -857,10 +857,10 @@ theorem homT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] {A B : PkgI3.
     {ΦA : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))}
     {ΦB : (Fin h → ℂ) → CPts B (emb.comp (algebraMap K (AlgebraicClosure K)))}
     (ℓ : ℕ) [Fact ℓ.Prime]
-    (αA : TensorProduct ℤ ℤ_[ℓ] ΛA ≃ₗ[ℤ_[ℓ]] A.T ℓ)
+    (αA : TensorProduct ℤ ℤ_[ℓ] ΛA →ₗ[ℤ_[ℓ]] A.T ℓ)
     (hαA : ∀ (lam : ΛA) (n : ℕ), toC A emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n)) =
         ΦA (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
-    (αB : TensorProduct ℤ ℤ_[ℓ] ΛB ≃ₗ[ℤ_[ℓ]] B.T ℓ)
+    (αB : TensorProduct ℤ ℤ_[ℓ] ΛB →ₗ[ℤ_[ℓ]] B.T ℓ)
     (hαB : ∀ (lam : ΛB) (n : ℕ), toC B emb (Additive.toMul ((αB (1 ⊗ₜ lam)).1 n)) =
         ΦB (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin h → ℂ)))
     (f : PkgI3.AbVar.Hom A B) (M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ))
@@ -886,10 +886,10 @@ theorem conjT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] (A : PkgI3.A
     {Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))}
     {Φ' : (Fin g → ℂ) → CPts (conjVar A s) (emb.comp (algebraMap K (AlgebraicClosure K)))}
     (ℓ : ℕ) [Fact ℓ.Prime]
-    (α : TensorProduct ℤ ℤ_[ℓ] Λ ≃ₗ[ℤ_[ℓ]] A.T ℓ)
+    (α : TensorProduct ℤ ℤ_[ℓ] Λ →ₗ[ℤ_[ℓ]] A.T ℓ)
     (hα : ∀ (lam : Λ) (n : ℕ), toC A emb (Additive.toMul ((α (1 ⊗ₜ lam)).1 n)) =
         Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
-    (α' : TensorProduct ℤ ℤ_[ℓ] Λ' ≃ₗ[ℤ_[ℓ]] (conjVar A s).T ℓ)
+    (α' : TensorProduct ℤ ℤ_[ℓ] Λ' →ₗ[ℤ_[ℓ]] (conjVar A s).T ℓ)
     (hα' : ∀ (lam : Λ') (n : ℕ),
         toC (conjVar A s) emb (Additive.toMul ((α' (1 ⊗ₜ lam)).1 n)) =
         Φ' (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)))
@@ -909,34 +909,17 @@ theorem conjT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] (A : PkgI3.A
     push_cast; rfl
   rw [e, e, map_smul]
 
-/-! ## §8. `ConjTwistNontrivial` from T26, T35 and N1-N5 (proved)
+/-! ## §8. The linear algebra of the lattice argument (proved)
 
 The lattices replace the abstract `H` of `ConjBettiComparison`: with `ℤ`-bases of `Λ_A`, `Λ_B`,
-the matrices of `c_*` and of `V_ℓ(f)` in the bases `α(1 ⊗ bᵢ)` are the integer matrices of the
-lifts `N` and `M_f` on the lattices (§7). Faltings puts the first in the `ℚ_ℓ`-span of the others,
+the matrices of `c_*` and of `V_ℓ(f)` on `ℚ_ℓ ⊗ (ℤ_ℓ ⊗ Λ)` (through `ℚ_ℓ ⊗ α`, §10) are the
+integer matrices of the lifts `N` and `M_f` on the lattices (§7). Faltings puts the first in the `ℚ_ℓ`-span of the others,
 rationality (`matrix_mem_of_map_mem_span`) in their `ℚ`-span, so `N` is a `ℚ`-combination of
 `ℂ`-linear maps on a basis of `ℂ^g` over `ℝ`, hence `ℂ`-linear; it is antilinear and nonzero. -/
 
 section LatticeAlgebra
 
 open Module
-
-/-- **Matrix of a map of Tate modules coming from a lattice map (proved).** -/
-theorem toMatrix_of_lattice {ℓ : ℕ} [Fact ℓ.Prime] {ΛA ΛB TA TB : Type*} [AddCommGroup ΛA]
-    [Module ℤ ΛA] [AddCommGroup ΛB] [Module ℤ ΛB] [AddCommGroup TA] [Module ℤ_[ℓ] TA]
-    [AddCommGroup TB] [Module ℤ_[ℓ] TB] {ιA ιB : Type*} [Fintype ιA] [Fintype ιB]
-    [DecidableEq ιA] [DecidableEq ιB] (bA : Basis ιA ℤ ΛA) (bB : Basis ιB ℤ ΛB)
-    (αA : TensorProduct ℤ ℤ_[ℓ] ΛA ≃ₗ[ℤ_[ℓ]] TA) (αB : TensorProduct ℤ ℤ_[ℓ] ΛB ≃ₗ[ℤ_[ℓ]] TB)
-    (u : ΛA →ₗ[ℤ] ΛB) (Tm : TA →ₗ[ℤ_[ℓ]] TB)
-    (h : ∀ lam, Tm (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ u lam)) :
-    LinearMap.toMatrix ((Algebra.TensorProduct.basis ℤ_[ℓ] bA).map αA)
-        ((Algebra.TensorProduct.basis ℤ_[ℓ] bB).map αB) Tm =
-      (LinearMap.toMatrix bA bB u).map (Int.castRingHom ℤ_[ℓ]) := by
-  ext i j
-  rw [LinearMap.toMatrix_apply, Basis.map_apply, Algebra.TensorProduct.basis_apply, h,
-    Basis.map_repr, LinearEquiv.trans_apply, LinearEquiv.symm_apply_apply,
-    Algebra.TensorProduct.basis_repr_tmul, one_smul, Matrix.map_apply, LinearMap.toMatrix_apply]
-  simp
 
 /-- **A lattice map determines the real-linear map (proved).** -/
 theorem toLin_of_lattice {g : ℕ} {ΛA ΛB : Submodule ℤ (Fin g → ℂ)} {ιA ιB : Type*}
@@ -1024,104 +1007,6 @@ theorem twistC_one {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (
     MonObj.comp_one]
   rfl
 
-/-- **`ConjTwistNontrivial` from T26, T35 and N1-N5 (proved).** -/
-theorem conjTwistNontrivial_of_lattice (hT : PkgI3.TateModuleFree)
-    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
-    (hN3 : ConjAntiLift) (hN4 : TateLattice) (hN5 : ConjVarDim) : ConjTwistNontrivial := by
-  classical
-  intro hF K _ _ _ A ℓ _ hdim c hc hall
-  obtain ⟨cc, emb, hι, hK, h2, hres⟩ := conjData K c hc
-  let s := restrictK cc hK
-  have hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k) := restrictK_spec cc hK
-  let σ : K →+* ℂ := emb.comp (algebraMap K (AlgebraicClosure K))
-  have hσs : σ.comp s = (starRingEnd ℂ).comp σ := by
-    apply RingHom.ext; intro k
-    change emb (algebraMap K _ (s k)) = starRingEnd ℂ (emb (algebraMap K _ k))
-    rw [← hs, hι]
-  have hd2 : A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hdim]; rfl
-  have hd2' : (conjVar A s).dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hN5]; exact hd2
-  obtain ⟨ΛA, ΦA, hdA, hlatA, hA⟩ := h35 K A σ 2 hd2
-  obtain ⟨ΛB, ΦB, hdB, hlatB, hB⟩ := h35 K (conjVar A s) σ 2 hd2'
-  obtain ⟨N, hNanti, hNinj, hN⟩ := hN3 K A σ s hσs 2 ΛA ΛB ΦA ΦB hd2 hA hB
-  obtain ⟨αA, hαA⟩ := hN4 K A emb 2 ΛA ΦA hd2 hlatA hA ℓ
-  obtain ⟨αB, hαB⟩ := hN4 K (conjVar A s) emb 2 ΛB ΦB hd2' hlatB hB ℓ
-  choose M hM using fun f => hN2 K A (conjVar A s) σ 2 2 ΛA ΛB ΦA ΦB hd2 hd2' hA hB f
-  -- `c_*` is `G_K`-equivariant, so it lies in the span of `Hom(A, A^s)` (Faltings)
-  have heq : ∀ τ, conjV A s cc hs ℓ ∘ₗ A.galRep ℓ τ =
-      (conjVar A s).galRep ℓ τ ∘ₗ conjV A s cc hs ℓ := by
-    intro τ
-    obtain ⟨σ', hσ'⟩ := exists_twist K cc hK h2 τ
-    rw [hall σ' τ (hres σ' τ hσ'), conjV_galRep A s cc hs ℓ σ' τ hσ']
-  have hspan := faltingsV hF hT A (conjVar A s) ℓ _ heq
-  -- the lifts on the lattices
-  have hNlat : ∀ lam : ΛA, N lam ∈ ΛB := fun lam => by
-    rw [← hB.2.1, hN, (hA.2.1 _).mpr lam.2]
-    exact twistC_one A σ s hσs
-  have hMlat : ∀ f (lam : ΛA), M f lam ∈ ΛB := fun f lam =>
-    lift_mem_lattice hA hB f (M f) (hM f) lam
-  let uN : ΛA →ₗ[ℤ] ΛB :=
-    { toFun := fun lam => ⟨N lam, hNlat lam⟩
-      map_add' := fun x y => Subtype.ext (by simp)
-      map_smul' := fun n x => Subtype.ext (by
-        simp only [RingHom.id_apply, Submodule.coe_smul]; exact map_zsmul N n _) }
-  let uM : PkgI3.AbVar.Hom A (conjVar A s) → (ΛA →ₗ[ℤ] ΛB) := fun f =>
-    { toFun := fun lam => ⟨M f lam, hMlat f lam⟩
-      map_add' := fun x y => Subtype.ext (by simp)
-      map_smul' := fun n x => Subtype.ext (by
-        simp only [RingHom.id_apply, Submodule.coe_smul]; exact map_zsmul (M f) n _) }
-  have hCN : ∀ lam, conjT A s cc hs ℓ (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uN lam) := fun lam =>
-    conjT_tateLattice hN1 A s cc hs emb hι hσs ℓ αA hαA αB hαB N hN lam (hNlat lam)
-  have hMf : ∀ f lam, PkgI3.AbVar.homT f (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uM f lam) :=
-    fun f lam => homT_tateLattice hN1 emb ℓ αA hαA αB hαB f (M f) (hM f) lam (hMlat f lam)
-  -- bases
-  haveI := ZLattice.module_finite ℝ ΛA
-  haveI := ZLattice.module_free ℝ ΛA
-  haveI := ZLattice.module_finite ℝ ΛB
-  haveI := ZLattice.module_free ℝ ΛB
-  let bA := Module.Free.chooseBasis ℤ ΛA
-  let bB := Module.Free.chooseBasis ℤ ΛB
-  let bAℝ := bA.ofZLatticeBasis ℝ ΛA
-  let bBℝ := bB.ofZLatticeBasis ℝ ΛB
-  let bTA := (Algebra.TensorProduct.basis ℤ_[ℓ] bA).map αA
-  let bTB := (Algebra.TensorProduct.basis ℤ_[ℓ] bB).map αB
-  let TM := LinearMap.toMatrix (Algebra.TensorProduct.basis ℚ_[ℓ] bTA)
-    (Algebra.TensorProduct.basis ℚ_[ℓ] bTB)
-  have hcast : ∀ X : Matrix (Module.Free.ChooseBasisIndex ℤ ΛB)
-      (Module.Free.ChooseBasisIndex ℤ ΛA) ℤ,
-      (X.map (Int.castRingHom ℤ_[ℓ])).map (algebraMap ℤ_[ℓ] ℚ_[ℓ]) =
-        X.map (Int.castRingHom ℚ_[ℓ]) := by
-    intro X; rw [Matrix.map_map]; congr 1
-  have hTMN : TM (conjV A s cc hs ℓ) =
-      (LinearMap.toMatrix bA bB uN).map (Int.castRingHom ℚ_[ℓ]) := by
-    change TM ((conjT A s cc hs ℓ).baseChange ℚ_[ℓ]) = _
-    rw [LinearMap.toMatrix_baseChange, toMatrix_of_lattice bA bB αA αB uN _ hCN, hcast]
-  have hTMf : ∀ f, TM ((PkgI3.AbVar.homT (ℓ := ℓ) f).baseChange ℚ_[ℓ]) =
-      (LinearMap.toMatrix bA bB (uM f)).map (Int.castRingHom ℚ_[ℓ]) := fun f => by
-    rw [LinearMap.toMatrix_baseChange, toMatrix_of_lattice bA bB αA αB (uM f) _ (hMf f), hcast]
-  have hspan' : TM (conjV A s cc hs ℓ) ∈ Submodule.span ℚ_[ℓ]
-      (Set.range fun f => (LinearMap.toMatrix bA bB (uM f)).map (Int.castRingHom ℚ_[ℓ])) := by
-    have h1 := Submodule.mem_map_of_mem (f := TM.toLinearMap) hspan
-    rw [homSpanV, Submodule.map_span] at h1
-    convert h1 using 2
-    rw [← Set.range_comp]
-    congr 1
-    funext f
-    exact (hTMf f).symm
-  rw [hTMN] at hspan'
-  have hN0 : N ≠ 0 := by
-    intro h0
-    have : (Pi.single 0 1 : Fin 2 → ℂ) = 0 := hNinj (by rw [h0]; simp)
-    have := congrFun this 0
-    simp at this
-  exact lattice_contradiction bA bB bAℝ bBℝ (fun i => by simp [bAℝ]) (fun i => by simp [bBℝ])
-    ℚ_[ℓ] uM M (fun f lam => rfl) uN N (fun lam => rfl) hNanti hN0 hspan'
-
-/-- **`ConjTwistFromLeaves` from T35-free glue N1-N5 (proved):** T35 and T26 are among its
-hypotheses. -/
-theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
-    (hN3 : ConjAntiLift) (hN4 : TateLattice) (hN5 : ConjVarDim) : ConjTwistFromLeaves :=
-  fun _ _ h35 _ hT => conjTwistNontrivial_of_lattice hT h35 hN1 hN2 hN3 hN4 hN5
-
 /-! ## §9. N5 `ConjVarDim` (proved) -/
 
 /-- A ring endomorphism of a number field is bijective. -/
@@ -1146,16 +1031,170 @@ theorem conjVarDim : ConjVarDim := by
   exact IsHomeomorph.topologicalKrullDim_eq _
     (Scheme.Hom.homeomorph (Limits.pullback.fst A.X.hom (specS s))).isHomeomorph
 
-/-- **`ConjTwistNontrivial` from T26, T35 and N1-N4 (proved; N5 is proved).** -/
-theorem conjTwistNontrivial_of_lattice' (hT : PkgI3.TateModuleFree)
+/-! ## §10. A weaker N4 suffices: an injective comparison (proved reduction)
+
+Only injectivity of `α` is used: `ℚ_ℓ` is flat over `ℤ_ℓ`, so `ι = ℚ_ℓ ⊗ α` is injective, and
+postcomposition with `ι_B` is injective on `Hom` spaces. The matrices are then taken on
+`ℚ_ℓ ⊗ (ℤ_ℓ ⊗ Λ)`, where `c_*` and `V_ℓ(f)` become the base changes of `N|_Λ` and `M_f|_Λ`. -/
+
+/-- **N4' (GLUE; weaker than `TateLattice`).** As `TateLattice` with `α` only an injective
+`ℤ_ℓ`-linear map. -/
+def TateLatticeInj : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (g : ℕ)
+    (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))),
+    A.dim = (g : WithBot ℕ∞) → ∀ [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    IsUniformization (emb.comp (algebraMap K (AlgebraicClosure K))) Λ Φ →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], ∃ α : TensorProduct ℤ ℤ_[ℓ] Λ →ₗ[ℤ_[ℓ]] A.T ℓ,
+      Function.Injective α ∧
+      ∀ (lam : Λ) (n : ℕ), toC A emb (Additive.toMul ((α (1 ⊗ₜ lam)).1 n)) =
+        Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ))
+
+theorem tateLatticeInj_of_tateLattice (h : TateLattice) : TateLatticeInj := by
+  intro K _ A emb g Λ Φ hd _ hlat hΦ ℓ _
+  obtain ⟨α, hα⟩ := h K A emb g Λ Φ hd hlat hΦ ℓ
+  exact ⟨α.toLinearMap, α.injective, hα⟩
+
+/-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 and N4' (proved).** -/
+theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) (hN4 : TateLatticeInj) : ConjTwistNontrivial := by
+  classical
+  intro hF K _ _ _ A ℓ _ hdim c hc hall
+  obtain ⟨cc, emb, hι, hK, h2, hres⟩ := conjData K c hc
+  let s := restrictK cc hK
+  have hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k) := restrictK_spec cc hK
+  let σ : K →+* ℂ := emb.comp (algebraMap K (AlgebraicClosure K))
+  have hσs : σ.comp s = (starRingEnd ℂ).comp σ := by
+    apply RingHom.ext; intro k
+    change emb (algebraMap K _ (s k)) = starRingEnd ℂ (emb (algebraMap K _ k))
+    rw [← hs, hι]
+  have hd2 : A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hdim]; rfl
+  have hd2' : (conjVar A s).dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [conjVarDim]; exact hd2
+  obtain ⟨ΛA, ΦA, hdA, hlatA, hA⟩ := h35 K A σ 2 hd2
+  obtain ⟨ΛB, ΦB, hdB, hlatB, hB⟩ := h35 K (conjVar A s) σ 2 hd2'
+  obtain ⟨N, hNanti, hNinj, hN⟩ := hN3 K A σ s hσs 2 ΛA ΛB ΦA ΦB hd2 hA hB
+  obtain ⟨αA, -, hαA⟩ := hN4 K A emb 2 ΛA ΦA hd2 hlatA hA ℓ
+  obtain ⟨αB, hαBinj, hαB⟩ := hN4 K (conjVar A s) emb 2 ΛB ΦB hd2' hlatB hB ℓ
+  choose M hM using fun f => hN2 K A (conjVar A s) σ 2 2 ΛA ΛB ΦA ΦB hd2 hd2' hA hB f
+  have heq : ∀ τ, conjV A s cc hs ℓ ∘ₗ A.galRep ℓ τ =
+      (conjVar A s).galRep ℓ τ ∘ₗ conjV A s cc hs ℓ := by
+    intro τ
+    obtain ⟨σ', hσ'⟩ := exists_twist K cc hK h2 τ
+    rw [hall σ' τ (hres σ' τ hσ'), conjV_galRep A s cc hs ℓ σ' τ hσ']
+  have hspan := faltingsV hF hT A (conjVar A s) ℓ _ heq
+  have hNlat : ∀ lam : ΛA, N lam ∈ ΛB := fun lam => by
+    rw [← hB.2.1, hN, (hA.2.1 _).mpr lam.2]
+    exact twistC_one A σ s hσs
+  have hMlat : ∀ f (lam : ΛA), M f lam ∈ ΛB := fun f lam =>
+    lift_mem_lattice hA hB f (M f) (hM f) lam
+  let uN : ΛA →ₗ[ℤ] ΛB :=
+    { toFun := fun lam => ⟨N lam, hNlat lam⟩
+      map_add' := fun x y => Subtype.ext (by simp)
+      map_smul' := fun n x => Subtype.ext (by
+        simp only [RingHom.id_apply, Submodule.coe_smul]; exact map_zsmul N n _) }
+  let uM : PkgI3.AbVar.Hom A (conjVar A s) → (ΛA →ₗ[ℤ] ΛB) := fun f =>
+    { toFun := fun lam => ⟨M f lam, hMlat f lam⟩
+      map_add' := fun x y => Subtype.ext (by simp)
+      map_smul' := fun n x => Subtype.ext (by
+        simp only [RingHom.id_apply, Submodule.coe_smul]; exact map_zsmul (M f) n _) }
+  have hCN : ∀ lam, conjT A s cc hs ℓ (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uN lam) := fun lam =>
+    conjT_tateLattice hN1 A s cc hs emb hι hσs ℓ αA hαA αB hαB N hN lam (hNlat lam)
+  have hMf : ∀ f lam, PkgI3.AbVar.homT f (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uM f lam) :=
+    fun f lam => homT_tateLattice hN1 emb ℓ αA hαA αB hαB f (M f) (hM f) lam (hMlat f lam)
+  -- `ℚ_ℓ ⊗ α`
+  let ιA := αA.baseChange ℚ_[ℓ]
+  let ιB := αB.baseChange ℚ_[ℓ]
+  have : Module.Flat ℤ_[ℓ] ℚ_[ℓ] := IsLocalization.flat ℚ_[ℓ] (nonZeroDivisors ℤ_[ℓ])
+  have hιB : Function.Injective ιB := by
+    have := Module.Flat.lTensor_preserves_injective_linearMap (M := ℚ_[ℓ]) αB hαBinj
+    rwa [← LinearMap.baseChange_eq_lTensor] at this
+  let lift : (ΛA →ₗ[ℤ] ΛB) → (ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛA) →ₗ[ℚ_[ℓ]]
+      ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛB)) := fun u => (u.baseChange ℤ_[ℓ]).baseChange ℚ_[ℓ]
+  have hcomp : ∀ (Tm : A.T ℓ →ₗ[ℤ_[ℓ]] (conjVar A s).T ℓ) (u : ΛA →ₗ[ℤ] ΛB),
+      (∀ lam, Tm (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ u lam)) →
+      Tm.baseChange ℚ_[ℓ] ∘ₗ ιA = ιB ∘ₗ lift u := by
+    intro Tm u h
+    simp only [ιA, ιB, lift, ← LinearMap.baseChange_comp]
+    congr 1
+    apply TensorProduct.AlgebraTensorModule.curry_injective
+    apply LinearMap.ext_ring
+    apply LinearMap.ext
+    intro lam
+    change Tm (αA (1 ⊗ₜ lam)) = αB ((u.baseChange ℤ_[ℓ]) (1 ⊗ₜ lam))
+    rw [h, LinearMap.baseChange_tmul]
+  let Pre : (A.V ℓ →ₗ[ℚ_[ℓ]] (conjVar A s).V ℓ) →ₗ[ℚ_[ℓ]]
+      (ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛA) →ₗ[ℚ_[ℓ]] (conjVar A s).V ℓ) :=
+    { toFun := fun X => X ∘ₗ ιA
+      map_add' := fun X Y => LinearMap.add_comp _ _ _
+      map_smul' := fun a X => LinearMap.smul_comp _ _ _ }
+  let Post : (ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛA) →ₗ[ℚ_[ℓ]] ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛB)) →ₗ[ℚ_[ℓ]]
+      (ℚ_[ℓ] ⊗[ℤ_[ℓ]] (ℤ_[ℓ] ⊗[ℤ] ΛA) →ₗ[ℚ_[ℓ]] (conjVar A s).V ℓ) :=
+    { toFun := fun Y => ιB ∘ₗ Y
+      map_add' := fun X Y => LinearMap.comp_add _ _ _
+      map_smul' := fun a X => LinearMap.comp_smul _ _ _ }
+  have hPost : Function.Injective Post := fun Y Y' h =>
+    LinearMap.ext fun x => hιB (LinearMap.congr_fun h x)
+  have key : lift uN ∈ Submodule.span ℚ_[ℓ] (Set.range fun f => lift (uM f)) := by
+    have h1 := Submodule.mem_map_of_mem (f := Pre) hspan
+    rw [homSpanV, Submodule.map_span, ← Set.range_comp] at h1
+    have e1 : (⇑Pre ∘ fun f : PkgI3.AbVar.Hom A (conjVar A s) =>
+        (PkgI3.AbVar.homT (ℓ := ℓ) f).baseChange ℚ_[ℓ]) = ⇑Post ∘ fun f => lift (uM f) := by
+      funext f
+      exact hcomp _ _ (hMf f)
+    have e2 : Pre (conjV A s cc hs ℓ) = Post (lift uN) := hcomp _ _ hCN
+    rw [e1, Set.range_comp, ← Submodule.map_span, e2] at h1
+    obtain ⟨y, hy, hyN⟩ := h1
+    rwa [hPost hyN] at hy
+  -- bases and matrices
+  haveI := ZLattice.module_finite ℝ ΛA
+  haveI := ZLattice.module_free ℝ ΛA
+  haveI := ZLattice.module_finite ℝ ΛB
+  haveI := ZLattice.module_free ℝ ΛB
+  let bA := Module.Free.chooseBasis ℤ ΛA
+  let bB := Module.Free.chooseBasis ℤ ΛB
+  let bAℝ := bA.ofZLatticeBasis ℝ ΛA
+  let bBℝ := bB.ofZLatticeBasis ℝ ΛB
+  let TM := LinearMap.toMatrix (Algebra.TensorProduct.basis ℚ_[ℓ]
+      (Algebra.TensorProduct.basis ℤ_[ℓ] bA))
+    (Algebra.TensorProduct.basis ℚ_[ℓ] (Algebra.TensorProduct.basis ℤ_[ℓ] bB))
+  have hTM : ∀ u, TM (lift u) = (LinearMap.toMatrix bA bB u).map (Int.castRingHom ℚ_[ℓ]) := by
+    intro u
+    simp only [TM, lift, LinearMap.toMatrix_baseChange, Matrix.map_map]
+    congr 1
+  have hspan' : (LinearMap.toMatrix bA bB uN).map (Int.castRingHom ℚ_[ℓ]) ∈
+      Submodule.span ℚ_[ℓ]
+        (Set.range fun f => (LinearMap.toMatrix bA bB (uM f)).map (Int.castRingHom ℚ_[ℓ])) := by
+    have h1 := Submodule.mem_map_of_mem (f := TM.toLinearMap) key
+    rw [Submodule.map_span, ← Set.range_comp] at h1
+    rw [← hTM]
+    convert h1 using 3
+    funext f
+    exact (hTM (uM f)).symm
+  have hN0 : N ≠ 0 := by
+    intro h0
+    have : (Pi.single 0 1 : Fin 2 → ℂ) = 0 := hNinj (by rw [h0]; simp)
+    have := congrFun this 0
+    simp at this
+  exact lattice_contradiction bA bB bAℝ bBℝ (fun i => by simp [bAℝ]) (fun i => by simp [bBℝ])
+    ℚ_[ℓ] uM M (fun f lam => rfl) uN N (fun lam => rfl) hNanti hN0 hspan'
+
+/-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 and N4 (proved; N5 is proved).** -/
+theorem conjTwistNontrivial_of_lattice (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_lattice hT h35 hN1 hN2 hN3 hN4 conjVarDim
+  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
 
-/-- **`ConjTwistFromLeaves` from N1-N4 (proved).** -/
-theorem conjTwistFromLeaves_of_lattice' (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+/-- **`ConjTwistFromLeaves` from N1, N2, N3, N4' (proved):** T35 and T26 are among its
+hypotheses. -/
+theorem conjTwistFromLeaves_of_latticeInj (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) (hN4 : TateLatticeInj) : ConjTwistFromLeaves :=
+  fun _ _ h35 _ hT => conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 hN4
+
+/-- **`ConjTwistFromLeaves` from N1, N2, N3, N4 (proved).** -/
+theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistFromLeaves :=
-  conjTwistFromLeaves_of_lattice hN1 hN2 hN3 hN4 conjVarDim
+  conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
 
 end G0Galois
 
@@ -1174,5 +1213,5 @@ end G0Galois
 #print axioms G0Galois.conjTwistNontrivial_of_lattice
 #print axioms G0Galois.conjTwistFromLeaves_of_lattice
 #print axioms G0Galois.conjVarDim
-#print axioms G0Galois.conjTwistNontrivial_of_lattice'
-#print axioms G0Galois.conjTwistFromLeaves_of_lattice'
+#print axioms G0Galois.conjTwistNontrivial_of_latticeInj
+#print axioms G0Galois.conjTwistFromLeaves_of_latticeInj
