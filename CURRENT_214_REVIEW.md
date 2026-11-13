@@ -4,6 +4,6 @@ The operative receiving edition for PR30 is the [revision 2 PDF](research/quarti
 
 The older manuscript links in the frozen repository README lead to the historical `e3626ca` edition. That edition and its reviews remain unchanged so their original byte bindings and scope can be inspected. Revision 2 restores the unit-group notation and incorporates the explicit primitive-form and character-conductor clarification; it does not change the polynomial or variable count.
 
-The [Protocol D progress packet](research/quartic214-protocol-d-progress/README.md) preserves the source reviews, inherited Version 16 comparisons, findings and remaining review limits. A favorable component review or passing CI does not establish complete Protocol D acceptance. The designated protected App must assess the exact current revision separately.
+The [review progress packet](research/quartic214-protocol-d-progress/README.md) preserves the source reviews, inherited Version 16 comparisons, findings and remaining review limits. A favorable component review or passing CI does not establish acceptance of the complete argument.
 
 The defining threshold is still ineffective. No particular defining member is certified, and this research manuscript does not promote a new official numbered release.

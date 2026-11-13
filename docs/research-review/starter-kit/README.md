@@ -2,7 +2,7 @@
 
 Download these three files together and put them at the root of a new research repository:
 
-- [Protocol_D](https://github.com/elliotglazer/protocols/blob/main/Protocol_D.md), included as [PROTOCOL.md](PROTOCOL.md). It states the assurance requirements.
+- Review protocol version 1.4, included as [PROTOCOL.md](PROTOCOL.md). It states the assurance requirements.
 - [AGENTS.md](AGENTS.md): operating instructions for meeting those requirements with one canonical ledger, reusable evidence, and incremental review.
 - [PROJECT.md](PROJECT.md): a project brief to fill in with the target, sources, deliverables, constraints, and existing authorizations.
 

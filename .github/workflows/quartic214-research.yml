@@ -1,16 +1,6 @@
 name: Quartic 214 research checks
 
 on:
-  pull_request:
-    paths:
-      - 'research/quartic214/**'
-      - 'research/quartic214-protocol-d-public/**'
-      - 'research/version14/**'
-      - 'research/version15/**'
-      - '.github/workflows/quartic214-research.yml'
-  push:
-    branches:
-      - 'proposal/quartic-214-protocol-d'
   workflow_dispatch:
 
 permissions:
