@@ -925,6 +925,113 @@ theorem hodgeLatticeTheorem_of_abVar (h0 : OriginStalkIso) (h1 : RegularAtOrigin
 
 end ZInQ.DefFaltings.HodgeLattice
 
+/-! ## 9. `OriginStalkIso` from the local rings of the generic fibre
+
+`p : 𝒢_L = 𝒢 ×_{𝓞_L} L → 𝒢` sends the identity `ξ_L` of `𝒢_L` to `ξ` (`fst_genericFibreUnit`, from
+`η_{𝒢_L} = ε ≫ (pullback).map η_𝒢` and `Over.w ε`), and `𝒢.gen` sends `ξ_L` to the origin of
+`A_L` (`gen_genericFibreUnit`, from `IsMonHom.one_hom`). So `OriginStalkIso` follows from
+`GenericFibreStalkIso`: `p` induces isomorphisms on local rings (true for any scheme over `𝓞_L`,
+since `Spec L → Spec 𝓞_L` is a localization). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry Limits MonoidalCategory MonObj
+open PkgI3 (AbVar)
+
+/-- `Spec L → Spec 𝓞_L`. -/
+noncomputable abbrev toGeneric (L : Type) [Field L] [NumberField L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of (𝓞 L)) :=
+  Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))
+
+/-- **(S')** The projection `X_L = X ×_{𝓞_L} L → X` induces isomorphisms on local rings. -/
+def GenericFibreStalkIso : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (X : Over (Spec (CommRingCat.of (𝓞 L))))
+    (x : (genericFibre L X).left), IsIso ((pullback.fst X.hom (toGeneric L)).stalkMap x)
+
+section
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+theorem fst_genericFibre_unit :
+    letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+    (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left ≫
+      pullback.fst 𝒢.G.hom (toGeneric L) = toGeneric L ≫ 𝒢.unitSection := by
+  let _ : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  change (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L)) ≫
+    (Over.pullback (toGeneric L)).map η[𝒢.G]).left ≫ pullback.fst 𝒢.G.hom (toGeneric L) = _
+  rw [Over.comp_left, Category.assoc]
+  have h1 : ((Over.pullback (toGeneric L)).map η[𝒢.G]).left ≫
+      pullback.fst 𝒢.G.hom (toGeneric L) =
+      pullback.fst _ (toGeneric L) ≫ (η[𝒢.G] : 𝟙_ _ ⟶ 𝒢.G).left := by
+    simp
+  rw [h1, ← Category.assoc]
+  have h2 : (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L))).left ≫
+      pullback.snd ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (toGeneric L) = 𝟙 _ :=
+    Over.w (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L)))
+  have hc := pullback.condition (f := (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom)
+    (g := toGeneric L)
+  have hc' : pullback.fst ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (toGeneric L) =
+      pullback.snd _ _ ≫ toGeneric L := by
+    rw [← hc]; exact (Category.comp_id _).symm
+  rw [hc', ← Category.assoc, h2, Category.id_comp]
+  rfl
+
+omit [NumberField L] in
+theorem toGeneric_pt [NumberField L] :
+    (toGeneric L) (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L) = genericPt L := by
+  change PrimeSpectrum.comap (algebraMap (𝓞 L) L) ⟨⊥, Ideal.isPrime_bot⟩ = _
+  refine PrimeSpectrum.ext (Ideal.ext fun x => ?_)
+  simp only [PrimeSpectrum.comap_asIdeal, Ideal.mem_comap, Ideal.mem_bot, genericPt]
+  exact map_eq_zero_iff _ (IsFractionRing.injective (𝓞 L) L)
+
+/-- The identity `ξ_L` of the generic fibre. -/
+noncomputable def genericFibreUnit : (genericFibre L 𝒢.G).left :=
+  letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+theorem fst_genericFibreUnit :
+    pullback.fst 𝒢.G.hom (toGeneric L) (genericFibreUnit 𝒢) = 𝒢.genericUnit := by
+  have h := congrArg (fun φ => φ (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L))
+    (fst_genericFibre_unit 𝒢)
+  exact ((Scheme.Hom.comp_apply _ _ _).symm.trans h).trans
+    ((Scheme.Hom.comp_apply _ _ _).trans (congrArg (fun y => 𝒢.unitSection y) (toGeneric_pt (L := L))))
+
+theorem gen_genericFibreUnit :
+    𝒢.gen.hom.left (genericFibreUnit 𝒢) = originPt (A.baseChange L) := by
+  letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  haveI := 𝒢.gen_hom
+  have h := congrArg (fun φ : (𝟙_ _ ⟶ (A.baseChange L).X) =>
+    φ.left (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)) (IsMonHom.one_hom (f := 𝒢.gen.hom))
+  simp only [Over.comp_left] at h
+  exact (Scheme.Hom.comp_apply _ _ _).symm.trans h
+
+end
+
+theorem originStalkIso_of (h : GenericFibreStalkIso) : OriginStalkIso := by
+  intro K _ A L _ _ _ 𝒢
+  have hp : IsIso ((pullback.fst 𝒢.G.hom (toGeneric L)).stalkMap (genericFibreUnit 𝒢)) :=
+    h L 𝒢.G _
+  have hφ : IsOpenImmersion ((Over.forget _).mapIso 𝒢.gen).hom := inferInstance
+  have hφs : IsIso (((Over.forget _).mapIso 𝒢.gen).hom.stalkMap (genericFibreUnit 𝒢)) :=
+    (IsOpenImmersion.iff_isIso_stalkMap.mp hφ).2 _
+  let e1 : 𝒢.genStalk ≅ (genericFibre L 𝒢.G).left.presheaf.stalk (genericFibreUnit 𝒢) :=
+    𝒢.G.left.presheaf.stalkCongr (Inseparable.of_eq (fst_genericFibreUnit 𝒢).symm) ≪≫
+      @asIso _ _ _ _ _ hp
+  let e2 : (A.baseChange L).X.left.presheaf.stalk (originPt (A.baseChange L)) ≅
+      (genericFibre L 𝒢.G).left.presheaf.stalk (genericFibreUnit 𝒢) :=
+    (A.baseChange L).X.left.presheaf.stalkCongr
+      (Inseparable.of_eq (gen_genericFibreUnit 𝒢).symm) ≪≫ @asIso _ _ _ _ _ hφs
+  exact ⟨(e1 ≪≫ e2.symm).commRingCatIsoToRingEquiv⟩
+
+/-- **Main result, final form.** `HodgeLatticeTheorem` from one scheme-theoretic fact (local rings of
+the generic fibre) and three facts about abelian varieties over a field. -/
+theorem hodgeLatticeTheorem_of_varieties (h0 : GenericFibreStalkIso) (h1 : RegularAtOrigin)
+    (h2 : DimAtOrigin) (h3 : DimBaseChange) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_abVar (originStalkIso_of h0) h1 h2 h3
+
+end ZInQ.DefFaltings.HodgeLattice
+
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
@@ -933,3 +1040,5 @@ end ZInQ.DefFaltings.HodgeLattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_regular
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_lattice_of_regular
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVar
+#print axioms ZInQ.DefFaltings.HodgeLattice.originStalkIso_of
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_varieties

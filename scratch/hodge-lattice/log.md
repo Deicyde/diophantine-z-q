@@ -42,3 +42,8 @@
   `regularOrigin_of`, `dimOrigin_of`, `hodgeLatticeTheorem_of_abVar`
   (OriginStalkIso → RegularAtOrigin → DimAtOrigin → DimBaseChange → HodgeLatticeTheorem).
   0 errors; axioms standard. VERIFIED.
+- (commit ~23:55) §9: `toGeneric`, `GenericFibreStalkIso` (pullback.fst X.hom (Spec L → Spec 𝓞_L)
+  induces isos on all stalks), `fst_genericFibre_unit`, `toGeneric_pt`, `genericFibreUnit`,
+  `fst_genericFibreUnit`, `gen_genericFibreUnit`, `originStalkIso_of`,
+  `hodgeLatticeTheorem_of_varieties : GenericFibreStalkIso → RegularAtOrigin → DimAtOrigin →
+  DimBaseChange → HodgeLatticeTheorem`. 0 errors; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
