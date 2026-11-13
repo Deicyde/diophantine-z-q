@@ -1,0 +1,43 @@
+import ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.FrobeniusPrimeCount
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Exponent
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Permutation
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassField
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Formation.ArtinMap
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.FirstInequality
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.IdeleClass.SecondInequality
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormSubgroup
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ArtinMap
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Reciprocity
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.LocalExistence.NormSubgroup
+
+/-! Axiom audit of the vendored Tau Ceti theorems (task tc-port). -/
+
+set_option pp.proofs false
+
+-- Chebotarev density theorem
+#check @NumberField.Chebotarev.hasNaturalDensity_frobeniusPrimeSet
+#print axioms NumberField.Chebotarev.hasNaturalDensity_frobeniusPrimeSet
+#print axioms NumberField.Chebotarev.tendsto_frobeniusPrimeCount
+
+-- Different/Exponent.lean
+#check @IsDedekindDomain.HeightOneSpectrum.multiplicity_differentIdeal_eq_finsum_card_ramificationGroup_sub_one
+#print axioms IsDedekindDomain.HeightOneSpectrum.multiplicity_differentIdeal_eq_finsum_card_ramificationGroup_sub_one
+#print axioms IsDedekindDomain.HeightOneSpectrum.differentExponent_adicCompletion_eq_multiplicity_differentIdeal
+#print axioms IsDedekindDomain.HeightOneSpectrum.multiplicity_differentIdeal_adicCompletionIntegers_eq_multiplicity_asIdeal
+
+-- Different/Permutation.lean
+#check @IsDedekindDomain.HeightOneSpectrum.ramificationIdx_mul_multiplicity_differentIdeal_fixedField
+#print axioms IsDedekindDomain.HeightOneSpectrum.ramificationIdx_mul_multiplicity_differentIdeal_fixedField
+
+-- class field theory (sample)
+#print axioms TauCeti.ClassFieldTheory.ClassFormation.ker_artinMap
+#print axioms TauCeti.ClassFieldTheory.ClassFormation.surjective_artinMap
+#print axioms TauCeti.ClassFieldTheory.fixingSubgroup_classField
+#print axioms TauCeti.ClassFieldTheory.ker_localArtinMap
+#print axioms TauCeti.ClassFieldTheory.surjective_localArtinMap
+#print axioms TauCeti.ClassFieldTheory.index_normGroup_of_isMulCommutative
+#print axioms TauCeti.ClassFieldTheory.exists_openSubgroup_artinMap_mem_iff
+#print axioms TauCeti.ClassFieldTheory.isOpen_localNormSubgroup
+#print axioms TauCeti.ClassFieldTheory.herbrandQuotient_rep_globalFormation_eq_degree
+#print axioms TauCeti.ClassFieldTheory.subsingleton_h1_globalFormation_of_forall_index_le
+#print axioms TauCeti.ClassFieldTheory.globalNormSubgroup_eq_range_classField
