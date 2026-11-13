@@ -2472,8 +2472,235 @@ theorem app_f_eq [Algebra (RatFunc ℚ) E] [IsScalarTower ℚ[X] (RatFunc ℚ) E
   rw [ev_spec_top]
   rfl
 
+/-- `ℚ[s] → ℚ(X)`, `s ↦ 1/X`, is injective (ts-hecke's argument in `isFractionRing_infCoord`). -/
+theorem infCoord_injective : Function.Injective (algebraMap InfCoord (RatFunc ℚ)) := by
+  have hX : (RatFunc.X : RatFunc ℚ) ≠ 0 := RatFunc.X_ne_zero
+  letI : Invertible (RatFunc.X : RatFunc ℚ) := invertibleOfNonzero hX
+  have hev : Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X =
+      algebraMap ℚ[X] (RatFunc ℚ) :=
+    Polynomial.ringHom_ext (fun a => RingHom.congr_fun (Subsingleton.elim
+      ((Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X).comp Polynomial.C)
+      ((algebraMap ℚ[X] (RatFunc ℚ)).comp Polynomial.C)) a)
+      (by rw [Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X, RatFunc.algebraMap_X])
+  rw [injective_iff_map_eq_zero]
+  show ∀ p : ℚ[X], algebraMap InfCoord (RatFunc ℚ) p = 0 → p = 0
+  intro p hp
+  have h1 := Polynomial.eval₂_reflect_mul_pow (algebraMap ℚ (RatFunc ℚ)) RatFunc.X p.natDegree
+    (Polynomial.reflect p.natDegree p) (Polynomial.natDegree_reflect_le.trans (by simp))
+  rw [Polynomial.reflect_reflect] at h1
+  have hp' : Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (⅟RatFunc.X) p = 0 := by
+    rw [invOf_eq_inv]; exact hp
+  rw [hp', zero_mul, ← Polynomial.coe_eval₂RingHom, hev] at h1
+  have h2 := (map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).1 h1.symm
+  rwa [Polynomial.reflect_eq_zero_iff] at h2
+
+/-- Restriction after `appLE`. -/
+theorem res_appLE {X Y' : Scheme.{0}} (h : X ⟶ Y') {U : Y'.Opens} {D D' : X.Opens}
+    (e : D ≤ h ⁻¹ᵁ U) (hDD : D' ≤ D) (s : Γ(Y', U)) :
+    res hDD (h.appLE U D e s) = h.appLE U D' (hDD.trans e) s := by
+  rw [res, ← ConcreteCategory.comp_apply, Scheme.Hom.appLE_map]
+
+/-- `appLE` after restriction. -/
+theorem appLE_res {X Y' : Scheme.{0}} (h : X ⟶ Y') {U U' : Y'.Opens} {D : X.Opens}
+    (hUU : U' ≤ U) (e : D ≤ h ⁻¹ᵁ U') (s : Γ(Y', U)) :
+    h.appLE U' D e (res hUU s) = h.appLE U D (e.trans (h.preimage_mono hUU)) s := by
+  rw [res, ← ConcreteCategory.comp_apply, Scheme.Hom.map_appLE]
+
+/-- Sections over `W = D(g)` are fractions `a / g^n` (helper, by `subst`). -/
+theorem loc_helper {X : Scheme.{0}} {V : X.Opens} (hV : IsAffineOpen V) (g : Γ(X, V))
+    (W : X.Opens) (hW : W = X.basicOpen g) (hWV : W ≤ V) (w : Γ(X, W)) :
+    ∃ (a : Γ(X, V)) (n : ℕ), w * res hWV (g ^ n) = res hWV a := by
+  subst hW
+  haveI := hV.isLocalization_basicOpen g
+  obtain ⟨⟨a, ⟨_, n, rfl⟩⟩, hw⟩ := IsLocalization.surj (Submonoid.powers g) w
+  exact ⟨a, n, hw⟩
+
 end Chart
+
+/-- **`InfFnField` from `ChartFiniteInf` and `ChartIrreducible`** (compiled). -/
+theorem infFnField_of (hFI : ChartFiniteInf) (hIrr : ChartIrreducible) : InfFnField := by
+  intro Y π hP hS hfin E _ _ _ _ _ hN
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI hirr : IrreducibleSpace Y.left := hIrr Y π hP hS hfin E hN
+  obtain ⟨h, hO, himg, hval⟩ := hN
+  haveI := hO
+  -- the ring `B` and its fraction field `E`
+  have hinjQE : Function.Injective (algebraMap ℚ[X] E) := by
+    rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    apply hinjQE
+    have := congrArg (fun x : integralClosure ℚ[X] E => (x : E)) hab
+    simpa using this
+  haveI : Module.IsTorsionFree ℚ[X] E := Module.isTorsionFree_iff_algebraMap_injective.2 hinjQE
+  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension ℚ[X] (RatFunc ℚ) E _
+  set XB : integralClosure ℚ[X] E := algebraMap ℚ[X] (integralClosure ℚ[X] E) X with hXBdef
+  have hXB0 : XB ≠ 0 := by
+    rw [hXBdef, ne_eq, map_eq_zero_iff _ hinjB]; exact Polynomial.X_ne_zero
+  have hXBE : algebraMap (integralClosure ℚ[X] E) E XB = algebraMap ℚ[X] E X := rfl
+  -- the chart's range is `U`; `h^* f = X`
+  have hrange := range_chart_eq h himg hval
+  have htop : h ⁻¹ᵁ π.U = ⊤ := by
+    apply top_unique
+    intro x _
+    show h x ∈ π.U
+    have : h x ∈ Set.range h := ⟨x, rfl⟩
+    rw [hrange] at this
+    exact this
+  set rB : Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), ⊤) :=
+    (Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv XB with hrBdef
+  have hres : res htop.ge (h.app π.U π.f) = rB := by
+    have hX := app_f_eq h hval htop
+    rw [← hXBdef] at hX
+    rw [hrBdef, ← hX, Iso.hom_inv_id_apply]
+  set D := (Spec (CommRingCat.of (integralClosure ℚ[X] E))).basicOpen rB with hDdef
+  have hD : h ⁻¹ᵁ π.V = D := by
+    have e1 : h ⁻¹ᵁ π.V = h ⁻¹ᵁ (Y.left.basicOpen π.f) := by
+      rw [π.basicOpen_f, Scheme.Hom.preimage_inf, htop, top_inf_eq]
+    rw [e1, Scheme.preimage_basicOpen, hDdef, ← hres, res, Scheme.basicOpen_res, top_inf_eq]
+  have eV : D ≤ h ⁻¹ᵁ π.V := hD.ge
+  have eU : D ≤ h ⁻¹ᵁ π.U := by rw [htop]; exact le_top
+  have eUV : D ≤ h ⁻¹ᵁ (π.U ⊓ π.V) := le_inf eU eV
+  -- `V` nonempty, `Γ(Y, V)` a domain
+  have hVne : (π.V : Set Y.left).Nonempty := by
+    let x₀ : PrimeSpectrum (integralClosure ℚ[X] E) := ⟨⊥, inferInstance⟩
+    have hx₀ : x₀ ∈ D := by
+      have : x₀ ∈ PrimeSpectrum.basicOpen XB := by
+        rw [PrimeSpectrum.mem_basicOpen]; exact hXB0
+      rw [hDdef, hrBdef, basicOpen_eq_of_affine]
+      exact this
+    exact ⟨h x₀, eV hx₀⟩
+  have hneY : Nonempty Y.left := ⟨h (Nonempty.some inferInstance)⟩
+  obtain ⟨hV, hinjV, hfinV⟩ := hFI Y π hP hS hneY hfin
+  haveI : IsDomain Γ(Y.left, π.V) := curveSectionsDomain Y π.V hS hirr hV hVne
+  -- the map `φ`
+  haveI : IsLocalization.Away rB Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), D) :=
+    isLocalization_away_of_isAffine rB
+  let gB : Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), ⊤) →+* E :=
+    (algebraMap (integralClosure ℚ[X] E) E).comp
+      (Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).hom.hom
+  have hgB : gB rB = algebraMap ℚ[X] E X := by
+    show algebraMap _ E ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).hom
+      ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv XB)) = _
+    rw [Iso.inv_hom_id_apply]
+    exact hXBE
+  have hunit : IsUnit (gB rB) := by
+    rw [hgB]; exact (map_ne_zero_iff _ hinjQE).2 Polynomial.X_ne_zero |>.isUnit
+  let lam : Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), D) →+* E :=
+    IsLocalization.Away.lift rB hunit
+  have hlam : ∀ x, lam (algebraMap _ _ x) = gB x := fun x => IsLocalization.lift_eq _ _
+  let φ : Γ(Y.left, π.V) →+* E := lam.comp (h.appLE π.V D eV).hom
+  -- `φ(g) = 1/X`
+  have hfD : h.appLE π.U D eU π.f =
+      algebraMap Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), ⊤) _ rB := by
+    show _ = res (Scheme.basicOpen_le _ rB) rB
+    calc h.appLE π.U D eU π.f = res ((Scheme.basicOpen_le _ rB).trans htop.ge) (h.app π.U π.f) :=
+          rfl
+      _ = res (Scheme.basicOpen_le _ rB) (res htop.ge (h.app π.U π.f)) := (res_res _ _ _).symm
+      _ = res (Scheme.basicOpen_le _ rB) rB := by rw [hres]
+  have hgf : h.appLE π.V D eV π.g * h.appLE π.U D eU π.f = 1 := by
+    have hinv := congrArg (h.appLE (π.U ⊓ π.V) D eUV) π.inv
+    rw [map_mul, map_one] at hinv
+    have e1 := appLE_res h (inf_le_left : π.U ⊓ π.V ≤ π.U) eUV π.f
+    have e2 := appLE_res h (inf_le_right : π.U ⊓ π.V ≤ π.V) eUV π.g
+    simp only [e1, e2] at hinv
+    rw [mul_comm]
+    exact hinv
+  have hφg : φ π.g = algebraMap (RatFunc ℚ) E (RatFunc.X : RatFunc ℚ)⁻¹ := by
+    have h1 : φ π.g * algebraMap ℚ[X] E X = 1 := by
+      rw [← hgB, ← hlam, ← hfD]
+      show lam (h.appLE π.V D eV π.g) * lam (h.appLE π.U D eU π.f) = 1
+      rw [← map_mul, hgf, map_one]
+    rw [map_inv₀, ← RatFunc.algebraMap_X, ← IsScalarTower.algebraMap_apply]
+    exact eq_inv_of_mul_eq_one_left h1
+  refine ⟨φ, hφg, ?_⟩
+  -- injectivity: `ker φ` lies over `0` in `ℚ[s]`
+  letI : Algebra InfCoord Γ(Y.left, π.V) := (chartHomInf Y π).toAlgebra
+  haveI : Module.Finite InfCoord Γ(Y.left, π.V) := hfinV
+  letI := infAlg E
+  have hcomp : (φ.comp (chartHomInf Y π) : ℚ[X] →+* E) =
+      (algebraMap InfCoord E : ℚ[X] →+* E) := by
+    apply Polynomial.ringHom_ext
+    · intro a
+      exact RingHom.congr_fun (Subsingleton.elim
+        (((φ.comp (chartHomInf Y π) : ℚ[X] →+* E)).comp Polynomial.C)
+        (((algebraMap InfCoord E : ℚ[X] →+* E)).comp Polynomial.C)) a
+    · show φ (Polynomial.eval₂ (cQ Y π.V) π.g Polynomial.X) =
+        algebraMap (RatFunc ℚ) E (Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (RatFunc.X⁻¹)
+          Polynomial.X)
+      rw [Polynomial.eval₂_X, Polynomial.eval₂_X, hφg]
+  have hinjI : Function.Injective (algebraMap InfCoord E) := by
+    show Function.Injective ((algebraMap (RatFunc ℚ) E).comp (algebraMap InfCoord (RatFunc ℚ)))
+    exact (algebraMap (RatFunc ℚ) E).injective.comp infCoord_injective
+  have hφinj : Function.Injective φ := by
+    rw [injective_iff_map_eq_zero]
+    intro a ha
+    have hker : (RingHom.ker φ).under InfCoord = ⊥ := by
+      rw [eq_bot_iff]
+      intro c hc
+      rw [Ideal.mem_bot]
+      have hc' : φ (chartHomInf Y π c) = 0 := hc
+      have : (algebraMap InfCoord E) c = 0 := (RingHom.congr_fun hcomp c).symm.trans hc'
+      exact (map_eq_zero_iff _ hinjI).1 this
+    haveI : Nontrivial InfCoord := inferInstanceAs (Nontrivial ℚ[X])
+    have := Ideal.eq_bot_of_under_eq_bot hker
+    have ha' : a ∈ RingHom.ker φ := ha
+    rw [this] at ha'
+    exact ha'
+  letI : Algebra Γ(Y.left, π.V) E := φ.toAlgebra
+  haveI : FaithfulSMul Γ(Y.left, π.V) E := (faithfulSMul_iff_algebraMap_injective _ _).2 hφinj
+  -- fractions
+  have hW : h ''ᵁ D = Y.left.basicOpen π.g := by
+    rw [← hD, Scheme.Hom.image_preimage_eq_opensRange_inf, π.basicOpen_g]
+    have hor : h.opensRange = π.U := by
+      ext1; exact hrange
+    rw [hor]
+  have hWV : h ''ᵁ D ≤ π.V := by rw [hW]; exact Y.left.basicOpen_le π.g
+  have heD : D ≤ h ⁻¹ᵁ (h ''ᵁ D) := (Scheme.Hom.preimage_image_eq h D).ge
+  have hθsurj : Function.Surjective (h.appLE (h ''ᵁ D) D heD) := by
+    rw [← Scheme.Hom.appIso_hom']
+    exact (h.appIso D).commRingCatIsoToRingEquiv.surjective
+  have hfrac : ∀ b : integralClosure ℚ[X] E, ∃ (a : Γ(Y.left, π.V)) (n : ℕ),
+      algebraMap _ E b * φ π.g ^ n = φ a := by
+    intro b
+    obtain ⟨w', hw'⟩ := hθsurj (algebraMap Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), ⊤)
+      Γ(Spec (CommRingCat.of (integralClosure ℚ[X] E)), D)
+      ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv b))
+    obtain ⟨a, n, han⟩ := loc_helper hV π.g (h ''ᵁ D) hW hWV w'
+    refine ⟨a, n, ?_⟩
+    have := congrArg (h.appLE (h ''ᵁ D) D heD) han
+    rw [map_mul, hw', appLE_res, appLE_res, map_pow] at this
+    have h2 := congrArg lam this
+    rw [map_mul, map_pow, hlam] at h2
+    convert h2 using 2
+    show algebraMap _ E b = algebraMap _ E
+      ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).hom
+        ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv b))
+    rw [Iso.inv_hom_id_apply]
+  have hφg0 : φ π.g ≠ 0 := by
+    rw [hφg]; exact (map_ne_zero_iff _ (algebraMap (RatFunc ℚ) E).injective).2
+      (inv_ne_zero RatFunc.X_ne_zero)
+  refine IsFractionRing.of_field Γ(Y.left, π.V) E fun z => ?_
+  obtain ⟨b₁, b₂, hb₂, rfl⟩ := IsFractionRing.div_surjective (A := integralClosure ℚ[X] E) z
+  obtain ⟨a₁, n₁, h₁⟩ := hfrac b₁
+  obtain ⟨a₂, n₂, h₂⟩ := hfrac b₂
+  refine ⟨a₁ * π.g ^ n₂, a₂ * π.g ^ n₁, ?_⟩
+  show _ = φ (a₁ * π.g ^ n₂) / φ (a₂ * π.g ^ n₁)
+  have hb₂' : algebraMap (integralClosure ℚ[X] E) E b₂ ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective _ E)).2 (nonZeroDivisors.ne_zero hb₂)
+  rw [map_mul, map_mul, map_pow, map_pow, ← h₁, ← h₂]
+  field_simp
+
+/-- **`CurveChartInf` from the three chart Props and `ChartIrreducible`** (compiled). -/
+theorem curveChartInf_of_charts' (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant)
+    (hIrr : ChartIrreducible) : CurveChartInf :=
+  curveChartInf_of_charts hP hQ hD (infFnField_of (chartFiniteInf_of hP hQ hD) hIrr)
 
 end HeckeRestCurve
 
 end
+
+#print axioms HeckeRestCurve.infFnField_of
+#print axioms HeckeRestCurve.curveChartInf_of_charts'

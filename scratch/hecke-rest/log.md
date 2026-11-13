@@ -109,3 +109,17 @@ HeckeFibreSizes, HeckeNoVertRam.
 - `HeckeRestAll.propTSAll_of_heckeRest` (same, through propTSAll_of_tsHecke').
 - All 14 HeckeRest* `#print axioms` lines: [propext, Classical.choice, Quot.sound]. The token `sorry`
   occurs only in comments.
+
+## Step 9. Lean: InfFnField proved from ChartFiniteInf + ChartIrreducible (`InfFnMain.lean.part`, in `CurveChart.lean`) — VERIFIED (compiled, 0 errors)
+- Added verbatim copy TSHecke.lean 5725-5858 (TSHeckeGal: exists_qbar_point, eq_of_forall_qbar).
+- New glue Prop `ChartIrreducible` (a proper smooth curve with finite π-fibres and a chart over
+  𝔸¹ is irreducible).
+- Proved: `range_chart_eq` (range of the chart = π⁻¹(𝔸¹), Jacobson), `app_f_eq` (h^*π.f = X,
+  separation by ℚ̄-points), `infCoord_injective`, `res_appLE`, `appLE_res`, `loc_helper`,
+  `infFnField_of : ChartFiniteInf → ChartIrreducible → InfFnField` (φ = Γ(Y,V) → Γ(Spec B, D(X))
+  = B[1/X] → E; injective by incomparability over ℚ[s]; fractions via h.appIso and the
+  localization Γ(Y, D(g)) = Γ(Y,V)[1/g]), `curveChartInf_of_charts' : ChartProper →
+  ChartQuasiFinite → ChartDominant → ChartIrreducible → CurveChartInf`.
+- Composite updated (`AllMain.lean.part`): InfFnField replaced by ChartIrreducible.
+  `HeckeRestAll.lean` recompiled: 0 errors; 16 HeckeRest* `#print axioms` lines, all
+  [propext, Classical.choice, Quot.sound].
