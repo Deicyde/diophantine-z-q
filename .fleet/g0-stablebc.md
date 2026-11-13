@@ -19,6 +19,9 @@ nor vacuous.
 - `metrizationBaseChange_of_hodgeLine`: the Hodge data of `𝒢'`.
 - Transport of group models along `(A_L)_M ≅ A_M`, and the infimum arguments.
 
+**Reviews.** Two read-only model reviews, no human review. All the new glue statements are TRUE
+and none is vacuous (docs §5).
+
 **What compiles.**
 - `scratch/g0-stablebc/StableBC.lean`: verbatim def-faltings block, then the new part; about 35 s.
 - `scratch/g0-stablebc/SplitPlus.lean`: g0-split's `Split.lean` plus the new part, 2m42s. It

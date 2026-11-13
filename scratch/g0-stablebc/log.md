@@ -50,3 +50,5 @@
 - run11 SplitPlus.lean (Split.lean + current Main.part + integration): 0 errors, no sorry, 2m42s.
   `G0StableBC.glueOutputs_of_leaves_hodgeLine` (g0-split's main theorem with `hBC` replaced by
   `HodgeLineBaseChange`) and `..._metrization`: axioms [propext, Classical.choice, Quot.sound].
+- Review 2 (read-only model review, no Lean run): `HodgeLineBaseChange` TRUE for any g and any Λ;
+  no docstring issues. Recorded in docs §5.

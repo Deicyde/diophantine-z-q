@@ -185,3 +185,26 @@ inequality H4a `≤` for that base change.
     (`modelHeightBaseChangeLE_of_metrization`). H4a `=` needs, in addition, that every
     metrization of `𝒢'` has height at least that of `𝒢` (the converse direction), which is not
     needed here.
+
+## 5. Reviews
+
+These are read-only model reviews: no Lean was run and no file was edited. There was no human
+review.
+
+- **Review 1** covered `BaseChangeCompIso`, `ModelHeightBaseChangeLE`, `IsHodgeBaseChange` and
+  `MetrizationBaseChange`, and the verbatim copies. It found all four statements TRUE. Requiring
+  `Mm'.model = 𝒢'` for an arbitrary `𝒢'` is harmless, because no field of `MetrizedModel` uses
+  `gen`. The two docstring fixes are listed in §3.
+- **Review 2** covered `HodgeLineBaseChange` and found it TRUE for the honest construction
+  (`ψ` the natural map, `Φ' = β ∘ Φ`):
+  - `hodgeSpace' ≅ L' ⊗_L hodgeSpace` for every `g`, so `c'` is determined by `c' ∘ ψ = c`.
+    Quantifying over all `c, c'` therefore costs nothing, whether `⋀^g` is `0`, a line or larger.
+  - Discreteness of `Λ` is never used.
+  - The derivative of `germAlong Φ' f'` at `0` kills `𝔪'²` and is `τ'`-semilinear. So
+    `jacDet' = J'(wedge' f')` for a semilinear `J'`, which agrees with `c'` on `ψ(V)` and hence
+    everywhere.
+  - The choice of representative in `germAlong` is harmless: two representatives agree on an open
+    set around `ξ'`, whose `dom` is an open set containing `0`.
+  - It found no docstring inaccuracies.
+  - Both reviews note the same standing assumption: def-faltings' `omega` really is
+    `Γ(e*Ω¹)`. That assumption is already made for `𝒢`; this work adds nothing to it.
