@@ -12,8 +12,8 @@ lean: ZInQ.Literature.HeckeContinuation
 has an entire continuation.
 
 The curve $C_d$ has complex multiplication by $\mathbb Z[i]$, so $L(C_d,s)$ is the L-function of a
-Hecke character of $\mathbb Q(i)$ (Deuring, Hecke), and that L-function is entire. It is a
-hypothesis, not proved here.
+Hecke character of $\mathbb Q(i)$ (Deuring, Hecke), and that L-function is entire. This is
+standard, but no original source for it has been read. It is a hypothesis, not proved here.
 
 ## Depends on
 
