@@ -558,6 +558,57 @@ theorem swan_all' (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (hH : HerbrandUpper)
 
 end Herbrand
 
+/-! ## §7. H2 (`UpperAbsWild`) from the definitions -/
+
+section Wild2
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `z ≠ 0` and `‖σz − z‖ < ‖z‖`. -/
+def WildAt (σ : GQp p) (z : Kbar p) : Prop := z ≠ 0 ∧ ‖σ z - z‖ < ‖z‖
+
+theorem WildAt.norm_eq {σ : GQp p} {z : Kbar p} (h : WildAt σ z) : ‖σ z‖ = ‖z‖ :=
+  norm_eq_of_norm_sub_lt h.2
+
+theorem WildAt.mul {σ : GQp p} {a b : Kbar p} (ha : WildAt σ a) (hb : WildAt σ b) :
+    WildAt σ (a * b) := by
+  refine ⟨mul_ne_zero ha.1 hb.1, ?_⟩
+  have e : σ (a * b) - a * b = σ a * (σ b - b) + (σ a - a) * b := by rw [map_mul]; ring
+  rw [e]
+  have ha0 : 0 < ‖a‖ := norm_pos_iff.2 ha.1
+  have hb0 : 0 < ‖b‖ := norm_pos_iff.2 hb.1
+  refine lt_of_le_of_lt (IsUltrametricDist.norm_add_le_max _ _) (max_lt ?_ ?_)
+  · rw [norm_mul, norm_mul, ha.norm_eq]; exact mul_lt_mul_of_pos_left hb.2 ha0
+  · rw [norm_mul, norm_mul]; exact mul_lt_mul_of_pos_right ha.2 hb0
+
+theorem WildAt.inv {σ : GQp p} {a : Kbar p} (ha : WildAt σ a) : WildAt σ a⁻¹ := by
+  refine ⟨inv_ne_zero ha.1, ?_⟩
+  have hσa : σ a ≠ 0 := fun h => ha.1 (by simpa using congrArg σ.symm h)
+  have e : σ a⁻¹ - a⁻¹ = (a - σ a) * (σ a)⁻¹ * a⁻¹ := by
+    have h1 : a * a⁻¹ = 1 := mul_inv_cancel₀ ha.1
+    have h2 : σ a * (σ a)⁻¹ = 1 := mul_inv_cancel₀ hσa
+    rw [map_inv₀]; linear_combination -(σ a)⁻¹ * h1 + a⁻¹ * h2
+  have ha0 : 0 < ‖a‖ := norm_pos_iff.2 ha.1
+  rw [e, norm_mul, norm_mul, norm_inv, norm_inv, ha.norm_eq, norm_sub_rev]
+  calc ‖σ a - a‖ * ‖a‖⁻¹ * ‖a‖⁻¹ < ‖a‖ * ‖a‖⁻¹ * ‖a‖⁻¹ := by
+        have : 0 < ‖a‖⁻¹ := inv_pos.2 ha0
+        exact mul_lt_mul_of_pos_right (mul_lt_mul_of_pos_right ha.2 this) this
+    _ = ‖a‖⁻¹ := by field_simp
+
+theorem wildAt_one (σ : GQp p) : WildAt σ 1 := ⟨one_ne_zero, by simp⟩
+
+theorem WildAt.zpow {σ : GQp p} {a : Kbar p} (ha : WildAt σ a) (n : ℤ) : WildAt σ (a ^ n) := by
+  have hn : ∀ m : ℕ, WildAt σ (a ^ m) := by
+    intro m
+    induction m with
+    | zero => simpa using wildAt_one σ
+    | succ m ih => rw [pow_succ]; exact ih.mul ha
+  rcases Int.eq_nat_or_neg n with ⟨m, rfl | rfl⟩
+  · rw [zpow_natCast]; exact hn m
+  · rw [zpow_neg, zpow_natCast]; exact (hn m).inv
+
+end Wild2
+
 end Swan
 
 #print axioms Swan.adaptedExists
