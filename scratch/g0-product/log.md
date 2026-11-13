@@ -14,3 +14,26 @@ Piece: `G0Split.ProductExists` (G17), `scratch/g0-split/Split.lean` l. 19570 (br
   - `G0Product.productExists_of_dimProduct : DimProductOverField → G0Split.ProductExists`.
 - Remaining named Prop: `DimProductOverField` (textbook leaf: dim (X ×_K Y) = dim X + dim Y for
   X, Y of finite type over a field K). Reference numbers UNVERIFIED.
+
+## Step 2 (02:00 PST) — compiled
+- `G0Product.dimProductOverField_of_dimTensorFG : DimTensorFG → DimProductOverField` (VERIFIED):
+  affine open covers, `Scheme.Pullback.openCoverOfLeftRight`, `pullbackSpecIso`,
+  `HasRingHomProperty.Spec_iff`; topological lemma `exists_le_dim_of_cover` (chains pull back
+  to a chart). QuasiCompact hypotheses unused.
+
+## Step 3 (02:03 PST) — compiled
+- `G0Product.dimTensorFG : DimTensorFG` (VERIFIED) from Mathlib: Noether normalization
+  `exists_integral_inj_algHom_of_fg`, `ringKrullDim_eq_of_integral_injective` (proved here:
+  incomparability + going up), `tensorMap_isIntegral` (proved here),
+  `TensorProduct.map_injective_of_flat_flat`, `MvPolynomial.algebraTensorAlgEquiv`,
+  `MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite`.
+- **`G0Product.productExists : G0Split.ProductExists`**, no hypotheses; axioms
+  [propext, Classical.choice, Quot.sound] (VERIFIED, `lake env lean scratch/g0-product/Product.lean`).
+
+## Step 4 (02:08 PST) — integration check compiled
+- `mkcheck.sh` → SplitCheck.lean (Split.lean + §2-§5 renamed to `HSyn.G0Split.` +
+  `HSyn.glueOutputs_of_leaves_g0product`, i.e. `glueOutputs_of_leaves` with
+  `hProdE := G0Product.productExists`). `lake env lean` (after
+  `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant`):
+  no errors, 2m54s; `G0Product.productExists` and `HSyn.glueOutputs_of_leaves_g0product` depend on
+  [propext, Classical.choice, Quot.sound] (VERIFIED). SplitCheck.lean not committed (regenerate).
