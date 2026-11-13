@@ -62,3 +62,8 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
   ObjBridge.TorsionStructure → MobiusGlue, sameTripleMor_of_curves, pointwise_of_witness_curves.
   run (05:00): 0 errors, 1 deprecation warning; 16 `#print axioms`, all [propext, Classical.choice,
   Quot.sound] (run_final.txt). VERIFIED.
+
+## Review
+- Fresh subagent (model, not human) checked CurveRatFactor and CurveSurj against the ToP1/fieldPt/ratEval
+  definitions: both TRUE; properness necessary for CurveRatFactor (S = (A¹∖0) ⊔ pt counterexample
+  without it); smoothness/rel. dim 1 used only in CurveSurj. (model review)

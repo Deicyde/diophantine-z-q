@@ -122,9 +122,25 @@ finite point. The ingredients are all genuine definitions:
 - `fieldPt`, `QML3`, `M3`, `QMIso` and `QMStr.twist` from `ZInQKernel/HDecomp/QM/`;
 - Mathlib's `Polynomial`, `IsCoprime`, `IsProper` and `SmoothOfRelativeDimension`.
 
-None of the four facts quantifies over an invented structure.
+None of the named facts quantifies over an invented structure.
 
 ## 3. Why the named facts are true (argued; not compiled)
+
+**Independent check.** A fresh model agent, not anchored on this report, reviewed both curve facts
+against the definitions. It was given only the Lean statements and the kernel's `ToP1`, and asked
+for counterexamples. It found both TRUE. (This was a model review, not a human one.)
+
+- It confirmed that `ToP1` glues to a genuine morphism to `P¹_ℤ` and that `ToP1.val` is the usual
+  value.
+- It confirmed that coprime pairs `(F, G)` represent exactly the morphisms `P¹ → P¹`, constants and
+  `∞` included.
+- It confirmed that the edge cases are covered: components defined over a number field, `σ` or `ρ`
+  identically `∞`, and `ρ = ∞` over finite values.
+- It showed that properness is necessary for `CurveRatFactor`. Take `S = (𝔸¹ ∖ {0}) ⊔ pt`, with
+  `σ = ρ = id` on the first piece and `σ = 0`, `ρ = 1` on the point. The fibre condition holds, but
+  no rational `R` fits.
+- Smoothness and relative dimension 1 matter only for `CurveSurj`, where they make "finite fibres"
+  imply "nonconstant on every component".
 
 ### 3.1 `CurveRatFactor`
 
