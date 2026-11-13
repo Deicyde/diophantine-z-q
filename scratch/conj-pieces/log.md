@@ -31,3 +31,13 @@ Build: `lake build ZInQKernel.HDecomp.LeafPush2.T` (2 min, cached), then `lake e
   new def `ConjUniformizationNF` (ConjUniformization with [NumberField K]) and
   **`conjUniformizationNF : ConjUniformizationNF`** (proved outright). 0 errors, 0 sorry,
   axioms standard (2 #print axioms). VERIFIED (compiled).
+- 2026-11-13 07:05 `scratch/conj-pieces/ConjPieces.lean` (2164 lines): conj-twist's ConjTwist.lean
+  verbatim as prefix (VERIFIED with cmp), then §A/§B/§C from the three files and §D:
+  `conjAntiLiftLat_of_homLinearLift : HomLinearLift → ConjAntiLiftLat` (N3a eliminated via
+  `conjUniformizationNF`), `conjTwistNontrivial_of_surj_N2 : TateModuleFree →
+  UniformizationExists → ArtinTorsionSurj → HomLinearLift → ConjTwistNontrivial`,
+  **`conjTwistNontrivial_leaves : TateModuleFree → UniformizationExists → MulIsogeny →
+  HoloHomLift → ConjTwistNontrivial`**, **`conjTwistFromLeaves_leaves : MulIsogeny →
+  HoloHomLift → ConjTwistFromLeaves`**, `conjTwistFromLeaves_of_pieces : MulIsogeny → HoloHomLift
+  → ConjHolo → ConjTwistFromLeaves`. 0 errors, 0 sorry, 35 `#print axioms` all
+  [propext, Classical.choice, Quot.sound]; 35 s. VERIFIED (compiled).
