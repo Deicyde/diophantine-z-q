@@ -4,6 +4,11 @@
 A candidate's internally consistent manifest is NOT approval to change the
 baseline. The protected reviewer must compare with the base commit. This
 program never publishes an acceptance check.
+
+`--write` regenerates the "files" hashes for a maintainer's statement or
+infrastructure change: it rehashes every pinned file, registers new baseline
+sources and drops deleted ones, and leaves targets, headline and exports alone.
+The rewritten manifest still needs the same review as any other lock change.
 """
 from __future__ import annotations
 
@@ -37,6 +42,12 @@ def valid_path(path):
     p = PurePosixPath(path)
     return (bool(path) and str(p) == path and not p.is_absolute()
             and ":" not in path and ".." not in p.parts and "\\" not in path)
+
+
+def protected_source(path):
+    """A baseline Lean source that the manifest must pin (contributions excepted)."""
+    return (((path.startswith(("ZInQKernel/", "ThirdParty/", "lean/")) and path.endswith(".lean"))
+             or path == "ZInQKernel.lean") and not path.startswith(CONTRIB))
 
 
 def lean_modules(paths):
@@ -78,9 +89,7 @@ def validate(root=ROOT):
     # Pin the entire existing mathematical baseline. New contribution modules
     # can be checked without silently extending the meaning of locked targets.
     for path in paths:
-        protected = (path.startswith(("ZInQKernel/", "ThirdParty/", "lean/"))
-                     and path.endswith(".lean")) or path == "ZInQKernel.lean"
-        if protected and not path.startswith(CONTRIB) and path not in files:
+        if protected_source(path) and path not in files:
             raise ValueError("Unregistered baseline source: " + path)
         if path.startswith(CONTRIB):
             full = root / path
@@ -129,12 +138,33 @@ def classify(root, base_ref):
             "acceptance": False}
 
 
+def regenerate(root=ROOT):
+    """Rewrite the manifest's file hashes; return what changed."""
+    path = root / MANIFEST
+    manifest = json.loads(path.read_bytes())
+    paths = set(tracked(root))
+    old = manifest["files"]
+    pinned = {p for p in old if p in paths} | {p for p in paths if protected_source(p)}
+    files = {p: sha((root / p).read_bytes()) for p in sorted(pinned)}
+    manifest["files"] = files
+    path.write_text(json.dumps(manifest, indent=2) + "\n", encoding="utf-8", newline="\n")
+    return {"added": sorted(set(files) - set(old)), "removed": sorted(set(old) - set(files)),
+            "changed": sorted(p for p in files if p in old and old[p] != files[p])}
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--root", type=Path, default=ROOT)
     parser.add_argument("--base-ref")
     parser.add_argument("--output", type=Path)
+    parser.add_argument("--write", action="store_true",
+                        help="regenerate the file hashes in the manifest (maintainers)")
     args = parser.parse_args()
+    if args.write:
+        changes = regenerate(args.root)
+        for kind in ("added", "removed", "changed"):
+            for p in changes[kind]:
+                print(f"{kind}: {p}", file=sys.stderr)
     result = validate(args.root)
     if args.base_ref:
         result["review"] = classify(args.root, args.base_ref)

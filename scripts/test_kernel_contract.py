@@ -5,7 +5,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from check_kernel_contract import classify, git, validate
+from check_kernel_contract import classify, git, regenerate, validate
 
 
 class ContractTests(unittest.TestCase):
@@ -84,6 +84,39 @@ class ContractTests(unittest.TestCase):
         self.write(".github/workflows/other.yml", "name: new automation\n")
         self.commit()
         self.assertEqual(classify(self.root, self.base)["route"], "statement_or_infrastructure_review")
+
+    def test_regenerate_is_identity_on_valid_manifest(self):
+        before = (self.root / "KERNEL_CONTRACT.json").read_bytes()
+        self.assertEqual(regenerate(self.root), {"added": [], "removed": [], "changed": []})
+        self.assertEqual(json.loads((self.root / "KERNEL_CONTRACT.json").read_bytes()), json.loads(before))
+
+    def test_regenerate_registers_baseline_change_for_review(self):
+        self.write("ZInQKernel/Target.lean", "def Target : Prop := False\n")
+        self.write("ZInQKernel/New.lean", "-- a new baseline module\n")
+        self.write("ZInQKernel/Contrib/One.lean", "-- a contribution stays unpinned\n")
+        (self.root / "ThirdParty/GreenTao/Submission.lean").unlink()
+        self.write("ThirdParty/GreenTao/Submission/Basic.lean", "-- replacement vendor root module\n")
+        self.write("ThirdParty/GreenTao/Submission.lean", "-- vendor fixture, edited\n")
+        git(self.root, "add", "-A")
+        changes = regenerate(self.root)
+        self.assertEqual(changes["added"], ["ThirdParty/GreenTao/Submission/Basic.lean", "ZInQKernel/New.lean"])
+        self.assertEqual(changes["changed"], ["ThirdParty/GreenTao/Submission.lean", "ZInQKernel/Target.lean"])
+        manifest = json.loads((self.root / "KERNEL_CONTRACT.json").read_bytes())
+        self.assertNotIn("ZInQKernel/Contrib/One.lean", manifest["files"])
+        self.assertEqual(manifest["targets"], self.manifest["targets"])
+        self.commit()
+        validate(self.root)
+        self.assertEqual(classify(self.root, self.base)["route"], "statement_or_infrastructure_review")
+
+    def test_regenerate_drops_deleted_source(self):
+        self.write("ZInQKernel/Extra.lean", "-- extra\n")
+        git(self.root, "add", "-A")
+        regenerate(self.root)
+        self.commit()
+        git(self.root, "rm", "-q", "ZInQKernel/Extra.lean")
+        self.assertEqual(regenerate(self.root)["removed"], ["ZInQKernel/Extra.lean"])
+        self.commit()
+        validate(self.root)
 
 
 if __name__ == "__main__":

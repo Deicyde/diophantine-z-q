@@ -938,12 +938,12 @@
     "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
     "scripts/audit_kernel.lean": "673af3d23f5433cb17145e9de8cac97b40a7d513281b7c2a726fb19ca089facc",
     "scripts/check_kernel.py": "1dc77a83fba91142ed01dde700a57d8a05310ea81367f7a3ced2ddfe7b0bcd38",
-    "scripts/check_kernel_contract.py": "ff1f2dd9f5b19f96d314934fede23c6ff0b6a57bb82671050913050c7aae4d5e",
+    "scripts/check_kernel_contract.py": "aa914f639c8f9dce81cf5232f17a9bc755cb37612cdb2d5d1afd4dec0aeb02a6",
     "scripts/check_target.py": "3217b013bf839c4166dfbbfe6fb560a2d3b56bc1408addbfc08646807dfa2e25",
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "81e103c0f06f5840ddd64ff997288a703e69557e39f1779f66bbd8c3ce3b0469",
-    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45"
+    "scripts/test_kernel_contract.py": "4f339197ddce14fe73ab107aa3504913adf079ba85c42c8607f339a70478bc29"
   },
   "targets": [
     {

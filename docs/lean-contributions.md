@@ -46,6 +46,11 @@ review. It does not automatically reject a legitimate improvement. The protected
 reviewer compares with the trusted base; updating your own manifest cannot give
 your change approval.
 
+For such a change, `python -B scripts/check_kernel_contract.py --write` rehashes
+the pinned files, registers new baseline modules and drops deleted ones. It leaves
+the targets, headline and exports unchanged. Review the resulting manifest diff
+like any other lock change.
+
 ## Build and audit
 
 From the repository root:
