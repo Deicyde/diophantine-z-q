@@ -22,3 +22,13 @@
     quasi-compact); `X_L → Y_L` over `X → Y` is a pullback by `IsPullback.of_right`.
 - Note: the file needs `set_option backward.isDefEq.respectTransparency.types false` (as Mathlib's
   FlatDescent.lean does); without it instance search fails on `IsStableUnderBaseChangeAlong @Surjective Y.hom`.
+
+## Integration check
+- `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` first (OK).
+- 04:25 `check_integration.sh`: assembles `.checks/Integration.lean` (gitignored) = scratch/g0-fibresimple/FibreSimple.lean
+  verbatim + FiniteDescends.lean + IntegrationTail.lean (20784 lines); `lake env lean`: exit 0 in 193 s, 0 errors, no
+  `sorry`; `G0FibreSimple.finiteDescends_proof : FiniteDescends := FS1Descend.finiteDescends` typechecks against
+  g0-fibresimple's own `FiniteDescends`, and `G0FibreSimple.fibreSimple_of_leaves_fs5 (t : HSyn.TextbookLeaves)
+  (hMul : MulIsogeny) (hRig : RigidityHom) (hCom : FibreComTrivial) : FibreSimple` compiles. `#print axioms`:
+  [propext, Classical.choice, Quot.sound] for both, for `HSyn.glueOutputs_of_leaves` and
+  `G0FibreSimple.fibreSimple_of_leaves`; no `sorryAx` in any axioms line. VERIFIED (compiled).
