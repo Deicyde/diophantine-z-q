@@ -84,3 +84,49 @@
   **`conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 26 `#print axioms` standard.
   VERIFIED (compiled).
+- 2026-11-13 06:22 refactor: `toC_injective` moved before §7; naturality lemmas and the §11
+  construction use it (§11 now takes a local torsion-surjectivity hypothesis `hsurj`); main
+  theorem `conjTwistNontrivial_of_latticeInj` no longer takes N1. §13 added:
+  **`torsion_surj_of_T5`** (T5 + a uniformization with full lattice ⇒ every n-torsion complex
+  point comes from A(K̄): A(ℂ)[n] ↪ (ℤ/n)^{2g} via lattice coordinates of nz, |A(K̄)[n]| = n^{2g}
+  by T5, toC injective, Nat.card), **`tateLatticeInj_of_T5`**,
+  **`conjTwistNontrivial_final : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → ConjUniformization → ConjTwistNontrivial`**,
+  **`conjTwistFromLeaves_final : HomLinearLift → ConjUniformization → ConjTwistFromLeaves`**.
+  Whole file: 0 errors, 0 sorry, all `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:25 §14 added: `twistC_inj_aux'`, `twistC_surjective`, `twistC_mul`, glue def
+  `ConjUniformizationAnalytic` (N3a-an: only the two analytic clauses of IsUniformization for
+  z ↦ twistC(Φ z̄): open preimages, holomorphic regular functions of A^s),
+  **`conjUniformization_of_analytic`** (the three group-theoretic clauses proved),
+  **`conjTwistNontrivial_final' : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`**,
+  **`conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic →
+  ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 32 `#print axioms` standard.
+  VERIFIED (compiled).
+- 2026-11-13 06:31 §15 added: `conjL_smul`, **`differentiableOn_conj_conj`** (z ↦ conj(F(z̄))
+  holomorphic on conj⁻¹ S when F is on S; via ℝ-derivatives and
+  `HasFDerivWithinAt.of_restrictScalars`), glue def `TwistCEval` (N3a-ev: scheme-theoretic,
+  number fields: opens/sections of A^s correspond to those of A with f(twistC Q) = conj(f'(Q))),
+  **`conjUniformizationAnalytic_of_eval`**, `ConjUniformization` and
+  `ConjUniformizationAnalytic` now for number fields (weaker; all that is used),
+  **`conjTwistNontrivial_final'' : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → TwistCEval → ConjTwistNontrivial`**, **`conjTwistFromLeaves_final'' :
+  HomLinearLift → TwistCEval → ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 36
+  `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:46 §16 added: `specConj`, `appLE_eq_of_eq`, `top_le_specConj_preimage`,
+  `eval_specConj` (evaluation at P ∘ Spec(conj) is conj of evaluation at P; ΓSpecIso
+  naturality), `homEquiv_left_fst`, `fst_isIso` (number field ⇒ pullback.fst iso),
+  **`twistCEval : TwistCEval`** (N3a-ev proved), **`conjTwistNontrivial_of_leaves :
+  TorsionStructure → TateModuleFree → UniformizationExists → HomLinearLift →
+  ConjTwistNontrivial`**, **`conjTwistFromLeaves_of_homLinearLift : HomLinearLift →
+  ConjTwistFromLeaves`**. No glue Prop remains. Whole file (2029 lines): 0 errors, 0 sorry,
+  39 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 06:56 §17 added (import ZInQKernel.HDecomp.I3Linalg.C2, built): verbatim copies from
+  scratch/g10-odd/G10Odd.lean of `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison`, `Vb`, `tate`,
+  `Intertwines`, `G10Out`, `G10Glue`, `det_eq_neg_one_of_sq_eq_one`, `GaloisRep.mat_mul/mat_one`,
+  `isOdd_of_not_pm_one`, `galRep_eq_of_central`, `g10Out_of_conjTwist`, `g10Glue_of_conjTwist`,
+  `G10GlueConcrete`, `g10GlueConcrete_of_conjTwistFromLeaves` (defs diffed: identical);
+  **`g10GlueConcrete_of_homLinearLift : HomLinearLift → G10GlueConcrete`**,
+  **`g10Glue_of_leaves : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → G10Glue`**. Whole file (2226 lines): 0 errors, 0 sorry, 41 `#print axioms`
+  standard. VERIFIED (compiled).

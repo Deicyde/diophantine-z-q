@@ -1,19 +1,37 @@
 import ZInQKernel.HDecomp.LeafPush2.T
+import ZInQKernel.HDecomp.I3Linalg.C2
 
 /-! # conj-twist: `ConjTwistNontrivial` and `ConjTwistFromLeaves` (glue step G10 core)
 
 Check with `lake env lean scratch/conj-twist/ConjTwist.lean` (after
-`lake build ZInQKernel.HDecomp.LeafPush2.T`).
+`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`). No `sorry`; all `#print axioms` are standard.
 
-* §1 copies **verbatim** from `scratch/g10-odd/G10Odd.lean`: `ConjTwistNontrivial`,
-  `ConjTwistFromLeaves` and what they and the proofs below depend on (`resQ`, `qEmbRing`,
-  `resQ_spec`, `isComplexConj_mul_self`, `qEmbRing_bijective`, `range_stable`, and the proved
-  linear algebra `betti_skeleton_fd` with its lemmas).
-* §2 proves the `ℚ_ℓ`-form of Faltings' theorem needed here (`faltingsV`): a `G_K`-equivariant
-  map `V_ℓ(A) → V_ℓ(B)` lies in the `ℚ_ℓ`-span of `{V_ℓ(f) : f ∈ Hom(A, B)}`.
-* §3 moves the complex conjugation `c ∈ G_ℚ` to an automorphism `cc` of `K̄` (`conjData`).
-* §4 states the remaining glue `ConjBettiData` and proves `ConjTwistNontrivial` from
-  `TateModuleFree` (leaf T26) and `ConjBettiData`, and `ConjTwistFromLeaves` from `ConjBettiData`.
+**Main results** (end of file):
+* `conjTwistFromLeaves_of_homLinearLift : HomLinearLift → ConjTwistFromLeaves`
+* `conjTwistNontrivial_of_leaves : PkgI2.TorsionStructure → PkgI3.TateModuleFree →
+  UniformizationExists → HomLinearLift → ConjTwistNontrivial`
+* corollaries (§17): `g10GlueConcrete_of_homLinearLift : HomLinearLift → G10GlueConcrete` and
+  `g10Glue_of_leaves : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → G10Glue`
+
+`HomLinearLift` (N2) is a textbook leaf (T11(a) in Hom form, Birkenhake–Lange 1.2.1). No glue
+Prop remains in the main results. The glue forms they use are all proved here: torsion
+surjectivity under a uniformization (`torsion_surj_of_T5`), `TateLatticeInj`, `ConjAntiLiftLat`,
+`ConjUniformization`, `ConjUniformizationAnalytic`, `TwistCEval`, `ConjVarDim`. The stronger
+intermediate Props `ArtinTorsion`, `TateLattice`, `ConjAntiLift`, `ConjBettiData` and
+`ConjBettiComparison` are kept with their reductions for reference. They are not proved and not
+needed.
+
+* §1 verbatim copies from `scratch/g10-odd/G10Odd.lean` (`ConjTwistNontrivial`,
+  `ConjTwistFromLeaves`, `resQ`, `qEmbRing`, ..., `betti_skeleton_fd` with its lemmas).
+* §2 `faltingsV` (Faltings in `ℚ_ℓ`-form); §3 `conjData` (`c ∈ G_ℚ` as `cc ∈ Aut(K̄)`).
+* §4-§5 an intermediate route (`ConjBettiData`, `ConjBettiComparison`); §5 the conjugate variety
+  `conjVar`, the transport `c_*` (`conjPt`, `conjT`, `conjV`) and its twisted equivariance.
+* §6 `toC`, `twistC`, statements N1-N5, `toC_injective`, `toC_conjPt`; §7 naturality;
+  §8 `lattice_contradiction`; §9 `conjVarDim` (N5); §9b N3 from N2 + N3a; §10 the main
+  reduction `conjTwistNontrivial_of_latticeInj`; §11 the comparison `ℤ_ℓ ⊗ Λ ↪ T_ℓ(A)`;
+  §12 N1-surj; §13 N1-surj from T5; §14 N3a from its analytic clauses; §15 the analytic
+  clauses from `TwistCEval`; §16 `TwistCEval` proved, and the main results.
 -/
 
 noncomputable section
@@ -715,6 +733,24 @@ def toC {K : Type} [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+*
   map_one' := MonObj.comp_one _
   map_mul' _ _ := MonObj.comp_mul _ _ _
 
+/-- **`toC` is injective (proved).** -/
+theorem toC_injective {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (emb : AlgebraicClosure K →+* ℂ) : Function.Injective (toC A emb) := by
+  intro P P' h
+  apply Over.OverMorphism.ext
+  have hU : Spec.map (CommRingCat.ofHom emb) ≫ P.left =
+      Spec.map (CommRingCat.ofHom emb) ≫ P'.left := by
+    have := congrArg CommaMorphism.left h
+    exact this
+  haveI : IsReduced (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left := by
+    change IsReduced (Spec (CommRingCat.of (AlgebraicClosure K))); infer_instance
+  have h0 : Surjective (Spec.map (CommRingCat.ofHom emb)) :=
+    ⟨fun y => ⟨IsLocalRing.closedPoint ℂ, Subsingleton.elim _ _⟩⟩
+  let ι' : Spec (CommRingCat.of ℂ) ⟶ (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left :=
+    Spec.map (CommRingCat.ofHom emb)
+  haveI : Surjective ι' := h0
+  exact ext_of_isDominant_of_isSeparated A.X.hom (by rw [Over.w P, Over.w P']) ι' hU
+
 /-- **N1. Torsion comparison (GLUE, unproved; STANDARD).** `toC` is injective (`Spec ℂ → Spec K̄`
 is faithfully flat, hence an epimorphism of schemes) and every `n`-torsion complex point
 (`n ≥ 1`) comes from `A(K̄)`: `A(K̄)[n]` and `A(ℂ)[n]` both have `n^{2g}` elements (T5 over `K̄`
@@ -831,7 +867,7 @@ theorem toC_conjPt {K : Type} [Field K] (A : PkgI3.AbVar K) (s : K →+* K)
   ext x
   exact hι x
 
-/-! ## §7. Naturality of the comparison of N4 (proved from N1)
+/-! ## §7. Naturality of the comparison of N4 (proved; uses `toC_injective`)
 
 With N1, the formula of N4 pins `α`, and `α` is natural: for a homomorphism `f` with linear lift
 `M` (N2), `T_ℓ(f) ∘ α_A = α_B ∘ (M ⊗ 1)` on `1 ⊗ Λ_A`; for `c_*` with antilinear lift `N` (N3),
@@ -850,8 +886,8 @@ theorem lift_mem_lattice {K : Type} [Field K] {A B : PkgI3.AbVar K} {σ : K →+
   rw [← hB.2.1, hM, (hA.2.1 _).mpr lam.2]
   exact MonObj.one_comp f.hom
 
-/-- **Naturality for homomorphisms (proved from N1).** -/
-theorem homT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] {A B : PkgI3.AbVar K}
+/-- **Naturality for homomorphisms (proved).** -/
+theorem homT_tateLattice {K : Type} [Field K] {A B : PkgI3.AbVar K}
     (emb : AlgebraicClosure K →+* ℂ) {g h : ℕ} {ΛA : Submodule ℤ (Fin g → ℂ)}
     {ΛB : Submodule ℤ (Fin h → ℂ)}
     {ΦA : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))}
@@ -868,7 +904,7 @@ theorem homT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] {A B : PkgI3.
     PkgI3.AbVar.homT f (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ ⟨M lam, hlam⟩) := by
   apply Subtype.ext; funext n
   apply Additive.toMul.injective
-  apply (hN1 K B emb 1 one_pos).1
+  apply toC_injective B emb
   change toC B emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n) ≫ f.hom) = _
   rw [hαB]
   change embHom emb ≫ Additive.toMul ((αA (1 ⊗ₜ lam)).1 n) ≫ f.hom = _
@@ -876,8 +912,8 @@ theorem homT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] {A B : PkgI3.
   change toC A emb (Additive.toMul ((αA (1 ⊗ₜ lam)).1 n)) ≫ f.hom = _
   rw [hαA, ← hM, map_smul]
 
-/-- **Naturality for `c_*` (proved from N1 and `toC_conjPt`).** -/
-theorem conjT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] (A : PkgI3.AbVar K)
+/-- **Naturality for `c_*` (proved, from `toC_conjPt`).** -/
+theorem conjT_tateLattice {K : Type} [Field K] (A : PkgI3.AbVar K)
     (s : K →+* K) (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
     (hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k)) (emb : AlgebraicClosure K →+* ℂ)
     (hι : ∀ x, emb (cc x) = starRingEnd ℂ (emb x))
@@ -899,7 +935,7 @@ theorem conjT_tateLattice (hN1 : ArtinTorsion) {K : Type} [Field K] (A : PkgI3.A
     conjT A s cc hs ℓ (α (1 ⊗ₜ lam)) = α' (1 ⊗ₜ ⟨N lam, hlam⟩) := by
   apply Subtype.ext; funext n
   apply Additive.toMul.injective
-  apply (hN1 K (conjVar A s) emb 1 one_pos).1
+  apply toC_injective (conjVar A s) emb
   change toC (conjVar A s) emb (conjPt A s cc hs (Additive.toMul ((α (1 ⊗ₜ lam)).1 n))) = _
   rw [hα', toC_conjPt A s cc hs emb hι h, hα, ← hN]
   congr 1
@@ -1050,14 +1086,14 @@ theorem conjL_I {g : ℕ} (z : Fin g → ℂ) :
     conjL g (Complex.I • z) = -(Complex.I • conjL g z) := by
   funext i; simp [conjL]
 
-/-- **N3a. The conjugate of a uniformization (GLUE, unproved; STANDARD).** If `σ ∘ s = conj ∘ σ`
+/-- **N3a. The conjugate of a uniformization (GLUE; reduced in §14-§15).** For a number field, if `σ ∘ s = conj ∘ σ`
 and `Φ` uniformizes `A(ℂ)_σ` with kernel `Λ`, then `z ↦ twistC(Φ(z̄))` uniformizes `A^s(ℂ)_σ`
 with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_{conj∘σ}`, and on affine charts
 `twistC` conjugates the values of regular functions, so `z ↦ s(twistC(Φ z̄)) = conj(s'(Φ z))`-type
 compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
 homomorphism.) -/
 def ConjUniformization : Prop :=
-  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
     (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
     (Φ : (Fin g → ℂ) → CPts A σ),
     A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
@@ -1197,9 +1233,9 @@ theorem tateLatticeInj_of_tateLattice (h : TateLattice) : TateLatticeInj := by
   obtain ⟨α, hα⟩ := h K A emb g Λ Φ hd hlat hΦ ℓ
   exact ⟨α.toLinearMap, α.injective, hα⟩
 
-/-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 and N4' (proved).** -/
+/-- **`ConjTwistNontrivial` from T26, T35, N2, N3 and N4' (proved).** -/
 theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
-    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLiftLat) (hN4 : TateLatticeInj) : ConjTwistNontrivial := by
   classical
   intro hF K _ _ _ A ℓ _ hdim c hc hall
@@ -1241,9 +1277,9 @@ theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
       map_smul' := fun n x => Subtype.ext (by
         simp only [RingHom.id_apply, Submodule.coe_smul]; exact map_zsmul (M f) n _) }
   have hCN : ∀ lam, conjT A s cc hs ℓ (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uN lam) := fun lam =>
-    conjT_tateLattice hN1 A s cc hs emb hι hσs ℓ αA hαA αB hαB N hN lam (hNlat lam)
+    conjT_tateLattice A s cc hs emb hι hσs ℓ αA hαA αB hαB N hN lam (hNlat lam)
   have hMf : ∀ f lam, PkgI3.AbVar.homT f (αA (1 ⊗ₜ lam)) = αB (1 ⊗ₜ uM f lam) :=
-    fun f lam => homT_tateLattice hN1 emb ℓ αA hαA αB hαB f (M f) (hM f) lam (hMlat f lam)
+    fun f lam => homT_tateLattice emb ℓ αA hαA αB hαB f (M f) (hM f) lam (hMlat f lam)
   -- `ℚ_ℓ ⊗ α`
   let ιA := αA.baseChange ℚ_[ℓ]
   let ιB := αB.baseChange ℚ_[ℓ]
@@ -1321,24 +1357,24 @@ theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
   exact lattice_contradiction bA bB bAℝ bBℝ (fun i => by simp [bAℝ]) (fun i => by simp [bBℝ])
     ℚ_[ℓ] uM M (fun f lam => rfl) uN N (fun lam => rfl) hNanti hN0 hspan'
 
-/-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 and N4 (proved; N5 is proved).** -/
+/-- **`ConjTwistNontrivial` from T26, T35, N2, N3 and N4 (proved; N5 is proved).** -/
 theorem conjTwistNontrivial_of_lattice (hT : PkgI3.TateModuleFree)
-    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
+  conjTwistNontrivial_of_latticeInj hT h35 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
     (tateLatticeInj_of_tateLattice hN4)
 
-/-- **`ConjTwistFromLeaves` from N1, N2, N3, N4' (proved):** T35 and T26 are among its
+/-- **`ConjTwistFromLeaves` from N2, N3, N4' (proved):** T35 and T26 are among its
 hypotheses. -/
-theorem conjTwistFromLeaves_of_latticeInj (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+theorem conjTwistFromLeaves_of_latticeInj (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLatticeInj) : ConjTwistFromLeaves :=
-  fun _ _ h35 _ hT => conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2
+  fun _ _ h35 _ hT => conjTwistNontrivial_of_latticeInj hT h35 hN2
     (conjAntiLiftLat_of_conjAntiLift hN3) hN4
 
-/-- **`ConjTwistFromLeaves` from N1, N2, N3, N4 (proved).** -/
-theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+/-- **`ConjTwistFromLeaves` from N2, N3, N4 (proved).** -/
+theorem conjTwistFromLeaves_of_lattice (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistFromLeaves :=
-  conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
+  conjTwistFromLeaves_of_latticeInj hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
 
 /-! ## §11. N4' from N1 (proved): the injective comparison `ℤ_ℓ ⊗ Λ → T_ℓ(A)`
 
@@ -1395,54 +1431,55 @@ include hadd hker in
 theorem phi_tors (lam : Λ) (n : ℕ) : Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) ^ (ℓ ^ n) = 1 := by
   rw [← phi_nsmul A emb Φ hadd, smul_inv_pow, (hker _).mpr lam.2]
 
-variable (hN1 : ArtinTorsion)
+variable (hsurj : ∀ n : ℕ, 0 < n → ∀ Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))),
+    Q ^ n = 1 → ∃ P, toC A emb P = Q)
 
 /-- `x(λ)ₙ ∈ A(K̄)` with `toC(x(λ)ₙ) = Φ(ℓ⁻ⁿλ)`. -/
 def xPt (lam : Λ) (n : ℕ) : A.Pt (AlgebraicClosure K) :=
-  Classical.choose ((hN1 K A emb (ℓ ^ n) (pow_pos hℓ.out.pos n)).2 _
+  Classical.choose (hsurj (ℓ ^ n) (pow_pos hℓ.out.pos n) _
     (phi_tors A emb Φ ℓ hadd hker lam n))
 
 theorem xPt_spec (lam : Λ) (n : ℕ) :
-    toC A emb (xPt A emb Φ ℓ hadd hker hN1 lam n) = Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) :=
-  Classical.choose_spec ((hN1 K A emb (ℓ ^ n) (pow_pos hℓ.out.pos n)).2 _
+    toC A emb (xPt A emb Φ ℓ hadd hker hsurj lam n) = Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) :=
+  Classical.choose_spec (hsurj (ℓ ^ n) (pow_pos hℓ.out.pos n) _
     (phi_tors A emb Φ ℓ hadd hker lam n))
 
 /-- `x(λ) ∈ T_ℓ(A)`. -/
 def xSeq (lam : Λ) : A.T ℓ :=
-  ⟨fun n => Additive.ofMul (xPt A emb Φ ℓ hadd hker hN1 lam n), by
+  ⟨fun n => Additive.ofMul (xPt A emb Φ ℓ hadd hker hsurj lam n), by
     refine ⟨?_, fun n => ?_⟩
     · apply Additive.toMul.injective
-      change xPt A emb Φ ℓ hadd hker hN1 lam 0 = 1
-      apply (hN1 K A emb 1 one_pos).1
+      change xPt A emb Φ ℓ hadd hker hsurj lam 0 = 1
+      apply toC_injective A emb
       rw [xPt_spec, map_one, pow_zero, inv_one, one_smul]
       exact (hker _).mpr lam.2
     · apply Additive.toMul.injective
-      change xPt A emb Φ ℓ hadd hker hN1 lam (n + 1) ^ ℓ = xPt A emb Φ ℓ hadd hker hN1 lam n
-      apply (hN1 K A emb 1 one_pos).1
+      change xPt A emb Φ ℓ hadd hker hsurj lam (n + 1) ^ ℓ = xPt A emb Φ ℓ hadd hker hsurj lam n
+      apply toC_injective A emb
       rw [map_pow, xPt_spec, xPt_spec, ← phi_nsmul A emb Φ hadd, smul_inv_succ]⟩
 
 theorem xSeq_apply (lam : Λ) (n : ℕ) :
-    toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 lam).1 n)) =
+    toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hsurj lam).1 n)) =
       Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) :=
-  xPt_spec A emb Φ ℓ hadd hker hN1 lam n
+  xPt_spec A emb Φ ℓ hadd hker hsurj lam n
 
 /-- `λ ↦ x(λ)`, additive. -/
 def xHom : Λ →+ A.T ℓ :=
-  AddMonoidHom.mk' (xSeq A emb Φ ℓ hadd hker hN1) (fun a b => by
+  AddMonoidHom.mk' (xSeq A emb Φ ℓ hadd hker hsurj) (fun a b => by
     apply Subtype.ext; funext n
     apply Additive.toMul.injective
-    apply (hN1 K A emb 1 one_pos).1
-    change toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 (a + b)).1 n)) =
-      toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 a).1 n) *
-        Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 b).1 n))
+    apply toC_injective A emb
+    change toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hsurj (a + b)).1 n)) =
+      toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hsurj a).1 n) *
+        Additive.toMul ((xSeq A emb Φ ℓ hadd hker hsurj b).1 n))
     rw [map_mul, xSeq_apply, xSeq_apply, xSeq_apply, ← hadd, Submodule.coe_add, smul_add])
 
 /-- `λ ↦ x(λ)`, `ℤ`-linear. -/
 def xLin : Λ →ₗ[ℤ] A.T ℓ :=
-  { xHom A emb Φ ℓ hadd hker hN1 with
+  { xHom A emb Φ ℓ hadd hker hsurj with
     map_smul' := fun n x => by
       simp only [RingHom.id_apply]
-      exact map_zsmul (xHom A emb Φ ℓ hadd hker hN1) n x }
+      exact map_zsmul (xHom A emb Φ ℓ hadd hker hsurj) n x }
 
 end TateLatticeProof
 
@@ -1451,15 +1488,17 @@ section TateLatticeInjProof
 variable {K : Type} [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) {g : ℕ}
   (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
   (ℓ : ℕ) [hℓ : Fact ℓ.Prime] {Λ : Submodule ℤ (Fin g → ℂ)}
-  (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ) (hN1 : ArtinTorsion)
+  (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ)
+  (hsurj : ∀ n : ℕ, 0 < n → ∀ Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))),
+    Q ^ n = 1 → ∃ P, toC A emb P = Q)
 
 /-- **Injectivity of the comparison (proved from N1).** -/
 theorem xLin_liftBaseChange_injective [Module.Free ℤ Λ] [Module.Finite ℤ Λ] :
-    Function.Injective ((xLin A emb Φ ℓ hadd hker hN1).liftBaseChange ℤ_[ℓ]) := by
+    Function.Injective ((xLin A emb Φ ℓ hadd hker hsurj).liftBaseChange ℤ_[ℓ]) := by
   classical
   let b := Module.Free.chooseBasis ℤ Λ
   let bZ := Algebra.TensorProduct.basis ℤ_[ℓ] b
-  set α := (xLin A emb Φ ℓ hadd hker hN1).liftBaseChange ℤ_[ℓ] with hαdef
+  set α := (xLin A emb Φ ℓ hadd hker hsurj).liftBaseChange ℤ_[ℓ] with hαdef
   rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
   intro v hv
   apply bZ.repr.injective
@@ -1471,13 +1510,13 @@ theorem xLin_liftBaseChange_injective [Module.Free ℤ Λ] [Module.Finite ℤ Λ
   set a : Module.Free.ChooseBasisIndex ℤ Λ → ℤ_[ℓ] := fun i => bZ.repr v i with ha
   set k : Module.Free.ChooseBasisIndex ℤ Λ → ℕ := fun i => (PadicInt.toZModPow n (a i)).val
     with hk
-  have hαv : α v = ∑ i, a i • xLin A emb Φ ℓ hadd hker hN1 (b i) := by
+  have hαv : α v = ∑ i, a i • xLin A emb Φ ℓ hadd hker hsurj (b i) := by
     conv_lhs => rw [← bZ.sum_repr v]
     rw [map_sum]
     refine Finset.sum_congr rfl fun i _ => ?_
     rw [map_smul, Algebra.TensorProduct.basis_apply, hαdef, LinearMap.liftBaseChange_one_tmul]
   have hent : Additive.toMul ((α v).1 n) =
-      ∏ i, Additive.toMul ((xLin A emb Φ ℓ hadd hker hN1 (b i)).1 n) ^ k i := by
+      ∏ i, Additive.toMul ((xLin A emb Φ ℓ hadd hker hsurj (b i)).1 n) ^ k i := by
     rw [hαv, AddSubgroup.val_finset_sum, Finset.sum_apply, toMul_sum]
     refine Finset.prod_congr rfl fun i _ => ?_
     rw [PkgI3.Tate.smul_apply, toMul_nsmul]
@@ -1488,9 +1527,9 @@ theorem xLin_liftBaseChange_injective [Module.Free ℤ Λ] [Module.Finite ℤ Λ
         Φ (((ℓ : ℂ) ^ n)⁻¹ • (w : Fin g → ℂ)) := by
       rw [hent, map_prod]
       simp only [map_pow]
-      have e2 : ∀ i, toC A emb (Additive.toMul ((xLin A emb Φ ℓ hadd hker hN1 (b i)).1 n)) =
+      have e2 : ∀ i, toC A emb (Additive.toMul ((xLin A emb Φ ℓ hadd hker hsurj (b i)).1 n)) =
           Φ (((ℓ : ℂ) ^ n)⁻¹ • ((b i : Λ) : Fin g → ℂ)) := fun i =>
-        xSeq_apply A emb Φ ℓ hadd hker hN1 (b i) n
+        xSeq_apply A emb Φ ℓ hadd hker hsurj (b i) n
       simp only [e2, ← phi_nsmul A emb Φ hadd]
       rw [← phi_sum A emb Φ hadd]
       congr 1
@@ -1523,46 +1562,29 @@ theorem tateLatticeInj_of_artinTorsion (hN1 : ArtinTorsion) : TateLatticeInj := 
   intro K _ A emb g Λ Φ _ _ hlat hΦ ℓ _
   haveI := ZLattice.module_finite ℝ Λ
   haveI := ZLattice.module_free ℝ Λ
-  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hN1).liftBaseChange ℤ_[ℓ],
-    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hN1, fun lam n => ?_⟩
+  have hsurj := fun n hn => (hN1 K A emb n hn).2
+  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj).liftBaseChange ℤ_[ℓ],
+    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj, fun lam n => ?_⟩
   rw [LinearMap.liftBaseChange_one_tmul]
-  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hN1 lam n
+  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj lam n
 
 /-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 (proved).** -/
 theorem conjTwistNontrivial_of_N123 (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
+  conjTwistNontrivial_of_latticeInj hT h35 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
     (tateLatticeInj_of_artinTorsion hN1)
 
 /-- **`ConjTwistFromLeaves` from N1, N2, N3 (proved).** -/
 theorem conjTwistFromLeaves_of_N123 (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) : ConjTwistFromLeaves :=
-  conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
+  conjTwistFromLeaves_of_latticeInj hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
 
 /-! ## §12. The injectivity half of N1 (proved)
 
 `Spec ℂ → Spec K̄` is surjective, hence dominant, `Spec K̄` is reduced and `A → Spec K` is
 separated (proper), so two `K̄`-points agreeing after `Spec ℂ → Spec K̄` are equal (Mathlib's
 `ext_of_isDominant_of_isSeparated`). What remains of N1 is the torsion surjectivity. -/
-
-/-- **`toC` is injective (proved).** -/
-theorem toC_injective {K : Type} [Field K] (A : PkgI3.AbVar K)
-    (emb : AlgebraicClosure K →+* ℂ) : Function.Injective (toC A emb) := by
-  intro P P' h
-  apply Over.OverMorphism.ext
-  have hU : Spec.map (CommRingCat.ofHom emb) ≫ P.left =
-      Spec.map (CommRingCat.ofHom emb) ≫ P'.left := by
-    have := congrArg CommaMorphism.left h
-    exact this
-  haveI : IsReduced (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left := by
-    change IsReduced (Spec (CommRingCat.of (AlgebraicClosure K))); infer_instance
-  have h0 : Surjective (Spec.map (CommRingCat.ofHom emb)) :=
-    ⟨fun y => ⟨IsLocalRing.closedPoint ℂ, Subsingleton.elim _ _⟩⟩
-  let ι' : Spec (CommRingCat.of ℂ) ⟶ (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left :=
-    Spec.map (CommRingCat.ofHom emb)
-  haveI : Surjective ι' := h0
-  exact ext_of_isDominant_of_isSeparated A.X.hom (by rw [Over.w P, Over.w P']) ι' hU
 
 /-- **N1-surj. Torsion comparison, surjectivity (GLUE, unproved; STANDARD).** Every `n`-torsion
 point of `A(ℂ)_{ι∘alg}` (`n ≥ 1`) comes from `A(K̄)`. (`toC` is injective, `toC_injective`; both
@@ -1591,13 +1613,573 @@ theorem conjTwistFromLeaves_of_surj (hS : ArtinTorsionSurj) (hN2 : HomLinearLift
 theorem conjTwistNontrivial_main (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
     (hN3a : ConjUniformization) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_latticeInj hT h35 (artinTorsion_of_surj hS) hN2
+  conjTwistNontrivial_of_latticeInj hT h35 hN2
     (conjAntiLiftLat_of hN2 hN3a) (tateLatticeInj_of_artinTorsion (artinTorsion_of_surj hS))
 
 /-- **Main result: `ConjTwistFromLeaves` from N1-surj, N2 and N3a (proved).** -/
 theorem conjTwistFromLeaves_main (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
     (hN3a : ConjUniformization) : ConjTwistFromLeaves :=
   fun _ _ h35 _ hT => conjTwistNontrivial_main hT h35 hS hN2 hN3a
+
+/-! ## §13. N1-surj from T5 and a uniformization (proved)
+
+Given a uniformization `Φ : ℂ^g → A(ℂ)_σ` with full lattice `Λ`, `A(ℂ)[n]` injects into
+`(ℤ/n)^{2g}` (`Q = Φ(z) ↦` the coordinates of `nz ∈ Λ` mod `n`), and `A(K̄)[n] ≅ (ℤ/n)^{2g}` by T5
+(`PkgI2.TorsionStructure`). `toC` is injective, so it is a bijection on `n`-torsion. -/
+
+/-- **Torsion surjectivity from T5 (proved).** -/
+theorem torsion_surj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) {K : Type} [Field K]
+    (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    [DiscreteTopology Λ] [IsZLattice ℝ Λ]
+    (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
+    (hΦ : IsUniformization (emb.comp (algebraMap K (AlgebraicClosure K))) Λ Φ)
+    (hd : A.dim = (g : WithBot ℕ∞)) (n : ℕ) (hn : 0 < n)
+    (Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))) (hQ : Q ^ n = 1) :
+    ∃ P, toC A emb P = Q := by
+  classical
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  let b := Module.Free.chooseBasis ℤ Λ
+  have hnK : (n : K) ≠ 0 := by
+    intro h0
+    have := congrArg (emb.comp (algebraMap K (AlgebraicClosure K))) h0
+    rw [map_natCast, map_zero] at this
+    exact (Nat.cast_ne_zero.mpr hn.ne') this
+  obtain ⟨e, -⟩ := h5 K (ObjBridge.toGrp A) g n hd hn hnK
+  let S := {P : A.Pt (AlgebraicClosure K) // P ^ n = 1}
+  let T := {Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))) // Q ^ n = 1}
+  let f : S → T := fun P => ⟨toC A emb P.1, by rw [← map_pow, P.2, map_one]⟩
+  have hf : Function.Injective f := fun P P' h =>
+    Subtype.ext (toC_injective A emb (congrArg Subtype.val h))
+  have hpre : ∀ Q : T, ∃ z, Φ z = Q.1 := fun Q => hΦ.2.2.1 Q.1
+  choose zz hzz using hpre
+  have hnz : ∀ Q : T, n • zz Q ∈ Λ := fun Q => by
+    rw [← hΦ.2.1, phi_nsmul A emb Φ hΦ.1, hzz, Q.2]
+  let code : T → (Module.Free.ChooseBasisIndex ℤ Λ → ZMod n) := fun Q i =>
+    ((b.repr ⟨n • zz Q, hnz Q⟩ i : ℤ) : ZMod n)
+  have hcode : Function.Injective code := by
+    intro Q Q' hQQ
+    have hdvd : ∀ i, (n : ℤ) ∣ b.repr ⟨n • zz Q', hnz Q'⟩ i - b.repr ⟨n • zz Q, hnz Q⟩ i :=
+      fun i => (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ _).mp (congrFun hQQ i)
+    choose k hk using hdvd
+    let mu : Λ := ∑ i, k i • b i
+    have hmu : (⟨n • zz Q', hnz Q'⟩ : Λ) - ⟨n • zz Q, hnz Q⟩ = (n : ℤ) • mu := by
+      apply b.repr.injective
+      refine Finsupp.ext fun i => ?_
+      rw [map_sub, Finsupp.sub_apply, hk i, map_smul, Finsupp.smul_apply, smul_eq_mul]
+      congr 1
+      exact (congrFun (b.repr_sum_self k) i).symm
+    have hvec : n • zz Q' - n • zz Q = (n : ℤ) • (mu : Fin g → ℂ) := by
+      have := congrArg Subtype.val hmu
+      simpa using this
+    have e3 : (n : ℂ) • (zz Q' - zz Q) = (n : ℂ) • (mu : Fin g → ℂ) := by
+      rw [smul_sub, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul, hvec,
+        natCast_zsmul]
+    have e4 : zz Q' - zz Q = mu :=
+      smul_right_injective (Fin g → ℂ) (Nat.cast_ne_zero.mpr hn.ne' : (n : ℂ) ≠ 0) e3
+    apply Subtype.ext
+    rw [← hzz Q, ← hzz Q', show zz Q' = zz Q + mu by rw [← e4]; abel, hΦ.1,
+      (hΦ.2.1 _).mpr mu.2, _root_.mul_one]
+  haveI : NeZero n := ⟨hn.ne'⟩
+  haveI : Finite T := Finite.of_injective code hcode
+  have hcardS : Nat.card S = n ^ (2 * g) := by
+    have hSe : Nat.card S = Nat.card (Fin (2 * g) → ZMod n) := Nat.card_congr e
+    rw [hSe, Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card, Fintype.card_fin]
+  have hcardT : Nat.card T ≤ n ^ (2 * g) := by
+    have h1 := Nat.card_le_card_of_injective code hcode
+    rw [Nat.card_fun, Nat.card_zmod,
+      Nat.card_eq_fintype_card (α := Module.Free.ChooseBasisIndex ℤ Λ),
+      ← Module.finrank_eq_card_chooseBasisIndex, ZLattice.rank ℝ Λ,
+      Module.finrank_pi_fintype] at h1
+    simp only [Complex.finrank_real_complex, Finset.sum_const, Finset.card_univ,
+      Fintype.card_fin, smul_eq_mul] at h1
+    simpa [mul_comm] using h1
+  have hbij := hf.bijective_of_nat_card_le (hcardS ▸ hcardT)
+  obtain ⟨P, hP⟩ := hbij.2 ⟨Q, hQ⟩
+  exact ⟨P.1, congrArg Subtype.val hP⟩
+
+/-- **N4' from T5 (proved).** -/
+theorem tateLatticeInj_of_T5 (h5 : PkgI2.TorsionStructure.{0}) : TateLatticeInj := by
+  intro K _ A emb g Λ Φ hd _ hlat hΦ ℓ _
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  have hsurj := fun n hn Q hQ => torsion_surj_of_T5 h5 A emb g Λ Φ hΦ hd n hn Q hQ
+  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj).liftBaseChange ℤ_[ℓ],
+    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj, fun lam n => ?_⟩
+  rw [LinearMap.liftBaseChange_one_tmul]
+  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hsurj lam n
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a (proved).** -/
+theorem conjTwistNontrivial_final (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3a : ConjUniformization) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_latticeInj hT h35 hN2 (conjAntiLiftLat_of hN2 hN3a)
+    (tateLatticeInj_of_T5 h5)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a (proved).** T5, T26 and T35 are among the
+hypotheses of `ConjTwistFromLeaves`. -/
+theorem conjTwistFromLeaves_final (hN2 : HomLinearLift) (hN3a : ConjUniformization) :
+    ConjTwistFromLeaves :=
+  fun _ _ h35 h5 hT => conjTwistNontrivial_final h5 hT h35 hN2 hN3a
+
+/-! ## §14. N3a split: group-theoretic clauses (proved) and analytic clauses (glue) -/
+
+theorem twistC_inj_aux' {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) :
+    mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change 𝟙 _ ≫ Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫
+    Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫ 𝟙 _ = 𝟙 _
+  rw [Category.id_comp, Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rw [show (starRingEnd ℂ).comp (starRingEnd ℂ) = RingHom.id ℂ by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+theorem twistC_surjective {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : Function.Surjective (twistC A σ s h) := by
+  intro Q'
+  obtain ⟨X, hX⟩ := ((Over.mapPullbackAdj (specS s)).homEquiv (cptObj σ) A.X).surjective
+    (show cptObj σ ⟶ (Over.pullback (specS s)).obj A.X from Q')
+  refine ⟨conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X, ?_⟩
+  have e : mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X = X := by
+    have := congrArg (· ≫ X) (twistC_inj_aux' σ s h)
+    simpa only [Category.assoc, Category.id_comp] using this
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫
+    conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X) = Q'
+  rw [e]
+  exact hX
+
+theorem twistC_mul {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (Q Q' : CPts A σ) :
+    twistC A σ s h (Q * Q') = twistC A σ s h Q * twistC A σ s h Q' := by
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ (Q * Q')) =
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q) *
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q')
+  rw [MonObj.comp_mul, MonObj.comp_mul, homEquiv_mul_conj]
+
+/-- **N3a-an. The analytic clauses for the conjugate uniformization (GLUE, unproved;
+STANDARD).** With `ψ(z) = twistC(Φ(z̄))`: the preimages `ψ⁻¹(U(ℂ))` of opens `U` of `A^s` are
+open, and regular functions of `A^s` are holomorphic along `ψ`. (`A^s(ℂ)_σ = A(ℂ)_{conj∘σ}`; on
+affine charts `twistC` conjugates the values of regular functions, and `z ↦ conj(f(z̄))` is
+holomorphic when `f` is; Mumford §1, GAGA.) These are the last two clauses of
+`IsUniformization`; the first three are proved (`conjUniformization_of_analytic`). -/
+def ConjUniformizationAnalytic : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
+    (∀ U, IsOpen (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U)) ∧
+    (∀ U (f : Γ((conjVar A s).X.left, U)), DifferentiableOn ℂ
+      (fun z => ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f)
+      (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U))
+
+/-- **N3a from its analytic clauses (proved).** -/
+theorem conjUniformization_of_analytic (h : ConjUniformizationAnalytic) : ConjUniformization := by
+  intro K _ _ A σ s hs g Λ Φ hd hΦ
+  obtain ⟨h4, h5⟩ := h K A σ s hs g Λ Φ hd hΦ
+  refine ⟨fun z w => ?_, fun z => ?_, fun Q => ?_, h4, h5⟩
+  · beta_reduce
+    rw [map_add, hΦ.1, twistC_mul]
+  · beta_reduce
+    rw [Submodule.mem_comap, LinearMap.restrictScalars_apply, ← hΦ.2.1]
+    constructor
+    · intro h1
+      apply twistC_injective A σ s hs
+      rw [h1, twistC_one]
+    · intro h1
+      rw [h1, twistC_one]
+  · obtain ⟨Q₀, rfl⟩ := twistC_surjective A σ s hs Q
+    obtain ⟨z, hz⟩ := hΦ.2.2.1 Q₀
+    exact ⟨conjL g z, by simp only [conjL_conjL, hz]⟩
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-an (proved).** -/
+theorem conjTwistNontrivial_final' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final h5 hT h35 hN2 (conjUniformization_of_analytic hN3)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-an (proved).** -/
+theorem conjTwistFromLeaves_final' (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final hN2 (conjUniformization_of_analytic hN3)
+
+/-! ## §15. N3a-an from an evaluation identity (proved reduction)
+
+The analytic clauses follow from a purely scheme-theoretic identity (`TwistCEval`): for a number
+field, every open `U` of `A^s` is the preimage of an open `V` of `A`, and the value of a section
+of `A^s` over `U` at `twistC Q` is the complex conjugate of the value of a section of `A` over `V`
+at `Q`. With it, `ψ = twistC ∘ Φ ∘ conj` has open domains `conj⁻¹(cDom Φ V)` and its coordinate
+functions are `z ↦ conj(F(z̄))` with `F` holomorphic (`differentiableOn_conj_conj`). -/
+
+theorem conjL_smul {g : ℕ} (c : ℂ) (v : Fin g → ℂ) :
+    conjL g (c • v) = starRingEnd ℂ c • conjL g v := by
+  funext i; simp [conjL]
+
+/-- **`z ↦ conj(F(z̄))` is holomorphic where `F` is (proved).** -/
+theorem differentiableOn_conj_conj {g : ℕ} {F : (Fin g → ℂ) → ℂ} {S : Set (Fin g → ℂ)}
+    (hF : DifferentiableOn ℂ F S) :
+    DifferentiableOn ℂ (fun z => starRingEnd ℂ (F (conjL g z))) (conjL g ⁻¹' S) := by
+  intro x hx
+  obtain ⟨F', hF'⟩ := hF (conjL g x) hx
+  let cV : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ) := LinearMap.toContinuousLinearMap (conjL g)
+  let Gl : (Fin g → ℂ) →ₗ[ℂ] ℂ :=
+    { toFun := fun v => starRingEnd ℂ (F' (conjL g v))
+      map_add' := fun v w => by simp [map_add]
+      map_smul' := fun c v => by simp [conjL_smul, map_smul, smul_eq_mul] }
+  let G' : (Fin g → ℂ) →L[ℂ] ℂ := LinearMap.toContinuousLinearMap Gl
+  have h1 : HasFDerivWithinAt (fun z => F (conjL g z)) ((F'.restrictScalars ℝ).comp cV)
+      (conjL g ⁻¹' S) x :=
+    (hF'.restrictScalars ℝ).comp x cV.hasFDerivWithinAt (fun z hz => hz)
+  have h2 := (Complex.conjCLE : ℂ →L[ℝ] ℂ).hasFDerivAt.comp_hasFDerivWithinAt x h1
+  have h3 : HasFDerivWithinAt (fun z => starRingEnd ℂ (F (conjL g z))) G' (conjL g ⁻¹' S) x := by
+    refine h2.of_restrictScalars ℝ ?_
+    ext v
+    rfl
+  exact h3.differentiableWithinAt
+
+/-- **N3a-ev. Values of sections at twisted points (GLUE, unproved; STANDARD; no analysis).**
+For a number field `K` (so `A^s → A` is an isomorphism), every open `U` of `A^s` corresponds to an
+open `V` of `A` with `twistC Q ∈ U ↔ Q ∈ V`, and every section `f` of `A^s` over `U` to a section
+`f'` of `A` over `V` with `f(twistC Q) = conj(f'(Q))`. (`fst ∘ twistC Q = Q ∘ Spec(conj)` as maps
+`Spec ℂ → A`; take `V = fst(U)`, `f = fst^* f'`; `Spec(conj)^*` is `conj` on `Γ(Spec ℂ) = ℂ`.) -/
+def TwistCEval : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (U : (conjVar A s).X.left.Opens),
+    ∃ V : A.X.left.Opens,
+      (∀ Q : CPts A σ, (⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U ↔ ⊤ ≤ Q.left ⁻¹ᵁ V)) ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ Q : CPts A σ,
+        ⊤ ≤ Q.left ⁻¹ᵁ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h Q) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt Q V f')
+
+/-- **N3a-an (number fields) from N3a-ev (proved).** -/
+theorem conjUniformizationAnalytic_of_eval (hE : TwistCEval) : ConjUniformizationAnalytic := by
+  intro K _ _ A σ s h g Λ Φ hd hΦ
+  have hdom : ∀ U, ∃ V : A.X.left.Opens,
+      ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U =
+        conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V ∧
+      ∀ f : Γ((conjVar A s).X.left, U), ∃ f' : Γ(A.X.left, V), ∀ z,
+        z ∈ conjL g ⁻¹' ZInQ.LeafPush2.cDom Φ V →
+        ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f =
+          starRingEnd ℂ (ZInQ.LeafPush2.cEvalAt (Φ (conjL g z)) V f') := by
+    intro U
+    obtain ⟨V, hV, hf⟩ := hE K A σ s h U
+    refine ⟨V, ?_, fun f => ?_⟩
+    · ext z
+      exact hV (Φ (conjL g z))
+    · obtain ⟨f', hf'⟩ := hf f
+      exact ⟨f', fun z hz => hf' _ hz⟩
+  have hcont : Continuous (conjL g) :=
+    (LinearMap.toContinuousLinearMap (conjL g)).continuous
+  refine ⟨fun U => ?_, fun U f => ?_⟩
+  · obtain ⟨V, hV, -⟩ := hdom U
+    rw [hV]
+    exact (hΦ.2.2.2.1 V).preimage hcont
+  · obtain ⟨V, hV, hf⟩ := hdom U
+    obtain ⟨f', hf'⟩ := hf f
+    rw [hV]
+    exact (differentiableOn_conj_conj (hΦ.2.2.2.2 V f')).congr fun z hz => hf' z hz
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-ev (proved).** -/
+theorem conjTwistNontrivial_final'' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hE : TwistCEval) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final' h5 hT h35 hN2 (conjUniformizationAnalytic_of_eval hE)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-ev (proved).** -/
+theorem conjTwistFromLeaves_final'' (hN2 : HomLinearLift) (hE : TwistCEval) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final' hN2 (conjUniformizationAnalytic_of_eval hE)
+
+/-! ## §16. `TwistCEval` (N3a-ev) proved
+
+For a number field `Spec(s)` is an isomorphism, hence so is `fst : A^s → A`. The adjunction gives
+`(twistC Q).left ≫ fst = Spec(conj) ≫ Q.left`, so `(twistC Q).left = Spec(conj) ≫ Q.left ≫ fst⁻¹`;
+take `V = (fst⁻¹)⁻¹(U)`, `f' = (fst⁻¹)^* f`, and use `ΓSpecIso` naturality for `Spec(conj)`. -/
+
+/-- `Spec(conj) : Spec ℂ → Spec ℂ`. -/
+abbrev specConj : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ) :=
+  Spec.map (CommRingCat.ofHom (starRingEnd ℂ))
+
+theorem appLE_eq_of_eq {X Y : Scheme} {f g : X ⟶ Y} (e : f = g) (U : Y.Opens) (V : X.Opens)
+    (h : V ≤ f ⁻¹ᵁ U) : f.appLE U V h = g.appLE U V (e ▸ h) := by
+  subst e; rfl
+
+theorem top_le_specConj_preimage (W : (Spec (CommRingCat.of ℂ)).Opens) :
+    ⊤ ≤ specConj ⁻¹ᵁ W ↔ ⊤ ≤ W := by
+  constructor
+  · intro hW x _
+    have hx : x = specConj.base (IsLocalRing.closedPoint ℂ) := Subsingleton.elim _ _
+    rw [hx]
+    exact hW (Set.mem_univ (IsLocalRing.closedPoint ℂ))
+  · intro hW y _
+    exact hW (Set.mem_univ (specConj.base y))
+
+/-- Evaluation at `P ∘ Spec(conj)` is the complex conjugate of evaluation at `P` (proved). -/
+theorem eval_specConj {X : Scheme} (P : Spec (CommRingCat.of ℂ) ⟶ X) (W : X.Opens)
+    (hW : ⊤ ≤ (specConj ≫ P) ⁻¹ᵁ W) (hW' : ⊤ ≤ P ⁻¹ᵁ W) (x : Γ(X, W)) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((specConj ≫ P).appLE W ⊤ hW x) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (P.appLE W ⊤ hW' x)) := by
+  have e2 : ⊤ ≤ specConj ⁻¹ᵁ (⊤ : (Spec (CommRingCat.of ℂ)).Opens) := fun x _ => Set.mem_univ _
+  rw [← Scheme.Hom.appLE_comp_appLE specConj P W ⊤ ⊤ hW' e2]
+  have e3 : specConj.appLE ⊤ ⊤ e2 = specConj.appTop := by
+    rw [Scheme.Hom.appTop, Scheme.Hom.app_eq_appLE]
+    rfl
+  rw [e3]
+  have h := Scheme.ΓSpecIso_naturality (CommRingCat.ofHom (starRingEnd ℂ))
+  have := congrArg (fun φ => (CommRingCat.Hom.hom φ) (P.appLE W ⊤ hW' x)) h
+  exact this
+
+theorem homEquiv_left_fst {K : Type} [Field K] (s : K →+* K) (X Y : Over (Spec (CommRingCat.of K)))
+    (u : (Over.map (specS s)).obj X ⟶ Y) :
+    ((Over.mapPullbackAdj (specS s)).homEquiv X Y u).left ≫ Limits.pullback.fst Y.hom (specS s) =
+      u.left := by
+  dsimp [Over.mapPullbackAdj]
+  simp
+
+theorem fst_isIso {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (s : K →+* K) :
+    IsIso (Limits.pullback.fst A.X.hom (specS s)) := by
+  have hb := ringHom_bijective_of_numberField K s
+  let e : K ≃+* K := RingEquiv.ofBijective s hb
+  haveI : IsIso (CommRingCat.ofHom s) :=
+    ⟨⟨CommRingCat.ofHom (e.symm : K →+* K), by ext x; exact e.symm_apply_apply x,
+      by ext x; exact e.apply_symm_apply x⟩⟩
+  haveI : IsIso (specS s) := by unfold specS; infer_instance
+  infer_instance
+
+/-- **N3a-ev (proved).** -/
+theorem twistCEval : TwistCEval := by
+  intro K _ _ A σ s h U
+  let fstC : (conjVar A s).X.left ⟶ A.X.left := Limits.pullback.fst A.X.hom (specS s)
+  haveI : IsIso fstC := fst_isIso A s
+  let iv : A.X.left ⟶ (conjVar A s).X.left := CategoryTheory.inv fstC
+  let QL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ A.X.left) := fun Q => Q.left
+  let TL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ (conjVar A s).X.left) :=
+    fun Q => (twistC A σ s h Q).left
+  have key : ∀ Q : CPts A σ, TL Q = specConj ≫ QL Q ≫ iv := by
+    intro Q
+    have e1 : TL Q ≫ fstC = specConj ≫ QL Q :=
+      (homEquiv_left_fst s (cptObj σ) A.X (mapPtIso σ s ≫ conjCs A σ s h Q)).trans
+        (Category.id_comp _)
+    calc TL Q = (TL Q ≫ fstC) ≫ iv := by
+          rw [Category.assoc, IsIso.hom_inv_id, Category.comp_id]
+      _ = specConj ≫ QL Q ≫ iv := by rw [e1, Category.assoc]
+  refine ⟨iv ⁻¹ᵁ U, fun Q => ?_, fun f => ⟨iv.app U f, fun Q hQ => ?_⟩⟩
+  · change ⊤ ≤ TL Q ⁻¹ᵁ U ↔ ⊤ ≤ QL Q ⁻¹ᵁ (iv ⁻¹ᵁ U)
+    rw [key Q]
+    change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U) ↔ _
+    rw [top_le_specConj_preimage]
+    rfl
+  · have hQ' : ⊤ ≤ TL Q ⁻¹ᵁ U := by
+      rw [key Q]
+      change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U)
+      rw [top_le_specConj_preimage]
+      exact hQ
+    unfold ZInQ.LeafPush2.cEvalAt
+    rw [dif_pos (show ⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U from hQ'), dif_pos hQ]
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((TL Q).appLE U ⊤ hQ' f) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+        ((QL Q).appLE (iv ⁻¹ᵁ U) ⊤ hQ (iv.app U f)))
+    rw [appLE_eq_of_eq (key Q),
+      eval_specConj (QL Q ≫ iv) U _ (show ⊤ ≤ (QL Q ≫ iv) ⁻¹ᵁ U from hQ),
+      Scheme.Hom.comp_appLE]
+    rfl
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35 and N2 (proved).** -/
+theorem conjTwistNontrivial_of_leaves (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final'' h5 hT h35 hN2 twistCEval
+
+/-- **Final: `ConjTwistFromLeaves` from the leaf N2 alone (proved).** -/
+theorem conjTwistFromLeaves_of_homLinearLift (hN2 : HomLinearLift) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final'' hN2 twistCEval
+
+/-! ## §17. Corollaries for G10 (verbatim copies from `scratch/g10-odd/G10Odd.lean`)
+
+`G10Glue`, `G10GlueConcrete` and their reductions `g10Glue_of_conjTwist`,
+`g10GlueConcrete_of_conjTwistFromLeaves` are copied verbatim (with `Vb`, `tate`, `Intertwines`,
+`G10Out`, the opaque `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison` and the algebraic
+lemmas), then composed with the main results. -/
+
+end G0Galois
+
+namespace HSyn
+
+/-- **T11. Riemann's theorem, GAGA, rigidity.** `End⁰(A_ℂ)` is the algebra of endomorphisms of
+the rational Hodge structure `H₁(A(ℂ), ℚ)`, and `Hom(A, B) = Hom(A_ℂ, B_ℂ)` over `ℚ̄` (Mumford
+§§1-3; Serre 1956; Conrad 2006, §3; UNVERIFIED). Missing: analytification (large). -/
+opaque T11_RiemannGAGA : Prop
+
+/-- **T12. Artin comparison.** `V_ℓ(A) ≅ H₁(A(ℂ), ℚ) ⊗ ℚ_ℓ`, compatibly with complex conjugation
+(SGA 4 XI 4.4, UNVERIFIED; elementary for abelian varieties via `ℂ²/Λ`). Missing: as T11. -/
+opaque T12_ArtinComparison : Prop
+
+end HSyn
+
+namespace G0Galois
+
+open PkgI4 (GaloisRep GaloisChar)
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped TensorProduct
+
+/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
+abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+
+/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
+def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
+  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+
+/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
+def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
+    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
+  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+
+/-- **Output of G10:** `r` is odd (`det r(c) = −1` for every complex conjugation `c`). -/
+def G10Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop := r.IsOdd
+
+/-- **G10, oddness (GLUE, unproved; h-trust C5, model reviews).** From T11 (Riemann, GAGA) and T12
+(Artin comparison) with R9b (Faltings): if `K` is Galois over `ℚ`, `A/K` an abelian surface with
+`End_K(A)` of rank 4, a division ring (`PkgI3.EndDivision`) and noncommutative (so `End⁰_K(A)`
+is a quaternion algebra over `ℚ`), and `r : G_ℚ → GL₂(ℚ̄_ℓ)` with
+`ℚ̄_ℓ ⊗ V_ℓ(A) ≅ r|G_K ⊕ r|G_K`, then `r` is odd. Argument (model review, SPECULATIVE until
+written; each step STANDARD): `r(c)² = 1`; if `r(c) = ±1` then `ρ(c)` is scalar and, `G_K` being
+normal, `c` induces a `G_K`-equivariant map `V_ℓ(cA) → V_ℓ(A)`, which by Faltings (R9b) lies in
+`Hom(cA, A) ⊗ ℚ_ℓ`; by Artin comparison (T12) it is the antiholomorphic `F_∞`, a rational map,
+contradicting holomorphy of homomorphisms (T11). So `r(c)` is not scalar, and `det r(c) = −1`.
+(This is N5 L742-751's Betti argument; the rank/division/noncommutativity hypotheses are not
+needed by it but are kept, being true for Glazer's `A`.) -/
+def G10Glue : Prop :=
+  HSyn.T11_RiemannGAGA → HSyn.T12_ArtinComparison → PkgI3.FaltingsTate →
+  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+    A.dim = 2 → Module.finrank ℤ (PkgI3.AbVar.End A) = 4 → PkgI3.EndDivision A →
+    (∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x) →
+    Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e → G10Out r
+
+/-- A `2 × 2` involution over a field that is not `±1` has determinant `−1` (trace `0`). -/
+theorem det_eq_neg_one_of_sq_eq_one {F : Type*} [Field F] (M : Matrix (Fin 2) (Fin 2) F)
+    (h2 : M * M = 1) (h1 : M ≠ 1) (hm1 : M ≠ -1) : M.det = -1 := by
+  have e00 := congrFun (congrFun h2 0) 0
+  have e01 := congrFun (congrFun h2 0) 1
+  have e10 := congrFun (congrFun h2 1) 0
+  have e11 := congrFun (congrFun h2 1) 1
+  simp [Matrix.mul_apply, Fin.sum_univ_two] at e00 e01 e10 e11
+  rw [Matrix.det_fin_two]
+  by_cases ht : M 0 0 + M 1 1 = 0
+  · have : M 1 1 = -M 0 0 := by linear_combination ht
+    rw [this]; linear_combination -e00
+  · have hb : M 0 1 = 0 := by
+      have : M 0 1 * (M 0 0 + M 1 1) = 0 := by linear_combination e01
+      exact (mul_eq_zero.mp this).resolve_right ht
+    have hc : M 1 0 = 0 := by
+      have : M 1 0 * (M 0 0 + M 1 1) = 0 := by linear_combination e10
+      exact (mul_eq_zero.mp this).resolve_right ht
+    rw [hb, hc] at e00 e11
+    have ha : M 0 0 = 1 ∨ M 0 0 = -1 := by
+      have : (M 0 0 - 1) * (M 0 0 + 1) = 0 := by linear_combination e00
+      rcases mul_eq_zero.mp this with h | h
+      · left; linear_combination h
+      · right; linear_combination h
+    have hd : M 1 1 = 1 ∨ M 1 1 = -1 := by
+      have : (M 1 1 - 1) * (M 1 1 + 1) = 0 := by linear_combination e11
+      rcases mul_eq_zero.mp this with h | h
+      · left; linear_combination h
+      · right; linear_combination h
+    exfalso
+    rcases ha with ha | ha <;> rcases hd with hd | hd
+    · exact h1 (by ext i j; fin_cases i <;> fin_cases j <;> simp [ha, hb, hc, hd])
+    · exact ht (by rw [ha, hd]; ring)
+    · exact ht (by rw [ha, hd]; ring)
+    · exact hm1 (by ext i j; fin_cases i <;> fin_cases j <;> simp [ha, hb, hc, hd])
+variable {ℓ : ℕ} [Fact ℓ.Prime]
+
+theorem GaloisRep.mat_mul (r : GaloisRep ℓ 2) (g h : PkgI4.GQ) :
+    r.mat (g * h) = r.mat g * r.mat h := by
+  simp [PkgI4.GaloisRep.mat, map_mul, Units.val_mul]
+
+theorem GaloisRep.mat_one (r : GaloisRep ℓ 2) : r.mat 1 = 1 := by
+  simp [PkgI4.GaloisRep.mat]
+
+/-- **Oddness from non-scalarity (proved).** If no complex conjugation acts by `±1`, then `r` is
+odd. -/
+theorem isOdd_of_not_pm_one (r : GaloisRep ℓ 2)
+    (h : ∀ c, PkgI4.IsComplexConj c → r.mat c ≠ 1 ∧ r.mat c ≠ -1) : r.IsOdd := by
+  intro c hc
+  have h2 : r.mat c * r.mat c = 1 := by
+    rw [← GaloisRep.mat_mul, isComplexConj_mul_self hc, GaloisRep.mat_one]
+  exact det_eq_neg_one_of_sq_eq_one _ h2 (h c hc).1 (h c hc).2
+/-- If `r(c)` is central (here `±1`), the Tate action is unchanged by the `c`-twist. -/
+theorem galRep_eq_of_central {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
+    (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hI : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) (c : PkgI4.GQ)
+    (hcen : ∀ X, r.mat c * X = X * r.mat c) (σ τ : Field.absoluteGaloisGroup K)
+    (hτ : resQ K τ = c * resQ K σ * c⁻¹) : A.galRep ℓ τ = A.galRep ℓ σ := by
+  have hm : r.mat (resQ K τ) = r.mat (resQ K σ) := by
+    rw [hτ, GaloisRep.mat_mul, GaloisRep.mat_mul, hcen, _root_.mul_assoc, ← GaloisRep.mat_mul,
+      _root_.mul_inv_cancel, GaloisRep.mat_one, _root_.mul_one]
+  have ht : tate A ℓ τ = tate A ℓ σ := by
+    apply LinearMap.ext; intro v
+    apply e.injective
+    rw [hI τ v, hI σ v]
+    simp only [hm]
+  exact baseChange_injective' ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) ht
+
+/-- **The conclusion of `G10Glue` from `ConjTwistNontrivial` (proved),** without the opaque
+hypotheses and without the rank, division and noncommutativity hypotheses. -/
+theorem g10Out_of_conjTwist (h : ConjTwistNontrivial) (hF : PkgI3.FaltingsTate) (K : Type)
+    [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ))
+    (hdim : A.dim = 2) (hI : Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e) :
+    G10Out r := by
+  apply isOdd_of_not_pm_one
+  intro c hc
+  have key := h hF K A ℓ hdim c hc
+  constructor
+  · intro h1
+    exact key (galRep_eq_of_central A r e hI c (fun X => by rw [h1, _root_.one_mul, _root_.mul_one]))
+  · intro h1
+    exact key (galRep_eq_of_central A r e hI c (fun X => by rw [h1]; simp))
+
+/-- **`G10Glue` from `ConjTwistNontrivial` (proved).** The opaque hypotheses `T11_RiemannGAGA`,
+`T12_ArtinComparison` and the rank, division and noncommutativity hypotheses are not used. -/
+theorem g10Glue_of_conjTwist (h : ConjTwistNontrivial) : G10Glue := by
+  intro _ _ hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  exact g10Out_of_conjTwist h hF K A ℓ r e hdim hI
+open ZInQ.LeafPush2 in
+/-- **G10, corrected statement (GLUE).** `G10Glue` with the opaque placeholders
+`HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison` replaced by the concrete textbook leaves of
+`ZInQKernel/HDecomp/LeafPush2/T.lean`: T11(a) `T11a_RiemannEnd`, T11(b) `T11b_Rigidity` and T35
+`UniformizationExists`, together with T5 (`PkgI2.TorsionStructure`) and T26
+(`PkgI3.TateModuleFree`), the inputs of the Artin comparison (T12 is glue, so it is not a
+hypothesis). The conclusion is unchanged. -/
+def G10GlueConcrete : Prop :=
+  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → PkgI2.TorsionStructure.{0} →
+  PkgI3.TateModuleFree → PkgI3.FaltingsTate →
+  ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
+    [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
+    (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
+    A.dim = 2 → Module.finrank ℤ (PkgI3.AbVar.End A) = 4 → PkgI3.EndDivision A →
+    (∃ x y : PkgI3.AbVar.End A, x * y ≠ y * x) →
+    Intertwines (tate A ℓ) (fun σ => r.mat (resQ K σ)) e → G10Out r
+theorem g10GlueConcrete_of_conjTwistFromLeaves (h : ConjTwistFromLeaves) : G10GlueConcrete := by
+  intro h11a h11b h35 h5 h26 hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  exact g10Out_of_conjTwist (h h11a h11b h35 h5 h26) hF K A ℓ r e hdim hI
+
+/-- **`G10GlueConcrete` from the single leaf `HomLinearLift` (proved).** -/
+theorem g10GlueConcrete_of_homLinearLift (hN2 : HomLinearLift) : G10GlueConcrete :=
+  g10GlueConcrete_of_conjTwistFromLeaves (conjTwistFromLeaves_of_homLinearLift hN2)
+
+/-- **`G10Glue` from T5, T26, T35 and `HomLinearLift` (proved).** -/
+theorem g10Glue_of_leaves (h5 : PkgI2.TorsionStructure.{0}) (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN2 : HomLinearLift) : G10Glue :=
+  g10Glue_of_conjTwist (conjTwistNontrivial_of_leaves h5 hT h35 hN2)
 
 end G0Galois
 
@@ -1627,3 +2209,18 @@ end G0Galois
 #print axioms G0Galois.conjAntiLiftLat_of
 #print axioms G0Galois.conjTwistNontrivial_main
 #print axioms G0Galois.conjTwistFromLeaves_main
+#print axioms G0Galois.torsion_surj_of_T5
+#print axioms G0Galois.conjTwistNontrivial_final
+#print axioms G0Galois.conjTwistFromLeaves_final
+#print axioms G0Galois.conjUniformization_of_analytic
+#print axioms G0Galois.conjTwistNontrivial_final'
+#print axioms G0Galois.conjTwistFromLeaves_final'
+#print axioms G0Galois.differentiableOn_conj_conj
+#print axioms G0Galois.conjUniformizationAnalytic_of_eval
+#print axioms G0Galois.conjTwistNontrivial_final''
+#print axioms G0Galois.conjTwistFromLeaves_final''
+#print axioms G0Galois.twistCEval
+#print axioms G0Galois.conjTwistNontrivial_of_leaves
+#print axioms G0Galois.conjTwistFromLeaves_of_homLinearLift
+#print axioms G0Galois.g10GlueConcrete_of_homLinearLift
+#print axioms G0Galois.g10Glue_of_leaves
