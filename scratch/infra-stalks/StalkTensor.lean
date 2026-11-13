@@ -866,6 +866,38 @@ theorem pullback_stalk_tensor_isLocalization {X Y S : Scheme.{u}} (f : X ⟶ S) 
       rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
     · rw [mul_assoc, htu, ← map_mul, hww, map_zero]
 
+/-- **`𝒪_{X ×_S Y, z} = (𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y})_𝔭`**, as Mathlib's `IsLocalization` at the
+prime `𝔭 = Φ⁻¹(𝔪_z)`. -/
+theorem pullback_stalk_isLocalization {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Φ : (X.presheaf.stalk x) ⊗[S.presheaf.stalk s] (Y.presheaf.stalk y) →+*
+        (pullback f g).presheaf.stalk z,
+      (∀ a b, Φ (a ⊗ₜ b) =
+        ((pullback.fst f g).stalkMapAt hx).hom a * ((pullback.snd f g).stalkMapAt hy).hom b) ∧
+      @IsLocalization _ _ (Ideal.comap Φ (IsLocalRing.maximalIdeal _)).primeCompl _ _
+        Φ.toAlgebra := by
+  letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+  obtain ⟨Φ, hΦ, hsurj, hker⟩ := pullback_stalk_tensor_isLocalization f g z hx hy hs hys
+  refine ⟨Φ, hΦ, ?_⟩
+  letI := Φ.toAlgebra
+  have hunit : ∀ u, u ∈ (Ideal.comap Φ (IsLocalRing.maximalIdeal _)).primeCompl ↔ IsUnit (Φ u) := by
+    intro u
+    change ¬ (Φ u ∈ IsLocalRing.maximalIdeal _) ↔ _
+    rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff, not_not]
+  rw [isLocalization_iff]
+  refine ⟨fun u => (hunit u.1).mp u.2, fun r => ?_, fun {a b} hab => ?_⟩
+  · obtain ⟨a, u, hu, h⟩ := hsurj r
+    exact ⟨(a, ⟨u, (hunit u).mpr hu⟩), h⟩
+  · have h0 : Φ (a - b) = 0 := by
+      rw [map_sub]; exact sub_eq_zero.mpr hab
+    obtain ⟨u, hu, h⟩ := hker _ h0
+    exact ⟨⟨u, (hunit u).mpr hu⟩, by rw [← sub_eq_zero, ← mul_sub]; exact h⟩
+
 end AlgebraicGeometry
 
 #print axioms AlgebraicGeometry.pullback_stalk_tensor_isLocalization
+#print axioms AlgebraicGeometry.pullback_stalk_isLocalization

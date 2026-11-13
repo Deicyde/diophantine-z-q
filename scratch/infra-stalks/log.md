@@ -52,3 +52,8 @@
   (local structure lemma for 𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}, s = N/H near each point, holomorphy from that of 𝒢's functions);
   `uniformizationLift`; **`modelHeightBaseChange_of_two (HodgeBCInjective) (OmegaBaseChange) : ModelHeightBaseChange`**,
   `hodgeLineBaseChange_of_two`. VERIFIED: 0 errors, 0 sorry (one doc-comment mention), standard axioms.
+- StalkTensor.lean (Mathlib-only; = StalkPullback body + stalk_tensor.lean.part; assemble_st.py):
+  **`pullback_stalk_tensor_isLocalization`** (Φ : 𝒪_x ⊗_{𝒪_s} 𝒪_y →+* 𝒪_z with Φ(a⊗b) = fst^♯a·snd^♯b,
+  surjective up to units, and Φ t = 0 ⇒ u t = 0 with Φ u a unit) and **`pullback_stalk_isLocalization`**
+  (Mathlib `IsLocalization` at the prime Φ⁻¹(𝔪_z)). Kernel half by charts: t cleared of denominators to ι(t₀),
+  t₀ ∈ A ⊗[R] B, killed in (A⊗B)_{t0} by w ∉ t0. VERIFIED: 0 errors, 0 sorry, standard axioms.
