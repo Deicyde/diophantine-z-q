@@ -386,9 +386,75 @@ theorem fibreDegree_of (hC : TwistClassCard) : FibreDegree := by
   calc t.card ≤ s.card := Finset.card_le_card_of_injOn g hmaps hinj
     _ ≤ 324 := hs
 
+/-- **`FibreCoverExists` from the intrinsic count, Prop. TS + Lemma NV on `ℚ(y)`, and the textbook
+fact on Galois closures.** -/
+theorem fibreCoverExists_of_twistClassCard (hC : TwistClassCard) (hR : FibreUnramified)
+    (hU : UnramifiedConjugates) : FibreCoverExists :=
+  fibreCoverExists_of (fibreDegree_of hC) hR hU
+
+/-! ## Part 5: what the ramification step needs from a pinning (only `(Y, π)` up to isomorphism) -/
+
+/-- The residue field can only shrink along a morphism (scheme form). -/
+theorem residueImage_comp_le_self_aux {X X' : Scheme.{0}} (h : X ⟶ X')
+    (z : Spec (CommRingCat.of Qbar) ⟶ X) :
+    residueImage (X := X') (z ≫ h) ≤ residueImage (X := X) z := by
+  unfold residueImage
+  rw [specToEquivOfField_comp_right]
+  apply IntermediateField.adjoin_le_iff.mpr
+  rintro _ ⟨a, rfl⟩
+  exact IntermediateField.subset_adjoin ℚ _ ⟨_, rfl⟩
+
+/-- The residue field can only shrink along a morphism: `ℚ(h ∘ y) ⊆ ℚ(y)`. -/
+theorem residueImage_comp_le_self {Y Y' : Over (Spec (CommRingCat.of ℚ))} (h : Y ⟶ Y')
+    (y : fieldPt Qbar ⟶ Y) :
+    residueImage (X := Y'.left) (y ≫ h).left ≤ residueImage (X := Y.left) y.left :=
+  residueImage_comp_le_self_aux h.left y.left
+
+/-- Along an isomorphism the residue field is unchanged. -/
+theorem residueImage_comp_iso {Y Y' : Over (Spec (CommRingCat.of ℚ))} (g : Y ≅ Y')
+    (y : fieldPt Qbar ⟶ Y) :
+    residueImage (X := Y'.left) (y ≫ g.hom).left = residueImage (X := Y.left) y.left := by
+  apply le_antisymm (residueImage_comp_le_self g.hom y)
+  have := residueImage_comp_le_self g.inv (y ≫ g.hom)
+  rwa [Category.assoc, g.hom_inv_id, Category.comp_id] at this
+
+/-- **Prop. TS + Lemma NV for one curve with one map to `P¹`** (the genuine `(Y₃, π)`): the
+residue field of every `ℚ̄`-point over `J(u)`, `u ∉ 𝒞`, is unramified outside `T(u)`. This
+mentions no moduli bijection. -/
+def FibreUnramifiedOn (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left) : Prop :=
+  ∀ (u : ℚ) (y : fieldPt Qbar ⟶ Y₀), u ∉ contactSet →
+    π₀.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)) →
+    ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt (residueImage (X := Y₀.left) y.left) p
+
+/-- **The pin that `FibreUnramified` needs** (to be supplied by task qm-pin's repair): every
+`(Y, π)` admitting a moduli bijection `Φ` with R1fp and R2fp is isomorphic to `(Y₀, π₀)` over
+`P¹` on `ℚ̄`-points. `Φ` itself need not be pinned (`fibreCoverOut_indep`). -/
+def CurvePinned (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left) : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∃ g : Y ≅ Y₀, ∀ y : fieldPt Qbar ⟶ Y,
+      π.val (K := Qbar) y.left = π₀.val (K := Qbar) (y ≫ g.hom).left
+
+/-- **`FibreUnramified` from Prop. TS on one curve and the pin of `(Y, π)`.** -/
+theorem fibreUnramified_of_pinned (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left)
+    (hpin : CurvePinned Y₀ π₀) (h0 : FibreUnramifiedOn Y₀ π₀) : FibreUnramified := by
+  intro Y Φ π u P y h1 h2 hu _ hπ p hp
+  obtain ⟨g, hg⟩ := hpin Y Φ π h1 h2
+  rw [← residueImage_comp_iso g y]
+  exact h0 u (y ≫ g.hom) hu ((hg y).symm.trans hπ) p hp
+
+/-- **The composite, corrected form**: `FibreCoverExists` from the intrinsic count, Prop. TS +
+Lemma NV on the genuine `(Y₀, π₀)`, the pin of `(Y, π)`, and the textbook fact. -/
+theorem fibreCoverExists_of_pinned (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left)
+    (hC : TwistClassCard) (hpin : CurvePinned Y₀ π₀) (h0 : FibreUnramifiedOn Y₀ π₀)
+    (hU : UnramifiedConjugates) : FibreCoverExists :=
+  fibreCoverExists_of_twistClassCard hC (fibreUnramified_of_pinned Y₀ π₀ hpin h0) hU
+
 end G0ModField
 
 #print axioms G0ModField.fibreCoverOut_iff
 #print axioms G0ModField.fibreCoverOut_indep
 #print axioms G0ModField.fibreCoverExists_of
 #print axioms G0ModField.fibreDegree_of
+#print axioms G0ModField.fibreCoverExists_of_twistClassCard
+#print axioms G0ModField.fibreCoverExists_of_pinned

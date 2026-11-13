@@ -26,3 +26,22 @@
 - Proved: `fibreCoverExists_of : FibreDegree → FibreUnramified → UnramifiedConjugates → FibreCoverExists`.
 - VERIFIED: 0 errors; `#print axioms` of `fibreCoverOut_iff`, `fibreCoverOut_indep`,
   `fibreCoverExists_of`: [propext, Classical.choice, Quot.sound].
+
+## run6-9: Part 4, FibreDegree from the intrinsic count
+- New Prop `TwistClassCard` (glue: the `Aut 𝒪`-twist class of a `QML3 ℚ̄` object has `≤ 324`
+  classes; N5 L425-441; mentions no moduli scheme).
+- Proved: `finrank_le_of_card_algHom_le` (finite `K ≤ F`: `[K:ℚ] = #Hom(K, ℚ̄)` by `AlgHom.card`,
+  each extends to `F` by `IsAlgClosed.surjective_domRestrict_of_isAlgebraic`),
+  `finiteDimensional_of_card_algHom_le` (maximal finite subfield via `Nat.findGreatest`, then
+  `eq_of_le_of_finrank_le`), `fibreDegree_of : TwistClassCard → FibreDegree` (embeddings `e` of
+  `ℚ(y)` give distinct points `e ∘ y_F` over `J(u)` (`ToP1.val_comp`), injectivity by
+  `IntermediateField.algHom_ext_of_eq_adjoin`; R2fp puts their classes in the twist class).
+- Pitfall: `rw` with `(fieldMap e ≫ yF).left = Spec.map … ≫ yF.left` makes ill-typed motives
+  (`(fieldPt K).left` vs `Spec (of K)`); state lemmas at scheme level and apply to `y.left`.
+
+## run10-11: Part 5, pinning
+- Proved: `residueImage_comp_le_self(_aux)`, `residueImage_comp_iso`, `fibreUnramified_of_pinned`
+  (`CurvePinned Y₀ π₀` + `FibreUnramifiedOn Y₀ π₀` ⇒ `FibreUnramified`),
+  `fibreCoverExists_of_twistClassCard`, `fibreCoverExists_of_pinned`.
+- VERIFIED: 0 errors, 0 warnings; all six `#print axioms`: [propext, Classical.choice, Quot.sound]
+  (scratch/fibre-cover/compile_out.txt).
