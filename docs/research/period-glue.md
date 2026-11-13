@@ -135,7 +135,7 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
     then `b ↦ y⁻¹bx` is symplectic for `Trd(μ⁻¹ab̄)`, and `M` is its block transpose.
   - The polynomial identities hold modulo `√2² = 2`. `py/w8_lean.py` printed the
     `linear_combination` coefficients.
-- **The remaining input: generation.** `Γ* = ℚ^×·⟨g₄, g₆⟩` is `GammaStarGen` (§4.3).
+- **The remaining input: generation.** `Γ* = ℚ^×·⟨g₄, g₆⟩` is `GammaStarGen` (§5.3).
   `py/triangle.py`: `x₂ = 2x₆x₄⁻¹ = (3/2)i + 2j + (1/2)ij` has `trd x₂ = 0`, so `g₆g₄⁻¹` has
   order 2.
 
@@ -327,7 +327,7 @@ the level structure by (3). The composite iso gives `IsBaseChangeOf`.
 
 **Statement.** `∀ γ ∈ Γ*, γ ∈ ⟨ι(1+i+j), ι((j−3)/2), ℚ^×·1⟩`.
 
-**Sources.** The signature of §4.1(2), and Poincaré's polygon theorem (Beardon, *The geometry of
+**Sources.** The signature of §5.1(2), and Poincaré's polygon theorem (Beardon, *The geometry of
 discrete groups*, §9.8 and Thm. 10.6.x; UNVERIFIED).
 
 **Derivation** (model argument; numerics VERIFIED in `py/triangle.py`).
