@@ -30,3 +30,4 @@
   `rhoFL`, `rhoFL_subrep_JL`, `bcT_bijective` (hyp. `dim J_L = dim J`), `E1_R16` (nonzero
   A' → J_L from an A'-side constituent ≅ rhoFL, plus Poincaré isogeny under EndDivision A').
   All `#print axioms`: [propext, Classical.choice, Quot.sound].
+- 23:20 VERIFIED (compiled): `g13_constituent'` (g13_constituent with `VSurjOfSurjective` discharged).

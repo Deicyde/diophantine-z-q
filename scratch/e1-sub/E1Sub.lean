@@ -411,6 +411,21 @@ theorem rhoF_subrep_J (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
   rw [trace_rhoF ℓ A θ emb h2]
   exact (hfr p hp hpN σ hσ).1 a ha
 
+/-- `LeafModCurves.g13_constituent` with its glue hypothesis `VSurjOfSurjective` discharged. -/
+theorem g13_constituent' (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∀ emb : coeffField f →+* PadicAlgCl ℓ, ∃ W : Submodule (PadicAlgCl ℓ)
+        (J.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ), Module.finrank (PadicAlgCl ℓ) W = 2 ∧
+      ∃ hW : ∀ σ : GQ, ∀ φ ∈ W, dualAct ℓ J σ φ ∈ W,
+      ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+        (∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) W ((dualAct ℓ J σ).restrict (hW σ)) = emb a) ∧
+        (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
+            LinearMap.det ((dualAct ℓ J σ).restrict (hW σ)) = emb c * p) :=
+  g13_constituent hR16 (vSurjOfSurjective hS hF hT) N hN χ f hf J hJ ℓ
+
 end RhoSub
 
 end E1Sub
@@ -856,3 +871,4 @@ end E1Sub
 #print axioms E1Sub.E1_R16
 #print axioms E1Sub.rhoFL_subrep_JL
 #print axioms E1Sub.bcT_bijective
+#print axioms E1Sub.g13_constituent'
