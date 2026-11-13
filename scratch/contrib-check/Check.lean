@@ -19,6 +19,11 @@ import ZInQKernel.Contrib.GZTheta.ALFinal
 import ZInQKernel.Contrib.FrobPieces.SmoothGeomConnIntegral
 import ZInQKernel.Contrib.TYZGenus.RingClassBridge
 import ZInQKernel.Contrib.Mobius.Main
+import ZInQKernel.Contrib.Dim.IntegralHom
+import ZInQKernel.Contrib.Dim.LeafPush2
+import ZInQKernel.Contrib.Dim.HodgeLattice
+import ZInQKernel.Contrib.HeightBC.Main
+import of `ZInQKernel.Contrib.HeightBC.Main` and the lines below): the closed height base-change
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -50,3 +55,44 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.TYZGenus.RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_isIntegralHom_of_surjective
+#print axioms ZInQ.Contrib.Dim.height_eq_natCard_of_isMaximal_mvPolynomial
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_and_spanFinrank_localization
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_stalk_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.isRegularLocalRing_stalk_of_smooth
+#print axioms ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_stalk_of_section
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_ringKrullDim_stalk_of_smooth
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_eq_trdeg_fractionRing
+#print axioms ZInQ.Contrib.Dim.exists_aeval_eq_zero_of_trdeg_le_one
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_trdeg_functionField
+#print axioms ZInQ.Contrib.Dim.trdeg_functionField_eq_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.dimEqTrdeg
+#print axioms ZInQ.Contrib.Dim.dimEqTrdegAlg
+#print axioms ZInQ.Contrib.Dim.algDepOfTrdegOne
+#print axioms ZInQ.Contrib.Dim.smoothTrdeg
+#print axioms ZInQ.Contrib.Dim.curveFnFieldAlgDep
+#print axioms ZInQ.Contrib.Dim.dimEqTrdegOver
+#print axioms ZInQ.Contrib.Dim.smoothTrdegOver
+#print axioms ZInQ.Contrib.Dim.curveAlgOverTranscendental
+#print axioms ZInQ.Contrib.Dim.regularAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimBaseChange
+#print axioms ZInQ.Contrib.Dim.tangentDimAtOrigin
+#print axioms ZInQ.Contrib.Dim.hodgeLatticeTheorem
+#print axioms ZInQ.HeightBC.hodgeBCInjective
+#print axioms ZInQ.HeightBC.omegaBaseChange
+#print axioms ZInQ.HeightBC.omegaLocalization
+#print axioms ZInQ.HeightBC.cotangentSpanBC
+#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
+#print axioms ZInQ.HeightBC.modelHeightBaseChange
+#print axioms ZInQ.HeightBC.hodgeLineBaseChange
+#print axioms ZInQ.HeightBC.stableHeightBaseChange
+#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_N1N2
+#print axioms ZInQ.H5Glue.neronModelMinimal
+#print axioms ZInQ.H5Glue.openSubgroupHeight
+#print axioms ZInQ.Contrib.HeightBC.modelHeightBaseChange
+#print axioms ZInQ.Contrib.HeightBC.openSubgroupHeight
+#print axioms ZInQ.Contrib.HeightBC.neronModelMinimal
+#print axioms ZInQ.Contrib.HeightBC.stableFaltingsHeight_eq_neron_of_N1N2
