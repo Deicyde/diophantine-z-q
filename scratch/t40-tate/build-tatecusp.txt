@@ -1,0 +1,237 @@
+⚠ [3271/3291] Replayed ZInQKernel.HDecomp.Objects
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Etale.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Ideal.Height` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.IntegralClosure.IntegralRestrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.QuasiFinite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RamificationInertia.Ramification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Unramified.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Valuation.RamificationGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Topology.KrullDimension` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean:539:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:599:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:602:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:623:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:628:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:669:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:701:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:1299:58: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9295/9390] Replayed ZInQKernel.HDecomp.C10.C10
+warning: ZInQKernel/HDecomp/C10/C10.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/C10/C10.lean:210:40: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/C10/C10.lean:344:52: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [9296/9390] Replayed ZInQKernel.HDecomp.Assembly.E2Index
+warning: ZInQKernel/HDecomp/Assembly/E2Index.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9297/9390] Replayed ZInQKernel.HDecomp.ModCurves.Genus
+warning: ZInQKernel/HDecomp/ModCurves/Genus.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [9298/9390] Replayed ZInQKernel.HDecomp.Conductor.LadicCond
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:421:29: `dite_cond_eq_true` has been deprecated: Use `dite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:640:21: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+ℹ [9303/9390] Replayed ZInQKernel.Contrib.RLeaf.T36Torsion
+info: ZInQKernel/Contrib/RLeaf/T36Torsion.lean:42:0: 'ZInQ.RLeaf.nTors_eq_torsionBy' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/T36Torsion.lean:43:0: 'ZInQ.RLeaf.t36_torsionStructure' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [9316/9390] Replayed ZInQKernel.Contrib.RLeaf.T37GoodReduction
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:43:0: automatically included section variable(s) unused in theorem `ZInQ.RLeaf.T37.ringEquivOfRingEquiv_galRestrict`:
+  [IsDomain B]
+  [IsDedekindDomain B]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsDomain B] [IsDedekindDomain B] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:43:8: Overlapping instance parameters in `ringEquivOfRingEquiv_galRestrict`:
+
+⚠️ `[IsDomain
+   B]` and `[IsDedekindDomain
+   B]` each imply `[Nontrivial B]`, `[IsLeftCancelMulZero B]`, and `[IsRightCancelMulZero B]`.
+💡️ Of these, `[IsDomain B]` may be removed.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:55:8: Overlapping instance parameters in `valuation_apply_of_forall_sub_mem`:
+
+⚠️ `[IsDomain
+   B]` and `[IsDedekindDomain
+   B]` each imply `[Nontrivial B]`, `[IsLeftCancelMulZero B]`, and `[IsRightCancelMulZero B]`.
+💡️ Of these, `[IsDomain B]` may be removed.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:81:8: Overlapping instance parameters in `mem_inertiaSubgroup_of_forall_sub_mem`:
+
+⚠️ `[IsDomain
+   B]` and `[IsDedekindDomain
+   B]` each imply `[Nontrivial B]`, `[IsLeftCancelMulZero B]`, and `[IsRightCancelMulZero B]`.
+💡️ Of these, `[IsDomain B]` may be removed.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:340:8: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:345:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:422:0: automatically included section variable(s) unused in theorem `ZInQ.RLeaf.T37.torsK_finite`:
+  [CharZero K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:432:0: automatically included section variable(s) unused in theorem `ZInQ.RLeaf.T37.xCoord_mem_divField`:
+  [CharZero K]
+  [W.IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] [W.IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:436:0: automatically included section variable(s) unused in theorem `ZInQ.RLeaf.T37.yCoord_mem_divField`:
+  [CharZero K]
+  [W.IsElliptic]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [CharZero K] [W.IsElliptic] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+info: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:575:0: 'ZInQ.RLeaf.T37.core' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/T37GoodReduction.lean:576:0: 'ZInQ.RLeaf.T37.t37_goodReductionUnramified' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9317/9390] Replayed ZInQKernel.Contrib.RLeaf.BelyiX1
+info: ZInQKernel/Contrib/RLeaf/BelyiX1.lean:33:0: 'ZInQ.RLeaf.belyiX1' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/BelyiX1.lean:34:0: 'ZInQ.RLeaf.x1Leaves_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/BelyiX1.lean:35:0: 'ZInQ.RLeaf.x1ModelExists_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9318/9390] Replayed ZInQKernel.Contrib.RLeaf.X1ConstantField
+info: ZInQKernel/Contrib/RLeaf/X1ConstantField.lean:83:0: 'ZInQ.RLeaf.constantFieldIsQ_of_hasRationalPlace' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1ConstantField.lean:84:0: 'ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1ConstantField.lean:85:0: 'ZInQ.RLeaf.x1Leaves_of_t38_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1ConstantField.lean:86:0: 'ZInQ.RLeaf.x1ModelExists_of_t38_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9319/9390] Replayed ZInQKernel.Contrib.RLeaf.X1RationalCusp
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:184:0: 'ZInQ.RLeaf.x1Leaves_of_t38_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:185:0: 'ZInQ.RLeaf.hasRationalPlace_of_algEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:186:0: 'ZInQ.RLeaf.hasRationalPlace_of_laurent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:187:0: 'ZInQ.RLeaf.x1RationalCusp_of_igusa_tateCusp' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:188:0: 'ZInQ.RLeaf.x1RationalCusp_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:189:0: 'ZInQ.RLeaf.x1ConstantField_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean:190:0: 'ZInQ.RLeaf.x1ModelExists_of_t38_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+⚠ [9344/9390] Replayed ZInQKernel.Contrib.TauCeti.Backport.RingTheory.HahnSeries.Map
+warning: ZInQKernel/Contrib/TauCeti/Backport/RingTheory/HahnSeries/Map.lean:228:31: This simp argument is unused:
+  Finsupp.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [lin, coeff_monomial, hf] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+⚠ [9388/9390] Built ZInQKernel.Contrib.RLeaf.TateCuspGlue (5.0s)
+warning: ZInQKernel/Contrib/RLeaf/TateCuspGlue.lean:92:46: Variable name `p` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _p
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Contrib/RLeaf/TateCuspGlue.lean:144:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/RLeaf/TateCuspGlue.lean:218:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+info: ZInQKernel/Contrib/RLeaf/TateCuspGlue.lean:300:0: 'ZInQ.RLeaf.tateCuspLaurent_of_tateLaurentTorsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9389/9390] Built ZInQKernel.Contrib.RLeaf.TateCuspTorsion (4.7s)
+info: ZInQKernel/Contrib/RLeaf/TateCuspTorsion.lean:99:0: 'ZInQ.RLeaf.TateCuspTorsion.tateLaurentTorsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+ℹ [9390/9390] Built ZInQKernel.Contrib.RLeaf.TateCusp (3.8s)
+info: ZInQKernel/Contrib/RLeaf/TateCusp.lean:36:0: 'ZInQ.RLeaf.tateCuspLaurent' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/TateCusp.lean:37:0: 'ZInQ.RLeaf.x1RationalCusp_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+info: ZInQKernel/Contrib/RLeaf/TateCusp.lean:38:0: 'ZInQ.RLeaf.x1ConstantField_of_igusaTransitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+Build completed successfully (9390 jobs).
