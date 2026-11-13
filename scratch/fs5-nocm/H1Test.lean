@@ -27,18 +27,24 @@ theorem quat_comm_J (I J : M2) (hI : I * I = (2 : K) • 1) (hJ : J * J = (-3 : 
   module
 
 /-- **A matrix commuting with `I` and `J` is scalar**, if `I² = 2`, `J² = −3`, `JI = −IJ` in
-`M₂(K)` and `2` is not a square in `K` (then `1, I, J, IJ` is a `K`-basis of `M₂(K)`). -/
+`M₂(K)`, `2, 3 ≠ 0` in `K` (then `1, I, J, IJ` is a `K`-basis of `M₂(K)`). -/
 theorem commute_quat_scalar (I J : M2) (hI : I * I = (2 : K) • 1) (hJ : J * J = (-3 : K) • 1)
-    (hJI : J * I = -(I * J)) (hns : ∀ r : K, r * r ≠ 2) (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
+    (hJI : J * I = -(I * J)) (h2 : (2 : K) ≠ 0) (h3 : (3 : K) ≠ 0)
     (Y : M2) (hYI : I * Y = Y * I) (hYJ : J * Y = Y * J) : ∃ a : K, Y = a • (1 : M2) := by
   have r3 : (I * J) * J = (-3 : K) • I := by rw [mul_assoc, hJ, mul_smul_comm, mul_one]
   have hinj : Function.Injective (fun x : K => x • (1 : M2)) := smul_left_injective K one_ne_zero
   have hIns : ∀ s : K, I ≠ s • (1 : M2) := by
     intro s hs
-    apply hns s
-    apply hinj
-    simp only
-    rw [← hI, hs, smul_mul_smul_comm, mul_one]
+    have hc : I * J = J * I := by rw [hs, smul_mul_assoc, mul_smul_comm, one_mul, mul_one]
+    rw [hJI] at hc
+    have h0 : I * J = 0 := by
+      have : (2 : K) • (I * J) = 0 := by
+        rw [two_smul]; nth_rewrite 2 [hc]; exact add_neg_cancel _
+      exact (smul_eq_zero.mp this).resolve_left h2
+    have hI0 : I = 0 := by
+      have := r3; rw [h0, zero_mul] at this
+      exact (smul_eq_zero.mp this.symm).resolve_left (neg_ne_zero.mpr h3)
+    apply h2; apply hinj; simp only; rw [← hI, hI0, mul_zero, zero_smul]
   -- `(2c)•IJ + (4d)•J = 0 → c = 0 ∧ d = 0`
   have kill : ∀ c d : K, (2 * c) • (I * J) + (4 * d) • J = 0 → c = 0 ∧ d = 0 := by
     intro c d h
