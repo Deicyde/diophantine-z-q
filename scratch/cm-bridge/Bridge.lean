@@ -2746,6 +2746,84 @@ theorem latNK7c (hn : n % 8 = 7) (hsq : Squarefree n) :
 
 end Thm36d
 
+
+section Thm36e
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+/-! General ideal identities in a commutative ring (for `𝔭₂𝔭̄₂ = (2)` and `𝔭₂^5 = (32, u)`). -/
+
+theorem span_two_mul_span_two {R : Type*} [CommRing R] (g g' m N : R) (h1 : g + g' + 2 * m = 1)
+    (h2 : g * g' = 32 * N) :
+    Ideal.span {2, g} * Ideal.span {2, g'} = Ideal.span {(2 : R)} := by
+  apply le_antisymm
+  · rw [Ideal.mul_le]
+    intro x hx y hy
+    obtain ⟨a, b, rfl⟩ := Ideal.mem_span_pair.1 hx
+    obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hy
+    rw [Ideal.mem_span_singleton]
+    refine ⟨a * c * 2 + a * d * g' + b * c * g + b * d * 16 * N, ?_⟩
+    linear_combination (b * d) * h2
+  · rw [Ideal.span_singleton_le_iff_mem]
+    have e1 : g * 2 ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert_of_mem _ rfl))
+        (Ideal.subset_span (Set.mem_insert _ _))
+    have e2 : 2 * g' ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert _ _))
+        (Ideal.subset_span (Set.mem_insert_of_mem _ rfl))
+    have e4 : 2 * 2 ∈ Ideal.span {2, g} * Ideal.span {2, g'} :=
+      Ideal.mul_mem_mul (Ideal.subset_span (Set.mem_insert _ _)) (Ideal.subset_span (Set.mem_insert _ _))
+    have := add_mem (add_mem e1 e2) (Ideal.mul_mem_right m _ e4)
+    convert this using 1
+    linear_combination (-2 : R) * h1
+
+theorem span_two_pow_le {R : Type*} [CommRing R] (g : R) (k : ℕ) :
+    Ideal.span {2, g} ^ (k + 1) ≤ Ideal.span {(2 : R) ^ (k + 1), g} := by
+  induction k with
+  | zero => simp
+  | succ k ih =>
+    rw [pow_succ]
+    refine le_trans (Ideal.mul_mono_left ih) ?_
+    rw [Ideal.mul_le]
+    intro x hx y hy
+    obtain ⟨a, b, rfl⟩ := Ideal.mem_span_pair.1 hx
+    obtain ⟨c, d, rfl⟩ := Ideal.mem_span_pair.1 hy
+    rw [Ideal.mem_span_pair]
+    exact ⟨a * c, a * d * 2 ^ (k + 1) + b * c * 2 + b * d * g, by ring⟩
+
+theorem span_two_pow_five {R : Type*} [CommRing R] (g g' m N : R) (h1 : g + g' + 2 * m = 1)
+    (h2 : g * g' = 32 * N) :
+    Ideal.span {2, g} ^ 5 = Ideal.span {(32 : R), g} := by
+  apply le_antisymm
+  · have := span_two_pow_le g 4
+    norm_num at this
+    exact this
+  · rw [Ideal.span_le, Set.insert_subset_iff, Set.singleton_subset_iff]
+    have hI2 : (2 : R) ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert _ _)
+    have hIg : g ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert_of_mem _ rfl)
+    have h32 : (32 : R) ∈ Ideal.span {2, g} ^ 5 := by
+      have := Ideal.pow_mem_pow hI2 5
+      norm_num at this
+      exact this
+    refine ⟨h32, ?_⟩
+    have hw : g + 2 * m ∈ Ideal.span {2, g} :=
+      add_mem hIg (Ideal.mul_mem_right m _ hI2)
+    have key : g = 32 * N * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) +
+        g * (g + 2 * m) ^ 4 := by
+      linear_combination (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) * h2 -
+        g * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) * h1
+    have hmem : 32 * N * (1 + (g + 2 * m) + (g + 2 * m) ^ 2 + (g + 2 * m) ^ 3) +
+        g * (g + 2 * m) ^ 4 ∈ Ideal.span {2, g} ^ 5 := by
+      refine add_mem ?_ ?_
+      · rw [mul_assoc]; exact Ideal.mul_mem_right _ _ h32
+      · rw [show (5 : ℕ) = 4 + 1 from rfl, pow_succ' (Ideal.span {2, g}) 4]
+        exact Ideal.mul_mem_mul hIg (Ideal.pow_mem_pow hw 4)
+    rw [← key] at hmem
+    exact hmem
+
+end Thm36e
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
