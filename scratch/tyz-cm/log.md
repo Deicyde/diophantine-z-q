@@ -74,3 +74,18 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
 - Finding (not formalized): for γ ∈ Γ₀(32), |x(γτ)−2| = |x(τ)−2| (H-invariance), so x∘γ−2 = ε_γ(x−2), ε_γ²⁴ = 1;
   EtaModelInvariant ⇔ ε ≡ 1, which needs the eta multiplier. Left as x0-32's leaf.
 - diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
+
+## 11:10 Γ₀(32)-invariance (VERIFIED, compiled; commits cdf88533, 02fa2baf)
+- After `git merge origin/main` (b7cdba8e; only additions, clean), gz-theta's `GZTheta/Eta.lean` (η² multiplier,
+  Euclidean exponent `etaSqExp`) and `TripleProduct.lean`/`JacobiGauss.lean` (Jacobi triple product) available.
+- Numerics (scratch/tyz-cm/etasq.py, etasq2.py): etaSqExp ≡ (a−2d)c − bd(c²−1) + 3d − 3 (d odd), ≡ (a+d)c − bd(c²−1) − 3c
+  (c odd) mod 12 on 11 962 random SL₂(ℤ) matrices, 0 failures; the four Euclidean-step congruences hold for all
+  residues mod 12. Ligozat search (etaq.py): x = η(16)⁶/(η(8)²η(32)⁴), x+2 = η(4)⁵η(16)/(η(2)²η(8)²η(32)²),
+  x−2 = η(2)²η(16)/(η(4)η(32)²) (the definition).
+- ShimuraEtaInv.lean: `etaSqExp_closed`, `etaD_sq_smul`, `yC_gamma0` (unconditional), `xC_sub_two_sq_gamma0`
+  (unconditional), `etaModelInvariant_of_equation : EtaModelEquation → EtaModelInvariant` (sign argument).
+- ShimuraTheta.lean: theta products (θ₀₁(4τ), θ₀₀(16τ), θ(8τ;16τ)), Euler BCD = 1, parity split, `xC_eq_even`,
+  `xC_gamma0'`, `etaModelInvariant : X0.EtaModelInvariant` (x0-32's leaf PROVED),
+  `cmFieldOfDefinition_of_cmValueRingClass : CMValueRingClass → CM.CMFieldOfDefinition ringClassFieldD` (MAIN),
+  `shimuraReciprocityPic_of_shimuraModFn`, `cmFieldOfDefinition_of_shimuraModFn`, `cmFieldTYZ_of_cmValueRingClass`,
+  `tyzThm35ReadingA_of_cmValueRingClass`. All axioms: propext, Classical.choice, Quot.sound (ax6.lean, ax7.lean).
