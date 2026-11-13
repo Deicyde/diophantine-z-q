@@ -874,6 +874,40 @@ theorem qmPeriodDiffeo_add {τ : ℂ} (hτ : τ.im ≠ 0) (p q : SiegelTorus (Om
 theorem qmPeriodDiffeo_proj {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) :
     qmPeriodDiffeo hτ (proj _ v) = proj (qmLattice hτ) (Fp τ *ᵥ v) := rfl
 
+
+theorem sqrt2_sq : (√2 : ℂ) ^ 2 = 2 := by
+  rw [← Complex.ofReal_pow, Real.sq_sqrt (by norm_num)]; norm_num
+
+/-- The compatibility `F' Eᵀ = E F'ᵀ` (the Riemann form is alternating in N5's basis). -/
+theorem Fp_mul_Emat_transpose (τ : ℂ) : Fp τ * (Emat τ)ᵀ = Emat τ * (Fp τ)ᵀ := by
+  have h2 := sqrt2_sq
+  rw [Fp, F0mat_eq, Emat_eq, Pinv]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fin.sum_univ_two, Matrix.transpose_apply] <;> ring_nf <;>
+    simp only [h2] <;> ring_nf
+
+/-- **`Ω(τ)` is symmetric** (for `Im τ ≠ 0`). -/
+theorem Omega_transpose {τ : ℂ} (hτ : τ.im ≠ 0) : (Omega τ)ᵀ = Omega τ := by
+  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
+  have hut : IsUnit (Fp τ)ᵀ.det := by rwa [det_transpose]
+  have key := Fp_mul_Emat_transpose τ
+  rw [Omega, ← Fp, transpose_mul, transpose_nonsing_inv]
+  calc (Emat τ)ᵀ * ((Fp τ)ᵀ)⁻¹
+      = (Fp τ)⁻¹ * (Fp τ * (Emat τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by
+        rw [← Matrix.mul_assoc (Fp τ)⁻¹, Matrix.nonsing_inv_mul _ hu, Matrix.one_mul]
+    _ = (Fp τ)⁻¹ * (Emat τ * (Fp τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by rw [key]
+    _ = (Fp τ)⁻¹ * Emat τ := by
+        rw [Matrix.mul_assoc, Matrix.mul_assoc, Matrix.mul_nonsing_inv _ hut, Matrix.mul_one]
+
+/-- Hence `θ(·, Ω(τ))` is quasi-periodic for `Ω(τ)ℤ² + ℤ² = F'(τ)⁻¹Λ_τ`: it is a section of a
+line bundle on the QM torus (via `qmPeriodDiffeo`). -/
+theorem riemannTheta_Omega_add_period {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 → ℂ) (m n : Fin 2 → ℤ) :
+    riemannTheta (Omega τ) (z + (Omega τ *ᵥ intVec m + intVec n)) =
+      Complex.exp (-(Real.pi * Complex.I * (intVec m ⬝ᵥ (Omega τ *ᵥ intVec m))) -
+          2 * Real.pi * Complex.I * (intVec m ⬝ᵥ z)) * riemannTheta (Omega τ) z :=
+  riemannTheta_add_period _ (Omega_transpose hτ) z m n
+
 end QM
 
 end BPAnalytic

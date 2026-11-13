@@ -2,7 +2,7 @@
 
 Status: research note and blueprint (task bp-analytic, 2026-11-12), written for a crowdsourced
 Lean team. Lean files, compiled and sorry-free: `scratch/bp-analytic/Torus.lean` (about 880
-lines) and `scratch/bp-analytic/Uniformization.lean` (about 140 lines). Mathlib only; no project
+lines) and `scratch/bp-analytic/Uniformization.lean` (114 lines). Mathlib only; no project
 imports. Results log: `scratch/bp-analytic/log.md`. No file under `ZInQKernel/` or `blueprint/`,
 and no other task's notes or scratch files, was edited. Definitions copied from
 `ZInQKernel/HDecomp/Objects.lean` and `scratch/pkg-I1/I1.lean` are marked "copied" in the Lean
