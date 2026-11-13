@@ -1808,3 +1808,81 @@ end GlueB3Unram
 #print axioms GlueB3Unram.t32b
 #print axioms GlueB3Unram.leafB3a_of_t32a
 #print axioms GlueB3Unram.unramified_outside_t32a
+
+/-!
+# glue-t32a: proof of T32(a) (`LeafPush.T32a_TameQuadratic`)
+
+For an odd prime `p` and `w` over `p`, every continuous `χ : I_w → ℤˣ` is `1` or `η_g`, the
+character `τ ↦ τ(g)/g` of `g = √p`. Proof: a Kummer generator `β` of `χ`; `v(β)` is a rational
+power of `v(p)`; glue-b3b's `exists_inertia_neg` (an inertia element negating `√p`) forces the
+exponent of `v(β)` to have odd denominator over `v(g)`; then `β^n / g^k` is a unit and inertia acts
+trivially on it modulo `w`, which pins `χ = η_g^k`.
+-/
+
+namespace GlueB3Unram
+
+open scoped Pointwise
+
+section T32a
+
+variable {w : ValuationSubring Qbar} {p : ℕ}
+
+/-- Inertia acts trivially modulo `w`: `v(τz - z) < 1` for `z ∈ w`. -/
+theorem inertia_val_sub_lt_one (τ : Gal) (hτ : τ ∈ LeafPush.inertiaQ w) (z : Qbar) (hz : z ∈ w) :
+    w.valuation (τ z - z) < 1 := by
+  obtain ⟨y, hy, hres⟩ := residue_inertia w τ hτ ⟨z, hz⟩
+  have h0 : IsLocalRing.residue w (y - ⟨z, hz⟩) = 0 := by rw [map_sub, hres, sub_self]
+  rw [IsLocalRing.residue_eq_zero_iff, ValuationSubring.valuation_lt_one_iff] at h0
+  have : ((y - ⟨z, hz⟩ : w) : Qbar) = τ z - z := by
+    show (y : Qbar) - z = τ z - z
+    rw [hy]; rfl
+  rwa [this] at h0
+
+theorem not_dvd_two_of_odd (hp : p.Prime) (hp2 : p ≠ 2) : ¬ (p : ℤ) ∣ (-2 : ℤ) := by
+  intro h
+  rw [Int.dvd_neg] at h
+  have h' : p ∣ 2 := by exact_mod_cast h
+  exact hp2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h')
+
+/-- **Sign lemma.** At an odd place no inertia element negates a unit. -/
+theorem not_inertia_neg (hp : p.Prime) (hp2 : p ≠ 2) (hw : LiesOver w p) (τ : Gal)
+    (hτ : τ ∈ LeafPush.inertiaQ w) (z : Qbar) (hz : w.valuation z = 1) (hτz : τ z = -z) : False := by
+  have hzw : z ∈ w := (w.valuation_le_one_iff z).mp hz.le
+  have h := inertia_val_sub_lt_one τ hτ z hzw
+  have e : τ z - z = ((-2 : ℤ) : Qbar) * z := by rw [hτz]; push_cast; ring
+  rw [e, map_mul, hz, mul_one, val_intCast_eq_one hp hw (-2) (not_dvd_two_of_odd hp hp2)] at h
+  exact lt_irrefl _ h
+
+/-- Valuation of a nonzero integer: a power of `v(p)`. -/
+theorem val_int_eq_pow (hp : p.Prime) (hw : LiesOver w p) (r : ℤ) (hr : r ≠ 0) :
+    ∃ e : ℕ, w.valuation (r : Qbar) = w.valuation (p : Qbar) ^ e := by
+  obtain ⟨e, n', hn', he⟩ :=
+    Nat.exists_eq_pow_mul_and_not_dvd (Int.natAbs_ne_zero.mpr hr) p hp.one_lt.ne'
+  refine ⟨e, ?_⟩
+  have hv : w.valuation (r : Qbar) = w.valuation ((r.natAbs : ℤ) : Qbar) := by
+    rcases Int.natAbs_eq r with h | h
+    · conv_lhs => rw [h]
+    · conv_lhs => rw [h]
+      rw [Int.cast_neg, Valuation.map_neg]
+  rw [hv, he]
+  push_cast
+  rw [map_mul, map_pow]
+  have h1 : w.valuation ((n' : ℤ) : Qbar) = 1 :=
+    val_intCast_eq_one hp hw _ (by exact_mod_cast hn')
+  push_cast at h1
+  rw [h1, mul_one]
+
+/-- Valuation of a nonzero rational: an integral power of `v(p)`. -/
+theorem val_rat_eq_zpow (hp : p.Prime) (hw : LiesOver w p) (q : ℚ) (hq : q ≠ 0) :
+    ∃ m : ℤ, w.valuation (algebraMap ℚ Qbar q) = w.valuation (p : Qbar) ^ m := by
+  obtain ⟨a, ha⟩ := val_int_eq_pow hp hw q.num (Rat.num_ne_zero.mpr hq)
+  obtain ⟨b, hb⟩ := val_int_eq_pow hp hw (q.den : ℤ) (by exact_mod_cast q.den_ne_zero)
+  refine ⟨(a : ℤ) - b, ?_⟩
+  have hvp : w.valuation (p : Qbar) ≠ 0 := val_natCast_ne_zero hp
+  rw [eq_ratCast, Rat.cast_def, map_div₀]
+  push_cast at ha hb
+  rw [ha, hb, zpow_sub₀ hvp, zpow_natCast, zpow_natCast]
+
+end T32a
+
+end GlueB3Unram
