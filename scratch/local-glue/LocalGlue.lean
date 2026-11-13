@@ -4770,6 +4770,167 @@ theorem betaTwist2_of_roots {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → Pad
     rw [hσM.2]
     exact hηI σ ⟨hσM.1, wildSet_subset_inertiaSet hσ.2⟩
 
+/-! ### `Beta4Inertia` at `p = 2` from G7's clauses (proved) -/
+
+/-- Inertia fixes the roots of unity of order prime to `p` (proved; as `wild_fix_prime_to_p`). -/
+theorem inertia_fix_prime_to_p {σ : GQp p} (hσ : σ ∈ inertiaSet) {ζ : Kbar p} {m : ℕ}
+    (hm0 : 0 < m) (hpm : ¬ p ∣ m) (hζ : ζ ^ m = 1) : σ ζ = ζ := by
+  have hζ0 : ζ ≠ 0 := by
+    rintro rfl; rw [zero_pow hm0.ne'] at hζ; exact zero_ne_one hζ
+  have h1 : ‖ζ‖ = 1 := norm_eq_one_of_pow_eq_one hm0 hζ
+  set η := σ ζ * ζ⁻¹ with hη
+  have hηm : η ^ m = 1 := by
+    rw [hη, mul_pow, ← map_pow, hζ, map_one, inv_pow, hζ, inv_one, one_mul]
+  have hlt : ‖η - 1‖ < 1 := by
+    have he : η - 1 = (σ ζ - ζ) * ζ⁻¹ := by rw [hη, sub_mul, mul_inv_cancel₀ hζ0]
+    rw [he, norm_mul, norm_inv, h1, inv_one, mul_one]
+    exact hσ ζ h1.le
+  have := eq_one_of_pow_eq_one_of_norm_lt hm0 hpm hηm hlt
+  rw [hη, mul_inv_eq_one₀ hζ0] at this
+  exact this
+
+/-- `σ²` fixes the fourth roots of unity (proved): `σ(i) = ±i`. -/
+theorem sq_fix_four (σ : GQp p) {ζ : Kbar p} (hζ : ζ ^ 4 = 1) : σ (σ ζ) = ζ := by
+  have h2 : (ζ ^ 2 - 1) * (ζ ^ 2 + 1) = 0 := by linear_combination hζ
+  rcases mul_eq_zero.mp h2 with h | h
+  · have h' : (ζ - 1) * (ζ + 1) = 0 := by linear_combination h
+    rcases mul_eq_zero.mp h' with h1 | h1
+    · rw [sub_eq_zero.mp h1, map_one, map_one]
+    · rw [eq_neg_of_add_eq_zero_left h1]
+      simp
+  · have hτ : (σ ζ - ζ) * (σ ζ + ζ) = 0 := by
+      have e2 : σ ζ ^ 2 = ζ ^ 2 := by
+        have e1 : ζ ^ 2 = -1 := by linear_combination h
+        rw [← map_pow, e1, map_neg, map_one]
+      linear_combination e2
+    rcases mul_eq_zero.mp hτ with h1 | h1
+    · rw [sub_eq_zero.mp h1, sub_eq_zero.mp h1]
+    · have e : σ ζ = -ζ := eq_neg_of_add_eq_zero_left h1
+      rw [e, map_neg, e, neg_neg]
+
+/-- `chiLevel T₋ ∣ 4M` with `M` odd (proved; `lev 2 = 4`, `lev q = q` for odd `q`). -/
+theorem chiLevel_dvd_four_mul_odd {Tm : Finset ℕ} (hTm : ∀ q ∈ Tm, q.Prime) :
+    ∃ M : ℕ, ¬ 2 ∣ M ∧ GlueDescent.chiLevel Tm ∣ 4 * M := by
+  refine ⟨∏ q ∈ Tm.erase 2, GlueDescent.lev q, ?_, ?_⟩
+  · refine Finset.prod_induction _ (fun n => ¬ 2 ∣ n) (fun a b ha hb h => ?_) (by norm_num)
+      (fun q hq => ?_)
+    · rcases (Nat.Prime.dvd_mul Nat.prime_two).mp h with h | h
+      · exact ha h
+      · exact hb h
+    · have hq2 : q ≠ 2 := Finset.ne_of_mem_erase hq
+      have hqp := hTm q (Finset.mem_of_mem_erase hq)
+      unfold GlueDescent.lev
+      rw [if_neg hq2]
+      intro h
+      rcases (Nat.Prime.eq_one_or_self_of_dvd hqp 2 h) with h' | h'
+      · omega
+      · exact hq2 h'.symm
+  · by_cases h2 : 2 ∈ Tm
+    · unfold GlueDescent.chiLevel
+      rw [← Finset.mul_prod_erase Tm GlueDescent.lev h2]
+      unfold GlueDescent.lev
+      rw [if_pos rfl]
+    · unfold GlueDescent.chiLevel
+      rw [Finset.erase_eq_self.mpr h2]
+      exact dvd_mul_left _ _
+
+/-- At `p = 2`, `decomp(σ²)` fixes the `4M`-th roots of unity for inertia `σ`, `M` odd (proved). -/
+theorem decomp_sq_fix_root (hp2 : p = 2) {σ : GQp p} (hσ : σ ∈ inertiaSet) {M : ℕ}
+    (hM : ¬ 2 ∣ M) {x : PkgI4.Qbar} (hx : x ^ (4 * M) = 1) : decomp p (σ * σ) x = x := by
+  apply (embP (p := p)).injective
+  rw [decomp_spec]
+  set ζ := embP (p := p) x
+  have hζ : ζ ^ (4 * M) = 1 := by rw [← map_pow, hx, map_one]
+  have hM0 : 0 < M := Nat.pos_of_ne_zero (by rintro rfl; exact hM (dvd_zero 2))
+  have hζ0 : ζ ≠ 0 := by
+    rintro h0; rw [h0, zero_pow (by omega)] at hζ; exact zero_ne_one hζ
+  have hpM : ¬ p ∣ M := hp2 ▸ hM
+  have hy : σ (ζ ^ 4) = ζ ^ 4 := inertia_fix_prime_to_p hσ hM0 hpM (by rw [← pow_mul, hζ])
+  have hz : σ (σ (ζ ^ M)) = ζ ^ M := sq_fix_four σ (by rw [← pow_mul, mul_comm, hζ])
+  have hcop : Nat.Coprime 4 M := by
+    have := Nat.Coprime.pow_left 2 ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr hM)
+    norm_num at this
+    exact this
+  have hb : ((Nat.gcd 4 M : ℕ) : ℤ) = 4 * Nat.gcdA 4 M + M * Nat.gcdB 4 M := Nat.gcd_eq_gcd_ab 4 M
+  rw [hcop.gcd_eq_one, Nat.cast_one] at hb
+  have hdec : ζ = (ζ ^ 4) ^ (Nat.gcdA 4 M) * (ζ ^ M) ^ (Nat.gcdB 4 M) := by
+    have hb' : ((4 : ℕ) : ℤ) * Nat.gcdA 4 M + (M : ℤ) * Nat.gcdB 4 M = 1 := by
+      exact_mod_cast hb.symm
+    rw [← zpow_natCast ζ 4, ← zpow_natCast ζ M, ← zpow_mul, ← zpow_mul, ← zpow_add₀ hζ0, hb',
+      zpow_one]
+  show σ (σ ζ) = ζ
+  rw [hdec, map_mul, map_mul, map_zpow₀, map_zpow₀, map_zpow₀, map_zpow₀, hz, hy, hy]
+
+/-- At `p = 2`, the cyclotomic character mod `N ∣ 4M` (`M` odd) kills `decomp(σ²)` for inertia
+`σ` (proved; as `cyc_decomp_wild`). -/
+theorem cyc_decomp_sq_inertia (hp2 : p = 2) {σ : GQp p} (hσ : σ ∈ inertiaSet) {N M : ℕ}
+    [NeZero N] (hM : ¬ 2 ∣ M) (hNM : N ∣ 4 * M) :
+    GlueDescent.B2Q.cyc N (decomp p (σ * σ)) = 1 := by
+  by_cases hN1 : N = 1
+  · subst hN1; exact Subsingleton.elim _ _
+  have hN0 : 0 < N := Nat.pos_of_ne_zero (NeZero.ne N)
+  haveI : Fact (1 < N) := ⟨by omega⟩
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  apply Units.ext
+  obtain ⟨k, hk⟩ := hNM
+  have hu := modularCyclotomicCharacter.unique (AlgebraicClosure ℚ)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+    (GlueDescent.B2Q.toRingAut (decomp p (σ * σ))) (c := 1) (fun t ht => by
+      rw [ZMod.val_one, pow_one]
+      have htN : ((t : (AlgebraicClosure ℚ)ˣ) : AlgebraicClosure ℚ) ^ N = 1 := by
+        rw [← Units.val_pow_eq_pow_val, (mem_rootsOfUnity N t).mp ht, Units.val_one]
+      exact decomp_sq_fix_root hp2 hσ hM (by rw [hk, pow_mul, htN, one_pow]))
+  have hc : GlueDescent.B2Q.cyc N (decomp p (σ * σ)) = modularCyclotomicCharacter
+      (AlgebraicClosure ℚ)
+      (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+      (GlueDescent.B2Q.toRingAut (decomp p (σ * σ))) := rfl
+  rw [hc, Units.val_one]
+  exact hu.symm
+
+/-- **`Beta4Inertia` at `p = 2` from G7's clauses (proved).** `β⁴ = ι(χ(cyc_N σ))² =
+ι(χ(cyc_N σ²))`, and `cyc_N(σ²) = 1` (`cyc_decomp_sq_inertia`, `chiLevel_dvd_four_mul_odd`). -/
+theorem beta4Inertia_of_clauses (hp2 : p = 2) {β : GQ → PadicAlgCl ℓ}
+    {ε : GQ → GQ → PadicAlgCl ℓ} {L : IntermediateField ℚ PkgI4.Qbar}
+    (hC : G7Clauses β ε L) : Beta4Inertia (p := p) β L := by
+  intro σ hσ
+  obtain ⟨Tmin, hTmin, hNZ, χ, ι, hβχ⟩ := hC.2.2.2.2.2.1
+  obtain ⟨M, hM, hNM⟩ := chiLevel_dvd_four_mul_odd hTmin
+  have hc := cyc_decomp_sq_inertia hp2 hσ.2 hM hNM
+  have h2 : (GlueDescent.B2Q.galChar χ (decomp p σ)) ^ 2 = 1 := by
+    have hd : (GlueDescent.B2Q.galChar χ) (decomp p (σ * σ)) = 1 := by
+      change χ.toUnitHom (GlueDescent.B2Q.cyc _ (decomp p (σ * σ))) = 1
+      rw [hc, map_one]
+    have hm := map_mul (GlueDescent.B2Q.galChar χ) (decomp p σ) (decomp p σ)
+    rw [sq]
+    refine hm.symm.trans ?_
+    refine Eq.trans ?_ hd
+    exact congrArg (⇑(GlueDescent.B2Q.galChar χ)) (map_mul (decomp p) σ σ).symm
+  calc β (decomp p σ) ^ 4 = (β (decomp p σ) ^ 2) ^ 2 := by ring
+    _ = ((ι (GlueDescent.B2Q.galChar χ (decomp p σ)) : PadicAlgCl ℓ)) ^ 2 := by rw [hβχ]
+    _ = ((ι (GlueDescent.B2Q.galChar χ (decomp p σ) ^ 2) : PadicAlgCl ℓ)) := by
+        rw [map_pow, Units.val_pow_eq_pow_val]
+    _ = 1 := by rw [h2, map_one, Units.val_one]
+
+/-- **`BetaTwist2` at `p = 2` from G7's clauses and the textbook Prop `UnramRoots` (proved).** -/
+theorem betaTwist2_of_unramRoots (hp2 : p = 2) {β : GQ → PadicAlgCl ℓ}
+    {ε : GQ → GQ → PadicAlgCl ℓ} {L : IntermediateField ℚ PkgI4.Qbar}
+    (hC : G7Clauses β ε L) (hU : UnramRoots p ℓ) : BetaTwist2 (p := p) β L :=
+  betaTwist2_of_roots hC hU (beta4Inertia_of_clauses hp2 hC)
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- **`LocalGlue p Tm a β L` on G7's data (proved)** from the leaves R6 and I2-Tors, the textbook
+Prop `UnramRoots` (used at `p = 2`), and the glue `KerWild` (all `p`) and `DescentPts` (`p ≤ 5`). -/
+theorem localGlue_of_unramRoots (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) (hU : UnramRoots p ℓ) (hpℓ : p ≠ ℓ)
+    {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
+    {a β : GQ → PadicAlgCl ℓ} {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)}
+    (h7 : G0Galois.G7Out A ℓ Tm c ε a β u) {L : IntermediateField ℚ PkgI4.Qbar}
+    [FiniteDimensional ℚ L] (hC : G7Clauses β ε L) (hK : KerWild K β L)
+    (hD : p ≤ 5 → DescentPts A L) : LocalGlue (p := p) Tm a β L :=
+  localGlue_of_descent hR6 hTors hpℓ h7 hC hK hD (fun h2 => betaTwist2_of_unramRoots h2 hC hU)
+
 end TwistSec
 
 end G15Ram
@@ -4777,6 +4938,10 @@ end G15Ram
 end
 
 #print axioms G15Ram.betaTwist2_of_roots
+#print axioms G15Ram.inertia_fix_prime_to_p
+#print axioms G15Ram.beta4Inertia_of_clauses
+#print axioms G15Ram.betaTwist2_of_unramRoots
+#print axioms G15Ram.localGlue_of_unramRoots
 
 noncomputable section
 
