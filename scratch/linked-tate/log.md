@@ -59,3 +59,12 @@
   normalClosure` with explicit args), then part 98d (`phiAt_nonpos`, `sInf_nonneg_of_pos`, `upperSet_sub`,
   `upperAbs_subset_inertiaSet'`, `upperAbsInertia`). Tail: VERIFIED 0 errors, standard axioms; GluePieces3 field removed
   (30 fields); `sixContactMin_of_leaves3` standard.
+- FINDING (by reading N5 L805-852 and g0-mod-field's G7Data): `G7Data` omits `[L:ℚ] ≤ D` (G4Out has it). Two
+  consequences for this task's glue: (1) `LinkedRam` quantified over every γ₀ is false for oversized L (twist by a
+  character of Gal(L'/ℚ) of large conductor at 2), so γ₀ is now tied to G7Data's β/a by an embedding κ : ℚ̄ → ℂ;
+  (2) `KernelFieldBreaks` (and `TateRamAtThree` for large K) are only justified under [L:ℚ] ≤ D (SPECULATIVE
+  counterexample: L ⊇ ℚ(ζ_{2^k}), k > U₀+1, when M_{S_mul}(u) is large). Changes: `scalarTransferQ` now also returns
+  κ with κ(γ₀ σ) = β σ / a σ (preimages under κ of the algebraic values, injectivity); tie hypothesis added to
+  `LinkedFrobRam`, `LinkedRam`; GluePieces3 keeps `linkedRam` (fields kernelFieldBreaks, tateRamAtThree removed; 29
+  fields); part 98b kept as a conditional reduction with a caveat note.
+  Tail: VERIFIED 0 errors, no sorry; scalarTransferQ, linkedTateCoreDR_of, linkedRam_of, sixContactMin_of_leaves3 standard.

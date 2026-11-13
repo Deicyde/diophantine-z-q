@@ -1,5 +1,5 @@
 /-! ## linked-tate: `GluePieces3`, g0-assemble's `GluePieces2` with its fields 27 (`modelG3G6`) and
-28 (`linkedTateData`) replaced by five smaller glue Props (the fields before them are copied
+28 (`linkedTateData`) replaced by four smaller glue Props (the fields before them are copied
 verbatim, with their docstrings, from `scratch/g0-assemble/parts/90_bundle.lean`). -/
 
 section LinkedTateBundleSec
@@ -86,19 +86,14 @@ structure GluePieces3 : Prop where
   qmEndRank : LinkedTate.QMEndRank
   /-- linked-tate, GLUE (N5 L777-786): `FrobTraceLink` for the canonical operators `tmOf`. -/
   linkedFrob : UnramTate.LinkedFrob
-  /-- linked-tate, GLUE (N5 L819-852, D1, D3; field half): the upper breaks of the kernel field
-  `L'` at `p ≤ D` are `≤ U₀`, and `L'` is tame at `p > D`. -/
-  kernelFieldBreaks : UnramTate.KernelFieldBreaks
-  /-- linked-tate, GLUE (N5 L819-852 at `p = 3`): `G_{ℚ_3}^t`, `t > U₀`, acts trivially on
-  `V₅` of the QM model. -/
-  tateRamAtThree : UnramTate.TateRamAtThree
+  /-- linked-tate, GLUE (N5 L819-852, D1-D4): Glazer's wild ramification (`RhoRamWild`) for the
+  canonical descended operators, with `γ₀ = β/a` under an embedding `ℚ̄ → ℂ`. -/
+  linkedRam : UnramTate.LinkedRam
 
 /-- **`GluePieces2` from `GluePieces3`** (linked-tate): the two joint fields of g0-assemble are
 proved, `modelG3G6` from `FibreSimple` (itself from g0-fibresimple's fields, as in
 `gluePieces_of_gluePieces2`), `GoodRedTorsion` and the bundle's R6, R7a, T5, and
-`linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, and `LinkedRam`
-(itself from G3, `KernelFieldBreaks`, `TateRamAtThree` and the proved
-`UnramTate.localInertiaGlobal`, `UnramTate.upperAbsInertia`). -/
+`linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, `LinkedRam`. -/
 theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
     GluePieces2 where
   mulIsogeny := gp3.mulIsogeny
@@ -134,11 +129,7 @@ theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp
   linkedTateData := LinkedTate.linkedTateData_of_frobRam t.t7 t.t26
     (G0FibreSimple.fibreSimple_of_leaves t gp3.mulIsogeny gp3.rigidityHom
       ⟨gp3.finiteDescends, gp3.fibreComTrivial⟩)
-    gp3.qmEndRank (UnramTate.linkedFrobRam_of gp3.linkedFrob
-      (UnramTate.linkedRam_of
-        (LinkedTate.qmModelG3_of r.r7a r.r6 t.t5
-          (LinkedTate.goodRedG3Bridge_of_torsion gp3.goodRedTorsion))
-        gp3.kernelFieldBreaks UnramTate.localInertiaGlobal UnramTate.upperAbsInertia gp3.tateRamAtThree))
+    gp3.qmEndRank (UnramTate.linkedFrobRam_of gp3.linkedFrob gp3.linkedRam)
 
 /-- **G0 after linked-tate**: the leaf bundles and `GluePieces3` imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :

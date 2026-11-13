@@ -9472,9 +9472,10 @@ namespace UnramTate
 
 open G0ModField
 
-/-- **`ScalarTransfer` with target `ℚ̄`** (proved; unram-tate's `scalarTransfer` with
-`PadicAlgCl ℓ` replaced by `ℚ̄`, the proof unchanged otherwise): `γ_ℂ = β/a` takes algebraic
-values, and `ψ : ℚ(γ_ℂ(G_ℚ)) → ℚ̄` (`IsAlgClosed.lift`) gives `γ₀ = ψ ∘ γ_ℂ` with `∂γ₀ = n/d`. -/
+/-- **`ScalarTransfer` with target `ℚ̄`, tied to `β/a`** (proved; unram-tate's `scalarTransfer`
+with `PadicAlgCl ℓ` replaced by `ℚ̄`): `γ_ℂ = β/a` takes algebraic values (unram-tate's argument),
+so for an embedding `κ : ℚ̄ → ℂ` every value has a preimage `γ₀(σ)`; injectivity of `κ` transfers
+`∂γ_ℂ = n/d` to `γ₀`. -/
 theorem scalarTransferQ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (a : GQ → ℝ)
     (β : GQ → ℂˣ) (ε : GQ → GQ → ℂˣ) (n d : GQ → GQ → ℤ)
     (hd : ∀ σ τ, d σ τ ≠ 0)
@@ -9484,7 +9485,8 @@ theorem scalarTransferQ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (
     (ha0 : ∀ σ, 0 < a σ)
     (hcos : ∀ σ, ∀ k ∈ GQL L', a (σ * k) = a σ ∧ β (σ * k) = β σ)
     (hone : ∀ k ∈ GQL L', a k = 1 ∧ β k = 1) :
-    ∃ gam : GQ → PkgI4.Qbar, (∀ σ, gam σ ≠ 0) ∧
+    ∃ (gam : GQ → PkgI4.Qbar) (κ : PkgI4.Qbar →ₐ[ℚ] ℂ),
+      (∀ σ, κ (gam σ) = (β σ : ℂ) / ((a σ : ℝ) : ℂ)) ∧ (∀ σ, gam σ ≠ 0) ∧
       (∀ σ τ, gam σ * gam τ = ((n σ τ : PkgI4.Qbar) / (d σ τ : PkgI4.Qbar)) * gam (σ * τ)) ∧
       (∀ σ, ∀ k ∈ GQL L', gam (σ * k) = gam σ) ∧ (∀ k ∈ GQL L', gam k = 1) := by
   let gC : GQ → ℂ := fun σ => (β σ : ℂ) / ((a σ : ℝ) : ℂ)
@@ -9537,30 +9539,37 @@ theorem scalarTransferQ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (
     rw [hg1 _ hr, _root_.mul_one] at ht
     refine ⟨Polynomial.X ^ r - Polynomial.C t, Polynomial.monic_X_pow_sub_C t hr0.ne', ?_⟩
     simp [Polynomial.eval₂_sub, ht]
-  let F : IntermediateField ℚ ℂ := IntermediateField.adjoin ℚ (Set.range gC)
-  haveI : Algebra.IsAlgebraic ℚ F := IntermediateField.isAlgebraic_adjoin (by
-    rintro x ⟨σ, rfl⟩; exact halg σ)
-  let ψ : F →ₐ[ℚ] PkgI4.Qbar := IsAlgClosed.lift
-  have hmem : ∀ σ, gC σ ∈ F := fun σ => IntermediateField.subset_adjoin ℚ _ ⟨σ, rfl⟩
-  let gam : GQ → PkgI4.Qbar := fun σ => ψ ⟨gC σ, hmem σ⟩
-  refine ⟨gam, ?_, ?_, ?_, ?_⟩
+  let κ : PkgI4.Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
+  have hpre : ∀ σ, ∃ y : PkgI4.Qbar, κ y = gC σ := by
+    intro σ
+    have hint := halg σ
+    set P := minpoly ℚ (gC σ) with hP
+    have hP0 : P.map (algebraMap ℚ PkgI4.Qbar) ≠ 0 :=
+      Polynomial.map_ne_zero (minpoly.ne_zero hint)
+    have hroot : ((P.map (algebraMap ℚ PkgI4.Qbar)).map (κ : PkgI4.Qbar →+* ℂ)).IsRoot (gC σ) := by
+      rw [Polynomial.map_map, κ.comp_algebraMap, Polynomial.IsRoot, Polynomial.eval_map_algebraMap,
+        minpoly.aeval]
+    obtain ⟨y, hy⟩ :=
+      (IsAlgClosed.splits (P.map (algebraMap ℚ PkgI4.Qbar))).mem_range_of_isRoot hP0 hroot
+    exact ⟨y, hy⟩
+  choose gam hgam using hpre
+  have hκ : Function.Injective κ := κ.toRingHom.injective
+  refine ⟨gam, κ, hgam, ?_, ?_, ?_, ?_⟩
   · intro σ h0
     apply hg0 σ
-    have : (⟨gC σ, hmem σ⟩ : F) = 0 := ψ.toRingHom.injective (h0.trans (map_zero ψ).symm)
-    exact congrArg Subtype.val this
+    rw [← hgam, h0, map_zero]
   · intro σ τ
-    have hF : (⟨gC σ, hmem σ⟩ : F) * ⟨gC τ, hmem τ⟩ =
-        algebraMap ℚ F (q σ τ) * ⟨gC (σ * τ), hmem (σ * τ)⟩ := Subtype.ext (hq σ τ)
-    show ψ _ * ψ _ = _ * ψ _
-    rw [← map_mul, hF, map_mul, AlgHom.commutes]
-    congr 1
-    simp only [q, map_div₀, map_intCast]
+    apply hκ
+    rw [map_mul, map_mul, hgam, hgam, map_div₀, map_intCast, map_intCast, hgam, hq]
+    simp only [q]
+    push_cast
+    ring
   · intro σ k hk
-    exact congrArg ψ (Subtype.ext (hgcos σ k hk))
+    apply hκ
+    rw [hgam, hgam, hgcos σ k hk]
   · intro k hk
-    show ψ _ = 1
-    rw [← map_one ψ]
-    exact congrArg ψ (Subtype.ext (hg1 k hk))
+    apply hκ
+    rw [hgam, map_one, hg1 k hk]
 
 /-- **The canonical operators** `Tm g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹)` on `ℚ̄_ℓ ⊗ V_ℓ(A_{L'})`
 (unram-tate's construction, for the points-level maps `m`, the transport `Θ : A(ℚ̄) ≅ A_{L'}(\bar{L'})`
@@ -9614,7 +9623,9 @@ def LinkedFrobRam : Prop :=
         ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
           Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
             (Additive.toMul x).left ≫ F σ) →
-    ∀ (gam : GQ → PkgI4.Qbar), (∀ σ, gam σ ≠ 0) →
+    ∀ (gam : GQ → PkgI4.Qbar),
+      (∃ κ : PkgI4.Qbar →ₐ[ℚ] ℂ, ∀ σ, κ (gam σ) = (β σ : ℂ) / ((a σ : ℝ) : ℂ)) →
+      (∀ σ, gam σ ≠ 0) →
       (∀ σ τ, gam σ * gam τ = ((n σ τ : PkgI4.Qbar) / (d σ τ : PkgI4.Qbar)) * gam (σ * τ)) →
       (∀ σ, ∀ k ∈ GQL L', gam (σ * k) = gam σ) → (∀ k ∈ GQL L', gam k = 1) →
     ∀ (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3),
@@ -9670,8 +9681,9 @@ def LinkedFrob : Prop :=
         (tmOf hLL' A Θ h m 5) (tmOf hLL' A Θ h m 3)
 
 /-- **Glue: Glazer's wild ramification for the canonical descended operators** (linked-tate;
-N5 L819-852, D1-D4). Same data as `LinkedFrob`, and every `γ₀ : G_ℚ → ℚ̄` with `∂γ₀ = n/d`,
-constant on `G_{L'}`-cosets and `1` on `G_{L'}`, and all embeddings `j₅`, `j₃`: `RhoRamWild` for
+N5 L819-852, D1-D4). Same data as `LinkedFrob`, and every `γ₀ : G_ℚ → ℚ̄` that is `β/a` under some embedding `ℚ̄ → ℂ` (the
+scalars of G7, N5 L719-722), with `∂γ₀ = n/d`, constant on `G_{L'}`-cosets and `1` on `G_{L'}`, and
+all embeddings `j₅`, `j₃`: `RhoRamWild` for
 `ρ₅ = (j₅∘β')⁻¹ Tm₅` at `p ≠ 5` and for `ρ₃` at `p = 5` (`β' g = γ₀(hgh⁻¹)`, `a = 1`). GLUE. -/
 def LinkedRam : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
@@ -9703,7 +9715,9 @@ def LinkedRam : Prop :=
         ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
           Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
             (Additive.toMul x).left ≫ F σ) →
-    ∀ (gam : GQ → PkgI4.Qbar), (∀ σ, gam σ ≠ 0) →
+    ∀ (gam : GQ → PkgI4.Qbar),
+      (∃ κ : PkgI4.Qbar →ₐ[ℚ] ℂ, ∀ σ, κ (gam σ) = (β σ : ℂ) / ((a σ : ℝ) : ℂ)) →
+      (∀ σ, gam σ ≠ 0) →
       (∀ σ τ, gam σ * gam τ = ((n σ τ : PkgI4.Qbar) / (d σ τ : PkgI4.Qbar)) * gam (σ * τ)) →
       (∀ σ, ∀ k ∈ GQL L', gam (σ * k) = gam σ) → (∀ k ∈ GQL L', gam k = 1) →
     ∀ (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3),
@@ -9718,9 +9732,9 @@ def LinkedRam : Prop :=
 /-- `LinkedFrobRam` is the conjunction of `LinkedFrob` and `LinkedRam` (proved). -/
 theorem linkedFrobRam_of (hF : LinkedFrob) (hR : LinkedRam) : LinkedFrobRam := by
   intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8
-    gam g1 g2 g3 g4 j5 j3
+    gam g0 g1 g2 g3 g4 j5 j3
   exact ⟨hF Y Φ π u P hctx L A ε N χ β L' hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8,
-    hR Y Φ π u P hctx L A ε N χ β L' hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8 gam g1 g2 g3 g4
+    hR Y Φ π u P hctx L A ε N χ β L' hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8 gam g0 g1 g2 g3 g4
       j5 j3⟩
 
 set_option maxHeartbeats 1000000 in
@@ -9743,7 +9757,7 @@ theorem linkedTateCoreDR_of (hT : PkgI3.TateModuleFree) (hFR : LinkedFrobRam) :
   obtain ⟨Θ, h, hΘ⟩ := tatePoints L L' hLL' A
   have hLL'G : ∀ k, k ∈ GQL L' → k ∈ GQL L := fun k hk => ((hL' k).mp hk).1
   have hβL' : ∀ k, k ∈ GQL L' → β k = 1 := fun k hk => ((hL' k).mp hk).2
-  obtain ⟨gam, hgam0, hgamc, hgamcos, hgam1⟩ := scalarTransferQ L' a β ε n d hd hna hβe ha0
+  obtain ⟨gam, κ, hκgam, hgam0, hgamc, hgamcos, hgam1⟩ := scalarTransferQ L' a β ε n d hd hna hβe ha0
     (fun σ k hk => ⟨(haL σ k (hLL'G k hk)).2.1, by
       have := hβe σ k
       rw [hβL' k hk, _root_.mul_one, eps_right_one L ε hεc hinf h11 σ k (hLL'G k hk),
@@ -9872,7 +9886,7 @@ theorem linkedTateCoreDR_of (hT : PkgI3.TateModuleFree) (hFR : LinkedFrobRam) :
   obtain ⟨c5, u5, h5⟩ := key 5 j5
   obtain ⟨c3, u3, h3⟩ := key 3 j3
   obtain ⟨hF, hRam⟩ := hFR Y Φ π u P hctx L A ε N χ β L' hLL' hD' Θ h hΘ m a n d ha0 haL hmL
-    hmLL hmEnd hmsf (fun σ τ => ⟨hn σ τ, hd σ τ, hnd σ τ, hna σ τ⟩) hmF gam hgam0 hgamc hgamcos
+    hmLL hmEnd hmsf (fun σ τ => ⟨hn σ τ, hd σ τ, hnd σ τ, hna σ τ⟩) hmF gam ⟨κ, hκgam⟩ hgam0 hgamc hgamcos
     hgam1 j5 j3
   exact ⟨fun _ => 1, fun g => gam (h * g * h⁻¹), j5, j3, tmOf hLL' A Θ h m 5, c5, c5, u5,
     tmOf hLL' A Θ h m 3, c3, c3, u3, h5, h3, hF, hRam⟩
@@ -10048,7 +10062,7 @@ theorem three_le_heightD : (3 : ℝ) ≤ (ZInQ.heightD : ℝ) := by
 theorem linkedRam_of (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
     (hLI : LocalInertiaGlobal) (hUI : UpperAbsInertia) (h3 : TateRamAtThree) : LinkedRam := by
   intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD Θ h hΘ m a n d h1 h2 hmL h4 h5 h6 h7 h8
-    gam g1 g2 g3 hgam1 j5 j3
+    gam g0 g1 g2 g3 hgam1 j5 j3
   haveI hNF : NumberField L' := numberField_of_fd L'
   have hK' := hK u P L A ε N χ β L' hLL' hD
   obtain ⟨K, hKL, PK, -, rfl⟩ := hD.1
@@ -10352,7 +10366,7 @@ end LinkedTateG3Sec
 #print axioms HSyn.LinkedTate.goodRedG3Bridge_of_torsion
 
 /-! ## linked-tate: `GluePieces3`, g0-assemble's `GluePieces2` with its fields 27 (`modelG3G6`) and
-28 (`linkedTateData`) replaced by five smaller glue Props (the fields before them are copied
+28 (`linkedTateData`) replaced by four smaller glue Props (the fields before them are copied
 verbatim, with their docstrings, from `scratch/g0-assemble/parts/90_bundle.lean`). -/
 
 section LinkedTateBundleSec
@@ -10439,19 +10453,14 @@ structure GluePieces3 : Prop where
   qmEndRank : LinkedTate.QMEndRank
   /-- linked-tate, GLUE (N5 L777-786): `FrobTraceLink` for the canonical operators `tmOf`. -/
   linkedFrob : UnramTate.LinkedFrob
-  /-- linked-tate, GLUE (N5 L819-852, D1, D3; field half): the upper breaks of the kernel field
-  `L'` at `p ≤ D` are `≤ U₀`, and `L'` is tame at `p > D`. -/
-  kernelFieldBreaks : UnramTate.KernelFieldBreaks
-  /-- linked-tate, GLUE (N5 L819-852 at `p = 3`): `G_{ℚ_3}^t`, `t > U₀`, acts trivially on
-  `V₅` of the QM model. -/
-  tateRamAtThree : UnramTate.TateRamAtThree
+  /-- linked-tate, GLUE (N5 L819-852, D1-D4): Glazer's wild ramification (`RhoRamWild`) for the
+  canonical descended operators, with `γ₀ = β/a` under an embedding `ℚ̄ → ℂ`. -/
+  linkedRam : UnramTate.LinkedRam
 
 /-- **`GluePieces2` from `GluePieces3`** (linked-tate): the two joint fields of g0-assemble are
 proved, `modelG3G6` from `FibreSimple` (itself from g0-fibresimple's fields, as in
 `gluePieces_of_gluePieces2`), `GoodRedTorsion` and the bundle's R6, R7a, T5, and
-`linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, and `LinkedRam`
-(itself from G3, `KernelFieldBreaks`, `TateRamAtThree` and the proved
-`UnramTate.localInertiaGlobal`, `UnramTate.upperAbsInertia`). -/
+`linkedTateData` from T7, T26, `FibreSimple`, `QMEndRank`, `LinkedFrob`, `LinkedRam`. -/
 theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
     GluePieces2 where
   mulIsogeny := gp3.mulIsogeny
@@ -10487,11 +10496,7 @@ theorem gluePieces2_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp
   linkedTateData := LinkedTate.linkedTateData_of_frobRam t.t7 t.t26
     (G0FibreSimple.fibreSimple_of_leaves t gp3.mulIsogeny gp3.rigidityHom
       ⟨gp3.finiteDescends, gp3.fibreComTrivial⟩)
-    gp3.qmEndRank (UnramTate.linkedFrobRam_of gp3.linkedFrob
-      (UnramTate.linkedRam_of
-        (LinkedTate.qmModelG3_of r.r7a r.r6 t.t5
-          (LinkedTate.goodRedG3Bridge_of_torsion gp3.goodRedTorsion))
-        gp3.kernelFieldBreaks UnramTate.localInertiaGlobal UnramTate.upperAbsInertia gp3.tateRamAtThree))
+    gp3.qmEndRank (UnramTate.linkedFrobRam_of gp3.linkedFrob gp3.linkedRam)
 
 /-- **G0 after linked-tate**: the leaf bundles and `GluePieces3` imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves) (gp3 : GluePieces3) :
