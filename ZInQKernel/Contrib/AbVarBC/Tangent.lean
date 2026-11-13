@@ -16,6 +16,7 @@ open scoped TensorProduct
 
 set_option linter.style.haveILetI false
 set_option linter.unusedSectionVars false
+set_option linter.unusedSimpArgs false
 
 noncomputable section
 
@@ -297,5 +298,95 @@ theorem eq_of_D_eq (hU : IsAffineOpen U) {a b : ptR (K := K) (TrivSqZeroExt K V)
   · exact congrFun h x
 
 end Deriv
+
+/-! ## §5. Additivity: `D (v * w) = D v + D w` -/
+
+section Mul
+
+open TrivSqZeroExt
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) {U : A.X.left.Opens}
+  (ho : orig A (IsLocalRing.closedPoint K) ∈ U)
+
+theorem map_fst_inr :
+    (map (LinearMap.fst K K K)).comp (map (LinearMap.inr K K K)) =
+      (inlAlgHom K K K).comp (fstHom K K K) := by
+  rw [← map_comp_map]
+  apply algHom_ext
+  intro x
+  rw [map_inr, AlgHom.comp_apply, fstHom_apply, fst_inr]
+  simp only [LinearMap.comp_apply, LinearMap.inr_apply, LinearMap.fst_apply,
+    LinearMap.inl_apply, LinearMap.snd_apply, inr_zero, map_zero]
+
+theorem map_snd_inl :
+    (map (LinearMap.snd K K K)).comp (map (LinearMap.inl K K K)) =
+      (inlAlgHom K K K).comp (fstHom K K K) := by
+  rw [← map_comp_map]
+  apply algHom_ext
+  intro x
+  rw [map_inr, AlgHom.comp_apply, fstHom_apply, fst_inr]
+  simp only [LinearMap.comp_apply, LinearMap.inr_apply, LinearMap.fst_apply,
+    LinearMap.inl_apply, LinearMap.snd_apply, inr_zero, map_zero]
+
+theorem map_fst_inl :
+    (map (LinearMap.fst K K K)).comp (map (LinearMap.inl K K K)) = AlgHom.id K _ := by
+  rw [← map_comp_map, LinearMap.fst_comp_inl, map_id]
+
+theorem map_snd_inr :
+    (map (LinearMap.snd K K K)).comp (map (LinearMap.inr K K K)) = AlgHom.id K _ := by
+  rw [← map_comp_map, LinearMap.snd_comp_inr, map_id]
+
+theorem map_add_inl :
+    (map (LinearMap.fst K K K + LinearMap.snd K K K)).comp (map (LinearMap.inl K K K)) =
+      AlgHom.id K _ := by
+  rw [← map_comp_map]
+  convert map_id (R' := K) (M := K)
+  ext
+  simp
+
+theorem map_add_inr :
+    (map (LinearMap.fst K K K + LinearMap.snd K K K)).comp (map (LinearMap.inr K K K)) =
+      AlgHom.id K _ := by
+  rw [← map_comp_map]
+  convert map_id (R' := K) (M := K)
+  ext
+  simp
+
+theorem spec_inl_fst_comp {a : ptR (K := K) (TrivSqZeroExt K K) ⟶ A.X} (ha : AtOrigin A a) :
+    specHom ((inlAlgHom K K K).comp (fstHom K K K)) ≫ a = 1 := by
+  rw [← specHom_comp, Category.assoc]
+  unfold AtOrigin at ha
+  rw [ha, MonObj.comp_one]
+
+/-- **Additivity of the derivation under the group law.** -/
+theorem D_mul (hU : IsAffineOpen U) {v w : ptR (K := K) (TrivSqZeroExt K K) ⟶ A.X}
+    (hv : AtOrigin A v) (hw : AtOrigin A w) :
+    D A ho (atOrigin_mul A hv hw) = D A ho hv + D A ho hw := by
+  set c := (specHom (map (LinearMap.inl K K K)) ≫ v) * (specHom (map (LinearMap.inr K K K)) ≫ w)
+    with hcdef
+  have hc : AtOrigin A c := atOrigin_mul A (atOrigin_map A _ hv) (atOrigin_map A _ hw)
+  have e1 : specHom (map (LinearMap.fst K K K)) ≫ c = v := by
+    rw [hcdef, MonObj.comp_mul, ← Category.assoc, ← Category.assoc, specHom_comp, specHom_comp,
+      map_fst_inl, map_fst_inr, specHom_id, Category.id_comp, spec_inl_fst_comp A hw,
+      _root_.mul_one]
+  have e2 : specHom (map (LinearMap.snd K K K)) ≫ c = w := by
+    rw [hcdef, MonObj.comp_mul, ← Category.assoc, ← Category.assoc, specHom_comp, specHom_comp,
+      map_snd_inl, map_snd_inr, specHom_id, Category.id_comp, spec_inl_fst_comp A hv,
+      _root_.one_mul]
+  have e3 : specHom (map (LinearMap.fst K K K + LinearMap.snd K K K)) ≫ c = v * w := by
+    rw [hcdef, MonObj.comp_mul, ← Category.assoc, ← Category.assoc, specHom_comp, specHom_comp,
+      map_add_inl, map_add_inr, specHom_id, Category.id_comp, Category.id_comp]
+  have h1 := (tRing_congr A ho e1 (atOrigin_map A _ hc) hv).symm.trans
+    (tRing_specHom A ho hU hc _)
+  have h2 := (tRing_congr A ho e2 (atOrigin_map A _ hc) hw).symm.trans
+    (tRing_specHom A ho hU hc _)
+  have h3 := (tRing_congr A ho e3 (atOrigin_map A _ hc) (atOrigin_mul A hv hw)).symm.trans
+    (tRing_specHom A ho hU hc _)
+  funext x
+  simp only [D, Pi.add_apply, h1, h2, h3, CommRingCat.hom_comp, RingHom.comp_apply,
+    CommRingCat.hom_ofHom, AlgHom.coe_toRingHom, snd_map, LinearMap.add_apply,
+    LinearMap.fst_apply, LinearMap.snd_apply]
+
+end Mul
 
 end ZInQ.Contrib.AbVarBC.Tangent
