@@ -200,4 +200,121 @@ theorem restrictNormal_compat (n : ℕ) [NeZero n] (σ : GQp p) (x : muField (p 
 
 end Level
 
+/-! ### Square roots of `ℂˣ`-valued characters -/
+
+section SqrtC
+
+theorem complexUnits_pow_surj {n : ℕ} (hn : n ≠ 0) : Function.Surjective (fun a : ℂˣ => a ^ n) := by
+  intro x
+  obtain ⟨z, hz⟩ := IsAlgClosed.exists_pow_nat_eq (x : ℂ) (Nat.pos_of_ne_zero hn)
+  have hz0 : z ≠ 0 := by
+    rintro rfl
+    rw [zero_pow hn] at hz
+    exact x.ne_zero hz.symm
+  exact ⟨Units.mk0 z hz0, Units.ext (by simp [hz])⟩
+
+/-- **A `ℂˣ`-valued character of an abelian group is a square iff it kills the `2`-torsion.**
+(`ℂˣ` is divisible, hence an injective `ℤ`-module.) -/
+theorem exists_sqrt_iff {Γ : Type*} [CommGroup Γ] (χ : Γ →* ℂˣ) :
+    (∃ ψ : Γ →* ℂˣ, ∀ g, ψ g ^ 2 = χ g) ↔ ∀ g : Γ, g ^ 2 = 1 → χ g = 1 := by
+  constructor
+  · rintro ⟨ψ, hψ⟩ g hg
+    rw [← hψ, ← map_pow, hg, map_one]
+  · intro h
+    letI : RootableBy ℂˣ ℕ := rootableByOfPowLeftSurj _ _ complexUnits_pow_surj
+    letI : RootableBy ℂˣ ℤ := Group.rootableByIntOfRootableByNat ℂˣ
+    letI : DivisibleBy (Additive ℂˣ) ℤ := divisibleByOfSMulRightSurj _ _ (fun {n} hn a => by
+      obtain ⟨b, hb⟩ := RootableBy.surjective_pow ℂˣ ℤ hn (Additive.toMul a)
+      exact ⟨Additive.ofMul b, by show n • Additive.ofMul b = a; rw [← ofMul_zpow]; exact congrArg Additive.ofMul hb⟩)
+    let χa : Additive Γ →+ Additive ℂˣ := MonoidHom.toAdditive χ
+    let d : Additive Γ →+ Additive Γ :=
+      { toFun := fun g => 2 • g, map_zero' := smul_zero 2, map_add' := fun a b => smul_add 2 a b }
+    have hker : d.ker ≤ χa.ker := fun g hg => by
+      have h2 : (Additive.toMul g) ^ 2 = 1 := AddMonoidHom.mem_ker.mp hg
+      exact AddMonoidHom.mem_ker.mpr (congrArg Additive.ofMul (h _ h2))
+    let χq := QuotientAddGroup.lift d.ker χa hker
+    let e := QuotientAddGroup.quotientKerEquivRange d
+    let χr : d.range →+ Additive ℂˣ := χq.comp e.symm.toAddMonoidHom
+    obtain ⟨ψ, hψ⟩ := (Module.Baer.of_divisible (Additive ℂˣ)).extension_property_addMonoidHom
+      d.range.subtype Subtype.val_injective χr
+    refine ⟨MonoidHom.toAdditive.symm ψ, fun g => ?_⟩
+    have hm : d (Additive.ofMul g) ∈ d.range := AddMonoidHom.mem_range.mpr ⟨_, rfl⟩
+    have h1 := DFunLike.congr_fun hψ ⟨d (Additive.ofMul g), hm⟩
+    have h2 : e.symm ⟨d (Additive.ofMul g), hm⟩ = ((Additive.ofMul g : Additive Γ) : _ ⧸ d.ker) := by
+      rw [AddEquiv.symm_apply_eq]; rfl
+    have h3 : ψ (d (Additive.ofMul g)) = χa (Additive.ofMul g) := by
+      rw [show ψ (d (Additive.ofMul g)) = (ψ.comp d.range.subtype) ⟨d (Additive.ofMul g), hm⟩
+        from rfl, h1]
+      simp only [χr, AddMonoidHom.comp_apply, AddEquiv.coe_toAddMonoidHom, h2, χq,
+        QuotientAddGroup.lift_mk]
+    have h4 : ψ (d (Additive.ofMul g)) = 2 • ψ (Additive.ofMul g) := map_nsmul ψ 2 _
+    rw [h4] at h3
+    exact congrArg Additive.toMul h3
+
+end SqrtC
+
+/-! ### Two-torsion at the bigger level (from the proof of `sqrt_criterion_level`) -/
+
+section Torsion
+
+open GlueSqrtLocal
+
+/-- At the level `L = ℚ_p(μ_{p^{k+1} m'})` with `ord_{m'}(p) = 2 ord_m(p)`, an element of order
+`≤ 2` restricts to `1` or to `τ₋₁` on `K = ℚ_p(μ_{p^k m})`. -/
+theorem restrict_sq_eq_one {p : ℕ} [hp : Fact p.Prime] {L : Type} [Field L] [Algebra ℚ_[p] L]
+    [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]
+    (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m m' : ℕ) [NeZero m] [NeZero m'] (hcop : p.Coprime m) (hcop' : p.Coprime m')
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K] [IsCyclotomicExtension {p ^ (k + 1) * m'} ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hm : m ∣ m')
+    (hord : orderOf (ZMod.unitOfCoprime p hcop') = 2 * orderOf (ZMod.unitOfCoprime p hcop))
+    (g' : Gal(L/ℚ_[p])) (hg2 : g' ^ 2 = 1) :
+    galToProd (p := p) (L := K) k m (g'.restrictNormal K) = 1 ∨
+      galToProd (p := p) (L := K) k m (g'.restrictNormal K) = (-1, 1) := by
+  have hk : k ≤ k + 1 := Nat.le_succ k
+  have hres := fun g => galToProd_restrict (p := p) (L := L) (k + 1) m' K k m hk hm g
+  set a := (galToProd (p := p) (L := L) (k + 1) m' g').1 with ha_def
+  set b := (galToProd (p := p) (L := L) (k + 1) m' g').2 with hb_def
+  have hsq : galToProd (p := p) (L := L) (k + 1) m' g' ^ 2 = 1 := by
+    rw [← map_pow, hg2, map_one]
+  have ha : a ^ 2 = 1 := by rw [ha_def, ← Prod.pow_fst, hsq, Prod.fst_one]
+  have hb : b ^ 2 = 1 := by rw [hb_def, ← Prod.pow_snd, hsq, Prod.snd_one]
+  have hbmem : b ∈ Subgroup.zpowers (ZMod.unitOfCoprime p hcop') := by
+    have hmem : galToProd (p := p) (L := L) (k + 1) m' g' ∈
+        (galToProd (p := p) (L := L) (k + 1) m').range := ⟨g', rfl⟩
+    rw [range_galToProd (k + 1) m' hcop'] at hmem
+    exact hmem.2
+  obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hbmem
+  have h2j : (orderOf (ZMod.unitOfCoprime p hcop') : ℤ) ∣ j * 2 := by
+    rw [orderOf_dvd_iff_zpow_eq_one, zpow_mul, hj]
+    exact_mod_cast hb
+  rw [hord] at h2j
+  push_cast at h2j
+  have hfj : (orderOf (ZMod.unitOfCoprime p hcop) : ℤ) ∣ j := by
+    rw [mul_comm j] at h2j
+    exact (mul_dvd_mul_iff_left (by norm_num : (2 : ℤ) ≠ 0)).mp h2j
+  have hbK : ZMod.castHom hm (ZMod m) (b : ZMod m') = 1 := by
+    have hU : Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom (ZMod.unitOfCoprime p hcop') =
+        ZMod.unitOfCoprime p hcop := Units.ext (by simp)
+    have := congrArg (Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom) hj
+    rw [map_zpow, hU, orderOf_dvd_iff_zpow_eq_one.mp hfj] at this
+    have := congrArg Units.val this
+    simpa using this.symm
+  obtain ⟨h1, h2⟩ := hres g'
+  rw [← ha_def] at h1
+  rw [← hb_def, hbK] at h2
+  have hsnd : (galToProd (p := p) (L := K) k m (g'.restrictNormal K)).2 = 1 := Units.ext h2
+  rcases redU_sq_eq_one hp.out k a ha with hpos | hneg
+  · left
+    ext
+    · rw [h1, ← redU_val, hpos]; rfl
+    · rw [hsnd]; rfl
+  · right
+    ext
+    · rw [h1, ← redU_val, hneg]
+    · rw [hsnd]
+
+end Torsion
+
 end T30
