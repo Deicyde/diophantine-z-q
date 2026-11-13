@@ -60,3 +60,12 @@ origin/wip/g0-split (c20fa62b), `scratch/g0-split/part_split.lean`, not merged.
   `letI` instances as Mathlib's `absoluteGaloisGroup.map`.
 - New named glue: `DirichletOfFinite` (finite-image character = Dirichlet character at Frobenius;
   from T17). True (argument in the report §3).
+
+## Global → local inertia (02:19-02:22)
+- §10: `decomp_spec`, `vj` (place `{‖j x‖ ≤ 1}`), `mem_vj`, `norm_aut` (Mathlib
+  `spectralNorm_eq_of_equiv`), `liesOver_vj` (`LadicCond.norm_p_kbar`),
+  `localUnram_of_unramifiedAt`: PkgI4 `UnramifiedAt p` ⇒ `restrictLocal p` trivial on
+  `LadicCond.inertiaSet`. Needed `open scoped Pointwise`, `IsLocalRing.ResidueField.residue_smul`.
+- `LocalRamG`, `G15RamG` (clause (iii) = G11's output), `g15Ram_of_G`, `modularConstituent_tail_G`.
+- run13: exit 0, no error, no sorry; 19 `#print axioms` standard (VERIFIED). NewForm.lean 2505
+  lines, part_new.lean 991 lines.
