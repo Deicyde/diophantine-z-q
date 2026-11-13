@@ -28,7 +28,7 @@ def UnramRoots : Prop :=
   namespace `G15Ram`, same `open PkgI4 (GQp)` / `open LadicCond` (VERIFIED). Its vocabulary
   (`GQp = Gal(ℚ̄_p/ℚ_p)` on `PadicAlgCl p`, `Fld p` = intermediate fields of `ℚ̄_p/ℚ_p`,
   `fixSet F = G_F`, `inertiaSet` = metric inertia `‖σx − x‖ < 1` for `‖x‖ ≤ 1`) is that of the
-  pinned-free build file `ZInQKernel/HDecomp/Conductor/LadicCond.lean`, imported unchanged.
+  build file `ZInQKernel/HDecomp/Conductor/LadicCond.lean` (not pinned upstream), imported unchanged.
   `G_F ∩ I_{ℚ_p} = I_F`, so `fixSet F ∩ inertiaSet` is the inertia group of `F` (STANDARD).
 - **Hypotheses not stronger than needed (VERIFIED by reading).** `ψ` is an arbitrary function,
   required only to be multiplicative on `G_F`, trivial on *some* open `G_{F''}` (`F''` need not
@@ -116,4 +116,39 @@ new modules are built by name).
 
 ## 3. Build results
 
-BUILD-RESULTS-PLACEHOLDER
+All VERIFIED on this host (Lean 4.35.0, Mathlib v4.35.0), logs in `scratch/frob-contrib/`:
+
+- `lake build` of the nine new modules (`ZInQKernel.Contrib.AbsFrob.{Basic,AlgFrobRed,Sanity}`,
+  `ZInQKernel.Contrib.UnramRoots.{Reduction,Metric,FrobData,Procyclic,Main,Sanity}`): **succeeds**,
+  exit 0, no errors, no `sorry` (`build_all.txt`; warnings are linter/deprecation only, inherited
+  from the scratch proofs). The Tau Ceti oleans were reused from unram-roots' worktree; lake
+  accepted them.
+- Bodies of the adopted modules are identical to their scratch sources apart from import lines,
+  the adoption comment, `noncomputable section` and removed `#print` lines (checked by `diff`).
+- `scratch/frob-contrib/CheckFrob.lean` (new modules only) and `scratch/frob-contrib/Check.lean`
+  (a copy of `scratch/contrib-check/Check.lean` with the four new imports and 13 `#print axioms`
+  lines appended) compile with `lake env lean`. Every declaration printed, including the 13 new
+  ones (`AbsFrobDef.fr`, `fr_naturality`, `fr_Spec`, `fr_naturality'`, `fr_Spec_zmod`,
+  `fr_Spec_polynomial_ne_id`, `AlgFrobRedRed.absFrob`, `UnramRootsTask.unramRoots`,
+  `unramRoots_all`, `unramRoots_two`, `unramProcyclic_of_frobData`, `frobData_exists`,
+  `UnramRootsTask.Sanity.unramRoots_two_nonvacuous`), depends on
+  `[propext, Classical.choice, Quot.sound]` only (`run_Check.txt`, `run_CheckFrob.txt`). Since
+  `Check.lean` imports all the other Contrib modules too, the new modules coexist with them
+  without name clashes.
+- No existing file changed: `git diff --name-status` from the post-merge commit lists only
+  added files; none is in `scratch/upstream/baseline-lean-files.txt`.
+  `ThirdParty/TauCeti/NOTICE` is unchanged (nothing new vendored).
+
+## 4. What this gives / what remains
+
+- `G15Ram.UnramRoots p ℓ` is now a theorem in the build tree, for every `p` and `ℓ`. When
+  local-glue's `G15Ram.localGlue_of_unramRoots` / `localGlue_of_baseChange` are adopted, the `hU`
+  / `hU2` hypotheses can be discharged by `UnramRootsTask.unramRoots_all` / `unramRoots_two`
+  (exact types; SPECULATIVE until that adoption, since local-glue is still scratch).
+- `AlgFrobRedRed.AbsFrob` is a theorem in the build tree; alg-frob-red's `frobMorph_of`
+  and the AlgFrobRed chain can consume `AlgFrobRedRed.absFrob` once adopted. afr-absfrob's second
+  result (`fExtendGen_of_nmp`, in `scratch/afr-absfrob/AfrAbsFrob.lean`) was not part of this
+  task and is not adopted.
+- The new modules are not imported by the root `ZInQKernel.lean` (an existing file); a plain
+  `lake build ZInQKernel` therefore does not build them. Build them by module name or add them to
+  the root at integration time.

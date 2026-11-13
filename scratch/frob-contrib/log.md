@@ -6,3 +6,6 @@
 - 10:56 UnramRoots.Sanity lake build killed by harness background time limit (was rebuilding LadicCond); load 155 > 150 -> holding.
 - 11:08 load back to 17. lake build UnramRoots chain: Reduction, Metric, FrobData, Procyclic, Main OK (warnings only); Sanity had 3 errors (Padic.nonarchimedean name, CharZero via charZero_of_injective_algebraMap, Decidable -> open scoped Classical in); fixed.
 - 11:12 lake build of all 9 new modules: exit 0 (build_all.txt). CheckFrob.lean: 13 declarations, all [propext, Classical.choice, Quot.sound], no sorryAx (run_CheckFrob.txt). VERIFIED.
+- 11:14 seeded ZInQKernel oleans from ~/dzq-wt/dim-contrib (cp -an); lake build of all Check.lean imports: exit 0 (11259 jobs, build_checkdeps.txt).
+- 11:15 lake env lean scratch/frob-contrib/Check.lean: all 26 #print axioms standard, no sorryAx (run_Check.txt). VERIFIED.
+- body diff of adopted modules vs scratch sources: identical (modulo imports/adoption comment/noncomputable section/#print).
