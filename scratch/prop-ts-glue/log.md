@@ -129,13 +129,8 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `propTSAll_of_pieces'''` (final composite: VerticalResidueDegree in place of
   VerticalResidueSeparable). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
 
-## Step 12: wrap-up
-- Final file state: PropTSGlue.lean = PropTS.lean + PurityCopy.lean.part + Appendix.lean.part
-  (3399 lines). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
-- Not attempted to completion: `VerticalResidueDegree` (route recorded in the report §6:
-  `Ideal.sum_ramification_inertia_eq_finrank` over the DVR ℤ[X]_{(p)} plus residue-field
-  transport; `inertiaDeg_map_eq_inertiaDeg` needs a maximal base prime), `SNSpecialize`, the
-  Kummer pieces, the Hecke pieces (all open glue, unproved).
+## Step 12: intermediate wrap-up (superseded by step 13)
+- Docs and fleet summary written at this point; `VerticalResidueDegree` was then proved in step 13.
 
 ## Step 13: VerticalResidueDegree PROVED; SpecNonMeeting from SNSpecialize alone, compiled
 - Developed in `VRD.lean` (Mathlib only; compiled, standard axioms): `vrd_aux`. Route:
@@ -152,3 +147,11 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   Props: SNSpecialize, seven Kummer pieces, five Hecke pieces; plus T2, R1R2fp, MobiusGlue).
 - Compile: 0 errors, 38 PropTSGlue axiom lines all standard, 48 linter warnings; prefix IDENTICAL,
   purity copy CONTAINED (VERIFIED).
+
+## Step 14: final state
+- Final composite `propTSAll_final`: PropTSAll from T2, R1R2fp, MobiusGlue and 13 open glue Props
+  (SNSpecialize; KummerCompositum, KummerAbhyankarFinGlue, KummerOtherBranchFin, KummerVerticalFin,
+  KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf; HeckeIrreducible,
+  HeckeNormalizationIrr, HeckeDegree, HeckeBranch, HeckeNoVertRam).
+- Unproved (open glue, not attempted to completion): SNSpecialize (route in report §6), the seven
+  Kummer pieces, the five Hecke pieces.
