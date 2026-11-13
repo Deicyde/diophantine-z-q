@@ -170,6 +170,72 @@ theorem AAr_eq_mul : AAr d = cAr M d (coeff g) * bAr g := by
     · intro k _ hk; simp [locC, hk, hp2d]
     · intro h; simp at h
 
+
+omit [NeZero M] hMN hχ in
+include hd4 hsq in
+/-- `v_p(32 d²) ≥ 2` for `p ∣ 2d`. -/
+theorem two_le_factorization_level {p : ℕ} (hp : p.Prime) (h : p ∣ 2 * d) :
+    2 ≤ (32 * d ^ 2).factorization p := by
+  have hN : 32 * d ^ 2 ≠ 0 := mul_ne_zero (by norm_num) (pow_ne_zero 2 (NeZero.ne d))
+  rw [← hp.pow_dvd_iff_le_factorization hN]
+  rcases (Nat.Prime.dvd_mul hp).mp h with h2 | hd
+  · have : p = 2 := (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h2
+    subst this
+    exact Dvd.dvd.mul_right (by norm_num : 2 ^ 2 ∣ 32) _
+  · exact Dvd.dvd.mul_left (pow_dvd_pow_of_dvd hd 2) _
+
+omit [NeZero d] hMN hχ in
+theorem dirichletLift_factorsThrough_of_one (hχ' : g.χ = 1) (q : ℕ) (hq : q ∣ M) :
+    g.dirichletLift.FactorsThrough q :=
+  ⟨hq, 1, by rw [dirichletLift_eq_one g hχ', DirichletCharacter.changeLevel_one]⟩
+
+include hd4 hsq in
+/-- **The support of `c`**: `c x ≠ 0 ⇒ x ∣ N/M`. -/
+theorem dvd_of_cAr_ne_zero {x : ℕ} (hx : cAr M d (coeff g) x ≠ 0) : x ∣ 32 * d ^ 2 / M := by
+  have hN : 32 * d ^ 2 ≠ 0 := mul_ne_zero (by norm_num) (pow_ne_zero 2 (NeZero.ne d))
+  have hM0 : M ≠ 0 := NeZero.ne M
+  have hx0 : x ≠ 0 := by rintro rfl; simp at hx
+  have hP0 : 32 * d ^ 2 / M ≠ 0 := by
+    intro h0
+    rw [Nat.div_eq_zero_iff] at h0
+    rcases h0 with h0 | h0
+    · exact hM0 h0
+    · exact absurd (Nat.le_of_dvd (by positivity) hMN) (by omega)
+  rw [← Nat.factorization_le_iff_dvd hx0 hP0, Nat.factorization_div hMN]
+  intro p
+  rw [cAr_apply hx0, Finsupp.prod, Finset.prod_ne_zero_iff] at hx
+  simp only [Finsupp.coe_tsub, Pi.sub_apply]
+  by_cases hpx : p ∈ x.factorization.support
+  · have hloc := hx p hpx
+    have hp : p.Prime := Nat.prime_of_mem_primeFactors (Nat.support_factorization x ▸ hpx)
+    have hxp : x.factorization p ≠ 0 := Finsupp.mem_support_iff.mp hpx
+    unfold locC at hloc
+    rw [if_neg hxp] at hloc
+    by_cases hp2d : p ∣ 2 * d
+    · rw [if_pos hp2d] at hloc
+      have h2N := two_le_factorization_level hd4 hsq hp hp2d
+      by_cases h1 : x.factorization p = 1
+      · rw [if_pos h1] at hloc
+        -- `b_p ≠ 0`, so `p² ∤ M`
+        have hMp : M.factorization p < (32 * d ^ 2).factorization p := by
+          by_contra hle
+          rw [not_lt] at hle
+          apply hloc
+          have hsq' : p ^ 2 ∣ M := (hp.pow_dvd_iff_le_factorization hM0).mpr (h2N.trans hle)
+          rw [neg_eq_zero]
+          exact Newform.qExpansion_coeff_prime_eq_zero_of_sq_dvd g hp hsq'
+            (dirichletLift_factorsThrough_of_one g hχ _ (Nat.div_dvd_of_dvd
+              ((dvd_pow_self p two_ne_zero).trans hsq')))
+        omega
+      · rw [if_neg h1] at hloc
+        split_ifs at hloc with h2
+        · have hM0p : M.factorization p = 0 :=
+            Nat.factorization_eq_zero_of_not_dvd h2.2
+          omega
+        · exact absurd rfl hloc
+    · rw [if_neg hp2d] at hloc; exact absurd rfl hloc
+  · rw [Finsupp.notMem_support_iff.mp hpx]; exact Nat.zero_le _
+
 end Conv
 
 end ZInQ.GZTheta
