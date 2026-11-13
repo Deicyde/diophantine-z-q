@@ -9,9 +9,18 @@ import ZInQKernel.HDecomp.Objects
 Mathlib v4.35 defines `Scheme.EllAdicCohomology X ℓ n` (pro-étale cohomology with coefficients in
 the sheaf `U ↦ C(U, ℤ_ℓ)`, Bhatt–Scholze 2015 Def. 6.8.1) as an abelian group only. This file
 1. gives it its `ℤ_ℓ`-module structure (multiplication by `a ∈ ℤ_ℓ` on the coefficient sheaf,
-   applied through the functoriality `Sheaf.H.map` of sheaf cohomology);
-2. checks the structure is the expected one: `H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)`;
-3. states T10 as a `ℤ_ℓ`-linear isomorphism `H¹(A_K̄, ℤ_ℓ) ≃ₗ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`.
+   applied through the functoriality `Sheaf.H.map` of sheaf cohomology), and checks it:
+   `H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)` (`H0Equiv`);
+2. constructs the transport `e_* : Hⁿ(X, ℤ_ℓ) → Hⁿ(Y, ℤ_ℓ)` along a scheme isomorphism
+   `e : X ≅ Y` (equivalence of pro-étale sites → equivalence of sheaf categories → `Ext`), proves it
+   `ℤ_ℓ`-linear (`transport_smul`) and bijective (`transport_bijective`), and checks it in degree 0
+   (`transport_H0`: it is `f ↦ f ∘ e⁻¹` on global sections);
+3. defines the Galois action `galH` of `Gal(K̄/K)` on `H¹(A_K̄, ℤ_ℓ)` by transport along
+   `1 × Spec(σ⁻¹)`;
+4. states T10: `T10_linIso` (`ℤ_ℓ`-linear isomorphism `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`) and
+   **`T10_TateDuality`** (the same, Galois-equivariant), with `T10_TateDuality → T10_linIso →
+   T10_groupIso` (leaf-push2's form) and the content check `T10_linIso_zero`.
+No `sorry`; only the axioms `propext`, `Classical.choice`, `Quot.sound`.
 -/
 
 open CategoryTheory Limits AlgebraicGeometry

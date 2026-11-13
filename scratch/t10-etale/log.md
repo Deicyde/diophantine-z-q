@@ -42,3 +42,10 @@
 - T10Etale.lean: + `ext_precomp_iso_bijective`, `ext_postcomp_iso_bijective`, **`transport_bijective`**
   (via `Functor.mapExt_bijective_of_preservesInjectiveObjects`; EnoughInjectives of the Grothendieck
   abelian sheaf category found automatically). So `galH σ` is a bijection for every σ. COMPILED.
+- 00:05 transport_mk₀, unit_ellIso_sections, transport_homEquiv, **transport_H0** COMPILED (degree-0
+  transport = identity on C(X, ℤ_ℓ) at the terminal object (X →e Y)).
+- 00:08 full file (530 lines) recompiled after header edit; all `#print axioms`: propext,
+  Classical.choice, Quot.sound.
+- Model review (subagent, read-only, no Lean): no DEFECT; conventions OK (independent torsor
+  computation); minor RISKs: pro-étale/étale comparison (literature), Milne sub-item number.
+- docs/research/t10-etale.md written.
