@@ -2711,6 +2711,62 @@ theorem specNonMeeting_of_pieces4 (hPur : PurityGlobalDim2.{0}) (hVS : VerticalR
     (hS : SNSpecialize) : SpecNonMeeting :=
   specNonMeeting_of_pieces''' hPur (snVertical_of_sep hVS) hS
 
+/-- **An extension of degree `< p` in characteristic `p` is separable.** -/
+theorem isSeparable_of_finrank_lt {K L : Type*} [Field K] [Field L] [Algebra K L]
+    [FiniteDimensional K L] (p : ℕ) [Fact p.Prime] [CharP K p]
+    (h : Module.finrank K L < p) : Algebra.IsSeparable K L := by
+  refine ⟨fun x => ?_⟩
+  have hint : IsIntegral K x := IsIntegral.of_finite K x
+  have hirr := minpoly.irreducible hint
+  rcases separable_or p hirr with hs | ⟨-, g, hg, hgf⟩
+  · exact hs
+  · exfalso
+    have hdeg := minpoly.natDegree_le (A := K) (B := L) x
+    have h1 : (minpoly K x).natDegree = g.natDegree * p := by rw [← hgf, natDegree_expand]
+    have hg1 : 1 ≤ g.natDegree := by
+      rw [Nat.one_le_iff_ne_zero]
+      intro h0
+      have := natDegree_eq_zero.mp h0
+      obtain ⟨c, rfl⟩ := this
+      exact hg.not_isUnit (isUnit_C.mpr (isUnit_iff_ne_zero.mpr (by
+        rintro rfl
+        simp at hg)))
+    have : p ≤ (minpoly K x).natDegree := by rw [h1]; nlinarith
+    omega
+
+/-- **Glue (STANDARD, `Σ e f = n`): the residue degree at a vertical prime is at most
+`[E : ℚ(X)]`.** For every prime `q` of the integral closure `C` of `ℤ[X]` in `E` over `pℤ[X]`,
+`κ(q)/κ(pℤ[X])` is finite of degree `≤ [E : ℚ(X)]` (localize at `pℤ[X]`: `ℤ[X]_{(p)}` is a DVR,
+`C_{(p)}` is free of rank `[E : ℚ(X)]`, and `κ(q)` is a quotient of `C_{(p)}/p`). -/
+def VerticalResidueDegree : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime),
+    letI := intPolyAlg E
+    haveI := vertPrime_isPrime p hp
+    ∀ (q : Ideal (integralClosure ℤ[X] E)) [q.IsPrime] [q.LiesOver (vertPrime p)],
+      letI := Localization.AtPrime.algebraOfLiesOver (vertPrime p) q
+      FiniteDimensional (vertPrime p).ResidueField q.ResidueField ∧
+        Module.finrank (vertPrime p).ResidueField q.ResidueField ≤
+          Module.finrank (RatFunc ℚ) E
+
+/-- **`VerticalResidueSeparable` from the residue degree bound** (compiled). -/
+theorem verticalResidueSeparable_of_degree (hD : VerticalResidueDegree) :
+    VerticalResidueSeparable := by
+  intro E _ _ _ _ _ p hp hdeg
+  letI := intPolyAlg E
+  haveI := vertPrime_isPrime p hp
+  have : Fact p.Prime := ⟨hp⟩
+  refine ⟨fun q _ _ => ?_⟩
+  letI := Localization.AtPrime.algebraOfLiesOver (vertPrime p) q
+  obtain ⟨hfin, hle⟩ := hD E p hp q
+  have hchar : CharP (vertPrime p).ResidueField p := by
+    rw [CharP.charP_iff_prime_eq_zero hp]
+    have hmem : C (p : ℤ) ∈ vertPrime p :=
+      Ideal.mem_map_of_mem _ (Ideal.mem_span_singleton_self _)
+    have := Ideal.algebraMap_residueField_eq_zero.mpr hmem
+    simpa using this
+  exact isSeparable_of_finrank_lt p (lt_of_le_of_lt hle hdeg)
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -3291,6 +3347,17 @@ theorem propTSAll_of_pieces'' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : 
   propTSAll_of_pieces' t2 hR hM hVS hS hC hA hO hVF hAI hOI hVI (heckeNormalization_of_irr hI hNI)
     hD hB hV
 
+/-- **The final composite, with `VerticalResidueDegree`**: `PropTSAll` from the bundle leaves T2
+and `R1R2fp`, the kernel glue `MobiusGlue`, and 14 open glue Props. -/
+theorem propTSAll_of_pieces''' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hVD : VerticalResidueDegree) (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_pieces'' t2 hR hM (verticalResidueSeparable_of_degree hVD) hS hC hA hO hVF hAI hOI
+    hVI hI hNI hD hB hV
+
 end PropTSGlue
 
 end
@@ -3324,6 +3391,9 @@ end
 #print axioms PropTSGlue.purityGlobalDim2
 #print axioms PropTSGlue.propTSAll_of_pieces'
 #print axioms PropTSGlue.propTSAll_of_pieces''
+#print axioms PropTSGlue.propTSAll_of_pieces'''
+#print axioms PropTSGlue.isSeparable_of_finrank_lt
+#print axioms PropTSGlue.verticalResidueSeparable_of_degree
 #print axioms PropTSGlue.functionFieldModel_transfer
 #print axioms PropTSGlue.coverModel_transfer
 #print axioms PropTSGlue.coverModelOfHecke_of_witness

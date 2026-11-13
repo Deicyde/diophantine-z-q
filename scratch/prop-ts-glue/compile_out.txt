@@ -204,47 +204,71 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/prop-ts-glue/PropTSGlue.lean:2885:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2756:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2757:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2760:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:2941:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2885:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2941:28: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:2932:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2988:48: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:2933:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2989:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:2933:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:2989:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3071:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3127:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3105:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3161:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3105:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3161:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3107:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3163:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3109:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3165:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3110:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3166:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
@@ -277,6 +301,9 @@ Hint: Replace the deprecated name:
 'PropTSGlue.purityGlobalDim2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces'''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.isSeparable_of_finrank_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.verticalResidueSeparable_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.functionFieldModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHecke_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]

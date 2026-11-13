@@ -119,3 +119,12 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `propTSAll_of_pieces''` (14 open glue Props + T2, R1R2fp, MobiusGlue). Compile: 0 errors,
   32 PropTSGlue axiom lines all standard, 37 linter warnings (VERIFIED).
 - docs/research/prop-ts-glue.md rewritten; .fleet/prop-ts-glue.md written.
+
+## Step 11 (08:46): VerticalResidueSeparable reduced to VerticalResidueDegree, compiled
+- `isSeparable_of_finrank_lt` (PROVED: finite extension of degree < p in characteristic p is
+  separable; `Polynomial.separable_or`, `natDegree_expand`, `minpoly.natDegree_le`).
+- New glue `VerticalResidueDegree` (Σ e f = n inequality: κ(q)/κ(pℤ[X]) finite of degree
+  ≤ [E:ℚ(X)] for q over pℤ[X] in C); `verticalResidueSeparable_of_degree` (compiled; κ(pℤ[X]) has
+  characteristic p via `Ideal.algebraMap_residueField_eq_zero`).
+- `propTSAll_of_pieces'''` (final composite: VerticalResidueDegree in place of
+  VerticalResidueSeparable). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
