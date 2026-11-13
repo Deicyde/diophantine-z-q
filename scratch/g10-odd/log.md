@@ -25,3 +25,8 @@
   `not_pm_one_of_mem_range`, `g10Glue_of_T12K_conjTwistOutside`, `isOdd_of_T12K_of_forall_mem`,
   `G10GlueConcrete`, `ConjTwistFromLeaves`, `g10GlueConcrete_of_conjTwistFromLeaves`,
   `g10Out_of_conjTwist` (the conclusion without the opaque hypotheses). VERIFIED (compiled).
+- 2026-11-13 04:28 §6 added (linear-algebra skeleton: `baseChange_injective₂`,
+  `mem_of_one_tmul_mem_span`, `eq_zero_of_holo_of_antiholo`, `betti_skeleton`): compiles.
+  `#print axioms` for `g10Glue_of_conjTwist`, `g10Glue_of_T12K_conjTwistOutside`,
+  `isOdd_of_T12K_of_forall_mem`, `g10GlueConcrete_of_conjTwistFromLeaves`, `betti_skeleton`:
+  [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).

@@ -382,4 +382,93 @@ theorem g10GlueConcrete_of_conjTwistFromLeaves (h : ConjTwistFromLeaves) : G10Gl
   intro h11a h11b h35 hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
   exact g10Out_of_conjTwist (h h11a h11b h35) hF K A ℓ r e hdim hI
 
+/-! ## §6. The linear-algebra skeleton of `ConjTwistNontrivial` (proved)
+
+The proof of `ConjTwistNontrivial` (its docstring) has four geometric inputs and one piece of
+linear algebra. With `H = H₁(A(ℂ),ℚ)`, `H' = H₁(A^c(ℂ),ℚ)`, `W ⊆ Hom_ℚ(H, H')` the image of
+`Hom(A, A^c) ⊗ ℚ`, `J, J'` the complex structures on `H ⊗ ℝ`, `H' ⊗ ℝ`, `F = F_*` the map induced by
+complex conjugation `A(ℂ) → A^c(ℂ)`, and `E = ℚ_ℓ`:
+(i) Faltings: `c_*` lies in the `E`-span of `W` (inside `Hom_E(V_ℓ A, V_ℓ A^c)`);
+(ii) Artin comparison at `ι`: `V_ℓ ≅ E ⊗ H₁` carrying `c_*` to `F ⊗ 1`;
+(iii) T11: elements of `W` are holomorphic (`φ J = J' φ`);
+(iv) `F` is antiholomorphic (`F J = −J' F`).
+`betti_skeleton` is the linear algebra: (i)-(iv) force `F = 0`. -/
+
+/-- Base change along a field extension is injective on linear maps `V → V'`. -/
+theorem baseChange_injective₂ (k E V V' : Type*) [Field k] [Field E] [Algebra k E]
+    [AddCommGroup V] [Module k V] [AddCommGroup V'] [Module k V'] {f g : V →ₗ[k] V'}
+    (h : f.baseChange E = g.baseChange E) : f = g := by
+  ext v
+  apply one_tmul_injective k E V'
+  have := LinearMap.congr_fun h ((1 : E) ⊗ₜ[k] v)
+  simpa using this
+
+/-- **Rationality (proved).** If `1 ⊗ x` lies in the `E`-span of `1 ⊗ W` inside `E ⊗_k U`, then
+`x ∈ W`: `(W ⊗ E) ∩ U = W`. -/
+theorem mem_of_one_tmul_mem_span (k E U : Type*) [Field k] [Field E] [Algebra k E]
+    [AddCommGroup U] [Module k U] (W : Submodule k U) (x : U)
+    (h : (1 : E) ⊗ₜ[k] x ∈ Submodule.span E ((fun w : U => (1 : E) ⊗ₜ[k] w) '' (W : Set U))) :
+    x ∈ W := by
+  let q : E ⊗[k] U →ₗ[E] E ⊗[k] (U ⧸ W) := W.mkQ.baseChange E
+  have hspan : Submodule.span E ((fun w : U => (1 : E) ⊗ₜ[k] w) '' (W : Set U)) ≤
+      LinearMap.ker q := by
+    rw [Submodule.span_le]
+    rintro _ ⟨w, hw, rfl⟩
+    simp [q, (Submodule.Quotient.mk_eq_zero W).mpr hw]
+  have hx : q ((1 : E) ⊗ₜ[k] x) = 0 := hspan h
+  have h2 : (1 : E) ⊗ₜ[k] (W.mkQ x) = (1 : E) ⊗ₜ[k] (0 : U ⧸ W) := by
+    rw [TensorProduct.tmul_zero]; simpa [q] using hx
+  exact (Submodule.Quotient.mk_eq_zero W).mp (one_tmul_injective k E (U ⧸ W) h2)
+
+/-- A map that is both linear and antilinear for complex structures (`J'` injective) is `0`. -/
+theorem eq_zero_of_holo_of_antiholo {R M N : Type*} [Field R] [CharZero R] [AddCommGroup M]
+    [Module R M] [AddCommGroup N] [Module R N] (J : M →ₗ[R] M) (J' : N →ₗ[R] N)
+    (hJ' : Function.Injective J') (F : M →ₗ[R] N) (h1 : F ∘ₗ J = J' ∘ₗ F)
+    (h2 : F ∘ₗ J = -(J' ∘ₗ F)) : F = 0 := by
+  ext m
+  have a := LinearMap.congr_fun h1 m
+  have b := LinearMap.congr_fun h2 m
+  simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.neg_apply] at a b
+  have h3 : (2 : R) • J' (F m) = 0 := by
+    rw [two_smul]
+    have : J' (F m) = -J' (F m) := a.symm.trans b
+    nth_rewrite 1 [this]; exact neg_add_cancel _
+  have h4 : J' (F m) = J' 0 := by
+    rw [map_zero]; exact (smul_eq_zero.mp h3).resolve_left two_ne_zero
+  simpa using hJ' h4
+
+/-- **The Betti skeleton (proved).** `H, H'` rational vector spaces with complex structures
+`J, J'` on `H ⊗ ℝ, H' ⊗ ℝ`; `W ⊆ Hom_ℚ(H, H')` consisting of holomorphic maps (T11); `F`
+antiholomorphic; `can : E ⊗ Hom_ℚ(H, H') → Hom_E(E ⊗ H, E ⊗ H')` the canonical map, injective
+(standard for `H` finite-dimensional); `F ⊗ 1` in the `E`-span of `W ⊗ 1` (Faltings + Artin
+comparison). Then `F = 0`. -/
+theorem betti_skeleton (E : Type*) [Field E] [Algebra ℚ E] {H H' : Type*} [AddCommGroup H]
+    [Module ℚ H] [AddCommGroup H'] [Module ℚ H']
+    (J : ℝ ⊗[ℚ] H →ₗ[ℝ] ℝ ⊗[ℚ] H) (J' : ℝ ⊗[ℚ] H' →ₗ[ℝ] ℝ ⊗[ℚ] H')
+    (hJ' : Function.Injective J') (W : Submodule ℚ (H →ₗ[ℚ] H'))
+    (hW : ∀ φ ∈ W, φ.baseChange ℝ ∘ₗ J = J' ∘ₗ φ.baseChange ℝ)
+    (F : H →ₗ[ℚ] H') (hF : F.baseChange ℝ ∘ₗ J = -(J' ∘ₗ F.baseChange ℝ))
+    (can : E ⊗[ℚ] (H →ₗ[ℚ] H') →ₗ[E] (E ⊗[ℚ] H →ₗ[E] E ⊗[ℚ] H')) (hι : Function.Injective can)
+    (hι1 : ∀ φ, can ((1 : E) ⊗ₜ[ℚ] φ) = φ.baseChange E)
+    (hFal : F.baseChange E ∈
+      Submodule.span E ((fun φ : H →ₗ[ℚ] H' => φ.baseChange E) '' (W : Set (H →ₗ[ℚ] H')))) :
+    F = 0 := by
+  have himg : (fun φ : H →ₗ[ℚ] H' => φ.baseChange E) '' (W : Set (H →ₗ[ℚ] H')) =
+      can '' ((fun w : H →ₗ[ℚ] H' => (1 : E) ⊗ₜ[ℚ] w) '' (W : Set (H →ₗ[ℚ] H'))) := by
+    rw [Set.image_image]; simp only [hι1]
+  rw [himg, Submodule.span_image, ← hι1] at hFal
+  obtain ⟨y, hy, hyF⟩ := hFal
+  rw [hι hyF] at hy
+  have hFW : F ∈ W := mem_of_one_tmul_mem_span ℚ E _ W F hy
+  have h0 : F.baseChange ℝ = 0 :=
+    eq_zero_of_holo_of_antiholo J J' hJ' (F.baseChange ℝ) (hW F hFW) hF
+  apply baseChange_injective₂ ℚ ℝ H H'
+  rw [h0, LinearMap.baseChange_zero]
+
 end G0Galois
+
+#print axioms G0Galois.g10Glue_of_conjTwist
+#print axioms G0Galois.g10Glue_of_T12K_conjTwistOutside
+#print axioms G0Galois.isOdd_of_T12K_of_forall_mem
+#print axioms G0Galois.g10GlueConcrete_of_conjTwistFromLeaves
+#print axioms G0Galois.betti_skeleton
