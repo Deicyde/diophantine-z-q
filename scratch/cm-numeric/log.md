@@ -66,3 +66,13 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
   400 digits too short for degree 32 (only lower bounds 27/29 found): precision-limited, not a finding.
 - Bug caught and fixed during the run: first version used `(−b'−8√−n)/2` with coordinates in `√D`
   (factor 8 wrong); output regenerated.
+
+## Lemma 3.21(1), class 5 (`lemma321_5.py`, `lemma321_5.out`)
+- n ∈ {5, 13, 37} (h(−4n) = 2, g = 1). `β' = c∘u` (c = complex conjugation via ιC, u ∈ Gal(H'_n/K_n)
+  with u(i) = −i, nontrivial on H_n; forced by betaOneSign on i, √n, √−n); `z_n^{β'} = (1−[i])·c(u f₀)`,
+  `u f₀ = P_{𝔭̄Q}` (ShimuraReciprocity) for 4 primes per n in classes over the nontrivial class of
+  Cl(K) (both 𝔭 and 𝔭̄: 8 lifts per n).
+- Φ₀ = {1}: `Z^{β'} + Z − τ((1−i)/2) ∈ {O, (0,0)}` in all 24 cases, for both signs `(1∓[i])` in the
+  definition of `z_n` (the check does not single out the sign). Φ₀ = {σ} (σ = σ_ϖ², realized by a prime
+  a² + nb², a even, b odd): `σ(z_n) − z_n = (0,0)` and the inclusion holds in all 6 cases.
+  VERIFIED (computed, modulo the leaves ShimuraReciprocity and the proved cmComplexConj).
