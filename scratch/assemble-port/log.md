@@ -33,3 +33,8 @@
 - TailC run 1: 1 error, part a95 `ofPlus_xi'_pow_ne_zero`: typeclass timeout `IsDedekindFiniteMonoid (Localization.Away
   ↑p)` (20000 heartbeats). Fix: `set_option synthInstance.maxHeartbeats 200000 in` (as Leaves.lean L4173 does for
   the same kind of timeout). Run 2: VERIFIED exit 0, 0 errors, 199 s.
+- TailE run 1: 101 errors: part b10's `namespace AlgebraicGeometry` / `namespace IsLocalRing` inside HDec created
+  `HDec.AlgebraicGeometry` (dot notation `f.stalkMapAt` fails; later `open AlgebraicGeometry` opens only the HDec one).
+  Run 2 (only `open _root_.X` added): still 101. Fix mk/root_ns.py: such blocks become `section APRoot_X` + `open
+  _root_.X`, each top-level named declaration `N` → `_root_.X.N` (same full names as before; b10: 47, e30: 3).
+  Run 3: VERIFIED exit 0, 0 errors, 62 s.

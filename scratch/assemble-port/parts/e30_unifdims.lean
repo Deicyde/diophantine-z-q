@@ -3789,10 +3789,11 @@ end ZInQ.UnifDims
 
 open CategoryTheory Limits
 
-namespace AlgebraicGeometry
+section APRoot_AlgebraicGeometry
+open _root_.AlgebraicGeometry
 
 /-- A germ of a global section, pulled back. -/
-theorem Scheme.Hom.stalkMapAt_germ_top {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+theorem _root_.AlgebraicGeometry.Scheme.Hom.stalkMapAt_germ_top {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
     (h : f x = y) (s : Γ(Y, ⊤)) :
     (f.stalkMapAt h).hom (Y.presheaf.germ ⊤ y (TopologicalSpace.Opens.mem_top _) s) =
       X.presheaf.germ ⊤ x (TopologicalSpace.Opens.mem_top _) (f.appTop s) := by
@@ -3801,7 +3802,7 @@ theorem Scheme.Hom.stalkMapAt_germ_top {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} 
   rfl
 
 /-- Stalk maps between given points commute with specialization. -/
-theorem Scheme.Hom.stalkMapAt_stalkSpecializes {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X}
+theorem _root_.AlgebraicGeometry.Scheme.Hom.stalkMapAt_stalkSpecializes {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X}
     {y y' : Y} (hx : x ⤳ x') (hy : y ⤳ y') (h : f x = y) (h' : f x' = y') (r : Y.presheaf.stalk y') :
     X.presheaf.stalkSpecializes hx ((f.stalkMapAt h').hom r) =
       (f.stalkMapAt h).hom (Y.presheaf.stalkSpecializes hy r) := by
@@ -3809,15 +3810,16 @@ theorem Scheme.Hom.stalkMapAt_stalkSpecializes {X Y : Scheme.{u}} (f : X ⟶ Y) 
   rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl,
     ← Scheme.Hom.stalkSpecializes_stalkMap_apply]
 
-end AlgebraicGeometry
+end APRoot_AlgebraicGeometry
 
-namespace IsLocalRing
+section APRoot_IsLocalRing
+open _root_.IsLocalRing
 
 open Ideal
 
 /-- infra-stalks' `sub_mem_maximalIdeal_sq_of_product` with two different factor rings (same
 proof). -/
-theorem sub_mem_maximalIdeal_sq_of_product₂ {R O₁ O₂ : Type*} [CommRing R] [IsLocalRing R]
+theorem _root_.IsLocalRing.sub_mem_maximalIdeal_sq_of_product₂ {R O₁ O₂ : Type*} [CommRing R] [IsLocalRing R]
     [CommRing O₁] [IsLocalRing O₁] [CommRing O₂] [IsLocalRing O₂]
     (φ₁ : O₁ →+* R) (φ₂ : O₂ →+* R) (ψ₁ : R →+* O₁) (ψ₂ : R →+* O₂)
     [IsLocalHom ψ₁] [IsLocalHom ψ₂]
@@ -3856,7 +3858,7 @@ theorem sub_mem_maximalIdeal_sq_of_product₂ {R O₁ O₂ : Type*} [CommRing R]
   rw [this]
   exact Ideal.sub_mem _ (Ideal.sub_mem _ ex fa) fb
 
-end IsLocalRing
+end APRoot_IsLocalRing
 
 namespace ZInQ.UnifDims
 
