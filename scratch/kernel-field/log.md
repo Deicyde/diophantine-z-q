@@ -27,3 +27,6 @@
   compiled, standard axioms (VERIFIED, build7.txt).
 - 06:1x EndEqOOnHomField split into EndEqOFibre (one QM surface over ℚ̄: com = ℤ ⟹ End = ι(O)) and EndTransport (to the Hom
   field); endEqOOnHomField_of, kernelFieldExists_of_split' compiled, standard axioms (VERIFIED, build_final.txt).
+- conjIsogMapsAt_bot (sanity: ConjIsogMapsAt satisfiable for A over ⊥ with the Galois action) compiled (VERIFIED).
+- The 4 leaves are bundle fields: ResearchLeaves.r6 (RaynaudCriterion), r7a (NOS); TextbookLeaves.t5 (TorsionStructure),
+  t6 (HomFreeFinite) (VERIFIED by reading scratch/h-decomposition/Leaves.lean L32972-33100).

@@ -950,6 +950,59 @@ namespace G0ModField.KernelField
 
 open G0ModField
 
+
+/-! ### Sanity check (proved): the new clause lists are satisfiable
+
+For an abelian variety over `ℚ` (`L = ⊥`) with any ring map `ι' : 𝒪 → End(A)`, the Galois action
+`m_σ = σ` satisfies `ConjIsogMapsAt` (with `e = 1`, `δ = 1`, `F_σ = id`), hence `ConjMaps`. So
+the definitions are not contradictory (as g0-mod-field's `descentDatum_bot` for `DescentDatum`). -/
+
+theorem conjIsogMapsAt_bot (A : PkgI3.AbVar (⊥ : IF)) (ι' : LeafQM.O →+* PkgI3.AbVar.End A) :
+    ConjIsogMapsAt ⊥ A ι' (fun σ => MonoidHom.toAdditive (A.galAct (toLAut σ (mem_GQL_bot σ)))) := by
+  let m : GQ → (PtQ ⊥ A →+ PtQ ⊥ A) := fun σ =>
+    MonoidHom.toAdditive (A.galAct (toLAut σ (mem_GQL_bot σ)))
+  have hmul : ∀ σ τ : GQ, (m σ).comp (m τ) = m (σ * τ) := by
+    intro σ τ
+    refine AddMonoidHom.ext fun x => ?_
+    show Additive.ofMul (A.galAct _ (A.galAct _ (Additive.toMul x))) =
+      Additive.ofMul (A.galAct _ (Additive.toMul x))
+    rw [galAct_mul]
+    rfl
+  have hbij : ∀ σ, Function.Bijective (m σ) := fun σ => galAct_bijective A _
+  have hcomm : ∀ (σ : GQ) (f : PkgI3.AbVar.End A),
+      (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
+        (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ) := by
+    intro σ f
+    refine AddMonoidHom.ext fun x => ?_
+    show Additive.ofMul (PkgI3.AbVar.galHom _ ≫ (Additive.toMul x ≫ f.hom)) =
+      Additive.ofMul ((PkgI3.AbVar.galHom _ ≫ Additive.toMul x) ≫ f.hom)
+    rw [Category.assoc]
+  refine ⟨?_, ?_, fun σ a => hcomm σ (ι' a), ?_, ?_, ?_⟩
+  · intro σ σ' h
+    have : σ' = toLAut σ (mem_GQL_bot σ) := AlgEquiv.ext h
+    rw [this]
+  · intro σ k _
+    exact ⟨(hmul σ k).symm, (hmul k σ).symm⟩
+  · intro σ
+    refine ⟨(hbij σ).2, ?_⟩
+    have : ((m σ).ker : Set (PtQ ⊥ A)) = {0} := by
+      ext x
+      simp only [SetLike.mem_coe, AddMonoidHom.mem_ker, Set.mem_singleton_iff]
+      constructor
+      · intro h; exact (hbij σ).1 (h.trans (map_zero _).symm)
+      · rintro rfl; exact map_zero _
+    rw [this]; exact Set.finite_singleton 0
+  · intro σ τ
+    refine ⟨1, one_ne_zero, 1, ?_⟩
+    rw [one_smul, hmul, map_one]
+    rfl
+  · refine ⟨fun _ => 𝟙 _, fun σ => ⟨inferInstance, inferInstance, fun x => ?_⟩⟩
+    show (PkgI3.AbVar.galHom (toLAut σ (mem_GQL_bot σ)) ≫ Additive.toMul x).left =
+      Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+        (Additive.toMul x).left ≫ 𝟙 _
+    erw [Category.comp_id]
+    rfl
+
 /-- **Remaining glue 3 (geometric: the conjugacy maps without NoCM).** For moduli data with
 R1-R2's clauses, a `ℚ̄`-point over a rational `j₀` with object `P`, a rational fibre `PK/K` over
 `P` and a Hom field `L ⊇ K` of `PK.A`: maps `m_σ = μ_σ∘σ` on `A_L(ℚ̄)` with `ConjIsogMapsAt` for
@@ -1046,6 +1099,7 @@ theorem kernelFieldExists_of_split' (hHFF : PkgI3.HomFreeFinite)
 end G0ModField.KernelField
 
 #print axioms G0ModField.KernelField.conjMaps_of_qm
+#print axioms G0ModField.KernelField.conjIsogMapsAt_bot
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split'
 #print axioms G0ModField.KernelField.faithful_O
