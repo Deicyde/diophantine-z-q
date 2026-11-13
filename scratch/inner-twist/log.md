@@ -17,7 +17,7 @@ Base f90cf864 (wip/integrate-w38b). Targets: `G0ModField.InnerTwistCount` and
 
 ## UnramConj.lean (imports ZInQKernel.HDecomp.QM.Pairs, ZInQKernel.HDecomp.Descent.B2Glue)
 - `UnramifiedConjugates` copied verbatim (docstring + body, namespace G0ModField, `Qbar` = LeafQM.AV.Qbar,
-  `UnramifiedAt` = GlueDescent.B2Q.UnramifiedAt); script check: the 830-ish-character block of
+  `UnramifiedAt` = GlueDescent.B2Q.UnramifiedAt); script check: the 708-character block of
   FibreCover.lean is a substring of UnramConj.lean. VERIFIED. An `example … := rfl` in the file checks the
   Prop unfolds to the statement over `AlgebraicClosure ℚ` and `GlueDescent.B2Q.UnramifiedAt`. VERIFIED.
 - Mathlib instances found automatically for number fields K → L, L/ℚ Galois: IsScalarTower ℤ (𝓞K) (𝓞L),
@@ -32,3 +32,21 @@ Base f90cf864 (wip/integrate-w38b). Targets: `G0ModField.InnerTwistCount` and
   `Normal.minpoly_eq_iff_mem_orbit`; trivial inertia ⇒ e = 1 as in unram-tate).
 - run (06:50, ~30 s): exit 0, no errors, no warnings; axioms of inertia_le_fixing, unramifiedConjugates:
   [propext, Classical.choice, Quot.sound] (run_unramconj.txt). VERIFIED (compiled).
+
+## FibreCoverIT.lean (assembly; imports FibreCover.lean's six + Textbook.SkolemNoether)
+- `lake build` of QM.Leaves, Descent.Constants, Descent.B2Glue, Certificate.Constants, JHeight, PRArith:
+  success (1m19s). VERIFIED.
+- Layout: AutOFinite.lean body (unchanged), then FibreCover.lean body (from its `open` lines; placed after
+  §0 so `open MonObj` does not reach §0), then §2: the proofs of InnerTwist.lean and UnramConj.lean and
+  the composites `fibreCoverExists_of_propTS'` (T5, CurvePinned, PropTS) and
+  `fibreCoverExists_of_propTSAll'` (T5, PropTSAll).
+- **Finding: `scratch/fibre-cover/FibreCover.lean` does not compile on this base (f90cf864).** First run:
+  error at `rationalFibre_of_le`, `obtain ⟨-, -, -, hnat⟩ := h1`: after pin-apply, `R1fpProps`
+  (ZInQKernel/HDecomp/QM/Leaves.lean L74-79) has two more conjuncts (`R1famProps`, `R1univProps`), so the
+  4th component is a conjunction. Proof-only fix in the copy: `obtain ⟨-, -, -, hnat, -⟩ := h1`. No
+  statement changed; a difflib check shows this is the only difference from FibreCover.lean's body. VERIFIED.
+- Under FibreCover's `open MonObj`, `one_mul` resolves to the MonObj lemma: written `_root_.one_mul`.
+- Final run (07:00, ~31 s): exit 0, 0 errors; axioms of innerTwistCount, unramifiedConjugates,
+  fibreCoverExists_of_propTS', fibreCoverExists_of_propTSAll': [propext, Classical.choice, Quot.sound]
+  (run_fibrecoverit.txt). VERIFIED (compiled).
+- InnerTwist.lean and UnramConj.lean recompiled after the small edits: exit 0, 0 errors. VERIFIED.

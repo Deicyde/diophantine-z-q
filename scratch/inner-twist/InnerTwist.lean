@@ -1096,8 +1096,7 @@ theorem innerTwistCount_sharp (W : Finset (LeafQM.O ≃+* LeafQM.O))
     refine ⟨Units.map (w k).toRingHom.toMonoidHom (u k) *
       (Units.map (w l).toRingHom.toMonoidHom (u l))⁻¹, fun a => ?_⟩
     rw [hform k a, hform l a, hkl]
-    simp only [Units.val_mul, mul_inv_rev, inv_inv, _root_.mul_assoc, Units.inv_mul_cancel_left,
-      Units.mul_inv_cancel_left]
+    simp only [Units.val_mul, mul_inv_rev, inv_inv, _root_.mul_assoc, Units.inv_mul_cancel_left]
   calc 4 = (Finset.univ : Finset (Fin 4)).card := by simp
     _ = (Finset.univ.image w).card := (Finset.card_image_of_injective _ hinj).symm
     _ ≤ W.card := Finset.card_le_card (fun x hx => by

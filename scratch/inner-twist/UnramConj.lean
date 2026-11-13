@@ -72,7 +72,7 @@ theorem inertia_le_fixing (p : ℕ)
     rw [Ideal.card_inertia_eq_ramificationIdxIn (G := G) (Q.under ℤ) Q,
       Ideal.ramificationIdxIn_eq_ramificationIdx (Q.under ℤ) Q G]
   have hcard : Nat.card ((Q.inertia G).subgroupOf H) = Nat.card (Q.inertia G) := by
-    rw [hcardG, htower, he1, one_mul, ← hcardH]; rfl
+    rw [hcardG, htower, he1, _root_.one_mul, ← hcardH]; rfl
   have hle : Q.inertia G ≤ H := by
     have h1 : Nat.card ((Q.inertia G) ⊓ H : Subgroup G) = Nat.card (Q.inertia G) := by
       rw [← hcard, ← Subgroup.subgroupOf_map_subtype]
