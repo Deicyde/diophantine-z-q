@@ -1460,6 +1460,149 @@ theorem stableFaltingsHeightDeligne_eq (g : ℕ)
 
 end HeightLemmas
 
+/-! ### Independence of the uniformization (node H2, archimedean part)
+
+Under the uniqueness half of AN3, the height of a metrized model depends only on the group model:
+the coefficient map is determined by its values on the wedges `1 ⊗ df₁ ∧ ⋯ ∧ df_g`
+(`GroupModel.semilinear_ext_wedge`), which change by `det T` under `Φ ↦ Φ ∘ T`
+(`GroupModel.jacDet_comp`, the chain rule), and `HodgeData.modelHeight_recoord` absorbs `T`. -/
+
+section UnifIndep
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+namespace GroupModel
+
+variable (𝒢 : GroupModel A L)
+
+/-- A `τ`-semilinear functional on the Hodge line is determined by its values on the wedges
+`1 ⊗ df₁ ∧ ⋯ ∧ df_g` of germs `f_i ∈ 𝔪_ξ`. -/
+theorem semilinear_ext_wedge {g : ℕ} {τ : L →+* ℂ} (φ ψ : 𝒢.hodgeSpace g →ₛₗ[τ] ℂ)
+    (h : ∀ f, φ (𝒢.wedge f) = ψ (𝒢.wedge f)) : φ = ψ := by
+  have h1 : ∀ n : exteriorPower (𝓞 L) g 𝒢.cotangent,
+      φ ((1 : L) ⊗ₜ[𝓞 L] n) = ψ ((1 : L) ⊗ₜ[𝓞 L] n) := by
+    intro n
+    have hn : n ∈ Submodule.span (𝓞 L) (Set.range (exteriorPower.ιMulti (𝓞 L) g)) := by
+      rw [exteriorPower.ιMulti_span]; trivial
+    induction hn using Submodule.span_induction with
+    | mem x hx =>
+      obtain ⟨m, rfl⟩ := hx
+      have hm : ∀ i, ∃ f, 𝒢.dCls f = m i := fun i =>
+        (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent_surjective (m i)
+      choose f hf using hm
+      have := h f
+      simp only [wedge, hf] at this
+      exact this
+    | zero => simp
+    | add x y _ _ hx hy => simp only [TensorProduct.tmul_add, map_add, hx, hy]
+    | smul c x _ hx =>
+      rw [TensorProduct.tmul_smul, ← algebraMap_smul L c, map_smulₛₗ, map_smulₛₗ, hx]
+  ext v
+  induction v using TensorProduct.inductionOn with
+  | tmul l n =>
+    have : l ⊗ₜ[𝓞 L] n = l • ((1 : L) ⊗ₜ[𝓞 L] n) := by
+      rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one]
+    rw [this, map_smulₛₗ, map_smulₛₗ, h1]
+  | add x y hx hy => simp only [map_add, hx, hy]
+
+/-- **Chain rule**: `jacDet (Φ ∘ T) f = jacDet Φ f · det T`. -/
+theorem jacDet_comp {τ : L →+* ℂ} {g : ℕ} (Φ : (Fin g → ℂ) → 𝒢.Pts τ)
+    (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) (f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.jacDet (fun z => Φ (T z)) f =
+      𝒢.jacDet Φ f * LinearMap.det (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) := by
+  set Tc := T.toContinuousLinearEquiv
+  have hd : ∀ t, fderiv ℂ (𝒢.germAlong (fun z => Φ (T z)) t) 0 =
+      (fderiv ℂ (𝒢.germAlong Φ t) 0).comp (Tc : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) := by
+    intro t
+    have : 𝒢.germAlong (fun z => Φ (T z)) t = 𝒢.germAlong Φ t ∘ Tc := rfl
+    rw [this, Tc.comp_right_fderiv, map_zero]
+  unfold jacDet
+  simp only [hd]
+  rw [← LinearMap.det_toMatrix', ← Matrix.det_mul]
+  congr 1
+  ext i j
+  simp only [Matrix.of_apply, Matrix.mul_apply, LinearMap.toMatrix'_apply,
+    ContinuousLinearMap.comp_apply]
+  show (fderiv ℂ (𝒢.germAlong Φ ↑(f i)) 0) (T (Pi.single j 1)) = _
+  conv_lhs => rw [← Finset.univ_sum_single (T (Pi.single j 1))]
+  rw [map_sum]
+  refine Finset.sum_congr rfl fun k _ => ?_
+  have hs : (Pi.single k ((T (Pi.single j 1)) k) : Fin g → ℂ) =
+      ((T (Pi.single j 1)) k) • (Pi.single k (1 : ℂ) : Fin g → ℂ) := by
+    ext m; by_cases hm : m = k
+    · subst hm; simp
+    · simp [hm]
+  rw [hs, map_smul, smul_eq_mul, mul_comm]
+  rfl
+
+end GroupModel
+
+/-- **The model height does not depend on the uniformization** (given the uniqueness half of
+AN3): two metrized models with the same group model have the same height. Proved. -/
+theorem MetrizedModel.modelHeight_eq_of_model_eq (hU : AnalyticUniformizationUnique) {g : ℕ}
+    (M M' : MetrizedModel A L g) (h : M.model = M'.model) :
+    M.hodge.modelHeight = M'.hodge.modelHeight := by
+  obtain ⟨𝒢, D, hl, ha⟩ := M
+  obtain ⟨𝒢', D', hl', ha'⟩ := M'
+  dsimp only at h ⊢
+  subst h
+  have key : ∀ τ, ∃ T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ),
+      (∀ z, z ∈ D'.periods τ ↔ T z ∈ D.periods τ) ∧
+      D'.coeff τ = LinearMap.det (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) • D.coeff τ := by
+    intro τ
+    obtain ⟨Φ, hΦ, hc⟩ := ha τ
+    obtain ⟨Φ', hΦ', hc'⟩ := ha' τ
+    obtain ⟨T, hT, hΛ⟩ := hU K A L 𝒢 τ g _ _ Φ Φ' hΦ hΦ'
+    refine ⟨T, hΛ, ?_⟩
+    apply GroupModel.semilinear_ext_wedge
+    intro f
+    have hΦ'T : Φ' = fun z => Φ (T z) := funext hT
+    rw [hc', LinearMap.smul_apply, hc, smul_eq_mul, hΦ'T, GroupModel.jacDet_comp, mul_comm]
+  choose T hTp hTc using key
+  have hD' : D' = D.recoord T := by
+    obtain ⟨l', f1', il', p', pd', pz', c', cn'⟩ := D'
+    obtain ⟨l, f1, il, p, pd, pz, c, cn⟩ := D
+    simp only [HodgeData.recoord, HodgeData.mk.injEq]
+    refine ⟨hl'.trans hl.symm, ?_, ?_⟩
+    · funext τ
+      ext z
+      rw [hTp τ z]
+      rfl
+    · funext τ
+      exact hTc τ
+  show D.modelHeight = D'.modelHeight
+  rw [hD', HodgeData.modelHeight_recoord]
+
+/-- **The height of a group model** `h(A_L, 𝒢)`: the infimum over its metrizations (all of which
+have the same height, `MetrizedModel.modelHeight_eq_of_model_eq`, given the uniqueness half of
+AN3). -/
+noncomputable def GroupModel.height (𝒢 : GroupModel A L) : EReal :=
+  ⨅ (g : ℕ) (M : MetrizedModel A L g) (_ : M.model = 𝒢), (M.hodge.modelHeight : EReal)
+
+/-- Given the uniqueness half of AN3, a metrized model computes the height of its group model
+(among metrizations of the same dimension; the dimension is unique by `hodge.finrank_eq_one` and
+the surjectivity in `IsAnalyticUniformization`). -/
+theorem GroupModel.height_eq (hU : AnalyticUniformizationUnique) {g : ℕ} (M : MetrizedModel A L g)
+    (hg : ∀ (g' : ℕ), Nonempty (MetrizedModel A L g') → g' = g) :
+    M.model.height = (M.hodge.modelHeight : EReal) := by
+  refine le_antisymm (iInf_le_of_le g (iInf_le_of_le M (iInf_le_of_le rfl le_rfl))) ?_
+  refine le_iInf fun g' => le_iInf fun M' => le_iInf fun hM' => ?_
+  obtain rfl := hg g' ⟨M'⟩
+  rw [MetrizedModel.modelHeight_eq_of_model_eq hU M M' hM'.symm]
+
+/-- `stableFaltingsHeight A = inf_{L, 𝒢} h(A_L, 𝒢)`. -/
+theorem stableFaltingsHeight_eq_iInf_height (A : AbVar K) :
+    stableFaltingsHeight A = ⨅ (E : FinExt K) (𝒢 : GroupModel A E.L), 𝒢.height := by
+  unfold stableFaltingsHeight GroupModel.height
+  refine le_antisymm ?_ ?_
+  · refine le_iInf fun E => le_iInf fun 𝒢 => le_iInf fun g => le_iInf fun M => le_iInf fun _ => ?_
+    exact iInf_le_of_le E (iInf_le_of_le g (iInf_le_of_le M le_rfl))
+  · refine le_iInf fun E => le_iInf fun g => le_iInf fun M => ?_
+    exact iInf_le_of_le E (iInf_le_of_le M.model (iInf_le_of_le g (iInf_le_of_le M
+      (iInf_le_of_le rfl le_rfl))))
+
+end UnifIndep
+
 /-! ## 19. Acceptance test AT1: elliptic curves
 
 `IsEllipticCurveOf A W` identifies an abelian variety with the elliptic curve of a Weierstrass
