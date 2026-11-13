@@ -27,7 +27,7 @@ statement is `G10GlueConcrete`: the same conclusion, with the concrete leaves T1
 restriction loses the information). Under G10Glue's QM hypotheses `K` has no real place
 (Shimura's argument), so in the application the content is entirely `ConjTwistOutside`.
 
-**Compiles:** `lake env lean scratch/g10-odd/G10Odd.lean` (after building
+**Compiles:** `lake env lean scratch/g10-odd/G10Odd.lean` (681 lines, after building
 `ZInQKernel.HDecomp.LeafPush2.T` and `ZInQKernel.HDecomp.I3Linalg.C2`): no errors, no `sorry`;
 `#print axioms` gives [propext, Classical.choice, Quot.sound] for the eight main theorems.
 
@@ -35,3 +35,4 @@ restriction loses the information). Under G10Glue's QM hypotheses `K` has no rea
 automorphism of `K`), `c_*` on Tate modules, the Artin comparison over a number field
 compatible with `c_*`/`F_*`, and the instantiation of `betti_skeleton_fd`. T12 needs the same
 infrastructure.
+Integration: in GaloisPieces (scratch/g0-mod-galois/part_bundle.lean) replace `odd : G10Glue` by `odd : ConjTwistNontrivial` and pass `g10Glue_of_conjTwist m.odd`.
