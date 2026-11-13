@@ -3,10 +3,11 @@
 Task r1b-state, 2026-11-13. Lean: `scratch/r1b-state/R1b.lean`. `build.sh` assembles it from
 `PkgI1Copy.part` (pkg-I1's definitions through `QMHauptmodul`, copied verbatim from
 `scratch/h-decomposition/Leaves.lean` lines 104-316) and the parts `R1b.part`, `Part2_P1.part`,
-`Part3_Fibre.part`, `Part4_Probes.part`, `Part5_Split.part`, `Part9_Audit.part`. It imports only
-build modules: `ZInQKernel.HDecomp.Analytic.{Uniformization, QMLattice}`,
-`ZInQKernel.HDecomp.QM.Pin`, `ZInQKernel.HDecomp.LeafPush2.R22` and `ZInQKernel.HDecomp.Assembly`
-(build them first with `lake build`; `Assembly` needs the upstream `ZInQ` helpers). Results log:
+`Part3_Fibre.part`, `Part4_Probes.part`, `Part5_Split.part`, `Part6_Family.part`, `Part7_CM.part`,
+`Part8_T11a.part`, `Part9_Audit.part` (about 1 500 lines). It imports only build modules:
+`ZInQKernel.HDecomp.Analytic.{Uniformization, QMLattice}`, `ZInQKernel.HDecomp.QM.Pin`,
+`ZInQKernel.HDecomp.LeafPush2.{R22, UnifBridge}` and `ZInQKernel.HDecomp.Assembly` (build them first
+with `lake build`; `Assembly` needs the upstream `ZInQ` helpers). Results log:
 `scratch/r1b-state/log.md`. Numerical check: `scratch/r1b-state/jden_check.py`.
 No file under `ZInQKernel/` or `blueprint/`, and no other task's notes or scratch files, was edited.
 
@@ -51,6 +52,10 @@ Proved in Lean, with standard axioms only (VERIFIED: `lake env lean scratch/r1b-
 | `fibreQMPeriod_of_r1b` | `FibreQMPeriod'` from the leaf, `PkgI1.QMHauptmodul`, `HauptmodulCompare` and `UnifBaseChange` |
 | `hauptmodulCompare_of_parts` | `HauptmodulCompare` from `FamilyHauptmodul`, `PiOfQMLattice`, `JDenNonzero` and the leaf |
 | `fibreQMPeriod_of_r1b_parts` | `FibreQMPeriod'` from the leaf, `QMHauptmodul`, and the four glue Props `FamilyHauptmodul`, `PiOfQMLattice`, `JDenNonzero`, `UnifBaseChange` |
+| `familyHauptmodul_of_parts` | `FamilyHauptmodul` from `MobiusRigidity` (pure complex analysis), `HauptmodulHolomorphic` (theta functions only), `FamilyOrbits`, `FamilyCMValues`, `CMPointsExist` |
+| `cmPointsExist` | `ι(i+j)` fixes `√2 + i`, `ι((1+j)/2)` fixes `i√3`, `ι(2j+ij)` fixes `i√(9+6√2)`, with `det > 0` |
+| `familyCMValues_of_T11a` | `FamilyCMValues` from leaf-push2's leaf `T11a_RiemannEnd` and the glue `R2CMOnC` (R2's CM clauses on `ℂ`-points) |
+| **`fibreQMPeriod_of_r1b_T11a`** | **`FibreQMPeriod'` from the leaf R1(b), `QMHauptmodul`, the leaf T11a and seven glue Props** (`MobiusRigidity`, `HauptmodulHolomorphic`, `FamilyOrbits`, `R2CMOnC`, `PiOfQMLattice`, `JDenNonzero`, `UnifBaseChange`) |
 | `iotaC_mem`, `iota_mul`, `level_linear`, `level_ker` | consistency probes (§3) |
 
 ## 2. Why the leaf is the published statement or a consequence of it, never stronger
@@ -136,18 +141,34 @@ The proof (`fibreQMPeriod_of_r1b`; every step compiled):
 6. `UnifBaseChange` gives a uniformization of `A(ℂ)_σ` at `σ = ε ∘ emb` with kernel `Λ_τ`.
    Take `F = id`.
 
-The glue Props, each with its argument in the docstring:
+The glue Props, each with its argument in the docstring. The finest reduction is
+`fibreQMPeriod_of_r1b_T11a` (the coarser `HauptmodulCompare`, `FamilyHauptmodul`,
+`FamilyCMValues`, `CMPointsExist` are proved from these):
 
 | Prop | uses | content | status |
 |---|---|---|---|
-| `FamilyHauptmodul` | R1(b)(b), (c) through `HolomorphicP1On` | `π(y(τ)) = f(τ)` on `ℍ` for `QMHauptmodul`'s `f` | Möbius argument: `F = π∘y` is `Γ*`-invariant with fibres the `Γ*`-orbits, so `F = g∘f` with `g` a holomorphic bijection of `P¹` fixing `0, ∞, −16/27`. Complex analysis on `ℍ` and `P¹`, plus R2 on `ℂ`-points and T11a at the CM points. SPECULATIVE until proved |
-| `PiOfQMLattice` | none | two complex points whose objects are uniformized by the same `Λ_τ` have the same `π` | GAGA (T11a-type) and R2 on `ℂ`-points |
-| `JDenNonzero` | none (theta functions only) | where `f` is finite, `jDen(Ω(τ)) ≠ 0` | `ψ₄∘Ω` is a weight-8 form for `Γ*` with orbifold degree `1/3`, so it vanishes only at the order-6 orbit (disc `−3`, `f = ∞`). Checked numerically at 8 points. SPECULATIVE until proved |
+| `MobiusRigidity` | nothing (pure analysis) | two holomorphic maps `ℍ → P¹` whose fibres are the orbits of the same `G ⊆ GL₂(ℝ)`, the first continuous and onto, that agree at three points with distinct values are equal | true: `F = g∘f`, `g` a continuous bijection of `P¹`, holomorphic off the finitely many critical values (removable singularities), hence Möbius. Mathlib has removable singularities but lacks the degree theory of `P¹ → P¹`. A good crowdsourcing target |
+| `HauptmodulHolomorphic` | theta functions only | `QMHauptmodul`'s `f` is holomorphic into `P¹` | `f` is a continuous quotient of holomorphic functions of `τ` |
+| `FamilyOrbits` | R1(b)(b) family | `π(y(τ)) = π(y(τ'))` iff `τ' ∈ Γ*τ` | lattice computation `Λ_{γτ} ∝ ι(n)Λ_τ`, Skolem–Noether (T13), GAGA for homomorphisms, R2's fibre clause on `ℂ`-points |
+| `R2CMOnC` | none | R2's CM clauses at complex points | CM points are algebraic; rigidity (T11b) |
+| `PiOfQMLattice` | none | two complex points whose objects are uniformized by the same `Λ_τ` have the same `π` | GAGA for homomorphisms (T11a is stated for endomorphisms only; its `Hom` form is the same textbook theorem) and R2 on `ℂ`-points |
+| `JDenNonzero` | theta functions only | where `f` is finite, `jDen(Ω(τ)) ≠ 0` | `ψ₄∘Ω` is a weight-8 form for `Γ*` with orbifold degree `1/3`, so it vanishes only at the order-6 orbit (disc `−3`, `f = ∞`). Checked numerically at 8 points. SPECULATIVE until proved |
 | `UnifBaseChange` | none | uniformizations transport along `A_ℚ̄ ≅ P.A` and `IsBaseChangeOf` | base change of points (Yoneda), plus rigidity (leaf T11b) to correct the identity, since neither `FibreOver`'s isomorphism nor `IsBaseChangeOf`'s map is required to be a group map |
 
-The only glue that consumes R1(b)'s family clauses is `FamilyHauptmodul`. Clause (a) is consumed
-directly by `fibreQMPeriod_of_r1b`. `QMHauptmodul` is pkg-I1's composite statement (a consequence
-of R2, R3 and R4, not a bundle field).
+Where R1(b) is used:
+- Clause (a) is consumed directly by `fibreQMPeriod_of_r1b`, at the fibre object.
+- The family clauses (b) and (c) are consumed by `familyHauptmodul_of_parts`. Clause (c) gives
+  the holomorphy of `τ ↦ π(y(τ))` that `MobiusRigidity` needs. Clause (b) gives the family on
+  which `FamilyOrbits` and `FamilyCMValues` are evaluated.
+- In `familyCMValues_of_T11a`, clause (b) and the leaf T11a are combined in a compiled argument:
+  - at a fixed point `τ` of `ι(x)`, `(τ, 1)ᵀ` is an eigenvector of `ι(x)` (`latVec_fixed`);
+  - multiplication by the eigenvalue `λ` preserves `Λ_τ` (`lam_mem`);
+  - by T11a, `λ` is induced by an endomorphism `f ∈ End_𝒪` (`exists_cm_end`);
+  - `f² = −1`, `f² − f + 1 = 0` or `f² = −6` follows from the same relation for `λ`, by
+    uniqueness in T11a.
+
+`QMHauptmodul` is pkg-I1's composite statement (a consequence of R2, R3 and R4, not a bundle
+field).
 
 ## 5. Integration notes (for after the announcement)
 
@@ -158,17 +179,19 @@ of R2, R3 and R4, not a bundle field).
   `QMLattice` and `Uniformization` sections. `R1b.part`, `Part2_P1.part` and `Part4_Probes.part`
   need nothing else.
 - **g0-assemble.** In `GluePieces2`, the field `fibreQMPeriod` (no. 10, "GLUE, QM-PIN") can be
-  replaced by `FamilyHauptmodul`, `PiOfQMLattice`, `JDenNonzero` and `UnifBaseChange`, plus
-  `QMHauptmodul` and the leaf `r1an` (`fibreQMPeriod_of_r1b_parts`).
+  replaced by the seven glue Props of `fibreQMPeriod_of_r1b_T11a`, plus `QMHauptmodul`, the leaf
+  `r1an` and the leaf T11a (already in the bundle as `T11a_RiemannEnd`).
 - **The universal form.** `FibreQMPeriodAll` (every `σ`, every uniformization) follows the same
   way. It additionally needs bp-analytic's uniqueness `IsUniformization.exists_equiv`, with the
   transport between the two uniformization predicates. This is not compiled here.
 
 ## 6. What remains
 
-- The four glue Props of §4. `UnifBaseChange` is S-M Lean work over leaf T11b. `PiOfQMLattice`
-  needs a GAGA leaf of T11 type. `FamilyHauptmodul` and `JDenNonzero` are analysis on `ℍ`:
-  Riemann surfaces, removable singularities, modular forms on `Γ*`.
+- The seven glue Props of §4. `UnifBaseChange` and `R2CMOnC` are S-M Lean work over leaf T11b
+  plus algebraicity of CM points. `PiOfQMLattice` and `FamilyOrbits` need T11a in `Hom` form
+  (leaf-push2's T11a covers endomorphisms only). `MobiusRigidity` is pure complex analysis.
+  `HauptmodulHolomorphic` and `JDenNonzero` concern theta functions on `ℍ` (modular forms on
+  `Γ*`).
 - A human check of the faithfulness argument of §2, in particular clause (a): class number one of
   `𝒪`, and the claim that every component of `Y₃(ℂ)` is uniformized by `ι(𝒪_g)(τ, 1)ᵀ` with
   `𝒪_g ≅ 𝒪`. Also the exact locators in Shimura 1967 and Deligne 1971.
