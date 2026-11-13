@@ -38,3 +38,12 @@
   `WildFixTame`. At `p ≤ D`, `SmallPrimeData` is not implied by clause (i) in this trivial way:
   it is a finite-level statement (scalar on `G_F ∩ P_p`, `e(F) ≤ (DG₀)!`) plus the bound for the
   character `β`.
+
+## Step 3 (04:35-04:40 PST): T20 + T21 bridge, verbatim check
+- §2c `LadicDVRModel p` (glue, transport) and `hilbertSerre_of_model : LadicDVRModel p →
+  HilbertSerreLadic p` using the kernel's `PkgI6.hilbertDifferentFormula` (T20) and
+  `PkgI6.differentBound` (T21); `span_natCast_eq`: `(e) = 𝔪^{e·v_p(e)}`.
+- §3 `g15RamG_of_model` (hypotheses: `LadicDVRModel`, `WildFixTame`, `LocalData`, `G11Out`).
+- Step 4 verbatim check (VERIFIED, python string comparison): the blocks `ModData`, `U0`,
+  `LocalRamG`, `G15RamG` with their docstrings equal those of
+  `scratch/g0-mod-newform/NewForm.lean`; `G11Out` equals `scratch/g0-mod-galois/part_galois.lean`.

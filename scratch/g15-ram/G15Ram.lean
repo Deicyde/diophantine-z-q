@@ -1,5 +1,6 @@
 import ZInQKernel.HDecomp.Conductor.LadicCond
 import ZInQKernel.HDecomp.Conductor.Breaks
+import ZInQKernel.HDecomp.Textbook.Different
 import ZInQKernel.HDecomp.Objects
 import ZInQKernel.HDecomp.Descent.Constants
 import ZInQKernel.Hypotheses.Height
@@ -533,6 +534,73 @@ theorem upperWild : UpperWild p := by
 
 end Wild
 
+/-! ## §2c. `HilbertSerreLadic` from T20 + T21 (proved by t-different) and a DVR model -/
+
+section Bridge
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Glue: the DVR model of a finite Galois `F ⊆ ℚ̄_p`** (the transport between `LadicCond`'s
+norm-defined filtrations and the ring-theoretic setting of T20-T22, `PkgI6`; Serre, *Corps
+locaux*, II §2 and IV §1). There are a complete DVR `A` with perfect residue field and a DVR `B`
+finite, torsion-free, separable and Galois over `A` (namely `A = ℤ_p` and `B = 𝓞_F`, the elements
+of norm `≤ 1`), whose lower ramification groups `PkgI6.lowerRam A B i` have the orders
+`ramCard F i` and are trivial only when `ramSet F i` fixes `F`, whose ramification index is
+`e = ramCard F 0`, with `(p) = 𝔪_B^e` and every integer prime to `p` a unit of `B`. -/
+def LadicDVRModel (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ F : Fld p, IsFinGal F →
+    ∃ (A B : Type) (_ : CommRing A) (_ : IsDomain A) (_ : IsDiscreteValuationRing A)
+      (_ : IsAdicComplete (maximalIdeal A) A) (_ : PerfectField (ResidueField A))
+      (_ : CommRing B) (_ : IsDomain B) (_ : IsDiscreteValuationRing B) (_ : Algebra A B)
+      (_ : Module.Finite A B) (_ : Module.IsTorsionFree A B)
+      (_ : Algebra.IsSeparable (FractionRing A) (FractionRing B))
+      (_ : IsGalois (FractionRing A) (FractionRing B)),
+      (∀ i, Nat.card (PkgI6.lowerRam A B i) = ramCard F i) ∧
+      (∀ i, PkgI6.lowerRam A B i = ⊥ → ramSet F i ⊆ fixSet F) ∧
+      Ideal.ramificationIdx (maximalIdeal B) A = ramCard F 0 ∧
+      Ideal.span {(p : B)} = maximalIdeal B ^ ramCard F 0 ∧
+      (∀ n : ℕ, ¬ p ∣ n → IsUnit (n : B))
+
+/-- In `B` with `(p) = 𝔪^e` and integers prime to `p` units: `(e) = 𝔪^{e·v_p(e)}`. -/
+theorem span_natCast_eq {B : Type} [CommRing B] [IsLocalRing B] {p : ℕ} (hp : p.Prime)
+    {e : ℕ} (he : e ≠ 0) (hpB : Ideal.span {(p : B)} = maximalIdeal B ^ e)
+    (hunit : ∀ n : ℕ, ¬ p ∣ n → IsUnit (n : B)) :
+    Ideal.span {(e : B)} = maximalIdeal B ^ (e * padicValNat p e) := by
+  have hdec := Nat.ordProj_mul_ordCompl_eq_self e p
+  have hnd := Nat.not_dvd_ordCompl hp he
+  rw [Nat.factorization_def e hp] at hdec hnd
+  set v := padicValNat p e
+  set u := e / p ^ v
+  have hcast : (e : B) = (p : B) ^ v * (u : B) := by
+    conv_lhs => rw [← hdec]
+    push_cast
+    rfl
+  rw [hcast, ← Ideal.span_singleton_mul_span_singleton, ← Ideal.span_singleton_pow, hpB,
+    Ideal.span_singleton_eq_top.mpr (hunit u hnd), Ideal.mul_top, ← pow_mul]
+
+/-- **`HilbertSerreLadic` from T20 + T21 and the DVR model (GLUE, proved).** T20 and T21 are
+the kernel's theorems `PkgI6.hilbertDifferentFormula`, `PkgI6.differentBound` (t-different). -/
+theorem hilbertSerre_of_model (hM : LadicDVRModel p) : HilbertSerreLadic p := by
+  intro F hF
+  obtain ⟨A, B, _, _, _, _, _, _, _, _, _, _, _, _, _, hcard, hbot, he, hpB, hunit⟩ := hM F hF
+  obtain ⟨N, hN, hD⟩ := PkgI6.hilbertDifferentFormula A B
+  have hB := PkgI6.differentBound A B
+  refine ⟨N, hbot N hN, ?_⟩
+  have hsum : ∑ i ∈ Finset.range N, (Nat.card (PkgI6.lowerRam A B i) - 1) =
+      ∑ i ∈ Finset.range N, (ramCard F i - 1) :=
+    Finset.sum_congr rfl fun i _ => by rw [hcard i]
+  rw [hsum] at hD
+  rw [he, hD, span_natCast_eq (Fact.out) (one_le_ramCard hF 0).ne' hpB hunit, ← pow_add] at hB
+  have hm0 : maximalIdeal B ≠ ⊥ := IsDiscreteValuationRing.not_a_field B
+  have hmu : ¬ IsUnit (maximalIdeal B) := by
+    rw [Ideal.isUnit_iff]
+    exact (maximalIdeal.isMaximal B).ne_top
+  exact (pow_dvd_pow_iff hm0 hmu).mp hB
+
+end Bridge
+
 /-! ## §3. The reduction (proved) -/
 
 section Reduction
@@ -600,6 +668,20 @@ theorem g15RamG_of_hilbertSerre
   g15RamG_of_pieces (fun p _ => upperBreakFix_of_hilbertSerre (hHS p)) hUW hWT D u h5 h3
     h11₅ h11₃
 
+/-- **`G15RamG` from the DVR model, T20-T21 (proved in the kernel), `WildFixTame` and the data
+of G7-G8-G11 on `D` (GLUE, proved).** `UpperWild` is proved (`upperWild`). -/
+theorem g15RamG_of_model
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModel p)
+    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_hilbertSerre (fun p _ => hilbertSerre_of_model (hM p)) (fun p _ => upperWild) hWT
+    D u h5 h3 h11₅ h11₃
+
 end Reduction
 
 end G15Ram
@@ -608,3 +690,5 @@ end G15Ram
 #print axioms G15Ram.g15RamG_of_pieces
 #print axioms G15Ram.g15RamG_of_hilbertSerre
 #print axioms G15Ram.upperWild
+#print axioms G15Ram.hilbertSerre_of_model
+#print axioms G15Ram.g15RamG_of_model
