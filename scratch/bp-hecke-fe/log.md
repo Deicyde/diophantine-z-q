@@ -42,3 +42,11 @@
   `FourierRel M c κ : Prop` (ĉ((1+i)μ) = κ c(μ), ĉ = 0 off (1+i)ℤ[i]), `fourierRel_const_mul`,
   `mulOneAddI_injective`, `fourier_tsum_eq`, `lambdaC_two_sub`:
   FourierRel M c κ → ∀ s, Λ_c(2−s) = −iκ(1+i)·2^{−s}·M·(M²)^{−s}·Λ_c(s) (identity theorem).
+- (VERIFIED, compiled ~18:05; axioms propext, Classical.choice, Quot.sound)
+  `CdFourier d := FourierRel (4d) (cdChar d) (4d(1+i)(2/d))`, `jacobiSym_two_of_mod_eight`,
+  `cpow_of_pos`, `const_identity` (conductor bookkeeping N = 32d² = 2M²),
+  `functionalEquation5_of_deuring_fourier` (one d) and
+  `functionalEquation5_of_deuring_fourier' : (∀ d ≡ 5 (8) sqfree, DeuringCd d) →
+   (∀ such d, CdFourier d) → ZInQ.Literature.FunctionalEquation5`  (the Literature Prop itself).
+- (VERIFIED numerically) full `CdFourier d` as defined, all ν mod 4d, d ∈ {5, 13, 21}: 0 failures
+  (`fourier_check.py`, last block).

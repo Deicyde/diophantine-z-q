@@ -681,4 +681,134 @@ theorem lambdaC_two_sub (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {κ 
   exact hfa.eqOn_of_preconnected_of_eventuallyEq hga isPreconnected_univ (Set.mem_univ 2) hev
     (Set.mem_univ s)
 
+/-! ### `FunctionalEquation5` from Deuring's identity and the Fourier identity -/
+
+/-- **The finite Fourier identity for `C_d`** (quadratic Gauss sums; §2.4 of the report):
+`ĉ_d((1+i)μ) = 4d(1+i)(2/d) c_d(μ)` and `ĉ_d = 0` off `(1+i)ℤ[i]`.
+Numerically VERIFIED (`fourier_check.py`) on its 2-part and odd part. -/
+def CdFourier (d : ℕ) : Prop :=
+  FourierRel (4 * d) (cdChar d) (4 * d * (1 + I) * (jacobiSym 2 d : ℂ))
+
+theorem jacobiSym_two_of_mod_eight {d : ℕ} (hd : d % 8 = 5) : jacobiSym 2 d = -1 := by
+  rw [jacobiSym.at_two (Nat.odd_iff.mpr (by omega)), ZMod.χ₈_nat_eq_if_mod_eight]
+  have h2 : d % 2 ≠ 0 := by omega
+  simp [h2, hd]
+
+theorem cpow_of_pos {r : ℝ} (hr : 0 < r) (z : ℂ) : (r : ℂ) ^ z = cexp (Real.log r * z) := by
+  rw [cpow_def_of_ne_zero (ofReal_ne_zero.mpr hr.ne'), ofReal_log hr.le]
+
+/-- The bookkeeping of constants: conductor `N = 32d² = 2M²`, `M = 4d`. -/
+theorem const_identity {d : ℕ} (hd : 0 < d) (s : ℂ) :
+    ((32 * d ^ 2 : ℕ) : ℂ) ^ ((2 - s) / 2) * (2 : ℂ) ^ (-(2 - s)) * ((4 * d : ℕ) : ℂ) *
+        ((((4 * d : ℕ) : ℝ) ^ 2 : ℝ) : ℂ) ^ (-(2 - s)) * (-8 * d) * (2 : ℂ) ^ (-s) *
+        ((4 * d : ℕ) : ℂ) * ((((4 * d : ℕ) : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) =
+      -(((32 * d ^ 2 : ℕ) : ℂ) ^ (s / 2) * (2 : ℂ) ^ (-s) * ((4 * d : ℕ) : ℂ) *
+        ((((4 * d : ℕ) : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s)) := by
+  set m : ℝ := ((4 * d : ℕ) : ℝ) with hm
+  have hm0 : 0 < m := by rw [hm]; positivity
+  have hN : ((32 * d ^ 2 : ℕ) : ℂ) = ((2 * m ^ 2 : ℝ) : ℂ) := by
+    rw [hm]; push_cast; ring
+  have h2 : (2 : ℂ) = ((2 : ℝ) : ℂ) := by norm_num
+  have hM : ((4 * d : ℕ) : ℂ) = cexp (Real.log m) := by
+    rw [← ofReal_exp, Real.exp_log hm0, hm]; push_cast; ring
+  have h8 : (-8 * d : ℂ) = -cexp (Real.log 2 + Real.log m) := by
+    rw [← ofReal_add, ← ofReal_exp, Real.exp_add, Real.exp_log two_pos, Real.exp_log hm0, hm]
+    push_cast; ring
+  have hlogN : Real.log (2 * m ^ 2) = Real.log 2 + 2 * Real.log m := by
+    rw [Real.log_mul two_ne_zero (by positivity), Real.log_pow]; push_cast; ring
+  have hlogM2 : Real.log (m ^ 2) = 2 * Real.log m := by rw [Real.log_pow]; push_cast; ring
+  rw [hN, h8, hM, h2]
+  simp only [cpow_of_pos (show (0 : ℝ) < 2 * m ^ 2 by positivity),
+    cpow_of_pos (show (0 : ℝ) < m ^ 2 by positivity), cpow_of_pos (show (0 : ℝ) < 2 by norm_num),
+    hlogN, hlogM2]
+  simp only [neg_mul, mul_neg, ← Complex.exp_add]
+  congr 2
+  push_cast
+  ring
+
+/-- **`FunctionalEquation5` for one `d`, from `DeuringCd d` and `CdFourier d`.** -/
+theorem functionalEquation5_of_deuring_fourier {d : ℕ} (h5 : d % 8 = 5) (hsq : Squarefree d)
+    (hD : DeuringCd d) (hFo : CdFourier d) (F : ℂ → ℂ)
+    (hF : ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F) (s : ℂ)
+    (hs0 : 0 < s.re) (hs2 : s.re < 2) :
+    ZInQ.Literature.completedL (32 * d ^ 2) F (2 - s) =
+      -ZInQ.Literature.completedL (32 * d ^ 2) F s := by
+  have hodd : Odd d := Nat.odd_iff.mpr (by omega)
+  have hd0 : 0 < d := by omega
+  have : NeZero d := ⟨by omega⟩
+  have : NeZero (4 * d) := ⟨by omega⟩
+  set M := 4 * d with hMdef
+  set c : ZMod M × ZMod M → ℂ := fun x => (1 / 4) * cdChar d x
+  set κ : ℂ := 4 * d * (1 + I) * (jacobiSym 2 d : ℂ)
+  have hFc : FourierRel M c κ := fourierRel_const_mul hFo (1 / 4)
+  have hκ : -I * κ * (1 + I) = -8 * d := by
+    simp only [κ, jacobiSym_two_of_mod_eight h5]
+    push_cast; linear_combination (4 * (d : ℂ) * I + 8 * d) * I_sq
+  -- Step 1: `F = T_c` on `Re s > 3/2`.
+  have step1 : ∀ s : ℂ, 3 / 2 < s.re → F s = twistedL M c s := by
+    intro s hs
+    rw [hF.2 s hs, ZInQ.Literature.LSeries_cd_eq hodd hsq s]
+    refine LSeries_eq_twistedL M c _ (fun n hn => ?_) hs
+    rw [hD n hn, heckeCoeff, Finset.mul_sum]
+    refine Finset.sum_congr rfl fun p _ => ?_
+    simp only [c, M, cdChar_intCast]
+    ring
+  -- Step 2: `π^{−s} Γ(s) F(s) = M (M²)^{−s} Λ_c(s)` on `Re s > 0`.
+  have hM2 : (((M : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast pow_ne_zero 2 (Nat.cast_ne_zero.mpr (NeZero.ne M))
+  have : NeZero (((M : ℝ) ^ 2 : ℝ) : ℂ) := ⟨hM2⟩
+  have hpi : (π : ℂ) ≠ 0 := ofReal_ne_zero.mpr pi_ne_zero
+  have : NeZero (π : ℂ) := ⟨hpi⟩
+  set U : Set ℂ := {s : ℂ | 0 < s.re}
+  have hUo : IsOpen U := isOpen_lt continuous_const Complex.continuous_re
+  have hGam : ∀ s ∈ U, DifferentiableAt ℂ Complex.Gamma s := fun s hs =>
+    Complex.differentiableAt_Gamma s fun m hm => by
+      have : s.re = -(m : ℝ) := by rw [hm]; simp
+      have h0 : (0 : ℝ) < s.re := hs
+      have : (0 : ℝ) ≤ m := Nat.cast_nonneg m
+      linarith
+  have step2 : ∀ s ∈ U, (π : ℂ) ^ (-s) * Complex.Gamma s * F s =
+      (M : ℂ) * (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s := by
+    have hf : AnalyticOnNhd ℂ (fun s => (π : ℂ) ^ (-s) * Complex.Gamma s * F s) U := by
+      refine DifferentiableOn.analyticOnNhd (fun s hs => ?_) hUo
+      exact ((((differentiable_const_cpow_of_neZero (π : ℂ)).comp differentiable_id.neg) s).mul
+        (hGam s hs) |>.mul (hF.1 s)).differentiableWithinAt
+    have hg : AnalyticOnNhd ℂ (fun s => (M : ℂ) * (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) *
+        lambdaC M c s) U := by
+      refine DifferentiableOn.analyticOnNhd (fun s _ => ?_) hUo
+      exact (((((differentiable_const_cpow_of_neZero _).comp differentiable_id.neg).const_mul
+        _).mul (differentiable_lambdaC M c)) s).differentiableWithinAt
+    have hU2 : {s : ℂ | 3 / 2 < s.re} ∈ nhds (2 : ℂ) :=
+      (isOpen_lt continuous_const Complex.continuous_re).mem_nhds (by norm_num)
+    have hev : (fun s => (π : ℂ) ^ (-s) * Complex.Gamma s * F s) =ᶠ[nhds (2 : ℂ)]
+        (fun s => (M : ℂ) * (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-s) * lambdaC M c s) := by
+      refine Filter.mem_of_superset hU2 fun s hs' => ?_
+      have hs : 3 / 2 < s.re := hs'
+      show (π : ℂ) ^ (-s) * Complex.Gamma s * F s = _
+      rw [step1 s hs, lambdaC_eq M c hs]
+    exact hf.eqOn_of_preconnected_of_eventuallyEq hg (convex_halfSpace_re_gt 0).isPreconnected
+      (show (2 : ℂ) ∈ U by simp [U]) hev
+  -- Step 3: the constants.
+  have hsU : s ∈ U := hs0
+  have hsU' : 2 - s ∈ U := show 0 < (2 - s).re by rw [sub_re]; norm_num; linarith
+  have hsplit : ∀ z : ℂ, (2 * Real.pi : ℂ) ^ (-z) = (2 : ℂ) ^ (-z) * (π : ℂ) ^ (-z) := fun z => by
+    have := mul_cpow_ofReal_nonneg (by norm_num : (0 : ℝ) ≤ 2) pi_pos.le (-z)
+    push_cast at this; exact this
+  have hL : ∀ z ∈ U, ZInQ.Literature.completedL (32 * d ^ 2) F z =
+      ((32 * d ^ 2 : ℕ) : ℂ) ^ (z / 2) * (2 : ℂ) ^ (-z) * ((M : ℂ) *
+        (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ (-z) * lambdaC M c z) := fun z hz => by
+    rw [ZInQ.Literature.completedL, hsplit, ← step2 z hz]; ring
+  rw [hL _ hsU', hL _ hsU, lambdaC_two_sub M c hFc s, hκ]
+  have hc := const_identity hd0 s
+  simp only [M] at *
+  linear_combination lambdaC (4 * d) c s * hc
+
+/-- **`FunctionalEquation5` from Deuring's identity and the Fourier identity.** -/
+theorem functionalEquation5_of_deuring_fourier'
+    (hD : ∀ d : ℕ, d % 8 = 5 → Squarefree d → DeuringCd d)
+    (hFo : ∀ d : ℕ, d % 8 = 5 → Squarefree d → CdFourier d) :
+    ZInQ.Literature.FunctionalEquation5 :=
+  fun d h5 hsq F hF s hs0 hs2 =>
+    functionalEquation5_of_deuring_fourier h5 hsq (hD d h5 hsq) (hFo d h5 hsq) F hF s hs0 hs2
+
 end BpHeckeFE

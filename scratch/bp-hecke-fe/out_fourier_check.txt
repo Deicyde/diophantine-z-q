@@ -8,3 +8,7 @@ odd part d=13: #nu with S != d*chi_d(N nu): 0
 odd part d=21: #nu with S != d*chi_d(N nu): 0
 odd part d=3: #nu with S != d*chi_d(N nu): 0
 odd part d=7: #nu with S != d*chi_d(N nu): 0
+full CdFourier check:
+  d=5 M=20 (2/d)=-1  failures over all nu mod M: 0
+  d=13 M=52 (2/d)=-1  failures over all nu mod M: 0
+  d=21 M=84 (2/d)=-1  failures over all nu mod M: 0

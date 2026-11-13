@@ -25,3 +25,29 @@ for d in [5, 13, 21, 3, 7]:
         S = sum(int(pari.kronecker(a*a + b*b, d)) * e((a*n1 + b*n2)/d) for a in range(d) for b in range(d))
         if abs(S - d * int(pari.kronecker(n1*n1 + n2*n2, d))) > 1e-6: bad += 1
     print("odd part d=%d: #nu with S != d*chi_d(N nu): %d" % (d, bad))
+
+# Full CdFourier as defined in HeckeFE.lean: for nu mod M=4d,
+#   fourierHat(nu) = sum_{j in [0,M)^2} cdChar(j) e((j1 nu1 + j2 nu2)/M),
+#   cdChar(j) = (N j / d) * unitOf(j mod 4);
+# claim: nu1+nu2 odd -> 0;  nu = (m1-m2, m1+m2) -> 4d(1+i)(2/d) cdChar(m).
+print("full CdFourier check:")
+for d in [5, 13, 21]:
+    M = 4*d
+    jac2 = int(pari.kronecker(2, d))
+    cd = {}
+    for a in range(M):
+        for b in range(M):
+            cd[(a, b)] = int(pari.kronecker(a*a + b*b, d)) * unit(a, b)
+    ex = [e(k / M) for k in range(M)]
+    bad = 0
+    for n1 in range(M):
+        for n2 in range(M):
+            F = sum(cd[(a, b)] * ex[(a*n1 + b*n2) % M] for a in range(M) for b in range(M) if cd[(a, b)] != 0)
+            if (n1 + n2) % 2 == 1:
+                ok = abs(F) < 1e-6
+            else:
+                # mu with (mu1-mu2, mu1+mu2) = nu mod M: mu1=(n1+n2)/2, mu2=(n2-n1)/2 (mod M/... use exact ints)
+                m1, m2 = (n1 + n2) // 2, (n2 - n1) // 2
+                ok = abs(F - 4*d*(1+1j)*jac2*cd[(m1 % M, m2 % M)]) < 1e-6
+            if not ok: bad += 1
+    print("  d=%d M=%d (2/d)=%d  failures over all nu mod M: %d" % (d, M, jac2, bad))
