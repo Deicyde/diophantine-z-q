@@ -29,3 +29,12 @@ C2K <- (L) <- (L0) leaf; (CI) proved from infra-smooth-dim.
   Mathlib `ringKrullDim_stalk_eq_coheight`).
 - Proof: σ constant ⇒ P = x − c or 1; else W \ V_σ = {σ = 0} finite, so finitely many u with
   (0,u) hit; pick u outside (K infinite); some Q ∈ S (IC equations) has Q(0,u) ≠ 0; P = Q.
+
+## 3. C2K `ConstOrOntoAlgClosed` PROVED from (CI) alone (VERIFIED, compiled)
+- Same file AlgDepProof.lean (+ C2Kproof.lean.part). `constOrOntoAlgClosed_of_CI
+  (hI : ComponentIrreducible) : ConstOrOntoAlgClosed`, `algDep_of_CI h1 hI : AlgDep`; 0 errors,
+  axioms standard; warnings only `if_neg`/`if_pos` deprecation.
+- So the leaf (L0) FiniteGlobalSections is NOT needed for C2K (curve-glue derived C2K from L0).
+- Proof: image_closed with ρ = σ: diagonal equations Q(x,x) show the finite values of σ on W form
+  a finite set or all of K; finite ⇒ {σ = t} (closed: complement of two basic opens) and X∖U cover
+  the irreducible W (Jacobson) ⇒ σ constant; same for 1/σ (charts swapped, `ImagePlane.inv`) gives ∞.

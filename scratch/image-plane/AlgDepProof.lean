@@ -750,6 +750,231 @@ theorem algDep_of (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)
   refine ⟨Q, fun e => hQ0 (by rw [e]; simp [Alg.evalXY]), fun p hp hpc t u' ht hu' => ?_⟩
   exact (hSc t u').1 ⟨p, hp, (memW p).2 hpc, ht, hu'⟩ Q hQS
 
+/-! ## §C2K `ConstOrOntoAlgClosed` from (CI) and the closed image (task image-plane)
+
+With `ρ = σ`, the closed image gives: the finite values of `σ` on the `K`-points of a closed `T`
+form a Zariski closed subset of `K` (the diagonal section of the equations), so a finite set or
+all of `K`. If finite, the loci `{σ = t}` (closed: complements of two basic opens) and
+`{σ = ∞} = X \ U` cover the irreducible (CI) component `W` (Jacobson), so one of them contains
+`W`: `σ` is constant. Applying this also to `1/σ` (swap the charts) gives "constant or onto".
+No leaf is used (in particular not (L0)). -/
+
+namespace ImagePlane
+
+open Polynomial
+
+variable {K : Type} [Field K] {X : Scheme.{0}}
+
+/-- The reciprocal `1/σ` (the charts swapped). -/
+def inv (σ : ToP1 X) : ToP1 X where
+  U := σ.V
+  V := σ.U
+  cover := by rw [sup_comm]; exact σ.cover
+  f := σ.g
+  g := σ.f
+  inv := by
+    have h : σ.V ⊓ σ.U ≤ σ.U ⊓ σ.V := le_of_eq (inf_comm _ _)
+    have e : res h (res (inf_le_left : σ.U ⊓ σ.V ≤ σ.U) σ.f *
+        res (inf_le_right : σ.U ⊓ σ.V ≤ σ.V) σ.g) = res h 1 := congrArg _ σ.inv
+    rw [map_mul, map_one, res_res, res_res] at e
+    change res _ σ.g * res _ σ.f = 1
+    rw [mul_comm]
+    exact e
+  basicOpen_f := by rw [σ.basicOpen_g, inf_comm]
+  basicOpen_g := by rw [σ.basicOpen_f, inf_comm]
+
+open scoped Classical in
+/-- `v ↦ 1/v` on `P¹(K)`. -/
+def recip (v : OnePoint K) : OnePoint K :=
+  match v with
+  | none => some 0
+  | some s => if s = 0 then none else some s⁻¹
+
+theorem recip_infty : recip (OnePoint.infty : OnePoint K) = OnePoint.some 0 := rfl
+
+open scoped Classical in
+theorem recip_coe (s : K) :
+    recip (OnePoint.some s) = if s = 0 then OnePoint.infty else OnePoint.some s⁻¹ := rfl
+
+theorem val_eq_recip (σ : ToP1 X) (p : Spec (CommRingCat.of K) ⟶ X) :
+    σ.val p = recip ((inv σ).val p) := by
+  by_cases hU : ptOf p ∈ σ.U
+  · by_cases hV : ptOf p ∈ σ.V
+    · have h2 : (inv σ).val p = OnePoint.some (ev p hV σ.g) := val_of_mem (inv σ) p hV
+      rw [val_of_mem σ p hU, h2, recip_coe]
+      have e := ev_f_mul_g σ p hU hV
+      have hg : ev p hV σ.g ≠ 0 := right_ne_zero_of_mul_eq_one e
+      rw [if_neg hg]
+      exact congrArg _ (eq_inv_of_mul_eq_one_left e)
+    · have h2 : (inv σ).val p = OnePoint.infty := val_of_not_mem (inv σ) p hV
+      rw [val_of_mem σ p hU, h2, recip_infty]
+      have : ev p hU σ.f = 0 := by
+        rw [ev_eq_zero_iff, σ.basicOpen_f]; exact fun h => hV h.2
+      rw [this]
+  · have hV := mem_V_of_not_mem_U σ hU
+    have h2 : (inv σ).val p = OnePoint.some (ev p hV σ.g) := val_of_mem (inv σ) p hV
+    rw [val_of_not_mem σ p hU, h2, recip_coe, ev_g_eq_zero σ p hV hU, if_pos rfl]
+
+/-- The open set where `σ ≠ a`. -/
+def badX (f : X ⟶ Spec (CommRingCat.of K)) (σ : ToP1 X) (a : K) : X.Opens :=
+  X.basicOpen (σ.f - cst f σ.U a) ⊔ X.basicOpen (cst f σ.V a * σ.g - 1)
+
+theorem not_mem_badX_iff (f : X ⟶ Spec (CommRingCat.of K)) (σ : ToP1 X) (a : K)
+    (p : Spec (CommRingCat.of K) ⟶ X) (hp : p ≫ f = 𝟙 _) :
+    ptOf p ∉ badX f σ a ↔ σ.val p = OnePoint.some a := by
+  have hU : ∀ (hx : ptOf p ∈ σ.U), ev p hx (σ.f - cst f σ.U a) = ev p hx σ.f - a := by
+    intro hx; rw [map_sub, ev_cst f p hp]
+  have hV : ∀ (hx : ptOf p ∈ σ.V), ev p hx (cst f σ.V a * σ.g - 1) = a * ev p hx σ.g - 1 := by
+    intro hx; rw [map_sub, map_mul, map_one, ev_cst f p hp]
+  constructor
+  · intro hq
+    by_cases hpU : ptOf p ∈ σ.U
+    · rw [val_of_mem σ p hpU]
+      have h0 : ptOf p ∉ X.basicOpen (σ.f - cst f σ.U a) := fun h => hq (Or.inl h)
+      rw [← ev_eq_zero_iff p hpU, hU] at h0
+      rw [sub_eq_zero.mp h0]
+    · exfalso
+      have hpV := mem_V_of_not_mem_U σ hpU
+      have h0 : ptOf p ∉ X.basicOpen (cst f σ.V a * σ.g - 1) := fun h => hq (Or.inr h)
+      rw [← ev_eq_zero_iff p hpV, hV, ev_g_eq_zero σ p hpV hpU] at h0
+      simp at h0
+  · intro hv hq
+    have hpU : ptOf p ∈ σ.U := by
+      by_contra h'
+      rw [val_of_not_mem σ p h'] at hv
+      exact OnePoint.infty_ne_coe a hv
+    rw [val_of_mem σ p hpU] at hv
+    have hfa : ev p hpU σ.f = a := OnePoint.coe_injective hv
+    rcases hq with h | h
+    · have hx : ptOf p ∈ σ.U := X.basicOpen_le _ h
+      refine (ev_eq_zero_iff p hx _).1 ?_ h
+      rw [hU, hfa, sub_self]
+    · have hx : ptOf p ∈ σ.V := X.basicOpen_le _ h
+      refine (ev_eq_zero_iff p hx _).1 ?_ h
+      rw [hV, ← hfa, ev_f_mul_g σ p hpU hx, sub_self]
+
+theorem eval_diag (Q : K[X][X]) (t : K) : (Q.eval Polynomial.X).eval t = Alg.evalXY t t Q := by
+  induction Q using Polynomial.induction_on' with
+  | add p q hp hq => simp only [eval_add, hp, hq, Alg.evalXY, Polynomial.map_add]
+  | monomial n a => simp [Alg.evalXY]
+
+/-- The finite values of `σ` on the `K`-points of a closed `T` form a finite set or all of `K`. -/
+theorem image_finite_or_univ [IsAlgClosed K] (f : X ⟶ Spec (CommRingCat.of K)) (hP : IsProper f)
+    (σ : ToP1 X) {T : Set X} (hT : IsClosed T) :
+    {t : K | ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧ ptOf p ∈ T ∧
+      σ.val p = OnePoint.some t}.Finite ∨
+    ∀ t : K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧ ptOf p ∈ T ∧
+      σ.val p = OnePoint.some t := by
+  classical
+  obtain ⟨S, hS⟩ := image_closed f hP σ σ hT
+  have hdiag : ∀ t : K, (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧ ptOf p ∈ T ∧
+      σ.val p = OnePoint.some t) ↔ ∀ Q ∈ S, (Q.eval Polynomial.X).eval t = 0 := by
+    intro t
+    simp_rw [eval_diag]
+    rw [← hS t t]
+    exact ⟨fun ⟨p, hp, hpT, h⟩ => ⟨p, hp, hpT, h, h⟩, fun ⟨p, hp, hpT, h, _⟩ => ⟨p, hp, hpT, h⟩⟩
+  by_cases h : ∀ Q ∈ S, Q.eval Polynomial.X = 0
+  · right
+    intro t
+    exact (hdiag t).2 fun Q hQ => by rw [h Q hQ, eval_zero]
+  · left
+    push Not at h
+    obtain ⟨Q, hQ, hQ0⟩ := h
+    refine (Q.eval Polynomial.X).roots.toFinset.finite_toSet.subset fun t ht => ?_
+    simp only [Finset.mem_coe, Multiset.mem_toFinset, mem_roots hQ0, IsRoot.def]
+    exact (hdiag t).1 ht Q hQ
+
+/-- Finitely many finite values on an irreducible closed set force a constant value. -/
+theorem const_of_finite [IsAlgClosed K] (f : X ⟶ Spec (CommRingCat.of K)) [LocallyOfFiniteType f]
+    [JacobsonSpace X] (σ : ToP1 X) {W : Set X} (hW : IsIrreducible W) (hWc : IsClosed W)
+    (hfin : {t : K | ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧ ptOf p ∈ W ∧
+      σ.val p = OnePoint.some t}.Finite) :
+    ∃ v : OnePoint K, ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W →
+      σ.val p = v := by
+  classical
+  set Fs := hfin.toFinset with hFs
+  let fam : Finset (Set X) :=
+    insert ((σ.U : Set X)ᶜ) (Fs.image fun t => ((badX f σ t : X.Opens) : Set X)ᶜ)
+  have hcl : ∀ z ∈ fam, IsClosed z := by
+    intro z hz
+    rcases Finset.mem_insert.1 hz with rfl | hz
+    · exact σ.U.isOpen.isClosed_compl
+    · obtain ⟨t, -, rfl⟩ := Finset.mem_image.1 hz
+      exact (badX f σ t).isOpen.isClosed_compl
+  have hmem : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W →
+      ∃ z ∈ fam, ptOf p ∈ z := by
+    intro p hp hpW
+    induction hv : σ.val p using OnePoint.rec with
+    | infty =>
+      refine ⟨(σ.U : Set X)ᶜ, Finset.mem_insert_self _ _, fun hU => ?_⟩
+      rw [val_of_mem σ p hU] at hv
+      exact OnePoint.coe_ne_infty _ hv
+    | coe t =>
+      refine ⟨((badX f σ t : X.Opens) : Set X)ᶜ, Finset.mem_insert_of_mem
+        (Finset.mem_image_of_mem _ (hfin.mem_toFinset.2 ⟨p, hp, hpW, hv⟩)), ?_⟩
+      exact (not_mem_badX_iff f σ t p hp).2 hv
+  have hcov : W ⊆ ⋃₀ ↑fam := by
+    intro x hx
+    by_contra hnot
+    let Y : Set X := W ∩ ⋂ z ∈ fam, zᶜ
+    have hYo : IsLocallyClosed Y :=
+      hWc.isLocallyClosed.inter (isOpen_biInter_finset fun z hz => (hcl z hz).isOpen_compl).isLocallyClosed
+    have hxY : x ∈ Y := by
+      refine ⟨hx, Set.mem_iInter₂.2 fun z hz hxz => hnot ⟨z, hz, hxz⟩⟩
+    obtain ⟨p, hp, hpY⟩ := exists_point_of_isLocallyClosed f hYo ⟨x, hxY⟩
+    obtain ⟨z, hz, hpz⟩ := hmem p hp hpY.1
+    exact Set.mem_iInter₂.1 hpY.2 z hz hpz
+  obtain ⟨z, hz, hWz⟩ := (isIrreducible_iff_sUnion_isClosed.1 hW) fam hcl hcov
+  rcases Finset.mem_insert.1 hz with rfl | hz
+  · refine ⟨OnePoint.infty, fun p _ hpW => val_of_not_mem σ p (hWz hpW)⟩
+  · obtain ⟨t, -, rfl⟩ := Finset.mem_image.1 hz
+    exact ⟨OnePoint.some t, fun p hp hpW => (not_mem_badX_iff f σ t p hp).1 (hWz hpW)⟩
+
+end ImagePlane
+
+/-- **C2K `ConstOrOntoAlgClosed` from (CI) alone** (task image-plane; (CI) is proved by
+curve-glue's `componentIrreducible`). No leaf: properness enters through Mathlib's
+`UniversallyClosed`. -/
+theorem constOrOntoAlgClosed_of_CI (hI : ComponentIrreducible) : ConstOrOntoAlgClosed := by
+  classical
+  intro K _ _ X f hP hS σ p₀ hp₀
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  set x₀ := ptOf p₀ with hx₀
+  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ connectedComponent x₀ ↔
+      connectedComponent (ptOf p) = connectedComponent x₀ :=
+    fun p => ⟨fun h => (connectedComponent_eq h).symm,
+      fun h => by rw [← h]; exact mem_connectedComponent⟩
+  have hWi := hI K X f hP hS x₀
+  have hWc : IsClosed (connectedComponent x₀) := isClosed_connectedComponent
+  have hconst : ∀ v : OnePoint K, (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      ptOf p ∈ connectedComponent x₀ → σ.val p = v) →
+      ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → σ.val p = σ.val p₀ := by
+    intro v hv p hp hpc
+    rw [hv p hp ((memW p).2 hpc), hv p₀ hp₀ mem_connectedComponent]
+  rcases ImagePlane.image_finite_or_univ f hP σ hWc with hfin | hall
+  · obtain ⟨v, hv⟩ := ImagePlane.const_of_finite f σ hWi hWc hfin
+    exact Or.inl (hconst v hv)
+  rcases ImagePlane.image_finite_or_univ f hP (ImagePlane.inv σ) hWc with hfin' | hall'
+  · obtain ⟨v, hv⟩ := ImagePlane.const_of_finite f (ImagePlane.inv σ) hWi hWc hfin'
+    refine Or.inl (hconst (ImagePlane.recip v) fun p hp hpW => ?_)
+    rw [ImagePlane.val_eq_recip σ p, hv p hp hpW]
+  · right
+    intro t
+    induction t using OnePoint.rec with
+    | infty =>
+      obtain ⟨p, hp, hpW, h0⟩ := hall' 0
+      refine ⟨p, hp, (memW p).1 hpW, ?_⟩
+      rw [ImagePlane.val_eq_recip σ p, h0, ImagePlane.recip_coe, if_pos rfl]
+    | coe t =>
+      obtain ⟨p, hp, hpW, ht⟩ := hall t
+      exact ⟨p, hp, (memW p).1 hpW, ht⟩
+
+/-- **(AD) from C1b and (CI) alone.** -/
+theorem algDep_of_CI (h1 : SmoothStalkDimOne) (hI : ComponentIrreducible) : AlgDep :=
+  algDep_of h1 (constOrOntoAlgClosed_of_CI hI) hI
+
 end Pin
 
 end AV
@@ -760,3 +985,5 @@ end
 
 #print axioms LeafQM.AV.Pin.imageClosed
 #print axioms LeafQM.AV.Pin.algDep_of
+#print axioms LeafQM.AV.Pin.constOrOntoAlgClosed_of_CI
+#print axioms LeafQM.AV.Pin.algDep_of_CI

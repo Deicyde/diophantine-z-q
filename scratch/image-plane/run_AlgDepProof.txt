@@ -1,2 +1,16 @@
+scratch/image-plane/AlgDepProof.lean:807:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/image-plane/AlgDepProof.lean:816:70: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/image-plane/AlgDepProof.lean:969:65: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
 'LeafQM.AV.Pin.imageClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.Pin.algDep_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.constOrOntoAlgClosed_of_CI' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.algDep_of_CI' depends on axioms: [propext, Classical.choice, Quot.sound]
