@@ -2,6 +2,7 @@ import ZInQKernel.HDecomp.QM.Pin
 import ZInQKernel.HDecomp.Descent.B2Glue
 import Mathlib.RingTheory.Localization.AtPrime.Extension
 import Mathlib.RingTheory.Flat.TorsionFree
+import Mathlib.NumberTheory.RamificationInertia.Basic
 
 /-!
 # prop-ts: Proposition TS (Beckmann's specialization inertia theorem) for the fibre cover
@@ -4752,12 +4753,965 @@ theorem unramCompositum : UnramCompositum := by
   have hsep := ((Algebra.isUnramifiedAt_iff_map_eq R (maximalIdeal R) Q).mp inferInstance).1
   exact Algebra.isSeparable_residueField_iff.mp hsep
 
+/-- `ℚ → ℚ[1/X]`, constants. -/
+def Cinf : ℚ →+* InfCoord := (Polynomial.C : ℚ →+* ℚ[X])
+
+/-- The identity `ℚ[X] → InfCoord` (as types). -/
+def toInf (f : ℚ[X]) : InfCoord := f
+
+/-- **Transfer between `ℚ[1/X]` and `ℚ[X]` away from `0` and `∞`.** A prime `Q` of the integral
+closure of `ℚ[1/X]` in `E` over a prime `h` with `1/X ∉ h` has the ramification index of a prime
+`QX` of the integral closure of `ℚ[X]` in `E`; if `QX` lies over `X − b'`, then `b' ≠ 0` and
+`b'·(1/X) − 1 ∈ h`. -/
+theorem infTransfer (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] (h : Ideal InfCoord) [hh : h.IsPrime]
+    (hu : infUnif ∉ h) :
+    letI := infAlg E
+    ∀ Q : Ideal (integralClosure InfCoord E), Q.IsPrime → Q.under InfCoord = h →
+      ∃ QX : Ideal (integralClosure ℚ[X] E), QX.IsPrime ∧
+        QX.ramificationIdx ℚ[X] = Q.ramificationIdx InfCoord ∧
+        ∀ b' : ℚ, QX.under ℚ[X] = Ideal.span {X - C b'} →
+          b' ≠ 0 ∧ toInf (C b' * X - 1) ∈ h := by
+  letI := infAlg E
+  intro Q hQp hQu
+  classical
+  letI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+  haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+  haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq' rfl
+  set Rp := Localization.AtPrime h
+  letI : Algebra Rp (RatFunc ℚ) := IsLocalization.localizationAlgebraOfSubmonoidLe Rp (RatFunc ℚ)
+    h.primeCompl (nonZeroDivisors InfCoord) h.primeCompl_le_nonZeroDivisors
+  haveI : IsScalarTower InfCoord Rp (RatFunc ℚ) :=
+    IsLocalization.localization_isScalarTower_of_submonoid_le Rp (RatFunc ℚ)
+      h.primeCompl (nonZeroDivisors InfCoord) h.primeCompl_le_nonZeroDivisors
+  haveI : IsFractionRing Rp (RatFunc ℚ) :=
+    IsFractionRing.isFractionRing_of_isDomain_of_isLocalization h.primeCompl Rp (RatFunc ℚ)
+  letI : Algebra Rp E := ((algebraMap (RatFunc ℚ) E).comp (algebraMap Rp (RatFunc ℚ))).toAlgebra
+  haveI : IsScalarTower Rp (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq' rfl
+  haveI : IsScalarTower InfCoord Rp E := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    change algebraMap (RatFunc ℚ) E (algebraMap InfCoord (RatFunc ℚ) x) =
+      algebraMap (RatFunc ℚ) E (algebraMap Rp (RatFunc ℚ) (algebraMap InfCoord Rp x))
+    rw [← IsScalarTower.algebraMap_apply InfCoord Rp (RatFunc ℚ)]
+  have hRpK : Function.Injective (algebraMap Rp (RatFunc ℚ)) := IsFractionRing.injective Rp _
+  -- the unit `μ` (image of `1/X`) and the map `τ : ℚ[X] → Rp`, `X ↦ μ⁻¹`
+  have hμ : IsUnit (algebraMap InfCoord Rp infUnif) :=
+    IsLocalization.map_units Rp (⟨infUnif, hu⟩ : h.primeCompl)
+  set μ := hμ.unit with hμ_def
+  let i0 : ℚ →+* Rp := (algebraMap InfCoord Rp).comp Cinf
+  let τ : ℚ[X] →+* Rp := Polynomial.eval₂RingHom i0 (↑μ⁻¹ : Rp)
+  have hevalμ : ∀ f : ℚ[X], eval₂ i0 (μ : Rp) f = algebraMap InfCoord Rp (toInf f) := by
+    intro f
+    have := Polynomial.hom_eval₂ f (Polynomial.C : ℚ →+* ℚ[X])
+      (algebraMap InfCoord Rp : ℚ[X] →+* Rp) X
+    rw [eval₂_C_X] at this
+    rw [hμ_def, IsUnit.unit_spec]
+    exact this.symm
+  have hrefl : ∀ (f : ℚ[X]) (N : ℕ), f.natDegree ≤ N →
+      τ (reflect N f) * (μ : Rp) ^ N = algebraMap InfCoord Rp (toInf f) := by
+    intro f N hf
+    letI : Invertible (μ : Rp) := μ.invertible
+    have := eval₂_reflect_mul_pow i0 (μ : Rp) N f hf
+    rw [hevalμ] at this
+    rw [← this]
+    rfl
+  -- compatibility of `τ` with the maps to `ℚ(X)`
+  have hτK : ∀ f : ℚ[X], algebraMap Rp (RatFunc ℚ) (τ f) = algebraMap ℚ[X] (RatFunc ℚ) f := by
+    have : (algebraMap Rp (RatFunc ℚ)).comp τ = algebraMap ℚ[X] (RatFunc ℚ) := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        have := RingHom.ext_rat (((algebraMap Rp (RatFunc ℚ)).comp τ).comp C)
+          ((algebraMap ℚ[X] (RatFunc ℚ)).comp C)
+        exact congrArg (fun g => g a) this
+      · simp only [RingHom.comp_apply]
+        change algebraMap Rp (RatFunc ℚ) (eval₂ i0 (↑μ⁻¹ : Rp) X) = _
+        rw [eval₂_X, RatFunc.algebraMap_X]
+        have h1 : algebraMap Rp (RatFunc ℚ) (μ : Rp) = RatFunc.X⁻¹ := by
+          rw [hμ_def, IsUnit.unit_spec, ← IsScalarTower.algebraMap_apply]
+          change eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (X : ℚ[X]) = _
+          rw [eval₂_X]
+        have h2 : algebraMap Rp (RatFunc ℚ) (↑μ⁻¹ : Rp) * algebraMap Rp (RatFunc ℚ) (μ : Rp) = 1 := by
+          rw [← map_mul, Units.inv_mul, map_one]
+        rw [h1] at h2
+        exact (mul_inv_eq_one₀ RatFunc.X_ne_zero).mp h2
+    intro f
+    exact congrArg (fun g => g f) this
+  have hτinj : Function.Injective τ := by
+    intro x y hxy
+    apply IsFractionRing.injective ℚ[X] (RatFunc ℚ)
+    rw [← hτK, ← hτK, hxy]
+  letI : Algebra ℚ[X] Rp := τ.toAlgebra
+  haveI : IsScalarTower ℚ[X] Rp E := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro f
+    change algebraMap ℚ[X] E f = algebraMap (RatFunc ℚ) E (algebraMap Rp (RatFunc ℚ) (τ f))
+    rw [hτK, ← IsScalarTower.algebraMap_apply]
+  set hX : Ideal ℚ[X] := (maximalIdeal Rp).comap (algebraMap ℚ[X] Rp) with hX_def
+  haveI : hX.IsPrime := Ideal.IsPrime.comap _
+  -- `Rp` is the localization of `ℚ[X]` at `hX`
+  haveI hlocX : IsLocalization.AtPrime Rp hX := by
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨y, hy⟩
+      exact (IsLocalRing.notMem_maximalIdeal).mp hy
+    · intro z
+      obtain ⟨⟨a, s⟩, rfl⟩ := IsLocalization.mk'_surjective h.primeCompl z
+      set N := max (a : ℚ[X]).natDegree (s.1 : ℚ[X]).natDegree
+      have ha := hrefl a N (le_max_left _ _)
+      have hs := hrefl s.1 N (le_max_right _ _)
+      have hsu : IsUnit (algebraMap InfCoord Rp s.1) := IsLocalization.map_units Rp s
+      have hys : IsUnit (τ (reflect N (s.1 : ℚ[X]))) := by
+        have : IsUnit (τ (reflect N (s.1 : ℚ[X])) * (μ : Rp) ^ N) := by rw [hs]; exact hsu
+        exact isUnit_of_mul_isUnit_left this
+      refine ⟨⟨reflect N (a : ℚ[X]), ⟨reflect N (s.1 : ℚ[X]), fun hm => ?_⟩⟩, ?_⟩
+      · exact (IsLocalRing.notMem_maximalIdeal.mpr hys) hm
+      · change IsLocalization.mk' Rp a s * τ (reflect N (s.1 : ℚ[X])) = τ (reflect N (a : ℚ[X]))
+        have hμN : IsUnit ((μ : Rp) ^ N) := (Units.isUnit μ).pow N
+        apply hμN.mul_right_cancel
+        rw [mul_assoc, hs, ha]
+        exact IsLocalization.mk'_spec Rp a s
+    · intro x y hxy
+      exact ⟨1, by simp [hτinj hxy]⟩
+  -- integral closures
+  have hP1 : ∀ x ∈ h.primeCompl, algebraMap InfCoord E x ≠ 0 := by
+    intro x hx h0
+    apply hx
+    have hinj : Function.Injective (algebraMap InfCoord E) := by
+      rw [IsScalarTower.algebraMap_eq InfCoord (RatFunc ℚ) E]
+      exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective _ _)
+    rw [hinj (h0.trans (map_zero _).symm)]; exact h.zero_mem
+  have hP2 : ∀ x ∈ hX.primeCompl, algebraMap ℚ[X] E x ≠ 0 := by
+    intro x hx h0
+    apply hx
+    have hinj : Function.Injective (algebraMap ℚ[X] E) := by
+      rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+      exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective _ _)
+    rw [hinj (h0.trans (map_zero _).symm)]; exact hX.zero_mem
+  obtain ⟨h11, h12, h13⟩ := intCl_isLocalization InfCoord Rp E h.primeCompl hP1
+  obtain ⟨h21, h22, h23⟩ := intCl_isLocalization ℚ[X] Rp E hX.primeCompl hP2
+  letI := (intClIncl InfCoord Rp E).toAlgebra
+  letI := (intClIncl ℚ[X] Rp E).toAlgebra
+  haveI : Q.LiesOver h := ⟨hQu.symm⟩
+  set Qp := Q.map (algebraMap (integralClosure InfCoord E) (integralClosure Rp E))
+  haveI : Qp.IsPrime := IsLocalization.AtPrime.isPrime_map_of_liesOver _ h _ Q
+  haveI : Qp.LiesOver (maximalIdeal Rp) := IsLocalization.AtPrime.liesOver_map_of_liesOver h Rp _ Q
+  have he1 : Qp.ramificationIdx Rp = Q.ramificationIdx InfCoord :=
+    IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx h Rp _ Q
+  set QX := Qp.comap (algebraMap (integralClosure ℚ[X] E) (integralClosure Rp E))
+  haveI : QX.LiesOver hX := IsLocalization.AtPrime.liesOver_comap_of_liesOver hX Rp Qp
+  haveI : QX.IsPrime := Ideal.IsPrime.comap _
+  have hQpX : Qp = QX.map (algebraMap (integralClosure ℚ[X] E) (integralClosure Rp E)) :=
+    (IsLocalization.map_under (Algebra.algebraMapSubmonoid (integralClosure ℚ[X] E)
+      hX.primeCompl) (integralClosure Rp E) Qp).symm
+  have he2 : Qp.ramificationIdx Rp = QX.ramificationIdx ℚ[X] := by
+    rw [hQpX]
+    exact IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx hX Rp _ QX
+  refine ⟨QX, inferInstance, he2.symm.trans he1, ?_⟩
+  intro b' hb'
+  have hmem : X - C b' ∈ hX := by
+    have e0 : hX = QX.under ℚ[X] := Ideal.LiesOver.over
+    rw [e0, hb']
+    exact Ideal.mem_span_singleton_self _
+  have hm : τ (X - C b') ∈ maximalIdeal Rp := hmem
+  rw [map_sub] at hm
+  change eval₂ i0 (↑μ⁻¹ : Rp) X - eval₂ i0 (↑μ⁻¹ : Rp) (C b') ∈ maximalIdeal Rp at hm
+  rw [eval₂_X, eval₂_C] at hm
+  refine ⟨?_, ?_⟩
+  · rintro rfl
+    rw [map_zero, sub_zero] at hm
+    exact (IsLocalRing.notMem_maximalIdeal.mpr (Units.isUnit μ⁻¹)) hm
+  · have hm2 : (μ : Rp) * (↑μ⁻¹ - i0 b') ∈ maximalIdeal Rp := Ideal.mul_mem_left _ _ hm
+    have e : (μ : Rp) * (↑μ⁻¹ - i0 b') = -algebraMap InfCoord Rp (toInf (C b' * X - 1)) := by
+      rw [mul_sub, Units.mul_inv, ← hevalμ]
+      simp only [eval₂_sub, eval₂_mul, eval₂_C, eval₂_X, eval₂_one]
+      ring
+    rw [e, neg_mem_iff] at hm2
+    rw [← Localization.AtPrime.comap_maximalIdeal (I := h)]
+    exact hm2
+
+/-- Compatibility of the Kummer substitution at `∞` (`1/X ↦ s^n/c`) with `ι`. -/
+theorem infSubst_compat {E E' : Type} [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] (ι : E →+* E') (c : ℚ) (n : ℕ) (hc : c ≠ 0)
+    (hshape : KummerShape E E' ι (rInf c n)) :
+    letI := infAlg E
+    ∀ x : InfCoord, algebraMap ℚ[X] E'
+      ((Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n) : ℚ[X] →+* ℚ[X]) x) =
+        ι (algebraMap InfCoord E x) := by
+  letI := infAlg E
+  let σ0 : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n)
+  have hσX : σ0 X = C c⁻¹ * X ^ n := by simp [σ0]
+  have : ((algebraMap ℚ[X] E').comp σ0 : ℚ[X] →+* E') =
+      (ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E') := by
+    apply Polynomial.ringHom_ext
+    · intro a
+      have := RingHom.ext_rat (((algebraMap ℚ[X] E').comp σ0).comp C)
+        (((ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E')).comp C)
+      exact congrArg (fun g => g a) this
+    · simp only [RingHom.comp_apply]
+      rw [hσX]
+      change algebraMap ℚ[X] E' (C c⁻¹ * X ^ n) =
+        ι (algebraMap (RatFunc ℚ) E (eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ X))
+      rw [eval₂_X, map_inv₀ (algebraMap (RatFunc ℚ) E), map_inv₀ ι, hshape.1,
+        ← map_inv₀ (algebraMap (RatFunc ℚ) E'),
+        IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E']
+      congr 1
+      have hCc : algebraMap ℚ[X] (RatFunc ℚ) (C c) ≠ 0 :=
+        (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr (C_ne_zero.mpr hc)
+      rw [rInf, inv_div, eq_div_iff hCc, ← map_mul]
+      congr 1
+      have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+      linear_combination (X ^ n) * h1
+  intro x
+  exact congrArg (fun g => g x) this
+
+/-- **`KummerOtherBranchInf` from `UnramCompositum`.** -/
+theorem kummerOtherBranchInf_of_unram (hU : UnramCompositum) : KummerOtherBranchInf := by
+  intro E _ _ _ _ _ E' _ _ _ _ _ ι c n hn hc hshape S hE Q' hQ'p hQ'e
+  classical
+  letI := infAlg E
+  letI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+  letI : IsDedekindDomain InfCoord := inferInstanceAs (IsDedekindDomain ℚ[X])
+  letI : Algebra ℚ InfCoord := inferInstanceAs (Algebra ℚ ℚ[X])
+  haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+  haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq' rfl
+  let σ0 : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n)
+  let σ : InfCoord →+* ℚ[X] := σ0
+  have hσC : ∀ a : ℚ, σ0 (C a) = C a := fun a => by simp [σ0]
+  have hσX : σ0 X = C c⁻¹ * X ^ n := by simp [σ0]
+  have hsn : σ0 (C c * X) = X ^ n := by
+    rw [map_mul, hσC, hσX, ← mul_assoc, ← C_mul, mul_inv_cancel₀ hc, C_1, one_mul]
+  have hXint : σ0.IsIntegralElem X := by
+    refine ⟨X ^ n - C (C c * X), Polynomial.monic_X_pow_sub_C _ hn.ne', ?_⟩
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, hsn, sub_self]
+  have hint : σ0.IsIntegral := isIntegral_of_X σ0 hσC hXint
+  have hrdeg : 0 < (C c⁻¹ * X ^ n : ℚ[X]).natDegree := by
+    rw [natDegree_C_mul_X_pow n _ (inv_ne_zero hc)]; exact hn
+  have hσinj : Function.Injective σ0 := by
+    rw [injective_iff_map_eq_zero]; intro f hf
+    change f.comp (C c⁻¹ * X ^ n) = 0 at hf
+    rw [comp_eq_zero_iff] at hf
+    rcases hf with hf | ⟨_, hr'⟩
+    · exact hf
+    · exfalso
+      have := congrArg natDegree hr'
+      rw [natDegree_C] at this; omega
+  have hσu : ∀ g' : Ideal ℚ[X], g'.IsPrime → X ∉ g' → σ infUnif ∉ g' := by
+    intro g' hg'p hXg' hm
+    change σ0 X ∈ g' at hm
+    rw [hσX] at hm
+    rcases hg'p.mem_or_mem hm with h1 | h1
+    · exact hg'p.ne_top (Ideal.eq_top_of_isUnit_mem _ h1
+        (isUnit_C.mpr (Ne.isUnit (inv_ne_zero hc))))
+    · exact hXg' (hg'p.mem_of_pow_mem n h1)
+  by_contra hcon
+  push_neg at hcon
+  obtain ⟨hne, hS'⟩ := hcon
+  apply hQ'e
+  set g := Q'.under ℚ[X] with hg_def
+  haveI hgp : g.IsPrime := Ideal.IsPrime.under _ _
+  have hQ'0 : Q' ≠ ⊥ := by rintro rfl; exact hQ'e (Ideal.ramificationIdx_bot_eq_one _)
+  have hg0 : g ≠ ⊥ := Ideal.IsIntegral.under_ne_bot ℚ[X] hQ'0
+  have hXg : X ∉ g := fun hX => hne (eq_span_X_of_mem g hX)
+  set h := g.comap σ with hh_def
+  haveI hhp : h.IsPrime := Ideal.IsPrime.comap σ
+  have hh0 : h ≠ ⊥ := by
+    letI : Algebra SrcPoly ℚ[X] := (σ0 : SrcPoly →+* ℚ[X]).toAlgebra
+    haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
+    exact Ideal.IsIntegral.under_ne_bot SrcPoly hg0
+  have hu : infUnif ∉ h := hσu g hgp hXg
+  have hadj : letI := ι.toAlgebra
+      IntermediateField.adjoin E (Set.range (algebraMap ℚ[X] E')) = ⊤ := by
+    letI := ι.toAlgebra
+    refine eq_top_iff.mpr ((adjoin_eq_top_of_shape ι _ hshape).symm.le.trans
+      (IntermediateField.adjoin.mono _ _ _ ?_))
+    rintro _ rfl
+    exact ⟨X, rfl⟩
+  refine compositum_core0 hU InfCoord (RatFunc ℚ) E E' ℚ[X] ι σ
+    (infSubst_compat ι c n hc hshape) (finite_of_isIntegral _ hint) hσinj (polyMap_injective E')
+    h hh0 hadj ?_ ?_ Q' rfl
+  · intro Q hQ hQu
+    obtain ⟨QX, hQXp, heq, hb⟩ := infTransfer E h hu Q hQ hQu
+    rw [← heq]
+    apply hE QX hQXp
+    intro b' hb' hQXb
+    obtain ⟨hb'0, hmem⟩ := hb b' hQXb
+    apply hS' b' hb' hb'0
+    have hm : σ (toInf (C b' * X - 1)) ∈ g := hmem
+    have e : (C b' * X ^ n - C c : ℚ[X]) = C c * σ (toInf (C b' * X - 1)) := by
+      change _ = C c * σ0 (C b' * X - 1)
+      rw [map_sub, map_mul, hσC, hσX, map_one]
+      have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+      linear_combination (-(C b' * X ^ n)) * h1
+    rw [e]; exact Ideal.mul_mem_left _ _ hm
+  · intro g' hg'p hg'
+    have hg'0 : g' ≠ ⊥ := by
+      rintro rfl
+      apply hh0
+      rw [← hg']
+      exact Ideal.comap_bot_of_injective σ hσinj
+    have hXg' : X ∉ g' := by
+      intro hX
+      apply hu
+      rw [← hg']
+      have : σ0 X ∈ g' := by
+        rw [hσX]; exact Ideal.mul_mem_left _ _ (Ideal.pow_mem_of_mem _ hX n hn)
+      exact this
+    have hder := derivative_notMem 0 c n hn hc g' hXg'
+    rw [C_0, zero_add] at hder
+    exact polyUnram _ hrdeg hint g' hg'0 hder
+
+/-- **Unramified base change (DVR form), proved.** `R`, `T` discrete valuation rings with fraction
+fields `K`, `K'`; `σ : R → T` any ring map; `L/K` finite separable; `M` a field generated by `ι(L)`
+and `K'`, compatibly with `σ` on `R`. If the integral closure of `R` in `L` is unramified over the
+maximal ideal of `R` (with separable residue fields), then every prime of the integral closure of
+`T` in `M` over the maximal ideal of `T` has ramification index `1`. (Same proof as
+`unramCompositum`, with `T ⊗_R B` in place of `B ⊗_R B'`.) -/
+theorem unramBaseChange (R K L M T K' : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field L] [Algebra K L] [Algebra R L] [IsScalarTower R K L]
+    [FiniteDimensional K L] [Algebra.IsSeparable K L]
+    [Field M] [CommRing T] [IsDomain T] [IsDiscreteValuationRing T]
+    [Field K'] [Algebra T K'] [IsFractionRing T K'] [Algebra K' M] [Algebra T M]
+    [IsScalarTower T K' M]
+    (ι : L →+* M) (σ : R →+* T) (hσ : ∀ x, algebraMap T M (σ x) = ι (algebraMap R L x))
+    (hadj : letI := ι.toAlgebra; IntermediateField.adjoin L (Set.range (algebraMap K' M)) = ⊤)
+    (hL : ∀ (Q : Ideal (integralClosure R L)) [Q.IsPrime] [Q.LiesOver (maximalIdeal R)],
+      Q.ramificationIdx R = 1 ∧
+      Algebra.IsSeparable (R ⧸ maximalIdeal R) (integralClosure R L ⧸ Q))
+    (Q : Ideal (integralClosure T M)) [Q.IsPrime] [Q.LiesOver (maximalIdeal T)] :
+    Q.ramificationIdx T = 1 ∧
+      Algebra.IsSeparable (T ⧸ maximalIdeal T) (integralClosure T M ⧸ Q) := by
+  classical
+  letI : Algebra R T := σ.toAlgebra
+  letI : Algebra L M := ι.toAlgebra
+  letI : Algebra R M := ((algebraMap T M).comp σ).toAlgebra
+  haveI : IsScalarTower R T M := IsScalarTower.of_algebraMap_eq' rfl
+  haveI : IsScalarTower R L M := IsScalarTower.of_algebraMap_eq (fun x => hσ x)
+  set B := integralClosure R L
+  haveI : Module.Finite R B := IsIntegralClosure.finite R K L B
+  haveI hfB : Algebra.FormallyUnramified R B := fu_of_unram R K L hL
+  let fB : B →ₐ[R] M := (IsScalarTower.toAlgHom R L M).comp (integralClosure R L).val
+  let φ : T ⊗[R] B →ₐ[T] M :=
+    Algebra.TensorProduct.lift (Algebra.ofId T M) fB (fun _ _ => Commute.all _ _)
+  set D : Subalgebra T M := φ.range
+  haveI : Algebra.FormallyUnramified T (T ⊗[R] B) := inferInstance
+  haveI hfD : Algebra.FormallyUnramified T D :=
+    Algebra.FormallyUnramified.of_surjective φ.rangeRestrict φ.rangeRestrict_surjective
+  haveI : Module.Finite T (T ⊗[R] B) := inferInstance
+  haveI hDfin : Module.Finite T D :=
+    Module.Finite.of_surjective φ.rangeRestrict.toLinearMap φ.rangeRestrict_surjective
+  have hTK : Function.Injective (algebraMap T K') := IsFractionRing.injective T K'
+  have hTM : Function.Injective (algebraMap T M) := by
+    rw [IsScalarTower.algebraMap_eq T K' M]; exact (algebraMap K' M).injective.comp hTK
+  have hRK : Function.Injective (algebraMap R K) := IsFractionRing.injective R K
+  have hRM : Function.Injective (algebraMap R M) := by
+    rw [IsScalarTower.algebraMap_eq R L M, IsScalarTower.algebraMap_eq R K L]
+    exact (algebraMap L M).injective.comp ((algebraMap K L).injective.comp hRK)
+  have hDinj : Function.Injective (algebraMap D M) := Subtype.val_injective
+  have hTD : Function.Injective (algebraMap T D) := by
+    intro x y hxy
+    apply hTM
+    have := congrArg Subtype.val hxy
+    simpa using this
+  have hfBD : ∀ b : B, fB b ∈ D := fun b => ⟨1 ⊗ₜ b, by simp [φ]⟩
+  have hRD : ∀ r : R, algebraMap R M r ∈ D := fun r => by
+    rw [IsScalarTower.algebraMap_apply R T M]; exact D.algebraMap_mem _
+  -- the fraction field of `D` is `M`
+  let F : Subfield M := (IsFractionRing.lift (K := FractionRing D) hDinj).fieldRange
+  have hDF : ∀ x ∈ D, x ∈ F := fun x hx =>
+    ⟨algebraMap D (FractionRing D) ⟨x, hx⟩, IsFractionRing.lift_algebraMap _ _⟩
+  have hLF : ∀ l : L, algebraMap L M l ∈ F := by
+    intro l
+    have halg : IsAlgebraic R l :=
+      (IsFractionRing.isAlgebraic_iff R K L).mpr (Algebra.IsAlgebraic.isAlgebraic l)
+    obtain ⟨y, hy0, hyint⟩ := halg.exists_integral_multiple
+    let b : B := ⟨y • l, hyint⟩
+    have hy : algebraMap R M y ≠ 0 := (map_ne_zero_iff _ hRM).mpr hy0
+    have e : algebraMap L M l = fB b / algebraMap R M y := by
+      rw [eq_div_iff hy]
+      change _ = algebraMap L M (y • l)
+      rw [Algebra.smul_def, map_mul, mul_comm, ← IsScalarTower.algebraMap_apply R L M]
+    rw [e]
+    exact div_mem (hDF _ (hfBD b)) (hDF _ (hRD y))
+  have hK'F : ∀ k : K', algebraMap K' M k ∈ F := by
+    intro k
+    obtain ⟨x, y, hy, rfl⟩ := IsFractionRing.div_surjective (A := T) k
+    rw [map_div₀, ← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+    exact div_mem (hDF _ (D.algebraMap_mem x)) (hDF _ (D.algebraMap_mem y))
+  have hFtop : F = ⊤ := by
+    have h1 := congrArg IntermediateField.toSubfield hadj
+    rw [IntermediateField.adjoin_toSubfield, IntermediateField.top_toSubfield] at h1
+    rw [eq_top_iff, ← h1, Subfield.closure_le]
+    rintro _ (⟨l, rfl⟩ | ⟨k, rfl⟩)
+    · exact hLF l
+    · exact hK'F k
+  haveI hFrac : IsFractionRing D M := by
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨y, hy⟩
+      exact isUnit_iff_ne_zero.mpr ((map_ne_zero_iff _ hDinj).mpr (nonZeroDivisors.ne_zero hy))
+    · intro z
+      have hz : z ∈ F := hFtop ▸ Subfield.mem_top z
+      obtain ⟨w, rfl⟩ := hz
+      obtain ⟨x, y, hy, rfl⟩ := IsFractionRing.div_surjective (A := D) w
+      refine ⟨⟨x, ⟨y, hy⟩⟩, ?_⟩
+      simp only [map_div₀, IsFractionRing.lift_algebraMap]
+      exact div_mul_cancel₀ _ ((map_ne_zero_iff _ hDinj).mpr (nonZeroDivisors.ne_zero hy))
+    · intro x y hxy
+      exact ⟨1, by simp [hDinj hxy]⟩
+  -- `D` is integrally closed
+  haveI : IsNoetherianRing D := Algebra.FiniteType.isNoetherianRing T D
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible T
+  have hmaxT : maximalIdeal T = Ideal.span {ϖ} :=
+    (IsDiscreteValuationRing.irreducible_iff_uniformizer ϖ).mp hϖ
+  haveI hDic : IsIntegrallyClosed D := by
+    apply IsIntegrallyClosed.of_localization_maximal
+    intro P hP0 hPmax
+    have hPu : P.under T = maximalIdeal T := IsLocalRing.eq_maximalIdeal (Ideal.IsMaximal.under T P)
+    set Dp := Localization.AtPrime P
+    haveI : IsLocalHom (algebraMap T Dp) := by
+      constructor
+      intro r hr
+      by_contra hnu
+      have hrm : r ∈ maximalIdeal T := hnu
+      rw [← hPu] at hrm
+      have : algebraMap D Dp (algebraMap T D r) ∈ maximalIdeal Dp := by
+        rw [← Localization.AtPrime.map_eq_maximalIdeal]
+        exact Ideal.mem_map_of_mem _ hrm
+      rw [← IsScalarTower.algebraMap_apply] at this
+      exact (IsLocalRing.mem_maximalIdeal _).mp this hr
+    haveI : Algebra.FormallyUnramified D Dp :=
+      Algebra.FormallyUnramified.of_isLocalization (M := P.primeCompl)
+    haveI : Algebra.FormallyUnramified T Dp := Algebra.FormallyUnramified.comp T D Dp
+    haveI : Algebra.EssFiniteType D Dp := Algebra.EssFiniteType.of_isLocalization _ P.primeCompl
+    haveI : Algebra.EssFiniteType T Dp := Algebra.EssFiniteType.comp T D Dp
+    have hmaxDp : maximalIdeal Dp = Ideal.span {algebraMap T Dp ϖ} := by
+      rw [← Algebra.FormallyUnramified.map_maximalIdeal (R := T) (S := Dp), hmaxT, Ideal.map_span,
+        Set.image_singleton]
+    have hTDp : Function.Injective (algebraMap T Dp) := by
+      rw [IsScalarTower.algebraMap_eq T D Dp]
+      exact (IsLocalization.injective Dp P.primeCompl_le_nonZeroDivisors).comp hTD
+    have hnf : ¬ IsField Dp := by
+      intro hF
+      have := (IsLocalRing.isField_iff_maximalIdeal_eq).mp hF
+      rw [hmaxDp, Ideal.span_singleton_eq_bot, map_eq_zero_iff _ hTDp] at this
+      exact hϖ.ne_zero this
+    have hprin : (maximalIdeal Dp).IsPrincipal := ⟨⟨_, hmaxDp⟩⟩
+    haveI : IsDiscreteValuationRing Dp :=
+      ((IsDiscreteValuationRing.TFAE Dp hnf).out 1 5).mpr hprin
+    infer_instance
+  -- `D` is the integral closure of `T` in `M`
+  have hDC : D = integralClosure T M := by
+    apply le_antisymm
+    · intro x hx
+      exact (Algebra.IsIntegral.isIntegral (R := T) (⟨x, hx⟩ : D)).map (IsScalarTower.toAlgHom T D M)
+    · intro x hx
+      have hxD : IsIntegral D x := IsIntegral.tower_top hx
+      obtain ⟨y, rfl⟩ := (IsIntegrallyClosed.isIntegral_iff (R := D) (K := M)).mp hxD
+      exact y.2
+  let eDC : D ≃ₐ[T] integralClosure T M := Subalgebra.equivOfEq D _ hDC
+  haveI : Algebra.FormallyUnramified T (integralClosure T M) :=
+    Algebra.FormallyUnramified.of_equiv eDC
+  haveI : Module.Finite T (integralClosure T M) := Module.Finite.equiv eDC.toLinearEquiv
+  haveI : Algebra.IsUnramifiedAt T Q :=
+    Algebra.formallyUnramified_iff_forall.mp inferInstance ⟨Q, inferInstance⟩
+  refine ⟨Ideal.ramificationIdx_eq_one Q T, ?_⟩
+  haveI : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := T) Q
+    (by rw [← Ideal.LiesOver.over (P := Q) (p := maximalIdeal T)]; infer_instance)
+  letI := Localization.AtPrime.algebraOfLiesOver (maximalIdeal T) Q
+  have hsep := ((Algebra.isUnramifiedAt_iff_map_eq T (maximalIdeal T) Q).mp inferInstance).1
+  exact Algebra.isSeparable_residueField_iff.mp hsep
+
+theorem mem_vertPrime_iff (p : ℕ) (f : ℤ[X]) :
+    f ∈ vertPrime p ↔ f.map (Int.castRingHom (ZMod p)) = 0 := by
+  rw [vertPrime, Ideal.mem_map_C_iff]
+  constructor
+  · intro h
+    ext k
+    rw [coeff_map, coeff_zero, eq_intCast, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact Ideal.mem_span_singleton.mp (h k)
+  · intro h k
+    have := congrArg (fun g => g.coeff k) h
+    simp only [coeff_map, coeff_zero, eq_intCast] at this
+    exact Ideal.mem_span_singleton.mpr ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp this)
+
+theorem C_mem_vertPrime (p : ℕ) (m : ℤ) : C m ∈ vertPrime p ↔ (p : ℤ) ∣ m := by
+  rw [mem_vertPrime_iff, Polynomial.map_C, C_eq_zero, eq_intCast,
+    ZMod.intCast_zmod_eq_zero_iff_dvd]
+
+theorem not_dvd_num_of_val_zero (p : ℕ) [hp : Fact p.Prime] (c : ℚ) (hc : c ≠ 0)
+    (h : padicValRat p c = 0) : ¬ (p : ℤ) ∣ c.num := by
+  intro hd
+  have h1 : padicValNat p c.den = 0 :=
+    padicValNat.eq_zero_of_not_dvd (not_dvd_den_of_nonneg p c (by rw [h]))
+  have h2 : 1 ≤ padicValInt p c.num := by
+    rcases (padicValInt_dvd_iff 1 c.num).mp (by simpa using hd) with h0 | h0
+    · exact absurd h0 (Rat.num_ne_zero.mpr hc)
+    · exact h0
+  rw [padicValRat_def, h1] at h
+  omega
+
+/-- `ℤ[X]_(p)` is a discrete valuation ring. -/
+theorem zxLoc_dvr (p : ℕ) (hp : p.Prime) :
+    haveI := vertPrime_isPrime p hp
+    IsDiscreteValuationRing (Localization.AtPrime (vertPrime p)) := by
+  haveI := vertPrime_isPrime p hp
+  set 𝔭 := vertPrime p with h𝔭
+  have hCp0 : algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ)) ≠ 0 := by
+    intro h0
+    have := IsLocalization.injective (Localization.AtPrime 𝔭) 𝔭.primeCompl_le_nonZeroDivisors
+      (h0.trans (map_zero _).symm)
+    rw [C_eq_zero] at this
+    exact hp.ne_zero (by exact_mod_cast this)
+  have h3 : 𝔭 = Ideal.span {C (p : ℤ)} := by
+    rw [h𝔭, vertPrime, Ideal.map_span, Set.image_singleton]
+  have hmax : maximalIdeal (Localization.AtPrime 𝔭) =
+      Ideal.span {algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ))} := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal]
+    refine (congrArg (Ideal.map (algebraMap ℤ[X] (Localization.AtPrime 𝔭))) h3).trans ?_
+    rw [Ideal.map_span, Set.image_singleton]
+  have hnf : ¬ IsField (Localization.AtPrime 𝔭) := by
+    intro hF
+    have := (IsLocalRing.isField_iff_maximalIdeal_eq).mp hF
+    rw [hmax, Ideal.span_singleton_eq_bot] at this
+    exact hCp0 this
+  have hprin : (maximalIdeal (Localization.AtPrime 𝔭)).IsPrincipal := ⟨⟨_, hmax⟩⟩
+  exact ((IsDiscreteValuationRing.TFAE (Localization.AtPrime 𝔭) hnf).out 1 5).mpr hprin
+
+/-- A localization-compatible lift: `ℤ[X] → R` with every `f ∉ (p)` sent to a unit extends to
+`ℤ[X]_(p)`; the image of a substitution is computed through `ℚ(X)`. Generic unit criterion:
+if `g(β) · s^d = (image of F)` with `s` a unit and `F ∉ (p)`, then `g(β)` is a unit. -/
+theorem unit_of_scaleRoots (p : ℕ) (hp : p.Prime) (N : ℤ[X]) (s : ℤ) (hs : ¬ (p : ℤ) ∣ s)
+    (hN : 0 < (N.map (Int.castRingHom (ZMod p))).natDegree) :
+    haveI := vertPrime_isPrime p hp
+    ∀ (β : Localization.AtPrime (vertPrime p)),
+      (s : Localization.AtPrime (vertPrime p)) * β =
+        algebraMap ℤ[X] (Localization.AtPrime (vertPrime p)) N →
+      ∀ f : ℤ[X], f ∉ vertPrime p →
+        IsUnit (Polynomial.eval₂ (Int.castRingHom _) β f) := by
+  haveI := vertPrime_isPrime p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  set 𝔭 := vertPrime p
+  set Rz := Localization.AtPrime 𝔭
+  intro β hβ f hf
+  have hsu : IsUnit (s : Rz) := by
+    have : IsUnit (algebraMap ℤ[X] Rz (C s)) :=
+      IsLocalization.map_units Rz (⟨C s, (C_mem_vertPrime p s).not.mpr hs⟩ : 𝔭.primeCompl)
+    simpa using this
+  have key := Polynomial.scaleRoots_eval₂_mul (p := f) (Int.castRingHom Rz) β s
+  rw [eq_intCast, hβ] at key
+  have hcomp : eval₂ (Int.castRingHom Rz) (algebraMap ℤ[X] Rz N) (scaleRoots f s) =
+      algebraMap ℤ[X] Rz ((scaleRoots f s).comp N) := by
+    rw [Polynomial.comp, Polynomial.hom_eval₂]
+    congr 1
+    exact RingHom.ext_int _ _
+  rw [hcomp] at key
+  set F := (scaleRoots f s).comp N
+  have hF : F ∉ 𝔭 := by
+    rw [mem_vertPrime_iff, Polynomial.map_comp]
+    intro h0
+    rw [comp_eq_zero_iff] at h0
+    rcases h0 with h0 | ⟨_, h0⟩
+    · obtain ⟨k, hk⟩ : ∃ k, ¬ (p : ℤ) ∣ f.coeff k := by
+        by_contra hcon
+        push_neg at hcon
+        exact hf ((mem_vertPrime_iff p f).mpr (by
+          ext k; rw [coeff_map, coeff_zero, eq_intCast, ZMod.intCast_zmod_eq_zero_iff_dvd]
+          exact hcon k))
+      have := congrArg (fun g => g.coeff k) h0
+      simp only [coeff_map, coeff_scaleRoots, coeff_zero, map_mul, map_pow, eq_intCast] at this
+      rcases mul_eq_zero.mp this with h1 | h1
+      · exact hk ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp h1)
+      · exact hs ((ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp (pow_eq_zero_iff'.mp h1).1)
+    · have := congrArg natDegree h0
+      rw [natDegree_C] at this
+      omega
+  have hFu : IsUnit (algebraMap ℤ[X] Rz F) := IsLocalization.map_units Rz (⟨F, hF⟩ : 𝔭.primeCompl)
+  rw [key] at hFu
+  exact isUnit_of_mul_isUnit_right hFu
+
+/-- Common setup of the vertical pieces: `Rz = ℤ[X]_(p)` and its maps. -/
+theorem locAlg_tower (p : ℕ) (hp : p.Prime) (F : Type) [Field F] [Algebra (RatFunc ℚ) F]
+    [Algebra ℚ[X] F] [IsScalarTower ℚ[X] (RatFunc ℚ) F] :
+    haveI := vertPrime_isPrime p hp
+    letI : Algebra (Localization.AtPrime (vertPrime p)) (RatFunc ℚ) :=
+      locAlg (RatFunc ℚ) (vertPrime p)
+    letI : Algebra (Localization.AtPrime (vertPrime p)) F := locAlg F (vertPrime p)
+    IsScalarTower (Localization.AtPrime (vertPrime p)) (RatFunc ℚ) F := by
+  haveI := vertPrime_isPrime p hp
+  set 𝔭 := vertPrime p
+  letI : Algebra (Localization.AtPrime 𝔭) (RatFunc ℚ) := locAlg (RatFunc ℚ) 𝔭
+  letI : Algebra (Localization.AtPrime 𝔭) F := locAlg F 𝔭
+  apply IsScalarTower.of_algebraMap_eq'
+  apply IsLocalization.ringHom_ext 𝔭.primeCompl
+  rw [RingHom.comp_assoc]
+  change (IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime 𝔭)) =
+    (algebraMap (RatFunc ℚ) F).comp
+      ((IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime 𝔭)))
+  rw [IsLocalization.lift_comp, IsLocalization.lift_comp]
+  simp only [zxMap, ← RingHom.comp_assoc, ← IsScalarTower.algebraMap_eq]
+
+/-- Localization transfer, downwards, for any localization `Rp` of `R0` at `p`. -/
+theorem locTransfer_down' (R0 Rp F : Type) [CommRing R0] [IsDomain R0] [Field F] [Algebra R0 F]
+    (p : Ideal R0) [p.IsPrime] [CommRing Rp] [Algebra R0 Rp] [IsLocalization.AtPrime Rp p]
+    [IsLocalRing Rp] [Algebra Rp F] [IsScalarTower R0 Rp F]
+    (hinj : Function.Injective (algebraMap R0 F))
+    (Q : Ideal (integralClosure Rp F)) [Q.IsPrime] [Q.LiesOver (maximalIdeal Rp)] :
+    letI := (intClIncl R0 Rp F).toAlgebra
+    ∃ P0 : Ideal (integralClosure R0 F), P0.IsPrime ∧ P0.under R0 = p ∧
+      Q.ramificationIdx Rp = P0.ramificationIdx R0 := by
+  have hP : ∀ x ∈ p.primeCompl, algebraMap R0 F x ≠ 0 := fun x hx h0 =>
+    hx (by rw [hinj (h0.trans (map_zero _).symm)]; exact p.zero_mem)
+  obtain ⟨h1, h2, h3⟩ := intCl_isLocalization R0 Rp F p.primeCompl hP
+  letI := (intClIncl R0 Rp F).toAlgebra
+  set P0 := Q.comap (algebraMap (integralClosure R0 F) (integralClosure Rp F))
+  haveI : P0.LiesOver p := IsLocalization.AtPrime.liesOver_comap_of_liesOver p Rp Q
+  haveI : P0.IsPrime := Ideal.IsPrime.comap _
+  have hQ : Q = P0.map (algebraMap (integralClosure R0 F) (integralClosure Rp F)) :=
+    (IsLocalization.map_under (Algebra.algebraMapSubmonoid (integralClosure R0 F) p.primeCompl)
+      (integralClosure Rp F) Q).symm
+  refine ⟨P0, inferInstance, (Ideal.LiesOver.over (P := P0) (p := p)).symm, ?_⟩
+  rw [hQ]
+  exact IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx p Rp _ P0
+
+/-- `E` with `[E : ℚ(X)] < p` and no vertical ramification at `p` is unramified, with separable
+residue fields, over (any copy `Rz` of) `ℤ[X]_(p)`. -/
+theorem vertical_hL (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (hdeg : Module.finrank (RatFunc ℚ) E < p) (hV : NoVerticalRam E p)
+    (Rz : Type) [CommRing Rz] [IsDomain Rz] [IsDiscreteValuationRing Rz] [Algebra ℤ[X] Rz]
+    [hloc : @IsLocalization.AtPrime ℤ[X] _ Rz _ _ (vertPrime p) (vertPrime_isPrime p hp)]
+    [Algebra Rz (RatFunc ℚ)] [IsFractionRing Rz (RatFunc ℚ)] [Algebra Rz E]
+    [IsScalarTower Rz (RatFunc ℚ) E]
+    (htow : ∀ f : ℤ[X], algebraMap Rz E (algebraMap ℤ[X] Rz f) = zxMap E f) :
+    ∀ (Q : Ideal (integralClosure Rz E)) [Q.IsPrime] [Q.LiesOver (maximalIdeal Rz)],
+      Q.ramificationIdx Rz = 1 ∧
+      Algebra.IsSeparable (Rz ⧸ maximalIdeal Rz) (integralClosure Rz E ⧸ Q) := by
+  intro Q hQp hQl
+  haveI := vertPrime_isPrime p hp
+  haveI : Fact p.Prime := ⟨hp⟩
+  letI : Algebra ℤ[X] E := intPolyAlg E
+  haveI : IsScalarTower ℤ[X] Rz E := IsScalarTower.of_algebraMap_eq (fun f => (htow f).symm)
+  obtain ⟨P0, hP0, hP0u, he⟩ := locTransfer_down' ℤ[X] Rz E (vertPrime p) (zxMap_injective E) Q
+  refine ⟨he.trans (hV P0 hP0 hP0u), ?_⟩
+  haveI : IsFractionRing (integralClosure Rz E) E :=
+    integralClosure.isFractionRing_of_finite_extension (RatFunc ℚ) E
+  haveI : Module.Finite Rz (integralClosure Rz E) :=
+    IsIntegralClosure.finite Rz (RatFunc ℚ) E (integralClosure Rz E)
+  haveI hQm : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := Rz) Q
+    (by rw [← Ideal.LiesOver.over (P := Q) (p := maximalIdeal Rz)]; infer_instance)
+  have hmax0 : maximalIdeal Rz ≠ ⊥ := IsDiscreteValuationRing.not_a_field _
+  haveI : Algebra.IsSeparable (RatFunc ℚ) E := Algebra.IsAlgebraic.isSeparable_of_perfectField
+  haveI : IsDedekindDomain (integralClosure Rz E) := integralClosure.isDedekindDomain Rz (RatFunc ℚ) E
+  have hRzE : Function.Injective (algebraMap Rz (integralClosure Rz E)) := by
+    intro x y hxy
+    have h1 := congrArg Subtype.val hxy
+    change algebraMap Rz E x = algebraMap Rz E y at h1
+    rw [IsScalarTower.algebraMap_apply Rz (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply Rz (RatFunc ℚ) E] at h1
+    exact IsFractionRing.injective Rz (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h1)
+  haveI : NoZeroSMulDivisors Rz (integralClosure Rz E) := ⟨fun {c x} h => by
+    rw [Algebra.smul_def] at h
+    rcases mul_eq_zero.mp h with h1 | h1
+    · exact Or.inl (hRzE (h1.trans (map_zero _).symm))
+    · exact Or.inr h1⟩
+  have hf := Ideal.inertiaDeg_le_finrank (integralClosure Rz E) (RatFunc ℚ) E Q hmax0
+  rw [Ideal.inertiaDeg'_algebraMap] at hf
+  letI : Field (Rz ⧸ maximalIdeal Rz) := Ideal.Quotient.field _
+  letI : Field (integralClosure Rz E ⧸ Q) := Ideal.Quotient.field _
+  haveI : CharP (Rz ⧸ maximalIdeal Rz) p := by
+    rw [CharP.charP_iff_prime_eq_zero hp]
+    have hpm : algebraMap ℤ[X] Rz (C (p : ℤ)) ∈ maximalIdeal Rz := by
+      rw [← IsLocalization.AtPrime.map_eq_maximalIdeal (vertPrime p) Rz]
+      exact Ideal.mem_map_of_mem _ ((C_mem_vertPrime p p).mpr dvd_rfl)
+    have : ((p : ℕ) : Rz) = algebraMap ℤ[X] Rz (C (p : ℤ)) := by simp
+    rw [← map_natCast (Ideal.Quotient.mk (maximalIdeal Rz)), this, Ideal.Quotient.eq_zero_iff_mem]
+    exact hpm
+  exact isSeparable_of_finrank_lt p (lt_of_le_of_lt hf hdeg)
+
+/-- **`KummerVerticalFin` is proved** (unramified base change along `ℤ[X]_(p) → ℤ[s]_(p)`,
+`X ↦ b + s^n/c`). -/
+theorem kummerVerticalFin_proof : KummerVerticalFin := by
+  intro E _ _ _ _ _ E' _ _ _ _ _ ι b c n p hp hn hnp hdeg hc hcp hbp hshape hV
+  classical
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI h𝔭p := vertPrime_isPrime p hp
+  set 𝔭 := vertPrime p with h𝔭
+  set Rz := Localization.AtPrime 𝔭
+  haveI : IsDiscreteValuationRing Rz := zxLoc_dvr p hp
+  letI iK : Algebra Rz (RatFunc ℚ) := locAlg (RatFunc ℚ) 𝔭
+  letI iE : Algebra Rz E := locAlg E 𝔭
+  letI iE' : Algebra Rz E' := locAlg E' 𝔭
+  letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  haveI : IsFractionRing ℤ[X] (RatFunc ℚ) := isFractionRing_zx
+  haveI : IsScalarTower ℤ[X] Rz (RatFunc ℚ) :=
+    IsScalarTower.of_algebraMap_eq' (IsLocalization.lift_comp _).symm
+  haveI : IsFractionRing Rz (RatFunc ℚ) :=
+    IsFractionRing.isFractionRing_of_isDomain_of_isLocalization 𝔭.primeCompl _ _
+  haveI : IsScalarTower Rz (RatFunc ℚ) E := locAlg_tower p hp E
+  haveI : IsScalarTower Rz (RatFunc ℚ) E' := locAlg_tower p hp E'
+  -- numerators and denominators of `b`, `c`
+  have hbd : ¬ (p : ℤ) ∣ (b.den : ℤ) := by
+    have := not_dvd_den_of_nonneg p b hbp
+    exact_mod_cast this
+  have hcd : ¬ (p : ℤ) ∣ (c.den : ℤ) := by
+    have := not_dvd_den_of_nonneg p c (by rw [hcp])
+    exact_mod_cast this
+  have hcn : ¬ (p : ℤ) ∣ c.num := not_dvd_num_of_val_zero p c hc hcp
+  have hpz : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  obtain ⟨s, hs_def⟩ : ∃ s : ℤ, s = (b.den : ℤ) * c.num := ⟨_, rfl⟩
+  have hs : ¬ (p : ℤ) ∣ s := fun h => (hpz.dvd_or_dvd (hs_def ▸ h)).elim hbd hcn
+  obtain ⟨N, hN_def⟩ : ∃ N : ℤ[X], N = C (b.num * c.num) + C ((b.den : ℤ) * c.den) * X ^ n :=
+    ⟨_, rfl⟩
+  have hN : 0 < (N.map (Int.castRingHom (ZMod p))).natDegree := by
+    have h1 : (Int.castRingHom (ZMod p)) ((b.den : ℤ) * c.den) ≠ 0 := by
+      rw [eq_intCast, Ne, ZMod.intCast_zmod_eq_zero_iff_dvd]
+      exact fun h => (hpz.dvd_or_dvd h).elim hbd hcd
+    rw [hN_def, Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_C,
+      Polynomial.map_pow, Polynomial.map_X, natDegree_C_add, natDegree_C_mul_X_pow n _ h1]
+    exact hn
+  have hCs : C s ∉ 𝔭 := (C_mem_vertPrime p s).not.mpr hs
+  set β : Rz := IsLocalization.mk' Rz N (⟨C s, hCs⟩ : 𝔭.primeCompl) with hβ_def
+  have hβ : (s : Rz) * β = algebraMap ℤ[X] Rz N := by
+    have := IsLocalization.mk'_spec' Rz N (⟨C s, hCs⟩ : 𝔭.primeCompl)
+    rw [← this]
+    congr 1
+    change (s : Rz) = algebraMap ℤ[X] Rz (C s)
+    have e : (C s : ℤ[X]) = (s : ℤ[X]) := by simp
+    rw [e, map_intCast]
+  let σ0 : ℤ[X] →+* Rz := Polynomial.eval₂RingHom (Int.castRingHom Rz) β
+  have hunit : ∀ y : 𝔭.primeCompl, IsUnit (σ0 y) := fun y =>
+    unit_of_scaleRoots p hp N s hs hN β hβ y.1 y.2
+  let σ : Rz →+* Rz := IsLocalization.lift (M := 𝔭.primeCompl) (S := Rz) (g := σ0) hunit
+  have hσ0 : ∀ f : ℤ[X], σ (algebraMap ℤ[X] Rz f) = σ0 f := fun f => IsLocalization.lift_eq hunit f
+  -- the image of `β` in `ℚ(X)` is `rFin b c n`
+  have hs0 : (s : ℚ) ≠ 0 := by
+    intro h0
+    exact hs (by rw [show s = 0 by exact_mod_cast h0]; exact dvd_zero _)
+  have e1 : (s : ℚ) * (b * c) = c * (b.num * c.num) := by
+    have hb := Rat.mul_den_eq_num b
+    rw [hs_def]; push_cast
+    rw [← hb]; ring
+  have e2 : (s : ℚ) = c * (b.den * c.den) := by
+    have hc' := Rat.mul_den_eq_num c
+    rw [hs_def]; push_cast
+    rw [← hc']; ring
+  have hpoly : C (s : ℚ) * (C (b * c) + X ^ n) = C c * N.map (Int.castRingHom ℚ) := by
+    have hNm : N.map (Int.castRingHom ℚ) = C ((b.num * c.num : ℤ) : ℚ) +
+        C (((b.den : ℤ) * c.den : ℤ) : ℚ) * X ^ n := by
+      rw [hN_def, Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_C,
+        Polynomial.map_pow, Polynomial.map_X, eq_intCast, eq_intCast]
+    have e1' : (s : ℚ) * b * c = c * ((b.num * c.num : ℤ) : ℚ) := by
+      rw [mul_assoc]; push_cast; exact e1
+    have e2' : (s : ℚ) = c * (((b.den : ℤ) * c.den : ℤ) : ℚ) := by push_cast; exact e2
+    rw [hNm]
+    simp only [mul_add, ← mul_assoc, ← C_mul]
+    rw [e1', ← e2']
+  have hβK : algebraMap Rz (RatFunc ℚ) β = rFin b c n := by
+    have h1 := congrArg (algebraMap Rz (RatFunc ℚ)) hβ
+    rw [map_mul, map_intCast, ← IsScalarTower.algebraMap_apply] at h1
+    have h2 := congrArg (algebraMap ℚ[X] (RatFunc ℚ)) hpoly
+    simp only [map_mul] at h2
+    have hsK : algebraMap ℚ[X] (RatFunc ℚ) (C (s : ℚ)) = (s : RatFunc ℚ) := by
+      rw [RatFunc.algebraMap_C, map_intCast]
+    have hCc : algebraMap ℚ[X] (RatFunc ℚ) (C c) ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr (C_ne_zero.mpr hc)
+    have hsK0 : (s : RatFunc ℚ) ≠ 0 := by
+      rw [← hsK]
+      exact (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+        (C_ne_zero.mpr hs0)
+    have h3 : algebraMap ℤ[X] (RatFunc ℚ) N = algebraMap ℚ[X] (RatFunc ℚ)
+        (N.map (Int.castRingHom ℚ)) := rfl
+    apply mul_left_cancel₀ hsK0
+    rw [h1, h3, rFin, ← mul_div_assoc, eq_div_iff hCc, mul_comm _ (algebraMap ℚ[X] _ (C c)),
+      ← h2, hsK, ← C_mul, add_comm]
+  -- compatibility with `ι`
+  have hσ : ∀ x, algebraMap Rz E' (σ x) = ι (algebraMap Rz E x) := by
+    have : (algebraMap Rz E').comp σ = ι.comp (algebraMap Rz E) := by
+      apply IsLocalization.ringHom_ext 𝔭.primeCompl
+      apply Polynomial.ringHom_ext
+      · intro a
+        exact RingHom.congr_fun (RingHom.ext_int
+          ((((algebraMap Rz E').comp σ).comp (algebraMap ℤ[X] Rz)).comp C)
+          (((ι.comp (algebraMap Rz E)).comp (algebraMap ℤ[X] Rz)).comp C)) a
+      · simp only [RingHom.comp_apply]
+        rw [hσ0]
+        change algebraMap Rz E' (eval₂ (Int.castRingHom Rz) β X) =
+          ι (IsLocalization.lift _ (algebraMap ℤ[X] Rz X))
+        rw [eval₂_X, IsLocalization.lift_eq, IsScalarTower.algebraMap_apply Rz (RatFunc ℚ) E', hβK]
+        change _ = ι (algebraMap ℚ[X] E (X.map (Int.castRingHom ℚ)))
+        rw [Polynomial.map_X, IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+          RatFunc.algebraMap_X, hshape.1]
+    intro x
+    exact RingHom.congr_fun this x
+  have hadj : letI := ι.toAlgebra
+      IntermediateField.adjoin E (Set.range (algebraMap (RatFunc ℚ) E')) = ⊤ := by
+    letI := ι.toAlgebra
+    refine eq_top_iff.mpr ((adjoin_eq_top_of_shape ι _ hshape).symm.le.trans
+      (IntermediateField.adjoin.mono _ _ _ ?_))
+    rintro _ rfl
+    exact ⟨algebraMap ℚ[X] (RatFunc ℚ) X, (IsScalarTower.algebraMap_apply _ _ _ _).symm⟩
+  -- conclusion
+  letI : Algebra ℤ[X] E' := intPolyAlg E'
+  haveI : IsScalarTower ℤ[X] Rz E' :=
+    IsScalarTower.of_algebraMap_eq' (IsLocalization.lift_comp _).symm
+  intro Q' hQ'p hQ'u
+  haveI : Q'.LiesOver 𝔭 := ⟨hQ'u.symm⟩
+  obtain ⟨Qp, hQp, hQpl, hQpe⟩ := locTransfer_up ℤ[X] E' 𝔭 (zxMap_injective E') Q'
+  rw [← hQpe]
+  exact (unramBaseChange Rz (RatFunc ℚ) E E' Rz (RatFunc ℚ) ι σ hσ hadj
+    (vertical_hL E p hp hdeg hV Rz (fun f => IsLocalization.lift_eq _ f)) Qp).1
+/-- **`KummerVerticalInf` is proved** (unramified base change along `ℤ[X]_(p) → ℤ[s]_(p)`,
+`X ↦ c/s^n`). -/
+theorem kummerVerticalInf_proof : KummerVerticalInf := by
+  intro E _ _ _ _ _ E' _ _ _ _ _ ι c n p hp hn hnp hdeg hc hcp hshape hV
+  classical
+  haveI : Fact p.Prime := ⟨hp⟩
+  haveI h𝔭p := vertPrime_isPrime p hp
+  set 𝔭 := vertPrime p with h𝔭
+  set Rz := Localization.AtPrime 𝔭
+  haveI : IsDiscreteValuationRing Rz := zxLoc_dvr p hp
+  letI iK : Algebra Rz (RatFunc ℚ) := locAlg (RatFunc ℚ) 𝔭
+  letI iE : Algebra Rz E := locAlg E 𝔭
+  letI iE' : Algebra Rz E' := locAlg E' 𝔭
+  letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  haveI : IsFractionRing ℤ[X] (RatFunc ℚ) := isFractionRing_zx
+  haveI : IsScalarTower ℤ[X] Rz (RatFunc ℚ) :=
+    IsScalarTower.of_algebraMap_eq' (IsLocalization.lift_comp _).symm
+  haveI : IsFractionRing Rz (RatFunc ℚ) :=
+    IsFractionRing.isFractionRing_of_isDomain_of_isLocalization 𝔭.primeCompl _ _
+  haveI : IsScalarTower Rz (RatFunc ℚ) E := locAlg_tower p hp E
+  haveI : IsScalarTower Rz (RatFunc ℚ) E' := locAlg_tower p hp E'
+  -- numerator and denominator of `c`
+  have hcd : ¬ (p : ℤ) ∣ (c.den : ℤ) := by
+    have := not_dvd_den_of_nonneg p c (by rw [hcp])
+    exact_mod_cast this
+  have hcn : ¬ (p : ℤ) ∣ c.num := not_dvd_num_of_val_zero p c hc hcp
+  obtain ⟨s, hs_def⟩ : ∃ s : ℤ, s = c.num := ⟨_, rfl⟩
+  have hs : ¬ (p : ℤ) ∣ s := hs_def ▸ hcn
+  obtain ⟨N, hN_def⟩ : ∃ N : ℤ[X], N = C (c.den : ℤ) * X ^ n := ⟨_, rfl⟩
+  have h1 : (Int.castRingHom (ZMod p)) (c.den : ℤ) ≠ 0 := by
+    rw [eq_intCast, Ne, ZMod.intCast_zmod_eq_zero_iff_dvd]
+    exact hcd
+  have hNmap : N.map (Int.castRingHom (ZMod p)) =
+      C ((Int.castRingHom (ZMod p)) (c.den : ℤ)) * X ^ n := by
+    rw [hN_def, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_pow, Polynomial.map_X]
+  have hN : 0 < (N.map (Int.castRingHom (ZMod p))).natDegree := by
+    rw [hNmap, natDegree_C_mul_X_pow n _ h1]
+    exact hn
+  have hN𝔭 : N ∉ 𝔭 := by
+    rw [mem_vertPrime_iff, hNmap]
+    exact mul_ne_zero (C_ne_zero.mpr h1) (pow_ne_zero _ X_ne_zero)
+  have hCs : C s ∉ 𝔭 := (C_mem_vertPrime p s).not.mpr hs
+  -- `β' = s^n/c` and `β = c/s^n`
+  set β' : Rz := IsLocalization.mk' Rz N (⟨C s, hCs⟩ : 𝔭.primeCompl) with hβ'_def
+  have hβ' : (s : Rz) * β' = algebraMap ℤ[X] Rz N := by
+    have := IsLocalization.mk'_spec' Rz N (⟨C s, hCs⟩ : 𝔭.primeCompl)
+    rw [← this]
+    congr 1
+    change (s : Rz) = algebraMap ℤ[X] Rz (C s)
+    have e : (C s : ℤ[X]) = (s : ℤ[X]) := by simp
+    rw [e, map_intCast]
+  set β : Rz := IsLocalization.mk' Rz (C s) (⟨N, hN𝔭⟩ : 𝔭.primeCompl) with hβ_def
+  have hββ' : β * β' = 1 :=
+    IsLocalization.mk'_mul_mk'_eq_one (⟨C s, hCs⟩ : 𝔭.primeCompl) (⟨N, hN𝔭⟩ : 𝔭.primeCompl)
+  letI : Invertible β := ⟨β', by rw [mul_comm]; exact hββ', hββ'⟩
+  have hβu : IsUnit β := isUnit_of_invertible β
+  let σ0 : ℤ[X] →+* Rz := Polynomial.eval₂RingHom (Int.castRingHom Rz) β
+  have hunit : ∀ y : 𝔭.primeCompl, IsUnit (σ0 y) := by
+    intro y
+    set f := (y : ℤ[X])
+    have hf : f ∉ 𝔭 := y.2
+    set d := f.natDegree
+    have hrefl : reflect d f ∉ 𝔭 := by
+      intro hm
+      apply hf
+      change reflect d f ∈ Ideal.map C (Ideal.span {(p : ℤ)}) at hm
+      change f ∈ Ideal.map C (Ideal.span {(p : ℤ)})
+      rw [Ideal.mem_map_C_iff] at hm ⊢
+      intro k
+      by_cases hk : k ≤ d
+      · have := hm (revAt d k)
+        rwa [coeff_reflect, revAt_invol] at this
+      · rw [coeff_eq_zero_of_natDegree_lt (by omega)]
+        exact Ideal.zero_mem _
+    have h1 := unit_of_scaleRoots p hp N s hs hN β' hβ' (reflect d f) hrefl
+    have h2 := eval₂_reflect_mul_pow (Int.castRingHom Rz) β d f le_rfl
+    change IsUnit (eval₂ (Int.castRingHom Rz) β f)
+    rw [← h2]
+    refine IsUnit.mul ?_ (hβu.pow d)
+    convert h1
+  let σ : Rz →+* Rz := IsLocalization.lift (M := 𝔭.primeCompl) (S := Rz) (g := σ0) hunit
+  have hσ0 : ∀ f : ℤ[X], σ (algebraMap ℤ[X] Rz f) = σ0 f := fun f => IsLocalization.lift_eq hunit f
+  -- the image of `β` in `ℚ(X)` is `rInf c n`
+  have hβK : algebraMap Rz (RatFunc ℚ) β = rInf c n := by
+    have hspec := IsLocalization.mk'_spec' Rz (C s) (⟨N, hN𝔭⟩ : 𝔭.primeCompl)
+    have h1 := congrArg (algebraMap Rz (RatFunc ℚ)) hspec
+    rw [map_mul, ← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply] at h1
+    change algebraMap ℤ[X] (RatFunc ℚ) N * algebraMap Rz (RatFunc ℚ) β =
+      algebraMap ℤ[X] (RatFunc ℚ) (C s) at h1
+    have hNK : algebraMap ℤ[X] (RatFunc ℚ) N = algebraMap ℚ[X] (RatFunc ℚ) (C (c.den : ℚ) * X ^ n) := by
+      change algebraMap ℚ[X] (RatFunc ℚ) (N.map (Int.castRingHom ℚ)) = _
+      rw [hN_def, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_pow, Polynomial.map_X,
+        eq_intCast, Int.cast_natCast]
+    have hsK : algebraMap ℤ[X] (RatFunc ℚ) (C s) = algebraMap ℚ[X] (RatFunc ℚ) (C (c.num : ℚ)) := by
+      change algebraMap ℚ[X] (RatFunc ℚ) ((C s).map (Int.castRingHom ℚ)) = _
+      rw [Polynomial.map_C, eq_intCast, hs_def]
+    have hN0 : algebraMap ℚ[X] (RatFunc ℚ) (C (c.den : ℚ) * X ^ n) ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+        (mul_ne_zero (C_ne_zero.mpr (by exact_mod_cast c.den_nz)) (pow_ne_zero _ X_ne_zero))
+    have hXn : algebraMap ℚ[X] (RatFunc ℚ) (X ^ n) ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr (pow_ne_zero _ X_ne_zero)
+    rw [hNK, hsK] at h1
+    apply mul_left_cancel₀ hN0
+    rw [h1, rInf, map_mul, mul_assoc, mul_div_assoc', mul_div_cancel_left₀ _ hXn, ← map_mul,
+      ← C_mul, mul_comm ((c.den : ℚ)) c, Rat.mul_den_eq_num]
+  -- compatibility with `ι`
+  have hσ : ∀ x, algebraMap Rz E' (σ x) = ι (algebraMap Rz E x) := by
+    have : (algebraMap Rz E').comp σ = ι.comp (algebraMap Rz E) := by
+      apply IsLocalization.ringHom_ext 𝔭.primeCompl
+      apply Polynomial.ringHom_ext
+      · intro a
+        exact RingHom.congr_fun (RingHom.ext_int
+          ((((algebraMap Rz E').comp σ).comp (algebraMap ℤ[X] Rz)).comp C)
+          (((ι.comp (algebraMap Rz E)).comp (algebraMap ℤ[X] Rz)).comp C)) a
+      · simp only [RingHom.comp_apply]
+        rw [hσ0]
+        change algebraMap Rz E' (eval₂ (Int.castRingHom Rz) β X) =
+          ι (IsLocalization.lift _ (algebraMap ℤ[X] Rz X))
+        rw [eval₂_X, IsLocalization.lift_eq, IsScalarTower.algebraMap_apply Rz (RatFunc ℚ) E', hβK]
+        change _ = ι (algebraMap ℚ[X] E (X.map (Int.castRingHom ℚ)))
+        rw [Polynomial.map_X, IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+          RatFunc.algebraMap_X, hshape.1]
+    intro x
+    exact RingHom.congr_fun this x
+  have hadj : letI := ι.toAlgebra
+      IntermediateField.adjoin E (Set.range (algebraMap (RatFunc ℚ) E')) = ⊤ := by
+    letI := ι.toAlgebra
+    refine eq_top_iff.mpr ((adjoin_eq_top_of_shape ι _ hshape).symm.le.trans
+      (IntermediateField.adjoin.mono _ _ _ ?_))
+    rintro _ rfl
+    exact ⟨algebraMap ℚ[X] (RatFunc ℚ) X, (IsScalarTower.algebraMap_apply _ _ _ _).symm⟩
+  -- conclusion
+  letI : Algebra ℤ[X] E' := intPolyAlg E'
+  haveI : IsScalarTower ℤ[X] Rz E' :=
+    IsScalarTower.of_algebraMap_eq' (IsLocalization.lift_comp _).symm
+  intro Q' hQ'p hQ'u
+  haveI : Q'.LiesOver 𝔭 := ⟨hQ'u.symm⟩
+  obtain ⟨Qp, hQp, hQpl, hQpe⟩ := locTransfer_up ℤ[X] E' 𝔭 (zxMap_injective E') Q'
+  rw [← hQpe]
+  exact (unramBaseChange Rz (RatFunc ℚ) E E' Rz (RatFunc ℚ) ι σ hσ hadj
+    (vertical_hL E p hp hdeg hV Rz (fun f => IsLocalization.lift_eq _ f)) Qp).1
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
 #print axioms TsKummer.compositum_core0
 #print axioms TsKummer.kummerOtherBranchFin_of_unram
 #print axioms TsKummer.unramCompositum
+#print axioms TsKummer.kummerOtherBranchInf_of_unram
+#print axioms TsKummer.unramBaseChange
+#print axioms TsKummer.kummerVerticalFin_proof
+#print axioms TsKummer.kummerVerticalInf_proof
 
 /-! ## ts-kummer: the Kummer pieces of `PropTSGlue`, final statements -/
 
@@ -4769,23 +5723,35 @@ open Polynomial G0ModField PropTSRed PropTSGlue
 theorem kummerOtherBranchFin : KummerOtherBranchFin :=
   kummerOtherBranchFin_of_unram unramCompositum
 
-/-- `KummerMeetGlue` from the open Kummer pieces that remain. -/
-theorem kummerMeetGlue_of_remaining (hC : KummerCompositum) (hVF : KummerVerticalFin)
-    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) : KummerMeetGlue :=
-  kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin hVF
-    kummerAbhyankarInfGlue hOI hVI
+/-- **`KummerOtherBranchInf` is proved** (from `UnramCompositum`, which is proved). -/
+theorem kummerOtherBranchInf : KummerOtherBranchInf :=
+  kummerOtherBranchInf_of_unram unramCompositum
 
-/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the proved Kummer pieces removed. -/
+/-- **`KummerVerticalFin` is proved.** -/
+theorem kummerVerticalFin : KummerVerticalFin := kummerVerticalFin_proof
+
+/-- **`KummerVerticalInf` is proved.** -/
+theorem kummerVerticalInf : KummerVerticalInf := kummerVerticalInf_proof
+
+/-- **`KummerMeetGlue` from `KummerCompositum` alone** (the other six Kummer pieces are proved;
+the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/
+theorem kummerMeetGlue_of_compositum (hC : KummerCompositum) : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
+    kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
+
+/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed. -/
 theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
-    (hS : SNSpecialize) (hC : KummerCompositum) (hVF : KummerVerticalFin)
-    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hS : SNSpecialize) (hC : KummerCompositum)
     (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
     (hV : HeckeNoVertRam) : PropTSAll :=
-  propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin hVF
-    kummerAbhyankarInfGlue hOI hVI hI hNI hD hB hV
+  propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
+    kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf hI hNI hD hB hV
 
 end TsKummer
 
 #print axioms TsKummer.kummerOtherBranchFin
-#print axioms TsKummer.kummerMeetGlue_of_remaining
+#print axioms TsKummer.kummerOtherBranchInf
+#print axioms TsKummer.kummerVerticalFin
+#print axioms TsKummer.kummerVerticalInf
+#print axioms TsKummer.kummerMeetGlue_of_compositum
 #print axioms TsKummer.propTSAll_ts
