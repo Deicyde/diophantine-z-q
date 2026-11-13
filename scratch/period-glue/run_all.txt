@@ -19,7 +19,7 @@ Hint: Omit it from the simp argument list.
   [apply] simp [Matrix.mulVec, dotProduct] at c0 c1
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1244:4: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:1546:4: warning: This simp argument is unused:
   Matrix.head_cons
 
 Hint: Omit it from the simp argument list.
@@ -28,26 +28,26 @@ Hint: Omit it from the simp argument list.
     Matrix.cons_val_fin_one]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1686:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:1988:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:1833:68: warning: this tactic is never executed
+scratch/period-glue/PGAll.lean:2135:68: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/period-glue/PGAll.lean:1833:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/period-glue/PGAll.lean:2135:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:1833:68: warning: Unused tactic linter: `ring` does nothing.
+scratch/period-glue/PGAll.lean:2135:68: warning: Unused tactic linter: `ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:1838:28: warning: Variable name `hz` is not explicitly referenced.
+scratch/period-glue/PGAll.lean:2140:28: warning: Variable name `hz` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hz
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/period-glue/PGAll.lean:1864:2: warning: Try this: 
+scratch/period-glue/PGAll.lean:2166:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -55,126 +55,127 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/period-glue/PGAll.lean:1871:12: warning: this tactic is never executed
+scratch/period-glue/PGAll.lean:2173:12: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/period-glue/PGAll.lean:1871:2: warning: Unused tactic linter: `all_goals ring` does nothing.
+scratch/period-glue/PGAll.lean:2173:2: warning: Unused tactic linter: `all_goals ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:1917:24: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2219:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1917:42: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2219:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1960:24: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2262:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1960:42: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2262:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2019:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-glue/PGAll.lean:2321:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/period-glue/PGAll.lean:2019:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/period-glue/PGAll.lean:2321:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:2173:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2475:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2174:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2476:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2255:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2557:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2255:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2557:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2256:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2558:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2256:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2558:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2257:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2559:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2257:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2559:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2279:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2581:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2467:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/period-glue/PGAll.lean:2769:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/period-glue/PGAll.lean:2500:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2802:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2501:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2803:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2612:28: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2914:28: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2617:18: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2919:18: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2630:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2932:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2714:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:3016:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2744:76: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:3046:76: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
 'HSyn.G0Split.FibreQM.PeriodGlue.baseChangeClassUnique_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.s8WeightExact_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.fibreQMPeriod_periodGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-real	0m17.235s
-user	0m48.854s
-sys	0m2.891s
+real	0m22.053s
+user	1m9.628s
+sys	0m3.374s
 exit 0

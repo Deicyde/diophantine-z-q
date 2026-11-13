@@ -117,3 +117,14 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
 - First 30 elements of N(O)^+ (|n_k| ≤ 4, nrd ∈ {1,2,3,6}, normalizing O; independent search):
   greedy reduction of cosh d(γp, p) by vertex stabilizers ⟨g4⟩, ⟨g6⟩, ⟨g2⟩ reaches a rational
   scalar for all 30.
+
+## TwistOrbitFinite — REDUCED to leaves + proved glue (VERIFIED, run_pitwist.txt, run_all.txt)
+- `twistOrbitFinite_of' (hH : R1heckeProps Y Φ) (hT : ObjBridge.TorsionStructure)
+  (hA : AutOInnerFinite) : TwistOrbitFinite Y Φ`. Axioms standard.
+- `twist_iff_orbit`: G = {g_t ∘ h_u : t ∈ T, u ∈ U}; (⇒) conjUnitIso' + Level3.torsor (kernel copy,
+  needs T5) + UnitLiftMod3 + unit representatives (`unitReps`); (⇐) forget the level.
+- `unitLiftMod3_proof`: nrdZ multiplicative (`nrdZ_mulCoord`), invertible mod 3 ⇒ 3 ∤ nrd; table of
+  72 units (`py/unit_table.py`, coordinates ≤ 3) checked by `decide` (`unitTbl_spec`, 81 classes).
+- `AutOInnerFinite`: verbatim copy of mobius-glue's statement (proved there from the kernel's SN).
+- End to end now takes `TorsionStructure` and `AutOInnerFinite` instead of `TwistOrbitFinite`
+  (R1hecke comes from `own_spec h`). run_all: 0 errors, exit 0.
