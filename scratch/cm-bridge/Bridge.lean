@@ -2491,6 +2491,261 @@ theorem coe_mul_mem_span_ubK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (
 
 end Thm36c
 
+
+section Thm36d
+
+open TyzCm Complex
+open scoped nonZeroDivisors Pointwise
+
+variable {n : ℕ} [NeZero n]
+
+theorem coe_mul_mem_span_uK32 (hn : n % 8 = 7) (hsq : Squarefree n) (z : 𝓞 (QNeg n)) :
+    (z : QNeg n) * (-uK n * oneN32 n) ∈ Submodule.span ℤ ({-uK n * oneN32 n, 1} : Set (QNeg n)) := by
+  obtain ⟨s, t, hs, ht, k, hk⟩ := int_coords3 (by omega) hsq z
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have hdq : (tyzDelta n : ℚ) = 2 * d + 1 := by exact_mod_cast hd
+  have hkq : (s : ℚ) = t + 2 * k := by exact_mod_cast hk
+  have h := n_delta_q hn
+  rw [hdq] at h
+  refine mem_span_pair_of' (k - t * d) (t * N7 n) ?_
+  ext <;> simp [uK, hs, ht, zsmul_eq_mul, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one,
+    QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_intCast,
+    QuadraticAlgebra.im_intCast] <;> (try rw [hkq]) <;> (try rw [hdq]) <;>
+    first
+    | ring1
+    | linear_combination (t / 128 : ℚ) * h
+    | linear_combination (-t / 128 : ℚ) * h
+    | linear_combination (t / 256 : ℚ) * h
+    | linear_combination (-t / 256 : ℚ) * h
+    | linear_combination (t / 64 : ℚ) * h
+    | linear_combination (-t / 64 : ℚ) * h
+
+/-- `m = (δ+1)/2`. -/
+abbrev m7 (n : ℕ) : ℕ := (tyzDelta n + 1) / 2
+
+theorem two_m7 {n : ℕ} (hn : n % 8 = 7) : (2 * m7 n : ℚ) = tyzDelta n + 1 := by
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have h : 2 * m7 n = tyzDelta n + 1 := by simp only [m7]; omega
+  exact_mod_cast h
+
+/-- `u = θ − m = (√−n − δ)/2 ∈ 𝓞_K`. -/
+def uO (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : 𝓞 (QNeg n) :=
+  ZInQ.RouteK.Redei.thetaO n h3 - (m7 n : 𝓞 (QNeg n))
+/-- `ū = 1 − θ − m = (−√−n − δ)/2 ∈ 𝓞_K`. -/
+def ubO (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : 𝓞 (QNeg n) :=
+  1 - ZInQ.RouteK.Redei.thetaO n h3 - (m7 n : 𝓞 (QNeg n))
+
+theorem alg_uO (hn : n % 8 = 7) :
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (uO n (by omega)) = uK n := by
+  have h := two_m7 hn
+  simp only [uO, map_sub, ZInQ.RouteK.Redei.algebraMap_thetaO, ZInQ.RouteK.Redei.theta_eq, map_natCast]
+  ext <;> simp [uK] <;> linarith
+
+theorem alg_ubO (hn : n % 8 = 7) :
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (ubO n (by omega)) = ubK n := by
+  have h := two_m7 hn
+  simp only [ubO, map_sub, map_one, ZInQ.RouteK.Redei.algebraMap_thetaO, ZInQ.RouteK.Redei.theta_eq,
+    map_natCast]
+  ext <;> simp [ubK, QuadraticAlgebra.re_one, QuadraticAlgebra.im_one] <;> linarith
+
+theorem coe_mem_meet {J : Ideal (𝓞 (QNeg n))} {y : 𝓞 (QNeg n)} (hy : y ∈ J) :
+    (y : QNeg n) ∈ idealMeetOrder n 1 J :=
+  ⟨⟨0, y, by simp⟩, y, hy, rfl⟩
+
+omit [NeZero n] in
+theorem mem_span_mul_four' {S T : Set (QNeg n)} (s₀ s₁ t₀ t₁ : QNeg n) (hs₀ : s₀ ∈ S)
+    (hs₁ : s₁ ∈ S) (ht₀ : t₀ ∈ T) (ht₁ : t₁ ∈ T) {x : QNeg n} (a b c d : ℤ)
+    (h : x = a • (s₀ * t₀) + b • (s₀ * t₁) + c • (s₁ * t₀) + d • (s₁ * t₁)) :
+    x ∈ Submodule.span ℤ (S * T) := by
+  rw [h]
+  have hm : ∀ {s t : QNeg n}, s ∈ S → t ∈ T → s * t ∈ Submodule.span ℤ (S * T) :=
+    fun hs ht => Submodule.subset_span (Set.mul_mem_mul hs ht)
+  exact Submodule.add_mem _ (Submodule.add_mem _ (Submodule.add_mem _
+    (Submodule.smul_mem _ _ (hm hs₀ ht₀)) (Submodule.smul_mem _ _ (hm hs₀ ht₁)))
+    (Submodule.smul_mem _ _ (hm hs₁ ht₀))) (Submodule.smul_mem _ _ (hm hs₁ ht₁))
+
+theorem bezout32 {n : ℕ} (hn : n % 8 = 7) : ∃ a b : ℤ, a * 32 + b * (tyzDelta n : ℤ) = 1 := by
+  obtain ⟨d, hd⟩ := delta_odd hn
+  have h2 : IsCoprime (2 : ℤ) (tyzDelta n : ℤ) := ⟨-d, 1, by rw [hd]; ring⟩
+  obtain ⟨a, b, hab⟩ := h2.pow_left (m := 5)
+  exact ⟨a, b, by norm_num at hab; linarith⟩
+
+theorem thirtytwo_oneN32 : (32 : QNeg n) * oneN32 n = 1 := by
+  ext <;> simp [QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat, QuadraticAlgebra.re_one,
+    QuadraticAlgebra.im_one]
+
+/-- `𝔭̄₂^5 = (32, ū)` and `𝔭₂^5 = (32, u)` as ideals of `𝓞_K` (generators). -/
+abbrev Jub (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : Ideal (𝓞 (QNeg n)) :=
+  Ideal.span {(32 : 𝓞 (QNeg n)), ubO n h3}
+abbrev Ju (n : ℕ) [NeZero n] (h3 : n % 4 = 3) : Ideal (𝓞 (QNeg n)) :=
+  Ideal.span {(32 : 𝓞 (QNeg n)), uO n h3}
+
+theorem alg32 : algebraMap (𝓞 (QNeg n)) (QNeg n) 32 = 32 := map_ofNat _ 32
+
+theorem latK7 (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Jub n (by omega))) * Submodule.span ℤ {1, t'K n} =
+      Submodule.span ℤ {ubK n * 1, ubK n * tK n} := by
+  rw [Submodule.span_mul_span, mul_one, ubK_mul_tK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    rcases ht with rfl | rfl
+    · rw [mul_one]; exact coe_mem_span_ubK hn hsq y
+    · obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+      have e : (y : QNeg n) * t'K n =
+          ((α * uO n (by omega) + β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_intCast, alg_uO hn,
+          alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_t'K, ubK_mul_t'K hn]
+      rw [e]; exact coe_mem_span_ubK hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+        ubO n (by omega) ∈ Jub n (by omega)), 1, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [mul_one, RingOfIntegers.coe_eq_algebraMap, alg_ubO hn]
+    · obtain ⟨a, b, hab⟩ := bezout32 hn
+      have habK : (a : QNeg n) * 32 + (b : QNeg n) * (tyzDelta n : QNeg n) = 1 := by
+        have := congrArg (Int.cast : ℤ → QNeg n) hab
+        push_cast at this
+        exact this
+      have h32 : ((32 : 𝓞 (QNeg n)) : QNeg n) = 32 := alg32
+      have hub : ((ubO n (by omega) : 𝓞 (QNeg n)) : QNeg n) = ubK n := alg_ubO hn
+      refine mem_span_mul_four' (S := idealMeetOrder n 1 (Jub n (by omega))) (T := {1, t'K n})
+        ((32 : 𝓞 (QNeg n)) : QNeg n) ((ubO n (by omega) : 𝓞 (QNeg n)) : QNeg n) 1 (t'K n)
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) : (32 : 𝓞 (QNeg n)) ∈ Jub n (by omega)))
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) : ubO n (by omega) ∈ Jub n (by omega)))
+        (Set.mem_insert _ _) (Set.mem_insert_of_mem _ rfl) a (-b) (-b) 0 ?_
+      rw [h32, hub, thirtytwo_t'K]
+      simp only [zsmul_eq_mul, mul_one, Int.cast_neg, Int.cast_zero, zero_mul, add_zero]
+      linear_combination (-1 : QNeg n) * habK + (b : QNeg n) * (uK_add_ubK (n := n))
+
+theorem latNK7 (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Jub n (by omega))) * Submodule.span ℤ {oneN32 n, t'K n} =
+      Submodule.span ℤ {ubK n * oneN32 n, ubK n * tK n} := by
+  rw [Submodule.span_mul_span, ubK_mul_tK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+    rcases ht with rfl | rfl
+    · have e : (y : QNeg n) * oneN32 n = (α : QNeg n) + (β : QNeg n) * (ubK n * oneN32 n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, thirtytwo_oneN32, mul_one, mul_assoc]
+      rw [e]
+      exact Submodule.add_mem _ (coe_mem_span_ubK32 hn hsq α) (coe_mul_mem_span_ubK32 hn hsq β)
+    · have e : (y : QNeg n) * t'K n =
+          ((α * uO n (by omega) + β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_intCast, alg_uO hn,
+          alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_t'K, ubK_mul_t'K hn]
+      rw [e]; exact coe_mem_span_ubK32 hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+        ubO n (by omega) ∈ Jub n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg_ubO hn]
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) :
+        (32 : 𝓞 (QNeg n)) ∈ Jub n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg32, thirtytwo_oneN32]
+
+theorem latK7c (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega))) * Submodule.span ℤ {1, tb'K n} =
+      Submodule.span ℤ {-uK n * 1, -uK n * tbK n} := by
+  rw [Submodule.span_mul_span, mul_one, neg_uK_mul_tbK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    rcases ht with rfl | rfl
+    · rw [mul_one]; exact coe_mem_span_uK hn hsq y
+    · obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+      have e : (y : QNeg n) * tb'K n =
+          ((-(α * ubO n (by omega)) - β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_sub, map_neg,
+          map_intCast, alg_uO hn, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_tb'K, uK_mul_tb'K hn]
+        ring
+      rw [e]; exact coe_mem_span_uK hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · have hm : uK n ∈ Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega)) * {1, tb'K n}) :=
+        Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+          uO n (by omega) ∈ Ju n (by omega)), 1, Set.mem_insert _ _, by
+            dsimp only
+            rw [mul_one, RingOfIntegers.coe_eq_algebraMap, alg_uO hn]⟩
+      exact Submodule.neg_mem _ hm
+    · obtain ⟨a, b, hab⟩ := bezout32 hn
+      have habK : (a : QNeg n) * 32 + (b : QNeg n) * (tyzDelta n : QNeg n) = 1 := by
+        have := congrArg (Int.cast : ℤ → QNeg n) hab
+        push_cast at this
+        exact this
+      have h32 : ((32 : 𝓞 (QNeg n)) : QNeg n) = 32 := alg32
+      have hu : ((uO n (by omega) : 𝓞 (QNeg n)) : QNeg n) = uK n := alg_uO hn
+      refine mem_span_mul_four' (S := idealMeetOrder n 1 (Ju n (by omega))) (T := {1, tb'K n})
+        ((32 : 𝓞 (QNeg n)) : QNeg n) ((uO n (by omega) : 𝓞 (QNeg n)) : QNeg n) 1 (tb'K n)
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) : (32 : 𝓞 (QNeg n)) ∈ Ju n (by omega)))
+        (coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) : uO n (by omega) ∈ Ju n (by omega)))
+        (Set.mem_insert _ _) (Set.mem_insert_of_mem _ rfl) a b (-b) 0 ?_
+      rw [h32, hu, thirtytwo_tb'K]
+      simp only [zsmul_eq_mul, mul_one, Int.cast_neg, Int.cast_zero, zero_mul, add_zero]
+      linear_combination (-1 : QNeg n) * habK + (b : QNeg n) * (uK_add_ubK (n := n))
+
+theorem latNK7c (hn : n % 8 = 7) (hsq : Squarefree n) :
+    Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega))) * Submodule.span ℤ {oneN32 n, tb'K n} =
+      Submodule.span ℤ {-uK n * oneN32 n, -uK n * tbK n} := by
+  rw [Submodule.span_mul_span, neg_uK_mul_tbK hn]
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨x, ⟨-, y, hyJ, rfl⟩, t, ht, rfl⟩
+    dsimp only
+    simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ht
+    obtain ⟨α, β, hαβ⟩ := Ideal.mem_span_pair.1 hyJ
+    rcases ht with rfl | rfl
+    · have e : (y : QNeg n) * oneN32 n =
+          (α : QNeg n) + ((-β : 𝓞 (QNeg n)) : QNeg n) * (-uK n * oneN32 n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_neg, alg_uO hn, alg32]
+        rw [add_mul, mul_assoc, thirtytwo_oneN32, mul_one]
+        ring
+      rw [e]
+      exact Submodule.add_mem _ (coe_mem_span_uK32 hn hsq α) (coe_mul_mem_span_uK32 hn hsq _)
+    · have e : (y : QNeg n) * tb'K n =
+          ((-(α * ubO n (by omega)) - β * (N7 n : 𝓞 (QNeg n)) : 𝓞 (QNeg n)) : QNeg n) := by
+        rw [← hαβ]
+        simp only [RingOfIntegers.coe_eq_algebraMap, map_add, map_mul, map_sub, map_neg,
+          map_intCast, alg_uO hn, alg_ubO hn, alg32]
+        rw [add_mul, mul_assoc, mul_assoc, thirtytwo_tb'K, uK_mul_tb'K hn]
+        ring
+      rw [e]; exact coe_mem_span_uK32 hn hsq _
+  · rw [Submodule.span_le]
+    rintro _ (rfl | rfl)
+    · have hm : uK n * oneN32 n ∈
+          Submodule.span ℤ (idealMeetOrder n 1 (Ju n (by omega)) * {oneN32 n, tb'K n}) :=
+        Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert_of_mem _ rfl) :
+          uO n (by omega) ∈ Ju n (by omega)), oneN32 n, Set.mem_insert _ _, by
+            dsimp only
+            rw [RingOfIntegers.coe_eq_algebraMap, alg_uO hn]⟩
+      rw [neg_mul]
+      exact Submodule.neg_mem _ hm
+    · refine Submodule.subset_span ⟨_, coe_mem_meet (Ideal.subset_span (Set.mem_insert _ _) :
+        (32 : 𝓞 (QNeg n)) ∈ Ju n (by omega)), oneN32 n, Set.mem_insert _ _, ?_⟩
+      dsimp only
+      rw [RingOfIntegers.coe_eq_algebraMap, alg32, thirtytwo_oneN32]
+
+end Thm36d
+
 open ZInQ.Contrib.TYZDecomp in
 /-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
 (`ZInQ.Literature.TYZThm35ReadingA`) from:
