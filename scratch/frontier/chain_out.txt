@@ -246,13 +246,10 @@ def-text comparison (proved field vs g0-assemble3's def):
   TwistDescent                        def not found in scratch/twist-descent/Dev.lean
   AnalyticUniformizationOfDim         def not found in scratch/leaf-fold2/parts/b20_fold.lean
 route T inputs (def text vs g0-assemble3):
-Traceback (most recent call last):
-  File "/home/jackmccarthy/dzq-wt/frontier/scratch/frontier/chain.py", line 329, in <module>
-    main()
-  File "/home/jackmccarthy/dzq-wt/frontier/scratch/frontier/chain.py", line 325, in main
-    extra_defcheck()
-    ^^^^^^^^^^^^^^
-NameError: name 'extra_defcheck' is not defined
+  LinkedTateLocal      3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
+  G7Data               3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
+  FibreSimple          3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
+  QMEndRank            3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
 doc rows: 82 (82 distinct heads); F open minus never-projected: 81
   in chain, not in doc: []
   in doc, not in chain: ['AnalyticUniformizationOfDim']

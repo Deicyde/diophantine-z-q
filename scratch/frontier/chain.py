@@ -325,8 +325,6 @@ def main():
             extra_defcheck()
 
 
-if __name__ == "__main__" and "doc" not in sys.argv:
-    main()
 
 
 EXTRA_DEFS = [("3d1b90b5", "scratch/lt-local/LtLocal4.lean", ["LinkedTateLocal", "G7Data", "FibreSimple", "QMEndRank"])]
@@ -364,3 +362,7 @@ def doc_check(path="/home/jackmccarthy/dzq-wt/frontier/docs/research/frontier.md
 
 if __name__ == "__main__" and "doc" in sys.argv:
     doc_check()
+
+
+if __name__ == "__main__" and "doc" not in sys.argv:
+    main()
