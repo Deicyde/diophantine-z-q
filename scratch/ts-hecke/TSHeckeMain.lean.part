@@ -436,6 +436,409 @@ theorem heckeNormalization_of (hconn : Y3Connected) (hC : CurveGaloisChart)
     (hT : ObjBridge.TorsionStructure) : HeckeNormalization :=
   heckeNormalization_of_irr (heckeIrreducible_of_connected hconn) (heckeNormalizationIrr_of hC hT)
 
+/-! ## Part 4: `HeckeBranch`
+
+`e(Q) · #(geometric fibre) = [E : ℚ(X)]` for a Galois extension (`RamOfFibreCount`, algebra); the
+geometric fibres of `Spec B → 𝔸¹` (and of the chart at `∞`) are the `π`-fibres of `Y`
+(`chart_count`, compiled from `NormalizationModel`; `CurveChartInf`, curve theory, at `∞`); a
+`π`-fibre is a twist fibre (`fibre_ncard`, compiled); and the twist fibres have the sizes of the
+Baba–Granath elliptic table (`HeckeFibreSizes`, the moduli input). -/
+
+/-- **Glue (commutative algebra; fundamental identity for a Galois extension).** Let `E/ℚ(X)` be
+finite Galois and `B` the integral closure of `ℚ[X]` in `E`. (a) A prime over `0` has
+ramification index `1` (it is `0`). (b) For `t ∈ ℚ̄` and a prime `Q` of `B` over the kernel of
+`ℚ[X] → ℚ̄`, `X ↦ t`: `e(Q) · #{ψ : B → ℚ̄ | ψ(X) = t} = [E : ℚ(X)]`. (c) The same at `∞` for the
+integral closure of `ℚ[s]` (`s = 1/X`) and `t = 0`. *Proof* (STANDARD: Serre, *Local Fields*,
+I §7 Prop. 21 and I §4; Neukirch I.9.3; locators UNVERIFIED): `B` is a Dedekind domain; Galois
+acts transitively on the primes over `P`, so all have the same `e` and `f`, and `e f g = n`; the
+residue extensions are separable (characteristic 0), so a prime `Q'` over `P` contributes
+`f` maps `B/Q' → ℚ̄` over a fixed `ℚ[X]/P → ℚ̄`; hence the number of `ψ` is `g f = n / e`. Mathlib
+has the fundamental identity (`Ideal.sum_ramification_inertia`) and its Galois form. Glue. -/
+def RamOfFibreCount : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E],
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime → Q.under ℚ[X] = ⊥ →
+      Q.ramificationIdx ℚ[X] = 1) ∧
+    (∀ (t : Qbar) (Q : Ideal (integralClosure ℚ[X] E)), Q.IsPrime →
+      Q.under ℚ[X] = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) →
+      Q.ramificationIdx ℚ[X] *
+        {ψ : integralClosure ℚ[X] E →+* Qbar |
+          ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = t}.ncard =
+        Module.finrank (RatFunc ℚ) E) ∧
+    (letI := infAlg E
+      ∀ Q : Ideal (integralClosure InfCoord E), Q.IsPrime →
+        Q.under InfCoord = Ideal.span {infUnif} →
+        Q.ramificationIdx InfCoord *
+          {ψ : integralClosure InfCoord E →+* Qbar |
+            ψ (algebraMap InfCoord (integralClosure InfCoord E) infUnif) = 0}.ncard =
+          Module.finrank (RatFunc ℚ) E)
+
+/-- **The normalization chart at `∞`**: an open immersion `Spec B_∞ → Y` (`B_∞` the integral
+closure of `ℚ[s]`, `s = 1/X`, in `E`) whose image contains every `ℚ̄`-point with `π ≠ 0`, along
+which `π = ∞` exactly where `s = 0`. -/
+def NormalizationModelInf (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) (E : Type)
+    [Field E] [Algebra (RatFunc ℚ) E] : Prop :=
+  letI := infAlg E
+  ∃ h : Spec (CommRingCat.of (integralClosure InfCoord E)) ⟶ Y.left, IsOpenImmersion h ∧
+    (∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.some 0 →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure InfCoord E)),
+        y = y' ≫ h) ∧
+    ∀ ψ : integralClosure InfCoord E →+* Qbar,
+      (π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = OnePoint.infty ↔
+        ψ (algebraMap InfCoord (integralClosure InfCoord E) infUnif) = 0)
+
+/-- **Glue (curve theory): the chart at `∞`.** For a proper smooth curve `Y/ℚ` and `π : Y → P¹`
+with finite `ℚ̄`-fibres, a field `E` carrying the chart over `𝔸¹` (`NormalizationModel`) also
+carries the chart over `P¹ ∖ {0}`. *Proof* (STANDARD; Hartshorne II.6.7-6.8): finite fibres force
+every component of `Y` to meet `π⁻¹(𝔸¹) ≅ Spec B`, so `Y` is irreducible with function field `E`;
+`π` is finite and `Y` normal, so `π⁻¹(P¹ ∖ {0}) = Spec B_∞`, with `s = 1/π` there. Glue. -/
+def CurveChartInf : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E],
+      NormalizationModel Y π E → NormalizationModelInf Y π E
+
+/-- **The moduli input: sizes of the twist fibres** (the shape of Baba–Granath's elliptic table).
+There is `M` (it is `144 = |Γ'|`) such that every twist fibre has at most `M` classes, the fibre
+of an object without CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M`, and at objects with CM by
+`ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `M` divides `4` (resp. `6`, `2`) times the fibre size (the
+expected sizes are `36`, `24`, `72`). *Source*: the fibre of `Y₃ → P¹` through a point `y` has
+`|Γ'| / |Stab(y)|` points; `Stab(y)` is trivial off the elliptic points of `Γ*`, whose orders are
+`4, 6, 2` at the CM points of discriminants `−4, −3, −24` (Baba–Granath, Canad. J. Math. 60
+(2008), §3.1, the elliptic-order table, p. 740 per docs/research/locators.md; signature
+`(0; 2, 4, 6)`); the complete list of elliptic elements of the normalizer (h-b1 M9, VERIFIED by
+`scratch/rv-h-b1/rv_checks.py`) shows that every point with a nontrivial stabilizer has CM by one of
+the three maximal orders; `Γ₃` is torsion-free (`−1 ∉ K₃`). Glue from leaves (Shimura's
+uniformization and Baba–Granath). -/
+def HeckeFibreSizes : Prop :=
+  ∃ M : ℕ, (∀ P : QML3 Qbar, (twistFibre P).ncard ≤ M) ∧
+    (∀ P : QML3 Qbar, ¬ HasCM4 P.q → ¬ HasCM3 P.q → ¬ HasCM24 P.q →
+      (twistFibre P).ncard = M) ∧
+    (∀ P : QML3 Qbar, HasCM4 P.q → M ∣ 4 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM3 P.q → M ∣ 6 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM24 P.q → M ∣ 2 * (twistFibre P).ncard)
+
+/-- The `ℚ̄`-points of `Spec B` over `t` are the `π`-fibre over `t` (compiled). -/
+theorem chart_count {Y : Over (Spec (CommRingCat.of ℚ))} {π : ToP1 Y.left} {E : Type} [Field E]
+    [Algebra ℚ[X] E] (hM : NormalizationModel Y π E) (t : Qbar) :
+    {ψ : integralClosure ℚ[X] E →+* Qbar |
+        ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = t}.ncard =
+      {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = OnePoint.some t}.ncard := by
+  obtain ⟨h, hO, himg, hval⟩ := hM
+  let pt : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq _ _)
+  refine Set.ncard_congr (fun ψ _ => pt ψ) ?_ ?_ ?_
+  · intro ψ hψ
+    show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = _
+    rw [hval ψ, hψ]
+  · intro ψ ψ' _ _ hψ
+    have h1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom ψ') ≫ h :=
+      congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hψ
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 h1))
+  · intro y hy
+    obtain ⟨y', hy'⟩ := himg y.left (by rw [hy]; exact OnePoint.coe_ne_infty _)
+    refine ⟨(Spec.preimage y').hom, ?_, ?_⟩
+    · have := hval (Spec.preimage y').hom
+      rw [CommRingCat.ofHom_hom, Spec.map_preimage, ← hy', hy] at this
+      exact (OnePoint.coe_injective this).symm
+    · apply Over.OverMorphism.ext
+      show Spec.map (CommRingCat.ofHom (Spec.preimage y').hom) ≫ h = y.left
+      rw [CommRingCat.ofHom_hom, Spec.map_preimage, ← hy']
+
+/-- The same at `∞` (compiled). -/
+theorem chart_count_inf {Y : Over (Spec (CommRingCat.of ℚ))} {π : ToP1 Y.left} {E : Type}
+    [Field E] [Algebra (RatFunc ℚ) E] (hM : NormalizationModelInf Y π E) :
+    letI := infAlg E
+    {ψ : integralClosure InfCoord E →+* Qbar |
+        ψ (algebraMap InfCoord (integralClosure InfCoord E) infUnif) = 0}.ncard =
+      {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = OnePoint.infty}.ncard := by
+  letI := infAlg E
+  obtain ⟨h, hO, himg, hval⟩ := hM
+  let pt : (integralClosure InfCoord E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq _ _)
+  refine Set.ncard_congr (fun ψ _ => pt ψ) ?_ ?_ ?_
+  · intro ψ hψ
+    exact (hval ψ).2 hψ
+  · intro ψ ψ' _ _ hψ
+    have h1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom ψ') ≫ h :=
+      congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hψ
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 h1))
+  · intro y hy
+    obtain ⟨y', hy'⟩ := himg y.left (by
+      change π.val (K := Qbar) y.left = OnePoint.infty at hy
+      rw [hy]; exact OnePoint.infty_ne_coe _)
+    refine ⟨(Spec.preimage y').hom, ?_, ?_⟩
+    · apply (hval (Spec.preimage y').hom).1
+      rw [CommRingCat.ofHom_hom, Spec.map_preimage, ← hy']
+      exact hy
+    · apply Over.OverMorphism.ext
+      show Spec.map (CommRingCat.ofHom (Spec.preimage y').hom) ≫ h = y.left
+      rw [CommRingCat.ofHom_hom, Spec.map_preimage, ← hy']
+
+/-- A `π`-fibre on `ℚ̄`-points is a twist fibre (compiled). -/
+theorem fibre_ncard {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
+    (h2 : R2fpProps Y Φ π) (y₀ : fieldPt Qbar ⟶ Y) :
+    {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = π.val (K := Qbar) y₀.left}.ncard =
+      (twistFibre (Quotient.out (Φ Qbar y₀))).ncard := by
+  set P := Quotient.out (Φ Qbar y₀)
+  have hP : Φ Qbar y₀ = M3.mk P := (Quotient.out_eq _).symm
+  rw [← Set.ncard_image_of_injective _ (Φ Qbar).injective]
+  congr 1
+  ext c
+  constructor
+  · rintro ⟨y, hy, rfl⟩
+    set Q := Quotient.out (Φ Qbar y)
+    have hQ : Φ Qbar y = M3.mk Q := (Quotient.out_eq _).symm
+    exact ⟨Q, hQ, ((h2 y₀ y P Q hP hQ).1).1 hy.symm⟩
+  · rintro ⟨Q, rfl, hα⟩
+    refine ⟨(Φ Qbar).symm (M3.mk Q), ?_, Equiv.apply_symm_apply _ _⟩
+    exact (((h2 y₀ _ P Q hP (Equiv.apply_symm_apply _ _)).1).2 hα).symm
+
+/-- The kernel of evaluation at a rational point (compiled). -/
+theorem ker_eval_rat (b : ℚ) :
+    RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) (algebraMap ℚ Qbar b)) =
+      Ideal.span {X - C b} := by
+  rw [← Polynomial.ker_evalRingHom]
+  ext p
+  simp only [RingHom.mem_ker, Polynomial.coe_eval₂RingHom, Polynomial.coe_evalRingHom]
+  rw [Polynomial.eval₂_at_apply, map_eq_zero_iff _ (algebraMap ℚ Qbar).injective]
+
+/-- A nonzero prime of `ℚ[X]` is the kernel of evaluation at some `t ∈ ℚ̄` (compiled). -/
+theorem exists_ker_eval (P : Ideal ℚ[X]) [hP : P.IsPrime] (h0 : P ≠ ⊥) :
+    ∃ t : Qbar, P = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := by
+  have hmax : P.IsMaximal := hP.isMaximal h0
+  obtain ⟨p, rfl⟩ := (Submodule.IsPrincipal.principal P)
+  have hp0 : p ≠ 0 := by rintro rfl; exact h0 (by simp)
+  have hdeg : (p.map (algebraMap ℚ Qbar)).degree ≠ 0 := by
+    rw [Polynomial.degree_map]
+    intro hd
+    rw [Polynomial.eq_C_of_degree_eq_zero hd] at hmax
+    apply hmax.ne_top
+    rw [Ideal.submodule_span_eq, Ideal.span_singleton_eq_top]
+    have : p.coeff 0 ≠ 0 := by
+      intro hc; apply hp0; rw [Polynomial.eq_C_of_degree_eq_zero hd, hc, map_zero]
+    exact Polynomial.isUnit_C.2 (Ne.isUnit this)
+  obtain ⟨t, ht⟩ := IsAlgClosed.exists_root _ hdeg
+  refine ⟨t, hmax.eq_of_le (RingHom.ker_ne_top _) ?_⟩
+  rw [Ideal.submodule_span_eq, Ideal.span_le, Set.singleton_subset_iff]
+  show Polynomial.eval₂ (algebraMap ℚ Qbar) t p = 0
+  rw [← Polynomial.eval_map]
+  exact ht
+
+/-- `[E : ℚ(X)]` is at most the size of some twist fibre (compiled; the argument of
+`heckeDegree_of`). -/
+theorem finrank_le_twistFibre {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (hT : ObjBridge.TorsionStructure) (h2 : R2fpProps Y Φ π)
+    (hne : Nonempty (fieldPt Qbar ⟶ Y)) (E : Type)
+    [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E] [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    [FiniteDimensional (RatFunc ℚ) E] (hM : NormalizationModel Y π E) :
+    ∃ P : QML3 Qbar, Module.finrank (RatFunc ℚ) E ≤ (twistFibre P).ncard := by
+  obtain ⟨h, hO, -, hval⟩ := hM
+  obtain ⟨t, s, hs, hst⟩ := genericFibreCount E
+  let pt : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq _ _)
+  have hpt_inj : Function.Injective pt := by
+    intro ψ ψ' hψ
+    have h1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom ψ') ≫ h :=
+      congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hψ
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 h1))
+  have hpt_val : ∀ ψ ∈ s, π.val (K := Qbar) (pt ψ).left =
+      OnePoint.some (algebraMap ℚ Qbar t) := by
+    intro ψ hψ
+    show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = _
+    rw [hval ψ, hst ψ hψ]
+  rcases s.eq_empty_or_nonempty with hs0 | ⟨ψ₀, hψ₀⟩
+  · obtain ⟨y⟩ := hne
+    refine ⟨Quotient.out (Φ Qbar y), ?_⟩
+    rw [hs0, Finset.card_empty] at hs
+    omega
+  set P : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ₀))
+  have hP : Φ Qbar (pt ψ₀) = M3.mk P := (Quotient.out_eq _).symm
+  have hmem : ∀ ψ ∈ s, Φ Qbar (pt ψ) ∈ twistFibre P := by
+    intro ψ hψ
+    set Q : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ))
+    have hQ : Φ Qbar (pt ψ) = M3.mk Q := (Quotient.out_eq _).symm
+    refine ⟨Q, hQ, ((h2 (pt ψ₀) (pt ψ) P Q hP hQ).1).1 ?_⟩
+    rw [hpt_val ψ₀ hψ₀, hpt_val ψ hψ]
+  have hinj : Set.InjOn (fun ψ => Φ Qbar (pt ψ)) (s : Set _) :=
+    fun ψ _ ψ' _ hψ => hpt_inj ((Φ Qbar).injective hψ)
+  have := Set.ncard_le_ncard_of_injOn (fun ψ => Φ Qbar (pt ψ)) hmem hinj
+    (twistFibre_count hT P).1
+  rw [Set.ncard_coe_finset] at this
+  exact ⟨P, hs.trans this⟩
+
+/-- `HasCM4` and its kin pass along isomorphisms of objects. -/
+def qmIso_of_iso {P Q : QML3 Qbar} (f : P.Iso Q) : QMIso P.q Q.q :=
+  ⟨f.φ, f.ψ, f.left, f.right, f.equivariant⟩
+
+theorem algebraMap_m16_27 : algebraMap ℚ Qbar (-16 / 27) = -16 / 27 := by
+  rw [map_div₀, map_neg, map_ofNat, map_ofNat]
+
+/-- The CM point of a CM object (compiled): for an object `P₀`, the point `y₀ = Φ⁻¹[P₀]` and its
+class representative `P = out(Φ y₀)`, with an isomorphism `P₀ ≅ P`. -/
+theorem out_iso {Y : Over (Spec (CommRingCat.of ℚ))} (Φ : PtEquiv Y) (P₀ : QML3 Qbar) :
+    Nonempty (P₀.Iso (Quotient.out (Φ Qbar ((Φ Qbar).symm (M3.mk P₀))))) := by
+  rw [Equiv.apply_symm_apply]
+  exact Quotient.exact (Quotient.out_eq (M3.mk P₀)).symm
+
+/-- **`HeckeBranch` from `RamOfFibreCount`, `CurveChartInf`, `HeckeFibreSizes`, the kernel's
+leaf `TorsionStructure` and the existence of the three CM objects** (compiled; the CM objects
+come from the bundle leaf `R1R2fp`, `Pin.cm_objects_of_R1R2fp`). -/
+theorem heckeBranch_of (hR : RamOfFibreCount) (hCI : CurveChartInf) (hF : HeckeFibreSizes)
+    (hT : ObjBridge.TorsionStructure)
+    (hCM : (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
+      (∃ P : QML3 Qbar, HasCM24 P.q)) : HeckeBranch := by
+  intro Y Φ π h1 hh h2 E _ _ _ _ _ _ hM
+  obtain ⟨M, hle, hgen, h4, h3, h24⟩ := hF
+  obtain ⟨hR0, hRfin, hRinf⟩ := hR E
+  obtain ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂₄, c₂₄⟩⟩ := hCM
+  have hfinite := fibre_finite hT h2
+  have hMinf := hCI Y π h1.1 h1.2.1 hfinite E hM
+  have hnpos : 0 < Module.finrank (RatFunc ℚ) E := Module.finrank_pos
+  -- `n ≤ M`
+  obtain ⟨P₀, hP₀⟩ := finrank_le_twistFibre hT h2 h1.2.2.1 E hM
+  have hnM : Module.finrank (RatFunc ℚ) E ≤ M := hP₀.trans (hle P₀)
+  -- the fibre count over a finite value `t`, through a point of the fibre
+  have hfib : ∀ (t : Qbar) (y : fieldPt Qbar ⟶ Y), π.val (K := Qbar) y.left = OnePoint.some t →
+      {ψ : integralClosure ℚ[X] E →+* Qbar |
+        ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = t}.ncard =
+        (twistFibre (Quotient.out (Φ Qbar y))).ncard := by
+    intro t y hy
+    rw [chart_count hM t, ← hy, fibre_ncard h2 y]
+  -- a nonempty fibre from a positive count
+  have hne : ∀ (t : Qbar) (Q : Ideal (integralClosure ℚ[X] E)), Q.IsPrime →
+      Q.under ℚ[X] = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) →
+      ∃ y : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = OnePoint.some t := by
+    intro t Q hQ hQt
+    have h := hRfin t Q hQ hQt
+    have hc : {ψ : integralClosure ℚ[X] E →+* Qbar |
+        ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = t}.ncard ≠ 0 := by
+      intro h0; rw [h0, mul_zero] at h; omega
+    rw [chart_count hM t] at hc
+    exact Set.nonempty_of_ncard_ne_zero hc
+  -- a generic finite value has fibre size `M`
+  have hgenfib : ∀ (t : Qbar) (y : fieldPt Qbar ⟶ Y), π.val (K := Qbar) y.left = OnePoint.some t →
+      t ≠ 0 → t ≠ algebraMap ℚ Qbar (-16 / 27) →
+      (twistFibre (Quotient.out (Φ Qbar y))).ncard = M := by
+    intro t y hy ht0 ht1
+    set P := Quotient.out (Φ Qbar y)
+    have hP : Φ Qbar y = M3.mk P := (Quotient.out_eq _).symm
+    obtain ⟨-, hc4, hc3, hc24⟩ := h2 y y P P hP hP
+    refine hgen P (fun h => ht0 ?_) (fun h => ?_) (fun h => ht1 ?_)
+    · have := (hy.symm.trans (hc4 h)); exact OnePoint.coe_injective this
+    · exact OnePoint.coe_ne_infty _ (hy.symm.trans (hc3 h))
+    · have := OnePoint.coe_injective (hy.symm.trans (hc24 h))
+      rw [this, algebraMap_m16_27]
+  -- `n = M`, through the value `1`
+  have hnM' : Module.finrank (RatFunc ℚ) E = M := by
+    have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+      intro a b hab
+      have h' := congrArg Subtype.val hab
+      change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+      rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+        IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+      exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+    haveI : (RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) 1)).IsPrime :=
+      RingHom.ker_isPrime _
+    obtain ⟨Q₁, -, hQ₁, hQ₁u⟩ := Ideal.exists_ideal_over_prime_of_isIntegral
+      (RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) 1)) (⊥ : Ideal (integralClosure ℚ[X] E))
+      (Ideal.comap_bot_le_of_injective _ hinjB)
+    have h := hRfin 1 Q₁ hQ₁ hQ₁u
+    obtain ⟨y₁, hy₁⟩ := hne 1 Q₁ hQ₁ hQ₁u
+    rw [hfib 1 y₁ hy₁, hgenfib 1 y₁ hy₁ one_ne_zero (by
+      rw [← map_one (algebraMap ℚ Qbar)]
+      exact fun h => absurd ((algebraMap ℚ Qbar).injective h) (by norm_num))] at h
+    have hM0 : 0 < M := lt_of_lt_of_le hnpos hnM
+    have he : Q₁.ramificationIdx ℚ[X] ≤ 1 := by
+      by_contra hc
+      push Not at hc
+      have : 2 * M ≤ Q₁.ramificationIdx ℚ[X] * M := Nat.mul_le_mul_right M hc
+      omega
+    interval_cases (Q₁.ramificationIdx ℚ[X]) <;> omega
+  -- the three clauses
+  refine ⟨?_, ?_, ?_⟩
+  · intro Q hQ hS
+    by_cases h0 : Q.under ℚ[X] = ⊥
+    · exact hR0 Q hQ h0
+    haveI : (Q.under ℚ[X]).IsPrime := Ideal.IsPrime.under ℚ[X] Q
+    obtain ⟨t, ht⟩ := exists_ker_eval (Q.under ℚ[X]) h0
+    have ht0 : t ≠ 0 := by
+      rintro rfl
+      apply hS 0 (by simp)
+      rw [ht, ← map_zero (algebraMap ℚ Qbar), ker_eval_rat]
+    have ht1 : t ≠ algebraMap ℚ Qbar (-16 / 27) := by
+      rintro rfl
+      apply hS (-16 / 27) (by simp)
+      rw [ht, ker_eval_rat]
+    obtain ⟨y, hy⟩ := hne t Q hQ ht
+    have h := hRfin t Q hQ ht
+    rw [hfib t y hy, hgenfib t y hy ht0 ht1, ← hnM'] at h
+    have : Q.ramificationIdx ℚ[X] * Module.finrank (RatFunc ℚ) E =
+        1 * Module.finrank (RatFunc ℚ) E := by rw [h, _root_.one_mul]
+    exact Nat.eq_of_mul_eq_mul_right hnpos this
+  · intro b hb Q hQ hQb
+    have hQb' : Q.under ℚ[X] =
+        RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) (algebraMap ℚ Qbar b)) := by
+      rw [ker_eval_rat]; exact hQb
+    have h := hRfin _ Q hQ hQb'
+    -- the CM object over `b` and its fibre
+    have key : ∀ (P₁ : QML3 Qbar) (k : ℕ),
+        π.val (K := Qbar) ((Φ Qbar).symm (M3.mk P₁)).left = OnePoint.some (algebraMap ℚ Qbar b) →
+        M ∣ k * (twistFibre (Quotient.out (Φ Qbar ((Φ Qbar).symm (M3.mk P₁))))).ncard →
+        Q.ramificationIdx ℚ[X] ∣ k := by
+      intro P₁ k hπ hdvd
+      rw [hfib _ _ hπ, hnM'] at h
+      set F := (twistFibre (Quotient.out (Φ Qbar ((Φ Qbar).symm (M3.mk P₁))))).ncard
+      have hF0 : 0 < F := by
+        rcases Nat.eq_zero_or_pos F with hF | hF
+        · rw [hF, mul_zero] at h; omega
+        · exact hF
+      rw [← h] at hdvd
+      exact Nat.dvd_of_mul_dvd_mul_right hF0 hdvd
+    simp only [Finset.mem_insert, Finset.mem_singleton] at hb
+    rcases hb with rfl | rfl
+    · -- `b = 0`: CM by `ℤ[i]`, index `4`
+      obtain ⟨f⟩ := out_iso Φ P₄
+      have hπ : π.val (K := Qbar) ((Φ Qbar).symm (M3.mk P₄)).left =
+          OnePoint.some (algebraMap ℚ Qbar 0) := by
+        rw [map_zero]
+        exact ((h2 _ _ P₄ P₄ (Equiv.apply_symm_apply _ _) (Equiv.apply_symm_apply _ _)).2.1) c₄
+      have := key P₄ 4 hπ (h4 _ (HasCM4.of_iso (qmIso_of_iso f) c₄))
+      simpa [nY3] using this
+    · -- `b = −16/27`: CM by `ℤ[√−6]`, index `2`
+      obtain ⟨f⟩ := out_iso Φ P₂₄
+      have hπ : π.val (K := Qbar) ((Φ Qbar).symm (M3.mk P₂₄)).left =
+          OnePoint.some (algebraMap ℚ Qbar (-16 / 27)) := by
+        rw [((h2 _ _ P₂₄ P₂₄ (Equiv.apply_symm_apply _ _) (Equiv.apply_symm_apply _ _)).2.2.2) c₂₄,
+          algebraMap_m16_27]
+      have := key P₂₄ 2 hπ (h24 _ (HasCM24.of_iso (qmIso_of_iso f) c₂₄))
+      simpa [nY3] using this
+  · -- `∞`: CM by `ℤ[ζ₃]`, index `6`
+    letI := infAlg E
+    intro Q hQ hQs
+    have h := hRinf Q hQ hQs
+    obtain ⟨f⟩ := out_iso Φ P₃
+    set y₃ := (Φ Qbar).symm (M3.mk P₃)
+    have hπ : π.val (K := Qbar) y₃.left = OnePoint.infty :=
+      ((h2 _ _ P₃ P₃ (Equiv.apply_symm_apply _ _) (Equiv.apply_symm_apply _ _)).2.2.1) c₃
+    rw [chart_count_inf hMinf, ← hπ, fibre_ncard h2 y₃, hnM'] at h
+    have hdvd := h3 _ (HasCM3.of_iso (qmIso_of_iso f) c₃)
+    set F := (twistFibre (Quotient.out (Φ Qbar y₃))).ncard
+    have hF0 : 0 < F := by
+      rcases Nat.eq_zero_or_pos F with hF | hF
+      · rw [hF, mul_zero] at h; omega
+      · exact hF
+    rw [← h] at hdvd
+    exact Nat.dvd_of_mul_dvd_mul_right hF0 hdvd
+
+/-- **`HeckeBranch` with the CM objects supplied by the bundle leaf `R1R2fp`** (compiled). -/
+theorem heckeBranch_of_R1R2fp (hRR : R1R2fp) (hR : RamOfFibreCount) (hCI : CurveChartInf)
+    (hF : HeckeFibreSizes) (hT : ObjBridge.TorsionStructure) : HeckeBranch :=
+  heckeBranch_of hR hCI hF hT (cm_objects_of_R1R2fp hRR)
+
 end TSHecke
 
 end
@@ -460,3 +863,11 @@ end
 #print axioms TSHecke.fibre_finite
 #print axioms TSHecke.heckeNormalizationIrr_of
 #print axioms TSHecke.heckeNormalization_of
+#print axioms TSHecke.chart_count
+#print axioms TSHecke.chart_count_inf
+#print axioms TSHecke.fibre_ncard
+#print axioms TSHecke.ker_eval_rat
+#print axioms TSHecke.exists_ker_eval
+#print axioms TSHecke.finrank_le_twistFibre
+#print axioms TSHecke.heckeBranch_of
+#print axioms TSHecke.heckeBranch_of_R1R2fp

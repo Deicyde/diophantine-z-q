@@ -62,3 +62,14 @@ Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the publishe
   NormalizationModel).
 - `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr`;
   `heckeNormalization_of : Y3Connected → CurveGaloisChart → TorsionStructure → HeckeNormalization`.
+
+## Step 5. Lean, Part 4: HeckeBranch — VERIFIED (compiled, 0 errors, no sorryAx)
+
+- New Props: `RamOfFibreCount` (algebra glue: e(Q)·#{ψ : B → ℚ̄ | ψ X = t} = [E:ℚ(X)] for Galois
+  E, plus the ∞ chart and the junk prime 0), `NormalizationModelInf` (definition: chart at ∞),
+  `CurveChartInf` (curve glue: chart at 𝔸¹ ⇒ chart at ∞), `HeckeFibreSizes` (moduli input: twist
+  fibres ≤ M, = M off CM by ℤ[i], ℤ[ζ₃], ℤ[√−6], and M | 4F, 6F, 2F at those; Baba–Granath §3.1).
+- Compiled: `chart_count`, `chart_count_inf` (ℚ̄-points of the charts = π-fibres), `fibre_ncard`
+  (π-fibre = twist fibre), `ker_eval_rat`, `exists_ker_eval`, `finrank_le_twistFibre`,
+  `heckeBranch_of : RamOfFibreCount → CurveChartInf → HeckeFibreSizes → TorsionStructure →
+  (CM objects) → HeckeBranch`, `heckeBranch_of_R1R2fp` (CM objects from R1R2fp).
