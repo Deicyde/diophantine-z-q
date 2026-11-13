@@ -45,3 +45,5 @@ and the coordinate-linked form `j = π₆(x)`, which is not stated.
 - Folding into `Leaves.lean`.
 
 Report: docs/research/leaf-push2.md.
+
+(Written 2026-11-12, 20:00 PST, before the 22:30 deadline.)
