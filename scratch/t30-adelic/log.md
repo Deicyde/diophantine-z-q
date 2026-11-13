@@ -40,3 +40,10 @@
   `ZMod.ringEquivCongr (rfl : q3 = 3)` (`t3`). `R3` must stay a `def` (own Monoid), with `R3.mk` to keep
   rewrite targets well-typed.
 - Adelic.lean: `Zint` (ℤ̂^× = ∏ ℤ_p^× scalars), `Zhat_inf_K0 : Zhat ⊓ K0 = Zint`, `gamma_count_Zint` (|Γ'| = [N:𝔸_f^×K₀]·[K₀:ℤ̂^×K₃], = 4, = 36). VERIFIED, standard axioms.
+- 23:07 Attempt (abandoned, file removed): identify `Zhat` with the image of Mathlib's `𝔸ᶠ[ℤ, ℚ]ˣ` via
+  `Padic.adicCompletionEquiv`. The component map `ev p a := (adicCompletionEquiv ℤ p).symm (a (primesEquiv.symm p))`,
+  `ev_mul`, `ev_one` elaborate; but (i) any use of `PadicInt.adicCompletionIntegersEquiv ℤ p` (even `.toAlgEquiv`)
+  fails with "synthesized type class instance is not definitionally equal" (instAlgebraSubtype… vs
+  Ring.toIntAlgebra on `adicCompletionIntegers`), and (ii) unfolding `Padic.adicCompletionEquiv` to reach
+  `padicEquiv_bijOn` gives a kernel deterministic timeout (even via `simp only`/`rw` with
+  `ContinuousAlgEquiv.symm_trans_apply`, `cast_symm_apply`). Not pursued further.
