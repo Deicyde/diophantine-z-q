@@ -9,9 +9,9 @@ Copyright: this file is part of the fork Deicyde/diophantine-z-q (task frobchain
 Two VERBATIM slices, no other code:
 * `scratch/g14-trace/part_g14.lean` (task g14-trace) lines 26-29 (`noncomputable section`,
   `namespace G14Trace`) and line 30 (`open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)`),
-  then, as context, `open PkgI3 GaloisCopy GlueC10Link` in place of its line 31
+  then, as context, `open PkgI3 G0ModField.GaloisCopy GlueC10Link` in place of its line 31
   `open PkgI3 G0ModNewform GlueC10Link` (g0-mod-newform's namespace is not in this build; the
-  only name of it used, `Vb`, resolves to `GaloisCopy.Vb` of g0-mod-field, whose definition has
+  only name of it used, `Vb`, resolves to `G0ModField.GaloisCopy.Vb` of g0-mod-field, whose definition has
   the same text as `G0ModNewform.Vb`: `TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)`), then its
   lines 146-162 (docstring and `def FrobTraceLink`), then `end G14Trace` / `end`;
 * `scratch/linked-tate/parts/97_linkeddata.lean` (task linked-tate) lines 15-25 (section,
@@ -28,7 +28,7 @@ noncomputable section
 namespace G14Trace
 
 open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)
-open PkgI3 GaloisCopy GlueC10Link
+open PkgI3 G0ModField.GaloisCopy GlueC10Link
 
 /-- **The Frobenius trace link (GLUE, AV side; N5 L781-786).** There is a finite set `S` of
 primes such that at every arithmetic Frobenius `τ` above `p ∉ S` there are an abelian variety

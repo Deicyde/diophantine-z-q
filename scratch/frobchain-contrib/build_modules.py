@@ -169,9 +169,9 @@ add('LinkedStatement', [MOD + 'TateBridge'],
     'Two VERBATIM slices, no other code:\n'
     '* `scratch/g14-trace/part_g14.lean` (task g14-trace) lines 26-29 (`noncomputable section`,\n'
     '  `namespace G14Trace`) and line 30 (`open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)`),\n'
-    '  then, as context, `open PkgI3 GaloisCopy GlueC10Link` in place of its line 31\n'
+    '  then, as context, `open PkgI3 G0ModField.GaloisCopy GlueC10Link` in place of its line 31\n'
     '  `open PkgI3 G0ModNewform GlueC10Link` (g0-mod-newform\'s namespace is not in this build; the\n'
-    '  only name of it used, `Vb`, resolves to `GaloisCopy.Vb` of g0-mod-field, whose definition has\n'
+    '  only name of it used, `Vb`, resolves to `G0ModField.GaloisCopy.Vb` of g0-mod-field, whose definition has\n'
     '  the same text as `G0ModNewform.Vb`: `TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)`), then its\n'
     '  lines 146-162 (docstring and `def FrobTraceLink`), then `end G14Trace` / `end`;\n'
     '* `scratch/linked-tate/parts/97_linkeddata.lean` (task linked-tate) lines 15-25 (section,\n'
@@ -181,19 +181,21 @@ add('LinkedStatement', [MOD + 'TateBridge'],
     'linked-tate compiled these texts over `scratch/h-decomposition/Leaves.lean`, whose definitions\n'
     'are copies of the kernel\'s; here they are compiled over the kernel (`ZInQKernel.HDecomp.*`) and\n'
     'g0-mod-field/unram-tate (`TateBridge.lean`), as frob-trace\'s files are.',
-    L(G14, 26, 30) + '\nopen PkgI3 GaloisCopy GlueC10Link\n\n' + L(G14, 146, 162) +
+    L(G14, 26, 30) + '\nopen PkgI3 G0ModField.GaloisCopy GlueC10Link\n\n' + L(G14, 146, 162) +
     '\n\nend G14Trace\n\nend\n\n' + L(LT97, 15, 25) + '\n' + L(LT97, 125, 135) + '\n' +
     L(LT97, 193, 233) + '\nend UnramTate\n\nend\n\nend LinkedDataSec\n')
 
 add('LinkedFrob', [MOD + 'LinkedStatement', MOD + 'Pieces'],
     '`UnramTate.LinkedFrob` from the frob chain (linked-frob)',
-    'VERBATIM: `scratch/linked-frob/parts/10_linkedfrob.lean` (task linked-frob), then lines 1-37\n'
+    'VERBATIM: after the two file-level `open` lines of `ModField.lean` (active at this point of\n'
+    'linked-frob\'s `LinkedFrob.lean`, where they make `GQ` mean `GlueDescent.B2Q.GQ`),\n'
+    '`scratch/linked-frob/parts/10_linkedfrob.lean` (task linked-frob), then lines 1-37\n'
     'of `scratch/linked-frob/parts/20_bundle4.lean` (`linkedFrob_of_gen`,\n'
     '`linkedFrob_of_goodRed_nmp`, `linkedFrob_of_neron_nmp`), then `end LinkedFrobRed` / `end` /\n'
     '`end LinkedFrobBundleSec`. Not copied: `linkedFrob_of_textbook` and `HSyn.GluePieces4` (they\n'
     'take Leaves.lean\'s bundles `HSyn.TextbookLeaves`, `HSyn.ResearchLeaves`, which are not in the\n'
     'kernel build).',
-    noprint(rd(LF10)) + '\n' + L(LF20, 1, 37) + '\nend LinkedFrobRed\n\nend\n\nend LinkedFrobBundleSec\n')
+    MF_OPENS + '\n' + noprint(rd(LF10)) + '\n' + L(LF20, 1, 37) + '\nend LinkedFrobRed\n\nend\n\nend LinkedFrobBundleSec\n')
 
 for n, (name, imports, title, prov, text) in enumerate(modules, 1):
     out = ''.join('import %s\n' % i for i in imports) + '\n'

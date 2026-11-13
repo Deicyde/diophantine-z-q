@@ -15,3 +15,11 @@
 
 ## Step 2 plan: modules (generator scratch/frobchain-contrib/build_modules.py)
 TateBridge, Bridge35, FrobTrace, Rigidity, AlgFrobRed, FExtend, Pieces, LinkedStatement, LinkedFrob, Main.
+
+## Step 2 compile outcomes (VERIFIED, lake build, this host)
+- TateBridge: exit 0 (103 s; only this module rebuilt, 9199 jobs).
+- Run chain1: Rigidity, Bridge35, FrobTrace, AlgFrobRed (42 s), FExtend, Pieces built; LinkedStatement failed:
+  `GaloisCopy` is `G0ModField.GaloisCopy` (nested namespace). Fixed context line to `open PkgI3 G0ModField.GaloisCopy GlueC10Link`.
+- Run chain2: LinkedFrob failed (`Add (PtQ L A)`, `tmOf_eq` unknown): without ModField's file-level opens, `GQ` auto-bound
+  as an implicit variable. Fixed by putting the two ModField `open` lines before parts/10 (as in linked-frob's file).
+- Run chain3: LinkedFrob exit 0. Run main1: Main exit 0. All 10 modules build, no `sorry` warnings.
