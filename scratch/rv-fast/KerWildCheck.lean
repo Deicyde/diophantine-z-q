@@ -8957,10 +8957,12 @@ example {ℓ : ℕ} [Fact ℓ.Prime] (L' : IF) [FiniteDimensional ℚ L'] [IsGal
 theorem rvf_g7Clauses_eps_sq {ℓ : ℕ} [Fact ℓ.Prime] {β : PkgI4.GQ → PadicAlgCl ℓ}
     {ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ} {L : IntermediateField ℚ PkgI4.Qbar}
     (hC : G15Ram.G7Clauses β ε L) : ∀ g k, ε g k ^ 2 = 1 := by
-  obtain ⟨-, -, hβε, hβ0, -, ⟨Tmin, -, -, χ, ι, hsq⟩, -⟩ := hC
+  obtain ⟨_hfd, _hD, hβε, hβ0, _hlc, ⟨Tmin, _hTm, _hNZ, χ, ι, hsq⟩, _hε⟩ := hC
   intro g k
   have hm : β (g * k) ^ 2 = β g ^ 2 * β k ^ 2 := by
-    rw [hsq (g * k), hsq g, hsq k, map_mul, map_mul, Units.val_mul]
+    rw [hsq (g * k), hsq g, hsq k, ← Units.val_mul, ← map_mul]
+    congr 2
+    exact map_mul (GlueDescent.B2Q.galChar χ) g k
   have key : ε g k ^ 2 * β (g * k) ^ 2 = 1 * β (g * k) ^ 2 := by
     calc ε g k ^ 2 * β (g * k) ^ 2 = (ε g k * β (g * k)) ^ 2 := by ring
       _ = (β g * β k) ^ 2 := by rw [hβε g k]

@@ -68,3 +68,12 @@ ringClassFieldD at a junk argument.
   (absFrob, fExtendGen_of_nmp, fExtendCore_of_nmp, algFrobRed_of_nmp, tateBridge35_of_nmp, hom_spec_eq_of_point,
   ringHom_eq_of_normal + the copied file's own) all standard.
 - cmp: src_AlgFrobRed.lean ≡ scratch/alg-frob-red/AlgFrobRed.lean; AbsFrob block ≡ part_red.lean's.
+
+## lg-kerwild compile (VERIFIED, 11:22)
+- `lake env lean scratch/rv-fast/KerWildCheck.lean` (copy of committed KerWild.lean + checks): exit 0, 0 errors, ~60 s.
+  Appended and compiled: `tateBridge_of_K : TateBridgeK → TateBridge`; KerWild unfolds to
+  `∀ g ∈ G_L, β' g = 1 → g ∈ L'.fixingSubgroup` (via RQ.resQ_range); KerWild with β' ≡ 1 ⟹ G_L ≤ G_{L'};
+  `rvf_g7Clauses_eps_sq : G7Clauses β ε L → ∀ g k, ε g k ^ 2 = 1`;
+  `rvf_c_sq_of_a_one : GaloisCopy.G7Out … c ε a β u → (∀ g, a g = 1) → G7Clauses β ε L → ∀ g k, c g k ^ 2 = 1`.
+  All axiom prints (incl. tateBridgeK_of_tateModuleFree, descentPts_of_g7, localGlue_of_tateBridge35,
+  exists_localGlue_of_tateModuleFree, rvf_c_sq_of_a_one) are [propext, Classical.choice, Quot.sound].
