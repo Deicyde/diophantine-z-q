@@ -66,3 +66,9 @@ information: Galois action on the geometric components. Inputs:
   2 not prime in `ℤ[i]`, Mathlib's `GaussianInt.prime_iff_mod_four_eq_three_of_nat_prime`),
   `pic_R4 : Nat.card (Pic R4) = 1` (PID), `conductor_R4 : conductor R4 = 1`, `finrank_K4`,
   `IsTotallyComplex K4`, `zeta4_sq' : ζ₄² = -1`.
+- L5 (VERIFIED, compiled, `lake env lean scratch/pi0-x6/ClosedQ3.lean`, 0 errors, 0 warnings):
+  closed facts for `k₃ = CyclotomicField 3 ℚ`: coordinates `a + bζ₃` on `𝓞 K3`
+  (`exists_coord`, `coord_eq_zero`, `dvd_iff_coord`), `not_prime_three_O3` (`3 ∣ λ²`, `3 ∤ λ`),
+  `prime_two_O3` (parity table over `ZMod 2` by `decide`), `inertCount6_K3 = 1`,
+  `pic_R3 = 1` (Mathlib's `three_pid`), `conductor_R3 = 1`, `finrank_K3 = 2`,
+  `sqrt3_sq : (2ζ₃+1)² = −3`.
