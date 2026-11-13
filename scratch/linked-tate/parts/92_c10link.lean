@@ -1,5 +1,7 @@
-/-! ## Kernel copy: excerpts of ZInQKernel/HDecomp/C10/Link.lean (verbatim: lines 26-32, 81-111, 150-180, 227-233), the
-declarations g14-trace's `common_trace` uses (`FrobCompare`, `trace_T_of_frobCompare`, `cast_ne_zero_of_charP`). -/
+/-! ## Kernel copy: excerpts of ZInQKernel/HDecomp/C10/Link.lean (verbatim: lines 26-32, 81-111, 150-173, 227-233), the
+declarations g14-trace's `common_trace` uses (`FrobCompare`, `trace_T_of_frobCompare`, `cast_ne_zero_of_charP`).
+One change: `set_option synthInstance.maxHeartbeats 400000 in` before `trace_endE_indep` (instance search for
+`Module.Free ℚ_[ℓ] (A.V ℓ)` times out at the default limit in this environment). -/
 section GlueC10LinkSec
 noncomputable section
 
@@ -22,6 +24,7 @@ abbrev endE {k : Type} [Field k] {A : AbVar k} (φ : AbVar.End A) (ℓ : ℕ) [F
     (E : Type*) [Field E] [Algebra ℚ_[ℓ] E] : Module.End E (E ⊗[ℚ_[ℓ]] A.V ℓ) :=
   ((AbVar.homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ]).baseChange E
 
+set_option synthInstance.maxHeartbeats 400000 in
 /-- **The ℓ-independent trace on `V_ℓ ⊗ E`** (from Mumford §19 Thm 4). One integer `t` is the
 trace of `φ` on `E ⊗ V_ℓ(A)` for every prime `ℓ ≠ char k` and every field `E ⊇ ℚ_ℓ` over which
 `E ⊗ V_ℓ(A)` is finite-dimensional. -/
@@ -63,13 +66,6 @@ theorem trace_T_of_frobCompare (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A
   refine ⟨t, fun ℓ _ hℓ E V _ _ _ _ _ Tσ N ⟨Φ, hΦ⟩ => ?_⟩
   have : Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ) := Module.Finite.equiv Φ
   rw [← ht ℓ hℓ E, ← hΦ, LinearMap.trace_conj', map_smul, smul_eq_mul]
-
-/-- **The trace link (GLUE, proved from Mumford §19 Thm 4):
-`c_p = ½ · β(σ)⁻¹ a_σ · tr α_σ`.** Given `Ā` and `α' ∈ End(Ā)` there is one integer `t`
-(the trace of `α'` on `V_ℓ(Ā)`, the same for every `ℓ ≠ char k`) such that for every prime
-`ℓ ≠ char k`, every coefficient field `E ⊇ ℚ_ℓ` with embedding `emb : C → E`, every descent datum
-`(T, c, ε, a, β)` and matrix units `u`, and every `σ` whose `T σ` satisfies the Frobenius
-comparison with `α'` and `N`:
 
 /-- `ℓ ≠ p` in a field of characteristic `p`. -/
 theorem cast_ne_zero_of_charP {k : Type} [Field k] {p ℓ : ℕ} [CharP k p] (hp : p.Prime)

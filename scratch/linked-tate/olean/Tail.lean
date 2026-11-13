@@ -1,6 +1,240 @@
 import LPrefix
 
 
+/-! ## g0-dim: `DimFinite` and `DimBaseChange` proved (task g0-dim; body of `scratch/g0-dim/Dim.lean` §1-§2) -/
+
+section G0DimSec
+
+set_option linter.style.haveILetI false
+
+open Order TensorProduct
+
+namespace G0Dim
+
+/-! ## §1. Commutative algebra -/
+
+
+/-- Integral injective extensions have the same Krull dimension (going up + incomparability;
+Stacks 00OK, Matsumura Thm 9.4 — STANDARD). -/
+theorem ringKrullDim_eq_of_isIntegral_of_injective {A B : Type*} [CommRing A] [CommRing B]
+    [Algebra A B] [Algebra.IsIntegral A B] (hinj : Function.Injective (algebraMap A B)) :
+    ringKrullDim B = ringKrullDim A := by
+  apply le_antisymm
+  · refine Order.krullDim_le_of_strictMono (PrimeSpectrum.comap (algebraMap A B)) ?_
+    intro P Q hPQ
+    have h : P.asIdeal < Q.asIdeal := hPQ
+    exact Ideal.IsIntegral.under_lt_under (R := A) h
+  · refine iSup_le fun l => ?_
+    obtain ⟨P, -, hP, hPl⟩ := Ideal.exists_ideal_over_prime_of_isIntegral (S := B)
+      l.head.asIdeal ⊥ (by
+        intro x hx
+        have : algebraMap A B x = 0 := by simpa using hx
+        have : x = 0 := hinj (by simpa using this)
+        simp [this])
+    haveI : P.LiesOver l.head.asIdeal := ⟨hPl.symm⟩
+    obtain ⟨L, hlen, -, -⟩ := Ideal.exists_ltSeries_of_hasGoingUp l P
+    rw [← hlen]
+    exact L.length_le_krullDim
+
+theorem ringKrullDim_mvPolynomial_field (k : Type*) [Field k] (s : ℕ) :
+    ringKrullDim (MvPolynomial (Fin s) k) = s := by
+  rw [MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, ringKrullDim_eq_zero_of_field]
+  simp
+
+/-- **Stacks 00P4 (affine case), proved.** For a finitely generated algebra `R` over a field `K`
+and any field extension `L/K`, `dim (R ⊗_K L) = dim R`. Proof: Noether normalization
+`K[X_1..X_s] → R` (finite, injective) base-changes to `L[X_1..X_s] → R ⊗ L` (finite, injective
+since `L` is flat over `K`). -/
+theorem ringKrullDim_tensor_field (K : Type*) [Field K] (R : Type*) [CommRing R] [Algebra K R]
+    [Algebra.FiniteType K R] (L : Type*) [Field L] [Algebra K L] :
+    ringKrullDim (R ⊗[K] L) = ringKrullDim R := by
+  rcases subsingleton_or_nontrivial R with h | h
+  · haveI : Subsingleton (R ⊗[K] L) := by
+      have h1 : (1 : R ⊗[K] L) = 0 := by
+        rw [Algebra.TensorProduct.one_def, Subsingleton.elim (1 : R) 0, TensorProduct.zero_tmul]
+      exact subsingleton_of_zero_eq_one h1.symm
+    rw [ringKrullDim_eq_bot_of_subsingleton, ringKrullDim_eq_bot_of_subsingleton]
+  · obtain ⟨s, g, ginj, gfin⟩ := exists_finite_inj_algHom_of_fg K R
+    have hR : ringKrullDim R = s := by
+      letI := g.toRingHom.toAlgebra
+      haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K) R := ⟨gfin.to_isIntegral⟩
+      rw [ringKrullDim_eq_of_isIntegral_of_injective (A := MvPolynomial (Fin s) K) ginj,
+        ringKrullDim_mvPolynomial_field]
+    let g' := Algebra.TensorProduct.map g (AlgHom.id K L)
+    have g'inj : Function.Injective g' :=
+      Module.Flat.rTensor_preserves_injective_linearMap (M := L) g.toLinearMap ginj
+    have g'fin : g'.toRingHom.Finite := RingHom.Finite.tensorProductMap gfin (by exact RingHom.Finite.id L)
+    have hP : ringKrullDim (MvPolynomial (Fin s) K ⊗[K] L) = s := by
+      rw [ringKrullDim_eq_of_ringEquiv ((Algebra.TensorProduct.comm K _ L).toRingEquiv.trans
+        (MvPolynomial.algebraTensorAlgEquiv K L).toRingEquiv), ringKrullDim_mvPolynomial_field]
+    rw [hR, ← hP]
+    letI := g'.toRingHom.toAlgebra
+    haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K ⊗[K] L) (R ⊗[K] L) := ⟨g'fin.to_isIntegral⟩
+    exact ringKrullDim_eq_of_isIntegral_of_injective g'inj
+
+/-- A finitely generated algebra over a field has finite Krull dimension (or is zero). -/
+theorem ringKrullDim_le_of_finiteType (K : Type*) [Field K] (R : Type*) [CommRing R] [Algebra K R]
+    [Algebra.FiniteType K R] : ∃ n : ℕ, ringKrullDim R ≤ n := by
+  rcases subsingleton_or_nontrivial R with h | h
+  · exact ⟨0, by rw [ringKrullDim_eq_bot_of_subsingleton]; exact bot_le⟩
+  · obtain ⟨s, g, ginj, gfin⟩ := exists_finite_inj_algHom_of_fg K R
+    letI := g.toRingHom.toAlgebra
+    haveI : Algebra.IsIntegral (MvPolynomial (Fin s) K) R := ⟨gfin.to_isIntegral⟩
+    refine ⟨s, le_of_eq ?_⟩
+    rw [ringKrullDim_eq_of_isIntegral_of_injective (A := MvPolynomial (Fin s) K) ginj,
+      ringKrullDim_mvPolynomial_field]
+
+
+/-! ## §2. Topology and schemes -/
+
+open TopologicalSpace Topology
+
+
+/-- The Krull dimension of a space is the supremum of the dimensions of the members of a cover
+by open embeddings (Stacks 0055 for open covers; STANDARD). -/
+theorem topologicalKrullDim_eq_iSup_of_openEmbedding {X : Type*} [TopologicalSpace X] {ι : Type*}
+    {Y : ι → Type*} [∀ i, TopologicalSpace (Y i)] (f : ∀ i, Y i → X)
+    (hf : ∀ i, IsOpenEmbedding (f i)) (hcov : ∀ x, ∃ i, x ∈ Set.range (f i)) :
+    topologicalKrullDim X = ⨆ i, topologicalKrullDim (Y i) := by
+  apply le_antisymm
+  · refine iSup_le fun p => ?_
+    obtain ⟨x, hx⟩ := p.head.isIrreducible.nonempty
+    obtain ⟨i, y, rfl⟩ := hcov x
+    let e := IrreducibleCloseds.orderIsoOfIsOpenEmbedding (f i) (hf i)
+    have hmem : ∀ j, (f i ⁻¹' (p j : Set X)).Nonempty := fun j =>
+      ⟨y, p.monotone (Fin.zero_le j) hx⟩
+    let q : LTSeries {V : IrreducibleCloseds X | (f i ⁻¹' V).Nonempty} :=
+      { length := p.length
+        toFun := fun j => ⟨p j, hmem j⟩
+        step := fun j => p.step j }
+    calc (p.length : WithBot ℕ∞) = q.length := rfl
+      _ ≤ krullDim {V : IrreducibleCloseds X | (f i ⁻¹' V).Nonempty} := q.length_le_krullDim
+      _ = topologicalKrullDim (Y i) := (Order.krullDim_eq_of_orderIso e).symm
+      _ ≤ ⨆ i, topologicalKrullDim (Y i) := le_iSup (fun i => topologicalKrullDim (Y i)) i
+  · exact iSup_le fun i => (hf i).isInducing.topologicalKrullDim_le
+
+open AlgebraicGeometry CategoryTheory Limits
+
+theorem scheme_dim_eq_iSup_cover {X : Scheme} (𝒰 : X.OpenCover) :
+    topologicalKrullDim X = ⨆ i, topologicalKrullDim (𝒰.X i) :=
+  topologicalKrullDim_eq_iSup_of_openEmbedding (fun i => 𝒰.f i) (fun i => (𝒰.f i).isOpenEmbedding)
+    (fun x => ⟨𝒰.idx x, 𝒰.covers x⟩)
+
+theorem scheme_dim_eq_of_iso {X Y : Scheme} (e : X ≅ Y) :
+    topologicalKrullDim X = topologicalKrullDim Y :=
+  IsHomeomorph.topologicalKrullDim_eq _ (Scheme.homeoOfIso e).isHomeomorph
+
+theorem spec_dim (R : CommRingCat) : topologicalKrullDim (Spec R) = ringKrullDim R :=
+  PrimeSpectrum.topologicalKrullDim_eq_ringKrullDim R
+
+
+/-- **Stacks 00P4, affine piece over `Spec K`.** For `m : Spec R → Spec K` locally of finite
+type, `Spec R ×_K Spec L ≅ Spec (R ⊗_K L)` has the dimension of `Spec R`. -/
+theorem dim_pullback_spec {K : Type} [Field K] (L : Type) [Field L] [Algebra K L]
+    (R : CommRingCat.{0}) (m : Spec R ⟶ Spec (CommRingCat.of K)) [LocallyOfFiniteType m] :
+    topologicalKrullDim (pullback m (Spec.map (CommRingCat.ofHom (algebraMap K L))) : Scheme) =
+      topologicalKrullDim (Spec R) := by
+  obtain ⟨φ, rfl⟩ : ∃ φ, Spec.map φ = m := ⟨Spec.preimage m, Spec.map_preimage m⟩
+  have hφ : φ.hom.FiniteType :=
+    (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).mp inferInstance
+  letI : Algebra K R := φ.hom.toAlgebra
+  haveI : Algebra.FiniteType K R := hφ
+  have e := scheme_dim_eq_of_iso (pullbackSpecIso K R L)
+  refine e.trans ?_
+  rw [spec_dim, spec_dim]
+  exact ringKrullDim_tensor_field K R L
+
+/-- A scheme of finite type over a field: each affine piece `Spec R → Spec K` has bounded
+dimension. -/
+theorem dim_spec_le {K : Type} [Field K] (R : CommRingCat.{0}) (m : Spec R ⟶ Spec (CommRingCat.of K))
+    [LocallyOfFiniteType m] : ∃ n : ℕ, topologicalKrullDim (Spec R) ≤ n := by
+  obtain ⟨φ, rfl⟩ : ∃ φ, Spec.map φ = m := ⟨Spec.preimage m, Spec.map_preimage m⟩
+  have hφ : φ.hom.FiniteType :=
+    (HasRingHomProperty.Spec_iff (P := @LocallyOfFiniteType)).mp inferInstance
+  letI : Algebra K R := φ.hom.toAlgebra
+  haveI : Algebra.FiniteType K R := hφ
+  rw [spec_dim]
+  exact ringKrullDim_le_of_finiteType K R
+
+/-- **Dimension is invariant under field base change** (Stacks 00P4 globalized; proved). For a
+scheme `X` locally of finite type over a field `K` and any field extension `L/K`,
+`dim (X ×_K L) = dim X`. -/
+theorem dim_baseChange {K : Type} [Field K] (L : Type) [Field L] [Algebra K L] (X : Scheme.{0})
+    (h : X ⟶ Spec (CommRingCat.of K)) [LocallyOfFiniteType h] :
+    topologicalKrullDim (pullback h (Spec.map (CommRingCat.ofHom (algebraMap K L))) : Scheme) =
+      topologicalKrullDim X := by
+  let g := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  let 𝒰 := X.affineCover
+  rw [scheme_dim_eq_iSup_cover 𝒰, scheme_dim_eq_iSup_cover (𝒰.pullback₁ (pullback.fst h g))]
+  refine iSup_congr fun i => ?_
+  have e : (𝒰.pullback₁ (pullback.fst h g)).X i ≅ pullback (𝒰.f i ≫ h) g :=
+    (pullbackSymmetry _ _).trans (pullbackRightPullbackFstIso h g (𝒰.f i))
+  rw [scheme_dim_eq_of_iso e]
+  haveI : IsOpenImmersion (𝒰.f i) := 𝒰.map_prop i
+  have hc : LocallyOfFiniteType (𝒰.f i ≫ h) := locallyOfFiniteType_comp _ _
+  exact @dim_pullback_spec K _ L _ _ _ (𝒰.f i ≫ h) hc
+
+theorem exists_nat_of_le (x : WithBot ℕ∞) (h0 : x ≠ ⊥) (N : ℕ) (h : x ≤ N) :
+    ∃ n : ℕ, x = n := by
+  induction x using WithBot.recBotCoe with
+  | bot => exact absurd rfl h0
+  | coe e =>
+    induction e using ENat.recTopCoe with
+    | top =>
+      have h' : ((⊤ : ℕ∞) : WithBot ℕ∞) ≤ ((N : ℕ∞) : WithBot ℕ∞) := by exact_mod_cast h
+      exact absurd (WithBot.coe_le_coe.mp h') (by simp)
+    | coe n => exact ⟨n, rfl⟩
+
+/-- **A nonempty scheme of finite type over a field has finite dimension** (proved). -/
+theorem dim_finite {K : Type} [Field K] (X : Scheme.{0}) (h : X ⟶ Spec (CommRingCat.of K))
+    [LocallyOfFiniteType h] [QuasiCompact h] [Nonempty X] :
+    ∃ n : ℕ, topologicalKrullDim X = n := by
+  haveI : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace h
+  let 𝒰 := X.affineCover.finiteSubcover
+  have hb : ∀ i, ∃ n : ℕ, topologicalKrullDim (𝒰.X i) ≤ n := fun i => by
+    haveI : IsOpenImmersion (𝒰.f i) := 𝒰.map_prop i
+    have hc : LocallyOfFiniteType (𝒰.f i ≫ h) := locallyOfFiniteType_comp _ _
+    exact @dim_spec_le K _ _ (𝒰.f i ≫ h) hc
+  choose n hn using hb
+  have hle : topologicalKrullDim X ≤ ((∑ i, n i : ℕ) : WithBot ℕ∞) := by
+    rw [scheme_dim_eq_iSup_cover 𝒰]
+    refine iSup_le fun i => (hn i).trans ?_
+    exact_mod_cast Finset.single_le_sum (fun j _ => Nat.zero_le (n j)) (Finset.mem_univ i)
+  have hne : topologicalKrullDim X ≠ ⊥ := by
+    obtain ⟨x⟩ := ‹Nonempty X›
+    haveI : Nonempty (IrreducibleCloseds X) :=
+      ⟨⟨closure {x}, isIrreducible_singleton.closure, isClosed_closure⟩⟩
+    exact Order.krullDim_ne_bot_iff.mpr inferInstance
+  exact exists_nat_of_le _ hne _ hle
+
+end G0Dim
+
+namespace HSyn.G0Split
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **`DimBaseChange` (missing piece 2), proved** from `G0Dim.dim_baseChange`. -/
+theorem dimBaseChange : DimBaseChange := by
+  intro K _ L _ _ A
+  exact G0Dim.dim_baseChange L A.X.left A.X.hom
+
+/-- **`DimFinite` (missing piece 1), proved** from `G0Dim.dim_finite`. -/
+theorem dimFinite : DimFinite := by
+  intro K _ A
+  haveI : Nonempty A.X.left :=
+    ⟨η[A.X].left (Nonempty.some (inferInstance : Nonempty (Spec (CommRingCat.of K))))⟩
+  exact G0Dim.dim_finite A.X.left A.X.hom
+
+end HSyn.G0Split
+
+/-- `dim (A_L) = dim A` for I3's `PkgI3.AbVar.baseChange` (the same proof as `dimBaseChange`). -/
+theorem G0Dim.pkgI3_dim_baseChange {K : Type} [Field K] (L : Type) [Field L] [Algebra K L]
+    (A : PkgI3.AbVar K) : (A.baseChange L).dim = A.dim :=
+  G0Dim.dim_baseChange L A.X.left A.X.hom
+
+end G0DimSec
+
+
 /-! ## g0-mod-galois: glue steps G8-G12 of the H decomposition (task g0-mod-galois, 2026-11-13)
 
 `ModularConstituent` (scratch/g0-split) bundles G2, G4, G7-G16. This section takes the range
@@ -4085,8 +4319,10 @@ end G0AssembleAfterG7Sec
 
 #print axioms HSyn.G0AssembleMod.afterG7_of
 
-/-! ## Kernel copy: excerpts of ZInQKernel/HDecomp/C10/Link.lean (verbatim: lines 26-32, 81-111, 150-180, 227-233), the
-declarations g14-trace's `common_trace` uses (`FrobCompare`, `trace_T_of_frobCompare`, `cast_ne_zero_of_charP`). -/
+/-! ## Kernel copy: excerpts of ZInQKernel/HDecomp/C10/Link.lean (verbatim: lines 26-32, 81-111, 150-173, 227-233), the
+declarations g14-trace's `common_trace` uses (`FrobCompare`, `trace_T_of_frobCompare`, `cast_ne_zero_of_charP`).
+One change: `set_option synthInstance.maxHeartbeats 400000 in` before `trace_endE_indep` (instance search for
+`Module.Free ℚ_[ℓ] (A.V ℓ)` times out at the default limit in this environment). -/
 section GlueC10LinkSec
 noncomputable section
 
@@ -4109,6 +4345,7 @@ abbrev endE {k : Type} [Field k] {A : AbVar k} (φ : AbVar.End A) (ℓ : ℕ) [F
     (E : Type*) [Field E] [Algebra ℚ_[ℓ] E] : Module.End E (E ⊗[ℚ_[ℓ]] A.V ℓ) :=
   ((AbVar.homT (ℓ := ℓ) φ).baseChange ℚ_[ℓ]).baseChange E
 
+set_option synthInstance.maxHeartbeats 400000 in
 /-- **The ℓ-independent trace on `V_ℓ ⊗ E`** (from Mumford §19 Thm 4). One integer `t` is the
 trace of `φ` on `E ⊗ V_ℓ(A)` for every prime `ℓ ≠ char k` and every field `E ⊇ ℚ_ℓ` over which
 `E ⊗ V_ℓ(A)` is finite-dimensional. -/
@@ -4150,13 +4387,6 @@ theorem trace_T_of_frobCompare (hM : CharPolyIndepOfEll) {k : Type} [Field k] (A
   refine ⟨t, fun ℓ _ hℓ E V _ _ _ _ _ Tσ N ⟨Φ, hΦ⟩ => ?_⟩
   have : Module.Finite E (E ⊗[ℚ_[ℓ]] A.V ℓ) := Module.Finite.equiv Φ
   rw [← ht ℓ hℓ E, ← hΦ, LinearMap.trace_conj', map_smul, smul_eq_mul]
-
-/-- **The trace link (GLUE, proved from Mumford §19 Thm 4):
-`c_p = ½ · β(σ)⁻¹ a_σ · tr α_σ`.** Given `Ā` and `α' ∈ End(Ā)` there is one integer `t`
-(the trace of `α'` on `V_ℓ(Ā)`, the same for every `ℓ ≠ char k`) such that for every prime
-`ℓ ≠ char k`, every coefficient field `E ⊇ ℚ_ℓ` with embedding `emb : C → E`, every descent datum
-`(T, c, ε, a, β)` and matrix units `u`, and every `σ` whose `T σ` satisfies the Frobenius
-comparison with `α'` and `N`:
 
 /-- `ℓ ≠ p` in a field of characteristic `p`. -/
 theorem cast_ne_zero_of_charP {k : Type} [Field k] {p ℓ : ℕ} [CharP k p] (hp : p.Prime)
@@ -4369,7 +4599,7 @@ noncomputable section
 
 namespace HSyn.LinkedTate
 
-open CategoryTheory AlgebraicGeometry
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open G0ModField
 
 /-! ### §1 Base change on endomorphisms (copied from `scratch/bp-qmmoduli/QMAbVar.lean` L533-575:
@@ -4499,6 +4729,35 @@ def QMModelG3 : Prop :=
     G0Galois.G3Out (@PkgI3.AbVar.baseChange L _
       (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ {3}
 
+/-- **Glue: good reduction away from `3` gives `G3Out` on base changes** (linked-tate; the
+transport half of G3/G11, given the leaf R7a = Néron–Ogg–Shafarevich, Serre–Tate 1968 Thm 1,
+`PkgI2.NeronOggShafarevich`). If `A/K` (`K ⊆ ℚ̄`) has good reduction (PkgI2's
+`HasGoodReduction`, an abelian scheme over the DVR) at every discrete valuation ring of `K` in
+which `3` is a unit, then for every tower `K ≤ L ≤ L'` with `L'/ℚ` finite and every prime `ℓ`,
+inertia of `G_{L'}` at places above `p ∉ {3, ℓ}` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A_{L,L'})`.
+Proof route (STANDARD): `v ∩ K` is such a DVR; NOS (a) ⇒ (b) over `K` makes inertia at `v`
+trivial on every `A[ℓⁿ](K̄)`; inertia of `G_{L'}` restricts into it; triviality on all `A[ℓⁿ]`
+is triviality on `T_ℓ`, hence on `ℚ̄_ℓ ⊗ V_ℓ`; base change does not change the points over
+`\bar K = \bar{L'}` (`bcPt`, unram-tate). Only definitions are transported; no new literature
+input. GLUE. -/
+def GoodRedG3Bridge : Prop :=
+  PkgI2.NeronOggShafarevich.{0} →
+  ∀ (K L L' : IF) [FiniteDimensional ℚ L'] (hKL : K ≤ L) (hLL' : L ≤ L') (A : PkgI3.AbVar K),
+    (∀ (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov], IsUnit (3 : Ov) →
+      PkgI2.HasGoodReduction (ObjBridge.toGrp A) Ov) →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime],
+      letI : NumberField L' := numberField_of_fd L'
+      G0Galois.G3Out (@PkgI3.AbVar.baseChange L _
+        (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ {3}
+
+/-- **`QMModelG3`, proved** from the leaves R6 (Raynaud), R7a (NOS), T5 (`TorsionStructure`)
+through `LeafQM.AV.QML3.goodReduction` (proved in `Leaves.lean`: a `QML3` object has good
+reduction at every DVR with `3` a unit) and the glue `GoodRedG3Bridge`. -/
+theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hB : GoodRedG3Bridge) : QMModelG3 :=
+  fun K L L' _ hKL hLL' PK ℓ _ => hB hNOS K L L' hKL hLL' PK.A
+    (fun Ov _ h3 => LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
+
 /-- `3 ∈ T(u)` (`3 ∈ S_mul`). -/
 theorem three_mem_T (u : ℚ) : 3 ∈ T u :=
   Finset.mem_union_left _ (ZInQ.Mult.mem_S_mul_of_le Nat.prime_three (by norm_num))
@@ -4618,6 +4877,75 @@ def LinkedTateCore : Prop :=
         (p = 5 → RhoRamWild p hp
           (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
 
+/-- **Glue: the endomorphism ring of the QM model has rank 4** (linked-tate; G5-G6 + A9, N5
+L564-577). For a `QML3` object `PK` over `K ⊆ ℚ̄` and a tower `K ≤ L ≤ L'` (`L'/ℚ` finite), if every
+nonzero endomorphism of `A' = (PK.A)_{L,L'}` is an isogeny (`EndDivision`, which `FibreSimple`
+supplies for the fibre), then `End_{L'}(A')` is a free `ℤ`-module of rank 4. Route (STANDARD,
+UNVERIFIED numbering): `End(A')` is finitely generated and torsion-free (Mumford §19 Thm 3:
+`End ⊗ ℤ_ℓ ↪ End T_ℓ`), so free; `End⁰(A')` is a division algebra containing `ι(B)`, `B = (2,−3)`
+of dimension 4, and by Albert's classification for simple abelian surfaces in characteristic 0
+(Mumford §21) it is `ℚ`, real quadratic, CM quartic or an indefinite quaternion algebra over `ℚ`;
+only the last contains `B`, so `End⁰(A') = B`. GLUE (literature-backed). -/
+def QMEndRank : Prop :=
+  ∀ (K L L' : IF) [FiniteDimensional ℚ L'] (hKL : K ≤ L) (hLL' : L ≤ L') (PK : LeafQM.AV.QML3 K),
+    PkgI3.EndDivision (@PkgI3.AbVar.baseChange L _
+      (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _
+      (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL'))) = 4
+
+/-- **Glue: `LinkedTateCore` given `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`** (linked-tate; the
+same conclusion as `LinkedTateCore`, under the two hypotheses that g0-mod-field's `TateBridge`
+also assumes). GLUE. -/
+def LinkedTateCoreDR : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (a b : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅
+        (fun g => j5 (a g)) (fun g => j5 (b g)) u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃
+        (fun g => j3 (a g)) (fun g => j3 (b g)) u₃ ∧
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm₅ Tm₃ ∧
+      ∀ p : ℕ, ∀ hp : p.Prime,
+        (p ≠ 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₅ (fun g => j5 (a g)) (fun g => j5 (b g)))) ∧
+        (p = 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
+
+/-- **`LinkedTateCore`, proved** from `FibreSimple` (EndDivision of the model), `QMEndRank` and
+`LinkedTateCoreDR`; `dim A_{L'} = 2` is proved (`QML3.surface` and g0-dim's
+`pkgI3_dim_baseChange`, twice). -/
+theorem linkedTateCore_of (hFS : HSyn.G0Split.FibreSimple) (hR : QMEndRank)
+    (hDR : LinkedTateCoreDR) : LinkedTateCore := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  have hmod := hdata.2.2.2.2.2.2.2.2.2.2.2
+  have hdata' := hdata
+  obtain ⟨K, hKL, PK, -, rfl⟩ := hdata.1
+  have hdim : (@PkgI3.AbVar.baseChange L _ (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))
+      L' _ (incAlg hLL')).dim = 2 := by
+    rw [@G0Dim.pkgI3_dim_baseChange L _ L' _ (incAlg hLL'),
+      @G0Dim.pkgI3_dim_baseChange K _ L _ (incAlg hKL)]
+    exact PK.surface
+  exact hDR Y Φ π u P hctx L _ ε N χ β L' hLL' hdata' hdim
+    (hR K L L' hKL hLL' PK (endDivision_of_fibreSimple hFS hctx L' _ hmod))
+
 /-- **`LinkedTateData`, proved** from the leaf T7 (`PkgI3.CharPolyIndepOfEll`) and the glue Prop
 `LinkedTateCore`: for G8's `r₅`, `r₃` on the linked data and any `ι₅ = j₅ ∘ γ` (`exists_comp_eq`),
 `ι₃ := j₃ ∘ γ` makes the traces compatible (g14-trace's `g14TraceCompat_of_link`), and
@@ -4631,9 +4959,9 @@ theorem linkedTateData_of (hM : PkgI3.CharPolyIndepOfEll) (hC : LinkedTateCore) 
   refine ⟨Tm₅, c₅, ε₅, fun g => j5 (a g), fun g => j5 (b g), u₅,
     Tm₃, c₃, ε₃, fun g => j3 (a g), fun g => j3 (b g), u₃, h5, h3, ?_⟩
   intro r₅ r₃ h8₅ h8₃ i ιC ι5
-  obtain ⟨γ, hγ⟩ := G14Trace.exists_comp_eq ι5 j5
-  refine ⟨j3.comp γ, ?_, ?_⟩
-  · exact G14Trace.g14TraceCompat_of_link hM ⟨i, ιC, ι5, j3.comp γ, r₅, r₃⟩ j5 j3 γ hγ rfl a b
+  obtain ⟨gm, hgm⟩ := G14Trace.exists_comp_eq ι5 j5
+  refine ⟨j3.comp gm, ?_, ?_⟩
+  · exact G14Trace.g14TraceCompat_of_link hM ⟨i, ιC, ι5, j3.comp gm, r₅, r₃⟩ j5 j3 gm hgm rfl a b
       Tm₅ Tm₃ h8₅ h8₃ hF
   · obtain ⟨-, e5, he5, -⟩ := h8₅
     obtain ⟨-, e3, he3, -⟩ := h8₃
@@ -4655,6 +4983,19 @@ theorem afterG7_of_linked (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
   HSyn.G0AssembleMod.afterG7_of r t m hDF hCar hSw hL8 hAd (modelG3G6_of hFS hG3)
     (linkedTateData_of t.t7 hC)
 
+/-- **`AfterG7` with G3 reduced to the bundle's R6, R7a, T5 and `GoodRedG3Bridge`, and
+`LinkedTateCore` to `QMEndRank` and `LinkedTateCoreDR`.** -/
+theorem afterG7_of_linked' (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
+    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
+    (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hFS : HSyn.G0Split.FibreSimple) (hB : GoodRedG3Bridge) (hR : QMEndRank)
+    (hDR : LinkedTateCoreDR) : AfterG7 :=
+  afterG7_of_linked r t m hDF hCar hSw hL8 hAd hFS (qmModelG3_of r.r7a r.r6 t.t5 hB)
+    (linkedTateCore_of hFS hR hDR)
+
 end HSyn.LinkedTate
 
 end
@@ -4664,9 +5005,12 @@ end LinkedTateSec
 #print axioms HSyn.LinkedTate.oI_oH_ne
 #print axioms HSyn.LinkedTate.noncomm_baseChange2
 #print axioms HSyn.LinkedTate.endDivision_of_fibreSimple
+#print axioms HSyn.LinkedTate.qmModelG3_of
 #print axioms HSyn.LinkedTate.modelG3G6_of
 #print axioms HSyn.LinkedTate.toHom_eq_one_of_intertwines
 #print axioms HSyn.LinkedTate.localRamWild_of_rho
+#print axioms HSyn.LinkedTate.linkedTateCore_of
 #print axioms HSyn.LinkedTate.linkedTateData_of
 #print axioms HSyn.LinkedTate.afterG7_of_linked
+#print axioms HSyn.LinkedTate.afterG7_of_linked'
 

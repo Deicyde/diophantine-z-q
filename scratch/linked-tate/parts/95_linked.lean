@@ -30,7 +30,7 @@ noncomputable section
 
 namespace HSyn.LinkedTate
 
-open CategoryTheory AlgebraicGeometry
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open G0ModField
 
 /-! ### §1 Base change on endomorphisms (copied from `scratch/bp-qmmoduli/QMAbVar.lean` L533-575:
@@ -160,6 +160,35 @@ def QMModelG3 : Prop :=
     G0Galois.G3Out (@PkgI3.AbVar.baseChange L _
       (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ {3}
 
+/-- **Glue: good reduction away from `3` gives `G3Out` on base changes** (linked-tate; the
+transport half of G3/G11, given the leaf R7a = Néron–Ogg–Shafarevich, Serre–Tate 1968 Thm 1,
+`PkgI2.NeronOggShafarevich`). If `A/K` (`K ⊆ ℚ̄`) has good reduction (PkgI2's
+`HasGoodReduction`, an abelian scheme over the DVR) at every discrete valuation ring of `K` in
+which `3` is a unit, then for every tower `K ≤ L ≤ L'` with `L'/ℚ` finite and every prime `ℓ`,
+inertia of `G_{L'}` at places above `p ∉ {3, ℓ}` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A_{L,L'})`.
+Proof route (STANDARD): `v ∩ K` is such a DVR; NOS (a) ⇒ (b) over `K` makes inertia at `v`
+trivial on every `A[ℓⁿ](K̄)`; inertia of `G_{L'}` restricts into it; triviality on all `A[ℓⁿ]`
+is triviality on `T_ℓ`, hence on `ℚ̄_ℓ ⊗ V_ℓ`; base change does not change the points over
+`\bar K = \bar{L'}` (`bcPt`, unram-tate). Only definitions are transported; no new literature
+input. GLUE. -/
+def GoodRedG3Bridge : Prop :=
+  PkgI2.NeronOggShafarevich.{0} →
+  ∀ (K L L' : IF) [FiniteDimensional ℚ L'] (hKL : K ≤ L) (hLL' : L ≤ L') (A : PkgI3.AbVar K),
+    (∀ (Ov : ValuationSubring K) [IsDiscreteValuationRing Ov], IsUnit (3 : Ov) →
+      PkgI2.HasGoodReduction (ObjBridge.toGrp A) Ov) →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime],
+      letI : NumberField L' := numberField_of_fd L'
+      G0Galois.G3Out (@PkgI3.AbVar.baseChange L _
+        (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ {3}
+
+/-- **`QMModelG3`, proved** from the leaves R6 (Raynaud), R7a (NOS), T5 (`TorsionStructure`)
+through `LeafQM.AV.QML3.goodReduction` (proved in `Leaves.lean`: a `QML3` object has good
+reduction at every DVR with `3` a unit) and the glue `GoodRedG3Bridge`. -/
+theorem qmModelG3_of (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hB : GoodRedG3Bridge) : QMModelG3 :=
+  fun K L L' _ hKL hLL' PK ℓ _ => hB hNOS K L L' hKL hLL' PK.A
+    (fun Ov _ h3 => LeafQM.AV.QML3.goodReduction (P := PK) hNOS hRay hTors Ov h3) ℓ
+
 /-- `3 ∈ T(u)` (`3 ∈ S_mul`). -/
 theorem three_mem_T (u : ℚ) : 3 ∈ T u :=
   Finset.mem_union_left _ (ZInQ.Mult.mem_S_mul_of_le Nat.prime_three (by norm_num))
@@ -279,6 +308,75 @@ def LinkedTateCore : Prop :=
         (p = 5 → RhoRamWild p hp
           (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
 
+/-- **Glue: the endomorphism ring of the QM model has rank 4** (linked-tate; G5-G6 + A9, N5
+L564-577). For a `QML3` object `PK` over `K ⊆ ℚ̄` and a tower `K ≤ L ≤ L'` (`L'/ℚ` finite), if every
+nonzero endomorphism of `A' = (PK.A)_{L,L'}` is an isogeny (`EndDivision`, which `FibreSimple`
+supplies for the fibre), then `End_{L'}(A')` is a free `ℤ`-module of rank 4. Route (STANDARD,
+UNVERIFIED numbering): `End(A')` is finitely generated and torsion-free (Mumford §19 Thm 3:
+`End ⊗ ℤ_ℓ ↪ End T_ℓ`), so free; `End⁰(A')` is a division algebra containing `ι(B)`, `B = (2,−3)`
+of dimension 4, and by Albert's classification for simple abelian surfaces in characteristic 0
+(Mumford §21) it is `ℚ`, real quadratic, CM quartic or an indefinite quaternion algebra over `ℚ`;
+only the last contains `B`, so `End⁰(A') = B`. GLUE (literature-backed). -/
+def QMEndRank : Prop :=
+  ∀ (K L L' : IF) [FiniteDimensional ℚ L'] (hKL : K ≤ L) (hLL' : L ≤ L') (PK : LeafQM.AV.QML3 K),
+    PkgI3.EndDivision (@PkgI3.AbVar.baseChange L _
+      (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _
+      (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL'))) = 4
+
+/-- **Glue: `LinkedTateCore` given `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`** (linked-tate; the
+same conclusion as `LinkedTateCore`, under the two hypotheses that g0-mod-field's `TateBridge`
+also assumes). GLUE. -/
+def LinkedTateCoreDR : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (a b : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅
+        (fun g => j5 (a g)) (fun g => j5 (b g)) u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃
+        (fun g => j3 (a g)) (fun g => j3 (b g)) u₃ ∧
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm₅ Tm₃ ∧
+      ∀ p : ℕ, ∀ hp : p.Prime,
+        (p ≠ 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₅ (fun g => j5 (a g)) (fun g => j5 (b g)))) ∧
+        (p = 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
+
+/-- **`LinkedTateCore`, proved** from `FibreSimple` (EndDivision of the model), `QMEndRank` and
+`LinkedTateCoreDR`; `dim A_{L'} = 2` is proved (`QML3.surface` and g0-dim's
+`pkgI3_dim_baseChange`, twice). -/
+theorem linkedTateCore_of (hFS : HSyn.G0Split.FibreSimple) (hR : QMEndRank)
+    (hDR : LinkedTateCoreDR) : LinkedTateCore := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  have hmod := hdata.2.2.2.2.2.2.2.2.2.2.2
+  have hdata' := hdata
+  obtain ⟨K, hKL, PK, -, rfl⟩ := hdata.1
+  have hdim : (@PkgI3.AbVar.baseChange L _ (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))
+      L' _ (incAlg hLL')).dim = 2 := by
+    rw [@G0Dim.pkgI3_dim_baseChange L _ L' _ (incAlg hLL'),
+      @G0Dim.pkgI3_dim_baseChange K _ L _ (incAlg hKL)]
+    exact PK.surface
+  exact hDR Y Φ π u P hctx L _ ε N χ β L' hLL' hdata' hdim
+    (hR K L L' hKL hLL' PK (endDivision_of_fibreSimple hFS hctx L' _ hmod))
+
 /-- **`LinkedTateData`, proved** from the leaf T7 (`PkgI3.CharPolyIndepOfEll`) and the glue Prop
 `LinkedTateCore`: for G8's `r₅`, `r₃` on the linked data and any `ι₅ = j₅ ∘ γ` (`exists_comp_eq`),
 `ι₃ := j₃ ∘ γ` makes the traces compatible (g14-trace's `g14TraceCompat_of_link`), and
@@ -292,9 +390,9 @@ theorem linkedTateData_of (hM : PkgI3.CharPolyIndepOfEll) (hC : LinkedTateCore) 
   refine ⟨Tm₅, c₅, ε₅, fun g => j5 (a g), fun g => j5 (b g), u₅,
     Tm₃, c₃, ε₃, fun g => j3 (a g), fun g => j3 (b g), u₃, h5, h3, ?_⟩
   intro r₅ r₃ h8₅ h8₃ i ιC ι5
-  obtain ⟨γ, hγ⟩ := G14Trace.exists_comp_eq ι5 j5
-  refine ⟨j3.comp γ, ?_, ?_⟩
-  · exact G14Trace.g14TraceCompat_of_link hM ⟨i, ιC, ι5, j3.comp γ, r₅, r₃⟩ j5 j3 γ hγ rfl a b
+  obtain ⟨gm, hgm⟩ := G14Trace.exists_comp_eq ι5 j5
+  refine ⟨j3.comp gm, ?_, ?_⟩
+  · exact G14Trace.g14TraceCompat_of_link hM ⟨i, ιC, ι5, j3.comp gm, r₅, r₃⟩ j5 j3 gm hgm rfl a b
       Tm₅ Tm₃ h8₅ h8₃ hF
   · obtain ⟨-, e5, he5, -⟩ := h8₅
     obtain ⟨-, e3, he3, -⟩ := h8₃
@@ -316,6 +414,19 @@ theorem afterG7_of_linked (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
   HSyn.G0AssembleMod.afterG7_of r t m hDF hCar hSw hL8 hAd (modelG3G6_of hFS hG3)
     (linkedTateData_of t.t7 hC)
 
+/-- **`AfterG7` with G3 reduced to the bundle's R6, R7a, T5 and `GoodRedG3Bridge`, and
+`LinkedTateCore` to `QMEndRank` and `LinkedTateCoreDR`.** -/
+theorem afterG7_of_linked' (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
+    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
+    (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hFS : HSyn.G0Split.FibreSimple) (hB : GoodRedG3Bridge) (hR : QMEndRank)
+    (hDR : LinkedTateCoreDR) : AfterG7 :=
+  afterG7_of_linked r t m hDF hCar hSw hL8 hAd hFS (qmModelG3_of r.r7a r.r6 t.t5 hB)
+    (linkedTateCore_of hFS hR hDR)
+
 end HSyn.LinkedTate
 
 end
@@ -325,8 +436,11 @@ end LinkedTateSec
 #print axioms HSyn.LinkedTate.oI_oH_ne
 #print axioms HSyn.LinkedTate.noncomm_baseChange2
 #print axioms HSyn.LinkedTate.endDivision_of_fibreSimple
+#print axioms HSyn.LinkedTate.qmModelG3_of
 #print axioms HSyn.LinkedTate.modelG3G6_of
 #print axioms HSyn.LinkedTate.toHom_eq_one_of_intertwines
 #print axioms HSyn.LinkedTate.localRamWild_of_rho
+#print axioms HSyn.LinkedTate.linkedTateCore_of
 #print axioms HSyn.LinkedTate.linkedTateData_of
 #print axioms HSyn.LinkedTate.afterG7_of_linked
+#print axioms HSyn.LinkedTate.afterG7_of_linked'
