@@ -83,3 +83,15 @@ HeckeFibreSizes, HeckeNoVertRam.
   `curveNormChart_of' : ChartFinite → CurveNormChart`;
   `curveChartInf_of' : ChartFiniteInf → InfFnField → CurveChartInf`.
 - `#print axioms` (5 lines): [propext, Classical.choice, Quot.sound].
+
+## Step 7. Lean: ChartFinite(Inf) from proper + quasi-finite + dominant (`CurveChart.lean`) — VERIFIED (compiled, 0 errors)
+- `secHom Y W s : ℚ[X] →+* Γ(Y, W)` (X ↦ s), `secMor Y W s : W ⟶ Spec ℚ[X]`.
+- Proved: `finite_of_proper_qf` (IsProper + LocallyQuasiFinite secMor ⇒ W affine and
+  Γ(Y,W) module-finite; via IsFinite.of_isProper_of_locallyQuasiFinite, isAffine_of_isAffineHom,
+  IsFinite.SpecMap_iff), `chartFinite_of`, `chartFiniteInf_of`,
+  `curveNormChart_of_charts : ChartProper → ChartQuasiFinite → ChartDominant → CurveNormChart`,
+  `curveChartInf_of_charts : ChartProper → ChartQuasiFinite → ChartDominant → InfFnField →
+  CurveChartInf`.
+- New glue Props: `ChartProper` (both charts IsProper), `ChartQuasiFinite` (both
+  LocallyQuasiFinite), `ChartDominant` (π.U nonempty, both ring maps injective).
+- `#print axioms`: [propext, Classical.choice, Quot.sound].

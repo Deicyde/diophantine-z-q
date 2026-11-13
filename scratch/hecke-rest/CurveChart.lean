@@ -2084,6 +2084,108 @@ theorem curveNormChart_of' (hF : ChartFinite) : CurveNormChart :=
 theorem curveChartInf_of' (hF : ChartFiniteInf) (hFF : InfFnField) : CurveChartInf :=
   curveChartInf_of hF chartNormalD hFF
 
+/-! ## `ChartFinite`, `ChartFiniteInf` from properness, quasi-finiteness and dominance
+
+Mathlib's Zariski main theorem corollary `IsFinite.of_isProper_of_locallyQuasiFinite` (Stacks 02OG)
+turns a proper, locally quasi-finite chart into a finite one; a finite morphism to an affine scheme
+has affine source; and `IsFinite (Spec.map φ) ↔ φ` finite (compiled). -/
+
+/-- `ℚ[X] → Γ(Y, W)`, `X ↦ s`. -/
+def secHom (Y : Over (Spec (CommRingCat.of ℚ))) (W : Y.left.Opens) (s : Γ(Y.left, W)) :
+    ℚ[X] →+* Γ(Y.left, W) :=
+  Polynomial.eval₂RingHom (cQ Y W) s
+
+/-- The morphism `W → 𝔸¹ = Spec ℚ[X]` given by `s ∈ Γ(Y, W)`. -/
+def secMor (Y : Over (Spec (CommRingCat.of ℚ))) (W : Y.left.Opens) (s : Γ(Y.left, W)) :
+    W.toScheme ⟶ Spec (CommRingCat.of ℚ[X]) :=
+  W.toSpecΓ ≫ Spec.map (CommRingCat.ofHom (secHom Y W s))
+
+/-- **A proper, locally quasi-finite `W → 𝔸¹` has affine source and finite ring map** (compiled). -/
+theorem finite_of_proper_qf (Y : Over (Spec (CommRingCat.of ℚ))) (W : Y.left.Opens)
+    (s : Γ(Y.left, W)) [IsProper (secMor Y W s)] [LocallyQuasiFinite (secMor Y W s)] :
+    IsAffineOpen W ∧ @Module.Finite ℚ[X] Γ(Y.left, W) _ _ (secHom Y W s).toAlgebra.toModule := by
+  haveI : IsFinite (secMor Y W s) := IsFinite.of_isProper_of_locallyQuasiFinite _
+  haveI : IsAffine W.toScheme := isAffine_of_isAffineHom (secMor Y W s)
+  have hW : IsAffineOpen W := inferInstanceAs (IsAffine W.toScheme)
+  refine ⟨hW, ?_⟩
+  have h5 : IsFinite (hW.isoSpec.hom ≫ Spec.map (CommRingCat.ofHom (secHom Y W s))) := by
+    rw [hW.isoSpec_hom]
+    exact (inferInstance : IsFinite (secMor Y W s))
+  haveI := h5
+  have h6 : IsFinite (Spec.map (CommRingCat.ofHom (secHom Y W s))) := by
+    have e : Spec.map (CommRingCat.ofHom (secHom Y W s)) =
+        hW.isoSpec.inv ≫ (hW.isoSpec.hom ≫ Spec.map (CommRingCat.ofHom (secHom Y W s))) := by
+      rw [Iso.inv_hom_id_assoc]
+    rw [e]
+    infer_instance
+  rw [IsFinite.SpecMap_iff] at h6
+  exact h6
+
+/-- **Glue (curve theory: the two charts of `π` are proper).** For a proper smooth curve `Y/ℚ` and
+`π : Y → P¹` with finite `ℚ̄`-fibres, `π⁻¹(𝔸¹) → 𝔸¹` (by `π.f`) and `π⁻¹(P¹ ∖ {0}) → 𝔸¹` (by
+`π.g = 1/π.f`) are proper. *Proof* (STANDARD; valuative criterion, Hartshorne II.4.7 and
+II.4.8(f); locators UNVERIFIED): separated and of finite type by cancellation from `Y → Spec ℚ`;
+universally closed since a valuation-ring point of `Y` (which exists by properness of `Y`) whose
+generic point lies in `U` and whose `π.f`-value is integral cannot meet `π = ∞`, because
+`π.f · π.g = 1` on `U ∩ V`. Glue, not a leaf. -/
+def ChartProper : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    IsProper (secMor Y π.U π.f) ∧ IsProper (secMor Y π.V π.g)
+
+/-- **Glue (curve theory: the two charts of `π` are quasi-finite).** Under the same hypotheses
+both charts are locally quasi-finite. *Proof* (STANDARD; Stacks 01TD/02NH; locators UNVERIFIED):
+the points over a closed point of `𝔸¹` are closed points of `Y`, each with a `ℚ̄`-point in the
+corresponding finite `π`-fibre; over the generic point of `𝔸¹` lie only generic points of
+components of `Y` (finitely many). Glue, not a leaf. -/
+def ChartQuasiFinite : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    LocallyQuasiFinite (secMor Y π.U π.f) ∧ LocallyQuasiFinite (secMor Y π.V π.g)
+
+/-- **Glue (curve theory: the two charts are dominant).** Under the same hypotheses `π⁻¹(𝔸¹)` is
+nonempty and `ℚ[X] → Γ(Y, π⁻¹(𝔸¹))`, `ℚ[s] → Γ(Y, π⁻¹(P¹ ∖ {0}))` are injective (a polynomial
+relation for `π.f` on a component would make a `π`-fibre infinite: `π` would take finitely many
+values on the infinitely many `ℚ̄`-points of that component). Glue, not a leaf. -/
+def ChartDominant : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    (π.U : Set Y.left).Nonempty ∧ Function.Injective (secHom Y π.U π.f) ∧
+      Function.Injective (secHom Y π.V π.g)
+
+/-- **`ChartFinite` from `ChartProper`, `ChartQuasiFinite`, `ChartDominant`** (compiled). -/
+theorem chartFinite_of (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant) :
+    ChartFinite := by
+  intro Y π h1 h2 _ h4
+  haveI := (hP Y π h1 h2 h4).1
+  haveI := (hQ Y π h1 h2 h4).1
+  obtain ⟨hU, hfin⟩ := finite_of_proper_qf Y π.U π.f
+  obtain ⟨hne, hinj, -⟩ := hD Y π h1 h2 h4
+  exact ⟨hU, hne, hinj, hfin⟩
+
+/-- **`ChartFiniteInf` from `ChartProper`, `ChartQuasiFinite`, `ChartDominant`** (compiled). -/
+theorem chartFiniteInf_of (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant) :
+    ChartFiniteInf := by
+  intro Y π h1 h2 h4
+  haveI := (hP Y π h1 h2 h4).2
+  haveI := (hQ Y π h1 h2 h4).2
+  obtain ⟨hV, hfin⟩ := finite_of_proper_qf Y π.V π.g
+  obtain ⟨-, -, hinj⟩ := hD Y π h1 h2 h4
+  exact ⟨hV, hinj, hfin⟩
+
+/-- **`CurveNormChart` from the three chart Props** (compiled). -/
+theorem curveNormChart_of_charts (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant) :
+    CurveNormChart :=
+  curveNormChart_of' (chartFinite_of hP hQ hD)
+
+/-- **`CurveChartInf` from the three chart Props and `InfFnField`** (compiled). -/
+theorem curveChartInf_of_charts (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant)
+    (hFF : InfFnField) : CurveChartInf :=
+  curveChartInf_of' (chartFiniteInf_of hP hQ hD) hFF
+
 end HeckeRestCurve
 
 end
@@ -2093,3 +2195,5 @@ end
 #print axioms HeckeRestCurve.chartNormalD
 #print axioms HeckeRestCurve.curveNormChart_of'
 #print axioms HeckeRestCurve.curveChartInf_of'
+#print axioms HeckeRestCurve.curveNormChart_of_charts
+#print axioms HeckeRestCurve.curveChartInf_of_charts
