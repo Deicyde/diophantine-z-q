@@ -249,4 +249,86 @@ theorem F₁_eq_sub {M : ℕ} [NeZero M] (g : Newform M 2)
   rw [zero_add] at this
   exact hF.unique this
 
+
+/-! ### Behaviour at `i∞` -/
+
+theorem F₁_eq_prod (τ : ℂ) :
+    F₁ τ = cexp (2 * π * I * τ) *
+      (gp (cexp (2 * π * I * τ)) (-1) 4 4 ^ 2 * gp (cexp (2 * π * I * τ)) (-1) 8 8 ^ 2) := by
+  have e4 : ∏' n : ℕ, (1 - eta_q n (4 * τ)) = gp (cexp (2 * π * I * τ)) (-1) 4 4 := by
+    have := eta_tprod_eq_gp τ 4; push_cast at this; exact this
+  have e8 : ∏' n : ℕ, (1 - eta_q n (8 * τ)) = gp (cexp (2 * π * I * τ)) (-1) 8 8 := by
+    have := eta_tprod_eq_gp τ 8; push_cast at this; exact this
+  have hq24 : Function.Periodic.qParam 24 (4 * τ) ^ 2 *
+      Function.Periodic.qParam 24 (8 * τ) ^ 2 = cexp (2 * π * I * τ) := by
+    simp only [Function.Periodic.qParam, ← Complex.exp_nat_mul, ← Complex.exp_add]
+    congr 1
+    push_cast
+    ring
+  unfold F₁
+  rw [ModularForm.eta, ModularForm.eta, e4, e8, ← hq24]
+  ring
+
+theorem qParam_one_eq (τ : ℂ) : Function.Periodic.qParam 1 τ = cexp (2 * π * I * τ) := by
+  simp [Function.Periodic.qParam]
+
+theorem tendsto_F₁_div_q :
+    Tendsto (fun τ : ℍ => F₁ τ / Function.Periodic.qParam 1 (τ : ℂ)) atImInfty (𝓝 1) := by
+  have hq := UpperHalfPlane.qParam_tendsto_atImInfty (h := 1) one_pos
+  have h4 := (tendsto_gp_nhds_zero (-1) 4 4 (by norm_num) (by norm_num)).comp hq
+  have h8 := (tendsto_gp_nhds_zero (-1) 8 8 (by norm_num) (by norm_num)).comp hq
+  have := (h4.pow 2).mul (h8.pow 2)
+  rw [one_pow, one_mul] at this
+  refine this.congr fun τ => ?_
+  simp only [Function.comp_apply]
+  rw [F₁_eq_prod, ← qParam_one_eq, mul_div_cancel_left₀ _
+    (Function.Periodic.qParam_ne_zero (τ : ℂ))]
+
+theorem mul_im_pos_of_nat {j : ℕ} (hj : 0 < j) (τ : ℍ) : 0 < ((j : ℂ) * τ).im := by
+  simp only [mul_im, natCast_re, natCast_im, zero_mul, add_zero]
+  exact mul_pos (by exact_mod_cast hj) τ.im_pos
+
+/-- A cusp form at `jτ`, `j ≥ 2`, is `o(q)` at `i∞`. -/
+theorem tendsto_cusp_mul_div_q {M : ℕ} [NeZero M] (G : CuspForm ((Gamma1 M).map (mapGL ℝ)) 2)
+    {j : ℕ} (hj : 2 ≤ j) :
+    Tendsto (fun τ : ℍ => G ⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩ /
+      Function.Periodic.qParam 1 (τ : ℂ)) atImInfty (𝓝 0) := by
+  have hO := CuspFormClass.exp_decay_atImInfty G one_pos (TauCeti.one_mem_strictPeriods_Gamma1_map M)
+  have hw : Tendsto (fun τ : ℍ => (⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩ : ℍ))
+      atImInfty atImInfty := by
+    refine tendsto_affine_atImInfty (α := j) (δ := 1) (by exact_mod_cast (by omega : 0 < j))
+      one_pos 0 _ (fun τ => ?_)
+    simp
+  obtain ⟨C, hC⟩ := (hO.comp_tendsto hw).bound
+  have hq := UpperHalfPlane.qParam_tendsto_atImInfty (h := 1) one_pos
+  have hqn : Tendsto (fun τ : ℍ => C * ‖Function.Periodic.qParam 1 (τ : ℂ)‖) atImInfty (𝓝 0) := by
+    have := (hq.norm).const_mul C
+    simpa using this
+  refine squeeze_zero_norm' ?_ hqn
+  filter_upwards [hC] with τ hτ
+  simp only [Function.comp_apply, Real.norm_eq_abs, abs_of_pos (Real.exp_pos _)] at hτ
+  rw [norm_div, Function.Periodic.norm_qParam]
+  have hjτ : (⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩ : ℍ).im = j * τ.im := by
+    change ((j : ℂ) * (τ : ℂ)).im = j * τ.im
+    simp only [mul_im, natCast_re, natCast_im, zero_mul, add_zero, UpperHalfPlane.coe_im]
+  rw [hjτ] at hτ
+  have him : 0 < τ.im := τ.im_pos
+  have hpos : 0 < Real.exp (-2 * π * (τ : ℂ).im / 1) := Real.exp_pos _
+  rw [div_le_iff₀ hpos]
+  have hjr : (2 : ℝ) ≤ j := by exact_mod_cast hj
+  have hC0 : 0 ≤ C := by
+    by_contra hneg
+    rw [not_le] at hneg
+    have := norm_nonneg (G ⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩)
+    have : C * Real.exp (-2 * π * (j * τ.im) / 1) < 0 := mul_neg_of_neg_of_pos hneg (Real.exp_pos _)
+    linarith
+  calc ‖G ⟨(j : ℂ) * τ, mul_im_pos_of_nat (by omega) τ⟩‖
+      ≤ C * Real.exp (-2 * π * (j * τ.im) / 1) := hτ
+    _ ≤ C * Real.exp (-2 * π * (τ : ℂ).im / 1) * Real.exp (-2 * π * (τ : ℂ).im / 1) := by
+      rw [mul_assoc C, ← Real.exp_add]
+      apply mul_le_mul_of_nonneg_left _ hC0
+      apply Real.exp_le_exp.mpr
+      simp only [UpperHalfPlane.coe_im, div_one]
+      nlinarith [mul_nonneg (mul_nonneg (by linarith : (0 : ℝ) ≤ j - 2) him.le) Real.pi_pos.le]
+
 end ZInQ.GZTheta
