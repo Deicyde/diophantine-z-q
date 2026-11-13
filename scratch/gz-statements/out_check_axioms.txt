@@ -66,3 +66,10 @@ grossZagierHeegnerCd_of_grossZagier : ZInQ.Literature.GrossZagier → GrossZagie
     (ZInQ.GZDecomp.HeegnerHyp N D ↔ (2 ∣ N → D % 8 = 1) ∧ ∀ (p : ℕ), Nat.Prime p → p ≠ 2 → p ∣ N → ↑D ≠ 0 ∧ IsSquare ↑D)
 'ZInQ.GZStatements.jacobiSym_prime_eq_legendreSym' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.heegnerHyp_iff_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+chiD_mul : ∀ (D : ℤ) (m n : ℕ), ZInQ.GZDecomp.chiD D (m * n) = ZInQ.GZDecomp.chiD D m * ZInQ.GZDecomp.chiD D n
+@chiD_prime : ∀ {p : ℕ} [inst : Fact (Nat.Prime p)],
+  p ≠ 2 → ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → ZInQ.GZDecomp.chiD D p = ↑(legendreSym p D)
+@chiD_two : ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → ZInQ.GZDecomp.chiD D 2 = if D % 8 = 1 then 1 else -1
+'ZInQ.GZStatements.chiD_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.chiD_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.chiD_two' depends on axioms: [propext, Classical.choice, Quot.sound]

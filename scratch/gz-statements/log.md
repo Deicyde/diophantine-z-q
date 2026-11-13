@@ -31,3 +31,6 @@
   heegnerHyp_iff_split: HeegnerHyp N D ↔ (2∣N → D ≡ 1 mod 8) ∧ ∀ odd p ∣ N, D nonzero square mod p.
   Compiled, standard axioms; 18 declarations in Check.lean, all [propext, Classical.choice,
   Quot.sound] (VERIFIED).
+- chiD_mul, chiD_prime ((D/p) at odd p), chiD_two (1 if D ≡ 1 mod 8 else −1): chiD agrees with
+  the Kronecker character of ℚ(√D) at every prime and is completely multiplicative (VERIFIED,
+  compiled; 21 declarations, all standard axioms).

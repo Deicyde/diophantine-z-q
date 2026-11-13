@@ -124,4 +124,40 @@ theorem heegnerHyp_iff_split {N : ℕ} {D : ℤ} (hD : IsOddImagFundDisc D) :
       rw [jacobiSym_prime_eq_legendreSym hp2 hD]
       exact (legendreSym.eq_one_iff p h0).mpr hsq
 
+/-! ### `chiD` is the Kronecker character of `ℚ(√D)`
+
+Both `chiD D` and the Kronecker character `n ↦ (D / n)` are completely multiplicative, so they
+agree once they agree at the primes: at odd `p` both are the Legendre symbol `(D / p)`
+(`jacobiSym_prime_eq_legendreSym`), and at `2` both are `1` for `D ≡ 1 (mod 8)` and `−1` for
+`D ≡ 5 (mod 8)` (`chiD_two`). -/
+
+theorem chiD_mul (D : ℤ) (m n : ℕ) : chiD D (m * n) = chiD D m * chiD D n := by
+  simp only [chiD]
+  push_cast
+  rw [jacobiSym.mul_left]
+  push_cast
+  ring
+
+theorem chiD_prime {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) {D : ℤ} (hD : IsOddImagFundDisc D) :
+    chiD D p = (legendreSym p D : ℂ) := by
+  simp only [chiD]
+  rw [jacobiSym_prime_eq_legendreSym hp2 hD]
+
+theorem chiD_two {D : ℤ} (hD : IsOddImagFundDisc D) :
+    chiD D 2 = if D % 8 = 1 then 1 else -1 := by
+  have h3 := natAbs_mod_four_of_isOddImagFundDisc hD
+  have hodd : Odd D.natAbs := Nat.odd_iff.mpr (by omega)
+  have h0 := hD.1
+  simp only [chiD]
+  have e : jacobiSym ((2 : ℕ) : ℤ) D.natAbs = if D % 8 = 1 then 1 else -1 := by
+    push_cast
+    rw [jacobiSym.at_two hodd, ZMod.χ₈_nat_eq_if_mod_eight]
+    have h2 : D.natAbs % 2 ≠ 0 := by omega
+    rw [if_neg h2]
+    by_cases h8 : D % 8 = 1
+    · rw [if_pos (by omega), if_pos h8]
+    · rw [if_neg (by omega), if_neg h8]
+  rw [e]
+  split_ifs <;> simp
+
 end ZInQ.GZStatements

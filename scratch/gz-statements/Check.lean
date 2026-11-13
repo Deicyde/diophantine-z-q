@@ -40,3 +40,9 @@ open ZInQ.GZStatements
 #check @heegnerHyp_iff_split
 #print axioms jacobiSym_prime_eq_legendreSym
 #print axioms heegnerHyp_iff_split
+#check @chiD_mul
+#check @chiD_prime
+#check @chiD_two
+#print axioms chiD_mul
+#print axioms chiD_prime
+#print axioms chiD_two
