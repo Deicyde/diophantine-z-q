@@ -1,4 +1,7 @@
 import ZInQKernel.HDecomp.QM.Pin
+import Mathlib.AlgebraicGeometry.Group.Abelian
+import Mathlib.AlgebraicGeometry.AlgClosed.Basic
+import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
 
 /-!
 # x6-kummer: N2 `X6KummerFibre` reduced to a points form of Elkies' Kummer model
