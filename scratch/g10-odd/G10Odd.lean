@@ -472,6 +472,79 @@ theorem betti_skeleton (E : Type*) [Field E] [Algebra ℚ E] {H H' : Type*} [Add
   apply baseChange_injective₂ ℚ ℝ H H'
   rw [h0, LinearMap.baseChange_zero]
 
+/-- **Rationality for matrices (proved).** If `X.map (algebraMap k E)` lies in the `E`-span of
+`W.map`, then `X ∈ W`. -/
+theorem matrix_mem_of_map_mem_span {k E m n : Type*} [Field k] [Field E] [Algebra k E]
+    [Fintype m] [Fintype n] [DecidableEq m] [DecidableEq n] (W : Submodule k (Matrix m n k))
+    (X : Matrix m n k)
+    (h : X.map (algebraMap k E) ∈
+      Submodule.span E ((fun Y : Matrix m n k => Y.map (algebraMap k E)) '' (W : Set _))) :
+    X ∈ W := by
+  by_contra hX
+  obtain ⟨mu, hmuX, hmuW⟩ := Submodule.exists_dual_map_eq_bot_of_notMem hX inferInstance
+  have hmuW' : ∀ Y ∈ W, mu Y = 0 := fun Y hY => by
+    have : mu Y ∈ W.map mu := ⟨Y, hY, rfl⟩
+    rwa [hmuW, Submodule.mem_bot] at this
+  let muE : Matrix m n E →ₗ[E] E := ∑ i, ∑ j,
+    algebraMap k E (mu (Matrix.single i j 1)) • Matrix.entryLinearMap E E i j
+  have key : ∀ Y : Matrix m n k, muE (Y.map (algebraMap k E)) = algebraMap k E (mu Y) := by
+    intro Y
+    conv_rhs => rw [Matrix.matrix_eq_sum_single Y]
+    simp only [muE, LinearMap.sum_apply, LinearMap.smul_apply,
+      Matrix.entryLinearMap_apply, Matrix.map_apply, map_sum, smul_eq_mul]
+    refine Finset.sum_congr rfl fun i _ => Finset.sum_congr rfl fun j _ => ?_
+    have hs : Matrix.single i j (Y i j) = Y i j • Matrix.single i j (1 : k) := by
+      rw [Matrix.smul_single, smul_eq_mul, _root_.mul_one]
+    rw [hs, map_smul, smul_eq_mul, map_mul, mul_comm]
+  have hle : Submodule.span E ((fun Y : Matrix m n k => Y.map (algebraMap k E)) '' (W : Set _)) ≤
+      LinearMap.ker muE := by
+    rw [Submodule.span_le]
+    rintro _ ⟨Y, hY, rfl⟩
+    simp [key, hmuW' Y hY]
+  have h0 : muE (X.map (algebraMap k E)) = 0 := hle h
+  rw [key] at h0
+  exact hmuX ((algebraMap k E).injective (by rw [h0, map_zero]))
+
+/-- **Rationality for linear maps (proved).** For finite-dimensional `H, H'`, if `F ⊗ 1` lies in
+the `E`-span of `{φ ⊗ 1 : φ ∈ W}` inside `Hom_E(E ⊗ H, E ⊗ H')`, then `F ∈ W`. -/
+theorem mem_of_baseChange_mem_span (k E : Type*) [Field k] [Field E] [Algebra k E]
+    {H H' : Type*} [AddCommGroup H] [Module k H] [FiniteDimensional k H] [AddCommGroup H']
+    [Module k H'] [FiniteDimensional k H'] (W : Submodule k (H →ₗ[k] H')) (F : H →ₗ[k] H')
+    (hFal : F.baseChange E ∈
+      Submodule.span E ((fun φ : H →ₗ[k] H' => φ.baseChange E) '' (W : Set (H →ₗ[k] H')))) :
+    F ∈ W := by
+  let b := Module.finBasis k H
+  let b' := Module.finBasis k H'
+  let T := LinearMap.toMatrix b b'
+  let TE := LinearMap.toMatrix (Algebra.TensorProduct.basis E b) (Algebra.TensorProduct.basis E b')
+  have hT : T F ∈ W.map T.toLinearMap := by
+    apply matrix_mem_of_map_mem_span (E := E)
+    have h1 := Submodule.mem_map_of_mem (f := TE.toLinearMap) hFal
+    rw [Submodule.map_span, Set.image_image] at h1
+    simp only [LinearEquiv.coe_coe, TE, LinearMap.toMatrix_baseChange] at h1
+    rw [Submodule.map_coe, Set.image_image]
+    exact h1
+  obtain ⟨G, hG, hTG⟩ := hT
+  rwa [T.injective hTG] at hG
+
+/-- **The Betti skeleton, finite-dimensional form (proved).** As `betti_skeleton`, without the
+canonical map: `H, H'` finite-dimensional, `F ⊗ 1` in the `E`-span of `{φ ⊗ 1 : φ ∈ W}`. -/
+theorem betti_skeleton_fd (E : Type*) [Field E] [Algebra ℚ E] {H H' : Type*} [AddCommGroup H]
+    [Module ℚ H] [FiniteDimensional ℚ H] [AddCommGroup H'] [Module ℚ H'] [FiniteDimensional ℚ H']
+    (J : ℝ ⊗[ℚ] H →ₗ[ℝ] ℝ ⊗[ℚ] H) (J' : ℝ ⊗[ℚ] H' →ₗ[ℝ] ℝ ⊗[ℚ] H')
+    (hJ' : Function.Injective J') (W : Submodule ℚ (H →ₗ[ℚ] H'))
+    (hW : ∀ φ ∈ W, φ.baseChange ℝ ∘ₗ J = J' ∘ₗ φ.baseChange ℝ)
+    (F : H →ₗ[ℚ] H') (hF : F.baseChange ℝ ∘ₗ J = -(J' ∘ₗ F.baseChange ℝ))
+    (hFal : F.baseChange E ∈
+      Submodule.span E ((fun φ : H →ₗ[ℚ] H' => φ.baseChange E) '' (W : Set (H →ₗ[ℚ] H')))) :
+    F = 0 := by
+  have hFW : F ∈ W := mem_of_baseChange_mem_span ℚ E W F hFal
+  have h0 : F.baseChange ℝ = 0 :=
+    eq_zero_of_holo_of_antiholo J J' hJ' (F.baseChange ℝ) (hW F hFW) hF
+  apply baseChange_injective₂ ℚ ℝ H H'
+  rw [h0, LinearMap.baseChange_zero]
+
+
 /-! ## §7. `T12K_ComplexConjEigen` contains `T12_ComplexConjEigen` (proved)
 
 `qEmbRing` and `resQ_spec` are copied verbatim from scratch/g0-mod-galois/part_galois.lean. -/
@@ -600,3 +673,4 @@ end G0Galois
 #print axioms G0Galois.betti_skeleton
 #print axioms G0Galois.t12_of_t12K
 #print axioms G0Galois.exists_resQ_conj
+#print axioms G0Galois.betti_skeleton_fd

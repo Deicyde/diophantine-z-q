@@ -47,3 +47,6 @@
 - 2026-11-13 04:39 §8 added: `qEmbRing_bijective`, `resQ_fix`, `range_stable`,
   `exists_resQ_conj` (for `K/ℚ` Galois, `g resQ(σ) g⁻¹ ∈ resQ(G_K)`): compiles; axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 04:42 §6 extended: `matrix_mem_of_map_mem_span`, `mem_of_baseChange_mem_span`,
+  `betti_skeleton_fd` (finite-dimensional, no canonical-map hypothesis): compiles; axioms
+  [propext, Classical.choice, Quot.sound]. Whole file: 0 errors, 0 `sorry`. VERIFIED (compiled).
