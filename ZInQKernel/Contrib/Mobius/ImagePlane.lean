@@ -5,7 +5,13 @@ import ZInQKernel.Contrib.Mobius.CurveFacts
 
 Part of the Contrib port (task mobius-contrib, 2026-11-13) of image-plane's single file
 `scratch/image-plane/ImagePlaneFinal.lean` (which is curve-glue's `MobiusFinal.lean` plus
-image-plane's (IC), (AD) and C2K proofs). This module is lines 3897-4681 of that file, verbatim.
+image-plane's (IC), (AD) and C2K proofs). This module is lines 3897-4681 of that file.
+
+Declarations not reachable from `mobiusGlue_of_T5`, `mobiusGlue_of_t5` and
+`imagePlaneCurveClosed` were removed (dependency closure computed in Lean by
+`scratch/mobius-contrib/Dead.lean`, removal by `trim.py`); everything kept is verbatim
+(up to collapsed runs of blank lines). Removed here (namespace `LeafQM.AV` dropped):
+`CurveGlue.mobiusGlueNoCM_of_T5`, `Pin.ImagePlane.eHom_apply`.
 -/
 
 /-! # image-plane additions (task image-plane, 2026-11-13)
@@ -103,8 +109,6 @@ def yc (K : Type) [Field K] : Γ(Spec (CommRingCat.of K[X][X]), ⊤) :=
 
 /-- `evalXYHom t u : K[x][y] → K`, `x ↦ t`, `y ↦ u`. -/
 def eHom (t u : K) : K[X][X] →+* K := (evalRingHom u).comp (mapRingHom (evalRingHom t))
-
-theorem eHom_apply (t u : K) (P : K[X][X]) : eHom t u P = Alg.evalXY t u P := rfl
 
 theorem eHom_algebraMap (t u a : K) : eHom t u (algebraMap K K[X][X] a) = a := by
   simp [eHom, Polynomial.algebraMap_apply]
@@ -776,10 +780,6 @@ open CategoryTheory AlgebraicGeometry Limits Pin
 theorem mobiusGlue_of_T5 (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
   mobiusGlue_of_curves curveFacts.1 curveFacts.2 hT
 
-/-- **Its CM-free form** (CM objects from the leaf bundle `R1R2fp`). -/
-theorem mobiusGlueNoCM_of_T5 (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_T5 hT) h
-
 /-- **The same with T5 in the form of `HSyn.TextbookLeaves.t5`** (`PkgI2.TorsionStructure.{0}`;
 the kernel's `ObjBridge.torsionStructure_iff` is `Iff.rfl`): this discharges the field `mobius`
 of `HSyn.GluePiecesPin` from the textbook bundle. -/
@@ -793,7 +793,3 @@ end AV
 end LeafQM
 
 end
-
-#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_T5
-#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
-#print axioms LeafQM.AV.Pin.imagePlaneCurveClosed

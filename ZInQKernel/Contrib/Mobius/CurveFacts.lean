@@ -6,7 +6,32 @@ import ZInQKernel.Contrib.Mobius.Glue
 
 Part of the Contrib port (task mobius-contrib, 2026-11-13) of image-plane's single file
 `scratch/image-plane/ImagePlaneFinal.lean` (which is curve-glue's `MobiusFinal.lean` plus
-image-plane's (IC), (AD) and C2K proofs). This module is lines 1713-3895 of that file, verbatim.
+image-plane's (IC), (AD) and C2K proofs). This module is lines 1713-3895 of that file.
+
+Declarations not reachable from `mobiusGlue_of_T5`, `mobiusGlue_of_t5` and
+`imagePlaneCurveClosed` were removed (dependency closure computed in Lean by
+`scratch/mobius-contrib/Dead.lean`, removal by `trim.py`); everything kept is verbatim
+(up to collapsed runs of blank lines). Removed here (namespace `LeafQM.AV` dropped):
+`CurveGlue.CMObjects`, `CurveGlue.CMPoints`, `CurveGlue.MobiusGlueNoCM`, `CurveGlue.R1R2fpRep`,
+`CurveGlue.R1R2fp_of_rep`, `CurveGlue.R1pi0Props`, `CurveGlue.R2X6PropsIff`,
+`CurveGlue.cmExists_of_iff`, `CurveGlue.cm_points_of_R1R2fp`, `CurveGlue.cm_points_of_R1R2fpRep`,
+`CurveGlue.cm_points_of_objects`, `CurveGlue.mobiusGlueNoCM_of_L0_AD_IC_T5`,
+`CurveGlue.mobiusGlueNoCM_of_L0_CI_AD_IC_T5`, `CurveGlue.mobiusGlueNoCM_of_L0_CI_G1''_T5`,
+`CurveGlue.mobiusGlueNoCM_of_L0_G1'_T5`, `CurveGlue.mobiusGlueNoCM_of_L0_G1_T5`,
+`CurveGlue.mobiusGlueNoCM_of_L_G1_T5`, `CurveGlue.mobiusGlueNoCM_of_glue`,
+`CurveGlue.mobiusGlue_noCM_of`, `CurveGlue.mobiusGlue_noCM_of_rep`,
+`CurveGlue.mobiusGlue_of_L0_AD_IC_T5`, `CurveGlue.mobiusGlue_of_L0_CI_AD_IC_T5`,
+`CurveGlue.mobiusGlue_of_L0_CI_G1''_T5`, `CurveGlue.mobiusGlue_of_L0_G1'_T5`,
+`CurveGlue.mobiusGlue_of_L0_G1_T5`, `CurveGlue.mobiusGlue_of_L_G1_T5`,
+`CurveGlue.r2X6Props_of_iff`, `Pin.FiniteGlobalSections`, `Pin.GlobalFunctionsConst`,
+`Pin.constOrOntoAlgClosed_of`, `Pin.constant_of_missed`, `Pin.cstHom`, `Pin.cstHom_apply`,
+`Pin.curveFacts_of_L0_AD_IC`, `Pin.curveFacts_of_L0_CI_AD_IC`, `Pin.curveFacts_of_L0_CI_G1''`,
+`Pin.curveFacts_of_L0_G1`, `Pin.curveFacts_of_L0_G1'`, `Pin.curveFacts_of_L_G1`,
+`Pin.curveFacts_of_glue`, `Pin.curveFacts_of_glue'`, `Pin.curveFacts_of_glue''`,
+`Pin.curveFacts_of_glue_AD`, `Pin.ev_eq_of_nilpotent`, `Pin.exists_nilpotent_sub_of_finite`,
+`Pin.globalFunctionsConst_of`, `Pin.idempotent_trivial_of_isPreconnected`,
+`Pin.isUnit_of_ev_ne_zero`, `Pin.mobiusGlue_of_glue`, `Pin.ratFactorAlgClosed_of_AD`,
+`Pin.ratFactorAlgClosed_of_closed`, `Pin.ratFactorAlgClosed_of_irr`, `Pin.res_cst`.
 -/
 
 /-! # curve-glue: curve-facts (verbatim, without its §0 copies) and the C2K/C3K reductions -/
@@ -505,7 +530,6 @@ theorem curveFacts_of_leaves (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed
     (h3 : RatFactorAlgClosed) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_algClosed (smoothCurveNoIsolatedPoint_of h1) h2 h3
 
-
 /-! # curve-glue additions (task curve-glue, 2026-11-13)
 
 Everything above is `scratch/curve-facts/CurveFacts.lean` verbatim (its `#print axioms` lines
@@ -592,60 +616,11 @@ theorem exists_point_of_isLocallyClosed {Z : Set X} (hZ : IsLocallyClosed Z) (hn
   have e : ptOf (pointOfClosedPoint f y hy) = y := pointOfClosedPoint_apply f y hy _
   rw [e]; exact hyZ
 
-/-- A section whose value at every `K`-point of its domain is nonzero is a unit (Jacobson). -/
-theorem isUnit_of_ev_ne_zero {O : X.Opens} (s : Γ(X, O))
-    (h : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O, ev p hx s ≠ 0) :
-    IsUnit s := by
-  refine X.toRingedSpace.isUnit_of_isUnit_germ O s fun x hx => ?_
-  rw [← X.mem_basicOpen s x hx]
-  by_contra hb
-  obtain ⟨p, hp, hpO, hpb⟩ := exists_point_of_isLocallyClosed f
-    (Z := (O : Set X) ∩ (X.basicOpen s : Set X)ᶜ)
-    (O.isOpen.isLocallyClosed.inter (X.basicOpen s).isOpen.isClosed_compl.isLocallyClosed)
-    ⟨x, hx, hb⟩
-  exact h p hp hpO ((ev_eq_zero_iff p hpO s).2 hpb)
-
 end Units
-
-/-! ## §3 The leaf: global functions on a connected component are constant -/
-
-/-- **(L) "Liouville": regular functions on a connected component of a proper smooth curve over
-an algebraically closed field are constant** (up to nilpotents, which is weaker than the printed
-statement). `X → Spec K` proper and smooth of relative dimension 1, `K` algebraically closed,
-`W ⊆ X` open, closed and (pre)connected, `s ∈ Γ(W, 𝒪_X)`: then `s − c` is nilpotent for some
-constant `c ∈ K` (the image of `c` under `K = Γ(Spec K) → Γ(X) → Γ(W)`).
-
-Source (textbook leaf, STANDARD; numbering UNVERIFIED, recalled without network): `W` is a
-proper connected `K`-scheme (an open and closed subscheme of a proper one), so `Γ(W, 𝒪_W)` is a
-finite-dimensional `K`-algebra (finiteness of coherent cohomology for proper morphisms, EGA III
-3.2.1; Hartshorne III.5.2 in the projective case) without nontrivial idempotents (`W`
-connected), hence local Artinian with residue field `K` (`K` algebraically closed): every element
-is a constant plus a nilpotent. With `W` reduced (smooth ⇒ reduced) this is the printed form
-"`Γ(W, 𝒪_W) = K` for `W` proper, connected and reduced over `K = K̄`" (Stacks, Varieties, lemma
-on `Γ` of a proper reduced connected scheme; Hartshorne Ex. II.4.5(d) for integral `W`; I.3.4
-for projective varieties). Smoothness and dimension 1 are not needed; they are kept so that the
-leaf is applied exactly where C2K is. Not in Mathlib v4.35 (no finiteness theorem for proper
-morphisms). -/
-def GlobalFunctionsConst : Prop :=
-  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
-    IsProper f → SmoothOfRelativeDimension 1 f →
-    ∀ W : X.Opens, IsClopen (W : Set X) → _root_.IsPreconnected (W : Set X) →
-      ∀ s : Γ(X, W), ∃ c : K, IsNilpotent (s - cst f W c)
 
 section Main
 
 variable {K : Type} [Field K] {X : Scheme.{0}}
-
-theorem ev_eq_of_nilpotent (f : X ⟶ Spec (CommRingCat.of K)) {W : X.Opens} {s : Γ(X, W)} {c : K}
-    (hN : IsNilpotent (s - cst f W c)) (p : Spec (CommRingCat.of K) ⟶ X) (hp : p ≫ f = 𝟙 _)
-    (hx : ptOf p ∈ W) : ev p hx s = c := by
-  have h0 := (hN.map (ev p hx)).eq_zero
-  rw [map_sub, ev_cst f p hp] at h0
-  exact sub_eq_zero.mp h0
-
-theorem res_cst (f : X ⟶ Spec (CommRingCat.of K)) {O O' : X.Opens} (h : O' ≤ O) (a : K) :
-    res h (cst f O a) = cst f O' a := by
-  rw [cst, cst, res_res]
 
 theorem val_of_mem (σ : ToP1 X) (p : Spec (CommRingCat.of K) ⟶ X) (h : ptOf p ∈ σ.U) :
     σ.val p = OnePoint.some (ev p h σ.f) := by
@@ -683,168 +658,6 @@ theorem mem_V_of_not_mem_U (σ : ToP1 X) {x : X} (hU : x ∉ σ.U) : x ∈ σ.V 
 end Main
 
 /-! ## §4 C2K from the leaf (L) -/
-
-/-- **The missed-value lemma.** If `σ` misses a value `t ∈ P¹(K)` on the `K`-points of a
-connected component `W`, it is constant on them. For `t = ∞`, `W ⊆ U` (Jacobson) and `f|_W` is
-constant by (L). For `t = a ∈ K`, `f − a` is a unit on `W ∩ U` and `1 − a g` on `W ∩ V`, and
-`1/(f − a)`, `g/(1 − a g)` glue to `h ∈ Γ(W)`, constant `= c` by (L); `c ≠ 0` if `W ∩ U` has a
-`K`-point, which forces `W ⊆ U` (`g = 0` off `U`) and `σ = a + 1/c` on `W`. -/
-theorem constant_of_missed (hL : GlobalFunctionsConst) {K : Type} [Field K] [IsAlgClosed K]
-    {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of K)) (hP : IsProper f)
-    (hS : SmoothOfRelativeDimension 1 f) [JacobsonSpace X] (σ : ToP1 X) (W : X.Opens)
-    (hWc : IsClopen (W : Set X)) (hWp : _root_.IsPreconnected (W : Set X)) (t : OnePoint K)
-    (ht : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W → σ.val p ≠ t) :
-    ∃ v : OnePoint K, ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W →
-      σ.val p = v := by
-  have : LocallyOfFiniteType f := inferInstance
-  induction t using OnePoint.rec with
-  | infty =>
-    have hWU : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W → ptOf p ∈ σ.U :=
-      fun p hp hW => by
-        by_contra h
-        exact ht p hp hW (val_of_not_mem σ p h)
-    have hle : W ≤ σ.U := by
-      intro x hx
-      by_contra hxU
-      obtain ⟨p, hp, hpW, hpU⟩ := exists_point_of_isLocallyClosed f
-        (Z := (W : Set X) ∩ (σ.U : Set X)ᶜ)
-        (W.isOpen.isLocallyClosed.inter σ.U.isOpen.isClosed_compl.isLocallyClosed) ⟨x, hx, hxU⟩
-      exact hpU (hWU p hp hpW)
-    obtain ⟨c, hc⟩ := hL K X f hP hS W hWc hWp (res hle σ.f)
-    refine ⟨OnePoint.some c, fun p hp hpW => ?_⟩
-    rw [val_of_mem σ p (hle hpW), ← ev_res p hle hpW, ev_eq_of_nilpotent f hc p hp hpW]
-  | coe a =>
-    have hmiss : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ (hW : ptOf p ∈ W)
-        (hU : ptOf p ∈ σ.U), ev p hU σ.f ≠ a := fun p hp hW hU e =>
-      ht p hp hW (by rw [val_of_mem σ p hU, e])
-    let O₁ : X.Opens := W ⊓ σ.U
-    let O₂ : X.Opens := W ⊓ σ.V
-    let u₁ : Γ(X, O₁) := res inf_le_right σ.f - cst f O₁ a
-    let u₂ : Γ(X, O₂) := 1 - cst f O₂ a * res inf_le_right σ.g
-    have hu₁ev : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₁,
-        ev p hx u₁ = ev p hx.2 σ.f - a := by
-      intro p hp hx
-      simp only [u₁, map_sub, ev_res, ev_cst f p hp]
-    have hu₂ev : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₂,
-        ev p hx u₂ = 1 - a * ev p hx.2 σ.g := by
-      intro p hp hx
-      simp only [u₂, map_sub, map_one, map_mul, ev_res, ev_cst f p hp]
-    have hu₁ : IsUnit u₁ := isUnit_of_ev_ne_zero f u₁ fun p hp hx => by
-      rw [hu₁ev p hp hx]
-      exact sub_ne_zero.mpr (hmiss p hp hx.1 hx.2)
-    have hu₂ : IsUnit u₂ := isUnit_of_ev_ne_zero f u₂ fun p hp hx => by
-      rw [hu₂ev p hp hx]
-      by_cases hU : ptOf p ∈ σ.U
-      · have e := ev_f_mul_g σ p hU hx.2
-        have hne := hmiss p hp hx.1 hU
-        intro h0
-        have h1 : ev p hx.2 σ.g * (ev p hU σ.f - a) = 0 := by linear_combination h0 + e
-        rcases mul_eq_zero.mp h1 with h | h
-        · rw [h, mul_zero] at e; exact zero_ne_one e
-        · exact hne (sub_eq_zero.mp h)
-      · rw [ev_g_eq_zero σ p hx.2 hU, mul_zero, sub_zero]; exact one_ne_zero
-    obtain ⟨i₁, hi₁⟩ := hu₁.exists_left_inv
-    obtain ⟨i₂, hi₂⟩ := hu₂.exists_left_inv
-    let s₂ : Γ(X, O₂) := res inf_le_right σ.g * i₂
-    have hfg : res (show O₁ ⊓ O₂ ≤ σ.U from fun x hx => hx.1.2) σ.f *
-        res (show O₁ ⊓ O₂ ≤ σ.V from fun x hx => hx.2.2) σ.g = 1 := by
-      have e := congrArg (res (show O₁ ⊓ O₂ ≤ σ.U ⊓ σ.V from fun x hx => ⟨hx.1.2, hx.2.2⟩)) σ.inv
-      rw [map_mul, map_one] at e
-      rw [← e]
-      simp only [res_res]
-    have hcomp : res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ := by
-      have A : res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁ = 1 := by
-        rw [← map_mul, hi₁, map_one]
-      have C : res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) i₂ * res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) u₂ = 1 := by
-        rw [← map_mul, hi₂, map_one]
-      have B : res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁ = 1 := by
-        simp only [s₂, u₁, u₂, map_mul, map_sub, map_one, res_res, res_cst] at C hfg ⊢
-        linear_combination C + res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) i₂ * hfg
-      calc res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁
-          = res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ *
-              (res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁) := by
-            rw [B, mul_one]
-        _ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ *
-              (res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁) := by
-            ring
-        _ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ := by rw [A, mul_one]
-    -- glue `i₁` and `s₂` to a section on `O₁ ⊔ O₂`
-    let h : Γ(X, O₁ ⊔ O₂) := (X.sheaf.objSupIsoProdEqLocus O₁ O₂).inv ⟨(i₁, s₂), hcomp⟩
-    have hh₁ : res (le_sup_left : O₁ ≤ O₁ ⊔ O₂) h = i₁ :=
-      X.sheaf.objSupIsoProdEqLocus_inv_fst O₁ O₂ _
-    have hh₂ : res (le_sup_right : O₂ ≤ O₁ ⊔ O₂) h = s₂ :=
-      X.sheaf.objSupIsoProdEqLocus_inv_snd O₁ O₂ _
-    have hW'eq : ((O₁ ⊔ O₂ : X.Opens) : Set X) = W := by
-      ext x
-      simp only [O₁, O₂, Opens.coe_sup, Opens.coe_inf, Set.mem_union, Set.mem_inter_iff,
-        SetLike.mem_coe]
-      constructor
-      · rintro (⟨hx, -⟩ | ⟨hx, -⟩) <;> exact hx
-      · intro hx
-        by_cases hU : x ∈ σ.U
-        · exact Or.inl ⟨hx, hU⟩
-        · exact Or.inr ⟨hx, mem_V_of_not_mem_U σ hU⟩
-    obtain ⟨c, hc⟩ := hL K X f hP hS (O₁ ⊔ O₂) (hW'eq ▸ hWc) (hW'eq ▸ hWp) h
-    have hv₁ : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₁,
-        ev p hx i₁ = c := by
-      intro p hp hx
-      rw [← hh₁, ev_res]; exact ev_eq_of_nilpotent f hc p hp _
-    have hv₂ : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₂,
-        ev p hx s₂ = c := by
-      intro p hp hx
-      rw [← hh₂, ev_res]; exact ev_eq_of_nilpotent f hc p hp _
-    by_cases hex : ∃ q : Spec (CommRingCat.of K) ⟶ X, q ≫ f = 𝟙 _ ∧ ptOf q ∈ W ∧ ptOf q ∈ σ.U
-    · obtain ⟨q, hq, hqW, hqU⟩ := hex
-      have hc0 : c ≠ 0 := by
-        intro hc0
-        have e := congrArg (ev q (show ptOf q ∈ O₁ from ⟨hqW, hqU⟩)) hi₁
-        rw [map_mul, map_one, hv₁ q hq, hc0, zero_mul] at e
-        exact zero_ne_one e
-      refine ⟨OnePoint.some (a + c⁻¹), fun p hp hpW => ?_⟩
-      have hpU : ptOf p ∈ σ.U := by
-        by_contra hpU
-        have hpV := mem_V_of_not_mem_U σ hpU
-        have e := hv₂ p hp (show ptOf p ∈ O₂ from ⟨hpW, hpV⟩)
-        simp only [s₂, map_mul] at e
-        rw [ev_res, ev_g_eq_zero σ p hpV hpU, zero_mul] at e
-        exact hc0 e.symm
-      rw [val_of_mem σ p hpU]
-      congr 1
-      have e1 := congrArg (ev p (show ptOf p ∈ O₁ from ⟨hpW, hpU⟩)) hi₁
-      rw [map_mul, map_one, hv₁ p hp, hu₁ev p hp] at e1
-      have e2 := eq_inv_of_mul_eq_one_right e1
-      linear_combination e2
-    · push Not at hex
-      exact ⟨OnePoint.infty, fun p hp hpW => val_of_not_mem σ p (hex p hp hpW)⟩
-
-/-- **C2K from the leaf (L).** -/
-theorem constOrOntoAlgClosed_of (hL : GlobalFunctionsConst) : ConstOrOntoAlgClosed := by
-  intro K _ _ X f hP hS σ p₀ hp₀
-  have : LocallyOfFiniteType f := inferInstance
-  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
-  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
-  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
-  have : IsNoetherian X := { }
-  set x₀ := ptOf p₀ with hx₀
-  let W : X.Opens := ⟨connectedComponent x₀, isOpen_connectedComponent_of_noetherian x₀⟩
-  have hWc : IsClopen (W : Set X) := ⟨isClosed_connectedComponent, W.isOpen⟩
-  have hWp : _root_.IsPreconnected (W : Set X) := isPreconnected_connectedComponent
-  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ W ↔
-      connectedComponent (ptOf p) = connectedComponent x₀ :=
-    fun p => ⟨fun h => (connectedComponent_eq h).symm,
-      fun h => by
-        show ptOf p ∈ connectedComponent x₀
-        rw [← h]; exact mem_connectedComponent⟩
-  by_cases ho : ∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
-      connectedComponent (ptOf p) = connectedComponent x₀ ∧ σ.val p = t
-  · exact Or.inr ho
-  · left
-    push Not at ho
-    obtain ⟨t, ht⟩ := ho
-    obtain ⟨v, hv⟩ := constant_of_missed hL f hP hS σ W hWc hWp t
-      (fun p hp hpW => ht p hp ((memW p).1 hpW))
-    intro p hp hpc
-    rw [hv p hp ((memW p).2 hpc), hv p₀ hp₀ (mem_connectedComponent : x₀ ∈ connectedComponent x₀)]
 
 /-! ## §1 Algebra: an irreducible `P(x, y)` of `y`-degree `≥ 2` has a fibre with two roots -/
 
@@ -1085,7 +898,6 @@ theorem ratFactorAlgClosed_of (hG : ImagePlaneCurve) : RatFactorAlgClosed := by
         field_simp
         linear_combination e
 
-
 open Polynomial in
 /-- **(G1') The affine image is Zariski closed, and `P` cuts out the image curve.** As
 `ImagePlaneCurve`, with clause (b) ("every point of `V(P)` is hit") replaced by (b''): the set of
@@ -1164,11 +976,6 @@ theorem imagePlaneCurve_of (h2 : ConstOrOntoAlgClosed) (hG : ImagePlaneCurveClos
     refine (Alg.finite_common_zeros hirr hdeg hPQ).subset ?_
     rintro ⟨t', u'⟩ ⟨p, hp, hpc, hpt, hpu⟩
     exact ⟨ha p hp hpc t' u' hpt hpu, (hSc t' u').1 ⟨p, hp, hpc, hpt, hpu⟩ Q hQ⟩
-
-/-- **C3K from C2K and (G1').** -/
-theorem ratFactorAlgClosed_of_closed (h2 : ConstOrOntoAlgClosed) (hG : ImagePlaneCurveClosed) :
-    RatFactorAlgClosed :=
-  ratFactorAlgClosed_of (imagePlaneCurve_of h2 hG)
 
 /-! ## §5 Clause (c) of (G1') from irreducibility of the component (task curve-glue) -/
 
@@ -1368,11 +1175,6 @@ theorem imagePlaneCurveClosed_of (hI : ComponentIrreducible) (hG : ImagePlaneCur
     exact OnePoint.coe_ne_infty _ hρ
   have h23 := hWi _ _ ρ.U.isOpen ρ.V.isOpen h2 h3
   exact hWi _ _ σ.U.isOpen (ρ.U.isOpen.inter ρ.V.isOpen) h1 h23
-
-/-- **C3K from C2K, (CI) and (G1'').** -/
-theorem ratFactorAlgClosed_of_irr (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreducible)
-    (hG : ImagePlaneCurveIrr) : RatFactorAlgClosed :=
-  ratFactorAlgClosed_of_closed h2 (imagePlaneCurveClosed_of hI hG)
 
 /-! ## §6 (G1'') from algebraic dependence, a closed image, irreducibility and C2K (task curve-glue) -/
 
@@ -1619,165 +1421,13 @@ theorem imagePlaneCurveIrr_of (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreduc
     exact ht e
   exact ⟨q, hqirr, hdeg, hqa, S, hSc⟩
 
-/-- **C3K from C2K, (CI), (AD) and (IC).** -/
-theorem ratFactorAlgClosed_of_AD (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreducible)
-    (hA : AlgDep) (hC : ImageClosed) : RatFactorAlgClosed :=
-  ratFactorAlgClosed_of_irr h2 hI (imagePlaneCurveIrr_of h2 hI hA hC)
-
-
-/-- **Both curve facts of mobius-glue from C1b (`SmoothStalkDimOne`, glue, task
-infra-smooth-dim), the textbook leaf (L) `GlobalFunctionsConst` and the glue (G1)
-`ImagePlaneCurve`.** -/
-theorem curveFacts_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hG : ImagePlaneCurve) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_leaves h1 (constOrOntoAlgClosed_of hL) (ratFactorAlgClosed_of hG)
-
-/-- **The same with (G1') `ImagePlaneCurveClosed` (affine image Zariski closed) for (G1).** -/
-theorem curveFacts_of_glue' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hG : ImagePlaneCurveClosed) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue h1 hL (imagePlaneCurve_of (constOrOntoAlgClosed_of hL) hG)
-
-/-- **The same with (CI) `ComponentIrreducible` and (G1'') `ImagePlaneCurveIrr` for (G1').** -/
-theorem curveFacts_of_glue'' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hI : ComponentIrreducible) (hG : ImagePlaneCurveIrr) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue' h1 hL (imagePlaneCurveClosed_of hI hG)
-
-/-- **The same with (AD) `AlgDep` and (IC) `ImageClosed` for (G1'').** -/
-theorem curveFacts_of_glue_AD (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hI : ComponentIrreducible) (hA : AlgDep) (hC : ImageClosed) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue'' h1 hL hI (imagePlaneCurveIrr_of (constOrOntoAlgClosed_of hL) hI hA hC)
-
 /-! ## The leaf (L0) and the reduction -/
 
 section L0
 
 variable {K : Type} [Field K] {X : Scheme.{0}}
 
-/-- `cst f O` as a ring hom `K → Γ(X, O)` (the `K`-algebra structure of `Γ(X, O)`). -/
-def cstHom (f : X ⟶ Spec (CommRingCat.of K)) (O : X.Opens) : K →+* Γ(X, O) :=
-  (res le_top).comp ((f.appTop).hom.comp (Scheme.ΓSpecIso (CommRingCat.of K)).inv.hom)
-
-theorem cstHom_apply (f : X ⟶ Spec (CommRingCat.of K)) (O : X.Opens) (a : K) :
-    cstHom f O a = cst f O a := rfl
-
 end L0
-
-/-- **(L0) Finiteness of global sections for proper schemes over a field.** If `X → Spec K` is
-proper and `W ⊆ X` is open and closed, then `Γ(W, 𝒪_X)` is a finite `K`-module (for the
-`K`-algebra structure through `X → Spec K`).
-
-Source (textbook leaf, STANDARD; numbering UNVERIFIED): the finiteness theorem for proper
-morphisms, `f_* 𝓕` coherent for `𝓕` coherent and `f` proper (EGA III₁ 3.2.1; Stacks, *Cohomology
-of Schemes*, "coherent sheaves on proper schemes"; Hartshorne II.5.20 / III.8.8 in the projective
-case), applied to `𝓕 = 𝒪_W` (`W` is open and closed, hence a closed subscheme, so `W → Spec K` is
-proper). Not in Mathlib v4.35. -/
-def FiniteGlobalSections : Prop :=
-  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
-    ∀ W : X.Opens, IsClopen (W : Set X) → (cstHom f W).Finite
-
-/-- **Algebra (Lean-proved): a connected finite algebra over an algebraically closed field is
-`K` plus nilpotents.** In an Artinian ring with only the trivial idempotents every element is a
-unit or nilpotent (Fitting: `s^n = s^{n+1} y` makes `s^n y^n` idempotent); and `s - c` is not a
-unit for an eigenvalue `c` of multiplication by `s`. -/
-theorem exists_nilpotent_sub_of_finite {K A : Type} [Field K] [IsAlgClosed K] [CommRing A]
-    (φ : K →+* A) (hφ : φ.Finite) (hidem : ∀ e : A, IsIdempotentElem e → e = 0 ∨ e = 1)
-    (s : A) : ∃ c : K, IsNilpotent (s - φ c) := by
-  let _ := φ.toAlgebra
-  have : Module.Finite K A := hφ
-  have : IsArtinianRing A := IsArtinianRing.of_finite K A
-  -- unit or nilpotent
-  have key : ∀ x : A, IsUnit x ∨ IsNilpotent x := by
-    intro x
-    obtain ⟨n, y, hy⟩ := IsArtinian.exists_pow_succ_smul_dvd x (1 : A)
-    simp only [smul_eq_mul, mul_one] at hy
-    replace hy : x ^ (n + 1) * y = x ^ n := hy
-    have hpow : ∀ k : ℕ, x ^ n = x ^ (n + k) * y ^ k := by
-      intro k
-      induction k with
-      | zero => simp
-      | succ k ih =>
-        rw [ih]
-        calc x ^ (n + k) * y ^ k = (x ^ k * x ^ n) * y ^ k := by ring
-          _ = (x ^ k * (x ^ (n + 1) * y)) * y ^ k := by rw [hy]
-          _ = x ^ (n + (k + 1)) * y ^ (k + 1) := by ring
-    have he : IsIdempotentElem (x ^ n * y ^ n) := by
-      unfold IsIdempotentElem
-      calc x ^ n * y ^ n * (x ^ n * y ^ n) = (x ^ (n + n) * y ^ n) * y ^ n := by ring
-        _ = x ^ n * y ^ n := by rw [← hpow n]
-    rcases hidem _ he with h0 | h1
-    · right
-      refine ⟨n, ?_⟩
-      rw [hpow n]
-      calc x ^ (n + n) * y ^ n = x ^ n * (x ^ n * y ^ n) := by ring
-        _ = 0 := by rw [h0, mul_zero]
-    · left
-      rcases Nat.eq_zero_or_pos n with hn | hn
-      · subst hn
-        have : x * y = 1 := by simpa using hy
-        exact isUnit_iff_exists_inv.mpr ⟨y, this⟩
-      · refine isUnit_iff_exists_inv.mpr ⟨x ^ (n - 1) * y ^ n, ?_⟩
-        calc x * (x ^ (n - 1) * y ^ n) = x ^ (n - 1 + 1) * y ^ n := by ring
-          _ = 1 := by rw [Nat.sub_add_cancel hn, h1]
-  by_cases hA : Nontrivial A
-  · obtain ⟨c, hc⟩ := Module.End.exists_eigenvalue (LinearMap.mulLeft K s)
-    obtain ⟨v, hv⟩ := hc.exists_hasEigenvector
-    have hv0 : v ≠ 0 := hv.2
-    have hsv : s * v = φ c * v := by
-      have := hv.apply_eq_smul
-      simpa [Algebra.smul_def, RingHom.algebraMap_toAlgebra] using this
-    refine ⟨c, (key (s - φ c)).resolve_left fun hu => hv0 ?_⟩
-    have : (s - φ c) * v = 0 := by rw [sub_mul, hsv, sub_self]
-    exact (hu.mul_right_eq_zero).mp this
-  · rw [not_nontrivial_iff_subsingleton] at hA
-    exact ⟨0, ⟨1, Subsingleton.elim _ _⟩⟩
-
-/-- **Topology/sheaves (Lean-proved): idempotent sections over a preconnected open are trivial.**
-At each point the germ of an idempotent is `0` or `1` (local ring), so `W` is the disjoint union
-of the open sets `D(e)` and `D(1 - e)`. -/
-theorem idempotent_trivial_of_isPreconnected {X : Scheme.{0}} {W : X.Opens}
-    (hW : _root_.IsPreconnected (W : Set X)) (e : Γ(X, W)) (he : IsIdempotentElem e) :
-    e = 0 ∨ e = 1 := by
-  have hcover : (W : Set X) ⊆ (X.basicOpen e : Set X) ∪ (X.basicOpen (1 - e) : Set X) := by
-    intro x hx
-    have hg : IsIdempotentElem (X.presheaf.germ W x hx e) := by
-      unfold IsIdempotentElem; rw [← map_mul, he.eq]
-    rcases IsLocalRing.isUnit_or_isUnit_one_sub_self (X.presheaf.germ W x hx e) with hu | hu
-    · exact Or.inl ((X.mem_basicOpen e x hx).2 hu)
-    · right
-      refine (X.mem_basicOpen (1 - e) x hx).2 ?_
-      rwa [map_sub, map_one]
-  have hdisj : Disjoint (X.basicOpen e : Set X) (X.basicOpen (1 - e) : Set X) := by
-    rw [Set.disjoint_left]
-    intro x h1 h2
-    have hxW : x ∈ W := X.basicOpen_le e h1
-    have u1 := (X.mem_basicOpen e x hxW).1 h1
-    have u2 := (X.mem_basicOpen (1 - e) x hxW).1 h2
-    have h0 : X.presheaf.germ W x hxW e * X.presheaf.germ W x hxW (1 - e) = 0 := by
-      rw [← map_mul, mul_sub, mul_one, he.eq, sub_self, map_zero]
-    exact not_isUnit_zero (h0 ▸ u1.mul u2)
-  have hunit : ∀ a : Γ(X, W), (W : Set X) ⊆ (X.basicOpen a : Set X) → IsUnit a := by
-    intro a ha
-    refine X.toRingedSpace.isUnit_of_isUnit_germ W a fun x hx => ?_
-    exact (X.mem_basicOpen a x hx).1 (ha hx)
-  rcases hW.subset_or_subset (X.basicOpen e).isOpen (X.basicOpen (1 - e)).isOpen hdisj hcover
-    with h | h
-  · right
-    obtain ⟨u, hu⟩ := hunit e h
-    have : (u : Γ(X, W)) * u = u * 1 := by rw [mul_one, hu]; exact he.eq
-    rw [← hu]; exact u.isUnit.mul_left_cancel this
-  · left
-    obtain ⟨u, hu⟩ := hunit (1 - e) h
-    have he' : IsIdempotentElem (1 - e) := he.one_sub
-    have : (u : Γ(X, W)) * u = u * 1 := by rw [mul_one, hu]; exact he'.eq
-    have h1 : 1 - e = 1 := by rw [← hu]; exact u.isUnit.mul_left_cancel this
-    rw [sub_eq_self] at h1; exact h1
-
-/-- **(L) from (L0).** -/
-theorem globalFunctionsConst_of (h : FiniteGlobalSections) : GlobalFunctionsConst := by
-  intro K _ _ X f hP _ W hWc hWp s
-  obtain ⟨c, hc⟩ := exists_nilpotent_sub_of_finite (cstHom f W) (h K X f hP W hWc)
-    (fun e he => idempotent_trivial_of_isPreconnected hWp e he) s
-  exact ⟨c, hc⟩
 
 /-- **`SmoothStalkDimOne` holds** (task infra-smooth-dim). -/
 theorem smoothStalkDimOne : SmoothStalkDimOne := by
@@ -1935,42 +1585,6 @@ theorem componentIrreducible : ComponentIrreducible := by
   rw [Set.Subset.antisymm h1 h2]
   exact isIrreducible_irreducibleComponent
 
-/-- **Both curve facts from the leaf (L) and the glue (G1) alone** (C1b proved by
-infra-smooth-dim). -/
-theorem curveFacts_of_L_G1 (hL : GlobalFunctionsConst) (hG : ImagePlaneCurve) :
-    CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue smoothStalkDimOne hL hG
-
-/-- **Both curve facts from (L0) and (G1).** -/
-theorem curveFacts_of_L0_G1 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve) :
-    CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_L_G1 (globalFunctionsConst_of hL0) hG
-
-/-- **Both curve facts from (L0) and (G1').** -/
-theorem curveFacts_of_L0_G1' (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurveClosed) :
-    CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue' smoothStalkDimOne (globalFunctionsConst_of hL0) hG
-
-/-- **Both curve facts from (L0), (CI) and (G1'').** -/
-theorem curveFacts_of_L0_CI_G1'' (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hG : ImagePlaneCurveIrr) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue'' smoothStalkDimOne (globalFunctionsConst_of hL0) hI hG
-
-/-- **Both curve facts from (L0), (AD) and (IC)** ((CI) and C1b proved). -/
-theorem curveFacts_of_L0_AD_IC (hL0 : FiniteGlobalSections) (hA : AlgDep) (hC : ImageClosed) :
-    CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue_AD smoothStalkDimOne (globalFunctionsConst_of hL0) componentIrreducible hA hC
-
-/-- **Both curve facts from (L0), (CI), (AD) and (IC).** -/
-theorem curveFacts_of_L0_CI_AD_IC (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hA : AlgDep) (hC : ImageClosed) : CurveRatFactor ∧ CurveSurj :=
-  curveFacts_of_glue_AD smoothStalkDimOne (globalFunctionsConst_of hL0) hI hA hC
-
-/-- **The kernel's `MobiusGlue` from C1b, the leaf (L), the glue (G1) and the textbook leaf T5.** -/
-theorem mobiusGlue_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hG : ImagePlaneCurve) (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_curves (curveFacts_of_glue h1 hL hG).1 (curveFacts_of_glue h1 hL hG).2 hT
-
 end Pin
 
 namespace CurveGlue
@@ -1980,210 +1594,22 @@ open PkgI3 Pin
 
 /-! ## Copied verbatim from `scratch/h-decomposition/Leaves.lean` (namespace `LeafAdopt`) -/
 
-/-- **R1pi0 (rv-blueprints Q4): `X₆` is geometrically connected over `ℚ`.** For the level-one
-curve `X₆ = X₀(6,1)` of the bundle, `X₆ ×_ℚ ℚ̄` is connected (`π₀(X₆_ℚ̄) = 1`), the input of
-h-b1 M10 (Lemma NV step 4) and of the shape `ℚ(t)(√(at), √(b(t−1)))` in A10 step 2.
-*Published*: Deligne, Sém. Bourbaki 389 (1971), §2: `π₀(Sh_{K₀}) = ℚ^×_{>0}\𝔸_f^×/nrd(K₀)`,
-trivial for `K₀ = 𝒪̂^×` since `nrd(𝒪̂^×) = ℤ̂^×` (locator UNVERIFIED; rv-blueprints re-derived the
-computation, and `π₀(Y₃) = 2` from `nrd(1 + 3𝒪₃) = 1 + 3ℤ₃`). *Alternative*: rv-blueprints Q4
-sketches a glue proof from `R5fpCount` and the CM clauses (Kummer parity of branch points;
-SPECULATIVE, not checked in detail). Counted inside leaf R1 (same publications), not as a new
-leaf. -/
-def R1pi0Props (X : Over (Spec (CommRingCat.of ℚ))) : Prop :=
-  GeometricallyConnected X.hom
-
-/-- **R2 on `X₆` with biconditional CM clauses (rv-blueprints Q5).** As `R2X6Props`, with
-"CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `↔` `π₆ = 0` (resp. `∞`, `−16/27`)". *Published*:
-Baba–Granath 2008, Thm 2.1 and the §3.1 elliptic-order table (each of `CM(−4)`, `CM(−3)`,
-`CM(−24)` is one `W`-orbit, the fibre over the corresponding value); a consequence, as
-`R2X6Props` is. In the bundle it is not an extra assumption: `r2X6PropsIff_of` derives it from
-`R2X6Props` and `CMExists`. -/
-def R2X6PropsIff (X : Over (Spec (CommRingCat.of ℚ)))
-    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
-  ∀ (x x' : fieldPt Qbar ⟶ X) (P Q : QMPair Qbar),
-    Ψ x = Quotient.mk _ P → Ψ x' = Quotient.mk _ Q →
-      (π₆.val (K := Qbar) x.left = π₆.val (K := Qbar) x'.left ↔
-          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
-      (HasCM4 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some 0) ∧
-      (HasCM3 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.infty) ∧
-      (HasCM24 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
-
-/-- The repaired bundle (docstring abridged; the statement is verbatim from LeafAdopt). -/
-def R1R2fpRep : Prop :=
-  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
-    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
-    (fY : Y ⟶ X) (π₆ : ToP1 X.left),
-    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6PropsIff X Ψ π₆ ∧
-      R1recProps Y Φ ∧ X6Surj Y X fY π₆ ∧ R5ptProps X Ψ ∧ R1pi0Props X
-
 variable {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
   {π₆ : ToP1 X.left}
 
-/-- The biconditional form gives back the one-way form. -/
-theorem r2X6Props_of_iff (h : R2X6PropsIff X Ψ π₆) : R2X6Props X Ψ π₆ := by
-  intro x x' P Q hP hQ
-  obtain ⟨hf, h4, h3, h24⟩ := h x x' P Q hP hQ
-  exact ⟨hf, h4.1, h3.1, h24.1⟩
-
-/-- **Glue (proved): existence of the three CM points** from the biconditionals and the
-surjectivity of `π₆` on `ℚ̄`-points (the first half of `X6Surj`). -/
-theorem cmExists_of_iff (h : R2X6PropsIff X Ψ π₆)
-    (hs : ∀ t : OnePoint Qbar, ∃ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = t) :
-    CMExists X Ψ := by
-  refine ⟨?_, ?_, ?_⟩
-  · obtain ⟨x, hx⟩ := hs (OnePoint.some 0)
-    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
-      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.1).2 hx⟩
-  · obtain ⟨x, hx⟩ := hs OnePoint.infty
-    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
-      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.2.1).2 hx⟩
-  · obtain ⟨x, hx⟩ := hs (OnePoint.some (-16 / 27))
-    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
-      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.2.2).2 hx⟩
-
-/-- **Glue (proved)**: the repaired bundle implies leaf-qm-fp's `R1R2fp`. -/
-theorem R1R2fp_of_rep (h : R1R2fpRep) : R1R2fp := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5, -⟩ := h
-  exact ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, r2X6Props_of_iff h2, cmExists_of_iff h2 hs.1, hr, hs, h5⟩
-
 /-! ## New: CM points on any triple -/
 
-/-- The three CM objects (the fifth premise of `MobiusGlue`). -/
-def CMObjects : Prop :=
-  (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧ (∃ P : QML3 Qbar, HasCM24 P.q)
-
-/-- The three CM points of `(Y, Φ, π)` over `0, ∞, −16/27`. -/
-def CMPoints (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) : Prop :=
-  (∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧ HasCM4 P.q ∧
-      π.val (K := Qbar) y.left = OnePoint.some 0) ∧
-  (∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧ HasCM3 P.q ∧
-      π.val (K := Qbar) y.left = OnePoint.infty) ∧
-  (∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P ∧ HasCM24 P.q ∧
-      π.val (K := Qbar) y.left = OnePoint.some (-16 / 27))
-
-/-- **CM points from CM objects** (`Φ Qbar` is onto; only the one-way clauses of `R2fpProps`). -/
-theorem cm_points_of_objects {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
-    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (hCM : CMObjects) : CMPoints Y Φ π := by
-  obtain ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂, c₂⟩⟩ := hCM
-  have e : ∀ P : QML3 Qbar, Φ Qbar ((Φ Qbar).symm (M3.mk P)) = M3.mk P :=
-    fun P => Equiv.apply_symm_apply _ _
-  refine ⟨⟨_, P₄, e P₄, c₄, ?_⟩, ⟨_, P₃, e P₃, c₃, ?_⟩, ⟨_, P₂, e P₂, c₂, ?_⟩⟩
-  · exact ((h2 _ _ P₄ P₄ (e P₄) (e P₄)).2.1) c₄
-  · exact ((h2 _ _ P₃ P₃ (e P₃) (e P₃)).2.2.1) c₃
-  · exact ((h2 _ _ P₂ P₂ (e P₂) (e P₂)).2.2.2) c₂
-
-/-- **CM points on every triple, from the leaf bundle `R1R2fp`** (via `CMExists`, `X6Surj`). -/
-theorem cm_points_of_R1R2fp (h : R1R2fp) {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
-    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) : CMPoints Y Φ π :=
-  cm_points_of_objects h2 (cm_objects_of_R1R2fp h)
-
-/-- **CM points on every triple, from the repaired bundle `R1R2fpRep`** (`CMExists` from the
-biconditionals and `π₆` onto; level-3 structures from `Y₃ → X₆` onto). -/
-theorem cm_points_of_R1R2fpRep (h : R1R2fpRep) {Y : Over (Spec (CommRingCat.of ℚ))}
-    {Φ : PtEquiv Y} {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) : CMPoints Y Φ π :=
-  cm_points_of_R1R2fp (R1R2fp_of_rep h) h2
-
-/-- `MobiusGlue` without its CM premise. -/
-def MobiusGlueNoCM : Prop :=
-  ∀ (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
-    (π : ToP1 Y.left) (π' : ToP1 Y'.left) (g : Y' ⟶ Y),
-    R1fpProps Y Φ → R2fpProps Y Φ π → R1fpProps Y' Φ' → R2fpProps Y' Φ' π' →
-    (∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'), Φ' K y = Φ K (y ≫ g)) →
-    ∀ y : fieldPt Qbar ⟶ Y', π'.val (K := Qbar) y.left = π.val (K := Qbar) (y ≫ g).left
-
-/-- **The CM premise of `MobiusGlue` is discharged by the leaf bundle.** -/
-theorem mobiusGlue_noCM_of (hM : MobiusGlue) (h : R1R2fp) : MobiusGlueNoCM :=
-  fun Y Y' Φ Φ' π π' g h1 h2 h1' h2' hg =>
-    hM Y Y' Φ Φ' π π' g h1 h2 h1' h2' (cm_objects_of_R1R2fp h) hg
-
-theorem mobiusGlue_noCM_of_rep (hM : MobiusGlue) (h : R1R2fpRep) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of hM (R1R2fp_of_rep h)
-
 end CurveGlue
 
 namespace CurveGlue
 
 open CategoryTheory AlgebraicGeometry Limits Pin
 
-/-- **End to end: the CM-free form of `MobiusGlue` from the leaf bundle and the named pieces.** -/
-theorem mobiusGlueNoCM_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
-    (hG : ImagePlaneCurve) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_glue h1 hL hG hT) h
-
 end CurveGlue
 
 namespace CurveGlue
 
 open CategoryTheory AlgebraicGeometry Limits Pin
-
-/-- **The kernel's `MobiusGlue` from the textbook leaf (L) `GlobalFunctionsConst`, the glue (G1)
-`ImagePlaneCurve` and the textbook leaf T5 `ObjBridge.TorsionStructure`.** -/
-theorem mobiusGlue_of_L_G1_T5 (hL : GlobalFunctionsConst) (hG : ImagePlaneCurve)
-    (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_glue smoothStalkDimOne hL hG hT
-
-/-- **The CM-free form, with the CM objects from the leaf bundle `R1R2fp`.** -/
-theorem mobiusGlueNoCM_of_L_G1_T5 (hL : GlobalFunctionsConst) (hG : ImagePlaneCurve)
-    (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L_G1_T5 hL hG hT) h
-
-/-- **The kernel's `MobiusGlue` from the finiteness theorem (L0) `FiniteGlobalSections`, the glue
-(G1) `ImagePlaneCurve` and the textbook leaf T5 `ObjBridge.TorsionStructure`.** -/
-theorem mobiusGlue_of_L0_G1_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve)
-    (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_L_G1_T5 (globalFunctionsConst_of hL0) hG hT
-
-/-- **The CM-free form, with the CM objects from the leaf bundle `R1R2fp`.** -/
-theorem mobiusGlueNoCM_of_L0_G1_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurve)
-    (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L0_G1_T5 hL0 hG hT) h
-
-/-- **Main result: the kernel's `MobiusGlue` from (L0) `FiniteGlobalSections`, (G1')
-`ImagePlaneCurveClosed` and T5 `ObjBridge.TorsionStructure`.** -/
-theorem mobiusGlue_of_L0_G1'_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurveClosed)
-    (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_L0_G1_T5 hL0
-    (imagePlaneCurve_of (constOrOntoAlgClosed_of (globalFunctionsConst_of hL0)) hG) hT
-
-/-- **The kernel's `MobiusGlue` from (L0), (CI) `ComponentIrreducible`, (G1'') `ImagePlaneCurveIrr`
-and T5.** -/
-theorem mobiusGlue_of_L0_CI_G1''_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hG : ImagePlaneCurveIrr) (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_L0_G1'_T5 hL0 (imagePlaneCurveClosed_of hI hG) hT
-
-/-- **Its CM-free form.** -/
-theorem mobiusGlueNoCM_of_L0_CI_G1''_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hG : ImagePlaneCurveIrr) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L0_CI_G1''_T5 hL0 hI hG hT) h
-
-/-- **Main result: the kernel's `MobiusGlue` from (L0) `FiniteGlobalSections`, (CI)
-`ComponentIrreducible`, (AD) `AlgDep`, (IC) `ImageClosed` and T5 `ObjBridge.TorsionStructure`.** -/
-theorem mobiusGlue_of_L0_CI_AD_IC_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hA : AlgDep) (hC : ImageClosed) (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_L0_CI_G1''_T5 hL0 hI
-    (imagePlaneCurveIrr_of (constOrOntoAlgClosed_of (globalFunctionsConst_of hL0)) hI hA hC) hT
-
-/-- **Final result: the kernel's `MobiusGlue` from (L0) `FiniteGlobalSections`, (AD) `AlgDep`, (IC)
-`ImageClosed` and T5 `ObjBridge.TorsionStructure`** ((CI) proved, `componentIrreducible`). -/
-theorem mobiusGlue_of_L0_AD_IC_T5 (hL0 : FiniteGlobalSections) (hA : AlgDep) (hC : ImageClosed)
-    (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
-  mobiusGlue_of_L0_CI_AD_IC_T5 hL0 componentIrreducible hA hC hT
-
-/-- **Its CM-free form** (CM objects from the leaf bundle `R1R2fp`). -/
-theorem mobiusGlueNoCM_of_L0_AD_IC_T5 (hL0 : FiniteGlobalSections) (hA : AlgDep)
-    (hC : ImageClosed) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L0_AD_IC_T5 hL0 hA hC hT) h
-
-/-- **The CM-free form of the main result** (CM objects from the leaf bundle `R1R2fp`). -/
-theorem mobiusGlueNoCM_of_L0_CI_AD_IC_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
-    (hA : AlgDep) (hC : ImageClosed) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) :
-    MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L0_CI_AD_IC_T5 hL0 hI hA hC hT) h
-
-/-- **The CM-free form of the (G1') result.** -/
-theorem mobiusGlueNoCM_of_L0_G1'_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurveClosed)
-    (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
-  mobiusGlue_noCM_of (mobiusGlue_of_L0_G1'_T5 hL0 hG hT) h
 
 end CurveGlue
 

@@ -12,7 +12,14 @@ import Mathlib.FieldTheory.IsAlgClosed.Basic
 
 Part of the Contrib port (task mobius-contrib, 2026-11-13) of image-plane's single file
 `scratch/image-plane/ImagePlaneFinal.lean` (which is curve-glue's `MobiusFinal.lean` plus
-image-plane's (IC), (AD) and C2K proofs). This module is lines 498-1711 of that file, verbatim.
+image-plane's (IC), (AD) and C2K proofs). This module is lines 498-1711 of that file.
+
+Declarations not reachable from `mobiusGlue_of_T5`, `mobiusGlue_of_t5` and
+`imagePlaneCurveClosed` were removed (dependency closure computed in Lean by
+`scratch/mobius-contrib/Dead.lean`, removal by `trim.py`); everything kept is verbatim
+(up to collapsed runs of blank lines). Removed here (namespace `LeafQM.AV` dropped):
+`Pin.AutOExt.extAlgEquiv_apply`, `Pin.AutOExt.extAlgHom_apply`, `Pin.NormO.T_mem_iff`,
+`Pin.NormO.mem_O_iff`, `Pin.mobiusGlue_of_named`, `Pin.mobiusGlue_of_normalizer`.
 
 The file's opening `noncomputable section` (its line 498) is kept as this module's first
 command.
@@ -40,7 +47,6 @@ namespace Mob
 open Polynomial
 
 variable {K : Type} [Field K]
-
 
 open scoped Classical in
 /-- The value at a finite point `t` of the rational map `[F : G] : P¹ → P¹`. -/
@@ -166,7 +172,6 @@ theorem natDegree_le_one_of_injective [IsAlgClosed K] [CharZero K] {F G : K[X]}
     obtain ⟨a, ha, rfl⟩ := hgood c hc
     exact ⟨a, by simpa [Multiset.mem_toFinset, mem_roots hW] using ha, rfl⟩
   exact hS hfin
-
 
 /-- **A rational function of degree at most one with no finite pole, fixing `0` and some
 `c ≠ 0`, is the identity on `K`.** (With `∞ ↦ ∞`, which "no finite pole" encodes: a Möbius map
@@ -457,18 +462,11 @@ end FiniteTwist
 
 /-! ## §5 The result -/
 
-/-- **`MobiusGlue` from two curve facts, the textbook leaf `TorsionStructure` (T5, Mumford §4)
-and the algebra fact `AutOInnerFinite`.** -/
-theorem mobiusGlue_of_named (hRF : CurveRatFactor) (hSu : CurveSurj)
-    (hT : ObjBridge.TorsionStructure) (hA : AutOInnerFinite) : MobiusGlue :=
-  mobiusGlue_of_curveFacts hRF hSu (twistClassFinite_of hT hA)
-
 end Pin
 
 end AV
 
 end LeafQM
-
 
 /-! ## §7 `AutOInnerFinite` from Skolem–Noether (proved in the kernel) and `NormalizerFinite`
 
@@ -617,8 +615,6 @@ def extAlgHom : B →ₐ[ℚ] B where
   map_mul' := extFun_mul α
   commutes' := extFun_algebraMap α
 
-theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
-
 theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
 
 theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
@@ -632,8 +628,6 @@ theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.i
 def extAlgEquiv : B ≃ₐ[ℚ] B :=
   AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
     (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
-
-theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
 
 /-! ### `AutOInnerFinite` from Skolem–Noether and the normalizer -/
 
@@ -728,19 +722,11 @@ theorem autOInnerFinite_of_normalizer (hN : NormalizerFinite) : AutOInnerFinite 
 
 end AutOExt
 
-/-- **`MobiusGlue` from the two curve facts, the leaf `TorsionStructure` (T5) and
-`NormalizerFinite` (`N(𝒪)/ℚ^×𝒪^×` finite).** Skolem–Noether enters through the kernel's proof
-`TSkolemKW.leafSkolemNoether`. -/
-theorem mobiusGlue_of_normalizer (hRF : CurveRatFactor) (hSu : CurveSurj)
-    (hT : ObjBridge.TorsionStructure) (hN : AutOExt.NormalizerFinite) : MobiusGlue :=
-  mobiusGlue_of_named hRF hSu hT (AutOExt.autOInnerFinite_of_normalizer hN)
-
 end Pin
 
 end AV
 
 end LeafQM
-
 
 /-! ## §8 `NormalizerFinite`, proved: `N(𝒪)/ℚ^×𝒪^×` is represented by `{1, i, j, ij}`
 
@@ -780,8 +766,6 @@ theorem ofInt_scalar (z : ℤ) : ofInt ![z, 0, 0, 0] = algebraMap ℚ B (z : ℚ
 
 theorem smul_ofInt (z : ℤ) (n : Fin 4 → ℤ) : (z : ℚ) • ofInt n = ofInt (fun l => z * n l) := by
   ext <;> simp [ofInt] <;> ring
-
-theorem mem_O_iff (x : B) : x ∈ O ↔ ∃ n, x = ofInt n := Iff.rfl
 
 /-- `(1/z) • ofInt m ∈ 𝒪` forces `z ∣ m`. -/
 theorem dvd_of_smul_mem {z : ℤ} (hz : z ≠ 0) {m : Fin 4 → ℤ}
@@ -1010,8 +994,6 @@ theorem three_dvd_mulCoord_ej (n : Fin 4 → ℤ) (h : (3 : ℤ) ∣ nrdZ n) :
   fin_cases l <;> simp [mulCoord, ej] <;> omega
 
 /-! ### Closure of `T` under right multiplication by `i` and `j` -/
-
-theorem T_mem_iff (t : Bˣ) : t ∈ T ↔ t = 1 ∨ t = ui ∨ t = uj ∨ t = ui * uj := Iff.rfl
 
 theorem T_mul_ui : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
     (t : B) * (ui : B) = algebraMap ℚ B c * (t' : B) := by
