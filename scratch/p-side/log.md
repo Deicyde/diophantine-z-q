@@ -63,3 +63,14 @@ For C_d:
 ## Ground-truth sample (scratch/p-side/check_pari.py; PARI ellan, 30 inputs, d = 5, n = 1..30) — VERIFIED
 - a_n(C_5) = [1,0,0,0,0,0,0,0,-3,0,0,0,-6,0,0,0,-2,0,0,0,0,0,0,0,0,0,0,0,-10,0];
   a_p = −Σχ(x³−25x) at p ∤ 10, a_p = 0 at p ≡ 3 (4) and p | 10, a_n² ≤ σ₀(n)² n: all pass.
+
+## Supplement — ZInQKernel/Contrib/PSide/Supersingular.lean (compiles, no sorry; VERIFIED)
+- `cdCoeff_prime_of_mod_four_eq_three` : p ≡ 3 (4), p ∤ 2d ⇒ c_p = 0 (every d).
+- `cdCoeff_prime_pow_of_mod_four_eq_three` : c(p^{2k}) = (−p)^k, c(p^{2k+1}) = 0.
+- `LFunction_cd_prime_pow_of_mod_four_eq_three` : same on Mathlib's coefficients (d odd sqfree).
+
+## Final check
+- `lake build` of the 7 Contrib/PSide modules: Build completed successfully, 0 errors; 0 `sorry`.
+- scratch/p-side/Axioms.lean → scratch/p-side/axioms-output.txt: 22 headline theorems, all
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
+- Imports: only baseline files (RouteK/Rank/LFunctionCd, RouteK/PropN), Mathlib, own files. Nothing imports them.
