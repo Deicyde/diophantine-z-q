@@ -620,6 +620,57 @@ theorem bcVE_equivariant (E : Type) [Field E] [Algebra ℚ_[ℓ] E] (J : AbVar K
 
 end BC2
 
+/-! ### The restriction `G_L → G_K` along `i` and bijectivity under `TateModuleFree` -/
+
+section Res
+
+variable {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
+
+/-- The restriction `res_i : G_L → G_K`, `i ∘ res_i(τ) = τ ∘ i` (unique since `i` is injective). -/
+def res (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    (AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) →* (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    where
+  toFun τ := Classical.choose (exists_res i τ)
+  map_one' := by
+    apply AlgEquiv.ext; intro x
+    apply i.toRingHom.injective
+    exact (Classical.choose_spec (exists_res i 1) x).trans rfl
+  map_mul' τ₁ τ₂ := by
+    apply AlgEquiv.ext; intro x
+    apply i.toRingHom.injective
+    change i _ = i _
+    rw [Classical.choose_spec (exists_res i (τ₁ * τ₂)) x]
+    change τ₁ (τ₂ (i x)) = i (Classical.choose (exists_res i τ₁)
+      (Classical.choose (exists_res i τ₂) x))
+    rw [Classical.choose_spec (exists_res i τ₁), Classical.choose_spec (exists_res i τ₂)]
+
+lemma res_spec (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (x : AlgebraicClosure K) :
+    i (res i τ x) = τ (i x) :=
+  Classical.choose_spec (exists_res i τ) x
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **`T_ℓ` under base change is bijective (GLUE, proved from `TateModuleFree` and the
+dimension being unchanged by base change).** `dim A_L = dim A` is a standard fact (dimension of
+a scheme locally of finite type over a field is invariant under field extension; Stacks, Tag
+00P4 for algebras, UNVERIFIED tag) taken here as a hypothesis; it is not needed for E1. -/
+theorem bcT_bijective (hT : TateModuleFree) (J : AbVar K)
+    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) (hℓ : (ℓ : K) ≠ 0)
+    (hdim : (J.baseChange L).dim = J.dim) : Function.Bijective (bcT ℓ J i) := by
+  have hℓL : (ℓ : L) ≠ 0 := by
+    rw [← map_natCast (algebraMap K L)]
+    exact (map_ne_zero_iff _ (algebraMap K L).injective).2 hℓ
+  obtain ⟨hfr, hfi, hr⟩ := hT K J ℓ hℓ
+  obtain ⟨-, hfiL, hrL⟩ := hT L (J.baseChange L) ℓ hℓL
+  refine Tate.map_bijective _ (bcPhi_injective J i) ?_
+  have : ((Module.finrank ℤ_[ℓ] (J.T ℓ) : ℕ∞) : WithBot ℕ∞) =
+      ((Module.finrank ℤ_[ℓ] ((J.baseChange L).T ℓ) : ℕ∞) : WithBot ℕ∞) := by
+    rw [hr, hrL, hdim]
+  exact_mod_cast this
+
+end Res
+
 end E1Sub
 
 end BCsec
@@ -690,6 +741,35 @@ theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
   rw [hmap, LinearEquiv.symm_apply_apply, LinearEquiv.symm_apply_apply]
   exact he0 σ u0
 
+/-- `ρ_{f,ι}|_{G_L}`: R16's representation restricted along `res_i : G_L → G_ℚ`. -/
+def rhoFL (ℓ : ℕ) [Fact ℓ.Prime] (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) {L : Type} [Field L] [Algebra ℚ L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    Representation (PadicAlgCl ℓ) (AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+      (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) :=
+  (rhoF ℓ A θ emb).comp (res i)
+
+/-- **E1 for R16, as `G_L`-representations.** `ρ_{f,ι}|_{G_L}` (`rhoFL`) is isomorphic to a
+subrepresentation of `V_ℓ(J_L) ⊗ ℚ̄_ℓ`. -/
+theorem rhoFL_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (L : Type) [Field L] [Algebra ℚ L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        ∃ (U : Subrepresentation
+            (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)))
+          (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+          ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (u : U.toSubmodule),
+            e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ u,
+                U.apply_mem_toSubmodule τ u.2⟩ = rhoFL ℓ A θ emb i τ (e u) := by
+  obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, -, U, e, he⟩ := hrest ℓ emb
+  exact ⟨h2, U, e, fun τ u => he τ (res i τ) (res_spec i τ) u⟩
+
 /-- **E1 for R16, assembled (GLUE, proved).** In the situation of `rhoF_subrep_JL`, with `L` a
 number field: for every abelian variety `A'` over `L` (the QM surface of N5) and every nonzero
 subrepresentation `U` of `V_ℓ(A') ⊗ ℚ̄_ℓ` that is `G_L`-equivariantly isomorphic to
@@ -748,3 +828,5 @@ end E1Sub
 #print axioms E1Sub.exists_res
 #print axioms E1Sub.rhoF_subrep_JL
 #print axioms E1Sub.E1_R16
+#print axioms E1Sub.rhoFL_subrep_JL
+#print axioms E1Sub.bcT_bijective
