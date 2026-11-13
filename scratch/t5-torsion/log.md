@@ -42,3 +42,13 @@
 - scratch/g0-assemble2 torsionBound3_of (line 56625): K = Qbar.
 - scratch/g0-assemble2 torsionCountPts_of_leaf (line 59756): L : IntermediateField ℚ Qbar.
 - All uses are at fields with a ring embedding into ℂ (Qbar → ℂ by IsAlgClosed.lift).
+- part 7 (in T5Full.lean): `AssemblyCopies.torsionBound3_of_T35`, `AssemblyCopies.torsionCountPts_of_T35` (verbatim copies of the
+  assembly Props TorsionBound3, TorsionCountPts with tors/TorsCount/IF/PtQ), and `natCard_torsion_algClosed`. COMPILES (VERIFIED).
+- Tate.lean (= part 8 of T5Full.lean): `TateFree.tate_linearEquiv` (#M[ℓⁿ] = ℓ^{nr} ∀n ⇒ T_ℓ M ≃ₗ[ℤ_ℓ] ℤ_ℓ^r for the
+  kernel's PkgI3.Tate.T), `TateFree.tateModuleFree_at`, `TateFree.tateModuleFree_of_torsionStructure : PkgI2.TorsionStructure.{0} → PkgI3.TateModuleFree`.
+  COMPILES, standard axioms (VERIFIED). So T26 is glue given T5.
+- part 9: `tateModuleFreeC_of_uniformization` (T26 for k with k →+* ℂ, from T35 alone), `tateModuleFree_of_torsionCard`,
+  `tateModuleFree_of_uniformization_of_nonC`. COMPILES (VERIFIED).
+- Pitfalls: Module (ZMod ℓ) given by `letI := AddCommGroup.zmodModule h` makes Module.finBasisOfFinrankEq / natCard_eq_pow_finrank
+  instance search "stuck"; state the lemma with `[Module (ZMod ℓ) V]` as a binder and pass the instance with `@`.
+  A file-level `open … MonObj` makes `one_mul` resolve to `MonObj.one_mul`; use `_root_.one_mul`.

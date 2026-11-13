@@ -50,7 +50,7 @@ theorem exists_lift (n : ℕ) (y : M) (hy : ℓ ^ n • y = 0) :
   haveI := finite_tb r hcard (n + 1)
   haveI := finite_tb r hcard n
   have hker : Nat.card f.ker = ℓ ^ r := by
-    rw [show ℓ ^ r = ℓ ^ (1 * r) by rw [one_mul], ← hcard 1]
+    rw [show ℓ ^ r = ℓ ^ (1 * r) by rw [_root_.one_mul], ← hcard 1]
     refine Nat.card_congr
       { toFun := fun x => ⟨x.1.1, mem_tb.2 (by
           have h : (f x.1).1 = 0 := congrArg Subtype.val (AddMonoidHom.mem_ker.1 x.2)
@@ -143,7 +143,7 @@ theorem exists_basis : ∃ e : Fin r → M, (∀ i, ℓ • e i = 0) ∧
   haveI : NeZero ℓ := ⟨hℓ.out.ne_zero⟩
   haveI : Finite (tb ℓ M 1) := finite_tb r hcard 1
   obtain ⟨e, he⟩ := @basis_of_card ℓ _ r (tb ℓ M 1) _ (AddCommGroup.zmodModule hV) _
-    (by rw [hcard 1, one_mul])
+    (by rw [hcard 1, _root_.one_mul])
   refine ⟨fun i => (e i).1, fun i => by
     have h := mem_tb.1 (e i).2
     rwa [pow_one] at h, fun c hc i => he c (Subtype.ext ?_) i⟩
@@ -283,24 +283,33 @@ def torsionEquivTb {k : Type} [Field k] (A : PkgI3.AbVar k) (ℓ n : ℕ) [Fact 
   left_inv _ := rfl
   right_inv _ := rfl
 
-/-- **T26 from T5**: `T_ℓ(A)` is free of rank `2 dim A` over `ℤ_ℓ` for `ℓ ≠ char k`. -/
-theorem tateModuleFree_of_torsionStructure (hT : PkgI2.TorsionStructure.{0}) :
-    PkgI3.TateModuleFree := by
-  intro k _ A ℓ _ hℓk
+/-- **T26 at one field from T5 at that field.** -/
+theorem tateModuleFree_at {k : Type} [Field k]
+    (hT : ∀ (A : Grp (Over (Spec (.of k)))) [PkgI2.IsAbelianVariety A] (g n : ℕ),
+      topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n → (n : k) ≠ 0 →
+        ∃ e : PkgI2.torsion A (AlgebraicClosure k) n ≃ (Fin (2 * g) → ZMod n),
+          ∀ x y : PkgI2.torsion A (AlgebraicClosure k) n,
+            ∀ h : x.1 * y.1 ∈ PkgI2.torsion A (AlgebraicClosure k) n, e ⟨x.1 * y.1, h⟩ = e x + e y)
+    (A : PkgI3.AbVar k) (ℓ : ℕ) [Fact ℓ.Prime] (hℓk : (ℓ : k) ≠ 0) :
+    Module.Free ℤ_[ℓ] (A.T ℓ) ∧ Module.Finite ℤ_[ℓ] (A.T ℓ) ∧
+      ((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ∞) : WithBot ℕ∞) = 2 * A.dim := by
   obtain ⟨g, hg⟩ := PkgI3.AbVar.dim_finite A
   have hcard : ∀ n : ℕ, Nat.card (tb ℓ (Additive (A.Pt (AlgebraicClosure k))) n) =
       ℓ ^ (n * (2 * g)) := by
     intro n
-    obtain ⟨e, -⟩ := hT k (ObjBridge.toGrp A) g (ℓ ^ n) hg
+    obtain ⟨e, -⟩ := hT (ObjBridge.toGrp A) g (ℓ ^ n) hg
       (pow_pos (Fact.out : ℓ.Prime).pos n) (by push_cast; exact pow_ne_zero _ hℓk)
     rw [← Nat.card_congr (torsionEquivTb A ℓ n), Nat.card_congr e, Nat.card_fun, Nat.card_zmod,
       Nat.card_eq_fintype_card, Fintype.card_fin, ← pow_mul]
   obtain ⟨E⟩ := tate_linearEquiv (2 * g) hcard
   refine ⟨Module.Free.of_equiv E.symm, Module.Finite.equiv E.symm, ?_⟩
   rw [E.finrank_eq, Module.finrank_fin_fun]
-  change _ = 2 * A.dim
   rw [hg]
   norm_cast
+
+/-- **T26 from T5**: `T_ℓ(A)` is free of rank `2 dim A` over `ℤ_ℓ` for `ℓ ≠ char k`. -/
+theorem tateModuleFree_of_torsionStructure (hT : PkgI2.TorsionStructure.{0}) :
+    PkgI3.TateModuleFree := fun k _ A ℓ _ hℓk => tateModuleFree_at (hT k) A ℓ hℓk
 
 end T5Torsion.TateFree
 
