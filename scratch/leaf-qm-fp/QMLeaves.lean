@@ -1224,6 +1224,29 @@ def R1rec : Prop :=
   ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
     UnramifiedAbove5 (fieldOfModuli3 P)
 
+/-- **Glue (compiled): Lemma NV step 2** (h-b1 §3). A `ℚ̄`-point of `Y₃` over one of the three
+branch values `0, ∞, −16/27` carries a CM object (by `cm_of_val` through the forgetful map), so by
+`R1rec` its field of moduli `ℚ(y)` is a number field unramified at every `p ≥ 5`. -/
+theorem unramified_over_branch (h : R1R2fp ∧ R1rec) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
+      ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+        (π.val (K := Qbar) y.left = OnePoint.some 0 ∨
+          π.val (K := Qbar) y.left = OnePoint.infty ∨
+          π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
+        UnramifiedAbove5 (fieldOfModuli3 P) := by
+  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE⟩, hrec⟩ := h
+  refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y P hP hv => hrec P ?_⟩
+  obtain ⟨-, -, -, -, -, hf⟩ := hX
+  have hc := cm_of_val h2 hE (y ≫ fY) P.forget (hf y P hP)
+  have e : (π₆.comp fY.left).val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left :=
+    ToP1.val_comp_right π₆ fY.left y.left
+  rw [e] at hv
+  rcases hv with hv | hv | hv
+  · exact Or.inl (hc.1 hv)
+  · exact Or.inr (Or.inl (hc.2.1 hv))
+  · exact Or.inr (Or.inr (hc.2.2 hv))
+
 /-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` (0 if the index is infinite). -/
 def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
   R.toAddSubgroup.relIndex (integralClosure ℤ k).toSubring.toAddSubgroup
@@ -1334,6 +1357,7 @@ end LeafQM
 #print axioms LeafQM.AV.Level3.onto
 #print axioms LeafQM.AV.Level3.torsor
 #print axioms LeafQM.AV.QML3.goodReduction
+#print axioms LeafQM.AV.unramified_over_branch
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right

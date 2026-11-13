@@ -69,3 +69,6 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   `hrat` (all of A[3] Galois-fixed, from `Level3.onto`); `QML3.goodReduction` [CharZero K] from
   `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` via
   `GlueA6Alg.goodReduction_of_QM_rational3'`. COMPILES, 24 s, standard axioms.
+- 17:1x proved `unramified_over_branch` (Lemma NV step 2, h-b1 §3): from R1R2fp ∧ R1rec, a
+  ℚ̄-point of Y₃ over 0, ∞ or −16/27 has a field of moduli that is a number field unramified at
+  every p ≥ 5 (via `cm_of_val`, the forgetful map and `ToP1.val_comp_right`). COMPILES.
