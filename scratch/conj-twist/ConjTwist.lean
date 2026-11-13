@@ -1705,6 +1705,86 @@ theorem conjTwistFromLeaves_final (hN2 : HomLinearLift) (hN3a : ConjUniformizati
     ConjTwistFromLeaves :=
   fun _ _ h35 h5 hT => conjTwistNontrivial_final h5 hT h35 hN2 hN3a
 
+/-! ## §14. N3a split: group-theoretic clauses (proved) and analytic clauses (glue) -/
+
+theorem twistC_inj_aux' {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) :
+    mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change 𝟙 _ ≫ Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫
+    Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫ 𝟙 _ = 𝟙 _
+  rw [Category.id_comp, Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rw [show (starRingEnd ℂ).comp (starRingEnd ℂ) = RingHom.id ℂ by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+theorem twistC_surjective {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : Function.Surjective (twistC A σ s h) := by
+  intro Q'
+  obtain ⟨X, hX⟩ := ((Over.mapPullbackAdj (specS s)).homEquiv (cptObj σ) A.X).surjective
+    (show cptObj σ ⟶ (Over.pullback (specS s)).obj A.X from Q')
+  refine ⟨conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X, ?_⟩
+  have e : mapPtIso σ s ≫ conjHom σ s h ≫ conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X = X := by
+    have := congrArg (· ≫ X) (twistC_inj_aux' σ s h)
+    simpa only [Category.assoc, Category.id_comp] using this
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫
+    conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ X) = Q'
+  rw [e]
+  exact hX
+
+theorem twistC_mul {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (Q Q' : CPts A σ) :
+    twistC A σ s h (Q * Q') = twistC A σ s h Q * twistC A σ s h Q' := by
+  change (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ (Q * Q')) =
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q) *
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjHom σ s h ≫ Q')
+  rw [MonObj.comp_mul, MonObj.comp_mul, homEquiv_mul_conj]
+
+/-- **N3a-an. The analytic clauses for the conjugate uniformization (GLUE, unproved;
+STANDARD).** With `ψ(z) = twistC(Φ(z̄))`: the preimages `ψ⁻¹(U(ℂ))` of opens `U` of `A^s` are
+open, and regular functions of `A^s` are holomorphic along `ψ`. (`A^s(ℂ)_σ = A(ℂ)_{conj∘σ}`; on
+affine charts `twistC` conjugates the values of regular functions, and `z ↦ conj(f(z̄))` is
+holomorphic when `f` is; Mumford §1, GAGA.) These are the last two clauses of
+`IsUniformization`; the first three are proved (`conjUniformization_of_analytic`). -/
+def ConjUniformizationAnalytic : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
+    (∀ U, IsOpen (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U)) ∧
+    (∀ U (f : Γ((conjVar A s).X.left, U)), DifferentiableOn ℂ
+      (fun z => ZInQ.LeafPush2.cEvalAt (twistC A σ s h (Φ (conjL g z))) U f)
+      (ZInQ.LeafPush2.cDom (fun z => twistC A σ s h (Φ (conjL g z))) U))
+
+/-- **N3a from its analytic clauses (proved).** -/
+theorem conjUniformization_of_analytic (h : ConjUniformizationAnalytic) : ConjUniformization := by
+  intro K _ A σ s hs g Λ Φ hd hΦ
+  obtain ⟨h4, h5⟩ := h K A σ s hs g Λ Φ hd hΦ
+  refine ⟨fun z w => ?_, fun z => ?_, fun Q => ?_, h4, h5⟩
+  · beta_reduce
+    rw [map_add, hΦ.1, twistC_mul]
+  · beta_reduce
+    rw [Submodule.mem_comap, LinearMap.restrictScalars_apply, ← hΦ.2.1]
+    constructor
+    · intro h1
+      apply twistC_injective A σ s hs
+      rw [h1, twistC_one]
+    · intro h1
+      rw [h1, twistC_one]
+  · obtain ⟨Q₀, rfl⟩ := twistC_surjective A σ s hs Q
+    obtain ⟨z, hz⟩ := hΦ.2.2.1 Q₀
+    exact ⟨conjL g z, by simp only [conjL_conjL, hz]⟩
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35, N2 and N3a-an (proved).** -/
+theorem conjTwistNontrivial_final' (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final h5 hT h35 hN2 (conjUniformization_of_analytic hN3)
+
+/-- **Final: `ConjTwistFromLeaves` from N2 and N3a-an (proved).** -/
+theorem conjTwistFromLeaves_final' (hN2 : HomLinearLift) (hN3 : ConjUniformizationAnalytic) :
+    ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final hN2 (conjUniformization_of_analytic hN3)
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1736,3 +1816,6 @@ end G0Galois
 #print axioms G0Galois.torsion_surj_of_T5
 #print axioms G0Galois.conjTwistNontrivial_final
 #print axioms G0Galois.conjTwistFromLeaves_final
+#print axioms G0Galois.conjUniformization_of_analytic
+#print axioms G0Galois.conjTwistNontrivial_final'
+#print axioms G0Galois.conjTwistFromLeaves_final'

@@ -84,7 +84,7 @@
   **`conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 26 `#print axioms` standard.
   VERIFIED (compiled).
-- 2026-11-13 06:25 refactor: `toC_injective` moved before §7; naturality lemmas and the §11
+- 2026-11-13 06:22 refactor: `toC_injective` moved before §7; naturality lemmas and the §11
   construction use it (§11 now takes a local torsion-surjectivity hypothesis `hsurj`); main
   theorem `conjTwistNontrivial_of_latticeInj` no longer takes N1. §13 added:
   **`torsion_surj_of_T5`** (T5 + a uniformization with full lattice ⇒ every n-torsion complex
@@ -94,3 +94,12 @@
   HomLinearLift → ConjUniformization → ConjTwistNontrivial`**,
   **`conjTwistFromLeaves_final : HomLinearLift → ConjUniformization → ConjTwistFromLeaves`**.
   Whole file: 0 errors, 0 sorry, all `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:30 §14 added: `twistC_inj_aux'`, `twistC_surjective`, `twistC_mul`, glue def
+  `ConjUniformizationAnalytic` (N3a-an: only the two analytic clauses of IsUniformization for
+  z ↦ twistC(Φ z̄): open preimages, holomorphic regular functions of A^s),
+  **`conjUniformization_of_analytic`** (the three group-theoretic clauses proved),
+  **`conjTwistNontrivial_final' : TorsionStructure → TateModuleFree → UniformizationExists →
+  HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`**,
+  **`conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic →
+  ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 32 `#print axioms` standard.
+  VERIFIED (compiled).
