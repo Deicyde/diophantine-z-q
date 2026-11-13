@@ -1,0 +1,71 @@
+'PropTSRed.padicValRat_16_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_eq_of_pt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.unramifiedMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.padicValRat_sub_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.kummerStep_of_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.exists_factor_scheme' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_specMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_openImmersion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.functionFieldModel_of_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.coverModel_of_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/ts-hecke/TSHecke.lean:1597:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/ts-hecke/TSHecke.lean:1597:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:1597:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:1611:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/ts-hecke/TSHecke.lean:1615:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/ts-hecke/TSHecke.lean:1611:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:1611:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:1615:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:1615:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-hecke/TSHecke.lean:2409:43: warning: Variable name `hU` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/ts-hecke/TSHecke.lean:2640:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'TSHecke.exists_surjective_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.connectedSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.irreducibleSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.irreducibleSpace_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeIrreducible_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.connected_of_heckeIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]

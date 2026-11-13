@@ -23,3 +23,13 @@ HeckeDegree, HeckeBranch, HeckeNoVertRam.
   the orbit count above.
 
 Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the published uniformization).
+
+## Step 2. Lean, Part 1 (`TSHecke.lean`, assembled by `assemble.py`) — VERIFIED (compiled, 0 errors, ~17 s)
+
+- `exists_surjective_of_R1fp`: two triples with R1fp ⇒ a surjective `g : Y' ⟶ Y` (phi_part + κ(x)-points).
+- `Y3Connected` (leaf R1conn, witness form: some R1fp triple has `ConnectedSpace Y.left`).
+- `heckeIrreducible_of_connected : Y3Connected → HeckeIrreducible` (via curve-glue's
+  `componentIrreducible`, copied with infra-smooth-dim's stalk dimensions).
+- `connected_of_heckeIrreducible : R1R2fp → HeckeIrreducible → Y3Connected` (so the leaf is exactly
+  what is needed).
+- all `#print axioms`: [propext, Classical.choice, Quot.sound].

@@ -1,0 +1,108 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# ts-hecke: the five Hecke Props under `CoverModelOfHecke`, settled and reduced
+
+Everything above this line is copied verbatim (see `assemble.py` and `check_identical.py`):
+the prop-ts prefix, the five Hecke Props of prop-ts-glue, aut-o-finite's computation of
+`Aut(𝒪)/Inn(𝒪^×)`, infra-smooth-dim's stalk dimensions and curve-glue's proof of
+`ComponentIrreducible`. Below: the work of task ts-hecke. No `sorry`, no `axiom`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace TSHecke
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue
+
+/-! ## Part 1: `HeckeIrreducible` -/
+
+/-- **Any two triples satisfying R1fp are related by a surjective morphism** (compiled). The
+morphism is `phi_part`'s `g : Y' → Y` with `Φ' = Φ ∘ g`; it is onto because every point `x` of `Y`
+is the image of its own `κ(x)`-point, and `Φ'` is onto `M3 κ(x)` while `Φ` is injective. -/
+theorem exists_surjective_of_R1fp {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} (h : R1fpProps Y Φ) (h' : R1fpProps Y' Φ') :
+    ∃ g : Y' ⟶ Y, Function.Surjective g.left := by
+  obtain ⟨g, hg⟩ := phi_part (R1fpProps.univ h) h'
+  refine ⟨g, fun x => ?_⟩
+  let φ : CommRingCat.of ℚ ⟶ Y.left.residueField x :=
+    Spec.preimage (Y.left.fromSpecResidueField x ≫ Y.hom)
+  letI : Algebra ℚ (Y.left.residueField x) := φ.hom.toAlgebra
+  let y : fieldPt (Y.left.residueField x) ⟶ Y :=
+    Over.homMk (Y.left.fromSpecResidueField x) (by
+      change _ = Spec.map φ
+      exact (Spec.map_preimage _).symm)
+  obtain ⟨y', hy'⟩ := (Φ' (Y.left.residueField x)).surjective (Φ _ y)
+  have hyy : y' ≫ g = y := (Φ _).injective ((hg _ y').symm.trans hy')
+  let s : (fieldPt (Y.left.residueField x)).left := IsLocalRing.closedPoint _
+  refine ⟨y'.left s, ?_⟩
+  have h1 : (y' ≫ g).left s = y.left s := by rw [hyy]
+  rw [Over.comp_left, Scheme.Hom.comp_apply] at h1
+  rw [h1]
+  exact Y.left.fromSpecResidueField_apply x _
+
+/-- **Leaf R1conn (the canonical model `Y₃ = Sh_{K₃}` is connected over `ℚ`), witness form.**
+Some triple satisfying the clause list R1fp has a connected underlying space.
+
+*Published statement* (Shimura; Deligne, *Travaux de Shimura*, Sém. Bourbaki 389 (1971), §§2-3,
+and *Variétés de Shimura*, Proc. Symp. Pure Math. 33 (1979), §2.1 and Thm 2.6.3; Milne,
+*Introduction to Shimura varieties* (2005), §5 and §13; all locators UNVERIFIED): for `G = B^×`
+the set of geometric components of `Sh_K` is `ℚ_{>0}^× \ 𝔸_f^× / nrd(K)`, and `Gal(ℚ̄/ℚ)` acts on
+it through the cyclotomic character (Artin reciprocity), i.e. through multiplication by `ℤ̂^×`.
+*Consequence used*: for `K₃ = ker(𝒪̂^× → (𝒪/3𝒪)^×)`, `nrd(K₃) = ∏_{ℓ≠3} ℤ_ℓ^× × (1 + 3ℤ_3)`, so the
+set of components is `(ℤ/3)^×` (two points) and `ℤ̂^×` acts transitively on it: `Y₃` is
+`ℚ`-connected (its two geometric components are swapped by `Gal(ℚ(√−3)/ℚ)`).
+*Computation* (VERIFIED, `scratch/ts-hecke/pi0_check.py`): in Shimura's uniformization
+`Y₃(ℂ) = 𝒪^× \ (ℍ^± × (𝒪/3𝒪)^×)` there are exactly two orbits, separated by `s · nrd(a) mod 3`,
+and complex conjugation `(s, a) ↦ (−s, a)` swaps them. -/
+def Y3Connected : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ ∧ ConnectedSpace Y.left
+
+/-- Connectedness transfers to every triple satisfying R1fp (compiled). -/
+theorem connectedSpace_of_R1fp (hC : Y3Connected) {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} (h : R1fpProps Y Φ) : ConnectedSpace Y.left := by
+  obtain ⟨Y₀, Φ₀, h₀, hc⟩ := hC
+  obtain ⟨g, hg⟩ := exists_surjective_of_R1fp h h₀
+  exact hg.connectedSpace g.left.continuous
+
+/-- Irreducibility transfers to every triple satisfying R1fp (compiled). -/
+theorem irreducibleSpace_of_R1fp {Y₀ Y : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀}
+    {Φ : PtEquiv Y} (h₀ : R1fpProps Y₀ Φ₀) (hI : IrreducibleSpace Y₀.left)
+    (h : R1fpProps Y Φ) : IrreducibleSpace Y.left := by
+  obtain ⟨g, hg⟩ := exists_surjective_of_R1fp h h₀
+  exact hg.irreducibleSpace g.left.continuous
+
+/-- **A connected proper smooth curve over a field is irreducible** (compiled, from curve-glue's
+`componentIrreducible`, itself from infra-smooth-dim's stalk dimensions). -/
+theorem irreducibleSpace_of_connected {K : Type} [Field K] {X : Scheme.{0}}
+    (f : X ⟶ Spec (CommRingCat.of K)) (hP : IsProper f) (hS : SmoothOfRelativeDimension 1 f)
+    [ConnectedSpace X] : IrreducibleSpace X := by
+  obtain ⟨x⟩ : Nonempty X := inferInstance
+  have h := CIcopy.componentIrreducible K X f hP hS x
+  rw [PreconnectedSpace.connectedComponent_eq_univ] at h
+  exact (irreducibleSpace_def X).2 h
+
+/-- **`HeckeIrreducible` from the leaf R1conn** (compiled). -/
+theorem heckeIrreducible_of_connected (hC : Y3Connected) : HeckeIrreducible := by
+  intro Y Φ π h1 _ _
+  have := connectedSpace_of_R1fp hC h1
+  obtain ⟨hP, hS, -⟩ := h1
+  exact irreducibleSpace_of_connected Y.hom hP hS
+
+/-- `HeckeIrreducible` is equivalent to the leaf, given one triple (compiled): with the bundle
+leaf `R1R2fp`, `HeckeIrreducible → Y3Connected`. So R1conn is exactly what is needed. -/
+theorem connected_of_heckeIrreducible (hR : R1R2fp) (hI : HeckeIrreducible) : Y3Connected := by
+  obtain ⟨Y, Φ, π, h1, hh, h2⟩ := R1R2fp_Y hR
+  have := hI Y Φ π h1 hh h2
+  exact ⟨Y, Φ, h1, inferInstance⟩
+
+end TSHecke
+
+end
+
+#print axioms TSHecke.exists_surjective_of_R1fp
+#print axioms TSHecke.connectedSpace_of_R1fp
+#print axioms TSHecke.irreducibleSpace_of_R1fp
+#print axioms TSHecke.irreducibleSpace_of_connected
+#print axioms TSHecke.heckeIrreducible_of_connected
+#print axioms TSHecke.connected_of_heckeIrreducible
