@@ -1,0 +1,16 @@
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/LPrefix.lean:1:0: error: unknown module prefix 'ZInQ'
+
+No directory 'ZInQ' or file 'ZInQ.olean' in the search path entries:
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/Cli/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/batteries/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/Qq/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/aesop/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/proofwidgets/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/importGraph/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/LeanSearchClient/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/plausible/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/packages/mathlib/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/lean/.lake/build/lib/lean
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/.lake/build/lib/lean
+/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/lib/lean
+/home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/lib/lean
