@@ -1,5 +1,6 @@
 import Mathlib.AlgebraicGeometry.EllipticCurve.LFunction
 import Mathlib.NumberTheory.ModularForms.DedekindEta
+import Mathlib.NumberTheory.ModularForms.Discriminant
 import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
 import Mathlib.NumberTheory.ModularForms.Basic
 import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
@@ -37,6 +38,8 @@ memory). That is the curve `CurveA.curveA` of `TYZDecomp/CurveA.lean` (`ℚ`-iso
 * §11–§12 (proved) basic analytic facts: `x, y, f` are holomorphic on `ℍ`, `f` and `y` have no
   zeros there, `phiC τ = (x(τ), y(τ))` under `EtaModelEquation`, and `x, y, f` are invariant under
   `T = [[1,1],[0,1]] ∈ Γ₀(32)` (`xC_yC_fC_T_smul`, a piece of `EtaModelInvariant`).
+* §14 (proved) the Fricke involution on the eta quotients: `xC_fricke`, `yC_fricke`, and
+  `fC_fricke : f(−1/(32τ)) = −32τ² f(τ)` (`f` is a `W₃₂`-eigenform, eigenvalue `−1`).
 * §13 (proved) `x, y, f` have real `q`-expansions: `η(−z̄) = conj η(z)` and
   `phiC (−τ̄) = conj (phiC τ)` (`phiC_neg_conj`), the analytic input for complex conjugation on
   Heegner points.
@@ -225,8 +228,10 @@ def ptTC : PtAC := .some 2 (-4) nonsingular_TC
 `φ(W₃₂τ) + φ(τ) = T = (2, −4)`, i.e. `W₃₂` acts on `A` as `P ↦ T − P` (`W₃₂`-eigenvalue `−1` on
 `f`, root number `+1` of `A`; `W₃₂` swaps the cusps `∞ ↦ 0`, `O ↦ T`).
 
-VERIFIED numerically here (`scratch/x0-32/fricke.py`, three `τ`, 12 digits). Exact form: by
-`η(−1/z) = √(z/i) η(z)`, `x(W₃₂τ) = 2 + 8 η(2τ)η(16τ)²/(η(τ)²η(8τ))` (VERIFIED numerically). The
+VERIFIED numerically here (`scratch/x0-32/fricke.py`, three `τ`, 12 digits). Exact forms PROVED in
+§14 from Mathlib's `η(−1/z) = (√i)⁻¹√z η(z)`: `x(W₃₂τ) = 2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ))` (`xC_fricke`),
+`y(W₃₂τ) = −4η(2τ)²η(4τ)⁴/(η(τ)⁴η(8τ)²)` (`yC_fricke`), `f(W₃₂τ) = −32τ²f(τ)` (`fC_fricke`); what
+remains of this leaf is the eta identity saying that these are the coordinates of `T − (x, y)`. The
 action of `W_N` on the modular parametrization (`φ ∘ W_N = −w_N φ + φ(0)`, `w_N` the
 `W_N`-eigenvalue): STANDARD (e.g. Darmon, *Rational points on modular elliptic curves*, CBMS 101,
 §2; locator UNVERIFIED); used by TYZ (rv-tyz-inputs §1.5: "`[∞]^W = [0]`"). -/
@@ -1261,5 +1266,150 @@ theorem phiC_neg_conj (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = -starRingEnd 
     rw [e1, e2, map_zero]
 
 end Conj
+
+/-! ## §14 The Fricke involution `W₃₂ : τ ↦ −1/(32τ)` on `x, y, f` (proved)
+
+From Mathlib's `η(−1/z) = (√i)⁻¹ √z η(z)` (`ModularForm.eta_comp_eq_csqrt_I_inv`). In particular `f` is
+a `W₃₂`-eigenform with eigenvalue `−1` (`(f|₂W₃₂)(τ) = 32⁻¹τ⁻² f(−1/(32τ)) = −f(τ)`), the sign
+attached to root number `+1`. -/
+
+section Fricke
+
+open ModularForm
+
+/-- `c k = e^{(log k)/2} = √k` (as a complex number). -/
+def csq (k : ℕ) : ℂ := cexp (Real.log k / 2)
+
+theorem csq_mul {a b : ℕ} (ha : 0 < a) (hb : 0 < b) : csq (a * b) = csq a * csq b := by
+  unfold csq
+  rw [← Complex.exp_add]
+  congr 1
+  push_cast
+  rw [Real.log_mul (by positivity) (by positivity)]
+  push_cast
+  ring
+
+theorem csq_sq {k : ℕ} (hk : 0 < k) : csq k ^ 2 = k := by
+  unfold csq
+  rw [← Complex.exp_nat_mul]
+  have : ((2 : ℕ) : ℂ) * ((Real.log k : ℝ) / 2 : ℂ) = ((Real.log k : ℝ) : ℂ) := by push_cast; ring
+  rw [this, ← Complex.ofReal_exp, Real.exp_log (by exact_mod_cast hk)]
+  push_cast; rfl
+
+theorem csq_one : csq 1 = 1 := by simp [csq]
+
+theorem csq_ne_zero (k : ℕ) : csq k ≠ 0 := Complex.exp_ne_zero _
+
+theorem csqrt_natMul {k : ℕ} (hk : 0 < k) {z : ℂ} (hz : z ≠ 0) :
+    Complex.sqrt ((k : ℂ) * z) = csq k * Complex.sqrt z := by
+  have hk' : (0 : ℝ) < k := by exact_mod_cast hk
+  rw [_root_.sqrt_eq_exp (mul_ne_zero (by exact_mod_cast hk.ne') hz), _root_.sqrt_eq_exp hz,
+    show (k : ℂ) = ((k : ℝ) : ℂ) by push_cast; rfl, Complex.log_ofReal_mul hk' hz, csq,
+    ← Complex.exp_add]
+  congr 1
+  ring
+
+theorem csqrt_sq {z : ℂ} (hz : z ≠ 0) : Complex.sqrt z ^ 2 = z := by
+  rw [_root_.sqrt_eq_exp hz, ← Complex.exp_nat_mul]
+  rw [show ((2 : ℕ) : ℂ) * (Complex.log z / 2) = Complex.log z by push_cast; ring,
+    Complex.exp_log hz]
+
+/-- `η(−1/(kτ)) = (√i)⁻¹ · √k · √τ · η(kτ)`. -/
+theorem eta_neg_inv_natMul {k : ℕ} (hk : 0 < k) (τ : UpperHalfPlane) :
+    ModularForm.eta (-1 / ((k : ℂ) * τ)) =
+      (Complex.sqrt I)⁻¹ * (csq k * Complex.sqrt τ * ModularForm.eta ((k : ℂ) * τ)) := by
+  have hz := mul_mem_upperHalfPlaneSet hk τ
+  have h := ModularForm.eta_comp_eq_csqrt_I_inv hz
+  simp only [Function.comp, Pi.smul_apply, Pi.mul_apply, smul_eq_mul] at h
+  rw [h, csqrt_natMul hk τ.ne_zero]
+
+theorem etaD_fricke {d e : ℕ} (hd : 0 < d) (he : 0 < e) (hde : d * e = 32) (τ : UpperHalfPlane) :
+    etaD d (-1 / (32 * (τ : ℂ))) =
+      (Complex.sqrt I)⁻¹ * (csq e * Complex.sqrt τ * etaD e τ) := by
+  unfold etaD
+  have : (d : ℂ) * (-1 / (32 * (τ : ℂ))) = -1 / ((e : ℂ) * τ) := by
+    have hd' : (d : ℂ) ≠ 0 := by exact_mod_cast hd.ne'
+    have h32 : (32 : ℂ) = (d : ℂ) * e := by exact_mod_cast hde.symm
+    rw [h32]
+    field_simp [τ.ne_zero]
+  rw [this, eta_neg_inv_natMul he]
+
+theorem csq_values : csq 4 = 2 ∧ csq 16 = 4 ∧ csq 8 = 2 * csq 2 ∧ csq 32 = 4 * csq 2 := by
+  have h2 := csq_sq (k := 2) (by norm_num)
+  have h4 : csq 4 = 2 := by
+    rw [show (4 : ℕ) = 2 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), ← sq, h2]; norm_num
+  have h16 : csq 16 = 4 := by
+    rw [show (16 : ℕ) = 4 * 4 by norm_num, csq_mul (by norm_num) (by norm_num), h4]; norm_num
+  have h8 : csq 8 = 2 * csq 2 := by
+    rw [show (8 : ℕ) = 4 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), h4]
+  have h32 : csq 32 = 4 * csq 2 := by
+    rw [show (32 : ℕ) = 16 * 2 by norm_num, csq_mul (by norm_num) (by norm_num), h16]
+  exact ⟨h4, h16, h8, h32⟩
+
+/-- **`x(W₃₂τ) = 2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ))`.** -/
+theorem xC_fricke (τ : UpperHalfPlane) :
+    xC (-1 / (32 * (τ : ℂ))) =
+      2 + 8 * (etaD 2 τ * etaD 16 τ ^ 2 / (etaD 1 τ ^ 2 * etaD 8 τ)) := by
+  unfold xC
+  rw [etaD_fricke (d := 2) (e := 16) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 16) (e := 2) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 32) (e := 1) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨-, h16, h8, -⟩ := csq_values
+  rw [h16, h8, csq_one]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hr : Complex.sqrt (τ : ℂ) ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq τ.ne_zero] at this; exact τ.ne_zero this
+  have hc := csq_ne_zero 2
+  have e1 := etaD_ne_zero (d := 1) (by norm_num) τ
+  have e8 := etaD_ne_zero (d := 8) (by norm_num) τ
+  field_simp
+  ring
+
+/-- **`y(W₃₂τ) = −4η(2τ)²η(4τ)⁴/(η(τ)⁴η(8τ)²)`.** -/
+theorem yC_fricke (τ : UpperHalfPlane) :
+    yC (-1 / (32 * (τ : ℂ))) =
+      -(4 * (etaD 2 τ ^ 2 * etaD 4 τ ^ 4 / (etaD 1 τ ^ 4 * etaD 8 τ ^ 2))) := by
+  unfold yC
+  rw [etaD_fricke (d := 8) (e := 4) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 16) (e := 2) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 32) (e := 1) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨h4, -, h8, -⟩ := csq_values
+  rw [h4, h8, csq_one]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hr : Complex.sqrt (τ : ℂ) ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq τ.ne_zero] at this; exact τ.ne_zero this
+  have hc := csq_ne_zero 2
+  have hc2 := csq_sq (k := 2) (by norm_num)
+  have e1 := etaD_ne_zero (d := 1) (by norm_num) τ
+  have e8 := etaD_ne_zero (d := 8) (by norm_num) τ
+  field_simp
+  push_cast at hc2
+  linear_combination (0 : ℂ) * hc2
+
+/-- **`f` is a `W₃₂`-eigenform with eigenvalue `−1`**: `f(−1/(32τ)) = −32τ² f(τ)`. -/
+theorem fC_fricke (τ : UpperHalfPlane) :
+    fC (-1 / (32 * (τ : ℂ))) = -32 * (τ : ℂ) ^ 2 * fC τ := by
+  unfold fC
+  rw [etaD_fricke (d := 4) (e := 8) (by norm_num) (by norm_num) (by norm_num),
+    etaD_fricke (d := 8) (e := 4) (by norm_num) (by norm_num) (by norm_num)]
+  obtain ⟨h4, -, h8, -⟩ := csq_values
+  rw [h4, h8]
+  have hs : Complex.sqrt I ≠ 0 := by
+    intro h; have := congrArg (· ^ 2) h; simp [csqrt_sq I_ne_zero] at this
+  have hI : Complex.sqrt I ^ 2 = I := csqrt_sq I_ne_zero
+  have hτ : Complex.sqrt (τ : ℂ) ^ 2 = τ := csqrt_sq τ.ne_zero
+  have hc2 := csq_sq (k := 2) (by norm_num)
+  push_cast at hc2
+  field_simp
+  linear_combination 16 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * Complex.sqrt (τ : ℂ) ^ 4 * hc2 +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (Complex.sqrt (τ : ℂ) ^ 2 + τ) * hτ +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (τ : ℂ) ^ 2 * (Complex.sqrt I ^ 2 + I) * hI +
+    32 * (etaD 8 τ ^ 2 * etaD 4 τ ^ 2) * (τ : ℂ) ^ 2 * Complex.I_sq
+
+end Fricke
 
 end ZInQ.Contrib.TYZGenus.X0

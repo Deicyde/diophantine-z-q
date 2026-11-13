@@ -59,3 +59,4 @@
   vendored TC took 3 min): `tauG_range_iff` (range of cm-points' tauG = IsTorsI3 = A[(1+i)³]),
   `lemma318_iff` (Package.Lemma318 ↔ torsion of A(ℍ'_n) ⊆ A[(1+i)³], no τ), `two_nsmul_add_iPt_tauG`;
   axioms standard (`scratch/x0-32/AuditPkg.lean`).
+- COMPILED §14: xC_fricke, yC_fricke, fC_fricke (f is a W32-eigenform, eigenvalue −1) from Mathlib's eta_comp_eq_csqrt_I_inv; y(Wτ) formula VERIFIED numerically first (fricke2.py).
