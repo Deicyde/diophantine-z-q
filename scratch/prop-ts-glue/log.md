@@ -63,3 +63,12 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   genuine `RatFunc ℚ` (elaborates).
 - Compile: 0 errors, 24 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
 - Independent review agent launched (read-only, no Lean) on the truth of the open Props.
+
+## Step 6a (09:10): purity inlined, compiled
+- `PropTSGlue.lean` = PropTS.lean (verbatim) + `PurityCopy.lean.part` (t-purity3's
+  PurityDim2.lean from origin/wip/t-purity3 7e4d4dd0, verbatim minus import/#print lines, in a
+  section; original saved as `t-purity3-PurityDim2.orig.txt`) + `Appendix.lean.part`.
+  `check_identical.py`: PREFIX IDENTICAL, PURITY COPY CONTAINED (VERIFIED).
+- `purityGlobalDim2 : PurityGlobalDim2.{0} := TPurity3.purityGlobalDim2`;
+  `propTSAll_of_pieces'` = the composite without the purity hypothesis.
+- Compile (23 s): 0 errors; 26 PropTSGlue axiom lines all standard (VERIFIED).

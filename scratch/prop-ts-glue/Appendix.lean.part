@@ -1001,6 +1001,19 @@ theorem propTSAll_of_pieces (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pi
   propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
     (specNonMeeting_of_pieces'' hPur hVert hT hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
 
+/-- **`PurityGlobalDim2` is a theorem** (t-purity3's `TPurity3.purityGlobalDim2`, whose proof is
+copied into this file above; the two statements are character-identical). -/
+theorem purityGlobalDim2 : PurityGlobalDim2.{0} := TPurity3.purityGlobalDim2
+
+/-- **The composite without the purity hypothesis.** -/
+theorem propTSAll_of_pieces' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hVert : SNVertical) (hT : SNHorizontalTransfer)
+    (hS : SNSpecialize) (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue)
+    (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue)
+    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) (hN : HeckeNormalization)
+    (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_pieces t2 hR hM purityGlobalDim2 hVert hT hS hC hA hO hVF hAI hOI hVI hN hD hB hV
+
 end PropTSGlue
 
 end
@@ -1026,6 +1039,8 @@ end
 #print axioms PropTSGlue.coverModelOfHeckeN_of_pieces
 #print axioms PropTSGlue.coverModelOfHecke_of_pieces
 #print axioms PropTSGlue.propTSAll_of_pieces
+#print axioms PropTSGlue.purityGlobalDim2
+#print axioms PropTSGlue.propTSAll_of_pieces'
 #print axioms PropTSGlue.functionFieldModel_transfer
 #print axioms PropTSGlue.coverModel_transfer
 #print axioms PropTSGlue.coverModelOfHecke_of_witness
