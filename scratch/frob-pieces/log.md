@@ -62,3 +62,22 @@
 - Run 3: FrobPieces.lean exit 0, ~2 min 15 s, 99 axiom prints all standard, 0 sorryAx (VERIFIED,
   run3.txt). Pitfall: `RespectsIso @GeometricallyConnected` not found by instance search; give it
   as `MorphismProperty.IsStableUnderBaseChange.respectsIso` with the type annotated at Scheme.{0}.
+
+## Merges (10:25)
+- Merged origin/main (54cc2893, w43): conflict in ThirdParty/TauCeti/NOTICE (ring-class paragraph vs
+  this task's entry), resolved keeping both; .fleet/alg-frob-red.md deleted as on main.
+  diffcheck2 after merge: NOTE-ONLY 0, MOD-UNNOTED 0 (VERIFIED).
+- Merged origin/wip/afr-absfrob (2ffcf322, finished): `AlgFrobRedRed.absFrob : AbsFrob` (Mathlib),
+  `fExtendGen_of_nmp : PkgI2.NeronMappingAbelianScheme → FExtendGen`, `algFrobRed_of_nmp`.
+  Its AfrAbsFrob.lean is up to date with its build.sh (cmp, VERIFIED).
+
+## Combined form (VERIFIED, compiled)
+- build_full.sh → FrobPiecesFull.lean = src_AfrAbsFrob.lean (cmp-identical to
+  scratch/afr-absfrob/AfrAbsFrob.lean, which begins with a cmp-identical AlgFrobRed.lean) + Contrib
+  import + part_good + part_neron + part_final + part_full.
+- part_full: `algFrobRed_of_neron_nmp : AbVarSpreadsOut → ProperSmoothGenConnected → I2-Red →
+  I2-NMP → FrobTrace.AlgFrobRed`, `algFrobRed_of_spread_nmp` (AbSchemeSpreadsOut, I2-Red, I2-NMP),
+  `algFrobRed_of_goodRed_nmp` (GoodRedCofinite, I2-Red, I2-NMP), `tateBridge35_of_neron_nmp`,
+  `tateBridge35_of_spread_nmp`.
+- Run full-1: `lake env lean scratch/frob-pieces/FrobPiecesFull.lean` exit 0, ~3 min, 114 axiom
+  prints, all [propext, Classical.choice, Quot.sound], 0 sorryAx (VERIFIED, run_full1.txt).
