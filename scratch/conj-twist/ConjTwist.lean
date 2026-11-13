@@ -1395,6 +1395,53 @@ theorem conjTwistFromLeaves_of_N123 (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) : ConjTwistFromLeaves :=
   conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
 
+/-! ## §12. The injectivity half of N1 (proved)
+
+`Spec ℂ → Spec K̄` is surjective, hence dominant, `Spec K̄` is reduced and `A → Spec K` is
+separated (proper), so two `K̄`-points agreeing after `Spec ℂ → Spec K̄` are equal (Mathlib's
+`ext_of_isDominant_of_isSeparated`). What remains of N1 is the torsion surjectivity. -/
+
+/-- **`toC` is injective (proved).** -/
+theorem toC_injective {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (emb : AlgebraicClosure K →+* ℂ) : Function.Injective (toC A emb) := by
+  intro P P' h
+  apply Over.OverMorphism.ext
+  have hU : Spec.map (CommRingCat.ofHom emb) ≫ P.left =
+      Spec.map (CommRingCat.ofHom emb) ≫ P'.left := by
+    have := congrArg CommaMorphism.left h
+    exact this
+  haveI : IsReduced (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left := by
+    change IsReduced (Spec (CommRingCat.of (AlgebraicClosure K))); infer_instance
+  have h0 : Surjective (Spec.map (CommRingCat.ofHom emb)) :=
+    ⟨fun y => ⟨IsLocalRing.closedPoint ℂ, Subsingleton.elim _ _⟩⟩
+  let ι' : Spec (CommRingCat.of ℂ) ⟶ (PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K)).left :=
+    Spec.map (CommRingCat.ofHom emb)
+  haveI : Surjective ι' := h0
+  exact ext_of_isDominant_of_isSeparated A.X.hom (by rw [Over.w P, Over.w P']) ι' hU
+
+/-- **N1-surj. Torsion comparison, surjectivity (GLUE, unproved; STANDARD).** Every `n`-torsion
+point of `A(ℂ)_{ι∘alg}` (`n ≥ 1`) comes from `A(K̄)`. (`toC` is injective, `toC_injective`; both
+`A(K̄)[n]` and `A(ℂ)[n]` have `n^{2g}` elements, by T5 over `K̄` and over `ℂ`; equivalently `A[n]`
+is finite étale in characteristic `0`. Mumford §4, §6, UNVERIFIED numbers.) -/
+def ArtinTorsionSurj : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (n : ℕ), 0 < n →
+    ∀ Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))), Q ^ n = 1 →
+      ∃ P, toC A emb P = Q
+
+theorem artinTorsion_of_surj (h : ArtinTorsionSurj) : ArtinTorsion :=
+  fun K _ A emb n hn => ⟨toC_injective A emb, h K A emb n hn⟩
+
+/-- **`ConjTwistNontrivial` from T26, T35, N1-surj, N2, N3 (proved).** -/
+theorem conjTwistNontrivial_of_surj (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_N123 hT h35 (artinTorsion_of_surj hS) hN2 hN3
+
+/-- **`ConjTwistFromLeaves` from N1-surj, N2, N3 (proved).** -/
+theorem conjTwistFromLeaves_of_surj (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_of_N123 (artinTorsion_of_surj hS) hN2 hN3
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1417,3 +1464,6 @@ end G0Galois
 #print axioms G0Galois.tateLatticeInj_of_artinTorsion
 #print axioms G0Galois.conjTwistNontrivial_of_N123
 #print axioms G0Galois.conjTwistFromLeaves_of_N123
+#print axioms G0Galois.toC_injective
+#print axioms G0Galois.conjTwistNontrivial_of_surj
+#print axioms G0Galois.conjTwistFromLeaves_of_surj

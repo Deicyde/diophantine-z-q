@@ -59,7 +59,7 @@
   `conjTwistFromLeaves_of_latticeInj`, `conjTwistFromLeaves_of_lattice`. Naturality lemmas
   generalized to linear α. Whole file: 0 errors, 0 sorry, 17 `#print axioms` standard.
   VERIFIED (compiled).
-- 2026-11-13 06:10 §11 added: `phi_zero`, `phi_nsmul`, `phi_sum`, `smul_inv_pow`, `smul_inv_succ`,
+- 2026-11-13 06:05 §11 added: `phi_zero`, `phi_nsmul`, `phi_sum`, `smul_inv_pow`, `smul_inv_succ`,
   `phi_tors`, `xPt`/`xPt_spec`, `xSeq` (x(λ) ∈ T_ℓ(A)), `xHom`, `xLin`,
   `xLin_liftBaseChange_injective`, **`tateLatticeInj_of_artinTorsion : ArtinTorsion →
   TateLatticeInj`** (N4' proved from N1), **`conjTwistNontrivial_of_N123 : TateModuleFree →
@@ -67,3 +67,9 @@
   **`conjTwistFromLeaves_of_N123 : ArtinTorsion → HomLinearLift → ConjAntiLift →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 20 `#print axioms` standard.
   VERIFIED (compiled).
+- 2026-11-13 06:12 §12 added: **`toC_injective`** (proved with Mathlib's
+  `ext_of_isDominant_of_isSeparated`: Spec ℂ → Spec K̄ surjective, Spec K̄ reduced, A proper),
+  glue def `ArtinTorsionSurj` (N1-surj), `artinTorsion_of_surj`,
+  **`conjTwistNontrivial_of_surj : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
+  HomLinearLift → ConjAntiLift → ConjTwistNontrivial`**, `conjTwistFromLeaves_of_surj`.
+  Whole file: 0 errors, 0 sorry, 23 `#print axioms` standard. VERIFIED (compiled).
