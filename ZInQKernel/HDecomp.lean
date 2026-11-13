@@ -63,6 +63,12 @@ import ZInQKernel.HDecomp.Sqrt.Disj
 import ZInQKernel.HDecomp.Sqrt.SqrtLocal
 import ZInQKernel.HDecomp.Vigneras.Global
 import ZInQKernel.HDecomp.Vigneras.Local
+import ZInQKernel.HDecomp.ModCurves.C9
+import ZInQKernel.HDecomp.ModCurves.E1Sub
+import ZInQKernel.HDecomp.ModCurves.X1Belyi
+import ZInQKernel.HDecomp.Faltings.HodgeLattice
+import ZInQKernel.HDecomp.Faltings.H5Neron
+import ZInQKernel.HDecomp.Faltings.H5BaseChange
 
 /-! The glue of `docs/research/h-decomposition.md` (tasks hdec-adopt, hdec-adopt2,
 hdec-adopt3, hdec-adopt4): every adopted module.

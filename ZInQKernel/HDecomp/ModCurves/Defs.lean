@@ -88,8 +88,8 @@ open WeierstrassCurve AlgebraicGeometry
 /-- The function field `ℚ(j)` of the `j`-line. -/
 abbrev Qj := RatFunc ℚ
 
-/-- The elliptic curve over `ℚ(j)` with `j`-invariant `j` (Mathlib `ofJNe0Or1728`:
-`y² + xy = x³ − 36/(j−1728)·x − 1/(j−1728)`). -/
+/-- The elliptic curve over `ℚ(j)` with `j`-invariant `j` (Mathlib v4.35 `ofJNe0Or1728`:
+`y² + (j−1728)xy = x³ − 36(j−1728)³x − (j−1728)⁵`, with `Δ = j²(j−1728)⁹`). -/
 def Ej : WeierstrassCurve Qj := ofJNe0Or1728 (RatFunc.X : Qj)
 
 theorem X_sub_1728_ne_zero : (RatFunc.X : Qj) - 1728 ≠ 0 := by
