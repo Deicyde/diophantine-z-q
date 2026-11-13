@@ -333,32 +333,45 @@ theorem g2Out_of_cover (u : ℚ) (P : QML3 Qbar) (h : FibreCoverOut u P) : G2Out
 
 /-! ## G4's bookkeeping (proved) -/
 
+/-- **Compositum of unramified fields (STANDARD; remaining, not in Mathlib v4.35).** If `E`
+and `K` are finite over `ℚ` and unramified at `p`, so is `E ⊔ K` (Neukirch, *Algebraic Number
+Theory*, I (8.?)/III, UNVERIFIED locator; a prime is unramified in a compositum iff it is in both
+factors, for Galois factors). -/
+def UnramifiedSup : Prop :=
+  ∀ (E K : IF) [FiniteDimensional ℚ E] [FiniteDimensional ℚ K] [IsGalois ℚ E] [IsGalois ℚ K]
+    (p : ℕ), UnramifiedAt E p → UnramifiedAt K p → UnramifiedAt (E ⊔ K) p
+
 /-- **G4's input, the kernel field (N5 L540-563 and B1, L632-663; remaining).** For a field `K`
 and model `A/K` as in G2's output: `W₀ = Res_{K/ℚ} A` has endomorphism lattice of rank `r ≤ 16F₀²`;
 the image of `G_ℚ` on it is a finite subgroup `G ≤ GL_r(ℤ)` with kernel field `E`
-(`[E:ℚ] = |G|`); the Hom field `L = E ⊔ K` is unramified outside `T` (inertia acts trivially
-on the Tate module of `W₀`); and over `L` there are a model `A_L` of `P`'s surface and its
-descent datum `ε` (Skolem-Noether correction and normalization of `μ_σ`, B1). -/
-def KernelFieldOut (u : ℚ) (P : QML3 Qbar) (K : IF) : Prop :=
+(`[E:ℚ] = |G|`), unramified outside `T` (inertia at `p ∉ T` acts trivially on the Tate module of
+`W₀`, which has good reduction there); and the base change `A_L` of `A` to the Hom field
+`L = E ⊔ K` carries a descent datum `ε` (Skolem-Noether correction and normalization of the
+conjugacy isogenies `μ_σ`, B1). -/
+def KernelFieldOut (u : ℚ) (P : QML3 Qbar) (K : IF) (A : PkgI3.AbVar K) : Prop :=
   ∃ (r : ℕ), r ≤ 16 * heightF0 ^ 2 ∧
   ∃ (G : Subgroup (GL (Fin r) ℤ)) (_ : Finite G) (E : IF) (_ : FiniteDimensional ℚ E)
     (_ : IsGalois ℚ E), Module.finrank ℚ E = Nat.card G ∧
-    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt (E ⊔ K) p) ∧
-    ∃ (A : PkgI3.AbVar ↥(E ⊔ K)) (ε : GQ → GQ → ℂˣ), IsModelOver (E ⊔ K) A P ∧
-      DescentDatum (E ⊔ K) A ε
+    (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt E p) ∧
+    ∃ ε : GQ → GQ → ℂˣ,
+      DescentDatum (E ⊔ K) (@PkgI3.AbVar.baseChange K _ A ↥(E ⊔ K) _ (incAlg le_sup_right)) ε
 
-/-- **G4, proved from the kernel field**: `L = E ⊔ K` is finite Galois and
-`[L:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D` (Minkowski, `GlueRepo.TorsionFree.card_le_three_pow`;
-`GlueRepo.Numerics.a8_field`). -/
-theorem g4Out_of_kernelField (u : ℚ) (P : QML3 Qbar) (K : IF) [FiniteDimensional ℚ K]
-    [IsGalois ℚ K] (hK : Module.finrank ℚ K ≤ heightF0) (h : KernelFieldOut u P K) :
-    G4Out u P := by
-  obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hram, A, ε, hA, hD⟩ := h
+/-- **G4, proved from the kernel field**: `L = E ⊔ K` is finite Galois, unramified outside `T`
+(`UnramifiedSup`), `[L:ℚ] ≤ [K:ℚ]·[E:ℚ] ≤ F₀·3^{r²} ≤ D` (Minkowski,
+`GlueRepo.TorsionFree.card_le_three_pow`; `GlueRepo.Numerics.a8_field`), and `A_L` is a model of
+`P`'s surface (`isModelOver_baseChange`). -/
+theorem g4Out_of_kernelField (hSup : UnramifiedSup) (u : ℚ) (P : QML3 Qbar) (K : IF)
+    [FiniteDimensional ℚ K] [IsGalois ℚ K] (hK : Module.finrank ℚ K ≤ heightF0)
+    (hramK : ∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) (A : PkgI3.AbVar K)
+    (hA : IsModelOver K A P) (h : KernelFieldOut u P K A) : G4Out u P := by
+  obtain ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, ε, hD⟩ := h
   have hE : Module.finrank ℚ E ≤ 3 ^ (r ^ 2) := hEG ▸ GlueRepo.TorsionFree.card_le_three_pow G
   have hdeg : Module.finrank ℚ ↥(E ⊔ K) ≤ heightD :=
     GlueRepo.Numerics.a8_field E K Compiler.Precision.heightD_eq hK hE hr
   have : IsGalois ℚ ↥(E ⊔ K) := IsGalois.mk
-  exact ⟨E ⊔ K, inferInstance, inferInstance, hdeg, hram, A, ε, hA, hD⟩
+  exact ⟨E ⊔ K, inferInstance, inferInstance, hdeg,
+    fun p hp => hSup E K p (hramE p hp) (hramK p hp), _, ε,
+    isModelOver_baseChange le_sup_right A P hA, hD⟩
 
 /-! ## The remaining glue as Props, and the composite -/
 
@@ -378,27 +391,28 @@ def KernelFieldExists : Prop :=
     (P : QML3 Qbar), FibreCtx Y Φ π u P →
     ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K], Module.finrank ℚ K ≤ heightF0 →
       (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt K p) →
-      ∀ A : PkgI3.AbVar K, IsModelOver K A P → KernelFieldOut u P K
+      ∀ A : PkgI3.AbVar K, IsModelOver K A P → KernelFieldOut u P K A
 
 /-- **G2 → G4 → G7 (proved)**: from the two remaining glue Props and the four B2 leaves, every
 fibre context has G7's output. -/
-theorem fieldDescent (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+theorem fieldDescent (hCover : FibreCoverExists) (hKer : KernelFieldExists) (hSup : UnramifiedSup)
     (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
     (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
     (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7Out u P := by
   obtain ⟨K, hfK, hgK, hK, hramK, A, hA⟩ := g2Out_of_cover u P (hCover Y Φ π u P hctx)
   exact g7Out_of_g4Out hHasse hTwo hSq hUnr u P
-    (g4Out_of_kernelField u P K hK (hKer Y Φ π u P hctx K hK hramK A hA))
+    (g4Out_of_kernelField hSup u P K hK hramK A hA (hKer Y Φ π u P hctx K hK hramK A hA))
 
 /-- **G2 → G4 → G7 with the twist (proved)**: as `fieldDescent`, with `L'` unramified outside `T`
 and the clause list `G7Data`. -/
 theorem fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hSup : UnramifiedSup)
     (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
     (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
     (P : QML3 Qbar) (hctx : FibreCtx Y Φ π u P) : G7OutUnr u P := by
   obtain ⟨K, hfK, hgK, hK, hramK, A, hA⟩ := g2Out_of_cover u P (hCover Y Φ π u P hctx)
   exact g7OutUnr_of_g4Out hHasse hTwo hSq hUnr u P
-    (g4Out_of_kernelField u P K hK (hKer Y Φ π u P hctx K hK hramK A hA))
+    (g4Out_of_kernelField hSup u P K hK hramK A hA (hKer Y Φ π u P hctx K hK hramK A hA))
 
 /-! ## How G7's output feeds `ModularConstituent` -/
 
@@ -453,12 +467,13 @@ def AfterG7 : Prop :=
 /-- **`ModularConstituent` from this range and the next (proved)**: G2, G4, G7 here
 (`fieldDescentUnr`) and the ranges G8-G16 as `AfterG7`. -/
 theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hSup : UnramifiedSup)
     (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
     (hRest : AfterG7) : ModularConstituentG := by
   intro Y Φ π h1 h2 u hu y P hy hπ
   have hctx : FibreCtx Y Φ π u P := ⟨h1, h2, hu, y, hy, hπ⟩
   obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hdata⟩ :=
-    fieldDescentUnr hCover hKer hHasse hTwo hSq hUnr Y Φ π u P hctx
+    fieldDescentUnr hCover hKer hSup hHasse hTwo hSq hUnr Y Φ π u P hctx
   obtain ⟨M, J, hM, hJ, hMle, hCC⟩ := hRest Y Φ π u P hctx L A ε N χ β L' hle hdata
   haveI : NumberField L' := numberField_of_fd L'
   exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
