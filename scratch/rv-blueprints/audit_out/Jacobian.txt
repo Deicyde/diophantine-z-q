@@ -1,0 +1,4 @@
+'BPModCurves.IsJacobian.unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.jacobian_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+rv_audit: 38 declarations; non-standard axioms in 0: []
+exit=0 secs=5

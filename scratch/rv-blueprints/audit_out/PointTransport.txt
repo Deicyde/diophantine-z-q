@@ -1,0 +1,6 @@
+'BPModCurves.mapPt_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.addOrderOf_mapPt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.exists_tateNF_order' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.y1PointsEquivTate' depends on axioms: [propext, Classical.choice, Quot.sound]
+rv_audit: 70 declarations; non-standard axioms in 0: []
+exit=0 secs=6

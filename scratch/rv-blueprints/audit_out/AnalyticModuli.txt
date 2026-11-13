@@ -1,0 +1,8 @@
+'BPModCurves.lattice_homothety' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.point_preserved_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.exactOrder' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.exists_SL2_of_homothety' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.pair_iso_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.exists_normalize' depends on axioms: [propext, Classical.choice, Quot.sound]
+rv_audit: 16 declarations; non-standard axioms in 0: []
+exit=0 secs=6

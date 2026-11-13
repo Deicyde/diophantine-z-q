@@ -1,0 +1,104 @@
+# rv-blueprints results log
+
+## 18:15-18:20 Compile audit (VERIFIED, compiled)
+Each blueprint Lean file copied to `Audit_<name>.lean` with `audit_tail.lean` appended (an `elab`
+command that runs `Lean.collectAxioms` on every declaration added by the file and reports any
+axiom other than propext, Classical.choice, Quot.sound). Runner `run_audit.sh` (sequential, one
+Lean process). Outputs in `audit_out/`.
+
+| file | exit | errors | warnings | sorry | declarations audited | non-standard axioms |
+| --- | --- | --- | --- | --- | --- | --- |
+| bp-faltings/Hodge | 0 | 0 | 0 | 0 | 125 | none |
+| bp-faltings/Models | 0 | 0 | 0 | 0 | 40 | none |
+| bp-modcurves/Gamma1Genus | 0 | 0 | 0 | 0 | 44 | none |
+| bp-modcurves/TateNormalForm | 0 | 0 | 0 | 0 | 12 | none |
+| bp-modcurves/Jacobian | 0 | 0 | 0 | 0 | 38 | none |
+| bp-modcurves/ModularCurveDefs | 0 | 0 | 0 | 0 | 20 | none |
+| bp-modcurves/AnalyticModuli | 0 | 0 | 0 | 0 | 16 | none |
+| bp-modcurves/PointTransport | 0 | 0 | 0 | 0 | 70 | none |
+| bp-qmmoduli/QMOrder | 0 | 0 | 21 (linter) | 0 | 81 | none |
+| bp-qmmoduli/Units72 | 0 | 0 | 0 | 0 | 7 | none |
+| bp-qmmoduli/QMAbVar (imports ZInQKernel.HDecomp.A6.A6, prebuilt) | 0 | 0 | 9 (linter) | 0 | 176 | none |
+
+Warnings are unused-tactic / deprecated `push_neg` linter warnings only.
+(First run failed only in the appended audit command: a `MessageData` numeral typing slip,
+fixed by `let mut n : Nat := 0`; the blueprint files themselves compiled in that run too.)
+
+## 18:21 AT3 normalization check (VERIFIED, computed: at3_check.py, at3_check.out)
+faltingsHeightEC(y^2 = x^3 + 1) by direct 2-d integration = -1.3211174284280; the eta-product
+form -(1/12)log(|eta(rho)|^24 (Im rho)^6) - log 2pi gives the same to 19 digits. Deligne's
+recalled minimum -0.74875248 (STANDARD, locator UNVERIFIED) minus (1/2)log pi = -1.3211174229
+(agrees to the 8 digits of the recalled constant). So faltingsHeightEC is Faltings-normalized
+and h_D = h_F + (1/2) log pi at g = 1.
+
+## 18:24 §2.2 sign check of bp-qmmoduli (VERIFIED, computed: sheet_check.py, sheet_check.out)
+B = (2,-3) in M2(R) (i -> diag(√2,-√2), j -> [[0,1],[-3,0]]; relations asserted), μ = 2j + ij,
+μ² = -6 asserted. For 30 random J with J² = -1 (16 on the sheet c > 0, 14 on c < 0), the form
+x ↦ E0(xJ, x), E0(x,y) = trd(μ⁻¹ x ȳ), is negative definite on the sheet c > 0 (eigenvalues in
+[-50.8, -0.028]) and positive definite on c < 0 (eigenvalues in [0.063, 46.7]). So exactly one
+sign of ±E0 is a Riemann form for each complex structure, as bp-qmmoduli §2.2 claims.
+
+## 18:26 Findings (statements; details in docs/research/rv-blueprints.md)
+- F-a (bp-faltings) inf definition: correct in Faltings' normalization (Néron mapping property
+  for every smooth O_L-scheme ⇒ ω_N ⊆ ω_G ⇒ h(G) ≥ h(N_L) ≥ h(N_L') = h_st). STANDARD argument.
+- F-b R18, R20, R21, R22 hold for h_F as stated whatever the paper's normalization (directions:
+  upper bounds on h_F follow from bounds on h_D ≥ h_F; R20 is a difference; R21: (1/2)log(2π²)
+  = 1.4913 < 3/2; R22: log π = 1.1447 < 3). R19 is the one normalization-sensitive leaf: a
+  consequence only if Gaudron–Rémond's h is original-Faltings (as locators.md read).
+- F-c AT1's right side faltingsHeightEC is the same integral formula; the external normalization
+  check is AT3 (re-verified here). No acceptance test exercises g ≥ 2 against an independent
+  value: add additivity h(E1×E2) = h(E1)+h(E2) (H7) as AT4.
+- M-a (bp-modcurves) IsJacobian is a universal property over genuine objects; JacobianExists
+  is Milne/Weil's existence theorem; neither vacuous nor a disguised conclusion.
+- M-b MC9 ("our model ≅ Shimura's canonical model") is a leaf over an object the blueprint does
+  not define; unnecessary because the existential R16 is invariant under ℚ-isomorphism of J.
+- Q-a (bp-qmmoduli) N5 as printed DOES use the moduli scheme over a base (Buzzard's model over
+  ℤ[1/30], universal abelian scheme, N5 L443-530); the verdict holds for h-trust's route only.
+- Q-b R5fp (degree form) is too weak for A10 (rv-h-cm §7.2): case D(R) ≠ 1 needs k ⊆ ℚ(x);
+  counterexample to sufficiency: R = O of Q(√-19), h = 1, D(R) = 6, #CM = 4 = |W-orbit|,
+  [ℚ(x):ℚ] = 2 = [ℚ(i):ℚ]. Also NoCM step 2 (twist constants) needs exact fields at t = 1, ∞.
+- Q-c R1an (pointwise) too weak for F1: the Hauptmodul comparison needs every τ to occur and
+  τ ↦ π(P_τ) holomorphic.
+- Q-d Lemma NV step 4 (h-b1) needs X6 geometrically connected and W-Galois (h-b1 M10, π0 = 1);
+  no field-point leaf of bp-qmmoduli supplies π0.
+
+## 18:28 Lean: Normalizations.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+`log_two_pi_sq_lt_three : log(2π²) < 3`; `bost_F_of_D` (h_D = h_F + (g/2)log π and
+h_D ≥ −(g/2)log 2π ⇒ h_F ≥ −(3/2)g, i.e. R21 is a consequence of a Deligne-normalized Bost bound);
+`log_pi_lt_three` (R22's +3 covers the g = 2 shift); `faltings_le_deligne`, `faltings_kappa_le`
+(the h_F form of Gaudron–Rémond's κ is the smaller right side, so R19 over h_F is stronger than
+an h_D-normalized original would be). Mathlib only, about 1 min.
+
+## 18:31 Lean: R5Repair.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+Copy of bp-qmmoduli/QMAbVar.lean plus `R5fpStrong` (repair Q2: for b ≥ 1, [ℚ(x):ℚ] = 2#Pic R and
+k ↪ ℚ(x); for b = 0, [ℚ(x):ℚ] = #Pic R) and `R5fp_of_R5fpStrong : R5fpStrong → R5fp` (proved).
+
+## 18:33 Finding F-d (bp-faltings H7)
+E4 (N5 L893-905) uses additivity in the direction h(A) + h(Z) ≤ h(A×Z) (it bounds h(A) by
+h(A×Z) − h(Z)). Under the infimum definition, product models give only h(A×Z) ≤ h(A) + h(Z).
+The needed direction requires the infimum for A×Z to be attained by a product model: Néron model
+of a product = product of Néron models (immediate from the mapping property, M5) over a common
+semistable field (H5). So H7 depends on M5/H5, contrary to bp-faltings §2.6 (H7: "from AV6, AR3
+and the covolume of a product lattice"), and h-decomposition's remark under R20 ("additivity ...
+follows from the definition: glue") is false for this definition. Base-change invariance does
+follow from H4 alone (cofinality of composita).
+
+## 18:35 Lean: R16Transfer.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+Over bp-modcurves' `AbVar` copy: `exists_quotient_transfer` — if `∃ A, π : J ⟶ A` surjective
+homomorphism with `P A`, and `J ≅ J'` (inverse a homomorphism), then the same holds for `J'`.
+Every clause of the existential R16 other than π concerns A only, so the conclusion transfers
+between Jacobians of ℚ-isomorphic models (repair M1: MC9 not needed as a leaf).
+
+## 18:38 Finding Q-e (bp-qmmoduli R2fp)
+R2fp's CM clauses are one-directional (HasCM4 → π = 0, ...). h-b1 Lemma NV step 2 (via M9) uses
+the converse: every point over a branch value b_i is a CM point by the maximal order of
+discriminant −4, −3, −24. With the one-directional clauses and R5fpCount's existence guard
+(`(∃ P, com P ≅ R) →`), no leaf asserts that such CM objects exist. Repair: biconditional
+clauses (true: com ⊇ ℤ[i] forces com = ℤ[i], and the fibre over 0 is the single orbit CM(ℤ[i])),
+a consequence of Baba–Granath's identification of the elliptic points with the CM points.
+
+## 18:50 Report written (docs/research/rv-blueprints.md)
+Verdicts: bp-faltings SOUND AFTER REPAIRS (F1-F4); bp-modcurves SOUND AFTER REPAIRS (M1);
+bp-qmmoduli SOUND AFTER REPAIRS (Q1-Q5). Q4 refined: π0(X6) = 1 may be supplied as a leaf
+(Deligne 1971 §2) or as glue (two points over each branch value by R5fpCount + Q5; a quadratic
+cover of P¹ is branched at an even number of points) — sketch SPECULATIVE.

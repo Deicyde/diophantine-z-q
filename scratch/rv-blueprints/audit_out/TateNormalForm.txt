@@ -1,0 +1,6 @@
+'BPModCurves.exists_tateNF' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.tateNF_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.tateNF_unique'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.tateNF_Δ' depends on axioms: [propext, Quot.sound]
+rv_audit: 12 declarations; non-standard axioms in 0: []
+exit=0 secs=5
