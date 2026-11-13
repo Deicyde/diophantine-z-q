@@ -7,7 +7,7 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 57a7fa26, which adds
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 05a66d25, which adds
   proofs of two of the headline's five hypotheses and a proof of H from literature theorems and named glue
   statements)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
@@ -188,11 +188,14 @@ textbook theorems are now glue, and five of them are proved), and 20 glue steps.
   2026-11-13, R14 (Galois representations of eigenforms) was found to omit its published determinant clause, and
   the proof of G8-G12 uses a form of R14 that includes it; an input of step G4 was found false as stated and was
   replaced by a corrected form, proved from two leaves; and R10 (de Rham comparison) was found to lack the clause
-  of the Hodge–Tate decomposition that the manuscript's appendix lemma needs, so it is to be amended.
+  of the Hodge–Tate decomposition that the manuscript's appendix lemma needs. The amended R10 includes it, and
+  the appendix lemma (G9) now follows from the amended R10 alone.
 - **Stated in Lean.** 56 of the 58 leaves are stated over genuine definitions in
   `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`, no `sorry`); one more, on
-  the Shimura curve, is stated in part, and the last, Carayol's theorem, is a named placeholder with no content
-  until conductors of ℓ-adic representations are defined. Each leaf on the Shimura curve has folded into it a
+  the Shimura curve, is stated in part, and the last, Carayol's theorem, is a named placeholder there. Both are
+  now stated concretely elsewhere (Carayol's theorem over the conductors defined in
+  `ZInQKernel/HDecomp/Conductor/LadicCond.lean`, the missing part of R1 in family form), and the newest
+  assembly of the glue uses those forms. Each leaf on the Shimura curve has folded into it a
   lemma that fixes the type of the principal polarization of a QM abelian surface (Lemma P of
   docs/research/rv-qm-polar.md, published locators unverified), and most leaves about the Faltings height have content
   only together with the leaves that say this height is finite.
@@ -222,8 +225,11 @@ textbook theorems are now glue, and five of them are proved), and 20 glue steps.
   the leaves as first stated, because the leaves on the Shimura curve did not pin down its moduli map. The leaf
   R1 now pins it, with two clauses taken from the same Shimura–Deligne theorem (their locators are unverified);
   with them, each of the three is equivalent to its statement for that map, given one more glue statement
-  (`MobiusGlue`, reduced to a few named facts about curves and a textbook leaf). `HSyn.sixContactMin_of_leaves_pin`
-  proves H from the leaves and this repaired bundle of 11 glue statements.
+  (`MobiusGlue`, now proved from a single textbook leaf). `HSyn.sixContactMin_of_leaves_pin`
+  proves H from the leaves and this repaired bundle of 11 glue statements. The newest assembly,
+  `HSyn.sixContactMin_of_leaves3` (docs/research/g0-assemble2.md), splits the glue into 40 smaller named
+  statements (15 published theorems, 3 candidates for that status and 22 glue statements) and needs no
+  placeholder.
 - **Proved glue, as separate lemmas** (each from its leaves; adopted into the kernel-checked library under
   `ZInQKernel/HDecomp/`, now 86 modules, or as scratch files on the fork's main; no `sorry`): the step G4 (the Hom
   field), from leaves alone; the adelic bookkeeping of the normalizer of the quaternion order, with
@@ -238,10 +244,11 @@ textbook theorems are now glue, and five of them are proved), and 20 glue steps.
   nontrivial), from leaves (one of them new) and the multiplication isogeny; the count of inner twists and the
   unramified conjugates; the field of the kernel at step G4, from six leaves and two named statements; the
   base change of abelian varieties that the appendix lemma (G9) uses, and the multiplication isogeny, from
-  Mathlib alone; and elementary pieces of most other steps.
-- **Still missing from every Lean library:** the definitions behind the remaining placeholders: conductors of
-  ℓ-adic representations at infinite level, and the complex uniformization of the Shimura curve (section 4 of the
-  note). Mathlib cannot yet construct a nonzero abelian variety; a bridge to the Jacobians of the AxiomMath/Mordell
+  Mathlib alone; the appendix lemma (G9), from the amended R10 alone; the comparison of two moduli maps
+  (`MobiusGlue`), from one textbook leaf; and elementary pieces of most other steps.
+- **Still missing from every Lean library:** the definitions that section 4 of the note lists. None of them is
+  behind a placeholder any more: conductors of ℓ-adic representations are defined, and the complex
+  uniformization of the Shimura curve is stated concretely in family form. Mathlib cannot yet construct a nonzero abelian variety; a bridge to the Jacobians of the AxiomMath/Mordell
   library is on a branch of the fork, waiting for a build cache. The stable Faltings height has a Lean
   definition, and the six height leaves are stated over it; whether that definition is non-vacuous is still open.
 - **Fallback route.** An alternative modularity route (Khare–Wintenberger with Ribet) needs 20 research-level
@@ -265,14 +272,14 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 57a7fa26) the build completes (10,013 jobs);
+Every Lean change is built before it reaches main. At the current Lean (fork main 05a66d25) the build completes (10,013 jobs);
 all 542 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the reductions, the
 Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three standard axioms,
-with no `sorry`; all 1,850 files under `ZInQKernel/Contrib/` build (most of them are the vendored Tau Ceti
+with no `sorry`; all 1,858 files under `ZInQKernel/Contrib/` build (most of them are the vendored Tau Ceti
 library), and the two proofs of hypotheses, and those of the textbook leaves proved there, depend only on the same axioms; `scripts/check_target.py` confirms the statement; `scratch/h-decomposition/Leaves.lean` compiles
 with no error and no `sorry`, its 210 axiom reports (among them `HDec.HSyn.sixContactMin_of_open`) list only the
 standard axioms; the site
-builds with no problems; and the blueprint audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
+builds with no problems (148 pages, 672 blueprint articles); and the blueprint audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
 #24 (before Proposition N): 9,923 jobs, 80 declarations with standard axioms, and an audit replay of 33,548
 declarations with 0 open statements. GitHub has disabled Actions on the fork since 2026-11-10, so these checks run
 on the project's own machines; on the upstream repository, the kernel build and an exact-target audit run as a

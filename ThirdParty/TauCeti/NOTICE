@@ -67,6 +67,16 @@ Repository: https://github.com/TauCetiProject/TauCeti
   file (commit 97a5b235): NumberTheory/ClassFieldTheory/ClassField
   (classField_fixingOpenNormalSubgroup, isAbelianClassFieldLayer_fixingOpenNormalSubgroup;
   the proof of the first is rewritten, as its note line says).
+- Commit 4d91513e4d30746eb1fa96658c18e051c772e55e (2026-11-13, Tau Ceti main, on Lean
+  v4.36.0-rc2): the modules backported by the Z-in-Q task t40-tate (the closure of
+  AlgebraicGeometry.EllipticCurve.TateCurve.Homomorphism, Tate's uniformization as a
+  group homomorphism). The 57 modules of that closure not vendored earlier are copied
+  whole under Backport/ (list in scratch/t40-tate/backport-main.txt); for five vendored
+  commit-5a01f5fe modules of the closure (Analysis/Normed/Ring/Ultra,
+  Analysis/Asymptotics/Lemmas, Algebra/Group/Units/Basic, Algebra/Algebra/Hom,
+  GroupTheory/QuotientGroup/Basic; list in scratch/t40-tate/extras-list.txt) the
+  Backport/ file of the same path holds the declarations of the commit-4d91513e
+  version that the commit-5a01f5fe version lacks.
 
 Location in this repository
 ---------------------------
@@ -85,6 +95,24 @@ Files under Backport/ (task kw-new) hold declarations taken from the commit-97a5
 version of a Tau Ceti module whose commit-5a01f5fe version is vendored; they keep
 Tau Ceti's copyright header and carry a line "-- Backported from Tau Ceti (...)"
 naming the source commit and module.
+
+Files under Backport/ from task t40-tate carry, instead of the provenance line, the
+lines "-- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit
+4d91513e4d30, module <module>), Apache-2.0: ..." naming the source module, and every
+one of them carries a "-- Modified for the Z-in-Q kernel: ..." line: all have their
+imports rewritten (to ZInQKernel.Contrib.TauCeti.X for vendored modules and to
+ZInQKernel.Contrib.TauCeti.Backport.X for backported ones), the five partial files
+have the declarations already present in the vendored module removed, and six files
+have further changes for the pinned Mathlib, named in their note line:
+Backport/Analysis/Normed/Field/ZPowers.lean, Backport/Analysis/Normed/Group/Ultra.lean,
+Backport/Algebra/Polynomial/Derivative.lean,
+Backport/Topology/Algebra/InfiniteSum/IntegralCoefficients.lean,
+Backport/Analysis/Normed/Module/InfiniteSum.lean and
+Backport/AlgebraicGeometry/EllipticCurve/TateCurve/Injectivity.lean. Declaration
+names and namespaces are unchanged, so a Backport/ file of task t40-tate must not be
+imported together with a commit-5a01f5fe copy of the same module vendored at the
+non-Backport path (none is vendored at the time of writing, except the five modules
+completed by the partial files).
 
 Modified files
 --------------
