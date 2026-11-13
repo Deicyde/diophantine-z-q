@@ -39,3 +39,7 @@
   (omax_cosets.py, sympy/fractions): of the 36 classes of O^∨/O only 0 has integral norm (VERIFIED, computed).
   kernelFieldExists_of_final (leaves HFF, NOS, Raynaud, TorsionStructure, T27; glue FS5, EndTransport, ConjIsogMaps)
   compiled, standard axioms (VERIFIED, build_final.txt).
+- blinear_of_twisted_iso (Skolem–Noether descent on homomorphisms: from A7's twisted QM iso e : (A, ι∘α) ≅ (A', ι'),
+  μ = e.φ ∘ ι(b), b = N·u ≠ 0, is 𝒪-linear) compiled, standard axioms (VERIFIED, build_final.txt).
+- Finding: EndTransport needs rigidity: IsBaseChangeOf / IsModelOver record only a scheme iso (with ι, η compatibility),
+  not the group law; η(0)=0 gives 0 ↦ 0, and g0-fibresimple's leaf RigidityHom then makes it a homomorphism.

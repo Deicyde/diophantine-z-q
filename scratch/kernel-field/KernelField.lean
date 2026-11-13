@@ -4595,6 +4595,45 @@ theorem faithful_O (hT : TorsCount V) (ρ : O →+* AddMonoid.End V) {c : O} (hc
   obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ hnf
   exact hc0 (Subtype.ext (QuaternionAlgebra.ext h1 h2 h3 h4))
 
+
+/-- **Skolem–Noether descent at the level of homomorphisms (proved).** A7
+(`LeafQM.AV.conj_twist_of_rational`) gives, for each `σ`, a QM isomorphism `e : (A, ι∘α) ≅ (A', ι')`
+twisted by some `α ∈ Aut 𝒪`. Writing `α = u(·)u⁻¹` (`aut_O_inner`) and `b = Nu ∈ 𝒪`
+(`exists_nat_mul_mem_O`), the homomorphism `μ = e.φ ∘ ι(b) : A → A'` is nonzero-scaled and
+`𝒪`-linear: `μ ∘ ι(a) = ι'(a) ∘ μ` for all `a ∈ 𝒪`. This is N5's `B`-linear conjugacy isogeny
+`μ_σ` (here `A = P.A`, `A' = (^σP).A`; reverse the roles for `^σA → A`). -/
+theorem blinear_of_twisted_iso {k : Type} [Field k] {A A' : PkgI3.AbVar k} (q : QMStr A)
+    (q' : QMStr A') (α : O ≃+* O) (e : QMIso (q.twist α) q') :
+    ∃ b : O, b ≠ 0 ∧ ∀ a : O,
+      (q.iota a).hom ≫ ((q.iota b).hom ≫ e.φ.hom) = ((q.iota b).hom ≫ e.φ.hom) ≫ (q'.iota a).hom := by
+  obtain ⟨u, hu⟩ := aut_O_inner α
+  obtain ⟨N, hN, hmem⟩ := exists_nat_mul_mem_O (u : B)
+  let b : O := ⟨(N : B) * u, hmem⟩
+  have hcomm : ∀ a : O, b * a = α a * b := by
+    intro a
+    apply Subtype.ext
+    rw [Subring.coe_mul, Subring.coe_mul, hu a]
+    show (N : B) * u * a = u * a * (u⁻¹ : Bˣ) * ((N : B) * u)
+    have hc : ((u⁻¹ : Bˣ) : B) * ((N : B) * u) = (N : B) := by
+      rw [← _root_.mul_assoc, (Nat.cast_commute N _).symm.eq, _root_.mul_assoc, Units.inv_mul,
+        _root_.mul_one]
+    rw [_root_.mul_assoc (u * a : B), hc, (Nat.cast_commute N ((u : B) * a)).eq.symm,
+      _root_.mul_assoc]
+  refine ⟨b, fun hb => ?_, fun a => ?_⟩
+  · have h0 := congrArg Subtype.val hb
+    change (N : B) * u = 0 at h0
+    have h1 := congrArg (· * ((u⁻¹ : Bˣ) : B)) h0
+    simp only [_root_.mul_assoc, Units.mul_inv, _root_.mul_one, zero_mul] at h1
+    have h2 := congrArg QuaternionAlgebra.re h1
+    simp at h2
+    omega
+  · have e1 : (q.iota a).hom ≫ (q.iota b).hom = (q.iota b).hom ≫ (q.iota (α a)).hom := by
+      show (q.iota b * q.iota a).hom = (q.iota (α a) * q.iota b).hom
+      rw [← map_mul, ← map_mul, hcomm]
+    rw [← Category.assoc, e1, Category.assoc, Category.assoc]
+    congr 1
+    exact e.equivariant a
+
 end G0ModField.KernelField
 
 end NoCMAlg
@@ -5368,6 +5407,7 @@ end EndEqOSec
 #print axioms G0ModField.KernelField.oMaximal
 #print axioms G0ModField.KernelField.kernelFieldExists_of_final
 #print axioms G0ModField.KernelField.faithful_O
+#print axioms G0ModField.KernelField.blinear_of_twisted_iso
 #print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves_FS5

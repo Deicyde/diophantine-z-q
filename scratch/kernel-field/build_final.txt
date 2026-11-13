@@ -508,7 +508,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 scratch/kernel-field/KernelField.lean:4533:70: warning: Unused tactic linter: `push_cast` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/kernel-field/KernelField.lean:5261:2: warning: Try this: 
+scratch/kernel-field/KernelField.lean:5300:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -516,7 +516,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/kernel-field/KernelField.lean:5263:2: warning: Try this: 
+scratch/kernel-field/KernelField.lean:5302:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -524,7 +524,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/kernel-field/KernelField.lean:5271:2: warning: Try this: 
+scratch/kernel-field/KernelField.lean:5310:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -541,6 +541,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'G0ModField.KernelField.oMaximal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_final' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.faithful_O' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.KernelField.blinear_of_twisted_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.center_O' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.aut_O_inner' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_leaves_FS5' depends on axioms: [propext, Classical.choice, Quot.sound]
