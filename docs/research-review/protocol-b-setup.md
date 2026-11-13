@@ -36,6 +36,9 @@ action twice. One token creates the initially blocked check; a fresh token
 finalizes it after the potentially long model review. The action revokes its
 tokens at job cleanup. The ordinary workflow token reads sources, posts comments
 and requests GitHub auto-merge. Only the App token writes the review check.
+The Actions job is named `Run reviewers and publish App check`. It is distinct
+from the App-issued `Protocol B / review` check, or `Protocol B / test review`
+in test mode. A green Actions job alone is not App acceptance.
 
 ## Review behavior
 
@@ -44,6 +47,12 @@ or executes the candidate PR. Both approved models receive pinned source reads
 and web tools. Reports record actual returned model IDs, source reads and usage.
 There is no fallback model. Unavailable sources, unfinished reviews and changed
 heads do not pass.
+
+A `read_file` lookup returning HTTP 404 produces a tool result identifying the
+missing path and pinned revision. For example, a newly added file may be absent
+at `base` but readable at `head`. The model can correct the request and continue.
+The failed lookup does not count as a source read. Permission errors, server
+failures and a missing blob after a successful file lookup still stop the run.
 
 The initially completed `action_required` check says that review has not been
 accepted. Finalization replaces that result. Cancellation or a lost runner
@@ -62,9 +71,14 @@ limit, the comment shows recent notes and links to the run artifact containing
 the complete notes. The review continues. After an interrupted run, retrieve
 any omitted observations from that artifact; an unavailable artifact leaves
 that part of the history unchecked. Completed reports are appended, and their
-findings are supplied to later reviews. HTTP failures are logged
-as infrastructure failures, not invented mathematical objections. Initial 429
-and 5xx responses from a model provider get at most two retries. Partly received
+findings are supplied to later reviews. HTTP failures are logged. Except for the
+missing-file case above, they remain infrastructure failures rather than
+invented mathematical objections. Initial 429
+and 5xx responses from a model provider get at most two retries. Rate-limit
+retries wait at least 65 then 130 seconds, and respect a longer `Retry-After`
+up to five minutes. A longer requested wait stops the run rather than retrying
+early. Short backoff remains for other transient server failures. A recognized
+Anthropic spending-cap error is not retried. Partly received
 streams and uncertain GitHub writes are never automatically replayed.
 
 A new default-branch commit does not invalidate an in-flight review if the
@@ -83,13 +97,34 @@ not change override authority, which still comes from the dedicated App's
 check output rather than bot comments. Preserve substantive objections in the
 project's findings record as well as the PR discussion.
 
-The 8,000,000-character tool-result guard is a runaway-input limit, not a model
-token-window estimate. It excludes instructions, conversation output and other
-provider accounting. A provider can reject a request for context length first;
-the error is retained and the review fails without acceptance. Scope source
-reads to the changed argument and affected consumers. The full-manuscript
-offline simulation tests data handling, not whether that whole input fits in
-either model's context. Actual review capacity remains part of the live test.
+Both reviewers have a preflight context budget of 400,000 estimated tokens,
+including a 64,000-token output allowance and an 8,192-token formatting reserve.
+The estimate includes the full request: instructions, tools and conversation.
+After a provider response it uses reported input tokens, including Anthropic
+cache reads and writes, plus the larger of new UTF-8 bytes or the previous
+output-token count. Before reported usage is available, it uses request bytes.
+This deliberately avoids treating cached input as absent or assuming every
+character sequence averages four characters per token.
+
+This is a conservative estimate, not a tokenizer calculation or a dollar cap.
+Provider-side web tools can add context during a request. The token-counting
+endpoint does not support the gate's server tools, so the gate does not send an
+incompatible counting request or silently remove those tools. An independent
+tool-result guard is reduced to 1,200,000 characters. A request over budget
+stops before another model call; it does not truncate history or approve a
+partial review. Scope reads to the changed argument and affected consumers.
+Split a review that cannot fit while preserving all necessary dependencies.
+
+Anthropic caching uses a one-hour TTL. This reduces expiration during long
+turns, but cannot guarantee cache hits. One-hour cache writes cost 2x base input
+price, compared with 1.25x for five-minute writes; cache hits are cheaper. Cache
+reads do not count toward the default input-token rate limit, while new input
+and cache writes do. Other simultaneous requests can still exhaust the shared
+rate limit. These changes do not raise an account spending cap.
+
+Sources: [prompt caching](https://platform.claude.com/docs/en/build-with-claude/prompt-caching),
+[rate and spending limits](https://platform.claude.com/docs/en/api/rate-limits),
+[token-counting limitations](https://platform.claude.com/docs/en/build-with-claude/token-counting).
 
 ## Collaborator commands
 

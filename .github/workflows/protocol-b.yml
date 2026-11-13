@@ -26,7 +26,8 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  review:
+  run_reviewers:
+    name: Run reviewers and publish App check
     if: >-
       (vars.PROTOCOL_B_MODE == 'live' || vars.PROTOCOL_B_MODE == 'test') &&
       (github.event_name != 'issue_comment' ||
@@ -63,6 +64,7 @@ jobs:
           import datetime
           import functools
           import json
+          import math
           import os
           import pathlib
           import re
@@ -78,6 +80,9 @@ jobs:
           INSTRUCTIONS = ".github/protocol-b-reviewer.md"
           WORKFLOW = ".github/workflows/protocol-b.yml"
           WORKING_MARKER = "<!-- protocol-b-working-v2 -->"
+          CONTEXT_TOKEN_BUDGET = 400_000
+          OUTPUT_TOKEN_BUDGET = 64_000
+          FORMAT_TOKEN_RESERVE = 8_192
           REQUIRED_COMPUTATIONS = {
               "Accepted Lean helpers and axiom audit", "Construction regeneration and finite checks",
               "Paper build", "Reconstructed quartic and Version 5 inventory",
@@ -103,6 +108,13 @@ jobs:
               print(datetime.datetime.now(datetime.timezone.utc).isoformat(), message, flush=True)
 
 
+          class RequestError(RuntimeError):
+              """An HTTP failure with its status preserved for narrow caller handling."""
+              def __init__(self, detail):
+                  self.status = detail['status']
+                  super().__init__(json.dumps(detail))
+
+
           def request(url, headers, method="GET", data=None, stream=False):
               payload = None if data is None else json.dumps(data).encode()
               req = urllib.request.Request(url, data=payload, method=method,
@@ -113,7 +125,8 @@ jobs:
                   break
                 except urllib.error.HTTPError as error:
                   # Preserve the actual server error; never print headers containing credentials.
-                  body = error.read().decode("utf-8", errors="replace")
+                  with error:
+                      body = error.read().decode("utf-8", errors="replace")
                   safe_headers = {k: v for k, v in error.headers.items()
                                   if k.lower() in {"x-github-request-id", "request-id", "x-request-id",
                                                    "retry-after", "x-ratelimit-remaining", "x-ratelimit-reset"}}
@@ -123,15 +136,25 @@ jobs:
                       if secret:
                           detail = json.loads(json.dumps(detail).replace(secret, "[REDACTED]"))
                   record("http-error-" + str(time.time_ns()) + ".json", detail)
+                  try:
+                      spend_cap = json.loads(body).get('error', {}).get('details', {}).get('error_code') == 'enforced_spend_limit_reached'
+                  except (ValueError, AttributeError):
+                      spend_cap = False
                   # Only retry a provider's initial HTTP rejection, before receiving a
                   # stream. Never replay GitHub writes or a partially consumed stream.
                   if (stream and url in {"https://api.openai.com/v1/responses", "https://api.anthropic.com/v1/messages"}
-                          and (error.code == 429 or 500 <= error.code <= 599) and attempt < 2):
-                      delay = min(30, max(2 ** (attempt + 1), int(error.headers.get("Retry-After", "0")) if error.headers.get("Retry-After", "0").isdigit() else 0))
+                          and not spend_cap and (error.code == 429 or 500 <= error.code <= 599) and attempt < 2):
+                      try:
+                          requested = float(error.headers.get('Retry-After', '0'))
+                      except ValueError:
+                          requested = 0
+                      if not math.isfinite(requested) or requested > 300:
+                          raise RuntimeError('Provider Retry-After exceeds the five-minute retry budget; not retrying early. ' + json.dumps(detail)) from None
+                      delay = max(65 * 2 ** attempt if error.code == 429 else 2 ** (attempt + 1), requested)
                       log(f"Provider HTTP {error.code}; retry {attempt+1}/2 after {delay}s before any stream output")
                       time.sleep(delay)
                       continue
-                  raise RuntimeError(json.dumps(detail)) from None
+                  raise RequestError(detail) from None
               if stream:
                   return response
               with response:
@@ -171,7 +194,14 @@ jobs:
                       raise ValueError("Source ref must be a commit")
                   if path.startswith("/") or any(p in {"", ".", ".."} for p in path.split("/")):
                       raise ValueError("Invalid repository path")
-                  value = self.call("/contents/" + urllib.parse.quote(path, safe="/") + "?ref=" + ref)
+                  try:
+                      value = self.call("/contents/" + urllib.parse.quote(path, safe="/") + "?ref=" + ref)
+                  except RequestError as error:
+                      if error.status != 404:
+                          raise
+                      # An added/deleted/renamed file can be absent at this pinned revision.
+                      # Review.run returns ValueError as a tool result, without counting a read.
+                      raise ValueError(f"File {path!r} was not found at commit {ref} (HTTP 404). Check the path and requested revision; the file may exist only at the other revision.") from None
                   if not isinstance(value, dict) or value.get("type") != "file":
                       raise ValueError("Not a regular file")
                   if value["size"] > 16_000_000:
@@ -291,12 +321,58 @@ jobs:
                   yield json.loads("\n".join(data))
 
 
-          def model_turn(family, system, conversation):
+          def model_body(family, system, conversation):
               if family == "astra":
-                  body = {"model": MODELS[family], "instructions": system, "input": conversation,
-                          "reasoning": {"effort": "high"}, "max_output_tokens": 64000,
+                  return {"model": MODELS[family], "instructions": system, "input": conversation,
+                          "reasoning": {"effort": "high"}, "max_output_tokens": OUTPUT_TOKEN_BUDGET,
                           "store": False, "stream": True, "include": ["reasoning.encrypted_content"],
                           "tools": [{"type": "function", "strict": True, **t} for t in TOOLS] + [{"type": "web_search"}]}
+              return {"model": MODELS[family], "system": system, "messages": conversation,
+                      "max_tokens": OUTPUT_TOKEN_BUDGET, "stream": True, "output_config": {"effort": "high"},
+                      "cache_control": {"type": "ephemeral", "ttl": "1h"},
+                      "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
+                          {"type": "web_search_20260318", "name": "web_search"},
+                          {"type": "web_fetch_20260318", "name": "web_fetch"}]}
+
+
+          def context_budget(family, system, conversation, previous=None):
+              """Preflight estimate from reported tokens plus conservative byte growth.
+
+              Count-tokens does not support this gate's server tools. Do not pretend a
+              characters/4 conversion is an exact count. Include tools and instructions,
+              cache reads/writes, output allowance and a formatting reserve. The provider
+              can still add server-tool context internally; this is not a billing cap.
+              """
+              size = len(json.dumps(model_body(family, system, conversation), ensure_ascii=False).encode('utf-8'))
+              estimated = size
+              basis = 'full-request UTF-8 bytes'
+              if previous:
+                  usage = previous.get('usage') or {}
+                  fields = ['input_tokens', 'output_tokens']
+                  if family == 'fable':
+                      fields += ['cache_read_input_tokens', 'cache_creation_input_tokens']
+                  if 'input_tokens' in usage and all(type(usage.get(k, 0)) is int and usage.get(k, 0) >= 0 for k in fields):
+                      inputs = usage['input_tokens']
+                      if family == 'fable':
+                          inputs += usage.get('cache_read_input_tokens', 0) + usage.get('cache_creation_input_tokens', 0)
+                      growth = size - previous['request_bytes']
+                      if growth < 0:
+                          raise ValueError('Review request shrank unexpectedly; no history may be silently discarded')
+                      estimated = inputs + max(growth, usage.get('output_tokens', 0))
+                      basis = 'reported input tokens plus new UTF-8 bytes/output tokens'
+              total = estimated + FORMAT_TOKEN_RESERVE + OUTPUT_TOKEN_BUDGET
+              observation = {'family': family, 'request_bytes': size, 'estimated_input_tokens': estimated,
+                             'format_reserve': FORMAT_TOKEN_RESERVE, 'output_reserve': OUTPUT_TOKEN_BUDGET,
+                             'estimated_total': total, 'budget': CONTEXT_TOKEN_BUDGET, 'basis': basis}
+              record(family + '-context-budget.json', observation)
+              if total > CONTEXT_TOKEN_BUDGET:
+                  raise RuntimeError(f'{family} context budget exceeded before the next model request: estimated {total:,} including reserves; limit {CONTEXT_TOKEN_BUDGET:,}. Narrow or split the review scope; no history was truncated.')
+              return observation
+
+
+          def model_turn(family, system, conversation):
+              body = model_body(family, system, conversation)
+              if family == "astra":
                   response = request("https://api.openai.com/v1/responses",
                                      {"Authorization": "Bearer " + os.environ["OPENAI_API_KEY"]}, "POST", body, True)
                   final = None
@@ -308,12 +384,6 @@ jobs:
                   if final is None or final.get("status") != "completed":
                       raise RuntimeError("OpenAI stream ended without a completed response")
                   return final["output"], final.get("model"), final.get("usage"), final["id"], final["status"]
-              body = {"model": MODELS[family], "system": system, "messages": conversation,
-                      "max_tokens": 64000, "stream": True, "output_config": {"effort": "high"},
-                      "cache_control": {"type": "ephemeral"},
-                      "tools": [{"name": t["name"], "description": t["description"], "input_schema": t["parameters"]} for t in TOOLS] + [
-                          {"type": "web_search_20260318", "name": "web_search"},
-                          {"type": "web_fetch_20260318", "name": "web_fetch"}]}
               response = request("https://api.anthropic.com/v1/messages",
                                  {"x-api-key": os.environ["ANTHROPIC_API_KEY"], "anthropic-version": "2023-06-01"}, "POST", body, True)
               final, blocks, partial, stopped = {}, {}, {}, False
@@ -428,17 +498,19 @@ jobs:
               def run(self):
                   conversation = [{"role": "user", "content": json.dumps(self.input)}]
                   record(self.family + "-input.json", {"instructions": self.instructions, "input": self.input})
-                  turns = []
+                  turns, previous = [], None
                   for turn in range(50):
                       log(f"{self.family}: model turn {turn+1}; {len(self.reads)} repository source reads")
+                      budget = context_budget(self.family, self.instructions, conversation, previous)
                       output, served, usage, response_id, stop_reason = model_turn(self.family, self.instructions, conversation)
+                      previous = {'request_bytes': budget['request_bytes'], 'usage': usage}
                       if served != MODELS[self.family]:
                           raise RuntimeError(f"Requested {MODELS[self.family]}, API reported {served}; no silent substitution")
                       # The exact provider conversation, including signed/encrypted reasoning,
                       # stays in memory. Retain inputs, source reads, visible report and usage.
                       visible = [{k: v for k, v in x.items() if k not in {"thinking", "signature", "encrypted_content"}}
                                  for x in output if x.get("type") not in {"thinking", "reasoning", "redacted_thinking"}]
-                      turns.append({"response_id": response_id, "reported_model": served, "usage": usage, "stop_reason": stop_reason, "visible_output": visible})
+                      turns.append({"response_id": response_id, "reported_model": served, "usage": usage, "context_budget": budget, "stop_reason": stop_reason, "visible_output": visible})
                       record(self.family + "-turns.json", turns)
                       # Preserve prose objections before the next model request. These are
                       # discussion, never approval. A failed later turn cannot erase them.
@@ -490,7 +562,7 @@ jobs:
                               value = {"error": str(error)}
                           content = json.dumps(value, ensure_ascii=False)
                           self.chars += len(content)
-                          if self.chars > 8_000_000:
+                          if self.chars > 1_200_000:
                               raise ValueError("Review context budget exhausted; split the PR, do not accept a partial review")
                           record(self.family + f"-tool-{turn}-{call_index}.json", {"name": call["name"], "arguments": args, "result": value})
                           if self.family == "astra":
