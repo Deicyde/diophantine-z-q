@@ -351,6 +351,103 @@ theorem adaptedExists {p : ℕ} [Fact p.Prime] : LadicCond.AdaptedExists (p := p
 
 end Main
 
+/-! ## §5. `SwanIntegral` and `SwanIndependent` from three smaller Props
+
+Both follow from: for `L` adapted to `ρ` and `u > 0`, `V^{G^u} = V^{G^u(L) ∩ P}` (the absolute
+upper group acts through its image in `Gal(L/ℚ_p)`), plus the finite-level integral formula. -/
+
+section Reduction
+
+/-- **H1 (GLUE: finite-level change of variables; Serre, *Corps locaux* IV §3 and VI §2,
+numbering UNVERIFIED).** At an adapted finite Galois level `L`, the Swan conductor
+`∑_{i ≥ 1} (g_i/g_0) codim V^{G_i ∩ P}` equals `∫₀^∞ codim V^{G^u(L) ∩ P} du`: substitute
+`u = φ_{L/ℚ_p}(t)`, `dφ = (g_{⌈t⌉}/g_0) dt`, `G^{φ(t)} = G_{⌈t⌉}`. A statement about one finite
+extension and real step functions; no theorem of ramification theory beyond the definitions. -/
+def SwanAtIntegral : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (k : Type) [Field k] (n : ℕ) (ρ : GQp p →* GL (Fin n) k) (L : Fld p),
+    IsAdapted L ρ →
+      (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperSet L u ∩ wildSet) : ℝ)
+
+/-- **H2 (GLUE from the definitions; Serre, *Corps locaux* IV §1-§3).** For `u > 0` the absolute
+upper ramification group lies in wild inertia: `G^u ⊆ P_p`. (For `x ≠ 0` take a finite Galois `L ∋ x`;
+`ψ_L(u) > 0`, so `σ ∈ G_1(L)`, and `G_1(L)` acts by `σx/x ≡ 1` mod the maximal ideal.) -/
+def UpperAbsWild : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (u : ℝ), 0 < u → upperAbs p u ⊆ wildSet
+
+/-- **H3 (GLUE from Herbrand's theorem plus compactness; Serre, *Corps locaux* IV §3, Prop. 14 and
+the remark defining `G^v` for infinite Galois extensions, numbering UNVERIFIED).** The projection
+`G^u → G^u(L/ℚ_p)` is onto: every `σ` in `G^u(L) ∩ P` (preimage in `G_{ℚ_p}`) agrees on `L` with
+an element of the absolute `G^u`. -/
+def UpperAbsSurj : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (L : Fld p), IsFinGal L → ∀ u : ℝ, 0 < u →
+    ∀ σ ∈ upperSet L u ∩ wildSet, ∃ τ ∈ upperAbs p u, ∀ x ∈ L, τ x = σ x
+
+variable {p : ℕ} [Fact p.Prime]
+
+theorem inv_mem_wildSet {σ : GQp p} (hσ : σ ∈ wildSet) : σ⁻¹ ∈ wildSet := by
+  intro x hx
+  have hy : σ (σ⁻¹ x) = x := σ.apply_symm_apply x
+  have hy0 : σ⁻¹ x ≠ 0 := fun h => hx (by rw [← hy, h, map_zero])
+  have h1 := hσ _ hy0
+  rw [hy] at h1
+  have h2 : ‖x‖ = ‖σ⁻¹ x‖ := norm_eq_of_norm_sub_lt h1
+  rw [h2, norm_sub_rev]
+  exact h1
+
+/-- **The absolute upper group acts through `L`.** For `L` adapted to `ρ` and `u > 0`,
+`V^{G^u} = V^{G^u(L) ∩ P}`. -/
+theorem invariants_upperAbs (h2 : UpperAbsWild) (h3 : UpperAbsSurj) {k : Type} [Field k] {n : ℕ}
+    {ρ : GQp p →* GL (Fin n) k} {L : Fld p} (hL : IsAdapted L ρ) {u : ℝ} (hu : 0 < u) :
+    invariants ρ (upperAbs p u) = invariants ρ (upperSet L u ∩ wildSet) := by
+  apply le_antisymm
+  · intro v hv σ hσ
+    obtain ⟨τ, hτ, hτσ⟩ := h3 p L hL.1 u hu σ hσ
+    have hτw : τ ∈ wildSet := h2 p u hu hτ
+    have h1 : τ⁻¹ * σ ∈ wildSet ∩ fixSet L := by
+      refine ⟨mul_mem_wildSet (inv_mem_wildSet hτw) hσ.2, fun x hx => ?_⟩
+      rw [AlgEquiv.mul_apply, ← hτσ x hx]
+      exact τ.symm_apply_apply x
+    have h2' : ρ σ = ρ τ * ρ (τ⁻¹ * σ) := by rw [← map_mul, mul_inv_cancel_left]
+    rw [h2', hL.2 _ h1, mul_one]
+    exact hv τ hτ
+  · intro v hv σ hσ
+    exact hv σ ⟨hσ L hL.1, h2 p u hu hσ⟩
+
+/-- At any adapted level, `Sw_L(ρ) = ∫₀^∞ codim V^{G^u} du` (absolute upper filtration). -/
+theorem swanAt_eq_integral_upperAbs (h1 : SwanAtIntegral) (h2 : UpperAbsWild)
+    (h3 : UpperAbsSurj) {k : Type} [Field k] {n : ℕ} {ρ : GQp p →* GL (Fin n) k} {L : Fld p}
+    (hL : IsAdapted L ρ) :
+    (swanAt L ρ : ℝ) = ∫ u in Set.Ioi (0 : ℝ), (codimInv ρ (upperAbs p u) : ℝ) := by
+  rw [h1 p k n ρ L hL]
+  refine MeasureTheory.setIntegral_congr_fun measurableSet_Ioi fun u hu => ?_
+  rw [codimInv, codimInv, invariants_upperAbs h2 h3 hL hu]
+
+/-- **`SwanIntegral` (L8) from H1-H3.** (Continuity and `p ≠ ℓ` are not used.) -/
+theorem swanIntegral_of (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (h3 : UpperAbsSurj) :
+    LadicCond.SwanIntegral := by
+  intro ℓ _ p _ _ n ρ _ L hL
+  exact swanAt_eq_integral_upperAbs h1 h2 h3 hL
+
+/-- **`SwanIndependent` from H1-H3**, for every field `k` and every homomorphism `ρ`: both levels
+compute the same integral over the absolute upper filtration. -/
+theorem swanIndependent_of (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (h3 : UpperAbsSurj) :
+    LadicCond.SwanIndependent (p := p) := by
+  intro k _ n ρ L L' hL hL'
+  have e := (swanAt_eq_integral_upperAbs h1 h2 h3 hL).trans
+    (swanAt_eq_integral_upperAbs h1 h2 h3 hL').symm
+  exact_mod_cast e
+
+/-- **All three glue Props of G15** from H1-H3 (`AdaptedExists` needs nothing). -/
+theorem swan_all (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (h3 : UpperAbsSurj) :
+    (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
+      (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)) :=
+  ⟨fun _ _ => swanIndependent_of h1 h2 h3, swanIntegral_of h1 h2 h3, fun _ _ => adaptedExists⟩
+
+end Reduction
+
 end Swan
 
 #print axioms Swan.adaptedExists
+#print axioms Swan.swanIntegral_of
+#print axioms Swan.swanIndependent_of
+#print axioms Swan.swan_all

@@ -18,3 +18,7 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
 ## Compile outcomes
 - 04:35 Swan.lean §0-§2 (verbatim copies + rfl, wild p-power order `wild_pow_fix`, matrix estimate `Bd.pow_sub`): compiles, no errors. VERIFIED.
 - 04:45 **AdaptedExists PROVED**: `Swan.adaptedExists : LadicCond.AdaptedExists (p := p)` compiles, `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED (lake env lean scratch/swan/Swan.lean, exit 0, no sorry).
+- 04:55 §5 reduction compiles: `swanIntegral_of`, `swanIndependent_of`, `swan_all` from
+  H1 `SwanAtIntegral` (finite-level change of variables), H2 `UpperAbsWild` (G^u ⊆ P for u>0),
+  H3 `UpperAbsSurj` (G^u → G^u(L) onto). Axioms standard. VERIFIED.
+  Key lemma `invariants_upperAbs`: V^{G^u} = V^{G^u(L) ∩ P} for L adapted, u > 0.
