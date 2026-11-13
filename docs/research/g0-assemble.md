@@ -30,7 +30,9 @@ VERIFIED:
   0 errors, no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for
   `gluePieces_of_gluePieces2`, `sixContactMin_of_leaves2`, `G0AssembleMod.afterG7_of` and
   `modularConstituent_of_field`.
-- The flat file `G0Assemble.lean` (41 847 lines) with `lake env lean`: see §5 for the result.
+- The flat file `G0Assemble.lean` (41 883 lines, `Leaves.lean` plus three non-HDecomp kernel imports
+  and the parts), with `lake env lean`: exit 0 in 573 s, 0 errors, no `sorry`, and all 179 axiom
+  reports standard.
 
 The interfaces were not just compared as text. Each glue step is applied to the output of the step
 before it, and the kernel checks the composite. That includes the two bridges no one had built: G7
@@ -231,7 +233,11 @@ because the bundle's `t17` is now the weaker `KroneckerWeberCyclic`.
 - **Prefix.** `build_prefix.sh` compiled `Leaves.lean` (unchanged) to an olean: exit 0 in 605 s.
 - **Iteration runs** (`ctail.sh`; full list in `log.md`). The final `Tail.lean` (7824 lines = all
   parts) gave 0 errors and no `sorry`, with standard axioms for the four theorems of §0.
-- **Flat file.** `lake env lean scratch/g0-assemble/G0Assemble.lean`: FULLRESULT
+- **Flat file.** `lake env lean scratch/g0-assemble/G0Assemble.lean` (41 883 lines, final version)
+  exits 0 in 573 s with 0 errors and no `sorry`. All 179 `#print axioms` lines are
+  `[propext, Classical.choice, Quot.sound]`: `Leaves.lean`'s 175, plus `modularConstituent_of_field`,
+  `afterG7_of`, `gluePieces_of_gluePieces2` and `sixContactMin_of_leaves2`. VERIFIED. (An earlier
+  version, before the `G15RamWild` refinement, gave the same result: 41 847 lines, 568 s.)
 - **Statements of the pieces.** Every `def` in the part files is the wave-26 task's text, except
   `G10Glue` (§4.1). The `GluePieces` fields are `Leaves.lean`'s, unchanged. `gluePieces_of_gluePieces2`
   builds them with their own types, so the kernel checks that each wave-26 conclusion is the field
