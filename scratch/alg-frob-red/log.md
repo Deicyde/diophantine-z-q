@@ -27,3 +27,14 @@
 - Run 6: exit 0, no error, no sorry; all 10 AlgFrobRedRed axiom prints [propext, Classical.choice, Quot.sound] (VERIFIED).
 - Note: RedRel and the three Props need `set_option synthInstance.maxHeartbeats 400000` (Monoidal instance of
   Over.pullback along Spec(O_w → L) times out at 20000).
+
+## Run 7-10: ReductionMapGood from the valuative criterion
+- New defs: genPt, genMap (generic point map of x through e), vsq (Mathlib ValuativeCommSq for 𝒜.X.hom, R = O_v, K = ℚ̄).
+- New Props: ResidueAlgClosure (glue, standard: κ(v) ≅ κ(w)‾ compatibly), RedRelMul (glue: reduction respects the group law).
+- Proved: genMap_comm, exists_lift (Mathlib UniversallyClosed.eq_valuativeCriterion), lift_unique (Mathlib
+  IsSeparated.valuativeCriterion), exists_redRel (pullback.lift), redRel_unique (pullback.hom_ext),
+  reductionMapGood_of : ResidueAlgClosure → RedRelMul → ReductionMapGood,
+  algFrobRed_of_split : GoodRedCofinite → SmoothGeomConnIntegral → ResidueAlgClosure → RedRelMul → RedTorsionQbar →
+  ReductionFrobGood → FrobTrace.AlgFrobRed, tateBridge35_of_split (adds PkgI3.TateModuleFree).
+- Run 10: `lake env lean scratch/alg-frob-red/AlgFrobRed.lean` exit 0, no error, no sorry; 18 AlgFrobRedRed axiom
+  prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).

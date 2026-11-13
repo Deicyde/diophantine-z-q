@@ -367,6 +367,181 @@ theorem algFrobRedGood_of (hS : SmoothGeomConnIntegral) (h1 : ReductionMapGood)
     · obtain ⟨x, ⟨hx, hxr⟩, -⟩ := hB y hy
       exact ⟨x, hx, congrArg Additive.ofMul (huniq x _ _ (hred x) hxr)⟩
 
+/-! ## 4. `ReductionMapGood` from the valuative criterion (Mathlib) and two smaller Props -/
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- `x ∈ A(ℚ̄)` as a `ℚ̄`-point of `𝒜_L` (through `e`). -/
+def genPt {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A) :
+    PkgI3.AbVar.ptObj (K := L) PkgI4.Qbar ⟶
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj 𝒜.X :=
+  (Additive.toMul x) ≫ (e.inv.hom.hom : A.X ⟶
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).obj 𝒜.X)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- The generic point map `Spec ℚ̄ → 𝒜` of `x ∈ A(ℚ̄)` (through `e`), as in `RedRel`. -/
+def genMap {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A) : Spec (.of PkgI4.Qbar) ⟶ 𝒜.X.left :=
+  (genPt v 𝒜 e x).left ≫
+    pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- The valuative square: `Spec ℚ̄ → 𝒜` over `Spec O_v → Spec O_w`. -/
+theorem genMap_comm {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A) :
+    genMap v 𝒜 e x ≫ 𝒜.X.hom = Spec.map (CommRingCat.ofHom (algebraMap v PkgI4.Qbar)) ≫
+      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
+  have key : ∀ (T : Scheme) (u : T ⟶ pullback 𝒜.X.hom
+      (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))),
+      (u ≫ pullback.fst _ _) ≫ 𝒜.X.hom = (u ≫ pullback.snd _ _) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) := fun T u => by
+    rw [Category.assoc, pullback.condition, Category.assoc]
+  have hw : (genPt v 𝒜 e x).left ≫ pullback.snd 𝒜.X.hom
+      (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) =
+      Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) := Over.w (genPt v 𝒜 e x)
+  have h2 : ((genPt v 𝒜 e x).left ≫ pullback.snd _ _) ≫
+      Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) =
+      Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) :=
+    congrArg (fun t => t ≫ Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) hw
+  have h3 : Spec.map (CommRingCat.ofHom (algebraMap L PkgI4.Qbar)) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) =
+      Spec.map (CommRingCat.ofHom (algebraMap v PkgI4.Qbar)) ≫
+        Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    rfl
+  exact (key _ (genPt v 𝒜 e x).left).trans (h2.trans h3)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- The valuative commutative square of `x`. -/
+def vsq {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v)))))
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A) : ValuativeCommSq 𝒜.X.hom where
+  R := v
+  K := PkgI4.Qbar
+  i₁ := genMap v 𝒜 e x
+  i₂ := Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))
+  commSq := ⟨genMap_comm v 𝒜 e x⟩
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **Existence of the lift** `x' : Spec O_v → 𝒜` (proved: valuative criterion for the proper
+`𝒜 → Spec O_w`, Mathlib `UniversallyClosed.eq_valuativeCriterion`). -/
+theorem exists_lift {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [h𝒜 : PkgI2.IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A) :
+    ∃ x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
+      genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left := by
+  haveI := h𝒜.proper
+  have h1 : (ValuativeCriterion.Existence ⊓ @QuasiCompact) 𝒜.X.hom := by
+    rw [← UniversallyClosed.eq_valuativeCriterion]; infer_instance
+  obtain ⟨⟨l, hl1, hl2⟩⟩ := h1.1 (vsq v 𝒜 e x)
+  exact ⟨Over.homMk l hl2, hl1.symm⟩
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **Uniqueness of the lift** (proved: valuative criterion of separatedness, Mathlib
+`IsSeparated.valuativeCriterion`). -/
+theorem lift_unique {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [h𝒜 : PkgI2.IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A) (x : PtQ L A)
+    (x₁ x₂ : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X)
+    (h₁ : genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x₁.left)
+    (h₂ : genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x₂.left) : x₁ = x₂ := by
+  haveI := h𝒜.proper
+  have hU := IsSeparated.valuativeCriterion 𝒜.X.hom (vsq v 𝒜 e x)
+  have e1 : (⟨x₁.left, h₁.symm, Over.w x₁⟩ : (vsq v 𝒜 e x).commSq.LiftStruct) =
+      ⟨x₂.left, h₂.symm, Over.w x₂⟩ := Subsingleton.elim _ _
+  exact Over.OverMorphism.ext (congrArg CommSq.LiftStruct.l e1)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- Every `x` has a reduction, for `j` compatible with the maps from `O_w` (proved). -/
+theorem exists_redRel {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v))
+    (hjc : ∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+    (x : PtQ L A) : ∃ y, RedRel v 𝒜 e j x y := by
+  obtain ⟨x', hx'⟩ := exists_lift v 𝒜 e x
+  have hw : (Spec.map (CommRingCat.ofHom j) ≫ Spec.map (CommRingCat.ofHom
+      (IsLocalRing.residue v)) ≫ x'.left) ≫ 𝒜.X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap (kw L v) (AlgebraicClosure (kw L v)))) ≫
+        Spec.map (CommRingCat.ofHom (IsLocalRing.residue (Ow L v))) := by
+    rw [Category.assoc, Category.assoc, Over.w x']
+    simp only [Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext a
+    exact hjc a
+  refine ⟨Over.homMk (pullback.lift _ _ hw) (pullback.lift_snd _ _ hw), x', hx', ?_⟩
+  exact pullback.lift_fst _ _ hw
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- Reductions are unique (proved: uniqueness of the lift and of maps into a fibre product). -/
+theorem redRel_unique {L : IF} {A : PkgI3.AbVar L} (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (x : PtQ L A)
+    (y y' : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))) :
+    RedRel v 𝒜 e j x y → RedRel v 𝒜 e j x y' → y = y' := by
+  rintro ⟨x₁, h₁, h₁'⟩ ⟨x₂, h₂, h₂'⟩
+  obtain rfl := lift_unique v 𝒜 e x x₁ x₂ h₁ h₂
+  apply Over.OverMorphism.ext
+  apply pullback.hom_ext
+  · exact h₁'.trans h₂'.symm
+  · exact (Over.w y).trans (Over.w y').symm
+
+/-- **`ResidueAlgClosure` (GLUE, standard commutative algebra).** For a place `v ∣ p` of `ℚ̄` and
+`w = v ∩ L`, there is a ring isomorphism `j : κ(v) ≅ κ(w)‾` compatible with the maps from `O_w`:
+`κ(v)` is algebraically closed (the residue field of a valuation ring of an algebraically closed
+field) and algebraic over `κ(w)` (`ℚ̄/L` is algebraic), hence an algebraic closure of `κ(w)`
+(Engler–Prestel, *Valued fields* (2005), Thm 3.2.11 and §3.2; Bourbaki, *Alg. Comm.* VI §8;
+locators UNVERIFIED). -/
+def ResidueAlgClosure : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] (v : ValuationSubring PkgI4.Qbar) (p : ℕ), p.Prime →
+    PkgI4.LiesOver v p →
+    ∃ j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v), Function.Bijective j ∧
+      (∀ a : Ow L v, j (IsLocalRing.residue v (PkgI2.toW (Ow L v) v rfl a)) =
+        algebraMap (kw L v) (AlgebraicClosure (kw L v)) (IsLocalRing.residue (Ow L v) a))
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`RedRelMul` (GLUE; reduction respects the group law).** If `y₁, y₂` are the reductions of
+`x₁, x₂` then `y₁ y₂` is the reduction of `x₁ + x₂`: the product `x'₁ x'₂` of the lifts (in the
+group `𝒜(O_v)`) lifts `x₁ + x₂` (restriction to the generic point and `e` respect the group
+laws), and base change to the special fibre respects them too (`sf 𝒜` carries the base-changed
+group law). -/
+def RedRelMul : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L) (v : ValuationSubring PkgI4.Qbar)
+    (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+    (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj 𝒜 ≅
+      ObjBridge.toGrp A)
+    (j : IsLocalRing.ResidueField v →+* AlgebraicClosure (kw L v)) (x₁ x₂ : PtQ L A)
+    (y₁ y₂ : PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))),
+    RedRel v 𝒜 e j x₁ y₁ → RedRel v 𝒜 e j x₂ y₂ → RedRel v 𝒜 e j (x₁ + x₂) (y₁ * y₂)
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`ReductionMapGood` from `ResidueAlgClosure` and `RedRelMul` (proved)**, with the valuative
+criterion (existence and uniqueness of lifts) from Mathlib. -/
+theorem reductionMapGood_of (hR : ResidueAlgClosure) (hM : RedRelMul) : ReductionMapGood := by
+  intro L _ A p hp v hv 𝒜 _ e
+  obtain ⟨j, hjb, hjc⟩ := hR L v p hp hv
+  choose r hr using exists_redRel v 𝒜 e j hjc
+  have hun := redRel_unique v 𝒜 e j
+  let red : PtQ L A →+ Additive (PkgI2.Pts (sf 𝒜) (AlgebraicClosure (kw L v))) :=
+    AddMonoidHom.mk' (fun x => Additive.ofMul (r x)) (fun a b => by
+      show Additive.ofMul (r (a + b)) = Additive.ofMul (r a * r b)
+      exact congrArg Additive.ofMul (hun _ _ _ (hr (a + b)) (hM L A v 𝒜 e j a b _ _ (hr a) (hr b))))
+  exact ⟨j, hjb, hjc, red, fun x => hr x, hun⟩
+
 /-- **`AlgFrobRed` from the leaves `GoodRedCofinite`, `SmoothGeomConnIntegral` and the glue
 `ReductionMapGood`, `RedTorsionQbar`, `ReductionFrobGood` (proved).** -/
 theorem algFrobRed_of_pieces (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
@@ -379,6 +554,22 @@ theorem tateBridge35_of_pieces (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite
     (hS : SmoothGeomConnIntegral) (h1 : ReductionMapGood) (h2 : RedTorsionQbar)
     (h3 : ReductionFrobGood) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_pieces hG hS h1 h2 h3)
+
+/-- **Main result: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
+`SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
+`ReductionFrobGood` (proved).** The valuative criterion (existence and uniqueness of the lift
+`Spec O_v → 𝒜`), the special fibre being an abelian variety (up to `SmoothGeomConnIntegral`), the
+residue characteristic, the units `ℓⁿ` and the conjugation of the place are proved here. -/
+theorem algFrobRed_of_split (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hR : ResidueAlgClosure) (hM : RedRelMul) (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_pieces hG hS (reductionMapGood_of hR hM) h2 h3
+
+/-- **`TateBridge35` from I3.M0 and the six pieces (proved).** -/
+theorem tateBridge35_of_split (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hR : ResidueAlgClosure) (hM : RedRelMul)
+    (h2 : RedTorsionQbar) (h3 : ReductionFrobGood) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_split hG hS hR hM h2 h3)
 
 end AlgFrobRedRed
 
@@ -394,3 +585,11 @@ end
 #print axioms AlgFrobRedRed.algFrobRedGood_of
 #print axioms AlgFrobRedRed.algFrobRed_of_pieces
 #print axioms AlgFrobRedRed.tateBridge35_of_pieces
+#print axioms AlgFrobRedRed.genMap_comm
+#print axioms AlgFrobRedRed.exists_lift
+#print axioms AlgFrobRedRed.lift_unique
+#print axioms AlgFrobRedRed.exists_redRel
+#print axioms AlgFrobRedRed.redRel_unique
+#print axioms AlgFrobRedRed.reductionMapGood_of
+#print axioms AlgFrobRedRed.algFrobRed_of_split
+#print axioms AlgFrobRedRed.tateBridge35_of_split
