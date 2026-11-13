@@ -1,6 +1,8 @@
 import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.Numerics
+import ZInQKernel.HDecomp.Descent.ProjRep
+import ZInQKernel.HDecomp.Conductor.LadicCond
 import ZInQKernel.HDecomp.Descent.WP3
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.ModCurves.Defs
@@ -635,6 +637,87 @@ theorem modularConstituent_of_ranges_T14 (hCover : FibreCoverExists) (hKer : Ker
   modularConstituent_of_ranges hCover hKer hSup (GlueWP3.leafHasse_of_T14 hH hR)
     (GlueWP3.leafLocalTwo_of_T15 hC) hSq hUnr hRest
 
+/-! ## Feeding g0-mod-galois' inputs (G8-G12): their `G2Out`, `G7Out` -/
+
+namespace GaloisCopy
+/-! Copied from scratch/g0-mod-galois/part_galois.lean (branch wip/g0-mod-galois at 20fa1287),
+definitions `resQ`, `Vb`, `tate`, `G2Out`, `G7Out`, verbatim (namespace renamed). -/
+
+/-- (copied) The restriction map `G_K → G_ℚ` (Mathlib's `Field.absoluteGaloisGroup.map`). -/
+noncomputable def resQ (K : Type) [Field K] [NumberField K] :
+    Field.absoluteGaloisGroup K →* PkgI4.GQ :=
+  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
+    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+
+/-- (copied) `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
+abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
+  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+
+/-- (copied) The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
+noncomputable def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
+    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
+  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+
+/-- (copied) g0-mod-galois' input "output of G2": inertia at `p ∉ T` lies in `G_K`. -/
+def G2Out (K : Type) [Field K] [NumberField K] (T : Finset ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∉ T → ∀ v : ValuationSubring PkgI4.Qbar, PkgI4.LiesOver v p →
+    ∀ σ ∈ v.inertiaSubgroup ℚ, ((σ : v.decompositionSubgroup ℚ) : PkgI4.GQ) ∈ (resQ K).range
+
+/-- (copied) g0-mod-galois' input "output of G7 at the coefficient prime `ℓ`". -/
+def G7Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
+    (c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β : PkgI4.GQ → PadicAlgCl ℓ)
+    (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ)) : Prop :=
+  A.dim = 2 ∧ Module.finrank ℤ (PkgI3.AbVar.End A) = 4 ∧
+  (∀ g h, Tm g * Tm h = c g h • Tm (g * h)) ∧
+  (∀ g h, a g * a h * c g h = ε g h * a (g * h)) ∧
+  (∀ g h, β g * β h = ε g h * β (g * h)) ∧ (∀ g, β g ≠ 0) ∧
+  (∀ σ, Tm (resQ K σ) = tate A ℓ σ ∧ a (resQ K σ) = 1 ∧ β (resQ K σ) = 1) ∧
+  (∀ g i j, Commute (Tm g) (u.e i j)) ∧
+  (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ),
+    Continuous fun g => f (GlueDescent.rho Tm a β g v))
+
+end GaloisCopy
+
+/-- **Bridge 1 (remaining; Mathlib-level Galois theory).** For a finite Galois `L' ⊆ ℚ̄`, the
+image of `resQ L' : G_{L'} → G_ℚ` is `G_{L'} = Fix(L')` (true for every embedding of the
+algebraic closures because `L'/ℚ` is normal). -/
+def ResQRange : Prop :=
+  ∀ (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'],
+    (@GaloisCopy.resQ L' _ (numberField_of_fd L')).range = L'.fixingSubgroup
+
+/-- **g0-mod-galois' `G2Out` for `K = L'`, proved** from `G7Data` (B3(v): inertia outside `T`
+fixes `L'`) and `ResQRange`. -/
+theorem galoisG2Out_of_g7Data (hRes : ResQRange) (u : ℚ) (P : QML3 Qbar) (L : IF)
+    (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N)
+    (β : GQ → ℂˣ) (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
+    (h : G7Data u P L A ε N χ β L' hLL') :
+    @GaloisCopy.G2Out L' _ (numberField_of_fd L') (T u) := by
+  intro p hp hpT v hv σ hσ
+  rw [hRes L']
+  have hv' : GlueB3Unram.LiesOver v p := hv
+  exact h.2.2.2.2.2.2.2.2.2.1 p hp hpT v hv' (Subgroup.mem_map_of_mem _ hσ)
+
+/-- **Bridge 2 (remaining; the Tate functor on the descent datum, §3 of the report).** From G7's
+data, the rank-4 endomorphism ring and `dim A_{L'} = 2` (G5-G6, A9; `model_dim`), for every `ℓ`:
+operators `Tm σ` (`ℚ̄_ℓ ⊗ T_ℓ(m_σ)` transported to `V_ℓ(A_{L'})`), `c = n/d`, `a`, `ε`, `β` mapped
+into `ℚ̄_ℓ` by one embedding of the number field they generate, and matrix units of
+`End_{L'}(A) ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`, satisfying g0-mod-galois' `G7Out`. -/
+def TateBridge : Prop :=
+  ∀ (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], ∃ (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ))
+      (c ε' : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a β' : PkgI4.GQ → PadicAlgCl ℓ)
+      (uu : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ)),
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _ Tm c ε' a β' uu
+
 end G0ModField
 
 #print axioms G0ModField.fieldDescent
@@ -644,3 +727,4 @@ end G0ModField
 #print axioms G0ModField.fieldDescentUnr
 #print axioms G0ModField.modularConstituent_of_ranges
 #print axioms G0ModField.modularConstituent_of_ranges_T14
+#print axioms G0ModField.galoisG2Out_of_g7Data

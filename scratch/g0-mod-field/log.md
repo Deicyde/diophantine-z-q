@@ -55,3 +55,12 @@
   LeafLocalTwo replaced by the bundle's `PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`,
   `LocalH2CardC` via `GlueWP3.leafHasse_of_T14`, `leafLocalTwo_of_T15`).
 - VERIFIED: 0 errors; axioms standard. File: 640 lines, `lake env lean` ~10 s after imports cached.
+
+## run18-21 (02:18): bridge to g0-mod-galois' inputs
+- Copied from wip/g0-mod-galois (20fa1287) `resQ`, `Vb`, `tate`, `G2Out`, `G7Out` (namespace
+  `G0ModField.GaloisCopy`).
+- New Props: `ResQRange` (image of `resQ L'` is `Fix(L')` for finite Galois `L'`), `TateBridge`
+  (G7Data + dim 2 + rank End 4 ⊢ ∀ ℓ, ∃ data, GaloisCopy.G7Out on `A_{L'}`).
+- Proved: `galoisG2Out_of_g7Data` (their G2Out for `K = L'` from G7Data's B3(v) clause and
+  `ResQRange`; `PkgI4.LiesOver` and `GlueB3Unram.LiesOver` agree by defeq).
+- VERIFIED: 0 errors; axioms standard.
