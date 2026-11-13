@@ -82,3 +82,4 @@ docs/research/h5-neron.md.
 - `genMap_mem_maximalIdeal` (genMap is local), `genMap_structMap` (compatible with 𝓞_L),
   `cotMap 𝒢 𝒩 f : 𝒩.cotangent →ₗ[𝓞 L] 𝒢.cotangent` (f^* on 𝔪_ξ/𝔪_ξ²), `cotMap_dCls` (rfl):
   compiled ~02:20, axioms standard.
+- HeightAntitone docstring updated with the HodgeLatticeTheorem dependency in Minimal/H5Glue/Additivity; all three recompiled (standard axioms).

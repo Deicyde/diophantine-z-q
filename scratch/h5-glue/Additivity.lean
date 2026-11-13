@@ -89,7 +89,9 @@ theorem neron_lift_isMonHom {𝒩 : GroupModel A L} (h𝒩 : 𝒩.IsNeronModel)
 homomorphism of group models of `A_L` that is an isomorphism on generic fibres, then
 `h(𝒩) ≤ h(𝒢)`: `f*` identifies `ω_{A_L}` for both models and maps `ω_𝒩` into `ω_𝒢` (so
 `⋀^g ω_𝒩 ⊆ ⋀^g ω_𝒢` and `HodgeData.modelHeight_le_of_le` applies), and `Φ ↦ f ∘ Φ` transports
-analytic uniformizations with the same Jacobian determinants. -/
+analytic uniformizations with the same Jacobian determinants. True (STANDARD), but its proof
+also needs the full-rank half of `HodgeLatticeTheorem` for `𝒩` (`⋀^g ω_𝒩 ≠ 0`, required by
+`HodgeData.isLattice`), which does not follow from `ω_𝒩 ↪ ω_𝒢` (docs/research/h5-glue.md §1(a)). -/
 def HeightAntitone : Prop :=
   ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G), IsMonHom f →
