@@ -66,3 +66,17 @@ eq_pm_E0_of_principal). New:
   Rotger Crelle 561 (2003) §§3-4; Rotger Trans. AMS 356 (2004) §§2-4; Boutot-Carayol III.
 - SPECULATIVE: pi_0(A) = 1 for D = 6 when End(A) = O (evidence: 12 small solutions all
   O^*-conjugate to +-mu).
+
+## Step 4. Lean: sign step (existence over C) — COMPILED (QMPolar.lean §8)
+
+`lake env lean scratch/rv-qm-polar/QMPolar.lean`: no errors; no `sorry`. Axioms of
+`riemann_sign`, `E0R_mul_j`, `lemmaP_lattice`: [propext, Classical.choice, Quot.sound]. VERIFIED.
+- `pure_of_sq`: j in B_R = (2,-3) (x) R, j*j = -1 implies j.re = 0 and 3b^2 - 2a^2 - 6c^2 = 1.
+- `E0R_mul_j`: E0(xj, yj) = E0(x, y).
+- `Qpoly_ldl`: explicit LDL^T decomposition of x -> E0(xj, x) (leading minors 2(b-c),
+  4(b^2-2c^2), 8(b+c)q, 16q^2 computed with sympy).
+- `riemann_sign`: x -> E0(xj, x) positive definite if imJ(j) > 0, negative definite if
+  imJ(j) < 0 (imJ(j) = 0 impossible).
+- `lemmaP_lattice`: for every such j, exactly one r in Q has det(r*gram) = 1 and r*E0(xj,x) > 0
+  for x != 0 (r = +-1). With eq_smul_E0: Lemma P on every QM torus C^2/Ov.
+(The separate draft QMPolarSign.lean was merged into QMPolar.lean §8 and removed.)

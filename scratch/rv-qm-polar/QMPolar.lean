@@ -25,6 +25,10 @@ Mathlib only. §§1-4 are copied verbatim from `scratch/bp-qmmoduli/QMOrder.lean
   square to `2` and `3`, anticommute with `μ`, and `i(j+k) = μ`; conjugation by each of
   `i, j + k, μ` commutes with `†`. So `(A, ι, λ) ↦ (A, ι ∘ Ad χ, λ)` is the `W`-action on PEL
   objects of type `μ` (Rotger's twisting involutions; N5 L533-534).
+* §8 **The sign step (existence over `ℂ`).** For every `j ∈ B_ℝ` with `j² = −1` (a complex
+  structure commuting with `𝒪`), `x ↦ E₀(xj, x)` is definite (`riemann_sign`) and `E₀` is
+  `j`-invariant (`E0R_mul_j`); `lemmaP_lattice`: exactly one of `±E₀` is a principal Riemann form.
+  With `eq_smul_E0` this is Lemma P on every QM torus `ℂ²/𝒪v`.
 
 No `sorry`, no `axiom`.
 -/
@@ -561,6 +565,197 @@ theorem w_eq_chi_mul :
   · ext <;> simp [ofInt]
   · norm_num [nrd]
 
+/-! ## §8 The sign step: existence of the type-`μ` polarization on every QM torus
+
+`B_ℝ = (2,−3) ⊗ ℝ`. A complex structure on `H₁(A, ℝ) = B_ℝ` commuting with the left `𝒪`-action is
+right multiplication by some `j ∈ B_ℝ` with `j² = −1`. The Gram matrix of `x ↦ E₀(xj, x)` (in the
+coordinates `re, imI, imJ, imK`, `j = ai + bj + ck`) has leading minors `2(b−c)`, `4(b²−2c²)`,
+`8(b+c)q`, `16q²`, `q = 3b²−2a²−6c² = nrd j = 1`; the proof is the explicit `LDLᵀ` decomposition
+(`Qpoly_ldl`). -/
+
+abbrev BR := QuaternionAlgebra ℝ 2 0 (-3)
+
+/-- `μ⁻¹ = −μ/6` in `B_ℝ`. -/
+def muInvR : BR := ⟨0, 0, -1/3, -1/6⟩
+
+/-- `E₀(x, y) = trd(μ⁻¹xȳ)` on `B_ℝ`. -/
+def E0R (x y : BR) : ℝ := 2 * (muInvR * x * star y).re
+
+/-- The quadratic form `x ↦ E₀(xj, x)` for `j = ai + bj + ck`, in coordinates. -/
+def Qpoly (a b c x0 x1 x2 x3 : ℝ) : ℝ :=
+  4*a*x0*x2 - 8*a*x0*x3 - 8*a*x1*x2 + 8*a*x1*x3 + 2*b*x0^2 - 4*b*x0*x1 + 4*b*x1^2
+    + 6*b*x2^2 - 12*b*x2*x3 + 12*b*x3^2 - 2*c*x0^2 + 8*c*x0*x1 - 4*c*x1^2 + 6*c*x2^2
+    - 24*c*x2*x3 + 12*c*x3^2
+
+theorem E0R_mul_j_self (j x : BR) (h0 : j.re = 0) :
+    E0R (x * j) x = Qpoly j.imI j.imJ j.imK x.re x.imI x.imJ x.imK := by
+  simp only [E0R, muInvR, Qpoly]; simp [h0]; ring
+
+/-- `j² = −1` forces `j` pure with `3b² − 2a² − 6c² = 1`. -/
+theorem pure_of_sq (j : BR) (hj : j * j = -1) :
+    j.re = 0 ∧ 3 * j.imJ ^ 2 - 2 * j.imI ^ 2 - 6 * j.imK ^ 2 = 1 := by
+  have hre := congrArg QuaternionAlgebra.re hj
+  have hI := congrArg QuaternionAlgebra.imI hj
+  have hJ := congrArg QuaternionAlgebra.imJ hj
+  have hK := congrArg QuaternionAlgebra.imK hj
+  simp at hre hI hJ hK
+  have h0 : j.re = 0 := by
+    by_contra hne
+    have a1 : j.imI = 0 := by
+      have : j.re * j.imI = 0 := by linarith
+      exact (mul_eq_zero.1 this).resolve_left hne
+    have a2 : j.imJ = 0 := by
+      have : j.re * j.imJ = 0 := by linarith
+      exact (mul_eq_zero.1 this).resolve_left hne
+    have a3 : j.imK = 0 := by
+      have : j.re * j.imK = 0 := by linarith
+      exact (mul_eq_zero.1 this).resolve_left hne
+    rw [a1, a2, a3] at hre
+    nlinarith [sq_nonneg j.re]
+  refine ⟨h0, ?_⟩
+  rw [h0] at hre
+  nlinarith [hre]
+
+/-- `J`-invariance: `E₀(xj, yj) = E₀(x, y)` when `j² = −1`. -/
+theorem E0R_mul_j (j x y : BR) (hj : j * j = -1) : E0R (x * j) (y * j) = E0R x y := by
+  obtain ⟨h0, hq⟩ := pure_of_sq j hj
+  have key : E0R (x * j) (y * j) =
+      (j.re ^ 2 - 2 * j.imI ^ 2 + 3 * j.imJ ^ 2 - 6 * j.imK ^ 2) * E0R x y := by
+    simp only [E0R, muInvR]; simp; ring
+  rw [key, h0]
+  have : (0 : ℝ) ^ 2 - 2 * j.imI ^ 2 + 3 * j.imJ ^ 2 - 6 * j.imK ^ 2 = 1 := by linarith
+  rw [this, one_mul]
+
+/-- **The `LDLᵀ` decomposition.** -/
+theorem Qpoly_ldl (a b c x0 x1 x2 x3 : ℝ) (h1 : b - c ≠ 0) (h2 : b ^ 2 - 2 * c ^ 2 ≠ 0)
+    (h3 : b + c ≠ 0) :
+    Qpoly a b c x0 x1 x2 x3 =
+      2 * (b - c) * (x0 - (b - 2*c) / (b - c) * x1 + a / (b - c) * x2 - 2*a / (b - c) * x3) ^ 2
+      + 2 * (b ^ 2 - 2 * c ^ 2) / (b - c) *
+          (x1 - a * b / (b ^ 2 - 2 * c ^ 2) * x2 + 2 * a * c / (b ^ 2 - 2 * c ^ 2) * x3) ^ 2
+      + 2 * (b + c) * (3 * b ^ 2 - 2 * a ^ 2 - 6 * c ^ 2) / (b ^ 2 - 2 * c ^ 2) *
+          (x2 - (b + 2*c) / (b + c) * x3) ^ 2
+      + 2 * (3 * b ^ 2 - 2 * a ^ 2 - 6 * c ^ 2) / (b + c) * x3 ^ 2 := by
+  simp only [Qpoly]
+  field_simp
+  ring
+
+/-- **Definiteness on the sheet `b > 0`.** -/
+theorem Qpoly_pos (a b c x0 x1 x2 x3 : ℝ) (hb : 0 < b) (hq : 3 * b ^ 2 - 2 * a ^ 2 - 6 * c ^ 2 = 1)
+    (hx : ¬ (x0 = 0 ∧ x1 = 0 ∧ x2 = 0 ∧ x3 = 0)) : 0 < Qpoly a b c x0 x1 x2 x3 := by
+  have hbc2 : 0 < b ^ 2 - 2 * c ^ 2 := by nlinarith [sq_nonneg a, sq_nonneg c]
+  have hm : 0 < b - c := by nlinarith [sq_nonneg (b + c), sq_nonneg c]
+  have hp : 0 < b + c := by nlinarith [sq_nonneg (b - c), sq_nonneg c]
+  rw [Qpoly_ldl a b c x0 x1 x2 x3 hm.ne' hbc2.ne' hp.ne', hq]
+  set y0 := x0 - (b - 2*c) / (b - c) * x1 + a / (b - c) * x2 - 2*a / (b - c) * x3
+  set y1 := x1 - a * b / (b ^ 2 - 2 * c ^ 2) * x2 + 2 * a * c / (b ^ 2 - 2 * c ^ 2) * x3
+  set y2 := x2 - (b + 2*c) / (b + c) * x3
+  have d0 : 0 < 2 * (b - c) := by positivity
+  have d1 : 0 < 2 * (b ^ 2 - 2 * c ^ 2) / (b - c) := by positivity
+  have d2 : 0 < 2 * (b + c) * 1 / (b ^ 2 - 2 * c ^ 2) := by positivity
+  have d3 : 0 < 2 * 1 / (b + c) := by positivity
+  have t0 := mul_nonneg d0.le (sq_nonneg y0)
+  have t1 := mul_nonneg d1.le (sq_nonneg y1)
+  have t2 := mul_nonneg d2.le (sq_nonneg y2)
+  have t3 := mul_nonneg d3.le (sq_nonneg x3)
+  by_contra hle
+  push_neg at hle
+  have e3 : 2 * 1 / (b + c) * x3 ^ 2 = 0 := by linarith
+  have e2 : 2 * (b + c) * 1 / (b ^ 2 - 2 * c ^ 2) * y2 ^ 2 = 0 := by linarith
+  have e1 : 2 * (b ^ 2 - 2 * c ^ 2) / (b - c) * y1 ^ 2 = 0 := by linarith
+  have e0 : 2 * (b - c) * y0 ^ 2 = 0 := by linarith
+  have z3 : x3 = 0 := pow_eq_zero_iff (n := 2) (by norm_num) |>.1
+    ((mul_eq_zero.1 e3).resolve_left d3.ne')
+  have z2' : y2 = 0 := pow_eq_zero_iff (n := 2) (by norm_num) |>.1
+    ((mul_eq_zero.1 e2).resolve_left d2.ne')
+  have z1' : y1 = 0 := pow_eq_zero_iff (n := 2) (by norm_num) |>.1
+    ((mul_eq_zero.1 e1).resolve_left d1.ne')
+  have z0' : y0 = 0 := pow_eq_zero_iff (n := 2) (by norm_num) |>.1
+    ((mul_eq_zero.1 e0).resolve_left d0.ne')
+  have z2 : x2 = 0 := by simpa [y2, z3] using z2'
+  have z1 : x1 = 0 := by simpa [y1, z3, z2] using z1'
+  have z0 : x0 = 0 := by simpa [y0, z3, z2, z1] using z0'
+  exact hx ⟨z0, z1, z2, z3⟩
+
+theorem Qpoly_neg (a b c x0 x1 x2 x3 : ℝ) :
+    Qpoly (-a) (-b) (-c) x0 x1 x2 x3 = - Qpoly a b c x0 x1 x2 x3 := by
+  simp only [Qpoly]; ring
+
+theorem ne_zero_coords {x : BR} (hx : x ≠ 0) :
+    ¬ (x.re = 0 ∧ x.imI = 0 ∧ x.imJ = 0 ∧ x.imK = 0) := by
+  rintro ⟨h0, h1, h2, h3⟩
+  exact hx (by ext <;> simp [h0, h1, h2, h3])
+
+/-- **The sign step of Lemma P.** For every complex structure `x ↦ xj` (`j² = −1`) on
+`B_ℝ = H₁(A, ℝ)`, the form `x ↦ E₀(xj, x)` is definite: positive if `imJ(j) > 0`, negative if
+`imJ(j) < 0` (and `imJ(j) ≠ 0` always). So exactly one of `±E₀` is a Riemann form. -/
+theorem riemann_sign (j : BR) (hj : j * j = -1) :
+    (0 < j.imJ ∧ ∀ x : BR, x ≠ 0 → 0 < E0R (x * j) x) ∨
+      (j.imJ < 0 ∧ ∀ x : BR, x ≠ 0 → E0R (x * j) x < 0) := by
+  obtain ⟨h0, hq⟩ := pure_of_sq j hj
+  rcases lt_trichotomy j.imJ 0 with hb | hb | hb
+  · right
+    refine ⟨hb, fun x hx => ?_⟩
+    rw [E0R_mul_j_self j x h0]
+    have := Qpoly_pos (-j.imI) (-j.imJ) (-j.imK) x.re x.imI x.imJ x.imK (by linarith)
+      (by nlinarith [hq]) (ne_zero_coords hx)
+    rw [Qpoly_neg] at this
+    linarith
+  · exfalso
+    rw [hb] at hq
+    nlinarith [sq_nonneg j.imI, sq_nonneg j.imK]
+  · left
+    refine ⟨hb, fun x hx => ?_⟩
+    rw [E0R_mul_j_self j x h0]
+    exact Qpoly_pos _ _ _ _ _ _ _ hb hq (ne_zero_coords hx)
+
+
+/-- **Lemma P on the lattice.** For every complex structure `x ↦ xj` (`j ∈ B_ℝ`, `j² = −1`) on
+`H₁ = 𝒪`, exactly one rational multiple `r·E₀` of N5's form is principal (Gram determinant 1 on
+`𝒪`) and positive (`r·E₀(xj, x) > 0` for `x ≠ 0`); it is `J`-invariant by `E0R_mul_j`. By
+`eq_smul_E0` every alternating form for which `𝒪` acts with adjoint `†` is such a multiple. So
+every QM torus `ℂ²/𝒪v` has exactly one principal polarization of type `μ`. -/
+theorem lemmaP_lattice (j : BR) (hj : j * j = -1) :
+    ∃! r : ℚ, (r • gram).det = 1 ∧ ∀ x : BR, x ≠ 0 → 0 < (r : ℝ) * E0R (x * j) x := by
+  have hdet : ∀ r : ℚ, (r • gram).det = 1 → r = 1 ∨ r = -1 := by
+    intro r h
+    rw [Matrix.det_smul, gram_det, Fintype.card_fin, mul_one] at h
+    have h4 : (r ^ 2 - 1) * (r ^ 2 + 1) = 0 := by linear_combination h
+    have hr2 : r ^ 2 = 1 := by
+      rcases mul_eq_zero.1 h4 with h | h
+      · linarith
+      · nlinarith [sq_nonneg r]
+    have : (r - 1) * (r + 1) = 0 := by linear_combination hr2
+    rcases mul_eq_zero.1 this with h | h
+    · left; linarith
+    · right; linarith
+  have one_ne : (1 : BR) ≠ 0 := one_ne_zero
+  rcases riemann_sign j hj with ⟨-, hpos⟩ | ⟨-, hneg⟩
+  · refine ⟨1, ⟨by simp [gram_det], fun x hx => by simpa using hpos x hx⟩, ?_⟩
+    rintro r ⟨hr, hp⟩
+    rcases hdet r hr with h | h
+    · exact h
+    · exfalso
+      have := hp 1 one_ne
+      have h1 := hpos 1 one_ne
+      rw [h] at this
+      push_cast at this
+      linarith
+  · refine ⟨-1, ⟨?_, fun x hx => ?_⟩, ?_⟩
+    · rw [Matrix.det_smul, gram_det]; norm_num
+    · have := hneg x hx
+      push_cast
+      linarith
+    · rintro r ⟨hr, hp⟩
+      rcases hdet r hr with h | h
+      · exfalso
+        have := hp 1 one_ne
+        have h1 := hneg 1 one_ne
+        rw [h] at this
+        push_cast at this
+        linarith
+      · exact h
+
 end RvQMPolar
 
 #print axioms RvQMPolar.two_principal_types
@@ -570,3 +765,6 @@ end RvQMPolar
 #print axioms RvQMPolar.chi3_normalizes
 #print axioms RvQMPolar.w_eq_chi_mul
 #print axioms RvQMPolar.twist_type
+#print axioms RvQMPolar.riemann_sign
+#print axioms RvQMPolar.E0R_mul_j
+#print axioms RvQMPolar.lemmaP_lattice
