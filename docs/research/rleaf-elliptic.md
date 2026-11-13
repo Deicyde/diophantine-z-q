@@ -118,7 +118,7 @@ Both are consequences of published theorems (STANDARD).
 
 ## 1. Survey: which leaves are about elliptic curves
 
-Sources: docs/research/h-decomposition.md §2 (the leaf table), the Lean statements in
+Sources (the publication of each leaf is the one recorded in h-decomposition.md §2, with its locator audit; numbers UNVERIFIED unless the audit read them): docs/research/h-decomposition.md §2 (the leaf table), the Lean statements in
 `scratch/h-decomposition/Leaves.lean` and `ZInQKernel/HDecomp/`, docs/research/tc-survey.md
 (origin/wip/tc-survey), and the oct16 Tau Ceti tree (`~/tc-oct16`). The verdicts were read in the
 statements (VERIFIED). Effort grades are SPECULATIVE.
@@ -133,21 +133,21 @@ statements are listed in the table.
 
 | Leaf | Objects | Elliptic content | Lean reach | Effort for the elliptic part |
 |---|---|---|---|---|
-| R1 Shimura–Deligne | PEL moduli of QM surfaces | none (QM surfaces are "fake elliptic curves", dimension 2) | in part (`QML3`) | — |
-| R2 Baba–Granath | `X₆`, its Hauptmodul | the three CM values `0, ∞, −16/27` are where the QM surface is isogenous to `E × E` with CM by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` (STANDARD, Rotger) | yes (`R2X6PropsIff`) | very large; CM theory of `E × E` with QM is not in Lean or Tau Ceti |
-| R3 Lin–Yang | abelian surfaces with QM over ℂ | the second disjunct `A ≅ E₁ × E₂` (Weil's dichotomy at `j ∈ {0, ∞}`), a weaker conclusion, not an input | yes (`LeafPush2.R03_LinYang`) | very large (Jacobians, Weil 1957) |
-| R4 Igusa theta | genus-2 theta constants | none | yes | — |
+| R1 Shimura–Deligne (Shimura, Ann. Math. 85 (1967); Deligne, Bourbaki 389 (1971)) | PEL moduli of QM surfaces | none (QM surfaces are "fake elliptic curves", dimension 2) | in part (`QML3`) | — |
+| R2 Baba–Granath (Canad. J. Math. 60 (2008)) | `X₆`, its Hauptmodul | the three CM values `0, ∞, −16/27` are where the QM surface is isogenous to `E × E` with CM by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` (STANDARD, Rotger) | yes (`R2X6PropsIff`) | very large; CM theory of `E × E` with QM is not in Lean or Tau Ceti |
+| R3 Lin–Yang (Math. Z. 295 (2020)) | abelian surfaces with QM over ℂ | the second disjunct `A ≅ E₁ × E₂` (Weil's dichotomy at `j ∈ {0, ∞}`), a weaker conclusion, not an input | yes (`LeafPush2.R03_LinYang`) | very large (Jacobians, Weil 1957) |
+| R4 Igusa theta constants (Igusa) | genus-2 theta constants | none | yes | — |
 | R5 González–Rotger | CM points of `X₆` | CM QM surfaces are isogenous to `E²` with `E` CM; the count `2^{b(R)} h(R)` is a class-number statement (SPECULATIVE: could go through CM elliptic curves) | yes (`R5fpStrong`, `R5fpCount`) | very large |
-| R6 Raynaud | abelian varieties over a DVR | the case `g = 1` is not used (A6 applies it at `g = 2`) | yes (`PkgI2.RaynaudCriterion`) | the `g = 1` case would not discharge the leaf |
-| R7 Serre–Tate (NOS, potential good reduction) | abelian varieties over a DVR | the case `g = 1` is in Tau Ceti, over nonarchimedean local fields only: `WeierstrassCurve.isUnramified_divisionField_iff`, `isUnramified_divisionField_pow_of_tateModuleGaloisRepresentation_eq_one` (TateModule/Unramified.lean), `HasPotentialGoodReduction.finite_image_tateModuleGaloisRepresentation` (TateModule/PotentialGoodReduction.lean), all oct16 (VERIFIED, read) | yes (`PkgI2.NeronOggShafarevich`, `SerreTatePotentialGood`) | the leaf is for all `g` and every DVR; a `g = 1` form needs the bridge AV7 (an `AbVar` of dimension 1 ↔ a Weierstrass curve), which is absent, and it would not discharge the leaf |
-| R8 Grothendieck | abelian varieties | none used | monodromy form | — |
-| R9 Faltings | `Hom`, `T_ℓ` of abelian varieties | none (the `g = 1` case is still Faltings or Serre) | yes | — |
-| R10-R12 | p-adic Hodge theory, Pan | none | yes | — |
-| R13-R15 | eigenforms, Galois representations | none (modularity of elliptic curves is not used) | yes | — |
-| R16 Eichler–Shimura in `J₁(N)` | newforms, `J₁(N)` | the model of `X₁(N)` is defined through `E_j` (`K_N = ℚ(j)(x(P))`); the conclusion is about `J₁(N)` | yes (`R16_EichlerShimuraJ1'`) | — (no elliptic reduction) |
-| R17 Carayol | ℓ-adic conductors | none | placeholder (concrete form `CarayolR17'`) | — |
-| R18 Javanpeykar | Faltings height of `Jac X`, Belyi maps | its Belyi input on `X₁(N)` is the glue `BelyiX1`, **proved here** (§0) | yes | done for the input; the leaf itself is not elliptic |
-| R19-R22, H5 | Faltings heights of abelian varieties | the case `g = 1` is the acceptance test AT1 (`AcceptanceEC`, not a leaf), proved conditionally (`stableFaltingsHeight_eq_faltingsHeightEC`) | yes | AT1 needs AV7, AN3-AN5 and H5 itself |
+| R6 Raynaud (SGA 7 IX 4.7; Silverberg–Zarhin 1995) | abelian varieties over a DVR | the case `g = 1` is not used (A6 applies it at `g = 2`) | yes (`PkgI2.RaynaudCriterion`) | the `g = 1` case would not discharge the leaf |
+| R7 Serre–Tate (Ann. Math. 88 (1968), Thms 1, 2) | abelian varieties over a DVR | the case `g = 1` is in Tau Ceti, over nonarchimedean local fields only: `WeierstrassCurve.isUnramified_divisionField_iff`, `isUnramified_divisionField_pow_of_tateModuleGaloisRepresentation_eq_one` (TateModule/Unramified.lean), `HasPotentialGoodReduction.finite_image_tateModuleGaloisRepresentation` (TateModule/PotentialGoodReduction.lean), all oct16 (VERIFIED, read) | yes (`PkgI2.NeronOggShafarevich`, `SerreTatePotentialGood`) | the leaf is for all `g` and every DVR; a `g = 1` form needs the bridge AV7 (an `AbVar` of dimension 1 ↔ a Weierstrass curve), which is absent, and it would not discharge the leaf |
+| R8 Grothendieck (SGA 7 IX 3.6) | abelian varieties | none used | monodromy form | — |
+| R9 Faltings (Invent. Math. 73 (1983)) | `Hom`, `T_ℓ` of abelian varieties | none (the `g = 1` case is still Faltings or Serre) | yes | — |
+| R10-R12 (Scholze 2013; Berger 2002; Pan 2022) | p-adic Hodge theory, Pan | none | yes | — |
+| R13-R15 (Kato 2004; Deligne 1971; Deligne–Serre 1974) | eigenforms, Galois representations | none (modularity of elliptic curves is not used) | yes | — |
+| R16 Eichler–Shimura in `J₁(N)` (Shimura 1971, 1973) | newforms, `J₁(N)` | the model of `X₁(N)` is defined through `E_j` (`K_N = ℚ(j)(x(P))`); the conclusion is about `J₁(N)` | yes (`R16_EichlerShimuraJ1'`) | — (no elliptic reduction) |
+| R17 Carayol (Ann. ÉNS 19 (1986)) | ℓ-adic conductors | none | placeholder (concrete form `CarayolR17'`) | — |
+| R18 Javanpeykar (ANT 8 (2014)) | Faltings height of `Jac X`, Belyi maps | its Belyi input on `X₁(N)` is the glue `BelyiX1`, **proved here** (§0) | yes | done for the input; the leaf itself is not elliptic |
+| R19-R22, H5 (Gaudron–Rémond 2014; Faltings 1983 L. 5; Bost 1996; Pazuki 2012; Faltings/Deligne/BLR) | Faltings heights of abelian varieties | the case `g = 1` is the acceptance test AT1 (`AcceptanceEC`, not a leaf), proved conditionally (`stableFaltingsHeight_eq_faltingsHeightEC`) | yes | AT1 needs AV7, AN3-AN5 and H5 itself |
 
 So no research-level leaf is in reach through elliptic curves. To use Tau Ceti's elliptic results
 for R7 one would need these **new definitions** (SPECULATIVE sizes):
