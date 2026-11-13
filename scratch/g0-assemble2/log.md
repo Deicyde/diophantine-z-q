@@ -61,3 +61,4 @@
   (use `norm_num`); explicit `A` for `hMul`. Run 4: VERIFIED 0 errors. GluePieces3: field `modelNoncomm`
   removed (40 fields: 15 LEAF, 3 LEAF?, 22 GLUE); four main theorems standard axioms.
 - Unused-field check (grep): TextbookLeaves fields t1 t2 t3 t4 t16b t20 t21 t28 t29a t29b are never projected or destructured on the route (31 declarations take `t`, not pruned); every ResearchLeaves3 field is used.
+- FINAL flat file (70514 lines, md5 3258cc5e…, all parts incl. a95, z85, z86): VERIFIED `lake env lean` exit 0 in 829 s, 0 errors, no sorry, 200 axiom reports all [propext, Classical.choice, Quot.sound] (07:58-08:12).

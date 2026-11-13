@@ -282,7 +282,13 @@ ModelG3G6`.
 - **TailC** (a45-a90): 0 errors, 142 s.
 - **TailD** (z80, z90): 0 errors. The four theorems of §0 have standard axioms (VERIFIED,
   `olean/TailD_out.txt`).
-- **Flat file:** see the final paragraph of this section. It is updated when the run finishes.
+- **Flat file:** `lake env lean scratch/g0-assemble2/G0Assemble2.lean` (70 514 lines, all parts,
+  md5 `3258cc5e…`). Exit 0 in 829 s, 0 errors, no `sorry`. All 200 `#print axioms` reports are
+  `[propext, Classical.choice, Quot.sound]`, two of them printed over three lines. VERIFIED,
+  `scratch/g0-assemble2/flat_out.txt`. Earlier versions also passed: 66 352 lines in 749 s (before
+  a95), and 70 428 lines in 739 s (before z86).
+- **Iteration speed:** after the prefix, TailA, TailB and TailC oleans, a change to the bundle parts
+  `z*` recompiles in about 8 s (`ctail.sh TailD.lean`).
 
 ## 6. What remains, and what was not folded
 
