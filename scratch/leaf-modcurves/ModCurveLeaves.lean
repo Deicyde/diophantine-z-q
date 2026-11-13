@@ -833,6 +833,95 @@ theorem rhoF_traces (hR16 : R16_EichlerShimuraJ1') (N : ℕ) (hN : 0 < N)
   rw [trace_rhoF ℓ A θ emb h2]
   exact (hfr p hp hpN g hg).1 _ rfl
 
+/-! ## §I. G13: `ρ_{f,ι}` is a constituent of `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` -/
+
+section G13
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `V_ℓ(π)` for a homomorphism `π : J → A`. -/
+def homV {J A : AbVar ℚ} (π : Hom J A) : J.V ℓ →ₗ[ℚ_[ℓ]] A.V ℓ :=
+  (homT (ℓ := ℓ) π).baseChange ℚ_[ℓ]
+
+/-- **Glue target (standard): a surjective homomorphism of abelian varieties is surjective on
+`V_ℓ`.** (By Poincaré reducibility, T8, `π` restricts to an isogeny on an abelian subvariety, and
+isogenies are isomorphisms on `V_ℓ`; Mumford §19, UNVERIFIED.) Not a literature leaf: glue. -/
+def VSurjOfSurjective : Prop :=
+  ∀ (J A : AbVar ℚ) (π : Hom J A) (ℓ : ℕ) [Fact ℓ.Prime], Surjective π.hom.left →
+    Function.Surjective (homV ℓ π)
+
+/-- `V_ℓ(π)` is `G_ℚ`-equivariant (from the kernel's `homT_galT`). -/
+theorem homV_galRep {J A : AbVar ℚ} (π : Hom J A) (σ : GQ) :
+    homV ℓ π ∘ₗ J.galRep ℓ σ = A.galRep ℓ σ ∘ₗ homV ℓ π := by
+  have h1 : homT (ℓ := ℓ) π ∘ₗ J.galT σ = A.galT σ ∘ₗ homT π :=
+    LinearMap.ext fun t => homT_galT π σ t
+  simp only [homV, galRep_apply]
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, h1]
+
+/-- Pulling functionals back along `V_ℓ(π)`. -/
+def pullback {J A : AbVar ℚ} (π : Hom J A) :
+    (A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) →ₗ[PadicAlgCl ℓ] (J.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) where
+  toFun φ := φ ∘ₗ homV ℓ π
+  map_add' _ _ := LinearMap.add_comp _ _ _
+  map_smul' _ _ := LinearMap.smul_comp _ _ _
+
+theorem pullback_injective {J A : AbVar ℚ} (π : Hom J A) (h : Function.Surjective (homV ℓ π)) :
+    Function.Injective (pullback ℓ π) := by
+  intro φ ψ e
+  exact (LinearMap.cancel_right h).1 e
+
+theorem pullback_dualAct {J A : AbVar ℚ} (π : Hom J A) (σ : GQ)
+    (φ : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) :
+    pullback ℓ π (dualAct ℓ A σ φ) = dualAct ℓ J σ (pullback ℓ π φ) := by
+  change (φ ∘ₗ A.galRep ℓ σ) ∘ₗ homV ℓ π = (φ ∘ₗ homV ℓ π) ∘ₗ J.galRep ℓ σ
+  rw [LinearMap.comp_assoc, LinearMap.comp_assoc, homV_galRep]
+
+/-- **G13 (glue, proved from R16 and `VSurjOfSurjective`).** For a newform `f` of level `N`, a
+`J₁(N)` `J`, a prime `ℓ` and an embedding `ι : K_f → ℚ̄_ℓ`: there is a 2-dimensional
+`G_ℚ`-stable space `W` of `ℚ_ℓ`-linear functionals on `V_ℓ(J)` (i.e. a 2-dimensional quotient
+`(V_ℓ(J) ⊗ ℚ̄_ℓ) ↠ W^∨`), on which every arithmetic Frobenius at `p ∤ Nℓ` acts by
+`φ ↦ φ ∘ σ` with trace `ι(a_p(f))` and determinant `ι(χ(p))p`. This is R16's former
+placeholder text ("a `G_ℚ`-stable two-dimensional subquotient of `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`"). -/
+theorem g13_constituent (hR16 : R16_EichlerShimuraJ1') (hV : VSurjOfSurjective) (N : ℕ)
+    (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∀ emb : coeffField f →+* PadicAlgCl ℓ, ∃ W : Submodule (PadicAlgCl ℓ)
+        (J.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ), Module.finrank (PadicAlgCl ℓ) W = 2 ∧
+      ∃ hW : ∀ σ : GQ, ∀ φ ∈ W, dualAct ℓ J σ φ ∈ W,
+      ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+        (∀ a : coeffField f, (a : ℂ) = coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) W ((dualAct ℓ J σ).restrict (hW σ)) = emb a) ∧
+        (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
+            LinearMap.det ((dualAct ℓ J σ).restrict (hW σ)) = emb c * p) := by
+  obtain ⟨-, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  intro emb
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  have hinj := pullback_injective ℓ π (hV J A π ℓ hπ)
+  set E := eigenFun ℓ A θ emb
+  let e := Submodule.equivMapOfInjective (pullback ℓ π) hinj E
+  have hW : ∀ σ : GQ, ∀ φ ∈ E.map (pullback ℓ π), dualAct ℓ J σ φ ∈ E.map (pullback ℓ π) := by
+    rintro σ _ ⟨ψ, hψ, rfl⟩
+    exact ⟨dualAct ℓ A σ ψ, dualAct_mem ℓ A θ emb σ ψ hψ, pullback_dualAct ℓ π σ ψ⟩
+  have hconj : ∀ σ : GQ, (dualAct ℓ J σ).restrict (hW σ) = e.conj (frobOn ℓ A θ emb σ) := by
+    intro σ
+    apply LinearMap.ext; intro x
+    obtain ⟨y, rfl⟩ := e.surjective x
+    apply Subtype.ext
+    simp only [LinearEquiv.conj_apply, LinearMap.comp_apply, LinearEquiv.coe_coe,
+      LinearEquiv.symm_apply_apply, LinearMap.restrict_apply, e,
+      Submodule.coe_equivMapOfInjective_apply]
+    exact (pullback_dualAct ℓ π σ y).symm
+  refine ⟨E.map (pullback ℓ π), ?_, hW, fun p hp hpN σ hσ => ?_⟩
+  · rw [← e.finrank_eq, h2]
+  · obtain ⟨htr, hdet⟩ := hfr p hp hpN σ hσ
+    refine ⟨fun a ha => ?_, fun c hc => ?_⟩
+    · rw [hconj σ, LinearMap.trace_conj']
+      exact htr a ha
+    · rw [hconj σ, LinearEquiv.conj_apply, LinearMap.comp_assoc, LinearMap.det_conj]
+      exact hdet c hc
+
+end G13
+
 end LeafModCurves
 
 #print axioms LeafModCurves.genus_Gamma1_le
@@ -843,3 +932,4 @@ end LeafModCurves
 #print axioms LeafModCurves.exists_J1_quotient
 #print axioms LeafModCurves.rhoF_traces
 #print axioms LeafModCurves.isFrobAt_of_isArithFrob
+#print axioms LeafModCurves.g13_constituent

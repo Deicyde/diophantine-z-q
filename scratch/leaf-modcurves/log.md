@@ -37,3 +37,9 @@
   polynomial; the trace/det clauses must cite the printed characteristic polynomial (Diamond–Shurman
   Thm 9.5.4, Shimura 1971 Thm 7.11 / Ribet 1977, UNVERIFIED numbers). Applied to the R16 docstring and to
   docs/research/leaf-modcurves.md §3, §6. Recompiled: exit 0, no warnings, standard axioms. VERIFIED.
+- 17:02 §I (G13) added: `homV`, glue target `VSurjOfSurjective` (surjective homomorphism ⇒ surjective on V_ℓ;
+  standard via T8, not a leaf), `homV_galRep` (equivariance, from kernel `homT_galT`), `pullback`,
+  `pullback_injective`, `pullback_dualAct`, and **`g13_constituent`** (proved from R16' + VSurjOfSurjective):
+  for a newform f of level N, any J₁(N), ℓ, ι, a 2-dim G_ℚ-stable space W of functionals on V_ℓ(J₁(N))
+  (dual of a 2-dim quotient of V_ℓ(J)⊗ℚ̄_ℓ) with Frobenius trace ι(a_p), det ι(χ(p))p at p ∤ Nℓ — R16's former
+  placeholder text. `lake env lean`: exit 0, no warnings; standard axioms (incl. `g13_constituent`). VERIFIED.
