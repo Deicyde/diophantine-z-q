@@ -97,7 +97,9 @@ N5 L848-851).** On `G_F ∩ P_p` (pushed to `G_ℚ` by `decomp`) the twisted Tat
 datum has `a_σ μ_σ = 1`, so `a_σ Tm σ` is the Tate action of `A/L`; `A` is semistable over
 `F ⊇ L_v(A[3])` (`A[5]` if `p = 3`) by Raynaud's criterion (R6, `PkgI2.RaynaudCriterion`), and
 then wild inertia acts trivially on `V_ℓ` (D2, `PkgI2.D2_fixed_of_raynaud`); at `p > D`, `A` has
-good reduction (G3) and inertia acts trivially (`PkgI2.inertiaTrivial_of_goodReduction`). -/
+good reduction (G3) and inertia acts trivially (`PkgI2.inertiaTrivial_of_goodReduction`).
+Only claimed for `p ≠ ℓ` (D2 and Néron–Ogg–Shafarevich are about `V_ℓ`, `ℓ ≠ p`; at `p = ℓ` it is
+false in general); `g15RamG_of_g8` uses it only at `p ≠ ℓ`. -/
 def TateWildTrivial {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
     (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a : GQ → PadicAlgCl ℓ) (F : Fld p) : Prop :=
   ∀ σ ∈ fixSet F ∩ wildSet, a (decomp p σ) • Tm (decomp p σ) = 1
@@ -724,6 +726,71 @@ theorem localData_small_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.Ab
   exact ⟨F, _, hF, he, twistShape_of_g8 hG8 (tateWildTrivial_mono hEF hT),
     twistUpper_of_betaUpper (betaUpper_mono hEF hB)⟩
 
+/-! ### Assembly at odd `p` (proved) -/
+
+/-- **`LocalData p r` at odd `p` for G8's `r`, from G7's clauses and one named glue Prop
+(proved).** Hypotheses:
+* G8's output for `ρ = GlueDescent.rho Tm a β` (`G0Galois.G8Out`, proved by g0-mod-galois `g8`);
+* clauses of G7 (`G0Galois.G7Out`: `∂β = ε`, `β ≠ 0`; g0-mod-field `G7Data`/`DescentDatum`,
+  with the values moved to `ℚ̄_ℓ` by `ι`: `β` locally constant, `β² = ι ∘ χ` for a Dirichlet
+  character `χ` mod `chiLevel T₋`, `T₋` a set of primes, and `ε = 1` on `G_L × G_L`, as `ε` is
+  inflated from `Gal(L/ℚ)` with `ε(1,1) = 1`);
+* at `p ≤ D`: a finite `E ⊆ ℚ̄_p` containing `embP(L)` with `[E:ℚ_p] ≤ DG₀` (Glazer:
+  `E = L_v(A[3])`, `A[5]` if `p = 3`) and `TateWildTrivial` on `E`;
+* at `p > D`: a finite `E ⊇ embP(L)` with `[E:ℚ_p] < p` (Glazer: `E = L_v`, degree `≤ D`) and
+  `TateWildTrivial` on `E`.
+The `β`-side (`BetaUpper`, `BetaTame`) is fully proved from these clauses. -/
+theorem localData_of_g7_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
+    {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
+    {ε : GQ → GQ → PadicAlgCl ℓ} {r : GaloisRep ℓ 2}
+    (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
+    (hβε : ∀ g h, β g * β h = ε g h * β (g * h)) (hβ0 : ∀ g, β g ≠ 0)
+    (hβlc : IsLocallyConstant β)
+    {Tmin : Finset ℕ} (hTm : ∀ q ∈ Tmin, q.Prime) [NeZero (GlueDescent.chiLevel Tmin)]
+    (χ : DirichletCharacter ℂ (GlueDescent.chiLevel Tmin)) (ι : ℂˣ →* (PadicAlgCl ℓ)ˣ)
+    (hsq : ∀ g, β g ^ 2 = (ι (GlueDescent.B2Q.galChar χ g) : PadicAlgCl ℓ))
+    {L : IntermediateField ℚ PkgI4.Qbar}
+    (hε : ∀ g h : GQ, (∀ x ∈ L, g x = x) → (∀ x ∈ L, h x = x) → ε g h = 1)
+    (hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧
+      (∀ x ∈ L, embP x ∈ E) ∧ Module.finrank ℚ_[p] E ≤ ZInQ.heightD * ZInQ.heightG0 ∧
+      TateWildTrivial Tm a E)
+    (hlarge : (ZInQ.heightD : ℝ) < p → ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧
+      (∀ x ∈ L, embP x ∈ E) ∧ Module.finrank ℚ_[p] E < p ∧ TateWildTrivial Tm a E) :
+    LocalData p r := by
+  have hU0 : (0 : ℝ) ≤ U0 := by unfold U0; positivity
+  have htame : ∀ E : Fld p, (∀ x ∈ L, embP x ∈ E) → BetaTame β E := by
+    intro E hLE
+    have hm := betaCharOn_of_cocycle (p := p) hβε hε hLE
+    have hs := betaSqWild_of_chi hp2 (F := E) hTm χ ι (fun σ _ => hsq _)
+    have ho := betaOpen_of_isLocallyConstant (p := p) hβlc (beta_one_of_charOn hm (hβ0 1))
+    exact betaTame_of_odd hp2 hm hs ho
+  refine ⟨fun hp => ?_, fun hp => ?_⟩
+  · obtain ⟨E, hEfd, hLE, hdeg, hT⟩ := hsmall hp
+    exact localData_small_of_g8 hG8 hdeg hT (betaUpper_of_betaTame hU0 (htame E hLE))
+  · obtain ⟨E, hEfd, hLE, hdeg, hT⟩ := hlarge hp
+    exact (localData_large_of_g8 hG8 hp hdeg hT (htame E hLE)).2 hp
+
+/-! ### Non-vacuity (proved) -/
+
+/-- **`G7LocalData` is satisfiable (proved):** it holds for trivial data (`Tm = 1`, `a = 1`,
+`β = 1`, `F = ℚ_p`), so it is not contradictory. -/
+theorem g7LocalData_triv {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V] :
+    G7LocalData (p := p) (fun _ => (1 : Module.End (PadicAlgCl ℓ) V)) (fun _ => 1)
+      (fun _ => 1) := by
+  have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
+  have he : ramCard (⊥ : Fld p) 0 = 1 := by
+    have h1 := one_le_ramCard hF 0
+    have h2 := ramCard_zero_le_finrank hF
+    rw [IntermediateField.finrank_bot] at h2
+    omega
+  have hT : TateWildTrivial (p := p) (fun _ => (1 : Module.End (PadicAlgCl ℓ) V))
+      (fun _ => (1 : PadicAlgCl ℓ)) ⊥ := fun _ _ => one_smul _ _
+  refine ⟨fun _ => ⟨⊥, hF, ?_, hT, fun _ _ _ _ => rfl⟩,
+    fun _ => ⟨⊥, hF, ?_, hT, fun _ _ => rfl⟩⟩
+  · rw [he]; exact Nat.one_le_iff_ne_zero.mpr (Nat.factorial_ne_zero _)
+  · rw [he]; exact (Nat.Prime.one_lt Fact.out).ne' ∘ Nat.dvd_one.mp
+
 end LocalDataSec
 
 end G15Ram
@@ -746,3 +813,5 @@ end G15Ram
 #print axioms G15Ram.localData_large_of_g8
 #print axioms G15Ram.exists_finGal_ramCard_le
 #print axioms G15Ram.localData_small_of_g8
+#print axioms G15Ram.localData_of_g7_odd
+#print axioms G15Ram.g7LocalData_triv

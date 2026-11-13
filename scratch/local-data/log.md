@@ -59,7 +59,7 @@
   `betaSqWild_of_chi` (BetaSqWild from β² = ι ∘ galChar χ on G_F, χ mod chiLevel T₋).
 - Compile: exit 0, 0 errors, no sorry (~60 s).
 
-## Step 4 (06:08-06:20 PST): ∂β = ε, and fields of degree < p
+## Step 4 (06:08-06:11 PST): ∂β = ε, and fields of degree < p
 - Proved (VERIFIED, compiled, axioms standard): `decomp_fix_of_le` (F ⊇ embP(L) ⇒ decomp(G_F)
   fixes L); `betaCharOn_of_cocycle` (BetaCharOn from G7Out's `β g β h = ε g h β (gh)` and
   ε = 1 on G_L × G_L); `wild_fix_small_degree` ([E:ℚ_p] < p ⇒ wildSet ⊆ fixSet E: σ^{p^a}
@@ -68,10 +68,23 @@
   E, BetaTame on E; no Galois closure or tameness needed).
 - Compile: exit 0, 0 errors, no sorry.
 
-## Step 5 (06:11-06:20 PST): Galois closure with e ≤ n!
+## Step 5 (06:11-06:14 PST): Galois closure with e ≤ n!
 - Proved (VERIFIED, compiled, axioms standard): `ramCard_zero_le_finrank` (e(F) ≤ [F:ℚ_p]);
   `exists_finGal_ramCard_le` ([E:ℚ_p] ≤ n ⇒ ∃ finite Galois F ⊇ E with e(F) ≤ n!: splitting
   field in ℚ̄_p of the minimal polynomial of a primitive element, Gal acting on ≤ n roots);
   `tateWildTrivial_mono`, `betaUpper_mono`; `localData_small_of_g8` (p ≤ D: SmallPrimeData p r
   from G8Out, [E:ℚ_p] ≤ DG₀, TateWildTrivial and BetaUpper on E).
 - Compile: exit 0, 0 errors, no sorry.
+
+## Step 6 (06:14-06:20 PST): assembly at odd p, non-vacuity, verbatim check
+- Proved (VERIFIED, compiled, axioms standard): `localData_of_g7_odd` (odd p: LocalData p r
+  from G8Out, G7 clauses ∂β = ε, β ≠ 0, β locally constant, β² = ι∘galChar χ (χ mod
+  chiLevel T₋, T₋ primes), ε = 1 on G_L², and, per case, E ⊇ embP(L) with [E:ℚ_p] ≤ DG₀
+  (p ≤ D) or < p (p > D) and TateWildTrivial on E); `g7LocalData_triv` (G7LocalData holds for
+  Tm = 1, a = 1, β = 1, F = ⊥: not contradictory).
+- `TateWildTrivial` docstring: only claimed for p ≠ ℓ (false in general at p = ℓ).
+- Verbatim check (VERIFIED, python substring test): G15Ram.lean lines 8-1384 and
+  part_galois.lean slices 23-40, 66-73, 83-88, 110-133, 142-153 occur unchanged in
+  LocalData.lean; each copied def occurs once.
+- Compile: `lake env lean scratch/local-data/LocalData.lean` exit 0, 0 errors, no sorry;
+  all 20 printed declarations [propext, Classical.choice, Quot.sound].
