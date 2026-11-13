@@ -77,3 +77,9 @@ Named leaves (def … : Prop): `IgusaSL2X` (SL₂ part on x-coordinates; Shimura
   synonym `TateOmega`.
 - Coordination: task t40-tate (message 2026-11-13 ~10:00) reports TateCuspLaurent PROVED on
   origin/wip/t40-tate and plans to prove TateMuN in its own file TateCuspMuN.lean; agreed.
+- Added on t40-tate's request (VERIFIED, compiled): `TateMuNAt N Ω` (per level, Ω need not be
+  alg. closed in the def), `tateMuNOver_iff`, `tateMuNAt_kbar : 0 < N → TateMuNAt N Ω →
+  TateMuNAt N Kbar` (Ω alg. closed), `tateMuN_of_at : (∀ N > 0, ∃ Ω alg. closed ⊇ Qj,
+  TateMuNAt N Ω) → TateMuN`.
+- Merged origin/wip/t40-tate (060d6026) into wip/t40-igusa: brings TateCusp*.lean
+  (`ZInQ.RLeaf.tateCuspLaurent : TateCuspLaurent`, `x1RationalCusp_of_igusaTransitive`).

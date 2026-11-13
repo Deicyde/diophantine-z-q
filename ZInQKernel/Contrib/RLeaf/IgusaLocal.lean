@@ -15,7 +15,7 @@ The named leaf `TateMuNLocal` is the statement over `Ω = \overline{ℚ((t))}`, 
 embedded by `j ↦ t⁻¹` (`jInvLaurent`), i.e. over the algebraic closure of the completion at
 `j = ∞`, where the Tate curve lives.
 
-Proved: `jInv_X`, `jInvLaurent_X`, `tateMuN_of_over`, `tateMuN_of_local : TateMuNLocal → TateMuN`,
+Proved: `jInv_X`, `jInvLaurent_X`, `tateMuNAt_kbar`, `tateMuN_of_over`, `tateMuN_of_at`, `tateMuN_of_local : TateMuNLocal → TateMuN`,
 `igusaTransitive_of_x0_tateMuNLocal : X0Transitive → TateMuNLocal → IgusaTransitive`.
 -/
 
@@ -36,6 +36,15 @@ def TateMuNOver : Prop :=
   ∀ N : ℕ, 0 < N → ∃ Q₀ : (Ej.baseChange Ω).toAffine.Point, addOrderOf Q₀ = N ∧
     ∀ R ∈ AddSubgroup.zmultiples Q₀, addOrderOf R = N →
       ∃ τ : Ω ≃ₐ[Qj] Ω, τ (xCoord Q₀) = xCoord R
+
+/-- The cusp statement at one level `N`, over an extension `Ω` of `ℚ(j)`. -/
+def TateMuNAt (N : ℕ) (Ω : Type) [Field Ω] [Algebra Qj Ω] [DecidableEq Ω] : Prop :=
+  ∃ Q₀ : (Ej.baseChange Ω).toAffine.Point, addOrderOf Q₀ = N ∧
+    ∀ R ∈ AddSubgroup.zmultiples Q₀, addOrderOf R = N →
+      ∃ τ : Ω ≃ₐ[Qj] Ω, τ (xCoord Q₀) = xCoord R
+
+omit [IsAlgClosed Ω] in
+theorem tateMuNOver_iff : TateMuNOver Ω ↔ ∀ N : ℕ, 0 < N → TateMuNAt N Ω := Iff.rfl
 
 omit [IsAlgClosed Ω] in
 /-- `x(f P) = f(x(P))` for the point map along `f : Kbar →ₐ[ℚ(j)] Ω`. -/
@@ -77,10 +86,9 @@ theorem exists_restrict (f : Kbar →ₐ[Qj] Ω) (τ : Ω ≃ₐ[Qj] Ω) :
   have : IsScalarTower Qj Kbar Ω := IsScalarTower.of_algebraMap_eq fun x => (f.commutes x).symm
   exact ⟨τ.restrictNormal Kbar, fun a => τ.restrictNormal_commutes Kbar a⟩
 
-/-- **`TateMuN` may be checked over any algebraically closed extension of `ℚ(j)`.** -/
-theorem tateMuN_of_over (h : TateMuNOver Ω) : TateMuN := by
-  intro N hN
-  obtain ⟨Q, hQ, hτ⟩ := h N hN
+/-- **The cusp statement at level `N` transfers from `Ω` to `\overline{ℚ(j)}`.** -/
+theorem tateMuNAt_kbar {N : ℕ} (hN : 0 < N) (h : TateMuNAt N Ω) : TateMuNAt N Kbar := by
+  obtain ⟨Q, hQ, hτ⟩ := h
   let f : Kbar →ₐ[Qj] Ω := IsAlgClosed.lift
   let m := WeierstrassCurve.Affine.Point.map (W' := Ej) f
   have hm : Function.Injective m := WeierstrassCurve.Affine.Point.map_injective (W' := Ej) f
@@ -95,10 +103,22 @@ theorem tateMuN_of_over (h : TateMuNOver Ω) : TateMuN := by
   obtain ⟨τ', hτ'⟩ := exists_restrict Ω f τ
   refine ⟨τ', f.injective ?_⟩
   show f (τ' (xCoord Q')) = f (xCoord R)
-  rw [hτ', ← xCoord_map_alg, ← xCoord_map_alg]
-  exact hτR
+  rw [hτ', ← xCoord_map_alg, hτR]
+  exact xCoord_map_alg Ω f R
+
+/-- **`TateMuN` may be checked over any algebraically closed extension of `ℚ(j)`.** -/
+theorem tateMuN_of_over (h : TateMuNOver Ω) : TateMuN := fun N hN =>
+  tateMuNAt_kbar Ω hN (h N hN)
 
 end Over
+
+/-- **`TateMuN` may be checked level by level, over an algebraically closed extension of `ℚ(j)`
+depending on the level.** -/
+theorem tateMuN_of_at (h : ∀ N : ℕ, 0 < N → ∃ (Ω : Type) (_ : Field Ω) (_ : IsAlgClosed Ω)
+    (_ : Algebra Qj Ω) (_ : DecidableEq Ω), TateMuNAt N Ω) : TateMuN := by
+  intro N hN
+  obtain ⟨Ω, _, _, _, _, hΩ⟩ := h N hN
+  exact tateMuNAt_kbar Ω hN hΩ
 
 /-! ## The completion at `j = ∞` -/
 
@@ -185,6 +205,7 @@ theorem igusaTransitive_of_x0_tateMuNLocal (h0 : X0Transitive) (hT : TateMuNLoca
 end ZInQ.RLeaf
 
 #print axioms ZInQ.RLeaf.tateMuN_of_over
+#print axioms ZInQ.RLeaf.tateMuN_of_at
 #print axioms ZInQ.RLeaf.jInvLaurent_X
 #print axioms ZInQ.RLeaf.tateMuN_of_local
 #print axioms ZInQ.RLeaf.igusaTransitive_of_x0_tateMuNLocal
