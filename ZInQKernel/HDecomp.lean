@@ -40,6 +40,7 @@ import ZInQKernel.HDecomp.Faltings.Models
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.I3Linalg.RhoCont
 import ZInQKernel.HDecomp.I3Linalg.TateBC
+import ZInQKernel.HDecomp.LeafPush2.Bridge
 import ZInQKernel.HDecomp.LeafPush2.R18
 import ZInQKernel.HDecomp.LeafPush2.R22
 import ZInQKernel.HDecomp.LeafPush2.R3

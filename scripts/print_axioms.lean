@@ -367,7 +367,7 @@ are hypotheses of these theorems. -/
 #print axioms ZInQ.DefFaltings.modelHeight_ofIdeal_eq_faltingsHeightEC
 
 -- hdec-adopt4: leaf-push2 (`HDecomp.LeafPush2`), rv-qm-polar (`HDecomp.QM.Polar`) and
--- bp-analytic (`HDecomp.Analytic`).
+-- bp-analytic (`HDecomp.Analytic`); the bridge `HDecomp.LeafPush2.Bridge` (new).
 #print axioms ZInQ.LeafPush2.R18_real
 #print axioms ZInQ.LeafPush2.javanpeykarBound_pos
 #print axioms ZInQ.LeafPush2.javanpeykarBound_mono
@@ -382,6 +382,12 @@ are hypotheses of these theorems. -/
 #print axioms ZInQ.LeafPush2.R03_LinYang
 #print axioms ZInQ.LeafPush2.R22_Pazuki
 #print axioms ZInQ.LeafPush2.R18_Javanpeykar
+#print axioms ZInQ.LeafPush2.isSiegel_iff
+#print axioms ZInQ.LeafPush2.isPeriodMatrix_periodLattice
+#print axioms ZInQ.LeafPush2.isPeriodMatrix_of_map
+#print axioms ZInQ.LeafPush2.isSiegel_Omega
+#print axioms ZInQ.LeafPush2.isPeriodMatrix_qmLattice
+#print axioms ZInQ.LeafPush2.thetaConst_eq
 #print axioms RvQMPolar.two_principal_types
 #print axioms RvQMPolar.Enu_not_rosati_mu
 #print axioms RvQMPolar.type_eq_mu_mul
