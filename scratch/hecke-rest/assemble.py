@@ -88,7 +88,7 @@ Verbatim copies: `scratch/ts-hecke/TSHecke.lean` lines 6-889 (prop-ts prefix, wi
 `NormalizationModel`) 6444-6455 (`CurveNormChart`) and 6526-6551 (`NormalizationModelInf`, `CurveChartInf`), the
 targets, inside `namespace TSHecke`;
 `scratch/ts-hecke/TSHecke.lean` lines 4613-5002 and 5010-5173 (infra-smooth-dim's stalk dimensions,
-curve-glue's `isDomain_of_dim_one`); `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
+curve-glue's `isDomain_of_dim_one`), 5725-5858 (ts-hecke's `exists_qbar_point`,\n`eq_of_forall_qbar`); `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
 `ev_res`, `ev_comp`, `ev_spec_top`, `val_of_mem`, ...). New work below the last banner.
 No `sorry`, no `axiom`.
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
@@ -103,9 +103,10 @@ open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PkgI3
 """
 parts3 = [HEADER3, rng(6, 889), "", irng(15, 171), "", irng(277, 322), "",
           "end ImagePlane", "", "end Pin", "", "end AV", "", "end LeafQM", "", "end", "",
-          rng(4613, 5002), "", rng(5010, 5173), "",
+          rng(4613, 5002), "", rng(5010, 5173), "", rng(5725, 5858), "", "end TSHeckeGal", "", "end", "",
           TSH2, rng(6444, 6455), "", rng(6526, 6551), "", "end TSHecke", "", "end", ""]
-main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").read()
+main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").read() + "\n" + \
+    open("scratch/hecke-rest/InfFnMain.lean.part", encoding="utf-8").read()
 out3 = "\n".join(parts3) + "\n" + main3
 open("scratch/hecke-rest/CurveChart.lean", "w", encoding="utf-8").write(out3)
 print("wrote CurveChart", out3.count("\n"), "lines")

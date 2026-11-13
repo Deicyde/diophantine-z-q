@@ -10,7 +10,8 @@ Verbatim copies: `scratch/ts-hecke/TSHecke.lean` lines 6-889 (prop-ts prefix, wi
 `NormalizationModel`) 6444-6455 (`CurveNormChart`) and 6526-6551 (`NormalizationModelInf`, `CurveChartInf`), the
 targets, inside `namespace TSHecke`;
 `scratch/ts-hecke/TSHecke.lean` lines 4613-5002 and 5010-5173 (infra-smooth-dim's stalk dimensions,
-curve-glue's `isDomain_of_dim_one`); `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
+curve-glue's `isDomain_of_dim_one`), 5725-5858 (ts-hecke's `exists_qbar_point`,
+`eq_of_forall_qbar`); `scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
 `ev_res`, `ev_comp`, `ev_spec_top`, `val_of_mem`, ...). New work below the last banner.
 No `sorry`, no `axiom`.
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
@@ -1671,6 +1672,145 @@ end CIcopy
 
 end CICopy
 
+noncomputable section
+
+namespace TSHeckeGal
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed
+
+/-- Any two morphisms `Spec ℚ̄ → Spec ℚ` agree. -/
+theorem specQbar_to_specQ_eq' (f g : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of ℚ)) :
+    f = g := by
+  rw [← Spec.map_preimage f, ← Spec.map_preimage g]
+  congr 1
+  exact CommRingCat.hom_ext (Subsingleton.elim _ _)
+
+/-- **A closed point of a scheme locally of finite type over `ℚ` has a `ℚ̄`-point** (compiled). -/
+theorem exists_qbar_point {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of ℚ))
+    [LocallyOfFiniteType f] (z : X) (hz : IsClosed ({z} : Set X)) :
+    ∃ y : Spec (CommRingCat.of Qbar) ⟶ X, ∀ s, y s = z := by
+  have : IsClosedImmersion (X.fromSpecResidueField z) :=
+    isClosed_singleton_iff_isClosedImmersion.mp hz
+  have : IsFinite (X.fromSpecResidueField z ≫ f) :=
+    (isFinite_iff_locallyOfFiniteType_of_jacobsonSpace
+      (f := X.fromSpecResidueField z ≫ f)).mpr inferInstance
+  let φ := Spec.preimage (X.fromSpecResidueField z ≫ f)
+  letI : Algebra ℚ (X.residueField z) := φ.hom.toAlgebra
+  have hφ : φ.hom.IsIntegral := by
+    rw [← IsIntegralHom.SpecMap_iff, Spec.map_preimage]
+    infer_instance
+  haveI : Algebra.IsIntegral ℚ (X.residueField z) := ⟨fun x => hφ x⟩
+  haveI : Algebra.IsAlgebraic ℚ (X.residueField z) := Algebra.IsIntegral.isAlgebraic
+  let L : X.residueField z →ₐ[ℚ] Qbar := IsAlgClosed.lift
+  refine ⟨Spec.map (CommRingCat.ofHom L.toRingHom) ≫ X.fromSpecResidueField z, fun s => ?_⟩
+  rw [Scheme.Hom.comp_apply, Scheme.fromSpecResidueField_apply]
+
+variable {Y : Over (Spec (CommRingCat.of ℚ))} {π : ToP1 Y.left} {E : Type} [Field E]
+  [Algebra ℚ[X] E]
+
+/-- **A `π`-preserving endomorphism maps the chart into itself** (compiled; Jacobson). -/
+theorem range_comp_subset [LocallyOfFiniteType Y.hom]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left) [IsOpenImmersion h]
+    (himg : ∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.infty →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure ℚ[X] E)),
+        y = y' ≫ h)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)))
+    (g : Y.left ⟶ Y.left)
+    (hg : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) (z ≫ g) = π.val (K := Qbar) z) :
+    Set.range (h ≫ g) ⊆ Set.range h := by
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  by_contra hcon
+  rw [Set.not_subset] at hcon
+  obtain ⟨_, ⟨x, rfl⟩, hx⟩ := hcon
+  set W : Set Y.left := Set.range h ∩ g ⁻¹' (Set.range h)ᶜ
+  have hWne : W.Nonempty := ⟨h x, ⟨x, rfl⟩, by simpa using hx⟩
+  have hWlc : IsLocallyClosed W :=
+    (h.isOpenEmbedding.isOpen_range).isLocallyClosed.inter
+      ((h.isOpenEmbedding.isOpen_range).isClosed_compl.preimage g.continuous).isLocallyClosed
+  obtain ⟨z, ⟨hzh, hzg⟩, hzc⟩ := nonempty_inter_closedPoints hWne hWlc
+  obtain ⟨y, hy⟩ := exists_qbar_point Y.hom z (mem_closedPoints_iff.mp hzc)
+  have hyr : Set.range y ⊆ Set.range h := by
+    rintro _ ⟨s, rfl⟩; rw [hy s]; exact hzh
+  set y'' := IsOpenImmersion.lift h y hyr
+  have hy'' : y'' ≫ h = y := IsOpenImmersion.lift_fac h y hyr
+  have hfin : π.val (K := Qbar) y ≠ OnePoint.infty := by
+    rw [← hy'', ← Spec.map_preimage y'', ← CommRingCat.ofHom_hom (Spec.preimage y''), hval]
+    exact OnePoint.coe_ne_infty _
+  obtain ⟨y', hy'⟩ := himg (y ≫ g) (by rw [hg]; exact hfin)
+  apply hzg
+  obtain ⟨s⟩ : Nonempty (Spec (CommRingCat.of Qbar)) := inferInstance
+  refine ⟨y' s, ?_⟩
+  rw [← Scheme.Hom.comp_apply, ← hy', Scheme.Hom.comp_apply, hy s]
+
+/-- A nonzero prime of `ℚ[X]` is the kernel of evaluation at some `t ∈ ℚ̄` (compiled). -/
+theorem exists_ker_eval' (P : Ideal ℚ[X]) [hP : P.IsPrime] (h0 : P ≠ ⊥) :
+    ∃ t : Qbar, P = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := by
+  have hmax : P.IsMaximal := hP.isMaximal h0
+  obtain ⟨p, rfl⟩ := (Submodule.IsPrincipal.principal P)
+  have hp0 : p ≠ 0 := by rintro rfl; exact h0 (by simp)
+  have hdeg : (p.map (algebraMap ℚ Qbar)).degree ≠ 0 := by
+    rw [Polynomial.degree_map]
+    intro hd
+    rw [Polynomial.eq_C_of_degree_eq_zero hd] at hmax
+    apply hmax.ne_top
+    rw [Ideal.submodule_span_eq, Ideal.span_singleton_eq_top]
+    have : p.coeff 0 ≠ 0 := by
+      intro hc; apply hp0; rw [Polynomial.eq_C_of_degree_eq_zero hd, hc, map_zero]
+    exact Polynomial.isUnit_C.2 (Ne.isUnit this)
+  obtain ⟨t, ht⟩ := IsAlgClosed.exists_root _ hdeg
+  refine ⟨t, hmax.eq_of_le (RingHom.ker_ne_top _) ?_⟩
+  rw [Ideal.submodule_span_eq, Ideal.span_le, Set.singleton_subset_iff]
+  show Polynomial.eval₂ (algebraMap ℚ Qbar) t p = 0
+  rw [← Polynomial.eval_map]
+  exact ht
+
+/-- **Separation by `ℚ̄`-points** (compiled): in a domain `B` finite over `ℚ[X]`, two elements with
+the same value under every ring map `B → ℚ̄` are equal (`B` is Jacobson; every maximal ideal is
+the kernel of such a map). -/
+theorem eq_of_forall_qbar {B : Type} [CommRing B] [IsDomain B] [Algebra ℚ[X] B]
+    [Algebra.IsIntegral ℚ[X] B] (hinj : Function.Injective (algebraMap ℚ[X] B)) (a b : B)
+    (h : ∀ ψ : B →+* Qbar, ψ a = ψ b) : a = b := by
+  haveI : IsJacobsonRing B := isJacobsonRing_of_isIntegral (R := ℚ[X])
+  rw [← sub_eq_zero]
+  have hjac := IsJacobsonRing.out (R := B) inferInstance
+    (Ideal.isRadical_bot_of_noZeroDivisors (R := B))
+  rw [← Ideal.mem_bot, ← hjac, Ideal.jacobson, Ideal.mem_sInf]
+  rintro m ⟨-, hm⟩
+  haveI := hm
+  set P := m.under ℚ[X]
+  haveI hPmax : P.IsMaximal := Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := ℚ[X]) m
+  have hP0 : P ≠ ⊥ := by
+    intro h0
+    rw [h0] at hPmax
+    exact Polynomial.not_isField ℚ (Ring.isField_iff_maximal_bot.2 hPmax)
+  obtain ⟨t, ht⟩ := exists_ker_eval' P hP0
+  let φ : ℚ[X] →+* Qbar := Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t
+  haveI : m.LiesOver P := ⟨rfl⟩
+  letI : Algebra (ℚ[X] ⧸ P) Qbar :=
+    (Ideal.Quotient.lift P φ (fun x hx => by rw [ht] at hx; exact RingHom.mem_ker.1 hx)).toAlgebra
+  letI : Field (ℚ[X] ⧸ P) := Ideal.Quotient.field P
+  letI : Field (B ⧸ m) := Ideal.Quotient.field m
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) (B ⧸ m) :=
+    Module.isTorsionFree_iff_faithfulSMul.2 inferInstance
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) Qbar := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective]
+    exact (algebraMap (ℚ[X] ⧸ P) Qbar).injective
+  haveI : Algebra.IsAlgebraic (ℚ[X] ⧸ P) (B ⧸ m) := Algebra.IsIntegral.isAlgebraic
+  let L : (B ⧸ m) →ₐ[ℚ[X] ⧸ P] Qbar := IsAlgClosed.lift
+  have h1 := h (L.toRingHom.comp (Ideal.Quotient.mk m))
+  simp only [RingHom.coe_comp, Function.comp_apply] at h1
+  have h2 := L.toRingHom.injective h1
+  rw [← Ideal.Quotient.mk_eq_mk_iff_sub_mem]
+  exact h2
+
+
+end TSHeckeGal
+
+end
+
 
 noncomputable section
 
@@ -2204,3 +2344,136 @@ end
 #print axioms HeckeRestCurve.curveChartInf_of'
 #print axioms HeckeRestCurve.curveNormChart_of_charts
 #print axioms HeckeRestCurve.curveChartInf_of_charts
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 3b: `InfFnField` from `ChartFiniteInf` and `ChartIrreducible`
+
+Given the chart `h : Spec B → Y` over `𝔸¹` (`NormalizationModel`): its range is `U = π⁻¹(𝔸¹)`
+(Jacobson); `h^*π.f = X` (separation by `ℚ̄`-points); `h⁻¹(V) = D(X) ⊆ Spec B`; and
+`Γ(Y, V) → Γ(Spec B, D(X)) = B[1/X] ⊆ E` is the required map (`π.g ↦ 1/X`), injective because
+`Γ(Y, V)` is a domain integral over `ℚ[s]` (incomparability), with fraction field `E` because
+`Γ(Spec B, D(X)) ≅ Γ(Y, U ∩ V) = Γ(Y, V)[1/π.g]`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestCurve
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin LeafQM.AV.Pin.ImagePlane PropTSRed TSHecke
+
+/-- **Glue (curve theory: the curve is irreducible).** A proper smooth curve `Y/ℚ` with
+`π : Y → P¹` of finite `ℚ̄`-fibres and a normalization chart over `𝔸¹` is irreducible. *Proof*
+(STANDARD; Hartshorne II.6.7; locators UNVERIFIED): the chart's image `U = π⁻¹(𝔸¹)` is irreducible
+(the image of `Spec B`, `B` a domain); its complement is the fibre over `∞`; a nonempty open set
+outside `closure U` would have infinitely many closed points (no point of a smooth curve is open:
+local rings have dimension 1), all in the finite fibre over `∞`. Glue, not a leaf. -/
+def ChartIrreducible : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E],
+      NormalizationModel Y π E → IrreducibleSpace Y.left
+
+section Chart
+
+variable {Y : Over (Spec (CommRingCat.of ℚ))} {π : ToP1 Y.left} {E : Type} [Field E]
+  [Algebra ℚ[X] E]
+
+/-- **The chart's range is `π⁻¹(𝔸¹)`** (compiled; Jacobson, as in ts-hecke's `range_comp_subset`). -/
+theorem range_chart_eq [LocallyOfFiniteType Y.hom]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left) [IsOpenImmersion h]
+    (himg : ∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.infty →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure ℚ[X] E)),
+        y = y' ≫ h)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X))) :
+    Set.range h = (π.U : Set Y.left) := by
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  apply Set.Subset.antisymm
+  · by_contra hcon
+    rw [Set.not_subset] at hcon
+    obtain ⟨_, ⟨x, rfl⟩, hx⟩ := hcon
+    set W : Set Y.left := Set.range h ∩ (π.U : Set Y.left)ᶜ
+    have hWne : W.Nonempty := ⟨h x, ⟨x, rfl⟩, hx⟩
+    have hWlc : IsLocallyClosed W :=
+      (h.isOpenEmbedding.isOpen_range).isLocallyClosed.inter
+        π.U.isOpen.isClosed_compl.isLocallyClosed
+    obtain ⟨z, ⟨hzh, hzU⟩, hzc⟩ := nonempty_inter_closedPoints hWne hWlc
+    obtain ⟨y, hy⟩ := TSHeckeGal.exists_qbar_point Y.hom z (mem_closedPoints_iff.mp hzc)
+    have hyr : Set.range y ⊆ Set.range h := by
+      rintro _ ⟨s, rfl⟩; rw [hy s]; exact hzh
+    set y'' := IsOpenImmersion.lift h y hyr
+    have hy'' : y'' ≫ h = y := IsOpenImmersion.lift_fac h y hyr
+    have hfin : π.val (K := Qbar) y ≠ OnePoint.infty := by
+      rw [← hy'', ← Spec.map_preimage y'', ← CommRingCat.ofHom_hom (Spec.preimage y''), hval]
+      exact OnePoint.coe_ne_infty _
+    have hmem : ptOf y ∈ π.U := by
+      by_contra hn
+      exact hfin (val_of_not_mem π y hn)
+    have hpt : ptOf y = z := hy _
+    exact hzU (hpt ▸ hmem)
+  · intro z hzU
+    by_contra hz
+    set W : Set Y.left := (π.U : Set Y.left) ∩ (Set.range h)ᶜ
+    have hWne : W.Nonempty := ⟨z, hzU, hz⟩
+    have hWlc : IsLocallyClosed W :=
+      π.U.isOpen.isLocallyClosed.inter
+        (h.isOpenEmbedding.isOpen_range).isClosed_compl.isLocallyClosed
+    obtain ⟨z', ⟨hz'U, hz'h⟩, hz'c⟩ := nonempty_inter_closedPoints hWne hWlc
+    obtain ⟨y, hy⟩ := TSHeckeGal.exists_qbar_point Y.hom z' (mem_closedPoints_iff.mp hz'c)
+    have hpt : ptOf y = z' := hy _
+    have hmem : ptOf y ∈ π.U := hpt ▸ hz'U
+    have hfin : π.val (K := Qbar) y ≠ OnePoint.infty := by
+      rw [val_of_mem π y hmem]
+      exact OnePoint.coe_ne_infty _
+    obtain ⟨y', hy'⟩ := himg y hfin
+    apply hz'h
+    obtain ⟨s⟩ : Nonempty (Spec (CommRingCat.of Qbar)) := inferInstance
+    refine ⟨y' s, ?_⟩
+    rw [← Scheme.Hom.comp_apply, ← hy', hy s]
+
+/-- **`h^* π.f = X`** (compiled; separation by `ℚ̄`-points in the Jacobson domain `B`). -/
+theorem app_f_eq [Algebra (RatFunc ℚ) E] [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)))
+    (htop : h ⁻¹ᵁ π.U = ⊤) :
+    (Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).hom
+        (res htop.ge (h.app π.U π.f)) = algebraMap ℚ[X] (integralClosure ℚ[X] E) X := by
+  have hinjQE : Function.Injective (algebraMap ℚ[X] E) := by
+    rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    apply hinjQE
+    have := congrArg (fun x : integralClosure ℚ[X] E => (x : E)) hab
+    simpa using this
+  apply TSHeckeGal.eq_of_forall_qbar hinjB
+  intro ψ
+  have hx : ptOf (Spec.map (CommRingCat.ofHom ψ) ≫ h) ∈ π.U := by
+    show h.base (ptOf (Spec.map (CommRingCat.ofHom ψ))) ∈ π.U
+    have : ptOf (Spec.map (CommRingCat.ofHom ψ)) ∈ h ⁻¹ᵁ π.U := by rw [htop]; trivial
+    exact this
+  have h1 := hval ψ
+  rw [val_of_mem π _ hx] at h1
+  have h2 : ev (Spec.map (CommRingCat.ofHom ψ) ≫ h) hx π.f =
+      ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) := OnePoint.coe_injective h1
+  rw [← h2, ev_comp, ← ev_res _ htop.ge (show ptOf (Spec.map (CommRingCat.ofHom ψ)) ∈
+    (⊤ : (Spec (CommRingCat.of (integralClosure ℚ[X] E))).Opens) from trivial)]
+  set w := res htop.ge (h.app π.U π.f)
+  have hw : w = (Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).inv
+      ((Scheme.ΓSpecIso (CommRingCat.of (integralClosure ℚ[X] E))).hom w) :=
+    (Iso.hom_inv_id_apply _ _).symm
+  conv_rhs => rw [hw]
+  rw [ev_spec_top]
+  rfl
+
+end Chart
+
+end HeckeRestCurve
+
+end
