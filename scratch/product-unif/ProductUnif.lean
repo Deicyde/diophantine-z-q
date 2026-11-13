@@ -19,6 +19,7 @@ Task product-unif. Imports only the kernel module `ZInQKernel.HDecomp.Faltings.H
 * §3 **`productUnifSplits : ProductUnifSplits`** (proved).
 * §3b metrization's `jacDetDescends`, `productJacobian`, `productUniformizationAnalytic_of`
   (copied from `ProdJac.lean`, itself verbatim from `scratch/metrization/`).
+* §3c metrization's glue Prop `JacDetNondegenerate` (verbatim).
 * §4 S-alg: reduction. -/
 
 namespace ZInQ.ProductHeight
@@ -2199,6 +2200,31 @@ theorem productUniformizationAnalytic_of (hLS : ProductLocalStructure) :
 end ZInQ.Metrization
 
 
+/-! ## §3c. metrization's glue Prop `JacDetNondegenerate` (verbatim, `part_exists.lean` lines
+45-57) -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+/-- **Glue (local parameters are analytic coordinates).** For `g = dim A` and an analytic
+uniformization `Φ` of `𝒢(ℂ)_τ` with a full lattice as kernel, some `f₁, …, f_g ∈ 𝔪_ξ` have
+`jacDet Φ f ≠ 0`. Why true (STANDARD): `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}` is regular of dimension `g`
+(smoothness); a regular system of parameters `f₁, …, f_g` gives holomorphic coordinates of the
+complex manifold `A_τ(ℂ)` at `0` (Serre, GAGA, or the holomorphic implicit function theorem),
+and `Φ` is a local biholomorphism at `0`, so `(f_i ∘ Φ)` has invertible Jacobian at `0`.
+Unproved (needs the analytic structure of `A_τ(ℂ)`). -/
+def JacDetNondegenerate : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) (g : ℕ), A.dim = g →
+    ∀ (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ] (Φ : (Fin g → ℂ) → 𝒢.Pts τ),
+      IsZLattice ℝ Λ → 𝒢.IsAnalyticUniformization τ Λ Φ →
+      ∃ f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk, 𝒢.jacDet Φ f ≠ 0
+
+end ZInQ.Metrization
+
 namespace ZInQ.ProductUnif
 
 /-! ## §4. S-alg (`ProductMetrizationOfProductUnif`): reduction to three smaller glue Props
@@ -2532,6 +2558,36 @@ theorem productMetrizationOfProductUnif_of_local (hH : HodgeLatticeTheorem)
   productMetrizationOfProductUnif_of_metrization hH hD
     (ZInQ.Metrization.productUniformizationAnalytic_of hLS) hL
 
+/-- **Glue S-alg-1a (dimensions in product form).** The hypotheses of `ProductUnifDims`; the
+conclusion is its dimension half: `dim A = g₁` and `dim B = g₂`. Why true: as in `ProductUnifDims`
+(the nonsingularity half is not needed for it). Unproved. -/
+def ProductUnifDimsEq : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) →
+    (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) →
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+    (∀ z, z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) →
+    (∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+      MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    A.dim = g₁ ∧ B.dim = g₂
+
+/-- **`ProductUnifDims` from its dimension half and metrization's `JacDetNondegenerate`
+(proved).** An alternative to proving the nonsingularity half from the product structure: it
+trades that algebra for metrization's complex-geometry glue (local parameters are analytic
+coordinates). -/
+theorem productUnifDims_of (hE : ProductUnifDimsEq) (hN : ZInQ.Metrization.JacDetNondegenerate) :
+    ProductUnifDims := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ τ g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco
+  obtain ⟨hA, hB⟩ := hE K A B C L 𝒢₁ 𝒢₂ g MP e τ g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco
+  obtain ⟨hd₁, hz₁⟩ := hl₁
+  obtain ⟨hd₂, hz₂⟩ := hl₂
+  exact ⟨hA, hB, hN K A L 𝒢₁ τ g₁ hA Λ₁ Φ₁ hz₁ hu₁, hN K B L 𝒢₂ τ g₂ hB Λ₂ Φ₂ hz₂ hu₂⟩
+
 end SAlg
 
 end ZInQ.ProductUnif
@@ -2546,3 +2602,4 @@ end ZInQ.ProductUnif
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of''
 #print axioms ZInQ.ProductUnif.productHodgeSections_of
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of_local
+#print axioms ZInQ.ProductUnif.productUnifDims_of

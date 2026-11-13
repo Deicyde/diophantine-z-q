@@ -2721,6 +2721,31 @@ theorem productUniformizationAnalytic_of (hLS : ProductLocalStructure) :
 end ZInQ.Metrization
 
 
+/-! ## §3c. metrization's glue Prop `JacDetNondegenerate` (verbatim, `part_exists.lean` lines
+45-57) -/
+
+namespace ZInQ.Metrization
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+/-- **Glue (local parameters are analytic coordinates).** For `g = dim A` and an analytic
+uniformization `Φ` of `𝒢(ℂ)_τ` with a full lattice as kernel, some `f₁, …, f_g ∈ 𝔪_ξ` have
+`jacDet Φ f ≠ 0`. Why true (STANDARD): `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}` is regular of dimension `g`
+(smoothness); a regular system of parameters `f₁, …, f_g` gives holomorphic coordinates of the
+complex manifold `A_τ(ℂ)` at `0` (Serre, GAGA, or the holomorphic implicit function theorem),
+and `Φ` is a local biholomorphism at `0`, so `(f_i ∘ Φ)` has invertible Jacobian at `0`.
+Unproved (needs the analytic structure of `A_τ(ℂ)`). -/
+def JacDetNondegenerate : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) (g : ℕ), A.dim = g →
+    ∀ (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ] (Φ : (Fin g → ℂ) → 𝒢.Pts τ),
+      IsZLattice ℝ Λ → 𝒢.IsAnalyticUniformization τ Λ Φ →
+      ∃ f : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk, 𝒢.jacDet Φ f ≠ 0
+
+end ZInQ.Metrization
+
 namespace ZInQ.ProductUnif
 
 /-! ## §4. S-alg (`ProductMetrizationOfProductUnif`): reduction to three smaller glue Props
@@ -2741,15 +2766,23 @@ form: period lattice `Λ₁ × Λ₂` and coefficient map computed by `Φ₁ × 
 analytic uniformizations `Φᵢ : ℂ^{gᵢ} → 𝒢ᵢ(ℂ)_τ`, `g₁ + g₂ = g`. Then `g₁ = dim A`, `g₂ = dim B`,
 and both factor Jacobians are nonsingular on some `gᵢ`-tuple of germs.
 
-Why true (STANDARD; algebra and calculus, no AN3). Write `nᵢ` for the dimension of the cotangent
-space `𝔪/𝔪²` of `𝒢ᵢ` at the generic unit (`= dim` of the factor, a regular local ring of the
-smooth generic fibre). Via `e`, `𝔪_P/𝔪_P² = 𝔪₁/𝔪₁² ⊕ 𝔪₂/𝔪₂²` (the unit of a product), so
-`hodgeSpace_P g = L ⊗ ⋀^g(cot₁ ⊕ cot₂)` and `MP.hodge.finrank_eq_one` gives `g ∈ {0, n₁ + n₂}`.
-If `g = 0`, the `Φᵢ : ℂ⁰ → 𝒢ᵢ(ℂ)_τ` are onto, so `A_τ(ℂ)`, `B_τ(ℂ)` are trivial and `dim A = dim B
-= 0`. Otherwise `MP.hodge.coeff_ne_zero` and the coefficient formula give `f` with
-`jacDet (Φ₁ × Φ₂) f ≠ 0`; the derivative at `0` of a germ along `Φ₁ × Φ₂` depends only on its
-class in `cot₁ ⊕ cot₂` and is block-shaped, so the nonsingular `g × g` Jacobian forces `g₁ ≤ n₁`,
-`g₂ ≤ n₂`, hence equality, and nonsingular diagonal blocks. Unproved. -/
+Why true (STANDARD; algebra and calculus, no AN3). Write `nᵢ` for the `L`-dimension of the
+cotangent space `𝔪/𝔪²` of `𝒢ᵢ` at the generic unit. `genStalk` is the local ring of `A_L` at its
+origin (regular, smooth generic fibre), so `n₁ = dim A_L = dim A` (dimension of a finite-type
+scheme over a field is invariant under field extension; EGA IV 4.1.4, UNVERIFIED locator); `dim A`
+is finite since `A.X.left` is nonempty. Since `cot` is an `L`-space and `L` a localization of
+`𝓞_L`, `finrank_L (hodgeSpace g) = C(n, g)`. Via `e` (whose components preserve units),
+`𝔪_P/𝔪_P² = 𝔪₁/𝔪₁² ⊕ 𝔪₂/𝔪₂²`, so `MP.hodge.finrank_eq_one` gives `g ∈ {0, n₁ + n₂}`.
+If `g = 0`, then `g₁ = g₂ = 0`, the `Φᵢ : ℂ⁰ → 𝒢ᵢ(ℂ)_τ` are onto, so `A_τ(ℂ)`, `B_τ(ℂ)` are single
+points and `dim A = dim B = 0` (a positive-dimensional variety over `ℂ` has infinitely many
+points); `Fin 0` Jacobians are `1`. Otherwise: the wedges `wedge f` span `hodgeSpace` over `L`, so
+`MP.hodge.coeff_ne_zero` and the coefficient formula give `f` with `jacDet (Φ₁ × Φ₂) f ≠ 0`. The map
+`prodUnif ∘ cast` satisfies the analytic clauses (product-height's `ProductUnifAnalytic`,
+metrization's `ProductUniformizationAnalytic`: true, from basic opens `D(h)` of affine products),
+so the derivative at `0` of a germ along it depends only on its class in `cot₁ ⊕ cot₂` and the
+Jacobian rows are `(D₁x, 0)`, `(0, D₂y)`; nonsingularity forces `g₁ ≤ n₁`, `g₂ ≤ n₂`, hence
+equality, and nonsingular diagonal blocks. Unproved. (Reviewed: true for all instances, including
+`g = 0` and an `e` incompatible with any generic-fibre product structure.) -/
 def ProductUnifDims : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
@@ -2789,9 +2822,11 @@ analytic uniformizations `Φᵢ` of the factors with kernels the periods of `D�
 coefficients of `Dᵢ`, while `MP` has periods `D₁.periods × D₂.periods` and coefficients computed
 by `Φ₁ × Φ₂`. Then `h(D₁) + h(D₂) ≤ h(MP)`.
 
-Why true (STANDARD; equality holds). `ω_{MP} = ω₁ ⊕ ω₂` (unit of a product; this is a statement
+Why true (STANDARD; equality holds). First `gᵢ = dim`, as in `ProductUnifDims` (otherwise the
+decomposition of `⋀^g` below fails). `ω_{MP} = ω₁ ⊕ ω₂` (unit of a product; this is a statement
 about the conormal lattices `omega`, not only the generic cotangent spaces), so
-`s = p₁*s₁ ∧ p₂*s₂ ∈ ⋀^g ω_{MP}` for bases `sᵢ` of `⋀^{gᵢ} ω_{𝒢ᵢ}` and
+`s = p₁*s₁ ∧ p₂*s₂ ∈ ⋀^g ω_{MP}` for any nonzero `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` (an invertible
+`𝓞_L`-module, not necessarily free) and
 `secIndex s = secIndex s₁ · secIndex s₂`; the Jacobian of `Φ₁ × Φ₂` on `p₁*f ∧ p₂*h` is block
 diagonal, so the coefficients multiply; `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`
 (`prodLattice_facts` of product-height, proved, plus a coordinate permutation `Fin.cast`); then
@@ -2889,12 +2924,17 @@ theorem productMetrizationOfProductUnif_of (hH : HodgeLatticeTheorem) (hD : Prod
 `ProductHodgeAdd`, there are nonzero `s ∈ ⋀^g ω_{MP}`, `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` whose lattice indices
 and coefficients multiply.
 
-Why true (STANDARD). `ω_{MP} = ω₁ ⊕ ω₂` (pull back along the projections, restrict along the unit
-sections of the other factor), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`
-locally where the `sᵢ` do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂`
-in a tensor product of invertible modules is multiplicative). For coefficients: write `s₁`, `s₂`
-as `𝓞_L`-combinations of wedges; on `p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block
-diagonal, so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Unproved. -/
+Why true (STANDARD). First `gᵢ = nᵢ = dim` (as in `ProductUnifDims`). `ω_{MP} = ω₁ ⊕ ω₂` (pull
+back along the projections, restrict along the unit sections of the other factor; `e` preserves
+units), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂` locally where the `sᵢ`
+do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂` in a tensor
+product of invertible modules is multiplicative: norms of fractional ideals). For coefficients:
+both sides are `τ`-semilinear in `s₁`, `s₂`, so it suffices to take pure wedges; on
+`p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block diagonal (this uses the analytic clauses of
+`prodUnif ∘ cast`, which hold although the hypotheses do not state them: product-height's
+`ProductUnifAnalytic`), so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Reduced below
+(`productHodgeSections_of`) to metrization's `ProductUniformizationAnalytic` and
+`ProductHodgeLattice`. (Reviewed: true.) -/
 def ProductHodgeSections : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
@@ -3039,6 +3079,36 @@ theorem productMetrizationOfProductUnif_of_local (hH : HodgeLatticeTheorem)
   productMetrizationOfProductUnif_of_metrization hH hD
     (ZInQ.Metrization.productUniformizationAnalytic_of hLS) hL
 
+/-- **Glue S-alg-1a (dimensions in product form).** The hypotheses of `ProductUnifDims`; the
+conclusion is its dimension half: `dim A = g₁` and `dim B = g₂`. Why true: as in `ProductUnifDims`
+(the nonsingularity half is not needed for it). Unproved. -/
+def ProductUnifDimsEq : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+    (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+    (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+    (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) →
+    (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) →
+    𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ → 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ →
+    (∀ z, z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) →
+    (∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+      MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    A.dim = g₁ ∧ B.dim = g₂
+
+/-- **`ProductUnifDims` from its dimension half and metrization's `JacDetNondegenerate`
+(proved).** An alternative to proving the nonsingularity half from the product structure: it
+trades that algebra for metrization's complex-geometry glue (local parameters are analytic
+coordinates). -/
+theorem productUnifDims_of (hE : ProductUnifDimsEq) (hN : ZInQ.Metrization.JacDetNondegenerate) :
+    ProductUnifDims := by
+  intro K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g MP e _ _ τ g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco
+  obtain ⟨hA, hB⟩ := hE K A B C L 𝒢₁ 𝒢₂ g MP e τ g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco
+  obtain ⟨hd₁, hz₁⟩ := hl₁
+  obtain ⟨hd₂, hz₂⟩ := hl₂
+  exact ⟨hA, hB, hN K A L 𝒢₁ τ g₁ hA Λ₁ Φ₁ hz₁ hu₁, hN K B L 𝒢₂ τ g₂ hB Λ₂ Φ₂ hz₂ hu₂⟩
+
 end SAlg
 
 end ZInQ.ProductUnif
@@ -3074,8 +3144,18 @@ theorem productModelHeight_of_local (hH : DefFaltings.HodgeLatticeTheorem)
   ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits
     (productMetrizationOfProductUnif_of_local hH hD hLS hL)
 
+/-- **product-height's glue `ProductUnifAnalytic` from metrization's `ProductLocalStructure`
+(proved)**, via `prodUnif = prodPts` and metrization's `productUniformizationAnalytic_of`. -/
+theorem productUnifAnalytic_of_local (hLS : ZInQ.Metrization.ProductLocalStructure) :
+    ZInQ.ProductHeight.ProductUnifAnalytic := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e h1 h2 τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ hu₁ hu₂
+  rw [prodUnif_eq_prodPts]
+  exact ZInQ.Metrization.productUniformizationAnalytic_of hLS K A B C L 𝒢P 𝒢₁ 𝒢₂ e h1 h2 τ g₁ g₂
+    Λ₁ Λ₂ Φ₁ Φ₂ hu₁ hu₂
+
 end ZInQ.ProductUnif
 
+#print axioms ZInQ.ProductUnif.productUnifAnalytic_of_local
 #print axioms ZInQ.ProductUnif.productModelHeight_of_local
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg''
 #print axioms ZInQ.ProductUnif.productUnifSplits

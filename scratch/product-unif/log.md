@@ -73,3 +73,12 @@
   dimension); `gᵢ = dim` first; "any nonzero `sᵢ`" (⋀ω need not be free).
 - `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (needed
   by Leaves.lean): success (VERIFIED). First Leaves integration attempt failed only for this reason.
+- **Leaves.lean integration** (`build_integrated.sh` → `LeavesIntegrated.lean`, not committed):
+  Leaves.lean + product-height §1-§6 + my §1-§4 (no `open PkgI3 (AbVar)`) +
+  `productModelHeight_of_local` closing Leaves.lean's `ZInQ.H5Neron.ProductModelHeight`.
+  `lake env lean`: 0 errors, 9 min 13 s; `productUnifSplits`, `productModelHeight_of_local`
+  standard axioms (VERIFIED).
+- §3c (metrization's `JacDetNondegenerate`, verbatim) and `ProductUnifDimsEq`,
+  `productUnifDims_of` added; docstrings updated per review. Recompile: 0 errors, 11/11
+  `#print axioms` standard (VERIFIED).
+- `WithProductHeight.lean` regenerated (adds `productUnifAnalytic_of_local`: product-height's `ProductUnifAnalytic` from `ProductLocalStructure`): 0 errors, all `#print axioms` standard (VERIFIED).

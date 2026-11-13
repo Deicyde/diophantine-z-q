@@ -39,8 +39,18 @@ theorem productModelHeight_of_local (hH : DefFaltings.HodgeLatticeTheorem)
   ZInQ.ProductHeight.productModelHeight_of_splits productUnifSplits
     (productMetrizationOfProductUnif_of_local hH hD hLS hL)
 
+/-- **product-height's glue `ProductUnifAnalytic` from metrization's `ProductLocalStructure`
+(proved)**, via `prodUnif = prodPts` and metrization's `productUniformizationAnalytic_of`. -/
+theorem productUnifAnalytic_of_local (hLS : ZInQ.Metrization.ProductLocalStructure) :
+    ZInQ.ProductHeight.ProductUnifAnalytic := by
+  intro K _ A B C L _ _ _ 𝒢P 𝒢₁ 𝒢₂ e h1 h2 τ g₁ g₂ Λ₁ Λ₂ Φ₁ Φ₂ hu₁ hu₂
+  rw [prodUnif_eq_prodPts]
+  exact ZInQ.Metrization.productUniformizationAnalytic_of hLS K A B C L 𝒢P 𝒢₁ 𝒢₂ e h1 h2 τ g₁ g₂
+    Λ₁ Λ₂ Φ₁ Φ₂ hu₁ hu₂
+
 end ZInQ.ProductUnif
 
+#print axioms ZInQ.ProductUnif.productUnifAnalytic_of_local
 #print axioms ZInQ.ProductUnif.productModelHeight_of_local
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg''
 #print axioms ZInQ.ProductUnif.productUnifSplits
