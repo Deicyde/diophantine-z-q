@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.Numerics
+import ZInQKernel.HDecomp.B3Unram.T32a
 import ZInQKernel.Hypotheses.JHeight
 import ZInQKernel.HDecomp.Repo.TorsionFree
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
@@ -172,6 +173,133 @@ theorem g7Out_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqr
   exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
     hdeg, isModelOver_baseChange hle A P hA⟩
 
+/-! ## G7 with the twist: `L'` unramified outside `T` (proved) -/
+
+/-- **B3 from a given B2 cochain** (the proof of `GlueDescent.B3Q.b3_of_leaves`, copied, with
+`b2_of_leaves`' output taken as hypotheses so that the twist `η` may depend on it). -/
+theorem b3_of_cochain
+    (L : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (ε : GQ → GQ → ℂˣ) (hε : IsSignCocycle ε) (hinf : InflatedFrom L ε) (h11 : ε 1 1 = 1)
+    {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) (β₁ : GQ → ℂˣ) (hβl₁ : IsLocallyConstant β₁)
+    (hβs₁ : ∀ x, β₁ x ^ 2 = galChar χ x) (hβe₁ : ∀ x y, β₁ x * β₁ y = ε x y * β₁ (x * y))
+    (tw : GQ →* ℂˣ) (htw : ∀ x, tw x ^ 2 = 1) (htwl : IsLocallyConstant tw) :
+    ∃ L' : IntermediateField ℚ (AlgebraicClosure ℚ),
+      L ≤ L' ∧ FiniteDimensional ℚ L' ∧ IsGalois ℚ L' ∧
+      (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β₁ σ * tw σ = 1) ∧
+      Module.finrank ℚ L' ≤ 2 * orderOf χ * Module.finrank ℚ L := by
+  let β : GQ → ℂˣ := fun x => β₁ x * tw x
+  have hβl : IsLocallyConstant β := hβl₁.mul htwl
+  have hβs : ∀ x, β x ^ 2 = galChar χ x := twist_sq (galChar χ) hβs₁ tw htw
+  have hβe : ∀ x y, β x * β y = ε x y * β (x * y) := twist hβe₁ tw
+  have hεN := inflatedNormalized_of L ε hε hinf h11
+  have hβ : IsCochainFor ε β := hβe
+  let K' : Subgroup GQ := kernelSubgroup hβ hεN
+  have hHopen : IsOpen ((GQL L : Subgroup GQ) : Set GQ) := L.fixingSubgroup_isOpen
+  have hK'set : (K' : Set GQ) = (GQL L : Set GQ) ∩ β ⁻¹' {1} := by
+    ext g
+    simp only [SetLike.mem_coe, Set.mem_inter_iff, Set.mem_preimage, Set.mem_singleton_iff]
+    exact mem_kernelSubgroup hβ hεN
+  have hK'open : IsOpen (K' : Set GQ) := by
+    rw [hK'set]; exact hHopen.inter (hβl.isOpen_fiber 1)
+  have hK'closed : IsClosed (K' : Set GQ) := Subgroup.isClosed_of_isOpen K' hK'open
+  let K'c : ClosedSubgroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) :=
+    { toSubgroup := K', isClosed' := hK'closed }
+  let L' : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.fixedField K'
+  have hfix : L'.fixingSubgroup = K' := InfiniteGalois.fixingSubgroup_fixedField K'c
+  have hGL' : ∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1 := by
+    intro σ
+    show σ ∈ L'.fixingSubgroup ↔ _
+    rw [hfix]
+    exact mem_kernelSubgroup hβ hεN
+  have hm := orderOf_pos_dirichlet χ
+  have hpow : ∀ s ∈ GQL L, β s ^ (2 * orderOf χ) = 1 := by
+    intro s _
+    rw [pow_mul, hβs]
+    show (MulChar.mulEquivToUnitHom χ (cyc N s)) ^ orderOf χ = 1
+    rw [← MonoidHom.pow_apply, ← map_pow, pow_orderOf_eq_one, map_one, MonoidHom.one_apply]
+  haveI : (GQL L).Normal := (InfiniteGalois.normal_iff_isGalois L).mpr inferInstance
+  have hidx := index_kernel_le hβ hεN (2 * orderOf χ) (by positivity) hpow
+  have hfd : FiniteDimensional ℚ L' :=
+    (InfiniteGalois.isOpen_iff_finite L').mp (by rw [hfix]; exact hK'open)
+  have hL : Module.finrank ℚ L = (GQL L).index := IntermediateField.finrank_eq_fixingSubgroup_index
+      (L := L)
+  have hL' : Module.finrank ℚ L' = K'.index := by
+    rw [IntermediateField.finrank_eq_fixingSubgroup_index (L := L'), hfix]
+    rfl
+  have hgal : IsGalois ℚ L' :=
+    (InfiniteGalois.normal_iff_isGalois L').mp (by rw [hfix]; exact kernelSubgroup_normal hβ hεN)
+  have hle : L ≤ L' := by
+    intro x hx
+    show x ∈ IntermediateField.fixedField K'
+    exact fun k => mem_GQL.mp (kernelSubgroup_le hβ hεN k.2) x hx
+  refine ⟨L', hle, hfd, hgal, hGL', ?_⟩
+  rw [hL', hL]; exact hidx
+
+theorem two_mem_T (u : ℚ) : 2 ∈ T u :=
+  Finset.mem_union_left _ (Mult.mem_S_mul_of_le Nat.prime_two (by norm_num))
+
+/-- **The data of G7, clause by clause** (the interface handed to G8-G16). For the fibre `P`
+over `J(u)`: the Hom field `L` (finite Galois, unramified outside `T`), the model `A/L` with its
+descent datum `ε` (B1), the Dirichlet character `χ` mod `N` (`N` supported on `T`), the
+cochain `β` (locally constant, `β² = χ`, `∂β = ε`, twisted so that inertia outside `T` dies), and
+the kernel field `L' ⊇ L` of `β|_{G_L}`: `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M_{S_mul}(u)`,
+`L'` unramified outside `T` (Galois form), and `A_{L'}` a model of `P`'s surface. -/
+def G7Data (u : ℚ) (P : QML3 Qbar) (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ)
+    [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF) (hLL' : L ≤ L') : Prop :=
+  IsModelOver L A P ∧ DescentDatum L A ε ∧
+  (∀ p : Nat.Primes, (p : ℕ) ∉ T u → UnramifiedAt L p) ∧
+  (∀ q : ℕ, q.Prime → q ∣ N → q ∈ T u) ∧
+  IsLocallyConstant β ∧ (∀ x, β x ^ 2 = galChar χ x) ∧
+  (∀ x y, β x * β y = ε x y * β (x * y)) ∧
+  (∀ σ : GQ, σ ∈ GQL L' ↔ σ ∈ GQL L ∧ β σ = 1) ∧
+  (Module.finrank ℚ L' : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
+  GlueB3Unram.GalUnramifiedOutside L' (T u) ∧
+  IsModelOver L' (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) P
+
+/-- **G7's output with the twist** (N5 L702-716): the data of `G7Data` exist. -/
+def G7OutUnr (u : ℚ) (P : QML3 Qbar) : Prop :=
+  ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+    (L' : IF) (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL'
+
+/-- **G7 with the twist, proved** from G4's output and the four B2 leaves: B2
+(`b2_of_leaves`), the twist killing inertia outside `T` (`GlueB3Unram.unramified_outside_noLeaf`,
+no leaf), B3 (`b3_of_cochain`) and the constants (`degree_le_QM`). -/
+theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)
+    (hUnr : LeafUnramified) (u : ℚ) (P : QML3 Qbar) (h : G4Out u P) : G7OutUnr u P := by
+  obtain ⟨L, hfd, hgal, hLD, hram, A, ε, hA, hD⟩ := h
+  have ⟨hε, hinf, h11, _⟩ := hD
+  obtain ⟨hS, hRS, hR12⟩ := admissible_S_mul
+  have hT : ∀ p ∈ T u, p.Prime := by
+    intro p hp
+    rcases Finset.mem_union.mp hp with h | h
+    · exact hS p h
+    · exact Nat.prime_of_mem_primeFactors h
+  obtain ⟨N, hN, χ, β₁, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
+    b2_of_leaves hHasse hTwo hSq hUnr L ε hε hinf (T u) hT hram
+  have hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1 :=
+    inflatedNormalized_of L ε hε hinf h11
+  obtain ⟨Q, -, hη, hηl, hunr⟩ := GlueB3Unram.unramified_outside_noLeaf L (T u) (two_mem_T u)
+    hram ε hεN χ hsupp β₁ hβl₁ hβs₁ hβe₁
+  obtain ⟨L', hle, hfd', hgal', hGL', hdeg⟩ :=
+    b3_of_cochain L ε hε hinf h11 χ β₁ hβl₁ hβs₁ hβe₁ _ hη hηl
+  have hdegR := degree_le_QM Mult.S_mul hS (heightD : ℝ) le_rfl hRS hR12 u
+    (Module.finrank ℚ L) (orderOf χ) hLD hord
+  refine ⟨L, hfd, hgal, A, ε, N, hN, χ, fun x => β₁ x * (∏ q ∈ Q, GlueB3Unram.etaP q) x,
+    L', hfd', hgal', hle, hA, hD, hram, hsupp, hβl₁.mul hηl, twist_sq (galChar χ) hβs₁ _ hη,
+    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA⟩
+  calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by
+        exact_mod_cast hdeg
+    _ = 2 * (orderOf χ : ℝ) * Module.finrank ℚ L := by push_cast; ring
+    _ ≤ _ := hdegR
+
+theorem g7Out_of_g7OutUnr (u : ℚ) (P : QML3 Qbar) (h : G7OutUnr u P) : G7Out u P := by
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hle, hA, hD, hram, -, hβl, hβs, hβe,
+    hGL', hdeg, -, hM⟩ := h
+  exact ⟨L, hfd, hgal, A, ε, hA, hD, hram, N, hN, χ, β, L', hfd', hgal', hle, hβl, hβs, hβe, hGL',
+    hdeg, hM⟩
+
 /-! ## G2's bookkeeping (proved) -/
 
 /-- **G2's input, the fibre cover (Prop. TS + Lemma NV, N5 L509-529; remaining).** There is a
@@ -263,3 +391,4 @@ end G0ModField
 
 #print axioms G0ModField.fieldDescent
 #print axioms G0ModField.g7Out_of_g4Out
+#print axioms G0ModField.g7OutUnr_of_g4Out
