@@ -201,4 +201,17 @@ theorem finrank_fieldX1_le (hT : TorsionStructure) (N : ℕ) (hN : 0 < N)
     _ ≤ (nTors EjBar N : Set EjBar.toAffine.Point).ncard := Set.ncard_image_le hfin
     _ = N ^ 2 := (Nat.card_coe_set_eq _).symm.trans (nTors_card Kbar EjBar N hN e)
 
+/-! ## `X1ModelExists` (MC4 + MC10) -/
+
+/-- **`X1ModelExists` (glue, proved from T1, M1, M2, M3).** -/
+theorem x1ModelExists_of_leaves (hT : TorsionStructure) (hC : CurveOfFunctionFieldQ)
+    (hK : X1ConstantField) (hR : X1RationalCusp) : X1ModelExists := by
+  intro N hN
+  obtain ⟨e⟩ := hT Kbar EjBar N hN
+  obtain ⟨P, hP⟩ := exists_addOrderOf Kbar EjBar N e
+  have hx : IsIntegral Qj (xCoord P) := Algebra.IsIntegral.isIntegral _
+  have : FiniteDimensional Qj (fieldX1 P) := IntermediateField.adjoin.finiteDimensional hx
+  obtain ⟨X, hX, hpt, hint, ⟨φ⟩⟩ := hC (fieldX1 P) (hK N P hN hP)
+  exact ⟨X, (hpt (hR N P hN hP)).some, hX, hint, P, hP, ⟨φ⟩⟩
+
 end X1Belyi
