@@ -48,4 +48,17 @@ cf = open('scratch/curve-facts/CurveFacts.lean').read(); al = open('scratch/curv
 body = cf[cf.index('/-!'):cf.index('end Pin\n\nend AV\n\nend LeafQM\n\nend\n')]
 s = body in al; ok &= s
 print(('IDENTICAL ' if s else 'DIFFERENT ') + 'CurveGlueAll.lean contains CurveFacts.lean (header to end of §8) verbatim')
+# MobiusEnd: mobius-glue §1-§5 (one destructuring line changed) and §7-§8 verbatim
+mg = open('scratch/mobius-glue/MobiusGlue.lean').read(); me = open('scratch/curve-glue/MobiusEnd.lean').read()
+i1 = mg.index('/-! ## §1 Rational functions on `P¹`'); i6 = mg.index('/-! ## §6 Downstream')
+p1 = mg[i1:i6].replace("  obtain ⟨⟨hprop', hsmooth', hne', -, -⟩, -⟩ := h1'", "  obtain ⟨hprop', hsmooth', hne', -, -, -⟩ := h1'")
+ie = mg.index('end Pin\n\nend AV\n\nend LeafQM\n', i6); isc = mg.index('/-- **The comparison of two triples from the curve facts and T5.** -/')
+for lab, part in [('MobiusEnd.lean: mobius-glue §1-§5 verbatim except the h1\' destructuring line', p1),
+                  ('MobiusEnd.lean: mobius-glue §7-§8 verbatim', mg[ie:isc])]:
+    s_ = part in me; ok &= s_
+    print(('IDENTICAL ' if s_ else 'DIFFERENT ') + lab)
+cg = open('scratch/curve-glue/CurveGlueAll.lean').read()
+j1 = cg.index('/-! ## §1 Geometric components (genuine definitions) -/'); je = cg.index('end Pin\n\nend AV\n\nend LeafQM\n\nend\n')
+s_ = cg[j1:je] in me; ok &= s_
+print(('IDENTICAL ' if s_ else 'DIFFERENT ') + 'MobiusEnd.lean: CurveGlueAll.lean §1 to the end verbatim')
 sys.exit(0 if ok else 1)

@@ -13,3 +13,6 @@ IDENTICAL r2X6Props_of_iff                              scratch/curve-glue/CMPoi
 IDENTICAL R1R2fpRep (statement; docstring abridged)
 IDENTICAL R1R2fp_of_rep (statement and proof; docstring abridged)
 IDENTICAL CurveGlueAll.lean contains CurveFacts.lean (header to end of §8) verbatim
+IDENTICAL MobiusEnd.lean: mobius-glue §1-§5 verbatim except the h1' destructuring line
+IDENTICAL MobiusEnd.lean: mobius-glue §7-§8 verbatim
+IDENTICAL MobiusEnd.lean: CurveGlueAll.lean §1 to the end verbatim
