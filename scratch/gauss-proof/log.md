@@ -2,8 +2,8 @@
 
 - ZInQKernel/Contrib/GaussFE/HeckeFE.lean: verbatim copy of scratch/bp-hecke-fe/HeckeFE.lean,
   namespace BpHeckeFE renamed to ZInQ.Contrib.GaussFE (only change). VERIFIED: `lake build
-  ZInQKernel.Contrib.GaussFE.HeckeFE` succeeds (22:15 PST), no errors.
-- ZInQKernel/Contrib/GaussFE/Gauss.lean (imports Mathlib only). VERIFIED compiled (22:25 PST,
+  ZInQKernel.Contrib.GaussFE.HeckeFE` succeeds (~22:08 PST), no errors.
+- ZInQKernel/Contrib/GaussFE/Gauss.lean (imports Mathlib only). VERIFIED compiled (~22:16 PST,
   `lake env lean` and `lake build ZInQKernel.Contrib.GaussFE.Gauss`, no errors, no sorry).
   `#print axioms ZInQ.Contrib.GaussFE.gauss_jacobi` = [propext, Classical.choice, Quot.sound].
   Statement: for prime p ≡ 1 (mod 4), ∃ A B : ℤ, A²+B² = p ∧ (A+1) % 2 = 0 ∧ (B−A−1) % 4 = 0 ∧
@@ -15,7 +15,7 @@
   jacobiSum_mul_jacobiSum_inv through ℤ[i] ↪ ℂ), `chi_neg_one_mul_chi_two_sq` (χ(−1)χ(2)² = 1),
   `two_add_two_i_dvd_jacobi_add_one` ((2+2i) ∣ J + 1; involution t ↦ t⁻¹ in ℤ[i]/(2+2i)),
   `card_cubic_eq` (count = p + Σ quadraticChar(x³ − x)).
-- ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean. VERIFIED compiled (22:35 PST; `lake env lean`
+- ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean. VERIFIED compiled (~22:19 PST; `lake env lean`
   and `lake build ZInQKernel.Contrib.GaussFE.FunctionalEquation5`, no errors, no sorry).
   `psiPair`, `psiPair_neg`, `psiPair_conj`, `unitOf_primary`, `psiPair_primary`,
   `gaussPointCount : GaussPointCount` (bp-hecke-fe's Prop, definition unchanged in HeckeFE.lean),
