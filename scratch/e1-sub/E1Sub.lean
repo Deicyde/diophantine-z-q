@@ -690,6 +690,52 @@ theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
   rw [hmap, LinearEquiv.symm_apply_apply, LinearEquiv.symm_apply_apply]
   exact he0 σ u0
 
+/-- **E1 for R16, assembled (GLUE, proved).** In the situation of `rhoF_subrep_JL`, with `L` a
+number field: for every abelian variety `A'` over `L` (the QM surface of N5) and every nonzero
+subrepresentation `U` of `V_ℓ(A') ⊗ ℚ̄_ℓ` that is `G_L`-equivariantly isomorphic to
+`ρ_{f,ι}|_{G_L}` (the output C9 must supply: `r_ℓ ≅ ρ_{f,ι}` on a constituent of `V_ℓ(A')`), there
+is a nonzero homomorphism `A' → J_L` over `L`; if moreover `End⁰(A')` is a division algebra,
+Poincaré reducibility (leaf T8) gives an abelian variety `Z` and `g : Z → J_L` with
+`(φ, g) : A' × Z → J_L` an isogeny (N5 L861-867). -/
+theorem E1_R16 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (hP : PoincareReducibility) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (L : Type) [Field L] [NumberField L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ) (A' : AbVar L)
+        (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ))),
+        U ≠ ⊥ →
+        ∀ eA : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb),
+          (∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : GQ),
+            (∀ x, i (σ x) = τ (i x)) → ∀ u : U.toSubmodule,
+              eA ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u,
+                  U.apply_mem_toSubmodule τ u.2⟩ = rhoF ℓ A θ emb σ (eA u)) →
+          ∃ φ : Hom A' (J.baseChange L), φ ≠ 0 ∧
+            (EndDivision A' → ∃ (Z : AbVar L) (g : Hom Z (J.baseChange L)),
+              IsIsogenyMor (fst A'.X Z.X ≫ φ.hom * snd A'.X Z.X ≫ g.hom)) := by
+  obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb A' U hU eA heA => ?_⟩
+  obtain ⟨-, -, U', eJ, heJ⟩ := hrest ℓ emb
+  let e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] U'.toSubmodule := eA.trans eJ.symm
+  have he : ∀ (τ : Field.absoluteGaloisGroup L) (u : U.toSubmodule),
+      (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ :
+        TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) ((J.baseChange L).V ℓ)) =
+        GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (e u) := by
+    intro τ u
+    obtain ⟨σ, hσ⟩ := exists_res i τ
+    have h1 : eJ ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (e u),
+        U'.apply_mem_toSubmodule τ (e u).2⟩ =
+        eJ (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u,
+          U.apply_mem_toSubmodule τ u.2⟩) := by
+      rw [heJ τ σ hσ (e u)]
+      simp only [e, LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
+      rw [heA τ σ hσ u]
+    exact congrArg Subtype.val (eJ.injective h1).symm
+  obtain ⟨φ, hφ⟩ := E1_exists_hom_ne_zero' hS hF hT A' (J.baseChange L) ℓ (PadicAlgCl ℓ) U U' hU
+    e he
+  exact ⟨φ, hφ, fun hdiv => hP L A' (J.baseChange L) hdiv φ hφ⟩
+
 end Final
 
 end E1Sub
@@ -701,3 +747,4 @@ end E1Sub
 #print axioms E1Sub.bcVE_equivariant
 #print axioms E1Sub.exists_res
 #print axioms E1Sub.rhoF_subrep_JL
+#print axioms E1Sub.E1_R16
