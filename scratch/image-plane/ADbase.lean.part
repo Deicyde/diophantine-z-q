@@ -1,0 +1,63 @@
+
+/-- **(C2K) Constant or onto on a connected component** (Hartshorne, *Algebraic Geometry*,
+Prop. II.6.8, UNVERIFIED numbering: a morphism from a complete nonsingular curve over an
+algebraically closed field to a curve is constant or surjective; here applied to a connected
+component of `X`, a complete nonsingular irreducible curve, and the target `P¹`, whose closed
+points are its `K`-points). Textbook leaf. -/
+def ConstOrOntoAlgClosed : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → σ.val p = σ.val p₀) ∨
+      (∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p = t)
+
+/-- **(CI) Connected components of a proper smooth curve over a field are irreducible.** If
+`X → Spec K` is proper and smooth of relative dimension 1 over a field, every connected component of
+`X` is irreducible (properness is not needed, but is kept: it is where (CI) is used, and it makes
+the Lean proof `componentIrreducible` in `MobiusFinal.lean` a Noetherian argument).
+
+Why true (STANDARD; references UNVERIFIED): smooth over a field implies regular, hence normal
+(Stacks, *Varieties*, smooth ⇒ normal; Hartshorne II.8 for regular local rings being domains);
+a locally Noetherian normal scheme is a disjoint union of integral open subschemes (its local rings
+are domains, so irreducible components are disjoint and open), so its connected components are
+its irreducible components. Glue (standard commutative algebra and topology). Not in Mathlib
+v4.35 as stated (task infra-smooth-dim proved that the local rings at closed points are regular of
+dimension 1, `stalk_dim_of_smoothOfRelativeDimension`, which is the main input; with it, (CI) is
+proved in `MobiusFinal.lean`, `componentIrreducible`). -/
+def ComponentIrreducible : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsIrreducible (connectedComponent x)
+
+/-- **(C1b) Local rings of a smooth curve at closed points have dimension 1.** If `X → Spec K`
+is smooth of relative dimension 1 over a field `K` and `x` is a closed point, then
+`dim 𝒪_{X,x} = 1` (STANDARD: smooth of relative dimension `n` over a field means `dim_x X = n`
+at every point, and at a closed point of a scheme locally of finite type over a field
+`dim 𝒪_{X,x} = dim_x X`; e.g. Stacks, *Morphisms*, smooth morphisms and dimension of fibres,
+UNVERIFIED tags). Glue (dimension theory), not in Mathlib v4.35; Mathlib has
+`ringKrullDim_stalk_eq_coheight` (Stacks 02IZ), used below. -/
+def SmoothStalkDimOne : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsClosed ({x} : Set X) →
+      ringKrullDim (X.presheaf.stalk x) = 1
+
+open Polynomial in
+/-- **(AD) `σ` and `ρ` are algebraically dependent on a connected component.** For `X → Spec K`
+proper and smooth of relative dimension 1 over `K = K̄`, `σ, ρ : X → P¹` and a `K`-point `p₀`,
+some nonzero `P ∈ K[x][y]` has `P(σ(p), ρ(p)) = 0` at every `K`-point `p` of the connected
+component of `p₀` where both values are finite.
+
+Why true (STANDARD; numbering UNVERIFIED): the component `W` is an integral curve, its function
+field `K(W)` has transcendence degree `dim W = 1` over `K` (Hartshorne I.1.8A and I.6), so the
+rational functions `σ, ρ` satisfy a nonzero polynomial relation `P(σ, ρ) = 0` in `K(W)`; the
+regular function `P(σ, ρ)` on the open set where both are finite is then zero (`W` reduced), so it
+vanishes at those `K`-points. Glue. -/
+def AlgDep : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      ∃ P : K[X][X], P ≠ 0 ∧
+        ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0

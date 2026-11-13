@@ -57,3 +57,54 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
 - No PARI on this host (cypari2 not installed; installing needs the network, forbidden), so the
   direction of `ShimuraReciprocity` (Frobenius at 𝔭 ↦ multiplication by 𝔭̄ = p𝔭⁻¹) is not checked
   numerically: STANDARD (Shimura 1971 Thm 5.4 / Silverman ATAEC II, numbers UNVERIFIED).
+
+## 08:10 §8 CM bridge (Package.lean builds)
+- Defs/leaves: `ActsAsArtin4 ρ d c` (ρ acts on H_{d,4} ⊂ ℚ̄ as Tau Ceti's Artin symbol of c),
+  `CMFieldOfDefinitionTYZ` (f₀(P_n) ∈ A(H_{n,4})), `TYZSigmaFixesZn` (σ_{1+2ϖ} fixes z_n: Shimura
+  reciprocity in TYZ's form), `TYZZnOverHprime` (z_n ∈ A(H'_n)), `tyzGenusPt Φ Z7`,
+  `GenusPointLeafCM ℓ` (bundled leaf, existential only over Φ₀-choice, class-7 genus points, ε, β').
+- Proved: `cmFieldTYZ_of` (CM-2 with H(−64n) ≤ H_{n,4} gives the TYZ instance), `Lni_mono`,
+  `tyzGenusSum_mem` (class-5 genus sums lie in A(ℍ'_n) for every Φ), `genusPtsDefined_of`,
+  `genusPackage_of_cm`, `tyzThm35ReadingA_of_cm`; axioms of the latter: standard three (VERIFIED).
+- Finding (from rv-pn-encoding, VERIFIED there against the source): "Lemma 3.21 holds for any choice
+  of Φ₀ (L2547–2554)"; g(n) = #Φ₀ = #2Cl_n. So leaving Φ existential is faithful.
+
+## 08:45 §9 literal Lemma 3.18 (Package.lean builds)
+- Merged origin/main (STATUS.md only) and x0-32 again (X0.lean grew: `X0.IsTorsI3`,
+  `X0.two_nsmul_add_iPt_eq_zero_iff`, `X0.toC` via unnormalized `embC = IsAlgClosed.lift`; my
+  `CM.toC` uses `ιCA` normalized by `ιC iQ = I`; no clash, different namespaces).
+- Proved `ptT_add_iPt_ptT : T + [i]T = (−2i, 0)` (= τ((1+i)/2), matches the dictionary),
+  `isTorsI3_mem_range` (the 8 points of A[(1+i)³] are tauG-values), `lemma318_iff_literal :
+  Lemma318 Hn ↔ Lemma318Literal Hn` (literal TYZ Lemma 3.18: torsion of A(ℍ'_n) satisfies
+  2(P + [i]P) = 0; no τ needed), `tyzThm35ReadingA_of_cm'`.
+
+## 09:00 Independent review (AI subagent) of the leaf statements
+- No false leaf found. Checked by hand: ShimuraReciprocity direction (Cox Cor. 11.37 / Shimura 5.4;
+  latN = ⟨1/32, τ⟩ is 𝒪_D-stable since 32 ∣ A, so one scalar moves the pair; conjPrimeLat is the ideal
+  𝔭̄), betaOneSign (Serre's formula), ptT/tauG/dictionary, tyzForm (both lattices have CM by ℤ[4√−n]).
+- Findings applied (docstrings): (1) GenusPtsDefined/Thm35First/Lemma321 have free Z — closed only
+  once Z pinned; main theorem uses bundled GenusPointLeafCM; (2) CMFieldOfDefinition's H free —
+  closed TYZ instance is CMFieldOfDefinitionTYZ; (3) CM leaves depend on X0.X0AnalyticModel.
+- Suggestion taken up: CMComplexConj is provable (η(−z̄) = conj η(z)).
+- Reviewer notes GenusPointLeafCM/Lemma321 depend on the [i]-sign in tyzZn (tyz-t1 numerics only);
+  TYZZnOverHprime does not (A(K)-membership is invariant under the sign).
+
+## 09:30 CMComplexConj proved (CM.lean builds)
+- `eta_conj : η(−z̄) = conj η(z)` (via `Function.LeftInverse.map_tprod` with conj), `etaD_conj`,
+  `xC_conj`, `yC_conj`, `phiC_conj`, `toC_galPt`, `conjPt_conjPt`, `tau_conj`, and
+  `cmComplexConj : CMComplexConj` — axioms: standard three (VERIFIED). CM-4 leaves the leaf list.
+
+## 10:15 §10 Galois descent (Package.lean builds)
+- Proved `exists_actsAsArtin4` (every g ∈ Gal(H_{d,4}/K_d) extends to an automorphism of ℚ̄
+  compatible with ring-class's `embed`; via `IntermediateField.equivMap` + `AlgHom.liftNormal`),
+  `mem_Hprimebar_of_fixed` (Galois descent H_{d,4} → H'_d through Tau Ceti's Artin map and
+  `RingClass.Hprime`'s fixed field), `tyzZnOverHprime_of : CMFieldOfDefinitionTYZ → IInH4 →
+  TYZSigmaFixesZn → TYZZnOverHprime`, and `tyzThm35ReadingA_of_cmLeaves` (finest main theorem).
+- New leaf `IInH4` (i ∈ H_{n,4}; genus theory, textbook). `TYZZnOverHprime` is now glue.
+- Axioms of `tyzZnOverHprime_of`: standard three (VERIFIED).
+
+## Final (report written)
+- Merged origin/wip/x0-32 (X0CM.lean, X0Pkg.lean duplicate CMComplexConj / Lemma318 equivalence
+  in namespace X0) and origin/wip/ring-class again; `lake build … Package X0CM X0Pkg` succeeds
+  (VERIFIED). diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
+- Audit: 33 declarations, all [propext, Classical.choice, Quot.sound] (audit-out.txt).

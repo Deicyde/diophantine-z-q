@@ -60,6 +60,14 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
   Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
   NumberTheory/NumberField/Global/RayClass/Integral.
+  Later, task ring-class vendored four more modules from commit 97a5b235 (the
+  closure of ClassFields.RayClassField: Hilbert class fields, hilbertClassField and
+  finrank_hilbertClassField): ClassFieldTheory/ClassFields/RayClassField,
+  NumberField/Global/RayClass/Narrow/Basic, NumberField/NarrowClassGroup/{Basic,
+  TotallyComplex} (list in scratch/ring-class/vendor-new2.txt), and one more Backport/
+  file (commit 97a5b235): NumberTheory/ClassFieldTheory/ClassField
+  (classField_fixingOpenNormalSubgroup, isAbelianClassFieldLayer_fixingOpenNormalSubgroup;
+  the proof of the first is rewritten, as its note line says).
 - Commit 4d91513e (Tau Ceti main of 2026-11-13; the strong multiplicity one across
   levels of Newforms/StrongMultiplicityOne/Basic.lean): Backport/ files added by the
   Z-in-Q task atkin-li, compiled against the commit-5a01f5fe modules vendored here.
@@ -108,9 +116,16 @@ modifications are distributed under the same license. At the time of writing the
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
+- Backport/NumberTheory/ClassFieldTheory/ClassField.lean (task ring-class: one proof rewritten)
+- Backport/NumberTheory/ModularForms/Newforms/OldAtPrime.lean (task atkin-li: imports)
+- Backport/NumberTheory/ModularForms/Newforms/PrimeDecomposition.lean (task atkin-li: imports)
+- Backport/NumberTheory/ModularForms/Newforms/StrongMultiplicityOne/Across.lean (task
+  atkin-li: part of the module; one call adapted to a commit-5a01f5fe signature)
+- Backport/NumberTheory/ModularForms/Newforms/SupportAwayFromLevel.lean (task atkin-li: imports)
 - GroupTheory/GroupAction/Norm.lean
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
+- NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean (task ring-class)
 - NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean
 - NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean
 - NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean
@@ -146,7 +161,7 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 Each file's note line says in a few words what changed. The 19 files with a
 commit-97a5b235 provenance line (task kw-new) mostly differ from their source only by
 extra imports of Backport/ modules; ModularForms/LFunction/Sign.lean is task gz-decomp's;
-the five files marked (task ring-class) only import Backport/ files (Kummer.lean
+the six files marked (task ring-class) only import Backport/ files (Kummer.lean
 imports the Backport/ version of Global/Kummer/Norm in place of the vendored one);
 the changes in the remaining files are also described in docs/research/tc-port.md.
 Comparing a vendored file with the source module at the commit named in its provenance

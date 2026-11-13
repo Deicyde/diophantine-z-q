@@ -16,7 +16,7 @@
 - `lake build ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RingClass.Field`: success, no sorry (07:00).
 - diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
 
-## 07:20 statements file
+## ~07:12 statements file
 - ZInQKernel/Contrib/TYZGenus/RingClass.lean: conductorOrder K f (ℤ + f𝓞_K, NumberFieldOrder), picSquares,
   picTwoTorsion, genusField O (fixed field of Pic(O)² in ringClassField O), sqrtNeg, O4 d, H4 d (H_{d,4}),
   hilbertField d, artin4, alpha d = 3+2√−d, sigmaClass d (class of σ_{1+2ϖ}, ϖ = 1+√−d), Hprime d (H'_d),
@@ -27,3 +27,98 @@
 - Orders TYZ uses (from notes; Period7.tex not on host): d ≡ 5: ℤ[4√−d] = ℤ + 4𝓞_K, disc −64d (tyz-t1 §3.1,
   TYZ L1203–1205); d ≡ 7: maximal order, disc −d (tyz-t1 §3.1). H_{d,4}, H'_d: Prop 3.2(1) L1253–1258.
   ℍ'_n = L_n(i)·Π H'_{d₀} (L1320), L_n(i) = ℚ(i, √d : d|n) (L1322) — all as quoted in rv-nt-tyz/rv-pn-encoding.
+
+## ~07:25 proofs, round 1 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClass` success)
+- Vendored (nov01) RayClassField, RayClass/Narrow/Basic, NarrowClassGroup/{Basic,TotallyComplex}; Backport
+  ClassFieldTheory/ClassField (classField_fixingOpenNormalSubgroup with a rewritten proof: `classField` does not unfold
+  outside its module); RayClassField.lean imports it (noted). diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
+- Proved: relfinrank_genusField (= #Pic²), finrank_genusField (= #Pic[2]), finrank_genusField_mul, finrankGenusField,
+  finrankH4, gCl_eq_card_picSquares (by rfl: ClassGroup (𝓞 K) and Pic of maximalNumberFieldOrder are defeq),
+  ker_le_ker_maximal, ringClassField_maximal_le (H_K ≤ ring class field of any order), 
+  ringClassField_maximal_eq_hilbertClassField, unit_eq (units of 𝓞_{ℚ(√−d)} are ±1 for d ≡ 5 mod 8, via
+  d m² + k² = 4d mod 8/32), alphaIdeal_mem, sigmaClass_sq, not_mem_O4, sigmaClass_ne_one, orderOf_sigmaClass = 2.
+  #print axioms orderOf_sigmaClass: [propext, Classical.choice, Quot.sound].
+
+## ~07:30 proofs, round 2 (VERIFIED, lake build success)
+- Hprime_le_H4, relfinrank_Hprime ([H_{d,4} : H'_d] = 2 for d ≡ 5 mod 8), sigmaClassOrderTwo, hilbertLeH4,
+  gClEqPicSquares, gCl_eq_relfinrank, gClEqRelfinrank, finrank_hilbertField (= classNumber, via vendored
+  finrank_hilbertClassField), finrank_genusField_eq ([G_n : K_n] = 2^{#ramSet n − 1}, odd squarefree n > 1, from
+  RouteK.Redei.card_ker_sq_eq), picSquares_eq_iInf_ker_chi, genusField_eq_fixedField_chi (genus field = field cut
+  out by the genus characters RouteK.Redei.chi), gNat_eq_relfinrank, gRingClass, gNat_eq_gRingClass (function
+  equality), gCl_eq_gRingClass, T5aCl_eq_gRingClass, T5bCl_eq_gRingClass, GenusData.beta_seven_ringClass,
+  GenusData.beta_five_ringClass.
+
+## ~07:39 proofs, round 3 (VERIFIED, lake build success)
+- ideleClassArtinMap_restrict (Tau Ceti's idele-class Artin maps commute with restriction between abelian
+  subfields of Kˢ; from globalArtinMap_comp + of_ideleClassArtinMap), picToMax O : Pic O →* Cl(K) (= Q_max ∘ Q_O⁻¹),
+  picToMax_ringClassIdeleQuotient, picToMax_surjective, picToMax_picClass_span (principal ideals ↦ 1),
+  picToMax_sigmaClass, restrictNormalHom_inclusion_apply, restrict_ringClassArtinEquiv (Artin symbol in ring class
+  field of O restricted to H_K = Artin symbol of picToMax c), ringClassArtinEquiv_apply_of_picToMax_eq_one,
+  mem_lift_fixedField_zpowers, hilbertField_le_Hprime (H_d ⊆ H'_d; needs maxRecDepth 10000).
+
+(Note: earlier headings were mis-estimated clock times; corrected to `date` readings, ±5 min.)
+
+## 08:00–08:20 round 4 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` success)
+- Merged origin/main, origin/wip/cm-points, origin/wip/x0-32 (no conflicts); Package builds.
+- cm-points' report asks ring-class to prove `Package.HprimeNormal` and `Package.IInH4`.
+- New ZInQKernel/Contrib/TYZGenus/RingClassGalois.lean (from scratch G1/G2): splitSet, Bauer's theorem
+  `le_of_splitSet_diff_subset` (Tau Ceti Chebotarev), splitting law `mem_splitSet_iff` (via
+  `isArithFrobAt_ringClassArtinEquiv_picClass`), `picClass_conj` (conjugation inverts Pic(O_{d,4})),
+  `normal_ringSubfield` (every E_S ⊆ H_{d,4}, S ≤ Pic, normal over ℚ), `normal_Hprime`, `normal_H4`,
+  `normal_Hprimebar`, `normal_H4bar` (all d), `adjI` = K(√−1), `isUnramifiedAt_of_two_notMem`,
+  `eq_one_of_isArithFrobAt`, `mem_splitSet_adjI`, `norm_of_mem_O4` (N(a+4y) = a² + 4c),
+  `adjI_le_H4` (K_d(√−1) ⊆ H_{d,4}, every d ≥ 1), `iQ_mem_H4bar`.
+- Pitfall: a `set w := …` inside the normality proof made later uses of `τ` time out at isDefEq
+  (200000 heartbeats); splitting the two cases into separate lemmas fixed it.
+- New ZInQKernel/Contrib/TYZGenus/RingClassBridge.lean: `hprimeNormal : HprimeNormal`, `iInH4 : IInH4`,
+  `tyzThm35ReadingA_of_cmLeaves_ringClass` (cm-points' finest main theorem minus these two hypotheses).
+- #print axioms (scratch/ring-class/AuditBridge.lean): all [propext, Classical.choice, Quot.sound].
+
+## 08:25–08:28 round 5 (VERIFIED, lake build RingClassBridge success; axioms standard three)
+- ConjInverse/Normality sections generalized from O4 d to every `conductorOrder (QNeg d) f`.
+- Ring class fields by discriminant: `ringClassFieldBar m f`, `normal_ringClassFieldBar` (every order
+  ℤ + f𝓞_K of an imaginary quadratic field: ring class field normal over ℚ), `sqfPart` (squarefree part,
+  `squarefree_eq_of_sq_mul_eq` uniqueness), `condD` (conductor), `condD_spec` (|D| = f²|d_K| for D < 0,
+  D ≡ 0,1 mod 4), `ringClassFieldD D`, `normal_ringClassFieldD`, `ringClassFieldD_tyz`
+  (ringClassFieldD (−64n) = H4bar n for squarefree n ≡ 5 mod 8).
+- Bridge: `cmFieldTYZ_of_ringClassD` (CM.CMFieldOfDefinition ringClassFieldD → CMFieldOfDefinitionTYZ),
+  `tyzThm35ReadingA_of_cmLeaves_ringClassD`, `normalFields_HHprime'`.
+- 08:31 embedding independence (VERIFIED, build success): `map_eq_map_of_normal`, `ringClassFieldBar_eq_map`,
+  `H4bar_eq_map'`, `Hprimebar_eq_map'` (the images in ℚ̄ of ring class fields, H_{d,4}, H'_d do not depend
+  on the ℚ-embedding K_dˢ → ℚ̄).
+
+## 08:35–08:39 round 6 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassTwo` success; axioms standard)
+- New ZInQKernel/Contrib/TYZGenus/RingClassTwo.lean (from scratch G3): K(√a) machinery (`sqrtK`, `adjSqrt`,
+  `sqrtO`, `isUnramifiedAt_sqrt` for Q ∌ 2a, `smul_sqrtO_eq_iff` Euler-criterion Frobenius,
+  `mem_splitSet_adjSqrt_iff`: 𝔭 ∌ 2a splits in K(√a) ⇔ a square mod 𝔭), `even_two_re` (d ≡ 1 mod 4 ⇒ Tr 𝓞 ⊆ 2ℤ),
+  `norm_of_mem_O4_mod8`, `adjSqrt_two_le_H4` (√2 ∈ H_{d,4}, d ≡ 1 mod 4), `splitSet_anti`, `normZ_alpha`
+  (N(3+2√−d) = 9+4d), `exists_prime_picClass_eq` (Chebotarev: every Pic(O_{d,4}) class has primes outside any
+  finite set), `not_adjSqrt_two_le_Hprime` (√2 ∉ H'_d, d ≡ 5 mod 8), `Hprime_sup_sqrt_two`
+  (H'_d ⊔ K_d(√2) = H_{d,4}: TYZ Prop 3.2(1)'s first assertion, a faithfulness check of `Hprime`).
+
+## 08:43 round 7 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassGenus` success; axioms standard)
+- New ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean (from scratch G4): `conductorOrder_one` (ℤ + 1·𝓞 = maximal
+  order), `hilbertField_eq_ringSubfield`, `norm_eq_sq_add` (N β = t² + w, k² = 4nw for n ≡ 1 mod 4),
+  `norm_mod_four`, `norm_sq_mod_prime` (N β ≡ t² mod p for p | n, n squarefree), `adjSqrt_le_hilbertField`
+  (K_n(√−1), K_n(√p) ⊆ H_n: explicit genus theory), `Lni_le_Hprimebar` (L_n(i) ⊆ H'_n),
+  `HHprime_eq_iSup` (ℍ'_n = ⨆_{d₀ | n, d₀ ≡ 5 (8)} H'_{d₀} for squarefree n ≡ 5 mod 8).
+
+(Round 4–7 headings corrected to commit times from `git log`.)
+- 08:44 report docs/research/ring-class.md written.
+- 08:47 (VERIFIED, build success, axioms standard): appended to RingClassGenus.lean `exists_lift_picSquares`
+  (R ⊆ Pic(O)² mapped bijectively onto Cl(K)², #R = #Cl(K)²), `exists_lift_picSquares_O4` (#R = gCl n),
+  `ringClassFieldD_neg` (ring class field of disc −d, d ≡ 3 mod 4 squarefree, = H_d).
+- Finding: TYZ's exact definition of Φ₀ ("Φ₀ = Φ ∩ 2Cl′_n", rv-tyz-inputs §1.3) is not recorded precisely
+  enough on this host to pin Φ in cm-points' GenusPointLeafCM; not attempted.
+- 08:48 (VERIFIED, build success, axioms standard): `artinPrime d : Pic (O4 d) ⧸ zpowers (sigmaClass d) ≃*
+  Gal(Hprime d/QNeg d)` (Artin isomorphism for H'_d = TYZ's Cl'_d), `artinPrime_mk_apply` (restriction of
+  ringClassArtinEquiv), `card_artinPrime`; instances FiniteDimensional/IsGalois for `Hprime d`.
+- 08:51 (VERIFIED, build success, axioms standard): `artin4_sq_apply_of_sq` (Artin symbols of squares in
+  Pic(O_{n,4}) fix every √q ∈ H_{n,4}, q ∈ K_n) in RingClassGenus.lean; `fixes_iQ_of_actsAsArtin4_sq`
+  (ρ acting on H_{n,4} as b² fixes iQ) in RingClassBridge.lean (now imports RingClassGenus).
+- 09:04 (VERIFIED, build success, axioms standard; from scratch G8): `tauH`, `conjGal` (τ g τ⁻¹ on H_{d,4}),
+  `isArithFrobAt_conjGal` (τ transports arithmetic Frobenius elements: Frob at Q ↦ Frob at τ(Q)),
+  `conjPrime`, `conjGal_artin4` (τ ∘ Art(c) ∘ τ⁻¹ = Art(c⁻¹): complex conjugation inverts Cl'), in
+  RingClassGenus.lean; `actsAsArtin4_conj` (ℚ̄ form for cm-points' ActsAsArtin4) in RingClassBridge.lean.
+  Pitfall: `set` again caused trouble (maxRecDepth); use obtain ⟨Q', hQ'⟩ : ∃ Q', Q' = … and maxRecDepth 10000.
+- 09:05 fleet report .fleet/ring-class.md written (last commit).

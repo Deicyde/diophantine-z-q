@@ -1,0 +1,78 @@
+scratch/period-map/DevSiegel.lean:134:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-map/DevSiegel.lean:136:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-map/DevSiegel.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevSiegel.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevSiegel.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevSiegel.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevSiegel.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevSiegel.lean:549:4: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
+scratch/period-map/DevSiegel.lean:549:22: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
+scratch/period-map/DevSiegel.lean:578:68: warning: this tactic is never executed
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevSiegel.lean:776:2: error: Tactic `rfl` failed: The left-hand side
+  (2⁻¹ * (-↑√2 * (τ - 3) * (τ + 1)))⁻¹ * Nf τ i j
+is not definitionally equal to the right-hand side
+  Nf τ i j / dF τ
+τ : ℂ
+i j : Fin 2
+h : PkgI1.Omega τ = (PkgI1.F0mat τ * PkgI1.Pinv)⁻¹ * PkgI1.Emat τ
+⊢ (2⁻¹ * (-↑√2 * (τ - 3) * (τ + 1)))⁻¹ * Nf τ i j = Nf τ i j / dF τ
+scratch/period-map/DevSiegel.lean:864:57: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?y / 2 * Qf ?x ?y * (?y * Qf ?x ?y) -
+    (?y * (√2 * ?x ^ 2 + 6 * √2 * ?x + √2 * ?y ^ 2 - 3 * √2 - 2 * ?x ^ 2 - 2 * ?y ^ 2 - 6)) ^ 2
+in the target expression
+  0 <
+    (τ.im / 2 * Qf τ.re τ.im * (τ.im * Qf τ.re τ.im) -
+        τ.im * (√2 * τ.re ^ 2 + 6 * √2 * τ.re + √2 * τ.im ^ 2 - 3 * √2 - 2 * τ.re ^ 2 - 2 * τ.im ^ 2 - 6) *
+          (τ.im * (√2 * τ.re ^ 2 + 6 * √2 * τ.re + √2 * τ.im ^ 2 - 3 * √2 - 2 * τ.re ^ 2 - 2 * τ.im ^ 2 - 6))) /
+      (normSq (dF τ) * normSq (dF τ))
+case refine_2.hd
+τ : ℂ
+hτ : 0 < τ.im
+hne : dF τ ≠ 0
+hn : 0 < normSq (dF τ)
+him : ∀ (i j : Fin 2), (PkgI1.Omega τ i j).im = ((Nf τ i j).im * (dF τ).re - (Nf τ i j).re * (dF τ).im) / normSq (dF τ)
+hsym : PkgI1.Omega τ 1 0 = PkgI1.Omega τ 0 1
+⊢ 0 <
+    (τ.im / 2 * Qf τ.re τ.im * (τ.im * Qf τ.re τ.im) -
+        τ.im * (√2 * τ.re ^ 2 + 6 * √2 * τ.re + √2 * τ.im ^ 2 - 3 * √2 - 2 * τ.re ^ 2 - 2 * τ.im ^ 2 - 6) *
+          (τ.im * (√2 * τ.re ^ 2 + 6 * √2 * τ.re + √2 * τ.im ^ 2 - 3 * √2 - 2 * τ.re ^ 2 - 2 * τ.im ^ 2 - 6))) /
+      (normSq (dF τ) * normSq (dF τ))
+'HSyn.G0Split.FibreQM.PeriodMap.omegaSiegel_proof' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_proof' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of'' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+real	0m13.161s
+user	0m20.589s
+sys	0m1.957s
