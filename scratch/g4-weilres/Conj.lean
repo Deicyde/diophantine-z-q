@@ -69,6 +69,19 @@ theorem cmp_fst : cmp X s h ≫ pullback.fst X.hom f₁ = pullback.fst X.hom f�
 theorem cmp_snd : cmp X s h ≫ pullback.snd X.hom f₁ = pullback.snd X.hom f₂ ≫ s :=
   pullback.lift_snd _ _ _
 
+/-- The comparison square over `s` is a pullback. -/
+theorem cmp_isPullback :
+    IsPullback (cmp X s h) (pullback.snd X.hom f₂) (pullback.snd X.hom f₁) s := by
+  have sq : IsPullback (pullback.fst X.hom f₂) (pullback.snd X.hom f₂) X.hom (s ≫ f₁) := by
+    rw [← h]; exact IsPullback.of_hasPullback _ _
+  have e : cmp X s h = (IsPullback.of_hasPullback X.hom f₁).lift (pullback.fst X.hom f₂)
+      (pullback.snd X.hom f₂ ≫ s) (by rw [sq.w, Category.assoc]) := by
+    apply pullback.hom_ext
+    · rw [cmp_fst]; exact (IsPullback.lift_fst _ _ _ _).symm
+    · rw [cmp_snd]; exact (IsPullback.lift_snd _ _ _ _).symm
+  rw [e]
+  exact IsPullback.of_right' sq (IsPullback.of_hasPullback X.hom f₁)
+
 /-- `cmp` on the self-products. -/
 noncomputable def cmp2 :
     ((Over.pullback f₂).obj X ⊗ (Over.pullback f₂).obj X).left ⟶

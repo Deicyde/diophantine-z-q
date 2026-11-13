@@ -22,6 +22,295 @@ The pattern is glue-b3b's `exists_inertia_neg`, with `α` replaced by all of `L`
 No leaf is used.
 -/
 
+
+section ConjSec
+
+/-!
+# g4-weilres, part 2: conjugating homomorphisms of base-changed group objects
+
+Generic category theory (any `C` with pullbacks). For a monoid object `X` over `S` and two base
+changes along `f₁, f₂ : T → S` with `f₂ = s ≫ f₁`, the comparison `g : X ×_{S,f₂} T → X ×_{S,f₁} T`
+(over `s : T → T`) respects the multiplications, and the conjugate of a monoid homomorphism along
+`g` (the unique lift through the pullback square) is a monoid homomorphism.
+In the application `S = Spec K`, `T = Spec ℚ̄`, `f₁ = Spec e`, `s = Spec σ`, `f₂ = Spec (σ ∘ e)`.
+-/
+
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped Obj
+
+namespace G4Conj
+
+variable {C : Type*} [Category C] [HasPullbacks C] {S T : C}
+
+attribute [local instance] Over.cartesianMonoidalCategory Over.braidedCategory
+
+/-- The multiplication of the base change, followed by the projection to `X`. -/
+theorem mul_left_fst (f : T ⟶ S) (X : Over S) [MonObj X] :
+    (μ[(Over.pullback f).obj X]).left ≫ pullback.fst X.hom f =
+      pullback.lift (pullback.fst _ _ ≫ pullback.fst X.hom f)
+        (pullback.snd _ _ ≫ pullback.fst X.hom f)
+        (by
+          simp only [Category.assoc, pullback.condition]
+          exact pullback.condition_assoc f) ≫ μ[X].left := by
+  show ((Functor.LaxMonoidal.μ (Over.pullback f) X X) ≫ (Over.pullback f).map μ[X]).left ≫ _ = _
+  rw [Over.comp_left, Category.assoc]
+  erw [pullback.lift_fst]
+  rw [← Category.assoc]
+  congr 1
+  apply pullback.hom_ext
+  · simp only [Category.assoc, pullback.lift_fst]
+    exact Over.μ_pullback_left_fst_fst X X
+  · simp only [Category.assoc, pullback.lift_snd]
+    exact Over.μ_pullback_left_fst_snd X X
+
+
+/-- The unit of the base change, followed by the projection to `X`. -/
+theorem one_left_fst (f : T ⟶ S) (X : Over S) [MonObj X] :
+    (η[(Over.pullback f).obj X]).left ≫ pullback.fst X.hom f = f ≫ η[X].left := by
+  show ((Functor.LaxMonoidal.ε (Over.pullback f)) ≫ (Over.pullback f).map η[X]).left ≫ _ = _
+  rw [Over.comp_left, Category.assoc]
+  erw [pullback.lift_fst]
+  rw [← Category.assoc, Over.ε_pullback_left]
+  congr 1
+  rw [IsIso.inv_comp_eq]
+  have := pullback.condition (f := 𝟙 S) (g := f)
+  simpa using this
+
+/-! ### The comparison map over `s` -/
+
+section Cmp
+
+variable (X : Over S) {f₁ f₂ : T ⟶ S} (s : T ⟶ T) (h : f₂ = s ≫ f₁)
+
+/-- `X ×_{f₂} T → X ×_{f₁} T` over `s`, for `f₂ = s ≫ f₁`. -/
+noncomputable def cmp : pullback X.hom f₂ ⟶ pullback X.hom f₁ :=
+  pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ s)
+    (by rw [pullback.condition, h, Category.assoc])
+
+@[reassoc (attr := simp)]
+theorem cmp_fst : cmp X s h ≫ pullback.fst X.hom f₁ = pullback.fst X.hom f₂ := pullback.lift_fst _ _ _
+
+@[reassoc (attr := simp)]
+theorem cmp_snd : cmp X s h ≫ pullback.snd X.hom f₁ = pullback.snd X.hom f₂ ≫ s :=
+  pullback.lift_snd _ _ _
+
+/-- The comparison square over `s` is a pullback. -/
+theorem cmp_isPullback :
+    IsPullback (cmp X s h) (pullback.snd X.hom f₂) (pullback.snd X.hom f₁) s := by
+  have sq : IsPullback (pullback.fst X.hom f₂) (pullback.snd X.hom f₂) X.hom (s ≫ f₁) := by
+    rw [← h]; exact IsPullback.of_hasPullback _ _
+  have e : cmp X s h = (IsPullback.of_hasPullback X.hom f₁).lift (pullback.fst X.hom f₂)
+      (pullback.snd X.hom f₂ ≫ s) (by rw [sq.w, Category.assoc]) := by
+    apply pullback.hom_ext
+    · rw [cmp_fst]; exact (IsPullback.lift_fst _ _ _ _).symm
+    · rw [cmp_snd]; exact (IsPullback.lift_snd _ _ _ _).symm
+  rw [e]
+  exact IsPullback.of_right' sq (IsPullback.of_hasPullback X.hom f₁)
+
+/-- `cmp` on the self-products. -/
+noncomputable def cmp2 :
+    ((Over.pullback f₂).obj X ⊗ (Over.pullback f₂).obj X).left ⟶
+      ((Over.pullback f₁).obj X ⊗ (Over.pullback f₁).obj X).left :=
+  pullback.lift (pullback.fst _ _ ≫ cmp X s h) (pullback.snd _ _ ≫ cmp X s h) (by
+    show (pullback.fst _ _ ≫ cmp X s h) ≫ pullback.snd X.hom f₁ =
+      (pullback.snd _ _ ≫ cmp X s h) ≫ pullback.snd X.hom f₁
+    simp only [Category.assoc, cmp_snd]
+    exact pullback.condition_assoc s)
+
+@[reassoc (attr := simp)]
+theorem cmp2_fst : cmp2 X s h ≫ pullback.fst _ _ = pullback.fst _ _ ≫ cmp X s h :=
+  pullback.lift_fst _ _ _
+
+@[reassoc (attr := simp)]
+theorem cmp2_snd : cmp2 X s h ≫ pullback.snd _ _ = pullback.snd _ _ ≫ cmp X s h :=
+  pullback.lift_snd _ _ _
+
+/-- **The comparison respects the multiplications.** -/
+theorem cmp_mul [MonObj X] :
+    (μ[(Over.pullback f₂).obj X]).left ≫ cmp X s h =
+      cmp2 X s h ≫ (μ[(Over.pullback f₁).obj X]).left := by
+  apply pullback.hom_ext
+  · rw [Category.assoc, cmp_fst, Category.assoc, mul_left_fst, mul_left_fst,
+      ← Category.assoc (cmp2 X s h)]
+    congr 1
+    apply pullback.hom_ext
+    · simp only [Category.assoc, pullback.lift_fst, cmp2_fst_assoc, cmp_fst]
+    · simp only [Category.assoc, pullback.lift_snd, cmp2_snd_assoc, cmp_fst]
+  · rw [Category.assoc, cmp_snd, Category.assoc]
+    have h2 := Over.w (μ[(Over.pullback f₂).obj X])
+    have h1 := Over.w (μ[(Over.pullback f₁).obj X])
+    erw [← Category.assoc, h2, h1]
+    show (pullback.fst _ _ ≫ pullback.snd X.hom f₂) ≫ s =
+      cmp2 X s h ≫ (pullback.fst _ _ ≫ pullback.snd X.hom f₁)
+    rw [cmp2_fst_assoc, cmp_snd, Category.assoc]
+
+/-- **The comparison respects the units.** -/
+theorem cmp_one [MonObj X] :
+    (η[(Over.pullback f₂).obj X]).left ≫ cmp X s h = s ≫ (η[(Over.pullback f₁).obj X]).left := by
+  apply pullback.hom_ext
+  · rw [Category.assoc, cmp_fst, one_left_fst, Category.assoc, one_left_fst, h, Category.assoc]
+  · rw [Category.assoc, cmp_snd, Category.assoc]
+    have h2 := Over.w (η[(Over.pullback f₂).obj X])
+    have h1 := Over.w (η[(Over.pullback f₁).obj X])
+    erw [← Category.assoc, h2, h1]
+    simp
+
+end Cmp
+
+
+/-! ### Conjugating morphisms -/
+
+section ConjMor
+
+variable (X Y : Over S) {f₁ f₂ g₁ g₂ : T ⟶ S} (s : T ⟶ T) (hf : f₂ = s ≫ f₁) (hg : g₂ = s ≫ g₁)
+
+/-- Two maps into `Y ×_{g₂} T` agreeing after `cmp` and after the structure map are equal. -/
+theorem ext_cmp {Z : C} (a b : Z ⟶ pullback Y.hom g₂) (h1 : a ≫ cmp Y s hg = b ≫ cmp Y s hg)
+    (h2 : a ≫ pullback.snd Y.hom g₂ = b ≫ pullback.snd Y.hom g₂) : a = b := by
+  apply pullback.hom_ext _ h2
+  rw [← cmp_fst Y s hg, ← Category.assoc, h1, Category.assoc]
+
+/-- **The conjugate of a morphism** `φ : X_{f₁} → Y_{g₁}` (over `T`): the morphism
+`X_{f₂} → Y_{g₂}` with `σφ ∘ cmp = cmp ∘ φ` (`conj_cmp`), unique (`conj_unique`). -/
+noncomputable def conj (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (Over.pullback f₂).obj X ⟶ (Over.pullback g₂).obj Y :=
+  Over.homMk (pullback.lift (cmp X s hf ≫ φ.left ≫ pullback.fst Y.hom g₁)
+    (pullback.snd X.hom f₂) (by
+      rw [Category.assoc, Category.assoc, pullback.condition]
+      have hw : φ.left ≫ pullback.snd Y.hom g₁ = pullback.snd X.hom f₁ := Over.w φ
+      rw [reassoc_of% hw, cmp_snd_assoc, hg]))
+    (pullback.lift_snd _ _ _)
+
+@[reassoc]
+theorem conj_cmp (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (conj X Y s hf hg φ).left ≫ cmp Y s hg = cmp X s hf ≫ φ.left := by
+  apply pullback.hom_ext
+  · simp only [Category.assoc, cmp_fst]
+    exact pullback.lift_fst _ _ _
+  · simp only [Category.assoc, cmp_snd]
+    have hw : φ.left ≫ pullback.snd Y.hom g₁ = pullback.snd X.hom f₁ := Over.w φ
+    rw [hw, cmp_snd]
+    exact pullback.lift_snd_assoc _ _ _ _
+
+theorem conj_unique (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y)
+    (ψ : (Over.pullback f₂).obj X ⟶ (Over.pullback g₂).obj Y)
+    (hψ : ψ.left ≫ cmp Y s hg = cmp X s hf ≫ φ.left) : ψ = conj X Y s hf hg φ := by
+  apply Over.OverMorphism.ext
+  apply ext_cmp Y s hg
+  · rw [hψ, conj_cmp]
+  · exact (Over.w ψ).trans (Over.w (conj X Y s hf hg φ)).symm
+
+theorem tensor_cmp2 (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (conj X Y s hf hg φ ⊗ₘ conj X Y s hf hg φ).left ≫ cmp2 Y s hg =
+      cmp2 X s hf ≫ (φ ⊗ₘ φ).left := by
+  apply pullback.hom_ext
+  · rw [Category.assoc, cmp2_fst, Category.assoc]
+    erw [Over.tensorHom_left_fst_assoc, Over.tensorHom_left_fst]
+    rw [conj_cmp, cmp2_fst_assoc]
+  · rw [Category.assoc, cmp2_snd, Category.assoc]
+    erw [Over.tensorHom_left_snd_assoc, Over.tensorHom_left_snd]
+    rw [conj_cmp, cmp2_snd_assoc]
+
+/-- **The conjugate of a monoid homomorphism is a monoid homomorphism.** -/
+theorem conj_isMonHom [MonObj X] [MonObj Y]
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) [IsMonHom φ] :
+    IsMonHom (conj X Y s hf hg φ) where
+  one_hom := by
+    apply Over.OverMorphism.ext
+    apply ext_cmp Y s hg
+    · rw [Over.comp_left, Category.assoc, conj_cmp, ← Category.assoc, cmp_one, Category.assoc,
+        ← Over.comp_left, IsMonHom.one_hom, cmp_one]
+    · exact (Over.w _).trans (Over.w _).symm
+  mul_hom := by
+    apply Over.OverMorphism.ext
+    apply ext_cmp Y s hg
+    · rw [Over.comp_left, Category.assoc, conj_cmp, ← Category.assoc, cmp_mul, Category.assoc,
+        ← Over.comp_left, IsMonHom.mul_hom, Over.comp_left, Over.comp_left, Category.assoc,
+        cmp_mul, reassoc_of% (tensor_cmp2 X Y s hf hg φ)]
+    · exact (Over.w _).trans (Over.w _).symm
+
+/-- `conj_isMonHom` with the hypothesis explicit (for instances found only up to unfolding). -/
+theorem conj_isMonHom' [MonObj X] [MonObj Y]
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) (hφ : IsMonHom φ) :
+    IsMonHom (conj X Y s hf hg φ) :=
+  conj_isMonHom X Y s hf hg φ
+
+theorem lift_cmp2 (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    (lift (conj X Y s hf hg φ) (conj X Y s hf hg ψ)).left ≫ cmp2 Y s hg =
+      cmp X s hf ≫ (lift φ ψ).left := by
+  rw [Over.lift_left, Over.lift_left]
+  apply pullback.hom_ext
+  · rw [Category.assoc, cmp2_fst, pullback.lift_fst_assoc, Category.assoc, pullback.lift_fst,
+      conj_cmp]
+  · rw [Category.assoc, cmp2_snd, pullback.lift_snd_assoc, Category.assoc, pullback.lift_snd,
+      conj_cmp]
+
+/-- **Conjugation is multiplicative** for the pointwise product of morphisms into a monoid. -/
+theorem conj_mul [MonObj Y] (φ ψ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf hg (φ * ψ) = conj X Y s hf hg φ * conj X Y s hf hg ψ := by
+  symm
+  apply conj_unique
+  rw [Hom.mul_def, Hom.mul_def, Over.comp_left, Over.comp_left, Category.assoc, cmp_mul,
+    ← Category.assoc, lift_cmp2, Category.assoc]
+
+theorem conj_one [MonObj Y] :
+    conj X Y s hf hg (1 : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) = 1 := by
+  symm
+  apply conj_unique
+  rw [Hom.one_def, Hom.one_def, Over.comp_left, Over.comp_left, Category.assoc, cmp_one,
+    ← Category.assoc, ← Category.assoc]
+  congr 1
+  have e1 : (toUnit ((Over.pullback f₂).obj X)).left = pullback.snd X.hom f₂ :=
+    (Category.comp_id _).symm.trans (Over.w (toUnit ((Over.pullback f₂).obj X)))
+  have e2 : (toUnit ((Over.pullback f₁).obj X)).left = pullback.snd X.hom f₁ :=
+    (Category.comp_id _).symm.trans (Over.w (toUnit ((Over.pullback f₁).obj X)))
+  rw [e1, e2]
+  exact (cmp_snd X s hf).symm
+
+/-- Conjugation along equal maps `s = s'` agrees. -/
+theorem conj_congr {s' : T ⟶ T} (hs : s = s') (hf' : f₂ = s' ≫ f₁) (hg' : g₂ = s' ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf hg φ = conj X Y s' hf' hg' φ := by
+  subst hs; rfl
+
+/-- `cmp` along the identity is the identity. -/
+theorem cmp_self (hs : s = 𝟙 T) (hf₀ : f₁ = s ≫ f₁) : cmp X s hf₀ = 𝟙 _ := by
+  apply pullback.hom_ext
+  · simp
+  · rw [cmp_snd, hs, Category.comp_id, Category.id_comp]
+
+/-- Conjugation along the identity is the identity. -/
+theorem conj_self (hs : s = 𝟙 T) (hf₀ : f₁ = s ≫ f₁) (hg₀ : g₁ = s ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y s hf₀ hg₀ φ = φ := by
+  symm
+  apply conj_unique
+  rw [cmp_self X s hs hf₀, cmp_self Y s hs hg₀]
+  erw [Category.comp_id, Category.id_comp]
+
+/-- `cmp` composes. -/
+theorem cmp_comp {f₃ : T ⟶ S} (s' : T ⟶ T) (h₃₂ : f₃ = s' ≫ f₂) (h₃₁ : f₃ = (s' ≫ s) ≫ f₁) :
+    cmp X (s' ≫ s) h₃₁ = cmp X s' h₃₂ ≫ cmp X s hf := by
+  apply pullback.hom_ext
+  · simp
+  · simp
+
+/-- **Conjugation composes.** -/
+theorem conj_comp {f₃ g₃ : T ⟶ S} (s' : T ⟶ T) (hf₃₂ : f₃ = s' ≫ f₂) (hg₃₂ : g₃ = s' ≫ g₂)
+    (hf₃₁ : f₃ = (s' ≫ s) ≫ f₁) (hg₃₁ : g₃ = (s' ≫ s) ≫ g₁)
+    (φ : (Over.pullback f₁).obj X ⟶ (Over.pullback g₁).obj Y) :
+    conj X Y (s' ≫ s) hf₃₁ hg₃₁ φ = conj X Y s' hf₃₂ hg₃₂ (conj X Y s hf hg φ) := by
+  symm
+  apply conj_unique
+  rw [cmp_comp Y s hg s' hg₃₂ hg₃₁, cmp_comp X s hf s' hf₃₂ hf₃₁, conj_cmp_assoc, conj_cmp,
+    Category.assoc]
+
+end ConjMor
+
+end G4Conj
+
+end ConjSec
+
 namespace G4WeilRes
 
 open GlueB3Unram GlueDescent.B2Q NumberField
@@ -589,16 +878,15 @@ theorem homField_of_conjugates (hHFF : HomFreeFinite)
   exact homField_le_heightD K hKF hr (Module.finBasisOfFinrankEq ℤ (HomLattice A) rfl) ρ hcont T
     hK hinert
 
-/-! ### The conjugation action, characterized
+/-! ### The conjugation action
 
 For `σ ∈ G_ℚ`, a conjugate of an abelian variety `X` over `ℚ̄` is an `X'` with a pullback square
 `X' → X` over `Spec σ : Spec ℚ̄ → Spec ℚ̄` (the relation used by leaf-qm-fp's `IsBaseChangeOf`).
-`ConjData` records the conjugates of a finite family (`A (σ·i)` is the `σ`-conjugate of `A i`),
-and `IsConjAction D ρ` says that `ρ σ` sends `f : A i → A j` to its conjugate
-`σf : A (σ·i) → A (σ·j)`, the morphism with `σf ∘ g_{σ,i} = g_{σ,j} ∘ f`. Such a `ρ` is unique
-(`isConjAction_unique`): the action in `homField_of_conjugates` is then *the* conjugation action
-of `G_ℚ` on the geometric Hom groups among the conjugates (the endomorphism lattice of the Weil
-restriction), not an arbitrary one. Its existence (`ConjActionExists`) is open. -/
+`ConjData` records a finite family closed under conjugation: `A i` is the `σ`-conjugate of
+`A (σ⁻¹·i)` through `g σ i : A i → A (σ⁻¹·i)`. `IsConjAction D ρ` says that `ρ σ` sends
+`f : A (σ⁻¹·i) → A (σ⁻¹·j)` to its conjugate `σf : A i → A j`, the morphism with
+`g σ j ∘ σf = f ∘ g σ i`. Such a `ρ` is unique (`isConjAction_unique`), and for the conjugates of
+a model `A/K` it exists (`conjAction`, `conjActionExists`). -/
 
 open AlgebraicGeometry
 
@@ -607,21 +895,30 @@ noncomputable abbrev specGal (σ : Gal) :
     Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of Qbar) :=
   Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar))
 
+theorem specGal_mul (σ τ : Gal) : specGal (σ * τ) = specGal σ ≫ specGal τ := by
+  rw [specGal, specGal, specGal, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rfl
+
+theorem specGal_one : specGal 1 = 𝟙 _ := by
+  rw [specGal, show CommRingCat.ofHom ((1 : Gal) : Qbar →+* Qbar) = 𝟙 _ from by ext; rfl]
+  exact Spec.map_id _
+
 /-- Conjugation data for a finite family of abelian varieties over `ℚ̄`: a permutation action of
-`G_ℚ` on the indices and, for every `σ` and `i`, a pullback square exhibiting `A (σ·i)` as the
-base change of `A i` along `Spec σ`. -/
+`G_ℚ` on the indices and, for every `σ` and `i`, a pullback square exhibiting `A i` as the base
+change of `A (σ⁻¹·i)` along `Spec σ`. -/
 structure ConjData (Idx : Type) where
   A : Idx → AbVar Qbar
   act : Gal → Equiv.Perm Idx
-  g : ∀ (σ : Gal) (i : Idx), (A (act σ i)).X.left ⟶ (A i).X.left
+  g : ∀ (σ : Gal) (i : Idx), (A i).X.left ⟶ (A ((act σ).symm i)).X.left
   pb : ∀ (σ : Gal) (i : Idx),
-    IsPullback (g σ i) (A (act σ i)).X.hom (A i).X.hom (specGal σ)
+    IsPullback (g σ i) (A i).X.hom (A ((act σ).symm i)).X.hom (specGal σ)
 
 /-- `ρ` is the conjugation action for the data `D`. -/
 def IsConjAction {Idx : Type} (D : ConjData Idx)
     (ρ : Gal → HomLattice D.A → HomLattice D.A) : Prop :=
   ∀ (σ : Gal) (f : HomLattice D.A) (i j : Idx),
-    (ρ σ f (D.act σ i, D.act σ j)).hom.left ≫ D.g σ j = D.g σ i ≫ (f (i, j)).hom.left
+    (ρ σ f (i, j)).hom.left ≫ D.g σ j =
+      D.g σ i ≫ (f ((D.act σ).symm i, (D.act σ).symm j)).hom.left
 
 /-- **The conjugation action is unique (glue, proved).** -/
 theorem isConjAction_unique {Idx : Type} (D : ConjData Idx)
@@ -629,35 +926,22 @@ theorem isConjAction_unique {Idx : Type} (D : ConjData Idx)
     (h : IsConjAction D ρ) (h' : IsConjAction D ρ') : ρ = ρ' := by
   funext σ f
   funext ij
-  obtain ⟨i', j'⟩ := ij
-  obtain ⟨i, rfl⟩ := (D.act σ).surjective i'
-  obtain ⟨j, rfl⟩ := (D.act σ).surjective j'
+  obtain ⟨i, j⟩ := ij
   apply AbVar.Hom.ext'
   apply CategoryTheory.Over.OverMorphism.ext
   apply (D.pb σ j).hom_ext
   · rw [h σ f i j, h' σ f i j]
   · rw [CategoryTheory.Over.w, CategoryTheory.Over.w]
 
-/-- **Open glue target (the Weil-restriction step of G4).** The conjugates carry a `ℤ`-linear
-action of `G_ℚ` on their Hom lattice that is the conjugation action. Proof sketch (STANDARD,
-not formalized): the lift `σf` exists by the pullback property; it is a homomorphism because
-the squares are compatible with the group laws (the base change of a group scheme along
-`Spec σ` is a group scheme, and `g_{σ,i}` is a homomorphism over `Spec σ`); additivity and the
-group law `ρ(στ) = ρ(σ)ρ(τ)` follow from the uniqueness of lifts (`isConjAction_unique`'s
-argument) once the squares compose (`g_{στ,i} = g_{τ,σ⁻¹…}`-pasting, which needs the data to be
-chosen coherently, e.g. from a model `A/K` over a number field). -/
+/-- The conjugation action exists (proved below for the conjugates of a model, `conjActionExists`). -/
 def ConjActionExists {Idx : Type} (D : ConjData Idx) : Prop :=
   ∃ ρ : Gal →* (HomLattice D.A ≃ₗ[ℤ] HomLattice D.A), IsConjAction D (fun σ f => ρ σ f)
 
-
-/-! ### The conjugates of a model over a number field: genuine `ConjData`
+/-! ### The conjugates of a model over a number field
 
 For `A/K` with `K ⊆ ℚ̄` a number field, the conjugates are the base changes `A_e = A ×_{K,e} ℚ̄`
-along the embeddings `e : K → ℚ̄`; `G_ℚ` permutes the embeddings, and pullback pasting gives the
-squares `A_{σ∘e} → A_e` over `Spec σ`. This constructs `ConjData` for the manuscript's family
-(`[K:ℚ]` conjugates, `AlgHom.card`), so the open part of the Weil-restriction step is exactly
-`ConjActionExists (conjData A)` and the two properties of the action used by G4 (continuity,
-inertia). -/
+along the embeddings `e : K → ℚ̄`; `G_ℚ` permutes the embeddings, and the comparison maps
+`G4Conj.cmp` give the squares `A_e → A_{σ⁻¹∘e}` over `Spec σ`. -/
 
 /-- Base change of an abelian variety along a ring homomorphism `f : K → L` of fields
 (as `PkgI3.AbVar.baseChange`, for an arbitrary embedding). -/
@@ -695,64 +979,135 @@ theorem specEmb_act (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
   rw [specEmb, specEmb, specGal, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
   rfl
 
-/-- The square `A_{σ∘e} → A_e` over `Spec σ`. -/
-noncomputable def conjMap (A : AbVar K) (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
-    (bcAlong A ((embAct K σ e : K →ₐ[ℚ] Qbar) : K →+* Qbar)).X.left ⟶
-      (bcAlong A (e : K →+* Qbar)).X.left :=
-  (IsPullback.of_hasPullback A.X.hom (specEmb K e)).lift
-    (Limits.pullback.fst A.X.hom (specEmb K (embAct K σ e)))
-    (Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e)) ≫ specGal σ)
-    ((Limits.pullback.condition).trans
-      ((congrArg (fun φ => Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e)) ≫ φ)
-        (specEmb_act K σ e)).trans (Category.assoc _ _ _).symm))
-
-theorem conjMap_isPullback (A : AbVar K) (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
-    IsPullback (conjMap K A σ e)
-      (bcAlong A ((embAct K σ e : K →ₐ[ℚ] Qbar) : K →+* Qbar)).X.hom
-      (bcAlong A (e : K →+* Qbar)).X.hom (specGal σ) := by
-  have s : IsPullback (Limits.pullback.fst A.X.hom (specEmb K (embAct K σ e)))
-      (Limits.pullback.snd A.X.hom (specEmb K (embAct K σ e))) A.X.hom
-      (specGal σ ≫ specEmb K e) := by
-    rw [← specEmb_act]; exact IsPullback.of_hasPullback _ _
-  exact IsPullback.of_right' s (IsPullback.of_hasPullback A.X.hom (specEmb K e))
+theorem specEmb_symm (σ : Gal) (e : K →ₐ[ℚ] Qbar) :
+    specEmb K e = specGal σ ≫ specEmb K ((embAct K σ).symm e) :=
+  (congrArg (specEmb K) ((embAct K σ).apply_symm_apply e)).symm.trans (specEmb_act K σ _)
 
 /-- **The conjugation data of a model `A/K`** (constructed, no hypothesis): the `[K:ℚ]`
 conjugates `A_e`, permuted by `G_ℚ`, with their pullback squares over `Spec σ`. -/
 noncomputable def conjData (A : AbVar K) : ConjData (K →ₐ[ℚ] Qbar) where
   A e := bcAlong A (e : K →+* Qbar)
   act σ := embAct K σ
-  g σ e := conjMap K A σ e
-  pb σ e := conjMap_isPullback K A σ e
+  g σ e := G4Conj.cmp A.X (specGal σ) (specEmb_symm K σ e)
+  pb σ e := G4Conj.cmp_isPullback A.X (specGal σ) (specEmb_symm K σ e)
 
 /-- There are `[K:ℚ]` conjugates. -/
 theorem card_conjugates [FiniteDimensional ℚ K] :
     Fintype.card (K →ₐ[ℚ] Qbar) = Module.finrank ℚ K :=
   AlgHom.card ℚ K Qbar
 
+section Action
+
+open CategoryTheory MonObj
+
+variable (A : AbVar K)
+
+/-- Conjugation of one Hom group: `Hom(A_{σ⁻¹i}, A_{σ⁻¹j}) → Hom(A_i, A_j)`, additive
+(`G4Conj.conj_mul`, `conj_one`), landing in homomorphisms (`G4Conj.conj_isMonHom`). -/
+noncomputable def conjHom (σ : Gal) (i j : K →ₐ[ℚ] Qbar) :
+    AbVar.Hom ((conjData K A).A ((embAct K σ).symm i)) ((conjData K A).A ((embAct K σ).symm j)) →+
+      AbVar.Hom ((conjData K A).A i) ((conjData K A).A j) where
+  toFun φ :=
+    haveI hc : IsMonHom (show ((conjData K A).A i).X ⟶ ((conjData K A).A j).X from
+        G4Conj.conj A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j) φ.hom) :=
+      G4Conj.conj_isMonHom' A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j)
+        φ.hom (show IsMonHom φ.hom from inferInstance)
+    AbVar.Hom.mk' (show ((conjData K A).A i).X ⟶ ((conjData K A).A j).X from
+      G4Conj.conj A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j) φ.hom)
+  map_zero' := AbVar.Hom.ext'
+    (G4Conj.conj_one A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j))
+  map_add' φ ψ := AbVar.Hom.ext'
+    (G4Conj.conj_mul A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j) φ.hom ψ.hom)
+
+theorem conjHom_hom (σ : Gal) (i j : K →ₐ[ℚ] Qbar) (φ) :
+    (conjHom K A σ i j φ).hom =
+      G4Conj.conj A.X A.X (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j) φ.hom := rfl
+
+/-- The action of `σ` on the lattice `⊕ Hom(A_i, A_j)`. -/
+noncomputable def conjAct (σ : Gal) :
+    HomLattice (conjData K A).A →+ HomLattice (conjData K A).A :=
+  AddMonoidHom.pi fun ij => (conjHom K A σ ij.1 ij.2).comp
+    (Pi.evalAddMonoidHom (fun ij : (K →ₐ[ℚ] Qbar) × (K →ₐ[ℚ] Qbar) =>
+      AbVar.Hom ((conjData K A).A ij.1) ((conjData K A).A ij.2))
+      ((embAct K σ).symm ij.1, (embAct K σ).symm ij.2))
+
+theorem conjAct_apply (σ : Gal) (m : HomLattice (conjData K A).A) (i j : K →ₐ[ℚ] Qbar) :
+    conjAct K A σ m (i, j) = conjHom K A σ i j (m ((embAct K σ).symm i, (embAct K σ).symm j)) :=
+  rfl
+
+theorem conjAct_isConjAction : IsConjAction (conjData K A) (fun σ m => conjAct K A σ m) := by
+  intro σ m i j
+  dsimp only
+  rw [conjAct_apply, conjHom_hom]
+  exact G4Conj.conj_cmp A.X A.X _ _ _ _
+
+theorem conjAct_one (m : HomLattice (conjData K A).A) : conjAct K A 1 m = m := by
+  funext ij
+  obtain ⟨i, j⟩ := ij
+  apply AbVar.Hom.ext'
+  rw [conjAct_apply, conjHom_hom]
+  exact G4Conj.conj_self A.X A.X (specGal 1) specGal_one _ _ _
+
+theorem conjAct_mul (σ τ : Gal) (m : HomLattice (conjData K A).A) :
+    conjAct K A (σ * τ) m = conjAct K A σ (conjAct K A τ m) := by
+  funext ij
+  obtain ⟨i, j⟩ := ij
+  apply AbVar.Hom.ext'
+  rw [conjAct_apply, conjAct_apply, conjHom_hom, conjHom_hom, conjAct_apply, conjHom_hom]
+  have hi : specEmb K i = (specGal σ ≫ specGal τ) ≫
+      specEmb K ((embAct K τ).symm ((embAct K σ).symm i)) := by
+    rw [Category.assoc, ← specEmb_symm, ← specEmb_symm]
+  have hj : specEmb K j = (specGal σ ≫ specGal τ) ≫
+      specEmb K ((embAct K τ).symm ((embAct K σ).symm j)) := by
+    rw [Category.assoc, ← specEmb_symm, ← specEmb_symm]
+  exact (G4Conj.conj_congr A.X A.X (specGal (σ * τ)) _ _ (specGal_mul σ τ) hi hj _).trans
+    (G4Conj.conj_comp A.X A.X (specGal τ) (specEmb_symm K τ _) (specEmb_symm K τ _)
+      (specGal σ) (specEmb_symm K σ i) (specEmb_symm K σ j) hi hj _)
+
+/-- **The conjugation action of `G_ℚ` on the Hom lattice of the conjugates (constructed).** -/
+noncomputable def conjAction : Gal →* (HomLattice (conjData K A).A ≃ₗ[ℤ]
+    HomLattice (conjData K A).A) where
+  toFun σ := LinearEquiv.ofLinearMap (conjAct K A σ).toIntLinearMap
+    (conjAct K A σ⁻¹).toIntLinearMap
+    (LinearMap.ext fun m => by
+      show conjAct K A σ (conjAct K A σ⁻¹ m) = m
+      rw [← conjAct_mul, mul_inv_cancel, conjAct_one])
+    (LinearMap.ext fun m => by
+      show conjAct K A σ⁻¹ (conjAct K A σ m) = m
+      rw [← conjAct_mul, inv_mul_cancel, conjAct_one])
+  map_one' := LinearEquiv.ext fun m => conjAct_one K A m
+  map_mul' σ τ := LinearEquiv.ext fun m => conjAct_mul K A σ τ m
+
+theorem conjAction_apply (σ : Gal) (m : HomLattice (conjData K A).A) :
+    conjAction K A σ m = conjAct K A σ m := rfl
+
+/-- **The Weil-restriction step of G4 is glue, proved: the conjugation action exists.** -/
+theorem conjActionExists : ConjActionExists (conjData K A) :=
+  ⟨conjAction K A, conjAct_isConjAction K A⟩
+
+end Action
+
 
 /-- **G4 for a model `A/K` (the manuscript's statement, N5 L544-563).** Let `K ⊆ ℚ̄` be finite
 Galois with `[K:ℚ] ≤ F₀`, unramified outside `T` (G2), and `A/K` an abelian surface whose
-conjugates `A_e` are surfaces. Let `ρ` be the conjugation action of `G_ℚ` on
-`⊕_{e,e'} Hom(A_e, A_{e'})` (`IsConjAction (conjData K A) ρ`; unique by `isConjAction_unique`),
-continuous, with trivial inertia outside `T`. Then the Hom field `L ⊇ K` exists: finite Galois,
+conjugates `A_e` are surfaces. Let `ρ = conjAction K A` be the conjugation action of `G_ℚ` on
+`⊕_{e,e'} Hom(A_e, A_{e'})` (constructed; the unique action with `IsConjAction`). If `ρ` is
+continuous and inertia outside `T` acts trivially, the Hom field `L ⊇ K` exists: finite Galois,
 `[L:ℚ] ≤ D`, every geometric homomorphism among the conjugates is fixed by `G_L`, `L`
 unramified outside `T` (both forms). Leaf: `PkgI3.HomFreeFinite`. -/
 theorem homField_of_model (hHFF : HomFreeFinite) [FiniteDimensional ℚ K] [IsGalois ℚ K]
     (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0) (A : AbVar K)
     (hdim : ∀ e, ((conjData K A).A e).dim = 2)
-    (ρ : Gal →* (HomLattice (conjData K A).A ≃ₗ[ℤ] HomLattice (conjData K A).A))
-    (_hρ : IsConjAction (conjData K A) (fun σ f => ρ σ f))
-    (hcont : ∀ m : HomLattice (conjData K A).A, IsOpen {σ : Gal | ρ σ m = m})
+    (hcont : ∀ m : HomLattice (conjData K A).A, IsOpen {σ : Gal | conjAction K A σ m = m})
     (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
     (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
-      ∀ s ∈ inertiaGQ w, ρ s = 1) :
+      ∀ s ∈ inertiaGQ w, conjAction K A s = 1) :
     ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
-      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, ρ σ = 1) ∧
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, conjAction K A σ = 1) ∧
       Module.finrank ℚ L ≤ ZInQ.heightD ∧
       GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
-  homField_of_conjugates hHFF K hKF (by rw [card_conjugates]; exact hKF) (conjData K A).A hdim ρ
-    hcont T hK hinert
-
+  homField_of_conjugates hHFF K hKF (by rw [card_conjugates]; exact hKF) (conjData K A).A hdim
+    (conjAction K A) hcont T hK hinert
 
 end Lattice
 
@@ -822,6 +1177,8 @@ end G4WeilRes
 #print axioms G4WeilRes.b3_of_homField
 #print axioms G4WeilRes.isConjAction_unique
 #print axioms G4WeilRes.conjData
+#print axioms G4WeilRes.conjActionExists
+#print axioms G4Conj.conj_isMonHom
 #print axioms G4WeilRes.homField_of_model
 #print axioms G4WeilRes.tateHom_injective
 #print axioms G4WeilRes.inertia_of_tate

@@ -59,3 +59,17 @@
 - `tateLattice`, `tateLattice_injective`: componentwise realization of HomLattice, injective over ℚ̄.
 - `inertia_of_tate`: equivariant τ on the realization with inertia trivial ⇒ `hinert`.
 - File: 0 `sorry` (grep), all 12 printed theorems on [propext, Classical.choice, Quot.sound].
+
+## G4.lean — the conjugation action CONSTRUCTED (COMPILED; axioms VERIFIED standard)
+- Generic section `G4Conj` (any category with pullbacks; Conj.lean merged in, then removed):
+  `mul_left_fst`, `one_left_fst` (Mathlib's monoidal Over.pullback: μ, η of a base change vs the projection);
+  `cmp X s h : X ×_{f₂} T → X ×_{f₁} T` for f₂ = s ≫ f₁; `cmp_isPullback`; `cmp_mul`, `cmp_one` (respects μ, η);
+  `conj X Y s hf hg φ` (conjugate of φ : X_{f₁} → Y_{g₁}); `conj_cmp`, `conj_unique`;
+  `conj_isMonHom` (conjugate of a monoid hom is a monoid hom); `conj_mul`, `conj_one` (multiplicative);
+  `conj_congr`, `conj_self`, `conj_comp` (functorial in s).
+- `ConjData` re-oriented: g σ i : A i → A (σ⁻¹·i) over Spec σ; `IsConjAction` accordingly; `isConjAction_unique` re-proved.
+- `conjData K A` now uses `G4Conj.cmp` (`specEmb_symm`). `specGal_mul`, `specGal_one`.
+- `conjHom`, `conjAct`, `conjAct_isConjAction`, `conjAct_one`, `conjAct_mul`; `conjAction K A : G_ℚ →* Aut_ℤ(HomLattice)`.
+- **`conjActionExists : ConjActionExists (conjData K A)` — PROVED.** (index defeq `(στ)⁻¹∘e ≡ τ⁻¹∘σ⁻¹∘e` checked by rfl.)
+- `homField_of_model` now uses `conjAction K A` (no ρ hypothesis). Remaining hypotheses: hdim, hcont, hinert, hK.
+- G4.lean: 1184 lines, 0 sorry; 13 printed theorems all on [propext, Classical.choice, Quot.sound].
