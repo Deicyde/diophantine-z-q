@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.RepresentationTheory.Homological.GroupCohomology.PrimeIndex), Apache-2.0.
+-- Modified for the Z-in-Q kernel: Sylow field `isPGroup` renamed to `isPGroup'`, 2 places (older Mathlib).
 module
 
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Solvable

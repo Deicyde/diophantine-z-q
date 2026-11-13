@@ -1,0 +1,70 @@
+Tau Ceti (vendored Lean code)
+=============================
+
+Copyright 2026 The Tau Ceti contributors
+
+Licensed under the Apache License, Version 2.0; see LICENSE in this directory
+(a byte-for-byte copy of the LICENSE file of the source repository). The Tau Ceti
+source repository has no NOTICE file; this file was written by the Z-in-Q project.
+
+Source
+------
+
+Repository: https://github.com/TauCetiProject/TauCeti
+
+- Commit 5a01f5fe3621126cccf9ba22e700493cbc7b7156 (2026-10-17, the last Tau Ceti
+  commit on Lean v4.35.0): the 1118 modules vendored by the Z-in-Q task tc-port.
+- Commit 97a5b23586f9c42610765c701daedc7522a93c26 (2026-11-02): the modules and
+  backported declarations added by the Z-in-Q task kw-new (Kronecker-Weber).
+- Commit 5a01f5fe (as above): the 206 further modules vendored by the Z-in-Q task
+  t25-newform (the closure of the newform decomposition; list in
+  scratch/t25-newform/vendor-new.txt).
+
+Location in this repository
+---------------------------
+
+The vendored files are under ZInQKernel/Contrib/TauCeti/ (Lean module prefix
+ZInQKernel.Contrib.TauCeti.). A Tau Ceti module TauCeti.A.B is vendored as
+ZInQKernel/Contrib/TauCeti/A/B.lean. Every vendored file keeps Tau Ceti's copyright
+header and carries, directly after it, a provenance line
+
+  -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit <sha>, module <module>), Apache-2.0.
+
+naming the source commit and module. Declaration names and namespaces are unchanged.
+The mechanical changes made to every vendored file are this provenance line and the
+rewriting of each `import TauCeti.X` to `import ZInQKernel.Contrib.TauCeti.X`.
+Files under Backport/ (task kw-new) hold declarations taken from the commit-97a5b235
+version of a Tau Ceti module whose commit-5a01f5fe version is vendored; they keep
+Tau Ceti's copyright header and carry a line "-- Backported from Tau Ceti (...)"
+naming the source commit and module.
+
+Modified files
+--------------
+
+Some vendored files were modified beyond these mechanical changes, to compile against
+the Mathlib revision pinned by this repository (older than the one Tau Ceti used).
+Each such file carries, directly under its provenance line, a line
+
+  -- Modified for the Z-in-Q kernel: <what changed>.
+
+(Apache License 2.0, section 4(b)). Files with this line were modified; the
+modifications are distributed under the same license. At the time of writing these
+are (paths relative to ZInQKernel/Contrib/TauCeti/):
+
+- NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean
+- NumberTheory/ModularForms/Basic.lean
+- RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean
+- RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean
+- RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean
+- Topology/Algebra/Group/Profinite/Generation.lean
+- Topology/Algebra/Group/Profinite/Sylow/Basic.lean
+- Topology/Algebra/Group/Profinite/Sylow/Containment.lean
+- Topology/Algebra/Group/Profinite/Sylow/Existence.lean
+
+The changes are described one line per file in docs/research/tc-port.md. Comparing a
+vendored file with the source module at the commit named in its provenance line
+shows every edit.
+
+Files under ZInQKernel/Contrib/TauCeti/ without a Tau Ceti copyright header are
+original to this project and are not part of Tau Ceti: MathlibBackport/Sylow.lean
+(a backport of a Mathlib declaration) and Notice.lean (an attribution docstring).

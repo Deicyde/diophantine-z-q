@@ -7,8 +7,9 @@ with the Mathlib library.
 
 - Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
   (pull request #36 merged #24's kernel, with CI checks for contributions)
-- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 883c4ddf, which adds
-  proofs of two of the headline's five hypotheses and glue for H proved since then)
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 033423ee, which adds
+  proofs of two of the headline's five hypotheses and a proof of H from literature theorems and named glue
+  statements)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
 ## Status in three lines
@@ -20,10 +21,11 @@ with the Mathlib library.
   them, the functional equation and Hecke's continuation, are now proved in Lean (on the development fork, not
   yet upstream). The other two are Gross–Zagier, a published theorem combined with standard results, and one
   reading of a theorem of Tian, Yuan and Zhang that no refereed text we found states explicitly (caveats below).
-- **Open, and most of the remaining work:** H. On paper it follows from 23 research-level theorems, 33 textbook
-  theorems and 20 glue steps (the manuscript's new arguments and this project's replacements). 53 of those 56
-  theorems are stated in Lean. Most of the glue is not yet in Lean, and it has been reviewed only by AI models,
-  not by a human.
+- **Open, and most of the remaining work:** H. In Lean, H now follows with no gaps from 58 theorems from the
+  literature (23 research-level, 35 textbook; 56 of them stated over genuine definitions) and 10 named glue
+  statements, the manuscript's new arguments and this project's replacements, which the project must still prove.
+  A review found that three of the glue statements must be restated; the repair exists and is being integrated.
+  The glue has been reviewed only by AI models, not by a human.
 
 So formalizing the literature theorems alone would not yet complete the proof.
 
@@ -38,6 +40,7 @@ So formalizing the literature theorems alone would not yet complete the proof.
 | Item 1: Gross–Zagier | a published theorem combined with standard results; assumed |
 | Item 4: Tian–Yuan–Zhang, reading A | not printed in this form in any refereed text we found; assumed |
 | H, the manuscript's Theorem 4.1 (one instance) | unrefereed; its new arguments reviewed only by AI models; assumed |
+| H from 58 literature theorems and 10 glue statements | proved in Lean, in `scratch/h-decomposition/Leaves.lean` (checked separately from the library build) |
 
 "Proved in Lean" means the Lean kernel checked it, with no `sorry` (unproved step), no `native_decide` (trusted
 external evaluation), and only the standard axioms `propext`, `Classical.choice`, `Quot.sound`. "Assumed" means
@@ -157,60 +160,67 @@ level-3 Shimura curve of discriminant 6, Baba–Granath, Lin–Yang, Igusa, Gonz
 Grothendieck, Faltings 1983 twice (semisimplicity and the Tate conjecture; the Faltings height under isogeny),
 de Rham comparison, Berger, Pan's Fontaine–Mazur theorem, Saito or Kato, Deligne, Deligne–Serre, Shimura on
 J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki, and the theorem that the stable Faltings height is
-finite and attained by Néron models), 33 textbook theorems in six groups (among them the existence of Jacobians,
-the dimension of J₁(N) and the analytic uniformization of abelian varieties; two statements counted earlier as
-textbook theorems are now glue, and one of them is proved), and 20 glue steps.
+finite and attained by Néron models), 35 textbook theorems in six groups (among them the existence of Jacobians and
+of Néron models, the dimension of J₁(N), the analytic uniformization of abelian varieties, and five facts about
+elliptic curves and function fields from which X₁(N) and its Belyi map are built; six statements counted earlier as
+textbook theorems are now glue, and five of them are proved), and 20 glue steps.
 
 - **Citations.** An audit of the citations against the primary sources by AI agents with web access
   (docs/research/locators.md) corrected several theorem and example numbers, and the corrections are applied.
   Some locators, among them Faltings 1983, Serre–Tate, SGA 7, Bost's constant and Shimura 1967, are still
-  unverified (the note lists them all). Several
-  leaves are derived or assembled forms of the printed theorems, which the note flags for a check that they are
-  not stronger than published.
+  unverified (the note lists them all). Several leaves are derived or assembled forms of the printed theorems,
+  which the note flags for a check that they are not stronger than published.
 - **Repairs.** Reviews on 2026-11-12 found three leaves misstated, and all three are repaired on the fork's main
-  (upstream's main still has the first statement of Yu's dichotomy): the
-  González–Rotger count of CM points now carries the factor 2^b(R) (the step that uses it holds with the correct
-  count); the Lean statement of Yu's QM dichotomy (a textbook leaf) now includes Yu's hypothesis that the
-  quaternion algebra is indefinite (as first written it was stronger than published); and the branching data of
-  the Atkin–Lehner quotient is reworded.
-- **Stated in Lean.** 53 of the 56 leaves are stated over genuine definitions in
-  `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`); one more, on the Shimura
-  curve, is stated in part, and the other 2 (Carayol's theorem and the comparison of the Tate module with étale
-  cohomology) are named placeholders with no content until their definitions exist. Each leaf on the Shimura curve
-  has folded into it a lemma that fixes the type of the principal polarization of a QM abelian surface (Lemma P of
+  (upstream's main still has the first statement of Yu's dichotomy): the González–Rotger count of CM points now
+  carries the factor 2^b(R) (the step that uses it holds with the correct count); the Lean statement of Yu's QM
+  dichotomy (a textbook leaf) now includes Yu's hypothesis that the quaternion algebra is indefinite (as first
+  written it was stronger than published); and the branching data of the Atkin–Lehner quotient is reworded. On
+  2026-11-13, R14 (Galois representations of eigenforms) was found to omit its published determinant clause, and
+  the proof of G8-G12 uses a form of R14 that includes it; an input of step G4 was found false as stated and was
+  replaced by a corrected form, proved from two leaves; and R10 (de Rham comparison) was found to lack the clause
+  of the Hodge–Tate decomposition that the manuscript's appendix lemma needs, so it is to be amended.
+- **Stated in Lean.** 56 of the 58 leaves are stated over genuine definitions in
+  `scratch/h-decomposition/Leaves.lean` (it compiles with `lake env lean`, no `axiom`, no `sorry`); one more, on
+  the Shimura curve, is stated in part, and the last, Carayol's theorem, is a named placeholder with no content
+  until conductors of ℓ-adic representations are defined. Each leaf on the Shimura curve has folded into it a
+  lemma that fixes the type of the principal polarization of a QM abelian surface (Lemma P of
   docs/research/rv-qm-polar.md, published locators unverified), and the leaves about the Faltings height are not
   yet known to be non-vacuous.
-- **Textbook leaves proved** since 2026-11-12, as scratch files on the fork's main, not yet folded into
-  `Leaves.lean`: Skolem–Noether, Brauer–Nesbitt in characteristic 0, Herbrand's theorem, and the local forms of
-  Hilbert's different formula and of the different bound. The local square-root criterion follows from local
-  Kronecker–Weber, so it is now glue; the density of Frobenius elements is reduced to the finite form of
-  Chebotarev's theorem and Kronecker–Weber to its cyclic case, and the Clebsch–Bolza–Igusa separation of binary
-  sextics is proved in one direction, with the other reduced to sextics with equal invariants. On a further
-  branch, Abhyankar's lemma is proved and Zariski–Nagata purity is reduced to Nagata's local form.
-- **The top theorem.** "Leaves imply H" is stated in Lean, with the leaves as hypotheses and `ZInQ.SixContactMin`
-  as conclusion. Its proof has exactly one `sorry` (`HSyn.glueOutputs_of_leaves`, which does not yet use the
-  leaves): it stands for most of the glue, from the leaves to a numerical interface that is itself essentially a
-  height bound. Only the last steps, from that interface to H, are proved on that path. On fork branches
-  (`wip/g0-split` and its follow-ups) that `sorry` is split into ten named glue statements, each a `def … : Prop`
-  that names its glue step, and several of them are already proved from Mathlib and the leaves. A review found
-  that two of the ten cannot be proved as stated, because the leaves on the Shimura curve do not pin down its
-  moduli map; a repair is under way. Until it lands, the split does not show that the leaves imply H.
+- **Textbook leaves proved** since 2026-11-12: Skolem–Noether, Brauer–Nesbitt in characteristic 0, Herbrand's
+  theorem and the local square-root criterion (from local Kronecker–Weber) are proved and folded into
+  `Leaves.lean` as glue. Kronecker–Weber, local Kronecker–Weber, Chebotarev's theorem (finite form), the global
+  forms of Hilbert's different formula and of the different bound, and the existence of a newform with the
+  eigenvalues of a Hecke eigenform are proved under `ZInQKernel/Contrib/`, using the class field theory and
+  modular forms of the Tau Ceti library (Apache-2.0), which is vendored there with its license and notice; the
+  local forms of the different formula and bound, and Abhyankar's lemma, are proved as scratch files. These prove
+  verbatim restatements of the leaves and are not yet folded into `Leaves.lean`. On fork branches, Zariski–Nagata
+  purity is proved in the form the proof uses (over a regular base of dimension at most 2), and so is the
+  vanishing of unramified local classes. The Clebsch–Bolza–Igusa separation of binary sextics is proved in one
+  direction, with the other reduced to sextics with equal invariants.
+- **The top theorem.** `HSyn.sixContactMin_of_leaves` proves `ZInQ.SixContactMin` from the two bundles of
+  leaves and a bundle of ten named glue statements (`HSyn.GluePieces`), with no `sorry` and only the standard
+  axioms. Of the ten, four are proved as scratch files (two from Mathlib alone, one with no hypotheses, one from
+  two leaves and another of the ten), four are reduced to smaller named statements, and two are open; these
+  results are not yet folded into `Leaves.lean`. A review found that three of the ten cannot be proved from the
+  leaves as stated, because the leaves on the Shimura curve do not pin down its moduli map (the review judged all
+  three true for the genuine map); a repair that pins the map in the leaf exists and is being integrated. Until it
+  lands, the theorem rests on glue statements that will be restated.
 - **Proved glue, as separate lemmas** (each from its leaves; adopted into the kernel-checked library under
-  `ZInQKernel/HDecomp/`, now 65 modules, or as scratch files on the fork's main; no `sorry`; not yet connected to
-  the top theorem): the adelic bookkeeping of the normalizer of the quaternion order, with |Γ'| = 144; the model
-  of X₁(N) over Q and its Belyi map, from five leaves; the Galois representation of a newform as a
+  `ZInQKernel/HDecomp/`, now 86 modules, or as scratch files on the fork's main; no `sorry`): the step G4 (the Hom
+  field), from leaves alone; the adelic bookkeeping of the normalizer of the quaternion order, with
+  |Γ'| = 144, over Mathlib's finite adeles; the manuscript's appendix lemma (G9), reduced to two named
+  statements, one of them the amendment of R10; the model of X₁(N) over Q and its Belyi map, from five leaves; the Galois representation of a newform as a
   subrepresentation of the Tate module of J₁(N), its semisimplicity and continuity, and its comparison with two
   other Galois representations; the whole last stretch of the glue (from the level bound, the theta point and the
   height inequalities to H); the manuscript's Brauer and cochain steps; good reduction of the abelian surface away
-  from 3; parts of absolute irreducibility and of the nonzero homomorphism step (modulo one named algebra
-  statement, `SemisimpleBaseChange`); the Galois side of the trace comparison; the degree bound of the conductor
+  from 3; part of absolute irreducibility and the nonzero homomorphism step, with the algebra statement
+  `SemisimpleBaseChange` now proved; the Galois side of the trace comparison; the degree bound of the conductor
   estimate in local form; two further steps of the conductor bound; and elementary pieces of most other steps.
 - **Still missing from every Lean library:** the definitions behind the remaining placeholders: conductors of
-  ℓ-adic representations, ℓ-adic étale cohomology with its Galois action, and the complex uniformization of the
-  Shimura curve (section 4 of the note). Mathlib cannot yet construct a nonzero abelian variety; a bridge to the
-  Jacobians of the AxiomMath/Mordell library is on a branch of the fork, waiting for a build cache. The stable
-  Faltings height has a Lean definition, and the six height leaves are stated over it; whether that definition is
-  non-vacuous is still open.
+  ℓ-adic representations at infinite level, and the complex uniformization of the Shimura curve (section 4 of the
+  note). Mathlib cannot yet construct a nonzero abelian variety; a bridge to the Jacobians of the AxiomMath/Mordell
+  library is on a branch of the fork, waiting for a build cache. The stable Faltings height has a Lean
+  definition, and the six height leaves are stated over it; whether that definition is non-vacuous is still open.
 - **Fallback route.** An alternative modularity route (Khare–Wintenberger with Ribet) needs 20 research-level
   theorems; one adversarial model review, and no human, found it sound subject to five repairs that are not yet
   written, and whether Ribet's 1992 proceedings paper was refereed is unchecked.
@@ -231,13 +241,14 @@ and `python3 scripts/check_target.py`.
 
 ## Verification
 
-Every Lean change is built before it reaches main. At the current Lean (fork main 883c4ddf, checked as bd0998a9,
-which differs only by one research note) the build completes (9,991 jobs); all 399 declarations listed in
-`scripts/print_axioms.lean` (the headline and its variants, the reductions, the Proposition N lemmas, and the glue
-lemmas of the decomposition of H) depend only on the three standard axioms, with no `sorry`; all 15 modules under
-`ZInQKernel/Contrib/` build, and the two proofs of hypotheses and the three-hypothesis theorem depend only on the
-same axioms; `scripts/check_target.py` confirms the statement; the site builds with no problems; and the blueprint
-audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
+Every Lean change is built before it reaches main. At the current Lean (fork main 033423ee, checked as 1c2fc980,
+which differs only by STATUS.md and license notices) the build completes;
+all 526 declarations listed in `scripts/print_axioms.lean` (the headline and its variants, the reductions, the
+Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on the three standard axioms,
+with no `sorry`; all 1,469 files under `ZInQKernel/Contrib/` build (11,338 jobs; most of them are the vendored Tau
+Ceti library), and the two proofs of hypotheses depend only on the same axioms; `scripts/check_target.py` confirms the statement; `scratch/h-decomposition/Leaves.lean` compiles
+with no error and no `sorry`, and `HSyn.sixContactMin_of_leaves` depends only on the standard axioms; the site
+builds with no problems; and the blueprint audit is at its baseline. An independent machine re-checked an earlier snapshot proposed for pull request
 #24 (before Proposition N): 9,923 jobs, 80 declarations with standard axioms, and an audit replay of 33,548
 declarations with 0 open statements. GitHub has disabled Actions on the fork since 2026-11-10, so these checks run
 on the project's own machines; on the upstream repository, the kernel build and an exact-target audit run as a
