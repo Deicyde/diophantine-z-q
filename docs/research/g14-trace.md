@@ -41,13 +41,19 @@ The hypotheses:
 **Composite with G12** (`G14Trace.g12Spec_g14_of_galois`; VERIFIED). Add g0-mod-newform's
 `DirichletOfFinite`, T7, G8's outputs at 3 and 5 (on the linked `ρ_ℓ`), G12's output
 `GalG12Out r₅` and `FrobTraceLink`. Then
-`∃ D, D.r5 = r5 ∧ D.r3 = r3 ∧ G12Spec D ∧ G14TraceCompat D`. This is the first two conjuncts of
-the input of g0-mod-newform's `modularConstituent_tail_G`. The embedding `ι₅` is Pan's (from
+`∃ D, D.r5 = r5 ∧ D.r3 = r3 ∧ G12Spec D ∧ G14TraceCompat D`. That gives the first two conjuncts
+of the input of g0-mod-newform's `modularConstituent_tail_G`. The equalities keep G8's `r₅`,
+`r₃`, so the third conjunct `G15RamG D u` can be proved for them.
+
+`G14Trace.g12Spec_g14_of_linked` starts one step earlier, from linked `G7Out` data at 5 and 3,
+`FrobTraceLink`, and G8-G12 as hypotheses (in the shapes of g0-mod-galois' `g8_g12` and
+`g8_g11`). It returns G8's `r₅`, `r₃` with their `GalG8Out`, and data `D` that carry them with
+`G12Spec ∧ G14TraceCompat`. The embedding `ι₅` is Pan's (from
 `g12Spec_of_galois`), and `ι₃ := j₃ ∘ γ`, where `ι₅ = j₅ ∘ γ` (`exists_comp_eq`, proved: any two
 `ℚ`-embeddings of `ℚ̄` into a field differ by an endomorphism of `ℚ̄`).
 
-**The statement is not changed**, and it is true for G8's construction (N5 L776-795). It is
-*false* for G8's construction if the `ℓ = 3` data are an arbitrary `G7Out` (F1, F2). This is the
+**The statement is not changed**, and it is true for G8's construction from linked data (N5
+L776-795). If the `ℓ = 3` data are an arbitrary `G7Out`, it *can fail* (F1, F2). This is the
 "twists" warning in its docstring, made precise.
 
 ## 2. Named Props: what is leaf and what is glue
@@ -57,7 +63,7 @@ the input of g0-mod-newform's `modularConstituent_tail_G`. The embedding `ι₅`
 | `PkgI3.CharPolyIndepOfEll` (T7) | **leaf** (existing) | the char. polynomial of `V_ℓ(φ)`, for `φ ∈ End(A)` and `A` over any field, is one monic `P ∈ ℤ[X]` for all `ℓ ≠ char k` | kernel `Objects.lean`; Mumford, *Abelian Varieties*, §19 Thm 4 (h-decomposition T7) |
 | `G14Trace.FrobTraceLink A Tm₅ Tm₃` | **glue** (new, AV side) | there is a finite `S`. At an arithmetic Frobenius `τ` above `p ∉ S` there are an abelian variety `Ā` over a field of characteristic `p`, `α' ∈ End(Ā)` and `N ≠ 0` with `FrobCompare ℓ (Tm_ℓ τ) α' N` at `ℓ = 3` and `ℓ = 5`: some isomorphism `ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ ⊗ V_ℓ(Ā)` carries `N·Tm_ℓ(τ)` to `V_ℓ(α')` | `part_g14.lean` §3; N5 L777-786 |
 | `G14Trace.FrobSquaresLink` | **glue** (new; implies `FrobTraceLink`, proved: `frobTraceLink_of_squares`) | the same with `FrobCompare` split into the kernel's three squares (`GlueC10Link.FrobSquares`): descent instantiation `N·Tm_ℓ(τ) = μ' ∘ τ_*`, Serre–Tate `red' ∘ τ_* = V_ℓ(F) ∘ red`, Néron `red ∘ V_ℓ(μ') = V_ℓ(μ̄') ∘ red'` | `part_g14.lean` §3 |
-| `G14Bridge.TateBridge35` | **glue** (new; corrects g0-mod-field's `TateBridge` at `ℓ = 3, 5`) | from `G7Data`, one pair `a, β : G_ℚ → ℚ̄` and embeddings `j₅`, `j₃`, with `G7Out` at 5 and at 3 for the scalars `j_ℓ ∘ a`, `j_ℓ ∘ β`, and `FrobTraceLink` for the two `Tm_ℓ` | `part_bridge.lean` |
+| `G14Bridge.TateBridge35` | **glue** (new; corrects g0-mod-field's `TateBridge` at `ℓ = 3, 5`) | from `G7Data`, one pair `a, β : G_ℚ → ℚ̄` and embeddings `j₅`, `j₃`, with `G7Out` at 5 and at 3 for the scalars `j_ℓ ∘ a`, `j_ℓ ∘ β`, `FrobTraceLink` for the two `Tm_ℓ`, and `ιC ∘ β = G7Data's β` for some `ιC`. Like `TateBridge`, it does not tie `a` to `DescentDatum`'s `a` or `Tm_ℓ` to `m_σ` | `part_bridge.lean` |
 | `G0ModNewform.DirichletOfFinite` | glue (existing, g0-mod-newform) | only used by the composite with G12 | — |
 
 `FrobCompare`, `FrobSquares`, `trace_T_of_frobCompare` and `frobCompare_of_frobSquares` are the
@@ -69,17 +75,16 @@ of bad primes. For `p ∉ S` and an arithmetic Frobenius `τ` at `v`:
 - `A` has good reduction at `v ∩ L'`, with reduction `Ā` over the residue field `k`.
 - `τ` maps the reduction of `A` to that of `{}^τA`. That reduction is `Ā^{(p)}`, and on points
   `τ` acts as the relative `p`-Frobenius `F : Ā → Ā^{(p)}`.
-- `μ_τ : {}^τA → A` is defined over `L'` (N5: all homomorphisms are defined over `L'`), so it
-  reduces to `μ̄_τ`.
+- `μ_τ : {}^τA → A` is defined over `L ⊆ L'` (N5 L638-640), so it reduces to `μ̄_τ`.
 - With the Serre–Tate reduction isomorphism `V_ℓ(A) ≅ V_ℓ(Ā)` (leaf I2-Red, Néron), `N·Tm_ℓ(τ)`
   becomes `V_ℓ(α')` with `α' = N μ̄_τ ∘ F`. The same `α'` serves every `ℓ ≠ p`, because `Tm_ℓ` is
   built from one points-level `m_τ = μ_τ ∘ τ`.
 
-**Why the scalar link is true.** In g0-mod-field's `DescentDatum`, `a : G_ℚ → ℝ_{>0}` with
-`a_σ a_τ (n/d) = ε(σ,τ) a_{στ}`. Two such `a` differ by a homomorphism
-`Gal(L/ℚ) → ℝ_{>0}`, which is trivial, so `a` is unique. Iterating the relation shows that
-`a_σ^m ∈ ℚ` when `σ^m ∈ G_L`, so the values are algebraic (VERIFIED by this argument; no
-computation). `G7Data`'s `β` has `β² = χ` of finite order, so its values are roots of unity.
+**Why the scalar link is true.** N5 takes `a_σ = deg(μ_σ)^{-1/4}` (N5 L647), a real algebraic
+number. In g0-mod-field's `DescentDatum` (`a : G_ℚ → ℝ_{>0}` with
+`a_σ a_τ (n/d) = ε(σ,τ) a_{στ}`), once `m` is fixed, two such `a` differ by a homomorphism
+`Gal(L/ℚ) → ℝ_{>0}`, which is trivial. Iterating the relation shows `a_σ^m ∈ ℚ` when
+`σ^m ∈ G_L`. `G7Data`'s `β` has `β² = χ` of finite order, so its values are roots of unity.
 `c = n/d ∈ ℚ` is the same at every `ℓ`. N5 L719-722 maps the scalars to `ℚ̄_ℓ` by embeddings of
 the coefficient field. `TateBridge`'s docstring says the same, but its statement does not.
 
@@ -96,8 +101,11 @@ the coefficient field. `TateBridge`'s docstring says the same, but its statement
   - Take two data `D`, `D'` with the same `r₅`, `ι₅`, `ι₃`, where `tr D'.r₃ = χ · tr D.r₃`. If
     `G14TraceCompat` holds for both, then `(χ(τ) − 1) tr r₃(τ) = 0` at almost every Frobenius at
     which `tr r₅(τ)` is algebraic.
-  - Consequence: if `r₃` is not isomorphic to `r₃ ⊗ χ`, at most one of the two twists satisfies
-    `G14TraceCompat`. `G7Out` at `ℓ = 3` alone does not determine which one. In Glazer's argument
+  - Consequence: for a fixed `ι₃`, given a nontrivial character `χ` of `Gal(L'/ℚ)` and
+    `r₃ ≇ r₃ ⊗ χ`, at most one of the two twists satisfies `G14TraceCompat`. `G7Out` at `ℓ = 3`
+    alone does not determine which one. This is a statement about the interface, not a proved
+    non-implication: it needs such a `χ` (so `Gal(L'/ℚ)` must not be perfect), and it does not
+    treat other choices of `ι₃`. In Glazer's argument
     it is fixed by using the same `a_σ` at every `ℓ`.
   - Correction: `TateBridge35` (§2), proved to contain the `ℓ = 3, 5` conclusions of `TateBridge`
     (`tateBridge_five_three_of_35`).
@@ -122,10 +130,10 @@ the coefficient field. `TateBridge`'s docstring says the same, but its statement
 
 - `scratch/g14-trace/G14Trace.lean` (copies plus `part_g14.lean`, ~80 s): exit 0, no `sorry`.
   The 31 `#print axioms` lines (19 copied from g0-mod-newform, 12 new) all give
-  `[propext, Classical.choice, Quot.sound]` (VERIFIED; log run4).
+  `[propext, Classical.choice, Quot.sound]` (VERIFIED; log run4, run5).
 - `scratch/g14-trace/G14Bridge.lean` (copy of `ModField.lean` plus `part_bridge.lean`, ~50 s):
   exit 0, no `sorry`, all axiom prints standard, including
-  `G14Bridge.tateBridge_five_three_of_35` (VERIFIED; log bridge run1).
+  `G14Bridge.tateBridge_five_three_of_35` (VERIFIED; log bridge run1, run5).
 - New Lean declarations (namespace `G14Trace`): `G7Out` (verbatim copy), `g7Out_twist`,
   `trace_rho_twist`, `twist_obstruction`, `trace_of_intertwines`, `trace_eq_image`,
   `FrobTraceLink`, `FrobSquaresLink`, `frobTraceLink_of_squares`, `common_trace`,
@@ -140,6 +148,15 @@ the coefficient field. `TateBridge`'s docstring says the same, but its statement
     pkg-I2 on PkgI3 objects);
   - `TateBridge35`, the Tate functor applied to G7's points-level data, as for `TateBridge`.
 - No new literature leaf. T7 is used exactly in its kernel form.
+- Two files: `TateBridge35` (over `G7Data`, in `G14Bridge.lean`) and `g12Spec_g14_of_linked` (in
+  `G14Trace.lean`) are not composed in one environment. `G14Bridge.FrobTraceLink` over
+  `GaloisCopy.Vb` and `G14Trace.FrobTraceLink` over `Vb` match only by identical text, as do the
+  two copies of `G7Out`. G8-G12 enter as the hypotheses `hG5` and `hG3`.
+- Review (one model review, read-only, no human review): it found no substantive defect. Its
+  minor points were applied: the equalities were kept in `g12Spec_g14_of_linked`; `TateBridge35`
+  now ties `β` to `G7Data`'s `β`; the words "false" were changed to "can fail"; the field of
+  definition of `μ_σ` is corrected to `L`; the `FrobSquaresLink` docstring was changed. All of
+  this was recompiled (log run5).
 - Integration: `g14TraceCompat_of_link` takes G8's output in g0-mod-newform's `GalG8Out` form.
   g0-mod-galois' `g8` produces it from `G7Out` on `ρ = GlueDescent.rho Tm a β`. With
   `TateBridge35`, the `a`, `β` at 3 and 5 are `j_ℓ ∘ a`, `j_ℓ ∘ β`, which is exactly the

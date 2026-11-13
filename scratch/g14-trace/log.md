@@ -56,3 +56,12 @@ Base: 2dd83306 (wip/integrate-w36b). Target: `G0ModNewform.G14TraceCompat D`
   `hG5`, `hG3`, the shapes of g0-mod-galois' `g8_g12`, `g8_g11`) ⇒ `∃ D, G12Spec D ∧ G14TraceCompat D`.
 - `G14Bridge.TateBridge35` (glue Prop over g0-mod-field's `G7Data`), `G14Bridge.FrobTraceLink`
   (same text as `G14Trace.FrobTraceLink`, over `GaloisCopy.Vb`), `tateBridge_five_three_of_35`.
+
+## Review and fixes
+- One read-only model review: no substantive defect; minor points: `g12Spec_g14_of_linked` should
+  keep `D.r5 = r5 ∧ D.r3 = r3` (for G15RamG); `TateBridge35` should tie β to G7Data's β; report
+  overclaim "false" → "can fail"; μ_σ defined over L (N5 L638-640); `FrobSquaresLink` docstring.
+- Fixes applied: `g12Spec_g14_of_linked` now returns `r5 r3 D` with both `GalG8Out`, the equalities,
+  `G12Spec`, `G14TraceCompat`; `TateBridge35` gains `∃ ιC, ∀ g, ιC (βQ g) = β g`.
+- run5: G14Trace.lean exit 0, no error, no sorry, 31 standard axiom prints; G14Bridge.lean exit 0,
+  no error, no sorry, standard axioms (VERIFIED).

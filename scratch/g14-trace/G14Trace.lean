@@ -2662,7 +2662,8 @@ primes such that at every arithmetic Frobenius `τ` above `p ∉ S` there are an
 `FrobCompare` (kernel, `GlueC10Link`) at `ℓ = 3` and at `ℓ = 5`: some isomorphism
 `ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ ⊗ V_ℓ(Ā)` carries `N·Tm_ℓ(τ)` to `V_ℓ(α')`. In N5, `S = T ∪ {3, 5}`
 (`T` = bad primes of `A/L'`), `Ā` is the reduction of `A` at the place `v ∩ L'`, `α' = N·(μ̄_τ ∘ F)`
-(relative `p`-Frobenius `F`, reduction `μ̄_τ` of the isogeny `μ_τ : {}^τA → A`), and the
+(relative `p`-Frobenius `F`, reduction `μ̄_τ` of the isogeny `μ_τ : {}^τA → A`, defined over
+`L ⊆ L'` by N5 L638-640), and the
 isomorphism is the Serre–Tate reduction isomorphism. It concerns the operators `Tm_ℓ` that
 g0-mod-field's `TateBridge` builds from the points-level `m_σ = μ_σ ∘ σ` (one `m_σ` for all `ℓ`). -/
 def FrobTraceLink {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
@@ -2675,8 +2676,9 @@ def FrobTraceLink {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
 
 /-- **The Frobenius link in square form (GLUE, AV side; N5 L781-786).** As `FrobTraceLink`, with
 `FrobCompare` replaced by its three inputs (kernel, `GlueC10Link.FrobSquares`): abelian
-varieties `A₀, Aσ` over a field `L` (`A₀ = A`, `Aσ = {}^τA`), an isogeny `μ' : Aσ → A₀`
-(`N μ_τ`), abelian varieties `Ā, Ā'` over `k` of characteristic `p` (`Ā = Ā_v`,
+varieties `A₀, Aσ` over a field `L` (intended instance `A₀ = A`, `Aσ = {}^τA`; they are
+existential and tied to `A` only through `Ψ`, so this Prop is no stronger than `FrobTraceLink`),
+an isogeny `μ' : Aσ → A₀` (`N μ_τ`), abelian varieties `Ā, Ā'` over `k` of characteristic `p` (`Ā = Ā_v`,
 `Ā' = Ā^{(p)}`), the relative Frobenius `F : Ā → Ā'` and the reduction `μ̄' : Ā' → Ā` of `μ'`,
 with the three squares (descent instantiation `N·Tm_ℓ(τ) = μ' ∘ τ_*`; Serre–Tate
 `red' ∘ τ_* = V_ℓ(F) ∘ red`; Néron mapping `red ∘ V_ℓ(μ') = V_ℓ(μ̄') ∘ red'`) at `ℓ = 3, 5`. -/
@@ -2825,7 +2827,8 @@ theorem g12Spec_g14_of_galois (hDF : DirichletOfFinite) (hM : CharPolyIndepOfEll
 /-- **From linked G7 data (GLUE, proved).** The `A`-level form of `G14Bridge.TateBridge35`'s
 conclusion (`G7Out` at 5 and 3 with scalars `j_ℓ ∘ a`, `j_ℓ ∘ β`, and `FrobTraceLink`), with
 g0-mod-galois' G8-G12 as the hypotheses `hG5` (their `g8_g12` at `ℓ = 5`: `G8Out ∧ G12Out`) and
-`hG3` (their `g8_g11` at `ℓ = 3`: `G8Out`), gives data with `G12Spec ∧ G14TraceCompat`. -/
+`hG3` (their `g8_g11` at `ℓ = 3`: `G8Out`), gives G8's `r₅`, `r₃` (with their `G8Out`, so that
+`G15RamG` can be proved for them) and data `D` carrying them with `G12Spec ∧ G14TraceCompat`. -/
 theorem g12Spec_g14_of_linked (hDF : DirichletOfFinite) (hM : CharPolyIndepOfEll) {K : Type}
     [Field K] [NumberField K] (A : PkgI3.AbVar K) (a β : GQ → Qbar)
     (j5 : Qbar →ₐ[ℚ] PadicAlgCl 5) (j3 : Qbar →ₐ[ℚ] PadicAlgCl 3)
@@ -2843,12 +2846,15 @@ theorem g12Spec_g14_of_linked (hDF : DirichletOfFinite) (hM : CharPolyIndepOfEll
     (hG3 : G7Out A 3 Tm3 c3 ε3 (fun g => j3 (a g)) (fun g => j3 (β g)) u3 →
       ∃ r3 : GaloisRep 3 2,
         GalG8Out A 3 (GlueDescent.rho Tm3 (fun g => j3 (a g)) (fun g => j3 (β g))) r3) :
-    ∃ D : ModData K A, G12Spec D ∧ G14TraceCompat D := by
+    ∃ (r5 : GaloisRep 5 2) (r3 : GaloisRep 3 2) (D : ModData K A),
+      GalG8Out A 5 (GlueDescent.rho Tm5 (fun g => j5 (a g)) (fun g => j5 (β g))) r5 ∧
+      GalG8Out A 3 (GlueDescent.rho Tm3 (fun g => j3 (a g)) (fun g => j3 (β g))) r3 ∧
+      D.r5 = r5 ∧ D.r3 = r3 ∧ G12Spec D ∧ G14TraceCompat D := by
   obtain ⟨r5, h5, h12⟩ := hG5 h75
   obtain ⟨r3, h3⟩ := hG3 h73
-  obtain ⟨D, -, -, hs, hc⟩ :=
+  obtain ⟨D, hD5, hD3, hs, hc⟩ :=
     g12Spec_g14_of_galois hDF hM A j5 j3 a β Tm5 Tm3 r5 r3 h5 h3 h12 hF
-  exact ⟨D, hs, hc⟩
+  exact ⟨r5, r3, D, h5, h3, hD5, hD3, hs, hc⟩
 
 end G14Trace
 
