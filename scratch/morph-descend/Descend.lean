@@ -1,4 +1,28 @@
 import Mathlib
+import ZInQKernel.HDecomp.Objects
+
+/-!
+# morph-descend: the input `MorphismsDescend` of G4 (EGA IV₃ 8.8.2), proved
+
+Report: `docs/research/morph-descend.md`. Headline: `MorphDescend.morphismsDescend`, the Prop
+`MorphismsDescend` of `scratch/g4-weilres/G4.lean` (copied verbatim below), proved with no
+hypotheses, no `sorry`, only the standard axioms.
+
+The geometric input is Mathlib's `Scheme.exists_π_app_comp_eq_of_locallyOfFinitePresentation`
+(`Mathlib/AlgebraicGeometry/AffineTransitionLimit.lean`, tagged Stacks 01ZC): for a cofiltered
+diagram `Dᵢ` of qcqs schemes with affine transition maps and limit `lim Dᵢ`, every `S`-morphism
+`lim Dᵢ → Y` with `Y` locally of finite presentation over `S` factors through some `Dᵢ`.
+The glue proved here:
+* `ringCoconeIsColimit`: `ℚ̄` is the filtered colimit in `CommRingCat` of its finite subextensions
+  containing a number field `E₀`;
+* `specConeIsLimit`: hence `Spec ℚ̄ = lim Spec L` in `Over (Spec K)` (`Spec` is a right adjoint,
+  `Over.forget` reflects connected limits);
+* `bcConeIsLimit`: hence `X ×_K ℚ̄ = lim X ×_K L` (`Over.pullback` is a right adjoint,
+  `Over.forget` preserves connected limits), with affine transition maps (`bcDiag_isAffineHom`) and
+  qcqs terms when `X → Spec K` is qcqs;
+* `exists_descend`: the general descent statement, for `X` qcqs and `Y` LFP over any field `K`;
+* `morphismsDescend`: the instance for `PkgI3.AbVar` (proper ⇒ qcqs, smooth ⇒ LFP).
+-/
 
 open CategoryTheory Limits AlgebraicGeometry
 
@@ -282,17 +306,99 @@ theorem exists_descend [FiniteDimensional ℚ E₀] (X Y : Over (Spec (CommRingC
   have key : cmp E₀ X e₁ he₁ L.unop ≫ (pullbackSymmetry _ _).hom =
       (pullbackSymmetry _ _).inv ≫ c.π.app L := by
     apply pullback.hom_ext
-    · simp only [c, Category.assoc, bcCone_π_app_fst]
+    · simp only [c, Category.assoc]
       simp [cmp]
-    · simp only [c, Category.assoc, bcCone_π_app_snd]
+    · simp only [c, Category.assoc]
       simp [cmp]
   apply pullback.hom_ext
   · rw [Category.assoc, Category.assoc, Category.assoc, pullback.lift_fst, reassoc_of% key, hg1]
     simp [cmp, a]
   · rw [Category.assoc, Category.assoc, Category.assoc, pullback.lift_snd, reassoc_of% key]
-    simp only [c, bcCone_π_app_fst]
+    simp only [c]
     simp [cmp, reassoc_of% hφ]
 
 end Main
 
+/-! ### `MorphismsDescend` of `scratch/g4-weilres/G4.lean`, for the project's abelian varieties
+
+The definitions `specEmb`, `specIncl`, `cmpL` and the statement `MorphismsDescend` are copied
+verbatim from `scratch/g4-weilres/G4.lean` (namespace `G4WeilRes`; there `Qbar` is
+`GlueB3Unram.Qbar`, the same reducible abbreviation `AlgebraicClosure ℚ`). -/
+
+section G4
+
+open PkgI3
+
+variable (K : IntermediateField ℚ Qbar)
+
+/-- `Spec e : Spec ℚ̄ → Spec K` for an embedding `e : K → ℚ̄`. -/
+noncomputable abbrev specEmb (e : K →ₐ[ℚ] Qbar) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (e : K →+* Qbar))
+
+/-- `Spec ℚ̄ → Spec L` for a subfield `L ⊆ ℚ̄`. -/
+noncomputable abbrev specIncl (L : IntermediateField ℚ Qbar) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of L) :=
+  Spec.map (CommRingCat.ofHom (algebraMap L Qbar))
+
+/-- `Spec e = Spec(ℚ̄ ← L) ≫ Spec e'` when `e = (L ↪ ℚ̄) ∘ e'`. -/
+theorem specEmb_factor (L : IntermediateField ℚ Qbar) (e : K →ₐ[ℚ] Qbar) (e' : K →ₐ[ℚ] L)
+    (he : ∀ x, (e' x : Qbar) = e x) :
+    specEmb K e = specIncl L ≫ Spec.map (CommRingCat.ofHom (e' : K →+* L)) := by
+  rw [specEmb, specIncl, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact (he x).symm
+
+/-- The comparison `A ×_{K,e} ℚ̄ → A ×_{K,e'} L` (the base-change square along `Spec ℚ̄ → Spec L`). -/
+noncomputable def cmpL (L : IntermediateField ℚ Qbar) (X : CategoryTheory.Over (Spec (CommRingCat.of K)))
+    (e : K →ₐ[ℚ] Qbar) (e' : K →ₐ[ℚ] L) (he : ∀ x, (e' x : Qbar) = e x) :
+    Limits.pullback X.hom (specEmb K e) ⟶
+      Limits.pullback X.hom (Spec.map (CommRingCat.ofHom (e' : K →+* L))) :=
+  Limits.pullback.lift (Limits.pullback.fst _ _) (Limits.pullback.snd _ _ ≫ specIncl L)
+    (by rw [Limits.pullback.condition, specEmb_factor K L e e' he, Category.assoc])
+
+/-- **Input of G4 (EGA IV₃ 8.8.2 (i), surjectivity part, for `ℚ̄ = colim L`).** Verbatim from
+`scratch/g4-weilres/G4.lean`. -/
+def MorphismsDescend : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (A B : AbVar K)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : (CategoryTheory.Over.pullback (specEmb K e₁)).obj A.X ⟶
+      (CategoryTheory.Over.pullback (specEmb K e₂)).obj B.X),
+    ∃ (L : IntermediateField ℚ Qbar) (_ : FiniteDimensional ℚ L) (e₁' e₂' : K →ₐ[ℚ] L)
+      (he₁ : ∀ x, (e₁' x : Qbar) = e₁ x) (he₂ : ∀ x, (e₂' x : Qbar) = e₂ x)
+      (ψ : Limits.pullback A.X.hom (Spec.map (CommRingCat.ofHom (e₁' : K →+* L))) ⟶
+        Limits.pullback B.X.hom (Spec.map (CommRingCat.ofHom (e₂' : K →+* L)))),
+      φ.left ≫ cmpL K L B.X e₂ e₂' he₂ = cmpL K L A.X e₁ e₁' he₁ ≫ ψ
+
+/-- The restriction `K → L` of `e : K → ℚ̄`, as a `ℚ`-algebra map. -/
+noncomputable def restrAlg {E₀ : IntermediateField ℚ Qbar} (e : K →ₐ[ℚ] Qbar)
+    (he : ∀ x, (e : K →+* Qbar) x ∈ E₀) (L : Idx E₀) : K →ₐ[ℚ] L.1 :=
+  { restrL E₀ (e : K →+* Qbar) he L with
+    commutes' := fun r => Subtype.ext (e.commutes r) }
+
+/-- **`MorphismsDescend` holds (proved; no hypotheses).** Abelian varieties are proper (so
+quasi-compact and quasi-separated) and smooth (so locally of finite presentation); apply
+`exists_descend` with `E₀ = e₁(K) ⊔ e₂(K)`. -/
+theorem morphismsDescend : MorphismsDescend := by
+  intro K _ A B e₁ e₂ φ
+  let E₀ : IntermediateField ℚ Qbar := e₁.fieldRange ⊔ e₂.fieldRange
+  have : FiniteDimensional ℚ e₁.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField e₁).toLinearEquiv
+  have : FiniteDimensional ℚ e₂.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField e₂).toLinearEquiv
+  have : FiniteDimensional ℚ E₀ := IntermediateField.finiteDimensional_sup _ _
+  have he₁ : ∀ x, (e₁ : K →+* Qbar) x ∈ E₀ := fun x =>
+    (le_sup_left : e₁.fieldRange ≤ E₀) ⟨x, rfl⟩
+  have he₂ : ∀ x, (e₂ : K →+* Qbar) x ∈ E₀ := fun x =>
+    (le_sup_right : e₂.fieldRange ≤ E₀) ⟨x, rfl⟩
+  obtain ⟨L, ψ, hψ⟩ := exists_descend E₀ A.X B.X (e₁ : K →+* Qbar) (e₂ : K →+* Qbar) he₁ he₂
+    φ.left (CategoryTheory.Over.w φ)
+  exact ⟨L.1, L.2.1, restrAlg K e₁ he₁ L, restrAlg K e₂ he₂ L, fun _ => rfl, fun _ => rfl, ψ, hψ⟩
+
+end G4
+
 end MorphDescend
+
+#print axioms MorphDescend.exists_descend
+#print axioms MorphDescend.morphismsDescend
