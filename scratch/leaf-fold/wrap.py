@@ -18,7 +18,8 @@ import ZInQKernel.Contrib.KroneckerWeber.Leaves
 import ZInQKernel.Contrib.Chebotarev.FrobeniusDense
 import ZInQKernel.Contrib.Different.Global
 import ZInQKernel.Contrib.T25.NewformOfEigenform
-import ZInQKernel.Contrib.T31.Main""".split('\n')
+import ZInQKernel.Contrib.T31.Main
+import ZInQKernel.HDecomp.Textbook.BrauerNesbitt""".split('\n')
 assert L[2].startswith('import ZInQKernel.Compiler')
 L = L[:3] + IMPORTS + L[3:]
 # namespace HDec before the first `section`
@@ -57,6 +58,14 @@ txt = txt.replace(*FIX6)
 FIX7 = '/-- **Convention check.** If `ℂ_p(j)^{G_{ℚ_p}} = 0`'
 assert txt.count(FIX7) == 1
 txt = txt.replace(FIX7, 'set_option synthInstance.maxHeartbeats 200000 in\n' + FIX7)
+# 9. `TSkolemKW.brauerNesbittChar0` (T19, proved here by t-skolem-kw): with the Contrib/Tau Ceti
+#    simp set and instances in scope, its `simp [LinearEquiv.conj_apply]; rfl` step fails. The same
+#    proof compiles in the kernel module `ZInQKernel.HDecomp.Textbook.BrauerNesbitt` (imported);
+#    the file's theorem is now that one, converted to this file's statement by unfolding.
+a = txt.index('theorem brauerNesbittChar0 : BrauerNesbittChar0 := by\n')
+b = txt.index('\n\n', txt.index('  | smul c f hf =>', a))
+txt = (txt[:a] + 'theorem brauerNesbittChar0 : BrauerNesbittChar0 :=\n  _root_.TSkolemKW.brauerNesbittChar0'
+       + txt[b:])
 txt = txt.rstrip('\n') + '\n\nend HDec\n'
 open(out, 'w').write(txt)
 print('root-renamed decls:', n3, ' lattice1 dot uses:', n4, ' open ZInQ:', n5)

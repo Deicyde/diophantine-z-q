@@ -28,7 +28,7 @@ elab "#hdec_same " id:ident : command => do
   let mut todo : Array Name := #[n]
   let mut seen : NameSet := {}
   let mut bad : Array String := #[]
-  let mut count := 0
+  let mut count : Nat := 0
   while todo.size > 0 do
     let c := todo.back!
     todo := todo.pop
