@@ -14,10 +14,14 @@ the sheaf `U ↦ C(U, ℤ_ℓ)`, Bhatt–Scholze 2015 Def. 6.8.1) as an abelian 
 
 open CategoryTheory Limits AlgebraicGeometry
 
-set_option backward.isDefEq.respectTransparency.types false
 
 universe u
 namespace T10Etale
+
+section Coh
+
+set_option backward.isDefEq.respectTransparency.types false
+
 variable (X : Scheme.{u}) (ℓ : ℕ) [Fact ℓ.Prime]
 
 noncomputable abbrev F : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1} :=
@@ -133,4 +137,64 @@ lemma H0Equiv_smul (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ 0) :
     H0Equiv X ℓ (a • x) = ContinuousMap.const X a * H0Equiv X ℓ x :=
   (H0Equiv X ℓ).map_smul a x
 
+
+end Coh
+
+/-! ## T10 as a `ℤ_ℓ`-linear isomorphism -/
+
+section AbVarSec
+
+open PkgI3 MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **T10, `ℤ_ℓ`-linear form (textbook leaf; not yet Galois-equivariant).** For an abelian variety
+`A` over a field `K` and a prime `ℓ ≠ char K`, `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)` as
+`ℤ_ℓ`-modules, where `H¹` is Mathlib's pro-étale `ℓ`-adic cohomology with the module structure
+`instModule…` above. A consequence of Milne 1986 (Cornell–Silverman), Thm 15.1(a)
+(`H¹_et(A_K̄, ℤ_ℓ) ≅ Hom(T_ℓ A, ℤ_ℓ)`; UNVERIFIED number) and of the comparison of pro-étale and
+classical `ℓ`-adic cohomology for schemes of finite type over an algebraically closed field
+(Bhatt–Scholze 2015, §5.6; UNVERIFIED number), both `ℤ_ℓ`-linear. -/
+def T10_linIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    Nonempty ((A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃ₗ[ℤ_[ℓ]]
+      Module.Dual ℤ_[ℓ] (A.T ℓ))
+
+/-- leaf-push2's group form (copied verbatim from scratch/leaf-push2/LeafPush2.lean). -/
+def T10_groupIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    Nonempty ((A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃+
+      Module.Dual ℤ_[ℓ] (A.T ℓ))
+
+/-- The linear form implies leaf-push2's group form. -/
+theorem T10_groupIso_of_linIso (h : T10_linIso) : T10_groupIso := by
+  intro K _ A ℓ _ hℓ
+  obtain ⟨e⟩ := h K A ℓ hℓ
+  exact ⟨e.toAddEquiv⟩
+
+/-- `T_ℓ` of the zero abelian variety is zero. -/
+instance subsingleton_T_zero (K : Type) [Field K] (ℓ : ℕ) [Fact ℓ.Prime] :
+    Subsingleton ((AbVar.zero K).T ℓ) := by
+  have : Subsingleton (Additive ((AbVar.zero K).Pt (AlgebraicClosure K))) :=
+    ⟨fun P Q => CartesianMonoidalCategory.toUnit_unique (Additive.toMul P) (Additive.toMul Q)⟩
+  constructor
+  intro x y
+  apply Subtype.ext
+  funext n
+  exact Subsingleton.elim _ _
+
+/-- **Content check.** At the zero abelian variety `T10_linIso` says
+`H¹_proet(Spec K̄ ×_K Spec K, ℤ_ℓ) = 0`: a true statement (`Spec K̄` is w-contractible,
+Bhatt–Scholze 2015 §2.4; UNVERIFIED number) that is not provable from the definitions by
+unfolding. -/
+theorem T10_linIso_zero (h : T10_linIso) (K : Type) [Field K] (ℓ : ℕ) [Fact ℓ.Prime]
+    (hℓ : (ℓ : K) ≠ 0) :
+    Subsingleton (((AbVar.zero K).baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1) := by
+  obtain ⟨e⟩ := h K (AbVar.zero K) ℓ hℓ
+  exact e.toEquiv.subsingleton
+
+end AbVarSec
+
 end T10Etale
+
+#print axioms T10Etale.H0Equiv
+#print axioms T10Etale.T10_groupIso_of_linIso
+#print axioms T10Etale.T10_linIso_zero

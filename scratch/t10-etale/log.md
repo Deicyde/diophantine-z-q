@@ -16,3 +16,8 @@
   `set_option backward.isDefEq.respectTransparency.types false` (else `ContainsIdentities
   @WeaklyEtale` is not found) and an explicit `import Mathlib.AlgebraicGeometry.Morphisms.WeaklyEtale`
   (Proetale.lean imports it privately).
+- T10Etale.lean: + `T10_linIso` (∀ K A ℓ, ℓ ≠ char K → Nonempty (H¹_proet(A_K̄.left, ℤ_ℓ) ≃ₗ[ℤ_ℓ]
+  Module.Dual ℤ_ℓ (A.T ℓ))), `T10_groupIso` (copied from leaf-push2), `T10_groupIso_of_linIso`,
+  `subsingleton_T_zero`, `T10_linIso_zero` (at `AbVar.zero K` the leaf says
+  `H¹(Spec K̄ ×_K Spec K, ℤ_ℓ) = 0`). COMPILED; axioms propext, Classical.choice, Quot.sound.
+  (Needs `open MonObj` for the group structure on points.)
