@@ -203,3 +203,4 @@ TauCeti.RingTheory.PowerSeries.Support
 TauCeti.Topology.Compactification.OnePoint.ProjectiveLine
 TauCeti.Topology.DiscreteSeparation
 TauCeti.NumberTheory.ModularForms.Newforms.FullEigenform
+TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.CoefficientFormula
