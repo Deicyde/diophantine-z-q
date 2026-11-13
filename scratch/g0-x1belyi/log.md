@@ -27,3 +27,13 @@ Piece: `HSyn.G0Split.X1BelyiOnModel` (missing piece 3 of `scratch/g0-split/Split
   in `Over (Spec K)`; x1-belyi's T1/T2 are stated for Mathlib Weierstrass-curve points. Deriving
   T1/T2 from t5/r7a needs the Weierstrass curve as a group scheme (`IsAbelianVariety`) with
   `E(K̄)` identified with its points: not in Mathlib 4.35, not attempted.
+- 01:54 `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant`: OK.
+- 01:57 Integration check `Integ.lean` (`build_integ.sh`: g0-split's `Split.lean` at c20fa62b +
+  x1-belyi body + the `G0X1Belyi` part (without the copied `HSyn.G0Split` block, which Split
+  defines) + `part_final.lean` + `part_integ.lean`; 20583 lines; not committed, regenerate with
+  the script), 2m58s wall: 0 errors, no `sorry`. `#print axioms` [propext, Classical.choice,
+  Quot.sound] for `HSyn.glueOutputs_of_leaves_x1`, `HSyn.sixContactMin_of_leaves_x1` (the
+  g0-split theorems with `hBelyi : X1BelyiOnModel` replaced by `hT : X1Belyi.TorsionStructure`,
+  `hG : X1Belyi.GoodReductionUnramified`) and for g0-split's own theorems. VERIFIED (compiled).
+  So the proof also typechecks against Split.lean's own copies of the definitions, not only
+  against the kernel's.
