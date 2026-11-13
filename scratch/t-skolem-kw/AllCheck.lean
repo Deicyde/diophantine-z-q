@@ -1465,6 +1465,108 @@ theorem eq_of_agree_on_roots_cyclic (hKW : KroneckerWeberCyclic) {E : Type*} [Fi
   rw [map_mul, map_inv, inv_mul_eq_one] at h1
   exact h1.symm
 
+/-! ## The Dirichlet character, through Mathlib's mod-`m` cyclotomic character -/
+
+/-- A primitive `m`-th root of unity in `ℚ̄` (a root of the `m`-th cyclotomic polynomial). -/
+theorem exists_isPrimitiveRoot_qbar (m : ℕ+) : ∃ ζ : Qbar, IsPrimitiveRoot ζ (m : ℕ) := by
+  have : NeZero ((m : ℕ) : Qbar) := ⟨by exact_mod_cast m.ne_zero⟩
+  obtain ⟨ζ, hζ⟩ := IsAlgClosed.exists_root (Polynomial.cyclotomic (m : ℕ) Qbar)
+    (Polynomial.degree_cyclotomic_pos (m : ℕ) Qbar m.pos).ne'
+  exact ⟨ζ, (Polynomial.isRoot_cyclotomic_iff).1 hζ⟩
+
+theorem card_rootsOfUnity_qbar (m : ℕ+) : Nat.card (rootsOfUnity (m : ℕ) Qbar) = m :=
+  (exists_isPrimitiveRoot_qbar m).choose_spec.card_rootsOfUnity
+
+/-- `G_ℚ → Aut(ℚ̄)` as rings. -/
+noncomputable def toRingAut : GQ →* (Qbar ≃+* Qbar) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The mod-`m` cyclotomic character `G_ℚ → (ℤ/m)ˣ` (Mathlib's `modularCyclotomicCharacter`). -/
+noncomputable def cycChar (m : ℕ+) : GQ →* (ZMod m)ˣ :=
+  (modularCyclotomicCharacter Qbar (card_rootsOfUnity_qbar m)).comp toRingAut
+
+theorem cycChar_spec (m : ℕ+) (σ : GQ) (ζ : Qbar) (hζ : ζ ^ (m : ℕ) = 1) :
+    σ ζ = ζ ^ ((cycChar m σ : (ZMod m)ˣ) : ZMod m).val := by
+  have hζ0 : ζ ≠ 0 := by
+    rintro rfl
+    rw [zero_pow (by exact_mod_cast m.ne_zero)] at hζ
+    exact zero_ne_one hζ
+  have ht : Units.mk0 ζ hζ0 ∈ rootsOfUnity (m : ℕ) Qbar := by
+    rw [mem_rootsOfUnity]
+    ext
+    simpa using hζ
+  exact modularCyclotomicCharacter.spec Qbar (card_rootsOfUnity_qbar m) σ.toRingEquiv ht
+
+theorem agree_of_cycChar_eq (m : ℕ+) (σ τ : GQ) (h : cycChar m σ = cycChar m τ) (ζ : Qbar)
+    (hζ : ζ ^ (m : ℕ) = 1) : σ ζ = τ ζ := by
+  rw [cycChar_spec m σ ζ hζ, cycChar_spec m τ ζ hζ, h]
+
+/-- The mod-`m` cyclotomic character of `G_ℚ` is surjective (irreducibility of the cyclotomic
+polynomial over `ℚ`, Mathlib's `autEquivPow`, and lifting from `ℚ(ζ_m)` to `ℚ̄`). -/
+theorem cycChar_surjective (m : ℕ+) : Function.Surjective (cycChar m) := by
+  intro u
+  obtain ⟨ζ₀, hζ₀⟩ := exists_isPrimitiveRoot_qbar m
+  let F : IntermediateField ℚ Qbar := IntermediateField.adjoin ℚ {ζ₀}
+  have := hζ₀.intermediateField_adjoin_isCyclotomicExtension ℚ
+  let ζ := IsCyclotomicExtension.zeta (m : ℕ) ℚ F
+  have hζ : IsPrimitiveRoot ζ (m : ℕ) := IsCyclotomicExtension.zeta_spec (m : ℕ) ℚ F
+  let τ : F ≃ₐ[ℚ] F := (IsCyclotomicExtension.autEquivPow F
+    (Polynomial.cyclotomic.irreducible_rat m.pos)).symm u
+  have hτ : τ ζ = ζ ^ (u : ZMod m).val := by
+    have h1 := hζ.autToPow_spec ℚ τ
+    have h2 : hζ.autToPow ℚ τ = u := by
+      have := (IsCyclotomicExtension.autEquivPow F
+        (Polynomial.cyclotomic.irreducible_rat m.pos)).apply_symm_apply u
+      rwa [IsCyclotomicExtension.autEquivPow_apply] at this
+    rw [← h1, h2]
+  have : IsGalois ℚ F := IsCyclotomicExtension.isGalois {(m : ℕ)} ℚ F
+  let σ : GQ := τ.liftNormal Qbar
+  let ι : F →ₐ[ℚ] Qbar := F.val
+  have hσζ : σ (ι ζ) = ι ζ ^ (u : ZMod m).val := by
+    have h1 := AlgEquiv.liftNormal_commutes τ Qbar ζ
+    change σ (ι ζ) = ι (τ ζ) at h1
+    rw [h1, hτ, map_pow]
+  refine ⟨σ, ?_⟩
+  have hιζ : IsPrimitiveRoot (ι ζ) (m : ℕ) := hζ.map_of_injective ι.injective
+  symm
+  apply Units.ext
+  refine modularCyclotomicCharacter.unique Qbar (card_rootsOfUnity_qbar m) σ.toRingEquiv ?_
+  intro t ht
+  have htm : (t : Qbar) ^ (m : ℕ) = 1 := by
+    rw [mem_rootsOfUnity] at ht
+    simpa using congrArg Units.val ht
+  obtain ⟨i, -, hi⟩ := hιζ.eq_pow_of_pow_eq_one htm
+  change σ (t : Qbar) = (t : Qbar) ^ _
+  rw [← hi, map_pow, hσζ, ← pow_mul, ← pow_mul, mul_comm]
+
+/-- **Finite-order characters of `G_ℚ` are Dirichlet characters (GLUE, proved from the cyclic
+case of T17).** For `ψ : G_ℚ →* Eˣ` (`E` a field) with open kernel there are `m ≥ 1` and a
+Dirichlet character `χ` mod `m` (Mathlib's `DirichletCharacter`) with `ψ = χ ∘ cyc_m`, where
+`cyc_m` is the mod-`m` cyclotomic character. -/
+theorem dirichletCharacter_of_kroneckerWeberCyclic (hKW : KroneckerWeberCyclic) {E : Type*}
+    [Field E] (ψ : GQ →* Eˣ) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ (m : ℕ+) (χ : DirichletCharacter E (m : ℕ)),
+      ∀ σ : GQ, (ψ σ : E) = χ ((cycChar m σ : (ZMod m)ˣ) : ZMod m) := by
+  obtain ⟨m, hm⟩ := eq_of_agree_on_roots_cyclic hKW ψ hψ
+  have hψc : ∀ σ τ : GQ, cycChar m σ = cycChar m τ → ψ σ = ψ τ := fun σ τ h =>
+    hm σ τ (agree_of_cycChar_eq m σ τ h)
+  let s := Function.surjInv (cycChar_surjective m)
+  have hs : ∀ u, cycChar m (s u) = u := Function.surjInv_eq (cycChar_surjective m)
+  let χu : (ZMod m)ˣ →* Eˣ :=
+    { toFun := fun u => ψ (s u)
+      map_one' := by
+        rw [← map_one ψ]
+        exact hψc _ _ (by rw [hs, map_one])
+      map_mul' := fun u v => by
+        rw [← map_mul ψ]
+        exact hψc _ _ (by rw [hs, map_mul, hs, hs]) }
+  refine ⟨m, MulChar.ofUnitHom χu, fun σ => ?_⟩
+  rw [MulChar.ofUnitHom_coe]
+  change (ψ σ : E) = (ψ (s (cycChar m σ)) : E)
+  rw [hψc σ (s (cycChar m σ)) (hs _).symm]
+
 /-- A continuous homomorphism with finite image to a `T1` topological group has open kernel. -/
 theorem isOpen_ker_of_continuous {G : Type*} [Group G] [TopologicalSpace G] [T1Space G]
     (ψ : GQ →* G) (hc : Continuous ψ) (hfin : (Set.range ψ).Finite) :
@@ -1487,3 +1589,4 @@ end TSkolemKW.KW
 #print axioms TSkolemKW.HS.frobeniusDense_of_chebotarev
 #print axioms TSkolemKW.KW.eq_of_agree_on_roots
 #print axioms TSkolemKW.KW.eq_of_agree_on_roots_cyclic
+#print axioms TSkolemKW.KW.dirichletCharacter_of_kroneckerWeberCyclic

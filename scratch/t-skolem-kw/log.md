@@ -70,3 +70,12 @@
   (`E` a field, open kernel) from the cyclic case alone (`Gal(L/ℚ) ≅ G_ℚ/ker ψ ≅ im ψ ⊆ Eˣ`,
   cyclic by Mathlib's `isCyclic_of_injective_ringHom`). Factored lemma `fixes_of_embeds`.
 - AllCheck regenerated and recompiled: no errors.
+
+## C8 glue in final form: a Dirichlet character (VERIFIED, compiled 22:5x)
+- `dirichletCharacter_of_kroneckerWeberCyclic`: `ψ : G_ℚ →* Eˣ` (`E` field, open kernel) ⇒
+  `∃ m χ, ∀ σ, ψ σ = χ (cycChar m σ)` with `χ : DirichletCharacter E m` (Mathlib) and
+  `cycChar m` = Mathlib's `modularCyclotomicCharacter` on `G_ℚ`; from `KroneckerWeberCyclic`.
+- Auxiliary: `cycChar_surjective` (irreducibility of cyclotomic polynomials over ℚ via
+  `autEquivPow`, lift by `liftNormal`), `cycChar_spec`, `agree_of_cycChar_eq`,
+  `exists_isPrimitiveRoot_qbar`.
+- AllCheck regenerated and recompiled: no errors.
