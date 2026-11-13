@@ -1,0 +1,15 @@
+'ZInQ.Contrib.TYZGenus.CMNumeric.tyzDelta_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.exists_actsAsArtinO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.lemma321_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.genusPointLeafCM_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.genusPointLeaf_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.tyzThm35ReadingA_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.tyzThm35ReadingA_of_pinned'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.tyzSigmaFixesZn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.galPt_Z7' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.class7GenusPtDefined_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.tyzThm35ReadingA_of_pinnedLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.Copy.genusPointLeafCM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.phi0_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
