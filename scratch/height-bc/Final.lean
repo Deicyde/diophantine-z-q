@@ -1018,6 +1018,42 @@ def JacobianPullbackSpan : Prop :=
           𝒢'.jacDet Φ' (fun i => ⟨bcMap he (f i), bcMap_mem_maximalIdeal he _ (f i).2⟩)) →
       ∀ f' : Fin g → IsLocalRing.maximalIdeal 𝒢'.genStalk, c' (𝒢'.wedge f') = 𝒢'.jacDet Φ' f'
 
+/-- **BC-pts-bij is a theorem** (universal property of the pullback). -/
+theorem ptsBaseChangeBij : PtsBaseChangeBij := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ
+  subst hστ
+  have hhominv : e.hom.left ≫ e.inv.left = 𝟙 _ := by
+    rw [← Over.comp_left, e.hom_inv_id]; rfl
+  have hinvhom : e.inv.left ≫ e.hom.left = 𝟙 _ := by
+    rw [← Over.comp_left, e.inv_hom_id]; rfl
+  have hw : e.hom.left ≫ pullback.snd _ _ = 𝒢'.G.hom := Over.w e.hom
+  constructor
+  · intro p q hpq
+    have h1 : p.left ≫ bcProj 𝒢 𝒢' e = q.left ≫ bcProj 𝒢 𝒢' e := congrArg Over.Hom.left hpq
+    have h2 : p.left ≫ e.hom.left = q.left ≫ e.hom.left := by
+      apply pullback.hom_ext
+      · simpa only [bcProj, Category.assoc] using h1
+      · rw [Category.assoc, Category.assoc, hw]
+        exact (Over.w p).trans (Over.w q).symm
+    have h3 := congrArg (· ≫ e.inv.left) h2
+    simp only [Category.assoc, hhominv, Category.comp_id] at h3
+    exact Over.OverMorphism.ext h3
+  · intro q
+    have w : q.left ≫ 𝒢.G.hom = (GroupModel.ptC (L := L') τ').hom ≫ bO L L' :=
+      (Over.w q).trans (ptC_hom_comp_bO (L := L) τ').symm
+    let pl : (GroupModel.ptC (L := L') τ').left ⟶ 𝒢'.G.left :=
+      pullback.lift q.left (GroupModel.ptC (L := L') τ').hom w ≫ e.inv.left
+    have hpl : pl ≫ 𝒢'.G.hom = (GroupModel.ptC (L := L') τ').hom := by
+      have hw' : e.inv.left ≫ 𝒢'.G.hom = pullback.snd _ _ := Over.w e.inv
+      simp only [pl, Category.assoc, hw']
+      exact pullback.lift_snd _ _ _
+    refine ⟨Over.homMk pl hpl, ?_⟩
+    apply Over.OverMorphism.ext
+    show pl ≫ bcProj 𝒢 𝒢' e = q.left
+    simp only [pl, bcProj, Category.assoc]
+    rw [reassoc_of% hinvhom]
+    exact pullback.lift_fst _ _ _
+
 /-- **Descent of analytic uniformizations along `β`** (proved, from BC-pts-mul and BC-pts-bij). -/
 theorem isAnalyticUniformization_bcPts (hm : PtsBaseChangeMul) (hb : PtsBaseChangeBij)
     {K : Type} [Field K] {A : AbVar K} {L L' : Type} [Field L] [NumberField L] [Algebra K L]
@@ -1100,5 +1136,6 @@ theorem hodgeLineBaseChange_of_glue (h1 : HodgeBCInjective) (h2 : DetLatticeBC)
 #print axioms modelHeightBaseChange_of_glue
 #print axioms hodgeLineBaseChange_of_glue
 #print axioms metrizationBaseChange_of_hodgeLine
+#print axioms ptsBaseChangeBij
 
 end ZInQ.HeightBC
