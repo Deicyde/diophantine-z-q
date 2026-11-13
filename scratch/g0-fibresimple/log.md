@@ -55,3 +55,10 @@
   the group object; inverse to each other, preserve η, hence homomorphisms; conjugation.
 - `fibreSimple_of_leaves (t : TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom) (p : FibreSimplePieces)`,
   bundle = FS1 EndDivisionDescent, FS5 FibreComTrivial.
+
+## FS1 reduced
+- 02:25 COMPILED (exit 0, 22 s): `endDivisionDescent_of : BaseChangeFaithful → IsogenyDescends → EndDivisionDescent`
+  (FS1a: Over.pullback along Spec L → Spec K faithful; FS1b: IsIsogenyMor descends along it; both pure scheme
+  theory, STANDARD fpqc descent). Uses `Functor.map.instIsMonHom` (explicit instance: A_L's grp vs monObjObj)
+  and `Functor.map_one`.
+- Bundle `FibreSimplePieces` = FS1a, FS1b, FS5.
