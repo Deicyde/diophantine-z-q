@@ -1890,4 +1890,108 @@ theorem literature_hecke_fe_of_heckeEuler_gaussPointCount
     HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
   literature_hecke_fe_of_heckeEuler_gaussSplit hE (gaussSplit_one_of_pointCount h1)
 
+/-! ### `HeckeEuler` from multiplicativity and the prime-power recursion (node B2 split) -/
+
+/-- Multiplicativity of `heckeCoeff d` (node B2a; unique factorization in `ℤ[i]`). -/
+def HeckeMult (d : ℕ) : Prop :=
+  ∀ m n : ℕ, Nat.Coprime m n → heckeCoeff d (m * n) = heckeCoeff d m * heckeCoeff d n
+
+/-- The prime-power recursion of `heckeCoeff d` (node B2b; the elements of norm `p^k`). -/
+def HeckePrimePow (d : ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → ∀ k : ℕ, heckeCoeff d (p ^ (k + 2)) =
+    heckeCoeff d p * heckeCoeff d (p ^ (k + 1)) -
+      (if p ∣ 2 * d then 0 else (p : ℂ)) * heckeCoeff d (p ^ k)
+
+theorem normFiber_one : normFiber 1 = {(1, 0), (-1, 0), (0, 1), (0, -1)} := by decide
+
+theorem heckeCoeff_one (d : ℕ) : heckeCoeff d 1 = 1 := by
+  obtain ⟨h1, h2, h3, h4⟩ := psi_units d
+  rw [heckeCoeff_eq_sum_psi, normFiber_one]
+  rw [Finset.sum_insert (by decide), Finset.sum_insert (by decide), Finset.sum_insert (by decide),
+    Finset.sum_singleton, h1, h2, h3, h4]
+  norm_num
+
+/-- Coefficients of `1 / (1 − aT + bT²)`. -/
+theorem coeff_inv_quadratic (a b : ℂ) :
+    let ψ := PowerSeries.invOfUnit (((1 - Polynomial.C a * Polynomial.X +
+      Polynomial.C b * Polynomial.X ^ 2 : Polynomial ℂ)) : PowerSeries ℂ) 1
+    PowerSeries.coeff 0 ψ = 1 ∧ PowerSeries.coeff 1 ψ = a ∧
+      ∀ k : ℕ, PowerSeries.coeff (k + 2) ψ =
+        a * PowerSeries.coeff (k + 1) ψ - b * PowerSeries.coeff k ψ := by
+  intro ψ
+  set φ : PowerSeries ℂ := ((1 - Polynomial.C a * Polynomial.X +
+      Polynomial.C b * Polynomial.X ^ 2 : Polynomial ℂ) : PowerSeries ℂ) with hφdef
+  have hφ : φ = 1 - PowerSeries.C a * PowerSeries.X + PowerSeries.C b * PowerSeries.X ^ 2 := by
+    rw [hφdef]; push_cast; simp
+  have hc0 : PowerSeries.constantCoeff φ = 1 := by
+    rw [hφ]; simp
+  have hmul : φ * ψ = 1 := PowerSeries.mul_invOfUnit _ _ (by rw [hc0]; simp)
+  have hexp : φ * ψ = ψ - PowerSeries.C a * (PowerSeries.X * ψ) +
+      PowerSeries.C b * (PowerSeries.X ^ 2 * ψ) := by rw [hφ]; ring
+  have h0 : PowerSeries.coeff 0 ψ = 1 := by
+    rw [PowerSeries.coeff_zero_eq_constantCoeff_apply, PowerSeries.constantCoeff_invOfUnit]; simp
+  refine ⟨h0, ?_, fun k => ?_⟩
+  · have := congrArg (PowerSeries.coeff 1) (hexp.symm.trans hmul)
+    rw [map_add, map_sub, PowerSeries.coeff_C_mul, PowerSeries.coeff_C_mul,
+      PowerSeries.coeff_succ_X_mul, PowerSeries.coeff_X_pow_mul', h0] at this
+    simp at this
+    linear_combination this
+  · have := congrArg (PowerSeries.coeff (k + 2)) (hexp.symm.trans hmul)
+    rw [map_add, map_sub, PowerSeries.coeff_C_mul, PowerSeries.coeff_C_mul,
+      PowerSeries.coeff_succ_X_mul, PowerSeries.coeff_X_pow_mul'] at this
+    simp at this
+    linear_combination this
+
+theorem heckeCoeff_prime_of_dvd {d p : ℕ} (hd : Odd d) (hsq : Squarefree d) (hp : p.Prime)
+    (h : p ∣ 2 * d) : heckeCoeff d p = 0 := by
+  have : Fact p.Prime := ⟨hp⟩
+  have hc : ZInQ.Literature.cdCoeff d p = 0 := by
+    rw [cdCoeff_eq_LFunction hd hsq hp.ne_zero,
+      ZInQ.Literature.LFunction_cd_apply_prime_of_dvd hd hsq p h]
+  rcases (Nat.Prime.dvd_mul hp).mp h with h2 | hpd
+  · have : p = 2 := (Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h2
+    subst this
+    rw [← deuring_two hd hsq, hc, Int.cast_zero]
+  · rw [← deuring_prime_of_dvd hd hsq hpd, hc, Int.cast_zero]
+
+/-- **`HeckeEuler d` from multiplicativity and the prime-power recursion.** -/
+theorem heckeEuler_of_mult_primePow {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (hM : HeckeMult d)
+    (hP : HeckePrimePow d) : HeckeEuler d := by
+  intro n hn
+  rw [Nat.multiplicative_factorization (heckeCoeff d) hM (heckeCoeff_one d) hn]
+  refine Finsupp.prod_congr fun p hp => ?_
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors (Nat.support_factorization n ▸ hp)
+  set b : ℂ := if p ∣ 2 * d then 0 else (p : ℂ)
+  have hpoly : heckeEulerPoly d p = 1 - Polynomial.C (heckeCoeff d p) * Polynomial.X +
+      Polynomial.C b * Polynomial.X ^ 2 := by
+    unfold heckeEulerPoly
+    by_cases h : p ∣ 2 * d
+    · simp [b, h, heckeCoeff_prime_of_dvd hd hsq hpp h]
+    · simp [b, h]
+  rw [hpoly]
+  obtain ⟨c0, c1, crec⟩ := coeff_inv_quadratic (heckeCoeff d p) b
+  have key : ∀ k : ℕ, heckeCoeff d (p ^ k) = PowerSeries.coeff k (PowerSeries.invOfUnit
+      (((1 - Polynomial.C (heckeCoeff d p) * Polynomial.X + Polynomial.C b * Polynomial.X ^ 2 :
+        Polynomial ℂ)) : PowerSeries ℂ) 1) ∧
+      heckeCoeff d (p ^ (k + 1)) = PowerSeries.coeff (k + 1) (PowerSeries.invOfUnit
+      (((1 - Polynomial.C (heckeCoeff d p) * Polynomial.X + Polynomial.C b * Polynomial.X ^ 2 :
+        Polynomial ℂ)) : PowerSeries ℂ) 1) := by
+    intro k
+    induction k with
+    | zero => exact ⟨by rw [pow_zero, heckeCoeff_one, c0], by rw [zero_add, pow_one, c1]⟩
+    | succ k ih =>
+      refine ⟨ih.2, ?_⟩
+      rw [show k + 1 + 1 = k + 2 by ring, hP p hpp k, crec k, ← ih.1, ← ih.2]
+  exact (key _).1
+
+/-- **Final form**: the two literature Props from multiplicativity and the prime-power recursion
+of `heckeCoeff` (statements about `ℤ[i]`) and Gauss's point count on `y² = x³ − x`. -/
+theorem literature_hecke_fe_of_mult_primePow_gaussPointCount
+    (hM : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeMult d)
+    (hP : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckePrimePow d) (h1 : GaussPointCount) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_heckeEuler_gaussPointCount
+    (fun d h5 hsq => heckeEuler_of_mult_primePow (Nat.odd_iff.mpr (by omega)) hsq
+      (hM d h5 hsq) (hP d h5 hsq)) h1
+
 end BpHeckeFE

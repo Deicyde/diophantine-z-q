@@ -96,3 +96,7 @@
 - (VERIFIED, compiled ~18:47) `GaussPointCount : Prop` (pure point count on y² = x³ − x at
   p ≡ 1 mod 4, no L-function), `gaussSplit_one_of_pointCount`,
   `literature_hecke_fe_of_heckeEuler_gaussPointCount`.
+- (VERIFIED, compiled ~18:55; axioms standard) B2 split: `HeckeMult d`, `HeckePrimePow d` (Props),
+  `normFiber_one` (decide), `heckeCoeff_one`, `coeff_inv_quadratic`, `heckeCoeff_prime_of_dvd`,
+  `heckeEuler_of_mult_primePow`, `literature_hecke_fe_of_mult_primePow_gaussPointCount :
+   (∀d HeckeMult d) → (∀d HeckePrimePow d) → GaussPointCount → HeckeContinuation5 ∧ FunctionalEquation5`.
