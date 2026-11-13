@@ -38,3 +38,15 @@
   verbatim, from HodgeBCInjective, DetLatticeBC, UniformizationLift, JacobianPullbackSpan) and
   `modelHeightBaseChangeGE_of_two` (H4a `≥` from HodgeBCInjective, DetLatticeBC only), all axioms
   [propext, Classical.choice, Quot.sound]; 0 errors, no sorry (grep: 0 occurrences), 12 s.
+- Final.lean (~05:00): half of BC-lat proved (`bcCot_omegaAt`, `bcCot_omega`: π^*(ω_𝒢) ⊆ ω_{𝒢'} at every
+  point of Spec 𝓞_{L'}; `bcHodge_detLattice`, `span_bcHodge_le`); general lemma `multilinear_mem_span`;
+  new glue `OmegaBaseChange` (ω_{𝒢'} ≤ 𝓞_{L'}·π^*(ω_𝒢)) and `detLatticeBC_of_omega`.
+  VERIFIED: `modelHeightBaseChange_of_main`, `hodgeLineBaseChange_of_main` (from HodgeBCInjective,
+  OmegaBaseChange, UniformizationLift, JacobianPullbackSpan), `modelHeightBaseChangeGE_of_main`
+  (from HodgeBCInjective, OmegaBaseChange). 14 `#print axioms`, all [propext, Classical.choice, Quot.sound];
+  0 errors, 16 s.
+- Read-only model review (subagent, no Lean run) of HodgeBCInjective, DetLatticeBC, UniformizationLift,
+  JacobianPullbackSpan, HodgeLineBaseChangeDescent: all TRUE for every g, none vacuous. Docstring
+  points: "the natural map ψ" vs ∃ψ in copied Props; BC-span needs the spanning fact V' = L'·bcCot(V)
+  (not part of HodgeBCInjective); BC-lift's real step is continuity of β∘Φ' + L'-defined opens;
+  EGA locators (base change of Ω¹: IV 16.4.5? conormal ≅ e*Ω¹: IV 17.2.5?) UNVERIFIED; stale headers.

@@ -1083,7 +1083,65 @@ theorem span_bcHodge_le (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) :
     rintro _ ⟨x, hx, rfl⟩
     exact bcHodge_detLattice he g x hx)
 
+/-- A multilinear map sends a tuple of vectors of `span S` into the span of its values on tuples
+of vectors of `S` (induction on the number of coordinates not yet in `S`). -/
+theorem multilinear_mem_span {R M N : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    [AddCommGroup N] [Module R N] {n : ℕ} (f : MultilinearMap R (fun _ : Fin n => M) N)
+    (S : Set M) : ∀ (k : ℕ) (v : Fin n → M), (∀ i : Fin n, (i : ℕ) < k → v i ∈ Submodule.span R S) →
+      (∀ i : Fin n, k ≤ (i : ℕ) → v i ∈ S) →
+      f v ∈ Submodule.span R (f '' {w | ∀ i, w i ∈ S}) := by
+  classical
+  intro k
+  induction k with
+  | zero =>
+    intro v _ hS
+    exact Submodule.subset_span ⟨v, fun i => hS i (Nat.zero_le _), rfl⟩
+  | succ k ih =>
+    intro v hspan hS
+    by_cases hk : k < n
+    · set i0 : Fin n := ⟨k, hk⟩
+      have hmot : ∀ x ∈ Submodule.span R S,
+          f (Function.update v i0 x) ∈ Submodule.span R (f '' {w | ∀ i, w i ∈ S}) := by
+        intro x hx
+        induction hx using Submodule.span_induction with
+        | mem y hy =>
+          apply ih
+          · intro i hi
+            rw [Function.update_of_ne (fun h => by rw [h] at hi; exact lt_irrefl _ hi)]
+            exact hspan i (Nat.lt_succ_of_lt hi)
+          · intro i hi
+            by_cases hii : i = i0
+            · rw [hii, Function.update_self]; exact hy
+            · rw [Function.update_of_ne hii]
+              apply hS i
+              have : (i : ℕ) ≠ k := fun h => hii (Fin.ext h)
+              omega
+        | zero => rw [f.map_update_zero]; exact zero_mem _
+        | add x y _ _ hx hy => rw [f.map_update_add]; exact add_mem hx hy
+        | smul r x _ hx => rw [f.map_update_smul]; exact Submodule.smul_mem _ r hx
+      have := hmot (v i0) (hspan i0 (Nat.lt_succ_self k))
+      rwa [Function.update_eq_self] at this
+    · apply ih v
+      · intro i hi; exact hspan i (Nat.lt_succ_of_lt hi)
+      · intro i hi
+        apply hS i
+        have := i.2
+        omega
+
 end LatticeHalf
+
+/-- **Glue BC-omega (flat base change of `e*Ω¹`, the hard inclusion).** Every element of
+`ω_{𝒢'} = Γ(Spec 𝓞_{L'}, e'*Ω¹_{𝒢'/𝓞_{L'}})` is an `𝓞_{L'}`-combination of pull-backs
+`π^*η`, `η ∈ ω_𝒢`. True: `e*Ω¹_{𝒢/𝓞_L}` is locally free (`𝒢` smooth), its formation commutes with
+base change (EGA IV 17.2.3, UNVERIFIED locator), and for the projective `𝓞_L`-module `ω_𝒢`,
+`Γ(Spec 𝓞_{L'}, f^*ω̃) = 𝓞_{L'} ⊗ ω_𝒢`. The other inclusion is proved (`bcCot_omega`). STANDARD.
+(It relies, like every statement about `ω`, on def-faltings' `omega` being `Γ(e*Ω¹)`.) -/
+def OmegaBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L') (e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G)
+    (he : IsMonBC 𝒢 𝒢' e), 𝒢'.omega ≤ Submodule.span (𝓞 L') (bcCot he '' 𝒢.omega)
+
 
 /-! # Part C: `HodgeLineBaseChangeDescent` from six glue statements over the natural map
 
@@ -1113,6 +1171,29 @@ def DetLatticeBC : Prop :=
     (𝒢 : GroupModel A L) (𝒢' : GroupModel A L') (e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G)
     (he : IsMonBC 𝒢 𝒢' e) (g : ℕ),
     𝒢'.detLattice g = Submodule.span (𝓞 L') (bcHodge he g '' 𝒢.detLattice g)
+
+open ExteriorAlgebra in
+/-- **BC-lat from BC-omega** (proved; the inclusion `⊇` is `span_bcHodge_le`). -/
+theorem detLatticeBC_of_omega (h : OmegaBaseChange) : DetLatticeBC := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he g
+  refine le_antisymm ?_ (span_bcHodge_le he g)
+  refine Submodule.span_le.mpr ?_
+  rintro _ ⟨v', rfl⟩
+  let F : MultilinearMap (𝓞 L') (fun _ : Fin g => 𝒢'.cotangent) (𝒢'.hodgeSpace g) :=
+    (TensorProduct.mk (𝓞 L') L' (exteriorPower (𝓞 L') g 𝒢'.cotangent) 1).compMultilinearMap
+      (exteriorPower.ιMulti (𝓞 L') g).toMultilinearMap
+  have key := multilinear_mem_span F (bcCot he '' 𝒢.omega) g (fun i => (v' i : 𝒢'.cotangent))
+    (fun i _ => h K A L L' 𝒢 𝒢' e he (v' i).2) (fun i hi => absurd i.2 (not_lt.mpr hi))
+  show F (fun i => (v' i : 𝒢'.cotangent)) ∈ _
+  refine Submodule.span_mono ?_ key
+  rintro _ ⟨w, hw, rfl⟩
+  choose u hu hwu using hw
+  refine ⟨(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g (fun i => u i),
+    Submodule.subset_span ⟨fun i => ⟨u i, hu i⟩, rfl⟩, ?_⟩
+  rw [bcHodge_tmul, map_one, bcExt_ιMulti]
+  have hw' : (fun i => bcCot he (u i)) = w := funext hwu
+  rw [hw']
+  rfl
 
 /-- **Glue BC-pts-mul.** `β : 𝒢'(ℂ)_{τ'} → 𝒢(ℂ)_σ` is multiplicative (it is induced by the
 pullback, a monoidal functor, and `e` is a homomorphism). Category theory; STANDARD. -/
@@ -1335,6 +1416,23 @@ theorem modelHeightBaseChangeGE_of_two (h1 : HodgeBCInjective) (h2 : DetLatticeB
     ptsBaseChangeBij he σ τ' hστ Λ Φ' hΦ', fun c' hc' f => ?_⟩
   rw [bcHodge_wedge he f, hc', jacDet_bcPts he σ τ' hστ Λ Φ' hΦ' f]
 
+/-- **Main result: glue H4a (`ModelHeightBaseChange`, verbatim) from four glue statements over
+the natural map**: BC-alg (`HodgeBCInjective`), BC-omega (`OmegaBaseChange`), BC-lift
+(`UniformizationLift`), BC-span (`JacobianPullbackSpan`). Proved. -/
+theorem modelHeightBaseChange_of_main (h1 : HodgeBCInjective) (hω : OmegaBaseChange)
+    (hl : UniformizationLift) (hj : JacobianPullbackSpan) : ModelHeightBaseChange :=
+  modelHeightBaseChange_of_four h1 (detLatticeBC_of_omega hω) hl hj
+
+/-- **Main result: `HodgeLineBaseChange` (verbatim) from the same four glue statements.** -/
+theorem hodgeLineBaseChange_of_main (h1 : HodgeBCInjective) (hω : OmegaBaseChange)
+    (hl : UniformizationLift) (hj : JacobianPullbackSpan) : HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_four h1 (detLatticeBC_of_omega hω) hl hj
+
+/-- **The descent half of H4a from BC-alg and BC-omega only.** -/
+theorem modelHeightBaseChangeGE_of_main (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    ModelHeightBaseChangeGE :=
+  modelHeightBaseChangeGE_of_two h1 (detLatticeBC_of_omega hω)
+
 #print axioms modelHeightBaseChange_of_descent
 #print axioms hodgeLineBaseChangeDescent_of_glue
 #print axioms modelHeightBaseChange_of_glue
@@ -1345,5 +1443,9 @@ theorem modelHeightBaseChangeGE_of_two (h1 : HodgeBCInjective) (h2 : DetLatticeB
 #print axioms modelHeightBaseChange_of_four
 #print axioms hodgeLineBaseChange_of_four
 #print axioms modelHeightBaseChangeGE_of_two
+#print axioms detLatticeBC_of_omega
+#print axioms modelHeightBaseChange_of_main
+#print axioms hodgeLineBaseChange_of_main
+#print axioms modelHeightBaseChangeGE_of_main
 
 end ZInQ.HeightBC
