@@ -299,6 +299,100 @@ theorem qmPeriodValue_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
   rw [← hHU f h hf hh]
   exact hval y P hP ιe Q hQ τ Φu hΦu hc
 
+/-! ### Step 2d: `QMComplexUnif` from a textbook leaf, uniformization glue and lattice algebra -/
+
+/-- **TEXTBOOK leaf (analytic uniformization over `ℂ`).** An abelian surface `A/ℂ` has an analytic
+uniformization `Φ : ℂ² → A(ℂ)` (`IsUniformization` at `σ = id`). Mumford, *Abelian Varieties*, §1,
+with Serre's GAGA (locators UNVERIFIED). In the build: bp-analytic's `UniformizationLeafAll` gives
+one for some `g` (`ZInQ.LeafPush2.exists_isUniformization_of_leaf`); `g = dim A = 2` is the
+missing identification. -/
+def UniformizationExistsC : Prop :=
+  ∀ A : PkgI3.AbVar ℂ, A.dim = (2 : WithBot ℕ∞) →
+    ∃ (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)),
+      IsUniformization (RingHom.id ℂ) Λ Φu
+
+/-- **GLUE (structure of a uniformization).** For an analytic uniformization `Φ : ℂ² → A(ℂ)` with
+kernel `Λ`: `Λ` is a full lattice (discrete, `ℝ`-span `ℂ²`), and endomorphisms lift to `ℂ²`: a ring
+homomorphism `ρ : End(A) → End_ℂ(ℂ²)` (the analytic representation) with `Φ(ρ(e) z) = e(Φ z)`;
+`ρ(e)` preserves `Λ`. bp-analytic proves the lifting for its form of uniformization
+(`ZInQKernel/HDecomp/Analytic/Uniformization.lean`: `IsUniformization.exists_complexLinear_endo`,
+`analyticRep_spec`, `analyticRep_mul`, `analyticRep_id`); the lattice clauses come with its leaf
+`UniformizationLeafAll`. Missing: the translation from this file's `IsUniformization` back to
+bp-analytic's (the converse of `ZInQ.LeafPush2.isUniformization_of_bp`). Size: small-medium. -/
+def UnifStructure : Prop :=
+  ∀ (A : PkgI3.AbVar ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+    (Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)), IsUniformization (RingHom.id ℂ) Λ Φu →
+    ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧
+      ∃ ρ : PkgI3.AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ),
+        (∀ e z, Φu (ρ e z) = Φu z ≫ e.hom) ∧ (∀ e, ∀ z ∈ Λ, ρ e z ∈ Λ)
+
+/-- **GLUE (lattice algebra; one textbook input, class number one).** Let `Λ ⊆ ℂ²` be a full
+lattice stable under a ring homomorphism `ρ : 𝒪 → End_ℂ(ℂ²)`. Then some `ℂ`-linear automorphism
+`F` of `ℂ²` intertwines `ρ` with N5's `ι` (`F ρ(a) = ι(a) F`) and carries `Λ` onto
+`Λ_τ = ι(𝒪)(τ, 1)ᵀ` for some `τ ∈ ℍ`.
+
+Proof sketch (model argument): `ρ` extends to `B ⊗ ℂ ≅ M₂(ℂ) → M₂(ℂ)` (via `ι ⊗ ℂ`), an
+automorphism, inner by Skolem–Noether, so `ρ = g ι g⁻¹`. `g⁻¹Λ` is a left `𝒪`-lattice of rank 4 in
+`B ⊗ ℝ`-terms, i.e. a locally free left `𝒪`-ideal; `𝒪` (maximal, in the indefinite algebra of
+discriminant 6) has class number one (Eichler's theorem; Vignéras, *Arithmétique des algèbres de
+quaternions*, Cor. III.5.7, or Voight, *Quaternion algebras*, Cor. 28.5.17; numbers UNVERIFIED), so
+`g⁻¹Λ = ι(𝒪)w`. `w` is not a complex multiple of a real vector (else `ι(𝒪)w` spans a real plane),
+so `w = c(τ, 1)ᵀ` with `τ ∉ ℝ`; scaling by `c⁻¹` commutes with `ι`; if `Im τ < 0`, the unit
+`u = 1 + i` (reduced norm `−1`) gives `ι(𝒪)v_τ = ι(𝒪)ι(u)v_τ` and `ι(u)v_τ ∝ (τ', 1)ᵀ`,
+`τ' = −(1+√2)²τ ∈ ℍ`. Statable and provable over Mathlib (Skolem–Noether is in the kernel,
+`TSkolemKW`; class number one can be proved by a Euclidean argument as mobius-glue did for the
+normalizer). Size: medium. -/
+def QMLatticeAlgebra : Prop :=
+  ∀ (Λ : Submodule ℤ (Fin 2 → ℂ)) [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    ∀ ρ : LeafQM.O →+* Module.End ℂ (Fin 2 → ℂ), (∀ a, ∀ z ∈ Λ, ρ a z ∈ Λ) →
+      ∃ (τ : ℂ) (hτ : 0 < τ.im) (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)),
+        Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
+        ∀ a z, F (ρ a z) = (qmMat a).mulVec (F z)
+
+/-- **Uniformizations transport along linear automorphisms (proved).** -/
+theorem isUniformization_comp {K : Type} [Field K] {A : PkgI3.AbVar K} {σ : K →+* ℂ} {g : ℕ}
+    {Λ : Submodule ℤ (Fin g → ℂ)} {Φu : (Fin g → ℂ) → CPts A σ}
+    (h : IsUniformization σ Λ Φu) (F : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) :
+    IsUniformization σ (Λ.map (F.toLinearMap.restrictScalars ℤ)) (fun z => Φu (F.symm z)) := by
+  obtain ⟨hadd, hker, hsurj, hopen, hhol⟩ := h
+  let G : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ) := LinearMap.toContinuousLinearMap F.symm.toLinearMap
+  have hG : ∀ z, G z = F.symm z := fun z => rfl
+  refine ⟨fun z w => ?_, fun z => ?_, fun P => ?_, fun U => ?_, fun U s => ?_⟩
+  · simp only [map_add, hadd]
+  · change Φu (F.symm z) = 1 ↔ _
+    rw [hker, Submodule.mem_map]
+    constructor
+    · intro hz
+      exact ⟨F.symm z, hz, by simp⟩
+    · rintro ⟨w, hw, rfl⟩
+      simpa using hw
+  · obtain ⟨z, rfl⟩ := hsurj P
+    exact ⟨F z, by simp⟩
+  · have : cDom (fun z => Φu (F.symm z)) U = G ⁻¹' cDom Φu U := rfl
+    rw [this]
+    exact (hopen U).preimage G.continuous
+  · have hmaps : Set.MapsTo G (cDom (fun z => Φu (F.symm z)) U) (cDom Φu U) := fun z hz => hz
+    exact (hhol U s).comp G.differentiableOn hmaps
+
+/-- **`QMComplexUnif` from the textbook uniformization leaf and two glue Props (proved).** -/
+theorem qmComplexUnif_of (hE : UniformizationExistsC) (hS : UnifStructure)
+    (hL : QMLatticeAlgebra) : QMComplexUnif := by
+  intro Q
+  obtain ⟨Λ, Φu, hΦ⟩ := hE Q.A Q.surface
+  obtain ⟨hd, hlat, ρ, hρ, hpres⟩ := hS Q.A Λ Φu hΦ
+  obtain ⟨τ, hτ, F, hF, hFρ⟩ :=
+    hL Λ hlat (ρ.comp Q.q.iota) (fun a z hz => hpres (Q.q.iota a) z hz)
+  refine ⟨τ, hτ, fun z => Φu (F.symm z), ?_, fun a z => ?_⟩
+  · rw [← hF]
+    exact isUniformization_comp hΦ F
+  · have e1 : F.symm ((qmMat a).mulVec z) = ρ (Q.q.iota a) (F.symm z) := by
+      rw [LinearEquiv.symm_apply_eq]
+      have := hFρ a (F.symm z)
+      simp only [RingHom.comp_apply, LinearEquiv.apply_symm_apply] at this
+      exact this.symm
+    change Φu (F.symm ((qmMat a).mulVec z)) = Φu (F.symm z) ≫ (Q.q.iota a).hom
+    rw [e1, hρ]
+
 /-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
@@ -378,6 +472,13 @@ theorem fibreQMPeriod_of_parts (h : R1R2fp) (hM : Pin.MobiusGlue) (hH : PkgI1.QM
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_named h hM hH hU (qmPeriodValue_of _ _ _ hPM hHU) hD hT
 
+/-- **Main result with `QMComplexUnif` split (proved).** -/
+theorem fibreQMPeriod_of_parts' (h : R1R2fp) (hM : Pin.MobiusGlue) (hH : PkgI1.QMHauptmodul)
+    (hE : UniformizationExistsC) (hS : UnifStructure) (hL : QMLatticeAlgebra)
+    (hPM : QMPeriodMap (ownY h) (ownΦ h) (ownπ h)) (hHU : HauptmodulUnique)
+    (hD : QMDenZeroCM3) (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_parts h hM hH (qmComplexUnif_of hE hS hL) hPM hHU hD hT
+
 end FibreQM
 
 end G0Split
@@ -397,3 +498,6 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep
 #print axioms HSyn.G0Split.FibreQM.qmPeriodValue_of
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts
+#print axioms HSyn.G0Split.FibreQM.isUniformization_comp
+#print axioms HSyn.G0Split.FibreQM.qmComplexUnif_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'
