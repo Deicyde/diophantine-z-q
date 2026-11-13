@@ -136,7 +136,10 @@ some `v_p(u − c)`, `c ∈ 𝒞`, is positive and odd.
 | `[K:ℚ] ≤ 324!` | GLUE-proved, given that `K` is the splitting field of a separable polynomial of degree `≤ 324` | Galois group ↪ permutations of the roots | `Numerics.splitting_degree_le` |
 
 How the proved pieces enter. Prop. TS reduces PR(i) at `p` to the three numbers
-`e_b/gcd(e_b, m_b)`, once (a)-(d) hold at `p`. For `p ∉ S` we have `p > 324`, so (a) holds
+`e_b/gcd(e_b, m_b)`, once (a)-(d) hold at `p`. (Here `(e₀, e_∞, e_{−16/27}) = (4, 6, 2)` are the
+indices of `Y₃ → P¹_j`: the orbifold orders of `Γ*` (Baba–Granath §3.1), which are indices because
+`Γ₃` is torsion-free and normal in `Γ*`; note added 2026-11-12 by loc-fix after rv-nocm §2.2.)
+For `p ∉ S` we have `p > 324`, so (a) holds
 whatever `|Γ_M| ≤ 324` is. (b) and (c) hold by M5, and (d) is Lemma NV. `inertia_orders_eq_one_iff`
 then turns the three numbers into `p ∤ M_S(u)`. So PR(i) = Prop. TS (leaf) + Lemma NV
 (blocked) + `inertia_orders_eq_one_iff` (proved).
@@ -195,8 +198,8 @@ because both have the same polarized moduli point, determined by `j = J(u) ∈ �
 | The fibre over `t(u)` is `(±iH/G³, ±540iF/G³)`: four distinct points, a free `W`-orbit, no real coordinate (so no `ℚ`-rational point; residue field `ℚ(i)`), complex conjugation acts as `w₃` | GLUE-proved (in the model) | rv-h-cm §2.4, `check.py` | `PR.fibre_iff`, `PR.fibre_free`, `PR.h₁_ne_zero`, `PR.h₂_ne_zero` |
 | (Emb): an imaginary quadratic `K` embeds in `B` iff neither 2 nor 3 splits in `K` | LEAF (L12) | Vignéras Ch. III (UNVERIFIED) | not formalized in general; the instance `K = ℚ(√−2)` is proved (`A1.no_trd_zero_nrd_two`). Splitting criteria for quaternion algebras exist in Tau Ceti (prereq-survey row A1) |
 | `ℚ(x) = H_R ⊇ K` if `D(R) ≠ 1`; `[H_R:ℚ(x)] = 2` if `D(R) = 1` | LEAF (L13) | González–Rotger, J. Math. Soc. Japan 58 (2006), Thm 5.12 (numbering of arXiv:math/0612732 VERIFIED by rv-h-cm; journal UNVERIFIED) | not statable |
-| `#CM(R) = h(R)` for `(f,6) = 1` | LEAF (L14) | González–Rotger, Prop. 5.6 | not statable |
-| The case split (`|W·x| = 4 > 2 = #CM(R)`; `K = ℚ(i)`, `h = 1`, `R = ℤ[i]` forces `F(u) = 0`) | GLUE-blocked (trivial once the leaves are stated) | rv-h-cm §7.2 | not statable |
+| `#CM(R) = 2^{b(R)} h(R)` for `(f,6) = 1` and neither 2 nor 3 split in `k`, `b(R) = #{p \| 6 inert in k}`; on `X₆ = X₀(6,1)`; used only for `b(R) = 0` (corrected 2026-11-12 by loc-fix, rv-nocm §3.1: the former "`#CM(R) = h(R)` for `(f,6) = 1`" is false, e.g. `ℤ[i]` has `h = 1` and two CM points) | LEAF (L14) | González–Rotger, Prop. 5.6 | not statable |
+| The case split (`|W·x| = 4 > 2 = #CM(R)`; `K = ℚ(i)`, `h = 1`, `R = ℤ[i]` forces `F(u) = 0`). Added 2026-11-12 by loc-fix (rv-nocm §1.1, §3.1): after "`R = ℤ[i]`", `CM(ℤ[i])` has `2^1·1 = 2` points (GR Prop. 5.6); the two points of `X₆` over `t = 1` are `ℤ[i]`-CM points (h-b1 M9), so `CM(ℤ[i])` is the fibre over `t = 1`; then `x` lies over `t = 1`, i.e. `F(u) = 0`, which is excluded. In the case `D(R) = 1` the count is `#CM(R) = h(R)` because `b(R) = 0` | GLUE-blocked (trivial once the leaves are stated) | rv-h-cm §7.2 | not statable |
 
 ## 2. Lean: what compiles
 
@@ -231,7 +234,7 @@ Lean today over genuine Mathlib definitions.
 | # | Leaf | Used in | Statable? |
 | --- | --- | --- | --- |
 | L1 | Deligne 1979 §2.7, §5: Hecke operators of `N` act on the canonical model `Sh_{K₃}` over the reflex field `ℚ` | A3(c), M1 | no (Shimura varieties) |
-| L2 | Baba–Granath, Canad. J. Math. 60 (2008), §2-3; Lin–Yang 2020 Ex. 30: `X₆/W ≅ P¹_j`, branch values `0, ∞, −16/27` of indices 4, 6, 2 at CM discriminants −4, −3, −24; `W ≅ (ℤ/2)²` | A3, A5 (M4, M10, NV), A10 | no |
+| L2 | Baba–Granath, Canad. J. Math. 60 (2008), §2-3 (Thm 2.1, Lemma 3.1, §3.1 elliptic-order table p. 740 per locators.md); Lin–Yang 2020, arXiv v1 Example 29 (discriminant 6): `X₆/W ≅ P¹_j`, elliptic points `0, ∞, −16/27` of orbifold orders 4, 6, 2 (indices of `Y₃ → P¹_j`; the map `X₆ → X₆/W` has indices 2, 2, 2) at CM discriminants −4, −3, −24; `W ≅ (ℤ/2)²`. Corrected 2026-11-12 by loc-fix: the row read "Ex. 30" (v1's Example 30 is discriminant 14; locators.md item 3) and "branch values … of indices 4, 6, 2" (rv-nocm §3.2: the indices `4, 6, 2` of `Y₃ → P¹_j` are glue, from the orbifold orders and the torsion-freeness and normality of `Γ₃` in `Γ*`, `RvNocm.ramification_eq_orbifold_order`) | A3, A5 (M4, M10, NV), A10 | no |
 | L3 | Vignéras, LNM 800, Ch. II: normalizers of maximal orders in local quaternion algebras | A3(a) | yes; and elementary (GLUE-open) |
 | L4 | Prop. TS = Beckmann 1991 Prop. 4.2 in the case of rational branch points; or SGA 1 X 3.1 + XIII 5.3 via h-b1 §1.2 | A5 | yes in principle (function fields, Dedekind ramification); no draft |
 | L5 | Shimura reciprocity for CM points on the canonical model: `σ_s[τ,1] = [τ, r(s)]` (Shimura 1967; Deligne 1971 §3) | A5 (NV), A10 (constants) | no |
@@ -243,7 +246,7 @@ Lean today over genuine Mathlib definitions.
 | L11 | The `W`-action on `X⁶` over `ℚ` (González–Rotger §5) and Elkies 1998 §3 (cross-check) | A10 | no |
 | L12 | Vignéras Ch. III: embedding criterion for quadratic fields into `B` | A10 | partly (Tau Ceti splitting criteria) |
 | L13 | González–Rotger 2006 Thm 5.12 | A10 | no |
-| L14 | González–Rotger 2006 Prop. 5.6 (for `(f,6) = 1`) | A10 | no |
+| L14 | González–Rotger 2006 Prop. 5.6: `#CM(R) = 2^{b(R)} h(R)` for `(f,6) = 1` and neither 2 nor 3 split in `k`, `b(R) = #{p \| 6 inert in k}`; on `X₆ = X₀(6,1)`; used only for `b(R) = 0` (count added 2026-11-12 by loc-fix, rv-nocm §3.1) | A10 | no |
 
 ## 4. Verdict and next steps
 
