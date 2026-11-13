@@ -304,8 +304,10 @@ theorem det_yv_Ne {K : Type*} [Field K] [CharZero K] (e1 e2 e3 : K) :
 /-- Syntheme class 1: `D = (-1 : K) * l + m * n`, involution with centre `p = 0`, `k = l`. -/
 def D1 {K : Type*} [Field K] (l m n : K) : K := (-1 : K) * l + m * n
 
+set_option linter.unusedVariables false in
 def P1 {K : Type*} [Field K] (l m n : K) : K := 0
 
+set_option linter.unusedVariables false in
 def K1 {K : Type*} [Field K] (l m n : K) : K := l
 
 theorem cls1_odd1 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K1 l m n)
@@ -329,8 +331,10 @@ theorem cls1_odd5 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K1 l m n)
 /-- Syntheme class 2: `D = l + m * n + (-1 : K) * m + (-1 : K) * n`, involution with centre `p = (1 : K)`, `k = (-1 : K) * l + (1 : K)`. -/
 def D2 {K : Type*} [Field K] (l m n : K) : K := l + m * n + (-1 : K) * m + (-1 : K) * n
 
+set_option linter.unusedVariables false in
 def P2 {K : Type*} [Field K] (l m n : K) : K := (1 : K)
 
+set_option linter.unusedVariables false in
 def K2 {K : Type*} [Field K] (l m n : K) : K := (-1 : K) * l + (1 : K)
 
 theorem cls2_odd1 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K2 l m n)
@@ -354,8 +358,10 @@ theorem cls2_odd5 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K2 l m n)
 /-- Syntheme class 3: `D = (-1 : K) * l * m + (-1 : K) * l * n + l + m * n`, involution with centre `p = l`, `k = l ^ 2 + (-1 : K) * l`. -/
 def D3 {K : Type*} [Field K] (l m n : K) : K := (-1 : K) * l * m + (-1 : K) * l * n + l + m * n
 
+set_option linter.unusedVariables false in
 def P3 {K : Type*} [Field K] (l m n : K) : K := l
 
+set_option linter.unusedVariables false in
 def K3 {K : Type*} [Field K] (l m n : K) : K := l ^ 2 + (-1 : K) * l
 
 theorem cls3_odd1 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K3 l m n)
@@ -379,8 +385,10 @@ theorem cls3_odd5 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K3 l m n)
 /-- Syntheme class 4: `D = l * m + (-1 : K) * l * n + (-1 : K) * l + n`, involution with centre `p = l`, `k = l ^ 2 + (-1 : K) * l * m`. -/
 def D4 {K : Type*} [Field K] (l m n : K) : K := l * m + (-1 : K) * l * n + (-1 : K) * l + n
 
+set_option linter.unusedVariables false in
 def P4 {K : Type*} [Field K] (l m n : K) : K := l
 
+set_option linter.unusedVariables false in
 def K4 {K : Type*} [Field K] (l m n : K) : K := l ^ 2 + (-1 : K) * l * m
 
 theorem cls4_odd1 {K : Type*} [Field K] (l m n s : K) (hs : s ^ 2 = K4 l m n)

@@ -23,12 +23,12 @@ No `sorry`, no `axiom`.
 namespace T28Special
 open PkgI1
 
-variable {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
-
-theorem Eqv.det_yv {f g : Fin 7 → K} (h : Eqv f g) (hf : (Matrix.of (yv f)).det = 0) :
+theorem Eqv.det_yv {K : Type*} [Field K] [CharZero K] {f g : Fin 7 → K} (h : Eqv f g) (hf : (Matrix.of (yv f)).det = 0) :
     (Matrix.of (yv g)).det = 0 := by
   obtain ⟨a, b, c, d, e, hd, -, rfl⟩ := h
   rw [T28.det_yv_actC f a b c d e hd, hf, mul_zero]
+
+variable {K : Type*} [Field K] [CharZero K] [IsAlgClosed K]
 
 /-- **Bolza's criterion**: a sextic with `J₁₀ ≠ 0` on the special locus `det yv = 0` is equivalent
 to some `x⁶ + a x⁴ + b x² + 1`. -/
