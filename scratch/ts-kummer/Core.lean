@@ -2649,6 +2649,62 @@ theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E
     calc (minpoly (RatFunc ℚ) (ι θ)).natDegree ≤ (m.map κ).natDegree :=
           natDegree_le_of_dvd (minpoly.dvd _ _ hroot) hmon.ne_zero
       _ = m.natDegree := natDegree_map κ
+  -- the integral closure `C` of `O` in `E'` and a prime `𝔐` of `C` over `N'`
+  letI iOE : Algebra O (KSyn D) := gO.toAlgebra
+  letI iOD : Algebra O D := iO.toAlgebra
+  haveI : IsScalarTower O D (KSyn D) := IsScalarTower.of_algebraMap_eq' rfl
+  haveI : Algebra.IsIntegral O D := ⟨hint⟩
+  let jD : D →ₐ[O] integralClosure O (KSyn D) :=
+    (IsScalarTower.toAlgHom O D (KSyn D)).codRestrict (integralClosure O (KSyn D))
+      (fun d => (Algebra.IsIntegral.isIntegral (R := O) d).map (IsScalarTower.toAlgHom O D (KSyn D)))
+  have hjD : Function.Injective jD := by
+    intro x y h
+    exact IsFractionRing.injective D (KSyn D) (congrArg Subtype.val h)
+  letI iDC : Algebra D (integralClosure O (KSyn D)) := jD.toRingHom.toAlgebra
+  haveI : IsScalarTower O D (integralClosure O (KSyn D)) :=
+    IsScalarTower.of_algebraMap_eq (fun o => (jD.commutes o).symm)
+  haveI : Algebra.IsIntegral D (integralClosure O (KSyn D)) :=
+    Algebra.IsIntegral.tower_top O
+  have hkerD : (⊥ : Ideal (integralClosure O (KSyn D))).under D ≤ N' := by
+    intro x hx
+    have : jD x = 0 := hx
+    rw [hjD (this.trans (map_zero jD).symm)]
+    exact N'.zero_mem
+  obtain ⟨𝔐, -, h𝔐p, h𝔐⟩ := Ideal.exists_ideal_over_prime_of_isIntegral (S := integralClosure O (KSyn D)) N' ⊥ hkerD
+  have hmem𝔐 : ∀ d : D, jD d ∈ 𝔐 ↔ d ∈ N' := by
+    intro d
+    rw [← h𝔐]
+    rfl
+  -- `B' ⊆ C`
+  let sO : ℚ[X] →+* O := algebraMap SrcPoly O
+  have hintB' : ∀ x : KSyn D, IsIntegral ℚ[X] x → IsIntegral O x := by
+    intro x ⟨p, hp, hpx⟩
+    refine ⟨p.map sO, hp.map _, ?_⟩
+    rw [eval₂_map]
+    have : (algebraMap O (KSyn D)).comp sO = algebraMap ℚ[X] (KSyn D) :=
+      RingHom.ext fun a => (hPS a).symm
+    rw [this]; exact hpx
+  let jB : integralClosure ℚ[X] (KSyn D) →+* integralClosure O (KSyn D) :=
+    { toFun := fun x => ⟨x.1, hintB' x.1 x.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hjBalg : ∀ a : ℚ[X], jB (algebraMap ℚ[X] _ a) =
+      jD (iO (algebraMap SrcPoly O a)) := by
+    intro a
+    apply Subtype.ext
+    change algebraMap ℚ[X] (KSyn D) a = gO (algebraMap SrcPoly O a)
+    exact hPS a
+  set 𝔓' := 𝔐.comap jB with h𝔓'_def
+  haveI : 𝔓'.IsPrime := Ideal.IsPrime.comap jB
+  have hunder : 𝔓'.under ℚ[X] = Ideal.span {X - C s₀} := by
+    ext a
+    change jB (algebraMap ℚ[X] _ a) ∈ 𝔐 ↔ _
+    rw [hjBalg, hmem𝔐, ← Ideal.mem_comap, hN'O]
+    change algebraMap SrcPoly O (toSrc a) ∈ maximalIdeal O ↔ _
+    rw [IsLocalization.AtPrime.to_map_mem_maximal_iff O p0]
+    rfl
   sorry
 
 
