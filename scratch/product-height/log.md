@@ -34,3 +34,14 @@
   `DifferentiableOn.comp` term, a namespace rename (`recoordM`) and an explicit `@hA` for the
   `IsMonHom` instances across `recoordM`. Final: 0 errors, 18/18 `#print axioms` standard
   (VERIFIED). Docstrings of §1, §4 and the header corrected (no AN3 claim).
+- Second model-review pass (same agent, on §6): `ProductUnifSplits` and
+  `ProductMetrizationOfProductUnif` true as formalized for every `g` (incl. `g = 0`), non-vacuous,
+  no AN3 hidden; `gᵢ(τ) = dᵢ` derivable in S-alg from `finrank_eq_one` + block Jacobian; the
+  nonzero-wedge fact is algebraic. Nits (Zariski-closedness wording, two omitted ingredients in
+  S-an, finrank/cotangent splitting in S-alg) applied to the docstrings.
+- **Integration check** (`build_integrated.sh`): `LeavesIntegrated.lean` = `scratch/h-decomposition/
+  Leaves.lean` + §1-§6 (no §0 copy, `open PkgI3 (AbVar)` dropped) + an `example` closing
+  Leaves.lean's `ZInQ.H5Neron.ProductModelHeight` (the type of `GluePieces.productModelHeight`,
+  Leaves.lean l.33739) by `productModelHeight_of_splits hS hA`. `lake env lean`: 0 errors,
+  8 min 29 s; `productModelHeight_of_splits`, `productModelHeight_of_geo` standard axioms only
+  (VERIFIED). The generated 34k-line file is not committed (regenerate with the script).

@@ -526,10 +526,14 @@ An independent model review (log) pointed out that the splitting needed by route
 product's own uniformization, so neither half of AN3 is needed (the author re-checked each
 step). Let `Φ` uniformize
 `𝒢P(ℂ)_τ = 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` with full discrete kernel `Λ`, and let `Kᵢ = ker(pᵢ ∘ Φ)`.
-- `K₁` is closed: `p₁ x = 1` is a Zariski-closed condition, and clause 4 makes `Φ` continuous
-  for the Zariski opens.
+- `K₁` is closed: the complement `U` of the closure of `p₁⁻¹(unit section)` is Zariski open, and
+  among the `τ`-points only those with `p₁ x = 1` meet that closure (the unit section of the
+  separated `𝒢₁` is a closed immersion, and `Spec ℂ → Spec 𝓞_L` over `τ` is unique); so
+  `{z | p₁Φ(z) ≠ 1} = dom Φ U` is open (clause 4).
 - The identity component `W₂` of `K₁` is a real subspace (closed subgroups of `ℝ^{2g}`), and it
-  is complex: `t ↦ f(p₁ Φ(t w))` is holomorphic (clause 5) and constant on `ℝ`.
+  is complex: `t ↦ f(p₁ Φ(t w))` is holomorphic (clause 5) and constant on `ℝ`, hence constant
+  near `0`; a `τ`-point of an affine open is determined by its function values, so `t w ∈ K₁`
+  for small complex `t`, and `ℂ w ⊆ W₂`.
 - `K₁ + K₂ = ℂ^g` (surjectivity), so `W₁ + W₂ = ℂ^g` (Baire). `W₁ ∩ W₂ ⊆ Λ` is discrete, hence
   `0`.
 - So `Φ` restricted to `Wᵢ` gives uniformizations `Φᵢ` of the factors, and `Φ ∘ T = Φ₁ × Φ₂` for
@@ -595,8 +599,9 @@ discrete lattices `Λᵢ ⊂ ℂ^{gᵢ}`, analytic uniformizations `Φᵢ` of `�
 
 Why true (STANDARD, argued in the section header; no uniformization theorem is used). The
 ingredients are the structure of closed subgroups of `ℝⁿ` (Bourbaki, *Topologie générale* VII §1,
-UNVERIFIED), the identity theorem in one complex variable, Baire's theorem, and the
-compatibility of `evalAt` with the projections. Then `Φᵢ = pᵢ ∘ Φ|_{Wᵢ}` with
+UNVERIFIED; small elements of a closed subgroup lie in its identity component), the identity
+theorem in one complex variable, Baire's theorem, the fact that a `τ`-point of an affine open is
+determined by its function values, and the compatibility of `evalAt` with the projections. Then `Φᵢ = pᵢ ∘ Φ|_{Wᵢ}` with
 `Wᵢ = ker(p_{3-i} ∘ Φ)⁰`, `Λᵢ = Λ ∩ Wᵢ`. Unproved. -/
 def ProductUnifSplits : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
@@ -619,8 +624,10 @@ uniformizations `Φᵢ` of the factors. Then the factors have metrizations `M₁
 `h(M₁) + h(M₂) ≤ h(MP)`.
 
 Why true (STANDARD; mirror image of `ProductMetrizationGeo`).
-- `gᵢ(τ) = dim 𝒢ᵢ`: the Jacobian of `Φ₁ × Φ₂` at `0` on `p₁*f ∧ p₂*h` is block diagonal and
-  nonsingular, because `coeff ≠ 0`.
+- `gᵢ(τ) = dim 𝒢ᵢ`: `MP.hodge.finrank_eq_one` gives `g ∈ {0, d₁ + d₂}` (if `g = 0`, the factors'
+  complex points are trivial and `dᵢ = 0`); otherwise, with the algebraic splitting
+  `cotangent_P = cotangent₁ ⊕ cotangent₂`, the wedge of `p₁*f, p₂*h` (bases) is nonzero, so
+  `coeff ≠ 0` makes the block-shaped Jacobian of `Φ₁ × Φ₂` at `0` nonsingular.
 - `ω_{MP} = ω₁ ⊕ ω₂` and `⋀^{top}ω_{MP} = ⋀ω₁ ⊗ ⋀ω₂`.
 - `jacDet Φᵢ` descends to a semilinear map on `⋀^{gᵢ}`.
 - Indices, coefficients and covolumes multiply (`modelHeight_add_of`); equality holds.
