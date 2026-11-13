@@ -64,3 +64,11 @@
 - Proved: `galoisG2Out_of_g7Data` (their G2Out for `K = L'` from G7Data's B3(v) clause and
   `ResQRange`; `PkgI4.LiesOver` and `GlueB3Unram.LiesOver` agree by defeq).
 - VERIFIED: 0 errors; axioms standard.
+
+## run22 (02:21): ResQRange attempt (abandoned)
+- Tried a Mathlib-only proof of `ResQRange` (`absoluteGaloisGroup.map` unfolds to
+  `restrictNormalHom ∘ restrictScalarsHom` with local instances `(algebraMap ℚ K).toAlgebra` and
+  `IsAlgClosed.lift`); first compile hit instance mismatches between the intermediate-field
+  `Algebra ℚ L'` and `map`'s local one. Proof outline (true): `g : ℚ̄ → \bar L'` maps `L'` onto the
+  image of `L'` (normality, `AlgHom.fieldRange_of_normal`), so `resQ σ` fixes `L'`; conversely lift
+  `τ ∈ Fix(L')` by `AlgEquiv.restrictNormalHom_surjective`. Left as the named Prop; file removed.
