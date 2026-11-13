@@ -4,8 +4,8 @@ Task rv-gluepieces2, 2026-11-13.
 - **Object:** `structure HSyn.GluePieces2` in `scratch/g0-assemble/G0Assemble.lean` (L41938-41998;
   docs/research/g0-assemble.md §2). G0Assemble.lean was not edited.
 - **Scratch:** `scratch/rv-gluepieces2/`. It holds the results log `log.md`; the Lean checks
-  `checks/c1…c9`, compiled over an olean of the post-pin-apply `Leaves.lean` (`olean/*_out.txt` are
-  the compiler outputs); the four per-area review notes `review-{misc,height,galois,newform}.md`; and
+  `checks/c1…c11` and `final/c12_bundle.lean`, compiled over an olean of the post-pin-apply
+  `Leaves.lean` (`olean/*_out.txt` are the compiler outputs); the standalone `Burnside.lean`; the four per-area review notes `review-{misc,height,galois,newform}.md`; and
   the scripts `build_prefix.sh`, `assemble.sh`, `ctail.sh`, `gen_at.py`.
 
 Marks: **VERIFIED** = compiled with Lean here, or read and diffed in a file. **STANDARD** = published,
@@ -64,7 +64,8 @@ repository, and it is checked here in Lean.**
    5 `analyticUniformizationUnique` and 7 `metrizationExists`. Both are TRUE, but they are
    classified wrongly.
 5. **Lean status on G0Assemble's own constants** (VERIFIED, standard axioms, no `sorry`).
-   - **Proved outright:** 3, 6, 14, 15 (`BurnsideAbsIrred`, claimed as a leaf, proved here from Mathlib), 24, 25, 26. Field 22 follows from the bundle leaf `t17`.
+   - **Proved outright:** 3, 6, 14, 15, 24, 25 and 26. Field 15 (`BurnsideAbsIrred`) was claimed as
+     a leaf; it is proved here from Mathlib. Field 22 follows from the bundle leaf `t17`.
    - **Reduced:** 7, 8, 9, 12, 17, 19 and 20 to the named Props of the wave-27 tasks. Field 18 is
      reduced to `ConjTwistNontrivial`: g10-odd's reduction applies to g0-assemble's changed
      statement.
@@ -177,7 +178,8 @@ the conclusion `RationalFibre` along `Y₀ → Y`. Both morphisms come from pin-
 ## 3. Recommendations (repairs)
 
 1. **Regenerate G0Assemble.lean from the current `scratch/h-decomposition/Leaves.lean`**, using
-   `scratch/rv-gluepieces2/parts/` (only 40_fibresimple differs). Two options:
+   `scratch/rv-gluepieces2/parts/` (only 40_fibresimple differs). The simplest drop-in is
+   `HSyn.GluePieces3` (`final/c12_bundle.lean`, §0.6). Two options:
    - add `Pin.MobiusGlue` to `GluePieces2`; or
    - restate fields 4, 10, 12, 13, 27 and 28 in their `…At` or ∃-form, in the style of pin-apply's
      `GluePiecesPin`.
