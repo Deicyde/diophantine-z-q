@@ -1,0 +1,17 @@
+'LeafQM.AV.Pin.r1fpPin_relabel_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r1fpPin_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.r2fp_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTriple_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.relabel_geometric' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.phi_part' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.transfer_pointwise_mor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.sameTripleMor_of_mobius' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.pointwise_of_witness_mor' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.cm_objects_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	1m49.015s
+user	0m7.329s
+sys	0m7.324s
