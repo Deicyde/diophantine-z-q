@@ -32,3 +32,19 @@ Targets (namespace `HSyn.G0Split.FibreQM.PeriodMap`): `S8Nonzero` (scratch/perio
   `re_Z0`, `re_Z1`, `thetaSum8_s2I`, `s8Nonzero_proof`.
 - py/nonzero_num.py (nonzero_num_out.txt): splitting VERIFIED to 1e-15 for all 10 chars; F1 = −11.646, F2 = 2.9115,
   F1·F2 = S = −33.9079; Re Z_b⁸ = −1.941; T⁸ = −7.764; P₀ = Q·e^{iπ/4} = 0.91358, P₁ = 1.08643.
+
+## S8WeightExact: findings
+- Modular embedding (VERIFIED numerically, py/weight_check.py, 48 cases): for x = r·w·u (w ∈ {1, i, j+ij, μ}, u ∈ 𝒪^×)
+  and z = r⁻¹w⁻¹, the matrix N of b ↦ z b x in the symplectic basis sB = (1, i, f₀, f₁) of 𝒪 is integral, NᵀGN = G
+  (G = [[0,I],[−I,0]] = Gram of E(a,b) = Trd(μ⁻¹ab̄)), Ω(γτ) = spAct(Nᵀ, Ω(τ)) to 1e-14, and
+  det(CΩ+D) = j(γ,τ)²·nrd(z)·dF(γτ)/dF(τ).
+- E(w⁻¹aw, w⁻¹bw) = σ_w E(a,b) with σ = 1, −1, −1, 1 (w = 1, i, j+ij, μ; nrd w = 1, −2, −3, 6); E(au, bu) = nrd(u)E(a,b).
+  Positivity of nrd(x) forces nrd(u)σ_w = 1. VERIFIED (Lean identities `Bf_conj_*`, `Bf_mul_right`).
+- Reduction used: `NormalizerDecomp` (every normalizer element is r·w·u) — published structure of N(𝒪)/ℚ^×𝒪^×.
+
+## S8WeightExact: Lean (part_weight.lean; DevWeight.lean)
+- DevWeight iterations 1-6 (errors: denom shape in field_simp, `SymplecticGroup.mem_iff` namespace, sums needing
+  `Fin.sum_univ_two` before ring, `Omega` unfolded in `spAct_of_blocks` output (fixed by naming Ω, Ω'), norm_num closing
+  goals early). Final: 0 errors, `s8WeightExact_of : ThetaModularity → NormalizerDecomp → S8WeightExact`, axioms standard.
+- run_full2 (build.sh: PNFull = period-map light files verbatim + part_nonzero + part_weight): 0 errors, 21s, all axioms
+  lines standard. VERIFIED.
