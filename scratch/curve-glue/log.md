@@ -71,3 +71,9 @@
   `ratFactorAlgClosed_of_closed` compiled, standard axioms (VERIFIED, `run_C3K.txt`).
 - `py/assemble.py` regenerates CurveGlueAll/MobiusEnd/MobiusFinal; all three recompiled, 0 errors (VERIFIED).
   New: `curveFacts_of_glue'`, `curveFacts_of_L0_G1'`, `mobiusGlue_of_L0_G1'_T5`, `mobiusGlueNoCM_of_L0_G1'_T5`.
+
+## 10. Second independent model check (fresh agent, Lean files only)
+- `FiniteGlobalSections`: TRUE, not vacuous (RingHom.Finite = Module.Finite for the K-structure through f; empty W;
+  properness alone suffices; clopen needed: 𝔸¹ ⊂ P¹ fails for merely open W).
+- `ImagePlaneCurveClosed`: TRUE, not vacuous (S = {P} works; S = ∅ would force the image to be all of K², so the
+  clause is a real constraint; cases ρ ≡ c, ρ ≡ ∞, σ = ∞ checked).

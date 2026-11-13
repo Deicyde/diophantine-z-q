@@ -261,8 +261,12 @@ report's arguments, and asked for counterexamples.
   - It checked the cases `ρ ≡ ∞`, `ρ ≡ b` (`P = y − b`) and `ρ` nonconstant.
   - It checked the variable order in `evalXY` and the `y`-leading coefficient.
   - Spot checks: `ρ = 1/σ` gives `P = xy − 1`; Frobenius gives `P = y^p − x`.
-- **Not reviewed by it:** (L0) and (G1') were introduced afterwards. (G1') differs from (G1) only
-  in (b'') replacing (b), and (b'') is the image-closedness half of the argument for (b).
+- **A second fresh agent** (same instructions) checked (L0) and (G1').
+  - `FiniteGlobalSections`: TRUE, not vacuous. `RingHom.Finite` is `Module.Finite` for the
+    `K`-structure through `f`; empty `W` is fine; properness alone suffices. Clopenness is needed:
+    for a merely open `W`, `𝔸¹ ⊂ P¹` fails.
+  - `ImagePlaneCurveClosed`: TRUE, not vacuous. `S = {P}` works. `S = ∅` would force the image to
+    be all of `K²`, so (b'') is a real constraint.
 
 ## 7. Files and verification
 

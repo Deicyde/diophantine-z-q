@@ -24,8 +24,8 @@ proved, by infra-smooth-dim, whose branch was merged and whose proof is copied v
 - **Statements.** No statement was changed. Copies are byte-identical (`py/verbatim.py`); the one
   exception is a single destructuring line in mobius-glue's proof, adapted to the kernel's
   `R1fpProps` clause order.
-- **Independent model check.** It found (L) and (G1) TRUE and not vacuous. (L0) and (G1') came
-  later and were not checked by it.
+- **Independent model checks** (two fresh agents) found (L), (G1), (L0) and (G1') TRUE and not
+  vacuous.
 
 **Compiles** (0 errors, axioms `[propext, Classical.choice, Quot.sound]`): `CMPoints.lean`,
 `C2K.lean`, `C3K.lean`, `L0.lean`, `CurveGlueAll.lean`, `MobiusEnd.lean`, `MobiusFinal.lean`.
