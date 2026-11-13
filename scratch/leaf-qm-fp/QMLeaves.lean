@@ -424,6 +424,64 @@ theorem com_twist (q : QMStr A) (α : O ≃+* O) : com (q.twist α) = com q := b
   · intro h a
     exact h (α a)
 
+
+/-- Conjugation by an isomorphism of QM pairs, `End(A) → End(A')`, `g ↦ ψ ∘ g ∘ φ⁻¹`-style
+(`g ↦ f.ψ ≫ g ≫ f.φ`), a ring homomorphism carrying `ι` to `ι'`. -/
+def conjHom {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') :
+    AbVar.End A →+* AbVar.End A' where
+  toFun g := AbVar.Hom.mk' (f.ψ.hom ≫ g.hom ≫ f.φ.hom)
+  map_one' := by
+    apply AbVar.Hom.ext'
+    change f.ψ.hom ≫ 𝟙 _ ≫ f.φ.hom = 𝟙 _
+    rw [Category.id_comp, f.right]
+  map_mul' g h := by
+    apply AbVar.Hom.ext'
+    change f.ψ.hom ≫ (h.hom ≫ g.hom) ≫ f.φ.hom =
+      (f.ψ.hom ≫ h.hom ≫ f.φ.hom) ≫ (f.ψ.hom ≫ g.hom ≫ f.φ.hom)
+    simp only [Category.assoc, reassoc_of% f.left]
+  map_zero' := by
+    apply AbVar.Hom.ext'
+    change f.ψ.hom ≫ (1 : A.X ⟶ A.X) ≫ f.φ.hom = 1
+    rw [MonObj.one_comp, MonObj.comp_one]
+  map_add' g h := by
+    apply AbVar.Hom.ext'
+    change f.ψ.hom ≫ (g.hom * h.hom) ≫ f.φ.hom =
+      (f.ψ.hom ≫ g.hom ≫ f.φ.hom) * (f.ψ.hom ≫ h.hom ≫ f.φ.hom)
+    rw [MonObj.mul_comp, MonObj.comp_mul]
+
+theorem conjHom_iota {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') (a : O) :
+    conjHom f (q.iota a) = q'.iota a := by
+  apply AbVar.Hom.ext'
+  change f.ψ.hom ≫ (q.iota a).hom ≫ f.φ.hom = (q'.iota a).hom
+  rw [f.equivariant a, reassoc_of% f.right]
+
+theorem conjHom_mem_com {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q')
+    {φ : AbVar.End A} (hφ : φ ∈ com q) : conjHom f φ ∈ com q' := by
+  rw [com, Subring.mem_centralizer_iff] at hφ ⊢
+  rintro _ ⟨a, rfl⟩
+  rw [← conjHom_iota f a, ← map_mul, ← map_mul, hφ _ ⟨a, rfl⟩]
+
+/-- The CM predicates are invariant under isomorphisms of QM pairs. -/
+theorem HasCM4.of_iso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') :
+    HasCM4 q → HasCM4 q' := fun ⟨φ, hφ, h⟩ =>
+  ⟨conjHom f φ, conjHom_mem_com f hφ, by rw [← map_mul, h, map_neg, map_one]⟩
+
+theorem HasCM3.of_iso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') :
+    HasCM3 q → HasCM3 q' := fun ⟨φ, hφ, h⟩ =>
+  ⟨conjHom f φ, conjHom_mem_com f hφ, by
+    rw [← map_mul, ← map_sub, ← map_one (conjHom f), ← map_add, h, map_zero]⟩
+
+theorem HasCM24.of_iso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q') :
+    HasCM24 q → HasCM24 q' := fun ⟨φ, hφ, h⟩ =>
+  ⟨conjHom f φ, conjHom_mem_com f hφ, by rw [← map_mul, h, map_neg, map_ofNat]⟩
+
+theorem hasCM4_twist {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
+    HasCM4 (q.twist α) ↔ HasCM4 q := by simp only [HasCM4, com_twist]
+theorem hasCM3_twist {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
+    HasCM3 (q.twist α) ↔ HasCM3 q := by simp only [HasCM3, com_twist]
+theorem hasCM24_twist {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
+    HasCM24 (q.twist α) ↔ HasCM24 q := by simp only [HasCM24, com_twist]
+
 end CM
 
 /-! ## §5 Base change as a relation, and fields of moduli
@@ -627,6 +685,27 @@ def CMExists (X : Over (Spec (CommRingCat.of ℚ)))
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM4 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM24 P.q)
+
+/-- **Glue (compiled), h-b1 M9 on `X₆`**: every `ℚ̄`-point of `X₆` over `0` (resp. `∞`,
+`−16/27`) has CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`), from the fibre clause, the existence of
+one such CM point, and the invariance of the CM predicates under twists and isomorphisms. -/
+theorem cm_of_val {X : Over (Spec (CommRingCat.of ℚ))}
+    {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)} {π₆ : ToP1 X.left}
+    (h2 : R2X6Props X Ψ π₆) (hE : CMExists X Ψ) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar)
+    (hP : Ψ x = Quotient.mk _ P) :
+    (π₆.val (K := Qbar) x.left = OnePoint.some 0 → HasCM4 P.q) ∧
+    (π₆.val (K := Qbar) x.left = OnePoint.infty → HasCM3 P.q) ∧
+    (π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27) → HasCM24 P.q) := by
+  obtain ⟨⟨x₄, P₄, h₄, c₄⟩, ⟨x₃, P₃, h₃, c₃⟩, ⟨x₂, P₂, h₂, c₂⟩⟩ := hE
+  refine ⟨fun hx => ?_, fun hx => ?_, fun hx => ?_⟩
+  · obtain ⟨α, ⟨g⟩⟩ := ((h2 x₄ x P₄ P h₄ hP).1).1 (((h2 x₄ x₄ P₄ P₄ h₄ h₄).2.1 c₄).trans hx.symm)
+    exact HasCM4.of_iso g ((hasCM4_twist P₄.q α).2 c₄)
+  · obtain ⟨α, ⟨g⟩⟩ := ((h2 x₃ x P₃ P h₃ hP).1).1
+      (((h2 x₃ x₃ P₃ P₃ h₃ h₃).2.2.1 c₃).trans hx.symm)
+    exact HasCM3.of_iso g ((hasCM3_twist P₃.q α).2 c₃)
+  · obtain ⟨α, ⟨g⟩⟩ := ((h2 x₂ x P₂ P h₂ hP).1).1
+      (((h2 x₂ x₂ P₂ P₂ h₂ h₂).2.2.2 c₂).trans hx.symm)
+    exact HasCM24.of_iso g ((hasCM24_twist P₂.q α).2 c₂)
 
 /-- **Glue (compiled): R2 on `Y₃` from R2 on `X₆`** through the forgetful morphism. -/
 theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
@@ -889,3 +968,5 @@ end LeafQM
 #print axioms LeafQM.AV.conj_twist_of_rational
 #print axioms LeafQM.AV.R1R2fp_Y
 #print axioms LeafQM.AV.conj_iso_of_rational
+#print axioms LeafQM.AV.cm_of_val
+#print axioms LeafQM.AV.HasCM3.of_iso
