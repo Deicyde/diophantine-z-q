@@ -68,3 +68,12 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
   `genusPackage_of_cm`, `tyzThm35ReadingA_of_cm`; axioms of the latter: standard three (VERIFIED).
 - Finding (from rv-pn-encoding, VERIFIED there against the source): "Lemma 3.21 holds for any choice
   of Φ₀ (L2547–2554)"; g(n) = #Φ₀ = #2Cl_n. So leaving Φ existential is faithful.
+
+## 08:45 §9 literal Lemma 3.18 (Package.lean builds)
+- Merged origin/main (STATUS.md only) and x0-32 again (X0.lean grew: `X0.IsTorsI3`,
+  `X0.two_nsmul_add_iPt_eq_zero_iff`, `X0.toC` via unnormalized `embC = IsAlgClosed.lift`; my
+  `CM.toC` uses `ιCA` normalized by `ιC iQ = I`; no clash, different namespaces).
+- Proved `ptT_add_iPt_ptT : T + [i]T = (−2i, 0)` (= τ((1+i)/2), matches the dictionary),
+  `isTorsI3_mem_range` (the 8 points of A[(1+i)³] are tauG-values), `lemma318_iff_literal :
+  Lemma318 Hn ↔ Lemma318Literal Hn` (literal TYZ Lemma 3.18: torsion of A(ℍ'_n) satisfies
+  2(P + [i]P) = 0; no τ needed), `tyzThm35ReadingA_of_cm'`.
