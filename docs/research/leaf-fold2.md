@@ -257,9 +257,11 @@ fact that they are unused is VERIFIED by the compile.
   The output is `scratch/leaf-fold2/olean/TailE_out.txt`, which is not committed: run `./ctail.sh TailE.lean TailE`.
 
 **Flat file.**
-- `lake env lean scratch/leaf-fold2/Leaves2.lean` (81 355 lines): **exit 0 in 999 s, 0 errors, no
-  `sorry`. All 278 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`**
-  (counted by script).
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (86 957 lines, final version): **exit 0 in 924 s,
+  0 errors, no `sorry`. All 284 `#print axioms` reports read `[propext, Classical.choice,
+  Quot.sound]`** (counted by script).
+- An earlier flat run failed with 8 errors in part b10, because the root modules' file-level `open`s
+  leaked in the single file. Each root-module body is now in its own section (log.md).
 - The leaf-fold2 lines of that output are copied into `log.md`. The raw output
   (`flat_out.txt`) contains host paths and is not committed.
 - The file still declares Leaves.lean's two `opaque` placeholders, as field types of the old

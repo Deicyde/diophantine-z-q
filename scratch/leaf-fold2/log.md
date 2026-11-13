@@ -104,3 +104,37 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
   (assemble.sh): each root-module body in its own `section LF2Root_<name> … end`, plus `end` for an
   unclosed `noncomputable section`. Check: olean/FlatTailTest.lean (import TailD + the flat file from the
   root modules on): exit 0, 0 errors, 76 s.
+
+## Final flat file (10:38-10:53 PST), VERIFIED
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (86 957 lines, md5 50ac9349cc75…): **exit 0 in 924 s, 0 errors, no
+  `declaration uses 'sorry'`; 284 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`** (script).
+- `#print axioms` for the leaf-fold2 theorems (from flat_out.txt, host paths removed; `mobiusGlue_of_t5'` also standard):
+```
+'HDec.HSyn.t14b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t28_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t36_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t37_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t39_of_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.smoothStalkDimOne_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.constOrOntoAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.ratFactorAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mobiusGlue_of_t5'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mulIsogeny_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.kerUnitOpen_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9AbVarBaseChange_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9Glue_of_deRhamComparisonHT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.oMaximal_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.endTransport_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.conjTwistNontrivial_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.cotangentSpanBC_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.uniformizationLiftAnalytic_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.productUnifSplits_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.tangentDimAtOrigin_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.productMetrizationOfProductUnif_of_t35' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.unramifiedConjugates_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves3_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.textbookLeaves_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePieces_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+- flat_out.txt (host paths) is removed from the index and ignored.
