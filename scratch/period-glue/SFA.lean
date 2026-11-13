@@ -333,7 +333,138 @@ theorem sphereFactorAffine_of' (hB : HolP1FactorHol) (hC : SphereInjAffine) :
     SphereFactorAffine :=
   sphereFactorAffine_of holP1OpenMap_proof hB hC
 
+/-! ### `SphereInjAffine` (proved)
+
+`f = φ|ℂ` is entire and injective. Pick `z₁` with `f'(z₁) ≠ 0`; then `q = dslope f z₁` is entire
+and never `0`, so `r = 1/q`, `r(z) = (z − z₁)/(f(z) − f(z₁))`, is entire. Near `∞`,
+`f(z) = 1/G(1/z)` with `G(0) = 0`, so `r(z) → G'(0)`. By Liouville `r` is constant, and
+`f(z) = f(z₁) + (z − z₁)/G'(0)`. -/
+
+/-- **`SphereInjAffine` (proved).** -/
+theorem sphereInjAffine_proof : SphereInjAffine := by
+  intro φ ⟨hfin_hol, hinf_hol⟩ hinj hinf
+  -- `φ` is finite on `ℂ`
+  have hfin : ∀ z : ℂ, ∃ v : ℂ, φ (z : OnePoint ℂ) = (v : OnePoint ℂ) := by
+    intro z
+    have hne : φ (z : OnePoint ℂ) ≠ OnePoint.infty := by
+      rw [← hinf]; intro h; exact OnePoint.coe_ne_infty z (hinj h)
+    obtain ⟨v, hv⟩ := OnePoint.ne_infty_iff_exists.mp hne
+    exact ⟨v, hv.symm⟩
+  choose f hf using hfin
+  have hfinj : Function.Injective f := by
+    intro z z' h
+    have : φ (z : OnePoint ℂ) = φ (z' : OnePoint ℂ) := by rw [hf, hf, h]
+    exact OnePoint.coe_injective (hinj this)
+  -- `f` is entire
+  have hdiff : Differentiable ℂ f := by
+    intro z
+    rcases hfin_hol z with ⟨G, hG, hev⟩ | ⟨G, hG, hG0, hev⟩
+    · have : f =ᶠ[𝓝 z] G := by
+        filter_upwards [hev] with w hw
+        rw [hf] at hw
+        exact OnePoint.coe_injective hw
+      exact hG.differentiableAt.congr_of_eventuallyEq this
+    · exfalso
+      have h0 := hev.self_of_nhds
+      simp only [hG0, ite_true] at h0
+      rw [hf] at h0
+      exact OnePoint.coe_ne_infty _ h0
+  -- the chart at `∞`
+  obtain ⟨G, hG, hG0, hev⟩ : ∃ G : ℂ → ℂ, AnalyticAt ℂ G 0 ∧ G 0 = 0 ∧
+      ∀ᶠ w in 𝓝 (0 : ℂ), φ (chartInf w) =
+        if G w = 0 then OnePoint.infty else (((G w)⁻¹ : ℂ) : OnePoint ℂ) := by
+    rcases hinf_hol with ⟨G, hG, hev⟩ | h
+    · exfalso
+      have h0 : φ (chartInf 0) = ((G 0 : ℂ) : OnePoint ℂ) := hev.self_of_nhds
+      have hc0 : chartInf 0 = OnePoint.infty := by simp [chartInf]
+      rw [hc0, hinf] at h0
+      exact OnePoint.coe_ne_infty _ h0.symm
+    · exact h
+  -- a point with `f' ≠ 0`
+  obtain ⟨z1, hz1⟩ : ∃ z1, deriv f z1 ≠ 0 := by
+    by_contra hcon
+    push_neg at hcon
+    have := is_const_of_deriv_eq_zero hdiff hcon 0 1
+    exact zero_ne_one (hfinj this)
+  set q := dslope f z1 with hqdef
+  have hq : Differentiable ℂ q := by
+    have := (Complex.differentiableOn_dslope (c := z1) (s := Set.univ) Filter.univ_mem).mpr
+      hdiff.differentiableOn
+    exact fun z => (this z (Set.mem_univ z)).differentiableAt Filter.univ_mem
+  have hq0 : ∀ z, q z ≠ 0 := by
+    intro z
+    by_cases hz : z = z1
+    · rw [hz, hqdef, dslope_same]; exact hz1
+    · rw [hqdef, dslope_of_ne _ hz, slope_def_field]
+      exact div_ne_zero (sub_ne_zero.mpr (fun h => hz (hfinj h))) (sub_ne_zero.mpr hz)
+  set L := deriv G 0 with hL
+  -- `1/q → G'(0)` at `∞`
+  set rt : ℂ → ℂ := fun w => (1 - z1 * w) * dslope G 0 w / (1 - f z1 * G w) with hrt
+  have hrt_cont : ContinuousAt rt 0 := by
+    have h1 : ContinuousAt (dslope G 0) 0 :=
+      continuousAt_dslope_same.mpr hG.differentiableAt
+    have h2 : ContinuousAt G 0 := hG.continuousAt
+    apply ContinuousAt.div ((continuousAt_const.sub (continuousAt_const.mul continuousAt_id)).mul h1)
+      (continuousAt_const.sub (continuousAt_const.mul h2))
+    simp [hG0]
+  have hrt0 : rt 0 = L := by simp [hrt, hG0, dslope_same, hL]
+  have hev' : ∀ᶠ z in Bornology.cobounded ℂ, (q z)⁻¹ = rt z⁻¹ := by
+    have h1 := (Filter.tendsto_inv₀_cobounded (α := ℂ)).eventually hev
+    filter_upwards [h1, Bornology.eventually_ne_cobounded z1, Bornology.eventually_ne_cobounded 0]
+      with z hz hzz1 hz0
+    have hw0 : z⁻¹ ≠ 0 := inv_ne_zero hz0
+    have hcz : chartInf z⁻¹ = (z : OnePoint ℂ) := by simp [chartInf, hz0]
+    rw [hcz, hf] at hz
+    have hGw : G z⁻¹ ≠ 0 := by
+      intro h; rw [if_pos h] at hz; exact OnePoint.coe_ne_infty _ hz
+    rw [if_neg hGw] at hz
+    have hfz : f z = (G z⁻¹)⁻¹ := OnePoint.coe_injective hz
+    have hne : f z - f z1 ≠ 0 := sub_ne_zero.mpr (fun h => hzz1 (hfinj h))
+    have hne' : 1 - f z1 * G z⁻¹ ≠ 0 := by
+      intro h
+      have h2 : f z1 = (G z⁻¹)⁻¹ := eq_inv_of_mul_eq_one_left (by linear_combination -h)
+      exact hne (by rw [hfz, h2, sub_self])
+    have hA : (G z⁻¹)⁻¹ - f z1 ≠ 0 := by rw [← hfz]; exact hne
+    have hzz : z - z1 ≠ 0 := sub_ne_zero.mpr hzz1
+    rw [hqdef, dslope_of_ne _ hzz1, slope_def_field, hrt]
+    simp only
+    rw [dslope_of_ne _ hw0, slope_def_field, hG0, sub_zero, sub_zero, hfz]
+    rw [inv_div]
+    have e1 : (G z⁻¹)⁻¹ - f z1 = (1 - f z1 * G z⁻¹) / G z⁻¹ := by
+      rw [eq_div_iff hGw, sub_mul, inv_mul_cancel₀ hGw]
+    have e2 : (1 - z1 * z⁻¹) * (G z⁻¹ / z⁻¹) = (z - z1) * G z⁻¹ := by
+      rw [div_inv_eq_mul]
+      linear_combination (-(z1 * G z⁻¹)) * (inv_mul_cancel₀ hz0)
+    rw [e1, e2, div_div_eq_mul_div]
+  have htend : Filter.Tendsto (fun z => (q z)⁻¹) (Filter.cocompact ℂ) (𝓝 L) := by
+    rw [← Metric.cobounded_eq_cocompact]
+    refine Filter.Tendsto.congr' (Filter.EventuallyEq.symm hev') ?_
+    rw [← hrt0]
+    exact (hrt_cont.tendsto.mono_left nhdsWithin_le_nhds).comp
+      (Filter.tendsto_inv₀_cobounded' (α := ℂ))
+  have hconst : ∀ z, (q z)⁻¹ = L := fun z =>
+    (hq.inv hq0).apply_eq_of_tendsto_cocompact z htend
+  have hL0 : L ≠ 0 := by
+    rw [← hconst 0]; exact inv_ne_zero (hq0 0)
+  refine ⟨L⁻¹, f z1 - z1 * L⁻¹, inv_ne_zero hL0, fun z => ?_⟩
+  rw [hf]
+  congr 1
+  by_cases hz : z = z1
+  · rw [hz]; ring
+  · have h1 := hconst z
+    rw [hqdef, dslope_of_ne _ hz, slope_def_field, inv_div] at h1
+    have hzz : z - z1 ≠ 0 := sub_ne_zero.mpr hz
+    have hfne : f z - f z1 ≠ 0 := sub_ne_zero.mpr (fun h => hz (hfinj h))
+    field_simp at h1 ⊢
+    linear_combination -h1
+
+/-- **`SphereFactorAffine` from `HolP1FactorHol` alone (proved).** -/
+theorem sphereFactorAffine_of'' (hB : HolP1FactorHol) : SphereFactorAffine :=
+  sphereFactorAffine_of holP1OpenMap_proof hB sphereInjAffine_proof
+
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereInjAffine_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of''
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.holP1OpenMap_proof
