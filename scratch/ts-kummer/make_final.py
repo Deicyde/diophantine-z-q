@@ -3,7 +3,7 @@
 # of the PropTSGlue definitions removed; the appendix uses the prefix's definitions).
 orig = open("scratch/prop-ts-glue/PropTSGlue.lean").read()
 core = open("scratch/ts-kummer/Core.lean").read()
-EXTRA = "import Mathlib.RingTheory.Localization.AtPrime.Extension\nimport Mathlib.RingTheory.Flat.TorsionFree\n"
+EXTRA = "import Mathlib.RingTheory.Localization.AtPrime.Extension\nimport Mathlib.RingTheory.Flat.TorsionFree\nimport Mathlib.NumberTheory.RamificationInertia.Basic\n"
 ol = orig.split("\n")
 assert ol[0].startswith("import") and ol[1].startswith("import") and not ol[2].startswith("import")
 head = "\n".join(ol[:2]) + "\n" + EXTRA
