@@ -128,3 +128,9 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
 - `AutOInnerFinite`: verbatim copy of mobius-glue's statement (proved there from the kernel's SN).
 - End to end now takes `TorsionStructure` and `AutOInnerFinite` instead of `TwistOrbitFinite`
   (R1hecke comes from `own_spec h`). run_all: 0 errors, exit 0.
+
+## FibreTransferC split (VERIFIED, run_pitwist.txt)
+- `fibreTransferC_of (hA : ToP1AgreeC Y) (hG : FibreGenericC Y π) : FibreTransferC Y π`; standard axioms.
+  (⇐) via ToP1AgreeC on π∘g and π (`ToP1.val_comp_right`); (⇒) is FibreGenericC.
+- Finding: period-map's `periodMapGlue_of` uses PiTwistC's full iff (fibre clause), so the hard half
+  (⇒, generic fibres) cannot be avoided.

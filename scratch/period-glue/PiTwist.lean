@@ -80,6 +80,54 @@ theorem piTwistC_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π 
   intro y y' Q Q' hQ hQ'
   exact (hF h1.1 h1.2.1 G hG hfibQ y y').trans (hC y y' Q Q' hQ hQ').symm
 
+/-! ## `FibreTransferC` split into its two directions -/
+
+/-- **GLUE (AG, textbook density): two maps to `P¹` agreeing on `ℚ̄`-points agree on `ℂ`-points.**
+For `Y` proper and smooth over `ℚ` and `σ, ρ : Y → P¹` (by charts) with the same values at every
+`ℚ̄`-point, the values agree at every `ℂ`-point.
+
+Why true: the locus where two morphisms to the separated `P¹` agree, residue maps included, is a
+closed subscheme (the equalizer). It contains every closed point, since closed points are images of
+`ℚ̄`-points. `Y` is Jacobson (finite type over a field) and reduced (smooth), so the equalizer is
+`Y`. Size: medium (the equalizer of two `ToP1` charts; Mathlib's `JacobsonSpace`). -/
+def ToP1AgreeC (Y : Over (Spec (CommRingCat.of ℚ))) : Prop :=
+  IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → ∀ σ ρ : ToP1 Y.left,
+    (∀ y : fieldPt Qbar ⟶ Y, σ.val (K := Qbar) y.left = ρ.val (K := Qbar) y.left) →
+    ∀ y : fieldPt ℂ ⟶ Y, σ.val (K := ℂ) y.left = ρ.val (K := ℂ) y.left
+
+/-- **GLUE (AG; the hard half of `FibreTransferC`).** If the fibres of `π` on `ℚ̄`-points are the
+orbits of a finite set `G` of automorphisms, then two `ℂ`-points with the same `π`-value are in one
+`G`-orbit.
+
+Why true (model argument): the hypothesis forces `π` to be non-constant on every component (a
+component has infinitely many `ℚ̄`-points, while `G`-orbits are finite). A `ℂ`-point over a closed
+point of `Y` comes from a `ℚ̄`-point through one embedding `ℚ̄ → ℂ`, and so does every point in its
+`π`-fibre (the value is algebraic, and `π` is non-constant on components). That case reduces to the
+hypothesis. For points over generic points of components, the closed subsets `{π(p) = π(q)}` and
+`⋃ graph(g)` of `Y ×_ℚ Y` agree on closed points, hence agree (Jacobson). Size: medium-large. -/
+def FibreGenericC (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) : Prop :=
+  IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → ∀ G : Set (Y ≅ Y), G.Finite →
+    (∀ y y' : fieldPt Qbar ⟶ Y,
+      (π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left ↔ ∃ g ∈ G, y' = y ≫ g.hom)) →
+    ∀ y y' : fieldPt ℂ ⟶ Y,
+      π.val (K := ℂ) y.left = π.val (K := ℂ) y'.left → ∃ g ∈ G, y' = y ≫ g.hom
+
+/-- **`FibreTransferC` from `ToP1AgreeC` and `FibreGenericC` (proved).** The direction (⇐) is
+`ToP1AgreeC` applied to `π ∘ g` and `π`. -/
+theorem fibreTransferC_of (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left)
+    (hA : ToP1AgreeC Y) (hG : FibreGenericC Y π) : FibreTransferC Y π := by
+  intro hP hS G hGf hQ y y'
+  refine ⟨hG hP hS G hGf hQ y y', ?_⟩
+  rintro ⟨g, hg, rfl⟩
+  have e : ∀ (K : Type) [Field K] [Algebra ℚ K] (z : fieldPt K ⟶ Y),
+      (π.comp g.hom.left).val (K := K) z.left = π.val (K := K) (z ≫ g.hom).left :=
+    fun K _ _ z => ToP1.val_comp_right π g.hom.left (K := K) z.left
+  have hagree := hA hP hS (π.comp g.hom.left) π (fun y0 => by
+    rw [e]
+    exact ((hQ y0 (y0 ≫ g.hom)).mpr ⟨g, hg, rfl⟩).symm) y
+  rw [e] at hagree
+  exact hagree.symm
+
 /-! ## `TwistOrbitFinite` from R1hecke, `TorsionStructure` and two algebra facts -/
 
 /-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`,
@@ -385,5 +433,6 @@ theorem twistOrbitFinite_of' (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEqui
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of

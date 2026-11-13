@@ -206,7 +206,9 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
 |---|---|---|---|
 | `GammaStarGen` | **LEAF candidate** (flagged, §5.3) | `Γ* ⊆ ⟨ι(1+i+j), ι((j−3)/2), ℚ^×⟩` | signature `(0;2,4,6)` + Poincaré + covolume; numerically checked on 30 independent elements |
 | `T11aRiemannHom` | **LEAF** (textbook) | analytic representation of `Hom(A, A')` for uniformized `A, A'/ℂ` | Mumford §1, Birkenhake–Lange Prop. 1.2.1, GAGA (UNVERIFIED locators). The kernel's `T11aRiemannEnd` is its case `A = A'` (`t11aRiemannEnd_of_hom`) |
-| `FibreTransferC Y π` | **GLUE (AG)**, open | for `Y` proper smooth over `ℚ`: fibres of `π` = `G`-orbits on `ℚ̄`-points ⇒ on `ℂ`-points | §4 |
+| `FibreTransferC Y π` | **GLUE (AG)**, open; split into `ToP1AgreeC` and `FibreGenericC` | for `Y` proper smooth over `ℚ`: fibres of `π` = `G`-orbits on `ℚ̄`-points ⇒ on `ℂ`-points | §4 |
+| `ToP1AgreeC Y` | GLUE (AG, textbook density), open | two maps `Y → P¹` agreeing on `ℚ̄`-points agree on `ℂ`-points | §4 |
+| `FibreGenericC Y π` | GLUE (AG), open | (⇒) half of `FibreTransferC` | §4 |
 | `AutOInnerFinite` | glue, proved by mobius-glue | `Aut 𝒪` is finite mod conjugation by `𝒪^×` | copy of mobius-glue's statement |
 | `QMLatticeTwistAlg` | glue, **PROVED** (from SN) | twist relation on QM lattices ⇔ `τ' ∈ Γ*τ` | §2.4 |
 | `TwistOrbitFinite Y Φ` | glue, **PROVED** from R1hecke, T5, `AutOInnerFinite` | twist relation = orbits of a finite `G ⊆ Aut(Y)` (`ℚ̄`, `ℂ`) | §2.6 |
@@ -224,6 +226,17 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
   on these definitions.
 
 ## 4. What remains: `FibreTransferC` (AG glue) and how to prove it
+
+**Split** (`fibreTransferC_of`, compiled). `FibreTransferC ⇐ ToP1AgreeC + FibreGenericC`.
+- `ToP1AgreeC` covers (⇐). It is the textbook density statement: two maps to `P¹` that agree on
+  `ℚ̄`-points of a reduced finite-type `ℚ`-scheme agree on `ℂ`-points. It is applied to `π ∘ g`
+  and `π`.
+- `FibreGenericC` is the hard half (⇒). Its hypothesis forces `π` to be non-constant on every
+  component, since `G`-orbits are finite and a component has infinitely many `ℚ̄`-points.
+  - Over closed points it reduces to `ℚ̄`.
+  - Over generic points of components it needs the Jacobson argument below.
+
+Both halves are needed: period-map's `periodMapGlue_of` uses the full iff for the fibre clause.
 
 **Statement.** `Y` is proper smooth of relative dimension 1 over `ℚ`, and `G` is a finite set of
 automorphisms. If the fibres of `π` on `ℚ̄`-points are the `G`-orbits, then the same holds on
@@ -369,7 +382,7 @@ is independent of the generators. Greedy reduction of `cosh d(γp, p)` by the ve
 | run_light_base | `build_light.sh`: `PGLight.lean` = period-map's PMLight.lean | 0 errors, 1m25s |
 | run_bcu | `BCU.lean` (PGBase) | 0 errors; standard axioms |
 | run_qmtwist | `QMTwist.lean` (PGBase) | 0 errors; `qmTwistLattice_of`, `qmLatticeTwistAlg_mpr`, `qmTwistLattice_of'` standard axioms |
-| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
+| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `fibreTransferC_of`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
 | run_s8 | `S8.lean` (PGLight) | 0 errors; `s8Nonzero_iff`, `s8Nonzero_proof` standard axioms |
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
 | run_sfa | `SFA.lean` (PGLight) | 0 errors; `holP1OpenMap_proof`, `holP1FactorHol_proof`, `sphereInjAffine_proof`, `sphereFactorAffine_proof` standard axioms |
