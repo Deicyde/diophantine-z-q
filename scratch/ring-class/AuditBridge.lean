@@ -22,3 +22,5 @@ open ZInQ.Contrib.TYZGenus.RingClass ZInQ.Contrib.TYZGenus.RingClassBridge
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.HHprime_eq_iSup
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.exists_lift_picSquares_O4
 #print axioms ZInQ.Contrib.TYZGenus.RingClass.ringClassFieldD_neg
+#print axioms ZInQ.Contrib.TYZGenus.RingClass.artinPrime_mk_apply
+#print axioms ZInQ.Contrib.TYZGenus.RingClass.card_artinPrime
