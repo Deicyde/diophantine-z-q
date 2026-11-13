@@ -7,33 +7,31 @@ Log: `scratch/bp-hecke-fe/log.md`. Marks: VERIFIED (compiled, computed or read h
 
 ## 0. Main result
 
-**Both literature Props are proved in Lean from three elementary statements** (VERIFIED: compiled,
-no `sorry`, standard axioms only):
+**Both literature Props are proved in Lean from two elementary statements** (VERIFIED: compiled,
+no `sorry`, `#print axioms` = `propext, Classical.choice, Quot.sound`):
 
 ```lean
-theorem BpHeckeFE.literature_hecke_fe_final
-    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)   -- Euler product of L(ψ_d, s), about ℤ[i]
-    (h1 : GaussSplit 1)                                       -- Gauss: a_p(y² = x³ − x), p ≡ 1 (mod 4)
-    (hP : ∀ p : ℕ, p.Prime → p ≠ 2 → OddGauss p) :            -- a quadratic Gauss sum over 𝔽_p²
+theorem BpHeckeFE.literature_hecke_fe_of_heckeEuler_gaussSplit
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)   -- Euler product of L(ψ_d, s): ℤ[i] only
+    (h1 : GaussSplit 1) :                                     -- Gauss: a_p(y² = x³ − x), p ≡ 1 (mod 4)
     HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5
 ```
 
 `ZInQ.Literature.FunctionalEquation5` is the project's Prop itself: conductor `32d²`, root number
 `−1`, on the strip `0 < Re s < 2`. `HeckeContinuation5` is `Literature.HeckeContinuation`
-restricted to squarefree `d ≡ 5 (mod 8)`, which is all the headline uses:
+restricted to squarefree `d ≡ 5 (mod 8)`. That restriction is all the headline uses:
 `tyzRow5b_of_readingA_five : TYZThm35ReadingA → HeckeContinuation5 → TYZRow5b` is proved.
 
-The three remaining statements involve no L-functions and no analysis. All are concrete,
-over Mathlib definitions:
+The two remaining statements involve no L-functions, no analysis and no Fourier analysis. Both are
+concrete, over Mathlib definitions:
 
 | Prop | Statement | Status |
 | --- | --- | --- |
-| `HeckeEuler d` | `heckeCoeff d n = Π_{p^k ∥ n} [T^k] 1/(1 − heckeCoeff(d,p) T + p T²)` (factor `1` at `p ∣ 2d`), where `heckeCoeff d n = ¼ Σ_{α ∈ ℤ[i], N α = n} (Nα/d) u(α) α` | true (numerically VERIFIED, n ≤ 400, 8 values of d); proof: unique factorization in `ℤ[i]`; ψ_d is completely multiplicative and unit-invariant (proved: `psi_mul`, `psi_units`); tier M |
-| `GaussSplit 1` | for primes `p ≡ 1 (mod 4)`: `p − #{(x,y) ∈ 𝔽_p² : y² = x³ − x} = heckeCoeff 1 p` (`= π + π̄` with `ππ̄ = p`, `π ≡ 1 mod 2+2i`) | Gauss (1814); STANDARD, Ireland–Rosen Ch. 18 §4 (theorem number UNVERIFIED); numerically VERIFIED; tier M (quartic Jacobi sums: Mathlib has `jacobiSum` and `exists_jacobiSum_eq_neg_one_add`) |
-| `OddGauss p` | `Σ_{b ∈ 𝔽_p²} ((b₁² + b₂²)/p) e((b₁ν₁ + b₂ν₂)/p) = p ((ν₁² + ν₂²)/p)` for every `ν ∈ ℤ²` | standard exercise; numerically VERIFIED (p = 3, 5, 7, 13, and composite d = 21); tier S–M (Mathlib's `gaussSum`, `gaussSum_sq`, `gaussSum_mulShift`) |
+| `HeckeEuler d` | `heckeCoeff d n = Π_{p^k ∥ n} [T^k] 1/(1 − heckeCoeff(d,p) T + p T²)` (factor `1` at `p ∣ 2d`), where `heckeCoeff d n = ¼ Σ_{α ∈ ℤ[i], N α = n} (Nα/d) u(α) α` | true; numerically VERIFIED (`remaining_check.py`: `d ∈ {5,13,21,29}`, `n ≤ 300`). Proof: unique factorization in `ℤ[i]`; `ψ_d` is completely multiplicative and unit-invariant (proved: `psi_mul`, `psi_units`). Tier M |
+| `GaussSplit 1` | for primes `p ≡ 1 (mod 4)`: `p − #{(x,y) ∈ 𝔽_p² : y² = x³ − x} = heckeCoeff 1 p`, that is `π + π̄` with `ππ̄ = p`, `π ≡ 1 (mod 2+2i)` | Gauss (1814); STANDARD (Ireland–Rosen, Ch. 18 §4; theorem number UNVERIFIED); numerically VERIFIED (29 primes below 300). Tier M: quartic Jacobi sums (Mathlib has `jacobiSum`, `jacobiSum_mul_jacobiSum_inv`, `exists_jacobiSum_eq_neg_one_add`), or take it as a temporary leaf |
 
-If the team prefers, `GaussSplit 1` can be taken as a temporary leaf: it is a published,
-refereed, classical theorem about a single curve.
+`GaussSplit 1` is a published, refereed, classical theorem about a single curve, so it is a
+legitimate leaf if the team wants one. `HeckeEuler` is glue (ideal counting in `ℤ[i]`).
 
 **How the Props reduce** (all proved in `scratch/bp-hecke-fe/HeckeFE.lean`):
 
@@ -53,9 +51,11 @@ refereed, classical theorem about a single curve.
    twist and reciprocity (`gaussSplit_of_one`).
 3. **The functional equation**: `CdFourier d` (the finite Fourier transform of the character data
    on `(ℤ/4d)²`) gives `FunctionalEquation5` with `DeuringCd`. The constants were checked in Lean
-   (`const_identity`), and the root number is `(2/d) = −1`. `CdFourier d` factors by CRT into a 2-part,
-   proved by `decide` (`g2G_table`), and the odd part `OddGauss d`. `OddGauss` is multiplicative
-   (`oddGauss_mul`), so it reduces to odd primes (`oddGauss_of_prime`).
+   (`const_identity`), and the root number is `(2/d) = −1`. `CdFourier d` is **proved**. It factors by
+   CRT into a 2-part, proved by `decide` (`g2G_table`), and the odd part `OddGauss d`. `OddGauss` is
+   multiplicative (`oddGauss_mul`); at an odd prime it is the two-dimensional quadratic Gauss sum
+   `gauss2D`, proved from Mathlib's `gaussSum_sq` and `gaussSum_mulShift_eq` by completing the
+   square.
 
 **Suggested change on integration.** `Literature.HeckeContinuation` quantifies over every
 `d ≠ 0`, but its only use (`tyzRow5b_of_readingA`) is at squarefree `d ≡ 5 (mod 8)`. Replacing it
@@ -126,7 +126,7 @@ continuation `π^s Γ(s)^{−1} Λ_{a,b}(s)` (`1/Γ` is entire). Splitting `ℤ�
 so `T_c` is entire for every `c : (ℤ/M)² → ℂ`. Grouping by `N(α) = n` gives
 `T_c(s) = Σ_n (Σ_{N α = n} c(α) α) n^{−s}`; with `c = c_d/4` and `DeuringCd` this is `L(C_d, s)`.
 
-### 2.4 The functional equation (in Lean modulo `OddGauss p` and `DeuringCd`)
+### 2.4 The functional equation (in Lean modulo `DeuringCd`)
 
 Let `Θ(x) = Σ_j c_d(j) gaussTheta(j/M)(x)`, so `Θ(y) = M^{−1} Σ_α c_d(α) α e^{−πN(α)y/M²}`. The dual
 kernel is `gaussThetaDual a b x = −i Σ_{ν ∈ ℤ²} ν e(aν₁ + bν₂) e^{−πN(ν)x}`, from `hasSum_int_sinKernel` and
@@ -142,7 +142,7 @@ Proof (in Lean except the odd prime Gauss sums): CRT parametrization `j = d a + 
 - 2-part: `Σ_{j mod 4} u(j) e(j·ν/4) = 4(1+i) u(ν/(1+i))`, and `0` off `(1+i)ℤ[i]`. A 16 × 16 table, proved in
   Lean by `decide` in `ℤ[i]` (`g2G_table`, with `e(k/4) = i^k`, `cexp_two_pi_I_div_four`).
 - odd part `OddGauss d`: multiplicative in `d` (Lean: `oddGauss_mul`, with the parametrization
-  `b = n b₁ + m b₂` and the squares `(n²/m) = 1`); per prime `p ∣ d` (not in Lean):
+  `b = n b₁ + m b₂` and the squares `(n²/m) = 1`); per prime `p ∣ d` (Lean: `gauss2D`):
   `Σ_{j ∈ 𝔽_p²} χ_p(Nj) e(j·ν/p) = p χ_p(Nν)`. For `p ≡ 1 (mod 4)`,
   `N(x+iy) = (x+iy)(x−iy)` splits into two independent coordinates, and the sum is
   `g(χ_p)² χ_p(Nν) = χ_p(−1) p χ_p(Nν)` (`gaussSum_sq`). For `p ≡ 3 (mod 4)`, it is the quadratic
@@ -196,25 +196,19 @@ Mathlib: Hurwitz kernels, FE-pairs, hasSum_mellin, ZLattice sums, Gauss/Jacobi s
   ├─ C1 dual kernel as lattice sum, its Mellin transform           S  DONE
   ├─ C2 CdFourier d ⟸ OddGauss d (CRT; 2-part by decide)           S  DONE  cdFourier_of_oddGauss
   ├─ C2' OddGauss d ⟸ OddGauss p for p | d (multiplicativity)      S  DONE  oddGauss_mul, oddGauss_of_prime
-  ├─ C2'' OddGauss p, p odd prime                                  S–M OPEN (expand χ_p by Gauss sums,
-  │       complete the square, gaussSum_sq; works for p ≡ 1 and 3 (4) alike)
+  ├─ C2'' OddGauss p, p odd prime                                  S  DONE  gauss2D, oddGauss_prime
   ├─ C3 FE of Λ_c under FourierRel                                 S  DONE  lambdaC_two_sub
   └─ C4 constants, strip, identity theorem
           FunctionalEquation5 ⟸ ∀d DeuringCd d ∧ CdFourier d       S  DONE  functionalEquation5_of_deuring_fourier'
 
-  Final: literature_hecke_fe_final : (∀d HeckeEuler d) → GaussSplit 1 → (∀p OddGauss p)
-                                     → HeckeContinuation5 ∧ FunctionalEquation5          DONE
+  Final: literature_hecke_fe_of_heckeEuler_gaussSplit :
+           (∀d HeckeEuler d) → GaussSplit 1 → HeckeContinuation5 ∧ FunctionalEquation5   DONE
 ```
 
-Open nodes, in suggested order: C2'' (the smallest; a self-contained Gauss-sum exercise), B2 (pure
-`ℤ[i]` arithmetic), B3 (the largest; or a temporary leaf). B2, B3 and C2'' are independent. The
+Open nodes: B2 (pure `ℤ[i]` arithmetic) and B3 (the largest; or a temporary leaf). They are
+independent. The
 remaining work is weeks, not months (SPECULATIVE). The analytic part, which wk-cr3 §4.3 estimated at
 "months or more", is done.
-
-Proof sketch for C2'' (for the team): with `g = Σ_t χ(t) e(t/p)`, use `χ(n) = g^{−1} Σ_t χ(t) e(tn/p)`
-for all `n` (`χ` is primitive). Then `Σ_x e((tx² + νx)/p) = e(−\overline{4t} ν²/p) χ(t) g` for `t ≠ 0`. Substituting
-`u = −\overline{4t}` gives `χ(t) = χ(−1)χ(u)`, so the sum is `χ(−1) g² χ(Nν) = p χ(Nν)` (`gaussSum_sq`:
-`g² = χ(−1)p`).
 
 Proof sketch for B2: `heckeCoeff d n = ¼ Σ_{Nα=n} ψ_d(α)` with `ψ_d` completely multiplicative
 and unit-invariant (B1). Unique factorization in `ℤ[i]` (Mathlib: `GaussianInt` is a Euclidean
@@ -259,7 +253,10 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `OddGauss d : Prop`, `cdFourier_of_oddGauss` | `OddGauss d ⟹ CdFourier d` (`d ≡ 1 mod 4`) |
 | `crt_injective2`, `sum_crt2`, `oddGauss_mul`, `oddGauss_one`, `oddGauss_of_prime` | `OddGauss` is multiplicative; reduces to odd primes |
 | `HeckeContinuation5`, `tyzRow5b_of_readingA_five`, `heckeContinuation5_of_literature` | the restricted continuation Prop suffices for `TYZRow5b` |
-| `literature_hecke_fe_final` | **the final reduction** (§0) |
+| `literature_hecke_fe_final` | the reduction to `HeckeEuler`, `GaussSplit 1`, `OddGauss p` |
+| `chiC`, `gP`, `sum_chi_psi_mul`, `sum_psi_sq`, `sum_psi_complete_sq`, `chiC_inv_eq`, `gP_sq`, `gP_ne_zero`, `gauss2D` | `Σ_{x,y∈𝔽_p} χ(x²+y²) e((xn₁+yn₂)/p) = p χ(n₁²+n₂²)` for odd primes `p` |
+| `jacobiSym_eq_chiC`, `oddGauss_prime` | `OddGauss p` for every odd prime `p` |
+| `literature_hecke_fe_of_heckeEuler_gaussSplit` | **the final reduction** (§0) |
 
 Faithfulness. `DeuringCd` is stated over the project's `cdCoeff` (proved equal to Mathlib's
 `L(C_d,s)` coefficients by `LFunctionCd.lean`) and over explicit sums in `ℤ²`. It involves no
@@ -276,12 +273,13 @@ For `d ≡ 3 (mod 4)` the Jacobi symbol `(n/d)` would have to be replaced by `(d
   numbers from PARI.
 - `fourier_check.py` → `out_fourier_check.txt`: the 2-part, `OddGauss d` for `d ∈ {5, 13, 21, 3, 7}`,
   and the full `CdFourier d` for `d ∈ {5, 13, 21}`, numerically.
+- `remaining_check.py` → `out_remaining_check.txt`: `GaussSplit 1` and `HeckeEuler d` numerically.
 - `log.md`: results log.
 
 ## 6. Not done / unchecked
 
-- Open (checked numerically only): `HeckeEuler d` (B2), `GaussSplit 1` (B3) and `OddGauss p` for
-  odd primes `p` (C2''). Everything else in §3 is proved in Lean.
+- Open (checked numerically only): `HeckeEuler d` (B2) and `GaussSplit 1` (B3). Everything else
+  in §3 is proved in Lean.
 - The scratch file imports `ZInQKernel.RouteK.Rank.LFunctionCd` and
   `ZInQKernel.Hypotheses.CR3Literature`; both were built with `lake build` in this worktree first.
 - `HeckeContinuation` for all `d ≠ 0` (as currently stated in `CR3Literature.lean`) is not proved;
