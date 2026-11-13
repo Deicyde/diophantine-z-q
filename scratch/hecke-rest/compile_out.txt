@@ -1,0 +1,510 @@
+scratch/hecke-rest/FibreSizes.lean:613:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:613:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:613:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:627:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:631:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:627:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:627:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:631:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:631:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1686:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1686:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1686:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1686:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1687:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1687:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1687:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1687:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1688:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1688:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1688:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1688:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1689:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1689:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1689:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1689:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1690:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1690:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1690:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1690:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1692:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1692:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1692:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1692:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1694:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1694:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1694:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1694:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1695:56: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1695:84: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1695:113: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1695:142: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1698:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1698:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1698:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1698:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/FibreSizes.lean:1686:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1687:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1688:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1689:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1690:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1691:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1692:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1693:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1694:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1695:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1696:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1697:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1698:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1699:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1700:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/FibreSizes.lean:1701:170: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/hecke-rest/FibreSizes.lean:1686:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1686:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1687:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1687:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1688:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1688:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1689:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1689:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1690:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1690:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1691:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1691:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1692:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1692:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1693:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1693:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1694:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1694:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1695:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1695:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1696:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1696:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1697:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1697:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1698:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1698:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1699:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1699:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1700:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1700:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1701:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/FibreSizes.lean:1811:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1818:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1820:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1866:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1867:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1937:15: warning: Variable name `hW` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hW
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/hecke-rest/FibreSizes.lean:1951:19: warning: Variable name `hW` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hW
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/hecke-rest/FibreSizes.lean:1976:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/FibreSizes.lean:1988:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/FibreSizes.lean:1988:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/FibreSizes.lean:2000:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/FibreSizes.lean:2013:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/FibreSizes.lean:2013:40: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/FibreSizes.lean:2026:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/FibreSizes.lean:2026:41: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+'HeckeRest.heckeFibreSizes_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRest.ncard_mul' depends on axioms: [propext, Classical.choice, Quot.sound]

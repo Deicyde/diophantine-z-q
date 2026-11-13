@@ -1,0 +1,2046 @@
+import Mathlib
+import ZInQKernel.HDecomp.QM.Pin
+import ZInQKernel.HDecomp.Descent.B2Glue
+import ZInQKernel.HDecomp.Textbook.SkolemNoether
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest: `HeckeFibreSizes` (assembled by `scratch/hecke-rest/assemble.py`)
+
+Verbatim copies from `scratch/ts-hecke/TSHecke.lean` (checked by `check_identical.py`):
+lines 3563-4606 (aut-o-finite's `Aut(𝒪)/Inn(𝒪^×)`), 5511-5717 (ts-hecke's `Units.lean`),
+and inside `namespace TSHecke`: 6132-6135 (`twistFibre`), 6154-6213 (`section Count`),
+6215-6227 (`exists_sub_liftO`), 6553-6577 (`HeckeFibreSizes`, the target). New work below the
+second banner. No `sorry`, no `axiom`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# Copy of `scratch/aut-o-finite/AutOFinite.lean` (lines 3-1037), verbatim except for the imports
+and the trailing `#print axioms` lines; it proves `LeafQM.AV.Pin.Exact.autO_mod_inner_exact`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section AutOCopy
+
+/-!
+# aut-o-finite: `AutOInnerFinite` (from `scratch/mobius-glue/MobiusGlue.lean`, §4), proved
+
+Task aut-o-finite (2026-11-13). See `docs/research/aut-o-finite.md`.
+
+* §A the target `LeafQM.AV.Pin.AutOInnerFinite`, copied verbatim (docstring and body) from
+  `scratch/mobius-glue/MobiusGlue.lean` lines 419-428. It depends only on the kernel's order
+  `LeafQM.O ⊆ LeafQM.B = (2, -3)_ℚ` (`ZInQKernel/HDecomp/QM/Structures.lean`).
+* §7 (copied from `MobiusGlue.lean` §7): extension of `α ∈ Aut 𝒪` to `α̃ ∈ Aut_ℚ B`,
+  Skolem–Noether from the kernel (`TSkolemKW.leafSkolemNoether` via `GlueDescent.B6_inner`),
+  `autOInnerFinite_of_normalizer`.
+* §8 (copied from `MobiusGlue.lean` §8): `NormalizerFinite` (descent on the reduced norm,
+  `N(𝒪) = ℚ^× 𝒪^× {1, i, j, ij}`), hence `autOInnerFinite`.
+* §9 (new): the explicit computation: `Aut(𝒪)/Inn(𝒪^×)` has exactly four classes.
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace LeafQM
+
+namespace AV
+
+namespace Pin
+
+/-! ## §A The target (verbatim) -/
+
+/-- **Algebra fact (finiteness of `Aut(𝒪)` modulo inner automorphisms by units).** Every ring
+automorphism of `𝒪` is, up to conjugation by a unit of `𝒪`, one of finitely many. (Every
+automorphism of `𝒪` extends to `B = 𝒪 ⊗ ℚ`, hence is conjugation by some `x ∈ N(𝒪)`
+(Skolem–Noether), and `N(𝒪)/ℚ^×𝒪^×` is finite: for the maximal order of the quaternion algebra
+of discriminant 6 it is the Atkin–Lehner group `W ≅ (ℤ/2)²`. STANDARD (Vignéras, *Arithmétique
+des algèbres de quaternions*; locator UNVERIFIED); not in Mathlib.) A statement about the concrete
+order `O` of the kernel only. -/
+def AutOInnerFinite : Prop :=
+  ∃ T : Set (O ≃+* O), T.Finite ∧ ∀ α : O ≃+* O, ∃ t ∈ T, ∃ v : Oˣ,
+    ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)
+
+end Pin
+
+end AV
+
+end LeafQM
+
+/-! ## §7 `AutOInnerFinite` from Skolem–Noether (proved in the kernel) and `NormalizerFinite`
+
+(Outside the `open MonObj` scope of §0-§6.) -/
+
+namespace LeafQM
+
+namespace AV
+
+namespace Pin
+
+namespace AutOExt
+
+/-! ### Extension of a ring automorphism of `𝒪` to `B` -/
+
+theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
+  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
+  ext <;> simp [ofInt]
+
+theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
+  rw [Algebra.smul_def, map_natCast]
+  exact O.mul_mem (natCast_mem O n) hx
+
+theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
+  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
+
+/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
+theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
+  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
+  refine ⟨m, by positivity, ?_⟩
+  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
+  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
+  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
+  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
+  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
+    ext
+    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
+  rw [e]
+  exact mem_O_of_int z0 z1 z2 z3
+
+variable (α : O ≃+* O)
+
+/-- A chosen positive integer `m` with `m b ∈ 𝒪`. -/
+def extDen (b : B) : ℕ := Classical.choose (exists_nat_smul_mem b)
+
+theorem extDen_pos (b : B) : 0 < extDen b := (Classical.choose_spec (exists_nat_smul_mem b)).1
+
+theorem extDen_mem (b : B) : ((extDen b : ℕ) : ℚ) • b ∈ O :=
+  (Classical.choose_spec (exists_nat_smul_mem b)).2
+
+/-- `α̃(b) = m⁻¹ α(m b)`. -/
+def extFun (b : B) : B := ((extDen b : ℚ)⁻¹) • (α ⟨_, extDen_mem b⟩ : B)
+
+theorem natCast_mul_eq_smul (n : ℕ) (x : B) : (n : B) * x = (n : ℚ) • x := by
+  rw [Algebra.smul_def, map_natCast]
+
+theorem alpha_nat_smul (n : ℕ) (x : B) (hx : x ∈ O) (hnx : (n : ℚ) • x ∈ O) :
+    (α ⟨_, hnx⟩ : B) = (n : ℚ) • (α ⟨x, hx⟩ : B) := by
+  have : (⟨_, hnx⟩ : O) = (n : O) * ⟨x, hx⟩ := by
+    apply Subtype.ext
+    simp only [MulMemClass.coe_mul, SubringClass.coe_natCast]
+    rw [natCast_mul_eq_smul]
+  rw [this, map_mul, map_natCast, MulMemClass.coe_mul, SubringClass.coe_natCast,
+    natCast_mul_eq_smul]
+
+/-- Independence of the choice of `m`. -/
+theorem extFun_eq (b : B) (m : ℕ) (hm : 0 < m) (hb : (m : ℚ) • b ∈ O) :
+    extFun α b = ((m : ℚ)⁻¹) • (α ⟨_, hb⟩ : B) := by
+  have hd : 0 < extDen b := extDen_pos b
+  have hdm : (m : ℚ) • ((extDen b : ℚ) • b) ∈ O := nat_smul_mem m (extDen_mem b)
+  have hmd : (extDen b : ℚ) • ((m : ℚ) • b) ∈ O := nat_smul_mem (extDen b) hb
+  have e1 := alpha_nat_smul α m _ (extDen_mem b) hdm
+  have e2 := alpha_nat_smul α (extDen b) _ hb hmd
+  have e3 : (⟨_, hdm⟩ : O) = ⟨_, hmd⟩ := Subtype.ext (smul_comm _ _ _)
+  rw [e3, e2] at e1
+  -- e1 : d • α(m b) = m • α(d b)
+  unfold extFun
+  have hX : (α ⟨_, extDen_mem b⟩ : B) = ((m : ℚ)⁻¹ * extDen b) • (α ⟨_, hb⟩ : B) := by
+    rw [mul_smul, e1, smul_smul, inv_mul_cancel₀ (by exact_mod_cast hm.ne'), one_smul]
+  rw [hX, smul_smul]
+  congr 1
+  have : (extDen b : ℚ) ≠ 0 := by exact_mod_cast hd.ne'
+  field_simp
+
+theorem extFun_coe (a : O) : extFun α a = α a := by
+  have h1 : ((1 : ℕ) : ℚ) • (a : B) ∈ O := by simp
+  rw [extFun_eq α a 1 one_pos h1]
+  have : (⟨_, h1⟩ : O) = a := Subtype.ext (by simp)
+  rw [this]; simp
+
+/-- A common multiplier for two elements. -/
+theorem common_den (b c : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O ∧ (m : ℚ) • c ∈ O := by
+  refine ⟨extDen b * extDen c, Nat.mul_pos (extDen_pos b) (extDen_pos c), ?_, ?_⟩
+  · have := nat_smul_mem (extDen c) (extDen_mem b)
+    rwa [smul_smul, ← Nat.cast_mul, mul_comm] at this
+  · have := nat_smul_mem (extDen b) (extDen_mem c)
+    rwa [smul_smul, ← Nat.cast_mul] at this
+
+theorem extFun_add (b c : B) : extFun α (b + c) = extFun α b + extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc : (m : ℚ) • (b + c) ∈ O := by rw [smul_add]; exact O.add_mem hb hc
+  rw [extFun_eq α _ m hm hbc, extFun_eq α _ m hm hb, extFun_eq α _ m hm hc, ← smul_add]
+  congr 1
+  have : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ + ⟨_, hc⟩ := Subtype.ext (by simp [smul_add])
+  rw [this, map_add]; rfl
+
+theorem smul_mul_smul' (r s : ℚ) (x y : B) : (r • x) * (s • y) = (r * s) • (x * y) := by
+  rw [smul_mul_assoc, mul_smul_comm, smul_smul]
+
+theorem extFun_mul (b c : B) : extFun α (b * c) = extFun α b * extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc0 : ((m : ℚ) * m) • (b * c) ∈ O := by
+    rw [← smul_mul_smul']; exact O.mul_mem hb hc
+  have hbc : ((m * m : ℕ) : ℚ) • (b * c) ∈ O := by rw [Nat.cast_mul]; exact hbc0
+  have hprod : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ * ⟨_, hc⟩ := by
+    apply Subtype.ext
+    show ((m * m : ℕ) : ℚ) • (b * c) = ((m : ℚ) • b) * ((m : ℚ) • c)
+    rw [smul_mul_smul', Nat.cast_mul]
+  have e1 : (α ⟨_, hbc⟩ : B) = (α ⟨_, hb⟩ : B) * (α ⟨_, hc⟩ : B) := by
+    rw [hprod, map_mul, MulMemClass.coe_mul]
+  rw [extFun_eq α _ (m * m) (Nat.mul_pos hm hm) hbc, extFun_eq α _ m hm hb,
+    extFun_eq α _ m hm hc, smul_mul_smul', e1, Nat.cast_mul, mul_inv]
+
+theorem extFun_algebraMap (q : ℚ) : extFun α (algebraMap ℚ B q) = algebraMap ℚ B q := by
+  have hq : ((q.den : ℕ) : ℚ) • algebraMap ℚ B q ∈ O := by
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast]
+    exact intCast_mem O q.num
+  rw [extFun_eq α _ q.den q.den_pos hq]
+  have : (⟨_, hq⟩ : O) = (q.num : O) := Subtype.ext (by
+    simp only [SubringClass.coe_intCast]
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast])
+  rw [this, map_intCast, SubringClass.coe_intCast, ← map_intCast (algebraMap ℚ B),
+    Algebra.smul_def, ← map_mul]
+  congr 1
+  rw [inv_mul_eq_div, Rat.num_div_den]
+
+/-- The extension `α̃ : B → B` as a `ℚ`-algebra map. -/
+def extAlgHom : B →ₐ[ℚ] B where
+  toFun := extFun α
+  map_one' := by simpa using extFun_coe α 1
+  map_zero' := by simpa using extFun_coe α 0
+  map_add' := extFun_add α
+  map_mul' := extFun_mul α
+  commutes' := extFun_algebraMap α
+
+theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
+
+theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
+
+theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
+  refine AlgHom.ext fun b => ?_
+  change extAlgHom α.symm (extFun α b) = b
+  rw [extFun_eq α b (extDen b) (extDen_pos b) (extDen_mem b), map_smul, extAlgHom_coe,
+    RingEquiv.symm_apply_apply, smul_smul, inv_mul_cancel₀ (by exact_mod_cast (extDen_pos b).ne'),
+    one_smul]
+
+/-- The extension as a `ℚ`-algebra automorphism of `B`. -/
+def extAlgEquiv : B ≃ₐ[ℚ] B :=
+  AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
+    (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
+
+theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
+
+/-! ### `AutOInnerFinite` from Skolem–Noether and the normalizer -/
+
+/-- **Normalizer fact (N(𝒪)/ℚ^×𝒪^× finite).** Every `u ∈ B^×` normalizing `𝒪` is
+`q · v · t` with `q ∈ ℚ^×`, `v ∈ 𝒪^×` and `t` in a fixed finite set. -/
+def NormalizerFinite : Prop :=
+  ∃ T : Set Bˣ, T.Finite ∧ ∀ u : Bˣ, (∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) →
+    ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B)
+
+/-- Skolem–Noether (proved in the kernel, `TSkolemKW.leafSkolemNoether`) applied to `α̃`. -/
+theorem conj_of_skolem : ∃ u : Bˣ, ∀ b : B, extFun α b = u * b * ((u⁻¹ : Bˣ) : B) := by
+  obtain ⟨u, hu⟩ := GlueDescent.B6_inner TSkolemKW.leafSkolemNoether (extAlgEquiv α)
+  exact ⟨u, fun b => hu b⟩
+
+/-- Conjugation by a unit of `𝒪`, `a ↦ v⁻¹ a v`. -/
+def conjUnit (v : Oˣ) : O ≃+* O where
+  toFun a := ((v⁻¹ : Oˣ) : O) * a * v
+  invFun a := (v : O) * a * ((v⁻¹ : Oˣ) : O)
+  left_inv a := by
+    simp only [mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left]
+  right_inv a := by
+    simp only [mul_assoc, Units.inv_mul, mul_one, Units.inv_mul_cancel_left]
+  map_mul' a b := by
+    simp only [mul_assoc, Units.mul_inv_cancel_left]
+  map_add' a b := by
+    simp only [mul_add, add_mul]
+
+theorem key_conj {R : Type*} [Ring R] (x y w w' c c' t : R) (hvv : w' * w = 1) (hcc : c' * c = 1)
+    (hc : c * x = x * c) (h : x * (c * w * t) = c * w * t * y) : w' * x * w * t = t * y := by
+  have h1 : x * w * t = w * t * y := by
+    calc x * w * t = c' * (c * x) * w * t := by rw [← mul_assoc, hcc, one_mul]
+      _ = c' * (x * (c * w * t)) := by rw [hc]; simp only [mul_assoc]
+      _ = c' * (c * w * t * y) := by rw [h]
+      _ = w * t * y := by simp only [← mul_assoc]; rw [hcc, one_mul]
+  calc w' * x * w * t = w' * (x * w * t) := by simp only [mul_assoc]
+    _ = w' * (w * t * y) := by rw [h1]
+    _ = t * y := by simp only [← mul_assoc]; rw [hvv, one_mul]
+
+/-- **`AutOInnerFinite` from the normalizer fact** (with Skolem–Noether from the kernel). -/
+theorem autOInnerFinite_of_normalizer (hN : NormalizerFinite) : AutOInnerFinite := by
+  classical
+  obtain ⟨T, hT, hTu⟩ := hN
+  let P : (O ≃+* O) → Bˣ → Prop := fun β t => ∀ a : O, ((β a : O) : B) * t = t * a
+  let T' : Set (O ≃+* O) := {β | ∃ t ∈ T, P β t}
+  let f : (O ≃+* O) → Bˣ := fun β => if h : ∃ t ∈ T, P β t then Classical.choose h else 1
+  have hf : ∀ β ∈ T', f β ∈ T ∧ P β (f β) := by
+    intro β hβ
+    have hβ' : ∃ t ∈ T, P β t := hβ
+    simp only [f, hβ', dite_true]
+    exact Classical.choose_spec hβ'
+  have hT' : T'.Finite := by
+    refine Set.Finite.of_finite_image (f := f) (hT.subset (t := f '' T') ?_) ?_
+    · rintro _ ⟨β, hβ, rfl⟩; exact (hf β hβ).1
+    · intro β₁ h₁ β₂ h₂ heq
+      apply RingEquiv.ext; intro a
+      apply Subtype.ext
+      have e1 := (hf β₁ h₁).2 a
+      have e2 := (hf β₂ h₂).2 a
+      rw [heq] at e1
+      exact (Units.mul_left_inj (f β₂)).1 (e1.trans e2.symm)
+  refine ⟨T', hT', fun α => ?_⟩
+  obtain ⟨u, hu⟩ := conj_of_skolem α
+  have hback : ∀ b : B, extFun α.symm (extFun α b) = b := fun b =>
+    congrArg (fun φ : B →ₐ[ℚ] B => φ b) (extAlgHom_symm_comp α)
+  have hnorm : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O := by
+    intro a
+    rw [← hu]
+    constructor
+    · intro ha
+      rw [show a = ((⟨a, ha⟩ : O) : B) from rfl, extFun_coe]
+      exact (α _).2
+    · intro ha
+      rw [← hback a, show extFun α a = ((⟨_, ha⟩ : O) : B) from rfl, extFun_coe]
+      exact (α.symm _).2
+  obtain ⟨t, ht, v, q, hq, huq⟩ := hTu u hnorm
+  have hrel : ∀ a : O, ((α a : O) : B) * u = u * a := by
+    intro a
+    rw [← extFun_coe, hu, Units.inv_mul_cancel_right]
+  let β : O ≃+* O := α.trans (conjUnit v)
+  have hβ : ∀ a : O, β a = ((v⁻¹ : Oˣ) : O) * α a * v := fun a => rfl
+  refine ⟨β, ⟨t, ht, fun a => ?_⟩, v, fun a => ?_⟩
+  · have hvv : (((v⁻¹ : Oˣ) : O) : B) * ((v : O) : B) = 1 := by
+      rw [← MulMemClass.coe_mul, Units.inv_mul]; rfl
+    have hcc : algebraMap ℚ B q⁻¹ * algebraMap ℚ B q = 1 := by
+      rw [← map_mul, inv_mul_cancel₀ hq, map_one]
+    have h := hrel a
+    rw [huq] at h
+    rw [hβ, MulMemClass.coe_mul, MulMemClass.coe_mul]
+    exact key_conj _ _ _ _ _ _ _ hvv hcc (Algebra.commutes q _) h
+  · rw [hβ]
+    simp only [mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left]
+
+end AutOExt
+
+end Pin
+
+end AV
+
+end LeafQM
+
+/-! ## §8 `NormalizerFinite`, proved: `N(𝒪)/ℚ^×𝒪^×` is represented by `{1, i, j, ij}`
+
+Descent on `|nrd|`. A prime `p ∤ 6` dividing `nrd(u)` of a normalizing `u ∈ 𝒪` divides `u`: an
+explicit identity `6 x_l² = Σ λ · coord(u e_k ū)` (coefficients from PARI's `matsolvemod`,
+`scratch/mobius-glue/py/normalizer_identity.py`). If `2 | nrd(u)` then `u i⁻¹ ∈ 𝒪`, and if
+`3 | nrd(u)` then `u j⁻¹ ∈ 𝒪` (checks modulo 2 and 3 by `decide`). -/
+
+namespace LeafQM
+
+namespace AV
+
+namespace Pin
+
+namespace NormO
+
+/-! ### Integer coordinates -/
+
+/-- The reduced norm in the coordinates of `ofInt`. -/
+def nrdZ (n : Fin 4 → ℤ) : ℤ :=
+  n 0 ^ 2 + n 0 * n 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 + n 2 ^ 2 - 2 * n 3 ^ 2
+
+/-- The conjugate in the coordinates of `ofInt`. -/
+def conjC (n : Fin 4 → ℤ) : Fin 4 → ℤ := ![n 0 + n 2, -n 1, -n 2, -n 3]
+
+theorem mulCoord_conjC (n : Fin 4 → ℤ) : mulCoord n (conjC n) = ![nrdZ n, 0, 0, 0] := by
+  funext l; fin_cases l <;> simp [mulCoord, conjC, nrdZ] <;> ring
+
+theorem mulCoord_conjC' (n : Fin 4 → ℤ) : mulCoord (conjC n) n = ![nrdZ n, 0, 0, 0] := by
+  funext l; fin_cases l <;> simp [mulCoord, conjC, nrdZ] <;> ring
+
+theorem nrdZ_mul (n m : Fin 4 → ℤ) : nrdZ (mulCoord n m) = nrdZ n * nrdZ m := by
+  simp [mulCoord, nrdZ]; ring
+
+theorem ofInt_scalar (z : ℤ) : ofInt ![z, 0, 0, 0] = algebraMap ℚ B (z : ℚ) := by
+  ext <;> simp [ofInt]
+
+theorem smul_ofInt (z : ℤ) (n : Fin 4 → ℤ) : (z : ℚ) • ofInt n = ofInt (fun l => z * n l) := by
+  ext <;> simp [ofInt] <;> ring
+
+theorem mem_O_iff (x : B) : x ∈ O ↔ ∃ n, x = ofInt n := Iff.rfl
+
+/-- `(1/z) • ofInt m ∈ 𝒪` forces `z ∣ m`. -/
+theorem dvd_of_smul_mem {z : ℤ} (hz : z ≠ 0) {m : Fin 4 → ℤ}
+    (h : ((z : ℚ)⁻¹) • ofInt m ∈ O) : ∀ l, z ∣ m l := by
+  obtain ⟨w, hw⟩ := h
+  have : ofInt m = ofInt (fun l => z * w l) := by
+    rw [← smul_ofInt, ← hw, smul_smul, mul_inv_cancel₀ (by exact_mod_cast hz), one_smul]
+  have e := AV.ofInt_injective this
+  intro l
+  exact ⟨w l, congrFun e l⟩
+
+/-! ### The units `i`, `j` of `B` -/
+
+def ei : Fin 4 → ℤ := ![0, 1, 0, 0]
+def ej : Fin 4 → ℤ := ![-1, 0, 2, 0]
+
+theorem nrdZ_ei : nrdZ ei = -2 := by simp [nrdZ, ei]
+theorem nrdZ_ej : nrdZ ej = 3 := by simp [nrdZ, ej]
+
+def ui : Bˣ where
+  val := ofInt ei
+  inv := ((2 : ℚ)⁻¹) • ofInt ei
+  val_inv := by
+    rw [mul_smul_comm, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei]
+  inv_val := by
+    rw [smul_mul_assoc, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei]
+
+def uj : Bˣ where
+  val := ofInt ej
+  inv := ((-3 : ℚ)⁻¹) • ofInt ej
+  val_inv := by
+    rw [mul_smul_comm, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ej]
+  inv_val := by
+    rw [smul_mul_assoc, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ej]
+
+/-- The representatives `{1, i, j, ij}` of `N(𝒪)/ℚ^×𝒪^×`. -/
+def T : Set Bˣ := {1, ui, uj, ui * uj}
+
+theorem T_finite : T.Finite := by
+  simp only [T]
+  exact ((((Set.finite_singleton _).insert _).insert _).insert _)
+
+/-! ### Normalizing units -/
+
+/-- `u` normalizes `𝒪`. -/
+def IsNorm (u : Bˣ) : Prop :=
+  ∀ a ∈ O, (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O ∧ ((u⁻¹ : Bˣ) : B) * a * u ∈ O
+
+theorem IsNorm.mul {u w : Bˣ} (hu : IsNorm u) (hw : IsNorm w) : IsNorm (u * w) := by
+  intro a ha
+  refine ⟨?_, ?_⟩
+  · have := (hu _ (hw a ha).1).1
+    simpa [mul_inv_rev, Units.val_mul, mul_assoc] using this
+  · have := (hw _ (hu a ha).2).2
+    simpa [mul_inv_rev, Units.val_mul, mul_assoc] using this
+
+theorem IsNorm.inv {u : Bˣ} (hu : IsNorm u) : IsNorm u⁻¹ := by
+  intro a ha
+  obtain ⟨h1, h2⟩ := hu a ha
+  exact ⟨h2, by simpa using h1⟩
+
+/-- The unit `c ∈ ℚ^×` of `B`. -/
+def sc (c : ℚ) (hc : c ≠ 0) : Bˣ where
+  val := algebraMap ℚ B c
+  inv := algebraMap ℚ B c⁻¹
+  val_inv := by rw [← map_mul, mul_inv_cancel₀ hc, map_one]
+  inv_val := by rw [← map_mul, inv_mul_cancel₀ hc, map_one]
+
+theorem isNorm_sc (c : ℚ) (hc : c ≠ 0) : IsNorm (sc c hc) := by
+  intro a ha
+  have e1 : ((sc c hc : Bˣ) : B) * a * (((sc c hc)⁻¹ : Bˣ) : B) = a := by
+    change algebraMap ℚ B c * a * algebraMap ℚ B c⁻¹ = a
+    rw [Algebra.commutes, mul_assoc, ← map_mul, mul_inv_cancel₀ hc, map_one, mul_one]
+  have e2 : (((sc c hc)⁻¹ : Bˣ) : B) * a * ((sc c hc : Bˣ) : B) = a := by
+    change algebraMap ℚ B c⁻¹ * a * algebraMap ℚ B c = a
+    rw [Algebra.commutes, mul_assoc, ← map_mul, inv_mul_cancel₀ hc, map_one, mul_one]
+  exact ⟨by rw [e1]; exact ha, by rw [e2]; exact ha⟩
+
+theorem isNorm_ui : IsNorm ui := by
+  rintro a ⟨n, rfl⟩
+  have e : ((ui : Bˣ) : B) * ofInt n * ((ui⁻¹ : Bˣ) : B) =
+      ofInt ![n 0 + n 2, n 1 + n 3, -n 2, -n 3] := by
+    change ofInt ei * ofInt n * (((2 : ℚ)⁻¹) • ofInt ei) = _
+    rw [mul_smul_comm, ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei] <;> ring
+  have e' : ((ui⁻¹ : Bˣ) : B) * ofInt n * ((ui : Bˣ) : B) =
+      ofInt ![n 0 + n 2, n 1 + n 3, -n 2, -n 3] := by
+    change (((2 : ℚ)⁻¹) • ofInt ei) * ofInt n * ofInt ei = _
+    rw [smul_mul_assoc, smul_mul_assoc, ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei] <;> ring
+  exact ⟨⟨_, e⟩, ⟨_, e'⟩⟩
+
+theorem isNorm_uj : IsNorm uj := by
+  rintro a ⟨n, rfl⟩
+  have e : ((uj : Bˣ) : B) * ofInt n * ((uj⁻¹ : Bˣ) : B) = ofInt ![n 0, -n 1, n 2, -n 3] := by
+    change ofInt ej * ofInt n * (((-3 : ℚ)⁻¹) • ofInt ej) = _
+    rw [mul_smul_comm, ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ej] <;> ring
+  have e' : ((uj⁻¹ : Bˣ) : B) * ofInt n * ((uj : Bˣ) : B) = ofInt ![n 0, -n 1, n 2, -n 3] := by
+    change (((-3 : ℚ)⁻¹) • ofInt ej) * ofInt n * ofInt ej = _
+    rw [smul_mul_assoc, smul_mul_assoc, ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ej] <;> ring
+  exact ⟨⟨_, e⟩, ⟨_, e'⟩⟩
+
+/-! ### The norm of a unit in `𝒪` and its inverse -/
+
+theorem nrdZ_ne_zero (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) : nrdZ n ≠ 0 := by
+  intro h0
+  have h1 : (u : B) * ofInt (conjC n) = 0 := by
+    rw [hu, ofInt_mul, mulCoord_conjC, h0, ofInt_scalar]; simp
+  have h2 : ofInt (conjC n) = 0 := by
+    have := congrArg (fun x => ((u⁻¹ : Bˣ) : B) * x) h1
+    simpa [← mul_assoc] using this
+  have h3 : conjC n = 0 := AV.ofInt_injective (h2.trans ofInt_zero.symm)
+  have h4 : n = 0 := by
+    funext l
+    have e0 := congrFun h3 0; have e1 := congrFun h3 1
+    have e2 := congrFun h3 2; have e3 := congrFun h3 3
+    simp [conjC] at e0 e1 e2 e3
+    fin_cases l <;> simp <;> omega
+  have : (u : B) = 0 := by rw [hu, h4, ofInt_zero]
+  exact u.ne_zero this
+
+theorem inv_eq (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) :
+    ((u⁻¹ : Bˣ) : B) = ((nrdZ n : ℚ)⁻¹) • ofInt (conjC n) := by
+  have hN : (nrdZ n : ℚ) ≠ 0 := by exact_mod_cast nrdZ_ne_zero u n hu
+  apply Units.inv_eq_of_mul_eq_one_right
+  rw [mul_smul_comm, hu, ofInt_mul, mulCoord_conjC, ofInt_scalar, Algebra.smul_def, ← map_mul,
+    inv_mul_cancel₀ hN, map_one]
+
+def bas : Fin 4 → (Fin 4 → ℤ) := ![![1, 0, 0, 0], ![0, 1, 0, 0], ![0, 0, 1, 0], ![0, 0, 0, 1]]
+
+/-- For a normalizing `u = ofInt n`, `nrd(u)` divides every coordinate of `u e_k ū`. -/
+theorem nrd_dvd_coords (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) (hN : IsNorm u)
+    (k l : Fin 4) : nrdZ n ∣ mulCoord (mulCoord n (bas k)) (conjC n) l := by
+  have h := (hN (ofInt (bas k)) ⟨_, rfl⟩).1
+  rw [inv_eq u n hu, mul_smul_comm, hu, ofInt_mul, ofInt_mul] at h
+  exact dvd_of_smul_mem (nrdZ_ne_zero u n hu) h l
+
+/-- The identities `6 x_l² = Σ λ · coord(u e_k ū)` (coefficients from PARI's `matsolvemod`). -/
+theorem six_sq_identities (n : Fin 4 → ℤ) :
+    let F := fun k l => mulCoord (mulCoord n (bas k)) (conjC n) l
+    6 * n 0 ^ 2 = 2 * F 0 0 + 2 * F 1 1 + 2 * F 1 3 + 2 * F 2 2 - 2 * F 3 1 ∧
+    6 * n 1 ^ 2 = -F 1 1 - 2 * F 2 0 + F 3 1 + F 3 3 ∧
+    6 * n 2 ^ 2 = 2 * F 0 0 - 2 * F 1 1 + 2 * F 2 2 - 2 * F 3 3 ∧
+    6 * n 3 ^ 2 = F 1 1 + F 1 3 - 2 * F 2 0 - F 3 3 := by
+  intro F
+  simp only [F, mulCoord, bas, conjC]
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> simp <;> ring
+
+/-- A prime `p ≠ 2, 3` dividing `nrd(u)` of a normalizing `u = ofInt n` divides `n`. -/
+theorem dvd_of_prime_dvd_nrd (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) (hN : IsNorm u)
+    (p : ℕ) (hp : p.Prime) (h2 : p ≠ 2) (h3 : p ≠ 3) (hpd : (p : ℤ) ∣ nrdZ n) :
+    ∀ l, (p : ℤ) ∣ n l := by
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hF : ∀ k l, (p : ℤ) ∣ mulCoord (mulCoord n (bas k)) (conjC n) l :=
+    fun k l => hpd.trans (nrd_dvd_coords u n hu hN k l)
+  have h6 : ¬ (p : ℤ) ∣ 6 := by
+    intro h
+    have h' : p ∣ 6 := by exact_mod_cast h
+    have : p ∣ 2 * 3 := h'
+    rcases (Nat.Prime.dvd_mul hp).mp this with h | h
+    · exact h2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h)
+    · exact h3 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).mp h)
+  obtain ⟨i0, i1, i2, i3⟩ := six_sq_identities n
+  have k0 : (p : ℤ) ∣ 6 * n 0 ^ 2 := by
+    rw [i0]
+    exact dvd_sub (dvd_add (dvd_add (dvd_add (dvd_mul_of_dvd_right (hF 0 0) _)
+      (dvd_mul_of_dvd_right (hF 1 1) _)) (dvd_mul_of_dvd_right (hF 1 3) _))
+      (dvd_mul_of_dvd_right (hF 2 2) _)) (dvd_mul_of_dvd_right (hF 3 1) _)
+  have k1 : (p : ℤ) ∣ 6 * n 1 ^ 2 := by
+    rw [i1]
+    exact dvd_add (dvd_add (dvd_sub (dvd_neg.mpr (hF 1 1)) (dvd_mul_of_dvd_right (hF 2 0) _))
+      (hF 3 1)) (hF 3 3)
+  have k2 : (p : ℤ) ∣ 6 * n 2 ^ 2 := by
+    rw [i2]
+    exact dvd_sub (dvd_add (dvd_sub (dvd_mul_of_dvd_right (hF 0 0) _)
+      (dvd_mul_of_dvd_right (hF 1 1) _)) (dvd_mul_of_dvd_right (hF 2 2) _))
+      (dvd_mul_of_dvd_right (hF 3 3) _)
+  have k3 : (p : ℤ) ∣ 6 * n 3 ^ 2 := by
+    rw [i3]
+    exact dvd_sub (dvd_sub (dvd_add (hF 1 1) (hF 1 3)) (dvd_mul_of_dvd_right (hF 2 0) _))
+      (hF 3 3)
+  have key : ∀ l, (p : ℤ) ∣ 6 * n l ^ 2 := by
+    intro l; fin_cases l
+    exacts [k0, k1, k2, k3]
+  intro l
+  rcases hpZ.dvd_or_dvd (key l) with h | h
+  · exact absurd h h6
+  · exact hpZ.dvd_of_dvd_pow h
+
+/-! ### The primes 2 and 3 -/
+
+theorem two_dvd_mulCoord_ei (n : Fin 4 → ℤ) (h : (2 : ℤ) ∣ nrdZ n) :
+    ∀ l, (2 : ℤ) ∣ mulCoord n ei l := by
+  have hz : ((nrdZ n : ℤ) : ZMod 2) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mpr h
+  simp only [nrdZ] at hz
+  push_cast at hz
+  have key : ∀ a b c d : ZMod 2,
+      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a = 0 ∧ c = 0 := by
+    decide
+  obtain ⟨h0, h2⟩ := key _ _ _ _ hz
+  have d0 : (2 : ℤ) ∣ n 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h0
+  have d2 : (2 : ℤ) ∣ n 2 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h2
+  intro l
+  fin_cases l <;> simp [mulCoord, ei] <;> omega
+
+theorem three_dvd_mulCoord_ej (n : Fin 4 → ℤ) (h : (3 : ℤ) ∣ nrdZ n) :
+    ∀ l, (3 : ℤ) ∣ mulCoord n ej l := by
+  have hz : ((nrdZ n : ℤ) : ZMod 3) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr h
+  simp only [nrdZ] at hz
+  push_cast at hz
+  have key : ∀ a b c d : ZMod 3,
+      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a - c = 0 ∧ b - d = 0 := by
+    decide
+  obtain ⟨h0, h1⟩ := key _ _ _ _ hz
+  have d0 : (3 : ℤ) ∣ n 0 - n 2 :=
+    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h0)
+  have d1 : (3 : ℤ) ∣ n 1 - n 3 :=
+    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h1)
+  intro l
+  fin_cases l <;> simp [mulCoord, ej] <;> omega
+
+/-! ### Closure of `T` under right multiplication by `i` and `j` -/
+
+theorem T_mem_iff (t : Bˣ) : t ∈ T ↔ t = 1 ∨ t = ui ∨ t = uj ∨ t = ui * uj := Iff.rfl
+
+theorem T_mul_ui : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
+    (t : B) * (ui : B) = algebraMap ℚ B c * (t' : B) := by
+  intro t ht
+  rcases ht with rfl | rfl | rfl | rfl
+  · exact ⟨1, one_ne_zero, ui, by simp [T], by simp⟩
+  · refine ⟨2, two_ne_zero, 1, by simp [T], ?_⟩
+    change ofInt ei * ofInt ei = _
+    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ei, QuaternionAlgebra.algebraMap_eq]
+  · refine ⟨-1, by norm_num, ui * uj, by simp [T], ?_⟩
+    change ofInt ej * ofInt ei = _ * (ofInt ei * ofInt ej)
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+  · refine ⟨-2, by norm_num, uj, by simp [T], ?_⟩
+    change ofInt ei * ofInt ej * ofInt ei = _ * ofInt ej
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+
+theorem T_mul_uj : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
+    (t : B) * (uj : B) = algebraMap ℚ B c * (t' : B) := by
+  intro t ht
+  rcases ht with rfl | rfl | rfl | rfl
+  · exact ⟨1, one_ne_zero, uj, by simp [T], by simp⟩
+  · exact ⟨1, one_ne_zero, ui * uj, by simp [T], by simp⟩
+  · refine ⟨-3, by norm_num, 1, by simp [T], ?_⟩
+    change ofInt ej * ofInt ej = _
+    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+  · refine ⟨-3, by norm_num, ui, by simp [T], ?_⟩
+    change ofInt ei * ofInt ej * ofInt ej = _ * ofInt ei
+    rw [ofInt_mul, ofInt_mul]
+    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
+
+/-- Rearranging `q v t i = (q c) v t'` for central `c`. -/
+theorem rearrange (q c : ℚ) (V Tt I T' : B) (h : Tt * I = algebraMap ℚ B c * T') :
+    algebraMap ℚ B q * V * Tt * I = algebraMap ℚ B (q * c) * V * T' := by
+  rw [mul_assoc (algebraMap ℚ B q * V), h, ← mul_assoc, mul_assoc (algebraMap ℚ B q),
+    ← Algebra.commutes c V, ← mul_assoc, ← map_mul]
+
+theorem mulCoord_smul_right (n m : Fin 4 → ℤ) (z : ℤ) :
+    mulCoord n (fun l => z * m l) = fun l => z * mulCoord n m l := by
+  funext l; fin_cases l <;> simp [mulCoord] <;> ring
+
+theorem mulCoord_smul_left (n m : Fin 4 → ℤ) (z : ℤ) :
+    mulCoord (fun l => z * n l) m = fun l => z * mulCoord n m l := by
+  funext l; fin_cases l <;> simp [mulCoord] <;> ring
+
+theorem nrdZ_smul (n : Fin 4 → ℤ) (z : ℤ) : nrdZ (fun l => z * n l) = z ^ 2 * nrdZ n := by
+  simp [nrdZ]; ring
+
+/-! ### The descent -/
+
+theorem descent (m : ℕ) : ∀ (u : Bˣ) (n : Fin 4 → ℤ), (u : B) = ofInt n →
+    (nrdZ n).natAbs = m → IsNorm u →
+    ∃ q : ℚ, q ≠ 0 ∧ ∃ v : Oˣ, ∃ t ∈ T, (u : B) = algebraMap ℚ B q * ((v : O) : B) * t := by
+  induction m using Nat.strong_induction_on with
+  | _ m ih =>
+  intro u n hu hm hN
+  have hN0 := nrdZ_ne_zero u n hu
+  by_cases h1 : m = 1
+  · have hsq : nrdZ n * nrdZ n = 1 := by
+      have : (nrdZ n).natAbs = 1 := hm.trans h1
+      rcases Int.natAbs_eq_iff.mp this with h | h <;> rw [h] <;> norm_num
+    set w : Fin 4 → ℤ := fun l => nrdZ n * conjC n l with hw_def
+    have hw1 : mulCoord n w = ![1, 0, 0, 0] := by
+      rw [hw_def, mulCoord_smul_right, mulCoord_conjC]
+      funext l; fin_cases l <;> simp [hsq]
+    have hw2 : mulCoord w n = ![1, 0, 0, 0] := by
+      rw [hw_def, mulCoord_smul_left, mulCoord_conjC']
+      funext l; fin_cases l <;> simp [hsq]
+    let v : Oˣ :=
+      ⟨⟨ofInt n, n, rfl⟩, ⟨ofInt w, w, rfl⟩,
+        Subtype.ext (by
+          change ofInt n * ofInt w = 1
+          rw [ofInt_mul, hw1, ofInt_one]),
+        Subtype.ext (by
+          change ofInt w * ofInt n = 1
+          rw [ofInt_mul, hw2, ofInt_one])⟩
+    refine ⟨1, one_ne_zero, v, 1, by simp [T], ?_⟩
+    rw [map_one, one_mul, Units.val_one, mul_one]
+    exact hu
+  · have hm0 : m ≠ 0 := by
+      rintro rfl; exact hN0 (Int.natAbs_eq_zero.mp hm)
+    set p := m.minFac with hp_def
+    have hp : p.Prime := Nat.minFac_prime h1
+    have hpd : (p : ℤ) ∣ nrdZ n := by
+      rw [Int.natCast_dvd, hm]; exact Nat.minFac_dvd m
+    have hp1 : 2 ≤ p := hp.two_le
+    by_cases hp2 : p = 2
+    · have h2 : (2 : ℤ) ∣ nrdZ n := by rw [hp2] at hpd; exact_mod_cast hpd
+      have hc := two_dvd_mulCoord_ei n h2
+      set n' : Fin 4 → ℤ := fun l => mulCoord n ei l / 2 with hn'_def
+      have hn' : mulCoord n ei = fun l => 2 * n' l :=
+        funext fun l => (Int.mul_ediv_cancel' (hc l)).symm
+      have hu' : ((u * ui⁻¹ : Bˣ) : B) = ofInt n' := by
+        change (u : B) * (((2 : ℚ)⁻¹) • ofInt ei) = _
+        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
+        norm_num
+      have hmul : mulCoord n' ei = n := by
+        apply AV.ofInt_injective
+        rw [← ofInt_mul, ← hu', ← hu]
+        change ((u * ui⁻¹ : Bˣ) : B) * ((ui : Bˣ) : B) = u
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e := nrdZ_mul n' ei
+        rw [hmul, nrdZ_ei] at e
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        have h2' : (-2 : ℤ).natAbs = 2 := rfl
+        rw [← hm, e, Int.natAbs_mul, h2']
+        omega
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (u * ui⁻¹) n' hu' rfl (hN.mul isNorm_ui.inv)
+      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_ui t ht
+      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
+      have : (u : B) = ((u * ui⁻¹ : Bˣ) : B) * ui := by
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      rw [this, he, rearrange q c _ _ _ _ htc]
+    by_cases hp3 : p = 3
+    · have h3 : (3 : ℤ) ∣ nrdZ n := by rw [hp3] at hpd; exact_mod_cast hpd
+      have hc := three_dvd_mulCoord_ej n h3
+      set n' : Fin 4 → ℤ := fun l => -(mulCoord n ej l / 3) with hn'_def
+      have hn' : mulCoord n ej = fun l => (-3) * n' l := by
+        funext l
+        simp only [hn'_def]
+        rw [mul_neg, neg_mul, neg_neg, Int.mul_ediv_cancel' (hc l)]
+      have hu' : ((u * uj⁻¹ : Bˣ) : B) = ofInt n' := by
+        change (u : B) * (((-3 : ℚ)⁻¹) • ofInt ej) = _
+        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
+        norm_num
+      have hmul : mulCoord n' ej = n := by
+        apply AV.ofInt_injective
+        rw [← ofInt_mul, ← hu', ← hu]
+        change ((u * uj⁻¹ : Bˣ) : B) * ((uj : Bˣ) : B) = u
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e := nrdZ_mul n' ej
+        rw [hmul, nrdZ_ej] at e
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        have h3' : (3 : ℤ).natAbs = 3 := rfl
+        rw [← hm, e, Int.natAbs_mul, h3']
+        omega
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (u * uj⁻¹) n' hu' rfl (hN.mul isNorm_uj.inv)
+      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_uj t ht
+      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
+      have : (u : B) = ((u * uj⁻¹ : Bˣ) : B) * uj := by
+        rw [← Units.val_mul, inv_mul_cancel_right]
+      rw [this, he, rearrange q c _ _ _ _ htc]
+    · have hdiv := dvd_of_prime_dvd_nrd u n hu hN p hp hp2 hp3 hpd
+      set n' : Fin 4 → ℤ := fun l => n l / p with hn'_def
+      have hn' : n = fun l => (p : ℤ) * n' l :=
+        funext fun l => (Int.mul_ediv_cancel' (hdiv l)).symm
+      have hp0 : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
+      have hpi : ((p : ℚ)⁻¹) ≠ 0 := inv_ne_zero hp0
+      have hu' : ((sc _ hpi * u : Bˣ) : B) = ofInt n' := by
+        change algebraMap ℚ B ((p : ℚ)⁻¹) * u = _
+        rw [← Algebra.smul_def, hu, hn', ← smul_ofInt, smul_smul]
+        push_cast
+        rw [inv_mul_cancel₀ hp0, one_smul]
+      have hlt : (nrdZ n').natAbs < m := by
+        have e : nrdZ n = (p : ℤ) ^ 2 * nrdZ n' := by rw [hn', nrdZ_smul]
+        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
+        rw [← hm, e, Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast]
+        have : 4 ≤ p ^ 2 := by nlinarith
+        have : (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs := by
+          have : 1 * (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs :=
+            Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
+          simpa using this
+        exact this
+      obtain ⟨q, hq, v, t, ht, he⟩ :=
+        ih _ hlt (sc _ hpi * u) n' hu' rfl ((isNorm_sc _ hpi).mul hN)
+      refine ⟨p * q, mul_ne_zero hp0 hq, v, t, ht, ?_⟩
+      have : (u : B) = algebraMap ℚ B (p : ℚ) * ((sc _ hpi * u : Bˣ) : B) := by
+        change _ = _ * (algebraMap ℚ B ((p : ℚ)⁻¹) * u)
+        rw [← mul_assoc, ← map_mul, mul_inv_cancel₀ hp0, map_one, one_mul]
+      rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+/-! ### `NormalizerFinite` -/
+
+/-- **`N(𝒪)/ℚ^×𝒪^×` is finite** (represented by `{1, i, j, ij}`). -/
+theorem normalizerFinite : AutOExt.NormalizerFinite := by
+  refine ⟨T, T_finite, fun u hu => ?_⟩
+  obtain ⟨m, hm, ⟨n, hn⟩⟩ := AutOExt.exists_nat_smul_mem (u : B)
+  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hu0 : ((sc _ hm0 * u : Bˣ) : B) = ofInt n := by
+    change algebraMap ℚ B m * u = _
+    rw [← Algebra.smul_def]; exact hn
+  have hN : IsNorm u := by
+    intro a ha
+    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
+    simpa [mul_assoc] using ha
+  obtain ⟨q, hq, v, t, ht, he⟩ := descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
+  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
+  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : Bˣ) : B) := by
+    change _ = _ * (algebraMap ℚ B m * u)
+    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
+  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+end NormO
+
+open CategoryTheory AlgebraicGeometry
+
+/-- **`AutOInnerFinite`, proved** (Skolem–Noether from the kernel, the normalizer from §8). -/
+theorem autOInnerFinite : AutOInnerFinite :=
+  AutOExt.autOInnerFinite_of_normalizer NormO.normalizerFinite
+
+end Pin
+
+end AV
+
+end LeafQM
+
+
+/-! ## §9 The explicit computation: `Aut(𝒪)/Inn(𝒪^×)` has exactly four classes
+
+Representatives: conjugation by `1, i, j, ij` (`rep 0, …, rep 3`). Every ring automorphism of `𝒪`
+is `v · rep k · v⁻¹` for some `k` and `v ∈ 𝒪^×` (`rep_cover`), and `rep k`, `rep l` are conjugate
+by a unit of `𝒪` only if `k = l` (`rep_distinct`: a conjugating unit would give
+`nrd(t_k) = ± r² nrd(t_l)` with `r ∈ ℚ`, impossible as `nrd(1, i, j, ij) = 1, -2, 3, -6`). -/
+
+namespace LeafQM
+
+namespace AV
+
+namespace Pin
+
+namespace Exact
+
+open NormO AutOExt
+
+/-- The reduced norm of `B = (2, -3)_ℚ`. -/
+def nrd (x : B) : ℚ := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
+
+theorem nrd_mul (x y : B) : nrd (x * y) = nrd x * nrd y := by
+  simp [nrd]; ring
+
+theorem nrd_algebraMap (q : ℚ) : nrd (algebraMap ℚ B q) = q ^ 2 := by
+  simp [nrd, QuaternionAlgebra.algebraMap_eq]
+
+theorem nrd_ofInt (n : Fin 4 → ℤ) : nrd (ofInt n) =
+    ((n 0 ^ 2 + n 0 * n 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 + n 2 ^ 2 - 2 * n 3 ^ 2 : ℤ) : ℚ) := by
+  simp [nrd, ofInt]; ring
+
+theorem not_sq (s : ℚ) (c : ℤ) (hc : ¬ IsSquare c) (h : s ^ 2 = c) : False := by
+  have h1 : IsSquare (c : ℚ) := ⟨s, by rw [← h]; ring⟩
+  rw [Rat.isSquare_iff] at h1
+  simp at h1
+  exact hc h1
+
+/-- An element of `B` commuting with `i` and `j` is a scalar. -/
+theorem comm_scalar (w : B) (hi : w * ⟨0, 1, 0, 0⟩ = ⟨0, 1, 0, 0⟩ * w)
+    (hj : w * ⟨0, 0, 1, 0⟩ = ⟨0, 0, 1, 0⟩ * w) : w = algebraMap ℚ B w.re := by
+  have h1 := congrArg QuaternionAlgebra.imJ hi
+  have h2 := congrArg QuaternionAlgebra.imK hi
+  have h3 := congrArg QuaternionAlgebra.imI hj
+  have h4 := congrArg QuaternionAlgebra.imK hj
+  simp at h1 h2 h3 h4
+  ext <;> simp [QuaternionAlgebra.algebraMap_eq] <;> linarith
+
+/-- The norm of a unit of `𝒪` is `±1`. -/
+theorem nrd_unit (v : Oˣ) : nrd ((v : O) : B) = 1 ∨ nrd ((v : O) : B) = -1 := by
+  obtain ⟨n, hn⟩ := (v : O).2
+  obtain ⟨m, hm⟩ := ((v⁻¹ : Oˣ) : O).2
+  have h1 : ((v : O) : B) * (((v⁻¹ : Oˣ) : O) : B) = 1 := by
+    rw [← MulMemClass.coe_mul, Units.mul_inv]; rfl
+  have h2 := congrArg nrd h1
+  rw [nrd_mul, hn, hm, nrd_ofInt, nrd_ofInt] at h2
+  have h3 : nrd 1 = 1 := by simp [nrd]
+  rw [h3] at h2
+  have h4 := Int.eq_one_or_neg_one_of_mul_eq_one (by exact_mod_cast h2)
+  rw [hn, nrd_ofInt]
+  rcases h4 with h | h
+  · left; rw [h]; simp
+  · right; rw [h]; simp
+
+theorem isNorm_one : IsNorm 1 := by
+  intro a ha
+  exact ⟨by simpa using ha, by simpa using ha⟩
+
+/-- Conjugation `a ↦ u a u⁻¹` by a unit `u ∈ B^×` normalizing `𝒪`, as a ring automorphism. -/
+def conjO (u : Bˣ) (hu : IsNorm u) : O ≃+* O where
+  toFun a := ⟨(u : B) * a * ((u⁻¹ : Bˣ) : B), (hu a a.2).1⟩
+  invFun a := ⟨((u⁻¹ : Bˣ) : B) * a * u, (hu a a.2).2⟩
+  left_inv a := by apply Subtype.ext; simp [mul_assoc]
+  right_inv a := by apply Subtype.ext; simp [mul_assoc]
+  map_mul' a b := by apply Subtype.ext; simp [mul_assoc]
+  map_add' a b := by apply Subtype.ext; simp [mul_add, add_mul]
+
+theorem conjO_apply (u : Bˣ) (hu : IsNorm u) (a : O) :
+    ((conjO u hu a : O) : B) = (u : B) * a * ((u⁻¹ : Bˣ) : B) := rfl
+
+/-- The representatives `1, i, j, ij` of `N(𝒪)/ℚ^×𝒪^×`. -/
+def tt : Fin 4 → Bˣ := ![1, ui, uj, ui * uj]
+
+theorem tt_isNorm (k : Fin 4) : IsNorm (tt k) := by
+  fin_cases k
+  exacts [isNorm_one, isNorm_ui, isNorm_uj, isNorm_ui.mul isNorm_uj]
+
+/-- The four representatives of `Aut(𝒪)/Inn(𝒪^×)`: conjugation by `1, i, j, ij`. -/
+def rep (k : Fin 4) : O ≃+* O := conjO (tt k) (tt_isNorm k)
+
+/-- The reduced norms `1, -2, 3, -6` of `1, i, j, ij`. -/
+def N : Fin 4 → ℤ := ![1, -2, 3, -6]
+
+theorem nrd_tt (k : Fin 4) : nrd (tt k : B) = (N k : ℚ) := by
+  fin_cases k
+  · simp [tt, N, nrd]
+  · change nrd (ofInt ei) = _
+    simp [nrd_ofInt, ei, N]
+  · change nrd (ofInt ej) = _
+    simp [nrd_ofInt, ej, N]
+  · change nrd (ofInt ei * ofInt ej) = _
+    rw [nrd_mul]
+    simp [nrd_ofInt, ei, ej, N]; norm_num
+
+theorem tt_of_T (t : Bˣ) (ht : t ∈ T) : ∃ k, tt k = t := by
+  rcases (T_mem_iff t).1 ht with rfl | rfl | rfl | rfl
+  exacts [⟨0, rfl⟩, ⟨1, rfl⟩, ⟨2, rfl⟩, ⟨3, rfl⟩]
+
+/-- The concrete normalizer statement (the body of `NormO.normalizerFinite`, with `T` named). -/
+theorem normalizer_rep (u : Bˣ) (hu : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) :
+    ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B) := by
+  obtain ⟨m, hm, ⟨n, hn⟩⟩ := AutOExt.exists_nat_smul_mem (u : B)
+  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
+  have hu0 : ((sc _ hm0 * u : Bˣ) : B) = ofInt n := by
+    change algebraMap ℚ B m * u = _
+    rw [← Algebra.smul_def]; exact hn
+  have hN : IsNorm u := by
+    intro a ha
+    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
+    simpa [mul_assoc] using ha
+  obtain ⟨q, hq, v, t, ht, he⟩ := descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
+  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
+  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : Bˣ) : B) := by
+    change _ = _ * (algebraMap ℚ B m * u)
+    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
+  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
+
+theorem key2 {R : Type*} [Ring R] (x y w w' c c' t t' : R) (hww : w * w' = 1)
+    (hcc : c' * c = 1) (htt : t * t' = 1) (hc : c * x = x * c)
+    (h : x * (c * w * t) = c * w * t * y) : x = w * (t * y * t') * w' := by
+  have h1 : x * w * t = w * t * y := by
+    calc x * w * t = c' * (c * x) * w * t := by rw [← mul_assoc, hcc, one_mul]
+      _ = c' * (x * (c * w * t)) := by rw [hc]; simp only [mul_assoc]
+      _ = c' * (c * w * t * y) := by rw [h]
+      _ = w * t * y := by simp only [← mul_assoc]; rw [hcc, one_mul]
+  calc x = x * (w * (t * t') * w') := by rw [htt, mul_one, hww, mul_one]
+    _ = x * w * t * t' * w' := by simp only [mul_assoc]
+    _ = w * t * y * t' * w' := by rw [h1]
+    _ = w * (t * y * t') * w' := by simp only [mul_assoc]
+
+/-- **Every automorphism of `𝒪` is `v · rep k · v⁻¹`** for some `k` and some `v ∈ 𝒪^×`. -/
+theorem rep_cover (α : O ≃+* O) : ∃ k : Fin 4, ∃ v : Oˣ, ∀ a : O,
+    α a = (v : O) * rep k a * ((v⁻¹ : Oˣ) : O) := by
+  obtain ⟨u, hu⟩ := conj_of_skolem α
+  have hback : ∀ b : B, extFun α.symm (extFun α b) = b := fun b =>
+    congrArg (fun φ : B →ₐ[ℚ] B => φ b) (extAlgHom_symm_comp α)
+  have hnorm : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O := by
+    intro a
+    rw [← hu]
+    constructor
+    · intro ha
+      rw [show a = ((⟨a, ha⟩ : O) : B) from rfl, extFun_coe]
+      exact (α _).2
+    · intro ha
+      rw [← hback a, show extFun α a = ((⟨_, ha⟩ : O) : B) from rfl, extFun_coe]
+      exact (α.symm _).2
+  obtain ⟨t, ht, v, q, hq, huq⟩ := normalizer_rep u hnorm
+  obtain ⟨k, rfl⟩ := tt_of_T t ht
+  have hrel : ∀ a : O, ((α a : O) : B) * u = u * a := by
+    intro a
+    rw [← extFun_coe, hu, Units.inv_mul_cancel_right]
+  refine ⟨k, v, fun a => Subtype.ext ?_⟩
+  rw [MulMemClass.coe_mul, MulMemClass.coe_mul]
+  change _ = ((v : O) : B) * ((tt k : B) * a * (((tt k)⁻¹ : Bˣ) : B)) * (((v⁻¹ : Oˣ) : O) : B)
+  have hvv : ((v : O) : B) * (((v⁻¹ : Oˣ) : O) : B) = 1 := by
+    rw [← MulMemClass.coe_mul, Units.mul_inv]; rfl
+  have hcc : algebraMap ℚ B q⁻¹ * algebraMap ℚ B q = 1 := by
+    rw [← map_mul, inv_mul_cancel₀ hq, map_one]
+  have h := hrel a
+  rw [huq] at h
+  exact key2 _ _ _ _ _ _ _ _ hvv hcc (Units.mul_inv _) (Algebra.commutes q _) h
+
+/-- **The four representatives are pairwise non-conjugate by units of `𝒪`.** -/
+theorem rep_distinct (k l : Fin 4) (v : Oˣ)
+    (h : ∀ a : O, rep k a = (v : O) * rep l a * ((v⁻¹ : Oˣ) : O)) : k = l := by
+  set V : B := ((v : O) : B) with hVdef
+  set V' : B := (((v⁻¹ : Oˣ) : O) : B) with hV'def
+  have hVV' : V * V' = 1 := by
+    rw [hVdef, hV'def, ← MulMemClass.coe_mul, Units.mul_inv]; rfl
+  have hV'V : V' * V = 1 := by
+    rw [hVdef, hV'def, ← MulMemClass.coe_mul, Units.inv_mul]; rfl
+  have hV'Vx : ∀ X : B, V' * (V * X) = X := fun X => by rw [← mul_assoc, hV'V, one_mul]
+  set P : B := (tt k : B) with hP
+  set P' : B := (((tt k)⁻¹ : Bˣ) : B) with hP'
+  set Q : B := (tt l : B) with hQ
+  set Q' : B := (((tt l)⁻¹ : Bˣ) : B) with hQ'
+  have hP'P : P' * P = 1 := Units.inv_mul _
+  have hQ'Qx : ∀ X : B, Q' * (Q * X) = X := fun X => by
+    rw [← mul_assoc, show Q' * Q = 1 from Units.inv_mul _, one_mul]
+  have hQQ'x : ∀ X : B, Q * (Q' * X) = X := fun X => by
+    rw [← mul_assoc, show Q * Q' = 1 from Units.mul_inv _, one_mul]
+  have hVV'x : ∀ X : B, V * (V' * X) = X := fun X => by rw [← mul_assoc, hVV', one_mul]
+  have hcomm : ∀ a ∈ O, (Q' * V' * P) * a = a * (Q' * V' * P) := by
+    intro a ha
+    have e : P * a * P' = V * (Q * a * Q') * V' := by
+      have := congrArg Subtype.val (h ⟨a, ha⟩)
+      rw [MulMemClass.coe_mul, MulMemClass.coe_mul] at this
+      exact this
+    calc Q' * V' * P * a = Q' * V' * (P * a * P') * P := by
+          simp only [mul_assoc, hP'P, mul_one]
+      _ = Q' * V' * (V * (Q * a * Q') * V') * P := by rw [e]
+      _ = a * (Q' * V' * P) := by simp only [mul_assoc, hV'Vx, hQ'Qx]
+  set W := Q' * V' * P with hW
+  have hWs : W = algebraMap ℚ B W.re :=
+    comm_scalar W (hcomm _ (mem_O_of_int 0 1 0 0)) (hcomm _ (mem_O_of_int 0 0 1 0))
+  have hPW : P = V * Q * W := by
+    rw [hW]; simp only [mul_assoc, hQQ'x, hVV'x]
+  have e1 : (N k : ℚ) = nrd V * N l * W.re ^ 2 := by
+    rw [← nrd_tt, ← nrd_tt, ← nrd_algebraMap, ← hWs, ← nrd_mul, ← nrd_mul]
+    exact congrArg nrd hPW
+  have hmain : ∀ ε : ℤ, nrd V = ε → ε ^ 2 = 1 →
+      (W.re * N l) ^ 2 = ((ε * N k * N l : ℤ) : ℚ) := by
+    intro ε hε hε2
+    have hε2' : (ε : ℚ) ^ 2 = 1 := by exact_mod_cast hε2
+    push_cast
+    rw [e1, hε]
+    linear_combination (-(W.re ^ 2 * (N l : ℚ) ^ 2)) * hε2'
+  rcases nrd_unit v with h1 | h1
+  · have hm := hmain 1 (by rw [← hVdef] at h1; simpa using h1) (by norm_num)
+    fin_cases k <;> fin_cases l <;>
+      first | rfl | exact (not_sq _ _ (by decide +kernel) hm).elim
+  · have hm := hmain (-1) (by rw [← hVdef] at h1; simpa using h1) (by norm_num)
+    fin_cases k <;> fin_cases l <;>
+      first | rfl | exact (not_sq _ _ (by decide +kernel) hm).elim
+
+/-- **Explicit computation of `Aut(𝒪)/Inn(𝒪^×)`: exactly four classes**, represented by
+conjugation by `1, i, j, ij`. -/
+theorem autO_mod_inner_exact : ∃ t : Fin 4 → (O ≃+* O),
+    (∀ α : O ≃+* O, ∃ k, ∃ v : Oˣ, ∀ a : O, α a = (v : O) * t k a * ((v⁻¹ : Oˣ) : O)) ∧
+    ∀ k l, (∃ v : Oˣ, ∀ a : O, t k a = (v : O) * t l a * ((v⁻¹ : Oˣ) : O)) → k = l :=
+  ⟨rep, rep_cover, fun k l ⟨v, hv⟩ => rep_distinct k l v hv⟩
+
+/-- `AutOInnerFinite` again, from the explicit computation. -/
+theorem autOInnerFinite' : AutOInnerFinite := by
+  refine ⟨Set.range rep, Set.finite_range rep, fun α => ?_⟩
+  obtain ⟨k, v, hv⟩ := rep_cover α
+  exact ⟨rep k, ⟨k, rfl⟩, v, hv⟩
+
+end Exact
+
+end Pin
+
+end AV
+
+end LeafQM
+
+end
+
+end AutOCopy
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/Units.lean` (task ts-hecke), minus its import and `#print` lines:
+`TSHeckeUnits.exists_unit_congr` (`𝒪^× → (𝒪/3𝒪)^×` is onto).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section UnitsCopy
+
+/-! # ts-hecke: `𝒪^× → (𝒪/3𝒪)^×` is onto (development file)
+
+Table of 72 explicit units (`units_table.py`), checked by `decide`. -/
+
+noncomputable section
+
+namespace TSHeckeUnits
+
+open LeafQM LeafQM.AV
+
+/-- The reduced norm in `ofInt` coordinates:
+`nrd(n₀ + n₁ i + n₂ (1+j)/2 + n₃ (i+k)/2) = n₀² + n₀n₂ + n₂² − 2(n₁² + n₁n₃ + n₃²)`. -/
+def nrdC (n : Fin 4 → ℤ) : ℤ := n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * (n 1 ^ 2 + n 1 * n 3 + n 3 ^ 2)
+
+/-- The conjugate in `ofInt` coordinates. -/
+def conjC (n : Fin 4 → ℤ) : Fin 4 → ℤ := ![n 0 + n 2, -n 1, -n 2, -n 3]
+
+theorem nrdC_mul (n m : Fin 4 → ℤ) : nrdC (mulCoord n m) = nrdC n * nrdC m := by
+  simp only [nrdC, mulCoord, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_two,
+    Matrix.cons_val_three, Matrix.head_cons, Matrix.tail_cons]
+  ring
+
+theorem mulCoord_smul_conjC (n : Fin 4 → ℤ) (ε : ℤ) :
+    mulCoord n (fun i => ε * conjC n i) = ![ε * nrdC n, 0, 0, 0] := by
+  funext i
+  fin_cases i <;>
+    simp [mulCoord, conjC, nrdC] <;> ring
+
+theorem mulCoord_smul_conjC' (n : Fin 4 → ℤ) (ε : ℤ) :
+    mulCoord (fun i => ε * conjC n i) n = ![ε * nrdC n, 0, 0, 0] := by
+  funext i
+  fin_cases i <;>
+    simp [mulCoord, conjC, nrdC] <;> ring
+
+/-- A unit of `𝒪` from coordinates of reduced norm `ε = ±1`. -/
+def unitOf (n : Fin 4 → ℤ) (ε : ℤ) (hε : nrdC n = ε) (hε2 : ε * ε = 1) : Oˣ where
+  val := ⟨ofInt n, n, rfl⟩
+  inv := ⟨ofInt (fun i => ε * conjC n i), _, rfl⟩
+  val_inv := by
+    apply Subtype.ext
+    change ofInt n * ofInt (fun i => ε * conjC n i) = 1
+    rw [ofInt_mul, mulCoord_smul_conjC, hε, hε2, ofInt_one]
+  inv_val := by
+    apply Subtype.ext
+    change ofInt (fun i => ε * conjC n i) * ofInt n = 1
+    rw [ofInt_mul, mulCoord_smul_conjC', hε, hε2, ofInt_one]
+
+def unitTbl : List (Fin 4 → ℤ) :=
+  [![0, 0, 0, 0],
+   ![1, 0, 0, 0],
+   ![-1, 0, 0, 0],
+   ![-3, -2, 0, 0],
+   ![1, 1, 0, 0],
+   ![-1, 1, 0, 0],
+   ![-3, 2, 0, 0],
+   ![1, -1, 0, 0],
+   ![-1, -1, 0, 0],
+   ![0, 0, 1, 0],
+   ![0, 0, 0, 0],
+   ![-1, 0, 1, 0],
+   ![0, 1, 1, 0],
+   ![1, 1, 1, 0],
+   ![-1, 1, 1, 0],
+   ![0, -1, 1, 0],
+   ![1, -1, 1, 0],
+   ![-1, -1, 1, 0],
+   ![0, 0, -1, 0],
+   ![1, 0, -1, 0],
+   ![0, 0, 0, 0],
+   ![0, 1, -1, 0],
+   ![1, 1, -1, 0],
+   ![-1, 1, -1, 0],
+   ![0, -1, -1, 0],
+   ![1, -1, -1, 0],
+   ![-1, -1, -1, 0],
+   ![-3, 0, 0, -2],
+   ![1, 0, 0, 1],
+   ![-1, 0, 0, 1],
+   ![0, 0, 0, 0],
+   ![1, 1, -3, 1],
+   ![-1, 1, 3, 1],
+   ![-3, 2, 0, -2],
+   ![1, -1, 0, 1],
+   ![-1, -1, 0, 1],
+   ![0, 0, 1, 1],
+   ![1, 0, 1, 1],
+   ![-1, 0, 1, 1],
+   ![-3, 1, 1, 1],
+   ![0, 0, 0, 0],
+   ![-1, 1, -2, 1],
+   ![0, -1, 1, 1],
+   ![1, -1, 1, 1],
+   ![-1, -1, 1, 1],
+   ![0, 0, -1, 1],
+   ![1, 0, -1, 1],
+   ![-1, 0, -1, 1],
+   ![3, 1, -1, 1],
+   ![-2, 1, -1, 1],
+   ![0, 0, 0, 0],
+   ![0, -1, -1, 1],
+   ![1, -1, -1, 1],
+   ![-1, -1, -1, 1],
+   ![-3, 0, 0, 2],
+   ![1, 0, 0, -1],
+   ![-1, 0, 0, -1],
+   ![-3, -2, 0, 2],
+   ![1, 1, 0, -1],
+   ![-1, 1, 0, -1],
+   ![0, 0, 0, 0],
+   ![1, -1, -3, -1],
+   ![-1, -1, 3, -1],
+   ![0, 0, 1, -1],
+   ![1, 0, 1, -1],
+   ![-1, 0, 1, -1],
+   ![0, 1, 1, -1],
+   ![1, 1, 1, -1],
+   ![-1, 1, 1, -1],
+   ![-3, -1, 1, -1],
+   ![0, 0, 0, 0],
+   ![-1, -1, -2, -1],
+   ![0, 0, -1, -1],
+   ![1, 0, -1, -1],
+   ![-1, 0, -1, -1],
+   ![0, 1, -1, -1],
+   ![1, 1, -1, -1],
+   ![-1, 1, -1, -1],
+   ![3, -1, -1, -1],
+   ![-2, -1, -1, -1],
+   ![0, 0, 0, 0]]
+
+
+/-- The table entry for a residue vector. -/
+def tbl (c : Fin 4 → ZMod 3) : Fin 4 → ℤ :=
+  unitTbl.getD ((c 0).val + 3 * (c 1).val + 9 * (c 2).val + 27 * (c 3).val) 0
+
+/-- The reduced norm mod 3. -/
+def nrd3 (c : Fin 4 → ZMod 3) : ZMod 3 :=
+  c 0 ^ 2 + c 0 * c 2 + c 2 ^ 2 - 2 * (c 1 ^ 2 + c 1 * c 3 + c 3 ^ 2)
+
+/-- **The table is correct** (checked by `decide`): for every residue of nonzero reduced norm,
+the entry reduces to it and has reduced norm `±1`. -/
+theorem tbl_spec : ∀ c : Fin 4 → ZMod 3, nrd3 c ≠ 0 →
+    (∀ i, ((tbl c i : ℤ) : ZMod 3) = c i) ∧ (nrdC (tbl c) = 1 ∨ nrdC (tbl c) = -1) := by
+  decide +kernel
+
+theorem nrdC_cast (n : Fin 4 → ℤ) : ((nrdC n : ℤ) : ZMod 3) = nrd3 (fun i => (n i : ZMod 3)) := by
+  simp [nrdC, nrd3]
+
+/-- **`𝒪^× → (𝒪/3𝒪)^×` is onto** (compiled): an element `u₀` of `𝒪` invertible modulo `3𝒪` is
+congruent mod `3𝒪` to a unit. -/
+theorem exists_unit_congr (u₀ v₀ : O) (h : ∃ c : O, v₀ * u₀ - 1 = 3 * c) :
+    ∃ u : Oˣ, ∃ d : O, u₀ - (u : O) = 3 * d := by
+  obtain ⟨c, hc⟩ := h
+  obtain ⟨nu, hnu⟩ := u₀.2
+  obtain ⟨nv, hnv⟩ := v₀.2
+  obtain ⟨nc, hnc⟩ := c.2
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  have h1 : ((1 : O) : B) = ofInt ![1, 0, 0, 0] := by rw [ofInt_one]; rfl
+  have hcoord : mulCoord nv nu - ![1, 0, 0, 0] = fun i => 3 * nc i := by
+    apply ofInt_injective
+    rw [← ofInt_sub, ← ofInt_mul, ← three_mul_ofInt, ← hnu, ← hnv, ← hnc, ← h1, ← h33]
+    exact congrArg Subtype.val hc
+  -- the reduced norm of `u₀` is nonzero mod 3
+  have hn1 : ((nrdC (mulCoord nv nu) : ℤ) : ZMod 3) = 1 := by
+    have : mulCoord nv nu = fun i => ![1, 0, 0, 0] i + 3 * nc i := by
+      funext i
+      have := congrFun hcoord i
+      simp only [Pi.sub_apply] at this
+      linarith
+    rw [this, nrdC_cast]
+    simp only [nrd3]
+    simp [show (3 : ZMod 3) = 0 from rfl]
+  have hnu3 : nrd3 (fun i => (nu i : ZMod 3)) ≠ 0 := by
+    intro h0
+    rw [nrdC_mul, Int.cast_mul, nrdC_cast nu, h0, mul_zero] at hn1
+    exact zero_ne_one hn1
+  obtain ⟨hred, hε⟩ := tbl_spec _ hnu3
+  set n := tbl (fun i => (nu i : ZMod 3))
+  have hdvd : ∀ i, (3 : ℤ) ∣ nu i - n i := by
+    intro i
+    have := (ZMod.intCast_zmod_eq_zero_iff_dvd (nu i - n i) 3).1
+      (by rw [Int.cast_sub, hred i, sub_self])
+    exact_mod_cast this
+  let ε : ℤ := nrdC n
+  have hε2 : ε * ε = 1 := by rcases hε with h | h <;> simp [ε, h]
+  refine ⟨unitOf n ε rfl hε2, ⟨ofInt (fun i => (nu i - n i) / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  change (u₀ : B) - ofInt n = ((3 : O) : B) * ofInt (fun i => (nu i - n i) / 3)
+  rw [hnu, h33, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply]
+  exact (Int.mul_ediv_cancel' (hdvd i)).symm
+
+end TSHeckeUnits
+
+end
+
+
+end UnitsCopy
+
+noncomputable section
+
+namespace TSHecke
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV LeafQM.AV.Pin PkgI3
+open MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- The classes whose QM pair is an `Aut(𝒪)`-twist of the pair of `P` (the shape of a `π`-fibre
+on `ℚ̄`-points, by R2fp). -/
+def twistFibre (P : QML3 Qbar) : Set (M3 Qbar) :=
+  {c | ∃ Q : QML3 Qbar, c = M3.mk Q ∧ ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)}
+
+section Count
+
+variable {K : Type} [Field K]
+
+theorem end_mul_hom {A : AbVar K} (f g : AbVar.End A) : (f * g).hom = g.hom ≫ f.hom := rfl
+
+theorem end_one_hom {A : AbVar K} : (1 : AbVar.End A).hom = 𝟙 _ := rfl
+
+/-- **Transport of a level structure along a QM isomorphism** (pull back by `G.ψ`). -/
+def pullLevel {A₁ A₂ : AbVar K} {q₁ : QMStr A₁} {q₂ : QMStr A₂} (G : QMIso q₁ q₂)
+    (e : Level3 q₂) : Level3 q₁ where
+  eta := (AbVar.ptMap (L := K) G.ψ).toAdditive.comp e.eta
+  linear a b := by
+    show Additive.ofMul (Additive.toMul (e.eta (a * b)) ≫ G.ψ.hom) =
+      Additive.ofMul ((Additive.toMul (e.eta b) ≫ G.ψ.hom) ≫ (q₁.iota a).hom)
+    rw [e.linear a b]
+    show Additive.ofMul ((Additive.toMul (e.eta b) ≫ (q₂.iota a).hom) ≫ G.ψ.hom) = _
+    rw [Category.assoc, Category.assoc]
+    congr 2
+    exact (G.symm).equivariant a
+  ker a := by
+    have hinj : Function.Injective (AbVar.ptMap (L := K) G.ψ).toAdditive := by
+      intro x y hxy
+      have h' : Additive.toMul x ≫ G.ψ.hom = Additive.toMul y ≫ G.ψ.hom := congrArg Additive.toMul hxy
+      have h'' := congrArg (· ≫ G.φ.hom) h'
+      simp only [Category.assoc, G.right, Category.comp_id] at h''
+      exact Additive.toMul.injective h''
+    rw [AddMonoidHom.comp_apply, map_eq_zero_iff _ hinj, e.ker]
+
+/-- The isomorphism of objects underlying `pullLevel`. -/
+def pullIso {A₁ A₂ : AbVar K} (s₁ : A₁.dim = 2) (s₂ : A₂.dim = 2) {q₁ : QMStr A₁}
+    {q₂ : QMStr A₂} (G : QMIso q₁ q₂) (e : Level3 q₂) :
+    QML3.Iso (⟨A₁, s₁, q₁, pullLevel G e⟩ : QML3 K) ⟨A₂, s₂, q₂, e⟩ where
+  φ := G.φ
+  ψ := G.ψ
+  left := G.left
+  right := G.right
+  equivariant := G.equivariant
+  level a := by
+    show Additive.ofMul ((Additive.toMul (e.eta a) ≫ G.ψ.hom) ≫ G.φ.hom) = e.eta a
+    rw [Category.assoc, G.right, Category.comp_id]
+    rfl
+
+/-- **Inner twists are isomorphic** (`ι(v⁻¹) : (A, ι ∘ α) ≅ (A, ι ∘ t)` when `α = Ad(v) ∘ t`). -/
+def innerIso {A : AbVar K} (q : QMStr A) (t α : O ≃+* O) (v : Oˣ)
+    (h : ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)) : QMIso (q.twist α) (q.twist t) where
+  φ := q.iota ((v⁻¹ : Oˣ) : O)
+  ψ := q.iota (v : O)
+  left := by
+    rw [← end_mul_hom, ← map_mul, Units.mul_inv, map_one, end_one_hom]
+  right := by
+    rw [← end_mul_hom, ← map_mul, Units.inv_mul, map_one, end_one_hom]
+  equivariant a := by
+    show (q.iota (α a)).hom ≫ (q.iota ((v⁻¹ : Oˣ) : O)).hom =
+      (q.iota ((v⁻¹ : Oˣ) : O)).hom ≫ (q.iota (t a)).hom
+    rw [← end_mul_hom, ← end_mul_hom, ← map_mul, ← map_mul, h a]
+    congr 2
+    rw [← _root_.mul_assoc, ← _root_.mul_assoc, Units.inv_mul, _root_.one_mul]
+
+end Count
+
+/-- `u ∈ 𝒪` and the lift of its coordinates mod 3 differ by an element of `3𝒪`. -/
+theorem exists_sub_liftO (u : O) : ∃ c : Fin 4 → ZMod 3, ∃ d : O, u - liftO c = 3 * d := by
+  obtain ⟨n, hn⟩ := u.2
+  refine ⟨fun i => (n i : ZMod 3), ⟨ofInt (fun i => n i / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  simp only [liftO, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33]
+  rw [hn, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply, ZMod.val_intCast]
+  have := Int.emod_def (n i) 3
+  omega
+
+/-- **The moduli input: sizes of the twist fibres** (the shape of Baba–Granath's elliptic table).
+There is `M` (it is `144 = |Γ'|`) such that every twist fibre has at most `M` classes, the fibre
+of an object without CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M`, and at objects with CM by
+`ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `M` divides `4` (resp. `6`, `2`) times the fibre size (the
+expected sizes are `36`, `24`, `72`). *Count*: a fixed pair `(A, ι)` over `ℚ̄` has
+`72 = |(𝒪/3𝒪)^×|` level structures, permuted freely by `com(ι)^×/{±1}` (trivial unless CM by
+`ℤ[i]` or `ℤ[ζ₃]`); `Aut(𝒪)/Inn(𝒪^×) = W` has order 4 and acts freely on the pairs except at CM by
+`ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` (stabilizers `⟨w₂⟩`, `⟨w₃⟩`, `⟨w₆⟩`); CM points of discriminants `−8`
+and `−12` do not exist on `X₆` (`3` splits in `ℚ(√−2)`; `2` divides conductor and discriminant).
+So the sizes are `4·36 = 144`, `2·18 = 36`, `2·12 = 24`, `2·36 = 72`. *Source*: the fibre of
+`Y₃ → P¹` through a point `y` has
+`|Γ'| / |Stab(y)|` points; `Stab(y)` is trivial off the elliptic points of `Γ*`, whose orders are
+`4, 6, 2` at the CM points of discriminants `−4, −3, −24` (Baba–Granath, Canad. J. Math. 60
+(2008), §3.1, the elliptic-order table, p. 740 per docs/research/locators.md; signature
+`(0; 2, 4, 6)`); the complete list of elliptic elements of the normalizer (h-b1 M9, VERIFIED by
+`scratch/rv-h-b1/rv_checks.py`) shows that every point with a nontrivial stabilizer has CM by one of
+the three maximal orders; `Γ₃` is torsion-free (`−1 ∉ K₃`). Glue from leaves (Shimura's
+uniformization and Baba–Granath). -/
+def HeckeFibreSizes : Prop :=
+  ∃ M : ℕ, (∀ P : QML3 Qbar, (twistFibre P).ncard ≤ M) ∧
+    (∀ P : QML3 Qbar, ¬ HasCM4 P.q → ¬ HasCM3 P.q → ¬ HasCM24 P.q →
+      (twistFibre P).ncard = M) ∧
+    (∀ P : QML3 Qbar, HasCM4 P.q → M ∣ 4 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM3 P.q → M ∣ 6 * (twistFibre P).ncard) ∧
+    (∀ P : QML3 Qbar, HasCM24 P.q → M ∣ 2 * (twistFibre P).ncard)
+
+end TSHecke
+
+end
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 1: `HeckeFibreSizes` from three leaves on QM pairs and `TorsionStructure`
+
+The count (computed in `fibre_sizes.py`): a twist fibre is the set of classes of
+`(A, ι ∘ t_k, η)`, `k ∈ Fin 4`, `η` one of the `72` level structures on `(A, ι ∘ t_k)`.
+`(A, ι ∘ t_k, η) ≅ (A, ι ∘ t_l, η')` iff some `φ : (A, ι ∘ t_k) ≅ (A, ι ∘ t_l)` carries `η` to
+`η'`; distinct `φ` give distinct `η'` (Serre's lemma). So each class has `s · a` members, where
+`a = |Aut(A, ι)|` and `s = #{m | (A, ι ∘ t_m) ≅ (A, ι)}`, and `n · s · a = 4 · 72 = 288`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRest
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV LeafQM.AV.Pin LeafQM.AV.Pin.Exact LeafQM.AV.Pin.NormO PkgI3 TSHecke
+open TSHeckeUnits
+open scoped MonObj
+open Classical
+
+/-! ## The three leaves -/
+
+/-- **Leaf (Shimura's classification of the centralizer of `ι(𝒪)`; units of imaginary quadratic
+orders).** For an abelian surface `A` over `ℚ̄` with QM `ι : 𝒪 ↪ End(A)` by the maximal order of
+the indefinite quaternion algebra `B = (2, −3)` of discriminant `6`, the centralizer
+`End_𝒪(A) = com(ι)` is `ℤ` or an order in one imaginary quadratic field (Shimura, *On analytic
+families of polarized abelian varieties and automorphic functions*, Ann. of Math. 78 (1963), and
+the standard classification of `End⁰(A) ⊇ B`: `End⁰(A) = B` or `M₂(K)` with `K` imaginary
+quadratic splitting `B`; e.g. Rotger, *Quaternions, polarizations and class numbers*, J. reine
+angew. Math. 561 (2003), §2; locators UNVERIFIED). Consequences stated here: the automorphism
+group of the pair, `com(ι)^×`, has `4` elements under CM by `ℤ[i]` (a maximal order, so
+`com = ℤ[i]`), `6` under CM by `ℤ[ζ₃]`, and `2` (`±1`) otherwise; and no two of the three CM
+types occur together (the three fields `ℚ(i)`, `ℚ(√−3)`, `ℚ(√−6)` are distinct). -/
+def QMAutCard : Prop :=
+  ∀ (A : AbVar Qbar), A.dim = 2 → ∀ q : QMStr A,
+    Nat.card (QMIso q q) = (if HasCM4 q then 4 else if HasCM3 q then 6 else 2) ∧
+    ¬ (HasCM4 q ∧ HasCM3 q) ∧ ¬ (HasCM4 q ∧ HasCM24 q) ∧ ¬ (HasCM3 q ∧ HasCM24 q)
+
+/-- **Leaf (Serre's lemma, level 3).** An endomorphism of finite order of an abelian variety
+over `ℚ̄` that fixes every `3`-torsion point is the identity (Serre's lemma in its finite-order
+form: J.-P. Serre, *Rigidité du foncteur de Jacobi d'échelon n ≥ 3*, appendix to Sém. H. Cartan
+13 (1960/61), exp. 17; Silverberg–Zarhin, J. Pure Appl. Algebra 111 (1996); Mumford,
+*Abelian varieties*, §21, Theorem 5 is the polarized form; locators UNVERIFIED. Proof: `φ − 1`
+kills `A[3]`, so `φ = 1 + 3β` with `β ∈ End(A)`; an eigenvalue `ζ ≠ 1` of the semisimple `φ`
+would make `(ζ − 1)/3` integral). Stated over the kernel's genuine abelian varieties
+`PkgI3.AbVar` and their `ℚ̄`-points. -/
+def SerreRigidity3 : Prop :=
+  ∀ (A : AbVar Qbar) (φ : AbVar.End A), (∃ m : ℕ, 0 < m ∧ φ ^ m = 1) →
+    (∀ x : A.Pt Qbar, x ^ 3 = 1 → x ≫ φ.hom = x) → φ = 1
+
+/-- **Leaf (fixed points of the Atkin–Lehner involutions on `X₆ = X₀^6(1)`).** The twists
+`rep 1, rep 2, rep 3` (conjugation by `i, j, ij`, of reduced norms `−2, 3, −6`) represent
+`w₂, w₃, w₆` (Rotger, *Modular Shimura varieties and forgetful maps*, Trans. AMS 356 (2004),
+§§2-4; Ogg, *Real points on Shimura curves* (1983), fixed points of `w_m`; locators UNVERIFIED).
+A pair isomorphic to its `w_m`-twist is a fixed point of `w_m`, hence a CM point by an order
+containing `ℤ[μ]` for an elliptic `μ ∈ 𝒪` of norm `m`; by the embedding check of
+`fibre_sizes.py` §5 (`ℚ(√−2)`, `ℚ(√−7)`, `ℚ(√−11)`, `ℚ(√−5)`, `ℚ(√−15)`, `ℚ(√−23)` do not
+embed in `B`; for `m = 3` the field is `ℚ(√−3)` and `𝒪 ⊗ ℤ₂` is the maximal order of the
+division algebra, so the CM order contains `ℤ[ζ₃]`) the CM is by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]`. -/
+def ALFixedPoints : Prop :=
+  ∀ (A : AbVar Qbar), A.dim = 2 → ∀ q : QMStr A,
+    (Nonempty (QMIso (q.twist (rep 1)) q) → HasCM4 q) ∧
+    (Nonempty (QMIso (q.twist (rep 2)) q) → HasCM3 q) ∧
+    (Nonempty (QMIso (q.twist (rep 3)) q) → HasCM24 q)
+
+/-! ## Generalities on QM isomorphisms -/
+
+section General
+
+variable {K : Type} [Field K]
+
+theorem qmIso_ext {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} {G G' : QMIso q q'}
+    (h : G.φ.hom = G'.φ.hom) : G = G' := by
+  have hφ : G.φ = G'.φ := AbVar.Hom.ext' h
+  have hψ : G.ψ = G'.ψ := by
+    apply AbVar.Hom.ext'
+    calc G.ψ.hom = G.ψ.hom ≫ G'.φ.hom ≫ G'.ψ.hom := by rw [G'.left, Category.comp_id]
+      _ = G.ψ.hom ≫ G.φ.hom ≫ G'.ψ.hom := by rw [h]
+      _ = G'.ψ.hom := by rw [← Category.assoc, G.right, Category.id_comp]
+  cases G; cases G'; cases hφ; cases hψ; rfl
+
+/-- Re-index a QM isomorphism along `g0 : 𝒪 → 𝒪` (same underlying maps). -/
+def qmCongr {A A' : AbVar K} {q₁ q₁' : QMStr A} {q₂ q₂' : QMStr A'} (G : QMIso q₁ q₂)
+    (g0 : O → O) (h₁ : ∀ a, q₁'.iota a = q₁.iota (g0 a)) (h₂ : ∀ a, q₂'.iota a = q₂.iota (g0 a)) :
+    QMIso q₁' q₂' where
+  φ := G.φ
+  ψ := G.ψ
+  left := G.left
+  right := G.right
+  equivariant a := by rw [h₁, h₂]; exact G.equivariant (g0 a)
+
+/-- `Aut(A, ι ∘ α) = Aut(A, ι)`. -/
+def autTwistEquiv {A : AbVar K} (q : QMStr A) (α : O ≃+* O) :
+    QMIso (q.twist α) (q.twist α) ≃ QMIso q q where
+  toFun G := qmCongr G α.symm
+    (fun a => by
+      show q.iota a = q.iota (α (α.symm a))
+      rw [RingEquiv.apply_symm_apply])
+    (fun a => by
+      show q.iota a = q.iota (α (α.symm a))
+      rw [RingEquiv.apply_symm_apply])
+  invFun G := qmCongr G α (fun _ => rfl) (fun _ => rfl)
+  left_inv G := qmIso_ext rfl
+  right_inv G := qmIso_ext rfl
+
+/-- `Iso(q, q') ≃ Aut(q)` once one isomorphism is fixed. -/
+def isoEquivAut {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (G₀ : QMIso q q') :
+    QMIso q q ≃ QMIso q q' where
+  toFun G := G.trans G₀
+  invFun G := G.trans G₀.symm
+  left_inv G := qmIso_ext (by
+    show (G.φ.hom ≫ G₀.φ.hom) ≫ G₀.ψ.hom = G.φ.hom
+    rw [Category.assoc, G₀.left, Category.comp_id])
+  right_inv G := qmIso_ext (by
+    show (G.φ.hom ≫ G₀.ψ.hom) ≫ G₀.φ.hom = G.φ.hom
+    rw [Category.assoc, G₀.right, Category.comp_id])
+
+/-- An automorphism of a pair with finitely many automorphisms has finite order in `End(A)`. -/
+theorem exists_pow_eq_one {A : AbVar K} {q : QMStr A} [Finite (QMIso q q)] (θ : QMIso q q) :
+    ∃ m : ℕ, 0 < m ∧ θ.φ ^ m = 1 := by
+  let pw : ℕ → QMIso q q := fun n => Nat.rec (QMIso.refl q) (fun _ G => G.trans θ) n
+  have hpw : ∀ n, (pw n).φ = θ.φ ^ n := by
+    intro n
+    induction n with
+    | zero => exact AbVar.Hom.ext' rfl
+    | succ n ih =>
+      apply AbVar.Hom.ext'
+      show (pw n).φ.hom ≫ θ.φ.hom = (θ.φ ^ (n + 1)).hom
+      rw [pow_succ', end_mul_hom, ih]
+  obtain ⟨i, j, hij, h⟩ := Finite.exists_ne_map_eq_of_infinite pw
+  have hu : IsUnit θ.φ := by
+    refine ⟨⟨θ.φ, θ.ψ, AbVar.Hom.ext' ?_, AbVar.Hom.ext' ?_⟩, rfl⟩
+    · show θ.ψ.hom ≫ θ.φ.hom = 𝟙 _
+      exact θ.right
+    · show θ.φ.hom ≫ θ.ψ.hom = 𝟙 _
+      exact θ.left
+  have hij' : θ.φ ^ i = θ.φ ^ j := by rw [← hpw, ← hpw, h]
+  rcases lt_or_gt_of_ne hij with hlt | hlt
+  · refine ⟨j - i, Nat.sub_pos_of_lt hlt, ?_⟩
+    have : θ.φ ^ i * θ.φ ^ (j - i) = θ.φ ^ i * 1 := by
+      rw [← pow_add, Nat.add_sub_cancel' hlt.le, mul_one, hij']
+    exact (hu.pow i).mul_left_cancel this
+  · refine ⟨i - j, Nat.sub_pos_of_lt hlt, ?_⟩
+    have : θ.φ ^ j * θ.φ ^ (i - j) = θ.φ ^ j * 1 := by
+      rw [← pow_add, Nat.add_sub_cancel' hlt.le, mul_one, hij']
+    exact (hu.pow j).mul_left_cancel this
+
+end General
+
+/-! ## Level structures on a fixed pair: exactly `72`, indexed by `(𝒪/3𝒪)^×` -/
+
+/-- Residues of nonzero reduced norm mod 3, i.e. `(𝒪/3𝒪)^×` in coordinates. -/
+abbrev Good : Type := {c : Fin 4 → ZMod 3 // nrd3 c ≠ 0}
+
+theorem card_good : Fintype.card Good = 72 := by decide +kernel
+
+theorem tbl_unit (c : Good) : nrdC (tbl c.1) * nrdC (tbl c.1) = 1 := by
+  rcases (tbl_spec c.1 c.2).2 with h | h <;> rw [h] <;> norm_num
+
+/-- The table unit of `𝒪` reducing to `c`. -/
+def uc (c : Good) : Oˣ := unitOf (tbl c.1) (nrdC (tbl c.1)) rfl (tbl_unit c)
+
+theorem uc_congr (c : Good) : ∃ d : O, ((uc c : Oˣ) : O) - liftO c.1 = 3 * d := by
+  obtain ⟨hred, -⟩ := tbl_spec c.1 c.2
+  have hdvd : ∀ i, (3 : ℤ) ∣ tbl c.1 i - ((c.1 i).val : ℤ) := by
+    intro i
+    apply (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).1
+    rw [Int.cast_sub, hred i]
+    simp
+  refine ⟨⟨ofInt (fun i => (tbl c.1 i - ((c.1 i).val : ℤ)) / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  change ofInt (tbl c.1) - ofInt (fun i => ((c.1 i).val : ℤ)) = ((3 : O) : B) * ofInt _
+  rw [h33, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply]
+  exact (Int.mul_ediv_cancel' (hdvd i)).symm
+
+theorem liftO_inj3 {c c' : Fin 4 → ZMod 3} (h : ∃ d : O, liftO c - liftO c' = 3 * d) :
+    c = c' := by
+  obtain ⟨d, hd⟩ := h
+  obtain ⟨k, hk⟩ := d.2
+  have h3 : ofInt (fun i => ((c i).val : ℤ)) - ofInt (fun i => ((c' i).val : ℤ)) =
+      3 * ofInt k := by
+    have := congrArg Subtype.val hd
+    have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+    simp only [liftO, hk, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33] at this
+    exact this
+  rw [ofInt_sub, three_mul_ofInt] at h3
+  have h4 := ofInt_injective h3
+  funext i
+  have h5 := congrFun h4 i
+  simp only [Pi.sub_apply] at h5
+  have h6 : (((c i).val : ℤ) : ZMod 3) - (((c' i).val : ℤ) : ZMod 3) = 0 := by
+    rw [← Int.cast_sub, h5]; push_cast
+    rw [show (3 : ZMod 3) = 0 from rfl, zero_mul]
+  simpa [sub_eq_zero] using h6
+
+theorem sub_liftO_coord (n : Fin 4 → ℤ) (u : O) (hu : (u : B) = ofInt n) :
+    ∃ d : O, u - liftO (fun i => (n i : ZMod 3)) = 3 * d := by
+  refine ⟨⟨ofInt (fun i => n i / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  simp only [liftO, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33]
+  rw [hu, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply, ZMod.val_intCast]
+  have := Int.emod_def (n i) 3
+  omega
+
+/-- An element of `𝒪` invertible mod `3𝒪` has reduced norm `≢ 0 mod 3` (the argument of
+`TSHeckeUnits.exists_unit_congr`). -/
+theorem nrd3_ne_zero_of_inv (u₀ v₀ : O) (h : ∃ c : O, v₀ * u₀ - 1 = 3 * c) (nu : Fin 4 → ℤ)
+    (hnu : (u₀ : B) = ofInt nu) : nrd3 (fun i => (nu i : ZMod 3)) ≠ 0 := by
+  obtain ⟨c, hc⟩ := h
+  obtain ⟨nv, hnv⟩ := v₀.2
+  obtain ⟨nc, hnc⟩ := c.2
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  have h1 : ((1 : O) : B) = ofInt ![1, 0, 0, 0] := by rw [ofInt_one]; rfl
+  have hcoord : mulCoord nv nu - ![1, 0, 0, 0] = fun i => 3 * nc i := by
+    apply ofInt_injective
+    rw [← ofInt_sub, ← ofInt_mul, ← three_mul_ofInt, ← hnu, ← hnv, ← hnc, ← h1, ← h33]
+    exact congrArg Subtype.val hc
+  have hn1 : ((nrdC (mulCoord nv nu) : ℤ) : ZMod 3) = 1 := by
+    have : mulCoord nv nu = fun i => ![1, 0, 0, 0] i + 3 * nc i := by
+      funext i
+      have := congrFun hcoord i
+      simp only [Pi.sub_apply] at this
+      linarith
+    rw [this, nrdC_cast]
+    simp only [nrd3]
+    simp [show (3 : ZMod 3) = 0 from rfl]
+  intro h0
+  rw [nrdC_mul, Int.cast_mul, nrdC_cast nu, h0, mul_zero] at hn1
+  exact zero_ne_one hn1
+
+/-- The level structure `η ∘ (· u_c)` on the pair of `P`. -/
+def lv (P : QML3 Qbar) (c : Good) : Level3 P.q := P.e.rightMul (uc c)
+
+theorem lv_eta (P : QML3 Qbar) (c : Good) (a : O) :
+    (lv P c).eta a = P.e.eta (a * ((uc c : Oˣ) : O)) := rfl
+
+theorem lv_injective (P : QML3 Qbar) : Function.Injective (lv P) := by
+  intro c c' h
+  have h1 : P.e.eta (1 * ((uc c : Oˣ) : O)) = P.e.eta (1 * ((uc c' : Oˣ) : O)) := by
+    rw [← lv_eta, ← lv_eta, h]
+  rw [_root_.one_mul, _root_.one_mul, P.e.eq_iff] at h1
+  obtain ⟨d, hd⟩ := h1
+  obtain ⟨d1, h1'⟩ := uc_congr c
+  obtain ⟨d2, h2'⟩ := uc_congr c'
+  apply Subtype.ext
+  apply liftO_inj3
+  refine ⟨d - d1 + d2, ?_⟩
+  rw [mul_add, mul_sub, ← hd, ← h1', ← h2']
+  abel
+
+theorem lv_surjective (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) :
+    Function.Surjective (lv P) := by
+  intro et
+  obtain ⟨u₀, v₀, hinv, hu⟩ := Level3.torsor hT P et
+  obtain ⟨nu, hnu⟩ := u₀.2
+  have hgood := nrd3_ne_zero_of_inv u₀ v₀ hinv nu hnu
+  obtain ⟨d, hd⟩ := sub_liftO_coord nu u₀ hnu
+  refine ⟨⟨_, hgood⟩, Level3.ext' (AddMonoidHom.ext fun a => ?_)⟩
+  rw [lv_eta, hu a, P.e.eq_iff]
+  obtain ⟨d1, h1⟩ := uc_congr ⟨_, hgood⟩
+  refine ⟨a * d1 - a * d, ?_⟩
+  calc a * ((uc ⟨_, hgood⟩ : Oˣ) : O) - a * u₀
+      = a * (((uc ⟨_, hgood⟩ : Oˣ) : O) - liftO (fun i => (nu i : ZMod 3))) -
+        a * (u₀ - liftO (fun i => (nu i : ZMod 3))) := by noncomm_ring
+    _ = a * (3 * d1) - a * (3 * d) := by rw [h1, hd]
+    _ = 3 * (a * d1 - a * d) := by noncomm_ring
+
+/-- **The level structures on a fixed pair over `ℚ̄`: `72` of them** (given `TorsionStructure`). -/
+def lvEquiv (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) : Good ≃ Level3 P.q :=
+  Equiv.ofBijective (lv P) ⟨lv_injective P, lv_surjective hT P⟩
+
+/-! ## The twisted pairs `ι ∘ t_k` and their composition law -/
+
+/-- `t_k ∘ t_l = t_{k ⊕ l}` (the group `W = (ℤ/2)²`). -/
+def xr (k l : Fin 4) : Fin 4 := ![![0, 1, 2, 3], ![1, 0, 3, 2], ![2, 3, 0, 1], ![3, 2, 1, 0]] k l
+
+theorem xr_xr_left (k l : Fin 4) : xr k (xr k l) = l := by revert k l; decide
+theorem xr_xr_right (k l : Fin 4) : xr (xr k l) l = k := by revert k l; decide
+theorem xr_self (l : Fin 4) : xr l l = 0 := by revert l; decide
+
+/-- The values `1, i, j, k` of the representatives `tt`. -/
+def ttv : Fin 4 → B := ![⟨1, 0, 0, 0⟩, ⟨0, 1, 0, 0⟩, ⟨0, 0, 1, 0⟩, ⟨0, 0, 0, 1⟩]
+
+theorem tt_val (k : Fin 4) : ((tt k : Bˣ) : B) = ttv k := by
+  fin_cases k
+  · ext <;> simp [tt, ttv]
+  · change ofInt ei = _
+    ext <;> simp [ofInt, ei, ttv]
+  · change ofInt ej = _
+    ext <;> simp [ofInt, ej, ttv]
+  · change ofInt ei * ofInt ej = _
+    ext <;> simp [ofInt, ei, ej, ttv]
+
+theorem ttv_mul : ∀ k l : Fin 4, ∃ c : ℚ, c ≠ 0 ∧ ttv k * ttv l = algebraMap ℚ B c * ttv (xr k l)
+  | 0, 0 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 0, 1 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 0, 2 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 0, 3 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 1, 0 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 1, 1 => ⟨2, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 1, 2 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 1, 3 => ⟨2, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 2, 0 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 2, 1 => ⟨-1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 2, 2 => ⟨-3, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 2, 3 => ⟨3, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 3, 0 => ⟨1, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 3, 1 => ⟨-2, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 3, 2 => ⟨-3, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+  | 3, 3 => ⟨6, by norm_num, by ext <;> simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num⟩
+
+theorem tt_mul (k l : Fin 4) : ∃ c : ℚ, c ≠ 0 ∧
+    ((tt k : Bˣ) : B) * ((tt l : Bˣ) : B) = algebraMap ℚ B c * ((tt (xr k l) : Bˣ) : B) := by
+  rw [tt_val, tt_val, tt_val]
+  exact ttv_mul k l
+
+theorem conj_conj (u v w : Bˣ) (c : ℚ) (hc : c ≠ 0)
+    (h : (u : B) * (v : B) = algebraMap ℚ B c * (w : B)) (a : B) :
+    (u : B) * ((v : B) * a * ((v⁻¹ : Bˣ) : B)) * ((u⁻¹ : Bˣ) : B) =
+      (w : B) * a * ((w⁻¹ : Bˣ) : B) := by
+  have hC'C : algebraMap ℚ B c⁻¹ * algebraMap ℚ B c = 1 := by
+    rw [← map_mul, inv_mul_cancel₀ hc, map_one]
+  set x := (u : B) * ((v : B) * a * ((v⁻¹ : Bˣ) : B)) * ((u⁻¹ : Bˣ) : B) with hx
+  have h1 : x * ((u : B) * (v : B)) = ((u : B) * (v : B)) * a := by
+    simp only [hx, mul_assoc, Units.inv_mul_cancel_left, Units.inv_mul, mul_one]
+  rw [h] at h1
+  have h2 : algebraMap ℚ B c * (x * w) = algebraMap ℚ B c * ((w : B) * a) := by
+    rw [← mul_assoc, Algebra.commutes, mul_assoc, h1, mul_assoc]
+  have h3 : x * w = (w : B) * a := by
+    have := congrArg (fun y => algebraMap ℚ B c⁻¹ * y) h2
+    simp only [← mul_assoc, hC'C, one_mul] at this
+    exact this
+  calc x = x * (w : B) * ((w⁻¹ : Bˣ) : B) := by rw [mul_assoc, Units.mul_inv, mul_one]
+    _ = (w : B) * a * ((w⁻¹ : Bˣ) : B) := by rw [h3]
+
+theorem rep_rep (k l : Fin 4) (a : O) : rep k (rep l a) = rep (xr k l) a := by
+  obtain ⟨c, hc, h⟩ := tt_mul k l
+  apply Subtype.ext
+  simp only [rep, conjO_apply]
+  exact conj_conj _ _ _ c hc h a
+
+theorem rep_zero (a : O) : rep 0 a = a := by
+  apply Subtype.ext
+  simp only [rep, conjO_apply]
+  simp [tt]
+
+/-! ## The count -/
+
+section Count
+
+variable (P : QML3 Qbar)
+
+/-- The object `(A, ι ∘ t_k, η ∘ t_k)`. -/
+abbrev Pk (k : Fin 4) : QML3 Qbar := P.twist (rep k)
+
+/-- `(k, c) ↦` the class of `(A, ι ∘ t_k, et_k ∘ (· u_c))`. -/
+def Ψ (x : Fin 4 × Good) : M3 Qbar :=
+  M3.mk ⟨P.A, P.surface, (Pk P x.1).q, lv (Pk P x.1) x.2⟩
+
+/-- `Rk k l`: the pairs `ι ∘ t_k` and `ι ∘ t_l` are isomorphic. -/
+def Rk (k l : Fin 4) : Prop := Nonempty (QMIso (Pk P k).q (Pk P l).q)
+
+/-- `a = |Aut(A, ι)|`. -/
+def aP : ℕ := Nat.card (QMIso P.q P.q)
+
+/-- `s = #{m | (A, ι ∘ t_m) ≅ (A, ι)}`. -/
+def sP : ℕ := (Finset.univ.filter fun m : Fin 4 => Nonempty (QMIso (P.q.twist (rep m)) P.q)).card
+
+theorem range_Ψ (hT : ObjBridge.TorsionStructure) : Set.range (Ψ P) = twistFibre P := by
+  ext c
+  constructor
+  · rintro ⟨⟨k, d⟩, rfl⟩
+    exact ⟨⟨P.A, P.surface, (Pk P k).q, lv (Pk P k) d⟩, rfl, rep k, ⟨QMIso.refl _⟩⟩
+  · rintro ⟨Q, rfl, α, ⟨g⟩⟩
+    obtain ⟨k, v, hv⟩ := rep_cover α
+    let G : QMIso (Pk P k).q Q.q := (innerIso P.q (rep k) α v hv).symm.trans g
+    obtain ⟨d, hd⟩ := lv_surjective hT (Pk P k) (pullLevel G Q.e)
+    refine ⟨(k, d), ?_⟩
+    exact (congrArg (fun e : Level3 (Pk P k).q =>
+      M3.mk (⟨P.A, P.surface, (Pk P k).q, e⟩ : QML3 Qbar)) hd).trans
+      (Quotient.sound ⟨pullIso P.surface Q.surface G Q.e⟩)
+
+theorem rk_iff (k l : Fin 4) :
+    Rk P k l ↔ Nonempty (QMIso (P.q.twist (rep (xr k l))) P.q) := by
+  constructor
+  · rintro ⟨G⟩
+    refine ⟨qmCongr G (rep l) (fun a => ?_) (fun a => ?_)⟩
+    · show P.q.iota (rep (xr k l) a) = P.q.iota (rep k (rep l a))
+      rw [rep_rep]
+    · show P.q.iota a = P.q.iota (rep l (rep l a))
+      rw [rep_rep, xr_self, rep_zero]
+  · rintro ⟨G⟩
+    refine ⟨qmCongr G (rep l) (fun a => ?_) (fun _ => rfl)⟩
+    show P.q.iota (rep k a) = P.q.iota (rep (xr k l) (rep l a))
+    rw [rep_rep, xr_xr_right]
+
+theorem card_rk (k : Fin 4) : (Finset.univ.filter (Rk P k)).card = sP P := by
+  apply Finset.card_nbij' (xr k) (xr k)
+  · intro l hl
+    simp only [Finset.coe_filter, Finset.mem_univ, true_and, Set.mem_ofPred_eq] at hl ⊢
+    exact (rk_iff P k l).1 hl
+  · intro m hm
+    simp only [Finset.coe_filter, Finset.mem_univ, true_and, Set.mem_ofPred_eq] at hm ⊢
+    rw [rk_iff, xr_xr_left]
+    exact hm
+  · intro l _
+    exact xr_xr_left k l
+  · intro m _
+    exact xr_xr_left k m
+
+theorem finite_aut_k (hfin : Finite (QMIso P.q P.q)) (k : Fin 4) :
+    Finite (QMIso (Pk P k).q (Pk P k).q) :=
+  Finite.of_equiv _ (autTwistEquiv P.q (rep k)).symm
+
+theorem card_iso (k l : Fin 4) :
+    Nat.card (QMIso (Pk P k).q (Pk P l).q) = if Rk P k l then aP P else 0 := by
+  split_ifs with h
+  · obtain ⟨G₀⟩ := h
+    exact (Nat.card_congr (isoEquivAut G₀)).symm.trans (Nat.card_congr (autTwistEquiv P.q (rep k)))
+  · haveI : IsEmpty (QMIso (Pk P k).q (Pk P l).q) := ⟨fun G => h ⟨G⟩⟩
+    exact Nat.card_of_isEmpty
+
+theorem finite_iso (hfin : Finite (QMIso P.q P.q)) (k l : Fin 4) :
+    Finite (QMIso (Pk P k).q (Pk P l).q) := by
+  by_cases h : Rk P k l
+  · obtain ⟨G₀⟩ := h
+    haveI := finite_aut_k P hfin k
+    exact Finite.of_equiv _ (isoEquivAut G₀)
+  · haveI : IsEmpty (QMIso (Pk P k).q (Pk P l).q) := ⟨fun G => h ⟨G⟩⟩
+    infer_instance
+
+/-- Push a level structure forward along a QM isomorphism. -/
+def push {A : AbVar Qbar} {q₁ q₂ : QMStr A} (φ : QMIso q₁ q₂) (et : Level3 q₁) : Level3 q₂ :=
+  pullLevel φ.symm et
+
+theorem push_eta {A : AbVar Qbar} {q₁ q₂ : QMStr A} (φ : QMIso q₁ q₂) (et : Level3 q₁) (a : O) :
+    (push φ et).eta a = Additive.ofMul (Additive.toMul (et.eta a) ≫ φ.φ.hom) := rfl
+
+/-- **Freeness (Serre's lemma)**: distinct isomorphisms push a level structure to distinct
+level structures. -/
+theorem push_injective (hT : ObjBridge.TorsionStructure) (hS : SerreRigidity3) (X : QML3 Qbar)
+    [Finite (QMIso X.q X.q)] {q₂ : QMStr X.A} (φ φ' : QMIso X.q q₂)
+    (h : push φ X.e = push φ' X.e) : φ = φ' := by
+  let θ : QMIso X.q X.q := φ.trans φ'.symm
+  have hθ : θ.φ.hom = φ.φ.hom ≫ φ'.ψ.hom := rfl
+  have hfix : ∀ a, Additive.toMul (X.e.eta a) ≫ θ.φ.hom = Additive.toMul (X.e.eta a) := by
+    intro a
+    have h1 : Additive.toMul (X.e.eta a) ≫ φ.φ.hom = Additive.toMul (X.e.eta a) ≫ φ'.φ.hom := by
+      have := congrArg (fun e : Level3 q₂ => Additive.toMul (e.eta a)) h
+      exact this
+    rw [hθ, ← Category.assoc, h1, Category.assoc, φ'.left, Category.comp_id]
+  have htors : ∀ x : X.A.Pt Qbar, x ^ 3 = 1 → x ≫ θ.φ.hom = x := by
+    intro x hx
+    have hx' : bcPt X.A x ^ 3 = 1 := by
+      rw [bcPt, ← MonObj.comp_pow, hx]
+      exact MonObj.comp_one _
+    obtain ⟨a, ha⟩ := Level3.onto hT X (bcPt X.A x) hx'
+    have := bcPt_injective X.A ha
+    rw [← this]
+    exact hfix a
+  have h1 : θ.φ = 1 := hS X.A θ.φ (exists_pow_eq_one θ) htors
+  have h2 : φ.φ.hom ≫ φ'.ψ.hom = 𝟙 _ := by
+    rw [← hθ, h1]; rfl
+  apply qmIso_ext
+  calc φ.φ.hom = φ.φ.hom ≫ φ'.ψ.hom ≫ φ'.φ.hom := by rw [φ'.right, Category.comp_id]
+    _ = φ'.φ.hom := by rw [← Category.assoc, h2, Category.id_comp]
+
+/-- **The fibre of `Ψ` through `(k, c)` has `s · a` elements.** -/
+theorem fibre_card (hT : ObjBridge.TorsionStructure) (hS : SerreRigidity3)
+    (hfin : Finite (QMIso P.q P.q)) (x : Fin 4 × Good) :
+    Nat.card {y : Fin 4 × Good // Ψ P y = Ψ P x} = sP P * aP P := by
+  obtain ⟨k, c⟩ := x
+  let et : Level3 (Pk P k).q := lv (Pk P k) c
+  let X : QML3 Qbar := ⟨P.A, P.surface, (Pk P k).q, et⟩
+  haveI : Finite (QMIso X.q X.q) := finite_aut_k P hfin k
+  haveI : ∀ l, Finite (QMIso (Pk P k).q (Pk P l).q) := finite_iso P hfin k
+  let f : (Σ l : Fin 4, QMIso (Pk P k).q (Pk P l).q) → {y : Fin 4 × Good // Ψ P y = Ψ P (k, c)} :=
+    fun z => ⟨(z.1, (lvEquiv hT (Pk P z.1)).symm (push z.2 et)), by
+      have : lv (Pk P z.1) ((lvEquiv hT (Pk P z.1)).symm (push z.2 et)) = push z.2 et :=
+        (lvEquiv hT (Pk P z.1)).apply_symm_apply _
+      exact (congrArg (fun e : Level3 (Pk P z.1).q =>
+        M3.mk (⟨P.A, P.surface, (Pk P z.1).q, e⟩ : QML3 Qbar)) this).trans
+        (Quotient.sound ⟨pullIso P.surface P.surface z.2.symm et⟩)⟩
+  have hf : Function.Bijective f := by
+    constructor
+    · rintro ⟨l, φ⟩ ⟨l', φ'⟩ hz
+      have h1 := congrArg (fun y => y.1.1) hz
+      simp only [f] at h1
+      subst h1
+      have h2 := congrArg (fun y => y.1.2) hz
+      simp only [f] at h2
+      have h3 : push φ et = push φ' et := (lvEquiv hT (Pk P l)).symm.injective h2
+      have := push_injective hT hS X φ φ' h3
+      subst this
+      rfl
+    · rintro ⟨⟨l, d⟩, hy⟩
+      have hy' : Quotient.mk (isoSetoid Qbar)
+          (⟨P.A, P.surface, (Pk P l).q, lv (Pk P l) d⟩ : QML3 Qbar) =
+          Quotient.mk (isoSetoid Qbar) X := hy
+      have hI : Nonempty (QML3.Iso (⟨P.A, P.surface, (Pk P l).q, lv (Pk P l) d⟩ : QML3 Qbar) X) :=
+        Quotient.exact hy'
+      obtain ⟨I⟩ := hI
+      let J := I.symm
+      let φ : QMIso (Pk P k).q (Pk P l).q := ⟨J.φ, J.ψ, J.left, J.right, J.equivariant⟩
+      refine ⟨⟨l, φ⟩, Subtype.ext ?_⟩
+      show (l, (lvEquiv hT (Pk P l)).symm (push φ et)) = (l, d)
+      congr 1
+      rw [Equiv.symm_apply_eq]
+      apply Level3.ext'
+      apply AddMonoidHom.ext
+      intro a
+      exact J.level a
+  rw [← Nat.card_eq_of_bijective f hf, Nat.card_sigma]
+  simp only [card_iso]
+  rw [← Finset.sum_filter, Finset.sum_const, smul_eq_mul, card_rk]
+
+/-- **The count**: `#(twist fibre) · s · a = 4 · 72 = 288`. -/
+theorem ncard_mul (hT : ObjBridge.TorsionStructure) (hS : SerreRigidity3)
+    (hfin : Finite (QMIso P.q P.q)) :
+    (twistFibre P).ncard * (sP P * aP P) = 288 := by
+  have hcard : (Finset.univ : Finset (Fin 4 × Good)).card = 288 := by
+    rw [Finset.card_univ, Fintype.card_prod, card_good, Fintype.card_fin]
+  have hsum := Finset.card_eq_sum_card_image (Ψ P) (Finset.univ : Finset (Fin 4 × Good))
+  have hterm : ∀ y ∈ (Finset.univ : Finset (Fin 4 × Good)).image (Ψ P),
+      (Finset.univ.filter (fun z => Ψ P z = y)).card = sP P * aP P := by
+    intro y hy
+    obtain ⟨x, -, rfl⟩ := Finset.mem_image.1 hy
+    rw [← fibre_card P hT hS hfin x, Nat.card_eq_fintype_card, Fintype.card_subtype]
+  rw [Finset.sum_congr rfl hterm, Finset.sum_const, smul_eq_mul, hcard] at hsum
+  have himg : twistFibre P = ↑((Finset.univ : Finset (Fin 4 × Good)).image (Ψ P)) := by
+    rw [Finset.coe_image, Finset.coe_univ, Set.image_univ, range_Ψ P hT]
+  rw [himg, Set.ncard_coe_finset]
+  exact hsum.symm
+
+end Count
+
+/-! ## `HeckeFibreSizes` -/
+
+theorem sP_pos (P : QML3 Qbar) : 1 ≤ sP P := by
+  apply Finset.card_pos.2
+  refine ⟨0, Finset.mem_filter.2 ⟨Finset.mem_univ _, ⟨qmCongr (QMIso.refl P.q) id
+    (fun a => ?_) (fun _ => rfl)⟩⟩⟩
+  show P.q.iota (rep 0 a) = P.q.iota a
+  rw [rep_zero]
+
+theorem sP_le (P : QML3 Qbar) (m₀ : Fin 4)
+    (h : ∀ m : Fin 4, m ≠ 0 → m ≠ m₀ → Nonempty (QMIso (P.q.twist (rep m)) P.q) → False) :
+    sP P ≤ 2 := by
+  calc sP P ≤ ({0, m₀} : Finset (Fin 4)).card := by
+        apply Finset.card_le_card
+        intro m hm
+        rw [Finset.mem_filter] at hm
+        by_cases h0 : m = 0
+        · simp [h0]
+        by_cases h1 : m = m₀
+        · simp [h1]
+        exact (h m h0 h1 hm.2).elim
+    _ ≤ 2 := Finset.card_le_two
+
+theorem sP_eq_one (P : QML3 Qbar)
+    (h : ∀ m : Fin 4, m ≠ 0 → Nonempty (QMIso (P.q.twist (rep m)) P.q) → False) :
+    sP P = 1 := by
+  apply le_antisymm _ (sP_pos P)
+  calc sP P ≤ ({0} : Finset (Fin 4)).card := by
+        apply Finset.card_le_card
+        intro m hm
+        rw [Finset.mem_filter] at hm
+        by_cases h0 : m = 0
+        · simp [h0]
+        exact (h m h0 hm.2).elim
+    _ = 1 := Finset.card_singleton _
+
+/-- **`HeckeFibreSizes` from the leaves** `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` and the
+kernel's `TorsionStructure` (with `M = 144`). -/
+theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
+    (hS : SerreRigidity3) (hW : ALFixedPoints) : HeckeFibreSizes := by
+  have key : ∀ P : QML3 Qbar, (twistFibre P).ncard * (sP P * aP P) = 288 ∧
+      aP P = (if HasCM4 P.q then 4 else if HasCM3 P.q then 6 else 2) ∧
+      ¬ (HasCM4 P.q ∧ HasCM3 P.q) ∧ ¬ (HasCM4 P.q ∧ HasCM24 P.q) ∧
+      ¬ (HasCM3 P.q ∧ HasCM24 P.q) := by
+    intro P
+    obtain ⟨ha, hx⟩ := hA P.A P.surface P.q
+    have hpos : 0 < Nat.card (QMIso P.q P.q) := by
+      rw [ha]; split_ifs <;> norm_num
+    haveI : Finite (QMIso P.q P.q) := (Nat.card_pos_iff.1 hpos).2
+    exact ⟨ncard_mul P hT hS inferInstance, ha, hx⟩
+  have hAL := fun P : QML3 Qbar => hW P.A P.surface P.q
+  refine ⟨144, ?_, ?_, ?_, ?_, ?_⟩
+  · intro P
+    obtain ⟨h, ha, -⟩ := key P
+    have hs := sP_pos P
+    have ha2 : 2 ≤ aP P := by rw [ha]; split_ifs <;> norm_num
+    have : 2 ≤ sP P * aP P := le_trans ha2 (Nat.le_mul_of_pos_left _ hs)
+    nlinarith
+  · intro P h4 h3 h24
+    obtain ⟨h, ha, -⟩ := key P
+    rw [if_neg h4, if_neg h3] at ha
+    have hs : sP P = 1 := sP_eq_one P (fun m hm hI => by
+      obtain ⟨w1, w2, w3⟩ := hAL P
+      fin_cases m
+      · exact hm rfl
+      · exact h4 (w1 hI)
+      · exact h3 (w2 hI)
+      · exact h24 (w3 hI))
+    rw [hs, ha] at h
+    omega
+  · intro P h4
+    obtain ⟨h, ha, -, x2, -⟩ := key P
+    rw [if_pos h4] at ha
+    have hs := sP_pos P
+    have hs2 : sP P ≤ 2 := sP_le P 1 (fun m hm hm1 hI => by
+      obtain ⟨w1, w2, w3⟩ := hAL P
+      fin_cases m
+      · exact hm rfl
+      · exact hm1 rfl
+      · exact (key P).2.2.1 ⟨h4, w2 hI⟩
+      · exact x2 ⟨h4, w3 hI⟩)
+    rw [ha] at h
+    interval_cases (sP P) <;> omega
+  · intro P h3
+    obtain ⟨h, ha, x1, -, x3⟩ := key P
+    rw [if_neg (fun h4 => x1 ⟨h4, h3⟩), if_pos h3] at ha
+    have hs := sP_pos P
+    have hs2 : sP P ≤ 2 := sP_le P 2 (fun m hm hm2 hI => by
+      obtain ⟨w1, w2, w3⟩ := hAL P
+      fin_cases m
+      · exact hm rfl
+      · exact x1 ⟨w1 hI, h3⟩
+      · exact hm2 rfl
+      · exact x3 ⟨h3, w3 hI⟩)
+    rw [ha] at h
+    interval_cases (sP P) <;> omega
+  · intro P h24
+    obtain ⟨h, ha, -, x2, x3⟩ := key P
+    rw [if_neg (fun h4 => x2 ⟨h4, h24⟩), if_neg (fun h3 => x3 ⟨h3, h24⟩)] at ha
+    have hs := sP_pos P
+    have hs2 : sP P ≤ 2 := sP_le P 3 (fun m hm hm3 hI => by
+      obtain ⟨w1, w2, w3⟩ := hAL P
+      fin_cases m
+      · exact hm rfl
+      · exact x2 ⟨w1 hI, h24⟩
+      · exact x3 ⟨w2 hI, h24⟩
+      · exact hm3 rfl)
+    rw [ha] at h
+    interval_cases (sP P) <;> omega
+
+end HeckeRest
+
+end
+
+#print axioms HeckeRest.heckeFibreSizes_of
+#print axioms HeckeRest.ncard_mul

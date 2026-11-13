@@ -1,0 +1,151 @@
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 2: `HeckeNoVertRam` reduced to one unramified vertical prime
+
+`NoVerticalRam E p` asks every prime of `B = ` (integral closure of `ℤ[X]` in `E`) over `p ℤ[X]`
+to have ramification index `1`. For `E/ℚ(X)` Galois, `Gal(E/ℚ(X))` acts on `B` and permutes the
+primes over `p ℤ[X]` transitively, preserving ramification indices; so one such prime with
+`e = 1` suffices (`noVerticalRam_of_witness`, compiled). What is left (`HeckeVertWitness`) is the
+existence, for the Hecke cover and `p > 324`, of one vertical prime with `e = 1`: the valuation
+of `E` at the generic point of a component of the special fibre of a smooth model of `Y₃` over
+`ℤ_(p)` (good reduction, Morita; see docs/research/hecke-rest.md §3).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestNV
+
+open Polynomial G0ModField PropTSRed PropTSGlue
+open CategoryTheory AlgebraicGeometry Limits LeafQM.AV
+
+/-! ## Galois transitivity on the primes of an integral closure -/
+
+section Generic
+
+variable {A F E : Type} [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
+  [Field F] [Algebra A F] [IsFractionRing A F]
+  [Field E] [Algebra F E] [Algebra A E] [IsScalarTower A F E] [FiniteDimensional F E]
+  [IsGalois F E]
+
+include F in
+/-- **Primes of the integral closure over the same prime have the same ramification index**
+(Galois case; `A` an integrally closed domain, not necessarily Dedekind). -/
+theorem ramIdx_eq_of_under_eq (Q₀ Q : Ideal (integralClosure A E)) [Q₀.IsPrime] [Q.IsPrime]
+    (h : Q₀.under A = Q.under A) : Q.ramificationIdx A = Q₀.ramificationIdx A := by
+  have hinjAE : Function.Injective (algebraMap A E) := by
+    rw [IsScalarTower.algebraMap_eq A F E]
+    exact (algebraMap F E).injective.comp (IsFractionRing.injective A F)
+  haveI : Module.IsTorsionFree A E := Module.isTorsionFree_iff_algebraMap_injective.2 hinjAE
+  haveI : IsFractionRing (integralClosure A E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension A F E _
+  haveI : SMulCommClass Gal(E/F) A E := ⟨fun g a x => by
+    rw [AlgEquiv.smul_def, AlgEquiv.smul_def, Algebra.smul_def, Algebra.smul_def, map_mul,
+      IsScalarTower.algebraMap_apply A F E, AlgEquiv.commutes]⟩
+  haveI : IsGaloisGroup Gal(E/F) A (integralClosure A E) :=
+    IsGaloisGroup.of_isFractionRing Gal(E/F) A (integralClosure A E) F E
+  obtain ⟨g, hg⟩ :=
+    Algebra.IsInvariant.exists_smul_of_under_eq A (integralClosure A E) Gal(E/F) Q₀ Q h
+  rw [hg, Ideal.ramificationIdx_smul]
+
+end Generic
+
+/-! ## `ℚ(X)` is the fraction field of `ℤ[X]` -/
+
+/-- `ℤ[X] → ℚ(X)` through `ℚ[X]`. -/
+@[reducible] def intRatAlg : Algebra ℤ[X] (RatFunc ℚ) :=
+  ((algebraMap ℚ[X] (RatFunc ℚ)).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))).toAlgebra
+
+theorem isFractionRing_int : letI := intRatAlg; IsFractionRing ℤ[X] (RatFunc ℚ) := by
+  letI := intRatAlg
+  have e : ∀ g : ℤ[X], algebraMap ℤ[X] (RatFunc ℚ) g =
+      algebraMap ℚ[X] (RatFunc ℚ) (g.map (Int.castRingHom ℚ)) := fun g => rfl
+  have hinj : Function.Injective (algebraMap ℤ[X] (RatFunc ℚ)) := by
+    intro a b hab
+    rw [e, e] at hab
+    exact Polynomial.map_injective _ Int.cast_injective (IsFractionRing.injective ℚ[X] _ hab)
+  haveI : FaithfulSMul ℤ[X] (RatFunc ℚ) := (faithfulSMul_iff_algebraMap_injective _ _).2 hinj
+  refine IsFractionRing.of_field ℤ[X] (RatFunc ℚ) fun z => ?_
+  obtain ⟨bN, hbNm, hN⟩ :=
+    IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ) (RatFunc.num z)
+  obtain ⟨bD, hbDm, hD⟩ :=
+    IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ) (RatFunc.denom z)
+  set gN := IsLocalization.integerNormalization (nonZeroDivisors ℤ) (RatFunc.num z)
+  set gD := IsLocalization.integerNormalization (nonZeroDivisors ℤ) (RatFunc.denom z)
+  have hbN : (bN : ℚ) ≠ 0 := Int.cast_ne_zero.2 (nonZeroDivisors.ne_zero hbNm)
+  have hbD : (bD : ℚ) ≠ 0 := Int.cast_ne_zero.2 (nonZeroDivisors.ne_zero hbDm)
+  have hmapN : gN.map (Int.castRingHom ℚ) = C (bN : ℚ) * RatFunc.num z := by
+    rw [show Int.castRingHom ℚ = algebraMap ℤ ℚ from rfl, hN, zsmul_eq_mul]
+    simp
+  have hmapD : gD.map (Int.castRingHom ℚ) = C (bD : ℚ) * RatFunc.denom z := by
+    rw [show Int.castRingHom ℚ = algebraMap ℤ ℚ from rfl, hD, zsmul_eq_mul]
+    simp
+  refine ⟨C bD * gN, C bN * gD, ?_⟩
+  rw [e, e, Polynomial.map_mul, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_C, hmapN,
+    hmapD]
+  set c : RatFunc ℚ := algebraMap ℚ[X] (RatFunc ℚ) (C (bD : ℚ) * C (bN : ℚ))
+  have hc : c ≠ 0 := by
+    rw [ne_eq, map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] _), ← C_mul, C_eq_zero]
+    exact mul_ne_zero hbD hbN
+  have h1 : algebraMap ℚ[X] (RatFunc ℚ)
+      (C ((Int.castRingHom ℚ) bD) * (C (bN : ℚ) * RatFunc.num z)) =
+      c * algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.num z) := by
+    rw [← map_mul]; congr 1; simp only [eq_intCast]; ring
+  have h2 : algebraMap ℚ[X] (RatFunc ℚ)
+      (C ((Int.castRingHom ℚ) bN) * (C (bD : ℚ) * RatFunc.denom z)) =
+      c * algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.denom z) := by
+    rw [← map_mul]; congr 1; simp only [eq_intCast]; ring
+  rw [h1, h2, mul_div_mul_left _ _ hc, RatFunc.num_div_denom]
+
+/-! ## The reduction -/
+
+/-- **Glue (arithmetic input of Lemma NV / good reduction): one unramified vertical prime.**
+Some prime of the integral closure of `ℤ[X]` in `E` over `p ℤ[X]` has ramification index `1`. -/
+def VertUnramWitness (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
+  letI := intPolyAlg E
+  ∃ Q : Ideal (integralClosure ℤ[X] E), Q.IsPrime ∧ Q.under ℤ[X] = vertPrime p ∧
+    Q.ramificationIdx ℤ[X] = 1
+
+/-- **One unramified vertical prime gives no vertical ramification** (Galois case; compiled). -/
+theorem noVerticalRam_of_witness (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (p : ℕ) (h : VertUnramWitness E p) : NoVerticalRam E p := by
+  letI := intPolyAlg E
+  letI := intRatAlg
+  haveI : IsScalarTower ℤ[X] (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq (fun a => by
+    show algebraMap ℚ[X] E (a.map (Int.castRingHom ℚ)) =
+      algebraMap (RatFunc ℚ) E (algebraMap ℚ[X] (RatFunc ℚ) (a.map (Int.castRingHom ℚ)))
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E])
+  haveI := isFractionRing_int
+  obtain ⟨Q₀, hQ₀, hu₀, he₀⟩ := h
+  intro Q hQ hu
+  rw [ramIdx_eq_of_under_eq (F := RatFunc ℚ) Q₀ Q (hu₀.trans hu.symm), he₀]
+
+/-- **Glue (h-b1 §3 Lemma NV, or good reduction of `Y₃` at `p ∤ 6`): one unramified vertical
+prime for the Hecke cover.** For a triple with R1fp, R1hecke, R2fp and any `E` carrying the
+normalization chart, for every prime `p > 324` some prime of the integral closure of `ℤ[X]` in
+`E` over `p ℤ[X]` is unramified. *Route GR* (STANDARD inputs, locators UNVERIFIED): `Y₃` has a
+smooth proper model `𝒴` over `ℤ_(p)` (Morita 1981; Carayol 1986); `π` is regular at the generic
+point `ξ` of a component of the special fibre with nonconstant reduction (the tame quotient of
+`𝒴` by `Γ'` is `P¹_{ℤ_(p)}` in the coordinate `j`); the local ring `𝒪_{𝒴,ξ}` is a DVR of
+`E = ℚ(Y₃)` with uniformizer `p` (reduced special fibre) containing `ℤ[X]`, so its centre on the
+integral closure is a vertical prime with `e = 1`. *Route NV*: h-b1 §3 (tameness, unramified
+branch fibres, Abhyankar at `(p, X − b)`, the `W`-quotient). Glue, not a leaf. -/
+def HeckeVertWitness : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∀ p : ℕ, p.Prime → 324 < p → VertUnramWitness E p
+
+/-- **`HeckeNoVertRam` from one unramified vertical prime** (compiled). -/
+theorem heckeNoVertRam_of_witness (h : HeckeVertWitness) : HeckeNoVertRam := by
+  intro Y Φ π h1 hh h2 E _ _ _ _ _ _ hN p hp hp324
+  exact noVerticalRam_of_witness E p (h Y Φ π h1 hh h2 E hN p hp hp324)
+
+end HeckeRestNV
+
+end
+
+#print axioms HeckeRestNV.ramIdx_eq_of_under_eq
+#print axioms HeckeRestNV.isFractionRing_int
+#print axioms HeckeRestNV.heckeNoVertRam_of_witness

@@ -1,0 +1,2207 @@
+'PropTSRed.padicValRat_16_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_eq_of_pt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.unramifiedMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.padicValRat_sub_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.kummerStep_of_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.exists_factor_scheme' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_specMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_openImmersion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.functionFieldModel_of_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.coverModel_of_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:1144:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:1329:0: warning: automatically included section variable(s) unused in theorem `TPurity3.span_pair_comm`:
+  [IsLocalRing R]
+  [IsNoetherianRing R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing R] [IsNoetherianRing R] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/hecke-rest/HeckeRestAll.lean:1349:8: warning: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:1674:34: warning: This simp argument is unused:
+  Ideal.span
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:1742:34: warning: This simp argument is unused:
+  Ideal.span
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:1968:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2000:6: warning: This simp argument is unused:
+  Polynomial.map_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_C, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:2000:26: warning: This simp argument is unused:
+  Polynomial.map_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_mul, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:2002:28: warning: This simp argument is unused:
+  Int.cast_id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_intCast, Polynomial.map_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:2017:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2018:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2019:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2042:13: warning: This simp argument is unused:
+  IntermediateField.algebraMap_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Subalgebra.coe_algebraMap] at h1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:2133:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2159:26: warning: `Prime.dvd_finset_prod_iff` has been deprecated: Use `Prime.dvd_finsetProd_iff` instead
+
+Hint: Replace the deprecated name:
+  Prime.dvd_finset_̵p̵P̲rod_iff
+scratch/hecke-rest/HeckeRestAll.lean:2349:28: warning: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/hecke-rest/HeckeRestAll.lean:2390:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2396:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2408:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2433:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2599:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2601:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2611:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2653:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp [one_add_one_eq_two] at h2
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/hecke-rest/HeckeRestAll.lean:2667:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2765:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2766:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2769:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2788:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2789:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2791:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2792:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2802:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2834:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2835:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:2901:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:3127:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3127:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/hecke-rest/HeckeRestAll.lean:3174:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/hecke-rest/HeckeRestAll.lean:3175:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3175:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3313:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3347:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3347:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3349:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3351:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:3352:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:4160:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4160:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4160:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4174:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4178:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4174:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4174:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4178:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4178:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:4972:43: warning: Variable name `hU` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/hecke-rest/HeckeRestAll.lean:5200:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5206:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5207:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5209:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5210:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5211:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5212:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5214:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5221:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5262:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5325:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5326:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5330:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5309:6: warning: This simp argument is unused:
+  Polynomial.derivative_map
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C] at this
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:5448:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5449:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5450:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5454:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5455:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5456:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5457:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5461:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5464:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5466:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5473:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5474:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5475:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5490:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5491:6: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5498:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5499:6: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5496:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5749:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5753:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5754:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5774:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5826:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5829:5: warning: `Ideal.isRadical_bot_of_noZeroDivisors` has been deprecated: Use `Ideal.isRadical_bot` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u} [inst : CommSemiring R] [_root_.IsReduced R], ⊥.IsRadical
+instead of
+  ∀ {R : Type u_2} [inst : CommSemiring R] [NoZeroDivisors R], ⊥.IsRadical
+scratch/hecke-rest/HeckeRestAll.lean:5832:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5834:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5841:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5842:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5844:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5845:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5846:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5848:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5851:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5824:33: warning: Variable name `hinj` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hinj
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/hecke-rest/HeckeRestAll.lean:5911:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5914:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5968:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:5971:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6054:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6259:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:6465:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6613:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6799:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6821:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6875:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6897:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6924:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6963:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+scratch/hecke-rest/HeckeRestAll.lean:6974:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6975:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6976:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6977:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6978:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:6993:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+'TSHecke.exists_surjective_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.connectedSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.irreducibleSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.irreducibleSpace_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeIrreducible_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.connected_of_heckeIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pullLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.innerIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.exists_sub_liftO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.twistFibre_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeDegree_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.genericFibreCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeDegree_of_torsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_transitive_aut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pi_invariant_twist' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pi_invariant_rightMul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeNormalizationIrr_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeNormalization_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.chart_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.chart_count_inf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.fibre_ncard' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.ker_eval_rat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.exists_ker_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.finrank_le_twistFibre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeBranch_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeBranch_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.isFractionRing_infCoord' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.ramOfFibreCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeBranch_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.coverModelOfHecke_of_tsHecke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.propTSAll_of_tsHecke' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.exists_qbar_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.range_comp_subset' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.eq_of_forall_qbar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.exists_sigma' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.exists_tau' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHeckeGal.isGalois_of_transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.curveGaloisChart_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.coverModelOfHecke_of_tsHecke'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.propTSAll_of_tsHecke'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:7638:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:56: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:84: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:113: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:142: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:55: warning: This simp argument is unused:
+  QuaternionAlgebra.re_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:83: warning: This simp argument is unused:
+  QuaternionAlgebra.imI_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:112: warning: This simp argument is unused:
+  QuaternionAlgebra.imJ_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imK_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:141: warning: This simp argument is unused:
+  QuaternionAlgebra.imK_ofNat
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ttv, xr, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7643:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7645:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7648:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7649:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:174: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7651:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7652:175: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7653:170: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7638:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7639:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7640:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7641:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7642:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7643:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7643:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7644:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7645:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7645:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7646:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7647:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7648:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7648:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7649:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7649:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7650:174: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7651:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7651:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7652:171: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7652:175: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7653:170: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:7763:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7770:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7772:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7818:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7819:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7928:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:7940:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7940:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7952:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7965:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7965:40: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7978:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/hecke-rest/HeckeRestAll.lean:7978:41: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+'HeckeRest.heckeFibreSizes_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRest.ncard_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:8033:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8034:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8036:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8039:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8054:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8061:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8107:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8108:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8109:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8113:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestNV.ramIdx_eq_of_under_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestNV.isFractionRing_int' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestNV.heckeNoVertRam_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:8218:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8219:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8220:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8221:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8226:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8227:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8229:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8231:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8233:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8235:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8246:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8338:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8339:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8340:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8341:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8342:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8344:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8345:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8356:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8358:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8369:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8430:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8431:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8432:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8433:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8451:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8466:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8467:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8469:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8491:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8490:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8496:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8505:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8536:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8537:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8543:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8593:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8594:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8603:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8604:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestCurve.curveNormChart_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.chartNormalD' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart_of_charts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of_charts' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:8677:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8761:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8797:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8806:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8807:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8809:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8819:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8820:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8860:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8862:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8903:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8904:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8905:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8930:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8935:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:8936:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestCurve.infFnField_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of_charts'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:9014:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9033:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9034:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9035:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9052:78: warning: `Set.mem_diff` has been deprecated: Use `Set.mem_sdiff` instead
+
+Hint: Replace the deprecated name:
+  Set.mem_s̲diff
+scratch/hecke-rest/HeckeRestAll.lean:9058:30: warning: `Set.diff_subset` has been deprecated: Use `Set.sdiff_subset` instead
+
+Hint: Replace the deprecated name:
+  Set.s̲diff_subset
+scratch/hecke-rest/HeckeRestAll.lean:9067:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9068:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9069:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9088:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9089:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9091:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9093:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9133:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9134:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9246:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9247:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9248:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9279:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9302:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9319:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestCurve.chartIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.chartDominant' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart_of_pq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of_pq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart_of_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf_of_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/HeckeRestAll.lean:9439:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:9440:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:9439:6: warning: Unused tactic linter: `(simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp]; rfl)` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:9440:6: warning: Unused tactic linter: `(erw [← ConcreteCategory.comp_apply, hmor])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/HeckeRestAll.lean:9547:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9548:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9550:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9553:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9555:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9557:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9559:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9561:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/HeckeRestAll.lean:9570:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestCurve.chartProper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestAll.curveGaloisChart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestAll.coverModelOfHecke_of_heckeRest' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestAll.propTSAll_of_heckeRest' depends on axioms: [propext, Classical.choice, Quot.sound]
