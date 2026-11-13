@@ -27,7 +27,7 @@ reference. **SPECULATIVE** = my judgement. Theorem numbers recalled without a so
 - `LGKerWild.descentPts_of_g7` (`DescentPts (A_{L'}) L` for G7Data's model `A/L`);
 - `LGKerWild.localGlue_of_tateBridge35` (ℓ = 5, 3) and `exists_localGlue_of_tateModuleFree` (every ℓ).
 
-**(a) Compile.** See §6: KW-RESULT.
+**(a) Compile.** The copy of the committed file, with my checks appended, compiles with 0 errors in about 60 s. All 13 axiom prints are standard (VERIFIED, §6).
 
 **(b, c) Statements: what is right.**
 - `TateBridgeK` is g0-mod-field's `TateBridge` with one more conjunct, `KerWild L' β' L`, in the
@@ -102,7 +102,7 @@ as open.
 - `RingClass.ringClassFieldD_tyz : ringClassFieldD (−64n) = H4bar n`;
 - the main-theorem variants `tyzThm35ReadingA_of_cmLeaves_ringClass(D)`.
 
-**(a) Compile.** RC-RESULT (§6).
+**(a) Compile.** The `lake build` of both modules succeeds; my `RingClassCheck.lean` compiles with 0 errors; the axioms are standard (VERIFIED, §6).
 
 **(b, c) Statements.**
 - The proved theorems have cm-points' Prop types by `rfl` (check file). `HprimeNormal` unfolds to
@@ -154,7 +154,7 @@ as open.
 **What was claimed.** `UnramRootsTask.unramRoots : G15Ram.UnramRoots p ℓ`, for all `p`, `ℓ`, with no
 hypothesis (`scratch/unram-roots/UnramRoots.lean`).
 
-- **(a) Compile.** UR-RESULT (§6).
+- **(a) Compile.** 0 errors, about 11 s, axioms standard (VERIFIED, §6).
 - **(c)** The `def UnramRoots` block is byte-identical to local-glue's `part_twist.lean` and to
   the copy in `KerWild.lean` (VERIFIED, `diff`).
   - The names it uses (`Fld`, `fixSet`, `inertiaSet`, `GQp`) come from `LadicCond.lean` and are
@@ -178,7 +178,7 @@ hypothesis (`scratch/unram-roots/UnramRoots.lean`).
 - `AlgFrobRedRed.absFrob : AbsFrob`, from Mathlib only (`AbsFrobDef.lean`);
 - `fExtendGen_of_nmp : PkgI2.NeronMappingAbelianScheme.{0} → FExtendGen` (`AfrAbsFrob.lean`).
 
-- **(a) Compile.** AF-RESULT (§6).
+- **(a) Compile.** `AbsFrobCheck.lean` and `AfrCheck.lean` both compile with 0 errors; the axioms are standard (VERIFIED, §6).
 - **(c)** Both statements are alg-frob-red's, byte for byte:
   - `src_AlgFrobRed.lean` is `cmp`-identical to `scratch/alg-frob-red/AlgFrobRed.lean`;
   - the `AbsFrob` block of `AbsFrobDef.lean` is `cmp`-identical to `part_red.lean`'s;
@@ -208,7 +208,7 @@ hypothesis (`scratch/unram-roots/UnramRoots.lean`).
 - the algebraic form, two-element dependence, and the smooth forms;
 - the `Over` forms with the kernel's `ZInQ.LeafPush2.ffAlgebra`.
 
-- **(a) Compile.** CI-RESULT (§6).
+- **(a) Compile.** 0 errors, axioms standard (VERIFIED, §6).
 - **(c)** `ZInQ.LeafPush2.ffAlgebra X = CurveInfra.fnFieldAlgebra K X.left X.hom` holds by `rfl`.
   `DimEqTrdegOver` is `DimEqTrdeg` on `Over` objects, by `Iff.rfl` (VERIFIED, check file). The
   copied infra-smooth-dim and g0-dim code is verbatim (their `verbatim.txt`), and the assembled
@@ -224,7 +224,31 @@ hypothesis (`scratch/unram-roots/UnramRoots.lean`).
 
 ## 6. Compile record
 
-COMPILE-RECORD
+Rules followed: one Lean process at a time, each run checked against `uptime` and `free -g`
+(load at most 17 at every start; available memory at least 70 GB). Outputs are
+`scratch/rv-fast/*.out`. Every row is VERIFIED.
+
+| run | outcome | axioms |
+|---|---|---|
+| `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge ZInQKernel.Contrib.TYZGenus.RingClassGenus` | success, 10286 jobs, 50 min (built the vendored Tau Ceti closure) | — |
+| `lake env lean scratch/rv-fast/RingClassCheck.lean` | exit 0, 0 errors | `hprimeNormal`, `iInH4`, `tyzThm35ReadingA_of_cmLeaves_ringClass`, `…ringClassD`, `cmFieldTYZ_of_ringClassD`, `ringClassFieldD_tyz`, `condD_spec`, `normal_ringClassFieldD`, `relfinrank_Hprime`: all `[propext, Classical.choice, Quot.sound]` |
+| `lake env lean scratch/rv-fast/CurveInfraCheck.lean` (after `lake build …LeafPush2.R18`) | exit 0, 0 errors, 1 linter warning (in the copied infra-smooth-dim code) | all 8 curve-infra theorems standard |
+| `lake env lean scratch/rv-fast/UnramRootsCheck.lean` | exit 0, 0 errors, linter warnings only | `unramRoots`, `unramRoots_all`, `unramRoots_two`, `frobData_exists`, `unramProcyclic_of_frobData`, `unramRoots_of_unramProcyclic`: standard |
+| `lake env lean scratch/rv-fast/AbsFrobCheck.lean` (Mathlib only) | exit 0, 0 errors | `absFrob`, `fr_naturality`, `fr_Spec`: standard |
+| `lake env lean scratch/rv-fast/AfrCheck.lean` | exit 0, 0 errors, 1 m 30 s | `absFrob`, `fExtendGen_of_nmp`, `fExtendCore_of_nmp`, `algFrobRed_of_nmp`, `tateBridge35_of_nmp`, `hom_spec_eq_of_point`, `ringHom_eq_of_normal`: standard; no non-standard print in the file |
+| `lake env lean scratch/rv-fast/KerWildCheck.lean` | exit 0, 0 errors, about 60 s | `tateBridgeK_of_tateModuleFree`, `scalarTransferK`, `tateBridgeK_of_piecesK`, `tateBridge35K_of_35`, `tateBridge35K_of_algFrobRed`, `descentPts_of_g7`, `dim_model_of_bc`, `kerWild_of_g7Data_alg`, `localGlue_of_tateBridge35`, `exists_localGlue_of_tateModuleFree`, `descentPts_baseChange`, `localGlue_of_unramRoots`, and my `rvf_c_sq_of_a_one`: all 13 standard |
+
+**Reproducibility** (each task's assembly script re-run to `/tmp`, then `cmp`):
+- `CurveInfraAll.lean`, `UnramRoots.lean` and `AfrAbsFrob.lean` are identical to their rebuilds.
+- `KerWild.lean` differs, because of later local-glue commits (§1, smaller points). The
+  definitions under review are unchanged.
+
+**Not checked.**
+- Source comparison of ring-class's TYZ objects with TYZ's text: `~/tyz-src` is absent on this
+  host.
+- x0-32's `X0.phiC` leaves, on which the CM leaf depends.
+- Whether `G7Data` itself is satisfiable. That is G7's burden, outside these five results.
+
 
 ## 7. Files
 
