@@ -73,3 +73,6 @@ chiD_mul : ∀ (D : ℤ) (m n : ℕ), ZInQ.GZDecomp.chiD D (m * n) = ZInQ.GZDeco
 'ZInQ.GZStatements.chiD_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.chiD_prime' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.chiD_two' depends on axioms: [propext, Classical.choice, Quot.sound]
+@exists_sq_mod_four_mul_of_heegnerHyp : ∀ {N : ℕ},
+  N ≠ 0 → ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → ZInQ.GZDecomp.HeegnerHyp N D → ∃ β, 4 * ↑N ∣ D - β ^ 2
+'ZInQ.GZStatements.exists_sq_mod_four_mul_of_heegnerHyp' depends on axioms: [propext, Classical.choice, Quot.sound]

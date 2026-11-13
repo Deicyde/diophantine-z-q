@@ -1,6 +1,7 @@
 import ZInQKernel.Contrib.GZStatements.Weak
 import ZInQKernel.Contrib.GZStatements.Level
 import ZInQKernel.Contrib.GZStatements.Compat
+import ZInQKernel.Contrib.GZStatements.Hensel
 
 open ZInQ.GZStatements
 
@@ -46,3 +47,5 @@ open ZInQ.GZStatements
 #print axioms chiD_mul
 #print axioms chiD_prime
 #print axioms chiD_two
+#check @exists_sq_mod_four_mul_of_heegnerHyp
+#print axioms exists_sq_mod_four_mul_of_heegnerHyp

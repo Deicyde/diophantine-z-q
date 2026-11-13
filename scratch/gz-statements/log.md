@@ -34,3 +34,11 @@
 - chiD_mul, chiD_prime ((D/p) at odd p), chiD_two (1 if D ≡ 1 mod 8 else −1): chiD agrees with
   the Kronecker character of ℚ(√D) at every prime and is completely multiplicative (VERIFIED,
   compiled; 21 declarations, all standard axioms).
+
+## step 3: report and Hensel (Hensel.lean)
+- docs/research/gz-statements.md written: verdict no defect (neither leaf stronger than source,
+  neither vacuous); gaps = scope (FH-1/2, GZ-1), docstrings (FH-3/4, GZ-2); human checks H1-H6.
+- exists_sq_mod_four_mul_of_heegnerHyp: N ≠ 0, IsOddImagFundDisc D, HeegnerHyp N D ⇒
+  ∃ β, 4N ∣ D − β² (GZ's Heegner condition). Hensel at odd p (Bezout lift), at 2 (D ≡ 1 mod 8),
+  CRT (SqMod.mul). Compiled; 22 declarations in Check.lean, all standard axioms (VERIFIED).
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task) (VERIFIED).

@@ -1,7 +1,7 @@
 # gz-statements: statement review of `FHNonvanishing` and `GrossZagierHeegner`
 
 Status: research note (task gz-statements, 2026-11-13), branch `wip/gz-statements` (base fork main
-83651ea9). New Lean files: `ZInQKernel/Contrib/GZStatements/{Weak,Level,Compat}.lean`. Axiom
+83651ea9). New Lean files: `ZInQKernel/Contrib/GZStatements/{Weak,Level,Compat,Hensel}.lean`. Axiom
 check: `scratch/gz-statements/Check.lean`, output `scratch/gz-statements/out_check_axioms.txt`.
 Log: `scratch/gz-statements/log.md`. No existing file of the project was edited.
 
@@ -32,7 +32,7 @@ So it is never stronger than the premise it replaces.
 ### 0.1 Declarations proved
 
 All in namespace `ZInQ.GZStatements`. `#print axioms` gives `[propext, Classical.choice,
-Quot.sound]` for each of the 21 declarations below (VERIFIED, `out_check_axioms.txt`).
+Quot.sound]` for each of the 22 declarations below (VERIFIED, `out_check_axioms.txt`).
 
 **The restricted leaves** (`Weak.lean`):
 
@@ -104,7 +104,7 @@ theorem heegnerHyp_32_iff {d : ℕ} (hd : d ≠ 0) (D : ℤ) :
 ```
 
 `Level.lean` also contains the helpers `LFunction_cd_eq_heckeCoeff` and
-`exists_newform_level32`; the 21 declarations of the axiom check are the ones listed in §0.1.
+`exists_newform_level32`. The 22 declarations of the axiom check are the ones listed in §0.1.
 
 **The definitions `HeegnerHyp` and `chiD`, and the root-number compatibility** (`Compat.lean`):
 
@@ -127,8 +127,16 @@ theorem chiD_two {D : ℤ} (hD : IsOddImagFundDisc D) :
     chiD D 2 = if D % 8 = 1 then 1 else -1
 ```
 
+**The Heegner hypothesis in Gross–Zagier's form** (`Hensel.lean`: Hensel lifting at odd `p` and
+at 2, then CRT):
+
+```lean
+theorem exists_sq_mod_four_mul_of_heegnerHyp {N : ℕ} (hN : N ≠ 0) {D : ℤ}
+    (hD : IsOddImagFundDisc D) (hH : HeegnerHyp N D) : ∃ β : ℤ, (4 * N : ℤ) ∣ D - β ^ 2
+```
+
 `#print axioms` (VERIFIED). The output of `scratch/gz-statements/Check.lean` gives, for each of
-the 21 names above:
+the 22 names above:
 
 ```
 'ZInQ.GZStatements.<name>' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -338,7 +346,7 @@ L2 supplies a `D` satisfying the full classical Heegner hypothesis, so GZ 1986 s
 | --- | --- | --- |
 | `∀ E [IsElliptic] N f, f.χ = 1, ∀ n ≠ 0, aₙ(f) = aₙ(E)` | `E/ℚ` with `φ : X₀(N) → E`, `f` its newform | `E.LFunction` is Mathlib's Euler product over all primes, with local factors from the **minimal** model (good, split or nonsplit multiplicative, additive) (VERIFIED, `Mathlib/AlgebraicGeometry/EllipticCurve/LFunction.lean:41-81`), so `aₙ(E)` is genuine. Folded in: `φ` exists. `E ∼ E_f` by Faltings' isogeny theorem (Invent. Math. 73 (1983), Korollar 2), and `E_f` is a quotient of `J₀(N)` (Shimura 1971, Thm 7.14-7.15). Both UNVERIFIED numbers, STANDARD content. For `C_d`, which has CM by `ℤ[i]`, Shimura's result that CM curves over `ℚ` are quotients of `J₀(N)` (Nagoya Math. J. 43 (1971), UNVERIFIED) avoids Faltings. **Range**: every `E`; the use is `C_d` only. |
 | `IsOddImagFundDisc D`, `D < −4` | `D < 0` fundamental; possibly `D` odd, `D ≠ −3, −4` | `D` is odd, `≤ −7` and fundamental: this implies every candidate standing hypothesis |
-| `HeegnerHyp N D` | `D ≡ β² (mod 4N)` | `HeegnerHyp` is the splitting condition (VERIFIED, `heegnerHyp_iff_split`). For odd `D` this gives `D ≡ β² (mod 4N)`: at odd `p^k ∥ N`, `D` is a nonzero square mod `p`, so mod `p^k` (Hensel); at 2, `D ≡ 1 (mod 8)` is a 2-adic square; then CRT. STANDARD. Numerically: 30 pairs `(N, D)`, 0 failures (VERIFIED, `out_check_heegner.txt`). It also gives `(D, N) = 1` (VERIFIED, `coprime_of_heegnerHyp`). |
+| `HeegnerHyp N D` | `D ≡ β² (mod 4N)` | `HeegnerHyp` is the splitting condition (VERIFIED, `heegnerHyp_iff_split`). For odd `D` it implies GZ's form `D ≡ β² (mod 4N)` (VERIFIED, compiled: `exists_sq_mod_four_mul_of_heegnerHyp`, by Hensel at odd `p^k ∥ N` and at `2` with `D ≡ 1 mod 8`, then CRT). Numerically also 30 pairs `(N, D)`, 0 failures (VERIFIED, `out_check_heegner.txt`). It also gives `(D, N) = 1` (VERIFIED, `coprime_of_heegnerHyp`). |
 | `IsEntireCont (coeff f) 2 F`, `analyticOrderAt F 1 = 1` | `ord_{s=1} L(E, s) = 1` | `F` is the unique entire continuation of `L(f, s) = L(E, s)`. `analyticOrderAt` (Mathlib, `ℕ∞`) equal to 1 means a simple zero. The root number is then `−1` (G3, proved: `signOfSimpleZero`). |
 | `IsEntireCont (twistCoeff f D) 2 G`, `G 1 ≠ 0` | `L(E^D, 1) ≠ 0` | For `(D, N) = 1`, `∑ aₙ χ_D(n) n^{−s} = L(f ⊗ χ_D, s) = L(E^D, s)` (STANDARD; `chiD` = Kronecker, VERIFIED §2.3). Then `L(E/K, s) = L(E, s) L(E^D, s)` (STANDARD), so `L′(E/K, 1) = L′(E, 1) L(E^D, 1) ≠ 0`. |
 | `∀ K, finrank ℚ K = 2, ∃ δ, δ² = D` | `K = ℚ(√D)` | Any such `K` is `≅ ℚ(√D)`; transport. Any two `Algebra ℚ K` and any two `DecidableEq K` instances agree. |
@@ -479,8 +487,9 @@ for root numbers `ε = −w` in weight 2). For quadratic `χ_D`, `τ(χ_D)² = �
 versus `χ(−N)` or `χ̄(N)`. For real `χ` all these readings coincide once `τ(χ)²` is evaluated.
 
 **H3. Gross–Zagier 1986, standing hypotheses.** Find the hypotheses on `(N, D)` in Ch. I. Lean
-supplies: `D` odd, `D ≤ −7`, fundamental, every `p ∣ N` split (so `D ≡ β² mod 4N` and
-`(D, 2N) = 1`), and `N = 32 d²`. Check that:
+supplies: `D` odd, `D ≤ −7`, fundamental, every `p ∣ N` split, and `N = 32 d²`. These imply
+`D ≡ β² mod 4N` (proved in Lean: `exists_sq_mod_four_mul_of_heegnerHyp`) and `(D, 2N) = 1`
+(proved: `coprime_of_heegnerHyp`, and `D` odd). Check that:
 - every printed hypothesis is among these;
 - in particular, `N` is not required to be squarefree or odd.
 
@@ -507,7 +516,7 @@ conductor*. Or in Shimura's 1971 book, Thm 7.14-7.15 (`E_f` exists), plus Faltin
 
 ```
 lake build ZInQKernel.Contrib.GZStatements.Weak ZInQKernel.Contrib.GZStatements.Level \
-  ZInQKernel.Contrib.GZStatements.Compat
+  ZInQKernel.Contrib.GZStatements.Compat ZInQKernel.Contrib.GZStatements.Hensel
 lake env lean scratch/gz-statements/Check.lean        # types and #print axioms
 ~/bin/uv run --offline --no-project --with sympy python -I scratch/gz-statements/check_heegner.py
 ```
