@@ -47,3 +47,7 @@ input is the `ℚ`-irreducibility of `Y₃`, isolated as `HeckeIrreducible` (SPE
 **What remains:**
 - The Kummer composita pieces.
 - The Hecke curve theory, including Lemma NV.
+
+**Integration.** All new names are in the `PropTSGlue` namespace, and no `ZInQKernel/` file was
+edited. To integrate, use `PropTSGlue.specNonMeeting` in place of prop-ts's glue
+`SpecNonMeeting`; see report §7.
