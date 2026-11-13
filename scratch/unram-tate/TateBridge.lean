@@ -1623,6 +1623,205 @@ theorem endBaseChange : EndBaseChange := fun K L hKL A =>
 theorem tateBridge_of_tatePoints (hP : TatePoints) (hT : PkgI3.TateModuleFree) : TateBridge :=
   tateBridge_of_points hP endBaseChange hT
 
+/-! ## `TatePoints` (generic parts copied from scratch/unram-tate/BCPoints.lean) -/
+
+section BCPoints
+
+open scoped CategoryTheory.Obj
+
+/-- `Spec L → Spec K`. -/
+noncomputable abbrev sK (K L : Type) [Field K] [Field L] [Algebra K L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K L))
+
+section BC
+
+variable {K L : Type} [Field K] [Field L] [Algebra K L] (A : PkgI3.AbVar K)
+  (Ω : Type) [Field Ω] [Algebra L Ω] [Algebra K Ω] [IsScalarTower K L Ω]
+
+theorem specMap_comp_sK :
+    Spec.map (CommRingCat.ofHom (algebraMap L Ω)) ≫ sK K L =
+      Spec.map (CommRingCat.ofHom (algebraMap K Ω)) := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, IsScalarTower.algebraMap_eq K L Ω]
+
+/-- `Over.map (Spec L → Spec K) (Spec Ω / L) ≅ Spec Ω / K`. -/
+noncomputable def ptMapIso :
+    (Over.map (sK K L)).obj (PkgI3.AbVar.ptObj (K := L) Ω) ≅ PkgI3.AbVar.ptObj (K := K) Ω :=
+  Over.isoMk (Iso.refl _) (by
+    simp only [Over.map_obj_hom, Iso.refl_hom, PkgI3.AbVar.ptObj, Over.mk_hom]
+    erw [Category.id_comp]
+    exact (specMap_comp_sK (K := K) (L := L) Ω).symm)
+
+/-- The adjunction bijection is multiplicative. -/
+theorem homEquiv_mul (X : Over (Spec (CommRingCat.of L)))
+    (p q : (Over.map (sK K L)).obj X ⟶ A.X) :
+    (Over.mapPullbackAdj (sK K L)).homEquiv X A.X (p * q) =
+      (Over.mapPullbackAdj (sK K L)).homEquiv X A.X p *
+        (Over.mapPullbackAdj (sK K L)).homEquiv X A.X q := by
+  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+    Functor.map_mul, MonObj.comp_mul]
+
+/-- **Points of a base change**: `A_L(Ω) ≃* A(Ω)`. -/
+noncomputable def bcPt : (A.baseChange L).Pt Ω ≃* A.Pt Ω where
+  toFun p := (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm p
+  invFun x := (Over.mapPullbackAdj (sK K L)).homEquiv _ _ ((ptMapIso Ω).hom ≫ x)
+  left_inv p := Equiv.apply_symm_apply ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X) p
+  right_inv x := by
+    show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+      ((Over.mapPullbackAdj (sK K L)).homEquiv _ _ ((ptMapIso Ω).hom ≫ x)) = x
+    rw [Equiv.symm_apply_apply, ← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+  map_mul' p q := by
+    obtain ⟨p', rfl⟩ := ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X).surjective p
+    obtain ⟨q', rfl⟩ := ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X).surjective q
+    show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+        ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X p' *
+          (Over.mapPullbackAdj (sK K L)).homEquiv _ A.X q') = _
+    rw [← homEquiv_mul, Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply,
+      MonObj.comp_mul]
+
+/-- `bcPt` is natural for `L`-automorphisms of `Ω`. -/
+theorem bcPt_galAct (σ : Ω ≃ₐ[L] Ω) (p : (A.baseChange L).Pt Ω) :
+    bcPt A Ω ((A.baseChange L).galAct σ p) = A.galAct (σ.restrictScalars K) (bcPt A Ω p) := by
+  show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+      (PkgI3.AbVar.galHom σ ≫ p) =
+    PkgI3.AbVar.galHom (σ.restrictScalars K) ≫ (ptMapIso Ω).inv ≫
+      ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm p
+  have hnat := Adjunction.homEquiv_naturality_left_symm (Over.mapPullbackAdj (sK K L))
+    (PkgI3.AbVar.galHom σ) (p : PkgI3.AbVar.ptObj Ω ⟶ (Over.pullback (sK K L)).obj A.X)
+  have hsq : (ptMapIso Ω).inv ≫ (Over.map (sK K L)).map (PkgI3.AbVar.galHom σ) =
+      PkgI3.AbVar.galHom (σ.restrictScalars K) ≫ (ptMapIso Ω).inv := by
+    apply Over.OverMorphism.ext
+    simp [ptMapIso, PkgI3.AbVar.galHom]
+    rfl
+  erw [hnat]
+  rw [← Category.assoc, hsq, Category.assoc]
+
+end BC
+
+section Tr
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+  {Ω Ω₂ : Type} [Field Ω] [Algebra K Ω] [Field Ω₂] [Algebra K Ω₂]
+
+/-- `Spec Ω₂ → Spec Ω` over `K`, for a `K`-isomorphism `φ : Ω ≃ Ω₂`. -/
+noncomputable def trHom (φ : Ω ≃ₐ[K] Ω₂) :
+    PkgI3.AbVar.ptObj (K := K) Ω₂ ⟶ PkgI3.AbVar.ptObj (K := K) Ω :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂))) (by
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp)
+
+theorem trHom_left (φ : Ω ≃ₐ[K] Ω₂) :
+    (trHom φ).left = Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) := rfl
+
+theorem trHom_symm_comp (φ : Ω ≃ₐ[K] Ω₂) : trHom φ.symm ≫ trHom φ = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (φ.symm : Ω₂ →+* Ω)) ≫
+    Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) = 𝟙 (Spec (CommRingCat.of Ω))
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
+    show (φ.symm : Ω₂ →+* Ω).comp (φ : Ω →+* Ω₂) = RingHom.id Ω by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+theorem trHom_comp_symm (φ : Ω ≃ₐ[K] Ω₂) : trHom φ ≫ trHom φ.symm = 𝟙 _ := by
+  simpa using trHom_symm_comp φ.symm
+
+/-- **Transport of points** along `φ : Ω ≃ₐ[K] Ω₂`. -/
+noncomputable def trPt (φ : Ω ≃ₐ[K] Ω₂) : A.Pt Ω ≃* A.Pt Ω₂ where
+  toFun p := trHom φ ≫ p
+  invFun x := trHom φ.symm ≫ x
+  left_inv p := by simp [← Category.assoc, trHom_symm_comp]
+  right_inv x := by simp [← Category.assoc, trHom_comp_symm]
+  map_mul' p q := MonObj.comp_mul _ _ _
+
+/-- `trPt φ` carries the action of `σ` to that of `φσφ⁻¹`. -/
+theorem trPt_galAct (φ : Ω ≃ₐ[K] Ω₂) (σ : Ω ≃ₐ[K] Ω) (σ₂ : Ω₂ ≃ₐ[K] Ω₂)
+    (h : ∀ x, σ₂ (φ x) = φ (σ x)) (p : A.Pt Ω) :
+    trPt A φ (A.galAct σ p) = A.galAct σ₂ (trPt A φ p) := by
+  show trHom φ ≫ PkgI3.AbVar.galHom σ ≫ p = PkgI3.AbVar.galHom σ₂ ≫ trHom φ ≫ p
+  have hsq : trHom φ ≫ PkgI3.AbVar.galHom σ = PkgI3.AbVar.galHom σ₂ ≫ trHom φ := by
+    apply Over.OverMorphism.ext
+    change Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) ≫
+        Spec.map (CommRingCat.ofHom (σ : Ω →+* Ω)) =
+      Spec.map (CommRingCat.ofHom (σ₂ : Ω₂ →+* Ω₂)) ≫ Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂))
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    exact (h x).symm
+  rw [← Category.assoc, ← Category.assoc, hsq]
+
+end Tr
+
+
+/-- **`TatePoints`, proved.** `Θ = (trPt φ ∘ bcPt)⁻¹` for `φ : \overline{L'} ≃ₐ[L'] ℚ̄`
+(`IsAlgClosure.equiv`), and `h = φ ∘ g` for the onto embedding `g : ℚ̄ → \overline{L'}` of
+`resQ_comm'`, so that `h · resQ σ · h⁻¹ = φ σ φ⁻¹`. -/
+theorem tatePoints : TatePoints := by
+  intro L L' _ _ hLL' A
+  haveI hNF : NumberField L' := numberField_of_fd L'
+  letI iLL' : Algebra L L' := incAlg hLL'
+  haveI tLΩ : IsScalarTower L L' (AlgebraicClosure L') := inferInstance
+  haveI tLQ : IsScalarTower L L' Qbar := IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+  haveI : Algebra.IsAlgebraic L' Qbar := Algebra.IsAlgebraic.tower_top (K := ℚ) L'
+  haveI : IsAlgClosure L' Qbar := ⟨inferInstance, inferInstance⟩
+  let φ : AlgebraicClosure L' ≃ₐ[L'] Qbar := IsAlgClosure.equiv L' (AlgebraicClosure L') Qbar
+  let φL : AlgebraicClosure L' ≃ₐ[L] Qbar := φ.restrictScalars L
+  obtain ⟨g0, hcomm⟩ := resQ_comm' L'
+  let g : Qbar →ₐ[ℚ] AlgebraicClosure L' := g0.toRatAlgHom
+  have hKalg : Algebra.IsAlgebraic ℚ (AlgebraicClosure L') := by
+    haveI : Algebra.IsAlgebraic ℚ L' := Algebra.IsAlgebraic.of_finite ℚ L'
+    haveI : Algebra.IsAlgebraic L' (AlgebraicClosure L') := AlgebraicClosure.isAlgebraic L'
+    exact Algebra.IsAlgebraic.trans ℚ L' (AlgebraicClosure L')
+  have hgbij : Function.Bijective g := by
+    letI : Algebra Qbar (AlgebraicClosure L') := g.toAlgebra
+    haveI : IsScalarTower ℚ Qbar (AlgebraicClosure L') :=
+      IsScalarTower.of_algebraMap_eq (fun x => (g.commutes x).symm)
+    haveI : Algebra.IsIntegral ℚ (AlgebraicClosure L') := inferInstance
+    haveI : Algebra.IsIntegral Qbar (AlgebraicClosure L') := Algebra.IsIntegral.tower_top ℚ
+    exact IsAlgClosed.algebraMap_bijective_of_isIntegral
+  let ge : Qbar ≃+* AlgebraicClosure L' := RingEquiv.ofBijective g0 hgbij
+  let hR : Qbar ≃+* Qbar := ge.trans φ.toRingEquiv
+  let h : PkgI4.GQ := AlgEquiv.ofRingEquiv (f := hR) (fun q => by
+    rw [eq_ratCast (algebraMap ℚ Qbar) q, map_ratCast])
+  have hh : ∀ y, h y = φ (g0 y) := fun _ => rfl
+  let E := (bcPt (K := L) (L := L') A (AlgebraicClosure L')).trans (trPt A φL)
+  refine ⟨E.symm.toAdditive, h, ?_⟩
+  intro σ σ' hσ' x
+  have hkey : ∀ z, σ' (φL z) = φL ((actK σ).restrictScalars L z) := by
+    intro z
+    rw [hσ']
+    have hinv : h⁻¹ (φ z) = ge.symm z := by
+      apply h.injective
+      rw [← AlgEquiv.mul_apply, mul_inv_cancel, AlgEquiv.one_apply, hh]
+      show φ z = φ (g0 (ge.symm z))
+      rw [show g0 (ge.symm z) = z from ge.apply_symm_apply z]
+    have hres : (@GaloisCopy.resQ L' _ hNF σ) (ge.symm z) = ge.symm (actK σ z) := by
+      apply ge.injective
+      rw [ge.apply_symm_apply]
+      have := hcomm σ (ge.symm z)
+      rw [show g0 (ge.symm z) = z from ge.apply_symm_apply z] at this
+      exact this
+    show h ((@GaloisCopy.resQ L' _ hNF σ) (h⁻¹ (φ z))) = φ (actK σ z)
+    rw [hinv, hres, hh]
+    show φ (g0 (ge.symm (actK σ z))) = φ (actK σ z)
+    rw [show g0 (ge.symm (actK σ z)) = actK σ z from ge.apply_symm_apply (actK σ z)]
+  show Additive.ofMul (E.symm (A.galAct σ' (Additive.toMul x))) =
+    Additive.ofMul ((A.baseChange L').galAct (actK σ) (E.symm (Additive.toMul x)))
+  congr 1
+  apply E.injective
+  rw [MulEquiv.apply_symm_apply]
+  show A.galAct σ' (Additive.toMul x) = trPt A φL (bcPt A (AlgebraicClosure L')
+    ((A.baseChange L').galAct (actK σ) (E.symm (Additive.toMul x))))
+  rw [bcPt_galAct, trPt_galAct A φL ((actK σ).restrictScalars L) σ' hkey]
+  congr 1
+  exact (E.apply_symm_apply (Additive.toMul x)).symm
+
+end BCPoints
+
+/-- **`TateBridge` from the leaf I3.M0 alone** (`PkgI3.TateModuleFree`, Mumford §18-19). -/
+theorem tateBridge_of_tateModuleFree (hT : PkgI3.TateModuleFree) : TateBridge :=
+  tateBridge_of_tatePoints tatePoints hT
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
@@ -1635,3 +1834,5 @@ end UnramTate
 #print axioms UnramTate.tateBridge_of_points
 #print axioms UnramTate.endBaseChange
 #print axioms UnramTate.tateBridge_of_tatePoints
+#print axioms UnramTate.tatePoints
+#print axioms UnramTate.tateBridge_of_tateModuleFree

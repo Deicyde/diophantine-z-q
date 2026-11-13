@@ -48,3 +48,10 @@
   `homEquiv_naturality_left_symm`), `trPt` (transport along φ : Ω ≃ₐ[K] Ω₂), `trPt_galAct` (σ ↦ φσφ⁻¹).
   VERIFIED compiled, standard axioms (05:10). Group compatibility of base-change points was NOT done before (h5-glue's
   `ptsBaseChangeEquiv` is a bare bijection).
+- `tatePoints : TatePoints` PROVED (BCPoints parts copied into TateBridge.lean): Θ = (trPt φL ∘ bcPt)⁻¹ with
+  φ = `IsAlgClosure.equiv L' (AlgebraicClosure L') ℚ̄` restricted to L; h = φ ∘ g (g from `resQ_comm'`, bijective);
+  key identity h·resQ σ·h⁻¹ = φσφ⁻¹. Pitfall: `AlgebraicClosure L'` already has `Algebra L _` from `Algebra L L'`
+  (do not `letI` another one: SMul diamond).
+- `tateBridge_of_tateModuleFree : PkgI3.TateModuleFree → G0ModField.TateBridge` PROVED.
+- Final check (05:10): `lake env lean` on UnramSup, QuatUnits, BCPoints, TateBridge: exit 0, 0 errors, no sorry;
+  all `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED.
