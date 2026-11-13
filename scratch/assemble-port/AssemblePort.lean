@@ -68730,6 +68730,7 @@ theorem xi'_mem_nonZeroDivisors :
 
 /-! ### Non-triviality: `ξ` is not nilpotent in `B_dR^+`, so `B_dR = B_dR^+[1/ξ] ≠ 0`. -/
 
+set_option synthInstance.maxHeartbeats 200000 in
 theorem ofPlus_xi'_pow_ne_zero (n : ℕ) : ofPlus O p (xi' p) ^ n ≠ 0 := by
   intro h
   set I := RingHom.ker (fontaineThetaInvertP O p)

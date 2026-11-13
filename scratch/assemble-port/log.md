@@ -29,3 +29,7 @@
   `rw [AlgHom.commutes, Module.algebraMap_end_apply, RingHom.id_apply]`, `simp only [symm_apply_apply,
   apply_symm_apply]` (tested in olean/T1.lean: exit 0). Statement unchanged.
 - TailA run 3: VERIFIED exit 0, 0 errors, no sorry, 69 s.
+- TailB: VERIFIED exit 0, 0 errors, 97 s (no edits).
+- TailC run 1: 1 error, part a95 `ofPlus_xi'_pow_ne_zero`: typeclass timeout `IsDedekindFiniteMonoid (Localization.Away
+  ↑p)` (20000 heartbeats). Fix: `set_option synthInstance.maxHeartbeats 200000 in` (as Leaves.lean L4173 does for
+  the same kind of timeout). Run 2: VERIFIED exit 0, 0 errors, 199 s.
