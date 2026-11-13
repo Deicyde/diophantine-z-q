@@ -55,17 +55,17 @@ theorem rigidity_algClosed [IsAlgClosed K]
   have : IsClosedImmersion ((lift e z).left ≫ (fst G Z).left) := by
     simpa using inferInstanceAs (IsClosedImmersion e.left)
   have : IsClosedImmersion (lift e z).left := .of_comp _ (g := (fst G Z).left)
-  let γ : G ⊗ G ⟶ G ⊗ Z := lift (fst _ _) c
-  have : IsProper (γ.left ≫ (fst G Z).left) := by simpa [γ]
-  have : IsProper γ.left := .of_comp _ (fst G Z).left
+  let gm : G ⊗ G ⟶ G ⊗ Z := lift (fst _ _) c
+  have : IsProper (gm.left ≫ (fst G Z).left) := by simpa [gm]
+  have : IsProper gm.left := .of_comp _ (fst G Z).left
   ext1
-  have H : γ.left '' ((fst G G).left ⁻¹' {e.left point}) ⊆ {(lift e z).left point} := by
+  have H : gm.left '' ((fst G G).left ⁻¹' {e.left point}) ⊆ {(lift e z).left point} := by
     rw [Set.image_subset_iff, ← Set.sdiff_eq_empty, ← Set.not_nonempty_iff_eq_empty]
     intro H
     obtain ⟨c₀, ⟨hc₁, hc₂⟩, hc₃⟩ := nonempty_inter_closedPoints H <| by
       rw [Set.sdiff_eq_compl_inter, ← Set.image_singleton, ← Set.image_singleton];
       refine (IsOpen.isLocallyClosed ?_).inter (IsClosed.isLocallyClosed ?_)
-      · exact (((lift e z).left.isClosedMap _ hpoint).preimage γ.left.continuous).isOpen_compl
+      · exact (((lift e z).left.isClosedMap _ hpoint).preimage gm.left.continuous).isOpen_compl
       · exact (e.left.isClosedMap _ hpoint).preimage (fst G G).left.continuous
     obtain ⟨⟨p, hp⟩, hpe⟩ := (pointEquivClosedPoint (G ⊗ G).hom).surjective ⟨c₀, hc₃⟩
     obtain rfl : p point = c₀ := congr(($hpe).1)
@@ -74,21 +74,21 @@ theorem rigidity_algClosed [IsAlgClosed K]
     have : p ≫ pullback.fst G.hom G.hom = e.left :=
       ext_of_apply_closedPoint_eq G.hom (by simpa) (by simp) (by simpa)
     have H₁ : p = fc.left ≫ (e ▷ G).left := by dsimp; ext <;> simp [fc, pt, S, this]
-    have H₂ : fc ≫ e ▷ G ≫ γ = lift e z := by
+    have H₂ : fc ≫ e ▷ G ≫ gm = lift e z := by
       have h1' := h1 _ (pt ≫ snd G G)
       rw [toUnit_unique (toUnit _) (𝟙 _), Category.id_comp, Category.id_comp] at h1'
       ext1
-      · simp [fc, γ, S]
-      · simpa [fc, γ, S] using h1'
+      · simp [fc, gm, S]
+      · simpa [fc, gm, S] using h1'
     exact hc₂ <| by simp [H₁, H₂, ← Scheme.Hom.comp_apply, Category.assoc, ← Over.comp_left]
   obtain ⟨U, hηU, H⟩ := exists_finite_imageι_comp_morphismRestrict_of_finite_image_preimage
-    γ.left (fst G Z).left (e.left point) (by
-      dsimp [-Scheme.Hom.comp_base, γ]
+    gm.left (fst G Z).left (e.left point) (by
+      dsimp [-Scheme.Hom.comp_base, gm]
       simp only [pullback.lift_fst]
       exact (Set.finite_singleton _).subset H)
-  have H (x : U) : ((pullback.fst G.hom Z.hom) ⁻¹' {x.1} ∩ Set.range ⇑γ.left).Finite := by
-    refine ((((γ.left.imageι ≫ (fst G Z).left) ∣_ U).finite_preimage_singleton x).image
-      (Scheme.Opens.ι _ ≫ γ.left.imageι)).subset ?_
+  have H (x : U) : ((pullback.fst G.hom Z.hom) ⁻¹' {x.1} ∩ Set.range ⇑gm.left).Finite := by
+    refine ((((gm.left.imageι ≫ (fst G Z).left) ∣_ U).finite_preimage_singleton x).image
+      (Scheme.Opens.ι _ ≫ gm.left.imageι)).subset ?_
     have : U.ι ⁻¹' {x.1} = {x} := by ext; simp
     rw [← this, ← Set.preimage_comp, ← TopCat.coe_comp, ← Scheme.Hom.comp_base,
       morphismRestrict_ι, ← Category.assoc, Scheme.Hom.comp_base (_ ≫ _) (fst G Z).left,
@@ -98,7 +98,7 @@ theorem rigidity_algClosed [IsAlgClosed K]
     rw [Set.image_preimage_eq_inter_range, Scheme.IdealSheafData.range_subschemeι,
       Scheme.Hom.support_ker, ← Set.inter_assoc, ← Set.preimage_inter,
       Set.singleton_inter_of_mem x.2, IsClosed.closure_eq
-      (by exact γ.left.isClosedMap.isClosed_range)]
+      (by exact gm.left.isClosedMap.isClosed_range)]
   refine ext_of_apply_eq Z.hom _
     ((fst G G).left ⁻¹ᵁ U).isOpen.isLocallyClosed
     (((fst G G).left ⁻¹ᵁ U).isOpen.dense ?_) ?_ ?_
@@ -107,15 +107,15 @@ theorem rigidity_algClosed [IsAlgClosed K]
     have hx : IsClosed {(fst G G).left y} := by simpa using (fst G G).left.isClosedMap _ hy
     let x : 𝟙_ _ ⟶ G := Over.homMk (pointOfClosedPoint G.hom _ hx) (by simp)
     let xe : (G ⊗ Z).left := (lift (fst G G) (toUnit _ ≫ z)).left y
-    have hγ : lift (fst G G) (toUnit _ ≫ e) ≫ γ = lift (fst G G) (toUnit _ ≫ z) := by
+    have hgm : lift (fst G G) (toUnit _ ≫ e) ≫ gm = lift (fst G G) (toUnit _ ≫ z) := by
       ext1
-      · simp [γ]
-      · simpa [γ] using h2 _ (fst G G)
-    have : γ.left y = xe := by
+      · simp [gm]
+      · simpa [gm] using h2 _ (fst G G)
+    have : gm.left y = xe := by
       refine subsingleton_image_closure_of_finite_of_isPreirreducible
-        (hx.preimage (fst G G).left.continuous).isLocallyClosed ?_ γ.left.continuous
-        γ.left.isClosedMap ((H ⟨_, hyU⟩).subset (Set.image_subset_iff.mpr fun _ ↦ by
-          simp [← Scheme.Hom.comp_apply, -Scheme.Hom.comp_base, γ])) ?_ ?_
+        (hx.preimage (fst G G).left.continuous).isLocallyClosed ?_ gm.left.continuous
+        gm.left.isClosedMap ((H ⟨_, hyU⟩).subset (Set.image_subset_iff.mpr fun _ ↦ by
+          simp [← Scheme.Hom.comp_apply, -Scheme.Hom.comp_base, gm])) ?_ ?_
       · let α : G ⊗ G ⟶ G ⊗ G := toUnit _ ≫ x ⊗ₘ 𝟙 _
         convert
           ((IrreducibleSpace.isIrreducible_univ _).image α.left
@@ -126,9 +126,9 @@ theorem rigidity_algClosed [IsAlgClosed K]
       · refine ⟨(lift (fst G G) (toUnit _ ≫ e)).left y, subset_closure ?_, ?_⟩
         · rw [Set.mem_preimage, Set.mem_singleton_iff, ← Scheme.Hom.comp_apply, ← Over.comp_left,
             lift_fst]
-        · rw [← Scheme.Hom.comp_apply, ← Over.comp_left, hγ]
+        · rw [← Scheme.Hom.comp_apply, ← Over.comp_left, hgm]
     convert congr((snd G Z).left $this) using 1
-    · simp [γ, ← Scheme.Hom.comp_apply]
+    · simp [gm, ← Scheme.Hom.comp_apply]
     · simp only [xe]
       rw [← Scheme.Hom.comp_apply, ← Over.comp_left, lift_snd]
   · simp

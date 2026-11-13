@@ -42,3 +42,15 @@
 - 05:44 COMPILED (exit 0): `isOpenImmersion_of_section` (section of formally unramified lft is an open immersion),
   **`kerUnitOpen_of_mulEtale : MulEtale → KerUnitOpen`** (so the leaf KerUnitOpen is implied by the published
   "[n] étale for char ∤ n"). All axioms: propext, Classical.choice, Quot.sound.
+
+## Assembled file and consumers
+- `assemble.sh` builds `MulRigidity.lean` = `import Mathlib` + Objects + Rigidity.lean + Mul.lean + fs_tail.lean.part
+  (FS2 `EndDivisionOfSchemeIso` and FS3 `EndDivisionOfEnd0Division` with their g0-fibresimple proofs, copied
+  verbatim). With `import Mathlib`, the identifier `γ` clashes with a Mathlib notation: renamed to `gm` in
+  Rigidity.lean.
+- 05:41 COMPILED (exit 0, 12 s): MulRigidity.lean; **`G0FibreSimple.endDivisionOfSchemeIso :
+  EndDivisionOfSchemeIso`** (FS2 closed, no hypotheses) and `end0Division_of_homFree_kerUnitOpen :
+  HomFreeFinite → KerUnitOpen → EndDivisionOfEnd0Division`. All eight `#print axioms`: propext,
+  Classical.choice, Quot.sound. Rigidity.lean alone recompiled after the rename (OK).
+- Verbatim check (diff): `def RigidityHom` (with docstring) and `def MulIsogeny` identical to
+  scratch/g0-fibresimple/FibreSimple.lean.
