@@ -6,8 +6,8 @@ import ZInQKernel.HDecomp.Faltings.H5BaseChange
   two definitions N2 depends on, and checks (`Iff.rfl`) that they are the declarations of the
   build (`ZInQKernel/HDecomp/Faltings/H5Neron.lean`, adopted from `scratch/h5-neron/`).
 * §2 defines `NeronModelOver R L B` (a Néron model of `B : AbVar L` over a ring `R → L`, BLR §1.2
-  Def. 1) and reduces N1 to its literal published form `NeronModelExistsSelf` (BLR §1.4 Thm 3 for
-  `R = 𝓞_L` and an abelian variety over `L` itself): **proved** (`neronModelExists_of_self`).
+  Def. 1) and proves N1 equivalent to its literal published form `NeronModelExistsSelf` (BLR §1.4
+  Thm 3 for `R = 𝓞_L` and an abelian variety over `L` itself): `neronModelExistsSelf_iff`.
 * §3 splits `NeronModelExistsSelf` into two **leaves**, `LocalNeronModelExists` (Néron models over
   the discrete valuation rings `O ⊂ L`, i.e. the `𝓞_{L,𝔭}`; BLR §1.4 Thm 3 for a DVR) and
   `AbelianSchemeIsNeron` (BLR §1.2 Prop. 8), and one **glue** statement `NeronLocalToGlobal`
@@ -139,6 +139,77 @@ theorem neronModelExists_of_self (h : NeronModelExistsSelf) : NeronModelExists :
   obtain ⟨𝒩⟩ := h L (A.baseChange L)
   exact ⟨𝒩.toGroupModel, 𝒩.toGroupModel_isNeronModel⟩
 
+/-! ### The converse: N1 implies N1-self (so the two are equivalent) -/
+
+theorem spec_algebraMap_self (L : Type) [Field L] :
+    Spec.map (CommRingCat.ofHom (algebraMap L L)) = 𝟙 _ := by
+  rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+
+/-- The components of `Over.pullbackId` are monoid morphisms. -/
+theorem isMonHom_pullbackId {S : Scheme.{0}} (G : Over S) [MonObj G] :
+    IsMonHom ((Over.pullbackId (X := S)).hom.app G) := by
+  have h := ((Functor.mapMonNatIso (Over.pullbackId (X := S))).hom.app (Mon.mk G) ≫
+    (Functor.mapMonIdIso).hom.app (Mon.mk G)).isMonHom_hom
+  have e : (Over.pullbackId (X := S)).hom.app G = (Over.pullbackId (X := S)).hom.app G ≫ 𝟙 _ :=
+    (Category.comp_id _).symm
+  rw [e]
+  exact h
+
+/-- `X ×_L L ≅ X` (pullback along `Spec.map (algebraMap L L) = 𝟙`). An `irreducible_def`: if the
+kernel may unfold it (through `eqToIso`), checking `selfGen` below times out. -/
+noncomputable irreducible_def selfIso {L : Type} [Field L] (X : Over (Spec (CommRingCat.of L))) :
+    (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap L L)))).obj X ≅ X :=
+  ZInQ.H5Neron.pbEqIso (spec_algebraMap_self L) X ≪≫ (Over.pullbackId).app X
+
+theorem isMonHom_selfIso {L : Type} [Field L] (X : Over (Spec (CommRingCat.of L))) [MonObj X] :
+    IsMonHom (selfIso X).hom := by
+  have h1 := ZInQ.H5Neron.isMonHom_pbEq (spec_algebraMap_self L) X
+  have h2 := isMonHom_pullbackId X
+  rw [selfIso_def]
+  show IsMonHom (ZInQ.H5Neron.pbEq (spec_algebraMap_self L) X ≫ (Over.pullbackId).hom.app X)
+  infer_instance
+
+/-- The generic-fibre identification of a group model of `B_L` (`B` over `L`), followed by
+`B_L ≅ B`. Built from `H5Neron.genIso` so that all types are syntactic. -/
+noncomputable def selfGen {L : Type} [Field L] [NumberField L] {B : AbVar L}
+    (𝒩 : GroupModel B L) :
+    (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).obj 𝒩.G ≅ B.X :=
+  ZInQ.H5Neron.genIso 𝒩 ≪≫ selfIso B.X
+
+/-- (Stated through `Iso.trans_hom`: a bare `rfl` here makes the kernel time out.) -/
+theorem selfGen_hom {L : Type} [Field L] [NumberField L] {B : AbVar L} (𝒩 : GroupModel B L) :
+    (selfGen 𝒩).hom = (ZInQ.H5Neron.genIso 𝒩).hom ≫ (selfIso B.X).hom :=
+  Iso.trans_hom _ _
+
+theorem selfGen_isMonHom {L : Type} [Field L] [NumberField L] {B : AbVar L}
+    (𝒩 : GroupModel B L) :
+    letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)))).obj 𝒩.G) :=
+      Functor.grpObjObj
+    IsMonHom (selfGen 𝒩).hom := by
+  have h1 : IsMonHom (ZInQ.H5Neron.genIso 𝒩).hom := ZInQ.H5Neron.genIso_isMonHom 𝒩
+  have h2 : IsMonHom (selfIso B.X).hom := isMonHom_selfIso B.X
+  rw [selfGen_hom]
+  exact instIsMonHomComp (ZInQ.H5Neron.genIso 𝒩).hom (selfIso B.X).hom
+
+theorem genIso_neron {L : Type} [Field L] [NumberField L] {B : AbVar L} (𝒩 : GroupModel B L)
+    (h : 𝒩.IsNeronModel) : NeronProp (jL L) (fun Y => Smooth Y.hom) 𝒩.G
+      ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap L L)))).obj B.X)
+      (ZInQ.H5Neron.genIso 𝒩) := fun Y hY => @h Y hY
+
+theorem selfGen_neron {L : Type} [Field L] [NumberField L] {B : AbVar L} (𝒩 : GroupModel B L)
+    (h : 𝒩.IsNeronModel) : NeronProp (jL L) (fun Y => Smooth Y.hom) 𝒩.G B.X (selfGen 𝒩) := by
+  refine (genIso_neron 𝒩 h).of_iso (Iso.refl _) (selfIso B.X) (selfGen 𝒩) ?_
+  rw [Iso.refl_hom, (Over.pullback (jL L)).map_id, Category.id_comp, selfGen_hom]
+
+/-- **N1 implies N1-self (proved)**, so `NeronModelExistsSelf ↔ NeronModelExists`. -/
+theorem neronModelExistsSelf_of (h : NeronModelExists) : NeronModelExistsSelf := by
+  intro L _ _ B
+  obtain ⟨𝒩, h𝒩⟩ := h L B L
+  exact ⟨⟨𝒩.G, selfGen 𝒩, selfGen_isMonHom 𝒩, fun Y hY => selfGen_neron 𝒩 h𝒩 Y hY⟩⟩
+
+theorem neronModelExistsSelf_iff : NeronModelExistsSelf ↔ NeronModelExists :=
+  ⟨neronModelExists_of_self, neronModelExistsSelf_of⟩
+
 /-! ## §3. N1-self from a local leaf and a local-to-global glue statement -/
 
 /-- **Leaf N1-loc (Néron models over a discrete valuation ring).** For an abelian variety `B` over
@@ -177,7 +248,9 @@ Proof (STANDARD, not in Mathlib): `B` spreads out to an abelian scheme `𝒜` ov
 `U = Spec 𝓞_L[1/f]` (EGA IV §8: limits of schemes, of morphisms and of the properties smooth,
 proper, group law; UNVERIFIED locators), which is the Néron model over `U` by N1-ab; each of the
 finitely many local Néron models at the closed points outside `U` is of finite type, so spreads
-out to a neighbourhood where it agrees with `𝒜` (Néron mapping property); gluing gives a smooth
+out to a neighbourhood, where (after shrinking) it agrees with `𝒜` because the isomorphism of
+generic fibres spreads out (EGA IV 8.8.2); the group law is induced by the Néron property; gluing
+gives a smooth
 separated group scheme of finite type over `𝓞_L`, and the Néron property is local on the
 Dedekind base (BLR §1.2) (this is BLR §1.4, proof of Thm 3; UNVERIFIED locators). Glue: algebraic
 geometry (spreading out, gluing) to be formalized by the project. -/
@@ -402,9 +475,13 @@ which commutes with base change, so no extension is needed there; take for `L₀
 (`H5Neron.compositum`) of the local fields `L₀(𝔭)`, `𝔭 ∈ S`; the local open immersions are
 compatible on generic fibres, hence (schematic density of the generic fibre of the flat `U`,
 separatedness of the targets) they are restrictions of the canonical morphism
-`𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'} → 𝒩'` and glue to the identity component `𝒩'⁰` over `𝓞_{L'}`; the
-identity component of a base change is the base change of the identity component (SGA 3 VI_B),
-which passes from `L₀(𝔭)` to `L₀`; Néron models are compatible with localization (BLR §1.2).
+`𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'} → 𝒩'` and glue to the identity component `𝒩'⁰` over `𝓞_{L'}` (open by
+SGA 3 VI_B 3.10, quasi-compact over the noetherian base); the passage from `L₀(𝔭)` to the
+compositum `L₀` applies the local statement's "every `L'`" clause twice (to `L₀` and to `L'`) and
+composes, using that the identity component of an algebraic group is geometrically connected
+(SGA 3 VI_A 2.4, EGA IV 4.5.13); Néron models are compatible with localization (BLR §1.2), and a
+morphism that is an isomorphism over every local ring of the base is an isomorphism. Locators
+UNVERIFIED.
 Glue: algebraic geometry to be formalized by the project. -/
 def SemistableLocalToGlobal : Prop :=
   NeronModelExists → AbelianSchemeIsNeron →
@@ -443,3 +520,4 @@ end ZInQ.TauN1N2
 #print axioms ZInQ.TauN1N2.some_of_semistableNeronIdentityComponent
 #print axioms ZInQ.TauN1N2.semistableNeronIdentityComponent_of_local
 #print axioms ZInQ.TauN1N2.n1_n2_of_leaves
+#print axioms ZInQ.TauN1N2.neronModelExistsSelf_iff

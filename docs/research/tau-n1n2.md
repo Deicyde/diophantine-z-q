@@ -1,9 +1,9 @@
 # tau-n1n2: the Néron leaves N1 and N2
 
 Status: research note (task tau-n1n2, 2026-11-13).
-- **Lean:** `scratch/tau-n1n2/N1N2.lean` (about 480 lines). It imports only
+- **Lean:** `scratch/tau-n1n2/N1N2.lean` (about 520 lines). It imports only
   `ZInQKernel.HDecomp.Faltings.H5BaseChange` and was compiled with `lake env lean`. There is no
-  `sorry` and no `axiom`, and all 13 `#print axioms` list only `propext`, `Classical.choice`,
+  `sorry` and no `axiom`, and all 14 `#print axioms` list only `propext`, `Classical.choice`,
   `Quot.sound`.
 - **Results log:** `scratch/tau-n1n2/log.md`.
 - **Statements under study:** N1 `NeronModelExists` and N2 `SemistableNeronIdentityComponent` of
@@ -43,7 +43,7 @@ Intermediate results, all proved (VERIFIED):
 
 | Lean theorem | statement |
 |---|---|
-| `neronModelExists_of_self` | N1 ⇐ `NeronModelExistsSelf` (BLR §1.4 Thm 3 literally: `B` over `L`, model over `𝓞_L`) |
+| `neronModelExistsSelf_iff` | `NeronModelExistsSelf ↔ NeronModelExists`: N1 is equivalent to BLR §1.4 Thm 3 literally (`B` over `L`, model over `𝓞_L`) |
 | `neronModelExistsSelf_of_local` | `NeronModelExistsSelf` ⇐ N1-loc + N1-ab + `NeronLocalToGlobal` |
 | `neronModelExists_of_local` | N1 ⇐ N1-loc + N1-ab + `NeronLocalToGlobal` |
 | `isMonHom_of_reflect` | general lemma: after a monoidal functor `F`, if `F φ` is compatible with monoid morphisms `g_M`, `g_N` and maps `𝟙 → N` and `M ⊗ M → N` are determined by `F(-) ≫ g_N`, then `φ` is a monoid morphism |
@@ -107,21 +107,25 @@ needs no isomorphism transport).
 
 | name | kind | statement | source |
 |---|---|---|---|
-| `NeronModelExistsSelf` | leaf (equivalent to N1) | every `B : AbVar L`, `L` a number field, has a `NeronModelOver (𝓞 L) L B` | BLR §1.4 Thm 3 (UNVERIFIED locator), literally, with `R = 𝓞_L` |
+| `NeronModelExistsSelf` | leaf (equivalent to N1, `neronModelExistsSelf_iff`, VERIFIED) | every `B : AbVar L`, `L` a number field, has a `NeronModelOver (𝓞 L) L B` | BLR §1.4 Thm 3 (UNVERIFIED locator), literally, with `R = 𝓞_L` |
 | `LocalNeronModelExists` (N1-loc) | leaf | the same over every discrete valuation ring `O ⊂ L` (a `ValuationSubring L` with `IsDiscreteValuationRing`; these are the `𝓞_{L,𝔭}`) | BLR §1.4 Thm 3 for `R = O`. In BLR the local case is §1.3 Cor. 2 (strictly henselian) followed by étale descent (§6.2) (UNVERIFIED) |
 | `AbelianSchemeIsNeron` (N1-ab) | leaf | a smooth proper `GrpObj` over a Dedekind domain `R` with fraction field `L`, with generic fibre identified with `B`, has the Néron mapping property | BLR §1.2 Prop 8 (UNVERIFIED) |
 | `NeronLocalToGlobal` | glue (assumes N1-ab) | Néron models over every DVR `O ⊂ L` give one over `𝓞_L` | the proof of BLR §1.4 Thm 3: spread `B` out to an abelian scheme over `𝓞_L[1/f]` (EGA IV §8), which is Néron by N1-ab; spread out the finitely many local models and glue; the Néron property is local on the base (BLR §1.2) |
 
 Notes.
-- An earlier attempt reduced N1 to `NeronModelExistsSelf` stated with `GroupModel B L`. It had to
-  transport along `(B_L)_L ≅ B_L` (the pullback along `Spec.map id`). The kernel timed out
-  ("deterministic timeout"), the known pattern for iso chains whose declared types are only
-  definitionally equal. Stating the leaf with `NeronModelOver` avoids the transport entirely.
+- The direction N1 ⇐ `NeronModelExistsSelf` needs no transport (`NeronModelOver.toGroupModel`).
+  The converse transports along `(B_L)_L ≅ B_L`, the pullback along `Spec.map (algebraMap L L) = 𝟙`
+  (`selfIso`, built from `eqToIso` and `Over.pullbackId`; `isMonHom_pullbackId` uses
+  `Functor.mapMonNatIso`). The kernel reported "deterministic timeout" on every declaration that
+  unfolded `selfIso`, even `(selfGen 𝒩).hom = … := Iso.trans_hom _ _`. Making `selfIso` a
+  `noncomputable irreducible_def` fixed it (VERIFIED). This is a new instance of the pattern in
+  the memory note on iso-chain kernel timeouts: there, retyping the iso was enough; here the
+  `eqToIso` itself had to be hidden from the kernel.
 - The glue `NeronLocalToGlobal` takes N1-ab as a hypothesis. Without it, the glue's proof would
   silently use a literature theorem (BLR 1.2/8) at the infinitely many primes of good reduction.
-  The glue's proof also uses textbook facts that are not in Mathlib: spreading out (EGA IV §8)
-  and the locality of the Néron property (BLR §1.2). The project may promote these to textbook
-  leaves.
+  The glue's proof also uses textbook facts that are not in Mathlib: spreading out of schemes, of
+  isomorphisms and of properties of morphisms (EGA IV 8.8.2, 8.10.5, 17.7.8), and the locality of
+  the Néron property (BLR §1.2). The project may promote these to textbook leaves.
 
 ## 4. N2: audit and reduction
 
@@ -173,8 +177,30 @@ fibres: `U` is flat, so its generic fibre is schematically dense, and the target
 - **Glue** (to be proved by the project; needs algebraic geometry missing from Mathlib):
   `NeronLocalToGlobal` and `SemistableLocalToGlobal`. They use spreading out (EGA IV §8), gluing
   of schemes along opens, the identity component of a smooth group scheme over a Dedekind base
-  and its compatibility with base change (SGA 3 VI_B), and the locality of the Néron property
-  (BLR §1.2).
+  (open by SGA 3 VI_B 3.10), geometric connectedness of the identity component of an algebraic
+  group (SGA 3 VI_A 2.4, EGA IV 4.5.13), and the locality of the Néron property (BLR §1.2). All
+  locators are UNVERIFIED.
+
+## 6. Independent review
+
+A read-only model review (subagent) checked every new `def`. It reported no problem: each leaf
+is true, a consequence of its source, and not vacuous, and each glue statement is true. In
+particular, it checked that the canonical choice (`U = 𝒩'⁰`, `j` = the inverse of the canonical
+isomorphism) satisfies the compatibility equation of `LocalSemistableAt`. It also checked that the
+equation forces `c ∘ j = i`, and hence exactly the conclusion of SGA 7 IX 3.3. Its three minor
+docstring points are fixed:
+- spreading out of isomorphisms (EGA IV 8.8.2), not the mapping property, makes the local models
+  agree with `𝒜`;
+- the passage from `L₀(𝔭)` to the compositum applies the leaf's "every `L'`" clause twice;
+- base change of identity components is SGA 3 VI_A 2.4 / EGA IV 4.5.13, not VI_B.
+
+The reviewer added two remarks:
+- `AbelianSchemeIsNeron` assumes only smooth and proper, not connected fibres. Nothing is lost:
+  `f_*𝒪_G` is finite étale with generic fibre `L`, so it equals `R`.
+- The group structure in `NeronModelOver` is extra data, but `gen_hom` forces it to be the one
+  the mapping property induces.
+
+There has been no human review.
 - **Integration suggestion.** In `TextbookLeaves`, replace `t41 : NeronModelExists` by the three
   leaf fields and add the two glue Props to `GluePieces`. Then
   `neronModelExists_of_local hloc1 hab hg1` supplies `t41`. All declarations are in the single

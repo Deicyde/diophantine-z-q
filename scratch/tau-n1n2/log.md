@@ -44,3 +44,15 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
   fibres), leaf `LocalSemistableIdentityComponent` (SGA 7 IX 3.6 + 3.3 local), `SemistableNeronAt`,
   glue `SemistableLocalToGlobal`; `semistableNeronIdentityComponent_of_local` and
   `n1_n2_of_leaves` PROVED.
+
+## N1N2.lean converse — COMPILED 05:13 (0 errors; 14 #print axioms, all propext, Classical.choice, Quot.sound)
+- `selfIso` ((B_L)_L ≅ B_L) as `noncomputable irreducible_def`; `isMonHom_pullbackId`,
+  `isMonHom_selfIso`, `selfGen`, `selfGen_hom`, `selfGen_isMonHom`, `genIso_neron`, `selfGen_neron`,
+  `neronModelExistsSelf_of : NeronModelExists → NeronModelExistsSelf`,
+  `neronModelExistsSelf_iff` PROVED.
+- FINDING (Lean): with `selfIso` a plain `def` (eqToIso ≪≫ pullbackId.app), the kernel timed out
+  ("deterministic timeout") on `selfGen_hom := Iso.trans_hom _ _`, on `selfGen_isMonHom` and on
+  the structure literal; `irreducible_def` fixes all three.
+- Independent model review (subagent, read-only) of all new defs: no PROBLEM; three MINOR
+  docstring points fixed (EGA IV 8.8.2 for agreement of spread-out models; compositum step;
+  SGA 3 VI_A 2.4 / EGA IV 4.5.13 for identity components under base change).
