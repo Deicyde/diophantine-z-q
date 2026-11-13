@@ -112,3 +112,6 @@ docs/research/h-decomposition.md (base 883c4ddf).
   theorems — T3, R6, R8, R9; Poincaré reducibility — T8; Galois reps of eigenforms, Carayol (0 files) — R14-R17;
   Shimura curves/QM — R1-R5; Jacobian existence (Picard representability explicitly not treated) — T33; genus of
   Γ₁(N) — T34; maximal quaternion orders — T29; SemisimpleBaseChange; LeafConj (as stated).
+
+## Deliverables
+- docs/research/tc-survey.md (committed), .fleet/tc-survey.md (last commit).
