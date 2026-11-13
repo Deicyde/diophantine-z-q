@@ -102,3 +102,9 @@ docs/research/h5-neron.md.
 - `HodgeLatticeNonzero` (glue, STATED): finrank_L (𝒩.hodgeSpace g) = 1 ⇒ ∃ v ∈ 𝒩.detLattice g, v ≠ 0.
 - `heightAntitone_of : HodgeMapBijective → HodgeLatticeNonzero → HeightAntitone` — axioms standard.
   (HeightAntitone restated verbatim as in Minimal.lean.)
+
+## 13. HodgeMapBijective — PROVED; HeightAntitone ⇐ HodgeLatticeNonzero (compiled ~02:28, JacDet.lean)
+- hodge-lattice's §9-§10 lemmas and `stalkIso_of_genericIso` copied into JacDet.lean.
+- `isIso_genMap`, `cotMap_bijective` (f^* on 𝔪/𝔪² bijective: genMap a local ring iso, comap of 𝔪²),
+  `baseChange_map_bijective`, `hodgeMapBijective : HodgeMapBijective`,
+  `heightAntitone_of_hodgeLatticeNonzero : HodgeLatticeNonzero → HeightAntitone`. Axioms standard.

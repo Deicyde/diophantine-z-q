@@ -579,6 +579,264 @@ theorem heightAntitone_of (hb : HodgeMapBijective) (hn : HodgeLatticeNonzero) :
     _ ≤ (M.hodge.modelHeight : EReal) :=
         EReal.coe_le_coe_iff.mpr (modelHeight_pullHodge_le M.hodge H hbij.1 _ hfin hlat hle)
 
+/-! ### `HodgeMapBijective` (proved): local rings along a generic isomorphism
+
+The lemmas below up to `genericFibreStalkIso` are copied verbatim from
+`scratch/hodge-lattice/HodgeLattice.lean` §9-§10 (via `Stalk.lean`, with `toGeneric` renamed `jL`). -/
+
+section StalkSec
+open TensorProduct
+
+/-! ### Copied from hodge-lattice §9 -/
+
+/-- **(S')** The projection `X_L = X ×_{𝓞_L} L → X` induces isomorphisms on local rings. -/
+def GenericFibreStalkIso : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (X : Over (Spec (CommRingCat.of (𝓞 L))))
+    (x : (genericFibre L X).left), IsIso ((pullback.fst X.hom (jL L)).stalkMap x)
+
+section
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+theorem fst_genericFibre_unit :
+    letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+    (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left ≫
+      pullback.fst 𝒢.G.hom (jL L) = jL L ≫ 𝒢.unitSection := by
+  let _ : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  change (Functor.LaxMonoidal.ε (Over.pullback (jL L)) ≫
+    (Over.pullback (jL L)).map η[𝒢.G]).left ≫ pullback.fst 𝒢.G.hom (jL L) = _
+  rw [Over.comp_left, Category.assoc]
+  have h1 : ((Over.pullback (jL L)).map η[𝒢.G]).left ≫
+      pullback.fst 𝒢.G.hom (jL L) =
+      pullback.fst _ (jL L) ≫ (η[𝒢.G] : 𝟙_ _ ⟶ 𝒢.G).left := by
+    simp
+  rw [h1, ← Category.assoc]
+  have h2 : (Functor.LaxMonoidal.ε (Over.pullback (jL L))).left ≫
+      pullback.snd ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (jL L) = 𝟙 _ :=
+    Over.w (Functor.LaxMonoidal.ε (Over.pullback (jL L)))
+  have hc := pullback.condition (f := (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom)
+    (g := jL L)
+  have hc' : pullback.fst ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (jL L) =
+      pullback.snd _ _ ≫ jL L := by
+    rw [← hc]; exact (Category.comp_id _).symm
+  rw [hc', ← Category.assoc, h2, Category.id_comp]
+  rfl
+
+omit [NumberField L] in
+theorem toGeneric_pt [NumberField L] :
+    (jL L) (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L) = genericPt L := by
+  change PrimeSpectrum.comap (algebraMap (𝓞 L) L) ⟨⊥, Ideal.isPrime_bot⟩ = _
+  refine PrimeSpectrum.ext (Ideal.ext fun x => ?_)
+  simp only [PrimeSpectrum.comap_asIdeal, Ideal.mem_comap, Ideal.mem_bot, genericPt]
+  exact map_eq_zero_iff _ (IsFractionRing.injective (𝓞 L) L)
+
+/-- The identity `ξ_L` of the generic fibre. -/
+noncomputable def genericFibreUnit : (genericFibre L 𝒢.G).left :=
+  letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+theorem fst_genericFibreUnit :
+    pullback.fst 𝒢.G.hom (jL L) (genericFibreUnit 𝒢) = 𝒢.genericUnit := by
+  have h := congrArg (fun φ => φ (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L))
+    (fst_genericFibre_unit 𝒢)
+  exact ((Scheme.Hom.comp_apply _ _ _).symm.trans h).trans
+    ((Scheme.Hom.comp_apply _ _ _).trans (congrArg (fun y => 𝒢.unitSection y) (toGeneric_pt (L := L))))
+
+end
+
+/-! ### Copied from hodge-lattice §10 -/
+
+/-- Bijectivity of ring maps respects isomorphisms. -/
+theorem bijective_respectsIso :
+    RingHom.RespectsIso (fun {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) =>
+      Function.Bijective f) :=
+  ⟨fun f e hf => e.bijective.comp hf, fun f e hf => hf.comp e.bijective⟩
+
+local notation "Pb" => stalkwise (fun {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) =>
+      Function.Bijective f)
+
+/-- `Spec (A ⊗_R K) → Spec A` has bijective stalk maps when `K` is a localization of `R`. -/
+theorem stalkwise_tensor_localization (R : Type) [CommRing R] (K : Type) [CommRing K]
+    [Algebra R K] (M : Submonoid R) [IsLocalization M K] (A : Type) [CommRing A] [Algebra R A] :
+    Pb (Spec.map (CommRingCat.ofHom (algebraMap A (A ⊗[R] K)))) := by
+  have := stalkwise_respectsIso bijective_respectsIso
+  set M' := Algebra.algebraMapSubmonoid A M
+  let e : A ⊗[R] K ≃ₐ[A] Localization M' := IsLocalization.algEquiv M' _ _
+  have hfac : CommRingCat.ofHom (algebraMap A (A ⊗[R] K)) =
+      CommRingCat.ofHom (algebraMap A (Localization M')) ≫
+        CommRingCat.ofHom e.symm.toAlgHom.toRingHom := by
+    ext a
+    simp
+  have : IsIso (CommRingCat.ofHom e.symm.toAlgHom.toRingHom) :=
+    ⟨⟨CommRingCat.ofHom e.toAlgHom.toRingHom,
+      CommRingCat.hom_ext (RingHom.ext fun y => e.apply_symm_apply y),
+      CommRingCat.hom_ext (RingHom.ext fun y => e.symm_apply_apply y)⟩⟩
+  rw [hfac, Spec.map_comp]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  intro x
+  have h := isIso_specMap_stalkMap_localization (CommRingCat.of A) M' x
+  exact (ConcreteCategory.isIso_iff_bijective _).mp h
+
+/-- On an affine chart: `Spec A ×_{𝓞_L} Spec L → Spec A` has bijective stalk maps. -/
+theorem stalkwise_fst_toGeneric {L : Type} [Field L] [NumberField L] {A : CommRingCat}
+    (g : Spec A ⟶ Spec (CommRingCat.of (𝓞 L))) : (Pb) (pullback.fst g (jL L)) := by
+  have : (Pb).RespectsIso := stalkwise_respectsIso bijective_respectsIso
+  let φ := Spec.preimage g
+  letI : Algebra (𝓞 L) A := φ.hom.toAlgebra
+  have hg : g = Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) A)) := by
+    rw [← Spec.map_preimage g]; rfl
+  have he2 : (pullback.congrHom hg rfl).hom ≫ pullback.fst _ _ = pullback.fst g (jL L) := by
+    simp [pullback.congrHom]
+  rw [← he2]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  rw [← pullbackSpecIso_hom_fst' (𝓞 L) A L]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  exact stalkwise_tensor_localization (𝓞 L) L (nonZeroDivisors (𝓞 L)) A
+
+/-- **`GenericFibreStalkIso` holds**: base change along `Spec L → Spec 𝓞_L` does not change local
+rings (Zariski-local on the target; on an affine chart it is `Spec (A ⊗_{𝓞_L} L) → Spec A`, a
+localization). -/
+theorem genericFibreStalkIso : GenericFibreStalkIso := by
+  intro L _ _ X x
+  have : (Pb).RespectsIso := stalkwise_respectsIso bijective_respectsIso
+  have : IsZariskiLocalAtTarget (Pb) :=
+    stalkwiseIsZariskiLocalAtTarget_of_respectsIso bijective_respectsIso
+  suffices H : (Pb) (pullback.fst X.hom (jL L)) from
+    (ConcreteCategory.isIso_iff_bijective _).mpr (H x)
+  refine IsZariskiLocalAtTarget.of_openCover X.left.affineOpenCover.openCover ?_
+  intro i
+  show (Pb) (pullback.snd (pullback.fst X.hom (jL L)) (X.left.affineOpenCover.f i))
+  have he : (pullbackSymmetry (pullback.fst X.hom (jL L)) (X.left.affineOpenCover.f i) ≪≫
+      pullbackRightPullbackFstIso X.hom (jL L) (X.left.affineOpenCover.f i)).hom ≫
+        pullback.fst (X.left.affineOpenCover.f i ≫ X.hom) (jL L) =
+      pullback.snd (pullback.fst X.hom (jL L)) (X.left.affineOpenCover.f i) := by
+    simp
+  rw [← he]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  exact stalkwise_fst_toGeneric _
+
+
+
+section NewStalk
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- **A generic isomorphism induces an isomorphism of local rings at `ξ`.** -/
+theorem stalkIso_of_genericIso (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G)
+    [hF : IsIso ((Over.pullback (jL L)).map f)] :
+    IsIso (f.left.stalkMap 𝒢.genericUnit) := by
+  have hsq : pullback.fst 𝒢.G.hom (jL L) ≫ f.left =
+      ((Over.pullback (jL L)).map f).left ≫ pullback.fst 𝒩.G.hom (jL L) := by
+    simp
+  haveI : IsIso ((Over.pullback (jL L)).map f).left := by
+    have := Functor.map_isIso (Over.forget _) ((Over.pullback (jL L)).map f)
+    exact this
+  haveI : IsIso (((Over.pullback (jL L)).map f).left.stalkMap (genericFibreUnit 𝒢)) :=
+    (IsOpenImmersion.iff_isIso_stalkMap.mp inferInstance).2 _
+  haveI : IsIso ((pullback.fst 𝒢.G.hom (jL L)).stalkMap (genericFibreUnit 𝒢)) :=
+    genericFibreStalkIso L 𝒢.G _
+  haveI : IsIso ((pullback.fst 𝒩.G.hom (jL L)).stalkMap
+      (((Over.pullback (jL L)).map f).left (genericFibreUnit 𝒢))) :=
+    genericFibreStalkIso L 𝒩.G _
+  have h1 := Scheme.Hom.stalkMap_comp (pullback.fst 𝒢.G.hom (jL L)) f.left
+    (genericFibreUnit 𝒢)
+  have h2 := Scheme.Hom.stalkMap_comp ((Over.pullback (jL L)).map f).left
+    (pullback.fst 𝒩.G.hom (jL L)) (genericFibreUnit 𝒢)
+  have h3 := Scheme.Hom.stalkMap_congr_hom _ _ hsq (genericFibreUnit 𝒢)
+  have hc : IsIso ((pullback.fst 𝒢.G.hom (jL L) ≫ f.left).stalkMap (genericFibreUnit 𝒢)) := by
+    rw [h3, h2]
+    refine @IsIso.comp_isIso _ _ _ _ _ _ _ (Iso.isIso_hom _) ?_
+    exact @IsIso.comp_isIso _ _ _ _ _ _ _ ‹_› ‹_›
+  haveI : IsIso (f.left.stalkMap ((pullback.fst 𝒢.G.hom (jL L)) (genericFibreUnit 𝒢)) ≫
+      (pullback.fst 𝒢.G.hom (jL L)).stalkMap (genericFibreUnit 𝒢)) := by
+    rw [← h1]; exact hc
+  haveI := IsIso.of_isIso_comp_right
+    (f.left.stalkMap ((pullback.fst 𝒢.G.hom (jL L)) (genericFibreUnit 𝒢)))
+    ((pullback.fst 𝒢.G.hom (jL L)).stalkMap (genericFibreUnit 𝒢))
+  rw [← fst_genericFibreUnit 𝒢]
+  infer_instance
+
+end NewStalk
+
+end StalkSec
+
+/-- `genMap` is an isomorphism for a generic isomorphism. -/
+theorem isIso_genMap (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    [IsIso ((Over.pullback (jL L)).map f)] : IsIso (genMap 𝒢 𝒩 f) := by
+  haveI := isIso_stalkSpecializes_genMap 𝒢 𝒩 f
+  haveI := stalkIso_of_genericIso 𝒢 𝒩 f
+  unfold genMap
+  infer_instance
+
+/-- `f^*` on cotangent spaces is bijective for a generic isomorphism. -/
+theorem cotMap_bijective (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    [IsIso ((Over.pullback (jL L)).map f)] : Function.Bijective (cotMap 𝒢 𝒩 f) := by
+  haveI := isIso_genMap 𝒢 𝒩 f
+  let e : 𝒩.genStalk ≃+* 𝒢.genStalk := (asIso (genMap 𝒢 𝒩 f)).commRingCatIsoToRingEquiv
+  have he : ∀ x, e x = genMap 𝒢 𝒩 f x := fun x => rfl
+  have hmax : ∀ x, x ∈ IsLocalRing.maximalIdeal 𝒩.genStalk ↔
+      e x ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+    intro x
+    simp only [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+    exact not_congr (isUnit_map_iff e x).symm
+  have hcomap : (IsLocalRing.maximalIdeal 𝒢.genStalk).comap e =
+      IsLocalRing.maximalIdeal 𝒩.genStalk := by
+    ext x; exact (hmax x).symm
+  constructor
+  · rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro x hx
+    obtain ⟨m, rfl⟩ := Ideal.toCotangent_surjective _ x
+    have h0 := hx
+    change Ideal.toCotangent _ ⟨genMap 𝒢 𝒩 f m, _⟩ = 0 at h0
+    rw [Ideal.toCotangent_eq_zero] at h0
+    change (IsLocalRing.maximalIdeal 𝒩.genStalk).toCotangent m =
+      (0 : (IsLocalRing.maximalIdeal 𝒩.genStalk).Cotangent)
+    rw [Ideal.toCotangent_eq_zero]
+    have h1 : (m : 𝒩.genStalk) ∈ ((IsLocalRing.maximalIdeal 𝒢.genStalk) ^ 2).comap e := by
+      rw [Ideal.mem_comap, he]; exact h0
+    rw [← Ideal.map_symm, Ideal.map_pow, Ideal.map_symm, hcomap] at h1
+    exact h1
+  · intro y
+    obtain ⟨m', rfl⟩ := Ideal.toCotangent_surjective _ y
+    have hm : e.symm m' ∈ IsLocalRing.maximalIdeal 𝒩.genStalk := by
+      rw [hmax, RingEquiv.apply_symm_apply]; exact m'.2
+    refine ⟨Ideal.toCotangent _ ⟨e.symm m', hm⟩, ?_⟩
+    change Ideal.toCotangent _ ⟨genMap 𝒢 𝒩 f (e.symm m'), _⟩ = _
+    congr 1
+    apply Subtype.ext
+    show e (e.symm m') = m'
+    exact RingEquiv.apply_symm_apply e m'
+
+omit [NumberField L] in
+/-- `L ⊗ ⋀^g φ` is bijective if `φ` is. -/
+theorem baseChange_map_bijective {M N : Type*} [AddCommGroup M] [Module (𝓞 L) M] [AddCommGroup N]
+    [Module (𝓞 L) N] (g : ℕ) (φ : M →ₗ[𝓞 L] N) (hφ : Function.Bijective φ) :
+    Function.Bijective ((exteriorPower.map g φ).baseChange L) := by
+  let e := LinearEquiv.ofBijective φ hφ
+  let ψ := (exteriorPower.map g (e.symm : N →ₗ[𝓞 L] M)).baseChange L
+  have h1 : ψ ∘ₗ (exteriorPower.map g φ).baseChange L = LinearMap.id := by
+    rw [← LinearMap.baseChange_comp, ← exteriorPower.map_comp]
+    have : (e.symm : N →ₗ[𝓞 L] M) ∘ₗ φ = LinearMap.id := by
+      ext x; exact e.symm_apply_apply x
+    rw [this, exteriorPower.map_id, LinearMap.baseChange_id]
+  have h2 : (exteriorPower.map g φ).baseChange L ∘ₗ ψ = LinearMap.id := by
+    rw [← LinearMap.baseChange_comp, ← exteriorPower.map_comp]
+    have : φ ∘ₗ (e.symm : N →ₗ[𝓞 L] M) = LinearMap.id := by
+      ext x; exact e.apply_symm_apply x
+    rw [this, exteriorPower.map_id, LinearMap.baseChange_id]
+  refine Function.bijective_iff_has_inverse.mpr ⟨ψ, fun x => ?_, fun x => ?_⟩
+  · exact LinearMap.congr_fun h1 x
+  · exact LinearMap.congr_fun h2 x
+
+/-- **Glue `HodgeMapBijective`, proved.** -/
+theorem hodgeMapBijective : HodgeMapBijective := by
+  intro K _ A L _ _ _ 𝒢 𝒩 f _ hi g
+  exact baseChange_map_bijective g _ (cotMap_bijective 𝒢 𝒩 f)
+
+/-- **`HeightAntitone` from `HodgeLatticeNonzero` alone** (proved). -/
+theorem heightAntitone_of_hodgeLatticeNonzero (hn : HodgeLatticeNonzero) : HeightAntitone :=
+  heightAntitone_of hodgeMapBijective hn
+
 end ZInQ.H5Glue
 
 #print axioms ZInQ.H5Glue.pts_comp_bijective
@@ -595,3 +853,5 @@ end ZInQ.H5Glue
 #print axioms ZInQ.H5Glue.hodgeMap_wedgeGerm
 #print axioms ZInQ.H5Glue.modelHeight_pullHodge_le
 #print axioms ZInQ.H5Glue.heightAntitone_of
+#print axioms ZInQ.H5Glue.hodgeMapBijective
+#print axioms ZInQ.H5Glue.heightAntitone_of_hodgeLatticeNonzero
