@@ -1,9 +1,10 @@
 # conj-twist: `ConjTwistNontrivial` and `ConjTwistFromLeaves` (G10 core)
 
-Task conj-twist, 2026-11-13. Lean: `scratch/conj-twist/ConjTwist.lean` (2034 lines). Check it
+Task conj-twist, 2026-11-13. Lean: `scratch/conj-twist/ConjTwist.lean` (2226 lines). Check it
 with `lake env lean scratch/conj-twist/ConjTwist.lean` after
-`lake build ZInQKernel.HDecomp.LeafPush2.T`. It has no `sorry`, and all 39 `#print axioms` give
-`[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled 2026-11-13 06:50). Log:
+`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`. It has no `sorry`,
+and all 41 `#print axioms` give `[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled
+2026-11-13 06:56). Log:
 `scratch/conj-twist/log.md`.
 
 ## Result
@@ -19,6 +20,12 @@ G0Galois.conjTwistFromLeaves_of_homLinearLift :
 G0Galois.conjTwistNontrivial_of_leaves :
   PkgI2.TorsionStructure → PkgI3.TateModuleFree → ZInQ.LeafPush2.UniformizationExists →
   HomLinearLift → ConjTwistNontrivial
+
+-- corollaries (§17; G10Glue, G10GlueConcrete copied verbatim from scratch/g10-odd)
+G0Galois.g10GlueConcrete_of_homLinearLift : HomLinearLift → G10GlueConcrete
+G0Galois.g10Glue_of_leaves :
+  PkgI2.TorsionStructure → PkgI3.TateModuleFree → ZInQ.LeafPush2.UniformizationExists →
+  HomLinearLift → G10Glue
 ```
 
 `ConjTwistNontrivial` and `ConjTwistFromLeaves` are copied verbatim from
@@ -28,9 +35,11 @@ changed.
   `ConjTwistNontrivial`.
 - T5 (`TorsionStructure`), T26 (`TateModuleFree`) and T35 (`UniformizationExists`) are hypotheses
   of `ConjTwistFromLeaves`, alongside T11(a) and T11(b), which are unused.
-- With g10-odd's `g10Glue_of_conjTwist` and `g10GlueConcrete_of_conjTwistFromLeaves`, the
-  corrected `G10GlueConcrete` now follows from `HomLinearLift` alone. `G10Glue` follows from
-  `HomLinearLift` plus T5, T26 and T35.
+- Composing with g10-odd's reductions (copied verbatim in §17) gives:
+  - the corrected `G10GlueConcrete` from `HomLinearLift` alone;
+  - `G10Glue` from `HomLinearLift` plus T5, T26 and T35.
+
+  Both corollaries compile.
 
 ### The one new leaf
 
@@ -131,9 +140,7 @@ uniformizations of `A^s`.
 ## Integration recommendation
 
 Replace `odd : G10Glue` in g0-mod-galois's `GaloisPieces` by the leaf `HomLinearLift`, and
-derive G10 with `conjTwistFromLeaves_of_homLinearLift` and g10-odd's
-`g10GlueConcrete_of_conjTwistFromLeaves`. Alternatively, use `conjTwistNontrivial_of_leaves` with
-`g10Glue_of_conjTwist`.
+derive G10 with `g10Glue_of_leaves` (or `g10GlueConcrete_of_homLinearLift`).
 
 G10 then rests on Faltings, T5, T26, T35 and the new textbook leaf `HomLinearLift`, all over
 genuine definitions, with no glue.
