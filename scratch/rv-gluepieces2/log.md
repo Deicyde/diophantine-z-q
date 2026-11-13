@@ -83,3 +83,8 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   `HodgeBCInjective`, `CotangentSpanBC`, `OmegaBaseChange`, `UniformizationLiftAnalytic`, standard
   axioms (VERIFIED). (Answers the height reviewer's transfer caveat.)
 - Sweep of all *_out.txt: 0 errors, 0 `sorry`, no non-standard axiom line.
+- c8_fibrecover: fibre-cover's FibreCover.lean L16-17 + L74-731 (its copies of the G0ModField
+  statements dropped). First run: error at `rationalFibre_of_le`, `obtain ⟨-, -, -, hnat⟩ := h1`
+  (fibre-cover predates pin-apply: R1fpProps now has 6 clauses); with `⟨-, -, -, hnat, -, -⟩`: exit 0
+  in 12 s. `RvGP2.fibreCoverExists (t) hW hTS hU : G0ModField.FibreCoverExists` from bundle `t.t5`,
+  `InnerTwistCount`, `PropTSAll`, `UnramifiedConjugates`, standard axioms (VERIFIED).
