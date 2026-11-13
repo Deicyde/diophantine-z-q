@@ -48,3 +48,11 @@
   coordinate form: ∃ g, full lattice Λ ⊂ ℂ^g, group iso φ : ℂ^g/Λ ≃+ A(ℂ) with (i) pullbacks of regular functions
   analytic on open preimages, (ii) local holomorphic coordinates by g regular functions), `UniformizationLeafAll`.
   COMPILED (statement only; a Prop, no sorry). `CommGroup (A.Pt ℂ)` found by inferInstance.
+- Torus.lean §7 additions: `sqrt2_sq`, `Fp_mul_Emat_transpose` (F'Eᵀ = EF'ᵀ), `Omega_transpose` (Ω(τ)ᵀ = Ω(τ) for
+  Im τ ≠ 0), `riemannTheta_Omega_add_period`. COMPILED.
+- Torus.lean §8 (node T2): `eventuallyEq_const_of_mem`, `exists_realLinear_lift` (continuous hom of tori is induced
+  by an ℝ-linear T with TΛ ⊆ Λ'; covering lift `IsCoveringMap.existsUnique_continuousMap_lifts`, additivity by
+  `PreconnectedSpace.constant`, `AddMonoidHom.toRealLinearMap`), `exists_complexLinear_lift` (holomorphic
+  (MDifferentiable) hom ⇒ ℂ-linear T, by comparing fderiv ℂ with the ℝ-derivative). COMPILED, no warnings;
+  axioms standard for exists_complexLinear_lift, exists_realLinear_lift, Omega_transpose,
+  riemannTheta_Omega_add_period.

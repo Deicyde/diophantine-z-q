@@ -963,6 +963,53 @@ theorem exists_realLinear_lift (f : Torus Λ →+ Torus Λ') (hf : Continuous f)
   · intro v
     exact (hFp' v).symm
 
+/-- **Holomorphic homomorphisms of tori are induced by `ℂ`-linear maps** (node T2). -/
+theorem exists_complexLinear_lift (f : Torus Λ →+ Torus Λ')
+    (hf : MDifferentiable 𝓘(ℂ, E) 𝓘(ℂ, E') f) :
+    ∃ T : E →L[ℂ] E', (∀ v ∈ Λ, T v ∈ Λ') ∧ ∀ v, f (proj Λ v) = proj Λ' (T v) := by
+  obtain ⟨T, hTΛ, hTf⟩ := exists_realLinear_lift Λ Λ' f hf.continuous
+  set q : Torus Λ := proj Λ 0
+  set x' : E := chartOf Λ q.out q
+  set c' := chartOf Λ' (f q).out
+  have hq : q ∈ (chartOf Λ q.out).source := mem_chart_source E q
+  have hx' : proj Λ x' = q := proj_chartOf Λ hq
+  have hfq : f q ∈ c'.source := mem_chart_source E' (f q)
+  -- the coordinate expression of `f` at `q` is `ℂ`-differentiable
+  have hfun : writtenInExtChartAt 𝓘(ℂ, E) 𝓘(ℂ, E') q f = c' ∘ f ∘ proj Λ := by
+    funext z
+    simp [writtenInExtChartAt, chartAt_torus, chartOf_symm_apply, c']
+  have hpt : extChartAt 𝓘(ℂ, E) q q = x' := by
+    simp [chartAt_torus, x']
+  have hdiff : DifferentiableAt ℂ (c' ∘ f ∘ proj Λ) x' := by
+    have h1 := (hf q).differentiableWithinAt_writtenInExtChartAt
+    rw [hfun, hpt, modelWithCornersSelf_coe, range_id, differentiableWithinAt_univ] at h1
+    exact h1
+  -- `T` agrees near `x'` with the coordinate expression up to a lattice constant
+  have hU : ∀ᶠ v in 𝓝 x', f (proj Λ v) ∈ c'.source := by
+    have hcont : Continuous (f ∘ proj Λ) := hf.continuous.comp (isLocalHomeomorph_proj Λ).continuous
+    have : f (proj Λ x') ∈ c'.source := by rw [hx']; exact hfq
+    exact hcont.continuousAt.preimage_mem_nhds (c'.open_source.mem_nhds this)
+  have hmemG : ∀ v, f (proj Λ v) ∈ c'.source → T v - c' (f (proj Λ v)) ∈ Λ' := by
+    intro v hv
+    rw [← proj_eq_iff, ← hTf v, proj_chartOf Λ' hv]
+  have hG := eventuallyEq_const_of_mem Λ' (G := fun v => T v - c' (f (proj Λ v))) (x := x')
+    (T.continuous.continuousAt.sub hdiff.continuousAt) (hU.mono hmemG)
+    (hmemG x' (by rw [hx']; exact hfq))
+  have hTeq : (T : E → E') =ᶠ[𝓝 x'] fun v => c' (f (proj Λ v)) + (T x' - c' (f (proj Λ x'))) := by
+    filter_upwards [hG] with v hv
+    rw [← hv]; abel
+  have hTdiff : DifferentiableAt ℂ (T : E → E') x' :=
+    (hdiff.add_const _).congr_of_eventuallyEq hTeq
+  -- compare the `ℂ`-derivative with the `ℝ`-derivative `T`
+  set D := fderiv ℂ (T : E → E') x'
+  have hD : (D.restrictScalars ℝ : E →L[ℝ] E') = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  refine ⟨D, fun v hv => ?_, fun v => ?_⟩
+  · have : D v = T v := congrArg (fun L : E →L[ℝ] E' => L v) hD
+    rw [this]; exact hTΛ v hv
+  · have : D v = T v := congrArg (fun L : E →L[ℝ] E' => L v) hD
+    rw [this]; exact hTf v
+
 end Hom
 
 end BPAnalytic
