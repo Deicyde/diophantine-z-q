@@ -39,9 +39,8 @@ def edge(concl, thm, rev, path, hyps, sc="AF", note="", deffile=None):
 # --- top (compiled here): scratch/frontier/TYZChain.lean, which contains tyz-cm's and cm-bridge's
 # reductions verbatim; both scenarios use it.  (TopChain.lean is the fork-main-only variant.)
 edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.lean",
-     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "CMValueRingClass",
-      "EtaModelInvariant", "TYZSigmaShiftsF0", "Lemma318Literal", "Thm35First", "Lemma321Five", "TYZThm36Seven",
-      "FHNonvanishing", "GrossZagierHeegner"])
+     ["SixContactMin", "TYZThm11Integral", "TYZLcalOne", "TYZLemma29Mod2", "ShimuraReciprocityModFn",
+      "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
 edge("SixContactMin", "sixContactMin_of_leaves5", *B5, ["ResearchLeaves4", "TextbookLeaves", "GluePieces5"])
@@ -72,8 +71,9 @@ for fld, thm, path in [
 edge("X1Leaves", None, None, None, ["CurveOfFunctionFieldQ", "X1RationalCusp"], "F",
      "T36 (`ZInQ.RLeaf.t36_torsionStructure`), T37 (`ZInQ.RLeaf.T37.t37_goodReductionUnramified`) proved on main; "
      "T39 from T40 (`ZInQ.RLeaf.x1ConstantField_of_x1RationalCusp`, main). Not a single theorem: textual split.")
-edge("X1RationalCusp", "x1RationalCusp_of_igusaTransitive", "c87d3b9b", "ZInQKernel/Contrib/RLeaf/TateCusp.lean",
-     ["IgusaTransitive"], "F", deffile="ZInQKernel/HDecomp/ModCurves/X1Belyi.lean")
+edge("X1RationalCusp", "x1RationalCusp_of_x0_tateMuN", "e9b071d6", "ZInQKernel/Contrib/RLeaf/T40.lean",
+     ["X0Transitive", "TateMuN"], "F", deffile="ZInQKernel/HDecomp/ModCurves/X1Belyi.lean")
+edge("TateMuN", "_root_.ZInQ.RLeaf.tateMuN", "7ed2ca99", "ZInQKernel/Contrib/RLeaf/TateCuspMuN.lean", [], "F")
 # GluePieces5 fields, F
 HBC = ("116dc2f2", "scratch/hodge-bc2/OmegaBC.lean")
 edge("HodgeBCInjective", "hodgeBCInjective", "116dc2f2", "scratch/hodge-bc2/HodgeBCInjective.lean", [], "F")
@@ -86,10 +86,15 @@ edge("SphereFactorAffine", "sphereFactorAffine_proof", "80af6547", "scratch/peri
 edge("PiTwistC", "piTwistC_of", "cbe9fe4c", "scratch/period-glue/PiTwist.lean",
      ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "TwistOrbitFinite", "FibreTransferC"], "F",
      "instantiated at the triple chosen from R1R2fpRep (r1r2): Y, Φ, π, R1fpProps, R2fpProps come from r1r2", deffile=PM)
-for d in ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "R1R2fp"]:
+for d in ["Over", "PtEquiv", "ToP1", "R1fpProps", "R2fpProps", "R1heckeProps", "R1R2fp"]:
     edge(d, None, None, None, ["R1R2fpRep"], "F", "data/clauses extracted from the research leaf r1r2 (R1R2fp_of_rep, Classical.choice)")
-edge("QMTwistLattice", "qmTwistLattice_of", "cbe9fe4c", "scratch/period-glue/QMTwist.lean",
-     ["T11aRiemannHom", "QMLatticeTwistAlg"], "F", deffile=PM)
+edge("QMTwistLattice", "qmTwistLattice_of'", "7e1531df", "scratch/period-glue/QMTwist.lean",
+     ["T11aRiemannHom", "LeafSkolemNoether"], "F", deffile=PM)
+edge("LeafSkolemNoether", "leafSkolemNoether", MAIN, "ZInQKernel/HDecomp/Textbook/SkolemNoether.lean", [], "F")
+edge("TwistOrbitFinite", "twistOrbitFinite_of'", "7e1531df", "scratch/period-glue/PiTwist.lean",
+     ["Over", "PtEquiv", "R1heckeProps", "TorsionStructure", "AutOInnerFinite"], "F")
+edge("FibreTransferC", "fibreTransferC_proof", "7e1531df", "scratch/period-glue/PiTwist.lean", ["Over", "ToP1"], "F")
+edge("AutOInnerFinite", "autOInnerFinite", MAIN, "scratch/aut-o-finite/AutOFinite.lean", [], "F")
 edge("S8WeightExact", "s8WeightExact_of", "cbe9fe4c", "scratch/period-glue/W8.lean",
      ["ThetaModularity", "GammaStarGen"], "F", deffile=PM)
 PTS = ("3d41b3d5", "scratch/prop-ts-glue/PropTSGlue.lean")
@@ -100,6 +105,11 @@ for p, t in [("KummerAbhyankarFinGlue", "kummerAbhyankarFinGlue"), ("KummerOther
              ("KummerVerticalFin", "kummerVerticalFin"), ("KummerAbhyankarInfGlue", "kummerAbhyankarInfGlue"),
              ("KummerOtherBranchInf", "kummerOtherBranchInf"), ("KummerVerticalInf", "kummerVerticalInf")]:
     edge(p, t, *TSK, [], "F")
+edge("KummerCompositum", "kummerCompositum", "1bbe3543", "scratch/ts-kummer/KummerTS.lean", [], "F")
+HR = ("6c2c1d76", "scratch/hecke-rest/HeckeRestAll.lean")
+edge("CurveNormChart", "curveNormChart", *HR, [], "F")
+edge("CurveChartInf", "curveChartInf", *HR, [], "F")
+edge("HeckeFibreSizes", "heckeFibreSizes_of", *HR, ["TorsionStructure", "QMAutCard", "SerreRigidity3", "ALFixedPoints"], "F")
 TSH = ("ff8e6731", "scratch/ts-hecke/TSHecke.lean")
 edge("HeckeDegree", "heckeDegree_of_torsion", *TSH, ["TorsionStructure"], "F")
 edge("HeckeIrreducible", "heckeIrreducible_of_connected", *TSH, ["Y3Connected"], "F")
@@ -120,6 +130,10 @@ edge("UnramRoots", "unramRoots", "b066d686", "scratch/unram-roots/UnramRoots.lea
 edge("TateBridge35", "tateBridge35_of_neron_nmp", "60340bed", "scratch/frob-pieces/FrobPiecesFull.lean",
      ["TateModuleFree", "AbVarSpreadsOut", "ProperSmoothGenConnected", "ReductionTorsionBijective",
       "NeronMappingAbelianScheme"], "F")
+edge("ProperSmoothGenConnected", "properSmoothGenConnected_of_zariskiConnectedness", "3802f2bc",
+     "ZInQKernel/Contrib/ZariskiConn/Basic.lean", ["ZariskiConnectedness"], "F", deffile="scratch/frob-pieces/FrobPiecesFull.lean")
+edge("AbVarSpreadsOut", "frobPiecesNeron_abVarSpreadsOut", "aa304ed7", "scratch/spread-out/SpreadOutFull.lean",
+     ["EGAIV_8_8_2_ii", "EGAIV_8_10_5_xii", "EGAIV_17_7_8_ii"], "F")
 edge("FibreSimple", None, None, None, [], "F", "derived inside g0-assemble3's `gluePieces_of_gluePieces4` (not an open Prop)")
 edge("TwistDescent", "twistDescent", "fdd133f1", "scratch/twist-descent/Dev.lean", [], "F")
 # field 3 bypassed by T35 in the HDec world (leaf-fold2)
