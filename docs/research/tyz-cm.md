@@ -1,7 +1,7 @@
 # tyz-cm: the CM leaf of the TYZ genus package
 
 Task tyz-cm, 2026-11-13. Branch `wip/tyz-cm`. Files (all new, owned by tyz-cm):
-`ZInQKernel/Contrib/TYZGenus/Shimura{Recip,Zn,Field,ModFn,QExp,Cusp,Main}.lean`.
+`ZInQKernel/Contrib/TYZGenus/Shimura{Recip,Zn,Field,ModFn,QExp,Cusp,Main,EtaInv,Theta,ThetaDup,Fricke}.lean`.
 Log: `scratch/tyz-cm/log.md`.
 
 ## 1. Main result
