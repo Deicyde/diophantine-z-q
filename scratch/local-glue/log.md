@@ -46,3 +46,24 @@
   G8LocalPack ℓ r P`; `g15RamG_of_packK : G7LocalPackK 5 D.r5 (· ≠ 5) → G7LocalPackK 3 D.r3
   (· = 5) → G11Out T D.r5 → G11Out T D.r3 → G15RamG D u`.
 - Compile: exit 0, 0 errors, no sorry, 9 printed declarations all standard axioms.
+
+## Step 4 (07:20-07:40 PST): TorsFixWild at p ≥ 7 from I2-Tors and R6 at the place
+- §8 of part_glue.lean. Proved (VERIFIED, compiled, axioms standard):
+  * `iterate_card_GL_fix`: φ : G →* G injective, S mult.-closed, φ(S) ⊆ S, S ≅ (ℤ/q)ⁿ as groups
+    ⇒ φ^[|GLₙ(𝔽_q)|] = id on S (via `Matrix.GeneralLinearGroup.toLin`, `pow_card_eq_one'`).
+  * `card_GL4_three : Nat.card (GL (Fin 4) (ZMod 3)) = 24261120` (`Matrix.card_GL_field`);
+    `card_GL4_seven = 2400·2394·2352·2058`; `coprime_card_GL4_three` (p prime, 7 ≤ p, p ≠ 13);
+    `coprime_card_GL4_seven` (13).
+  * `fixed_of_unipSq_of_iterate'` (D2's core, PkgI3 points); `galAct_inv_galAct`,
+    `galAct_injective`.
+  * `torsGL_of_leaf : ObjBridge.TorsionStructure → A.dim = 2 → 0 < m → TorsGL A m`
+    (the I2-Tors leaf applies to `ObjBridge.toGrp A` and its torsion set is defeq to PkgI3's).
+  * `fix_torsion_of_coprime`, `torsFixWild_of_raynaud (ℓ ≠ p) (7 ≤ p) : WildIter A →
+    TorsGL A 3 → TorsGL A 7 → RaynaudPlace A 3 → RaynaudPlace A 7 → TorsFixWild A ℓ`,
+    `tateWildK_of_leaves` (with I2-Tors and dim A = 2).
+- New named glue: `WildIter p A` (bridge: points over finite extensions + wild ⇒ p-power period),
+  `RaynaudPlace p A m` (R6 at the place of embP, needs the DVR/valuation-ring bridge and base
+  change to K(A[m])). `TorsGL` is proved from the leaf.
+- Pitfall: with `open MonObj`, `one_mul` resolves to `MonObj.one_mul`; use `_root_.one_mul`.
+  `galHom_mul` rewrites need `σ : AlgebraicClosure K ≃ₐ[K] _`, not `Field.absoluteGaloisGroup K`.
+- Compile: exit 0, 0 errors, no sorry; all 14 printed declarations standard axioms.

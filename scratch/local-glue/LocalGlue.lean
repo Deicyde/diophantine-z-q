@@ -2834,6 +2834,267 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
 
 end G0ModNewform
 
+
+/-! ## §8 (local-glue). `TorsFixWild` at `p ≥ 7` from Raynaud's criterion and I2-Tors
+
+`torsFixWild_of_raynaud` (proved): `TorsFixWild` at `p ≥ 7`, `p ≠ ℓ`, follows from
+* `WildIter`: a wild `σ'` has `p`-power period on each point of `A(K̄)` (bridge glue);
+* `TorsGL A m` for `m = 3, 7`: `A(K̄)[m] ≅ (ℤ/m)⁴` as groups (the instance of the leaf I2-Tors,
+  `torsGL_of_leaf`);
+* `RaynaudPlace A m` for `m = 3, 7`: a wild `σ'` fixing `A(K̄)[m]` satisfies `(σ' - 1)² = 0` on
+  `A(K̄)[ℓⁿ]` (the instance of the leaf R6 at the place of `embP`; bridge glue).
+The algebra in between is proved: `|GL₄(𝔽₃)| = 2⁹·3⁶·5·13` and `13 ∤ |GL₄(𝔽₇)|`, so the action of
+a wild `σ'` on `A[m]` has order prime to `p` and `p`-power, hence is trivial
+(`iterate_card_GL_fix`); then `(σ'-1)² = 0` and a `p`-power period force `σ' = 1` on
+`A[ℓⁿ]` (`fixed_of_unipSq_of_iterate'`, the core of D2). -/
+
+namespace G15Ram
+
+open PkgI4 (GQp GQ decomp)
+open LadicCond
+open CategoryTheory MonObj
+
+section TorsSec
+
+/-- **An additive structure of `S ≅ (ℤ/q)ⁿ` bounds the period (proved).** If `φ : G →* G` is
+injective, maps the multiplicatively closed `S` into itself, and `S ≅ (ℤ/q)ⁿ` as groups, then
+`φ^[N] = id` on `S`, `N = |GLₙ(𝔽_q)|`. -/
+theorem iterate_card_GL_fix {G : Type*} [Group G] (φ : G →* G) (hinj : Function.Injective φ)
+    (S : Set G) (hS : ∀ x ∈ S, φ x ∈ S) (hSmul : ∀ x ∈ S, ∀ y ∈ S, x * y ∈ S)
+    (q : ℕ) [Fact q.Prime] (n : ℕ) (e : S ≃ (Fin n → ZMod q))
+    (he : ∀ (x y : S) (h : x.1 * y.1 ∈ S), e ⟨x.1 * y.1, h⟩ = e x + e y) :
+    ∀ x ∈ S, φ^[Nat.card (Matrix.GeneralLinearGroup (Fin n) (ZMod q))] x = x := by
+  set φS : S → S := fun x => ⟨φ x, hS x x.2⟩ with hφS
+  set f : (Fin n → ZMod q) → (Fin n → ZMod q) := fun v => e (φS (e.symm v)) with hf
+  have hadd : ∀ a b, f (a + b) = f a + f b := by
+    intro a b
+    set x := e.symm a
+    set y := e.symm b
+    have hxy : e.symm (a + b) = ⟨x.1 * y.1, hSmul _ x.2 _ y.2⟩ := by
+      apply e.injective
+      rw [Equiv.apply_symm_apply, he x y, Equiv.apply_symm_apply, Equiv.apply_symm_apply]
+    have hφxy : φS ⟨x.1 * y.1, hSmul _ x.2 _ y.2⟩ =
+        ⟨(φS x).1 * (φS y).1, hSmul _ (φS x).2 _ (φS y).2⟩ := by
+      apply Subtype.ext
+      simp [hφS, map_mul]
+    simp only [hf]
+    rw [hxy, hφxy, he]
+  have hfinj : Function.Injective f := by
+    intro a b h
+    have h1 := e.injective h
+    have h2 : φ (e.symm a).1 = φ (e.symm b).1 := congrArg Subtype.val h1
+    exact e.symm.injective (Subtype.ext (hinj h2))
+  have hfbij : Function.Bijective f := Finite.injective_iff_bijective.mp hfinj
+  let fA : (Fin n → ZMod q) →+ (Fin n → ZMod q) := AddMonoidHom.mk' f hadd
+  let fL := fA.toZModLinearMap q
+  let fLE := LinearEquiv.ofBijective fL hfbij
+  let u : LinearMap.GeneralLinearGroup (ZMod q) (Fin n → ZMod q) :=
+    ⟨fLE.toLinearMap, fLE.symm.toLinearMap, by ext v; simp, by ext v; simp⟩
+  set N := Nat.card (Matrix.GeneralLinearGroup (Fin n) (ZMod q)) with hN
+  have hcard : Nat.card (LinearMap.GeneralLinearGroup (ZMod q) (Fin n → ZMod q)) = N :=
+    (Nat.card_congr (Matrix.GeneralLinearGroup.toLin).toEquiv).symm
+  have huN : u ^ N = 1 := by rw [← hcard]; exact pow_card_eq_one'
+  have hfN : ∀ v, f^[N] v = v := by
+    intro v
+    have h1 : ((u ^ N : LinearMap.GeneralLinearGroup (ZMod q) (Fin n → ZMod q)) :
+        Module.End (ZMod q) (Fin n → ZMod q)) v = v := by rw [huN]; rfl
+    rw [Units.val_pow_eq_pow_val, Module.End.pow_apply] at h1
+    exact h1
+  have hsemi : Function.Semiconj e φS f := by
+    intro x
+    simp [hf]
+  have hval : Function.Semiconj (Subtype.val : S → G) φS φ := fun x => rfl
+  intro x hx
+  have h1 : e (φS^[N] ⟨x, hx⟩) = e ⟨x, hx⟩ := by
+    rw [(hsemi.iterate_right N) ⟨x, hx⟩]
+    exact hfN _
+  have h2 := congrArg Subtype.val (e.injective h1)
+  rw [(hval.iterate_right N) ⟨x, hx⟩] at h2
+  exact h2
+
+/-- `|GL₄(𝔽₃)| = 80·78·72·54 = 24261120 = 2⁹·3⁶·5·13` (proved). -/
+theorem card_GL4_three : Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod 3)) = 24261120 := by
+  haveI : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+  rw [Matrix.card_GL_field, ZMod.card, Fin.prod_univ_four]
+  norm_num
+
+/-- `|GL₄(𝔽₇)| = 2400·2394·2352·2058` (proved). -/
+theorem card_GL4_seven :
+    Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod 7)) = 2400 * 2394 * 2352 * 2058 := by
+  haveI : Fact (Nat.Prime 7) := ⟨by norm_num⟩
+  rw [Matrix.card_GL_field, ZMod.card, Fin.prod_univ_four]
+  norm_num
+
+theorem coprime_card_GL4_three {p : ℕ} (hp : p.Prime) (h7 : 7 ≤ p) (h13 : p ≠ 13) :
+    Nat.Coprime p 24261120 := by
+  rw [hp.coprime_iff_not_dvd]
+  intro h
+  have hfac : (24261120 : ℕ) = 2 ^ 9 * 3 ^ 6 * 5 * 13 := by norm_num
+  rw [hfac] at h
+  rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+  · rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+    · rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+      · have := Nat.le_of_dvd (by norm_num) (hp.dvd_of_dvd_pow h); omega
+      · have := Nat.le_of_dvd (by norm_num) (hp.dvd_of_dvd_pow h); omega
+    · have := Nat.le_of_dvd (by norm_num) h; omega
+  · have := (Nat.prime_dvd_prime_iff_eq hp (by norm_num)).mp h; omega
+
+theorem coprime_card_GL4_seven : Nat.Coprime 13 (2400 * 2394 * 2352 * 2058) := by norm_num
+
+variable {p : ℕ} [Fact p.Prime]
+variable {K : Type} [Field K] [NumberField K]
+
+/-- **D2's algebraic core on PkgI3 points (proved; as `PkgI2.fixed_of_unipSq_of_iterate`).** If
+`(σ - 1)² x = 0`, `x ∈ A(K̄)[ℓⁿ]`, and `σ^{qᵃ} x = x` with `qᵃ` prime to `ℓⁿ`, then `σ x = x`. -/
+theorem fixed_of_unipSq_of_iterate' (A : PkgI3.AbVar K) (σ : Field.absoluteGaloisGroup K)
+    (x : A.Pt (AlgebraicClosure K)) (ℓ n q a : ℕ) (hcop : Nat.Coprime (q ^ a) (ℓ ^ n))
+    (hx : x ^ (ℓ ^ n) = 1)
+    (hu : A.galAct σ (A.galAct σ x) * (A.galAct σ x)⁻¹ * (A.galAct σ x)⁻¹ * x = 1)
+    (hit : (A.galAct σ)^[q ^ a] x = x) : A.galAct σ x = x := by
+  set N := A.galAct σ x * x⁻¹ with hN
+  have hσN : A.galAct σ N = N := by
+    rw [hN, map_mul, map_inv]
+    have h2 : A.galAct σ (A.galAct σ x) * (A.galAct σ x)⁻¹ =
+        ((A.galAct σ x)⁻¹ * x)⁻¹ := by
+      rw [eq_inv_iff_mul_eq_one, ← hu]; group
+    rw [h2, mul_inv_rev, inv_inv, mul_comm]
+  have hiter : ∀ k : ℕ, (A.galAct σ)^[k] x = N ^ k * x := by
+    intro k
+    induction k with
+    | zero => simp
+    | succ k ih =>
+      rw [Function.iterate_succ_apply', ih, map_mul, map_pow, hσN, pow_succ, hN]
+      group
+  have h1 : N ^ (q ^ a) = 1 := by
+    have := hiter (q ^ a)
+    rw [hit] at this
+    exact (mul_eq_right.mp this.symm)
+  have h2 : N ^ (ℓ ^ n) = 1 := by
+    rw [hN, mul_pow, ← map_pow, hx, map_one, inv_pow, hx]; simp
+  have hN1 : N = 1 := by
+    have := pow_gcd_eq_one.mpr ⟨h1, h2⟩
+    rwa [Nat.Coprime.gcd_eq_one hcop, pow_one] at this
+  rw [hN] at hN1
+  exact mul_inv_eq_one.mp hN1
+
+/-- **Glue (bridge): wild elements have `p`-power period on points.** For wild `σ` and
+`σ' ∈ G_K` over `decomp σ`, every `P ∈ A(K̄)` has `σ'^{pᵃ} P = P` for some `a`. Proof plan: `P` is
+defined over a finite `F ⊆ K̄` (a `K̄`-point of a scheme of finite type over `K`); `qEmb K` is an
+isomorphism `ℚ̄ ≅ K̄` (both are algebraic closures of `ℚ`), and `embP` sends `qEmb⁻¹(F)` into a
+finite extension of `ℚ_p`, whose Galois closure is fixed by some `σ^{pᵃ}`
+(`exists_pow_fix_of_wild`, local-data). -/
+def WildIter (A : PkgI3.AbVar K) : Prop :=
+  ∀ σ ∈ wildSet (p := p), ∀ σ' : Field.absoluteGaloisGroup K, G0Galois.resQ K σ' = decomp p σ →
+    ∀ P : A.Pt (AlgebraicClosure K), ∃ a : ℕ, (A.galAct σ')^[p ^ a] P = P
+
+/-- **The instance of the leaf I2-Tors on `A` (`A(K̄)[m] ≅ (ℤ/m)⁴` as groups).** Proved from
+`ObjBridge.TorsionStructure` for `dim A = 2` in `torsGL_of_leaf`. -/
+def TorsGL (A : PkgI3.AbVar K) (m : ℕ) : Prop :=
+  ∃ e : {P : A.Pt (AlgebraicClosure K) | P ^ m = 1} ≃ (Fin 4 → ZMod m),
+    ∀ (x y : {P : A.Pt (AlgebraicClosure K) | P ^ m = 1})
+      (h : x.1 * y.1 ∈ {P : A.Pt (AlgebraicClosure K) | P ^ m = 1}),
+      e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-- **Glue on the leaf R6 (`PkgI2.RaynaudCriterion`) at the place of `embP` (N5 L813-818).**
+A wild `σ' ∈ G_K` (over `decomp σ`, `σ ∈ wildSet`) that fixes `A(K̄)[m]` satisfies
+`(σ' - 1)² = 0` on `A(K̄)[ℓⁿ]` for every prime `ℓ ≠ p`. Proof plan: R6 on `K' = K(A[m])`
+(over which `A[m]` is rational, `m ≥ 3` prime to `p`) with the valuation ring of `K'` at the
+place of `embP` (a DVR) and a valuation ring `w` of `K̄` over it; `σ'` fixes `K'`, and a wild
+element is in the inertia group of `w`. What is missing is that bridge (PkgI2's setting is a
+field with a DVR and `AlgebraicClosure`; here `G_K`, `resQ`, `decomp`) and the base change of
+`A` to `K'`. Only for `ℓ ≠ p`. -/
+def RaynaudPlace (A : PkgI3.AbVar K) (m : ℕ) : Prop :=
+  ∀ σ ∈ wildSet (p := p), ∀ σ' : Field.absoluteGaloisGroup K, G0Galois.resQ K σ' = decomp p σ →
+    (∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct σ' P = P) →
+    ∀ ℓ : ℕ, ℓ.Prime → ℓ ≠ p → ∀ (n : ℕ) (x : A.Pt (AlgebraicClosure K)), x ^ (ℓ ^ n) = 1 →
+      A.galAct σ' (A.galAct σ' x) * (A.galAct σ' x)⁻¹ * (A.galAct σ' x)⁻¹ * x = 1
+
+/-- **`TorsGL` from the leaf I2-Tors (proved)**, for `dim A = 2` (a clause of `G7Out`). -/
+theorem torsGL_of_leaf (hT : ObjBridge.TorsionStructure) (A : PkgI3.AbVar K) (hdim : A.dim = 2)
+    (m : ℕ) (hm : 0 < m) : TorsGL A m := by
+  have hmK : (m : K) ≠ 0 := Nat.cast_ne_zero.mpr hm.ne'
+  obtain ⟨e, he⟩ := hT K (ObjBridge.toGrp A) 2 m (by exact_mod_cast hdim) hm hmK
+  exact ⟨e, he⟩
+
+/-- `σ⁻¹ (σ P) = P` on points (proved). -/
+theorem galAct_inv_galAct (A : PkgI3.AbVar K)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (P : A.Pt (AlgebraicClosure K)) :
+    A.galAct σ⁻¹ (A.galAct σ P) = P := by
+  change PkgI3.AbVar.galHom σ⁻¹ ≫ PkgI3.AbVar.galHom σ ≫ P = P
+  rw [← Category.assoc, ← PkgI3.AbVar.galHom_mul, inv_mul_cancel, PkgI3.AbVar.galHom_one,
+    Category.id_comp]
+
+theorem galAct_injective (A : PkgI3.AbVar K)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    Function.Injective (A.galAct (L := AlgebraicClosure K) σ) := by
+  intro x y h
+  have h1 := congrArg (A.galAct σ⁻¹) h
+  rwa [galAct_inv_galAct, galAct_inv_galAct] at h1
+
+/-- A wild `σ'` fixes `A(K̄)[m]` when `p ∤ |GL₄(ℤ/m)|` (proved from `WildIter` and `TorsGL`). -/
+theorem fix_torsion_of_coprime {A : PkgI3.AbVar K} (hI : WildIter (p := p) A) (m : ℕ)
+    [Fact m.Prime] (hT : TorsGL A m)
+    (hcop : Nat.Coprime p (Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod m))))
+    {σ : GQp p} (hσ : σ ∈ wildSet) {σ' : Field.absoluteGaloisGroup K}
+    (hσ' : G0Galois.resQ K σ' = decomp p σ) :
+    ∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct σ' P = P := by
+  obtain ⟨e, he⟩ := hT
+  intro P hP
+  have hfix := iterate_card_GL_fix (A.galAct σ') (galAct_injective A σ')
+    {P : A.Pt (AlgebraicClosure K) | P ^ m = 1}
+    (fun x hx => by
+      simp only [Set.mem_ofPred_eq] at hx ⊢
+      rw [← map_pow, hx, map_one])
+    (fun x hx y hy => by
+      simp only [Set.mem_ofPred_eq] at hx hy ⊢
+      rw [mul_pow, hx, hy, _root_.one_mul]) m 4 e he P hP
+  obtain ⟨a, ha⟩ := hI σ hσ σ' hσ' P
+  have h1 : Function.IsPeriodicPt (A.galAct σ') (p ^ a) P := ha
+  have h2 : Function.IsPeriodicPt (A.galAct σ')
+      (Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod m))) P := hfix
+  have h3 := h1.gcd h2
+  rw [Nat.Coprime.gcd_eq_one (Nat.Coprime.pow_left a hcop)] at h3
+  exact h3
+
+/-- **`TorsFixWild` at `p ≥ 7`, `p ≠ ℓ`, from `WildIter`, I2-Tors and Raynaud at the place
+(proved).** `m = 3` (`m = 7` if `p = 13`): the wild `σ'` fixes `A[m]`
+(`fix_torsion_of_coprime`), so `(σ'-1)² = 0` on `A[ℓⁿ]` (`RaynaudPlace`), and with a `p`-power
+period it fixes `A[ℓⁿ]` (`fixed_of_unipSq_of_iterate'`). -/
+theorem torsFixWild_of_raynaud {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
+    (h7 : 7 ≤ p) (hI : WildIter (p := p) A) (hT3 : TorsGL A 3) (hT7 : TorsGL A 7)
+    (hR3 : RaynaudPlace (p := p) A 3) (hR7 : RaynaudPlace (p := p) A 7) :
+    TorsFixWild (p := p) A ℓ := by
+  intro σ hσ σ' hσ' n x hx
+  have hpp : p.Prime := Fact.out
+  have hfixm : ∃ m, (∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct σ' P = P) ∧
+      RaynaudPlace (p := p) A m := by
+    by_cases h13 : p = 13
+    · haveI : Fact (Nat.Prime 7) := ⟨by norm_num⟩
+      refine ⟨7, fix_torsion_of_coprime hI 7 hT7 ?_ hσ hσ', hR7⟩
+      rw [card_GL4_seven, h13]; exact coprime_card_GL4_seven
+    · haveI : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+      refine ⟨3, fix_torsion_of_coprime hI 3 hT3 ?_ hσ hσ', hR3⟩
+      rw [card_GL4_three]; exact coprime_card_GL4_three hpp h7 h13
+  obtain ⟨m, hm, hR⟩ := hfixm
+  obtain ⟨a, ha⟩ := hI σ hσ σ' hσ' x
+  have hcop : Nat.Coprime (p ^ a) (ℓ ^ n) :=
+    Nat.Coprime.pow a n ((Nat.coprime_primes hpp Fact.out).mpr (Ne.symm hℓp))
+  exact fixed_of_unipSq_of_iterate' A σ' x ℓ n p a hcop hx
+    (hR σ hσ σ' hσ' hm ℓ Fact.out hℓp n x hx) ha
+
+/-- **`TateWildK` at `p ≥ 7`, `p ≠ ℓ`, from the leaves I2-Tors and (through `RaynaudPlace`) R6,
+and the bridge `WildIter` (proved).** `dim A = 2` is a clause of `G7Out`. -/
+theorem tateWildK_of_leaves {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p)
+    (h7 : 7 ≤ p) (hTors : ObjBridge.TorsionStructure) (hdim : A.dim = 2)
+    (hI : WildIter (p := p) A) (hR3 : RaynaudPlace (p := p) A 3)
+    (hR7 : RaynaudPlace (p := p) A 7) : TateWildK (p := p) A ℓ :=
+  tateWildK_of_torsFixWild (torsFixWild_of_raynaud hℓp h7 hI (torsGL_of_leaf hTors A hdim 3
+    (by norm_num)) (torsGL_of_leaf hTors A hdim 7 (by norm_num)) hR3 hR7)
+
+end TorsSec
+
+end G15Ram
+
 end
 
 #print axioms G15Ram.not_localGlue_zero
@@ -2845,3 +3106,8 @@ end
 #print axioms G15Ram.tateWildKE_of_torsFixWildE
 #print axioms G0ModNewform.g8LocalPack_of_K
 #print axioms G0ModNewform.g15RamG_of_packK
+#print axioms G15Ram.iterate_card_GL_fix
+#print axioms G15Ram.card_GL4_three
+#print axioms G15Ram.torsGL_of_leaf
+#print axioms G15Ram.torsFixWild_of_raynaud
+#print axioms G15Ram.tateWildK_of_leaves
