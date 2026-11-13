@@ -865,6 +865,66 @@ theorem hodgeLattice_lattice_of_regular (h1 : RegularOrigin) (h2 : DimOrigin)
 
 end ZInQ.DefFaltings.HodgeLattice
 
+/-! ## 8. The remaining inputs, stated over abelian varieties
+
+`RegularOrigin` and `DimOrigin` concern the model `𝒢`. Both follow from statements about the
+abelian variety `B = A_L` over the field `L` alone, plus one scheme-theoretic identification
+(`OriginStalkIso`: the local ring of `𝒢` at the identity `ξ` of its generic fibre is the local ring
+of `A_L` at its origin; true because `Spec L → Spec 𝓞_L` is a localization and `𝒢.gen` is an
+isomorphism of group schemes). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry MonoidalCategory MonObj
+open PkgI3 (AbVar)
+
+/-- The origin `0 ∈ B` of an abelian variety over a field `L` (image of the point of `Spec L`
+under the unit section). -/
+noncomputable def originPt {L : Type} [Field L] (B : AbVar L) : B.X.left :=
+  (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+/-- **(S)** `𝒪_{𝒢,ξ} ≅ 𝒪_{A_L,0}`. -/
+def OriginStalkIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L),
+    Nonempty (𝒢.genStalk ≃+* (A.baseChange L).X.left.presheaf.stalk (originPt (A.baseChange L)))
+
+/-- **(V1)** The local ring of an abelian variety at its origin is regular (a smooth variety is
+regular). -/
+def RegularAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L), IsRegularLocalRing (B.X.left.presheaf.stalk (originPt B))
+
+/-- **(V2)** The local ring of an abelian variety of dimension `g` at its origin has Krull dimension
+`g` (the local ring of an irreducible variety at a closed point has dimension `dim`). -/
+def DimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    ringKrullDim (B.X.left.presheaf.stalk (originPt B)) = g
+
+/-- **(V3)** Dimension is invariant under extension of the base field. -/
+def DimBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [Algebra K L],
+    (A.baseChange L).dim = A.dim
+
+theorem regularOrigin_of (h0 : OriginStalkIso) (h1 : RegularAtOrigin) : RegularOrigin := by
+  intro K _ A L _ _ _ 𝒢
+  obtain ⟨e⟩ := h0 K A L 𝒢
+  haveI := h1 L (A.baseChange L)
+  exact IsRegularLocalRing.of_ringEquiv e.symm
+
+theorem dimOrigin_of (h0 : OriginStalkIso) (h2 : DimAtOrigin) (h3 : DimBaseChange) :
+    DimOrigin := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  obtain ⟨e⟩ := h0 K A L 𝒢
+  rw [ringKrullDim_eq_of_ringEquiv e]
+  exact h2 L (A.baseChange L) g ((h3 K A L).trans hg)
+
+/-- **Main result, over abelian varieties.** -/
+theorem hodgeLatticeTheorem_of_abVar (h0 : OriginStalkIso) (h1 : RegularAtOrigin)
+    (h2 : DimAtOrigin) (h3 : DimBaseChange) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_regular (regularOrigin_of h0 h1) (dimOrigin_of h0 h2 h3)
+
+end ZInQ.DefFaltings.HodgeLattice
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
@@ -872,3 +932,4 @@ end ZInQ.DefFaltings.HodgeLattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_cotangentRank
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_regular
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_lattice_of_regular
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVar
