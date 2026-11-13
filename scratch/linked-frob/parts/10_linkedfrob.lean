@@ -29,7 +29,7 @@ theorem tmOf_eq {L L' : IF} (hLL' : L ≤ L') (A : PkgI3.AbVar L)
 /-- **`LinkedFrob` from frob-trace's `AlgFrobLink` (proved).** Only three of the descent-datum
 clauses are used (`m_σ` is the Galois action on `G_L`, the coset rule, algebraicity `F_σ`). -/
 theorem linkedFrob_of_algFrobLink (hF : FrobTrace.AlgFrobLink) : UnramTate.LinkedFrob := by
-  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD hNF Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8
   obtain ⟨S, hS⟩ := hF L A m h3 h4 h8
   refine ⟨S ∪ {3, 5}, fun p hp hpS v τ hv hτ => ?_⟩
   have hpS' : p ∉ S := fun h' => hpS (Finset.mem_union_left _ h')
