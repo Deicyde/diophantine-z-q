@@ -134,10 +134,14 @@ against g0-assemble3's parts is the HDec header lines only). lt-local's route ne
 - `QMEndRank` from lt-goodred (T6, T27); `FibreSimple` derived in `gluePieces_of_open3`.
 
 Checks asked for by the assignment:
-- **lg-kerwild's `exists_localGlue_of_tateModuleFree` is not used** (rv-fast's CONCERN). The route uses
-  lg-kerwild's `localGlue_of_tateBridge35` (ℓ = 5, 3) through lt-local's `localGlue_at` (VERIFIED: grep of
-  `partsF/c85_ltlocal.lean` and `d90_fold3.lean`; the every-ℓ theorem is present in the copied file but
-  has no use on the route).
+- **lg-kerwild's `exists_localGlue_of_tateModuleFree` is not used** (rv-fast's CONCERN). VERIFIED by a
+  dependency-closure check (`scratch/leaf-fold3/olean/Deps3.lean`, a `#eval` over the 179 689 constants
+  that `sixContactMin_of_open3` depends on): `LGKerWild.exists_localGlue_of_tateModuleFree` is not in the
+  closure. Neither is lg-kerwild's own `localGlue_of_tateBridge35`: the route goes through lt-local's
+  `LTLocal.localGlue_at` (the same ℓ = 5, 3 argument, with `UnramRoots` only at `p = 2`), which uses
+  lg-kerwild's `kerWild_of_g7` and `descentPts_of_g7` and local-glue's `localGlue_of_descent`. In the closure:
+  `LTLocal.localGlue_at`, `LTLocal.g7Clauses_of_transport`, `LTLocal.linkedTateLocalD_of_tateBridge35`,
+  `FrobPiecesGood.tateBridge35_of_neron_nmp`, `UnramRootsTask.unramRoots_all`; `sorryAx` is not.
 - **`[L:ℚ] ≤ D`** is the last clause of `G7Data` here (§1.1), so lt-local's `g7DegreeBound_gp4` is a
   projection.
 - **ε = 1 on `G_L × G_L`** for `TateBridge35`'s data: lt-local's `g7Clauses_of_transport` derives it from
@@ -161,7 +165,7 @@ task" names the last task that changed the field's statement or role. SPEC = tru
 | `r1b` (`FibreQM.R1bFamily`, family form) | R1(b), complex uniformization (Shimura 1967 Main Thm I; Deligne, Bourbaki 389) | fibre-qm-period, leaf-fold2 | no |
 | `r1rec : LeafQM.AV.R1rec` | R1(d), Shimura reciprocity | leaf-adopt | no |
 | `r3 : ZInQ.LeafPush2.R03_LinYang` | R3, Lin–Yang (Igusa–Clebsch invariants on `X₆`) | leaf-push2 | no |
-| `r4 : PkgI1.ThetaModularity` | R4, theta constants as modular forms for `Γ*` | pkg-I1 | no |
+| `r4 : PkgI1.ThetaModularity` | R4, `ψ₄ = 2⁻²Σθ⁸` and `χ₁₀` are Siegel modular forms of weight 4, 10 for `Sp₄(ℤ)` (Igusa 1962, 1967; Igusa, *Theta functions*, Ch. V) | pkg-I1 | no |
 | `r5 : LeafQM.AV.R5fp` | R5(ii), González–Rotger 2006 Thm 5.12 (fields of CM points) | leaf-qm-fp | no |
 | `r5count : LeafQM.AV.R5fpCount` | R5(i), González–Rotger Prop. 5.6 (`#CM(R) = 2^b h(R)`) | leaf-qm-fp | no |
 | `r6 : PkgI2.RaynaudCriterion` | R6, Raynaud (SGA 7 IX 4.7) | pkg-I2 | no |
@@ -243,11 +247,12 @@ task" names the last task that changed the field's statement or role. SPEC = tru
 
 ## 3. The remaining leaves by the theory they come from
 
-The 62 leaves (26 + 20 + 16) fall into seven groups. Counts are of bundle fields.
+The 62 leaves (26 + 20 + 16) fall into eight groups. Counts are of bundle fields.
 
 | group (published theory) | # | fields |
 |---|---|---|
-| **A. Shimura curves with quaternionic multiplication** (Shimura 1967, 1971; Deligne, Bourbaki 389; Baba–Granath 2008; González–Rotger 2006; Rotger 2003-2004; Ogg 1983; Elkies 1998; Kurihara 1979; Eichler; Lin–Yang) | 16 | `r1r2`, `r1b`, `r1rec`, `r3`, `r4`, `r5`, `r5count`, `cmOptimalEmbedding`, `qmHauptmodul`, `qmClassNumberOne`, `qmDenZeroCM3`, `thetaRatiosAlgebraic`, `x6ConicModel`, `y3Connected`, `qmAutCard`, `alFixedPoints` |
+| **A. Shimura curves with quaternionic multiplication** (Shimura 1967, 1971; Deligne, Bourbaki 389; Baba–Granath 2008; González–Rotger 2006; Rotger 2003-2004; Ogg 1983; Elkies 1998; Kurihara 1979; Eichler; Lin–Yang) | 14 | `r1r2`, `r1b`, `r1rec`, `r3`, `r5`, `r5count`, `cmOptimalEmbedding`, `qmHauptmodul`, `qmClassNumberOne`, `qmDenZeroCM3`, `x6ConicModel`, `y3Connected`, `qmAutCard`, `alFixedPoints` |
+| **A′. Theta functions and Siegel modular forms of genus 2** (Igusa 1962, 1967, 1972; Shimura 1976; Mumford, Tata II) | 2 | `r4`, `thetaRatiosAlgebraic` |
 | **B. Abelian varieties: the textbook theory** (Mumford, *Abelian varieties*; Birkenhake–Lange; Milne; Yu 2013 for T27; Serre's lemma) | 16 | `t5`, `t6`, `t7`, `t8`, `t9`, `t10`, `homLatticeCorr`, `t11b`, `t26`, `t27`, `t35`, `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`, `serreRigidity3`, `t4` |
 | **C. Néron models, reduction and monodromy** (BLR; Serre–Tate 1968; SGA 7; Raynaud; EGA III for Zariski's connectedness) | 7 | `r6`, `r7a`, `r7b`, `r8`, `t3`, `t41`, `properSmoothGenConnected` |
 | **D. Faltings 1983 and Faltings heights** (Faltings; Gaudron–Rémond; Bost; Pazuki; Javanpeykar) | 8 | `r9a`, `r9b`, `r18`, `r19`, `r20`, `r21`, `r22`, `h5fin` |
@@ -257,12 +262,13 @@ The 62 leaves (26 + 20 + 16) fall into seven groups. Counts are of bundle fields
 | total | **62** | |
 
 So `SixContactMin` follows, by a compiled Lean proof, from: the arithmetic theory of the Shimura curve
-`X₀⁶(1)` and its QM abelian surfaces (A), the textbook theory of abelian varieties (B) and of Néron
+`X₀⁶(1)` and its QM abelian surfaces (A), Igusa's theta description of genus-2 Siegel modular forms (A′), the textbook theory of abelian varieties (B) and of Néron
 models (C), Faltings' theorems and the height estimates around them (D), p-adic Hodge theory (E), the
 Galois representations attached to modular forms (F) and basic modular-curve facts (G); plus the six
 glue Props of §2.4 (two on the period map of `X₆`, three on the Hecke cover of `P¹`, one on spreading
 out abelian varieties). The grouping is a reading of the docstrings (SPECULATIVE in its boundaries:
-`r4`, `thetaRatiosAlgebraic` could go under theta functions; `serreRigidity3`, `t4` under B or C).
+`serreRigidity3`, `t4` could go under B or C; `qmHauptmodul`, `qmDenZeroCM3` are about theta quotients on
+`X₆` and could go under A′).
 
 ## 4. Corrections to h-decomposition.md §3
 
@@ -288,9 +294,18 @@ Written as a patch, not an edit: `scratch/leaf-fold3/h-decomposition-section3.pa
 (VERIFIED). The copied parts' own `#print` lines are dropped; the axioms of everything they prove are
 covered by the closure of `sixContactMin_of_open3`.
 
-FLATRESULT
+**Flat file** `scratch/leaf-fold3/Leaves3.lean` (110 826 lines, md5 703c1618fd1f…, all chain sources in
+one file): `lake env lean scratch/leaf-fold3/Leaves3.lean` **exits 0 in 1042 s, 0 errors, no `sorry`; all 288
+`#print axioms` reports read `[propext, Classical.choice, Quot.sound]`** (counted by script; 5 of them are
+line-wrapped). An earlier flat run (before the `simpa only` edit of `mk_propts.py`) had 1 error in kummer-comp's
+Abhyankar core, where the flat file's simp set differs from the olean chain's (log.md). The raw output
+`flat_out.txt` contains host paths and is not committed.
 
-DEPSRESULT
+**Dependency closure** (`olean/Deps3.lean`, 25 s): the closure of `HDec.HSyn.sixContactMin_of_open3` has
+179 689 constants; it contains the proofs folded here (`twistDescent`, `hodgeBCInjective`, `omegaBaseChange`,
+`goodRedTorsion`, `burnsideAbsIrred`, `KummerComp.kummerMeetGlue`, `PropTSGlue.specNonMeeting`, the kernel's
+`ZInQ.Contrib.Dim.tangentDimAtOrigin` and `LeafQM.AV.Pin.smoothStalkDimOne` from Contrib.Mobius) and not
+`sorryAx` or `LGKerWild.exists_localGlue_of_tateModuleFree` (VERIFIED).
 
 **Changes to the copied texts** (each in a script, with its reason):
 

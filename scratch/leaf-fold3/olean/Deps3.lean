@@ -1,6 +1,6 @@
 import TailI
-open Lean in
-/-- leaf-fold3: which of the named constants lie in the dependency closure of `sixContactMin_of_open3`. -/
+open Lean
+-- leaf-fold3: which of the named constants lie in the dependency closure of `sixContactMin_of_open3`.
 #eval show CoreM Unit from do
   let env ← getEnv
   let root := `HDec.HSyn.sixContactMin_of_open3

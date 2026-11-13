@@ -10,12 +10,12 @@
 #   olean/LPrefix.lean   = mk_prefix.py (h-decomposition/Leaves.lean, HDec-wrapped by leaf-fold; ten unused fields deleted)
 #   olean/TailA.lean     = import LPrefix + g0-assemble's 18 parts (parts/[0-9]*.lean), inside `namespace HDec`
 #   olean/TailB/C/D.lean = g0-assemble2's parts a10-a44 / a45-a95 / z*, each part in its own section, inside `namespace HDec`
-#   olean/LF2ImagePlane.lean = scratch/image-plane/ImagePlaneFinal.lean, verbatim (root namespace, kernel objects)
+#   (leaf-fold2 had olean/LF2ImagePlane.lean = scratch/image-plane/ImagePlaneFinal.lean; leaf-fold3 imports ZInQKernel.Contrib.Mobius.Main instead)
 #   olean/LF2Stalks.lean = LF2Stalks.lean.src (infra-stalks' general stalk lemmas, root namespace)
 #   olean/LF2UnifRoot.lean, LF2SmoothDim.lean = mk_unifdims.py outputs (root namespace)
 #   olean/LF2UnramConj.lean = scratch/inner-twist/UnramConj.lean verbatim (root namespace)
-#   olean/TailE.lean     = import TailD + kernel T14/T28/RLeaf + LF2ImagePlane + parts b*, inside `namespace HDec`
-#   Leaves2.lean         = all of the above in one file (LF2ImagePlane's body at root level, before TailE's body)
+#   olean/TailE.lean     = import TailD + kernel T14/T28/RLeaf + Contrib.Mobius + parts b*, inside `namespace HDec`
+#   Leaves3.lean         = all of the above in one file
 cd "$(dirname "$0")"
 python3 mk_prefix.py >/dev/null
 HDR='namespace HDec

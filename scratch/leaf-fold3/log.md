@@ -36,3 +36,15 @@
   conclusion is the kernel's own `ZInQ.SixContactMin`.
 - Counts: 26 + 20 + 16 + 6 = 68 (leaf-fold2: 26 + 18 + 13 + 9 = 66); glue 9 → 6, SPECULATIVE glue 2 → 0.
 - 12:40 olean/chain_log*.txt (compile logs with host paths) were committed by mistake in 0-2 commits before this; untracked and gitignored since.
+
+## 12:39-13:20 flat file and dependency check, VERIFIED
+- Flat run 1 (md5 1eb53268…): exit 1 in 1044 s, 1 error: kummer-comp's `simpa using h1` (Abhyankar core) rewrites the goal
+  `IsUnit (k : Rp)` to `¬ringChar (ResidueField Rp) ∣ k` in the flat file only. mk_propts.py: `simpa only [RingHom.comp_apply,
+  map_natCast] using h1`. Chain TailG-TailI re-run: 0 errors.
+- Flat run 2 (Leaves3.lean, 110 826 lines, md5 703c1618fd1f…): exit 0 in 1042 s, 0 errors, no sorry, 288 `#print axioms`
+  reports all `[propext, Classical.choice, Quot.sound]` (5 line-wrapped).
+- olean/Deps3.lean: closure of `HDec.HSyn.sixContactMin_of_open3` = 179 689 constants; contains LTLocal.localGlue_at,
+  g7Clauses_of_transport, linkedTateLocalD_of_tateBridge35, FrobPiecesGood.tateBridge35_of_neron_nmp,
+  UnramRootsTask.unramRoots_all, KummerComp.kummerMeetGlue, PropTSGlue.specNonMeeting, twistDescent, hodgeBCInjective,
+  omegaBaseChange, goodRedTorsion, burnsideAbsIrred, ZInQ.Contrib.Dim.tangentDimAtOrigin, LeafQM.AV.Pin.smoothStalkDimOne;
+  does not contain sorryAx, LGKerWild.exists_localGlue_of_tateModuleFree, LGKerWild.localGlue_of_tateBridge35.
