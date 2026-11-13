@@ -20,7 +20,7 @@ network). Model work only; no human review.
 
 - `ModelG3G6` (copied verbatim from `scratch/g0-assemble/parts/87_afterg7.lean`) is proved from:
   - `FibreSimple` (already a `GluePieces` field);
-  - one new glue Prop, `GoodRedG3Bridge`;
+  - one new glue Prop, `GoodRedTorsion`, which `GoodRedG3Bridge` reduces to;
   - the leaves R6, R7a and T5.
 
   The noncommutativity half of G6 needs no input.
@@ -32,6 +32,14 @@ network). Model work only; no human review.
   The ℓ = 5 and ℓ = 3 operator data are constructed. They are unram-tate's Tate-functor
   construction, run once with one scalar function `γ₀ : G_ℚ → ℚ̄`. So the scalar link that
   g14-trace found missing (its finding F1) now holds by construction, and it is no longer glue.
+- **End to end:** `HSyn.sixContactMin_of_leaves3 r t gp3 : ZInQ.SixContactMin`. Here
+  `GluePieces3` is g0-assemble's `GluePieces2`:
+  - with fields 1-25 copied verbatim;
+  - with fields 27 `modelG3G6` and 28 `linkedTateData` replaced by four fields,
+    `goodRedTorsion`, `qmEndRank`, `linkedFrob` and `linkedRam`.
+
+  That makes 29 fields, against 27. Proof: `gluePieces2_of_gluePieces3`, then g0-assemble's
+  `sixContactMin_of_leaves2`.
 
 ```lean
 theorem HSyn.LinkedTate.modelG3G6_of (hFS : HSyn.G0Split.FibreSimple) (hG3 : QMModelG3) :
@@ -46,6 +54,9 @@ theorem UnramTate.linkedFrobRam_of (hF : LinkedFrob) (hR : LinkedRam) : LinkedFr
 theorem HSyn.LinkedTate.afterG7_of_final (r t m hDF hCar hSw hL8 hAd)
     (hFS : FibreSimple) (hB : GoodRedG3Bridge) (hR : QMEndRank)
     (hF : UnramTate.LinkedFrob) (hRam : UnramTate.LinkedRam) : G0ModField.AfterG7
+theorem HSyn.LinkedTate.goodRedG3Bridge_of_torsion (h : GoodRedTorsion) : GoodRedG3Bridge
+theorem HSyn.sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves)
+    (gp3 : GluePieces3) : ZInQ.SixContactMin
 ```
 
 The last theorem is g0-assemble's `afterG7_of` with its two fields `modelG3G6` and
@@ -83,7 +94,8 @@ pin-apply strengthened by `R1famProps` and `R1univProps`.
 | `PkgI3.CharPolyIndepOfEll` (T7) | **leaf** (`t.t7`) | Mumford §19 Thm 4 | G14 |
 | `PkgI3.TateModuleFree` (I3.M0 = T26) | **leaf** (`t.t26`) | Mumford §18-19 | continuity clause of `G7Out` (unram-tate's `tateCont_of_tateModuleFree`) |
 | `HSyn.G0Split.FibreSimple` | glue (existing `GluePieces` field 4; g0-fibresimple reduced it to leaves, FS1b and FS5; pin-apply made it independent of the triple, given `MobiusGlue`) | every number-field model of the fibre over `J(u)` has `EndDivision` | `EndDivision` half of G6, and the hypothesis of `QMEndRank` |
-| `HSyn.LinkedTate.GoodRedG3Bridge` | **glue (new)** | Given NOS: if `A/K` has good reduction at every DVR of `K` in which 3 is a unit, then inertia of `G_{L'}` above `p ∉ {3, ℓ}` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A_{L,L'})`. | G3 |
+| `HSyn.LinkedTate.GoodRedG3Bridge` | glue (new, proved from `GoodRedTorsion`: `goodRedG3Bridge_of_torsion`) | Given NOS: if `A/K` has good reduction at every DVR of `K` in which 3 is a unit, then inertia of `G_{L'}` above `p ∉ {3, ℓ}` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A_{L,L'})`. | G3 |
+| `HSyn.LinkedTate.GoodRedTorsion` | **glue (new)** | The same hypotheses as `GoodRedG3Bridge`; the conclusion is at the level of points: inertia of `G_{L'}` above `p ∉ {3, ℓ}` fixes every `ℓⁿ`-torsion point of `A_{L,L'}(\bar{L'})`. This is where NOS's `InertiaTrivialOn` lives; only places, `resQ` and base-change points are transported. | G3 |
 | `HSyn.LinkedTate.QMEndRank` | **glue (new, literature-backed)** | For a `QML3` object over `K ≤ L ≤ L'` with `EndDivision`, `rank_ℤ End(A_{L,L'}) = 4`. | the `rank = 4` conjunct of `G7Out` |
 | `UnramTate.LinkedFrob` | **glue (new)** | g14-trace's `FrobTraceLink` for the canonical operators `tmOf … 5`, `tmOf … 3`, for every transport `(Θ, h)` and every points-level descent datum `(m, a, n, d)` | G14 |
 | `UnramTate.LinkedRam` | **glue (new)** | `RhoRamWild` (clauses (i)-(ii) of `LocalRam`, for the descended operator `ρ_ℓ` itself) for `ρ₅` at `p ≠ 5` and `ρ₃` at `p = 5`, built from the canonical operators, for every choice of the data | G15 clauses (i)-(ii) |
@@ -115,6 +127,10 @@ No new literature leaf is introduced.
    `G3Out A' ℓ {3}` (`QMModelG3`). Leaves.lean's proved `LeafQM.AV.QML3.goodReduction` (from R7a,
    R6 and T5) gives good reduction of `PK.A` at every DVR with 3 a unit (`qmModelG3_of`), and
    `GoodRedG3Bridge` converts that into `G3Out`. VERIFIED.
+4. **`GoodRedG3Bridge` from `GoodRedTorsion`** (`goodRedG3Bridge_of_torsion`, using
+   `tate_eq_one_of_torsion`). If `σ` fixes every `ℓⁿ`-torsion point of `A(K̄)`, then it fixes
+   every element of `T_ℓ(A)`, because each coordinate `xₙ` is `ℓⁿ`-torsion
+   (`PkgI3.Tate.pow_smul_eq_zero`). So `galT σ = id`, `galRep σ = 1` and `tate σ = 1`. VERIFIED.
 
 **`GoodRedG3Bridge` is true** (STANDARD route). For a place `v` above `p ≠ 3`, `v ∩ K` is a DVR in
 which 3 is a unit. NOS (a) ⇒ (b) over `K` makes inertia trivial on every `A[ℓⁿ](K̄)`. Inertia of
@@ -122,8 +138,9 @@ which 3 is a unit. NOS (a) ⇒ (b) over `K` makes inertia trivial on every `A[�
 so on `ℚ̄_ℓ ⊗ V_ℓ`. Base change does not change the points over `K̄ = \bar{L'}` (unram-tate's
 `bcPt`).
 
-What is open is only the transport between PkgI2's torsion points and valuation rings of `K̄` and
-the places and `resQ` of `G0Galois.G3Out`. It needs no new literature.
+What is open (`GoodRedTorsion`) is only the transport, at the level of torsion points, between
+PkgI2's valuation rings of `K̄` and the places and `resQ` of `G0Galois.G3Out`. It needs no new
+literature.
 
 ## 4. `LinkedTateData`
 
@@ -227,29 +244,41 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
 
 ## 6. What compiles
 
-- `scratch/linked-tate/olean/Tail.lean` (`import LPrefix` + parts 10, 70, 72, 74, 75, 77, 87, 92,
-  93, 95, 96, 97), compiled against the olean of `Leaves.lean` + `imports_extra.txt`: VERIFIED.
-  It gives exit 0, 0 errors and no `sorry`. All axiom reports of the new declarations are
-  standard. The declarations:
+- **`scratch/linked-tate/olean/Tail.lean`.** It is `import LPrefix` followed by every part:
+  - g0-assemble's parts 05-90;
+  - 92, 93, 95, 96, 97, 98 and 99.
+
+  It is compiled against the olean of `Leaves.lean` + `imports_extra.txt`. VERIFIED: 0 errors, no
+  `sorry`, and every axiom report is `[propext, Classical.choice, Quot.sound]`. The declarations:
   - `HSyn.LinkedTate`: `oI_oH_ne`, `noncomm_baseChange2`, `endDivision_of_fibreSimple`,
     `qmModelG3_of`, `modelG3G6_of`, `toHom_eq_one_of_intertwines`, `localRamWild_of_rho`,
     `linkedTateCore_of`, `linkedTateData_of`, `afterG7_of_linked`, `afterG7_of_linked'`,
-    `linkedTateData_of_frobRam` and `afterG7_of_final`;
+    `linkedTateData_of_frobRam`, `afterG7_of_final`, `tate_eq_one_of_torsion` and
+    `goodRedG3Bridge_of_torsion`;
   - `UnramTate`: `tateBridge_of_tateModuleFree`, `scalarTransferQ`, `linkedTateCoreDR_of` and
-    `linkedFrobRam_of`.
-- The flat file `scratch/linked-tate/LinkedTate.lean` (FLAT-RESULT).
-- Parts copied:
-  - verbatim: g0-assemble's parts 10, 70, 72, 74, 75, 77 and 87; unram-tate lines 1038-1825
-    (part 96, plus the file-level `open`s of `ModField.lean`); g14-trace's `part_g14.lean` §2-§5
-    (part 93);
-  - with one change: kernel `C10/Link.lean` excerpts (part 92). The change is
-    `set_option synthInstance.maxHeartbeats 400000 in` before `trace_endE_indep`, because instance
-    search for `Module.Free ℚ_[ℓ] (A.V ℓ)` times out at the default limit in this environment.
+    `linkedFrobRam_of`;
+  - `HSyn`: `gluePieces2_of_gluePieces3`, `sixContactMin_of_leaves3`, and g0-assemble's
+    `sixContactMin_of_leaves2`.
+- **The flat file `scratch/linked-tate/LinkedTate.lean`** (FLAT-RESULT).
+- **Parts copied verbatim:**
+  - g0-assemble's parts 05-90, with one exception (part 40, below);
+  - unram-tate lines 1038-1825 (part 96, plus the file-level `open`s of `ModField.lean`);
+  - g14-trace's `part_g14.lean` §2-§5 (part 93).
+- **Parts copied with changes:**
+  - **Part 92**, the kernel `C10/Link.lean` excerpts. `set_option synthInstance.maxHeartbeats
+    400000 in` is added before `trace_endE_indep`, because instance search for
+    `Module.Free ℚ_[ℓ] (A.V ℓ)` times out at the default limit in this environment.
+  - **Part 40** (g0-fibresimple). Its §5 is removed: `PtAuto`, `twistBy`, `r1fpProps_twistBy`,
+    `r2fpProps_twistBy` and `fibreComTrivial_twisted`. It no longer compiles against the
+    pin-applied `R1fpProps`: the four-component `obtain` fails on the six-component clause list.
+    That is pin-apply's intended effect, since relabelings no longer preserve `R1fpProps`. No other
+    declaration uses §5. VERIFIED.
 
 ## 7. What remains
 
-- **`GoodRedG3Bridge`.** The transport from PkgI2's points, torsion and valuation rings of `K̄` to
-  `ℚ̄_ℓ ⊗ V_ℓ(A_{L,L'})` and the places of `ℚ̄`. It needs no literature beyond NOS.
+- **`GoodRedTorsion`.** The point-level transport from PkgI2's torsion points and valuation rings of
+  `K̄` (over the DVR `v ∩ K`) to the places of `ℚ̄`, `resQ` and the base change `A_{L,L'}`. It needs
+  no literature beyond NOS. The step from torsion to `ℚ̄_ℓ ⊗ V_ℓ` is proved.
 - **`QMEndRank`.** Mumford §19 Thm 3 and Albert's classification on PkgI3 objects. Neither is in
   the bundles; either could be added as a leaf.
 - **`LinkedFrob`.** Néron models, reduction and Serre–Tate on PkgI3 objects. g14-trace's square
@@ -257,5 +286,5 @@ construction uses (`LinkedFrob`, `LinkedRam`), and then applied to the choice ma
 - **`LinkedRam`.** D1-D4 on the canonical `ρ_ℓ`. The bound on the upper breaks of `L'` at `p ≤ D`
   should be checked (§4.3).
 - **`FibreSimple`.** Unchanged: g0-fibresimple's FS1b and FS5, plus pin-apply's `MobiusGlue`.
-- **Integration.** `GluePieces2`'s fields 27 and 28 can be replaced by the five Props through
-  `afterG7_of_final`. This was not done here, because g0-assemble's files belong to another task.
+- **Integration.** `GluePieces3` and `sixContactMin_of_leaves3` are in
+  `scratch/linked-tate/parts/99_bundle3.lean`. g0-assemble's own files are untouched.
