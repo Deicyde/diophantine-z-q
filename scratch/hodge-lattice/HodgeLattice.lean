@@ -828,9 +828,47 @@ theorem hodgeLatticeTheorem_of_regular (h1 : RegularOrigin) (h2 : DimOrigin) :
 
 end ZInQ.DefFaltings.HodgeLattice
 
+/-! ## 7. Corollary: `ω_𝒢` and `⋀^g ω_𝒢` are lattices, and `L ⊗ ⋀^g ω_𝒢 → hodgeSpace g` is onto
+
+(Projectivity of the rank-one `𝓞_L`-module `detLattice g` then follows from: finitely generated and
+torsion-free over a Dedekind domain; STANDARD, not in Mathlib in this form.) -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField TensorProduct
+open PkgI3 (AbVar)
+
+theorem detLat_fg {K : Type*} [Field K] [NumberField K] {M : Type*} [AddCommGroup M]
+    [Module (𝓞 K) M] (ω : Submodule (𝓞 K) M) (hfg : ω.FG) (g : ℕ) : (detLat ω g).FG := by
+  have : Module.Finite (𝓞 K) ω := Module.Finite.iff_fg.mpr hfg
+  have hRfg : (LinearMap.range ((TensorProduct.mk (𝓞 K) K (⋀[𝓞 K]^g M) 1) ∘ₗ
+      exteriorPower.map g ω.subtype)).FG := by
+    rw [LinearMap.range_eq_map]; exact (Module.Finite.fg_top).map _
+  refine Submodule.FG.of_le hRfg ?_
+  rw [detLat, Submodule.span_le]
+  rintro _ ⟨v, rfl⟩
+  exact ⟨exteriorPower.ιMulti (𝓞 K) g v, by simp [exteriorPower.map_apply_ιMulti]; rfl⟩
+
+/-- Under `RegularOrigin` and `DimOrigin`: `ω_𝒢` and `detLattice g` are finitely generated, and
+`detLattice g` spans the Hodge line over `L`. -/
+theorem hodgeLattice_lattice_of_regular (h1 : RegularOrigin) (h2 : DimOrigin)
+    (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ) (hg : A.dim = g) :
+    𝒢.omega.FG ∧ (𝒢.detLattice g).FG ∧
+      Submodule.span L (𝒢.detLattice g : Set (𝒢.hodgeSpace g)) = ⊤ := by
+  have hfg := omegaFG_of_omegaLocal omegaLocal K A L 𝒢
+  refine ⟨hfg, by rw [detLattice_eq]; exact detLat_fg _ hfg g, ?_⟩
+  obtain ⟨hrank, s, hs, hs0, -⟩ := hodgeLatticeTheorem_of_regular h1 h2 K A L 𝒢 g hg
+  rw [eq_top_iff]
+  intro w _
+  obtain ⟨c, rfl⟩ := (finrank_eq_one_iff_of_nonzero' s hs0).mp hrank w
+  exact Submodule.smul_mem _ c (Submodule.subset_span hs)
+
+end ZInQ.DefFaltings.HodgeLattice
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
 #print axioms ZInQ.DefFaltings.HodgeLattice.omegaLocal
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_cotangentRank
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_regular
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_lattice_of_regular

@@ -36,3 +36,5 @@
   - `cotangentRank_of_tangentDim`, `tangentDim_of_regular`,
     `hodgeLatticeTheorem_of_regular : RegularOrigin → DimOrigin → HodgeLatticeTheorem`,
     axioms [propext, Classical.choice, Quot.sound].
+- 23:55 §7: `detLat_fg`, `hodgeLattice_lattice_of_regular` (ω_𝒢 FG, detLattice FG, span_L detLattice = ⊤).
+  File compiles, 0 errors, no `sorry` in the file; all 7 #print axioms standard. VERIFIED.
