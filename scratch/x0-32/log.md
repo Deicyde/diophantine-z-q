@@ -33,3 +33,17 @@
   `isCuspImage_toC` (cusp-image set over ℂ = image of A[(1+i)³] under a fixed ℚ̄ → ℂ).
 - Finding: proving additivity of the 2-isogeny by brute-force formulas was avoided: φ = ι∘(1+[i]) reduces it
   to additivity of linear scalings plus CurveA's `iPt_add`.
+
+## 08:00–08:40
+
+- COMPILED: `X0Newform.lean` (leaf `NewformTC32` over Tau Ceti's `HeckeRing.GL2.Newform 32 2`).
+- COMPILED: leaves `EtaModelWeierstrass` (eta model = ℘_L ∘ Eichler integral for any L with g₂=−16, g₃=0)
+  and `EtaModelFricke`; `X0AnalyticModel` = conjunction of 9 leaves.
+- VERIFIED (`fricke.py`): φ(−1/(32τ)) + φ(τ) = (2,−4) at 3 points (12 digits); x(W₃₂τ) =
+  2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ)).
+- COMPILED: holomorphy of x, y, f on ℍ; f, y nonvanishing; `phiC_eq_some`, `phiC_ne_zero` (under
+  EtaModelEquation); `eta_add_nat`; `xC_yC_fC_T_smul` (T-invariance). Audit: 28 declarations, all
+  [propext, Classical.choice, Quot.sound].
+- VERIFIED (`ModParamRfl.lean`): cm-points' `CM.modParam` (verbatim copy) is `rfl`-equal to `X0.modParamF`.
+- Merged origin/main (6c225515) once (STATUS.md only).
+- Report docs/research/x0-32.md written.
