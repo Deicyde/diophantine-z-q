@@ -30,3 +30,11 @@
   HSyn.G0Split.heightAdditivity_of_metrization_v4: propext, Classical.choice, Quot.sound (VERIFIED).
 - part_pml1.lean (toward ProductMapLocalStructure): ev (evaluation at complex points of any scheme) with ev_comp, ev_res, ev_add, ev_mul, ev_zero, ev_one, ev_pow, ev_sum, ev_ne_zero_of_mem, mem_basicOpen_of_ev_ne_zero; exists_sum_of_isPushout (every element of a CommRingCat pushout is Σ inl α·inr β, via the universal property and Subring.closure). Compiles, 0 errors (VERIFIED).
 - part_pml2.lean: core_local (local structure of X₁ ×_S X₂, S affine, at complex points: affine opens V_i, Q = V₁ ×_S V₂ affine with Γ(Q) a pushout, basic open D(h) ⊆ j⁻¹W, t = a/h^N, H = h^{N+1}); compiles, 0 errors (VERIFIED).
+- part_pml3.lean: `productMapLocalStructure : ProductMapLocalStructure` (from core_local with
+  S = Spec 𝓞_L, W = m⁻¹U, t = m^*s); hence `jacDetNondegenerate : JacDetNondegenerate` and
+  `productLocalStructure : ProductLocalStructure`, no hypotheses.
+- part_final2.lean: `heightAdditivity_of_metrization_v5` (N1, H5, AnalyticUniformizationUnique,
+  HodgeLatticeTheorem, T35, ProductHodgeLattice) and `metrizationExists_of_uniformizationExists`
+  (HodgeLatticeTheorem, T35).
+- Rebuilt Metrization2.lean (6164 lines): `lake env lean` 0 errors in 45 s; no sorry, no axiom;
+  all new `#print axioms`: propext, Classical.choice, Quot.sound (VERIFIED).

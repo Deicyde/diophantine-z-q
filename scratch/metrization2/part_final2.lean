@@ -18,10 +18,34 @@ theorem heightAdditivity_of_metrization_v4 (hN1 : ZInQ.H5Neron.NeronModelExists)
     (ZInQ.Metrization2.jacDetNondegenerate_of hML)
     (ZInQ.Metrization2.productLocalStructure_of hML) hPL
 
+/-- **`HeightAdditivity` with `ProductMapLocalStructure` proved**: from N1, H5, def-faltings'
+`AnalyticUniformizationUnique` and `HodgeLatticeTheorem`, T35 and metrization's
+`ProductHodgeLattice`. -/
+theorem heightAdditivity_of_metrization_v5 (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (h5 : LeafAdopt.H5) (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
+    (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
+    (hT35 : ZInQ.LeafPush2.UniformizationExists)
+    (hPL : ZInQ.Metrization.ProductHodgeLattice) : HeightAdditivity :=
+  heightAdditivity_of_metrization_v4 hN1 h5 hU hH hT35
+    ZInQ.Metrization2.productMapLocalStructure hPL
+
 end HSyn.G0Split
+
+/-- **`MetrizationExists` from def-faltings' `HodgeLatticeTheorem` and T35 alone.** -/
+theorem ZInQ.Metrization2.metrizationExists_of_uniformizationExists
+    (hH : ZInQ.DefFaltings.HodgeLatticeTheorem) (hT35 : ZInQ.LeafPush2.UniformizationExists) :
+    ZInQ.G0HeightAdd.MetrizationExists :=
+  ZInQ.Metrization2.metrizationExists_of_productMap hH
+    (ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists hT35)
+    ZInQ.Metrization2.productMapLocalStructure
 
 #print axioms ZInQ.Metrization2.jacDetNondegenerate_of
 #print axioms ZInQ.Metrization2.productLocalStructure_of
 #print axioms ZInQ.Metrization2.metrizationExists_of_productMap
 #print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
 #print axioms HSyn.G0Split.heightAdditivity_of_metrization_v4
+#print axioms ZInQ.Metrization2.productMapLocalStructure
+#print axioms ZInQ.Metrization2.jacDetNondegenerate
+#print axioms ZInQ.Metrization2.productLocalStructure
+#print axioms HSyn.G0Split.heightAdditivity_of_metrization_v5
+#print axioms ZInQ.Metrization2.metrizationExists_of_uniformizationExists

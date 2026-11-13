@@ -10,7 +10,7 @@ cd "$(dirname "$0")"
       part_jacdet part_prodsplit part_jacgerm part_jacscalar part_jacclass part_prodjac part_produnif2; do
     sed -e '/^#print axioms/d' base/$f.lean
   done
-  for f in part_nondeg1 part_nondeg2 part_nondeg3 part_unif0 part_unif1; do
+  for f in part_nondeg1 part_nondeg2 part_nondeg3 part_unif0 part_unif1 part_pml1 part_pml2 part_pml3; do
     sed -e '/^#print axioms/d' $f.lean
   done
   cat part_final2.lean
