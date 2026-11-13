@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.AbVarBC.G9Mul
+import ZInQKernel.Contrib.AbVarBC.Main
 import ZInQKernel.Contrib.AbVarBC.Consumers
 
 open ZInQ.Contrib.AbVarBC
@@ -28,3 +28,15 @@ open ZInQ.Contrib.AbVarBC
 #print axioms ZInQ.Contrib.AbVarBC.hodgeLatticeTheorem_of_tangent'
 #print axioms ZInQ.Contrib.AbVarBC.hodgeLatticeTheorem_of_abVarFacts'
 #print axioms ZInQ.Contrib.AbVarBC.bcT_bijective'
+#print axioms ZInQ.Contrib.AbVarBC.Tangent.D_mul
+#print axioms ZInQ.Contrib.AbVarBC.Tangent.eq_one_of_comp_intCast
+#print axioms ZInQ.Contrib.AbVarBC.Tangent.derivation_eq_zero
+#print axioms ZInQ.Contrib.AbVarBC.Tangent.ker_le_sq_of_derivations
+#print axioms ZInQ.Contrib.AbVarBC.Tangent.ks_isOpenImmersion
+#print axioms ZInQ.Contrib.AbVarBC.kerUnitOpen
+#print axioms ZInQ.Contrib.AbVarBC.mulIsogeny
+#print axioms ZInQ.Contrib.AbVarBC.torsionDescends
+#print axioms ZInQ.Contrib.AbVarBC.tateBC_bijective
+#print axioms ZInQ.Contrib.AbVarBC.abVarBaseChangeK
+#print axioms ZInQ.Contrib.AbVarBC.abVarBaseChange
+#print axioms ZInQ.Contrib.AbVarBC.g9Glue_of_r10Weights
