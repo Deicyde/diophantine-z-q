@@ -20,8 +20,8 @@ theorem Good.congr {J : (Fin 7 → K) → K} {n : ℕ} {a b c d a' b' c' d' : K}
 
 theorem IsInv.good {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (a b c d : K)
     (hdet : a * d - b * c ≠ 0) : Good J n a b c d := by
-  have gD : ∀ s t, Good J n s 0 0 t := fun s t v => by rw [hJ.diag]; ring_nf
-  have gU : ∀ u, Good J n 1 u 0 1 := fun u v => by rw [hJ.trans]; ring_nf; simp
+  have gD : ∀ s t, Good J n s 0 0 t := fun s t v => by rw [hJ.diag]; ring
+  have gU : ∀ u, Good J n 1 u 0 1 := fun u v => by rw [hJ.trans]; ring
   have gS : Good J n 0 1 1 0 := fun v => by
     rw [hJ.swap]; obtain ⟨m, hm⟩ := hJ.even
     rw [hm, show (0 * 0 - 1 * 1 : K) = -1 by ring, show 3 * (m + m) = 2 * (3 * m) by ring,
@@ -29,9 +29,9 @@ theorem IsInv.good {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (a b c d
   by_cases hc : c = 0
   · subst hc
     have ha : a ≠ 0 := by rintro rfl; simp at hdet
-    exact ((gD a d).mul (gU (b / a))).congr (by ring) (by field_simp) (by ring) (by ring)
+    exact ((gD a d).mul (gU (b / a))).congr (by ring) (by field_simp <;> ring) (by ring) (by ring)
   · exact ((((gU (a / c)).mul gS).mul (gD c (b - a * d / c))).mul (gU (d / c))).congr
-      (by field_simp; ring) (by field_simp; ring) (by ring) (by field_simp; ring)
+      (by field_simp <;> ring) (by field_simp <;> ring) (by ring) (by field_simp <;> ring)
 
 /-- **Transformation law** (the `⇒` direction of T28, in general form). -/
 theorem IsInv.sexticAct {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (f : Fin 7 → K)
@@ -89,7 +89,10 @@ theorem igusaClebschSeparation_iff : IgusaClebschSeparation ↔ IgusaSeparationE
     refine ⟨igusa_forward f g, ?_⟩
     rintro ⟨r, hr, h2, h4, h6, h10⟩
     obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq r⁻¹ (by norm_num : 0 < 2)
-    have hs0 : s ≠ 0 := by rintro rfl; simp at hs; exact hr (inv_eq_zero.mp hs.symm)
+    have hs0 : s ≠ 0 := by
+      rintro rfl
+      have h0 : r⁻¹ = 0 := by rw [← hs]; ring
+      exact hr (inv_eq_zero.mp h0)
     set g' : Fin 7 → L := fun i => s * g i with hg'
     have hsr : s ^ 2 * r = 1 := by rw [hs]; field_simp
     have k2 : J2 g' = J2 f := by

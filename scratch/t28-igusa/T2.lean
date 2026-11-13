@@ -807,17 +807,17 @@ theorem trP_eval_zero (v : Fin 7 → K) (i : Fin 7) : (trP v i).eval 0 = v i := 
   fin_cases i <;> simp [trP]
 
 theorem trP_d0 (v : Fin 7 → K) : derivative (trP v 0) = trP v 1 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d1 (v : Fin 7 → K) : derivative (trP v 1) = 2 * trP v 2 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d2 (v : Fin 7 → K) : derivative (trP v 2) = 3 * trP v 3 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d3 (v : Fin 7 → K) : derivative (trP v 3) = 4 * trP v 4 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d4 (v : Fin 7 → K) : derivative (trP v 4) = 5 * trP v 5 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d5 (v : Fin 7 → K) : derivative (trP v 5) = 6 * trP v 6 := by
-  simp [trP, derivative_X_pow, map_natCast, map_ofNat]; ring
+  simp [trP, map_ofNat] <;> ring
 theorem trP_d6 (v : Fin 7 → K) : derivative (trP v 6) = 0 := by
   simp [trP]
 
@@ -847,16 +847,19 @@ theorem J2R_deriv (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h3 : derivative (t 3) = 4 * t 4) (h4 : derivative (t 4) = 5 * t 5)
     (h5 : derivative (t 5) = 6 * t 6) (h6 : derivative (t 6) = 0) : derivative (J2R t) = 0 := by
   simp only [J2R, derivative_add, derivative_sub, derivative_neg, derivative_mul, derivative_pow,
-    derivative_ofNat, derivative_one, map_natCast, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
+    derivative_ofNat, derivative_one, map_natCast, map_ofNat, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
   ring
 
 theorem J2R_trans [CharZero K] (v : Fin 7 → K) (b : K) : J2R (actC v 1 b 0 1 1) = J2R v := by
   have hc := eq_C_of_derivative_eq_zero (J2R_deriv (trP v) (trP_d0 v) (trP_d1 v) (trP_d2 v)
     (trP_d3 v) (trP_d4 v) (trP_d5 v) (trP_d6 v))
-  have e1 := J2R_map (evalRingHom b) (trP v)
-  have e0 := J2R_map (evalRingHom 0) (trP v)
-  simp only [coe_evalRingHom, trP_eval, trP_eval_zero] at e1 e0
-  rw [← e0, ← e1, hc]; simp
+  have e1 : (evalRingHom b) (J2R (trP v)) = J2R (actC v 1 b 0 1 1) := by
+    rw [J2R_map]; congr 1; funext i; exact trP_eval v b i
+  have e0 : (evalRingHom 0) (J2R (trP v)) = J2R v := by
+    rw [J2R_map]; congr 1; funext i; exact trP_eval_zero v i
+  rw [hc] at e1 e0
+  simp only [coe_evalRingHom, eval_C] at e1 e0
+  rw [← e1, e0]
 
 theorem J2R_isInv [CharZero K] : IsInv (fun v : Fin 7 → K => J2R v) 2 :=
   ⟨by decide, J2R_homog, J2R_diag, J2R_swap, J2R_trans⟩
@@ -879,16 +882,19 @@ theorem J4R_deriv (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h3 : derivative (t 3) = 4 * t 4) (h4 : derivative (t 4) = 5 * t 5)
     (h5 : derivative (t 5) = 6 * t 6) (h6 : derivative (t 6) = 0) : derivative (J4R t) = 0 := by
   simp only [J4R, derivative_add, derivative_sub, derivative_neg, derivative_mul, derivative_pow,
-    derivative_ofNat, derivative_one, map_natCast, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
+    derivative_ofNat, derivative_one, map_natCast, map_ofNat, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
   ring
 
 theorem J4R_trans [CharZero K] (v : Fin 7 → K) (b : K) : J4R (actC v 1 b 0 1 1) = J4R v := by
   have hc := eq_C_of_derivative_eq_zero (J4R_deriv (trP v) (trP_d0 v) (trP_d1 v) (trP_d2 v)
     (trP_d3 v) (trP_d4 v) (trP_d5 v) (trP_d6 v))
-  have e1 := J4R_map (evalRingHom b) (trP v)
-  have e0 := J4R_map (evalRingHom 0) (trP v)
-  simp only [coe_evalRingHom, trP_eval, trP_eval_zero] at e1 e0
-  rw [← e0, ← e1, hc]; simp
+  have e1 : (evalRingHom b) (J4R (trP v)) = J4R (actC v 1 b 0 1 1) := by
+    rw [J4R_map]; congr 1; funext i; exact trP_eval v b i
+  have e0 : (evalRingHom 0) (J4R (trP v)) = J4R v := by
+    rw [J4R_map]; congr 1; funext i; exact trP_eval_zero v i
+  rw [hc] at e1 e0
+  simp only [coe_evalRingHom, eval_C] at e1 e0
+  rw [← e1, e0]
 
 theorem J4R_isInv [CharZero K] : IsInv (fun v : Fin 7 → K => J4R v) 4 :=
   ⟨by decide, J4R_homog, J4R_diag, J4R_swap, J4R_trans⟩
@@ -915,16 +921,19 @@ theorem J6R_deriv (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h3 : derivative (t 3) = 4 * t 4) (h4 : derivative (t 4) = 5 * t 5)
     (h5 : derivative (t 5) = 6 * t 6) (h6 : derivative (t 6) = 0) : derivative (J6R t) = 0 := by
   simp only [J6R, derivative_add, derivative_sub, derivative_neg, derivative_mul, derivative_pow,
-    derivative_ofNat, derivative_one, map_natCast, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
+    derivative_ofNat, derivative_one, map_natCast, map_ofNat, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
   ring
 
 theorem J6R_trans [CharZero K] (v : Fin 7 → K) (b : K) : J6R (actC v 1 b 0 1 1) = J6R v := by
   have hc := eq_C_of_derivative_eq_zero (J6R_deriv (trP v) (trP_d0 v) (trP_d1 v) (trP_d2 v)
     (trP_d3 v) (trP_d4 v) (trP_d5 v) (trP_d6 v))
-  have e1 := J6R_map (evalRingHom b) (trP v)
-  have e0 := J6R_map (evalRingHom 0) (trP v)
-  simp only [coe_evalRingHom, trP_eval, trP_eval_zero] at e1 e0
-  rw [← e0, ← e1, hc]; simp
+  have e1 : (evalRingHom b) (J6R (trP v)) = J6R (actC v 1 b 0 1 1) := by
+    rw [J6R_map]; congr 1; funext i; exact trP_eval v b i
+  have e0 : (evalRingHom 0) (J6R (trP v)) = J6R v := by
+    rw [J6R_map]; congr 1; funext i; exact trP_eval_zero v i
+  rw [hc] at e1 e0
+  simp only [coe_evalRingHom, eval_C] at e1 e0
+  rw [← e1, e0]
 
 theorem J6R_isInv [CharZero K] : IsInv (fun v : Fin 7 → K => J6R v) 6 :=
   ⟨by decide, J6R_homog, J6R_diag, J6R_swap, J6R_trans⟩
@@ -951,16 +960,19 @@ theorem J10R_deriv (t : Fin 7 → K[X]) (h0 : derivative (t 0) = t 1)
     (h3 : derivative (t 3) = 4 * t 4) (h4 : derivative (t 4) = 5 * t 5)
     (h5 : derivative (t 5) = 6 * t 6) (h6 : derivative (t 6) = 0) : derivative (J10R t) = 0 := by
   simp only [J10R, J10R0, J10R1, J10R2, J10R3, J10R4, J10R5, J10R6, J10R7, J10R8, J10R9, derivative_add, derivative_sub, derivative_neg, derivative_mul, derivative_pow,
-    derivative_ofNat, derivative_one, map_natCast, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
+    derivative_ofNat, derivative_one, map_natCast, map_ofNat, Nat.cast_ofNat, h0, h1, h2, h3, h4, h5, h6]
   ring
 
 theorem J10R_trans [CharZero K] (v : Fin 7 → K) (b : K) : J10R (actC v 1 b 0 1 1) = J10R v := by
   have hc := eq_C_of_derivative_eq_zero (J10R_deriv (trP v) (trP_d0 v) (trP_d1 v) (trP_d2 v)
     (trP_d3 v) (trP_d4 v) (trP_d5 v) (trP_d6 v))
-  have e1 := J10R_map (evalRingHom b) (trP v)
-  have e0 := J10R_map (evalRingHom 0) (trP v)
-  simp only [coe_evalRingHom, trP_eval, trP_eval_zero] at e1 e0
-  rw [← e0, ← e1, hc]; simp
+  have e1 : (evalRingHom b) (J10R (trP v)) = J10R (actC v 1 b 0 1 1) := by
+    rw [J10R_map]; congr 1; funext i; exact trP_eval v b i
+  have e0 : (evalRingHom 0) (J10R (trP v)) = J10R v := by
+    rw [J10R_map]; congr 1; funext i; exact trP_eval_zero v i
+  rw [hc] at e1 e0
+  simp only [coe_evalRingHom, eval_C] at e1 e0
+  rw [← e1, e0]
 
 theorem J10R_isInv [CharZero K] : IsInv (fun v : Fin 7 → K => J10R v) 10 :=
   ⟨by decide, J10R_homog, J10R_diag, J10R_swap, J10R_trans⟩
@@ -988,8 +1000,8 @@ theorem Good.congr {J : (Fin 7 → K) → K} {n : ℕ} {a b c d a' b' c' d' : K}
 
 theorem IsInv.good {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (a b c d : K)
     (hdet : a * d - b * c ≠ 0) : Good J n a b c d := by
-  have gD : ∀ s t, Good J n s 0 0 t := fun s t v => by rw [hJ.diag]; ring_nf
-  have gU : ∀ u, Good J n 1 u 0 1 := fun u v => by rw [hJ.trans]; ring_nf; simp
+  have gD : ∀ s t, Good J n s 0 0 t := fun s t v => by rw [hJ.diag]; ring
+  have gU : ∀ u, Good J n 1 u 0 1 := fun u v => by rw [hJ.trans]; ring
   have gS : Good J n 0 1 1 0 := fun v => by
     rw [hJ.swap]; obtain ⟨m, hm⟩ := hJ.even
     rw [hm, show (0 * 0 - 1 * 1 : K) = -1 by ring, show 3 * (m + m) = 2 * (3 * m) by ring,
@@ -997,9 +1009,9 @@ theorem IsInv.good {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (a b c d
   by_cases hc : c = 0
   · subst hc
     have ha : a ≠ 0 := by rintro rfl; simp at hdet
-    exact ((gD a d).mul (gU (b / a))).congr (by ring) (by field_simp) (by ring) (by ring)
+    exact ((gD a d).mul (gU (b / a))).congr (by ring) (by field_simp <;> ring) (by ring) (by ring)
   · exact ((((gU (a / c)).mul gS).mul (gD c (b - a * d / c))).mul (gU (d / c))).congr
-      (by field_simp; ring) (by field_simp; ring) (by ring) (by field_simp; ring)
+      (by field_simp <;> ring) (by field_simp <;> ring) (by ring) (by field_simp <;> ring)
 
 /-- **Transformation law** (the `⇒` direction of T28, in general form). -/
 theorem IsInv.sexticAct {J : (Fin 7 → K) → K} {n : ℕ} (hJ : IsInv J n) (f : Fin 7 → K)
@@ -1057,7 +1069,10 @@ theorem igusaClebschSeparation_iff : IgusaClebschSeparation ↔ IgusaSeparationE
     refine ⟨igusa_forward f g, ?_⟩
     rintro ⟨r, hr, h2, h4, h6, h10⟩
     obtain ⟨s, hs⟩ := IsAlgClosed.exists_pow_nat_eq r⁻¹ (by norm_num : 0 < 2)
-    have hs0 : s ≠ 0 := by rintro rfl; simp at hs; exact hr (inv_eq_zero.mp hs.symm)
+    have hs0 : s ≠ 0 := by
+      rintro rfl
+      have h0 : r⁻¹ = 0 := by rw [← hs]; ring
+      exact hr (inv_eq_zero.mp h0)
     set g' : Fin 7 → L := fun i => s * g i with hg'
     have hsr : s ^ 2 * r = 1 := by rw [hs]; field_simp
     have k2 : J2 g' = J2 f := by
