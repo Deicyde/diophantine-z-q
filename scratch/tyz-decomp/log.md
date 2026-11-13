@@ -41,3 +41,5 @@
   Thm 3.5(1) mis-cite; Lemma 3.16 "field" overclaim; conditional non-vacuity; rank >= 3; omegaInt
   integrability only in prose; caveats in §0 table). 1-7, 9 fixed (Thm35ReadingA' renamed
   Thm35ReadingD); TYZDecomp.lean recompiled OK.
+- 08:00 review finding 8 fixed: TYZDecomp.lean now proves omegaInt_integrable (IntegrableOn of
+  1/sqrt(x^3-x) on Ioi 1) and omegaInt_pos (0 < omegaInt); recompiled OK, standard axioms.

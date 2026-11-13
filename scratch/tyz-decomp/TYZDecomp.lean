@@ -1,5 +1,7 @@
 import ZInQKernel.Contrib.PSide.TYZInputsIff
 import ZInQKernel.Contrib.HeckeAll.Provider
+import Mathlib.Analysis.SpecialFunctions.ImproperIntegrals
+import Mathlib.Analysis.SpecialFunctions.Integrability.Basic
 
 /-!
 # tyz-decomp: `TYZThm35ReadingA` as literature leaves plus glue
@@ -121,6 +123,101 @@ def omegaInt : ℝ := ∫ x in Set.Ioi (1 : ℝ), 1 / Real.sqrt (x ^ 3 - x)
 /-- TYZ's period `Ω_m = Ω_{m,∞} = (2/√m) ∫₁^∞ dx/√(x³ − x)` of `E_m : my² = x³ − x`
 (TYZ L338–353, as transcribed in `scratch/rv-tyz-inputs/tyzcalc.py`; not re-read here). -/
 def omegaTYZ (m : ℕ) : ℝ := 2 / Real.sqrt m * omegaInt
+
+/-! The integrand of `omegaInt` is integrable and the integral is positive, so `omegaInt` is not
+the junk value `0` (review finding 8). -/
+
+namespace OmegaInt
+
+open MeasureTheory Set
+
+/-- The integrand. -/
+noncomputable def f (x : ℝ) : ℝ := 1 / Real.sqrt (x ^ 3 - x)
+
+theorem f_measurable : Measurable f := by
+  unfold f
+  fun_prop
+
+/-- On `(1, 2]`: `f x ≤ (x − 1)^(−1/2)`, since `x³ − x = (x − 1)x(x + 1) ≥ x − 1`. -/
+theorem f_le_near {x : ℝ} (hx : 1 < x) : f x ≤ (x - 1) ^ (-(1 / 2 : ℝ)) := by
+  have h1 : 0 < x - 1 := by linarith
+  have h2 : x - 1 ≤ x ^ 3 - x := by
+    have : 0 < (x - 1) * (x ^ 2 + x - 1) := mul_pos h1 (by nlinarith)
+    nlinarith
+  rw [Real.rpow_neg h1.le, ← Real.sqrt_eq_rpow, f, one_div]
+  exact inv_anti₀ (Real.sqrt_pos.mpr h1) (Real.sqrt_le_sqrt h2)
+
+/-- On `(2, ∞)`: `f x ≤ √2 · x^(−3/2)`, since `x³ − x ≥ x³/2`. -/
+theorem f_le_far {x : ℝ} (hx : 2 < x) : f x ≤ Real.sqrt 2 * x ^ (-(3 / 2 : ℝ)) := by
+  have hx0 : 0 < x := by linarith
+  have h2 : x ^ 3 / 2 ≤ x ^ 3 - x := by
+    have : 0 < x * (x ^ 2 - 2) := mul_pos hx0 (by nlinarith)
+    nlinarith
+  have h3 : 0 < x ^ 3 / 2 := by positivity
+  have hs : Real.sqrt (x ^ 3 / 2) = x ^ (3 / 2 : ℝ) / Real.sqrt 2 := by
+    rw [Real.sqrt_div' _ (by norm_num : (0:ℝ) ≤ 2), Real.sqrt_eq_rpow, ← Real.rpow_natCast,
+      ← Real.rpow_mul hx0.le]
+    norm_num
+  calc f x ≤ 1 / Real.sqrt (x ^ 3 / 2) := by
+        rw [f]
+        exact one_div_le_one_div_of_le (Real.sqrt_pos.mpr h3) (Real.sqrt_le_sqrt h2)
+    _ = Real.sqrt 2 * x ^ (-(3 / 2 : ℝ)) := by
+        rw [hs, Real.rpow_neg hx0.le]
+        field_simp
+
+theorem f_nonneg (x : ℝ) : 0 ≤ f x := by
+  unfold f
+  positivity
+
+/-- **The integrand is integrable on `(1, ∞)`.** -/
+theorem integrableOn_f : IntegrableOn f (Ioi 1) := by
+  have hsplit : Ioi (1 : ℝ) = Ioc 1 2 ∪ Ioi 2 := (Ioc_union_Ioi_eq_Ioi (by norm_num)).symm
+  rw [hsplit]
+  refine IntegrableOn.union ?_ ?_
+  · have hg : IntegrableOn (fun x : ℝ => (x - 1) ^ (-(1 / 2 : ℝ))) (Ioc 1 2) := by
+      have := (intervalIntegral.intervalIntegrable_rpow' (a := 0) (b := 1) (r := -(1 / 2 : ℝ))
+        (by norm_num)).comp_sub_right 1
+      rw [intervalIntegrable_iff_integrableOn_Ioc_of_le (by norm_num)] at this
+      norm_num at this
+      exact this
+    refine hg.mono' f_measurable.aestronglyMeasurable ?_
+    refine (ae_restrict_iff' measurableSet_Ioc).mpr (Filter.Eventually.of_forall fun x hx => ?_)
+    rw [Real.norm_eq_abs, abs_of_nonneg (f_nonneg x)]
+    exact f_le_near hx.1
+  · have hg : IntegrableOn (fun x : ℝ => Real.sqrt 2 * x ^ (-(3 / 2 : ℝ))) (Ioi 2) :=
+      (integrableOn_Ioi_rpow_of_lt (by norm_num) (by norm_num)).const_mul _
+    refine hg.mono' f_measurable.aestronglyMeasurable ?_
+    refine (ae_restrict_iff' measurableSet_Ioi).mpr (Filter.Eventually.of_forall fun x hx => ?_)
+    rw [Real.norm_eq_abs, abs_of_nonneg (f_nonneg x)]
+    exact f_le_far hx
+
+/-- **The period integral is positive** (in particular not the junk value `0`). -/
+theorem integral_f_pos : 0 < ∫ x in Ioi (1 : ℝ), f x := by
+  rw [setIntegral_pos_iff_support_of_nonneg_ae
+    (Filter.Eventually.of_forall fun x => f_nonneg x) integrableOn_f]
+  have hsub : Ioi (1 : ℝ) ⊆ Function.support f ∩ Ioi 1 := by
+    intro x hx
+    refine ⟨?_, hx⟩
+    have h : 0 < x ^ 3 - x := by
+      have h1 : (1 : ℝ) < x := hx
+      have := mul_pos (mul_pos (by linarith : (0:ℝ) < x) (by linarith : (0:ℝ) < x - 1))
+        (by linarith : (0:ℝ) < x + 1)
+      nlinarith
+    show f x ≠ 0
+    unfold f
+    exact (one_div_pos.mpr (Real.sqrt_pos.mpr h)).ne'
+  calc (0 : ENNReal) < volume (Ioi (1 : ℝ)) := by simp
+    _ ≤ volume (Function.support f ∩ Ioi 1) := measure_mono hsub
+
+end OmegaInt
+
+/-- **`omegaInt` is a genuine (positive) integral.** -/
+theorem omegaInt_pos : 0 < omegaInt := OmegaInt.integral_f_pos
+
+/-- The integrand of `omegaInt` is integrable on `(1, ∞)`. -/
+theorem omegaInt_integrable :
+    MeasureTheory.IntegrableOn (fun x : ℝ => 1 / Real.sqrt (x ^ 3 - x)) (Set.Ioi 1) :=
+  OmegaInt.integrableOn_f
 
 open Classical in
 /-- `L(C_m, 1)`: the value at `s = 1` of the entire continuation of Mathlib's `L(C_m, s)`
@@ -316,6 +413,8 @@ end ZInQ.Contrib.TYZDecomp
 /-! ### Axiom audit -/
 #print axioms ZInQ.Contrib.TYZDecomp.readingA_iff
 #print axioms ZInQ.Contrib.TYZDecomp.not_reading_of
+#print axioms ZInQ.Contrib.TYZDecomp.omegaInt_pos
+#print axioms ZInQ.Contrib.TYZDecomp.omegaInt_integrable
 #print axioms ZInQ.Contrib.TYZDecomp.lValOne_eq
 #print axioms ZInQ.Contrib.TYZDecomp.isTYZLcal_lcalChoice
 #print axioms ZInQ.Contrib.TYZDecomp.lemma29Mod2_of_thm11Mod2

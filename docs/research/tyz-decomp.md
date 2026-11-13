@@ -77,6 +77,10 @@ theorem not_reading_of {S51 : ℕ → ZMod 2} {n : ℕ} (hn : n % 8 = 5) (hsq : 
     {F : ℂ → ℂ} (hF : IsLContinuation (curveC n) F) (h2 : 2 ≤ analyticOrderAt F 1)
     (hb : T5bCl n = 0) (hS : S51 n = 1) : ¬ Thm35Reading S51
 
+theorem omegaInt_pos : 0 < omegaInt
+theorem omegaInt_integrable :
+    MeasureTheory.IntegrableOn (fun x : ℝ => 1 / Real.sqrt (x ^ 3 - x)) (Set.Ioi 1)
+
 theorem lValOne_eq {m : ℕ} {F : ℂ → ℂ} (hF : IsLContinuation (curveC m) F) : lValOne m = F 1
 
 theorem isTYZLcal_lcalChoice (h11 : TYZThm11Integral) (h1 : TYZLcalOne) :
@@ -120,6 +124,8 @@ def iHom : PtA →+ PtA := AddMonoidHom.mk' iPt iPt_add
 ```
 'ZInQ.Contrib.TYZDecomp.readingA_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.not_reading_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.omegaInt_pos' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.omegaInt_integrable' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.lValOne_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.isTYZLcal_lcalChoice' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.lemma29Mod2_of_thm11Mod2' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -232,7 +238,8 @@ def IsTYZLcal (ℓ : ℕ → ℤ) : Prop :=
 
 `curveC n = shortCurve (−n²)`. Pinning: the continuation exists (`heckeContinuation`) and is unique
 (`IsLContinuation.eq`), so `lValOne m` is `L(C_m, 1)` (`lValOne_eq`); `omegaInt` is the Bochner integral
-of an integrable function (`x^{−1/2}`-singularity at 1, `x^{−3/2}` decay), `= Γ(1/4)²/(2√(2π)) ≈ 2.622`.
+of an integrable function (`omegaInt_integrable`, proved), positive (`omegaInt_pos`), and equal to
+`Γ(1/4)²/(2√(2π)) ≈ 2.622` (classical; not proved here).
 The normalization `𝓛(m)² = L(E_m, 1)/(2^{2k(m)−3}Ω_m)` (TYZ's `2^{2k−2−a}`, `a = 1` for odd `m`;
 `Ω_m = (2/√m)∫₁^∞`) is TYZ L338–353 as transcribed in `scratch/rv-tyz-inputs/tyzcalc.py`; rv-tyz-inputs
 VERIFIED by PARI that it gives integer squares on about 200 values and that Lemma 2.9 mod 2 and
@@ -389,7 +396,8 @@ Further points checked:
   continuation this is `ord ≥ 2`, and then `𝓛(n) = 0` by definition. The converse direction (needed only
   for the existence of a pinned `ℓ`, where we choose `ℓ`) holds by construction.
 * *Junk values.* `lValOne` has a junk branch (no continuation), unreachable by `heckeContinuation`;
-  `omegaInt` would be junk `0` if the integrand were not integrable, but it is integrable; `Real.sqrt` is
+  `omegaInt` would be junk `0` if the integrand were not integrable; it is (`omegaInt_integrable`,
+  `omegaInt_pos`, proved); `Real.sqrt` is
   applied to `x³ − x > 0` on `(1, ∞)` and to `m ≥ 1`. `ℓ` at non-squarefree arguments is unconstrained and
   never read.
 * *Sign choices and `ε`.* A global sign change `ℓ(d₁) ↦ −ℓ(d₁)` and `ε(d₀, d₁) ↦ −ε(d₀, d₁)` keeps the
@@ -416,7 +424,7 @@ normalization error would break `TYZLcalOne` and a `k`-dependent one integrality
 | 5 | Lemma 3.16 called "a field of the package" | fixed: "an input to the justification of `β_τ`, `tors_mem_range`" |
 | 6 | non-vacuity of the universal leaves is conditional on `TYZThm11Integral`, `TYZLcalOne` | fixed in §4.1 and the table |
 | 7 | "`rank = 3`" in a docstring where only `≥ 3` is proved by the Kummer images | fixed |
-| 8 | the integrability of the `omegaInt` integrand is argued in prose only | see §5.2 |
+| 8 | the integrability of the `omegaInt` integrand is argued in prose only | fixed: `omegaInt_integrable`, `omegaInt_pos` proved (bounds `(x−1)^{−1/2}` on `(1, 2]`, `√2·x^{−3/2}` on `(2, ∞)`) |
 | 9 | the §0 table should point the package's "refereed" entry to caveats 3–4 | fixed |
 
 ## 6. Recommended citation and next steps
