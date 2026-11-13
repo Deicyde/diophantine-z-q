@@ -12,6 +12,7 @@
 #  part_obj.lean +
 #  scratch/g0-assemble/parts/87_afterg7.lean L27-123 verbatim (ModelG3G6, LocalRamWild, G15RamWild,
 #    g15RamG_of_wild, LinkedTateData), with ModField's file-level `open`s re-issued inside +
+#  part_ltcopy.lean (linked-tate's RhoRamWild, LinkedTateCore, LinkedTateCoreDR at dae5b706) +
 #  part_link.lean.
 cd "$(dirname "$0")"
 {
@@ -60,5 +61,6 @@ cd "$(dirname "$0")"
   sed -n '27,123p' ../g0-assemble/parts/87_afterg7.lean
   echo "end HSyn.G0AssembleMod"
   echo "end G0AssembleAfterG7Sec"
+  cat part_ltcopy.lean
   cat part_link.lean
 } > G8Object.lean

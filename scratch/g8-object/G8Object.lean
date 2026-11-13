@@ -5990,6 +5990,119 @@ def LinkedTateData : Prop :=
 end HSyn.G0AssembleMod
 end G0AssembleAfterG7Sec
 
+/-! Copied verbatim from linked-tate's `scratch/linked-tate/parts/95_linked.lean` at its commit
+dae5b706 (saved as `scratch/g8-object/lt_95_dae5b706.lean`): L218-228 (`RhoRamWild`), L266-309
+(`LinkedTateCore`), L327-361 (`LinkedTateCoreDR`), in their namespace, with ModField's file-level
+opens re-issued (active in their flat file). -/
+section LinkedTateCopy
+
+noncomputable section
+
+namespace HSyn.LinkedTate
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open G0ModField
+
+/-- **Glazer's wild-ramification clauses (i)-(ii) for an operator family `ρ` on `V`** (the form of
+`LocalRamWild` on the descended `ρ_ℓ = β_ℓ⁻¹ a_ℓ Tm_ℓ` instead of on G8's `r_ℓ`; N5 L819-852,
+D1-D4): for `p ≤ D` the absolute upper ramification groups `G_{ℚ_p}^t`, `t > U₀`, act trivially
+through `decomp p`; for `p > D` wild inertia does. -/
+def RhoRamWild (p : ℕ) (hp : p.Prime) {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*} [AddCommGroup V]
+    [Module (PadicAlgCl ℓ) V] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) V) : Prop :=
+  letI : Fact p.Prime := ⟨hp⟩
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
+      ∀ t : ℝ, G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs p t, ρ (PkgI4.decomp p σ) = 1) ∧
+    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp p)),
+      ρ (PkgI4.decomp p σ) = 1)
+
+/-- **Glue: linked Tate data on G7's model, at the level of the descended operators**
+(linked-tate; the content of g0-assemble's `LinkedTateData` minus what is proved here). For every
+fibre context and G7 data: one pair of scalar functions `a, β : G_ℚ → ℚ̄` and embeddings
+`j₅ : ℚ̄ → ℚ̄₅`, `j₃ : ℚ̄ → ℚ̄₃` (N5 L719-722: the scalars `a_σ = deg(μ_σ)^{-1/4}`, `β_σ` lie in one
+number field and are mapped to `ℚ̄_ℓ` by embeddings), and operator data at `ℓ = 5` and `ℓ = 3`
+with
+* g0-mod-galois' `G7Out` at each `ℓ` for the scalars `j_ℓ ∘ a`, `j_ℓ ∘ β` (the Tate functor applied
+  to one family `m_σ = μ_σ ∘ σ`; g0-mod-field's `TateBridge`, which unram-tate proved for each `ℓ`
+  separately from I3.M0, plus `dim A_{L'} = 2` and `rank_ℤ End(A_{L'}) = 4`);
+* g14-trace's `FrobTraceLink` for the two operator families (N5 L777-786: reduction at a
+  Frobenius, the relative Frobenius composed with `μ̄_τ`);
+* Glazer's wild-ramification clauses (i)-(ii) for the descended operators `ρ₅` at `p ≠ 5` and
+  `ρ₃` at `p = 5` (`RhoRamWild`; N5 L819-852, D1-D4).
+GLUE. -/
+def LinkedTateCore : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (a b : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅
+        (fun g => j5 (a g)) (fun g => j5 (b g)) u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃
+        (fun g => j3 (a g)) (fun g => j3 (b g)) u₃ ∧
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm₅ Tm₃ ∧
+      ∀ p : ℕ, ∀ hp : p.Prime,
+        (p ≠ 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₅ (fun g => j5 (a g)) (fun g => j5 (b g)))) ∧
+        (p = 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
+
+/-- **Glue: `LinkedTateCore` given `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`** (linked-tate; the
+same conclusion as `LinkedTateCore`, under the two hypotheses that g0-mod-field's `TateBridge`
+also assumes). GLUE. -/
+def LinkedTateCoreDR : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (a b : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅
+        (fun g => j5 (a g)) (fun g => j5 (b g)) u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃
+        (fun g => j3 (a g)) (fun g => j3 (b g)) u₃ ∧
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm₅ Tm₃ ∧
+      ∀ p : ℕ, ∀ hp : p.Prime,
+        (p ≠ 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₅ (fun g => j5 (a g)) (fun g => j5 (b g)))) ∧
+        (p = 5 → RhoRamWild p hp
+          (GlueDescent.rho Tm₃ (fun g => j3 (a g)) (fun g => j3 (b g))))
+
+end HSyn.LinkedTate
+
+end
+
+end LinkedTateCopy
+
 /-! ## g8-object, part 2: the full G12-G16 interface on the object; the restated `GluePieces2`
 field (`LinkedTateObj`) checked against g0-assemble's `LinkedTateData`
 
@@ -6148,16 +6261,6 @@ theorem localDataG_of_C {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*} [AddCommGroup V
   · obtain ⟨F, hF, he, hw, hb⟩ := h.2 hpD
     exact ⟨F, hF, he, hw, fun σ hσ => eq_one_of_C hι j (hb σ hσ)⟩
 
-/-- Clauses (i)-(ii) of `LocalRamG` on the descended operator family itself (linked-tate's
-`RhoRamWild`, same text; there in namespace `HSyn.LinkedTate`). -/
-def RhoRamWild (p : ℕ) (hp : p.Prime) {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*} [AddCommGroup V]
-    [Module (PadicAlgCl ℓ) V] (ρ : PkgI4.GQ → Module.End (PadicAlgCl ℓ) V) : Prop :=
-  letI : Fact p.Prime := ⟨hp⟩
-  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) →
-      ∀ t : ℝ, G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs p t, ρ (PkgI4.decomp p σ) = 1) ∧
-    ((ZInQ.heightD : ℝ) < p → ∀ σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp p)),
-      ρ (PkgI4.decomp p σ) = 1)
-
 /-- **`LocalDataG` on the data implies the wild clauses for `ρ = β⁻¹ a Tm` (proved, with
 g15-ram's local-field theorems).** For `p ≤ D`, `σ ∈ G_{ℚ_p}^t` with `t > U₀` fixes `F`
 (`UpperBreakFix`, from T20/T21) and is wild (`upperWild`), so `a = Tm = 1` (`TmWild`) and
@@ -6167,7 +6270,7 @@ ramification theory is proved). -/
 theorem rhoRamWild_of_localDataG (p : ℕ) (hp : p.Prime) {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*}
     [AddCommGroup V] [Module (PadicAlgCl ℓ) V] {Tm : GQ → Module.End (PadicAlgCl ℓ) V}
     {a β : GQ → PadicAlgCl ℓ} (h : @LocalDataG p ⟨hp⟩ ℓ _ V _ _ Tm a β) :
-    RhoRamWild p hp (GlueDescent.rho Tm a β) := by
+    HSyn.LinkedTate.RhoRamWild p hp (GlueDescent.rho Tm a β) := by
   letI : Fact p.Prime := ⟨hp⟩
   have hUB : G15Ram.UpperBreakFix p := G15Ram.upperBreakFix_of_hilbertSerre
     (G15Ram.hilbertSerre_of_model (G15Ram.ladicDVRModel_of_Zp G15Ram.ladicDVRModelZp))
@@ -6197,11 +6300,39 @@ theorem toHom_eq_one_of_rho {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*} [AddCommGro
 theorem localRamWild_of_rhoRamWild (p : ℕ) (hp : p.Prime) {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*}
     [AddCommGroup V] [Module (PadicAlgCl ℓ) V] {ρ : GQ → Module.End (PadicAlgCl ℓ) V}
     {r : GaloisRep ℓ 2} {e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)}
-    (h : G0Galois.Intertwines ρ r.mat e) (hR : RhoRamWild p hp ρ) :
+    (h : G0Galois.Intertwines ρ r.mat e) (hR : HSyn.LinkedTate.RhoRamWild p hp ρ) :
     @HSyn.G0AssembleMod.LocalRamWild p ⟨hp⟩ ℓ _ r := by
   letI : Fact p.Prime := ⟨hp⟩
   exact ⟨fun hp' t ht σ hσ => toHom_eq_one_of_rho h (hR.1 hp' t ht σ hσ),
     fun hp' σ hσ => toHom_eq_one_of_rho h (hR.2 hp' σ hσ)⟩
+
+/-- `e(ℚ_p/ℚ_p) = 1` (the argument of g15-ram's `localData_trivRep`). -/
+theorem ramCard_bot_zero : ramCard (⊥ : Fld p) 0 = 1 := by
+  have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
+  have h1 := G15Ram.one_le_ramCard hF 0
+  have h2 : ramCard (⊥ : Fld p) 0 ≤ 1 := by
+    unfold ramCard
+    have hfin := (finite_restr hF (ramSet (⊥ : Fld p) 0)).to_subtype
+    refine Finite.card_le_one_iff_subsingleton.mpr ⟨fun a b => ?_⟩
+    apply Subtype.ext
+    obtain ⟨σ, -, hσ⟩ := a.2
+    obtain ⟨τ, -, hτ⟩ := b.2
+    rw [← hσ, ← hτ]
+    funext x
+    obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp x.2
+    simp only [restr, ← hq, AlgEquiv.commutes]
+  omega
+
+/-- **Non-vacuity (proved).** `LocalDataG` holds for the trivial data `Tm = 1`, `a = β = 1` (with
+`F = ℚ_p`), so the restated hypotheses are consistent. -/
+theorem localDataG_triv {ℓ : ℕ} [Fact ℓ.Prime] (V : Type*) [AddCommGroup V]
+    [Module (PadicAlgCl ℓ) V] :
+    LocalDataG p (fun _ => (1 : Module.End (PadicAlgCl ℓ) V)) (fun _ => 1) (fun _ => 1) := by
+  have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
+  refine ⟨fun _ => ⟨⊥, hF, ?_, fun _ _ => ⟨rfl, rfl⟩, fun _ _ _ _ => rfl⟩,
+    fun _ => ⟨⊥, hF, ?_, fun _ _ => ⟨rfl, rfl⟩, fun _ _ => rfl⟩⟩
+  · rw [ramCard_bot_zero]; exact Nat.one_le_iff_ne_zero.mpr (Nat.factorial_ne_zero _)
+  · rw [ramCard_bot_zero]; exact (Nat.Prime.one_lt Fact.out).ne' ∘ Nat.dvd_one.mp
 
 end Restated
 
@@ -6278,6 +6409,113 @@ theorem linkedTateData_of_obj (hM : PkgI3.CharPolyIndepOfEll) (hO : LinkedTateOb
       exact localRamWild_of_rhoRamWild 5 hp he3
         (rhoRamWild_of_localDataG 5 hp (localDataG_of_C hι j3 hl3))
 
+/-- **linked-tate's `LinkedTateCore` from the restated field (GLUE, proved).** The existential data
+are the same; `RhoRamWild` (linked-tate's wild clauses on `ρ_ℓ`, the conclusion form) follows from
+`LocalDataC` by `rhoRamWild_of_localDataG`. So `LinkedTateObj` is the smaller Prop: g15-ram's
+local-field theorems (T20, T21, `upperWild`, `wildFixTame`) are proved, and what remains is
+`TmWild` on G7's operators and the `β`-clauses on G7Data's own `β`. -/
+theorem linkedTateCore_of_obj (hO : LinkedTateObj) : HSyn.LinkedTate.LinkedTateCore := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
+  letI : NumberField L' := numberField_of_fd L'
+  obtain ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, ⟨ιC0, hι⟩, hl5, hl3⟩ :=
+    hO Y Φ π u P hctx L A ε N χ β L' hLL' hdata
+  refine ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, fun p hp => ⟨fun hp5 => ?_,
+    fun hp5 => ?_⟩⟩
+  · exact rhoRamWild_of_localDataG p hp
+      (@localDataG_of_C p ⟨hp⟩ 5 _ _ _ _ _ _ _ _ _ hι j5 (hl5 p hp hp5))
+  · subst hp5
+    exact rhoRamWild_of_localDataG 5 hp (localDataG_of_C hι j3 hl3)
+
+/-- **The restated field under `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`** (the form matching
+linked-tate's `LinkedTateCoreDR` and g14-trace's `TateBridge35`, which take these two hypotheses;
+linked-tate proves `LinkedTateCore` from the `DR` form, `FibreSimple` and `QMEndRank`). GLUE. -/
+def LinkedTateObjDR : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+    Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+    letI : NumberField L' := numberField_of_fd L'
+    ∃ (aQ βQ : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm₅ : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c₅ ε₅ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u₅ : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm₃ : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c₃ ε₃ : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u₃ : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (G0Galois.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 Tm₅ c₅ ε₅
+        (fun g => j5 (aQ g)) (fun g => j5 (βQ g)) u₅ ∧
+      G0Galois.G7Out (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 Tm₃ c₃ ε₃
+        (fun g => j3 (aQ g)) (fun g => j3 (βQ g)) u₃ ∧
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm₅ Tm₃ ∧
+      (∃ ιC : PkgI4.Qbar →ₐ[ℚ] ℂ, ∀ g, ιC (βQ g) = (β g : ℂ)) ∧
+      (∀ (p : ℕ) (hp : p.Prime), p ≠ 5 →
+        @LocalDataC p ⟨hp⟩ 5 _ _ _ _ Tm₅ (fun g => j5 (aQ g)) β) ∧
+      LocalDataC 5 Tm₃ (fun g => j3 (aQ g)) β
+
+/-- **linked-tate's `LinkedTateCoreDR` from `LinkedTateObjDR` (GLUE, proved).** -/
+theorem linkedTateCoreDR_of_objDR (hO : LinkedTateObjDR) : HSyn.LinkedTate.LinkedTateCoreDR := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata hdim hrk
+  letI : NumberField L' := numberField_of_fd L'
+  obtain ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, ⟨ιC0, hι⟩, hl5, hl3⟩ :=
+    hO Y Φ π u P hctx L A ε N χ β L' hLL' hdata hdim hrk
+  refine ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, fun p hp => ⟨fun hp5 => ?_,
+    fun hp5 => ?_⟩⟩
+  · exact rhoRamWild_of_localDataG p hp
+      (@localDataG_of_C p ⟨hp⟩ 5 _ _ _ _ _ _ _ _ _ hι j5 (hl5 p hp hp5))
+  · subst hp5
+    exact rhoRamWild_of_localDataG 5 hp (localDataG_of_C hι j3 hl3)
+
+/-- **`LinkedTateObjDR` contains g14-trace's `TateBridge35` conclusion (proved).** On a fibre
+context, the existential data of `LinkedTateObjDR` (dropping the two `LocalDataC` clauses) are a
+witness for `TateBridge35`'s conclusion, stated over g0-mod-field's copies `GaloisCopy.G7Out` and
+`G14Bridge.FrobTraceLink` (accepted by definitional unfolding of the verbatim copies). So
+`LinkedTateObjDR` = `TateBridge35` (on fibre contexts) + G15's local data. -/
+theorem tateBridge35_of_objDR (hO : LinkedTateObjDR)
+    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar) (hctx : FibreCtx Y Φ π u P)
+    (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N]
+    (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
+    (hD : G7Data u P L A ε N χ β L' hLL')
+    (hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2)
+    (hrk : Module.finrank ℤ
+      (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4) :
+    ∃ (aQ βQ : PkgI4.GQ → PkgI4.Qbar) (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5)
+      (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3)
+      (Tm5 : PkgI4.GQ → Module.End (PadicAlgCl 5)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (c5 ε5 : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 5)
+      (u5 : GlueDescent.MatrixUnits2 (PadicAlgCl 5)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+      (Tm3 : PkgI4.GQ → Module.End (PadicAlgCl 3)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3))
+      (c3 ε3 : PkgI4.GQ → PkgI4.GQ → PadicAlgCl 3)
+      (u3 : GlueDescent.MatrixUnits2 (PadicAlgCl 3)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5 _ Tm5 c5 ε5
+        (fun g => j5 (aQ g)) (fun g => j5 (βQ g)) u5 ∧
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3 _ Tm3 c3 ε3
+        (fun g => j3 (aQ g)) (fun g => j3 (βQ g)) u3 ∧
+      @G14Bridge.FrobTraceLink L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm5 Tm3 ∧
+      ∃ ιC : PkgI4.Qbar →ₐ[ℚ] ℂ, ∀ g, ιC (βQ g) = (β g : ℂ) := by
+  obtain ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, hι, -, -⟩ :=
+    hO Y Φ π u P hctx L A ε N χ β L' hLL' hD hdim hrk
+  exact ⟨aQ, βQ, j5, j3, Tm₅, c₅, ε₅, u₅, Tm₃, c₃, ε₃, u₃, h75, h73, hF, hι⟩
+
+
 end Field
 
 end G8Object
@@ -6291,3 +6529,7 @@ end
 #print axioms G8Object.rhoRamWild_of_localDataG
 #print axioms G8Object.localRamWild_of_rhoRamWild
 #print axioms G8Object.linkedTateData_of_obj
+#print axioms G8Object.linkedTateCore_of_obj
+#print axioms G8Object.linkedTateCoreDR_of_objDR
+#print axioms G8Object.tateBridge35_of_objDR
+#print axioms G8Object.localDataG_triv

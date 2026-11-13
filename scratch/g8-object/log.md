@@ -41,3 +41,17 @@
 - Compile (VERIFIED): `lake env lean scratch/g8-object/G8Object.lean` exit 0, 0 errors, no
   sorry, 1m29s; all 45 `#print axioms` reports = [propext, Classical.choice, Quot.sound]
   (`scratch/g8-object/obj.out`).
+
+## Step 3 (07:00-07:05 PST): comparison with linked-tate and g14-trace; non-vacuity
+- `part_ltcopy.lean`: verbatim copy of linked-tate's `RhoRamWild`, `LinkedTateCore`,
+  `LinkedTateCoreDR` from its commit dae5b706 (`git show`; saved as `lt_95_dae5b706.lean`),
+  L218-228, L266-309, L327-361, namespace `HSyn.LinkedTate`, ModField's opens re-issued. My own
+  `RhoRamWild` copy removed; part_link uses `HSyn.LinkedTate.RhoRamWild`.
+- New: `linkedTateCore_of_obj : LinkedTateObj → HSyn.LinkedTate.LinkedTateCore`,
+  `LinkedTateObjDR` (with `dim = 2`, `rank End = 4` hypotheses),
+  `linkedTateCoreDR_of_objDR : LinkedTateObjDR → LinkedTateCoreDR`,
+  `tateBridge35_of_objDR` (on a fibre context, `LinkedTateObjDR`'s data witness g14-trace's
+  `TateBridge35` conclusion over `GaloisCopy.G7Out`, `G14Bridge.FrobTraceLink`; the verbatim
+  copies are accepted by unfolding), `ramCard_bot_zero`, `localDataG_triv` (non-vacuity).
+- Compile (VERIFIED): `G8Object.lean` exit 0, 0 errors, 0 sorry, 2m03s; 49 axiom reports, all
+  [propext, Classical.choice, Quot.sound].
