@@ -46,3 +46,8 @@
   `sixContactMin_of_leaves3`, `afterG7_of_final`, `goodRedG3Bridge_of_torsion`: standard axioms.
 - Flat file (44818 lines: all g0-assemble parts, 92-99 with GluePieces3 using goodRedTorsion and linkedRam):
   VERIFIED exit 0 in 590 s, 0 errors, no sorry, 217 axiom reports all standard, incl. `HSyn.sixContactMin_of_leaves3`.
+- Part 98b: `UnramTate.tmOf_resQ` (proved), glue `KernelFieldBreaks`, `LocalInertiaGlobal`, `UpperAbsInertia`,
+  `TateRamAtThree`, `tate_trivial_of_g3`, `linkedRam_of (QMModelG3) (KernelFieldBreaks) (LocalInertiaGlobal)
+  (UpperAbsInertia) (TateRamAtThree) : LinkedRam`. Run 1: a `rw` failed on an unreduced beta-redex (`gam (h*g*h⁻¹)`);
+  fixed with `show`. Run 2: VERIFIED 0 errors, no sorry; `linkedRam_of`, `sixContactMin_of_leaves3` standard axioms.
+  GluePieces3 now has 32 fields (field `linkedRam` replaced by the four Props).

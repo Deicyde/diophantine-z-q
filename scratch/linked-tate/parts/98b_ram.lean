@@ -152,7 +152,10 @@ theorem linkedRam_of (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
     have ht' : GaloisCopy.tate (@PkgI3.AbVar.baseChange L _
         (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')) ℓ σ'' = 1 :=
       ht σ'' rfl
-    rw [ht', hgam1 _ hcj, map_one, inv_one, _root_.one_mul, one_smul]
+    have hγ : gam (h * (@GaloisCopy.resQ L' _ hNF σ'') * h⁻¹) = 1 := hgam1 _ hcj
+    rw [ht']
+    show ((j (gam (h * (@GaloisCopy.resQ L' _ hNF σ'') * h⁻¹)))⁻¹ * j 1) • (1 : Module.End _ _) = 1
+    rw [hγ, map_one, inv_one, _root_.one_mul, one_smul]
   intro p hp
   haveI : Fact p.Prime := ⟨hp⟩
   have hG5 := hG3 K L L' hKL hLL' PK 5
