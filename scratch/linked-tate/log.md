@@ -44,3 +44,5 @@
   linkedFrob, linkedRam), `gluePieces2_of_gluePieces3`, `sixContactMin_of_leaves3 r t gp3 : ZInQ.SixContactMin`.
   Tail run 2 (10212 lines): VERIFIED 0 errors, no sorry; `sixContactMin_of_leaves2`, `gluePieces2_of_gluePieces3`,
   `sixContactMin_of_leaves3`, `afterG7_of_final`, `goodRedG3Bridge_of_torsion`: standard axioms.
+- Flat file (44818 lines: all g0-assemble parts, 92-99 with GluePieces3 using goodRedTorsion and linkedRam):
+  VERIFIED exit 0 in 590 s, 0 errors, no sorry, 217 axiom reports all standard, incl. `HSyn.sixContactMin_of_leaves3`.
