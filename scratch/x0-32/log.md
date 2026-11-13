@@ -69,3 +69,11 @@
   X0CM.lean and X0Pkg.lean (and their audit files); X0.lean, X0Newform.lean unaffected.
 - Note: earlier log headings "08:00–09:40" were my estimates, not the host clock; the host clock read
   07:46 at the time of this entry.
+
+## Final (host clock ~08:10)
+
+- Final state: X0.lean (40 audited declarations, standard axioms), X0Newform.lean (leaf NewformTC32).
+  Both build (`lake build`); cm-points' Package.lean builds on top after merging origin/wip/cm-points.
+- Not attempted further: remaining cusps ±1/4, ±1/8, 1/16 (need η(z+1/2) product identity and the Jacobi
+  triple product; Mathlib has η(z+1) and η(−1/z) only), Γ₀(32)-invariance (needs explicit eta multipliers),
+  rank-zero half of Lemma 3.16 (needs descent + heights / Mordell–Weil, absent from Mathlib).
