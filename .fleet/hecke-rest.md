@@ -21,9 +21,11 @@ is reduced; everything compiles with standard axioms only.
 
   The count `#fibre · s · a = 288` is compiled. The computation (`fibre_sizes.py`) gives sizes
   144/36/24/72.
-- **`HeckeNoVertRam`** is reduced to `HeckeVertWitness` (one unramified vertical prime). Galois
-  transitivity over `ℤ[X]` is compiled. Honest scope: the witness is equivalent to the target, and
-  its content is good reduction of `Y₃` (Morita/Carayol) or Lemma NV.
+- **`HeckeNoVertRam`** is reduced to `HeckeVertWitness` (one unramified vertical prime; Galois
+  transitivity over `ℤ[X]` is compiled), and further to `HeckeVertLocal`. The local-ring form asks
+  for a map from the integral closure to a local ring in which `p ∉ 𝔪²`; the DVR argument for `B_Q`
+  is compiled. Honest scope: both forms are equivalent to the target, and their content is good
+  reduction of `Y₃` (Morita/Carayol) or Lemma NV.
 
 **What compiles** (`lake env lean`, 0 errors):
 

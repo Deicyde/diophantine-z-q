@@ -79,7 +79,7 @@ target statements are verbatim.
 | `CurveChart.lean` | prop-ts prefix + image-plane value calculus + infra-smooth-dim/curve-glue/ts-hecke copies + the targets, then Part 3 (`CurveChartMain`, `InfFnMain`, `PointsMain`, `ProperMain` `.lean.part`) | ~45 s |
 | `HeckeRestAll.lean` | all of `TSHecke.lean` (7109 lines) + the value calculus + all new parts + the composite (`AllMain.lean.part`) | ~50 s |
 
-- All 26 `#print axioms` lines of the new declarations in `HeckeRestAll.lean` read
+- All 29 `#print axioms` lines of the new declarations in `HeckeRestAll.lean` read
   `[propext, Classical.choice, Quot.sound]`.
 - The token `sorry` occurs only in comments.
 - The compiler outputs are in `compile_*.txt`, and the step-by-step record is in `log.md`.
@@ -193,17 +193,28 @@ arithmetic input. Two routes:
   compiled in the kernel), Abhyankar at `(p, X − b)`, and the `W`-quotient. ts-hecke §6 explains
   why branch data alone cannot suffice.
 
-**Suggested next decomposition (not done).** Split the witness into two pieces:
+**Local-ring form (compiled, `vertUnramWitness_of_local`, `heckeNoVertRam_of_local`).**
 
-- a leaf: the smooth proper model of `Y₃` over `ℤ_(p)`;
-- a glue Prop: a DVR `R ⊂ E` with uniformizer `p`, `ℤ[X] ⊆ R`, and `𝔪_R ∩ ℤ[X] = p ℤ[X]`.
+`VertLocalWitness E p` asks for three things:
 
-The step from the DVR to `VertUnramWitness` is commutative algebra that can be proved:
+- a ring map `ψ : B → R` to a local ring;
+- `ψ⁻¹(𝔪_R) = Q`, lying over `p ℤ[X]`;
+- `ψ(p) ∉ 𝔪_R²`.
 
-- `B_Z` is Noetherian and normal (Mathlib: finite integral closure);
-- the contraction of `𝔪_R` to `B_Z` has height 1;
-- `(B_Z)_Q` is a DVR dominated by `R`, hence equal to `R`;
-- so the length of `R/pR` is 1.
+This implies `VertUnramWitness E p`. The proof:
+
+- `B` is Noetherian and normal (Mathlib's finite integral closure);
+- `B_Q` has a unique nonzero prime, by incomparability and `eq_vertPrime`, so it is a DVR (TFAE);
+- `p ∉ 𝔪_{B_Q}²` via the local map `B_Q → R`, so `p` is a uniformizer and `e(Q) = 1`.
+
+`HeckeVertLocal` asks for such a witness for the Hecke cover and every `p > 324`. It still implies
+`HeckeNoVertRam` (`HeckeRestAll.coverModelOfHecke_of_heckeRest'`). It is equivalent in content (take
+`R = B_Q`), but it has the shape of the good-reduction input: `R` is the local ring of a smooth model
+of `Y₃` over `ℤ_(p)` at the generic point of a component of the special fibre, where `p` is a
+uniformizer and `X` has transcendental reduction.
+
+The remaining arithmetic is a leaf (Morita/Carayol: the smooth model) plus the statement that the
+coordinate `j` reduces to a nonconstant function on the special fibre. Neither is formalized here.
 
 ## 4. `CurveNormChart` and `CurveChartInf`: proved (`CurveChartMain`, `InfFnMain`, `PointsMain`, `ProperMain`)
 
@@ -282,7 +293,7 @@ Part 3 (curves) was written after the review. It is fully proved in Lean, so its
 |---|---|---|
 | `QMAutCard`, `SerreRigidity3`, `ALFixedPoints` | **leaves** (new; published theorems on QM abelian surfaces) | §2.2 |
 | `Y3Connected`, `R1R2fp`, `ObjBridge.TorsionStructure` | leaves (existing) | ts-hecke |
-| `HeckeVertWitness` | glue from a leaf (good reduction of `Y₃` at `p ∤ 6`, Morita/Carayol), equivalent to `HeckeNoVertRam` | §3 |
+| `HeckeVertWitness`, or its local-ring form `HeckeVertLocal` | glue from a leaf (good reduction of `Y₃` at `p ∤ 6`, Morita/Carayol); equivalent to `HeckeNoVertRam` | §3 |
 
 Nothing remains on the curve side: `CurveGaloisChart`, `CurveNormChart` and `CurveChartInf` are
 theorems.
