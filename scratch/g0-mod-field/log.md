@@ -94,3 +94,12 @@
   |ker m_σ|` from the first two clauses of `ConjugacyData`). The corresponding clause removed from
   `ConjugacyData`.
 - VERIFIED: 0 errors; axioms standard.
+
+## run29-34 (02:40): ResQRange proved
+- Developed in /tmp (Mathlib only), then merged: `actQ`, `actK`, `resQ_comm'` (`g (resQ σ x) = σ (g x)`
+  for map's embedding `g = IsAlgClosed.lift`, by `AlgEquiv.restrictNormal_commutes` with map's own local
+  instances), `resQ_range` (⊆: `g(L) = image of L` by `AlgHom.fieldRange_of_normal`; ⊇: `g` bijective by
+  `IsAlgClosed.algebraMap_bijective_of_isIntegral`, `σ₀ = g τ g⁻¹` fixes the image of `L`,
+  `AlgEquiv.ofRingEquiv`), `resQRange : ResQRange`.
+- So g0-mod-galois' `G2Out` for `K = L'` follows from `G7Data` alone (`galoisG2Out_of_g7Data resQRange`).
+- VERIFIED: 0 errors; `#print axioms resQRange`: [propext, Classical.choice, Quot.sound].

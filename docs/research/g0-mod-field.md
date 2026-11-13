@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 880 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 940 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
@@ -11,8 +11,8 @@ is proved in Lean, with no `sorry`.** Composed with the next ranges (G8-G16, bun
 `AfterG7`), this gives `ModularConstituent`. VERIFIED: `lake env lean scratch/g0-mod-field/ModField.lean`
 gives 0 errors and no `declaration uses sorry`. `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for `fieldDescent`, `fieldDescentUnr`, `descentDatum_of_conjugacy`, `g7Out_of_g4Out`,
-`g7OutUnr_of_g4Out`, `modularConstituent_of_ranges`, `modularConstituent_of_ranges_T14` and
-`galoisG2Out_of_g7Data`.
+`g7OutUnr_of_g4Out`, `modularConstituent_of_ranges`, `modularConstituent_of_ranges_T14`,
+`galoisG2Out_of_g7Data` and `resQRange`.
 
 ```
 theorem G0ModField.fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
@@ -64,7 +64,8 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
 
 ### What remains (named Props), smallest first (sizes SPECULATIVE)
 
-0. `ResQRange`, `TateBridge`: the bridge to g0-mod-galois' inputs (§3).
+0. `TateBridge`: the bridge to g0-mod-galois' `G7Out` (§3). The other bridge Prop,
+   `ResQRange`, is proved.
 1. `UnramifiedSup`: a compositum of two finite Galois extensions of `ℚ`, both unramified at `p`,
    is unramified at `p`. STANDARD (Neukirch I §8; locator UNVERIFIED), but not in Mathlib v4.35.
    Small to medium.
@@ -82,8 +83,8 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
    needs Weil restriction, Tate modules of `W₀` and Skolem-Noether (T13,
    `GlueDescent.LeafSkolemNoether`, proved by t-skolem-kw per its report).
 4. `AfterG7`: the ranges G8-G16, owned by g0-mod-galois and g0-mod-newform (§3). Connecting
-   them to this range takes two bridge Props, `ResQRange` (Mathlib-level) and `TateBridge`
-   (medium), both stated in Lean (§3).
+   them to this range takes the bridge Prop `TateBridge` (medium; stated in Lean, §3). The
+   bridge `ResQRange` is proved.
 
 ## 2. The descent datum on the actual `A`
 
@@ -159,10 +160,12 @@ are definitional (`abVarEquiv` is `{ X := A.X }` both ways).
 inputs are per `ℓ` over an abstract number field `K` (= `L'`), via `resQ K`:
 * their `G2Out K T` (inertia at `p ∉ T` lies in `G_K`) follows from `G7Data`'s clause
   `GlueB3Unram.GalUnramifiedOutside L' (T u)` (inertia `I_w ≤ G_{L'}`). **Proved in Lean:**
-  `galoisG2Out_of_g7Data`, from `G7Data` and the named Prop `ResQRange`. `ResQRange` says the
-  image of their `resQ L' = Field.absoluteGaloisGroup.map` is `Fix(L')` for finite Galois `L'`. It is
-  true for any choice of embedding of the algebraic closures, because `L'/ℚ` is normal. It is
-  Mathlib-level Galois theory and is not proved here. Their definitions `resQ`, `Vb`, `tate`,
+  `galoisG2Out_of_g7Data resQRange`, from `G7Data` alone. `ResQRange` says the image of their
+  `resQ L' = Field.absoluteGaloisGroup.map` is `Fix(L')` for finite Galois `L'`, whatever embedding
+  of the algebraic closures `map` chooses. It is **proved** (`resQ_range`). The embedding
+  `g : ℚ̄ → \bar L'` maps `L'` onto the image of `L'` by normality
+  (`AlgHom.fieldRange_of_normal`). `g` is bijective because `\bar L'/ℚ` is algebraic. A
+  `τ ∈ Fix(L')` lifts to `g τ g⁻¹ ∈ G_{L'}`. Their definitions `resQ`, `Vb`, `tate`,
   `G2Out` and `G7Out` are copied verbatim into `G0ModField.GaloisCopy` (from wip/g0-mod-galois at
   20fa1287);
 * their `G7Out A ℓ Tm c ε a β u` has the operators `Tm σ` on `ℚ̄_ℓ ⊗ V_ℓ(A_{L'})`, which are the
