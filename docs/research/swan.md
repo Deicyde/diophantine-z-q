@@ -1,68 +1,77 @@
 # swan: the glue Props `SwanIndependent`, `SwanIntegral`, `AdaptedExists`
 
-Task swan, 2026-11-13. Lean: `scratch/swan/Swan.lean` (imports only the kernel module
-`ZInQKernel.HDecomp.Conductor.LadicCond` and Mathlib). Log: `scratch/swan/log.md`. Compiler
-output: `scratch/swan/compile.out`.
+Task swan, 2026-11-13. Lean: `scratch/swan/Swan.lean`, `scratch/swan/Bridge.lean`, and their
+assembly `scratch/swan/All.lean` (`build.sh`). Log: `scratch/swan/log.md`. Compiler output:
+`scratch/swan/compile.out`, `scratch/swan/all_compile.out`.
 
 Markers: **VERIFIED** = compiled or read here. **STANDARD** = published, with a reference.
 **SPECULATIVE** = my judgement. Theorem numbers from memory are **UNVERIFIED** (no network).
 
 ## 1. Result
 
-**`AdaptedExists` is proved outright. `SwanIndependent` and `SwanIntegral` are proved from a single
-leaf, Herbrand's theorem (`Swan.HerbrandUpper`).** No other hypothesis is used. The two other
-reduction steps, the finite-level change of variables (H1) and "the absolute upper groups lie in
-wild inertia" (H2), are proved in Lean, and so is the passage from Herbrand's theorem to the
-surjectivity `G^u → G^u(L/ℚ_p)` (H3).
-
-VERIFIED: `lake env lean scratch/swan/Swan.lean` exits 0, with 0 errors and no `sorry`. The only
-warnings are four deprecation notices for `if_pos`/`if_neg`. `#print axioms` gives
-`[propext, Classical.choice, Quot.sound]` for all ten declarations printed: `adaptedExists`,
-`swanIntegral_of`, `swanIndependent_of`, `swan_all`, `upperAbsSurj_of_herbrand`, `swan_all'`,
-`upperAbsWild`, `swan_final`, `swanAtIntegral`, `swan_main`. A run takes about 40 s.
+**All three Props are proved in Lean, unconditionally:** `SwanIndependent` (every `p`),
+`SwanIntegral` (L8) and `AdaptedExists` (every `p`). The proofs use Mathlib and the kernel modules
+`LadicCond` and `I6Base`. They also use task t-different's proof of the kernel's Herbrand leaf
+I6.8 (`PkgI6.herbrandQuotient`), copied in. There are no hypotheses, and no statement was changed.
 
 ```
-theorem Swan.adaptedExists {p : ℕ} [Fact p.Prime] : LadicCond.AdaptedExists (p := p)
-
-theorem Swan.swan_main (hH : HerbrandUpper) :
-    (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
-      (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+theorem Swan.swanIndependent_proved (p : ℕ) [Fact p.Prime] : LadicCond.SwanIndependent (p := p)
+theorem Swan.swanIntegral_proved : LadicCond.SwanIntegral
+theorem Swan.adaptedExists_proved (p : ℕ) [Fact p.Prime] : LadicCond.AdaptedExists (p := p)
 ```
 
-The conjunction is exactly the three hypotheses `hSw`, `hL8`, `hAd` of
-`G0ModNewform.modularConstituent_tail_G` and `g13_g16_ram` (scratch/g0-mod-newform), and of the
-kernel's `LadicCond.carayolR17_of_R17'` and `carayolR17'_of_R17`. The statements are the kernel's
-own (`LadicCond.*`, used directly as the theorem types). §0 of `Swan.lean` also repeats them
-verbatim and checks the copies equal by `rfl`.
+VERIFIED: `lake env lean scratch/swan/All.lean` exits 0, with 0 errors and no `sorry`, in about
+35 s. The warnings are deprecations and unused-section-variable linters. `#print axioms` gives
+`[propext, Classical.choice, Quot.sound]` for `PkgI6.herbrandQuotient`,
+`SwanBridge.herbrandUpper_of_quotient`, `Swan.swan_main`, `Swan.swan_proved` and the three
+theorems above. The output is in `scratch/swan/all_compile.out`.
 
-### The leaf
+### Files
+
+| file | content | compile |
+|---|---|---|
+| `scratch/swan/Swan.lean` (1020 lines) | §0 verbatim copies (`rfl`-checked); §1-§4 `adaptedExists` (Mathlib only); §5-§8 `swan_main : HerbrandUpper → (all three)`, with H1-H3 proved | exit 0, ~40 s; `scratch/swan/compile.out` |
+| `scratch/swan/Bridge.lean` (~470 lines) | `SwanBridge.herbrandUpper_of_quotient : PkgI6.HerbrandQuotient → HerbrandUpper` (the transport from DVRs to the subfields of `ℚ̄_p`) | exit 0 |
+| `scratch/swan/All.lean` (2713 lines, made by `build.sh`) | kernel imports; `scratch/t-different/Herbrand.lean` lines 60-1248 (copy in `tdiff_herbrand_src.lean`) and its proof of `PkgI6.herbrandQuotient`; `Swan.lean`; `Bridge.lean`; `final_part.lean` | exit 0, ~35 s; `scratch/swan/all_compile.out` |
+
+All.lean takes the definitions `PkgI6.lowerRam`, `lowerRamR`, `herbrandPhi`, `upperRam` and
+`HerbrandQuotient` from the kernel's `I6Base`. A python comparison found them character for
+character identical to t-different's copies (VERIFIED), so t-different's proof applies unchanged.
+
+The conjunction `Swan.swan_proved` is exactly the three hypotheses `hSw`, `hL8`, `hAd` of
+`G0ModNewform.modularConstituent_tail_G` and `g13_g16_ram` (scratch/g0-mod-newform). It also
+discharges the glue hypotheses of the kernel's `LadicCond.carayolR17_of_R17'` and
+`carayolR17'_of_R17`. So `CarayolR17` and `CarayolR17'` are now equivalent unconditionally.
+
+### Structure of the proof
+
+1. `AdaptedExists`: an elementary proof from Mathlib (§3 below).
+2. `SwanIntegral`, `SwanIndependent` ⇐ `HerbrandUpper` (`Swan.swan_main`), through three
+   smaller Props, all proved: H1 `SwanAtIntegral` (finite-level change of variables), H2
+   `UpperAbsWild` (`G^u ⊆ P_p` for `u > 0`) and H3 `UpperAbsSurj` (`G^u → G^u(L/ℚ_p)` onto, from
+   Herbrand plus compactness).
+3. `HerbrandUpper` ⇐ `PkgI6.HerbrandQuotient` (`SwanBridge.herbrandUpper_of_quotient`, §4 below).
+4. `PkgI6.HerbrandQuotient` is proved (t-different, `PkgI6.herbrandQuotient`; it is also
+   `HSyn.t22a_proved` in `Leaves.lean`).
+
+### The intermediate leaf `HerbrandUpper`
 
 ```
-/-- Leaf H3a: Herbrand's theorem (Serre, Corps locaux IV §3, Prop. 14, numbering UNVERIFIED). -/
 def Swan.HerbrandUpper : Prop :=
   ∀ (p : ℕ) [Fact p.Prime] (L M : Fld p), IsFinGal L → IsFinGal M → L ≤ M → ∀ v : ℝ, 0 < v →
     restr L '' upperSet M v = restr L '' upperSet L v
 ```
 
-For finite Galois `L ⊆ M` inside `ℚ̄_p` and `v > 0`, the image of `G^v(M/ℚ_p)` in `Gal(L/ℚ_p)` is
-`G^v(L/ℚ_p)`, i.e. `(G/H)^v = G^vH/H` with `G = Gal(M/ℚ_p)`, `H = Gal(M/L)`. It is stated over
-the kernel's definitions of `LadicCond` (`ramSet`, `ramCardR`, `phiAt`, `upperSet`). I checked by
-hand that these are Serre's definitions: `ramSet L i` is the preimage of `G_i` (`v_L(σx − x) ≥ i+1`
-on `𝓞_L`); `ramSetR` is Serre's `G_t = G_{⌈t⌉}`; `phiAt L u = ∫₀ᵘ g_t/g_0 dt`; and
-`upperSet L v = G_{ψ(v)}` with `ψ(v) = sInf {u ≥ −1 | v ≤ φ(u)}`. Under these definitions the
-leaf is Serre's statement restricted to `v > 0` (the range used). It is **weaker** than the
-published statement.
-
-It is the same theorem as the kernel's leaf I6.8 `PkgI6.HerbrandQuotient`, stated there over
-DVRs `A → C → B`. That leaf is **proved** (task t-different, `PkgI6.herbrandQuotient`,
-`scratch/t-different/Herbrand.lean`; `HSyn.t22a_proved` in `Leaves.lean`). Deriving
-`HerbrandUpper` from it needs the standard transport (§4): `𝓞_L ⊆ 𝓞_M` inside `ℚ̄_p` are DVRs
-finite over `ℤ_p`, with `Gal(𝓞_M/ℤ_p) = Gal(M/ℚ_p)` carrying lower groups to `ramSet`. That
-transport is not done here, so the leaf is not yet discharged.
+This is Herbrand's theorem (Serre, *Corps locaux* IV §3, Prop. 14, numbering UNVERIFIED) over the
+`LadicCond` definitions, restricted to `v > 0`. For finite Galois `L ⊆ M` inside `ℚ̄_p`, the image
+of `G^v(M/ℚ_p)` in `Gal(L/ℚ_p)` is `G^v(L/ℚ_p)`. I checked by hand that these definitions are
+Serre's: `ramSet L i` is the preimage of `G_i`; `ramSetR` is `G_t = G_{⌈t⌉}`;
+`phiAt L u = ∫₀ᵘ g_t/g_0`; `upperSet L v = G_{ψ(v)}`. It is no longer needed as a hypothesis
+(step 3), but `swan_main` keeps it as a clean interface.
 
 ## 2. Truth of the three statements (analysis, then Lean)
 
-All three are **true as stated** (VERIFIED by the Lean proofs, modulo Herbrand for two of them).
+All three are **true as stated** (VERIFIED by the Lean proofs).
 Two hypotheses turn out to be unnecessary, which is harmless: `SwanIntegral` never uses
 continuity or `p ≠ ℓ`, and `SwanIndependent` holds for every field `k` and every homomorphism
 `ρ`, continuous or not.
@@ -121,29 +130,55 @@ Then:
   `SwanIntegral` directly (`swanIntegral_of`). It also gives `SwanIndependent` (`swanIndependent_of`):
   two adapted levels compute the same integral.
 
-## 4. What remains
+### The transport `HerbrandUpper ⇐ PkgI6.HerbrandQuotient` (`Bridge.lean`)
 
-1. **Discharge the leaf `HerbrandUpper` from the proved `PkgI6.herbrandQuotient`** (GLUE,
-   standard transport, not done). It needs: `𝓞_E = {x ∈ E : ‖x‖ ≤ 1}` is a DVR, finite and
-   torsion-free over `ℤ_p`, with fraction field `E` and `IsGalois` over `FractionRing ℤ_p`
-   (through `FractionRing.liftAlgebra`); and `Gal(𝓞_M/ℤ_p) ≅ Gal(M/ℚ_p)` (Galois-invariance of
-   the spectral norm) carries `PkgI6.lowerRam` to `LadicCond.ramSet`
-   (`𝔪^{i+1} = {‖x‖ ≤ ‖ϖ‖^{i+1}}`), cardinalities to `ramCard`, `herbrandPhi` to `phiAt` and
-   `upperRam` to `upperSet`. Then `HerbrandUpper` is `PkgI6.HerbrandQuotient` at
-   `A = ℤ_p`, `C = 𝓞_L`, `B = 𝓞_M`. The t-different proof uses no completeness, so `A` may be
-   any DVR model of `ℤ_p`. Rough size: 600-1000 lines (SPECULATIVE).
-2. Integration: `Swan.lean` imports only the kernel's `LadicCond`, so it can become a kernel
-   module as it stands. The consumers in g0-mod-newform then take `(swan_main hH).1`, `.2.1`
-   and `.2.2` for `hSw`, `hL8` and `hAd`.
+For finite Galois `E/ℚ_p` inside `ℚ̄_p`, take `𝓞_E = {x ∈ E : ‖x‖ ≤ 1}` as a
+`Subalgebra ℤ_[p] ℚ̄_p` (`SwanBridge.OE`).
+
+- `isIntegral_iff_norm_le_one`: `y ∈ ℚ̄_p` is integral over `ℤ_p` iff `‖y‖ ≤ 1`. The proof goes
+  through the spectral norm and `spectralValue_le_one_iff`, adapting
+  `scratch/glue-sqrt-local/Local.lean`. It gives `IsIntegralClosure (OE E) ℤ_[p] E`, hence
+  `IsFractionRing` and `Module.Finite ℤ_[p] (OE E)` (`IsIntegralClosure.finite`).
+- `dvr_OE`: `𝓞_E` is a DVR (`ofHasUnitMulPowIrreducibleFactorization`, with the uniformizer of
+  `LadicCond.exists_isUnif`). Units are the elements of norm 1, divisibility is comparison of norms,
+  and `𝔪^{i+1} = {‖x‖ ≤ ‖ϖ‖^{i+1}}` (`mem_maximalIdeal_pow`).
+- `isGalois_frac`: `IsGalois (FractionRing ℤ_[p]) (FractionRing 𝓞_E)` under
+  `FractionRing.liftAlgebra`, by `IsGalois.of_equiv_equiv`. The residue field of `ℤ_[p]` is
+  perfect (finite, via `PadicInt.residueField`).
+- `res E = galRestrict ∘ restrictNormalHom : G_{ℚ_p} → Gal(𝓞_E/ℤ_p)` is surjective, and
+  `res E σ = res E τ ↔ σ|_E = τ|_E`. Under it, `PkgI6.lowerRam` corresponds to `ramSet`
+  (`ramSet_iff`), `Nat.card (lowerRamR t)` equals `ramCardR E t` (`card_lowerRamR`),
+  `herbrandPhi = phiAt` (`herbrandPhi_eq`) and `upperRam` corresponds to `upperSet`
+  (`upperSet_iff`).
+- `herbrandUpper_of_quotient`: apply the leaf at `A = ℤ_[p]`, `C = 𝓞_L`, `B = 𝓞_M`. The map `r`
+  is the restriction `Gal(𝓞_M) → Gal(𝓞_L)`, built through `res M` (surjective) and `res L`; then
+  translate both directions of `upperRam(𝓞_L) v = r(upperRam(𝓞_M) v)`.
+
+## 4. Integration notes
+
+1. `All.lean` imports only the kernel modules `ZInQKernel.HDecomp.Conductor.LadicCond` and
+   `ZInQKernel.HDecomp.Conductor.I6Base`. As kernel modules, the natural split is: t-different's
+   `TDifferent` part (if not already adopted), then `Swan.lean`, then `Bridge.lean`, then
+   `final_part.lean`. The consumers in g0-mod-newform then drop `hSw`, `hL8` and `hAd`, using
+   `Swan.swanIndependent_proved`, `Swan.swanIntegral_proved` and `Swan.adaptedExists_proved`.
+2. Mathlib names that changed or are deprecated and appear here: `if_pos`/`if_neg` (deprecated in
+   this Mathlib, still present), `integral_finsetSum` (renamed from `integral_finset_sum`).
+3. `Bridge.lean` is reusable. It is the first concrete instantiation of the DVR-based leaves of
+   pkg-I6 (I6.6-I6.9) at the rings of integers of the finite Galois subfields of `ℚ̄_p`, with the
+   dictionary to `LadicCond`'s ramification groups. The same `OE`, `dvr_OE`, `isGalois_frac` and
+   `res` should transport `HilbertDifferentFormula` and `DifferentBound` to `LadicCond`'s setting.
 
 ## 5. Leaves and glue, summary
 
-| Prop | status | from |
+| Prop | status | Lean |
 |---|---|---|
-| `LadicCond.AdaptedExists` | **proved** | Mathlib |
-| `LadicCond.SwanIntegral` (L8) | **proved from one leaf** | `HerbrandUpper` |
-| `LadicCond.SwanIndependent` | **proved from one leaf** | `HerbrandUpper` |
-| H1 `Swan.SwanAtIntegral` (glue) | **proved** | Mathlib |
-| H2 `Swan.UpperAbsWild` (glue) | **proved** | Mathlib |
-| H3 `Swan.UpperAbsSurj` (glue) | **proved from one leaf** | `HerbrandUpper` + compactness |
-| `Swan.HerbrandUpper` (leaf) | open here | Serre IV §3 Prop. 14 (UNVERIFIED numbering); same theorem as I6.8, which t-different proves over DVRs |
+| `LadicCond.AdaptedExists` | **proved** (Mathlib only) | `Swan.adaptedExists` |
+| `LadicCond.SwanIntegral` (L8) | **proved** | `Swan.swanIntegral_proved` (All.lean) |
+| `LadicCond.SwanIndependent` | **proved** | `Swan.swanIndependent_proved` (All.lean) |
+| H1 `Swan.SwanAtIntegral` (glue) | **proved** | `Swan.swanAtIntegral` |
+| H2 `Swan.UpperAbsWild` (glue) | **proved** | `Swan.upperAbsWild` |
+| H3 `Swan.UpperAbsSurj` (glue) | **proved from `HerbrandUpper`** | `Swan.upperAbsSurj_of_herbrand` |
+| `Swan.HerbrandUpper` (Herbrand over `LadicCond`) | **proved from I6.8** | `SwanBridge.herbrandUpper_of_quotient` |
+| `PkgI6.HerbrandQuotient` (I6.8 = T22a) | **proved** (t-different) | `PkgI6.herbrandQuotient`, copied into All.lean |
+
+No leaf remains for these three Props.
