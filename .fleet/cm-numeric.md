@@ -11,8 +11,11 @@ is split into closed leaves about these pinned objects.
 * **Lemma 3.21(1)** holds for class 5 in all 30 cases.
 * **`ShimuraReciprocity`:** Frobenius at 𝔭 acts as multiplication by 𝔭̄, as stated. This held in
   26/26 cases; the opposite direction fails in all 24 cases where [𝔭] has order > 2.
-* **`TYZSigmaFixesZn`** holds numerically in 15 cases. Sharper form, which is not printed in TYZ:
-  σ_{1+2ϖ} maps f₀(P_n) to f₀(P_n) + (0,0).
+* **`TYZSigmaFixesZn`** holds numerically in 15 cases, in a sharper form: σ_{1+2ϖ} maps f₀(P_n)
+  to f₀(P_n) + (0,0). This is TYZ's printed Hecke identity (L1488–1490) transported by Shimura
+  reciprocity, so it is a leaf (`TYZSigmaShiftsF0`).
+* **The [i]-sign** in cm-points' `tyzZn` matches TYZ's printed identity z̄_n = −z_n + τ(1) (7/7
+  cases); the other sign fails in 7/7.
 * Scripts and outputs are in `scratch/cm-numeric/*.py` and `*.out` (PARI 2.17, 400 digits).
 
 **What compiles.** `scratch/cm-numeric/Class7.lean`, run with `lake env lean` after building
@@ -35,5 +38,5 @@ standard axioms. It contains:
 * `Lemma318Literal`, `Thm35First ℓ tyzZ`, `Lemma321Five` and `Lemma321Seven`.
 
 `CMFieldOfDefinition H`, `TYZSigmaFixesZn` and `Lemma318Literal` are not proved in Lean: numerics
-cannot prove them for all n. The sign of `[i]` in `tyzZn` is not singled out by any check.
+cannot prove them for all n. An independent AI review of the statements found nothing blocking.
 Report: `docs/research/cm-numeric.md`.
