@@ -45,3 +45,20 @@ TextbookLeaves, lines 19109-19200) after leaf-adopt. Base 01267822.
 - Lead re-check of t30 LeafSqrtCrit (VERIFIED by reading 8779): finite-order ψ of Q_p^x is a square iff
   ψ(-1) = 1 (p odd: μ_{p-1} cyclic of even order; p = 2: dual of 1+4Z_2 divisible); rec(-1) acts by
   ζ ↦ ζ^{-1} on μ_{p^k} in either normalization; k = 0 forces u = 1 (unramified χ has a sqrt): OK.
+
+## Cluster D (agentD.md; R16, T33, T34, R19-R21, H5 height part): all OK
+- stableFaltingsHeight: value is `⊤` (no metrized model) or the genuine stable height in Faltings'
+  normalization; every field of MetrizedModel is pinned (lattice = ⋀^g ω_𝒢, periods = ker Φ,
+  coeff = jacDet on wedges, metric |c|²·covol). Lead re-read (VERIFIED 16999-17160, 17870-18120):
+  IsAnalyticUniformization is satisfiable by the true uniformization (dom Φ U open, regular functions
+  holomorphic along Φ, jacDet representative-independent since dom Φ U is an open nbhd of 0);
+  jacDet is τ-semilinear and kills 𝔪², so a compatible coeff exists; ⋀^g over 𝓞_L of an L-space
+  base-changes to ⋀^g_L, so finrank_eq_one pins g = dim A.
+- Failure direction: a broken encoding makes H5.StableHeightFinite FALSE (bundle unsatisfiable), R19/R20
+  vacuous at that A, R21 trivially true; never a false R19-R21.
+- R19 normalization: locators.md row R19 says GR use the original Faltings normalization, so κ(h_F) is
+  the published bound (a Deligne-normalized GR would have made the leaf over-strong).
+- INFO (usage risk): r16, t34 quantify over `IsJ1 N J`, inhabited only given `X1ModelExists` (16419),
+  which is in neither ResearchLeaves nor TextbookLeaves; the glue must prove it or add it as a leaf.
+- Wording: bundle docstring at 19181-19182 "(not yet known non-vacuous: AN3 open)" misleading.
+- Lead re-read of R16' (16348), JacobianExists (16157), DimJ1Genus (16373), IsNewform (4477): agree.
