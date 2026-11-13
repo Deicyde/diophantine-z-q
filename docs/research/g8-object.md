@@ -29,7 +29,7 @@ true of the construction from Props on G7's data.**
 data `(Tm, a, β)`. `LocalDataG` implies `LocalData` for *every* `r` that carries G8's
 intertwining, and the proof is in Lean.
 
-VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 400 lines) exits 0 in 2 min with
+VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 535 lines) exits 0 in 2 min with
 0 errors and no `sorry`. All 49 `#print axioms` reports are `[propext, Classical.choice,
 Quot.sound]`. They cover the 18 new theorems listed below plus the copied sources' own reports.
 

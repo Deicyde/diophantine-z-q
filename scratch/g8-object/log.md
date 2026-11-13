@@ -55,3 +55,15 @@
   copies are accepted by unfolding), `ramCard_bot_zero`, `localDataG_triv` (non-vacuity).
 - Compile (VERIFIED): `G8Object.lean` exit 0, 0 errors, 0 sorry, 2m03s; 49 axiom reports, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 4 (07:05-07:13 PST): TmWild split (part_split.lean)
+- New: `ContainsL p L F` (F ⊇ j(L) for an embedding j intertwining `decomp`),
+  `decomp_mem_fixing` (proved: decomp(G_F) ⊆ Fix(L)), `OnL L A Tm a ψ` (G_L-clause on G7's
+  operators: through `resQ L`, `a = 1` and `Tm = ψ⁻¹ ∘ tate_A ∘ ψ`), `WildTateTrivial p L A ℓ F`
+  (wild inertia of G_F acts trivially on V_ℓ(A/L)), `tmWild_of_split` (proved, uses g0-mod-field's
+  `resQ_range`), `LocalDataS` (G15's local data on G7Data's L, A, β only),
+  `localDataC_of_S`, `LinkedTateObjS` (split form of the restated field),
+  `linkedTateObj_of_S`, `linkedTateData_of_S`.
+- Compile (VERIFIED): first run: one `rw [AlgEquiv.smul_def]` failed (goal already unfolded);
+  fixed. `G8Object.lean` (6723 lines) exit 0, 0 errors, 0 sorry, 1m53s; 54 axiom reports, all
+  [propext, Classical.choice, Quot.sound].
