@@ -72,3 +72,6 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
   theta series only (`ModularForms/ThetaSeries/`); no Gross–Zagier/Waldspurger/Friedberg–Hoffstein
   (grep). VERIFIED.
 - Port fix of ModularForms/Basic.lean replaced by wip/t25-newform's byte-identical version (no add/add conflict); all shared vendored files identical with t25-newform, integrate-w37b, origin/main. Rebuild + Check.lean: 12/12 printed declarations have standard axioms. VERIFIED.
+
+## Final
+- .fleet/gz-decomp.md written; last commit. Fri Nov 13 05:15:29 AM PST 2026
