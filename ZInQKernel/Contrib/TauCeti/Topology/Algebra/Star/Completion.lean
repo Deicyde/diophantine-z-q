@@ -76,7 +76,10 @@ instance instStarAddMonoid : StarAddMonoid (Completion α) where
 instance instStarModule {R : Type*} [Monoid R] [Star R] [DistribMulAction R α]
     [UniformContinuousConstSMul R α] [StarModule R α] : StarModule R (Completion α) where
   star_smul r a :=
-    Completion.induction_on a (isClosed_eq (by fun_prop) (by fun_prop))
+    -- `fun_prop` times out here at Lean 4.35 / Mathlib 56a00585; the continuity proofs are explicit.
+    Completion.induction_on a
+      (isClosed_eq (continuous_star.comp (continuous_const_smul r))
+        ((continuous_const_smul (star r)).comp continuous_star))
       fun a => by rw [← coe_smul, ← coe_star, ← coe_star, ← coe_smul, star_smul]
 
 end UniformSpace.Completion

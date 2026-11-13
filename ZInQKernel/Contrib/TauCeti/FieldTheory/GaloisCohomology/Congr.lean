@@ -9,7 +9,6 @@ module
 public import ZInQKernel.Contrib.TauCeti.FieldTheory.Galois.AbsoluteGaloisGroup.Congr
 public import ZInQKernel.Contrib.TauCeti.FieldTheory.GaloisCohomology.Coefficients
 public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.ContCohomology.MapDegreeTwo
-public import ZInQKernel.Contrib.TauCeti.Backport.FieldTheory.Galois.AbsoluteGaloisGroup.Congr
 
 /-!
 # Unit-valued Galois cohomology of isomorphic fields

@@ -118,13 +118,9 @@ theorem completionNormalizedAbsValue_ofReal (r : ℝ) :
     completionNormalizedAbsValue w (Completion.ofReal w r) = |r| ^ w.mult := by
   rw [completionNormalizedAbsValue_apply, Completion.norm_ofReal]
 
-/-- Every nonnegative real number is the normalized absolute value of an element of the completion
-at an infinite place, namely of the real number `t ^ (1 / m_w)`. -/
-theorem exists_completionNormalizedAbsValue_eq {t : ℝ} (ht : 0 ≤ t) :
-    ∃ x : w.Completion, completionNormalizedAbsValue w x = t :=
-  ⟨Completion.ofReal w (t ^ (w.mult : ℝ)⁻¹), by
-    rw [completionNormalizedAbsValue_ofReal, abs_of_nonneg (by positivity), ← Real.rpow_natCast,
-      ← Real.rpow_mul ht, inv_mul_cancel₀ (by exact_mod_cast w.mult_ne_zero), Real.rpow_one]⟩
+-- `exists_completionNormalizedAbsValue_eq` (same statement) is provided by the oct16 module
+-- `ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.InfinitePlace.Completion.Basic`, imported here;
+-- at nov01 it moved to this file, so the copy is omitted in this backport.
 
 /-! ### The positive real units of norm `t` -/
 

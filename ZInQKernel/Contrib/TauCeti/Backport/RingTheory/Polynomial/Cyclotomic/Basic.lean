@@ -18,6 +18,23 @@ namespace Polynomial
 
 variable {R : Type*} [Ring R]
 
+/-- `Φ_n(X + 1)` has degree `φ(n)`. -/
+@[simp]
+theorem natDegree_cyclotomic_comp_X_add_one [Nontrivial R] (n : ℕ) :
+    ((cyclotomic n R).comp (X + 1)).natDegree = n.totient := by
+  have h1 : (X + 1 : R[X]).leadingCoeff = 1 := by simpa using (monic_X_add_C (1 : R)).leadingCoeff
+  rw [natDegree_comp_eq_of_mul_ne_zero (by simp [(cyclotomic.monic n R).leadingCoeff, h1]),
+    natDegree_cyclotomic]
+  simp
+
+end Polynomial
+end
+
+section
+namespace Polynomial
+
+variable {R : Type*} [Ring R]
+
 /-- `Φ_n(X + 1)` is monic. -/
 theorem monic_cyclotomic_comp_X_add_one (n : ℕ) : ((cyclotomic n R).comp (X + 1)).Monic := by
   simpa using (cyclotomic.monic n R).comp_X_add_C 1
