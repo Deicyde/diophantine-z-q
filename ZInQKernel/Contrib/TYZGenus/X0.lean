@@ -912,4 +912,95 @@ theorem isCuspImage_toC (P : PtA) : IsCuspImage (toC P) ↔ IsTorsI3 P := by
     exact ⟨embC.injective hab.1, embC.injective hab.2⟩
   exact hinj.mem_set_image (a := (x, y))
 
+/-! ## §11 Basic analytic facts about the eta-quotient model (proved) -/
+
+section Analytic
+
+open ModularForm UpperHalfPlane
+
+theorem mul_mem_upperHalfPlaneSet {d : ℕ} (hd : 0 < d) (τ : UpperHalfPlane) :
+    (d : ℂ) * (τ : ℂ) ∈ upperHalfPlaneSet := by
+  show 0 < ((d : ℂ) * (τ : ℂ)).im
+  rw [Complex.mul_im, Complex.natCast_re, Complex.natCast_im, zero_mul, add_zero]
+  exact mul_pos (by exact_mod_cast hd) τ.im_pos
+
+theorem etaD_ne_zero {d : ℕ} (hd : 0 < d) (τ : UpperHalfPlane) : etaD d τ ≠ 0 :=
+  eta_ne_zero (mul_mem_upperHalfPlaneSet hd τ)
+
+theorem differentiableAt_etaD {d : ℕ} (hd : 0 < d) (τ : UpperHalfPlane) :
+    DifferentiableAt ℂ (etaD d) τ := by
+  have h1 : DifferentiableAt ℂ (fun z : ℂ => (d : ℂ) * z) τ := by fun_prop
+  exact (differentiableAt_eta_of_mem_upperHalfPlaneSet (mul_mem_upperHalfPlaneSet hd τ)).comp
+    (τ : ℂ) h1
+
+/-- `x` is holomorphic on `ℍ`. -/
+theorem differentiableAt_xC (τ : UpperHalfPlane) : DifferentiableAt ℂ xC τ := by
+  unfold xC
+  apply DifferentiableAt.add_const
+  refine DifferentiableAt.div ?_ ?_ ?_
+  · exact ((differentiableAt_etaD (by norm_num) τ).pow 2).mul (differentiableAt_etaD (by norm_num) τ)
+  · exact (differentiableAt_etaD (by norm_num) τ).mul
+      ((differentiableAt_etaD (by norm_num) τ).pow 2)
+  · exact mul_ne_zero (etaD_ne_zero (by norm_num) τ) (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+
+/-- `y` is holomorphic on `ℍ`. -/
+theorem differentiableAt_yC (τ : UpperHalfPlane) : DifferentiableAt ℂ yC τ := by
+  unfold yC
+  refine DifferentiableAt.neg ?_
+  refine DifferentiableAt.div ?_ ?_ ?_
+  · exact ((differentiableAt_etaD (by norm_num) τ).pow 4).mul
+      ((differentiableAt_etaD (by norm_num) τ).pow 2)
+  · exact ((differentiableAt_etaD (by norm_num) τ).pow 2).mul
+      ((differentiableAt_etaD (by norm_num) τ).pow 4)
+  · exact mul_ne_zero (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+      (pow_ne_zero 4 (etaD_ne_zero (by norm_num) τ))
+
+/-- `f` is holomorphic on `ℍ`. -/
+theorem differentiableAt_fC (τ : UpperHalfPlane) : DifferentiableAt ℂ fC τ := by
+  unfold fC
+  exact ((differentiableAt_etaD (by norm_num) τ).pow 2).mul
+    ((differentiableAt_etaD (by norm_num) τ).pow 2)
+
+/-- `f` has no zeros on `ℍ` (an eta product). -/
+theorem fC_ne_zero (τ : UpperHalfPlane) : fC τ ≠ 0 := by
+  unfold fC
+  exact mul_ne_zero (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+    (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+
+/-- `y` has no zeros on `ℍ`: the points `(x, 0)` (`2`-torsion) are cusp images, so they are not
+hit by `ℍ` (consistent with `EtaModelBijective`). -/
+theorem yC_ne_zero (τ : UpperHalfPlane) : yC τ ≠ 0 := by
+  unfold yC
+  refine neg_ne_zero.mpr (div_ne_zero ?_ ?_)
+  · exact mul_ne_zero (pow_ne_zero 4 (etaD_ne_zero (by norm_num) τ))
+      (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+  · exact mul_ne_zero (pow_ne_zero 2 (etaD_ne_zero (by norm_num) τ))
+      (pow_ne_zero 4 (etaD_ne_zero (by norm_num) τ))
+
+theorem curveAC_Δ : curveAC.Δ = -4096 := by
+  have : curveA.Δ = -4096 := curveX0_Δ
+  rw [curveAC, WeierstrassCurve.baseChange, WeierstrassCurve.map_Δ, this]
+  simp
+
+/-- Under `EtaModelEquation`, `phiC τ` is the affine point `(x(τ), y(τ))`. -/
+theorem phiC_eq_some (hEq : EtaModelEquation) (τ : UpperHalfPlane) :
+    ∃ h, phiC τ = .some (xC τ) (yC τ) h := by
+  have hN : curveAC.toAffine.Nonsingular (xC τ) (yC τ) := by
+    rw [← WeierstrassCurve.Affine.equation_iff_nonsingular_of_Δ_ne_zero
+      (by rw [curveAC_Δ]; norm_num), WeierstrassCurve.Affine.equation_iff']
+    have h4 : curveAC.a₄ = 4 := by simp [curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+    have h0 : curveAC.a₁ = 0 ∧ curveAC.a₂ = 0 ∧ curveAC.a₃ = 0 ∧ curveAC.a₆ = 0 := by
+      simp [curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+    rw [h4, h0.1, h0.2.1, h0.2.2.1, h0.2.2.2]
+    linear_combination hEq τ
+  exact ⟨hN, by simp [phiC, hN]⟩
+
+/-- Under `EtaModelEquation`, no point of `ℍ` maps to a `2`-torsion point or to `O`. -/
+theorem phiC_ne_zero (hEq : EtaModelEquation) (τ : UpperHalfPlane) : phiC τ ≠ 0 := by
+  obtain ⟨h, e⟩ := phiC_eq_some hEq τ
+  rw [e]
+  exact WeierstrassCurve.Affine.Point.some_ne_zero h
+
+end Analytic
+
 end ZInQ.Contrib.TYZGenus.X0
