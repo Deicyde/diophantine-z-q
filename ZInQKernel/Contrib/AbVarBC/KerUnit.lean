@@ -260,4 +260,161 @@ theorem ker_le_sq_of_derivations {T : Type} [CommRing T] (ev : T →+* K) (jK : 
 
 end Alg
 
+/-! ## §3. The unit section of `A[n]` is an open immersion -/
+
+section Final
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) (n : ℤ)
+
+theorem locallyOfFiniteType_kerN : LocallyOfFiniteType (KerN A n).hom := by
+  have h1 : LocallyOfFiniteType (mulN A n).left := by
+    have : LocallyOfFiniteType ((mulN A n).left ≫ A.X.hom) := by
+      rw [Over.w]; infer_instance
+    exact locallyOfFiniteType_of_comp _ A.X.hom
+  have hP := (Over.forget _).map_isPullback (IsPullback.of_hasPullback (mulN A n) η[A.X])
+  have h2 : LocallyOfFiniteType (pullback.snd (mulN A n) η[A.X]).left :=
+    MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @LocallyOfFiniteType) hP h1
+  have h3 : (pullback.snd (mulN A n) η[A.X]).left ≫
+      (𝟙_ (Over (Spec (CommRingCat.of K)))).hom = (KerN A n).hom := Over.w _
+  rw [← h3]
+  change LocallyOfFiniteType (_ ≫ 𝟙 _)
+  rw [Category.comp_id]
+  exact h2
+
+theorem id_appLE_top (h : (⊤ : (Spec (CommRingCat.of K)).Opens) ≤
+    (𝟙 (Spec (CommRingCat.of K))) ⁻¹ᵁ ⊤) :
+    Scheme.Hom.appLE (𝟙 (Spec (CommRingCat.of K))) ⊤ ⊤ h = 𝟙 _ := by
+  simp only [Scheme.Hom.appLE, Scheme.Hom.id_app]
+  erw [Category.id_comp]
+  exact (Spec (CommRingCat.of K)).presheaf.map_id (Opposite.op ⊤)
+
+theorem ptRing_id_top :
+    ptRing (Λ := CommRingCat.of K) (𝟙 (Spec (CommRingCat.of K)))
+      (show _ ∈ (⊤ : (Spec (CommRingCat.of K)).Opens) from trivial) =
+      (Scheme.ΓSpecIso (CommRingCat.of K)).hom := by
+  unfold ptRing
+  rw [id_appLE_top, Category.id_comp]
+
+/-- **mul-rigidity's leaf `KerUnitOpen`, proved**: in characteristic `0`, for `n ≠ 0`, the unit
+section of `A[n]` is an open immersion. -/
+theorem ks_isOpenImmersion [CharZero K] (hn : n ≠ 0) : IsOpenImmersion (ks A n) := by
+  set Z := (KerN A n).left with hZ
+  obtain ⟨_, ⟨W, hW, rfl⟩, hz0, -⟩ := Z.isBasis_affineOpens.exists_subset_of_mem_open
+    (Set.mem_univ (ks A n (IsLocalRing.closedPoint K))) isOpen_univ
+  haveI := locallyOfFiniteType_kerN A n
+  haveI : IsLocallyNoetherian Z := LocallyOfFiniteType.isLocallyNoetherian (KerN A n).hom
+  haveI : IsNoetherianRing Γ(Z, W) := IsLocallyNoetherian.component_noetherian ⟨W, hW⟩
+  set ev := ptRing (Λ := CommRingCat.of K) (ks A n) hz0 with hev
+  set κ := (KerN A n).hom.appLE ⊤ W le_top with hκ
+  let jK : K →+* Γ(Z, W) := κ.hom.comp (Scheme.ΓSpecIso (CommRingCat.of K)).inv.hom
+  have htop : ∀ (Λ : CommRingCat.{0}) [IsLocalRing Λ] (p : Spec Λ ⟶ Spec (CommRingCat.of K)),
+      p (IsLocalRing.closedPoint Λ) ∈ (⊤ : (Spec (CommRingCat.of K)).Opens) :=
+    fun _ _ _ => trivial
+  have hevκ : ∀ x, ev.hom (κ.hom x) = (Scheme.ΓSpecIso (CommRingCat.of K)).hom.hom x := by
+    intro x
+    have h := ptRing_comp hW (KerN A n).hom (isAffineOpen_top _) le_top (ks A n) hz0
+      (htop _ _)
+    rw [ptRing_congr (ks_hom A n) _ (htop _ _), ptRing_id_top] at h
+    rw [h]
+    rfl
+  let eK := (Scheme.ΓSpecIso (CommRingCat.of K)).commRingCatIsoToRingEquiv
+  have hevj : ∀ c, ev.hom (jK c) = c := by
+    intro c
+    change ev.hom (κ.hom (eK.symm c)) = c
+    rw [hevκ]
+    exact eK.apply_symm_apply c
+  have hκj : ∀ x, κ.hom x = jK ((Scheme.ΓSpecIso (CommRingCat.of K)).hom.hom x) := by
+    intro x
+    change κ.hom x = κ.hom (eK.symm (eK x))
+    rw [RingEquiv.symm_apply_apply]
+  have hPP := ker_le_sq_of_derivations ev.hom jK hevj (fun D hadd hmul hj =>
+    derivation_eq_zero A n hn hW hz0 D hadd hmul (fun x => by rw [hκj]; exact hj _))
+  have hidem : IsIdempotentElem (RingHom.ker ev.hom) := by
+    unfold IsIdempotentElem
+    rw [← pow_two]
+    exact le_antisymm (Ideal.pow_le_self two_ne_zero) hPP
+  obtain ⟨e, he, hPe⟩ :=
+    (Ideal.isIdempotentElem_iff_of_fg _ (IsNoetherian.noetherian _)).mp hidem
+  have heP : e ∈ RingHom.ker ev.hom := by
+    rw [hPe]; exact Submodule.mem_span_singleton_self e
+  set g : Γ(Z, W) := 1 - e with hg
+  have hevg : ev.hom g = 1 := by
+    rw [hg, map_sub, map_one, RingHom.mem_ker.mp heP, sub_zero]
+  -- the origin lies in `D(g)`
+  have hle : (⊤ : (Spec (CommRingCat.of K)).Opens) ≤ ks A n ⁻¹ᵁ W :=
+    (Scheme.preimage_eq_top_of_closedPoint_mem (ks A n) hz0).ge
+  have hz0' : ks A n (IsLocalRing.closedPoint K) ∈ Z.basicOpen g := by
+    have hb := Scheme.basicOpen_appLE (ks A n) ⊤ W hle g
+    have hu : IsUnit ((ks A n).appLE W ⊤ hle g) := by
+      have h1 : eK ((ks A n).appLE W ⊤ hle g) = 1 := hevg
+      have : (ks A n).appLE W ⊤ hle g = 1 := by
+        rw [← eK.symm_apply_apply ((ks A n).appLE W ⊤ hle g), h1, map_one]
+      rw [this]
+      exact isUnit_one
+    rw [Scheme.basicOpen_of_isUnit _ hu] at hb
+    have hmem : IsLocalRing.closedPoint K ∈ (⊤ : (Spec (CommRingCat.of K)).Opens) := trivial
+    rw [hb] at hmem
+    exact hmem.2
+  set W' := Z.basicOpen g with hW'def
+  have hW' : IsAffineOpen W' := hW.basicOpen g
+  haveI hloc := hW.isLocalization_basicOpen g
+  have hge : algebraMap Γ(Z, W) Γ(Z, W') g * algebraMap Γ(Z, W) Γ(Z, W') e = 0 := by
+    have hge0 : g * e = 0 := by
+      change (1 - e) * e = 0
+      rw [sub_mul, _root_.one_mul, he.eq, sub_self]
+    rw [← map_mul, hge0, map_zero]
+  have hgu : IsUnit (algebraMap Γ(Z, W) Γ(Z, W') g) := IsLocalization.Away.algebraMap_isUnit g
+  have hre : algebraMap Γ(Z, W) Γ(Z, W') e = 0 := hgu.mul_right_eq_zero.mp hge
+  have hrg : algebraMap Γ(Z, W) Γ(Z, W') g = 1 := by
+    have h := map_sub (algebraMap Γ(Z, W) Γ(Z, W')) 1 e
+    rw [map_one, hre, sub_zero] at h
+    exact h
+  have hrP : ∀ t ∈ RingHom.ker ev.hom, algebraMap Γ(Z, W) Γ(Z, W') t = 0 := by
+    intro t ht
+    rw [hPe] at ht
+    obtain ⟨c, rfl⟩ := Submodule.mem_span_singleton.mp ht
+    rw [smul_eq_mul, map_mul, hre, MulZeroClass.mul_zero]
+  set κ' := (KerN A n).hom.appLE ⊤ W' le_top with hκ'def
+  have hκ' : κ' = κ ≫ Z.presheaf.map (homOfLE (Z.basicOpen_le g)).op := by
+    rw [hκ'def, hκ]
+    exact (Scheme.Hom.appLE_map (KerN A n).hom le_top (homOfLE (Z.basicOpen_le g)).op).symm
+  have hsurj : Function.Surjective ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ κ').hom := by
+    intro y
+    obtain ⟨⟨t, s⟩, rfl⟩ := IsLocalization.mk'_surjective (Submonoid.powers g) y
+    obtain ⟨k, hk⟩ := s.2
+    refine ⟨ev.hom t, ?_⟩
+    have hs1 : algebraMap Γ(Z, W) Γ(Z, W') (s : Γ(Z, W)) = 1 := by
+      rw [← hk, map_pow, hrg, one_pow]
+    rw [eq_comm, IsLocalization.mk'_eq_iff_eq_mul, hs1, _root_.mul_one]
+    have hmem : t - jK (ev.hom t) ∈ RingHom.ker ev.hom := by
+      rw [RingHom.mem_ker, map_sub, hevj, sub_self]
+    have h0 := hrP _ hmem
+    rw [map_sub, sub_eq_zero] at h0
+    rw [h0, hκ']
+    rfl
+  let i := hW'.fromSpec
+  have hrange : Set.range (ks A n) ⊆ Set.range i := by
+    rw [hW'.range_fromSpec]
+    rintro _ ⟨x, rfl⟩
+    rw [Subsingleton.elim x (IsLocalRing.closedPoint K)]
+    exact hz0'
+  let s' := IsOpenImmersion.lift i (ks A n) hrange
+  have hs' : s' ≫ i = ks A n := IsOpenImmersion.lift_fac _ _ _
+  have hiK : i ≫ (KerN A n).hom =
+      Spec.map ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ κ') := by
+    have h := IsAffineOpen.SpecMap_appLE_fromSpec (KerN A n).hom (isAffineOpen_top _) hW' le_top
+    rw [IsAffineOpen.fromSpec_top, Scheme.isoSpec_Spec_inv] at h
+    rw [Spec.map_comp]
+    exact h.symm
+  haveI : FormallyUnramified (i ≫ (KerN A n).hom) := by
+    rw [hiK, HasRingHomProperty.Spec_iff (P := @FormallyUnramified)]
+    exact RingHom.FormallyUnramified.of_surjective hsurj
+  have hsec : s' ≫ (i ≫ (KerN A n).hom) = 𝟙 _ := by
+    rw [← Category.assoc, hs', ks_hom]
+  haveI := MulRigidity.isOpenImmersion_of_section s' (i ≫ (KerN A n).hom) hsec
+  rw [← hs']
+  infer_instance
+
+end Final
+
 end ZInQ.Contrib.AbVarBC.Tangent
