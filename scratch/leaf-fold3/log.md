@@ -48,3 +48,4 @@
   UnramRootsTask.unramRoots_all, KummerComp.kummerMeetGlue, PropTSGlue.specNonMeeting, twistDescent, hodgeBCInjective,
   omegaBaseChange, goodRedTorsion, burnsideAbsIrred, ZInQ.Contrib.Dim.tangentDimAtOrigin, LeafQM.AV.Pin.smoothStalkDimOne;
   does not contain sorryAx, LGKerWild.exists_localGlue_of_tateModuleFree, LGKerWild.localGlue_of_tateBridge35.
+- 13:20 report and .fleet/leaf-fold3.md committed; task done.
