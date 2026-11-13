@@ -1,0 +1,13 @@
+import ZInQKernel.Contrib.GZTheta.New32
+open ZInQ.GZTheta
+#check @newAt32
+#check @heckeThetaNewform_of_atkinLi
+#check @frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves
+#check @newCM_of_newAt32_atkinLi
+#print AtkinLiTwistNew
+#print axioms newAt32
+#print axioms heckeThetaNewform_of_atkinLi
+#print axioms frozenTarget_of_sixContactMin_tyzThm35ReadingA_atkinLi_gzLeaves
+#print axioms frozenTarget_of_sixContactMin_tyzThm35ReadingA_newCM_gzLeaves
+#print axioms newCM_of_newAt32_atkinLi
+#print axioms false_of_newform_dvd_16
