@@ -1,0 +1,53 @@
+
+/-! ## cpts-transport: `GluePieces5` = `GluePieces4` minus the two fields proved here -/
+
+noncomputable section
+
+namespace HSyn
+
+open G0Split
+
+/-- **The named Props left after cpts-transport**: `GluePieces4` without `baseChangeClassUnique` (field 10) and
+`cPtsTransport` (field 18), both proved (`G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof`,
+`G0Split.FibreQM.cPtsTransport_proof`). Field docstrings as in `GluePieces4`. -/
+@GP5@
+
+/-- `GluePieces4` from `GluePieces5` and the two proofs. -/
+theorem gluePieces4_of_gluePieces5 (gp : GluePieces5) : GluePieces4 :=
+  { @ASSIGN@,
+    baseChangeClassUnique := G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof,
+    cPtsTransport := G0Split.FibreQM.cPtsTransport_proof }
+
+/-- **G0 after cpts-transport**: `ResearchLeaves4`, `TextbookLeaves` and `GluePieces5` imply `ZInQ.SixContactMin`. -/
+theorem sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_leaves4 r t (gluePieces4_of_gluePieces5 gp)
+
+end HSyn
+
+namespace HSyn.G0Split.FibreQM.PeriodMapH
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+open HSyn.G0Split.FibreQM
+
+/-- **`FibreQMPeriod` without `BaseChangeClassUnique` and `CPtsTransport`** (`fibreQMPeriod_periodMap` with the two
+proofs of this task inserted). -/
+theorem fibreQMPeriod_periodMap' (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h))
+    (hTL : QMTwistLattice) (hD : CMDescends)
+    (hS : PeriodMap.S8Nonzero)
+    (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8WeightExact)
+    (hV : PeriodMap.ValenceBoundGammaStar) : ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_periodMap h hM hH hE hR11 hCN hR baseChangeClassUnique_proof hPT hTL hD hS hSF hW hV
+    cPtsTransport_proof
+
+end HSyn.G0Split.FibreQM.PeriodMapH
+
+end
+
+#print axioms HSyn.gluePieces4_of_gluePieces5
+#print axioms HSyn.sixContactMin_of_leaves5
+#print axioms HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap'

@@ -1,0 +1,53 @@
+HSyn.G0Split.FibreQM.CPtsTransport : Prop
+@UnramTate.bcPt : {K L : Type} →
+  [inst : Field K] →
+    [inst_1 : Field L] →
+      [inst_2 : Algebra K L] →
+        (A : PkgI3.AbVar K) →
+          (Ω : Type) →
+            [inst_3 : Field Ω] →
+              [inst_4 : Algebra L Ω] →
+                [inst_5 : Algebra K Ω] → [IsScalarTower K L Ω] → PkgI3.AbVar.Pt Ω (A.baseChange L) ≃* PkgI3.AbVar.Pt Ω A
+G0FibreSimple.rigidityHom : G0FibreSimple.RigidityHom
+structure GlueAssembly.NF : Type 1
+number of parameters: 0
+fields:
+  GlueAssembly.NF.K : Type
+  GlueAssembly.NF.fld : Field self.K
+  GlueAssembly.NF.nf : NumberField self.K
+constructor:
+  GlueAssembly.NF.mk (K : Type) [fld : Field K] [nf : NumberField K] : GlueAssembly.NF
+scratch/cpts-transport/T1.lean:42:22: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/cpts-transport/T1.lean:42:34: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/cpts-transport/T1.lean:63:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/cpts-transport/T1.lean:94:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/cpts-transport/T1.lean:120:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HSyn.G0Split.FibreQM.CPtsT.cPts_of_isPullback' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.cPtsTransport_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
