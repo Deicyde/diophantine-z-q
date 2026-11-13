@@ -82,3 +82,5 @@
   `analyticRep_spec`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp` (ρ(β≫α) = ρ(α)∘ρ(β)),
   `isMonHom_mul` (instance), `analyticRep_mul` (ρ(α*β) = ρ(α)+ρ(β), * = group law of Hom(A,A)). COMPILED;
   axioms standard.
+- Torus.lean §10: `nsmul_proj_eq_zero_iff` (n•[v] = 0 ↔ n•v ∈ Λ), `torsion_iff` (P^n = 1 ↔ P = φ[v] with n•v ∈ Λ).
+  COMPILED; axioms standard.

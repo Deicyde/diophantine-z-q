@@ -1556,4 +1556,32 @@ theorem analyticRep_mul (hφ : IsUniformization A Λ φ) (α β : A.X ⟶ A.X) [
 
 end AnalyticRep
 
+/-! ### Glue: torsion points (for T12) -/
+
+/-- On the torus, `n • [v] = 0 ↔ n • v ∈ Λ`: the `n`-torsion of `E ⧸ Λ` is `(1/n)Λ ⧸ Λ`. -/
+theorem nsmul_proj_eq_zero_iff {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
+    (Λ : Submodule ℤ E) (n : ℕ) (v : E) : n • proj Λ v = 0 ↔ n • v ∈ Λ := by
+  rw [proj, ← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
+  rfl
+
+/-- **Torsion points of `A(ℂ)`**: `P^n = 1` iff `P = φ([v])` with `n • v ∈ Λ`. Hence
+`A(ℂ)[n] ≅ (1/n)Λ ⧸ Λ ≅ Λ ⧸ nΛ`, and `T_ℓ A ≅ Λ ⊗ ℤ_ℓ` (T12's comparison, glue). -/
+theorem torsion_iff {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} (φ : Torus Λ ≃+ Additive (A.Pt ℂ))
+    (n : ℕ) (P : A.Pt ℂ) :
+    P ^ n = 1 ↔ ∃ v : Fin g → ℂ, n • v ∈ Λ ∧ Additive.toMul (φ (proj Λ v)) = P := by
+  obtain ⟨v, hv⟩ := QuotientAddGroup.mk_surjective (φ.symm (Additive.ofMul P))
+  have hP : Additive.toMul (φ (proj Λ v)) = P := by
+    simp only [proj, hv, AddEquiv.apply_symm_apply, toMul_ofMul]
+  constructor
+  · intro h
+    refine ⟨v, (nsmul_proj_eq_zero_iff Λ n v).mp ?_, hP⟩
+    apply φ.injective
+    rw [map_nsmul, map_zero]
+    apply Additive.toMul.injective
+    rw [toMul_nsmul, hP, h]
+    rfl
+  · rintro ⟨w, hw, rfl⟩
+    rw [← toMul_nsmul, ← map_nsmul, (nsmul_proj_eq_zero_iff Λ n w).mpr hw, map_zero]
+    rfl
+
 end BPAnalytic.Uniformization
