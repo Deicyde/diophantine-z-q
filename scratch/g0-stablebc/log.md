@@ -21,3 +21,10 @@
   H4b (h5-neron's kernel-timeout item) is now proved.
 - run3 (02:00): added `ModelHeightBaseChangeLE` (the `≤` half of H4a, strictly weaker) and
   `stableHeightBaseChange_of_modelHeightBaseChangeLE`; 0 errors, no sorry; all axioms standard.
+- run4-6 (02:05-02:10): added the Arakelov half of H4a. Fixes: `η`, `ι` are tokens under
+  `open MonObj` (renamed `w`, `ψ`); `mul_one` ambiguous (`_root_.mul_one`); FractionalIdeal set
+  coercion (use `have e1' : … := e1` by defeq instead of `rw`).
+  run6: 0 errors, no sorry, 40s. Axioms standard for `secIndex_baseChange`,
+  `modelHeight_eq_of_isHodgeBaseChange`, `modelHeightBaseChangeLE_of_metrization`,
+  `stableHeightBaseChange_of_metrization` (and all earlier theorems).
+  VERIFIED: StableHeightBaseChange ⇐ MetrizationBaseChange (geometric glue, stated).

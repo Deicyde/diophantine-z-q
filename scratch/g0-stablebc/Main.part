@@ -236,6 +236,167 @@ theorem transportModel_height_le (e : (A.baseChange L).X ≅ (B.baseChange L).X)
 
 end Transport
 
+
+/-! ### The Arakelov half of H4a (proved) and the geometric half (glue, stated)
+
+`modelHeight_eq_of_isHodgeBaseChange`: if `D'` over `L'` is obtained from `D` over `L` by base
+change (a semilinear injection `ψ` on the Hodge lines, with `⋀^g ω' = 𝓞_{L'} · ψ(⋀^g ω)`,
+restricted period lattices and compatible coefficient maps), the model heights agree. The finite
+part reduces to fractional ideals (`N(𝔞𝓞_{L'}) = N(𝔞)^{[L':L]}`, def-faltings'
+`absNorm_extendedHom`) and the archimedean part to `sum_embeddings_comp`. -/
+
+section ArakelovBC
+
+open scoped nonZeroDivisors
+
+/-- `secIndex` is invariant under an injective linear map. -/
+theorem secIndex_map {K : Type*} [Field K] [NumberField K] {V W : Type*} [AddCommGroup V]
+    [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] [AddCommGroup W] [Module K W]
+    [Module (𝓞 K) W] [IsScalarTower (𝓞 K) K W] (f : V →ₗ[𝓞 K] W) (hf : Function.Injective f)
+    (Λ : Submodule (𝓞 K) V) (w : V) : secIndex (Λ.map f) (f w) = secIndex Λ w := by
+  unfold secIndex
+  rw [← Set.image_singleton, ← Submodule.map_span, Submodule.map_toAddSubgroup,
+    Submodule.map_toAddSubgroup]
+  exact AddSubgroup.relIndex_map_map_of_injective _ _ hf
+
+/-- A finite index kills the quotient: `#(Λ/𝓞η) • x ∈ 𝓞η` for `x ∈ Λ`. -/
+theorem secIndex_nsmul_mem {K : Type*} [Field K] [NumberField K] {V : Type*} [AddCommGroup V]
+    [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V] (Λ : Submodule (𝓞 K) V) (w : V)
+    {x : V} (hx : x ∈ Λ) : secIndex Λ w • x ∈ Submodule.span (𝓞 K) {w} :=
+  AddSubgroup.nsmul_relIndex_mem (Submodule.span (𝓞 K) {w}).toAddSubgroup hx
+
+variable {L L' : Type} [Field L] [NumberField L] [Field L'] [NumberField L'] [Algebra L L']
+
+/-- **The finite part of base change**: `#(Λ'/𝓞_{L'}ιη) = #(Λ/𝓞_Lη)^{[L':L]}` for
+`Λ' = 𝓞_{L'} · ψ(Λ)`. -/
+theorem secIndex_baseChange {V V' : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+    [IsScalarTower (𝓞 L) L V] [AddCommGroup V'] [Module L' V'] [Module (𝓞 L') V']
+    [IsScalarTower (𝓞 L') L' V'] (hV : Module.finrank L V = 1) (ψ : V →+ V')
+    (hsmul : ∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v) (Λ : Submodule (𝓞 L) V)
+    {w : V} (hηΛ : w ∈ Λ) (hη : w ≠ 0) (hη' : ψ w ≠ 0) (hi : secIndex Λ w ≠ 0) :
+    secIndex (Submodule.span (𝓞 L') (ψ '' Λ)) (ψ w) = secIndex Λ w ^ Module.finrank L L' := by
+  -- coordinates `c ↦ c • w` and `c ↦ c • ιη`
+  let φ : L →ₗ[𝓞 L] V := (LinearMap.toSpanSingleton L V w).restrictScalars (𝓞 L)
+  let φ' : L' →ₗ[𝓞 L'] V' := (LinearMap.toSpanSingleton L' V' (ψ w)).restrictScalars (𝓞 L')
+  have hφ : ∀ c, φ c = c • w := fun c => rfl
+  have hφ' : ∀ c, φ' c = c • ψ w := fun c => rfl
+  have hφinj : Function.Injective φ := fun a b h => by
+    rw [hφ, hφ] at h
+    exact smul_left_injective L hη h
+  have hφ'inj : Function.Injective φ' := fun a b h => by
+    rw [hφ', hφ'] at h
+    exact smul_left_injective L' hη' h
+  have hφsurj : Function.Surjective φ := fun v => by
+    obtain ⟨c, hc⟩ := (finrank_eq_one_iff_of_nonzero' w hη).mp hV v
+    exact ⟨c, hc⟩
+  set I : Submodule (𝓞 L) L := Λ.comap φ with hI
+  have hΛ : Λ = I.map φ := (Submodule.map_comap_eq_of_surjective hφsurj Λ).symm
+  have h1I : (1 : L) ∈ I := by simpa [hI, hφ] using hηΛ
+  have hidx : secIndex I 1 = secIndex Λ w := by
+    conv_rhs => rw [hΛ, show w = φ 1 by simp [hφ]]
+    exact (secIndex_map φ hφinj I 1).symm
+  -- `ψ(Λ) = φ'(L'-image of I)`
+  have himg : ψ '' (Λ : Set V) = φ' '' (algebraMap L L' '' (I : Set L)) := by
+    rw [hΛ, Submodule.map_coe, Set.image_image, Set.image_image]
+    refine Set.image_congr fun c _ => ?_
+    rw [hφ, hφ', hsmul]
+  have hspan : Submodule.span (𝓞 L') (ψ '' (Λ : Set V)) =
+      (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))).map φ' := by
+    rw [himg, Submodule.map_span]
+  have hidx' : secIndex (Submodule.span (𝓞 L') (ψ '' (Λ : Set V))) (ψ w) =
+      secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 := by
+    rw [hspan, show ψ w = φ' 1 by simp [hφ']]
+    exact secIndex_map φ' hφ'inj _ 1
+  -- `I` is a fractional ideal
+  set N := secIndex I 1 with hN
+  have hN0 : N ≠ 0 := hidx ▸ hi
+  have hfrac : IsFractional (𝓞 L)⁰ I := by
+    refine ⟨(N : 𝓞 L), mem_nonZeroDivisors_of_ne_zero (by exact_mod_cast hN0), fun b hb => ?_⟩
+    have hm := secIndex_nsmul_mem I 1 hb
+    rw [Submodule.mem_span_singleton] at hm
+    obtain ⟨a, ha⟩ := hm
+    refine ⟨a, ?_⟩
+    rw [Nat.cast_smul_eq_nsmul, ← ha, Algebra.smul_def, _root_.mul_one]
+  let I₀ : FractionalIdeal (𝓞 L)⁰ L := ⟨I, hfrac⟩
+  have hI₀ : (I₀ : Submodule (𝓞 L) L) = I := rfl
+  have e1 := secIndex_mul_absNorm I₀ (x := 1) h1I one_ne_zero
+  have e2 := secIndex_mul_absNorm (FractionalIdeal.extendedHom L' (𝓞 L') I₀) (x := 1)
+    (by
+      rw [← FractionalIdeal.mem_coe, FractionalIdeal.coe_extendedHom_eq_span]
+      exact Submodule.subset_span ⟨1, h1I, map_one _⟩) one_ne_zero
+  rw [FractionalIdeal.coe_extendedHom_eq_span, absNorm_extendedHom, map_one, abs_one] at e2
+  rw [map_one, abs_one] at e1
+  have e1' : (secIndex I 1 : ℚ) * FractionalIdeal.absNorm I₀ = 1 := e1
+  have e2' : (secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 : ℚ) *
+      FractionalIdeal.absNorm I₀ ^ Module.finrank L L' = 1 := e2
+  rw [← hidx, hidx']
+  have key : (secIndex (Submodule.span (𝓞 L') (algebraMap L L' '' (I : Set L))) 1 : ℚ) =
+      (secIndex I 1 : ℚ) ^ Module.finrank L L' := by
+    rw [eq_inv_of_mul_eq_one_left e1', eq_inv_of_mul_eq_one_left e2', inv_pow]
+  exact_mod_cast key
+
+/-- **Base change data for Hodge data** `D/L ↦ D'/L'` along a semilinear injection `ψ`. -/
+structure IsHodgeBaseChange {g : ℕ} {V V' : Type*} [AddCommGroup V] [Module L V]
+    [Module (𝓞 L) V] [AddCommGroup V'] [Module L' V'] [Module (𝓞 L') V']
+    (D : HodgeData L g V) (D' : HodgeData L' g V') (ψ : V →+ V') : Prop where
+  smul : ∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v
+  ne_zero : ∀ v, v ≠ 0 → ψ v ≠ 0
+  lattice : D'.lattice = Submodule.span (𝓞 L') (ψ '' D.lattice)
+  periods : ∀ τ' : L' →+* ℂ, D'.periods τ' = D.periods (τ'.comp (algebraMap L L'))
+  coeff : ∀ (τ' : L' →+* ℂ) v, D'.coeff τ' (ψ v) = D.coeff (τ'.comp (algebraMap L L')) v
+
+/-- **The model height is invariant under base change of Hodge data.** Proved. -/
+theorem modelHeight_eq_of_isHodgeBaseChange {g : ℕ} {V V' : Type*} [AddCommGroup V]
+    [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V] [AddCommGroup V'] [Module L' V']
+    [Module (𝓞 L') V'] [IsScalarTower (𝓞 L') L' V'] (D : HodgeData L g V) (D' : HodgeData L' g V')
+    (ψ : V →+ V') (h : IsHodgeBaseChange D D' ψ) : D'.modelHeight = D.modelHeight := by
+  obtain ⟨w, hηM, hη, hi⟩ := D.isLattice
+  have hη' : ψ w ≠ 0 := h.ne_zero w hη
+  have hηM' : ψ w ∈ D'.lattice := by
+    rw [h.lattice]; exact Submodule.subset_span ⟨w, hηM, rfl⟩
+  rw [D.modelHeight_eq hηM hη, D'.modelHeight_eq hηM' hη']
+  have hsec : secIndex D'.lattice (ψ w) = secIndex D.lattice w ^ Module.finrank L L' := by
+    rw [h.lattice]
+    exact secIndex_baseChange D.finrank_eq_one ψ h.smul D.lattice hηM hη hη' hi
+  have hsum : ∑ τ' : L' →+* ℂ, Real.log (torusMetricSq (D'.periods τ') (D'.coeff τ' (ψ w))) =
+      Module.finrank L L' *
+        ∑ σ : L →+* ℂ, Real.log (torusMetricSq (D.periods σ) (D.coeff σ w)) := by
+    simp only [h.periods, h.coeff]
+    exact sum_embeddings_comp (fun σ => Real.log (torusMetricSq (D.periods σ) (D.coeff σ w)))
+  rw [hsec, hsum, ← Module.finrank_mul_finrank ℚ L L']
+  have hK : (0 : ℝ) < Module.finrank ℚ L := by exact_mod_cast Module.finrank_pos
+  have hL : (0 : ℝ) < Module.finrank L L' := by exact_mod_cast Module.finrank_pos
+  push_cast
+  rw [Real.log_pow]
+  field_simp
+
+end ArakelovBC
+
+/-- **Glue H4a, geometric half (stated).** A metrization of a group model `𝒢/𝓞_L` induces one of
+its base change `𝒢'/𝓞_{L'}`, by base change of the Hodge data: `ψ` is the natural map
+`⋀^g ω_{A_L} → ⋀^g ω_{A_{L'}}` (from `𝒪_{𝒢,ξ} → 𝒪_{𝒢',ξ'}`), `⋀^g ω_{𝒢'} = 𝓞_{L'} · ψ(⋀^g ω_𝒢)`
+(formation of `e*Ω¹` of a smooth group scheme commutes with base change; EGA IV 17.2.3,
+UNVERIFIED locator), and at `τ' : L' → ℂ` the uniformization of `𝒢(ℂ)_{τ'|_L}` composed with the
+bijection `𝒢(ℂ)_{τ'|_L} ≅ 𝒢'(ℂ)_{τ'}` (universal property of the pullback). Glue (a property of
+def-faltings' definitions), STANDARD; not a literature leaf. -/
+def MetrizationBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 →
+    ∀ (g : ℕ) (Mm : MetrizedModel A L g), Mm.model = 𝒢 →
+    ∃ (Mm' : MetrizedModel A L' g) (ψ : Mm.model.hodgeSpace g →+ Mm'.model.hodgeSpace g),
+      Mm'.model = 𝒢' ∧ IsHodgeBaseChange Mm.hodge Mm'.hodge ψ
+
+/-- **`ModelHeightBaseChangeLE` from the geometric half.** Proved. -/
+theorem modelHeightBaseChangeLE_of_metrization (h : MetrizationBaseChange) :
+    ModelHeightBaseChangeLE := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢
+  unfold GroupModel.height
+  refine le_iInf fun g => le_iInf fun Mm => le_iInf fun hM => ?_
+  obtain ⟨Mm', ψ, hM', hι⟩ := h K A L L' 𝒢 𝒢' h𝒢 g Mm hM
+  refine iInf_le_of_le g (iInf_le_of_le Mm' (iInf_le_of_le hM' ?_))
+  rw [modelHeight_eq_of_isHodgeBaseChange Mm.hodge Mm'.hodge ψ hι]
+
 /-! ### The piece, from the glue (proved) -/
 
 /-- **`StableHeightBaseChange` from three glue statements** (`BaseChangeCompIso`, and h5-neron's
@@ -279,8 +440,17 @@ theorem stableHeightBaseChange_of_modelHeightBaseChange (hbc : ModelHeightBaseCh
     StableHeightBaseChange :=
   stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE hbc)
 
+/-- **`StableHeightBaseChange` from the geometric half of H4a alone.** -/
+theorem stableHeightBaseChange_of_metrization (h : MetrizationBaseChange) :
+    StableHeightBaseChange :=
+  stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE_of_metrization h)
+
 end G0StableBC
 
+#print axioms G0StableBC.secIndex_baseChange
+#print axioms G0StableBC.modelHeight_eq_of_isHodgeBaseChange
+#print axioms G0StableBC.modelHeightBaseChangeLE_of_metrization
+#print axioms G0StableBC.stableHeightBaseChange_of_metrization
 #print axioms G0StableBC.stableHeightBaseChange_of_glue
 #print axioms G0StableBC.baseChangeCompIso
 #print axioms G0StableBC.groupModelBaseChangeExists
