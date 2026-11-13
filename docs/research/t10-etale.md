@@ -86,7 +86,7 @@ The ingredients are genuine definitions:
 | `transport_smul` | transport is `ℤ_ℓ`-linear | ~20 | VERIFIED |
 | `transport_bijective` | transport is bijective | ~35 | VERIFIED |
 | `transport_mk₀`, `unit_ellIso_sections`, `transport_homEquiv`, `transport_H0` | degree-0 check: `transport` is `f ↦ f ∘ e⁻¹` on global sections, so `constIso` is the canonical isomorphism | ~75 | VERIFIED |
-| `specAut`, `AKbar`, `galAut`, `galAut_mul`, `galAut_one`, `galIso` | `1 × Spec(σ)` on `A_K̄ = A ×_K Spec K̄` as a scheme automorphism; `galAut (στ) = galAut σ ≫ galAut τ` | ~55 | VERIFIED |
+| `specAut`, `AKbar`, `galAut`, `galAut_mul`, `galAut_one`, `galIso`, `galIso_mul`, `galIso_inv_mul` | `1 × Spec(σ)` on `A_K̄ = A ×_K Spec K̄` as a scheme automorphism; `galAut (στ) = galAut σ ≫ galAut τ`; `galIso (στ)⁻¹ = galIso τ⁻¹ ≪≫ galIso σ⁻¹` | ~70 | VERIFIED |
 | `galH A ℓ σ := transportₗ ℓ (galIso A σ⁻¹) 1` | Galois action on `H¹(A_K̄, ℤ_ℓ)` | ~10 | VERIFIED |
 | `T10_linIso`, `T10_groupIso`, `T10_TateDuality` + implications, `subsingleton_T_zero`, `T10_linIso_zero` | the leaf and its checks | ~70 | VERIFIED |
 
@@ -172,8 +172,8 @@ All checks below are compiled (VERIFIED) unless marked otherwise.
 | Item | Lean statement | Estimated size | Main difficulty |
 | --- | --- | --- | --- |
 | `transport_refl` | `transport ℓ (Iso.refl X) n = id` | 60–120 lines | `proEtEquiv (Iso.refl X)` is not definitionally the identity (objects `(U, f ≫ 𝟙)`); needs `sheafCongr` naturality and `leftAdjointUniq_refl` |
-| `transport_trans` | `transport ℓ (e ≪≫ e') n = transport ℓ e' n ∘ transport ℓ e n` | 100–200 lines | composition of `sheafCongr`s, `leftAdjointUniq_trans_app`, `Ext.comp_mapExactFunctor` |
-| `galH_mul`, `galH_one` | `galH` is a representation `G_K → GL(H¹)` | ~20 lines given the two above | from `galAut_mul/one` |
+| `transport_trans` | `transport ℓ (e ≪≫ e') n = transport ℓ e' n ∘ transport ℓ e n` | 150–250 lines | the natural iso `S_e ⋙ S_{e'} ≅ S_{e≪≫e'}` (componentwise identity) with `Ext.comp_mapExactFunctor` and `Ext.mapExactFunctor_comp_mk₀_natTransApp`; the hard part is the compatibility of the three `constIso`s, which are defined at three different terminal objects, so it needs the restriction maps between them |
+| `galH_mul`, `galH_one` | `galH` is a representation `G_K → GL(H¹)` | ~10 lines given `transport_trans` | `galIso_inv_mul` (proved) + `transport_trans`; `galH_one` also follows from `transport_trans` + `transport_bijective` (an idempotent bijection is the identity) |
 | `ℚ_ℓ` form | `V_ℓ(A) ≅ (H¹ ⊗ ℚ_ℓ)^∨` as `G_K`-representations (`AbVar.galRep`) | ~100 lines | needs `T_ℓ A` finite free (the `TateModuleFree` leaf) to commute `Dual` with `⊗ ℚ_ℓ` |
 | continuity of `galH` | not needed by any step | — | — |
 

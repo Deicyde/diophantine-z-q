@@ -487,6 +487,19 @@ noncomputable def galIso {K : Type} [Field K] (A : AbVar K) (σ : AlgebraicClosu
   hom_inv_id := by rw [← galAut_mul, mul_inv_cancel, galAut_one]
   inv_hom_id := by rw [← galAut_mul, inv_mul_cancel, galAut_one]
 
+lemma galIso_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galIso A (σ * τ) = galIso A σ ≪≫ galIso A τ :=
+  Iso.ext (galAut_mul A σ τ)
+
+/-- The isomorphisms used by `galH`: `s_{στ} = s_τ ≪≫ s_σ` with `s_σ = galIso A σ⁻¹` (diagrammatic
+order), so `galH (στ) = galH σ ∘ galH τ` follows from functoriality of `transport`
+(`transport (e ≪≫ e') = transport e' ∘ transport e`, not proved here). -/
+lemma galIso_inv_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galIso A (σ * τ)⁻¹ = galIso A τ⁻¹ ≪≫ galIso A σ⁻¹ := by
+  rw [mul_inv_rev, galIso_mul]
+
 /-- **The Galois action on `H¹(A_K̄, ℤ_ℓ)`**, by transport of structure: `σ` acts by `s_*`,
 `s = 1 × Spec(σ⁻¹)` (`s_σ ∘ s_τ = s_{στ}`, so this is a left action once functoriality of
 `transport` is proved). -/

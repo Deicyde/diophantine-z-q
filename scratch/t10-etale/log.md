@@ -49,3 +49,4 @@
 - Model review (subagent, read-only, no Lean): no DEFECT; conventions OK (independent torsor
   computation); minor RISKs: pro-étale/étale comparison (literature), Milne sub-item number.
 - docs/research/t10-etale.md written.
+- 00:15 + galIso_mul, galIso_inv_mul COMPILED. transport_trans not attempted (estimate 150-250 lines; recorded in report §5).
