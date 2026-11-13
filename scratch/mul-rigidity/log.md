@@ -54,3 +54,15 @@
   Classical.choice, Quot.sound. Rigidity.lean alone recompiled after the rename (OK).
 - Verbatim check (diff): `def RigidityHom` (with docstring) and `def MulIsogeny` identical to
   scratch/g0-fibresimple/FibreSimple.lean.
+
+## KerUnitOpen reduced to two glue statements (cotangent space at the origin)
+- 05:44 COMPILED (exit 0, Mul.lean 4 s; MulRigidity.lean 12 s): `origin`, `map_origin`, `O0` (= stalk at the
+  origin), `stalkEndo` (f^♯ on 𝒪_{A,0}, via `stalkCongr` + `stalkMap`), `cotangentMap` (`Ideal.mapCotangent` of
+  f^♯.toIntAlgHom on m₀/m₀²), glue Props **`KerUnitOpenOfCotangentSurj`** (cotangent map surjective ⇒ unit
+  section of ker f open immersion; Nakayama + fibre local ring) and **`CotangentMulN`** (cotangent map of [n] is
+  n • id, any characteristic), `charZero_residueField` (residue field at 0 has char 0: ring hom
+  k → Γ(Spec k) → Γ(A) → 𝒪_{A,0} → κ), `kerUnitOpen_of_cotangent`, **`mulIsogeny_of_cotangent :
+  KerUnitOpenOfCotangentSurj → CotangentMulN → MulIsogeny`**. Axioms: propext, Classical.choice, Quot.sound.
+- Truth checks (argument, STANDARD): n = 0 gives cotangent map 0 (f^♯ factors through the residue map, which kills
+  m₀), consistent with KerUnitOpenOfCotangentSurj (ker [0] = A, unit section open iff dim A = 0 iff m₀/m₀² = 0).
+  Neither glue Prop is proved: Mathlib v4.35 lacks stalks of fibre products / tangent vectors as k[ε]-points.

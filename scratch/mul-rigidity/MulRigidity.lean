@@ -507,11 +507,102 @@ theorem mulIsogeny_of_kerUnitOpen (h : KerUnitOpen) : G0FibreSimple.MulIsogeny :
 
 end MulRigidity
 
+
+/-! ## `KerUnitOpen` reduced to two glue statements on the cotangent space at the origin -/
+
+namespace MulRigidity
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+variable {K : Type} [Field K]
+
+/-- The origin of `A`, as a point of the underlying space. -/
+def origin (A : PkgI3.AbVar K) : A.X.left := η[A.X].left (IsLocalRing.closedPoint K)
+
+theorem map_origin (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] :
+    f.left (origin A) = origin A := by
+  have h := congrArg (fun g : 𝟙_ (Over (Spec (.of K))) ⟶ A.X => g.left) (IsMonHom.one_hom f)
+  simp only [Over.comp_left] at h
+  exact (Scheme.Hom.comp_apply _ _ _).symm.trans
+    (congrArg (fun g : (𝟙_ (Over (Spec (.of K)))).left ⟶ A.X.left => g (IsLocalRing.closedPoint K)) h)
+
+/-- The local ring `𝒪_{A,0}` at the origin. -/
+abbrev O0 (A : PkgI3.AbVar K) : CommRingCat := A.X.left.presheaf.stalk (origin A)
+
+/-- The local endomorphism `f^♯ : 𝒪_{A,0} → 𝒪_{A,0}` of a homomorphism `f` (which fixes `0`). -/
+def stalkEndo (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] : O0 A ⟶ O0 A :=
+  (A.X.left.presheaf.stalkCongr (Inseparable.of_eq (map_origin A f).symm)).hom ≫
+    f.left.stalkMap (origin A)
+
+instance (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] : IsLocalHom (stalkEndo A f).hom := by
+  unfold stalkEndo
+  rw [CommRingCat.hom_comp]
+  infer_instance
+
+/-- The cotangent map `m₀/m₀² → m₀/m₀²` of a homomorphism `f` at the origin. -/
+def cotangentMap (A : PkgI3.AbVar K) (f : A.X ⟶ A.X) [IsMonHom f] :
+    IsLocalRing.CotangentSpace (O0 A) →ₗ[ℤ] IsLocalRing.CotangentSpace (O0 A) :=
+  Ideal.mapCotangent _ _ (stalkEndo A f).hom.toIntAlgHom (fun x hx => by
+    simp only [Ideal.mem_comap, IsLocalRing.mem_maximalIdeal, mem_nonunits_iff] at hx ⊢
+    exact fun hu => hx (isUnit_of_map_unit (stalkEndo A f).hom x hu))
+
+/-- **Glue (commutative algebra of the fibre `ker f`; Nakayama).** For a homomorphism `f : A → A`
+over `k` whose cotangent map at the origin is surjective, the unit section of `ker f` is an open
+immersion. *Why true* (STANDARD): `𝒪_{ker f, 0} = 𝒪_{A,0} / f^♯(m₀)𝒪_{A,0}` (the fibre of `f`
+over the rational point `0`), so surjectivity gives `m₀ = f^♯(m₀)𝒪 + m₀²`, hence
+`m₀ = f^♯(m₀)𝒪` by Nakayama, so `𝒪_{ker f, 0} = k`; a rational point of a Noetherian scheme with
+local ring a field is isolated, and the open point is `Spec k`. Glue, unproved. -/
+def KerUnitOpenOfCotangentSurj : Prop :=
+  ∀ (k : Type) [Field k] (A : PkgI3.AbVar k) (f : A.X ⟶ A.X) [IsMonHom f],
+    Function.Surjective (cotangentMap A f) → IsOpenImmersion (kerUnit A f).left
+
+/-- **Glue (the group law to first order; Mumford §4, `d(n_X) = n`, UNVERIFIED locator).** The
+cotangent map of `[n]` at the origin is multiplication by `n`, for every `n ∈ ℤ` and in every
+characteristic. *Why true* (STANDARD): the unit axioms give `μ^♯(φ) ≡ φ ⊗ 1 + 1 ⊗ φ` modulo
+`m ⊗ m` on cotangent spaces, so the cotangent map of `f * g = μ ∘ (f, g)` is the sum of those of
+`f` and `g`; induct on `n`. Glue, unproved. -/
+def CotangentMulN : Prop :=
+  ∀ (k : Type) [Field k] (A : PkgI3.AbVar k) (n : ℤ),
+    cotangentMap A ((n : PkgI3.AbVar.End A).hom) = n • LinearMap.id
+
+/-- The residue field at the origin has characteristic `0` when `k` does. -/
+theorem charZero_residueField [CharZero K] (A : PkgI3.AbVar K) :
+    CharZero (IsLocalRing.ResidueField (O0 A)) := by
+  let φ : K →+* IsLocalRing.ResidueField (O0 A) :=
+    (IsLocalRing.residue (O0 A)).comp ((A.X.left.presheaf.Γgerm (origin A)).hom.comp
+      ((A.X.hom.appTop).hom.comp (Scheme.ΓSpecIso (CommRingCat.of K)).inv.hom))
+  exact (RingHom.charZero_iff φ.injective).mp inferInstance
+
+/-- **`KerUnitOpen` from the two glue statements** (proved here: in characteristic `0`,
+multiplication by `n ≠ 0` is bijective on the cotangent space, a vector space over the residue
+field). -/
+theorem kerUnitOpen_of_cotangent (h1 : KerUnitOpenOfCotangentSurj) (h2 : CotangentMulN) :
+    KerUnitOpen := by
+  intro k _ _ A n hn
+  apply h1
+  rw [h2]
+  have := charZero_residueField A
+  have hn' : (n : IsLocalRing.ResidueField (O0 A)) ≠ 0 := Int.cast_ne_zero.mpr hn
+  intro v
+  refine ⟨((n : IsLocalRing.ResidueField (O0 A))⁻¹) • v, ?_⟩
+  rw [LinearMap.smul_apply, LinearMap.id_apply,
+    ← Int.cast_smul_eq_zsmul (IsLocalRing.ResidueField (O0 A)), smul_smul, mul_inv_cancel₀ hn',
+    one_smul]
+
+/-- **`MulIsogeny` from glue alone**: the two cotangent-space glue statements imply it, with no
+literature leaf. -/
+theorem mulIsogeny_of_cotangent (h1 : KerUnitOpenOfCotangentSurj) (h2 : CotangentMulN) :
+    G0FibreSimple.MulIsogeny :=
+  mulIsogeny_of_kerUnitOpen (kerUnitOpen_of_cotangent h1 h2)
+
+end MulRigidity
+
 #print axioms MulRigidity.mulIsogeny_of_mulEtale
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified
 #print axioms MulRigidity.mulIsogeny_of_mulUnramified'
 #print axioms MulRigidity.mulIsogeny_of_kerUnitOpen
 #print axioms MulRigidity.kerUnitOpen_of_mulEtale
+#print axioms MulRigidity.mulIsogeny_of_cotangent
 
 /-! ## Consumers in g0-fibresimple: FS2 closed, FS3 from T6 and `KerUnitOpen`
 
