@@ -9,7 +9,8 @@
 #  4. Torsion.lean (this task, Mathlib only) without import / #print;
 #  5. part_main.lean (this task);
 #  6. ProductUnif.lean lines 1842-1904 (metrization's pullGerm, ProductHodgeLattice), verbatim;
-#  7. part_phl.lean (this task).
+#  5b. DetProd.lean (this task) without import / #print, after part_main;
+#  7. part_phl.lean, part_final.lean (this task).
 # Prerequisite: lake build ZInQKernel.HDecomp.LeafPush2.T
 cd "$(dirname "$0")"
 PU=../product-unif/ProductUnif.lean
@@ -33,9 +34,12 @@ PU=../product-unif/ProductUnif.lean
   echo
   cat part_main.lean
   echo
+  grep -v '^import\|^#print axioms' DetProd.lean
+  echo
   # metrization's pullGerm and ProductHodgeLattice, verbatim (ProductUnif.lean lines 1842-1904)
   sed -n 1842,1904p $PU
   echo "end ZInQ.Metrization"
   echo
   cat part_phl.lean
+  cat part_final.lean
 } > UnifDims.lean
