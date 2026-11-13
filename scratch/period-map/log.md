@@ -69,3 +69,12 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
 - run_light_full: `lake env lean scratch/period-map/PMLight.lean` (light_base + part_light): 0 errors, 9s, 9 axioms lines
   standard. VERIFIED.
 - Report docs/research/period-map.md written.
+
+## ThetaOmegaAnalytic (part_theta.lean)
+- omega_sym.py (omega_sym_out.txt, sympy): Ω(τ) symmetric; det Im Ω = 12y²/(|τ-3|²|τ+1|²); (Im Ω)₁₁ =
+  2y((4-√2)|τ|² - 6√2x + 12 + 3√2)/(|τ-3|²|τ+1|²) > 0 (discriminant 72-168<0). So `OmegaSiegel` VERIFIED (computation).
+- run_theta1-2: errors (Summable congr shape, nlinarith, Eventually.and on a mem_nhds, `fun_prop` whnf timeout on the
+  theta term). Fixed (manual DifferentiableAt.fun_sum / cexp chain).
+- run_theta3: 0 errors; `thetaOmegaAnalytic_of : OmegaSiegel → ThetaOmegaAnalytic`, axioms standard. VERIFIED.
+- run_light_full2: `lake env lean scratch/period-map/PMLight.lean` (light_base + part_light + part_theta): 0 errors, 12s,
+  all axioms lines standard. VERIFIED.
