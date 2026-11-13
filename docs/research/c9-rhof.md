@@ -42,7 +42,7 @@ The theorems (namespace `C9Rhof`):
      (`GlueC10.BrauerNesbittChar0`);
    - a newform `f ∈ S₂(Γ₁(N))` with nebentypus `χ`, a `J` with `IsJ1 N J`, and embeddings `ιC`, `ιL`;
    - a continuous, semisimple, finite-dimensional `r : G_ℚ → GL(W)` over `ℚ̄_ℓ` whose
-     arithmetic-Frobenius traces outside a finite `S` are `ιL(α)`, `ιC(α) = a_p(f)`.
+     arithmetic-Frobenius traces at primes `p ∉ S`, `p ∤ Nℓ` (`S` finite) are `ιL(α)`, `ιC(α) = a_p(f)`.
 
    Conclusions, for R16's `A_f`, `π`, `θ` and `ι = embOf ιC ιL = ιL ∘ ιC⁻¹`:
    - `ρ_{f,ι}` is 2-dimensional, semisimple and continuous;
