@@ -5,7 +5,7 @@ Authors: The Tau Ceti contributors
 -/
 -- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 4d91513e4d30, module
 -- TauCeti.Topology.Algebra.InfiniteSum.IntegralCoefficients), Apache-2.0: the whole module (task t40-tate), placed under Backport/.
--- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules.
+-- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules; `set_option maxHeartbeats 1000000 in` added before `evalIntBivariateSeries_eq_tsum`.
 module
 
 public import ZInQKernel.Contrib.TauCeti.Backport.Analysis.Normed.Ring.Basic

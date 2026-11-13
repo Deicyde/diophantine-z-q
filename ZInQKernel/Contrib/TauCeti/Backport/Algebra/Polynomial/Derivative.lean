@@ -5,7 +5,7 @@ Authors: The Tau Ceti contributors
 -/
 -- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 4d91513e4d30, module
 -- TauCeti.Algebra.Polynomial.Derivative), Apache-2.0: the whole module (task t40-tate), placed under Backport/.
--- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules.
+-- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules; in `exists_iterate_smul_derivative'_apply_eq_zero` the rewrites `FunLike.coe_pow_eq_iterate`, `pow_apply_eq_iterate` replaced by `Module.End.coe_pow` (pinned Mathlib).
 module
 
 public import Mathlib.Algebra.Polynomial.Derivation

@@ -5,7 +5,7 @@ Authors: The Tau Ceti contributors
 -/
 -- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 4d91513e4d30, module
 -- TauCeti.Analysis.Normed.Module.InfiniteSum), Apache-2.0: the whole module (task t40-tate), placed under Backport/.
--- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules.
+-- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules; `Finset.tsum_subtype` used without the summation-filter argument `(L := .unconditional _)` (absent from the pinned Mathlib); `set_option maxHeartbeats 1000000 in` added before `hasSum_laurent_mul_of_summable_norm`.
 module
 
 public import Mathlib.Analysis.Normed.Group.Completion

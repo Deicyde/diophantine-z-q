@@ -5,7 +5,7 @@ Authors: The Tau Ceti contributors
 -/
 -- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 4d91513e4d30, module
 -- TauCeti.Analysis.Normed.Group.Ultra), Apache-2.0: the whole module (task t40-tate), placed under Backport/.
--- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules.
+-- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules; `nnNorm_mul_le_max` renamed `nnnorm_mul_le_max` (pinned Mathlib name).
 module
 
 public import Mathlib.Analysis.Normed.Group.Ultra

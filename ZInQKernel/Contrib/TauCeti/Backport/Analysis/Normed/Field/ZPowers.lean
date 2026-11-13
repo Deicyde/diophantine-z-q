@@ -5,7 +5,7 @@ Authors: The Tau Ceti contributors
 -/
 -- Backported from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 4d91513e4d30, module
 -- TauCeti.Analysis.Normed.Field.ZPowers), Apache-2.0: the whole module (task t40-tate), placed under Backport/.
--- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules.
+-- Modified for the Z-in-Q kernel: imports rewritten to the vendored and Backport/ modules; `nnNormHom` renamed `nnnormHom` (pinned Mathlib name).
 module
 
 public import Mathlib.Analysis.Normed.Field.Basic
