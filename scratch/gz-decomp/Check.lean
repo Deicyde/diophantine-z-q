@@ -12,6 +12,7 @@ import ZInQKernel.Contrib.GZDecomp.Decomp
 #print axioms ZInQ.GZDecomp.isEntireCont_of_isLContinuation
 #print axioms ZInQ.GZDecomp.signOfSimpleZero
 #print axioms ZInQ.GZDecomp.exists_rat_point_of_heegner
+#print axioms ZInQ.GZDecomp.exists_isEntireCont_twist
 #print axioms ZInQ.GZDecomp.exists_quadratic_field
 #print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves
 #print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves'

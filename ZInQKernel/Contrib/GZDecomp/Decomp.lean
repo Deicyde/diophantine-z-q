@@ -3,6 +3,7 @@ import ZInQKernel.Contrib.HeckeFE.Basic
 import ZInQKernel.Contrib.GaussFE.FunctionalEquation5
 import ZInQKernel.Contrib.HeckeAll.LocalCd
 import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Sign
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Twist.Basic
 import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisDescent
 
 /-!
@@ -102,12 +103,13 @@ number); D. Bump, S. Friedberg, J. Hoffstein, Invent. Math. 102 (1990), 543-618 
 alternatively Waldspurger, Compositio Math. 54 (1985) / J. Math. Pures Appl. 60 (1981) with
 local conditions. Folded in (textbook): the root number of the twist,
 `ε(f ⊗ χ_D) = ε(f) χ_D(−N) = +1` for `(D, N) = 1` (Shimura; Atkin–Li, Invent. Math. 48 (1978)),
-which is the compatibility hypothesis of the source; and the continuation of `L(f ⊗ χ_D, s)`
-(Shimura; Tau Ceti `CuspForm.twist` with `CuspForm.hasEntireExtension_qExpansion_coeff`). -/
+which is the compatibility hypothesis of the source. The continuation of `L(f ⊗ χ_D, s)` is not
+part of the leaf: it is proved (glue G6, `exists_isEntireCont_twist`, from Tau Ceti's
+`CuspForm.twist`). -/
 def FHNonvanishing : Prop :=
   ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1), rootNumber f hχ = -1 →
     ∀ B : ℕ, ∃ D : ℤ, D < -(B : ℤ) ∧ IsOddImagFundDisc D ∧ HeegnerHyp N D ∧
-      ∃ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G ∧ G 1 ≠ 0
+      ∀ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G → G 1 ≠ 0
 
 /-- **(L3) Gross–Zagier with Gross's conjugation relation, in the form that can be stated today.**
 Let `E/ℚ` be an elliptic curve whose L-series is that of a weight-2 newform `f` of level `N` and
@@ -180,6 +182,35 @@ theorem map_mul_apply {E : WeierstrassCurve ℚ} {K : Type} [Field K] [Decidable
 theorem map_one_apply {E : WeierstrassCurve ℚ} {K : Type} [Field K] [DecidableEq K] [Algebra ℚ K]
     (y : (E⁄K).Point) : Affine.Point.map (1 : K ≃ₐ[ℚ] K).toAlgHom y = y := by
   cases y <;> rfl
+
+/-- The function `x ↦ (x / |D|)` on `ZMod |D|`, which Tau Ceti's twist consumes. -/
+noncomputable def chiDMod (D : ℤ) : ZMod D.natAbs → ℂ :=
+  fun x => (jacobiSym (x.val : ℤ) D.natAbs : ℂ)
+
+theorem chiDMod_natCast (D : ℤ) [NeZero D.natAbs] (n : ℕ) : chiDMod D n = chiD D n := by
+  simp only [chiDMod, chiD, ZMod.val_natCast]
+  rw [Int.natCast_mod, ← jacobiSym.mod_left]
+
+open CongruenceSubgroup in
+/-- **(G6) The twisted L-series `∑ aₙ(f) χ_D(n) n^{−s}` has an entire continuation**: it is the
+L-series of the cusp form `f ⊗ χ_D` of level `N D²` (Tau Ceti `CuspForm.twist`,
+`CuspForm.qExpansion_twist_coeff`; Mathlib `CuspForm.differentiable_L`). -/
+theorem exists_isEntireCont_twist {N : ℕ} [NeZero N] (f : Newform N 2) {D : ℤ} (hD : D ≠ 0) :
+    ∃ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G := by
+  have : NeZero D.natAbs := ⟨Int.natAbs_ne_zero.mpr hD⟩
+  have : NeZero (N * D.natAbs * D.natAbs) :=
+    ⟨mul_ne_zero (mul_ne_zero (NeZero.ne N) (NeZero.ne _)) (NeZero.ne _)⟩
+  have hk : (0 : ℤ) < 2 := by norm_num
+  set g := CuspForm.twist (chiDMod D) (L := N * D.natAbs * D.natAbs) (dvd_mul_right _ _)
+    ⟨N, by ring⟩ f.toCuspForm with hg
+  refine ⟨ModularForm.L hk g, CuspForm.differentiable_L hk g, fun s hs => ?_⟩
+  have h := CuspForm.LSeries_qExpansion_coeff_eq hk g (s := s) (by norm_num; linarith)
+  simp only [strictWidthInfty_Gamma1, Complex.ofReal_one, Complex.one_cpow, one_mul] at h
+  rw [← h]
+  refine LSeries_congr (fun {n} _ => ?_) s
+  rw [hg, CuspForm.qExpansion_twist_coeff, chiDMod_natCast]
+  simp only [twistCoeff, coeff]
+  ring
 
 /-- **(G4) Descent of the Heegner point.** If `y ∈ E(K)`, `[K : ℚ] = 2`, has infinite order and
 `σ y − y` is torsion for every `σ ∈ Aut(K/ℚ)`, then `E(ℚ)` has a point of infinite order
@@ -255,7 +286,9 @@ theorem grossZagierCd_of_leaves (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
   obtain ⟨N, hN, f, hχ, hf⟩ := modular_cd hL1 (by omega) hsq
   have hFf : IsEntireCont (coeff f) 2 F := isEntireCont_of_isLContinuation hf hF
   have hw : rootNumber f hχ = -1 := hG3 N f hχ F hFf h1
-  obtain ⟨D, hDB, hDisc, hHeeg, G, hG, hG1⟩ := hL2 N f hχ hw 4
+  obtain ⟨D, hDB, hDisc, hHeeg, hGne⟩ := hL2 N f hχ hw 4
+  obtain ⟨G, hG⟩ := exists_isEntireCont_twist f (ne_of_lt hDisc.1)
+  have hG1 := hGne G hG
   have hD0 : (D : ℚ) < 0 := by exact_mod_cast hDisc.1
   obtain ⟨K, hKf, hKa, hK2, δ, hδ⟩ := exists_quadratic_field hD0
   classical
