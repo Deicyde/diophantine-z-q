@@ -239,7 +239,7 @@ embedding.
 | prereq | `lake build ZInQKernel.HDecomp.Analytic.QMLattice ZInQKernel.Hypotheses.JHeight` | OK, 2m0s |
 | run_base | `FQMBase.lean` (ThetaPoint + qm-pin full edit + `part_pin`, 20634 lines) | 0 errors, 2m52s |
 | run_dev2-13 | `Dev.lean` = `import FQMBase` + `part_fqm.lean` (base compiled to an olean with `lean -o`) | final run_dev13: 0 errors, 31 axioms lines standard |
-| run_full1-5 | `FibreQM.lean` (assembled), `lake env lean` | 0 errors, no `sorry`; every axioms line of §N and §F standard. run_full5 checks the final file (see log) |
+| run_full1-6 | `FibreQM.lean` (assembled), `lake env lean` | 0 errors, no `sorry`; every axioms line of §N and §F standard. run_full6 checks the final file: 32 lines, 2m33s |
 
 To reproduce, from the repository root:
 1. build the prerequisites above;

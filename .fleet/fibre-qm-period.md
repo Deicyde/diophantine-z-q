@@ -20,8 +20,8 @@ form a ring hom, normalization of QM lattices with the unit 1+i (`FibreQMNorm.no
 valence formula for signature (0;2,4,6) exclude other zeros.
 
 **Compiles.** `scratch/fibre-qm-period/FibreQM.lean`, assembled by `build.sh` from ThetaPoint.lean with qm-pin's
-full R1fpProps edit, part_pin.lean and part_fqm.lean: 0 errors, 0 sorry, 31 `#print axioms` lines standard
-(run_full5).
+full R1fpProps edit, part_pin.lean and part_fqm.lean: 0 errors, 0 sorry, 32 `#print axioms` lines standard
+(run_full6).
 
 **Remains.** The four glue Props above and the textbook fact `QMClassNumberOne`. A human check of `R1bFamily`'s
 faithfulness to Shimura's Main Theorem I. The SPECULATIVE premise bp-qmmoduli §2.2 is inherited. Integration needs
