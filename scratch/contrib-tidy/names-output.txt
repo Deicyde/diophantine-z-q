@@ -1,0 +1,21 @@
+607 constants in Contrib modules; outside ZInQ.Contrib: [_private.ZInQKernel.Contrib.HeckeAll.LocalCd.0.ZInQ.Contrib.HeckeAll._aux_ZInQKernel_Contrib_HeckeAll_LocalCd___macroRules__private_ZInQKernel_Contrib_HeckeAll_LocalCd_0_ZInQ_Contrib_HeckeAll_termRv_1
+
+_private.ZInQKernel.Contrib.HeckeAll.Iso.0.ZInQ.Contrib.HeckeAll._aux_ZInQKernel_Contrib_HeckeAll_Iso___macroRules__private_ZInQKernel_Contrib_HeckeAll_Iso_0_ZInQ_Contrib_HeckeAll_termVK_1
+
+_private.ZInQKernel.Contrib.HeckeAll.LocalCd.0.ZInQ.Contrib.HeckeAll._aux_ZInQKernel_Contrib_HeckeAll_LocalCd___unexpand_IsDedekindDomain_HeightOneSpectrum_valuation_1
+
+PeriodPair.mk.congr_simp
+
+_private.ZInQKernel.Contrib.HeckeAll.LocalCd.0.ZInQ.Contrib.HeckeAll.termVK
+
+_private.ZInQKernel.Contrib.HeckeAll.Iso.0.ZInQ.Contrib.HeckeAll._aux_ZInQKernel_Contrib_HeckeAll_Iso___unexpand_IsDedekindDomain_HeightOneSpectrum_valuation_1
+
+WeierstrassCurve.LSeries.eq_1
+
+_private.ZInQKernel.Contrib.HeckeAll.Iso.0.ZInQ.Contrib.HeckeAll.termVK
+
+_private.ZInQKernel.Contrib.HeckeAll.LocalCd.0.ZInQ.Contrib.HeckeAll.termRv
+
+ZInQ.Literature.cdEulerPoly.eq_1
+
+_private.ZInQKernel.Contrib.HeckeAll.LocalCd.0.ZInQ.Contrib.HeckeAll._aux_ZInQKernel_Contrib_HeckeAll_LocalCd___macroRules__private_ZInQKernel_Contrib_HeckeAll_LocalCd_0_ZInQ_Contrib_HeckeAll_termVK_1]

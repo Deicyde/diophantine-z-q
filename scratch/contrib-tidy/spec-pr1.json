@@ -1,0 +1,44 @@
+{
+ "modules": [
+  "ZInQKernel.Contrib.GaussFE.FunctionalEquation5",
+  "ZInQKernel.Contrib.GaussFE.Gauss",
+  "ZInQKernel.Contrib.GaussFE.Headline",
+  "ZInQKernel.Contrib.HeckeAll.Continuation",
+  "ZInQKernel.Contrib.HeckeAll.Iso",
+  "ZInQKernel.Contrib.HeckeAll.LocalCd",
+  "ZInQKernel.Contrib.HeckeAll.Provider",
+  "ZInQKernel.Contrib.HeckeFE.Basic"
+ ],
+ "targets": [
+  {
+   "declaration": "ZInQ.SixContactMin",
+   "provider": "ZInQ.Contrib.sixContactMin",
+   "source": "ZInQKernel/Hypotheses/HeightMin.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.TYZThm35ReadingA",
+   "provider": "ZInQ.Contrib.tyzThm35ReadingA",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.HeckeContinuation",
+   "provider": "ZInQ.Contrib.heckeContinuation",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.FunctionalEquation5",
+   "provider": "ZInQ.Contrib.functionalEquation5",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.GrossZagier",
+   "provider": "ZInQ.Contrib.grossZagier",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  }
+ ],
+ "headline": {
+  "declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier",
+  "type_declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier"
+ },
+ "exports": []
+}
