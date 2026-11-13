@@ -203,6 +203,106 @@ theorem neronLocalToGlobal_zero (L : Type) [Field L] [NumberField L] :
     Nonempty (NeronModelOver (𝓞 L) L (AbVar.zero L)) :=
   ⟨trivNeronOver (𝓞 L) L⟩
 
+/-! ## §5. N2 needs only one Néron model over each `L'`
+
+By uniqueness of Néron models (`NeronProp.uniqueIso`), and because an isomorphism of Néron models
+compatible with the identifications of the generic fibres is a group isomorphism
+(`isMonHom_of_reflect`), the clause "for every Néron model `𝒩'` over `𝓞_{L'}`" of N2 may be
+replaced by "for some Néron model `𝒩'` over `𝓞_{L'}`" (`SemistableNeronIdentityComponentSome`). -/
+
+section Reflect
+
+variable {C D : Type*} [Category C] [Category D] [MonoidalCategory C] [MonoidalCategory D]
+  (F : C ⥤ D) [F.Monoidal]
+
+/-- A morphism `φ : M → N` of monoid objects is a monoid morphism if, after a monoidal functor
+`F`, it is compatible with monoid morphisms `g_M : F M → A`, `g_N : F N → A`
+(`F φ ≫ g_N = g_M`) and maps `T → N` (`T = 𝟙`, `T = M ⊗ M`) are determined by `F (-) ≫ g_N`. -/
+theorem isMonHom_of_reflect {M N : C} [MonObj M] [MonObj N] {A : D} [MonObj A]
+    (φ : M ⟶ N) (gM : F.obj M ⟶ A) (gN : F.obj N ⟶ A) [IsMonHom gM] [IsMonHom gN]
+    (hφ : F.map φ ≫ gN = gM)
+    (inj1 : ∀ a b : 𝟙_ C ⟶ N, F.map a ≫ gN = F.map b ≫ gN → a = b)
+    (inj2 : ∀ a b : M ⊗ M ⟶ N, F.map a ≫ gN = F.map b ≫ gN → a = b) : IsMonHom φ := by
+  constructor
+  · apply inj1
+    rw [F.map_comp, Category.assoc, hφ]
+    have h1 : Functor.LaxMonoidal.ε F ≫ F.map η[M] ≫ gM = η[A] := by
+      rw [← Category.assoc]; exact IsMonHom.one_hom gM
+    have h2 : Functor.LaxMonoidal.ε F ≫ F.map η[N] ≫ gN = η[A] := by
+      rw [← Category.assoc]; exact IsMonHom.one_hom gN
+    exact (cancel_epi (Functor.LaxMonoidal.ε F)).mp (h1.trans h2.symm)
+  · apply inj2
+    rw [F.map_comp, Category.assoc, hφ, F.map_comp, Category.assoc]
+    have h1 : Functor.LaxMonoidal.μ F M M ≫ F.map μ[M] ≫ gM = (gM ⊗ₘ gM) ≫ μ[A] := by
+      rw [← Category.assoc]; exact IsMonHom.mul_hom gM
+    have h2 : Functor.LaxMonoidal.μ F N N ≫ F.map μ[N] ≫ gN = (gN ⊗ₘ gN) ≫ μ[A] := by
+      rw [← Category.assoc]; exact IsMonHom.mul_hom gN
+    apply (cancel_epi (Functor.LaxMonoidal.μ F M M)).mp
+    rw [h1, ← Category.assoc, ← Functor.LaxMonoidal.μ_natural, Category.assoc, h2,
+      ← Category.assoc, tensorHom_comp_tensorHom, hφ]
+
+end Reflect
+
+section NeronIso
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- An isomorphism of Néron group models compatible with `gen` is a monoid morphism. -/
+theorem isMonHom_of_neron {𝒩 𝒩' : GroupModel A L} (h' : 𝒩'.IsNeronModel) (φ : 𝒩.G ⟶ 𝒩'.G)
+    (hφ : (Over.pullback (jL L)).map φ ≫ 𝒩'.gen.hom = 𝒩.gen.hom) : IsMonHom φ := by
+  let F := Over.pullback (jL L)
+  let g : F.obj 𝒩.G ⟶ (A.baseChange L).X := 𝒩.gen.hom
+  let g' : F.obj 𝒩'.G ⟶ (A.baseChange L).X := 𝒩'.gen.hom
+  have hg : IsMonHom g := 𝒩.gen_hom
+  have hg' : IsMonHom g' := 𝒩'.gen_hom
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝒩.G ⊗ 𝒩.G).hom := by
+    show Smooth (pullback.fst 𝒩.G.hom 𝒩.G.hom ≫ 𝒩.G.hom); infer_instance
+  exact isMonHom_of_reflect F φ g g' hφ (fun a b hab => (h' _).1 hab) (fun a b hab => (h' _).1 hab)
+
+/-- Open subgroups transport along a compatible isomorphism of Néron models. -/
+theorem isOpenSubgroupModel_of_neron {𝒰 𝒩 𝒩' : GroupModel A L} (h : 𝒩.IsNeronModel)
+    (h' : 𝒩'.IsNeronModel) (hU : IsOpenSubgroupModel 𝒰 𝒩) : IsOpenSubgroupModel 𝒰 𝒩' := by
+  obtain ⟨φ, hφ⟩ := ZInQ.H5Neron.GroupModel.IsNeronModel.uniqueIso h h'
+  obtain ⟨f, hf1, hf2⟩ := hU
+  have hφm : IsMonHom φ.hom := isMonHom_of_neron h' φ.hom hφ
+  refine ⟨f ≫ φ.hom, ?_, inferInstance⟩
+  rw [Over.comp_left]
+  haveI : IsIso φ.hom.left := inferInstance
+  infer_instance
+
+end NeronIso
+
+/-- **N2 with one Néron model over each `L'`** (same leaf content as N2: SGA 7 IX 3.6 and 3.3). -/
+def SemistableNeronIdentityComponentSome : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K),
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'], ∃ 𝒩' : GroupModel A L', 𝒩'.IsNeronModel ∧
+        ∃ 𝒰 𝒱 : GroupModel A L', IsBaseChangeOf 𝒱 𝒩₀ ∧ IsOpenSubgroupModel 𝒰 𝒩' ∧
+          IsOpenSubgroupModel 𝒰 𝒱
+
+/-- **N2 from its "some Néron model" form (proved).** -/
+theorem semistableNeronIdentityComponent_of_some (h : SemistableNeronIdentityComponentSome) :
+    SemistableNeronIdentityComponent := by
+  intro K _ _ A
+  obtain ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, hL⟩ := h K A
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, ?_⟩
+  intro L' _ _ _ _ _ 𝒩'' h𝒩''
+  obtain ⟨𝒩', h𝒩', 𝒰, 𝒱, hV, hU𝒩, hU𝒱⟩ := hL L'
+  exact ⟨𝒰, 𝒱, hV, isOpenSubgroupModel_of_neron h𝒩' h𝒩'' hU𝒩, hU𝒱⟩
+
+/-- Conversely N2 with N1 gives the "some" form (so the two are equivalent given N1). -/
+theorem some_of_semistableNeronIdentityComponent (hN1 : NeronModelExists)
+    (h : SemistableNeronIdentityComponent) : SemistableNeronIdentityComponentSome := by
+  intro K _ _ A
+  obtain ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, hL⟩ := h K A
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, ?_⟩
+  intro L' _ _ _ _ _
+  obtain ⟨𝒩', h𝒩'⟩ := hN1 K A L'
+  exact ⟨𝒩', h𝒩', hL L' 𝒩' h𝒩'⟩
+
 end ZInQ.TauN1N2
 
 #print axioms ZInQ.TauN1N2.neronModelExists_iff
@@ -212,3 +312,7 @@ end ZInQ.TauN1N2
 #print axioms ZInQ.TauN1N2.neronModelExists_of_local
 #print axioms ZInQ.TauN1N2.localNeronModelExists_zero
 #print axioms ZInQ.TauN1N2.neronLocalToGlobal_zero
+#print axioms ZInQ.TauN1N2.isMonHom_of_reflect
+#print axioms ZInQ.TauN1N2.isMonHom_of_neron
+#print axioms ZInQ.TauN1N2.semistableNeronIdentityComponent_of_some
+#print axioms ZInQ.TauN1N2.some_of_semistableNeronIdentityComponent

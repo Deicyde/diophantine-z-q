@@ -28,3 +28,9 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
 - Failed attempt (abandoned): transporting along `(B_L)_L ≅ B_L` (selfIso, pullback along
   Spec.map id) inside a `GroupModel` field: "(kernel) deterministic timeout" (known pattern,
   memory lean-kernel-iso-composite-timeout). Avoided by stating the leaf with `NeronModelOver`.
+
+## N1N2.lean §5 — COMPILED 04:44 (0 errors; all 11 #print axioms: propext, Classical.choice, Quot.sound)
+- `isMonHom_of_reflect` (general monoidal-functor lemma), `isMonHom_of_neron` (an iso of Néron
+  group models compatible with `gen` is a group iso), `isOpenSubgroupModel_of_neron`.
+- `SemistableNeronIdentityComponentSome` (N2 with "∃ Néron 𝒩'" instead of "∀ Néron 𝒩'").
+- `semistableNeronIdentityComponent_of_some : Some → N2` PROVED; converse from N1 PROVED.
