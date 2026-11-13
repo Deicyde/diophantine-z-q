@@ -14,6 +14,8 @@ import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.T36Torsion
 import ZInQKernel.Contrib.RLeaf.T37GoodReduction
 import ZInQKernel.Contrib.AbVarBC.Main
+import ZInQKernel.Contrib.Dim.IntegralHom
+import ZInQKernel.Contrib.Dim.LeafPush2
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -36,3 +38,24 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.RLeaf.t36_torsionStructure
 #print axioms ZInQ.RLeaf.T37.t37_goodReductionUnramified
 #print axioms ZInQ.Contrib.AbVarBC.abVarBaseChange
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_isIntegralHom_of_surjective
+#print axioms ZInQ.Contrib.Dim.height_eq_natCard_of_isMaximal_mvPolynomial
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_and_spanFinrank_localization
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_stalk_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.isRegularLocalRing_stalk_of_smooth
+#print axioms ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_stalk_of_section
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_ringKrullDim_stalk_of_smooth
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.ringKrullDim_eq_trdeg_fractionRing
+#print axioms ZInQ.Contrib.Dim.exists_aeval_eq_zero_of_trdeg_le_one
+#print axioms ZInQ.Contrib.Dim.topologicalKrullDim_eq_trdeg_functionField
+#print axioms ZInQ.Contrib.Dim.trdeg_functionField_eq_of_smoothOfRelativeDimension
+#print axioms ZInQ.Contrib.Dim.dimEqTrdeg
+#print axioms ZInQ.Contrib.Dim.dimEqTrdegAlg
+#print axioms ZInQ.Contrib.Dim.algDepOfTrdegOne
+#print axioms ZInQ.Contrib.Dim.smoothTrdeg
+#print axioms ZInQ.Contrib.Dim.curveFnFieldAlgDep
+#print axioms ZInQ.Contrib.Dim.dimEqTrdegOver
+#print axioms ZInQ.Contrib.Dim.smoothTrdegOver
+#print axioms ZInQ.Contrib.Dim.curveAlgOverTranscendental
