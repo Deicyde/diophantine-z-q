@@ -3,7 +3,7 @@
 Task conj-pieces, 2026-11-13. Lean: `scratch/conj-pieces/` (`Artin.lean`, `Holo.lean`,
 `Conj.lean`, the assembled `ConjPieces.lean`, and `G10.lean`). Log: `scratch/conj-pieces/log.md`.
 Check with `lake env lean scratch/conj-pieces/<file>.lean` after
-`lake build ZInQKernel.HDecomp.LeafPush2.T`. None of the four files has a `sorry`. Every
+`lake build ZInQKernel.HDecomp.LeafPush2.T`. None of the five files has a `sorry`. Every
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled 2026-11-13;
 `ConjPieces.lean` takes 35 s and has 35 `#print axioms`). `G10.lean` also needs
 `lake build ZInQKernel.HDecomp.I3Linalg.C2`; it takes 38 s and has 45 `#print axioms`.
