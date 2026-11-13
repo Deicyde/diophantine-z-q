@@ -70,3 +70,10 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   `RvGP2.detTate (t) hW hQ hD : G0Galois.DetTate` (weil-pairing's `T09_SymmIsogenyExists`,
   `IsogenyQuasiInverse`, `DivisiblePoints`, bundle `t.t26`), `RvGP2.g12Weight hSen hFI :
   G0Galois.G12Weight` (`SenTwist`, `FiniteImageHT`). Fields 19, 20 reduce to leaves outside the bundles.
+- c6_metrization: ExtLine body + metrization's parts (build.sh order, without part_g0dim); 7
+  off-route theorems `heightAdditivity_of_metrization*` removed (they use g0-heightadd's
+  `heightAdditivity_of_geo`, which G0Assemble does not contain; G0Assemble took HeightAdd.lean from
+  L390). Exit 0 in 10 s, 0 errors. Standard axioms (VERIFIED): `RvGP2.metrizationExists hH hU hN :
+  ZInQ.G0HeightAdd.MetrizationExists` (`HodgeLatticeTheorem`, leaf `AnalyticUniformizationOfDim`,
+  glue `JacDetNondegenerate`), `RvGP2.productMetrizationGeo hLS hPL : ProductMetrizationGeo`
+  (glue `ProductLocalStructure`, `ProductHodgeLattice`).

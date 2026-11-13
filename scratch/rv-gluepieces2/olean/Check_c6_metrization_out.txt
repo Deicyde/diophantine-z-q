@@ -1,0 +1,217 @@
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:30:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:45:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:186:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:219:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:241:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:306:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:464:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:465:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:651:30: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:651:50: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:622:43: warning: This simp argument is unused:
+  Submodule.zero_mem
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:635:24: warning: This simp argument is unused:
+  Submodule.zero_mem
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:843:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:922:26: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:863:18: warning: This simp argument is unused:
+  Function.update_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:870:18: warning: This simp argument is unused:
+  Function.update_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:877:18: warning: This simp argument is unused:
+  Function.update_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:891:18: warning: This simp argument is unused:
+  Function.update_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:898:18: warning: This simp argument is unused:
+  Function.update_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [hj]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:991:42: warning: Variable name `hfst` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hfst
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:992:5: warning: Variable name `hsnd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hsnd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1017:30: warning: Variable name `hfst` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hfst
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1018:5: warning: Variable name `hsnd` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hsnd
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1077:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1117:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1117:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1265:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1380:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1543:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1543:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1553:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Metrization.germAlong_pull_fst_eventuallyEq`:
+  [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/rv-gluepieces2/scratch/rv-gluepieces2/olean/Check_c6_metrization.lean:1571:0: warning: automatically included section variable(s) unused in theorem `ZInQ.Metrization.germAlong_pull_snd_eventuallyEq`:
+  [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+'RvGP2.metrizationExists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'RvGP2.productMetrizationGeo' depends on axioms: [propext, Classical.choice, Quot.sound]
