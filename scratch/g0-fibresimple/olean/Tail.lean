@@ -204,6 +204,79 @@ structure FibreSimplePieces : Prop where
 theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (p : FibreSimplePieces) : FibreSimple :=
   fibreSimple_of_pieces t.t27 p.descent p.schemeIso p.end0Division p.centralizer p.comTrivial
 
+
+/-! ## §5 Finding: `R1fpProps`, `R2fpProps` do not determine `Φ` on closed points
+
+`FibreSimple` (and `FibreComTrivial`) quantify over every `(Y, Φ, π)` with `R1fpProps`,
+`R2fpProps`. Composing `Φ` with any natural automorphism `σ` of the field-point functor of `Y`
+that permutes the `π`-fibres and fixes the three CM fibres gives new data satisfying both clause
+lists (`r1fpProps_twistBy`, `r2fpProps_twistBy`, proved). For such `σ`, the object attached to
+a point `y` over `J(u)` is the object of the point `σ y`, which lies over `π(σ y)`. -/
+
+/-- A natural automorphism of the field-valued points of `Y` (natural in `ℚ`-embeddings of
+fields). Example: a bijection of closed points of `Y` together with `ℚ`-isomorphisms of their
+residue fields (a `K`-point is a point `p` with `κ(p) → K`). -/
+structure PtAuto (Y : Over (Spec (CommRingCat.of ℚ))) where
+  σ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)
+  natural : ∀ (K L : Type) [Field K] [Field L] [Algebra ℚ K] [Algebra ℚ L] (f : K →ₐ[ℚ] L)
+    (y : fieldPt K ⟶ Y), σ L (fieldMap f ≫ y) = fieldMap f ≫ σ K y
+
+/-- `Φ ∘ σ`. -/
+def twistBy {Y : Over (Spec (CommRingCat.of ℚ))} (Φ : PtEquiv Y) (s : PtAuto Y) : PtEquiv Y :=
+  fun K _ _ => (s.σ K).trans (Φ K)
+
+/-- **Proved: `R1fpProps` is invariant under `Φ ↦ Φ ∘ σ`.** -/
+theorem r1fpProps_twistBy {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h1 : R1fpProps Y Φ) (s : PtAuto Y) : R1fpProps Y (twistBy Φ s) := by
+  obtain ⟨hp, hs, hq, hnat⟩ := h1
+  refine ⟨hp, hs, hq, ?_⟩
+  intro K L _ _ _ _ f y P hP
+  obtain ⟨Q, hQ, hb⟩ := hnat K L f (s.σ K y) P hP
+  refine ⟨Q, ?_, hb⟩
+  change Φ L (s.σ L (fieldMap f ≫ y)) = M3.mk Q
+  rw [s.natural]
+  exact hQ
+
+/-- **Proved: `R2fpProps` is invariant under `Φ ↦ Φ ∘ σ`** when `σ` permutes the `π`-fibres of
+`ℚ̄`-points and fixes the fibres over `0, ∞, −16/27` (no other condition). -/
+theorem r2fpProps_twistBy {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (h2 : R2fpProps Y Φ π) (s : PtAuto Y)
+    (hfib : ∀ y y' : fieldPt LeafQM.AV.Qbar ⟶ Y,
+      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left =
+          π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y').left ↔
+        π.val (K := LeafQM.AV.Qbar) y.left = π.val (K := LeafQM.AV.Qbar) y'.left)
+    (hcm : ∀ (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (c : OnePoint LeafQM.AV.Qbar),
+      (c = OnePoint.some 0 ∨ c = OnePoint.infty ∨ c = OnePoint.some (-16 / 27)) →
+      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left = c →
+        π.val (K := LeafQM.AV.Qbar) y.left = c) :
+    R2fpProps Y (twistBy Φ s) π := by
+  intro y y' P Q hP hQ
+  obtain ⟨hf, h4, h3, h24⟩ := h2 (s.σ LeafQM.AV.Qbar y) (s.σ LeafQM.AV.Qbar y') P Q hP hQ
+  refine ⟨(hfib y y').symm.trans hf, fun c => hcm y _ (Or.inl rfl) (h4 c),
+    fun c => hcm y _ (Or.inr (Or.inl rfl)) (h3 c), fun c => hcm y _ (Or.inr (Or.inr rfl)) (h24 c)⟩
+
+/-- **Proved: what `FibreComTrivial` asserts about the given data.** Applied to `(Y, Φ ∘ σ, π)`,
+it asserts that the object at `σ y` has trivial `𝒪`-centralizer for every `y` over `J(u)` and
+every fibre-permuting `σ` fixing the CM fibres: that is, NoCM over every rational value `t₂`
+whose fibre `σ` can exchange with the fibre over `J(u)`. -/
+theorem fibreComTrivial_twisted (h5 : FibreComTrivial)
+    (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (s : PtAuto Y)
+    (hfib : ∀ y y' : fieldPt LeafQM.AV.Qbar ⟶ Y,
+      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left =
+          π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y').left ↔
+        π.val (K := LeafQM.AV.Qbar) y.left = π.val (K := LeafQM.AV.Qbar) y'.left)
+    (hcm : ∀ (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (c : OnePoint LeafQM.AV.Qbar),
+      (c = OnePoint.some 0 ∨ c = OnePoint.infty ∨ c = OnePoint.some (-16 / 27)) →
+      π.val (K := LeafQM.AV.Qbar) (s.σ LeafQM.AV.Qbar y).left = c →
+        π.val (K := LeafQM.AV.Qbar) y.left = c)
+    (u : ℚ) (hu : u ∉ contactSet) (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (P : QML3 LeafQM.AV.Qbar)
+    (hP : Φ LeafQM.AV.Qbar (s.σ LeafQM.AV.Qbar y) = M3.mk P)
+    (hy : π.val (K := LeafQM.AV.Qbar) y.left =
+      OnePoint.some (algebraMap ℚ LeafQM.AV.Qbar (Jmap u))) :
+    ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A) :=
+  h5 Y (twistBy Φ s) π (r1fpProps_twistBy h1 s) (r2fpProps_twistBy h2 s hfib hcm) u hu y P hP hy
+
 end G0FibreSimple
 
 end
@@ -212,3 +285,6 @@ end
 #print axioms G0FibreSimple.qm_embeds_end0
 #print axioms G0FibreSimple.fibreSimple_of_pieces
 #print axioms G0FibreSimple.fibreSimple_of_leaves
+#print axioms G0FibreSimple.r1fpProps_twistBy
+#print axioms G0FibreSimple.r2fpProps_twistBy
+#print axioms G0FibreSimple.fibreComTrivial_twisted
