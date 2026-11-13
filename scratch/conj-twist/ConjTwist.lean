@@ -1196,6 +1196,205 @@ theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistFromLeaves :=
   conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
 
+/-! ## §11. N4' from N1 (proved): the injective comparison `ℤ_ℓ ⊗ Λ → T_ℓ(A)`
+
+`x(λ)ₙ` is the unique `K̄`-point with `toC(x(λ)ₙ) = Φ(ℓ⁻ⁿλ)` (N1); `λ ↦ x(λ)` is additive, and its
+`ℤ_ℓ`-linear extension is injective: if `Σ aᵢ x(bᵢ) = 0`, then `Φ(ℓ⁻ⁿ Σ (aᵢ mod ℓⁿ) bᵢ) = 1`, so
+`Σ (aᵢ mod ℓⁿ) bᵢ ∈ ℓⁿΛ` and `ℓⁿ ∣ (aᵢ mod ℓⁿ)`, for every `n`. -/
+
+section TateLatticeProof
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) {g : ℕ}
+  (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
+
+theorem phi_zero (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) : Φ 0 = 1 := by
+  have h := hadd 0 0
+  rw [add_zero] at h
+  have := congrArg (fun x => (Φ 0)⁻¹ * x) h
+  simp only [inv_mul_cancel, inv_mul_cancel_left] at this
+  exact this.symm
+
+theorem phi_nsmul (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (k : ℕ) (z : Fin g → ℂ) :
+    Φ (k • z) = Φ z ^ k := by
+  induction k with
+  | zero => rw [zero_nsmul, pow_zero, phi_zero A emb Φ hadd]
+  | succ k ih => rw [succ_nsmul, hadd, ih, pow_succ]
+
+theorem phi_sum (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) {J : Type*} (s : Finset J)
+    (f : J → (Fin g → ℂ)) : Φ (∑ i ∈ s, f i) = ∏ i ∈ s, Φ (f i) := by
+  classical
+  induction s using Finset.induction_on with
+  | empty => simp [phi_zero A emb Φ hadd]
+  | insert a s ha ih => rw [Finset.sum_insert ha, Finset.prod_insert ha, hadd, ih]
+
+variable (ℓ : ℕ) [hℓ : Fact ℓ.Prime]
+
+theorem ell_ne_zero : (ℓ : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hℓ.out.ne_zero
+
+theorem smul_inv_pow (n : ℕ) (v : Fin g → ℂ) : (ℓ ^ n : ℕ) • (((ℓ : ℂ) ^ n)⁻¹ • v) = v := by
+  rw [← Nat.cast_smul_eq_nsmul ℂ, smul_smul]
+  push_cast
+  rw [mul_inv_cancel₀ (pow_ne_zero _ (ell_ne_zero ℓ)), one_smul]
+
+theorem smul_inv_succ (n : ℕ) (v : Fin g → ℂ) :
+    ℓ • (((ℓ : ℂ) ^ (n + 1))⁻¹ • v) = ((ℓ : ℂ) ^ n)⁻¹ • v := by
+  rw [← Nat.cast_smul_eq_nsmul ℂ, smul_smul]
+  congr 1
+  have := ell_ne_zero ℓ
+  field_simp
+  ring
+
+variable {Λ : Submodule ℤ (Fin g → ℂ)}
+  (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ)
+
+include hadd hker in
+theorem phi_tors (lam : Λ) (n : ℕ) : Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) ^ (ℓ ^ n) = 1 := by
+  rw [← phi_nsmul A emb Φ hadd, smul_inv_pow, (hker _).mpr lam.2]
+
+variable (hN1 : ArtinTorsion)
+
+/-- `x(λ)ₙ ∈ A(K̄)` with `toC(x(λ)ₙ) = Φ(ℓ⁻ⁿλ)`. -/
+def xPt (lam : Λ) (n : ℕ) : A.Pt (AlgebraicClosure K) :=
+  Classical.choose ((hN1 K A emb (ℓ ^ n) (pow_pos hℓ.out.pos n)).2 _
+    (phi_tors A emb Φ ℓ hadd hker lam n))
+
+theorem xPt_spec (lam : Λ) (n : ℕ) :
+    toC A emb (xPt A emb Φ ℓ hadd hker hN1 lam n) = Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) :=
+  Classical.choose_spec ((hN1 K A emb (ℓ ^ n) (pow_pos hℓ.out.pos n)).2 _
+    (phi_tors A emb Φ ℓ hadd hker lam n))
+
+/-- `x(λ) ∈ T_ℓ(A)`. -/
+def xSeq (lam : Λ) : A.T ℓ :=
+  ⟨fun n => Additive.ofMul (xPt A emb Φ ℓ hadd hker hN1 lam n), by
+    refine ⟨?_, fun n => ?_⟩
+    · apply Additive.toMul.injective
+      change xPt A emb Φ ℓ hadd hker hN1 lam 0 = 1
+      apply (hN1 K A emb 1 one_pos).1
+      rw [xPt_spec, map_one, pow_zero, inv_one, one_smul]
+      exact (hker _).mpr lam.2
+    · apply Additive.toMul.injective
+      change xPt A emb Φ ℓ hadd hker hN1 lam (n + 1) ^ ℓ = xPt A emb Φ ℓ hadd hker hN1 lam n
+      apply (hN1 K A emb 1 one_pos).1
+      rw [map_pow, xPt_spec, xPt_spec, ← phi_nsmul A emb Φ hadd, smul_inv_succ]⟩
+
+theorem xSeq_apply (lam : Λ) (n : ℕ) :
+    toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 lam).1 n)) =
+      Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ)) :=
+  xPt_spec A emb Φ ℓ hadd hker hN1 lam n
+
+/-- `λ ↦ x(λ)`, additive. -/
+def xHom : Λ →+ A.T ℓ :=
+  AddMonoidHom.mk' (xSeq A emb Φ ℓ hadd hker hN1) (fun a b => by
+    apply Subtype.ext; funext n
+    apply Additive.toMul.injective
+    apply (hN1 K A emb 1 one_pos).1
+    change toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 (a + b)).1 n)) =
+      toC A emb (Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 a).1 n) *
+        Additive.toMul ((xSeq A emb Φ ℓ hadd hker hN1 b).1 n))
+    rw [map_mul, xSeq_apply, xSeq_apply, xSeq_apply, ← hadd, Submodule.coe_add, smul_add])
+
+/-- `λ ↦ x(λ)`, `ℤ`-linear. -/
+def xLin : Λ →ₗ[ℤ] A.T ℓ :=
+  { xHom A emb Φ ℓ hadd hker hN1 with
+    map_smul' := fun n x => by
+      simp only [RingHom.id_apply]
+      exact map_zsmul (xHom A emb Φ ℓ hadd hker hN1) n x }
+
+end TateLatticeProof
+
+section TateLatticeInjProof
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) {g : ℕ}
+  (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K))))
+  (ℓ : ℕ) [hℓ : Fact ℓ.Prime] {Λ : Submodule ℤ (Fin g → ℂ)}
+  (hadd : ∀ z w, Φ (z + w) = Φ z * Φ w) (hker : ∀ z, Φ z = 1 ↔ z ∈ Λ) (hN1 : ArtinTorsion)
+
+/-- **Injectivity of the comparison (proved from N1).** -/
+theorem xLin_liftBaseChange_injective [Module.Free ℤ Λ] [Module.Finite ℤ Λ] :
+    Function.Injective ((xLin A emb Φ ℓ hadd hker hN1).liftBaseChange ℤ_[ℓ]) := by
+  classical
+  let b := Module.Free.chooseBasis ℤ Λ
+  let bZ := Algebra.TensorProduct.basis ℤ_[ℓ] b
+  set α := (xLin A emb Φ ℓ hadd hker hN1).liftBaseChange ℤ_[ℓ] with hαdef
+  rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+  intro v hv
+  apply bZ.repr.injective
+  refine Finsupp.ext fun j => ?_
+  rw [map_zero, Finsupp.coe_zero, Pi.zero_apply]
+  apply PadicInt.ext_of_toZModPow.mp
+  intro n
+  rw [map_zero]
+  set a : Module.Free.ChooseBasisIndex ℤ Λ → ℤ_[ℓ] := fun i => bZ.repr v i with ha
+  set k : Module.Free.ChooseBasisIndex ℤ Λ → ℕ := fun i => (PadicInt.toZModPow n (a i)).val
+    with hk
+  have hαv : α v = ∑ i, a i • xLin A emb Φ ℓ hadd hker hN1 (b i) := by
+    conv_lhs => rw [← bZ.sum_repr v]
+    rw [map_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [map_smul, Algebra.TensorProduct.basis_apply, hαdef, LinearMap.liftBaseChange_one_tmul]
+  have hent : Additive.toMul ((α v).1 n) =
+      ∏ i, Additive.toMul ((xLin A emb Φ ℓ hadd hker hN1 (b i)).1 n) ^ k i := by
+    rw [hαv, AddSubgroup.val_finset_sum, Finset.sum_apply, toMul_sum]
+    refine Finset.prod_congr rfl fun i _ => ?_
+    rw [PkgI3.Tate.smul_apply, toMul_nsmul]
+  have h0 : Additive.toMul ((α v).1 n) = 1 := by rw [hv]; rfl
+  let w : Λ := ∑ i, k i • b i
+  have hC : Φ (((ℓ : ℂ) ^ n)⁻¹ • (w : Fin g → ℂ)) = 1 := by
+    have e1 : toC A emb (Additive.toMul ((α v).1 n)) =
+        Φ (((ℓ : ℂ) ^ n)⁻¹ • (w : Fin g → ℂ)) := by
+      rw [hent, map_prod]
+      simp only [map_pow]
+      have e2 : ∀ i, toC A emb (Additive.toMul ((xLin A emb Φ ℓ hadd hker hN1 (b i)).1 n)) =
+          Φ (((ℓ : ℂ) ^ n)⁻¹ • ((b i : Λ) : Fin g → ℂ)) := fun i =>
+        xSeq_apply A emb Φ ℓ hadd hker hN1 (b i) n
+      simp only [e2, ← phi_nsmul A emb Φ hadd]
+      rw [← phi_sum A emb Φ hadd]
+      congr 1
+      simp only [w, Submodule.coe_sum, Submodule.coe_smul_of_tower, Finset.smul_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [smul_comm]
+    rw [← e1, h0, map_one]
+  have hw : ((ℓ : ℂ) ^ n)⁻¹ • (w : Fin g → ℂ) ∈ Λ := (hker _).mp hC
+  let mu : Λ := ⟨((ℓ : ℂ) ^ n)⁻¹ • (w : Fin g → ℂ), hw⟩
+  have hwμ : w = (ℓ ^ n : ℕ) • mu := by
+    apply Subtype.ext
+    rw [Submodule.coe_smul_of_tower]
+    exact (smul_inv_pow ℓ n (w : Fin g → ℂ)).symm
+  have hrepr := congrArg (fun x => b.repr x j) hwμ
+  simp only [w, map_sum, map_nsmul, Finsupp.coe_finset_sum, Finset.sum_apply,
+    Finsupp.smul_apply, Module.Basis.repr_self, Finsupp.single_apply, smul_ite, smul_zero,
+    Finset.sum_ite_eq', Finset.mem_univ, ite_true] at hrepr
+  have hdvd : (ℓ ^ n : ℕ) ∣ k j := by
+    have h1 : ((ℓ ^ n : ℕ) : ℤ) ∣ ((k j : ℕ) : ℤ) := by
+      refine ⟨b.repr mu j, ?_⟩
+      simpa [nsmul_eq_mul] using hrepr
+    exact Int.natCast_dvd_natCast.mp h1
+  have hlt : k j < ℓ ^ n := ZMod.val_lt _
+  exact (ZMod.val_eq_zero _).mp (Nat.eq_zero_of_dvd_of_lt hdvd hlt)
+
+end TateLatticeInjProof
+
+/-- **N4' from N1 (proved).** -/
+theorem tateLatticeInj_of_artinTorsion (hN1 : ArtinTorsion) : TateLatticeInj := by
+  intro K _ A emb g Λ Φ _ _ hlat hΦ ℓ _
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  refine ⟨(xLin A emb Φ ℓ hΦ.1 hΦ.2.1 hN1).liftBaseChange ℤ_[ℓ],
+    xLin_liftBaseChange_injective A emb Φ ℓ hΦ.1 hΦ.2.1 hN1, fun lam n => ?_⟩
+  rw [LinearMap.liftBaseChange_one_tmul]
+  exact xSeq_apply A emb Φ ℓ hΦ.1 hΦ.2.1 hN1 lam n
+
+/-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 (proved).** -/
+theorem conjTwistNontrivial_of_N123 (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
+
+/-- **`ConjTwistFromLeaves` from N1, N2, N3 (proved).** -/
+theorem conjTwistFromLeaves_of_N123 (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
+    (hN3 : ConjAntiLift) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_of_latticeInj hN1 hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1215,3 +1414,6 @@ end G0Galois
 #print axioms G0Galois.conjVarDim
 #print axioms G0Galois.conjTwistNontrivial_of_latticeInj
 #print axioms G0Galois.conjTwistFromLeaves_of_latticeInj
+#print axioms G0Galois.tateLatticeInj_of_artinTorsion
+#print axioms G0Galois.conjTwistNontrivial_of_N123
+#print axioms G0Galois.conjTwistFromLeaves_of_N123
