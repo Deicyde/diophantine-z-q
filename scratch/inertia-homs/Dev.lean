@@ -389,6 +389,7 @@ end NewConj
 
 namespace InertiaHoms
 
+open GlueB3Unram
 open scoped Pointwise
 
 /-! ## Inertia membership in terms of the valuation subring alone -/
@@ -452,4 +453,182 @@ theorem isInertia_iff (w : ValuationSubring L) (σ : L ≃ₐ[F] L) :
 
 end InertiaChar
 
+section Transport
+
+/-- **Inertia transports along a ring isomorphism.** If `s` satisfies the elementwise inertia
+conditions at `w`, then `ι⁻¹ ∘ s ∘ ι` satisfies them at `w.comap ι`. -/
+theorem inertia_transport {L₁ L₂ : Type*} [Field L₁] [Field L₂] (ι : L₁ ≃+* L₂)
+    (w : ValuationSubring L₂) (s : L₂ ≃+* L₂)
+    (hD : ∀ x, s x ∈ w ↔ x ∈ w) (hI : ∀ x ∈ w, s x - x = 0 ∨ (s x - x)⁻¹ ∉ w) :
+    (∀ x, ι.symm (s (ι x)) ∈ w.comap (ι : L₁ →+* L₂) ↔ x ∈ w.comap (ι : L₁ →+* L₂)) ∧
+      (∀ x ∈ w.comap (ι : L₁ →+* L₂), ι.symm (s (ι x)) - x = 0 ∨
+        (ι.symm (s (ι x)) - x)⁻¹ ∉ w.comap (ι : L₁ →+* L₂)) := by
+  refine ⟨fun x => ?_, fun x hx => ?_⟩
+  · simp only [ValuationSubring.mem_comap, RingEquiv.coe_toRingHom, RingEquiv.apply_symm_apply]
+    exact hD _
+  · rw [ValuationSubring.mem_comap] at hx
+    have key : ι (ι.symm (s (ι x)) - x) = s (ι x) - ι x := by
+      rw [map_sub, RingEquiv.apply_symm_apply]
+    rcases hI _ hx with h | h
+    · left
+      apply ι.injective
+      have h' : s (ι x) - ι x = 0 := h
+      rw [key, h', map_zero]
+    · right
+      rw [ValuationSubring.mem_comap, RingEquiv.coe_toRingHom, map_inv₀, key]
+      exact h
+
+end Transport
+
+section Closure
+
+/-- `ℚ̄` is an algebraic closure of `K` through any embedding `e : K → ℚ̄`: a ring isomorphism
+`ι : K̄ ≃ ℚ̄` extending `e`. -/
+theorem exists_closure_equiv (K : IntermediateField ℚ Qbar) (e : K →ₐ[ℚ] Qbar) :
+    ∃ ι : AlgebraicClosure K ≃+* Qbar, ∀ x, ι (algebraMap K (AlgebraicClosure K) x) = e x := by
+  let R : IntermediateField ℚ Qbar := e.fieldRange
+  let hSR : K ≃+* R := (AlgEquiv.ofInjectiveField e).toRingEquiv
+  have : Algebra.IsAlgebraic R Qbar := Algebra.IsAlgebraic.tower_top (K := ℚ) R
+  have : IsAlgClosure R Qbar := ⟨inferInstance, inferInstance⟩
+  refine ⟨IsAlgClosure.equivOfEquiv (AlgebraicClosure K) Qbar hSR, fun x => ?_⟩
+  rw [IsAlgClosure.equivOfEquiv_algebraMap]
+  rfl
+
+end Closure
+
+section Unit
+
+/-- At a place over `p`, every prime `ℓ ≠ p` is a unit of the valuation ring (of any subfield). -/
+theorem isUnit_prime_of_liesOver {F : Type*} [Field F] [CharZero F] (f : F →+* Qbar)
+    (w : ValuationSubring Qbar) (p : ℕ) (hp : p.Prime) (hw : LiesOver w p)
+    (ℓ : ℕ) (hℓ : ℓ.Prime) (hne : ℓ ≠ p) : IsUnit ((ℓ : ℕ) : w.comap f) := by
+  have hcop : IsCoprime (ℓ : ℤ) (p : ℤ) :=
+    Nat.isCoprime_iff_coprime.mpr ((Nat.coprime_primes hℓ hp).mpr hne)
+  obtain ⟨a, b, hab⟩ := hcop
+  have hpw : ((p : w) : Qbar) = p := by simp
+  have hℓw : ((ℓ : w) : Qbar) = ℓ := by simp
+  have hpm : (p : w) ∈ IsLocalRing.maximalIdeal w := by
+    rw [ValuationSubring.valuation_lt_one_iff, hpw]; exact hw
+  have hv1 : w.valuation (ℓ : Qbar) = 1 := by
+    rcases w.valuation_lt_one_or_eq_one (ℓ : w) with h | h
+    · exfalso
+      have hℓm : (ℓ : w) ∈ IsLocalRing.maximalIdeal w := by
+        rw [ValuationSubring.valuation_lt_one_iff]; exact h
+      have h1 : (1 : w) ∈ IsLocalRing.maximalIdeal w := by
+        have : ((a : w) * (ℓ : w) + (b : w) * (p : w)) = 1 := by
+          have := congrArg (Int.cast : ℤ → w) hab
+          push_cast at this
+          exact this
+        rw [← this]
+        exact Ideal.add_mem _ (Ideal.mul_mem_left _ _ hℓm) (Ideal.mul_mem_left _ _ hpm)
+      exact (IsLocalRing.maximalIdeal.isMaximal w).ne_top
+        ((Ideal.eq_top_iff_one _).mpr h1)
+    · rw [← hℓw]; exact h
+  have hℓF : (ℓ : F) ≠ 0 := Nat.cast_ne_zero.mpr hℓ.ne_zero
+  have hinv : (ℓ : F)⁻¹ ∈ w.comap f := by
+    rw [ValuationSubring.mem_comap, map_inv₀, map_natCast, ← w.valuation_le_one_iff, map_inv₀,
+      hv1, inv_one]
+  refine isUnit_iff_exists_inv.mpr ⟨⟨(ℓ : F)⁻¹, hinv⟩, ?_⟩
+  apply Subtype.ext
+  simp [hℓF]
+
+end Unit
+
 end InertiaHoms
+
+-- BEGIN STUB (copies of G4 definitions; dropped when merged after G4.lean)
+namespace G4WeilRes
+open GlueB3Unram AlgebraicGeometry
+noncomputable abbrev specGal (σ : Gal) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of Qbar) :=
+  Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar))
+variable (K : IntermediateField ℚ Qbar)
+noncomputable abbrev specEmb (e : K →ₐ[ℚ] Qbar) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (e : K →+* Qbar))
+end G4WeilRes
+-- END STUB
+
+namespace G4WeilRes
+
+open GlueB3Unram CategoryTheory AlgebraicGeometry Limits MonObj PkgI3 InertiaHoms
+
+variable (K : IntermediateField ℚ Qbar)
+
+theorem specMap_comp {R S U : Type} [CommRing R] [CommRing S] [CommRing U] (a : R →+* S)
+    (b : S →+* U) :
+    Spec.map (CommRingCat.ofHom b) ≫ Spec.map (CommRingCat.ofHom a) =
+      Spec.map (CommRingCat.ofHom (b.comp a)) := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+
+/-- **Inertia fixes prime-to-`p` torsion points of a conjugate (NOS, transported).** Let `A/K`
+have good reduction at `w ∩ e(K)` (a DVR), `s ∈ I_w` fix `e(K)`, and `m` be invertible at `w`.
+A point `q : Spec ℚ̄ → A` over `Spec e` with `q^m = 1` is fixed by `s`: `Spec s ≫ q = q`.
+Leaf: `PkgI2.NeronOggShafarevich` (Serre–Tate 1968 Thm 1), applied to `A/K` at `w ∩ e(K)`, with
+`ℚ̄ ≅ K̄` extending `e` and the inertia group transported along it. -/
+theorem point_fixed (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (A : AbVar K) (e : K →ₐ[ℚ] Qbar) (w : ValuationSubring Qbar)
+    [IsDiscreteValuationRing (w.comap (e : K →+* Qbar))]
+    (hgood : PkgI2.HasGoodReduction (ObjBridge.toGrp A) (w.comap (e : K →+* Qbar)))
+    (s : Gal) (hs : s ∈ inertiaGQ w) (hse : ∀ x, s (e x) = e x)
+    (m : ℕ) (hm : 0 < m) (hmO : IsUnit ((m : ℕ) : w.comap (e : K →+* Qbar)))
+    (q : CategoryTheory.Over.mk (specEmb K e) ⟶ A.X) (hq : q ^ m = 1) :
+    specGal s ≫ q.left = q.left := by
+  obtain ⟨ie, hie⟩ := exists_closure_equiv K e
+  have hies : ∀ x : K, ie.symm (e x) = algebraMap K (AlgebraicClosure K) x := fun x => by
+    rw [← hie, RingEquiv.symm_apply_apply]
+  let σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K :=
+    AlgEquiv.ofRingEquiv (f := (ie.trans s.toRingEquiv).trans ie.symm) (fun x => by
+      simp only [RingEquiv.trans_apply, AlgEquiv.coe_toRingEquiv, hie, hse, hies])
+  have hσ : ∀ x, σ x = ie.symm (s (ie x)) := fun x => rfl
+  let w' : ValuationSubring (AlgebraicClosure K) := w.comap (ie : AlgebraicClosure K →+* Qbar)
+  have hw' : w'.comap (algebraMap K (AlgebraicClosure K)) = w.comap (e : K →+* Qbar) := by
+    ext x
+    simp only [w', ValuationSubring.mem_comap, RingEquiv.coe_toRingHom]
+    rw [hie]
+    rfl
+  have hsI : (∀ x, s x ∈ w ↔ x ∈ w) ∧ (∀ x ∈ w, s x - x = 0 ∨ (s x - x)⁻¹ ∉ w) := by
+    obtain ⟨g, hg, hgs⟩ := Subgroup.mem_map.mp hs
+    have := (isInertia_iff w g.1).mp ⟨g.2, hg⟩
+    rw [← hgs]
+    exact this
+  have hIσ : PkgI2.IsInertia w' σ := by
+    rw [PkgI2.IsInertia, isInertia_iff]
+    exact inertia_transport ie w s.toRingEquiv hsI.1 hsI.2
+  let J : PkgI2.specOver K (AlgebraicClosure K) ⟶ CategoryTheory.Over.mk (specEmb K e) :=
+    CategoryTheory.Over.homMk
+      (Spec.map (CommRingCat.ofHom (ie.symm : Qbar →+* AlgebraicClosure K))) (by
+        show Spec.map _ ≫ Spec.map _ = Spec.map _
+        rw [specMap_comp]
+        congr 2
+        ext x
+        exact hies x)
+  let x : PkgI2.Pts (ObjBridge.toGrp A) (AlgebraicClosure K) := J ≫ q
+  have hx : x ∈ PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure K) m := by
+    show (J ≫ q) ^ m = 1
+    rw [← MonObj.comp_pow, hq, MonObj.comp_one]
+  have hfix := ((hNOS K (w.comap (e : K →+* Qbar)) w' hw' (ObjBridge.toGrp A)).1.mp hgood)
+    m hm hmO σ hIσ x hx
+  have h2 : Spec.map (CommRingCat.ofHom (ie : AlgebraicClosure K →+* Qbar)) ≫
+      Spec.map (CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K)) ≫
+      Spec.map (CommRingCat.ofHom (ie.symm : Qbar →+* AlgebraicClosure K)) ≫ q.left =
+      Spec.map (CommRingCat.ofHom (ie : AlgebraicClosure K →+* Qbar)) ≫
+      Spec.map (CommRingCat.ofHom (ie.symm : Qbar →+* AlgebraicClosure K)) ≫ q.left := by
+    have := congrArg (fun t => Spec.map (CommRingCat.ofHom (ie : AlgebraicClosure K →+* Qbar)) ≫
+      CategoryTheory.Over.Hom.left t) hfix
+    exact this
+  rw [← Category.assoc, ← Category.assoc, specMap_comp, specMap_comp, ← Category.assoc,
+    specMap_comp] at h2
+  have e1 : ((ie : AlgebraicClosure K →+* Qbar).comp
+      (σ : AlgebraicClosure K →+* AlgebraicClosure K)).comp
+      (ie.symm : Qbar →+* AlgebraicClosure K) = (s : Qbar →+* Qbar) := by
+    ext y
+    simp [hσ]
+  have e2 : (ie : AlgebraicClosure K →+* Qbar).comp (ie.symm : Qbar →+* AlgebraicClosure K) =
+      RingHom.id Qbar := by
+    ext y
+    simp
+  rw [e1, e2] at h2
+  rw [h2, CommRingCat.ofHom_id, Spec.map_id, Category.id_comp]
+
+end G4WeilRes
