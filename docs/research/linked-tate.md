@@ -271,7 +271,9 @@ is corrected (§5).
     `linkedTateCoreDR_of`, `linkedFrobRam_of` and `tmOf_resQ`.
   - The reduction of `LinkedRam`: `tate_trivial_of_g3`, `linkedRam_of`, `localInertiaGlobal` and
     `upperAbsInertia`.
-- **The flat file `LinkedTate.lean`** (FLAT-RESULT).
+- **The flat file `LinkedTate.lean`** (45 120 lines), compiled with `lake env lean`. VERIFIED: exit
+  0 in 542 s, 0 errors and no `sorry`, with 222 `#print axioms` reports, all standard. They include
+  `HSyn.sixContactMin_of_leaves3`. A final re-run after one comment-only edit is in `log.md`.
 - **Standalone Mathlib checks:** `test/LocalInertia.lean` and `test/UpperAbs.lean`. Both compile
   with 0 errors.
 - **Parts copied verbatim:**
@@ -286,8 +288,14 @@ is corrected (§5).
 ## 7. What remains
 
 - **`GoodRedTorsion`.** The point-level transport between places, `resQ` and base change.
-- **`QMEndRank`.** Mumford §19 Thm 3 and Albert's classification on PkgI3 objects. It could be
-  added as a leaf.
+- **`QMEndRank`.** A sketch of a reduction to leaves already in `Leaves.lean` (not compiled):
+  - `rank ≥ 4` comes from `ι` and `endBC`, both injective (§3);
+  - freeness and finiteness are I3.M1 (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3);
+  - `rank ≤ 4` comes from T27 (`QMDichotomyYu`) over `ℚ̄`. In the case `End⁰(A_{ℚ̄}) = M₂(ℚ(√d))`,
+    `End⁰(A')` is a `B`-stable subalgebra of dimension 4 or 8. Dimension 8 would be `M₂(ℚ(√d))`,
+    which contains nonzero nilpotents and so contradicts `EndDivision`.
+
+  The missing Lean pieces are `End⁰` of a base change and the subalgebra count.
 - **`LinkedFrob`.** Néron models, reduction and Serre–Tate on PkgI3 objects. g14-trace's square
   form `FrobSquaresLink` splits it into the kernel's three squares.
 - **`LinkedRam`.** Glazer's D1-D4 on the canonical `ρ_ℓ`. With `[L:ℚ] ≤ D` added to `G7Data`, it
