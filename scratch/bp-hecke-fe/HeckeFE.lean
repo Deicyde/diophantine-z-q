@@ -1362,4 +1362,130 @@ theorem literature_hecke_fe_of_euler_gauss_oddGauss
   literature_hecke_fe_of_euler_gauss_fourier hE hS fun d h5 hsq =>
     cdFourier_of_oddGauss (by omega) (hO d h5 hsq)
 
+/-! ### `OddGauss` is multiplicative: reduction to odd primes -/
+
+theorem crt_injective2 {m n : ℕ} (hmn : Nat.Coprime m n) :
+    Function.Injective fun x : Fin m × Fin n => ((n * x.1 + m * x.2) % (m * n) : ℕ) := by
+  rintro ⟨a, b⟩ ⟨a', b'⟩ h
+  simp only at h
+  have hM : n * a + m * b ≡ n * a' + m * b' [MOD m * n] := h
+  have hm' : n * a ≡ n * a' [MOD m] := by
+    have := hM.of_mul_right n
+    have e1 : n * a + m * b ≡ n * a [MOD m] := by simp [Nat.ModEq]
+    have e2 : n * a' + m * b' ≡ n * a' [MOD m] := by simp [Nat.ModEq]
+    exact e1.symm.trans (this.trans e2)
+  have hn' : m * b ≡ m * b' [MOD n] := by
+    have := hM.of_mul_left m
+    have e1 : n * a + m * b ≡ m * b [MOD n] := by simp [Nat.ModEq]
+    have e2 : n * a' + m * b' ≡ m * b' [MOD n] := by simp [Nat.ModEq]
+    exact e1.symm.trans (this.trans e2)
+  have ha := Nat.ModEq.cancel_left_of_coprime hmn hm'
+  have hb := Nat.ModEq.cancel_left_of_coprime (by rw [Nat.gcd_comm]; exact hmn) hn'
+  have ha' : (a : ℕ) = a' := by
+    have := ha; unfold Nat.ModEq at this
+    rwa [Nat.mod_eq_of_lt a.2, Nat.mod_eq_of_lt a'.2] at this
+  have hb' : (b : ℕ) = b' := by
+    have := hb; unfold Nat.ModEq at this
+    rwa [Nat.mod_eq_of_lt b.2, Nat.mod_eq_of_lt b'.2] at this
+  rw [Fin.ext ha', Fin.ext hb']
+
+theorem sum_crt2 {m n : ℕ} (hmn : Nat.Coprime m n) (hm : 0 < m) (hn : 0 < n) (g : ℤ → ℂ)
+    (hg : ∀ x : ℤ, g x = g (x % (m * n : ℕ))) :
+    ∑ j : Fin (m * n), g j = ∑ a : Fin m, ∑ b : Fin n, g (n * a + m * b) := by
+  rw [← Finset.sum_product']
+  let φ : Fin m × Fin n → Fin (m * n) := fun x =>
+    ⟨(n * x.1 + m * x.2) % (m * n), Nat.mod_lt _ (by positivity)⟩
+  have hinj : Function.Injective φ := fun x y h => crt_injective2 hmn (Fin.ext_iff.mp h)
+  have hbij : Function.Bijective φ := by
+    rw [Fintype.bijective_iff_injective_and_card]
+    exact ⟨hinj, by simp [Fintype.card_fin, Fintype.card_prod]⟩
+  refine (Fintype.sum_bijective φ hbij _ _ fun x => ?_).symm
+  simp only [φ]
+  rw [hg (n * x.1 + m * x.2)]
+  congr 1
+
+/-- **Multiplicativity of the odd Gauss sum**: `OddGauss m ∧ OddGauss n ⟹ OddGauss (mn)` for
+coprime `m, n > 0`. -/
+theorem oddGauss_mul {m n : ℕ} (hmn : Nat.Coprime m n) (hm : 0 < m) (hn : 0 < n)
+    (hOm : OddGauss m) (hOn : OddGauss n) : OddGauss (m * n) := by
+  intro ν
+  have : NeZero m := ⟨hm.ne'⟩
+  have : NeZero n := ⟨hn.ne'⟩
+  have hmC : (m : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hm.ne'
+  have hnC : (n : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr hn.ne'
+  have hMC : ((m * n : ℕ) : ℂ) ≠ 0 := by push_cast; exact mul_ne_zero hmC hnC
+  set G : ℤ → ℤ → ℂ := fun x y => (jacobiSym (x ^ 2 + y ^ 2) (m * n) : ℂ) *
+    cexp (2 * π * I * ((x : ℂ) * ν.1 + (y : ℂ) * ν.2) / ((m * n : ℕ) : ℂ)) with hGdef
+  have hmodd : ∀ x : ℤ, x % ((m * n : ℕ) : ℤ) ≡ x [ZMOD ((m * n : ℕ) : ℤ)] := fun x =>
+    Int.emod_emod_of_dvd x (dvd_refl _)
+  have hperx : ∀ x y : ℤ, G x y = G (x % ((m * n : ℕ) : ℤ)) y := fun x y => by
+    simp only [G]
+    rw [jacobiSym.mod_left' (((hmodd x).pow 2).add_right _).symm, intCast_emod_eq,
+      add_mul, add_right_comm, cexp_shift hMC]
+  have hpery : ∀ x y : ℤ, G x y = G x (y % ((m * n : ℕ) : ℤ)) := fun x y => by
+    simp only [G]
+    rw [jacobiSym.mod_left' (((hmodd y).pow 2).add_left _).symm, intCast_emod_eq,
+      add_mul, ← add_assoc, cexp_shift hMC]
+  have h1 : oddSum (m * n) ν = ∑ j1 : Fin (m * n), ∑ j2 : Fin (m * n), G j1 j2 := by
+    rw [oddSum, Fintype.sum_prod_type]
+    rfl
+  have h2 : ∑ j1 : Fin (m * n), ∑ j2 : Fin (m * n), G j1 j2 =
+      ∑ a1 : Fin m, ∑ b1 : Fin n, ∑ a2 : Fin m, ∑ b2 : Fin n,
+        G (n * a1 + m * b1) (n * a2 + m * b2) := by
+    have hin : ∀ x : ℤ, ∑ j2 : Fin (m * n), G x j2 =
+        ∑ a2 : Fin m, ∑ b2 : Fin n, G x (n * a2 + m * b2) := fun x =>
+      sum_crt2 hmn hm hn (G x) fun y => hpery x y
+    simp_rw [hin]
+    exact sum_crt2 hmn hm hn (fun x => ∑ a2 : Fin m, ∑ b2 : Fin n, G x (n * a2 + m * b2))
+      fun x => Finset.sum_congr rfl fun a2 _ => Finset.sum_congr rfl fun b2 _ => hperx x _
+  have hgm : Int.gcd (n : ℤ) m = 1 := by
+    rw [Int.gcd_natCast_natCast, Nat.gcd_comm]; exact hmn
+  have hgn : Int.gcd (m : ℤ) n = 1 := by
+    rw [Int.gcd_natCast_natCast]; exact hmn
+  have h3 : ∀ (a1 a2 : Fin m) (b1 b2 : Fin n),
+      G (n * a1 + m * b1) (n * a2 + m * b2) =
+        ((jacobiSym (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2) m : ℂ) *
+          cexp (2 * π * I * (((a1 : ℕ) : ℂ) * ν.1 + ((a2 : ℕ) : ℂ) * ν.2) / m)) *
+        ((jacobiSym (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2) n : ℂ) *
+          cexp (2 * π * I * (((b1 : ℕ) : ℂ) * ν.1 + ((b2 : ℕ) : ℂ) * ν.2) / n)) := by
+    intro a1 a2 b1 b2
+    simp only [G]
+    have hjm : jacobiSym (((n : ℤ) * a1 + m * b1) ^ 2 + ((n : ℤ) * a2 + m * b2) ^ 2) m =
+        jacobiSym (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2) m := by
+      rw [jacobiSym.mod_left' (b := m) (a₂ := (n : ℤ) ^ 2 * (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2)),
+        jacobiSym.mul_left, jacobiSym.sq_one' hgm, one_mul]
+      exact Int.modEq_of_dvd ⟨-(2 * n * ((a1 : ℕ) : ℤ) * ((b1 : ℕ) : ℤ) + m * ((b1 : ℕ) : ℤ) ^ 2 +
+        2 * n * ((a2 : ℕ) : ℤ) * ((b2 : ℕ) : ℤ) + m * ((b2 : ℕ) : ℤ) ^ 2), by ring⟩
+    have hjn : jacobiSym (((n : ℤ) * a1 + m * b1) ^ 2 + ((n : ℤ) * a2 + m * b2) ^ 2) n =
+        jacobiSym (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2) n := by
+      rw [jacobiSym.mod_left' (b := n) (a₂ := (m : ℤ) ^ 2 * (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2)),
+        jacobiSym.mul_left, jacobiSym.sq_one' hgn, one_mul]
+      exact Int.modEq_of_dvd ⟨-(n * ((a1 : ℕ) : ℤ) ^ 2 + 2 * m * ((a1 : ℕ) : ℤ) * ((b1 : ℕ) : ℤ) +
+        n * ((a2 : ℕ) : ℤ) ^ 2 + 2 * m * ((a2 : ℕ) : ℤ) * ((b2 : ℕ) : ℤ)), by ring⟩
+    have he : cexp (2 * π * I * ((((n : ℤ) * a1 + m * b1 : ℤ) : ℂ) * ν.1 +
+        (((n : ℤ) * a2 + m * b2 : ℤ) : ℂ) * ν.2) / ((m * n : ℕ) : ℂ)) =
+        cexp (2 * π * I * (((a1 : ℕ) : ℂ) * ν.1 + ((a2 : ℕ) : ℂ) * ν.2) / m) *
+        cexp (2 * π * I * (((b1 : ℕ) : ℂ) * ν.1 + ((b2 : ℕ) : ℂ) * ν.2) / n) := by
+      rw [← Complex.exp_add]
+      congr 1
+      push_cast
+      field_simp
+      ring
+    rw [jacobiSym.mul_right, hjm, hjn, he]
+    push_cast
+    ring
+  have h4 : ∑ a1 : Fin m, ∑ b1 : Fin n, ∑ a2 : Fin m, ∑ b2 : Fin n,
+      G (n * a1 + m * b1) (n * a2 + m * b2) = oddSum m ν * oddSum n ν := by
+    rw [oddSum, oddSum, Fintype.sum_prod_type, Fintype.sum_prod_type, Finset.sum_mul]
+    refine Finset.sum_congr rfl fun a1 _ => ?_
+    rw [Finset.sum_comm, Finset.sum_mul]
+    refine Finset.sum_congr rfl fun a2 _ => ?_
+    rw [Finset.mul_sum]
+    refine Finset.sum_congr rfl fun b1 _ => ?_
+    rw [Finset.mul_sum]
+    exact Finset.sum_congr rfl fun b2 _ => h3 a1 a2 b1 b2
+  rw [h1, h2, h4, hOm ν, hOn ν, jacobiSym.mul_right]
+  push_cast
+  ring
+
 end BpHeckeFE
