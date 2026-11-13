@@ -30,3 +30,17 @@
   `#print axioms` for `g10Glue_of_conjTwist`, `g10Glue_of_T12K_conjTwistOutside`,
   `isOdd_of_T12K_of_forall_mem`, `g10GlueConcrete_of_conjTwistFromLeaves`, `betti_skeleton`:
   [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- 2026-11-13 04:31 `ConjTwistFromLeaves`, `G10GlueConcrete` now also take T5
+  (`PkgI2.TorsionStructure.{0}`) and T26 (`PkgI3.TateModuleFree`); §7 `t12_of_t12K`
+  (`T12K_ComplexConjEigen → ZInQ.LeafPush2.T12_ComplexConjEigen`) added. Compiles; only
+  warnings are the `letI` style lints inside the verbatim copy of `resQ_spec`. All six
+  `#print axioms`: [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
+- F4 (argument, not machine-checked): `T12_ComplexConjEigen` (over `ℚ`) cannot replace the
+  Faltings step when `c ∉ G_K`: for `W = Res_{K/ℚ} A`, `V_ℓ(W) ⊗ ℚ̄_ℓ ≅ (r ⊗ ℚ̄_ℓ[Gal(K/ℚ)])²`, and
+  if `c|_K ≠ id` the permutation trace of `c` is `0`, so the eigenspace dimensions of `c` on
+  `V_ℓ(W)` are `(2n, 2n)` whether or not `r(c) = ±1`.
+- F5 (STANDARD argument; reference Shimura 1975 UNVERIFIED): under G10Glue's hypotheses
+  (`End⁰_K(A)` a quaternion division algebra `B`), `K` has no real place: for `c ∈ G_K`, `F_∞`
+  commutes with `B` on `H₁(A(ℂ),ℚ)` (free of rank 1 over `B`), so `F_∞ ∈ B^op`, `F_∞² = 1`, hence
+  `F_∞ = ±1` (division), contradicting eigenspaces `(2,2)`. So in the application every complex
+  conjugation is outside `G_K`, and `ConjTwistOutside` carries all of G10's content.

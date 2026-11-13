@@ -362,9 +362,12 @@ open ZInQ.LeafPush2 in
 /-- **G10, corrected statement (GLUE).** `G10Glue` with the opaque placeholders
 `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison` replaced by the concrete textbook leaves of
 `ZInQKernel/HDecomp/LeafPush2/T.lean`: T11(a) `T11a_RiemannEnd`, T11(b) `T11b_Rigidity` and T35
-`UniformizationExists` (T12 is glue, so it is not a hypothesis). The conclusion is unchanged. -/
+`UniformizationExists`, together with T5 (`PkgI2.TorsionStructure`) and T26
+(`PkgI3.TateModuleFree`), the inputs of the Artin comparison (T12 is glue, so it is not a
+hypothesis). The conclusion is unchanged. -/
 def G10GlueConcrete : Prop :=
-  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → PkgI3.FaltingsTate →
+  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → PkgI2.TorsionStructure.{0} →
+  PkgI3.TateModuleFree → PkgI3.FaltingsTate →
   ∀ (K : Type) [Field K] [NumberField K] [IsGalois ℚ K] (A : PkgI3.AbVar K) (ℓ : ℕ)
     [Fact ℓ.Prime] (r : GaloisRep ℓ 2)
     (e : Vb A ℓ ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)),
@@ -374,13 +377,17 @@ def G10GlueConcrete : Prop :=
 
 open ZInQ.LeafPush2 in
 /-- **G10 core from the leaves (GLUE, unproved; STANDARD).** `ConjTwistNontrivial` with T11(a),
-T11(b) and T35 available: what its proof (docstring of `ConjTwistNontrivial`, §6) uses. -/
+T11(b), T35, T5 and T26 available: the leaves its proof (docstring of `ConjTwistNontrivial`, §6)
+uses besides Faltings. The remaining work is glue: the conjugate variety `A^c`, the Artin
+comparison `T_ℓ(A) ≅ Λ ⊗ ℤ_ℓ` at `ι` (from T35 and T5, as for `T12_ComplexConjEigen`) compatible
+with `c_*` and `F_*`, and the instantiation of `betti_skeleton`. -/
 def ConjTwistFromLeaves : Prop :=
-  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → ConjTwistNontrivial
+  T11a_RiemannEnd → T11b_Rigidity → UniformizationExists → PkgI2.TorsionStructure.{0} →
+  PkgI3.TateModuleFree → ConjTwistNontrivial
 
 theorem g10GlueConcrete_of_conjTwistFromLeaves (h : ConjTwistFromLeaves) : G10GlueConcrete := by
-  intro h11a h11b h35 hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
-  exact g10Out_of_conjTwist (h h11a h11b h35) hF K A ℓ r e hdim hI
+  intro h11a h11b h35 h5 h26 hF K _ _ _ A ℓ _ r e hdim _ _ _ hI
+  exact g10Out_of_conjTwist (h h11a h11b h35 h5 h26) hF K A ℓ r e hdim hI
 
 /-! ## §6. The linear-algebra skeleton of `ConjTwistNontrivial` (proved)
 
