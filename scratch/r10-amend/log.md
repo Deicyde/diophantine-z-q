@@ -30,3 +30,11 @@
   manuscript L11003 cites Faltings 1988 Ch. III Thm 4.1 for the HT comparison; L10969 cites Milne Part I Thm 12.1(a).
 - galAct σ P = galHom σ ≫ P (σ on coordinates), left action: read in I4Layer.lean (VERIFIED, read).
 - Statement-change proposal (Leaves.lean: add PkgI4.DeRhamComparisonHT, ResearchLeaves.r10 := it) in r10-amend.md §3.
+
+## Step 3b (G9 closed, 07:45)
+- Merged origin/main (0fd61065, STATUS.md only) and origin/wip/g9-abvarbc (54d3a30b; .fleet report present):
+  `ZInQ.Contrib.AbVarBC.abVarBaseChange : G9Bridge.AbVarBaseChange` outright.
+- ZInQKernel/Contrib/R10/Final.lean: `g9GlueHT : G9GlueHT`, `g9GlueHT' : G9GlueHT'`,
+  `g9Glue_of_deRhamComparisonHT : DeRhamComparisonHT → G9Glue`. VERIFIED: lake build ZInQKernel.Contrib.R10.Final
+  (1m55s), all three [propext, Classical.choice, Quot.sound]. No sorry/axiom/heartbeat options in Contrib/R10.
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task).

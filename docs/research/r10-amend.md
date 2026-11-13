@@ -10,6 +10,32 @@ This host has no literature sources: the only one is the manuscript `diophantine
 
 ## 1. Main result
 
+**G9 is closed from the amended R10 alone** (VERIFIED: `lake build ZInQKernel.Contrib.R10.Final`;
+standard axioms only):
+
+```lean
+-- ZInQKernel/Contrib/R10/Final.lean
+theorem ZInQ.Contrib.R10.g9GlueHT : G9GlueHT
+theorem ZInQ.Contrib.R10.g9GlueHT' : G9GlueHT'
+theorem ZInQ.Contrib.R10.g9Glue_of_deRhamComparisonHT (h : DeRhamComparisonHT) : G0Galois.G9Glue
+```
+
+- `G9GlueHT` is g0-mod-galois's `G9Glue` with its R10 hypothesis replaced by the amended leaf
+  `DeRhamComparisonHT`; T23 is dropped, since the proof does not use it.
+- `G9GlueHT'` is the same statement with T23 kept.
+- The proofs combine:
+  - g9-abvarbc's outright `ZInQ.Contrib.AbVarBC.abVarBaseChange : G9Bridge.AbVarBaseChange`
+    (merged from `origin/wip/g9-abvarbc` at `54d3a30b`);
+  - g9-derham's descent argument;
+  - the amendment below.
+
+```
+'ZInQ.Contrib.R10.g9GlueHT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.R10.g9GlueHT'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.R10.g9Glue_of_deRhamComparisonHT' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+
 All declarations below compile, and `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for every theorem (VERIFIED: `lake build ZInQKernel.Contrib.R10.Amend
 ZInQKernel.Contrib.R10.Glue`). Namespace `ZInQ.Contrib.R10`. The objects are g9-derham's verbatim
@@ -80,9 +106,8 @@ theorem g9GlueHT_of_abVarBaseChange (hBC : G9Bridge.AbVarBaseChange) : G9GlueHT
 'ZInQ.Contrib.R10.g9GlueHT_of_abVarBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
-**The status of G9.** It now depends on the amended R10 (a leaf) and on
-`G9Bridge.AbVarBaseChange`. Task g9-abvarbc is proving the latter (see §5 for the state at the end
-of this task).
+**The status of G9.** `AbVarBaseChange` is now proved (g9-abvarbc), so G9 depends only on the amended
+R10: see `g9GlueHT` above.
 
 ## 2. The published statement (task part 1)
 
@@ -190,8 +215,9 @@ def DeRhamComparisonHT : Prop :=
 `G9Glue` hypothesis, `Contrib/G9`) are unaffected. `deRhamComparison_of_HT` gives it from the new
 field in one line.
 
-(d) G9 then follows as `g9Glue_of_HT hBC leaves.r10 : G9Glue`. Once `AbVarBaseChange` is proved, it
-follows from `leaves.r10` alone.
+(d) G9 then follows as `g9Glue_of_deRhamComparisonHT leaves.r10 : G9Glue` (`Contrib/R10/Final.lean`).
+The integrator can drop the glue field `deRham : G9Glue` of g0-assemble's bundle, or fill it this
+way.
 
 The amended text is (a) verbatim. The definition in `Contrib/R10/Amend.lean` is the same text
 over g9-derham's verbatim copy of `PkgI4Sec` (namespace `ZInQ.Contrib.G9.PkgI4`).
@@ -211,4 +237,12 @@ over g9-derham's verbatim copy of `PkgI4Sec` (namespace `ZInQ.Contrib.G9.PkgI4`)
 
 ## 5. What remains
 
-See `.fleet/r10-amend.md` for the final state of the merge with g9-abvarbc.
+- Nothing for G9 in Lean: `g9GlueHT` is closed.
+- The only remaining input is the amended leaf itself. It is a published theorem (§2), whose
+  locators are UNVERIFIED on this host.
+- The integrator must apply the statement change of §3 in `Leaves.lean`. This task does not edit
+  that file.
+- Build: `lake build ZInQKernel.Contrib.R10.Final` succeeds (it imports `Amend`, `Glue`, and
+  g9-abvarbc's `AbVarBC.Main`). The only warning in `Contrib/R10` is one deprecation
+  (`TensorProduct.induction_on`, `Glue.lean` L71, copied from g9-derham's proof). There is no
+  `sorry`, no `axiom`, and no heartbeat option.
