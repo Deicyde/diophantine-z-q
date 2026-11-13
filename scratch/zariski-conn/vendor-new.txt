@@ -1,0 +1,11 @@
+TauCeti.AlgebraicGeometry.Geometrically.FunctionField
+TauCeti.AlgebraicGeometry.Geometrically.GlobalSections
+TauCeti.AlgebraicGeometry.Modules.GlobalSections
+TauCeti.AlgebraicGeometry.Modules.RationalFunctions
+TauCeti.AlgebraicGeometry.Morphisms.Dominant
+TauCeti.AlgebraicGeometry.Scheme.BaseAlgebra
+TauCeti.AlgebraicGeometry.Scheme.Opens
+TauCeti.FieldTheory.AlgebraicClosure
+TauCeti.FieldTheory.IntermediateField.LinearDisjoint
+TauCeti.FieldTheory.Minpoly.IsIntegrallyClosedIn
+TauCeti.RingTheory.TensorProduct.IsDomain
