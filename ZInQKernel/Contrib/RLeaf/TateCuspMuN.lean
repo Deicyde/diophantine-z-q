@@ -18,6 +18,7 @@ namespace ZInQ.RLeaf.TateCuspMuN
 
 open MonoidWithZeroHom.ValueGroup₀ WithZeroMulInt TauCeti
 open scoped WithZero
+open LeafModCurves
 
 /-! ### `K((t))` as a complete normed field -/
 
@@ -125,5 +126,75 @@ theorem valuation_C {K : Type*} [Field K] {a : K} (ha : a ≠ 0) :
   have := mul_lt_one_of_lt_of_le hlt (h1 a⁻¹)
   rw [h2] at this
   exact lt_irrefl _ this
+
+/-! ### Generic transport lemmas -/
+
+/-- Points along an equality of curves. -/
+def castEquiv {F : Type*} [Field F] [DecidableEq F] {W₁ W₂ : WeierstrassCurve F} (h : W₁ = W₂) :
+    W₁.toAffine.Point ≃+ W₂.toAffine.Point := h ▸ AddEquiv.refl _
+
+theorem xCoord_castEquiv {F : Type*} [Field F] [DecidableEq F] {W₁ W₂ : WeierstrassCurve F}
+    (h : W₁ = W₂) (P : W₁.toAffine.Point) : xCoord (castEquiv h P) = xCoord P := by
+  subst h; rfl
+
+theorem xCoord_addEquivVariableChange {F : Type*} [Field F] [DecidableEq F]
+    (W : WeierstrassCurve F) (C : WeierstrassCurve.VariableChange F)
+    (P : (C • W).toAffine.Point) (hP : P ≠ 0) :
+    xCoord (WeierstrassCurve.Affine.Point.addEquivVariableChange W C P) =
+      (C.u : F) ^ 2 * xCoord P + C.r := by
+  rcases P with _ | ⟨x, y, h⟩
+  · exact absurd rfl hP
+  · show xCoord (WeierstrassCurve.Affine.Point.equivVariableChange W C (.some x y h)) = _
+    rw [WeierstrassCurve.Affine.Point.equivVariableChange_some]; rfl
+
+theorem xCoord_tate {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametricDist K]
+    [DecidableEq K] (q : Kˣ) (hq : ‖(q : K)‖ < 1) (u : Kˣ)
+    (hne : tateUniformizationHom q hq (Additive.ofMul (u : Kˣ ⧸ Subgroup.zpowers q)) ≠ 0) :
+    xCoord (tateUniformizationHom q hq (Additive.ofMul (u : Kˣ ⧸ Subgroup.zpowers q))) =
+      tateUniformizationX q u := by
+  have h1 : (u : Kˣ ⧸ Subgroup.zpowers q) ≠ 1 := fun h => hne (by
+    rw [tateUniformizationHom_apply, toMul_ofMul, h, tateUniformization_one])
+  rw [tateUniformizationHom_apply, toMul_ofMul, tateUniformization_of_ne_one q hq h1]
+  rfl
+
+theorem tateCurveAt_congr {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametricDist K]
+    {q q' : Kˣ} (h : q = q') (hq : ‖(q : K)‖ < 1) (hq' : ‖(q' : K)‖ < 1) :
+    tateCurveAt q hq = tateCurveAt q' hq' := by
+  subst h; rfl
+
+/-- The `x`-coordinate transformation between a curve and `E_j` over a common field is defined
+over `ℚ((t))` (copy of the computation in `TateCuspGlue`). -/
+theorem uR_mem {Ω : Type*} [Field Ω] [CharZero Ω] (ι : LaurentSeries ℚ →+* Ω)
+    {W : WeierstrassCurve (LaurentSeries ℚ)} [W.IsElliptic]
+    (hj : W.j ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ)) (T : WeierstrassCurve Ω)
+    {x4 x6 x2 : LaurentSeries ℚ} (hT4 : T.c₄ = ι x4) (hT6 : T.c₆ = ι x6) (hT2 : T.b₂ = ι x2)
+    (C : WeierstrassCurve.VariableChange Ω) (hC : C • T = W.map ι) :
+    ((C.u : Ω) ^ 2 ∈ ι.fieldRange) ∧ C.r ∈ ι.fieldRange := by
+  have hιR : ∀ z, ι z ∈ ι.fieldRange := fun z => ⟨z, rfl⟩
+  have h4 := congrArg WeierstrassCurve.c₄ hC
+  have h6 := congrArg WeierstrassCurve.c₆ hC
+  have h2 := congrArg WeierstrassCurve.b₂ hC
+  rw [WeierstrassCurve.variableChange_c₄, WeierstrassCurve.map_c₄ W ι] at h4
+  rw [WeierstrassCurve.variableChange_c₆, WeierstrassCurve.map_c₆ W ι] at h6
+  rw [WeierstrassCurve.variableChange_b₂, WeierstrassCurve.map_b₂ W ι] at h2
+  set a : Ω := ((C.u⁻¹ : Ωˣ) : Ω) with ha
+  have ha0 : a ≠ 0 := Units.ne_zero _
+  have hc4 : ι W.c₄ ≠ 0 := (map_ne_zero ι).mpr (TateCuspGlue.c₄_ne_zero hj)
+  have hc6 : ι W.c₆ ≠ 0 := (map_ne_zero ι).mpr (TateCuspGlue.c₆_ne_zero hj)
+  have hT4' : T.c₄ ≠ 0 := fun h0 => hc4 (by rw [← h4, h0, mul_zero])
+  have hT6' : T.c₆ ≠ 0 := fun h0 => hc6 (by rw [← h6, h0, mul_zero])
+  have ha2 : a ^ 2 = ι W.c₆ * T.c₄ / (ι W.c₄ * T.c₆) := by
+    rw [← h4, ← h6]; field_simp
+  have ha2R : a ^ 2 ∈ ι.fieldRange := by
+    rw [ha2, hT4, hT6]
+    exact div_mem (mul_mem (hιR _) (hιR _)) (mul_mem (hιR _) (hιR _))
+  refine ⟨?_, ?_⟩
+  · have : ((C.u : Ωˣ) : Ω) ^ 2 = (a ^ 2)⁻¹ := by
+      rw [ha, Units.val_inv_eq_inv_val, inv_pow, inv_inv]
+    rw [this]; exact inv_mem ha2R
+  · have : C.r = (ι W.b₂ / a ^ 2 - T.b₂) / 12 := by
+      rw [← h2]; field_simp; ring
+    rw [this, hT2]
+    exact div_mem (sub_mem (div_mem (hιR _) ha2R) (hιR _)) ⟨12, map_ofNat ι 12⟩
 
 end ZInQ.RLeaf.TateCuspMuN
