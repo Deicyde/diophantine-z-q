@@ -67,3 +67,11 @@
   `localData_large_of_g8` (p > D: LocalData p r from G8Out, [E:ℚ_p] < p, TateWildTrivial on
   E, BetaTame on E; no Galois closure or tameness needed).
 - Compile: exit 0, 0 errors, no sorry.
+
+## Step 5 (06:11-06:20 PST): Galois closure with e ≤ n!
+- Proved (VERIFIED, compiled, axioms standard): `ramCard_zero_le_finrank` (e(F) ≤ [F:ℚ_p]);
+  `exists_finGal_ramCard_le` ([E:ℚ_p] ≤ n ⇒ ∃ finite Galois F ⊇ E with e(F) ≤ n!: splitting
+  field in ℚ̄_p of the minimal polynomial of a primitive element, Gal acting on ≤ n roots);
+  `tateWildTrivial_mono`, `betaUpper_mono`; `localData_small_of_g8` (p ≤ D: SmallPrimeData p r
+  from G8Out, [E:ℚ_p] ≤ DG₀, TateWildTrivial and BetaUpper on E).
+- Compile: exit 0, 0 errors, no sorry.

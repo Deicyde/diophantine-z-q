@@ -640,6 +640,90 @@ theorem localData_large_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.Ab
   rw [hB σ ⟨hfix, hσ⟩, inv_one, Matrix.scalar_apply, Matrix.diagonal_one] at h1
   exact Units.ext h1
 
+/-! ### The Galois closure and `e ≤ [E:ℚ_p]!` (proved) -/
+
+/-- `e(F/ℚ_p) ≤ [F:ℚ_p]` for finite Galois `F`. -/
+theorem ramCard_zero_le_finrank {F : Fld p} (hF : IsFinGal F) :
+    ramCard F 0 ≤ Module.finrank ℚ_[p] F := by
+  haveI : FiniteDimensional ℚ_[p] F := hF.1
+  haveI : IsGalois ℚ_[p] F := hF.2
+  haveI : Normal ℚ_[p] F := hF.2.to_normal
+  rw [ramCard_zero_eq F hF, ← IsGalois.card_aut_eq_finrank]
+  exact Subgroup.card_le_card_group _
+
+/-- **A finite `E ⊆ ℚ̄_p` lies in a finite Galois `F` with `e(F/ℚ_p) ≤ n!` when
+`[E:ℚ_p] ≤ n` (proved).** `F` = the splitting field in `ℚ̄_p` of the minimal polynomial `f` of a
+primitive element of `E`; `Gal(F/ℚ_p)` acts faithfully on the `≤ deg f ≤ n` roots
+(as in `GlueRepo.Numerics.splitting_degree_le`). -/
+theorem exists_finGal_ramCard_le {E : Fld p} [FiniteDimensional ℚ_[p] E] {n : ℕ}
+    (hE : Module.finrank ℚ_[p] E ≤ n) :
+    ∃ F : Fld p, IsFinGal F ∧ E ≤ F ∧ ramCard F 0 ≤ n.factorial := by
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ_[p] E
+  set a : Kbar p := (α : Kbar p) with ha
+  have hint : IsIntegral ℚ_[p] a := (IsIntegral.of_finite ℚ_[p] α).map E.val
+  set f := minpoly ℚ_[p] a with hf
+  have hf0 : f ≠ 0 := minpoly.ne_zero hint
+  have hsplit : (f.map (algebraMap ℚ_[p] (Kbar p))).Splits := IsAlgClosed.splits _
+  set F : Fld p := IntermediateField.adjoin ℚ_[p] (f.rootSet (Kbar p)) with hFdef
+  haveI : Polynomial.IsSplittingField ℚ_[p] F f :=
+    IntermediateField.adjoin_rootSet_isSplittingField hsplit
+  haveI : FiniteDimensional ℚ_[p] F := Polynomial.IsSplittingField.finiteDimensional F f
+  have hsep : f.Separable := minpoly.irreducible hint |>.separable
+  haveI : IsGalois ℚ_[p] F := IsGalois.of_separable_splitting_field hsep
+  have hdeg : f.natDegree ≤ n := by
+    have h1 : (minpoly ℚ_[p] α).natDegree ≤ Module.finrank ℚ_[p] E := minpoly.natDegree_le _
+    rw [IntermediateField.minpoly_eq] at h1
+    exact h1.trans hE
+  have hfin : Module.finrank ℚ_[p] F ≤ n.factorial := by
+    rw [(Polynomial.IsSplittingField.algEquiv F f).toLinearEquiv.finrank_eq,
+      ← Polynomial.Gal.card_of_separable hsep]
+    have : Fact ((f.map (algebraMap ℚ_[p] f.SplittingField)).Splits) :=
+      ⟨Polynomial.SplittingField.splits f⟩
+    calc Nat.card f.Gal ≤ Nat.card (Equiv.Perm (f.rootSet f.SplittingField)) :=
+          Nat.card_le_card_of_injective _ (Polynomial.Gal.galActionHom_injective f _)
+      _ = (Nat.card (f.rootSet f.SplittingField)).factorial := Nat.card_perm
+      _ ≤ n.factorial := by
+          apply Nat.factorial_le
+          rw [Nat.card_coe_set_eq]
+          exact (Polynomial.ncard_rootSet_le f _).trans hdeg
+  have hEF : E ≤ F := by
+    intro y hy
+    have h1 : (⟨y, hy⟩ : E) ∈ IntermediateField.adjoin ℚ_[p] {α} := by rw [hα]; trivial
+    have h2 : y ∈ (IntermediateField.adjoin ℚ_[p] {α}).map E.val :=
+      ⟨⟨y, hy⟩, h1, rfl⟩
+    rw [IntermediateField.adjoin_map, Set.image_singleton] at h2
+    have hroot : a ∈ f.rootSet (Kbar p) := by
+      rw [Polynomial.mem_rootSet]
+      exact ⟨hf0, minpoly.aeval ℚ_[p] a⟩
+    have hle : IntermediateField.adjoin ℚ_[p] {E.val α} ≤ F :=
+      IntermediateField.adjoin_simple_le_iff.mpr (IntermediateField.subset_adjoin _ _ hroot)
+    exact hle h2
+  have hFG : IsFinGal F := ⟨inferInstance, inferInstance⟩
+  exact ⟨F, hFG, hEF, (ramCard_zero_le_finrank hFG).trans hfin⟩
+
+theorem tateWildTrivial_mono {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) V} {a : GQ → PadicAlgCl ℓ} {E F : Fld p} (hEF : E ≤ F)
+    (h : TateWildTrivial Tm a E) : TateWildTrivial Tm a F :=
+  fun σ hσ => h σ ⟨fun x hx => hσ.1 x (hEF hx), hσ.2⟩
+
+theorem betaUpper_mono {β : GQ → PadicAlgCl ℓ} {E F : Fld p} {U : ℝ} (hEF : E ≤ F)
+    (h : BetaUpper β E U) : BetaUpper β F U :=
+  fun t ht σ hσ => h t ht σ ⟨hσ.1, fun x hx => hσ.2 x (hEF hx)⟩
+
+/-- **`LocalData` at `p ≤ D` from a field of degree `≤ DG₀` (proved).** If `E ⊆ ℚ̄_p` has
+`[E:ℚ_p] ≤ DG₀` (Glazer: `E = L_v(A[3])`, `A[5]` if `p = 3`) and `TateWildTrivial`, `BetaUpper`
+hold on `E`, then `LocalData p r` holds at `p ≤ D` for G8's `r` (`F` = the Galois closure,
+`exists_finGal_ramCard_le`). -/
+theorem localData_small_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
+    {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
+    {E : Fld p} [FiniteDimensional ℚ_[p] E]
+    (hE : Module.finrank ℚ_[p] E ≤ ZInQ.heightD * ZInQ.heightG0)
+    (hT : TateWildTrivial Tm a E) (hB : BetaUpper β E U0) : SmallPrimeData p r := by
+  obtain ⟨F, hF, hEF, he⟩ := exists_finGal_ramCard_le hE
+  exact ⟨F, _, hF, he, twistShape_of_g8 hG8 (tateWildTrivial_mono hEF hT),
+    twistUpper_of_betaUpper (betaUpper_mono hEF hB)⟩
+
 end LocalDataSec
 
 end G15Ram
@@ -660,3 +744,5 @@ end G15Ram
 #print axioms G15Ram.betaCharOn_of_cocycle
 #print axioms G15Ram.wild_fix_small_degree
 #print axioms G15Ram.localData_large_of_g8
+#print axioms G15Ram.exists_finGal_ramCard_le
+#print axioms G15Ram.localData_small_of_g8
