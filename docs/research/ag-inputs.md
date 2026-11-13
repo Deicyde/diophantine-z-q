@@ -20,45 +20,59 @@ are UNVERIFIED (no network).
    - **`AGInputs` was not pure algebraic geometry.** Its fields `over0` and `overInf` need the
      fibres of `π₆` to be finite. That is a fact about the quaternion order: `Aut(𝒪)` is finite
      modulo inner automorphisms by units. pi0-x6 filed it under "standard algebraic geometry";
-     here it is a separate leaf, `AutModInnFinite`.
-2. **All three fields of `AGInputs` are proved in Lean from three standard leaves**
-   (VERIFIED: compiled, standard axioms only; `scratch/ag-inputs/AGInputs.lean`):
+     here it is the glue `AutModInnFinite` (proved from SN and AL).
+2. **All three fields of `AGInputs` are proved in Lean from standard leaves** (VERIFIED: compiled,
+   standard axioms only; `scratch/ag-inputs/AGInputs.lean`):
 
    `agInputs_of_leaves : ConnectedGeomConnected → CurveComponentDichotomy → AutModInnFinite →
    IsProper X.hom → SmoothOfRelativeDimension 1 X.hom → R2X6Props X Ψ π₆ → AGInputs π₆`
 
-   `r1pi0Props_of_leaves : X6Props Y Φ X Ψ fY → R2X6Props X Ψ π₆ → R5ptProps X Ψ → R5fpCount →
-   R2X6CMExact Ψ π₆ → ConnectedGeomConnected → CurveComponentDichotomy → AutModInnFinite →
+   `AutModInnFinite` is itself proved from Skolem–Noether and the finiteness of the
+   Atkin–Lehner group (`autModInnFinite_of`). Skolem–Noether is proved by t-skolem-kw and has the
+   same statement as `GlueDescent.LeafSkolemNoether`. The final forms are:
+
+   `AGInO.r1pi0Props_of_leaves' : X6Props → R2X6Props → R5ptProps → R5fpCount → R2X6CMExact →
+   ConnectedGeomConnected → CurveComponentDichotomy → LeafSkolemNoether → AtkinLehnerFinite →
    GeometricallyConnected X.hom`
 
-   The conclusion is exactly the bundle clause `LeafAdopt.R1pi0Props X`. The hypotheses are:
-   - bundle clauses (`X6Props`, `R5ptProps`, and `R2X6Props`, which `R2X6PropsIff` implies);
+   `AGInLA.r1R2fpRep_of_noPi0 : R1R2fpRepNoPi0 → R5fpCount → ConnectedGeomConnected →
+   CurveComponentDichotomy → LeafSkolemNoether → AtkinLehnerFinite → R1R2fpRep`
+
+   `R1R2fpRep` is a verbatim copy of the repaired bundle `LeafAdopt.R1R2fpRep`.
+   `R1R2fpRepNoPi0` is the same bundle with its clause `R1pi0Props X` replaced by (c). So the
+   bundle clause `R1pi0Props` is glue from:
+   - the rest of the bundle;
    - the leaf `R5fpCount`;
-   - (c), `R2X6CMExact`;
-   - three standard leaves, none from the Shimura-curve literature:
+   - the clause (c);
+   - four standard results, none from the Shimura-curve literature, listed below.
 
    | Leaf | Lean | Content | Source | Status |
    | --- | --- | --- | --- | --- |
-   | AG-GC | `ConnectedGeomConnected` | `k` algebraically closed, `Y → Spec k` proper, `Y` connected ⇒ geometrically connected | EGA IV₂ (4.5.1), (4.5.8); Stacks, Varieties, §"Geometrically connected schemes" (UNVERIFIED numbers) | STANDARD; the published statement drops "proper" and only needs `k` separably closed, so this is a consequence |
-   | AG-CD | `CurveComponentDichotomy` | `X` proper smooth of relative dimension 1 over `ℚ`, `π : X → P¹`: on each connected component of `X_ℚ̄`, `π` hits every value of `P¹(ℚ̄)` at a `ℚ̄`-point, or some value is hit at infinitely many | Hartshorne II.6.8 (constant or surjective); normal Noetherian ⇒ components irreducible (Stacks); Nullstellensatz (UNVERIFIED numbers) | STANDARD (consequence of the listed theorems) |
-   | AutO | `AutModInnFinite` | finite `S ⊆ Aut(𝒪)` with every `α = s ∘ Ad(u)`, `s ∈ S`, `u ∈ 𝒪^×` | Skolem–Noether (T13, **proved** by t-skolem-kw) and the finiteness of the Atkin–Lehner group `N(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²` (Vignéras LNM 800; Voight GTM 288; UNVERIFIED locators) | STANDARD (consequence of the two) |
+   | AG-GC | `AGIn.ConnectedGeomConnected` | `k` algebraically closed, `Y → Spec k` proper, `Y` connected ⇒ geometrically connected | EGA IV₂ (4.5.1), (4.5.8); Stacks, Varieties, §"Geometrically connected schemes" (UNVERIFIED numbers) | STANDARD; a consequence of the published statement, which needs neither "proper" nor more than separable closedness |
+   | AG-CD | `AGIn.CurveComponentDichotomy` | `X` proper smooth of relative dimension 1 over `ℚ`, `π : X → P¹`: on each connected component of `X_ℚ̄`, `π` hits every value of `P¹(ℚ̄)` at a `ℚ̄`-point, or some value is hit at infinitely many | Hartshorne II.6.8 (constant or surjective); normal Noetherian ⇒ components irreducible (Stacks); Nullstellensatz (UNVERIFIED numbers) | STANDARD (consequence of the listed theorems) |
+   | SN | `GlueDescent.LeafSkolemNoether` | automorphisms of a finite-dimensional central simple algebra are inner | Skolem–Noether | **proved** (t-skolem-kw, `TSkolemKW.leafSkolemNoether`; identical statement, VERIFIED by reading both) |
+   | AL | `AGInO.AtkinLehnerFinite` | `N_{B^×}(𝒪)/ℚ^×𝒪^×` finite: finite `T ⊆ B^×` with every normalizing `b = r·t·u` | Vignéras LNM 800 Ch. II–III; Voight GTM 288 Ch. 18, §28.9 (UNVERIFIED locators): an elementary abelian 2-group of rank `≤ #{p ∣ D}` | STANDARD (consequence) |
 
-   What is now proved glue:
+   Proved glue:
    - `descend` from AG-GC;
    - `over0` and `overInf` from AG-CD and finite fibres;
-   - finite fibres from R2's fibre clause and AutO, including the isomorphism of inner twists
-     (`qmIsoOfConj`).
-3. **Mathlib v4.35 cannot prove the three leaves** (SPECULATIVE assessment, from reading
+   - finite fibres from R2's fibre clause and `AutModInnFinite`, including the isomorphism of
+     inner twists (`qmIsoOfConj`);
+   - `AutModInnFinite` from SN and AL, including the extension of a ring automorphism of `𝒪` to
+     a `ℚ`-algebra automorphism of `B` (`extAut`) and conjugation by normalizing units
+     (`conjAut`).
+
+3. **Mathlib v4.35 cannot prove AG-GC, AG-CD or AL** (SPECULATIVE assessment, from reading
    `Mathlib/AlgebraicGeometry/Geometrically/*`). It has `GeometricallyConnected`, base change of
    properness and surjectivity, and pullback pasting; all three are used in `descend_of_leaf`.
    What it lacks:
    - for AG-GC, connectedness under extension of an algebraically closed base field;
    - for AG-CD, dimension theory of curves and "normal ⇒ connected components irreducible" for
      schemes;
-   - for AutO, the normalizer of a quaternion order.
+   - for AL, the normalizer of a quaternion order (two-sided ideals of a maximal order).
 4. **Recommendation.** The clause `R1pi0Props` can leave the R1 bundle. It would be replaced by:
-   - the three textbook leaves above, which are crowdsourcable and independent of the
-     Shimura-curve literature;
+   - the three textbook leaves AG-GC, AG-CD and AL (SN is proved), which are crowdsourcable and
+     independent of the Shimura-curve literature;
    - the clause (c), a restatement of Baba–Granath's CM clause.
 
    That removes the dependence on Deligne 1971 §2, whose locator is UNVERIFIED. If the owner
@@ -141,7 +155,7 @@ not algebraic geometry:
   together with the finiteness of `N(𝒪)/ℚ^×𝒪^×`.
 
 pi0-x6 listed this inside (d) as standard algebraic geometry; it is a quaternion-order fact
-(leaf AutO).
+(`AutModInnFinite`, proved here from SN and AL).
 
 ### 1.5 pi0-x6's finding F1 on the rv-blueprints sketch (VERIFIED as an argument)
 
@@ -153,35 +167,56 @@ pi0-x6's finding F1 is confirmed. With two degree-2 components, each one is rami
 
 Each leaf in the table holds for every scheme it quantifies over (published theorems), so none
 assumes the conclusion. AG-GC and AG-CD quantify over all proper (smooth) `ℚ`-schemes, not over
-`X₆`. AutO is a statement about the explicit order `LeafQM.O`.
+`X₆`. AL is a statement about the explicit order `LeafQM.O`; SN quantifies over all central
+simple algebras.
 
 The only `X₆`-specific inputs are the bundle clauses and (c).
 
 ## 2. Lean (`scratch/ag-inputs/AGInputs.lean`)
 
 All of the following is VERIFIED:
-- `lake env lean scratch/ag-inputs/AGInputs.lean` exits 0, with no errors and no warnings;
-- 15 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
-  (`compile_out.txt`);
-- the file contains no `sorry` and no `axiom`;
-- it imports `ZInQKernel.HDecomp.QM.Leaves` (built with
-  `lake build ZInQKernel.HDecomp.QM.Leaves`).
+- `lake env lean scratch/ag-inputs/AGInputs.lean` exits 0, with no errors. There is one
+  deprecation warning (`dif_pos`).
+- 19 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
+  (`compile_out.txt`).
+- The file contains no `sorry` and no `axiom`.
+- It imports `ZInQKernel.HDecomp.QM.Leaves` and `ZInQKernel.HDecomp.Descent.B1Quat` (built
+  with `lake build`).
 
-§1-§7 are pi0-x6's `Pi0X6.lean`, copied with the namespace renamed `AGIn`. §8-§9 are new:
+§1-§7 are pi0-x6's `Pi0X6.lean`, copied with the namespace renamed `AGIn`. §8-§11 are new:
 
-| Declaration | Statement | Status |
-| --- | --- | --- |
-| `ConnectedGeomConnected` | leaf AG-GC (above) | leaf (def) |
-| `spec_rat_ext` | any two `Spec L → Spec ℚ` agree | proved |
-| `descend_of_leaf` | AG-GC, `IsProper X.hom`, `X_ℚ̄` connected ⇒ `GeometricallyConnected X.hom` | proved |
-| `CurveComponentDichotomy` | leaf AG-CD (above), over `Xbar`, `compOf`, `ToP1.val` | leaf (def) |
-| `meets_fibre_of_finite` | AG-CD + finite fibres ⇒ every component of `X_ℚ̄` meets every fibre | proved |
-| `qmIsoOfConj` | `q₁(a) = q₂(u a u⁻¹)` ⇒ `q₂(u⁻¹) : (A, q₁) ≅ (A, q₂)` | proved |
-| `AutModInnFinite` | leaf AutO (above) | leaf (def) |
-| `twistClasses_finite` | AutO ⇒ `{[P.twist α]}` finite | proved |
-| `fibres_finite` | `R2X6Props` + AutO ⇒ every `π₆`-fibre on `ℚ̄`-points finite | proved |
-| `agInputs_of_leaves` | the three leaves + proper + smooth + `R2X6Props` ⇒ `AGInputs π₆` | proved |
-| `r1pi0Props_of_leaves` | bundle clauses + `R5fpCount` + (c) + three leaves ⇒ `GeometricallyConnected X.hom` | proved |
+| § | Declaration | Statement | Status |
+| --- | --- | --- | --- |
+| 8 | `AGIn.ConnectedGeomConnected` | leaf AG-GC (above) | leaf (def) |
+| 8 | `AGIn.spec_rat_ext` | any two `Spec L → Spec ℚ` agree | proved |
+| 8 | `AGIn.descend_of_leaf` | AG-GC, `IsProper X.hom`, `X_ℚ̄` connected ⇒ `GeometricallyConnected X.hom` | proved |
+| 9 | `AGIn.CurveComponentDichotomy` | leaf AG-CD (above), over `Xbar`, `compOf`, `ToP1.val` | leaf (def) |
+| 9 | `AGIn.meets_fibre_of_finite` | AG-CD + finite fibres ⇒ every component of `X_ℚ̄` meets every fibre | proved |
+| 9 | `AGIn.qmIsoOfConj` | `q₁(a) = q₂(u a u⁻¹)` ⇒ `q₂(u⁻¹) : (A, q₁) ≅ (A, q₂)` | proved |
+| 9 | `AGIn.AutModInnFinite` | finite `S ⊆ Aut(𝒪)`, every `α = s ∘ Ad(u)` | def (glue target, proved in §10) |
+| 9 | `AGIn.twistClasses_finite` | `AutModInnFinite` ⇒ `{[P.twist α]}` finite | proved |
+| 9 | `AGIn.fibres_finite` | `R2X6Props` + `AutModInnFinite` ⇒ every `π₆`-fibre on `ℚ̄`-points finite | proved |
+| 9 | `AGIn.agInputs_of_leaves` | AG-GC, AG-CD, `AutModInnFinite`, proper, smooth, `R2X6Props` ⇒ `AGInputs π₆` | proved |
+| 9 | `AGIn.r1pi0Props_of_leaves` | bundle clauses + `R5fpCount` + (c) + the above ⇒ `GeometricallyConnected X.hom` | proved |
+| 10 | `AGInO.exists_nat_smul_mem`, `nOf` | every `b ∈ B` has `n > 0` with `n·b ∈ 𝒪` | proved |
+| 10 | `AGInO.extAut`, `extAut_coe` | `α ∈ Aut(𝒪)` extends to `B ≃ₐ[ℚ] B` agreeing with `α` on `𝒪` | proved |
+| 10 | `AGInO.AtkinLehnerFinite` | leaf AL (above) | leaf (def) |
+| 10 | `AGInO.conjAut`, `autSet` | conjugation by a normalizing unit as an element of `Aut(𝒪)` | defs |
+| 10 | `AGInO.autModInnFinite_of` | SN + AL ⇒ `AutModInnFinite` | proved |
+| 10 | `AGInO.r1pi0Props_of_leaves'` | as `r1pi0Props_of_leaves`, with SN + AL for `AutModInnFinite` | proved |
+| 11 | `AGInLA.R1pi0Props`, `R2X6PropsIff`, `R1R2fpRep` | verbatim copies from `scratch/h-decomposition/Leaves.lean` (checked by script) | defs |
+| 11 | `AGInLA.R1R2fpRepNoPi0` | `R1R2fpRep` with `R1pi0Props X` replaced by (c) | def |
+| 11 | `AGInLA.r1R2fpRep_of_noPi0` | `R1R2fpRepNoPi0` + `R5fpCount` + AG-GC + AG-CD + SN + AL ⇒ `R1R2fpRep` | proved |
+
+`scratch/ag-inputs/T1.lean` (`descend` over Mathlib alone) and `T2.lean` (§10 alone) are the
+development files; both compile (VERIFIED).
+
+Proof of `autModInnFinite_of`:
+1. Extend `α` to `φ = extAut α ∈ Aut_ℚ(B)`.
+2. SN at `B` (`GlueDescent.B6_inner`; `B` central simple by `B6_isCentral` and
+   `B6_isSimpleRing`) gives `φ = Ad(b)`.
+3. `b` normalizes `𝒪`, using `α` and `α⁻¹`.
+4. AL gives `b = r·t·u`. Then `t` normalizes `𝒪`, and `α(a) = t(u a u⁻¹)t⁻¹ = (conjAut t)(u a u⁻¹)`.
 
 Proof of `descend_of_leaf`:
 1. Take a field `K` with `y : Spec K → Spec ℚ`, and let `L = K̄`. `K` has characteristic 0
@@ -198,12 +233,19 @@ Proof of `descend_of_leaf`:
 
 ## 3. What remains
 
-1. The three leaves AG-GC, AG-CD and AutO. Each is textbook, and none is in Mathlib v4.35. Any
-   of them could be formalized independently of this project.
-   - AutO splits further into Skolem–Noether, which is proved (t-skolem-kw; needs `B` central
-     simple over `ℚ` as instances), and the finiteness of `N(𝒪)/ℚ^×𝒪^×`. The split is not done
-     in Lean.
-2. Input (c): adopt `R2X6CMExact` (c1), or derive it from `QMDichotomyYu` (c2, needs the double
-   centralizer theorem).
+1. The three leaves AG-GC, AG-CD and AL. Each is textbook, and none is in Mathlib v4.35. Any of
+   them could be formalized independently of this project.
+2. Input (c): adopt `R2X6CMExact` (c1), or derive it from `QMDichotomyYu` (c2). (c2) needs, in
+   Lean:
+   - the centralizer of `B` in `M₂(F)` (via the simplicity of `F ⊗ B`, available in
+     t-skolem-kw);
+   - `HomFreeFinite`, to make `com` an order;
+   - the maximality of `ℤ[i]` and `ℤ[ζ₃]`, proved in §5-§6.
+
+   Not done.
 3. Locators: all theorem numbers above are from memory (UNVERIFIED). A human check of EGA IV₂
-   §4.5 and of Hartshorne II.6.8 is needed before announcing.
+   §4.5, Hartshorne II.6.8, and the Atkin–Lehner group in Vignéras or Voight is needed before
+   announcing.
+4. Integration: `AGInLA.r1R2fpRep_of_noPi0` is the drop-in form. If adopted, it goes into
+   `ZInQKernel/HDecomp/` next to the bundle, with `R1R2fpRepNoPi0` replacing `R1R2fpRep` in
+   `ResearchLeaves`, and AG-GC, AG-CD and AL added as named leaves.
