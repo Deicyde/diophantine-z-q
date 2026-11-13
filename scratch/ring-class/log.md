@@ -58,7 +58,7 @@
 
 (Note: earlier headings were mis-estimated clock times; corrected to `date` readings, ±5 min.)
 
-## 08:00–08:35 round 4 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` success)
+## 08:00–08:20 round 4 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge` success)
 - Merged origin/main, origin/wip/cm-points, origin/wip/x0-32 (no conflicts); Package builds.
 - cm-points' report asks ring-class to prove `Package.HprimeNormal` and `Package.IInH4`.
 - New ZInQKernel/Contrib/TYZGenus/RingClassGalois.lean (from scratch G1/G2): splitSet, Bauer's theorem
@@ -74,7 +74,7 @@
   `tyzThm35ReadingA_of_cmLeaves_ringClass` (cm-points' finest main theorem minus these two hypotheses).
 - #print axioms (scratch/ring-class/AuditBridge.lean): all [propext, Classical.choice, Quot.sound].
 
-## ~08:50 round 5 (VERIFIED, lake build RingClassBridge success; axioms standard three)
+## 08:25–08:28 round 5 (VERIFIED, lake build RingClassBridge success; axioms standard three)
 - ConjInverse/Normality sections generalized from O4 d to every `conductorOrder (QNeg d) f`.
 - Ring class fields by discriminant: `ringClassFieldBar m f`, `normal_ringClassFieldBar` (every order
   ℤ + f𝓞_K of an imaginary quadratic field: ring class field normal over ℚ), `sqfPart` (squarefree part,
@@ -83,11 +83,11 @@
   (ringClassFieldD (−64n) = H4bar n for squarefree n ≡ 5 mod 8).
 - Bridge: `cmFieldTYZ_of_ringClassD` (CM.CMFieldOfDefinition ringClassFieldD → CMFieldOfDefinitionTYZ),
   `tyzThm35ReadingA_of_cmLeaves_ringClassD`, `normalFields_HHprime'`.
-- ~09:05 embedding independence (VERIFIED, build success): `map_eq_map_of_normal`, `ringClassFieldBar_eq_map`,
+- 08:31 embedding independence (VERIFIED, build success): `map_eq_map_of_normal`, `ringClassFieldBar_eq_map`,
   `H4bar_eq_map'`, `Hprimebar_eq_map'` (the images in ℚ̄ of ring class fields, H_{d,4}, H'_d do not depend
   on the ℚ-embedding K_dˢ → ℚ̄).
 
-## ~09:35 round 6 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassTwo` success; axioms standard)
+## 08:35–08:39 round 6 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassTwo` success; axioms standard)
 - New ZInQKernel/Contrib/TYZGenus/RingClassTwo.lean (from scratch G3): K(√a) machinery (`sqrtK`, `adjSqrt`,
   `sqrtO`, `isUnramifiedAt_sqrt` for Q ∌ 2a, `smul_sqrtO_eq_iff` Euler-criterion Frobenius,
   `mem_splitSet_adjSqrt_iff`: 𝔭 ∌ 2a splits in K(√a) ⇔ a square mod 𝔭), `even_two_re` (d ≡ 1 mod 4 ⇒ Tr 𝓞 ⊆ 2ℤ),
@@ -96,9 +96,12 @@
   finite set), `not_adjSqrt_two_le_Hprime` (√2 ∉ H'_d, d ≡ 5 mod 8), `Hprime_sup_sqrt_two`
   (H'_d ⊔ K_d(√2) = H_{d,4}: TYZ Prop 3.2(1)'s first assertion, a faithfulness check of `Hprime`).
 
-## ~10:05 round 7 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassGenus` success; axioms standard)
+## 08:43 round 7 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassGenus` success; axioms standard)
 - New ZInQKernel/Contrib/TYZGenus/RingClassGenus.lean (from scratch G4): `conductorOrder_one` (ℤ + 1·𝓞 = maximal
   order), `hilbertField_eq_ringSubfield`, `norm_eq_sq_add` (N β = t² + w, k² = 4nw for n ≡ 1 mod 4),
   `norm_mod_four`, `norm_sq_mod_prime` (N β ≡ t² mod p for p | n, n squarefree), `adjSqrt_le_hilbertField`
   (K_n(√−1), K_n(√p) ⊆ H_n: explicit genus theory), `Lni_le_Hprimebar` (L_n(i) ⊆ H'_n),
   `HHprime_eq_iSup` (ℍ'_n = ⨆_{d₀ | n, d₀ ≡ 5 (8)} H'_{d₀} for squarefree n ≡ 5 mod 8).
+
+(Round 4–7 headings corrected to commit times from `git log`.)
+- 08:44 report docs/research/ring-class.md written.
