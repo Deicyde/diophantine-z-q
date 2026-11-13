@@ -218,3 +218,22 @@
 - `tail_glue.lean`: proved (VERIFIED) `modularConstituent_tail_D` (G13-G16 on G7LocalPackD + R6 + I2-Tors).
 - Compile: LocalGlue.lean exit 0, no sorry, 65 printed declarations standard axioms; TailK.lean exit 0,
   no sorry, all printed axioms standard (incl. modularConstituent_tail_D).
+
+## Step 16 (08:24-08:40 PST): BetaTwist2 reduced to a textbook Prop; Beta4Inertia proved
+- New part `part_twist.lean` (§7e). New Props: `Beta4Inertia β L` (β⁴ = 1 on G_{L_v} ∩ inertiaSet;
+  glue) and `UnramRoots p ℓ` (GLUE, textbook: a character of G_F trivial on an open subgroup and on
+  inertia has an unramified continuous 4th root; Serre, Local Fields III §5 / IV §2, UNVERIFIED).
+- Proved (VERIFIED, compiled, axioms standard):
+  `betaTwist2_of_roots (hC) (UnramRoots) (Beta4Inertia) : BetaTwist2` (M = fixed field of
+  {σ ∈ G_{L_v} : β = η}, kernel of β/η : G_{L_v} → μ₄, index ≤ card(rootsOfUnity 4) ≤ 4);
+  `inertia_fix_prime_to_p`, `sq_fix_four` (σ² fixes μ₄), `chiLevel_dvd_four_mul_odd`,
+  `decomp_sq_fix_root`, `cyc_decomp_sq_inertia` (p = 2: cyc_N(decomp σ²) = 1 for inertia σ),
+  **`beta4Inertia_of_clauses (p = 2) (hC : G7Clauses) : Beta4Inertia`**,
+  `betaTwist2_of_unramRoots`, **`localGlue_of_unramRoots`** (LocalGlue from R6, I2-Tors,
+  UnramRoots, KerWild, p ≤ 5 → DescentPts).
+- `part_pack.lean`: `G7LocalPackU` (no BetaTwist2), `g8LocalPack_of_U`, `g15RamG_of_packU`;
+  `tail_glue.lean`: `modularConstituent_tail_U`.
+- Compile: LocalGlue.lean exit 0, no sorry, 72 printed declarations all standard axioms;
+  TailK.lean exit 0, no sorry, tail_K/R/D/U standard axioms.
+- Remaining for LocalGlue on G7's data: leaves R6, I2-Tors (in the bundles); textbook UnramRoots;
+  glue KerWild (missing clause of G7Out/TateBridge) and DescentPts (p ≤ 5).

@@ -5091,6 +5091,48 @@ theorem g15RamG_of_packD (hR6 : ObjBridge.RaynaudCriterion)
     g8LocalPack_of_D hR6 hTors (fun p h => by rw [h]; norm_num) h3
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
+/-- **G7's data for `r` with the local glue at `p ∈ P` reduced to two glue Props (GLUE).**
+`KerWild` (G7Data's kernel-field clause) and, when some `p ∈ P` has `p ≤ 5`, `DescentPts A L`
+(the model of `A` over `L`). At `p = 2` the twist is supplied by the textbook Prop
+`G15Ram.UnramRoots` (`g8LocalPack_of_U`). -/
+def G7LocalPackU (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
+  ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)) (c ε : GQ → GQ → PadicAlgCl ℓ)
+    (a β : GQ → PadicAlgCl ℓ) (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ))
+    (L : IntermediateField ℚ Qbar) (_ : FiniteDimensional ℚ L),
+    G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
+    G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
+    ((∃ p, P p ∧ p.Prime ∧ p ≤ 5) → G15Ram.DescentPts A L)
+
+/-- **`G8LocalPack` from `G7LocalPackU`, the leaves R6, I2-Tors, the textbook Prop `UnramRoots`
+at `p = 2`, and `p ≠ ℓ` on `P` (proved)**, by `G15Ram.localGlue_of_unramRoots`. -/
+theorem g8LocalPack_of_U (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
+    (hU : ∀ (hp : Nat.Prime 2), @G15Ram.UnramRoots 2 ⟨hp⟩ ℓ _)
+    {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackU ℓ r P) :
+    G8LocalPack ℓ r P := by
+  obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, _, h7, h8, hC, hK, hD⟩ := h
+  refine ⟨K, _, _, A, Tm, a, β, ε, L, h8, hC, fun p hp hP => ?_⟩
+  have : Fact p.Prime := ⟨hp⟩
+  refine G15Ram.localGlue_of_descent hR6 hTors (hPℓ p hP) h7 hC hK
+    (fun h5 => hD ⟨p, hP, hp, h5⟩) (fun h2 => ?_)
+  subst h2
+  exact G15Ram.betaTwist2_of_unramRoots rfl hC (hU hp)
+
+/-- **`G15RamG` from the packs `G7LocalPackU` (proved).** -/
+theorem g15RamG_of_packU (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) (hU2 : ∀ (hp : Nat.Prime 2) (ℓ : ℕ) [Fact ℓ.Prime],
+      @G15Ram.UnramRoots 2 ⟨hp⟩ ℓ _) {L : Type} [Field L]
+    [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : G7LocalPackU 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackU 3 D.r3 (fun p => p = 5))
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) : G15RamG D u := by
+  obtain ⟨K₅, _, _, A₅, Tm₅, a₅, β₅, ε₅, L₅, h8₅, hC₅, hG₅⟩ :=
+    g8LocalPack_of_U hR6 hTors (fun hp => hU2 hp 5) (fun _ h => h) h5
+  obtain ⟨K₃, _, _, A₃, Tm₃, a₃, β₃, ε₃, L₃, h8₃, hC₃, hG₃⟩ :=
+    g8LocalPack_of_U hR6 hTors (fun hp => hU2 hp 3) (fun p h => by rw [h]; norm_num) h3
+  exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
+
 end G0ModNewform
 
 end
@@ -5101,3 +5143,5 @@ end
 #print axioms G0ModNewform.g15RamG_of_packR
 #print axioms G0ModNewform.g8LocalPack_of_D
 #print axioms G0ModNewform.g15RamG_of_packD
+#print axioms G0ModNewform.g8LocalPack_of_U
+#print axioms G0ModNewform.g15RamG_of_packU
