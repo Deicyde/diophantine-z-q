@@ -1,0 +1,284 @@
+
+/-! # r1b-state, part 8: `FamilyCMValues` from the leaf T11a and R2's CM clauses on `ℂ`-points
+
+At a fixed point `τ` of `ι(x)` (`x ∈ 𝒪`, `det ι(x) > 0`), `(τ, 1)ᵀ` is an eigenvector of `ι(x)`
+with eigenvalue `λ = (ι(x)(τ, 1)ᵀ)₂`; multiplication by `λ` preserves `Λ_τ` (`lam_mem`) and
+commutes with `ι(𝒪)`, so by T11a (leaf-push2's `T11a_RiemannEnd`, Riemann/GAGA for
+endomorphisms) it is an endomorphism `f` of the object of the family at `τ`, in `End_𝒪`, with
+`f² = −1` (resp. `f² − f + 1 = 0`, `f² = −6`) because `λ` satisfies the relation of `x`
+(uniqueness in T11a). R2's CM clauses on `ℂ`-points (`R2CMOnC`, glue) then give the value. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic Matrix
+open ZInQ.LeafPush2 (T11a_RiemannEnd isUniformization_of_bp)
+
+/-- **GLUE (R2's CM clauses on `ℂ`-points).** Why true: a complex point whose object has CM is
+algebraic (CM abelian surfaces, and so their moduli points, are defined over `ℚ̄`), so it is a
+`ℚ̄`-point composed with an embedding `ℚ̄ → ℂ` (naturality clause of `R1fpProps`, `ToP1.val_comp`),
+and `End` does not grow from `ℚ̄` to `ℂ` (rigidity, leaf T11b); then R2's CM clauses apply. -/
+def R2CMOnC : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∀ (y : fieldPt ℂ ⟶ Y) (P : QML3 ℂ), Φ ℂ y = M3.mk P →
+      (HasCM4 P.q → π.val (K := ℂ) y.left = ((0 : ℂ) : OnePoint ℂ)) ∧
+      (HasCM3 P.q → π.val (K := ℂ) y.left = OnePoint.infty) ∧
+      (HasCM24 P.q → π.val (K := ℂ) y.left = ((-16 / 27 : ℂ) : OnePoint ℂ))
+
+section Induces
+
+variable {P : QML3 ℂ} {τ : ℂ} {hτ : τ.im ≠ 0}
+  {φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)}
+
+/-- The map `ℂ² → P.A(ℂ)`, `z ↦ φ[z]`. -/
+def unifMap (φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)) (z : Fin 2 → ℂ) : P.A.Pt ℂ :=
+  Additive.toMul (φ (proj (QM.qmLattice hτ) z))
+
+/-- `f` is induced by the linear map `M`: `φ[Mz] = f(φ[z])`. -/
+def Induces (φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)) (f : AbVar.End P.A)
+    (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) : Prop :=
+  ∀ z, unifMap φ (M z) = unifMap φ z ≫ f.hom
+
+theorem unifMap_add (z w : Fin 2 → ℂ) : unifMap φ (z + w) = unifMap φ z * unifMap φ w := by
+  unfold unifMap
+  rw [← toMul_add, ← map_add]
+  rfl
+
+theorem unifMap_zero : unifMap φ 0 = 1 := by
+  unfold unifMap
+  change Additive.toMul (φ 0) = 1
+  rw [map_zero]
+  rfl
+
+theorem Induces.mul {f g : AbVar.End P.A} {M N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)}
+    (hf : Induces φ f M) (hg : Induces φ g N) : Induces φ (f * g) (M ∘ₗ N) := by
+  intro z
+  rw [LinearMap.comp_apply, hf, hg, Category.assoc]
+  rfl
+
+theorem Induces.add {f g : AbVar.End P.A} {M N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)}
+    (hf : Induces φ f M) (hg : Induces φ g N) : Induces φ (f + g) (M + N) := by
+  intro z
+  rw [LinearMap.add_apply, unifMap_add, hf, hg, AbVar.Hom.hom_add, MonObj.comp_mul]
+
+theorem induces_one : Induces φ (1 : AbVar.End P.A) LinearMap.id := by
+  intro z
+  change unifMap φ z = unifMap φ z ≫ 𝟙 _
+  rw [Category.comp_id]
+
+theorem induces_zero : Induces φ (0 : AbVar.End P.A) 0 := by
+  intro z
+  rw [LinearMap.zero_apply, unifMap_zero, AbVar.Hom.hom_zero, MonObj.comp_one]
+
+/-- **Uniqueness (from T11a).** Two endomorphisms induced by one `Λ_τ`-preserving map agree. -/
+theorem Induces.unique (hT : T11a_RiemannEnd) (hφ : Uniformization.IsUniformization P.A
+      (QM.qmLattice hτ) φ) {f g : AbVar.End P.A} {M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)}
+    (hM : ∀ z ∈ QM.qmLattice hτ, M z ∈ QM.qmLattice hτ) (hf : Induces φ f M)
+    (hg : Induces φ g M) : f = g := by
+  have hdim : P.A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [P.surface]; norm_cast
+  exact ((hT P.A 2 (QM.qmLattice hτ) (unifMap φ) hdim (isUniformization_of_bp P.A hφ)).1 M
+    hM).unique hf hg
+
+/-- **Existence (from T11a).** -/
+theorem Induces.exists (hT : T11a_RiemannEnd) (hφ : Uniformization.IsUniformization P.A
+      (QM.qmLattice hτ) φ) {M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)}
+    (hM : ∀ z ∈ QM.qmLattice hτ, M z ∈ QM.qmLattice hτ) : ∃ f, Induces φ f M := by
+  have hdim : P.A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [P.surface]; norm_cast
+  exact ((hT P.A 2 (QM.qmLattice hτ) (unifMap φ) hdim (isUniformization_of_bp P.A hφ)).1 M
+    hM).exists
+
+/-- `ι_P(a)` is induced by the matrix `ι(a)` (the `ι`-compatibility of `IsQMUnif`). -/
+theorem induces_iota (hφ : IsQMUnif P hτ φ) (a : O) :
+    Induces φ (P.q.iota a) (Matrix.toLin' (iotaC (a : LeafQM.B))) := by
+  intro z
+  have h := hφ.iota_compat a z
+  unfold unifMap
+  rw [Matrix.toLin'_apply, h]
+  rfl
+
+end Induces
+
+theorem coe_im_ne_zero (τ : UpperHalfPlane) : (τ : ℂ).im ≠ 0 := τ.im_ne_zero
+
+/-- `PkgI1`'s membership in `𝒪` is `LeafQM`'s. -/
+theorem inO_of_pkgI1 {x : PkgI1.B} (hx : PkgI1.InO x) : LeafQM.InO x := by
+  obtain ⟨n, rfl⟩ := hx
+  refine ⟨n, ?_⟩
+  ext <;> simp [ofInt, PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+
+theorem pkgI1_iota_eq (x : PkgI1.B) : PkgI1.iota x = QM.iota x := rfl
+
+/-- The second coordinate of `ι(x)(τ, 1)ᵀ`: the eigenvalue at a fixed point. -/
+def eigenval (x : LeafQM.B) (τ : ℂ) : ℂ := QM.latVec x τ 1
+
+/-- **At a fixed point, `(τ, 1)ᵀ` is an eigenvector of `ι(x)`.** -/
+theorem latVec_fixed {x : PkgI1.B} {g : GL (Fin 2) ℝ} {τ : UpperHalfPlane}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hfix : g • τ = τ) : QM.latVec x τ = eigenval x τ • ![(τ : ℂ), 1] := by
+  have hg : 0 < g.det.val := by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet
+  have h := congrArg UpperHalfPlane.coe hfix
+  rw [UpperHalfPlane.coe_smul_of_det_pos hg, div_eq_iff (UpperHalfPlane.denom_ne_zero g τ)] at h
+  simp only [UpperHalfPlane.num, UpperHalfPlane.denom, hm, pkgI1_iota_eq] at h
+  ext i
+  fin_cases i
+  · simp only [eigenval, QM.latVec, Matrix.mulVec, dotProduct, Fin.sum_univ_two,
+      Matrix.map_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons,
+      Pi.smul_apply, smul_eq_mul, Fin.isValue]
+    simp only [Fin.zero_eta, Fin.isValue, Matrix.cons_val_zero] at h ⊢
+    linear_combination h
+  · simp [eigenval]
+
+theorem eigenval_mul {x : PkgI1.B} {g : GL (Fin 2) ℝ} {τ : UpperHalfPlane}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hfix : g • τ = τ) (b : LeafQM.B) :
+    QM.latVec (b * x) τ = eigenval x τ • QM.latVec b τ := by
+  rw [latVec_mul, latVec_fixed hm hdet hfix, Matrix.mulVec_smul, latVec_eq]
+
+/-- `λ²` is the eigenvalue of `x²`. -/
+theorem eigenval_sq {x : PkgI1.B} {g : GL (Fin 2) ℝ} {τ : UpperHalfPlane}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hfix : g • τ = τ) : QM.latVec (x * x) τ = (eigenval x τ * eigenval x τ) • ![(τ : ℂ), 1] := by
+  rw [eigenval_mul hm hdet hfix, latVec_fixed hm hdet hfix, smul_smul]
+
+/-- **Multiplication by `λ` preserves `Λ_τ`.** -/
+theorem lam_mem {x : PkgI1.B} (hx : PkgI1.InO x) {g : GL (Fin 2) ℝ} {τ : UpperHalfPlane}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hfix : g • τ = τ) {v : Fin 2 → ℂ} (hv : v ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ)) :
+    eigenval x τ • v ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) := by
+  have hxO : x ∈ O := inO_of_pkgI1 hx
+  rw [QM.qmLattice_eq] at hv ⊢
+  induction hv using Submodule.span_induction with
+  | mem w hw =>
+    obtain ⟨k, rfl⟩ := hw
+    rw [QM.qmVec, ← eigenval_mul hm hdet hfix, ← QM.qmLattice_eq (coe_im_ne_zero τ)]
+    exact latVec_mem_of_inO (O.mul_mem (oBasis_inO k) hxO) _
+  | zero => rw [smul_zero]; exact Submodule.zero_mem _
+  | add v w _ _ hv hw => rw [smul_add]; exact Submodule.add_mem _ hv hw
+  | smul n v _ hv => rw [smul_comm]; exact Submodule.smul_mem _ n hv
+
+/-- **The CM endomorphism of the family object at a fixed point (from T11a).** -/
+theorem exists_cm_end (hT : T11a_RiemannEnd) {x : PkgI1.B} (hx : PkgI1.InO x)
+    {g : GL (Fin 2) ℝ} {τ : UpperHalfPlane}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (hfix : g • τ = τ) (P : QML3 ℂ)
+    (φ : Torus (QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ)) ≃+ Additive (P.A.Pt ℂ))
+    (hφ : IsQMUnif P (coe_im_ne_zero τ) φ) :
+    ∃ f : AbVar.End P.A, f ∈ com P.q ∧ Induces φ f (eigenval x τ • LinearMap.id) := by
+  set lam := eigenval x τ
+  have hM : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+      (lam • LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈
+        QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) :=
+    fun z hz => lam_mem hx hm hdet hfix hz
+  obtain ⟨f, hf⟩ := Induces.exists hT hφ.unif hM
+  refine ⟨f, ?_, hf⟩
+  rw [com, Subring.mem_centralizer_iff]
+  rintro _ ⟨a, rfl⟩
+  have hMa : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+      ((lam • LinearMap.id) ∘ₗ Matrix.toLin' (iotaC (a : LeafQM.B))) z ∈
+        QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) := by
+    intro z hz
+    exact hM _ (by rw [Matrix.toLin'_apply]; exact iotaC_mem a _ hz)
+  have e1 : Induces φ (f * P.q.iota a) ((lam • LinearMap.id) ∘ₗ
+      Matrix.toLin' (iotaC (a : LeafQM.B))) := hf.mul (induces_iota hφ a)
+  have e2 : Induces φ (P.q.iota a * f) ((lam • LinearMap.id) ∘ₗ
+      Matrix.toLin' (iotaC (a : LeafQM.B))) := by
+    have : (lam • LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) ∘ₗ
+        Matrix.toLin' (iotaC (a : LeafQM.B)) =
+        Matrix.toLin' (iotaC (a : LeafQM.B)) ∘ₗ (lam • LinearMap.id) := by
+      ext z i; simp [Matrix.mulVec_smul]
+    rw [this]
+    exact (induces_iota hφ a).mul hf
+  exact Induces.unique hT hφ.unif hMa e2 e1
+
+/-- `x ↦ λ` respects the quadratic relations (second coordinates of `latVec`). -/
+theorem latVec_one_snd (τ : ℂ) : QM.latVec (1 : LeafQM.B) τ 1 = 1 := by
+  rw [latVec_apply]; simp
+
+theorem latVec_zero_snd (τ : ℂ) : QM.latVec (0 : LeafQM.B) τ 1 = 0 := by
+  rw [latVec_apply]; simp
+
+theorem latVec_snd_add (a b : LeafQM.B) (τ : ℂ) :
+    QM.latVec (a + b) τ 1 = QM.latVec a τ 1 + QM.latVec b τ 1 := by
+  rw [latVec_add]; rfl
+
+theorem latVec_snd_neg (a : LeafQM.B) (τ : ℂ) : QM.latVec (-a) τ 1 = -QM.latVec a τ 1 := by
+  have h := latVec_smul (-1) a τ
+  rw [show ((-1 : ℚ) • a) = -a by simp] at h
+  rw [h]; simp
+
+/-- **`FamilyCMValues` from T11a and `R2CMOnC` (proved).** -/
+theorem familyCMValues_of_T11a (hT : T11a_RiemannEnd) (hR : R2CMOnC) : FamilyCMValues := by
+  intro Y Φ π h1 h2 y hb x g τ hx hm hdet hfix
+  obtain ⟨P, φ, hP, hφ, -⟩ := hb τ τ.im_pos
+  obtain ⟨f, hfc, hf⟩ := exists_cm_end hT hx hm hdet hfix P φ hφ
+  have hR' := hR Y Φ π h1 h2 (y τ) P hP
+  set lam := eigenval x τ with hlam
+  have hsq : QM.latVec (x * x) τ 1 = lam * lam := by
+    rw [eigenval_sq hm hdet hfix, ← hlam]; simp
+  have hlin : ∀ c : ℂ, ((c • LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) ∘ₗ
+      (c • LinearMap.id)) = (c * c) • LinearMap.id := by
+    intro c; ext z i; simp [mul_smul]
+  have hff : Induces φ (f * f) ((lam * lam) • LinearMap.id) := by
+    rw [← hlin]; exact hf.mul hf
+  have h0 : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+      (0 : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) :=
+    fun z _ => by rw [LinearMap.zero_apply]; exact Submodule.zero_mem _
+  refine ⟨fun hx2 => hR'.1 ⟨f, hfc, ?_⟩, fun hx3 => hR'.2.1 ⟨f, hfc, ?_⟩,
+    fun hx6 => hR'.2.2 ⟨f, hfc, ?_⟩⟩
+  · -- `λ² = −1`, so `f² + 1` is induced by `0`
+    have hl : lam * lam = -1 := by
+      rw [← hsq, hx2, latVec_snd_neg, latVec_one_snd]
+    have e : Induces φ (f * f + 1) 0 := by
+      have := hff.add (induces_one (φ := φ))
+      rwa [hl, show ((-1 : ℂ) • LinearMap.id + LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) = 0 by
+        ext z i; simp] at this
+    have := Induces.unique hT hφ.unif h0 e induces_zero
+    exact eq_neg_of_add_eq_zero_left this
+  · -- `λ² − λ + 1 = 0`, so `f² + 1` and `f` are induced by `λ`
+    have hl : lam * lam + 1 = lam := by
+      have h : QM.latVec (x * x - x + 1) (τ : ℂ) 1 = QM.latVec 0 (τ : ℂ) 1 := by rw [hx3]
+      rw [show x * x - x + 1 = x * x + (-x) + 1 by abel, latVec_snd_add, latVec_snd_add,
+        latVec_snd_neg, latVec_one_snd, latVec_zero_snd, hsq] at h
+      change lam * lam + -lam + 1 = 0 at h
+      linear_combination h
+    have e : Induces φ (f * f + 1) (lam • LinearMap.id) := by
+      have := hff.add (induces_one (φ := φ))
+      rwa [show ((lam * lam) • LinearMap.id + LinearMap.id :
+        (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) = (lam * lam + 1) • LinearMap.id by
+          rw [add_smul, one_smul], hl] at this
+    have hMl : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+        (lam • LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈
+          QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) :=
+      fun z hz => lam_mem hx hm hdet hfix hz
+    have := Induces.unique hT hφ.unif hMl e hf
+    rw [show f * f - f + 1 = (f * f + 1) - f by abel, this, sub_self]
+  · -- `λ² = −6`, so `f² + 6` is induced by `0`
+    have hl : lam * lam = -6 := by
+      rw [← hsq, hx6]
+      rw [latVec_apply]
+      simp [QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat,
+        QuaternionAlgebra.imK_ofNat]
+    have h6 : Induces φ (1 + 1 + 1 + 1 + 1 + 1 : AbVar.End P.A) ((6 : ℂ) • LinearMap.id) := by
+      have h1 := induces_one (φ := φ)
+      have := ((((h1.add h1).add h1).add h1).add h1).add h1
+      convert this using 1
+      ext z i; simp; ring
+    have e : Induces φ (f * f + (1 + 1 + 1 + 1 + 1 + 1)) 0 := by
+      have := hff.add h6
+      rwa [hl, ← add_smul, show (-6 : ℂ) + 6 = 0 by norm_num, zero_smul] at this
+    have := Induces.unique hT hφ.unif h0 e induces_zero
+    rw [show (1 + 1 + 1 + 1 + 1 + 1 : AbVar.End P.A) = 6 by norm_num] at this
+    exact eq_neg_of_add_eq_zero_left this
+
+/-- **`FibreQMPeriod` from R1(b), `QMHauptmodul`, the leaf T11a and seven glue Props
+(proved).** -/
+theorem fibreQMPeriod_of_r1b_T11a (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hT : T11a_RiemannEnd) (hM : MobiusRigidity)
+    (hHol : HauptmodulHolomorphic) (hO : FamilyOrbits) (hR : R2CMOnC) (hB : PiOfQMLattice)
+    (hC : JDenNonzero) (hU : UnifBaseChange) : FibreQMPeriod' :=
+  fibreQMPeriod_of_r1b_final hR1b hH hM hHol hO (familyCMValues_of_T11a hT hR) hB hC hU
+
+end R1bState

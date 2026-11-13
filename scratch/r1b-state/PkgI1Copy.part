@@ -3,6 +3,7 @@ import ZInQKernel.HDecomp.Analytic.QMLattice
 import ZInQKernel.HDecomp.QM.Pin
 import ZInQKernel.HDecomp.LeafPush2.R22
 import ZInQKernel.HDecomp.Assembly
+import ZInQKernel.HDecomp.LeafPush2.UnifBridge
 
 /-! # r1b-state, part 0: pkg-I1's definitions (`PkgI1`), copied verbatim from
 `scratch/h-decomposition/Leaves.lean` lines 104-316 (the `PkgI1` section through

@@ -15,3 +15,5 @@
 #print axioms R1bState.fibreQMPeriod_of_r1b_fine
 #print axioms R1bState.cmPointsExist
 #print axioms R1bState.fibreQMPeriod_of_r1b_final
+#print axioms R1bState.familyCMValues_of_T11a
+#print axioms R1bState.fibreQMPeriod_of_r1b_T11a

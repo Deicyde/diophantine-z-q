@@ -59,3 +59,10 @@
   `fibreQMPeriod_of_r1b_final` takes seven glue Props. 0 errors, no `sorry`; all audited
   theorems `[propext, Classical.choice, Quot.sound]` (VERIFIED; one intermediate run showed
   `sorryAx` from an unsolved goal, fixed).
+- run26 (07:13): `lake build ZInQKernel.HDecomp.LeafPush2.UnifBridge` OK (1m07s).
+- run27-30: Part8_T11a: `FamilyCMValues` from leaf-push2's leaf `T11a_RiemannEnd` and the glue
+  `R2CMOnC` (R2's CM clauses on ℂ-points) (`familyCMValues_of_T11a`): eigenvector lemma at a
+  fixed point (`latVec_fixed`), `λΛ_τ ⊆ Λ_τ` (`lam_mem`), the CM endomorphism in `End_𝒪` by T11a
+  existence + uniqueness (`exists_cm_end`), and the three quadratic relations transported by
+  uniqueness. `FamilyCMValues`/`CMPointsExist` now carry `det ι(x) > 0` (true for the witnesses).
+  `fibreQMPeriod_of_r1b_T11a`. 0 errors, no `sorry`; axioms standard (VERIFIED).
