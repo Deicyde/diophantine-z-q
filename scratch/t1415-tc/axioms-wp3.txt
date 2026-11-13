@@ -1,0 +1,2 @@
+'ZInQ.Contrib.BrauerT14T15.leafLocalTwo' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.leafHasse_of_kummerIndexBound' depends on axioms: [propext, Classical.choice, Quot.sound]
