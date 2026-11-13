@@ -1028,7 +1028,8 @@ def R2X6Props (X : Over (Spec (CommRingCat.of ℚ)))
       (HasCM24 P.q → π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
 
 /-- **Existence of the three CM points on `X₆`** (the "distinguished points" of Baba–Granath
-Lemma 3.1 are images of CM points; CM points by `R` exist iff `R` embeds optimally in `𝒪`,
+Lemma 3.1 are images of CM points; also González–Rotger Prop. 5.6 gives `#CM(R) = 2^b h(R) = 2`
+for each of the three orders; CM points by `R` exist iff `R` embeds optimally in `𝒪`,
 Shimura/Eichler; `ℤ[i], ℤ[ζ₃], ℤ[√−6]` do, by `i + j`, `(1 + j)/2`, `μ = 2j + k`). With the
 fibre clause of `R2X6Props` and the invariance of `com` under twists (`com_twist`) and
 isomorphisms, it gives the converse clauses "`π₆(x) = 0 ⇒` CM by `ℤ[i]`" etc. used by h-b1 M9. -/
@@ -1037,6 +1038,17 @@ def CMExists (X : Over (Spec (CommRingCat.of ℚ)))
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM4 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM24 P.q)
+
+/-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` (0 if the index is infinite). -/
+def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
+  R.toAddSubgroup.relIndex (integralClosure ℤ k).toSubring.toAddSubgroup
+
+open Classical in
+/-- `b(k) = #{p ∣ 6 : p inert in k}` (`p·𝒪_k` prime). For an order of conductor prime to 6 this
+is `b(R) = #{p ∣ D(R)}` of rv-nocm §3.1. -/
+def inertCount6 (k : Type) [Field k] [NumberField k] : ℕ :=
+  (if (Ideal.span {(2 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0) +
+    (if (Ideal.span {(3 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0)
 
 /-- **Surjectivity on `ℚ̄`-points, clause list**: `π₆ : X₆ → P¹` is onto `P¹(ℚ̄)` (it is the
 quotient map `X₆ → X₆/W` followed by Baba–Granath's isomorphism `X₆/W ≅ P¹`), and the forgetful
@@ -1056,12 +1068,31 @@ def residueImage {X : Scheme.{0}} (y : Spec (CommRingCat.of Qbar) ⟶ X) :
 
 /-- **R1rec on points, clause list** (Shimura reciprocity at the three elliptic CM points,
 unramified form): a `ℚ̄`-point of `Y₃` whose object has CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has
-residue field `ℚ(y)` a number field unramified at every `p ≥ 5`. This is the form printed
-(reciprocity is a statement about points of the canonical model) and the form Lemma NV uses. -/
+residue field `ℚ(y)` a number field unramified at every `p ≥ 5`. Reciprocity is printed as the
+Galois action on points of the canonical model; this unramifiedness is its consequence, on points,
+in the form Lemma NV uses. -/
 def R1recProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
   ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
     (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
       UnramifiedAbove5 (residueImage (X := Y.left) y.left)
+
+/-- **R5 on points of `X₆`, clause list** (González–Rotger Thm 5.12 in its printed form: about
+the residue field `ℚ(x)` of the CM point `x ∈ X₀(6,1)`): for a `ℚ̄`-point `x` of `X₆` whose pair
+has `End_𝒪(A) ≅ R`, `R` of conductor prime to 6 in an imaginary quadratic `k`,
+`[ℚ(x) : ℚ] = 2h(R)` and `k ↪ ℚ(x)` if some `p ∣ 6` is inert in `k`, and `[ℚ(x) : ℚ] = h(R)`
+otherwise (see `R5fp` for the reading of `D(R)`). NoCM (A10) uses residue fields of points, and
+the bridge from `fieldOfModuliPair` to residue fields needs rigidity, so this form is carried in
+the bundle (as `R1recProps` is for reciprocity). -/
+def R5ptProps (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) : Prop :=
+  ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
+    Module.finrank ℚ k = 2 →
+    ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
+      ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+        Nonempty (com P.q ≃+* R) →
+        Module.finrank ℚ (residueImage (X := X.left) x.left) =
+          (if inertCount6 k = 0 then 1 else 2) * Nat.card (CommRing.Pic R) ∧
+        (inertCount6 k ≠ 0 → Nonempty (k →ₐ[ℚ] residueImage (X := X.left) x.left))
 
 /-- **Glue (compiled), h-b1 M9 on `X₆`**: every `ℚ̄`-point of `X₆` over `0` (resp. `∞`,
 `−16/27`) has CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`), from the fibre clause, the existence of
@@ -1130,8 +1161,8 @@ whether his Thm 2.1 covers full level 3 directly is UNVERIFIED. -/
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
 
-/-- **Leaves R1fp + R1hecke + R1 at level one + R2fp + R1rec (point form), on one `Y₃` and one
-`X₆`** (the form the glue consumes; `R1R2fp_Y` extracts the `Y₃` form). `R1recProps` is
+/-- **Leaves R1fp + R1hecke + R1 at level one + R2fp (with `CMExists`, `X6Surj`) + R1rec and R5
+(point forms), on one `Y₃` and one `X₆`** (the form the glue consumes; `R1R2fp_Y` extracts the `Y₃` form). `R1recProps` is
 documented at its definition; the object form `R1rec` is kept as a separate leaf.
 
 *R1 at level one (`X6Props`), published statement*: `X₆ = X₀(6,1)` (Shimura's curve for the
@@ -1180,16 +1211,16 @@ def R1R2fp : Prop :=
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) (π₆ : ToP1 X.left),
     R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6Props X Ψ π₆ ∧
-      CMExists X Ψ ∧ R1recProps Y Φ ∧ X6Surj Y X fY π₆
+      CMExists X Ψ ∧ R1recProps Y Φ ∧ X6Surj Y X fY π₆ ∧ R5ptProps X Ψ
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
 
 /-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
 theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -, -, -⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -, -, -, -⟩ := h
   exact ⟨Y, Φ, π₆.comp fY.left, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
@@ -1254,7 +1285,8 @@ theorem QMIso.nonempty_abVarIso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'}
 Main Thm II; Deligne 1971 §§3.7-3.13, Thm 4.19 read by the audit, "CONSEQUENCE with
 qualifications": reflex-field qualifications kept). For a CM point `y ∈ Y₃` with CM by the
 maximal order `𝒪_E` of `E`, `Gal(E^ab/E)` acts on `y` through `rec : 𝔸_E^× → B̂^×/K₃`, and
-`s ∈ ∏_{ℓ≠3} 𝒪_{E,ℓ}^×` maps into `K₃`, so `E(y)/E` is unramified outside `3` (h-b1 §3 step 2).
+`s ∈ ∏_{ℓ≠3} 𝒪_{E,ℓ}^×` maps into `gK₃g⁻¹` for `y = [τ, g]` (optimal embedding of the maximal
+order `𝒪_E`), so `E(y)/E` is unramified outside `3` (h-b1 §3 step 2).
 
 *Lean form*: for a level-3 object over `ℚ̄` whose centralizer contains `ℤ[i]`, `ℤ[ζ₃]` or
 `ℤ[√−6]` (all maximal), the field of moduli `ℚ(y)` is a number field unramified at every
@@ -1278,7 +1310,7 @@ theorem unramified_over_branch (h : R1R2fp ∧ R1rec) :
           π.val (K := Qbar) y.left = OnePoint.infty ∨
           π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
         UnramifiedAbove5 (fieldOfModuli3 P) := by
-  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, -, -⟩, hrec⟩ := h
+  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, -, -, -⟩, hrec⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y P hP hv => hrec P ?_⟩
   obtain ⟨-, -, -, -, -, hf⟩ := hX
   have hc := cm_of_val h2 hE (y ≫ fY) P.forget (hf y P hP)
@@ -1301,7 +1333,7 @@ theorem residue_unramified_over_branch (h : R1R2fp) :
           π.val (K := Qbar) y.left = OnePoint.infty ∨
           π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
         UnramifiedAbove5 (residueImage (X := Y.left) y.left) := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, hrec, -⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, hrec, -, -⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y hv => ?_⟩
   have hP : Φ Qbar y = M3.mk (Quotient.out (Φ Qbar y)) := (Quotient.out_eq _).symm
   refine hrec y _ hP ?_
@@ -1323,7 +1355,7 @@ theorem exists_fibre_object (h : R1R2fp) :
       R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
       ∀ t : OnePoint Qbar, ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
         Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = t := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, -, -, hπ, hf⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, -, -, ⟨hπ, hf⟩, -⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun t => ?_⟩
   obtain ⟨x, hx⟩ := hπ t
   obtain ⟨y, rfl⟩ := hf x
@@ -1346,16 +1378,35 @@ theorem fibre_conjugates_isomorphic (h : R1R2fp) (j₀ : ℚ) :
   exact ⟨P, fun σ => conj_twist_of_rational h1 π (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1)
     y P hP j₀ hy σ⟩
 
-/-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` (0 if the index is infinite). -/
-def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
-  R.toAddSubgroup.relIndex (integralClosure ℤ k).toSubring.toAddSubgroup
-
-open Classical in
-/-- `b(k) = #{p ∣ 6 : p inert in k}` (`p·𝒪_k` prime). For an order of conductor prime to 6 this
-is `b(R) = #{p ∣ D(R)}` of rv-nocm §3.1. -/
-def inertCount6 (k : Type) [Field k] [NumberField k] : ℕ :=
-  (if (Ideal.span {(2 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0) +
-    (if (Ideal.span {(3 : NumberField.RingOfIntegers k)}).IsPrime then 1 else 0)
+/-- **All glue conclusions on one witness** (so that A4, A5's Lemma NV step 2, A7 and M1 use the
+same `Y₃` and `π`). -/
+theorem leaves_on_one_witness (h : R1R2fp) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π ∧
+      (∀ t : OnePoint Qbar, ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+        Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = t) ∧
+      (∀ y : fieldPt Qbar ⟶ Y,
+        (π.val (K := Qbar) y.left = OnePoint.some 0 ∨
+          π.val (K := Qbar) y.left = OnePoint.infty ∨
+          π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
+        UnramifiedAbove5 (residueImage (X := Y.left) y.left)) := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, hE, hrec, ⟨hπ, hf⟩, -⟩ := h
+  have e : ∀ z : fieldPt Qbar ⟶ Y,
+      (π₆.comp fY.left).val (K := Qbar) z.left = π₆.val (K := Qbar) (z ≫ fY).left :=
+    fun z => ToP1.val_comp_right π₆ fY.left z.left
+  refine ⟨Y, Φ, π₆.comp fY.left, h1, hh, R2fpProps_of_X6 hX h2, fun t => ?_, fun y hv => ?_⟩
+  · obtain ⟨x, hx⟩ := hπ t
+    obtain ⟨y, rfl⟩ := hf x
+    exact ⟨y, Quotient.out (Φ Qbar y), (Quotient.out_eq _).symm, by rw [e, hx]⟩
+  · have hP : Φ Qbar y = M3.mk (Quotient.out (Φ Qbar y)) := (Quotient.out_eq _).symm
+    refine hrec y _ hP ?_
+    obtain ⟨-, -, -, -, -, hfo⟩ := hX
+    have hc := cm_of_val h2 hE (y ≫ fY) _ (hfo y _ hP)
+    rw [e] at hv
+    rcases hv with hv | hv | hv
+    · exact Or.inl (hc.1 hv)
+    · exact Or.inr (Or.inl (hc.2.1 hv))
+    · exact Or.inr (Or.inr (hc.2.2 hv))
 
 /-- **Leaf R5fp (González–Rotger, fields of definition of CM points on `X₆`, degree form).**
 
@@ -1461,6 +1512,7 @@ end LeafQM
 #print axioms LeafQM.AV.exists_fibre_object
 #print axioms LeafQM.AV.fibre_conjugates_isomorphic
 #print axioms LeafQM.AV.comEquiv
+#print axioms LeafQM.AV.leaves_on_one_witness
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right

@@ -90,3 +90,11 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
 - 17:2x proved `conjHom_symm_apply`, `comEquiv` (End_𝒪(A) ≃+* End_𝒪(A') for a QM-pair
   isomorphism: the CM order is a class invariant, as R5fp/R5fpCount and NoCM's W·x ⊆ CM(R)
   require). COMPILES.
+- 17:3x second focused model review (subagent, read-only) of CMExists, residueImage/R1recProps,
+  R5fp, X6Props, glue statements: no DEFECT. RISKs: (1) R5fp is about `fieldOfModuliPair`, A10
+  uses residue fields of points of X₆ (bridge needs rigidity); (2) the glue theorems each opened
+  their own ∃ Y Φ π, so their conclusions could not be combined. Applied: `R5ptProps` (Thm 5.12
+  on residue fields of points of X₆) as an eighth conjunct of `R1R2fp`; `conductor`/`inertCount6`
+  moved earlier; `leaves_on_one_witness` (R1fp, R1hecke, R2fp, A4 fibre, Lemma NV step 2 on one Y
+  and one π); docstring notes (gK₃g⁻¹; "printed form" wording; GR Prop. 5.6 for CMExists; bundle
+  title). COMPILES, 25 s, standard axioms.

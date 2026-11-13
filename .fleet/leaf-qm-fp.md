@@ -18,7 +18,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
   - `π₆` and `Y → X` are onto on ℚ̄-points.
 - Shimura reciprocity in unramified form (p ≥ 5), in two versions: `R1recProps` (residue
   fields of CM points of `Y₃`, inside `R1R2fp`) and `R1rec` (fields of moduli of CM objects).
-- `R5fp`: González–Rotger Thm 5.12, giving the degree, and `k ⊆ ℚ(x)` when `D(R) ≠ 1`.
+- `R5fp` (fields of moduli) and `R5ptProps` (residue fields of points of `X₆`, inside `R1R2fp`):
+  González–Rotger Thm 5.12, giving the degree, and `k ⊆ ℚ(x)` when `D(R) ≠ 1`.
 - `R5fpCount`: Prop. 5.6, `#CM(R) = 2^b h(R)`.
 
 **Definitions built.**
@@ -46,7 +47,9 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
 **Finding.** NoCM needs `k ⊆ ℚ(x)`, not only `[ℚ(x):ℚ]`. With the degree alone, disc −19 is not
 excluded. So bp-qmmoduli's degree-only R5fp was too weak, and R5fp now carries the containment.
 
-**Review.** An adversarial model review (not human) found no DEFECT. Its two RISKs:
+**Review.** Two adversarial model reviews (not human) found no DEFECT. The second asked for the
+point form of R5 and for one combined witness (`leaves_on_one_witness`); both are done. The
+first review's two RISKs:
 - every leaf rests on bp-qmmoduli §2.2 (the polarization of `(A, ι)` exists and is unique;
   SPECULATIVE), since the objects omit λ;
 - the leaves lacked a vacuity guard; non-emptiness clauses are now added.

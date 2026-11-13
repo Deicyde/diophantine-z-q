@@ -25,9 +25,9 @@ The leaves, bundled as `LeafQM.AV.QMLeaves`:
 
 | Lean name | Replaces | Content (field-point form) | Source |
 | --- | --- | --- | --- |
-| `R1R2fp` (with `R1fpProps`, `R1heckeProps`, `X6Props`, `R2X6Props`, `CMExists`, `R1recProps`, `X6Surj`) | R1(a), R1(c), R1(d), R2 | a proper smooth curve `Y/ℚ` with `Y(K) ≃ M3 K` for every field `K ⊇ ℚ`, natural in `K`; `Γ'` acts by automorphisms of `Y`; a proper smooth curve `X/ℚ` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with the `W`-twists and the forgetful map `Y → X`; a morphism `π₆ : X → P¹` whose fibres are the `W`-orbits and whose values at the CM points of discriminants −4, −3, −24 are `0, ∞, −16/27`; these CM points exist; `π₆` and `Y → X` are onto on `ℚ̄`-points | Shimura 1967 / Deligne 1971 (R1), Baba–Granath 2008 Thm 2.1, Lemma 3.1 (R2) |
+| `R1R2fp` (with `R1fpProps`, `R1heckeProps`, `X6Props`, `R2X6Props`, `CMExists`, `R1recProps`, `X6Surj`, `R5ptProps`) | R1(a), R1(c), R1(d), R2, R5(ii) on points | a proper smooth curve `Y/ℚ` with `Y(K) ≃ M3 K` for every field `K ⊇ ℚ`, natural in `K`; `Γ'` acts by automorphisms of `Y`; a proper smooth curve `X/ℚ` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with the `W`-twists and the forgetful map `Y → X`; a morphism `π₆ : X → P¹` whose fibres are the `W`-orbits and whose values at the CM points of discriminants −4, −3, −24 are `0, ∞, −16/27`; these CM points exist; `π₆` and `Y → X` are onto on `ℚ̄`-points | Shimura 1967 / Deligne 1971 (R1), Baba–Granath 2008 Thm 2.1, Lemma 3.1 (R2) |
 | `R1recProps` (inside `R1R2fp`) and `R1rec` | R1(d) | point form: the residue field of a `ℚ̄`-point of `Y₃` whose object has CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` is a number field unramified at every `p ≥ 5`; object form (`R1rec`): the same for the field of moduli of the object, unramified at every `p ≥ 5` | Shimura reciprocity (Shimura 1967 Main Thm II; Deligne 1971 §3) |
-| `R5fp` | R5(ii) | on `X₆`: `[ℚ(x):ℚ] = 2h(R)` and `k ⊆ ℚ(x)` if some `p ∣ 6` is inert in `k`; `[ℚ(x):ℚ] = h(R)` otherwise | González–Rotger 2006, Thm 5.12 (with Thm 5.8) |
+| `R5fp` (fields of moduli) and `R5ptProps` (residue fields of points of `X₆`, inside `R1R2fp`) | R5(ii) | on `X₆`: `[ℚ(x):ℚ] = 2h(R)` and `k ⊆ ℚ(x)` if some `p ∣ 6` is inert in `k`; `[ℚ(x):ℚ] = h(R)` otherwise | González–Rotger 2006, Thm 5.12 (with Thm 5.8) |
 | `R5fpCount` | R5(i) | on `X₆`: `#CM(R) = 2^{b(R)} h(R)` | González–Rotger 2006, Prop. 5.6 |
 
 Glue proved in the same file from these leaves (VERIFIED, compiled):
@@ -71,6 +71,9 @@ Glue proved in the same file from these leaves (VERIFIED, compiled):
 - **A4 (`exists_fibre_object`)**: over every `t ∈ P¹(ℚ̄)`, for example `t = J(u)`, there is a
   `ℚ̄`-point of `Y₃` with an object and `π`-value `t`. This needed the clause `X6Surj`, which an
   earlier version of the bundle lacked.
+- **`leaves_on_one_witness`**: R1fp, R1hecke, R2fp, A4's fibre choice and Lemma NV step 2, all on
+  one `Y₃` and one `π`. Without it the glue theorems each opened their own `∃ Y Φ π` and could
+  not be combined (second review).
 - `R5fpWeak_of_R5fp` (bp-qmmoduli's degree disjunction), `R1fp_of_R1R2fp`.
 
 **One finding about R5** (VERIFIED by reading rv-h-cm §7.2). NoCM needs more than the degree of
@@ -269,12 +272,12 @@ def R1rec : Prop :=
 - **Published.** Shimura reciprocity for CM points on the canonical model (Shimura 1967 Main
   Thm II; Deligne 1971 §§3.7-3.13 and Thm 4.19, read by the audit as "consequence with
   qualifications"). `Gal(E^ab/E)` acts on a CM point `y` through `rec`, and `∏_{ℓ≠3} 𝒪_{E,ℓ}^×`
-  maps into `K₃`, so `E(y)/E` is unramified outside 3 (h-b1 §3 step 2).
+  maps into `gK₃g⁻¹` for `y = [τ, g]`, so `E(y)/E` is unramified outside 3 (h-b1 §3 step 2).
 - **Faithful.**
   - `ℚ(y) ⊆ E(y)`, and `E/ℚ` is ramified only at 2 and 3. This is the only consequence used, by
     Lemma NV step 2.
-  - The point form `R1recProps` is the printed form, since reciprocity is about points of the
-    canonical model. `residueImage y` is the image of `κ(x) ↪ ℚ̄`, computed with
+  - The point form `R1recProps` is the form closest to print: reciprocity is printed as a
+    Galois action on points of the canonical model, and unramifiedness is its consequence. `residueImage y` is the image of `κ(x) ↪ ℚ̄`, computed with
     `Scheme.SpecToEquivOfField`.
   - The object form needs "field of moduli = `ℚ(y)`" (fine moduli, R1).
 - **Why both.** The bridge from fields of moduli to residue fields cannot be proved in Lean with
@@ -345,7 +348,7 @@ Size tiers as in bp-qmmoduli (S < 500 lines, M 500-3 000, L 3 000-15 000; SPECUL
 | **A4** (an object `(A, ι, λ, η)` over the residue field of a point) | `R1fpProps`, `X6Surj` | **`exists_fibre_object`** (over every `t ∈ P¹(ℚ̄)` a point of `Y₃` with an object); `Quotient.out (Φ K y)` is a `QML3 K` with `A.dim = 2` for any field point | (i) A point of `Y` with residue field `κ` as a morphism `fieldPt κ ⟶ Y`: Mathlib's `fromSpecResidueField` plus the `ℚ`-algebra structure on `κ`. S. (ii) `λ`, if a consumer (Faltings height, T9/R22) needs it: polarizations (N12, L-VL). |
 | **A5** (Prop. TS, Lemma NV, h-b1 M1-M10) | `R1fpProps` (generic point through `K = ℚ(Y)`), `R1heckeProps` (M1), `R2fpProps` (`π`, fibres), `CMExists` with `cm_of_val` (M9), `R1recProps` (Lemma NV step 2) | `cm_of_val`; **`residue_unramified_over_branch`** (Lemma NV step 2: residue fields of the points over the three branch values are unramified at `p ≥ 5`); `ToP1.val_comp` (M2's "all points over `j₀` have the same residue field" is an orbit statement once `Γ'` and Galois commute) | (i) M2: the `ℚ`-irreducible component `Y^{(1)}`, its function field `M = ℚ(Y^{(1)})` (Mathlib `Scheme.functionField`), the action of `Γ'` on `M`, and the fixed field `π^*ℚ(j)` (Artin). This needs "`π` is the quotient by `Γ'`", from the fibre clause plus degree theory. M-L. (ii) M8: the fibre field as the residue field of `M` at a place over `j₀`. Lemma NV and M8 need only residue fields of points, which is why `R1recProps` is stated on points: the field-of-moduli bridge needs rigidity (§2.4). (iii) Prop. TS itself: h-b1's glue with T1-T2 (purity, Abhyankar). (iv) Lemma NV steps 3-4: decomposition and inertia groups (Mathlib has `Ideal.inertia`), plus the indices of A2. M4's indices: as in A2. |
 | **A7** (the conjugates of `A` are geometrically isomorphic) | `R1fpProps`, `R2fpProps`, `X6Surj` | **`conj_iso_of_rational`** (the statement of A7 for any `K`-point with rational `π`-value), `conj_twist_of_rational`, and **`fibre_conjugates_isomorphic`** (A4 + A7 from `R1R2fp` alone) | Only the plumbing to the manuscript's `A`: identify the fibre surface with the object at a `K`-point over `j₀ = J(u) ∈ ℚ` (A4), and `π = J` (F1, or just "`π(y) = J(u)` is rational", true for any coordinate in which the fibre lies over a rational point). The Igusa-vector route of N5 is not needed: R2's fibre clause suffices (h-trust A7 remark, now a proof). |
-| **A10** (NoCM, rv-h-cm §7.2) | `R5fp` (with the containment), `R5fpCount`, `R2X6Props`, `CMExists`, `X6Props` (W and Galois) | `com_twist`, `comEquiv` and `HasCM*.of_iso` (the CM order is a class invariant, and `W·x ⊆ CM(R)`), `cm_of_val` (`CM(ℤ[i])` = the fibre over `t = 1`, i.e. `j = 0`, as rv-nocm requires) | (i) **The model** `ℚ(t)(√(−t), √(3(t−1)))` of `X₆ → P¹` and the fibre over `t(u)` with residue field `ℚ(i)` (rv-h-cm §2.3: Kummer theory over `ℚ(t)`, with the twist constants from the fields of the elliptic points, i.e. `R5fp` at discs −4, −3, −24). This needs the function field of `X₆` and degree-4 Galois covers of `P¹`. M-L. (ii) Residue field of a point of `X₆` equals `fieldOfModuliPair` (from the Galois-equivariance of `Ψ`; S-M). (iii) `com = ℤ ⇒ End⁰(A_ℚ̄) = B`: the A9 dichotomy (T27), separate. (iv) The arithmetic: `h(R) = 1 ⇒ R = ℤ[i]` given `2 ∤ f`, class numbers, etc. S. |
+| **A10** (NoCM, rv-h-cm §7.2) | `R5ptProps` (residue fields of points of `X₆`; or `R5fp` for fields of moduli), with the containment, `R5fpCount`, `R2X6Props`, `CMExists`, `X6Props` (W and Galois) | `com_twist`, `comEquiv` and `HasCM*.of_iso` (the CM order is a class invariant, and `W·x ⊆ CM(R)`), `cm_of_val` (`CM(ℤ[i])` = the fibre over `t = 1`, i.e. `j = 0`, as rv-nocm requires) | (i) **The model** `ℚ(t)(√(−t), √(3(t−1)))` of `X₆ → P¹` and the fibre over `t(u)` with residue field `ℚ(i)` (rv-h-cm §2.3: Kummer theory over `ℚ(t)`, with the twist constants from the fields of the elliptic points, i.e. `R5fp` at discs −4, −3, −24). This needs the function field of `X₆` and degree-4 Galois covers of `P¹`. M-L. (ii) Nothing more on fields: `R5ptProps` is already on residue fields of points. The equality of residue field and `fieldOfModuliPair` would need rigidity, and it is not needed. (iii) `com = ℤ ⇒ End⁰(A_ℚ̄) = B`: the A9 dichotomy (T27), separate. (iv) The arithmetic: `h(R) = 1 ⇒ R = ℤ[i]` given `2 ∤ f`, class numbers, etc. S. |
 
 **Summary of what remains.** The leaves needed by A2-A5, A7 and A10 are now all concrete. A7 is
 proved from them up to plumbing. A2, A3, A5 and A10 still need four pieces of glue absent from
@@ -353,7 +356,8 @@ Mathlib:
 1. degree theory for finite morphisms of curves;
 2. Galois theory of a function-field cover with its decomposition and inertia groups;
 3. the explicit Kummer model of `X₆ → P¹`;
-4. residue fields of points versus fields of moduli.
+4. (optional) residue fields of points versus fields of moduli. This needs rigidity of
+   abelian varieties. It is avoided by the point forms `R1recProps` and `R5ptProps`.
 
 None is research-level, but (1)-(3) are M-L each (SPECULATIVE).
 
@@ -413,3 +417,23 @@ published, false through a definition, vacuous, or wrongly referenced.
 
 All were applied to the docstrings and to this note. The file recompiles (VERIFIED). This is a
 model review, not a human review.
+
+**A second, focused model review** (read-only) covered `CMExists`, `residueImage`/`R1recProps`,
+`R5fp`, the restructured `X6Props` and the statements of the glue theorems.
+
+- **Verdict: no DEFECT.** It checked:
+  - the three optimal embeddings `i + j`, `(1+j)/2`, `2j + k`;
+  - reciprocity at full level 3: `E(y)` lies in the ray class field of conductor 3 of `E`, so
+    nothing happens at `p = 5, 7`;
+  - the case split of `R5fp` against the `X₆` model at discriminants −4, −3, −24, −19;
+  - the base-change conventions;
+  - that every glue statement says what its docstring claims.
+- **RISK 1:** `R5fp` is about fields of moduli, while A10 uses residue fields. Now
+  `R5ptProps` is in the bundle.
+- **RISK 2:** the glue theorems opened separate witnesses. Now `leaves_on_one_witness` combines
+  them.
+- **NOTEs, applied:**
+  - "maps into `gK₃g⁻¹`";
+  - unramifiedness is a consequence of the printed Galois action, not the printed form itself;
+  - cite González–Rotger Prop. 5.6 for `CMExists`;
+  - the bundle's title.
