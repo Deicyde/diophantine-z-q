@@ -85,4 +85,129 @@ theorem ptRing_comp (hU : IsAffineOpen U) {Y : Scheme.{0}} (f : X ⟶ Y) {U' : Y
 
 end Gen
 
+/-! ## §2. Dual-number points of a `K`-scheme -/
+
+section Dual
+
+open TrivSqZeroExt
+
+variable {K : Type} [Field K]
+
+instance isLocalRing_tsze (V : Type) [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V]
+    [IsCentralScalar K V] : IsLocalRing (TrivSqZeroExt K V) where
+  isUnit_or_isUnit_of_add_one {a b} h := by
+    have h1 : a.fst + b.fst = 1 := by simpa using congrArg TrivSqZeroExt.fst h
+    rcases eq_or_ne a.fst 0 with ha | ha
+    · right
+      rw [isUnit_iff_isUnit_fst, isUnit_iff_ne_zero]
+      rw [ha, zero_add] at h1
+      rw [h1]
+      exact one_ne_zero
+    · left
+      rw [isUnit_iff_isUnit_fst, isUnit_iff_ne_zero]
+      exact ha
+
+/-- `Spec Λ` as a `K`-scheme. -/
+def ptR (Λ : Type) [CommRing Λ] [Algebra K Λ] : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K Λ)))
+
+/-- `Spec ρ` over `K` for a `K`-algebra map `ρ`. -/
+def specHom {Λ Λ' : Type} [CommRing Λ] [Algebra K Λ] [CommRing Λ'] [Algebra K Λ']
+    (ρ : Λ →ₐ[K] Λ') : ptR (K := K) Λ' ⟶ ptR Λ :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (ρ : Λ →+* Λ'))) (by
+    simp only [ptR, Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp)
+
+theorem specHom_left {Λ Λ' : Type} [CommRing Λ] [Algebra K Λ] [CommRing Λ'] [Algebra K Λ']
+    (ρ : Λ →ₐ[K] Λ') :
+    (specHom ρ).left = Spec.map (CommRingCat.ofHom (ρ : Λ →+* Λ')) := rfl
+
+theorem specHom_comp {Λ Λ' Λ'' : Type} [CommRing Λ] [Algebra K Λ] [CommRing Λ'] [Algebra K Λ']
+    [CommRing Λ''] [Algebra K Λ''] (ρ : Λ →ₐ[K] Λ') (ρ' : Λ' →ₐ[K] Λ'') :
+    specHom ρ' ≫ specHom ρ = specHom (ρ'.comp ρ) := by
+  apply Over.OverMorphism.ext
+  change Spec.map _ ≫ Spec.map _ = Spec.map _
+  rw [← Spec.map_comp]
+  rfl
+
+theorem specHom_id {Λ : Type} [CommRing Λ] [Algebra K Λ] :
+    specHom (AlgHom.id K Λ) = 𝟙 (ptR Λ) := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (RingHom.id Λ)) = 𝟙 _
+  rw [CommRingCat.ofHom_id, Spec.map_id]
+
+variable (A : PkgI3.AbVar K)
+
+/-- The origin of `A` as a morphism `Spec K → A`. -/
+def orig : Spec (CommRingCat.of K) ⟶ A.X.left := η[A.X].left
+
+/-- The trivial point is `Spec Λ → Spec K → A` through the origin. -/
+theorem one_left {Λ : Type} [CommRing Λ] [Algebra K Λ] :
+    (1 : ptR (K := K) Λ ⟶ A.X).left =
+      Spec.map (CommRingCat.ofHom (algebraMap K Λ)) ≫ orig A := by
+  rw [Hom.one_def, Over.comp_left]
+  rfl
+
+end Dual
+
+/-! ## §3. Tangent vectors of an abelian variety at the origin -/
+
+section AbTan
+
+open TrivSqZeroExt
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+
+instance isLocalHom_fstHom (V : Type) [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V]
+    [IsCentralScalar K V] : IsLocalHom ((fstHom K K V : TrivSqZeroExt K V →ₐ[K] K) :
+      TrivSqZeroExt K V →+* K) where
+  map_nonunit _ hx := isUnit_iff_isUnit_fst.mpr hx
+
+/-- A `V`-valued tangent vector at the origin: a point `Spec (K ⊕ V) → A` over `K` reducing to the
+origin. -/
+def AtOrigin {V : Type} [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V] [IsCentralScalar K V]
+    (a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X) : Prop :=
+  specHom (fstHom K K V) ≫ a = 1
+
+variable {V W : Type} [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V] [IsCentralScalar K V]
+  [AddCommGroup W] [Module K W] [Module Kᵐᵒᵖ W] [IsCentralScalar K W]
+
+theorem atOrigin_one : AtOrigin A (1 : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X) :=
+  MonObj.comp_one _
+
+theorem atOrigin_mul {a b : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a)
+    (hb : AtOrigin A b) : AtOrigin A (a * b) := by
+  unfold AtOrigin at *
+  rw [MonObj.comp_mul, ha, hb, _root_.mul_one]
+
+theorem atOrigin_map (g : V →ₗ[K] W) {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X}
+    (ha : AtOrigin A a) : AtOrigin A (specHom (map g) ≫ a) := by
+  unfold AtOrigin at *
+  rw [← Category.assoc, specHom_comp, fstHom_comp_map, ha]
+
+theorem closedPoint_eq :
+    Spec.map (CommRingCat.ofHom ((fstHom K K V : TrivSqZeroExt K V →ₐ[K] K) :
+      TrivSqZeroExt K V →+* K)) (IsLocalRing.closedPoint K) =
+      IsLocalRing.closedPoint (TrivSqZeroExt K V) := by
+  haveI : IsLocalHom (CommRingCat.ofHom ((fstHom K K V : TrivSqZeroExt K V →ₐ[K] K) :
+      TrivSqZeroExt K V →+* K)).hom := isLocalHom_fstHom V
+  exact Spec_closedPoint (R := CommRingCat.of (TrivSqZeroExt K V)) (S := CommRingCat.of K)
+
+/-- The closed point of a tangent vector at the origin is the origin. -/
+theorem left_closedPoint {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) :
+    a.left (IsLocalRing.closedPoint (TrivSqZeroExt K V)) =
+      orig A (IsLocalRing.closedPoint K) := by
+  have h1 := congrArg (fun f => (f.left : Spec (CommRingCat.of K) ⟶ A.X.left)
+    (IsLocalRing.closedPoint K)) ha
+  simp only at h1
+  rw [one_left, Over.comp_left] at h1
+  erw [Scheme.Hom.comp_apply, Scheme.Hom.comp_apply] at h1
+  rw [← closedPoint_eq]
+  refine h1.trans ?_
+  congr 1
+
+end AbTan
+
 end ZInQ.Contrib.AbVarBC.Tangent
