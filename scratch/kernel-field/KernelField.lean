@@ -4217,6 +4217,69 @@ characteristic 0). It is the leaf `PkgI2.TorsionStructure` (`A(K̄)[n] ≅ (ℤ/
 def TorsionCountPts : Prop :=
   ∀ (L : IF) (A : PkgI3.AbVar L), A.dim = 2 → TorsCount (PtQ L A)
 
+/-- **`TorsionCountPts`, proved from the leaf `PkgI2.TorsionStructure`** (`A(K̄)[n] ≅ (ℤ/n)^{2g}`,
+Mumford §4/§6, the kernel's leaf): `ℚ̄` is an algebraic closure of `L` (inertia-homs'
+`exists_closure_equiv`), and precomposition with `Spec ι : Spec ℚ̄ ≅ Spec K̄` over `Spec L` is a
+bijection of points respecting powers (`MonObj.comp_pow`). -/
+theorem torsionCountPts_of_leaf (hTors : PkgI2.TorsionStructure.{0}) : TorsionCountPts := by
+  intro L A hA n hn
+  obtain ⟨jj, hjj⟩ := InertiaHoms.exists_closure_equiv L L.val
+  have hcomp : CommRingCat.ofHom (algebraMap L (AlgebraicClosure L)) ≫
+      CommRingCat.ofHom (jj : AlgebraicClosure L →+* Qbar) =
+      CommRingCat.ofHom (algebraMap L Qbar) := by
+    ext x; exact hjj x
+  have hcomp' : CommRingCat.ofHom (algebraMap L Qbar) ≫
+      CommRingCat.ofHom (jj.symm : Qbar →+* AlgebraicClosure L) =
+      CommRingCat.ofHom (algebraMap L (AlgebraicClosure L)) := by
+    rw [← hcomp]; ext x; simp
+  let s : PkgI3.AbVar.ptObj (K := L) Qbar ⟶ PkgI2.specOver L (AlgebraicClosure L) :=
+    Over.homMk (Spec.map (CommRingCat.ofHom (jj : AlgebraicClosure L →+* Qbar))) (by
+      show Spec.map _ ≫ Spec.map _ = Spec.map _
+      rw [← Spec.map_comp, hcomp])
+  let s' : PkgI2.specOver L (AlgebraicClosure L) ⟶ PkgI3.AbVar.ptObj (K := L) Qbar :=
+    Over.homMk (Spec.map (CommRingCat.ofHom (jj.symm : Qbar →+* AlgebraicClosure L))) (by
+      show Spec.map _ ≫ Spec.map _ = Spec.map _
+      rw [← Spec.map_comp, hcomp'])
+  have h1 : CommRingCat.ofHom (jj.symm : Qbar →+* AlgebraicClosure L) ≫
+      CommRingCat.ofHom (jj : AlgebraicClosure L →+* Qbar) = 𝟙 _ := by
+    ext x; simp
+  have h2 : CommRingCat.ofHom (jj : AlgebraicClosure L →+* Qbar) ≫
+      CommRingCat.ofHom (jj.symm : Qbar →+* AlgebraicClosure L) = 𝟙 _ := by
+    ext x; simp
+  have hss' : s ≫ s' = 𝟙 _ := by
+    apply Over.OverMorphism.ext
+    show Spec.map _ ≫ Spec.map _ = 𝟙 _
+    rw [← Spec.map_comp, h1, Spec.map_id]
+  have hs's : s' ≫ s = 𝟙 _ := by
+    apply Over.OverMorphism.ext
+    show Spec.map _ ≫ Spec.map _ = 𝟙 _
+    rw [← Spec.map_comp, h2, Spec.map_id]
+  have hdim : topologicalKrullDim (ObjBridge.toGrp A).X.left = ((2 : ℕ) : WithBot ℕ∞) := by
+    change A.dim = _
+    rw [hA]; rfl
+  haveI : NeZero n := ⟨hn.ne'⟩
+  obtain ⟨e, -⟩ := hTors L (ObjBridge.toGrp A) 2 n hdim hn (by exact_mod_cast hn.ne')
+  let F : PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure L) n ≃ tors (PtQ L A) n :=
+    { toFun := fun x => ⟨Additive.ofMul (s ≫ x.1), by
+        rw [mem_tors, ← ofMul_pow, ← MonObj.comp_pow]
+        have hx : x.1 ^ n = 1 := x.2
+        rw [hx, MonObj.comp_one]; rfl⟩
+      invFun := fun y => ⟨s' ≫ Additive.toMul y.1, by
+        have hy : n • y.1 = 0 := mem_tors.mp y.2
+        show (s' ≫ Additive.toMul y.1) ^ n = 1
+        rw [← MonObj.comp_pow, ← toMul_nsmul, hy]
+        exact MonObj.comp_one _⟩
+      left_inv := fun x => by
+        apply Subtype.ext
+        show s' ≫ s ≫ x.1 = x.1
+        rw [← Category.assoc, hs's, Category.id_comp]
+      right_inv := fun y => by
+        apply Subtype.ext
+        show Additive.ofMul (s ≫ s' ≫ Additive.toMul y.1) = y.1
+        rw [← Category.assoc, hss', Category.id_comp]; rfl }
+  rw [← Nat.card_congr F, Nat.card_congr e, Nat.card_fun, Nat.card_zmod, Nat.card_eq_fintype_card,
+    Fintype.card_fin]
+
 /-- **Remaining glue 2 (G4 + B1's geometric half on the Hom field: the conjugacy maps).** For
 every fibre context, every rational fibre `PK/K` as in G2's output, and every finite Galois
 `L ⊇ K` that is a Hom field of `PK.A` (`G_L` fixes every homomorphism between the conjugates of
@@ -4258,11 +4321,22 @@ theorem kernelFieldExists_of_pieces (hHFF : PkgI3.HomFreeFinite)
     (hCount _ _ (bc_dim le_sup_right PK.A PK.surface)) hm
   exact ⟨r, hr, G, hG, E, hfE, hgE, hEG, hramE, m, c, hc⟩
 
+/-- **Headline, final form (proved): `KernelFieldExists` from four leaves and one glue Prop.**
+Leaves: `HomFreeFinite` (Mumford §19 Thm 3), `NeronOggShafarevich` (Serre–Tate 1968 Thm 1),
+`RaynaudCriterion` (Raynaud / Grothendieck SGA 7 IX), `TorsionStructure` (Mumford §4/§6).
+Glue: `ConjMapsOnHomField` (the conjugacy maps on the Hom field: A7 + Skolem–Noether + NoCM). -/
+theorem kernelFieldExists_of_leaves (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hMaps : ConjMapsOnHomField) : KernelFieldExists :=
+  kernelFieldExists_of_pieces hHFF hNOS hRay hTors (torsionCountPts_of_leaf hTors) hMaps
+
 end G0ModField.KernelField
 
+#print axioms G0ModField.KernelField.kernelFieldExists_of_leaves
 #print axioms G0ModField.KernelField.conjugacyData_of_maps
 #print axioms G0ModField.KernelField.kernelField_core
 #print axioms G0ModField.KernelField.kernelField_of_model
 #print axioms G0ModField.KernelField.good_of_QML3
 #print axioms G0ModField.KernelField.conj_dim
 #print axioms G0ModField.KernelField.kernelFieldExists_of_pieces
+#print axioms G0ModField.KernelField.torsionCountPts_of_leaf

@@ -10,3 +10,6 @@
   conjugacyData_of_maps, kernelField_core, kernelField_of_model, good_of_QML3, conj_dim, kernelFieldExists_of_pieces.
   Headline: kernelFieldExists_of_pieces (hHFF : HomFreeFinite) (hNOS : NOS) (hRay : RaynaudCriterion) (hTors : TorsionStructure)
     (hCount : TorsionCountPts) (hMaps : ConjMapsOnHomField) : KernelFieldExists.
+- 05:48 torsionCountPts_of_leaf (TorsionCountPts from leaf PkgI2.TorsionStructure, via exists_closure_equiv + MonObj.comp_pow)
+  and kernelFieldExists_of_leaves (hHFF hNOS hRay hTors hMaps : ConjMapsOnHomField) : KernelFieldExists compiled,
+  standard axioms only (VERIFIED, build3.txt).
