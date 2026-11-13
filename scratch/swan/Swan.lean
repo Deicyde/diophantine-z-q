@@ -445,9 +445,124 @@ theorem swan_all (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (h3 : UpperAbsSurj) :
 
 end Reduction
 
+/-! ## §6. H3 from Herbrand's theorem and the compactness of `G_{ℚ_p}` -/
+
+section Herbrand
+
+open scoped Topology
+
+/-- **Leaf H3a: Herbrand's theorem** (Serre, *Corps locaux* IV §3, Prop. 14, numbering UNVERIFIED;
+the same theorem as pkg-I6's leaf I6.8 `PkgI6.HerbrandQuotient`, here over the finite Galois
+subfields of `ℚ̄_p` and the upper numbering `LadicCond.upperSet`). For `L ⊆ M` finite Galois over
+`ℚ_p` and every `v`, the image of `G^v(M/ℚ_p)` in `Gal(L/ℚ_p)` is `G^v(L/ℚ_p)`:
+`(G/H)^v = G^v H/H`. Preimages in `G_{ℚ_p}` restricted to `L`. -/
+def HerbrandUpper : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (L M : Fld p), IsFinGal L → IsFinGal M → L ≤ M → ∀ v : ℝ,
+    restr L '' upperSet M v = restr L '' upperSet L v
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- Membership in `ramSet L i` depends only on the restriction to `L`. -/
+theorem mem_ramSet_of_restr {L : Fld p} {σ τ : GQp p} (h : ∀ x ∈ L, τ x = σ x) {i : ℕ}
+    (hσ : σ ∈ ramSet L i) : τ ∈ ramSet L i := by
+  obtain ⟨ϖ, hϖ, hb⟩ := hσ
+  exact ⟨ϖ, hϖ, fun x hx hx1 => by rw [h x hx]; exact hb x hx hx1⟩
+
+/-- Membership in `upperSet L v` depends only on the restriction to `L`. -/
+theorem mem_upperSet_of_restr {L : Fld p} {σ τ : GQp p} (h : ∀ x ∈ L, τ x = σ x) {v : ℝ}
+    (hσ : σ ∈ upperSet L v) : τ ∈ upperSet L v := by
+  unfold upperSet ramSetR at *
+  split_ifs at * with h1
+  · trivial
+  · exact mem_ramSet_of_restr h hσ
+
+theorem restr_eq_iff {L : Fld p} {σ τ : GQp p} : restr L τ = restr L σ ↔ ∀ x ∈ L, τ x = σ x :=
+  ⟨fun h x hx => congrFun h ⟨x, hx⟩, fun h => funext fun x => h x x.2⟩
+
+/-- A finite Galois `E` containing `L` and every member of a finite family of finite Galois
+fields. -/
+theorem exists_finGal_above {L : Fld p} (hL : IsFinGal L)
+    (u : Finset {M : Fld p // IsFinGal M}) :
+    ∃ E : Fld p, IsFinGal E ∧ L ≤ E ∧ ∀ i ∈ u, i.1 ≤ E := by
+  classical
+  induction u using Finset.induction_on with
+  | empty => exact ⟨L, hL, le_rfl, fun _ h => absurd h (Finset.notMem_empty _)⟩
+  | @insert i u _ ih =>
+    obtain ⟨E, ⟨hEf, hEg⟩, hLE, hu⟩ := ih
+    have : FiniteDimensional ℚ_[p] E := hEf
+    have : IsGalois ℚ_[p] E := hEg
+    have : FiniteDimensional ℚ_[p] i.1 := i.2.1
+    have : IsGalois ℚ_[p] i.1 := i.2.2
+    refine ⟨E ⊔ i.1, ⟨IntermediateField.finiteDimensional_sup _ _, inferInstance⟩,
+      hLE.trans le_sup_left, fun j hj => ?_⟩
+    rcases Finset.mem_insert.1 hj with rfl | hj
+    · exact le_sup_right
+    · exact (hu j hj).trans le_sup_left
+
+/-- A set of `τ` determined by `τ|_E` for a finite `E` is closed. -/
+theorem isClosed_of_restr {E : Fld p} (hE : FiniteDimensional ℚ_[p] E) {S : Set (GQp p)}
+    (hS : ∀ σ τ, (∀ x ∈ E, τ x = σ x) → σ ∈ S → τ ∈ S) : IsClosed S := by
+  rw [← isOpen_compl_iff, isOpen_iff_mem_nhds]
+  intro τ hτ
+  have hU : (E.fixingSubgroup : Set (GQp p)) ∈ 𝓝 (1 : GQp p) :=
+    (krullTopology_mem_nhds_one_iff ℚ_[p] (PadicAlgCl p) _).2 ⟨E, hE, subset_rfl⟩
+  have hf : ContinuousAt (fun g : GQp p => τ⁻¹ * g) τ :=
+    (continuous_const.mul continuous_id).continuousAt
+  have hmem : (fun g : GQp p => τ⁻¹ * g) ⁻¹' (E.fixingSubgroup : Set (GQp p)) ∈ 𝓝 τ := by
+    apply hf.preimage_mem_nhds
+    simp only [inv_mul_cancel]; exact hU
+  refine Filter.mem_of_superset hmem fun g hg hgS => hτ (hS g τ (fun x hx => ?_) hgS)
+  have h1 : (τ⁻¹ * g) x = x := (IntermediateField.mem_fixingSubgroup_iff E _).1 hg x hx
+  rw [AlgEquiv.mul_apply] at h1
+  calc τ x = τ ((τ⁻¹) (g x)) := by rw [h1]
+    _ = g x := τ.apply_symm_apply (g x)
+
+/-- **H3 from Herbrand's theorem (GLUE, proved).** If `σ ∈ G^u(L)` (preimage), then some `τ` in
+the absolute `G^u` agrees with `σ` on `L`: the closed sets
+`C_M = {τ : τ|_L = σ|_L, τ ∈ G^u(M)}` have the finite intersection property (Herbrand, at a finite
+Galois `E` containing `L` and the `M`s), and `G_{ℚ_p}` is compact (Mathlib). -/
+theorem upperAbsSurj_of_herbrand (hH : HerbrandUpper) : UpperAbsSurj := by
+  intro p _ L hL u _ σ hσ
+  let ι := {M : Fld p // IsFinGal M}
+  let t : ι → Set (GQp p) := fun M => {τ | (∀ x ∈ L, τ x = σ x) ∧ τ ∈ upperSet M.1 u}
+  have htc : ∀ M, IsClosed (t M) := by
+    intro M
+    have : FiniteDimensional ℚ_[p] L := hL.1
+    have : FiniteDimensional ℚ_[p] M.1 := M.2.1
+    refine isClosed_of_restr (E := L ⊔ M.1) (IntermediateField.finiteDimensional_sup _ _) ?_
+    intro a b hab ⟨ha1, ha2⟩
+    refine ⟨fun x hx => (hab x (le_sup_left (a := L) hx)).trans (ha1 x hx), ?_⟩
+    exact mem_upperSet_of_restr (fun x hx => hab x (le_sup_right (b := M.1) hx)) ha2
+  have hst : ∀ s : Finset ι, ((Set.univ : Set (GQp p)) ∩ ⋂ i ∈ s, t i).Nonempty := by
+    intro s
+    obtain ⟨E, hE, hLE, hsE⟩ := exists_finGal_above hL s
+    have h1 : restr L σ ∈ restr L '' upperSet E u := by
+      rw [hH p L E hL hE hLE u]; exact ⟨σ, hσ.1, rfl⟩
+    obtain ⟨τ, hτE, hτσ⟩ := h1
+    refine ⟨τ, trivial, Set.mem_iInter₂.2 fun M hM => ⟨restr_eq_iff.1 hτσ, ?_⟩⟩
+    have h2 : restr M.1 τ ∈ restr M.1 '' upperSet M.1 u := by
+      rw [← hH p M.1 E M.2 hE (hsE M hM) u]; exact ⟨τ, hτE, rfl⟩
+    obtain ⟨τ', hτ', he⟩ := h2
+    exact mem_upperSet_of_restr (restr_eq_iff.1 he.symm) hτ'
+  obtain ⟨τ, -, hτ⟩ := isCompact_univ.inter_iInter_nonempty t htc hst
+  rw [Set.mem_iInter] at hτ
+  refine ⟨τ, fun M hM => (hτ ⟨M, hM⟩).2, ?_⟩
+  obtain ⟨M0, hM0⟩ : ∃ M : ι, True := ⟨⟨L, hL⟩, trivial⟩
+  exact (hτ M0).1
+
+/-- **`SwanIntegral` and `SwanIndependent` from H1, H2 and Herbrand's theorem.** -/
+theorem swan_all' (h1 : SwanAtIntegral) (h2 : UpperAbsWild) (hH : HerbrandUpper) :
+    (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
+      (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)) :=
+  swan_all h1 h2 (upperAbsSurj_of_herbrand hH)
+
+end Herbrand
+
 end Swan
 
 #print axioms Swan.adaptedExists
 #print axioms Swan.swanIntegral_of
 #print axioms Swan.swanIndependent_of
 #print axioms Swan.swan_all
+#print axioms Swan.upperAbsSurj_of_herbrand
+#print axioms Swan.swan_all'

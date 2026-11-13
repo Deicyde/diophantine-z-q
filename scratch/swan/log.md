@@ -22,3 +22,7 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   H1 `SwanAtIntegral` (finite-level change of variables), H2 `UpperAbsWild` (G^u ⊆ P for u>0),
   H3 `UpperAbsSurj` (G^u → G^u(L) onto). Axioms standard. VERIFIED.
   Key lemma `invariants_upperAbs`: V^{G^u} = V^{G^u(L) ∩ P} for L adapted, u > 0.
+- 05:05 §6 compiles: `upperAbsSurj_of_herbrand : HerbrandUpper → UpperAbsSurj` (finite intersection
+  property + Mathlib's `CompactSpace Gal(K/k)` for Galois K/k), `swan_all'` (H1, H2, HerbrandUpper ⇒ all
+  three). Leaf `HerbrandUpper` = Serre IV §3 Prop. 14 (UNVERIFIED numbering) over LadicCond's upperSet;
+  same theorem as PkgI6.HerbrandQuotient (I6.8). Axioms standard. VERIFIED.
