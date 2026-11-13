@@ -16,3 +16,13 @@ Base: fork main 57a7fa26 + merge of origin/wip/kf-glue.
   `descend` (Galois-invariant f : X' → Y factors through X' = X ×_k k' → X; EffectiveEpi from
   Mathlib `Sites/Fpqc.lean` + `Scheme.hom_ext_of_forall`), `epi_of_isPullback_field`,
   `effectiveEpi_of_isPullback_field` (any field extension).
+
+## Step 2. `TwistDescent` proved (dev loop against a /tmp olean of KfGlue.lean) — VERIFIED (compiled)
+- Parts: `scratch/twist-descent/PartXC.lean` (generic `xc` comparisons between base changes
+  along different bases: pullback square, composition, `xc_map`, `xc_one`, `xc_mul`),
+  `PartHFD.lean` (`TwistDescentHFD.hfd`: a G_L-invariant ℚ̄-morphism B_{e₁} → B_{e₂} between
+  conjugates is the base change of an L-morphism; EGA IV 8.8.2 `MorphDescend.exists_descend` to
+  finite L₁, normal closure L', then `TwistDescentGD.descend` along L'/L),
+  `PartMain.lean` (`td_hom_inv`: conjAction trivial on G_L ⇒ k∘φ = φ∘k; `td_construct`:
+  E = φ_L ≫ c_τ, φ_L a homomorphism by `G0FibreSimple.rigidityHom`; `twistDescent`).
+- `#print axioms G0ModField.KernelField.twistDescent`: [propext, Classical.choice, Quot.sound].
