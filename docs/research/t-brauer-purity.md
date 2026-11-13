@@ -10,44 +10,28 @@ given from memory are **UNVERIFIED**.
 
 ## 1. Verdict
 
-None of the four leaves is fully proved. Here is what was proved (all VERIFIED: compiled with
-`lake env lean`, no `sorry`, axioms `[propext, Classical.choice, Quot.sound]`):
+**Leaf T2 (Abhyankar's lemma, DVR form, `PkgI2.AbhyankarDVR`) is proved**, against the kernel's own
+definition. **T15's real-place conjunct is proved**, so T15 reduces to its finite-place half. T1, T14
+and T15 at `ℚ_p` are not proved. Everything below is VERIFIED: compiled with `lake env lean`, no
+`sorry`, axioms `[propext, Classical.choice, Quot.sound]`.
 
-1. **T15, real place: proved.** `H2TwoClasses (Field.absoluteGaloisGroup ℝ)` is now a theorem,
-   stated over the kernel's own definition `PkgI6.H2TwoClasses`
+1. **T2: proved.**
+   * Kernel form: `scratch/t-brauer-purity/T2Kernel.lean` imports `ZInQKernel.HDecomp.Objects`
+     (the kernel's definition, nothing copied but the proof) and proves
+     `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` and
+     `TBrauerPurityT2K.abhyankarDVR_objBridge : ObjBridge.AbhyankarDVR`.
+   * Mathlib-only form: `scratch/t-brauer-purity/T2Full.lean` copies the definition verbatim from
+     `Leaves.lean` and proves `TBrauerPurity.abhyankarDVR : PkgI2.AbhyankarDVR.{u}`, polymorphic in
+     the universe.
+   * T2 can therefore move from leaf to glue. §3 describes the proof; it avoids completions.
+2. **T15, real place: proved.** `H2TwoClasses (Field.absoluteGaloisGroup ℝ)` is now a theorem over
+   the kernel's own definition `PkgI6.H2TwoClasses`
    (`scratch/t-brauer-purity/LocalH2RealKernel.lean`, which imports
-   `ZInQKernel.HDecomp.Conductor.I6Base`):
-   `TBrauerPurityK.h2TwoClasses_real`. Consequently
+   `ZInQKernel.HDecomp.Conductor.I6Base`): `TBrauerPurityK.h2TwoClasses_real`. Hence
    `TBrauerPurityK.localH2CardC_iff : PkgI6.LocalH2CardC ↔ ∀ p [Fact p.Prime],
-   PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℚ_[p])`. So leaf T15 reduces to its finite-place
-   half, and its real conjunct becomes glue.
-2. **T2 (Abhyankar, DVR form): the case `L = K` is proved, along with the lower half in general.**
-   `scratch/t-brauer-purity/AbhyankarBricks.lean` uses the leaf's instance context verbatim:
-   * `abhyankarDVR_conclusion_of_L_eq_K`: the leaf's exact conclusion (`e(Q|𝔪) = n` and a
-     separable residue extension, with the leaf's quotient-algebra instance) when `L = K`. In other
-     words, adjoining an `n`-th root of a uniformizer, with `n` invertible, is totally ramified with
-     `f = 1`. The proof uses `ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq`, which gives
-     `e = m` and `f = 1`.
-   * `abhyankar_dvd_ramificationIdx`: for general `L`, `n ∣ e(Q|𝔪)` for every prime `Q` of
-     `integralClosure R M` over `𝔪`. This is the lower half of the conclusion and needs no
-     tameness.
-   * `abhyankar_finiteDimensional`, `abhyankar_isSeparable`, `abhyankar_isDedekindDomain`: the
-     leaf's hypotheses force `M/K` to be finite and separable, so `integralClosure R M` is a
-     Dedekind domain.
-   * `dvd_ramificationIdx_of_pow_eq` (general): over a DVR `R` with uniformizer `π`, if `tⁿ = π`
-     holds in a Dedekind `R`-algebra `S` with `𝔪S ≠ ⊥`, then `n` divides the ramification index of
-     every prime of `S` over `𝔪`.
-   * `scratch/t-brauer-purity/KummerUnramified.lean`, `isUnramifiedAt_of_pow_eq` and
-     `ramificationIdx_eq_one_of_pow_eq`. Setting: `A` Dedekind, `B` its integral closure in a
-     finite separable `L = K(w)`, with `wᵉ = u ∈ A` and `e ≥ 1` invertible. Conclusion: `A → B` is
-     unramified, with `e(P) = 1`, at every prime `P` of `B` with `u ∉ P`. The proof uses Mathlib's
-     different ideal (`dvd_differentIdeal_iff`, `aeval_derivative_mem_differentIdeal`). This is the
-     "unit radicand" step of Abhyankar's lemma in global Dedekind form.
-   * `scratch/t-brauer-purity/KummerEtale.lean`, `etale_adjoinRoot_X_pow_sub_C`: for any
-     commutative ring `A`, `e ≥ 1` invertible and `u` a unit, `A[X]/(Xᵉ − u)` is étale over `A`
-     (a standard étale pair). This is the same step in étale form.
+   PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℚ_[p])`.
 3. **T1 (Zariski–Nagata purity) and T14 (Brauer–Hasse–Noether with reciprocity): nothing proved.**
-   The finite-place half of T15 is also unproved. §3 explains why: these are deep theorems, and the
+   The finite-place half of T15 is also unproved. §4 explains why: these are deep theorems, and the
    infrastructure they need is missing from Mathlib v4.35 (VERIFIED by grep).
 4. **No bridge from Tau Ceti or the Stacks project.** Neither source tree is on this host, and there
    is no network, so the task rule that a bridge counts only if its source compiles here rules them
@@ -55,7 +39,9 @@ None of the four leaves is fully proved. Here is what was proved (all VERIFIED: 
 5. **Statement audit: all five Props are correct as stated** (§2). I found no vacuity, no
    over-strength, and no mismatch with the published statements.
 
-**Recommendation for the announcement.** Glue uses only the finite-place uniqueness half of T15:
+**Recommendations for the announcement.** (i) **T2 is no longer a leaf.** Its bundle field
+(`t2 : PkgI2.AbhyankarDVR.{0}`, `Leaves.lean` around line 19154) can be filled with
+`TBrauerPurityT2K.abhyankarDVR`, which leaves 55 leaves. (ii) **T15.** Glue uses only the finite-place uniqueness half of T15:
 `leafLocalTwo_of_T15` (ZInQKernel/HDecomp/Descent/WP3.lean:231) uses `(hC.1 p).2` only (VERIFIED,
 read), and `leafLocalTwo_iff` there shows `LeafLocalTwo` equals that half. T15's real conjunct is now
 proved. So T15 can be announced as `∀ p, H2TwoClasses (G_{ℚ_p})`, or more narrowly as glue-descent's
@@ -77,7 +63,7 @@ dimension of `O_{X,x'}`. Second, finite type over a Noetherian ring gives finite
 `FormallyEtale R S_q` is étaleness at `q`. The hypotheses are satisfiable (for example `S = R`), so
 the leaf is not vacuous. Correct.
 
-**T2, `PkgI2.AbhyankarDVR`.** I checked that the statement is true, not just well-typed. Let
+**T2, `PkgI2.AbhyankarDVR`.** Now proved in Lean (§3), so the statement is true and not vacuous. Before proving it, I checked the mathematics as follows. Let
 `Q' | Q | 𝔪`, `e = e(Q|𝔪)` with `e ∣ n`, and `m = n/e`. In `D = (S_L)_Q` write `π = uϖᵉ` with `u` a
 unit, and put `w = t^m/ϖ`. Then `wᵉ = u`, so `L(w)/L` is unramified above `Q` (because `e` is
 invertible). Over `L(w)`, `t` is a root of `X^m − wϖ`, and `wϖ` is a uniformizer at every prime `P`
@@ -114,6 +100,8 @@ two non-trivial classes differ by a coboundary, i.e. `|H²| = 2`. At `ℚ_p` thi
 | `LocalH2RealKernel.lean` (imports `ZInQKernel.HDecomp.Conductor.I6Base`; nothing copied) | `TBrauerPurityK.h2TwoClasses_real : PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℝ)`, `TBrauerPurityK.localH2CardC_iff` | compiles, standard axioms |
 | `KummerEtale.lean` | `kummerPair`, `etale_adjoinRoot_X_pow_sub_C` | compiles, standard axioms |
 | `KummerUnramified.lean` | `isUnramifiedAt_of_pow_eq`, `ramificationIdx_eq_one_of_pow_eq` | compiles, standard axioms |
+| **`T2Kernel.lean`** (imports `ZInQKernel.HDecomp.Objects`) | **`TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}`**, `TBrauerPurityT2K.abhyankarDVR_objBridge : ObjBridge.AbhyankarDVR`, `abhyankarDVR_main`, `exists_pow_mul_eq`, `isSeparable_quotient_trans`, `isSeparable_quotient_of_inertiaDeg_eq_one` | compiles, standard axioms |
+| **`T2Full.lean`** (Mathlib only; definition copied verbatim from `Leaves.lean`) | **`TBrauerPurity.abhyankarDVR : PkgI2.AbhyankarDVR.{u}`**, with the same proof as `T2Kernel.lean` | compiles, standard axioms |
 | `AbhyankarBricks.lean` | `dvd_ramificationIdx_of_pow_eq`, `abhyankar_isScalarTower_RLM`, `abhyankar_finiteDimensional(_L)`, `abhyankar_isSeparable`, `abhyankar_isDedekindDomain`, `abhyankar_dvd_ramificationIdx`, `finrank_le_of_pow_eq`, `ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq`, `abhyankarDVR_conclusion_of_L_eq_K` | compiles, standard axioms |
 
 How the real place is proved. Every element of `G_ℝ` is `1` or `s`, with `s² = 1`. The cocycle
@@ -131,33 +119,29 @@ finite and flat over the Dedekind ring `R`, and `IsIntegralClosure.rank`), so `e
 Finally `f = 1` gives `⊥ = ⊤` for the residue algebra (`Subalgebra.bot_eq_top_iff_finrank_eq_one`),
 hence separability.
 
+How T2 is proved (`abhyankarDVR_main`; global, with no completions or localizations of fields).
+Notation: `A₁ = S_L`, `A₃ = S_M`, `Q'` a prime of `A₃` over `𝔪`, `Q = Q' ∩ A₁`, `e = e(Q|𝔪)`, and
+`n = e·m` (by tameness).
+* (a) `exists_pow_mul_eq` (no CRT needed). Take `ϖ ∈ Q \ Q²` and write `(ϖ) = Q·J₂` with `J₂ ⊄ Q`.
+  Pick `b ∈ J₂ᵉ \ Q`. Then `b·π ∈ J₂ᵉ(π) = (ϖᵉ)·J₁`, so `bπ = ϖᵉa`. Moreover `a ∉ Q`, since
+  otherwise `π ∈ Q^{e+1}` (by `Ideal.IsPrime.mul_mem_pow`), contradicting `count_Q(π) = e`
+  (`ramificationIdx_eq_normalizedFactors_count`).
+* (b) Put `w = b tᵐ/ϖ ∈ M`. Then `wᵉ = u := bᵉ⁻¹a ∈ A₁ \ Q`. Let `L₁ = L(w)` and
+  `A₂ = integralClosure A₁ L₁`. Then `A₁ → A₂` is unramified at `P = Q' ∩ A₂`
+  (`isUnramifiedAt_of_pow_eq`, via the different ideal).
+* (c) `e(Q'|P)·f(Q'|P) ≤ [M:L₁] ≤ m`, using Mathlib's deprecated `Ideal.sum_ramification_inertia`
+  and the fact that `t^m ∈ L₁`. Applying `Ideal.ramificationIdx_tower` twice, together with
+  `ramificationIdx_eq_one`, gives `e(Q'|𝔪) = e·e(Q'|P)`. Since `n ∣ e(Q'|𝔪)`
+  (`abhyankar_dvd_ramificationIdx`), `m ∣ e(Q'|P)`. Hence `e(Q'|P) = m`, `f(Q'|P) = 1`, and
+  `e(Q'|𝔪) = n`.
+* (d) Residue fields. `κ(P)/κ(Q)` is separable because `P` does not divide the different
+  (`dvd_differentIdeal_of_not_isSeparable`). `κ(Q')/κ(P)` is separable because `f = 1`. `κ(Q)/k` is
+  separable by tameness. Transitivity finishes (`isSeparable_quotient_trans`).
+
 ## 4. What remains, with the missing infrastructure (VERIFIED by grep of Mathlib v4.35 unless marked)
 
-**T2 (closest to done; SPECULATIVE estimate: 300–500 lines of plumbing on top of §3).** A global
-proof that avoids completions and localizations. Notation: `A₁ = S_L`, `A₂ = S_{L(w)}`,
-`A₃ = S_M` (integral closures of `R`). Every nonzero prime of each `Aᵢ` lies over `𝔪`.
-* (a) Fix `Q'` in `A₃` over `𝔪`, and let `Q = Q' ∩ A₁`, `e = e(Q|𝔪)` (so `e ∣ n`), `m = n/e`.
-  Choose `ϖ ∈ A₁` with `(ϖ) = Q`, using CRT in the semilocal Dedekind `A₁`
-  (`IsDedekindDomain.exists_forall_sub_mem_ideal`). Then `π = uϖᵉ` with `u ∈ A₁ \ Q`. **Open**:
-  ideal arithmetic only.
-* (b) Put `w = t^m/ϖ ∈ A₃`, so `wᵉ = u`. Then `A₁ → A₂` is unramified at every prime over `Q`.
-  **Proved** (`isUnramifiedAt_of_pow_eq`), once `A₂` is shown to be the integral closure of `A₁` in
-  `L(w)` (transitivity of integrality).
-* (c) For `P = Q' ∩ A₂`, `e(Q'|P)·f(Q'|P) ≤ [M : L(w)] ≤ m`. This uses
-  `Ideal.sum_ramification_inertia_eq_finrank` and `IsIntegralClosure.rank` (a semilocal Dedekind
-  `A₂` is a PID), and `M = L(w)(t)` with `t^m = wϖ ∈ L(w)` (as in `finrank_le_of_pow_eq`). The
-  divisibility `n ∣ e(Q'|𝔪) = e(Q'|P)·1·e` is **proved** (`abhyankar_dvd_ramificationIdx` together
-  with `Ideal.ramificationIdx_tower`, which needs flatness: a torsion-free module over a Dedekind
-  domain is flat, an existing instance). It gives `m ∣ e(Q'|P)`, hence `e(Q'|P) = m` and
-  `f(Q'|P) = 1`, so `e(Q'|𝔪) = n`.
-* (d) Residue fields: `κ(Q') = κ(P)` (`f = 1`), `κ(P)/κ(Q)` is separable by (b)
-  (`Algebra.isUnramifiedAt_iff_map_eq`), and `κ(Q)/k` is separable by tameness, so transitivity
-  finishes.
-* Remaining plumbing: the `Algebra` instances `A₁ → A₂ → A₃` with their scalar towers and
-  `LiesOver` instances, and the residue-field towers.
-
-Mathlib has no notion of tame ramification and no Abhyankar lemma (grep for "abhyankar", "tamely":
-no hits in RingTheory).
+T2 is done. Mathlib itself has no notion of tame ramification and no Abhyankar lemma (grep for
+"abhyankar", "tamely": no hits in RingTheory); the files here could be upstreamed.
 
 **T1 (deep).** The SGA 1 X 3.4 and Stacks 0BMB proofs reduce, via Zariski's Main Theorem (Mathlib
 has `RingTheory/ZariskisMainTheorem.lean`), to a finite map onto a regular local ring. They then
@@ -194,5 +178,7 @@ lake env lean scratch/t-brauer-purity/LocalH2RealKernel.lean   # needs the ZInQK
 lake env lean scratch/t-brauer-purity/KummerEtale.lean
 lake env lean scratch/t-brauer-purity/KummerUnramified.lean
 lake env lean scratch/t-brauer-purity/AbhyankarBricks.lean
+lake env lean scratch/t-brauer-purity/T2Full.lean      # about 1 min
+lake env lean scratch/t-brauer-purity/T2Kernel.lean    # needs the ZInQKernel oleans
 ```
 Each ends with `#print axioms`, which reports `[propext, Classical.choice, Quot.sound]`.
