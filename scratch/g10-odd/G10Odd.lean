@@ -465,6 +465,39 @@ theorem betti_skeleton (E : Type*) [Field E] [Algebra ℚ E] {H H' : Type*} [Add
   apply baseChange_injective₂ ℚ ℝ H H'
   rw [h0, LinearMap.baseChange_zero]
 
+/-! ## §7. `T12K_ComplexConjEigen` contains `T12_ComplexConjEigen` (proved)
+
+`qEmbRing` and `resQ_spec` are copied verbatim from scratch/g0-mod-galois/part_galois.lean. -/
+
+/-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
+def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom
+
+/-- `qEmb K ∘ resQ K τ = τ ∘ qEmb K` (Mathlib's `restrictNormal_commutes`, unfolding `map`). -/
+lemma resQ_spec (K : Type) [Field K] [NumberField K]
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (x : AlgebraicClosure ℚ) :
+    qEmbRing K (resQ K τ x) = τ (qEmbRing K x) := by
+  letI : Algebra ℚ K := (algebraMap ℚ K).toAlgebra
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure K) :=
+    (IsAlgClosed.lift : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K).toRingHom.toAlgebra
+  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars ℚ) (AlgebraicClosure ℚ) x
+
+/-- If `τ ∈ G_K` acts on `K̄` as complex conjugation through some embedding `K̄ → ℂ`, then
+`resQ K τ` is a complex conjugation. -/
+theorem isComplexConj_resQ (K : Type) [Field K] [NumberField K]
+    (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (j : AlgebraicClosure K →+* ℂ)
+    (hj : ∀ x, j (τ x) = starRingEnd ℂ (j x)) : PkgI4.IsComplexConj (resQ K τ) :=
+  ⟨(j.comp (qEmbRing K)).toRatAlgHom, fun x => by
+    simp only [RingHom.toRatAlgHom_apply, RingHom.coe_comp, Function.comp_apply]
+    rw [resQ_spec, hj]⟩
+
+/-- **`T12K_ComplexConjEigen → T12_ComplexConjEigen` (proved).** -/
+theorem t12_of_t12K (h : T12K_ComplexConjEigen) : ZInQ.LeafPush2.T12_ComplexConjEigen := by
+  intro A g hg ℓ _ c hc
+  obtain ⟨j, hj⟩ := hc
+  exact h ℚ A g hg ℓ c (isComplexConj_resQ ℚ c j.toRingHom hj)
+
 end G0Galois
 
 #print axioms G0Galois.g10Glue_of_conjTwist
@@ -472,3 +505,4 @@ end G0Galois
 #print axioms G0Galois.isOdd_of_T12K_of_forall_mem
 #print axioms G0Galois.g10GlueConcrete_of_conjTwistFromLeaves
 #print axioms G0Galois.betti_skeleton
+#print axioms G0Galois.t12_of_t12K
