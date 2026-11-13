@@ -25,5 +25,6 @@ cd "$(dirname "$0")"
   cat resq_block.lean
   cat part_descent.lean
   cat part_twist.lean
+  cat part_bcdescent.lean
   cat part_pack.lean
 } > LocalGlue.lean
