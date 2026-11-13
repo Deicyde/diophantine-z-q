@@ -10,3 +10,9 @@
     ∧ ∃ s ∈ detLat ω g, s ≠ 0 ∧ secIndex ≠ 0.
   - `hodgeLatticeTheorem_of : OmegaFG → CotangentRank → OmegaSpans → HodgeLatticeTheorem`.
   - axioms of both: [propext, Classical.choice, Quot.sound].
+- 23:10 §3-§4 added, file compiles, no errors (deprecation warnings only). VERIFIED.
+  - `exists_finset_cover`, `fg_iInf_of_local`, `exists_smul_mem_iInf_of_local` (local-to-global over Spec R).
+  - `OmegaLocal` (Prop): near each s ∈ Spec 𝓞_L, on D(a) ∋ s, one f.g. N ⊆ cot spanning over L with
+    N ≤ omegaAt s' and omegaAt s' ⊆ loc_{s'} N for s' ∈ D(a).
+  - `omegaFG_of_omegaLocal`, `omegaSpans_of_omegaLocal`,
+    `hodgeLatticeTheorem_of_local : OmegaLocal → CotangentRank → HodgeLatticeTheorem`; axioms standard.

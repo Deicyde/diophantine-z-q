@@ -263,5 +263,135 @@ theorem hodgeLatticeTheorem_of (h1 : OmegaFG) (h2 : CotangentRank) (h3 : OmegaSp
 
 end ZInQ.DefFaltings.HodgeLattice
 
+namespace ZInQ.DefFaltings.HodgeLattice
+
+open NumberField TensorProduct
+open PkgI3 (AbVar)
+
+/-! ## 3. Local-to-global over `Spec R` (pure algebra)
+
+For a family `Ω s` of submodules indexed by the points of `Spec R`, finiteness and fullness of
+`⋂_s Ω s` follow from local statements on a cover by basic opens `D(a)`. -/
+
+section LocalGlobal
+
+variable {R : Type*} [CommRing R] {V : Type*} [AddCommGroup V] [Module R V]
+
+/-- Finitely many basic opens `D(a s)` cover `Spec R` if `s ∈ D(a s)` for every `s`. -/
+theorem exists_finset_cover (a : PrimeSpectrum R → R) (ha : ∀ s, a s ∉ s.asIdeal) :
+    ∃ F : Finset (PrimeSpectrum R), ∀ s' : PrimeSpectrum R, ∃ s ∈ F, a s ∉ s'.asIdeal := by
+  classical
+  have htop : Ideal.span (Set.range a) = ⊤ := by
+    by_contra h
+    obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal _ h
+    exact ha ⟨m, hm.isPrime⟩ (hle (Ideal.subset_span ⟨_, rfl⟩))
+  obtain ⟨T, hT, hTtop⟩ := (Ideal.span_eq_top_iff_finite _).mp htop
+  refine ⟨T.attach.image (fun r => (hT r.2).choose), fun s' => ?_⟩
+  by_contra hno
+  push_neg at hno
+  have : Ideal.span (T : Set R) ≤ s'.asIdeal := by
+    rw [Ideal.span_le]
+    intro r hr
+    have := hno _ (Finset.mem_image_of_mem _ (Finset.mem_attach T ⟨r, hr⟩))
+    rwa [(hT hr).choose_spec] at this
+  exact s'.isPrime.ne_top (top_le_iff.mp (hTtop ▸ this))
+
+/-- **Finiteness, local to global.** -/
+theorem fg_iInf_of_local [IsNoetherianRing R] (Ω : PrimeSpectrum R → Submodule R V)
+    (h : ∀ s : PrimeSpectrum R, ∃ a : R, a ∉ s.asIdeal ∧ ∃ N : Submodule R V, N.FG ∧
+      ∀ s' : PrimeSpectrum R, a ∉ s'.asIdeal → ∀ x ∈ Ω s', ∃ t ∉ s'.asIdeal, t • x ∈ N) :
+    (⨅ s, Ω s).FG := by
+  classical
+  choose a ha N hN hloc using h
+  obtain ⟨F, hF⟩ := exists_finset_cover a ha
+  set N0 := F.sup N
+  have hN0 : N0.FG := Submodule.fg_finset_sup F N fun i _ => hN i
+  refine Submodule.FG.of_le hN0 fun x hx => ?_
+  set J : Ideal R := N0.comap (LinearMap.toSpanSingleton R V x)
+  have hJ : J = ⊤ := by
+    by_contra hJ
+    obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal _ hJ
+    obtain ⟨s, hsF, hs⟩ := hF ⟨m, hm.isPrime⟩
+    obtain ⟨t, ht, htN⟩ := hloc s ⟨m, hm.isPrime⟩ hs x (Submodule.mem_iInf _ |>.mp hx _)
+    exact ht (hle (show t ∈ J from Finset.le_sup (f := N) hsF htN))
+  have : (1 : R) ∈ J := hJ ▸ Submodule.mem_top
+  simpa [J] using this
+
+/-- **Fullness, local to global.** -/
+theorem exists_smul_mem_iInf_of_local [IsDomain R] (Ω : PrimeSpectrum R → Submodule R V)
+    (h : ∀ s : PrimeSpectrum R, ∃ a : R, a ∉ s.asIdeal ∧ ∃ N : Submodule R V,
+      (∀ x : V, ∃ c : R, c ≠ 0 ∧ c • x ∈ N) ∧
+      ∀ s' : PrimeSpectrum R, a ∉ s'.asIdeal → N ≤ Ω s') (x : V) :
+    ∃ c : R, c ≠ 0 ∧ c • x ∈ ⨅ s, Ω s := by
+  classical
+  choose a ha N hN hle using h
+  obtain ⟨F, hF⟩ := exists_finset_cover a ha
+  choose c hc0 hcN using fun s => hN s x
+  refine ⟨∏ s ∈ F, c s, Finset.prod_ne_zero_iff.mpr fun s _ => hc0 s, ?_⟩
+  rw [Submodule.mem_iInf]
+  intro s'
+  obtain ⟨s, hsF, hs⟩ := hF s'
+  apply hle s s' hs
+  rw [← Finset.mul_prod_erase F c hsF, mul_comm, mul_smul]
+  exact Submodule.smul_mem _ _ (hcN s)
+
+end LocalGlobal
+
+/-! ## 4. `OmegaFG` and `OmegaSpans` from one local statement
+
+`OmegaLocal` says: near every point `s` of `S = Spec 𝓞_L` (on a basic open `D(a) ∋ s`), the
+stalks `(ω_𝒢)_{s'}` (`omegaAt s'`) are the localizations of one finitely generated `N ⊆ ω_{A_L}`
+that spans `ω_{A_L}` over `L`. This is "`e*Ω¹_{𝒢/S}` is quasi-coherent of finite type with generic
+stalk `ω_{A_L}`" in the form needed: for an affine open `U = Spec B ⊆ 𝒢` with `e(D(a)) ⊆ U` and
+`ε : B → 𝓞_L[1/a]` the section, take `N` = the `𝓞_L`-span of `d i`, `i` running over generators
+of `I = ker ε` (finitely many: `B` is noetherian). It uses only that `𝒢` is locally of finite type
+over `𝓞_L` (not smoothness). -/
+
+/-- **(G-loc)** The local finiteness and fullness of `e*Ω¹_{𝒢/S}`. -/
+def OmegaLocal : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : PrimeSpectrum (𝓞 L)), ∃ a : 𝓞 L, a ∉ s.asIdeal ∧
+    ∃ N : Submodule (𝓞 L) 𝒢.cotangent, N.FG ∧ (∀ x : 𝒢.cotangent, ∃ c : 𝓞 L, c ≠ 0 ∧ c • x ∈ N) ∧
+      ∀ s' : PrimeSpectrum (𝓞 L), a ∉ s'.asIdeal →
+        N ≤ 𝒢.omegaAt s' ∧ ∀ x ∈ 𝒢.omegaAt s', ∃ t ∉ s'.asIdeal, t • x ∈ N
+
+theorem omegaFG_of_omegaLocal (h : OmegaLocal) : OmegaFG := by
+  intro K _ A L _ _ _ 𝒢
+  exact fg_iInf_of_local (R := 𝓞 L) (fun s => 𝒢.omegaAt s) fun s => by
+    obtain ⟨a, ha, N, hN, -, hloc⟩ := h K A L 𝒢 s
+    exact ⟨a, ha, N, hN, fun s' hs' => (hloc s' hs').2⟩
+
+theorem omegaSpans_of_omegaLocal (h : OmegaLocal) : OmegaSpans := by
+  intro K _ A L _ _ _ 𝒢
+  rw [eq_top_iff]
+  rintro y -
+  induction y using TensorProduct.induction_on with
+  | zero => exact Submodule.zero_mem _
+  | add x y hx hy => exact Submodule.add_mem _ hx hy
+  | tmul k x =>
+    obtain ⟨c, hc0, hc⟩ := exists_smul_mem_iInf_of_local (R := 𝓞 L) (fun s => 𝒢.omegaAt s)
+      (fun s => by
+        obtain ⟨a, ha, N, -, hspan, hloc⟩ := h K A L 𝒢 s
+        exact ⟨a, ha, N, hspan, fun s' hs' => (hloc s' hs').1⟩) x
+    have hcK : algebraMap (𝓞 L) L c ≠ 0 := fun h0 =>
+      hc0 (IsFractionRing.injective (𝓞 L) L (by rw [h0, map_zero]))
+    have hmem : (1 : L) ⊗ₜ[𝓞 L] (c • x) ∈
+        Submodule.span L (Set.range fun x : 𝒢.omega => (1 : L) ⊗ₜ[𝓞 L] (x : 𝒢.cotangent)) :=
+      Submodule.subset_span ⟨⟨c • x, hc⟩, rfl⟩
+    have : k ⊗ₜ[𝓞 L] x = (k * (algebraMap (𝓞 L) L c)⁻¹) • ((1 : L) ⊗ₜ[𝓞 L] (c • x)) := by
+      rw [TensorProduct.tmul_smul, ← algebraMap_smul L c, smul_smul, mul_assoc,
+        inv_mul_cancel₀ hcK, mul_one, TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+    rw [this]
+    exact Submodule.smul_mem _ _ hmem
+
+/-- **Main result, sharpened.** `HodgeLatticeTheorem` from `OmegaLocal` (finite type) and
+`CotangentRank` (the dimension of the tangent space at the origin). -/
+theorem hodgeLatticeTheorem_of_local (h1 : OmegaLocal) (h2 : CotangentRank) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of (omegaFG_of_omegaLocal h1) h2 (omegaSpans_of_omegaLocal h1)
+
+end ZInQ.DefFaltings.HodgeLattice
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
