@@ -293,19 +293,19 @@ theorem periodMapGlue_own (h : R1R2fp) (hBC : BaseChangeClassUnique)
 `R1R2fp`, `PkgI1.QMHauptmodul`, T35, T11a, `QMClassNumberOne`, `R1bFamily`,
 `ValenceBoundGammaStar`. Glue: `Pin.MobiusGlue` (proved by mobius-glue), `BaseChangeClassUnique`,
 `PiTwistC`, `QMTwistLattice`, `PiCMC`, `S8Nonzero`,
-`SphereFactorAffine`, `S8Weight8`, `S8OrderCM3`, `CPtsTransport`. -/
+`SphereFactorAffine`, `S8WeightExact`, `CPtsTransport`. -/
 theorem fibreQMPeriod_periodMap (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hBC : BaseChangeClassUnique) (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h))
     (hTL : QMTwistLattice) (hCM : PiCMC (ownY h) (ownΦ h) (ownπ h))
     (hS : PeriodMap.S8Nonzero)
-    (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8Weight8)
-    (hO : PeriodMap.S8OrderCM3) (hV : PeriodMap.ValenceBoundGammaStar)
+    (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8WeightExact)
+    (hV : PeriodMap.ValenceBoundGammaStar)
     (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_main h hM hH hE hR11 hCN hR
     (periodMapGlue_own h hBC hPT hTL hCM (cmFixedHasCM_of hR11))
-    (PeriodMap.hauptmodulUnique_of' hS hSF) (PeriodMap.qmDenZeroCM3_of' hS hW hO hV) hCP
+    (PeriodMap.hauptmodulUnique_of' hS hSF) (PeriodMap.qmDenZeroCM3_of'' hS hW hV) hCP
 
 end HSyn.G0Split.FibreQM.PeriodMapH
 

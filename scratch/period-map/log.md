@@ -90,3 +90,16 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
 - run_heavy12: DevHeavy = import PMBase + part_light + part_theta + part_siegel + part_heavy: 0 errors, 18 axioms lines,
   none with sorryAx; `fibreQMPeriod_periodMap` no longer takes `ThetaOmegaAnalytic`. VERIFIED.
 - run_light_full3: lake env lean PMLight.lean (light_base+part_light+part_theta+part_siegel): see run_light_full3.txt
+
+## S8WeightExact ⇒ S8Weight8, S8OrderCM3 (part_order.lean)
+- multiplier.py (multiplier_out.txt): the complex multiplier χ(γ) = G8(γτ)det γ⁴/((cτ+d)⁸G8(τ)) is 1 (9-40 digits) for
+  (1+j)/2, j, i+j, 3+2i, μ, 1+i+j, 2+i at two points. VERIFIED numerically. New glue `S8WeightExact` (exact automorphy,
+  trivial multiplier) replaces `S8Weight8` and `S8OrderCM3`.
+- run_order1-4: errors (Exists projections, set-variables in simpa, calc layout, field_simp side goal). Fixed.
+- run_order5: 0 errors; `s8Weight8_of : S8WeightExact → S8Weight8`, `s8OrderCM3_of : ThetaOmegaAnalytic → S8WeightExact →
+  S8OrderCM3` (G8(τ₃)=w⁸G8(τ₃), w⁸≠1; derivative at τ₃ gives G8'(τ₃)(1-w¹⁰)=0, w¹⁰=-w; order ≥ 2 via
+  analyticOrderAt_eq_natCast), `qmDenZeroCM3_of'' : S8Nonzero → S8WeightExact → ValenceBoundGammaStar → QMDenZeroCM3`;
+  axioms standard. VERIFIED.
+- run_heavy13 (build_heavy.sh): 0 errors, 21 axioms lines, none with sorryAx; `fibreQMPeriod_periodMap` now takes
+  `S8WeightExact` instead of `S8Weight8`, `S8OrderCM3`. VERIFIED.
+- run_light_full4: `lake env lean scratch/period-map/PMLight.lean` (all light parts): see file.
