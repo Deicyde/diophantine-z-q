@@ -4279,6 +4279,119 @@ theorem tateBridge35_of_five (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_five hG hS h2 hE hFr)
 
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`RedTorsionQbar` from the leaf I2-Red and `OwDVR` (proved).** Transport along an
+`L`-isomorphism `ψ : L‾ ≅ ℚ̄` (`UnramTate.trPt`) and the bijective homomorphism `Θ` from I2's
+`κ(w')`-points of `𝒜` to the `κ(w)‾`-points of `sf 𝒜`; I2's reductions are `RedRel`s
+(`redRel_of_isReductionOf`), reductions are unique (`redRel_unique`) and additive
+(`redRelMul`). -/
+theorem redTorsionQbar_of (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR) :
+    RedTorsionQbar := by
+  intro L _ A p hp v hv 𝒜 _ e j hjb hjc m hm hmu
+  haveI := hD L v p hp hv
+  haveI : Algebra.IsAlgebraic L PkgI4.Qbar := Algebra.IsAlgebraic.tower_top (K := ℚ) L
+  haveI : IsAlgClosure L PkgI4.Qbar := ⟨inferInstance, inferInstance⟩
+  let ψ : AlgebraicClosure L ≃ₐ[L] PkgI4.Qbar :=
+    IsAlgClosure.equiv L (AlgebraicClosure L) PkgI4.Qbar
+  obtain ⟨hR1, hR2⟩ := hRed L (Ow L v) (wOf ψ v) (hw_of ψ v) (ObjBridge.toGrp A) 𝒜 e m hm hmu
+  let Φ := UnramTate.trPt A ψ
+  let Θ := thetaHom ψ v 𝒜 j hjc
+  have hΘinj := thetaW_injective ψ v 𝒜 j hjb hjc
+  have hΘsurj := thetaW_surjective ψ v 𝒜 j hjb hjc
+  have hT3 := redRel_of_isReductionOf (A := A) ψ v 𝒜 e j hjc
+  have hun := redRel_unique v 𝒜 e j
+  have hex := exists_redRel v 𝒜 e j hjc
+  have hmul := redRelMul L A v 𝒜 e j
+  have h01 : RedRel v 𝒜 e j 0 1 := by
+    obtain ⟨z, hz⟩ := hex 0
+    have h2 := hmul 0 0 z z hz hz
+    rw [add_zero] at h2
+    have h3 : z * z = z := hun 0 _ _ h2 hz
+    have hz1 : z = 1 := mul_eq_right.mp h3
+    rw [hz1] at hz
+    exact hz
+  have hΘ1 : ∀ y, thetaW ψ v 𝒜 j hjc y = 1 → y = 1 := fun y h =>
+    hΘinj (h.trans (map_one Θ).symm)
+  have htors : ∀ x : PtQ L A, m • x = 0 →
+      Φ.symm (Additive.toMul x) ∈ PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure L) m := by
+    intro x hx
+    show (Φ.symm (Additive.toMul x)) ^ m = 1
+    rw [← map_pow, ← toMul_nsmul, hx, toMul_zero, map_one]
+  have hT3' : ∀ (x : PtQ L A) yw, PkgI2.IsReductionOf 𝒜 e (wOf ψ v) (hw_of ψ v)
+      (Φ.symm (Additive.toMul x)) yw → RedRel v 𝒜 e j x (thetaW ψ v 𝒜 j hjc yw) := by
+    intro x yw h
+    have hr := hT3 _ yw h
+    rw [show UnramTate.trPt A ψ (Φ.symm (Additive.toMul x)) = Additive.toMul x from
+      Φ.apply_symm_apply _, ofMul_toMul] at hr
+    exact hr
+  constructor
+  · intro x hx
+    obtain ⟨yw, ⟨hyw1, hyw2⟩, -⟩ := hR1 _ (htors x hx)
+    have hr := hT3' x yw hyw2
+    refine ⟨Additive.ofMul (thetaW ψ v 𝒜 j hjc yw), ⟨?_, hr⟩, ?_⟩
+    · rw [← ofMul_pow]
+      show Additive.ofMul (Θ yw ^ m) = 0
+      rw [← map_pow, hyw1, map_one]
+      rfl
+    · rintro y' ⟨-, hy'⟩
+      exact Additive.toMul.injective (hun x _ _ hy' hr)
+  · intro yt hyt
+    obtain ⟨yw, hyw⟩ := hΘsurj (Additive.toMul yt)
+    have hywt : yw ^ m = 1 := by
+      apply hΘinj
+      show Θ (yw ^ m) = Θ 1
+      rw [map_pow, map_one]
+      show (thetaW ψ v 𝒜 j hjc yw) ^ m = 1
+      rw [hyw, ← toMul_nsmul, hyt, toMul_zero]
+    obtain ⟨xw0, ⟨hxw1, hxw2⟩, -⟩ := hR2 yw hywt
+    let xw : A.Pt (AlgebraicClosure L) := xw0
+    have hr := hT3 xw yw hxw2
+    rw [hyw] at hr
+    have hx2t : m • Additive.ofMul (Φ xw) = 0 := by
+      rw [← ofMul_pow, ← map_pow]
+      have : xw ^ m = 1 := hxw1
+      rw [this, map_one]
+      rfl
+    refine ⟨Additive.ofMul (Φ xw), ⟨hx2t, hr⟩, ?_⟩
+    rintro x1 ⟨hx1t, hx1r⟩
+    have hd : RedRel v 𝒜 e j (x1 - Additive.ofMul (Φ xw)) 1 := by
+      obtain ⟨yd, hyd⟩ := hex (x1 - Additive.ofMul (Φ xw))
+      have h3 := hmul _ _ yd (Additive.toMul yt) hyd hr
+      rw [sub_add_cancel] at h3
+      have h4 : yd * Additive.toMul yt = Additive.toMul yt := hun x1 _ _ h3 hx1r
+      rw [mul_eq_right.mp h4] at hyd
+      exact hyd
+    have hdt : m • (x1 - Additive.ofMul (Φ xw)) = 0 := by
+      rw [smul_sub, hx1t, hx2t, sub_zero]
+    obtain ⟨yd', ⟨hyd'1, hyd'2⟩, -⟩ := hR1 _ (htors _ hdt)
+    have hyd'eq : yd' = 1 := hΘ1 yd' (hun _ _ _ (hT3' _ yd' hyd'2) hd)
+    have h1t : (1 : PkgI2.Pts (ObjBridge.toGrp A) (AlgebraicClosure L)) ∈
+        PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure L) m := one_pow m
+    obtain ⟨y0, ⟨hy01, hy02⟩, -⟩ := hR1 1 h1t
+    have hy0eq : y0 = 1 := by
+      have hr0 := hT3 1 y0 hy02
+      rw [map_one, ofMul_one] at hr0
+      exact hΘ1 y0 (hun 0 _ _ hr0 h01)
+    have hxd1 := (hR2 1 (one_pow m)).unique ⟨htors _ hdt, hyd'eq ▸ hyd'2⟩ ⟨h1t, hy0eq ▸ hy02⟩
+    have h5 : Additive.toMul (x1 - Additive.ofMul (Φ xw)) = 1 := by
+      have h6 := congrArg Φ hxd1
+      rw [MulEquiv.apply_symm_apply] at h6
+      exact h6.trans (map_one Φ)
+    exact sub_eq_zero.mp (Additive.toMul.injective (h5.trans toMul_zero.symm))
+
+/-- **`AlgFrobRed` from the leaves `GoodRedCofinite`, `SmoothGeomConnIntegral`, I2-Red (kernel
+leaf `PkgI2.ReductionTorsionBijective`) and the glue `OwDVR`, `FExtend`, `FrobMorph` (proved).** -/
+theorem algFrobRed_of_I2 (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR) (hE : FExtend) (hFr : FrobMorph) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_five hG hS (redTorsionQbar_of hRed hD) hE hFr
+
+/-- **`TateBridge35` from I3.M0, I2-Red and the five other pieces (proved).** -/
+theorem tateBridge35_of_I2 (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0}) (hD : OwDVR)
+    (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_I2 hG hS hRed hD hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -4320,3 +4433,10 @@ end
 #print axioms AlgFrobRedRed.tateBridge35_of_main
 #print axioms AlgFrobRedRed.algFrobRed_of_five
 #print axioms AlgFrobRedRed.tateBridge35_of_five
+#print axioms AlgFrobRedRed.thetaHom
+#print axioms AlgFrobRedRed.thetaW_injective
+#print axioms AlgFrobRedRed.thetaW_surjective
+#print axioms AlgFrobRedRed.redRel_of_isReductionOf
+#print axioms AlgFrobRedRed.redTorsionQbar_of
+#print axioms AlgFrobRedRed.algFrobRed_of_I2
+#print axioms AlgFrobRedRed.tateBridge35_of_I2
