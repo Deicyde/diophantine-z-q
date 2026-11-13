@@ -30,3 +30,7 @@
 - conjIsogMapsAt_bot (sanity: ConjIsogMapsAt satisfiable for A over ⊥ with the Galois action) compiled (VERIFIED).
 - The 4 leaves are bundle fields: ResearchLeaves.r6 (RaynaudCriterion), r7a (NOS); TextbookLeaves.t5 (TorsionStructure),
   t6 (HomFreeFinite) (VERIFIED by reading scratch/h-decomposition/Leaves.lean L32972-33100).
+- 06:18 §6.9: copied Tail.lean 38-117, 152-164, 208-282 (B6_isUnit, qmBasis, qm_embeds_end0, FS4 + its proof from T6);
+  OMaximal (pure algebra Prop: subring of B ⊇ O with integral elements is ⊆ O); endEqOFibre_of (T27 + T6 + OMaximal →
+  EndEqOFibre) and kernelFieldExists_of_split'' (leaves HFF, NOS, Raynaud, TorsionStructure, T27; glue FS5, OMaximal,
+  EndTransport, ConjIsogMaps) compiled, standard axioms (VERIFIED, build_final.txt).

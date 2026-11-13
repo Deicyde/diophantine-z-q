@@ -4854,10 +4854,327 @@ theorem kernelFieldExists_of_split' (hHFF : PkgI3.HomFreeFinite)
 
 end G0ModField.KernelField
 
+
+/-! ## §6.9 `EndEqOFibre` from T27, T6 and the maximality of `𝒪`
+
+Copied verbatim from `scratch/g0-fibresimple/olean/Tail.lean`: lines 38-117 (`B6_isUnit`,
+`division_of_algEquiv`, `qmBasis`, `qm_embeds_end0`), 152-164 (FS4 `CentralizerOfMatrixEnd0`) and
+208-282 (FS4 proved from T6, `centralizerOfMatrixEnd0_of_homFree`). -/
+
+section FS4Copy
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ ZInQ.JHeight LeafQM.AV
+open scoped Quaternion TensorProduct
+
+namespace G0FibreSimple
+
+/-! ## §1 Proved glue: `B` is a division algebra -/
+
+/-- `B = (2, -3)_ℚ` is a division algebra: every nonzero element is a unit (the norm form
+`a² - 2b² + 3c² - 6d²` is anisotropic, `GlueDescent.aniso_rat`). -/
+theorem B6_isUnit (x : ℍ[ℚ, 2, -3]) (hx : x ≠ 0) : IsUnit x := by
+  set n := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 with hn_def
+  have hn : n ≠ 0 := fun h0 => by
+    obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ h0
+    exact hx (QuaternionAlgebra.ext h1 h2 h3 h4)
+  have hs : star x * x = algebraMap ℚ ℍ[ℚ, 2, -3] n := GlueDescent.B6_star_mul x
+  have hs' : x * star x = algebraMap ℚ ℍ[ℚ, 2, -3] n := by
+    rw [QuaternionAlgebra.mul_star_eq_coe]
+    congr 1
+    simp [QuaternionAlgebra.re_mul]
+    ring
+  refine ⟨⟨x, n⁻¹ • star x, ?_, ?_⟩, rfl⟩
+  · rw [mul_smul_comm, hs', Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
+  · rw [smul_mul_assoc, hs, Algebra.smul_def, ← map_mul, inv_mul_cancel₀ hn, map_one]
+
+/-- Division transported along an algebra isomorphism. -/
+theorem division_of_algEquiv {D E : Type*} [Ring D] [Ring E] [Algebra ℚ D] [Algebra ℚ E]
+    (e : D ≃ₐ[ℚ] E) (hE : ∀ x : E, x ≠ 0 → IsUnit x) : ∀ x : D, x ≠ 0 → IsUnit x := by
+  intro x hx
+  have h1 : e x ≠ 0 := by
+    intro h; apply hx; rw [← e.symm_apply_apply x, h, map_zero]
+  have := (hE (e x) h1).map e.symm
+  rwa [e.symm_apply_apply] at this
+
+/-! ## §2 Proved glue: a QM structure gives `B →ₐ[ℚ] End⁰(A)` -/
+
+/-- `i ∈ 𝒪`. -/
+def oi : LeafQM.O := ⟨LeafQM.ofInt ![0, 1, 0, 0], ⟨_, rfl⟩⟩
+/-- `j = 2·(1+j)/2 - 1 ∈ 𝒪`. -/
+def oj : LeafQM.O := ⟨LeafQM.ofInt ![-1, 0, 2, 0], ⟨_, rfl⟩⟩
+
+theorem coe_two_O : ((2 : LeafQM.O) : LeafQM.B) = 2 := map_ofNat LeafQM.O.subtype 2
+theorem coe_three_O : ((3 : LeafQM.O) : LeafQM.B) = 3 := map_ofNat LeafQM.O.subtype 3
+
+theorem oi_mul_oi : oi * oi = 2 := by
+  apply Subtype.ext
+  rw [coe_two_O, Subring.coe_mul]
+  ext <;> simp [oi, LeafQM.ofInt] <;> rfl
+
+theorem oj_mul_oj : oj * oj = -3 := by
+  apply Subtype.ext
+  rw [Subring.coe_neg, coe_three_O, Subring.coe_mul]
+  ext <;> simp [oj, LeafQM.ofInt] <;> rfl
+
+theorem oj_mul_oi : oj * oi = -(oi * oj) := by
+  apply Subtype.ext
+  rw [Subring.coe_neg, Subring.coe_mul, Subring.coe_mul]
+  ext <;> simp [oi, oj, LeafQM.ofInt]
+
+/-- **Glue (proved): the QM structure gives `B ↪ End⁰(A)`.** For a QM structure
+`ι : 𝒪 → End_k(A)` (`LeafQM.AV.QMStr`), the elements `1 ⊗ ι(i)`, `1 ⊗ ι(j)` of
+`End⁰(A) = ℚ ⊗ End(A)` satisfy `i² = 2`, `j² = -3`, `ji = -ij`, so `B = ℍ[ℚ,2,-3]` maps to
+`End⁰(A)` (`QuaternionAlgebra.Basis.liftHom`). This is Yu's hypothesis "`B` embeds in `End⁰(A)`"
+(injectivity is automatic: `B` is simple and `End⁰(A) ≠ 0` when a QM structure exists). -/
+def qmBasis {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
+    QuaternionAlgebra.Basis (PkgI3.AbVar.End0 A) (2 : ℚ) 0 (-3) :=
+  let g : LeafQM.O →+* PkgI3.AbVar.End0 A :=
+    (Algebra.TensorProduct.includeRight : PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A).toRingHom.comp
+      q.iota
+  { i := g oi
+    j := g oj
+    k := g oi * g oj
+    i_mul_i := by
+      rw [← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def, _root_.mul_one,
+        map_ofNat]
+    j_mul_j := by
+      rw [← map_mul, oj_mul_oj, map_neg, map_ofNat, Algebra.smul_def, _root_.mul_one, map_neg,
+        map_ofNat]
+    i_mul_j := rfl
+    j_mul_i := by
+      rw [← map_mul, oj_mul_oi, map_neg, map_mul, zero_smul, zero_sub] }
+
+theorem qm_embeds_end0 {k : Type} [Field k] {A : PkgI3.AbVar k} (q : QMStr A) :
+    Nonempty (ℍ[ℚ, 2, -3] →ₐ[ℚ] PkgI3.AbVar.End0 A) :=
+  ⟨(qmBasis q).liftHom⟩
+
+
+/-- **Glue piece FS4 (the CM case of Yu's dichotomy has a non-integral `𝒪`-centralizer).** If
+`End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, for an abelian variety with QM by `𝒪`, then the centralizer
+`End_𝒪(A) = com q` contains a non-integer. *Why true* (STANDARD linear algebra): the image of
+`B` in `M₂(k)`, `k = ℚ(√d)`, spans `M₂(k)` over `k` (`B ⊗ k` is simple of `k`-dimension 4), so
+its centralizer is the centre `k`; `n√d` lies in the image of `End(A)` for some `n ≥ 1`, and
+commutation and non-integrality pass from `End⁰(A)` to `End(A)` because `End(A)` is torsion-free
+(Mumford §19 Thm 3). Glue. -/
+def CentralizerOfMatrixEnd0 : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k) (q : QMStr A) (d : ℚ), d < 0 →
+    Nonempty (PkgI3.AbVar.End0 A ≃ₐ[ℚ]
+      Matrix (Fin 2) (Fin 2) (AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C d))) →
+    ∃ φ ∈ com q, ∀ n : ℤ, φ ≠ (n : PkgI3.AbVar.End A)
+
+
+/-! ## §4′ Proved: `CentralizerOfMatrixEnd0` from the leaf T6 (`PkgI3.HomFreeFinite`) -/
+
+/-- **FS4 is proved from T6** (`PkgI3.HomFreeFinite`, Mumford §19 Thm 3: `Hom(A, B)` is a free
+`ℤ`-module; `TextbookLeaves.t6`). Proof: the scalar matrix `√d` is central in `M₂(ℚ(√d))`, so
+`c' = e⁻¹(√d)` is central in `End⁰(A)` and is not a rational scalar (`(√d)² = d < 0`); `ℚ ⊗ End(A)`
+is the localization of `End(A)` at `ℤ \ {0}`, so `s • c' = 1 ⊗ φ` for some `φ ∈ End(A)`,
+`s ≠ 0`; freeness makes `m ↦ 1 ⊗ m` injective, so `φ` commutes with `ι(𝒪)` and is not an
+integer. -/
+theorem centralizerOfMatrixEnd0_of_homFree (hHF : PkgI3.HomFreeFinite) :
+    CentralizerOfMatrixEnd0 := by
+  intro k _ _ A q d hd hM
+  obtain ⟨e⟩ := hM
+  set c' : PkgI3.AbVar.End0 A :=
+    e.symm (Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d))) with hc'
+  have hcen : ∀ x : PkgI3.AbVar.End0 A, c' * x = x * c' := by
+    intro x
+    apply e.injective
+    rw [map_mul, map_mul, hc', e.apply_symm_apply]
+    exact (Matrix.scalar_commute _ (fun r' => Commute.all _ r') (e x)).eq
+  have hnq : ∀ t : ℚ, c' ≠ algebraMap ℚ _ t := by
+    intro t ht
+    have h1 : Matrix.scalar (Fin 2) (AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d)) =
+        algebraMap ℚ _ t := by
+      rw [← AlgEquiv.commutes e t, ← ht, hc', e.apply_symm_apply]
+    have h2 : AdjoinRoot.root (Polynomial.X ^ 2 - Polynomial.C d) =
+        AdjoinRoot.of (Polynomial.X ^ 2 - Polynomial.C d) t := by
+      have := congrFun (congrFun h1 0) 0
+      simpa [Matrix.scalar_apply, Matrix.algebraMap_eq_diagonal, AdjoinRoot.algebraMap_eq]
+        using this
+    have hdeg : (Polynomial.X ^ 2 - Polynomial.C d : Polynomial ℚ).degree ≠ 0 := by
+      rw [Polynomial.degree_X_pow_sub_C (by norm_num)]; norm_num
+    have h3 := AdjoinRoot.eval₂_root (Polynomial.X ^ 2 - Polynomial.C d)
+    simp only [Polynomial.eval₂_sub, Polynomial.eval₂_X_pow, Polynomial.eval₂_C] at h3
+    rw [h2, ← map_pow, ← map_sub] at h3
+    have h4 : t ^ 2 - d = 0 :=
+      (AdjoinRoot.of.injective_of_degree_ne_zero hdeg) (h3.trans (map_zero _).symm)
+    nlinarith [sq_nonneg t]
+  have hfree : Module.Free ℤ (PkgI3.AbVar.End A) := (hHF k A A).1
+  let f := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) f :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ f).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End A) (S := ℚ))
+  obtain ⟨⟨φ, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) f c'
+  have hs' : (1 : ℚ) ⊗ₜ[ℤ] φ = (s : ℤ) • c' := by
+    rw [Submonoid.smul_def] at hs; exact hs.symm
+  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have hinj : ∀ m : PkgI3.AbVar.End A, (1 : ℚ) ⊗ₜ[ℤ] m = 0 → m = 0 := by
+    intro m hm
+    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) f).mp hm
+    rw [Submonoid.smul_def] at hs'
+    exact (smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s')
+  refine ⟨φ, ?_, ?_⟩
+  · rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    have key : (1 : ℚ) ⊗ₜ[ℤ] (q.iota a * φ - φ * q.iota a) = 0 := by
+      have e1 : ∀ x y : PkgI3.AbVar.End A,
+          (1 : ℚ) ⊗ₜ[ℤ] (x * y) = ((1 : ℚ) ⊗ₜ[ℤ] x) * ((1 : ℚ) ⊗ₜ[ℤ] y) := by
+        intro x y; rw [Algebra.TensorProduct.tmul_mul_tmul, _root_.mul_one]
+      rw [TensorProduct.tmul_sub, e1, e1, hs', mul_smul_comm, smul_mul_assoc, ← smul_sub,
+        hcen, sub_self, smul_zero]
+    exact sub_eq_zero.mp (hinj _ key)
+  · intro n hn
+    apply hnq ((n : ℚ) / (s : ℤ))
+    have h1 : algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c' =
+        algebraMap ℚ (PkgI3.AbVar.End0 A) (n : ℚ) := by
+      rw [map_intCast, map_intCast, ← zsmul_eq_mul, ← hs', hn]
+      exact map_intCast (Algebra.TensorProduct.includeRight :
+        PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A) n
+    have hs1 : ((s : ℤ) : ℚ) ≠ 0 := Int.cast_ne_zero.mpr hs0
+    calc c' = algebraMap ℚ (PkgI3.AbVar.End0 A) (((s : ℤ) : ℚ)⁻¹) *
+          (algebraMap ℚ (PkgI3.AbVar.End0 A) ((s : ℤ) : ℚ) * c') := by
+          rw [← _root_.mul_assoc, ← map_mul, inv_mul_cancel₀ hs1, map_one, _root_.one_mul]
+      _ = algebraMap ℚ _ ((n : ℚ) / (s : ℤ)) := by
+          rw [h1, ← map_mul, div_eq_inv_mul]
+
+end G0FibreSimple
+
+end
+
+end FS4Copy
+
+section EndEqOSec
+
+open CategoryTheory AlgebraicGeometry Limits
+open scoped TensorProduct Quaternion
+
+namespace G0ModField.KernelField
+
+/-- **Remaining glue 4a′ (pure algebra): `𝒪` is a maximal order of `B = (2,-3)_ℚ`.** A subring of
+`B` containing `𝒪` whose elements are integral over `ℤ` is contained in `𝒪`. STANDARD (the
+order `𝒪 = ℤ⟨1, i, (1+j)/2, (i+k)/2⟩` has reduced discriminant `6 = disc B`; Vignéras,
+*Arithmétique des algèbres de quaternions*, III §5, UNVERIFIED locator). A finite lattice
+computation; not compiled here. -/
+def OMaximal : Prop :=
+  ∀ R : Subring LeafQM.B, LeafQM.O ≤ R → (∀ x ∈ R, IsIntegral ℤ x) → R ≤ LeafQM.O
+
+/-- **`EndEqOFibre` from T27 (Yu), T6 (Mumford §19 Thm 3) and `OMaximal` (proved).** -/
+theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
+    (hmax : OMaximal) : EndEqOFibre := by
+  intro P hcom f
+  have hY := PkgI3.qmDichotomy_B6 t27 Qbar P.A P.surface G0FibreSimple.B6_isUnit
+    (G0FibreSimple.qm_embeds_end0 P.q)
+  have hB : Nonempty (PkgI3.AbVar.End0 P.A ≃ₐ[ℚ] ℍ[ℚ, 2, -3]) := by
+    rcases hY with hB | ⟨d, hd, hM⟩
+    · exact hB
+    · exfalso
+      obtain ⟨φ, hφ, hne⟩ :=
+        G0FibreSimple.centralizerOfMatrixEnd0_of_homFree hHF Qbar P.A P.q d hd hM
+      obtain ⟨n, hn⟩ := hcom φ hφ
+      exact hne n hn
+  obtain ⟨e⟩ := hB
+  let φ : LeafQM.B →ₐ[ℚ] PkgI3.AbVar.End0 P.A := (G0FibreSimple.qmBasis P.q).liftHom
+  haveI : Nontrivial (PkgI3.AbVar.End0 P.A) := e.toEquiv.nontrivial
+  have hinj : Function.Injective φ := φ.toRingHom.injective
+  haveI : FiniteDimensional ℚ (PkgI3.AbVar.End0 P.A) :=
+    LinearEquiv.finiteDimensional e.symm.toLinearEquiv
+  have hrank : Module.finrank ℚ LeafQM.B = Module.finrank ℚ (PkgI3.AbVar.End0 P.A) :=
+    e.toLinearEquiv.finrank_eq.symm
+  have hsurj : Function.Surjective φ :=
+    (LinearMap.injective_iff_surjective_of_finrank_eq_finrank hrank (f := φ.toLinearMap)).mp hinj
+  let j : PkgI3.AbVar.End P.A →ₐ[ℤ] PkgI3.AbVar.End0 P.A := Algebra.TensorProduct.includeRight
+  have hfree : Module.Free ℤ (PkgI3.AbVar.End P.A) := (hHF Qbar P.A P.A).1
+  haveI : Module.Finite ℤ (PkgI3.AbVar.End P.A) := (hHF Qbar P.A P.A).2.1
+  let tm := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End P.A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) tm :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ tm).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End P.A) (S := ℚ))
+  have hjinj : Function.Injective j := by
+    intro x y hxy
+    have hm : (1 : ℚ) ⊗ₜ[ℤ] (x - y) = 0 := by
+      rw [TensorProduct.tmul_sub]
+      exact sub_eq_zero.mpr hxy
+    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) tm).mp hm
+    rw [Submonoid.smul_def] at hs'
+    exact sub_eq_zero.mp ((smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s'))
+  -- `φ` agrees with `j ∘ ι` on `𝒪`
+  have hagree : ∀ a : LeafQM.O, φ (a : LeafQM.B) = j (P.q.iota a) := by
+    let ψ1 : LeafQM.O →+* PkgI3.AbVar.End0 P.A := φ.toRingHom.comp (Subring.subtype _)
+    let ψ2 : LeafQM.O →+* PkgI3.AbVar.End0 P.A := j.toRingHom.comp P.q.iota
+    have hi : ψ1 G0FibreSimple.oi = ψ2 G0FibreSimple.oi := by
+      show (G0FibreSimple.qmBasis P.q).lift (G0FibreSimple.oi : LeafQM.B) = _
+      simp [QuaternionAlgebra.Basis.lift, G0FibreSimple.oi, LeafQM.ofInt, G0FibreSimple.qmBasis]
+      rfl
+    have hj : ψ1 G0FibreSimple.oj = ψ2 G0FibreSimple.oj := by
+      show (G0FibreSimple.qmBasis P.q).lift (G0FibreSimple.oj : LeafQM.B) = _
+      simp [QuaternionAlgebra.Basis.lift, G0FibreSimple.oj, LeafQM.ofInt, G0FibreSimple.qmBasis]
+      rfl
+    intro a
+    obtain ⟨n, hn⟩ := a.2
+    have h2 : (2 : LeafQM.O) * a = ((2 * n 0 + n 2 : ℤ) : LeafQM.O) +
+        ((2 * n 1 + n 3 : ℤ) : LeafQM.O) * G0FibreSimple.oi +
+        ((n 2 : ℤ) : LeafQM.O) * G0FibreSimple.oj +
+        ((n 3 : ℤ) : LeafQM.O) * (G0FibreSimple.oi * G0FibreSimple.oj) := by
+      apply Subtype.ext
+      simp only [Subring.coe_add, Subring.coe_mul, Subring.coe_intCast]
+      rw [show ((2 : LeafQM.O) : LeafQM.B) = 2 from rfl, hn]
+      ext <;> simp [G0FibreSimple.oi, G0FibreSimple.oj, LeafQM.ofInt, QuaternionAlgebra.re_ofNat,
+        QuaternionAlgebra.imI_ofNat, QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;>
+        ring
+    have key : ∀ ψ : LeafQM.O →+* PkgI3.AbVar.End0 P.A, ψ ((2 : LeafQM.O) * a) =
+        ((2 * n 0 + n 2 : ℤ) : PkgI3.AbVar.End0 P.A) +
+        ((2 * n 1 + n 3 : ℤ) : PkgI3.AbVar.End0 P.A) * ψ G0FibreSimple.oi +
+        ((n 2 : ℤ) : PkgI3.AbVar.End0 P.A) * ψ G0FibreSimple.oj +
+        ((n 3 : ℤ) : PkgI3.AbVar.End0 P.A) * (ψ G0FibreSimple.oi * ψ G0FibreSimple.oj) := by
+      intro ψ
+      rw [h2]; simp only [map_add, map_mul, map_intCast]
+    have e1 : (2 : PkgI3.AbVar.End0 P.A) * ψ1 a = (2 : PkgI3.AbVar.End0 P.A) * ψ2 a := by
+      have := key ψ1
+      rw [map_mul, map_ofNat] at this
+      rw [this, hi, hj, ← key ψ2, map_mul, map_ofNat]
+    have e2 : (2 : ℚ) • ψ1 a = (2 : ℚ) • ψ2 a := by
+      rw [two_smul, two_smul, ← two_mul, ← two_mul]; exact e1
+    exact smul_right_injective (PkgI3.AbVar.End0 P.A) (two_ne_zero : (2 : ℚ) ≠ 0) e2
+  -- the order `R = φ⁻¹(End)`
+  let R : Subring LeafQM.B := (j.toRingHom.range).comap φ.toRingHom
+  have hOR : LeafQM.O ≤ R := fun x hx => ⟨P.q.iota ⟨x, hx⟩, (hagree ⟨x, hx⟩).symm⟩
+  have hint : ∀ x ∈ R, IsIntegral ℤ x := by
+    rintro x ⟨g, hg⟩
+    have h1 : IsIntegral ℤ g := Algebra.IsIntegral.isIntegral g
+    have h2 : IsIntegral ℤ (φ x) := by
+      have := h1.map j
+      rwa [show j g = φ x from hg] at this
+    exact (isIntegral_algHom_iff (φ.restrictScalars ℤ) hinj).mp h2
+  obtain ⟨x, hx⟩ := hsurj (j f)
+  have hxO : x ∈ LeafQM.O := hmax R hOR hint ⟨f, hx.symm⟩
+  refine ⟨⟨x, hxO⟩, hjinj ?_⟩
+  rw [← hagree, ← hx]
+
+/-- **Headline, with the NoCM side down to leaves + FS5 + `OMaximal` (proved).** Leaves:
+`HomFreeFinite` (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`,
+`QMDichotomyYu` (T27). Glue: FS5 `FibreComTrivial`, `OMaximal` (pure algebra),
+`EndTransport`, `ConjIsogMaps`. -/
+theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hmax : OMaximal) (hb : EndTransport)
+    (hG : ConjIsogMaps) : KernelFieldExists :=
+  kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of t27 hHFF hmax) hb
+
+end G0ModField.KernelField
+
+end EndEqOSec
+
 #print axioms G0ModField.KernelField.conjMaps_of_qm
 #print axioms G0ModField.KernelField.conjIsogMapsAt_bot
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split'
+#print axioms G0ModField.KernelField.kernelFieldExists_of_split''
+#print axioms G0ModField.KernelField.endEqOFibre_of
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
