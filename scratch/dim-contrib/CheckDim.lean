@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.Dim.IntegralHom
 import ZInQKernel.Contrib.Dim.LeafPush2
+import ZInQKernel.Contrib.Dim.HodgeLattice
 
 /-! dim-contrib: axioms of the main theorems of ZInQKernel/Contrib/Dim/. -/
 
@@ -24,3 +25,8 @@ import ZInQKernel.Contrib.Dim.LeafPush2
 #print axioms ZInQ.Contrib.Dim.dimEqTrdegOver
 #print axioms ZInQ.Contrib.Dim.smoothTrdegOver
 #print axioms ZInQ.Contrib.Dim.curveAlgOverTranscendental
+#print axioms ZInQ.Contrib.Dim.regularAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimBaseChange
+#print axioms ZInQ.Contrib.Dim.tangentDimAtOrigin
+#print axioms ZInQ.Contrib.Dim.hodgeLatticeTheorem

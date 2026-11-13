@@ -1,0 +1,57 @@
+'ZInQ.Contrib.functionalEquation5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.heckeContinuation' depends on axioms: [propext, Classical.choice, Quot.sound]
+'contribCheck_headline' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.PSide.tyzInputs_iff_readingA' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.PSide.LSeriesSummable_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.T14.brauerHasse2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.brauerReciprocity2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'T28.igusaClebschSeparation_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.t36_torsionStructure' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.T37.t37_goodReductionUnramified' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.AbVarBC.abVarBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_isIntegralHom_of_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.height_eq_natCard_of_isMaximal_mvPolynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_and_spanFinrank_localization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_stalk_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.isRegularLocalRing_stalk_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_stalk_of_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_ringKrullDim_stalk_of_smooth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_eq_trdeg_fractionRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.exists_aeval_eq_zero_of_trdeg_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_trdeg_functionField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.trdeg_functionField_eq_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdegAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.algDepOfTrdegOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.smoothTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.curveFnFieldAlgDep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.smoothTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.curveAlgOverTranscendental' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.regularAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.hodgeLatticeTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]

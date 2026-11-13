@@ -12,18 +12,27 @@ no network here).
 
 ## 0. Result
 
-- **Two developments are adopted as ten Mathlib-style modules under `ZInQKernel/Contrib/Dim/`.**
+- **Two developments are adopted as eleven Mathlib-style modules under `ZInQKernel/Contrib/Dim/`.**
   - curve-infra's dimension theory: `dim R = trdeg_K Frac R` for domains of finite type over a
     field, and `dim X = trdeg_K K(X)` for integral schemes locally of finite type over a field.
     The `ffAlgebra` forms are included.
   - infra-smooth-dim's dimension theory of smooth schemes over a field: local rings at closed
     points are regular of dimension `n`, `dim X = n`, and integral surjective morphisms preserve
     dimension.
+- **Kernel Props closed.** `HodgeLattice.lean` applies the smooth-scheme theory to the kernel's
+  own statements. It proves `ZInQ.DefFaltings.HodgeLattice.RegularAtOrigin`, `DimAtOrigin`,
+  `DimBaseChange` and `TangentDimAtOrigin`, and then
+  **`ZInQ.Contrib.Dim.hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem` with no
+  hypotheses**. This is infra-smooth-dim's `HodgeLatticeClosed.lean` §6, now importing the
+  Contrib modules in place of copies.
 - **Builds.** Every module builds with `lake build` (VERIFIED). Nine of them use Mathlib alone.
-  `LeafPush2.lean` also imports the kernel's `ZInQKernel.HDecomp.LeafPush2.R18`, for
-  `ffAlgebra`.
-- **Axioms.** All 21 main theorems depend only on `[propext, Classical.choice, Quot.sound]`
-  (VERIFIED, `scratch/dim-contrib/run_CheckDim.txt`).
+  - `LeafPush2.lean` also imports the kernel's `ZInQKernel.HDecomp.LeafPush2.R18`, for
+    `ffAlgebra`.
+  - `HodgeLattice.lean` also imports `ZInQKernel.HDecomp.Faltings.HodgeLattice` and
+    `ZInQKernel.Contrib.AbVarBC.Dim`.
+- **Axioms.** All 26 main theorems depend only on `[propext, Classical.choice, Quot.sound]`
+  (VERIFIED, `scratch/dim-contrib/run_CheckDim.txt`). The full `scratch/dim-contrib/Check.lean`
+  compiles: 39 `#print axioms` lines, all standard (VERIFIED, `run_Check.txt`).
 - **Settings.** There is no `sorry`, no `set_option maxHeartbeats` and no other `set_option`.
 - **Statement check (§1).** It found no conclusion weaker than its docstring claims and no
   vacuous statement. It found four hypotheses stronger than needed. Three are removed in the
@@ -83,7 +92,8 @@ kernel's `ffAlgebra`, which is itself an explicit ring map.
 
 ## 2. Modules (all in namespace `ZInQ.Contrib.Dim`)
 
-Build command: `lake build ZInQKernel.Contrib.Dim.<M>`. All ten succeed (VERIFIED, 09:47–09:59).
+Build command: `lake build ZInQKernel.Contrib.Dim.<M>`. All eleven succeed (VERIFIED, 09:47–09:59;
+`HodgeLattice.lean` at 11:06).
 The only warning is the generic note "imports `Mathlib` … designed for use with the module
 system", which every file importing Mathlib in this project gets. Lines are ≤ 100 characters, and
 every declaration has a docstring.
@@ -99,6 +109,7 @@ every declaration has a docstring.
 | `Trdeg.lean` | IntegralHom, MvPolynomial | `exists_ringKrullDim_eq_and_trdeg_eq`, `trdeg_eq_of_isFractionRing`, `ringKrullDim_eq_trdeg`, **`ringKrullDim_eq_trdeg_fractionRing`**, `exists_aeval_eq_zero_of_trdeg_le_one`; named `DimEqTrdegAlg`/`dimEqTrdegAlg`, `AlgDepOfTrdegOne`/`algDepOfTrdegOne` | curve-infra `Dim.lean` §1, §3 |
 | `FunctionField.lean` | Trdeg | `functionFieldAlgebra`, `sectionsAlgebra`, instance `nonempty_top_opens`, `topologicalKrullDim_affineOpen_eq_trdeg_functionField`, **`topologicalKrullDim_eq_trdeg_functionField`**; named `DimEqTrdeg`/`dimEqTrdeg` | curve-infra `Dim.lean` §2, §3 |
 | `SmoothTrdeg.lean` | FunctionField, SmoothStalk | **`trdeg_functionField_eq_of_smoothOfRelativeDimension`**, `exists_aeval_eq_zero_of_smoothOfRelativeDimension_one`, `isAlgebraic_adjoin_of_transcendental_of_trdeg_eq_one`; named `SmoothTrdeg`/`smoothTrdeg`, `CurveFnFieldAlgDep`/`curveFnFieldAlgDep` | curve-infra `tail_part` |
+| `HodgeLattice.lean` | SmoothStalk, `ZInQKernel.Contrib.AbVarBC.Dim`, `ZInQKernel.HDecomp.Faltings.HodgeLattice` | `isClosed_originPt`, `originPt_dims`, `regularAtOrigin`, `dimAtOrigin`, `dimBaseChange` (via g9-abvarbc's `PkgI3.AbVar.dim_baseChange`), `tangentDimAtOrigin`, **`hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem`**. These are the kernel's statements, not copies. | infra-smooth-dim `HodgeLatticeClosed.lean` §6 |
 | `LeafPush2.lean` | SmoothTrdeg, `ZInQKernel.HDecomp.LeafPush2.R18` | named `DimEqTrdegOver`/`dimEqTrdegOver`, `SmoothTrdegOver`/`smoothTrdegOver`, `CurveAlgOverTranscendental`/`curveAlgOverTranscendental` (over the kernel's `ZInQ.LeafPush2.ffAlgebra`) | curve-infra `tail_part` |
 
 ### 2.1 Names: old to new
@@ -144,21 +155,26 @@ Three proofs are new or changed:
 
 ### 2.3 Check files
 
-- **`scratch/dim-contrib/CheckDim.lean`** imports `Contrib.Dim.IntegralHom` and
-  `Contrib.Dim.LeafPush2` and prints the axioms of 21 main theorems.
-  - Run with `lake env lean`: all 21 are `[propext, Classical.choice, Quot.sound]` (VERIFIED,
+- **`scratch/dim-contrib/CheckDim.lean`** imports `Contrib.Dim.IntegralHom`,
+  `Contrib.Dim.LeafPush2` and `Contrib.Dim.HodgeLattice`, and prints the axioms of 26 main
+  theorems.
+  - Run with `lake env lean`: all 26 are `[propext, Classical.choice, Quot.sound]` (VERIFIED,
     `run_CheckDim.txt`).
-- **`scratch/dim-contrib/Check.lean`** is `scratch/contrib-check/Check.lean` plus two imports and
-  the same 21 `#print axioms` lines, for the integrator to merge. Its compile result is in §4.
+- **`scratch/dim-contrib/Check.lean`** is `scratch/contrib-check/Check.lean` plus three imports and
+  the same 26 `#print axioms` lines, for the integrator to merge.
+  - It compiles with `lake env lean`, after `lake build` of all its imports (11265 jobs, success,
+    `run_build_checkdeps.txt`).
+  - All 39 `#print axioms` lines are standard (VERIFIED, `run_Check.txt`).
 
 ## 3. Not adopted, and what can follow
 
-- **Closures of kernel Props.** infra-smooth-dim also closes kernel Props: `HodgeLatticeClosed.lean`
-  (`ZInQ.DefFaltings.HodgeLattice.regularAtOrigin`, `dimAtOrigin`, `dimBaseChange`,
-  `tangentDimAtOrigin`, `hodgeLatticeTheorem`), `SmoothDimProps.lean` and `CurveFactsClosed.lean`.
-  - These are applications, not the dimension theory, and the task did not ask for them.
-  - Each can now be a short module importing `ZInQKernel.Contrib.Dim.SmoothStalk` in place of its
-    copied §0–§4.
+- **Not adopted.** infra-smooth-dim's `SmoothDimProps.lean` and `CurveFactsClosed.lean` close
+  Props of curve-facts (`LeafQM.AV.Pin.SmoothStalkDimOne`, C1a, C1). Those statements are not in
+  the kernel; they live in curve-facts' scratch file.
+  - Each can become a short module importing `ZInQKernel.Contrib.Dim.SmoothStalk` once curve-facts
+    is integrated.
+  - The kernel-statement closures of `HodgeLatticeClosed.lean` §6 are adopted, as
+    `HodgeLattice.lean`.
 - **The aggregate build.** The new modules are not imported by `ZInQKernel.lean`, so a bare
   `lake build ZInQKernel` does not build them. They are built by name, like the other Contrib
   modules.

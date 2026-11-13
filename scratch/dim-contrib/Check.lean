@@ -16,6 +16,7 @@ import ZInQKernel.Contrib.RLeaf.T37GoodReduction
 import ZInQKernel.Contrib.AbVarBC.Main
 import ZInQKernel.Contrib.Dim.IntegralHom
 import ZInQKernel.Contrib.Dim.LeafPush2
+import ZInQKernel.Contrib.Dim.HodgeLattice
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -59,3 +60,8 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.Dim.dimEqTrdegOver
 #print axioms ZInQ.Contrib.Dim.smoothTrdegOver
 #print axioms ZInQ.Contrib.Dim.curveAlgOverTranscendental
+#print axioms ZInQ.Contrib.Dim.regularAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimAtOrigin
+#print axioms ZInQ.Contrib.Dim.dimBaseChange
+#print axioms ZInQ.Contrib.Dim.tangentDimAtOrigin
+#print axioms ZInQ.Contrib.Dim.hodgeLatticeTheorem

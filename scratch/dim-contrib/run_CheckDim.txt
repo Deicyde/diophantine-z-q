@@ -33,3 +33,8 @@
 'ZInQ.Contrib.Dim.dimEqTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.Dim.smoothTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.Dim.curveAlgOverTranscendental' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.regularAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.hodgeLatticeTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]

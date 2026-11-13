@@ -28,3 +28,8 @@ See docs/research/dim-contrib.md §1 for the table. Findings (VERIFIED: read):
 - CheckDim.lean (`lake env lean`): 21 main theorems, all [propext, Classical.choice, Quot.sound] (VERIFIED, run_CheckDim.txt).
 - props_compare.py: 8 named Props textually identical to curve-infra's modulo fnFieldAlgebra -> functionFieldAlgebra (VERIFIED).
 - `git diff --name-only 80b032c9 HEAD -- ZInQKernel blueprint lean`: only the ten new Contrib/Dim files (VERIFIED).
+- `lake build` of all imports of scratch/dim-contrib/Check.lean: success, 11265 jobs, EXIT 0 (VERIFIED, run_build_checkdeps.txt; 10:01-11:05, slowed by host memory pressure ~10:57 when available memory fell to 17 GB; no new Lean run was started while below 20 GB).
+- HodgeLattice.lean (imports SmoothStalk, Contrib.AbVarBC.Dim, HDecomp.Faltings.HodgeLattice): `lake build` success, no warnings (VERIFIED 11:06). Proves the kernel's RegularAtOrigin, DimAtOrigin, DimBaseChange, TangentDimAtOrigin and `hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem` (no hypotheses).
+- CheckDim.lean: 26 theorems, all [propext, Classical.choice, Quot.sound] (VERIFIED, run_CheckDim.txt).
+- Check.lean (contrib-check copy + 3 Dim imports + 26 lines): compiles, 39 #print axioms lines, all standard (VERIFIED, run_Check.txt).
+- final `lake build` of all 11 Contrib/Dim modules: up to date, success (VERIFIED 11:07).
