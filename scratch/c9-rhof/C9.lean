@@ -458,6 +458,52 @@ theorem toRep_semisimple (ρ : GaloisRep ℓ n) (h : ρ.IsSemisimple) :
     (fun v hv => hW σ v hv))
   exact ⟨W', hc, fun σ v hv => hW' σ (Submodule.mem_map_of_mem hv)⟩
 
+/-- **Irreducible (Burnside form) implies semisimple (GLUE, proved).** If the image of `ρ` spans
+`M_n(ℚ̄_ℓ)` as an algebra, the only invariant subspaces are `⊥` and `⊤`. -/
+theorem isSemisimple_of_isIrreducible (ρ : GaloisRep ℓ n) (h : ρ.IsIrreducible) :
+    ρ.IsSemisimple := by
+  intro W hW
+  let S : Subalgebra (PadicAlgCl ℓ) (Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)) :=
+    { carrier := {M | ∀ v ∈ W, M.mulVec v ∈ W}
+      mul_mem' := fun {M N} hM hN v hv => by
+        rw [← Matrix.mulVec_mulVec]; exact hM _ (hN v hv)
+      add_mem' := fun {M N} hM hN v hv => by
+        rw [Matrix.add_mulVec]; exact W.add_mem (hM v hv) (hN v hv)
+      algebraMap_mem' := fun c v hv => by
+        rw [Algebra.algebraMap_eq_smul_one, Matrix.smul_mulVec, Matrix.one_mulVec]
+        exact W.smul_mem c hv }
+  have hrange : Set.range ρ.mat ⊆ S := by
+    rintro _ ⟨σ, rfl⟩ v hv
+    exact hW σ ⟨v, hv, rfl⟩
+  have hall : ∀ M : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ), ∀ v ∈ W, M.mulVec v ∈ W := by
+    intro M
+    have : M ∈ S := by
+      have h1 := Algebra.adjoin_le hrange
+      rw [h] at h1
+      exact h1 Algebra.mem_top
+    exact this
+  by_cases hbot : W = ⊥
+  · refine ⟨⊤, hbot ▸ isCompl_bot_top, fun σ => le_top⟩
+  · obtain ⟨w, hwW, hw0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hbot
+    obtain ⟨i, hi⟩ : ∃ i, w i ≠ 0 := by
+      by_contra hc
+      push Not at hc
+      exact hw0 (funext hc)
+    have htop : W = ⊤ := by
+      rw [eq_top_iff]
+      intro u _
+      let M : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ) :=
+        Matrix.of fun a b => if b = i then u a * (w i)⁻¹ else 0
+      have hM : M.mulVec w = u := by
+        funext a
+        simp only [M, Matrix.mulVec, dotProduct, Matrix.of_apply, ite_mul, zero_mul,
+          Finset.sum_ite_eq', Finset.mem_univ, ite_true]
+        field_simp
+      rw [← hM]
+      exact hall M w hwW
+    refine ⟨⊥, htop ▸ isCompl_top_bot, fun σ => ?_⟩
+    rw [Submodule.map_bot]
+
 end Bridge
 
 /-! ## §9. C9 against R14 and against C8's `r₅` -/
@@ -500,7 +546,9 @@ to the twist `ψ` to a normalized eigenform `g` of weight 2 and level `M` (Pan's
 Dirichlet character `ψD` mod `m` through `ιC`, `ιL` (C8 steps 1-4: determinant argument and
 Kronecker–Weber). Then there is a newform `f` of weight 2 and level `N ∣ M m²` such that for every
 `J₁(N)`: `r ≅ ρ_{f,ι}` (`ι = ιL ∘ ιC⁻¹`), their traces agree on all of `G_ℚ` (`h₅` of
-`GlueC10.c10`), and `tr ρ_{f,ι}(g) = ι(a_p(f))` at every `IsFrobAt g p`, `p ∤ Nℓ` (`hρ₅`). -/
+`GlueC10.c10`), and `tr ρ_{f,ι}(g) = ι(a_p(f))` at every `IsFrobAt g p`, `p ∤ Nℓ` (`hρ₅`).
+The hypothesis `hr` follows from Pan's hypothesis `r.IsIrreducible` by
+`isSemisimple_of_isIrreducible`. -/
 theorem c9_r5 (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
     (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
     (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
@@ -589,3 +637,4 @@ end C9Rhof
 #print axioms C9Rhof.c9_R14
 #print axioms C9Rhof.c9_r5
 #print axioms C9Rhof.c10_via_c9
+#print axioms C9Rhof.isSemisimple_of_isIrreducible
