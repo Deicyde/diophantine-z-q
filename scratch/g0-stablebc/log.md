@@ -41,3 +41,9 @@
   G0StableBC.StableHeightBaseChange := Iff.rfl`; `G0StableBC.glueOutputs_of_leaves_metrization`
   (g0-split's main theorem with `hBC` replaced by `MetrizationBaseChange`): axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- run9-10 (02:15): added `HodgeLineBaseChange` (geometric glue over group models only: natural
+  map ψ on Hodge spaces, lattice, finrank, uniformization compatibility) and the proved
+  `metrizationBaseChange_of_hodgeLine` (builds the Hodge data of 𝒢': coordinate e : L' ≃ V',
+  τ'-semilinear extension of coeff) and `stableHeightBaseChange_of_hodgeLine`. Fix: `mul_assoc`
+  ambiguous under `open MonObj`. 0 errors, no sorry, axioms standard (11 lines).
+  VERIFIED: StableHeightBaseChange ⇐ HodgeLineBaseChange.
