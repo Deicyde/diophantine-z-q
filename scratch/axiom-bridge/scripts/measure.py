@@ -17,6 +17,7 @@ import time
 parser = argparse.ArgumentParser()
 parser.add_argument("--jobs", type=int, default=4)
 parser.add_argument("--label", required=True)
+parser.add_argument("--cwd", type=Path, help="Package directory (defaults to this bridge)")
 parser.add_argument("targets", nargs="+")
 args = parser.parse_args()
 if not 1 <= args.jobs <= 4:
@@ -51,7 +52,7 @@ result = {"command": command, "jobs": args.jobs, "compiler_threads": 1,
           "min_mem_available_bytes": 2**64, "min_disk_available_bytes": 2**64}
 page = os.sysconf("SC_PAGE_SIZE")
 with (run / "build.log").open("w") as log, (run / "resources.jsonl").open("w") as samples:
-    proc = subprocess.Popen(command, cwd=root, env=env, stdout=log, stderr=subprocess.STDOUT,
+    proc = subprocess.Popen(command, cwd=(args.cwd or root).resolve(), env=env, stdout=log, stderr=subprocess.STDOUT,
                             start_new_session=True)
     while True:
         rss, compilers = 0, 0
