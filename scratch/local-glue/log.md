@@ -192,3 +192,21 @@
 - (08:00-08:02) Proved (VERIFIED): `localGlue_of_leaves (hR6) (hTors) (p ≠ ℓ) : G7Out → G7Clauses →
   KerWild → (p ≤ 5 → TateWildKE) → (p = 2 → BetaTwist2) → LocalGlue p Tm a β L`.
   Compile: exit 0, no sorry, 57 printed declarations all standard axioms.
+
+## Step 14 (08:03-08:19 PST): p <= 5 from a descent Prop
+- New: `resq_block.lean` (mk_resq_block.sh): verbatim scratch/g0-assemble/parts/75_modfield.lean
+  l.786 `numberField_of_fd`, l.895-985 `actQ`, `actK`, `resQ_comm'`, `resQ_range` (namespace `RQ`,
+  `GaloisCopy.resQ` -> `G0Galois.resQ`, `IF` -> `IntermediateField ℚ PkgI4.Qbar`).
+- New part `part_descent.lean` (§7d). New glue Prop `DescentPts A L` (IsGalois ℚ L, a model
+  `A₀ : AbVar L`, dim 2, `φ : A₀(L̄) ≃* A(K̄)` with `φ ∘ σ₀ = σ' ∘ φ` when `resQ L σ₀ = resQ K σ'`).
+- Proved (VERIFIED, compiled, axioms standard): `index_torsStab_le` ([G_K : Stab(A[q])] ≤ |GL₄(𝔽_q)|,
+  via a hom `G_K →* (𝔽_q⁴ ≃ₗ 𝔽_q⁴)`), `resQ_injective'`, **`torsFix_of_descent`** (R6 + I2-Tors +
+  DescentPts, prime q ≥ 3, q ≠ p, finite M ⊇ L_v ⟹ ∃ E ⊇ M, [E:ℚ_p] ≤ |GL₄(𝔽_q)|[M:ℚ_p], wild σ ∈ G_E
+  fixes A(K̄)[ℓⁿ]; E = fixedField(decomp⁻¹(resQ_L Stab) ∩ G_M), degree = index by Mathlib's
+  `IntermediateField.finrank_eq_fixingSubgroup_index`), `card_GL4_five` (= G₀),
+  `torsFixWildOdd_of_descent` (every p ≠ ℓ), `torsFixWildE_of_twist` (p ≠ 3, from BetaTwist2),
+  `tateWildKE_of_descent`, **`localGlue_of_descent`**: LocalGlue from R6, I2-Tors, `KerWild`,
+  `p ≤ 5 → DescentPts A L`, `p = 2 → BetaTwist2 β L` (with `[FiniteDimensional ℚ L]`).
+- Compile: LocalGlue.lean exit 0, 0 errors, no sorry, 63 printed declarations all
+  [propext, Classical.choice, Quot.sound] (compile.out).
+- Remaining glue for LocalGlue: KerWild, DescentPts (p ≤ 5), BetaTwist2 (p = 2). No other Prop.
