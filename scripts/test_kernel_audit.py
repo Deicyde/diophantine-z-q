@@ -14,6 +14,38 @@ AUDITOR = ROOT / "scripts/audit_kernel.lean"
 
 
 class KernelAuditTests(unittest.TestCase):
+    def fixture_env(self, directory):
+        env = dict(os.environ)
+        env["LEAN_PATH"] = str(directory)
+        env["ELAN_TOOLCHAIN"] = (ROOT / "lean-toolchain").read_text(encoding="utf-8").strip()
+        return env
+
+    def run_modules(self, sources, owned, ok, message=None):
+        with tempfile.TemporaryDirectory(prefix="kernel-audit-modules-") as tmp:
+            d = Path(tmp)
+            env = self.fixture_env(d)
+            for name, source in sources:
+                (d / (name + ".lean")).write_text(source, encoding="utf-8")
+                built = subprocess.run([LEAN, "-o", name + ".olean", name + ".lean"],
+                                       cwd=d, env=env, text=True, capture_output=True)
+                self.assertEqual(built.returncode, 0, built.stdout + built.stderr)
+            spec = {"modules": owned, "targets": [{"declaration": "Fixture.Target",
+                    "provider": "Fixture.holds"}], "exports": ["Fixture.headline"],
+                    "headline": {"declaration": "Fixture.headline",
+                                 "type_declaration": "Fixture.expected"}}
+            (d / "spec.json").write_text(json.dumps(spec), encoding="utf-8")
+            result = subprocess.run([LEAN, "--run", str(AUDITOR), "spec.json", "report.json"],
+                                    cwd=d, env=env, text=True, capture_output=True)
+            self.assertEqual(result.returncode == 0, ok, result.stdout + result.stderr)
+            if message:
+                self.assertIn(message, result.stdout + result.stderr)
+            if ok:
+                return json.loads((d / "report.json").read_text())
+
+    fixture = ("namespace Fixture\ndef Target : Prop := True\n"
+               "theorem expected : Target → Target := fun h => h\n"
+               "theorem headline : Target → Target := fun h => h\nend Fixture\n")
+
     def run_case(self, suffix, ok, message=None, target="Fixture.Target", extra_headline=False):
         with tempfile.TemporaryDirectory(prefix="kernel-audit-") as tmp:
             d = Path(tmp)
@@ -87,6 +119,74 @@ class KernelAuditTests(unittest.TestCase):
 
     def test_missing_target(self):
         self.run_case("", False, "Missing target Fixture.NoSuchTarget", "Fixture.NoSuchTarget")
+
+    def test_external_duplicate_theorem(self):
+        report = self.run_modules([
+            ("A", "import Lean\ntheorem shared : True := True.intro\n"),
+            ("B", "import Lean\ntheorem shared : True := (fun h : True => h) True.intro\n"),
+            ("C", "import A\nimport B\n" + self.fixture),
+        ], ["C", "B"], True)
+        self.assertGreaterEqual(report["duplicate_theorem_bodies_rechecked"], 1)
+
+    def test_external_duplicate_cannot_hide_axiom(self):
+        self.run_modules([
+            ("BadLibrary", "import Lean\naxiom forbidden : True\n"),
+            ("A", "import Lean\ntheorem shared : True := True.intro\n"),
+            ("B", "import BadLibrary\ntheorem shared : True := forbidden\n"),
+            ("C", "import A\nimport B\n" + self.fixture),
+        ], ["C", "B"], False, "Forbidden axiom forbidden")
+
+    def test_project_duplicates_in_both_import_orders(self):
+        for imports in ("A B", "B A"):
+            with self.subTest(imports=imports):
+                report = self.run_modules([
+                    ("A", "import Lean\ntheorem shared : True := True.intro\n"),
+                    ("B", "import Lean\ntheorem shared : True := (fun h : True => h) True.intro\n"),
+                    ("C", "".join("import " + m + "\n" for m in imports.split()) + self.fixture),
+                ], ["C", "A", "B"], True)
+                self.assertGreaterEqual(report["duplicate_theorem_bodies_rechecked"], 2)
+
+    def test_project_duplicate_cannot_hide_axiom(self):
+        for imports in ("A B", "B A"):
+            with self.subTest(imports=imports):
+                self.run_modules([
+                    ("BadLibrary", "import Lean\naxiom forbidden : True\n"),
+                    ("A", "import Lean\ntheorem shared : True := True.intro\n"),
+                    ("B", "import BadLibrary\ntheorem shared : True := forbidden\n"),
+                    ("C", "".join("import " + m + "\n" for m in imports.split()) + self.fixture),
+                ], ["C", "A", "B"], False, "Forbidden axiom forbidden")
+
+    def test_actual_project_module_in_external_closure(self):
+        self.run_modules([
+            ("Project", "import Lean\n" + self.fixture),
+            ("External", "import Project\n"),
+            ("C", "import External\n"),
+        ], ["C", "Project"], False, "Project module leaked into external base: Project")
+
+    def test_duplicate_body_is_kernel_checked(self):
+        # Exercise an invalid serialized proof body directly. A source compiler
+        # normally rejects it before serialization; a duplicate must still be
+        # checked rather than inherit a valid copy from the imported environment.
+        with tempfile.TemporaryDirectory(prefix="kernel-audit-body-") as tmp:
+            d = Path(tmp)
+            env = self.fixture_env(d)
+            (d / "Auditor.lean").write_bytes(AUDITOR.read_bytes())
+            built = subprocess.run([LEAN, "-o", "Auditor.olean", "Auditor.lean"],
+                                   cwd=d, env=env, text=True, capture_output=True)
+            self.assertEqual(built.returncode, 0, built.stdout + built.stderr)
+            for value, ok in (("True.intro", True), ("Nat.zero", False)):
+                with self.subTest(value=value):
+                    source = ("import Auditor\nopen Lean\n#eval do\n"
+                              "  let env ← importModules #[{ module := `Lean, importAll := true }] {}\n"
+                              "  let ci := ConstantInfo.thmInfo { name := `shared, levelParams := [], "
+                              "type := mkConst `True, value := mkConst `" + value + ", all := [`shared] }\n"
+                              "  checkDuplicateBody env.toKernelEnv ci 0\n")
+                    (d / "Probe.lean").write_text(source, encoding="utf-8")
+                    result = subprocess.run([LEAN, "Probe.lean"], cwd=d, env=env,
+                                            text=True, capture_output=True)
+                    self.assertEqual(result.returncode == 0, ok, result.stdout + result.stderr)
+                    if not ok:
+                        self.assertIn("Invalid duplicate theorem body shared", result.stdout + result.stderr)
 
 
 if __name__ == "__main__":

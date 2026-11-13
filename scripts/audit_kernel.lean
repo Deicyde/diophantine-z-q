@@ -49,6 +49,32 @@ def exactType (env : Environment) (proof : Name) (expected : Expr) : IO Unit := 
   | .ok true => pure ()
   | _ => throw (IO.userError s!"Wrong full type of {proof}. Additional hypotheses are not allowed.")
 
+-- Lean may realize the same auxiliary theorem independently in several modules.
+-- Importing merges matching theorem signatures, but their proof bodies may differ.
+def sameTheoremSignature (a b : ConstantInfo) : Bool :=
+  match a, b with
+  | .thmInfo x, .thmInfo y =>
+    x.name == y.name && x.type == y.type &&
+      x.levelParams == y.levelParams && x.all == y.all
+  | _, _ => false
+
+-- Replay deliberately skips a theorem already present with the same signature.
+-- Check each raw duplicate body separately, under an unused name, so importing
+-- cannot hide an invalid body behind another module's copy.
+def checkDuplicateBody (env : Kernel.Environment) (ci : ConstantInfo) (i : Nat) : IO Unit := do
+  let .thmInfo info := ci |
+    throw (IO.userError s!"Non-theorem duplicate {ci.name}")
+  let mut j := i
+  let mut fresh := Name.num `_kernelAuditDuplicate j
+  while (env.find? fresh).isSome do
+    j := j + 1
+    fresh := Name.num `_kernelAuditDuplicate j
+  let decl := Declaration.thmDecl { info with name := fresh, all := [fresh] }
+  match env.addDeclCore 0 0 decl (cancelTk? := none) with
+  | .ok _ => pure ()
+  | .error e =>
+    throw (IO.userError s!"Invalid duplicate theorem body {ci.name}: {← e.toMessageData {} |>.toString}")
+
 def main (args : List String) : IO Unit := do
   let [specPath, outputPath] := args |
     throw (IO.userError "usage: audit_kernel SPEC.json REPORT.json")
@@ -59,7 +85,9 @@ def main (args : List String) : IO Unit := do
   initSearchPath (← findSysroot)
   let env ← importModules (modules.map fun m => { module := m, importAll := true }) {}
   let mut owned : Std.HashMap Name ConstantInfo := {}
-  let mut owner : Std.HashMap Name Name := {}
+  let mut rawOwned : Array ConstantInfo := #[]
+  let mut duplicates : NameSet := {}
+  let mut roots : NameSet := {}
   let mut external : NameSet := {}
   let mut found : NameSet := {}
   for i in [:env.header.modules.size] do
@@ -67,21 +95,47 @@ def main (args : List String) : IO Unit := do
     if modules.contains m then
       found := found.insert m
       let data := env.header.moduleData[i]!
+      unless data.constNames.size == data.constants.size do
+        throw (IO.userError s!"Malformed declaration table in {m}")
+      for n in data.constNames, ci in data.constants do
+        unless n == ci.name do
+          throw (IO.userError s!"Mismatched declaration name in {m}: {n}")
       for imp in data.imports do
         unless modules.contains imp.module do external := external.insert imp.module
-      for n in data.constNames do
-        let some ci := env.find? n | throw (IO.userError s!"Missing declaration {n} in {m}")
+      for ci in data.constants do
+        let n := ci.name
+        rawOwned := rawOwned.push ci
+        -- Read the serialized body, not env.find?, which can select a different
+        -- module's duplicate. Include every raw body's dependency roots.
+        if ci.isAxiom && n != `propext && n != `Quot.sound && n != `Classical.choice then
+          throw (IO.userError s!"Forbidden axiom {n}")
+        for dep in ci.getUsedConstantsAsSet do roots := roots.insert dep
+        roots := roots.insert n
+        if let some previous := owned[n]? then
+          unless sameTheoremSignature previous ci do
+            throw (IO.userError s!"Incompatible project declaration copies: {n}")
+          duplicates := duplicates.insert n
         owned := owned.insert n ci
-        owner := owner.insert n m
   for m in modules do
     unless found.contains m do throw (IO.userError s!"Module not imported: {m}")
   let base ← importModules (external.toArray.map fun m => { module := m, importAll := true }) {}
-  for (n, _) in owned.toList do
-    if base.contains n then throw (IO.userError s!"Project declaration leaked into external base: {n}")
+  for imported in base.header.modules do
+    if modules.contains imported.module then
+      throw (IO.userError s!"Project module leaked into external base: {imported.module}")
+  for (n, ci) in owned.toList do
+    if let some existing := base.find? n then
+      unless sameTheoremSignature existing ci do
+        throw (IO.userError s!"Incompatible declaration in external base: {n}")
+      duplicates := duplicates.insert n
   -- This checks project declarations even on a root build-cache hit.
   let replayed ← base.toKernelEnv.replay owned
+  let mut duplicateBodies := 0
+  for ci in rawOwned do
+    if duplicates.contains ci.name then
+      checkDuplicateBody replayed ci duplicateBodies
+      duplicateBodies := duplicateBodies + 1
   let verified := Environment.ofKernelEnv replayed
-  let axioms ← auditClosure env (owned.toList.map Prod.fst)
+  let axioms ← auditClosure env roots.toList
   let headline ← field spec "headline"
   let headlineName := (← stringField headline "declaration").toName
   let expectedName := (← stringField headline "type_declaration").toName
@@ -115,6 +169,8 @@ def main (args : List String) : IO Unit := do
     ("schema", toJson "kernel-audit/v1"), ("status", toJson "passed"),
     ("modules", toJson (modules.map Name.toString)),
     ("declarations", toJson owned.size),
+    ("raw_declaration_occurrences", toJson rawOwned.size),
+    ("duplicate_theorem_bodies_rechecked", toJson duplicateBodies),
     ("runtime_declarations_not_replayed", toJson (skipped.map fun (n, _) => n.toString)),
     ("allowed_axioms_used", toJson (axioms.toList.map Name.toString)),
     ("headline", toJson headlineName.toString),

@@ -936,13 +936,13 @@
     "lean/lake-manifest.json": "a770787f33b5824f61a0731d59e67fca3f44a531b21d1fc1a804064c6fb54e58",
     "lean/lakefile.toml": "632fda3c75f7616378b9dadd0906d9518c7b4a1199c59d7b36369121acfb3b26",
     "lean/lean-toolchain": "ca5f1f601d34c49079e38d7e7041eb0f2a9c227fbc1df0f404820069a052330c",
-    "scripts/audit_kernel.lean": "a7f0abc284a03a9a8f979293a3d4697fe6036fb6679d6c8fca48dfc7977fcc13",
+    "scripts/audit_kernel.lean": "673af3d23f5433cb17145e9de8cac97b40a7d513281b7c2a726fb19ca089facc",
     "scripts/check_kernel.py": "1dc77a83fba91142ed01dde700a57d8a05310ea81367f7a3ced2ddfe7b0bcd38",
     "scripts/check_kernel_contract.py": "ff1f2dd9f5b19f96d314934fede23c6ff0b6a57bb82671050913050c7aae4d5e",
     "scripts/check_target.py": "3217b013bf839c4166dfbbfe6fb560a2d3b56bc1408addbfc08646807dfa2e25",
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
-    "scripts/test_kernel_audit.py": "147d8bfac5ecd7eaaf42613b1cc808296f373d5f828f6165b69575ed1cf186b5",
+    "scripts/test_kernel_audit.py": "81e103c0f06f5840ddd64ff997288a703e69557e39f1779f66bbd8c3ce3b0469",
     "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45"
   },
   "targets": [
