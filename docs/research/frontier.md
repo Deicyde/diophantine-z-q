@@ -1,7 +1,7 @@
 # frontier: every open Prop on the path to `ZInQ.FrozenTarget`
 
 Task frontier, 2026-11-13. Base: fork main b7cdba8e (merged into wip/frontier). Branch snapshot: the commits in
-`scratch/frontier/refs.txt` (refreshed 14:35 PST, §8). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
+`scratch/frontier/refs.txt` (refreshed 15:40 PST, §8). Lean: `scratch/frontier/TYZChain.lean`, `TopChain.lean` (compiled).
 Mechanical check: `scratch/frontier/chain.py` (with `chainlib.py`), output `scratch/frontier/chain_out.txt`.
 Results log: `scratch/frontier/log.md`. Working notes from three read-only survey agents:
 `scratch/frontier/agent-{h-glue,h-leaves,tyz}.md`. No existing project file was edited. Model work; no human review.
@@ -21,17 +21,17 @@ it is still GLUE.
 ## 0. Main result
 
 **The list.** If every proof and reduction that today's branches compiled is folded in (scenario F, §5), the
-open Props on the path to `ZInQ.FrozenTarget` are **72: 22 LEAF and 50 GLUE**:
+open Props on the path to `ZInQ.FrozenTarget` are **70: 21 LEAF and 49 GLUE**:
 
 | premise | open Props | LEAF | GLUE | table |
 |---|---|---|---|---|
 | GZ, `Literature.GrossZagier` | 2 | 0 | 2 | §2.2 |
 | TYZ, `Literature.TYZThm35ReadingA` | 7 | 3 | 4 | §3.2 |
 | H, `SixContactMin`: research-level bundle fields | 21 | 7 | 14 | §4.2 |
-| H: textbook bundle fields | 18 | 8 | 10 | §4.3 |
-| H: glue bundle fields still open | 13 | 0 | 13 | §4.4 |
-| H: new Props from today's reductions | 11 | 4 | 7 | §4.5 |
-| **total** | **72** | **22** | **50** | |
+| H: textbook bundle fields | 17 | 7 | 10 | §4.3 |
+| H: glue bundle fields still open | 14 | 0 | 14 | §4.4 |
+| H: new Props from today's reductions | 9 | 4 | 5 | §4.5 |
+| **total** | **70** | **21** | **49** | |
 
 Six more bundle fields (R1(d) reciprocity `r1rec`, R3, R5(ii), R7(b), R8, T10) are hypotheses of the compiled H
 assembly but are never projected by its proof (§4.6); they are not on the list, and removing them needs only a restated
@@ -41,17 +41,17 @@ bundle (not done).
 - **GZ and TYZ: compiled.** `ZInQ.Frontier.frozenTarget_of_open` (this task, `scratch/frontier/TYZChain.lean`,
   compiled, standard axioms) derives `ZInQ.FrozenTarget` from H and exactly the 9 GZ and TYZ Props of the list.
 - **H, scenario A ("compiled").** assemble-port's compiled `HDec.HSyn.sixContactMin_of_leaves5` (C4, flat file checked
-  by its task) gives the kernel's `ZInQ.SixContactMin` from three bundles of 26 + 18 + 28 fields. With
+  by its task) gives the kernel's `ZInQ.SixContactMin` from three bundles of 26 + 17 + 27 fields. With
   `frozenTarget_of_open` this is a composite of two compiled theorems that meet at the kernel Prop `ZInQ.SixContactMin`,
-  so the composite is modus ponens. Its open set is 81 Props (§5.1). It differs from the list in 6 fields of C4
-  (`piTwistC`, `sphereFactorAffine` proved; `homLinearLift`, `properSmoothGenConnected`, `t40`, `t26` reduced) and in
-  the 3 Props those reductions add (`HoloHomLift`, `ZariskiConnectedness`, `X0Transitive`): 81 − 6 + 3 = 78 = the 72 of
-  the list + the 6 never-projected fields.
-- **H, scenario F ("frontier").** A plus 10 theorem edges on the route (55 edges are checked in all, including
+  so the composite is modus ponens. Its open set is 79 Props (§5.1). It differs from the list in 5 fields of C4
+  (`piTwistC`, `sphereFactorAffine` proved; `properSmoothGenConnected`, `t40`, `t26` reduced) and in the 2 Props those
+  reductions add (`ZariskiConnectedness`, `X0Transitive`): 79 − 5 + 2 = 76 = the 70 of the list + the 6 never-projected
+  fields.
+- **H, scenario F ("frontier").** A plus 9 theorem edges on the route (55 edges are checked in all, including
   superseded ones), each a theorem that compiles on its branch per the branch's own log. The edges live in different
   Lean files ("worlds"), so **the composite of scenario F is not compiled anywhere**. `chain.py` checks every edge
   textually (each theorem's hypotheses and conclusion: 0 mismatches), checks that every proved or reduced H bundle Prop
-  has the same `def` text in the proving file as in C4's file (6 of 6 identical, §5.2), and checks that the tables of
+  has the same `def` text in the proving file as in C4's file (5 of 5 identical, §5.2), and checks that the tables of
   this report list exactly the open set.
 
 **Declarations proved by this task.** All compile with `lake env lean` (exit 0, no `sorry`), and `#print axioms` gives
@@ -99,7 +99,7 @@ is likely false as stated (linked-ram F1; route T below avoids it); STATUS.md an
 | C1 | `ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves` | `Contrib/GZDecomp/Decomp.lean` @ main | `SixContactMin`, `TYZThm35ReadingA`, `HeckeThetaNewform`, `FHNonvanishing`, `GrossZagierHeegner` → `FrozenTarget` (via `GrossZagierCd`; `HeckeContinuation`, `FunctionalEquation5` discharged by the proved `ZInQ.Contrib.heckeContinuation`, `functionalEquation5`) |
 | C2 | `ZInQ.GZTheta.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishing_grossZagierHeegner` | `Contrib/GZTheta/NewCMFinal.lean` @ wip/atkin-li 6f77abb1 | `SixContactMin`, `TYZThm35ReadingA`, `FHNonvanishing`, `GrossZagierHeegner` → `FrozenTarget` |
 | C3 | TYZ: §3.1 | | → `TYZThm35ReadingA` |
-| C4 | H: `HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5)` | `scratch/assemble-port/AssemblePort.lean` L116639 @ wip/assemble-port cd031f5b (flat file, 116 699 lines: `lake env lean` exit 0 in 1123 s, 0 errors, no `sorry`, 290 axiom reports all standard; REPORTED by its log, `flat_summary.txt`) | → `ZInQ.SixContactMin`; 26 + 18 + 28 fields (§4) |
+| C4 | H: `HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5)` | `scratch/assemble-port/AssemblePort.lean` L116751 @ wip/assemble-port 92a27877 (final; flat file, 116 813 lines: `lake env lean` exit 0 in 1126 s, 0 errors, no `sorry`, 293 axiom reports all standard; REPORTED by its log, `flat_summary.txt`) | → `ZInQ.SixContactMin`; 26 + 17 + 27 fields (§4) |
 | C5 | g0-assemble3's `HSyn.sixContactMin_of_leaves4` (46 glue fields) | `scratch/g0-assemble3/G0Assemble3.lean` L90474 @ 357f5d9e | C4 is its port to the HDec world, with most glue fields proved or reduced, 3 moved to the research bundle, 1 bypassed by T35, and lt-local's route for the linked-Tate block (assemble-port's report) |
 | C6 | H, per field: §4 | | each open field, or the Props it was reduced to |
 
@@ -169,13 +169,13 @@ read by AI agents in the arXiv version only; `Lnnnn` are lines of its source `Pe
 
 ## 4. H: `ZInQ.SixContactMin`
 
-Base: assemble-port's compiled C4 (wip/assemble-port cd031f5b). It folds, from today's branches, cpts-transport,
-ts-kummer and kummer-comp (all seven pieces), lt-local (route T, with lg-kerwild and frob-contrib's `UnramRoots`), hodge-bc2, twist-descent, period-glue (S8, W8, QMTwist), ts-hecke, hecke-rest, lt-goodred,
+Base: assemble-port's compiled C4 (wip/assemble-port 92a27877). It folds, from today's branches, cpts-transport,
+ts-kummer and kummer-comp (all seven pieces), hom-unify (`HomLatticeCorr`), lt-local (route T, with lg-kerwild and frob-contrib's `UnramRoots`), hodge-bc2, twist-descent, period-glue (S8, W8, QMTwist), ts-hecke, hecke-rest, lt-goodred,
 linked-ram, linked-frob (with frob-trace, alg-frob-red, afr-absfrob, frob-pieces), spread-out and leaf-fold2's T35
 transport. Worlds: **W-HDec** = `scratch/h-decomposition/Leaves.lean` in `namespace HDec` (assemble-port, leaf-fold,
 leaf-fold2, leaf-fold3); **W0** = g0-assemble3's root-namespace copy; **W-fqm** = period-map's files; **W-kern** = files
 that import `ZInQKernel.HDecomp.*` (prop-ts-glue/ts-*, the frob chain, lt-local, conj-pieces, zariski-conn, t5-torsion,
-the Contrib textbook proofs). Def locations below are the HDec copies in `AssemblePort.lean` @ cd031f5b (the same text
+the Contrib textbook proofs). Def locations below are the HDec copies in `AssemblePort.lean` @ 92a27877 (the same text
 as W0's `scratch/g0-assemble3/Leaves.lean` and parts); "K" gives the kernel copy under `ZInQKernel/HDecomp/`.
 
 ### 4.1 What scenario F applies on top of C4 (each VERIFIED by `chain.py`: signature, and def text identical to assemble-port's)
@@ -186,7 +186,6 @@ as W0's `scratch/g0-assemble3/Leaves.lean` and parts); "K" gives the kernel copy
 | `t26 : PkgI3.TateModuleFree` | ⇐ T5 | `TateFree.tateModuleFree_of_torsionStructure (hT : PkgI2.TorsionStructure)` · t5-torsion 58ac8d0b · `scratch/t5-torsion/Tate.lean` | W-kern |
 | `piTwistC` | proved from bundle fields | `PeriodGlue.piTwistC_of` at the triple from `r1r2`, with `twistOrbitFinite_of' (R1heckeProps) (T5) (AutOInnerFinite)` and `fibreTransferC_proof` · period-glue 7e1531df · PiTwist.lean; `AutOInnerFinite` proved (`autOInnerFinite`, scratch/aut-o-finite, main) | W-fqm |
 | `sphereFactorAffine` | proved | `PeriodGlue.sphereFactorAffine_proof` · period-glue 7e1531df · SFA.lean | W-fqm |
-| `homLinearLift` | ⇐ `HoloHomLift` | `G0Galois.homLinearLift_of_holoHomLift (hL : HoloHomLift)` · conj-pieces 110ae272 · Holo.lean (homlattice 89a1fc02 gives instead `StrongUniformizationExists → GAGAMorphism → HomLatticeCorr`, two leaves) | W-kern |
 | `properSmoothGenConnected` | ⇐ `ZariskiConnectedness` | `ZariskiConn.properSmoothGenConnected_of_zariskiConnectedness` · zariski-conn 3802f2bc · `Contrib/ZariskiConn/Basic.lean` | W-kern |
 
 Already in C4 at cd031f5b, so not edges here: `kummerCompositum` (kummer-comp's `kummerCompositum_final`) and route T
@@ -203,7 +202,7 @@ Locators as in h-decomposition §2.1 and locators.md (the AI locator audit). "Le
 into the Shimura-curve leaves (rv-qm-polar; locators UNVERIFIED); "H5" = these leaves have content only together with
 the finiteness of the stable Faltings height. None of the 22 is proved anywhere and none is in Tau Ceti (tc-survey §0);
 no running task targets one. Last task / newest form: as given; every one is a field of C4's `OpenResearchLeaves2`
-@ assemble-port cd031f5b.
+@ assemble-port 92a27877.
 
 | # | field : Lean name | leaf | class | citation | flags | last task |
 |---|---|---|---|---|---|---|
@@ -229,7 +228,7 @@ no running task targets one. Last task / newest form: as given; every one is a f
 | H-21 | `r17 : LadicCond.CarayolR17'` (research field in C4) | R17 | **LEAF** | Carayol, Ann. Sci. ÉNS 19 (1986), Théorème (A) (read by the audit) | | def-ladic-cond |
 | H-22 | `r14 : G0Galois.R14Det` (in C4 the research field R14 is the form with the determinant clause; g0-assemble3 had the det-free `EigenformRepExists` plus a glue field `r14Det`) | R14 with det | GLUE (the reports call it LEAF, but its locators span three publications: Shimura 1971 Thm 7.14, Deligne 1971, Deligne–Serre 1974) | as H-11 | UNVERIFIED | g0-mod-galois |
 
-### 4.3 Textbook bundle fields still open (18: 8 LEAF, 10 GLUE)
+### 4.3 Textbook bundle fields still open (17: 7 LEAF, 10 GLUE)
 
 References as in h-decomposition §2.2 (that table's heading marks all of them UNVERIFIED; only T27 was audited). K =
 kernel copy. tc-survey (wip/tc-survey 489f46bc §1): WEAKER = Tau Ceti proves a weaker case only.
@@ -243,7 +242,6 @@ kernel copy. tc-survey (wip/tc-survey 489f46bc §1): WEAKER = Tau Ceti proves a 
 | H-27 | `t7 : PkgI3.CharPolyIndepOfEll` | T7 (I3.M2) | **LEAF** | Mumford §19 Thm 4 | NOT FOUND | pkg-I3 |
 | H-28 | `t8 : PkgI3.PoincareReducibility` | T8 (I3.M3) | GLUE (over any `k` of characteristic 0; consequence) | Milne, *Abelian varieties* (Cornell–Silverman 1986), Prop. 12.1 | NOT FOUND | pkg-I3 |
 | H-29 | `t9 : LeafPush.T09_WeilPairing` | T9 | GLUE (consequence; polarization hidden). Also derivable from H-37 + H-38 by `oldT9_of_symmIsogeny` up to a universe (bridge not compiled) | Mumford §§20, 23 | WEAKER | leaf-push, weil-pairing |
-| H-30 | `t11a : ZInQ.LeafPush2.T11a_RiemannEnd` (K LeafPush2/T.lean:45) | T11(a) | **LEAF** | Mumford §§1-3; Birkenhake–Lange Prop. 1.2.1; Serre 1956 | WEAKER | leaf-push2 |
 | H-31 | `t11b : ZInQ.LeafPush2.T11b_Rigidity` | T11(b) | **LEAF** | Conrad 2006 §3; Milne 1986 §20 | NOT FOUND | leaf-push2 |
 | H-32 | `t23 : ∀ p, PkgI4.T23_FontaineClosure p` | T23 | GLUE (the form on `V^∨` is a consequence, not exact) | Fontaine, Astérisque 223, Thm 3.8 | NOT FOUND | leaf-push |
 | H-33 | `t24 : EigenformTwist` (K ModCurves/C9.lean:373) | T24 | GLUE (consequence; atkin-li's `AtkinLiTwistNew` is a different Prop) | Shimura 1971 Prop. 3.64; Atkin–Li 1978 | WEAKER | hdec-faithful |
@@ -255,7 +253,7 @@ kernel copy. tc-survey (wip/tc-survey 489f46bc §1): WEAKER = Tau Ceti proves a 
 | H-40 | `t38 : X1Belyi.CurveOfFunctionFieldQ` | T38 | GLUE (consequence) | Hartshorne I.6, II.6.7; Stacks, *Curves and function fields* | no row | x1-belyi |
 | H-41 | `ZInQ.RLeaf.X0Transitive` (`ZInQKernel/Contrib/RLeaf/IgusaX0.lean:69` @ t40-igusa e9b071d6; for T40) | T40 | GLUE (Galois transitivity on cyclic subgroups of order `N`, derived from the irreducibility of the modular equation through `C ↦ j(E_j/C)`) | Lang, *Elliptic functions*, Ch. 5 §2 Thm 3; Cox Thm 11.18; Shimura 1971 §6.1 | no row | t40-igusa, t40-tate (both finished): `x1RationalCusp_of_x0_tateMuN`, `tateMuN` proved |
 
-### 4.4 Glue bundle fields still open (13, all GLUE; def files are g0-assemble3 parts)
+### 4.4 Glue bundle fields still open (14, all GLUE; def files are g0-assemble3 / assemble-port parts)
 
 | # | field : Lean name | def part | content; nearest published sources (UNVERIFIED) | report's label | last task; running |
 |---|---|---|---|---|---|
@@ -272,18 +270,17 @@ kernel copy. tc-survey (wip/tc-survey 489f46bc §1): WEAKER = Tau Ceti proves a 
 | H-53 | `t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists` | a35 | symmetric isogeny to a dual; "existential in D, hence a consequence" (Mumford §§6, 8, 20, 23) | LEAF | weil-pairing; no |
 | H-54 | `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | a35 | `fg = [d]`, `gf = [d]` on `K̄`-points (Mumford §7-8) | LEAF | weil-pairing; no |
 | H-55 | `divisiblePoints : WeilPairing.DivisiblePoints` | a35 | `A(K̄)` divisible (Mumford §4 Appl. 2) | LEAF | weil-pairing; no |
+| H-69 | `homLatticeCorr : HomUnify.HomLatticeCorr` | z95b (hom-unify's `H20_bundle.lean` L184-224, verbatim) | `Hom(A_ℂ, B_ℂ) ≅ {M : MΛ_A ⊆ Λ_B}` through analytic uniformizations: lifting over any `K` with `σ : K → ℂ`, realization over `ℂ`; replaces T11(a), `homLinearLift`, `t11aRiemannHom`. homlattice: true and no stronger than the literature, but not printed in this form (uniformization, GAGA, algebraic ⇒ holomorphic, Birkenhake–Lange Prop. 1.2.1; Mumford §1, §3; Serre 1956) | LEAF (textbook) | hom-unify, folded by assemble-port 5f944406; no |
 
-(13 = H-42..H-55 without H-49; g0-assemble3's field `analyticUniformizationOfDim` is gone in C4 (it follows from T35).
+(14 = H-42..H-55 without H-49, plus H-69; g0-assemble3's field `analyticUniformizationOfDim` is gone in C4 (it follows from T35).
 Field 33 `twistDescent` and H-49 `kummerCompositum` are proved and not counted.)
 
-### 4.5 New Props from today's reductions (11: 4 LEAF, 7 GLUE)
+### 4.5 New Props from today's reductions (9: 4 LEAF, 5 GLUE)
 
 | # | Lean name | def file @ commit | from field | class; content; sources (UNVERIFIED) | last task; running |
 |---|---|---|---|---|---|
-| H-57 | `HSyn.G0Split.FibreQM.PeriodGlue.T11aRiemannHom` | period-glue `scratch/period-glue/QMTwist.lean` L29 @ 7e1531df | 12 | GLUE (Riemann's theorem for homomorphisms over ℂ; Birkenhake–Lange 1.2.1 + GAGA; report: textbook leaf) | period-glue (finished 12:05); homlattice (running) reduces T11(a)-type statements to analytic leaves |
 | H-58 | `HSyn.G0Split.FibreQM.PeriodGlue.GammaStarGen` | `W8.lean` L415 @ 7e1531df | 16 | GLUE (generators of `Γ*` as explicit `Sp₄(ℤ)` matrices; Takeuchi 1977; report: leaf candidate, "flagged") | period-glue |
 | H-59 | `TSHecke.Y3Connected` | ts-hecke `scratch/ts-hecke/TSHecke.lean` L6101 @ ff8e6731 | 28 | GLUE (π₀ of the Shimura curve, Deligne 389 §§2-3, Milne, plus an orbit computation; report: "leaf R1conn") | ts-hecke |
-| H-60 | `G0Galois.HoloHomLift` | conj-pieces `scratch/conj-pieces/Holo.lean` L52 @ 110ae272 | 35 | GLUE (holomorphic homomorphisms of complex tori lift linearly; report: textbook leaf) | conj-pieces; hom-unify (finished) proposes the stronger `HomLatticeCorr`; homlattice running |
 | H-61 | `QMAutCard` | hecke-rest `scratch/hecke-rest/HeckeRestAll.lean` L7369 @ 6c2c1d76 | 31 | GLUE (`|Aut(A,ι)|` = 4, 6, 2 by CM type: consequences of Shimura's classification, Ann. of Math. 78 (1963); Rotger, Crelle 561 (2003) §2) | hecke-rest (finished) |
 | H-62 | `SerreRigidity3` | same, L7382 | 31 | GLUE (Serre's lemma at level 3, finite-order form; Serre, Sém. Cartan 13 (1960/61) exp. 17 appendix; Silverberg–Zarhin, JPAA 111 (1996); Mumford §21 Thm 5) | hecke-rest |
 | H-63 | `ALFixedPoints` | same, L7395 | 31 | GLUE (fixed points of the Atkin–Lehner involutions on `X₆` are CM by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]`; Rotger, Trans. AMS 356 (2004) §§2-4; Ogg 1983; plus an embedding check) | hecke-rest |
@@ -312,16 +309,16 @@ the unused textbook fields T1, T3, T4 (as textbook fields), T16(b), T20, T21, T2
 
 ### 5.1 Scenario A (compiled composite)
 
-`python3 scratch/frontier/chain.py A`: 0 signature mismatches; 81 open nodes = the 26 + 18 + 28 = 72 fields of C4's
-`OpenResearchLeaves2`, `OpenTextbookLeaves2`, `GluePieces5` (every field expanded from the structure as read in
-`AssemblePort.lean` @ cd031f5b) plus the 9 TYZ and GZ hypotheses of C0. This is exactly the hypothesis list of the
+`python3 scratch/frontier/chain.py A`: 0 signature mismatches; 79 open nodes = the 26 + 17 + 27 = 70 fields of C4's
+`OpenResearchLeaves2`, `OpenTextbookLeaves5`, `GluePieces5` (every field expanded from the structure as read in
+`AssemblePort.lean` @ 92a27877) plus the 9 TYZ and GZ hypotheses of C0. This is exactly the hypothesis list of the
 composite of two compiled theorems (C0, C4).
 
 ### 5.2 Scenario F (frontier)
 
-`python3 scratch/frontier/chain.py F`: 0 signature mismatches over the 55 theorem edges in the file (12 of them on the
-route, counting C0 and C4); 78 open nodes = the 72 of §0 + the 6 never-projected fields of §4.6. The def text of every C4 Prop that a route
-edge proves or reduces is identical in the proving file and in `AssemblePort.lean` (6 of 6). For route T, the defs of
+`python3 scratch/frontier/chain.py F`: 0 signature mismatches over the 55 theorem edges in the file (11 of them on the
+route, counting C0 and C4); 76 open nodes = the 70 of §0 + the 6 never-projected fields of §4.6. The def text of every C4 Prop that a route
+edge proves or reduces is identical in the proving file and in `AssemblePort.lean` (5 of 5). For route T, the defs of
 `LinkedTateLocal`, `G7Data` (with `[L:ℚ] ≤ D`), `FibreSimple` and `QMEndRank` in lt-local's `LtLocal4.lean` are identical
 to C4's; `FibreSimple` is derived inside the assembly (`G0FibreSimple.fibreSimple_of_leaves` from bundle fields), so it
 is not an open Prop. `TateBridge35` has the same text in frob-pieces' and lt-local's files, `G15Ram.UnramRoots` in
@@ -330,7 +327,7 @@ unram-roots' and lt-local's; and C4's defs of the leaves that W-kern files take 
 `QMDichotomyYu`, `CharPolyIndepOfEll`) are identical to the kernel's `ZInQKernel/HDecomp/Objects.lean` (VERIFIED).
 
 `python3 scratch/frontier/chain.py doc` compares the rows `Z-n`, `T-n`, `H-n` of this report with the scenario-F open
-set minus the never-projected fields: VERIFIED equal (72 rows).
+set minus the never-projected fields: VERIFIED equal (70 rows).
 
 What the script does not check: that the edges compose in one Lean environment (the worlds differ; §6.3); argument
 instantiation (for example `piTwistC_of` is applied at the triple chosen from `r1r2`, and `G15Ram.UnramRoots` at
@@ -339,13 +336,12 @@ instantiation (for example `piTwistC_of` is applied at the triple chosen from `r
 ## 6. Integration state
 
 ### 6.1 Composites that exist
-- **C4, assemble-port** (W-HDec, cd031f5b): 26 + 18 + 28 fields, flat file compiled (1123 s). Its docstring and report
-  label the 28 glue fields "18 LEAF, 7 LEAF?, 3 GLUE"; under the strict rule of this report only the three EGA IV fields
-  are LEAF (and `properSmoothGenConnected` reduces to the LEAF `ZariskiConnectedness`), the rest GLUE. Its later state
-  5f944406 (14:17; olean-chain check standard axioms, no flat check yet) folds hom-unify: `HomUnify.HomLatticeCorr`
-  replaces T11(a), `homLinearLift` and `t11aRiemannHom` (17 textbook + 27 glue fields). homlattice found
-  `HomLatticeCorr` true but not printed in that form (four pieces: uniformization, GAGA, algebraic ⇒ holomorphic,
-  Birkenhake–Lange 1.2.1), so it is GLUE; adopting it would trade H-30 (LEAF), H-57 and H-60 (GLUE) for one GLUE Prop.
+- **C4, assemble-port** (W-HDec, 92a27877, final): 26 + 17 + 27 fields, flat file compiled (1126 s). Its docstring and
+  report label the 27 glue fields "17 LEAF, 7 LEAF?, 3 GLUE"; under the strict rule of this report only the three EGA IV
+  fields are LEAF (and `properSmoothGenConnected` reduces to the LEAF `ZariskiConnectedness`), the rest GLUE. Its
+  previous flat-checked state cd031f5b kept T11(a), `homLinearLift` and `t11aRiemannHom` instead of `HomLatticeCorr`;
+  with that base the list would have T11(a) (LEAF), `T11aRiemannHom` and `HoloHomLift` (GLUE) in place of H-69 (72 Props,
+  22 LEAF). homlattice reduces `HomLatticeCorr` further to `StrongUniformizationExists` + `GAGAMorphism` (not folded).
 - leaf-fold3 (W-HDec, f7951690, flat file compiled 1042 s): `HDec.HSyn.sixContactMin_of_open3` with 68 Props
   (26 + 20 + 16 + 6 glue); period-map's reductions not folded, so coarser than C4.
 - Earlier, superseded: g0-assemble3 (W0, 46 glue fields); cpts-transport (W0, 44); linked-ram (W0, 45); lt-goodred,
@@ -355,8 +351,8 @@ instantiation (for example `piTwistC_of` is applied at the triple chosen from `r
   `ZariskiConnGlue.tateBridge35_of_neron_zariski_nmp`; `ZInQ.SpreadOutFull.tateBridge35_of_ega_nmp`.
 
 ### 6.2 What folding scenario F into C4 needs
-Six fields (§4.1). `piTwistC`, `sphereFactorAffine` are W-fqm proofs (paste; assemble-port already pasted period-glue's
-S8/W8/QMTwist parts); `homLinearLift`, `properSmoothGenConnected`, `t26`, `t40` are W-kern proofs whose def texts match
+Five fields (§4.1). `piTwistC`, `sphereFactorAffine` are W-fqm proofs (paste; assemble-port already pasted period-glue's
+S8/W8/QMTwist parts); `properSmoothGenConnected`, `t26`, `t40` are W-kern proofs whose def texts match
 C4's (§5.2), to be re-copied as assemble-port did for the other W-kern files. leaf-fold3 reports that
 `Contrib/RLeaf/T40.lean` cannot be imported next to the chain's Tau Ceti modules (a duplicate
 `Units.val_mul_zpow_natCast_mul` from Tau Ceti's Backport copy), so `t40` needs a copy, not an import.
@@ -388,17 +384,17 @@ C4's (§5.2), to be re-copied as assemble-port did for the other W-kern files. l
 6. **Statement changes proposed here: none.** (Finding 2 is linked-ram's proposal, adopted by assemble-port; gz-decomp's
    `GrossZagierCd` and gz-statements' restricted GZ leaves are on record.)
 
-## 8. Tasks (snapshot 14:35 PST; heads in `scratch/frontier/refs.txt`)
+## 8. Tasks (snapshot 15:40 PST; heads in `scratch/frontier/refs.txt`)
 
 Finished, with results used above: tyz-cm (0ad48a7d), cm-bridge (ed50dc33), t40-tate (7ed2ca99), t40-igusa (e9b071d6),
 twist-descent, ts-kummer (1bbe3543), kummer-comp (423d6b7c), hecke-rest (6c2c1d76), period-glue (7e1531df), spread-out
-(aa304ed7), zariski-conn (3802f2bc), t5-torsion (58ac8d0b), lt-local, assemble-port's flat check (cd031f5b), leaf-fold3
+(aa304ed7), zariski-conn (3802f2bc), t5-torsion (58ac8d0b), lt-local, assemble-port (92a27877, final), leaf-fold3
 (f7951690). Finished, used through C4 or not on the route: linked-frob, linked-ram, hom-unify, homlattice (89a1fc02;
 `HomLatticeCorr` ⇐ `StrongUniformizationExists` + `GAGAMorphism`), kerwild-fix (f596943a; an every-ℓ `LocalGlue` in
 Glazer's normalization, still needing `EndRank4` and `AlgFrobRed`), frobchain-contrib, heightbc-contrib, mobius-contrib,
 dim-contrib, infra-hodge, gz-statements (85d344bc; see below).
 
-Running: assemble-port (5f944406, folding hom-unify; §6.1). No other task on this host has committed since 13:20.
+Running: none of the tasks on this host has committed since 14:37.
 
 gz-statements (Contrib modules `ZInQKernel/Contrib/GZStatements/{Weak,Level,Compat,Hensel}.lean` on its branch) proves
 that the narrower `ZInQ.GZStatements.FHNonvanishingCd` and `GrossZagierHeegnerCd` (restricted to `C_d`, `d ≡ 5 mod 8`,

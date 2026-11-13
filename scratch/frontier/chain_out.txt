@@ -1,21 +1,21 @@
 ===== scenario A
 edge check mismatches: 0
-open nodes: 81
+open nodes: 79
   ALFixedPoints                                 GluePieces5.alFixedPoints
   CMDescends                                    GluePieces5.cmDescends
   CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
   CarayolR17'                                   OpenResearchLeaves2.r17
-  CharPolyIndepOfEll                            OpenTextbookLeaves2.t7
-  CurveOfFunctionFieldQ                         OpenTextbookLeaves2.t38
+  CharPolyIndepOfEll                            OpenTextbookLeaves5.t7
+  CurveOfFunctionFieldQ                         OpenTextbookLeaves5.t38
   DeRhamComparisonHT                            OpenResearchLeaves2.r10
   DeligneSerreConseq                            OpenResearchLeaves2.r15
-  DimJ1Genus                                    OpenTextbookLeaves2.t34
+  DimJ1Genus                                    OpenTextbookLeaves5.t34
   DivisiblePoints                               GluePieces5.divisiblePoints
   EGAIV_17_7_8_ii                               GluePieces5.egaIV_17_7_8_ii
   EGAIV_8_10_5_xii                              GluePieces5.egaIV_8_10_5_xii
   EGAIV_8_8_2_ii                                GluePieces5.egaIV_8_8_2_ii
   EigenformHT                                   OpenResearchLeaves2.r13
-  EigenformTwist                                OpenTextbookLeaves2.t24
+  EigenformTwist                                OpenTextbookLeaves5.t24
   FHNonvanishing                                -
   FaltingsSemisimple                            OpenResearchLeaves2.r9a
   FaltingsTate                                  OpenResearchLeaves2.r9b
@@ -24,22 +24,22 @@ open nodes: 81
   GrossZagierHeegner                            -
   GrothendieckMonodromy                         OpenResearchLeaves2.r8  [never projected]
   HeckeVertWitness                              GluePieces5.heckeVertWitness
-  HomFreeFinite                                 OpenTextbookLeaves2.t6
-  HomLinearLift                                 GluePieces5.homLinearLift
+  HomFreeFinite                                 OpenTextbookLeaves5.t6
+  HomLatticeCorr                                GluePieces5.homLatticeCorr
   IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
-  JacobianExists                                OpenTextbookLeaves2.t33
+  JacobianExists                                OpenTextbookLeaves5.t33
   Lemma318Literal                               -
   Lemma321Five                                  -
   NeronMappingAbelianScheme                     GluePieces5.neronMappingAbelianScheme
-  NeronModelExists                              OpenTextbookLeaves2.t41
+  NeronModelExists                              OpenTextbookLeaves5.t41
   NeronOggShafarevich                           OpenResearchLeaves2.r7a
   PanBerger                                     OpenResearchLeaves2.r11r12
   PiTwistC                                      GluePieces5.piTwistC
-  PoincareReducibility                          OpenTextbookLeaves2.t8
+  PoincareReducibility                          OpenTextbookLeaves5.t8
   ProperSmoothGenConnected                      GluePieces5.properSmoothGenConnected
   QMAutCard                                     GluePieces5.qmAutCard
   QMClassNumberOne                              GluePieces5.qmClassNumberOne
-  QMDichotomyYu                                 OpenTextbookLeaves2.t27
+  QMDichotomyYu                                 OpenTextbookLeaves5.t27
   QMHauptmodul                                  GluePieces5.qmHauptmodul
   R03_LinYang                                   OpenResearchLeaves2.r3  [never projected]
   R14Det                                        OpenResearchLeaves2.r14
@@ -63,43 +63,41 @@ open nodes: 81
   SphereFactorAffine                            GluePieces5.sphereFactorAffine
   StableHeightFinite                            OpenResearchLeaves2.h5fin
   T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
-  T09_WeilPairing                               OpenTextbookLeaves2.t9
-  T10_TateDuality                               OpenTextbookLeaves2.t10  [never projected]
-  T11aRiemannHom                                GluePieces5.t11aRiemannHom
-  T11a_RiemannEnd                               OpenTextbookLeaves2.t11a
-  T11b_Rigidity                                 OpenTextbookLeaves2.t11b
-  T23_FontaineClosure                           OpenTextbookLeaves2.t23
+  T09_WeilPairing                               OpenTextbookLeaves5.t9
+  T10_TateDuality                               OpenTextbookLeaves5.t10  [never projected]
+  T11b_Rigidity                                 OpenTextbookLeaves5.t11b
+  T23_FontaineClosure                           OpenTextbookLeaves5.t23
   TYZLcalOne                                    -
   TYZLemma29Mod2                                -
   TYZThm11Integral                              -
-  TateModuleFree                                OpenTextbookLeaves2.t26
+  TateModuleFree                                OpenTextbookLeaves5.t26
   ThetaModularity                               OpenResearchLeaves2.r4
   ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
   Thm35First                                    -
-  TorsionStructure                              OpenTextbookLeaves2.t5
-  UniformizationExists                          OpenTextbookLeaves2.t35
+  TorsionStructure                              OpenTextbookLeaves5.t5
+  UniformizationExists                          OpenTextbookLeaves5.t35
   ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
-  X1RationalCusp                                OpenTextbookLeaves2.t40
+  X1RationalCusp                                OpenTextbookLeaves5.t40
   X6ConicModel                                  GluePieces5.x6ConicModel
   Y3Connected                                   GluePieces5.y3Connected
 ===== scenario F
 edge check mismatches: 0
-open nodes: 78
+open nodes: 76
   ALFixedPoints                                 GluePieces5.alFixedPoints
   CMDescends                                    GluePieces5.cmDescends
   CMOptimalEmbedding                            GluePieces5.cmOptimalEmbedding
   CarayolR17'                                   OpenResearchLeaves2.r17
-  CharPolyIndepOfEll                            OpenTextbookLeaves2.t7
-  CurveOfFunctionFieldQ                         OpenTextbookLeaves2.t38
+  CharPolyIndepOfEll                            OpenTextbookLeaves5.t7
+  CurveOfFunctionFieldQ                         OpenTextbookLeaves5.t38
   DeRhamComparisonHT                            OpenResearchLeaves2.r10
   DeligneSerreConseq                            OpenResearchLeaves2.r15
-  DimJ1Genus                                    OpenTextbookLeaves2.t34
+  DimJ1Genus                                    OpenTextbookLeaves5.t34
   DivisiblePoints                               GluePieces5.divisiblePoints
   EGAIV_17_7_8_ii                               GluePieces5.egaIV_17_7_8_ii
   EGAIV_8_10_5_xii                              GluePieces5.egaIV_8_10_5_xii
   EGAIV_8_8_2_ii                                GluePieces5.egaIV_8_8_2_ii
   EigenformHT                                   OpenResearchLeaves2.r13
-  EigenformTwist                                OpenTextbookLeaves2.t24
+  EigenformTwist                                OpenTextbookLeaves5.t24
   FHNonvanishing                                -
   FaltingsSemisimple                            OpenResearchLeaves2.r9a
   FaltingsTate                                  OpenResearchLeaves2.r9b
@@ -108,20 +106,20 @@ open nodes: 78
   GrossZagierHeegner                            -
   GrothendieckMonodromy                         OpenResearchLeaves2.r8  [never projected]
   HeckeVertWitness                              GluePieces5.heckeVertWitness
-  HoloHomLift                                   -
-  HomFreeFinite                                 OpenTextbookLeaves2.t6
+  HomFreeFinite                                 OpenTextbookLeaves5.t6
+  HomLatticeCorr                                GluePieces5.homLatticeCorr
   IsogenyQuasiInverse                           GluePieces5.isogenyQuasiInverse
-  JacobianExists                                OpenTextbookLeaves2.t33
+  JacobianExists                                OpenTextbookLeaves5.t33
   Lemma318Literal                               -
   Lemma321Five                                  -
   NeronMappingAbelianScheme                     GluePieces5.neronMappingAbelianScheme
-  NeronModelExists                              OpenTextbookLeaves2.t41
+  NeronModelExists                              OpenTextbookLeaves5.t41
   NeronOggShafarevich                           OpenResearchLeaves2.r7a
   PanBerger                                     OpenResearchLeaves2.r11r12
-  PoincareReducibility                          OpenTextbookLeaves2.t8
+  PoincareReducibility                          OpenTextbookLeaves5.t8
   QMAutCard                                     GluePieces5.qmAutCard
   QMClassNumberOne                              GluePieces5.qmClassNumberOne
-  QMDichotomyYu                                 OpenTextbookLeaves2.t27
+  QMDichotomyYu                                 OpenTextbookLeaves5.t27
   QMHauptmodul                                  GluePieces5.qmHauptmodul
   R03_LinYang                                   OpenResearchLeaves2.r3  [never projected]
   R14Det                                        OpenResearchLeaves2.r14
@@ -144,20 +142,18 @@ open nodes: 78
   ShimuraReciprocityModFn                       -
   StableHeightFinite                            OpenResearchLeaves2.h5fin
   T09_SymmIsogenyExists                         GluePieces5.t09SymmIsogenyExists
-  T09_WeilPairing                               OpenTextbookLeaves2.t9
-  T10_TateDuality                               OpenTextbookLeaves2.t10  [never projected]
-  T11aRiemannHom                                GluePieces5.t11aRiemannHom
-  T11a_RiemannEnd                               OpenTextbookLeaves2.t11a
-  T11b_Rigidity                                 OpenTextbookLeaves2.t11b
-  T23_FontaineClosure                           OpenTextbookLeaves2.t23
+  T09_WeilPairing                               OpenTextbookLeaves5.t9
+  T10_TateDuality                               OpenTextbookLeaves5.t10  [never projected]
+  T11b_Rigidity                                 OpenTextbookLeaves5.t11b
+  T23_FontaineClosure                           OpenTextbookLeaves5.t23
   TYZLcalOne                                    -
   TYZLemma29Mod2                                -
   TYZThm11Integral                              -
   ThetaModularity                               OpenResearchLeaves2.r4
   ThetaRatiosAlgebraic                          GluePieces5.thetaRatiosAlgebraic
   Thm35First                                    -
-  TorsionStructure                              OpenTextbookLeaves2.t5
-  UniformizationExists                          OpenTextbookLeaves2.t35
+  TorsionStructure                              OpenTextbookLeaves5.t5
+  UniformizationExists                          OpenTextbookLeaves5.t35
   ValenceBoundGammaStar                         GluePieces5.valenceBoundGammaStar
   X0Transitive                                  -
   X6ConicModel                                  GluePieces5.x6ConicModel
@@ -167,7 +163,6 @@ def-text comparison (proved/reduced Prop vs assemble-port's def; edges on the F 
   X1RationalCusp                      identical
   SphereFactorAffine                  identical
   PiTwistC                            identical
-  HomLinearLift                       identical
   ProperSmoothGenConnected            identical
   TateModuleFree                      identical
 route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
@@ -185,6 +180,6 @@ route T inputs and kernel leaf copies (def text vs g0-assemble3, and pairwise):
   CharPolyIndepOfEll   HEAD:ZInQKernel/HDecomp/Objects.lean: identical
   TateBridge35         60340bed:scratch/frob-pieces/FrobPiecesFull.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
   UnramRoots           b066d686:scratch/unram-roots/UnramRoots.lean vs 3d1b90b5:scratch/lt-local/LtLocal4.lean: identical
-doc rows: 72 (72 distinct heads); F open minus never-projected: 72
+doc rows: 70 (70 distinct heads); F open minus never-projected: 70
   in chain, not in doc: []
   in doc, not in chain: []

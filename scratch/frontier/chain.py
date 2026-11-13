@@ -26,7 +26,7 @@ import chainlib as c
 MAIN = "HEAD"
 G3 = ("357f5d9e", "scratch/g0-assemble3/G0Assemble3.lean")
 B5 = ("93a1e33c", "scratch/cpts-transport/Bundle5.lean")
-AP = ("cd031f5b", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (28 glue fields, 1123 s)
+AP = ("92a27877", "scratch/assemble-port/AssemblePort.lean")  # assemble-port final flat check (27 glue fields, 1126 s)
 
 # ---------------------------------------------------------------- edges
 # (concl, short theorem name, rev, file, [hyp heads], scenario set, note)
@@ -44,7 +44,7 @@ edge("FrozenTarget", "frozenTarget_of_open", MAIN, "scratch/frontier/TYZChain.le
       "Lemma318Literal", "Thm35First", "Lemma321Five", "FHNonvanishing", "GrossZagierHeegner"])
 
 # --- H
-edge("SixContactMin", "sixContactMin_of_leaves5", *AP, ["OpenResearchLeaves2", "OpenTextbookLeaves2", "GluePieces5"])
+edge("SixContactMin", "sixContactMin_of_leaves5", *AP, ["OpenResearchLeaves2", "OpenTextbookLeaves5", "GluePieces5"])
 # textbook fields proved in Contrib (kernel world) -- F only (in W0 they are bundle fields)
 KDEF = {"AbhyankarDVR": "Objects.lean", "BrauerHasse2C": "Conductor/I6Base.lean",
         "BrauerReciprocity2C": "Conductor/I6Base.lean", "LocalH2CardC": "Conductor/I6Base.lean",
@@ -146,7 +146,7 @@ edge("AnalyticUniformizationOfDim", "productMetrizationOfProductUnif_of_t35", "b
 # ---------------------------------------------------------------- bundles
 STRUCTS = {
     "OpenResearchLeaves2": (AP, "OpenResearchLeaves2"),
-    "OpenTextbookLeaves2": (AP, "OpenTextbookLeaves2"),
+    "OpenTextbookLeaves5": (AP, "OpenTextbookLeaves5"),
     "GluePieces5": (AP, "GluePieces5"),
 }
 # fields never projected on the route (h-leaves agent, grep of the flat file; g0-assemble3 §6)
