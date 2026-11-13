@@ -78,10 +78,11 @@ def DeuringCd (d : ℕ) : Prop :=
    equation whenever the finite Fourier transform of `c` satisfies a relation `FourierRel`).
 2. **Deuring's identity** `DeuringCd d`: `cdCoeff d n = heckeCoeff d n`. Here `cdCoeff` is the
    project's `LFunctionCd.lean` coefficient sequence of Mathlib's `L(C_d, s)`, so the identity says
-   `L(C_d, s) = L(ψ_d, s)`. It gives `HeckeContinuation5` (`heckeContinuation5_of_deuring`), and it follows from
-   `HeckeEuler d` plus agreement at the primes (`deuringCd_of_heckeEuler`). The primes `p ≡ 3 (mod 4)`,
-   `p ∣ d` and `p = 2` are proved (point counts); the split primes reduce to `d = 1` by a quadratic
-   twist and reciprocity (`gaussSplit_of_one`).
+   `L(C_d, s) = L(ψ_d, s)`. It gives `HeckeContinuation5` (`heckeContinuation5_of_deuring`). It follows
+   from the Euler product `HeckeEuler d` (proved: `heckeEuler_of_odd`, from `heckeMult` and the
+   prime-power recursion) plus agreement at the primes (`deuringCd_of_heckeEuler`). The primes
+   `p ≡ 3 (mod 4)`, `p ∣ d` and `p = 2` are proved by point counts. The split primes reduce to `d = 1`
+   by a quadratic twist and reciprocity (`gaussSplit_of_one`), and then to `GaussPointCount`.
 3. **The functional equation**: `CdFourier d` (the finite Fourier transform of the character data
    on `(ℤ/4d)²`) gives `FunctionalEquation5` with `DeuringCd`. The constants were checked in Lean
    (`const_identity`), and the root number is `(2/d) = −1`. `CdFourier d` is **proved**. It factors by
@@ -222,7 +223,7 @@ Mathlib: Hurwitz kernels, FE-pairs, hasSum_mellin, ZLattice sums, Gauss/Jacobi s
   ├─ A5 HeckeContinuation5 ⟸ ∀d DeuringCd d                        S  DONE  heckeContinuation5_of_deuring
   │
   ├─ B1 ψ_d completely multiplicative, unit-invariant              S  DONE  psi_mul, psi_units (decide)
-  ├─ B2 HeckeEuler d ⟸ HeckeMult ∧ HeckePrimePow ∧ h(1) = 1        S  DONE  heckeEuler_of_mult_primePow
+  ├─ B2 HeckeEuler d ⟸ HeckeMult ∧ HeckePrimePow ∧ h(1) = 1        S  DONE  heckeEuler_of_mult_primePow, heckeEuler_of_odd
   ├─ B2a HeckeMult d (Bezout/gcd in ℤ[i], fibres of size 4)         S  DONE  heckeMult, card_mul_fiber
   ├─ B2b HeckePrimePow at inert / ramified / bad p                   S  DONE  heckeCoeff_inert, _two_pow, _pow_of_dvd
   ├─ B2c HeckePrimePowSplit d (p ≡ 1 (4), p ∤ d)                    S  DONE  heckePrimePowSplit
