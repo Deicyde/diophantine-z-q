@@ -102,7 +102,7 @@ side instead, so only the Hecke character of `C_1` is needed:
 ## 3. What remains
 
 * **`GaussPointCount`** is the only hypothesis left (Gauss 1814; Ireland–Rosen Ch. 18 §4, STANDARD,
-  theorem number UNVERIFIED). The gauss-proof task is proving it. At 22:25 its branch had
+  theorem number UNVERIFIED). The gauss-proof task is proving it. When checked (about 22:19) its branch had
   `gauss_jacobi`, which gives the count `p + 2A` with `A² + B² = p` and a primary normalization,
   but not yet the `GaussPointCount` form.
 * `HeckeFE.lean` is a full copy of bp-hecke-fe's file (2724 lines, including the
