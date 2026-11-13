@@ -1,0 +1,156 @@
+
+/-! # hodge-bc2: `OmegaBaseChange` from the localization property of `omegaAt`
+
+* Step A (`mem_of_forall_locSub`): a vector lies in a submodule `N` over a ring `R` if for every
+  maximal ideal `P` some `d ∉ P` has `d • v ∈ N`.
+* Step B (`omegaAt_bc_local`, conormal base change at a point `s'` of `Spec 𝓞_{L'}`): every
+  `v ∈ (ω_{𝒢'})_{s'}` has a multiple `d • v`, `d ∉ s'`, in `𝓞_{L'} · π^*((ω_𝒢)_{s})`, `s` the image
+  of `s'`. From infra-stalks' `pullback_stalkGen`: `I'_{e'(s')} = π^*(I_{e(s)}) · 𝒪_{𝒢',e'(s')}`.
+* `OmegaLocalization` (named Prop, one group model): `(ω_𝒢)_s` is the localization of `ω_𝒢` at `s`.
+* `omegaBaseChange_of_localization : OmegaLocalization → OmegaBaseChange`. -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+open scoped TensorProduct
+
+/-! ### Step A: local–global for submodules -/
+
+/-- `{v | ∃ d ∉ P, d • v ∈ N}`. -/
+def locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M] (P : Ideal R) [P.IsPrime]
+    (N : Submodule R M) : Submodule R M where
+  carrier := {v | ∃ d : R, d ∉ P ∧ d • v ∈ N}
+  add_mem' := by
+    rintro v w ⟨d₁, h₁, hv⟩ ⟨d₂, h₂, hw⟩
+    refine ⟨d₁ * d₂, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim h₁ h₂, ?_⟩
+    have : (d₁ * d₂) • (v + w) = d₂ • (d₁ • v) + d₁ • (d₂ • w) := by
+      rw [smul_add, smul_smul, smul_smul, mul_comm d₂ d₁]
+    rw [this]
+    exact N.add_mem (N.smul_mem _ hv) (N.smul_mem _ hw)
+  zero_mem' := ⟨1, fun h => Ideal.IsPrime.ne_top ‹_› ((Ideal.eq_top_iff_one _).mpr h),
+    by rw [smul_zero]; exact N.zero_mem⟩
+  smul_mem' := by
+    rintro c v ⟨d, hd, hv⟩
+    exact ⟨d, hd, by rw [smul_comm]; exact N.smul_mem c hv⟩
+
+theorem mem_locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M] (P : Ideal R)
+    [P.IsPrime] (N : Submodule R M) (v : M) : v ∈ locSub P N ↔ ∃ d : R, d ∉ P ∧ d • v ∈ N :=
+  Iff.rfl
+
+/-- **Step A.** -/
+theorem mem_of_forall_locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module R M]
+    (N : Submodule R M) (v : M)
+    (h : ∀ (P : Ideal R) (hP : P.IsMaximal), haveI := hP.isPrime; v ∈ locSub P N) : v ∈ N := by
+  let J : Ideal R := N.comap (LinearMap.toSpanSingleton R M v)
+  by_cases hJ : J = ⊤
+  · have : (1 : R) ∈ J := hJ ▸ Submodule.mem_top
+    simpa [J] using this
+  · obtain ⟨P, hP, hJP⟩ := Ideal.exists_le_maximal J hJ
+    obtain ⟨d, hd, hdv⟩ := h P hP
+    exact absurd (hJP (by simpa [J] using hdv)) hd
+
+section OmegaBC
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-! ### Sections and stalks -/
+
+theorem hom_unitSection {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) : 𝒢.G.hom (𝒢.unitSection s) = s := by
+  rw [← Scheme.Hom.comp_apply, unitSection_comp_hom]; rfl
+
+/-- `e^♯ ∘ G^♯ = id` on stalks at a point of the section. -/
+theorem unitSection_stalkMapAt_hom {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) {s : Spec (CommRingCat.of (𝓞 L))} {x : 𝒢.G.left}
+    (hx : 𝒢.unitSection s = x) (hG : 𝒢.G.hom x = s)
+    (gam : (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s) :
+    (𝒢.unitSection.stalkMapAt hx).hom ((𝒢.G.hom.stalkMapAt hG).hom gam) = gam := by
+  have hfg : (𝒢.unitSection ≫ 𝒢.G.hom) s = s := by rw [Scheme.Hom.comp_apply, hx, hG]
+  rw [stalkMapAt_comp_apply' _ _ hx hG hfg,
+    Scheme.Hom.stalkMapAt_congr (unitSection_comp_hom 𝒢) hfg
+      (show (𝟙 (Spec (CommRingCat.of (𝓞 L)))) s = s from rfl),
+    Scheme.Hom.stalkMapAt_id]
+  rfl
+
+/-- Elements of `I_{e(s)}` specialize into `𝔪_ξ`. -/
+theorem spec_mem_of_ker {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (f : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s))
+    (hf : (𝒢.unitSection.stalkMap s).hom f = 0) :
+    𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f ∈
+      IsLocalRing.maximalIdeal 𝒢.genStalk := by
+  intro hu
+  have h1 := hu.map (𝒢.unitSection.stalkMap (genericPt L)).hom
+  have hsp : genericPt L ⤳ s := (PrimeSpectrum.le_iff_specializes (genericPt L) s).mp bot_le
+  have h2 := Scheme.Hom.stalkSpecializes_stalkMap_apply 𝒢.unitSection (genericPt L) s hsp f
+  have h3 : (𝒢.unitSection.stalkMap (genericPt L)).hom
+      (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f) = 0 := by
+    have h2' := h2
+    rw [hf, map_zero] at h2'
+    exact h2'
+  have h4 : IsUnit ((𝒢.unitSection.stalkMap (genericPt L)).hom
+      (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f)) := h1
+  rw [h3] at h4
+  exact not_isUnit_zero h4
+
+/-- `structMap a` is the specialization of `G^♯(a)` at any point of the section. -/
+theorem structMap_eq_spec {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : Spec (CommRingCat.of (𝓞 L))) (a : 𝓞 L) :
+    𝒢.structMap a = 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+      ((𝒢.G.hom.stalkMapAt (hom_unitSection 𝒢 s)).hom
+        ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ s trivial
+          ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a))) := by
+  rw [stalkMapAt_germ' _ _ ⊤ (by trivial) (by trivial)]
+  erw [Scheme.Hom.germ_stalkMap_apply 𝒢.G.hom ⊤ (𝒢.unitSection s) (by trivial),
+    TopCat.Presheaf.germ_stalkSpecializes_apply]
+  rfl
+
+/-- `toCotangent (r x) = r • toCotangent x`. -/
+theorem toCotangent_mul {R : Type*} [CommRing R] [IsLocalRing R] (r x : R)
+    (hx : x ∈ IsLocalRing.maximalIdeal R) (hrx : r * x ∈ IsLocalRing.maximalIdeal R) :
+    (IsLocalRing.maximalIdeal R).toCotangent ⟨r * x, hrx⟩ =
+      r • (IsLocalRing.maximalIdeal R).toCotangent ⟨x, hx⟩ := by
+  rw [← map_smul]; rfl
+
+/-- **Elements of the stalk at a point of the section act on `ω_{A_L}` through `𝒪_{S,s}`.** -/
+theorem exists_act {L : Type} [Field L] [NumberField L] [Algebra K L] (𝒢 : GroupModel A L)
+    (s : Spec (CommRingCat.of (𝓞 L))) (r : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s)) :
+    ∃ p t : 𝓞 L, t ∉ s.asIdeal ∧ (IsUnit r → p ∉ s.asIdeal) ∧ ∀ v : 𝒢.cotangent,
+      t • (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) r • v) = p • v := by
+  haveI : s.asIdeal.IsPrime := s.isPrime
+  set Os := (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk s
+  letI : Algebra (𝓞 L) Os := ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv ≫
+    (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ s trivial).hom.toAlgebra
+  haveI : IsLocalization.AtPrime Os s.asIdeal := by
+    have := StructureSheaf.IsLocalization.to_stalk (CommRingCat.of (𝓞 L)) s
+    exact this
+  set sp := 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s)
+  set Gat := (𝒢.G.hom.stalkMapAt (hom_unitSection 𝒢 s)).hom
+  set gam : Os := (𝒢.unitSection.stalkMap s).hom r
+  obtain ⟨⟨p, t⟩, hpt⟩ := IsLocalization.surj s.asIdeal.primeCompl gam
+  have hSM : ∀ a : 𝓞 L, 𝒢.structMap a = sp (Gat (algebraMap (𝓞 L) Os a)) :=
+    fun a => structMap_eq_spec 𝒢 s a
+  refine ⟨p, t, t.2, fun hr => ?_, fun v => ?_⟩
+  · intro hp
+    have hu : IsUnit (algebraMap (𝓞 L) Os p) := by
+      rw [← hpt]
+      exact (hr.map (𝒢.unitSection.stalkMap s).hom).mul
+        (IsLocalization.map_units Os (⟨t.1, t.2⟩ : s.asIdeal.primeCompl))
+    exact (IsLocalization.AtPrime.isUnit_to_map_iff Os s.asIdeal p).mp hu hp
+  · have hker : (𝒢.unitSection.stalkMap s).hom (r - Gat gam) = 0 := by
+      rw [map_sub]
+      have := unitSection_stalkMapAt_hom 𝒢 (rfl : 𝒢.unitSection s = 𝒢.unitSection s)
+        (hom_unitSection 𝒢 s) gam
+      rw [Scheme.Hom.stalkMapAt_rfl] at this
+      rw [this, sub_self]
+    have h1 : sp r • v = sp (Gat gam) • v := by
+      apply smul_cotangent_eq_of_sub_mem
+      rw [← map_sub]
+      exact spec_mem_of_ker 𝒢 s _ hker
+    change 𝒢.structMap t • (sp r • v) = 𝒢.structMap p • v
+    rw [h1, smul_smul, hSM, hSM, ← map_mul, ← map_mul, mul_comm, hpt]
+
+end OmegaBC
+
+end ZInQ.HeightBC
