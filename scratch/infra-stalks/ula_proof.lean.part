@@ -1,0 +1,86 @@
+
+/-! # infra-stalks: `UniformizationLiftAnalytic` (height-bc) proved -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+/-- **`UniformizationLiftAnalytic` holds** (glue BC-lift-an of height-bc, statement verbatim), from
+`AlgebraicGeometry.exists_localStructure_pullback` applied to `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. -/
+theorem uniformizationLiftAnalytic : UniformizationLiftAnalytic := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ g Λ Φ' hΦ
+  let p₁ : (Fin g → ℂ) → ((GroupModel.ptC τ').left ⟶ 𝒢.G.left) :=
+    fun z => (Φ' z).left ≫ bcProj 𝒢 𝒢' e
+  let p₂ : (GroupModel.ptC τ').left ⟶ Spec (CommRingCat.of (𝓞 L')) := (GroupModel.ptC τ').hom
+  have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+  have hw : ∀ z, p₁ z ≫ 𝒢.G.hom = p₂ ≫ bO L L' := fun z =>
+    (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) (bcProj_w 𝒢 𝒢' e)).trans
+      ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ bO L L') (Over.w (Φ' z)))))
+  have hei : e.hom.left ≫ e.inv.left = 𝟙 _ := by
+    rw [← Over.comp_left, e.hom_inv_id]; rfl
+  have hlift : ∀ z, pullback.lift (p₁ z) p₂ (hw z) ≫ e.inv.left = (Φ' z).left := by
+    intro z
+    have h1 : pullback.lift (p₁ z) p₂ (hw z) = (Φ' z).left ≫ e.hom.left := by
+      apply pullback.hom_ext
+      · rw [pullback.lift_fst]
+        exact (Category.assoc _ _ _).symm
+      · rw [pullback.lift_snd]
+        exact ((Over.w (Φ' z)).symm.trans (congrArg ((Φ' z).left ≫ ·) hsnd.symm)).trans
+          (Category.assoc _ _ _).symm
+    rw [h1]
+    exact (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) hei).trans
+      (Category.comp_id _))
+  obtain ⟨-, -, -, hopen, hdiff⟩ := hΦ
+  have hloc : ∀ (U : 𝒢'.G.left.Opens) (s : Γ(𝒢'.G.left, U)) (z₀ : Fin g → ℂ),
+      z₀ ∈ 𝒢'.dom Φ' U → ∃ O : Set (Fin g → ℂ), IsOpen O ∧ z₀ ∈ O ∧ O ⊆ 𝒢'.dom Φ' U ∧
+        DifferentiableOn ℂ (fun z => 𝒢'.evalAt (Φ' z) U s) O := by
+    intro U s z₀ hz₀
+    have hU : ⊤ ≤ (pullback.lift (p₁ z₀) p₂ (hw z₀) ≫ e.inv.left) ⁻¹ᵁ U := by
+      rw [hlift]; exact hz₀
+    obtain ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, hall⟩ :=
+      exists_localStructure_pullback 𝒢.G.hom (bO L L') e.inv.left U s (p₁ z₀) p₂ (hw z₀) hU
+    let Hf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (c k) * evalPt p₂ V₂ (d k)
+    let Nf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (a k) * evalPt p₂ V₂ (b k)
+    let D1 := 𝒢.dom (fun z => bcPts e σ τ' hστ (Φ' z)) V₁
+    have hHd : DifferentiableOn ℂ Hf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (c k)).mul_const _
+    have hNd : DifferentiableOn ℂ Nf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (a k)).mul_const _
+    let O := D1 ∩ Hf ⁻¹' {0}ᶜ
+    have hO : IsOpen O := hHd.continuousOn.isOpen_inter_preimage (hopen V₁) isOpen_compl_singleton
+    have hmem : ∀ z ∈ O, z ∈ 𝒢'.dom Φ' U ∧ 𝒢'.evalAt (Φ' z) U s * Hf z = Nf z := by
+      rintro z ⟨hz1, hz2⟩
+      have := hall (p₁ z) p₂ (hw z) hz1 h2 hz2
+      refine ⟨?_, ?_⟩
+      · show ⊤ ≤ (Φ' z).left ⁻¹ᵁ U
+        exact (hlift z) ▸ this.1
+      · show evalPt (Φ' z).left U s * Hf z = Nf z
+        exact (hlift z) ▸ this.2
+    refine ⟨O, hO, ⟨h1, hne⟩, fun z hz => (hmem z hz).1, ?_⟩
+    have hq : ∀ z ∈ O, 𝒢'.evalAt (Φ' z) U s = Nf z * (Hf z)⁻¹ := by
+      intro z hz
+      rw [← div_eq_mul_inv, eq_div_iff hz.2]
+      exact (hmem z hz).2
+    exact ((hNd.mono Set.inter_subset_left).mul ((hHd.mono Set.inter_subset_left).inv
+      (fun z hz => hz.2))).congr hq
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [isOpen_iff_forall_mem_open]
+    intro z hz
+    obtain ⟨O, hO, hzO, hOsub, -⟩ := hloc U 0 z hz
+    exact ⟨O, hOsub, hO, hzO⟩
+  · intro z hz
+    obtain ⟨O, hO, hzO, -, hd⟩ := hloc U s z hz
+    exact (hd.differentiableAt (hO.mem_nhds hzO)).differentiableWithinAt
+
+/-- `UniformizationLift` is a theorem. -/
+theorem uniformizationLift : UniformizationLift :=
+  uniformizationLift_of uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
+#print axioms ZInQ.HeightBC.uniformizationLift
