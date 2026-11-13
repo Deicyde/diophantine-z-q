@@ -8,7 +8,7 @@ ENDMARK = "end Pin\n\nend AV\n\nend LeafQM\n\nend\n"
 cf = rd('scratch/curve-facts/CurveFacts.lean'); c2 = rd(D + 'C2K.lean'); c3 = rd(D + 'C3K.lean')
 cf_head = cf[:cf.index(ENDMARK)]
 c2_body = c2[c2.index("/-! ## §1 Values of sections"):c2.index(ENDMARK)]
-c3_body = c3[c3.index("/-! ## §1 Algebra"):c3.index(ENDMARK)] + rd(D + 'ClauseC.lean.part')
+c3_body = c3[c3.index("/-! ## §1 Algebra"):c3.index(ENDMARK)] + rd(D + 'ClauseC.lean.part') + rd(D + 'AlgDep.lean.part')
 cf_imports = "import ZInQKernel.HDecomp.QM.Pairs\nimport Mathlib.LinearAlgebra.Lagrange\n"
 assert cf_head.startswith(cf_imports)
 imports = cf_imports + """import Mathlib.RingTheory.Polynomial.Resultant.Basic
@@ -45,6 +45,11 @@ theorem curveFacts_of_glue'' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst
     (hI : ComponentIrreducible) (hG : ImagePlaneCurveIrr) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_glue' h1 hL (imagePlaneCurveClosed_of hI hG)
 
+/-- **The same with (AD) `AlgDep` and (IC) `ImageClosed` for (G1'').** -/
+theorem curveFacts_of_glue_AD (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
+    (hI : ComponentIrreducible) (hA : AlgDep) (hC : ImageClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_glue'' h1 hL hI (imagePlaneCurveIrr_of (constOrOntoAlgClosed_of hL) hI hA hC)
+
 """
 body = cf_head[len(cf_imports):]
 cga = imports + body + note + c2_body + c3_body + final + ENDMARK + """
@@ -53,6 +58,7 @@ cga = imports + body + note + c2_body + c3_body + final + ENDMARK + """
 #print axioms LeafQM.AV.Pin.curveFacts_of_glue
 #print axioms LeafQM.AV.Pin.curveFacts_of_glue'
 #print axioms LeafQM.AV.Pin.curveFacts_of_glue''
+#print axioms LeafQM.AV.Pin.curveFacts_of_glue_AD
 """
 open(D + 'CurveGlueAll.lean', 'w').write(cga)
 
@@ -168,6 +174,11 @@ theorem curveFacts_of_L0_CI_G1'' (hL0 : FiniteGlobalSections) (hI : ComponentIrr
     (hG : ImagePlaneCurveIrr) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_glue'' smoothStalkDimOne (globalFunctionsConst_of hL0) hI hG
 
+/-- **Both curve facts from (L0), (CI), (AD) and (IC).** -/
+theorem curveFacts_of_L0_CI_AD_IC (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
+    (hA : AlgDep) (hC : ImageClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_glue_AD smoothStalkDimOne (globalFunctionsConst_of hL0) hI hA hC
+
 """ + anchor)
 tail = "end CurveGlue\n\nend AV\n\nend LeafQM\n\nend\n"
 assert mf.count(tail) == 1
@@ -217,7 +228,20 @@ theorem mobiusGlueNoCM_of_L0_CI_G1''_T5 (hL0 : FiniteGlobalSections) (hI : Compo
     (hG : ImagePlaneCurveIrr) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
   mobiusGlue_noCM_of (mobiusGlue_of_L0_CI_G1''_T5 hL0 hI hG hT) h
 
-/-- **The CM-free form of the main result.** -/
+/-- **Main result: the kernel's `MobiusGlue` from (L0) `FiniteGlobalSections`, (CI)
+`ComponentIrreducible`, (AD) `AlgDep`, (IC) `ImageClosed` and T5 `ObjBridge.TorsionStructure`.** -/
+theorem mobiusGlue_of_L0_CI_AD_IC_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
+    (hA : AlgDep) (hC : ImageClosed) (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
+  mobiusGlue_of_L0_CI_G1''_T5 hL0 hI
+    (imagePlaneCurveIrr_of (constOrOntoAlgClosed_of (globalFunctionsConst_of hL0)) hI hA hC) hT
+
+/-- **The CM-free form of the main result** (CM objects from the leaf bundle `R1R2fp`). -/
+theorem mobiusGlueNoCM_of_L0_CI_AD_IC_T5 (hL0 : FiniteGlobalSections) (hI : ComponentIrreducible)
+    (hA : AlgDep) (hC : ImageClosed) (hT : ObjBridge.TorsionStructure) (h : R1R2fp) :
+    MobiusGlueNoCM :=
+  mobiusGlue_noCM_of (mobiusGlue_of_L0_CI_AD_IC_T5 hL0 hI hA hC hT) h
+
+/-- **The CM-free form of the (G1') result.** -/
 theorem mobiusGlueNoCM_of_L0_G1'_T5 (hL0 : FiniteGlobalSections) (hG : ImagePlaneCurveClosed)
     (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
   mobiusGlue_noCM_of (mobiusGlue_of_L0_G1'_T5 hL0 hG hT) h
@@ -242,6 +266,9 @@ mf += """#print axioms LeafQM.AV.Pin.smoothStalkDimOne
 #print axioms LeafQM.AV.Pin.curveFacts_of_L0_CI_G1''
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_G1''_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_G1''_T5
+#print axioms LeafQM.AV.Pin.curveFacts_of_L0_CI_AD_IC
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_AD_IC_T5
+#print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_AD_IC_T5
 """
 open(D + 'MobiusFinal.lean', 'w').write(mf)
 print('ok')

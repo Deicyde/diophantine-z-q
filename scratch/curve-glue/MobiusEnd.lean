@@ -2615,6 +2615,256 @@ theorem ratFactorAlgClosed_of_irr (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrr
     (hG : ImagePlaneCurveIrr) : RatFactorAlgClosed :=
   ratFactorAlgClosed_of_closed h2 (imagePlaneCurveClosed_of hI hG)
 
+/-! ## §6 (G1'') from algebraic dependence, a closed image, irreducibility and C2K (task curve-glue) -/
+
+open Polynomial in
+/-- **(AD) `σ` and `ρ` are algebraically dependent on a connected component.** For `X → Spec K`
+proper and smooth of relative dimension 1 over `K = K̄`, `σ, ρ : X → P¹` and a `K`-point `p₀`,
+some nonzero `P ∈ K[x][y]` has `P(σ(p), ρ(p)) = 0` at every `K`-point `p` of the connected
+component of `p₀` where both values are finite.
+
+Why true (STANDARD; numbering UNVERIFIED): the component `W` is an integral curve, its function
+field `K(W)` has transcendence degree `dim W = 1` over `K` (Hartshorne I.1.8A and I.6), so the
+rational functions `σ, ρ` satisfy a nonzero polynomial relation `P(σ, ρ) = 0` in `K(W)`; the
+regular function `P(σ, ρ)` on the open set where both are finite is then zero (`W` reduced), so it
+vanishes at those `K`-points. Glue. -/
+def AlgDep : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      ∃ P : K[X][X], P ≠ 0 ∧
+        ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0
+
+open Polynomial in
+/-- **(IC) The affine image of a connected component under `(σ, ρ)` is Zariski closed.** In the
+same setting, the set of `(σ(p), ρ(p)) ∈ K²` over the `K`-points `p` of the connected component of
+`p₀` with both values finite is the common zero set of some `S ⊆ K[x][y]`.
+
+Why true (STANDARD): the component `W` is proper over `K` (open and closed in `X`), so its image
+`D` under `(σ, ρ) : W → P¹ × P¹` is closed (`P¹ × P¹` separated); `D ∩ 𝔸²` is closed in `𝔸²`,
+hence `V(I)` for an ideal `I` (take `S = I`), and its `K`-points are exactly the images of the
+`K`-points of `W` (a fibre over a closed point is a nonempty closed set of finite type over `K`,
+so it contains a closed point, a `K`-point by the Nullstellensatz). Glue (properness). -/
+def ImageClosed : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      ∃ S : Set K[X][X], ∀ t u : K,
+        (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧
+          σ.val p = OnePoint.some t ∧ ρ.val p = OnePoint.some u) ↔
+        ∀ Q ∈ S, Alg.evalXY t u Q = 0
+
+section FactorSel
+
+variable {K : Type} [Field K] {X : Scheme.{0}}
+
+open Polynomial in
+/-- `evalXY t u` as a ring hom. -/
+def evalXYHom (t u : K) : K[X][X] →+* K := (evalRingHom u).comp (mapRingHom (evalRingHom t))
+
+open Polynomial in
+theorem evalXYHom_apply (t u : K) (P : K[X][X]) : evalXYHom t u P = Alg.evalXY t u P := rfl
+
+open Polynomial in
+/-- **Choosing an irreducible factor** (Lean-proved). On an irreducible open `O` of a Jacobson
+scheme of finite type over `K = K̄`, if `P(F, G)` vanishes at every `K`-point of `O`, then so does
+`q(F, G)` for some irreducible factor `q` of `P` (the zero loci of the factors are closed and
+cover `O`). -/
+theorem exists_factor_vanishing [IsAlgClosed K] (f : X ⟶ Spec (CommRingCat.of K))
+    [LocallyOfFiniteType f] [JacobsonSpace X] {O : X.Opens} (hO : IsIrreducible (O : Set X))
+    (F G : Γ(X, O)) (P : K[X][X]) (hP0 : P ≠ 0)
+    (hvan : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O,
+      Alg.evalXY (ev p hx F) (ev p hx G) P = 0) :
+    ∃ q ∈ UniqueFactorizationMonoid.factors P, ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      ∀ hx : ptOf p ∈ O, Alg.evalXY (ev p hx F) (ev p hx G) q = 0 := by
+  classical
+  set fs := UniqueFactorizationMonoid.factors P with hfs
+  let C : K[X][X] → Set X := fun q => ((X.basicOpen (polySec f q F G) : X.Opens) : Set X)ᶜ
+  have hev : ∀ (q : K[X][X]) (p : Spec (CommRingCat.of K) ⟶ X) (hp : p ≫ f = 𝟙 _)
+      (hx : ptOf p ∈ O), ev p hx (polySec f q F G) = Alg.evalXY (ev p hx F) (ev p hx G) q := by
+    intro q p hp hx
+    rw [ev_polySec f p hp]
+    exact (Polynomial.eval_map _ _).symm
+  have hpt : ∀ (p : Spec (CommRingCat.of K) ⟶ X) (hp : p ≫ f = 𝟙 _) (hx : ptOf p ∈ O),
+      ∃ q ∈ fs, Alg.evalXY (ev p hx F) (ev p hx G) q = 0 := by
+    intro p hp hx
+    obtain ⟨v, hv⟩ := UniqueFactorizationMonoid.factors_prod hP0
+    have h0 := hvan p hp hx
+    rw [← hv, Alg.evalXY_mul] at h0
+    rcases mul_eq_zero.mp h0 with h | h
+    · rw [← evalXYHom_apply, map_multiset_prod, Multiset.prod_eq_zero_iff] at h
+      obtain ⟨q, hq, hq0⟩ := Multiset.mem_map.1 h
+      exact ⟨q, hq, hq0⟩
+    · exact absurd h ((v.isUnit.map (evalXYHom (ev p hx F) (ev p hx G))).ne_zero)
+  have hcov : (O : Set X) ⊆ ⋃₀ ↑(fs.toFinset.image C) := by
+    intro x hx
+    by_contra hnot
+    let Z : Set X := (O : Set X) ∩ ⋂ q ∈ fs.toFinset, ((X.basicOpen (polySec f q F G) : X.Opens) : Set X)
+    have hZo : IsOpen Z :=
+      O.isOpen.inter (isOpen_biInter_finset fun q _ => (X.basicOpen (polySec f q F G)).isOpen)
+    have hxZ : x ∈ Z := by
+      refine ⟨hx, Set.mem_iInter₂.2 fun q hq => ?_⟩
+      by_contra hxq
+      exact hnot ⟨C q, Finset.mem_coe.2 (Finset.mem_image_of_mem C hq), hxq⟩
+    obtain ⟨p, hp, hpO, hpall⟩ := exists_point_of_isLocallyClosed f hZo.isLocallyClosed ⟨x, hxZ⟩
+    obtain ⟨q, hq, hq0⟩ := hpt p hp hpO
+    have hb : ptOf p ∈ X.basicOpen (polySec f q F G) :=
+      Set.mem_iInter₂.1 hpall q (Multiset.mem_toFinset.2 hq)
+    exact (ev_eq_zero_iff p hpO _).1 ((hev q p hp hpO).trans hq0) hb
+  have hcl : ∀ z ∈ fs.toFinset.image C, IsClosed z := by
+    intro z hz
+    obtain ⟨q, -, rfl⟩ := Finset.mem_image.1 hz
+    exact (X.basicOpen (polySec f q F G)).isOpen.isClosed_compl
+  obtain ⟨z, hz, hOz⟩ := (isIrreducible_iff_sUnion_isClosed.1 hO) _ hcl hcov
+  obtain ⟨q, hq, rfl⟩ := Finset.mem_image.1 hz
+  refine ⟨q, Multiset.mem_toFinset.1 hq, fun p hp hx => ?_⟩
+  rw [← hev q p hp hx]
+  exact (ev_eq_zero_iff p hx _).2 (hOz hx)
+
+end FactorSel
+
+open Polynomial in
+/-- **(G1'') from C2K, (CI), (AD) and (IC).** -/
+theorem imagePlaneCurveIrr_of (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreducible)
+    (hA : AlgDep) (hC : ImageClosed) : ImagePlaneCurveIrr := by
+  classical
+  intro K _ _ X f hP hS σ ρ p₀ hp₀ hne
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  set x₀ := ptOf p₀ with hx₀
+  let W : X.Opens := ⟨connectedComponent x₀, isOpen_connectedComponent_of_noetherian x₀⟩
+  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ W ↔
+      connectedComponent (ptOf p) = connectedComponent x₀ :=
+    fun p => ⟨fun h => (connectedComponent_eq h).symm,
+      fun h => by
+        show ptOf p ∈ connectedComponent x₀
+        rw [← h]; exact mem_connectedComponent⟩
+  have hWi : IsPreirreducible (W : Set X) := (hI K X f hS x₀).isPreirreducible
+  by_cases hinf : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      connectedComponent (ptOf p) = connectedComponent x₀ → ρ.val p = OnePoint.infty
+  · exact Or.inl hinf
+  right
+  obtain ⟨P, hP0, hPa⟩ := hA K X f hP hS σ ρ p₀ hp₀
+  obtain ⟨S, hSc⟩ := hC K X f hP hS σ ρ p₀ hp₀
+  have memU : ∀ (τ : ToP1 X) (p : Spec (CommRingCat.of K) ⟶ X) (t : K),
+      τ.val p = OnePoint.some t → ptOf p ∈ τ.U := by
+    intro τ p t h
+    by_contra h'
+    rw [val_of_not_mem τ p h'] at h
+    exact OnePoint.infty_ne_coe t h
+  have honto : ∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+      connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p = t := by
+    rcases h2 K X f hP hS σ p₀ hp₀ with hcst | ho
+    · obtain ⟨p, hp, hpc, hv⟩ := hne
+      exact absurd (hcst p hp hpc) hv
+    · exact ho
+  -- the irreducible open `O = W ∩ {σ ≠ ∞} ∩ {ρ ≠ ∞}`
+  let O : X.Opens := W ⊓ σ.U ⊓ ρ.U
+  have hle1 : O ≤ σ.U := fun x hx => hx.1.2
+  have hle2 : O ≤ ρ.U := fun x hx => hx.2
+  have h1 : ((W : Set X) ∩ σ.U).Nonempty := by
+    obtain ⟨p, hp, hpc, hpt⟩ := honto (OnePoint.some 0)
+    exact ⟨_, (memW p).2 hpc, memU σ p 0 hpt⟩
+  have h2' : ((W : Set X) ∩ ρ.U).Nonempty := by
+    push Not at hinf
+    obtain ⟨p, hp, hpc, hv⟩ := hinf
+    have hpU : ptOf p ∈ ρ.U := by
+      by_contra h'
+      exact hv (val_of_not_mem ρ p h')
+    exact ⟨_, (memW p).2 hpc, hpU⟩
+  have hOne : (O : Set X).Nonempty := by
+    obtain ⟨x, hxW, hx1, hx2⟩ := hWi _ _ σ.U.isOpen ρ.U.isOpen h1 h2'
+    exact ⟨x, ⟨hxW, hx1⟩, hx2⟩
+  have hOirr : IsIrreducible (O : Set X) :=
+    ⟨hOne, hWi.open_subset O.isOpen fun x hx => hx.1.1⟩
+  have hvan : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O,
+      Alg.evalXY (ev p hx (res hle1 σ.f)) (ev p hx (res hle2 ρ.f)) P = 0 := by
+    intro p hp hx
+    rw [ev_res, ev_res]
+    exact hPa p hp ((memW p).1 hx.1.1) _ _ (val_of_mem σ p _) (val_of_mem ρ p _)
+  obtain ⟨q, hq, hqv⟩ := exists_factor_vanishing f hOirr (res hle1 σ.f) (res hle2 ρ.f) P hP0 hvan
+  have hqirr : Irreducible q := UniqueFactorizationMonoid.irreducible_of_factor q hq
+  have hqa : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+      σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u q = 0 := by
+    intro p hp hpc t u ht hu
+    have hσ : ptOf p ∈ σ.U := memU σ p t ht
+    have hρ : ptOf p ∈ ρ.U := memU ρ p u hu
+    have hx : ptOf p ∈ O := ⟨⟨(memW p).2 hpc, hσ⟩, hρ⟩
+    have e := hqv p hp hx
+    rw [ev_res, ev_res] at e
+    rw [val_of_mem σ p hσ] at ht
+    rw [val_of_mem ρ p hρ] at hu
+    rwa [OnePoint.coe_injective ht, OnePoint.coe_injective hu] at e
+  have hdeg : 1 ≤ q.natDegree := by
+    by_contra hd
+    have hq0 : q.natDegree = 0 := by omega
+    have hqC : q = C (q.coeff 0) := eq_C_of_natDegree_eq_zero hq0
+    set a := q.coeff 0 with ha
+    have ha0 : a ≠ 0 := by
+      intro h0
+      rw [h0, map_zero] at hqC
+      exact hqirr.ne_zero hqC
+    let O₁ : X.Opens := W ⊓ σ.U
+    have hle3 : O₁ ≤ σ.U := fun x hx => hx.2
+    let hs : Γ(X, O₁) := polySec f (C a) (res hle3 σ.f) 0
+    have hev1 : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₁,
+        ev p hx hs = a.eval (ev p (hle3 hx) σ.f) := by
+      intro p hp hx
+      simp only [hs]
+      rw [ev_polySec f p hp, ev_res]
+      simp
+    have hsub : (O : Set X) ⊆ ((X.basicOpen hs : X.Opens) : Set X)ᶜ := by
+      intro x hxO hxb
+      obtain ⟨p, hp, hpO, hpb⟩ := exists_point_of_isLocallyClosed f
+        (Z := (O : Set X) ∩ X.basicOpen hs)
+        (O.isOpen.inter (X.basicOpen hs).isOpen).isLocallyClosed ⟨x, hxO, hxb⟩
+      have hpO₁ : ptOf p ∈ O₁ := hpO.1
+      have e := hqv p hp hpO
+      rw [ev_res, ev_res, hqC] at e
+      have e' : ev p hpO₁ hs = 0 := by
+        rw [hev1 p hp hpO₁]
+        simpa [Alg.evalXY] using e
+      exact (ev_eq_zero_iff p hpO₁ hs).1 e' hpb
+    have hWcl : (W : Set X) ⊆ closure (O : Set X) := by
+      have hne' : ((W : Set X) ∩ ((σ.U : Set X) ∩ ρ.U)).Nonempty := by
+        obtain ⟨x, hx⟩ := hOne
+        exact ⟨x, hx.1.1, hx.1.2, hx.2⟩
+      have h := subset_closure_inter_of_isPreirreducible_of_isOpen hWi
+        (σ.U.isOpen.inter ρ.U.isOpen) hne'
+      have e : (W : Set X) ∩ ((σ.U : Set X) ∩ ρ.U) = (O : Set X) := by
+        ext x
+        simp only [O, Opens.coe_inf, Set.mem_inter_iff, SetLike.mem_coe]
+        tauto
+      rwa [e] at h
+    obtain ⟨t, ht⟩ : ∃ t : K, a.eval t ≠ 0 := by
+      by_contra! h
+      exact ha0 (by
+        have := Polynomial.funext (p := a) (q := 0) fun t => by rw [h t, eval_zero]
+        exact this)
+    obtain ⟨p, hp, hpc, hpt⟩ := honto (OnePoint.some t)
+    have hσ : ptOf p ∈ σ.U := memU σ p t hpt
+    have hx : ptOf p ∈ O₁ := ⟨(memW p).2 hpc, hσ⟩
+    have hnot : ptOf p ∉ X.basicOpen hs :=
+      closure_minimal hsub (X.basicOpen hs).isOpen.isClosed_compl (hWcl hx.1)
+    have e := (ev_eq_zero_iff p hx hs).2 hnot
+    rw [hev1 p hp hx] at e
+    rw [val_of_mem σ p hσ] at hpt
+    rw [OnePoint.coe_injective hpt] at e
+    exact ht e
+  exact ⟨q, hqirr, hdeg, hqa, S, hSc⟩
+
+/-- **C3K from C2K, (CI), (AD) and (IC).** -/
+theorem ratFactorAlgClosed_of_AD (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreducible)
+    (hA : AlgDep) (hC : ImageClosed) : RatFactorAlgClosed :=
+  ratFactorAlgClosed_of_irr h2 hI (imagePlaneCurveIrr_of h2 hI hA hC)
+
 
 /-- **Both curve facts of mobius-glue from C1b (`SmoothStalkDimOne`, glue, task
 infra-smooth-dim), the textbook leaf (L) `GlobalFunctionsConst` and the glue (G1)
@@ -2632,6 +2882,11 @@ theorem curveFacts_of_glue' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
 theorem curveFacts_of_glue'' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
     (hI : ComponentIrreducible) (hG : ImagePlaneCurveIrr) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_glue' h1 hL (imagePlaneCurveClosed_of hI hG)
+
+/-- **The same with (AD) `AlgDep` and (IC) `ImageClosed` for (G1'').** -/
+theorem curveFacts_of_glue_AD (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
+    (hI : ComponentIrreducible) (hA : AlgDep) (hC : ImageClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_glue'' h1 hL hI (imagePlaneCurveIrr_of (constOrOntoAlgClosed_of hL) hI hA hC)
 
 /-- **The kernel's `MobiusGlue` from C1b, the leaf (L), the glue (G1) and the textbook leaf T5.** -/
 theorem mobiusGlue_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)

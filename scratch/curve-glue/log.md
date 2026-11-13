@@ -87,3 +87,13 @@
 - `imagePlaneCurveClosed_of (hI) (hG'') : ImagePlaneCurveClosed`, `ratFactorAlgClosed_of_irr`,
   `curveFacts_of_glue''`, `curveFacts_of_L0_CI_G1''`, `mobiusGlue_of_L0_CI_G1''_T5`, `mobiusGlueNoCM_of_L0_CI_G1''_T5`.
   All three composite files recompiled: 0 errors, standard axioms (VERIFIED, run_*.txt).
+
+## 12. (G1'') from (AD) AlgDep + (IC) ImageClosed + (CI) + C2K (`AlgDep.lean.part`)
+- (AD): ∃ P ≠ 0 with P(σ,ρ) = 0 at finite K-points of the component (trdeg K(W) = 1). Glue.
+- (IC): the affine image of the component is V(S) for some S (image of proper is closed). Glue.
+- `exists_factor_vanishing` (UFD factors; zero loci of factor sections closed and cover the irreducible open
+  O = W ∩ {σ≠∞} ∩ {ρ≠∞}; `isIrreducible_iff_sUnion_isClosed`); deg_y q ≥ 1 because a(σ) ≡ 0 on O would spread to
+  W ∩ {σ≠∞} (density) and contradict σ onto (C2K).
+- `imagePlaneCurveIrr_of`, `ratFactorAlgClosed_of_AD`, `curveFacts_of_glue_AD`, `curveFacts_of_L0_CI_AD_IC`,
+  `mobiusGlue_of_L0_CI_AD_IC_T5`, `mobiusGlueNoCM_of_L0_CI_AD_IC_T5`: compiled, 0 errors, standard axioms
+  (VERIFIED, run_CurveGlueAll.txt, run_MobiusFinal.txt). verbatim.py: all IDENTICAL.
