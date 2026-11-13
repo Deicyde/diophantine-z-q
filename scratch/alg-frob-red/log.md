@@ -111,3 +111,27 @@
   from IsArithFrob through the injective κ(w) → κ(v)), FExtendCore (glue: FExtend with t = tSig fixed, no residue
   clause), fExtend_of_core : FExtendCore → FExtend, algFrobRed_of_core, tateBridge35_of_core.
 - Run 33: exit 0, no error; 79 axiom prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).
+- Final layout check (cmp, VERIFIED): AlgFrobRed.lean lines after the 4 imports = FrobTrace.lean minus its import line, then Rigidity.lean minus its 4 imports, byte-identical.
+
+## Run 34-37: FrobMorph from AbsFrob
+- New Prop AbsFrob (glue: absolute Frobenius of a scheme over a field of characteristic p, over Spec(z ↦ z^p) and natural
+  for Spec R-points, R of characteristic p). Proved: isLocalHom_of_resPow, sf_eta_fst (unit of the special fibre =
+  closed point ≫ unit of 𝒜, via Functor.obj.η_def-style unfolding of ε ≫ F.map η), frobMorph_of : AbsFrob → FrobMorph
+  (β = Fr ≫ F̄ with F̄ = pullback.map Ft (Spec t̄) (Spec t)), algFrobRed_of_absFrob, tateBridge35_of_absFrob.
+- Run 37: exit 0, no error; all axiom prints standard (VERIFIED).
+- Pitfall: work at the native type `pullback 𝒜.X.hom g'` (re-typed `let Fr : pullback .. ⟶ .. := Fr0`,
+  `let e0 := η.left`, `let yl := y.left`), else Category.assoc rewrites fail on (sf 𝒜).X.left.
+
+## Run 38-40: FExtendCore from FExtendGen
+- New Prop FExtendGen (glue from I2-NMP: F̃ over Spec(tSig σ), fixing the unit section, with generic compatibility
+  e⁻¹ ≫ pr₁ ≫ F̃ = F ≫ e⁻¹ ≫ pr₁ as maps A → 𝒜; no points). Proved: fExtendCore_of_gen : FExtendGen → FExtendCore
+  (lift Spec(σ|O_v) ≫ x' ≫ F̃: over Spec(toW) since σ ∘ t = id; generic clause by hf, compatibility, and
+  Spec σ ≫ Spec(O_v ⊂ ℚ̄) = Spec(O_v ⊂ ℚ̄) ≫ Spec σ_v), algFrobRed_of_gen, tateBridge35_of_gen.
+- Run 40: exit 0, no error; all axiom prints standard (VERIFIED). Pitfall: `act σ` (GQ vs PkgI4.GQ) breaks rw/simp
+  motives; the generic equation is a term-mode Category.assoc/congrArg chain.
+
+## Review 2 (one model review, read-only, no human review; ~08:45)
+- FExtendGen: TRUE. t = σ⁻¹|O_w is forced (σ∘ι∘s = ι); clause (3) direction correct and consistent with (1)
+  (j∘t = s∘j); F̃ exists by Néron mapping property for 𝒜 → 𝒜^{(t)} (BLR 1.2/8); clause (2) by separatedness, f(0)=0 and
+  Spec ℚ̄ → Spec L epi. IsFinite/Surjective F unused (harmless).
+- AbsFrob: TRUE and correctly oriented (naturality of the absolute Frobenius; R = 0 excluded by CharP).
