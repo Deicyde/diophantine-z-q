@@ -74,8 +74,12 @@ the leaves as separate hypotheses is `G0Galois.g8_g12`.
 The coefficient field is `ℚ̄_ℓ = PadicAlgCl ℓ` throughout (Pan's coefficients). The model is
 `A : PkgI3.AbVar K` over `K = L'`. ModularConstituent's model is
 `ZInQ.DefFaltings.AbVar L.K`, which `LeafAdopt.abVarEquiv` carries to `PkgI3.AbVar`.
-`resQ K : G_K →* G_ℚ` is Mathlib's `Field.absoluteGaloisGroup.map (algebraMap ℚ K)`, and
-`tate A ℓ` is the `G_K`-action on `ℚ̄_ℓ ⊗ V_ℓ(A)` (`GlueI3.repBaseChange` of pkg-I3's `galRep`).
+`resQ K : G_K →* G_ℚ` is the restriction along the fixed embedding `qEmb K : ℚ̄ → K̄`
+(`IsAlgClosed.lift`; `res` copied from scratch/e1-sub), so `qEmb K ∘ resQ K τ = τ ∘ qEmb K`
+(`resQ_spec`), and `resQ K τ` is the unique such element (`eq_resQ`). `tate A ℓ` is the
+`G_K`-action on `ℚ̄_ℓ ⊗ V_ℓ(A)` (`GlueI3.repBaseChange` of pkg-I3's `galRep`). The names
+`G2Out`, `G7Out`, `G12Out` also occur in the partner files, as different definitions in other
+namespaces (`G0ModField`, `G0ModNewform`). Here they are `G0Galois.G2Out` and so on.
 
 **Inputs (outputs of earlier steps).**
 
@@ -117,6 +121,22 @@ determinant: its docstring says "the published statements also give the determin
 strengthened to the published statement with `det ρ_g = ε_g χ_c^{k−1}` (still a consequence of
 the published theorem, so still a leaf), or `G12Det` keeps this as glue from Eichler–Shimura.
 Recommendation: strengthen R14 (one clause).
+
+**Next split of `G12Det` (SPECULATIVE plan; not done for lack of time).** Let `χ_ℓ : G_ℚ → ℚ̄_ℓ^×`
+be the `ℓ`-adic cyclotomic character, defined like `PkgI4.cyc` but on `G_ℚ`. Then `G12Det`
+follows from three pieces:
+
+1. **R14Det** (leaf, R14 with its published determinant clause): the semisimple `ρ_g` attached to
+   `g` has `det ρ_g = ε · χ_ℓ^{k−1}`, with `ε` of finite image.
+2. **DetTate** (glue from T9): `det(tate A ℓ σ) = χ_ℓ(resQ σ)^{dim A}` for `σ ∈ G_K`.
+3. **ResQFiniteIndex** (glue, Galois theory): `(resQ K).range` has finite index.
+
+These are combined by proved or easy steps:
+
+- `det r = det(ρ_g ⊗ ψ)`. The traces agree at Frobenius elements, so they agree everywhere:
+  c9-rhof's `eq_of_eq_on_arithFrob` from T18 does this. Then
+  `det M = (tr(M)² − tr(M²))/2` for `2 × 2` matrices.
+- `det(r ⊕ r) = (det r)²` through `e`.
 
 ## 4. How the conclusion feeds G13-G16 and `ModularConstituent`
 
