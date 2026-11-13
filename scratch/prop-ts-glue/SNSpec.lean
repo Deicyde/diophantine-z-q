@@ -422,6 +422,30 @@ theorem mem_of_isIntegral_of_mem_closure {K : Type*} [Field K] (A : Subring K)
   rw [IsFractionRing.lift_algebraMap]
   exact c.2
 
+theorem atPrime_congr {R S : Type*} [CommSemiring R] [CommSemiring S] [Algebra R S]
+    {p q : Ideal R} [p.IsPrime] [q.IsPrime] (h : p = q) [IsLocalization.AtPrime S p] :
+    IsLocalization.AtPrime S q := by
+  subst h
+  assumption
+
+/-- Integrality over `ℤ` descends along an injective ring hom. -/
+theorem isIntegral_int_of_injective {K₁ K₂ : Type*} [CommRing K₁] [CommRing K₂] (f : K₁ →+* K₂)
+    (hf : Function.Injective f) {x : K₁} (h : IsIntegral ℤ (f x)) : IsIntegral ℤ x := by
+  obtain ⟨q, hqm, hq⟩ := h
+  refine ⟨q, hqm, hf ?_⟩
+  rw [Polynomial.hom_eval₂, map_zero]
+  have hsub : f.comp (algebraMap ℤ K₁) = algebraMap ℤ K₂ := Subsingleton.elim _ _
+  rw [hsub]
+  exact hq
+
+/-- Integrality over `ℤ` is preserved by ring homs. -/
+theorem isIntegral_int_map {K₁ K₂ : Type*} [CommRing K₁] [CommRing K₂] (f : K₁ →+* K₂)
+    {x : K₁} (h : IsIntegral ℤ x) : IsIntegral ℤ (f x) := by
+  obtain ⟨q, hqm, hq⟩ := h
+  refine ⟨q, hqm, ?_⟩
+  have hsub : algebraMap ℤ K₂ = f.comp (algebraMap ℤ K₁) := Subsingleton.elim _ _
+  rw [hsub, ← Polynomial.hom_eval₂, hq, map_zero]
+
 set_option maxHeartbeats 1000000 in
 set_option synthInstance.maxHeartbeats 200000 in
 attribute [local instance] Polynomial.algebra in
@@ -663,7 +687,56 @@ theorem snSpecializeUnram_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Al
   -- `𝓞 L ⊆ A` (`A` is integrally closed)
   have hOA : ∀ x : NumberField.RingOfIntegers L, ((x : L) : AlgebraicClosure ℚ) ∈ A := fun x =>
     mem_of_isIntegral_of_mem_closure A (hLsub (x : L).2)
-      (IsIntegral.map (L.val.toRingHom.toIntAlgHom) x.2)
+      (isIntegral_int_map L.val.toRingHom x.2)
+  -- `j : 𝓞 L → A`, and `A` is the localization of `𝓞 L` away from `p`
+  let j : NumberField.RingOfIntegers L →+* A :=
+    { toFun := fun x => ⟨((x : L) : AlgebraicClosure ℚ), hOA x⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hj_inj : Function.Injective j := by
+    intro x y h
+    have h1 : ((x : L) : AlgebraicClosure ℚ) = ((y : L) : AlgebraicClosure ℚ) :=
+      congrArg (fun z : A => (z : AlgebraicClosure ℚ)) h
+    exact NumberField.RingOfIntegers.ext (Subtype.ext h1)
+  letI aOA : Algebra (NumberField.RingOfIntegers L) A := j.toAlgebra
+  set Mp : Submonoid ℤ := (Ideal.span {(p : ℤ)}).primeCompl with hMp
+  have hunitA : ∀ n ∈ Mp, IsUnit (n : A) := by
+    intro n hn
+    have h0 : IsUnit (algebraMap ℤ (Localization.AtPrime m ⧸ I) n) :=
+      IsLocalization.map_units (Localization.AtPrime m ⧸ I) (⟨n, hn⟩ : Mp)
+    have h1 := RingHom.isUnit_map (Ideal.Quotient.lift I (algebraMap (Localization.AtPrime m) A)
+      hIker) h0
+    simpa using h1
+  have hjint : ∀ n : ℤ, j (algebraMap ℤ (NumberField.RingOfIntegers L) n) = (n : A) := by
+    intro n
+    simp
+  have hlocA : IsLocalization (Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp) A := by
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨_, n, hn, rfl⟩
+      change IsUnit (j (algebraMap ℤ (NumberField.RingOfIntegers L) n))
+      rw [hjint]
+      exact hunitA n hn
+    · intro a
+      have hai : IsIntegral (Localization.AtPrime m ⧸ I) a := Algebra.IsIntegral.isIntegral a
+      obtain ⟨⟨n, hn⟩, hnint⟩ := IsIntegral.exists_multiple_integral_of_isLocalization
+        (R := ℤ) (M := Mp) (Rₘ := Localization.AtPrime m ⧸ I) a hai
+      have hyL : ((n • a : A) : AlgebraicClosure ℚ) ∈ L := hAL _ (n • a).2
+      have hyint : IsIntegral ℤ (⟨_, hyL⟩ : L) :=
+        isIntegral_int_of_injective L.val.toRingHom L.val.injective
+          (isIntegral_int_map A.subtype hnint)
+      let y : NumberField.RingOfIntegers L := ⟨⟨_, hyL⟩, hyint⟩
+      refine ⟨⟨y, ⟨_, n, hn, rfl⟩⟩, ?_⟩
+      change a * j (algebraMap ℤ (NumberField.RingOfIntegers L) n) = j y
+      rw [hjint]
+      apply Subtype.ext
+      change (a : AlgebraicClosure ℚ) * ((n : A) : AlgebraicClosure ℚ) = ((n • a : A) : AlgebraicClosure ℚ)
+      rw [zsmul_eq_mul]
+      push_cast
+      ring
+    · intro x y h
+      exact ⟨1, by rw [hj_inj h]⟩
   sorry
 
 end PropTSGlueDev4
