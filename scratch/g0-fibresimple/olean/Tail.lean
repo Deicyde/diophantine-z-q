@@ -10,11 +10,12 @@ depends on in `FSPrefix.lean`) is proved below (`fibreSimple_of_pieces`) from
   Mumford §19 Thm 3), fields `t27`, `t6` of `TextbookLeaves`, and
 * the textbook leaves `MulIsogeny` (Mumford §4: `[n]` is an isogeny) and `RigidityHom`
   (Mumford §4 Cor. 1: a morphism preserving `0` is a homomorphism), and
-* three named glue Props: `BaseChangeFaithful`, `IsogenyDescends` (scheme theory, FS1a-b) and
-  `FibreComTrivial` (NoCM on the fibre, FS5),
+* two named glue Props: `FiniteDescends` (finiteness descends along a field extension; scheme
+  theory, FS1b′) and `FibreComTrivial` (NoCM on the fibre, FS5),
 
-with six proved glue lemmas: simplicity descends along field extensions (`endDivisionDescent_of`,
-from FS1a, FS1b), simplicity is invariant under isomorphism of `k`-schemes
+with proved glue lemmas: base change along `Spec L → Spec K` is faithful
+(`baseChangeFaithful_proof`, from Mathlib's fpqc descent), simplicity descends along field
+extensions (`endDivisionDescent_of`, `isogenyDescends_of`, from FS1b′), simplicity is invariant under isomorphism of `k`-schemes
 (`endDivisionOfSchemeIso_of_rigidity`, from `RigidityHom`), `End⁰(A)` a division algebra ⇒ nonzero endomorphisms are isogenies
 (`end0Division_of_homFree`, from T6 and `MulIsogeny`), the QM structure gives `B = ℍ[ℚ,2,-3] →ₐ[ℚ] End⁰(A)`
 (`qm_embeds_end0`), `B` is a division algebra (`B6_isUnit`), and the CM case of Yu's dichotomy
@@ -468,21 +469,61 @@ theorem endDivisionDescent_of (hFa : BaseChangeFaithful) (hDe : IsogenyDescends)
     exact h1.trans h2.symm
   exact hDe K L _ _ f.hom (hL fL hfL :)
 
-/-- The unproved glue pieces as one bundle: FS1a, FS1b (scheme-theoretic descent along a field
-extension) and FS5 (NoCM on the fibre). FS1 is proved from FS1a, FS1b; FS2 from `RigidityHom`;
-FS3 from T6 and `MulIsogeny`; FS4 from T6. -/
+
+/-- `Spec L → Spec K` is flat and surjective (`L/K` is faithfully flat). -/
+theorem specMap_flat_surjective (K L : Type) [Field K] [Field L] [Algebra K L] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap K L))) ∧
+      Surjective (Spec.map (CommRingCat.ofHom (algebraMap K L))) := by
+  apply (flat_and_surjective_SpecMap_iff _).mpr
+  rw [CommRingCat.hom_ofHom, RingHom.faithfullyFlat_algebraMap_iff]
+  infer_instance
+
+/-- **FS1a is proved (Mathlib's fpqc descent):** `Over.pullback` along a surjective, flat,
+quasi-compact morphism is faithful (`AlgebraicGeometry` instance in
+`Morphisms/FlatDescent.lean`), and `Spec L → Spec K` is one. -/
+theorem baseChangeFaithful_proof : BaseChangeFaithful := by
+  intro K L _ _ _ X Y g h hgh
+  obtain ⟨h1, h2⟩ := specMap_flat_surjective K L
+  exact (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map_injective hgh
+
+/-- **Glue piece FS1b′ (finiteness descends along a field extension).** *Why true* (STANDARD):
+finiteness is fpqc local on the target (EGA IV₂ 2.7.1, UNVERIFIED number). Mathlib v4.35 has
+`RingHom.Finite.codescendsAlong_faithfullyFlat` and `HasAffineProperty.descendsAlong_of_affineAnd`,
+but not the descent of `IsAffineHom` that the latter needs. Glue (scheme theory). -/
+def FiniteDescends : Prop :=
+  ∀ (K L : Type) [Field K] [Field L] [Algebra K L] (X Y : Over (Spec (CommRingCat.of K)))
+    (g : X ⟶ Y),
+    IsFinite ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map g).left →
+      IsFinite g.left
+
+/-- **FS1b from FS1b′:** surjectivity descends (`X_L → X` is surjective). -/
+theorem isogenyDescends_of (hFin : FiniteDescends) : IsogenyDescends := by
+  intro K L _ _ _ X Y g ⟨hf, hs⟩
+  refine ⟨hFin K L X Y g hf, ?_⟩
+  obtain ⟨h1, h2⟩ := specMap_flat_surjective K L
+  set φ := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  have hsq : ((Over.pullback φ).map g).left ≫ pullback.fst Y.hom φ =
+      pullback.fst X.hom φ ≫ g.left := by
+    simp
+  have : Surjective (pullback.fst X.hom φ ≫ g.left) := by
+    rw [← hsq]; infer_instance
+  exact Surjective.of_comp (pullback.fst X.hom φ) g.left
+
+/-- The unproved glue pieces as one bundle: FS1b′ (finiteness descends along a field
+extension; scheme theory) and FS5 (NoCM on the fibre). FS1 is proved from FS1a (proved, Mathlib)
+and FS1b (from FS1b′); FS2 from `RigidityHom`; FS3 from T6 and `MulIsogeny`; FS4 from T6. -/
 structure FibreSimplePieces : Prop where
-  faithful : BaseChangeFaithful
-  descends : IsogenyDescends
+  finiteDescends : FiniteDescends
   comTrivial : FibreComTrivial
 
 /-- **`FibreSimple` from the leaf bundle** (`TextbookLeaves.t6` = Mumford §19 Thm 3,
 `TextbookLeaves.t27` = Yu Thm 1.1), **the textbook leaves `MulIsogeny` (Mumford §4) and
-`RigidityHom` (Mumford §4 Cor. 1), and the glue pieces FS1a, FS1b (scheme theory) and FS5 (NoCM
-on the fibre).** -/
+`RigidityHom` (Mumford §4 Cor. 1), and the glue pieces FS1b′ (finiteness descends along field
+extensions) and FS5 (NoCM on the fibre).** -/
 theorem fibreSimple_of_leaves (t : HSyn.TextbookLeaves) (hMul : MulIsogeny) (hRig : RigidityHom)
     (p : FibreSimplePieces) : FibreSimple :=
-  fibreSimple_of_pieces'' t.t6 t.t27 hMul (endDivisionDescent_of p.faithful p.descends)
+  fibreSimple_of_pieces'' t.t6 t.t27 hMul
+    (endDivisionDescent_of baseChangeFaithful_proof (isogenyDescends_of p.finiteDescends))
     (endDivisionOfSchemeIso_of_rigidity hRig) p.comTrivial
 
 /-! ## §5 Finding: `R1fpProps`, `R2fpProps` do not determine `Φ` on closed points
@@ -571,6 +612,8 @@ end
 #print axioms G0FibreSimple.fibreSimple_of_pieces''
 #print axioms G0FibreSimple.endDivisionOfSchemeIso_of_rigidity
 #print axioms G0FibreSimple.endDivisionDescent_of
+#print axioms G0FibreSimple.baseChangeFaithful_proof
+#print axioms G0FibreSimple.isogenyDescends_of
 #print axioms G0FibreSimple.r1fpProps_twistBy
 #print axioms G0FibreSimple.r2fpProps_twistBy
 #print axioms G0FibreSimple.fibreComTrivial_twisted

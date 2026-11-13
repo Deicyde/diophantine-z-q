@@ -57,8 +57,19 @@
   bundle = FS1 EndDivisionDescent, FS5 FibreComTrivial.
 
 ## FS1 reduced
-- 02:25 COMPILED (exit 0, 22 s): `endDivisionDescent_of : BaseChangeFaithful → IsogenyDescends → EndDivisionDescent`
+- 02:18 COMPILED (exit 0, 22 s): `endDivisionDescent_of : BaseChangeFaithful → IsogenyDescends → EndDivisionDescent`
   (FS1a: Over.pullback along Spec L → Spec K faithful; FS1b: IsIsogenyMor descends along it; both pure scheme
   theory, STANDARD fpqc descent). Uses `Functor.map.instIsMonHom` (explicit instance: A_L's grp vs monObjObj)
   and `Functor.map_one`.
 - Bundle `FibreSimplePieces` = FS1a, FS1b, FS5.
+
+## FS1a proved, FS1b reduced to finiteness descent
+- 02:24 COMPILED (exit 0, 21 s; 19 s after bundle edit): `specMap_flat_surjective` (Spec L → Spec K flat and surjective,
+  via `flat_and_surjective_SpecMap_iff` + `RingHom.faithfullyFlat_algebraMap_iff`), `baseChangeFaithful_proof :
+  BaseChangeFaithful` (Mathlib instance `(Over.pullback f).Faithful` for surjective flat quasi-compact f, in
+  Morphisms/FlatDescent.lean), `isogenyDescends_of : FiniteDescends → IsogenyDescends` (surjectivity via the base
+  change square, `Surjective.of_comp`).
+- Remaining glue in the bundle: FS1b′ `FiniteDescends` (IsFinite descends along a field extension; Mathlib has
+  `RingHom.Finite.codescendsAlong_faithfullyFlat` and `HasAffineProperty.descendsAlong_of_affineAnd` but no
+  `IsAffineHom` descent instance) and FS5 `FibreComTrivial`.
+- 15 `#print axioms` lines, all [propext, Classical.choice, Quot.sound].
