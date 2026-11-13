@@ -21281,8 +21281,10 @@ comparison of F1 (`PkgI1.QMHauptmodul` against `π`) uses (b) and (c); a stateme
 separately is too weak. Shimura, Ann. of Math. 85 (1967), Main Thm I; Deligne, Sém. Bourbaki 389
 (1971), §4.15 (analytic families) (UNVERIFIED locators). Missing: analytification of `ℂ`-schemes
 and of abelian varieties (large; bp-qmmoduli N14). Rests on Lemma P (rv-qm-polar) as R1R2fpRep.
-Part (a) at a single point is `ZInQ.LeafPush2.UniformizationExists` (T35) for `QML3 ℂ` plus the
-QM lattice computation (bp-analytic Q1); (b) and (c) are the family statements still missing. -/
+Part (a) at a single point would follow from `ZInQ.LeafPush2.UniformizationExists` (T35) with
+T11a (the `ℂ`-linear action of `ι(𝒪)` on the lattice), class number one of `𝒪` (Eichler) and the
+QM lattice computation (bp-analytic Q1); that reduction is not carried out. (b) and (c) are the
+family statements. -/
 opaque R01b_ComplexUniformization : Prop
 
 /-! leaf-adopt2 (2026-11-12): the placeholder `R03_LinYang` is replaced by leaf-push2's

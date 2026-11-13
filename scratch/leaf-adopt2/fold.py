@@ -220,8 +220,10 @@ t = rep1(t,
 t = rep1(t,
     "and of abelian varieties (large; bp-qmmoduli N14). Rests on bp-qmmoduli §2.2 as R1R2fpRep. -/",
     "and of abelian varieties (large; bp-qmmoduli N14). Rests on Lemma P (rv-qm-polar) as R1R2fpRep.\n"
-    "Part (a) at a single point is `ZInQ.LeafPush2.UniformizationExists` (T35) for `QML3 ℂ` plus the\n"
-    "QM lattice computation (bp-analytic Q1); (b) and (c) are the family statements still missing. -/",
+    "Part (a) at a single point would follow from `ZInQ.LeafPush2.UniformizationExists` (T35) with\n"
+    "T11a (the `ℂ`-linear action of `ι(𝒪)` on the lattice), class number one of `𝒪` (Eichler) and the\n"
+    "QM lattice computation (bp-analytic Q1); that reduction is not carried out. (b) and (c) are the\n"
+    "family statements. -/",
     "R1b")
 
 old_r3 = t[t.index("/-- **R3. Lin–Yang.** On the finite nonzero"):t.index("opaque R03_LinYang : Prop\n") + len("opaque R03_LinYang : Prop\n")]
