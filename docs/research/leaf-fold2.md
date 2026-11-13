@@ -31,8 +31,8 @@ The hypotheses are 66 named Props, and none of them is an `opaque` placeholder:
 |---|---|---|
 | `OpenResearchLeaves2` | 26 | research-level leaves (R1-R22, H5). R1(b), R10, R14 and R17 appear in concrete or corrected form |
 | `OpenTextbookLeaves2` | 18 | textbook leaves |
-| `OpenAddedLeaves2` | 12 | leaves that the wave 26-27 reductions introduced: 9 LEAF, 3 LEAF? (composite leaf candidates) |
-| `OpenGlue2` | 10 | glue still to be proved by the project |
+| `OpenAddedLeaves2` | 13 | leaves that the wave 26-27 reductions and x6-kummer introduced: 9 LEAF, 4 LEAF? (composite leaf candidates) |
+| `OpenGlue2` | 9 | glue still to be proved by the project |
 
 **Count before and after.** Before, the open statement was g0-assemble2's
 `sixContactMin_of_leaves3` with leaf-fold's closures applied. That means `ResearchLeaves3` (24),
@@ -41,10 +41,10 @@ plus leaf-fold's `OpenTextbookLeaves` (26), plus `GluePieces3` (40).
 | | research leaves | textbook leaves | added leaves (LEAF/LEAF?) | glue | total |
 |---|---|---|---|---|---|
 | before (g0-assemble2 + leaf-fold) | 24 | 26 | 18 | 22 | **90** |
-| after (`sixContactMin_of_open2`) | 26 | 18 | 12 | 10 | **66** |
+| after (`sixContactMin_of_open2`) | 26 | 18 | 13 | 9 | **66** |
 
 The research-leaf count rises by two because two fields move into that bundle (see the first bullet
-below). Glue falls from 22 to 10, and the literature side (leaves) from 68 to 56. For comparison:
+below). Glue falls from 22 to 9, and the literature side (leaves) from 68 to 57. For comparison:
 - leaf-fold's own `sixContactMin_of_open` has 26 + 26 + 11 = 63 fields. Two of them are `opaque`,
   and its 11 glue pieces are the large unsplit ones.
 - g0-assemble2's `sixContactMin_of_leaves3` has 24 + 35 + 40 = 99 fields.
@@ -63,6 +63,8 @@ What changed:
     `unramifiedConjugates`. That is 9 glue fields;
   - from the textbook leaf T35: the glue `productMetrizationOfProductUnif` (unif-dims, with
     infra-smooth-dim's `TangentDimAtOrigin`).
+- **Glue replaced by a leaf.** `x6KummerFibre` follows from `MobiusGlue` (proved here) and
+  x6-kummer's new leaf candidate `X6ConicModel`, the conic model of `X₆`.
 - **Derived.** T39 follows from T40.
 - **No longer used.** Two glue fields are dropped: `artinTorsionSurj` and `conjUniformization`.
   conj-twist's final theorem needs neither.
@@ -106,6 +108,7 @@ proof is the imported or copied theorem, so Lean checks that the two statements 
 | `productUnifSplits` | GLUE | `ZInQ.ProductUnif.productUnifSplits` (no hypotheses) | product-unif §1-§3 copied (part b08, `mk_b08.sh`) | product-unif |
 | `productMetrizationOfProductUnif` | GLUE | **from T35**: `ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved` | unif-dims' `Combined.lean` chain copied (part b09, `mk_unifdims.py`; root lemmas in module `LF2UnifRoot`); `TangentDimAtOrigin` from infra-smooth-dim's `SmoothDimProps.lean` (module `LF2SmoothDim`, namespaces renamed `LF2.*`), transferred through `toAbVarK`. In metrization2's transport section a local field-by-field coercion `ZInQ.DefFaltings.AbVar → PkgI3.AbVar` (= `LeafAdopt.abVarEquiv`) is added, since Leaves.lean has two copies of the structure where the kernel has one | unif-dims, infra-smooth-dim, product-unif, metrization2 |
 | `unramifiedConjugates` | GLUE | `G0ModField.unramifiedConjugates` (Mathlib only) | `scratch/inner-twist/UnramConj.lean` verbatim as module `LF2UnramConj`, `exact` | inner-twist |
+| `x6KummerFibre` | GLUE | **from the new leaf** `X6Kummer.X6ConicModel` (LEAF?) and `MobiusGlue`: `X6Kummer.x6KummerFibre_of_conic` | x6-kummer's parts B-E copied (part b06, `mk_b06.sh`); its copies of fs5-nocm §A and of mul-rigidity are parts a60, a15 | x6-kummer |
 | `cotangentSpanBC`, `uniformizationLiftAnalytic` | GLUE | `ZInQ.HeightBC.cotangentSpanBC`, `uniformizationLiftAnalytic` | infra-stalks' `HeightBCGlue.lean`: its Part 3 copied (part b07), its Part 1 as module `LF2Stalks` | infra-stalks |
 | `r1bFamily` | LEAF | moved to `OpenResearchLeaves2.r1b` (R1(b) concretely; it was the `opaque` `r1an`) | — | fibre-qm-period, g0-assemble2 |
 | `carayolR17` | LEAF | moved to `OpenResearchLeaves2.r17` (it was the `opaque` `r17`) | — | g0-mod-newform, g0-assemble2 |
@@ -177,7 +180,7 @@ the field's statement or role.
 | `t40 : X1Belyi.X1RationalCusp` | T40 (T39 follows from it) | x1-belyi, rleaf-elliptic; split out of `x1` by leaf-fold2 |
 | `t41 : ZInQ.H5Neron.NeronModelExists` | T41, Néron models exist | h5-neron |
 
-### 2.3 `OpenAddedLeaves2` (12)
+### 2.3 `OpenAddedLeaves2` (13)
 
 | field | kind | content | last touched |
 |---|---|---|---|
@@ -193,12 +196,12 @@ the field's statement or role.
 | `t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists` | LEAF | T9 restated | weil-pairing |
 | `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | LEAF | Mumford §7-8 | weil-pairing |
 | `divisiblePoints : WeilPairing.DivisiblePoints` | LEAF | Mumford §4 Appl. 2 | weil-pairing |
+| `x6ConicModel : X6Kummer.X6ConicModel` | LEAF? | one witness of the leaf bundle has `X(ℚ̄) ≃ C(ℚ̄)` (Galois-equivariant) for the conic `C : Y² + 3X² + 3Z² = 0`, with `π₆ = −16(X²+Z²)/(27Z²)` (Elkies 1998 §3; Kurihara 1979). LEAF? because it is stated on a witness of the bundle, so it combines R1-R2 with the published model | x6-kummer; added by leaf-fold2 |
 
-### 2.4 `OpenGlue2` (10, all GLUE)
+### 2.4 `OpenGlue2` (9, all GLUE)
 
 | field | content | last touched; reductions available but not folded |
 |---|---|---|
-| `x6KummerFibre : FS5NoCM.X6KummerFibre` | the Kummer fibre of `X₆ → P¹` | fs5-nocm; x6-kummer reduces it to `MobiusGlue` (proved here) and a new leaf `X6ConicModel` (§4) |
 | `hodgeBCInjective : HeightBC.HodgeBCInjective` | `ψ` injective on the Hodge line | height-bc, infra-stalks (open) |
 | `omegaBaseChange : HeightBC.OmegaBaseChange` | `ω` base-changes | height-bc, infra-stalks (open) |
 | `periodMapGlue : ∀ h, FibreQM.PeriodMapGlue …` | the period map's fibres and values | fibre-qm-period. period-map reduces it to `BaseChangeClassUnique`, `PiTwistC`, `QMTwistLattice`, `CMDescends` |
@@ -238,11 +241,6 @@ fact that they are unused is VERIFIED by the compile.
   `hauptmodulUnique`, `qmDenZeroCM3`), prop-ts (`propTSAll`), linked-tate and g8-object (their own
   Props), and r1b-state (§1). Each replaces a field by other named Props, so folding it would not
   shrink the list of open statements. It would only rename them.
-- **x6-kummer.** It proves the glue `X6KummerFibre` from `MobiusGlue` and one new leaf
-  `X6ConicModel`, the conic model of `X₆ = X₀(6,1)` (VERIFIED, read in docs/research/x6-kummer.md).
-  This turns one glue Prop into one new leaf rather than closing it. Not folded: its file copies
-  fs5-nocm's §A, which part a60 already holds, so it would need de-duplication. It is the natural
-  next step.
 - **alg-frob-red** concerns frob-trace's route, not a field of `GluePieces3`.
 
 ## 5. Checks (VERIFIED)
@@ -289,6 +287,7 @@ fact that they are unused is VERIFIED by the compile.
 | `mk_abvarbc.py` | AbVarBC moved over the file's `PkgI3`/`PkgI4` | copied rather than imported (§1) |
 | `mk_b07.sh` | infra-stalks' Part 3 lines `open PkgI3 (AbVar)` deleted, as g0-assemble2 did | — |
 | `mk_b08.sh` | product-unif §1-§3, lines `open PkgI3 (AbVar)` deleted | same |
+| `mk_b06.sh` | x6-kummer parts B-E only | its other parts duplicate parts a60, a15 |
 | `mk_unifdims.py` | unif-dims' chain without the parts already present (product-height, product-unif §1-§3, g0-dim); root-namespace lemmas moved to module `LF2UnifRoot`; `open ZInQ.LeafPush2` restricted to the six names used; a local coercion between the two abelian-variety structures in one section; infra-smooth-dim's namespaces renamed `LF2.*` in module `LF2SmoothDim` | Leaves.lean's `ZInQ.LeafPush2` repeats most of `ZInQ.DefFaltings`, and it has two `AbVar` structures; the kernel has one of each |
 
 **No statement of a leaf or glue Prop was changed.** There are two exceptions, both forced:

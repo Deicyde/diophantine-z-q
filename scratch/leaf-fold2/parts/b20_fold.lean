@@ -242,15 +242,18 @@ structure OpenAddedLeaves2 : Prop where
   isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
   /-- weil-pairing, LEAF (Mumford §4 Appl. 2). -/
   divisiblePoints : WeilPairing.DivisiblePoints
+  /-- x6-kummer, LEAF? (the conic model of `X₆ = X₀(6,1)`, `Y² + 3X² + 3Z² = 0` with
+  `π₆ = −16(X² + Z²)/(27Z²)`, on one witness of the leaf bundle; Kurihara 1979, Elkies 1998,
+  UNVERIFIED locators). Replaces fs5-nocm's glue `X6KummerFibre` (`x6KummerFibre_of_conic`). -/
+  x6ConicModel : X6Kummer.X6ConicModel
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
 the nine now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
 `endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`,
-`unramifiedConjugates`) and the one now
+`unramifiedConjugates`), the one replaced by a leaf (`x6KummerFibre`, by `x6ConicModel`) and the one now
 following from the leaf T35 (`productMetrizationOfProductUnif`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
 final theorem needs neither). -/
 structure OpenGlue2 : Prop where
-  x6KummerFibre : FS5NoCM.X6KummerFibre
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
   omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
   periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
@@ -338,7 +341,8 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t.t5
   have hFS5 : G0FibreSimple.FibreComTrivial :=
     fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r3)
-      hMob t.t27 t.t6 l.cmOptimalEmbedding g.x6KummerFibre r.r5count)
+      hMob t.t27 t.t6 l.cmOptimalEmbedding (X6Kummer.x6KummerFibre_of_conic hMob l.x6ConicModel)
+      r.r5count)
   have hFS : G0Split.FibreSimple :=
     G0FibreSimple.fibreSimple_of_leaves t3 mulIsogeny_proved G0FibreSimple.rigidityHom
       ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
@@ -385,8 +389,8 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
 * `OpenResearchLeaves2`: 26 research-level fields (R1(b), R10, R14, R17 in concrete or corrected
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
-* `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 10 glue Props.
+* `OpenAddedLeaves2`: 13 leaves (9 LEAF, 4 LEAF?) introduced by the wave 26-27 reductions and x6-kummer;
+* `OpenGlue2`: 9 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=

@@ -138,3 +138,10 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
 'HDec.HSyn.sixContactMin_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 - flat_out.txt (host paths) is removed from the index and ignored.
+
+## x6-kummer fold (10:55-11:02 PST), VERIFIED compiled (TailE)
+- parts/b06_x6kummer.lean (mk_b06.sh): x6-kummer's parts B, C, D, E verbatim; its part0 (fs5-nocm §A) and
+  partR (mul-rigidity Rigidity.lean) omitted, every declaration name being present in parts a60 / a15/40.
+- `x6KummerFibre` (GLUE) replaced by the leaf candidate `X6Kummer.X6ConicModel` (field of OpenAddedLeaves2,
+  LEAF?), via `X6Kummer.x6KummerFibre_of_conic (mobiusGlue_of_t5' t.t5) l.x6ConicModel`.
+- TailE: exit 0, 0 errors, 66 s; all `#print axioms` standard. Bundles: 26 + 18 + 13 + 9 = 66.

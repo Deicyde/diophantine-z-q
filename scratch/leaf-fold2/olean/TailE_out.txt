@@ -81,13 +81,49 @@ Hint: Replace the deprecated name:
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:441:2: warning: `simp` already closes the goal
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:428:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:428:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:428:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:622:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:622:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:622:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:755:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:755:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:755:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:826:5: warning: Ambiguous namespace `LeafQM.AV`: it is interpreted as `_root_.HDec.LeafQM.AV` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:826:15: warning: Ambiguous namespace `LeafQM.AV.Pin`: it is interpreted as `_root_.HDec.LeafQM.AV.Pin` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.LeafQM.AV.Pin` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LeafQM.AV.Pin`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:826:29: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.X6Kummer`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:999:2: warning: `simp` already closes the goal
 
 Hint: Use `simp` instead of `simpa`:
   [apply] simp
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:473:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1031:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -95,10 +131,10 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:535:4: warning: Unused tactic linter: `change bcCot he (((N : 𝒢.genStalk)) • ((↑(U⁻¹) : 𝒢.genStalk) • u)) = _` does nothing.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1093:4: warning: Unused tactic linter: `change bcCot he (((N : 𝒢.genStalk)) • ((↑(U⁻¹) : 𝒢.genStalk) • u)) = _` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:569:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1127:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -106,7 +142,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:626:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1184:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -114,23 +150,23 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1061:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1619:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1070:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1628:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1109:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1667:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1109:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1667:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1450:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2008:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -138,7 +174,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1529:26: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2087:26: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -153,42 +189,42 @@ instead of
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
         (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1470:18: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2028:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1477:18: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2035:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1484:18: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2042:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1498:18: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2056:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1505:18: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2063:18: warning: This simp argument is unused:
   Function.update_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [hj]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1564:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2122:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -196,67 +232,67 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1604:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2162:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1604:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2162:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1752:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2310:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:1867:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2425:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2196:42: warning: Variable name `hfst` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2754:42: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2197:5: warning: Variable name `hsnd` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2755:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2222:30: warning: Variable name `hfst` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2780:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2223:5: warning: Variable name `hsnd` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2781:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2268:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2826:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2268:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2826:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2278:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_fst_eventuallyEq`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2836:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_fst_eventuallyEq`:
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2296:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_snd_eventuallyEq`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2854:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.Metrization.germAlong_pull_snd_eventuallyEq`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:2981:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3539:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -264,94 +300,27 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3030:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3588:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3030:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3588:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3041:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3599:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3041:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3599:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3053:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3611:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3053:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3063:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3063:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3098:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3314:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3314:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3338:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
-If you'd rather continue using `push_neg` in your project, you can implement it as follows:
-```
-open Lean.Parser.Tactic in
-macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
-  `(tactic| push $cfg:optConfig Not $[$loc]?)
-```
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3506:2: warning: Try this: 
-  letI̵
-
-The goal is a proposition, so `let` is preferred over `letI`.
-The difference between `let` and `letI` is that `letI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3507:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3564:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3564:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3567:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3567:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3618:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
-
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3618:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3611:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
@@ -363,23 +332,34 @@ Hint: Replace the deprecated name:
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3627:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3656:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3627:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3872:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3653:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3872:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3684:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3896:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4064:2: warning: Try this: 
+  letI̵
 
-Hint: Replace the deprecated name:
-  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3785:4: warning: Try this: 
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4065:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -387,23 +367,55 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3787:4: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3808:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4122:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3808:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4122:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3842:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4125:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4125:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4176:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4176:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4179:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4179:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4185:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4185:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4211:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4242:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4343:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -411,7 +423,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:3843:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4345:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -419,7 +431,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4127:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4366:6: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4366:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4400:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -427,13 +447,29 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4192:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.detFun_tmul`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4401:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4685:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4750:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.detFun_tmul`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4223:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4781:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -444,119 +480,119 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4243:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.exists_basis_of_span`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4801:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.exists_basis_of_span`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4267:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.secIndex_map`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4825:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.secIndex_map`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4325:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inl`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4883:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inl`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4333:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inr`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4891:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.sumIso_inr`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4348:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_castAdd`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4906:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_castAdd`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4354:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_natAdd`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4912:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.prodBasis_natAdd`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4361:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.det_prodBasis_append`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4919:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.det_prodBasis_append`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4387:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.card_le_of_li_range`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4945:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.card_le_of_li_range`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4623:30: warning: Variable name `hfst` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5181:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4624:5: warning: Variable name `hsnd` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5182:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:4973:2: warning: `simp` already closes the goal
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5531:2: warning: `simp` already closes the goal
 
 Hint: Use `simp` instead of `simpa`:
   [apply] simp
 
 Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5041:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₁`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5599:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₁`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5042:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₂`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5600:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₁_p₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5043:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₁`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5601:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₁`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5044:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₂`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5602:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.inc₂_p₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5049:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₁`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5607:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₁`:
   [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ snd 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5051:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₂`:
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5609:0: warning: automatically included section variable(s) unused in theorem `HDec.ZInQ.UnifDims.hp₂`:
   [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [IsMonHom (e.hom ≫ fst 𝒢₁.G 𝒢₂.G)] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5185:30: warning: Variable name `hfst` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5743:30: warning: Variable name `hfst` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hfst
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5186:5: warning: Variable name `hsnd` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/leaf-fold2/scratch/leaf-fold2/olean/TailE.lean:5744:5: warning: Variable name `hsnd` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hsnd
