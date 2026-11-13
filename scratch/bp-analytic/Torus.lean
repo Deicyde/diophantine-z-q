@@ -1485,4 +1485,75 @@ theorem IsUniformization.dim_eq {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)
   have := T.toLinearEquiv.finrank_eq
   simpa using this
 
+/-! ### Glue: the analytic representation `End(A) → End_ℂ(ℂ^g)` -/
+
+section AnalyticRep
+
+variable {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} [DiscreteTopology Λ]
+  {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+
+/-- The analytic representation of an endomorphism `α` of `A`: the unique `ℂ`-linear map of
+`ℂ^g` lifting `φ⁻¹ ∘ α ∘ φ` (`exists_complexLinear_endo`). -/
+noncomputable def analyticRep (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α] :
+    (Fin g → ℂ) →L[ℂ] (Fin g → ℂ) :=
+  (hφ.exists_complexLinear_endo α).choose
+
+theorem analyticRep_mem (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    {v : Fin g → ℂ} (hv : v ∈ Λ) : analyticRep hφ α v ∈ Λ :=
+  (hφ.exists_complexLinear_endo α).choose_spec.1 v hv
+
+theorem analyticRep_spec (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    (v : Fin g → ℂ) :
+    Additive.toMul (φ (proj Λ (analyticRep hφ α v))) = Additive.toMul (φ (proj Λ v)) ≫ α :=
+  (hφ.exists_complexLinear_endo α).choose_spec.2 v
+
+/-- Characterization: any continuous `ℝ`-linear lift of `α` is `analyticRep α`. -/
+theorem analyticRep_unique (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    (T : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ))
+    (hT : ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α) :
+    (analyticRep hφ α).restrictScalars ℝ = T :=
+  eq_of_proj_eq _ _ fun v => φ.injective (Additive.toMul.injective (by
+    rw [ContinuousLinearMap.coe_restrictScalars', analyticRep_spec, hT]))
+
+/-- `ρ(𝟙) = id`. -/
+theorem analyticRep_id (hφ : IsUniformization A Λ φ) :
+    analyticRep hφ (𝟙 A.X) = ContinuousLinearMap.id ℂ _ := by
+  have := analyticRep_unique hφ (𝟙 A.X) (ContinuousLinearMap.id ℝ _) (fun v => by simp)
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+/-- `ρ(β ≫ α) = ρ(α) ∘ ρ(β)` (composition of endomorphisms). -/
+theorem analyticRep_comp (hφ : IsUniformization A Λ φ) (α β : A.X ⟶ A.X) [IsMonHom α]
+    [IsMonHom β] :
+    analyticRep hφ (β ≫ α) = (analyticRep hφ α).comp (analyticRep hφ β) := by
+  have := analyticRep_unique hφ (β ≫ α)
+    (((analyticRep hφ α).comp (analyticRep hφ β)).restrictScalars ℝ) (fun v => by
+      simp only [ContinuousLinearMap.coe_restrictScalars', ContinuousLinearMap.coe_comp,
+        Function.comp_apply]
+      rw [analyticRep_spec, analyticRep_spec, Category.assoc])
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+/-- The pointwise product of two endomorphisms of the commutative group scheme `A` is again an
+endomorphism (as in `Objects.lean`, `PkgI3.AbVar.homGroup`). -/
+instance isMonHom_mul (α β : A.X ⟶ A.X) [IsMonHom α] [IsMonHom β] : IsMonHom (α * β) := by
+  change IsMonHom (CartesianMonoidalCategory.lift α β ≫ μ[A.X])
+  infer_instance
+
+/-- `ρ(α + β) = ρ(α) + ρ(β)`, the sum in the group `Hom(A, A)` being the pointwise product of
+morphisms into the commutative group scheme `A`. -/
+theorem analyticRep_mul (hφ : IsUniformization A Λ φ) (α β : A.X ⟶ A.X) [IsMonHom α]
+    [IsMonHom β] :
+    analyticRep hφ (α * β) = analyticRep hφ α + analyticRep hφ β := by
+  have := analyticRep_unique hφ (α * β)
+    ((analyticRep hφ α + analyticRep hφ β).restrictScalars ℝ) (fun v => by
+      simp only [ContinuousLinearMap.coe_restrictScalars', add_apply]
+      rw [show proj Λ (analyticRep hφ α v + analyticRep hφ β v) =
+          proj Λ (analyticRep hφ α v) + proj Λ (analyticRep hφ β v) from rfl, map_add, toMul_add,
+        analyticRep_spec, analyticRep_spec, MonObj.comp_mul])
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+end AnalyticRep
+
 end BPAnalytic.Uniformization

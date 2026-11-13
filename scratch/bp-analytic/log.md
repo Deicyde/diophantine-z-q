@@ -78,3 +78,7 @@
 - Torus.lean §10: `eq_of_proj_eq` (uniqueness of continuous ℝ-linear lifts), `IsUniformization.exists_equiv`
   (two uniformizations differ by T : ℂ^g ≃L[ℂ] ℂ^{g'} with T(Λ) = Λ'), `IsUniformization.dim_eq` (g = g').
   COMPILED; axioms standard.
+- Torus.lean §10 (analytic representation): `analyticRep hφ α` (the ℂ-linear lift), `analyticRep_mem`,
+  `analyticRep_spec`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp` (ρ(β≫α) = ρ(α)∘ρ(β)),
+  `isMonHom_mul` (instance), `analyticRep_mul` (ρ(α*β) = ρ(α)+ρ(β), * = group law of Hom(A,A)). COMPILED;
+  axioms standard.
