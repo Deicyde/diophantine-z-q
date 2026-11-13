@@ -7,25 +7,27 @@ it from g0-split's `Split.lean` (verbatim, plus one import) and the new section
 ## 1. Result
 
 **Verdict: the piece is true as far as model review can tell, and it is not vacuous.** It is now
-proved in Lean from two named Props, with no `sorry`. The piece's statement is unchanged: it is
-the `def` in g0-split's `Split.lean`, included verbatim.
+proved in Lean, with no `sorry`, from two strictly smaller named Props: one glue Prop
+(`FibreQMPeriod`) and one leaf candidate (`ThetaRatiosAlgebraic`). The piece's statement is
+unchanged: it is the `def` in g0-split's `Split.lean`, included verbatim.
 
 ```
-theorem HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm
-    (hQM : FibreQMPeriod) (hAlg : ThetaNullAlgebraic) : ThetaPointOfFibre
+theorem HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+    (hQM : FibreQMPeriod) (hAlg : ThetaRatiosAlgebraic) : ThetaPointOfFibre
 
 theorem HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_parts (hDim : DimBaseChange)
     (hU : UniformizationExistsNF) (hQM : FibreQMPeriodAll) (hAlg : ThetaNullAlgebraic) :
     ThetaPointOfFibre
 
-theorem HSyn.glueOutputs_of_leaves_thetaParts ... (hU hQM hAlg replace hThetaPt) :
-    GlueAssembly.GlueOutputs ZInQ.Mult.S_mul
+theorem HSyn.glueOutputs_of_leaves_thetaParts ... (hQM : FibreQMPeriod)
+    (hAlg : ThetaRatiosAlgebraic) ... : GlueAssembly.GlueOutputs ZInQ.Mult.S_mul
 ```
 
 VERIFIED: `lake env lean scratch/g0-thetapoint/ThetaPoint.lean` reports 0 errors and no
-`declaration uses sorry` (run5, 2m52s). `#print axioms` gives `[propext, Classical.choice,
+`declaration uses sorry` (run8, 2m40s). `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for `thetaConst_odd`, `thetaPointOfFibre_of`, `fibreThetaF1_of`,
-`fibreQMPeriod_of_all`, `thetaPointOfFibre_of_qm`, `thetaPointOfFibre_of_parts` and
+`fibreQMPeriod_of_all`, `thetaPointOfFibre_of_qm`, `thetaNullAlgebraic_of_ratios`,
+`thetaPointOfFibre_of_qm_ratios`, `thetaPointOfFibre_of_parts` and
 `HSyn.glueOutputs_of_leaves_thetaParts`. The last theorem is g0-split's main theorem with piece 9
 replaced by its parts. Prerequisites: `lake build ZInQKernel.HDecomp.Analytic.QMLattice` and
 `lake build ZInQKernel.Hypotheses.JHeight`. The second builds the upstream `lean/` helpers that
@@ -33,7 +35,8 @@ replaced by its parts. Prerequisites: `lake build ZInQKernel.HDecomp.Analytic.QM
 
 There are two routes, and both compile:
 
-* **Route E (existential, weakest hypotheses):** `FibreQMPeriod` + `ThetaNullAlgebraic`.
+* **Route E (existential, weakest hypotheses):** `FibreQMPeriod` + `ThetaRatiosAlgebraic`
+  (or `ThetaNullAlgebraic`, which `ThetaRatiosAlgebraic` implies).
 * **Route A (universal):** `DimBaseChange` (g0-split piece 2, unchanged) +
   `UniformizationExistsNF` + `FibreQMPeriodAll` + `ThetaNullAlgebraic`. These imply route E's
   hypothesis (`fibreQMPeriod_of_all`). This route separates the textbook existence of a
@@ -50,6 +53,7 @@ Sizes are SPECULATIVE.
 | `FibreQMPeriodAll` | GLUE | for `u ∉ 𝒞`, every model `A` of the fibre over `J(u)`, every `σ` and every uniformization with kernel `Λ`: a `ℂ`-linear `F` carries `Λ` onto bp-analytic's `qmLattice τ = ι(𝒪)(τ,1)ᵀ` for some `τ ∈ ℍ`, and `jNum(Ω(τ))/jDen(Ω(τ)) = J(u)` | R1(b) (placeholder `R01b_ComplexUniformization`; Shimura 1967), `PkgI1.QMHauptmodul` (from R2-R4), `R2fpProps`'s CM values, uniqueness of uniformizations (bp-analytic `IsUniformization.exists_complexLinear`, proved in the build over `ℂ`) | large |
 | `FibreQMPeriod` | GLUE | the same with "some `σ`, some uniformization" | as above | large |
 | `ThetaNullAlgebraic` | LEAF-COMPOSITE (leaf candidate) | for `A` over a number field, a uniformization with kernel `Λ` and any `Ω ∈ 𝔥₂` that is a period matrix of `Λ`: `c·θ_m(0,Ω) = emb(z_m)` for some `c ≠ 0` and a point `z ∈ L¹⁶` of a number field `L` | algebraicity of polarizations (`NS(A_ℚ̄) = NS(A_ℂ)`) plus algebraicity of theta-constant ratios: Thomae (Mumford, *Tata Lectures on Theta II*, IIIa §8) or Shimura (Duke 43, 1976), Faltings–Chai Ch. V (all UNVERIFIED) | — (cited) |
+| `ThetaRatiosAlgebraic` | LEAF candidate (the literature form) | same hypotheses; some `θ_{m₀}(0,Ω) ≠ 0` and every ratio `θ_m(0,Ω)/θ_{m₀}(0,Ω)` is an algebraic number. It implies `ThetaNullAlgebraic` (**proved**, `thetaNullAlgebraic_of_ratios`: `L = ℚ(ratios) ⊆ ℂ`, `c = θ_{m₀}⁻¹`) | as for `ThetaNullAlgebraic`; nonvanishing: at most one even theta constant vanishes in genus 2 (Igusa, UNVERIFIED locator) | — (cited) |
 | `FibreThetaF1` | GLUE, **proved** from `FibreQMPeriod` | some uniformization of the fibre has a period matrix `Ω ∈ 𝔥₂` with `j_θ(Ω) = J(u)` | — | done |
 
 `ThetaNullAlgebraic` is not one printed theorem, so it is a leaf *candidate*: a published
@@ -73,7 +77,10 @@ needs a polarization object on `PkgI3.AbVar`, which the project does not have.
 * `isSiegel_Omega` and `isPeriodMatrix_qmLattice` (from bp-analytic's kernel lemmas), and
   `isPeriodMatrix_of_map`, `isPeriodMatrix_of_comap`: `Ω(τ)` is a period matrix of every lattice
   that is linearly isomorphic to `Λ_τ`.
-* `thetaPointOfFibre_of`, `fibreThetaF1_of_qm`, `fibreQMPeriod_of_all`, `fibreThetaF1_of`,
+* `exists_nf_of_isAlgebraic`: finitely many algebraic complex numbers lie in the image of a
+  number field (`IntermediateField.adjoin`, `finiteDimensional_adjoin`).
+* `thetaPointOfFibre_of`, `fibreThetaF1_of_qm`, `thetaNullAlgebraic_of_ratios`,
+  `thetaPointOfFibre_of_qm_ratios`, `fibreQMPeriod_of_all`, `fibreThetaF1_of`,
   `thetaPointOfFibre_of_qm`, `thetaPointOfFibre_of_parts`, `HSyn.glueOutputs_of_leaves_thetaParts`.
 
 ## 3. Checks on the piece and on the new Props
@@ -113,7 +120,7 @@ These are model checks, with no human review.
 
 * **Compiles (VERIFIED):** all of `ThetaPoint.lean` (20 300 lines), with no `sorry`.
 * **Remains:** `FibreQMPeriod` (or `UniformizationExistsNF` + `FibreQMPeriodAll`) and
-  `ThetaNullAlgebraic`.
+  `ThetaRatiosAlgebraic` (or `ThetaNullAlgebraic`).
   * Next split of `FibreQMPeriod`, the Hauptmodul route: R1(b) made concrete (it is opaque in
     `ResearchLeaves`) plus the Möbius uniqueness of a Hauptmodul with three prescribed values.
   * Next split of `FibreQMPeriod`, Glazer's own F1 route: R3 (leaf-push2's concrete
@@ -130,4 +137,4 @@ These are model checks, with no human review.
   `import ZInQKernel.HDecomp.Analytic.QMLattice` (needed for `qmLattice`, `Omega_mem_siegelSpace`,
   `map_periodLattice_Omega`). No name in `Split.lean` clashes with bp-analytic's `BPAnalytic`
   namespace (VERIFIED by compiling). In `MissingPieces`, the field `thetaPoint` can then be
-  replaced by `FibreQMPeriod` and `ThetaNullAlgebraic`.
+  replaced by `FibreQMPeriod` and `ThetaRatiosAlgebraic`.

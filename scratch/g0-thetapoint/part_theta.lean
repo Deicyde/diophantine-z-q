@@ -2,15 +2,17 @@
 /-! ## §3″. g0-thetapoint: `ThetaPointOfFibre` (missing piece 9) from smaller named Props
 
 Task g0-thetapoint, 2026-11-13. `G0Split.ThetaPointOfFibre` (above, unchanged) is proved here
-(`ThetaPt.thetaPointOfFibre_of_parts`) from
+along two routes.
 
-* `DimBaseChange` (missing piece 2 of g0-split, unchanged; only to know that the model is a surface),
-* `ThetaPt.UniformizationExistsNF` (TEXTBOOK leaf candidate: an abelian surface over a number field
-  has an analytic uniformization at some complex place),
-* `ThetaPt.FibreQMPeriodAll` (GLUE: R1(b) and the Hauptmodul comparison on the actual fibre: every
-  uniformization lattice of the fibre is a QM lattice `ι(𝒪)(τ, 1)ᵀ` with `j_θ(Ω(τ)) = J(u)`),
-* `ThetaPt.ThetaNullAlgebraic` (LEAF-COMPOSITE: theta constants of a principally polarized abelian
-  surface defined over a number field are algebraic up to a common factor).
+* Route E (`ThetaPt.thetaPointOfFibre_of_qm_ratios`): `ThetaPt.FibreQMPeriod` (GLUE: R1(b) and
+  the Hauptmodul comparison on the actual fibre: some uniformization lattice of the fibre is a QM
+  lattice `ι(𝒪)(τ, 1)ᵀ` with `j_θ(Ω(τ)) = J(u)`) and `ThetaPt.ThetaRatiosAlgebraic` (LEAF
+  candidate: theta-constant ratios at a period matrix of an abelian surface over a number field
+  are algebraic numbers). `ThetaRatiosAlgebraic` implies `ThetaPt.ThetaNullAlgebraic` (proved).
+* Route A (`ThetaPt.thetaPointOfFibre_of_parts`): `DimBaseChange` (g0-split piece 2, unchanged;
+  the model is a surface), `ThetaPt.UniformizationExistsNF` (TEXTBOOK leaf candidate: analytic
+  uniformization at some complex place), `ThetaPt.FibreQMPeriodAll` (GLUE: the universal form of
+  `FibreQMPeriod`) and `ThetaPt.ThetaNullAlgebraic` (LEAF-COMPOSITE).
 
 Proved glue: the F1 value passes from `ℂ` to the number field (`f1_of_theta`, homogeneity of
 degree 0 of `j_θ`), the height comparison (`height_even`, Mathlib's `logHeight_comp_le`; the odd
@@ -295,6 +297,45 @@ def ThetaNullAlgebraic : Prop :=
     ∃ (L : GlueAssembly.NF) (emb : L.K →+* ℂ) (z : Char2 → L.K) (c : ℂ), c ≠ 0 ∧
       ∀ m, emb (z m) = c * thetaConst Ω m
 
+/-- **LEAF candidate (theta-constant ratios are algebraic numbers).** For an abelian variety `A`
+over a number field `K`, a uniformization `Φ : ℂ² → A(ℂ)_σ` with kernel `Λ` and any period matrix
+`Ω ∈ 𝔥₂` of `Λ`: some theta constant `θ_{m₀}(0, Ω)` is nonzero and every ratio
+`θ_m(0, Ω)/θ_{m₀}(0, Ω)` is an algebraic number. This is the form in which the literature states
+it (values of Siegel modular functions with algebraic Fourier coefficients at a point whose
+principally polarized abelian variety is defined over `ℚ̄` are algebraic: Shimura, Duke 43 (1976);
+for genus 2 also Thomae's formula, Mumford, *Tata Lectures on Theta II*, IIIa §8; with
+`NS(A_ℚ̄) = NS(A_ℂ)` for the polarization defined by `Ω`; all locators UNVERIFIED). Nonvanishing:
+at most one of the ten even `θ_m(0, Ω)` vanishes in genus 2 (it vanishes exactly on products of
+elliptic curves; UNVERIFIED locator: Igusa 1962/1967). `ThetaNullAlgebraic` follows
+(`thetaNullAlgebraic_of_ratios`, proved). -/
+def ThetaRatiosAlgebraic : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ)
+    (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φu : (Fin 2 → ℂ) → CPts A σ), IsUniformization σ Λ Φu →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → IsPeriodMatrix Λ Ω →
+    ∃ m₀ : Char2, thetaConst Ω m₀ ≠ 0 ∧ ∀ m, IsAlgebraic ℚ (thetaConst Ω m / thetaConst Ω m₀)
+
+/-- Finitely many algebraic complex numbers lie in the image of a number field (`ℚ(α_i) ⊆ ℂ`). -/
+theorem exists_nf_of_isAlgebraic {Idx : Type} [Fintype Idx] (α : Idx → ℂ)
+    (h : ∀ i, IsAlgebraic ℚ (α i)) :
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* ℂ) (z : Idx → L.K), ∀ i, emb (z i) = α i := by
+  set E : IntermediateField ℚ ℂ := IntermediateField.adjoin ℚ (Set.range α)
+  have hfd : FiniteDimensional ℚ E := by
+    apply IntermediateField.finiteDimensional_adjoin
+    rintro x ⟨i, rfl⟩
+    exact (h i).isIntegral
+  have : NumberField E := ⟨⟩
+  exact ⟨⟨E⟩, E.val.toRingHom, fun i => ⟨α i, IntermediateField.subset_adjoin ℚ _ ⟨i, rfl⟩⟩,
+    fun i => rfl⟩
+
+/-- **`ThetaNullAlgebraic` from `ThetaRatiosAlgebraic` (proved):** `L = ℚ(θ_m/θ_{m₀})`,
+`c = θ_{m₀}⁻¹`. -/
+theorem thetaNullAlgebraic_of_ratios (h : ThetaRatiosAlgebraic) : ThetaNullAlgebraic := by
+  intro K _ _ A σ Λ Φu hU Ω hS hP
+  obtain ⟨m₀, h0, halg⟩ := h K A σ Λ Φu hU Ω hS hP
+  obtain ⟨L, emb, z, hz⟩ := exists_nf_of_isAlgebraic _ halg
+  exact ⟨L, emb, z, (thetaConst Ω m₀)⁻¹, inv_ne_zero h0, fun m => by
+    rw [hz m, div_eq_inv_mul]⟩
+
 /-- **GLUE (G19, F1 analytic; proved below from `DimBaseChange`, `UniformizationExistsNF` and
 `FibreQMPeriodAll`).** For `u ∉ 𝒞` and every model `A` of the fibre surface over `J(u)`: some
 analytic uniformization of `A(ℂ)_σ` with a period matrix `Ω ∈ 𝔥₂` such that `j_θ(Ω) = J(u)`. -/
@@ -350,6 +391,11 @@ theorem thetaPointOfFibre_of_qm (hQM : FibreQMPeriod) (hAlg : ThetaNullAlgebraic
     ThetaPointOfFibre :=
   thetaPointOfFibre_of (fibreThetaF1_of_qm hQM) hAlg
 
+/-- **Missing piece 9 from the existential F1 glue and the ratio form of algebraicity (proved).** -/
+theorem thetaPointOfFibre_of_qm_ratios (hQM : FibreQMPeriod) (hAlg : ThetaRatiosAlgebraic) :
+    ThetaPointOfFibre :=
+  thetaPointOfFibre_of_qm hQM (thetaNullAlgebraic_of_ratios hAlg)
+
 /-- **Missing piece 9, `ThetaPointOfFibre`, from strictly smaller named Props (proved).** -/
 theorem thetaPointOfFibre_of_parts (hDim : DimBaseChange) (hU : UniformizationExistsNF)
     (hQM : FibreQMPeriodAll) (hAlg : ThetaNullAlgebraic) : ThetaPointOfFibre :=
@@ -361,18 +407,17 @@ end G0Split
 
 open G0Split in
 /-- **g0-split's main theorem with missing piece 9 replaced by its parts (proved).** As
-`glueOutputs_of_leaves`, with `ThetaPointOfFibre` replaced by `UniformizationExistsNF`,
-`FibreQMPeriodAll` and `ThetaNullAlgebraic` (`DimBaseChange` is already a hypothesis). -/
+`glueOutputs_of_leaves`, with `ThetaPointOfFibre` replaced by `FibreQMPeriod` (glue) and
+`ThetaRatiosAlgebraic` (leaf candidate). -/
 theorem glueOutputs_of_leaves_thetaParts (r : ResearchLeaves) (t : TextbookLeaves)
     (hR18 : R18_JavanpeykarConcrete) (hR22 : R22_PazukiConcrete)
     (hDimF : DimFinite) (hDim : DimBaseChange) (hBelyi : X1BelyiOnModel) (hSimp : FibreSimple)
     (hAdd : HeightAdditivity) (hBC : StableHeightBaseChange) (hProdE : ProductExists)
-    (hRev : ReverseIsogeny) (hU : ThetaPt.UniformizationExistsNF)
-    (hQM : ThetaPt.FibreQMPeriodAll) (hAlg : ThetaPt.ThetaNullAlgebraic)
+    (hRev : ReverseIsogeny) (hQM : ThetaPt.FibreQMPeriod) (hAlg : ThetaPt.ThetaRatiosAlgebraic)
     (hMod : ModularConstituent) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul :=
   glueOutputs_of_leaves r t hR18 hR22 hDimF hDim hBelyi hSimp hAdd hBC hProdE hRev
-    (ThetaPt.thetaPointOfFibre_of_parts hDim hU hQM hAlg) hMod
+    (ThetaPt.thetaPointOfFibre_of_qm_ratios hQM hAlg) hMod
 
 end HSyn
 
@@ -384,4 +429,6 @@ end
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_parts
 #print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm
 #print axioms HSyn.G0Split.ThetaPt.fibreQMPeriod_of_all
+#print axioms HSyn.G0Split.ThetaPt.thetaNullAlgebraic_of_ratios
+#print axioms HSyn.G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
 #print axioms HSyn.glueOutputs_of_leaves_thetaParts

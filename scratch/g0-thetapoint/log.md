@@ -19,6 +19,8 @@ Piece: `HSyn.G0Split.ThetaPointOfFibre` (g0-split missing piece 9; G19, F1 on `A
   lattice, `θ_m(0,Ω) = c⁻¹·emb(z_m)` for a point `z` of a number field.
 - `FibreQMPeriod` (GLUE): the existential form of `FibreQMPeriodAll` (some `σ`, some uniformization).
 - `FibreThetaF1` (GLUE, proved from `FibreQMPeriod`).
+- `ThetaRatiosAlgebraic` (LEAF candidate): some `θ_{m₀}(Ω) ≠ 0` and all `θ_m/θ_{m₀}` algebraic;
+  implies `ThetaNullAlgebraic` (proved, `thetaNullAlgebraic_of_ratios`, `L = ℚ(ratios) ⊆ ℂ`).
 
 ## Results (VERIFIED: compiled)
 - run4 (02:07-02:10): `lake env lean scratch/g0-thetapoint/ThetaPoint.lean`: 0 errors, no
@@ -40,6 +42,12 @@ Piece: `HSyn.G0Split.ThetaPointOfFibre` (g0-split missing piece 9; G19, F1 on `A
 - run5 (02:11-02:14): 0 errors, no `sorry`, 2m52s; adds `FibreQMPeriod`, `fibreQMPeriod_of_all`,
   `fibreThetaF1_of_qm`, `thetaPointOfFibre_of_qm : FibreQMPeriod → ThetaNullAlgebraic →
   ThetaPointOfFibre`; all axioms `[propext, Classical.choice, Quot.sound]`.
+- run6: 3 errors (`ι` is a notation token in this file; binder renamed `Idx`); run7 clean.
+- run8 (02:23-02:26): 0 errors, no `sorry`, 2m40s. Adds `exists_nf_of_isAlgebraic`,
+  `thetaNullAlgebraic_of_ratios`, `thetaPointOfFibre_of_qm_ratios : FibreQMPeriod →
+  ThetaRatiosAlgebraic → ThetaPointOfFibre`; `glueOutputs_of_leaves_thetaParts` now takes
+  `FibreQMPeriod`, `ThetaRatiosAlgebraic` in place of `ThetaPointOfFibre`. All axioms
+  `[propext, Classical.choice, Quot.sound]`.
 
 ## Findings
 - The piece is not false or vacuous (model argument, docs/research/g0-thetapoint.md §3). Its
