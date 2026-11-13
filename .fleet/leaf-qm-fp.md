@@ -14,7 +14,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
   - `Γ'` (Aut 𝒪-twists and `𝒪^×`) acts by automorphisms of `Y`;
   - `X₆` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with `W` and the forgetful `Y → X`;
   - `π₆ : X → P¹` (by charts) whose fibres are the W-orbits, with CM values `0, ∞, −16/27`;
-  - the three CM points exist.
+  - the three CM points exist;
+  - `π₆` and `Y → X` are onto on ℚ̄-points.
 - Shimura reciprocity in unramified form (p ≥ 5), in two versions: `R1recProps` (residue
   fields of CM points of `Y₃`, inside `R1R2fp`) and `R1rec` (fields of moduli of CM objects).
 - `R5fp`: González–Rotger Thm 5.12, giving the degree, and `k ⊆ ℚ(x)` when `D(R) ≠ 1`.
@@ -34,6 +35,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
 - h-b1 M9 on `X₆` (`cm_of_val`): the fibres over 0, ∞, −16/27 are CM points by ℤ[i], ℤ[ζ₃],
   ℤ[√−6]. This uses invariance of CM under isomorphism and twist.
 - R2 on `Y₃` from R2 on `X₆` (`R1R2fp_Y`).
+- A4, choosing a fibre (`exists_fibre_object`): over every `t ∈ P¹(ℚ̄)` there is a point of
+  `Y₃` with an object.
 - Lemma NV step 2 (`residue_unramified_over_branch`): points of `Y₃` over the branch values
   have residue fields unramified at p ≥ 5.
 - From the kernel leaf `TorsionStructure`: level structures are onto `A(K̄)[3]`, so `A[3]` is
@@ -57,6 +60,6 @@ clauses, `N* = 1`.
 - the Kummer model of `X₆ → P¹`, with the fibre field `ℚ(i)`;
 - residue field of a point versus field of moduli;
 - the final class count for A3;
-- A4 plumbing.
+- A4 plumbing to residue fields over number fields.
 
 R1an (complex uniformization, for F1) and R3 (Lin–Yang) are out of scope. No leaf is proved.

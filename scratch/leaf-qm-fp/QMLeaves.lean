@@ -1021,6 +1021,15 @@ def CMExists (X : Over (Spec (CommRingCat.of ℚ)))
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM24 P.q)
 
+/-- **Surjectivity on `ℚ̄`-points, clause list**: `π₆ : X₆ → P¹` is onto `P¹(ℚ̄)` (it is the
+quotient map `X₆ → X₆/W` followed by Baba–Granath's isomorphism `X₆/W ≅ P¹`), and the forgetful
+map `Y₃ → X₆` is onto `X₆(ℚ̄)` (every QM pair over `ℚ̄` admits a level-3 structure: `Y₃ → X₆` is
+the finite surjective forgetful map of R1). Needed to choose a fibre over `J(u)` (A4). -/
+def X6Surj (Y : Over (Spec (CommRingCat.of ℚ))) (X : Over (Spec (CommRingCat.of ℚ)))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left) : Prop :=
+  (∀ t : OnePoint Qbar, ∃ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = t) ∧
+  (∀ x : fieldPt Qbar ⟶ X, ∃ y : fieldPt Qbar ⟶ Y, y ≫ fY = x)
+
 /-- The residue field `κ(x)` of the point `x` of a `ℚ̄`-point `y : Spec ℚ̄ → X`, as a subfield of
 `ℚ̄` (the image of the embedding `κ(x) ↪ ℚ̄` determined by `y`; it is a subfield containing `ℚ`,
 so it equals the `ℚ`-subfield it generates). -/
@@ -1154,16 +1163,16 @@ def R1R2fp : Prop :=
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) (π₆ : ToP1 X.left),
     R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6Props X Ψ π₆ ∧
-      CMExists X Ψ ∧ R1recProps Y Φ
+      CMExists X Ψ ∧ R1recProps Y Φ ∧ X6Surj Y X fY π₆
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
 
 /-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
 theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -, -⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -, -, -⟩ := h
   exact ⟨Y, Φ, π₆.comp fY.left, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
@@ -1252,7 +1261,7 @@ theorem unramified_over_branch (h : R1R2fp ∧ R1rec) :
           π.val (K := Qbar) y.left = OnePoint.infty ∨
           π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
         UnramifiedAbove5 (fieldOfModuli3 P) := by
-  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, -⟩, hrec⟩ := h
+  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, -, -⟩, hrec⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y P hP hv => hrec P ?_⟩
   obtain ⟨-, -, -, -, -, hf⟩ := hX
   have hc := cm_of_val h2 hE (y ≫ fY) P.forget (hf y P hP)
@@ -1275,7 +1284,7 @@ theorem residue_unramified_over_branch (h : R1R2fp) :
           π.val (K := Qbar) y.left = OnePoint.infty ∨
           π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
         UnramifiedAbove5 (residueImage (X := Y.left) y.left) := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, hrec⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, hrec, -⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y hv => ?_⟩
   have hP : Φ Qbar y = M3.mk (Quotient.out (Φ Qbar y)) := (Quotient.out_eq _).symm
   refine hrec y _ hP ?_
@@ -1288,6 +1297,23 @@ theorem residue_unramified_over_branch (h : R1R2fp) :
   · exact Or.inl (hc.1 hv)
   · exact Or.inr (Or.inl (hc.2.1 hv))
   · exact Or.inr (Or.inr (hc.2.2 hv))
+
+/-- **Glue (compiled): A4, choosing a fibre.** From `R1R2fp`: over every value `t ∈ P¹(ℚ̄)`
+(e.g. `t = J(u)`) there is a `ℚ̄`-point `y` of `Y₃` with an object `P` (an abelian surface with QM
+by `𝒪` and level-3 structure over `ℚ̄`) and `π(y) = t`. -/
+theorem exists_fibre_object (h : R1R2fp) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
+      ∀ t : OnePoint Qbar, ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+        Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = t := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, -, -, hπ, hf⟩ := h
+  refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun t => ?_⟩
+  obtain ⟨x, hx⟩ := hπ t
+  obtain ⟨y, rfl⟩ := hf x
+  refine ⟨y, Quotient.out (Φ Qbar y), (Quotient.out_eq _).symm, ?_⟩
+  have e : (π₆.comp fY.left).val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left :=
+    ToP1.val_comp_right π₆ fY.left y.left
+  rw [e, hx]
 
 /-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` (0 if the index is infinite). -/
 def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
@@ -1401,6 +1427,7 @@ end LeafQM
 #print axioms LeafQM.AV.QML3.goodReduction
 #print axioms LeafQM.AV.unramified_over_branch
 #print axioms LeafQM.AV.residue_unramified_over_branch
+#print axioms LeafQM.AV.exists_fibre_object
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right

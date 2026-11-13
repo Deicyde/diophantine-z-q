@@ -79,3 +79,8 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   form `R1rec` (fields of moduli) cannot be transferred to residue fields in Lean without the
   uniqueness of base change up to isomorphism, which needs rigidity (a morphism of abelian
   varieties preserving 0 is a homomorphism); hence the point form. COMPILES, 24 s.
+- 17:2x finding: the bundle did not assert that π₆ is onto P¹(ℚ̄) nor that Y₃ → X₆ is onto
+  X₆(ℚ̄); without them no fibre over J(u) can be chosen (A4). Added `X6Surj` as a seventh
+  conjunct of `R1R2fp` (consequences of Baba–Granath's X₆/W ≅ P¹ and of R1's finite surjective
+  forgetful map). Proved `exists_fibre_object` (A4: over every t ∈ P¹(ℚ̄) there is a point of Y₃
+  with an object and π-value t). COMPILES, 24 s.
