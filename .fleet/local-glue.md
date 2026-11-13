@@ -19,7 +19,7 @@ At `p ≥ 7` (including `p > D`), nothing beyond R6 and I2-Tors is needed. T16, 
 not needed at all.
 
 **Compiles (VERIFIED).** `scratch/local-glue/LocalGlue.lean` (build.sh) exits 0 with no `sorry`;
-all 72 `#print axioms` lines are standard. `TailK.lean` (build_tail.sh) exits 0 with no `sorry`.
+all 73 `#print axioms` lines are standard. `TailK.lean` (build_tail.sh) exits 0 with no `sorry`.
 The packs and tail are restated on these inputs: `G7LocalPackU`, `g8LocalPack_of_U`,
 `g15RamG_of_packU`, `modularConstituent_tail_U`.
 
