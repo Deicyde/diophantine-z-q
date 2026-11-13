@@ -77,3 +77,13 @@
   `modPMap`/`preTiltMap`/`locMap`/`adicMap`/`bdrPlusMap`/`bdrMap`), `cpAct_mul_apply`,
   `cpAct_one_apply`, `cycPow_mul`, `cycPow_one`; monoid homs `htAct p i`, `drAct p`.
   VERIFIED: `lake env lean` no errors.
+
+## 04:35 LocalCore.lean
+- `core_ht` (VERIFIED, builds): F/ℚ_p finite Galois, ρ : G_F-rep on V over ℚ_p, E ⊆ ℚ̄_p finite,
+  ρE : G_{ℚ_p} →* GL₂(E), eE : E ⊗ V ≃ₗ[E] E²×E² intertwining (ρ σ).baseChange with
+  matRep(ρE(gf σ)) ⊕ same; htMultOver ρ 0 = 2, htMultOver ρ (-1) = 2, htMultOver ρ w = 0 (w ∉ {0,-1})
+  ⇒ `HasHTWeights p ρE {0, -1}`.
+- `core_dR` (VERIFIED, builds): same data + `ιB : ℚ̄_p →ₐ[ℚ_p] B_dR` equivariant + `IsDeRhamOver p ρ`
+  ⇒ `IsDeRham p ρE`.
+- Aux: `overF_count_gen` (no finiteness), `finrank_dvd_Dsp`, `core_count`, `Dsp_gf_eq`,
+  identifications `ddrSpace_eq_Dsp`, `htSpace_eq_Dsp`, `ddrSpaceOver_eq_Dsp`, `htSpaceOver_eq_Dsp`.
