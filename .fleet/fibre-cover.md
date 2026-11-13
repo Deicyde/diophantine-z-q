@@ -38,4 +38,4 @@ On the way, these are proved:
 - `CurvePinned` (qm-pin) or `PropTSAll`.
 - `UnramifiedConjugates` (textbook): the Galois closure of an unramified field is unramified.
 
-Report: docs/research/fibre-cover.md.
+Report: docs/research/fibre-cover.md. Log: scratch/fibre-cover/log.md.
