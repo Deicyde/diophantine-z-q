@@ -274,13 +274,21 @@ variable {J : Type} [Preorder J] [IsDirectedOrder J] [Nonempty J] (D : Jᵒᵖ �
   [∀ {i j : Jᵒᵖ} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
   [∀ i, QuasiSeparatedSpace (D.obj i)] (c : Cone D) (hc : IsLimit c)
 
+/-- Descent of smoothness for the particular system `D` (the conclusion of `EGAIV_17_7_8_ii`
+for `D` and `c`). -/
+def SmoothDescendsFor : Prop :=
+  ∀ (i : Jᵒᵖ) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom → QuasiCompact Xi.hom →
+    QuasiSeparated Xi.hom → Smooth ((Over.pullback (c.π.app i)).obj Xi).hom →
+    ∃ (j : Jᵒᵖ) (a : j ⟶ i), Smooth ((Over.pullback (D.map a)).obj Xi).hom
+
 include hc in
-/-- **Spreading out a smooth proper group scheme (from the three EGA IV leaves).**  Let `D` be a
-directed inverse system of qcqs schemes with affine transition maps and limit `c`.  A smooth proper
-group scheme `B` over `lim D` is the base change of a smooth proper group scheme `G` over some
-stage `D k`, by an isomorphism of group schemes. -/
-theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
-    (hsm : EGAIV_17_7_8_ii) (B : Over c.pt) [GrpObj B] [IsProper B.hom] [Smooth B.hom] :
+theorem smoothDescendsFor_of_ega (hsm : EGAIV_17_7_8_ii) : SmoothDescendsFor D c :=
+  fun i Xi h1 h2 h3 h4 => hsm J D c hc i Xi h1 h2 h3 h4
+
+include hc in
+/-- `exists_grpObj_descend` with descent of smoothness only for the system `D`. -/
+theorem exists_grpObj_descend' (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
+    (hsm : SmoothDescendsFor D c) (B : Over c.pt) [GrpObj B] [IsProper B.hom] [Smooth B.hom] :
     ∃ (k : Jᵒᵖ) (G : Over (D.obj k)) (_ : GrpObj G) (_ : Smooth G.hom) (_ : IsProper G.hom)
       (gen : (Over.pullback (c.π.app k)).obj G ≅ B),
       letI : GrpObj ((Over.pullback (c.π.app k)).obj G) := Functor.grpObjObj
@@ -292,7 +300,7 @@ theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
   set X₁ := (Over.pullback (D.map a₁)).obj X₀
   set e₁ : (Over.pullback (c.π.app i₁)).obj X₁ ≅ B := (stθ D c a₁).app X₀ ≪≫ e₀
   have hsm₁ : Smooth ((Over.pullback (c.π.app i₁)).obj X₁).hom := smooth_of_iso e₁
-  obtain ⟨i₂, a₂, hs₂⟩ := hsm J D c hc i₁ X₁ inferInstance inferInstance inferInstance hsm₁
+  obtain ⟨i₂, a₂, hs₂⟩ := hsm i₁ X₁ inferInstance inferInstance inferInstance hsm₁
   let s : Stage D c B :=
     { k := i₂
       M := (Over.pullback (D.map a₂)).obj X₁
@@ -304,6 +312,20 @@ theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
       e := (stθ D c a₂).app X₁ ≪≫ e₁ }
   obtain ⟨t, hG, ht⟩ := exists_grp_stage hc s
   exact ⟨t.k, t.M, hG, t.smooth, t.proper, t.e, ht⟩
+
+
+include hc in
+/-- **Spreading out a smooth proper group scheme (from the three EGA IV leaves).**  Let `D` be a
+directed inverse system of qcqs schemes with affine transition maps and limit `c`.  A smooth proper
+group scheme `B` over `lim D` is the base change of a smooth proper group scheme `G` over some
+stage `D k`, by an isomorphism of group schemes. -/
+theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
+    (hsm : EGAIV_17_7_8_ii) (B : Over c.pt) [GrpObj B] [IsProper B.hom] [Smooth B.hom] :
+    ∃ (k : Jᵒᵖ) (G : Over (D.obj k)) (_ : GrpObj G) (_ : Smooth G.hom) (_ : IsProper G.hom)
+      (gen : (Over.pullback (c.π.app k)).obj G ≅ B),
+      letI : GrpObj ((Over.pullback (c.π.app k)).obj G) := Functor.grpObjObj
+      IsMonHom gen.hom := by
+  exact exists_grpObj_descend' D c hc h882 hpr (smoothDescendsFor_of_ega D c hc hsm) B
 
 end DescentDirected
 
