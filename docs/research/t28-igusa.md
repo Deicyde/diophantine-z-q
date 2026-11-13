@@ -1,10 +1,12 @@
-# t28-igusa: textbook leaf T28 (Clebsch–Bolza–Igusa separation), plan and first half
+# t28-igusa: textbook leaf T28 (Clebsch–Bolza–Igusa separation): the `⇒` half, and `⇐` reduced to M3 and the special locus
 
 Status: research note (task t28-igusa, 2026-11-12). Lean: `scratch/t28-igusa/Igusa.lean`
 (everything; self-contained, `import Mathlib` only; check with
-`lake env lean scratch/t28-igusa/Igusa.lean`, about 2 minutes); `Forward.lean` and `SO3.lean` are
-its first two parts as separately compiled drafts. Results log: `scratch/t28-igusa/log.md`.
-Computer algebra: `scratch/t28-igusa/mestre_check.py`, `gen.py`, `so3_coeffs.py`.
+`lake env lean scratch/t28-igusa/Igusa.lean`, about 10 minutes, most of it the `ring` proofs of
+M3); `Forward.lean` and `SO3.lean` are its first two parts as separately compiled drafts.
+Results log: `scratch/t28-igusa/log.md`. Computer algebra (`~/pyenv/bin/python -I`, from the repo
+root): `mestre_check.py`, `m3_interp.py` (writes `m3_polys.txt`), `special_check.py`,
+`pairing_check.py`, `so3_coeffs.py`; Lean generators `gen.py`, `gen_m3.py`, `gen_m3proofs.py`.
 No file under `ZInQKernel/`, `blueprint/` or another task's notes was edited.
 
 Marks: **VERIFIED** (compiled, computed, or read in a named source), **STANDARD** (published,
@@ -31,7 +33,7 @@ sexticAct`, from `scratch/h-decomposition/Leaves.lean` L423-784) is an `↔`. In
    then `g ≅ f`. The proof needs no reconstruction identity: `so3` gives the substitution, and
    products of three basis quadratics span the sextics, on which `p6` is nondegenerate;
 5. **the generic case of `⇐`** `PkgI1.separation_generic`, from one explicit, computer-checked
-   but Lean-unproved Prop `M3Identities` (the Gram matrix of Clebsch's quadratic covariants
+   Prop `M3Identities` (half of it proved in Lean, see below) (the Gram matrix of Clebsch's quadratic covariants
    `y₁, y₂, y₃` and the ten numbers `p6 f (yᵢyⱼyₖ)` are fixed polynomials in `J₂, J₄, J₆, J₁₀`,
    written out in Lean as `gramJ`, `cubJ`): when `det (yv f) ≠ 0`, equal invariants give
    equivalent sextics;
@@ -42,8 +44,8 @@ sexticAct`, from `scratch/h-decomposition/Leaves.lean` L423-784) is an `↔`. In
 So **T28 is reduced to two concrete statements over genuine definitions**: `M3Identities`
 (sixteen polynomial identities in `a₀..a₆`, degrees 6 to 22; true by computer algebra: found by
 interpolation on 45 random sextics and checked on 15 fresh ones, and spot-checked in Lean by
-`norm_num` for the two largest entries on one sextic; **M3_PROVED_COUNT of the sixteen are
-proved in Lean by `ring`**: M3_PROVED_LIST) and `SeparationSpecial` (Bolza 1888,
+`norm_num` for the two largest entries on one sextic; **eight of the sixteen are
+proved in Lean by `ring`**: all six Gram entries `G₁₁ G₁₂ G₁₃ G₂₂ G₂₃ G₃₃` and `a₁₁₁`, `a₁₁₂`) and `SeparationSpecial` (Bolza 1888,
 Cardona–Quer 2005; unproved, the hard part being "`R = 0` ⇒ extra involution"). Neither is a
 literature leaf in the project's sense: M3 is glue (a finite computation) and
 `SeparationSpecial` is a special case of T28 itself. Verdict: T28 is **not closed**; its `⇒`
@@ -87,7 +89,7 @@ Mestre part (namespace `PkgI1`):
 | `M3Identities`, `separation_generic` | item 5 |
 | `SeparationSpecial`, `igusaClebschSeparation_of` | item 6 |
 | `spot_J` and two `example`s | M3 for `G₃₃` and `a₃₃₃` on `2 − x + 3x² + x⁴ − 2x⁵ + x⁶` (`norm_num`) |
-| `m3_G11` … | the M3 identities proved by `ring` (M3_PROVED_LIST) |
+| `m3_G11` … | the M3 identities proved by `ring` (all six Gram entries `G₁₁ G₁₂ G₁₃ G₂₂ G₂₃ G₃₃` and `a₁₁₁`, `a₁₁₂`) |
 
 The proof of the translation law is the classical infinitesimal argument made algebraic: for
 `T(t) =` coefficients of `f(x+t)`, `d/dt J(T(t)) = (DJ)(T(t))` with
@@ -131,8 +133,8 @@ Transvectants `(φ,ψ)_k = (m−k)!(n−k)!/(m!n!) Σ_j (−1)^j C(k,j) ∂^kφ/
 ## 4. What remains (unproved)
 
 R1. **`M3Identities`** (glue, a finite computation). Sixteen polynomial identities in
-    `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`); M3_PROVED_COUNT are proved by `ring`
-    (M3_PROVED_LIST). M3_FAILED_NOTE Direct `ring` in seven variables does not scale to the top
+    `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`); eight are proved by `ring`
+    (all six Gram entries `G₁₁ G₁₂ G₁₃ G₂₂ G₂₃ G₃₃` and `a₁₁₁`, `a₁₁₂`). A batch adding `a₁₁₃` and `a₁₂₂` did not finish within 10 minutes. Direct `ring` in seven variables does not scale to the top
     degrees (`a₃₃₃` expands to about `7·86³ ≈ 4.5·10⁶` monomial products). Workable plans: (a) prove covariance of `yv` by the generator
     technique of the `⇒` part (`IsInv`: diagonal and swap by `ring`, translations by the
     derivation trick with the `D`-equivariance identity of each `yᵢ`), so that both sides are
@@ -148,8 +150,10 @@ R2. **`SeparationSpecial`** (the curves with an extra involution). Ingredients: 
     invariants and the strata `D₄`, `D₆`, `x⁵ − x`, `x⁶ − 1`, `x⁵ − 1` (Cardona–Quer 2005,
     UNVERIFIED locator). This is the least explored piece and the main open part of T28.
 
-Recommendation for the crowd-sourcing list: replace T28 by `SeparationSpecial` (a genuine,
-smaller special case of the published theorem) plus the glue item `M3Identities`.
+Recommendation for the crowd-sourcing list: replace T28 by `SeparationSpecial` (the `⇐` half
+of the published theorem restricted to the locus `det yv = 0`, hence a consequence of it) plus
+the glue item `M3Identities` (eight identities left). Any proof of `SeparationSpecial` will do;
+Bolza's characterization is only the classical route.
 
 References (STANDARD; locators UNVERIFIED, no network): J.-I. Igusa, *Arithmetic variety of
 moduli for genus two*, Ann. of Math. 72 (1960) 612-649; J.-F. Mestre, *Construction de courbes
