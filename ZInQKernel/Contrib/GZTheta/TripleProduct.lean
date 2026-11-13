@@ -3,6 +3,8 @@ import Mathlib.NumberTheory.ModularForms.JacobiTheta.TwoVariable
 import Mathlib.Analysis.Normed.Module.MultipliableUniformlyOn
 import Mathlib.Analysis.SpecialFunctions.Log.Summable
 import Mathlib.Analysis.Complex.LocallyUniformLimit
+import Mathlib.NumberTheory.ModularForms.JacobiTheta.OneVariable
+import Mathlib.Analysis.Normed.Ring.InfiniteProd
 
 /-!
 # gz-theta: Jacobi's triple product identity
@@ -444,5 +446,122 @@ theorem jtpC_four_mul {τ : ℂ} (hτ : 0 < τ.im) : jtpC τ = jtpC (4 * τ) := 
   rw [jacobiTheta₂_quarter hτ, jtpP_quarter hτ] at e
   rw [show jtpC (4 * τ) = jacobiTheta₂ (1 / 2) (4 * τ) / jtpP (4 * τ) (1 / 2) from rfl, e,
     mul_div_assoc, div_self (jtpP_half_ne_zero h4), mul_one]
+
+
+/-! ### `c(τ) → 1` and the triple product identity -/
+
+theorem jacobiTheta₂_half_eq (τ : ℂ) : jacobiTheta₂ (1 / 2) τ = jacobiTheta (τ + 1) := by
+  rw [jacobiTheta₂, jacobiTheta]
+  refine tsum_congr fun n => ?_
+  rw [jacobiTheta₂_term]
+  obtain ⟨r, hr⟩ := Int.even_mul_pred_self n
+  have hn : (n : ℂ) ^ 2 = n + 2 * r := by
+    have : ((n * (n - 1) : ℤ) : ℂ) = ((r + r : ℤ) : ℂ) := by rw [hr]
+    push_cast at this
+    linear_combination this
+  have : π * I * (n : ℂ) ^ 2 * (τ + 1) =
+      (2 * π * I * n * (1 / 2) + π * I * (n : ℂ) ^ 2 * τ) + (r : ℂ) * (2 * π * I) := by
+    rw [mul_add, mul_one, hn]; ring
+  rw [this, Complex.exp_add _ ((r : ℂ) * (2 * π * I)), Complex.exp_int_mul_two_pi_mul_I, mul_one]
+
+theorem norm_jacobiTheta₂_half_sub_one_le {τ : ℂ} (hτ : 0 < τ.im) :
+    ‖jacobiTheta₂ (1 / 2) τ - 1‖ ≤ 2 / (1 - ‖qJ τ‖) * ‖qJ τ‖ := by
+  rw [jacobiTheta₂_half_eq, norm_qJ]
+  have h1 : 0 < (τ + 1).im := by simpa using hτ
+  have := norm_jacobiTheta_sub_one_le h1
+  simpa using this
+
+theorem tendsto_gp_nhds_zero (c : ℂ) (k m : ℕ) (hk : 0 < k) (hm : 0 < m) :
+    Tendsto (fun q : ℂ => gp q c k m) (𝓝 0) (𝓝 1) := by
+  have := tendsto_tprod_one_add_of_dominated_convergence (𝓕 := 𝓝 (0 : ℂ)) (g := fun _ : ℕ => 0)
+    (f := fun (q : ℂ) (n : ℕ) => c * q ^ (k * n + m))
+    (bound := fun n : ℕ => ‖c‖ * (1 / 2 : ℝ) ^ (k * n + m))
+    ((summable_geom_lin (q := (1 / 2 : ℂ)) (by norm_num) c k m hk).congr fun n => by
+      rw [norm_mul, norm_pow]; norm_num)
+    (fun n => by
+      have : Tendsto (fun q : ℂ => c * q ^ (k * n + m)) (𝓝 0) (𝓝 (c * 0 ^ (k * n + m))) :=
+        ((continuous_pow _).tendsto 0).const_mul c
+      rwa [zero_pow (by omega), mul_zero] at this)
+    (by
+      filter_upwards [Metric.ball_mem_nhds (0 : ℂ) (by norm_num : (0 : ℝ) < 1 / 2)] with q hq n
+      rw [norm_mul, norm_pow]
+      gcongr
+      simpa using (mem_ball_zero_iff.mp hq).le)
+  simpa [gp] using this
+
+theorem jtpP_half_eq_gp (τ : ℂ) :
+    jtpP τ (1 / 2) = gp (qJ τ) (-1) 2 2 * gp (qJ τ) (-1) 2 1 * gp (qJ τ) (-1) 2 1 := by
+  unfold jtpP
+  rw [jtpA_eq_gp, jtpB_eq_gp, jtpB_eq_gp, eJ_half,
+    show -(1 / 2 : ℂ) = (1 / 2 : ℂ) + (-1) by ring, eJ_add, eJ_half, eJ_neg, eJ_one]
+  norm_num
+
+theorem qJ_four_pow_mul (τ : ℂ) (k : ℕ) : qJ ((4 : ℂ) ^ k * τ) = qJ τ ^ (4 ^ k) := by
+  induction k with
+  | zero => simp
+  | succ k ih =>
+    rw [pow_succ, mul_comm ((4 : ℂ) ^ k) 4, mul_assoc, qJ_four_mul, ih, ← pow_mul, pow_succ]
+
+/-- **`c(τ) = 1`.** -/
+theorem jtpC_eq_one {τ : ℂ} (hτ : 0 < τ.im) : jtpC τ = 1 := by
+  set τs : ℕ → ℂ := fun k => (4 : ℂ) ^ k * τ with hτs
+  have hpos : ∀ k, 0 < (τs k).im := fun k => by
+    simp only [hτs]
+    rw [show (4 : ℂ) ^ k = ((4 ^ k : ℕ) : ℂ) by push_cast; ring]
+    simp only [mul_im, natCast_re, natCast_im, zero_mul, add_zero]
+    positivity
+  -- `c` is constant along the sequence
+  have hconst : ∀ k, jtpC (τs k) = jtpC τ := by
+    intro k
+    induction k with
+    | zero => simp [hτs]
+    | succ k ih =>
+      rw [← ih, jtpC_four_mul (hpos k)]
+      simp only [hτs]
+      rw [pow_succ, mul_comm ((4 : ℂ) ^ k) 4, mul_assoc]
+  -- `q(τ_k) → 0`
+  have hq0 : Tendsto (fun k => qJ (τs k)) atTop (𝓝 0) := by
+    have hr := norm_qJ_lt_one hτ
+    rw [tendsto_zero_iff_norm_tendsto_zero]
+    have hle : ∀ k, ‖qJ (τs k)‖ ≤ ‖qJ τ‖ ^ k := by
+      intro k
+      simp only [hτs]
+      rw [qJ_four_pow_mul, norm_pow]
+      exact pow_le_pow_of_le_one (norm_nonneg _) hr.le
+        (Nat.lt_pow_self (by norm_num : 1 < 4)).le
+    exact squeeze_zero (fun k => norm_nonneg _) hle
+      (tendsto_pow_atTop_nhds_zero_of_lt_one (norm_nonneg _) hr)
+  -- `θ(1/2; τ_k) → 1`
+  have hθ : Tendsto (fun k => jacobiTheta₂ (1 / 2) (τs k)) atTop (𝓝 1) := by
+    rw [tendsto_iff_norm_sub_tendsto_zero]
+    have hn : Tendsto (fun k => ‖qJ (τs k)‖) atTop (𝓝 0) := by
+      simpa using hq0.norm
+    have hb : Tendsto (fun k => 2 / (1 - ‖qJ (τs k)‖) * ‖qJ (τs k)‖) atTop (𝓝 0) := by
+      have := ((tendsto_const_nhds (x := (2 : ℝ))).div
+        ((tendsto_const_nhds (x := (1 : ℝ))).sub hn) (by norm_num)).mul hn
+      simpa using this
+    exact squeeze_zero (fun k => norm_nonneg _)
+      (fun k => norm_jacobiTheta₂_half_sub_one_le (hpos k)) hb
+  -- `P(1/2; τ_k) → 1`
+  have hP : Tendsto (fun k => jtpP (τs k) (1 / 2)) atTop (𝓝 1) := by
+    simp only [jtpP_half_eq_gp]
+    have h1 := (tendsto_gp_nhds_zero (-1) 2 2 (by norm_num) (by norm_num)).comp hq0
+    have h2 := (tendsto_gp_nhds_zero (-1) 2 1 (by norm_num) (by norm_num)).comp hq0
+    have := (h1.mul h2).mul h2
+    simpa using this
+  have hC : Tendsto (fun k => jtpC (τs k)) atTop (𝓝 1) := by
+    have := hθ.div hP (by norm_num)
+    rw [div_one] at this
+    exact this.congr (fun k => rfl)
+  have hC' : Tendsto (fun k => jtpC (τs k)) atTop (𝓝 (jtpC τ)) := by
+    simp only [hconst]
+    exact tendsto_const_nhds
+  exact tendsto_nhds_unique hC' hC
+
+/-- **Jacobi's triple product identity.** For `Im τ > 0`, `q = e^{π i τ}` and all `z`,
+`θ(z, τ) = ∏_{n ≥ 0} (1 − q^{2n+2})(1 + q^{2n+1} e^{2π i z})(1 + q^{2n+1} e^{−2π i z})`. -/
+theorem jacobiTheta₂_eq_jtpP {τ : ℂ} (hτ : 0 < τ.im) (z : ℂ) :
+    jacobiTheta₂ z τ = jtpP τ z := by
+  rw [jacobiTheta₂_eq_jtpC_mul hτ, jtpC_eq_one hτ, one_mul]
 
 end ZInQ.GZTheta
