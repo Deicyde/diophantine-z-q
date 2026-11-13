@@ -113,3 +113,13 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   `SympSimDet` holds even without `c ≠ 0`; `G12Weight` witness: `V_5` of a non-CM elliptic curve
   over ℚ with `ψ = 1`.
 - run (05:13-05:16) Weight.lean with part_htconj + part_final: 0 errors, 0 sorry; `g12Weight_of_htExtend : HTExtend → SenTwist → FiniteImageHT → G12Weight` and all earlier theorems on standard axioms.
+
+## HTExtend PROVED (VERIFIED, compiled in the fast environment)
+
+- part_htextend.lean: for fields `E ⊆ E'` (`IsScalarTower ℚ_p E E'`, basis `b` of `E'/E` of size
+  `m`): `jk`, `ck` (coordinate maps), `htSpaceExtendEquiv : htSpace(ρ_{E'}) ≃ₗ (Fin m → htSpace(ρ_E))`,
+  `htMult_extend` (`(m·d)/(m·e) = d/e`, `finrank_finsupp`, tower law), `htExtend : HTExtend`
+  (`Algebra E E'` from `IntermediateField.inclusion`).
+- runs 05:16-05:22 (HTFast, ~1 min each): 4 fix rounds (p implicit in `jk`, `LinearMap.sum_apply`,
+  `include b`, universe of `Fin m` vs `Type*` → `Type`, `card_fin`); final: 0 errors, 0 sorry;
+  `htExtend` on [propext, Classical.choice, Quot.sound].

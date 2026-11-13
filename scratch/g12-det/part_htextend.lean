@@ -10,7 +10,7 @@ namespace G0Galois
 
 section Extend
 
-variable {p : ℕ} [Fact p.Prime] {n : ℕ} {E E' : Type*} [Field E] [Field E'] [Algebra ℚ_[p] E]
+variable {p : ℕ} [Fact p.Prime] {n : ℕ} {E E' : Type} [Field E] [Field E'] [Algebra ℚ_[p] E]
   [Algebra ℚ_[p] E'] [Algebra E E'] [IsScalarTower ℚ_[p] E E'] [FiniteDimensional ℚ_[p] E]
   [FiniteDimensional ℚ_[p] E'] {m : ℕ} (b : Module.Basis (Fin m) E E')
 
@@ -37,7 +37,7 @@ lemma jk_mulVec (k : Fin m) (M : Matrix (Fin n) (Fin n) E) (v : Fin n → E) :
   funext a
   simp only [jk_apply, Matrix.mulVec, dotProduct, Matrix.map_apply, Finset.sum_smul]
   refine Finset.sum_congr rfl fun c _ => ?_
-  rw [Algebra.smul_def, Algebra.smul_def, Algebra.smul_def, map_mul]
+  rw [Algebra.smul_def, Algebra.smul_def, map_mul]
   ring
 
 omit [FiniteDimensional ℚ_[p] E] [FiniteDimensional ℚ_[p] E'] in
@@ -67,18 +67,18 @@ lemma sum_jk_ck (w : Fin n → E') : ∑ k, jk (p := p) b k (ck (p := p) b k w) 
 def htSpaceExtendEquiv (ρE : PkgI4.GQp p →* GL (Fin n) E) (i : ℤ) :
     PkgI4.htSpace p ((Matrix.GeneralLinearGroup.map (algebraMap E E')).comp ρE) i ≃ₗ[ℚ_[p]]
       (Fin m → PkgI4.htSpace p ρE i) where
-  toFun φ k := ⟨φ.1.comp (jk b k), by
+  toFun φ k := ⟨φ.1.comp (jk (p := p) b k), by
     intro σ v
-    have := φ.2 σ (jk b k v)
+    have := φ.2 σ (jk (p := p) b k v)
     simp only [LinearMap.coe_comp, Function.comp_apply]
     rw [jk_mulVec]
     exact this⟩
-  invFun ψ := ⟨∑ k, (ψ k).1.comp (ck b k), by
+  invFun ψ := ⟨∑ k, (ψ k).1.comp (ck (p := p) b k), by
     intro σ w
-    simp only [LinearMap.coeFn_sum, LinearMap.coe_comp, Finset.sum_apply, Function.comp_apply,
+    simp only [LinearMap.sum_apply, LinearMap.coe_comp, Function.comp_apply,
       map_sum, Finset.smul_sum]
     refine Finset.sum_congr rfl fun k _ => ?_
-    have h := (ψ k).2 σ (ck b k w)
+    have h := (ψ k).2 σ (ck (p := p) b k w)
     have hm : ((((Matrix.GeneralLinearGroup.map (algebraMap E E')).comp ρE) σ :
         GL (Fin n) E') : Matrix (Fin n) (Fin n) E') =
         ((ρE σ : GL (Fin n) E) : Matrix (Fin n) (Fin n) E).map (algebraMap E E') := rfl
@@ -88,25 +88,25 @@ def htSpaceExtendEquiv (ρE : PkgI4.GQp p →* GL (Fin n) E) (i : ℤ) :
     apply Subtype.ext
     apply LinearMap.ext
     intro w
-    simp only [LinearMap.coeFn_sum, LinearMap.coe_comp, Finset.sum_apply, Function.comp_apply]
+    simp only [LinearMap.sum_apply, LinearMap.coe_comp, Function.comp_apply]
     rw [← map_sum, sum_jk_ck]
   right_inv ψ := by
     funext k
     apply Subtype.ext
     apply LinearMap.ext
     intro v
-    simp only [LinearMap.coeFn_sum, LinearMap.coe_comp, Finset.sum_apply, Function.comp_apply,
-      ck_jk]
+    simp only [LinearMap.sum_apply, LinearMap.coe_comp, Function.comp_apply]
     rw [Finset.sum_eq_single k]
-    · simp
+    · rw [ck_jk, if_pos rfl]
     · intro l _ hl
-      rw [if_neg (Ne.symm hl), map_zero]
+      rw [ck_jk, if_neg (Ne.symm hl), map_zero]
     · intro h; exact absurd (Finset.mem_univ k) h
   map_add' φ ψ := by
     funext k; apply Subtype.ext; rfl
   map_smul' c φ := by
     funext k; apply Subtype.ext; rfl
 
+include b in
 lemma htMult_extend (ρE : PkgI4.GQp p →* GL (Fin n) E) (w : ℤ) :
     PkgI4.htMult p ((Matrix.GeneralLinearGroup.map (algebraMap E E')).comp ρE) w =
       PkgI4.htMult p ρE w := by
@@ -120,7 +120,7 @@ lemma htMult_extend (ρE : PkgI4.GQp p →* GL (Fin n) E) (w : ℤ) :
   rw [(htSpaceExtendEquiv b ρE (-w)).finrank_eq,
     ← (Finsupp.linearEquivFunOnFinite ℚ_[p] (PkgI4.htSpace p ρE (-w)) (Fin m)).finrank_eq,
     Module.finrank_finsupp, Fintype.card_fin, ← Module.finrank_mul_finrank ℚ_[p] E E',
-    Module.finrank_eq_card_basis b, mul_comm (Module.finrank ℚ_[p] E) m]
+    Module.finrank_eq_card_basis b, Fintype.card_fin, mul_comm (Module.finrank ℚ_[p] E) m]
   exact Nat.mul_div_mul_left _ _ hm
 
 end Extend
@@ -131,6 +131,7 @@ theorem htExtend : HTExtend := by
   letI : Algebra E E' := (IntermediateField.inclusion hle).toRingHom.toAlgebra
   haveI : IsScalarTower ℚ_[p] E E' := IsScalarTower.of_algebraMap_eq fun x => rfl
   haveI : Module.Finite E E' := Module.Finite.of_restrictScalars_finite ℚ_[p] E E'
+  haveI : Module.Free E E' := Module.Free.of_divisionRing E E'
   let b := Module.finBasis E E'
   refine ⟨(Matrix.GeneralLinearGroup.map (algebraMap E E')).comp ρE, ?_, ?_⟩
   · intro σ
