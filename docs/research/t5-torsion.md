@@ -123,20 +123,20 @@ integration is not done here):
   full generality, because about 40 glue theorems pass it on as a hypothesis over all fields: for
   example `continuous_galRep_of_tateModuleFree {K}` and `tateBC_bijective_of_tateModuleFree`. So
   (c) only pays off together with (a) or (b).
-- **(e) No rewiring, smaller leaves.** Set `t5 := torsionStructure_of_degree hD hP` and
+- **(d) No rewiring, smaller leaves.** Set `t5 := torsionStructure_of_degree hD hP` and
   `t26 := tateModuleFree_of_degree hD hP`. T5 and T26 are replaced by Mumford's two facts about
   `[n]`: `KernelDegree` (`deg [n] = n^{2g}`) and `MulUnramifiedPosChar` (separability in
   characteristic `p`). The H proof (characteristic 0) needs only `KernelDegree`, and on subfields
   of `ℂ` not even that.
-- **(d) Independently of (a)-(c): drop `GluePieces4.divisiblePoints` (item 5).** This needs one
+- **(e) Independently of (a)-(d): drop `GluePieces4.divisiblePoints` (item 5).** This needs one
   rewiring and adds no leaf.
 
-**Recommendation: (a) + (d).** This keeps T5, Mumford's standard statement, as the leaf to
+**Recommendation: (a) + (e).** This keeps T5, Mumford's standard statement, as the leaf to
 crowdsource, and removes T26 and `divisiblePoints` (two literature statements fewer). Notes for
 formalizers:
 - On subfields of `ℂ`, T5 is already a corollary of T35 (item 1).
 - In general, T5 reduces to `deg [n] = n^{2g}` plus separability in characteristic `p` (item 3).
-  Use (e) if the smaller leaves are preferred.
+  Use (d) if the smaller leaves are preferred.
 
 ## 1. What T5 demands (VERIFIED, ZInQKernel/HDecomp/Objects.lean:993, :1486)
 
@@ -154,7 +154,7 @@ For these it asserts an additive bijection `torsion A K̄ n ≃ (Fin (2g) → ZM
 `ObjBridge.TorsionStructure` is the `Type 0` instance (`torsionStructure_iff`, `Iff.rfl`). The bundle
 field is `t5 : PkgI2.TorsionStructure.{0}`. So T5 is Mumford's full statement: positive
 characteristic with `p ∤ n` is included, and there is no bound on the size of `K`. All its
-consumers are in characteristic 0, at fields inside `ℚ̄`. The dimension is a natural number by
+consumers are in characteristic 0, at `ℚ̄`, subfields of `ℚ̄` or number fields. The dimension is a natural number by
 `PkgI3.AbVar.dim_finite` (Contrib/AbVarBC/Dim.lean); T26's proof uses this.
 
 ## 2. The proofs (part numbers refer to `T5Full.lean`)
