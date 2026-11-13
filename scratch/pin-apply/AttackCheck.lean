@@ -61,15 +61,8 @@ theorem attack_needs_family {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv
       (P : QML3 K), Φ K (τ K y) = M3.mk P → IsFibreOf 𝒜' y.left P :=
   ((r1fpPin_relabel_iff h hτ).mp h').1
 
-/-- **(4) With the comparison, every surviving relabeling is a morphism on points.** If `Φ` and
-the relabeled `Φ ∘ τ` both satisfy the repaired list, then `τ` agrees with `y ↦ y ≫ g` for a
-morphism `g : Y → Y` (`phi_part`, compiled; no `MobiusGlue` needed for this half). -/
-theorem relabel_is_morphism {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
-    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
-    (h : R1fpProps Y Φ) (h' : R1fpProps Y (relabel Φ τ)) :
-    ∃ g : Y ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), τ K y = y ≫ g := by
-  obtain ⟨g, hg⟩ := phi_part (R1fpProps.univ h) h'
-  exact ⟨g, fun K _ _ y => (Φ K).injective (hg K y)⟩
+-- (4) `relabel_is_morphism` is now in `ZInQKernel/HDecomp/QM/Pin.lean` (and the Pin block of
+-- `scratch/h-decomposition/Leaves.lean`).
 
 /-! ### (5) rv-g0pieces' exotic relabeling is refuted (compiled)
 
@@ -214,6 +207,6 @@ end LeafQM.AV.Pin
 
 #print axioms LeafQM.AV.Pin.relabel_keeps_old_part
 #print axioms LeafQM.AV.Pin.attack_needs_family
-#print axioms LeafQM.AV.Pin.relabel_is_morphism
+
 #print axioms LeafQM.AV.Pin.Exotic.exotic_relabel_morphism
 #print axioms LeafQM.AV.Pin.Exotic.not_r1fp_exotic

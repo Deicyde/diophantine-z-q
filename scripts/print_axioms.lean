@@ -354,6 +354,7 @@ are hypotheses of these theorems. -/
 #print axioms LeafQM.AV.Pin.pointwise_of_witness
 #print axioms LeafQM.AV.Pin.relabel_geometric
 #print axioms LeafQM.AV.Pin.phi_part
+#print axioms LeafQM.AV.Pin.relabel_is_morphism
 #print axioms LeafQM.AV.Pin.transfer_pointwise_mor
 #print axioms LeafQM.AV.Pin.sameTripleMor_of_mobius
 #print axioms LeafQM.AV.Pin.pointwise_of_witness_mor

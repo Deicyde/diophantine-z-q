@@ -15952,6 +15952,17 @@ theorem phi_part {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {Φ'
   rw [hg K y _ (h𝒜' K y _ (Quotient.out_eq _).symm)]
   exact (Quotient.out_eq _).symm
 
+/-- **Every relabeling that survives the repaired clauses is a morphism on points** (pin-apply,
+compiled; no `MobiusGlue`): if `Φ` and the relabeled `Φ ∘ τ` both satisfy `R1fpProps`, then
+`τ_K(y) = y ≫ g` for one morphism `g : Y → Y`, on field points over every field. With the old
+clauses any natural relabeling survived (rv-g0pieces `r1fp_relabel`, `r1fp_exotic`). -/
+theorem relabel_is_morphism {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {τ : ∀ (K : Type) [Field K] [Algebra ℚ K], (fieldPt K ⟶ Y) ≃ (fieldPt K ⟶ Y)}
+    (h : R1fpProps Y Φ) (h' : R1fpProps Y (relabel Φ τ)) :
+    ∃ g : Y ⟶ Y, ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y), τ K y = y ≫ g := by
+  obtain ⟨g, hg⟩ := phi_part (R1fpProps.univ h) h'
+  exact ⟨g, fun K _ _ y => (Φ K).injective (hg K y)⟩
+
 /-- `SameTriple` with a morphism in place of an isomorphism (all the transfer needs). -/
 def SameTripleMor (Y Y' : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (Φ' : PtEquiv Y')
     (π : ToP1 Y.left) (π' : ToP1 Y'.left) : Prop :=
@@ -34580,6 +34591,7 @@ end
 #print axioms LeafQM.AV.Pin.r1fpPin_aut
 #print axioms LeafQM.AV.Pin.r2fp_aut
 #print axioms LeafQM.AV.Pin.phi_part
+#print axioms LeafQM.AV.Pin.relabel_is_morphism
 #print axioms LeafQM.AV.Pin.sameTripleMor_of_mobius
 #print axioms LeafQM.AV.Pin.pointwise_of_witness_mor
 #print axioms LeafQM.AV.Pin.cm_objects_of_R1R2fp
