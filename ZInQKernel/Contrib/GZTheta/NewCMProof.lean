@@ -236,6 +236,105 @@ theorem dvd_of_cAr_ne_zero {x : ℕ} (hx : cAr M d (coeff g) x ≠ 0) : x ∣ 32
     · rw [if_neg hp2d] at hloc; exact absurd rfl hloc
   · rw [Finsupp.notMem_support_iff.mp hpx]; exact Nat.zero_le _
 
+
 end Conv
+
+/-! ### `f_d = ∑_{e ∣ N/M} c_e g(eτ)` -/
+
+theorem qParam_mul_nat (j : ℕ) (τ : ℂ) :
+    Function.Periodic.qParam 1 ((j : ℂ) * τ) = Function.Periodic.qParam 1 τ ^ j := by
+  simp only [Function.Periodic.qParam, ← Complex.exp_nat_mul]
+  congr 1; push_cast; ring
+
+/-- `G(jτ)` (and `0` for `j = 0`). -/
+def gAt {M : ℕ} [NeZero M] (G : CuspForm ((Gamma1 M).map (mapGL ℝ)) 2) (j : ℕ) (τ : ℍ) : ℂ :=
+  if h : 0 < j then G ⟨(j : ℂ) * τ, mul_im_pos_of_nat h τ⟩ else 0
+
+/-- The `q`-expansion of `G(jτ)`, indexed by the powers of `q`. -/
+theorem hasSum_scaled {M : ℕ} [NeZero M] (G : CuspForm ((Gamma1 M).map (mapGL ℝ)) 2) {j : ℕ}
+    (hj : 0 < j) (τ : ℍ) :
+    HasSum (fun m : ℕ => (if j ∣ m then (qExpansion 1 G).coeff (m / j) else 0) *
+      Function.Periodic.qParam 1 (τ : ℂ) ^ m) (G ⟨(j : ℂ) * τ, mul_im_pos_of_nat hj τ⟩) := by
+  have hG := ModularForm.hasSum_qExpansion G one_pos (TauCeti.one_mem_strictPeriods_Gamma1_map M)
+    ⟨(j : ℂ) * τ, mul_im_pos_of_nat hj τ⟩
+  simp only [UpperHalfPlane.coe_mk, qParam_mul_nat, ← pow_mul] at hG
+  rw [← (Function.Injective.hasSum_iff (g := fun n : ℕ => j * n)
+    (fun a b h => Nat.eq_of_mul_eq_mul_left hj h) (fun m hm => ?_))]
+  · refine hG.congr_fun fun n => ?_
+    simp only [Function.comp_apply, dvd_mul_right, if_true, Nat.mul_div_cancel_left n hj]
+  · rw [if_neg, zero_mul]
+    rintro ⟨k, rfl⟩
+    exact hm ⟨k, rfl⟩
+
+
+section Ident
+
+variable {d : ℕ} [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) {M : ℕ} [NeZero M]
+  (hMN : M ∣ 32 * d ^ 2) (g : Newform M 2) (hχ : g.χ = 1)
+  (hgood : ∀ p : ℕ, p.Prime → ¬ p ∣ 2 * d → coeff g p = heckeCoeff d p)
+include hd4 hsq hMN hχ hgood
+
+theorem pos_of_mem_divisors' {P e : ℕ} (he : e ∈ P.divisors) : 0 < e :=
+  Nat.pos_of_mem_divisors he
+
+/-- The Dirichlet convolution, restricted to the divisors of `N/M`. -/
+theorem heckeCoeff_eq_sum_divisors (m : ℕ) :
+    heckeCoeff d m = ∑ e ∈ (32 * d ^ 2 / M).divisors,
+      cAr M d (coeff g) e * (if e ∣ m then coeff g (m / e) else 0) := by
+  set P := 32 * d ^ 2 / M with hP
+  have hb0 : coeff g 0 = 0 := CuspFormClass.qExpansion_coeff_zero _ one_pos
+    (TauCeti.one_mem_strictPeriods_Gamma1_map M)
+  rcases Nat.eq_zero_or_pos m with rfl | hm
+  · simp [heckeCoeff_zero, hb0]
+  have hA := congrArg (fun f : ArithmeticFunction ℂ => f m) (AAr_eq_mul hd4 hsq hMN g hχ hgood)
+  change heckeCoeff d m = _ at hA
+  rw [hA, ArithmeticFunction.mul_apply, Nat.sum_divisorsAntidiagonal
+    (fun x y => cAr M d (coeff g) x * bAr g y)]
+  simp only [bAr_apply]
+  have hP0 : P ≠ 0 := by
+    intro h0
+    rw [hP, Nat.div_eq_zero_iff] at h0
+    rcases h0 with h0 | h0
+    · exact NeZero.ne M h0
+    · exact absurd (Nat.le_of_dvd (Nat.pos_of_ne_zero (mul_ne_zero (by norm_num)
+        (pow_ne_zero 2 (NeZero.ne d)))) hMN) (by omega)
+  -- both sides are the sum over the common divisors of `m` and `P`
+  rw [← Finset.sum_filter_add_sum_filter_not m.divisors (· ∣ P)]
+  rw [Finset.sum_eq_zero (s := m.divisors.filter (fun x => ¬ x ∣ P)) (fun x hx => by
+    simp only [Finset.mem_filter] at hx
+    by_contra hne
+    exact hx.2 (dvd_of_cAr_ne_zero hd4 hsq hMN g hχ (left_ne_zero_of_mul hne))), add_zero]
+  simp_rw [mul_ite, mul_zero]
+  rw [← Finset.sum_filter]
+  apply Finset.sum_congr
+  · ext e
+    simp only [Finset.mem_filter, Nat.mem_divisors]
+    constructor
+    · rintro ⟨⟨h1, _⟩, h2⟩; exact ⟨⟨h2, hP0⟩, h1⟩
+    · rintro ⟨⟨h1, _⟩, h2⟩; exact ⟨⟨h2, hm.ne'⟩, h1⟩
+  · intro x _; rfl
+
+/-- **`f_d(τ) = ∑_{e ∣ N/M} c_e g(eτ)`.** -/
+theorem cmForm_eq_sum (τ : ℍ) :
+    cmForm etaForm32 d τ = ∑ e ∈ (32 * d ^ 2 / M).divisors,
+      cAr M d (coeff g) e * gAt g.toCuspForm e τ := by
+  have hF := ModularForm.hasSum_qExpansion (cmForm etaForm32 d) one_pos
+    (TauCeti.one_mem_strictPeriods_Gamma1_map _) τ
+  have hc : ∀ n, (qExpansion 1 (cmForm etaForm32 d)).coeff n = heckeCoeff d n :=
+    qExpansion_cmForm_coeff qExpansion_etaForm32_coeff d
+  simp only [hc] at hF
+  have hR : HasSum (fun m : ℕ => ∑ e ∈ (32 * d ^ 2 / M).divisors,
+      cAr M d (coeff g) e * ((if e ∣ m then coeff g (m / e) else 0) *
+        Function.Periodic.qParam 1 (τ : ℂ) ^ m))
+      (∑ e ∈ (32 * d ^ 2 / M).divisors, cAr M d (coeff g) e * gAt g.toCuspForm e τ) :=
+    hasSum_sum fun e he => by
+      rw [gAt, dif_pos (Nat.pos_of_mem_divisors he)]
+      exact (hasSum_scaled g.toCuspForm (Nat.pos_of_mem_divisors he) τ).mul_left _
+  refine hF.unique (hR.congr_fun fun m => ?_)
+  rw [heckeCoeff_eq_sum_divisors hd4 hsq hMN g hχ hgood m, Finset.sum_mul]
+  refine Finset.sum_congr rfl fun e _ => ?_
+  ring
+
+end Ident
 
 end ZInQ.GZTheta
