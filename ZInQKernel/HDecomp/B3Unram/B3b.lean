@@ -1,4 +1,5 @@
 import Mathlib
+import ZInQKernel.HDecomp.Descent.B2Glue
 
 /-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt2 from
 `scratch/glue-b3b/B3b.lean`.
@@ -50,84 +51,29 @@ Glue proved here: `cycUnram` (the cyclotomic character mod `N` is trivial on ine
 
 namespace GlueB3Unram
 
+/-! `GQ`, `act`, `toRingAut`, `cyc`, `galChar`, their local-constancy lemmas and
+`UnramifiedAt` (copied verbatim from glue-descent in the draft) are glue-descent's, from
+`ZInQKernel.HDecomp.Descent.B2Glue`. -/
+open GlueDescent.B2Q (GQ act toRingAut cyc galChar isLocallyConstant_of_openSubgroup
+  cyc_eq_of_agree cyc_isLocallyConstant galChar_isLocallyConstant UnramifiedAt)
+
+
 open NumberField
 
-/-- `G_ℚ`. -/
-abbrev GQ := Field.absoluteGaloisGroup ℚ
 
 /-- `ℚ̄`. -/
 abbrev Qbar := AlgebraicClosure ℚ
 
-instance : IsTopologicalGroup GQ :=
-  inferInstanceAs (IsTopologicalGroup (AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ))
 
 instance : IsGalois ℚ (AlgebraicClosure ℚ) := {}
 
-def act (σ : GQ) : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ := σ
 
-/-- The forgetful map `Gal(ℚ̄/ℚ) → Aut(ℚ̄)` as a monoid homomorphism. -/
-noncomputable def toRingAut : GQ →* (AlgebraicClosure ℚ ≃+* AlgebraicClosure ℚ) where
-  toFun σ := σ.toRingEquiv
-  map_one' := rfl
-  map_mul' _ _ := rfl
 
-/-- The cyclotomic character `G_ℚ → (ℤ/N)^×`. -/
-noncomputable def cyc (N : ℕ) [NeZero N] : GQ →* (ZMod N)ˣ :=
-  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
-  (modularCyclotomicCharacter (AlgebraicClosure ℚ)
-    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)).comp toRingAut
 
-/-- A Dirichlet character as a character of `G_ℚ`. -/
-noncomputable def galChar {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) : GQ →* ℂˣ :=
-  χ.toUnitHom.comp (cyc N)
 
-theorem isLocallyConstant_of_openSubgroup {G X : Type*} [Group G] [TopologicalSpace G]
-    [IsTopologicalGroup G] (U : Subgroup G) (hU : IsOpen (U : Set G)) (f : G → X)
-    (hf : ∀ g, ∀ k ∈ U, f (g * k) = f g) : IsLocallyConstant f := by
-  refine IsLocallyConstant.iff_isOpen_fiber.2 fun y => isOpen_iff_forall_mem_open.2 fun x hx =>
-    ⟨(x * ·) '' U, ?_, isOpenMap_mul_left x _ hU, ⟨1, U.one_mem, mul_one x⟩⟩
-  rintro _ ⟨k, hk, rfl⟩
-  simp only [Set.mem_preimage, Set.mem_singleton_iff] at hx ⊢
-  rw [hf x k hk, hx]
 
-theorem cyc_eq_of_agree (N : ℕ) [NeZero N] (σ τ : GQ)
-    (h : ∀ t ∈ rootsOfUnity N (AlgebraicClosure ℚ),
-      act σ (t : AlgebraicClosure ℚ) = act τ (t : AlgebraicClosure ℚ)) :
-    cyc N σ = cyc N τ := by
-  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
-  have hn := HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N
-  apply Units.ext
-  show ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut σ) : (ZMod N)ˣ) : ZMod N) =
-    ((modularCyclotomicCharacter (AlgebraicClosure ℚ) hn (toRingAut τ) : (ZMod N)ˣ) : ZMod N)
-  apply modularCyclotomicCharacter.unique _ hn
-  intro t ht
-  rw [← modularCyclotomicCharacter.spec (AlgebraicClosure ℚ) hn (toRingAut σ) ht]
-  exact (h t ht).symm
 
-theorem cyc_isLocallyConstant (N : ℕ) [NeZero N] : IsLocallyConstant (cyc N) := by
-  let S : Set (AlgebraicClosure ℚ) :=
-    (fun t : (AlgebraicClosure ℚ)ˣ => (t : AlgebraicClosure ℚ)) ''
-      (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ)
-  have hfin : Finite (rootsOfUnity N (AlgebraicClosure ℚ) : Set (AlgebraicClosure ℚ)ˣ) :=
-    (inferInstance : Finite (rootsOfUnity N (AlgebraicClosure ℚ)))
-  haveI : Finite S := ((Set.toFinite _).image _).to_subtype
-  let K : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.adjoin ℚ S
-  haveI : FiniteDimensional ℚ K :=
-    IntermediateField.finiteDimensional_adjoin (fun x _ => Algebra.IsIntegral.isIntegral x)
-  refine isLocallyConstant_of_openSubgroup (G := AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ)
-    K.fixingSubgroup K.fixingSubgroup_isOpen (fun g => cyc N g) ?_
-  intro g k hk
-  apply cyc_eq_of_agree
-  intro t ht
-  have hfix : act k (t : AlgebraicClosure ℚ) = t :=
-    (IntermediateField.mem_fixingSubgroup_iff K k).mp hk _
-      (IntermediateField.subset_adjoin ℚ S ⟨t, ht, rfl⟩)
-  show g (k (t : AlgebraicClosure ℚ)) = g (t : AlgebraicClosure ℚ)
-  exact congrArg g hfix
 
-theorem galChar_isLocallyConstant {N : ℕ} [NeZero N] (χ : DirichletCharacter ℂ N) :
-    IsLocallyConstant (galChar χ) :=
-  show IsLocallyConstant (χ.toUnitHom ∘ cyc N) from (cyc_isLocallyConstant N).comp _
 
 /-! ## Places and inertia subgroups of `G_ℚ` -/
 
@@ -534,9 +480,6 @@ section Bridge
 
 open NumberField
 
-/-- glue-descent's `UnramifiedAt` (copied from `scratch/glue-descent/B2Glue.lean`). -/
-def UnramifiedAt (L : IntermediateField ℚ Qbar) (p : ℕ) : Prop :=
-  ∀ P : Ideal (𝓞 L), P.IsPrime → ((p : ℤ) : 𝓞 L) ∈ P → P.ramificationIdx ℤ = 1
 
 variable (L : IntermediateField ℚ Qbar)
 
@@ -1512,6 +1455,13 @@ end LeafPush
 
 namespace GlueB3Unram
 
+/-! `GQ`, `act`, `toRingAut`, `cyc`, `galChar`, their local-constancy lemmas and
+`UnramifiedAt` (copied verbatim from glue-descent in the draft) are glue-descent's, from
+`ZInQKernel.HDecomp.Descent.B2Glue`. -/
+open GlueDescent.B2Q (GQ act toRingAut cyc galChar isLocallyConstant_of_openSubgroup
+  cyc_eq_of_agree cyc_isLocallyConstant galChar_isLocallyConstant UnramifiedAt)
+
+
 open scoped Pointwise
 
 /-- `w` over `ℤ_(p)` (leaf-push's `IsAtPrime` form) lies over `p` in the sense of `LiesOver`. -/
@@ -1637,6 +1587,13 @@ def T32a_TameQuadratic : Prop :=
 end LeafPush
 
 namespace GlueB3Unram
+
+/-! `GQ`, `act`, `toRingAut`, `cyc`, `galChar`, their local-constancy lemmas and
+`UnramifiedAt` (copied verbatim from glue-descent in the draft) are glue-descent's, from
+`ZInQKernel.HDecomp.Descent.B2Glue`. -/
+open GlueDescent.B2Q (GQ act toRingAut cyc galChar isLocallyConstant_of_openSubgroup
+  cyc_eq_of_agree cyc_isLocallyConstant galChar_isLocallyConstant UnramifiedAt)
+
 
 /-- `w ∩ ℚ` is `ℤ_(p)` in leaf-push's sense when `w` lies over `p`. -/
 theorem isAtPrime_comap {p : ℕ} (hp : p.Prime) (w : ValuationSubring Qbar) (hw : LiesOver w p) :

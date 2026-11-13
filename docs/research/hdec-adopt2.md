@@ -59,10 +59,24 @@ namespace `GlueB3Unram`); the glue-descent copies in `glue-wp3/` (byte-identical
   `PkgI6.LocalKroneckerWeber` comes from `Conductor.I6Base` (same definition body; only the
   docstring differed).
 
-Kept on purpose: `Vigneras.Global` defines `GlueVigneras.Global.B := ℍ[ℚ, 2, 0, -3]` and `comb`,
-as `Repo.A1Quaternion` (namespace `GlueRepo.A1`) does. Its `O` is a `Set`, while `GlueRepo.A1.O`
-is a `Subring`, so the draft does not copy that module. Sharing `B` and `comb` would mean rewriting
-the proofs that unfold them, so they were left alone.
+- `B3Unram.B3b`: its copies of glue-descent's `B2Glue` definitions and lemmas (`GQ` with its
+  topological-group instance, `act`, `toRingAut`, `cyc`, `galChar`,
+  `isLocallyConstant_of_openSubgroup`, `cyc_eq_of_agree`, `cyc_isLocallyConstant`,
+  `galChar_isLocallyConstant`, `UnramifiedAt`) are dropped. They are replaced by
+  `open GlueDescent.B2Q (…)` and an import of `Descent.B2Glue`. The code was identical after
+  normalizing whitespace and docstrings (`scratch/hdec-adopt2/blocks.py`); `UnramifiedAt` differed
+  only by writing `Qbar`, a reducible `abbrev` for `AlgebraicClosure ℚ`. The `GlueB3Unram.*` names
+  of these copies disappear, and every theorem statement of the file now refers to glue-descent's
+  `GQ`, `cyc` and `UnramifiedAt`.
+- `Vigneras.Global`: its copies of `GlueRepo.A1.{B, comb, combMul}` (`Repo.A1Quaternion`, the same
+  code) are dropped and replaced by `open GlueRepo.A1 (B comb combMul)`.
+  `GlueVigneras.Global.comb_mul`, which now has the same statement as `GlueRepo.A1.comb_mul`, is
+  proved by it. The draft's `O` stays: it is a `Set`, while `GlueRepo.A1.O` is a `Subring`.
+
+Duplicates left alone: `Sqrt.Disj` proves `card_quotient_maximalIdeal` and
+`eq_of_pow_eq_one_of_sub_mem` twice, in `GlueSqrtLocal` and in `GlueSqrtDisj`. Both copies come
+from glue-sqrt-local's `Frob.lean`, which is not an HDecomp module. A body-level duplicate scan of
+all HDecomp modules found no other duplicate involving the new modules (VERIFIED, 17:02).
 
 One edit beyond the copies: in `Vigneras.Global` (`phi_eq_one_iff`), a 104-character
 `first | … | …` line is broken by hand into `first` plus two lines of alternatives. `wrap.py` broke

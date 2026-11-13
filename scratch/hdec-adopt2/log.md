@@ -40,3 +40,21 @@
   `Conductor/I6Base.lean` (whitespace-normalized substring); Disj's GlueSqrtLocal block =
   SqrtLocal lines 84-243 (160 lines); Disj's `LocalKroneckerWeber` body = I6Base's (docstring
   differs). VERIFIED.
+
+## Second pass: copies found by body comparison (17:00-17:05 PST)
+- Module headers revealed more copies with other names: `B3b.lean` copies glue-descent's
+  `B2Glue` (`GQ`, its `IsTopologicalGroup` instance, `act`, `toRingAut`, `cyc`, `galChar`,
+  `isLocallyConstant_of_openSubgroup`, `cyc_eq_of_agree`, `cyc_isLocallyConstant`,
+  `galChar_isLocallyConstant`, `UnramifiedAt`) in namespace `GlueB3Unram`. The code is identical
+  after normalizing whitespace and docstrings (`blocks.py`); `UnramifiedAt` differs only by
+  `Qbar` (= `AlgebraicClosure ℚ`, abbrev). VERIFIED. They are replaced by
+  `open GlueDescent.B2Q (…)` in both `namespace GlueB3Unram` blocks, plus an import of
+  `Descent.B2Glue`.
+- `Vigneras/Global.lean` copies `GlueRepo.A1.{B,comb,combMul}` (same code, VERIFIED): replaced by
+  `open GlueRepo.A1 (B comb combMul)`; `comb_mul` (now the same statement as
+  `GlueRepo.A1.comb_mul`) is proved by it.
+- Body-level duplicate scan of all HDecomp modules (normalized declaration bodies over 60
+  characters): the only remaining duplicates involving new modules are two lemmas proved twice
+  inside `Sqrt/Disj.lean` (glue-sqrt-local's Frob, not an HDecomp module). VERIFIED.
+- 17:02 `lake build ZInQKernel`: exit 0; `lake env lean scripts/print_axioms.lean`: 272 outputs,
+  all `[propext, Classical.choice, Quot.sound]`. VERIFIED.

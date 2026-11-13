@@ -1,4 +1,5 @@
 import Mathlib
+import ZInQKernel.HDecomp.Repo.A1Quaternion
 
 /-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt2 from
 `scratch/glue-vigneras/Global.lean`.
@@ -22,10 +23,11 @@ attribute [local simp] QuaternionAlgebra.re_ofNat QuaternionAlgebra.imI_ofNat
 
 namespace GlueVigneras.Global
 
-abbrev B := ℍ[ℚ, 2, 0, -3]
+/-! `B`, `comb`, `combMul` (copied verbatim in the draft) are `GlueRepo.A1`'s, from
+`ZInQKernel.HDecomp.Repo.A1Quaternion`. -/
+open GlueRepo.A1 (B comb combMul)
 
-def comb (n : Fin 4 → ℤ) : B :=
-  ⟨n 0 + n 2 / 2, n 1 + n 3 / 2, n 2 / 2, n 3 / 2⟩
+
 
 /-- `𝒪 = ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩` (as a set; glue-repo proves it is a subring). -/
 def O : Set B := Set.range comb
@@ -184,15 +186,9 @@ theorem nrd_dvd_six (x : Bˣ) (n : Fin 4 → ℤ) (hxn : (x : B) = comb n)
 
 /-! ## The global index `[N_B(𝒪) : ℚ^×𝒪^×] = 4` -/
 
-/-- Structure constants of `𝒪` (copied from glue-repo). -/
-def combMul (n m : Fin 4 → ℤ) : Fin 4 → ℤ :=
-  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
-    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
-    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
-    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
 
-theorem comb_mul (n m : Fin 4 → ℤ) : comb n * comb m = comb (combMul n m) := by
-  ext <;> simp [comb, combMul] <;> push_cast <;> ring
+theorem comb_mul (n m : Fin 4 → ℤ) : comb n * comb m = comb (combMul n m) :=
+  GlueRepo.A1.comb_mul n m
 
 theorem O_mul {x y : B} (hx : x ∈ O) (hy : y ∈ O) : x * y ∈ O := by
   obtain ⟨n, rfl⟩ := hx; obtain ⟨m, rfl⟩ := hy; exact ⟨_, (comb_mul n m).symm⟩

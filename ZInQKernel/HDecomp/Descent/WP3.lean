@@ -29,9 +29,8 @@ sides use the same Mathlib map `Field.absoluteGaloisGroup.map (algebraMap ℚ �
 (ii) the real place: a class trivial at every finite prime is trivial at `∞` by reciprocity
 (the parity of the number of ramified places).
 
-The definitions of `PkgI6` below are verbatim copies of `scratch/pkg-I6/I6.lean` (identical to
-the copies in `scratch/h-decomposition/Leaves.lean`, L4155-4194); `GlueDescent.*` comes from
-verbatim copies of glue-descent's files in this directory.
+In the draft, the definitions of `PkgI6` and glue-descent's files were verbatim copies; here
+they are imported from `Conductor/I6Base.lean` and `Descent/*.lean`.
 -/
 
 /-! The `PkgI6` cochain definitions and leaves are imported from
