@@ -1,0 +1,10 @@
+'BPModCurves.nu2_Gamma1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.nu3_Gamma1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.genus_Gamma1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.belyiDeg_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.genus_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.index_Gamma1_eq_card' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.two_mul_belyiDeg_Gamma1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'BPModCurves.two_mul_belyiDeg_Gamma1_le' depends on axioms: [propext, Classical.choice, Quot.sound]
+rv_audit: 44 declarations; non-standard axioms in 0: []
+exit=0 secs=6
