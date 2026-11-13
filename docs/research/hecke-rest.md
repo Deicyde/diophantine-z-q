@@ -69,6 +69,8 @@ The four glue Props are now replaced as follows:
 ### Lean files (VERIFIED: `lake env lean`, 0 errors)
 
 All four files are assembled by `scratch/hecke-rest/assemble.py` from verbatim line ranges.
+`check_identical.py` (output `check_identical.out`, ALL OK) confirms that the copies and the five
+target statements are verbatim.
 
 | File | Contents | Time |
 |---|---|---|
@@ -97,9 +99,11 @@ The computation works in the kernel's coordinates, with `𝒪 = ℤ⟨1, i, (1+j
 - **Orbits.** Right multiplication by these unit groups on `(𝒪/3𝒪)^×` is free, with 18, 12 and 36
   orbits.
 - **Atkin–Lehner fixed points.** Take an elliptic `μ ∈ 𝒪` of norm `m ∈ {2, 3, 6}` and trace `t`
-  with `t² < 4m`. The field `ℚ(√(t² − 4m))` embeds in `B` only in two cases:
+  with `t² < 4m`. The field `ℚ(√(t² − 4m))` embeds in `B` only for
+  `(m, t) ∈ {(2, 2), (3, 0), (3, 3), (6, 0)}`:
   - `(2, 2)` gives `ℚ(i)`;
-  - `(3, 0)`, `(3, 3)` and `(6, 0)` give `ℚ(√−3)` and `ℚ(√−6)`.
+  - `(3, 0)` and `(3, 3)` give `ℚ(√−3)`;
+  - `(6, 0)` gives `ℚ(√−6)`.
 
   The fields `ℚ(√−2)`, `ℚ(√−7)`, `ℚ(√−11)`, `ℚ(√−5)`, `ℚ(√−15)` and `ℚ(√−23)` do not embed,
   because 2 or 3 splits in them.

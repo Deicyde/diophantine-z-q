@@ -163,3 +163,8 @@ HeckeFibreSizes, HeckeNoVertRam.
   QMAutCard → SerreRigidity3 → ALFixedPoints → HeckeVertWitness → CoverModelOfHecke`.
   `HeckeRestAll.lean` recompiled: 0 errors; 26 HeckeRest* `#print axioms` lines, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 13. Verbatim check (`check_identical.py`, output `check_identical.out`) — VERIFIED
+- All copied line ranges (TSHecke.lean, image-plane AlgDepProof.lean) occur verbatim in the
+  assembled files; the targets HeckeFibreSizes, HeckeNoVertRam, CurveNormChart, CurveChartInf,
+  CurveGaloisChart occur verbatim (CurveGaloisChart in HeckeRestAll.lean). ALL OK.
