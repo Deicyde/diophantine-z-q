@@ -89,4 +89,64 @@ theorem exists_lift_of_isFinite {K : Type} [Field K] {Ω Ω₂ : Type} [Field Ω
   apply (cancel_epi (Spec.map (CommRingCat.ofHom (κ : Ω →+* Ω₂)))).1
   rw [← Category.assoc, hlift, hq, ← Spec.map_comp, ← CommRingCat.ofHom_comp, κ.comp_algebraMap]
 
+/-! ## §3. Torsion points of a base change -/
+
+section Tors
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+
+/-- `q ≫ [N] = q ^ N` for `[N] = ((N : ℤ) : End A).hom`. -/
+theorem comp_natCast_hom {T : Over (Spec (CommRingCat.of K))} (q : T ⟶ A.X) (N : ℕ) :
+    q ≫ (((N : ℤ) : PkgI3.AbVar.End A)).hom = q ^ N := by
+  induction N with
+  | zero =>
+    rw [Nat.cast_zero, Int.cast_zero, PkgI3.AbVar.Hom.hom_zero, MonObj.comp_one, pow_zero]
+  | succ N ih =>
+    rw [Nat.cast_succ, Int.cast_add, Int.cast_one, PkgI3.AbVar.Hom.hom_add, MonObj.comp_mul, ih,
+      pow_succ]
+    congr 1
+
+variable {L : Type} [Field L] [Algebra K L]
+
+/-- **Torsion descent from finiteness of `[ℓⁿ]`.** If `[ℓⁿ] : A → A` is a finite morphism for
+every `n`, then every `ℓ`-power torsion point of `A_L(L̄)` comes from `A(K̄)`. -/
+theorem torsionDescends_of_isFinite (κ : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (ℓ : ℕ) [Fact ℓ.Prime]
+    (hfin : ∀ n : ℕ, IsFinite ((((ℓ ^ n : ℕ) : ℤ) : PkgI3.AbVar.End A).hom.left)) :
+    TorsionDescends A κ ℓ := by
+  intro n q hq
+  set N := ℓ ^ n with hN
+  set q₀ := bcPt A (AlgebraicClosure L) q with hq₀
+  have h0 : q₀ ^ N = 1 := by rw [hq₀, ← map_pow, hq, map_one]
+  have h1 : q₀ ≫ ((N : ℤ) : PkgI3.AbVar.End A).hom = 1 := by rw [comp_natCast_hom, h0]
+  haveI := hfin n
+  let fN : A.X.left ⟶ A.X.left := ((N : ℤ) : PkgI3.AbVar.End A).hom.left
+  let e : Spec (CommRingCat.of K) ⟶ A.X.left := η[A.X].left
+  have hq0 : q₀.left ≫ fN = Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure L))) ≫ e := by
+    have h2 := congrArg (fun f => f.left) h1
+    simp only [Over.comp_left, Hom.one_def] at h2
+    exact h2
+  have hfN : IsFinite fN := hfin n
+  let z : Spec (CommRingCat.of (AlgebraicClosure L)) ⟶ pullback fN e :=
+    pullback.lift q₀.left (Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure L)))) hq0
+  obtain ⟨p0, hp0, hp0g⟩ := exists_lift_of_isFinite κ (pullback.snd fN e) z (pullback.lift_snd _ _ _)
+  have hfst : pullback.fst fN e ≫ A.X.hom = pullback.snd fN e := by
+    have hw : fN ≫ A.X.hom = A.X.hom := Over.w ((N : ℤ) : PkgI3.AbVar.End A).hom
+    have he : e ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
+    rw [← hw, ← Category.assoc, pullback.condition, Category.assoc, he, Category.comp_id]
+  let p : A.Pt (AlgebraicClosure K) := Over.homMk (p0 ≫ pullback.fst fN e) (by
+    change (p0 ≫ pullback.fst fN e) ≫ A.X.hom = _
+    rw [Category.assoc, hfst, hp0g]
+    rfl)
+  refine ⟨p, ?_⟩
+  change (bcPt A (AlgebraicClosure L)).symm (extPt A κ p) = q
+  rw [MulEquiv.symm_apply_eq]
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (κ : AlgebraicClosure K →+* AlgebraicClosure L)) ≫
+    p0 ≫ pullback.fst fN e = q₀.left
+  rw [← Category.assoc, hp0]
+  exact pullback.lift_fst _ _ _
+
+end Tors
+
 end ZInQ.Contrib.AbVarBC
