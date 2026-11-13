@@ -241,4 +241,84 @@ theorem linearIndependent_relCot (P : Algebra.SubmersivePresentation k S ι σ) 
   rw [← ha (c i), residue_eq_zero_iff, ← Localization.AtPrime.map_eq_maximalIdeal]
   exact Ideal.mem_map_of_mem _ (hmem i)
 
+/-! ## §3 Dimension and embedding dimension of `S_𝔪` -/
+
+/-- **Main algebraic theorem.** For a submersive presentation `P` of `S` over a field `k` and a
+maximal ideal `𝔪` of `S`: `dim S_𝔪 = P.dimension` and `𝔪 S_𝔪` is spanned by `P.dimension`
+elements (and no fewer). -/
+theorem ringKrullDim_and_spanFinrank_localization (P : Algebra.SubmersivePresentation k S ι σ)
+    (m : Ideal S) [m.IsMaximal] :
+    ringKrullDim (Localization.AtPrime m) = P.dimension ∧
+      (maximalIdeal (Localization.AtPrime m)).spanFinrank = P.dimension := by
+  classical
+  have := Fintype.ofFinite σ
+  have hφs : Function.Surjective (algebraMap P.Ring S) := P.algebraMap_surjective
+  have hkerφ : ∀ x ∈ P.ker, algebraMap P.Ring S x = 0 := fun x hx => hx
+  obtain ⟨M, hMdef⟩ : ∃ M, M = m.comap (algebraMap P.Ring S) := ⟨_, rfl⟩
+  have : M.IsMaximal := hMdef ▸ Ideal.comap_isMaximal_of_surjective _ hφs
+  have hker : P.ker ≤ M := fun x hx => by
+    rw [hMdef, Ideal.mem_comap, hkerφ x hx]
+    exact m.zero_mem
+  have : IsNoetherianRing S := isNoetherianRing_of_surjective _ _ _ hφs
+  -- lower bound (Krull's height theorem)
+  have hM : M.height = Nat.card ι := height_isMaximal_mvPolynomial k ι M
+  have hK := Ideal.height_le_height_add_spanFinrank_of_le hker
+  have hspan : P.ker.spanFinrank ≤ Nat.card σ := by
+    rw [← P.span_range_relation_eq_ker]
+    refine (Submodule.spanFinrank_span_le_ncard_of_finite (Set.finite_range _)).trans ?_
+    rw [← Set.image_univ]
+    exact (Set.ncard_image_le Set.finite_univ).trans (Set.ncard_univ _).le
+  have hquot : (M.map (Ideal.Quotient.mk P.ker)).height = m.height := by
+    let e : (P.Ring ⧸ P.ker) ≃+* S := RingHom.quotientKerEquivOfSurjective hφs
+    refine (e.height_map _).symm.trans (congrArg Ideal.height ?_)
+    change Ideal.map (e : P.Ring ⧸ P.ker →+* S) _ = m
+    rw [Ideal.map_map]
+    have : (e : P.Ring ⧸ P.ker →+* S).comp (Ideal.Quotient.mk P.ker) = algebraMap P.Ring S :=
+      RingHom.ext fun x => RingHom.quotientKerEquivOfSurjective_apply_mk hφs x
+    rw [this, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  rw [hquot, hM] at hK
+  have hdimC : ringKrullDim (Localization.AtPrime m) = m.height :=
+    IsLocalization.AtPrime.ringKrullDim_eq_height m (Localization.AtPrime m)
+  -- upper bound (embedding dimension)
+  let ψ := Localization.localRingHom M m (algebraMap P.Ring S) hMdef
+  have hcomp : ψ.comp (algebraMap P.Ring (Localization.AtPrime M)) =
+      (algebraMap S (Localization.AtPrime m)).comp (algebraMap P.Ring S) := by
+    ext x
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+    · exact Localization.localRingHom_to_map M m _ hMdef _
+  have hmap : (maximalIdeal (Localization.AtPrime M)).map ψ =
+      maximalIdeal (Localization.AtPrime m) := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal, ← Localization.AtPrime.map_eq_maximalIdeal,
+      Ideal.map_map, hcomp, ← Ideal.map_map, hMdef, Ideal.map_comap_of_surjective _ hφs]
+  have hkill : ∀ i, ψ (relCot P M hker i) = 0 := by
+    intro i
+    change ψ (algebraMap P.Ring (Localization.AtPrime M) (P.relation i)) = 0
+    rw [← RingHom.comp_apply, hcomp, RingHom.comp_apply, hkerφ _ (P.relation_mem_ker i), map_zero]
+  have hU := spanFinrank_add_card_le ψ hmap (relCot P M hker) (linearIndependent_relCot P M hker)
+    hkill
+  have hB : ((maximalIdeal (Localization.AtPrime M)).spanFinrank : WithBot ℕ∞) = Nat.card ι := by
+    rw [IsRegularLocalRing.spanFinrank_maximalIdeal,
+      IsLocalization.AtPrime.ringKrullDim_eq_height M (Localization.AtPrime M), hM]
+    rfl
+  have hB' : (maximalIdeal (Localization.AtPrime M)).spanFinrank = Nat.card ι := by
+    exact_mod_cast hB
+  have hle := ringKrullDim_le_spanFinrank_maximalIdeal (Localization.AtPrime m)
+  rw [hdimC] at hle
+  have hle' : m.height ≤ ((maximalIdeal (Localization.AtPrime m)).spanFinrank : ℕ∞) := by
+    exact_mod_cast hle
+  obtain ⟨h, hh⟩ := ENat.ne_top_iff_exists.mp (ne_top_of_le_ne_top (ENat.natCast_ne_top _) hle')
+  rw [← hh] at hle' hK
+  rw [hB', Fintype.card_eq_nat_card] at hU
+  rw [hdimC, ← hh]
+  simp only [Algebra.Presentation.dimension]
+  have hK' : Nat.card ι ≤ h + P.ker.spanFinrank := by exact_mod_cast hK
+  have hle'' : h ≤ (maximalIdeal (Localization.AtPrime m)).spanFinrank := by exact_mod_cast hle'
+  constructor
+  · have : h = Nat.card ι - Nat.card σ := by omega
+    rw [this]; rfl
+  · omega
+
 end InfraSmoothDim
+
+#print axioms InfraSmoothDim.linearIndependent_relCot
+#print axioms InfraSmoothDim.ringKrullDim_and_spanFinrank_localization
