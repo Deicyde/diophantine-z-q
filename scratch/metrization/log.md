@@ -54,3 +54,12 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   AnalyticUniformizationUnique → HodgeLatticeTheorem → AnalyticUniformizationOfDim →
   JacDetDescends → JacDetNondegenerate → ProductUniformization → ProductHodgeCompat →
   HeightAdditivity`. All #print axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 8: + part_produnif — COMPILED 04:37 (1 min 40 s; 0 errors)
+- `prodPts_alg`: for `e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G` with `IsMonHom (e.hom ≫ fst)`, `IsMonHom (e.hom ≫ snd)`
+  and analytic uniformizations `Φᵢ`: `prodPts e Φ₁ Φ₂` is a homomorphism, has kernel exactly
+  `prodLattice Λ₁ Λ₂`, and is surjective. PROVED (MonObj.mul_comp, one_comp, hom_ext). VERIFIED.
+- new glue `ProductUniformizationAnalytic` (open `dom`, holomorphy only);
+  `productUniformization_of : ProductUniformizationAnalytic → ProductUniformization`;
+  `HSyn.G0Split.heightAdditivity_of_metrization'` (with `ProductUniformizationAnalytic` in place
+  of `ProductUniformization`). Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
