@@ -1,20 +1,22 @@
-import sympy as sp, itertools, sys
-sys.path.insert(0,'/tmp/t28')
-x,z=sp.symbols('x z')
-def tv(phi, psi, k):
-    m = sp.Poly(phi, x, z).total_degree(); n = sp.Poly(psi, x, z).total_degree()
-    s = 0
-    for j in range(k + 1):
-        s += (-1)**j * sp.binomial(k, j) * sp.diff(phi, x, k - j, z, j) * sp.diff(psi, x, j, z, k - j)
-    return sp.expand(sp.factorial(m - k) * sp.factorial(n - k) / (sp.factorial(m) * sp.factorial(n)) * s)
-p,q,r,s=sp.symbols('p q r s')
-c=[s,r,q,p,0,1,0]
-f=sp.expand(sum(ci*x**i*z**(6-i) for i,ci in enumerate(c)))
-i=tv(f,f,4); y1=tv(f,i,4); y2=tv(i,y1,2); y3=tv(i,y2,2)
-for nm,y in [('y1',y1),('y2',y2),('y3',y3)]:
-    P=sp.Poly(y,x,z)
-    print(nm,[len(sp.Poly(P.coeff_monomial(x**k*z**(2-k)),p,q,r,s).terms()) if P.coeff_monomial(x**k*z**(2-k))!=0 else 0 for k in range(3)])
-ys=[y1,y2,y3]
-for t in [(0,0,0),(2,2,2)]:
-    a=tv(f,sp.expand(ys[t[0]]*ys[t[1]]*ys[t[2]]),6)
-    print(t,len(sp.Poly(a,p,q,r,s).terms()))
+import sys, itertools, time
+sys.path.insert(0,'scratch/igusa-generic')
+from poly import *
+Y=parse_defs('ZInQKernel/HDecomp/Textbook/Igusa/Generic.lean')
+# normal form a = [s, r, q, p, 0, 1, 0] in variables (p,q,r,s)
+def v4(i): e=[0]*4; e[i]=1; return {tuple(e):Fr(1)}
+one={(0,0,0,0):Fr(1)}
+A=[v4(3),v4(2),v4(1),v4(0),{},one,{}]
+y=[[subst(Y[(n,k)],A) for k in range(3)] for n in range(1,4)]
+print("y sizes", [[len(t) for t in r] for r in y])
+w6=[60,-10,4,-3,4,-10,60]
+def cub(u,v,t):
+    return [ {k:val for k,val in __import__('functools').reduce(add,[mul(mul(u[i],v[j]),t[m-i-j]) for i in range(3) for j in range(3) if 0<=m-i-j<=2],{}).items()} for m in range(7)]
+def p6(u,v):
+    r={}
+    for i in range(7): r=add(r, scal(Fr(w6[i]),mul(u[i],v[6-i])))
+    return r
+for t in itertools.combinations_with_replacement(range(3),3):
+    t0=time.time()
+    c=cub(y[t[0]],y[t[1]],y[t[2]])
+    a=p6(A,c)
+    print(t, len(a), max(sum(k) for k in a), "cub sizes", [len(x) for x in c], round(time.time()-t0,2))
