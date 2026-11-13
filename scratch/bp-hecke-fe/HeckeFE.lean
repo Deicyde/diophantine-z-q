@@ -2714,4 +2714,11 @@ theorem deuringCd_of_gaussPointCount {d : ℕ} (hd4 : d % 4 = 1) (hsq : Squarefr
     (heckeEuler_of_odd (Nat.odd_iff.mpr (by omega)) hsq)
     (gaussSplit_of_one hd4 hsq (gaussSplit_one_of_pointCount h1))
 
+/-- **CR₃ from TYZ reading A, Gross–Zagier and Gauss's point count.** -/
+theorem certifiedRankTYZClRk_of_gaussPointCount (hA : ZInQ.Literature.TYZThm35ReadingA)
+    (hG : ZInQ.Literature.GrossZagier) (h1 : GaussPointCount) :
+    ZInQ.RouteK.Rank.CertifiedRankTYZClRk :=
+  certifiedRankTYZClRk_of_elementary hA hG (fun d _ _ => heckeMult d)
+    (fun d _ _ => heckePrimePowSplit d) h1
+
 end BpHeckeFE

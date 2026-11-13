@@ -126,3 +126,5 @@
 - (VERIFIED, compiled ~19:35) `heckeEuler_of_odd`, `deuringCd_of_gaussPointCount`.
 - (VERIFIED numerically, `gauss_jacobi_check.py`, 10 primes p ≡ 1 mod 4 ≤ 89) blueprint for
   GaussPointCount: S = Σχ₂(x³−x) = 2 Re J(χ₄, χ₂), |J|² = p, −J primary.
+- (VERIFIED, compiled ~19:40) `certifiedRankTYZClRk_of_gaussPointCount : TYZThm35ReadingA →
+  GrossZagier → GaussPointCount → RouteK.Rank.CertifiedRankTYZClRk`.

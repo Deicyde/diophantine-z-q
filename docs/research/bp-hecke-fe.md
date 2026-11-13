@@ -24,9 +24,8 @@ def BpHeckeFE.GaussPointCount : Prop :=
 `ZInQ.Literature.FunctionalEquation5` is the project's Prop itself: conductor `32d²`, root number
 `−1`, on the strip `0 < Re s < 2`. `HeckeContinuation5` is `Literature.HeckeContinuation`
 restricted to squarefree `d ≡ 5 (mod 8)`. That restriction is all the headline uses:
-`tyzRow5b_of_readingA_five : TYZThm35ReadingA → HeckeContinuation5 → TYZRow5b` is proved. With
-`certifiedRankTYZClRk_of_elementary` (and `heckeMult`, `heckePrimePowSplit`), CR₃ follows from TYZ
-reading A, Gross–Zagier and `GaussPointCount`.
+`tyzRow5b_of_readingA_five : TYZThm35ReadingA → HeckeContinuation5 → TYZRow5b` is proved. CR₃ follows
+from TYZ reading A, Gross–Zagier and `GaussPointCount` (`certifiedRankTYZClRk_of_gaussPointCount`).
 
 **The leaf.** `GaussPointCount` says: for every prime `p ≡ 1 (mod 4)`,
 `p − #{(x, y) ∈ 𝔽_p² : y² = x³ − x} = π + π̄`. Here `p = ππ̄` in `ℤ[i]` and `π ≡ 1 (mod 2 + 2i)` is
@@ -104,13 +103,12 @@ def DeuringCd (d : ℕ) : Prop :=
    `gauss2D`, proved from Mathlib's `gaussSum_sq` and `gaussSum_mulShift_eq` by completing the
    square.
 
-**CR₃ without the two textbook Props** (VERIFIED, compiled): `certifiedRankTYZClRk_of_elementary :
-TYZThm35ReadingA → GrossZagier → (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
-RouteK.Rank.CertifiedRankTYZClRk`. Its `HeckeMult` hypothesis is discharged by `heckeMult`. With the existing
+**CR₃ without the two textbook Props** (VERIFIED, compiled): `certifiedRankTYZClRk_of_gaussPointCount :
+TYZThm35ReadingA → GrossZagier → GaussPointCount → RouteK.Rank.CertifiedRankTYZClRk`. Composed with the existing
 `exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`
-(`RouteK/RankVariants.lean`) this gives the headline with `HeckeContinuation` and `FunctionalEquation5`
-replaced by the three elementary statements. That last step was not compiled here, because the
-`RankVariants` olean chain was out of date in this worktree; it is a one-line composition.
+(`RouteK/RankVariants.lean`), this gives the headline with `HeckeContinuation` and
+`FunctionalEquation5` replaced by `GaussPointCount`. That last composition is one line but was not
+compiled here, because the `RankVariants` olean chain was out of date in this worktree.
 
 **Suggested change on integration.** `Literature.HeckeContinuation` quantifies over every
 `d ≠ 0`, but its only use (`tyzRow5b_of_readingA`) is at squarefree `d ≡ 5 (mod 8)`. Replacing it
@@ -308,7 +306,7 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `HeckeMult`, `HeckePrimePow`, `normFiber_one`, `heckeCoeff_one`, `coeff_inv_quadratic`, `heckeCoeff_prime_of_dvd`, `heckeEuler_of_mult_primePow` | `HeckeEuler` from multiplicativity and the prime-power recursion |
 | `unitOf_eq_zero_of_even`, `heckeCoeff_two_pow`, `heckeCoeff_pow_of_dvd`, `dvd_of_dvd_sq_add_sq`, `normFiber_inert`, `heckeCoeff_inert`, `HeckePrimePowSplit`, `heckePrimePow_of_split` | the recursion at `p = 2`, `p ∣ d` and inert `p` |
 | `literature_hecke_fe_of_mult_split_gaussPointCount` | the reduction with `HeckeMult` as a hypothesis |
-| `certifiedRankTYZClRk_of_elementary` | CR₃ from TYZ reading A, Gross–Zagier and the elementary statements |
+| `certifiedRankTYZClRk_of_elementary`, `certifiedRankTYZClRk_of_gaussPointCount` | CR₃ from TYZ reading A, Gross–Zagier and the elementary statements, resp. `GaussPointCount` alone |
 | `toG`, `norm_toG`, `toG_gmul`, `norm_eq_one_cases`, `norm_gcd_eq`, `unitsZ`, `conjZ`, `card_mul_fiber`, `gmul_mem_normFiber`, `heckeCoeff_zero`, `heckeMult` | `HeckeMult d` for every `d`: `N(gcd(γ, m)) = m` when `N γ = mn` with `m, n` coprime; the fibres of `(α, β) ↦ αβ` have 4 elements |
 | `literature_hecke_fe_of_split_gaussPointCount` | reduction to `HeckePrimePowSplit`, `GaussPointCount` |
 | `isUnit_of_norm_one`, `prime_of_norm_prime`, `psi_split_prime`, `sum_mul_bij`, `unit_mem_unitsZ`, `norm_unitsZ`, `psi_gmul_unit`, `split_ne`, `piZ`, `not_conj_dvd`, `prime_piZ`, `p_eq_mul`, `split_dvd`, `sum_normFiber_prime`, `card_unitsZ`, `heckePrimePowSplit` | `HeckePrimePowSplit d` for every `d`: Gaussian primes above split `p`, `A_p = U·π ⊔ U·π̄`, the Hecke relation |

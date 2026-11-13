@@ -9,7 +9,7 @@
 - `FunctionalEquation5` is the project's Prop itself: conductor 32d², root number −1, strip 0 < Re s < 2.
 - `HeckeContinuation5` is `Literature.HeckeContinuation` restricted to squarefree d ≡ 5 (mod 8). That is the only
   case the headline uses; `tyzRow5b_of_readingA_five` is proved.
-- `certifiedRankTYZClRk_of_elementary` gives CR₃ from TYZ reading A, Gross–Zagier and these statements.
+- `certifiedRankTYZClRk_of_gaussPointCount` gives CR₃ from TYZ reading A, Gross–Zagier and `GaussPointCount`.
 
 **The single remaining hypothesis, `GaussPointCount`.** For primes p ≡ 1 (mod 4),
 p − #{(x,y) ∈ 𝔽_p² : y² = x³ − x} = π + π̄, with ππ̄ = p and π ≡ 1 (mod 2+2i). This is Gauss's theorem (1814;
