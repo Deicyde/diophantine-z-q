@@ -321,7 +321,89 @@ theorem brauerNesbittChar0 : BrauerNesbittChar0 := by
       show act (k := k) σ.asModule (c • f) = c • act σ.asModule f from
       LinearMap.ext fun x => smul_assoc c f x, map_smul, map_smul, hf]
 
+
+/-! ## The matrix form `HSyn.BrauerNesbitt` -/
+
+/-- **L19. Brauer–Nesbitt.** Verbatim `HSyn.BrauerNesbitt`. -/
+def HSynBrauerNesbitt : Prop :=
+  ∀ (G : Type) [Group G] (E : Type) [Field E] [CharZero E] (n : ℕ)
+    (ρ₁ ρ₂ : G →* GL (Fin n) E),
+    (∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E)) ≤ W') →
+    (∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)) ≤ W') →
+    (∀ g, Matrix.trace (ρ₁ g : Matrix (Fin n) (Fin n) E) =
+      Matrix.trace (ρ₂ g : Matrix (Fin n) (Fin n) E)) →
+    ∃ P : GL (Fin n) E, ∀ g, ρ₂ g = P * ρ₁ g * P⁻¹
+
+section Matrix
+
+variable {G E : Type} [Group G] [Field E] {n : ℕ}
+
+/-- The representation of `G` on `E^n` given by a homomorphism to `GL_n(E)`. -/
+noncomputable def repOfGL (ρ : G →* GL (Fin n) E) : Representation E G (Fin n → E) :=
+  (Matrix.toLinAlgEquiv' : Matrix (Fin n) (Fin n) E ≃ₐ[E] Module.End E (Fin n → E)).toAlgHom
+    |>.toMonoidHom.comp ((Units.coeHom _).comp ρ)
+
+theorem repOfGL_apply (ρ : G →* GL (Fin n) E) (g : G) :
+    repOfGL ρ g = Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E) := rfl
+
+theorem isSemisimpleModule_repOfGL (ρ : G →* GL (Fin n) E)
+    (h : ∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ W') :
+    IsSemisimpleModule (MonoidAlgebra E G) (repOfGL ρ).asModule := by
+  rw [isSemisimpleModule_iff]
+  refine (OrderIso.complementedLattice_iff (repOfGL ρ).mapSubmodule).1 ⟨fun ⟨p, hp⟩ => ?_⟩
+  have hp' : ∀ g, p.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ p := fun g =>
+    (Module.End.mem_invtSubmodule_iff_map_le _).1 ((repOfGL ρ).mem_invtSubmodule.1 hp g)
+  obtain ⟨W', hc, hW'⟩ := h p hp'
+  have hW'mem : W' ∈ (repOfGL ρ).invtSubmodule :=
+    (repOfGL ρ).mem_invtSubmodule.2 fun g => (Module.End.mem_invtSubmodule_iff_map_le _).2 (hW' g)
+  refine ⟨⟨W', hW'mem⟩, ?_, ?_⟩
+  · rw [disjoint_iff]
+    apply Subtype.ext
+    exact hc.inf_eq_bot
+  · rw [codisjoint_iff]
+    apply Subtype.ext
+    exact hc.sup_eq_top
+
+end Matrix
+
+theorem hsynBrauerNesbitt : HSynBrauerNesbitt := by
+  intro G _ E _ _ n ρ₁ ρ₂ h₁ h₂ htr
+  obtain ⟨φ⟩ := brauerNesbittChar0 E G (Fin n → E) (Fin n → E) (repOfGL ρ₁) (repOfGL ρ₂)
+    (isSemisimpleModule_repOfGL ρ₁ h₁) (isSemisimpleModule_repOfGL ρ₂ h₂)
+    (fun g => by rw [repOfGL_apply, repOfGL_apply, Matrix.trace_toLin'_eq,
+      Matrix.trace_toLin'_eq, htr g])
+  let f : (Fin n → E) ≃ₗ[E] (Fin n → E) :=
+    ((repOfGL ρ₁).asModuleEquiv.symm.trans (φ.restrictScalars E)).trans
+      (repOfGL ρ₂).asModuleEquiv
+  have hf : ∀ g x, f (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E) x) =
+      Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E) (f x) := by
+    intro g x
+    rw [← repOfGL_apply, ← repOfGL_apply]
+    simp only [f, LinearEquiv.trans_apply, Representation.asModuleEquiv_symm_map_rho,
+      LinearEquiv.restrictScalars_apply, map_smul, Representation.asModuleEquiv_map_smul,
+      Representation.asAlgebraHom_of]
+  let P : GL (Fin n) E :=
+    ⟨LinearMap.toMatrix' f.toLinearMap, LinearMap.toMatrix' f.symm.toLinearMap,
+      by rw [← LinearMap.toMatrix'_comp]; simp, by rw [← LinearMap.toMatrix'_comp]; simp⟩
+  refine ⟨P, fun g => Units.ext ?_⟩
+  change (ρ₂ g : Matrix (Fin n) (Fin n) E) = LinearMap.toMatrix' f.toLinearMap *
+    (ρ₁ g : Matrix (Fin n) (Fin n) E) * LinearMap.toMatrix' f.symm.toLinearMap
+  rw [← LinearMap.toMatrix'_toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E), ← LinearMap.toMatrix'_comp,
+    ← LinearMap.toMatrix'_comp]
+  conv_lhs => rw [← LinearMap.toMatrix'_toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)]
+  congr 1
+  ext x
+  simp only [LinearMap.comp_apply, LinearEquiv.coe_coe]
+  rw [hf, LinearEquiv.apply_symm_apply]
+
 end TSkolemKW
 
 #print axioms TSkolemKW.brauerNesbitt_module
 #print axioms TSkolemKW.brauerNesbittChar0
+#print axioms TSkolemKW.hsynBrauerNesbitt

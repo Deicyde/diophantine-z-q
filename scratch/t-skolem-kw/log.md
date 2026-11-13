@@ -23,3 +23,6 @@
 - Auxiliary: `isNilpotent_of_trace_pow_eq_zero` (char 0: all `tr(f^j) = 0`, `j ≥ 1` ⇒ `f`
   nilpotent; not in Mathlib v4.35.0 by grep), `exists_injective_of_trace_eq`.
 - No Brauer–Nesbitt in Mathlib v4.35.0, ATLAS, or (per prereq-survey) Tau Ceti.
+- HSyn matrix form also PROVED: `HSynBrauerNesbitt` (verbatim `HSyn.BrauerNesbitt`),
+  `TSkolemKW.hsynBrauerNesbitt`; axioms propext, Classical.choice, Quot.sound (compiled).
+  Via `repOfGL`, Mathlib's `Representation.mapSubmodule` (invariant subspaces ≃o k[G]-submodules).
