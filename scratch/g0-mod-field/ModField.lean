@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.Numerics
+import ZInQKernel.HDecomp.Descent.WP3
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.ModCurves.Defs
 import ZInQKernel.HDecomp.Assembly
@@ -19,17 +20,30 @@ covers G2, G4, G7-G16 of docs/research/h-decomposition.md §3. This file takes t
 G2 (fibre field `K`), G4 (Hom field `L`, `[L:ℚ] ≤ D`), G7 (scalar descent to `L'`,
 `[L':ℚ] ≤ Q·M`), for `S = S_mul`, `R = D` (the instance `SixContactMin`).
 
-* `G2Out u P`, `G4Out u P`, `G7Out u P`: the outputs of the three steps for a `ℚ̄`-object `P`
-  of `Y₃` over `J(u)` (`FibreCtx`).
-* Proved: `g2Out_of_cover` (G2's field bookkeeping: splitting field of a separable polynomial of
-  degree `≤ 324` is Galois of degree `≤ 324!`), `g4Out_of_kernelField` (G4's bookkeeping: Hom
-  field `L = E ⊔ K` Galois, `[L:ℚ] ≤ F₀·3^{r²} ≤ D` by Minkowski's bound), `g7Out_of_g4Out`
-  (G7 = B2-B3 on the actual descent datum, from `GlueDescent.B3Q.b3_degree_le_QM`, and the
-  model over `L'` by transitivity of base change), `fieldDescent` (the composite).
-* Remaining (named Props): `FibreCoverExists` (G2: Prop. TS + Lemma NV), `KernelFieldExists`
-  (G4: Weil restriction, the Galois image in `GL_r(ℤ)`, inertia on the Tate module, B1's
-  Skolem-Noether normalization on the actual `A`), and the four B2 leaves of glue-descent
-  (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`).
+Outputs (`def … : Prop`): `G2Out u P`, `G4Out u P`, `G7Out u P`, and the clause list `G7Data`
+with `G7OutUnr u P` (G7 with the twist: `L'` unramified outside `T`), for a `ℚ̄`-object `P` of
+`Y₃` over `J(u)` (`FibreCtx`). The descent datum of B1 on the actual `A` is `DescentDatum`
+(maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)`, `a_σ`, sign cocycle `ε`).
+
+Proved (no `sorry`, standard axioms):
+* `g2Out_of_cover`: G2's bookkeeping (a splitting field of a separable polynomial of degree
+  `≤ 324` is Galois of degree `≤ 324!`).
+* `descentDatum_of_conjugacy`: B1's normalization (N5 L645-663): conjugacy isogenies with
+  rational discrepancy `c` give `a_σ = |ker m_σ|^{-1/4}` and the sign cocycle `ε = sgn c`.
+* `g4Out_of_kernelField`: G4's bookkeeping (Hom field `L = E ⊔ K` Galois,
+  `[L:ℚ] ≤ F₀·3^{r²} ≤ D` by Minkowski's bound, model by base change, B1).
+* `g7Out_of_g4Out`, `g7OutUnr_of_g4Out`: G7 = B2-B3 on the actual descent datum
+  (`b2_of_leaves`, `GlueB3Unram.unramified_outside_noLeaf`, `b3_of_cochain`, `degree_le_QM`) and the
+  model over `L'` (`isModelOver_baseChange`, transitivity of base change).
+* `fieldDescent`, `fieldDescentUnr`: the composite G2 → G4 → G7.
+* `modularConstituent_of_ranges`: `ModularConstituentG` (part_split's `ModularConstituent` over
+  `PkgI3.AbVar`) from this range and the next ranges bundled as `AfterG7`.
+
+Remaining (named Props): `FibreCoverExists` (G2: Prop. TS + Lemma NV), `KernelFieldExists` (G4:
+Weil restriction, Galois image in `GL_r(ℤ)`, inertia on the Tate module, the conjugacy isogenies
+`ConjugacyData`), `UnramifiedSup` (compositum of unramified fields; STANDARD), the four B2 leaves
+of glue-descent (`LeafHasse`, `LeafLocalTwo`, `LeafSqrtCrit`, `LeafUnramified`), and `AfterG7`
+(G8-G16, the other two tasks).
 -/
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
@@ -611,6 +625,16 @@ theorem modularConstituent_of_ranges (hCover : FibreCoverExists) (hKer : KernelF
   exact ⟨⟨L'⟩, algebraMap L' Qbar, @PkgI3.AbVar.baseChange L _ A L' _ (incAlg hle), M, J,
     hdata.2.2.2.2.2.2.2.2.2.2, hM, hJ, hMle, hdata.2.2.2.2.2.2.2.2.1, hCC⟩
 
+/-- **The same, with glue-descent's `LeafHasse`, `LeafLocalTwo` replaced by the bundle's T14-T15**
+(`PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`, `LocalH2CardC`; `GlueWP3.leafHasse_of_T14`,
+`leafLocalTwo_of_T15`). -/
+theorem modularConstituent_of_ranges_T14 (hCover : FibreCoverExists) (hKer : KernelFieldExists)
+    (hSup : UnramifiedSup) (hH : PkgI6.BrauerHasse2C) (hR : PkgI6.BrauerReciprocity2C)
+    (hC : PkgI6.LocalH2CardC) (hSq : LeafSqrtCrit) (hUnr : LeafUnramified)
+    (hRest : AfterG7) : ModularConstituentG :=
+  modularConstituent_of_ranges hCover hKer hSup (GlueWP3.leafHasse_of_T14 hH hR)
+    (GlueWP3.leafLocalTwo_of_T15 hC) hSq hUnr hRest
+
 end G0ModField
 
 #print axioms G0ModField.fieldDescent
@@ -619,3 +643,4 @@ end G0ModField
 #print axioms G0ModField.g7OutUnr_of_g4Out
 #print axioms G0ModField.fieldDescentUnr
 #print axioms G0ModField.modularConstituent_of_ranges
+#print axioms G0ModField.modularConstituent_of_ranges_T14

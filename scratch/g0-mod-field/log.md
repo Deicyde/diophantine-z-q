@@ -49,3 +49,9 @@
   clauses (`|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|`). `descentDatum_of_conjugacy`
   re-proved.
 - VERIFIED: 0 errors, all axioms standard.
+
+## run16-17 (02:14): T14-T15 form
+- Built `ZInQKernel.HDecomp.Descent.WP3`. New: `modularConstituent_of_ranges_T14` (LeafHasse,
+  LeafLocalTwo replaced by the bundle's `PkgI6.BrauerHasse2C`, `BrauerReciprocity2C`,
+  `LocalH2CardC` via `GlueWP3.leafHasse_of_T14`, `leafLocalTwo_of_T15`).
+- VERIFIED: 0 errors; axioms standard. File: 640 lines, `lake env lean` ~10 s after imports cached.
