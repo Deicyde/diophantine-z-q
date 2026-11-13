@@ -155,7 +155,9 @@ runner/destination rather than building from it.
 The job is `ubuntu-latest`, `timeout-minutes: 45`, `contents: read`. Keep this
 check optional in branch protection; this change does not configure required
 settings. Cache availability failure is not permission to bypass the root's
-existing required checks.
+existing required checks. After enabling repository Actions, use a fresh
+matching-path push for this branch-only workflow; an earlier unscheduled push
+or the enabled setting alone is not evidence that the cache test ran.
 
 ## Evidence and limits
 
