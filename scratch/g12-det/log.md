@@ -123,3 +123,4 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
 - runs 05:16-05:22 (HTFast, ~1 min each): 4 fix rounds (p implicit in `jk`, `LinearMap.sum_apply`,
   `include b`, universe of `Fin m` vs `Type*` → `Type`, `card_fin`); final: 0 errors, 0 sorry;
   `htExtend` on [propext, Classical.choice, Quot.sound].
+- run (05:23-05:26) Weight.lean full: 0 errors, 0 sorry; `g12Weight_of_senTwist : SenTwist → FiniteImageHT → G12Weight` and the nine other G0Galois theorems on [propext, Classical.choice, Quot.sound].

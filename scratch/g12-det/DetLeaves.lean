@@ -1125,7 +1125,6 @@ end WeilPairing
 
 end
 
-
 /-! # g12-det: `DetTate` (`det V_ℓ(A) = χ_ℓ^{dim A}`)
 
 `DetTate` is copied verbatim from scratch/g0-mod-galois/part_det.lean, with its dependencies

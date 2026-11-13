@@ -6,27 +6,30 @@ Props are copied verbatim from `scratch/g0-mod-galois/part_galois.lean` (`G12Wei
 
 ## 1. Result
 
+**All three targets are closed: two are proved and one is proved from two new leaves.**
+
 | Prop | Status | Rests on |
 |---|---|---|
 | `ResQFiniteIndex` | **PROVED** | Mathlib only |
-| `DetTate` | **PROVED from leaves** | weil-pairing's leaves `T09_SymmIsogenyExists` (T9 restated), `IsogenyQuasiInverse`, `DivisiblePoints`, and Objects' leaf `PkgI3.TateModuleFree` (T26) |
-| `G12Weight` | **REDUCED** | GLUE `HTConj`; LEAVES `SenTwist` (Sen 1980), `FiniteImageHT` (Tate 1967, Ax–Sen–Tate); plus the leaves that `G12Weight` already takes (R13, R14, R15, T18, T19). `TwistExists` and `TwistConj` are PROVED (see §4 for the compile status) |
+| `DetTate` | **PROVED from leaves** | weil-pairing's leaves `T09_SymmIsogenyExists` (T9 restated), `IsogenyQuasiInverse` and `DivisiblePoints`, plus Objects' leaf `PkgI3.TateModuleFree` (T26) |
+| `G12Weight` | **PROVED from two new leaves** | `SenTwist` (Sen 1980) and `FiniteImageHT` (Tate 1967 with Ax–Sen–Tate). It also uses the leaves that `G12Weight` itself takes as hypotheses (R13, R14, R15, T18, T19). Every glue piece is proved: `TwistExists`, `TwistConj` (from T18 and T19), and `HTConj` (via `HTExtend`) |
 
-All statements below were checked with `lake env lean`; all theorems print
-`[propext, Classical.choice, Quot.sound]` (VERIFIED, compiled).
+The main theorems are below. Each is checked with `lake env lean`, and each `#print axioms`
+gives `[propext, Classical.choice, Quot.sound]`, with no `sorry` (VERIFIED, compiled):
 
 ```
 theorem G0Galois.resQFiniteIndex : ResQFiniteIndex                       -- ResQ.lean
 theorem G0Galois.detTate_of_leaves (h9 : WeilPairing.T09_SymmIsogenyExists)
     (hQ : WeilPairing.IsogenyQuasiInverse) (hD : WeilPairing.DivisiblePoints)
     (hT : PkgI3.TateModuleFree) : DetTate                                -- DetLeaves.lean
-theorem G0Galois.g12Weight_of (hTE : TwistExists) (hTC : TwistConj) (hHC : HTConj)
-    (hSen : SenTwist) (hFI : FiniteImageHT) : G12Weight                  -- Weight.lean
+theorem G0Galois.g12Weight_of_senTwist (hSen : SenTwist) (hFI : FiniteImageHT) :
+    G12Weight                                                            -- Weight.lean
 ```
 
-**Finding (VERIFIED, compiled `g12Weight_concl_iff`).** For `1 ≤ k`, `G12Weight`'s conclusion
-`∃ n, {n, n + 1 − k} = {0, −1}` is equivalent to `k = 2`. The statement is true and not vacuous
-(its hypotheses are met by Glazer's `r₅`); no statement was changed.
+**Finding (VERIFIED, compiled as `g12Weight_concl_iff`).** For `1 ≤ k`, `G12Weight`'s conclusion
+`∃ n, {n, n + 1 − k} = {0, −1}` is equivalent to `k = 2`. The statement is true and not vacuous.
+Its hypotheses hold for Glazer's `r₅`; a model review also gives the witness `V_5` of a non-CM
+elliptic curve over ℚ with `ψ = 1`. No statement was changed.
 
 ## 2. `ResQFiniteIndex` (proved, Mathlib only)
 
@@ -80,56 +83,73 @@ whitespace (VERIFIED, `diff`).
 Consequence for g0-mod-galois: in `g12Det_of`, `DetTate` can now be replaced by these four leaves,
 so `G12Det` rests on `R14Det`, T18 and those leaves. `ResQFiniteIndex` is a theorem.
 
-## 4. `G12Weight` (reduced)
+## 4. `G12Weight` (proved from two new leaves)
 
-`scratch/g12-det/part_weight.lean` and `part_twist.lean`. `build.sh` appends them to g0-split's
-`Split.lean`, which gives `Weight.lean`.
+The Lean is in `scratch/g12-det/part_weight.lean`, `part_twist.lean`, `part_htconj.lean`,
+`part_htextend.lean` and `part_final.lean`. `build.sh` appends them to g0-split's `Split.lean`,
+which gives `Weight.lean`.
 
 New definitions: `IsTwist ρ' ψ ρ` (`ρ'(σ) = ψ(σ) ρ(σ)`) and `IsConj r ρ'` (`r(σ) = P ρ'(σ) P⁻¹`).
 
 | Piece | Kind | Statement | Status |
 |---|---|---|---|
 | `TwistExists` | glue | `σ ↦ ψ(σ)ρ(σ)` is a continuous representation | PROVED (`twistExists`) |
-| `TwistConj` | glue | `r` irreducible, `ρ` semisimple attached to `g`, `r` attached up to twist `ψ` ⇒ `r ≅ ψ⊗ρ` | PROVED from T18 + T19 (`twistConj_of`): traces agree at Frobenius (`ιC` injective), hence everywhere (`eq_of_eq_on_arithFrob`); `r` is semisimple (Burnside-irreducible), `ψ⊗ρ` is semisimple; then Brauer–Nesbitt |
-| `HTConj` | glue | Hodge–Tate weights (`PkgI4.LocalHasHTWeights`) do not change under conjugation by `P ∈ GL_n(ℚ̄_ℓ)` | OPEN. True: enlarge `E` to contain the entries of `P^{±1}`; `E'⊗_E V ≅ V^{[E':E]}` as `ℚ_p[G]`-modules, so `htMult` is unchanged. Needs the definitions' base-change API |
-| `SenTwist` | **leaf** | `ρ` and `ψ⊗ρ` Hodge–Tate with full-size weight multisets `S`, `S'` ⇒ `S' = S + s` for some `s ∈ ℤ` | Sen, Invent. Math. 62 (1980): Hodge–Tate ⇔ Sen operator semisimple with integer eigenvalues, and `Θ_{ψ⊗V} = Θ_ψ + Θ_V` (UNVERIFIED numbering) |
-| `FiniteImageHT` | **leaf** | finite image ⇒ Hodge–Tate with all weights 0 | Tate 1967 §3 Thm 2 + Ax–Sen–Tate, Hilbert 90 (UNVERIFIED numbering) |
+| `TwistConj` | glue | if `r` is irreducible, `ρ` is semisimple and attached to `g`, and `r` is attached up to the twist `ψ`, then `r ≅ ψ⊗ρ` | PROVED from T18 and T19 (`twistConj_of`). Traces agree at Frobenius because `ιC` is injective, hence everywhere by `eq_of_eq_on_arithFrob`. `r` is semisimple because it is irreducible in Burnside's form, and `ψ⊗ρ` is semisimple. Brauer–Nesbitt then gives the conjugacy |
+| `HTConj` | glue | Hodge–Tate weights (`PkgI4.LocalHasHTWeights`) are unchanged by conjugation by `P ∈ GL_n(ℚ̄_ℓ)` | PROVED from `HTExtend` (`htConj_of`). Let `E' = E ⊔ ℚ_ℓ(entries of P^{±1})`, which is finite. Conjugating the `E'`-model by `P` gives `ℚ_ℓ`-isomorphic `htSpace`s (`finrank_htSpace_conj`) |
+| `HTExtend` | glue | a model over a finite `E` with weights `S` gives a model over any finite `E' ⊇ E` with weights `S` | PROVED (`htExtend`). A basis of `E'/E` of size `m` gives `htSpace(ρ_{E'}) ≅ htSpace(ρ_E)^m` (`htSpaceExtendEquiv`), and then `htMult = (m·d)/(m·e) = d/e` |
+| `SenTwist` | **leaf** | if `ρ` and `ψ⊗ρ` are Hodge–Tate with full-size weight multisets `S`, `S'`, then `S' = S + s` for some `s ∈ ℤ` | Sen, Invent. Math. 62 (1980): a representation is Hodge–Tate iff its Sen operator is semisimple with integer eigenvalues, and `Θ_{ψ⊗V} = Θ_ψ + Θ_V` (UNVERIFIED numbering) |
+| `FiniteImageHT` | **leaf** | a representation with finite image is Hodge–Tate with all weights 0 | Tate 1967 §3 Thm 2, Ax–Sen–Tate, Hilbert 90 (UNVERIFIED numbering) |
 
-Proof of `g12Weight_of`:
-- R14 gives a semisimple `ρ_g`. It is converted from `HSyn.GaloisRep` to `PkgI4.GaloisRep`; the
-  two structures have the same fields, and `AttachedTo` and `IsSemisimple` have the same bodies.
-- `TwistExists` gives `ρ' = ψ⊗ρ_g`, `TwistConj` gives `r ≅ ρ'`, and `HTConj` gives
-  `ρ'` weights `{0, −1}`.
-- **k ≥ 2:** R13 (`PkgI4.EigenformHT`) gives `ρ_g` weights `{0, 1−k}`, and `SenTwist` gives
-  `{0, −1} = {s, s+1−k}`, so take `n = s`.
-- **k = 1:** R15 (`HSyn.DeligneSerreConseq`) gives finite image, `FiniteImageHT` gives weights
-  `{0, 0}`, and `SenTwist` gives `{0, −1} = {s, s}`, which is impossible.
+How `g12Weight_of` goes:
+- R14 gives a semisimple `ρ_g`. It converts from `HSyn.GaloisRep` to `PkgI4.GaloisRep` because
+  the two have the same fields and `AttachedTo` and `IsSemisimple` have the same bodies.
+- `TwistExists` gives `ρ' = ψ⊗ρ_g`, `TwistConj` gives `r ≅ ρ'`, and `HTConj` gives `ρ'` the
+  weights `{0, −1}`.
+- **k ≥ 2:** R13 (`PkgI4.EigenformHT`) gives `ρ_g` the weights `{0, 1−k}`. `SenTwist` then gives
+  `{0, −1} = {s, s+1−k}`, so `n = s`.
+- **k = 1:** R15 (`HSyn.DeligneSerreConseq`) gives finite image, so `FiniteImageHT` gives the
+  weights `{0, 0}`. `SenTwist` would then give `{0, −1} = {s, s}`, which is impossible.
 
-**Finding (argument; the statement form is a design point).** `SenTwist` needs
-`card S = card S' = n`. `HasHTWeights S` with `card S < n` holds for representations that are
-not Hodge–Tate. For example, a nilpotent Sen operator gives `S = {0}`. If `ψ` has a non-integral
-Sen weight, then `S' = ∅ ≠ S + s`. So the leaf is stated with full size. In `G12Weight` both
-sizes are 2.
+The final assembly is `g12Weight_of_senTwist := g12Weight_of_htExtend htExtend`, with
+`g12Weight_of_htExtend := g12Weight_of_HT (htConj_of ·)` and
+`g12Weight_of_HT := g12Weight_of twistExists (twistConj_of hFD hBN)`.
 
-## 5. What remains
+**Note on the statement of `SenTwist`** (argument, SPECULATIVE). `SenTwist` assumes
+`card S = card S' = n`, which makes both representations Hodge–Tate. Without full size the
+statement can fail. A nilpotent Sen operator gives `HasHTWeights {0}` for a 2-dimensional
+representation that is not Hodge–Tate, and if `ψ` has a non-integral Sen weight then
+`S' = ∅ ≠ S + s`. In `G12Weight` both sizes are 2. The model review judged `SenTwist`, as
+stated, to be a consequence of Sen's theorem and not stronger than it.
 
-- `HTConj` (glue): invariance of `PkgI4.htMult` under extension of the coefficient field and
-  under isomorphism. This is definitional bookkeeping, and nothing in Mathlib does it today.
-- The leaves `SenTwist` and `FiniteImageHT` are new. They should be added to the leaf list
-  (Sen 1980; Tate 1967 / Ax–Sen–Tate) and need a primary-source check of the theorem numbers.
-- Integration: `GaloisPieces.weight` can be replaced by `HTConj`, `SenTwist` and `FiniteImageHT`;
-  `detTate` by the four leaves of §3; and `finIndex` by `resQFiniteIndex`.
+## 5. Model review and what remains
+
+A read-only subagent review (no Lean) found no serious issue: every new Prop is true and
+non-vacuous, and neither leaf is stronger than its source. Its notes:
+- `htMult`'s division is exact, because `htSpace` is an `E`-space under precomposition.
+- `SympSimDet` holds even without `c ≠ 0`.
+- `TatePairingZl` is exactly what weil-pairing's lemmas give.
+
+What remains:
+- **The two new leaves `SenTwist` and `FiniteImageHT`.** They should join the leaf list (Sen 1980;
+  Tate 1967 with Ax–Sen–Tate) and need a primary-source check of their theorem numbers.
+- **Integration into g0-mod-galois's bundle `GaloisPieces`:**
+  - `weight` becomes `SenTwist` + `FiniteImageHT` (`g12Weight_of_senTwist`).
+  - `detTate` becomes the four leaves of §3 (`detTate_of_leaves`). Those leaves are stated over
+    Objects' `PkgI3.AbVar`, which matches Split.lean's copy.
+  - `finIndex` is discharged by `resQFiniteIndex`.
 
 ## 6. Files
 
-- `scratch/g12-det/ResQ.lean`: `ResQFiniteIndex`, proved.
+- `scratch/g12-det/ResQ.lean`: proof of `ResQFiniteIndex`.
 - `scratch/g12-det/DetTate.lean`: `Darboux`, `SympSimDet`, `TateGSp`, `TatePairingZl`, and the
-  chain from §3 except its last step.
-- `scratch/g12-det/Darboux.lean`: standalone proof of `Darboux`.
-- `scratch/g12-det/DetLeaves.lean` (from `build_det.sh`): `part_wp.lean` (weil-pairing §1-§9),
-  then the body of DetTate.lean, then `part_leaves.lean`. It proves `detTate_of_leaves`.
-- `scratch/g12-det/Weight.lean` (from `build.sh`): Split.lean, then `part_weight.lean`, then
-  `part_twist.lean`. It proves `g12Weight_of`, `twistExists`, `twistConj_of` and
-  `g12Weight_of_HT`.
-- Prerequisite for Weight.lean: `lake build ZInQKernel.Hypotheses.JHeight
+  chain of §3 up to `detTate_of_zl`.
+- `scratch/g12-det/Darboux.lean`: a standalone proof of `Darboux`.
+- `scratch/g12-det/DetLeaves.lean`, built by `build_det.sh`: `part_wp.lean` (weil-pairing §1-§9),
+  then the DetTate.lean body, then `part_leaves.lean`. It ends in `detTate_of_leaves`.
+- `scratch/g12-det/Weight.lean`, built by `build.sh`: Split.lean followed by the `part_*.lean`
+  files of §4. It ends in `g12Weight_of_senTwist`.
+- `scratch/g12-det/HTFast.lean`: a faster check of `htConj_of` and `htExtend`, built from
+  Split.lean L1-4727, `part_htdefs.lean`, `part_htconj.lean` and `part_htextend.lean`. One run
+  takes about 1 minute.
+- Before building Weight.lean or HTFast.lean, run `lake build ZInQKernel.Hypotheses.JHeight
   ZInQKernel.Compiler.Precision.HeightConstant`.
