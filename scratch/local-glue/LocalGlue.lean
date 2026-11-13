@@ -4334,6 +4334,158 @@ theorem index_torsStab_le (A : PkgI3.AbVar K) (q : ℕ) [Fact q.Prime] (hT : Tor
   have hpos : 0 < (torsStab A q).index := Nat.pos_of_dvd_of_pos hdvd (hkerI ▸ hr1)
   exact ⟨hpos.ne', (Nat.le_of_dvd (hkerI ▸ hr1) hdvd).trans (hkerI ▸ hrN)⟩
 
+/-- `resQ K` is injective (proved): `qEmb K ∘ resQ K τ = τ ∘ qEmb K` and `qEmb K` is onto. -/
+theorem resQ_injective' : Function.Injective (G0Galois.resQ K) := by
+  intro τ₁ τ₂ h
+  let τ₁' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K := τ₁
+  let τ₂' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K := τ₂
+  show τ₁' = τ₂'
+  apply AlgEquiv.ext
+  intro y
+  obtain ⟨x, rfl⟩ := qEmbRing_surjective K y
+  have h1 := G0Galois.resQ_spec K τ₁' x
+  have h2 := G0Galois.resQ_spec K τ₂' x
+  change τ₁' (G0Galois.qEmbRing K x) = τ₂' (G0Galois.qEmbRing K x)
+  rw [← h1, ← h2]
+  exact congrArg (fun g => G0Galois.qEmbRing K (g x)) h
+
+/-- **The torsion field of the model over `L` (proved)** from the leaves R6 (`raynaudPlace_of_R6`)
+and I2-Tors and the glue `DescentPts`. For a prime `q ≥ 3`, `q ≠ p`, and a finite `M ⊇ L_v`,
+there is a finite `E ⊇ M` with `[E:ℚ_p] ≤ |GL₄(𝔽_q)|·[M:ℚ_p]` such that every wild `σ ∈ G_E` fixes
+every `ℓⁿ`-torsion point of `A(K̄)` through `G_K` (`ℓ ≠ p`). `E` is the fixed field of
+`H = decomp⁻¹(resQ_L(Stab(A₀[q]))) ∩ G_M`, which is open (it contains `G_{E₀}`, `E₀` generated over
+`M` by a basis of `L(A₀[q])`, finite by `ptFinite`), and `[E:ℚ_p] = [G_{ℚ_p} : H]`. For wild
+`σ ∈ G_E`, `decomp σ = resQ_L σ₀` with `σ₀` fixing `A₀[q]`; Raynaud (`RaynaudPlace A₀ q`) and the
+`p`-power period (`wildIter`) give that `σ₀` fixes `A₀[ℓⁿ]` (D2), and `φ` carries this to `A`. -/
+theorem torsFix_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
+    {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
+    {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (q : ℕ) [Fact q.Prime] (hq3 : 3 ≤ q) (hpq : q ≠ p)
+    (M : Fld p) [FiniteDimensional ℚ_[p] M] (hLvM : Lv (p := p) L ≤ M) :
+    ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧ M ≤ E ∧
+      Module.finrank ℚ_[p] E ≤
+        Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod q)) * Module.finrank ℚ_[p] M ∧
+      ∀ σ ∈ fixSet E ∩ wildSet, ∀ σ' : Field.absoluteGaloisGroup K,
+        G0Galois.resQ K σ' = decomp p σ →
+          ∀ (n : ℕ) (P : A.Pt (AlgebraicClosure K)), P ^ (ℓ ^ n) = 1 → A.galAct σ' P = P := by
+  obtain ⟨hGal, A₀, φ, hdim₀, hφ⟩ := hD
+  have hp : p.Prime := Fact.out
+  have hpq' : ¬ p ∣ q := fun h => hpq ((Nat.prime_dvd_prime_iff_eq hp Fact.out).mp h).symm
+  have hT₀ : TorsGL A₀ q := torsGL_of_leaf hTors A₀ hdim₀ q (by omega)
+  obtain ⟨hidx0, hidx⟩ := index_torsStab_le A₀ q hT₀
+  obtain ⟨F', hF'fd, hF'⟩ := exists_fin_le_torsStab A₀ q hT₀
+  let Stab : Subgroup (Field.absoluteGaloisGroup L) := torsStab A₀ q
+  let ρL : Field.absoluteGaloisGroup L →* GQ := G0Galois.resQ L
+  have hρinj : Function.Injective ρL := resQ_injective'
+  have hrange : ρL.range = L.fixingSubgroup := RQ.resQ_range L
+  let Hq : Subgroup GQ := Stab.map ρL
+  let GM : Subgroup (GQp p) := M.fixingSubgroup
+  let H : Subgroup (GQp p) := Hq.comap (decomp p) ⊓ GM
+  -- `decomp` of `G_M` fixes `L`
+  have hdecL : ∀ σ : GQp p, σ ∈ fixSet M → decomp p σ ∈ L.fixingSubgroup := fun σ hσ =>
+    (IntermediateField.mem_fixingSubgroup_iff _ _).mpr
+      (decomp_fix_of_le (fun x hx => hLvM (embP_mem_Lv hx)) hσ)
+  -- the open subgroup `G_{E₀}` inside `H`
+  haveI : FiniteDimensional L F' := hF'fd
+  haveI : Module.Free L F' := Module.Free.of_divisionRing L F'
+  let b := Module.finBasis L F'
+  let eL : AlgebraicClosure ℚ ≃+* AlgebraicClosure L :=
+    RingEquiv.ofBijective (G0Galois.qEmbRing L)
+      ⟨(G0Galois.qEmbRing L).injective, qEmbRing_surjective L⟩
+  let S₀ : Set (Kbar p) := Set.range fun i => embP (eL.symm (b i : AlgebraicClosure L))
+  haveI : Finite S₀ := Set.finite_range _ |>.to_subtype
+  haveI : FiniteDimensional ℚ_[p] (IntermediateField.adjoin ℚ_[p] S₀) :=
+    IntermediateField.finiteDimensional_adjoin fun x _ => Algebra.IsIntegral.isIntegral x
+  let E₀ : Fld p := M ⊔ IntermediateField.adjoin ℚ_[p] S₀
+  have hE₀H : E₀.fixingSubgroup ≤ H := by
+    intro σ hσ
+    have hσ' := (IntermediateField.mem_fixingSubgroup_iff _ _).mp hσ
+    have hσM : σ ∈ fixSet M := fun x hx => hσ' x (le_sup_left (a := M) hx)
+    have hσS : ∀ i, decomp p σ (eL.symm (b i : AlgebraicClosure L)) =
+        eL.symm (b i : AlgebraicClosure L) := by
+      intro i
+      apply (embP (p := p)).injective
+      rw [decomp_spec]
+      exact hσ' _ (le_sup_right (a := M)
+        (IntermediateField.subset_adjoin ℚ_[p] S₀ ⟨i, rfl⟩))
+    obtain ⟨σ₀, hσ₀⟩ : decomp p σ ∈ ρL.range := hrange ▸ hdecL σ hσM
+    let σ₀' : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L := σ₀
+    have hσ₀b : ∀ i, σ₀' (b i : AlgebraicClosure L) = b i := by
+      intro i
+      have h1 := G0Galois.resQ_spec L σ₀' (eL.symm (b i : AlgebraicClosure L))
+      have h2 : G0Galois.qEmbRing L (eL.symm (b i : AlgebraicClosure L)) = b i :=
+        eL.apply_symm_apply _
+      change G0Galois.qEmbRing L (ρL σ₀ _) = _ at h1
+      rw [hσ₀, hσS i, h2] at h1
+      exact h1.symm
+    have hσ₀F : σ₀' ∈ F'.fixingSubgroup := by
+      rw [IntermediateField.mem_fixingSubgroup_iff]
+      intro z hz
+      have hsum := b.sum_repr ⟨z, hz⟩
+      set c := b.repr ⟨z, hz⟩ with hc
+      have hz' : z = ∑ i, c i • (b i : AlgebraicClosure L) := by
+        have := congrArg (fun w : F' => (w : AlgebraicClosure L)) hsum
+        simp only at this
+        rw [← this, IntermediateField.coe_sum]
+        rfl
+      rw [hz', map_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Algebra.smul_def, map_mul, AlgEquiv.commutes, hσ₀b i]
+    refine ⟨?_, (IntermediateField.mem_fixingSubgroup_iff _ _).mpr hσM⟩
+    show decomp p σ ∈ Hq
+    exact ⟨σ₀', hF' hσ₀F, hσ₀⟩
+  have hHopen : IsOpen (H : Set (GQp p)) :=
+    Subgroup.isOpen_mono hE₀H (IntermediateField.fixingSubgroup_isOpen E₀)
+  have hHclosed : IsClosed (H : Set (GQp p)) := Subgroup.isClosed_of_isOpen H hHopen
+  let E : Fld p := IntermediateField.fixedField H
+  have hEH : E.fixingSubgroup = H := InfiniteGalois.fixingSubgroup_fixedField ⟨H, hHclosed⟩
+  -- the index
+  have hmapLe : GM.map (decomp p) ≤ ρL.range := by
+    rintro _ ⟨σ, hσ, rfl⟩
+    rw [hrange]
+    exact hdecL σ ((IntermediateField.mem_fixingSubgroup_iff _ _).mp hσ)
+  have hrel1 : Hq.relIndex ρL.range = Stab.index := by
+    rw [MonoidHom.range_eq_map, Subgroup.relIndex_map_map_of_injective _ _ hρinj,
+      Subgroup.relIndex_top_right]
+  have hrel2 : Hq.relIndex (GM.map (decomp p)) ≤ Stab.index := by
+    rw [← hrel1]
+    exact Subgroup.relIndex_le_of_le_right hmapLe (by rw [hrel1]; exact hidx0)
+  have hrel3 : Hq.relIndex (GM.map (decomp p)) ≠ 0 := fun h0 =>
+    hidx0 (hrel1 ▸ Subgroup.relIndex_eq_zero_of_le_right hmapLe h0)
+  have hHidx : H.index = (Hq.comap (decomp p)).relIndex GM * GM.index := Subgroup.index_inf
+  rw [Subgroup.relIndex_comap] at hHidx
+  have hMfr : Module.finrank ℚ_[p] M = GM.index :=
+    IntermediateField.finrank_eq_fixingSubgroup_index (Kbar p) M
+  have hEfr : Module.finrank ℚ_[p] E = H.index := by
+    rw [IntermediateField.finrank_eq_fixingSubgroup_index (Kbar p) E, hEH]
+  have hMpos : 0 < Module.finrank ℚ_[p] M := Module.finrank_pos
+  have hEpos : 0 < Module.finrank ℚ_[p] E := by
+    rw [hEfr, hHidx]
+    exact Nat.mul_pos (Nat.pos_of_ne_zero hrel3) (hMfr ▸ hMpos)
+  refine ⟨E, Module.finite_of_finrank_pos hEpos, ?_, ?_, ?_⟩
+  · intro x hx
+    rw [IntermediateField.mem_fixedField_iff]
+    intro τ hτ
+    exact (IntermediateField.mem_fixingSubgroup_iff _ _).mp (Subgroup.mem_inf.mp hτ).2 x hx
+  · rw [hEfr, hHidx, hMfr]
+    exact Nat.mul_le_mul_right _ (hrel2.trans hidx)
+  · intro σ hσ σ' hσ' n P hP
+    have hσE : σ ∈ E.fixingSubgroup := (IntermediateField.mem_fixingSubgroup_iff _ _).mpr hσ.1
+    rw [hEH] at hσE
+    obtain ⟨σ₀, hσ₀S, hσ₀⟩ := (Subgroup.mem_inf.mp hσE).1
+    have hσ₀' : G0Galois.resQ L σ₀ = decomp p σ := hσ₀
+    have hR := raynaudPlace_of_R6 (p := p) hR6 hTors A₀ hdim₀ hq3 hpq'
+    set Q := φ.symm P with hQdef
+    have hQ : Q ^ (ℓ ^ n) = 1 := by rw [hQdef, ← map_pow, hP, map_one]
+    have hu := hR σ hσ.2 σ₀ hσ₀' (fun R hR' => hσ₀S R hR') ℓ Fact.out hℓp n Q hQ
+    obtain ⟨a, ha⟩ := wildIter (p := p) A₀ σ hσ.2 σ₀ hσ₀' Q
+    have hcop : Nat.Coprime (p ^ a) (ℓ ^ n) :=
+      Nat.Coprime.pow a n ((Nat.coprime_primes hp Fact.out).mpr (Ne.symm hℓp))
+    have hfix := fixed_of_unipSq_of_iterate' A₀ σ₀ Q ℓ n p a hcop hQ hu ha
+    have h1 := hφ σ₀ σ' (hσ₀'.trans hσ'.symm) Q
+    rw [hfix, hQdef, MulEquiv.apply_symm_apply] at h1
+    exact h1.symm
+
 end DescentSec
 
 end G15Ram
