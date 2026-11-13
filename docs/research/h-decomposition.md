@@ -1054,6 +1054,11 @@ No theorem concludes H5 (its `NeronModelMinimal` half is a hypothesis of the red
 - Lean check (leaf-adopt3, VERIFIED 2026-11-13): see `docs/research/leaf-adopt3.md` §1 for the
   run; **no `sorry`**, 2 `opaque`, no `axiom`; every `#print axioms` line, including
   `HSyn.sixContactMin_of_leaves`, gives `propext`, `Classical.choice`, `Quot.sound`.
+- Lean check (pin-apply, VERIFIED 2026-11-13, `scratch/pin-apply/run_hdec1.txt`): after the pin
+  clauses and the comparison, 0 errors, **no `sorry`**, 189 `#print axioms` lines, all `propext`,
+  `Classical.choice`, `Quot.sound` (including `HSyn.sixContactMin_of_leaves` and
+  `HSyn.sixContactMin_of_leaves_pin`). Counts unchanged; `GluePiecesPin`: 11 glue Props (pieces
+  4, 9, 10 in one-triple form, plus `MobiusGlue`).
 - *The bullets below are leaf-adopt2's (counts then: 53 of 56).*
 
 - **leaf-adopt2 counts.** Research-level: **23** leaves (R1-R22 and H5). Textbook: **33** leaves
