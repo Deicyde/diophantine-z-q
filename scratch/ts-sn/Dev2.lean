@@ -3366,5 +3366,63 @@ theorem snSpecialize_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra
     have h3 : (n₀ : L) = (p : L) * (n₁ : L) := by rw [hn₁]; push_cast; ring
     apply mul_left_cancel₀ (pow_ne_zero k hd0)
     linear_combination -h1 + h3 - (p : L) * h2
+  have hpR : (p : Localization.AtPrime m) ∈ IsLocalRing.maximalIdeal (Localization.AtPrime m) := by
+    have := (IsLocalization.AtPrime.to_map_mem_maximal_iff (Localization.AtPrime m) m
+      (C (p : ℤ))).mpr hpm
+    rwa [eq_intCast C (p : ℤ), map_intCast, Int.cast_natCast] at this
+  -- (3) every maximal ideal of `A` contains `p`
+  have hpq : ∀ q : Ideal A, q.IsMaximal → (p : A) ∈ q := by
+    intro q hq
+    have hint' : (algebraMap (Localization.AtPrime m) A).IsIntegral :=
+      Algebra.IsIntegral.isIntegral
+    have hcm : (q.comap (algebraMap (Localization.AtPrime m) A)).IsMaximal :=
+      Ideal.isMaximal_comap_of_isIntegral_of_isMaximal _ hint' q
+    have heq := IsLocalRing.eq_maximalIdeal hcm
+    have : algebraMap (Localization.AtPrime m) A (p : Localization.AtPrime m) ∈ q := by
+      rw [← Ideal.mem_comap, heq]; exact hpR
+    simpa using this
+  -- (4) the local rings of `A` at the primes over `p` have maximal ideal `(p)`
+  have hmapsub : ∀ x ∈ IsLocalRing.maximalIdeal (Localization.AtPrime m),
+      algebraMap (Localization.AtPrime m) A x ∈ Ideal.span {(p : A)} := by
+    intro x hx
+    rw [← Localization.AtPrime.map_eq_maximalIdeal] at hx
+    have hle : m.map (algebraMap ℤ[X] (Localization.AtPrime m)) ≤
+        (Ideal.span {(p : A)}).comap (algebraMap (Localization.AtPrime m) A) := by
+      rw [Ideal.map_le_iff_le_comap]
+      intro g hg
+      obtain ⟨r, hr⟩ := hMx g hg
+      rw [Ideal.mem_comap, Ideal.mem_comap, hr]
+      exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self _)
+    exact hle hx
+  have hFU : Algebra.FormallyUnramified (Localization.AtPrime m) A := by
+    have hs' : Function.Surjective (IsScalarTower.toAlgHom (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E) A) := hsurj
+    exact Algebra.FormallyUnramified.of_surjective (R := Localization.AtPrime m)
+      (A := integralClosure (Localization.AtPrime m) E) (B := A) _ hs'
+  have hmax : ∀ (q : Ideal A) [q.IsPrime], (p : A) ∈ q →
+      IsLocalRing.maximalIdeal (Localization.AtPrime q) =
+        Ideal.span {(p : Localization.AtPrime q)} := by
+    intro q _ hpq'
+    haveI : IsLocalHom (algebraMap (Localization.AtPrime m) (Localization.AtPrime q)) := by
+      refine ⟨fun x hx => ?_⟩
+      by_contra hxu
+      have h1 := hmapsub x ((IsLocalRing.mem_maximalIdeal x).mpr hxu)
+      have h2 : algebraMap (Localization.AtPrime m) A x ∈ q :=
+        (Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hpq')) h1
+      rw [IsScalarTower.algebraMap_apply (Localization.AtPrime m) A (Localization.AtPrime q)] at hx
+      exact (IsLocalization.AtPrime.isUnit_to_map_iff (Localization.AtPrime q) q _).mp hx h2
+    rw [← Algebra.FormallyUnramified.map_maximalIdeal (R := Localization.AtPrime m)
+      (S := Localization.AtPrime q)]
+    apply le_antisymm
+    · rw [Ideal.map_le_iff_le_comap]
+      intro x hx
+      rw [Ideal.mem_comap, IsScalarTower.algebraMap_apply (Localization.AtPrime m) A
+        (Localization.AtPrime q)]
+      have := Ideal.mem_map_of_mem (algebraMap A (Localization.AtPrime q)) (hmapsub x hx)
+      rwa [Ideal.map_span, Set.image_singleton, map_natCast] at this
+    · rw [Ideal.span_le, Set.singleton_subset_iff]
+      have := Ideal.mem_map_of_mem (algebraMap (Localization.AtPrime m) (Localization.AtPrime q))
+        hpR
+      simpa using this
   sorry
 end PropTSGlue
