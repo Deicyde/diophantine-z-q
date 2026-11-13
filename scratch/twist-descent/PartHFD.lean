@@ -37,32 +37,32 @@ theorem sp_id_eq {R : Type} [CommRing R] (t : R →+* R) (h : ∀ x, t x = x) : 
   ext x
   exact h x
 
-abbrev Qbar : Type := AlgebraicClosure ℚ
+abbrev Qb : Type := AlgebraicClosure ℚ
 
-variable {K : IntermediateField ℚ Qbar} (B : PkgI3.AbVar K)
+variable {K : IntermediateField ℚ Qb} (B : PkgI3.AbVar K)
 
 /-- `ℚ̄ → B_{L'}` comparisons are epimorphisms (flat surjective quasi-compact base change). -/
-theorem xc_epi {L : IntermediateField ℚ Qbar} (eL : K →+* L) (e : K →+* Qbar)
-    (h : sp e = sp (algebraMap L Qbar) ≫ sp eL) : Epi (xc B.X (sp (algebraMap L Qbar)) h) :=
+theorem xc_epi {L : IntermediateField ℚ Qb} (eL : K →+* L) (e : K →+* Qb)
+    (h : sp e = sp (algebraMap L Qb) ≫ sp eL) : Epi (xc B.X (sp (algebraMap L Qb)) h) :=
   TwistDescentGD.epi_of_isPullback_field (xc_isPullback B.X _ h)
 
 /-- **Hom-field descent.** -/
-theorem hfd {L : IntermediateField ℚ Qbar} [FiniteDimensional ℚ L] [IsGalois ℚ L]
-    (e₁L e₂L : K →+* L) (e₁ e₂ : K →+* Qbar)
-    (h₁ : sp e₁ = sp (algebraMap L Qbar) ≫ sp e₁L) (h₂ : sp e₂ = sp (algebraMap L Qbar) ≫ sp e₂L)
-    (he₁ : ∀ x, (e₁L x : Qbar) = e₁ x) (he₂ : ∀ x, (e₂L x : Qbar) = e₂ x)
+theorem hfd {L : IntermediateField ℚ Qb} [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (e₁L e₂L : K →+* L) (e₁ e₂ : K →+* Qb)
+    (h₁ : sp e₁ = sp (algebraMap L Qb) ≫ sp e₁L) (h₂ : sp e₂ = sp (algebraMap L Qb) ≫ sp e₂L)
+    (he₁ : ∀ x, (e₁L x : Qb) = e₁ x) (he₂ : ∀ x, (e₂L x : Qb) = e₂ x)
     (φ : pullback B.X.hom (sp e₁) ⟶ pullback B.X.hom (sp e₂))
     (hφ : φ ≫ pullback.snd _ _ = pullback.snd _ _)
-    (hinv : ∀ k : Qbar ≃ₐ[ℚ] Qbar, k ∈ L.fixingSubgroup →
-      ∀ (k₁ : sp e₁ = sp (k : Qbar →+* Qbar) ≫ sp e₁) (k₂ : sp e₂ = sp (k : Qbar →+* Qbar) ≫ sp e₂),
-        xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ φ = φ ≫ xc B.X (sp (k : Qbar →+* Qbar)) k₂) :
+    (hinv : ∀ k : Qb ≃ₐ[ℚ] Qb, k ∈ L.fixingSubgroup →
+      ∀ (k₁ : sp e₁ = sp (k : Qb →+* Qb) ≫ sp e₁) (k₂ : sp e₂ = sp (k : Qb →+* Qb) ≫ sp e₂),
+        xc B.X (sp (k : Qb →+* Qb)) k₁ ≫ φ = φ ≫ xc B.X (sp (k : Qb →+* Qb)) k₂) :
     ∃ φL : pullback B.X.hom (sp e₁L) ⟶ pullback B.X.hom (sp e₂L),
-      xc B.X (sp (algebraMap L Qbar)) h₁ ≫ φL = φ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ := by
+      xc B.X (sp (algebraMap L Qb)) h₁ ≫ φL = φ ≫ xc B.X (sp (algebraMap L Qb)) h₂ := by
   have hm₁ : ∀ x, e₁ x ∈ L := fun x => he₁ x ▸ (e₁L x).2
   have hm₂ : ∀ x, e₂ x ∈ L := fun x => he₂ x ▸ (e₂L x).2
   obtain ⟨L₁, ψ, hψ⟩ := MorphDescend.exists_descend L B.X B.X e₁ e₂ hm₁ hm₂ φ hφ
   obtain ⟨L₁, hfin₁, hLL₁⟩ := L₁
-  let L' : IntermediateField ℚ Qbar := IntermediateField.normalClosure ℚ L₁ Qbar
+  let L' : IntermediateField ℚ Qb := IntermediateField.normalClosure ℚ L₁ Qb
   have hL₁L' : L₁ ≤ L' := IntermediateField.le_normalClosure L₁
   have hLL' : L ≤ L' := hLL₁.trans hL₁L'
   let _ : Algebra L L' := G0ModField.incAlg hLL'
@@ -86,19 +86,19 @@ theorem hfd {L : IntermediateField ℚ Qbar} [FiniteDimensional ℚ L] [IsGalois
   let f : pullback B.X.hom (sp e₁') ⟶ pullback B.X.hom (sp e₂L) :=
     xc B.X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha ≫ ψ ≫
       xc B.X (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb
-  have hQ' : sp e₁ = sp (algebraMap L' Qbar) ≫ sp e₁' := sp_eq _ _ _ fun x => (he₁ x)
-  have hepi : Epi (xc B.X (sp (algebraMap L' Qbar)) hQ') := xc_epi B e₁' e₁ hQ'
+  have hQ' : sp e₁ = sp (algebraMap L' Qb) ≫ sp e₁' := sp_eq _ _ _ fun x => (he₁ x)
+  have hepi : Epi (xc B.X (sp (algebraMap L' Qb)) hQ') := xc_epi B e₁' e₁ hQ'
   -- `f` after `ℚ̄ → L'` is `φ ≫ (ℚ̄ → L)`
-  have hfQ : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ f = φ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ := by
-    have c1 : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫
+  have hfQ : xc B.X (sp (algebraMap L' Qb)) hQ' ≫ f = φ ≫ xc B.X (sp (algebraMap L Qb)) h₂ := by
+    have c1 : xc B.X (sp (algebraMap L' Qb)) hQ' ≫
         xc B.X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha =
         MorphDescend.cmp L B.X e₁ hm₁ ⟨L₁, hfin₁, hLL₁⟩ :=
-      xc_comp_eq B.X _ _ _ _ (sp (algebraMap L₁ Qbar)) (sp_eq _ _ _ fun _ => rfl)
+      xc_comp_eq B.X _ _ _ _ (sp (algebraMap L₁ Qb)) (sp_eq _ _ _ fun _ => rfl)
         (sp_comp_eq _ _ _ fun _ => rfl)
     have c2 : MorphDescend.cmp L B.X e₂ hm₂ ⟨L₁, hfin₁, hLL₁⟩ ≫
         xc B.X (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb =
-        xc B.X (sp (algebraMap L Qbar)) h₂ :=
-      xc_comp_eq B.X _ _ (sp (algebraMap L₁ Qbar)) (sp_eq _ _ _ fun _ => rfl) _ _
+        xc B.X (sp (algebraMap L Qb)) h₂ :=
+      xc_comp_eq B.X _ _ (sp (algebraMap L₁ Qb)) (sp_eq _ _ _ fun _ => rfl) _ _
         (sp_comp_eq _ _ _ fun _ => rfl)
     simp only [f]
     rw [← Category.assoc, c1, ← reassoc_of% hψ, c2]
@@ -108,9 +108,9 @@ theorem hfd {L : IntermediateField ℚ Qbar} [FiniteDimensional ℚ L] [IsGalois
     refine ⟨xc B.X (sp (g : L' →+* L')) hc, ?_, xc_snd _ _ _, ?_⟩
     · exact xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => g.commutes y)
     · -- lift `g` to `k ∈ G_ℚ`
-      obtain ⟨k, hk⟩ := AlgEquiv.restrictNormalHom_surjective (F := ℚ) (K₁ := L') (E := Qbar)
+      obtain ⟨k, hk⟩ := AlgEquiv.restrictNormalHom_surjective (F := ℚ) (K₁ := L') (E := Qb)
         (g.restrictScalars ℚ)
-      have hkx : ∀ x : L', k (x : Qbar) = (g x : Qbar) := fun x => by
+      have hkx : ∀ x : L', k (x : Qb) = (g x : Qb) := fun x => by
         rw [← AlgEquiv.restrictNormalHom_apply L' k x, hk]; rfl
       have hkL : k ∈ L.fixingSubgroup := by
         rw [IntermediateField.mem_fixingSubgroup_iff]
@@ -118,27 +118,27 @@ theorem hfd {L : IntermediateField ℚ Qbar} [FiniteDimensional ℚ L] [IsGalois
         have := hkx (algebraMap L L' ⟨y, hy⟩)
         rw [g.commutes] at this
         exact this
-      have hkL' : ∀ y : L, k (y : Qbar) = y := fun y =>
+      have hkL' : ∀ y : L, k (y : Qb) = y := fun y =>
         (IntermediateField.mem_fixingSubgroup_iff L k).mp hkL y y.2
-      have k₁ : sp e₁ = sp (k : Qbar →+* Qbar) ≫ sp e₁ :=
+      have k₁ : sp e₁ = sp (k : Qb →+* Qb) ≫ sp e₁ :=
         sp_eq _ _ _ fun x => by rw [← he₁ x]; exact hkL' _
-      have k₂ : sp e₂ = sp (k : Qbar →+* Qbar) ≫ sp e₂ :=
+      have k₂ : sp e₂ = sp (k : Qb →+* Qb) ≫ sp e₂ :=
         sp_eq _ _ _ fun x => by rw [← he₂ x]; exact hkL' _
-      have hu : sp e₁ = sp ((algebraMap L' Qbar).comp (g : L' →+* L')) ≫ sp e₁' :=
+      have hu : sp e₁ = sp ((algebraMap L' Qb).comp (g : L' →+* L')) ≫ sp e₁' :=
         sp_eq _ _ _ fun x => by
-          show ((g (algebraMap L L' (e₁L x)) : L') : Qbar) = e₁ x
+          show ((g (algebraMap L L' (e₁L x)) : L') : Qb) = e₁ x
           rw [g.commutes]; exact he₁ x
-      have c4 : xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ xc B.X (sp (g : L' →+* L')) hc =
-          xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ xc B.X (sp (algebraMap L' Qbar)) hQ' :=
+      have c4 : xc B.X (sp (algebraMap L' Qb)) hQ' ≫ xc B.X (sp (g : L' →+* L')) hc =
+          xc B.X (sp (k : Qb →+* Qb)) k₁ ≫ xc B.X (sp (algebraMap L' Qb)) hQ' :=
         (xc_comp_eq B.X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun _ => rfl)).trans
           (xc_comp_eq B.X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun x => hkx x)).symm
-      have c5 : xc B.X (sp (k : Qbar →+* Qbar)) k₂ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ =
-          xc B.X (sp (algebraMap L Qbar)) h₂ :=
+      have c5 : xc B.X (sp (k : Qb →+* Qb)) k₂ ≫ xc B.X (sp (algebraMap L Qb)) h₂ =
+          xc B.X (sp (algebraMap L Qb)) h₂ :=
         xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => hkL' y)
-      rw [← cancel_epi (xc B.X (sp (algebraMap L' Qbar)) hQ'), ← Category.assoc, c4,
+      rw [← cancel_epi (xc B.X (sp (algebraMap L' Qb)) hQ'), ← Category.assoc, c4,
         Category.assoc, hfQ, ← Category.assoc, hinv k hkL k₁ k₂, Category.assoc, c5])
   refine ⟨φL, ?_⟩
-  have c3 : xc B.X (sp (algebraMap L Qbar)) h₁ = xc B.X (sp (algebraMap L' Qbar)) hQ' ≫ q :=
+  have c3 : xc B.X (sp (algebraMap L Qb)) h₁ = xc B.X (sp (algebraMap L' Qb)) hQ' ≫ q :=
     (xc_comp_eq B.X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun _ => rfl)).symm
   rw [c3, Category.assoc, hφL, hfQ]
 
