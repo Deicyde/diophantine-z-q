@@ -53,3 +53,15 @@
   the minimal polynomial of a residue generator in `B` (the maximal unramified subring) and
   transitivity of the trace; Mathlib 4.35 has Hensel only for `IsAdicComplete` rings
   (`IsAdicComplete.henselianRing`) and no completeness of finite modules over complete rings.
+
+## Step 5: T21 local PROVED
+- `scratch/t-different/DifferentBound.lean` (VERIFIED: compiles, ~40 s; axioms propext,
+  Classical.choice, Quot.sound):
+  * `TDifferent.exists_limit`: `B` (finite free over the complete DVR `A`) is `𝔪_A`-adically
+    precomplete (coordinates in a basis).
+  * `TDifferent.exists_root_of_residue` (Hensel in `B`): `g ∈ A[X]`, `g(x) ∈ 𝔪_B`, `g'(x)` a unit ⇒
+    `∃ u, g(u) = 0 ∧ u ≡ x mod 𝔪_B` (Newton iteration `u ↦ u - w g(u)`, limit along `u_{e m}`).
+  * `TDifferent.exists_intTrace_eq_ramificationIdx`: `∃ z, intTrace A B z = e` (uses Mathlib's
+    deprecated-but-present `Ideal.ramificationIdx_mul_inertiaDeg_of_isLocalRing` for `e f = [L:K]`,
+    `Module.Basis.traceDual_powerBasis_eq` for Euler's formula, `Algebra.trace_trace`).
+  * `PkgI6.differentBound : PkgI6.DifferentBound` (verbatim leaf I6.6 = T21 local).
