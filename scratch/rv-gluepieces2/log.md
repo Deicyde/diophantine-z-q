@@ -101,3 +101,10 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   `HSyn.G0AssembleMod.modelG3G6_of_at`, `HSyn.G0AssembleMod.linkedTateData_of_at`, each of shape
   `(hM : Pin.MobiusGlue) (hQM : R1R2fp) (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀)
    (h : FieldAt Y₀ Φ₀ π₀) : Field` — over the PINNED Leaves only (uses `R1fpProps.univ`).
+- c10_g9: ZInQKernel/Contrib/G9/*.lean in import order without I3Layer, I4Layer, Statement (so the
+  names resolve to G0Assemble's root `PkgI3`, `PkgI4`, `G0Galois`). First run: 101 errors
+  (`modPMap`, `preTiltMap` unknown: inside `ZInQ.Contrib.G9.PkgI4.DR`, `open PkgI4…` resolved to
+  the local namespace). With `open _root_.PkgI4[.DR]` added after the two `namespace PkgI4…` lines
+  and the 12 later `open PkgI4…` lines widened to `_root_.PkgI4 ZInQ.Contrib.G9.PkgI4`: exit 0 in
+  67 s, 0 errors. `RvGP2.g9Glue hBC hW : G0Galois.G9Glue` from `G9Bridge.AbVarBaseChange`,
+  `G9Bridge.R10Weights`, standard axioms (VERIFIED).
