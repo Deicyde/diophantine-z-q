@@ -89,3 +89,15 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
   `cmFieldOfDefinition_of_cmValueRingClass : CMValueRingClass → CM.CMFieldOfDefinition ringClassFieldD` (MAIN),
   `shimuraReciprocityPic_of_shimuraModFn`, `cmFieldOfDefinition_of_shimuraModFn`, `cmFieldTYZ_of_cmValueRingClass`,
   `tyzThm35ReadingA_of_cmValueRingClass`. All axioms: propext, Classical.choice, Quot.sound (ax6.lean, ax7.lean).
+
+## 11:40 x0-32 leaves EtaModelEquation, EtaModelFricke proved (VERIFIED, compiled; commits e2a50700, 2b36511e)
+- ShimuraThetaDup.lean: `theta_dup_zero`, `theta_dup_half`, `theta_k_2k`, `xC_theta`, `yC_theta`,
+  `etaModelEquation : X0.EtaModelEquation`.
+- ShimuraFricke.lean: `theta_dup_half_sign`, `theta_parity_gen`, `xC_fricke_theta`, `yC_fricke_theta`, `fricke_I1`,
+  `fricke_I2`, `etaModelFricke : X0.EtaModelFricke`.
+- sympy (fricke_sym.py): x3 − x', y3 − y', and both curve equations reduce to 0 modulo (p² − a² − b², r² − 2ab)
+  (Gröbner basis, lex); cofactors in fricke_cof.py.
+- Consequence (type-checked in ax9.lean, not added to a Contrib file: cm-numeric's target):
+  `fun hS => tyzSigmaFixesZn_of (shimuraReciprocityPic_of_shimuraModFn hS) etaModelFricke :
+   ShimuraReciprocityModFn → Package.TYZSigmaFixesZn`.
+- All axioms: propext, Classical.choice, Quot.sound.

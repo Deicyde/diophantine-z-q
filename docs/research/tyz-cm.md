@@ -12,11 +12,24 @@ field of discriminant `D`), and with it `Package.CMFieldOfDefinitionTYZ`.
 
 **Status: reduced to ONE textbook leaf, `Shimura.CMValueRingClass`** (the field-of-definition
 theorem for values of `ℚ(X₀(N))` at Heegner points: main theorem of CM plus the rational
-structure of `X₀(N)`). Every `X₀(32)`-specific step is proved. That includes **x0-32's leaf
-`X0.EtaModelInvariant` (`Γ₀(32)`-invariance of `x, y`), which is now a theorem**, via the eta
-identity `x = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` and the `η²` multiplier in closed form.
+structure of `X₀(N)`). Every `X₀(32)`-specific step is proved. **Three of x0-32's leaves are now
+theorems**: `X0.EtaModelInvariant` (`Γ₀(32)`-invariance of `x, y`; via the eta identity
+`x = η(16τ)⁶/(η(8τ)²η(32τ)⁴)` and the `η²` multiplier in closed form), `X0.EtaModelEquation`
+(`y² = x³ + 4x`; theta duplication formulas) and `X0.EtaModelFricke`
+(`φ(−1/(32τ)) + φ(τ) = (2, −4)`; theta identities and the chord formula). With the last one, the
+earlier run's `ShimuraZn.lean` gives `Package.TYZSigmaFixesZn` from `ShimuraReciprocityModFn`
+alone (section 5).
 
 ```lean
+-- ShimuraFricke.lean, ShimuraThetaDup.lean
+theorem ZInQ.Contrib.TYZGenus.Shimura.etaModelFricke : X0.EtaModelFricke
+theorem ZInQ.Contrib.TYZGenus.Shimura.etaModelEquation : X0.EtaModelEquation
+theorem ZInQ.Contrib.TYZGenus.Shimura.theta_dup_zero {τ : ℂ} (hτ : 0 < τ.im) :
+    jacobiTheta₂ 0 τ ^ 2 = jacobiTheta₂ 0 (2 * τ) ^ 2 + cexp (π * I * τ) * jacobiTheta₂ τ (2 * τ) ^ 2
+theorem ZInQ.Contrib.TYZGenus.Shimura.theta_dup_half {τ : ℂ} (hτ : 0 < τ.im) :
+    jacobiTheta₂ (τ / 2) τ ^ 2 = 2 * jacobiTheta₂ 0 (2 * τ) * jacobiTheta₂ τ (2 * τ)
+theorem ZInQ.Contrib.TYZGenus.Shimura.theta_dup_half_sign {τ : ℂ} (hτ : 0 < τ.im) :
+    jacobiTheta₂ (1 / 2) τ ^ 2 = jacobiTheta₂ 0 (2 * τ) ^ 2 - cexp (π * I * τ) * jacobiTheta₂ τ (2 * τ) ^ 2
 -- ShimuraTheta.lean
 theorem ZInQ.Contrib.TYZGenus.Shimura.cmFieldOfDefinition_of_cmValueRingClass
     (hV : Shimura.CMValueRingClass) : CM.CMFieldOfDefinition RingClass.ringClassFieldD
@@ -67,10 +80,10 @@ theorem ZInQ.Contrib.TYZGenus.Shimura.tyzSigmaFixesZn_of
     (hS : Shimura.ShimuraReciprocityPic) (hF : X0.EtaModelFricke) : Package.TYZSigmaFixesZn
 ```
 
-`#print axioms` (VERIFIED, `scratch/tyz-cm/ax5.lean`, `ax6.lean`, `ax7.lean`; Lean 4.35.0): every
+`#print axioms` (VERIFIED, `scratch/tyz-cm/ax5.lean` … `ax9.lean`; Lean 4.35.0): every
 declaration above depends on axioms `[propext, Classical.choice, Quot.sound]`. Built with
-`lake build ZInQKernel.Contrib.TYZGenus.ShimuraTheta` (VERIFIED, 2026-11-13 11:21), after
-`git merge origin/main` (b7cdba8e, clean).
+`lake build ZInQKernel.Contrib.TYZGenus.ShimuraFricke` (VERIFIED, 2026-11-13 11:40; imports all
+other Shimura files), after `git merge origin/main` (b7cdba8e, clean).
 
 `python3 ~/dzq-runs/tc/diffcheck2.py`: MOD-UNNOTED 0, NOTE-ONLY 0 (nothing vendored by this task;
 the gz-theta files `GZTheta/Eta.lean`, `TripleProduct.lean`, `JacobiGauss.lean` are imported,
@@ -85,7 +98,7 @@ CM.CMFieldOfDefinition ringClassFieldD ⇐ CMValueRingClass        (cmFieldOfDef
 CMValueRingClass ⇐ ShimuraReciprocityModFn                        (cmValueRingClass_of_modFn)
 ShimuraReciprocityPic ⇐ ShimuraReciprocityModFn                    (shimuraReciprocityPic_of_shimuraModFn)
 Package.TYZSigmaFixesZn ⇐ ShimuraReciprocityPic ∧ X0.EtaModelFricke (ShimuraZn, earlier run)
-X0.EtaModelInvariant: proved (etaModelInvariant)
+X0.EtaModelInvariant, X0.EtaModelEquation, X0.EtaModelFricke: proved
 ```
 
 | Leaf | File | Statement (informal) | Source | Refereed |
@@ -140,6 +153,17 @@ convention of the Artin map. `ShimuraReciprocityModFn` is used only by `ShimuraZ
   split `θ₀₁(4τ) = θ₀₀(16τ) − Q²θ(8τ;16τ)` (the series `Σ(−1)ⁿQ^{2n²}` split by the parity of `n`).
   Also `EtaModelInvariant ⇐ EtaModelEquation` by a sign argument (`etaModelInvariant_of_equation`,
   now superseded).
+* **`y² = x³ + 4x` (x0-32's `EtaModelEquation`)** (ShimuraThetaDup): duplication formulas
+  `θ(0;τ)² = θ(0;2τ)² + e^{πiτ}θ(τ;2τ)²`, `θ(τ/2;τ)² = 2θ(0;2τ)θ(τ;2τ)` (split the double series
+  along `(m,n) = (s+t, s−t)` and `(s+t+1, s−t)`); `x = 2T₀/(Q²T₁)`, `y = −R₁²/(Q³T₁²)` with
+  `T₀ = θ(0;16τ)`, `T₁ = θ(8τ;16τ)`, `R₁ = θ(2τ;4τ)`; then `R₁⁴ = 8T₀T₁(T₀² + Q⁴T₁²)`.
+* **Fricke (x0-32's `EtaModelFricke`)** (ShimuraFricke): in theta constants `a = θ₀₀(16τ)`,
+  `b = θ₁₀(16τ)`, `p = θ₀₀(8τ)`, `r = θ₁₀(8τ)`: `x = 2a/b`, `y = −2pr/b²`,
+  `x(−1/32τ) = 2 + 4r/(p − r)`, `y(−1/32τ) = −4(a² − b²)/(p − r)²` (from x0-32's proved eta forms,
+  `θ₀₁(2τ) = p − r`, `θ₀₁(8τ)² = a² − b²`), `p² = a² + b²`, `r² = 2ab`; the chord formula for
+  `T + (−P)` gives two polynomial identities in the ideal `(p² − a² − b², r² − 2ab)` (cofactors by
+  sympy, `scratch/tyz-cm/fricke_cof.py`; identity first checked by a Gröbner reduction,
+  `fricke_sym.py`).
 * **Heegner point from algebraic coordinates** (ShimuraModFn, `heegnerPt_of_alg`), and
   `ShimuraReciprocityPic` from the general leaf (`shimuraReciprocityPic_of`).
 
@@ -161,10 +185,11 @@ It proves every TYZ-specific step: `𝔟 = (3+2√−n)𝓞_K ∩ O_{n,4} = ℤ�
 the lattice identity `𝔟·(⟨1,τ_{Q'}⟩, ⟨1/32,τ_{Q'}⟩) = c·(⟨1,τ_Q⟩, ⟨1/32,τ_Q⟩)` with
 `Q'_n = [16(n+9), −8(2n+15), 4n+25]`, `c = ((5n+9) − 2(n+3)√−n)/(n+9)`; `τ_{Q'} = N₀τ_Q`,
 `N₀ = SWSW`, `φ(N₀τ) = φ(τ) + (0,0)` (from `φ(τ+1/2) = −φ(τ)` and the Fricke leaf); `σ_{1+2ϖ}`
-fixes `i`. Combined with this task's `shimuraReciprocityPic_of_shimuraModFn`, `TYZSigmaFixesZn`
-follows from `ShimuraReciprocityModFn ∧ X0.EtaModelFricke` (one line:
-`tyzSigmaFixesZn_of (shimuraReciprocityPic_of_shimuraModFn hS) hF`; not stated as a theorem here
-because the target belongs to cm-numeric). The numerics behind it
+fixes `i`. Combined with this task's `shimuraReciprocityPic_of_shimuraModFn` and
+`etaModelFricke`, **`TYZSigmaFixesZn` follows from `ShimuraReciprocityModFn` alone**:
+`fun hS => tyzSigmaFixesZn_of (shimuraReciprocityPic_of_shimuraModFn hS) etaModelFricke :
+ShimuraReciprocityModFn → Package.TYZSigmaFixesZn` (type-checked, `scratch/tyz-cm/ax9.lean`; not
+stated as a theorem in a Contrib file because the target belongs to cm-numeric). The numerics behind it
 (`scratch/tyz-cm/twist*.py`, `coeffs*.py`; 18 values of `n`, 37 digits) are VERIFIED.
 
 ## 6. Caveats (kept visible)
@@ -189,8 +214,6 @@ None. `CM.CMFieldOfDefinition` holds as stated (no Heegner condition is needed).
 ## 8. Not proved
 
 * The two CM leaves (textbook theorems; Mathlib and Tau Ceti have no CM theory of elliptic curves).
-* Not needed here but noted for x0-32's remaining leaves: with the theta forms above,
-  `y = −θ₁₀(4τ)²/θ₁₀(16τ)²` and `x = 2θ₀₀(16τ)/θ₁₀(16τ)`, so `EtaModelEquation` (`y² = x³ + 4x`)
-  is equivalent to `θ₁₀(τ/4)⁴ = 8θ₀₀θ₁₀(θ₀₀² + θ₁₀²)` (at `τ = 16τ₀`), which follows from the two
-  duplication formulas `θ₁₀(τ)² = 2θ₀₀(2τ)θ₁₀(2τ)` and `θ₀₀(τ)² = θ₀₀(2τ)² + θ₁₀(2τ)²` (STANDARD;
-  not formalized).
+* x0-32's leaves not touched (not used outside `X0.lean`): `EtaModelBijective`,
+  `EtaModelDifferential`, `EtaModelWeierstrass`, the five open cusps of `CuspDictionary`
+  (`NewformEta32`, `CuspFormEta32` are handled in `X0Newform.lean`).
