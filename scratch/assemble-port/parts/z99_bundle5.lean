@@ -1,55 +1,30 @@
-/-! ## assemble-port: `GluePieces5`, `sixContactMin_of_leaves5`
+/-! ## assemble-port: `GluePieces5`, `gluePieces_of_gluePieces5`, `sixContactMin_of_leaves5`
 
 Task assemble-port, 2026-11-13. g0-assemble3's `sixContactMin_of_leaves4` (part z95), ported onto leaf-fold2's base
-(`scratch/h-decomposition/Leaves.lean` with the ten unused `TextbookLeaves` fields deleted, every part in `namespace
-HDec`; leaf-fold2's bundles `OpenResearchLeaves2`, `OpenTextbookLeaves2`, part z98), with prop-ts-glue's final results
-(part e10 regenerated from `scratch/prop-ts-glue/PropTSGlue.lean` at 3d41b3d5): `VerticalResidueSeparable` and
-`SNSpecialize` are theorems (so is `SpecNonMeeting`). -/
+(`scratch/h-decomposition/Leaves.lean` with the ten unused `TextbookLeaves` fields deleted, every part inside `namespace
+HDec`; leaf-fold2's bundles `OpenResearchLeaves2`, `OpenTextbookLeaves2`, part z98), with the results proved since
+g0-assemble3 folded in: prop-ts-glue's `SpecNonMeeting` (part e10), ts-kummer (e12), hodge-bc2 (b15), leaf-fold2's T35
+transport (e40), cpts-transport (e45), lt-goodred (z96), linked-ram (z97). -/
 
 noncomputable section
 
 namespace HSyn
 
-/-- leaf-fold2's research bundle gives g0-assemble3's `ResearchLeaves4`: R14 without its determinant clause
-(`eigenformRepExists_of_r14Det`); R10 amended in leaf-fold's form `PkgI4.DeRhamComparisonHT` is r10-amend's
-`ZInQ.Contrib.R10.DeRhamComparisonHT` (the same statement, two copies; accepted by unfolding). -/
-theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
-  { r1r2 := r.r1r2,
-    r1rec := r.r1rec,
-    r3 := r.r3,
-    r4 := r.r4,
-    r5 := r.r5,
-    r5count := r.r5count,
-    r6 := r.r6,
-    r7a := r.r7a,
-    r7b := r.r7b,
-    r8 := r.r8,
-    r9a := r.r9a,
-    r9b := r.r9b,
-    r10 := r.r10,
-    r11r12 := r.r11r12,
-    r13 := r.r13,
-    r14 := eigenformRepExists_of_r14Det r.r14,
-    r15 := r.r15,
-    r16 := r.r16,
-    r18 := r.r18,
-    r19 := r.r19,
-    r20 := r.r20,
-    r21 := r.r21,
-    r22 := r.r22,
-    h5fin := r.h5fin }
+open G0Split
 
-/-- **The named Props left after assemble-port** (30 fields): g0-assemble3's `GluePieces4` without
-* `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
-  together `PropTSGlue.specNonMeeting`);
-* `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
-  (`r14`, `r1b`, `r17`), the same Props;
-* `analyticUniformizationOfDim`: follows from the textbook leaf T35 (`t35 : UniformizationExists`) by metrization2's
-  transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40);
-* `cPtsTransport`, `baseChangeClassUnique`: proved by cpts-transport (part e45);
-* the six Kummer pieces `kummerAbhyankarFinGlue`, `kummerOtherBranchFin`, `kummerVerticalFin`, `kummerAbhyankarInfGlue`,
-  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12);
-* `hodgeBCInjective`, `omegaBaseChange`: proved by hodge-bc2 (part b15). -/
+/-- leaf-fold2's research bundle gives g0-assemble3's `ResearchLeaves4`: R14 without its determinant clause
+(`eigenformRepExists_of_r14Det`); leaf-fold's `PkgI4.DeRhamComparisonHT` is accepted as r10-amend's
+`ZInQ.Contrib.R10.DeRhamComparisonHT` (the same statement, two copies; definitional unfolding). -/
+theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
+  { r1r2 := r.r1r2, r1rec := r.r1rec, r3 := r.r3, r4 := r.r4, r5 := r.r5, r5count := r.r5count, r6 := r.r6,
+    r7a := r.r7a, r7b := r.r7b, r8 := r.r8, r9a := r.r9a, r9b := r.r9b, r10 := r.r10, r11r12 := r.r11r12,
+    r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
+    r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
+
+/-- **The named Props left after assemble-port** (29 fields). g0-assemble3's `GluePieces4` (46 fields) without the 20
+fields proved or moved since (table: docs/research/assemble-port.md §2), plus linked-ram's `upperBreakBound` (LEAF?) and
+`betaTrivialAtTwo` (GLUE), which replace `kernelFieldBreaks`, and linked-ram's corrected `tateRamAtThreeD` (GLUE), which
+replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1). -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -109,82 +84,112 @@ structure GluePieces5 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
   -- ModularConstituent: G13-G16
   -- ModularConstituent: joint glue on G7's data (linked-tate)
-  /-- linked-tate, GLUE (G3 on the QM model: inertia above `p ∉ {3, ℓ}` fixes `ℓⁿ`-torsion, given NOS). -/
-  goodRedTorsion : LinkedTate.GoodRedTorsion
-  /-- linked-tate, GLUE (literature-backed: `rank End = 4` for a QM model with `EndDivision`). -/
-  qmEndRank : LinkedTate.QMEndRank
   /-- linked-tate, GLUE (g14-trace's Frobenius link for the canonical operators). -/
   linkedFrob : UnramTate.LinkedFrob
-  /-- linked-tate, GLUE (the upper breaks of the kernel field `L'`; usable since `G7Data` now carries
-  `[L:ℚ] ≤ D`). -/
-  kernelFieldBreaks : UnramTate.KernelFieldBreaks
-  /-- linked-tate, GLUE (D1-D2 at `p = 3` for `ρ₅`). -/
-  tateRamAtThree : UnramTate.TateRamAtThree
+  /-- linked-ram, LEAF? (textbook composite: the absolute upper-break bound `4a²` for a degree-`a` extension of `ℚ_p`;
+  Glazer L796-811 from Serre, *Local Fields*, III §6 and IV §1-§3). With `BetaTrivialAtTwo` it gives linked-tate's
+  `KernelFieldBreaks` (`UnramTate.kernelFieldBreaks_of'`). -/
+  upperBreakBound : UnramTate.UpperBreakBound
+  /-- linked-ram, GLUE (`β` trivial on `G_{ℚ_2}^u ∩ G_L`, `u > U₀`; Glazer L826-843, local reciprocity). -/
+  betaTrivialAtTwo : UnramTate.BetaTrivialAtTwo
+  /-- linked-ram, GLUE (corrected field 46: `TateRamAtThree` with the hypothesis `[L:ℚ] ≤ D`, D1-D2 at `p = 3` for
+  `ρ₅`; implied by the old field, `tateRamAtThreeD_of`). -/
+  tateRamAtThreeD : UnramTate.TateRamAtThreeD
 
-
-/-- **`GluePieces4` from `GluePieces5`** and leaf-fold2's research and textbook bundles. -/
-theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
-    GluePieces4 :=
-  { verticalResidueSeparable := PropTSGlue.verticalResidueSeparable_of_degree PropTSGlue.verticalResidueDegree,
-    snSpecialize := PropTSGlue.snSpecialize_of_unram PropTSGlue.snSpecializeUnram,
-    r14Det := r.r14,
-    r1bFamily := r.r1b,
-    carayolR17 := r.r17,
-    analyticUniformizationOfDim := ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35,
-    cPtsTransport := G0Split.FibreQM.cPtsTransport_proof,
-    baseChangeClassUnique := G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof,
-    hodgeBCInjective := ZInQ.HeightBC.hodgeBCInjective,
-    omegaBaseChange := ZInQ.HeightBC.omegaBaseChange,
-    kummerAbhyankarFinGlue := TsKummer.kummerAbhyankarFinGlue,
-    kummerOtherBranchFin := TsKummer.kummerOtherBranchFin,
-    kummerVerticalFin := TsKummer.kummerVerticalFin,
-    kummerAbhyankarInfGlue := TsKummer.kummerAbhyankarInfGlue,
-    kummerOtherBranchInf := TsKummer.kummerOtherBranchInf,
-    kummerVerticalInf := TsKummer.kummerVerticalInf,
-    cmOptimalEmbedding := gp.cmOptimalEmbedding,
-    x6ConicModel := gp.x6ConicModel,
-    thetaRatiosAlgebraic := gp.thetaRatiosAlgebraic,
-    qmHauptmodul := gp.qmHauptmodul,
-    qmClassNumberOne := gp.qmClassNumberOne,
-    piTwistC := gp.piTwistC,
-    qmTwistLattice := gp.qmTwistLattice,
-    cmDescends := gp.cmDescends,
-    s8Nonzero := gp.s8Nonzero,
-    sphereFactorAffine := gp.sphereFactorAffine,
-    s8WeightExact := gp.s8WeightExact,
-    valenceBoundGammaStar := gp.valenceBoundGammaStar,
-    kummerCompositum := gp.kummerCompositum,
-    heckeIrreducible := gp.heckeIrreducible,
-    heckeNormalizationIrr := gp.heckeNormalizationIrr,
-    heckeDegree := gp.heckeDegree,
-    heckeBranch := gp.heckeBranch,
-    heckeNoVertRam := gp.heckeNoVertRam,
-    twistDescent := gp.twistDescent,
-    homLinearLift := gp.homLinearLift,
-    senTwist := gp.senTwist,
-    finiteImageHT := gp.finiteImageHT,
-    t09SymmIsogenyExists := gp.t09SymmIsogenyExists,
-    isogenyQuasiInverse := gp.isogenyQuasiInverse,
-    divisiblePoints := gp.divisiblePoints,
-    goodRedTorsion := gp.goodRedTorsion,
-    qmEndRank := gp.qmEndRank,
-    linkedFrob := gp.linkedFrob,
-    kernelFieldBreaks := gp.kernelFieldBreaks,
-    tateRamAtThree := gp.tateRamAtThree }
+/-- **`GluePieces` from `GluePieces5` and leaf-fold2's open leaf bundles.** g0-assemble3's `gluePieces_of_gluePieces4`
+(part z95), with every field proved since replaced by its proof: `analyticUniformizationOfDim` by T35's transport,
+`hodgeBCInjective`, `omegaBaseChange` (hodge-bc2), `baseChangeClassUnique`, `cPtsTransport` (cpts-transport),
+`SpecNonMeeting` and six Kummer pieces inside `propTSAll_final''` (prop-ts-glue, ts-kummer), `goodRedTorsion`,
+`qmEndRank` (lt-goodred), `KernelFieldBreaks` (linked-ram, from `upperBreakBound`, `betaTrivialAtTwo`), linked-tate's
+`LinkedRam` through linked-ram's `linkedRam_of'` with the corrected `tateRamAtThreeD`; `r1bFamily`, `r14Det`, `carayolR17` are the fields `r1b`, `r14`, `r17` of
+`OpenResearchLeaves2`. -/
+theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
+    GluePieces :=
+  let r4 := researchLeaves4_of_open2 r
+  let t3 := textbookLeaves_of_open2 t
+  have hMob : LeafQM.AV.Pin.MobiusGlue := mobiusGlue_of_t5' t3
+  have hFS5 : G0FibreSimple.FibreComTrivial :=
+    fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r4.toR3)
+      hMob t.t27 t.t6 gp.cmOptimalEmbedding
+      (X6Kummer.x6KummerFibre_of_conic hMob gp.x6ConicModel) r.r5count)
+  have hFS : G0Split.FibreSimple :=
+    G0FibreSimple.fibreSimple_of_leaves t3 MulRigidity.mulIsogeny G0FibreSimple.rigidityHom
+      ⟨G0FibreSimple.finiteDescends_proof, hFS5⟩
+  have hG3 : LinkedTate.QMModelG3 :=
+    LinkedTate.qmModelG3_of r.r7a r.r6 t.t5 (LinkedTate.goodRedG3Bridge_of_torsion LTGoodRed.goodRedTorsion)
+  have hTS : G0ModField.PropTSAll :=
+    PropTSGlue.propTSAll_final'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) hMob gp.kummerCompositum
+      TsKummer.kummerAbhyankarFinGlue TsKummer.kummerOtherBranchFin TsKummer.kummerVerticalFin
+      TsKummer.kummerAbhyankarInfGlue TsKummer.kummerOtherBranchInf TsKummer.kummerVerticalInf
+      gp.heckeIrreducible gp.heckeNormalizationIrr gp.heckeDegree gp.heckeBranch gp.heckeNoVertRam
+  have hPM : G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep r.r1r2))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep r.r1r2)) :=
+    G0Split.FibreQM.PeriodMapH.periodMapGlue_own _ G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
+      (gp.piTwistC r.r1r2) gp.qmTwistLattice
+      (G0Split.FibreQM.PeriodMapH.piCMC_of _ _ _ (G0Split.FibreQM.own_spec _).1
+        (G0Split.FibreQM.own_spec _).2.2 G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
+        (gp.piTwistC r.r1r2) gp.cmDescends)
+      (G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of t.t11a)
+  { dimFinite := G0Split.dimFinite
+    dimBaseChange := G0Split.dimBaseChange
+    fibreSimple := hFS
+    productModelHeight := ZInQ.UnifDims.productModelHeight_of_unifOfDim
+      (ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35)
+    stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+      (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_two
+        ZInQ.HeightBC.hodgeBCInjective ZInQ.HeightBC.omegaBaseChange))
+    productExists := G0Product.productExists
+    reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r4.toR3 G0Split.dimFinite
+    thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+      (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob gp.qmHauptmodul
+        t.t35 t.t11a gp.qmClassNumberOne (r.r1b r.r1r2) hPM
+        (G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' gp.s8Nonzero gp.sphereFactorAffine)
+        (G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' gp.s8Nonzero gp.s8WeightExact
+          gp.valenceBoundGammaStar)
+        G0Split.FibreQM.cPtsTransport_proof)
+      gp.thetaRatiosAlgebraic
+    modularConstituent := modularConstituent_of_field t3
+      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 hTS G0ModField.unramifiedConjugates)
+      (G0ModField.KernelField.kernelFieldExists_of_descent t.t6 r.r7a r.r6 t.t5 t.t27
+        hFS5 MulRigidity.mulIsogeny gp.twistDescent)
+      UnramTate.unramifiedSup_mf
+      (G0AssembleMod.afterG7_of3 r4.toR3 t3
+        ⟨RvGP2.burnsideAbsIrred, r.r14,
+          ZInQ.Contrib.R10.g9Glue_of_deRhamComparisonHT r4.r10,
+          G0Galois.g10Glue_of_conjTwist
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 gp.homLinearLift),
+          G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
+          G0Galois.detTate_of_leaves gp.t09SymmIsogenyExists gp.isogenyQuasiInverse
+            gp.divisiblePoints t.t26,
+          G0AssembleMod.resQFiniteIndex⟩
+        (G0ModNewform.dirichletOfFinite_of_t17 t17_proved) r.r17
+        Swan.swanIndependent_proved Swan.swanIntegral_proved
+        Swan.adaptedExists_proved
+        (LinkedTate.modelG3G6_of hFS hG3)
+        (LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 hFS
+          (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27)
+          (UnramTate.linkedFrobRam_of gp.linkedFrob
+            (UnramTate.linkedRam_of' hG3
+              (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
+              UnramTate.localInertiaGlobal UnramTate.upperAbsInertia
+              gp.tateRamAtThreeD))))
+    heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (30 fields: 13 LEAF, 3 LEAF?,
-24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (29 fields: 10 LEAF, 4 LEAF?,
+15 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leaves4 (researchLeaves4_of_open2 r) (textbookLeaves_of_open2 t) (gluePieces4_of_gluePieces5 r t gp)
+  sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
+    (gluePieces_of_gluePieces5 r t gp)
 
 end HSyn
 
 end
 
 #print axioms HSyn.researchLeaves4_of_open2
-#print axioms HSyn.gluePieces4_of_gluePieces5
+#print axioms HSyn.gluePieces_of_gluePieces5
 #print axioms HSyn.sixContactMin_of_leaves5
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.t14a_proved
@@ -193,17 +198,21 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms PropTSGlue.propTSAll_final''
+#print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
 #print axioms ZInQ.HeightBC.hodgeBCInjective
 #print axioms ZInQ.HeightBC.omegaBaseChange
+#print axioms HSyn.G0Split.FibreQM.cPtsTransport_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerOtherBranchFin
 #print axioms TsKummer.kummerVerticalFin
 #print axioms TsKummer.kummerAbhyankarInfGlue
 #print axioms TsKummer.kummerOtherBranchInf
 #print axioms TsKummer.kummerVerticalInf
-#print axioms HSyn.G0Split.FibreQM.cPtsTransport_proof
-#print axioms HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
-#print axioms ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists
-#print axioms PropTSGlue.verticalResidueDegree
-#print axioms PropTSGlue.snSpecializeUnram
-#print axioms PropTSGlue.propTSAll_final''
+#print axioms LTGoodRed.goodRedTorsion
+#print axioms LTGoodRed.QM.qmEndRank_of_leaves
+#print axioms UnramTate.kernelFieldBreaks_of'
+#print axioms UnramTate.linkedRam_of'
+#print axioms UnramTate.kernelFieldBreaksHigh
+#print axioms UnramTate.upperAbsWild

@@ -84,3 +84,12 @@
 - Not folded (read only): ts-hecke (report: HeckeDegree proved from T5, HeckeIrreducible ⇐ new leaf Y3Connected,
   two Props reduced to new glue; its file carries its own copies of aut-o-finite, infra-smooth-dim's SmoothStalk and
   curve-glue over kernel imports, which would need de-duplication against parts a56/a57/b20/e25).
+- Merged origin/wip/linked-ram (report; it had merged lt-goodred, which has its report). Part z96 = lt-goodred's
+  integ/99d_proofs.lean (GoodRedTorsion proved; QMEndRank from t6, t27); part z97 = linked-ram's olean/Tail.lean at
+  06e34d44 (the state of its report and flat check; copied to src/) L2-944 (its bundle not copied). linked-ram's later
+  WIP commit e72fc948 (TateRam section proving TateRamAtThreeD from R6+T5+UpperBreakBound) was tried first: 23 errors
+  here (Field.absoluteGaloisGroup coercions, unknown `PkgI2.AV.torsion`), so not used.
+- Part z99 rewritten (mk/mk_z99.py): `gluePieces_of_gluePieces5` builds `GluePieces` directly (g0-assemble3's
+  `gluePieces_of_gluePieces4` with proved fields replaced, linked-ram's `linkedRam_of'` route), since
+  `GluePieces4.tateRamAtThree` is not implied by linked-ram's corrected `TateRamAtThreeD`. GluePieces5: 29 fields
+  (10 LEAF, 4 LEAF?, 15 GLUE). TailD: VERIFIED exit 0, 31 s, 0 errors, no sorryAx, all axiom reports standard.

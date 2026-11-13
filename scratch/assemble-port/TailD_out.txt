@@ -65,8 +65,207 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.propTSAll_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.LinkedTate.linkedTateData_of_frobRam' depends on axioms: [propext, Classical.choice, Quot.sound]
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:988:0: warning: automatically included section variable(s) unused in theorem `HDec.LTGoodRed.NLG.ringOfIntegers_mem`:
+  [NumberField K]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField K] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1008:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1375:6: warning: Variable name `n` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _n
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1375:8: warning: Variable name `m` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _m
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1513:66: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1513:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1513:66: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1519:66: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1519:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1519:66: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1524:27: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1524:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1524:27: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1670:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1711:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1754:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1782:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:1954:69: warning: This simp argument is unused:
+  Polynomial.aeval_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_sub, map_pow, Polynomial.aeval_X, map_one, map_mul] at heval
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2165:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2165:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2165:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2239:8: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2339:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2407:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2438:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2458:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.UnramTate`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2483:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2497:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2498:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2507:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2653:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2682:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2688:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2720:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:2749:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.HSyn.researchLeaves4_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HDec.HSyn.gluePieces4_of_gluePieces5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePieces_of_gluePieces5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_leaves5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.textbookLeaves_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t14a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -75,21 +274,25 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.HSyn.t37_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t39_of_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.specNonMeeting' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.PropTSGlue.propTSAll_final''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'HDec.ZInQ.HeightBC.hodgeBCInjective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.ZInQ.HeightBC.omegaBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.FibreQM.cPtsTransport_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
 'HDec.TsKummer.kummerAbhyankarFinGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TsKummer.kummerOtherBranchFin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TsKummer.kummerVerticalFin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TsKummer.kummerAbhyankarInfGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TsKummer.kummerOtherBranchInf' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.TsKummer.kummerVerticalInf' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HDec.HSyn.G0Split.FibreQM.cPtsTransport_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HDec.HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
-'HDec.ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists' depends on axioms: [propext,
- Classical.choice,
- Quot.sound]
-'HDec.PropTSGlue.verticalResidueDegree' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HDec.PropTSGlue.snSpecializeUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HDec.PropTSGlue.propTSAll_final''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LTGoodRed.goodRedTorsion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.LTGoodRed.QM.qmEndRank_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.kernelFieldBreaks_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.linkedRam_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.kernelFieldBreaksHigh' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.UnramTate.upperAbsWild' depends on axioms: [propext, Classical.choice, Quot.sound]

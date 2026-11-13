@@ -23,8 +23,7 @@ finiteImageHT
 t09SymmIsogenyExists
 isogenyQuasiInverse
 divisiblePoints
-goodRedTorsion
-qmEndRank
 linkedFrob
-kernelFieldBreaks
-tateRamAtThree
+upperBreakBound
+betaTrivialAtTwo
+tateRamAtThreeD
