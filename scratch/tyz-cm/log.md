@@ -101,3 +101,10 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
   `fun hS => tyzSigmaFixesZn_of (shimuraReciprocityPic_of_shimuraModFn hS) etaModelFricke :
    ShimuraReciprocityModFn → Package.TYZSigmaFixesZn`.
 - All axioms: propext, Classical.choice, Quot.sound.
+
+## 11:47 numerical sanity check of CMValueRingClass for g = x, N = 32 (VERIFIED, mpmath 250 digits, PSLQ)
+- scratch/tyz-cm/cmvalue_check.py. [32,10,1], D = −28 (h = 1): x(τ_Q) = −1 + √−7 (x² + 2x + 8 = 0) ∈ ℚ(√−7) = H_{−28}.
+- [32,18,3], D = −60 (h = 2): x(τ_Q) = −(2+√5) − √−3, root of x⁴ + 8x³ + 20x² + 16x + 64; in ℚ(√5, √−3) = H_{−60}.
+- [96,−8,1] (TYZ n = 5), D = −320 (h(O_{5,4}) = 8): no integer relation of degree ≤ 8; degree-16 relation, even in x
+  (|P(x)| ≈ 4e−241), consistent with [H_{5,4} : ℚ] = 16.
+- In all three, y² − x³ − 4x ≈ 1e−249 (agrees with the proved EtaModelEquation).
