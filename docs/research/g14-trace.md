@@ -120,10 +120,20 @@ the coefficient field. `TateBridge`'s docstring says the same, but its statement
 
 ## 5. What compiles, what remains
 
-- `scratch/g14-trace/G14Trace.lean`: copies plus `part_g14.lean`. Exit 0, no `sorry`. The
-  `#print axioms` lines (the 19 copied from g0-mod-newform and 11 new) all give
-  `[propext, Classical.choice, Quot.sound]` (VERIFIED; log run3).
-- `scratch/g14-trace/G14Bridge.lean`: see the log for its compile status.
+- `scratch/g14-trace/G14Trace.lean` (copies plus `part_g14.lean`, ~80 s): exit 0, no `sorry`.
+  The 31 `#print axioms` lines (19 copied from g0-mod-newform, 12 new) all give
+  `[propext, Classical.choice, Quot.sound]` (VERIFIED; log run4).
+- `scratch/g14-trace/G14Bridge.lean` (copy of `ModField.lean` plus `part_bridge.lean`, ~50 s):
+  exit 0, no `sorry`, all axiom prints standard, including
+  `G14Bridge.tateBridge_five_three_of_35` (VERIFIED; log bridge run1).
+- New Lean declarations (namespace `G14Trace`): `G7Out` (verbatim copy), `g7Out_twist`,
+  `trace_rho_twist`, `twist_obstruction`, `trace_of_intertwines`, `trace_eq_image`,
+  `FrobTraceLink`, `FrobSquaresLink`, `frobTraceLink_of_squares`, `common_trace`,
+  `exists_comp_eq`, `g14TraceCompat_of_common`, `g14TraceCompat_of_link`,
+  `g12Spec_g14_of_galois` and `g12Spec_g14_of_linked`. The last one takes linked `G7Out` data at
+  5 and 3, `FrobTraceLink`, and g0-mod-galois' G8-G12 in the shapes of their `g8_g12` and
+  `g8_g11`. In namespace `G14Bridge`: `FrobTraceLink`, `TateBridge35` and
+  `tateBridge_five_three_of_35`.
 - Remains:
   - the glue Props `FrobTraceLink`, or its square form `FrobSquaresLink`, for the genuine `A/L'`
     (reduction of abelian varieties: needs good reduction and the Néron / Serre–Tate inputs of
