@@ -64,3 +64,10 @@
   (Hodge–Tate part) the embedding `F' ⊆ ℚ̄_p ⊆ ℂ_p` is available.
 - Plan: prove the local core (descent + counting) and `G9Glue` from R10, T23 and named bridge Props
   for F1-F3.
+
+## 03:50 I3Layer.lean, Statement.lean
+- `I3Layer.lean`: verbatim Leaves.lean L1927-3228 (PkgI3Sec; identical to ModGalois L1920-3221,
+  VERIFIED by diff). `I4Layer.lean` is identical to ModGalois L3223-4728 (VERIFIED by diff).
+- `Statement.lean`: verbatim ModGalois L20049-20111, L20178-20182, L20229-20246 (`resQ` … `Intertwines`,
+  `G9Out`, `G9Glue`) in namespace `ZInQ.Contrib.G9.G0Galois`. VERIFIED:
+  `lake build ZInQKernel.Contrib.G9.Statement` OK (linter warnings only, from the verbatim text).
