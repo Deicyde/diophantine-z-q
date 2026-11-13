@@ -98,9 +98,11 @@ which forced these edits:
 - Blocks `namespace AlgebraicGeometry` / `namespace IsLocalRing` become sections, and their declarations are named
   `_root_.X.N` (`mk/root_ns.py`). This keeps Mathlib's namespaces and dot notation intact.
 
-**De-duplication.** Copies already present were deleted after a byte comparison (IDENTICAL):
-- leaf-fold's tail of Leaves.lean (part 70: 8 defs; part a30: `ConjTwistNontrivial`);
-- in folded files: mul-rigidity's `Rigidity.lean` (in part a15); the PropTSGlue, aut-o-finite and SmoothStalk copies of
+**De-duplication.**
+- Byte-compared, IDENTICAL, then deleted: the copies of leaf-fold's tail of Leaves.lean (part 70: 8 defs; part a30:
+  `ConjTwistNontrivial`).
+- Omitted, as copies of sources this file already contains (not byte-compared; the kernel checks every use against
+  this file's definitions, so a differing copy would have shown up as an error) in folded files: mul-rigidity's `Rigidity.lean` (in part a15); the PropTSGlue, aut-o-finite and SmoothStalk copies of
   ts-hecke; the TSHecke and image-plane copies of hecke-rest; kf-glue's `GaloisDescentMor` part of twist-descent (not in
   part d20, unused).
 - lg-kerwild + lt-local (part z93z): every top-level declaration whose qualified name this file already declares is
@@ -356,7 +358,7 @@ No statement of a leaf or glue Prop was changed. The one adaptation is the versi
 | state | lines | md5 | result |
 |---|---|---|---|
 | 29 fields | 99 179 | a660b0c9… | 1 error (the e12 `simpa`, then repaired) |
-| 27 fields | 101 778 | ea746d85… | exit 0, 1021 s, 0 errors, no `sorry`, 272 axiom reports all standard |
+| 27 fields (before ts-hecke) | 101 778 | ea746d85… | exit 0, 1021 s, 0 errors, no `sorry`, 272 axiom reports all standard |
 | 32 fields (after spread-out) | 107 495 | 4f787394… | exit 0, 1123 s, 0 errors, no `sorry`, 279 reports all standard |
 | 31 fields (linked-ram route) | 110 743 | 9bd33802… | exit 0, 1079 s, 0 errors, no `sorry`, 285 reports all standard |
 | 29 fields (lt-local route) | 116 185 | b1339ab5… | exit 0, 1092 s, 0 errors, no `sorry`, 289 reports all standard |
