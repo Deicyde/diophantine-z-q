@@ -131,9 +131,22 @@ D-identities (7 variables, symbolic), translation invariance of `J₂…J₁₀`
 on the normal form (symbolic), the denominators `Nₙ`. Generators: `gen_cov.py`, `gen_cov2.py`
 (Covariance.lean), `gen_nf.py` (Mestre.lean).
 
-## 4. What remains for T28
+## 4. What remains for T28: nothing (with igusa-special)
 
-Only the special locus: `T28.SeparationSpecialLocus` (equivalently `T28.SeparationBothSpecial`),
+Task igusa-special proved `T28Special.separationBothSpecial : T28.SeparationBothSpecial`
+(`ZInQKernel/Contrib/T28/Special.lean`, branch wip/igusa-special, merged here). Independent check
+(VERIFIED, `scratch/igusa-generic/t28_check.lean`):
+
+```lean
+theorem t28_check : PkgI1.IgusaClebschSeparation :=
+  T28.igusaClebschSeparation_of_bothSpecial T28Special.separationBothSpecial
+-- 't28_check' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+So **textbook leaf T28 is proved**. The official assembly theorem is
+`T28.igusaClebschSeparation_proved` in `ZInQKernel/Contrib/T28/Assemble.lean` (owned by
+igusa-special). Before that, the special half was the open piece:
+ `T28.SeparationSpecialLocus` (equivalently `T28.SeparationBothSpecial`),
 the `⇐` direction of T28 on `det (yv f) = 0`. On that locus the curve has an automorphism
 besides the hyperelliptic involution (Bolza 1888, STANDARD; locator UNVERIFIED). Task
 igusa-special works on it. `T28.igusaClebschSeparation_of_bothSpecial` turns its result into

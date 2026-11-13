@@ -32,3 +32,10 @@
 - Added `T28.separationBothSpecial_iff : SeparationBothSpecial ↔ SeparationSpecialLocus`
   (VERIFIED, Mestre.lean 73 s). Axiom output: `scratch/igusa-generic/axioms.out`.
 - docs/research/igusa-generic.md written.
+- Merged origin/main (6c225515, STATUS.md only) and origin/wip/igusa-special (ad09b3de..c10805c5:
+  `T28Special.separationBothSpecial : T28.SeparationBothSpecial`, ZInQKernel/Contrib/T28/Special*.lean).
+  Independent check `scratch/igusa-generic/t28_check.lean`:
+  `T28.igusaClebschSeparation_of_bothSpecial T28Special.separationBothSpecial : PkgI1.IgusaClebschSeparation`
+  compiles; `#print axioms t28_check` = [propext, Classical.choice, Quot.sound]. VERIFIED.
+  => leaf T28 is proved (generic half here, special half igusa-special; assembly file
+  `Assemble.lean` is owned by igusa-special: `T28.igusaClebschSeparation_proved`).
