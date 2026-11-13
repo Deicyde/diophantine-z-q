@@ -1,8 +1,3 @@
-/-
-Released under Apache 2.0 license. Backport of a Mathlib declaration (Mathlib, Apache 2.0, The
-Mathlib contributors), needed by the vendored Tau Ceti code (Apache 2.0, The Tau Ceti
-contributors). Added by the Z-in-Q tc-port task.
--/
 module
 
 public import Mathlib.GroupTheory.Sylow
@@ -13,7 +8,10 @@ public import Mathlib.GroupTheory.Sylow
 Mathlib PR #44454 ("spell `Sylow` using `Maximal`", after our pin 56a00585) replaced the fields
 `isPGroup'` and `is_maximal'` of `Sylow` by a single field `maximal_isPGroup`. Tau Ceti (commit
 5a01f5fe) uses that field. This file provides it, with the same name and statement, as a theorem
-derived from the two fields present at our pin. Local addition of the Z-in-Q tc-port task.
+derived from the two fields present at our pin.
+
+This file is original to the Z-in-Q project (added by its tc-port task); it is not copied from
+Tau Ceti. Only the name and statement of `Sylow.maximal_isPGroup` follow Mathlib.
 -/
 
 public section
