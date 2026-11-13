@@ -2158,4 +2158,93 @@ theorem certifiedRankTYZClRk_of_elementary (hA : ZInQ.Literature.TYZThm35Reading
   exact ZInQ.Literature.certifiedRankTYZClRk_of_literature (tyzRow5b_of_readingA_five hA hC)
     (ZInQ.Literature.rootNumberVanishing_of_functionalEquation hF) hG
 
+/-! ### `HeckeMult`: multiplicativity of `heckeCoeff` (node B2a) -/
+
+/-- `ℤ²` as `ℤ[i]`. -/
+def toG (q : ℤ × ℤ) : GaussianInt := ⟨q.1, q.2⟩
+
+theorem norm_toG (q : ℤ × ℤ) : (toG q).norm = q.1 ^ 2 + q.2 ^ 2 := by
+  simp [toG, Zsqrtd.norm_def]; ring
+
+theorem toG_gmul (q r : ℤ × ℤ) : toG (gmul q r) = toG q * toG r := by
+  ext <;> simp [toG, gmul, Zsqrtd.re_mul, Zsqrtd.im_mul]; ring
+
+theorem toG_injective : Function.Injective toG := by
+  intro x y h
+  simp only [toG, Zsqrtd.mk.injEq] at h
+  ext <;> simp [h.1, h.2]
+
+theorem toG_surj (z : GaussianInt) : toG (z.re, z.im) = z := rfl
+
+/-- Units of `ℤ[i]`: a norm-one element is `±1` or `±i`. -/
+theorem norm_eq_one_cases {c : ℤ × ℤ} (h : c.1 ^ 2 + c.2 ^ 2 = 1) :
+    c = (1, 0) ∨ c = (-1, 0) ∨ c = (0, 1) ∨ c = (0, -1) := by
+  have h1 : c.1 ^ 2 ≤ 1 := by nlinarith [sq_nonneg c.2]
+  have h2 : c.2 ^ 2 ≤ 1 := by nlinarith [sq_nonneg c.1]
+  have hb1 : -1 ≤ c.1 ∧ c.1 ≤ 1 := by constructor <;> nlinarith [sq_nonneg (c.1 + 1), sq_nonneg (c.1 - 1)]
+  have hb2 : -1 ≤ c.2 ∧ c.2 ≤ 1 := by constructor <;> nlinarith [sq_nonneg (c.2 + 1), sq_nonneg (c.2 - 1)]
+  obtain ⟨a, b⟩ := c
+  simp only at h hb1 hb2 ⊢
+  have ha : a = -1 ∨ a = 0 ∨ a = 1 := by omega
+  have hb : b = -1 ∨ b = 0 ∨ b = 1 := by omega
+  rcases ha with rfl | rfl | rfl <;> rcases hb with rfl | rfl | rfl <;> simp_all
+
+/-- **Norm of `gcd(γ, m)`.** If `N γ = mn` with `m, n > 0` coprime, then `N(gcd(γ, m)) = m`. -/
+theorem norm_gcd_eq {γ : GaussianInt} {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hmn : Nat.Coprime m n)
+    (hγ : γ.norm = (m * n : ℕ)) :
+    (EuclideanDomain.gcd γ (m : GaussianInt)).norm = m := by
+  set D := EuclideanDomain.gcd γ (m : GaussianInt)
+  set E := EuclideanDomain.gcd γ (n : GaussianInt)
+  have hnormdvd : ∀ {x y : GaussianInt}, x ∣ y → x.norm ∣ y.norm := fun {x y} ⟨c, hc⟩ =>
+    ⟨c.norm, by rw [hc, Zsqrtd.norm_mul]⟩
+  have hD1 : D.norm ∣ (m : ℤ) * m := by
+    have := hnormdvd (EuclideanDomain.gcd_dvd_right γ (m : GaussianInt))
+    rwa [Zsqrtd.norm_natCast] at this
+  have hD2 : D.norm ∣ (m : ℤ) * n := by
+    have := hnormdvd (EuclideanDomain.gcd_dvd_left γ (m : GaussianInt))
+    rw [hγ] at this; exact_mod_cast this
+  have hE1 : E.norm ∣ (n : ℤ) * n := by
+    have := hnormdvd (EuclideanDomain.gcd_dvd_right γ (n : GaussianInt))
+    rwa [Zsqrtd.norm_natCast] at this
+  have hE2 : E.norm ∣ (m : ℤ) * n := by
+    have := hnormdvd (EuclideanDomain.gcd_dvd_left γ (n : GaussianInt))
+    rw [hγ] at this; exact_mod_cast this
+  have hcop : Int.gcd (m : ℤ) n = 1 := by rw [Int.gcd_natCast_natCast]; exact hmn
+  -- `N D ∣ m` and `N E ∣ n`
+  have hcopZ : IsCoprime (m : ℤ) n := Int.isCoprime_iff_gcd_eq_one.mpr hcop
+  have hDm : D.norm ∣ (m : ℤ) :=
+    ((hcopZ.mul_left hcopZ).of_isCoprime_of_dvd_left hD1).dvd_of_dvd_mul_right hD2
+  have hEn : E.norm ∣ (n : ℤ) :=
+    ((hcopZ.symm.mul_left hcopZ.symm).of_isCoprime_of_dvd_left hE1).dvd_of_dvd_mul_right
+      (by rw [mul_comm]; exact hE2)
+  -- `γ ∣ D E`
+  have hγDE : γ ∣ D * E := by
+    have hD := EuclideanDomain.gcd_eq_gcd_ab γ (m : GaussianInt)
+    have hE := EuclideanDomain.gcd_eq_gcd_ab γ (n : GaussianInt)
+    have hmn' : ((m : GaussianInt) * n) = γ * star γ := by
+      rw [← Zsqrtd.norm_eq_mul_conj, hγ]; push_cast; ring
+    refine ⟨EuclideanDomain.gcdA γ (m : GaussianInt) * (γ * EuclideanDomain.gcdA γ (n : GaussianInt) +
+      (n : GaussianInt) * EuclideanDomain.gcdB γ (n : GaussianInt)) +
+      (m : GaussianInt) * EuclideanDomain.gcdB γ (m : GaussianInt) * EuclideanDomain.gcdA γ (n : GaussianInt) +
+      star γ * EuclideanDomain.gcdB γ (m : GaussianInt) * EuclideanDomain.gcdB γ (n : GaussianInt), ?_⟩
+    rw [show D = _ from hD, show E = _ from hE]
+    linear_combination (EuclideanDomain.gcdB γ (m : GaussianInt) *
+      EuclideanDomain.gcdB γ (n : GaussianInt)) * hmn'
+  have hmnDE : (m : ℤ) * n ∣ D.norm * E.norm := by
+    have := hnormdvd hγDE
+    rw [Zsqrtd.norm_mul, hγ] at this; exact_mod_cast this
+  have hDpos : 0 ≤ D.norm := GaussianInt.norm_nonneg D
+  have hEpos : 0 ≤ E.norm := GaussianInt.norm_nonneg E
+  have hDle : D.norm ≤ m := Int.le_of_dvd (by exact_mod_cast hm) hDm
+  have hEle : E.norm ≤ n := Int.le_of_dvd (by exact_mod_cast hn) hEn
+  have hprod : D.norm * E.norm = m * n := by
+    have h1 : D.norm * E.norm ∣ (m : ℤ) * n := mul_dvd_mul hDm hEn
+    exact Int.dvd_antisymm (by positivity) (by positivity) h1 hmnDE
+  by_contra hne
+  have hlt : D.norm < m := lt_of_le_of_ne hDle hne
+  have : D.norm * E.norm < (m : ℤ) * n := by
+    calc D.norm * E.norm ≤ D.norm * n := mul_le_mul_of_nonneg_left hEle hDpos
+      _ < m * n := mul_lt_mul_of_pos_right hlt (by exact_mod_cast hn)
+  linarith
+
 end BpHeckeFE
