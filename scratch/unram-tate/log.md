@@ -41,3 +41,10 @@
 - `endBaseChange : EndBaseChange` PROVED (bp-qmmoduli's `endBC` copied, marked noncomputable).
 - `tateBridge_of_tatePoints : TatePoints → PkgI3.TateModuleFree → TateBridge` PROVED. VERIFIED compiled,
   standard axioms (~05:02). Remaining: the single glue Prop `TatePoints`.
+
+## TatePoints, generic parts (scratch/unram-tate/BCPoints.lean, imports only HDecomp.Objects)
+- `bcPt : (A.baseChange L).Pt Ω ≃* A.Pt Ω` (adjunction `Over.mapPullbackAdj`, multiplicative via `Functor.map_mul` +
+  `MonObj.comp_mul`; needs `open scoped CategoryTheory.Obj`), `bcPt_galAct` (naturality for σ ∈ Aut_L(Ω),
+  `homEquiv_naturality_left_symm`), `trPt` (transport along φ : Ω ≃ₐ[K] Ω₂), `trPt_galAct` (σ ↦ φσφ⁻¹).
+  VERIFIED compiled, standard axioms (05:10). Group compatibility of base-change points was NOT done before (h5-glue's
+  `ptsBaseChangeEquiv` is a bare bijection).
