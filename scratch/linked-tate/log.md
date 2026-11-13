@@ -21,3 +21,10 @@
   `qmModelG3_of (r7a) (r6) (t5) (hB : GoodRedG3Bridge) : QMModelG3`;
   `linkedTateData_of (hM : PkgI3.CharPolyIndepOfEll) (hC : LinkedTateCore) : LinkedTateData`;
   `linkedTateCore_of (hFS) (hR : QMEndRank) (hDR : LinkedTateCoreDR) : LinkedTateCore`.
+- Part 96: scratch/unram-tate/TateBridge.lean lines 1038-1825 copied verbatim (plus the file-level opens of
+  ModField.lean). Tail run: VERIFIED 0 errors; `UnramTate.tateBridge_of_tateModuleFree` standard axioms (g0-mod-field's
+  `TateBridge` from I3.M0, now compiled over Leaves.lean too).
+- Part 97 (new): `UnramTate.scalarTransferQ` (unram-tate's scalarTransfer with target ℚ̄), `UnramTate.tmOf` (canonical
+  operators), glue Prop `UnramTate.LinkedFrobRam`, `UnramTate.linkedTateCoreDR_of (hT : TateModuleFree) (hFR :
+  LinkedFrobRam) : LinkedTateCoreDR`, `HSyn.LinkedTate.linkedTateData_of_frobRam (t7) (I3.M0) (FibreSimple) (QMEndRank)
+  (LinkedFrobRam) : LinkedTateData`. First run VERIFIED 0 errors, no sorry, all standard axioms.
