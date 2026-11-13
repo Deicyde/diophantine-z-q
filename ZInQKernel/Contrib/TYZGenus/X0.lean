@@ -2,6 +2,7 @@ import Mathlib.AlgebraicGeometry.EllipticCurve.LFunction
 import Mathlib.NumberTheory.ModularForms.DedekindEta
 import Mathlib.NumberTheory.ModularForms.CongruenceSubgroups
 import Mathlib.NumberTheory.ModularForms.Basic
+import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
 import ZInQKernel.Contrib.TYZDecomp.CurveA
 
 /-!
@@ -182,6 +183,28 @@ def CuspDictionary : Prop :=
     Filter.Tendsto (fun t : ℝ => (xC (r.1 + t * I), yC (r.1 + t * I))) (nhdsWithin 0 (Set.Ioi 0))
       (nhds r.2)) ∧
   Filter.Tendsto (fun t : ℝ => ‖xC (t * I)‖) Filter.atTop Filter.atTop
+
+/-- **The Eichler integral of `f`**, `F(τ) = 2πi ∫_{i∞}^τ f = Σ_{m ≥ 1} (a_m/m) qᵐ`, with `a_m` the
+coefficients of Mathlib's `L(A, s)` (the same expression as `TYZGenus.CM.modParam` of task
+cm-points, so the two are equal by unfolding). -/
+def modParamF (τ : ℂ) : ℂ :=
+  ∑' m : ℕ, (((curveA.LFunction m : ℤ) : ℂ) / m) * Complex.exp (2 * Real.pi * I * m * τ)
+
+/-- **Leaf X0-WEIERSTRASS** (the eta-quotient model is the modular parametrization through the
+Weierstrass uniformization): for any period pair `L` with `g₂(L) = −16`, `g₃(L) = 0` (so that
+`z ↦ (℘(z), ℘'(z)/2)` lands on `y² = x³ + 4x`), and every `τ ∈ ℍ`, `F(τ) ∉ L` and
+`x(τ) = ℘_L(F(τ))`, `y(τ) = ℘'_L(F(τ))/2`.
+
+Content: with `X0-EQ`, `X0-DIFF` and `X0-NEWFORM`, the elliptic logarithm of `(x(τ), y(τ))` has
+derivative `dx/2y = 2πi f dτ = dF`, and both tend to `0` as `τ → i∞`, so they agree; the lattice
+of `A` is the period lattice of `2πi f` because the Manin constant of `32a1` is `1` (Cremona's
+tables; UNVERIFIED locator). STANDARD given those leaves; not proved here (needs the elliptic
+logarithm, absent from Mathlib). Sign and normalization VERIFIED numerically (`x ~ q⁻²`,
+`y ~ −q⁻³`, `F ~ q`). -/
+def EtaModelWeierstrass : Prop :=
+  ∀ L : PeriodPair, L.g₂ = -16 → L.g₃ = 0 → ∀ τ : UpperHalfPlane,
+    modParamF τ ∉ L.lattice ∧ xC τ = L.weierstrassP (modParamF τ) ∧
+      yC τ = L.derivWeierstrassP (modParamF τ) / 2
 
 /-- The analytic model of `X₀(32)` (all six leaves). -/
 def X0AnalyticModel : Prop :=
