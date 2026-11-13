@@ -1,0 +1,448 @@
+scratch/ts-kummer/KummerTS.lean:5:0: warning: Use RingTheory.RamificationInertia.Basic
+'Mathlib.NumberTheory.RamificationInertia.Basic' has been deprecated: please replace this import by
+
+import Mathlib.NumberTheory.RamificationInertia.Inertia
+import Mathlib.NumberTheory.RamificationInertia.Ramification
+'PropTSRed.padicValRat_16_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_eq_of_pt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.unramifiedMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.padicValRat_sub_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.kummerStep_of_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.exists_factor_scheme' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_specMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_openImmersion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.functionFieldModel_of_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.coverModel_of_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/ts-kummer/KummerTS.lean:1139:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:1324:0: warning: automatically included section variable(s) unused in theorem `TPurity3.span_pair_comm`:
+  [IsLocalRing R]
+  [IsNoetherianRing R]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [IsLocalRing R] [IsNoetherianRing R] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+scratch/ts-kummer/KummerTS.lean:1344:8: warning: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/ts-kummer/KummerTS.lean:1669:34: warning: This simp argument is unused:
+  Ideal.span
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:1737:34: warning: This simp argument is unused:
+  Ideal.span
+
+Hint: Omit it from the simp argument list.
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:1963:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:1995:6: warning: This simp argument is unused:
+  Polynomial.map_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_C, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:1995:26: warning: This simp argument is unused:
+  Polynomial.map_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_mul, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:1997:28: warning: This simp argument is unused:
+  Int.cast_id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_intCast, Polynomial.map_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:2012:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2013:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2014:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2037:13: warning: This simp argument is unused:
+  IntermediateField.algebraMap_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Subalgebra.coe_algebraMap] at h1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/ts-kummer/KummerTS.lean:2128:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2154:26: warning: `Prime.dvd_finset_prod_iff` has been deprecated: Use `Prime.dvd_finsetProd_iff` instead
+
+Hint: Replace the deprecated name:
+  Prime.dvd_finset_̵p̵P̲rod_iff
+scratch/ts-kummer/KummerTS.lean:2344:28: warning: Variable name `hp` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hp
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/ts-kummer/KummerTS.lean:2385:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2391:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2403:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2428:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2594:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2596:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2606:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2648:8: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp [one_add_one_eq_two] at h2
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/ts-kummer/KummerTS.lean:2662:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2760:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2761:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2764:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2783:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2784:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2786:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2787:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2797:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2829:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2830:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:2896:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-kummer/KummerTS.lean:3122:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3122:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/ts-kummer/KummerTS.lean:3169:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/ts-kummer/KummerTS.lean:3170:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3170:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3308:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3342:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/ts-kummer/KummerTS.lean:3342:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3344:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/ts-kummer/KummerTS.lean:3346:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/ts-kummer/KummerTS.lean:3347:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+'PropTSGlue.regular_dim2_intPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.zxMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.not_dvd_den_of_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.exists_secIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.isFractionRing_zx' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snLocalData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.exists_int_multiple' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.notMem_of_val_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snHeightOne_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snHorizontalTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snVertical_of_sep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces'''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeet_of_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coeff_X_pow_sub_C_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetFin_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetGlue_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetInf_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetGlue_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModelOfHeckeN_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModelOfHecke_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.heckeNormalization_of_irr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.purityGlobalDim2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces'''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.verticalResidueDegree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_specialize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.isSeparable_of_finrank_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.verticalResidueSeparable_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.functionFieldModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModelOfHecke_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/ts-kummer/KummerTS.lean:3705:8: warning: Overlapping instance parameters in `abhyankar_core`:
+
+⚠️ `[IsDomain
+   R0]` and `[IsDedekindDomain
+   R0]` each imply `[Nontrivial R0]`, `[IsLeftCancelMulZero R0]`, and `[IsRightCancelMulZero R0]`.
+💡️ Of these, `[IsDomain R0]` may be removed.
+⚠️ `[IsDomain
+   A]` and `[IsDedekindDomain
+   A]` each imply `[Nontrivial A]`, `[IsLeftCancelMulZero A]`, and `[IsRightCancelMulZero A]`.
+💡️ Of these, `[IsDomain A]` may be removed.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+scratch/ts-kummer/KummerTS.lean:4156:8: warning: Overlapping instance parameters in `compositum_core0`:
+
+⚠️ `[IsDomain
+   R0]` and `[IsDedekindDomain
+   R0]` each imply `[Nontrivial R0]`, `[IsLeftCancelMulZero R0]`, and `[IsRightCancelMulZero R0]`.
+💡️ Of these, `[IsDomain R0]` may be removed.
+⚠️ `[IsDomain
+   A]` and `[IsDedekindDomain
+   A]` each imply `[Nontrivial A]`, `[IsLeftCancelMulZero A]`, and `[IsRightCancelMulZero A]`.
+💡️ Of these, `[IsDomain A]` may be removed.
+
+Note: This linter can be disabled with `set_option linter.overlappingInstances false`
+scratch/ts-kummer/KummerTS.lean:4400:16: warning: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
+scratch/ts-kummer/KummerTS.lean:4490:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/ts-kummer/KummerTS.lean:4929:10: warning: `Localization.AtPrime.comap_maximalIdeal` has been deprecated: Use `Localization.AtPrime.under_maximalIdeal` instead
+
+Hint: Replace the deprecated name:
+  L̵o̵c̵a̵l̵i̵z̵a̵t̵i̵o̵n̵.̵A̵t̵P̵r̵i̵m̵e̵.̵c̵o̵m̵a̵p̵_̵m̵a̵x̵i̵m̵a̵l̵I̵d̵e̵a̵l̵L̲o̲c̲a̲l̲i̲z̲a̲t̲i̲o̲n̲.̲A̲t̲P̲r̲i̲m̲e̲.̲u̲n̲d̲e̲r̲_̲m̲a̲x̲i̲m̲a̲l̲I̲d̲e̲a̲l̲
+scratch/ts-kummer/KummerTS.lean:5008:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/ts-kummer/KummerTS.lean:5317:8: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/ts-kummer/KummerTS.lean:5418:13: warning: `Ideal.inertiaDeg_le_finrank` has been deprecated: Use results of RingTheory.RamificationInertia.Basic
+scratch/ts-kummer/KummerTS.lean:5419:6: warning: `Ideal.inertiaDeg'_algebraMap` has been deprecated: Use `Ideal.inertiaDeg_eq_of_isMaximal` instead.
+'TsKummer.kummerAbhyankarFinGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerAbhyankarInfGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.compositum_core0' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerOtherBranchFin_of_unram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.unramCompositum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerOtherBranchInf_of_unram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.unramBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerVerticalFin_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerVerticalInf_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerOtherBranchFin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerOtherBranchInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerVerticalFin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerVerticalInf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerMeetGlue_of_compositum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.propTSAll_ts' depends on axioms: [propext, Classical.choice, Quot.sound]
