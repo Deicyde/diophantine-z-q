@@ -4,3 +4,5 @@
 - 10:21 TC oleans reused from ~/dzq-wt/unram-roots/.lake/build (cp -a --reflink).
 - 10:30 lake build AbsFrob.Basic, AbsFrob.AlgFrobRed: OK (9049 jobs, mostly replay, 8 min). AbsFrob.Sanity: two rw [fr_Spec] left proof mvars; fixed; lake env lean Sanity.lean: no errors. VERIFIED.
 - 10:56 UnramRoots.Sanity lake build killed by harness background time limit (was rebuilding LadicCond); load 155 > 150 -> holding.
+- 11:08 load back to 17. lake build UnramRoots chain: Reduction, Metric, FrobData, Procyclic, Main OK (warnings only); Sanity had 3 errors (Padic.nonarchimedean name, CharZero via charZero_of_injective_algebraMap, Decidable -> open scoped Classical in); fixed.
+- 11:12 lake build of all 9 new modules: exit 0 (build_all.txt). CheckFrob.lean: 13 declarations, all [propext, Classical.choice, Quot.sound], no sorryAx (run_CheckFrob.txt). VERIFIED.

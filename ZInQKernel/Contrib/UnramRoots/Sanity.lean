@@ -31,11 +31,11 @@ theorem no_root_Q2 (x : ℚ_[2]) : x ^ 2 + x + 1 ≠ 0 := by
     generalize PadicInt.toZMod z = a at h2
     revert a h2
     decide
-  · push_neg at h
+  · push Not at h
     have h2 : x ^ 2 = -(x + 1) := by linear_combination hx
     have h3 := congrArg norm h2
     rw [norm_pow, norm_neg] at h3
-    have hle : ‖x + 1‖ ≤ max ‖x‖ ‖(1 : ℚ_[2])‖ := padicNormE.nonarchimedean x 1
+    have hle : ‖x + 1‖ ≤ max ‖x‖ ‖(1 : ℚ_[2])‖ := Padic.nonarchimedean x 1
     rw [norm_one, max_eq_left h.le] at hle
     nlinarith
 
@@ -52,7 +52,7 @@ theorem hω : ω ^ 2 + ω + 1 = 0 := exists_root.choose_spec
 
 theorem hω3 : ω ^ 3 = 1 := by linear_combination (ω - 1) * hω
 
-instance : CharZero (Kbar 2) := (algebraMap ℚ_[2] (Kbar 2)).charZero
+instance : CharZero (Kbar 2) := charZero_of_injective_algebraMap (algebraMap ℚ_[2] (Kbar 2)).injective
 
 theorem hω0 : ω ≠ 0 := by
   intro h
@@ -86,13 +86,13 @@ theorem act (σ : GQp 2) : σ ω = ω ∨ σ ω = ω ^ 2 := by
 
 variable (ℓ : ℕ) [Fact ℓ.Prime]
 
+open scoped Classical in
 /-- The unramified quadratic character of `G_{ℚ_2}` (cutting out `ℚ_2(ω) = ℚ_2(√−3)`). -/
 def ψ (σ : GQp 2) : PadicAlgCl ℓ := if σ ω = ω then 1 else -1
 
 theorem ψ_mul (σ τ : GQp 2) : ψ ℓ (σ * τ) = ψ ℓ σ * ψ ℓ τ := by
-  have hne : ω ≠ ω ^ 2 := fun h => hω2 h.symm
   rcases act σ with h1 | h1 <;> rcases act τ with h2 | h2 <;>
-    simp [ψ, AlgEquiv.mul_apply, h1, h2, map_pow, hω4, hω2, hne]
+    simp [ψ, AlgEquiv.mul_apply, h1, h2, map_pow, hω4, hω2]
 
 theorem fixSet_bot (σ : GQp 2) : σ ∈ fixSet (⊥ : Fld 2) := by
   intro x hx
@@ -102,8 +102,8 @@ theorem fixSet_bot (σ : GQp 2) : σ ∈ fixSet (⊥ : Fld 2) := by
 /-- Some `σ ∈ G_{ℚ_2}` moves `ω`. -/
 theorem exists_move : ∃ σ : GQp 2, σ ω ≠ ω := by
   by_contra hall
-  push_neg at hall
-  haveI : IsGalois ℚ_[2] (Kbar 2) := IsAlgClosure.isGalois ℚ_[2] (Kbar 2)
+  push Not at hall
+  have : IsGalois ℚ_[2] (Kbar 2) := IsAlgClosure.isGalois ℚ_[2] (Kbar 2)
   have hmem : ω ∈ IntermediateField.fixedField (⊥ : Fld 2).fixingSubgroup :=
     fun σ => hall σ
   rw [InfiniteGalois.fixedField_fixingSubgroup] at hmem
@@ -143,7 +143,8 @@ theorem unramRoots_two_nonvacuous :
       (∀ σ ∈ fixSet (⊥ : Fld 2) ∩ inertiaSet, η σ = 1) ∧
       ∃ σ : GQp 2, η σ ^ 4 = -1 := by
   have h1ne : (-1 : PadicAlgCl ℓ) ≠ 1 := by
-    haveI : CharZero (PadicAlgCl ℓ) := (algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).charZero
+    have : CharZero (PadicAlgCl ℓ) :=
+      charZero_of_injective_algebraMap (algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).injective
     intro h
     have : (2 : PadicAlgCl ℓ) = 0 := by linear_combination -h
     exact two_ne_zero this
