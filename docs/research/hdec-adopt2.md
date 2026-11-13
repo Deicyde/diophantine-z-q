@@ -5,7 +5,7 @@ Status: task hdec-adopt2, 2026-11-12. Results log: `scratch/hdec-adopt2/log.md`;
 
 ## Result
 
-VERIFIED: `lake build ZInQKernel` exits 0 (2026-11-12, 16:59 PST), and
+VERIFIED: `lake build ZInQKernel` exits 0 (2026-11-12, 17:03 PST, after the last change), and
 `lake env lean scripts/print_axioms.lean` prints 272 axiom lists, every one exactly
 `[propext, Classical.choice, Quot.sound]`. 93 of those are the theorems added here (179 before).
 
@@ -91,7 +91,7 @@ that had none (`GlueVigneras.vigneras_local`, `split_normalizer_iff`, `unramifie
 `GlueAssembly.{weight_match,weight_match_coh,twist_finite,invariants_ne_bot_of_baseChange,
 index_Gamma1_le,logHeight_le_log_mulHeightL2,logHeight_sixteen_eq,mulHeight_rootsOfUnity_mul}`).
 
-VERIFIED (16:59 PST): all 93 new entries, like the 179 earlier ones, depend on exactly
+VERIFIED (17:03 PST): all 93 new entries, like the 179 earlier ones, depend on exactly
 `[propext, Classical.choice, Quot.sound]` (output in `scratch/hdec-adopt2/axioms.txt`).
 
 Headline glue theorems now in the build:
