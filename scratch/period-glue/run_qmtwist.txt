@@ -1,0 +1,1 @@
+'HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' depends on axioms: [propext, Classical.choice, Quot.sound]
