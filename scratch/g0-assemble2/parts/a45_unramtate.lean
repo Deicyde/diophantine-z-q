@@ -1,5 +1,9 @@
 /-! ## g0-assemble2: unram-tate (scratch/unram-tate/TateBridge.lean lines 1038-1942, verbatim; lines 1-1036 are
 g0-mod-field's ModField.lean, i.e. part 75) -/
+-- (g0-assemble2) the file-level `open`s of ModField.lean (part 75), which TateBridge.lean inherits:
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
 
 /-!
 # unram-tate: `TateBridge` reduced to named glue pieces

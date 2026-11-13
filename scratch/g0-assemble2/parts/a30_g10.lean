@@ -3,9 +3,10 @@
 * scratch/g10-odd/G10Odd.lean §2-§3 (lines 99-246, verbatim): `ConjTwistNontrivial` and
   `g10Glue_of_conjTwist`. Its proof `intro _ _ hF …` applies unchanged to g0-assemble's corrected
   `G10Glue` (hypotheses `T11a → T11b → FaltingsTate`, same binder count as the opaque version).
-* scratch/conj-twist/ConjTwist.lean lines 84-192 and 206-1612 (verbatim; its §1 copies of `resQ`,
-  `isComplexConj_mul_self`, `one_tmul_injective`, `baseChange_injective'`, `ConjTwistNontrivial`
-  (= g10-odd's above), `qEmbRing` and `resQ_spec` (= part 70's, same text) are not repeated).
+* scratch/conj-twist/ConjTwist.lean lines 19 (`noncomputable section`), 21-26, 84-191 and 206-1612
+  (verbatim; its §1 copies of `resQ`, `isComplexConj_mul_self`, `one_tmul_injective`,
+  `baseChange_injective'`, `ConjTwistNontrivial` (= g10-odd's above), `qEmbRing` and `resQ_spec`
+  (= part 70's, same text) are not repeated).
 -/
 section G10OddSec
 namespace G0Galois
@@ -163,6 +164,7 @@ end G0Galois
 end G10OddSec
 
 section ConjTwistSec
+noncomputable section
 namespace G0Galois
 
 open PkgI4 (GaloisRep GaloisChar)
@@ -277,7 +279,6 @@ theorem betti_skeleton_fd (E : Type*) [Field E] [Algebra ℚ E] {H H' : Type*} [
   apply baseChange_injective₂ ℚ ℝ H H'
   rw [h0, LinearMap.baseChange_zero]
 
-/-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
 /-- `qEmbRing K : ℚ̄ → K̄` is bijective (`K̄` is algebraic over `ℚ`). -/
 theorem qEmbRing_bijective (K : Type) [Field K] [NumberField K] :
     Function.Bijective (qEmbRing K) := by
@@ -1680,4 +1681,5 @@ theorem conjTwistFromLeaves_main (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
 
 end G0Galois
 
+end
 end ConjTwistSec
