@@ -27,3 +27,23 @@
 - Orders TYZ uses (from notes; Period7.tex not on host): d ≡ 5: ℤ[4√−d] = ℤ + 4𝓞_K, disc −64d (tyz-t1 §3.1,
   TYZ L1203–1205); d ≡ 7: maximal order, disc −d (tyz-t1 §3.1). H_{d,4}, H'_d: Prop 3.2(1) L1253–1258.
   ℍ'_n = L_n(i)·Π H'_{d₀} (L1320), L_n(i) = ℚ(i, √d : d|n) (L1322) — all as quoted in rv-nt-tyz/rv-pn-encoding.
+
+## 08:00 proofs, round 1 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClass` success)
+- Vendored (nov01) RayClassField, RayClass/Narrow/Basic, NarrowClassGroup/{Basic,TotallyComplex}; Backport
+  ClassFieldTheory/ClassField (classField_fixingOpenNormalSubgroup with a rewritten proof: `classField` does not unfold
+  outside its module); RayClassField.lean imports it (noted). diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0.
+- Proved: relfinrank_genusField (= #Pic²), finrank_genusField (= #Pic[2]), finrank_genusField_mul, finrankGenusField,
+  finrankH4, gCl_eq_card_picSquares (by rfl: ClassGroup (𝓞 K) and Pic of maximalNumberFieldOrder are defeq),
+  ker_le_ker_maximal, ringClassField_maximal_le (H_K ≤ ring class field of any order), 
+  ringClassField_maximal_eq_hilbertClassField, unit_eq (units of 𝓞_{ℚ(√−d)} are ±1 for d ≡ 5 mod 8, via
+  d m² + k² = 4d mod 8/32), alphaIdeal_mem, sigmaClass_sq, not_mem_O4, sigmaClass_ne_one, orderOf_sigmaClass = 2.
+  #print axioms orderOf_sigmaClass: [propext, Classical.choice, Quot.sound].
+
+## 08:25 proofs, round 2 (VERIFIED, lake build success)
+- Hprime_le_H4, relfinrank_Hprime ([H_{d,4} : H'_d] = 2 for d ≡ 5 mod 8), sigmaClassOrderTwo, hilbertLeH4,
+  gClEqPicSquares, gCl_eq_relfinrank, gClEqRelfinrank, finrank_hilbertField (= classNumber, via vendored
+  finrank_hilbertClassField), finrank_genusField_eq ([G_n : K_n] = 2^{#ramSet n − 1}, odd squarefree n > 1, from
+  RouteK.Redei.card_ker_sq_eq), picSquares_eq_iInf_ker_chi, genusField_eq_fixedField_chi (genus field = field cut
+  out by the genus characters RouteK.Redei.chi), gNat_eq_relfinrank, gRingClass, gNat_eq_gRingClass (function
+  equality), gCl_eq_gRingClass, T5aCl_eq_gRingClass, T5bCl_eq_gRingClass, GenusData.beta_seven_ringClass,
+  GenusData.beta_five_ringClass.
