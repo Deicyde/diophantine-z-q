@@ -73,3 +73,6 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
 - Verbatim check (Python, whitespace-normalized): `UniformizationExistsT35` and `T11aRiemannEnd` bodies equal the
   kernel's `ZInQ.LeafPush2.UniformizationExists`, `T11a_RiemannEnd` (ZInQKernel/HDecomp/LeafPush2/T.lean) after
   replacing `PkgI3.AbVar` by `AbVar` (the kernel opens `PkgI3`). VERIFIED.
+- run_full4 (06:07-06:10): final assembled `FibreQM.lean` (with Steps 2e-2h, §N): 0 errors, 0 `sorry`, 2m55s;
+  29 axioms lines of §N/§F all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+- Report rewritten for the final form `fibreQMPeriod_final''`.

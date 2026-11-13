@@ -21432,6 +21432,107 @@ theorem qmLatticeAlgebra_of_free (h : QMLatticeFree) : QMLatticeAlgebra := by
   · intro a z
     simp [hGρ, Matrix.mulVec_smul]
 
+/-! ### Step 2g: `QMLatticeFree` from Skolem–Noether over `ℂ` and class number one -/
+
+/-- **TEXTBOOK (Skolem–Noether over `ℂ`, for N5's order).** Every unital ring homomorphism
+`ρ : 𝒪 → End_ℂ(ℂ²)` is conjugate to N5's `ι` by a `ℂ`-linear automorphism `G`
+(`G ρ(a) = ι(a) G`). Why: `ρ` extends to a `ℂ`-algebra map `B ⊗_ℚ ℂ → M₂(ℂ)`; `B ⊗ ℂ ≅ M₂(ℂ)`
+(through `ι`) is simple, so the map is an isomorphism, and automorphisms of `M₂(ℂ)` are inner
+(Skolem–Noether; e.g. Voight, *Quaternion algebras*, Cor. 7.7.4, UNVERIFIED number; the kernel's
+`TSkolemKW.leafSkolemNoether` is a form of it). -/
+def QMSkolemNoetherC : Prop :=
+  ∀ ρ : LeafQM.O →+* Module.End ℂ (Fin 2 → ℂ),
+    ∃ G : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ), ∀ a z, G (ρ a z) = (qmMat a).mulVec (G z)
+
+/-- **TEXTBOOK (class number one of `𝒪`, lattice form).** Every full lattice `Λ ⊆ ℂ²` stable under
+N5's `ι(𝒪)` is `ι(𝒪)w` for a vector `w` that is not a complex multiple of a real vector. Why: `Λ`
+is a left `𝒪`-module, torsion-free of rank 4, so `ℚΛ ≅ B` and `Λ` is a left `𝒪`-ideal, principal
+because the maximal order of the indefinite algebra of discriminant 6 has class number one
+(Eichler's theorem; Vignéras, *Arithmétique des algèbres de quaternions*, Cor. III.5.7; Voight,
+Cor. 28.5.17; numbers UNVERIFIED); `w` is not `c·r` with `r` real, else `ι(𝒪)w ⊆ c·ℝ²` would not
+span `ℂ²` over `ℝ`. -/
+def QMClassNumberOne : Prop :=
+  ∀ (Λ : Submodule ℤ (Fin 2 → ℂ)) [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    (∀ a : LeafQM.O, ∀ z ∈ Λ, (qmMat a).mulVec z ∈ Λ) →
+    ∃ w : Fin 2 → ℂ, (¬ ∃ (c : ℂ) (r : Fin 2 → ℝ), w = c • (fun i => (r i : ℂ))) ∧
+      Λ = FibreQMNorm.qmOrbit w
+
+/-- **`QMLatticeFree` from Skolem–Noether over `ℂ` and class number one (proved):** transport the
+lattice by the intertwiner `G` (still a full lattice: `ZLattice.comap` along `G⁻¹`). -/
+theorem qmLatticeFree_of (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne) : QMLatticeFree := by
+  intro Λ _ hlat ρ hρ
+  obtain ⟨G, hG⟩ := hSN ρ
+  let Gc : (Fin 2 → ℂ) ≃L[ℝ] (Fin 2 → ℂ) :=
+    LinearEquiv.toContinuousLinearEquiv (G.symm.restrictScalars ℝ)
+  have hmap : Λ.map (G.toLinearMap.restrictScalars ℤ) = ZLattice.comap ℝ Λ Gc.toLinearMap := by
+    ext z
+    simp only [Submodule.mem_map, LinearMap.coe_restrictScalars, LinearEquiv.coe_coe,
+      ZLattice.comap, Submodule.mem_comap]
+    constructor
+    · rintro ⟨y, hy, rfl⟩
+      change G.symm (G y) ∈ Λ
+      simpa using hy
+    · intro hz
+      exact ⟨G.symm z, hz, by simp⟩
+  have : IsZLattice ℝ Λ := hlat
+  obtain ⟨w, hw, hΛw⟩ := hCN (ZLattice.comap ℝ Λ Gc.toLinearMap) inferInstance (by
+    intro a z hz
+    rw [← hmap] at hz ⊢
+    obtain ⟨y, hy, rfl⟩ := hz
+    exact ⟨ρ a y, hρ a y hy, by simp [hG]⟩)
+  exact ⟨G, w, hw, hmap.trans hΛw, hG⟩
+
+/-! ### Step 2h: `UnifTransport` from the transport of complex points (algebraic geometry) -/
+
+/-- **GLUE (complex points of the base change).** In the situation of `UnifTransport` there is a
+group isomorphism `ψ : Q.A(ℂ) ≅ A(ℂ)_σ` (`σ = ι ∘ emb`) compatible with regular functions: for every
+open `U` of `A` and `s ∈ Γ(U, 𝒪_A)` there are an open `U'` of `Q.A` and `s' ∈ Γ(U', 𝒪)` with
+`ψ(x) ∈ U(ℂ) ↔ x ∈ U'(ℂ)` and `s(ψ x) = s'(x)` there.
+
+Why true: `A(ℂ)_σ = Hom_K(Spec ℂ, A) = Hom_ℂ(Spec ℂ, A ×_K ℂ)`, and `A ×_K ℂ ≅ P.A ×_ℚ̄ ℂ ≅ Q.A`
+as `ℂ`-schemes (pullback pasting with `FibreOver`'s isomorphism and `IsBaseChangeOf`'s square).
+The bijection `χ : Q.A(ℂ) → A(ℂ)_σ` so obtained comes from an isomorphism of `ℂ`-varieties, so by
+rigidity (Mumford, *Abelian Varieties*, §4 Cor. 1, UNVERIFIED number) `ψ(x) = χ(x)·χ(1)⁻¹` is a
+group isomorphism. For `U`, `s`: `U'` is the image in `Q.A` of `t⁻¹(U_ℂ)`, `t` the translation by
+`χ(1)⁻¹` on `A_ℂ`, and `s' = (s ⊗ 1) ∘ t` transported to `Q.A`. Not in Mathlib: pullbacks of points
+over `Over` categories are routine; rigidity is a textbook leaf. Size: medium. -/
+def CPtsTransport : Prop :=
+  ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K) (emb : K.K →+* Qbar) (P : QML3 Qbar),
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∃ ψ : CPts Q.A (RingHom.id ℂ) ≃* CPts (LeafAdopt.abVarEquiv K.K A) (ιe.comp emb),
+      ∀ (U : (LeafAdopt.abVarEquiv K.K A).X.left.Opens)
+        (s : Γ((LeafAdopt.abVarEquiv K.K A).X.left, U)),
+        ∃ (U' : Q.A.X.left.Opens) (s' : Γ(Q.A.X.left, U')),
+          ∀ x : CPts Q.A (RingHom.id ℂ), (⊤ ≤ (ψ x).left ⁻¹ᵁ U ↔ ⊤ ≤ x.left ⁻¹ᵁ U') ∧
+            (⊤ ≤ x.left ⁻¹ᵁ U' → cEvalAt (ψ x) U s = cEvalAt x U' s')
+
+/-- **`UnifTransport` from `CPtsTransport` (proved):** `Φ_A = ψ ∘ Φ_Q`. -/
+theorem unifTransport_of (hCP : CPtsTransport) : UnifTransport := by
+  intro K A emb P hiso ιe Q hQ Λ Φu hU
+  obtain ⟨ψ, hψ⟩ := hCP K A emb P hiso ιe Q hQ
+  obtain ⟨hadd, hker, hsurj, hopen, hhol⟩ := hU
+  have hdom : ∀ (U : (LeafAdopt.abVarEquiv K.K A).X.left.Opens)
+      (U' : Q.A.X.left.Opens) (s' : Γ(Q.A.X.left, U')),
+      (∀ x : CPts Q.A (RingHom.id ℂ), (⊤ ≤ (ψ x).left ⁻¹ᵁ U ↔ ⊤ ≤ x.left ⁻¹ᵁ U')) →
+      cDom (fun z => ψ (Φu z)) U = cDom Φu U' := by
+    intro U U' s' h
+    ext z
+    exact h (Φu z)
+  refine ⟨fun z => ψ (Φu z), fun z w => ?_, fun z => ?_, fun x => ?_, fun U => ?_, fun U s => ?_⟩
+  · simp only [hadd, map_mul]
+  · rw [← hker]
+    exact MulEquiv.map_eq_one_iff ψ
+  · obtain ⟨y, rfl⟩ := ψ.surjective x
+    obtain ⟨z, rfl⟩ := hsurj y
+    exact ⟨z, rfl⟩
+  · obtain ⟨U', s', h⟩ := hψ U 0
+    rw [hdom U U' s' (fun x => (h x).1)]
+    exact hopen U'
+  · obtain ⟨U', s', h⟩ := hψ U s
+    rw [hdom U U' s' (fun x => (h x).1)]
+    exact (hhol U' s').congr (fun z hz => (h (Φu z)).2 hz)
+
 /-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
@@ -21558,6 +21659,31 @@ theorem fibreQMPeriod_final (h : R1R2fp) (hM : Pin.MobiusGlue)
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_textbook h hM hH hE hR11 hR (qmLatticeAlgebra_of_free hF) hG hHU hD hT
 
+/-- **Main result, final form with the lattice algebra split (proved).** Hypotheses:
+* leaves: `PkgI1.QMHauptmodul` (existing composite leaf), T35 `UniformizationExistsT35`, T11a
+  `T11aRiemannEnd` (both already in leaf-adopt3's `TextbookLeaves`), `QMSkolemNoetherC`,
+  `QMClassNumberOne` (textbook), `R1bFamily` at the leaf's own triple (R1(b), concrete);
+* glue: `Pin.MobiusGlue` (proved by mobius-glue from two curve facts and T5), `PeriodMapGlue` (own
+  triple), `HauptmodulUnique`, `QMDenZeroCM3`, `UnifTransport`. -/
+theorem fibreQMPeriod_final' (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h)) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_final h hM hH hE hR11 hR (qmLatticeFree_of hSN hCN) hG hHU hD hT
+
+/-- **Main result, final form (proved).** As `fibreQMPeriod_final'`, with `UnifTransport` replaced
+by `CPtsTransport` (complex points of the base change, as a group isomorphism compatible with
+regular functions). -/
+theorem fibreQMPeriod_final'' (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h)) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hCP : CPtsTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_final' h hM hH hE hR11 hSN hCN hR hG hHU hD (unifTransport_of hCP)
+
 end FibreQM
 
 end G0Split
@@ -21591,3 +21717,7 @@ end
 #print axioms FibreQMNorm.normalize
 #print axioms HSyn.G0Split.FibreQM.qmLatticeAlgebra_of_free
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final
+#print axioms HSyn.G0Split.FibreQM.qmLatticeFree_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final'
+#print axioms HSyn.G0Split.FibreQM.unifTransport_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final''
