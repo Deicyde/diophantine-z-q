@@ -70,3 +70,17 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
 - Same proof appended to DetTate.lean; `detTate_of_tateGSp : TateGSp → DetTate`. run4 (04:49):
   0 errors; `sympSimDet_of_darboux`, `cycQ_resQ`, `detTate_of`, `detTate_of_darboux`, `darboux`,
   `detTate_of_tateGSp` all on [propext, Classical.choice, Quot.sound].
+
+## TateGSp and DetTate from leaves (VERIFIED, compiled)
+
+- DetTate.lean additions: `TatePairingZl` (alternating `ℤ_ℓ`-form on `T_ℓ A`, trivial left kernel,
+  cyclotomic multiplier), `tateGSp_of_zl : TatePairingZl → PkgI3.TateModuleFree → TateGSp`
+  (Gram matrix of a basis of `T_ℓ`, mapped to `ℚ_ℓ`, in the base-changed basis
+  `Algebra.TensorProduct.basis`; `LinearMap.toMatrix_baseChange`; alternating from skew Gram +
+  char 0), `detTate_of_zl`. run (04:55): 0 errors, axioms standard.
+- DetLeaves.lean (build_det.sh) = part_wp.lean (WeilPairing.lean §1-§9 verbatim, L6-1149, minus
+  `twist_finite_four` L644-675, which needs GlueAssembly) + DetTate.lean body + part_leaves.lean:
+  `tatePairingZl_of_leaves : T09_SymmIsogenyExists → IsogenyQuasiInverse → DivisiblePoints →
+  TatePairingZl` and `detTate_of_leaves : … → PkgI3.TateModuleFree → DetTate`.
+  run1 (04:56): 1 error (`Gal K` vs `Field.absoluteGaloisGroup K` in a rewrite); run2 (04:58):
+  0 errors, 0 sorry; both on [propext, Classical.choice, Quot.sound].
