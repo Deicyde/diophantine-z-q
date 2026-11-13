@@ -72,3 +72,10 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
 - 17:1x proved `unramified_over_branch` (Lemma NV step 2, h-b1 §3): from R1R2fp ∧ R1rec, a
   ℚ̄-point of Y₃ over 0, ∞ or −16/27 has a field of moduli that is a number field unramified at
   every p ≥ 5 (via `cm_of_val`, the forgetful map and `ToP1.val_comp_right`). COMPILES.
+- 17:2x added `residueImage` (κ(x) ⊆ ℚ̄ for a ℚ̄-point, via `SpecToEquivOfField`) and the point
+  form of reciprocity `R1recProps` (residue fields of CM points of Y₃ unramified at p ≥ 5) as a
+  sixth conjunct of `R1R2fp`; proved `residue_unramified_over_branch` (Lemma NV step 2 in h-b1's
+  form, residue fields of points over the branch values) from `R1R2fp` alone. Finding: the object
+  form `R1rec` (fields of moduli) cannot be transferred to residue fields in Lean without the
+  uniqueness of base change up to isomorphism, which needs rigidity (a morphism of abelian
+  varieties preserving 0 is a homomorphism); hence the point form. COMPILES, 24 s.

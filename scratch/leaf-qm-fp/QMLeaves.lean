@@ -1021,6 +1021,22 @@ def CMExists (X : Over (Spec (CommRingCat.of ℚ)))
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ∧
   (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM24 P.q)
 
+/-- The residue field `κ(x)` of the point `x` of a `ℚ̄`-point `y : Spec ℚ̄ → X`, as a subfield of
+`ℚ̄` (the image of the embedding `κ(x) ↪ ℚ̄` determined by `y`; it is a subfield containing `ℚ`,
+so it equals the `ℚ`-subfield it generates). -/
+def residueImage {X : Scheme.{0}} (y : Spec (CommRingCat.of Qbar) ⟶ X) :
+    IntermediateField ℚ Qbar :=
+  IntermediateField.adjoin ℚ (Set.range (Scheme.SpecToEquivOfField Qbar X y).2)
+
+/-- **R1rec on points, clause list** (Shimura reciprocity at the three elliptic CM points,
+unramified form): a `ℚ̄`-point of `Y₃` whose object has CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has
+residue field `ℚ(y)` a number field unramified at every `p ≥ 5`. This is the form printed
+(reciprocity is a statement about points of the canonical model) and the form Lemma NV uses. -/
+def R1recProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+  ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+      UnramifiedAbove5 (residueImage (X := Y.left) y.left)
+
 /-- **Glue (compiled), h-b1 M9 on `X₆`**: every `ℚ̄`-point of `X₆` over `0` (resp. `∞`,
 `−16/27`) has CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`), from the fibre clause, the existence of
 one such CM point, and the invariance of the CM predicates under twists and isomorphisms. -/
@@ -1088,8 +1104,9 @@ whether his Thm 2.1 covers full level 3 directly is UNVERIFIED. -/
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
 
-/-- **Leaves R1fp + R1hecke + R1 at level one + R2fp, on one `Y₃` and one `X₆`** (the form the
-glue consumes; `R1R2fp_Y` extracts the `Y₃` form).
+/-- **Leaves R1fp + R1hecke + R1 at level one + R2fp + R1rec (point form), on one `Y₃` and one
+`X₆`** (the form the glue consumes; `R1R2fp_Y` extracts the `Y₃` form). `R1recProps` is
+documented at its definition; the object form `R1rec` is kept as a separate leaf.
 
 *R1 at level one (`X6Props`), published statement*: `X₆ = X₀(6,1)` (Shimura's curve for the
 maximal order, no level) is a coarse moduli space over `ℚ` for `(A, ι, λ)` (Shimura 1967, Deligne
@@ -1137,16 +1154,16 @@ def R1R2fp : Prop :=
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) (π₆ : ToP1 X.left),
     R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6Props X Ψ π₆ ∧
-      CMExists X Ψ
+      CMExists X Ψ ∧ R1recProps Y Φ
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, h1, -, -, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
 
 /-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
 theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
-  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -⟩ := h
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, hX, h2, -, -⟩ := h
   exact ⟨Y, Φ, π₆.comp fY.left, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
@@ -1235,10 +1252,35 @@ theorem unramified_over_branch (h : R1R2fp ∧ R1rec) :
           π.val (K := Qbar) y.left = OnePoint.infty ∨
           π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
         UnramifiedAbove5 (fieldOfModuli3 P) := by
-  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE⟩, hrec⟩ := h
+  obtain ⟨⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, -⟩, hrec⟩ := h
   refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y P hP hv => hrec P ?_⟩
   obtain ⟨-, -, -, -, -, hf⟩ := hX
   have hc := cm_of_val h2 hE (y ≫ fY) P.forget (hf y P hP)
+  have e : (π₆.comp fY.left).val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left :=
+    ToP1.val_comp_right π₆ fY.left y.left
+  rw [e] at hv
+  rcases hv with hv | hv | hv
+  · exact Or.inl (hc.1 hv)
+  · exact Or.inr (Or.inl (hc.2.1 hv))
+  · exact Or.inr (Or.inr (hc.2.2 hv))
+
+/-- **Glue (compiled): Lemma NV step 2, point form** (h-b1 §3, as used there): from `R1R2fp`
+alone, a `ℚ̄`-point of `Y₃` over `0`, `∞` or `−16/27` has residue field `ℚ(y)` (`residueImage`) a
+number field unramified at every `p ≥ 5`. -/
+theorem residue_unramified_over_branch (h : R1R2fp) :
+    ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ ∧ R2fpProps Y Φ π ∧
+      ∀ (y : fieldPt Qbar ⟶ Y),
+        (π.val (K := Qbar) y.left = OnePoint.some 0 ∨
+          π.val (K := Qbar) y.left = OnePoint.infty ∨
+          π.val (K := Qbar) y.left = OnePoint.some (-16 / 27)) →
+        UnramifiedAbove5 (residueImage (X := Y.left) y.left) := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, -, hX, h2, hE, hrec⟩ := h
+  refine ⟨Y, Φ, π₆.comp fY.left, h1, R2fpProps_of_X6 hX h2, fun y hv => ?_⟩
+  have hP : Φ Qbar y = M3.mk (Quotient.out (Φ Qbar y)) := (Quotient.out_eq _).symm
+  refine hrec y _ hP ?_
+  obtain ⟨-, -, -, -, -, hf⟩ := hX
+  have hc := cm_of_val h2 hE (y ≫ fY) _ (hf y _ hP)
   have e : (π₆.comp fY.left).val (K := Qbar) y.left = π₆.val (K := Qbar) (y ≫ fY).left :=
     ToP1.val_comp_right π₆ fY.left y.left
   rw [e] at hv
@@ -1358,6 +1400,7 @@ end LeafQM
 #print axioms LeafQM.AV.Level3.torsor
 #print axioms LeafQM.AV.QML3.goodReduction
 #print axioms LeafQM.AV.unramified_over_branch
+#print axioms LeafQM.AV.residue_unramified_over_branch
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
