@@ -15,13 +15,13 @@ Self-contained (Mathlib + project only; no `sorry`, no `axiom`).
   (`span_bcHodge_le`).
 * Part C (new): glue statements over the natural map. Proved here: `ptsBaseChangeMul`,
   `ptsBaseChangeBij`, `detLatticeBC_of_omega`, `hodgeSpanBC_of`, `jacobianPullbackSpan_of`,
-  `uniformizationLift_of`.
-  **Main results** (finest form): `modelHeightBaseChange_of_glue5` and
-  `hodgeLineBaseChange_of_glue5` (H4a and `HodgeLineBaseChange`, verbatim, from the five glue
+  `uniformizationLift_of`, `jacobianSemilinear_of`.
+  **Main results** (final form): `modelHeightBaseChange_of_final` and
+  `hodgeLineBaseChange_of_final` (H4a and `HodgeLineBaseChange`, verbatim, from the five glue
   statements `HodgeBCInjective`, `CotangentSpanBC`, `OmegaBaseChange`,
-  `UniformizationLiftAnalytic`, `JacobianSemilinear`), and `modelHeightBaseChangeGE_of_main`
+  `UniformizationLiftAnalytic`, `GermDerivation`), and `modelHeightBaseChangeGE_of_main`
   (the descent half from `HodgeBCInjective` and `OmegaBaseChange`). Coarser forms:
-  `_of_five`, `_of_main`, `_of_four`, `_of_glue`. -/
+  `_of_glue5`, `_of_five`, `_of_main`, `_of_four`, `_of_glue`. -/
 
 namespace ZInQ.HeightBC
 
@@ -1356,6 +1356,93 @@ def JacobianSemilinear : Prop :=
     (Φ : (Fin g → ℂ) → 𝒢.Pts τ), 𝒢.IsAnalyticUniformization τ Λ Φ →
     ∃ J : 𝒢.hodgeSpace g →ₛₗ[τ] ℂ, ∀ f, 𝒢.jacDet Φ f = J (𝒢.wedge f)
 
+/-- **Glue AN-der (the differential at the origin along `Φ`).** For an analytic uniformization
+`Φ` of `𝒢(ℂ)_τ`, `t ↦ d(germAlong Φ t)(0)` on `𝔪_ξ` descends to an additive map
+`D : 𝔪_ξ/𝔪_ξ² → ℂ^g` (the `j`-th coordinate is the derivative in the direction `e_j`) which is
+`τ`-semilinear over `𝓞_L`. True: near `0`, `t ↦ germAlong Φ t` is a ring homomorphism into germs
+of holomorphic functions (`Φ(0) = 1` lies over `ξ`, the sets `dom Φ U` are open, representatives
+agree near `0`), germs in `𝔪_ξ` vanish at `0`, so the product rule kills `𝔪_ξ²`; structure
+sections are the constants `τ(r)` along `Φ`. A statement about one group model; analytic glue.
+STANDARD. -/
+def GermDerivation : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → 𝒢.Pts τ), 𝒢.IsAnalyticUniformization τ Λ Φ →
+    ∃ D : 𝒢.cotangent →+ (Fin g → ℂ),
+      (∀ (r : 𝓞 L) x, D (r • x) = τ (algebraMap (𝓞 L) L r) • D x) ∧
+      ∀ (t : IsLocalRing.maximalIdeal 𝒢.genStalk) (j : Fin g),
+        D (𝒢.dCls t) j = fderiv ℂ (𝒢.germAlong Φ (t : 𝒢.genStalk)) 0 (Pi.single j 1)
+
+open ExteriorAlgebra in
+/-- **AN-jac from AN-der** (determinants and the universal property of `⋀^g`; proved). -/
+theorem jacobianSemilinear_of (h : GermDerivation) : JacobianSemilinear := by
+  intro K _ A L _ _ _ 𝒢 τ g Λ Φ hΦ
+  obtain ⟨D, hDs, hDf⟩ := h K A L 𝒢 τ Λ Φ hΦ
+  let σ0 : 𝓞 L →+* ℂ := τ.comp (algebraMap (𝓞 L) L)
+  let _ : Module (𝓞 L) ℂ := Module.compHom ℂ σ0
+  have e : ∀ [DecidableEq (Fin g)] (m : Fin g → 𝒢.cotangent) (i : Fin g) (z : 𝒢.cotangent),
+      (Matrix.of fun i' j => D (Function.update m i z i') j) =
+        (Matrix.of fun i' j => D (m i') j).updateRow i (D z) := by
+    intro _ m i z
+    ext i' j
+    by_cases hi : i' = i
+    · subst hi
+      simp [Matrix.updateRow_self]
+    · simp [Matrix.updateRow_ne hi, Function.update_of_ne hi]
+  let alt : 𝒢.cotangent [⋀^Fin g]→ₗ[𝓞 L] ℂ :=
+    { toFun := fun v => (Matrix.of fun i j => D (v i) j).det
+      map_update_add' := by
+        intro inst m i x y
+        obtain rfl : inst = instDecidableEqFin g := Subsingleton.elim _ _
+        rw [e, e, e, map_add]
+        exact Matrix.det_updateRow_add _ _ _ _
+      map_update_smul' := by
+        intro inst m i r x
+        obtain rfl : inst = instDecidableEqFin g := Subsingleton.elim _ _
+        rw [e, e, hDs, Matrix.det_updateRow_smul]
+        rfl
+      map_eq_zero_of_eq' := by
+        intro v i j hv hij
+        exact Matrix.det_zero_of_row_eq hij (by funext k; simp [hv]) }
+  let J0 : exteriorPower (𝓞 L) g 𝒢.cotangent →ₗ[𝓞 L] ℂ :=
+    exteriorPower.alternatingMapLinearEquiv alt
+  have hJ0 : ∀ (r : 𝓞 L) x, J0 (r • x) = σ0 r * J0 x := fun r x => J0.map_smul r x
+  let Jadd : 𝒢.hodgeSpace g →+ ℂ :=
+    TensorProduct.liftAddHom
+      (AddMonoidHom.mk' (fun a : L => AddMonoidHom.mk' (fun x => τ a * J0 x)
+        (fun x y => by rw [map_add, mul_add]))
+        (fun a b => by
+          ext x
+          simp only [AddMonoidHom.mk'_apply, AddMonoidHom.add_apply, map_add, add_mul]))
+      (fun r a x => by
+        simp only [AddMonoidHom.mk'_apply]
+        rw [hJ0, Algebra.smul_def, map_mul]
+        show τ (algebraMap (𝓞 L) L r) * τ a * J0 x = τ a * (σ0 r * J0 x)
+        simp only [σ0, RingHom.comp_apply]
+        ring)
+  have hJt : ∀ (a : L) x, Jadd (a ⊗ₜ[𝓞 L] x) = τ a * J0 x := fun a x => rfl
+  let J : 𝒢.hodgeSpace g →ₛₗ[τ] ℂ :=
+    { toFun := Jadd
+      map_add' := map_add Jadd
+      map_smul' := fun c v => by
+        induction v using TensorProduct.induction_on with
+        | zero => simp
+        | tmul a x =>
+          rw [TensorProduct.smul_tmul', hJt, hJt, smul_eq_mul, map_mul, smul_eq_mul, _root_.mul_assoc]
+        | add x y hx hy => rw [smul_add, map_add, map_add, hx, hy, smul_add] }
+  refine ⟨J, fun f => ?_⟩
+  show 𝒢.jacDet Φ f = Jadd ((1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g (fun i => 𝒢.dCls (f i)))
+  rw [hJt, map_one, _root_.one_mul]
+  show _ = exteriorPower.alternatingMapLinearEquiv alt
+    (exteriorPower.ιMulti (𝓞 L) g (fun i => 𝒢.dCls (f i)))
+  rw [exteriorPower.alternatingMapLinearEquiv_apply_ιMulti]
+  show _ = (Matrix.of fun i j => D (𝒢.dCls (f i)) j).det
+  unfold GroupModel.jacDet
+  congr 1
+  ext i j
+  simp only [Matrix.of_apply]
+  rw [hDf]
+
 /-- **Glue BC-hspan (the image of `ψ` spans).** `L' · ψ(hodgeSpace g) = hodgeSpace' g`. True by
 cotangent base change `ω_{A_{L'}} = L' · π^*(ω_{A_L})` and multilinearity; proved from
 `CotangentSpanBC` below (`hodgeSpanBC_of`). (The `L'`-linear extension `L' ⊗_L hodgeSpace →
@@ -1666,6 +1753,20 @@ theorem hodgeLineBaseChange_of_glue5 (h1 : HodgeBCInjective) (hc : CotangentSpan
     HodgeLineBaseChange :=
   hodgeLineBaseChange_of_five h1 (hodgeSpanBC_of hc) hω hl hJ
 
+/-- **Main result (final form): glue H4a (`ModelHeightBaseChange`, verbatim) from five glue
+statements**: BC-alg (`HodgeBCInjective`), BC-cot (`CotangentSpanBC`), BC-omega
+(`OmegaBaseChange`), BC-lift-an (`UniformizationLiftAnalytic`), AN-der (`GermDerivation`). Proved. -/
+theorem modelHeightBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hD : GermDerivation) :
+    ModelHeightBaseChange :=
+  modelHeightBaseChange_of_glue5 h1 hc hω hl (jacobianSemilinear_of hD)
+
+/-- **`HodgeLineBaseChange` (verbatim) from the same five glue statements** (final form). -/
+theorem hodgeLineBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hD : GermDerivation) :
+    HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_glue5 h1 hc hω hl (jacobianSemilinear_of hD)
+
 #print axioms modelHeightBaseChange_of_descent
 #print axioms hodgeLineBaseChangeDescent_of_glue
 #print axioms modelHeightBaseChange_of_glue
@@ -1687,5 +1788,8 @@ theorem hodgeLineBaseChange_of_glue5 (h1 : HodgeBCInjective) (hc : CotangentSpan
 #print axioms hodgeSpanBC_of
 #print axioms modelHeightBaseChange_of_glue5
 #print axioms hodgeLineBaseChange_of_glue5
+#print axioms jacobianSemilinear_of
+#print axioms modelHeightBaseChange_of_final
+#print axioms hodgeLineBaseChange_of_final
 
 end ZInQ.HeightBC

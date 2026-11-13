@@ -6,22 +6,22 @@ theorem h5_modelHeightBaseChange_iff :
     ZInQ.H5Glue.ModelHeightBaseChange ↔ ModelHeightBaseChange := Iff.rfl
 
 /-- **H5 in the multi-field form R19-R21 need, from the leaves N1, N2 and the five glue
-statements of Part C** (h5-glue's theorem with `hbc` discharged by
-`modelHeightBaseChange_of_glue5`). Proved. -/
-theorem stableFaltingsHeight_eq_neron_of_glue5 (hN1 : ZInQ.H5Glue.NeronModelExists)
+statements of Part C (final form)** (h5-glue's theorem with `hbc` discharged by
+`modelHeightBaseChange_of_final`). Proved. -/
+theorem stableFaltingsHeight_eq_neron_of_final (hN1 : ZInQ.H5Glue.NeronModelExists)
     (hN2 : ZInQ.H5Glue.SemistableNeronIdentityComponent) (h1 : HodgeBCInjective)
     (hc : CotangentSpanBC) (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic)
-    (hJ : JacobianSemilinear) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
+    (hD : GermDerivation) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
     ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
       𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height ∧
       ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
         [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
         stableFaltingsHeight A = 𝒩'.height :=
   ZInQ.H5Glue.stableFaltingsHeight_eq_neron_all' hN1 hN2
-    (h5_modelHeightBaseChange_iff.mpr (modelHeightBaseChange_of_glue5 h1 hc hω hl hJ)) K A
+    (h5_modelHeightBaseChange_iff.mpr (modelHeightBaseChange_of_final h1 hc hω hl hD)) K A
 
 end ZInQ.HeightBC
 
-#print axioms ZInQ.HeightBC.modelHeightBaseChange_of_glue5
-#print axioms ZInQ.HeightBC.hodgeLineBaseChange_of_glue5
-#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_glue5
+#print axioms ZInQ.HeightBC.modelHeightBaseChange_of_final
+#print axioms ZInQ.HeightBC.hodgeLineBaseChange_of_final
+#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_final

@@ -16,13 +16,13 @@ theorem g0_hodgeLine_iff : G0StableBC.HodgeLineBaseChange ↔ HodgeLineBaseChang
 
 /-- **`StableHeightBaseChange` (g0-split missing piece 6, verbatim) from the five glue statements
 of Part C**, through g0-stablebc's `stableHeightBaseChange_of_hodgeLine`. Proved. -/
-theorem stableHeightBaseChange_of_glue5 (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
-    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hJ : JacobianSemilinear) :
+theorem stableHeightBaseChange_of_final (h1 : HodgeBCInjective) (hc : CotangentSpanBC)
+    (hω : OmegaBaseChange) (hl : UniformizationLiftAnalytic) (hD : GermDerivation) :
     G0StableBC.StableHeightBaseChange :=
   G0StableBC.stableHeightBaseChange_of_hodgeLine
-    (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_glue5 h1 hc hω hl hJ))
+    (g0_hodgeLine_iff.mpr (hodgeLineBaseChange_of_final h1 hc hω hl hD))
 
 end ZInQ.HeightBC
 
 #print axioms G0StableBC.stableHeightBaseChange_of_hodgeLine
-#print axioms ZInQ.HeightBC.stableHeightBaseChange_of_glue5
+#print axioms ZInQ.HeightBC.stableHeightBaseChange_of_final
