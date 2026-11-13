@@ -43,7 +43,7 @@ whose index, coefficients and covolumes are multiplicative have additive model h
 `scratch/g0-split/Split.lean`. So are the definitions they use: lines 16667-18603 of that file,
 which are def-faltings' `ZInQ.DefFaltings`, copied unchanged as `Prefix.lean`. So the theorem is
 about the same Prop. An integration check pastes the proofs into a copy of `Split.lean` and closes
-the piece there with `r.h5`: `scratch/g0-heightadd/SplitIntegrated.lean` compiled in 3 min 26 s
+the piece there with `r.h5`: `scratch/g0-heightadd/SplitIntegrated.lean` (both `heightAdditivity_of_split` and `heightAdditivity_of_geo`) compiled in 3 min
 with 0 errors, and its `#print axioms` lists only the three standard axioms (VERIFIED).
 
 **The gap is not closed.** The four glue hypotheses U, `MetrizationDimUnique`,
@@ -151,8 +151,8 @@ replaced by the leaf N1 (`NeronModelExists`) and the four glue Props U, `Metriza
 `MetrizationExists`, `ProductMetrizationGeo`, with
 `additivity := heightAdditivity_of_geo hN1 r.h5 hU hD hE hG`. N1 then joins the leaf
 count as a new research/textbook leaf (BLR 1.4/3). The paste is exactly what
-`SplitIntegrated.lean` does. That file compiled with 0 errors (3 min 26 s), and
-`heightAdditivity_of_split`, `glueOutputs_of_leaves` and `sixContactMin_of_leaves` all depend
+`SplitIntegrated.lean` does. That file compiled with 0 errors (3 min, log runs 3 and 6), and
+`heightAdditivity_of_split`, `heightAdditivity_of_geo`, `glueOutputs_of_leaves` and `sixContactMin_of_leaves` all depend
 only on `propext`, `Classical.choice` and `Quot.sound` (VERIFIED, log run 3).
 
 ## 6. What remains

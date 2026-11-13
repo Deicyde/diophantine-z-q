@@ -51,3 +51,9 @@ origin/wip/h5-neron (b7c1dc21), neither was in the base.
   proved `productMetrization_of_geo : ProductMetrizationGeo → ProductMetrization` and
   `HSyn.G0Split.heightAdditivity_of_geo : N1 → LeafAdopt.H5 → U → DimUnique → Exists → P2a-geo →
   HeightAdditivity`. VERIFIED.
+
+## Run 6: integration check re-run with part_prod — COMPILED (2 min 60 s; 0 errors)
+- SplitIntegrated.lean now also contains part_prod and a second `example` closing
+  `HSyn.G0Split.HeightAdditivity` by `heightAdditivity_of_geo hN1 r.h5 hU hD hE hG`.
+  `heightAdditivity_of_geo`, `heightAdditivity_of_split`, `glueOutputs_of_leaves`,
+  `sixContactMin_of_leaves`: [propext, Classical.choice, Quot.sound]. VERIFIED.
