@@ -13,6 +13,7 @@ noncomputable section
 namespace PropTSGlue
 
 open Polynomial G0ModField PropTSRed
+open scoped TensorProduct
 
 /-! ## Part A: `SpecNonMeeting` from purity (t-purity3) and three pieces of commutative algebra -/
 
@@ -912,6 +913,183 @@ theorem verticalResidueSeparable_of_degree (hD : VerticalResidueDegree) :
     simpa using this
   exact isSeparable_of_finrank_lt p (lt_of_le_of_lt hle hdeg)
 
+theorem vrd_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime) :
+    letI := intPolyAlg E
+    haveI := vertPrime_isPrime p hp
+    ∀ (q : Ideal (integralClosure ℤ[X] E)) [q.IsPrime] [q.LiesOver (vertPrime p)],
+      letI := Localization.AtPrime.algebraOfLiesOver (vertPrime p) q
+      FiniteDimensional (vertPrime p).ResidueField q.ResidueField ∧
+        Module.finrank (vertPrime p).ResidueField q.ResidueField ≤
+          Module.finrank (RatFunc ℚ) E := by
+  letI := intPolyAlg E
+  haveI := vertPrime_isPrime p hp
+  intro q _ _
+  letI := Localization.AtPrime.algebraOfLiesOver (vertPrime p) q
+  letI iZK : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  have hZK : IsFractionRing ℤ[X] (RatFunc ℚ) := isFractionRing_zx
+  have hZKE : IsScalarTower ℤ[X] (RatFunc ℚ) E := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply]
+    exact IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E _
+  have hfinC : Module.Finite ℤ[X] (integralClosure ℤ[X] E) :=
+    IsIntegralClosure.finite ℤ[X] (RatFunc ℚ) E (integralClosure ℤ[X] E)
+  have hQF : Algebra.QuasiFinite ℤ[X] (integralClosure ℤ[X] E) := inferInstance
+  letI : Fintype ((vertPrime p).primesOver (integralClosure ℤ[X] E)) :=
+    (Algebra.QuasiFinite.finite_primesOver (vertPrime p)).fintype
+  have hNoeth : IsNoetherianRing (integralClosure ℤ[X] E) :=
+    IsIntegralClosure.isNoetherianRing ℤ[X] (RatFunc ℚ) E (integralClosure ℤ[X] E)
+  have hfd : FiniteDimensional (vertPrime p).ResidueField q.ResidueField := inferInstance
+  refine ⟨hfd, ?_⟩
+  -- `e(q) > 0`
+  have hmin : q ∈ ((vertPrime p).map (algebraMap ℤ[X] (integralClosure ℤ[X] E))).minimalPrimes := by
+    refine ⟨⟨inferInstance, Ideal.map_le_iff_le_comap.mpr (le_of_eq (Ideal.over_def q (vertPrime p)))⟩,
+      fun q' hq' hle => ?_⟩
+    obtain ⟨hq'p, hmap⟩ := hq'
+    by_contra hnle
+    have hlt : q' < q := lt_of_le_of_ne hle (fun h => hnle (h ▸ le_rfl))
+    have h1 := Ideal.IsIntegral.under_lt_under (R := ℤ[X]) hlt
+    have h2 : vertPrime p ≤ q'.under ℤ[X] := Ideal.map_le_iff_le_comap.mp hmap
+    rw [← Ideal.over_def q (vertPrime p)] at h1
+    exact absurd (lt_of_le_of_lt h2 h1) (lt_irrefl _)
+  have he : 0 < q.ramificationIdx ℤ[X] := Ideal.ramificationIdx_pos_of_mem_minimalPrimes _ _ hmin
+  -- the sum formula
+  have hsum := Ideal.sum_ramification_inertia_eq_finrank_fiber (vertPrime p) (integralClosure ℤ[X] E)
+  have hqmem : q ∈ (vertPrime p).primesOver (integralClosure ℤ[X] E) := ⟨inferInstance, inferInstance⟩
+  have hle := Finset.single_le_sum
+    (f := fun x : (vertPrime p).primesOver (integralClosure ℤ[X] E) =>
+      x.1.ramificationIdx ℤ[X] * x.1.inertiaDeg ℤ[X]) (fun _ _ => Nat.zero_le _)
+    (Finset.mem_univ ⟨q, hqmem⟩)
+  have hf : q.inertiaDeg ℤ[X] = Module.finrank (vertPrime p).ResidueField q.ResidueField :=
+    Ideal.inertiaDeg_eq (vertPrime p) q
+  have hfib : Module.finrank (vertPrime p).ResidueField
+      ((vertPrime p).Fiber (integralClosure ℤ[X] E)) ≤ Module.finrank (RatFunc ℚ) E := by
+    apply le_of_eq
+    set 𝔭 := vertPrime p with h𝔭
+    -- the local base `ℤ[X]_𝔭` and its maps to `ℚ(X)` and `E`
+    letI iE : Algebra (Localization.AtPrime 𝔭) E := locAlg E 𝔭
+    letI iK : Algebra (Localization.AtPrime 𝔭) (RatFunc ℚ) := locAlg (RatFunc ℚ) 𝔭
+    have hT1 : IsScalarTower ℤ[X] (Localization.AtPrime 𝔭) (RatFunc ℚ) := by
+      apply IsScalarTower.of_algebraMap_eq'
+      exact (IsLocalization.lift_comp _).symm
+    have hfr : IsFractionRing (Localization.AtPrime 𝔭) (RatFunc ℚ) :=
+      IsFractionRing.isFractionRing_of_isDomain_of_isLocalization 𝔭.primeCompl _ _
+    have hT2 : IsScalarTower (Localization.AtPrime 𝔭) (RatFunc ℚ) E := by
+      apply IsScalarTower.of_algebraMap_eq'
+      apply IsLocalization.ringHom_ext 𝔭.primeCompl
+      rw [RingHom.comp_assoc]
+      change (IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime 𝔭)) =
+        (algebraMap (RatFunc ℚ) E).comp
+          ((IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime 𝔭)))
+      rw [IsLocalization.lift_comp, IsLocalization.lift_comp]
+      simp only [zxMap, ← RingHom.comp_assoc, ← IsScalarTower.algebraMap_eq]
+    have hTR : IsScalarTower ℤ[X] (Localization.AtPrime 𝔭) E := by
+      apply IsScalarTower.of_algebraMap_eq'
+      exact (IsLocalization.lift_comp _).symm
+    have hic : IsIntegrallyClosed (Localization.AtPrime 𝔭) :=
+      isIntegrallyClosed_of_isLocalization _ 𝔭.primeCompl 𝔭.primeCompl_le_nonZeroDivisors
+    -- `ℤ[X]_𝔭` is a DVR (principal maximal ideal)
+    have hCp0 : algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ)) ≠ 0 := by
+      intro h0
+      have := IsLocalization.injective (Localization.AtPrime 𝔭) 𝔭.primeCompl_le_nonZeroDivisors
+        (h0.trans (map_zero _).symm)
+      rw [C_eq_zero] at this
+      exact hp.ne_zero (by exact_mod_cast this)
+    have h3 : 𝔭 = Ideal.span {C (p : ℤ)} := by
+      rw [h𝔭, vertPrime, Ideal.map_span, Set.image_singleton]
+    have hmax : IsLocalRing.maximalIdeal (Localization.AtPrime 𝔭) =
+        Ideal.span {algebraMap ℤ[X] (Localization.AtPrime 𝔭) (C (p : ℤ))} := by
+      rw [← Localization.AtPrime.map_eq_maximalIdeal]
+      refine (congrArg (Ideal.map (algebraMap ℤ[X] (Localization.AtPrime 𝔭))) h3).trans ?_
+      rw [Ideal.map_span, Set.image_singleton]
+    have hnf : ¬ IsField (Localization.AtPrime 𝔭) := by
+      intro hF
+      have := (IsLocalRing.isField_iff_maximalIdeal_eq).mp hF
+      rw [hmax, Ideal.span_singleton_eq_bot] at this
+      exact hCp0 this
+    have hprin : (IsLocalRing.maximalIdeal (Localization.AtPrime 𝔭)).IsPrincipal := ⟨⟨_, hmax⟩⟩
+    have hdvr : IsDiscreteValuationRing (Localization.AtPrime 𝔭) :=
+      ((IsDiscreteValuationRing.TFAE (Localization.AtPrime 𝔭) hnf).out 1 5).mpr hprin
+    -- the integral closure `C₀` of `ℤ[X]_𝔭` in `E`
+    have hinj : Function.Injective (algebraMap (Localization.AtPrime 𝔭) E) := by
+      rw [IsScalarTower.algebraMap_eq (Localization.AtPrime 𝔭) (RatFunc ℚ) E]
+      exact (algebraMap (RatFunc ℚ) E).injective.comp
+        (IsFractionRing.injective (Localization.AtPrime 𝔭) (RatFunc ℚ))
+    have hfs : FaithfulSMul (Localization.AtPrime 𝔭) E :=
+      (faithfulSMul_iff_algebraMap_injective _ _).mpr hinj
+    have hfree : Module.Free (Localization.AtPrime 𝔭) (integralClosure (Localization.AtPrime 𝔭) E) :=
+      IsIntegralClosure.module_free (Localization.AtPrime 𝔭) (RatFunc ℚ) E
+        (integralClosure (Localization.AtPrime 𝔭) E)
+    have hfin0 : Module.Finite (Localization.AtPrime 𝔭) (integralClosure (Localization.AtPrime 𝔭) E) :=
+      IsIntegralClosure.finite (Localization.AtPrime 𝔭) (RatFunc ℚ) E
+        (integralClosure (Localization.AtPrime 𝔭) E)
+    have hrank : Module.finrank (Localization.AtPrime 𝔭) (integralClosure (Localization.AtPrime 𝔭) E)
+        = Module.finrank (RatFunc ℚ) E :=
+      IsIntegralClosure.rank (Localization.AtPrime 𝔭) (RatFunc ℚ) E
+        (integralClosure (Localization.AtPrime 𝔭) E)
+    -- `C₀` is the localization of `C`
+    let ιS : integralClosure ℤ[X] E →+* integralClosure (Localization.AtPrime 𝔭) E :=
+      { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := Localization.AtPrime 𝔭) c.2⟩
+        map_one' := rfl
+        map_mul' := fun _ _ => rfl
+        map_zero' := rfl
+        map_add' := fun _ _ => rfl }
+    letI aCS := ιS.toAlgebra
+    have hCSE : IsScalarTower (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime 𝔭) E)
+        E := IsScalarTower.of_algebraMap_eq' rfl
+    have hZCS : IsScalarTower ℤ[X] (integralClosure ℤ[X] E)
+        (integralClosure (Localization.AtPrime 𝔭) E) := by
+      apply IsScalarTower.of_algebraMap_eq
+      intro x
+      apply Subtype.ext
+      rw [IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime 𝔭)
+        (integralClosure (Localization.AtPrime 𝔭) E)]
+      change algebraMap (Localization.AtPrime 𝔭) E (algebraMap ℤ[X] _ x) = algebraMap ℤ[X] E x
+      exact (IsScalarTower.algebraMap_apply _ _ _ x).symm
+    have hlocE : IsLocalization (Algebra.algebraMapSubmonoid E 𝔭.primeCompl) E :=
+      isLocalization_field_self _ (fun x hx h0 => hx (by
+        rw [(zxMap_injective E) (h0.trans (map_zero _).symm)]; exact 𝔭.zero_mem))
+    have hlocS : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E)
+        𝔭.primeCompl) (integralClosure (Localization.AtPrime 𝔭) E) :=
+      IsLocalization.integralClosure 𝔭.primeCompl
+    have hlm : IsLocalizedModule 𝔭.primeCompl
+        (IsScalarTower.toAlgHom ℤ[X] (integralClosure ℤ[X] E)
+          (integralClosure (Localization.AtPrime 𝔭) E)).toLinearMap :=
+      (isLocalizedModule_iff_isLocalization).mpr hlocS
+    have hbc := IsLocalizedModule.isBaseChange 𝔭.primeCompl (Localization.AtPrime 𝔭)
+      (IsScalarTower.toAlgHom ℤ[X] (integralClosure ℤ[X] E)
+          (integralClosure (Localization.AtPrime 𝔭) E)).toLinearMap
+    -- the chain of dimensions
+    rw [← hrank]
+    change Module.finrank 𝔭.ResidueField (𝔭.ResidueField ⊗[ℤ[X]] integralClosure ℤ[X] E) = _
+    rw [← (TensorProduct.AlgebraTensorModule.cancelBaseChange ℤ[X] (Localization.AtPrime 𝔭) 𝔭.ResidueField
+      𝔭.ResidueField (integralClosure ℤ[X] E)).finrank_eq,
+      (hbc.equiv.baseChange (Localization.AtPrime 𝔭) 𝔭.ResidueField _ _).finrank_eq,
+      Module.finrank_baseChange]
+  calc Module.finrank (vertPrime p).ResidueField q.ResidueField = q.inertiaDeg ℤ[X] := hf.symm
+    _ ≤ q.ramificationIdx ℤ[X] * q.inertiaDeg ℤ[X] := Nat.le_mul_of_pos_left _ he
+    _ ≤ _ := hle
+    _ = _ := hsum
+    _ ≤ _ := hfib
+
+/-- **`VerticalResidueDegree` is a theorem** (compiled): Mathlib's
+`Ideal.sum_ramification_inertia_eq_finrank_fiber` for `ℤ[X] → C` at `pℤ[X]` (`C` quasi-finite;
+`e(q) > 0` since `q` is minimal over `pC`, by incomparability), and the fibre has dimension
+`[E : ℚ(X)]`: it is `κ ⊗_{ℤ[X]_{(p)}} C_{(p)}`, where `ℤ[X]_{(p)}` is a DVR (principal maximal
+ideal, `IsDiscreteValuationRing.TFAE`) and `C_{(p)}` (the integral closure of `ℤ[X]_{(p)}` in `E`,
+a localization of `C` by `IsLocalization.integralClosure`) is free of rank `[E : ℚ(X)]`
+(`IsIntegralClosure.module_free`, `IsIntegralClosure.rank`). -/
+theorem verticalResidueDegree : VerticalResidueDegree :=
+  fun E _ _ _ _ _ p hp => vrd_aux E p hp
+
+/-- **`SpecNonMeeting` from `SNSpecialize` alone** (compiled; purity, `SNLocalData`,
+`SNHorizontalTransfer`, `SNVertical` with its residue separability, and the Gauss-lemma arithmetic
+are all proved in this file). -/
+theorem specNonMeeting_of_specialize (hS : SNSpecialize) : SpecNonMeeting :=
+  specNonMeeting_of_pieces4 TPurity3.purityGlobalDim2
+    (verticalResidueSeparable_of_degree verticalResidueDegree) hS
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -1503,6 +1681,18 @@ theorem propTSAll_of_pieces''' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM :
   propTSAll_of_pieces'' t2 hR hM (verticalResidueSeparable_of_degree hVD) hS hC hA hO hVF hAI hOI
     hVI hI hNI hD hB hV
 
+/-- **The final composite**: `PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue
+`MobiusGlue`, and 13 open glue Props (`SNSpecialize`, seven Kummer pieces, five Hecke pieces). -/
+theorem propTSAll_final (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
+    (specNonMeeting_of_specialize hS) hM
+    (coverModelOfHecke_of_pieces (heckeNormalization_of_irr hI hNI) hD hB hV)
+
 end PropTSGlue
 
 end
@@ -1537,6 +1727,9 @@ end
 #print axioms PropTSGlue.propTSAll_of_pieces'
 #print axioms PropTSGlue.propTSAll_of_pieces''
 #print axioms PropTSGlue.propTSAll_of_pieces'''
+#print axioms PropTSGlue.verticalResidueDegree
+#print axioms PropTSGlue.specNonMeeting_of_specialize
+#print axioms PropTSGlue.propTSAll_final
 #print axioms PropTSGlue.isSeparable_of_finrank_lt
 #print axioms PropTSGlue.verticalResidueSeparable_of_degree
 #print axioms PropTSGlue.functionFieldModel_transfer

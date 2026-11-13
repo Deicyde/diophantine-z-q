@@ -3,7 +3,7 @@
 Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.CoverModelOfHecke`
 (scratch/prop-ts/PropTS.lean, merged from origin/wip/prop-ts) to smaller named Props or prove them.
 
-## Step 1 (08:01): file and first reduction, compiled
+## Step 1: file and first reduction, compiled
 - `scratch/prop-ts-glue/PropTSGlue.lean` = `scratch/prop-ts/PropTS.lean` verbatim (prefix check:
   `check_identical.py` prints PREFIX IDENTICAL, VERIFIED) + `Appendix.lean.part` (namespace `PropTSGlue`).
 - Build: `lake build ZInQKernel.HDecomp.QM.Pin ZInQKernel.HDecomp.Descent.B2Glue` OK; then
@@ -22,14 +22,14 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   HeckeNoVertRam → CoverModelOfHecke` (via prop-ts's `coverModel_of_N`).
 - Part D: `propTSAll_of_pieces` (the composite).
 
-## Step 2 (08:15): the case at ∞, compiled
+## Step 2: the case at ∞, compiled
 - Added `KummerAbhyankarInf`(+`Glue`), `KummerOtherBranchInf`, `KummerVerticalInf` and
   `kummerMeetInf_of_pieces` (t = p^{−M} u, c = u^{1−n}, s₀ = p^{M/n}/u, c/s₀^n = t; the meeting
   polynomial `b' s^n − c` has f(s₀) = c(b' − t)/t, a p-unit), `kummerMeetGlue_of_pieces'`
   (eight pieces, T2 only through the two Abhyankar steps). `propTSAll_of_pieces` now uses it.
 - Compile: 0 errors; 14 PropTSGlue `#print axioms` lines, all standard (VERIFIED).
 
-## Step 3 (08:35): SNLocalData PROVED, compiled
+## Step 3: SNLocalData PROVED, compiled
 - `isFractionRing_zx`: ℚ(X) is the fraction field of ℤ[X] (via `IsLocalization.integerNormalization_spec`).
 - `snLocalData : SNLocalData`: for E/ℚ(X) finite and m maximal in ℤ[X], the integral closure of
   ℤ[X]_m in E is integrally closed (`integralClosure.isIntegrallyClosedOfFiniteExtension`),
@@ -40,7 +40,7 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - Compile of PropTSGlue.lean: 0 errors, 17 PropTSGlue axiom lines all standard (VERIFIED);
   prefix still IDENTICAL.
 
-## Step 4 (08:55): SNHeightOne reduced; horizontal arithmetic PROVED, compiled
+## Step 4: SNHeightOne reduced; horizontal arithmetic PROVED, compiled
 - Proved (Mathlib only, developed in LocalData.lean, pasted): `exists_int_multiple` (N f ∈ ℤ[X]
   with p ∤ N for p-integral f), `C_notMem` (C n ∉ m if C p ∈ m, p ∤ n), `homog_mem`
   (d^k F ≡ Σ c_i a^i d^{k−i} mod any ideal ∋ dX − a), `notMem_of_val_zero` (F ∈ ℤ[X] with
@@ -53,7 +53,7 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   SNSpecialize → SpecNonMeeting`. Composite `propTSAll_of_pieces` updated.
 - Compile: 0 errors, 21 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
 
-## Step 5 (09:00): witness form of CoverModelOfHecke; sanity examples, compiled
+## Step 5: witness form of CoverModelOfHecke; sanity examples, compiled
 - `functionFieldModel_transfer`, `coverModel_transfer` (along `Pin.SameTripleMor`, via prop-ts's
   `residueImage_comp_eq_of_pt`), `CoverModelWitness` (glue: one triple with R1fp, R1hecke, R2fp
   and a cover model), `coverModelOfHecke_of_witness : MobiusGlue → R1R2fp → CoverModelWitness →
@@ -64,7 +64,7 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - Compile: 0 errors, 24 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
 - Independent review agent launched (read-only, no Lean) on the truth of the open Props.
 
-## Step 6a (09:10): purity inlined, compiled
+## Step 6a: purity inlined, compiled
 - `PropTSGlue.lean` = PropTS.lean (verbatim) + `PurityCopy.lean.part` (t-purity3's
   PurityDim2.lean from origin/wip/t-purity3 7e4d4dd0, verbatim minus import/#print lines, in a
   section; original saved as `t-purity3-PurityDim2.orig.txt`) + `Appendix.lean.part`.
@@ -83,7 +83,7 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - "∀ E with NormalizationModel" is a property of the cover (E determined up to iso; Jacobson
   argument), so the Hecke "∀ E" pieces are not stronger than their "∃ E" forms.
 
-## Step 7 (08:32): SNHorizontalTransfer PROVED, compiled
+## Step 7: SNHorizontalTransfer PROVED, compiled
 - Developed in `HorizTransfer.lean` (Mathlib only; compiled, standard axioms). Lemmas:
   `isLocalization_field_self`, `int_notMem` (P ∩ ℤ = 0 when p ∉ P), `atPrime_congr`,
   `snHorizontalTransfer_aux`. Route: S and B are localizations of C = integral closure of ℤ[X]
@@ -101,11 +101,11 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - Compile: 0 errors, 28 PropTSGlue axiom lines all standard; prefix IDENTICAL, purity copy
   CONTAINED (VERIFIED).
 
-## Step 8 (08:36): HeckeNormalization split (reviewer's suggestion), compiled
+## Step 8: HeckeNormalization split (reviewer's suggestion), compiled
 - `HeckeIrreducible` (SPECULATIVE input: Y is irreducible), `HeckeNormalizationIrr` (the chart for
   irreducible Y), `heckeNormalization_of_irr`. Compile: 0 errors, 29 standard axiom lines.
 
-## Step 9 (08:40): SNVertical reduced to VerticalResidueSeparable, compiled
+## Step 9: SNVertical reduced to VerticalResidueSeparable, compiled
 - New glue `VerticalResidueSeparable` (field theory: `[E:ℚ(X)] < p ⇒
   HasSeparableResidueFieldsAt ℤ[X] C (pℤ[X])`, C the integral closure of ℤ[X] in E).
 - `snVertical_aux`/`snVertical_of_sep : VerticalResidueSeparable → SNVertical` (compiled): P = pℤ[X]_m
@@ -115,12 +115,12 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   SpecNonMeeting`; `propTSAll_of_pieces'` now takes VerticalResidueSeparable, SNSpecialize.
 - Compile: 0 errors, 31 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).
 
-## Step 10 (08:45): final composite, report, fleet summary
+## Step 10: final composite, report, fleet summary
 - `propTSAll_of_pieces''` (14 open glue Props + T2, R1R2fp, MobiusGlue). Compile: 0 errors,
   32 PropTSGlue axiom lines all standard, 37 linter warnings (VERIFIED).
 - docs/research/prop-ts-glue.md rewritten; .fleet/prop-ts-glue.md written.
 
-## Step 11 (08:46): VerticalResidueSeparable reduced to VerticalResidueDegree, compiled
+## Step 11: VerticalResidueSeparable reduced to VerticalResidueDegree, compiled
 - `isSeparable_of_finrank_lt` (PROVED: finite extension of degree < p in characteristic p is
   separable; `Polynomial.separable_or`, `natDegree_expand`, `minpoly.natDegree_le`).
 - New glue `VerticalResidueDegree` (Σ e f = n inequality: κ(q)/κ(pℤ[X]) finite of degree
@@ -129,10 +129,26 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `propTSAll_of_pieces'''` (final composite: VerticalResidueDegree in place of
   VerticalResidueSeparable). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
 
-## Step 12 (08:58): wrap-up
+## Step 12: wrap-up
 - Final file state: PropTSGlue.lean = PropTS.lean + PurityCopy.lean.part + Appendix.lean.part
   (3399 lines). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
 - Not attempted to completion: `VerticalResidueDegree` (route recorded in the report §6:
   `Ideal.sum_ramification_inertia_eq_finrank` over the DVR ℤ[X]_{(p)} plus residue-field
   transport; `inertiaDeg_map_eq_inertiaDeg` needs a maximal base prime), `SNSpecialize`, the
   Kummer pieces, the Hecke pieces (all open glue, unproved).
+
+## Step 13: VerticalResidueDegree PROVED; SpecNonMeeting from SNSpecialize alone, compiled
+- Developed in `VRD.lean` (Mathlib only; compiled, standard axioms): `vrd_aux`. Route:
+  `Ideal.sum_ramification_inertia_eq_finrank_fiber` for ℤ[X] → C at pℤ[X] (C quasi-finite via
+  `IsIntegralClosure.finite`; `Algebra.QuasiFinite.finite_primesOver`); e(q) > 0 from
+  `ramificationIdx_pos_of_mem_minimalPrimes` (q minimal over pC by `Ideal.IsIntegral.under_lt_under`);
+  `Ideal.inertiaDeg_eq`; fibre dimension = [E:ℚ(X)]: ℤ[X]_{(p)} is a DVR
+  (`IsDiscreteValuationRing.TFAE`, principal maximal ideal), C_{(p)} = integral closure of
+  ℤ[X]_{(p)} in E is free of rank [E:ℚ(X)] (`IsIntegralClosure.module_free`, `.rank`), and
+  κ ⊗_{ℤ[X]} C ≅ κ ⊗_{ℤ[X]_{(p)}} C_{(p)} (`AlgebraTensorModule.cancelBaseChange`,
+  `IsLocalizedModule.isBaseChange`, `Module.finrank_baseChange`).
+- Appendix: `verticalResidueDegree : VerticalResidueDegree`,
+  `specNonMeeting_of_specialize : SNSpecialize → SpecNonMeeting`, `propTSAll_final` (13 open glue
+  Props: SNSpecialize, seven Kummer pieces, five Hecke pieces; plus T2, R1R2fp, MobiusGlue).
+- Compile: 0 errors, 38 PropTSGlue axiom lines all standard, 48 linter warnings; prefix IDENTICAL,
+  purity copy CONTAINED (VERIFIED).
