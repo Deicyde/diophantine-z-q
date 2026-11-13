@@ -168,3 +168,17 @@ HeckeFibreSizes, HeckeNoVertRam.
 - All copied line ranges (TSHecke.lean, image-plane AlgDepProof.lean) occur verbatim in the
   assembled files; the targets HeckeFibreSizes, HeckeNoVertRam, CurveNormChart, CurveChartInf,
   CurveGaloisChart occur verbatim (CurveGaloisChart in HeckeRestAll.lean). ALL OK.
+
+## Step 14. Lean: local-ring witness for HeckeNoVertRam (`NoVertMain.lean.part`) — VERIFIED (compiled, 0 errors)
+- Proved: `eq_vertPrime` (a nonzero prime of ℤ[X] inside pℤ[X] is pℤ[X]; UFD),
+  `vertUnramWitness_of_local : VertLocalWitness E p → VertUnramWitness E p` (B Noetherian and
+  normal via IsIntegralClosure.isNoetherianRing / isIntegrallyClosedOfFiniteExtension; B_Q has a
+  unique nonzero prime by incomparability + eq_vertPrime, hence is a DVR (TFAE); p ∉ 𝔪² through the
+  local map B_Q → R; so p is a uniformizer and e(Q) = 1 by Module.length_eq_one_iff),
+  `heckeNoVertRam_of_local : HeckeVertLocal → HeckeNoVertRam`,
+  `HeckeRestAll.coverModelOfHecke_of_heckeRest'` (with HeckeVertLocal).
+- New glue Props: `VertLocalWitness` (a ring map ψ : B → R, R local, ψ⁻¹𝔪_R = Q over pℤ[X],
+  ψ(p) ∉ 𝔪_R²), `HeckeVertLocal` (for the Hecke cover, every p > 324). Still equivalent in
+  content (take R = B_Q), but in the shape of the good-reduction input.
+- `HeckeRestAll.lean` recompiled: 0 errors; 29 HeckeRest* `#print axioms` lines, all standard;
+  check_identical.py: ALL OK.

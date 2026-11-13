@@ -142,6 +142,201 @@ theorem heckeNoVertRam_of_witness (h : HeckeVertWitness) : HeckeNoVertRam := by
   intro Y Φ π h1 hh h2 E _ _ _ _ _ _ hN p hp hp324
   exact noVerticalRam_of_witness E p (h Y Φ π h1 hh h2 E hN p hp hp324)
 
+/-! ## A local-ring witness suffices (commutative algebra, compiled)
+
+If a ring map `ψ : B → R` to a local ring has `ψ⁻¹(𝔪_R) = Q` over `p ℤ[X]` and `ψ(p) ∉ 𝔪_R²`, then
+`e(Q) = 1`. Here `B = ` the integral closure of `ℤ[X]` in `E`, which is Noetherian and normal, so
+`B_Q` is a DVR (`Q` has height one over the height-one `p ℤ[X]`), and `p` is a uniformizer of `B_Q`
+since its image avoids `𝔪_R²`. This is the shape of the good-reduction input: `R` is the local ring
+of a smooth model at the generic point of a component of the special fibre. -/
+
+/-- A nonzero prime of `ℤ[X]` inside `p ℤ[X]` is `p ℤ[X]` (`ℤ[X]` is a UFD, `p` is prime). -/
+theorem eq_vertPrime {p : ℕ} (hp : p.Prime) (I : Ideal ℤ[X]) [hI : I.IsPrime] (h0 : I ≠ ⊥)
+    (hle : I ≤ vertPrime p) : I = vertPrime p := by
+  have hv : vertPrime p = Ideal.span {C (p : ℤ)} := by
+    rw [vertPrime, Ideal.map_span, Set.image_singleton]
+  have hCp : Prime (C (p : ℤ)) := Polynomial.prime_C_iff.2 (Nat.prime_iff_prime_int.1 hp)
+  obtain ⟨r, hrI, hr⟩ := hI.exists_mem_prime_of_ne_bot h0
+  have hdvd : C (p : ℤ) ∣ r := by
+    rw [hv] at hle
+    exact Ideal.mem_span_singleton.1 (hle hrI)
+  obtain ⟨u, hu⟩ := hdvd
+  have hunit : IsUnit u := by
+    rcases hr.irreducible.isUnit_or_isUnit hu with h | h
+    · exact absurd h hCp.not_unit
+    · exact h
+  apply le_antisymm hle
+  rw [hv, Ideal.span_le, Set.singleton_subset_iff]
+  have : C (p : ℤ) = r * ↑hunit.unit⁻¹ := by
+    rw [hu, mul_assoc, IsUnit.mul_val_inv, mul_one]
+  rw [SetLike.mem_coe, this]
+  exact I.mul_mem_right _ hrI
+
+/-- **Glue (good-reduction input, local form): a local-ring witness.** A prime `Q` of the integral
+closure of `ℤ[X]` in `E` over `p ℤ[X]`, cut out by a ring map `ψ` to a local ring `R` with
+`ψ(p) ∉ 𝔪_R²` (e.g. `R` the local ring at the generic point of a component of the special fibre of a
+smooth model, `p` a uniformizer there). Glue, not a leaf. -/
+def VertLocalWitness (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
+  letI := intPolyAlg E
+  ∃ (Q : Ideal (integralClosure ℤ[X] E)) (R : Type) (_ : CommRing R) (_ : IsLocalRing R)
+    (ψ : integralClosure ℤ[X] E →+* R),
+    Q = (IsLocalRing.maximalIdeal R).comap ψ ∧ Q.under ℤ[X] = vertPrime p ∧
+    ψ (algebraMap ℤ[X] (integralClosure ℤ[X] E) (C (p : ℤ))) ∉ (IsLocalRing.maximalIdeal R) ^ 2
+
+/-- **A local-ring witness gives an unramified vertical prime** (compiled). -/
+theorem vertUnramWitness_of_local (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (h : VertLocalWitness E p) : VertUnramWitness E p := by
+  letI := intPolyAlg E
+  letI := intRatAlg
+  haveI : IsScalarTower ℤ[X] (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq (fun a => by
+    show algebraMap ℚ[X] E (a.map (Int.castRingHom ℚ)) =
+      algebraMap (RatFunc ℚ) E (algebraMap ℚ[X] (RatFunc ℚ) (a.map (Int.castRingHom ℚ)))
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E])
+  haveI := isFractionRing_int
+  obtain ⟨Q, R, _, _, ψ, hQ, hQu, hψ⟩ := h
+  haveI hQp : Q.IsPrime := by rw [hQ]; exact Ideal.comap_isPrime _ _
+  refine ⟨Q, hQp, hQu, ?_⟩
+  -- `B` is Noetherian and normal; `B_Q` is a Noetherian normal local domain
+  haveI : IsNoetherianRing (integralClosure ℤ[X] E) :=
+    IsIntegralClosure.isNoetherianRing ℤ[X] (RatFunc ℚ) E (integralClosure ℤ[X] E)
+  haveI : IsIntegrallyClosed (integralClosure ℤ[X] E) :=
+    integralClosure.isIntegrallyClosedOfFiniteExtension (RatFunc ℚ)
+  set BQ := Localization.AtPrime Q
+  haveI : IsNoetherianRing BQ := IsLocalization.isNoetherianRing Q.primeCompl BQ inferInstance
+  haveI : IsIntegrallyClosed BQ :=
+    isIntegrallyClosed_of_isLocalization BQ Q.primeCompl (Ideal.primeCompl_le_nonZeroDivisors Q)
+  -- `p ∈ Q`, and `p ≠ 0` in `B`
+  set pB : integralClosure ℤ[X] E := algebraMap ℤ[X] (integralClosure ℤ[X] E) (C (p : ℤ))
+    with hpBdef
+  have hpQ : pB ∈ Q := by
+    have : C (p : ℤ) ∈ Q.under ℤ[X] := by
+      rw [hQu, vertPrime]
+      exact Ideal.mem_map_of_mem _ (Ideal.mem_span_singleton_self _)
+    exact this
+  -- the local hom `B_Q → R`
+  have hmemQ : ∀ b, b ∈ Q ↔ ψ b ∈ IsLocalRing.maximalIdeal R := fun b => by rw [hQ]; rfl
+  have hunitψ : ∀ y : Q.primeCompl, IsUnit (ψ y) := by
+    intro y
+    have hy : (y : integralClosure ℤ[X] E) ∉ Q := y.2
+    by_contra hn
+    exact hy ((hmemQ _).2 ((IsLocalRing.mem_maximalIdeal _).2 hn))
+  let φ : BQ →+* R := IsLocalization.lift hunitψ
+  have hφ : ∀ b, φ (algebraMap _ BQ b) = ψ b := fun b => IsLocalization.lift_eq hunitψ b
+  have hmap : (IsLocalRing.maximalIdeal BQ).map φ ≤ IsLocalRing.maximalIdeal R := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal, Ideal.map_map, Ideal.map_le_iff_le_comap]
+    intro b hb
+    rw [Ideal.mem_comap, RingHom.comp_apply, hφ]
+    exact (hmemQ b).1 hb
+  set x := algebraMap (integralClosure ℤ[X] E) BQ pB with hxdef
+  have hxm : x ∈ IsLocalRing.maximalIdeal BQ := by
+    rw [← Localization.AtPrime.map_eq_maximalIdeal]
+    exact Ideal.mem_map_of_mem _ hpQ
+  have hxm2 : x ∉ (IsLocalRing.maximalIdeal BQ) ^ 2 := by
+    intro hx
+    apply hψ
+    have h1 : φ x ∈ ((IsLocalRing.maximalIdeal BQ).map φ) ^ 2 := by
+      rw [← Ideal.map_pow]; exact Ideal.mem_map_of_mem _ hx
+    have h2 : ((IsLocalRing.maximalIdeal BQ).map φ) ^ 2 ≤ (IsLocalRing.maximalIdeal R) ^ 2 := by
+      rw [sq, sq]; exact Ideal.mul_mono hmap hmap
+    have h3 := h2 h1
+    rwa [hxdef, hφ] at h3
+  have hx0 : x ≠ 0 := fun h => hxm2 (by rw [h]; exact zero_mem _)
+  haveI : IsDomain BQ := IsLocalization.isDomain_localization (Ideal.primeCompl_le_nonZeroDivisors Q)
+  -- the unique nonzero prime of `B_Q`
+  have huniq : ∃! P : Ideal BQ, P ≠ ⊥ ∧ P.IsPrime := by
+    refine ⟨IsLocalRing.maximalIdeal BQ, ⟨?_, inferInstance⟩, ?_⟩
+    · intro h
+      rw [h] at hxm
+      exact hx0 (Ideal.mem_bot.1 hxm)
+    · rintro P' ⟨hne, hprime⟩
+      set Q' := P'.comap (algebraMap (integralClosure ℤ[X] E) BQ) with hQ'def
+      haveI : Q'.IsPrime := Ideal.comap_isPrime _ _
+      have hQ'le : Q' ≤ Q := by
+        intro b hb
+        by_contra hbQ
+        have hu : IsUnit (algebraMap (integralClosure ℤ[X] E) BQ b) :=
+          IsLocalization.map_units BQ (⟨b, hbQ⟩ : Q.primeCompl)
+        exact hprime.ne_top (Ideal.eq_top_of_isUnit_mem _ hb hu)
+      have hmc : Q'.map (algebraMap (integralClosure ℤ[X] E) BQ) = P' :=
+        IsLocalization.map_comap Q.primeCompl BQ P'
+      have hQ'ne : Q' ≠ ⊥ := by
+        intro h0
+        apply hne
+        rw [← hmc, h0, Ideal.map_bot]
+      have hQ'eq : Q' = Q := by
+        by_contra hneq
+        have hlt : Q' < Q := lt_of_le_of_ne hQ'le hneq
+        have h1 := Ideal.IsIntegral.under_lt_under (R := ℤ[X]) hlt
+        have h2 : Q'.under ℤ[X] ≠ ⊥ := fun h => hQ'ne (Ideal.eq_bot_of_under_eq_bot h)
+        have h3 := eq_vertPrime hp (Q'.under ℤ[X]) h2 (by rw [← hQu]; exact h1.le)
+        rw [h3, hQu] at h1
+        exact lt_irrefl _ h1
+      rw [← hmc, hQ'eq]
+      exact Localization.AtPrime.map_eq_maximalIdeal
+  have hnf : ¬ IsField BQ := by
+    intro hf
+    have hm0 := (IsLocalRing.isField_iff_maximalIdeal_eq.1 hf)
+    rw [hm0] at hxm
+    exact hx0 (Ideal.mem_bot.1 hxm)
+  have key : (IsIntegrallyClosed BQ ∧ ∃! P : Ideal BQ, P ≠ ⊥ ∧ P.IsPrime) ↔
+      IsDiscreteValuationRing BQ := (IsDiscreteValuationRing.TFAE BQ hnf).out 4 1
+  haveI : IsDiscreteValuationRing BQ := key.mp ⟨inferInstance, huniq⟩
+  -- `x` is a uniformizer
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible BQ
+  obtain ⟨n, u, hxu⟩ := IsDiscreteValuationRing.eq_unit_mul_pow_irreducible hx0 hϖ
+  have hϖm : ϖ ∈ IsLocalRing.maximalIdeal BQ := (IsLocalRing.mem_maximalIdeal _).2 hϖ.not_isUnit
+  have hn1 : n = 1 := by
+    rcases n with _ | _ | n
+    · exfalso
+      rw [pow_zero, mul_one] at hxu
+      exact (IsLocalRing.mem_maximalIdeal _).1 hxm (hxu ▸ u.isUnit)
+    · rfl
+    · exfalso
+      apply hxm2
+      have e : (u : BQ) * ϖ ^ (n + 1 + 1) = ((u : BQ) * ϖ ^ n * ϖ) * ϖ := by ring
+      rw [hxu, e, sq]
+      exact Ideal.mul_mem_mul ((IsLocalRing.maximalIdeal BQ).mul_mem_left _ hϖm) hϖm
+  rw [hn1, pow_one] at hxu
+  have hPm : (Q.under ℤ[X]).map (algebraMap ℤ[X] BQ) = IsLocalRing.maximalIdeal BQ := by
+    apply le_antisymm
+    · rw [Ideal.map_le_iff_le_comap]
+      intro a ha
+      rw [Ideal.mem_comap, IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E) BQ,
+        ← Localization.AtPrime.map_eq_maximalIdeal]
+      exact Ideal.mem_map_of_mem _ ha
+    · rw [(IsDiscreteValuationRing.irreducible_iff_uniformizer ϖ).1 hϖ, Ideal.span_le,
+        Set.singleton_subset_iff]
+      have hϖx : ϖ = ↑u⁻¹ * x := by rw [hxu, ← mul_assoc, Units.inv_mul, one_mul]
+      rw [SetLike.mem_coe, hϖx]
+      apply Ideal.mul_mem_left
+      rw [hxdef, hpBdef, ← IsScalarTower.algebraMap_apply]
+      apply Ideal.mem_map_of_mem
+      rw [hQu, vertPrime]
+      exact Ideal.mem_map_of_mem _ (Ideal.mem_span_singleton_self _)
+  rw [Ideal.ramificationIdx_def, ENat.toNat_eq_iff_eq_natCast, Nat.cast_one,
+    Module.length_eq_one_iff, isSimpleModule_iff_isCoatom, ← Ideal.isMaximal_def,
+    IsLocalRing.isMaximal_iff]
+  exact hPm
+
+/-- **Glue (good-reduction input, local form) for the Hecke cover.** For a triple with R1fp,
+R1hecke, R2fp and any `E` carrying the chart, every prime `p > 324` has a local-ring witness
+(`VertLocalWitness`): the local ring of a smooth model of `Y₃` over `ℤ_(p)` at the generic point of
+a component of the special fibre, with `p` a uniformizer and `X` of transcendental reduction (route
+GR, §3 of docs/research/hecke-rest.md). Glue, not a leaf. -/
+def HeckeVertLocal : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∀ p : ℕ, p.Prime → 324 < p → VertLocalWitness E p
+
+/-- **`HeckeNoVertRam` from local-ring witnesses** (compiled). -/
+theorem heckeNoVertRam_of_local (h : HeckeVertLocal) : HeckeNoVertRam :=
+  heckeNoVertRam_of_witness fun Y Φ π h1 hh h2 E _ _ _ _ _ _ hN p hp hp324 =>
+    vertUnramWitness_of_local E p hp (h Y Φ π h1 hh h2 E hN p hp hp324)
+
 end HeckeRestNV
 
 end
@@ -149,3 +344,5 @@ end
 #print axioms HeckeRestNV.ramIdx_eq_of_under_eq
 #print axioms HeckeRestNV.isFractionRing_int
 #print axioms HeckeRestNV.heckeNoVertRam_of_witness
+#print axioms HeckeRestNV.vertUnramWitness_of_local
+#print axioms HeckeRestNV.heckeNoVertRam_of_local
