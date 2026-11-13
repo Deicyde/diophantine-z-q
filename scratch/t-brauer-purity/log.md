@@ -18,3 +18,13 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
   `(hC.1 p).2` (the finite-place uniqueness half); the real half and existence are unused.
 
 ## Lean
+- `LocalH2Real.lean` (Mathlib only, definitions copied verbatim from I6Base): COMPILES, no sorry,
+  axioms [propext, Classical.choice, Quot.sound]. `h2TwoClasses_of_card_two` (any discrete group of
+  order 2), `card_absoluteGaloisGroup_real : Nat.card G_ℝ = 2`, `h2TwoClasses_real`.
+- `LocalH2RealKernel.lean` (imports ZInQKernel.HDecomp.Conductor.I6Base; kernel definitions, nothing
+  copied): COMPILES, standard axioms. `TBrauerPurityK.h2TwoClasses_real :
+  PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℝ)`, `TBrauerPurityK.localH2CardC_iff :
+  PkgI6.LocalH2CardC ↔ ∀ p [Fact p.Prime], PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℚ_[p])`.
+- `KummerEtale.lean` (Mathlib only): COMPILES, standard axioms.
+  `etale_adjoinRoot_X_pow_sub_C : 0 < e → IsUnit (e : A) → IsUnit u → Algebra.Etale A (AdjoinRoot (X^e - C u))`
+  (standard étale pair (Xᵉ-u, 1)); an ingredient of Abhyankar (T2), not T2 itself.
