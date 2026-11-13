@@ -369,4 +369,100 @@ theorem upperSet_iff {σ : GQp p} {v : ℝ} :
 
 end Galois
 
+/-! ## §4. `HerbrandUpper` from `PkgI6.HerbrandQuotient` -/
+
+section Final
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+instance perfect_residue : PerfectField (IsLocalRing.ResidueField ℤ_[p]) := by
+  have : Finite (IsLocalRing.ResidueField ℤ_[p]) :=
+    Finite.of_equiv (ZMod p) PadicInt.residueField.symm.toEquiv
+  infer_instance
+
+theorem isGalois_frac [FiniteDimensional ℚ_[p] E] [IsGalois ℚ_[p] E] :
+    IsGalois (FractionRing ℤ_[p]) (FractionRing (OE E)) := by
+  refine IsGalois.of_equiv_equiv (F := ℚ_[p]) (E := E)
+    (f := (FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm.toRingEquiv)
+    (g := (FractionRing.algEquiv (OE E) E).symm.toRingEquiv) ?_
+  apply IsLocalization.ringHom_ext (nonZeroDivisors ℤ_[p])
+  ext a
+  simp only [RingHom.coe_comp, RingHom.coe_coe, Function.comp_apply, AlgEquiv.coe_ringEquiv,
+    AlgEquiv.commutes]
+  rw [← IsScalarTower.algebraMap_apply ℤ_[p] ℚ_[p] E, IsScalarTower.algebraMap_apply ℤ_[p] (OE E) E,
+    AlgEquiv.commutes]
+  rw [← IsScalarTower.algebraMap_apply ℤ_[p] (FractionRing ℤ_[p]) (FractionRing (OE E)),
+    ← IsScalarTower.algebraMap_apply ℤ_[p] (OE E) (FractionRing (OE E))]
+
+instance isSeparable_frac [FiniteDimensional ℚ_[p] E] [IsGalois ℚ_[p] E] :
+    Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing (OE E)) :=
+  have := isGalois_frac E
+  inferInstance
+
+variable {L M : Fld p}
+
+theorem OE_mono (h : L ≤ M) : OE L ≤ OE M := fun _ hx => ⟨h hx.1, hx.2⟩
+
+/-- Verbatim copy of `Swan.HerbrandUpper` (scratch/swan/Swan.lean §6). -/
+def HerbrandUpper : Prop :=
+  ∀ (p : ℕ) [Fact p.Prime] (L M : Fld p), IsFinGal L → IsFinGal M → L ≤ M → ∀ v : ℝ, 0 < v →
+    restr L '' upperSet M v = restr L '' upperSet L v
+
+/-- **`HerbrandUpper` from the kernel leaf I6.8** (proved by t-different). -/
+theorem herbrandUpper_of_quotient (hHQ : PkgI6.HerbrandQuotient) : HerbrandUpper := by
+  intro p _ L M hL hM hLM v _
+  have : FiniteDimensional ℚ_[p] L := hL.1
+  have : IsGalois ℚ_[p] L := hL.2
+  have : FiniteDimensional ℚ_[p] M := hM.1
+  have : IsGalois ℚ_[p] M := hM.2
+  have := isGalois_frac L
+  have := isGalois_frac M
+  let _ : Algebra (OE L) (OE M) := (Subalgebra.inclusion (OE_mono hLM)).toRingHom.toAlgebra
+  have : IsScalarTower ℤ_[p] (OE L) (OE M) :=
+    IsScalarTower.of_algebraMap_eq fun a => Subtype.ext rfl
+  have : FaithfulSMul (OE L) (OE M) :=
+    (faithfulSMul_iff_algebraMap_injective _ _).2 (Subalgebra.inclusion_injective _)
+  have : Module.IsTorsionFree (OE L) (OE M) := FaithfulSMul.to_isTorsionFree (OE L) (OE M)
+  -- the restriction `Gal(𝓞_M) → Gal(𝓞_L)`
+  have hagree : ∀ σ τ : GQp p, res M σ = res M τ → res L σ = res L τ := fun σ τ h =>
+    (res_eq_iff L).2 fun x hx => (res_eq_iff M).1 h x (hLM hx)
+  have hsec : ∀ s, res M (Function.surjInv (res_surjective M) s) = s :=
+    Function.surjInv_eq (res_surjective M)
+  let r : (OE M ≃ₐ[ℤ_[p]] OE M) →* (OE L ≃ₐ[ℤ_[p]] OE L) :=
+    { toFun := fun s => res L (Function.surjInv (res_surjective M) s)
+      map_one' := by
+        rw [← map_one (res L)]
+        exact hagree _ _ (by rw [hsec, map_one])
+      map_mul' := fun s t => by
+        rw [← map_mul (res L)]
+        exact hagree _ _ (by rw [hsec, map_mul, hsec, hsec]) }
+  have hr_res : ∀ σ, r (res M σ) = res L σ := fun σ => hagree _ _ (hsec _)
+  have hr : ∀ s c, algebraMap (OE L) (OE M) (r s c) = s (algebraMap (OE L) (OE M) c) := by
+    intro s c
+    obtain ⟨σ, rfl⟩ := res_surjective M s
+    rw [hr_res]
+    apply Subtype.ext
+    change ((res L σ c : OE L) : Kbar p) = ((res M σ ⟨c, OE_mono hLM c.2⟩ : OE M) : Kbar p)
+    rw [res_apply, res_apply]
+  have key := hHQ ℤ_[p] (OE L) (OE M) r hr v
+  ext y
+  constructor
+  · rintro ⟨σ, hσ, rfl⟩
+    have h1 : res L σ ∈ PkgI6.upperRam ℤ_[p] (OE L) v := by
+      rw [key, ← hr_res]
+      exact Subgroup.mem_map_of_mem r ((upperSet_iff M).1 hσ)
+    exact ⟨σ, (upperSet_iff L).2 h1, rfl⟩
+  · rintro ⟨σ, hσ, rfl⟩
+    have h1 := (upperSet_iff L).1 hσ
+    rw [key] at h1
+    obtain ⟨s, hs, hrs⟩ := h1
+    obtain ⟨τ, rfl⟩ := res_surjective M s
+    rw [hr_res] at hrs
+    refine ⟨τ, (upperSet_iff M).2 hs, funext fun x => ?_⟩
+    exact (res_eq_iff L).1 hrs x x.2
+
+end Final
+
 end SwanBridge
+
+#print axioms SwanBridge.herbrandUpper_of_quotient

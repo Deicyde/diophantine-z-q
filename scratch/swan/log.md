@@ -39,3 +39,15 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   [propext, Classical.choice, Quot.sound]. `lake env lean scratch/swan/Swan.lean` exit 0, 0 errors
   (only deprecation warnings for if_pos/if_neg). Output in scratch/swan/compile.out. VERIFIED.
 - Leaf `HerbrandUpper` weakened to `0 < v` (only range used). Recompiled: exit 0, 0 errors, all 10 printed declarations standard axioms. VERIFIED.
+- Bridge.lean compiles (exit 0, 0 errors): `SwanBridge.herbrandUpper_of_quotient : PkgI6.HerbrandQuotient → HerbrandUpper`
+  (verbatim copy of Swan.HerbrandUpper). 𝓞_E = {x ∈ E : ‖x‖ ≤ 1} as Subalgebra ℤ_[p] ℚ̄_p; IsIntegralClosure (integral ⇔
+  ‖·‖ ≤ 1 via spectralValue_le_one_iff); DVR via ofHasUnitMulPowIrreducibleFactorization; Module.Finite via
+  IsIntegralClosure.finite; IsGalois (FractionRing ℤ_p) (FractionRing 𝓞_E) via IsGalois.of_equiv_equiv; res E =
+  galRestrict ∘ restrictNormalHom, surjective; lowerRam ↔ ramSet, Nat.card lowerRamR = ramCardR, herbrandPhi = phiAt,
+  upperRam ↔ upperSet. Axioms standard. VERIFIED.
+- Kernel I6Base definitions lowerRam, mem_lowerRam, lowerRamR, herbrandPhi, upperRam, lowerRam_tower, HerbrandQuotient
+  are character-for-character equal to scratch/t-different/Herbrand.lean (python comparison). VERIFIED.
+- **All.lean** (build.sh: kernel imports + t-different Herbrand.lean lines 60-1248 + proof of PkgI6.herbrandQuotient +
+  Swan.lean + Bridge.lean + final_part.lean), 2713 lines: `lake env lean scratch/swan/All.lean` exit 0, 0 errors, ~33 s.
+  **`Swan.swanIndependent_proved`, `Swan.swanIntegral_proved`, `Swan.adaptedExists_proved`, `Swan.swan_proved`: axioms
+  [propext, Classical.choice, Quot.sound].** Output: scratch/swan/all_compile.out. VERIFIED.
