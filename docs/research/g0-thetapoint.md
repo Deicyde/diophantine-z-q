@@ -114,6 +114,14 @@ These are model checks, with no human review.
   QM object's polarization plays no role. `jDen(Ω(τ)) ≠ 0` holds because `J(u)` is finite and
   `χ₁₀ ≠ 0` on the simple surface. The Prop inherits the SPECULATIVE premise bp-qmmoduli §2.2,
   like every leaf-qm-fp object.
+* **Numerical checks (`scratch/g0-thetapoint/theta_check.py`, 220-430 digits).**
+  * At the CM point `τ₋₂₄`: `j_θ(Ω(τ)) = -16/27`, the odd theta constants are `< 10⁻²²⁰`, and
+    every `(θ_m/θ_{m₀})⁴` satisfies an integer polynomial of degree 2 or 4 with coefficients
+    `< 10³`. This is evidence for `ThetaRatiosAlgebraic` at one point (VERIFIED numerically).
+  * At a non-CM fibre (`u = 1`): `τ_u ≈ 1.3933 + 0.8693i` solves `j_θ(Ω(τ)) = J(1)`, the odd theta
+    constants vanish there, and no even one does. Algebraicity there is inconclusive: no relation
+    of degree `≤ 12` and small height; the degree-12 relations seen at 220 digits did not survive
+    at 430 digits.
 * `Jmap` in the piece is `ZInQ.JHeight.Jmap u = -57600F(u)²/G(u)⁶` (VERIFIED, read).
 
 ## 4. What compiles, what remains

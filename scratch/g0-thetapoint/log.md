@@ -54,3 +54,16 @@ Piece: `HSyn.G0Split.ThetaPointOfFibre` (g0-split missing piece 9; G19, F1 on `A
   height clause needs no theta-function input: `z'` is not tied to `z`, and dropping coordinates
   never raises Mathlib's height (VERIFIED, `height_even`).
 - `Jmap` in the piece is `ZInQ.JHeight.Jmap` (`-57600F(u)²/G(u)⁶`), VERIFIED by reading.
+
+## Numerical checks (`theta_check.py`, output `theta_check_out.txt`; mpmath 220/430 digits, PARI algdep)
+- CM point `τ₋₂₄ = 4.18154…i` (fixed point of `ι(μ)`): `j_θ(Ω(τ)) = -16/27` to 220 digits; the six odd
+  theta constants are `< 1e-220`; min even `|θ_m| = 0.785`. Every `(θ_m/θ_{m₀})⁴` satisfies an integer
+  polynomial of degree 2 or 4 with coefficients `< 10³`, with residual `< 1e-150`. (VERIFIED
+  numerically. A random number would need coefficients around `10⁵⁰` for such a residual.)
+- Non-CM fibre `u = 1`, `J(1) = -14533295809536000000/3556808369970021551449`: `τ_u =
+  1.3932949171603… + 0.8693197409124…i` solves `j_θ(Ω(τ)) = J(1)` (residual `3e-42`; found by
+  `findroot` near `τ₋₄ = √2 + i`). There the odd theta constants are `< 1e-220`, and min even
+  `|θ_m| = 0.185`, so no even theta constant vanishes, consistent with a simple surface.
+  Algebraicity is INCONCLUSIVE: degree-12 relations found at 220 digits were spurious, because at
+  430 digits the coefficients jump from `10²⁹` to `10⁵⁵`. No relation of degree `≤ 12` and small
+  height exists, and the expected degree is unknown.
