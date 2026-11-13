@@ -479,8 +479,8 @@ theorem phi_eq_one_iff (x : N) : φ x = 1 ↔ (x : Bˣ) ∈ S := by
       rcases divisors_six hd with e | e | e | e | e | e | e | e <;> rw [e] at h2 h3 ⊢ <;>
         push_cast at h2 h3 <;>
         (try simp only [padicValRat.neg, v2_two, v2_six, v3_three, v3_six] at h2 h3) <;>
-        first | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide) | (exfalso; revert h3;
-            decide)
+        first | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide)
+          | (exfalso; revert h3; decide)
     have hx₀O : (x₀ : B) ∈ O := by rw [hx₀a]; exact ⟨a, rfl⟩
     refine ⟨Units.mk0 c hc, x₀, ⟨hx₀O, ?_⟩, ?_⟩
     · have hn : nrd (x₀ : B) = nrdInt a := by rw [hx₀a, nrd_comb]

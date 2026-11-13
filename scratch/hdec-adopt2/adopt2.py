@@ -65,7 +65,13 @@ plain('B3Unram/B3b.lean', 'glue-b3b/B3b.lean')
 plain('C10/Link.lean', 'glue-c10-link/Link.lean')
 # Vigneras.
 plain('Vigneras/Local.lean', 'glue-vigneras/Local.lean')
-plain('Vigneras/Global.lean', 'glue-vigneras/Global.lean')
+L = rd('glue-vigneras/Global.lean')
+# a long `first | …` line, broken by hand before the last alternative (wrap.py would break
+# inside a parenthesized tactic sequence)
+F = '        first | (left; rfl) | (right; rfl) | (exfalso; revert h2; decide) | (exfalso; revert h3; decide)\n'
+assert F in L
+L = [l if l != F else F[:F.rindex(' |')] + '\n          | (exfalso; revert h3; decide)\n' for l in L]
+emit('Vigneras/Global.lean', 'glue-vigneras/Global.lean', L, imps(L))
 # Square-root criterion: SqrtLocal (its copy of `exists_half_iff` becomes a call to
 # `GlueI6Rest.exists_half_iff`); Disj (its copy of SqrtLocal's lines 84-242 and of
 # `PkgI6.LocalKroneckerWeber` become imports).
