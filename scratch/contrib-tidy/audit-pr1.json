@@ -1,0 +1,47 @@
+{"targets":
+ [{"type":
+   "∀ (u : Rat),\n  Not (SetLike.instMembership.mem ZInQ.contactSet u) →\n    Real.instLE.le (ZInQ.ratHeight u)\n      (instHMul.hMul (ZInQ.heightH6 ZInQ.heightD.cast) (instHPow.hPow (ZInQ.contactSupport ZInQ.Mult.S_mul u).cast 24))",
+   "status": "open",
+   "provider": "ZInQ.Contrib.sixContactMin",
+   "declaration": "ZInQ.SixContactMin"},
+  {"type":
+   "∀ (d : Nat),\n  Eq (instHMod.hMod d 8) 5 →\n    Squarefree d →\n      ∀ (F : Complex → Complex),\n        ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F →\n          instLEENat.le 2 (analyticOrderAt F 1) →\n            And (Eq (ZInQ.Literature.T5aCl d) 0) (Eq (ZInQ.RouteK.Rank5b.T5bCl d) 0)",
+   "status": "open",
+   "provider": "ZInQ.Contrib.tyzThm35ReadingA",
+   "declaration": "ZInQ.Literature.TYZThm35ReadingA"},
+  {"type":
+   "∀ (d : Nat),\n  Ne d 0 →\n    Exists fun F => ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F",
+   "status": "proved_exact_type",
+   "provider": "ZInQ.Contrib.heckeContinuation",
+   "declaration": "ZInQ.Literature.HeckeContinuation"},
+  {"type":
+   "∀ (d : Nat),\n  Eq (instHMod.hMod d 8) 5 →\n    Squarefree d →\n      ∀ (F : Complex → Complex),\n        ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F →\n          ∀ (s : Complex),\n            Real.instLT.lt 0 s.re →\n              Real.instLT.lt s.re 2 →\n                Eq (ZInQ.Literature.completedL (instHMul.hMul 32 (instHPow.hPow d 2)) F (instHSub.hSub 2 s))\n                  (Complex.instNeg.neg (ZInQ.Literature.completedL (instHMul.hMul 32 (instHPow.hPow d 2)) F s))",
+   "status": "proved_exact_type",
+   "provider": "ZInQ.Contrib.functionalEquation5",
+   "declaration": "ZInQ.Literature.FunctionalEquation5"},
+  {"type":
+   "∀ (E : WeierstrassCurve Rat),\n  E.IsElliptic →\n    ∀ (F : Complex → Complex),\n      ZInQ.Literature.IsLContinuation E F → Eq (analyticOrderAt F 1) 1 → Exists fun P => Not (IsOfFinAddOrder P)",
+   "status": "open",
+   "provider": "ZInQ.Contrib.grossZagier",
+   "declaration": "ZInQ.Literature.GrossZagier"}],
+ "status": "passed",
+ "schema": "kernel-audit/v1",
+ "runtime_declarations_not_replayed": [],
+ "raw_declaration_occurrences": 514,
+ "protocol_acceptance": false,
+ "modules":
+ ["ZInQKernel.Contrib.GaussFE.FunctionalEquation5",
+  "ZInQKernel.Contrib.GaussFE.Gauss",
+  "ZInQKernel.Contrib.GaussFE.Headline",
+  "ZInQKernel.Contrib.HeckeAll.Continuation",
+  "ZInQKernel.Contrib.HeckeAll.Iso",
+  "ZInQKernel.Contrib.HeckeAll.LocalCd",
+  "ZInQKernel.Contrib.HeckeAll.Provider",
+  "ZInQKernel.Contrib.HeckeFE.Basic"],
+ "headline_type":
+ "ZInQ.SixContactMin →\n  ZInQ.Literature.TYZThm35ReadingA →\n    ZInQ.Literature.HeckeContinuation →\n      ZInQ.Literature.FunctionalEquation5 → ZInQ.Literature.GrossZagier → ZInQ.FrozenTarget",
+ "headline":
+ "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier",
+ "duplicate_theorem_bodies_rechecked": 0,
+ "declarations": 514,
+ "allowed_axioms_used": ["Quot.sound", "Classical.choice", "propext"]}

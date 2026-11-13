@@ -1,0 +1,56 @@
+{
+ "schema": "kernel-contract-check/v1",
+ "manifest_sha256": "2c66ac6bc539829173269b7ff0474a0b7def9beca335711d3d3ceeb7b6ba9ba9",
+ "files": 941,
+ "modules": "931 modules (map elided)",
+ "targets": [
+  {
+   "declaration": "ZInQ.SixContactMin",
+   "provider": "ZInQ.Contrib.sixContactMin",
+   "source": "ZInQKernel/Hypotheses/HeightMin.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.TYZThm35ReadingA",
+   "provider": "ZInQ.Contrib.tyzThm35ReadingA",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.HeckeContinuation",
+   "provider": "ZInQ.Contrib.heckeContinuation",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.FunctionalEquation5",
+   "provider": "ZInQ.Contrib.functionalEquation5",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.GrossZagier",
+   "provider": "ZInQ.Contrib.grossZagier",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  }
+ ],
+ "headline": {
+  "declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier",
+  "type_declaration": "ZInQ.Contract.expectedHeadline"
+ },
+ "status": "valid_candidate_contract",
+ "acceptance": false,
+ "review": {
+  "route": "proof_only_astra_review",
+  "base": "a5937595cde3e3db00975b81e5171cdef92c801a",
+  "head": "b4bbf5dde48b281df3d19118d8debca65cf91b91",
+  "changed": [
+   "ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean",
+   "ZInQKernel/Contrib/GaussFE/Gauss.lean",
+   "ZInQKernel/Contrib/GaussFE/Headline.lean",
+   "ZInQKernel/Contrib/HeckeAll/Continuation.lean",
+   "ZInQKernel/Contrib/HeckeAll/Iso.lean",
+   "ZInQKernel/Contrib/HeckeAll/LocalCd.lean",
+   "ZInQKernel/Contrib/HeckeAll/Provider.lean",
+   "ZInQKernel/Contrib/HeckeFE/Basic.lean"
+  ],
+  "lock_changed": [],
+  "acceptance": false
+ }
+}

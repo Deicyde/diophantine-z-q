@@ -6,20 +6,38 @@ import ZInQKernel.RouteK.Rank.LFunctionCd
 import ZInQKernel.Hypotheses.CR3Literature
 
 /-!
-# Weight-two theta kernels over shifted copies of `ℤ[i]`
+# Hecke's theory for `C_d : y² = x³ − d²x` over `ℤ[i]`
 
-For `a, b ∈ ℝ/ℤ` the function
-`gaussTheta a b x = Σ_{(m,n) ∈ ℤ²} ((m+a) + i(n+b)) exp(−π((m+a)² + (n+b)²) x)`
-is the product decomposition `oddKernel a · evenKernel b + i · evenKernel a · oddKernel b`
-of Mathlib's Hurwitz kernels. It satisfies the weight-two transformation law
-`gaussTheta a b (1/x) = x² · gaussThetaDual a b x` and decays exponentially at `∞`, so it
-forms a strong FE-pair (`Mathlib.NumberTheory.LSeries.AbstractFuncEq`) with `k = 2`, `ε = 1`.
-Its Mellin transform is entire and satisfies `Λ(2 − s) = Λ^dual(s)`.
+The shared development behind the providers `ZInQ.Contrib.functionalEquation5` (`GaussFE/`) and
+`ZInQ.Contrib.heckeContinuation` (`HeckeAll/`), copied from `scratch/bp-hecke-fe/HeckeFE.lean` with
+only the namespace changed (to `ZInQ.Contrib.HeckeFE`).
+
+* **Theta kernels.** For `a, b ∈ ℝ/ℤ` the function
+  `gaussTheta a b x = Σ_{(m,n) ∈ ℤ²} ((m+a) + i(n+b)) exp(−π((m+a)² + (n+b)²) x)`
+  is `oddKernel a · evenKernel b + i · evenKernel a · oddKernel b` (Mathlib's Hurwitz kernels).
+  It satisfies `gaussTheta a b (1/x) = x² · gaussThetaDual a b x` and decays exponentially, so
+  it is a strong FE-pair (`Mathlib.NumberTheory.LSeries.AbstractFuncEq`) with `k = 2`, `ε = 1`:
+  its Mellin transform is entire and satisfies `Λ(2 − s) = Λ^dual(s)`.
+* **Periodic twists.** The Mellin transform is the lattice Dirichlet series
+  `Σ_{α ∈ ℤ[i]} c(α mod M) α N(α)^{−s}`; grouping by the norm gives an ordinary Dirichlet
+  series. A Fourier relation between `c` and its dual gives the functional equation.
+* **The Hecke character `ψ_d`** (`psi`, `heckeCoeff`): completely multiplicative (node B1),
+  with Euler product `HeckeEuler` (nodes B2a–B2c: `heckeMult`, `heckePrimePowSplit`).
+* **Deuring's identity** `DeuringCd d : L(C_d, s) = L(ψ_d, s)` coefficientwise, at primes
+  `p ≢ 1 (mod 4)` (node B4) and at split primes from `GaussSplit d`, reduced to `GaussSplit 1`
+  by quadratic twisting and to `GaussPointCount` (Gauss's count of `y² = x³ − x` over `𝔽_p`).
+* **The Fourier identity** `CdFourier` from the odd quadratic Gauss sums (node C2: CRT, the
+  2-part, `OddGauss p` for odd primes `p`).
+
+Main results: `literature_hecke_fe_of_gaussPointCount : GaussPointCount →
+HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`, `deuringCd_of_gaussPointCount` and
+`certifiedRankTYZClRk_of_gaussPointCount`. `GaussPointCount` itself is proved in
+`ZInQKernel.Contrib.GaussFE.FunctionalEquation5` (`GaussFE.gaussPointCount`).
 -/
 
 open Complex Real Set Filter Asymptotics HurwitzZeta
 
-namespace ZInQ.Contrib.GaussFE
+namespace ZInQ.Contrib.HeckeFE
 
 /-- The weight-two theta kernel of the shifted lattice `(a, b) + ℤ²`, with the linear
 form `x + iy`. -/
@@ -192,10 +210,12 @@ theorem hasSum_gaussTheta (a b : ℝ) {t : ℝ} (ht : 0 < t) :
     (he a).mul (ho b) (summable_mul_of_summable_norm (hen a) (hon b))
   have P : HasSum (fun p : ℤ × ℤ => ((fo a p.1 * fe b p.2 : ℝ) : ℂ) +
       I * ((fe a p.1 * fo b p.2 : ℝ) : ℂ))
-      (((oddKernel a t * evenKernel b t : ℝ) : ℂ) + I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ)) :=
+      (((oddKernel a t * evenKernel b t : ℝ) : ℂ) +
+        I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ)) :=
     (Complex.hasSum_ofReal.mpr P1).add ((Complex.hasSum_ofReal.mpr P2).mul_left I)
   have hval : gaussTheta a b t =
-      ((oddKernel a t * evenKernel b t : ℝ) : ℂ) + I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ) := by
+      ((oddKernel a t * evenKernel b t : ℝ) : ℂ) +
+        I * ((evenKernel a t * oddKernel b t : ℝ) : ℂ) := by
     simp only [gaussTheta]; push_cast; ring
   rw [hval]
   convert P using 1
@@ -310,7 +330,8 @@ theorem summable_gz_div (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
 
 theorem summable_twisted (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ}
     (hs : 3 / 2 < s.re) :
-    Summable fun p : ℤ × ℤ => c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p / (gq 0 0 p : ℂ) ^ s := by
+    Summable fun p : ℤ × ℤ =>
+      c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p / (gq 0 0 p : ℂ) ^ s := by
   set C := ∑ x, ‖c x‖
   refine Summable.of_norm_bounded ((summable_gz_div 0 0 hs).mul_left C) fun p => ?_
   rw [mul_div_assoc, norm_mul]
@@ -344,7 +365,8 @@ theorem twistedL_eq (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ
 continuation. -/
 theorem twistedL_continuation (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) :
     ∃ F : ℂ → ℂ, Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 < s.re → F s = twistedL M c s := by
-  choose G hG hGeq using fun j : Fin M × Fin M => gaussL_continuation ((j.1 : ℝ) / M) ((j.2 : ℝ) / M)
+  choose G hG hGeq using fun j : Fin M × Fin M =>
+    gaussL_continuation ((j.1 : ℝ) / M) ((j.2 : ℝ) / M)
   have hM : (((M : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
     exact_mod_cast pow_ne_zero 2 (Nat.cast_ne_zero.mpr (NeZero.ne M))
   have : NeZero (((M : ℝ) ^ 2 : ℝ) : ℂ) := ⟨hM⟩
@@ -404,8 +426,10 @@ theorem LSeries_eq_twistedL (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) 
     refine Finset.sum_eq_zero fun p hp => ?_
     have h := mem_normFiber.mp hp
     push_cast at h
-    have h1 : p.1 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
-    have h2 : p.2 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
+    have h1 : p.1 = 0 :=
+      (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
+    have h2 : p.2 = 0 :=
+      (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg p.1, sq_nonneg p.2])
     simp [T, gz, h1, h2]
   · rw [ha n hn, Finset.sum_div]
     refine Finset.sum_congr rfl fun p hp => ?_
@@ -940,7 +964,8 @@ def HeckeEuler (d : ℕ) : Prop :=
 
 theorem map_invOfUnit_one {R S : Type*} [CommRing R] [CommRing S] (f : R →+* S)
     (φ : PowerSeries R) (h : PowerSeries.constantCoeff φ = 1) :
-    PowerSeries.map f (PowerSeries.invOfUnit φ 1) = PowerSeries.invOfUnit (PowerSeries.map f φ) 1 := by
+    PowerSeries.map f (PowerSeries.invOfUnit φ 1) =
+      PowerSeries.invOfUnit (PowerSeries.map f φ) 1 := by
   have h1 : φ * PowerSeries.invOfUnit φ 1 = 1 := PowerSeries.mul_invOfUnit _ _ (by simp [h])
   have h1' : PowerSeries.map f (PowerSeries.invOfUnit φ 1) * PowerSeries.map f φ = 1 := by
     rw [← map_mul, mul_comm, h1, map_one]
@@ -955,7 +980,8 @@ theorem cdCoeff_prime_eq {d p : ℕ} (hd : Odd d) (hsq : Squarefree d) [hpp : Fa
     (hp : ¬ p ∣ 2 * d) :
     ZInQ.Literature.cdCoeff d p =
       (p : ℤ) + 1 - Nat.card (ZInQ.Literature.cdModel (ZMod p) d).toAffine.Point := by
-  rw [cdCoeff_eq_LFunction hd hsq hpp.out.ne_zero, ZInQ.Literature.LFunction_cd_apply_prime hd hsq p]
+  rw [cdCoeff_eq_LFunction hd hsq hpp.out.ne_zero,
+    ZInQ.Literature.LFunction_cd_apply_prime hd hsq p]
   simp only [hp, ↓reduceIte, ZInQ.Literature.cdModel_eq_shortCurve]
 
 /-- **`DeuringCd` from the Euler product and the primes.** If `heckeCoeff d` has the Euler
@@ -1140,7 +1166,8 @@ theorem crt_injective {d : ℕ} (hd : Odd d) :
     rwa [Nat.mod_eq_of_lt b.2, Nat.mod_eq_of_lt b'.2] at this
   rw [Fin.ext ha', Fin.ext hb']
 
-/-- **CRT for sums**: for a `4d`-periodic `g`, `Σ_{j mod 4d} g(j) = Σ_{a mod 4} Σ_{b mod d} g(da + 4b)`. -/
+/-- **CRT for sums**: for a `4d`-periodic `g`,
+`Σ_{j mod 4d} g(j) = Σ_{a mod 4} Σ_{b mod d} g(da + 4b)`. -/
 theorem sum_crt {d : ℕ} (hd : Odd d) (g : ℤ → ℂ) (hg : ∀ x : ℤ, g x = g (x % (4 * d : ℕ))) :
     ∑ j : Fin (4 * d), g j = ∑ a : Fin 4, ∑ b : Fin d, g (d * a + 4 * b) := by
   have hd0 : 0 < d := hd.pos
@@ -1306,7 +1333,8 @@ def g2G (n : ZMod 4 × ZMod 4) : GaussianInt :=
   ∑ a : Fin 4 × Fin 4, unitG ((((a.1 : ℕ) : ℤ) : ZMod 4), (((a.2 : ℕ) : ℤ) : ZMod 4)) *
     iPow ((((a.1 : ℕ) : ℤ) : ZMod 4) * n.1 + (((a.2 : ℕ) : ℤ) : ZMod 4) * n.2)
 
-theorem g2Sum_eq (ν : ℤ × ℤ) : g2Sum ν = ((g2G ((ν.1 : ZMod 4), (ν.2 : ZMod 4)) : GaussianInt) : ℂ) := by
+theorem g2Sum_eq (ν : ℤ × ℤ) :
+    g2Sum ν = ((g2G ((ν.1 : ZMod 4), (ν.2 : ZMod 4)) : GaussianInt) : ℂ) := by
   rw [g2Sum, g2G, map_sum]
   refine Finset.sum_congr rfl fun a _ => ?_
   rw [map_mul, ← unitOf_eq_unitG]
@@ -1452,13 +1480,15 @@ theorem oddGauss_mul {m n : ℕ} (hmn : Nat.Coprime m n) (hm : 0 < m) (hn : 0 < 
     simp only [G]
     have hjm : jacobiSym (((n : ℤ) * a1 + m * b1) ^ 2 + ((n : ℤ) * a2 + m * b2) ^ 2) m =
         jacobiSym (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2) m := by
-      rw [jacobiSym.mod_left' (b := m) (a₂ := (n : ℤ) ^ 2 * (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2)),
+      rw [jacobiSym.mod_left' (b := m)
+          (a₂ := (n : ℤ) ^ 2 * (((a1 : ℕ) : ℤ) ^ 2 + ((a2 : ℕ) : ℤ) ^ 2)),
         jacobiSym.mul_left, jacobiSym.sq_one' hgm, one_mul]
       exact Int.modEq_of_dvd ⟨-(2 * n * ((a1 : ℕ) : ℤ) * ((b1 : ℕ) : ℤ) + m * ((b1 : ℕ) : ℤ) ^ 2 +
         2 * n * ((a2 : ℕ) : ℤ) * ((b2 : ℕ) : ℤ) + m * ((b2 : ℕ) : ℤ) ^ 2), by ring⟩
     have hjn : jacobiSym (((n : ℤ) * a1 + m * b1) ^ 2 + ((n : ℤ) * a2 + m * b2) ^ 2) n =
         jacobiSym (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2) n := by
-      rw [jacobiSym.mod_left' (b := n) (a₂ := (m : ℤ) ^ 2 * (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2)),
+      rw [jacobiSym.mod_left' (b := n)
+          (a₂ := (m : ℤ) ^ 2 * (((b1 : ℕ) : ℤ) ^ 2 + ((b2 : ℕ) : ℤ) ^ 2)),
         jacobiSym.mul_left, jacobiSym.sq_one' hgn, one_mul]
       exact Int.modEq_of_dvd ⟨-(n * ((a1 : ℕ) : ℤ) ^ 2 + 2 * m * ((a1 : ℕ) : ℤ) * ((b1 : ℕ) : ℤ) +
         n * ((a2 : ℕ) : ℤ) ^ 2 + 2 * m * ((a2 : ℕ) : ℤ) * ((b2 : ℕ) : ℤ)), by ring⟩
@@ -1996,7 +2026,8 @@ theorem literature_hecke_fe_of_mult_primePow_gaussPointCount
 
 /-! ### `HeckePrimePow` at the non-split primes -/
 
-theorem unitOf_eq_zero_of_even {a b : ZMod 4} (h : (a.val + b.val) % 2 = 0) : unitOf (a, b) = 0 := by
+theorem unitOf_eq_zero_of_even {a b : ZMod 4} (h : (a.val + b.val) % 2 = 0) :
+    unitOf (a, b) = 0 := by
   have hc : ∀ a b : ZMod 4, (a.val + b.val) % 2 = 0 →
       ¬ ((a, b) = (1, 0) ∨ (a, b) = (3, 2)) ∧ ¬ ((a, b) = (3, 0) ∨ (a, b) = (1, 2)) ∧
       ¬ ((a, b) = (0, 3) ∨ (a, b) = (2, 1)) ∧ ¬ ((a, b) = (0, 1) ∨ (a, b) = (2, 3)) := by decide
@@ -2050,7 +2081,8 @@ theorem dvd_of_dvd_sq_add_sq {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) {a b : �
       (by linear_combination h0) hp3
   have ha : (a : ZMod p) = 0 := by
     rw [hb] at h0; simpa using h0
-  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a p).mp ha, (ZMod.intCast_zmod_eq_zero_iff_dvd b p).mp hb⟩
+  exact ⟨(ZMod.intCast_zmod_eq_zero_iff_dvd a p).mp ha,
+    (ZMod.intCast_zmod_eq_zero_iff_dvd b p).mp hb⟩
 
 theorem normFiber_inert {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (k : ℕ) :
     normFiber (p ^ (k + 2)) =
@@ -2075,7 +2107,8 @@ theorem normFiber_inert {p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (k : ℕ) :
     push_cast at hr ⊢
     linear_combination (p : ℤ) ^ 2 * hr
 
-/-- **Inert primes**: `heckeCoeff d (p^(k+2)) = −p · heckeCoeff d (p^k)` for `p ≡ 3 (mod 4)`, `p ∤ d`. -/
+/-- **Inert primes**: `heckeCoeff d (p^(k+2)) = −p · heckeCoeff d (p^k)` for `p ≡ 3 (mod 4)`,
+`p ∤ d`. -/
 theorem heckeCoeff_inert {d p : ℕ} (hp : p.Prime) (hp3 : p % 4 = 3) (hpd : ¬ p ∣ d) (k : ℕ) :
     heckeCoeff d (p ^ (k + 2)) = -(p : ℂ) * heckeCoeff d (p ^ k) := by
   have hp0 : (p : ℤ) ≠ 0 := by exact_mod_cast hp.ne_zero
@@ -2181,8 +2214,10 @@ theorem norm_eq_one_cases {c : ℤ × ℤ} (h : c.1 ^ 2 + c.2 ^ 2 = 1) :
     c = (1, 0) ∨ c = (-1, 0) ∨ c = (0, 1) ∨ c = (0, -1) := by
   have h1 : c.1 ^ 2 ≤ 1 := by nlinarith [sq_nonneg c.2]
   have h2 : c.2 ^ 2 ≤ 1 := by nlinarith [sq_nonneg c.1]
-  have hb1 : -1 ≤ c.1 ∧ c.1 ≤ 1 := by constructor <;> nlinarith [sq_nonneg (c.1 + 1), sq_nonneg (c.1 - 1)]
-  have hb2 : -1 ≤ c.2 ∧ c.2 ≤ 1 := by constructor <;> nlinarith [sq_nonneg (c.2 + 1), sq_nonneg (c.2 - 1)]
+  have hb1 : -1 ≤ c.1 ∧ c.1 ≤ 1 := by
+    constructor <;> nlinarith [sq_nonneg (c.1 + 1), sq_nonneg (c.1 - 1)]
+  have hb2 : -1 ≤ c.2 ∧ c.2 ≤ 1 := by
+    constructor <;> nlinarith [sq_nonneg (c.2 + 1), sq_nonneg (c.2 - 1)]
   obtain ⟨a, b⟩ := c
   simp only at h hb1 hb2 ⊢
   have ha : a = -1 ∨ a = 0 ∨ a = 1 := by omega
@@ -2223,10 +2258,13 @@ theorem norm_gcd_eq {γ : GaussianInt} {m n : ℕ} (hm : 0 < m) (hn : 0 < n) (hm
     have hE := EuclideanDomain.gcd_eq_gcd_ab γ (n : GaussianInt)
     have hmn' : ((m : GaussianInt) * n) = γ * star γ := by
       rw [← Zsqrtd.norm_eq_mul_conj, hγ]; push_cast; ring
-    refine ⟨EuclideanDomain.gcdA γ (m : GaussianInt) * (γ * EuclideanDomain.gcdA γ (n : GaussianInt) +
-      (n : GaussianInt) * EuclideanDomain.gcdB γ (n : GaussianInt)) +
-      (m : GaussianInt) * EuclideanDomain.gcdB γ (m : GaussianInt) * EuclideanDomain.gcdA γ (n : GaussianInt) +
-      star γ * EuclideanDomain.gcdB γ (m : GaussianInt) * EuclideanDomain.gcdB γ (n : GaussianInt), ?_⟩
+    refine ⟨EuclideanDomain.gcdA γ (m : GaussianInt) *
+        (γ * EuclideanDomain.gcdA γ (n : GaussianInt) +
+          (n : GaussianInt) * EuclideanDomain.gcdB γ (n : GaussianInt)) +
+      (m : GaussianInt) * EuclideanDomain.gcdB γ (m : GaussianInt) *
+        EuclideanDomain.gcdA γ (n : GaussianInt) +
+      star γ * EuclideanDomain.gcdB γ (m : GaussianInt) *
+        EuclideanDomain.gcdB γ (n : GaussianInt), ?_⟩
     rw [show D = _ from hD, show E = _ from hE]
     linear_combination (EuclideanDomain.gcdB γ (m : GaussianInt) *
       EuclideanDomain.gcdB γ (n : GaussianInt)) * hmn'
@@ -2360,8 +2398,10 @@ theorem heckeCoeff_zero (d : ℕ) : heckeCoeff d 0 = 0 := by
   refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
   have h := mem_normFiber.mp hq
   push_cast at h
-  have h1 : q.1 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
-  have h2 : q.2 = 0 := (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
+  have h1 : q.1 = 0 :=
+    (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
+  have h2 : q.2 = 0 :=
+    (pow_eq_zero_iff two_ne_zero).mp (by nlinarith [sq_nonneg q.1, sq_nonneg q.2])
   simp [gz, h1, h2]
 
 /-- **`HeckeMult d` holds for every `d`.** -/
@@ -2437,7 +2477,8 @@ theorem psi_split_prime {d p : ℕ} (hp : p.Prime) (hp1 : p % 4 = 1) (hpd : ¬ p
 
 open Classical in
 /-- `Σ_{β ∈ A_{n}} f(zβ) = Σ_{γ ∈ A_{pn}, z ∣ γ} f(γ)` for `N z = p`. -/
-theorem sum_mul_bij {z : ℤ × ℤ} {p n : ℕ} (hz : z.1 ^ 2 + z.2 ^ 2 = p) (hp : 0 < p) (f : ℤ × ℤ → ℂ) :
+theorem sum_mul_bij {z : ℤ × ℤ} {p n : ℕ} (hz : z.1 ^ 2 + z.2 ^ 2 = p) (hp : 0 < p)
+    (f : ℤ × ℤ → ℂ) :
     ∑ β ∈ normFiber n, f (gmul z β) =
       ∑ γ ∈ (normFiber (p * n)).filter (fun γ => toG z ∣ toG γ), f γ := by
   have hz0 : toG z ≠ 0 := by
@@ -2673,9 +2714,9 @@ theorem heckePrimePowSplit (d : ℕ) : HeckePrimePowSplit d := by
     obtain ⟨hor, hand⟩ := split_dvd hp hp1 hab hN
     rw [htoGp]
     by_cases h1 : toG (piZ a b) ∣ toG γ <;> by_cases h2 : toG (conjZ (piZ a b)) ∣ toG γ
-    · rw [if_pos h1, if_pos h2, if_pos (hand.mp ⟨h1, h2⟩)]
-    · rw [if_pos h1, if_neg h2, if_neg (fun h => h2 (hand.mpr h).2)]
-    · rw [if_neg h1, if_pos h2, if_neg (fun h => h1 (hand.mpr h).1)]; ring
+    · rw [ite_eq_left h1, ite_eq_left h2, ite_eq_left (hand.mp ⟨h1, h2⟩)]
+    · rw [ite_eq_left h1, ite_eq_right h2, ite_eq_right (fun h => h2 (hand.mpr h).2)]
+    · rw [ite_eq_right h1, ite_eq_left h2, ite_eq_right (fun h => h1 (hand.mpr h).1)]; ring
     · exact absurd hor (by tauto)
   have hpsi_p : ∀ δ : ℤ × ℤ, psi d (gmul ((p : ℤ), 0) δ) = p * psi d δ := fun δ => by
     rw [psi_mul, psi_split_prime hp hp1 hpd]
@@ -2721,4 +2762,4 @@ theorem certifiedRankTYZClRk_of_gaussPointCount (hA : ZInQ.Literature.TYZThm35Re
   certifiedRankTYZClRk_of_elementary hA hG (fun d _ _ => heckeMult d)
     (fun d _ _ => heckePrimePowSplit d) h1
 
-end ZInQ.Contrib.GaussFE
+end ZInQ.Contrib.HeckeFE

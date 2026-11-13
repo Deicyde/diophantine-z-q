@@ -66,7 +66,7 @@ theorem sum_char_mul_add (hF : ringChar F ≠ 2) (u v : F) :
     simp_rw [quadraticChar_sq_eq]
     have : ∀ b : F, (if b = 0 then (0 : ℤ) else 1) = 1 - if b = 0 then 1 else 0 := fun b => by
       split_ifs <;> simp
-    simp only [this, Finset.sum_sub_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true,
+    simp only [this, Finset.sum_sub_distrib, Finset.sum_ite_eq', Finset.mem_univ, ite_true,
       Finset.sum_const, Finset.card_univ, nsmul_eq_mul, mul_one]
   · set w := u - v with hw
     have hw0 : w ≠ 0 := sub_ne_zero.mpr huv
@@ -110,8 +110,8 @@ theorem sum_jac_sq (hF : ringChar F ≠ 2) :
       rw [eq_comm]; exact sq_eq_sq_iff_eq_or_eq_neg
     rw [map_mul]
     by_cases h : y = x ∨ y = -x
-    · rw [if_pos (this.mpr h), if_pos h]; ring
-    · rw [if_neg (fun h' => h (this.mp h')), if_neg h]; ring
+    · rw [ite_eq_left (this.mpr h), ite_eq_left h]; ring
+    · rw [ite_eq_right (fun h' => h (this.mp h')), ite_eq_right h]; ring
   simp_rw [h2, Finset.sum_sub_distrib, ← Finset.mul_sum, ← Finset.sum_mul,
     quadraticChar_sum_zero hF, zero_mul, sub_zero] at h1
   rw [h1]
@@ -126,25 +126,25 @@ theorem sum_jac_sq (hF : ringChar F ≠ 2) :
             (if y = -x then quadraticChar F (x * y) else 0) := by
         intro y
         by_cases h1 : y = x
-        · subst h1; rw [if_pos (Or.inl rfl), if_pos rfl, if_neg hne]; ring
+        · subst h1; rw [ite_eq_left (Or.inl rfl), ite_eq_left rfl, ite_eq_right hne]; ring
         · by_cases h2 : y = -x
-          · subst h2; rw [if_pos (Or.inr rfl), if_neg h1, if_pos rfl]; ring
-          · rw [if_neg (by tauto), if_neg h1, if_neg h2]; ring
-      simp only [this, Finset.sum_add_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true]
+          · subst h2; rw [ite_eq_left (Or.inr rfl), ite_eq_right h1, ite_eq_left rfl]; ring
+          · rw [ite_eq_right (by tauto), ite_eq_right h1, ite_eq_right h2]; ring
+      simp only [this, Finset.sum_add_distrib, Finset.sum_ite_eq', Finset.mem_univ, ite_true]
       rw [← sq, quadraticChar_sq_one' hx, mul_neg, ← sq, neg_eq_neg_one_mul (x ^ 2), map_mul,
         quadraticChar_sq_one' hx, mul_one]
   simp_rw [h3]
   have : ∀ x : F, (if x = 0 then (0 : ℤ) else 1 + quadraticChar F (-1)) =
       (1 + quadraticChar F (-1)) - if x = 0 then 1 + quadraticChar F (-1) else 0 := fun x => by
     split_ifs <;> simp
-  simp only [this, Finset.sum_sub_distrib, Finset.sum_ite_eq', Finset.mem_univ, if_true,
+  simp only [this, Finset.sum_sub_distrib, Finset.sum_ite_eq', Finset.mem_univ, ite_true,
     Finset.sum_const, Finset.card_univ, nsmul_eq_mul]
   ring
 
 theorem quadraticChar_le_one (a : F) : quadraticChar F a ≤ 1 := by
   rcases eq_or_ne a 0 with rfl | ha
   · simp
-  · rcases quadraticChar_dichotomy ha with h | h <;> rw [h] <;> norm_num
+  · rcases quadraticChar_dichotomy ha with h | h <;> rw [h]; norm_num
 
 /-- `Σ_t G(t²) ≤ 2 Σ_c G(c)` for nonnegative `G` (each `c` has at most two square roots). -/
 theorem sum_sq_le_two_mul (hF : ringChar F ≠ 2) (G : F → ℤ) (hG : ∀ c, 0 ≤ G c) :
@@ -205,7 +205,7 @@ section Cd
 /-- `c_p = −φ(−d²)` at a prime `p ∤ 2d` (any `d`). -/
 theorem cdCoeff_prime_eq_neg_jac (d : ℕ) {p : ℕ} [Fact p.Prime] (hp : ¬ p ∣ 2 * d) :
     cdCoeff d p = -jac (-(d : ZMod p) ^ 2) := by
-  rw [cdCoeff_prime d (Fact.out), if_neg hp, cdModel_eq_shortCurve,
+  rw [cdCoeff_prime d (Fact.out), ite_eq_right hp, cdModel_eq_shortCurve,
     natCard_point_shortCurve_zmod p hp]
   have h := card_solutions_eq (ringChar_zmod_ne_two (ne_two_of_not_dvd hp))
     (fun x : ZMod p => x ^ 3 - (d : ZMod p) ^ 2 * x)
@@ -222,7 +222,7 @@ theorem cdCoeff_prime_eq_neg_jac (d : ℕ) {p : ℕ} [Fact p.Prime] (hp : ¬ p �
 theorem cdCoeff_prime_sq_le (d : ℕ) {p : ℕ} (hp : p.Prime) : cdCoeff d p ^ 2 ≤ 4 * p := by
   have := Fact.mk hp
   by_cases h : p ∣ 2 * d
-  · rw [cdCoeff_prime d hp, if_pos h]; positivity
+  · rw [cdCoeff_prime d hp, ite_eq_left h]; positivity
   · rw [cdCoeff_prime_eq_neg_jac d h, neg_sq]
     have hd : (d : ZMod p) ≠ 0 := fun h0 =>
       h (((ZMod.natCast_eq_zero_iff d p).mp h0).trans (dvd_mul_left d 2))

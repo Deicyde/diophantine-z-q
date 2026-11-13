@@ -13,6 +13,8 @@ Theorem 1.1 (`FrozenTarget`) from `SixContactMin` and these two literature Props
 
 namespace ZInQ.Contrib.GaussFE
 
+open ZInQ.Contrib.HeckeFE
+
 /-- **CR₃ from TYZ reading A and Gross–Zagier.** -/
 theorem certifiedRankTYZClRk_of_readingA_grossZagier (hA : ZInQ.Literature.TYZThm35ReadingA)
     (hG : ZInQ.Literature.GrossZagier) : ZInQ.RouteK.Rank.CertifiedRankTYZClRk :=

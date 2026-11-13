@@ -1,0 +1,38 @@
+{
+ "modules": [
+  "ZInQKernel.Contrib.PSide.APZero",
+  "ZInQKernel.Contrib.PSide.BadPrimes",
+  "ZInQKernel.Contrib.PSide.Coeff",
+  "ZInQKernel.Contrib.PSide.Convergence",
+  "ZInQKernel.Contrib.PSide.Hasse",
+  "ZInQKernel.Contrib.PSide.Supersingular",
+  "ZInQKernel.Contrib.PSide.TYZInputsIff"
+ ],
+ "targets": [
+  {
+   "declaration": "ZInQ.Literature.TYZThm35ReadingA",
+   "provider": "ZInQ.Contrib.tyzThm35ReadingA",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.HeckeContinuation",
+   "provider": "ZInQ.Contrib.heckeContinuation",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.FunctionalEquation5",
+   "provider": "ZInQ.Contrib.functionalEquation5",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  },
+  {
+   "declaration": "ZInQ.Literature.GrossZagier",
+   "provider": "ZInQ.Contrib.grossZagier",
+   "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+  }
+ ],
+ "headline": {
+  "declaration": "ZInQ.Contrib.PSide.tyzInputs_iff_readingA",
+  "type_declaration": "ZInQ.Contrib.PSide.tyzInputs_iff_readingA"
+ },
+ "exports": []
+}

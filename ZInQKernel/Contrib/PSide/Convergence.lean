@@ -36,7 +36,7 @@ theorem recurrence_bound (a r : ℝ) (hr : 0 ≤ r) (ha : a ^ 2 ≤ 4 * r ^ 2) (
   have hdl : dl ^ 2 = 4 * r ^ 2 - a ^ 2 := Real.sq_sqrt (by linarith)
   set α : ℂ := ⟨a / 2, dl / 2⟩
   set β : ℂ := ⟨a / 2, -dl / 2⟩
-  have hsum : α + β = (a : ℂ) := by apply Complex.ext <;> simp [α, β] <;> ring
+  have hsum : α + β = (a : ℂ) := by apply Complex.ext <;> simp [α, β]; ring
   have hprod : α * β = (r : ℂ) ^ 2 := by
     apply Complex.ext
     · simp only [α, β, Complex.mul_re, sq, Complex.ofReal_re, Complex.ofReal_im, Complex.mul_re]
@@ -144,7 +144,8 @@ theorem LSeriesSummable_cdCoeff (d : ℕ) {s : ℂ} (hs : 3 / 2 < s.re) :
   rcases eq_or_ne n 0 with rfl | hn
   · simp
   have hn' : (0 : ℝ) < n := Nat.cast_pos.mpr (Nat.pos_of_ne_zero hn)
-  rw [LSeries.norm_term_eq, LSeries.norm_term_eq, if_neg hn, if_neg hn, convolution_one_one, Complex.norm_natCast]
+  rw [LSeries.norm_term_eq, LSeries.norm_term_eq, ite_eq_right hn, ite_eq_right hn,
+    convolution_one_one, Complex.norm_natCast]
   -- `‖c_n‖ ≤ σ₀(n) √n`
   have hb : ‖(cdCoeff d n : ℂ)‖ ≤ (sigma 0 n : ℝ) * Real.sqrt n := by
     rw [Complex.norm_intCast]

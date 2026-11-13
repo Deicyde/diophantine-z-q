@@ -1,0 +1,40 @@
+{"targets":
+ [{"type":
+   "∀ (d : Nat),\n  Eq (instHMod.hMod d 8) 5 →\n    Squarefree d →\n      ∀ (F : Complex → Complex),\n        ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F →\n          instLEENat.le 2 (analyticOrderAt F 1) →\n            And (Eq (ZInQ.Literature.T5aCl d) 0) (Eq (ZInQ.RouteK.Rank5b.T5bCl d) 0)",
+   "status": "open",
+   "provider": "ZInQ.Contrib.tyzThm35ReadingA",
+   "declaration": "ZInQ.Literature.TYZThm35ReadingA"},
+  {"type":
+   "∀ (d : Nat),\n  Ne d 0 →\n    Exists fun F => ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F",
+   "status": "open",
+   "provider": "ZInQ.Contrib.heckeContinuation",
+   "declaration": "ZInQ.Literature.HeckeContinuation"},
+  {"type":
+   "∀ (d : Nat),\n  Eq (instHMod.hMod d 8) 5 →\n    Squarefree d →\n      ∀ (F : Complex → Complex),\n        ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow d.cast 2))) F →\n          ∀ (s : Complex),\n            Real.instLT.lt 0 s.re →\n              Real.instLT.lt s.re 2 →\n                Eq (ZInQ.Literature.completedL (instHMul.hMul 32 (instHPow.hPow d 2)) F (instHSub.hSub 2 s))\n                  (Complex.instNeg.neg (ZInQ.Literature.completedL (instHMul.hMul 32 (instHPow.hPow d 2)) F s))",
+   "status": "open",
+   "provider": "ZInQ.Contrib.functionalEquation5",
+   "declaration": "ZInQ.Literature.FunctionalEquation5"},
+  {"type":
+   "∀ (E : WeierstrassCurve Rat),\n  E.IsElliptic →\n    ∀ (F : Complex → Complex),\n      ZInQ.Literature.IsLContinuation E F → Eq (analyticOrderAt F 1) 1 → Exists fun P => Not (IsOfFinAddOrder P)",
+   "status": "open",
+   "provider": "ZInQ.Contrib.grossZagier",
+   "declaration": "ZInQ.Literature.GrossZagier"}],
+ "status": "passed",
+ "schema": "kernel-audit/v1",
+ "runtime_declarations_not_replayed": [],
+ "raw_declaration_occurrences": 93,
+ "protocol_acceptance": false,
+ "modules":
+ ["ZInQKernel.Contrib.PSide.APZero",
+  "ZInQKernel.Contrib.PSide.BadPrimes",
+  "ZInQKernel.Contrib.PSide.Coeff",
+  "ZInQKernel.Contrib.PSide.Convergence",
+  "ZInQKernel.Contrib.PSide.Hasse",
+  "ZInQKernel.Contrib.PSide.Supersingular",
+  "ZInQKernel.Contrib.PSide.TYZInputsIff"],
+ "headline_type":
+ "Iff ZInQ.PropN.TYZInputs\n  (And ZInQ.Literature.TYZThm35ReadingA\n    (∀ (n : Nat),\n      Eq (instHMod.hMod n 8) 5 →\n        Squarefree n →\n          Or\n            (Exists fun F =>\n              ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (Rat.instNeg.neg (instHPow.hPow n.cast 2))) F)\n            (And (Eq (ZInQ.Literature.T5aCl n) 0) (Eq (ZInQ.RouteK.Rank5b.T5bCl n) 0))))",
+ "headline": "ZInQ.Contrib.PSide.tyzInputs_iff_readingA",
+ "duplicate_theorem_bodies_rechecked": 0,
+ "declarations": 93,
+ "allowed_axioms_used": ["Quot.sound", "Classical.choice", "propext"]}

@@ -1,0 +1,13 @@
+ZInQ.Contrib.GaussFE: 41 declarations
+ZInQ.Contrib.HeckeAll: 41 declarations
+ZInQ.Contrib.HeckeFE: 236 declarations
+ZInQ.Contrib.PSide: 67 declarations
+ZInQ.Contrib.functionalEquation5 (top level): 1 declarations
+ZInQ.Contrib.heckeContinuation (top level): 1 declarations
+ZInQ.Contrib.heckeContinuation_functionalEquation5_of_gaussPointCount (top level): 1 declarations
+ZInQ.Contrib.heckeContinuation_of_gaussPointCount (top level): 1 declarations
+389 declarations under ZInQ.Contrib; axioms used (union): [propext, Classical.choice, Quot.sound]
+
+real	0m5.780s
+user	0m3.436s
+sys	0m2.260s
