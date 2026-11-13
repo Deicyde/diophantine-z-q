@@ -11951,7 +11951,11 @@ end LeafPushSec
 
 section GlueT32aSec
 /-! ### leaf-adopt (2026-11-12): copied from `scratch/glue-t32a/T32a.lean` (compiled there).
-Only changes: imports and `#print axioms` lines dropped; see the section's note for renamings. -/
+Only changes: imports and `#print axioms` lines dropped, and the two `namespace LeafPush` blocks
+(T32a.lean L1473-1506, L1612-1632) dropped: they re-declare `LeafPush.GQ`, `IsAtPrime`,
+`inertiaQ`, `T32b_QuadraticRamification`, `T32a_TameQuadratic`, whose bodies are identical to
+section `LeafPushSec` above (checked by leaf-adopt), so `GlueB3Unram.t32a`, `t32b` below prove
+this file's leaf-push statements. -/
 
 
 /-!
@@ -14131,7 +14135,12 @@ end GlueT32aSec
 
 section LeafQMSec
 /-! ### leaf-adopt (2026-11-12): copied from `scratch/leaf-qm-fp/QMLeaves.lean` (compiled there).
-Only changes: imports and `#print axioms` lines dropped; see the section's note for renamings. -/
+Only changes: imports and `#print axioms` lines dropped, and one renaming: the kernel's
+`GlueA6Alg.goodReduction_of_QM_rational3'` (ZInQKernel/HDecomp/A6/A6.lean) is this file's
+`PkgI2.goodReduction_of_QM_rational3'` (same statement; the kernel module cannot be imported
+here because its namespaces `PkgI2`, `PkgI3`, `ObjBridge` are also defined in this file).
+`PkgI3.AbVar`, `ObjBridge.TorsionStructure`, `ObjBridge.dim` resolve to this file's copies,
+which are those of ZInQKernel/HDecomp/Objects.lean. -/
 
 
 /-!
@@ -15621,7 +15630,10 @@ end LeafQMSec
 
 section LeafModCurvesSec
 /-! ### leaf-adopt (2026-11-12): copied from `scratch/leaf-modcurves/ModCurveLeaves.lean` (compiled there).
-Only changes: imports and `#print axioms` lines dropped. -/
+Only changes: imports and `#print axioms` lines dropped; two docstrings (of `R16_EichlerShimuraJ1'`
+and `DimJ1Genus`) say that MC9 is a citation-chain fact, not a leaf (rv-blueprints M1); no
+statement changed. `PkgI3.AbVar` and `GlueC10.IsFrobAt`, `GlueC10.Zbar` resolve to this file's
+copies (those of ZInQKernel/HDecomp/Objects.lean and C10/C10.lean). -/
 
 
 /-!
@@ -16316,7 +16328,10 @@ arithmetic Frobenius on the covariant `V_ℓ(A_f)`, `p ∤ Nℓ`, is printed as 
 Thm 9.5.4 and Shimura 1971 Thm 7.11 / Ribet 1977 (UNVERIFIED numbers; review finding 2026-11-12),
 which is the supplier to cite for the trace and determinant clauses.
 Shimura's theorems are for his canonical model of `X₁(N)`; they transfer to every model of §D
-because any two are `ℚ`-isomorphic (leaf MC9 of bp-modcurves: Shimura's canonical model for
+because any two are `ℚ`-isomorphic (a fact of the citation chain, not a Lean leaf: rv-blueprints
+M1, adopted by leaf-adopt 2026-11-12, drops bp-modcurves' leaf MC9, since `IsJ1` quantifies over
+every `K_N` model and the existential conclusion is invariant under isomorphism of `J`,
+rv-blueprints `exists_quotient_transfer`. Shimura's canonical model for
 `Γ₁(N)` has function field `ℚ(j, f_{(0,1/N)})`, `ℚ`-isomorphic to `K_N`; Shimura 1971 §6.7,
 UNVERIFIED). If a convention gives `ā_p`, `χ̄(p)`, replace `θ` by `θ ∘ c` (`K_f` is totally real
 or CM, so complex conjugation `c` preserves it): the statement is unaffected. -/
@@ -16341,8 +16356,9 @@ def R16_EichlerShimuraJ1' : Prop :=
 `dim J = 1 + μ/12 − ν₂/4 − ν₃/3 − ν∞/2` with `μ = [SL₂(ℤ) : ±Γ₁(N)]`, `ν₂`, `ν₃` the fixed points
 of `S`, `ST` and `ν∞` the `⟨T⟩`-orbits on `SL₂(ℤ)/±Γ₁(N)` (§A). Consequence of three published
 statements: the genus formula for `Γ\ℍ*` (Shimura 1971, Prop. 1.40, UNVERIFIED number);
-`X₁(N)_ℂ ≅ Γ₁(N)\ℍ*` for the canonical model (Shimura 1971 §6.7, UNVERIFIED) with leaf MC9 of
-bp-modcurves; `dim Jac X = genus X` (Milne 1986, Prop. 2.1 / Thm 1.1, UNVERIFIED). The formula was
+`X₁(N)_ℂ ≅ Γ₁(N)\ℍ*` for the canonical model (Shimura 1971 §6.7, UNVERIFIED) with the
+`ℚ`-isomorphism of the canonical model with the `K_N` model (a citation-chain fact, formerly leaf
+MC9 of bp-modcurves; not a Lean leaf, rv-blueprints M1); `dim Jac X = genus X` (Milne 1986, Prop. 2.1 / Thm 1.1, UNVERIFIED). The formula was
 checked against the reference genus table for `N ≤ 30` (bp-modcurves `genus_check.py`). -/
 def DimJ1Genus : Prop :=
   ∀ (N : ℕ) (J : AbVar ℚ), 0 < N → IsJ1 N J →
@@ -16640,7 +16656,10 @@ end LeafModCurvesSec
 
 section DefFaltingsSec
 /-! ### leaf-adopt (2026-11-12): copied from `scratch/def-faltings/Faltings.lean` (compiled there).
-Only changes: imports and `#print axioms` lines dropped. -/
+Only changes: imports and `#print axioms` lines dropped. Note: its `ZInQ.DefFaltings.AbVar` is a
+second copy of the kernel's abelian-variety structure (same four fields as `PkgI3.AbVar`), so
+R19-R21 and H5 are over that copy; `LeafAdopt.abVarEquiv` (proved) identifies the two, and
+unifying the declarations is WP1 work. -/
 
 
 /-!
@@ -18573,6 +18592,188 @@ end ZInQ.DefFaltings
 
 end DefFaltingsSec
 
+section LeafAdoptSec
+/-! ### leaf-adopt (2026-11-12): repairs of rv-blueprints to the leaf statements, and H5
+
+New in this file (not copied). Over the definitions of the sections above:
+* **Q4** (`π₀(X₆) = 1`): `R1pi0Props X`, Mathlib's `GeometricallyConnected` for `X₆ → Spec ℚ`.
+* **Q5** (biconditional CM clauses of R2fp): `R2X6PropsIff`; it follows from leaf-qm-fp's one-way
+  clauses together with `CMExists` (`r2X6PropsIff_of`, proved from `LeafQM.AV.cm_of_val`), and
+  it gives `CMExists` back with `X6Surj` (`cmExists_of_iff`).
+* The repaired bundle `R1R2fpRep` (R1(a), R1(c), R1(d) on points, R1 at level one, R2 with
+  biconditional CM clauses, R5 on points, and `π₀ = 1`, on one `Y₃` and one `X₆`), with
+  `R1R2fp_of_rep : R1R2fpRep → LeafQM.AV.R1R2fp` (the source bundle is a consequence).
+* **Q2** (R5fpStrong): `R5fpStrong` is rv-blueprints' statement transcribed over leaf-qm-fp's
+  definitions (`QMPair`, `fieldOfModuliPair`); `R5fp_iff_R5fpStrong` proves it equivalent to
+  leaf-qm-fp's `R5fp`, which already carries `k ↪ ℚ(x)`.
+* **F2** (H5 as an explicit leaf): `H5 = StableHeightFinite ∧ NeronModelMinimal` of def-faltings.
+-/
+
+namespace LeafAdopt
+
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM LeafQM.AV
+
+/-- **R1pi0 (rv-blueprints Q4): `X₆` is geometrically connected over `ℚ`.** For the level-one
+curve `X₆ = X₀(6,1)` of the bundle, `X₆ ×_ℚ ℚ̄` is connected (`π₀(X₆_ℚ̄) = 1`), the input of
+h-b1 M10 (Lemma NV step 4) and of the shape `ℚ(t)(√(at), √(b(t−1)))` in A10 step 2.
+*Published*: Deligne, Sém. Bourbaki 389 (1971), §2: `π₀(Sh_{K₀}) = ℚ^×_{>0}\𝔸_f^×/nrd(K₀)`,
+trivial for `K₀ = 𝒪̂^×` since `nrd(𝒪̂^×) = ℤ̂^×` (locator UNVERIFIED; rv-blueprints re-derived the
+computation, and `π₀(Y₃) = 2` from `nrd(1 + 3𝒪₃) = 1 + 3ℤ₃`). *Alternative*: rv-blueprints Q4
+sketches a glue proof from `R5fpCount` and the CM clauses (Kummer parity of branch points;
+SPECULATIVE, not checked in detail). Counted inside leaf R1 (same publications), not as a new
+leaf. -/
+def R1pi0Props (X : Over (Spec (CommRingCat.of ℚ))) : Prop :=
+  GeometricallyConnected X.hom
+
+/-- **R2 on `X₆` with biconditional CM clauses (rv-blueprints Q5).** As `R2X6Props`, with
+"CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `↔` `π₆ = 0` (resp. `∞`, `−16/27`)". *Published*:
+Baba–Granath 2008, Thm 2.1 and the §3.1 elliptic-order table (each of `CM(−4)`, `CM(−3)`,
+`CM(−24)` is one `W`-orbit, the fibre over the corresponding value); a consequence, as
+`R2X6Props` is. In the bundle it is not an extra assumption: `r2X6PropsIff_of` derives it from
+`R2X6Props` and `CMExists`. -/
+def R2X6PropsIff (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
+  ∀ (x x' : fieldPt Qbar ⟶ X) (P Q : QMPair Qbar),
+    Ψ x = Quotient.mk _ P → Ψ x' = Quotient.mk _ Q →
+      (π₆.val (K := Qbar) x.left = π₆.val (K := Qbar) x'.left ↔
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)) ∧
+      (HasCM4 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some 0) ∧
+      (HasCM3 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.infty) ∧
+      (HasCM24 P.q ↔ π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
+
+variable {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+  {π₆ : ToP1 X.left}
+
+/-- **Glue (proved): Q5 from leaf-qm-fp's clauses.** The one-way clauses with `CMExists` give
+the biconditionals (through `cm_of_val`). -/
+theorem r2X6PropsIff_of (h2 : R2X6Props X Ψ π₆) (hE : CMExists X Ψ) : R2X6PropsIff X Ψ π₆ := by
+  intro x x' P Q hP hQ
+  obtain ⟨hf, h4, h3, h24⟩ := h2 x x' P Q hP hQ
+  obtain ⟨c4, c3, c24⟩ := cm_of_val h2 hE x P hP
+  exact ⟨hf, ⟨h4, c4⟩, ⟨h3, c3⟩, ⟨h24, c24⟩⟩
+
+/-- The biconditional form gives back the one-way form. -/
+theorem r2X6Props_of_iff (h : R2X6PropsIff X Ψ π₆) : R2X6Props X Ψ π₆ := by
+  intro x x' P Q hP hQ
+  obtain ⟨hf, h4, h3, h24⟩ := h x x' P Q hP hQ
+  exact ⟨hf, h4.1, h3.1, h24.1⟩
+
+/-- **Glue (proved): existence of the three CM points** from the biconditionals and the
+surjectivity of `π₆` on `ℚ̄`-points (the first half of `X6Surj`). -/
+theorem cmExists_of_iff (h : R2X6PropsIff X Ψ π₆)
+    (hs : ∀ t : OnePoint Qbar, ∃ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = t) :
+    CMExists X Ψ := by
+  refine ⟨?_, ?_, ?_⟩
+  · obtain ⟨x, hx⟩ := hs (OnePoint.some 0)
+    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
+      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.1).2 hx⟩
+  · obtain ⟨x, hx⟩ := hs OnePoint.infty
+    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
+      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.2.1).2 hx⟩
+  · obtain ⟨x, hx⟩ := hs (OnePoint.some (-16 / 27))
+    exact ⟨x, (Ψ x).out, (Quotient.out_eq _).symm,
+      ((h x x _ _ (Quotient.out_eq _).symm (Quotient.out_eq _).symm).2.2.2).2 hx⟩
+
+/-- **The Shimura-curve leaves R1 (a), (c), (d) on points, R1 at level one, R2, R5 on points,
+with the repairs Q4 (`π₀(X₆) = 1`) and Q5 (biconditional CM clauses), on one `Y₃` and one `X₆`.**
+This is `LeafQM.AV.R1R2fp` with `R2X6Props ∧ CMExists` replaced by `R2X6PropsIff` (equivalent
+given `X6Surj`: `r2X6PropsIff_of`, `cmExists_of_iff`) and the clause `R1pi0Props X` added.
+
+**SPECULATIVE premise (bp-qmmoduli §2.2).** `QML3` and `QMPair` omit the polarization `λ`. Every
+clause is the published statement (Shimura 1967 Main Thms I-II; Deligne 1971 Thm 4.21, Cor. 5.7,
+Ex. 5.8, §§2, 4.8-4.17; Baba–Granath 2008 Thm 2.1, Lemma 3.1, §3.1; González–Rotger 2006
+Prop. 5.6, Thm 5.12) or a consequence of it **only together with** bp-qmmoduli §2.2: for a QM pair
+`(A, ι)` in characteristic 0 a principal polarization with Rosati involution `x ↦ μ⁻¹x̄μ` exists
+and is unique. §2.2 is SPECULATIVE: its uniqueness half and lattice core were checked by
+model reviews (leaf-qm-fp, rv-blueprints, which also verified the sign claim numerically), its
+existence half (class number one and the sign argument; Lefschetz principle) is unformalized and
+has no human review. Polarizations cannot be stated in Lean today, so §2.2 cannot be a separate
+hypothesis. Buzzard's polarization-free moduli problem would remove it (UNVERIFIED for full level
+3). Also: the audit's verdict on R1 is "qualified consequence" (the specialization of Deligne's
+PEL model to this functor needs a human check). -/
+def R1R2fpRep : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left),
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ X Ψ fY ∧ R2X6PropsIff X Ψ π₆ ∧
+      R1recProps Y Φ ∧ X6Surj Y X fY π₆ ∧ R5ptProps X Ψ ∧ R1pi0Props X
+
+/-- **Glue (proved)**: the repaired bundle implies leaf-qm-fp's `R1R2fp`, so every glue theorem
+of leaf-qm-fp (`conj_iso_of_rational`, `cm_of_val`, `residue_unramified_over_branch`,
+`exists_fibre_object`, `leaves_on_one_witness`, ...) applies to it. -/
+theorem R1R2fp_of_rep (h : R1R2fpRep) : R1R2fp := by
+  obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5, -⟩ := h
+  exact ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, r2X6Props_of_iff h2, cmExists_of_iff h2 hs.1, hr, hs, h5⟩
+
+/-- **R5fpStrong (rv-blueprints Q2)**, transcribed from `scratch/rv-blueprints/R5Repair.lean`
+(there over bp-qmmoduli's `(A, q)` with `A.dim = 2`; here over leaf-qm-fp's `QMPair`, which
+carries `A.dim = 2`, and `fieldOfModuliPair`). González–Rotger 2006 Thm 5.12 with
+`[H_R : k] = #Pic R`: for `b = #{p ∣ 6 inert in k} ≥ 1`, `[ℚ(x):ℚ] = 2·#Pic R` and `k ↪ ℚ(x)`;
+for `b = 0`, `[ℚ(x):ℚ] = #Pic R`. SPECULATIVE premise bp-qmmoduli §2.2 as for `R1R2fpRep`. -/
+def R5fpStrong : Prop :=
+  ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
+    Module.finrank ℚ k = 2 →
+    ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
+      ∀ P : QMPair Qbar, Nonempty (com P.q ≃+* R) →
+        (1 ≤ inertCount6 k →
+            Module.finrank ℚ (fieldOfModuliPair P) = 2 * Nat.card (CommRing.Pic R) ∧
+              Nonempty (k →ₐ[ℚ] fieldOfModuliPair P)) ∧
+        (inertCount6 k = 0 →
+            Module.finrank ℚ (fieldOfModuliPair P) = Nat.card (CommRing.Pic R))
+
+/-- **Proved**: leaf-qm-fp's `R5fp` is rv-blueprints' `R5fpStrong` (Q2 is already satisfied by
+the adopted leaf). -/
+theorem R5fp_iff_R5fpStrong : R5fp ↔ R5fpStrong := by
+  constructor
+  · intro h k _ _ _ hk R hR hc P hP
+    obtain ⟨h1, h2⟩ := h k hk R hR hc P hP
+    refine ⟨fun hb => ?_, fun hb => ?_⟩
+    · have hb' : inertCount6 k ≠ 0 := by omega
+      rw [if_neg hb'] at h1
+      exact ⟨h1, h2 hb'⟩
+    · rw [if_pos hb] at h1
+      simpa using h1
+  · intro h k _ _ _ hk R hR hc P hP
+    obtain ⟨h1, h0⟩ := h k hk R hR hc P hP
+    by_cases hb : inertCount6 k = 0
+    · rw [if_pos hb]
+      exact ⟨by simpa using h0 hb, fun h' => absurd hb h'⟩
+    · rw [if_neg hb]
+      exact ⟨(h1 (by omega)).1, fun _ => (h1 (by omega)).2⟩
+
+/-- **H5 (rv-blueprints F2): the stable Faltings height is the published one, as an explicit
+leaf.** `StableHeightFinite` (over a number field, `stableFaltingsHeight A ∈ ℝ`) and
+`NeronModelMinimal` (over each `L`, a group model with the Néron mapping property has the least
+height). Each of R18-R22 is a consequence of its publication only together with H5
+(rv-blueprints §1.2), and the direction `h(A) + h(Z) ≤ h(A × Z)` of additivity that E4 uses needs
+Néron models and H5 (F1). *Published*: Faltings 1983 §1; Deligne, Sém. Bourbaki 616 (1983);
+Bosch–Lütkebohmert–Raynaud, *Néron models* (1990) 1.2/1, 1.4/3; SGA 7 I, Exp. IX 3.3, 3.6
+(locators UNVERIFIED). **Caveat**: `StableHeightFinite` holds for def-faltings' infimum only if
+its index set is nonempty, which is what the open Props `AnalyticUniformizationExists` and
+`HodgeLatticeTheorem` (with `AnalyticUniformizationUnique` for independence of the
+uniformization) assert; they are true theorems (Mumford §1 with GAGA; smoothness of `𝒢`) but
+unproved in Lean. So H5 as stated is "published theorem + correctness of the definition". -/
+def H5 : Prop :=
+  ZInQ.DefFaltings.StableHeightFinite ∧ ZInQ.DefFaltings.NeronModelMinimal
+
+/-- **Bridge (proved)**: def-faltings' copy of the abelian-variety structure and this file's
+`PkgI3.AbVar` (= the kernel's) are the same data (for `K : Type`), so R19-R21 and H5 transfer to
+`PkgI3.AbVar` along this equivalence; unifying the two declarations is WP1 work. -/
+def abVarEquiv (K : Type) [Field K] : ZInQ.DefFaltings.AbVar K ≃ PkgI3.AbVar K where
+  toFun A := { X := A.X }
+  invFun A := { X := A.X }
+  left_inv _ := rfl
+  right_inv _ := rfl
+
+theorem abVarEquiv_dim (K : Type) [Field K] (A : ZInQ.DefFaltings.AbVar K) :
+    (abVarEquiv K A).dim = A.dim := rfl
+
+end LeafAdopt
+
+end LeafAdoptSec
+
+
 
 noncomputable section
 
@@ -18750,34 +18951,23 @@ def EigenformTwist : Prop :=
 Each docstring gives the statement in the form the proof uses, the reference (UNVERIFIED unless
 the note says otherwise), and the missing definitions with their cost tier. -/
 
-/-- **R1. Shimura–Deligne: canonical model and moduli interpretation of the level-3 QM curve.**
-`B = (2,−3)/ℚ`, `𝒪` maximal, `μ = 2j + ij`, `K₃ = ker(𝒪̂^× → (𝒪/3𝒪)^×)`. (a) The functor on
-`ℚ`-schemes of `(A, ι, λ, η)` (abelian scheme of relative dimension 2, `ι : 𝒪 → End A`, principal
-polarization with Rosati involution `a ↦ μ⁻¹āμ`, `𝒪`-linear `η : 𝒪/3𝒪 ≅ A[3]`) is represented by
-a smooth projective curve `Y₃/ℚ`; (b) complex uniformization compatible with the universal
-family; (c) the finite-adelic normalizer acts over `ℚ`; (d) Shimura reciprocity at CM points.
-Shimura, Ann. of Math. 85 (1967), Main Thms I-II; Deligne, Sém. Bourbaki 389 (1971), Thm 4.21,
-Cor. 5.7, Ex. 5.8, §§4.8-4.17; Kottwitz, JAMS 5 (1992), §5 (UNVERIFIED). Consequence (the PEL
-theorem specialized to this datum). Missing: abelian schemes over a base with PEL structure,
-moduli functors, representability (very large). -/
-opaque R01_ShimuraDeligne : Prop
+/-! leaf-adopt (2026-11-12): the placeholders `R01_ShimuraDeligne`, `R02_BabaGranath` and
+`R05_GonzalezRotger` are replaced by leaf-qm-fp's concrete field-point statements (section
+`LeafQMSec`), with rv-blueprints' repairs Q2, Q4, Q5 (section `LeafAdoptSec`): the bundle uses
+`LeafAdopt.R1R2fpRep` (R1(a), (c), (d), R1 at level one, `π₀(X₆) = 1`, R2 with biconditional CM
+clauses, R5 on points), `LeafQM.AV.R1rec` (R1(d), object form), `LeafQM.AV.R5fp` (= R5fpStrong,
+`LeafAdopt.R5fp_iff_R5fpStrong`) and `LeafQM.AV.R5fpCount`. All of them rest on the SPECULATIVE
+premise bp-qmmoduli §2.2 (see `LeafAdopt.R1R2fpRep`). Part (b) of R1 stays a placeholder: -/
 
-/-- **R2. Baba–Granath** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For the fixed principally polarized
-maximal-order datum of discriminant 6: the polarized moduli space is `X₆/W` (`W` the
-Atkin–Lehner group, `W ≅ (ℤ/2)²`), and `X₆/W ≅ P¹_ℚ` with the three distinguished images
-rational (Canad. J. Math. 60 (2008), Thm 2.1 p. 737, Lemma 3.1 pp. 739-740: YES per the audit);
-two QM surfaces with principal polarization of the fixed type have the same polarized moduli
-point iff their points of `X₆` are `W`-conjugate. **Orbifold data** (§3.1 elliptic-order table,
-p. 740; Prop. 3.9/Thm 3.10, p. 744; Cor. 3.11, p. 745): the group `Γ*` uniformizing `X₆/W` has
-exactly three elliptic classes, of orders `4, 6, 2`, at the CM points of discriminants `−4, −3, −24`,
-whose images are `j = 0, ∞, −16/27` in the normalization of Lin–Yang/N5 (the numerical
-`j`-normalization is not located by Thm 2.1/Lemma 3.1; it enters through `PkgI1.QMHauptmodul`).
-**Not** asserted: ramification indices `4, 6, 2` of the degree-4 map `X₆ → X₆/W`, which has
-index `2` at each of the three branch values (`RvLocLeaves.fibre_t_one`, `fibre_t_zero`). The
-indices `(4, 6, 2)` used by Prop. TS for `Y₃ → P¹_j` follow as glue from the orbifold orders and
-the torsion-freeness of the level-3 group (`GlueRepo.TorsionFree`). Missing: `X₆`, `Γ*` acting on
-`ℍ` as a curve over `ℚ`, the Atkin–Lehner group (very large, via R1). -/
-opaque R02_BabaGranath : Prop
+/-- **R1(b). Complex uniformization, in family form** (rv-blueprints Q3; R1an of bp-qmmoduli).
+For `Y₃` and `π : Y₃ → P¹` of `LeafAdopt.R1R2fpRep`: (a) for every `P : QML3 ℂ` there is `τ ∈ ℍ`
+with `P.A(ℂ) ≅ ℂ²/ι(𝒪)(τ, 1)ᵀ` compatibly with `ι`; (b) for every `τ ∈ ℍ` there are `P_τ : QML3 ℂ`
+and such an isomorphism; (c) `τ ↦ π(Φ⁻¹[P_τ]) ∈ P¹(ℂ)` is holomorphic on `ℍ`. The Hauptmodul
+comparison of F1 (`PkgI1.QMHauptmodul` against `π`) uses (b) and (c); a statement at each point
+separately is too weak. Shimura, Ann. of Math. 85 (1967), Main Thm I; Deligne, Sém. Bourbaki 389
+(1971), §4.15 (analytic families) (UNVERIFIED locators). Missing: analytification of `ℂ`-schemes
+and of abelian varieties (large; bp-qmmoduli N14). Rests on bp-qmmoduli §2.2 as R1R2fpRep. -/
+opaque R01b_ComplexUniformization : Prop
 
 /-- **R3. Lin–Yang.** On the finite nonzero `j`-locus the QM surface over `j` is the Jacobian of a
 genus-2 curve with `[J₂ : J₄ : J₆ : J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`.
@@ -18787,34 +18977,15 @@ Math. Z. 295 (2020); arXiv:1807.00466v1 Example 29 (pp. 20-21, discriminant 6), 
 (locators.md item 3). Exact. Missing: the QM locus (very large). -/
 opaque R03_LinYang : Prop
 
-/-- **R5. González–Rotger** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). On `X₆ = X₀(6, 1)`, for an order
-`R` of conductor `f` with `(f, 6) = 1` in an imaginary quadratic field `k` that embeds optimally
-in `𝒪` (so no prime dividing 6 splits in `k`): `#CM(R) = 2^b · h(R)` with
-`b = #{p ∣ 6 : p inert in k}`, the group `W(R) × Gal(H_R/k)`, `W(R) = ⟨w_p : p ∣ 6 inert in k⟩`,
-acting simply transitively; and `ℚ(x) = H_R` if some prime dividing 6 is inert in `k`
-(`D(R) ≠ 1`), otherwise `ℚ(x)` has index 2 in `H_R`. J. Math. Soc. Japan 58 (2006), Prop. 5.6
-(p. 943), Thm 5.8 (pp. 943-944), Thm 5.12 (p. 946) (YES for `X₀(D, N)` per the audit). The old
-text "`#CM(R) = h(R)`" was wrong: the maximal order of discriminant −19 has `h = 1` and four CM
-points (`b = 2`, `cm_count_factor_disc_neg19`). These statements are about `X₆`, not about `Y₃`
-or the image in `X₆/W`. Missing: as R2. -/
-opaque R05_GonzalezRotger : Prop
 
 
-/-- **R16. Eichler–Shimura in `J₁(N)`** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For a weight-2 newform
-`f` of level `N` and character `χ`, a prime `ℓ` and embeddings `ι`: `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ` has a
-`G_ℚ`-stable two-dimensional subquotient on which every arithmetic Frobenius at `p ∤ Nℓ` has trace
-`ι(a_p(f))`. Assembled from three statements, none of which is the zeta clause: (i) Shimura,
-J. Math. Soc. Japan 25 (1973), Thm 1 (pp. 526-527), **unconditional clauses only**: the
-`ℚ`-rational quotient `A_f` of `J₁(N)` with `K_f = ℚ(a_n)` acting, `dim A_f = [K_f : ℚ]` (the
-final Euler-factor clause of Thm 1 carries an extra `Γ₀`/Fricke-stability condition and is not
-used); (ii) `V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ` (Shimura 1971 §7.4 / Ribet 1977;
-UNVERIFIED locator); (iii) the Eichler–Shimura congruence relation `T_p = Frob_p + p⟨p⟩Frob_p⁻¹`
-on `J₁(N)` mod `p ∤ N` (Shimura 1971 Thm 7.9; UNVERIFIED), which gives on each
-`V_λ(A_f) = V_ℓ(A_f) ⊗_{K_f ⊗ ℚ_ℓ, ι} ℚ̄_ℓ` the characteristic polynomial `X² − ι(a_p) X + ι(χ(p)) p`.
-(With the other Hecke convention on `J₁(N)` the trace is `ι(conj a_p)`, which is the case of the
-conjugate newform `f^ρ`; the statement over all newforms is unaffected.) Missing: `X₁(N)`,
-`J₁(N)` over `ℚ`, Hecke correspondences (very large). -/
-opaque R16_EichlerShimuraJ1 : Prop
+/-! leaf-adopt (2026-11-12): the placeholder `R16_EichlerShimuraJ1` is replaced by
+leaf-modcurves' `LeafModCurves.R16_EichlerShimuraJ1'` (section `LeafModCurvesSec`), stated for
+every `K_N` model of `X₁(N)` (`IsJ1`), so bp-modcurves' leaf MC9 is not needed (rv-blueprints M1).
+Its 2-dimensional constituent of `V_ℓ(J₁(N))` is derived (`LeafModCurves.g13_constituent`, from
+the glue target `VSurjOfSurjective`). New textbook leaves from the same file:
+`LeafModCurves.JacobianExists ℚ` (T33) and `LeafModCurves.DimJ1Genus` (T34). -/
+
 
 /-- **R17. Carayol's local–global compatibility** (docstring repaired by rv-loc-leaves, adopted 2026-11-12 by loc-fix; the concrete statement is
 `LadicCond.CarayolR17'` of scratch/def-ladic-cond, unchanged). For a weight-2 newform of level `N`,
@@ -18828,24 +18999,22 @@ opaque R17_Carayol : Prop
 
 /-- **R18. Javanpeykar.** A smooth projective connected curve `X/ℚ̄` of genus `g ≥ 1` with a Belyi
 map of degree `d` has `h_F(Jac X) ≤ 13·10⁶ · g · d⁵`. Algebra Number Theory 8 (2014), Thm 1.1.1
-(read by a model). Exact. Missing: Faltings height (very large), Belyi maps, Jacobians. -/
+(read by a model). Exact. Missing (leaf-adopt, 2026-11-12): Belyi maps and the genus of a curve
+over `ℚ̄`. The height is now def-faltings' `ZInQ.DefFaltings.stableFaltingsHeight` (with H5) and
+Jacobians are `LeafModCurves.IsJacobian` (with T33); rv-blueprints M1 item 5 recommends stating
+R18 with `g := dim J`. -/
 opaque R18_Javanpeykar : Prop
 
-/-- **R19. Gaudron–Rémond isogeny theorem.** Isogenous abelian varieties `A, B` of dimension `g`
-over a number field `K` admit an isogeny `A → B` of degree at most
-`((14g)^{64g²}[K:ℚ] max(h_F(A), log[K:ℚ], 1)²)^{1024g³}`. Duke Math. J. 163 (2014), Thm 1.4 (read
-by a model). Exact. Missing: Faltings height (very large). -/
-opaque R19_GaudronRemond : Prop
+/-! leaf-adopt (2026-11-12): the placeholders `R19_GaudronRemond`, `R20_FaltingsHeightLemma`,
+`R21_Bost` are replaced by def-faltings' `ZInQ.DefFaltings.R19_GaudronRemond`,
+`R20_FaltingsLemma5`, `R21_Bost` over `stableFaltingsHeight` (section `DefFaltingsSec`), with H5
+as an explicit leaf `LeafAdopt.H5` (rv-blueprints F2). **Not yet known to be non-vacuous**: the
+three Props `AnalyticUniformizationExists`, `AnalyticUniformizationUnique`,
+`HodgeLatticeTheorem` (node AN3 and the Hodge lattice) are open, and until they are proved the
+index set of the infimum may be empty (`h = ⊤`): then R21 holds trivially and R19, R20 have no
+instance. R19 is normalization-sensitive (a consequence only if Gaudron–Rémond's `h` is Faltings'
+original normalization, rv-blueprints F4). -/
 
-/-- **R20. Faltings' height lemma.** For an isogeny `φ : A → B` over a number field,
-`|h_F(A) − h_F(B)| ≤ ½ log deg φ`. Faltings 1983, Lemma 5; Raynaud, Astérisque 127 (1985),
-Exp. VII, Cor. 2.1.3 (UNVERIFIED). Exact. Missing: Faltings height. -/
-opaque R20_FaltingsHeightLemma : Prop
-
-/-- **R21. Bost's lower bound.** `h_F(A) ≥ −(3/2)·dim A` (Bost: `≥ −log(π√2)·dim A`). Bost,
-Sém. Bourbaki 795 (1996), as recorded in Gaudron–Rémond 2014, §9 (read by a model). Consequence.
-Missing: Faltings height. -/
-opaque R21_Bost : Prop
 
 /-- **R22. Pazuki** (repaired after the locator audit by rv-loc-leaves; adopted 2026-11-12 by loc-fix). For a principally polarized abelian
 surface `A` over a number field, with `H_Θ = max(1, h_Θ(A))` (`h_Θ` the level-2 theta height of
@@ -18882,9 +19051,21 @@ opaque T12_ArtinComparison : Prop
 consequence form), `LeafPush.T09_WeilPairing` (consequence, polarization hidden),
 `PkgI4.T23_FontaineClosure` (exact, matrix form, `ℚ_p` coefficients),
 `LeafPush.T29a_DivisionNormalizer` and `LeafPush.T29b_SplitNormalizer` (exact),
-`LeafPush.T32a_TameQuadratic` and `LeafPush.T32b_QuadraticRamification` (consequences). -/
+`LeafPush.T32a_TameQuadratic` and `LeafPush.T32b_QuadraticRamification` (consequences).
+leaf-adopt (2026-11-12): T32 is now glue, proved (`HSyn.t32a_glue`, `HSyn.t32b_glue`, §3). -/
 
 /-! ## §3. Glue -/
+
+/-- **T32(a) is glue** (leaf-adopt, 2026-11-12): proved in scratch/glue-t32a (`GlueB3Unram.t32a`,
+copied in section `GlueT32aSec`), with no leaf. -/
+theorem t32a_glue : LeafPush.T32a_TameQuadratic := GlueB3Unram.t32a
+
+/-- **T32(b) is glue** (leaf-adopt, 2026-11-12): proved in scratch/glue-b3b (`GlueB3Unram.t32b`,
+copied with scratch/glue-t32a in section `GlueT32aSec`), with no leaf. -/
+theorem t32b_glue : LeafPush.T32b_QuadraticRamification := GlueB3Unram.t32b
+
+/-- **B3(v) with no leaf** (glue-t32a): `LeafB3a` of glue-b3-unram is proved. -/
+theorem leafB3a_glue : GlueB3Unram.LeafB3a := GlueB3Unram.leafB3a
 
 /-- **G12, weight arithmetic** (N5 L763-764, Tate normalization; from the hdec-faithful draft). -/
 theorem weight_match (n k : ℤ) (hk : 1 ≤ k)
@@ -18912,13 +19093,25 @@ theorem _root_.PkgI6.sq_principalUnits (B : Type) [CommRing B] [IsDomain B] [IsD
 
 /-- **The research-level leaves of route P** (note §2.1), bundled. Placeholders are
 uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R10`,
-`R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here). -/
+`R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here); leaf-adopt (2026-11-12): R1 (a, c, d),
+R2, R5 (leaf-qm-fp, repaired), R16 (leaf-modcurves), R19-R21 and H5 (def-faltings). Remaining
+placeholders: R1(b), R3, R17, R18, R22. -/
 structure ResearchLeaves : Prop where
-  r1 : R01_ShimuraDeligne
-  r2 : R02_BabaGranath
+  /-- R1 (a), (c), (d), `π₀(X₆) = 1` (rv-blueprints Q4), R1 at level one, R2 with biconditional CM
+  clauses (Q5) and R5 on points of `X₆`, on one `Y₃`, `X₆` (leaf-qm-fp, repaired by leaf-adopt).
+  SPECULATIVE premise bp-qmmoduli §2.2 (polarization exists and is unique), see the definition. -/
+  r1r2 : LeafAdopt.R1R2fpRep
+  /-- R1(b), complex uniformization in family form (Q3): still a placeholder. -/
+  r1an : R01b_ComplexUniformization
+  /-- R1(d), Shimura reciprocity, object form (leaf-qm-fp; premise bp-qmmoduli §2.2). -/
+  r1rec : LeafQM.AV.R1rec
   r3 : R03_LinYang
   r4 : PkgI1.ThetaModularity
-  r5 : R05_GonzalezRotger
+  /-- R5(ii), González–Rotger Thm 5.12, fields of moduli (= rv-blueprints' R5fpStrong, Q2;
+  premise bp-qmmoduli §2.2). -/
+  r5 : LeafQM.AV.R5fp
+  /-- R5(i), González–Rotger Prop. 5.6, `#CM(R) = 2^b h(R)` (premise bp-qmmoduli §2.2). -/
+  r5count : LeafQM.AV.R5fpCount
   r6 : PkgI2.RaynaudCriterion.{0}
   r7a : PkgI2.NeronOggShafarevich.{0}
   r7b : PkgI2.SerreTatePotentialGood.{0}
@@ -18933,13 +19126,17 @@ structure ResearchLeaves : Prop where
   r13 : PkgI4.EigenformHT
   r14 : EigenformRepExists
   r15 : DeligneSerreConseq
-  r16 : R16_EichlerShimuraJ1
+  /-- R16, Eichler–Shimura in `J₁(N)`, existential form for every `K_N` model (leaf-modcurves). -/
+  r16 : LeafModCurves.R16_EichlerShimuraJ1'
   r17 : R17_Carayol
   r18 : R18_Javanpeykar
-  r19 : R19_GaudronRemond
-  r20 : R20_FaltingsHeightLemma
-  r21 : R21_Bost
+  /-- R19-R21 over def-faltings' `stableFaltingsHeight` (not yet known non-vacuous: AN3 open). -/
+  r19 : ZInQ.DefFaltings.R19_GaudronRemond
+  r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
+  r21 : ZInQ.DefFaltings.R21_Bost
   r22 : R22_Pazuki
+  /-- H5 (rv-blueprints F2): the stable height is finite and attained by Néron models. -/
+  h5 : LeafAdopt.H5
 
 /-- **The textbook foundations** (note §2.2), bundled. -/
 structure TextbookLeaves : Prop where
@@ -18980,8 +19177,12 @@ structure TextbookLeaves : Prop where
   t29b : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29b_SplitNormalizer p
   t30 : GlueDescent.B2Q.LeafSqrtCrit
   t31 : GlueDescent.B2Q.LeafUnramified
-  t32a : LeafPush.T32a_TameQuadratic
-  t32b : LeafPush.T32b_QuadraticRamification
+  -- leaf-adopt: T32 is glue (`HSyn.t32a_glue`, `HSyn.t32b_glue`), no longer a field.
+  /-- T33 (new, leaf-modcurves): existence of the Jacobian of a pointed curve (Weil; Milne 1986). -/
+  t33 : LeafModCurves.JacobianExists ℚ
+  /-- T34 (new, leaf-modcurves): `dim J₁(N)` is the genus of `Γ₁(N)` (Shimura 1971 Prop. 1.40 with
+  §6.7 and `dim Jac = genus`). -/
+  t34 : LeafModCurves.DimJ1Genus
 
 /-- **The glue G1-G17 and G19 (non-Arakelov part).** The leaves give glue-assembly's interface
 `GlueOutputs` at `S = Mult.S_mul`: for each `u ∉ 𝒞`, the theta point `z` of the QM surface over
@@ -19102,3 +19303,38 @@ end
 #print axioms ObjBridge.ofGrp_baseChange
 #print axioms ObjBridge.homT_comp
 #print axioms ObjBridge.homT_id
+-- leaf-adopt: theorems adopted from glue-t32a, leaf-qm-fp, leaf-modcurves, def-faltings, and new
+#print axioms HSyn.t32a_glue
+#print axioms HSyn.t32b_glue
+#print axioms HSyn.leafB3a_glue
+#print axioms GlueB3Unram.unramified_outside_noLeaf
+#print axioms LeafQM.AV.R1fp_of_R1R2fp
+#print axioms LeafQM.AV.R5fpWeak_of_R5fp
+#print axioms LeafQM.AV.conj_iso_of_rational
+#print axioms LeafQM.AV.cm_of_val
+#print axioms LeafQM.AV.Level3.onto
+#print axioms LeafQM.AV.Level3.torsor
+#print axioms LeafQM.AV.QML3.goodReduction
+#print axioms LeafQM.AV.residue_unramified_over_branch
+#print axioms LeafQM.AV.exists_fibre_object
+#print axioms LeafQM.AV.fibre_conjugates_isomorphic
+#print axioms LeafQM.AV.leaves_on_one_witness
+#print axioms LeafModCurves.genus_Gamma1_le
+#print axioms LeafModCurves.IsJacobian.unique
+#print axioms LeafModCurves.dim_J1_le
+#print axioms LeafModCurves.exists_J1_dim_le
+#print axioms LeafModCurves.exists_J1_quotient
+#print axioms LeafModCurves.rhoF_traces
+#print axioms LeafModCurves.g13_constituent
+#print axioms LeafModCurves.rhoF_attached
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight
+#print axioms ZInQ.DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_eq_iInf_height
+#print axioms ZInQ.DefFaltings.stableFaltingsHeightDeligne_eq
+#print axioms ZInQ.DefFaltings.stableFaltingsHeight_ne_bot_of_R21
+#print axioms LeafAdopt.r2X6PropsIff_of
+#print axioms LeafAdopt.cmExists_of_iff
+#print axioms LeafAdopt.R1R2fp_of_rep
+#print axioms LeafAdopt.R5fp_iff_R5fpStrong
+#print axioms HSyn.sixContactMin_of_leaves
+#print axioms LeafAdopt.abVarEquiv_dim
