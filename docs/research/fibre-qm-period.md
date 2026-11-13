@@ -19,13 +19,12 @@ Its statement is unchanged: `fibreQMPeriod_iff` holds by `Iff.rfl`. It is proved
 - it is restated for the leaf's own triple (qm-pin's reduction);
 - the restated form is proved from named Props.
 
-Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (VERIFIED, §6). The final
-form:
+Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (VERIFIED, §6). The final form:
 
 ```lean
-theorem HSyn.G0Split.FibreQM.fibreQMPeriod_final'' (h : R1R2fp) (hM : Pin.MobiusGlue)
+theorem HSyn.G0Split.FibreQM.fibreQMPeriod_main (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
-    (hSN : QMSkolemNoetherC) (hCN : QMClassNumberOne)
+    (hCN : QMClassNumberOne)
     (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h)) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
     (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hCP : CPtsTransport) :
     ThetaPt.FibreQMPeriod
@@ -37,18 +36,21 @@ The hypotheses fall into three groups.
   - `PkgI1.QMHauptmodul`: existing composite leaf.
   - T35 `UniformizationExistsT35` and T11a `T11aRiemannEnd`: verbatim copies of the kernel's textbook
     leaves, already in leaf-adopt3's `TextbookLeaves`.
-  - `QMSkolemNoetherC`: textbook (Skolem–Noether over `ℂ`).
   - `QMClassNumberOne`: textbook (Eichler class number one, lattice form).
   - `R1bFamily`: R1(b) in family form, stated concretely.
 - **Glue.**
-  - `Pin.MobiusGlue`: already proved by mobius-glue from two curve facts and T5.
+  - `Pin.MobiusGlue`: already proved by mobius-glue.
   - `PeriodMapGlue`, `HauptmodulUnique`, `QMDenZeroCM3`, `CPtsTransport`: open.
 - **The bundle `R1R2fp`**, which supplies the triple.
 
+Skolem–Noether over `ℂ` for N5's order (`QMSkolemNoetherC`) is **proved** here
+(`qmSkolemNoetherC_proof`), so it is no longer a hypothesis.
+
 Coarser forms also compile, each with fewer, larger Props: `fibreQMPeriod_of_named`,
 `fibreQMPeriod_of_parts`, `fibreQMPeriod_of_textbook`, `fibreQMPeriod_final`,
-`fibreQMPeriod_final'`, `fibreQMPeriod_of_named_all` (no `MobiusGlue`, comparison for every triple),
-and `fibreQMPeriod_of_named_rep` (from `LeafAdopt.R1R2fpRep`).
+`fibreQMPeriod_final'`, `fibreQMPeriod_final''` (which still takes `QMSkolemNoetherC`),
+`fibreQMPeriod_of_named_all` (no `MobiusGlue`, comparison for every triple), and
+`fibreQMPeriod_of_named_rep` (from `LeafAdopt.R1R2fpRep`).
 
 ### Step 1: qm-pin's reduction (compiled)
 
@@ -96,6 +98,13 @@ Fix a triple with `R1fpProps`; only its naturality clause is used. Fix `FibreOve
     `py/unit_coeffs.py`).
 - `QMLatticeFree ⇐ QMSkolemNoetherC + QMClassNumberOne` (`qmLatticeFree_of`). The lattice is
   transported by Mathlib's `ZLattice.comap` along `G⁻¹`.
+- `QMSkolemNoetherC` is proved (`qmSkolemNoetherC_proof`). Put `R = ρ(i)`, `S = ρ(j)`, so
+  `R² = 2`, `S² = −3` and `RS = −SR`.
+  - `R` has an eigenvector `e₁` for `√2`; otherwise `R = −√2`, which forces `S = 0`.
+  - `e₂ = Se₁` is an eigenvector for `−√2`, and `e₁, e₂` are independent.
+  - In the basis `(e₁, e₂)`, `R` and `S` are N5's `ι(i)` and `ι(j)`.
+  - Every `a ∈ 𝒪` is `(2n₀ + 2n₁i + n₂(1+j) + n₃(i+ij))/2`, so the intertwining extends to all
+    of `𝒪`.
 - `UnifTransport ⇐ CPtsTransport` (`unifTransport_of`): `Φ_A = ψ ∘ Φ_Q`.
 
 ## 2. The named Props of the final form
@@ -108,7 +117,7 @@ step, sources and argument. Sizes are SPECULATIVE.
 | `PkgI1.QMHauptmodul` | existing composite leaf (pkg-I1) | `j_θ∘Ω` is a normalized Hauptmodul of `Γ*` | Baba–Granath, Lin–Yang, Igusa | — |
 | `UniformizationExistsT35` | TEXTBOOK leaf T35 (verbatim kernel copy) | `A(ℂ)_σ ≅ ℂ^g/Λ` by an analytic uniformization, `Λ` a full lattice | Mumford §1, GAGA | — |
 | `T11aRiemannEnd` | TEXTBOOK leaf T11a (verbatim kernel copy) | endomorphisms of `A/ℂ` are exactly the `Λ`-preserving linear maps of `ℂ^g` | Mumford §§1-2, Birkenhake–Lange 1.2.1, GAGA | — |
-| `QMSkolemNoetherC` | TEXTBOOK | every unital ring homomorphism `ρ : 𝒪 → End_ℂ(ℂ²)` is conjugate to N5's `ι` | Skolem–Noether for `B ⊗ ℂ ≅ M₂(ℂ)` (Voight 7.7.4, UNVERIFIED number; the kernel has `TSkolemKW`) | small |
+| `QMSkolemNoetherC` | **proved** (`qmSkolemNoetherC_proof`) | every unital ring homomorphism `ρ : 𝒪 → End_ℂ(ℂ²)` is conjugate to N5's `ι` | eigenvector argument (Step 3) | done |
 | `QMClassNumberOne` | TEXTBOOK | every `ι(𝒪)`-stable full lattice in `ℂ²` is `ι(𝒪)w`, with `w` not a complex multiple of a real vector | Eichler: the maximal order of the indefinite algebra of discriminant 6 has class number one (Vignéras III.5.7, Voight 28.5.17, UNVERIFIED numbers) | medium |
 | `R1bFamily Y Φ π` | LEAF (R1(b), family form, concrete) | `τ ↦ y_τ : ℍ → Y(ℂ)` whose object is `ι`-compatibly `ℂ²/ι(𝒪)(τ,1)ᵀ`, with `τ ↦ π(y_τ)` continuous and holomorphic into `P¹(ℂ)` (`IsR1bFamily`, `IsHolP1At`) | Shimura 1967 Main Thm I; Deligne 1971 §4.15 (UNVERIFIED locators). Genuine `Y₃`: Shimura's `φ : ℍ → V(ℂ)` composed with `π`. Other pinned triples: qm-pin's comparison (argued), so truth does not depend on the choice | — |
 | `PeriodMapGlue Y Φ π` | GLUE | for such a family, `h = π∘y_τ` has `Γ*`-orbit fibres and the three CM values, and `h(τ) = ι(π(y))` when the base change of the object at `y` is `ι`-compatibly `ℂ²/Λ_τ` | GAGA; R2fp on `ℂ`-points; Shimura's description of isomorphisms of QM tori; CM: `ι(x)v_τ = λv_τ` makes `z ↦ λz` an `𝒪`-linear automorphism | large |
@@ -123,6 +132,7 @@ step, sources and argument. Sizes are SPECULATIVE.
   `fibreQMPeriodOwn_of`;
 - `isUniformization_comp`, `uniformizationExistsC_of`, `lift_unique`, `unif_ring_hom`,
   `qmComplexUnif_of`, `qmComplexUnif_of_textbook`;
+- `oI_sq`, `oJ_sq`, `oI_oJ`, `two_mul_eq`, `two_qmMat`, `qmSkolemNoetherC_proof`;
 - `qmPeriodValue_of`, `qmPeriodMap_of`;
 - `FibreQMNorm.qmLattice_eq_orbit`, `gen_eq`, `qmOrbit_smul`, `qmOrbit_unit`, `smulMap_comp`,
   `normalize`;
@@ -167,9 +177,8 @@ These are model checks unless marked otherwise.
 - **CM normalization.** At the fixed point of `ι(x)`, `ι(x)v_τ = λv_τ`, and `z ↦ λz` preserves
   `Λ_τ` (`λι(y)v_τ = ι(yx)v_τ`) and commutes with `ι(𝒪)`. So `QMHauptmodul`'s CM clauses and R2fp's
   `HasCM4`, `HasCM3`, `HasCM24` refer to the same points.
-- **The two textbook lattice facts are true for every input.**
-  - `QMSkolemNoetherC`: `ρ` extends to an isomorphism `B ⊗ ℂ → M₂(ℂ)`, and every automorphism of
-    `M₂(ℂ)` is inner.
+- **The lattice facts hold for every input.**
+  - `QMSkolemNoetherC`: proved in Lean.
   - `QMClassNumberOne`: `ℚΛ = ι(B)w₀`, and `I = {b : ι(b)w₀ ∈ Λ}` is a left `𝒪`-ideal (`𝒪`
     maximal), principal by class number one, so `Λ = ι(𝒪)ι(β)w₀`.
   - Fullness excludes a real direction for `w`.
@@ -213,8 +222,9 @@ embedding.
     `Split-full.patch`).
   - It also needs qm-pin's `Pin` lemmas (`part_pin.lean`; qm-pin proposes them as
     `ZInQKernel/HDecomp/QM/Pin.lean`).
-  - `FibreQMNorm` imports nothing beyond `ZInQKernel.HDecomp.Analytic.QMLattice`. It was developed
-    alone in `/tmp/fqmnorm/Norm.lean` and could become a kernel module.
+  - `FibreQMNorm` imports nothing beyond `ZInQKernel.HDecomp.Analytic.QMLattice`. Its development
+    file is `scratch/fibre-qm-period/dev_Norm.lean`, and it could become a kernel module.
+  - The Skolem–Noether proof was developed in `dev_SN.lean`, which imports the compiled base.
 - **T35 and T11a in the kernel.** These are `ZInQ.LeafPush2.UniformizationExists` and
   `T11a_RiemannEnd`. In a kernel version the copies would be replaced by the originals.
 - **`R1bFamily` replaces the R1(b) placeholder.** It is the concrete replacement for
@@ -228,8 +238,8 @@ embedding.
 |---|---|---|
 | prereq | `lake build ZInQKernel.HDecomp.Analytic.QMLattice ZInQKernel.Hypotheses.JHeight` | OK, 2m0s |
 | run_base | `FQMBase.lean` (ThetaPoint + qm-pin full edit + `part_pin`, 20634 lines) | 0 errors, 2m52s |
-| run_dev2-12 | `Dev.lean` = `import FQMBase` + `part_fqm.lean` (base compiled to an olean with `lean -o`) | final run_dev12: 0 errors, 29 axioms lines standard |
-| run_full1-4 | `FibreQM.lean` (assembled), `lake env lean` | 0 errors, no `sorry`; every axioms line of §N and §F standard. run_full4 checks the final file (see log) |
+| run_dev2-13 | `Dev.lean` = `import FQMBase` + `part_fqm.lean` (base compiled to an olean with `lean -o`) | final run_dev13: 0 errors, 31 axioms lines standard |
+| run_full1-5 | `FibreQM.lean` (assembled), `lake env lean` | 0 errors, no `sorry`; every axioms line of §N and §F standard. run_full5 checks the final file (see log) |
 
 To reproduce, from the repository root:
 1. build the prerequisites above;
@@ -247,8 +257,8 @@ To reproduce, from the repository root:
   - `QMDenZeroCM3`: the valence formula, the weight (from R4 and the modular embedding), and the
     order at `P₋₃`.
 - **Textbook facts to formalize.**
-  - `QMSkolemNoetherC` (small).
-  - `QMClassNumberOne` (medium; a Euclidean-type argument is possible).
+  - `QMClassNumberOne` (medium): Eichler's theorem for the maximal order of discriminant 6, in
+    lattice form.
 - **Leaves for a human to check.**
   - `R1bFamily`: is the family form faithful to Shimura's Main Theorem I, and does the transfer to
     pinned triples hold?
