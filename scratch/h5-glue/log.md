@@ -3,7 +3,7 @@
 Base: wip/h5-glue at 883c4ddf, merged origin/wip/h5-neron (b7c1dc21) for scratch/h5-neron and
 docs/research/h5-neron.md.
 
-## 1. Glue H4b `GroupModelBaseChangeExists` — PROVED (compiled 01:51, scratch/h5-glue/BaseChange.lean)
+## 1. Glue H4b `GroupModelBaseChangeExists` — PROVED (compiled ~01:52, scratch/h5-glue/BaseChange.lean)
 - `genBC` (generic-fibre identification of a base change, for abstract morphisms
   a,b,c,d,k,k' with a≫b = c≫d, c≫k = k') and `genBC_isMonHom` (it is a monoid morphism):
   compiled, axioms [propext, Classical.choice, Quot.sound].
@@ -14,7 +14,7 @@ docs/research/h5-neron.md.
   over abstract morphisms and instantiated afterwards (the kernel never unfolds the concrete
   Spec.map/algebraMap (𝓞 L) L terms).
 
-## 2. NeronModelMinimal reduced to one glue `HeightAntitone` (compiled 02:00, scratch/h5-glue/Minimal.lean)
+## 2. NeronModelMinimal reduced to one glue `HeightAntitone` (compiled ~01:56, scratch/h5-glue/Minimal.lean)
 - `isMonHom_of_map` (general: a strong monoidal F injective on Hom(𝟙,Y), Hom(X⊗X,Y) reflects
   IsMonHom): compiled.
 - `neron_lift_isMonHom`: the Néron comparison map 𝒢 → 𝒩 is IsMonHom and its generic fibre
@@ -23,7 +23,7 @@ docs/research/h5-neron.md.
 - `neronModelMinimal_of_heightAntitone : HeightAntitone → NeronModelMinimal`: compiled.
   All three #print axioms: [propext, Classical.choice, Quot.sound].
 
-## 3. Open subgroup models are generic isomorphisms — PROVED (compiled 02:12, scratch/h5-glue/OpenSub.lean)
+## 3. Open subgroup models are generic isomorphisms — PROVED (compiled ~01:59, scratch/h5-glue/OpenSub.lean)
 - `isOpenImmersion_pullback_map`: Over.pullback j sends open immersions to open immersions
   (IsPullback.of_bot pasting + MorphismProperty.of_isPullback).
 - `isIso_of_openImmersion_self`: an open immersion B.X ⟶ B.X over Spec L of an AbVar is an iso
@@ -33,12 +33,12 @@ docs/research/h5-neron.md.
   All three: axioms [propext, Classical.choice, Quot.sound]. This is the "on generic fibres it is an
   isomorphism" clause of h5-neron's OpenSubgroupHeight docstring, now a Lean proof.
 
-## 4. Complex points — PROVED (compiled 02:15, scratch/h5-glue/Pts.lean)
+## 4. Complex points — PROVED (compiled ~02:00, scratch/h5-glue/Pts.lean)
 - `ptCIso`, `ptsEquiv` (𝒢.Pts τ ≃ L-points of the generic fibre, via Over.mapPullbackAdj),
   `ptsEquiv_comp`, `pts_comp_bijective`: if F.map f is an iso, p ↦ p ≫ f is a bijection
   𝒢.Pts τ → 𝒩.Pts τ. Axioms [propext, Classical.choice, Quot.sound].
 
-## 5. Combined file scratch/h5-glue/H5Glue.lean — COMPILED 02:17 (no errors; 12 #print axioms,
+## 5. Combined file scratch/h5-glue/H5Glue.lean — COMPILED ~02:01 (no errors; 12 #print axioms,
 ## all [propext, Classical.choice, Quot.sound])
 - §1-§4 as above; §5: N1, N2, IsOpenSubgroupModel, ModelHeightBaseChange, OpenSubgroupHeight,
   compositum copied verbatim from h5-neron.
@@ -48,3 +48,20 @@ docs/research/h5-neron.md.
 - `stableFaltingsHeight_eq_neron_all (hN1 hN2 hA hO hbc)`: H5 in the multi-field form R19-R21 need,
   from leaves N1, N2 and glue HeightAntitone, OpenImmersionHeightLe, ModelHeightBaseChange only
   (h5-neron's version needed six glue hypotheses incl. NeronModelMinimal, GroupModelBaseChangeExists).
+
+## 6. Independent model review of H5Glue.lean (read-only subagent, ~02:08)
+- No statement false or vacuous; copied statements match H5Neron.lean token for token.
+- PROBLEM (documentation): `HeightAntitone`'s docstring omits an input. Building a metrization of
+  𝒩 needs `HodgeData.isLattice` for 𝒩.detLattice g. Finite secIndex follows from 𝒢's lattice
+  (sub-𝓞-module of a rank-one lattice), but NONVANISHING of detLattice_𝒩 (ω_𝒩 of full generic rank)
+  does not follow from f* (only ω_𝒩 ↪ ω_𝒢). Needs the full-rank half of HodgeLatticeTheorem for 𝒩
+  (true: 𝒩 smooth). Same observation made independently before the review.
+  → NeronModelMinimal is true but its proof needs (part of) HodgeLatticeTheorem: it is not pure glue
+    over the mapping property (corrects h5-neron finding (d)).
+- `OpenImmersionHeightLe`: TRUE with no extra input (ω_𝒰 = f*ω_𝒢; gives equality).
+
+## 7. Local ring at ξ along a generic isomorphism — PROVED (compiled ~02:20, scratch/h5-glue/Stalk.lean)
+- `map_genericUnit`: IsMonHom f ⇒ f.left 𝒢.genericUnit = 𝒩.genericUnit.
+- `stalkIso_of_genericIso`: IsIso (F.map f) ⇒ IsIso (f.left.stalkMap 𝒢.genericUnit).
+- Uses hodge-lattice's `genericFibreStalkIso`, `fst_genericFibreUnit` (copied verbatim, re-compiled).
+  Axioms [propext, Classical.choice, Quot.sound].
