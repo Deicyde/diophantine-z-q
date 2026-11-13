@@ -687,6 +687,62 @@ theorem mem_upperSet_iff {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : 
 
 end Upper
 
+/-! ## §9. The `ℚ̄`-form: `τ` is the restriction of `PkgI4.decomp p σ` -/
+
+section Qbar
+
+/-- The embedding `ℚ̄ → ℚ̄_p` underlying `PkgI4.decomp p` (Mathlib's
+`Field.absoluteGaloisGroup.map`): it intertwines `decomp p σ` with `σ`. (Same proof as
+`decomp_spec` of `scratch/g0-mod-newform/NewForm.lean`.) -/
+theorem decomp_spec (p : ℕ) [Fact p.Prime] : ∃ jQ : PkgI4.Qbar →+* PadicAlgCl p,
+    ∀ (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) x, jQ (PkgI4.decomp p σ x) = σ (jQ x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p] := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) := g.toAlgebra
+  refine ⟨g.toRingHom, fun σ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) σ)
+    (AlgebraicClosure ℚ) x
+
+variable {jQ : PkgI4.Qbar →+* PadicAlgCl p}
+  (hjQ : ∀ (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) x, jQ (PkgI4.decomp p σ x) = σ (jQ x))
+  (K : IntermediateField ℚ PkgI4.Qbar) [NumberField K] [IsGalois ℚ K]
+include hjQ
+
+/-- For `K ⊆ ℚ̄` Galois and `j = jQ|_K`: `tauOf j σ = (decomp p σ)|_K`. -/
+theorem tauOf_eq_restrictNormal (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) :
+    tauOf (jQ.comp (algebraMap K PkgI4.Qbar)) σ = (PkgI4.decomp p σ).restrictNormal K := by
+  symm
+  apply eq_tauOf
+  intro x
+  simp only [RingHom.comp_apply]
+  rw [show algebraMap K PkgI4.Qbar ((PkgI4.decomp p σ).restrictNormal K x) =
+      PkgI4.decomp p σ (algebraMap K PkgI4.Qbar x) from
+    AlgEquiv.restrictNormal_commutes (PkgI4.decomp p σ) K x, hjQ]
+
+/-- **G15 transport, `ℚ̄`-form (lower numbering).** For `K ⊆ ℚ̄` Galois over `ℚ`, `jQ` as in
+`decomp_spec`, `P = primeOf (jQ|_K)`: `σ ∈ ramSet (ℚ_p(jQ K)) i ↔ (decomp p σ)|_K ∈ G_i(P)`. -/
+theorem mem_ramSet_iff_decomp (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (i : ℕ) :
+    σ ∈ LadicCond.ramSet (Lj (jQ.comp (algebraMap K PkgI4.Qbar))) i ↔
+      (PkgI4.decomp p σ).restrictNormal K ∈
+        GlueConductor.ramGroup K (primeOf (jQ.comp (algebraMap K PkgI4.Qbar))).asIdeal i := by
+  rw [← tauOf_eq_restrictNormal hjQ K σ]
+  exact mem_ramSet_iff (tauOf_spec _ σ) i
+
+open Classical in
+/-- **G15 transport, `ℚ̄`-form (upper numbering).** -/
+theorem mem_upperSet_iff_decomp (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) (v : ℝ) :
+    σ ∈ LadicCond.upperSet (Lj (jQ.comp (algebraMap K PkgI4.Qbar))) v ↔
+      sInf {u : ℝ | -1 ≤ u ∧ v ≤
+          TDifferent.phiF (decompFilt (jQ.comp (algebraMap K PkgI4.Qbar))) u} ≤ -1 ∨
+        (PkgI4.decomp p σ).restrictNormal K ∈
+          GlueConductor.ramGroup K (primeOf (jQ.comp (algebraMap K PkgI4.Qbar))).asIdeal
+            ⌈sInf {u : ℝ | -1 ≤ u ∧ v ≤
+              TDifferent.phiF (decompFilt (jQ.comp (algebraMap K PkgI4.Qbar))) u}⌉.toNat := by
+  rw [← tauOf_eq_restrictNormal hjQ K σ]
+  exact mem_upperSet_iff _ (tauOf_spec _ σ) v
+
+end Qbar
+
 end ZInQ.Contrib.G15.Ladic
 
 end
