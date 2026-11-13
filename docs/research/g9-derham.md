@@ -44,6 +44,7 @@ axioms:
 
 | declaration | type (abridged) | file |
 |---|---|---|
+| `g9_partial` | `AbVarBaseChange → DeRhamComparison → (G9Glue's data) → LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ ∃ E ρE, map ρE = r.restrictLocal ℓ ∧ htMult ℓ ρE 0 = 1 ∧ htMult ℓ ρE (-1) = 1` (no weight clause) | Partial.lean |
 | `localModel_of_abVarBaseChange` | `AbVarBaseChange → G9Bridge.LocalModel` | LocalModel.lean |
 | `g9Glue_of_localModel` | `LocalModel → R10Weights → G9Glue` | Final.lean |
 | `fieldEmbBdR` | `G9Bridge.FieldEmbBdR` (`F' ⊆ B_dR` semilinearly), from 3c's `iotaDR` | Final.lean |
@@ -63,7 +64,7 @@ The local data in `core_ht`/`core_dR_F` are: `F/ℚ_p` finite Galois; `ρ` a `�
 `eE : E ⊗ V ≃ₗ[E] E² × E²` with `eE ∘ (ρ σ).baseChange E = (ρE(gf σ) ⊕ ρE(gf σ)) ∘ eE`.
 
 `#print axioms` output: `scratch/g9-derham/Axioms.lean`, saved in
-`scratch/g9-derham/axioms-output.txt`. Every one of the 20 theorems listed there prints
+`scratch/g9-derham/axioms-output.txt`. Every one of the 22 theorems listed there prints
 `[propext, Classical.choice, Quot.sound]`, for example:
 
 ```
@@ -76,7 +77,8 @@ The local data in `core_ht`/`core_dR_F` are: `F/ℚ_p` finite Galois; `ρ` a `�
 ```
 
 Build: `lake build ZInQKernel.Contrib.G9.LocalModel ZInQKernel.Contrib.G9.G9Weights` succeeds
-(VERIFIED); together these two modules import all 19 files of `Contrib/G9`. There is no `sorry`
+(VERIFIED); together with `ZInQKernel.Contrib.G9.Partial` (also built), they import all 20 files
+of `Contrib/G9`. There is no `sorry`
 and no `axiom`. One declaration raises the heartbeat limit: `localModel_of_abVarBaseChange` has
 `set_option maxHeartbeats 2000000 in`, because its final anonymous constructor times out at the
 default limit.
@@ -101,7 +103,8 @@ the definitions).
 - **Recommendation:** add the clause `R10Weights` to R10. It is part of the same published
   statement, not a new leaf.
 - Without `R10Weights`, the proof still gives `IsDeRham` and the multiplicities `1` at `0` and at
-  `−1` (3c's `g9_deRham`).
+  `−1`: `g9_partial` (Partial.lean) for `G9Glue`'s own data, and 3c's `g9_deRham` for the local
+  data.
 
 **F2: base change of the abelian variety** (VERIFIED by reading).
 - R10 is stated for `PkgI4.I3.AbVar F` over a finite `F/ℚ_ℓ`. `G9Glue`'s `A` is a `PkgI3.AbVar K`
@@ -171,7 +174,7 @@ group `Gal(F'/ℚ_ℓ)`. VERIFIED.
   `KerTheta.lean` (bdr-kertheta's scratch file).
 - First run: `Speiser.lean`, `Descent.lean`, `Galois.lean`, `OverF.lean` (3c added the equivalences
   `DspPiEquiv`, `DspProdEquiv`), `BdRAct.lean`, `LocalCore.lean`, `CoefDescent.lean`,
-  `Reduction.lean`, `Final.lean`, `LocalModel.lean`.
+  `Reduction.lean`, `Final.lean`, `LocalModel.lean`, `Partial.lean`.
 - Second run (3c): `Local.lean`, `HenselEmb.lean`, `BdREmb.lean`, `G9.lean`, `G9Weights.lean`.
 - Checks: `scratch/g9-derham/Axioms.lean` and `axioms-output.txt`.
 - There are no name clashes across the directory: a file importing all modules compiles

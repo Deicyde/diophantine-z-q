@@ -18,3 +18,5 @@
 'ZInQ.Contrib.G9.g9_deRham' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G9.g9_hasHTWeights' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G9.g9_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G9.core_htMult' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G9.g9_partial' depends on axioms: [propext, Classical.choice, Quot.sound]

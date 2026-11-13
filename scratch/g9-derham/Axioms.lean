@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.G9.LocalModel
+import ZInQKernel.Contrib.G9.Partial
 import ZInQKernel.Contrib.G9.G9Weights
 
 #print axioms ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange
@@ -21,3 +21,5 @@ import ZInQKernel.Contrib.G9.G9Weights
 #print axioms ZInQ.Contrib.G9.g9_deRham
 #print axioms ZInQ.Contrib.G9.g9_hasHTWeights
 #print axioms ZInQ.Contrib.G9.g9_local
+#print axioms ZInQ.Contrib.G9.core_htMult
+#print axioms ZInQ.Contrib.G9.g9_partial

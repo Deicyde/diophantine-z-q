@@ -154,3 +154,10 @@
   VERIFIED: `lake build ZInQKernel.Contrib.G9.LocalModel` OK; #print axioms → standard three for both.
   (`set_option maxHeartbeats 2000000 in` on `localModel_of_abVarBaseChange`: the final anonymous
   constructor times out at 200000.)
+
+## 04:30 Partial.lean; docs
+- `core_htMult` (htMultOver ρ w = 2M ⇒ htMult ρE w = M) and `g9_partial : AbVarBaseChange →
+  DeRhamComparison → G9Glue's data → LocalIsDeRham ∧ ∃ E ρE, map = r|loc ∧ htMult 0 = 1 ∧ htMult (-1) = 1`.
+  VERIFIED: builds; axioms standard. scratch/g9-derham/Axioms.lean: 22 theorems, all
+  [propext, Classical.choice, Quot.sound] (axioms-output.txt).
+- docs/research/g9-derham.md written.
