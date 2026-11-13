@@ -193,21 +193,17 @@ kernel is `gaussThetaDual a b x = −i Σ_{ν ∈ ℤ²} ν e(aν₁ + bν₂) e
 **`CdFourier` (finite identity).** `ĉ_d(ν) = 0` unless `ν = (1+i)μ`, and then
 `ĉ_d((1+i)μ) = 4d(1+i) · (2/d) · c_d(μ)`.
 
-Proof (in Lean except the odd prime Gauss sums): CRT parametrization `j = d a + 4 b` of `ℤ/4d`
+Proof (all in Lean): CRT parametrization `j = d a + 4 b` of `ℤ/4d`
 (`sum_crt`), which needs no inverses because `d ≡ 1 (mod 4)` and `(16/d) = 1` (`fourierHat_cd_eq`).
 - 2-part: `Σ_{j mod 4} u(j) e(j·ν/4) = 4(1+i) u(ν/(1+i))`, and `0` off `(1+i)ℤ[i]`. A 16 × 16 table, proved in
   Lean by `decide` in `ℤ[i]` (`g2G_table`, with `e(k/4) = i^k`, `cexp_two_pi_I_div_four`).
 - odd part `OddGauss d`: multiplicative in `d` (Lean: `oddGauss_mul`, with the parametrization
-  `b = n b₁ + m b₂` and the squares `(n²/m) = 1`); per prime `p ∣ d` (Lean: `gauss2D`):
-  `Σ_{j ∈ 𝔽_p²} χ_p(Nj) e(j·ν/p) = p χ_p(Nν)`. For `p ≡ 1 (mod 4)`,
-  `N(x+iy) = (x+iy)(x−iy)` splits into two independent coordinates, and the sum is
-  `g(χ_p)² χ_p(Nν) = χ_p(−1) p χ_p(Nν)` (`gaussSum_sq`). For `p ≡ 3 (mod 4)`, it is the quadratic
-  Gauss sum of `𝔽_{p²}`, equal to `−g(χ_p)² = p` (Davenport–Hasse for a quadratic extension, or a direct
-  count of `#{x² + y² = t}`). The CRT cross factors are squares, and `χ_d(N(vν)) = χ_d(Nν)`.
-  (VERIFIED numerically for `d ∈ {5, 13, 21, 3, 7}`, all `ν`.) A uniform alternative for odd
-  squarefree `d ≡ 1 (mod 4)`: expand `χ_d(n) = τ(χ_d)^{−1} Σ_t χ_d(t) e(tn/d)` (`χ_d` is primitive), complete
-  the square in each coordinate (`Σ_x e((tx² + νx)/d) = e(−\overline{4t}ν²/d) χ_d(t) G`), and use
-  `G² = χ_d(−1)d`. The result is `d χ_d(Nν)`.
+  `b = n b₁ + m b₂` and the squares `(n²/m) = 1`). At an odd prime `p` (Lean: `gauss2D`),
+  `Σ_{x,y ∈ 𝔽_p} χ(x²+y²) e((xν₁+yν₂)/p) = p χ(ν₁²+ν₂²)`, uniformly for `p ≡ 1` and `3 (mod 4)`. With
+  `g = Σ_t χ(t)e(t/p)`, expand `χ(n) = g^{−1} Σ_t χ(t) e(tn/p)` for all `n` (`sum_chi_psi_mul`). Complete the
+  square, `Σ_x e((tx² + νx)/p) = e(−ν²/(4t)/p) χ(t) g` (`sum_psi_complete_sq`, `sum_psi_sq`), and
+  substitute `u = −(4t)^{−1}`. The result is `χ(−1) g² χ(Nν) = p χ(Nν)` (`gaussSum_sq`).
+  (Also VERIFIED numerically for `d ∈ {5, 13, 21, 3, 7}`, all `ν`.)
 - `χ_d(N((1+i)μ)) = χ_d(2) χ_d(Nμ)` and `(2/d) = −1` for `d ≡ 5 (mod 8)`.
 
 Then, with `ν = (1+i)μ`: `Σ_j c_d(j) gaussThetaDual(j/M)(x) = 8d (2/d) M Θ(2M²x)`. With §2.2 this gives the
