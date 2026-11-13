@@ -20,3 +20,5 @@ Base f90cf864 + merge origin/wip/mul-rigidity (60a480e0).
   - `ZInQ.DefFaltings.HodgeLattice.dimAtOrigin : DimAtOrigin`
   - `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin : TangentDimAtOrigin`
   Statements (and `originPt`) checked identical to the source files by a text comparison script.
+- run24 SmoothStalk.lean §4 corollaries: `isRegularLocalRing_stalk_of_smooth` (smooth over K ⇒ regular at closed points), `finrank_cotangentSpace_of_smoothOfRelativeDimension` (rel. dim n, x closed ⇒ finrank κ(x) 𝔪/𝔪² = n), `isClosed_of_section` (image of a K-point is closed), `stalk_dims_of_section` (K-point s ⇒ dim 𝒪 = n and finrank cotangent = n), `topologicalKrullDim_eq_of_smoothOfRelativeDimension` (irreducible, rel. dim n ⇒ dim X = n): 0 errors, standard axioms (VERIFIED). First attempt failed: `SmoothOfRelativeDimension n f` does not provide a `Smooth f` instance; fixed with `SmoothOfRelativeDimension.smooth n f`.
+- run25 SmoothDimProps.lean regenerated (assemble.py) and recompiled: 0 errors, four Props standard axioms (VERIFIED).
