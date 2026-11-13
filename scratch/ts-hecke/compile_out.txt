@@ -55,7 +55,7 @@ Hint: The binding can be removed (if unused) or named `_` (if used implicitly). 
   [apply] _hU
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/ts-hecke/TSHecke.lean:2640:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:2641:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -63,9 +63,18 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:2845:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
 'TSHecke.exists_surjective_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.connectedSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.irreducibleSpace_of_R1fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.irreducibleSpace_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.heckeIrreducible_of_connected' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.connected_of_heckeIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.pullLevel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.innerIso' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.exists_sub_liftO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.twistFibre_count' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.heckeDegree_of' depends on axioms: [propext, Classical.choice, Quot.sound]

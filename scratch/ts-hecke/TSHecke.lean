@@ -2623,7 +2623,8 @@ noncomputable section
 namespace TSHecke
 
 open CategoryTheory AlgebraicGeometry Limits Polynomial
-open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PropTSGlue PkgI3
+open MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ## Part 1: `HeckeIrreducible` -/
 
@@ -2706,6 +2707,195 @@ theorem connected_of_heckeIrreducible (hR : R1R2fp) (hI : HeckeIrreducible) : Y3
   have := hI Y Φ π h1 hh h2
   exact ⟨Y, Φ, h1, inferInstance⟩
 
+/-! ## Part 2: `HeckeDegree`
+
+The bound `324 = 4 · 81` is a count of `ℚ̄`-points in one fibre of `π`: four classes of
+`Aut(𝒪)` modulo inner automorphisms (aut-o-finite) times at most `81` level structures on a fixed
+QM pair (the kernel's leaf `ObjBridge.TorsionStructure`, through `Level3.torsor`). The degree
+`[E : ℚ(X)]` is at most the number of `ℚ̄`-points of `Spec B` over a generic rational value
+(`GenericFibreCount`, algebra), and those points are distinct points of one `π`-fibre. -/
+
+/-- The classes whose QM pair is an `Aut(𝒪)`-twist of the pair of `P` (the shape of a `π`-fibre
+on `ℚ̄`-points, by R2fp). -/
+def twistFibre (P : QML3 Qbar) : Set (M3 Qbar) :=
+  {c | ∃ Q : QML3 Qbar, c = M3.mk Q ∧ ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)}
+
+/-- **Glue (commutative algebra; generic étaleness of a finite separable extension).** For a
+finite extension `E/ℚ(X)` (separable: characteristic 0) with `B` the integral closure of `ℚ[X]`
+in `E`, some rational value `t` has at least `[E : ℚ(X)]` ring maps `B → ℚ̄` sending `X` to `t`.
+*Proof sketch* (STANDARD; e.g. Neukirch, *Algebraic Number Theory*, I.8.3 with I.2.9, or Serre,
+*Local Fields*, I §4, locators UNVERIFIED): take a primitive element `θ ∈ B` with monic minimal
+polynomial `f ∈ ℚ[X][T]` (`ℚ[X]` is integrally closed); `f` is separable, so `a f + b f' = D(X)`
+with `D ≠ 0`; for `t ∈ ℚ` with `D(t) ≠ 0`, `f(t, T)` has `n = [E : ℚ(X)]` distinct roots
+`r_i ∈ ℚ̄`; each `ℚ[X][θ] → ℚ̄`, `X ↦ t`, `θ ↦ r_i`, extends to `B` (integral over `ℚ[X][θ]`;
+lying over and `ℚ̄` algebraically closed); the extensions are distinct since their values at `θ`
+are. Glue, not a leaf. -/
+def GenericFibreCount : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E],
+    ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Qbar),
+      Module.finrank (RatFunc ℚ) E ≤ s.card ∧
+      ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Qbar t
+
+section Count
+
+variable {K : Type} [Field K]
+
+theorem end_mul_hom {A : AbVar K} (f g : AbVar.End A) : (f * g).hom = g.hom ≫ f.hom := rfl
+
+theorem end_one_hom {A : AbVar K} : (1 : AbVar.End A).hom = 𝟙 _ := rfl
+
+/-- **Transport of a level structure along a QM isomorphism** (pull back by `G.ψ`). -/
+def pullLevel {A₁ A₂ : AbVar K} {q₁ : QMStr A₁} {q₂ : QMStr A₂} (G : QMIso q₁ q₂)
+    (e : Level3 q₂) : Level3 q₁ where
+  eta := (AbVar.ptMap (L := K) G.ψ).toAdditive.comp e.eta
+  linear a b := by
+    show Additive.ofMul (Additive.toMul (e.eta (a * b)) ≫ G.ψ.hom) =
+      Additive.ofMul ((Additive.toMul (e.eta b) ≫ G.ψ.hom) ≫ (q₁.iota a).hom)
+    rw [e.linear a b]
+    show Additive.ofMul ((Additive.toMul (e.eta b) ≫ (q₂.iota a).hom) ≫ G.ψ.hom) = _
+    rw [Category.assoc, Category.assoc]
+    congr 2
+    exact (G.symm).equivariant a
+  ker a := by
+    have hinj : Function.Injective (AbVar.ptMap (L := K) G.ψ).toAdditive := by
+      intro x y hxy
+      have h' : Additive.toMul x ≫ G.ψ.hom = Additive.toMul y ≫ G.ψ.hom := congrArg Additive.toMul hxy
+      have h'' := congrArg (· ≫ G.φ.hom) h'
+      simp only [Category.assoc, G.right, Category.comp_id] at h''
+      exact Additive.toMul.injective h''
+    rw [AddMonoidHom.comp_apply, map_eq_zero_iff _ hinj, e.ker]
+
+/-- The isomorphism of objects underlying `pullLevel`. -/
+def pullIso {A₁ A₂ : AbVar K} (s₁ : A₁.dim = 2) (s₂ : A₂.dim = 2) {q₁ : QMStr A₁}
+    {q₂ : QMStr A₂} (G : QMIso q₁ q₂) (e : Level3 q₂) :
+    QML3.Iso (⟨A₁, s₁, q₁, pullLevel G e⟩ : QML3 K) ⟨A₂, s₂, q₂, e⟩ where
+  φ := G.φ
+  ψ := G.ψ
+  left := G.left
+  right := G.right
+  equivariant := G.equivariant
+  level a := by
+    show Additive.ofMul ((Additive.toMul (e.eta a) ≫ G.ψ.hom) ≫ G.φ.hom) = e.eta a
+    rw [Category.assoc, G.right, Category.comp_id]
+    rfl
+
+/-- **Inner twists are isomorphic** (`ι(v⁻¹) : (A, ι ∘ α) ≅ (A, ι ∘ t)` when `α = Ad(v) ∘ t`). -/
+def innerIso {A : AbVar K} (q : QMStr A) (t α : O ≃+* O) (v : Oˣ)
+    (h : ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)) : QMIso (q.twist α) (q.twist t) where
+  φ := q.iota ((v⁻¹ : Oˣ) : O)
+  ψ := q.iota (v : O)
+  left := by
+    rw [← end_mul_hom, ← map_mul, Units.mul_inv, map_one, end_one_hom]
+  right := by
+    rw [← end_mul_hom, ← map_mul, Units.inv_mul, map_one, end_one_hom]
+  equivariant a := by
+    show (q.iota (α a)).hom ≫ (q.iota ((v⁻¹ : Oˣ) : O)).hom =
+      (q.iota ((v⁻¹ : Oˣ) : O)).hom ≫ (q.iota (t a)).hom
+    rw [← end_mul_hom, ← end_mul_hom, ← map_mul, ← map_mul, h a]
+    congr 2
+    rw [← _root_.mul_assoc, ← _root_.mul_assoc, Units.inv_mul, _root_.one_mul]
+
+end Count
+
+/-- `u ∈ 𝒪` and the lift of its coordinates mod 3 differ by an element of `3𝒪`. -/
+theorem exists_sub_liftO (u : O) : ∃ c : Fin 4 → ZMod 3, ∃ d : O, u - liftO c = 3 * d := by
+  obtain ⟨n, hn⟩ := u.2
+  refine ⟨fun i => (n i : ZMod 3), ⟨ofInt (fun i => n i / 3), _, rfl⟩, ?_⟩
+  apply Subtype.ext
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  simp only [liftO, AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33]
+  rw [hn, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply, ZMod.val_intCast]
+  have := Int.emod_def (n i) 3
+  omega
+
+/-- **The fibre count** (compiled, from the kernel's leaf `TorsionStructure` and aut-o-finite's
+`autO_mod_inner_exact`): a twist fibre has at most `4 · 81 = 324` classes. -/
+theorem twistFibre_count (hT : ObjBridge.TorsionStructure) (P : QML3 Qbar) :
+    (twistFibre P).Finite ∧ (twistFibre P).ncard ≤ 324 := by
+  classical
+  obtain ⟨t, hcov, -⟩ := LeafQM.AV.Pin.Exact.autO_mod_inner_exact
+  let F : Fin 4 × (Fin 4 → ZMod 3) → M3 Qbar := fun kc =>
+    if h : ∃ e : Level3 (P.twist (t kc.1)).q,
+        ∀ a, e.eta a = (P.twist (t kc.1)).e.eta (a * liftO kc.2) then
+      M3.mk ⟨P.A, P.surface, (P.twist (t kc.1)).q, h.choose⟩
+    else M3.mk P
+  have hsub : twistFibre P ⊆ Set.range F := by
+    rintro c ⟨Q, rfl, α, ⟨g⟩⟩
+    obtain ⟨k, v, hv⟩ := hcov α
+    let G : QMIso (P.twist (t k)).q Q.q := (innerIso P.q (t k) α v hv).symm.trans g
+    let e₀ : Level3 (P.twist (t k)).q := pullLevel G Q.e
+    obtain ⟨u₀, -, -, hu⟩ := Level3.torsor hT (P.twist (t k)) e₀
+    obtain ⟨c, d, hd⟩ := exists_sub_liftO u₀
+    have hc : ∀ a, (P.twist (t k)).e.eta (a * u₀) = (P.twist (t k)).e.eta (a * liftO c) := by
+      intro a
+      rw [(P.twist (t k)).e.eq_iff]
+      refine ⟨a * d, ?_⟩
+      rw [← _root_.mul_sub, hd]
+      noncomm_ring
+    have h : ∃ e : Level3 (P.twist (t k)).q,
+        ∀ a, e.eta a = (P.twist (t k)).e.eta (a * liftO c) :=
+      ⟨e₀, fun a => (hu a).trans (hc a)⟩
+    refine ⟨(k, c), ?_⟩
+    have he : h.choose = e₀ := Level3.ext' (AddMonoidHom.ext fun a =>
+      (h.choose_spec a).trans ((hu a).trans (hc a)).symm)
+    simp only [F, dif_pos h, he]
+    exact Quotient.sound ⟨pullIso P.surface Q.surface G Q.e⟩
+  have hfin : (Set.range F).Finite := Set.finite_range F
+  refine ⟨hfin.subset hsub, ?_⟩
+  calc (twistFibre P).ncard ≤ (Set.range F).ncard := Set.ncard_le_ncard hsub hfin
+    _ = (F '' Set.univ).ncard := by rw [Set.image_univ]
+    _ ≤ (Set.univ : Set (Fin 4 × (Fin 4 → ZMod 3))).ncard := Set.ncard_image_le
+    _ = 324 := by rw [Set.ncard_univ, Nat.card_eq_fintype_card]; simp
+
+/-- Any two morphisms `Spec ℚ̄ → Spec ℚ` agree. -/
+theorem specQbar_to_specQ_eq (f g : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of ℚ)) :
+    f = g := by
+  rw [← Spec.map_preimage f, ← Spec.map_preimage g]
+  congr 1
+  exact CommRingCat.hom_ext (Subsingleton.elim _ _)
+
+/-- **`HeckeDegree` from `GenericFibreCount` and the kernel's leaf `TorsionStructure`**
+(compiled; aut-o-finite's computation inlined). -/
+theorem heckeDegree_of (hG : GenericFibreCount) (hT : ObjBridge.TorsionStructure) :
+    HeckeDegree := by
+  intro Y Φ π _ _ h2 E _ _ _ _ _ _ hM
+  obtain ⟨h, hO, -, hval⟩ := hM
+  obtain ⟨t, s, hs, hst⟩ := hG E
+  let pt : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq _ _)
+  have hpt_inj : Function.Injective pt := by
+    intro ψ ψ' hψ
+    have h1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom ψ') ≫ h :=
+      congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hψ
+    have h2' := (cancel_mono h).1 h1
+    have h3 := Spec.map_injective h2'
+    exact congrArg CommRingCat.Hom.hom h3
+  have hpt_val : ∀ ψ ∈ s, π.val (K := Qbar) (pt ψ).left = OnePoint.some (algebraMap ℚ Qbar t) := by
+    intro ψ hψ
+    show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = _
+    rw [hval ψ, hst ψ hψ]
+  rcases s.eq_empty_or_nonempty with hs0 | ⟨ψ₀, hψ₀⟩
+  · rw [hs0, Finset.card_empty] at hs
+    omega
+  set P : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ₀)) with hPdef
+  have hP : Φ Qbar (pt ψ₀) = M3.mk P := (Quotient.out_eq _).symm
+  have hmem : ∀ ψ ∈ s, Φ Qbar (pt ψ) ∈ twistFibre P := by
+    intro ψ hψ
+    set Q : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ)) with hQdef
+    have hQ : Φ Qbar (pt ψ) = M3.mk Q := (Quotient.out_eq _).symm
+    refine ⟨Q, hQ, ((h2 (pt ψ₀) (pt ψ) P Q hP hQ).1).1 ?_⟩
+    rw [hpt_val ψ₀ hψ₀, hpt_val ψ hψ]
+  obtain ⟨hfin, hcard⟩ := twistFibre_count hT P
+  have hinj : Set.InjOn (fun ψ => Φ Qbar (pt ψ)) (s : Set _) :=
+    fun ψ _ ψ' _ hψ => hpt_inj ((Φ Qbar).injective hψ)
+  have := Set.ncard_le_ncard_of_injOn (fun ψ => Φ Qbar (pt ψ)) hmem hinj hfin
+  rw [Set.ncard_coe_finset] at this
+  omega
+
 end TSHecke
 
 end
@@ -2716,3 +2906,8 @@ end
 #print axioms TSHecke.irreducibleSpace_of_connected
 #print axioms TSHecke.heckeIrreducible_of_connected
 #print axioms TSHecke.connected_of_heckeIrreducible
+#print axioms TSHecke.pullLevel
+#print axioms TSHecke.innerIso
+#print axioms TSHecke.exists_sub_liftO
+#print axioms TSHecke.twistFibre_count
+#print axioms TSHecke.heckeDegree_of
