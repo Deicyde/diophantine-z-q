@@ -73,3 +73,14 @@
   **`conjTwistNontrivial_of_surj : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
   HomLinearLift → ConjAntiLift → ConjTwistNontrivial`**, `conjTwistFromLeaves_of_surj`.
   Whole file: 0 errors, 0 sorry, 23 `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:15 §9b added: `conjL` (conjugation on ℂ^g), glue def `ConjUniformization` (N3a:
+  z ↦ twistC(Φ z̄) satisfies IsUniformization for A^s with kernel Λ̄), `ConjAntiLiftLat` (N3 for
+  number fields and full lattices), `conjAntiLiftLat_of_conjAntiLift`, `conjHomInv`,
+  `mapPtIsoInv`, `twistC_injective`, `eq_zero_of_real_smul_mem` (real multiples in a full lattice
+  ⇒ 0, via ofZLatticeBasis coordinates), **`conjAntiLiftLat_of : HomLinearLift →
+  ConjUniformization → ConjAntiLiftLat`** (N2 for id of A^s). §10 main theorem now takes
+  ConjAntiLiftLat. **`conjTwistNontrivial_main : TateModuleFree → UniformizationExists →
+  ArtinTorsionSurj → HomLinearLift → ConjUniformization → ConjTwistNontrivial`**,
+  **`conjTwistFromLeaves_main : ArtinTorsionSurj → HomLinearLift → ConjUniformization →
+  ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 26 `#print axioms` standard.
+  VERIFIED (compiled).

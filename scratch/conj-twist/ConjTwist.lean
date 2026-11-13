@@ -1031,6 +1031,148 @@ theorem conjVarDim : ConjVarDim := by
   exact IsHomeomorph.topologicalKrullDim_eq _
     (Scheme.Hom.homeomorph (Limits.pullback.fst A.X.hom (specS s))).isHomeomorph
 
+/-! ## §9b. N3 from N2 and a smaller glue N3a (proved reduction)
+
+`ConjAntiLiftLat` is N3 for number fields and full lattices (all that §10 uses). It follows from
+N2 (`HomLinearLift` for the identity of `A^s`) and N3a (`ConjUniformization`): the conjugate
+`z ↦ twistC(Φ z̄)` of a uniformization of `A(ℂ)_σ` is a uniformization of `A^s(ℂ)_σ`. -/
+
+/-- Complex conjugation on `ℂ^g`, as an `ℝ`-linear map. -/
+def conjL (g : ℕ) : (Fin g → ℂ) →ₗ[ℝ] (Fin g → ℂ) where
+  toFun z i := starRingEnd ℂ (z i)
+  map_add' z w := by funext i; simp
+  map_smul' r z := by funext i; simp
+
+theorem conjL_conjL {g : ℕ} (z : Fin g → ℂ) : conjL g (conjL g z) = z := by
+  funext i; simp [conjL]
+
+theorem conjL_I {g : ℕ} (z : Fin g → ℂ) :
+    conjL g (Complex.I • z) = -(Complex.I • conjL g z) := by
+  funext i; simp [conjL]
+
+/-- **N3a. The conjugate of a uniformization (GLUE, unproved; STANDARD).** If `σ ∘ s = conj ∘ σ`
+and `Φ` uniformizes `A(ℂ)_σ` with kernel `Λ`, then `z ↦ twistC(Φ(z̄))` uniformizes `A^s(ℂ)_σ`
+with kernel `Λ̄ = {z | z̄ ∈ Λ}`. (`A^s(ℂ)_σ = A(ℂ)_{σ∘s} = A(ℂ)_{conj∘σ}`, and on affine charts
+`twistC` conjugates the values of regular functions, so `z ↦ s(twistC(Φ z̄)) = conj(s'(Φ z))`-type
+compositions are holomorphic; the group-theoretic clauses follow from `twistC` being a bijective
+homomorphism.) -/
+def ConjUniformization : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ →
+    IsUniformization σ (Λ.comap ((conjL g).restrictScalars ℤ))
+      (fun z => twistC A σ s h (Φ (conjL g z)))
+
+/-- **N3 for number fields and full lattices (GLUE; implied by `ConjAntiLift`).** -/
+def ConjAntiLiftLat : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ Λ' : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ) (Φ' : (Fin g → ℂ) → CPts (conjVar A s) σ),
+    A.dim = (g : WithBot ℕ∞) → ∀ [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    IsUniformization σ Λ Φ → IsUniformization σ Λ' Φ' →
+    ∃ N : (Fin g → ℂ) →ₗ[ℝ] (Fin g → ℂ), (∀ z, N (Complex.I • z) = -(Complex.I • N z)) ∧
+      Function.Injective N ∧ ∀ z, Φ' (N z) = twistC A σ s h (Φ z)
+
+theorem conjAntiLiftLat_of_conjAntiLift (h : ConjAntiLift) : ConjAntiLiftLat :=
+  fun K _ _ A σ s hs g Λ Λ' Φ Φ' hd _ _ hΦ hΦ' => h K A σ s hs g Λ Λ' Φ Φ' hd hΦ hΦ'
+
+/-- `Spec(conj)` back from `σ` to `σ ∘ s`. -/
+def conjHomInv {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : cptObj σ ⟶ cptObj (σ.comp s) :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (starRingEnd ℂ))) (by
+    simp only [cptObj, Over.mk_hom]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, h]
+    congr 2
+    ext x
+    simp)
+
+/-- The inverse of `mapPtIso`. -/
+def mapPtIsoInv {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K) :
+    cptObj (σ.comp s) ⟶ (Over.map (specS s)).obj (cptObj σ) :=
+  Over.homMk (𝟙 _) (by
+    simp only [Over.map_obj_hom, cptObj, Over.mk_hom, Category.id_comp, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp])
+
+theorem twistC_inj_aux {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) :
+    conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ mapPtIso σ s ≫ conjHom σ s h = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫ 𝟙 _ ≫ 𝟙 _ ≫
+    Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) = 𝟙 _
+  rw [Category.id_comp, Category.id_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  rw [show (starRingEnd ℂ).comp (starRingEnd ℂ) = RingHom.id ℂ by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+/-- `twistC` is injective (proved). -/
+theorem twistC_injective {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : Function.Injective (twistC A σ s h) := by
+  intro Q Q' hQ
+  have h1 : mapPtIso σ s ≫ conjHom σ s h ≫ Q = mapPtIso σ s ≫ conjHom σ s h ≫ Q' :=
+    ((Over.mapPullbackAdj (specS s)).homEquiv _ _).injective hQ
+  calc Q = (conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ mapPtIso σ s ≫ conjHom σ s h) ≫ Q := by
+        rw [twistC_inj_aux, Category.id_comp]
+    _ = conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ (mapPtIso σ s ≫ conjHom σ s h ≫ Q) := by
+        simp only [Category.assoc]
+    _ = conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ (mapPtIso σ s ≫ conjHom σ s h ≫ Q') := by
+        rw [h1]
+    _ = (conjHomInv σ s h ≫ mapPtIsoInv σ s ≫ mapPtIso σ s ≫ conjHom σ s h) ≫ Q' := by
+        simp only [Category.assoc]
+    _ = Q' := by rw [twistC_inj_aux, Category.id_comp]
+
+/-- A vector all of whose real multiples lie in a full lattice is `0` (proved). -/
+theorem eq_zero_of_real_smul_mem {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ]
+    [IsZLattice ℝ Λ] (z : Fin g → ℂ) (hz : ∀ t : ℝ, t • z ∈ Λ) : z = 0 := by
+  classical
+  haveI := ZLattice.module_finite ℝ Λ
+  haveI := ZLattice.module_free ℝ Λ
+  let b := Module.Free.chooseBasis ℤ Λ
+  let bℝ := b.ofZLatticeBasis ℝ Λ
+  by_contra hne
+  obtain ⟨j, hj⟩ : ∃ j, bℝ.repr z j ≠ 0 := by
+    by_contra hall
+    push Not at hall
+    exact hne (bℝ.repr.injective (Finsupp.ext fun j => by simp [hall j]))
+  have hmem := hz (2 * bℝ.repr z j)⁻¹
+  have e1 : bℝ.repr ((2 * bℝ.repr z j)⁻¹ • z) j = 1 / 2 := by
+    rw [map_smul, Finsupp.smul_apply, smul_eq_mul]
+    field_simp
+  have e2 : bℝ.repr ((2 * bℝ.repr z j)⁻¹ • z) j = (b.repr ⟨_, hmem⟩ j : ℝ) :=
+    Module.Basis.ofZLatticeBasis_repr_apply ℝ Λ b ⟨_, hmem⟩ j
+  rw [e1] at e2
+  have : (2 : ℝ) * (b.repr ⟨_, hmem⟩ j : ℝ) = 1 := by rw [← e2]; norm_num
+  have h3 : (2 * b.repr ⟨_, hmem⟩ j : ℤ) = 1 := by exact_mod_cast this
+  omega
+
+/-- **`ConjAntiLiftLat` from N2 and N3a (proved).** -/
+theorem conjAntiLiftLat_of (hN2 : HomLinearLift) (hN3a : ConjUniformization) :
+    ConjAntiLiftLat := by
+  intro K _ _ A σ s h g Λ Λ' Φ Φ' hd _ hlat hΦ hΦ'
+  have hd' : (conjVar A s).dim = (g : WithBot ℕ∞) := by rw [conjVarDim]; exact hd
+  have hψ := hN3a K A σ s h g Λ Φ hd hΦ
+  obtain ⟨M, hM⟩ := hN2 K (conjVar A s) (conjVar A s) σ g g _ Λ' _ Φ' hd' hd' hψ hΦ' 1
+  have hM' : ∀ z, Φ' (M z) = twistC A σ s h (Φ (conjL g z)) := fun z => by
+    rw [hM z]; exact Category.comp_id _
+  refine ⟨(M.restrictScalars ℝ) ∘ₗ conjL g, fun z => ?_, ?_, fun z => ?_⟩
+  · simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.coe_restrictScalars]
+    rw [conjL_I, map_neg, M.map_smul]
+  · intro z w hzw
+    have key : ∀ v, M (conjL g v) = 0 → v = 0 := by
+      intro v hv
+      apply eq_zero_of_real_smul_mem Λ v
+      intro t
+      rw [← hΦ.2.1]
+      apply twistC_injective A σ s h
+      rw [twistC_one, ← conjL_conjL (t • v), ← hM', map_smul, ← Complex.coe_smul,
+        M.map_smul, hv, smul_zero]
+      exact (hΦ'.2.1 0).mpr (Submodule.zero_mem _)
+    have : M (conjL g (z - w)) = 0 := by
+      simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.coe_restrictScalars] at hzw
+      rw [map_sub, map_sub, hzw, sub_self]
+    exact sub_eq_zero.mp (key _ this)
+  · simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.coe_restrictScalars]
+    rw [hM', conjL_conjL]
+
 /-! ## §10. A weaker N4 suffices: an injective comparison (proved reduction)
 
 Only injectivity of `α` is used: `ℚ_ℓ` is flat over `ℤ_ℓ`, so `ι = ℚ_ℓ ⊗ α` is injective, and
@@ -1058,7 +1200,7 @@ theorem tateLatticeInj_of_tateLattice (h : TateLattice) : TateLatticeInj := by
 /-- **`ConjTwistNontrivial` from T26, T35, N1, N2, N3 and N4' (proved).** -/
 theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
-    (hN3 : ConjAntiLift) (hN4 : TateLatticeInj) : ConjTwistNontrivial := by
+    (hN3 : ConjAntiLiftLat) (hN4 : TateLatticeInj) : ConjTwistNontrivial := by
   classical
   intro hF K _ _ _ A ℓ _ hdim c hc hall
   obtain ⟨cc, emb, hι, hK, h2, hres⟩ := conjData K c hc
@@ -1073,7 +1215,7 @@ theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
   have hd2' : (conjVar A s).dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [conjVarDim]; exact hd2
   obtain ⟨ΛA, ΦA, hdA, hlatA, hA⟩ := h35 K A σ 2 hd2
   obtain ⟨ΛB, ΦB, hdB, hlatB, hB⟩ := h35 K (conjVar A s) σ 2 hd2'
-  obtain ⟨N, hNanti, hNinj, hN⟩ := hN3 K A σ s hσs 2 ΛA ΛB ΦA ΦB hd2 hA hB
+  obtain ⟨N, hNanti, hNinj, hN⟩ := hN3 K A σ s hσs 2 ΛA ΛB ΦA ΦB hd2 hlatA hA hB
   obtain ⟨αA, -, hαA⟩ := hN4 K A emb 2 ΛA ΦA hd2 hlatA hA ℓ
   obtain ⟨αB, hαBinj, hαB⟩ := hN4 K (conjVar A s) emb 2 ΛB ΦB hd2' hlatB hB ℓ
   choose M hM using fun f => hN2 K A (conjVar A s) σ 2 2 ΛA ΛB ΦA ΦB hd2 hd2' hA hB f
@@ -1183,13 +1325,15 @@ theorem conjTwistNontrivial_of_latticeInj (hT : PkgI3.TateModuleFree)
 theorem conjTwistNontrivial_of_lattice (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLattice) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 (tateLatticeInj_of_tateLattice hN4)
+  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
+    (tateLatticeInj_of_tateLattice hN4)
 
 /-- **`ConjTwistFromLeaves` from N1, N2, N3, N4' (proved):** T35 and T26 are among its
 hypotheses. -/
 theorem conjTwistFromLeaves_of_latticeInj (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) (hN4 : TateLatticeInj) : ConjTwistFromLeaves :=
-  fun _ _ h35 _ hT => conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 hN4
+  fun _ _ h35 _ hT => conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2
+    (conjAntiLiftLat_of_conjAntiLift hN3) hN4
 
 /-- **`ConjTwistFromLeaves` from N1, N2, N3, N4 (proved).** -/
 theorem conjTwistFromLeaves_of_lattice (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
@@ -1388,7 +1532,8 @@ theorem tateLatticeInj_of_artinTorsion (hN1 : ArtinTorsion) : TateLatticeInj := 
 theorem conjTwistNontrivial_of_N123 (hT : PkgI3.TateModuleFree)
     (h35 : ZInQ.LeafPush2.UniformizationExists) (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
     (hN3 : ConjAntiLift) : ConjTwistNontrivial :=
-  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 hN3 (tateLatticeInj_of_artinTorsion hN1)
+  conjTwistNontrivial_of_latticeInj hT h35 hN1 hN2 (conjAntiLiftLat_of_conjAntiLift hN3)
+    (tateLatticeInj_of_artinTorsion hN1)
 
 /-- **`ConjTwistFromLeaves` from N1, N2, N3 (proved).** -/
 theorem conjTwistFromLeaves_of_N123 (hN1 : ArtinTorsion) (hN2 : HomLinearLift)
@@ -1442,6 +1587,18 @@ theorem conjTwistFromLeaves_of_surj (hS : ArtinTorsionSurj) (hN2 : HomLinearLift
     (hN3 : ConjAntiLift) : ConjTwistFromLeaves :=
   conjTwistFromLeaves_of_N123 (artinTorsion_of_surj hS) hN2 hN3
 
+/-- **Main result: `ConjTwistNontrivial` from T26, T35, N1-surj, N2 and N3a (proved).** -/
+theorem conjTwistNontrivial_main (hT : PkgI3.TateModuleFree)
+    (h35 : ZInQ.LeafPush2.UniformizationExists) (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
+    (hN3a : ConjUniformization) : ConjTwistNontrivial :=
+  conjTwistNontrivial_of_latticeInj hT h35 (artinTorsion_of_surj hS) hN2
+    (conjAntiLiftLat_of hN2 hN3a) (tateLatticeInj_of_artinTorsion (artinTorsion_of_surj hS))
+
+/-- **Main result: `ConjTwistFromLeaves` from N1-surj, N2 and N3a (proved).** -/
+theorem conjTwistFromLeaves_main (hS : ArtinTorsionSurj) (hN2 : HomLinearLift)
+    (hN3a : ConjUniformization) : ConjTwistFromLeaves :=
+  fun _ _ h35 _ hT => conjTwistNontrivial_main hT h35 hS hN2 hN3a
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1467,3 +1624,6 @@ end G0Galois
 #print axioms G0Galois.toC_injective
 #print axioms G0Galois.conjTwistNontrivial_of_surj
 #print axioms G0Galois.conjTwistFromLeaves_of_surj
+#print axioms G0Galois.conjAntiLiftLat_of
+#print axioms G0Galois.conjTwistNontrivial_main
+#print axioms G0Galois.conjTwistFromLeaves_main
