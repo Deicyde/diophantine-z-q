@@ -1,0 +1,8 @@
+1+i+j (nrd 2) nrd 2 fixes sqrt2+i: 4.5918e-41
+   t=(0.3 + 1.1j): ratio = 1.0
+   t=(-0.7 + 0.9j): ratio = 1.0
+mu=2j+ij order in PSL2: 2
+1+i+j order in PSL2: 4
+j order in PSL2: 2
+(1+j)/2 order in PSL2: 3
+j*(1+j)/2 order in PSL2: 6

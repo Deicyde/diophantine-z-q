@@ -1,0 +1,50 @@
+scratch/period-map/DevLight.lean:98:24: error: Application type mismatch: The argument
+  ↑τ
+has type
+  ℂ
+but is expected to have type
+  UpperHalfPlane
+in the application
+  𝓝 ↑τ
+scratch/period-map/DevLight.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevLight.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevLight.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevLight.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevLight.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+scratch/period-map/DevLight.lean:458:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/period-map/DevLight.lean:481:12: warning: `ENat.one_le_iff_ne_zero` has been deprecated: Use `Order.one_le_iff_ne_zero` instead
+  ∀ {α : Type u_1} {x : α} [inst : PartialOrder α] [inst_1 : AddMonoidWithOne α] [NeZero 1] [SuccAddOrder α]
+    [IsBotZeroClass α], 1 ≤ x ↔ x ≠ 0
+instead of
+  ∀ {n : ℕ∞}, 1 ≤ n ↔ n ≠ 0
+scratch/period-map/DevLight.lean:484:6: error: Type mismatch: After simplification, term
+  this
+ has type
+  @LE.le ℕ∞ instPreorderENat.toLE (2 + 1) (analyticOrderAt G8 ↑tau3 + analyticOrderAt G8 ↑τ)
+but is expected to have type
+  @LE.le ℕ∞ instLEENat 3 (analyticOrderAt G8 ↑tau3 + analyticOrderAt G8 ↑τ)
+scratch/period-map/DevLight.lean:486:14: error(lean.unknownIdentifier): Unknown identifier `mul_le_mul_left'`
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
