@@ -98,7 +98,9 @@ Glazer's `μ_σ ∘ σ` acts on points and does not depend on `ℓ`. On `V_ℓ(A
 * `m_{σk} = m_σ m_k` and `m_{kσ} = m_k m_σ` for `k ∈ G_L`;
 * `m_σ` commutes with `ptMap f` for every `f ∈ End_L(A)`;
 * `m_σ` is surjective with finite kernel;
-* `d·m_σ m_τ = n·m_{στ}` with `n, d ≠ 0` and `a_σ a_τ (n/d) = ε(σ,τ) a_{στ}`.
+* `d·m_σ m_τ = n·m_{στ}` with `n, d ≠ 0` and `a_σ a_τ (n/d) = ε(σ,τ) a_{στ}`;
+* `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` for a finite surjective scheme morphism `F_σ : A → A`
+  (algebraicity).
 
 **Each clause is true for Glazer's data** (model check, no human review). `μ_σ` is inflated from
 `Gal(L/ℚ)`, `μ_1 = 1`, and `μ_σ` is defined over `L`, which gives the `G_L` clauses. B-linearity
@@ -133,12 +135,14 @@ Fourth, the level of `χ`. `G7Data` first allowed any `χ` with modulus supporte
 clause `N = chiLevel T₋` for some `T₋ ⊆ T` was added. It is proved from a copy of glue-descent's
 `b2_of_leaves` that exposes the level (`b2_of_leaves_level`).
 
-**Caveat on `DescentDatum`.** It is stated on points and does not record that `μ_σ` is algebraic.
-Its clauses determine `ρ_ℓ` on `G_{L'}`: there it is the Tate action. On `G_ℚ` they determine
-`ρ_ℓ` up to twists by finite-order characters of `Gal(L/ℚ)`, possibly a different one for each
-`ℓ`. The output (a common constituent over `L'`) is insensitive to such twists, and so are
-modularity, de Rham-ness and the conductor bounds. This is SPECULATIVE until the next ranges
-are checked against it.
+**Algebraicity of `μ_σ` (added after reading g0-mod-newform's `G14TraceCompat`).** The trace
+identities of G14 reduce `μ_σ` modulo primes, so the maps on points are not enough.
+`DescentDatum` and `ConjugacyData` now also ask for finite surjective scheme morphisms
+`F_σ : A → A` with `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` (`F_σ` is `μ_σ` composed with the identification
+of the underlying schemes of `^σA` and `A`). Since `m_σ` commutes with `End_L(A)`, `F_σ` is
+determined up to rational scalars, hence `ρ_ℓ = β⁻¹ a m` up to a sign character of `Gal(L/ℚ)`,
+the same for every `ℓ`. The final output (a common constituent over `L'`) is insensitive to
+this. This is SPECULATIVE until the next ranges are checked against it.
 
 ## 3. How the conclusion feeds the next range and `ModularConstituent`
 

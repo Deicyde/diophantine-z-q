@@ -103,3 +103,9 @@
   `AlgEquiv.ofRingEquiv`), `resQRange : ResQRange`.
 - So g0-mod-galois' `G2Out` for `K = L'` follows from `G7Data` alone (`galoisG2Out_of_g7Data resQRange`).
 - VERIFIED: 0 errors; `#print axioms resQRange`: [propext, Classical.choice, Quot.sound].
+
+## run35 (02:45): algebraicity clause
+- g0-mod-newform's `G14TraceCompat` needs `μ_σ` algebraic (reduction mod primes). Added to
+  `DescentDatum` and `ConjugacyData`: `∃ F : G_ℚ → (A → A)` finite surjective with
+  `(m σ x).left = Spec(σ) ≫ x.left ≫ F σ`; passed through `descentDatum_of_conjugacy`.
+- VERIFIED: 0 errors; all axioms standard.

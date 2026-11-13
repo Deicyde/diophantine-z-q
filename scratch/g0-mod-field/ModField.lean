@@ -124,6 +124,9 @@ there are maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` (`μ_σ : ^σA → A` the `B`
 * `m_σ` surjective with finite kernel (an isogeny composed with a bijection),
 * `m_σ m_τ = c(σ,τ) m_{στ}` with `c = n/d ∈ ℚ^×` (the discrepancy commutes with `B`), and
   `a_σ a_τ c(σ,τ) = ε(σ,τ) a_{στ}` (N5 L651-660: `ν = aμ`, `ν_σ ^σν_τ = ε ν_{στ}`).
+* `m_σ` is algebraic: it is induced by a finite surjective morphism of schemes
+  `F_σ : A → A` (`μ_σ`, composed with the identification of the underlying schemes of `^σA` and
+  `A`): `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` (G14's trace identities reduce `F_σ` modulo primes).
 The maps `m_σ` are on points, hence independent of `ℓ`; on `V_ℓ(A)` they give G8's
 `ρ_ℓ(σ) = β(σ)⁻¹ a_σ μ_σ σ` (N5 L725-727). -/
 def DescentDatum (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) : Prop :=
@@ -139,7 +142,11 @@ def DescentDatum (L : IF) (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) : Prop 
           (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) ∧
     (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) ∧
     (∀ σ τ, ∃ n d : ℤ, n ≠ 0 ∧ d ≠ 0 ∧ d • (m σ).comp (m τ) = n • m (σ * τ) ∧
-        (((a σ * a τ * ((n : ℝ) / d) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ))
+        (((a σ * a τ * ((n : ℝ) / d) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ)) ∧
+    (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
+        ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F σ)
 
 /-! ## B1's normalization (proved): from conjugacy isogenies to the sign cocycle -/
 
@@ -174,7 +181,8 @@ geometric half).** Maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` with the first four 
 `DescentDatum`; the discrepancy `c(σ,τ) = n/d ∈ ℚ^×` with `d·m_σ m_τ = n·m_{στ}`, a 2-cocycle
 inflated from `Gal(L/ℚ)` with `c(1,1) = 1`; and degree multiplicativity in the form
 `|ker m_σ|·|ker m_τ| = c(σ,τ)⁴·|ker m_{στ}|` (`deg μ = |ker μ(ℚ̄)|` in characteristic 0,
-`deg[n] = n⁴` on a surface). -/
+`deg[n] = n⁴` on a surface); and algebraicity: `m_σ(x) = F_σ ∘ x ∘ Spec(σ)` for a finite
+surjective scheme morphism `F_σ : A → A`. -/
 def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A))
     (c : GQ → GQ → ℚ) : Prop :=
   (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
@@ -190,7 +198,11 @@ def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A
   (∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) →
       c σ τ = c σ' τ') ∧
   c 1 1 = 1 ∧
-  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker)
+  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker) ∧
+  (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
+      ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
+        Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+          (Additive.toMul x).left ≫ F σ)
 
 /-- The Galois action of `σ' ∈ Aut(ℚ̄/L)` on `A(ℚ̄)` is bijective. -/
 theorem galAct_bijective {L : IF} (A : PkgI3.AbVar L) (σ' : Qbar ≃ₐ[L] Qbar) :
@@ -262,7 +274,7 @@ normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, and `(m, a 
 theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A)) (c : GQ → GQ → ℚ)
     (h : ConjugacyData L A m c) : DescentDatum L A (fun σ τ => sgnU (c σ τ)) := by
-  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg⟩ := h
+  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg, halg⟩ := h
   have hkerL := card_ker_GL hgal hinfl
   have hcard : ∀ σ, 0 < Nat.card (m σ).ker := fun σ => by
     haveI : Finite (m σ).ker := (hfin σ).2.to_subtype
@@ -284,7 +296,7 @@ theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois �
       show act τ x = act τ (act k₂ x)
       rw [mem_GQL.mp hk.2 x hx]
   refine ⟨⟨hloc, fun σ τ => sgnU_sq _, fun σ τ ρ => ?_⟩, ?_, ?_, m, normA m, ?_, ?_, hgal, hinfl,
-    hend, hfin, ?_⟩
+    hend, hfin, ?_, halg⟩
   · rw [← sgnU_mul (hc _ _).1 (hc _ _).1, ← sgnU_mul (hc _ _).1 (hc _ _).1, hcoc]
   · exact fun σ σ' τ τ' h1 h2 => by simp only [hcinf σ σ' τ τ' h1 h2]
   · show sgnU (c 1 1) = 1
