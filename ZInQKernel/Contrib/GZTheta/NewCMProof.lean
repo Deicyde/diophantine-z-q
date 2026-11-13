@@ -452,4 +452,239 @@ theorem coeff_identity :
 
 end Ident
 
+
+/-! ### Evaluating the coefficient identity at `1`, `p`, `p²` -/
+
+theorem sum_divisors_ite_dvd_prime_pow {P : ℕ} (hP : P ≠ 0) {p : ℕ} (hp : p.Prime) (j : ℕ)
+    (ψ : ℕ → ℂ) :
+    ∑ f ∈ P.divisors, (if f ∣ p ^ j then ψ f else 0) =
+      ∑ k ∈ Finset.range (j + 1), (if p ^ k ∣ P then ψ (p ^ k) else 0) := by
+  rw [← Nat.sum_divisors_prime_pow (f := fun f => if f ∣ P then ψ f else 0) hp,
+    ← Finset.sum_filter, ← Finset.sum_filter]
+  apply Finset.sum_congr
+  · ext f
+    simp only [Finset.mem_filter, Nat.mem_divisors]
+    constructor
+    · rintro ⟨⟨h1, _⟩, h2⟩; exact ⟨⟨h2, pow_ne_zero _ hp.ne_zero⟩, h1⟩
+    · rintro ⟨⟨h1, _⟩, h2⟩; exact ⟨⟨h2, hP⟩, h1⟩
+  · intro f _; rfl
+
+/-- Reindexing `e ↦ P/e`. -/
+theorem rsum_reindex (P m : ℕ) (hP : P ≠ 0) (c b : ℕ → ℂ) :
+    ∑ e ∈ P.divisors, c e * (((P / e : ℕ) : ℂ) ^ 2 * (if P / e ∣ m then b (m / (P / e)) else 0)) =
+      ∑ f ∈ P.divisors, (if f ∣ m then c (P / f) * ((f : ℂ) ^ 2 * b (m / f)) else 0) := by
+  rw [← Nat.sum_div_divisors P (fun f => if f ∣ m then c (P / f) * ((f : ℂ) ^ 2 * b (m / f))
+    else 0)]
+  refine Finset.sum_congr rfl fun e he => ?_
+  rw [Nat.div_div_self (Nat.dvd_of_mem_divisors he) hP]
+  split_ifs <;> ring
+
+
+theorem factorization_level_two {d : ℕ} [NeZero d] (hodd : Odd d) :
+    (32 * d ^ 2).factorization 2 = 5 := by
+  have hd0 : d ≠ 0 := NeZero.ne d
+  rw [Nat.factorization_mul (by norm_num) (pow_ne_zero 2 hd0), Finsupp.add_apply,
+    Nat.factorization_pow, Finsupp.smul_apply]
+  have h32 : (32 : ℕ).factorization 2 = 5 := by
+    rw [show (32 : ℕ) = 2 ^ 5 by norm_num, Nat.Prime.factorization_pow Nat.prime_two]; simp
+  have hd2 : d.factorization 2 = 0 := Nat.factorization_eq_zero_of_not_dvd (fun h => by
+    obtain ⟨t, ht⟩ := hodd; omega)
+  rw [h32, hd2]
+  rfl
+
+theorem factorization_level_odd {d : ℕ} [NeZero d] (hsq : Squarefree d) {p : ℕ} (hp : p.Prime)
+    (hp2 : p ≠ 2) (hpd : p ∣ d) : (32 * d ^ 2).factorization p = 2 := by
+  have hd0 : d ≠ 0 := NeZero.ne d
+  rw [Nat.factorization_mul (by norm_num) (pow_ne_zero 2 hd0), Finsupp.add_apply,
+    Nat.factorization_pow, Finsupp.smul_apply]
+  have h32 : (32 : ℕ).factorization p = 0 := by
+    apply Nat.factorization_eq_zero_of_not_dvd
+    intro h
+    have : p ∣ 2 ^ 5 := by norm_num; exact h
+    exact hp2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp (hp.dvd_of_dvd_pow this))
+  have hd1 : d.factorization p = 1 := by
+    have h1 : 1 ≤ d.factorization p := (hp.dvd_iff_one_le_factorization hd0).mp hpd
+    have h2 : d.factorization p ≤ 1 := hsq.natFactorization_le_one p
+    omega
+  rw [h32, hd1]
+  rfl
+
+/-- **The level of the newform attached to `f_d` is `32 d²`** (Atkin–Li for `f₁ ⊗ (·/d)`). -/
+theorem level_eq_of_assoc {d : ℕ} [NeZero d] (hd4 : d % 4 = 1) (hsq : Squarefree d) {M : ℕ}
+    [NeZero M] (hMN : M ∣ 32 * d ^ 2) (g : Newform M 2) (hχ : g.χ = 1)
+    (hgood : ∀ p : ℕ, p.Prime → ¬ p ∣ 2 * d → coeff g p = heckeCoeff d p) :
+    M = 32 * d ^ 2 := by
+  by_contra hne
+  have hodd : Odd d := odd_of_mod_four hd4
+  set N := 32 * d ^ 2 with hN
+  have hN0 : N ≠ 0 := mul_ne_zero (by norm_num) (pow_ne_zero 2 (NeZero.ne d))
+  have hM0 : M ≠ 0 := NeZero.ne M
+  set P := N / M with hP
+  have hP0 : P ≠ 0 := Nat.ne_of_gt (level_pos_div hd4 hsq hMN g hχ hgood)
+  obtain ⟨cg, hci⟩ := coeff_identity hd4 hsq hMN g hχ hgood
+  set κ := -32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d) with hκ
+  have hκ0 : κ ≠ 0 := kappa_ne_zero hd4 hsq hMN g hχ hgood
+  obtain ⟨hmul, hpow⟩ := newform_mul_pow g hχ
+  set c := cAr M d (coeff g) with hcdef
+  have hcm : c.IsMultiplicative := cAr_mult M d (coeff g)
+  have hb1 : coeff g 1 = 1 := g.isNorm
+  -- the identity at `p ^ j`
+  have hr : ∀ (p : ℕ), p.Prime → ∀ j : ℕ, κ * heckeCoeff d (p ^ j) =
+      cg * ∑ k ∈ Finset.range (j + 1), (if p ^ k ∣ P then c (P / p ^ k) *
+        (((p ^ k : ℕ) : ℂ) ^ 2 * coeff g (p ^ j / p ^ k)) else 0) := by
+    intro p hp j
+    rw [hci, rsum_reindex P (p ^ j) hP0 (fun e => c e) (coeff g),
+      sum_divisors_ite_dvd_prime_pow hP0 hp j]
+  -- `κ = cg c(P)`
+  have hr1 : κ = cg * c P := by
+    have := hr 2 Nat.prime_two 0
+    simp only [pow_zero, heckeCoeff_one, mul_one, zero_add, Finset.range_one,
+      Finset.sum_singleton, one_dvd, if_true, Nat.div_one, Nat.cast_one, one_pow, one_mul,
+      Nat.div_self Nat.one_pos, hb1] at this
+    exact this
+  have hcP : c P ≠ 0 := fun h0 => hκ0 (by rw [hr1, h0, mul_zero])
+  have hcg : cg ≠ 0 := fun h0 => hκ0 (by rw [hr1, h0, zero_mul])
+  -- a prime where `M` falls short
+  obtain ⟨p, hpM⟩ : ∃ p, M.factorization p < N.factorization p := by
+    by_contra h
+    simp only [not_exists, not_lt] at h
+    apply hne
+    apply Nat.eq_of_factorization_eq hM0 hN0
+    intro p
+    exact le_antisymm ((Nat.factorization_le_iff_dvd hM0 hN0).mpr hMN p) (h p)
+  have hp : p.Prime := by
+    by_contra hnp
+    rw [Nat.factorization_eq_zero_of_not_prime N hnp] at hpM
+    omega
+  have hpN : p ∣ N := (hp.dvd_iff_one_le_factorization hN0).mpr (by omega)
+  have hp2d : p ∣ 2 * d := (dvd_two_mul_iff_not_coprime hp).mpr fun hc =>
+    (Nat.Prime.coprime_iff_not_dvd hp).mp hc hpN
+  set v := P.factorization p with hv
+  have hvP : v = N.factorization p - M.factorization p := by
+    rw [hv, hP, Nat.factorization_div hMN]; rfl
+  set Q := P / p ^ v with hQ
+  have hPQ : p ^ v * Q = P := Nat.ordProj_mul_ordCompl_eq_self P p
+  have hcopQ : Nat.Coprime p Q := Nat.coprime_ordCompl hp hP0
+  have hcPv : ∀ k, c (p ^ k * Q) = c (p ^ k) * c Q := fun k =>
+    hcm.map_mul_of_coprime (Nat.Coprime.pow_left k hcopQ)
+  have hloc : ∀ k, c (p ^ k) = locC M d (coeff g) p k := fun k => cAr_prime_pow hp k
+  have hApk : ∀ k, 1 ≤ k → heckeCoeff d (p ^ k) = 0 := fun k hk =>
+    heckeCoeff_pow_of_dvd_two_mul hd4 hp hp2d hk
+  by_cases hp2 : p = 2
+  · -- `p = 2`: `c(2^v) = 0`
+    subst hp2
+    have h5 : N.factorization 2 = 5 := factorization_level_two hodd
+    have hv1 : 1 ≤ v := by omega
+    have hc0 : c (2 ^ v) = 0 := by
+      rw [hloc]
+      unfold locC
+      rw [if_neg (by omega), if_pos hp2d]
+      by_cases hv1' : v = 1
+      · rw [if_pos hv1', neg_eq_zero]
+        have h4 : 2 ^ 2 ∣ M := (Nat.prime_two.pow_dvd_iff_le_factorization hM0).mpr (by omega)
+        exact Newform.qExpansion_coeff_prime_eq_zero_of_sq_dvd g Nat.prime_two h4
+          (dirichletLift_factorsThrough_of_one g hχ _ (Nat.div_dvd_of_dvd
+            ((dvd_pow_self 2 two_ne_zero).trans h4)))
+      · rw [if_neg hv1']
+        split_ifs with h2
+        · exfalso
+          apply h2.2
+          exact (Nat.prime_two.dvd_iff_one_le_factorization hM0).mpr (by omega)
+        · rfl
+    apply hcP
+    rw [← hPQ, hcPv, hc0, zero_mul]
+  · -- odd `p ∣ d`
+    have hpd : p ∣ d := by
+      rcases (Nat.Prime.dvd_mul hp).mp hp2d with h | h
+      · exact absurd ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h) hp2
+      · exact h
+    have hNp : N.factorization p = 2 := factorization_level_odd hsq hp hp2 hpd
+    have hcQ : cg * c Q ≠ 0 := by
+      intro h0
+      apply hcP
+      rw [← hPQ, hcPv]
+      have : c Q = 0 := (mul_eq_zero.mp h0).resolve_left hcg
+      rw [this, mul_zero]
+    have hp0 : (p : ℂ) ≠ 0 := by exact_mod_cast hp.ne_zero
+    have hp1 : (p : ℂ) ^ 2 ≠ 1 := by
+      intro h
+      have : (p : ℕ) ^ 2 = 1 := by exact_mod_cast h
+      have := hp.one_lt
+      nlinarith
+    have hrp := hr p hp 1
+    rw [hApk 1 le_rfl, mul_zero, Finset.sum_range_succ, Finset.sum_range_one] at hrp
+    simp only [pow_zero, one_dvd, if_true, Nat.div_one, pow_one, Nat.cast_one, one_pow, one_mul,
+      Nat.div_self hp.pos, hb1] at hrp
+    by_cases hv2 : v = 2
+    · -- `p ∤ M`
+      have hpM0 : M.factorization p = 0 := by omega
+      have hpnM : ¬ p ∣ M := fun h =>
+        absurd ((hp.dvd_iff_one_le_factorization hM0).mp h) (by omega)
+      have hP' : P = p ^ 2 * Q := by rw [← hPQ, hv2]
+      have hPp : P / p = p * Q := by rw [hP', show p ^ 2 * Q = p * (p * Q) by ring,
+        Nat.mul_div_cancel_left _ hp.pos]
+      have hPp2 : P / p ^ 2 = Q := by rw [hP', Nat.mul_div_cancel_left _ (pow_pos hp.pos 2)]
+      have hcp : c p = -coeff g p := by
+        have := hloc 1; rw [pow_one] at this; rw [this]; simp [locC, hp2d]
+      have hcp2 : c (p ^ 2) = p := by rw [hloc]; simp [locC, hp2d, hpnM]
+      have hdivp : p ∣ P := by rw [hP']; exact Dvd.intro (p * Q) (by ring)
+      rw [if_pos hdivp, hPp, show p * Q = p ^ 1 * Q by ring, hcPv, pow_one, hcp,
+        hP', hcPv, hcp2] at hrp
+      -- `b_p = 0`
+      have hbp : coeff g p = 0 := by
+        have : cg * c Q * (coeff g p * ((p : ℂ) - (p : ℂ) ^ 2)) = 0 := by linear_combination -hrp
+        have h' := (mul_eq_zero.mp this).resolve_left hcQ
+        have hne' : (p : ℂ) - (p : ℂ) ^ 2 ≠ 0 := by
+          intro h0
+          have : (p : ℂ) * (1 - p) = 0 := by linear_combination h0
+          rcases mul_eq_zero.mp this with h | h
+          · exact hp0 h
+          · apply hp1; have : (p : ℂ) = 1 := by linear_combination -h
+            rw [this]; norm_num
+        exact (mul_eq_zero.mp h').resolve_right hne'
+      -- the identity at `p²`
+      have hrp2 := hr p hp 2
+      rw [hApk 2 (by norm_num), mul_zero, Finset.sum_range_succ, Finset.sum_range_succ,
+        Finset.sum_range_one] at hrp2
+      have hdivp2 : p ^ 2 ∣ P := by rw [hP']; exact Dvd.intro Q rfl
+      simp only [pow_zero, one_dvd, if_true, Nat.div_one, pow_one, Nat.cast_one, one_pow,
+        one_mul, if_pos hdivp, if_pos hdivp2, Nat.div_self (pow_pos hp.pos 2)] at hrp2
+      have hbp2 : coeff g (p ^ 2) = -p := by
+        have := hpow p hp 0
+        simp only [zero_add, pow_one, pow_zero, if_neg hpnM] at this
+        rw [this, hbp, hb1]; ring
+      rw [show p ^ 2 / p = p by rw [pow_two, Nat.mul_div_cancel _ hp.pos], hbp, hbp2,
+        hPp, show p * Q = p ^ 1 * Q by ring, hcPv, pow_one, hcp, hPp2, hP', hcPv, hcp2] at hrp2
+      push_cast at hrp2
+      have : cg * c Q * ((p : ℂ) ^ 2 * ((p : ℂ) ^ 2 - 1)) = 0 := by
+        linear_combination -hrp2 - (cg * c Q * (p : ℂ) ^ 4) * hb1
+      rcases mul_eq_zero.mp this with h | h
+      · exact hcQ h
+      · rcases mul_eq_zero.mp h with h' | h'
+        · exact pow_ne_zero 2 hp0 h'
+        · exact hp1 (by linear_combination h')
+    · -- `p ∥ M`
+      have hv1 : v = 1 := by omega
+      have hpM1 : M.factorization p = 1 := by omega
+      have hpdvdM : p ∣ M := (hp.dvd_iff_one_le_factorization hM0).mpr (by omega)
+      have hpsq : ¬ p ^ 2 ∣ M := fun h =>
+        absurd ((hp.pow_dvd_iff_le_factorization hM0).mp h) (by omega)
+      have hex := TauCeti.Nat.IsExactDivisor.of_not_sq_dvd hp hpdvdM hpsq
+      have hbp2 : coeff g p ^ 2 = 1 := by
+        have := Newform.qExpansion_coeff_prime_sq_of_isExactDivisor g hp hex
+          (χ₀ := 1) (by rw [hχ, MonoidHom.one_comp])
+        rw [MonoidHom.one_apply, Units.val_one, one_mul, sub_self, zpow_zero] at this
+        exact this
+      have hP' : P = p * Q := by rw [← hPQ, hv1, pow_one]
+      have hPp : P / p = Q := by rw [hP', Nat.mul_div_cancel_left _ hp.pos]
+      have hcp : c p = -coeff g p := by
+        have := hloc 1; rw [pow_one] at this; rw [this]; simp [locC, hp2d]
+      have hdivp : p ∣ P := by rw [hP']; exact Dvd.intro Q rfl
+      rw [if_pos hdivp, hPp, hP', show p * Q = p ^ 1 * Q by ring, hcPv, pow_one, hcp] at hrp
+      have : cg * c Q * ((p : ℂ) ^ 2 - coeff g p ^ 2) = 0 := by linear_combination -hrp
+      rw [hbp2] at this
+      rcases mul_eq_zero.mp this with h | h
+      · exact hcQ h
+      · exact hp1 (by linear_combination h)
+
 end ZInQ.GZTheta
