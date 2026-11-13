@@ -1,0 +1,4 @@
+TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RayClassField
+TauCeti.NumberTheory.NumberField.Global.RayClass.Narrow.Basic
+TauCeti.NumberTheory.NumberField.NarrowClassGroup.Basic
+TauCeti.NumberTheory.NumberField.NarrowClassGroup.TotallyComplex
