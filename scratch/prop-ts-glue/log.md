@@ -128,3 +128,11 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   characteristic p via `Ideal.algebraMap_residueField_eq_zero`).
 - `propTSAll_of_pieces'''` (final composite: VerticalResidueDegree in place of
   VerticalResidueSeparable). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
+
+## Step 12 (08:58): wrap-up
+- Final file state: PropTSGlue.lean = PropTS.lean + PurityCopy.lean.part + Appendix.lean.part
+  (3399 lines). Compile: 0 errors, 35 PropTSGlue axiom lines all standard (VERIFIED).
+- Not attempted to completion: `VerticalResidueDegree` (route recorded in the report §6:
+  `Ideal.sum_ramification_inertia_eq_finrank` over the DVR ℤ[X]_{(p)} plus residue-field
+  transport; `inertiaDeg_map_eq_inertiaDeg` needs a maximal base prime), `SNSpecialize`, the
+  Kummer pieces, the Hecke pieces (all open glue, unproved).
