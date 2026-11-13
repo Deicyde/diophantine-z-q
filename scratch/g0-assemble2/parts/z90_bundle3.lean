@@ -107,10 +107,8 @@ structure GluePieces3 : Prop where
   /-- R17 concretely, LEAF (Carayol 1986, Thm (A)). -/
   carayolR17 : LadicCond.CarayolR17'
   -- ModularConstituent: joint glue on G7's data (g0-assemble)
-  /-- g0-assemble2, GLUE: `End(A_{L'})` noncommutative on G7's model (elementary; the division-ring
-  half of g0-assemble's `ModelG3G6` follows from `FibreSimple`, part z85). -/
-  modelNoncomm : G0AssembleMod.ModelNoncomm
-  /-- g0-assemble2, GLUE: G3 on G7's model (the other half of `ModelG3G6`). -/
+  /-- g0-assemble2, GLUE: G3 on G7's model (the remaining half of g0-assemble's `ModelG3G6`; its
+  G6 half is proved from `FibreSimple` and `MulIsogeny`, parts z85, z86). -/
   modelG3 : G0AssembleMod.ModelG3
   /-- g0-assemble2 (from g14-trace, g15-ram), GLUE: linked Tate data with the Frobenius link and
   the local data (replaces g0-assemble's `LinkedTateData`). -/
@@ -184,7 +182,9 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp
       (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
       Swan.swanIndependent_proved Swan.swanIntegral_proved
       Swan.adaptedExists_proved
-      (G0AssembleMod.modelG3G6_of (fibreSimple_of_gp3 r t gp) gp.modelNoncomm gp.modelG3)
+      (G0AssembleMod.modelG3G6_of (fibreSimple_of_gp3 r t gp)
+        (G0AssembleMod.modelNoncomm_of_mulIsogeny
+          (MulRigidity.mulIsogeny_of_mulEtale gp.mulEtale)) gp.modelG3)
       (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
   heightCopies := G0HeightCopies.heightCopiesAgree
 

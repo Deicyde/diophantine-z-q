@@ -53,3 +53,10 @@
   `modelNoncomm`, `modelG3` (41 fields: 15 LEAF, 3 LEAF?, 23 GLUE); `fibreSimple_of_gp3` factored out.
   TailD: VERIFIED first run, 0 errors, four main theorems standard axioms.
 - Flat file with a95 (g9) and z85 (70428 lines): VERIFIED exit 0 in 739 s, 0 errors, no sorry, 200 axiom reports all standard (07:43-07:56).
+- Part z86: `ModelNoncomm` proved (`modelNoncomm_of_mulIsogeny`): with `ψ = endBC ∘ endBC ∘ ι`, commuting
+  `ψ(i), ψ(j)` give `12 = 0` in `End(A_{L'})` (`ij = -ji`, `i² = 2`, `j² = -3`, `noncomm_ring`); `[12]` is an
+  isogeny (MulIsogeny), so the zero endomorphism `toUnit ≫ η` would be surjective, making `A_{L'}` a
+  subsingleton space of Krull dimension ≤ 0 (`topologicalKrullDim_zero_of_discreteTopology`), against
+  `dim = 2` (`model_dim`). Runs: placeholder `End _` not inferable; `noncomm_ring` left `-4 • 3 = -1 • 12`
+  (use `norm_num`); explicit `A` for `hMul`. Run 4: VERIFIED 0 errors. GluePieces3: field `modelNoncomm`
+  removed (40 fields: 15 LEAF, 3 LEAF?, 22 GLUE); four main theorems standard axioms.
