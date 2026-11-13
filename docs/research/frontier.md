@@ -43,11 +43,11 @@ bundle (not done).
 - **H, scenario A ("compiled").** assemble-port's compiled `HDec.HSyn.sixContactMin_of_leaves5` (C4, flat file checked
   by its task) gives the kernel's `ZInQ.SixContactMin` from three bundles of 26 + 18 + 31 fields. With
   `frozenTarget_of_open` this is a composite of two compiled theorems that meet at the kernel Prop `ZInQ.SixContactMin`,
-  so the composite is modus ponens. Its open set is 84 Props (§5.1): the 72 of the list plus the 6 never-projected
-  fields, with 8 fields where scenario F differs (`piTwistC`, `sphereFactorAffine`, `kummerCompositum` proved;
-  `homLinearLift`, `properSmoothGenConnected`, `t40`, `t26` reduced; `upperBreakBound`, `betaSignAtTwo` replaced),
-  minus the 4 Props those reductions add (`HoloHomLift`, `ZariskiConnectedness`, `X0Transitive`, which are new, and
-  T5, already present).
+  so the composite is modus ponens. Its open set is 84 Props (§5.1). It differs from the list in 9 fields of C4
+  (`piTwistC`, `sphereFactorAffine`, `kummerCompositum` proved; `homLinearLift`, `properSmoothGenConnected`, `t40`,
+  `t26` reduced; `upperBreakBound`, `betaSignAtTwo` replaced by route T) and in the 3 Props those reductions add
+  (`HoloHomLift`, `ZariskiConnectedness`, `X0Transitive`): 84 − 9 + 3 = 78 = the 72 of the list + the 6
+  never-projected fields.
 - **H, scenario F ("frontier").** A plus 18 theorem edges on the route (55 edges are checked in all, including
   superseded ones), each a theorem that compiles on its branch per the branch's own log. The edges live in different
   Lean files ("worlds"), so **the composite of scenario F is not compiled anywhere**. `chain.py` checks every edge
