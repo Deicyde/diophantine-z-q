@@ -387,6 +387,41 @@ theorem rbar_isLocalization (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 
     have hxy : x = y := by exact_mod_cast this
     exact ⟨1, by rw [hxy]⟩
 
+/-- An integrally closed subring `A` of a field `K` contains every element of its subfield closure
+that is integral over `ℤ`. -/
+theorem mem_of_isIntegral_of_mem_closure {K : Type*} [Field K] (A : Subring K)
+    [IsIntegrallyClosed A] {x : K} (hx : x ∈ Subfield.closure (A : Set K)) (hint : IsIntegral ℤ x) :
+    x ∈ A := by
+  rw [Subfield.mem_closure_iff] at hx
+  obtain ⟨a, ha, b, hb, hab⟩ := hx
+  rw [Subring.closure_eq] at ha hb
+  by_cases hb0 : b = 0
+  · rw [hb0, div_zero] at hab
+    rw [← hab]
+    exact A.zero_mem
+  have hbA : (⟨b, hb⟩ : A) ∈ nonZeroDivisors A :=
+    mem_nonZeroDivisors_of_ne_zero (fun h => hb0 (congrArg Subtype.val h))
+  let ι : FractionRing A →+* K := IsFractionRing.lift A.subtype_injective
+  let z : FractionRing A := IsLocalization.mk' (FractionRing A) (⟨a, ha⟩ : A) ⟨⟨b, hb⟩, hbA⟩
+  have hz : ι z = x := by
+    show IsFractionRing.lift A.subtype_injective (IsLocalization.mk' (FractionRing A)
+      (⟨a, ha⟩ : A) ⟨⟨b, hb⟩, hbA⟩) = x
+    rw [IsFractionRing.lift_mk']
+    exact hab
+  have hzint : IsIntegral ℤ z := by
+    obtain ⟨f, hfm, hf⟩ := hint
+    refine ⟨f, hfm, ι.injective ?_⟩
+    rw [Polynomial.hom_eval₂, map_zero, hz]
+    have hsub : ι.comp (algebraMap ℤ (FractionRing A)) = algebraMap ℤ K := Subsingleton.elim _ _
+    rw [hsub]
+    exact hf
+  have hzintA : IsIntegral A z := hzint.tower_top
+  obtain ⟨c, hc⟩ := IsIntegrallyClosed.isIntegral_iff.mp hzintA
+  rw [← hz, ← hc]
+  show IsFractionRing.lift A.subtype_injective (algebraMap A (FractionRing A) c) ∈ A
+  rw [IsFractionRing.lift_algebraMap]
+  exact c.2
+
 set_option maxHeartbeats 1000000 in
 set_option synthInstance.maxHeartbeats 200000 in
 attribute [local instance] Polynomial.algebra in
@@ -556,6 +591,79 @@ theorem snSpecializeUnram_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Al
     Module.Finite.of_restrictScalars_finite (Localization.AtPrime m) _ _
   have hAded : IsDedekindDomain A := IsDedekindDomain.of_formallyUnramified
     (Localization.AtPrime m ⧸ I) A
+  -- `A ⊆ L`, and `L` lies in the fraction field of `A`
+  set L : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.adjoin ℚ (Set.range φ)
+    with hL
+  have hgL : ∀ c : integralClosure ℤ[X] E, g c ∈ L := fun c =>
+    IntermediateField.subset_adjoin _ _ ⟨_, rfl⟩
+  have hgM : ∀ y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl,
+      g y ≠ 0 := fun y => (hgu y).ne_zero
+  have hΨmk : ∀ (c : integralClosure ℤ[X] E)
+      (y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl),
+      Ψ (IsLocalization.mk' (integralClosure (Localization.AtPrime m) E) c y) = g c / g y := by
+    intro c y
+    rw [IsLocalization.lift_mk'_spec, mul_div_cancel₀ _ (hgM y)]
+  have hAL : ∀ a ∈ A, a ∈ L := by
+    rintro _ ⟨s, rfl⟩
+    obtain ⟨⟨c, y⟩, rfl⟩ := IsLocalization.mk'_surjective
+      (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl) s
+    rw [hΨmk]
+    exact div_mem (hgL c) (hgL y)
+  have hgA : ∀ c : integralClosure ℤ[X] E, g c ∈ A := fun c =>
+    ⟨algebraMap (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E) c,
+      IsLocalization.lift_eq _ c⟩
+  -- `B` is a localization of `C`, so `L` lies in the fraction field of `A`
+  let ιB : integralClosure ℤ[X] E →+* integralClosure ℚ[X] E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := ℚ[X]) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hgdef : ∀ c, g c = φ (Ideal.Quotient.mk 𝔓
+      (algebraMap (integralClosure ℤ[X] E) (integralClosure ℚ[X] E) c)) := fun c => rfl
+  set M₀ : Submonoid ℤ[X] := (nonZeroDivisors ℤ).map C with hM₀
+  have hlocQ : IsLocalization M₀ ℚ[X] := Polynomial.isLocalization _ _
+  have hlocE₀ : IsLocalization (Algebra.algebraMapSubmonoid E M₀) E :=
+    isLocalization_field_self _ (by
+      rintro _ ⟨n, hn, rfl⟩ h0
+      have : C n = 0 := (zxMap_injective E) (h0.trans (map_zero _).symm)
+      exact nonZeroDivisors.ne_zero hn (C_eq_zero.mp this))
+  have hlocB : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) M₀)
+      (integralClosure ℚ[X] E) :=
+    IsLocalization.integralClosure M₀
+  have hrange : Set.range φ ⊆ Subfield.closure (A : Set (AlgebraicClosure ℚ)) := by
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
+    obtain ⟨⟨c, n⟩, rfl⟩ := IsLocalization.mk'_surjective
+      (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) M₀) b
+    have hspec := IsLocalization.mk'_spec (integralClosure ℚ[X] E) c n
+    have h1 : φ (Ideal.Quotient.mk 𝔓 (IsLocalization.mk' (integralClosure ℚ[X] E) c n)) * g n =
+        g c := by
+      rw [hgdef, hgdef, ← RingHom.map_mul, ← RingHom.map_mul, hspec]
+    have hn0 : g n ≠ 0 := by
+      obtain ⟨_, ⟨_, ⟨k, hk, rfl⟩, rfl⟩⟩ := n
+      show g (algebraMap ℤ[X] (integralClosure ℤ[X] E) (C k)) ≠ 0
+      rw [hkey, Polynomial.map_C, eval_C]
+      simp only [eq_intCast, map_intCast, ne_eq, Int.cast_eq_zero]
+      exact nonZeroDivisors.ne_zero hk
+    rw [eq_div_of_mul_eq hn0 h1]
+    exact div_mem (Subfield.subset_closure (hgA c)) (Subfield.subset_closure (hgA n))
+  have hQsub : Set.range (algebraMap ℚ (AlgebraicClosure ℚ)) ⊆
+      Subfield.closure (A : Set (AlgebraicClosure ℚ)) := by
+    rintro _ ⟨q, rfl⟩
+    rw [show algebraMap ℚ (AlgebraicClosure ℚ) q = (q.num : AlgebraicClosure ℚ) / (q.den : AlgebraicClosure ℚ) by
+      rw [eq_div_iff (by exact_mod_cast q.den_nz)]
+      simp only [eq_ratCast]
+      exact_mod_cast Rat.mul_den_eq_num q]
+    exact div_mem (Subfield.subset_closure (intCast_mem A q.num))
+      (Subfield.subset_closure (natCast_mem A q.den))
+  have hLsub : L.toSubfield ≤ Subfield.closure (A : Set (AlgebraicClosure ℚ)) :=
+    IntermediateField.adjoin_le_subfield (F := ℚ) (S := Set.range φ)
+      (K := Subfield.closure (A : Set (AlgebraicClosure ℚ))) hQsub hrange
+  -- `𝓞 L ⊆ A` (`A` is integrally closed)
+  have hOA : ∀ x : NumberField.RingOfIntegers L, ((x : L) : AlgebraicClosure ℚ) ∈ A := fun x =>
+    mem_of_isIntegral_of_mem_closure A (hLsub (x : L).2)
+      (IsIntegral.map (L.val.toRingHom.toIntAlgHom) x.2)
   sorry
 
 end PropTSGlueDev4
