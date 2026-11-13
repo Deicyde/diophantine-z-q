@@ -105,8 +105,9 @@ structure GluePieces3 : Prop where
   -- ModularConstituent: joint glue on G7's data (g0-assemble)
   /-- g0-assemble, GLUE (G3 and G6 on G7's model). -/
   modelG3G6 : G0AssembleMod.ModelG3G6
-  /-- g0-assemble, GLUE (linked Tate data with G14, G15 on them). -/
-  linkedTateData : G0AssembleMod.LinkedTateData
+  /-- g0-assemble2 (from g14-trace, g15-ram), GLUE: linked Tate data with the Frobenius link and
+  the local data (replaces g0-assemble's `LinkedTateData`). -/
+  linkedTateLocal : G0AssembleMod.LinkedTateLocal
 
 /-- fs5-nocm's `R1R2fpFull` is the leaf bundle's `R1R2fp` after pin-apply (same clauses). -/
 theorem r1r2fpFull_of (r : ResearchLeaves) : FS5NoCM.R1R2fpFull := by
@@ -169,7 +170,8 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp 
         G0AssembleMod.resQFiniteIndex⟩
       (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
       Swan.swanIndependent_proved Swan.swanIntegral_proved
-      Swan.adaptedExists_proved gp.modelG3G6 gp.linkedTateData)
+      Swan.adaptedExists_proved gp.modelG3G6
+      (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
   heightCopies := G0HeightCopies.heightCopiesAgree
 
 /-- **G0 after waves 26-27** (g0-assemble2): the leaf bundles and `GluePieces3` imply

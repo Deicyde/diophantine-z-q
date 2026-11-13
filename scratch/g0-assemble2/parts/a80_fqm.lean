@@ -219,6 +219,9 @@ open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
 
 namespace FibreQM
 
+-- (g0-assemble2) as in part 80: leaf-adopt3 replaced g0-split's copies by leaf-push2's originals
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization IsSiegel IsPeriodMatrix Char2 thetaConst absLogHeight cDom cEvalAt)
+
 open Complex
 
 /-! ### Step 1: the statement for one triple, and qm-pin's reduction -/

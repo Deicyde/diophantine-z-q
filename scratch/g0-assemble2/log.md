@@ -15,3 +15,16 @@
   product-height, g10+conj-twist, g12-det, swan) VERIFIED 0 errors; errors only in a45 (unram-tate:
   missing ModField file-level `open`s), then Lean stopped after 100 errors.
 - Split TailB (a10-a44) / TailC (a45-z99) for faster iteration.
+- TailB (a10-a40) to olean: VERIFIED exit 0, 0 errors (152 s).
+- TailC runs: (1) ambiguity `TSkolemKW.KW.Qbar`/`PkgI4.Qbar` in a50 (fix: `open TSkolemKW.KW hiding Qbar GQ`);
+  dangling docstring in a55; fibre-cover's `obtain ⟨-, -, -, hnat⟩` on the old 4-clause R1fpProps (now 6
+  clauses: `⟨-, -, -, hnat, -, -⟩`); kernel-field: `UnramifiedAt` ambiguous between
+  `GlueDescent.B2Q` and Leaves.lean's copy `GlueB3Unram.UnramifiedAt` (fix: `open GlueB3Unram hiding
+  UnramifiedAt` where both are opened), duplicate FS5 copy removed; a80 needs leaf-push2's `CPts`,
+  `IsUniformization`, `cDom`, `cEvalAt` opened (as part 80). (2) 11 errors: a80 `cDom`/`cEvalAt`; a85:
+  `Module.Free` instance timeout in kernel C10/Link.lean's `trace_endE_indep` (fix:
+  `set_option synthInstance.maxHeartbeats 400000 in`), `dsimp` no progress. (3) 3 errors: missing
+  `letI : NumberField L'` in `linkedTateData_of_local`.
+- TailC run 4 (07:2x, 135 s): VERIFIED exit 0, 0 errors, no sorry; `HSyn.gluePieces_of_gluePieces3`,
+  `HSyn.sixContactMin_of_leaves3`: [propext, Classical.choice, Quot.sound]. So the whole chain
+  LPrefix -> TailA -> TailB -> TailC compiles with every wave-27 part and GluePieces3 (39 fields).

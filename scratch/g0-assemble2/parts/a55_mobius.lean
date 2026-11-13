@@ -1272,7 +1272,6 @@ theorem mobiusGlue_of_curves (hRF : CurveRatFactor) (hSu : CurveSurj)
     (hT : ObjBridge.TorsionStructure) : MobiusGlueU :=
   mobiusGlue_of_curveFacts hRF hSu (twistClassFinite hT)
 
-/-- **The comparison of two triples from the curve facts and T5.** -/
 
 /-- (g0-assemble2) the repaired `R1fpProps` of Leaves.lean gives mobius-glue's `R1fpPropsU`. -/
 theorem r1fpPropsU_of {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}

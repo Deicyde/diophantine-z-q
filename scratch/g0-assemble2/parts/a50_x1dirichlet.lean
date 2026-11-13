@@ -27,7 +27,7 @@ noncomputable section
 namespace X1Dirichlet
 
 open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisChar)
-open TSkolemKW.KW
+open TSkolemKW.KW hiding Qbar GQ
 
 /-- **Kronecker–Weber at Frobenius (GLUE, unproved; from T17 `KroneckerWeber`).** A continuous
 character `ψ : G_ℚ → ℚ̄_ℓ^×` of finite image is, at arithmetic Frobenius outside a finite set,

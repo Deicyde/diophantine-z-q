@@ -62,7 +62,7 @@ theorem rationalFibre_of_le {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv
     (K : IF) (hK : residueImage (X := Y.left) y.left ≤ K) :
     ∃ PK : QML3 K, RationalFibre Y Φ P K PK := by
   obtain ⟨yK, hyK⟩ := exists_factor_of_residueImage_le Y y K hK
-  obtain ⟨-, -, -, hnat⟩ := h1
+  obtain ⟨-, -, -, hnat, -, -⟩ := h1
   have hPK : Φ K yK = M3.mk (Quotient.out (Φ K yK)) := (Quotient.out_eq _).symm
   obtain ⟨Q, hQ, hb⟩ := hnat K Qbar K.val yK _ hPK
   rw [hyK, hy] at hQ
