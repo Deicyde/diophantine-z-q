@@ -70,7 +70,39 @@ end
 
 end KWFixCopySec
 '''
+# --- copy C: g0-mod-field's g7OutUnr_of_g4Out (FrobTrace.lean l.636-662), keeping `[L:ℚ] ≤ D`
+C = '\n'.join(src[635:662])
+assert C.startswith('theorem g7OutUnr_of_g4Out'), C[:40]
+assert C.rstrip().endswith('_ ≤ _ := hdegR'), C[-40:]
+C = rep(C, "theorem g7OutUnr_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo) (hSq : LeafSqrtCrit)\n"
+        "    (hUnr : LeafUnramified) (u : ℚ) (P : QML3 Qbar) (h : G4Out u P) : G7OutUnr u P := by",
+        "theorem _root_.KWFix.g7OutUnrD_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)\n"
+        "    (hSq : LeafSqrtCrit) (hUnr : LeafUnramified) (u : ℚ) (P : QML3 Qbar) (h : G4Out u P) :\n"
+        "    KWFix.G7OutUnrD u P := by")
+C = rep(C, "    L', hfd', hgal', hle, hA, hD,", "    L', hfd', hgal', hle, hLD, hA, hD,")
+copyC = '''
+section KWFixCopyCSec
+
+/-! ### §2b. G7 with `[L:ℚ] ≤ D` kept: a copy of g0-mod-field's `g7OutUnr_of_g4Out`
+(scratch/frob-trace/FrobTrace.lean l.636-662, verbatim except the header and `hLD` inserted in the
+final `refine`; made by mk_fix.py). The `open` lines are FrobTrace.lean's l.53-54. -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
+namespace G0ModField
+
+''' + C.rstrip('\n') + '''
+
+end G0ModField
+
+end
+
+end KWFixCopyCSec
+'''
 head = open('part_fix_head.lean').read()
 defs = open('part_fix_defs.lean').read()
 final = open('part_fix_final.lean').read()
-open('part_fix.lean', 'w').write(head + defs + '\nend KWFix\n\nend\n\nend KWFixSec\n' + copies + final)
+open('part_fix.lean', 'w').write(head + defs + '\nend KWFix\n\nend\n\nend KWFixSec\n' + copies + copyC + final)

@@ -74,6 +74,21 @@ def TateBridge35E : Prop :=
       @G14Bridge.FrobTraceLink L' _ (numberField_of_fd L')
         (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm5 Tm3
 
+/-- **G7's output with the twist, keeping G4's degree bound `[L:ℚ] ≤ D`** (the hypothesis `hLD` of
+the theorems below; g0-mod-field's `G7OutUnr` drops it, `G4Out` has it). Proved from `G4Out` and
+the four B2 leaves (`g7OutUnrD_of_g4Out`, a copy of g0-mod-field's `g7OutUnr_of_g4Out`, which
+keeps G4's `L`). -/
+def G7OutUnrD (u : ℚ) (P : QML3 Qbar) : Prop :=
+  ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+    (L' : IF) (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
+    Module.finrank ℚ L ≤ ZInQ.heightD ∧ G7Data u P L A ε N χ β L' hLL'
+
+/-- `G7OutUnrD` gives g0-mod-field's `G7OutUnr` (proved). -/
+theorem g7OutUnr_of_D {u : ℚ} {P : QML3 Qbar} (h : G7OutUnrD u P) : G7OutUnr u P := by
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', -, hD⟩ := h
+  exact ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hD⟩
+
 /-- The embedding `Φ ∘ ι_ℂ : ℚ̄ → ℚ̄_ℓ`. -/
 def jOf {ℓ : ℕ} [Fact ℓ.Prime] (Φ : ℂ ≃+* PadicAlgCl ℓ) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) :
     PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ :=

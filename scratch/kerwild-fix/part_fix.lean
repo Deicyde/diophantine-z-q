@@ -200,6 +200,21 @@ def TateBridge35E : Prop :=
       @G14Bridge.FrobTraceLink L' _ (numberField_of_fd L')
         (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm5 Tm3
 
+/-- **G7's output with the twist, keeping G4's degree bound `[L:ℚ] ≤ D`** (the hypothesis `hLD` of
+the theorems below; g0-mod-field's `G7OutUnr` drops it, `G4Out` has it). Proved from `G4Out` and
+the four B2 leaves (`g7OutUnrD_of_g4Out`, a copy of g0-mod-field's `g7OutUnr_of_g4Out`, which
+keeps G4's `L`). -/
+def G7OutUnrD (u : ℚ) (P : QML3 Qbar) : Prop :=
+  ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+    (L' : IF) (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
+    Module.finrank ℚ L ≤ ZInQ.heightD ∧ G7Data u P L A ε N χ β L' hLL'
+
+/-- `G7OutUnrD` gives g0-mod-field's `G7OutUnr` (proved). -/
+theorem g7OutUnr_of_D {u : ℚ} {P : QML3 Qbar} (h : G7OutUnrD u P) : G7OutUnr u P := by
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', -, hD⟩ := h
+  exact ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hD⟩
+
 /-- The embedding `Φ ∘ ι_ℂ : ℚ̄ → ℚ̄_ℓ`. -/
 def jOf {ℓ : ℕ} [Fact ℓ.Prime] (Φ : ℂ ≃+* PadicAlgCl ℓ) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) :
     PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ :=
@@ -655,6 +670,54 @@ end
 
 end KWFixCopySec
 
+section KWFixCopyCSec
+
+/-! ### §2b. G7 with `[L:ℚ] ≤ D` kept: a copy of g0-mod-field's `g7OutUnr_of_g4Out`
+(scratch/frob-trace/FrobTrace.lean l.636-662, verbatim except the header and `hLD` inserted in the
+final `refine`; made by mk_fix.py). The `open` lines are FrobTrace.lean's l.53-54. -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
+namespace G0ModField
+
+theorem _root_.KWFix.g7OutUnrD_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)
+    (hSq : LeafSqrtCrit) (hUnr : LeafUnramified) (u : ℚ) (P : QML3 Qbar) (h : G4Out u P) :
+    KWFix.G7OutUnrD u P := by
+  obtain ⟨L, hfd, hgal, hLD, hram, A, ε, hA, hD⟩ := h
+  have ⟨hε, hinf, h11, _⟩ := hD
+  obtain ⟨hS, hRS, hR12⟩ := admissible_S_mul
+  have hT : ∀ p ∈ T u, p.Prime := by
+    intro p hp
+    rcases Finset.mem_union.mp hp with h | h
+    · exact hS p h
+    · exact Nat.prime_of_mem_primeFactors h
+  obtain ⟨N, hN, χ, β₁, hlev, hsupp, hord, hβl₁, hβs₁, hβe₁⟩ :=
+    b2_of_leaves_level hHasse hTwo hSq hUnr L ε hε hinf (T u) hT hram
+  have hεN : ∀ σ τ, σ ∈ L.fixingSubgroup ∨ τ ∈ L.fixingSubgroup → ε σ τ = 1 :=
+    inflatedNormalized_of L ε hε hinf h11
+  obtain ⟨Q, -, hη, hηl, hunr⟩ := GlueB3Unram.unramified_outside_noLeaf L (T u) (two_mem_T u)
+    hram ε hεN χ hsupp β₁ hβl₁ hβs₁ hβe₁
+  obtain ⟨L', hle, hfd', hgal', hGL', hdeg⟩ :=
+    b3_of_cochain L ε hε hinf h11 χ β₁ hβl₁ hβs₁ hβe₁ _ hη hηl
+  have hdegR := degree_le_QM Mult.S_mul hS (heightD : ℝ) le_rfl hRS hR12 u
+    (Module.finrank ℚ L) (orderOf χ) hLD hord
+  refine ⟨L, hfd, hgal, A, ε, N, hN, χ, fun x => β₁ x * (∏ q ∈ Q, GlueB3Unram.etaP q) x,
+    L', hfd', hgal', hle, hLD, hA, hD, hram, hsupp, hlev, hβl₁.mul hηl, twist_sq (galChar χ) hβs₁ _ hη,
+    twist hβe₁ _, hGL', ?_, hunr L' hGL', isModelOver_baseChange hle A P hA.isModelOver⟩
+  calc (Module.finrank ℚ L' : ℝ) ≤ ((2 * orderOf χ * Module.finrank ℚ L : ℕ) : ℝ) := by
+        exact_mod_cast hdeg
+    _ = 2 * (orderOf χ : ℝ) * Module.finrank ℚ L := by push_cast; ring
+    _ ≤ _ := hdegR
+
+end G0ModField
+
+end
+
+end KWFixCopyCSec
+
 section KWFixFinalSec
 
 /-! ### §3. `LocalGlue` on the data of the bridges in Glazer's normalization -/
@@ -825,6 +888,113 @@ theorem exists_localGlue35_of_tateBridge35E (hB : TateBridge35E)
   · haveI : Fact p.Prime := ⟨hp⟩
     exact localGlue_of_E hR6 hTors (hU p 3) hp3 hD hLD Φ3 h3
 
+/-- **In Glazer's normalization `a` carries the real factor (proved):** if `a ≡ 1` then
+`c = ε' = Φ ∘ ε` is a sign, i.e. every `n/d = ±1`. (unram-tate's witness had `a ≡ 1`, `ε' = c`.) -/
+theorem c_eq_of_a_one {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K} {ℓ : ℕ}
+    [Fact ℓ.Prime] {Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ)}
+    {c ε' : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ} {a β' : PkgI4.GQ → PadicAlgCl ℓ}
+    {uu : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ)}
+    (h7 : GaloisCopy.G7Out A ℓ Tm c ε' a β' uu) (ha : ∀ g, a g = 1) (g h : PkgI4.GQ) :
+    c g h = ε' g h := by
+  have := h7.2.2.2.1 g h
+  rw [ha, ha, ha, _root_.one_mul, _root_.one_mul, _root_.mul_one] at this
+  exact this
+
+/-- **Main result (every `ℓ`), leaves only: `LocalGlue` from I3.M0, R6 and I2-Tors (proved).**
+`UnramRoots` is unram-roots' theorem `UnramRootsTask.unramRoots_all` (Mathlib + vendored Tau Ceti). -/
+theorem exists_localGlue_of_leaves' (hT : PkgI3.TateModuleFree)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
+    (hD : G7Data u P L A ε N χ β L' hLL')
+    (hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2)
+    (hrk : Module.finrank ℤ
+      (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4)
+    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∃ (Φ : ℂ ≃+* PadicAlgCl ℓ)
+      (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ))
+      (c : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a : PkgI4.GQ → PadicAlgCl ℓ)
+      (uu : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ)
+        (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ)),
+      @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+        (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _ Tm c
+        (fun g h => Φ (ε g h : ℂ)) a (fun g => Φ (β g : ℂ)) uu ∧
+      G15Ram.G7Clauses (fun g => Φ (β g : ℂ)) (fun g h => Φ (ε g h : ℂ)) L ∧
+      @G15Ram.KerWild ℓ _ L' _ (numberField_of_fd L') (fun g => Φ (β g : ℂ)) L ∧
+      ∀ (p : ℕ) (hp : p.Prime), p ≠ ℓ →
+        @G15Ram.LocalGlue p ⟨hp⟩ ℓ _ _ _ _ Tm a (fun g => Φ (β g : ℂ)) L :=
+  exists_localGlue_of_leaves hT hR6 hTors UnramRootsTask.unramRoots_all
+    u P L A ε N χ β L' hLL' hD hdim hrk hLD ℓ
+
+/-- **From G4's output (proved):** G4's data give G7's data with `[L:ℚ] ≤ D` (four B2 leaves,
+`g7OutUnrD_of_g4Out`), and on these data, given `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`, every
+`ℓ` has operator data in Glazer's normalization with `G7Clauses`, `KerWild` and `LocalGlue` at
+every `p ≠ ℓ` (leaves I3.M0, R6, I2-Tors). -/
+theorem exists_localGlue_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)
+    (hSq : LeafSqrtCrit) (hUnr : LeafUnramified) (hT : PkgI3.TateModuleFree)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    (u : ℚ) (P : QML3 Qbar) (h4 : G4Out u P) :
+    ∃ (L : IF) (_ : FiniteDimensional ℚ L) (_ : IsGalois ℚ L) (A : PkgI3.AbVar L)
+      (ε : GQ → GQ → ℂˣ) (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
+      (L' : IF) (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧ G7Data u P L A ε N χ β L' hLL' ∧
+      ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+        Module.finrank ℤ
+          (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+        ∀ (ℓ : ℕ) [Fact ℓ.Prime], ∃ (Φ : ℂ ≃+* PadicAlgCl ℓ)
+          (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ)
+            (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ))
+          (c : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ) (a : PkgI4.GQ → PadicAlgCl ℓ)
+          (uu : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ)
+            (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ)),
+          @GaloisCopy.G7Out L' _ (numberField_of_fd L')
+            (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) ℓ _ Tm c
+            (fun g h => Φ (ε g h : ℂ)) a (fun g => Φ (β g : ℂ)) uu ∧
+          G15Ram.G7Clauses (fun g => Φ (β g : ℂ)) (fun g h => Φ (ε g h : ℂ)) L ∧
+          @G15Ram.KerWild ℓ _ L' _ (numberField_of_fd L') (fun g => Φ (β g : ℂ)) L ∧
+          ∀ (p : ℕ) (hp : p.Prime), p ≠ ℓ →
+            @G15Ram.LocalGlue p ⟨hp⟩ ℓ _ _ _ _ Tm a (fun g => Φ (β g : ℂ)) L) := by
+  obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hLD, hD⟩ :=
+    g7OutUnrD_of_g4Out hHasse hTwo hSq hUnr u P h4
+  exact ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hLD, hD,
+    fun hdim hrk ℓ _ => exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD
+      hdim hrk hLD ℓ⟩
+
+/-- **`ℓ = 5, 3` with `FrobTraceLink`, from I3.M0, frob-trace's glue `AlgFrobRed`, R6 and I2-Tors
+(proved).** -/
+theorem exists_localGlue35_of_algFrobRed (hT : PkgI3.TateModuleFree)
+    (hR : FrobTrace.AlgFrobRed) (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) :
+    TateBridge35E ∧ ∀ (u : ℚ) (P : QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+      (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N)
+      (β : GQ → ℂˣ) (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+      G7Data u P L A ε N χ β L' hLL' →
+      (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
+      Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
+      Module.finrank ℚ L ≤ ZInQ.heightD →
+      ∃ (aQ βQ : PkgI4.GQ → PkgI4.Qbar) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ)
+        (Φ5 : ℂ ≃+* PadicAlgCl 5) (Φ3 : ℂ ≃+* PadicAlgCl 3)
+        (Tm5 : PkgI4.GQ → Module.End (PadicAlgCl 5)
+          (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 5))
+        (Tm3 : PkgI4.GQ → Module.End (PadicAlgCl 3)
+          (GaloisCopy.Vb (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) 3)),
+        (∀ g, ιC (βQ g) = (β g : ℂ)) ∧
+        @G14Bridge.FrobTraceLink L' _ (numberField_of_fd L')
+          (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')) Tm5 Tm3 ∧
+        (∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @G15Ram.LocalGlue p ⟨hp⟩ 5 _ _ _ _ Tm5
+          (fun g => Φ5 (ιC (aQ g))) (fun g => Φ5 (β g : ℂ)) L) ∧
+        (∀ (p : ℕ) (hp : p.Prime), p ≠ 3 → @G15Ram.LocalGlue p ⟨hp⟩ 3 _ _ _ _ Tm3
+          (fun g => Φ3 (ιC (aQ g))) (fun g => Φ3 (β g : ℂ)) L) := by
+  have hB := tateBridge35E_of_algFrobLink hT
+    (FrobTrace.algFrobLink_of_one (FrobTrace.algFrobOne_of_red hR))
+  refine ⟨hB, fun u P L _ _ A ε N _ χ β L' _ _ hLL' hD hdim hrk hLD => ?_⟩
+  obtain ⟨aQ, βQ, ιC, Φ5, Φ3, Tm5, c5, u5, Tm3, c3, u3, hιβ, -, -, hF, -, -, h5, h3⟩ :=
+    exists_localGlue35_of_tateBridge35E hB hR6 hTors UnramRootsTask.unramRoots_all
+      u P L A ε N χ β L' hLL' hD hdim hrk hLD
+  exact ⟨aQ, βQ, ιC, Φ5, Φ3, Tm5, Tm3, hιβ, hF, h5, h3⟩
+
 end KWFix
 
 end
@@ -843,3 +1013,10 @@ end KWFixFinalSec
 #print axioms KWFix.exists_localGlue_of_tateBridgeE
 #print axioms KWFix.exists_localGlue_of_leaves
 #print axioms KWFix.exists_localGlue35_of_tateBridge35E
+#print axioms KWFix.g7OutUnrD_of_g4Out
+#print axioms KWFix.g7OutUnr_of_D
+#print axioms KWFix.c_eq_of_a_one
+#print axioms UnramRootsTask.unramRoots_all
+#print axioms KWFix.exists_localGlue_of_leaves'
+#print axioms KWFix.exists_localGlue_of_g4Out
+#print axioms KWFix.exists_localGlue35_of_algFrobRed
