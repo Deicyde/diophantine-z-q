@@ -108,6 +108,12 @@ Disagreement with the other reviewer does not lower this standard. If all
 requirements in your scope are met, stop. Do not create additional procedures
 or re-audit unchanged work merely to increase confidence.
 
+The gate enforces an estimated context budget and stops rather than truncating
+history when it is exceeded. Read the affected arguments and their necessary
+dependencies, not every historical manuscript or unrelated review. If the
+required scope cannot fit, identify a sensible split and request changes;
+do not omit a necessary check to fit the budget.
+
 ## Source access and records
 
 Use public primary-source copies or files already lawfully supplied in this
