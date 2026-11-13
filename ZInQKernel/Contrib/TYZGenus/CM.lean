@@ -28,7 +28,7 @@ genuine definitions:
 * `§4` the leaves (`def … : Prop`): algebraicity of CM values (`CMAlgebraic`), the field of
   definition of a CM point (`CMFieldOfDefinition`, over the ring class field of the order of
   discriminant `D`, a parameter until `RingClass.lean` provides it), Shimura reciprocity at split
-  primes (`ShimuraReciprocity`) and complex conjugation (`CMComplexConj`);
+  primes (`ShimuraReciprocity`) and complex conjugation (`CMComplexConj`, proved: `cmComplexConj`);
 * `§5` TYZ's points: the Heegner form `[16(n+1), −8, 1]` of discriminant `−64n` (TYZ L1203–1205 as
   quoted in `tyz-t1.md` §3.1) and the genus-point sum `Σ_{t ∈ Φ} t(z)`.
 

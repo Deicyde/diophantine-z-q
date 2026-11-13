@@ -215,8 +215,8 @@ No TYZ or CM leaf of the main theorem is proved; they are `def … : Prop`. The 
 * `tyzForm n = [16(n+1), −8, 1]` (disc `−64n`, `n ≡ 5`), `tyzHeegnerPt n`, `tyzZn n = (1 − [i]) f₀(P_n)`,
   `genusSum Φ z = Σ_{t∈Φ} t(z)`.
 
-**Leaves** (none consumed by the main theorem except through `TYZZnOverHprime`; stated as the CM
-input of TYZ §3):
+**Leaves** (the main theorem consumes `CMFieldOfDefinitionTYZ` and `TYZSigmaFixesZn`; the others are
+stated as the CM input of TYZ §3):
 
 | leaf | content | source (numbers UNVERIFIED) |
 |---|---|---|
