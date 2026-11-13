@@ -387,7 +387,7 @@ class Transport(unittest.TestCase):
                 output, model, usage, ident, stop = gate.model_turn('fable', 'trusted', [])
                 self.assertEqual(output[0]['input'], {})
                 self.assertEqual(stop, 'tool_use')
-                self.assertEqual(req.call_args.args[3]['cache_control'], {'type': 'ephemeral'})
+                self.assertEqual(req.call_args.args[3]['cache_control'], {'type': 'ephemeral', 'ttl': '1h'})
                 self.assertEqual(req.call_args.args[3]['max_tokens'], 64000)
 
     def test_refusal_and_max_tokens_distinguishable(self):
@@ -454,11 +454,72 @@ class Transport(unittest.TestCase):
             gate.request(url, {}, 'POST', {}, True)
             self.assertEqual(open_url.call_count, 3)
             self.assertEqual(sleep.call_count, 2)
+            self.assertEqual([c.args[0] for c in sleep.call_args_list], [65, 4])
         with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
              patch.object(gate.urllib.request, 'urlopen', side_effect=error(500)) as open_url:
             with self.assertRaises(RuntimeError):
                 gate.request('https://api.github.com/repos/x/y/issues', {}, 'POST', {})
             self.assertEqual(open_url.call_count, 1)
+
+    def test_rate_retry_obeys_header_and_bounded_wait(self):
+        url = 'https://api.anthropic.com/v1/messages'
+        for requested in [120, 900]:
+            error = urllib.error.HTTPError(url, 429, 'fixture', {'Retry-After': str(requested)}, io.BytesIO(b'busy'))
+            with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                 patch.object(gate.time, 'sleep') as sleep, \
+                 patch.object(gate.urllib.request, 'urlopen', side_effect=[error, io.BytesIO(b'')]) as open_url:
+                if requested == 120:
+                    gate.request(url, {}, 'POST', {}, True)
+                    sleep.assert_called_once_with(120)
+                    self.assertEqual(open_url.call_count, 2)
+                else:
+                    with self.assertRaisesRegex(RuntimeError, 'not retrying early'):
+                        gate.request(url, {}, 'POST', {}, True)
+                    sleep.assert_not_called()
+                    self.assertEqual(open_url.call_count, 1)
+
+    def test_spend_cap_is_not_retried_as_rate_limit(self):
+        url = 'https://api.anthropic.com/v1/messages'
+        payload = {'error': {'type': 'rate_limit_error', 'details': {'error_code': 'enforced_spend_limit_reached'}}}
+        error = urllib.error.HTTPError(url, 429, 'fixture', {}, io.BytesIO(json.dumps(payload).encode()))
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.object(gate.time, 'sleep') as sleep, \
+             patch.object(gate.urllib.request, 'urlopen', side_effect=error) as open_url:
+            with self.assertRaisesRegex(RuntimeError, 'enforced_spend_limit_reached'):
+                gate.request(url, {}, 'POST', {}, True)
+            sleep.assert_not_called()
+            self.assertEqual(open_url.call_count, 1)
+
+    def test_context_budget_includes_cache_tokens_and_output_reserve(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)):
+            first = gate.context_budget('fable', 'system', [])
+            previous = {'request_bytes': first['request_bytes'], 'usage': {'input_tokens': 1000,
+                        'cache_read_input_tokens': 200000, 'cache_creation_input_tokens': 50000, 'output_tokens': 1000}}
+            second = gate.context_budget('fable', 'system', [], previous)
+            self.assertEqual(second['estimated_total'], 252000 + 8192 + 64000)
+            previous['usage']['cache_read_input_tokens'] = 300000
+            with self.assertRaisesRegex(RuntimeError, 'context budget exceeded'):
+                gate.context_budget('fable', 'system', [], previous)
+
+    def test_context_budget_uses_complete_request_and_stops_before_api(self):
+        gh = FakeGH()
+        for family in gate.MODELS:
+            r = gate.Review(gh, gh.pr, [], [], {}, {}, 'x' * 400000, family, 'local mathematical')
+            with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+                 patch.object(gate, 'model_turn') as model:
+                with self.assertRaisesRegex(RuntimeError, 'before the next model request'):
+                    r.run()
+                model.assert_not_called()
+                self.assertEqual(len(r.instructions), 400000)
+
+    def test_context_budget_counts_unicode_bytes_and_new_growth(self):
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)):
+            first = gate.context_budget('astra', 'system', [])
+            prior = {'request_bytes': first['request_bytes'], 'usage': {'input_tokens': 300000, 'output_tokens': 0}}
+            conversation = [{'role': 'user', 'content': '\U0001F50E' * 10000}]
+            with self.assertRaisesRegex(RuntimeError, 'context budget exceeded'):
+                gate.context_budget('astra', 'system', conversation, prior)
+            self.assertEqual(len(conversation[0]['content']), 10000)
 
     def test_long_working_notes_continue_and_preserve_full_artifact(self):
         gh = FakeGH()
