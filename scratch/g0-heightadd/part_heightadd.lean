@@ -388,6 +388,104 @@ end HSyn
 
 end
 
+/-! ## Glue P2 (`ProductModelHeight`) from four smaller Props
+
+`ProductModelHeight` (h5-neron) compares, for a product model `𝒢P ≅ 𝒢₁ × 𝒢₂`, the heights of
+the three group models (infima over metrizations). It follows from:
+* `AnalyticUniformizationUnique` (def-faltings, already stated: the uniqueness half of AN3);
+* `MetrizationDimUnique` (new glue): two metrizations of one group model have the same `g`;
+* `MetrizationExists` (new glue): every group model has a metrization;
+* `ProductMetrization` (new glue P2a): metrizations of `𝒢₁`, `𝒢₂` give one of `𝒢P` whose height
+  is the sum (the construction direction; equality). -/
+
+namespace ZInQ.G0HeightAdd
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings H5Neron
+
+/-- **Glue P2a (product of metrized models).** If `𝒢P ≅ 𝒢₁ × 𝒢₂` (`IsProductModel`) and `M₁`, `M₂`
+are metrizations of `𝒢₁`, `𝒢₂` of dimensions `g₁`, `g₂`, then `𝒢P` has a metrization of
+dimension `g₁ + g₂` whose model height is the sum. Why true (STANDARD): the cotangent space at
+the identity of `𝒢₁ ×_{𝓞_L} 𝒢₂` is `ω₁ ⊕ ω₂` (and `ω_{𝒢P} = ω_{𝒢₁} ⊕ ω_{𝒢₂}` as lattices),
+`⋀^{g₁+g₂}(ω₁ ⊕ ω₂) = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`, the product `Φ₁ × Φ₂ : ℂ^{g₁+g₂} → 𝒢₁(ℂ) × 𝒢₂(ℂ)`
+is an analytic uniformization with kernel `Λ₁ × Λ₂` whose Jacobian determinant on product
+wedges is the product, `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`, and the Arakelov degree of a
+tensor product of Hermitian lines is the sum (Faltings 1983 §1; Deligne, Sém. Bourbaki 616, §1;
+locators UNVERIFIED). Unproved: Mathlib has no computation of the stalk of a fibre product of
+schemes. -/
+def ProductMetrization : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (eC : C.X ≅ A.X ⊗ B.X) (L : Type) [Field L]
+    [NumberField L] [Algebra K L] (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L)
+    (𝒢₂ : GroupModel B L), IsProductModel eC 𝒢P 𝒢₁ 𝒢₂ →
+    ∀ (g₁ g₂ : ℕ) (M₁ : MetrizedModel A L g₁) (M₂ : MetrizedModel B L g₂),
+      M₁.model = 𝒢₁ → M₂.model = 𝒢₂ →
+      ∃ MP : MetrizedModel C L (g₁ + g₂), MP.model = 𝒢P ∧
+        MP.hodge.modelHeight = M₁.hodge.modelHeight + M₂.hodge.modelHeight
+
+/-- **Glue (existence of metrizations; correctness of def-faltings' definition).** Every smooth
+group model `𝒢` of `A_L` carries a metrization (of dimension `dim A`). Why true (STANDARD): the
+Hodge data of `𝒢` exist by `HodgeLatticeTheorem` and the uniformization of each `𝒢(ℂ)_τ` by
+`AnalyticUniformizationExists` (Mumford, *Abelian varieties* §1, UNVERIFIED), with the
+coefficient map `coeff_τ(1 ⊗ df) = jacDet Φ f`. This is the same caveat as on `LeafAdopt.H5`
+(the index set of the infimum is nonempty), for each model separately. Unproved. -/
+def MetrizationExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L), ∃ (g : ℕ) (M : MetrizedModel A L g), M.model = 𝒢
+
+/-- **Glue (the dimension of a metrization).** Two metrizations of the same group model have
+the same dimension (both equal `dim A`: the `MetrizedModel` docstring's argument: for
+`0 < g ≠ dim A` the Hodge space is not a line, and `g = 0` is excluded for `dim A ≥ 1` by the
+surjectivity of `Φ : ℂ⁰ → A_τ(ℂ)`; STANDARD, unproved). -/
+def MetrizationDimUnique : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (g g' : ℕ) (M : MetrizedModel A L g) (M' : MetrizedModel A L g'), M.model = M'.model → g = g'
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- A metrization bounds the height of its model from above. -/
+theorem height_le_of_model {g : ℕ} (M : MetrizedModel A L g) {𝒢 : GroupModel A L}
+    (h : M.model = 𝒢) : 𝒢.height ≤ (M.hodge.modelHeight : EReal) :=
+  iInf_le_of_le g (iInf_le_of_le M (iInf_le_of_le h le_rfl))
+
+/-- Given AN3-uniqueness and `MetrizationDimUnique`, a metrization computes the height of its
+model (from below; with `height_le_of_model`, equality). -/
+theorem le_height_of_model (hU : AnalyticUniformizationUnique) (hD : MetrizationDimUnique)
+    {g : ℕ} (M : MetrizedModel A L g) {𝒢 : GroupModel A L} (h : M.model = 𝒢) :
+    (M.hodge.modelHeight : EReal) ≤ 𝒢.height := by
+  refine le_iInf fun g' => le_iInf fun M' => le_iInf fun hM' => ?_
+  obtain rfl := hD K A L g g' M M' (h.trans hM'.symm)
+  rw [MetrizedModel.modelHeight_eq_of_model_eq hU M M' (h.trans hM'.symm)]
+
+/-- **Glue P2 (`ProductModelHeight`) from `AnalyticUniformizationUnique`,
+`MetrizationDimUnique`, `MetrizationExists` and `ProductMetrization`.** -/
+theorem productModelHeight_of (hU : AnalyticUniformizationUnique) (hD : MetrizationDimUnique)
+    (hE : MetrizationExists) (hP : ProductMetrization) : ProductModelHeight := by
+  intro K _ A B C eC L _ _ _ 𝒢P 𝒢₁ 𝒢₂ hPM
+  obtain ⟨g₁, M₁, h₁⟩ := hE K A L 𝒢₁
+  obtain ⟨g₂, M₂, h₂⟩ := hE K B L 𝒢₂
+  obtain ⟨MP, hMP, hh⟩ := hP K A B C eC L 𝒢P 𝒢₁ 𝒢₂ hPM g₁ g₂ M₁ M₂ h₁ h₂
+  calc 𝒢₁.height + 𝒢₂.height
+      ≤ (M₁.hodge.modelHeight : EReal) + (M₂.hodge.modelHeight : EReal) :=
+        add_le_add (height_le_of_model M₁ h₁) (height_le_of_model M₂ h₂)
+    _ = (MP.hodge.modelHeight : EReal) := by rw [hh, EReal.coe_add]
+    _ ≤ 𝒢P.height := le_height_of_model hU hD MP hMP
+
+end ZInQ.G0HeightAdd
+
+namespace HSyn.G0Split
+
+/-- **`HeightAdditivity` from one leaf (N1), the bundle field `h5`, the stated
+`AnalyticUniformizationUnique`, and three glue Props.** -/
+theorem heightAdditivity_of_split (hN1 : ZInQ.H5Neron.NeronModelExists) (h5 : LeafAdopt.H5)
+    (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
+    (hD : ZInQ.G0HeightAdd.MetrizationDimUnique) (hE : ZInQ.G0HeightAdd.MetrizationExists)
+    (hP : ZInQ.G0HeightAdd.ProductMetrization) : HeightAdditivity :=
+  heightAdditivity_of hN1 h5 (ZInQ.G0HeightAdd.productModelHeight_of hU hD hE hP)
+
+end HSyn.G0Split
+
 #print axioms HSyn.G0Split.isProductAbVar_of_isProductOf
 #print axioms HSyn.G0Split.heightAdditivity_of
 #print axioms ZInQ.H5Neron.productGroupModelExists
+#print axioms ZInQ.G0HeightAdd.productModelHeight_of
+#print axioms HSyn.G0Split.heightAdditivity_of_split

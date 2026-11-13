@@ -18,3 +18,12 @@ origin/wip/h5-neron (b7c1dc21), neither was in the base.
   proofs transfer verbatim); (ii) `IsProductAbVar` vs `IsProductOf` (bridge proved);
   (iii) EReal vs the real-valued form (proved). Remaining hypotheses: N1 (leaf, not in the
   bundles), `NeronModelMinimal` = `r.h5.2` (bundle), `ProductModelHeight` (glue P2, unproved).
+
+## Run 2: P2 split — COMPILED 02:10 (0 errors; 5 #print axioms all [propext, Classical.choice, Quot.sound])
+- new glue Props (namespace `ZInQ.G0HeightAdd`): `ProductMetrization` (P2a, product of
+  metrizations, height = sum), `MetrizationExists` (every group model has a metrization),
+  `MetrizationDimUnique` (two metrizations of one model have the same g).
+- proved `height_le_of_model`, `le_height_of_model` (from `AnalyticUniformizationUnique`,
+  `MetrizationDimUnique`), `productModelHeight_of : U → DimUnique → Exists → P2a →
+  ProductModelHeight`, and `HSyn.G0Split.heightAdditivity_of_split : N1 → LeafAdopt.H5 → U →
+  DimUnique → Exists → P2a → HeightAdditivity`. VERIFIED (compiled).
