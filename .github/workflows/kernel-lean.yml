@@ -1,0 +1,80 @@
+name: Kernel Lean build and audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+
+concurrency:
+  group: kernel-lean-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  kernel:
+    name: Complete kernel build and exact-target audit
+    runs-on: ubuntu-24.04
+    timeout-minutes: 180
+    env:
+      LEAN_NUM_THREADS: '4'
+    steps:
+      - name: Check out candidate
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - name: Set up Python
+        uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.12.14'
+      - name: Install pinned Lean toolchain
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/kernel-elan"
+          cd "$RUNNER_TEMP/kernel-elan"
+          curl --fail --location --retry 3 -o elan.tar.gz https://github.com/leanprover/elan/releases/download/v4.2.4/elan-x86_64-unknown-linux-gnu.tar.gz
+          echo '42b94d4244e8353142c456ec0e4ca6528fd898a6c604d4059f494e706e431f63  elan.tar.gz' | sha256sum --check -
+          tar -xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+      - name: Validate source contract
+        run: |
+          python -B scripts/test_kernel_contract.py
+          python -B scripts/check_kernel_contract.py --output build/kernel-ci/contract.json
+      - name: Test rejection of invalid proofs
+        run: python -B scripts/test_kernel_audit.py
+      - name: Fetch pinned Mathlib cache
+        run: lake exe cache get
+      - name: Restore project build outputs
+        id: restore
+        uses: actions/cache/restore@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/build
+          key: kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-${{ github.sha }}
+          restore-keys: |
+            kernel-v1-${{ runner.os }}-${{ hashFiles('lean-toolchain', 'lake-manifest.json', 'lean/lake-manifest.json') }}-
+      - name: Load base proof-status evidence
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python -B scripts/kernel_base_report.py
+      - name: Build all modules and replay kernel proofs
+        run: python -B scripts/check_kernel.py --base-report build/kernel-ci/base-audit.json
+      - name: Upload proof-status evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: kernel-audit
+          path: build/kernel-ci/
+          if-no-files-found: error
+      # This is the sole optional step. The protected controller's pinned
+      # workflow profile must allow precisely this skip on pull_request runs.
+      - name: Save successful main build outputs
+        if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+        uses: actions/cache/save@0057852bfaa89a56745cba8c7296529d2fc39830
+        with:
+          path: .lake/build
+          key: ${{ steps.restore.outputs.cache-primary-key }}

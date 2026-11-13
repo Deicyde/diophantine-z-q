@@ -1,0 +1,67 @@
+{
+  "schema": "q214-main-integration-historical-continuation/v1",
+  "role": "author historical-record continuation; no independent approval",
+  "author_task": "/root/d214_sol_closure_ledger",
+  "date": "2026-11-13",
+  "reviewed_parent": "3cb78e121c7493a961dad4463f7b486ea9538d93",
+  "merged_main": "a5937595cde3e3db00975b81e5171cdef92c801a",
+  "historical_substitutions": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md"
+  ],
+  "mathematical_acceptance_renewed": false,
+  "failure": "The historical active gate reads current README SHA-256 2daac2a8... where its unchanged manifest and scoped receipt bind historical README 761aa1e8... . The necessary workflow continuation changes its historical SHA-256 44213c... identity and is explicitly handled too.",
+  "implementation": "Strict byte equality to only the main four-line README insertion and the wrapper-command/path-trigger workflow edits; invoke unchanged original validator with exactly those historical bytes; read every other bound file from current repository.",
+  "independent_review": "Required in REVIEW.json in active reviewed-artifacts mode; no approval authored here.",
+  "bindings": [
+    {
+      "path": "README.md",
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b",
+      "bytes": 16623
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "b59d6b302643cf39424be7df482eef717275467837c6588368a6730dd5e0f8c1",
+      "bytes": 2168
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_records.py",
+      "sha256": "d7cbb73da766903e3b1419e5c9501e69ce9c36f51666597ace5240da3a3bea9c",
+      "bytes": 27581
+    },
+    {
+      "path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+      "bytes": 28556
+    },
+    {
+      "path": "research/quartic214-manuscript-review/REVIEW_DECISION.json",
+      "sha256": "8eb7a8969ab80598b5841d07a67327a7d8552fca8c4ee5e73522d9d42d0ac3ab",
+      "bytes": 25706
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/README.md",
+      "sha256": "761aa1e86ea71bdc9e9b8e6bd7b7318ee9e8d49f9d40c1496a66cd8e7cbd9dde",
+      "bytes": 16393
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/quartic214-manuscript.yml",
+      "sha256": "44213c08614752640e03167ac0a94bddca0a4a5d4527a5df587a54783eb32317",
+      "bytes": 2108
+    },
+    {
+      "path": "research/quartic214-main-integration/check_historical_records.py",
+      "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b",
+      "bytes": 11844
+    },
+    {
+      "path": "research/quartic214-main-integration/README.md",
+      "sha256": "0e1d8339a5d171606891462d93340ace1cfc1ec240637768293314b11d81bfea",
+      "bytes": 1862
+    }
+  ],
+  "authors": [
+    "/root/d214_sol_closure_ledger",
+    "/root/pr30_integration_author_recovery"
+  ]
+}
