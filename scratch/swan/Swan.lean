@@ -129,7 +129,9 @@ theorem wild_fix_of_coprime {L : Fld p} (hL : IsFinGal L) {δ : GQp p} (hδ : δ
         simp only [IntermediateField.coe_add, map_add, Finset.sum_add_distrib]
       map_smul' := by
         intro c x; ext
-        simp only [IntermediateField.coe_smul, RingHom.id_apply, map_smul, Finset.smul_sum] }
+        simp only [IntermediateField.coe_smul, RingHom.id_apply, Finset.smul_sum]
+        refine Finset.sum_congr rfl fun j _ => ?_
+        rw [Algebra.smul_def, map_mul, AlgEquiv.commutes, ← Algebra.smul_def] }
   have hT : ∀ x : L, ((T x : L) : Kbar p) = ∑ j ∈ Finset.range m, (δ ^ j) (x : Kbar p) :=
     fun _ => rfl
   have hinj : Function.Injective T := by
@@ -165,7 +167,6 @@ theorem wild_fix_of_coprime {L : Fld p} (hL : IsFinGal L) {δ : GQp p} (hδ : δ
   have h2 := Finset.sum_range_succ (fun j => (δ ^ j) (x : Kbar p)) m
   rw [hfix x x.2, pow_zero, AlgEquiv.one_apply] at *
   rw [h2] at h1
-  simp only at h1
   linear_combination h1.symm
 
 /-- **Wild elements have `p`-power order on every finite Galois level** (the image of `P_p` in
@@ -224,7 +225,9 @@ theorem Bd.pow_sub {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) {A : Mat} (hA : Bd 
   | succ m ih =>
     have e : (1 + A) ^ (m + 1) - 1 - (m + 1) • A =
         (1 + A) * ((1 + A) ^ m - 1 - m • A) + m • (A * A) := by
-      rw [pow_succ']; noncomm_ring
+      rw [pow_succ', mul_sub, mul_sub, mul_one, mul_smul_comm, add_mul, one_mul, add_mul,
+        one_mul, smul_add, add_smul, one_smul]
+      abel
     rw [e]
     have hA1 : Bd 1 A := fun i j => (hA i j).trans ha1
     refine Bd.add ?_ ?_

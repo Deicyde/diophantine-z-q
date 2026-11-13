@@ -16,3 +16,4 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   integral over the absolute upper filtration).
 
 ## Compile outcomes
+- 04:35 Swan.lean §0-§2 (verbatim copies + rfl, wild p-power order `wild_pow_fix`, matrix estimate `Bd.pow_sub`): compiles, no errors. VERIFIED.
