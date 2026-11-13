@@ -1,59 +1,62 @@
-# fs5-nocm: FS5 `FibreComTrivial` (NoCM on the fibre) proved, with the repaired QM clauses, from the leaves and three named Props
+# fs5-nocm: FS5 `FibreComTrivial` (NoCM on the fibre) proved, with the repaired QM clauses, from leaves and two named Props
 
 Task fs5-nocm, 2026-11-13. Base 2dd83306, merged with `origin/wip/qm-pin` and
-`origin/wip/mobius-glue` (`origin/wip/g0-fibresimple` was already in the base). Lean:
-`scratch/fs5-nocm/FS5NoCM.lean` and `scratch/fs5-nocm/FS5Curves.lean`, assembled from the parts
-`part0`, `partB`, `partD`, `partE`, `partG`, `partE2` by `assemble.sh`. Results log:
-`scratch/fs5-nocm/log.md`. No file under `ZInQKernel/`, `blueprint/` or another task's directory
-was edited. This is model work with no human review.
+`origin/wip/mobius-glue` (`origin/wip/g0-fibresimple` was already in the base).
+
+- Lean: `scratch/fs5-nocm/FS5NoCM.lean` and `scratch/fs5-nocm/FS5Curves.lean`, assembled from the
+  parts `part0`, `partB`, `partD`, `partE`, `partG`, `partH`, `partE2` by `assemble.sh`.
+- Results log: `scratch/fs5-nocm/log.md`.
+- No file under `ZInQKernel/`, `blueprint/` or another task's directory was edited.
+- Model work only, no human review.
 
 ## 1. Result
 
-**Main result (VERIFIED, compiled).** g0-fibresimple's glue piece FS5 is proved in Lean. It is read
-with qm-pin's full repair of `R1fpProps` and is otherwise verbatim. The inputs are the QM leaf
-bundle, the leaf R5fpCount, qm-pin/mobius-glue's `MobiusGlue`, and three named Props:
+**Main result (VERIFIED, compiled).** g0-fibresimple's glue piece FS5 is proved in Lean. The
+statement is verbatim, with `R1fpProps` read as after qm-pin's full repair. Its inputs are:
+
+- leaves: the repaired QM leaf bundle, R5fpCount, T27 (Yu), T6 (Mumford), and one new leaf N1b;
+- glue: one new named glue Prop N2, and mobius-glue's `MobiusGlue` (itself proved from
+  `CurveRatFactor`, `CurveSurj` and T5).
 
 ```lean
-theorem FS5NoCM.fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue)
-    (hA : ComIntOrQuadOrder) (hB : CMConductorCoprime6) (hK : X6KummerFibre)
-    (hC : R5fpCount) : FibreComTrivialFull
+-- FS5NoCM.lean
+theorem FS5NoCM.fibreComTrivialFull_of_leaves' (hL : R1R2fpFull) (hM : MobiusGlue)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
 
--- N1a split (§G): its case End⁰ ≅ B is proved from T6; only the CM case stays named:
-theorem FS5NoCM.comIntOrQuadOrder_of (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite)
-    (hCM : ComOfMatrixEnd0) : ComIntOrQuadOrder
-
--- everything together, MobiusGlue replaced by mobius-glue's inputs (FS5Curves.lean):
+-- FS5Curves.lean (MobiusGlue replaced by mobius-glue's inputs)
 theorem FS5NoCM.fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull)
     (hRF : CurveRatFactor) (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure)
-    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0)
-    (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hB : CMConductorCoprime6)
+    (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull
 ```
 
-So FS5 rests on:
+**Structure of the proof.**
 
-- the leaves: the bundle, R5fpCount, T5, T6, T27 and the new leaf N1b;
-- the glue: `CurveRatFactor`, `CurveSurj` (mobius-glue), and the new N1a-CM and N2.
+1. **FS5 for the leaf's own triple** (`fibreComTrivialOwn_of`). This is NoCM: rv-h-cm §7.2 with
+   rv-nocm's corrected count `2^b h`. It is stated for every witness `(Y, Φ, X, Ψ, fY, π₆)` of the
+   repaired bundle, not for a `Classical.choice` of one. It uses an intermediate Prop
+   `ComIntOrQuadOrder` (N1a), the leaf N1b and the glue N2.
+2. **Transfer to every triple** (`fibreComTrivialFull_of_own`). This is qm-pin's
+   `pointwise_of_witness_mor`, given `MobiusGlue` and the CM objects of the bundle.
+3. **N1a is proved, not assumed** (`comIntOrQuadOrder_of_leaves`). By T27 at `B = (2,−3)`,
+   `End⁰(A) ≅ B` or `≅ M₂(ℚ(√d))`, and both cases are compiled from T6:
+   - **`End⁰ ≅ B`** (`com_int_of_end0_quat`): `End_𝒪(A) = ℤ`.
+   - **CM case** (`comOfMatrixEnd0_of_homFree`): `End_𝒪(A)` is isomorphic to a subring of finite
+     index of `𝒪_k`, where `k = ℚ(√d)` is shown in Lean to be a totally complex quadratic number
+     field.
 
-The proof has two steps, as the task asked.
-
-1. **FS5 for the leaf's own triple.** `fibreComTrivialOwn_of : … → FibreComTrivialOwn` is NoCM
-   (rv-h-cm §7.2 with rv-nocm's corrected count `2^b h`). It is stated for every witness
-   `(Y, Φ, X, Ψ, fY, π₆)` of the repaired bundle, not for a `Classical.choice` of one, so it is a
-   statement about the published data.
-2. **Transfer to every triple.** `fibreComTrivialFull_of_own : R1R2fpFull → MobiusGlue →
-   FibreComTrivialOwn → FibreComTrivialFull` uses qm-pin's `pointwise_of_witness_mor`. The CM
-   objects it needs come from the bundle (`cm_objects_of_R1R2fp`).
-
-Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]`. `lake env lean` exits 0 for
-both files: 7.6 s and 11.8 s (`run1.txt`, `run2.txt`).
+Every `#print axioms` gives `[propext, Classical.choice, Quot.sound]` (16 lines in `run1.txt`, 2 in
+`run2.txt`). `lake env lean` exits 0: `FS5NoCM.lean` (1168 lines) in 54 s under load 24, and
+`FS5Curves.lean` (2456 lines) in 31 s.
 
 **Verdict on the statement.**
 
-- With the repaired clauses, FS5 is **true and now provable glue**. Its universal quantifier over
-  triples costs only `MobiusGlue`, as qm-pin predicted.
+- With the repaired clauses, FS5 is **true, and is now proved from leaves plus two pieces of
+  glue** (N2 and `MobiusGlue`).
 - The un-repaired FS5 (old `R1fpProps`) is kept in the file for reference. It is not a
   consequence of the leaves (g0-fibresimple §2).
-- After the integration of qm-pin's full edit, the two texts coincide.
+- After qm-pin's full edit is integrated, the two texts coincide.
 
 ### Named Props
 
@@ -61,29 +64,40 @@ both files: 7.6 s and 11.8 s (`run1.txt`, `run2.txt`).
 |---|---|---|---|
 | `R1R2fpFull` | leaf bundle (existing) | `LeafQM.AV.R1R2fp` with qm-pin's repaired `R1fpProps`: R1fp + R1fam + R1univ, R1hecke, `X6Props`, `R2X6Props` (Baba–Granath), `CMExists`, `R1recProps`, `X6Surj`, `R5ptProps` (González–Rotger Thm 5.12, point form) | qm-pin §2 (text checked equal to `QM-Leaves-full.patch`) |
 | `R5fpCount` | leaf (existing, kernel) | `#CM(R) = 2^{b(k)} h(R)` | González–Rotger Prop. 5.6; Jordan 1981 |
+| T27 `PkgI3.QMDichotomyYu` | leaf (existing, kernel) | `End⁰(A) ≅ B` or `M₂(ℚ(√d))`, `d < 0` | Yu, JPAA 2013, Thm 1.1 |
+| T6 `PkgI3.HomFreeFinite` | leaf (existing, kernel) | `Hom(A, B)` is a free `ℤ`-module of finite rank | Mumford §19 Thm 3 |
 | `MobiusGlue` | glue (existing) | `π' = π ∘ g` for two triples related by `Φ' = Φ ∘ g` | proved by mobius-glue from `CurveRatFactor`, `CurveSurj` (curve glue) and T5 |
-| **N1a `ComIntOrQuadOrder`** | glue (new), **proved** from T27, T6 and N1a-CM | `End_𝒪(A)` is `ℤ`, or is isomorphic to a subring of finite index of `𝒪_k`, `k` imaginary quadratic | `comIntOrQuadOrder_of`: T27 at `B = (2,−3)` (`qmDichotomy_B6`); case `End⁰ ≅ B` proved (`com_int_of_end0_quat`, from T6) |
-| **N1a-CM `ComOfMatrixEnd0`** | glue (new) | if `End⁰(A) ≅ M₂(ℚ(√d))`, `d < 0`, then `End_𝒪(A)` is isomorphic to a subring of finite index of `𝒪_k`, `k` imaginary quadratic | the centralizer of `B` in `M₂(k)` is `k`; `End(A) ∩ k` is an order (T6, FS4). Not compiled |
-| **N1b `CMConductorCoprime6`** | leaf (new) | if `End_𝒪(A) ≅ R`, an order of `k`, then `(f(R), 6) = 1` | Eichler's local optimal-embedding numbers (Vignéras LNM 800, Ch. II §3 / Ch. III §5) with the CM-point/optimal-embedding correspondence (Jordan 1981 §3; González–Rotger 2006 §5). Locators UNVERIFIED |
-| **N2 `X6KummerFibre`** | glue (new) | on the bundle's `X₆`, for rational `j₀ ∉ {0, −16/27}`: (i) every point over `j₀` has residue field `ℚ(√−t₀, √(3(t₀−1)))`, `t₀ = 1 + 27j₀/16`; (ii) the fibre has four distinct `ℚ̄`-points | Elkies' Kummer model of `X₆ → X₆/W` (rv-h-cm §2.3-2.4, `GlueRepo.PR.fibre_iff`), plus transport to an arbitrary witness (§3.3). Not compiled |
+| N1a `ComIntOrQuadOrder` | glue (new), **proved** | `End_𝒪(A)` is `ℤ` or ≅ a subring of finite index of `𝒪_k`, `k` imaginary quadratic | `comIntOrQuadOrder_of_leaves` from T27, T6 |
+| N1a-CM `ComOfMatrixEnd0` | glue (new), **proved** | the CM case of N1a | `comOfMatrixEnd0_of_homFree` from T6 |
+| **N1b `CMConductorCoprime6`** | **leaf (new)** | if `End_𝒪(A) ≅ R`, an order of an imaginary quadratic `k`, then `(f(R), 6) = 1` | Eichler's local optimal-embedding numbers (Vignéras LNM 800, Ch. II §3 / Ch. III §5) with the CM-point/optimal-embedding correspondence (Jordan 1981 §3; González–Rotger 2006 §5). Locators UNVERIFIED |
+| **N2 `X6KummerFibre`** | **glue (new)** | on the bundle's `X₆`, for rational `j₀ ∉ {0, −16/27}`: (i) every point over `j₀` has residue field `ℚ(√−t₀, √(3(t₀−1)))`, `t₀ = 1 + 27j₀/16`; (ii) the fibre has four distinct `ℚ̄`-points | Elkies' Kummer model of `X₆ → X₆/W` (rv-h-cm §2.3-2.4, `GlueRepo.PR.fibre_iff`), plus transport to an arbitrary witness (§3.3). Not compiled |
 
-What was **proved here**, not assumed (all compiled):
+**What was proved here** (all compiled):
 
-- the Elkies identities in `ℚ̄`: `elkies_sq`, from the kernel's `GlueRepo.PR.t_eq` and `t_sub_one`;
-- `ℚ(iH/G³, 540iF/G³) = ℚ(i)` (`adjoin_pair_eq`, using `h₁_ne_zero`);
-- `[ℚ(i) : ℚ] = 2` (`finrank_adjoin_sqrt_neg_one`);
-- 2 is not inert in a number field containing `√−1` (`two_not_prime_of_sqrt_neg_one`), which
-  gives `b(k) ≤ 1` when `k ≅ ℚ(i)`;
-- the count: four distinct classes with CM by `R`, from N2 (ii), `R2X6Props`, `com_twist` and
-  `comEquiv`, against `#CM(R) = 2`;
-- the case analysis on `b(k)` with R5's degree and embedding clauses;
-- the transfer from the leaf's witnesses to all triples;
-- N1a's case `End⁰(A) ≅ B` (`com_int_of_end0_quat`, from T6):
-  - the QM image of `B` is all of `End⁰` (`qmBasis` of g0-fibresimple; an injective map of
+- **NoCM arithmetic.**
+  - The Elkies identities in `ℚ̄` (`elkies_sq`, from the kernel's `GlueRepo.PR.t_eq` and
+    `t_sub_one`).
+  - `ℚ(iH/G³, 540iF/G³) = ℚ(i)` (`adjoin_pair_eq`) and `[ℚ(i) : ℚ] = 2`
+    (`finrank_adjoin_sqrt_neg_one`).
+  - 2 is not inert in a number field containing `√−1` (`two_not_prime_of_sqrt_neg_one`).
+  - The four-element count against `#CM(R) = 2`, and the case analysis on `b(k)`
+    (`nocm_on_witness`).
+- **Transfer** to all triples (`fibreComTrivialFull_of_own`).
+- **N1a, case `End⁰ ≅ B`** (`com_int_of_end0_quat`):
+  - the QM image of `B` is all of `End⁰` (g0-fibresimple's `qmBasis`; an injective map of
     4-dimensional spaces);
   - so `1 ⊗ φ` is central, and the centre of `ℍ[ℚ,2,−3]` is `ℚ` (`B6_central_eq`);
   - `φ` is integral over `ℤ` (`End(A)` is finite over `ℤ`, T6), so the scalar is an integer;
   - `m ↦ 1 ⊗ m` is injective (`tmul_one_injective`, T6).
+- **N1a, CM case** (`comOfMatrixEnd0_of_homFree`):
+  - `ℚ[X]/(X² − d)`, `d < 0`, is a totally complex quadratic number field
+    (`adjRoot_numberField`).
+  - A matrix commuting with `I, J ∈ M₂(K)` with `I² = 2`, `J² = −3`, `JI = −IJ` is scalar
+    (`commute_quat_scalar`: `1, I, J, IJ` is a `K`-basis).
+  - `φ ↦ (scalar of e(1 ⊗ φ))` is an injective ring map `ψ : End_𝒪(A) → k`.
+  - Its image consists of integral elements (T6). It contains `1` and `s√d` with `s ≠ 0` (FS4's
+    localization step). So it has rank 2 in `𝒪_k`, hence finite index
+    (`Submodule.finiteQuotientOfFreeOfRankEq`).
 
 ## 2. Statements (namespace `FS5NoCM`; kernel definitions from `LeafQM.AV`)
 
@@ -114,29 +128,30 @@ identical to the copies in `FibreSimple.lean` (VERIFIED by string comparison): `
 - `Jmap` is `ZInQ.JHeight.Jmap` and `contactSet` is `ZInQ.contactSet`.
 - The qm-pin block (`QMFamily` … `cm_objects_of_R1R2fp`) is `QMPin.lean` lines 34-95 and 507-619,
   verbatim.
-- In `FS5Curves.lean` the same block comes from `MobiusGlue.lean`. The definitions are identical
+- In `FS5Curves.lean` the same block comes from `MobiusGlue.lean`. Its definitions are identical
   to the qm-pin copies (checked).
+- g0-fibresimple's proved `B6_isUnit` … `qm_embeds_end0` are `olean/Tail.lean` lines 40-116,
+  verbatim (checked).
 
 **FS5 for the leaf's own triple** (`FibreComTrivialOwn`). For every witness
 `(Y, Φ, X, Ψ, fY, π₆)` with `R1R2fpFullProps` (the clause list of the repaired bundle), every
 object over `J(u)`, `u ∉ 𝒞`, of the triple `(Y, Φ, π₆ ∘ fY)` has `com = ℤ`.
 
-**The three new named Props.** Full docstrings are in `partB.lean` §C. N1a and N1b quantify over
-QM pairs over `ℚ̄`. N2 quantifies over the witnesses of the repaired bundle:
+**The new named Props.** Full docstrings are in `partB.lean` §C and `partG.lean`:
 
 ```lean
-def ComIntOrQuadOrder : Prop :=
+def ComIntOrQuadOrder : Prop :=            -- N1a, proved (comIntOrQuadOrder_of_leaves)
   ∀ P : QMPair Qbar, (∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : AbVar.End P.A)) ∨
     ∃ (k : Type) (_ : Field k) (_ : NumberField k) (_ : NumberField.IsTotallyComplex k),
       Module.finrank ℚ k = 2 ∧ ∃ R : Subring k, R ≤ (integralClosure ℤ k).toSubring ∧
         conductor R ≠ 0 ∧ Nonempty (com P.q ≃+* R)
 
-def CMConductorCoprime6 : Prop :=
+def CMConductorCoprime6 : Prop :=          -- N1b, leaf
   ∀ (P : QMPair Qbar) (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
     Module.finrank ℚ k = 2 → ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring →
       conductor R ≠ 0 → Nonempty (com P.q ≃+* R) → Nat.Coprime (conductor R) 6
 
-def X6KummerFibre : Prop :=
+def X6KummerFibre : Prop :=                -- N2, glue
   ∀ Y Φ X Ψ fY π₆, R1R2fpFullProps Y Φ X Ψ fY π₆ →
     ∀ j₀ : ℚ, j₀ ≠ 0 → j₀ ≠ -16 / 27 →
       (∀ x : fieldPt Qbar ⟶ X, π₆.val (K := Qbar) x.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
@@ -146,6 +161,8 @@ def X6KummerFibre : Prop :=
       ∃ f : Fin 4 → (fieldPt Qbar ⟶ X), Function.Injective f ∧
         ∀ i, π₆.val (K := Qbar) (f i).left = OnePoint.some (algebraMap ℚ Qbar j₀)
 ```
+
+(`ComOfMatrixEnd0`, the CM case of N1a, is stated in `partG.lean` and proved in `partH.lean`.)
 
 ## 3. The proof
 
@@ -185,17 +202,8 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
 - the relation is `R(t, P) = ∀ u ∉ 𝒞, t = J(u) → com P.q = ℤ`;
 - `MobiusGlue` is assumed, and the CM objects come from `cm_objects_of_R1R2fp`.
 
-### 3.3 Why the new Props are true (arguments; SPECULATIVE where not marked)
+### 3.3 Why the remaining new Props are true (arguments; SPECULATIVE where not marked)
 
-- **N1a (glue).** Over `ℚ̄` in characteristic 0, T27 gives two cases.
-  - *`End⁰(A) ≅ B`.* The QM image of `B` is all of `End⁰` (dimension 4, injective). The centralizer
-    is the centre `ℚ`, and `com = End(A) ∩ ℚ = ℤ`, because endomorphisms are integral over `ℤ`.
-  - *`End⁰(A) ≅ M₂(k)`.* `B ⊗ k ≅ M₂(k)`, so the centralizer of `B` is the centre `k` (FS4's
-    argument, compiled by g0-fibresimple as `centralizerOfMatrixEnd0_of_homFree`). `com` is a
-    lattice in `k` (T6) of integral elements, hence an order.
-  - The inputs are T27, T6 and the integrality of endomorphisms (the characteristic polynomial,
-    Mumford §19 Thm 4, UNVERIFIED). None of this is compiled: it needs the field `k` and the order
-    to be built as Lean objects from the isomorphism of T27.
 - **N1b (leaf).** Two published facts give it.
   - Eichler's local optimal-embedding number at a prime `p` ramified in `B` is
     `m_p(R) = 1 − {R/p}`. The Eichler symbol `{R/p}` equals `(k/p)` if `p ∤ f`, and 1 if `p | f`.
@@ -206,14 +214,19 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
   - Consistency: the same numbers give R5fpCount's `2^b h(R)`, with `m_p = 2` for `p` inert and 1
     for `p` ramified. `R5fp`'s hypothesis `(f, 6) = 1` is the same condition, and rv-nocm checked
     it on Elkies' 24 rows.
+  - The statement is intrinsic: an order determines its conductor up to ring isomorphism, since
+    `disc R = f² d_k`.
 - **N2 (glue).** The genuine part is Elkies' Kummer model: `ℚ(X₆) = ℚ(t)(y₁, y₂)` with
   `y₁² = −t`, `y₂² = 3(t − 1)`, and `W` acting by sign changes.
   - The constants `−1, 3` are rv-h-cm §2.3's. rv-nocm §1.3 checked them against González–Rotger
     Thm 5.12 on all 24 rational CM values.
+  - They are also consistent with `X₆(ℝ) = ∅`: real points would need `t ≤ 0` and `t ≥ 1` at
+    once.
   - The cover is branched only at `t = 0, 1, ∞`, each with index 2. Riemann–Hurwitz gives genus 0,
-    as it should for `X₆`.
-  - Over `t₀ ∉ {0, 1, ∞}`, the affine model is smooth, so it is the curve there. The points over
-    `t₀` are `(t₀, ±a, ±b)`: four points, since `ab ≠ 0`. Each has residue field `ℚ(a, b)`.
+    as it should for `X₆`. The fixed points of `w₂, w₆, w₃` (over `t = 1, 0, ∞`) are the CM points
+    of discriminants `−4, −24, −3`.
+  - Over `t₀ ∉ {0, 1, ∞}`, the affine model is smooth, so it is the curve there. The `ℚ̄`-points
+    over `t₀` are `(t₀, ±a, ±b)`: four points, since `ab ≠ 0`. Each has residue field `ℚ(a, b)`.
 
   N2 is stated for an arbitrary witness of the repaired bundle. It transfers from the genuine
   `X₆` as follows:
@@ -222,50 +235,53 @@ This is qm-pin's `pointwise_of_witness_mor`, applied as follows:
   - so `π₆(x)` depends only on the pair `Ψ(x)`, the same way as on the genuine `X₆`, and the fibre
     over `j₀` consists of the same four classes;
   - the residue field of a `ℚ̄`-point is the fixed field of its Galois stabilizer (STANDARD), and
-    the Galois-equivariance in `X6Props` makes that stabilizer the stabilizer of the pair, which
-    does not depend on the witness.
+    the Galois-equivariance in `X6Props` makes that stabilizer the stabilizer of the pair. This
+    step also needs rigidity: two base changes of a pair are isomorphic as pairs.
 
-  This transport is argued, not compiled. N2 does not hold for the old clause list, by the same
-  relabeling as g0-fibresimple §2.
+  This transport is argued, not compiled.
 
 ## 4. What compiles (all VERIFIED)
 
 | file | content | outcome |
 |---|---|---|
-| `FS5NoCM.lean` (568 lines) | qm-pin block, §B statements, §C named Props, §D arithmetic, §E `nocm_on_witness`, `fibreComTrivialOwn_of`, `fibreComTrivialFull_of_own`, `fibreComTrivialFull_of` | exit 0, 0 errors, no `sorry`; 7 `#print axioms` lines, all standard (`run1.txt`) |
-| `FS5Curves.lean` (1855 lines) | `MobiusGlue.lean` (lines 1-1439, plus two imports) + qm-pin's `cm_objects_of_R1R2fp` + the same §B-§E + `fibreComTrivialFull_of_curves` | exit 0, 0 errors; `fibreComTrivialFull_of_curves` standard axioms (`run2.txt`) |
+| `FS5NoCM.lean` (1168 lines) | qm-pin block; §B statements; §C named Props; §D arithmetic; §E NoCM and transfer; §G N1a split (`B6_central_eq`, `com_int_of_end0_quat`, `comIntOrQuadOrder_of`); §H N1a-CM (`commute_quat_scalar`, `adjRoot_numberField`, `root_lin_indep`, `comOfMatrixEnd0_of_homFree`, `comIntOrQuadOrder_of_leaves`, `fibreComTrivialFull_of_leaves'`) | exit 0, 0 errors, no `sorry`; 16 `#print axioms` lines, all standard (`run1.txt`) |
+| `FS5Curves.lean` (2456 lines) | `MobiusGlue.lean` (lines 1-1439, plus imports) + qm-pin's `cm_objects_of_R1R2fp` + §B-§H + `fibreComTrivialFull_of_curves(_leaves)` | exit 0, 0 errors; standard axioms (`run2.txt`) |
 
 Kernel modules used: `ZInQKernel.HDecomp.QM.Leaves`, `ZInQKernel.HDecomp.Repo.PRArith`,
-`ZInQKernel.Hypotheses.JHeight` (and `ZInQKernel.HDecomp.Textbook.SkolemNoether` for
-`FS5Curves`). They were built with `lake build`.
+`ZInQKernel.Hypotheses.JHeight` and `ZInQKernel.HDecomp.Descent.B1Quat`.
+`ZInQKernel.HDecomp.Textbook.SkolemNoether` is used for `FS5Curves` only. All were built with
+`lake build`.
+
+**Lean pitfall.** With `letI : Fact (Irreducible f)` in context, the `Field` and `CommRing`
+instances of `AdjoinRoot f` do not unify at reducible transparency. As a result `ring`,
+`linear_combination` and `rw [map_intCast]` fail on mixed terms. The workaround is to state the
+helper lemmas without the `Fact` (`root_lin_indep`, `root_lin_indep_int`) and to pass between the
+two forms with `exact` or `rfl`.
 
 ## 5. Integration (not applied: these are other tasks' files)
 
 1. **After qm-pin's full edit of `QM/Leaves.lean`.**
    - `R1fpPropsFull` is `R1fpProps`, `R1R2fpFull` is `R1R2fp`, and `FibreComTrivialFull` is
      g0-fibresimple's `FibreComTrivial` verbatim.
-   - Drop §B's copies, `r1fpPropsFull_iff` and `R1fpPropsFull.old` (then `h.1`, the identity).
-   - Put §C-§E in a new module importing `QM.Leaves`, `Repo.PRArith`, `JHeight` and qm-pin's
-     `QM/Pin.lean`.
+   - Drop §B's copies, `r1fpPropsFull_iff` and `R1fpPropsFull.old`.
+   - Put §C-§H in a new module importing `QM.Leaves`, `Repo.PRArith`, `JHeight`, `Descent.B1Quat`
+     and qm-pin's `QM/Pin.lean`. The Tail copies (`B6_isUnit` … `qm_embeds_end0`) are shared with
+     g0-fibresimple's integration.
 2. **In g0-fibresimple's `FibreSimplePieces`.**
-   - Replace the field `comTrivial : FibreComTrivial` by the inputs of `fibreComTrivialFull_of`.
-   - The bundle and `R5fpCount` are already in `QMLeaves` (`r1r2`, `r5count`).
-   - `MobiusGlue` comes from mobius-glue's `mobiusGlue_of_curves` (`CurveRatFactor`, `CurveSurj`,
-     T5).
-   - The new named Props are N1a and N2 (glue) and N1b (leaf).
-3. **Leaf list.** Add N1b `CMConductorCoprime6` (Eichler/Vignéras with Jordan/González–Rotger).
-   Add N1a and N2 to the glue list.
+   - Replace the field `comTrivial : FibreComTrivial` by `fibreComTrivialFull_of_leaves'`.
+   - Its inputs are the bundle (`QMLeaves.r1r2`), `R5fpCount` (`QMLeaves.r5count`), T27 and T6
+     (`TextbookLeaves`), N1b, N2, and `MobiusGlue` (from mobius-glue's `mobiusGlue_of_curves`).
+3. **Lists.** Add N1b `CMConductorCoprime6` to the leaf list (Eichler/Vignéras with
+   Jordan/González–Rotger). Add N2 `X6KummerFibre` to the glue list.
 
 ## 6. What remains
 
-- **N1a** (glue). This is linear algebra on T27's output plus integrality of endomorphisms. The
-  Lean cost is constructing `k` and the order from `End⁰(A) ≅ M₂(ℚ(√d))`.
 - **N2** (glue). There are two parts:
-  - the Kummer model of `X₆ → P¹`, i.e. an explicit equation for a curve given only by its moduli
-    clauses. This is the main geometric input and is not statable more concretely without an
-    explicit model of `X₆` in the leaves;
+  - the Kummer model of `X₆ → P¹`: an explicit equation for a curve that the leaves give only by
+    its moduli clauses. It cannot be stated more concretely without an explicit model of `X₆` in
+    the leaves;
   - the transport to an arbitrary witness, which needs the scheme fact "residue field = fixed field
-    of the point's Galois stabilizer" and qm-pin's comparison.
+    of the point's Galois stabilizer", rigidity, and qm-pin's comparison.
 - **N1b** (leaf). The locators are UNVERIFIED (no network). A human check of the
   optimal-embedding correspondence is advisable, as it was for R5.
 - `MobiusGlue`'s inputs (`CurveRatFactor`, `CurveSurj`) remain mobius-glue's open curve glue.
