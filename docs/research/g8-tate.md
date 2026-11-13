@@ -203,6 +203,10 @@ choice, and `OnL` is `onL_canon`.
 - **F5 (VERIFIED, compiled).** `ℂ ≃+* ℚ̄_ℓ` is available (Steinitz). Every transport between
   `G7Data`'s `ℂ^×`-valued data and `ℚ̄_ℓ`-valued data can use it. This removes the injectivity
   hypothesis that local-glue's `kerWild_of_g7Data` left open.
+- **F7 (VERIFIED, compiled).** At `p > D`, `WildTateTrivial` comes from R6 and I2-Tors alone
+  (`tateWildK_of_R6`: Raynaud over the `3`-torsion field, or the `7`-torsion field at `p = 13`).
+  N5's appeal to good reduction at large primes is not used. That appeal was g8-object's wording
+  point: `A` need not have good reduction at a large bad prime in `T`.
 - **F6 (unchanged from g8-object).** The premise `[L:ℚ] ≤ D` is needed. `localDataS_of_g7Data`
   uses it for the bounds on `e(F)`. To feed `LinkedTateDataD` to g0-assemble's `afterG7_of`,
   `G7Data` must carry G4's bound (g0-mod-field's `g7OutUnr_of_g4Out` has it from `G4Out`).
