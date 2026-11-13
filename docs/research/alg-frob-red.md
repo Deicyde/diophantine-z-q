@@ -22,26 +22,32 @@ Log: `scratch/alg-frob-red/log.md`.
 **`FrobTrace.AlgFrobRed`, copied verbatim, is proved from five inputs:**
 - two leaf candidates: `GoodRedCofinite` (published) and `SmoothGeomConnIntegral` (textbook);
 - the existing kernel leaf I2-Red, `PkgI2.ReductionTorsionBijective` (Serre–Tate 1968 §1);
-- two glue Props: `FExtendCore` and `FrobMorph`.
+- two glue Props:
+  - `FExtendCore`, the extension of `F` to the abelian scheme, which comes from the kernel leaf
+    I2-NMP;
+  - `AbsFrob`, the existence of the absolute Frobenius of a scheme in characteristic `p` and its
+    naturality on affine points. This is pure scheme theory and is not in Mathlib.
 
 The file compiles with no `sorry`, and every `#print axioms` line gives
-`[propext, Classical.choice, Quot.sound]`. This was VERIFIED with `lake env lean
-scratch/alg-frob-red/AlgFrobRed.lean`: exit 0, about 70 s, 79 axiom prints.
+`[propext, Classical.choice, Quot.sound]` (VERIFIED: `lake env lean
+scratch/alg-frob-red/AlgFrobRed.lean`, exit 0, about 70 s, 84 axiom prints).
 
 ```
-theorem AlgFrobRedRed.algFrobRed_of_core (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hFr : FrobMorph) :
+theorem AlgFrobRedRed.algFrobRed_of_absFrob (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hA : AbsFrob) :
     FrobTrace.AlgFrobRed
-theorem AlgFrobRedRed.tateBridge35_of_core (hT : PkgI3.TateModuleFree)
+theorem AlgFrobRedRed.tateBridge35_of_absFrob (hT : PkgI3.TateModuleFree)
     (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
-    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hFr : FrobMorph) :
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hA : AbsFrob) :
     G14Bridge.TateBridge35
 ```
 
-The same holds with `FExtend` in place of `FExtendCore`: `algFrobRed_of_leaves` and
-`tateBridge35_of_leaves`. `FExtendCore` is `FExtend` with `t` pinned to `σ⁻¹|_{O_w}` (`tSig`).
-That is the only `t` that can work. It also drops the clause `t(a)^p ≡ a`, which is proved
-(`tSig_residue`).
+Coarser forms are also proved, for use if a piece is stated differently:
+- `algFrobRed_of_core` takes `FrobMorph` in place of `AbsFrob`. `FrobMorph` is the twisted
+  Frobenius `Fr_Ā ≫ F̄` on the special fibre, and `frobMorph_of : AbsFrob → FrobMorph` proves it.
+- `algFrobRed_of_leaves` also takes `FExtend` in place of `FExtendCore`. `FExtend` lets `t` vary
+  and asks for `t(a)^p ≡ a`. `FExtendCore` pins `t` to `σ⁻¹|_{O_w}` (`tSig`), the only `t` that can
+  work, and the clause `t(a)^p ≡ a` is proved (`tSig_residue`).
 
 **Effect on G14.** frob-trace's `FrobTraceCompose.g12Spec_g14_of_G7Data` takes `AlgFrobRed` as an
 input. Substituting this theorem, G14's `G12Spec ∧ G14TraceCompat` rests on these five inputs
@@ -62,6 +68,9 @@ review in §5 agrees).
   `Over.map ⊣ Over.pullback`);
 - transporting I2-Red from `L‾` to `ℚ̄` and to the special fibre (`redTorsionQbar_of`);
 - `σ` acting on `κ(v)` as `z ↦ z^p`, and `σ⁻¹|_{O_w}` inducing `Frob⁻¹` on `κ(w)`;
+- the twisted Frobenius `β = Fr_Ā ≫ F̄` on the special fibre (`frobMorph_of`): the base change
+  `F̄ = F̃ ×_{Spec t} Spec t̄`, `β` lying over the identity, `β` fixing `0` (`sf_eta_fst`), and
+  the point formula;
 - rigidity (mul-rigidity's proof).
 
 ## 2. The chain of proved implications
@@ -79,6 +88,7 @@ All of these are in namespace `AlgFrobRedRed`.
 | 7 | `redTorsionQbar_of : PkgI2.ReductionTorsionBijective → OwDVR → RedTorsionQbar` | Transport along `ψ : L‾ ≃ₐ[L] ℚ̄` (`UnramTate.trPt`), see below. |
 | 8 | `residueAlgClosed`, `residueAlgebraic`, `redRelMul`, `owDVR` | Proved outright from Mathlib. `owDVR` adapts neron-lg's `dvrAt_center`. |
 | 9 | `fExtend_of_core : FExtendCore → FExtend` | `t = tSig σ = σ⁻¹|_{O_w}` (via `AlgEquiv.restrictNormal`). `tSig_residue` gives `t(a)^p ≡ a`. |
+| 10 | `frobMorph_of : AbsFrob → FrobMorph` | `β = Fr ≫ F̄`, with `F̄ = pullback.map F̃ (Spec t̄) (Spec t)` and `t̄ = ResidueField.map t` (local by `isLocalHom_of_resPow`). `β` lies over `Spec(Frob ∘ t̄) = id`. It fixes `0`: by `sf_eta_fst`, the unit of `sf 𝒜` is `Spec κ → Spec O` followed by the unit of `𝒜`. The point formula is point-naturality of `Fr`. |
 
 How step 7 works:
 - `Θ` (`thetaW`, `thetaHom`) is a bijective monoid homomorphism. It sends I2's `κ(w')`-points of
@@ -88,7 +98,7 @@ How step 7 works:
   needed only in their existence form.
 
 Intermediate forms are also theorems: `algFrobRed_of_split`, `_fine`, `_finest`, `_final`,
-`_main`, `_five`, `_I2` and `_leaves`. Each has a `tateBridge35_of_*` companion.
+`_main`, `_five`, `_I2`, `_leaves` and `_core`. Each has a `tateBridge35_of_*` companion.
 
 ## 3. The objects (definitions in `part_red.lean`)
 
@@ -110,6 +120,8 @@ Intermediate forms are also theorems: `algFrobRed_of_split`, `_fine`, `_finest`,
   - `dvrAt'`, `toO'`: as in neron-lg;
   - `tSig`: `σ⁻¹|_{O_w}`.
 
+  The base change `F̄` in `frobMorph_of` is a local `pullback.map`.
+
 ## 4. The remaining named Props: leaf or glue
 
 | Prop | kind | statement (informal) | why true / source |
@@ -118,11 +130,12 @@ Intermediate forms are also theorems: `algFrobRed_of_split`, `_fine`, `_finest`,
 | `SmoothGeomConnIntegral` | **leaf candidate** (textbook) | A smooth, quasi-compact, geometrically connected scheme over a field is geometrically integral. | After every field base change the scheme is smooth, hence regular, hence normal. A connected normal scheme with finitely many irreducible components is integral (a Stacks 033M-type lemma; EGA IV₂ 6.7-6.8). Locators UNVERIFIED. |
 | I2-Red, `PkgI2.ReductionTorsionBijective` | **leaf** (existing kernel leaf, `Objects.lean` L975) | Reduction is a bijection on `m`-torsion, for `m` invertible in the DVR `O`. | Serre–Tate 1968 §1 (locator UNVERIFIED, as in the kernel). |
 | `FExtendCore` | glue, from the kernel leaf I2-NMP | There is `F̃ : 𝒜 → 𝒜` over `Spec(t)`, with `t = σ⁻¹|_{O_w}` (`tSig`), such that `F̃` fixes the unit section and, for every lift `x'` of `x`, `Spec(σ|_{O_v}) ≫ x' ≫ F̃` lifts `f x`. (`FExtend` instead asks for some `t` together with `t(a)^p ≡ a`. Any `t` that works must be `σ⁻¹|_{O_w}` (review, §5), and for that `t` the residue clause is proved by `tSig_residue`. So `FExtendCore` pins `t` and drops a proved clause; both forms are available.) | `F` lies over `Spec(σ⁻¹|_L)`, because `f(x)` is an `L`-point. I2-NMP (`PkgI2.NeronMappingAbelianScheme`, BLR §1.2) extends the `L`-morphism `A → A^{(t)}` to `𝒜 → 𝒜^{(t)}`. The unit section is fixed by separatedness. The lift identity holds on the generic point. |
-| `FrobMorph` | glue (absolute Frobenius; not in Mathlib) | Take `O` local with `char κ(O) = p`, `𝒜/O` abelian, `t` with `t(a)^p ≡ a`, and `F̃` over `Spec t` fixing `0`. Then there is a `κ(O)`-morphism `β` of `sf 𝒜` fixing `0` with `β ∘ y = F̃ ∘ y ∘ Spec(z ↦ z^p)` on `κ(O)‾`-points. | `β = Fr_Ā ≫ F̄`, where `F̄` is the base change of `F̃` along `Spec t̄` and `t̄ = Frob⁻¹`. It lies over `Spec(Frob ∘ t̄) = id`. The point formula is naturality of the absolute Frobenius. |
+| `AbsFrob` | glue (standard construction; not in Mathlib 4.35) | For a scheme `X` over a field `k` of characteristic `p`, there is `Fr_X : X → X` over `Spec(z ↦ z^p)` such that `Spec(r ↦ r^p) ≫ g = g ≫ Fr_X` for every ring `R` of characteristic `p` and every `g : Spec R → X`. | `Fr_X` is the absolute Frobenius: the identity on the underlying space and `f ↦ f^p` on sections. It commutes with every morphism of `𝔽_p`-schemes (SGA 5 XV, Stacks 0CC6; locators UNVERIFIED). It replaces the earlier glue `FrobMorph`, which is now proved from it. |
 
 Rigidity (Mumford §4 Cor. 1) is no longer an input: mul-rigidity proved it, and its copy is
-compiled here. `OwDVR`, `ResidueAlgClosed`, `ResidueAlgebraic` and `RedRelMul` were named Props in
-earlier steps; all four are now theorems.
+compiled here. `OwDVR`, `ResidueAlgClosed`, `ResidueAlgebraic`, `RedRelMul`, `RedTorsionQbar`
+(from I2-Red), `FrobMorph` (from `AbsFrob`) and `FExtend` (from `FExtendCore`) were named Props in
+earlier steps. Each is now a theorem, possibly from the listed inputs.
 
 ## 5. Checks on the statements
 
@@ -154,14 +167,15 @@ earlier steps; all four are now theorems.
 ## 6. What compiles, what remains
 
 - `scratch/alg-frob-red/AlgFrobRed.lean`: exit 0, no `sorry` (the word appears only in comments),
-  79 standard axiom prints (VERIFIED, log runs 23-33).
+  84 standard axiom prints (VERIFIED, log runs 23-37).
 - **Remains:**
   - `FExtendCore`, to be proved from I2-NMP. This needs:
     - the conjugate model `𝒜^{(t)}`;
     - that `F` lies over `Spec(σ⁻¹|_L)` (morphisms to `Spec L` that agree on all `ℚ̄`-points are
       equal);
     - that `Spec ℚ̄ → Spec L` is an epimorphism.
-  - `FrobMorph`. Mathlib 4.35 has no absolute Frobenius of an `𝔽_p`-scheme.
+  - `AbsFrob`. Construct the absolute Frobenius as a morphism of locally ringed spaces: the
+    identity on spaces, `f ↦ f^p` on sections, local on stalks. Then prove its naturality.
   - The two leaf candidates.
 - **Integration notes:**
   - `RedRel` and the Props mentioning `e` need `set_option synthInstance.maxHeartbeats 400000`.
