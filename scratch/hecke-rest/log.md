@@ -95,3 +95,7 @@ HeckeFibreSizes, HeckeNoVertRam.
 - New glue Props: `ChartProper` (both charts IsProper), `ChartQuasiFinite` (both
   LocallyQuasiFinite), `ChartDominant` (π.U nonempty, both ring maps injective).
 - `#print axioms`: [propext, Classical.choice, Quot.sound].
+- FIX (self-review): `ChartFiniteInf` and `ChartDominant` as first written were FALSE for
+  `Y = ∅` (Γ(Y, V) = 0, so injectivity and nonemptiness fail; all other hypotheses hold).
+  Both now assume `Nonempty Y.left`; `curveChartInf_of` derives it from `NormalizationModel`
+  (Spec B ≠ ∅ maps into Y). Recompiled: 0 errors, standard axioms.

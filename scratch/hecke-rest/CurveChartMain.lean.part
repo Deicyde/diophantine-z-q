@@ -142,10 +142,11 @@ def chartHomInf (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) :
 
 /-- **Glue (curve theory: `π` is finite over `P¹ ∖ {0}`).** As `ChartFinite`, for
 `V = π⁻¹(P¹ ∖ {0})` and the coordinate `s = 1/X` (`π.g`). Same proof (Hartshorne II.6.8,
-Stacks 02OG; locators UNVERIFIED); no irreducibility is needed. Glue, not a leaf. -/
+Stacks 02OG; locators UNVERIFIED); irreducibility is not needed, nonemptiness is (for `Y = ∅`,
+`Γ(Y, V) = 0` and injectivity fails). Glue, not a leaf. -/
 def ChartFiniteInf : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
-    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → Nonempty Y.left →
     (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
     IsAffineOpen π.V ∧ Function.Injective (chartHomInf Y π) ∧
       @Module.Finite InfCoord Γ(Y.left, π.V) _ _ (chartHomInf Y π).toAlgebra.toModule
@@ -179,7 +180,12 @@ def InfFnField : Prop :=
 theorem curveChartInf_of (hF : ChartFiniteInf) (hND : ChartNormalD) (hFF : InfFnField) :
     CurveChartInf := by
   intro Y π hP hS hfin E _ _ _ _ _ hN
-  obtain ⟨hV, hinj, hfinM⟩ := hF Y π hP hS hfin
+  have hne : Nonempty Y.left := by
+    obtain ⟨h, -, -⟩ := hN
+    obtain ⟨z⟩ : Nonempty (Spec (CommRingCat.of (integralClosure ℚ[X] E))) :=
+      inferInstanceAs (Nonempty (PrimeSpectrum (integralClosure ℚ[X] E)))
+    exact ⟨h.base z⟩
+  obtain ⟨hV, hinj, hfinM⟩ := hF Y π hP hS hne hfin
   obtain ⟨φ, hφg, hfrac⟩ := hFF Y π hP hS hfin E hN
   letI : Algebra InfCoord Γ(Y.left, π.V) := (chartHomInf Y π).toAlgebra
   haveI : Module.Finite InfCoord Γ(Y.left, π.V) := hfinM
@@ -423,10 +429,11 @@ def ChartQuasiFinite : Prop :=
 /-- **Glue (curve theory: the two charts are dominant).** Under the same hypotheses `π⁻¹(𝔸¹)` is
 nonempty and `ℚ[X] → Γ(Y, π⁻¹(𝔸¹))`, `ℚ[s] → Γ(Y, π⁻¹(P¹ ∖ {0}))` are injective (a polynomial
 relation for `π.f` on a component would make a `π`-fibre infinite: `π` would take finitely many
-values on the infinitely many `ℚ̄`-points of that component). Glue, not a leaf. -/
+values on the infinitely many `ℚ̄`-points of that component; `Y ≠ ∅` is needed, since for `Y = ∅`
+both clauses fail). Glue, not a leaf. -/
 def ChartDominant : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
-    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom →
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → Nonempty Y.left →
     (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
     (π.U : Set Y.left).Nonempty ∧ Function.Injective (secHom Y π.U π.f) ∧
       Function.Injective (secHom Y π.V π.g)
@@ -434,21 +441,21 @@ def ChartDominant : Prop :=
 /-- **`ChartFinite` from `ChartProper`, `ChartQuasiFinite`, `ChartDominant`** (compiled). -/
 theorem chartFinite_of (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant) :
     ChartFinite := by
-  intro Y π h1 h2 _ h4
+  intro Y π h1 h2 h3 h4
   haveI := (hP Y π h1 h2 h4).1
   haveI := (hQ Y π h1 h2 h4).1
   obtain ⟨hU, hfin⟩ := finite_of_proper_qf Y π.U π.f
-  obtain ⟨hne, hinj, -⟩ := hD Y π h1 h2 h4
+  obtain ⟨hne, hinj, -⟩ := hD Y π h1 h2 inferInstance h4
   exact ⟨hU, hne, hinj, hfin⟩
 
 /-- **`ChartFiniteInf` from `ChartProper`, `ChartQuasiFinite`, `ChartDominant`** (compiled). -/
 theorem chartFiniteInf_of (hP : ChartProper) (hQ : ChartQuasiFinite) (hD : ChartDominant) :
     ChartFiniteInf := by
-  intro Y π h1 h2 h4
+  intro Y π h1 h2 h3 h4
   haveI := (hP Y π h1 h2 h4).2
   haveI := (hQ Y π h1 h2 h4).2
   obtain ⟨hV, hfin⟩ := finite_of_proper_qf Y π.V π.g
-  obtain ⟨-, -, hinj⟩ := hD Y π h1 h2 h4
+  obtain ⟨-, -, hinj⟩ := hD Y π h1 h2 h3 h4
   exact ⟨hV, hinj, hfin⟩
 
 /-- **`CurveNormChart` from the three chart Props** (compiled). -/
