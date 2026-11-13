@@ -1,0 +1,1662 @@
+import Mathlib
+
+/-!
+# bp-analytic: compact complex tori `E ⧸ Λ` as complex Lie groups
+
+First concrete layer of the analytic-uniformization blueprint (docs/research/bp-analytic.md).
+Mathlib only.
+
+* `Torus Λ := E ⧸ Λ` for a full lattice `Λ` (`DiscreteTopology Λ`, `IsZLattice ℝ Λ`) in a
+  finite-dimensional complex normed space `E`.
+* `QuotientAddGroup.mk : E → Torus Λ` is a covering map, hence a local homeomorphism; its local
+  inverses are the charts.
+* Every transition map is locally a translation by a lattice vector, so `Torus Λ` is a complex
+  analytic manifold (`IsManifold 𝓘(ℂ, E) ω`), compact, connected.
+-/
+
+open scoped Manifold ContDiff Topology
+open Set Filter
+
+set_option linter.unusedSectionVars false
+
+noncomputable section
+
+namespace BPAnalytic
+
+variable {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
+
+section Discrete
+
+variable (Λ : Submodule ℤ E) [DiscreteTopology Λ]
+
+/-- A discrete subgroup has a uniform gap around `0`. -/
+theorem exists_gap : ∃ ε > 0, ∀ v ∈ Λ, ‖v‖ < ε → v = 0 := by
+  have h : IsOpen ({0} : Set Λ) := isOpen_discrete _
+  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_singleton_iff.mp h
+  refine ⟨ε, hε, fun v hv hlt => ?_⟩
+  have := hball ⟨v, hv⟩ (by simpa [Subtype.dist_eq] using hlt)
+  simpa using congrArg Subtype.val this
+
+/-- **Local constancy.** A continuous map that differs from the identity by lattice vectors is,
+near every point, a translation. -/
+theorem eventuallyEq_add_const {U : Set E} (hU : IsOpen U) {F : E → E} (hF : ContinuousOn F U)
+    (hΛ : ∀ z ∈ U, F z - z ∈ Λ) {x : E} (hx : x ∈ U) :
+    F =ᶠ[𝓝 x] fun z => z + (F x - x) := by
+  obtain ⟨ε, hε, hgap⟩ := exists_gap Λ
+  have hc : ContinuousAt (fun z => F z - z) x :=
+    ((hF.continuousAt (hU.mem_nhds hx)).sub continuousAt_id)
+  have h1 : ∀ᶠ z in 𝓝 x, dist (F z - z) (F x - x) < ε :=
+    hc.eventually (Metric.ball_mem_nhds _ hε)
+  filter_upwards [h1, hU.mem_nhds hx] with z hz hzU
+  have hmem : (F z - z) - (F x - x) ∈ Λ := Λ.sub_mem (hΛ z hzU) (hΛ x hx)
+  have h0 := hgap _ hmem (by simpa [dist_eq_norm] using hz)
+  have : F z - z = F x - x := sub_eq_zero.mp h0
+  linear_combination (norm := abel_nf) this
+
+/-- Such a map is analytic (indeed `C^n` for every `n`) on `U`. -/
+theorem contDiffOn_of_sub_mem {n : WithTop ℕ∞} {U : Set E} (hU : IsOpen U) {F : E → E}
+    (hF : ContinuousOn F U) (hΛ : ∀ z ∈ U, F z - z ∈ Λ) : ContDiffOn ℂ n F U := fun _ hx =>
+  ((contDiff_id.add contDiff_const).contDiffAt.congr_of_eventuallyEq
+    (eventuallyEq_add_const Λ hU hF hΛ hx)).contDiffWithinAt
+
+end Discrete
+
+variable (Λ : Submodule ℤ E) [DiscreteTopology Λ]
+
+/-- The complex torus `E ⧸ Λ`. -/
+abbrev Torus := E ⧸ Λ.toAddSubgroup
+
+/-- The projection `E → E ⧸ Λ` (for the torus, this is the exponential map). -/
+abbrev proj : E → Torus Λ := QuotientAddGroup.mk
+
+theorem proj_eq_iff {x y : E} : proj Λ x = proj Λ y ↔ x - y ∈ Λ := by
+  rw [QuotientAddGroup.eq_iff_sub_mem]
+  simp
+
+theorem isAddQuotientCoveringMap_proj :
+    IsAddQuotientCoveringMap (proj Λ) Λ.toAddSubgroup :=
+  AddSubgroup.isAddQuotientCoveringMap_of_comm _
+    (isDiscrete_iff_discreteTopology.mpr (by assumption))
+
+theorem isCoveringMap_proj : IsCoveringMap (proj Λ) :=
+  (isAddQuotientCoveringMap_proj Λ).isCoveringMap
+
+theorem isLocalHomeomorph_proj : IsLocalHomeomorph (proj Λ) :=
+  (isAddQuotientCoveringMap_proj Λ).isLocalHomeomorph
+
+/-- The chart at a point `x : E`: the local inverse of `proj` through `x`. -/
+def chartOf (x : E) : OpenPartialHomeomorph (Torus Λ) E :=
+  (isLocalHomeomorph_proj Λ).localInverseAt x
+
+theorem chartOf_symm_apply (x z : E) : (chartOf Λ x).symm z = proj Λ z := by
+  rw [chartOf, (isLocalHomeomorph_proj Λ).localInverseAt_symm]
+
+theorem proj_chartOf {x : E} {q : Torus Λ} (hq : q ∈ (chartOf Λ x).source) :
+    proj Λ (chartOf Λ x q) = q :=
+  (isLocalHomeomorph_proj Λ).apply_localInverseAt_of_mem hq
+
+theorem self_mem_chartOf_target (x : E) : x ∈ (chartOf Λ x).target :=
+  (isLocalHomeomorph_proj Λ).self_mem_localInverseAt_target
+
+theorem proj_mem_chartOf_source (x : E) : proj Λ x ∈ (chartOf Λ x).source :=
+  (isLocalHomeomorph_proj Λ).apply_self_mem_localInverseAt_source
+
+instance : ChartedSpace E (Torus Λ) where
+  atlas := range (chartOf Λ)
+  chartAt q := chartOf Λ q.out
+  mem_chart_source q := by
+    have := proj_mem_chartOf_source Λ q.out
+    rwa [proj, QuotientAddGroup.out_eq'] at this
+  chart_mem_atlas q := ⟨_, rfl⟩
+
+theorem chartAt_torus (q : Torus Λ) : chartAt E q = chartOf Λ q.out := rfl
+
+/-- Transition maps differ from the identity by lattice vectors. -/
+theorem transition_sub_mem (x x' : E) {z : E}
+    (hz : z ∈ ((chartOf Λ x).symm ≫ₕ chartOf Λ x').source) :
+    ((chartOf Λ x).symm ≫ₕ chartOf Λ x') z - z ∈ Λ := by
+  rw [OpenPartialHomeomorph.trans_source] at hz
+  have h2 : (chartOf Λ x).symm z ∈ (chartOf Λ x').source := hz.2
+  rw [chartOf_symm_apply] at h2
+  have := proj_chartOf Λ h2
+  rw [OpenPartialHomeomorph.coe_trans, Function.comp_apply, chartOf_symm_apply]
+  exact (proj_eq_iff Λ).mp this
+
+/-- **`E ⧸ Λ` is a complex analytic manifold.** -/
+instance isManifold_torus : IsManifold 𝓘(ℂ, E) ω (Torus Λ) := by
+  apply isManifold_of_contDiffOn
+  rintro e e' ⟨x, rfl⟩ ⟨x', rfl⟩
+  simp only [modelWithCornersSelf_coe, modelWithCornersSelf_coe_symm, Function.id_comp,
+    Function.comp_id, preimage_id_eq, id_eq, range_id, inter_univ]
+  exact contDiffOn_of_sub_mem Λ ((chartOf Λ x).symm ≫ₕ chartOf Λ x').open_source
+    ((chartOf Λ x).symm ≫ₕ chartOf Λ x').continuousOn (fun z hz => transition_sub_mem Λ x x' hz)
+
+
+/-! ## §2. Smoothness of the projection; descent of smooth maps; the Lie group structure -/
+
+/-- The projection `E → E ⧸ Λ` is analytic. -/
+theorem contMDiff_proj {n : ℕ∞ω} : ContMDiff 𝓘(ℂ, E) 𝓘(ℂ, E) n (proj Λ) := by
+  intro x
+  rw [contMDiffAt_iff_target, extChartAt_coe, modelWithCornersSelf_coe, Function.id_comp,
+    contMDiffAt_iff_contDiffAt]
+  refine ⟨(isLocalHomeomorph_proj Λ).continuous.continuousAt, ?_⟩
+  set c := chartAt E (proj Λ x)
+  have hU : IsOpen (proj Λ ⁻¹' c.source) :=
+    c.open_source.preimage (isLocalHomeomorph_proj Λ).continuous
+  have hx : x ∈ proj Λ ⁻¹' c.source := mem_chart_source E (proj Λ x)
+  have hcont : ContinuousOn (c ∘ proj Λ) (proj Λ ⁻¹' c.source) :=
+    c.continuousOn.comp (isLocalHomeomorph_proj Λ).continuous.continuousOn (fun _ hz => hz)
+  have hsub : ∀ z ∈ proj Λ ⁻¹' c.source, (c ∘ proj Λ) z - z ∈ Λ := by
+    intro z hz
+    have := proj_chartOf Λ (x := (proj Λ x).out) hz
+    exact (proj_eq_iff Λ).mp this
+  exact (contDiffOn_of_sub_mem Λ hU hcont hsub).contDiffAt (hU.mem_nhds hx)
+
+variable {F : Type*} [NormedAddCommGroup F] [NormedSpace ℂ F] {H' : Type*} [TopologicalSpace H']
+  {I' : ModelWithCorners ℂ F H'} {M : Type*} [TopologicalSpace M] [ChartedSpace H' M]
+
+/-- **Descent.** A map out of `E ⧸ Λ` is `C^n` (analytic for `n = ω`) as soon as its composite
+with the projection is. -/
+theorem contMDiff_of_comp_proj {n : ℕ∞ω} {f : Torus Λ → M}
+    (hf : ContMDiff 𝓘(ℂ, E) I' n (f ∘ proj Λ)) : ContMDiff 𝓘(ℂ, E) I' n f := by
+  intro q
+  set c := chartAt E q
+  have hq : q ∈ c.source := mem_chart_source E q
+  have hc : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c q :=
+    (contMDiffOn_chart).contMDiffAt (c.open_source.mem_nhds hq)
+  have heq : f =ᶠ[𝓝 q] (f ∘ proj Λ) ∘ c := by
+    filter_upwards [c.open_source.mem_nhds hq] with y hy
+    simp only [Function.comp_apply]
+    exact congrArg f (proj_chartOf Λ (x := q.out) hy).symm
+  exact ((hf (c q)).comp q hc).congr_of_eventuallyEq heq
+
+/-- Descent for maps of two variables. -/
+theorem contMDiff_of_comp_proj₂ {n : ℕ∞ω} {f : Torus Λ × Torus Λ → M}
+    (hf : ContMDiff (𝓘(ℂ, E).prod 𝓘(ℂ, E)) I' n (f ∘ Prod.map (proj Λ) (proj Λ))) :
+    ContMDiff (𝓘(ℂ, E).prod 𝓘(ℂ, E)) I' n f := by
+  rintro ⟨q₁, q₂⟩
+  set c₁ := chartAt E q₁
+  set c₂ := chartAt E q₂
+  have h₁ : q₁ ∈ c₁.source := mem_chart_source E q₁
+  have h₂ : q₂ ∈ c₂.source := mem_chart_source E q₂
+  have hc₁ : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c₁ q₁ :=
+    (contMDiffOn_chart).contMDiffAt (c₁.open_source.mem_nhds h₁)
+  have hc₂ : ContMDiffAt 𝓘(ℂ, E) 𝓘(ℂ, E) n c₂ q₂ :=
+    (contMDiffOn_chart).contMDiffAt (c₂.open_source.mem_nhds h₂)
+  have hc := hc₁.prodMap hc₂
+  have heq : f =ᶠ[𝓝 (q₁, q₂)] (f ∘ Prod.map (proj Λ) (proj Λ)) ∘ Prod.map c₁ c₂ := by
+    filter_upwards [prod_mem_nhds (c₁.open_source.mem_nhds h₁) (c₂.open_source.mem_nhds h₂)]
+      with y hy
+    obtain ⟨y₁, y₂⟩ := y
+    simp only [Function.comp_apply, Prod.map_apply]
+    rw [show proj Λ (c₁ y₁) = y₁ from proj_chartOf Λ (x := q₁.out) hy.1,
+      show proj Λ (c₂ y₂) = y₂ from proj_chartOf Λ (x := q₂.out) hy.2]
+  exact ((hf _).comp _ hc).congr_of_eventuallyEq heq
+
+/-- **`E ⧸ Λ` is a complex Lie group** (analytic group law). -/
+instance lieAddGroup_torus : LieAddGroup 𝓘(ℂ, E) ω (Torus Λ) where
+  contMDiff_add := by
+    apply contMDiff_of_comp_proj₂ Λ
+    have : (fun p : Torus Λ × Torus Λ => p.1 + p.2) ∘ Prod.map (proj Λ) (proj Λ) =
+        proj Λ ∘ (fun p : E × E => p.1 + p.2) := by
+      ext ⟨a, b⟩; rfl
+    rw [this]
+    exact (contMDiff_proj Λ).comp (contMDiff_add 𝓘(ℂ, E) ω)
+  contMDiff_neg := by
+    apply contMDiff_of_comp_proj Λ
+    have : (fun a : Torus Λ => -a) ∘ proj Λ = proj Λ ∘ (fun a : E => -a) := by
+      ext a; rfl
+    rw [this]
+    exact (contMDiff_proj Λ).comp (contMDiff_neg 𝓘(ℂ, E) ω)
+
+/-! ## §3. Compactness, connectedness, the exponential -/
+
+instance connectedSpace_torus : ConnectedSpace (Torus Λ) :=
+  QuotientAddGroup.mk_surjective.connectedSpace (isLocalHomeomorph_proj Λ).continuous
+
+/-- **`E ⧸ Λ` is compact** for a full lattice: it is the image of a closed parallelepiped. -/
+instance compactSpace_torus [FiniteDimensional ℂ E] [IsZLattice ℝ Λ] : CompactSpace (Torus Λ) := by
+  have := ZLattice.module_free ℝ Λ
+  have := ZLattice.module_finite ℝ Λ
+  let b := (Module.Free.chooseBasis ℤ Λ).ofZLatticeBasis ℝ Λ
+  refine ⟨?_⟩
+  have himg : proj Λ '' parallelepiped b = univ := by
+    refine eq_univ_of_forall fun q => ?_
+    obtain ⟨x, rfl⟩ := QuotientAddGroup.mk_surjective q
+    refine ⟨ZSpan.fract b x, ZSpan.fundamentalDomain_subset_parallelepiped b
+      (ZSpan.fract_mem_fundamentalDomain b x), ?_⟩
+    rw [proj_eq_iff, ZSpan.fract_apply, sub_sub_cancel_left]
+    have hspan := Module.Basis.ofZLatticeBasis_span ℝ Λ (Module.Free.chooseBasis ℤ Λ)
+    exact Λ.neg_mem (hspan.le (ZSpan.floor b x).2)
+  rw [← himg]
+  exact b.parallelepiped.isCompact.image (isLocalHomeomorph_proj Λ).continuous
+
+/-- The Lie algebra of the torus is `E` itself (Mathlib's `AddGroupLieAlgebra`, the tangent space
+at `0`, is definitionally the model space). -/
+example : AddGroupLieAlgebra 𝓘(ℂ, E) (Torus Λ) = E := rfl
+
+instance : Λ.toAddSubgroup.Normal := AddSubgroup.normal_of_isAddCommutative _
+
+/-- **The exponential map** `Lie(E ⧸ Λ) = E → E ⧸ Λ`: the projection, as a group homomorphism.
+(Its source is stated as `E`; `AddGroupLieAlgebra 𝓘(ℂ, E) (Torus Λ)` is `E` by `rfl`, above.) -/
+def torusExp : E →+ Torus Λ :=
+  QuotientAddGroup.mk' Λ.toAddSubgroup
+
+theorem torusExp_apply (v : E) : torusExp Λ v = proj Λ v := rfl
+
+theorem torusExp_surjective : Function.Surjective (torusExp Λ) :=
+  QuotientAddGroup.mk_surjective
+
+/-- **The period lattice is the kernel of the exponential.** -/
+theorem ker_torusExp : (torusExp Λ).ker = Λ.toAddSubgroup := by
+  ext v
+  simp [torusExp]
+
+theorem contMDiff_torusExp : ContMDiff 𝓘(ℂ, E) 𝓘(ℂ, E) ω (torusExp Λ) := contMDiff_proj Λ
+
+/-- One-parameter subgroups: `t ↦ exp(t • v)` is an analytic homomorphism `ℂ → E ⧸ Λ`. -/
+theorem contMDiff_torusExp_smul (v : E) :
+    ContMDiff 𝓘(ℂ, ℂ) 𝓘(ℂ, E) ω (fun t : ℂ => torusExp Λ (t • v)) :=
+  (contMDiff_proj Λ).comp (contMDiff_iff_contDiff.mpr (contDiff_id.smul contDiff_const))
+
+/-- **Liouville on the torus.** Every holomorphic function on `E ⧸ Λ` is constant. -/
+theorem holomorphic_const [FiniteDimensional ℂ E] [IsZLattice ℝ Λ] {f : Torus Λ → F}
+    (hf : MDifferentiable 𝓘(ℂ, E) 𝓘(ℂ, F) f) : ∃ v : F, f = Function.const _ v :=
+  hf.exists_eq_const_of_compactSpace
+
+
+/-! ## §4. The period lattice `Ωℤ^g + ℤ^g` of a point of the Siegel space
+
+For `Ω` with `det (Im Ω) ≠ 0` (in particular `Ω ∈ 𝔥_g`), the `2g` vectors "columns of `Ω`" and
+"standard basis" form an `ℝ`-basis of `ℂ^g`; their `ℤ`-span is a full lattice, and
+`ℂ^g ⧸ (Ωℤ^g + ℤ^g)` is a compact connected complex Lie group by §1-§3. -/
+
+section Siegel
+
+open Matrix
+
+variable {g : ℕ}
+
+/-- The Siegel upper half-space of degree `g` (pkg-I1's `SiegelH2` is the case `g = 2`). -/
+def SiegelSpace (g : ℕ) : Set (Matrix (Fin g) (Fin g) ℂ) :=
+  {Ω | Ωᵀ = Ω ∧ (Ω.map Complex.im).PosDef}
+
+/-- The `2g` period vectors: the columns of `Ω`, then the standard basis vectors. -/
+def periodVec (Ω : Matrix (Fin g) (Fin g) ℂ) : Fin g ⊕ Fin g → (Fin g → ℂ)
+  | Sum.inl j => fun i => Ω i j
+  | Sum.inr j => Pi.single j 1
+
+theorem periodVec_linearIndependent (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) : LinearIndependent ℝ (periodVec Ω) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  have hcoord : ∀ i, (∑ j, (c (Sum.inl j) : ℂ) * Ω i j) + (c (Sum.inr i) : ℂ) = 0 := by
+    intro i
+    have := congrFun hc i
+    simp only [Fintype.sum_sum_type, Finset.sum_apply, Pi.smul_apply,
+      periodVec, Pi.zero_apply] at this
+    rw [← this]
+    congr 1
+    simp [Pi.single_apply, Complex.real_smul]
+  -- imaginary parts: `(Im Ω) a = 0`
+  have ha : (Ω.map Complex.im) *ᵥ (fun j => c (Sum.inl j)) = 0 := by
+    funext i
+    have := congrArg Complex.im (hcoord i)
+    simp only [Complex.add_im, Complex.ofReal_im, add_zero, Complex.zero_im] at this
+    rw [Complex.im_sum] at this
+    simp only [Complex.im_ofReal_mul] at this
+    simp only [Matrix.mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply]
+    rw [← this]
+    exact Finset.sum_congr rfl fun j _ => mul_comm _ _
+  have ha0 := Matrix.eq_zero_of_mulVec_eq_zero hΩ ha
+  have hb : ∀ i, c (Sum.inr i) = 0 := by
+    intro i
+    have := hcoord i
+    have hz : ∀ j, (c (Sum.inl j) : ℂ) = 0 := fun j => by
+      simpa using congrFun ha0 j
+    simp only [hz, zero_mul, Finset.sum_const_zero, zero_add, Complex.ofReal_eq_zero] at this
+    exact this
+  rintro (j | j)
+  · simpa using congrFun ha0 j
+  · exact hb j
+
+theorem card_periodIndex : Fintype.card (Fin g ⊕ Fin g) = Module.finrank ℝ (Fin g → ℂ) := by
+  rw [Module.finrank_pi_fintype, Fintype.card_sum, Fintype.card_fin]
+  simp [Complex.finrank_real_complex]
+  ring
+
+/-- The real basis of `ℂ^g` given by the period vectors. -/
+def periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    Module.Basis (Fin g ⊕ Fin g) ℝ (Fin g → ℂ) :=
+  basisOfLinearIndependentOfCardEqFinrank' _ (periodVec_linearIndependent Ω hΩ) card_periodIndex
+
+theorem coe_periodBasis (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    ⇑(periodBasis Ω hΩ) = periodVec Ω := by
+  simp [periodBasis]
+
+/-- **The period lattice `Λ_Ω = Ωℤ^g + ℤ^g`.** -/
+def periodLattice (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    Submodule ℤ (Fin g → ℂ) :=
+  Submodule.span ℤ (Set.range (periodBasis Ω hΩ))
+
+instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    DiscreteTopology (periodLattice Ω hΩ) := by
+  unfold periodLattice; infer_instance
+
+instance (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    IsZLattice ℝ (periodLattice Ω hΩ) := by
+  unfold periodLattice; infer_instance
+
+theorem det_im_ne_zero_of_mem_siegelSpace {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω ∈ SiegelSpace g) :
+    (Ω.map Complex.im).det ≠ 0 :=
+  h.2.det_pos.ne'
+
+/-- Membership: `v ∈ Λ_Ω ↔ v = Ω m + n` with `m n ∈ ℤ^g`. -/
+theorem mem_periodLattice_iff (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0)
+    (v : Fin g → ℂ) :
+    v ∈ periodLattice Ω hΩ ↔
+      ∃ m n : Fin g → ℤ, v = Ω *ᵥ (fun j => (m j : ℂ)) + (fun j => (n j : ℂ)) := by
+  rw [periodLattice, coe_periodBasis, Submodule.mem_span_range_iff_exists_fun]
+  constructor
+  · rintro ⟨c, rfl⟩
+    refine ⟨fun j => c (Sum.inl j), fun j => c (Sum.inr j), ?_⟩
+    funext i
+    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
+      mul_comm]
+  · rintro ⟨m, n, rfl⟩
+    refine ⟨Sum.elim m n, ?_⟩
+    funext i
+    simp [Fintype.sum_sum_type, periodVec, Matrix.mulVec, dotProduct, Pi.single_apply,
+      mul_comm]
+
+/-- The abelian variety (complex torus) attached to a point `Ω` of the Siegel space. -/
+abbrev SiegelTorus (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :=
+  Torus (periodLattice Ω hΩ)
+
+example (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    LieAddGroup 𝓘(ℂ, Fin g → ℂ) ω (SiegelTorus Ω hΩ) := inferInstance
+
+example (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    CompactSpace (SiegelTorus Ω hΩ) := inferInstance
+
+end Siegel
+
+
+/-! ## §5. Riemann's theta function on `ℂ^g ⧸ Λ_Ω`
+
+`θ(z, Ω) = Σ_{n ∈ ℤ^g} exp(πi nᵀΩn + 2πi nᵀz)`. Quasi-periodicity under `Λ_Ω` (which says that `θ`
+is a section of a line bundle on the torus `ℂ^g ⧸ Λ_Ω`), and the identification of pkg-I1's
+theta constants with values of `θ` at the 2-torsion points `(Ωa + b)/2`. All identities are
+proved for `tsum` by reindexing, so they hold with no convergence hypothesis. -/
+
+section Theta
+
+open Matrix Complex
+
+variable {g : ℕ}
+
+/-- `ℤ^g ⊂ ℂ^g`. -/
+def intVec (n : Fin g → ℤ) : Fin g → ℂ := fun j => (n j : ℂ)
+
+theorem intVec_sub (k m : Fin g → ℤ) : intVec (k - m) = intVec k - intVec m := by
+  funext j; simp [intVec]
+
+theorem intVec_dotProduct (n m : Fin g → ℤ) :
+    intVec n ⬝ᵥ intVec m = ((n ⬝ᵥ m : ℤ) : ℂ) := by
+  simp [intVec, dotProduct]
+
+/-- Riemann's theta function. -/
+def riemannTheta (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) : ℂ :=
+  ∑' n : Fin g → ℤ,
+    exp (Real.pi * I * (intVec n ⬝ᵥ (Ω *ᵥ intVec n)) + 2 * Real.pi * I * (intVec n ⬝ᵥ z))
+
+theorem dotProduct_mulVec_symm {Ω : Matrix (Fin g) (Fin g) ℂ} (hΩ : Ωᵀ = Ω) (a b : Fin g → ℂ) :
+    b ⬝ᵥ (Ω *ᵥ a) = a ⬝ᵥ (Ω *ᵥ b) := by
+  rw [dotProduct_mulVec, ← mulVec_transpose, hΩ, dotProduct_comm]
+
+/-- Periodicity under `ℤ^g`. -/
+theorem riemannTheta_add_int (Ω : Matrix (Fin g) (Fin g) ℂ) (z : Fin g → ℂ) (m : Fin g → ℤ) :
+    riemannTheta Ω (z + intVec m) = riemannTheta Ω z := by
+  unfold riemannTheta
+  congr 1
+  funext n
+  rw [dotProduct_add, intVec_dotProduct, mul_add, ← add_assoc, exp_add]
+  have : exp (2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ)) = 1 := by
+    rw [show 2 * Real.pi * I * ((n ⬝ᵥ m : ℤ) : ℂ) = ((n ⬝ᵥ m : ℤ) : ℂ) * (2 * Real.pi * I) by ring]
+    exact exp_int_mul_two_pi_mul_I _
+  rw [this, mul_one]
+
+/-- **Quasi-periodicity under `Ωℤ^g`**: `θ(z + Ωm) = exp(-πi mᵀΩm - 2πi mᵀz) θ(z)`. -/
+theorem riemannTheta_add_mulVec (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
+    (z : Fin g → ℂ) (m : Fin g → ℤ) :
+    riemannTheta Ω (z + Ω *ᵥ intVec m) =
+      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
+        riemannTheta Ω z := by
+  unfold riemannTheta
+  rw [← (Equiv.subRight m).tsum_eq, ← tsum_mul_left]
+  congr 1
+  funext k
+  simp only [Equiv.subRight_apply, intVec_sub]
+  rw [← exp_add]
+  congr 1
+  set a := intVec k
+  set b := intVec m
+  have hs := dotProduct_mulVec_symm hΩ a b
+  simp only [mulVec_sub, sub_dotProduct, dotProduct_sub, dotProduct_add]
+  rw [hs]
+  ring
+
+/-- Quasi-periodicity under the whole period lattice `Λ_Ω`. -/
+theorem riemannTheta_add_period (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω)
+    (z : Fin g → ℂ) (m n : Fin g → ℤ) :
+    riemannTheta Ω (z + (Ω *ᵥ intVec m + intVec n)) =
+      exp (-(Real.pi * I * (intVec m ⬝ᵥ (Ω *ᵥ intVec m))) - 2 * Real.pi * I * (intVec m ⬝ᵥ z)) *
+        riemannTheta Ω z := by
+  rw [← add_assoc, riemannTheta_add_int, riemannTheta_add_mulVec Ω hΩ]
+
+/-- Theta function with characteristic `(c, d) ∈ ℂ^g × ℂ^g`, at `z = 0`:
+`θ[c, d](Ω) = Σ_n exp(πi (n+c)ᵀΩ(n+c) + 2πi (n+c)ᵀd)`. -/
+def thetaChar (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) : ℂ :=
+  ∑' n : Fin g → ℤ,
+    exp (Real.pi * I * ((intVec n + c) ⬝ᵥ (Ω *ᵥ (intVec n + c))) + 2 * Real.pi * I * ((intVec n + c) ⬝ᵥ d))
+
+/-- **Theta constants are values of `θ` at torsion points**:
+`θ[c, d](Ω) = exp(πi cᵀΩc + 2πi cᵀd) · θ(Ωc + d, Ω)`. -/
+theorem thetaChar_eq (c d : Fin g → ℂ) (Ω : Matrix (Fin g) (Fin g) ℂ) (hΩ : Ωᵀ = Ω) :
+    thetaChar c d Ω =
+      exp (Real.pi * I * (c ⬝ᵥ (Ω *ᵥ c)) + 2 * Real.pi * I * (c ⬝ᵥ d)) * riemannTheta Ω (Ω *ᵥ c + d) := by
+  unfold thetaChar riemannTheta
+  rw [← tsum_mul_left]
+  congr 1
+  funext n
+  rw [← exp_add]
+  congr 1
+  set a := intVec n
+  have hs := dotProduct_mulVec_symm hΩ a c
+  simp only [mulVec_add, add_dotProduct, dotProduct_add]
+  rw [hs]
+  ring
+
+/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
+abbrev Char2 := (Fin 2 → Fin 2) × (Fin 2 → Fin 2)
+
+/-- pkg-I1's theta constant (copied verbatim from `scratch/pkg-I1/I1.lean`, §3). -/
+def thetaConst (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : ℂ :=
+  ∑' n : Fin 2 → ℤ,
+    let v : Fin 2 → ℂ := fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2
+    Complex.exp (Real.pi * I * (v ⬝ᵥ (Ω *ᵥ v)) + Real.pi * I * (v ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)))
+
+/-- The half-integral vectors `a/2`, `b/2` of a characteristic. -/
+def charHalf (a : Fin 2 → Fin 2) : Fin 2 → ℂ := fun k => ((a k : ℕ) : ℂ) / 2
+
+/-- pkg-I1's `thetaConst m` is `θ[a/2, b/2]`. -/
+theorem thetaConst_eq_thetaChar (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) :
+    thetaConst m Ω = thetaChar (charHalf m.1) (charHalf m.2) Ω := by
+  unfold thetaConst thetaChar
+  congr 1
+  funext n
+  have hv : (fun k => (n k : ℂ) + ((m.1 k : ℕ) : ℂ) / 2) = intVec n + charHalf m.1 := by
+    funext k; simp [intVec, charHalf]
+  simp only [hv]
+  congr 1
+  have : ((intVec n + charHalf m.1) ⬝ᵥ fun k => ((m.2 k : ℕ) : ℂ)) =
+      2 * ((intVec n + charHalf m.1) ⬝ᵥ charHalf m.2) := by
+    simp only [dotProduct, charHalf, Finset.mul_sum]
+    exact Finset.sum_congr rfl fun k _ => by ring
+  rw [this]
+  ring
+
+/-- **F1's theta constants are values of Riemann's theta function at the 2-torsion points**
+`(Ωa + b)/2` of the torus `ℂ² ⧸ Λ_Ω`. -/
+theorem thetaConst_eq_riemannTheta (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ) (hΩ : Ωᵀ = Ω) :
+    thetaConst m Ω =
+      exp (Real.pi * I * (charHalf m.1 ⬝ᵥ (Ω *ᵥ charHalf m.1)) +
+          2 * Real.pi * I * (charHalf m.1 ⬝ᵥ charHalf m.2)) *
+        riemannTheta Ω (Ω *ᵥ charHalf m.1 + charHalf m.2) := by
+  rw [thetaConst_eq_thetaChar, thetaChar_eq _ _ _ hΩ]
+
+/-- The point `Ω(a/2) + b/2` is 2-torsion on `ℂ² ⧸ Λ_Ω`. -/
+theorem two_nsmul_proj_charPoint (m : Char2) (Ω : Matrix (Fin 2) (Fin 2) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    (2 : ℕ) • proj (periodLattice Ω hΩ) (Ω *ᵥ charHalf m.1 + charHalf m.2) = 0 := by
+  rw [proj, ← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
+  show _ ∈ periodLattice Ω hΩ
+  rw [mem_periodLattice_iff]
+  refine ⟨fun k => ((m.1 k : ℕ) : ℤ), fun k => ((m.2 k : ℕ) : ℤ), ?_⟩
+  have h2 : ∀ a : Fin 2 → Fin 2, (2 : ℕ) • charHalf a = fun k => (((a k : ℕ) : ℤ) : ℂ) := by
+    intro a; funext k; simp [charHalf]; ring
+  rw [nsmul_add, ← mulVec_smul, h2, h2]
+
+end Theta
+
+
+/-! ## §6. Linear changes of coordinates: biholomorphic group isomorphisms of tori -/
+
+section Iso
+
+variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace ℂ E']
+
+/-- A `ℂ`-linear isomorphism `T : E ≃ E'` with `T(Λ) = Λ'` induces a group isomorphism
+`E ⧸ Λ ≃ E' ⧸ Λ'`. -/
+def torusAddEquiv (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
+    Torus Λ ≃+ Torus Λ' :=
+  QuotientAddGroup.congr _ _ T.toLinearEquiv.toAddEquiv (by
+    rw [← hT]
+    ext v
+    simp [AddSubgroup.mem_map, Submodule.mem_map])
+
+theorem torusAddEquiv_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E) :
+    torusAddEquiv Λ Λ' T hT (proj Λ v) = proj Λ' (T v) := rfl
+
+theorem torusAddEquiv_symm_proj (Λ' : Submodule ℤ E') (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (v : E') :
+    (torusAddEquiv Λ Λ' T hT).symm (proj Λ' v) = proj Λ (T.symm v) := rfl
+
+/-- **The induced map is biholomorphic**: an analytic diffeomorphism `E ⧸ Λ ≃ E' ⧸ Λ'`, additive
+by `torusAddEquiv`. -/
+def torusDiffeo (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') :
+    Torus Λ ≃ₘ^ω⟮𝓘(ℂ, E), 𝓘(ℂ, E')⟯ Torus Λ' where
+  toEquiv := (torusAddEquiv Λ Λ' T hT).toEquiv
+  contMDiff_toFun := contMDiff_of_comp_proj Λ
+    ((contMDiff_proj Λ').comp (contMDiff_iff_contDiff.mpr T.contDiff))
+  contMDiff_invFun := contMDiff_of_comp_proj Λ'
+    ((contMDiff_proj Λ).comp (contMDiff_iff_contDiff.mpr T.symm.contDiff))
+
+theorem torusDiffeo_apply (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E ≃L[ℂ] E')
+    (hT : Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ') (q : Torus Λ) :
+    torusDiffeo Λ Λ' T hT q = torusAddEquiv Λ Λ' T hT q := rfl
+
+end Iso
+
+
+/-! ## §7. pkg-I1's QM lattice `ι(𝒪)(τ, 1)ᵀ` and its period matrix `Ω(τ)`
+
+The definitions `B`, `oBasis`, `Mi`, `Mj`, `iota`, `latVec`, `Emat`, `F0mat`, `Pinv`, `Omega` are
+copied verbatim from `scratch/pkg-I1/I1.lean` (§1, §2, §4). We prove: for `Im τ ≠ 0`,
+* `Λ_τ = ι(𝒪)(τ, 1)ᵀ` is a full lattice in `ℂ²`;
+* `F'(τ) = F₀(τ)P⁻¹` is invertible and carries `Ω(τ)ℤ² + ℤ²` onto `Λ_τ`;
+* hence `det Im Ω(τ) ≠ 0` and `F'(τ)` induces a biholomorphic group isomorphism
+  `ℂ² ⧸ Λ_{Ω(τ)} ≃ ℂ² ⧸ Λ_τ`: `Ω(τ)` is a period matrix of the QM torus `A_τ = ℂ² ⧸ Λ_τ`
+  (pkg-I1 §4 claimed this from numerical checks; the polarization is not treated here). -/
+
+namespace QM
+
+open Matrix
+
+/-- (pkg-I1) `B = (2,-3)`. -/
+abbrev B := QuaternionAlgebra ℚ 2 0 (-3)
+
+/-- (pkg-I1) N5's ordered basis `(1, i, (1+j)/2, (i+ij)/2)` of the maximal order `𝒪`. -/
+def oBasis : Fin 4 → B := ![⟨1, 0, 0, 0⟩, ⟨0, 1, 0, 0⟩, ⟨1/2, 0, 1/2, 0⟩, ⟨0, 1/2, 0, 1/2⟩]
+
+/-- (pkg-I1) `ι(i) = [[√2,0],[0,-√2]]`. -/
+def Mi : Matrix (Fin 2) (Fin 2) ℝ := !![√2, 0; 0, -√2]
+/-- (pkg-I1) `ι(j) = [[0,-3],[1,0]]`. -/
+def Mj : Matrix (Fin 2) (Fin 2) ℝ := !![0, -3; 1, 0]
+
+/-- (pkg-I1) The real embedding `ι : B → M₂(ℝ)`. -/
+def iota (x : B) : Matrix (Fin 2) (Fin 2) ℝ :=
+  (x.re : ℝ) • 1 + (x.imI : ℝ) • Mi + (x.imJ : ℝ) • Mj + (x.imK : ℝ) • (Mi * Mj)
+
+/-- (pkg-I1) `ι(x)·(τ, 1)ᵀ`. -/
+def latVec (x : B) (τ : ℂ) : Fin 2 → ℂ := (iota x).map (fun r : ℝ => (r : ℂ)) *ᵥ ![τ, 1]
+
+/-- (pkg-I1) `E(τ)`: columns `ι(1)v_τ`, `ι(i)v_τ`. -/
+def Emat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  Matrix.of fun r c => ![latVec (oBasis 0) τ, latVec (oBasis 1) τ] c r
+
+/-- (pkg-I1) `F₀(τ)`: columns `ι((1+j)/2)v_τ`, `ι((i+ij)/2)v_τ`. -/
+def F0mat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  Matrix.of fun r c => ![latVec (oBasis 2) τ, latVec (oBasis 3) τ] c r
+
+/-- (pkg-I1) `P⁻¹` for `P = [[-1,1],[1,-2]]`. -/
+def Pinv : Matrix (Fin 2) (Fin 2) ℂ := !![-2, -1; -1, -1]
+
+/-- (pkg-I1) The period matrix `Ω(τ) = (F₀(τ)P⁻¹)⁻¹E(τ)`. -/
+def Omega (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := (F0mat τ * Pinv)⁻¹ * Emat τ
+
+theorem latVec0 (τ : ℂ) : latVec (oBasis 0) τ = ![τ, 1] := by
+  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
+
+theorem latVec1 (τ : ℂ) : latVec (oBasis 1) τ = ![√2 * τ, -√2] := by
+  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
+
+theorem latVec2 (τ : ℂ) : latVec (oBasis 2) τ = ![(τ - 3) / 2, (τ + 1) / 2] := by
+  ext i; fin_cases i <;>
+    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;> ring
+
+theorem latVec3 (τ : ℂ) : latVec (oBasis 3) τ = ![√2 * (τ - 3) / 2, -(√2 * (τ + 1)) / 2] := by
+  ext i; fin_cases i <;>
+    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;>
+    ring
+
+
+theorem Emat_eq (τ : ℂ) : Emat τ = !![τ, √2 * τ; 1, -√2] := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [Emat, latVec0, latVec1]
+
+theorem F0mat_eq (τ : ℂ) :
+    F0mat τ = !![(τ - 3) / 2, √2 * (τ - 3) / 2; (τ + 1) / 2, -(√2 * (τ + 1)) / 2] := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [F0mat, latVec2, latVec3]
+
+/-- `F'(τ) = F₀(τ)P⁻¹`. -/
+def Fp (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := F0mat τ * Pinv
+
+theorem det_Fp (τ : ℂ) : (Fp τ).det = -((√2 : ℂ) * (τ - 3) * (τ + 1)) / 2 := by
+  rw [Fp, det_mul, F0mat_eq, Pinv, det_fin_two_of, det_fin_two_of]
+  ring
+
+theorem sqrt2_ne_zero : (√2 : ℂ) ≠ 0 :=
+  Complex.ofReal_ne_zero.mpr (Real.sqrt_ne_zero'.mpr two_pos)
+
+theorem det_Fp_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : (Fp τ).det ≠ 0 := by
+  rw [det_Fp]
+  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have := sqrt2_ne_zero
+  field_simp
+  simp [this, h3, h1]
+
+theorem Fp_mul_Omega {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * Omega τ = Emat τ := by
+  rw [Omega, ← Fp, ← Matrix.mul_assoc, Matrix.mul_nonsing_inv _ (Ne.isUnit (det_Fp_ne_zero hτ)),
+    Matrix.one_mul]
+
+/-- The four generators `ι(b_k)(τ, 1)ᵀ` of `Λ_τ`. -/
+def qmVec (τ : ℂ) (k : Fin 4) : Fin 2 → ℂ := latVec (oBasis k) τ
+
+
+theorem qmVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (qmVec τ) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  have e0 := congrFun hc 0
+  have e1 := congrFun hc 1
+  simp only [qmVec, Fin.sum_univ_four, latVec0, latVec1, latVec2, latVec3, Finset.sum_apply,
+    Pi.smul_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Pi.zero_apply,
+    Complex.real_smul] at e0 e1
+  have r0 := congrArg Complex.re e0
+  have i0 := congrArg Complex.im e0
+  have r1 := congrArg Complex.re e1
+  have i1 := congrArg Complex.im e1
+  simp at r0 i0 r1 i1
+  set x := τ.re
+  set y := τ.im
+  have hs : √2 ≠ 0 := Real.sqrt_ne_zero'.mpr two_pos
+  have hA : y * (c 2 - √2 * c 3) = 0 := by linear_combination 2 * i1
+  have A : c 2 - √2 * c 3 = 0 := (mul_eq_zero.mp hA).resolve_left hτ
+  have hK : y * (c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2) = 0 := by linear_combination i0
+  have K : c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2 = 0 := (mul_eq_zero.mp hK).resolve_left hτ
+  have Bq : c 2 + √2 * c 3 = 0 := by linear_combination (2 / 3 * x) * K - (2 / 3) * r0
+  have h3' : √2 * c 3 = 0 := by linear_combination (Bq - A) / 2
+  have h3 : c 3 = 0 := (mul_eq_zero.mp h3').resolve_left hs
+  have h2 : c 2 = 0 := by linear_combination A + h3'
+  have C : c 0 - √2 * c 1 = 0 := by linear_combination r1 - ((x + 1) / 2) * A
+  have h1' : √2 * c 1 = 0 := by linear_combination (K - C) / 2 - Bq / 4
+  have h1 : c 1 = 0 := (mul_eq_zero.mp h1').resolve_left hs
+  have h0 : c 0 = 0 := by linear_combination C + h1'
+  intro i; fin_cases i <;> assumption
+
+
+/-- The ordered `ℝ`-basis `ι(b_k)(τ, 1)ᵀ` of `ℂ²` (for `Im τ ≠ 0`). -/
+def qmBasis {τ : ℂ} (hτ : τ.im ≠ 0) : Module.Basis (Fin 4) ℝ (Fin 2 → ℂ) :=
+  basisOfLinearIndependentOfCardEqFinrank' _ (qmVec_linearIndependent hτ) (by
+    rw [Module.finrank_pi_fintype]; simp [Complex.finrank_real_complex])
+
+/-- **The QM lattice `Λ_τ = ι(𝒪)(τ, 1)ᵀ`**, the period lattice of N5's QM surface at `τ`. -/
+def qmLattice {τ : ℂ} (hτ : τ.im ≠ 0) : Submodule ℤ (Fin 2 → ℂ) :=
+  Submodule.span ℤ (Set.range (qmBasis hτ))
+
+instance {τ : ℂ} (hτ : τ.im ≠ 0) : DiscreteTopology (qmLattice hτ) := by
+  unfold qmLattice; infer_instance
+
+instance {τ : ℂ} (hτ : τ.im ≠ 0) : IsZLattice ℝ (qmLattice hτ) := by
+  unfold qmLattice; infer_instance
+
+theorem qmLattice_eq {τ : ℂ} (hτ : τ.im ≠ 0) :
+    qmLattice hτ = Submodule.span ℤ (Set.range (qmVec τ)) := by
+  simp [qmLattice, qmBasis]
+
+/-- The QM torus `A_τ = ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`: a compact connected complex Lie group of dimension 2. -/
+abbrev QMTorus {τ : ℂ} (hτ : τ.im ≠ 0) := Torus (qmLattice hτ)
+
+example {τ : ℂ} (hτ : τ.im ≠ 0) : LieAddGroup 𝓘(ℂ, Fin 2 → ℂ) ω (QMTorus hτ) := inferInstance
+example {τ : ℂ} (hτ : τ.im ≠ 0) : CompactSpace (QMTorus hτ) := inferInstance
+
+theorem mulVec_col (A M : Matrix (Fin 2) (Fin 2) ℂ) (j : Fin 2) :
+    (A *ᵥ fun i => M i j) = fun i => (A * M) i j := by
+  funext i; simp [mulVec, dotProduct, mul_apply]
+
+/-- Images of the period vectors of `Ω(τ)` under `F'(τ)`. -/
+theorem Fp_mulVec_periodVec {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
+    Fp τ *ᵥ periodVec (Omega τ) k =
+      match k with
+      | Sum.inl 0 => qmVec τ 0
+      | Sum.inl 1 => qmVec τ 1
+      | Sum.inr 0 => -(2 : ℤ) • qmVec τ 2 - qmVec τ 3
+      | Sum.inr 1 => -qmVec τ 2 - qmVec τ 3 := by
+  rcases k with j | j
+  · rw [periodVec, mulVec_col, Fp_mul_Omega hτ, Emat_eq]
+    fin_cases j <;> funext i <;> fin_cases i <;> simp [qmVec, latVec0, latVec1]
+  · rw [periodVec, mulVec_single_one]
+    fin_cases j <;> funext i <;> fin_cases i <;>
+      simp [Fp, F0mat_eq, Pinv, qmVec, latVec2, latVec3] <;> ring
+
+
+/-- Conversely to `periodVec_linearIndependent`: if the period vectors of `Ω` are `ℝ`-independent,
+then `det (Im Ω) ≠ 0`. -/
+theorem det_im_ne_zero_of_linearIndependent {g : ℕ} (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (h : LinearIndependent ℝ (periodVec Ω)) : (Ω.map Complex.im).det ≠ 0 := by
+  intro hdet
+  obtain ⟨a, ha0, ha⟩ := Matrix.exists_mulVec_eq_zero_iff.mpr hdet
+  have hrel := Fintype.linearIndependent_iff.mp h
+    (Sum.elim a (fun i => -∑ j, (Ω i j).re * a j)) (by
+      funext i
+      have hi := congrFun ha i
+      simp only [mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply] at hi
+      simp only [Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr, Finset.sum_apply,
+        Pi.smul_apply, periodVec, Pi.zero_apply, Pi.single_apply, smul_ite, smul_zero]
+      apply Complex.ext
+      · simp [Complex.re_sum, mul_comm]
+      · simpa [Complex.im_sum, mul_comm] using hi)
+  exact ha0 (funext fun j => by simpa using hrel (Sum.inl j))
+
+/-- The images `F'(τ)·(period vectors of Ω(τ))`, explicitly. -/
+def imgVec (τ : ℂ) : Fin 2 ⊕ Fin 2 → (Fin 2 → ℂ) :=
+  Sum.elim ![qmVec τ 0, qmVec τ 1] ![-(2 : ℤ) • qmVec τ 2 - qmVec τ 3, -qmVec τ 2 - qmVec τ 3]
+
+theorem Fp_mulVec_periodVec' {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
+    Fp τ *ᵥ periodVec (Omega τ) k = imgVec τ k := by
+  rw [Fp_mulVec_periodVec hτ]
+  rcases k with j | j <;> fin_cases j <;> rfl
+
+theorem imgVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (imgVec τ) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  set d : Fin 4 → ℝ := ![c (Sum.inl 0), c (Sum.inl 1), -2 * c (Sum.inr 0) - c (Sum.inr 1),
+      -c (Sum.inr 0) - c (Sum.inr 1)] with hd
+  have hsum : ∑ k, d k • qmVec τ k = ∑ i, c i • imgVec τ i := by
+    have e : ∑ k, d k • qmVec τ k = c (Sum.inl 0) • qmVec τ 0 + c (Sum.inl 1) • qmVec τ 1 +
+        (-2 * c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 2 +
+        (-c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 3 := by
+      simp [Fin.sum_univ_four, d]
+    rw [e]
+    simp only [Fintype.sum_sum_type, Fin.sum_univ_two, imgVec, Sum.elim_inl, Sum.elim_inr]
+    simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Fin.isValue]
+    rw [← Int.cast_smul_eq_zsmul ℝ]
+    module
+  have key := Fintype.linearIndependent_iff.mp (qmVec_linearIndependent hτ) d (hsum.trans hc)
+  have k0 := key 0
+  have k1 := key 1
+  have k2 := key 2
+  have k3 := key 3
+  simp [d] at k0 k1 k2 k3
+  rintro (j | j) <;> fin_cases j
+  · simpa using k0
+  · simpa using k1
+  · simp; linarith
+  · simp; linarith
+
+theorem span_imgVec {τ : ℂ} :
+    Submodule.span ℤ (Set.range (imgVec τ)) = Submodule.span ℤ (Set.range (qmVec τ)) := by
+  have hq : ∀ i, qmVec τ i ∈ Submodule.span ℤ (Set.range (qmVec τ)) :=
+    fun i => Submodule.subset_span ⟨i, rfl⟩
+  have hp : ∀ k, imgVec τ k ∈ Submodule.span ℤ (Set.range (imgVec τ)) :=
+    fun k => Submodule.subset_span ⟨k, rfl⟩
+  have i0 : imgVec τ (Sum.inr 0) = -(2 : ℤ) • qmVec τ 2 - qmVec τ 3 := rfl
+  have i1 : imgVec τ (Sum.inr 1) = -qmVec τ 2 - qmVec τ 3 := rfl
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rcases k with j | j <;> fin_cases j
+    · exact hq 0
+    · exact hq 1
+    · exact Submodule.sub_mem _ (Submodule.smul_mem _ _ (hq 2)) (hq 3)
+    · exact Submodule.sub_mem _ (Submodule.neg_mem _ (hq 2)) (hq 3)
+  · rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rw [SetLike.mem_coe]
+    fin_cases k
+    · exact hp (Sum.inl 0)
+    · exact hp (Sum.inl 1)
+    · have h := Submodule.add_mem _ (Submodule.neg_mem _ (hp (Sum.inr 0))) (hp (Sum.inr 1))
+      have e : qmVec τ 2 = -imgVec τ (Sum.inr 0) + imgVec τ (Sum.inr 1) := by
+        rw [i0, i1]; module
+      show qmVec τ 2 ∈ _
+      rw [e]; exact h
+    · have h := Submodule.sub_mem _ (hp (Sum.inr 0)) (Submodule.smul_mem _ (2 : ℤ) (hp (Sum.inr 1)))
+      have e : qmVec τ 3 = imgVec τ (Sum.inr 0) - (2 : ℤ) • imgVec τ (Sum.inr 1) := by
+        rw [i0, i1]; module
+      show qmVec τ 3 ∈ _
+      rw [e]; exact h
+
+
+/-- `F'(τ)` as a continuous `ℂ`-linear automorphism of `ℂ²`. -/
+def FpEquiv {τ : ℂ} (hτ : τ.im ≠ 0) : (Fin 2 → ℂ) ≃L[ℂ] (Fin 2 → ℂ) :=
+  (Matrix.toLinearEquiv' (Fp τ)
+    (Matrix.invertibleOfIsUnitDet _ (Ne.isUnit (det_Fp_ne_zero hτ)))).toContinuousLinearEquiv
+
+theorem FpEquiv_apply {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) : FpEquiv hτ v = Fp τ *ᵥ v := rfl
+
+/-- **`det Im Ω(τ) ≠ 0`** for `Im τ ≠ 0` (so `Ω(τ)ℤ² + ℤ²` is a full lattice). -/
+theorem det_im_Omega_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : ((Omega τ).map Complex.im).det ≠ 0 := by
+  apply det_im_ne_zero_of_linearIndependent
+  apply LinearIndependent.of_comp ((Matrix.toLin' (Fp τ)).restrictScalars ℝ)
+  have : ((Matrix.toLin' (Fp τ)).restrictScalars ℝ) ∘ periodVec (Omega τ) = imgVec τ := by
+    funext k
+    simp only [Function.comp_apply, LinearMap.coe_restrictScalars, Matrix.toLin'_apply]
+    exact Fp_mulVec_periodVec' hτ k
+  rw [this]
+  exact imgVec_linearIndependent hτ
+
+/-- **`F'(τ)` carries the Siegel lattice `Ω(τ)ℤ² + ℤ²` onto the QM lattice `ι(𝒪)(τ, 1)ᵀ`.** -/
+theorem map_periodLattice_Omega {τ : ℂ} (hτ : τ.im ≠ 0) :
+    (periodLattice (Omega τ) (det_im_Omega_ne_zero hτ)).map
+      ((FpEquiv hτ).toLinearEquiv.toLinearMap.restrictScalars ℤ) = qmLattice hτ := by
+  rw [periodLattice, coe_periodBasis, Submodule.map_span, ← Set.range_comp, qmLattice_eq,
+    ← span_imgVec]
+  congr 2
+  funext k
+  exact Fp_mulVec_periodVec' hτ k
+
+/-- **`Ω(τ)` is a period matrix of the QM torus**: `F'(τ)` induces a biholomorphic group
+isomorphism `ℂ² ⧸ (Ω(τ)ℤ² + ℤ²) ≃ ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`. -/
+def qmPeriodDiffeo {τ : ℂ} (hτ : τ.im ≠ 0) :
+    SiegelTorus (Omega τ) (det_im_Omega_ne_zero hτ) ≃ₘ^ω⟮𝓘(ℂ, Fin 2 → ℂ), 𝓘(ℂ, Fin 2 → ℂ)⟯
+      QMTorus hτ :=
+  torusDiffeo _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)
+
+/-- It is additive (a group isomorphism). -/
+theorem qmPeriodDiffeo_add {τ : ℂ} (hτ : τ.im ≠ 0) (p q : SiegelTorus (Omega τ) (det_im_Omega_ne_zero hτ)) :
+    qmPeriodDiffeo hτ (p + q) = qmPeriodDiffeo hτ p + qmPeriodDiffeo hτ q :=
+  map_add (torusAddEquiv _ _ (FpEquiv hτ) (map_periodLattice_Omega hτ)) p q
+
+theorem qmPeriodDiffeo_proj {τ : ℂ} (hτ : τ.im ≠ 0) (v : Fin 2 → ℂ) :
+    qmPeriodDiffeo hτ (proj _ v) = proj (qmLattice hτ) (Fp τ *ᵥ v) := rfl
+
+
+theorem sqrt2_sq : (√2 : ℂ) ^ 2 = 2 := by
+  rw [← Complex.ofReal_pow, Real.sq_sqrt (by norm_num)]; norm_num
+
+/-- The compatibility `F' Eᵀ = E F'ᵀ` (the Riemann form is alternating in N5's basis). -/
+theorem Fp_mul_Emat_transpose (τ : ℂ) : Fp τ * (Emat τ)ᵀ = Emat τ * (Fp τ)ᵀ := by
+  have h2 := sqrt2_sq
+  rw [Fp, F0mat_eq, Emat_eq, Pinv]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fin.sum_univ_two, Matrix.transpose_apply] <;> ring_nf <;>
+    simp only [h2] <;> ring_nf
+
+/-- **`Ω(τ)` is symmetric** (for `Im τ ≠ 0`). -/
+theorem Omega_transpose {τ : ℂ} (hτ : τ.im ≠ 0) : (Omega τ)ᵀ = Omega τ := by
+  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
+  have hut : IsUnit (Fp τ)ᵀ.det := by rwa [det_transpose]
+  have key := Fp_mul_Emat_transpose τ
+  rw [Omega, ← Fp, transpose_mul, transpose_nonsing_inv]
+  calc (Emat τ)ᵀ * ((Fp τ)ᵀ)⁻¹
+      = (Fp τ)⁻¹ * (Fp τ * (Emat τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by
+        rw [← Matrix.mul_assoc (Fp τ)⁻¹, Matrix.nonsing_inv_mul _ hu, Matrix.one_mul]
+    _ = (Fp τ)⁻¹ * (Emat τ * (Fp τ)ᵀ) * ((Fp τ)ᵀ)⁻¹ := by rw [key]
+    _ = (Fp τ)⁻¹ * Emat τ := by
+        rw [Matrix.mul_assoc, Matrix.mul_assoc, Matrix.mul_nonsing_inv _ hut, Matrix.mul_one]
+
+/-- Hence `θ(·, Ω(τ))` is quasi-periodic for `Ω(τ)ℤ² + ℤ² = F'(τ)⁻¹Λ_τ`: it is a section of a
+line bundle on the QM torus (via `qmPeriodDiffeo`). -/
+theorem riemannTheta_Omega_add_period {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 → ℂ) (m n : Fin 2 → ℤ) :
+    riemannTheta (Omega τ) (z + (Omega τ *ᵥ intVec m + intVec n)) =
+      Complex.exp (-(Real.pi * Complex.I * (intVec m ⬝ᵥ (Omega τ *ᵥ intVec m))) -
+          2 * Real.pi * Complex.I * (intVec m ⬝ᵥ z)) * riemannTheta (Omega τ) z :=
+  riemannTheta_add_period _ (Omega_transpose hτ) z m n
+
+/-! #### `Ω(τ)` lies in the Siegel space for `Im τ > 0` -/
+
+/-- Partial fractions: `Ω(τ) = A₀ + C/(τ+1) + B/(τ−3)` (found with sympy). -/
+def OmegaPF (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  (!![-1 + (√2 : ℂ) / 2, 1 - (√2 : ℂ); 1 - (√2 : ℂ), -2 + (√2 : ℂ)] :
+      Matrix (Fin 2) (Fin 2) ℂ) +
+    (τ + 1)⁻¹ • !![-((√2 : ℂ) + 2) / 2, 1 + (√2 : ℂ); 1 + (√2 : ℂ), -((√2 : ℂ) + 2)] +
+    (τ - 3)⁻¹ • !![3 * ((√2 : ℂ) - 2) / 2, -3 * ((√2 : ℂ) - 1); -3 * ((√2 : ℂ) - 1),
+      3 * ((√2 : ℂ) - 2)]
+
+theorem Fp_mul_OmegaPF {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * OmegaPF τ = Emat τ := by
+  have h2 := sqrt2_sq
+  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  rw [Fp, F0mat_eq, Pinv, Emat_eq, OmegaPF]
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fin.sum_univ_two] <;> field_simp <;> ring_nf <;>
+    simp only [h2] <;> ring_nf
+
+theorem Omega_eq_PF {τ : ℂ} (hτ : τ.im ≠ 0) : Omega τ = OmegaPF τ := by
+  have hu : IsUnit (Fp τ).det := Ne.isUnit (det_Fp_ne_zero hτ)
+  rw [Omega, ← Fp, ← Fp_mul_OmegaPF hτ, ← Matrix.mul_assoc, Matrix.nonsing_inv_mul _ hu,
+    Matrix.one_mul]
+
+/-- **`Ω(τ) ∈ 𝔥₂` for `Im τ > 0`.** `Im Ω(τ) = y·(C'/|τ+1|² + B'/|τ−3|²)` with `C'`, `B'` positive
+semidefinite of rank one with different kernels. -/
+theorem Omega_mem_siegelSpace {τ : ℂ} (hτ : 0 < τ.im) : Omega τ ∈ SiegelSpace 2 := by
+  have hτ' : τ.im ≠ 0 := hτ.ne'
+  refine ⟨Omega_transpose hτ', ?_⟩
+  rw [Matrix.posDef_iff_dotProduct_mulVec]
+  constructor
+  · show ((Omega τ).map Complex.im)ᴴ = (Omega τ).map Complex.im
+    rw [Matrix.conjTranspose_eq_transpose_of_trivial, ← Matrix.transpose_map,
+      Omega_transpose hτ']
+  · intro x hx
+    rw [Omega_eq_PF hτ']
+    have hs : (√2 : ℝ) ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+    have hp : 0 < Complex.normSq (τ + 1) :=
+      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
+    have hq : 0 < Complex.normSq (τ - 3) :=
+      Complex.normSq_pos.mpr fun h => hτ' (by simpa using congrArg Complex.im h)
+    simp [OmegaPF, dotProduct, mulVec, Fin.sum_univ_two, Complex.inv_im, Complex.inv_re]
+    set y := τ.im
+    set P := Complex.normSq (τ + 1)
+    set Q := Complex.normSq (τ - 3)
+    set r := √2
+    rw [show x 0 * ((-y / P * ((-2 + -r) / 2) + -y / Q * (3 * (r - 2) / 2)) * x 0 +
+          (-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 1) +
+        x 1 * ((-y / P * (1 + r) + -(-y / Q * (3 * (r - 1)))) * x 0 +
+          (-y / P * (-2 + -r) + -y / Q * (3 * (r - 2))) * x 1) =
+        y / P * ((r + 2) / 2 * (x 0 - r * x 1) ^ 2) + y / Q * (3 * (2 - r) / 2 * (x 0 + r * x 1) ^ 2)
+      by linear_combination (x 1 * y * (3 * r * x 1 + 6 * x 0 - 6 * x 1) / (2 * Q) +
+        x 1 * y * (-r * x 1 + 2 * x 0 - 2 * x 1) / (2 * P)) * hs]
+    have hr0 : 0 < r := Real.sqrt_pos.mpr two_pos
+    have hr2 : r < 2 := by nlinarith
+    have hA : 0 < y / P * ((r + 2) / 2) := mul_pos (div_pos hτ hp) (by linarith)
+    have hB : 0 < y / Q * (3 * (2 - r) / 2) := mul_pos (div_pos hτ hq) (by linarith)
+    by_contra hle
+    push Not at hle
+    have hu : (x 0 - r * x 1) ^ 2 = 0 := by
+      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
+        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
+    have hw : (x 0 + r * x 1) ^ 2 = 0 := by
+      nlinarith [sq_nonneg (x 0 - r * x 1), sq_nonneg (x 0 + r * x 1),
+        mul_nonneg hA.le (sq_nonneg (x 0 - r * x 1)), mul_nonneg hB.le (sq_nonneg (x 0 + r * x 1))]
+    have hu' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hu
+    have hw' := pow_eq_zero_iff (n := 2) (by norm_num) |>.mp hw
+    have hx1 : x 1 = 0 := by
+      have : r * x 1 = 0 := by linarith
+      exact (mul_eq_zero.mp this).resolve_left hr0.ne'
+    have hx0 : x 0 = 0 := by linarith
+    exact hx (funext fun i => by fin_cases i <;> simp [hx0, hx1])
+
+end QM
+
+/-! ## §8. Continuous homomorphisms of tori are linear (node T2)
+
+A continuous group homomorphism `f : E ⧸ Λ → E' ⧸ Λ'` lifts (covering theory: `E` is simply
+connected) to a continuous additive, hence `ℝ`-linear, map `T : E → E'` with `T(Λ) ⊆ Λ'`. If `f`
+is holomorphic, `T` is `ℂ`-linear. This is the glue that turns endomorphisms of an abelian variety
+into linear maps preserving its period lattice (R1an, T11, T12). -/
+
+section Hom
+
+variable {E' : Type*} [NormedAddCommGroup E'] [NormedSpace ℂ E']
+variable (Λ' : Submodule ℤ E') [DiscreteTopology Λ']
+
+/-- A continuous map with values in a discrete subgroup is locally constant. -/
+theorem eventuallyEq_const_of_mem {X : Type*} [TopologicalSpace X] {G : X → E'} {x : X}
+    (hG : ContinuousAt G x) (hmem : ∀ᶠ z in 𝓝 x, G z ∈ Λ') (hx : G x ∈ Λ') :
+    G =ᶠ[𝓝 x] fun _ => G x := by
+  obtain ⟨ε, hε, hgap⟩ := exists_gap Λ'
+  filter_upwards [hG.eventually (Metric.ball_mem_nhds _ hε), hmem] with z hz hzm
+  have h0 := hgap _ (Λ'.sub_mem hzm hx) (by simpa [dist_eq_norm] using hz)
+  exact sub_eq_zero.mp h0
+
+/-- **Continuous homomorphisms of tori are induced by `ℝ`-linear maps.** -/
+theorem exists_realLinear_lift (f : Torus Λ →+ Torus Λ') (hf : Continuous f) :
+    ∃ T : E →L[ℝ] E', (∀ v ∈ Λ, T v ∈ Λ') ∧ ∀ v, f (proj Λ v) = proj Λ' (T v) := by
+  obtain ⟨F, ⟨hF0, hFp⟩, -⟩ := (isCoveringMap_proj Λ').existsUnique_continuousMap_lifts
+    ⟨f ∘ proj Λ, hf.comp (isLocalHomeomorph_proj Λ).continuous⟩ (0 : E) (0 : E') (by simp)
+  have hFp' : ∀ v, proj Λ' (F v) = f (proj Λ v) := fun v => congrFun hFp v
+  have hmem : ∀ p : E × E, F (p.1 + p.2) - (F p.1 + F p.2) ∈ Λ' := by
+    intro p
+    rw [← proj_eq_iff]
+    simp only [proj, QuotientAddGroup.mk_add]
+    rw [show (QuotientAddGroup.mk (F (p.1 + p.2)) : Torus Λ') = f (proj Λ (p.1 + p.2)) from
+        hFp' _, show (QuotientAddGroup.mk (F p.1) : Torus Λ') = f (proj Λ p.1) from hFp' _,
+      show (QuotientAddGroup.mk (F p.2) : Torus Λ') = f (proj Λ p.2) from hFp' _, ← map_add]
+    rfl
+  have hc : Continuous fun p : E × E => F (p.1 + p.2) - (F p.1 + F p.2) := by
+    have := F.continuous; fun_prop
+  have hadd : ∀ x y, F (x + y) = F x + F y := by
+    intro x y
+    have hconst := PreconnectedSpace.constant (inferInstance : PreconnectedSpace (E × E))
+      (f := fun p => (⟨_, hmem p⟩ : Λ')) (hc.subtype_mk _) (x := (x, y)) (y := (0, 0))
+    have := congrArg Subtype.val hconst
+    simp only [add_zero, hF0, sub_zero] at this
+    exact sub_eq_zero.mp this
+  let Fa : E →+ E' := { toFun := F, map_zero' := hF0, map_add' := hadd }
+  refine ⟨Fa.toRealLinearMap F.continuous, ?_, ?_⟩
+  · intro v hv
+    have h := hFp' v
+    rw [show proj Λ v = 0 from (QuotientAddGroup.eq_zero_iff v).mpr hv, map_zero] at h
+    exact (QuotientAddGroup.eq_zero_iff _).mp h
+  · intro v
+    exact (hFp' v).symm
+
+/-- **Holomorphic homomorphisms of tori are induced by `ℂ`-linear maps** (node T2). -/
+theorem exists_complexLinear_lift (f : Torus Λ →+ Torus Λ')
+    (hf : MDifferentiable 𝓘(ℂ, E) 𝓘(ℂ, E') f) :
+    ∃ T : E →L[ℂ] E', (∀ v ∈ Λ, T v ∈ Λ') ∧ ∀ v, f (proj Λ v) = proj Λ' (T v) := by
+  obtain ⟨T, hTΛ, hTf⟩ := exists_realLinear_lift Λ Λ' f hf.continuous
+  set q : Torus Λ := proj Λ 0
+  set x' : E := chartOf Λ q.out q
+  set c' := chartOf Λ' (f q).out
+  have hq : q ∈ (chartOf Λ q.out).source := mem_chart_source E q
+  have hx' : proj Λ x' = q := proj_chartOf Λ hq
+  have hfq : f q ∈ c'.source := mem_chart_source E' (f q)
+  -- the coordinate expression of `f` at `q` is `ℂ`-differentiable
+  have hfun : writtenInExtChartAt 𝓘(ℂ, E) 𝓘(ℂ, E') q f = c' ∘ f ∘ proj Λ := by
+    funext z
+    simp [writtenInExtChartAt, chartAt_torus, chartOf_symm_apply, c']
+  have hpt : extChartAt 𝓘(ℂ, E) q q = x' := by
+    simp [chartAt_torus, x']
+  have hdiff : DifferentiableAt ℂ (c' ∘ f ∘ proj Λ) x' := by
+    have h1 := (hf q).differentiableWithinAt_writtenInExtChartAt
+    rw [hfun, hpt, modelWithCornersSelf_coe, range_id, differentiableWithinAt_univ] at h1
+    exact h1
+  -- `T` agrees near `x'` with the coordinate expression up to a lattice constant
+  have hU : ∀ᶠ v in 𝓝 x', f (proj Λ v) ∈ c'.source := by
+    have hcont : Continuous (f ∘ proj Λ) := hf.continuous.comp (isLocalHomeomorph_proj Λ).continuous
+    have : f (proj Λ x') ∈ c'.source := by rw [hx']; exact hfq
+    exact hcont.continuousAt.preimage_mem_nhds (c'.open_source.mem_nhds this)
+  have hmemG : ∀ v, f (proj Λ v) ∈ c'.source → T v - c' (f (proj Λ v)) ∈ Λ' := by
+    intro v hv
+    rw [← proj_eq_iff, ← hTf v, proj_chartOf Λ' hv]
+  have hG := eventuallyEq_const_of_mem Λ' (G := fun v => T v - c' (f (proj Λ v))) (x := x')
+    (T.continuous.continuousAt.sub hdiff.continuousAt) (hU.mono hmemG)
+    (hmemG x' (by rw [hx']; exact hfq))
+  have hTeq : (T : E → E') =ᶠ[𝓝 x'] fun v => c' (f (proj Λ v)) + (T x' - c' (f (proj Λ x'))) := by
+    filter_upwards [hG] with v hv
+    rw [← hv]; abel
+  have hTdiff : DifferentiableAt ℂ (T : E → E') x' :=
+    (hdiff.add_const _).congr_of_eventuallyEq hTeq
+  -- compare the `ℂ`-derivative with the `ℝ`-derivative `T`
+  set D := fderiv ℂ (T : E → E') x'
+  have hD : (D.restrictScalars ℝ : E →L[ℝ] E') = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  refine ⟨D, fun v hv => ?_, fun v => ?_⟩
+  · have : D v = T v := congrArg (fun L : E →L[ℝ] E' => L v) hD
+    rw [this]; exact hTΛ v hv
+  · have : D v = T v := congrArg (fun L : E →L[ℝ] E' => L v) hD
+    rw [this]; exact hTf v
+
+end Hom
+
+/-! ## §9. The covolume of `Ωℤ^g + ℤ^g` is `|det Im Ω|` (node P3)
+
+With bp-faltings' `torusMetricSq Λ c = ‖c‖²·covol(Λ)`, this gives the archimedean Faltings term
+of a torus with normalized period matrix `Ω` as `‖c‖²·det Im Ω`: the integral over `A(ℂ)` through
+the period matrix alone. -/
+
+section Covolume
+
+open MeasureTheory Matrix
+
+variable {g : ℕ}
+
+/-- `(Σ j, Fin 2) ≃ Fin g ⊕ Fin g`: `(j, 0) ↦ inr j` (real part), `(j, 1) ↦ inl j` (imaginary
+part). -/
+def sigmaEquiv (g : ℕ) : (Σ _ : Fin g, Fin 2) ≃ Fin g ⊕ Fin g where
+  toFun p := if p.2 = 0 then Sum.inr p.1 else Sum.inl p.1
+  invFun := Sum.elim (fun j => ⟨j, 1⟩) (fun j => ⟨j, 0⟩)
+  left_inv := by
+    rintro ⟨j, k⟩
+    fin_cases k <;> rfl
+  right_inv := by
+    rintro (j | j) <;> rfl
+
+/-- The standard real basis of `ℂ^g`: `inl j ↦ i·e_j`, `inr j ↦ e_j`. -/
+def stdRealBasis (g : ℕ) : Module.Basis (Fin g ⊕ Fin g) ℝ (Fin g → ℂ) :=
+  (Pi.basis fun _ : Fin g => Complex.basisOneI).reindex (sigmaEquiv g)
+
+theorem stdRealBasis_repr_inl (z : Fin g → ℂ) (j : Fin g) :
+    (stdRealBasis g).repr z (Sum.inl j) = (z j).im := by
+  simp [stdRealBasis, sigmaEquiv, Complex.coe_basisOneI_repr]
+
+theorem stdRealBasis_repr_inr (z : Fin g → ℂ) (j : Fin g) :
+    (stdRealBasis g).repr z (Sum.inr j) = (z j).re := by
+  simp [stdRealBasis, sigmaEquiv, Complex.coe_basisOneI_repr]
+
+/-- The unit square in `ℂ` has volume one. -/
+theorem volume_unitSquare :
+    volume {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} = 1 := by
+  have : {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} =
+      Complex.measurableEquivRealProd ⁻¹' (Set.Ico (0 : ℝ) 1 ×ˢ Set.Ico (0 : ℝ) 1) := by
+    ext w; simp [Complex.measurableEquivRealProd_apply]
+  rw [this, Complex.volume_preserving_equiv_real_prod.measure_preimage
+      (measurableSet_Ico.prod measurableSet_Ico).nullMeasurableSet,
+    Measure.volume_eq_prod, Measure.prod_prod, Real.volume_Ico]
+  simp
+
+theorem volume_fundamentalDomain_stdRealBasis :
+    volume (ZSpan.fundamentalDomain (stdRealBasis g)) = 1 := by
+  have : ZSpan.fundamentalDomain (stdRealBasis g) =
+      Set.univ.pi fun _ : Fin g => {w : ℂ | w.re ∈ Set.Ico (0 : ℝ) 1 ∧ w.im ∈ Set.Ico (0 : ℝ) 1} := by
+    ext z
+    simp only [ZSpan.mem_fundamentalDomain, Set.mem_pi, Set.mem_univ, true_imp_iff,
+      Set.mem_ofPred_eq]
+    constructor
+    · intro h j
+      exact ⟨by simpa [stdRealBasis_repr_inr] using h (Sum.inr j),
+        by simpa [stdRealBasis_repr_inl] using h (Sum.inl j)⟩
+    · rintro h (j | j)
+      · simpa [stdRealBasis_repr_inl] using (h j).2
+      · simpa [stdRealBasis_repr_inr] using (h j).1
+  rw [this, volume_pi_pi]
+  simp only [volume_unitSquare, Finset.prod_const_one]
+
+/-- The coordinate matrix of the period basis in the standard real basis is
+`[[Im Ω, 0], [Re Ω, 1]]`. -/
+theorem toMatrix_periodVec (Ω : Matrix (Fin g) (Fin g) ℂ) :
+    (stdRealBasis g).toMatrix (periodVec Ω) =
+      Matrix.fromBlocks (Ω.map Complex.im) 0 (Ω.map Complex.re) 1 := by
+  ext (r | r) (l | l) <;>
+    simp [Module.Basis.toMatrix_apply, stdRealBasis_repr_inl, stdRealBasis_repr_inr, periodVec,
+      Pi.single_apply, Matrix.one_apply] <;> split_ifs <;> simp
+
+/-- **`covol(Ωℤ^g + ℤ^g) = |det Im Ω|`** for Lebesgue measure on `ℂ^g`. -/
+theorem covolume_periodLattice (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (hΩ : (Ω.map Complex.im).det ≠ 0) :
+    ZLattice.covolume (periodLattice Ω hΩ) = |(Ω.map Complex.im).det| := by
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain (periodLattice Ω hΩ) volume
+      (ZSpan.isAddFundamentalDomain (periodBasis Ω hΩ) volume),
+    ZSpan.measureReal_fundamentalDomain (periodBasis Ω hΩ) volume (stdRealBasis g),
+    measureReal_def, volume_fundamentalDomain_stdRealBasis, ENNReal.toReal_one, mul_one,
+    Module.Basis.det_apply, coe_periodBasis, toMatrix_periodVec, det_fromBlocks_zero₁₂, det_one,
+    mul_one]
+
+/-- For `Ω` in the Siegel space the covolume is `det Im Ω`. -/
+theorem covolume_periodLattice_of_mem {Ω : Matrix (Fin g) (Fin g) ℂ} (h : Ω ∈ SiegelSpace g) :
+    ZLattice.covolume (periodLattice Ω (det_im_ne_zero_of_mem_siegelSpace h)) =
+      (Ω.map Complex.im).det := by
+  rw [covolume_periodLattice, abs_of_pos h.2.det_pos]
+
+end Covolume
+
+end BPAnalytic
+
+/-! ## §10. LEAF: the analytic uniformization of a complex abelian variety (node AN3 / N14)
+
+`UniformizationLeaf A` is AN3 of docs/research/bp-faltings.md (= N14 of bp-qmmoduli.md) in
+"coordinate form": it needs **no analytification**. It quantifies over
+
+* the group `A(ℂ)` of `ℂ`-points of the project's `AbVar` (copied from
+  `ZInQKernel/HDecomp/Objects.lean`), a commutative group by Mathlib;
+* regular functions `f ∈ Γ(U, 𝒪_A)` on Zariski opens `U`, evaluated at `ℂ`-points;
+* the complex torus `ℂ^g ⧸ Λ` of §1-§3;
+* analyticity of functions on open subsets of `ℂ^g`.
+
+`IsUniformization A Λ φ` says that the group isomorphism `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` is analytic for the
+analytic structure of `A(ℂ)`:
+(i) every regular function pulls back to a holomorphic function on an open set;
+(ii) at every point some `g` regular functions pull back to a local biholomorphism;
+(iii) `φ⁻¹` is continuous for the topology defined by regular functions (the analytic topology of
+`A(ℂ)`, which on an affine open is the subspace topology of `ℂ^n`).
+The leaf is a consequence of Mumford, *Abelian varieties*, §1 (a compact connected complex Lie
+group is a torus) applied to `A^an` (Mumford §4; Serre, GAGA §2; SGA 1 XII §1, 2.4, 3.1, 3.2);
+locators UNVERIFIED. It is not
+stronger than the published statement. -/
+
+namespace BPAnalytic.Uniformization
+
+open CategoryTheory AlgebraicGeometry Limits MonObj
+
+universe u
+
+/-- (copied from Objects.lean, `PkgI3.AbVar`) An abelian variety over a field `K`: a group object
+in schemes over `Spec K` whose structure morphism is proper, smooth and geometrically integral. -/
+structure AbVar (K : Type u) [Field K] where
+  /-- the underlying `K`-scheme -/
+  X : Over (Spec (CommRingCat.of K))
+  [grp : GrpObj X]
+  [proper : IsProper X.hom]
+  [smooth : Smooth X.hom]
+  [geomInt : GeometricallyIntegral X.hom]
+
+attribute [instance] AbVar.grp AbVar.proper AbVar.smooth AbVar.geomInt
+
+namespace AbVar
+
+variable {K : Type u} [Field K]
+
+/-- (copied from Objects.lean) Commutativity is a Mathlib theorem. -/
+instance (A : AbVar K) : IsCommMonObj A.X :=
+  isCommMonObj_of_isProper_of_geometricallyIntegral A.X
+
+variable (L : Type u) [Field L] [Algebra K L]
+
+/-- (copied from Objects.lean) `Spec L` as a `K`-scheme. -/
+def ptObj : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K L)))
+
+/-- (copied from Objects.lean) The group `A(L)` of `L`-points: `K`-morphisms `Spec L → A`. -/
+abbrev Pt (A : AbVar K) : Type u := ptObj (K := K) L ⟶ A.X
+
+end AbVar
+
+example (A : AbVar ℂ) : CommGroup (A.Pt ℂ) := inferInstance
+
+variable (A : AbVar ℂ)
+
+/-- The `ℂ`-point `P` lies in the Zariski open `U`. -/
+def PtIn (P : A.Pt ℂ) (U : A.X.left.Opens) : Prop := ⊤ ≤ P.left ⁻¹ᵁ U
+
+open Classical in
+/-- The value `f(P) ∈ ℂ` of a regular function `f ∈ Γ(U, 𝒪_A)` at a `ℂ`-point `P ∈ U`
+(`0` if `P ∉ U`; only used on `U`). -/
+def evalAt (U : A.X.left.Opens) (f : Γ(A.X.left, U)) (P : A.Pt ℂ) : ℂ :=
+  if h : PtIn A P U then
+    ((P.left.appLE U ⊤ h) ≫ (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom).hom f
+  else 0
+
+/-- The group isomorphism `φ : ℂ^g ⧸ Λ ≃ A(ℂ)` is an isomorphism of complex Lie groups. -/
+structure IsUniformization {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)) : Prop where
+  /-- (i) regular functions are holomorphic on open sets -/
+  holo : ∀ (U : A.X.left.Opens) (f : Γ(A.X.left, U)),
+    IsOpen {v : Fin g → ℂ | PtIn A (Additive.toMul (φ (proj Λ v))) U} ∧
+    AnalyticOnNhd ℂ (fun v => evalAt A U f (Additive.toMul (φ (proj Λ v))))
+      {v | PtIn A (Additive.toMul (φ (proj Λ v))) U}
+  /-- (ii) at every point, `g` regular functions give local holomorphic coordinates -/
+  coords : ∀ v₀ : Fin g → ℂ, ∃ (U : A.X.left.Opens) (f : Fin g → Γ(A.X.left, U))
+    (e : (Fin g → ℂ) ≃L[ℂ] (Fin g → ℂ)),
+    PtIn A (Additive.toMul (φ (proj Λ v₀))) U ∧
+    HasFDerivAt (fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))))
+      (e : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) v₀
+  /-- (iii) `φ⁻¹` is continuous for the topology defined by regular functions -/
+  open_map : ∀ v₀ : Fin g → ℂ, ∀ N ∈ 𝓝 (proj Λ v₀), ∃ (U : A.X.left.Opens) (k : ℕ)
+    (f : Fin k → Γ(A.X.left, U)) (ε : ℝ), 0 < ε ∧
+    PtIn A (Additive.toMul (φ (proj Λ v₀))) U ∧
+    ∀ P : A.Pt ℂ, PtIn A P U →
+      (∀ i, ‖evalAt A U (f i) P - evalAt A U (f i) (Additive.toMul (φ (proj Λ v₀)))‖ < ε) →
+      ∃ q ∈ N, Additive.toMul (φ q) = P
+
+/-- **LEAF (AN3, coordinate form).** Analytic uniformization of a complex abelian variety:
+`A(ℂ) ≅ ℂ^g ⧸ Λ` as complex Lie groups, with `Λ` a full lattice. -/
+def UniformizationLeaf : Prop :=
+  ∃ (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) (_ : DiscreteTopology Λ) (_ : IsZLattice ℝ Λ)
+    (φ : Torus Λ ≃+ Additive (A.Pt ℂ)), IsUniformization A Λ φ
+
+/-- The leaf for every complex abelian variety. -/
+def UniformizationLeafAll : Prop := ∀ A : AbVar ℂ, UniformizationLeaf A
+
+/-! ### Glue: the uniformization is unique up to a linear map of lattices -/
+
+variable {A}
+
+/-- **Uniqueness (continuity).** For two uniformizations of the same `A`, the comparison map
+`φ'⁻¹ ∘ φ : ℂ^g ⧸ Λ → ℂ^{g'} ⧸ Λ'` is continuous. -/
+theorem IsUniformization.continuous_comparison {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+    {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (hφ' : IsUniformization A Λ' φ') : Continuous (φ.trans φ'.symm) := by
+  rw [(QuotientAddGroup.isQuotientMap_mk Λ.toAddSubgroup).continuous_iff,
+    continuous_iff_continuousAt]
+  intro v₀
+  set w₀ := ((φ.trans φ'.symm) (proj Λ v₀)).out
+  have hw₀ : proj Λ' w₀ = (φ.trans φ'.symm) (proj Λ v₀) := QuotientAddGroup.out_eq' _
+  have hφw : φ' (proj Λ' w₀) = φ (proj Λ v₀) := by
+    rw [hw₀, AddEquiv.trans_apply, AddEquiv.apply_symm_apply]
+  rw [ContinuousAt, Filter.tendsto_def]
+  intro N' hN'
+  rw [Function.comp_apply, ← hw₀] at hN'
+  obtain ⟨U, k, f, ε, hε, hU0, hsep⟩ := hφ'.open_map w₀ N' hN'
+  rw [hφw] at hU0 hsep
+  have hopen : ∀ᶠ v in 𝓝 v₀, PtIn A (Additive.toMul (φ (proj Λ v))) U :=
+    (hφ.holo U 0).1.mem_nhds hU0
+  have hall : ∀ᶠ v in 𝓝 v₀, ∀ i, dist (evalAt A U (f i) (Additive.toMul (φ (proj Λ v))))
+      (evalAt A U (f i) (Additive.toMul (φ (proj Λ v₀)))) < ε := by
+    rw [Filter.eventually_all]
+    intro i
+    exact (((hφ.holo U (f i)).2 v₀ hU0).continuousAt).eventually (Metric.ball_mem_nhds _ hε)
+  filter_upwards [hopen, hall] with v hv hvi
+  obtain ⟨q, hqN, hq⟩ := hsep _ hv (fun i => by simpa [dist_eq_norm] using hvi i)
+  have hq' : φ' q = φ (proj Λ v) := Additive.toMul.injective hq
+  have : (φ.trans φ'.symm) (proj Λ v) = q := by
+    rw [AddEquiv.trans_apply, ← hq', AddEquiv.symm_apply_apply]
+  show (φ.trans φ'.symm) (proj Λ v) ∈ N'
+  rw [this]; exact hqN
+
+/-- **Uniqueness of the uniformization up to a linear map.** Two uniformizations of the same `A`
+differ by an `ℝ`-linear map carrying `Λ` into `Λ'` (and, symmetrically, back): the period lattice
+of `A` is well defined up to isomorphism. -/
+theorem IsUniformization.exists_realLinear {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ'] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+    {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ), (∀ v ∈ Λ, T v ∈ Λ') ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := exists_realLinear_lift Λ Λ' (φ.trans φ'.symm).toAddMonoidHom
+    (hφ.continuous_comparison hφ')
+  refine ⟨T, hTΛ, fun v => ?_⟩
+  rw [← hT v]
+  simp
+
+/-! ### Glue: endomorphisms act on the period lattice by linear maps -/
+
+variable (A) in
+/-- Post-composition with an endomorphism `α` of the group scheme, on `ℂ`-points. -/
+def ptMap (α : A.X ⟶ A.X) [IsMonHom α] : Additive (A.Pt ℂ) →+ Additive (A.Pt ℂ) where
+  toFun P := Additive.ofMul (Additive.toMul P ≫ α)
+  map_zero' := by
+    change Additive.ofMul ((1 : A.Pt ℂ) ≫ α) = Additive.ofMul 1
+    simp [MonObj.one_comp]
+  map_add' P Q := by
+    change Additive.ofMul ((Additive.toMul P * Additive.toMul Q) ≫ α) =
+      Additive.ofMul (Additive.toMul P ≫ α * Additive.toMul Q ≫ α)
+    simp [MonObj.mul_comp]
+
+variable (A) in
+/-- Regular functions composed with `α` are regular: `f(α ∘ P) = (α^* f)(P)`. -/
+theorem evalAt_comp (α : A.X ⟶ A.X) (U : A.X.left.Opens) (f : Γ(A.X.left, U)) (P : A.Pt ℂ) :
+    evalAt A U f (P ≫ α) = evalAt A (α.left ⁻¹ᵁ U) (α.left.app U f) P := by
+  have hiff : PtIn A (P ≫ α) U ↔ PtIn A P (α.left ⁻¹ᵁ U) := Iff.rfl
+  unfold evalAt
+  by_cases h : PtIn A P (α.left ⁻¹ᵁ U)
+  · simp only [hiff.mpr h, h, ↓reduceDIte]
+    simp [Over.comp_left, Scheme.Hom.comp_appLE]
+    rfl
+  · simp only [mt hiff.mp h, h, ↓reduceDIte]
+
+/-- **Endomorphisms act continuously on the torus.** For a uniformization `φ` and an
+endomorphism `α` of `A`, the transported map `φ⁻¹ ∘ α ∘ φ` is continuous. -/
+theorem IsUniformization.continuous_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X)
+    [IsMonHom α] :
+    Continuous ((φ.symm.toAddMonoidHom.comp (ptMap A α)).comp φ.toAddMonoidHom) := by
+  set ψ := (φ.symm.toAddMonoidHom.comp (ptMap A α)).comp φ.toAddMonoidHom
+  have hψ : ∀ x, φ (ψ x) = ptMap A α (φ x) := fun x => by simp [ψ]
+  rw [(QuotientAddGroup.isQuotientMap_mk Λ.toAddSubgroup).continuous_iff,
+    continuous_iff_continuousAt]
+  intro v₀
+  set w₀ := (ψ (proj Λ v₀)).out
+  have hw₀ : proj Λ w₀ = ψ (proj Λ v₀) := QuotientAddGroup.out_eq' _
+  have hφw : Additive.toMul (φ (proj Λ w₀)) = Additive.toMul (φ (proj Λ v₀)) ≫ α := by
+    rw [hw₀, hψ]; rfl
+  rw [ContinuousAt, Filter.tendsto_def]
+  intro N hN
+  rw [Function.comp_apply, ← hw₀] at hN
+  obtain ⟨U, k, f, ε, hε, hU0, hsep⟩ := hφ.open_map w₀ N hN
+  rw [hφw] at hU0 hsep
+  have hopen : ∀ᶠ v in 𝓝 v₀, PtIn A (Additive.toMul (φ (proj Λ v))) (α.left ⁻¹ᵁ U) :=
+    (hφ.holo (α.left ⁻¹ᵁ U) 0).1.mem_nhds hU0
+  have hall : ∀ᶠ v in 𝓝 v₀, ∀ i,
+      dist (evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v))))
+        (evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v₀)))) < ε := by
+    rw [Filter.eventually_all]
+    intro i
+    exact (((hφ.holo (α.left ⁻¹ᵁ U) (α.left.app U (f i))).2 v₀ hU0).continuousAt).eventually
+      (Metric.ball_mem_nhds _ hε)
+  filter_upwards [hopen, hall] with v hv hvi
+  obtain ⟨q, hqN, hq⟩ := hsep (Additive.toMul (φ (proj Λ v)) ≫ α) hv (fun i => by
+    rw [evalAt_comp, evalAt_comp]
+    simpa [dist_eq_norm] using hvi i)
+  have hq' : φ q = φ (ψ (proj Λ v)) := by
+    rw [hψ]; exact Additive.toMul.injective hq
+  show ψ (proj Λ v) ∈ N
+  rw [← φ.injective hq']; exact hqN
+
+/-- **Endomorphisms of `A` act on `ℂ^g` by `ℝ`-linear maps preserving the period lattice**
+(the rational representation; `ℂ`-linearity needs the holomorphy clause (ii), node T2 in its
+holomorphic form). -/
+theorem IsUniformization.exists_realLinear_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    [DiscreteTopology Λ] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (α : A.X ⟶ A.X) [IsMonHom α] :
+    ∃ T : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ), (∀ v ∈ Λ, T v ∈ Λ) ∧
+      ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α := by
+  obtain ⟨T, hTΛ, hT⟩ := exists_realLinear_lift Λ Λ _ (hφ.continuous_endo α)
+  refine ⟨T, hTΛ, fun v => ?_⟩
+  rw [← hT v]
+  simp [ptMap]
+
+/-- **Endomorphisms of `A` act on `ℂ^g` by `ℂ`-linear maps preserving the period lattice.**
+The real lift of `exists_realLinear_endo` is holomorphic: in the coordinates of clause (ii) it is
+`(local inverse of F) ∘ G` with `F, G` given by regular functions (clause (i)). This is the analytic
+representation `End(A) → M_g(ℂ)` used by R1an and T11. -/
+theorem IsUniformization.exists_complexLinear_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    [DiscreteTopology Λ] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (α : A.X ⟶ A.X) [IsMonHom α] :
+    ∃ T : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ), (∀ v ∈ Λ, T v ∈ Λ) ∧
+      ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_realLinear_endo α
+  -- coordinates at `T 0`
+  obtain ⟨U, f, e, hU, hF⟩ := hφ.coords (T 0)
+  set F : (Fin g → ℂ) → (Fin g → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))) with hFdef
+  set G : (Fin g → ℂ) → (Fin g → ℂ) := fun v i =>
+    evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v))) with hGdef
+  have hFT : ∀ v, F (T v) = G v := by
+    intro v; funext i
+    simp only [hFdef, hGdef, hT v, evalAt_comp]
+  have hFan : AnalyticAt ℂ F (T 0) :=
+    AnalyticAt.pi fun i => (hφ.holo U (f i)).2 (T 0) hU
+  have hU0 : PtIn A (Additive.toMul (φ (proj Λ 0))) (α.left ⁻¹ᵁ U) := by
+    have : PtIn A (Additive.toMul (φ (proj Λ (T 0)))) U := hU
+    rwa [hT 0] at this
+  have hGan : AnalyticAt ℂ G 0 :=
+    AnalyticAt.pi fun i => (hφ.holo (α.left ⁻¹ᵁ U) (α.left.app U (f i))).2 0 hU0
+  have hstrict : HasStrictFDerivAt F (e : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ)) (T 0) := by
+    have h := hFan.hasStrictFDerivAt
+    rwa [hF.fderiv] at h
+  -- `T = (local inverse of F) ∘ G` near `0`
+  have hev : ∀ᶠ v in 𝓝 (0 : Fin g → ℂ), hstrict.localInverse F e (T 0) (G v) = T v := by
+    have hcont : Filter.Tendsto (T : (Fin g → ℂ) → (Fin g → ℂ)) (𝓝 0) (𝓝 (T 0)) :=
+      T.continuous.tendsto 0
+    filter_upwards [hcont.eventually hstrict.eventually_left_inverse] with v hv
+    rw [← hFT v]; exact hv
+  have hdiffL : DifferentiableAt ℂ (hstrict.localInverse F e (T 0)) (G 0) := by
+    have h := hstrict.to_localInverse.differentiableAt
+    rwa [hFT 0] at h
+  have hTdiff : DifferentiableAt ℂ (T : (Fin g → ℂ) → (Fin g → ℂ)) 0 :=
+    (hdiffL.comp 0 hGan.differentiableAt).congr_of_eventuallyEq
+      (hev.mono fun v hv => hv.symm)
+  set D := fderiv ℂ (T : (Fin g → ℂ) → (Fin g → ℂ)) 0
+  have hD : (D.restrictScalars ℝ : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ)) = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) hD
+  exact ⟨D, fun v hv => by rw [hDT]; exact hTΛ v hv, fun v => by rw [hDT]; exact hT v⟩
+
+/-- **Uniqueness of the uniformization up to a `ℂ`-linear map**: two uniformizations of the same
+`A` differ by a `ℂ`-linear map carrying `Λ` into `Λ'`. With the symmetric statement this makes the
+period lattice of `A`, and every quantity computed from it (the Faltings metric, the period matrix
+up to `GL`), independent of the choice of `(Λ, φ)`. -/
+theorem IsUniformization.exists_complexLinear {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) →L[ℂ] (Fin g' → ℂ), (∀ v ∈ Λ, T v ∈ Λ') ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_realLinear hφ'
+  obtain ⟨U, f, e, hU, hF⟩ := hφ'.coords (T 0)
+  set F : (Fin g' → ℂ) → (Fin g' → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ' (proj Λ' v))) with hFdef
+  set G : (Fin g → ℂ) → (Fin g' → ℂ) :=
+    fun v i => evalAt A U (f i) (Additive.toMul (φ (proj Λ v))) with hGdef
+  have hFT : ∀ v, F (T v) = G v := by
+    intro v; funext i
+    simp only [hFdef, hGdef, hT v]
+  have hFan : AnalyticAt ℂ F (T 0) :=
+    AnalyticAt.pi fun i => (hφ'.holo U (f i)).2 (T 0) hU
+  have hU0 : PtIn A (Additive.toMul (φ (proj Λ 0))) U := by
+    have : PtIn A (Additive.toMul (φ' (proj Λ' (T 0)))) U := hU
+    rwa [hT 0] at this
+  have hGan : AnalyticAt ℂ G 0 :=
+    AnalyticAt.pi fun i => (hφ.holo U (f i)).2 0 hU0
+  have hstrict : HasStrictFDerivAt F (e : (Fin g' → ℂ) →L[ℂ] (Fin g' → ℂ)) (T 0) := by
+    have h := hFan.hasStrictFDerivAt
+    rwa [hF.fderiv] at h
+  have hev : ∀ᶠ v in 𝓝 (0 : Fin g → ℂ), hstrict.localInverse F e (T 0) (G v) = T v := by
+    have hcont : Filter.Tendsto (T : (Fin g → ℂ) → (Fin g' → ℂ)) (𝓝 0) (𝓝 (T 0)) :=
+      T.continuous.tendsto 0
+    filter_upwards [hcont.eventually hstrict.eventually_left_inverse] with v hv
+    rw [← hFT v]; exact hv
+  have hdiffL : DifferentiableAt ℂ (hstrict.localInverse F e (T 0)) (G 0) := by
+    have h := hstrict.to_localInverse.differentiableAt
+    rwa [hFT 0] at h
+  have hTdiff : DifferentiableAt ℂ (T : (Fin g → ℂ) → (Fin g' → ℂ)) 0 :=
+    (hdiffL.comp 0 hGan.differentiableAt).congr_of_eventuallyEq
+      (hev.mono fun v hv => hv.symm)
+  set D := fderiv ℂ (T : (Fin g → ℂ) → (Fin g' → ℂ)) 0
+  have hD : (D.restrictScalars ℝ : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ)) = T :=
+    (hTdiff.hasFDerivAt.restrictScalars ℝ).unique T.hasFDerivAt
+  have hDT : ∀ v, D v = T v := fun v => congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) hD
+  exact ⟨D, fun v hv => by rw [hDT]; exact hTΛ v hv, fun v => by rw [hDT]; exact hT v⟩
+
+/-! ### Glue: the period lattice is well defined up to isomorphism -/
+
+/-- Lifts are unique: two continuous `ℝ`-linear maps inducing the same map of tori are equal. -/
+theorem eq_of_proj_eq {g g' : ℕ} {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ']
+    (T T' : (Fin g → ℂ) →L[ℝ] (Fin g' → ℂ)) (h : ∀ v, proj Λ' (T v) = proj Λ' (T' v)) :
+    T = T' := by
+  have hmem : ∀ v, T v - T' v ∈ Λ' := fun v => (proj_eq_iff Λ').mp (h v)
+  ext v : 1
+  have hconst := PreconnectedSpace.constant (inferInstance : PreconnectedSpace (Fin g → ℂ))
+    (f := fun v => (⟨_, hmem v⟩ : Λ')) ((T.continuous.sub T'.continuous).subtype_mk _)
+    (x := v) (y := 0)
+  have := congrArg Subtype.val hconst
+  simp only [map_zero, sub_zero] at this
+  exact sub_eq_zero.mp this
+
+/-- **The period lattice of `A` is well defined up to isomorphism**: two uniformizations differ
+by a `ℂ`-linear isomorphism `T` with `T(Λ) = Λ'`. -/
+theorem IsUniformization.exists_equiv {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') :
+    ∃ T : (Fin g → ℂ) ≃L[ℂ] (Fin g' → ℂ),
+      Λ.map (T.toLinearEquiv.toLinearMap.restrictScalars ℤ) = Λ' ∧
+      ∀ v, φ' (proj Λ' (T v)) = φ (proj Λ v) := by
+  obtain ⟨T, hTΛ, hT⟩ := hφ.exists_complexLinear hφ'
+  obtain ⟨T', hT'Λ, hT'⟩ := hφ'.exists_complexLinear hφ
+  have h1 : ∀ v, T' (T v) = v := by
+    have := eq_of_proj_eq (Λ' := Λ) ((T'.comp T).restrictScalars ℝ)
+      (ContinuousLinearMap.id ℝ _) (fun v => by
+        apply φ.injective
+        simp [hT', hT])
+    intro v; exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+  have h2 : ∀ w, T (T' w) = w := by
+    have := eq_of_proj_eq (Λ' := Λ') ((T.comp T').restrictScalars ℝ)
+      (ContinuousLinearMap.id ℝ _) (fun w => by
+        apply φ'.injective
+        simp [hT', hT])
+    intro w; exact congrArg (fun L : (Fin g' → ℂ) →L[ℝ] _ => L w) this
+  refine ⟨ContinuousLinearEquiv.equivOfInverse T T' h1 h2, ?_, fun v => hT v⟩
+  apply le_antisymm
+  · rintro _ ⟨v, hv, rfl⟩
+    exact hTΛ v hv
+  · intro w hw
+    exact ⟨T' w, hT'Λ w hw, h2 w⟩
+
+/-- **The dimension is well defined**: all uniformizations of `A` have the same `g`. -/
+theorem IsUniformization.dim_eq {g g' : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {Λ' : Submodule ℤ (Fin g' → ℂ)} [DiscreteTopology Λ] [DiscreteTopology Λ']
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} {φ' : Torus Λ' ≃+ Additive (A.Pt ℂ)}
+    (hφ : IsUniformization A Λ φ) (hφ' : IsUniformization A Λ' φ') : g = g' := by
+  obtain ⟨T, -, -⟩ := hφ.exists_equiv hφ'
+  have := T.toLinearEquiv.finrank_eq
+  simpa using this
+
+/-! ### Glue: the analytic representation `End(A) → End_ℂ(ℂ^g)` -/
+
+section AnalyticRep
+
+variable {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} [DiscreteTopology Λ]
+  {φ : Torus Λ ≃+ Additive (A.Pt ℂ)}
+
+/-- The analytic representation of an endomorphism `α` of `A`: the unique `ℂ`-linear map of
+`ℂ^g` lifting `φ⁻¹ ∘ α ∘ φ` (`exists_complexLinear_endo`). -/
+noncomputable def analyticRep (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α] :
+    (Fin g → ℂ) →L[ℂ] (Fin g → ℂ) :=
+  (hφ.exists_complexLinear_endo α).choose
+
+theorem analyticRep_mem (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    {v : Fin g → ℂ} (hv : v ∈ Λ) : analyticRep hφ α v ∈ Λ :=
+  (hφ.exists_complexLinear_endo α).choose_spec.1 v hv
+
+theorem analyticRep_spec (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    (v : Fin g → ℂ) :
+    Additive.toMul (φ (proj Λ (analyticRep hφ α v))) = Additive.toMul (φ (proj Λ v)) ≫ α :=
+  (hφ.exists_complexLinear_endo α).choose_spec.2 v
+
+/-- Characterization: any continuous `ℝ`-linear lift of `α` is `analyticRep α`. -/
+theorem analyticRep_unique (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X) [IsMonHom α]
+    (T : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ))
+    (hT : ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α) :
+    (analyticRep hφ α).restrictScalars ℝ = T :=
+  eq_of_proj_eq _ _ fun v => φ.injective (Additive.toMul.injective (by
+    rw [ContinuousLinearMap.coe_restrictScalars', analyticRep_spec, hT]))
+
+/-- `ρ(𝟙) = id`. -/
+theorem analyticRep_id (hφ : IsUniformization A Λ φ) :
+    analyticRep hφ (𝟙 A.X) = ContinuousLinearMap.id ℂ _ := by
+  have := analyticRep_unique hφ (𝟙 A.X) (ContinuousLinearMap.id ℝ _) (fun v => by simp)
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+/-- `ρ(β ≫ α) = ρ(α) ∘ ρ(β)` (composition of endomorphisms). -/
+theorem analyticRep_comp (hφ : IsUniformization A Λ φ) (α β : A.X ⟶ A.X) [IsMonHom α]
+    [IsMonHom β] :
+    analyticRep hφ (β ≫ α) = (analyticRep hφ α).comp (analyticRep hφ β) := by
+  have := analyticRep_unique hφ (β ≫ α)
+    (((analyticRep hφ α).comp (analyticRep hφ β)).restrictScalars ℝ) (fun v => by
+      simp only [ContinuousLinearMap.coe_restrictScalars', ContinuousLinearMap.coe_comp,
+        Function.comp_apply]
+      rw [analyticRep_spec, analyticRep_spec, Category.assoc])
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+/-- The pointwise product of two endomorphisms of the commutative group scheme `A` is again an
+endomorphism (as in `Objects.lean`, `PkgI3.AbVar.homGroup`). -/
+instance isMonHom_mul (α β : A.X ⟶ A.X) [IsMonHom α] [IsMonHom β] : IsMonHom (α * β) := by
+  change IsMonHom (CartesianMonoidalCategory.lift α β ≫ μ[A.X])
+  infer_instance
+
+/-- `ρ(α + β) = ρ(α) + ρ(β)`, the sum in the group `Hom(A, A)` being the pointwise product of
+morphisms into the commutative group scheme `A`. -/
+theorem analyticRep_mul (hφ : IsUniformization A Λ φ) (α β : A.X ⟶ A.X) [IsMonHom α]
+    [IsMonHom β] :
+    analyticRep hφ (α * β) = analyticRep hφ α + analyticRep hφ β := by
+  have := analyticRep_unique hφ (α * β)
+    ((analyticRep hφ α + analyticRep hφ β).restrictScalars ℝ) (fun v => by
+      simp only [ContinuousLinearMap.coe_restrictScalars', add_apply]
+      rw [show proj Λ (analyticRep hφ α v + analyticRep hφ β v) =
+          proj Λ (analyticRep hφ α v) + proj Λ (analyticRep hφ β v) from rfl, map_add, toMul_add,
+        analyticRep_spec, analyticRep_spec, MonObj.comp_mul])
+  ext v : 1
+  exact congrArg (fun L : (Fin g → ℂ) →L[ℝ] _ => L v) this
+
+end AnalyticRep
+
+/-! ### Glue: torsion points (for T12) -/
+
+/-- On the torus, `n • [v] = 0 ↔ n • v ∈ Λ`: the `n`-torsion of `E ⧸ Λ` is `(1/n)Λ ⧸ Λ`. -/
+theorem nsmul_proj_eq_zero_iff {E : Type*} [NormedAddCommGroup E] [NormedSpace ℂ E]
+    (Λ : Submodule ℤ E) (n : ℕ) (v : E) : n • proj Λ v = 0 ↔ n • v ∈ Λ := by
+  rw [proj, ← QuotientAddGroup.mk_nsmul, QuotientAddGroup.eq_zero_iff]
+  rfl
+
+/-- **Torsion points of `A(ℂ)`**: `P^n = 1` iff `P = φ([v])` with `n • v ∈ Λ`. Hence
+`A(ℂ)[n] ≅ (1/n)Λ ⧸ Λ ≅ Λ ⧸ nΛ`, and `T_ℓ A ≅ Λ ⊗ ℤ_ℓ` (T12's comparison, glue). -/
+theorem torsion_iff {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} (φ : Torus Λ ≃+ Additive (A.Pt ℂ))
+    (n : ℕ) (P : A.Pt ℂ) :
+    P ^ n = 1 ↔ ∃ v : Fin g → ℂ, n • v ∈ Λ ∧ Additive.toMul (φ (proj Λ v)) = P := by
+  obtain ⟨v, hv⟩ := QuotientAddGroup.mk_surjective (φ.symm (Additive.ofMul P))
+  have hP : Additive.toMul (φ (proj Λ v)) = P := by
+    simp only [proj, hv, AddEquiv.apply_symm_apply, toMul_ofMul]
+  constructor
+  · intro h
+    refine ⟨v, (nsmul_proj_eq_zero_iff Λ n v).mp ?_, hP⟩
+    apply φ.injective
+    rw [map_nsmul, map_zero]
+    apply Additive.toMul.injective
+    rw [toMul_nsmul, hP, h]
+    rfl
+  · rintro ⟨w, hw, rfl⟩
+    rw [← toMul_nsmul, ← map_nsmul, (nsmul_proj_eq_zero_iff Λ n w).mpr hw, map_zero]
+    rfl
+
+end BPAnalytic.Uniformization
