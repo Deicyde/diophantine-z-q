@@ -395,4 +395,130 @@ theorem psi_some {x y : Qbar} (h : curveC1bar.toAffine.Nonsingular x y) (hx : x 
   simp only [Point.some.injEq]
   exact ⟨e1, e2⟩
 
+
+/-! ## §2.3 The kernel of `1 + [i]` and `A[(1+i)³]` explicitly -/
+
+theorem iota_eq_zero_iff (P : PtA) : iota P = 0 ↔ P = 0 := by
+  constructor
+  · intro h
+    have := iotaInv_iota P
+    rw [h, map_zero] at this
+    exact this.symm
+  · rintro rfl; exact map_zero _
+
+open WeierstrassCurve.Affine in
+theorem two_nsmul_some_C1_eq_zero_iff {x y : Qbar} (h : curveC1bar.toAffine.Nonsingular x y) :
+    2 • (Point.some x y h : PtC1) = 0 ↔ y = 0 := by
+  rw [two_nsmul]
+  by_cases hy : y = curveC1bar.toAffine.negY x y
+  · rw [Point.add_self_of_Y_eq hy]
+    simp only [negY, curveC1bar_a₁, curveC1bar_a₃] at hy
+    simp only [true_iff]
+    linear_combination hy / 2
+  · rw [Point.add_self_of_Y_ne hy]
+    simp only [reduceCtorEq, false_iff]
+    intro h0
+    apply hy
+    simp only [negY, curveC1bar_a₁, curveC1bar_a₃, h0]
+    ring
+
+/-- `A[(1+i)³]` listed: `O, (0,0), (2,±4), (−2,±4i), (±2i,0)`. -/
+def IsTorsI3 : PtA → Prop
+  | .zero => True
+  | .some x y _ => (x, y) ∈ ({(0, 0), (2, 4), (2, -4), (-2, 4 * iQ), (-2, -4 * iQ), (2 * iQ, 0),
+      (-2 * iQ, 0)} : Set (Qbar × Qbar))
+
+open WeierstrassCurve.Affine in
+/-- **`A[(1+i)³]` explicitly**: `2(P + [i]P) = 0` iff `P` is one of the eight points
+`O, (0,0), (2,±4), (−2,±4i), (±2i,0)`. -/
+theorem two_nsmul_add_iPt_eq_zero_iff (P : PtA) : 2 • (P + iPt P) = 0 ↔ IsTorsI3 P := by
+  have key : 2 • (P + iPt P) = 0 ↔ 2 • phi P = 0 := by
+    rw [phi_apply, ← map_nsmul, iota_eq_zero_iff]
+  rw [key]
+  rcases P with _ | ⟨x, y, h⟩
+  · simp only [IsTorsI3, map_zero, smul_zero, iff_true]
+    rfl
+  have he := (nonsingular_iff' _ _).mp h |>.1
+  rw [equation_iff'] at he
+  simp only [curveAbar_a₁, curveAbar_a₂, curveAbar_a₃, curveAbar_a₄, curveAbar_a₆] at he
+  simp only [IsTorsI3, Set.mem_insert_iff, Set.mem_singleton_iff, Prod.mk.injEq]
+  by_cases hx : x = 0
+  · subst hx
+    have hy : y = 0 := by
+      have : y ^ 2 = 0 := by linear_combination he
+      exact pow_eq_zero_iff (n := 2) (by norm_num) |>.mp this
+    subst hy
+    simp only [true_and, true_or, iff_true]
+    have : (Point.some 0 0 h : PtA) + iPt (Point.some 0 0 h) = 0 := by
+      rw [iPt_some]
+      apply Point.add_of_Y_eq
+      · ring
+      · simp only [negY, curveAbar_a₁, curveAbar_a₃]; ring
+    rw [phi_apply, this, map_zero, nsmul_zero]
+  obtain ⟨h', hphi⟩ := phi_some h hx
+  rw [hphi, two_nsmul_some_C1_eq_zero_iff]
+  have hx2 : (8 : Qbar) * x ^ 2 ≠ 0 := mul_ne_zero (by norm_num) (pow_ne_zero 2 hx)
+  rw [div_eq_zero_iff, or_iff_left hx2]
+  have hi := iQ_sq
+  constructor
+  · intro h0
+    rcases mul_eq_zero.mp h0 with hy | hx4
+    · subst hy
+      have : (x - 2 * iQ) * (x + 2 * iQ) = 0 := by
+        have h1 : x * (x ^ 2 + 4) = 0 := by linear_combination -he
+        have h2 := (mul_eq_zero.mp h1).resolve_left hx
+        linear_combination h2 - 4 * hi
+      rcases mul_eq_zero.mp this with h3 | h3
+      · right; right; right; right; right; left
+        exact ⟨by linear_combination h3, rfl⟩
+      · right; right; right; right; right; right
+        exact ⟨by linear_combination h3, rfl⟩
+    · have : (x - 2) * (x + 2) = 0 := by linear_combination hx4
+      rcases mul_eq_zero.mp this with h3 | h3
+      · have hx' : x = 2 := by linear_combination h3
+        subst hx'
+        have : (y - 4) * (y + 4) = 0 := by linear_combination he
+        rcases mul_eq_zero.mp this with h4 | h4
+        · right; left; exact ⟨rfl, by linear_combination h4⟩
+        · right; right; left; exact ⟨rfl, by linear_combination h4⟩
+      · have hx' : x = -2 := by linear_combination h3
+        subst hx'
+        have : (y - 4 * iQ) * (y + 4 * iQ) = 0 := by linear_combination he - 16 * hi
+        rcases mul_eq_zero.mp this with h4 | h4
+        · right; right; right; left; exact ⟨rfl, by linear_combination h4⟩
+        · right; right; right; right; left; exact ⟨rfl, by linear_combination h4⟩
+  · rintro (⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩ | ⟨h1, h2⟩) <;>
+      subst h1 <;> subst h2
+    · exact absurd rfl hx
+    all_goals ring
+
+/-- **Half of TYZ Lemma 3.16, proved**: `A[(1+i)³] ⊆ A(ℚ(i))`. -/
+theorem lemma316_mpr (P : PtA) (hP : 2 • (P + iPt P) = 0) : IsDefinedOver Qi P := by
+  rw [two_nsmul_add_iPt_eq_zero_iff] at hP
+  rcases P with _ | ⟨x, y, h⟩
+  · trivial
+  have hi : iQ ∈ Qi := IntermediateField.mem_adjoin_simple_self ℚ iQ
+  have h2 : (2 : Qbar) ∈ Qi := ofNat_mem Qi 2
+  have h4 : (4 : Qbar) ∈ Qi := ofNat_mem Qi 4
+  have h0 : (0 : Qbar) ∈ Qi := IntermediateField.zero_mem _
+  simp only [IsTorsI3, Set.mem_insert_iff, Set.mem_singleton_iff, Prod.mk.injEq] at hP
+  rcases hP with (⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ | ⟨rfl, rfl⟩ |
+    ⟨rfl, rfl⟩) <;> refine ⟨?_, ?_⟩ <;>
+    first
+    | assumption
+    | exact neg_mem h2
+    | exact neg_mem h4
+    | exact mul_mem h4 hi
+    | exact neg_mem (mul_mem h4 hi)
+    | exact mul_mem h2 hi
+    | exact neg_mem (mul_mem h2 hi)
+    | (rw [neg_mul]; exact neg_mem (mul_mem h4 hi))
+    | (rw [neg_mul]; exact neg_mem (mul_mem h2 hi))
+
+/-- **TYZ Lemma 3.16 reduces to its rank-zero half**: given the proved `A[(1+i)³] ⊆ A(ℚ(i))`, the
+leaf `TYZLemma316` is equivalent to `A(ℚ(i)) ⊆ A[(1+i)³]`. -/
+theorem tyzLemma316_iff :
+    TYZLemma316 ↔ ∀ P : PtA, IsDefinedOver Qi P → 2 • (P + iPt P) = 0 :=
+  ⟨fun h P hP => (h P).mp hP, fun h P => ⟨h P, lemma316_mpr P⟩⟩
+
 end ZInQ.Contrib.TYZGenus.X0
