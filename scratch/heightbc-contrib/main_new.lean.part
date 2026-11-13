@@ -1,0 +1,75 @@
+/-! # Part 5 (heightbc-contrib): the kernel's Props
+
+The kernel defines `ModelHeightBaseChange` (glue H4a), `OpenSubgroupHeight` (glue M6),
+`GroupModelBaseChangeExists` (glue H4b), the leaves `NeronModelExists` (N1) and
+`SemistableNeronIdentityComponent` (N2) in `ZInQKernel/HDecomp/Faltings/H5Neron.lean`, and
+`NeronModelMinimal` in `ZInQKernel/HDecomp/Faltings/Height.lean`. The scratch tasks worked over
+verbatim copies of these statements (namespaces `ZInQ.HeightBC`, `ZInQ.H5Glue`, `G0StableBC`).
+The `…_iff` theorems below check mechanically, by `Iff.rfl`, that each copy is the kernel's
+statement; the closed theorems then have the kernel's Props themselves as their types. -/
+
+namespace ZInQ.Contrib.HeightBC
+
+open NumberField
+
+/-- height-bc's copy of H4a is the kernel's `ModelHeightBaseChange`. -/
+theorem heightBC_modelHeightBaseChange_iff :
+    ZInQ.H5Neron.ModelHeightBaseChange ↔ ZInQ.HeightBC.ModelHeightBaseChange := Iff.rfl
+
+/-- h5-glue's copy of H4a is the kernel's `ModelHeightBaseChange`. -/
+theorem h5Glue_modelHeightBaseChange_iff :
+    ZInQ.H5Neron.ModelHeightBaseChange ↔ ZInQ.H5Glue.ModelHeightBaseChange := Iff.rfl
+
+/-- g0-stablebc's copy of H4a is the kernel's `ModelHeightBaseChange`. -/
+theorem g0StableBC_modelHeightBaseChange_iff :
+    ZInQ.H5Neron.ModelHeightBaseChange ↔ G0StableBC.ModelHeightBaseChange := Iff.rfl
+
+/-- h5-glue's copy of glue M6 is the kernel's `OpenSubgroupHeight`. -/
+theorem h5Glue_openSubgroupHeight_iff :
+    ZInQ.H5Neron.OpenSubgroupHeight ↔ ZInQ.H5Glue.OpenSubgroupHeight := Iff.rfl
+
+/-- h5-glue's copy of glue H4b is the kernel's `GroupModelBaseChangeExists`. -/
+theorem h5Glue_groupModelBaseChangeExists_iff :
+    ZInQ.H5Neron.GroupModelBaseChangeExists ↔ ZInQ.H5Glue.GroupModelBaseChangeExists := Iff.rfl
+
+/-- h5-glue's copy of the leaf N1 is the kernel's `NeronModelExists`. -/
+theorem h5Glue_neronModelExists_iff :
+    ZInQ.H5Neron.NeronModelExists ↔ ZInQ.H5Glue.NeronModelExists := Iff.rfl
+
+/-- h5-glue's copy of the leaf N2 is the kernel's `SemistableNeronIdentityComponent`. -/
+theorem h5Glue_semistableNeronIdentityComponent_iff :
+    ZInQ.H5Neron.SemistableNeronIdentityComponent ↔
+      ZInQ.H5Glue.SemistableNeronIdentityComponent := Iff.rfl
+
+/-- **Glue H4a, the kernel's `ZInQ.H5Neron.ModelHeightBaseChange`, proved**: the height of a
+group model is invariant under base change along `𝓞_L → 𝓞_{L'}`. From height-bc's reduction to
+four glue statements, proved by infra-stalks (`CotangentSpanBC`, `UniformizationLiftAnalytic`)
+and hodge-bc2 (`HodgeBCInjective`, `OmegaBaseChange`). -/
+theorem modelHeightBaseChange : ZInQ.H5Neron.ModelHeightBaseChange :=
+  heightBC_modelHeightBaseChange_iff.mpr ZInQ.HeightBC.modelHeightBaseChange
+
+/-- **Glue M6, the kernel's `ZInQ.H5Neron.OpenSubgroupHeight`, proved** (h5-glue). -/
+theorem openSubgroupHeight : ZInQ.H5Neron.OpenSubgroupHeight :=
+  h5Glue_openSubgroupHeight_iff.mpr ZInQ.H5Glue.openSubgroupHeight
+
+/-- **The kernel's `ZInQ.DefFaltings.NeronModelMinimal`, proved** (h5-glue; h5-glue states it
+over the kernel's definition directly). -/
+theorem neronModelMinimal : ZInQ.DefFaltings.NeronModelMinimal :=
+  ZInQ.H5Glue.neronModelMinimal
+
+/-- **H5 (the form R19-R21 need) from the kernel's leaves N1 and N2 alone**: the kernel's
+`ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all` with its glue hypotheses `NeronModelMinimal`,
+`ModelHeightBaseChange`, `GroupModelBaseChangeExists` and `OpenSubgroupHeight` discharged. -/
+theorem stableFaltingsHeight_eq_neron_of_N1N2 (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (hN2 : ZInQ.H5Neron.SemistableNeronIdentityComponent)
+    (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀)
+      (𝒩₀ : DefFaltings.GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ DefFaltings.stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : DefFaltings.GroupModel A L'), 𝒩'.IsNeronModel →
+        DefFaltings.stableFaltingsHeight A = 𝒩'.height :=
+  ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all hN1 hN2 neronModelMinimal modelHeightBaseChange
+    ZInQ.H5Neron.groupModelBaseChangeExists openSubgroupHeight K A
+
+end ZInQ.Contrib.HeightBC
