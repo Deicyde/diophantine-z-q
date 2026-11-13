@@ -48,3 +48,6 @@
   `fibreComTrivialFull_of_curves_leaves'`.
   FS5NoCM.lean (1390 lines): exit 0, 24 s, 20 axioms lines standard (run1.txt). FS5Curves.lean (2684 lines): exit 0,
   25 s, 3 axioms lines standard (run2.txt). VERIFIED.
+- 06:25 Docstrings of ComIntOrQuadOrder, CMConductorCoprime6, ComOfMatrixEnd0 updated to "proved" (text only).
+  Final compile: FS5NoCM.lean exit 0, 20/20 axioms lines standard, 0 errors; FS5Curves.lean exit 0, 3/3 standard,
+  0 errors (run1.txt, run2.txt). Verbatim checks re-run on final files (VERIFIED).

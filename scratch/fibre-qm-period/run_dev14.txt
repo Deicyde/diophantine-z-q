@@ -1,0 +1,97 @@
+scratch/fibre-qm-period/Dev.lean:833:39: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/fibre-qm-period/Dev.lean:833:39: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fibre-qm-period/Dev.lean:836:39: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/fibre-qm-period/Dev.lean:836:39: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fibre-qm-period/Dev.lean:865:6: warning: This simp argument is unused:
+  Matrix.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [BPAnalytic.QM.iota, BPAnalytic.QM.Mi, BPAnalytic.QM.Mj, LeafQM.ofInt, Mi', Mj', Fin.sum_univ_two]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:865:24: warning: This simp argument is unused:
+  Fin.sum_univ_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [BPAnalytic.QM.iota, BPAnalytic.QM.Mi, BPAnalytic.QM.Mj, LeafQM.ofInt, Mi', Mj', Matrix.mul_apply]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:963:29: warning: This simp argument is unused:
+  Module.Basis.equivFun_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Pi.single_apply, Finsupp.single_apply, eq_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:963:75: warning: This simp argument is unused:
+  Finsupp.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Module.Basis.equivFun_apply, Pi.single_apply, eq_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:965:29: warning: This simp argument is unused:
+  Module.Basis.equivFun_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Pi.single_apply, Finsupp.single_apply, eq_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:965:75: warning: This simp argument is unused:
+  Finsupp.single_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Module.Basis.equivFun_apply, Pi.single_apply, eq_comm]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/fibre-qm-period/Dev.lean:999:43: warning: This simp argument is unused:
+  map_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [← Int.cast_smul_eq_zsmul ℂ, smul_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'HSyn.G0Split.FibreQM.fibreQMPeriod_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.own_of_fibreQMPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.jRatio_of_value' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodAt_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodOwn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_all' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmPeriodValue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.isUniformization_comp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmComplexUnif_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmPeriodMap_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_leaves_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.uniformizationExistsC_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.lift_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.unif_ring_hom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmComplexUnif_of_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_textbook' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FibreQMNorm.qmOrbit_unit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FibreQMNorm.normalize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmLatticeAlgebra_of_free' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmLatticeFree_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.unifTransport_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_final''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.qmSkolemNoetherC_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_main_rep' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m20.900s
+user	0m17.550s
+sys	0m2.566s
