@@ -5,18 +5,18 @@ import ZInQKernel.HDecomp.Faltings.H5BaseChange
 * §1 copies N1 (`NeronModelExists`) and N2 (`SemistableNeronIdentityComponent`) verbatim, with the
   two definitions N2 depends on, and checks (`Iff.rfl`) that they are the declarations of the
   build (`ZInQKernel/HDecomp/Faltings/H5Neron.lean`, adopted from `scratch/h5-neron/`).
-* §2 reduces N1 to its literal published form `NeronModelExistsSelf` (BLR §1.4 Thm 3 for
-  `R = 𝓞_L`, `K = L`, `A_K = B` an abelian variety over `L` itself): **proved**
-  (`neronModelExists_of_self`). The base change `A ↦ A_L` is absorbed by the canonical isomorphism
-  `(B_L)_L ≅ B_L` (pullback along `Spec.map id`), a group isomorphism.
-* §3 splits `NeronModelExistsSelf` into a **local leaf** `LocalNeronModelExists` (Néron models over
-  the discrete valuation rings `O ⊂ L`, i.e. the localizations `𝓞_{L,𝔭}`; BLR §1.4 Thm 3 for a DVR)
-  and **glue** `NeronLocalToGlobal` (spreading out to an abelian scheme over a dense open of
-  `Spec 𝓞_L`, BLR 1.2/8 there, and gluing the finitely many local Néron models; BLR §1.4 proof
-  of Thm 3, Prop 1.2/4). The reduction is **proved** (`neronModelExistsSelf_of_local`,
-  `neronModelExists_of_local`).
-* §4 sanity: the local leaf holds for the zero abelian variety (so the new statements are not
-  vacuous in their hypotheses and the definitions are inhabited).
+* §2 defines `NeronModelOver R L B` (a Néron model of `B : AbVar L` over a ring `R → L`, BLR §1.2
+  Def. 1) and reduces N1 to its literal published form `NeronModelExistsSelf` (BLR §1.4 Thm 3 for
+  `R = 𝓞_L` and an abelian variety over `L` itself): **proved** (`neronModelExists_of_self`).
+* §3 splits `NeronModelExistsSelf` into two **leaves**, `LocalNeronModelExists` (Néron models over
+  the discrete valuation rings `O ⊂ L`, i.e. the `𝓞_{L,𝔭}`; BLR §1.4 Thm 3 for a DVR) and
+  `AbelianSchemeIsNeron` (BLR §1.2 Prop. 8), and one **glue** statement `NeronLocalToGlobal`
+  (spreading out and gluing; BLR §1.4, proof of Thm 3). The reduction is **proved**
+  (`neronModelExistsSelf_of_local`, `neronModelExists_of_local`).
+* §4 sanity: the local leaf's conclusion holds for the zero abelian variety.
+* §5 N2 needs only **one** Néron model over each `L'` (`semistableNeronIdentityComponent_of_some`),
+  via `isMonHom_of_neron` (an isomorphism of Néron models compatible with `gen` is a group
+  isomorphism).
 -/
 
 namespace ZInQ.TauN1N2
@@ -151,29 +151,51 @@ def LocalNeronModelExists : Prop :=
   ∀ (L : Type) [Field L] [NumberField L] (O : ValuationSubring L) [IsDiscreteValuationRing O]
     (B : AbVar L), Nonempty (NeronModelOver O L B)
 
-/-- **Glue N1-glue (local to global).** If an abelian variety `B` over a number field `L` has a
-Néron model over every discrete valuation ring `O ⊂ L`, it has one over `𝓞_L`. Proof (STANDARD,
-not in Mathlib): `B` spreads out to an abelian scheme `𝒜` over a dense open `U ⊂ Spec 𝓞_L` (EGA IV
-§8, limits of schemes and of properties of morphisms; UNVERIFIED locators), which is the Néron
-model over `U` (BLR §1.2 Prop. 8); each of the finitely many local Néron models at the closed
-points outside `U` is of finite type, so spreads out to a neighbourhood where it agrees with `𝒜`
-(Néron mapping property); gluing gives a smooth separated group scheme of finite type over
-`𝓞_L`, and the Néron property is local on the Dedekind base (BLR §1.2 Prop. 4) (BLR §1.4, proof
-of Thm 3; UNVERIFIED locators). Glue: algebraic geometry to be formalized by the project. -/
+/-- **Leaf N1-ab (an abelian scheme is the Néron model of its generic fibre).** Let `R` be a
+Dedekind domain with fraction field a number field `L` (e.g. `𝓞_L[1/f]`), and `𝒜` a smooth proper
+group scheme over `R` (an abelian scheme) whose generic fibre is identified, as a group scheme,
+with `B`. Then `𝒜` has the Néron mapping property. BLR, *Néron Models*, §1.2 Prop. 8 (stated
+there for a discrete valuation ring; the Dedekind case follows by the locality of the mapping
+property, BLR §1.2; UNVERIFIED locators). `TextbookLeaves.t3` (`NeronMappingAbelianScheme`) is the
+special case where the test scheme `Y` is itself an abelian scheme over a DVR, which is not enough
+here. -/
+def AbelianSchemeIsNeron : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (R : Type) [CommRing R] [IsDomain R] [IsDedekindDomain R]
+    [Algebra R L] [IsFractionRing R L] (B : AbVar L) (G : Over (Spec (CommRingCat.of R)))
+    [GrpObj G] [Smooth G.hom] [IsProper G.hom]
+    (gen : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G ≅ B.X),
+    (letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj G) :=
+      Functor.grpObjObj
+     IsMonHom gen.hom) →
+    ∀ (Y : Over (Spec (CommRingCat.of R))) [Smooth Y.hom],
+      Function.Bijective fun f : Y ⟶ G =>
+        (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).map f ≫ gen.hom
+
+/-- **Glue N1-glue (local to global).** Given leaf N1-ab: if an abelian variety `B` over a number
+field `L` has a Néron model over every discrete valuation ring `O ⊂ L`, it has one over `𝓞_L`.
+Proof (STANDARD, not in Mathlib): `B` spreads out to an abelian scheme `𝒜` over a dense open
+`U = Spec 𝓞_L[1/f]` (EGA IV §8: limits of schemes, of morphisms and of the properties smooth,
+proper, group law; UNVERIFIED locators), which is the Néron model over `U` by N1-ab; each of the
+finitely many local Néron models at the closed points outside `U` is of finite type, so spreads
+out to a neighbourhood where it agrees with `𝒜` (Néron mapping property); gluing gives a smooth
+separated group scheme of finite type over `𝓞_L`, and the Néron property is local on the
+Dedekind base (BLR §1.2) (this is BLR §1.4, proof of Thm 3; UNVERIFIED locators). Glue: algebraic
+geometry (spreading out, gluing) to be formalized by the project. -/
 def NeronLocalToGlobal : Prop :=
+  AbelianSchemeIsNeron →
   ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L),
     (∀ (O : ValuationSubring L) [IsDiscreteValuationRing O], Nonempty (NeronModelOver O L B)) →
       Nonempty (NeronModelOver (𝓞 L) L B)
 
 /-- **N1-self from the local leaf and the glue (proved).** -/
-theorem neronModelExistsSelf_of_local (hloc : LocalNeronModelExists) (hglue : NeronLocalToGlobal) :
-    NeronModelExistsSelf :=
-  fun L _ _ B => hglue L B (fun O _ => hloc L O B)
+theorem neronModelExistsSelf_of_local (hloc : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hglue : NeronLocalToGlobal) : NeronModelExistsSelf :=
+  fun L _ _ B => hglue hab L B (fun O _ => hloc L O B)
 
 /-- **N1 from the local leaf and the glue (proved).** -/
-theorem neronModelExists_of_local (hloc : LocalNeronModelExists) (hglue : NeronLocalToGlobal) :
-    NeronModelExists :=
-  neronModelExists_of_self (neronModelExistsSelf_of_local hloc hglue)
+theorem neronModelExists_of_local (hloc : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hglue : NeronLocalToGlobal) : NeronModelExists :=
+  neronModelExists_of_self (neronModelExistsSelf_of_local hloc hab hglue)
 
 /-! ## §4. Sanity: the zero abelian variety -/
 
