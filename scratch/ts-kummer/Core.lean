@@ -2932,7 +2932,140 @@ theorem kummerCompositum_proof : KummerCompositum := by
     have := hoKρ f
     rw [hf, map_zero] at this
     exact ratFunc_transc P Q (fun h0 => hQ (by rw [h0, eval_zero])) hnc f this.symm
-  sorry
+  -- the injection `ρ` and the map `O → ℚ(s)`
+  let sK : SrcPoly →+* RatFunc ℚ := algebraMap ℚ[X] (RatFunc ℚ)
+  have hS_K : ∀ y : p0.primeCompl, IsUnit (sK y) := by
+    intro y
+    refine Ne.isUnit fun h0 => y.2 ?_
+    have : (y : SrcPoly) = 0 := IsFractionRing.injective ℚ[X] (RatFunc ℚ)
+      (h0.trans (map_zero sK).symm)
+    rw [this]; exact p0.zero_mem
+  let oK : O →+* RatFunc ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := sK) hS_K
+  have hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly :=
+    fun a => IsLocalization.lift_eq hS_K a
+  have hQK : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
+    (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+      (fun h0 => hQ (by rw [h0, eval_zero]))
+  have hoKr : oK r = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q := by
+    have h1 := congrArg oK hrspec
+    rw [map_mul, hoK, hoK] at h1
+    rw [eq_div_iff hQK]; exact h1
+  have hρX : ρ X = r := by simp [ρ]
+  have hoKρ : ∀ f : ℚ[X], oK (ρ f) =
+      aeval (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) f := by
+    have : oK.comp ρ = (aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
+        algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        exact RingHom.congr_fun (RingHom.ext_rat ((oK.comp ρ).comp C)
+          (((aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
+            algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom).comp C)) a
+      · simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe, aeval_X]
+        rw [hρX, hoKr]
+    intro f
+    exact RingHom.congr_fun this f
+  have hρinj : Function.Injective ρ := by
+    rw [injective_iff_map_eq_zero]
+    intro f hf
+    have := hoKρ f
+    rw [hf, map_zero] at this
+    exact ratFunc_transc P Q (fun h0 => hQ (by rw [h0, eval_zero])) hnc f this.symm
+  -- the kernel of `evO` is the maximal ideal
+  have hevOmax : ∀ o, evO o = 0 ↔ o ∈ maximalIdeal O := by
+    intro o
+    obtain ⟨⟨a, s⟩, rfl⟩ := IsLocalization.mk'_surjective p0.primeCompl o
+    have hs : evO (algebraMap SrcPoly O s) ≠ 0 := by
+      rw [hevO]; exact fun h => s.2 ((hmem0 _).mpr h)
+    have hspec := IsLocalization.mk'_spec O a s
+    rw [IsLocalization.AtPrime.mk'_mem_maximal_iff O p0, hmem0, ← hevO]
+    constructor
+    · intro h0
+      rw [← hspec, map_mul, h0, zero_mul]
+    · intro h0
+      rw [← hspec, map_mul] at h0
+      exact (mul_eq_zero.mp h0).resolve_right hs
+  -- `D = T/𝔫` and the data of `kc_core`
+  haveI : IsDomain ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) := Ideal.Quotient.isDomain 𝔫
+  haveI h𝔓m : 𝔓.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := ℚ[X]) 𝔓
+    (by rw [h𝔓u]; exact PrincipalIdealRing.isMaximal_of_irreducible (irreducible_X_sub_C t))
+  have hiO : ∀ o : O, algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) o =
+      Ideal.Quotient.mk 𝔫 (o ⊗ₜ 1) := fun o => rfl
+  have hiOinj : Function.Injective
+      (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) := by
+    rw [injective_iff_map_eq_zero]
+    intro o ho
+    by_contra hne
+    apply hdisj o hne
+    rw [hiO, Ideal.Quotient.eq_zero_iff_mem] at ho
+    exact ho
+  let iB : integralClosure ℚ[X] E →+* (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫 :=
+    (Ideal.Quotient.mk 𝔫).comp (Algebra.TensorProduct.includeRight.toRingHom)
+  have hiB : ∀ c : ℚ[X], iB (algebraMap ℚ[X] (integralClosure ℚ[X] E) c) =
+      algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) (ρ c) := by
+    intro c
+    rw [hiO]
+    change Ideal.Quotient.mk 𝔫 (1 ⊗ₜ algebraMap ℚ[X] _ c) = _
+    rw [← Algebra.TensorProduct.algebraMap_apply', Algebra.TensorProduct.algebraMap_apply]
+    rfl
+  have hgen : ∀ d : (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫,
+      d ∈ Subring.closure (Set.range (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) ∪
+        Set.range iB) := by
+    intro d
+    obtain ⟨w, rfl⟩ := Ideal.Quotient.mk_surjective d
+    induction w using TensorProduct.induction_on with
+    | zero => rw [map_zero]; exact zero_mem _
+    | tmul o b =>
+      have : Ideal.Quotient.mk 𝔫 (o ⊗ₜ[ℚ[X]] b) =
+          algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) o * iB b := by
+        rw [hiO]
+        change _ = Ideal.Quotient.mk 𝔫 (o ⊗ₜ 1) * Ideal.Quotient.mk 𝔫 (1 ⊗ₜ b)
+        rw [← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+      rw [this]
+      exact mul_mem (Subring.subset_closure (Or.inl ⟨o, rfl⟩))
+        (Subring.subset_closure (Or.inr ⟨b, rfl⟩))
+    | add x y hx hy => rw [map_add]; exact add_mem hx hy
+  haveI : Module.Finite O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
+  haveI : Algebra.IsIntegral O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) := inferInstance
+  have hint : (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)).IsIntegral :=
+    fun d => Algebra.IsIntegral.isIntegral d
+  set N' := N.map (Ideal.Quotient.mk 𝔫) with hN'_def
+  haveI : N'.IsPrime := Ideal.map_isPrime_of_surjective Ideal.Quotient.mk_surjective
+    (by rw [Ideal.mk_ker]; exact h𝔫N)
+  have hNcomap : N'.comap (Ideal.Quotient.mk 𝔫) = N := by
+    rw [hN'_def, Ideal.comap_map_of_surjective _ Ideal.Quotient.mk_surjective, ← RingHom.ker_eq_comap_bot,
+      Ideal.mk_ker, sup_eq_left.mpr h𝔫N]
+  have hratB : Function.Injective ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C) :=
+    RingHom.injective _
+  have hN'O : N'.comap (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) =
+      maximalIdeal O := by
+    ext o
+    rw [Ideal.mem_comap, hiO, ← Ideal.mem_comap, hNcomap, ← hevOmax]
+    change ψ0 (o ⊗ₜ 1) = 0 ↔ _
+    rw [Algebra.TensorProduct.lift_tmul, map_one, mul_one]
+    change ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C) (evO o) = 0 ↔ _
+    rw [← map_zero ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C)]
+    exact hratB.eq_iff
+  have hN'B : 𝔓 ≤ N'.comap iB := by
+    intro b hb
+    rw [Ideal.mem_comap]
+    change Ideal.Quotient.mk 𝔫 (1 ⊗ₜ b) ∈ N'
+    rw [← Ideal.mem_comap, hNcomap]
+    change ψ0 (1 ⊗ₜ b) = 0
+    rw [Algebra.TensorProduct.lift_tmul, map_one, one_mul]
+    exact Ideal.Quotient.eq_zero_iff_mem.mpr hb
+  refine kc_core E P Q s₀ 𝔓 φ O ρ hρinj oK ?_ ?_ evO ?_ ?_
+    ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)
+    (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) ?_ iB ?_ ?_ ?_ N' ?_ ?_
+  · exact hoK
+  · rw [hρX, hoKr]
+  · exact hevOmax
+  · exact hevO
+  · exact hiOinj
+  · exact hiB
+  · exact hgen
+  · exact hint
+  · exact hN'O
+  · exact hN'B
 
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
@@ -2944,3 +3077,4 @@ end TsKummer
 #print axioms TsKummer.unramBaseChange
 #print axioms TsKummer.kummerVerticalFin_proof
 #print axioms TsKummer.kummerVerticalInf_proof
+#print axioms TsKummer.kummerCompositum_proof
