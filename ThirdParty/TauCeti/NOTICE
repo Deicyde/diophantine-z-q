@@ -59,6 +59,66 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
   Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
   NumberTheory/NumberField/Global/RayClass/Integral.
+
+Copyright 2026 The Tau Ceti contributors
+
+Licensed under the Apache License, Version 2.0; see LICENSE in this directory
+(a byte-for-byte copy of the LICENSE file of the source repository). The Tau Ceti
+source repository has no NOTICE file; this file was written by the Z-in-Q project.
+
+Source
+------
+
+Repository: https://github.com/TauCetiProject/TauCeti
+
+- Commit 5a01f5fe3621126cccf9ba22e700493cbc7b7156 (2026-10-17, the last Tau Ceti
+  commit on Lean v4.35.0): the 1118 modules vendored by the Z-in-Q task tc-port.
+- Commit 97a5b23586f9c42610765c701daedc7522a93c26 (2026-11-02): the modules and
+  backported declarations added by the Z-in-Q task kw-new (Kronecker-Weber).
+- Commit 5a01f5fe (as above): the 206 further modules vendored by the Z-in-Q task
+  t25-newform (the closure of the newform decomposition; list in
+  scratch/t25-newform/vendor-new.txt).
+- Commit 5a01f5fe (as above): the modules vendored by the Z-in-Q task gz-decomp
+  (the closure of ModularForms.LFunction.Sign, ModularForms.Twist.Basic,
+  EllipticCurve.CanonicalHeight.Basic, EllipticCurve.MordellWeil.NaiveHeight and
+  EllipticCurve.GaloisDescent; list in scratch/gz-decomp/tc-modules.txt). Most of
+  them are also vendored by t25-newform, with identical content; the 45 not vendored
+  by an earlier task fill AlgebraicGeometry/EllipticCurve/ (CanonicalHeight,
+  MordellWeil, VariableChange, Weierstrass, GaloisDescent),
+  NumberTheory/ModularForms/ (AtkinLehner/, Fricke/, Newforms/, Petersson/,
+  LFunction/, Twist/, HeckeSlash/ and four top-level files), and single modules in
+  Analysis/, FieldTheory/Galois/, LinearAlgebra/, NumberTheory/LSeries/ and
+  NumberTheory/MulChar/ (list in scratch/gz-license/new-modules.txt).
+- Commit 5a01f5fe (as above): the 192 further modules vendored by the Z-in-Q task
+  rleaf-elliptic (the closure of
+  AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.Torsion.Structure, used for the
+  structure of the torsion of an elliptic curve; list in
+  scratch/rleaf-elliptic/vendor-new.txt), and the 38 further modules of the closure of
+  AlgebraicGeometry.EllipticCurve.Affine.Point.Inertia (good reduction makes inertia act
+  trivially on prime-to-p torsion; list in scratch/rleaf-elliptic/vendor-new2.txt). One
+  of them, AlgebraicGeometry/EllipticCurve/Projective/Prime.lean, is modified (see
+  below); the others are copied unchanged apart from the mechanical changes described
+  below.
+- Commit 5a01f5fe (as above): one module vendored unmodified by the Z-in-Q task
+  gz-theta, NumberTheory/ModularForms/Newforms/BadPrime/Vanishing.lean (list in
+  scratch/gz-theta/tc-modules.txt).
+- Commit 97a5b235 (as above): the 22 further modules vendored by the Z-in-Q task
+  ring-class (the closure of ClassFields.RingClass.Field, Tau Ceti's ring class
+  fields: RingClass/, GlobalExistence/{AbelianLayer,Correspondence,Existence,Kummer,
+  UpwardClosure}, NumberField/Global/Orders/, RingTheory/Ideal/{Conductor,
+  Quotient/Artinian,Quotient/Coprime}, the CoprimeRepresentative files, GroupTheory/
+  Index/Comap, Formation/ExistenceInduction, Global/Kummer/Layer), and commit
+  5a01f5fe (as above): two more modules of that closure, ClassFieldTheory/KummerLayer
+  and NumberField/Global/Orders/Quadratic/Conductor, whose commit-97a5b235 versions
+  use names absent from the pinned Mathlib (list of all 24 in
+  scratch/ring-class/vendor-new.txt). Task ring-class also added nine Backport/
+  files (commit 97a5b235): FieldTheory/Galois/AbsoluteGaloisGroup/{FiniteExtension,
+  Norm}, NumberTheory/ClassFieldTheory/Global/IdeleClass/Norm, NumberTheory/
+  ClassFieldTheory/Global/Kummer/IdelesRingClass, NumberTheory/ClassFieldTheory/
+  GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
+  Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
+  NumberTheory/NumberField/Global/RayClass/Integral.
+<<<<<<< HEAD
 - Commit 5a01f5fe (as above): the 10 further modules vendored unmodified by the Z-in-Q
   task frob-pieces (the closure of
   AlgebraicGeometry.Morphisms.Smooth.GeometricallyIntegral: smooth and geometrically
@@ -67,6 +127,15 @@ Repository: https://github.com/TauCetiProject/TauCeti
   Morphisms/Smooth/Regular,Scheme/RegularLocalRing}, LinearAlgebra/Span/Basic,
   RingTheory/{KrullDimension/Regular,LocalRing/MaximalIdeal/Square,RegularLocalRing/Basic,
   RegularLocalRing/Flat,Smooth/Regular}.
+=======
+  Later, task ring-class vendored four more modules from commit 97a5b235 (the
+  closure of ClassFields.RayClassField: Hilbert class fields, hilbertClassField and
+  finrank_hilbertClassField): ClassFieldTheory/ClassFields/RayClassField,
+  NumberField/Global/RayClass/Narrow/Basic, NumberField/NarrowClassGroup/{Basic,
+  TotallyComplex} (list in scratch/ring-class/vendor-new2.txt), and one more Backport/
+  file (commit 97a5b235): NumberTheory/ClassFieldTheory/ClassField
+  (classField_fixingOpenNormalSubgroup, isAbelianClassFieldLayer_fixingOpenNormalSubgroup;
+  the proof of the first is rewritten, as its note line says).
 
 Location in this repository
 ---------------------------
@@ -102,9 +171,11 @@ modifications are distributed under the same license. At the time of writing the
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
 - AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
+- Backport/NumberTheory/ClassFieldTheory/ClassField.lean (task ring-class: one proof rewritten)
 - GroupTheory/GroupAction/Norm.lean
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean
+- NumberTheory/ClassFieldTheory/ClassFields/RayClassField.lean (task ring-class)
 - NumberTheory/ClassFieldTheory/ClassFields/RaySubgroup.lean
 - NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean
 - NumberTheory/ClassFieldTheory/Global/AdmissibleModulus/Basic.lean
@@ -140,7 +211,7 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 Each file's note line says in a few words what changed. The 19 files with a
 commit-97a5b235 provenance line (task kw-new) mostly differ from their source only by
 extra imports of Backport/ modules; ModularForms/LFunction/Sign.lean is task gz-decomp's;
-the five files marked (task ring-class) only import Backport/ files (Kummer.lean
+the six files marked (task ring-class) only import Backport/ files (Kummer.lean
 imports the Backport/ version of Global/Kummer/Norm in place of the vendored one);
 the changes in the remaining files are also described in docs/research/tc-port.md.
 Comparing a vendored file with the source module at the commit named in its provenance
