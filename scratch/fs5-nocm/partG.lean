@@ -197,8 +197,8 @@ theorem com_int_of_end0_quat (hHF : PkgI3.HomFreeFinite) {k : Type} [Field k]
 of `k`-dimension 4 and maps to `M₂(k)`), so the centralizer of `B` in `End⁰(A)` is the centre
 `k = ℚ(√d)`; `com ι = End(A) ∩ k` is a finitely generated `ℤ`-module (T6) of integral elements
 (`End(A)` is finite over `ℤ`), containing `ℤ` and a non-integer `n√d` (FS4,
-`centralizerOfMatrixEnd0_of_homFree`), hence a subring of finite index of `𝒪_k`. Glue (not
-compiled: building `k` and the order as Lean objects from the isomorphism). -/
+`centralizerOfMatrixEnd0_of_homFree`), hence a subring of finite index of `𝒪_k`. Glue;
+**proved** from T6 in §H (`comOfMatrixEnd0_of_homFree`). -/
 def ComOfMatrixEnd0 : Prop :=
   ∀ (A : AbVar Qbar) (q : QMStr A) (d : ℚ), d < 0 →
     Nonempty (AbVar.End0 A ≃ₐ[ℚ]
