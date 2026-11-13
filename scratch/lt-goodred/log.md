@@ -24,3 +24,13 @@
   Helper lemmas proved (Mathlib only): `mem_nonunits_comap`, `natCast_notMem_nonunits` (an integer prime to `p` is a
   unit of a valuation ring with `p` in its maximal ideal), `inv_mem_of_notMem_nonunits`, `of_mem_inertia` and
   `isInertia_of` (Mathlib's inertia subgroup <-> "preserves the ring, trivial mod the maximal ideal").
+- parts/40_qmrank.lean: `LTGoodRed.QM.qmEndRank_of (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichotomyYu)
+  (hS : QMSplitCaseRank) : HSyn.LinkedTate.QMEndRank` PROVED. Pieces proved: `ofInt_injective`, `ofIntHom` (𝒪 ≅ ℤ⁴),
+  `four_le_finrank` (rank End ≥ 4 from an injective ring map 𝒪 → End, I3.M1), `finrank_le_baseChange` (endBC injective),
+  `finrank_end0` (rank_ℤ End = dim_ℚ End⁰, `Module.finrank_baseChange`), `mod3_step`, `pow3_dvd`, `norm6_int`, `norm6_rat`
+  (x₀²−2x₁²+3x₂²−6x₃² anisotropic over ℚ, 3-adic descent), `quatB6_isUnit` (B=(2,−3) division: T27's hypothesis),
+  `oI'`, `oJ'` and their relations, `quatEmbed` (B →ₐ[ℚ] End⁰(A) from 𝒪 →+* End(A), `QuaternionAlgebra.Basis.liftHom`).
+  New glue Prop `LTGoodRed.QM.QMSplitCaseRank` (T27's second case: End⁰(A_Ω) ≅ M₂(ℚ(√d)), with ι, dim 2 and EndDivision
+  ⇒ rank End(A) ≤ 4). Tail runs: 1 (ℤ division in linear_combination; `re 2` simp lemmas; `mul_one` ambiguous with
+  MonObj; Nonempty destructuring; explicit args of `finrank_eq_four`), 2: VERIFIED exit 0 in 64 s, 0 errors, standard
+  axioms for goodRedTorsion, quatB6_isUnit, quatEmbed, four_le_finrank, qmEndRank_of.
