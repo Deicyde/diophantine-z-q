@@ -19,7 +19,7 @@ is proved true of the construction:
 **Check against `GluePieces2` and linked-tate.** The restated field `LinkedTateObj` consists of
 g14-trace's `TateBridge35` data plus G15's local data `LocalDataC`; the β-clauses are on
 `G7Data`'s own β. The following are proved:
-- T7 + `LinkedTateObj` → g0-assemble's field 28 `LinkedTateData`, verbatim copy
+- T7 + `LinkedTateObj` → g0-assemble's field `linkedTateData : LinkedTateData`, verbatim copy
   (`linkedTateData_of_obj`);
 - → linked-tate's `LinkedTateCore` and `LinkedTateCoreDR`, copied from its commit dae5b706;
 - on fibre contexts, the data contain `TateBridge35`'s conclusion.
