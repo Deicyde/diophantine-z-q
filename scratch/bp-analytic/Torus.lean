@@ -697,6 +697,139 @@ theorem qmVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndepende
   have h0 : c 0 = 0 := by linear_combination C + h1'
   intro i; fin_cases i <;> assumption
 
+
+/-- The ordered `ℝ`-basis `ι(b_k)(τ, 1)ᵀ` of `ℂ²` (for `Im τ ≠ 0`). -/
+def qmBasis {τ : ℂ} (hτ : τ.im ≠ 0) : Module.Basis (Fin 4) ℝ (Fin 2 → ℂ) :=
+  basisOfLinearIndependentOfCardEqFinrank' _ (qmVec_linearIndependent hτ) (by
+    rw [Module.finrank_pi_fintype]; simp [Complex.finrank_real_complex])
+
+/-- **The QM lattice `Λ_τ = ι(𝒪)(τ, 1)ᵀ`**, the period lattice of N5's QM surface at `τ`. -/
+def qmLattice {τ : ℂ} (hτ : τ.im ≠ 0) : Submodule ℤ (Fin 2 → ℂ) :=
+  Submodule.span ℤ (Set.range (qmBasis hτ))
+
+instance {τ : ℂ} (hτ : τ.im ≠ 0) : DiscreteTopology (qmLattice hτ) := by
+  unfold qmLattice; infer_instance
+
+instance {τ : ℂ} (hτ : τ.im ≠ 0) : IsZLattice ℝ (qmLattice hτ) := by
+  unfold qmLattice; infer_instance
+
+theorem qmLattice_eq {τ : ℂ} (hτ : τ.im ≠ 0) :
+    qmLattice hτ = Submodule.span ℤ (Set.range (qmVec τ)) := by
+  simp [qmLattice, qmBasis]
+
+/-- The QM torus `A_τ = ℂ² ⧸ ι(𝒪)(τ, 1)ᵀ`: a compact connected complex Lie group of dimension 2. -/
+abbrev QMTorus {τ : ℂ} (hτ : τ.im ≠ 0) := Torus (qmLattice hτ)
+
+example {τ : ℂ} (hτ : τ.im ≠ 0) : LieAddGroup 𝓘(ℂ, Fin 2 → ℂ) ω (QMTorus hτ) := inferInstance
+example {τ : ℂ} (hτ : τ.im ≠ 0) : CompactSpace (QMTorus hτ) := inferInstance
+
+theorem mulVec_col (A M : Matrix (Fin 2) (Fin 2) ℂ) (j : Fin 2) :
+    (A *ᵥ fun i => M i j) = fun i => (A * M) i j := by
+  funext i; simp [mulVec, dotProduct, mul_apply]
+
+/-- Images of the period vectors of `Ω(τ)` under `F'(τ)`. -/
+theorem Fp_mulVec_periodVec {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
+    Fp τ *ᵥ periodVec (Omega τ) k =
+      match k with
+      | Sum.inl 0 => qmVec τ 0
+      | Sum.inl 1 => qmVec τ 1
+      | Sum.inr 0 => -(2 : ℤ) • qmVec τ 2 - qmVec τ 3
+      | Sum.inr 1 => -qmVec τ 2 - qmVec τ 3 := by
+  rcases k with j | j
+  · rw [periodVec, mulVec_col, Fp_mul_Omega hτ, Emat_eq]
+    fin_cases j <;> funext i <;> fin_cases i <;> simp [qmVec, latVec0, latVec1]
+  · rw [periodVec, mulVec_single_one]
+    fin_cases j <;> funext i <;> fin_cases i <;>
+      simp [Fp, F0mat_eq, Pinv, qmVec, latVec2, latVec3] <;> ring
+
+
+/-- Conversely to `periodVec_linearIndependent`: if the period vectors of `Ω` are `ℝ`-independent,
+then `det (Im Ω) ≠ 0`. -/
+theorem det_im_ne_zero_of_linearIndependent {g : ℕ} (Ω : Matrix (Fin g) (Fin g) ℂ)
+    (h : LinearIndependent ℝ (periodVec Ω)) : (Ω.map Complex.im).det ≠ 0 := by
+  intro hdet
+  obtain ⟨a, ha0, ha⟩ := Matrix.exists_mulVec_eq_zero_iff.mpr hdet
+  have hrel := Fintype.linearIndependent_iff.mp h
+    (Sum.elim a (fun i => -∑ j, (Ω i j).re * a j)) (by
+      funext i
+      have hi := congrFun ha i
+      simp only [mulVec, dotProduct, Matrix.map_apply, Pi.zero_apply] at hi
+      simp only [Fintype.sum_sum_type, Sum.elim_inl, Sum.elim_inr, Finset.sum_apply,
+        Pi.smul_apply, periodVec, Pi.zero_apply, Pi.single_apply, smul_ite, smul_zero]
+      apply Complex.ext
+      · simp [Complex.re_sum, mul_comm]
+      · simpa [Complex.im_sum, mul_comm] using hi)
+  exact ha0 (funext fun j => by simpa using hrel (Sum.inl j))
+
+/-- The images `F'(τ)·(period vectors of Ω(τ))`, explicitly. -/
+def imgVec (τ : ℂ) : Fin 2 ⊕ Fin 2 → (Fin 2 → ℂ) :=
+  Sum.elim ![qmVec τ 0, qmVec τ 1] ![-(2 : ℤ) • qmVec τ 2 - qmVec τ 3, -qmVec τ 2 - qmVec τ 3]
+
+theorem Fp_mulVec_periodVec' {τ : ℂ} (hτ : τ.im ≠ 0) (k : Fin 2 ⊕ Fin 2) :
+    Fp τ *ᵥ periodVec (Omega τ) k = imgVec τ k := by
+  rw [Fp_mulVec_periodVec hτ]
+  rcases k with j | j <;> fin_cases j <;> rfl
+
+theorem imgVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (imgVec τ) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  set d : Fin 4 → ℝ := ![c (Sum.inl 0), c (Sum.inl 1), -2 * c (Sum.inr 0) - c (Sum.inr 1),
+      -c (Sum.inr 0) - c (Sum.inr 1)] with hd
+  have hsum : ∑ k, d k • qmVec τ k = ∑ i, c i • imgVec τ i := by
+    have e : ∑ k, d k • qmVec τ k = c (Sum.inl 0) • qmVec τ 0 + c (Sum.inl 1) • qmVec τ 1 +
+        (-2 * c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 2 +
+        (-c (Sum.inr 0) - c (Sum.inr 1)) • qmVec τ 3 := by
+      simp [Fin.sum_univ_four, d]
+    rw [e]
+    simp only [Fintype.sum_sum_type, Fin.sum_univ_two, imgVec, Sum.elim_inl, Sum.elim_inr]
+    simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Fin.isValue]
+    rw [← Int.cast_smul_eq_zsmul ℝ]
+    module
+  have key := Fintype.linearIndependent_iff.mp (qmVec_linearIndependent hτ) d (hsum.trans hc)
+  have k0 := key 0
+  have k1 := key 1
+  have k2 := key 2
+  have k3 := key 3
+  simp [d] at k0 k1 k2 k3
+  rintro (j | j) <;> fin_cases j
+  · simpa using k0
+  · simpa using k1
+  · simp; linarith
+  · simp; linarith
+
+theorem span_imgVec {τ : ℂ} :
+    Submodule.span ℤ (Set.range (imgVec τ)) = Submodule.span ℤ (Set.range (qmVec τ)) := by
+  have hq : ∀ i, qmVec τ i ∈ Submodule.span ℤ (Set.range (qmVec τ)) :=
+    fun i => Submodule.subset_span ⟨i, rfl⟩
+  have hp : ∀ k, imgVec τ k ∈ Submodule.span ℤ (Set.range (imgVec τ)) :=
+    fun k => Submodule.subset_span ⟨k, rfl⟩
+  have i0 : imgVec τ (Sum.inr 0) = -(2 : ℤ) • qmVec τ 2 - qmVec τ 3 := rfl
+  have i1 : imgVec τ (Sum.inr 1) = -qmVec τ 2 - qmVec τ 3 := rfl
+  apply le_antisymm
+  · rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rcases k with j | j <;> fin_cases j
+    · exact hq 0
+    · exact hq 1
+    · exact Submodule.sub_mem _ (Submodule.smul_mem _ _ (hq 2)) (hq 3)
+    · exact Submodule.sub_mem _ (Submodule.neg_mem _ (hq 2)) (hq 3)
+  · rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rw [SetLike.mem_coe]
+    fin_cases k
+    · exact hp (Sum.inl 0)
+    · exact hp (Sum.inl 1)
+    · have h := Submodule.add_mem _ (Submodule.neg_mem _ (hp (Sum.inr 0))) (hp (Sum.inr 1))
+      have e : qmVec τ 2 = -imgVec τ (Sum.inr 0) + imgVec τ (Sum.inr 1) := by
+        rw [i0, i1]; module
+      show qmVec τ 2 ∈ _
+      rw [e]; exact h
+    · have h := Submodule.sub_mem _ (hp (Sum.inr 0)) (Submodule.smul_mem _ (2 : ℤ) (hp (Sum.inr 1)))
+      have e : qmVec τ 3 = imgVec τ (Sum.inr 0) - (2 : ℤ) • imgVec τ (Sum.inr 1) := by
+        rw [i0, i1]; module
+      show qmVec τ 3 ∈ _
+      rw [e]; exact h
+
 end QM
 
 end BPAnalytic
