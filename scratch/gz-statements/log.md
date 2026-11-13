@@ -16,3 +16,14 @@
 - Finding: GrossZagierHeegnerCd and GrossZagierRankCd are implied by GZDecomp.GrossZagierCd
   (hence by Literature.GrossZagier): L3's conclusion is satisfied by any rational point of
   infinite order (VERIFIED, compiled).
+
+## step 2: level pinning and Heegner arithmetic (Level.lean, Compat.lean)
+- level_eq_of_coeff_cd: any weight-2 trivial-character newform with aₙ = aₙ(C_d) (n ≥ 1) has
+  level 32 d² (from GZTheta.newformUniqueAcrossLevels + newCM). heegnerHyp_iff_of_coeff_cd,
+  heegnerHyp_32_iff (elementary form). Compiled, standard axioms (VERIFIED).
+- jacobiSym_neg_level: IsOddImagFundDisc D ∧ HeegnerHyp N D ⇒ (−N/|D|) = −1 (so
+  ε(f⊗χ_D) = ε(f)χ_D(−N) = +1 when ε(f) = −1); coprime_of_heegnerHyp (D ≠ 0 needed: HeegnerHyp N 0
+  holds vacuously-by-convention since J(p|0) = 1); jacobiSym_two_eq_one_iff: (2/|D|)=1 ↔ D ≡ 1 (8).
+  Compiled, standard axioms (VERIFIED).
+- check_heegner.py: 30 pairs (N, D) with HeegnerHyp, D odd fundamental: D ≡ β² mod 4N, (D,N)=1,
+  Kronecker (D/p) = 1 for p | N in all 30 (VERIFIED, out_check_heegner.txt; sympy via uv offline).

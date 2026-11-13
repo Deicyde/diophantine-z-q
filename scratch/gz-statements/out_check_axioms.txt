@@ -31,3 +31,31 @@ grossZagierHeegnerCd_of_grossZagier : ZInQ.Literature.GrossZagier → GrossZagie
 'ZInQ.GZStatements.grossZagierRankCd_of_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.grossZagierHeegnerCd_of_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZStatements.grossZagierHeegnerCd_of_grossZagier' depends on axioms: [propext, Classical.choice, Quot.sound]
+@level_eq_of_coeff_cd : ∀ {d : ℕ},
+  d % 4 = 1 →
+    Squarefree d →
+      ∀ {N : ℕ} [inst : NeZero N] (f : HeckeRing.GL2.Newform N 2),
+        f.χ = 1 →
+          (∀ (n : ℕ), n ≠ 0 → ZInQ.GZDecomp.coeff f n = ↑((ZInQ.shortCurve (-↑d ^ 2)).LFunction n)) → N = 32 * d ^ 2
+@heegnerHyp_iff_of_coeff_cd : ∀ {d : ℕ},
+  d % 4 = 1 →
+    Squarefree d →
+      ∀ {N : ℕ} [inst : NeZero N] (f : HeckeRing.GL2.Newform N 2),
+        f.χ = 1 →
+          (∀ (n : ℕ), n ≠ 0 → ZInQ.GZDecomp.coeff f n = ↑((ZInQ.shortCurve (-↑d ^ 2)).LFunction n)) →
+            ∀ (D : ℤ), ZInQ.GZDecomp.HeegnerHyp N D ↔ ZInQ.GZDecomp.HeegnerHyp (32 * d ^ 2) D
+@heegnerHyp_32_iff : ∀ {d : ℕ},
+  d ≠ 0 →
+    ∀ (D : ℤ),
+      ZInQ.GZDecomp.HeegnerHyp (32 * d ^ 2) D ↔
+        jacobiSym 2 D.natAbs = 1 ∧ ∀ (p : ℕ), Nat.Prime p → p ∣ d → jacobiSym (↑p) D.natAbs = 1
+@jacobiSym_neg_level : ∀ {N : ℕ},
+  N ≠ 0 → ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → ZInQ.GZDecomp.HeegnerHyp N D → jacobiSym (-↑N) D.natAbs = -1
+@coprime_of_heegnerHyp : ∀ {N : ℕ} {D : ℤ}, D ≠ 0 → ZInQ.GZDecomp.HeegnerHyp N D → D.natAbs.Coprime N
+@jacobiSym_two_eq_one_iff : ∀ {D : ℤ}, ZInQ.GZDecomp.IsOddImagFundDisc D → (jacobiSym 2 D.natAbs = 1 ↔ D % 8 = 1)
+'ZInQ.GZStatements.level_eq_of_coeff_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.heegnerHyp_iff_of_coeff_cd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.heegnerHyp_32_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.jacobiSym_neg_level' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.coprime_of_heegnerHyp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.jacobiSym_two_eq_one_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

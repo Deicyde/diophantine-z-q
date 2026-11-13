@@ -1,4 +1,6 @@
 import ZInQKernel.Contrib.GZStatements.Weak
+import ZInQKernel.Contrib.GZStatements.Level
+import ZInQKernel.Contrib.GZStatements.Compat
 
 open ZInQ.GZStatements
 
@@ -22,3 +24,15 @@ open ZInQ.GZStatements
 #print axioms grossZagierRankCd_of_grossZagierCd
 #print axioms grossZagierHeegnerCd_of_grossZagierCd
 #print axioms grossZagierHeegnerCd_of_grossZagier
+#check @level_eq_of_coeff_cd
+#check @heegnerHyp_iff_of_coeff_cd
+#check @heegnerHyp_32_iff
+#check @jacobiSym_neg_level
+#check @coprime_of_heegnerHyp
+#check @jacobiSym_two_eq_one_iff
+#print axioms level_eq_of_coeff_cd
+#print axioms heegnerHyp_iff_of_coeff_cd
+#print axioms heegnerHyp_32_iff
+#print axioms jacobiSym_neg_level
+#print axioms coprime_of_heegnerHyp
+#print axioms jacobiSym_two_eq_one_iff
