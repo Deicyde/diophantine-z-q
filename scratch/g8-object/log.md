@@ -74,3 +74,21 @@
   `scratch/linked-tate/parts/95_linked.lean` (07:20) and of its commit dae5b706.
 - All other copies in `G8Object.lean` are produced by `sed` line ranges from the source files in
   `build.sh` (verbatim by construction).
+
+## Step 6 (07:15-07:25 PST): model review, repairs
+- One read-only model review of part_obj/part_link/part_split and the report. Findings:
+  (F1) `LinkedTateObjS` false as stated: `G7Data` lacks G4's `[L:ℚ] ≤ D` (ModField.lean L403),
+  so enlarging `L` by `ℚ(ζ_{2^k})` keeps `G7Data` and breaks `ContainsL ∧ e(F) ≤ (DG₀)!`
+  (checked by reading G7Data's clauses: VERIFIED as a logical point);
+  (F2) report overclaimed "smaller"/"strictly more primitive" (only `LocalDataG → RhoRamWild` is
+  proved: the new hypotheses are logically stronger); (F3) `localDataG_triv` is weak non-vacuity
+  (not jointly with G7Out); (F4) stale counts; "field 28" is the 27th field; L27-122 typo.
+- Repairs: premise `Module.finrank ℚ L ≤ ZInQ.heightD` added to `LinkedTateObjS`; new
+  `LinkedTateObjD`, `LinkedTateDataD` (texts of LinkedTateObj / g0-assemble's LinkedTateData with
+  the premise; `open HSyn.G0AssembleMod (G15RamWild)` for the copied text), theorems
+  `linkedTateObjD_of_obj`, `linkedTateObjD_of_S`, `linkedTateDataD_of_objD`,
+  `linkedTateDataD_of_S` (replacing `linkedTateObj_of_S`, `linkedTateData_of_S`). Docstrings and
+  report reworded (F2-F4). Recommendation recorded: add `[L:ℚ] ≤ D` to `G7Data`.
+- Compile (VERIFIED): first run failed (`G15RamWild` unqualified in the copied text), fixed with
+  the `open`. `G8Object.lean` (6835 lines) exit 0, 0 errors, 0 sorry, 1m11s; 56 axiom reports,
+  all [propext, Classical.choice, Quot.sound].

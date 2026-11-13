@@ -4,7 +4,7 @@ field (`LinkedTateObj`) checked against g0-assemble's `LinkedTateData`
 
 Appended after verbatim copies of g0-mod-field (`ModField.lean`), g14-trace (`G14Trace.lean`,
 `part_bridge.lean`), g15-ram (`G15Ram.lean` §1-§3), g0-mod-galois' definitions, part 1
-(`part_obj.lean`) and g0-assemble's `87_afterg7.lean` L27-122 (`ModelG3G6`, `LocalRamWild`,
+(`part_obj.lean`) and g0-assemble's `87_afterg7.lean` L27-123 (`ModelG3G6`, `LocalRamWild`,
 `G15RamWild`, `g15RamG_of_wild`, `LinkedTateData`). -/
 
 noncomputable section
@@ -161,8 +161,8 @@ theorem localDataG_of_C {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*} [AddCommGroup V
 g15-ram's local-field theorems).** For `p ≤ D`, `σ ∈ G_{ℚ_p}^t` with `t > U₀` fixes `F`
 (`UpperBreakFix`, from T20/T21) and is wild (`upperWild`), so `a = Tm = 1` (`TmWild`) and
 `β = 1` (`BetaUpper`); for `p > D`, wild inertia fixes the tame `F` (`wildFixTame`). So
-`LocalDataG` is no weaker than the `ρ`-level form, and strictly smaller in content (the
-ramification theory is proved). -/
+`LocalDataG` implies the `ρ`-level form (it is the logically stronger hypothesis); what it
+leaves out is the ramification theory, which is proved. -/
 theorem rhoRamWild_of_localDataG (p : ℕ) (hp : p.Prime) {ℓ : ℕ} [Fact ℓ.Prime] {V : Type*}
     [AddCommGroup V] [Module (PadicAlgCl ℓ) V] {Tm : GQ → Module.End (PadicAlgCl ℓ) V}
     {a β : GQ → PadicAlgCl ℓ} (h : @LocalDataG p ⟨hp⟩ ℓ _ V _ _ Tm a β) :
@@ -307,9 +307,10 @@ theorem linkedTateData_of_obj (hM : PkgI3.CharPolyIndepOfEll) (hO : LinkedTateOb
 
 /-- **linked-tate's `LinkedTateCore` from the restated field (GLUE, proved).** The existential data
 are the same; `RhoRamWild` (linked-tate's wild clauses on `ρ_ℓ`, the conclusion form) follows from
-`LocalDataC` by `rhoRamWild_of_localDataG`. So `LinkedTateObj` is the smaller Prop: g15-ram's
-local-field theorems (T20, T21, `upperWild`, `wildFixTame`) are proved, and what remains is
-`TmWild` on G7's operators and the `β`-clauses on G7Data's own `β`. -/
+`LocalDataC` by `rhoRamWild_of_localDataG`. As a hypothesis `LinkedTateObj` is logically stronger (it implies `LinkedTateCore`), but its
+local content is more primitive: g15-ram's local-field theorems (T20, T21, `upperWild`,
+`wildFixTame`) are proved, and what remains is `TmWild` on G7's operators and the `β`-clauses on
+G7Data's own `β`. -/
 theorem linkedTateCore_of_obj (hO : LinkedTateObj) : HSyn.LinkedTate.LinkedTateCore := by
   intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hdata
   letI : NumberField L' := numberField_of_fd L'

@@ -31,9 +31,9 @@ true of the construction from Props on G7's data.**
 data `(Tm, a, β)`. `LocalDataG` implies `LocalData` for *every* `r` that carries G8's
 intertwining, and the proof is in Lean.
 
-VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 723 lines) exits 0 in 2 min with
-0 errors and no `sorry`. All 54 `#print axioms` reports are `[propext, Classical.choice,
-Quot.sound]`. They cover the 23 new theorems (§6) plus the copied sources' own reports.
+VERIFIED: `lake env lean scratch/g8-object/G8Object.lean` (6 835 lines) exits 0 in 2 min with
+0 errors and no `sorry`. All 56 `#print axioms` reports are `[propext, Classical.choice,
+Quot.sound]`. They cover the 25 new theorems (§6) plus the copied sources' own reports.
 
 Main theorems (all in namespace `G8Object`):
 
@@ -66,10 +66,14 @@ theorem modularConstituent_tail_obj (lv hJac hX hSw hL8 hAd hDF hM hS hF hT hH h
 -- the restated GluePieces2 field (part_link.lean §F)
 def LinkedTateObj : Prop          -- TateBridge35's data + LocalDataC on them
 theorem linkedTateData_of_obj (hM : CharPolyIndepOfEll) (hO : LinkedTateObj) :
-    HSyn.G0AssembleMod.LinkedTateData                 -- g0-assemble's field 28, verbatim
+    HSyn.G0AssembleMod.LinkedTateData                 -- g0-assemble's field `linkedTateData`, verbatim
 theorem linkedTateCore_of_obj (hO : LinkedTateObj) : HSyn.LinkedTate.LinkedTateCore
 theorem linkedTateCoreDR_of_objDR (hO : LinkedTateObjDR) : HSyn.LinkedTate.LinkedTateCoreDR
 theorem tateBridge35_of_objDR (hO : LinkedTateObjDR) … : ⟨TateBridge35's conclusion⟩
+
+-- split form (part_split.lean; needs G4's bound [L:ℚ] ≤ D, which G7Data lacks: §4.1)
+def LinkedTateObjS : Prop        -- TateBridge35's data + OnL + LocalDataS (no ℓ-adic operator)
+theorem linkedTateDataD_of_S (hM : CharPolyIndepOfEll) (hS : LinkedTateObjS) : LinkedTateDataD
 ```
 
 ## 2. The object
@@ -111,18 +115,25 @@ From these data (all VERIFIED):
 |---|---|---|---|---|
 | R1 | g0-mod-newform's `ModData` with free fields `r₅ r₃`; `G12Spec D`, `G14TraceCompat D`, `G15RamG D u` for arbitrary `D` | `ModObj A`: embeddings plus `D5 : DescData A 5`, `D3 : DescData A 3`. `M.toModData` has `r₅ = D5.r` and `r₃ = D3.r`. The three predicates are unchanged and are applied to `M.toModData` | `interface_obj` proves all three on `M.toModData`. `modularConstituent_tail_obj` discharges the tail's hypothesis `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u` with `D = M.toModData` | g15-ram showed that `G15RamG D u` is false for arbitrary `D`. g14-trace showed that `G14TraceCompat` can fail when `r₃` is not linked to `r₅`. The `r_ℓ` must be the constructed ones. The embeddings `i, ιC, ι₅, ι₃` stay as data: they are choices, and `interface_obj` provides suitable ones |
 | R2 | g15-ram's `LocalData p r` (on a bare `r`: `TwistShape p r F β_loc ∧ TwistUpper`) | `LocalDataG p Tm a β`, on G7's data. It consists of `TmWild` (`a = 1`, `Tm = 1` on `G_F ∩ P_p` through `decomp`) and `BetaUpper` or `BetaTame` (`β = 1` on `G^t_{ℚ_p} ∩ G_F`, `t > U₀`, resp. on `G_F ∩ P_p`), with the same `F`, the same `e(F)` bounds and the same split at `p ≤ D` | `localData_of_intertwines`: `LocalDataG → LocalData p r` for every `r` intertwined with `ρ = β⁻¹ a Tm`, with local twist `σ ↦ β(decomp σ)⁻¹` (`twistShape_of_tmWild`) | `LocalData` quantified over the bare `r`, so it could not be split further. g15-ram §3: "`r = β⁻¹·(Tate action)` cannot yet be stated". It can now. `TwistShape` becomes a statement about `Tm` and `a`, and `TwistUpper` becomes a statement about the cochain `β` |
-| R3 | g0-assemble's `GluePieces2` field 28 `LinkedTateData`: ∃ data at 5, 3 with `G7Out`, and for **all** `r₅ r₃` with `G8Out` and all `i ιC ι₅` there is `ι₃` with `G14TraceCompat ∧ G15RamWild` | `LinkedTateObj`: g14-trace's `TateBridge35` data (one pair `aQ, βQ : G_ℚ → ℚ̄`, embeddings `j₅, j₃`, `G7Out` at 5 and 3 for `j_ℓ ∘ aQ`, `j_ℓ ∘ βQ`, `FrobTraceLink`, `ιC ∘ βQ = G7Data's β`), together with `LocalDataC` on these data (`ℓ = 5` at `p ≠ 5`, `ℓ = 3` at `p = 5`) | `linkedTateData_of_obj`: T7 + `LinkedTateObj` → `LinkedTateData`, the verbatim g0-assemble text. `linkedTateCore_of_obj`: `LinkedTateObj` → linked-tate's `LinkedTateCore`. `tateBridge35_of_objDR`: on fibre contexts, the data contain `TateBridge35`'s conclusion | `LinkedTateData` *assumed* the conclusions about `r₅`, `r₃`. `LinkedTateObj` assumes only statements about G7's data, and the conclusions are proved (G14 by g14-trace, G15 by g15-ram plus this task) |
+| R3 | g0-assemble's `GluePieces2` field `linkedTateData : LinkedTateData` (row 28 of its table): ∃ data at 5, 3 with `G7Out`, and for **all** `r₅ r₃` with `G8Out` and all `i ιC ι₅` there is `ι₃` with `G14TraceCompat ∧ G15RamWild` | `LinkedTateObj`: g14-trace's `TateBridge35` data (one pair `aQ, βQ : G_ℚ → ℚ̄`, embeddings `j₅, j₃`, `G7Out` at 5 and 3 for `j_ℓ ∘ aQ`, `j_ℓ ∘ βQ`, `FrobTraceLink`, `ιC ∘ βQ = G7Data's β`), together with `LocalDataC` on these data (`ℓ = 5` at `p ≠ 5`, `ℓ = 3` at `p = 5`) | `linkedTateData_of_obj`: T7 + `LinkedTateObj` → `LinkedTateData`, the verbatim g0-assemble text. `linkedTateCore_of_obj`: `LinkedTateObj` → linked-tate's `LinkedTateCore`. `tateBridge35_of_objDR`: on fibre contexts, the data contain `TateBridge35`'s conclusion | `LinkedTateData` *assumed* the conclusions about `r₅`, `r₃`. `LinkedTateObj` assumes only statements about G7's data, and the conclusions are proved (G14 by g14-trace, G15 by g15-ram plus this task) |
 | R4 | `LocalDataG`'s `β`-clauses on the `ℓ`-adic `j_ℓ ∘ βQ` | `LocalDataC`: `BetaUpperC`, `BetaTameC` on `G7Data`'s own `β : G_ℚ → ℂ^×` | `localDataG_of_C` (uses `ιC ∘ βQ = β` and the injectivity of `ιC` and `j_ℓ`) | the `β`-clauses become Props on one existing Lean object, `G7Data`'s cochain, independent of `ℓ` |
 
-**Nothing is weakened.**
+**Nothing is weakened; the replacement hypotheses are logically stronger.**
 - R1 keeps the three predicates verbatim. Only the domain changes, from arbitrary `ModData` to
   the constructed object.
-- R2, R3 and R4 replace a hypothesis by one that provably implies it (the arrows above). The
-  new hypothesis is true for Glazer's construction (§4) but not for arbitrary `G7Out` data.
-- **Non-vacuity (VERIFIED):** `localDataG_triv` shows that `LocalDataG` holds for `Tm = 1`,
-  `a = β = 1` with `F = ℚ_p`.
+- R2, R3 and R4 replace a hypothesis by one that provably implies it (the arrows above). So each
+  new hypothesis is *logically stronger* than the one it replaces. What it gains is content that
+  is more primitive: statements about G7's data rather than about `r`, with the ramification
+  theory proved. A stronger hypothesis can be false where the old one was true. §4.1 has such a
+  case, caught by review and repaired: `LinkedTateObjS` without the premise `[L:ℚ] ≤ D`.
+- The new hypotheses are true for Glazer's construction (§4, SPECULATIVE) but not for arbitrary
+  `G7Out` data.
+- **Non-vacuity (VERIFIED, weak):** `localDataG_triv` shows that `LocalDataG` holds for
+  `Tm = 1`, `a = β = 1` with `F = ℚ_p`. This only shows `LocalDataG` is satisfiable on its own:
+  `Tm = 1` is not compatible with `G7Out`'s `Tm = tate` on `G_{L'}`. Joint satisfiability with
+  `G7Out` is not shown in Lean.
 
-**Is `LocalDataG` smaller than linked-tate's `RhoRamWild`? Yes (VERIFIED).**
+**`LocalDataG` implies linked-tate's `RhoRamWild` (VERIFIED).**
 `rhoRamWild_of_localDataG` proves `LocalDataG p Tm a β → RhoRamWild p (β⁻¹ a Tm)`. The proof uses
 g15-ram's closed local-field theorems:
 - `UpperBreakFix`, from T20 and T21 through `ladicDVRModelZp`;
@@ -212,9 +223,35 @@ into three pieces.
 `tmWild_of_split` (proved, using g0-mod-field's `resQ_range`) gives `TmWild` from these three.
 `LocalDataS p L A ℓ β` is `LocalDataC` with `TmWild` replaced by `ContainsL ∧ WildTateTrivial`.
 It mentions only `G7Data`'s `L`, `A` and `β` and local fields: **no `ℓ`-adic operator**.
-`LinkedTateObjS` is `TateBridge35`'s data, `OnL` for `Tm₅` and `Tm₃`, and `LocalDataS`. The
-following are proved: `localDataC_of_S`, `linkedTateObj_of_S : LinkedTateObjS → LinkedTateObj`
-and `linkedTateData_of_S : T7 → LinkedTateObjS → LinkedTateData`.
+`LinkedTateObjS` is `TateBridge35`'s data, `OnL` for `Tm₅` and `Tm₃`, and `LocalDataS`, **for
+G7 data with `[L:ℚ] ≤ D`**.
+
+**Finding (review, VERIFIED by reading; repaired).** `G0ModField.G7Data` does not contain G4's
+bound `[L:ℚ] ≤ D`. `G4Out` has it (`scratch/g0-mod-field/ModField.lean` L403), and the
+consumers' Props quantify over every `G7Data`. Without that premise, `LinkedTateObjS` is false
+(the reviewer's counterexample, checked against `G7Data`'s clauses):
+- Take Glazer's data and enlarge `L` to `L·ℚ(ζ_{2^k})`, with the same `A` (base changed), `μ`,
+  `ε`, `χ`, `β`, and `L' := L·L'₀`.
+- Every `G7Data` clause still holds. `2 ∈ T`, and `[L':ℚ] ≤ Q_D·M` allows `2^{k−1}` far beyond
+  `(DG₀)!`.
+- `ContainsL` forces `F ⊇ j(L)`, so `e(F) ≥ 2^{k−1} > (DG₀)!`.
+
+The premise `Module.finrank ℚ L ≤ ZInQ.heightD` was therefore added to `LinkedTateObjS`. The
+theorems are now:
+- `linkedTateObjD_of_S : LinkedTateObjS → LinkedTateObjD`;
+- `linkedTateDataD_of_S : T7 → LinkedTateObjS → LinkedTateDataD`;
+- `linkedTateDataD_of_objD`;
+- `linkedTateObjD_of_obj`.
+
+Here `LinkedTateObjD` and `LinkedTateDataD` are the texts of `LinkedTateObj` and of
+g0-assemble's `LinkedTateData` with that premise added.
+
+The unrestricted `LinkedTateObj` (and `LinkedTateData`, `LinkedTateCore`) are not shown false,
+because there `F` is existential and need not contain `L`. But N5's truth argument for the local
+clauses uses `[L_v:ℚ_p] ≤ D` and `decomp(G_F) ⊆ G_L`, so their truth for every `G7Data` is not
+established. **Recommendation:** add `Module.finrank ℚ L ≤ heightD` to `G7Data`.
+g0-mod-field's producer `g7OutUnr_of_g4Out` has the bound from `G4Out`. With that change,
+`LinkedTateDataD` feeds `afterG7_of`.
 
 So the remaining glue on the split route is:
 - `TateBridge35` + `OnL`: the Tate functor on G7's descent datum, at `ℓ = 5, 3`, on `G_ℚ` and on
@@ -233,17 +270,19 @@ On the object route (`interface_obj`), the other inputs are:
 
 ## 5. Check against `GluePieces2` and `LinkedTateData`
 
-- **`LinkedTateData` (field 28) is implied (VERIFIED).** It is copied verbatim from
+- **`LinkedTateData` (the field `linkedTateData`) is implied (VERIFIED).** It is copied verbatim from
   `scratch/g0-assemble/parts/87_afterg7.lean` L27-123, with `LocalRamWild`, `G15RamWild`,
   `g15RamG_of_wild` and `ModelG3G6`. `linkedTateData_of_obj` proves it from T7
   (`TextbookLeaves.t7`) and `LinkedTateObj`. So in g0-assemble's `afterG7_of` the field
   `linkedTateData` can be fed by `linkedTateData_of_obj t.t7 gp2.linkedTateObj`, with
-  `GluePieces2`'s field 28 replaced by `LinkedTateObj`. The field count stays 27 and the new field
-  is strictly more primitive.
+  that field replaced by `LinkedTateObj`. The field count stays 27. The new field is logically
+  stronger, and its content is more primitive (statements on G7's data only). See §4.1 for the
+  `[L:ℚ] ≤ D` caveat that applies to both the old and the new field.
 - **linked-tate's `LinkedTateCore` and `LinkedTateCoreDR` (concurrent task) are implied
   (VERIFIED).** They are copied verbatim from its commit dae5b706 (`lt_95_dae5b706.lean`).
   - `linkedTateCore_of_obj` and `linkedTateCoreDR_of_objDR` prove them.
-  - The existential data are identical. Its `RhoRamWild` clauses are derived from `LocalDataC`.
+  - The existential data are the same, except that `LinkedTateObj` has one extra conjunct,
+    `∃ ιC, ιC ∘ βQ = β`. Its `RhoRamWild` clauses are derived from `LocalDataC`.
   - So `LinkedTateObj` can replace `LinkedTateCore` in linked-tate's reduction.
   - linked-tate proves `LinkedTateCore` from the `DR` form, `FibreSimple` and `QMEndRank`. The
     same works with `LinkedTateObjDR`, by `linkedTateCoreDR_of_objDR`.
@@ -271,7 +310,7 @@ Assembly notes (VERIFIED):
 
 - `lake env lean scratch/g8-object/Dev.lean` (G15Ram + g0-mod-galois definitions + part_obj;
   45 s): exit 0, 0 errors. Axioms standard for the 7 part-1 theorems (VERIFIED, `dev.out`).
-- `lake env lean scratch/g8-object/G8Object.lean` (1 min 53 s): exit 0, 0 errors, 0 `sorry`. All 54
+- `lake env lean scratch/g8-object/G8Object.lean` (1 min 11 s): exit 0, 0 errors, 0 `sorry`. All 56
   axiom reports are `[propext, Classical.choice, Quot.sound]` (VERIFIED, `obj.out`). The new
   ones are:
   - `DescData.intertwines`, `DescData.g8Out`, `mat_eq_scalar_of_intertwines`,
@@ -281,5 +320,8 @@ Assembly notes (VERIFIED):
   - `localDataG_of_C`, `rhoRamWild_of_localDataG`, `localRamWild_of_rhoRamWild`;
   - `linkedTateData_of_obj`, `linkedTateCore_of_obj`, `linkedTateCoreDR_of_objDR`,
     `tateBridge35_of_objDR`, `localDataG_triv`;
-  - `decomp_mem_fixing`, `tmWild_of_split`, `localDataC_of_S`, `linkedTateObj_of_S`,
-    `linkedTateData_of_S`.
+  - `decomp_mem_fixing`, `tmWild_of_split`, `localDataC_of_S`, `linkedTateObjD_of_obj`,
+    `linkedTateObjD_of_S`, `linkedTateDataD_of_objD`, `linkedTateDataD_of_S`.
+- Review: one model review, read-only, no human review. It found the false `LinkedTateObjS`
+  (repaired by adding the `[L:ℚ] ≤ D` premise), overclaims of the form "smaller" / "strictly more
+  primitive" (reworded), and stale counts (updated).
