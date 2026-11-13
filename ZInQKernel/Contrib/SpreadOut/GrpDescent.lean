@@ -246,11 +246,27 @@ theorem isMonHom_of_compat {M' : C'} [GrpObj M'] (g : F'.obj M' ≅ N)
   · show (LaxMonoidal.μ F' M' M' ≫ F'.map μ[M']) ≫ g.hom = (g.hom ⊗ₘ g.hom) ≫ μ[N]
     rw [hm]; simp
 
+/-- A morphism of group objects `g : F.obj M ≅ N` (for the image structure) gives `CompatM`. -/
+theorem compatM_of_isMonHom {M : C} [GrpObj M] (g : F.obj M ≅ N)
+    (h : letI : GrpObj (F.obj M) := Functor.grpObjObj; IsMonHom g.hom) : CompatM F g μ[M] := by
+  letI : GrpObj (F.obj M) := Functor.grpObjObj
+  unfold CompatM
+  rw [← Category.assoc, Iso.eq_comp_inv]
+  exact IsMonHom.mul_hom g.hom
+
+/-- A morphism of group objects `g : F.obj M ≅ N` (for the image structure) gives `CompatU`. -/
+theorem compatU_of_isMonHom {M : C} [GrpObj M] (g : F.obj M ≅ N)
+    (h : letI : GrpObj (F.obj M) := Functor.grpObjObj; IsMonHom g.hom) : CompatU F g η[M] := by
+  letI : GrpObj (F.obj M) := Functor.grpObjObj
+  unfold CompatU
+  rw [Iso.eq_comp_inv]
+  exact IsMonHom.one_hom g.hom
+
 /-- **Descent of a group structure.**  Raw data on `M` compatible (under `F` and `e`) with the
 group object `N`, whose axioms hold after `P`, gives a group object `P.obj M` (structure maps the
 images under `P`) and `θ.app M ≪≫ e : F'.obj (P.obj M) ≅ N` is a morphism of group objects. -/
 theorem isMonHom_descend {m : M ⊗ M ⟶ M} {u : 𝟙_ C ⟶ M} {i : M ⟶ M}
-    (hm : CompatM F e m) (hu : CompatU F e u) (hi : CompatI F e i) (hP : FAx P m u i) :
+    (hm : CompatM F e m) (hu : CompatU F e u) (_hi : CompatI F e i) (hP : FAx P m u i) :
     letI : GrpObj (P.obj M) := ((grpAx_map_iff P m u i).2 hP).grpObj
     letI : GrpObj (F'.obj (P.obj M)) := Functor.grpObjObj
     IsMonHom (θ.app M ≪≫ e : F'.obj (P.obj M) ≅ N).hom := by
