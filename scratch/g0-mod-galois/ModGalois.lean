@@ -20177,10 +20177,11 @@ def G12Out (r : GaloisRep 5 2) : Prop :=
 /-! ### The remaining glue, named -/
 
 /-- **G8, linear-algebra remainder (GLUE, unproved; STANDARD).** Let `ρ` be a representation of
-`G_ℚ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` (`dim A = 2`) commuting with a system of `2 × 2` matrix units `u`,
+`G_ℚ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` commuting with a system of `2 × 2` matrix units `u`,
 weakly continuous, such that `r_W := ρ|_{W}` on `W = e₀₀(ℚ̄_ℓ ⊗ V_ℓ(A))` is absolutely irreducible
-on `G_K` (C2's conclusion: irreducible after every field extension). Then a basis of `W`
-(`dim W = 2`, `GlueDescent.MatrixUnits2.finrank_W` with `TateModuleFree`) turns `r_W` into a
+on `G_K` (C2's conclusion: irreducible after every field extension), and
+`dim (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4` (proved in `g8` from T26 and `dim A = 2`). Then a basis of `W`
+(`dim W = 2`, `GlueDescent.MatrixUnits2.finrank_W`) turns `r_W` into a
 continuous `r : G_ℚ → GL₂(ℚ̄_ℓ)`, `splitEquiv` composed with that basis intertwines `ρ` with
 `r ⊕ r`, and Burnside's theorem over the algebraically closed `ℚ̄_ℓ` (from Mathlib's
 `jacobson_density`) gives that `r(G_K)` spans `M₂(ℚ̄_ℓ)`. No arithmetic input. -/
@@ -20189,7 +20190,7 @@ def G8Matrix : Prop :=
     (ρ : Representation (PadicAlgCl ℓ) PkgI4.GQ (Vb A ℓ))
     (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
     (hc : ∀ g i j, Commute (ρ g) (u.e i j)),
-    A.dim = 2 →
+    Module.finrank (PadicAlgCl ℓ) (Vb A ℓ) = 4 →
     (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ), Continuous fun g => f (ρ g v)) →
     (∀ (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F],
       (GlueI3.repBaseChange F
@@ -20347,7 +20348,7 @@ theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3
     rfl
   have hirr := fun (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F] =>
     PkgI3.C2_absolutelyIrreducible hS hF hT hH hSS A ℓ hrank (PadicAlgCl ℓ) rW u.splitEquiv he F
-  obtain ⟨r, e, hint, hadj⟩ := hM K A ℓ ρ u hc hdim (fun f v => by simpa [hρ] using hcont f v)
+  obtain ⟨r, e, hint, hadj⟩ := hM K A ℓ ρ u hc h4 (fun f v => by simpa [hρ] using hcont f v)
     hirr
   exact ⟨r, hρres, e, hint, hadj⟩
 
@@ -20527,15 +20528,18 @@ theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : P
     simp only [ιA, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply,
       LinearMap.inl_apply, LinearEquiv.apply_symm_apply] at h ⊢
     rw [h, Matrix.mulVec_zero]
-  let U : Subrepresentation (tate A 5) :=
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5)) :=
     ⟨LinearMap.range ιA, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hAeq σ w).symm⟩⟩
-  let U' : Subrepresentation (tate J 5) :=
+  let U' : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (J.galRep 5)) :=
     ⟨LinearMap.range ιJ, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hJeq σ w).symm⟩⟩
   have keyA : ∀ w (h : ιA w ∈ U.toSubmodule),
       (LinearEquiv.ofInjective ιA hιA).symm ⟨ιA w, h⟩ = w := by
     intro w h
     rw [LinearEquiv.symm_apply_eq]
-    exact Subtype.ext (LinearEquiv.ofInjective_apply ιA hιA w).symm
+    apply Subtype.ext
+    first
+      | rfl
+      | exact (LinearEquiv.ofInjective_apply (h := hιA) w).symm
   refine ⟨5, inferInstance, PadicAlgCl 5, inferInstance, inferInstance, U, U',
     (LinearEquiv.ofInjective ιA hιA).symm.trans (LinearEquiv.ofInjective ιJ hιJ), ?_, ?_⟩
   · intro h
@@ -20550,8 +20554,7 @@ theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : P
     have hx : (⟨GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5) σ (ιA w),
         U.apply_mem_toSubmodule σ ⟨w, rfl⟩⟩ : U.toSubmodule) = ⟨_, hmem⟩ :=
       Subtype.ext (hAeq σ w)
-    simp only [LinearEquiv.trans_apply]
-    rw [hx, keyA, keyA, LinearEquiv.ofInjective_apply, LinearEquiv.ofInjective_apply]
+    rw [LinearEquiv.trans_apply, LinearEquiv.trans_apply, hx, keyA, keyA]
     exact (hJeq σ w).symm
 
 end G0Galois

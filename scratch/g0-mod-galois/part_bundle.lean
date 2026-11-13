@@ -56,15 +56,18 @@ theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : P
     simp only [ιA, LinearMap.coe_comp, LinearEquiv.coe_coe, Function.comp_apply,
       LinearMap.inl_apply, LinearEquiv.apply_symm_apply] at h ⊢
     rw [h, Matrix.mulVec_zero]
-  let U : Subrepresentation (tate A 5) :=
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5)) :=
     ⟨LinearMap.range ιA, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hAeq σ w).symm⟩⟩
-  let U' : Subrepresentation (tate J 5) :=
+  let U' : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl 5) (J.galRep 5)) :=
     ⟨LinearMap.range ιJ, by rintro σ _ ⟨w, rfl⟩; exact ⟨_, (hJeq σ w).symm⟩⟩
   have keyA : ∀ w (h : ιA w ∈ U.toSubmodule),
       (LinearEquiv.ofInjective ιA hιA).symm ⟨ιA w, h⟩ = w := by
     intro w h
     rw [LinearEquiv.symm_apply_eq]
-    exact Subtype.ext (LinearEquiv.ofInjective_apply ιA hιA w).symm
+    apply Subtype.ext
+    first
+      | rfl
+      | exact (LinearEquiv.ofInjective_apply (h := hιA) w).symm
   refine ⟨5, inferInstance, PadicAlgCl 5, inferInstance, inferInstance, U, U',
     (LinearEquiv.ofInjective ιA hιA).symm.trans (LinearEquiv.ofInjective ιJ hιJ), ?_, ?_⟩
   · intro h
@@ -79,8 +82,7 @@ theorem commonConstituent_of_sides {K : Type} [Field K] [NumberField K] (A J : P
     have hx : (⟨GlueI3.repBaseChange (PadicAlgCl 5) (A.galRep 5) σ (ιA w),
         U.apply_mem_toSubmodule σ ⟨w, rfl⟩⟩ : U.toSubmodule) = ⟨_, hmem⟩ :=
       Subtype.ext (hAeq σ w)
-    simp only [LinearEquiv.trans_apply]
-    rw [hx, keyA, keyA, LinearEquiv.ofInjective_apply, LinearEquiv.ofInjective_apply]
+    rw [LinearEquiv.trans_apply, LinearEquiv.trans_apply, hx, keyA, keyA]
     exact (hJeq σ w).symm
 
 end G0Galois

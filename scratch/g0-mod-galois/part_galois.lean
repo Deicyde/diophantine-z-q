@@ -153,10 +153,11 @@ def G12Out (r : GaloisRep 5 2) : Prop :=
 /-! ### The remaining glue, named -/
 
 /-- **G8, linear-algebra remainder (GLUE, unproved; STANDARD).** Let `ρ` be a representation of
-`G_ℚ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` (`dim A = 2`) commuting with a system of `2 × 2` matrix units `u`,
+`G_ℚ` on `ℚ̄_ℓ ⊗ V_ℓ(A)` commuting with a system of `2 × 2` matrix units `u`,
 weakly continuous, such that `r_W := ρ|_{W}` on `W = e₀₀(ℚ̄_ℓ ⊗ V_ℓ(A))` is absolutely irreducible
-on `G_K` (C2's conclusion: irreducible after every field extension). Then a basis of `W`
-(`dim W = 2`, `GlueDescent.MatrixUnits2.finrank_W` with `TateModuleFree`) turns `r_W` into a
+on `G_K` (C2's conclusion: irreducible after every field extension), and
+`dim (ℚ̄_ℓ ⊗ V_ℓ(A)) = 4` (proved in `g8` from T26 and `dim A = 2`). Then a basis of `W`
+(`dim W = 2`, `GlueDescent.MatrixUnits2.finrank_W`) turns `r_W` into a
 continuous `r : G_ℚ → GL₂(ℚ̄_ℓ)`, `splitEquiv` composed with that basis intertwines `ρ` with
 `r ⊕ r`, and Burnside's theorem over the algebraically closed `ℚ̄_ℓ` (from Mathlib's
 `jacobson_density`) gives that `r(G_K)` spans `M₂(ℚ̄_ℓ)`. No arithmetic input. -/
@@ -165,7 +166,7 @@ def G8Matrix : Prop :=
     (ρ : Representation (PadicAlgCl ℓ) PkgI4.GQ (Vb A ℓ))
     (u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (Vb A ℓ))
     (hc : ∀ g i j, Commute (ρ g) (u.e i j)),
-    A.dim = 2 →
+    Module.finrank (PadicAlgCl ℓ) (Vb A ℓ) = 4 →
     (∀ (f : Module.Dual (PadicAlgCl ℓ) (Vb A ℓ)) (v : Vb A ℓ), Continuous fun g => f (ρ g v)) →
     (∀ (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F],
       (GlueI3.repBaseChange F
@@ -323,7 +324,7 @@ theorem g8 (hS : PkgI3.FaltingsSemisimple) (hF : PkgI3.FaltingsTate) (hT : PkgI3
     rfl
   have hirr := fun (F : Type) [Field F] [Algebra (PadicAlgCl ℓ) F] =>
     PkgI3.C2_absolutelyIrreducible hS hF hT hH hSS A ℓ hrank (PadicAlgCl ℓ) rW u.splitEquiv he F
-  obtain ⟨r, e, hint, hadj⟩ := hM K A ℓ ρ u hc hdim (fun f v => by simpa [hρ] using hcont f v)
+  obtain ⟨r, e, hint, hadj⟩ := hM K A ℓ ρ u hc h4 (fun f v => by simpa [hρ] using hcont f v)
     hirr
   exact ⟨r, hρres, e, hint, hadj⟩
 
