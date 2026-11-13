@@ -11,3 +11,10 @@
   kept.
 - Docstring repairs applied: VSurjOfSurjective (ModCurves/Glue.lean), Ej (ModCurves/Defs.lean),
   R03_LinYang (LeafPush2/R3.lean).
+- 01:50 generator scratch/hdec-adopt5a/adopt5a.py writes the five modules ModCurves/{C9,E1Sub,
+  X1Belyi}.lean and Faltings/{HodgeLattice,H5Neron}.lean (one module per draft, same imports;
+  import/#print lines moved; 17 long lines hand-wrapped, whitespace only). same.py: ALL SAME
+  (whitespace-normalized text equal to the drafts). HDecomp.lean: 5 imports appended after the
+  last import line (imports cannot follow the docstring). print_axioms.lean: 65 entries appended
+  (axsec.py): the drafts' 62 targets + rhoF_semisimple_of_surj, modCurveLeaves_of,
+  tangentDimAtOrigin_of. Not built yet (base build still running).
