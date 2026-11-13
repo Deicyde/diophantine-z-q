@@ -1,0 +1,1 @@
+e62f994954676bf6f056421bcf5bbbaa  scratch/g0-assemble3/G0Assemble3.lean
