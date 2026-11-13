@@ -257,8 +257,13 @@ fact that they are unused is VERIFIED by the compile.
   The output is `scratch/leaf-fold2/olean/TailE_out.txt`, which is not committed: run `./ctail.sh TailE.lean TailE`.
 
 **Flat file.**
-- Run `lake env lean scratch/leaf-fold2/Leaves2.lean`. The result is in §5.1, and the output is
-  `scratch/leaf-fold2/flat_out.txt`.
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (81 355 lines): **exit 0 in 999 s, 0 errors, no
+  `sorry`. All 278 `#print axioms` reports read `[propext, Classical.choice, Quot.sound]`**
+  (counted by script).
+- The leaf-fold2 lines of that output are copied into `log.md`. The raw output
+  (`flat_out.txt`) contains host paths and is not committed.
+- The file still declares Leaves.lean's two `opaque` placeholders, as field types of the old
+  `ResearchLeaves`. No field of the four bundles of `sixContactMin_of_open2` mentions them.
 - Build first:
   - `lake build ZInQKernel.Contrib.T14.Main ZInQKernel.Contrib.T28.Assemble
     ZInQKernel.Contrib.RLeaf.X1ConstantField ZInQKernel.HDecomp.QM.Pin
