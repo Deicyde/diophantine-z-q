@@ -12,7 +12,7 @@ The same proofs were also checked against the kernel's own definitions.
 `ZInQKernel.HDecomp.LeafPush2.T`. There, `AbVar` is `PkgI3.AbVar`, `GroupModel`, `evalAt` and
 `jacDet` are those of `ZInQKernel/HDecomp/Faltings/Models.lean`, and T35 is the kernel's
 `ZInQ.LeafPush2.UniformizationExists`. Nothing is copied except metrization's statements and
-lemmas. Result: 0 errors, standard axioms (VERIFIED). So the results drop into `ZInQKernel/HDecomp/`
+germ lemmas, and g0-dim's dimension lemmas (`part_g0dim.lean`, Mathlib only). Result: 0 errors, standard axioms (VERIFIED). So the results drop into `ZInQKernel/HDecomp/`
 as they stand.
 
 Marks: **VERIFIED** = compiled, or read in a file of the repository or of Mathlib. **STANDARD** =
