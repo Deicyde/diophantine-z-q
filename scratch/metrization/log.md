@@ -87,3 +87,14 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetMultilinear → JacDetNondegenerate →
   ProductUniformizationAnalytic → ProductHodgeLattice → ProductJacobian → HeightAdditivity`.
   Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 13-15: + part_jacgerm — attempts 1-2: errors (prime instance on a Spec point, `mul_one`
+  ambiguity, `1`-instance mismatch needing `erw`, `map_add` across `Γ(ptC.left, ⊤)` vs
+  `Γ(Spec ℂ, ⊤)`, `Opens` inf membership); fixed — COMPILED 04:57 (31 s; 0 errors)
+- PROVED: `ptC_hom_apply` (`Spec ℂ → Spec 𝓞_L` via `τ` hits the generic point), `one_left_apply`
+  (the identity point lies over `ξ`), `zero_mem_dom` (`0 ∈ dom Φ U` if `ξ ∈ U`), `evalAt_res`,
+  `evalAt_add`, `germAlong_eventuallyEq` (`germAlong Φ t` agrees near `0` with any representative),
+  `germAlong_differentiableAt`, `germAlong_add_eventuallyEq`, `jacDet_update_add` (clause (ii)),
+  `jacDet_eq_zero_of_eq` (clause (iv)).
+- new glue `JacDetClassScalar` (clauses (i), (iii)); `jacDetMultilinear_of : JacDetClassScalar →
+  JacDetMultilinear` PROVED. Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
