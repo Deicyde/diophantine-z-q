@@ -27,3 +27,6 @@ Hint: Replace the deprecated name:
 'ZInQ.HomLattice.analyticHomLift_of_unifLocalInverse' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.homLinearLift_of_unifLocalInverse' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.homLatticeCorr_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticHomAlgebraic_of_homRealize' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11a_riemannEnd_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.homLatticeCorr_of_local_realize' depends on axioms: [propext, Classical.choice, Quot.sound]

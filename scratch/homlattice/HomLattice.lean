@@ -307,6 +307,31 @@ theorem homLatticeCorr_of_local (HL : UnifLocalInverse) (H2 : AnalyticHomAlgebra
     HomLatticeCorr :=
   homLatticeCorr_of_analytic (analyticHomLift_of_unifLocalInverse HL) H2
 
+/-- **Converse (proved): the GAGA form `AnalyticHomAlgebraic` follows from the lattice form
+`HomRealize`**, given analytic lifting, the existence of uniformizations (leaf-push2's textbook
+leaf `UniformizationExists`) and finiteness of the dimension. So, beside those, the two forms of
+the realization half have the same content. -/
+theorem analyticHomAlgebraic_of_homRealize (HR : HomRealize) (HL : AnalyticHomLift)
+    (HU : ZInQ.LeafPush2.UniformizationExists)
+    (hfin : ∀ B : AbVar ℂ, ∃ h : ℕ, B.dim = (h : WithBot ℕ∞)) : AnalyticHomAlgebraic := by
+  intro A B g ΛA ΦA hA hUA ψ hψ hker
+  obtain ⟨h, hB⟩ := hfin B
+  obtain ⟨ΛB, ΦB, _, _, hUB⟩ := HU ℂ B (RingHom.id ℂ) h hB
+  obtain ⟨M, hM⟩ := HL ℂ B (RingHom.id ℂ) g h ΛB ΦB hB hUB ψ hψ
+  have hMΛ : ∀ z ∈ ΛA, M z ∈ ΛB := fun z hz => (hUB.2.1 _).1 (by rw [hM]; exact hker z hz)
+  obtain ⟨f, hf⟩ := HR A B g h ΛA ΛB ΦA ΦB hA hB hUA hUB M hMΛ
+  exact ⟨f, fun z => by rw [← hM, hf]⟩
+
+/-- **leaf-push2's T11(a) from `UnifLocalInverse` and `AnalyticHomAlgebraic` (proved).** -/
+theorem t11a_riemannEnd_of_local (HL : UnifLocalInverse) (H2 : AnalyticHomAlgebraic) :
+    ZInQ.LeafPush2.T11a_RiemannEnd :=
+  ZInQ.HomUnify.t11a_riemannEnd_of_corr (homLatticeCorr_of_local HL H2)
+
+/-- **`HomLatticeCorr` from `UnifLocalInverse` and the build's `HomRealize` (proved).** -/
+theorem homLatticeCorr_of_local_realize (HL : UnifLocalInverse) (HR : HomRealize) :
+    HomLatticeCorr :=
+  ZInQ.HomUnify.corr_iff_lift_realize.2 ⟨homLinearLift_of_unifLocalInverse HL, HR⟩
+
 end ZInQ.HomLattice
 
 #print axioms ZInQ.HomLattice.isUniformization_iff
@@ -322,3 +347,6 @@ end ZInQ.HomLattice
 #print axioms ZInQ.HomLattice.analyticHomLift_of_unifLocalInverse
 #print axioms ZInQ.HomLattice.homLinearLift_of_unifLocalInverse
 #print axioms ZInQ.HomLattice.homLatticeCorr_of_local
+#print axioms ZInQ.HomLattice.analyticHomAlgebraic_of_homRealize
+#print axioms ZInQ.HomLattice.t11a_riemannEnd_of_local
+#print axioms ZInQ.HomLattice.homLatticeCorr_of_local_realize
