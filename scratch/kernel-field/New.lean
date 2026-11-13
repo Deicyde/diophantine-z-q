@@ -741,6 +741,110 @@ end G0ModField.KernelField
 
 end AutO
 
+
+/-! ## §6.8 Where NoCM enters (proved): integrality and commutation from `End(A_L) = ι(𝒪)`
+
+`ConjMaps` splits into a geometric part with no NoCM content (`ConjIsogMaps`: the maps
+`m_σ = μ_σ∘σ` are `𝒪`-linear, and the discrepancy is an endomorphism of `A_L` up to a nonzero
+integer, which holds for any isogenies `μ_σ` by the quasi-inverse `ψ μ_στ = [e]`) and the NoCM
+input `End_L(A_L) = ι(𝒪)` (FS5 + T27 + maximality of `𝒪`, on the Hom field). The passage is pure
+algebra: an endomorphism commuting with `ι(𝒪)` is `ι(b)` with `b` central in `𝒪`, hence an
+integer; faithfulness of `𝒪` on `A(ℚ̄)` follows from `|A[n]| = n⁴` and the anisotropy of the norm
+form of `B` (`GlueDescent.aniso_rat`). -/
+
+section NoCMAlg
+
+open LeafQM LeafQM.AV
+
+namespace G0ModField.KernelField
+
+/-- Every element of `B` has a nonzero integer multiple in `𝒪`. -/
+theorem exists_nat_mul_mem_O (y : B) : ∃ N : ℕ, 0 < N ∧ (N : B) * y ∈ O := by
+  set D : ℕ := y.re.den * y.imI.den * y.imJ.den * y.imK.den with hD
+  have hD0 : 0 < D := by positivity
+  have hnum : ∀ q : ℚ, (q.num : ℚ) = q * q.den := fun q =>
+    (div_eq_iff (by positivity)).mp (Rat.num_div_den q)
+  set a : ℤ := y.re.num * (y.imI.den * y.imJ.den * y.imK.den)
+  set b : ℤ := y.imI.num * (y.re.den * y.imJ.den * y.imK.den)
+  set c : ℤ := y.imJ.num * (y.re.den * y.imI.den * y.imK.den)
+  set d : ℤ := y.imK.num * (y.re.den * y.imI.den * y.imJ.den)
+  have ha : (a : ℚ) = D * y.re := by simp only [a, hD]; push_cast; rw [hnum]; ring
+  have hb : (b : ℚ) = D * y.imI := by simp only [b, hD]; push_cast; rw [hnum]; ring
+  have hc : (c : ℚ) = D * y.imJ := by simp only [c, hD]; push_cast; rw [hnum]; ring
+  have hd : (d : ℚ) = D * y.imK := by simp only [d, hD]; push_cast; rw [hnum]; ring
+  refine ⟨D, hD0, ![a - c, b - d, 2 * c, 2 * d], ?_⟩
+  ext <;> simp [LeafQM.ofInt, QuaternionAlgebra.re_natCast, QuaternionAlgebra.imI_natCast,
+    QuaternionAlgebra.imJ_natCast, QuaternionAlgebra.imK_natCast] <;> push_cast <;>
+    linarith [ha, hb, hc, hd]
+
+/-- A rational element of `𝒪` is an integer. -/
+theorem int_of_rat_mem_O {r : ℚ} (h : algebraMap ℚ B r ∈ O) : ∃ k : ℤ, r = k := by
+  obtain ⟨n, hn⟩ := h
+  have e0 := congrArg QuaternionAlgebra.re hn
+  have e1 := congrArg QuaternionAlgebra.imI hn
+  have e2 := congrArg QuaternionAlgebra.imJ hn
+  have e3 := congrArg QuaternionAlgebra.imK hn
+  simp [LeafQM.ofInt, QuaternionAlgebra.algebraMap_eq] at e0 e1 e2 e3
+  refine ⟨n 0, ?_⟩
+  rw [e0]
+  have h2 : (n 2 : ℚ) = 0 := by linarith
+  simp [h2]
+
+theorem coe_intCast_O (k : ℤ) : ((k : O) : B) = algebraMap ℚ B k := by
+  rw [Subring.coe_intCast, map_intCast]
+
+/-- **The centre of `𝒪` is `ℤ`.** -/
+theorem center_O {b : O} (hb : ∀ a : O, b * a = a * b) : ∃ k : ℤ, b = k := by
+  have hi : (b : B) * GlueDescent.qi = GlueDescent.qi * b := by
+    have := congrArg Subtype.val (hb oi)
+    rw [Subring.coe_mul, Subring.coe_mul] at this
+    rwa [show ((oi : O) : B) = GlueDescent.qi by ext <;> simp [oi, LeafQM.ofInt, GlueDescent.qi]]
+      at this
+  have hj : (b : B) * GlueDescent.qj = GlueDescent.qj * b := by
+    have := congrArg Subtype.val (hb oj)
+    rw [Subring.coe_mul, Subring.coe_mul] at this
+    rwa [show ((oj : O) : B) = GlueDescent.qj by ext <;> simp [oj, LeafQM.ofInt, GlueDescent.qj]]
+      at this
+  have hs := GlueDescent.B6_commute_i_j (b : B) hi hj
+  obtain ⟨k, hk⟩ := int_of_rat_mem_O (hs ▸ b.2)
+  refine ⟨k, Subtype.ext ?_⟩
+  rw [coe_intCast_O, ← hk]
+  exact hs
+
+variable {V : Type*} [AddCommGroup V]
+
+/-- **`𝒪` acts faithfully on a group with `|V[n]| = n⁴`.** -/
+theorem faithful_O (hT : TorsCount V) (ρ : O →+* AddMonoid.End V) {c : O} (hc : ρ c = 0) :
+    c = 0 := by
+  by_contra hc0
+  obtain ⟨N, hN, hmem⟩ := exists_nat_mul_mem_O (star (c : B))
+  let c' : O := ⟨(N : B) * star (c : B), hmem⟩
+  set nf : ℚ := (c : B).re ^ 2 - 2 * (c : B).imI ^ 2 + 3 * (c : B).imJ ^ 2 - 6 * (c : B).imK ^ 2
+  have hprod : ((c' * c : O) : B) = algebraMap ℚ B (N * nf) := by
+    rw [Subring.coe_mul]
+    show (N : B) * star (c : B) * c = _
+    rw [_root_.mul_assoc, GlueDescent.B6_star_mul, map_mul, map_natCast]
+  obtain ⟨k, hk⟩ := int_of_rat_mem_O (hprod ▸ (c' * c).2)
+  have hck : c' * c = (k : O) := Subtype.ext (by rw [hprod, coe_intCast_O, hk])
+  have hρ : ρ (k : O) = 0 := by rw [← hck, map_mul, hc, mul_zero]
+  rw [map_intCast] at hρ
+  have hk0 : k = 0 := eq_zero_of_forall_zsmul hT (fun x => by
+    have := DFunLike.congr_fun hρ x
+    simpa using this)
+  rw [hk0, Int.cast_zero] at hk
+  have hnf : nf = 0 := by
+    rcases mul_eq_zero.mp hk with h | h
+    · exact absurd h (by exact_mod_cast hN.ne')
+    · exact h
+  obtain ⟨h1, h2, h3, h4⟩ := GlueDescent.aniso_rat _ _ _ _ hnf
+  exact hc0 (Subtype.ext (QuaternionAlgebra.ext h1 h2 h3 h4))
+
+end G0ModField.KernelField
+
+end NoCMAlg
+
+#print axioms G0ModField.KernelField.faithful_O
+#print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves_FS5
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves

@@ -19,3 +19,5 @@
 - 06:0x §6.7 aut_O_inner (every ring automorphism of 𝒪 is conjugation by a unit of B = (2,-3)_ℚ; via
   QuaternionAlgebra.Basis.liftHom on α(i), α(j), RingHom.injective (B simple), TSkolemKW.leafSkolemNoether, agreement on
   2a ∈ ℤ[1,i,j,ij]) compiled, standard axioms (VERIFIED, build5.txt). Import added: ZInQKernel.HDecomp.Textbook.SkolemNoether.
+- §6.8 algebra: exists_nat_mul_mem_O, int_of_rat_mem_O, center_O (centre of 𝒪 is ℤ), faithful_O (𝒪 acts faithfully on
+  V with |V[n]| = n^4, via star/norm form + aniso_rat) compiled, standard axioms (VERIFIED, build6.txt).
