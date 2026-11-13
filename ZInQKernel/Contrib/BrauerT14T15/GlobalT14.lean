@@ -34,23 +34,53 @@ local instance (p : Nat.Primes) : Fact p.1.Prime := ⟨p.2⟩
 
 /-! ### Places of `ℚ` -/
 
-/-- Base change to `ℚ_[p]` and to the adic completion at the corresponding place vanish together. -/
-lemma brBaseChange_adicCompletion_eq_zero_iff (v : HeightOneSpectrum (𝓞 ℚ)) (x : Br ℚ) :
-    brBaseChange ℚ (v.adicCompletion ℚ) x = 0 ↔
-      brBaseChange ℚ ℚ_[(Rat.HeightOneSpectrum.primesEquiv v : ℕ)] x = 0 := by
-  let e := Rat.HeightOneSpectrum.adicCompletion.padicEquiv v
-  exact ⟨brBaseChange_eq_zero_of_algHom e.toAlgEquiv.toAlgHom,
-    brBaseChange_eq_zero_of_algHom e.toAlgEquiv.symm.toAlgHom⟩
+/-- A ring map between `ℚ`-algebras is a `ℚ`-algebra map (whatever the `ℚ`-algebra instances). -/
+def ratAlgHomOfRingHom {A B : Type} [Ring A] [Ring B] {i : Algebra ℚ A} {j : Algebra ℚ B}
+    (f : A →+* B) : A →ₐ[ℚ] B :=
+  { f with
+    commutes' := fun r => congrArg (fun g : ℚ →+* B => g r)
+      (Subsingleton.elim (f.comp (algebraMap ℚ A)) (algebraMap ℚ B)) }
+
+/-- Base change of a class of `Br ℚ` to isomorphic fields vanishes simultaneously, whatever the
+`ℚ`-algebra instances. -/
+lemma brBaseChange_eq_zero_iff_of_ringEquiv {L₁ L₂ : Type} [Field L₁] [Field L₂]
+    {i₁ : Algebra ℚ L₁} {i₂ : Algebra ℚ L₂} (e : L₁ ≃+* L₂) (x : Br ℚ) :
+    brBaseChange ℚ L₁ x = 0 ↔ brBaseChange ℚ L₂ x = 0 :=
+  ⟨brBaseChange_eq_zero_of_algHom (ratAlgHomOfRingHom e.toRingHom),
+    brBaseChange_eq_zero_of_algHom (ratAlgHomOfRingHom e.symm.toRingHom)⟩
 
 lemma isReal_rat (w : InfinitePlace ℚ) : w.IsReal := by
   rw [Subsingleton.elim w Rat.infinitePlace]; exact Rat.isReal_infinitePlace
 
-/-- Base change to `ℝ` and to the completion at the infinite place vanish together. -/
-lemma brBaseChange_infinite_eq_zero_iff (w : InfinitePlace ℚ) (x : Br ℚ) :
-    brBaseChange ℚ w.Completion x = 0 ↔ brBaseChange ℚ ℝ x = 0 := by
-  let e := InfinitePlace.Completion.ringEquivRealOfIsReal (isReal_rat w)
-  exact ⟨brBaseChange_eq_zero_of_algHom e.toRingHom.toRatAlgHom,
-    brBaseChange_eq_zero_of_algHom e.symm.toRingHom.toRatAlgHom⟩
+section
+attribute [local instance 2000] HeightOneSpectrum.instAlgebraAdicCompletion
+
+/-- `ℚ_v ≅ ℚ_p` as rings (Mathlib's `Rat.HeightOneSpectrum.adicCompletion.padicEquiv`). -/
+noncomputable def padicRingEquiv (v : HeightOneSpectrum (𝓞 ℚ)) :
+    v.adicCompletion ℚ ≃+* ℚ_[(Rat.HeightOneSpectrum.primesEquiv v : ℕ)] :=
+  (Rat.HeightOneSpectrum.adicCompletion.padicEquiv v).toAlgEquiv.toRingEquiv
+
+end
+
+/-- At a finite place `v` of `ℚ`: local triviality of `brClass ε` iff `resC ℚ_p ε` is a
+coboundary, `p` the prime of `v`. -/
+lemma brBaseChange_adicCompletion_brClass_eq_zero_iff (v : HeightOneSpectrum (𝓞 ℚ))
+    (ε : Field.absoluteGaloisGroup ℚ → Field.absoluteGaloisGroup ℚ → ZMod 2) (hε : IsCocycle2 ε)
+    {i : Algebra ℚ (v.adicCompletion ℚ)} :
+    brBaseChange ℚ (v.adicCompletion ℚ) (brClass ε hε) = 0 ↔
+      IsCoboundary2 (resC ℚ_[(Rat.HeightOneSpectrum.primesEquiv v : ℕ)] ε) :=
+  (brBaseChange_eq_zero_iff_of_ringEquiv (i₂ := inferInstance)
+    (padicRingEquiv v) _).trans
+    (brBaseChange_brClass_eq_zero_iff _ ε hε)
+
+/-- At the infinite place of `ℚ`. -/
+lemma brBaseChange_infinite_brClass_eq_zero_iff (w : InfinitePlace ℚ)
+    (ε : Field.absoluteGaloisGroup ℚ → Field.absoluteGaloisGroup ℚ → ZMod 2) (hε : IsCocycle2 ε)
+    {i : Algebra ℚ w.Completion} :
+    brBaseChange ℚ w.Completion (brClass ε hε) = 0 ↔ IsCoboundary2 (resC ℝ ε) :=
+  (brBaseChange_eq_zero_iff_of_ringEquiv (i₂ := inferInstance)
+    (InfinitePlace.Completion.ringEquivRealOfIsReal (isReal_rat w)) _).trans
+    (brBaseChange_brClass_eq_zero_iff _ ε hε)
 
 /-! ### T14a′ from the Hasse principle -/
 
@@ -58,16 +88,13 @@ lemma brBaseChange_infinite_eq_zero_iff (w : InfinitePlace ℚ) (x : Br ℚ) :
 theorem brauerHasse2C_of_injective (hH : Function.Injective (brLocalization ℚ)) :
     BrauerHasse2C := by
   intro ε hε hR hP
-  rw [← brClass_eq_zero_iff ε hε]
-  apply hH
-  rw [map_zero]
-  refine Prod.ext (DFinsupp.ext fun v => ?_) (funext fun w => ?_)
-  · rw [brLocalization_fst_apply, Prod.fst_zero, DFinsupp.zero_apply,
-      brBaseChange_adicCompletion_eq_zero_iff, brBaseChange_brClass_eq_zero_iff]
-    exact hP _
-  · rw [brLocalization_snd_apply, Prod.snd_zero, Pi.zero_apply,
-      brBaseChange_infinite_eq_zero_iff, brBaseChange_brClass_eq_zero_iff]
-    exact hR
+  have hx : brLocalization ℚ (brClass ε hε) = 0 := by
+    refine Prod.ext_iff.mpr ⟨DFinsupp.ext fun v => ?_, funext fun w => ?_⟩
+    · rw [brLocalization_fst_apply]
+      exact (brBaseChange_adicCompletion_brClass_eq_zero_iff v ε hε).mpr (hP _)
+    · rw [brLocalization_snd_apply]
+      exact (brBaseChange_infinite_brClass_eq_zero_iff w ε hε).mpr hR
+  exact (brClass_eq_zero_iff ε hε).mp (hH (hx.trans (map_zero _).symm))
 
 /-! ### The Kummer-case hypothesis -/
 
@@ -84,7 +111,7 @@ def KummerIndexBound : Prop :=
 lemma brLocalization_injective_of_kummerIndexBound (h : KummerIndexBound) (K : Type) [Field K]
     [NumberField K] : Function.Injective (brLocalization K) :=
   brLocalization_injective_of_subsingleton_h1_globalFormation K
-    (fun V => subsingleton_h1_globalFormation_of_forall_index_le (K := K) h _)
+    (fun _ => subsingleton_h1_globalFormation_of_forall_index_le (K := K) h _)
 
 /-- **Leaf T14a′ (`PkgI6.BrauerHasse2C`) from the Kummer case of the second inequality.** -/
 theorem brauerHasse2C_of_kummerIndexBound (h : KummerIndexBound) : BrauerHasse2C :=
@@ -132,15 +159,15 @@ theorem brauerReciprocity2C_of_sum (hS : ∀ x : Br ℚ, sumLocalInv ℚ (brLoca
   -- The set of primes where `ε` is locally nontrivial is the image of the support of `x`.
   have hA : {p : Nat.Primes | haveI : Fact (p : ℕ).Prime := ⟨p.2⟩;
       ¬ IsCoboundary2 (resC ℚ_[(p : ℕ)] ε)} =
-      Rat.HeightOneSpectrum.primesEquiv '' (S : Set (HeightOneSpectrum (𝓞 ℚ))) := by
+      Rat.HeightOneSpectrum.primesEquiv (R := 𝓞 ℚ) '' (S : Set (HeightOneSpectrum (𝓞 ℚ))) := by
     ext p
-    obtain ⟨v, rfl⟩ := Rat.HeightOneSpectrum.primesEquiv.surjective p
+    obtain ⟨v, rfl⟩ := (Rat.HeightOneSpectrum.primesEquiv (R := 𝓞 ℚ)).surjective p
     rw [Set.mem_image_equiv, Equiv.symm_apply_apply, Finset.mem_coe, mem_brauerSupport,
-      Set.mem_setOf_eq, ne_eq, finiteInvAt_eq_zero_iff, brBaseChange_adicCompletion_eq_zero_iff,
-      brBaseChange_brClass_eq_zero_iff]
+      Set.mem_ofPred_eq, ne_eq, finiteInvAt_eq_zero_iff]
+    exact not_congr (brBaseChange_adicCompletion_brClass_eq_zero_iff v ε hε).symm
   rw [hA]
   refine ⟨(S.finite_toSet.image _), ?_⟩
-  rw [Set.ncard_image_of_injective _ (Rat.HeightOneSpectrum.primesEquiv).injective,
+  rw [Set.ncard_image_of_injective _ (Rat.HeightOneSpectrum.primesEquiv (R := 𝓞 ℚ)).injective,
     Set.ncard_coe_finset]
   apply even_of_nsmul_half_eq_zero
   have hsum := hS x
@@ -163,8 +190,7 @@ theorem brauerReciprocity2C_of_sum (hS : ∀ x : Br ℚ, sumLocalInv ℚ (brLoca
       (isReal_rat (default : InfinitePlace ℚ)))).toAddMonoidHom
         (brBaseChange ℚ (default : InfinitePlace ℚ).Completion x)) with hy
     have hiff : y = 0 ↔ IsCoboundary2 (resC ℝ ε) := by
-      rw [← brBaseChange_brClass_eq_zero_iff ℝ ε hε, ← hxdef,
-        ← brBaseChange_infinite_eq_zero_iff (default : InfinitePlace ℚ), hy,
+      rw [← brBaseChange_infinite_brClass_eq_zero_iff (default : InfinitePlace ℚ) ε hε, ← hxdef, hy,
         map_eq_zero_iff _ realInv_injective, AddEquiv.coe_toAddMonoidHom,
         AddEquivClass.map_eq_zero_iff]
     split_ifs with hc

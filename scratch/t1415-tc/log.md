@@ -18,3 +18,16 @@
 - 04:50 **T15 PROVED**: `ZInQ.Contrib.BrauerT14T15.localH2CardC : PkgI6.LocalH2CardC`
   (LocalT15.lean from TC `invMap`; Real.lean reproduced from t-brauer-purity). `#print axioms`:
   [propext, Classical.choice, Quot.sound] (scratch/t1415-tc/axioms-T15.txt). VERIFIED.
+- 05:00 built TC closure of Global/Brauer/SumFormula + IdeleClass/SecondInequality (5084 jobs).
+- 05:15 BaseChange2.lean compiles: `square` (Mathlib's `Field.absoluteGaloisGroup.map` vs TC
+  `absoluteGaloisGroupMap` for the embedding `sepLiftAlg` built from Mathlib's `IsAlgClosed.lift`),
+  `brClass`, `brClass_eq_zero_iff`, `brBaseChange_brClass_eq_zero_iff`. Pitfall: in a file importing
+  TC, `Algebra ℚ (SeparableClosure ℚ)` synthesizes `DivisionRing.toRatAlgebra`, TC uses
+  `IntermediateField.algebra'`: fixed by `attribute [-instance] DivisionRing.toRatAlgebra`.
+  Same for `v.adicCompletion ℚ` (TC: `instAlgebraAdicCompletion`): fixed by instance-implicit
+  arguments turned into `{i : Algebra ℚ _}` and a `local instance 2000`.
+- 05:25 **T14 REDUCED**: GlobalT14.lean compiles: `brauerHasse2C_of_injective` (from TC Hasse
+  principle `Function.Injective (brLocalization ℚ)`), `brauerReciprocity2C_of_sum` (from TC sum
+  formula), and both from `KummerIndexBound` (the hypothesis of TC's
+  `subsingleton_h1_globalFormation_of_forall_index_le`). Main.lean: `leaves_of_kummerIndexBound`.
+  All `#print axioms`: [propext, Classical.choice, Quot.sound] (scratch/t1415-tc/axioms.txt). VERIFIED.

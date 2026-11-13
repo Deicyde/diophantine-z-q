@@ -1,0 +1,16 @@
+'ZInQ.Contrib.BrauerT14T15.localH2CardC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.h2TwoClasses_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.isCoboundary2_of_sgn_mem_B2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.exists_sgn_eq_of_two_nsmul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.square' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.brBaseChange_brClass_eq_zero_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.brauerHasse2C_of_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.brauerReciprocity2C_of_sum' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.brauerHasse2C_of_kummerIndexBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.brauerReciprocity2C_of_kummerIndexBound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.leaves_of_kummerIndexBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.cob_of_same_finite_support_of_kummerIndexBound' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
