@@ -41,3 +41,25 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
   * `periodMapGlue_of Y Φ π : R1fpProps Y Φ → BaseChangeClassUnique → PiTwistC Y Φ π → QMTwistLattice → PiCMC Y Φ π →
     CMFixedHasCM → PeriodMapGlue Y Φ π`
   * `fibreQMPeriod_periodMap`: `ThetaPt.FibreQMPeriod` from fibre-qm-period's leaves and the new named pieces.
+- run_heavy5-10: `cmFixedHasCM_of : T11aRiemannEnd → CMFixedHasCM` developed (errors: `DiscreteTopology` instance of
+  `qmLattice` not found through `set`/in PMBase's context — supplied by `haveI … unfold qmLattice; infer_instance`;
+  rewriting details in `Module.End`). A python edit accidentally dropped the tail of part_heavy.lean once; restored from
+  HEAD and re-applied.
+- run_heavy11: 0 errors; `cmFixedHasCM_of`, `periodMapGlue_of`, `periodMapGlue_own`, `fibreQMPeriod_periodMap` axioms
+  standard. VERIFIED. `fibreQMPeriod_periodMap` now uses `cmFixedHasCM_of hR11` (T11a is already a hypothesis), so
+  `CMFixedHasCM` is no longer a hypothesis.
+
+## r1b-state comparison (origin/wip/r1b-state 07669d97, read 07:10)
+- r1b-state's leaf: `R1bState.R01b_ComplexUniformization' := ∃ Y Φ, R1fpProps Y Φ ∧ R1bProps Y Φ`; `R1bProps` = (a) every
+  `P : QML3 ℂ` has a QM-compatible uniformization by some `Λ_τ` (bp-analytic `Uniformization.IsUniformization` of
+  `Torus Λ_τ ≃+ P.A(ℂ)`, `qmAct`-compatible); (b) `y : ℂ → Y(ℂ)` with `Φ_ℂ(y τ) = [P_τ]`, `P_τ` QM-uniformized by `Λ_τ`
+  carrying the torus's level structure `a ↦ [ι(a)(τ,1)ᵀ/3]` to `η` (`IsQMUnifLevel`); (c) every regular function on every
+  Zariski open is holomorphic along `y`. VERIFIED (read R1b.part).
+- fibre-qm-period's `R1bFamily Y Φ π`: `∃ yτ : ℍ → Y(ℂ)`, object at `yτ τ` has an `IotaCompatible` CPts-`IsUniformization`
+  with kernel `Λ_τ`, `τ ↦ π(yτ τ)` continuous and `IsHolP1At`. Weaker: no level structure, holomorphy only of `π ∘ y`,
+  mentions the triple's `π`.
+- Verdict: r1b-state's statement is the published shape (Shimura's holomorphic `φ : ℍ → V(ℂ)` with its moduli
+  interpretation, intrinsic, no `π`); `R1bFamily` is a consequence of it plus a bridge (bp-analytic's uniformization ⇒
+  CPts uniformization; `HolomorphicP1On` ⇒ `IsHolP1At` + continuity; r1b-state's `q3_form_of_R1bProps` and
+  `r1bProps_of_leaf` do the holomorphy and transfer steps). Not compiled across the two files (different AbVar layers:
+  build modules vs the ThetaPoint scratch copy).

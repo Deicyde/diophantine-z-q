@@ -508,7 +508,8 @@ end
 Task period-map, 2026-11-13. `PeriodMapGlue Y Φ π` (fibre-qm-period, above, unchanged) is proved
 from `R1fpProps Y Φ` (its naturality clause only) and five named Props
 (`periodMapGlue_of`); at the leaf's own triple the clause list comes from the bundle
-(`periodMapGlue_own`). `CMFixedHasCM` is then proved from T11a (`cmFixedHasCM_of`). The main
+(`periodMapGlue_own`). One of the five, `CMFixedHasCM`, is proved from the textbook leaf T11a
+(`cmFixedHasCM_of`), so four glue Props remain. The main
 theorem `fibreQMPeriod_periodMap` restates fibre-qm-period's `fibreQMPeriod_main` with
 `PeriodMapGlue`, `HauptmodulUnique` and `QMDenZeroCM3` replaced by their named pieces. -/
 
@@ -603,6 +604,153 @@ theorem one_mem_gammaStar : (1 : GL (Fin 2) ℝ) ∈ PkgI1.GammaStar :=
   ⟨1, ⟨1, by simp, by simp, fun z hz => ⟨by rwa [_root_.one_mul, _root_.mul_one], by rwa [_root_.one_mul, _root_.mul_one]⟩⟩,
     by simp [PeriodMap.iota_one], by simp⟩
 
+/-! ### `CMFixedHasCM` from T11a (proved) -/
+
+theorem mem_O_of_inO {x : PkgI1.B} (hx : PkgI1.InO x) : (x : LeafQM.B) ∈ LeafQM.O := by
+  obtain ⟨n, rfl⟩ := hx
+  show LeafQM.InO _
+  exact ⟨n, by ext <;> simp [LeafQM.ofInt, PkgI1.oBasis, Fin.sum_univ_four] <;> ring⟩
+
+theorem oBasis_mem (k : Fin 4) : BPAnalytic.QM.oBasis k ∈ LeafQM.O := by
+  show LeafQM.InO _
+  fin_cases k
+  · exact ⟨![1, 0, 0, 0], by ext <;> simp [BPAnalytic.QM.oBasis, LeafQM.ofInt]⟩
+  · exact ⟨![0, 1, 0, 0], by ext <;> simp [BPAnalytic.QM.oBasis, LeafQM.ofInt]⟩
+  · exact ⟨![0, 0, 1, 0], by ext <;> simp [BPAnalytic.QM.oBasis, LeafQM.ofInt]⟩
+  · exact ⟨![0, 0, 0, 1], by ext <;> simp [BPAnalytic.QM.oBasis, LeafQM.ofInt]⟩
+
+/-- N5's basis element `b_k` as an element of `𝒪`. -/
+def bO (k : Fin 4) : LeafQM.O := ⟨BPAnalytic.QM.oBasis k, oBasis_mem k⟩
+
+/-- An element with `x² = −1`, `x² − x + 1 = 0` or `x² = −6` has positive reduced norm. -/
+theorem det_iota_pos (x : PkgI1.B) (h : x * x = -1 ∨ x * x - x + 1 = 0 ∨ x * x = -6) :
+    0 < (PkgI1.iota x).det := by
+  rw [PeriodMap.det_iota]
+  have key : (0 : ℚ) < x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2 := by
+    rcases h with h | h | h
+    · have e := congrArg QuaternionAlgebra.re h
+      simp at e
+      nlinarith [sq_nonneg x.re]
+    · have e := congrArg QuaternionAlgebra.re h
+      simp at e
+      nlinarith [sq_nonneg (x.re - 1 / 4)]
+    · have e := congrArg QuaternionAlgebra.re h
+      simp [QuaternionAlgebra.re_ofNat] at e
+      nlinarith [sq_nonneg x.re]
+  exact_mod_cast key
+
+/-- **`CMFixedHasCM` from the textbook leaf T11a (proved).** With `ρ` the analytic representation
+(`unif_ring_hom`), `ρ(ι(a))` is the matrix `ι(a)` (`IotaCompatible`), `λ = cτ + d` is the eigenvalue
+of `ι(x)` on `(τ, 1)ᵀ`, `z ↦ λz` preserves `Λ_τ` and lifts to `φ ∈ End(A)` (T11a), `φ` commutes with
+`ι(𝒪)` and satisfies the equation of `x` because `ρ` is injective (T11a's uniqueness). -/
+theorem cmFixedHasCM_of (hR : T11aRiemannEnd) : CMFixedHasCM := by
+  intro Q τ ⟨Φu, hU, hc⟩ x g hx hg hgτ
+  haveI : DiscreteTopology (BPAnalytic.QM.qmLattice τ.im_pos.ne') := by
+    unfold BPAnalytic.QM.qmLattice; infer_instance
+  obtain ⟨ρ, hρ, hpres⟩ := unif_ring_hom hR Q.A Q.surface (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu hU
+  have hρι : ∀ a : LeafQM.O, ρ (Q.q.iota a) = Matrix.toLin' (qmMat a) := fun a =>
+    lift_unique hU fun z => by rw [hρ, Matrix.toLin'_apply, hc]
+  have hinj : ∀ e e', ρ e = ρ e' → e = e' := by
+    intro e e' hee
+    obtain ⟨f, -, huniq⟩ := (hR Q.A 2 (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu Q.surface hU).1 (ρ e) (hpres e)
+    have h1 := huniq e (hρ e)
+    have h2 := huniq e' (fun z => by rw [hee]; exact hρ e' z)
+    exact h1.trans h2.symm
+  set xO : LeafQM.O := ⟨x, mem_O_of_inO hx⟩ with hxO
+  set v : Fin 2 → ℂ := ![(τ : ℂ), 1] with hv
+  set lam : ℂ := UpperHalfPlane.denom g τ with hlam
+  have hΛ : (BPAnalytic.QM.qmLattice τ.im_pos.ne') = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec τ)) :=
+    BPAnalytic.QM.qmLattice_eq _
+  have hvΛ : v ∈ (BPAnalytic.QM.qmLattice τ.im_pos.ne') := by
+    rw [hΛ]
+    exact Submodule.subset_span ⟨0, BPAnalytic.QM.latVec0 τ⟩
+  -- the CM point: `ι(x)(τ, 1)ᵀ = λ(τ, 1)ᵀ`
+  have hcases : ∀ hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det,
+      ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ ρ (Q.q.iota xO) v = lam • v := by
+    intro hdet
+    have hfix : UpperHalfPlane.num g τ = (τ : ℂ) * UpperHalfPlane.denom g τ := by
+      have := congrArg (fun w : UpperHalfPlane => (w : ℂ)) hgτ
+      rw [UpperHalfPlane.coe_smul_of_det_pos (by simpa using hdet),
+        div_eq_iff (UpperHalfPlane.denom_ne_zero g τ)] at this
+      exact this
+    have hxv : ρ (Q.q.iota xO) v = lam • v := by
+      rw [hρι, Matrix.toLin'_apply]
+      have hqm : qmMat xO = (g : Matrix (Fin 2) (Fin 2) ℝ).map (fun r : ℝ => (r : ℂ)) := by
+        rw [hg]; rfl
+      rw [hqm]
+      ext i; fin_cases i
+      · simp only [UpperHalfPlane.num, UpperHalfPlane.denom] at hfix
+        simp [hv, hlam, Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.denom]
+        linear_combination hfix
+      · simp [hv, hlam, Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.denom]
+    have hpresM : ∀ z ∈ (BPAnalytic.QM.qmLattice τ.im_pos.ne'), (lam • (1 : Module.End ℂ (Fin 2 → ℂ))) z ∈ (BPAnalytic.QM.qmLattice τ.im_pos.ne') := by
+      have hle : (BPAnalytic.QM.qmLattice τ.im_pos.ne') ≤ (BPAnalytic.QM.qmLattice τ.im_pos.ne').comap ((lam • (1 : Module.End ℂ (Fin 2 → ℂ))).restrictScalars ℤ) := by
+        rw [hΛ, Submodule.span_le]
+        rintro _ ⟨k, rfl⟩
+        rw [← hΛ]
+        show (lam • (1 : Module.End ℂ (Fin 2 → ℂ))) (BPAnalytic.QM.qmVec τ k) ∈ (BPAnalytic.QM.qmLattice τ.im_pos.ne')
+        have h1 : BPAnalytic.QM.qmVec τ k = ρ (Q.q.iota (bO k)) v := by
+          rw [hρι, Matrix.toLin'_apply]; rfl
+        have h2 : (lam • (1 : Module.End ℂ (Fin 2 → ℂ))) (BPAnalytic.QM.qmVec τ k) =
+            ρ (Q.q.iota (bO k * xO)) v := by
+          rw [map_mul, map_mul, Module.End.mul_apply, hxv, map_smul, ← h1]
+          rfl
+        rw [h2]
+        exact hpres _ v hvΛ
+      exact fun z hz => hle hz
+    obtain ⟨φ, hφ, -⟩ := (hR Q.A 2 (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu Q.surface hU).1 _ hpresM
+    have hρφ : ρ φ = lam • 1 := lift_unique hU fun z => by rw [hρ]; exact (hφ z).symm
+    refine ⟨φ, ?_, hρφ, hxv⟩
+    rw [com, Subring.mem_centralizer_iff]
+    rintro _ ⟨a, rfl⟩
+    apply hinj
+    rw [map_mul, map_mul, hρφ, mul_smul_comm, smul_mul_assoc, _root_.mul_one, _root_.one_mul]
+  -- the equation satisfied by `λ`
+  have hsq : ρ (Q.q.iota xO) v = lam • v → ρ (Q.q.iota (xO * xO)) v = (lam * lam) • v := by
+    intro hxv
+    rw [map_mul, map_mul, Module.End.mul_apply, hxv, map_smul, hxv, smul_smul]
+  have hcoord : ∀ c c' : ℂ, c • v = c' • v → c = c' := by
+    intro c c' h
+    have := congrFun h 1
+    simpa [hv] using this
+  refine ⟨fun h => ?_, fun h => ?_, fun h => ?_⟩
+  · obtain ⟨φ, hφc, hρφ, hxv⟩ := hcases (by rw [hg]; exact det_iota_pos x (Or.inl h))
+    have hx2 : xO * xO = -1 := Subtype.ext (by simpa using h)
+    have hl : lam * lam = -1 := by
+      apply hcoord
+      rw [← hsq hxv, hx2, map_neg, map_one, map_neg, map_one]
+      simp
+    refine ⟨φ, hφc, hinj _ _ ?_⟩
+    rw [map_mul, hρφ, map_neg, map_one, smul_mul_smul_comm, _root_.mul_one, hl]
+    refine LinearMap.ext fun w => ?_
+    rw [LinearMap.smul_apply, LinearMap.neg_apply, Module.End.one_apply]
+    ext i; simp
+  · obtain ⟨φ, hφc, hρφ, hxv⟩ := hcases (by rw [hg]; exact det_iota_pos x (Or.inr (Or.inl h)))
+    have hx2 : xO * xO - xO + 1 = 0 := Subtype.ext (by simpa using h)
+    have hl : lam * lam - lam + 1 = 0 := by
+      have e : ρ (Q.q.iota (xO * xO - xO + 1)) v = (lam * lam - lam + 1) • v := by
+        rw [map_add, map_sub, map_add, map_sub, LinearMap.add_apply, LinearMap.sub_apply,
+          hsq hxv, hxv, map_one, map_one, Module.End.one_apply, add_smul, sub_smul, one_smul]
+      rw [hx2, map_zero, map_zero, LinearMap.zero_apply] at e
+      apply hcoord
+      rw [← e, zero_smul]
+    refine ⟨φ, hφc, hinj _ _ ?_⟩
+    rw [map_add, map_sub, map_mul, hρφ, map_one, map_zero, smul_mul_smul_comm, _root_.mul_one]
+    rw [show (lam * lam) • (1 : Module.End ℂ (Fin 2 → ℂ)) - lam • 1 + 1 =
+      (lam * lam - lam + 1) • 1 by rw [add_smul, sub_smul, one_smul], hl, zero_smul]
+  · obtain ⟨φ, hφc, hρφ, hxv⟩ :=
+      hcases (by rw [hg]; exact det_iota_pos x (Or.inr (Or.inr h)))
+    have hx2 : xO * xO = -6 := Subtype.ext (by push_cast; exact h)
+    have e : ρ (Q.q.iota (xO * xO)) v = (-6 : ℂ) • v := by
+      rw [hx2, map_neg, map_ofNat, map_neg, map_ofNat, LinearMap.neg_apply, Module.End.ofNat_apply]
+      ext i; simp
+    have hl : lam * lam = -6 := hcoord _ _ ((hsq hxv).symm.trans e)
+    refine ⟨φ, hφc, hinj _ _ ?_⟩
+    rw [map_mul, hρφ, smul_mul_smul_comm, _root_.mul_one, hl, map_neg, map_ofNat]
+    refine LinearMap.ext fun w => ?_
+    rw [LinearMap.smul_apply, LinearMap.neg_apply, Module.End.ofNat_apply, Module.End.one_apply]
+    ext i; simp
+
 /-- **`PeriodMapGlue` from strictly smaller named Props (proved).** Only the naturality clause of
 `R1fpProps` is used. -/
 theorem periodMapGlue_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
@@ -648,24 +796,26 @@ theorem periodMapGlue_own (h : R1R2fp) (hBC : BaseChangeClassUnique)
 /-- **`FibreQMPeriod` with the three targets replaced by their named pieces (proved).** Leaves:
 `R1R2fp`, `PkgI1.QMHauptmodul`, T35, T11a, `QMClassNumberOne`, `R1bFamily`,
 `ValenceBoundGammaStar`. Glue: `Pin.MobiusGlue` (proved by mobius-glue), `BaseChangeClassUnique`,
-`PiTwistC`, `QMTwistLattice`, `PiCMC`, `CMFixedHasCM`, `ThetaOmegaAnalytic`, `S8Nonzero`,
+`PiTwistC`, `QMTwistLattice`, `PiCMC`, `ThetaOmegaAnalytic`, `S8Nonzero`,
 `SphereFactorAffine`, `S8Weight8`, `S8OrderCM3`, `CPtsTransport`. -/
 theorem fibreQMPeriod_periodMap (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hBC : BaseChangeClassUnique) (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h))
-    (hTL : QMTwistLattice) (hCM : PiCMC (ownY h) (ownΦ h) (ownπ h)) (hCF : CMFixedHasCM)
+    (hTL : QMTwistLattice) (hCM : PiCMC (ownY h) (ownΦ h) (ownπ h))
     (hT : PeriodMap.ThetaOmegaAnalytic) (hS : PeriodMap.S8Nonzero)
     (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8Weight8)
     (hO : PeriodMap.S8OrderCM3) (hV : PeriodMap.ValenceBoundGammaStar)
     (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod :=
-  fibreQMPeriod_main h hM hH hE hR11 hCN hR (periodMapGlue_own h hBC hPT hTL hCM hCF)
+  fibreQMPeriod_main h hM hH hE hR11 hCN hR
+    (periodMapGlue_own h hBC hPT hTL hCM (cmFixedHasCM_of hR11))
     (PeriodMap.hauptmodulUnique_of hT hS hSF) (PeriodMap.qmDenZeroCM3_of hT hS hW hO hV) hCP
 
 end HSyn.G0Split.FibreQM.PeriodMapH
 
 end
 
+#print axioms HSyn.G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_of
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_own
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap
