@@ -214,4 +214,132 @@ theorem x1ModelExists_of_leaves (hT : TorsionStructure) (hC : CurveOfFunctionFie
   obtain ⟨X, hX, hpt, hint, ⟨φ⟩⟩ := hC (fieldX1 P) (hK N P hN hP)
   exact ⟨X, (hpt (hR N P hN hP)).some, hX, hint, P, hP, ⟨φ⟩⟩
 
+/-! ## `BelyiX1` (MC5) -/
+
+/-- The substitution `T ↦ T/1728` of `ℚ[T]`, an automorphism (inverse `T ↦ 1728 T`). -/
+def scaleEquiv : ℚ[X] ≃ₐ[ℚ] ℚ[X] :=
+  AlgEquiv.ofAlgHom (aeval (C (1728⁻¹ : ℚ) * X)) (aeval (C (1728 : ℚ) * X))
+    (by
+      apply Polynomial.algHom_ext
+      simp only [AlgHom.coe_comp, Function.comp_apply, aeval_X, map_mul, aeval_C,
+        algebraMap_eq, AlgHom.coe_id, id_eq]
+      rw [← mul_assoc, ← C_mul]
+      norm_num)
+    (by
+      apply Polynomial.algHom_ext
+      simp only [AlgHom.coe_comp, Function.comp_apply, aeval_X, map_mul, aeval_C,
+        algebraMap_eq, AlgHom.coe_id, id_eq]
+      rw [← mul_assoc, ← C_mul]
+      norm_num)
+
+theorem scaleEquiv_apply (q : ℚ[X]) : scaleEquiv q = q.comp (C (1728⁻¹ : ℚ) * X) := rfl
+
+theorem scaleEquiv_symm_X : scaleEquiv.symm X = C (1728 : ℚ) * X := by
+  change aeval (C (1728 : ℚ) * X) X = _
+  simp
+
+theorem scaleEquiv_symm_X_sub : scaleEquiv.symm (X - 1728) = C (1728 : ℚ) * (X - 1) := by
+  simp only [map_sub, scaleEquiv_symm_X, map_ofNat]
+  ring
+
+/-- `p := q(T/1728)` is irreducible and does not divide `T²(T − 1728)⁹` when `q` is monic
+irreducible, `q ≠ T, T − 1`. -/
+theorem scale_not_dvd (q : ℚ[X]) (hqm : q.Monic) (hqi : Irreducible q) (hqX : q ≠ X)
+    (hqX1 : q ≠ X - 1) : ¬ scaleEquiv q ∣ X ^ 2 * (X - 1728) ^ 9 := by
+  intro h
+  have h' : q ∣ scaleEquiv.symm (X ^ 2 * (X - 1728) ^ 9) := by
+    have := map_dvd scaleEquiv.symm h
+    rwa [AlgEquiv.symm_apply_apply] at this
+  rw [map_mul, map_pow, map_pow, scaleEquiv_symm_X, scaleEquiv_symm_X_sub] at h'
+  have hp := hqi.prime
+  have hu : IsUnit (C (1728 : ℚ)) := isUnit_C.mpr (isUnit_iff_ne_zero.mpr (by norm_num))
+  rcases hp.dvd_or_dvd h' with h1 | h1
+  · have h2 := hp.dvd_of_dvd_pow h1
+    rw [hu.dvd_mul_left] at h2
+    exact hqX (eq_of_monic_of_associated hqm monic_X (hqi.associated_of_dvd irreducible_X h2))
+  · have h2 := hp.dvd_of_dvd_pow h1
+    rw [hu.dvd_mul_left] at h2
+    exact hqX1 (eq_of_monic_of_associated hqm (monic_X_sub_C 1)
+      (hqi.associated_of_dvd (irreducible_X_sub_C 1) (by simpa using h2)))
+
+theorem transcendental_X_div : Transcendental ℚ (RatFunc.X / 1728 : Qj) := by
+  intro h
+  apply RatFunc.transcendental_X (K := ℚ)
+  have := h.smul (1728 : ℚ)
+  rw [Algebra.smul_def, map_ofNat, mul_div_cancel₀ _ (by norm_num : (1728 : Qj) ≠ 0)] at this
+  convert this using 1
+  exact Subsingleton.elim _ _
+
+/-- **`BelyiX1` (glue, proved from T1 and T2).** -/
+theorem belyiX1_of_leaves (hT : TorsionStructure) (hG : GoodReductionUnramified) : BelyiX1 := by
+  intro N P hN hP
+  have hNP : N • P = 0 := hP ▸ addOrderOf_nsmul_eq_zero P
+  refine ⟨⟨?_, ?_⟩, finrank_fieldX1_le hT N hN P hNP⟩
+  · -- transcendence
+    let φ : Qj →ₐ[ℚ] fieldX1 P :=
+      { algebraMap Qj (fieldX1 P) with
+        commutes' := fun r => by
+          change algebraMap Qj (fieldX1 P) (algebraMap ℚ Qj r) = algebraMap ℚ (fieldX1 P) r
+          rw [← RingHom.comp_apply]
+          exact DFunLike.congr_fun (RingHom.ext_rat ((algebraMap Qj (fieldX1 P)).comp
+            (algebraMap ℚ Qj)) (algebraMap ℚ (fieldX1 P))) r }
+    intro h
+    exact transcendental_X_div ((isAlgebraic_algHom_iff φ φ.toRingHom.injective).mp h)
+  · intro w hk ht q hqm hqi hqX hqX1 hq x hx
+    have hratF : algebraMap ℚ (fieldX1 P) = (algebraMap Qj (fieldX1 P)).comp (algebraMap ℚ Qj) := RingHom.ext_rat _ _
+    have hratQ : (algebraMap ℚ[X] Qj).comp C = algebraMap ℚ Qj := RingHom.ext_rat _ _
+    have hr : algebraMap ℚ[X] Qj (C (1728⁻¹ : ℚ) * X) = RatFunc.X / 1728 := by
+      rw [map_mul, RatFunc.algebraMap_X, ← RingHom.comp_apply, hratQ, eq_ratCast]
+      push_cast
+      ring
+    -- the key identity `p(j) = q(t)`
+    have KI : algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (scaleEquiv q)) =
+        Polynomial.aeval (algebraMap Qj (fieldX1 P) (RatFunc.X / 1728)) q := by
+      rw [scaleEquiv_apply, Polynomial.comp, hom_eval₂, hratQ, hr, aeval_def, hratF, hom_eval₂]
+    have hp : Irreducible (scaleEquiv q) := (MulEquiv.irreducible_iff scaleEquiv).mpr hqi
+    have hA : algebraMap ℚ[X] Qj 1728 = 1728 := map_ofNat _ _
+    have hA36 : algebraMap ℚ[X] Qj 36 = 36 := map_ofNat _ _
+    have hcoef : ∀ a ∈ ({Ej.a₁, Ej.a₂, Ej.a₃, Ej.a₄, Ej.a₆} : Set Qj),
+        ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ c ∧
+          a * algebraMap ℚ[X] Qj c = algebraMap ℚ[X] Qj b := by
+      have h1 : ¬ scaleEquiv q ∣ 1 := fun h => hp.not_isUnit (isUnit_of_dvd_one h)
+      intro a ha
+      simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ha
+      rcases ha with rfl | rfl | rfl | rfl | rfl
+      · exact ⟨X - 1728, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨0, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨0, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨-36 * (X - 1728) ^ 3, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨-(X - 1728) ^ 5, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+    have hdisc : ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ b ∧
+        Ej.Δ * algebraMap ℚ[X] Qj c = algebraMap ℚ[X] Qj b :=
+      ⟨X ^ 2 * (X - 1728) ^ 9, 1, scale_not_dvd q hqm hqi hqX hqX1, by
+        rw [Ej, ofJNe0Or1728_Δ, map_one, mul_one, map_mul, map_pow, map_pow, map_sub,
+          RatFunc.algebraMap_X, hA]⟩
+    have h1728 : algebraMap Qj (fieldX1 P) RatFunc.X =
+        algebraMap ℚ (fieldX1 P) 1728 * algebraMap Qj (fieldX1 P) (RatFunc.X / 1728) := by
+      rw [hratF, RingHom.comp_apply, ← map_mul, map_ofNat]
+      congr 1
+      field_simp
+    have hCa : ∀ a : ℚ, algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (C a)) =
+        algebraMap ℚ (fieldX1 P) a := fun a => by
+      rw [hratF, RingHom.comp_apply, ← hratQ, RingHom.comp_apply]
+    have hc : ∀ c : ℚ[X], algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj c) ∈ w := by
+      intro c
+      induction c using Polynomial.induction_on with
+      | C a => rw [hCa]; exact hk a
+      | add f g hf hg => rw [map_add, map_add]; exact w.add_mem _ _ hf hg
+      | monomial n a _ =>
+        rw [map_mul, map_mul, map_pow, map_pow, RatFunc.algebraMap_X, h1728]
+        refine w.mul_mem _ _ ?_ (w.pow_mem (w.mul_mem _ _ (hk 1728) ht) _)
+        rw [hCa]; exact hk a
+    have hπ : algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (scaleEquiv q)) ∈ w.nonunits := by
+      rw [KI]; exact hq
+    obtain ⟨y, hy, rfl⟩ := hG ℚ Ej (scaleEquiv q) hp hcoef hdisc P ⟨N, hN, hNP⟩ w hc hπ x hx
+    exact ⟨y, hy, congrArg (· * y) KI⟩
+
 end X1Belyi
+
+#print axioms X1Belyi.belyiX1_of_leaves
+#print axioms X1Belyi.x1ModelExists_of_leaves
+#print axioms X1Belyi.finrank_fieldX1_le
