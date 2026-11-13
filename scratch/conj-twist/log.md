@@ -113,3 +113,11 @@
   HomLinearLift → TwistCEval → ConjTwistNontrivial`**, **`conjTwistFromLeaves_final'' :
   HomLinearLift → TwistCEval → ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 36
   `#print axioms` standard. VERIFIED (compiled).
+- 2026-11-13 06:46 §16 added: `specConj`, `appLE_eq_of_eq`, `top_le_specConj_preimage`,
+  `eval_specConj` (evaluation at P ∘ Spec(conj) is conj of evaluation at P; ΓSpecIso
+  naturality), `homEquiv_left_fst`, `fst_isIso` (number field ⇒ pullback.fst iso),
+  **`twistCEval : TwistCEval`** (N3a-ev proved), **`conjTwistNontrivial_of_leaves :
+  TorsionStructure → TateModuleFree → UniformizationExists → HomLinearLift →
+  ConjTwistNontrivial`**, **`conjTwistFromLeaves_of_homLinearLift : HomLinearLift →
+  ConjTwistFromLeaves`**. No glue Prop remains. Whole file (2029 lines): 0 errors, 0 sorry,
+  39 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).

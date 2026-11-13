@@ -1882,6 +1882,110 @@ theorem conjTwistFromLeaves_final'' (hN2 : HomLinearLift) (hE : TwistCEval) :
     ConjTwistFromLeaves :=
   conjTwistFromLeaves_final' hN2 (conjUniformizationAnalytic_of_eval hE)
 
+/-! ## §16. `TwistCEval` (N3a-ev) proved
+
+For a number field `Spec(s)` is an isomorphism, hence so is `fst : A^s → A`. The adjunction gives
+`(twistC Q).left ≫ fst = Spec(conj) ≫ Q.left`, so `(twistC Q).left = Spec(conj) ≫ Q.left ≫ fst⁻¹`;
+take `V = (fst⁻¹)⁻¹(U)`, `f' = (fst⁻¹)^* f`, and use `ΓSpecIso` naturality for `Spec(conj)`. -/
+
+/-- `Spec(conj) : Spec ℂ → Spec ℂ`. -/
+abbrev specConj : Spec (CommRingCat.of ℂ) ⟶ Spec (CommRingCat.of ℂ) :=
+  Spec.map (CommRingCat.ofHom (starRingEnd ℂ))
+
+theorem appLE_eq_of_eq {X Y : Scheme} {f g : X ⟶ Y} (e : f = g) (U : Y.Opens) (V : X.Opens)
+    (h : V ≤ f ⁻¹ᵁ U) : f.appLE U V h = g.appLE U V (e ▸ h) := by
+  subst e; rfl
+
+theorem top_le_specConj_preimage (W : (Spec (CommRingCat.of ℂ)).Opens) :
+    ⊤ ≤ specConj ⁻¹ᵁ W ↔ ⊤ ≤ W := by
+  constructor
+  · intro hW x _
+    have hx : x = specConj.base (IsLocalRing.closedPoint ℂ) := Subsingleton.elim _ _
+    rw [hx]
+    exact hW (Set.mem_univ (IsLocalRing.closedPoint ℂ))
+  · intro hW y _
+    exact hW (Set.mem_univ (specConj.base y))
+
+/-- Evaluation at `P ∘ Spec(conj)` is the complex conjugate of evaluation at `P` (proved). -/
+theorem eval_specConj {X : Scheme} (P : Spec (CommRingCat.of ℂ) ⟶ X) (W : X.Opens)
+    (hW : ⊤ ≤ (specConj ≫ P) ⁻¹ᵁ W) (hW' : ⊤ ≤ P ⁻¹ᵁ W) (x : Γ(X, W)) :
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((specConj ≫ P).appLE W ⊤ hW x) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (P.appLE W ⊤ hW' x)) := by
+  have e2 : ⊤ ≤ specConj ⁻¹ᵁ (⊤ : (Spec (CommRingCat.of ℂ)).Opens) := fun x _ => Set.mem_univ _
+  rw [← Scheme.Hom.appLE_comp_appLE specConj P W ⊤ ⊤ hW' e2]
+  have e3 : specConj.appLE ⊤ ⊤ e2 = specConj.appTop := by
+    rw [Scheme.Hom.appTop, Scheme.Hom.app_eq_appLE]
+    rfl
+  rw [e3]
+  have h := Scheme.ΓSpecIso_naturality (CommRingCat.ofHom (starRingEnd ℂ))
+  have := congrArg (fun φ => (CommRingCat.Hom.hom φ) (P.appLE W ⊤ hW' x)) h
+  exact this
+
+theorem homEquiv_left_fst {K : Type} [Field K] (s : K →+* K) (X Y : Over (Spec (CommRingCat.of K)))
+    (u : (Over.map (specS s)).obj X ⟶ Y) :
+    ((Over.mapPullbackAdj (specS s)).homEquiv X Y u).left ≫ Limits.pullback.fst Y.hom (specS s) =
+      u.left := by
+  dsimp [Over.mapPullbackAdj]
+  simp
+
+theorem fst_isIso {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (s : K →+* K) :
+    IsIso (Limits.pullback.fst A.X.hom (specS s)) := by
+  have hb := ringHom_bijective_of_numberField K s
+  let e : K ≃+* K := RingEquiv.ofBijective s hb
+  haveI : IsIso (CommRingCat.ofHom s) :=
+    ⟨⟨CommRingCat.ofHom (e.symm : K →+* K), by ext x; exact e.symm_apply_apply x,
+      by ext x; exact e.apply_symm_apply x⟩⟩
+  haveI : IsIso (specS s) := by unfold specS; infer_instance
+  infer_instance
+
+/-- **N3a-ev (proved).** -/
+theorem twistCEval : TwistCEval := by
+  intro K _ _ A σ s h U
+  let fstC : (conjVar A s).X.left ⟶ A.X.left := Limits.pullback.fst A.X.hom (specS s)
+  haveI : IsIso fstC := fst_isIso A s
+  let iv : A.X.left ⟶ (conjVar A s).X.left := CategoryTheory.inv fstC
+  let QL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ A.X.left) := fun Q => Q.left
+  let TL : CPts A σ → (Spec (CommRingCat.of ℂ) ⟶ (conjVar A s).X.left) :=
+    fun Q => (twistC A σ s h Q).left
+  have key : ∀ Q : CPts A σ, TL Q = specConj ≫ QL Q ≫ iv := by
+    intro Q
+    have e1 : TL Q ≫ fstC = specConj ≫ QL Q :=
+      (homEquiv_left_fst s (cptObj σ) A.X (mapPtIso σ s ≫ conjCs A σ s h Q)).trans
+        (Category.id_comp _)
+    calc TL Q = (TL Q ≫ fstC) ≫ iv := by
+          rw [Category.assoc, IsIso.hom_inv_id, Category.comp_id]
+      _ = specConj ≫ QL Q ≫ iv := by rw [e1, Category.assoc]
+  refine ⟨iv ⁻¹ᵁ U, fun Q => ?_, fun f => ⟨iv.app U f, fun Q hQ => ?_⟩⟩
+  · change ⊤ ≤ TL Q ⁻¹ᵁ U ↔ ⊤ ≤ QL Q ⁻¹ᵁ (iv ⁻¹ᵁ U)
+    rw [key Q]
+    change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U) ↔ _
+    rw [top_le_specConj_preimage]
+    rfl
+  · have hQ' : ⊤ ≤ TL Q ⁻¹ᵁ U := by
+      rw [key Q]
+      change ⊤ ≤ specConj ⁻¹ᵁ ((QL Q ≫ iv) ⁻¹ᵁ U)
+      rw [top_le_specConj_preimage]
+      exact hQ
+    unfold ZInQ.LeafPush2.cEvalAt
+    rw [dif_pos (show ⊤ ≤ (twistC A σ s h Q).left ⁻¹ᵁ U from hQ'), dif_pos hQ]
+    change (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom ((TL Q).appLE U ⊤ hQ' f) =
+      starRingEnd ℂ ((Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom
+        ((QL Q).appLE (iv ⁻¹ᵁ U) ⊤ hQ (iv.app U f)))
+    rw [appLE_eq_of_eq (key Q),
+      eval_specConj (QL Q ≫ iv) U _ (show ⊤ ≤ (QL Q ≫ iv) ⁻¹ᵁ U from hQ),
+      Scheme.Hom.comp_appLE]
+    rfl
+
+/-- **Final: `ConjTwistNontrivial` from T5, T26, T35 and N2 (proved).** -/
+theorem conjTwistNontrivial_of_leaves (h5 : PkgI2.TorsionStructure.{0})
+    (hT : PkgI3.TateModuleFree) (h35 : ZInQ.LeafPush2.UniformizationExists)
+    (hN2 : HomLinearLift) : ConjTwistNontrivial :=
+  conjTwistNontrivial_final'' h5 hT h35 hN2 twistCEval
+
+/-- **Final: `ConjTwistFromLeaves` from the leaf N2 alone (proved).** -/
+theorem conjTwistFromLeaves_of_homLinearLift (hN2 : HomLinearLift) : ConjTwistFromLeaves :=
+  conjTwistFromLeaves_final'' hN2 twistCEval
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -1920,3 +2024,6 @@ end G0Galois
 #print axioms G0Galois.conjUniformizationAnalytic_of_eval
 #print axioms G0Galois.conjTwistNontrivial_final''
 #print axioms G0Galois.conjTwistFromLeaves_final''
+#print axioms G0Galois.twistCEval
+#print axioms G0Galois.conjTwistNontrivial_of_leaves
+#print axioms G0Galois.conjTwistFromLeaves_of_homLinearLift
