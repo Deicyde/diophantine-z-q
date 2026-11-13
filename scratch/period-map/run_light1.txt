@@ -1,0 +1,233 @@
+scratch/period-map/DevLight.lean:51:65: error: Ambiguous term
+  I
+Possible interpretations:
+  UpperHalfPlane.I : ℍ
+  
+  Complex.I : ℂ
+scratch/period-map/DevLight.lean:53:32: error: Ambiguous term
+  I
+Possible interpretations:
+  UpperHalfPlane.I : ℍ
+  
+  Complex.I : ℂ
+scratch/period-map/DevLight.lean:53:42: error: unsolved goals
+⊢ 0 < (sorry ()).im
+scratch/period-map/DevLight.lean:62:2: error: Type mismatch: After simplification, term
+  AnalyticOnNhd.pow hT.left 5
+ has type
+  @AnalyticOnNhd ℂ ℂ ℂ DenselyNormedField.toNontriviallyNormedField instNormedAddCommGroup
+    (CommCStarAlgebra.toNonUnitalCommCStarAlgebra ℂ).toNonUnitalCStarAlgebra.toNormedSpace
+    NonUnitalNormedRing.toNormedAddCommGroup (NormedAlgebra.toNormedSpace ℂ)
+    ((fun z => PkgI1.thetaSum8 (PkgI1.Omega z)) ^ 5) U
+but is expected to have type
+  @AnalyticOnNhd ℂ ℂ ℂ DenselyNormedField.toNontriviallyNormedField instNormedAddCommGroup
+    (CommCStarAlgebra.toNonUnitalCommCStarAlgebra ℂ).toNonUnitalCStarAlgebra.toNormedSpace instNormedAddCommGroup
+    (CommCStarAlgebra.toNonUnitalCommCStarAlgebra ℂ).toNonUnitalCStarAlgebra.toNormedSpace
+    (fun z => PkgI1.thetaSum8 (PkgI1.Omega z) ^ 5) U
+scratch/period-map/DevLight.lean:98:24: error: Application type mismatch: The argument
+  ↑τ
+has type
+  ℂ
+but is expected to have type
+  ℍ
+in the application
+  𝓝 ↑τ
+scratch/period-map/DevLight.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevLight.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevLight.lean:199:35: error: unsolved goals
+case re
+⊢ 6 = QuaternionAlgebra.re 6
+case imI
+⊢ QuaternionAlgebra.imI 6 = 0
+case imJ
+⊢ QuaternionAlgebra.imJ 6 = 0
+case imK
+⊢ QuaternionAlgebra.imK 6 = 0
+scratch/period-map/DevLight.lean:206:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevLight.lean:206:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+scratch/period-map/DevLight.lean:211:2: error: ring failed, ring expressions not equal
+x : PkgI1.B
+⊢ ↑x.imI ^ 2 * 4 - ↑x.imI ^ 2 * √2 ^ 2 * 2 = 0
+scratch/period-map/DevLight.lean:225:41: error: Ambiguous term
+  I
+Possible interpretations:
+  UpperHalfPlane.I : ℍ
+  
+  Complex.I : ℂ
+scratch/period-map/DevLight.lean:225:44: error: unsolved goals
+⊢ 0 < (sorry ()).im
+scratch/period-map/DevLight.lean:227:41: error: Ambiguous term
+  I
+Possible interpretations:
+  UpperHalfPlane.I : ℍ
+  
+  Complex.I : ℂ
+scratch/period-map/DevLight.lean:227:44: error: unsolved goals
+⊢ 0 < (sorry ()).im
+scratch/period-map/DevLight.lean:229:53: error: Ambiguous term
+  I
+Possible interpretations:
+  UpperHalfPlane.I : ℍ
+  
+  Complex.I : ℂ
+scratch/period-map/DevLight.lean:230:32: error: Ambiguous term
+  I_im
+Possible interpretations:
+  UpperHalfPlane.I_im : UpperHalfPlane.I.im = 1
+  
+  Complex.I_im : Complex.I.im = 1
+scratch/period-map/DevLight.lean:230:58: error: Ambiguous term
+  I_re
+Possible interpretations:
+  UpperHalfPlane.I_re : UpperHalfPlane.I.re = 0
+  
+  Complex.I_re : Complex.I.re = 0
+scratch/period-map/DevLight.lean:231:2: error: failed to prove positivity/nonnegativity/nonzeroness
+scratch/period-map/DevLight.lean:230:38: warning: This simp argument is unused:
+  mul_one
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mul_im, ofReal_re, I_im, ofReal_im, I_re, mul_zero, add_zero]
+scratch/period-map/DevLight.lean:230:64: warning: This simp argument is unused:
+  mul_zero
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mul_im, ofReal_re, I_im, mul_one, ofReal_im, I_re, add_zero]
+scratch/period-map/DevLight.lean:230:74: warning: This simp argument is unused:
+  add_zero
+Hint: Omit it from the simp argument list.
+  [apply] simp only [mul_im, ofReal_re, I_im, mul_one, ofReal_im, I_re, mul_zero]
+scratch/period-map/DevLight.lean:239:2: error: ring failed, ring expressions not equal
+⊢ 1 + sorry () ^ 2 = 0
+scratch/period-map/DevLight.lean:237:39: warning: declaration uses `sorry`
+scratch/period-map/DevLight.lean:247:2: error: ring failed, ring expressions not equal
+h3 : ↑√3 * ↑√3 = 3
+⊢ ↑√3 ^ 2 * (1 / 2) + ↑√3 ^ 2 * sorry () ^ 2 * (1 / 2) = 0
+scratch/period-map/DevLight.lean:243:39: warning: declaration uses `sorry`
+scratch/period-map/DevLight.lean:262:44: warning: this constant has no effect on the linear combination; it can be dropped from the term
+scratch/period-map/DevLight.lean:262:86: warning: this constant has no effect on the linear combination; it can be dropped from the term
+scratch/period-map/DevLight.lean:262:2: error: ring failed, ring expressions not equal
+h0 : 0 ≤ 9 + 6 * √2
+h1 : ↑√(9 + 6 * √2) * ↑√(9 + 6 * √2) = 9 + 6 * ↑√2
+⊢ -(↑√2 * ↑√(9 + 6 * √2) ^ 2) - ↑√2 * ↑√(9 + 6 * √2) ^ 2 * sorry () ^ 2 + ↑√(9 + 6 * √2) ^ 2 * 2 +
+      ↑√(9 + 6 * √2) ^ 2 * sorry () ^ 2 * 2 =
+    0
+scratch/period-map/DevLight.lean:257:40: warning: declaration uses `sorry`
+scratch/period-map/DevLight.lean:388:4: error: ring failed, ring expressions not equal
+x y : PkgI1.B
+⊢ ↑x.imI * ↑y.imI * 2 - ↑x.imI * ↑y.imI * √2 ^ 2 + ↑x.imK * ↑y.imK * 6 - ↑x.imK * ↑y.imK * √2 ^ 2 * 3 = 0
+scratch/period-map/DevLight.lean:388:4: error: ring failed, ring expressions not equal
+x y : PkgI1.B
+⊢ -(↑x.imI * ↑y.imK * 6) + ↑x.imI * ↑y.imK * √2 ^ 2 * 3 + ↑x.imK * ↑y.imI * 6 - ↑x.imK * ↑y.imI * √2 ^ 2 * 3 = 0
+scratch/period-map/DevLight.lean:388:4: error: ring failed, ring expressions not equal
+x y : PkgI1.B
+⊢ ↑x.imI * ↑y.imK * 2 - ↑x.imI * ↑y.imK * √2 ^ 2 - ↑x.imK * ↑y.imI * 2 + ↑x.imK * ↑y.imI * √2 ^ 2 = 0
+scratch/period-map/DevLight.lean:388:4: error: ring failed, ring expressions not equal
+x y : PkgI1.B
+⊢ ↑x.imI * ↑y.imI * 2 - ↑x.imI * ↑y.imI * √2 ^ 2 + ↑x.imK * ↑y.imK * 6 - ↑x.imK * ↑y.imK * √2 ^ 2 * 3 = 0
+scratch/period-map/DevLight.lean:399:37: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  HMul (GL (Fin 2) ℝ) (Matrix (Fin 2) (Fin 2) ℝ) (GL (Fin 2) ℝ)
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+scratch/period-map/DevLight.lean:400:14: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?a * 1
+in the target expression
+  γ⁻¹ = γ⁻¹ * 1
+γ : GL (Fin 2) ℝ
+x y : PkgI1.B
+hxy : x * y = 1
+hyx : y * x = 1
+hcl : ∀ (z : PkgI1.B), PkgI1.InO z → PkgI1.InO (x * z * y) ∧ PkgI1.InO (y * z * x)
+hγx : ↑γ = PkgI1.iota x
+hdet : 0 < (↑γ).det
+h1 : ↑γ * PkgI1.iota y = 1
+⊢ γ⁻¹ = γ⁻¹ * 1
+scratch/period-map/DevLight.lean:401:46: error(lean.unknownIdentifier): Unknown identifier `h2`
+scratch/period-map/DevLight.lean:405:4: error: Type mismatch
+  inv_pos.mpr hdet
+has type
+  0 < (↑γ).det⁻¹
+but is expected to have type
+  0 < Ring.inverse (↑γ).det
+scratch/period-map/DevLight.lean:420:86: error: unsolved goals
+γ : GL (Fin 2) ℝ
+τ : ℍ
+hτ : γ • tau3 = τ
+u v : PkgI1.B
+huv : u * v = 1
+hvu : v * u = 1
+hcl : ∀ (z : PkgI1.B), PkgI1.InO z → PkgI1.InO (u * z * v) ∧ PkgI1.InO (v * z * u)
+hγu : ↑γ = PkgI1.iota u
+hγinv : ↑γ⁻¹ = PkgI1.iota v
+e1 : u * x3 * v * (u * x3 * v) = u * (x3 * x3) * v
+⊢ u * (x3 * (x3 * v)) + (-1 • (u * (x3 * v)) + u * v) = u * (x3 * (x3 * v)) + (-1 • (u * (x3 * v)) + u * (u * (v * v)))
+scratch/period-map/DevLight.lean:437:22: error: Application type mismatch: The argument
+  hz
+has type
+  z ∈ U
+but is expected to have type
+  z.im < 0
+in the application
+  ne_of_gt hz
+scratch/period-map/DevLight.lean:437:22: error: Application type mismatch: The argument
+  hz
+has type
+  z ∈ U
+but is expected to have type
+  z.im < 0
+in the application
+  ne_of_gt hz
+scratch/period-map/DevLight.lean:452:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+scratch/period-map/DevLight.lean:455:72: error: Application type mismatch: The argument
+  hz
+has type
+  PkgI1.InO z
+of sort `Prop` but is expected to have type
+  Fin 4 → ℤ
+of sort `Type` in the application
+  Exists.intro hz
+scratch/period-map/DevLight.lean:458:20: error: overloaded, errors 
+  failed to synthesize instance of type class
+    Insert ℍ (Finset ℍ)
+  
+  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+  
+  458:21 `tau3` is not a field of structure `Finset`
+scratch/period-map/DevLight.lean:461:6: error: `simp` made no progress
+scratch/period-map/DevLight.lean:470:54: error: overloaded, errors 
+  failed to synthesize instance of type class
+    Insert ℍ (Finset ℍ)
+  
+  Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+  
+  470:55 `tau3` is not a field of structure `Finset`
+scratch/period-map/DevLight.lean:470:38: error: Type mismatch: After simplification, term
+  hW
+ has type
+  S8Weight8
+but is expected to have type
+  ∀ γ ∈ PkgI1.GammaStar, ∀ (z : ℍ), ‖G8 ↑(γ • z)‖ * (↑γ).det ^ 4 = ‖denom γ ↑z‖ ^ 8 * ‖G8 ↑z‖
+scratch/period-map/DevLight.lean:471:8: error(lean.synthInstanceFailed): failed to synthesize instance of type class
+  DecidableEq ℍ
+Hint: Adding the command `deriving instance DecidableEq for UpperHalfPlane` may allow Lean to derive the missing instance.
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
