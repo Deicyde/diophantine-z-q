@@ -15,7 +15,6 @@ import ZInQKernel.Size.Constants.T
 import ZInQKernel.Contrib.T14.Main
 import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.X1ConstantField
-import ZInQKernel.Contrib.RLeaf.T40
 import ZInQKernel.Contrib.Dim.HodgeLattice
 import ZInQKernel.Contrib.HodgeBC2.ExtFrac
 import ZInQKernel.Contrib.TwistDescent.GaloisDescent
@@ -83778,6 +83777,7 @@ end HSyn
 
 
 
+end
 end G0A2_c20_cpts
 
 section G0A2_c30_homunify
@@ -84828,7 +84828,7 @@ end -- noncomputable section (g0-assemble3)
 end G0A2_c40_kfglue
 
 section G0A2_c50_twistdescent
--- (leaf-fold3) scratch/twist-descent/Part{XC,HFD,Main,GDM,Final}.lean verbatim
+-- (leaf-fold3) scratch/twist-descent/Part{XC,HFD,Main,Final}.lean verbatim (PartGDM omitted: the unused GaloisDescentMor of kf-glue is not defined in the kf-glue port of g0-assemble3)
 /-! # twist-descent, part XC: comparison maps between base changes along different bases
 
 Generic category theory (any `C` with pullbacks), generalizing `G4Conj.cmp` (one base `T`) to two
@@ -85404,82 +85404,6 @@ theorem twistDescent : TwistDescent := by
 end G0ModField.KernelField
 
 end TwistDescentMain
-
-
-/-! # twist-descent, part GDM: kf-glue's `GaloisDescentMor` proved
-
-kf-glue stated (unused) the standard Galois descent of morphisms along `ℚ̄/L` as
-`GaloisDescentMor`. It follows from `TwistDescentHFD.hfd` with `K = L`, `e₁L = e₂L = id`, and
-`X ×_{L,id} L ≅ X`; uniqueness because `X_{ℚ̄} → X` is an epimorphism. -/
-
-section TwistDescentGDM
-
-open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
-open TwistDescentXC TwistDescentHFD
-
-namespace G0ModField.KernelField
-
-open G0ModField
-
-/-- **`GaloisDescentMor` holds** (kf-glue's statement, verbatim; no hypotheses). -/
-theorem galoisDescentMor : GaloisDescentMor := by
-  intro L _ X Y _ _ _ φ hφ
-  have h₀ : sp (algebraMap L Qbar) = sp (algebraMap L Qbar) ≫ sp (RingHom.id L) :=
-    sp_eq _ _ _ fun _ => rfl
-  have hφs : φ.left ≫ pullback.snd Y.hom (sp (algebraMap L Qbar)) =
-      pullback.snd X.hom (sp (algebraMap L Qbar)) := Over.w φ
-  have hinv : ∀ k : Qbar ≃ₐ[ℚ] Qbar, k ∈ L.fixingSubgroup →
-      ∀ (k₁ : sp (algebraMap L Qbar) = sp (k : Qbar →+* Qbar) ≫ sp (algebraMap L Qbar))
-        (k₂ : sp (algebraMap L Qbar) = sp (k : Qbar →+* Qbar) ≫ sp (algebraMap L Qbar)),
-        xc X (sp (k : Qbar →+* Qbar)) k₁ ≫ φ.left = φ.left ≫ xc Y (sp (k : Qbar →+* Qbar)) k₂ := by
-    intro k hk k₁ k₂
-    have := G4Conj.conj_cmp X Y (G4WeilRes.specGal k) k₁ k₁ φ
-    rw [hφ k hk k₁] at this
-    exact this.symm
-  obtain ⟨φL, hφL⟩ := hfd X Y (RingHom.id L) (RingHom.id L) (algebraMap L Qbar)
-    (algebraMap L Qbar) h₀ h₀ (fun _ => rfl) (fun _ => rfl) φ.left hφs hinv
-  have hepi : Epi (xc X (sp (algebraMap L Qbar)) h₀) := xc_epi X (RingHom.id L) _ h₀
-  have hφLs : φL ≫ pullback.snd Y.hom (sp (RingHom.id L)) =
-      pullback.snd X.hom (sp (RingHom.id L)) := by
-    rw [← cancel_epi (xc X (sp (algebraMap L Qbar)) h₀), ← Category.assoc, hφL,
-      Category.assoc, xc_snd, ← Category.assoc, hφs, xc_snd]
-  have hid : sp (RingHom.id L) = 𝟙 _ := sp_id_eq _ fun _ => rfl
-  let j : X.left ⟶ pullback X.hom (sp (RingHom.id L)) :=
-    pullback.lift (𝟙 _) X.hom (by rw [Category.id_comp, hid, Category.comp_id])
-  let ψ0 : X.left ⟶ Y.left := j ≫ φL ≫ pullback.fst _ _
-  have hψw : ψ0 ≫ Y.hom = X.hom := by
-    simp only [ψ0, Category.assoc]
-    rw [pullback.condition, reassoc_of% hφLs]
-    simp only [j, pullback.lift_snd_assoc]
-    rw [hid, Category.comp_id]
-  have hj : pullback.fst X.hom (sp (algebraMap L Qbar)) ≫ j = xc X (sp (algebraMap L Qbar)) h₀ := by
-    apply pullback.hom_ext
-    · simp [j]
-    · simp only [j, Category.assoc, pullback.lift_snd, xc_snd]
-      rw [pullback.condition]
-  have hex : (Over.pullback (G4WeilRes.specIncl L)).map (Over.homMk ψ0 hψw) = φ := by
-    apply Over.OverMorphism.ext
-    apply pullback.hom_ext
-    · simp only [Over.pullback_map_left, pullback.lift_fst, Over.homMk_left]
-      show pullback.fst _ _ ≫ j ≫ φL ≫ pullback.fst _ _ = φ.left ≫ pullback.fst _ _
-      rw [← Category.assoc, hj, ← Category.assoc, hφL, Category.assoc, xc_fst]
-    · simp only [Over.pullback_map_left, pullback.lift_snd]
-      exact hφs.symm
-  refine ⟨Over.homMk ψ0 hψw, hex, fun ψ' hψ' => ?_⟩
-  have hfe : Epi (pullback.fst X.hom (sp (algebraMap L Qbar))) :=
-    TwistDescentGD.epi_of_isPullback_field (IsPullback.of_hasPullback X.hom _)
-  apply Over.OverMorphism.ext
-  apply (cancel_epi (pullback.fst X.hom (sp (algebraMap L Qbar)))).mp
-  have e1 := congrArg (fun f => f.left ≫ pullback.fst Y.hom (sp (algebraMap L Qbar)))
-    (hψ'.trans hex.symm)
-  simp only [Over.pullback_map_left, pullback.lift_fst] at e1
-  exact e1
-
-end G0ModField.KernelField
-
-end TwistDescentGDM
-
 
 
 /-! # twist-descent, part FINAL: consequences (kf-glue's reductions with `TwistDescent` discharged) -/
@@ -88851,6 +88775,7 @@ attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra
 section G0A2_c80_propts
 -- (leaf-fold3) mk_propts.py: prop-ts PropTS.lean (lines 25-29, 64-906), prop-ts-glue PropTSGlue.lean (after the PropTS body),
 -- then ts-kummer, kummer-comp, ts-hecke, hecke-rest (after the PropTS body, already-present declarations dropped)
+set_option synthInstance.maxHeartbeats 400000
 
 open CategoryTheory AlgebraicGeometry Limits
 open LeafQM.AV GlueDescent.B2Q
@@ -89052,9 +88977,6 @@ theorem propTSAll_of_coverModel (hB : BeckmannSIT)
 /-! ## Part 5: only the leaf's own triple needs a cover model (via the kernel's `MobiusGlue`) -/
 
 open LeafQM.AV.Pin
-
-/-- Intermediate fields of `ℚ̄/ℚ`. -/
-abbrev IF : Type := IntermediateField ℚ Qbar
 
 /-- Any two morphisms `Spec K ⟶ Spec ℚ` agree (copied from `scratch/fibre-cover/FibreCover.lean`). -/
 theorem spec_to_specQ_eq {K : Type} [Field K]
@@ -92954,7 +92876,7 @@ end
 
 
 
-/-! ## leaf-fold3: ts-kummer/KummerTS.lean after the PropTS body, declarations already above dropped -/
+/-! ## leaf-fold3: kummer-comp/KummerComp.lean after the PropTS body, declarations already above dropped -/
 
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
@@ -93007,7 +92929,6 @@ section Field
 
 variable (k : Type*) [Field k] (A : Type*) [CommRing A] [Algebra k A] [Module.Finite k A]
 
-attribute [local instance] IsArtinianRing.fieldOfSubtypeIsMaximal in
 end Field
 
 
@@ -93088,7 +93009,6 @@ open scoped TensorProduct
 
 universe u
 
-attribute [local instance] Polynomial.algebra in
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -95223,662 +95143,6 @@ theorem kummerVerticalInf_proof : KummerVerticalInf := by
   rw [← hQpe]
   exact (unramBaseChange Rz (RatFunc ℚ) E E' Rz (RatFunc ℚ) ι σ hσ hadj
     (vertical_hL E p hp hdeg hV Rz (fun f => IsLocalization.lift_eq _ f)) Qp).1
-/-- Every element of `ℚ(X)` lies in the subfield generated by `X`. -/
-theorem ratFunc_mem_closure (z : RatFunc ℚ) : z ∈ Subfield.closure {(RatFunc.X : RatFunc ℚ)} := by
-  have hpoly : ∀ f : ℚ[X], algebraMap ℚ[X] (RatFunc ℚ) f ∈
-      Subfield.closure {(RatFunc.X : RatFunc ℚ)} := by
-    intro f
-    induction f using Polynomial.induction_on with
-    | C a =>
-      rw [RatFunc.algebraMap_C, eq_ratCast]
-      exact SubfieldClass.ratCast_mem _ a
-    | add f g hf hg => rw [map_add]; exact add_mem hf hg
-    | monomial k a _ =>
-      rw [pow_succ, ← mul_assoc, map_mul, RatFunc.algebraMap_X]
-      exact mul_mem (by assumption) (Subfield.subset_closure rfl)
-  obtain ⟨a, b, hb, rfl⟩ := IsFractionRing.div_surjective (A := ℚ[X]) z
-  exact div_mem (hpoly a) (hpoly b)
-
-/-- A non-constant rational function `P/Q` is transcendental over `ℚ`. -/
-theorem ratFunc_transc (P Q : ℚ[X]) (hQ : Q ≠ 0) (hnc : ∀ a : ℚ, P ≠ C a * Q) (f : ℚ[X])
-    (hf : aeval (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) f = 0) :
-    f = 0 := by
-  by_contra hf0
-  set x := algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q
-  have hxQ : IsIntegral ℚ x := (isAlgebraic_iff_isIntegral).mp ⟨f, hf0, hf⟩
-  have hxP : IsIntegral ℚ[X] x := hxQ.tower_top
-  obtain ⟨g, hg⟩ := (IsIntegrallyClosed.isIntegral_iff (R := ℚ[X]) (K := RatFunc ℚ)).mp hxP
-  have h1 : aeval (algebraMap ℚ[X] (RatFunc ℚ) g) f = algebraMap ℚ[X] (RatFunc ℚ) (f.comp g) := by
-    have := Polynomial.aeval_algHom_apply (IsScalarTower.toAlgHom ℚ ℚ[X] (RatFunc ℚ)) g f
-    rw [Polynomial.comp_eq_aeval]
-    exact this
-  rw [← hg, h1, map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ)), comp_eq_zero_iff] at hf
-  rcases hf with hf | ⟨_, hgc⟩
-  · exact hf0 hf
-  · apply hnc (g.coeff 0)
-    have hQK : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
-      (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr hQ
-    have h2 : x = algebraMap ℚ[X] (RatFunc ℚ) (C (g.coeff 0)) := by rw [← hg, ← hgc]
-    apply IsFractionRing.injective ℚ[X] (RatFunc ℚ)
-    rw [map_mul, ← h2, div_mul_cancel₀ _ hQK]
-
-/-- A copy of `FractionRing D` carrying no instances inherited from the algebra structures of
-`D`. -/
-def KSyn (D : Type) [CommRing D] [IsDomain D] : Type := FractionRing D
-
-instance (D : Type) [CommRing D] [IsDomain D] : Field (KSyn D) :=
-  inferInstanceAs (Field (FractionRing D))
-instance (D : Type) [CommRing D] [IsDomain D] : Algebra D (KSyn D) :=
-  inferInstanceAs (Algebra D (FractionRing D))
-instance (D : Type) [CommRing D] [IsDomain D] : IsFractionRing D (KSyn D) :=
-  inferInstanceAs (IsFractionRing D (FractionRing D))
-
-/-- The identity `ℚ[X] → SrcPoly`. -/
-def toSrc (f : ℚ[X]) : SrcPoly := f
-
-/-- The construction behind `KummerCompositum`, from an abstract ring `D` (in the application
-`D = (O ⊗_{ℚ[X]} B)/𝔫` for a minimal prime `𝔫`). -/
-theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
-    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
-    (P Q : ℚ[X]) (s₀ : ℚ)
-    (𝔓 : Ideal (integralClosure ℚ[X] E)) [h𝔓m : 𝔓.IsMaximal]
-    (φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* AlgebraicClosure ℚ)
-    (O : Type) [CommRing O] [IsDomain O] [IsLocalRing O] [Algebra SrcPoly O]
-    [hp0 : (Ideal.span {toSrc (X - C s₀)}).IsPrime]
-    [IsLocalization.AtPrime O (Ideal.span {toSrc (X - C s₀)})]
-    (ρ : ℚ[X] →+* O) (hρ : Function.Injective ρ)
-    (oK : O →+* RatFunc ℚ)
-    (hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly)
-    (hoKρX : oK (ρ X) = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q)
-    (evO : O →+* ℚ) (hevO : ∀ o, evO o = 0 ↔ o ∈ maximalIdeal O)
-    (hevS : ∀ a : SrcPoly, evO (algebraMap SrcPoly O a) = a.toPoly.eval s₀)
-    (D : Type) [CommRing D] [IsDomain D] (iO : O →+* D) (hiO : Function.Injective iO)
-    (iB : integralClosure ℚ[X] E →+* D)
-    (hiB : ∀ c : ℚ[X], iB (algebraMap ℚ[X] (integralClosure ℚ[X] E) c) = iO (ρ c))
-    (hgen : ∀ d : D, d ∈ Subring.closure (Set.range iO ∪ Set.range iB))
-    (hint : iO.IsIntegral)
-    (N' : Ideal D) [hN' : N'.IsPrime] (hN'O : N'.comap iO = maximalIdeal O)
-    (hN'B : 𝔓 ≤ N'.comap iB) :
-    ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
-      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
-      (ι : E →+* E'),
-      KummerShape E E' ι (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) ∧
-      Module.finrank (RatFunc ℚ) E' ≤ Module.finrank (RatFunc ℚ) E ∧
-      ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
-        𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
-        ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* AlgebraicClosure ℚ,
-          IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ (Set.range φ') := by
-  classical
-  set p0 : Ideal SrcPoly := Ideal.span {toSrc (X - C s₀)} with hp0_def
-  -- the maps into `E' = Frac D`
-  let gO : O →+* KSyn D := (algebraMap D (KSyn D)).comp iO
-  have hgO : Function.Injective gO := (IsFractionRing.injective D (KSyn D)).comp hiO
-  let gS : ℚ[X] →+* KSyn D := gO.comp (algebraMap SrcPoly O)
-  have hSO : Function.Injective (algebraMap SrcPoly O) :=
-    IsLocalization.injective O p0.primeCompl_le_nonZeroDivisors
-  have hgS : Function.Injective gS := fun a b h => hSO (hgO h)
-  letI iK' : Algebra (RatFunc ℚ) (KSyn D) :=
-    (IsFractionRing.lift (A := ℚ[X]) (K := RatFunc ℚ) hgS).toAlgebra
-  letI iP : Algebra ℚ[X] (KSyn D) :=
-    ((algebraMap (RatFunc ℚ) (KSyn D)).comp (algebraMap ℚ[X] (RatFunc ℚ))).toAlgebra
-  haveI iT : IsScalarTower ℚ[X] (RatFunc ℚ) (KSyn D) := IsScalarTower.of_algebraMap_eq' rfl
-  have hPS : ∀ a : ℚ[X], algebraMap ℚ[X] (KSyn D) a = gS a := by
-    intro a
-    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) (KSyn D)]
-    exact IsFractionRing.lift_algebraMap hgS a
-  have hKO : ∀ o, algebraMap (RatFunc ℚ) (KSyn D) (oK o) = gO o := by
-    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp oK = gO := by
-      apply IsLocalization.ringHom_ext p0.primeCompl
-      apply RingHom.ext
-      intro a
-      simp only [RingHom.comp_apply]
-      rw [hoK]
-      exact IsFractionRing.lift_algebraMap hgS a
-    intro o
-    exact RingHom.congr_fun this o
-  -- `ι : E → E'`
-  let ιB : integralClosure ℚ[X] E →+* KSyn D := (algebraMap D (KSyn D)).comp iB
-  have hιB : Function.Injective ιB := by
-    rw [injective_iff_map_eq_zero]
-    intro b hb
-    by_contra hb0
-    have hne := Ideal.under_ne_bot_of_integral_mem (R := ℚ[X]) hb0
-      (Ideal.mem_span_singleton_self b) (Algebra.IsIntegral.isIntegral b)
-    obtain ⟨c, hc, hc0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hne
-    obtain ⟨b', hb'⟩ := Ideal.mem_span_singleton'.mp hc
-    have h1 : ιB (algebraMap ℚ[X] _ c) = 0 := by rw [← hb', map_mul, hb, mul_zero]
-    change algebraMap D (KSyn D) (iB _) = 0 at h1
-    rw [hiB] at h1
-    exact hc0 (hρ (hgO (h1.trans (map_zero gO).symm) |>.trans (map_zero ρ).symm))
-  haveI : IsFractionRing (integralClosure ℚ[X] E) E :=
-    integralClosure.isFractionRing_of_finite_extension (RatFunc ℚ) E
-  let ι : E →+* KSyn D := IsFractionRing.lift hιB
-  have hι : ∀ b, ι (algebraMap (integralClosure ℚ[X] E) E b) = ιB b :=
-    fun b => IsFractionRing.lift_algebraMap hιB b
-  have hιX : ι (algebraMap ℚ[X] E X) = gO (ρ X) := by
-    rw [IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) E, hι]
-    change algebraMap D (KSyn D) (iB _) = _
-    rw [hiB]
-    rfl
-  have hshape1 : ι (algebraMap (RatFunc ℚ) E RatFunc.X) = algebraMap (RatFunc ℚ) (KSyn D)
-      (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) := by
-    rw [← RatFunc.algebraMap_X, ← IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E, hιX,
-      ← hoKρX, hKO]
-  -- the subfield generated by `ι(E)` and `s` is everything
-  set F := Subfield.closure (Set.range ι ∪ {algebraMap (RatFunc ℚ) (KSyn D) RatFunc.X}) with hF
-  have hK'F : ∀ z : RatFunc ℚ, algebraMap (RatFunc ℚ) (KSyn D) z ∈ F := by
-    intro z
-    have h1 : Subfield.closure {(RatFunc.X : RatFunc ℚ)} ≤ F.comap (algebraMap (RatFunc ℚ) (KSyn D)) := by
-      rw [Subfield.closure_le]
-      rintro _ rfl
-      exact Subfield.subset_closure (Or.inr rfl)
-    exact h1 (ratFunc_mem_closure z)
-  have hDF : ∀ d : D, algebraMap D (KSyn D) d ∈ F := by
-    intro d
-    induction hgen d using Subring.closure_induction with
-    | mem x hx =>
-      rcases hx with ⟨o, rfl⟩ | ⟨b, rfl⟩
-      · change gO o ∈ F
-        rw [← hKO]; exact hK'F _
-      · change ιB b ∈ F
-        rw [← hι]; exact Subfield.subset_closure (Or.inl ⟨_, rfl⟩)
-    | zero => rw [map_zero]; exact zero_mem _
-    | one => rw [map_one]; exact one_mem _
-    | add x y _ _ hx hy => rw [map_add]; exact add_mem hx hy
-    | neg x _ hx => rw [map_neg]; exact neg_mem hx
-    | mul x y _ _ hx hy => rw [map_mul]; exact mul_mem hx hy
-  have hFtop : F = ⊤ := by
-    rw [eq_top_iff]
-    intro z _
-    obtain ⟨a, b, _, rfl⟩ := IsFractionRing.div_surjective (A := D) z
-    exact div_mem (hDF a) (hDF b)
-  -- `κ : ℚ(X) → ℚ(s)`, `X ↦ P/Q`, compatible with `ι`
-  have hκg : Function.Injective (oK.comp ρ) := by
-    intro a b h
-    apply hρ
-    apply hgO
-    rw [← hKO, ← hKO]
-    exact congrArg (algebraMap (RatFunc ℚ) (KSyn D)) h
-  let κ : RatFunc ℚ →+* RatFunc ℚ := IsFractionRing.lift (A := ℚ[X]) (K := RatFunc ℚ) hκg
-  have hκ : ∀ k, algebraMap (RatFunc ℚ) (KSyn D) (κ k) = ι (algebraMap (RatFunc ℚ) E k) := by
-    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp κ = ι.comp (algebraMap (RatFunc ℚ) E) := by
-      apply IsLocalization.ringHom_ext (nonZeroDivisors ℚ[X])
-      apply RingHom.ext
-      intro f
-      simp only [RingHom.comp_apply]
-      rw [IsFractionRing.lift_algebraMap, RingHom.comp_apply, hKO,
-        ← IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
-        IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) E, hι]
-      change gO (ρ f) = algebraMap D (KSyn D) (iB _)
-      rw [hiB]
-      rfl
-    intro k
-    exact RingHom.congr_fun this k
-  -- a primitive element
-  obtain ⟨θ, hθ⟩ := Field.exists_primitive_element (RatFunc ℚ) E
-  have hθint : IsIntegral (RatFunc ℚ) θ := .of_finite _ _
-  set m := minpoly (RatFunc ℚ) θ
-  have hroot : aeval (ι θ) (m.map κ) = 0 := by
-    rw [aeval_def, eval₂_map]
-    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp κ = ι.comp (algebraMap (RatFunc ℚ) E) :=
-      RingHom.ext hκ
-    rw [this, ← Polynomial.hom_eval₂, ← aeval_def, minpoly.aeval, map_zero]
-  have hmon : (m.map κ).Monic := (minpoly.monic hθint).map κ
-  have hιθint : IsIntegral (RatFunc ℚ) (ι θ) := ⟨_, hmon, hroot⟩
-  -- `E' = ℚ(s)(ι θ)`
-  have hadjtop : IntermediateField.adjoin (RatFunc ℚ) {ι θ} = ⊤ := by
-    set L' := IntermediateField.adjoin (RatFunc ℚ) {ι θ}
-    have hrange : ∀ e : E, ι e ∈ L' := by
-      intro e
-      have hle : (IntermediateField.adjoin (RatFunc ℚ) {θ}).toSubfield ≤
-          L'.toSubfield.comap ι := by
-        rw [IntermediateField.adjoin_toSubfield, Subfield.closure_le]
-        rintro _ (⟨k, rfl⟩ | h)
-        · change ι (algebraMap (RatFunc ℚ) E k) ∈ L'
-          rw [← hκ]; exact L'.algebraMap_mem _
-        · rw [Set.mem_singleton_iff] at h
-          subst h
-          exact IntermediateField.mem_adjoin_simple_self _ _
-      have he : e ∈ (IntermediateField.adjoin (RatFunc ℚ) {θ}).toSubfield := by
-        rw [hθ]; trivial
-      exact hle he
-    have hFle : F ≤ L'.toSubfield := by
-      rw [hF, Subfield.closure_le]
-      rintro _ (⟨e, rfl⟩ | h)
-      · exact hrange e
-      · rw [Set.mem_singleton_iff] at h
-        rw [h]; exact L'.algebraMap_mem _
-    rw [eq_top_iff]
-    intro z _
-    exact hFle (hFtop ▸ Subfield.mem_top z)
-  haveI hfd : FiniteDimensional (RatFunc ℚ) (KSyn D) := by
-    have h1 := IntermediateField.adjoin.finiteDimensional hιθint
-    rw [hadjtop] at h1
-    exact LinearEquiv.finiteDimensional IntermediateField.topEquiv.toLinearEquiv
-  have hfin : Module.finrank (RatFunc ℚ) (KSyn D) ≤ Module.finrank (RatFunc ℚ) E := by
-    rw [← IntermediateField.finrank_top', ← hadjtop, IntermediateField.adjoin.finrank hιθint,
-      ← IntermediateField.finrank_top' (F := RatFunc ℚ) (E := E), ← hθ,
-      IntermediateField.adjoin.finrank hθint]
-    calc (minpoly (RatFunc ℚ) (ι θ)).natDegree ≤ (m.map κ).natDegree :=
-          natDegree_le_of_dvd (minpoly.dvd _ _ hroot) hmon.ne_zero
-      _ = m.natDegree := natDegree_map κ
-  -- the integral closure `C` of `O` in `E'` and a prime `𝔐` of `C` over `N'`
-  letI iOE : Algebra O (KSyn D) := gO.toAlgebra
-  letI iOD : Algebra O D := iO.toAlgebra
-  haveI : IsScalarTower O D (KSyn D) := IsScalarTower.of_algebraMap_eq' rfl
-  haveI : Algebra.IsIntegral O D := ⟨hint⟩
-  let jD : D →ₐ[O] integralClosure O (KSyn D) :=
-    (IsScalarTower.toAlgHom O D (KSyn D)).codRestrict (integralClosure O (KSyn D))
-      (fun d => (Algebra.IsIntegral.isIntegral (R := O) d).map (IsScalarTower.toAlgHom O D (KSyn D)))
-  have hjD : Function.Injective jD := by
-    intro x y h
-    exact IsFractionRing.injective D (KSyn D) (congrArg Subtype.val h)
-  letI iDC : Algebra D (integralClosure O (KSyn D)) := jD.toRingHom.toAlgebra
-  haveI : IsScalarTower O D (integralClosure O (KSyn D)) :=
-    IsScalarTower.of_algebraMap_eq (fun o => (jD.commutes o).symm)
-  haveI : Algebra.IsIntegral D (integralClosure O (KSyn D)) :=
-    Algebra.IsIntegral.tower_top O
-  have hkerD : (⊥ : Ideal (integralClosure O (KSyn D))).under D ≤ N' := by
-    intro x hx
-    have : jD x = 0 := hx
-    rw [hjD (this.trans (map_zero jD).symm)]
-    exact N'.zero_mem
-  obtain ⟨𝔐, -, h𝔐p, h𝔐⟩ := Ideal.exists_ideal_over_prime_of_isIntegral (S := integralClosure O (KSyn D)) N' ⊥ hkerD
-  have hmem𝔐 : ∀ d : D, jD d ∈ 𝔐 ↔ d ∈ N' := by
-    intro d
-    rw [← h𝔐]
-    rfl
-  -- `B' ⊆ C`
-  let sO : ℚ[X] →+* O := algebraMap SrcPoly O
-  have hintB' : ∀ x : KSyn D, IsIntegral ℚ[X] x → IsIntegral O x := by
-    intro x ⟨p, hp, hpx⟩
-    refine ⟨p.map sO, hp.map _, ?_⟩
-    rw [eval₂_map]
-    have : (algebraMap O (KSyn D)).comp sO = algebraMap ℚ[X] (KSyn D) :=
-      RingHom.ext fun a => (hPS a).symm
-    rw [this]; exact hpx
-  let jB : integralClosure ℚ[X] (KSyn D) →+* integralClosure O (KSyn D) :=
-    { toFun := fun x => ⟨x.1, hintB' x.1 x.2⟩
-      map_one' := rfl
-      map_mul' := fun _ _ => rfl
-      map_zero' := rfl
-      map_add' := fun _ _ => rfl }
-  have hjBalg : ∀ a : ℚ[X], jB (algebraMap ℚ[X] _ a) =
-      jD (iO (algebraMap SrcPoly O a)) := by
-    intro a
-    apply Subtype.ext
-    change algebraMap ℚ[X] (KSyn D) a = gO (algebraMap SrcPoly O a)
-    exact hPS a
-  set 𝔓' := 𝔐.comap jB with h𝔓'_def
-  haveI : 𝔓'.IsPrime := Ideal.IsPrime.comap jB
-  have hunder : 𝔓'.under ℚ[X] = Ideal.span {X - C s₀} := by
-    ext a
-    change jB (algebraMap ℚ[X] _ a) ∈ 𝔐 ↔ _
-    rw [hjBalg, hmem𝔐, ← Ideal.mem_comap, hN'O]
-    change algebraMap SrcPoly O (toSrc a) ∈ maximalIdeal O ↔ _
-    rw [IsLocalization.AtPrime.to_map_mem_maximal_iff O p0]
-    rfl
-  -- residue fields and the extension `φ'`
-  haveI hN'm : N'.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := O) N'
-    (by change (N'.comap iO).IsMaximal; rw [hN'O]; infer_instance)
-  haveI h𝔐m : 𝔐.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := D) 𝔐
-    (by rw [h𝔐]; exact hN'm)
-  have h𝔐O : 𝔐.under O = maximalIdeal O := by
-    ext o
-    change jD (iO o) ∈ 𝔐 ↔ _
-    rw [hmem𝔐, ← Ideal.mem_comap, hN'O]
-  haveI : 𝔐.LiesOver (maximalIdeal O) := ⟨h𝔐O.symm⟩
-  letI : Field (integralClosure ℚ[X] E ⧸ 𝔓) := Ideal.Quotient.field 𝔓
-  letI : Field (integralClosure O (KSyn D) ⧸ 𝔐) := Ideal.Quotient.field 𝔐
-  let ψ1 : (integralClosure ℚ[X] E ⧸ 𝔓) →+* (integralClosure O (KSyn D) ⧸ 𝔐) :=
-    Ideal.Quotient.lift 𝔓 ((Ideal.Quotient.mk 𝔐).comp (jD.toRingHom.comp iB)) (fun b hb => by
-      rw [RingHom.comp_apply, Ideal.Quotient.eq_zero_iff_mem]
-      exact (hmem𝔐 _).mpr (hN'B hb))
-  letI aψ : Algebra (integralClosure ℚ[X] E ⧸ 𝔓) (integralClosure O (KSyn D) ⧸ 𝔐) :=
-    ψ1.toAlgebra
-  letI aφ : Algebra (integralClosure ℚ[X] E ⧸ 𝔓) (AlgebraicClosure ℚ) := φ.toAlgebra
-  haveI : Module.IsTorsionFree (integralClosure ℚ[X] E ⧸ 𝔓)
-      (integralClosure O (KSyn D) ⧸ 𝔐) :=
-    Module.isTorsionFree_iff_algebraMap_injective.mpr ψ1.injective
-  haveI : Module.IsTorsionFree (integralClosure ℚ[X] E ⧸ 𝔓) (AlgebraicClosure ℚ) :=
-    Module.isTorsionFree_iff_algebraMap_injective.mpr φ.injective
-  -- `C/𝔐` is algebraic over `B/𝔓` (both are algebraic over `ℚ ≅ O/max O`)
-  have hsurj : Function.Surjective evO := by
-    intro q
-    refine ⟨algebraMap SrcPoly O (toSrc (C q)), ?_⟩
-    rw [hevS]
-    exact eval_C
-  have hker : maximalIdeal O = RingHom.ker evO := by
-    ext o; rw [RingHom.mem_ker, hevO]
-  let e : (O ⧸ maximalIdeal O) ≃+* ℚ :=
-    (Ideal.quotEquivOfEq hker).trans (RingHom.quotientKerEquivOfSurjective hsurj)
-  let ratB : ℚ →+* (integralClosure ℚ[X] E ⧸ 𝔓) :=
-    (algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C
-  let κ0 : (O ⧸ maximalIdeal O) →+* (integralClosure ℚ[X] E ⧸ 𝔓) := ratB.comp e.toRingHom
-  have hκ0 : ψ1.comp κ0 = algebraMap (O ⧸ maximalIdeal O) (integralClosure O (KSyn D) ⧸ 𝔐) := by
-    apply RingHom.ext
-    intro z
-    obtain ⟨q, rfl⟩ := e.symm.surjective z
-    have := RingHom.ext_rat ((ψ1.comp κ0).comp e.symm.toRingHom)
-      ((algebraMap (O ⧸ maximalIdeal O) (integralClosure O (KSyn D) ⧸ 𝔐)).comp e.symm.toRingHom)
-    exact RingHom.congr_fun this q
-  haveI : Algebra.IsAlgebraic (integralClosure ℚ[X] E ⧸ 𝔓) (integralClosure O (KSyn D) ⧸ 𝔐) := by
-    constructor
-    intro y
-    obtain ⟨p, hp, hpy⟩ := Algebra.IsIntegral.isIntegral (R := O ⧸ maximalIdeal O) y
-    refine ⟨p.map κ0, (hp.map κ0).ne_zero, ?_⟩
-    rw [aeval_def, eval₂_map]
-    change eval₂ (ψ1.comp κ0) y p = 0
-    rw [hκ0]
-    exact hpy
-  let φ'' : (integralClosure O (KSyn D) ⧸ 𝔐) →ₐ[integralClosure ℚ[X] E ⧸ 𝔓]
-      AlgebraicClosure ℚ := IsAlgClosed.lift
-  have hφ'' : ∀ x, φ'' (ψ1 x) = φ x := fun x => φ''.commutes x
-  let φ' : (integralClosure ℚ[X] (KSyn D) ⧸ 𝔓') →+* AlgebraicClosure ℚ :=
-    φ''.toRingHom.comp (Ideal.quotientMap 𝔐 jB le_rfl)
-  refine ⟨KSyn D, inferInstance, iK', iP, iT, hfd, ι, ⟨hshape1, ?_⟩, hfin, 𝔓', inferInstance,
-    hunder, φ', ?_⟩
-  · -- `E'` is generated by `ι(E)` and `s`
-    exact hFtop
-  · rw [IntermediateField.adjoin_le_iff]
-    rintro _ ⟨x, rfl⟩
-    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
-    set w := jD (iB b)
-    letI iSE : Algebra SrcPoly (KSyn D) := (gO.comp (algebraMap SrcPoly O)).toAlgebra
-    haveI : IsScalarTower SrcPoly O (KSyn D) := IsScalarTower.of_algebraMap_eq' rfl
-    obtain ⟨m, hm⟩ := IsIntegral.exists_multiple_integral_of_isLocalization
-      (R := SrcPoly) (Rₘ := O) p0.primeCompl w.1 w.2
-    have hmQ : IsIntegral ℚ[X] (m • w.1) := by
-      obtain ⟨p, hp, hpx⟩ := hm
-      refine ⟨p, hp, ?_⟩
-      have : algebraMap ℚ[X] (KSyn D) = algebraMap SrcPoly (KSyn D) :=
-        RingHom.ext fun a => hPS a
-      rw [this]
-      exact hpx
-    let y : integralClosure ℚ[X] (KSyn D) := ⟨m • w.1, hmQ⟩
-    let u : integralClosure ℚ[X] (KSyn D) := algebraMap ℚ[X] _ (m : SrcPoly).toPoly
-    have hyu : jB y = jB u * w := by
-      apply Subtype.ext
-      change (m • w.1 : KSyn D) = algebraMap ℚ[X] (KSyn D) (m : SrcPoly).toPoly * w.1
-      rw [Submonoid.smul_def, Algebra.smul_def, hPS]
-      rfl
-    have hu0 : Ideal.Quotient.mk 𝔐 (jB u) ≠ 0 := by
-      rw [Ne, Ideal.Quotient.eq_zero_iff_mem]
-      change jB (algebraMap ℚ[X] _ (m : SrcPoly).toPoly) ∈ 𝔐 → False
-      rw [hjBalg, hmem𝔐, ← Ideal.mem_comap, hN'O]
-      intro hmm
-      exact m.2 ((IsLocalization.AtPrime.to_map_mem_maximal_iff O p0 _).mp hmm)
-    have hw : Ideal.Quotient.mk 𝔐 w =
-        Ideal.Quotient.mk 𝔐 (jB y) / Ideal.Quotient.mk 𝔐 (jB u) := by
-      rw [eq_div_iff hu0, hyu, map_mul, mul_comm]
-    have hφx : φ (Ideal.Quotient.mk 𝔓 b) = φ' (Ideal.Quotient.mk 𝔓' y) /
-        φ' (Ideal.Quotient.mk 𝔓' u) := by
-      rw [← hφ'']
-      change φ'' (Ideal.Quotient.mk 𝔐 w) = _
-      rw [hw, map_div₀]
-      rfl
-    rw [hφx]
-    exact div_mem (IntermediateField.subset_adjoin _ _ ⟨_, rfl⟩)
-      (IntermediateField.subset_adjoin _ _ ⟨_, rfl⟩)
-
-
-theorem kummerCompositum_proof : KummerCompositum := by
-  intro E _ _ _ _ _ P Q t s₀ hQ hPQ hnc 𝔓 h𝔓 h𝔓u φ
-  classical
-  -- the `s`-coordinate local ring `O = ℚ[s]_(s - s₀)` (as a localization of `SrcPoly`)
-  set p0 : Ideal SrcPoly := Ideal.span {toSrc (X - C s₀)} with hp0_def
-  haveI hp0 : p0.IsPrime := by
-    change (Ideal.span {(X - C s₀ : ℚ[X])}).IsPrime
-    exact (Ideal.span_singleton_prime (X_sub_C_ne_zero s₀)).mpr (prime_X_sub_C s₀)
-  have hmem0 : ∀ f : SrcPoly, f ∈ p0 ↔ f.toPoly.eval s₀ = 0 := by
-    intro f
-    change (f.toPoly ∈ Ideal.span {(X - C s₀ : ℚ[X])}) ↔ _
-    rw [Ideal.mem_span_singleton, dvd_iff_isRoot]
-    rfl
-  set O := Localization.AtPrime p0
-  let ev0 : SrcPoly →+* ℚ := (Polynomial.evalRingHom s₀ : ℚ[X] →+* ℚ)
-  have hev0 : ∀ f : SrcPoly, ev0 f = f.toPoly.eval s₀ := fun f => rfl
-  have hunit0 : ∀ y : p0.primeCompl, IsUnit (ev0 y) := fun y =>
-    Ne.isUnit (by rw [hev0]; exact fun h => y.2 ((hmem0 _).mpr h))
-  let evO : O →+* ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := ev0) hunit0
-  have hevO : ∀ f : SrcPoly, evO (algebraMap SrcPoly O f) = f.toPoly.eval s₀ :=
-    fun f => IsLocalization.lift_eq hunit0 f
-  have hQ0 : toSrc Q ∉ p0 := fun h => hQ ((hmem0 _).mp h)
-  set r : O := IsLocalization.mk' O (toSrc P) (⟨toSrc Q, hQ0⟩ : p0.primeCompl) with hr_def
-  have hrspec : r * algebraMap SrcPoly O (toSrc Q) = algebraMap SrcPoly O (toSrc P) :=
-    IsLocalization.mk'_spec O _ _
-  have hevr : evO r = t := by
-    have h1 := congrArg evO hrspec
-    rw [map_mul, hevO, hevO] at h1
-    change evO r * Q.eval s₀ = P.eval s₀ at h1
-    rw [hPQ] at h1
-    exact mul_right_cancel₀ hQ h1
-  let Csrc : ℚ →+* SrcPoly := (Polynomial.C : ℚ →+* ℚ[X])
-  let ρ : ℚ[X] →+* O := Polynomial.eval₂RingHom ((algebraMap SrcPoly O).comp Csrc) r
-  have hevρ : ∀ f : ℚ[X], evO (ρ f) = f.eval t := by
-    have : evO.comp ρ = Polynomial.evalRingHom t := by
-      apply Polynomial.ringHom_ext
-      · intro a
-        exact RingHom.congr_fun (RingHom.ext_rat ((evO.comp ρ).comp C)
-          ((Polynomial.evalRingHom t).comp C)) a
-      · simp only [RingHom.comp_apply, coe_evalRingHom, eval_X]
-        change evO (eval₂ _ r X) = t
-        rw [eval₂_X, hevr]
-    intro f
-    exact RingHom.congr_fun this f
-  letI : Algebra ℚ[X] O := ρ.toAlgebra
-  -- `(integralClosure ℚ[X] E)` and the residue field at `𝔓`
-  haveI := h𝔓
-  let χ0 : O →+* (integralClosure ℚ[X] E) ⧸ 𝔓 := ((algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓)).comp C).comp evO
-  have hχ0 : ∀ f : ℚ[X], χ0 (ρ f) = algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓) f := by
-    intro f
-    change algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓) (C (evO (ρ f))) = _
-    rw [hevρ, ← sub_eq_zero, ← map_sub,
-      IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) ((integralClosure ℚ[X] E) ⧸ 𝔓), Ideal.Quotient.algebraMap_eq,
-      Ideal.Quotient.eq_zero_iff_mem, ← Ideal.mem_comap]
-    change _ ∈ 𝔓.under ℚ[X]
-    rw [h𝔓u, Ideal.mem_span_singleton, ← dvd_neg, neg_sub]
-    exact X_sub_C_dvd_sub_C_eval
-  let χ : O →ₐ[ℚ[X]] (integralClosure ℚ[X] E) ⧸ 𝔓 := { χ0 with commutes' := hχ0 }
-  -- the tensor product `T = O ⊗_{ℚ[X]} (integralClosure ℚ[X] E)` and the prime `N` over `𝔓` and `max O`
-  let ψ0 : O ⊗[ℚ[X]] (integralClosure ℚ[X] E) →ₐ[ℚ[X]] (integralClosure ℚ[X] E) ⧸ 𝔓 :=
-    Algebra.TensorProduct.lift χ (Ideal.Quotient.mkₐ ℚ[X] 𝔓) (fun x y => Commute.all (χ x) (Ideal.Quotient.mkₐ ℚ[X] 𝔓 y))
-  set N := RingHom.ker ψ0.toRingHom
-  haveI : N.IsPrime := RingHom.ker_isPrime _
-  obtain ⟨𝔫, h𝔫min, h𝔫N⟩ := Ideal.exists_minimalPrimes_le (I := (⊥ : Ideal (O ⊗[ℚ[X]] (integralClosure ℚ[X] E))))
-    (J := N) bot_le
-  haveI h𝔫p : 𝔫.IsPrime := h𝔫min.1.1
-  -- `T` is free over `O`
-  have hinjE : Function.Injective (algebraMap ℚ[X] E) := by
-    rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
-    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
-  haveI : Module.IsTorsionFree ℚ[X] E := Module.isTorsionFree_iff_algebraMap_injective.mpr hinjE
-  haveI : Algebra.IsSeparable (RatFunc ℚ) E := Algebra.IsAlgebraic.isSeparable_of_perfectField
-  haveI : Module.Free ℚ[X] (integralClosure ℚ[X] E) := IsIntegralClosure.module_free ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
-  haveI : Module.Finite ℚ[X] (integralClosure ℚ[X] E) := IsIntegralClosure.finite ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
-  haveI : Module.Free O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
-  haveI : Module.IsTorsionFree O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
-  have hdisj : ∀ o : O, o ≠ 0 → algebraMap O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) o ∉ 𝔫 := by
-    intro o ho hm
-    have hnzd : algebraMap O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) o ∈ nonZeroDivisors (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := by
-      rw [mem_nonZeroDivisors_iff_right]
-      intro x hx
-      rw [mul_comm, ← Algebra.smul_def] at hx
-      exact (smul_eq_zero_iff_right ho).mp hx
-    exact Set.disjoint_left.mp (Ideal.disjoint_nonZeroDivisors_of_mem_minimalPrimes h𝔫min) hm hnzd
-  -- the map `O → ℚ(s)` and injectivity of `ρ`
-  let sK : SrcPoly →+* RatFunc ℚ := algebraMap ℚ[X] (RatFunc ℚ)
-  have hS_K : ∀ y : p0.primeCompl, IsUnit (sK y) := by
-    intro y
-    refine Ne.isUnit fun h0 => y.2 ?_
-    have : (y : SrcPoly) = 0 := IsFractionRing.injective ℚ[X] (RatFunc ℚ)
-      (h0.trans (map_zero sK).symm)
-    rw [this]; exact p0.zero_mem
-  let oK : O →+* RatFunc ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := sK) hS_K
-  have hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly :=
-    fun a => IsLocalization.lift_eq hS_K a
-  have hQK : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
-    (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
-      (fun h0 => hQ (by rw [h0, eval_zero]))
-  have hoKr : oK r = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q := by
-    have h1 := congrArg oK hrspec
-    rw [map_mul, hoK, hoK] at h1
-    rw [eq_div_iff hQK]; exact h1
-  have hoKρ : ∀ f : ℚ[X], oK (ρ f) =
-      aeval (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) f := by
-    have : oK.comp ρ = (aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
-        algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom := by
-      apply Polynomial.ringHom_ext
-      · intro a
-        exact RingHom.congr_fun (RingHom.ext_rat ((oK.comp ρ).comp C)
-          (((aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
-            algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom).comp C)) a
-      · simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe, aeval_X]
-        change oK (eval₂ _ r X) = _
-        rw [eval₂_X, hoKr]
-    intro f
-    exact RingHom.congr_fun this f
-  have hρinj : Function.Injective ρ := by
-    rw [injective_iff_map_eq_zero]
-    intro f hf
-    have := hoKρ f
-    rw [hf, map_zero] at this
-    exact ratFunc_transc P Q (fun h0 => hQ (by rw [h0, eval_zero])) hnc f this.symm
-  -- the injection `ρ` and the map `O → ℚ(s)`
-  let sK : SrcPoly →+* RatFunc ℚ := algebraMap ℚ[X] (RatFunc ℚ)
-  have hS_K : ∀ y : p0.primeCompl, IsUnit (sK y) := by
-    intro y
-    refine Ne.isUnit fun h0 => y.2 ?_
-    have : (y : SrcPoly) = 0 := IsFractionRing.injective ℚ[X] (RatFunc ℚ)
-      (h0.trans (map_zero sK).symm)
-    rw [this]; exact p0.zero_mem
-  let oK : O →+* RatFunc ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := sK) hS_K
-  have hoK : ∀ a : SrcPoly, oK (algebraMap SrcPoly O a) = algebraMap ℚ[X] (RatFunc ℚ) a.toPoly :=
-    fun a => IsLocalization.lift_eq hS_K a
-  have hQK : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
-    (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
-      (fun h0 => hQ (by rw [h0, eval_zero]))
-  have hoKr : oK r = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q := by
-    have h1 := congrArg oK hrspec
-    rw [map_mul, hoK, hoK] at h1
-    rw [eq_div_iff hQK]; exact h1
-  have hρX : ρ X = r := by simp [ρ]
-  have hoKρ : ∀ f : ℚ[X], oK (ρ f) =
-      aeval (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) f := by
-    have : oK.comp ρ = (aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
-        algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom := by
-      apply Polynomial.ringHom_ext
-      · intro a
-        exact RingHom.congr_fun (RingHom.ext_rat ((oK.comp ρ).comp C)
-          (((aeval (algebraMap ℚ[X] (RatFunc ℚ) P /
-            algebraMap ℚ[X] (RatFunc ℚ) Q) : ℚ[X] →ₐ[ℚ] RatFunc ℚ).toRingHom).comp C)) a
-      · simp only [RingHom.comp_apply, AlgHom.toRingHom_eq_coe, RingHom.coe_coe, aeval_X]
-        rw [hρX, hoKr]
-    intro f
-    exact RingHom.congr_fun this f
-  have hρinj : Function.Injective ρ := by
-    rw [injective_iff_map_eq_zero]
-    intro f hf
-    have := hoKρ f
-    rw [hf, map_zero] at this
-    exact ratFunc_transc P Q (fun h0 => hQ (by rw [h0, eval_zero])) hnc f this.symm
-  -- the kernel of `evO` is the maximal ideal
-  have hevOmax : ∀ o, evO o = 0 ↔ o ∈ maximalIdeal O := by
-    intro o
-    obtain ⟨⟨a, s⟩, rfl⟩ := IsLocalization.mk'_surjective p0.primeCompl o
-    have hs : evO (algebraMap SrcPoly O s) ≠ 0 := by
-      rw [hevO]; exact fun h => s.2 ((hmem0 _).mpr h)
-    have hspec := IsLocalization.mk'_spec O a s
-    rw [IsLocalization.AtPrime.mk'_mem_maximal_iff O p0, hmem0, ← hevO]
-    constructor
-    · intro h0
-      rw [← hspec, map_mul, h0, zero_mul]
-    · intro h0
-      rw [← hspec, map_mul] at h0
-      exact (mul_eq_zero.mp h0).resolve_right hs
-  -- `D = T/𝔫` and the data of `kc_core`
-  haveI : IsDomain ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) := Ideal.Quotient.isDomain 𝔫
-  haveI h𝔓m : 𝔓.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := ℚ[X]) 𝔓
-    (by rw [h𝔓u]; exact PrincipalIdealRing.isMaximal_of_irreducible (irreducible_X_sub_C t))
-  have hiO : ∀ o : O, algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) o =
-      Ideal.Quotient.mk 𝔫 (o ⊗ₜ 1) := fun o => rfl
-  have hiOinj : Function.Injective
-      (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) := by
-    rw [injective_iff_map_eq_zero]
-    intro o ho
-    by_contra hne
-    apply hdisj o hne
-    rw [hiO, Ideal.Quotient.eq_zero_iff_mem] at ho
-    exact ho
-  let iB : integralClosure ℚ[X] E →+* (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫 :=
-    (Ideal.Quotient.mk 𝔫).comp (Algebra.TensorProduct.includeRight.toRingHom)
-  have hiB : ∀ c : ℚ[X], iB (algebraMap ℚ[X] (integralClosure ℚ[X] E) c) =
-      algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) (ρ c) := by
-    intro c
-    rw [hiO]
-    change Ideal.Quotient.mk 𝔫 (1 ⊗ₜ algebraMap ℚ[X] _ c) = _
-    rw [← Algebra.TensorProduct.algebraMap_apply', Algebra.TensorProduct.algebraMap_apply]
-    rfl
-  have hgen : ∀ d : (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫,
-      d ∈ Subring.closure (Set.range (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) ∪
-        Set.range iB) := by
-    intro d
-    obtain ⟨w, rfl⟩ := Ideal.Quotient.mk_surjective d
-    induction w using TensorProduct.induction_on with
-    | zero => rw [map_zero]; exact zero_mem _
-    | tmul o b =>
-      have : Ideal.Quotient.mk 𝔫 (o ⊗ₜ[ℚ[X]] b) =
-          algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) o * iB b := by
-        rw [hiO]
-        change _ = Ideal.Quotient.mk 𝔫 (o ⊗ₜ 1) * Ideal.Quotient.mk 𝔫 (1 ⊗ₜ b)
-        rw [← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
-      rw [this]
-      exact mul_mem (Subring.subset_closure (Or.inl ⟨o, rfl⟩))
-        (Subring.subset_closure (Or.inr ⟨b, rfl⟩))
-    | add x y hx hy => rw [map_add]; exact add_mem hx hy
-  haveI : Module.Finite O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
-  haveI : Algebra.IsIntegral O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫) := inferInstance
-  have hint : (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)).IsIntegral :=
-    fun d => Algebra.IsIntegral.isIntegral d
-  set N' := N.map (Ideal.Quotient.mk 𝔫) with hN'_def
-  haveI : N'.IsPrime := Ideal.map_isPrime_of_surjective Ideal.Quotient.mk_surjective
-    (by rw [Ideal.mk_ker]; exact h𝔫N)
-  have hNcomap : N'.comap (Ideal.Quotient.mk 𝔫) = N := by
-    rw [hN'_def, Ideal.comap_map_of_surjective _ Ideal.Quotient.mk_surjective, ← RingHom.ker_eq_comap_bot,
-      Ideal.mk_ker, sup_eq_left.mpr h𝔫N]
-  have hratB : Function.Injective ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C) :=
-    RingHom.injective _
-  have hN'O : N'.comap (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) =
-      maximalIdeal O := by
-    ext o
-    rw [Ideal.mem_comap, hiO, ← Ideal.mem_comap, hNcomap, ← hevOmax]
-    change ψ0 (o ⊗ₜ 1) = 0 ↔ _
-    rw [Algebra.TensorProduct.lift_tmul, map_one, mul_one]
-    change ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C) (evO o) = 0 ↔ _
-    rw [← map_zero ((algebraMap ℚ[X] (integralClosure ℚ[X] E ⧸ 𝔓)).comp C)]
-    exact hratB.eq_iff
-  have hN'B : 𝔓 ≤ N'.comap iB := by
-    intro b hb
-    rw [Ideal.mem_comap]
-    change Ideal.Quotient.mk 𝔫 (1 ⊗ₜ b) ∈ N'
-    rw [← Ideal.mem_comap, hNcomap]
-    change ψ0 (1 ⊗ₜ b) = 0
-    rw [Algebra.TensorProduct.lift_tmul, map_one, one_mul]
-    exact Ideal.Quotient.eq_zero_iff_mem.mpr hb
-  refine kc_core E P Q s₀ 𝔓 φ O ρ hρinj oK ?_ ?_ evO ?_ ?_
-    ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)
-    (algebraMap O ((O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) ⧸ 𝔫)) ?_ iB ?_ ?_ ?_ N' ?_ ?_
-  · exact hoK
-  · rw [hρX, hoKr]
-  · exact hevOmax
-  · exact hevO
-  · exact hiOinj
-  · exact hiB
-  · exact hgen
-  · exact hint
-  · exact hN'O
-  · exact hN'B
-
 end TsKummer
 
 /-! ## ts-kummer: the Kummer pieces of `PropTSGlue`, final statements -/
@@ -95901,237 +95165,19 @@ theorem kummerVerticalFin : KummerVerticalFin := kummerVerticalFin_proof
 /-- **`KummerVerticalInf` is proved.** -/
 theorem kummerVerticalInf : KummerVerticalInf := kummerVerticalInf_proof
 
-/-- **`KummerCompositum` is proved.** -/
-theorem kummerCompositum : KummerCompositum := kummerCompositum_proof
-
-/-- **`KummerMeetGlue` is proved** (all seven Kummer pieces are proved; the two Abhyankar pieces
-use T2, which is `KummerMeetGlue`'s own hypothesis). -/
-theorem kummerMeetGlue : KummerMeetGlue := kummerMeetGlue_of_compositum kummerCompositum
-
-/-- `KummerMeetGlue` from `KummerCompositum` alone (the other six Kummer pieces are proved;
+/-- **`KummerMeetGlue` from `KummerCompositum` alone** (the other six Kummer pieces are proved;
 the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/
 theorem kummerMeetGlue_of_compositum (hC : KummerCompositum) : KummerMeetGlue :=
   kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
     kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
 
-/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed
-(superseded by `propTSAll_ts'`). -/
+/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed. -/
 theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
     (hS : SNSpecialize) (hC : KummerCompositum)
     (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
     (hV : HeckeNoVertRam) : PropTSAll :=
   propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
     kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf hI hNI hD hB hV
-
-/-- **`PropTSAll` with all seven Kummer pieces removed**: from T2, `R1R2fp`, `MobiusGlue`,
-`SNSpecialize` and the five Hecke Props. -/
-theorem propTSAll_ts' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
-    (hS : SNSpecialize)
-    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
-    (hV : HeckeNoVertRam) : PropTSAll :=
-  propTSAll_ts t2 hR hM hS kummerCompositum hI hNI hD hB hV
-
-end TsKummer
-
-
-
-/-! ## leaf-fold3: kummer-comp/KummerComp.lean after the PropTS body, declarations already above dropped -/
-
-
-/-! ════════════════════════════════════════════════════════════════════════════════════════════
-# Copy of `scratch/t-purity3/PurityDim2.lean` (origin/wip/t-purity3, commit 7e4d4dd0), verbatim
-except for the `import Mathlib` line and the trailing `#print axioms` lines, wrapped in a section
-so that its `open`s stay local. It proves `TPurity3.purityGlobalDim2`.
-════════════════════════════════════════════════════════════════════════════════════════════ -/
-
-section TPurity3Copy
-
-/-!
-# Zariski–Nagata purity over a two-dimensional regular local base (t-purity3)
-
-Self-contained concatenation of `PurityFree.lean`, the `S₂` section of `FreeDim2.lean` and
-`Regular2.lean`, plus the final assembly:
-
-* `TPurity3.etale_of_free_of_isUnramifiedIn_height_one` — purity for finite free algebras over a
-  Noetherian local domain;
-* `TPurity3.uniqueFactorizationMonoid_of_dim2` — a 2-dimensional regular local domain is a UFD;
-* `TPurity3.normalFreeDim2` — a normal domain, finite and torsion-free over a 2-dimensional regular
-  local ring, is free;
-* **`TPurity3.purityGlobalDim2`** — purity of the branch locus for such an algebra (global over a
-  local base), with no hypotheses beyond the statement;
-* `TPurity3.purityGlobalDim1` — the same over a 1-dimensional regular local base.
--/
-
-open IsLocalRing Pointwise
-
-/-!
-# Purity of the branch locus for finite free algebras (t-purity3)
-
-A finite free algebra `S` over a Noetherian local domain `R` (not a field) that is unramified at
-every prime lying over a height-one prime of `R` is étale.  Proof: the discriminant `d` of a basis
-is not in any height-one prime (fibre argument + trace form), hence a unit (Krull's principal
-ideal theorem), hence the closed fibre is unramified and Nakayama kills `Ω[S⁄R]`.
--/
-
-open Algebra TensorProduct
-
-namespace TPurity3
-
-section Pi
-
-variable {k : Type*} [Field k] {ι : Type*} [Fintype ι] [DecidableEq ι]
-  (L : ι → Type*) [∀ i, CommRing (L i)] [∀ i, Algebra k (L i)] [∀ i, Module.Finite k (L i)]
-
-end Pi
-
-section Field
-
-variable (k : Type*) [Field k] (A : Type*) [CommRing A] [Algebra k A] [Module.Finite k A]
-
-attribute [local instance] IsArtinianRing.fieldOfSubtypeIsMaximal in
-end Field
-
-
-section BaseChange
-
-variable {R S : Type*} [CommRing R] [CommRing S] [Algebra R S] [Module.Free R S]
-  [Module.Finite R S] (A : Type*) [CommRing A] [Algebra R A]
-
-end BaseChange
-
-section Krull
-
-variable {R : Type*} [CommRing R] [IsDomain R] [IsNoetherianRing R]
-
-end Krull
-
-section Main
-
-variable {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
-
-end Main
-
-section Dim2
-
-universe u
-
-end Dim2
-
-section S2
-
-variable {S : Type*} [CommRing S] [IsDomain S] [IsNoetherianRing S] [IsIntegrallyClosed S]
-
-end S2
-
-section Pair
-
-variable {R : Type*} [CommRing R] [IsLocalRing R] [IsNoetherianRing R]
-
-end Pair
-
-section UFD
-
-end UFD
-
-section Final
-
-universe v
-
-end Final
-
-section RegularBase
-
-universe w
-
-end RegularBase
-
-end TPurity3
-
-end TPurity3Copy
-
-/-! ════════════════════════════════════════════════════════════════════════════════════════════
-# prop-ts-glue: the three glue Props under Proposition TS, reduced
-
-Everything above this line is `scratch/prop-ts/PropTS.lean`, copied verbatim (checked by
-`scratch/prop-ts-glue/check_identical.py`). The three Props of this task are
-`PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue` and `PropTSRed.CoverModelOfHecke`; they are
-used unchanged. Below, each is reduced to strictly smaller named Props.
-════════════════════════════════════════════════════════════════════════════════════════════ -/
-
-noncomputable section
-
-namespace PropTSGlue
-
-open Polynomial G0ModField PropTSRed
-open scoped TensorProduct
-
-/-! ## Part A: `SpecNonMeeting` from purity (t-purity3) and three pieces of commutative algebra -/
-
-universe u
-
-attribute [local instance] Polynomial.algebra in
-/-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
-facts -/
-
-/-! ### The case at `∞` -/
-
-/-! ## Part C: `CoverModelOfHecke` from three properties of the normalization chart -/
-
-/-! ### Only one triple needs a cover model -/
-
-/-! ### Sanity: the binders of the new Props are satisfiable by genuine objects -/
-
-example (h : SNSpecialize) := h (RatFunc ℚ)
-example (h : SNVertical) := h (RatFunc ℚ)
-example (h : SNHorizontalTransfer) := h (RatFunc ℚ)
-example (h : KummerCompositum) := h (RatFunc ℚ)
-example (h : KummerAbhyankarFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
-example (h : KummerOtherBranchFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
-example (h : KummerVerticalFin) := h (RatFunc ℚ) (RatFunc ℚ) (RingHom.id _)
-
-/-! ## Part D: the composite -/
-
-end PropTSGlue
-
-end
-
-
-
-/-! # ts-kummer appendix (namespace `TsKummer`) -/
-
-/-! ts-kummer development file: the abstract Abhyankar transfer (`abhyankar_core`), from T2. -/
-
-open Polynomial IsLocalRing
-open scoped TensorProduct
-open PropTSRed PropTSGlue
-
-set_option linter.style.haveILetI false
-
-noncomputable section
-
-namespace TsKummer
-
-end TsKummer
-
-namespace TsKummer
-
-end TsKummer
-
-namespace TsKummer
-
-instance : CommRing SrcPoly := inferInstanceAs (CommRing ℚ[X])
-instance : IsDomain SrcPoly := inferInstanceAs (IsDomain ℚ[X])
-instance : IsPrincipalIdealRing SrcPoly := inferInstanceAs (IsPrincipalIdealRing ℚ[X])
-instance : IsDedekindDomain SrcPoly := inferInstanceAs (IsDedekindDomain ℚ[X])
-instance : Algebra ℚ SrcPoly := inferInstanceAs (Algebra ℚ ℚ[X])
-
-end TsKummer
-
-/-! ## ts-kummer: the Kummer pieces of `PropTSGlue`, final statements -/
-
-namespace TsKummer
-
-open Polynomial G0ModField PropTSRed PropTSGlue
 
 end TsKummer
 
@@ -96692,7 +95738,6 @@ section Field
 
 variable (k : Type*) [Field k] (A : Type*) [CommRing A] [Algebra k A] [Module.Finite k A]
 
-attribute [local instance] IsArtinianRing.fieldOfSubtypeIsMaximal in
 end Field
 
 
@@ -96773,7 +95818,6 @@ open scoped TensorProduct
 
 universe u
 
-attribute [local instance] Polynomial.algebra in
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -96833,17 +95877,6 @@ namespace Pin
 
 /-! ## §A The target (verbatim) -/
 
-/-- **Algebra fact (finiteness of `Aut(𝒪)` modulo inner automorphisms by units).** Every ring
-automorphism of `𝒪` is, up to conjugation by a unit of `𝒪`, one of finitely many. (Every
-automorphism of `𝒪` extends to `B = 𝒪 ⊗ ℚ`, hence is conjugation by some `x ∈ N(𝒪)`
-(Skolem–Noether), and `N(𝒪)/ℚ^×𝒪^×` is finite: for the maximal order of the quaternion algebra
-of discriminant 6 it is the Atkin–Lehner group `W ≅ (ℤ/2)²`. STANDARD (Vignéras, *Arithmétique
-des algèbres de quaternions*; locator UNVERIFIED); not in Mathlib.) A statement about the concrete
-order `O` of the kernel only. -/
-def AutOInnerFinite : Prop :=
-  ∃ T : Set (O ≃+* O), T.Finite ∧ ∀ α : O ≃+* O, ∃ t ∈ T, ∃ v : Oˣ,
-    ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)
-
 end Pin
 
 end AV
@@ -96864,247 +95897,9 @@ namespace AutOExt
 
 /-! ### Extension of a ring automorphism of `𝒪` to `B` -/
 
-theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
-  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
-  ext <;> simp [ofInt]
-
-theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
-  rw [Algebra.smul_def, map_natCast]
-  exact O.mul_mem (natCast_mem O n) hx
-
-theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
-  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
-
-/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
-theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
-  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
-  refine ⟨m, by positivity, ?_⟩
-  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
-  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
-  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
-  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
-  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
-    ext
-    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
-    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
-    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
-    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
-  rw [e]
-  exact mem_O_of_int z0 z1 z2 z3
-
 variable (α : O ≃+* O)
 
-/-- A chosen positive integer `m` with `m b ∈ 𝒪`. -/
-def extDen (b : B) : ℕ := Classical.choose (exists_nat_smul_mem b)
-
-theorem extDen_pos (b : B) : 0 < extDen b := (Classical.choose_spec (exists_nat_smul_mem b)).1
-
-theorem extDen_mem (b : B) : ((extDen b : ℕ) : ℚ) • b ∈ O :=
-  (Classical.choose_spec (exists_nat_smul_mem b)).2
-
-/-- `α̃(b) = m⁻¹ α(m b)`. -/
-def extFun (b : B) : B := ((extDen b : ℚ)⁻¹) • (α ⟨_, extDen_mem b⟩ : B)
-
-theorem natCast_mul_eq_smul (n : ℕ) (x : B) : (n : B) * x = (n : ℚ) • x := by
-  rw [Algebra.smul_def, map_natCast]
-
-theorem alpha_nat_smul (n : ℕ) (x : B) (hx : x ∈ O) (hnx : (n : ℚ) • x ∈ O) :
-    (α ⟨_, hnx⟩ : B) = (n : ℚ) • (α ⟨x, hx⟩ : B) := by
-  have : (⟨_, hnx⟩ : O) = (n : O) * ⟨x, hx⟩ := by
-    apply Subtype.ext
-    simp only [MulMemClass.coe_mul, SubringClass.coe_natCast]
-    rw [natCast_mul_eq_smul]
-  rw [this, map_mul, map_natCast, MulMemClass.coe_mul, SubringClass.coe_natCast,
-    natCast_mul_eq_smul]
-
-/-- Independence of the choice of `m`. -/
-theorem extFun_eq (b : B) (m : ℕ) (hm : 0 < m) (hb : (m : ℚ) • b ∈ O) :
-    extFun α b = ((m : ℚ)⁻¹) • (α ⟨_, hb⟩ : B) := by
-  have hd : 0 < extDen b := extDen_pos b
-  have hdm : (m : ℚ) • ((extDen b : ℚ) • b) ∈ O := nat_smul_mem m (extDen_mem b)
-  have hmd : (extDen b : ℚ) • ((m : ℚ) • b) ∈ O := nat_smul_mem (extDen b) hb
-  have e1 := alpha_nat_smul α m _ (extDen_mem b) hdm
-  have e2 := alpha_nat_smul α (extDen b) _ hb hmd
-  have e3 : (⟨_, hdm⟩ : O) = ⟨_, hmd⟩ := Subtype.ext (smul_comm _ _ _)
-  rw [e3, e2] at e1
-  -- e1 : d • α(m b) = m • α(d b)
-  unfold extFun
-  have hX : (α ⟨_, extDen_mem b⟩ : B) = ((m : ℚ)⁻¹ * extDen b) • (α ⟨_, hb⟩ : B) := by
-    rw [mul_smul, e1, smul_smul, inv_mul_cancel₀ (by exact_mod_cast hm.ne'), one_smul]
-  rw [hX, smul_smul]
-  congr 1
-  have : (extDen b : ℚ) ≠ 0 := by exact_mod_cast hd.ne'
-  field_simp
-
-theorem extFun_coe (a : O) : extFun α a = α a := by
-  have h1 : ((1 : ℕ) : ℚ) • (a : B) ∈ O := by simp
-  rw [extFun_eq α a 1 one_pos h1]
-  have : (⟨_, h1⟩ : O) = a := Subtype.ext (by simp)
-  rw [this]; simp
-
-/-- A common multiplier for two elements. -/
-theorem common_den (b c : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O ∧ (m : ℚ) • c ∈ O := by
-  refine ⟨extDen b * extDen c, Nat.mul_pos (extDen_pos b) (extDen_pos c), ?_, ?_⟩
-  · have := nat_smul_mem (extDen c) (extDen_mem b)
-    rwa [smul_smul, ← Nat.cast_mul, mul_comm] at this
-  · have := nat_smul_mem (extDen b) (extDen_mem c)
-    rwa [smul_smul, ← Nat.cast_mul] at this
-
-theorem extFun_add (b c : B) : extFun α (b + c) = extFun α b + extFun α c := by
-  obtain ⟨m, hm, hb, hc⟩ := common_den b c
-  have hbc : (m : ℚ) • (b + c) ∈ O := by rw [smul_add]; exact O.add_mem hb hc
-  rw [extFun_eq α _ m hm hbc, extFun_eq α _ m hm hb, extFun_eq α _ m hm hc, ← smul_add]
-  congr 1
-  have : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ + ⟨_, hc⟩ := Subtype.ext (by simp [smul_add])
-  rw [this, map_add]; rfl
-
-theorem smul_mul_smul' (r s : ℚ) (x y : B) : (r • x) * (s • y) = (r * s) • (x * y) := by
-  rw [smul_mul_assoc, mul_smul_comm, smul_smul]
-
-theorem extFun_mul (b c : B) : extFun α (b * c) = extFun α b * extFun α c := by
-  obtain ⟨m, hm, hb, hc⟩ := common_den b c
-  have hbc0 : ((m : ℚ) * m) • (b * c) ∈ O := by
-    rw [← smul_mul_smul']; exact O.mul_mem hb hc
-  have hbc : ((m * m : ℕ) : ℚ) • (b * c) ∈ O := by rw [Nat.cast_mul]; exact hbc0
-  have hprod : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ * ⟨_, hc⟩ := by
-    apply Subtype.ext
-    show ((m * m : ℕ) : ℚ) • (b * c) = ((m : ℚ) • b) * ((m : ℚ) • c)
-    rw [smul_mul_smul', Nat.cast_mul]
-  have e1 : (α ⟨_, hbc⟩ : B) = (α ⟨_, hb⟩ : B) * (α ⟨_, hc⟩ : B) := by
-    rw [hprod, map_mul, MulMemClass.coe_mul]
-  rw [extFun_eq α _ (m * m) (Nat.mul_pos hm hm) hbc, extFun_eq α _ m hm hb,
-    extFun_eq α _ m hm hc, smul_mul_smul', e1, Nat.cast_mul, mul_inv]
-
-theorem extFun_algebraMap (q : ℚ) : extFun α (algebraMap ℚ B q) = algebraMap ℚ B q := by
-  have hq : ((q.den : ℕ) : ℚ) • algebraMap ℚ B q ∈ O := by
-    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast]
-    exact intCast_mem O q.num
-  rw [extFun_eq α _ q.den q.den_pos hq]
-  have : (⟨_, hq⟩ : O) = (q.num : O) := Subtype.ext (by
-    simp only [SubringClass.coe_intCast]
-    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast])
-  rw [this, map_intCast, SubringClass.coe_intCast, ← map_intCast (algebraMap ℚ B),
-    Algebra.smul_def, ← map_mul]
-  congr 1
-  rw [inv_mul_eq_div, Rat.num_div_den]
-
-/-- The extension `α̃ : B → B` as a `ℚ`-algebra map. -/
-def extAlgHom : B →ₐ[ℚ] B where
-  toFun := extFun α
-  map_one' := by simpa using extFun_coe α 1
-  map_zero' := by simpa using extFun_coe α 0
-  map_add' := extFun_add α
-  map_mul' := extFun_mul α
-  commutes' := extFun_algebraMap α
-
-theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
-
-theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
-
-theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
-  refine AlgHom.ext fun b => ?_
-  change extAlgHom α.symm (extFun α b) = b
-  rw [extFun_eq α b (extDen b) (extDen_pos b) (extDen_mem b), map_smul, extAlgHom_coe,
-    RingEquiv.symm_apply_apply, smul_smul, inv_mul_cancel₀ (by exact_mod_cast (extDen_pos b).ne'),
-    one_smul]
-
-/-- The extension as a `ℚ`-algebra automorphism of `B`. -/
-def extAlgEquiv : B ≃ₐ[ℚ] B :=
-  AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
-    (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
-
-theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
-
 /-! ### `AutOInnerFinite` from Skolem–Noether and the normalizer -/
-
-/-- **Normalizer fact (N(𝒪)/ℚ^×𝒪^× finite).** Every `u ∈ B^×` normalizing `𝒪` is
-`q · v · t` with `q ∈ ℚ^×`, `v ∈ 𝒪^×` and `t` in a fixed finite set. -/
-def NormalizerFinite : Prop :=
-  ∃ T : Set Bˣ, T.Finite ∧ ∀ u : Bˣ, (∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) →
-    ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B)
-
-/-- Skolem–Noether (proved in the kernel, `TSkolemKW.leafSkolemNoether`) applied to `α̃`. -/
-theorem conj_of_skolem : ∃ u : Bˣ, ∀ b : B, extFun α b = u * b * ((u⁻¹ : Bˣ) : B) := by
-  obtain ⟨u, hu⟩ := GlueDescent.B6_inner TSkolemKW.leafSkolemNoether (extAlgEquiv α)
-  exact ⟨u, fun b => hu b⟩
-
-/-- Conjugation by a unit of `𝒪`, `a ↦ v⁻¹ a v`. -/
-def conjUnit (v : Oˣ) : O ≃+* O where
-  toFun a := ((v⁻¹ : Oˣ) : O) * a * v
-  invFun a := (v : O) * a * ((v⁻¹ : Oˣ) : O)
-  left_inv a := by
-    simp only [mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left]
-  right_inv a := by
-    simp only [mul_assoc, Units.inv_mul, mul_one, Units.inv_mul_cancel_left]
-  map_mul' a b := by
-    simp only [mul_assoc, Units.mul_inv_cancel_left]
-  map_add' a b := by
-    simp only [mul_add, add_mul]
-
-theorem key_conj {R : Type*} [Ring R] (x y w w' c c' t : R) (hvv : w' * w = 1) (hcc : c' * c = 1)
-    (hc : c * x = x * c) (h : x * (c * w * t) = c * w * t * y) : w' * x * w * t = t * y := by
-  have h1 : x * w * t = w * t * y := by
-    calc x * w * t = c' * (c * x) * w * t := by rw [← mul_assoc, hcc, one_mul]
-      _ = c' * (x * (c * w * t)) := by rw [hc]; simp only [mul_assoc]
-      _ = c' * (c * w * t * y) := by rw [h]
-      _ = w * t * y := by simp only [← mul_assoc]; rw [hcc, one_mul]
-  calc w' * x * w * t = w' * (x * w * t) := by simp only [mul_assoc]
-    _ = w' * (w * t * y) := by rw [h1]
-    _ = t * y := by simp only [← mul_assoc]; rw [hvv, one_mul]
-
-/-- **`AutOInnerFinite` from the normalizer fact** (with Skolem–Noether from the kernel). -/
-theorem autOInnerFinite_of_normalizer (hN : NormalizerFinite) : AutOInnerFinite := by
-  classical
-  obtain ⟨T, hT, hTu⟩ := hN
-  let P : (O ≃+* O) → Bˣ → Prop := fun β t => ∀ a : O, ((β a : O) : B) * t = t * a
-  let T' : Set (O ≃+* O) := {β | ∃ t ∈ T, P β t}
-  let f : (O ≃+* O) → Bˣ := fun β => if h : ∃ t ∈ T, P β t then Classical.choose h else 1
-  have hf : ∀ β ∈ T', f β ∈ T ∧ P β (f β) := by
-    intro β hβ
-    have hβ' : ∃ t ∈ T, P β t := hβ
-    simp only [f, hβ', dite_true]
-    exact Classical.choose_spec hβ'
-  have hT' : T'.Finite := by
-    refine Set.Finite.of_finite_image (f := f) (hT.subset (t := f '' T') ?_) ?_
-    · rintro _ ⟨β, hβ, rfl⟩; exact (hf β hβ).1
-    · intro β₁ h₁ β₂ h₂ heq
-      apply RingEquiv.ext; intro a
-      apply Subtype.ext
-      have e1 := (hf β₁ h₁).2 a
-      have e2 := (hf β₂ h₂).2 a
-      rw [heq] at e1
-      exact (Units.mul_left_inj (f β₂)).1 (e1.trans e2.symm)
-  refine ⟨T', hT', fun α => ?_⟩
-  obtain ⟨u, hu⟩ := conj_of_skolem α
-  have hback : ∀ b : B, extFun α.symm (extFun α b) = b := fun b =>
-    congrArg (fun φ : B →ₐ[ℚ] B => φ b) (extAlgHom_symm_comp α)
-  have hnorm : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O := by
-    intro a
-    rw [← hu]
-    constructor
-    · intro ha
-      rw [show a = ((⟨a, ha⟩ : O) : B) from rfl, extFun_coe]
-      exact (α _).2
-    · intro ha
-      rw [← hback a, show extFun α a = ((⟨_, ha⟩ : O) : B) from rfl, extFun_coe]
-      exact (α.symm _).2
-  obtain ⟨t, ht, v, q, hq, huq⟩ := hTu u hnorm
-  have hrel : ∀ a : O, ((α a : O) : B) * u = u * a := by
-    intro a
-    rw [← extFun_coe, hu, Units.inv_mul_cancel_right]
-  let β : O ≃+* O := α.trans (conjUnit v)
-  have hβ : ∀ a : O, β a = ((v⁻¹ : Oˣ) : O) * α a * v := fun a => rfl
-  refine ⟨β, ⟨t, ht, fun a => ?_⟩, v, fun a => ?_⟩
-  · have hvv : (((v⁻¹ : Oˣ) : O) : B) * ((v : O) : B) = 1 := by
-      rw [← MulMemClass.coe_mul, Units.inv_mul]; rfl
-    have hcc : algebraMap ℚ B q⁻¹ * algebraMap ℚ B q = 1 := by
-      rw [← map_mul, inv_mul_cancel₀ hq, map_one]
-    have h := hrel a
-    rw [huq] at h
-    rw [hβ, MulMemClass.coe_mul, MulMemClass.coe_mul]
-    exact key_conj _ _ _ _ _ _ _ hvv hcc (Algebra.commutes q _) h
-  · rw [hβ]
-    simp only [mul_assoc, Units.mul_inv, mul_one, Units.mul_inv_cancel_left]
 
 end AutOExt
 
@@ -97131,463 +95926,23 @@ namespace NormO
 
 /-! ### Integer coordinates -/
 
-/-- The reduced norm in the coordinates of `ofInt`. -/
-def nrdZ (n : Fin 4 → ℤ) : ℤ :=
-  n 0 ^ 2 + n 0 * n 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 + n 2 ^ 2 - 2 * n 3 ^ 2
-
-/-- The conjugate in the coordinates of `ofInt`. -/
-def conjC (n : Fin 4 → ℤ) : Fin 4 → ℤ := ![n 0 + n 2, -n 1, -n 2, -n 3]
-
-theorem mulCoord_conjC (n : Fin 4 → ℤ) : mulCoord n (conjC n) = ![nrdZ n, 0, 0, 0] := by
-  funext l; fin_cases l <;> simp [mulCoord, conjC, nrdZ] <;> ring
-
-theorem mulCoord_conjC' (n : Fin 4 → ℤ) : mulCoord (conjC n) n = ![nrdZ n, 0, 0, 0] := by
-  funext l; fin_cases l <;> simp [mulCoord, conjC, nrdZ] <;> ring
-
-theorem nrdZ_mul (n m : Fin 4 → ℤ) : nrdZ (mulCoord n m) = nrdZ n * nrdZ m := by
-  simp [mulCoord, nrdZ]; ring
-
-theorem ofInt_scalar (z : ℤ) : ofInt ![z, 0, 0, 0] = algebraMap ℚ B (z : ℚ) := by
-  ext <;> simp [ofInt]
-
-theorem smul_ofInt (z : ℤ) (n : Fin 4 → ℤ) : (z : ℚ) • ofInt n = ofInt (fun l => z * n l) := by
-  ext <;> simp [ofInt] <;> ring
-
-theorem mem_O_iff (x : B) : x ∈ O ↔ ∃ n, x = ofInt n := Iff.rfl
-
-/-- `(1/z) • ofInt m ∈ 𝒪` forces `z ∣ m`. -/
-theorem dvd_of_smul_mem {z : ℤ} (hz : z ≠ 0) {m : Fin 4 → ℤ}
-    (h : ((z : ℚ)⁻¹) • ofInt m ∈ O) : ∀ l, z ∣ m l := by
-  obtain ⟨w, hw⟩ := h
-  have : ofInt m = ofInt (fun l => z * w l) := by
-    rw [← smul_ofInt, ← hw, smul_smul, mul_inv_cancel₀ (by exact_mod_cast hz), one_smul]
-  have e := AV.ofInt_injective this
-  intro l
-  exact ⟨w l, congrFun e l⟩
-
 /-! ### The units `i`, `j` of `B` -/
-
-def ei : Fin 4 → ℤ := ![0, 1, 0, 0]
-def ej : Fin 4 → ℤ := ![-1, 0, 2, 0]
-
-theorem nrdZ_ei : nrdZ ei = -2 := by simp [nrdZ, ei]
-theorem nrdZ_ej : nrdZ ej = 3 := by simp [nrdZ, ej]
-
-def ui : Bˣ where
-  val := ofInt ei
-  inv := ((2 : ℚ)⁻¹) • ofInt ei
-  val_inv := by
-    rw [mul_smul_comm, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei]
-  inv_val := by
-    rw [smul_mul_assoc, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei]
-
-def uj : Bˣ where
-  val := ofInt ej
-  inv := ((-3 : ℚ)⁻¹) • ofInt ej
-  val_inv := by
-    rw [mul_smul_comm, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ej]
-  inv_val := by
-    rw [smul_mul_assoc, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ej]
-
-/-- The representatives `{1, i, j, ij}` of `N(𝒪)/ℚ^×𝒪^×`. -/
-def T : Set Bˣ := {1, ui, uj, ui * uj}
-
-theorem T_finite : T.Finite := by
-  simp only [T]
-  exact ((((Set.finite_singleton _).insert _).insert _).insert _)
 
 /-! ### Normalizing units -/
 
-/-- `u` normalizes `𝒪`. -/
-def IsNorm (u : Bˣ) : Prop :=
-  ∀ a ∈ O, (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O ∧ ((u⁻¹ : Bˣ) : B) * a * u ∈ O
-
-theorem IsNorm.mul {u w : Bˣ} (hu : IsNorm u) (hw : IsNorm w) : IsNorm (u * w) := by
-  intro a ha
-  refine ⟨?_, ?_⟩
-  · have := (hu _ (hw a ha).1).1
-    simpa [mul_inv_rev, Units.val_mul, mul_assoc] using this
-  · have := (hw _ (hu a ha).2).2
-    simpa [mul_inv_rev, Units.val_mul, mul_assoc] using this
-
-theorem IsNorm.inv {u : Bˣ} (hu : IsNorm u) : IsNorm u⁻¹ := by
-  intro a ha
-  obtain ⟨h1, h2⟩ := hu a ha
-  exact ⟨h2, by simpa using h1⟩
-
-/-- The unit `c ∈ ℚ^×` of `B`. -/
-def sc (c : ℚ) (hc : c ≠ 0) : Bˣ where
-  val := algebraMap ℚ B c
-  inv := algebraMap ℚ B c⁻¹
-  val_inv := by rw [← map_mul, mul_inv_cancel₀ hc, map_one]
-  inv_val := by rw [← map_mul, inv_mul_cancel₀ hc, map_one]
-
-theorem isNorm_sc (c : ℚ) (hc : c ≠ 0) : IsNorm (sc c hc) := by
-  intro a ha
-  have e1 : ((sc c hc : Bˣ) : B) * a * (((sc c hc)⁻¹ : Bˣ) : B) = a := by
-    change algebraMap ℚ B c * a * algebraMap ℚ B c⁻¹ = a
-    rw [Algebra.commutes, mul_assoc, ← map_mul, mul_inv_cancel₀ hc, map_one, mul_one]
-  have e2 : (((sc c hc)⁻¹ : Bˣ) : B) * a * ((sc c hc : Bˣ) : B) = a := by
-    change algebraMap ℚ B c⁻¹ * a * algebraMap ℚ B c = a
-    rw [Algebra.commutes, mul_assoc, ← map_mul, inv_mul_cancel₀ hc, map_one, mul_one]
-  exact ⟨by rw [e1]; exact ha, by rw [e2]; exact ha⟩
-
-theorem isNorm_ui : IsNorm ui := by
-  rintro a ⟨n, rfl⟩
-  have e : ((ui : Bˣ) : B) * ofInt n * ((ui⁻¹ : Bˣ) : B) =
-      ofInt ![n 0 + n 2, n 1 + n 3, -n 2, -n 3] := by
-    change ofInt ei * ofInt n * (((2 : ℚ)⁻¹) • ofInt ei) = _
-    rw [mul_smul_comm, ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei] <;> ring
-  have e' : ((ui⁻¹ : Bˣ) : B) * ofInt n * ((ui : Bˣ) : B) =
-      ofInt ![n 0 + n 2, n 1 + n 3, -n 2, -n 3] := by
-    change (((2 : ℚ)⁻¹) • ofInt ei) * ofInt n * ofInt ei = _
-    rw [smul_mul_assoc, smul_mul_assoc, ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei] <;> ring
-  exact ⟨⟨_, e⟩, ⟨_, e'⟩⟩
-
-theorem isNorm_uj : IsNorm uj := by
-  rintro a ⟨n, rfl⟩
-  have e : ((uj : Bˣ) : B) * ofInt n * ((uj⁻¹ : Bˣ) : B) = ofInt ![n 0, -n 1, n 2, -n 3] := by
-    change ofInt ej * ofInt n * (((-3 : ℚ)⁻¹) • ofInt ej) = _
-    rw [mul_smul_comm, ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ej] <;> ring
-  have e' : ((uj⁻¹ : Bˣ) : B) * ofInt n * ((uj : Bˣ) : B) = ofInt ![n 0, -n 1, n 2, -n 3] := by
-    change (((-3 : ℚ)⁻¹) • ofInt ej) * ofInt n * ofInt ej = _
-    rw [smul_mul_assoc, smul_mul_assoc, ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ej] <;> ring
-  exact ⟨⟨_, e⟩, ⟨_, e'⟩⟩
-
 /-! ### The norm of a unit in `𝒪` and its inverse -/
-
-theorem nrdZ_ne_zero (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) : nrdZ n ≠ 0 := by
-  intro h0
-  have h1 : (u : B) * ofInt (conjC n) = 0 := by
-    rw [hu, ofInt_mul, mulCoord_conjC, h0, ofInt_scalar]; simp
-  have h2 : ofInt (conjC n) = 0 := by
-    have := congrArg (fun x => ((u⁻¹ : Bˣ) : B) * x) h1
-    simpa [← mul_assoc] using this
-  have h3 : conjC n = 0 := AV.ofInt_injective (h2.trans ofInt_zero.symm)
-  have h4 : n = 0 := by
-    funext l
-    have e0 := congrFun h3 0; have e1 := congrFun h3 1
-    have e2 := congrFun h3 2; have e3 := congrFun h3 3
-    simp [conjC] at e0 e1 e2 e3
-    fin_cases l <;> simp <;> omega
-  have : (u : B) = 0 := by rw [hu, h4, ofInt_zero]
-  exact u.ne_zero this
-
-theorem inv_eq (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) :
-    ((u⁻¹ : Bˣ) : B) = ((nrdZ n : ℚ)⁻¹) • ofInt (conjC n) := by
-  have hN : (nrdZ n : ℚ) ≠ 0 := by exact_mod_cast nrdZ_ne_zero u n hu
-  apply Units.inv_eq_of_mul_eq_one_right
-  rw [mul_smul_comm, hu, ofInt_mul, mulCoord_conjC, ofInt_scalar, Algebra.smul_def, ← map_mul,
-    inv_mul_cancel₀ hN, map_one]
-
-def bas : Fin 4 → (Fin 4 → ℤ) := ![![1, 0, 0, 0], ![0, 1, 0, 0], ![0, 0, 1, 0], ![0, 0, 0, 1]]
-
-/-- For a normalizing `u = ofInt n`, `nrd(u)` divides every coordinate of `u e_k ū`. -/
-theorem nrd_dvd_coords (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) (hN : IsNorm u)
-    (k l : Fin 4) : nrdZ n ∣ mulCoord (mulCoord n (bas k)) (conjC n) l := by
-  have h := (hN (ofInt (bas k)) ⟨_, rfl⟩).1
-  rw [inv_eq u n hu, mul_smul_comm, hu, ofInt_mul, ofInt_mul] at h
-  exact dvd_of_smul_mem (nrdZ_ne_zero u n hu) h l
-
-/-- The identities `6 x_l² = Σ λ · coord(u e_k ū)` (coefficients from PARI's `matsolvemod`). -/
-theorem six_sq_identities (n : Fin 4 → ℤ) :
-    let F := fun k l => mulCoord (mulCoord n (bas k)) (conjC n) l
-    6 * n 0 ^ 2 = 2 * F 0 0 + 2 * F 1 1 + 2 * F 1 3 + 2 * F 2 2 - 2 * F 3 1 ∧
-    6 * n 1 ^ 2 = -F 1 1 - 2 * F 2 0 + F 3 1 + F 3 3 ∧
-    6 * n 2 ^ 2 = 2 * F 0 0 - 2 * F 1 1 + 2 * F 2 2 - 2 * F 3 3 ∧
-    6 * n 3 ^ 2 = F 1 1 + F 1 3 - 2 * F 2 0 - F 3 3 := by
-  intro F
-  simp only [F, mulCoord, bas, conjC]
-  refine ⟨?_, ?_, ?_, ?_⟩ <;> simp <;> ring
-
-/-- A prime `p ≠ 2, 3` dividing `nrd(u)` of a normalizing `u = ofInt n` divides `n`. -/
-theorem dvd_of_prime_dvd_nrd (u : Bˣ) (n : Fin 4 → ℤ) (hu : (u : B) = ofInt n) (hN : IsNorm u)
-    (p : ℕ) (hp : p.Prime) (h2 : p ≠ 2) (h3 : p ≠ 3) (hpd : (p : ℤ) ∣ nrdZ n) :
-    ∀ l, (p : ℤ) ∣ n l := by
-  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
-  have hF : ∀ k l, (p : ℤ) ∣ mulCoord (mulCoord n (bas k)) (conjC n) l :=
-    fun k l => hpd.trans (nrd_dvd_coords u n hu hN k l)
-  have h6 : ¬ (p : ℤ) ∣ 6 := by
-    intro h
-    have h' : p ∣ 6 := by exact_mod_cast h
-    have : p ∣ 2 * 3 := h'
-    rcases (Nat.Prime.dvd_mul hp).mp this with h | h
-    · exact h2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h)
-    · exact h3 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_three).mp h)
-  obtain ⟨i0, i1, i2, i3⟩ := six_sq_identities n
-  have k0 : (p : ℤ) ∣ 6 * n 0 ^ 2 := by
-    rw [i0]
-    exact dvd_sub (dvd_add (dvd_add (dvd_add (dvd_mul_of_dvd_right (hF 0 0) _)
-      (dvd_mul_of_dvd_right (hF 1 1) _)) (dvd_mul_of_dvd_right (hF 1 3) _))
-      (dvd_mul_of_dvd_right (hF 2 2) _)) (dvd_mul_of_dvd_right (hF 3 1) _)
-  have k1 : (p : ℤ) ∣ 6 * n 1 ^ 2 := by
-    rw [i1]
-    exact dvd_add (dvd_add (dvd_sub (dvd_neg.mpr (hF 1 1)) (dvd_mul_of_dvd_right (hF 2 0) _))
-      (hF 3 1)) (hF 3 3)
-  have k2 : (p : ℤ) ∣ 6 * n 2 ^ 2 := by
-    rw [i2]
-    exact dvd_sub (dvd_add (dvd_sub (dvd_mul_of_dvd_right (hF 0 0) _)
-      (dvd_mul_of_dvd_right (hF 1 1) _)) (dvd_mul_of_dvd_right (hF 2 2) _))
-      (dvd_mul_of_dvd_right (hF 3 3) _)
-  have k3 : (p : ℤ) ∣ 6 * n 3 ^ 2 := by
-    rw [i3]
-    exact dvd_sub (dvd_sub (dvd_add (hF 1 1) (hF 1 3)) (dvd_mul_of_dvd_right (hF 2 0) _))
-      (hF 3 3)
-  have key : ∀ l, (p : ℤ) ∣ 6 * n l ^ 2 := by
-    intro l; fin_cases l
-    exacts [k0, k1, k2, k3]
-  intro l
-  rcases hpZ.dvd_or_dvd (key l) with h | h
-  · exact absurd h h6
-  · exact hpZ.dvd_of_dvd_pow h
 
 /-! ### The primes 2 and 3 -/
 
-theorem two_dvd_mulCoord_ei (n : Fin 4 → ℤ) (h : (2 : ℤ) ∣ nrdZ n) :
-    ∀ l, (2 : ℤ) ∣ mulCoord n ei l := by
-  have hz : ((nrdZ n : ℤ) : ZMod 2) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mpr h
-  simp only [nrdZ] at hz
-  push_cast at hz
-  have key : ∀ a b c d : ZMod 2,
-      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a = 0 ∧ c = 0 := by
-    decide
-  obtain ⟨h0, h2⟩ := key _ _ _ _ hz
-  have d0 : (2 : ℤ) ∣ n 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h0
-  have d2 : (2 : ℤ) ∣ n 2 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 2).mp h2
-  intro l
-  fin_cases l <;> simp [mulCoord, ei] <;> omega
-
-theorem three_dvd_mulCoord_ej (n : Fin 4 → ℤ) (h : (3 : ℤ) ∣ nrdZ n) :
-    ∀ l, (3 : ℤ) ∣ mulCoord n ej l := by
-  have hz : ((nrdZ n : ℤ) : ZMod 3) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr h
-  simp only [nrdZ] at hz
-  push_cast at hz
-  have key : ∀ a b c d : ZMod 3,
-      a ^ 2 + a * c - 2 * b ^ 2 - 2 * b * d + c ^ 2 - 2 * d ^ 2 = 0 → a - c = 0 ∧ b - d = 0 := by
-    decide
-  obtain ⟨h0, h1⟩ := key _ _ _ _ hz
-  have d0 : (3 : ℤ) ∣ n 0 - n 2 :=
-    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h0)
-  have d1 : (3 : ℤ) ∣ n 1 - n 3 :=
-    (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mp (by push_cast; exact h1)
-  intro l
-  fin_cases l <;> simp [mulCoord, ej] <;> omega
-
 /-! ### Closure of `T` under right multiplication by `i` and `j` -/
-
-theorem T_mem_iff (t : Bˣ) : t ∈ T ↔ t = 1 ∨ t = ui ∨ t = uj ∨ t = ui * uj := Iff.rfl
-
-theorem T_mul_ui : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
-    (t : B) * (ui : B) = algebraMap ℚ B c * (t' : B) := by
-  intro t ht
-  rcases ht with rfl | rfl | rfl | rfl
-  · exact ⟨1, one_ne_zero, ui, by simp [T], by simp⟩
-  · refine ⟨2, two_ne_zero, 1, by simp [T], ?_⟩
-    change ofInt ei * ofInt ei = _
-    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ei, QuaternionAlgebra.algebraMap_eq]
-  · refine ⟨-1, by norm_num, ui * uj, by simp [T], ?_⟩
-    change ofInt ej * ofInt ei = _ * (ofInt ei * ofInt ej)
-    rw [ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
-  · refine ⟨-2, by norm_num, uj, by simp [T], ?_⟩
-    change ofInt ei * ofInt ej * ofInt ei = _ * ofInt ej
-    rw [ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
-
-theorem T_mul_uj : ∀ t ∈ T, ∃ c : ℚ, c ≠ 0 ∧ ∃ t' ∈ T,
-    (t : B) * (uj : B) = algebraMap ℚ B c * (t' : B) := by
-  intro t ht
-  rcases ht with rfl | rfl | rfl | rfl
-  · exact ⟨1, one_ne_zero, uj, by simp [T], by simp⟩
-  · exact ⟨1, one_ne_zero, ui * uj, by simp [T], by simp⟩
-  · refine ⟨-3, by norm_num, 1, by simp [T], ?_⟩
-    change ofInt ej * ofInt ej = _
-    rw [ofInt_mul]; ext <;> simp [ofInt, mulCoord, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
-  · refine ⟨-3, by norm_num, ui, by simp [T], ?_⟩
-    change ofInt ei * ofInt ej * ofInt ej = _ * ofInt ei
-    rw [ofInt_mul, ofInt_mul]
-    ext <;> simp [ofInt, mulCoord, ei, ej, QuaternionAlgebra.algebraMap_eq] <;> norm_num
-
-/-- Rearranging `q v t i = (q c) v t'` for central `c`. -/
-theorem rearrange (q c : ℚ) (V Tt I T' : B) (h : Tt * I = algebraMap ℚ B c * T') :
-    algebraMap ℚ B q * V * Tt * I = algebraMap ℚ B (q * c) * V * T' := by
-  rw [mul_assoc (algebraMap ℚ B q * V), h, ← mul_assoc, mul_assoc (algebraMap ℚ B q),
-    ← Algebra.commutes c V, ← mul_assoc, ← map_mul]
-
-theorem mulCoord_smul_right (n m : Fin 4 → ℤ) (z : ℤ) :
-    mulCoord n (fun l => z * m l) = fun l => z * mulCoord n m l := by
-  funext l; fin_cases l <;> simp [mulCoord] <;> ring
-
-theorem mulCoord_smul_left (n m : Fin 4 → ℤ) (z : ℤ) :
-    mulCoord (fun l => z * n l) m = fun l => z * mulCoord n m l := by
-  funext l; fin_cases l <;> simp [mulCoord] <;> ring
-
-theorem nrdZ_smul (n : Fin 4 → ℤ) (z : ℤ) : nrdZ (fun l => z * n l) = z ^ 2 * nrdZ n := by
-  simp [nrdZ]; ring
 
 /-! ### The descent -/
 
-theorem descent (m : ℕ) : ∀ (u : Bˣ) (n : Fin 4 → ℤ), (u : B) = ofInt n →
-    (nrdZ n).natAbs = m → IsNorm u →
-    ∃ q : ℚ, q ≠ 0 ∧ ∃ v : Oˣ, ∃ t ∈ T, (u : B) = algebraMap ℚ B q * ((v : O) : B) * t := by
-  induction m using Nat.strong_induction_on with
-  | _ m ih =>
-  intro u n hu hm hN
-  have hN0 := nrdZ_ne_zero u n hu
-  by_cases h1 : m = 1
-  · have hsq : nrdZ n * nrdZ n = 1 := by
-      have : (nrdZ n).natAbs = 1 := hm.trans h1
-      rcases Int.natAbs_eq_iff.mp this with h | h <;> rw [h] <;> norm_num
-    set w : Fin 4 → ℤ := fun l => nrdZ n * conjC n l with hw_def
-    have hw1 : mulCoord n w = ![1, 0, 0, 0] := by
-      rw [hw_def, mulCoord_smul_right, mulCoord_conjC]
-      funext l; fin_cases l <;> simp [hsq]
-    have hw2 : mulCoord w n = ![1, 0, 0, 0] := by
-      rw [hw_def, mulCoord_smul_left, mulCoord_conjC']
-      funext l; fin_cases l <;> simp [hsq]
-    let v : Oˣ :=
-      ⟨⟨ofInt n, n, rfl⟩, ⟨ofInt w, w, rfl⟩,
-        Subtype.ext (by
-          change ofInt n * ofInt w = 1
-          rw [ofInt_mul, hw1, ofInt_one]),
-        Subtype.ext (by
-          change ofInt w * ofInt n = 1
-          rw [ofInt_mul, hw2, ofInt_one])⟩
-    refine ⟨1, one_ne_zero, v, 1, by simp [T], ?_⟩
-    rw [map_one, one_mul, Units.val_one, mul_one]
-    exact hu
-  · have hm0 : m ≠ 0 := by
-      rintro rfl; exact hN0 (Int.natAbs_eq_zero.mp hm)
-    set p := m.minFac with hp_def
-    have hp : p.Prime := Nat.minFac_prime h1
-    have hpd : (p : ℤ) ∣ nrdZ n := by
-      rw [Int.natCast_dvd, hm]; exact Nat.minFac_dvd m
-    have hp1 : 2 ≤ p := hp.two_le
-    by_cases hp2 : p = 2
-    · have h2 : (2 : ℤ) ∣ nrdZ n := by rw [hp2] at hpd; exact_mod_cast hpd
-      have hc := two_dvd_mulCoord_ei n h2
-      set n' : Fin 4 → ℤ := fun l => mulCoord n ei l / 2 with hn'_def
-      have hn' : mulCoord n ei = fun l => 2 * n' l :=
-        funext fun l => (Int.mul_ediv_cancel' (hc l)).symm
-      have hu' : ((u * ui⁻¹ : Bˣ) : B) = ofInt n' := by
-        change (u : B) * (((2 : ℚ)⁻¹) • ofInt ei) = _
-        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
-        norm_num
-      have hmul : mulCoord n' ei = n := by
-        apply AV.ofInt_injective
-        rw [← ofInt_mul, ← hu', ← hu]
-        change ((u * ui⁻¹ : Bˣ) : B) * ((ui : Bˣ) : B) = u
-        rw [← Units.val_mul, inv_mul_cancel_right]
-      have hlt : (nrdZ n').natAbs < m := by
-        have e := nrdZ_mul n' ei
-        rw [hmul, nrdZ_ei] at e
-        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
-        have h2' : (-2 : ℤ).natAbs = 2 := rfl
-        rw [← hm, e, Int.natAbs_mul, h2']
-        omega
-      obtain ⟨q, hq, v, t, ht, he⟩ :=
-        ih _ hlt (u * ui⁻¹) n' hu' rfl (hN.mul isNorm_ui.inv)
-      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_ui t ht
-      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
-      have : (u : B) = ((u * ui⁻¹ : Bˣ) : B) * ui := by
-        rw [← Units.val_mul, inv_mul_cancel_right]
-      rw [this, he, rearrange q c _ _ _ _ htc]
-    by_cases hp3 : p = 3
-    · have h3 : (3 : ℤ) ∣ nrdZ n := by rw [hp3] at hpd; exact_mod_cast hpd
-      have hc := three_dvd_mulCoord_ej n h3
-      set n' : Fin 4 → ℤ := fun l => -(mulCoord n ej l / 3) with hn'_def
-      have hn' : mulCoord n ej = fun l => (-3) * n' l := by
-        funext l
-        simp only [hn'_def]
-        rw [mul_neg, neg_mul, neg_neg, Int.mul_ediv_cancel' (hc l)]
-      have hu' : ((u * uj⁻¹ : Bˣ) : B) = ofInt n' := by
-        change (u : B) * (((-3 : ℚ)⁻¹) • ofInt ej) = _
-        rw [mul_smul_comm, hu, ofInt_mul, hn', ← smul_ofInt, smul_smul]
-        norm_num
-      have hmul : mulCoord n' ej = n := by
-        apply AV.ofInt_injective
-        rw [← ofInt_mul, ← hu', ← hu]
-        change ((u * uj⁻¹ : Bˣ) : B) * ((uj : Bˣ) : B) = u
-        rw [← Units.val_mul, inv_mul_cancel_right]
-      have hlt : (nrdZ n').natAbs < m := by
-        have e := nrdZ_mul n' ej
-        rw [hmul, nrdZ_ej] at e
-        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
-        have h3' : (3 : ℤ).natAbs = 3 := rfl
-        rw [← hm, e, Int.natAbs_mul, h3']
-        omega
-      obtain ⟨q, hq, v, t, ht, he⟩ :=
-        ih _ hlt (u * uj⁻¹) n' hu' rfl (hN.mul isNorm_uj.inv)
-      obtain ⟨c, hc0, t', ht', htc⟩ := T_mul_uj t ht
-      refine ⟨q * c, mul_ne_zero hq hc0, v, t', ht', ?_⟩
-      have : (u : B) = ((u * uj⁻¹ : Bˣ) : B) * uj := by
-        rw [← Units.val_mul, inv_mul_cancel_right]
-      rw [this, he, rearrange q c _ _ _ _ htc]
-    · have hdiv := dvd_of_prime_dvd_nrd u n hu hN p hp hp2 hp3 hpd
-      set n' : Fin 4 → ℤ := fun l => n l / p with hn'_def
-      have hn' : n = fun l => (p : ℤ) * n' l :=
-        funext fun l => (Int.mul_ediv_cancel' (hdiv l)).symm
-      have hp0 : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
-      have hpi : ((p : ℚ)⁻¹) ≠ 0 := inv_ne_zero hp0
-      have hu' : ((sc _ hpi * u : Bˣ) : B) = ofInt n' := by
-        change algebraMap ℚ B ((p : ℚ)⁻¹) * u = _
-        rw [← Algebra.smul_def, hu, hn', ← smul_ofInt, smul_smul]
-        push_cast
-        rw [inv_mul_cancel₀ hp0, one_smul]
-      have hlt : (nrdZ n').natAbs < m := by
-        have e : nrdZ n = (p : ℤ) ^ 2 * nrdZ n' := by rw [hn', nrdZ_smul]
-        have hne : (nrdZ n').natAbs ≠ 0 := Int.natAbs_ne_zero.mpr (nrdZ_ne_zero _ _ hu')
-        rw [← hm, e, Int.natAbs_mul, Int.natAbs_pow, Int.natAbs_natCast]
-        have : 4 ≤ p ^ 2 := by nlinarith
-        have : (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs := by
-          have : 1 * (nrdZ n').natAbs < p ^ 2 * (nrdZ n').natAbs :=
-            Nat.mul_lt_mul_of_pos_right (by omega) (by omega)
-          simpa using this
-        exact this
-      obtain ⟨q, hq, v, t, ht, he⟩ :=
-        ih _ hlt (sc _ hpi * u) n' hu' rfl ((isNorm_sc _ hpi).mul hN)
-      refine ⟨p * q, mul_ne_zero hp0 hq, v, t, ht, ?_⟩
-      have : (u : B) = algebraMap ℚ B (p : ℚ) * ((sc _ hpi * u : Bˣ) : B) := by
-        change _ = _ * (algebraMap ℚ B ((p : ℚ)⁻¹) * u)
-        rw [← mul_assoc, ← map_mul, mul_inv_cancel₀ hp0, map_one, one_mul]
-      rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
-
 /-! ### `NormalizerFinite` -/
-
-/-- **`N(𝒪)/ℚ^×𝒪^×` is finite** (represented by `{1, i, j, ij}`). -/
-theorem normalizerFinite : AutOExt.NormalizerFinite := by
-  refine ⟨T, T_finite, fun u hu => ?_⟩
-  obtain ⟨m, hm, ⟨n, hn⟩⟩ := AutOExt.exists_nat_smul_mem (u : B)
-  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
-  have hu0 : ((sc _ hm0 * u : Bˣ) : B) = ofInt n := by
-    change algebraMap ℚ B m * u = _
-    rw [← Algebra.smul_def]; exact hn
-  have hN : IsNorm u := by
-    intro a ha
-    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
-    simpa [mul_assoc] using ha
-  obtain ⟨q, hq, v, t, ht, he⟩ := descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
-  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
-  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : Bˣ) : B) := by
-    change _ = _ * (algebraMap ℚ B m * u)
-    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
-  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
 
 end NormO
 
 open CategoryTheory AlgebraicGeometry
-
-/-- **`AutOInnerFinite`, proved** (Skolem–Noether from the kernel, the normalizer from §8). -/
-theorem autOInnerFinite : AutOInnerFinite :=
-  AutOExt.autOInnerFinite_of_normalizer NormO.normalizerFinite
 
 end Pin
 
@@ -97612,225 +95967,6 @@ namespace Pin
 namespace Exact
 
 open NormO AutOExt
-
-/-- The reduced norm of `B = (2, -3)_ℚ`. -/
-def nrd (x : B) : ℚ := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
-
-theorem nrd_mul (x y : B) : nrd (x * y) = nrd x * nrd y := by
-  simp [nrd]; ring
-
-theorem nrd_algebraMap (q : ℚ) : nrd (algebraMap ℚ B q) = q ^ 2 := by
-  simp [nrd, QuaternionAlgebra.algebraMap_eq]
-
-theorem nrd_ofInt (n : Fin 4 → ℤ) : nrd (ofInt n) =
-    ((n 0 ^ 2 + n 0 * n 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 + n 2 ^ 2 - 2 * n 3 ^ 2 : ℤ) : ℚ) := by
-  simp [nrd, ofInt]; ring
-
-theorem not_sq (s : ℚ) (c : ℤ) (hc : ¬ IsSquare c) (h : s ^ 2 = c) : False := by
-  have h1 : IsSquare (c : ℚ) := ⟨s, by rw [← h]; ring⟩
-  rw [Rat.isSquare_iff] at h1
-  simp at h1
-  exact hc h1
-
-/-- An element of `B` commuting with `i` and `j` is a scalar. -/
-theorem comm_scalar (w : B) (hi : w * ⟨0, 1, 0, 0⟩ = ⟨0, 1, 0, 0⟩ * w)
-    (hj : w * ⟨0, 0, 1, 0⟩ = ⟨0, 0, 1, 0⟩ * w) : w = algebraMap ℚ B w.re := by
-  have h1 := congrArg QuaternionAlgebra.imJ hi
-  have h2 := congrArg QuaternionAlgebra.imK hi
-  have h3 := congrArg QuaternionAlgebra.imI hj
-  have h4 := congrArg QuaternionAlgebra.imK hj
-  simp at h1 h2 h3 h4
-  ext <;> simp [QuaternionAlgebra.algebraMap_eq] <;> linarith
-
-/-- The norm of a unit of `𝒪` is `±1`. -/
-theorem nrd_unit (v : Oˣ) : nrd ((v : O) : B) = 1 ∨ nrd ((v : O) : B) = -1 := by
-  obtain ⟨n, hn⟩ := (v : O).2
-  obtain ⟨m, hm⟩ := ((v⁻¹ : Oˣ) : O).2
-  have h1 : ((v : O) : B) * (((v⁻¹ : Oˣ) : O) : B) = 1 := by
-    rw [← MulMemClass.coe_mul, Units.mul_inv]; rfl
-  have h2 := congrArg nrd h1
-  rw [nrd_mul, hn, hm, nrd_ofInt, nrd_ofInt] at h2
-  have h3 : nrd 1 = 1 := by simp [nrd]
-  rw [h3] at h2
-  have h4 := Int.eq_one_or_neg_one_of_mul_eq_one (by exact_mod_cast h2)
-  rw [hn, nrd_ofInt]
-  rcases h4 with h | h
-  · left; rw [h]; simp
-  · right; rw [h]; simp
-
-theorem isNorm_one : IsNorm 1 := by
-  intro a ha
-  exact ⟨by simpa using ha, by simpa using ha⟩
-
-/-- Conjugation `a ↦ u a u⁻¹` by a unit `u ∈ B^×` normalizing `𝒪`, as a ring automorphism. -/
-def conjO (u : Bˣ) (hu : IsNorm u) : O ≃+* O where
-  toFun a := ⟨(u : B) * a * ((u⁻¹ : Bˣ) : B), (hu a a.2).1⟩
-  invFun a := ⟨((u⁻¹ : Bˣ) : B) * a * u, (hu a a.2).2⟩
-  left_inv a := by apply Subtype.ext; simp [mul_assoc]
-  right_inv a := by apply Subtype.ext; simp [mul_assoc]
-  map_mul' a b := by apply Subtype.ext; simp [mul_assoc]
-  map_add' a b := by apply Subtype.ext; simp [mul_add, add_mul]
-
-theorem conjO_apply (u : Bˣ) (hu : IsNorm u) (a : O) :
-    ((conjO u hu a : O) : B) = (u : B) * a * ((u⁻¹ : Bˣ) : B) := rfl
-
-/-- The representatives `1, i, j, ij` of `N(𝒪)/ℚ^×𝒪^×`. -/
-def tt : Fin 4 → Bˣ := ![1, ui, uj, ui * uj]
-
-theorem tt_isNorm (k : Fin 4) : IsNorm (tt k) := by
-  fin_cases k
-  exacts [isNorm_one, isNorm_ui, isNorm_uj, isNorm_ui.mul isNorm_uj]
-
-/-- The four representatives of `Aut(𝒪)/Inn(𝒪^×)`: conjugation by `1, i, j, ij`. -/
-def rep (k : Fin 4) : O ≃+* O := conjO (tt k) (tt_isNorm k)
-
-/-- The reduced norms `1, -2, 3, -6` of `1, i, j, ij`. -/
-def N : Fin 4 → ℤ := ![1, -2, 3, -6]
-
-theorem nrd_tt (k : Fin 4) : nrd (tt k : B) = (N k : ℚ) := by
-  fin_cases k
-  · simp [tt, N, nrd]
-  · change nrd (ofInt ei) = _
-    simp [nrd_ofInt, ei, N]
-  · change nrd (ofInt ej) = _
-    simp [nrd_ofInt, ej, N]
-  · change nrd (ofInt ei * ofInt ej) = _
-    rw [nrd_mul]
-    simp [nrd_ofInt, ei, ej, N]; norm_num
-
-theorem tt_of_T (t : Bˣ) (ht : t ∈ T) : ∃ k, tt k = t := by
-  rcases (T_mem_iff t).1 ht with rfl | rfl | rfl | rfl
-  exacts [⟨0, rfl⟩, ⟨1, rfl⟩, ⟨2, rfl⟩, ⟨3, rfl⟩]
-
-/-- The concrete normalizer statement (the body of `NormO.normalizerFinite`, with `T` named). -/
-theorem normalizer_rep (u : Bˣ) (hu : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O) :
-    ∃ t ∈ T, ∃ v : Oˣ, ∃ q : ℚ, q ≠ 0 ∧ (u : B) = algebraMap ℚ B q * ((v : O) : B) * (t : B) := by
-  obtain ⟨m, hm, ⟨n, hn⟩⟩ := AutOExt.exists_nat_smul_mem (u : B)
-  have hm0 : (m : ℚ) ≠ 0 := by exact_mod_cast hm.ne'
-  have hu0 : ((sc _ hm0 * u : Bˣ) : B) = ofInt n := by
-    change algebraMap ℚ B m * u = _
-    rw [← Algebra.smul_def]; exact hn
-  have hN : IsNorm u := by
-    intro a ha
-    refine ⟨(hu a).1 ha, (hu _).2 ?_⟩
-    simpa [mul_assoc] using ha
-  obtain ⟨q, hq, v, t, ht, he⟩ := descent _ (sc _ hm0 * u) n hu0 rfl ((isNorm_sc _ hm0).mul hN)
-  refine ⟨t, ht, v, (m : ℚ)⁻¹ * q, mul_ne_zero (inv_ne_zero hm0) hq, ?_⟩
-  have : (u : B) = algebraMap ℚ B ((m : ℚ)⁻¹) * ((sc _ hm0 * u : Bˣ) : B) := by
-    change _ = _ * (algebraMap ℚ B m * u)
-    rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hm0, map_one, one_mul]
-  rw [this, he, ← mul_assoc, ← mul_assoc, ← map_mul]
-
-theorem key2 {R : Type*} [Ring R] (x y w w' c c' t t' : R) (hww : w * w' = 1)
-    (hcc : c' * c = 1) (htt : t * t' = 1) (hc : c * x = x * c)
-    (h : x * (c * w * t) = c * w * t * y) : x = w * (t * y * t') * w' := by
-  have h1 : x * w * t = w * t * y := by
-    calc x * w * t = c' * (c * x) * w * t := by rw [← mul_assoc, hcc, one_mul]
-      _ = c' * (x * (c * w * t)) := by rw [hc]; simp only [mul_assoc]
-      _ = c' * (c * w * t * y) := by rw [h]
-      _ = w * t * y := by simp only [← mul_assoc]; rw [hcc, one_mul]
-  calc x = x * (w * (t * t') * w') := by rw [htt, mul_one, hww, mul_one]
-    _ = x * w * t * t' * w' := by simp only [mul_assoc]
-    _ = w * t * y * t' * w' := by rw [h1]
-    _ = w * (t * y * t') * w' := by simp only [mul_assoc]
-
-/-- **Every automorphism of `𝒪` is `v · rep k · v⁻¹`** for some `k` and some `v ∈ 𝒪^×`. -/
-theorem rep_cover (α : O ≃+* O) : ∃ k : Fin 4, ∃ v : Oˣ, ∀ a : O,
-    α a = (v : O) * rep k a * ((v⁻¹ : Oˣ) : O) := by
-  obtain ⟨u, hu⟩ := conj_of_skolem α
-  have hback : ∀ b : B, extFun α.symm (extFun α b) = b := fun b =>
-    congrArg (fun φ : B →ₐ[ℚ] B => φ b) (extAlgHom_symm_comp α)
-  have hnorm : ∀ a : B, a ∈ O ↔ (u : B) * a * ((u⁻¹ : Bˣ) : B) ∈ O := by
-    intro a
-    rw [← hu]
-    constructor
-    · intro ha
-      rw [show a = ((⟨a, ha⟩ : O) : B) from rfl, extFun_coe]
-      exact (α _).2
-    · intro ha
-      rw [← hback a, show extFun α a = ((⟨_, ha⟩ : O) : B) from rfl, extFun_coe]
-      exact (α.symm _).2
-  obtain ⟨t, ht, v, q, hq, huq⟩ := normalizer_rep u hnorm
-  obtain ⟨k, rfl⟩ := tt_of_T t ht
-  have hrel : ∀ a : O, ((α a : O) : B) * u = u * a := by
-    intro a
-    rw [← extFun_coe, hu, Units.inv_mul_cancel_right]
-  refine ⟨k, v, fun a => Subtype.ext ?_⟩
-  rw [MulMemClass.coe_mul, MulMemClass.coe_mul]
-  change _ = ((v : O) : B) * ((tt k : B) * a * (((tt k)⁻¹ : Bˣ) : B)) * (((v⁻¹ : Oˣ) : O) : B)
-  have hvv : ((v : O) : B) * (((v⁻¹ : Oˣ) : O) : B) = 1 := by
-    rw [← MulMemClass.coe_mul, Units.mul_inv]; rfl
-  have hcc : algebraMap ℚ B q⁻¹ * algebraMap ℚ B q = 1 := by
-    rw [← map_mul, inv_mul_cancel₀ hq, map_one]
-  have h := hrel a
-  rw [huq] at h
-  exact key2 _ _ _ _ _ _ _ _ hvv hcc (Units.mul_inv _) (Algebra.commutes q _) h
-
-/-- **The four representatives are pairwise non-conjugate by units of `𝒪`.** -/
-theorem rep_distinct (k l : Fin 4) (v : Oˣ)
-    (h : ∀ a : O, rep k a = (v : O) * rep l a * ((v⁻¹ : Oˣ) : O)) : k = l := by
-  set V : B := ((v : O) : B) with hVdef
-  set V' : B := (((v⁻¹ : Oˣ) : O) : B) with hV'def
-  have hVV' : V * V' = 1 := by
-    rw [hVdef, hV'def, ← MulMemClass.coe_mul, Units.mul_inv]; rfl
-  have hV'V : V' * V = 1 := by
-    rw [hVdef, hV'def, ← MulMemClass.coe_mul, Units.inv_mul]; rfl
-  have hV'Vx : ∀ X : B, V' * (V * X) = X := fun X => by rw [← mul_assoc, hV'V, one_mul]
-  set P : B := (tt k : B) with hP
-  set P' : B := (((tt k)⁻¹ : Bˣ) : B) with hP'
-  set Q : B := (tt l : B) with hQ
-  set Q' : B := (((tt l)⁻¹ : Bˣ) : B) with hQ'
-  have hP'P : P' * P = 1 := Units.inv_mul _
-  have hQ'Qx : ∀ X : B, Q' * (Q * X) = X := fun X => by
-    rw [← mul_assoc, show Q' * Q = 1 from Units.inv_mul _, one_mul]
-  have hQQ'x : ∀ X : B, Q * (Q' * X) = X := fun X => by
-    rw [← mul_assoc, show Q * Q' = 1 from Units.mul_inv _, one_mul]
-  have hVV'x : ∀ X : B, V * (V' * X) = X := fun X => by rw [← mul_assoc, hVV', one_mul]
-  have hcomm : ∀ a ∈ O, (Q' * V' * P) * a = a * (Q' * V' * P) := by
-    intro a ha
-    have e : P * a * P' = V * (Q * a * Q') * V' := by
-      have := congrArg Subtype.val (h ⟨a, ha⟩)
-      rw [MulMemClass.coe_mul, MulMemClass.coe_mul] at this
-      exact this
-    calc Q' * V' * P * a = Q' * V' * (P * a * P') * P := by
-          simp only [mul_assoc, hP'P, mul_one]
-      _ = Q' * V' * (V * (Q * a * Q') * V') * P := by rw [e]
-      _ = a * (Q' * V' * P) := by simp only [mul_assoc, hV'Vx, hQ'Qx]
-  set W := Q' * V' * P with hW
-  have hWs : W = algebraMap ℚ B W.re :=
-    comm_scalar W (hcomm _ (mem_O_of_int 0 1 0 0)) (hcomm _ (mem_O_of_int 0 0 1 0))
-  have hPW : P = V * Q * W := by
-    rw [hW]; simp only [mul_assoc, hQQ'x, hVV'x]
-  have e1 : (N k : ℚ) = nrd V * N l * W.re ^ 2 := by
-    rw [← nrd_tt, ← nrd_tt, ← nrd_algebraMap, ← hWs, ← nrd_mul, ← nrd_mul]
-    exact congrArg nrd hPW
-  have hmain : ∀ ε : ℤ, nrd V = ε → ε ^ 2 = 1 →
-      (W.re * N l) ^ 2 = ((ε * N k * N l : ℤ) : ℚ) := by
-    intro ε hε hε2
-    have hε2' : (ε : ℚ) ^ 2 = 1 := by exact_mod_cast hε2
-    push_cast
-    rw [e1, hε]
-    linear_combination (-(W.re ^ 2 * (N l : ℚ) ^ 2)) * hε2'
-  rcases nrd_unit v with h1 | h1
-  · have hm := hmain 1 (by rw [← hVdef] at h1; simpa using h1) (by norm_num)
-    fin_cases k <;> fin_cases l <;>
-      first | rfl | exact (not_sq _ _ (by decide +kernel) hm).elim
-  · have hm := hmain (-1) (by rw [← hVdef] at h1; simpa using h1) (by norm_num)
-    fin_cases k <;> fin_cases l <;>
-      first | rfl | exact (not_sq _ _ (by decide +kernel) hm).elim
-
-/-- **Explicit computation of `Aut(𝒪)/Inn(𝒪^×)`: exactly four classes**, represented by
-conjugation by `1, i, j, ij`. -/
-theorem autO_mod_inner_exact : ∃ t : Fin 4 → (O ≃+* O),
-    (∀ α : O ≃+* O, ∃ k, ∃ v : Oˣ, ∀ a : O, α a = (v : O) * t k a * ((v⁻¹ : Oˣ) : O)) ∧
-    ∀ k l, (∃ v : Oˣ, ∀ a : O, t k a = (v : O) * t l a * ((v⁻¹ : Oˣ) : O)) → k = l :=
-  ⟨rep, rep_cover, fun k l ⟨v, hv⟩ => rep_distinct k l v hv⟩
-
-/-- `AutOInnerFinite` again, from the explicit computation. -/
-theorem autOInnerFinite' : AutOInnerFinite := by
-  refine ⟨Set.range rep, Set.finite_range rep, fun α => ?_⟩
-  obtain ⟨k, v, hv⟩ := rep_cover α
-  exact ⟨rep k, ⟨k, rfl⟩, v, hv⟩
 
 end Exact
 
@@ -100325,11 +98461,6 @@ namespace Pin
 open CategoryTheory AlgebraicGeometry Limits Opposite TopologicalSpace
 open PkgI3
 
-/-- The point of `X` at which a field point `p : Spec K → X` sits. -/
-abbrev ptOf {K : Type} [Field K] {X : Scheme.{0}} (p : Spec (CommRingCat.of K) ⟶ X) : X :=
-  (Scheme.SpecToEquivOfField K X p).1
-
-
 /-! ## §1 Values of sections at `K`-points -/
 
 section Ev
@@ -100991,7 +99122,7 @@ theorem push_injective (hT : ObjBridge.TorsionStructure) (hS : SerreRigidity3) (
   have htors : ∀ x : X.A.Pt Qbar, x ^ 3 = 1 → x ≫ θ.φ.hom = x := by
     intro x hx
     have hx' : bcPt X.A x ^ 3 = 1 := by
-      rw [bcPt, ← MonObj.comp_pow, hx]
+      rw [LeafQM.AV.bcPt, ← MonObj.comp_pow, hx]
       exact MonObj.comp_one _
     obtain ⟨a, ha⟩ := Level3.onto hT X (bcPt X.A x) hx'
     have := bcPt_injective X.A ha
@@ -102446,6 +100577,8 @@ end
 
 
 
+end
+end
 end G0A2_c80_propts
 
 end HDec
@@ -102603,7 +100736,6 @@ variable (F : Fld p) [FiniteDimensional ℚ_[p] F]
 
 attribute [local instance] algZpF
 
-omit [FiniteDimensional ℚ_[p] F] in
 variable {F}
 
 end Model2
@@ -102664,28 +100796,6 @@ open PkgI4 (GaloisRep GaloisChar)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ### Objects -/
-
-/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
-`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
-embedding `K ↪ ℚ̄` that the map chooses. -/
-def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
-    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
-
-/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
-abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
-  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
-
-/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
-def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
-    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
-  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
-
-/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
-def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
-    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
-    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
-  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
 
 end G0Galois
 
@@ -104587,6 +102697,10 @@ of `L` (the ring of the `v`-adic valuation). -/
 noncomputable def dvrAt {L : Type} [Field L] [NumberField L]
     (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) : ValuationSubring L :=
   (v.valuation L).valuationSubring
+
+instance {L : Type} [Field L] [NumberField L] (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) :
+    IsDiscreteValuationRing (dvrAt v) := by
+  unfold dvrAt; infer_instance
 
 section Classify
 
@@ -106564,17 +104678,14 @@ end Quat
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## Proofs of two pieces -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## `EndBaseChange` (proof copied from scratch/bp-qmmoduli/QMAbVar.lean L533-557, `endBC`) -/
 
 section BaseChangeEnd
 
 variable {K : Type} [Field K]
 
-open scoped CategoryTheory.Obj in
 end BaseChangeEnd
 
 /-! ## `TatePoints` (generic parts copied from scratch/unram-tate/BCPoints.lean) -/
@@ -108345,25 +106456,6 @@ open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)
 open PkgI3 G0ModNewform GlueC10Link
 
 
-/-- **The Frobenius trace link (GLUE, AV side; N5 L781-786).** There is a finite set `S` of
-primes such that at every arithmetic Frobenius `τ` above `p ∉ S` there are an abelian variety
-`Ā` over a field `k` of characteristic `p`, an endomorphism `α'` of `Ā` and `N ≠ 0` with
-`FrobCompare` (kernel, `GlueC10Link`) at `ℓ = 3` and at `ℓ = 5`: some isomorphism
-`ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ ⊗ V_ℓ(Ā)` carries `N·Tm_ℓ(τ)` to `V_ℓ(α')`. In N5, `S = T ∪ {3, 5}`
-(`T` = bad primes of `A/L'`), `Ā` is the reduction of `A` at the place `v ∩ L'`, `α' = N·(μ̄_τ ∘ F)`
-(relative `p`-Frobenius `F`, reduction `μ̄_τ` of the isogeny `μ_τ : {}^τA → A`, defined over
-`L ⊆ L'` by N5 L638-640), and the
-isomorphism is the Serre–Tate reduction isomorphism. It concerns the operators `Tm_ℓ` that
-g0-mod-field's `TateBridge` builds from the points-level `m_σ = μ_σ ∘ σ` (one `m_σ` for all `ℓ`). -/
-def FrobTraceLink {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
-    (Tm5 : GQ → Module.End (PadicAlgCl 5) (Vb A 5))
-    (Tm3 : GQ → Module.End (PadicAlgCl 3) (Vb A 3)) : Prop :=
-  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ),
-    LiesOver v p → IsArithFrob τ v p →
-    ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k) (α : PkgI3.AbVar.End Ab)
-      (N : ℕ), N ≠ 0 ∧ FrobCompare 3 (Tm3 τ) α N ∧ FrobCompare 5 (Tm5 τ) α N
-
-
 end G14Trace
 
 end
@@ -108738,7 +106830,6 @@ section TwistSec
 
 variable {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
 
-variable (p ℓ) in
 end TwistSec
 
 end G15Ram
@@ -109662,17 +107753,14 @@ end Quat
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## Proofs of two pieces -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## `EndBaseChange` (proof copied from scratch/bp-qmmoduli/QMAbVar.lean L533-557, `endBC`) -/
 
 section BaseChangeEnd
 
 variable {K : Type} [Field K]
 
-open scoped CategoryTheory.Obj in
 end BaseChangeEnd
 
 /-! ## `TatePoints` (generic parts copied from scratch/unram-tate/BCPoints.lean) -/
@@ -109774,7 +107862,6 @@ open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 4000000 in
 end FrobTrace
 
 end
@@ -109800,8 +107887,6 @@ universe u
 
 variable {K : Type u} [Field K]
 
-set_option backward.defeqAttrib.useBackward true in
-set_option backward.isDefEq.respectTransparency false in
 end MulRigidity
 
 /-! ## The leaf, copied verbatim, and its proof -/
@@ -112414,6 +110499,12 @@ end
 
 
 
+end
+end
+end
+end
+end
+end
 end G0A2_c85_ltlocal
 
 end HDec
@@ -112479,16 +110570,6 @@ theorem qmEndRank_of_leaves3 (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichoto
     HSyn.LinkedTate.QMEndRank :=
   LTGoodRed.QM.qmEndRank_of_leaves hM1 hT27
 
-/-- **T40 from `X0Transitive`** (t40-tate, t40-igusa: `ZInQKernel/Contrib/RLeaf/T40.lean`, imported;
-`X1Belyi.X1RationalCusp` is over Mathlib definitions only, so the kernel theorem has this file's
-type). -/
-theorem t40_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1RationalCusp :=
-  _root_.ZInQ.RLeaf.x1RationalCusp_of_x0Transitive h
-
-/-- **T39 from `X0Transitive`** (same module). -/
-theorem t39_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1ConstantField :=
-  _root_.ZInQ.RLeaf.x1ConstantField_of_x0Transitive h
-
 /-- **`TangentDimAtOrigin` from the kernel's Contrib** (dim-contrib, `ZInQ.Contrib.Dim.tangentDimAtOrigin`,
 `ZInQKernel/Contrib/Dim/HodgeLattice.lean`, imported; through leaf-fold2's field map `toAbVarK`). It replaces
 leaf-fold2's use of the scratch copy `LF2SmoothDim` in the product-metrization step below. -/
@@ -112537,7 +110618,11 @@ theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterion.{0}) (h5 : PkgI
 /-- **The textbook leaves still open** (leaf-fold3): `OpenTextbookLeaves2` with
 * `t11a` (T11(a), `T11a_RiemannEnd`) replaced by hom-unify's single leaf `HomLatticeCorr`, which
   implies it and the added leaf `HomLinearLift` (part c30);
-* `t40` (T40) replaced by `X0Transitive` (t40-tate, t40-igusa), which implies T40 and T39;
+* `t40` (T40) kept: t40-tate and t40-igusa prove it from `X0Transitive`
+  (`ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`, `ZInQKernel/Contrib/RLeaf/T40.lean`), but that module
+  imports Tau Ceti's `Backport` copy of `Units.val_mul_zpow_natCast_mul`, which clashes with the Tau Ceti
+  modules this chain imports (T14 etc.), so it cannot be imported here; `X1RationalCusp` is over Mathlib
+  definitions only, so the kernel theorem applies to this field verbatim outside this file;
 * `t3` (I2-NMP) and `t4` (I2-Red) back (leaf-fold2 had deleted them as unused): lt-local's route to
   `LinkedTateLocal` uses them through frob-pieces. -/
 structure OpenTextbookLeaves3 : Prop where
@@ -112566,9 +110651,8 @@ structure OpenTextbookLeaves3 : Prop where
   t34 : LeafModCurves.DimJ1Genus
   t35 : ZInQ.LeafPush2.UniformizationExists
   t38 : X1Belyi.CurveOfFunctionFieldQ
-  /-- t40-igusa: Galois acts transitively on the cyclic subgroups of order `N` of the generic
-  elliptic curve `E_j` over `ℚ(j)` (irreducibility of `X₀(N)` over `ℚ(j)`). Replaces T40. -/
-  x0Transitive : _root_.ZInQ.RLeaf.X0Transitive
+  /-- T40 (x1-belyi): `K_N` has a degree-one place (in the kernel: from `X0Transitive`). -/
+  t40 : X1Belyi.X1RationalCusp
   t41 : ZInQ.H5Neron.NeronModelExists
 
 /-- **The added leaves still open** (leaf-fold3): `OpenAddedLeaves2` without `burnsideAbsIrred`
@@ -112643,7 +110727,7 @@ theorem textbookLeaves2_of_open3 (t : OpenTextbookLeaves3) : OpenTextbookLeaves2
   t34 := t.t34
   t35 := t.t35
   t38 := t.t38
-  t40 := t40_of_x0Transitive t.x0Transitive
+  t40 := t.t40
   t41 := t.t41
 
 /-- **Leaves.lean's `GluePieces` from the open statements** (leaf-fold2's `gluePieces_of_open2`
@@ -112707,8 +110791,7 @@ theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
 /-- **G0 with only the open leaves and the open glue** (leaf-fold3; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
 * `OpenResearchLeaves2`: 26 research-level fields (unchanged from leaf-fold2);
-* `OpenTextbookLeaves3`: 20 textbook fields (`HomLatticeCorr` for T11(a), `X0Transitive` for T40,
-  T3 and T4 back);
+* `OpenTextbookLeaves3`: 20 textbook fields (`HomLatticeCorr` for T11(a); T3 and T4 back);
 * `OpenAddedLeaves3`: 16 leaves (11 LEAF, 5 LEAF?);
 * `OpenGlue3`: 6 glue Props.
 The table of every field is `docs/research/leaf-fold3.md` §2. -/
@@ -112732,8 +110815,6 @@ end
 #print axioms HSyn.tangentDimAtOrigin_proved3
 #print axioms HSyn.propTSAll_of_pieces3
 #print axioms HSyn.linkedTateLocal_of_leaves3
-#print axioms HSyn.t40_of_x0Transitive
-#print axioms HSyn.t39_of_x0Transitive
 #print axioms HomUnify.homLinearLift_of_corr
 #print axioms HomUnify.t11a_riemannEnd_of_corr
 #print axioms HSyn.textbookLeaves2_of_open3

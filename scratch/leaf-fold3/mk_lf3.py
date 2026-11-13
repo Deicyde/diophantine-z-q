@@ -40,8 +40,8 @@ def main():
     part('c40_kfglue.lean', 'scratch/g0-assemble3/parts/d20_kfglue.lean lines 1-15 and 431-1391 (lines 16-430 duplicate part a75)',
          lines('g0-assemble3/parts/d20_kfglue.lean', 1, 15) + '\n' + lines('g0-assemble3/parts/d20_kfglue.lean', 431))
     # c50: twist-descent's parts (TwistDescent proved; ConjIsogMaps from MulIsogeny)
-    part('c50_twistdescent.lean', 'scratch/twist-descent/Part{XC,HFD,Main,GDM,Final}.lean verbatim',
-         '\n\n'.join(lines('twist-descent/Part%s.lean' % p) for p in ['XC', 'HFD', 'Main', 'GDM', 'Final']))
+    part('c50_twistdescent.lean', 'scratch/twist-descent/Part{XC,HFD,Main,Final}.lean verbatim (PartGDM omitted: the unused GaloisDescentMor of kf-glue is not defined in the kf-glue port of g0-assemble3)',
+         '\n\n'.join(lines('twist-descent/Part%s.lean' % p) for p in ['XC', 'HFD', 'Main', 'Final']))
     # c60: hodge-bc2's two proofs (HodgeBCInjective, OmegaBaseChange)
     part('c60_hodgebc2.lean', 'scratch/hodge-bc2/hbc_proof.lean.part and omega_proof.lean.part verbatim',
          lines('hodge-bc2/hbc_proof.lean.part') + '\n\n' + lines('hodge-bc2/omega_proof.lean.part'), drop_open_abvar=True)

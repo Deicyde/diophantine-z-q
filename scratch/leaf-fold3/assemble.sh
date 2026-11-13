@@ -41,12 +41,13 @@ bodyC() { echo "$HDR"; wrap $C; echo "end HDec"; }
 bodyD() { echo "$HDR"; wrap $D; echo "end HDec"; }
 bodyE() { echo "$HDR"; wrap $E; echo "end HDec"; }
 F=$(ls partsF/c[1-7]*.lean); G=partsF/c80_propts.lean; H=partsF/c85_ltlocal.lean; I=partsF/d90_fold3.lean
-bodyF() { echo "$HDR"; wrap $F; echo "end HDec"; }
-bodyG() { echo "$HDR"; wrap $G; echo "end HDec"; }
-bodyH() { echo "$HDR"; wrap $H; echo "end HDec"; }
-bodyI() { echo "$HDR"; wrap $I; echo "end HDec"; }
-FIMP='import ZInQKernel.Contrib.RLeaf.T40
-import ZInQKernel.Contrib.Dim.HodgeLattice
+# (leaf-fold3) wrapF: like wrap, but first closes the anonymous sections a copied file leaves open (py/balance.py)
+wrapF() { for p in "$@"; do n=$(basename $p .lean); echo "section G0A2_$n"; cat $p; echo; k=$(python3 py/balance.py $p); for i in $(seq 1 $k); do echo "end"; done; echo "end G0A2_$n"; echo; done; }
+bodyF() { echo "$HDR"; wrapF $F; echo "end HDec"; }
+bodyG() { echo "$HDR"; wrapF $G; echo "end HDec"; }
+bodyH() { echo "$HDR"; wrapF $H; echo "end HDec"; }
+bodyI() { echo "$HDR"; wrapF $I; echo "end HDec"; }
+FIMP='import ZInQKernel.Contrib.Dim.HodgeLattice
 import ZInQKernel.Contrib.HodgeBC2.ExtFrac
 import ZInQKernel.Contrib.TwistDescent.GaloisDescent
 import ZInQKernel.Contrib.FrobPieces.SmoothGeomConnIntegral

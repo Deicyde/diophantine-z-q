@@ -62,16 +62,6 @@ theorem qmEndRank_of_leaves3 (hM1 : PkgI3.HomFreeFinite) (hT27 : PkgI3.QMDichoto
     HSyn.LinkedTate.QMEndRank :=
   LTGoodRed.QM.qmEndRank_of_leaves hM1 hT27
 
-/-- **T40 from `X0Transitive`** (t40-tate, t40-igusa: `ZInQKernel/Contrib/RLeaf/T40.lean`, imported;
-`X1Belyi.X1RationalCusp` is over Mathlib definitions only, so the kernel theorem has this file's
-type). -/
-theorem t40_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1RationalCusp :=
-  _root_.ZInQ.RLeaf.x1RationalCusp_of_x0Transitive h
-
-/-- **T39 from `X0Transitive`** (same module). -/
-theorem t39_of_x0Transitive (h : _root_.ZInQ.RLeaf.X0Transitive) : X1Belyi.X1ConstantField :=
-  _root_.ZInQ.RLeaf.x1ConstantField_of_x0Transitive h
-
 /-- **`TangentDimAtOrigin` from the kernel's Contrib** (dim-contrib, `ZInQ.Contrib.Dim.tangentDimAtOrigin`,
 `ZInQKernel/Contrib/Dim/HodgeLattice.lean`, imported; through leaf-fold2's field map `toAbVarK`). It replaces
 leaf-fold2's use of the scratch copy `LF2SmoothDim` in the product-metrization step below. -/
@@ -120,7 +110,11 @@ theorem linkedTateLocal_of_leaves3 (hR6 : PkgI2.RaynaudCriterion.{0}) (h5 : PkgI
 /-- **The textbook leaves still open** (leaf-fold3): `OpenTextbookLeaves2` with
 * `t11a` (T11(a), `T11a_RiemannEnd`) replaced by hom-unify's single leaf `HomLatticeCorr`, which
   implies it and the added leaf `HomLinearLift` (part c30);
-* `t40` (T40) replaced by `X0Transitive` (t40-tate, t40-igusa), which implies T40 and T39;
+* `t40` (T40) kept: t40-tate and t40-igusa prove it from `X0Transitive`
+  (`ZInQ.RLeaf.x1RationalCusp_of_x0Transitive`, `ZInQKernel/Contrib/RLeaf/T40.lean`), but that module
+  imports Tau Ceti's `Backport` copy of `Units.val_mul_zpow_natCast_mul`, which clashes with the Tau Ceti
+  modules this chain imports (T14 etc.), so it cannot be imported here; `X1RationalCusp` is over Mathlib
+  definitions only, so the kernel theorem applies to this field verbatim outside this file;
 * `t3` (I2-NMP) and `t4` (I2-Red) back (leaf-fold2 had deleted them as unused): lt-local's route to
   `LinkedTateLocal` uses them through frob-pieces. -/
 structure OpenTextbookLeaves3 : Prop where
@@ -149,9 +143,8 @@ structure OpenTextbookLeaves3 : Prop where
   t34 : LeafModCurves.DimJ1Genus
   t35 : ZInQ.LeafPush2.UniformizationExists
   t38 : X1Belyi.CurveOfFunctionFieldQ
-  /-- t40-igusa: Galois acts transitively on the cyclic subgroups of order `N` of the generic
-  elliptic curve `E_j` over `ℚ(j)` (irreducibility of `X₀(N)` over `ℚ(j)`). Replaces T40. -/
-  x0Transitive : _root_.ZInQ.RLeaf.X0Transitive
+  /-- T40 (x1-belyi): `K_N` has a degree-one place (in the kernel: from `X0Transitive`). -/
+  t40 : X1Belyi.X1RationalCusp
   t41 : ZInQ.H5Neron.NeronModelExists
 
 /-- **The added leaves still open** (leaf-fold3): `OpenAddedLeaves2` without `burnsideAbsIrred`
@@ -226,7 +219,7 @@ theorem textbookLeaves2_of_open3 (t : OpenTextbookLeaves3) : OpenTextbookLeaves2
   t34 := t.t34
   t35 := t.t35
   t38 := t.t38
-  t40 := t40_of_x0Transitive t.x0Transitive
+  t40 := t.t40
   t41 := t.t41
 
 /-- **Leaves.lean's `GluePieces` from the open statements** (leaf-fold2's `gluePieces_of_open2`
@@ -290,8 +283,7 @@ theorem gluePieces_of_open3 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves3)
 /-- **G0 with only the open leaves and the open glue** (leaf-fold3; no `sorry`, standard axioms).
 `ZInQ.SixContactMin` follows from
 * `OpenResearchLeaves2`: 26 research-level fields (unchanged from leaf-fold2);
-* `OpenTextbookLeaves3`: 20 textbook fields (`HomLatticeCorr` for T11(a), `X0Transitive` for T40,
-  T3 and T4 back);
+* `OpenTextbookLeaves3`: 20 textbook fields (`HomLatticeCorr` for T11(a); T3 and T4 back);
 * `OpenAddedLeaves3`: 16 leaves (11 LEAF, 5 LEAF?);
 * `OpenGlue3`: 6 glue Props.
 The table of every field is `docs/research/leaf-fold3.md` §2. -/
@@ -315,8 +307,6 @@ end
 #print axioms HSyn.tangentDimAtOrigin_proved3
 #print axioms HSyn.propTSAll_of_pieces3
 #print axioms HSyn.linkedTateLocal_of_leaves3
-#print axioms HSyn.t40_of_x0Transitive
-#print axioms HSyn.t39_of_x0Transitive
 #print axioms HomUnify.homLinearLift_of_corr
 #print axioms HomUnify.t11a_riemannEnd_of_corr
 #print axioms HSyn.textbookLeaves2_of_open3

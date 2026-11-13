@@ -1,0 +1,53 @@
+== TailF 12:20:03
+load average: 8.99, 10.97, 12.69
+Mem:             235          79           8           0         150         156
+exit 0 in 41s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailG 12:20:44
+load average: 12.20, 11.61, 12.84
+Mem:             235          79           6           0         151         156
+exit 1 in 56s
+errors: 101  sorry: 0
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4171:0: error: Unexpected name `Field` after `end`: The current section is unnamed
+
+Hint: Delete the name `Field` to end the current unnamed scope; outer named scopes can then be closed using additional `end` command(s):
+  end ̵F̵i̵e̵l̵d̵
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4227:0: error: Invalid name after `end`: Expected `Field`, but found `TPurity3`
+
+Hint: If you meant to end the outer scope(s) `TPurity3`, you must end all the intervening scopes `TPurity3.Field`:
+  end TPurity3.̲F̲i̲e̲l̲d̲
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4229:0: error: Invalid name after `end`: Expected `Field`, but found `TPurity3Copy`
+
+Hint: If you meant to end the outer scope(s) `TPurity3Copy`, you must end all the intervening scopes `TPurity3Copy.TPurity3.Field`:
+  end TPurity3Copy.̲T̲P̲u̲r̲i̲t̲y̲3̲.̲F̲i̲e̲l̲d̲
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4244:16: warning: Ambiguous namespace `G0ModField`: it is interpreted as `_root_.HDec.G0ModField` because this `open` occurs inside `namespace HDec.TPurity3.PropTSGlue`, while `_root_.G0ModField` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.G0ModField`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4263:30: error: Function expected at
+  h
+but this term has type
+  SNSpecialize
+
+Note: Expected a function because this term is being applied to the argument
+  (RatFunc ℚ)
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4264:28: error: Function expected at
+  h
+but this term has type
+  SNVertical
+
+Note: Expected a function because this term is being applied to the argument
+  (RatFunc ℚ)
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4265:38: error: Function expected at
+  h
+but this term has type
+  SNHorizontalTransfer
+
+Note: Expected a function because this term is being applied to the argument
+  (RatFunc ℚ)
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailG.lean:4266:34: error: Function expected at
+  h
+but this term has type
+  KummerCompositum
+--- nonstandard axiom lines:
+STOP at TailG (101 errors)

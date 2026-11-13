@@ -10,31 +10,33 @@ HDec edits of mk_lf3.py:
   3. scratch/frob-pieces/FrobPiecesFull.lean (alg-frob-red + afr-absfrob + frob-pieces: TateBridge35 from
      I3.M0, AbVarSpreadsOut, ProperSmoothGenConnected, I2-Red, I2-NMP).
 The script prints, for each source, the declarations dropped whose text differs from the chain's copy."""
-import sys, glob
+import sys, glob, re
 sys.path.insert(0, 'py'); sys.path.insert(0, '.')
 from chunks import chunks, fullnames, text
 from mk_lf3 import hdec
 idx = {}
-def key(n, c):
-    return n if c['name'] else ('anon', text(c))
 for f in ['olean/LPrefix.lean'] + sorted(glob.glob('parts/*.lean')) + sorted(p for p in glob.glob('partsF/*.lean') if not p.endswith('c85_ltlocal.lean') and not p.endswith('d90_fold3.lean')):
     cs = chunks(open(f).read())
     for n, c in fullnames(cs):
-        if n.startswith('HDec.'): n = n[5:]
+        if isinstance(n, str) and n.startswith('HDec.'): n = n[5:]
+        if isinstance(n, tuple) and n[1].startswith('HDec'): n = (n[0], n[1][5:], n[2])
         idx.setdefault(n, text(c))
-    for c in cs:
-        if c['kind'] == 'decl' and not c['name']: idx.setdefault(('anon', text(c)), text(c))
+idx_text = set(idx.values())
 def filt(src, tag):
     cs = chunks(open(src).read())
     names = {id(c): n for n, c in fullnames(cs)}
     out = []; nd = 0; diffs = []
     for c in cs:
         if c['kind'] == 'decl':
-            k = names.get(id(c)) if c['name'] else ('anon', text(c))
+            k = names.get(id(c))
             if k is not None and k in idx:
-                if idx[k] != text(c): diffs.append(k)
-                nd += 1; continue
-            if k is not None: idx[k] = text(c)
+                if k in idx and idx[k] != text(c): diffs.append(k)
+                nd += 1
+                # drop the `… in` modifiers (open/attribute/set_option/omit … in) that applied to it
+                while out and re.match(r'^(open|attribute|set_option|omit|include|variable)\b.*\sin\s*$', out[-1]) and '\n' not in out[-1]:
+                    out.pop()
+                continue
+            if k is not None: idx[k] = text(c); idx_text.add(text(c))
         if c['kind'] == 'struct' and (c['lines'][0].startswith('import ') or c['lines'][0].startswith('#')):
             continue
         out.append(text(c))

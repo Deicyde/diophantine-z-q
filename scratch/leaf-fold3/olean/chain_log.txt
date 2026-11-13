@@ -1,3 +1,79 @@
 == LPrefix 12:01:22
 load average: 11.18, 16.60, 17.09
 Mem:             235          82          45           0         110         153
+exit 0 in 558s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+'HDec.GlueI3.absolutelyIrreducible_of_finrank_commOf_prod_le_four' depends on axioms: [propext,
+'HDec.ZInQ.DefFaltings.MetrizedModel.modelHeight_eq_of_model_eq' depends on axioms: [propext,
+'HDec.TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic' depends on axioms: [propext,
+'HDec.ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent' depends on axioms: [propext,
+'HDec.ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts' depends on axioms: [propext,
+== TailA 12:10:40
+load average: 7.21, 9.94, 13.58
+Mem:             235          80          29           0         128         155
+exit 0 in 66s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailB 12:11:46
+load average: 12.54, 11.26, 13.80
+Mem:             235          81          20           0         136         154
+exit 0 in 98s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailC 12:13:24
+load average: 10.31, 10.78, 13.36
+Mem:             235          77          13           0         146         157
+exit 0 in 171s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailD 12:16:15
+load average: 12.20, 11.79, 13.32
+Mem:             235          79          21           0         137         156
+exit 0 in 9s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== LF2Stalks 12:16:24
+load average: 11.78, 11.71, 13.28
+Mem:             235          79          21           0         137         156
+exit 0 in 8s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== LF2UnifRoot 12:16:32
+load average: 11.63, 11.68, 13.27
+Mem:             235          80          20           0         137         155
+exit 0 in 6s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== LF2SmoothDim 12:16:38
+load average: 11.13, 11.58, 13.21
+Mem:             235          80          19           0         138         155
+exit 0 in 7s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== LF2UnramConj 12:16:45
+load average: 11.28, 11.60, 13.21
+Mem:             235          80          18           0         138         154
+exit 0 in 7s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== LF3Cot 12:16:52
+load average: 10.78, 11.49, 13.17
+Mem:             235          79          19           0         139         155
+exit 0 in 12s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailE 12:17:04
+load average: 10.33, 11.35, 13.10
+Mem:             235          81          17           0         139         154
+exit 0 in 57s
+errors: 0  sorry: 0
+--- nonstandard axiom lines:
+== TailF 12:18:01
+load average: 12.86, 11.97, 13.21
+Mem:             235          82          16           0         138         153
+exit 1 in 4s
+errors: 1  sorry: 0
+/home/jackmccarthy/dzq-wt/leaf-fold3/scratch/leaf-fold3/olean/TailF.lean:1:0: error: import ZInQKernel.Contrib.TauCeti.Backport.Algebra.Group.Units.Basic failed, environment already contains 'Units.val_mul_zpow_natCast_mul' from ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Units.Basic
+--- nonstandard axiom lines:
+STOP at TailF (1 errors)

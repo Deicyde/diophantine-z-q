@@ -143,7 +143,6 @@ variable (F : Fld p) [FiniteDimensional ℚ_[p] F]
 
 attribute [local instance] algZpF
 
-omit [FiniteDimensional ℚ_[p] F] in
 variable {F}
 
 end Model2
@@ -204,28 +203,6 @@ open PkgI4 (GaloisRep GaloisChar)
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
 /-! ### Objects -/
-
-/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
-`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
-embedding `K ↪ ℚ̄` that the map chooses. -/
-def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
-    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
-
-/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
-abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
-  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
-
-/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
-def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
-    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
-  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
-
-/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
-def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
-    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
-    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
-  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
 
 end G0Galois
 
@@ -2127,6 +2104,10 @@ of `L` (the ring of the `v`-adic valuation). -/
 noncomputable def dvrAt {L : Type} [Field L] [NumberField L]
     (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) : ValuationSubring L :=
   (v.valuation L).valuationSubring
+
+instance {L : Type} [Field L] [NumberField L] (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) :
+    IsDiscreteValuationRing (dvrAt v) := by
+  unfold dvrAt; infer_instance
 
 section Classify
 
@@ -4104,17 +4085,14 @@ end Quat
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## Proofs of two pieces -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## `EndBaseChange` (proof copied from scratch/bp-qmmoduli/QMAbVar.lean L533-557, `endBC`) -/
 
 section BaseChangeEnd
 
 variable {K : Type} [Field K]
 
-open scoped CategoryTheory.Obj in
 end BaseChangeEnd
 
 /-! ## `TatePoints` (generic parts copied from scratch/unram-tate/BCPoints.lean) -/
@@ -5885,25 +5863,6 @@ open PkgI4 (Qbar GQ LiesOver IsArithFrob GaloisRep)
 open PkgI3 G0ModNewform GlueC10Link
 
 
-/-- **The Frobenius trace link (GLUE, AV side; N5 L781-786).** There is a finite set `S` of
-primes such that at every arithmetic Frobenius `τ` above `p ∉ S` there are an abelian variety
-`Ā` over a field `k` of characteristic `p`, an endomorphism `α'` of `Ā` and `N ≠ 0` with
-`FrobCompare` (kernel, `GlueC10Link`) at `ℓ = 3` and at `ℓ = 5`: some isomorphism
-`ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ ⊗ V_ℓ(Ā)` carries `N·Tm_ℓ(τ)` to `V_ℓ(α')`. In N5, `S = T ∪ {3, 5}`
-(`T` = bad primes of `A/L'`), `Ā` is the reduction of `A` at the place `v ∩ L'`, `α' = N·(μ̄_τ ∘ F)`
-(relative `p`-Frobenius `F`, reduction `μ̄_τ` of the isogeny `μ_τ : {}^τA → A`, defined over
-`L ⊆ L'` by N5 L638-640), and the
-isomorphism is the Serre–Tate reduction isomorphism. It concerns the operators `Tm_ℓ` that
-g0-mod-field's `TateBridge` builds from the points-level `m_σ = μ_σ ∘ σ` (one `m_σ` for all `ℓ`). -/
-def FrobTraceLink {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K)
-    (Tm5 : GQ → Module.End (PadicAlgCl 5) (Vb A 5))
-    (Tm3 : GQ → Module.End (PadicAlgCl 3) (Vb A 3)) : Prop :=
-  ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ),
-    LiesOver v p → IsArithFrob τ v p →
-    ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k) (α : PkgI3.AbVar.End Ab)
-      (N : ℕ), N ≠ 0 ∧ FrobCompare 3 (Tm3 τ) α N ∧ FrobCompare 5 (Tm5 τ) α N
-
-
 end G14Trace
 
 end
@@ -6278,7 +6237,6 @@ section TwistSec
 
 variable {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime]
 
-variable (p ℓ) in
 end TwistSec
 
 end G15Ram
@@ -7202,17 +7160,14 @@ end Quat
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## Proofs of two pieces -/
 
-set_option maxHeartbeats 1000000 in
 /-! ## `EndBaseChange` (proof copied from scratch/bp-qmmoduli/QMAbVar.lean L533-557, `endBC`) -/
 
 section BaseChangeEnd
 
 variable {K : Type} [Field K]
 
-open scoped CategoryTheory.Obj in
 end BaseChangeEnd
 
 /-! ## `TatePoints` (generic parts copied from scratch/unram-tate/BCPoints.lean) -/
@@ -7314,7 +7269,6 @@ open _root_.ZInQ ZInQ LeafQM.AV GlueDescent G0ModField UnramTate
 
 /-! ## The assembly -/
 
-set_option maxHeartbeats 4000000 in
 end FrobTrace
 
 end
@@ -7340,8 +7294,6 @@ universe u
 
 variable {K : Type u} [Field K]
 
-set_option backward.defeqAttrib.useBackward true in
-set_option backward.isDefEq.respectTransparency false in
 end MulRigidity
 
 /-! ## The leaf, copied verbatim, and its proof -/

@@ -13,3 +13,25 @@
   root module LF3Cot (infra-stalks CotangentBaseChange lines 523-end).
 - lake build of the kernel modules needed (Contrib T14 T28 RLeaf HeightBC HodgeBC2 Mobius Dim TwistDescent FrobPieces HomUnify
   AbVarBC, HDecomp QM.Pin etc.) started 11:47.
+
+## 12:01-12:38 olean chain, VERIFIED compiled
+- LPrefix 558 s, TailA 66 s, TailB 98 s, TailC 171 s, TailD 9 s, LF2Stalks/UnifRoot/SmoothDim/UnramConj/LF3Cot 6-12 s each,
+  TailE 57 s (with `import ZInQKernel.Contrib.Mobius.Main` in place of the scratch module LF2ImagePlane): all 0 errors.
+- TailF: first run failed at import: `ZInQKernel.Contrib.RLeaf.T40` (via TateCuspMuN/TateCuspTorsion) imports Tau Ceti's
+  `Backport.Algebra.Group.Units.Basic`, which clashes (`Units.val_mul_zpow_natCast_mul`) with
+  `ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Units.Basic` already in the chain (T14 etc.). T40 import dropped; field t40 kept.
+- TailF second run: 2 errors, twist-descent's PartGDM (`GaloisDescentMor` not defined in g0-assemble3's kf-glue port);
+  PartGDM omitted (unused). Third run: TailF 41 s, 0 errors.
+- TailG (Prop. TS): 101 errors at first (orphan `attribute … in` before dropped duplicates; duplicates of chain declarations;
+  typeclass timeouts in kummer-comp's core; ts-kummer's current file has a forward reference). Fixed in mk_propts.py:
+  drop the `… in` modifiers with a dropped declaration, dedup against the chain, `synthInstance.maxHeartbeats 400000`,
+  KummerComp.lean in place of KummerTS.lean, one rewrite `rw [bcPt` → `rw [LeafAdopt… LeafQM.AV.bcPt`; chunker fixes
+  (one-line `@[simp] lemma`, attributes after docstrings). TailG 69 s, 0 errors.
+- TailH (lt-local route): 7 errors, then 3 (text-identity dedup across namespaces dropped `ZInQ.NeronLG` lemmas and an
+  anonymous instance of another namespace); fixed by keying anonymous instances by namespace + text and no text dedup
+  in mk_ltlocal.py. TailH 283 s, 0 errors.
+- TailI (d90_fold3.lean) 29 s, 0 errors. All 16 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`,
+  including `HDec.HSyn.sixContactMin_of_open3`, `gluePieces_of_open3`, `propTSAll_of_pieces3`, `linkedTateLocal_of_leaves3`.
+- olean/Check3.lean: `example : (∀ r t l g, _root_.ZInQ.SixContactMin) := HDec.HSyn.sixContactMin_of_open3` compiles, so the
+  conclusion is the kernel's own `ZInQ.SixContactMin`.
+- Counts: 26 + 20 + 16 + 6 = 68 (leaf-fold2: 26 + 18 + 13 + 9 = 66); glue 9 → 6, SPECULATIVE glue 2 → 0.

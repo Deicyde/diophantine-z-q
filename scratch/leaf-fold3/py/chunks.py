@@ -12,13 +12,26 @@ def chunks(text):
         cur = None
     while i < n:
         l = L[i]
-        if l.startswith('/--') or l.startswith('@['):
+        if (l.startswith('/--') or l.startswith('@[')) and not DECL.match(l):
             flush(); cur = {'kind': 'decl', 'name': None, 'lines': [l]}
-            # docstring/attr continues until a decl line
+            # the docstring (until `-/`) and attribute lines, then the declaration line itself
+            closed = (not l.startswith('/--')) or ('-/' in l[3:])
             i += 1
             while i < n and cur['name'] is None:
-                cur['lines'].append(L[i]); m = DECL.match(L[i])
-                if m and not L[i].startswith(' '): cur['name'] = m.group(2); cur['kw'] = m.group(1)
+                li = L[i]
+                if closed and DECL.match(li) and not li.startswith(' '):
+                    m = DECL.match(li)
+                    cur['lines'].append(li); cur['name'] = m.group(2); cur['kw'] = m.group(1); i += 1
+                    break
+                if closed and not li.startswith('@[') and not li.startswith(' '):
+                    m = DECL.match(li)
+                    if m:
+                        cur['lines'].append(li); cur['name'] = m.group(2); cur['kw'] = m.group(1); i += 1
+                    else:
+                        cur['kind'] = 'other'; out.append(cur); cur = None
+                    break
+                cur['lines'].append(li)
+                if not closed and '-/' in li: closed = True
                 i += 1
             continue
         m = DECL.match(l)
@@ -54,8 +67,12 @@ def fullnames(cs, prefix_ns=()):
             elif l.startswith('section'): ns.append(('s', l.split()[1] if len(l.split()) > 1 else ''))
             elif l.startswith('end'):
                 if ns: ns.pop()
-        elif c['kind'] == 'decl' and c['name']:
+        elif c['kind'] == 'decl':
             nm = c['name']
+            if not nm:
+                # anonymous instance: keyed by its namespace and its text
+                yield ('<anon>', '.'.join(x[1] for x in ns if x[0] == 'n'), text(c)), c
+                continue
             if nm.startswith('_root_.'): full = nm[7:]
             else: full = '.'.join([x[1] for x in ns if x[0] == 'n'] + [nm])
             yield full, c
