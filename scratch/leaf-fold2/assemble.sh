@@ -6,6 +6,7 @@
 #   olean/LF2ImagePlane.lean = scratch/image-plane/ImagePlaneFinal.lean, verbatim (root namespace, kernel objects)
 #   olean/LF2Stalks.lean = LF2Stalks.lean.src (infra-stalks' general stalk lemmas, root namespace)
 #   olean/LF2UnifRoot.lean, LF2SmoothDim.lean = mk_unifdims.py outputs (root namespace)
+#   olean/LF2UnramConj.lean = scratch/inner-twist/UnramConj.lean verbatim (root namespace)
 #   olean/TailE.lean     = import TailD + kernel T14/T28/RLeaf + LF2ImagePlane + parts b*, inside `namespace HDec`
 #   Leaves2.lean         = all of the above in one file (LF2ImagePlane's body at root level, before TailE's body)
 cd "$(dirname "$0")"
@@ -23,7 +24,7 @@ A=$(ls parts/[0-9]*.lean); B=$(ls parts/a[0-3]*.lean parts/a4[0-4]*.lean); C=$(l
 EIMP='import ZInQKernel.Contrib.T14.Main
 import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.X1ConstantField'
-IPIMP=$( (grep '^import ' ../image-plane/ImagePlaneFinal.lean; echo 'import ZInQKernel.HDecomp.Objects') )
+IPIMP=$( (grep '^import ' ../image-plane/ImagePlaneFinal.lean; echo 'import ZInQKernel.HDecomp.Objects'; grep '^import ' LF2UnramConj.lean.src) )
 bodyA() { echo "$HDR"; for p in $A; do cat $p; echo; done; echo "end HDec"; }
 bodyB() { echo "$HDR"; wrap $B; echo "end HDec"; }
 bodyC() { echo "$HDR"; wrap $C; echo "end HDec"; }
@@ -37,7 +38,8 @@ cp ../image-plane/ImagePlaneFinal.lean olean/LF2ImagePlane.lean
 cp LF2Stalks.lean.src olean/LF2Stalks.lean
 cp LF2UnifRoot.lean.src olean/LF2UnifRoot.lean
 cp LF2SmoothDim.lean.src olean/LF2SmoothDim.lean
-{ echo "import TailD"; echo "$EIMP"; echo "import LF2ImagePlane"; echo "import LF2Stalks"; echo "import LF2UnifRoot"; echo "import LF2SmoothDim"; echo; bodyE; } > olean/TailE.lean
+cp LF2UnramConj.lean.src olean/LF2UnramConj.lean
+{ echo "import TailD"; echo "$EIMP"; echo "import LF2ImagePlane"; echo "import LF2Stalks"; echo "import LF2UnifRoot"; echo "import LF2SmoothDim"; echo "import LF2UnramConj"; echo; bodyE; } > olean/TailE.lean
 # flat file
 NIMP=$(grep -c '^import ' olean/LPrefix.lean)
 { grep '^import ' olean/LPrefix.lean; echo "$EIMP"; echo "$IPIMP" | grep -v -x -F "$(grep '^import ' olean/LPrefix.lean)";
@@ -48,5 +50,6 @@ NIMP=$(grep -c '^import ' olean/LPrefix.lean)
   grep -v '^import ' LF2Stalks.lean.src; echo;
   grep -v '^import ' LF2UnifRoot.lean.src; echo;
   grep -v '^import ' LF2SmoothDim.lean.src; echo;
+  grep -v '^import ' LF2UnramConj.lean.src | grep -v '^#print'; echo;
   bodyE; } > Leaves2.lean
 wc -l olean/*.lean Leaves2.lean

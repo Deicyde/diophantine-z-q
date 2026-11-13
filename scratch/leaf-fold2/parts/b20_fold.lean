@@ -136,6 +136,10 @@ theorem productMetrizationOfProductUnif_of_t35 (h35 : ZInQ.LeafPush2.Uniformizat
     ZInQ.ProductHeight.ProductMetrizationOfProductUnif :=
   ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim h35 tangentDimAtOrigin_proved
 
+/-- **`UnramifiedConjugates` proved** (inner-twist, module `LF2UnramConj`, Mathlib only). -/
+theorem unramifiedConjugates_proved : G0ModField.UnramifiedConjugates :=
+  _root_.G0ModField.unramifiedConjugates
+
 /-! ### The open statements -/
 
 /-- **The research-level leaves still open** (leaf-fold2). `ResearchLeaves3` (g0-assemble2: no
@@ -240,8 +244,9 @@ structure OpenAddedLeaves2 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
-the eight now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`) and the one now
+the nine now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
+`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`,
+`unramifiedConjugates`) and the one now
 following from the leaf T35 (`productMetrizationOfProductUnif`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
 final theorem needs neither). -/
 structure OpenGlue2 : Prop where
@@ -255,7 +260,6 @@ structure OpenGlue2 : Prop where
   hauptmodulUnique : G0Split.FibreQM.HauptmodulUnique
   cPtsTransport : G0Split.FibreQM.CPtsTransport
   propTSAll : G0ModField.PropTSAll
-  unramifiedConjugates : G0ModField.UnramifiedConjugates
   conjIsogMaps : G0ModField.KernelField.ConjIsogMaps
   modelG3 : G0AssembleMod.ModelG3
   linkedTateLocal : G0AssembleMod.LinkedTateLocal
@@ -355,7 +359,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
         g.hauptmodulUnique l.qmDenZeroCM3 g.cPtsTransport)
       l.thetaRatiosAlgebraic
     modularConstituent := modularConstituent_of_field t3
-      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll g.unramifiedConjugates)
+      (G0ModField.fibreCoverExists_of_propTSAll' t.t5 g.propTSAll unramifiedConjugates_proved)
       (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
         hFS5 G0ModField.KernelField.oMaximal endTransport_proved g.conjIsogMaps)
       UnramTate.unramifiedSup_mf
@@ -382,7 +386,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 11 glue Props.
+* `OpenGlue2`: 10 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -415,6 +419,7 @@ end
 #print axioms HSyn.productUnifSplits_proved
 #print axioms HSyn.tangentDimAtOrigin_proved
 #print axioms HSyn.productMetrizationOfProductUnif_of_t35
+#print axioms HSyn.unramifiedConjugates_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2
