@@ -1,4 +1,4 @@
-import ZInQKernel.Contrib.G1Adelic.Basic
+import ZInQKernel.HDecomp.Textbook.G1Adelic
 
 open IsDedekindDomain IsDedekindDomain.HeightOneSpectrum Rat.HeightOneSpectrum GlueVigneras
 open scoped RestrictedProduct Quaternion

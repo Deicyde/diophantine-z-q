@@ -29,3 +29,8 @@
   `gamma_order_AF : (ZAF ⊔ K3AF).relIndex NAF = 144`.
   `#print axioms` of Theta, gamma_order_AF, relIndex_eq_four_AF, relIndex_K3_AF:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 03:35 Merged origin/main (c303557d line; no conflicts). Per integrator update, t30's file is now
+  `ZInQKernel/HDecomp/Textbook/G1Adelic.lean` (same declarations, namespace `G1Adelic`): removed my copy
+  `Contrib/G1Adelic/Basic.lean`; `FiniteAdele.lean` now imports `ZInQKernel.HDecomp.Textbook.G1Adelic`.
+  `lake build ZInQKernel.Contrib.G1Adelic.FiniteAdele`: OK (19 s); axioms of Theta, gamma_order_AF,
+  relIndex_eq_four_AF, relIndex_K3_AF: [propext, Classical.choice, Quot.sound]. VERIFIED.
