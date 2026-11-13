@@ -18,6 +18,7 @@ import ZInQKernel.Contrib.GZTheta.NewCMFinal
 import ZInQKernel.Contrib.GZTheta.ALFinal
 import ZInQKernel.Contrib.FrobPieces.SmoothGeomConnIntegral
 import ZInQKernel.Contrib.TYZGenus.RingClassBridge
+import ZInQKernel.Contrib.Mobius.Main
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -47,3 +48,5 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.TYZGenus.RingClassBridge.hprimeNormal
 #print axioms ZInQ.Contrib.TYZGenus.RingClassBridge.iInH4
 #print axioms ZInQ.Contrib.TYZGenus.RingClassBridge.tyzThm35ReadingA_of_cmLeaves_ringClassD
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_T5
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
