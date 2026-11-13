@@ -28,3 +28,13 @@
 - TailC run 4 (07:2x, 135 s): VERIFIED exit 0, 0 errors, no sorry; `HSyn.gluePieces_of_gluePieces3`,
   `HSyn.sixContactMin_of_leaves3`: [propext, Classical.choice, Quot.sound]. So the whole chain
   LPrefix -> TailA -> TailB -> TailC compiles with every wave-27 part and GluePieces3 (39 fields).
+- Finding (VERIFIED, read in Leaves.lean L21906, L21934, L33345ff): `HSyn.ResearchLeaves` has two fields whose
+  types are `opaque` placeholders (`r1an : R01b_ComplexUniformization`, `r17 : R17_Carayol`), so it cannot be
+  inhabited; neither field is used by any proof (grep). Part z80: `ResearchLeaves3` = the same structure
+  without them and with `h5` replaced by `h5fin : StableHeightFinite` (`ResearchLeaves3.h5` rebuilds H5 with
+  h5-glue's `neronModelMinimal`); the seven consumers (reverseIsogeny_of_leaves, g8_g12_of_leaves,
+  newformLeaves_of, afterG7_of, hom_of_common, glueOutputs_of_leaves, sixContactMin_of_leaves) copied verbatim
+  with `r : ResearchLeaves3`; `researchLeaves3_of : ResearchLeaves → ResearchLeaves3`.
+- TailC to olean (142 s) and TailD (z80, z90; 7 s): VERIFIED 0 errors, no sorry; `gluePieces_of_gluePieces3`,
+  `sixContactMin_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3)`,
+  `sixContactMin_of_leaves3'`, `researchLeaves3_of`: [propext, Classical.choice, Quot.sound].

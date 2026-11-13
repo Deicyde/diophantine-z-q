@@ -110,7 +110,7 @@ structure GluePieces3 : Prop where
   linkedTateLocal : G0AssembleMod.LinkedTateLocal
 
 /-- fs5-nocm's `R1R2fpFull` is the leaf bundle's `R1R2fp` after pin-apply (same clauses). -/
-theorem r1r2fpFull_of (r : ResearchLeaves) : FS5NoCM.R1R2fpFull := by
+theorem r1r2fpFull_of (r : ResearchLeaves3) : FS5NoCM.R1R2fpFull := by
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, h⟩ := LeafAdopt.R1R2fp_of_rep r.r1r2
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h⟩
 
@@ -130,13 +130,13 @@ theorem mobiusGlue_of_gp3 (t : TextbookLeaves) (gp : GluePieces3) : LeafQM.AV.Pi
     t.t5
 
 /-- FS5 (NoCM on the fibre) from `GluePieces3` (fs5-nocm). -/
-theorem fibreComTrivial_of_gp3 (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces3) :
+theorem fibreComTrivial_of_gp3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
     G0FibreSimple.FibreComTrivial :=
   fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r)
     (mobiusGlue_of_gp3 t gp) t.t27 t.t6 gp.cmOptimalEmbedding gp.x6KummerFibre r.r5count)
 
 /-- **`GluePieces` from `GluePieces3` and the leaf bundles** (g0-assemble2). -/
-theorem gluePieces_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces3) :
+theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
     GluePieces where
   dimFinite := G0Split.dimFinite
   dimBaseChange := G0Split.dimBaseChange
@@ -149,7 +149,7 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp 
     (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
       gp.hodgeBCInjective gp.cotangentSpanBC gp.omegaBaseChange gp.uniformizationLiftAnalytic))
   productExists := G0Product.productExists
-  reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves r G0Split.dimFinite
+  reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r G0Split.dimFinite
   thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
     (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 (mobiusGlue_of_gp3 t gp) gp.qmHauptmodul
       t.t35 t.t11a gp.qmClassNumberOne (gp.r1bFamily r.r1r2) (gp.periodMapGlue r.r1r2)
@@ -160,7 +160,7 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp 
     (G0ModField.KernelField.kernelFieldExists_of_split'' t.t6 r.r7a r.r6 t.t5 t.t27
       (fibreComTrivial_of_gp3 r t gp) gp.oMaximal gp.endTransport gp.conjIsogMaps)
     UnramTate.unramifiedSup_mf
-    (G0AssembleMod.afterG7_of r t
+    (G0AssembleMod.afterG7_of3 r t
       ⟨gp.burnsideAbsIrred, gp.r14Det, gp.g9Glue,
         G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
           gp.artinTorsionSurj gp.homLinearLift gp.conjUniformization),
@@ -174,11 +174,16 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves) (t : TextbookLeaves) (gp 
       (G0AssembleMod.linkedTateData_of_local t.t7 gp.linkedTateLocal))
   heightCopies := G0HeightCopies.heightCopiesAgree
 
-/-- **G0 after waves 26-27** (g0-assemble2): the leaf bundles and `GluePieces3` imply
-`ZInQ.SixContactMin`. -/
-theorem sixContactMin_of_leaves3 (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces3) :
+/-- **G0 after waves 26-27** (g0-assemble2): the leaf bundles (`ResearchLeaves3`: no `opaque`
+placeholder) and `GluePieces3` imply `ZInQ.SixContactMin`. -/
+theorem sixContactMin_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leaves r t (gluePieces_of_gluePieces3 r t gp)
+  sixContactMin_of_leavesR3 r t (gluePieces_of_gluePieces3 r t gp)
+
+/-- The same with Leaves.lean's `ResearchLeaves` (which implies `ResearchLeaves3`). -/
+theorem sixContactMin_of_leaves3' (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces3) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_leaves3 (researchLeaves3_of r) t gp
 
 end HSyn
 
@@ -186,3 +191,5 @@ end
 
 #print axioms HSyn.gluePieces_of_gluePieces3
 #print axioms HSyn.sixContactMin_of_leaves3
+#print axioms HSyn.sixContactMin_of_leaves3'
+#print axioms HSyn.researchLeaves3_of

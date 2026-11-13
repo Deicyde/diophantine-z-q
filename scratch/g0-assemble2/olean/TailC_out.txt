@@ -925,5 +925,3 @@ consider restructuring your `variable` declarations so that the variables are no
   omit [NumberField L] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-'HSyn.gluePieces_of_gluePieces3' depends on axioms: [propext, Classical.choice, Quot.sound]
-'HSyn.sixContactMin_of_leaves3' depends on axioms: [propext, Classical.choice, Quot.sound]
