@@ -1,0 +1,35 @@
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzDelta_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.exists_actsAsArtinO' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusPointLeafCM_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusPointLeaf_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinned' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinned'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzSigmaFixesZn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.galPt_Z7' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.class7GenusPtDefined_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_pinnedLeaves' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.Copy.genusPointLeafCM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.phi0_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.iInHprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.cmFieldOfDefinition7_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_rewired' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.genusFieldLeLni' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_cmLeaves7' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.exists_complexConj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321Seven_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_cmLeaves7'' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.sqrtPstarInHilbert' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.betaOnGenus7_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.artinPstarChi' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.normP2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.lemma321Seven_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

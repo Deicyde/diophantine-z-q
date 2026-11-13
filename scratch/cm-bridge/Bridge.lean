@@ -2040,6 +2040,29 @@ theorem tyzThm35ReadingA_of_cmLeaves7' (h11 : TYZThm11Integral) (h1 : TYZLcalOne
   tyzThm35ReadingA_of_cmLeaves7 h11 h1 h29 hcm hsh h318 h35 h5
     (lemma321Seven_of (cmFieldOfDefinition7_of hcm) h36 hb)
 
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem of cm-bridge (final leaves).** Reading A of TYZ Theorem 3.5
+(`ZInQ.Literature.TYZThm35ReadingA`) from:
+* the three `𝓛`-leaves of tyz-decomp: `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2`;
+* the CM leaf `CM.CMFieldOfDefinition ringClassFieldD` (Heegner points of discriminant `D` on
+  `A = X₀(32)` are defined over the ring class field of discriminant `D`; task tyz-cm works on it);
+* `TYZSigmaShiftsF0` (TYZ Prop. 3.7(1), L1488–1490, + Shimura reciprocity at `P_n`);
+* `Lemma318Literal HHprime` (TYZ Lemma `torsion2`, L2230: torsion of `A(ℍ'_n)`);
+* `Thm35First ℓ tyzZ` (TYZ Theorem 3.3/3.5 for the pinned genus points);
+* `Lemma321Five` (TYZ Lemma 3.21(1), L2508–2510);
+* `TYZThm36Seven` (TYZ Theorem 3.6(3), L1424–1427).
+Proved here (no longer hypotheses): `IInH4`, `HprimeNormal` (ring-class), `IInHprime`,
+`CMFieldOfDefinitionTYZ`, `CMFieldOfDefinition7`, `TYZSigmaFixesZn`, `GenusFieldLeLni`, and
+`Lemma321Seven` (from `TYZThm36Seven` with the glue `BetaOnGenus7`, proved from genus theory). -/
+theorem tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hcm : CM.CMFieldOfDefinition ringClassFieldD) (hsh : TYZSigmaShiftsF0)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (h36 : TYZThm36Seven) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_cmLeaves7 h11 h1 h29 hcm hsh h318 h35 h5
+    (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) h36)
+
 end ZInQ.Contrib.TYZGenus.CMBridge
 
 /-! ## Axiom audit (output in `scratch/cm-bridge/audit-out.txt`) -/
@@ -2095,3 +2118,5 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms normP2
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms lemma321Seven_of'
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
