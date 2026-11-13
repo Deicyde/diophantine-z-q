@@ -43,3 +43,6 @@
   μ = e.φ ∘ ι(b), b = N·u ≠ 0, is 𝒪-linear) compiled, standard axioms (VERIFIED, build_final.txt).
 - Finding: EndTransport needs rigidity: IsBaseChangeOf / IsModelOver record only a scheme iso (with ι, η compatibility),
   not the group law; η(0)=0 gives 0 ↦ 0, and g0-fibresimple's leaf RigidityHom then makes it a homomorphism.
+- endEqO_of_iso (End = ι(O) along a QML3 iso), EndTransportBC (base change + rigidity, Prop), endTransport_of
+  (R1 naturality at K ⊆ ℚ̄ + Quotient.exact + endEqO_of_iso), kernelFieldExists_of_final' compiled, standard axioms
+  (VERIFIED, build_final.txt).

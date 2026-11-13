@@ -1638,6 +1638,56 @@ theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
     KernelFieldExists :=
   kernelFieldExists_of_split'' hHFF hNOS hRay hTors t27 h5 oMaximal hb hG
 
+
+/-- `End = ι(𝒪)` moves along an isomorphism of `QML3` objects (proved). -/
+theorem endEqO_of_iso {k : Type} [Field k] {P Q : QML3 k} (e : QML3.Iso Q P)
+    (h : ∀ f : PkgI3.AbVar.End P.A, ∃ a : LeafQM.O, f = P.q.iota a) :
+    ∀ g : PkgI3.AbVar.End Q.A, ∃ a : LeafQM.O, g = Q.q.iota a := by
+  intro g
+  let g' : PkgI3.AbVar.End P.A := PkgI3.AbVar.Hom.mk' (e.ψ.hom ≫ g.hom ≫ e.φ.hom)
+  obtain ⟨a, ha⟩ := h g'
+  refine ⟨a, PkgI3.AbVar.Hom.ext' ?_⟩
+  have h1 : g.hom = e.φ.hom ≫ g'.hom ≫ e.ψ.hom := by
+    change g.hom = e.φ.hom ≫ (e.ψ.hom ≫ g.hom ≫ e.φ.hom) ≫ e.ψ.hom
+    simp only [Category.assoc, e.left, Category.comp_id]
+    rw [← Category.assoc, e.left, Category.id_comp]
+  rw [h1, ha, ← Category.assoc, ← e.equivariant a, Category.assoc, e.left, Category.comp_id]
+
+/-- **Remaining glue 4b′ (base change and rigidity).** For a base change `Q` of `PK` along
+`K ⊆ ℚ̄` (`IsBaseChangeOf`, a pullback square compatible with `ι` and `η`): if
+`End(Q.A) = ι_Q(𝒪)`, then `End_L(A_L) = ι_L(𝒪)` for every `L ⊇ K`. *Argument* (model check):
+`(A_L)_ℚ̄` and `Q.A` are two pullbacks of `PK.A` along `Spec ℚ̄ → Spec K` (pasting), hence
+isomorphic as `ℚ̄`-schemes; the isomorphism preserves the identity (`η(0) = 0`), so it is a
+homomorphism by rigidity (g0-fibresimple's leaf `RigidityHom`, Mumford §4 Cor. 1), and it carries
+the base change of `ι_L(a)` to `ι_Q(a)`; an `f ∈ End_L(A_L)` has base change `ι_Q(a)` for some
+`a`, so `f = ι_L(a)` because base change along `Spec ℚ̄ → Spec L` is faithful (fpqc;
+bp-qmmoduli's `endBC_injective`). `IsBaseChangeOf` records no group law, which is why rigidity
+is needed. -/
+def EndTransportBC : Prop :=
+  ∀ (K : IF) (PK : QML3 K) (Q : QML3 Qbar), IsBaseChangeOf (K.val : K →+* Qbar) PK Q →
+    (∀ g : PkgI3.AbVar.End Q.A, ∃ a : LeafQM.O, g = Q.q.iota a) →
+    ∀ (L : IF) (hKL : K ≤ L),
+      ∀ f : PkgI3.AbVar.End (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)),
+        ∃ a : LeafQM.O, f = ((@endBC K _ PK.A L _ (incAlg hKL)).comp PK.q.iota) a
+
+/-- `EndTransport` from `EndTransportBC` (proved: R1's naturality at `K ⊆ ℚ̄` gives the base
+change `Q` of `PK` with `[Q] = [P]`, so `Q ≅ P`, and `endEqO_of_iso`). -/
+theorem endTransport_of (h : EndTransportBC) : EndTransport := by
+  intro Y Φ π hR1 hR2 j₀ y P hy hπ hEndP K _ _ PK hPK L _ _ hKL hfix f
+  obtain ⟨⟨yK, hyK, hyKP⟩, -⟩ := hPK
+  obtain ⟨Q, hQ, hbc⟩ := hR1.2.2.2 K Qbar K.val yK PK hyK
+  have hQP : M3.mk Q = M3.mk P := hQ.symm.trans hyKP
+  obtain ⟨e⟩ := Quotient.exact hQP
+  exact h K PK Q hbc (endEqO_of_iso e hEndP) L hKL f
+
+/-- **Headline, final form with `EndTransportBC` (proved).** -/
+theorem kernelFieldExists_of_final' (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hbc : EndTransportBC) (hG : ConjIsogMaps) :
+    KernelFieldExists :=
+  kernelFieldExists_of_final hHFF hNOS hRay hTors t27 h5 (endTransport_of hbc) hG
+
 end G0ModField.KernelField
 
 end EndEqOSec
@@ -1650,6 +1700,7 @@ end EndEqOSec
 #print axioms G0ModField.KernelField.endEqOFibre_of
 #print axioms G0ModField.KernelField.oMaximal
 #print axioms G0ModField.KernelField.kernelFieldExists_of_final
+#print axioms G0ModField.KernelField.kernelFieldExists_of_final'
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.blinear_of_twisted_iso
 #print axioms G0ModField.KernelField.center_O

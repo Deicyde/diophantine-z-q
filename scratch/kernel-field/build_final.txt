@@ -540,6 +540,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'G0ModField.KernelField.endEqOFibre_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.oMaximal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.KernelField.kernelFieldExists_of_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.faithful_O' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.blinear_of_twisted_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.center_O' depends on axioms: [propext, Classical.choice, Quot.sound]
