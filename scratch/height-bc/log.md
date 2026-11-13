@@ -66,3 +66,5 @@
   `hodgeSpanBC_of : CotangentSpanBC → HodgeSpanBC` (proved, multilinearity). VERIFIED:
   `modelHeightBaseChange_of_glue5`, `hodgeLineBaseChange_of_glue5` from HodgeBCInjective, CotangentSpanBC,
   OmegaBaseChange, UniformizationLiftAnalytic, JacobianSemilinear; 21 `#print axioms`, all standard.
+- H5WithBC.lean regenerated (04:58): `stableFaltingsHeight_eq_neron_of_glue5` (h5-glue's H5 from N1, N2 and
+  the five glue Props), 0 errors, axioms standard, 1m36s.
