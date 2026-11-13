@@ -43,3 +43,9 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
 - QMPin.lean run5 (adds §4: R1univProps, phi_part, R1fpPropsU, SameTripleMor, transfer_pointwise_mor,
   MobiusGlue (def, not proved), sameTripleMor_of_mobius, pointwise_of_witness_mor, cm_objects_of_R1R2fp):
   0 errors, 5.7 s; 20 `#print axioms`, all standard. VERIFIED (run5.txt).
+- Full edit (R1famProps + R1univProps, 6 conjuncts, patterns `⟨-, -, -, hnat, -, -⟩`):
+  QMLeavesFull.lean (kernel copy, QM-Leaves-full.patch): 0 errors, 6.5 s. VERIFIED.
+  SplitFull (Split-full.patch, regenerate with `python3 scratch/qm-pin/apply_edit.py scratch/g0-split/Split.lean OUT full`):
+  0 errors, 0 sorry, 2m27s; glueOutputs_of_leaves, sixContactMin_of_leaves standard axioms. VERIFIED (run_split_full.txt).
+  HDecLeavesFull (HDecLeaves-full.patch): 0 errors, 3m12s, only the known sorry (glueOutputs_of_leaves). VERIFIED (run_hdec_full.txt).
+  The 20k-line edited copies are not kept (regenerable); the min-edit copies are in commit 3 history.
