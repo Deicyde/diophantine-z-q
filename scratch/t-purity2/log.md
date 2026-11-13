@@ -87,3 +87,4 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   `leaves_of_narrow_fin : BrauerHasseFin2Fin → LocalTwo2Fin → LeafHasse ∧ LeafLocalTwo`,
   `narrow_fin_of_T14_T15 : BrauerHasse2C → BrauerReciprocity2C → LocalH2CardC →
   BrauerHasseFin2Fin ∧ LocalTwo2Fin`.
+- Final check 2026-11-13 02:13 PST: all ten t-purity2 files and t-brauer-purity/T2Kernel.lean recompiled one after another: no errors, no sorry, every #print axioms = [propext, Classical.choice, Quot.sound].
