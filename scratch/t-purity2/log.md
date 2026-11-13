@@ -17,3 +17,11 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
   `TPurity2.PurityBranchLocusGe2` (leaf with `2 ≤ dim S_q` in place of `1 ≤`),
   `purityBranchLocus_of_ge2 : PurityBranchLocusGe2 → PkgI2.PurityBranchLocus`,
   `ge2_of_purityBranchLocus` (converse). So T1 = its dimension ≥ 2 case.
+- `ProfiniteCochains.lean` (Mathlib only; `IsCocycle2`, `IsCoboundary2` copied verbatim from
+  ZInQKernel/HDecomp/Conductor/I6Base.lean): COMPILES, standard axioms.
+  `exists_nhds_one_invariant` (continuous `H → ZMod 2` on a compact group is right-invariant under
+  a neighbourhood of 1; via `compact_open_separated_mul_right`), `exists_openNormalSubgroup_invariant₂`,
+  `continuous_of_invariant(₂)`, `isCocycle2_iff` (IsCocycle2 ε ↔ cocycle identity ∧ ε bi-invariant
+  under an open normal subgroup), `isCoboundary2_iff` (↔ ε = δf with f invariant under an open
+  normal subgroup), instances `compactSpace_absoluteGaloisGroup`,
+  `zeroDimensionalSpace_absoluteGaloisGroup` (char 0), `isCocycle2_iff_Qp`.

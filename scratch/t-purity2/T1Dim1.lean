@@ -199,15 +199,8 @@ theorem purityBranchLocus_of_ge2 (h : PurityBranchLocusGe2.{u}) : PkgI2.PurityBr
         intro hb; rw [hb] at h1; exact absurd h1 (by decide)
       obtain ⟨n, hn⟩ := WithBot.ne_bot_iff_exists.mp hne
       rw [← hn] at h1 hlt ⊢
-      have h1' : (1 : ℕ∞) ≤ n := by
-        first
-        | exact WithBot.coe_le_coe.mp h1
-        | exact_mod_cast h1
-      have hlt' : n < (2 : ℕ∞) := by
-        first
-        | exact WithBot.coe_lt_coe.mp hlt
-        | exact_mod_cast (hlt : ((n : ℕ∞) : WithBot ℕ∞) < ((2 : ℕ∞) : WithBot ℕ∞))
-        | (norm_cast at hlt)
+      have h1' : (1 : ℕ∞) ≤ n := WithBot.coe_le_coe.mp h1
+      have hlt' : n < (2 : ℕ∞) := WithBot.coe_lt_coe.mp hlt
       have : n = 1 := by
         cases n with
         | top => exact absurd hlt' (by decide)

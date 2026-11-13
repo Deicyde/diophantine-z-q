@@ -96,7 +96,7 @@ theorem continuous_of_invariant₂ {G : Type*} [Group G] [TopologicalSpace G]
   have hmem : ∀ z : G, z • (N : Set G) ∈ nhds z := fun z => by
     have := (N.isOpen.smul z).mem_nhds (Set.smul_mem_smul_set (N.one_mem))
     simpa using this
-  have hnhds : x.1 • (N : Set G) ×ˢ x.2 • (N : Set G) ∈ nhds x :=
+  have hnhds : (x.1 • (N : Set G)) ×ˢ (x.2 • (N : Set G)) ∈ nhds x :=
     prod_mem_nhds (hmem x.1) (hmem x.2)
   refine tendsto_nhds_of_eventually_eq ?_
   filter_upwards [hnhds] with y hy
@@ -128,13 +128,28 @@ theorem isCoboundary2_iff {G : Type*} [Group G] [TopologicalSpace G]
   · rintro ⟨N, f, hN, he⟩
     exact ⟨f, continuous_of_invariant f N.toOpenSubgroup hN, he⟩
 
-/-- The absolute Galois group of `ℚ_p` satisfies the hypotheses. -/
-example (p : ℕ) [Fact p.Prime] : IsTopologicalGroup (Field.absoluteGaloisGroup ℚ_[p]) ∧
-    CompactSpace (Field.absoluteGaloisGroup ℚ_[p]) ∧
-    ZeroDimensionalSpace (Field.absoluteGaloisGroup ℚ_[p]) :=
-  ⟨inferInstance, inferInstance, inferInstance⟩
+/-- The absolute Galois group of a field of characteristic zero is compact and zero-dimensional
+(it is `Gal(K^al/K)` with the Krull topology). -/
+instance compactSpace_absoluteGaloisGroup (K : Type*) [Field K] [CharZero K] :
+    CompactSpace (Field.absoluteGaloisGroup K) := by
+  have : IsGalois K (AlgebraicClosure K) := {}
+  exact (inferInstance : CompactSpace Gal(AlgebraicClosure K/K))
+
+instance zeroDimensionalSpace_absoluteGaloisGroup (K : Type*) [Field K] [CharZero K] :
+    ZeroDimensionalSpace (Field.absoluteGaloisGroup K) := by
+  have : IsGalois K (AlgebraicClosure K) := {}
+  exact (inferInstance : ZeroDimensionalSpace Gal(AlgebraicClosure K/K))
+
+/-- Hence for `G_{ℚ_p}`: -/
+theorem isCocycle2_iff_Qp (p : ℕ) [Fact p.Prime]
+    (ε : Field.absoluteGaloisGroup ℚ_[p] → Field.absoluteGaloisGroup ℚ_[p] → ZMod 2) :
+    IsCocycle2 ε ↔ (∀ a b c, ε b c - ε (a * b) c + ε a (b * c) - ε a b = 0) ∧
+      ∃ N : OpenNormalSubgroup (Field.absoluteGaloisGroup ℚ_[p]),
+        ∀ x y, ∀ n ∈ N, ∀ m ∈ N, ε (x * n) (y * m) = ε x y :=
+  isCocycle2_iff ε
 
 end TPurity2
 
 #print axioms TPurity2.isCocycle2_iff
 #print axioms TPurity2.isCoboundary2_iff
+#print axioms TPurity2.isCocycle2_iff_Qp
