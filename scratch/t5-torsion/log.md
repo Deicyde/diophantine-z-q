@@ -12,3 +12,8 @@
 
 ## Build
 - 12:10 lake build of TauCeti group modules, AbVarBC.Main, LeafPush2.T started.
+- 12:04 build done (3 min).
+
+## Compile outcomes
+- GroupGlue.lean: `T5Torsion.nonempty_torsionBy_addEquiv_pi` (A abelian group, N ≠ 0, ∀ m ∣ N, #A[m] = m^r ⇒ A[N] ≃+ (Fin r → ZMod N)) and rank-r prime-power lemma. COMPILES, axioms propext/Classical.choice/Quot.sound. (VERIFIED)
+- Torus.lean: `T5Torsion.natCard_pow_eq_one` (Φ : E → P additive-to-multiplicative, surjective, kernel a full ℤ-lattice Λ of a fin-dim real normed space E ⇒ #{x : P | xⁿ = 1} = n^(dim_ℝ E)), `finrank_real_fin_complex` (dim_ℝ ℂ^g = 2g). COMPILES, standard axioms. (VERIFIED)

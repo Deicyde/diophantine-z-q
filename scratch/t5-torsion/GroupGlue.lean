@@ -14,6 +14,8 @@ Generalizes Tau Ceti's rank-two lemmas (vendored in `ZInQKernel/Contrib/TauCeti/
 `r`; the proofs follow theirs.
 -/
 
+set_option linter.style.haveILetI false
+
 namespace T5Torsion
 
 open scoped DirectSum
@@ -117,9 +119,9 @@ noncomputable def primePowerComponentEquiv {A : Type*} [AddCommGroup A] (N r : �
     exact hcount p (dvd_trans hp_dvd_q hq_dvd)
   have hcardq' : Nat.card (Submodule.torsionBy ℤ G (q : ℤ)) =
       p ^ (r * N.factorization p) := by
-    rw [hcardq, pow_mul, mul_comm]
+    rw [hcardq]
     dsimp only [q]
-    rw [← pow_mul, ← pow_mul, mul_comm]
+    rw [← pow_mul, mul_comm]
   exact (nonempty_addEquiv_pi_zmod_primePow
     (Nat.prime_of_mem_primeFactors p.2) hpow hcardq' hcardp).some
 
