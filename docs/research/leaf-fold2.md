@@ -2,7 +2,7 @@
 
 Task leaf-fold2, 2026-11-13. Base: 6f296292 (origin/wip/integrate-w42). Lean: `scratch/leaf-fold2/`.
 The deliverable is `Leaves2.lean` (flat file). It is built by `assemble.sh` from:
-- the scripts `mk_*.py`, `mk_b07.sh`;
+- the scripts `mk_*.py`, `mk_b0*.sh` (order in `scratch/leaf-fold2/BUILD.md`);
 - the copied parts `parts/`.
 
 The results log is `scratch/leaf-fold2/log.md`. No file under `ZInQKernel/`, `blueprint/` or
