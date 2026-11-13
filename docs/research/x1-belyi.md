@@ -136,4 +136,23 @@ bound, and with M2/M3's transitivity (one Galois orbit).
   `ZInQKernel/HDecomp/ModCurves/X1Belyi.lean`. Then add `X1Leaves` to the leaf list of
   `h-decomposition.md` in place of the glue target `X1ModelExists`, and fold `BelyiX1` into the
   E2/R18 consumers.
-* No model or human review of the leaf statements yet.
+* No human review of the leaf statements yet (one model review, below).
+
+## Model review (2026-11-12, one independent subagent read; no Lean run)
+
+The review found no leaf that is false, vacuous or stronger than what is published. Its rating
+of each leaf:
+* TorsionStructure: OK.
+* CurveOfFunctionFieldQ: OK.
+* GoodReductionUnramified: OK with caveat. The reviewer confirmed the claims made above:
+  - `w ∩ k(T) = k[T]_(p)`, and `w` is a DVR by `[Γ_w : Γ_v] ≤ [L : k(T)]`, so `𝔪_w = p·w` is
+    exactly `e = 1`;
+  - the extra steps are the fixed field of inertia and the passage to the completion.
+* X1ConstantField: OK with caveat. Shimura states it for Weber functions, but here
+  `x' = x + (j−1728)²/12` differs from `x` by an element of `ℚ(j)`, so the field is the same.
+  The reviewer checked `N = 1, 2, 3` by hand.
+* X1RationalCusp: OK with caveat.
+  - Proof sketch: `x(q^{1/N}) ∈ ℚ[[q^{1/N}]]`; a quadratic twist does not change
+    `ℚ((1/j))(x)`; Igusa's transitivity then gives the claim for every `P`.
+  - The reviewer checked `N = 2, 3, 4, 6` by hand.
+  - Ogg's paper is model-specific, so the citation route is Igusa plus the Tate curve.

@@ -28,3 +28,4 @@
   is supported on {j, j − 1728} (times a constant). So for N ≤ 7, ℚ(j)(x(P))/ℚ(j) is unramified
   over every finite place of ℚ[j] other than j = 0, 1728 (étale algebra criterion), consistent with
   leaf T2 and with the degree bound. VERIFIED (computed), N ≤ 7 only.
+- 23:35 model review (subagent, reading only) of the five leaves: none false/vacuous/stronger than published; caveats recorded in report. (Model review, not VERIFIED.)
