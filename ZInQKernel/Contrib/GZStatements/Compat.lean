@@ -9,6 +9,11 @@ UNVERIFIED locator). Friedberg–Hoffstein's nonvanishing theorem needs `ε(f �
 proves the arithmetic half: under the hypotheses of `GZDecomp.FHNonvanishing`
 (`D < 0`, `D ≡ 1 mod 4` squarefree, every `p ∣ N` split), `(−N / |D|) = −1` and
 `(D, N) = 1`. With `ε(f) = −1` this gives `ε(f ⊗ χ_D) = (−1)(−1) = +1`.
+
+It also checks the two definitions the leaves are stated over: `HeegnerHyp N D` is the classical
+splitting condition (`heegnerHyp_iff_split`: `D ≡ 1 mod 8` if `2 ∣ N`, `D` a nonzero square
+modulo every odd `p ∣ N`), and `chiD D` is the Kronecker character of `ℚ(√D)` at every prime
+(`chiD_prime`, `chiD_two`) and completely multiplicative (`chiD_mul`).
 -/
 
 namespace ZInQ.GZStatements
