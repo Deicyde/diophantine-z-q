@@ -62,3 +62,18 @@ TextbookLeaves, lines 19109-19200) after leaf-adopt. Base 01267822.
   which is in neither ResearchLeaves nor TextbookLeaves; the glue must prove it or add it as a leaf.
 - Wording: bundle docstring at 19181-19182 "(not yet known non-vacuous: AN3 open)" misleading.
 - Lead re-read of R16' (16348), JacobianExists (16157), DimJ1Genus (16373), IsNewform (4477): agree.
+
+## Cluster B (agentB.md; R4, R10, R11R12, R13, R14, R15, T13, T17, T18, T19, T23, T24, T25, T28): all OK
+- Definitional stack checked (B_dR = Mathlib BDeRham, classical since ker θ principal for 𝓞_{C_p};
+  Mathlib cyclotomicCharacter is genuine on PadicAlgCl p (it would be the constant 1 on a field
+  without all p-power roots of unity); htMult exact division; weight of Q_p(1) = -1 throughout).
+- Lead re-read (VERIFIED 3940-4100, 4435-4700, 18790-18960): htMult via H_{-w} gives weight -1 to
+  Q_p(1); E-dimension of H_i = multiplicity of the Q̄_p-representation (G_{Q_p} permutes the factors
+  of E ⊗ C_p transitively); IsNormalizedEigenform's recursion with χ(d)=0 for (d,N)>1 forces
+  U_p-eigen at p | N (narrower hypothesis, safe), excludes 0 (a_1 = 1); EigenformTwist recursion
+  holds for g_ψ with χ' = χψ² (formal), level Nm² (Shimura 3.64 / Atkin-Li); BrauerNesbitt true for
+  any group over any char-0 field; FrobeniusDense via the normal core of U; IsNewform = eigenform ∉
+  old span is Li's newform by strong multiplicity one.
+- Glue note: HSyn.GaloisRep (r14, r15) and PkgI4.GaloisRep (r13, PanFor) are distinct structures;
+  the glue must convert (no faithfulness issue).
+- Wording: T23 docstring says "Exact"; it is a matrix-form consequence (on V^∨).
