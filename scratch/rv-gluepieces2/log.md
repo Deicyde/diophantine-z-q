@@ -65,3 +65,8 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   (the only change): exit 0 in 16 s. `RvGP2.dirichletOfFinite (t : HSyn.TextbookLeaves) :
   G0ModNewform.DirichletOfFinite := X1Dirichlet.dirichletOfFinite_of_kroneckerWeberCyclic t.t17`,
   standard axioms (VERIFIED). Field 22 follows from the bundle leaf t17.
+- c5_g12det: g12-det's Integrate.lean minus its ModGalois copy and part_integrate (same recipe as
+  build_int.py): exit 0 in 42 s, 0 errors. Standard axioms (VERIFIED):
+  `RvGP2.detTate (t) hW hQ hD : G0Galois.DetTate` (weil-pairing's `T09_SymmIsogenyExists`,
+  `IsogenyQuasiInverse`, `DivisiblePoints`, bundle `t.t26`), `RvGP2.g12Weight hSen hFI :
+  G0Galois.G12Weight` (`SenTwist`, `FiniteImageHT`). Fields 19, 20 reduce to leaves outside the bundles.
