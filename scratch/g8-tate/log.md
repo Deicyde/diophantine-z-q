@@ -85,3 +85,13 @@
 - Premise `Module.finrank ℚ L ≤ ZInQ.heightD` added to `EndRank4` (weaker hypothesis; the consumer
   `tateBridgeOnL_of` has it). Compile (VERIFIED): `ctail.sh Tail.lean` exit 0, 0 errors, 14 axiom
   reports, all standard.
+
+## Step 8 (09:58-10:05 PST): review, flat re-check
+- One read-only model review of the report and parts. Findings: the `EndRank4` edit was not yet
+  in the flat file (re-checked below); cross-reference §3→§2; the `TateBridge35` row should say
+  `TateBridgeOnL` (premises differ); stale committed iteration files `Part.lean`, `Part2.lean`
+  (removed, gitignored). Confirmed: `TateBridgeOnL` = `LinkedTateObjS` minus the two `LocalDataS`
+  conjuncts (diffed); `EndRank4` follows from linked-tate's `FibreSimple` + `QMEndRank` by its
+  `linkedTateCore_of` argument; `LinkedFrob` applied to the right data; counts.
+- Compile (VERIFIED): `lake env lean scratch/g8-tate/G8Tate.lean` (12 858 lines): 3m40s, 0 errors,
+  no sorry; 147 axiom reports, all `[propext, Classical.choice, Quot.sound]`.

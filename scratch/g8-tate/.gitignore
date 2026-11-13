@@ -2,3 +2,5 @@ olean/
 Prefix.lean
 Prefix2.lean
 Tail.lean
+Part.lean
+Part2.lean

@@ -12553,7 +12553,8 @@ open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
 open G0ModField UnramTate
 
 /-- **GLUE (G5-G6 + A9; N5 L564-577): the endomorphism ring of the model over `L'` has rank 4.**
-For every fibre context and G7 data, `rank_ℤ End(A_{L'}) = 4`. This is the `rank` clause that
+For every fibre context and G7 data with `[L:ℚ] ≤ D`, `rank_ℤ End(A_{L'}) = 4` (the premise is
+not needed for the truth argument; it is included only because the consumer has it). This is the `rank` clause that
 `G0Galois.G7Out` asks for and that g14-trace's `TateBridge35` and g0-mod-field's `TateBridge` take
 as a hypothesis. linked-tate derives it (`linkedTateCore_of`, over `Leaves.lean`, not re-checked
 here) from `FibreSimple` (`EndDivision A_{L'}`) and its `QMEndRank` (Albert's classification;
@@ -12564,7 +12565,7 @@ def EndRank4 : Prop :=
   ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
     (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
     [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
-    G7Data u P L A ε N χ β L' hLL' →
+    G7Data u P L A ε N χ β L' hLL' → Module.finrank ℚ L ≤ ZInQ.heightD →
     Module.finrank ℤ (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4
 
 /-- An algebraic complex number lies in the image of any embedding `κ : ℚ̄ → ℂ` (proved; the
@@ -12610,10 +12611,10 @@ set_option maxHeartbeats 2000000 in
 and linked-tate's `LinkedFrob` (proved).** -/
 theorem tateBridgeOnL_of (hT : PkgI3.TateModuleFree) (hRk : EndRank4)
     (hF : UnramTate.LinkedFrob) : TateBridgeOnL := by
-  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD _hLD
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD hLD
   haveI hNF : NumberField L' := numberField_of_fd L'
   have hD' := hD
-  have hrank := hRk Y Φ π u P hctx L A ε N χ β L' hLL' hD
+  have hrank := hRk Y Φ π u P hctx L A ε N χ β L' hLL' hD hLD
   obtain ⟨hQM, hDD, -, -, -, -, hβs, hβe, hL', -, -, -⟩ := hD
   have hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 := by
     obtain ⟨K, hKL, PK, -, hA⟩ := hQM

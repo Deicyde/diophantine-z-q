@@ -3,8 +3,8 @@
 Task g8-tate, 2026-11-13. Lean: `scratch/g8-tate/` (results log `log.md`).
 - **Flat check file:** `G8Tate.lean`, written by `build_flat.sh`.
 - **Iteration files:** `Prefix.lean` → `Prefix2.lean` → `Tail.lean`, compiled as a chain of oleans
-  (`build_prefix.sh`, `build_prefix2.sh`, `assemble.sh`, `ctail.sh`). They are not committed; the
-  scripts regenerate them.
+  (`build_prefix.sh`, `build_prefix2.sh`, `assemble.sh`, `ctail.sh`). They are not committed (they
+  are gitignored); the scripts regenerate them. The sources are the parts `part_*.lean`.
 
 Marks: **VERIFIED** = compiled, or read in a file. **STANDARD** = published, with a reference.
 **SPECULATIVE** = model judgement. **UNVERIFIED** = a theorem number recalled without a source
@@ -17,7 +17,7 @@ and the same field with T7 applied, `LinkedTateDataD`. Both are copied verbatim,
 the premise `[L:ℚ] ≤ D` that g8-object recommends adding to `G7Data`. Both are now proved from:
 - four leaves: R6, I2-Tors, T26 and (for `LinkedTateDataD`) T7;
 - local-glue's textbook Prop `UnramRoots 2 5`;
-- two glue Props that already existed in substance (§3).
+- two glue Props that already existed in substance (§2).
 
 No statement was changed.
 
@@ -28,10 +28,10 @@ The four items assigned to this task are closed in Lean:
 | `WildTateTrivial` (R6/D2 on `LadicCond`'s `G_{ℚ_p}`) | **proved** from R6 and I2-Tors (`localDataS_of_g7Data`) |
 | `BetaUpperC`, `BetaTameC` (T16/D3 on `G7Data`'s `β`) | **proved**. Odd `p` needs nothing; `p = 2` uses `UnramRoots 2 ℓ`. T16 is not needed (local-glue's finding G6) |
 | the local field `F`: `e(F) ≤ (DG₀)!` resp. `p ∤ e(F)`, with `F ⊇ L` (`ContainsL`) | **proved** (`exists_finGal_ramCard_le`, and the new `exists_finGal_tame`) |
-| `TateBridge35` with `OnL` (the Tate functor on G7's descent datum, `ℓ = 5, 3`) | **proved** from T26, `EndRank4` and linked-tate's `LinkedFrob` (`tateBridgeOnL_of`). `OnL` itself is proved outright (`onL_canon`) |
+| `TateBridge35` with `OnL` (the Tate functor on G7's descent datum, `ℓ = 5, 3`) | **proved** in the form `TateBridgeOnL` from T26, `EndRank4` and linked-tate's `LinkedFrob` (`tateBridgeOnL_of`). `TateBridgeOnL` is `TateBridge35`'s conclusion plus `OnL`, for G7 data in a fibre context with `[L:ℚ] ≤ D`. `TateBridge35`'s premises `dim = 2` and `rank End = 4` are discharged by `PK.surface` and `EndRank4`. `OnL` itself is proved outright (`onL_canon`) |
 
-VERIFIED: `lake env lean scratch/g8-tate/G8Tate.lean` (12 857 lines) exits with 0 errors in
-5 min 30 s, with no `sorry`. All 147 `#print axioms` reports are
+VERIFIED: `lake env lean scratch/g8-tate/G8Tate.lean` (12 858 lines) exits with 0 errors in
+3 min 40 s, with no `sorry`. All 147 `#print axioms` reports are
 `[propext, Classical.choice, Quot.sound]`.
 
 The main theorems are in namespace `G8Tate`:
@@ -81,13 +81,14 @@ It consists of g14-trace's `TateBridge35` data together with `OnL` for `Tm₅` a
 | `PkgI3.TateModuleFree` (T26 = I3.M0) | **leaf** (`t.t26`) | Mumford §18-19 | continuity clause of `G7Out` (`tateCont_of_tateModuleFree`) |
 | `PkgI3.CharPolyIndepOfEll` (T7) | **leaf** (`t.t7`) | Mumford §19 Thm 4 | G14 (only in `linkedTateDataD_of_frob`) |
 | `G15Ram.UnramRoots 2 5` | **textbook glue** (local-glue's; a leaf candidate) | an unramified character of `G_F`, `F/ℚ₂` finite, has an unramified 4th root (Serre, *Local Fields* III §5, IV §2; locators UNVERIFIED) | `BetaUpperC` at `p = 2` |
-| `G8Tate.EndRank4` | **glue** (new name; the content of linked-tate's `FibreSimple` + `QMEndRank`) | for every fibre context and G7 datum, `rank_ℤ End(A_{L'}) = 4` | the `rank` clause of `G7Out` |
+| `G8Tate.EndRank4` | **glue** (new name; the content of linked-tate's `FibreSimple` + `QMEndRank`) | for every fibre context and G7 datum with `[L:ℚ] ≤ D`, `rank_ℤ End(A_{L'}) = 4` (the premise is not used by the truth argument) | the `rank` clause of `G7Out` |
 | `UnramTate.LinkedFrob` | **glue** (linked-tate's, copied verbatim) | g14-trace's `FrobTraceLink` for the canonical operators `tmOf … 5`, `tmOf … 3`, for every admissible `(Θ, h)` and descent datum | the `FrobTraceLink` conjunct of `TateBridge35` |
 
 `EndRank4` is stated here because `LinkedTateObjS`, unlike `TateBridge35` and g0-mod-field's
 `TateBridge`, does not assume `rank End = 4`. linked-tate proves `rank = 4` from `FibreSimple` (an
 existing `GluePieces` field) and its `QMEndRank`, using `endDivision_of_fibreSimple`
-(`linkedTateCore_of`). That proof is over `Leaves.lean` and is not re-checked in this environment.
+(`linkedTateCore_of`). That proof is over `Leaves.lean` and is not re-checked in this environment;
+porting it also needs `endDivision_of_fibreSimple`'s bridge `abVarEquiv` from the Leaves layer.
 **Why `EndRank4` is true** (STANDARD route, numbering UNVERIFIED):
 - `End⁰(A_{L'})` is a division algebra (`FibreSimple`) containing `B`.
 - By Albert's classification it equals `B`.
