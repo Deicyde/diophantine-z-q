@@ -25,3 +25,12 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   reduction at p ≠ 3; `G3Out` (L37281) excludes p = ℓ. TRUE (STANDARD).
 - 27, G6 half: noncommutativity from `PK.q.iota` (injective) after base change: TRUE. `EndDivision`
   of `A_{L'}` needs NoCM of `P` (CM ⇒ `A_ℚ̄ ≅ E²`): pin-dependent.
+
+## Pinned rebase check (Lean)
+
+- `build_prefix.sh`: scratch/h-decomposition/Leaves.lean (post pin-apply, verbatim) → olean/LPrefix.olean:
+  exit 0 in 603 s, 0 errors, 190 `#print axioms` lines (VERIFIED, olean/prefix_out.txt).
+- Tail = `import LPrefix` + g0-assemble's imports_extra + g0-assemble's parts verbatim except
+  parts/40_fibresimple.lean (§5 demo lemmas `r1fpProps_twistBy`, `fibreComTrivial_twisted` take
+  `R1famProps ∧ R1univProps` for the twisted Φ as an extra hypothesis; they are not used
+  downstream) + checks/c1_g10.lean (g10-odd L102-239 verbatim + `g10Glue_of_conjTwist_new`).
