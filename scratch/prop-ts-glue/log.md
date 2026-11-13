@@ -39,3 +39,16 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - `specNonMeeting_of_pieces' : PurityGlobalDim2 → SNHeightOne → SNSpecialize → SpecNonMeeting`.
 - Compile of PropTSGlue.lean: 0 errors, 17 PropTSGlue axiom lines all standard (VERIFIED);
   prefix still IDENTICAL.
+
+## Step 4 (08:55): SNHeightOne reduced; horizontal arithmetic PROVED, compiled
+- Proved (Mathlib only, developed in LocalData.lean, pasted): `exists_int_multiple` (N f ∈ ℤ[X]
+  with p ∤ N for p-integral f), `C_notMem` (C n ∉ m if C p ∈ m, p ∤ n), `homog_mem`
+  (d^k F ≡ Σ c_i a^i d^{k−i} mod any ideal ∋ dX − a), `notMem_of_val_zero` (F ∈ ℤ[X] with
+  F(s₀) a p-unit is not in any proper m ∋ p, dX − a).
+- New glue: `SNVertical` (the prime (p) of ℤ[X]_m is unramified; from NoVerticalRam and
+  [E:ℚ(X)] < p), `SNHorizontalTransfer` (a ramified horizontal height-one prime P of ℤ[X]_m
+  comes from a ramified prime Q of B with ℤ[X] ∩ Q ⊆ P; localization of primes, char 0).
+- `snHeightOne_of_pieces : SNVertical → SNHorizontalTransfer → SNHeightOne` (compiled);
+  `specNonMeeting_of_pieces'' : PurityGlobalDim2 → SNVertical → SNHorizontalTransfer →
+  SNSpecialize → SpecNonMeeting`. Composite `propTSAll_of_pieces` updated.
+- Compile: 0 errors, 21 PropTSGlue axiom lines all standard; prefix IDENTICAL (VERIFIED).

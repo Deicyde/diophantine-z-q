@@ -284,6 +284,191 @@ theorem specNonMeeting_of_pieces' (hPur : PurityGlobalDim2.{0}) (hH : SNHeightOn
     (hS : SNSpecialize) : SpecNonMeeting :=
   specNonMeeting_of_pieces hPur snLocalData hH hS
 
+/-- **Clearing `p`-integral denominators**: a polynomial with `p`-integral coefficients times an
+integer `N` prime to `p` has integer coefficients. -/
+theorem exists_int_multiple (p : ℕ) [hp : Fact p.Prime] (f : ℚ[X])
+    (hf : ∀ i, 0 ≤ padicValRat p (f.coeff i)) :
+    ∃ N : ℤ, ¬ (p : ℤ) ∣ N ∧ ∃ F : ℤ[X], F.map (Int.castRingHom ℚ) = C (N : ℚ) * f := by
+  refine ⟨∏ i ∈ f.support, ((f.coeff i).den : ℤ), ?_, ?_⟩
+  · intro hdvd
+    have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp.out
+    obtain ⟨i, -, hi⟩ := (Prime.dvd_finset_prod_iff hpr _).mp hdvd
+    exact not_dvd_den_of_nonneg p _ (hf i) (Int.natCast_dvd_natCast.mp hi)
+  · rw [← mem_lifts, lifts_iff_coeff_lifts]
+    intro n
+    rw [coeff_C_mul]
+    by_cases hn : n ∈ f.support
+    · obtain ⟨M', hM'⟩ := Finset.dvd_prod_of_mem (fun i => ((f.coeff i).den : ℤ)) hn
+      refine ⟨M' * (f.coeff n).num, ?_⟩
+      simp only [eq_intCast, Int.cast_mul]
+      rw [hM', Int.cast_mul, ← Rat.den_mul_eq_num]
+      push_cast
+      ring
+    · rw [notMem_support_iff.mp hn, mul_zero]
+      exact ⟨0, by simp⟩
+
+/-- `C n ∉ m` when `C p ∈ m` and `p ∤ n` (`m` proper). -/
+theorem C_notMem (p : ℕ) [hp : Fact p.Prime] (m : Ideal ℤ[X]) (hm : m ≠ ⊤)
+    (hpm : C (p : ℤ) ∈ m) (n : ℤ) (hn : ¬ (p : ℤ) ∣ n) : C n ∉ m := by
+  intro hnm
+  have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp.out
+  obtain ⟨α, β, h⟩ := (Prime.coprime_iff_not_dvd hpr).mpr hn
+  apply hm
+  rw [Ideal.eq_top_iff_one]
+  have : C (α * p + β * n) ∈ m := by
+    rw [map_add, map_mul, map_mul]
+    exact m.add_mem (m.mul_mem_left _ hpm) (m.mul_mem_left _ hnm)
+  rwa [h, map_one] at this
+
+/-- **Reduction mod `(p, dX − a)`**: `d^k F ≡ Σ c_i a^i d^{k−i}` modulo any ideal containing
+`dX − a` (`k = deg F`). -/
+theorem homog_mem (m : Ideal ℤ[X]) (a d : ℤ) (hm : C d * X - C a ∈ m) (F : ℤ[X]) :
+    C (d ^ F.natDegree) * F -
+      C (∑ i ∈ Finset.range (F.natDegree + 1), F.coeff i * a ^ i * d ^ (F.natDegree - i)) ∈ m := by
+  set k := F.natDegree
+  have hF : F = ∑ i ∈ Finset.range (k + 1), C (F.coeff i) * X ^ i := as_sum_range_C_mul_X_pow F
+  nth_rw 1 [hF]
+  rw [Finset.mul_sum, map_sum, ← Finset.sum_sub_distrib]
+  apply Ideal.sum_mem
+  intro i hi
+  have hik : i ≤ k := Nat.lt_succ_iff.mp (Finset.mem_range.mp hi)
+  have e : C (d ^ k) * (C (F.coeff i) * X ^ i) - C (F.coeff i * a ^ i * d ^ (k - i)) =
+      C (F.coeff i * d ^ (k - i)) * ((C d * X) ^ i - C a ^ i) := by
+    rw [show d ^ k = d ^ (k - i) * d ^ i by rw [← pow_add, Nat.sub_add_cancel hik]]
+    simp only [map_mul, map_pow]
+    ring
+  rw [e]
+  apply m.mul_mem_left
+  obtain ⟨q, hq⟩ := sub_dvd_pow_sub_pow (C d * X) (C a) i
+  rw [hq]
+  exact m.mul_mem_right _ hm
+
+/-- **A polynomial `F ∈ ℤ[X]` with `F(s₀)` a `p`-adic unit is not in `m`**, for any proper
+ideal `m` containing `p` and `dX − a` (`s₀ = a/d`). -/
+theorem notMem_of_val_zero (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀)
+    (m : Ideal ℤ[X]) (hm : m ≠ ⊤) (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) (F : ℤ[X])
+    (hne : (F.map (Int.castRingHom ℚ)).eval s₀ ≠ 0)
+    (hval : padicValRat p ((F.map (Int.castRingHom ℚ)).eval s₀) = 0) : F ∉ m := by
+  intro hF
+  set k := F.natDegree
+  set d : ℤ := (s₀.den : ℤ) with hd
+  set n₀ : ℤ := ∑ i ∈ Finset.range (k + 1), F.coeff i * s₀.num ^ i * d ^ (k - i)
+  have hd0 : (d : ℚ) ≠ 0 := by simp [d]
+  have hrel : (n₀ : ℚ) = (d : ℚ) ^ k * (F.map (Int.castRingHom ℚ)).eval s₀ := by
+    rw [eval_eq_sum_range, natDegree_map_eq_of_injective (RingHom.injective_int _), Finset.mul_sum]
+    simp only [n₀, Int.cast_sum, Int.cast_mul, Int.cast_pow, coeff_map, eq_intCast]
+    apply Finset.sum_congr rfl
+    intro i hi
+    have hik : i ≤ k := Nat.lt_succ_iff.mp (Finset.mem_range.mp hi)
+    have hs : (s₀.num : ℚ) = (d : ℚ) * s₀ := by simp [d]
+    rw [hs, show (d : ℚ) ^ k = (d : ℚ) ^ (k - i) * (d : ℚ) ^ i by
+      rw [← pow_add, Nat.sub_add_cancel hik]]
+    ring
+  have hn₀ : ¬ (p : ℤ) ∣ n₀ := by
+    intro hdvd
+    have hn0 : (n₀ : ℚ) ≠ 0 := by rw [hrel]; exact mul_ne_zero (pow_ne_zero _ hd0) hne
+    have hdv : padicValRat p (d : ℚ) = 0 := by
+      rw [show (d : ℚ) = ((s₀.den : ℕ) : ℚ) by simp [d], ← padicValRat_of_nat,
+        padicValNat.eq_zero_of_not_dvd (not_dvd_den_of_nonneg p s₀ hs₀)]
+      rfl
+    have hv : padicValRat p (n₀ : ℚ) = 0 := by
+      rw [hrel, padicValRat.mul (pow_ne_zero _ hd0) hne, padicValRat.pow, hdv, hval]
+      simp
+    rw [padicValRat.of_int] at hv
+    have hn0' : n₀ ≠ 0 := by exact_mod_cast hn0
+    have := padicValInt_dvd_iff (p := p) 1 n₀
+    simp only [pow_one] at this
+    have hv' : padicValInt p n₀ = 0 := by exact_mod_cast hv
+    rw [hv'] at this
+    have h2 := this.mp hdvd
+    rcases h2 with h2 | h2
+    · exact hn0' h2
+    · omega
+  apply C_notMem p m hm hpm n₀ hn₀
+  have h1 : C (d ^ k) * F - C n₀ ∈ m := homog_mem m s₀.num d hsm F
+  have h2 : C (d ^ k) * F ∈ m := m.mul_mem_left _ hF
+  have := m.sub_mem h2 h1
+  rwa [sub_sub_cancel] at this
+
+/-- **Glue (prop-ts §4.1 step 1, the vertical prime `(p)`).** With the hypotheses of
+`SNHeightOne`, a height-one prime `P` of `ℤ[X]_m` containing `p` (it is `pℤ[X]_m`) is unramified
+in the integral closure of `ℤ[X]_m` in `E`: `NoVerticalRam` gives `e = 1` at the primes of the
+integral closure of `ℤ[X]` over `pℤ[X]` (their local rings are those over `P`), and
+`[E : ℚ(X)] < p` makes the residue extensions separable. -/
+def SNVertical : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    Module.finrank (RatFunc ℚ) E < p → NoVerticalRam E p →
+    ∀ s₀ : ℚ, 0 ≤ padicValRat p s₀ →
+    ∀ (m : Ideal ℤ[X]) [m.IsMaximal], C (p : ℤ) ∈ m → C (s₀.den : ℤ) * X - C s₀.num ∈ m →
+      letI := locAlg E m
+      ∀ P : Ideal (Localization.AtPrime m), P.IsPrime → P.height = 1 →
+        algebraMap ℤ[X] (Localization.AtPrime m) (C (p : ℤ)) ∈ P →
+        Algebra.IsUnramifiedIn (integralClosure (Localization.AtPrime m) E) P
+
+/-- **Glue (localization of primes; char 0): a ramified horizontal height-one prime of `ℤ[X]_m`
+comes from a ramified prime of `B`.** Let `P` be a height-one prime of `R = ℤ[X]_m` with
+`p ∉ P` and `P` ramified in the integral closure `S` of `R` in `E`. Then some prime `Q` of the
+integral closure `B` of `ℚ[X]` in `E` has `e(Q) ≠ 1`, and every `F ∈ ℤ[X]` lying in `Q` lies in
+`P`. Proof: take `Q'` over `P` with `S_{Q'}` ramified over `R_P = ℚ[X]_{(g)}` (`P ∩ ℤ = 0` as
+`p ∉ P`, so `ℚ ⊆ S_{Q'}` and `B ⊆ S_{Q'}`); `Q` = the maximal ideal of `S_{Q'}` intersected with
+`B`; then `B_Q = S_{Q'}`, `e(Q)` is the length of `S_{Q'}/g S_{Q'}`, which is `≠ 1` by Mathlib's
+`Ideal.ramificationIdx_eq_one_iff` (residue fields of characteristic 0); `F ∈ Q` gives
+`F ∈ Q'S_{Q'} ∩ R = P`. -/
+def SNHorizontalTransfer : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    ∀ (m : Ideal ℤ[X]) [m.IsMaximal], C (p : ℤ) ∈ m →
+      letI := locAlg E m
+      ∀ P : Ideal (Localization.AtPrime m), P.IsPrime → P.height = 1 →
+        algebraMap ℤ[X] (Localization.AtPrime m) (C (p : ℤ)) ∉ P →
+        ¬ Algebra.IsUnramifiedIn (integralClosure (Localization.AtPrime m) E) P →
+        ∃ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime ∧ Q.ramificationIdx ℚ[X] ≠ 1 ∧
+          ∀ F : ℤ[X], F.map (Int.castRingHom ℚ) ∈ Q.under ℚ[X] →
+            algebraMap ℤ[X] (Localization.AtPrime m) F ∈ P
+
+/-- **`SNHeightOne` from the vertical piece and the horizontal transfer** (compiled). The
+horizontal case is the Gauss-lemma argument of prop-ts §4.1, done here without Gauss's lemma:
+`NonMeeting` gives `f ∈ Q ∩ ℚ[X]` with `p`-integral coefficients and `f(s₀)` a `p`-unit;
+`N f = F ∈ ℤ[X]` with `p ∤ N` (`exists_int_multiple`); `F ∉ m` (`notMem_of_val_zero`), so `F` is
+a unit of `ℤ[X]_m`, while the transfer puts it in the proper ideal `P`. -/
+theorem snHeightOne_of_pieces (hV : SNVertical) (hT : SNHorizontalTransfer) : SNHeightOne := by
+  intro E _ _ _ _ _ p hp hdeg hNV s₀ hs₀ hNM m _ hpm hsm P hP hP1
+  by_cases hpP : algebraMap ℤ[X] (Localization.AtPrime m) (C (p : ℤ)) ∈ P
+  · exact hV E p hp hdeg hNV s₀ hs₀ m hpm hsm P hP hP1 hpP
+  · by_contra hnot
+    have : Fact p.Prime := ⟨hp⟩
+    obtain ⟨Q, hQ, he, hQP⟩ := hT E p hp m hpm P hP hP1 hpP hnot
+    obtain ⟨f, hfQ, hcoef, hne, hval⟩ := hNM Q hQ he
+    obtain ⟨N, hN, F, hF⟩ := exists_int_multiple p f hcoef
+    have hFQ : F.map (Int.castRingHom ℚ) ∈ Q.under ℚ[X] := by
+      rw [hF]
+      exact Ideal.mul_mem_left _ _ hfQ
+    have hFP := hQP F hFQ
+    have hNq : (N : ℚ) ≠ 0 := by
+      intro h
+      apply hN
+      rw [Int.cast_eq_zero.mp h]
+      exact dvd_zero _
+    have hevF : (F.map (Int.castRingHom ℚ)).eval s₀ = N * f.eval s₀ := by
+      rw [hF, eval_mul, eval_C]
+    have hNv : padicValRat p (N : ℚ) = 0 := by
+      rw [padicValRat.of_int]
+      exact_mod_cast padicValInt.eq_zero_of_not_dvd hN
+    have hFm : F ∉ m := notMem_of_val_zero p s₀ hs₀ m (Ideal.IsMaximal.ne_top ‹_›) hpm hsm F
+      (by rw [hevF]; exact mul_ne_zero hNq hne)
+      (by rw [hevF, padicValRat.mul hNq hne, hNv, hval]; simp)
+    have hu : IsUnit (algebraMap ℤ[X] (Localization.AtPrime m) F) :=
+      IsLocalization.map_units (Localization.AtPrime m) (⟨F, hFm⟩ : m.primeCompl)
+    exact hP.ne_top (Ideal.eq_top_of_isUnit_mem P hFP hu)
+
+/-- **`SpecNonMeeting` from purity (proved by t-purity3), `SNVertical`, `SNHorizontalTransfer`
+and `SNSpecialize`** (`SNLocalData` and the horizontal arithmetic are proved). -/
+theorem specNonMeeting_of_pieces'' (hPur : PurityGlobalDim2.{0}) (hV : SNVertical)
+    (hT : SNHorizontalTransfer) (hS : SNSpecialize) : SpecNonMeeting :=
+  specNonMeeting_of_pieces' hPur (snHeightOne_of_pieces hV hT) hS
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -762,13 +947,14 @@ theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
 /-- **`PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue `MobiusGlue`, purity
 (proved by t-purity3), and the smaller glue of Parts A-C.** -/
 theorem propTSAll_of_pieces (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
-    (hPur : PurityGlobalDim2.{0}) (hH : SNHeightOne) (hS : SNSpecialize)
-    (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin)
-    (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf)
-    (hVI : KummerVerticalInf) (hN : HeckeNormalization) (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
+    (hPur : PurityGlobalDim2.{0}) (hVert : SNVertical) (hT : SNHorizontalTransfer)
+    (hS : SNSpecialize) (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue)
+    (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue)
+    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) (hN : HeckeNormalization)
+    (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
     PropTSAll :=
   propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
-    (specNonMeeting_of_pieces' hPur hH hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
+    (specNonMeeting_of_pieces'' hPur hVert hT hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
 
 end PropTSGlue
 
@@ -782,6 +968,10 @@ end
 #print axioms PropTSGlue.isFractionRing_zx
 #print axioms PropTSGlue.snLocalData
 #print axioms PropTSGlue.specNonMeeting_of_pieces'
+#print axioms PropTSGlue.exists_int_multiple
+#print axioms PropTSGlue.notMem_of_val_zero
+#print axioms PropTSGlue.snHeightOne_of_pieces
+#print axioms PropTSGlue.specNonMeeting_of_pieces''
 #print axioms PropTSGlue.kummerMeet_of_cases
 #print axioms PropTSGlue.coeff_X_pow_sub_C_nonneg
 #print axioms PropTSGlue.kummerMeetFin_of_pieces
