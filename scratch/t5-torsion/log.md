@@ -76,3 +76,4 @@
 - Pitfall: `MorphismProperty.pullback_snd (P := @FormallyUnramified)` fails (IsStableUnderBaseChangeAlong not synthesized);
   `MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @FormallyUnramified) (IsPullback.of_hasPullback f g) h` works;
   for an iso use `IsPullback.of_horiz_isIso` (RespectsIso instance not found).
+- 12:45 final check: GroupGlue, Torus, Descent, T5Torsion, Tate, Degree, T5Mobius, T5Full all compile with no error and no sorryAx (VERIFIED).

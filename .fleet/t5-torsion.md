@@ -40,7 +40,7 @@ axioms `propext`, `Classical.choice`, `Quot.sound` only. Report: `docs/research/
 - `divisiblePoints` can be dropped after one rewiring.
 - Rewiring recipe: report §3.
 
-**What remains.**
+**What remains.** (Final check: all eight files in scratch/t5-torsion compile with no error and no `sorry`.)
 - Leaves left for full T5: `KernelDegree` (Mumford §6 App. 2) and `MulUnramifiedPosChar` (Mumford
   §4, Milne Thm 8.2; locators UNVERIFIED). H needs neither on subfields of `ℂ`, which T35 covers.
 - Alternative bundle option: replace T5 and T26 by these two smaller leaves.
