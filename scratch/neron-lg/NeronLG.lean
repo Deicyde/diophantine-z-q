@@ -1250,6 +1250,35 @@ theorem n1_n2_of_leaves_and_glue' (hloc1 : LocalNeronModelExists) (hab : Abelian
     NeronModelExists ∧ SemistableNeronIdentityComponent :=
   n1_n2_of_leaves_and_glue hloc1 hab hloc2 hNL g1 g2 g3 goodPlaceAnyField g5 g6
 
+
+/-- N2-g1 is now a theorem. -/
+theorem goodPlacesAnyField : GoodPlacesAnyField := goodPlacesAnyField_of goodPlaceAnyField
+
+/-- **Glue N1-g2 at a bad prime.** `NeronNearPoint` restricted to the primes `v` containing `f`
+(at the others `𝓞_L[1/f]` itself is a neighbourhood: `neronOverAway_of_abelian`). Same proof
+sketch as `NeronNearPoint`. -/
+def NeronNearBadPoint : Prop :=
+  AbelianSchemeIsNeron → NeronLocalOnBase →
+  ∀ (L : Type) [Field L] [NumberField L] (B : AbVar L) (f : 𝓞 L), f ≠ 0 → HasAbelianSchemeAway L B f →
+    ∀ (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)), f ∈ v.asIdeal →
+      Nonempty (NeronModelOver (dvrAt v) L B) → ∃ g : 𝓞 L, g ∉ v.asIdeal ∧ NeronOverAway L B g
+
+/-- **N1-g2 from its bad-prime case (proved).** -/
+theorem neronNearPoint_of (h : NeronNearBadPoint) : NeronNearPoint := by
+  intro hab hNL L _ _ B f hf0 hf v hv
+  by_cases hfv : f ∈ v.asIdeal
+  · exact h hab hNL L B f hf0 hf v hfv hv
+  · exact ⟨f, hfv, neronOverAway_of_abelian hab hf0 hf⟩
+
+/-- **N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the five glue statements N1-g1,
+N1-g2 (bad primes only), N1-g3, N2-g2, N2-g3 (proved).** -/
+theorem n1_n2_of_leaves_and_glue'' (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hloc2 : LocalSemistableIdentityComponent) (hNL : NeronLocalOnBase)
+    (g1 : AbVarSpreadsOut) (g2 : NeronNearBadPoint) (g3 : NeronGlueAway)
+    (g5 : LocalSemistableMono) (g6 : SemistableGlobalOfLocal) :
+    NeronModelExists ∧ SemistableNeronIdentityComponent :=
+  n1_n2_of_leaves_and_glue' hloc1 hab hloc2 hNL g1 (neronNearPoint_of g2) g3 g5 g6
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1268,3 +1297,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.goodPlaceAnyField
 #print axioms ZInQ.NeronLG.semistableLocalToGlobal_of'
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue'
+#print axioms ZInQ.NeronLG.neronNearPoint_of
+#print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue''

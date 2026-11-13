@@ -84,3 +84,9 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
 - FINDING (Lean): `(A.baseChange L).X.left` vs `pullback A.X.hom κ` blocks `rw` ("motive not
   type-correct at implicit transparency"); state lemmas at the syntactic pullback types (`bcA'`,
   `bcProj'`) and transfer by `exact`.
+
+## NeronLG.lean N1-g2 bad primes — COMPILED 07:03 (0 errors; 18 #print axioms, all standard)
+- `goodPlacesAnyField` (N2-g1 as a theorem). Glue `NeronNearBadPoint` (N1-g2 only at primes ∋ f);
+  `neronNearPoint_of` PROVED (other primes: `neronOverAway_of_abelian`);
+  `n1_n2_of_leaves_and_glue''` : N1 ∧ N2 from N1-loc, N1-ab, N2-loc, NL + N1-g1, N1-g2(bad),
+  N1-g3, N2-g2, N2-g3 PROVED.
