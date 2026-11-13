@@ -25,17 +25,17 @@ example : Hprime 13 ≠ H4 13 := by
 -- H4bar n is not ⊥ (it contains i)
 example : H4bar 5 ≠ ⊥ := by
   intro h
-  have hi := RingClassBridge.iInH4 5 rfl (by decide)
+  have hi := RingClassBridge.iInH4 5 rfl (by norm_num : Nat.Prime 5).prime.squarefree
   rw [h, IntermediateField.mem_bot] at hi
   obtain ⟨q, hq⟩ := hi
   have h2 := iQ_sq
   rw [← hq] at h2
-  have : (q : Qbar) ^ 2 = ((q ^ 2 : ℚ) : Qbar) := by push_cast; ring
-  have h3 : ((q ^ 2 : ℚ) : Qbar) = ((-1 : ℚ) : Qbar) := by rw [← this, h2]; push_cast; ring
-  have h4 : q ^ 2 = -1 := by exact_mod_cast h3
+  have h3 : algebraMap ℚ Qbar (q ^ 2) = algebraMap ℚ Qbar (-1) := by
+    rw [map_pow, map_neg, map_one, h2]
+  have h4 : q ^ 2 = -1 := (algebraMap ℚ Qbar).injective h3
   nlinarith [sq_nonneg q]
 -- the TYZ instance of the by-discriminant family
-example : ringClassFieldD (-64 * 13) = H4bar 13 := ringClassFieldD_tyz (n := 13) rfl (by decide)
+example : ringClassFieldD (-64 * 13) = H4bar 13 := ringClassFieldD_tyz (n := 13) rfl (by norm_num : Nat.Prime 13).prime.squarefree
 
 #print axioms RingClassBridge.hprimeNormal
 #print axioms RingClassBridge.iInH4

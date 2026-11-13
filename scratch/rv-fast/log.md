@@ -33,3 +33,12 @@ ringClassFieldD at a junk argument.
   inflated from Gal(L/ℚ) (docstring: `a_σ = (deg μ_σ)^{-1/4}`). So `c = ±1` everywhere iff `a` is a homomorphism
   Gal(L/ℚ) → ℝ_{>0}, iff `a ≡ 1`. Hence for the witness, `G7Clauses β' ε' L` holds only when every conjugacy isogeny
   μ_σ has `a_σ = 1`; otherwise the implication `G7Clauses → LocalGlue` is vacuously true and carries no information.
+
+## ring-class compile (VERIFIED, 11:12)
+- `lake build ZInQKernel.Contrib.TYZGenus.RingClassBridge ZInQKernel.Contrib.TYZGenus.RingClassGenus`: success,
+  10286 jobs, 50 min (built the vendored Tau Ceti closure; build_ringclass.out).
+- `lake env lean scratch/rv-fast/RingClassCheck.lean`: exit 0, no errors (RingClassCheck.out). rfl checks of
+  HprimeNormal, IInH4, CMFieldOfDefinitionTYZ, CM.CMFieldOfDefinition ringClassFieldD pass; relfinrank (Hprime 5) (H4 5) = 2,
+  Hprime 13 ≠ H4 13, H4bar 5 ≠ ⊥, ringClassFieldD (-64·13) = H4bar 13 compile. 9 axiom prints all
+  [propext, Classical.choice, Quot.sound] (hprimeNormal, iInH4, both main variants, cmFieldTYZ_of_ringClassD,
+  ringClassFieldD_tyz, condD_spec, normal_ringClassFieldD, relfinrank_Hprime).
