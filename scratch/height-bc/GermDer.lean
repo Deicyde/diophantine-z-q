@@ -200,6 +200,131 @@ theorem evalAt_one_eq_zero (τ : L →+* ℂ) (U : 𝒢.G.left.Opens) (hU : 𝒢
   rw [h2, hz, map_zero]
   exact map_zero _
 
+section Derivation
+
+variable {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)} {Φ : (Fin g → ℂ) → 𝒢.Pts τ}
+
+/-- Germs in `𝔪_ξ` vanish at `0` along `Φ`. -/
+theorem germAlong_zero_of_mem (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t : 𝒢.genStalk)
+    (ht : t ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) : 𝒢.germAlong Φ t 0 = 0 := by
+  have hs : 𝒢.G.left.presheaf.germ (𝒢.exists_rep t).choose 𝒢.genericUnit
+      (𝒢.exists_rep t).choose_spec.choose (𝒢.exists_rep t).choose_spec.choose_spec.choose = t :=
+    (𝒢.exists_rep t).choose_spec.choose_spec.choose_spec
+  show 𝒢.evalAt (Φ 0) _ _ = 0
+  rw [map_zero_of_hom Φ hΦ.1]
+  exact evalAt_one_eq_zero τ _ _ _ (hs ▸ ht)
+
+/-- Structure sections are constant `τ(r)` along `Φ` near `0`. -/
+theorem germAlong_structMap (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (r : 𝓞 L) :
+    𝒢.germAlong Φ (𝒢.structMap r) =ᶠ[nhds 0] fun _ => τ (algebraMap (𝓞 L) L r) := by
+  have e1 : 𝒢.structMap r = 𝒢.G.left.presheaf.germ ⊤ 𝒢.genericUnit trivial
+      (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv r)) := rfl
+  filter_upwards [germAlong_eventuallyEq_rep hΦ _ ⊤ trivial _ e1.symm] with z hz
+  rw [hz, evalAt_structSection]
+
+/-- The derivative at `0` of the germ along `Φ`. -/
+noncomputable def D0 (Φ : (Fin g → ℂ) → 𝒢.Pts τ) (t : 𝒢.genStalk) : (Fin g → ℂ) →L[ℂ] ℂ :=
+  fderiv ℂ (𝒢.germAlong Φ t) 0
+
+theorem D0_add (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk) :
+    D0 Φ (t₁ + t₂) = D0 Φ t₁ + D0 Φ t₂ := by
+  unfold D0
+  rw [(germAlong_add_mul hΦ t₁ t₂).1.fderiv_eq]
+  exact fderiv_add (germAlong_differentiableAt hΦ t₁) (germAlong_differentiableAt hΦ t₂)
+
+theorem D0_mul (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk) :
+    D0 Φ (t₁ * t₂) = 𝒢.germAlong Φ t₁ 0 • D0 Φ t₂ + 𝒢.germAlong Φ t₂ 0 • D0 Φ t₁ := by
+  unfold D0
+  rw [(germAlong_add_mul hΦ t₁ t₂).2.fderiv_eq]
+  exact fderiv_mul (germAlong_differentiableAt hΦ t₁) (germAlong_differentiableAt hΦ t₂)
+
+theorem D0_mul_apply (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (t₁ * t₂) v =
+      𝒢.germAlong Φ t₁ 0 * D0 Φ t₂ v + 𝒢.germAlong Φ t₂ 0 * D0 Φ t₁ v := by
+  rw [D0_mul hΦ]
+  rfl
+
+theorem D0_add_apply (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (t₁ t₂ : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (t₁ + t₂) v = D0 Φ t₁ v + D0 Φ t₂ v := by
+  rw [D0_add hΦ]
+  rfl
+
+theorem D0_structMap_mul (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (r : 𝓞 L) (t : 𝒢.genStalk)
+    (v : Fin g → ℂ) : D0 Φ (𝒢.structMap r * t) v = τ (algebraMap (𝓞 L) L r) * D0 Φ t v := by
+  rw [D0_mul_apply hΦ]
+  have h0 : D0 Φ (𝒢.structMap r) = 0 := by
+    unfold D0
+    rw [(germAlong_structMap hΦ r).fderiv_eq, fderiv_const_apply]
+  rw [h0, (germAlong_structMap hΦ r).eq_of_nhds]
+  simp
+
+theorem D0_sq (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (x : 𝒢.genStalk)
+    (hx : x ∈ IsLocalRing.maximalIdeal 𝒢.genStalk ^ 2) (v : Fin g → ℂ) : D0 Φ x v = 0 := by
+  rw [pow_two] at hx
+  refine Submodule.mul_induction_on (C := fun x => D0 Φ x v = 0) hx ?_ ?_
+  · intro a ha b hb
+    rw [D0_mul_apply hΦ, germAlong_zero_of_mem hΦ a ha, germAlong_zero_of_mem hΦ b hb]
+    ring
+  · intro x y hx hy
+    rw [D0_add_apply hΦ, hx, hy, add_zero]
+
+/-- **`GermDerivation` holds for every analytic uniformization** (proved). -/
+theorem germDerivation_at (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) :
+    ∃ D : 𝒢.cotangent →+ (Fin g → ℂ),
+      (∀ (r : 𝓞 L) x, D (r • x) = τ (algebraMap (𝓞 L) L r) • D x) ∧
+      ∀ (t : IsLocalRing.maximalIdeal 𝒢.genStalk) (j : Fin g),
+        D (𝒢.dCls t) j = fderiv ℂ (𝒢.germAlong Φ (t : 𝒢.genStalk)) 0 (Pi.single j 1) := by
+  let 𝔪 := IsLocalRing.maximalIdeal 𝒢.genStalk
+  let D1 : 𝔪 → (Fin g → ℂ) := fun t j => D0 Φ (t : 𝒢.genStalk) (Pi.single j 1)
+  have hD1add : ∀ a b : 𝔪, D1 (a + b) = D1 a + D1 b := by
+    intro a b
+    funext j
+    simp only [D1, Submodule.coe_add, D0_add_apply hΦ, Pi.add_apply]
+  have hD1wd : ∀ a b : 𝔪, 𝔪.toCotangent a = 𝔪.toCotangent b → D1 a = D1 b := by
+    intro a b hab
+    rw [Ideal.toCotangent_eq] at hab
+    have this : D0 Φ (a : 𝒢.genStalk) = D0 Φ ((a : 𝒢.genStalk) - b) + D0 Φ (b : 𝒢.genStalk) := by
+      rw [← D0_add hΦ, sub_add_cancel]
+    funext j
+    simp only [D1]
+    rw [this, ContinuousLinearMap.add_apply, D0_sq hΦ _ hab, zero_add]
+  let sec : 𝒢.cotangent → 𝔪 := Function.surjInv (𝔪.toCotangent_surjective)
+  have hsec : ∀ x : 𝒢.cotangent, 𝔪.toCotangent (sec x) = x :=
+    Function.surjInv_eq _
+  let D : 𝒢.cotangent →+ (Fin g → ℂ) :=
+    { toFun := fun x => D1 (sec x)
+      map_zero' := by
+        have : D1 (sec 0) = D1 0 := hD1wd _ _ (by rw [hsec, map_zero]; rfl)
+        rw [this]
+        have h00 : D0 Φ (0 : 𝒢.genStalk) = 0 := by
+          have := D0_add hΦ (0 : 𝒢.genStalk) 0
+          rw [add_zero] at this
+          exact add_eq_left.mp this.symm
+        funext j
+        simp [D1, h00]
+      map_add' := fun x y => by
+        show D1 (sec (x + y)) = D1 (sec x) + D1 (sec y)
+        rw [← hD1add]
+        exact hD1wd _ _ (by rw [hsec, map_add, hsec, hsec]; rfl) }
+  have hD : ∀ t : 𝔪, D (𝔪.toCotangent t) = D1 t := fun t => hD1wd _ _ (hsec _)
+  refine ⟨D, fun r x => ?_, fun t j => ?_⟩
+  · obtain ⟨t, rfl⟩ := 𝔪.toCotangent_surjective x
+    have hrx : r • 𝒢.dCls t = 𝔪.toCotangent (𝒢.structMap r • t) := by
+      show 𝒢.structMap r • 𝔪.toCotangent t = _
+      rw [LinearMap.map_smul]
+    show D (r • 𝒢.dCls t) = _ • D (𝒢.dCls t)
+    rw [hrx]
+    show D (𝔪.toCotangent _) = _ • D (𝔪.toCotangent t)
+    rw [hD, hD]
+    funext j
+    simp only [D1, SetLike.val_smul, smul_eq_mul, Pi.smul_apply]
+    rw [D0_structMap_mul hΦ]
+  · show D (𝔪.toCotangent t) j = _
+    rw [hD]
+    rfl
+
+end Derivation
+
 end GermDer
 
 end ZInQ.HeightBC
