@@ -67,3 +67,7 @@
   `UniformizationLeafAll`; glue `IsUniformization.continuous_comparison` (φ'⁻¹∘φ continuous) and
   `IsUniformization.exists_realLinear` (two uniformizations differ by an ℝ-linear map with TΛ ⊆ Λ', via T2).
   COMPILED; axioms standard.
+- Torus.lean §10 glue: `ptMap` (post-composition with an endomorphism α [IsMonHom α] on ℂ-points, additive),
+  `evalAt_comp` (f(P ≫ α) = (α^*f)(P), via `Scheme.Hom.comp_appLE`), `IsUniformization.continuous_endo`
+  (φ⁻¹∘α∘φ continuous), `IsUniformization.exists_realLinear_endo` (α acts on ℂ^g by an ℝ-linear T with
+  TΛ ⊆ Λ: the rational representation). COMPILED; axioms standard.

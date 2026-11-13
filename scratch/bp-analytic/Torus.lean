@@ -1261,4 +1261,81 @@ theorem IsUniformization.exists_realLinear {g g' : ℕ} {Λ : Submodule ℤ (Fin
   rw [← hT v]
   simp
 
+/-! ### Glue: endomorphisms act on the period lattice by linear maps -/
+
+variable (A) in
+/-- Post-composition with an endomorphism `α` of the group scheme, on `ℂ`-points. -/
+def ptMap (α : A.X ⟶ A.X) [IsMonHom α] : Additive (A.Pt ℂ) →+ Additive (A.Pt ℂ) where
+  toFun P := Additive.ofMul (Additive.toMul P ≫ α)
+  map_zero' := by
+    change Additive.ofMul ((1 : A.Pt ℂ) ≫ α) = Additive.ofMul 1
+    simp [MonObj.one_comp]
+  map_add' P Q := by
+    change Additive.ofMul ((Additive.toMul P * Additive.toMul Q) ≫ α) =
+      Additive.ofMul (Additive.toMul P ≫ α * Additive.toMul Q ≫ α)
+    simp [MonObj.mul_comp]
+
+variable (A) in
+/-- Regular functions composed with `α` are regular: `f(α ∘ P) = (α^* f)(P)`. -/
+theorem evalAt_comp (α : A.X ⟶ A.X) (U : A.X.left.Opens) (f : Γ(A.X.left, U)) (P : A.Pt ℂ) :
+    evalAt A U f (P ≫ α) = evalAt A (α.left ⁻¹ᵁ U) (α.left.app U f) P := by
+  have hiff : PtIn A (P ≫ α) U ↔ PtIn A P (α.left ⁻¹ᵁ U) := Iff.rfl
+  unfold evalAt
+  by_cases h : PtIn A P (α.left ⁻¹ᵁ U)
+  · simp only [hiff.mpr h, h, ↓reduceDIte]
+    simp [Over.comp_left, Scheme.Hom.comp_appLE]
+    rfl
+  · simp only [mt hiff.mp h, h, ↓reduceDIte]
+
+/-- **Endomorphisms act continuously on the torus.** For a uniformization `φ` and an
+endomorphism `α` of `A`, the transported map `φ⁻¹ ∘ α ∘ φ` is continuous. -/
+theorem IsUniformization.continuous_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ) (α : A.X ⟶ A.X)
+    [IsMonHom α] :
+    Continuous ((φ.symm.toAddMonoidHom.comp (ptMap A α)).comp φ.toAddMonoidHom) := by
+  set ψ := (φ.symm.toAddMonoidHom.comp (ptMap A α)).comp φ.toAddMonoidHom
+  have hψ : ∀ x, φ (ψ x) = ptMap A α (φ x) := fun x => by simp [ψ]
+  rw [(QuotientAddGroup.isQuotientMap_mk Λ.toAddSubgroup).continuous_iff,
+    continuous_iff_continuousAt]
+  intro v₀
+  set w₀ := (ψ (proj Λ v₀)).out
+  have hw₀ : proj Λ w₀ = ψ (proj Λ v₀) := QuotientAddGroup.out_eq' _
+  have hφw : Additive.toMul (φ (proj Λ w₀)) = Additive.toMul (φ (proj Λ v₀)) ≫ α := by
+    rw [hw₀, hψ]; rfl
+  rw [ContinuousAt, Filter.tendsto_def]
+  intro N hN
+  rw [Function.comp_apply, ← hw₀] at hN
+  obtain ⟨U, k, f, ε, hε, hU0, hsep⟩ := hφ.open_map w₀ N hN
+  rw [hφw] at hU0 hsep
+  have hopen : ∀ᶠ v in 𝓝 v₀, PtIn A (Additive.toMul (φ (proj Λ v))) (α.left ⁻¹ᵁ U) :=
+    (hφ.holo (α.left ⁻¹ᵁ U) 0).1.mem_nhds hU0
+  have hall : ∀ᶠ v in 𝓝 v₀, ∀ i,
+      dist (evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v))))
+        (evalAt A (α.left ⁻¹ᵁ U) (α.left.app U (f i)) (Additive.toMul (φ (proj Λ v₀)))) < ε := by
+    rw [Filter.eventually_all]
+    intro i
+    exact (((hφ.holo (α.left ⁻¹ᵁ U) (α.left.app U (f i))).2 v₀ hU0).continuousAt).eventually
+      (Metric.ball_mem_nhds _ hε)
+  filter_upwards [hopen, hall] with v hv hvi
+  obtain ⟨q, hqN, hq⟩ := hsep (Additive.toMul (φ (proj Λ v)) ≫ α) hv (fun i => by
+    rw [evalAt_comp, evalAt_comp]
+    simpa [dist_eq_norm] using hvi i)
+  have hq' : φ q = φ (ψ (proj Λ v)) := by
+    rw [hψ]; exact Additive.toMul.injective hq
+  show ψ (proj Λ v) ∈ N
+  rw [← φ.injective hq']; exact hqN
+
+/-- **Endomorphisms of `A` act on `ℂ^g` by `ℝ`-linear maps preserving the period lattice**
+(the rational representation; `ℂ`-linearity needs the holomorphy clause (ii), node T2 in its
+holomorphic form). -/
+theorem IsUniformization.exists_realLinear_endo {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
+    [DiscreteTopology Λ] {φ : Torus Λ ≃+ Additive (A.Pt ℂ)} (hφ : IsUniformization A Λ φ)
+    (α : A.X ⟶ A.X) [IsMonHom α] :
+    ∃ T : (Fin g → ℂ) →L[ℝ] (Fin g → ℂ), (∀ v ∈ Λ, T v ∈ Λ) ∧
+      ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α := by
+  obtain ⟨T, hTΛ, hT⟩ := exists_realLinear_lift Λ Λ _ (hφ.continuous_endo α)
+  refine ⟨T, hTΛ, fun v => ?_⟩
+  rw [← hT v]
+  simp [ptMap]
+
 end BPAnalytic.Uniformization
