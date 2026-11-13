@@ -1,11 +1,11 @@
 # kf-glue: `EndTransport` proved; `ConjIsogMaps` reduced to Galois descent (`TwistDescent`) and `MulIsogeny`
 
 Task kf-glue, 2026-11-13.
-- Lean: `scratch/kf-glue/KfGlue.lean` (7209 lines). `scratch/kf-glue/assemble.sh` builds it from:
+- Lean: `scratch/kf-glue/KfGlue.lean` (7250 lines). `scratch/kf-glue/assemble.sh` builds it from:
   - verbatim copies: `scratch/kernel-field/KernelField.lean`, and `scratch/mul-rigidity/MulRigidity.lean`
     lines 3-182 and 205-604;
   - new parts: `scratch/kf-glue/Points.lean` (120 lines, Mathlib only) and `scratch/kf-glue/New.lean`
-    (859 lines).
+    (900 lines).
 - Results log: `scratch/kf-glue/log.md`. Compiler output: `scratch/kf-glue/build7.txt`.
 - Base: `wip/integrate-w38b` (f90cf864), merged with `origin/wip/kernel-field` and `origin/wip/mul-rigidity`.
 
