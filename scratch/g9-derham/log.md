@@ -106,3 +106,11 @@
   R : G_{ℚ_p} →* GL₂(ℚ̄_p), e' : ℚ̄_p ⊗ V ≃ₗ[ℚ̄_p] ℚ̄_p²×ℚ̄_p² intertwining ρ|G_F with R∘gf ⊕ R∘gf ⇒
   ∃ E ⊆ ℚ̄_p finite, ρE : G_{ℚ_p} →* GL₂(E) with map ρE = R, eE : E ⊗ V ≃ₗ[E] E²×E² intertwining.
   No topology (coset representatives of the finite G_{ℚ_p}/G_F replace Baire).
+
+## 05:15 Reduction.lean
+- Bridges (named Props, namespace `ZInQ.Contrib.G9.G9Bridge`): `LocalModel` (F2), `R10Weights` (F1),
+  `BdRContainsQbar` (F3).
+- `g9Glue_of_bridges : G9Bridge.LocalModel → G9Bridge.R10Weights → G9Bridge.BdRContainsQbar → G9Glue`.
+  VERIFIED: `lake build ZInQKernel.Contrib.G9.Reduction` OK; `#print axioms` →
+  [propext, Classical.choice, Quot.sound] for g9Glue_of_bridges, core_ht, core_dR, coef_descent.
+- T23 is not used by the proof (the counting replaces Fontaine's closure properties).
