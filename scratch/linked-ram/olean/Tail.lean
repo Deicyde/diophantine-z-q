@@ -1,4 +1,4 @@
-import TailD
+import GoodRedLR
 
 /-! # linked-ram (scratch/linked-ram/): `KernelFieldBreaks` (ii) proved; `TateRamAtThree` corrected
 
@@ -949,3 +949,213 @@ end LinkedRamMain
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.upperAbsWild
 #print axioms UnramTate.kernelFieldBreaks_of'
+
+/-! ## linked-ram: `GluePieces5` and `sixContactMin_of_leaves5` (from g0-assemble3's part z95, edited as stated) -/
+
+section LinkedRamBundle
+
+noncomputable section
+
+namespace HSyn
+
+open G0Split
+
+/-- **The named Props left after linked-ram** (g0-assemble3's `GluePieces4` with lt-goodred's two proofs folded
+and `kernelFieldBreaks`, `tateRamAtThree` replaced). -/
+structure GluePieces5 : Prop where
+  -- FibreSimple: FS5 (NoCM on the fibre)
+  /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
+  cmOptimalEmbedding : FS5NoCM.CMOptimalEmbedding
+  /-- x6-kummer, LEAF (N2-L′: `X₆` is the conic `Y² + 3X² + 3Z² = 0` with `π₆ = −16(X² + Z²)/(27Z²)` on
+  `ℚ̄`-points of one witness of the leaf bundle; Elkies 1998 §3, Kurihara 1979; a consequence of the published model,
+  x6-kummer §3.6). fs5-nocm's glue N2 `X6KummerFibre` is proved from it and `MobiusGlue`. -/
+  x6ConicModel : X6Kummer.X6ConicModel
+  -- ProductModelHeight (unif-dims, product-unif, infra-smooth-dim)
+  /-- metrization (via unif-dims), LEAF (the uniformization theorem with its dimension: `𝒢(ℂ)_τ ≅ ℂ^g/Λ`,
+  Mumford §1, §4; GAGA). -/
+  analyticUniformizationOfDim : ZInQ.Metrization.AnalyticUniformizationOfDim
+  -- StableHeightBaseChange (height-bc; infra-stalks proved the other two)
+  /-- height-bc, GLUE (BC-alg: `ψ` is injective on the Hodge line). -/
+  hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
+  /-- height-bc, GLUE (`ω` base-changes along `𝓞_L → 𝓞_{L'}`). -/
+  omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
+  -- ThetaPoint (g0-thetapoint, fibre-qm-period, period-map)
+  /-- g0-thetapoint, LEAF? (theta-constant ratios at a period matrix are algebraic; Shimura 1976). -/
+  thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
+  /-- pkg-I1 (via fibre-qm-period), LEAF? (the theta-quotient Hauptmodul of `Γ*`). -/
+  qmHauptmodul : PkgI1.QMHauptmodul
+  /-- fibre-qm-period, LEAF (Eichler class number one for `𝒪`, lattice form). -/
+  qmClassNumberOne : G0Split.FibreQM.QMClassNumberOne
+  /-- fibre-qm-period, LEAF (R1(b) in family form; Shimura 1967 Main Thm I). -/
+  r1bFamily : ∀ h : LeafAdopt.R1R2fpRep,
+    G0Split.FibreQM.R1bFamily (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
+  /-- period-map, GLUE (base change of QM classes is unique). -/
+  baseChangeClassUnique : G0Split.FibreQM.PeriodMapH.BaseChangeClassUnique
+  /-- period-map, GLUE (`π` is invariant under the QM twist, complex form), for the leaf's own triple. -/
+  piTwistC : ∀ h : LeafAdopt.R1R2fpRep,
+    G0Split.FibreQM.PeriodMapH.PiTwistC (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
+  /-- period-map, GLUE (the QM twist acts on the period lattice). -/
+  qmTwistLattice : G0Split.FibreQM.PeriodMapH.QMTwistLattice
+  /-- period-map, LEAF? (CM points descend; Shimura's theory of CM). -/
+  cmDescends : G0Split.FibreQM.PeriodMapH.CMDescends
+  /-- period-map, GLUE (numerical: `Σθ⁸(Ω(√2 + i)) ≠ 0`). -/
+  s8Nonzero : G0Split.FibreQM.PeriodMap.S8Nonzero
+  /-- period-map, GLUE (textbook complex analysis: a holomorphic map of the sphere factoring affinely). -/
+  sphereFactorAffine : G0Split.FibreQM.PeriodMap.SphereFactorAffine
+  /-- period-map, GLUE (`Σθ⁸∘Ω` has exact weight 8). -/
+  s8WeightExact : G0Split.FibreQM.PeriodMap.S8WeightExact
+  /-- period-map, LEAF (the valence formula for `Γ*`). -/
+  valenceBoundGammaStar : G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar
+  /-- fibre-qm-period, GLUE (transport of complex points along base change). -/
+  cPtsTransport : G0Split.FibreQM.CPtsTransport
+  -- ModularConstituent: G2 (fibre-cover; Prop. TS by prop-ts, prop-ts-glue)
+  /-- prop-ts-glue, GLUE. -/ verticalResidueSeparable : PropTSGlue.VerticalResidueSeparable
+  /-- prop-ts-glue, GLUE. -/ snSpecialize : PropTSGlue.SNSpecialize
+  /-- prop-ts-glue, GLUE. -/ kummerCompositum : PropTSGlue.KummerCompositum
+  /-- prop-ts-glue, GLUE (`AbhyankarDVR → …`). -/ kummerAbhyankarFinGlue : PropTSGlue.KummerAbhyankarFinGlue
+  /-- prop-ts-glue, GLUE. -/ kummerOtherBranchFin : PropTSGlue.KummerOtherBranchFin
+  /-- prop-ts-glue, GLUE. -/ kummerVerticalFin : PropTSGlue.KummerVerticalFin
+  /-- prop-ts-glue, GLUE (`AbhyankarDVR → …`). -/ kummerAbhyankarInfGlue : PropTSGlue.KummerAbhyankarInfGlue
+  /-- prop-ts-glue, GLUE. -/ kummerOtherBranchInf : PropTSGlue.KummerOtherBranchInf
+  /-- prop-ts-glue, GLUE. -/ kummerVerticalInf : PropTSGlue.KummerVerticalInf
+  /-- prop-ts-glue, GLUE (truth SPECULATIVE per its report). -/ heckeIrreducible : PropTSGlue.HeckeIrreducible
+  /-- prop-ts-glue, GLUE. -/ heckeNormalizationIrr : PropTSGlue.HeckeNormalizationIrr
+  /-- prop-ts-glue, GLUE. -/ heckeDegree : PropTSGlue.HeckeDegree
+  /-- prop-ts-glue, GLUE. -/ heckeBranch : PropTSGlue.HeckeBranch
+  /-- prop-ts-glue, GLUE (Lemma NV). -/ heckeNoVertRam : PropTSGlue.HeckeNoVertRam
+  -- ModularConstituent: G4 (kernel-field, kf-glue)
+  /-- kf-glue, GLUE (Galois descent of the twisted isomorphisms). -/
+  twistDescent : G0ModField.KernelField.TwistDescent
+  -- ModularConstituent: G8-G12
+  /-- g0-mod-galois, LEAF (R14 with its determinant clause; Shimura 1971 Thm 7.14; Deligne 1971). -/
+  r14Det : G0Galois.R14Det
+  /-- conj-twist, LEAF (N2: homomorphisms lift to `ℂ`-linear maps of uniformizations; Birkenhake–Lange 1.2.1). -/
+  homLinearLift : G0Galois.HomLinearLift
+  /-- g12-det, LEAF (HT weights of a twist shift by a constant; Sen 1980). -/
+  senTwist : G0Galois.SenTwist
+  /-- g12-det, LEAF (finite image ⇒ HT with weights 0; Tate 1967; Ax–Sen–Tate). -/
+  finiteImageHT : G0Galois.FiniteImageHT
+  /-- weil-pairing (used by g12-det), LEAF (T9 restated; Mumford §§6, 8, 20, 23). -/
+  t09SymmIsogenyExists : WeilPairing.T09_SymmIsogenyExists
+  /-- weil-pairing, LEAF (Mumford §7-8). -/
+  isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse
+  /-- weil-pairing, LEAF (Mumford §4 Appl. 2). -/
+  divisiblePoints : WeilPairing.DivisiblePoints
+  -- ModularConstituent: G13-G16
+  /-- R17 concretely, LEAF (Carayol 1986, Thm (A)). -/
+  carayolR17 : LadicCond.CarayolR17'
+  -- ModularConstituent: joint glue on G7's data (linked-tate; `goodRedTorsion`, `qmEndRank` proved by lt-goodred)
+  /-- linked-tate, GLUE (g14-trace's Frobenius link for the canonical operators). -/
+  linkedFrob : UnramTate.LinkedFrob
+  /-- linked-ram, LEAF? (textbook composite: the absolute upper-break bound `4a²` for a degree-`a` extension of `ℚ_p`;
+  Glazer L796-811 from Serre, *Local Fields*, III §6 and IV §1-§3). With `BetaTrivialAtTwo` it gives linked-tate's
+  `KernelFieldBreaks` (`UnramTate.kernelFieldBreaks_of'`). -/
+  upperBreakBound : UnramTate.UpperBreakBound
+  /-- linked-ram, GLUE (`β` trivial on `G_{ℚ_2}^u ∩ G_L`, `u > U₀`; Glazer L826-843, local reciprocity). -/
+  betaTrivialAtTwo : UnramTate.BetaTrivialAtTwo
+  /-- linked-ram, GLUE (linked-tate's `TateRamAtThree` with `[L:ℚ] ≤ D`; Glazer L814-821). -/
+  tateRamAtThreeD : UnramTate.TateRamAtThreeD
+
+/-- FS5 (NoCM on the fibre) from `GluePieces5` (fs5-nocm). -/
+theorem fibreComTrivial_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    G0FibreSimple.FibreComTrivial :=
+  fibreComTrivial_of_full (FS5NoCM.fibreComTrivialFull_of_leaves'' (r1r2fpFull_of r.toR3)
+    (mobiusGlue_of_t5' t) t.t27 t.t6 gp.cmOptimalEmbedding
+    (X6Kummer.x6KummerFibre_of_conic (mobiusGlue_of_t5' t) gp.x6ConicModel) r.r5count)
+
+/-- `FibreSimple` from `GluePieces5` (fs1-descend, mul-rigidity, infra-stalks' `MulIsogeny`, fs5-nocm). -/
+theorem fibreSimple_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    G0Split.FibreSimple :=
+  G0FibreSimple.fibreSimple_of_leaves t MulRigidity.mulIsogeny G0FibreSimple.rigidityHom
+    ⟨G0FibreSimple.finiteDescends_proof, fibreComTrivial_of_gp5 r t gp⟩
+
+/-- G3 for `QML3` objects (linked-tate). -/
+theorem qmModelG3_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    LinkedTate.QMModelG3 :=
+  LinkedTate.qmModelG3_of r.r7a r.r6 t.t5 (LinkedTate.goodRedG3Bridge_of_torsion LTGoodRed.goodRedTorsion)
+
+/-- Prop. TS for every admissible cover (prop-ts, prop-ts-glue). -/
+theorem propTSAll_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    G0ModField.PropTSAll :=
+  PropTSGlue.propTSAll_of_pieces'' t.t2 (LeafAdopt.R1R2fp_of_rep r.r1r2) (mobiusGlue_of_t5' t)
+    gp.verticalResidueSeparable gp.snSpecialize gp.kummerCompositum gp.kummerAbhyankarFinGlue
+    gp.kummerOtherBranchFin gp.kummerVerticalFin gp.kummerAbhyankarInfGlue gp.kummerOtherBranchInf
+    gp.kummerVerticalInf gp.heckeIrreducible gp.heckeNormalizationIrr gp.heckeDegree gp.heckeBranch
+    gp.heckeNoVertRam
+
+/-- The period map's glue for the leaf's own triple (period-map). -/
+theorem periodMapGlue_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep r.r1r2))
+      (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
+      (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep r.r1r2)) :=
+  G0Split.FibreQM.PeriodMapH.periodMapGlue_own _ gp.baseChangeClassUnique (gp.piTwistC r.r1r2)
+    gp.qmTwistLattice
+    (G0Split.FibreQM.PeriodMapH.piCMC_of _ _ _ (G0Split.FibreQM.own_spec _).1
+      (G0Split.FibreQM.own_spec _).2.2 gp.baseChangeClassUnique (gp.piTwistC r.r1r2) gp.cmDescends)
+    (G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of t.t11a)
+
+/-- **`GluePieces` from `GluePieces5` and the leaf bundles** (linked-ram; g0-assemble3's proof with lt-goodred's
+`goodRedTorsion`, `qmEndRank_of_leaves` and linked-ram's `linkedRam_of'`). -/
+theorem gluePieces_of_gluePieces5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    GluePieces where
+  dimFinite := G0Split.dimFinite
+  dimBaseChange := G0Split.dimBaseChange
+  fibreSimple := fibreSimple_of_gp5 r t gp
+  productModelHeight := ZInQ.UnifDims.productModelHeight_of_unifOfDim gp.analyticUniformizationOfDim
+  stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
+    (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_two
+      gp.hodgeBCInjective gp.omegaBaseChange))
+  productExists := G0Product.productExists
+  reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r.toR3 G0Split.dimFinite
+  thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
+    (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 (mobiusGlue_of_t5' t) gp.qmHauptmodul
+      t.t35 t.t11a gp.qmClassNumberOne (gp.r1bFamily r.r1r2) (periodMapGlue_of_gp5 r t gp)
+      (G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' gp.s8Nonzero gp.sphereFactorAffine)
+      (G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' gp.s8Nonzero gp.s8WeightExact
+        gp.valenceBoundGammaStar)
+      gp.cPtsTransport)
+    gp.thetaRatiosAlgebraic
+  modularConstituent := modularConstituent_of_field t
+    (G0ModField.fibreCoverExists_of_propTSAll' t.t5 (propTSAll_of_gp5 r t gp)
+      G0ModField.unramifiedConjugates)
+    (G0ModField.KernelField.kernelFieldExists_of_descent t.t6 r.r7a r.r6 t.t5 t.t27
+      (fibreComTrivial_of_gp5 r t gp) MulRigidity.mulIsogeny gp.twistDescent)
+    UnramTate.unramifiedSup_mf
+    (G0AssembleMod.afterG7_of3 r.toR3 t
+      ⟨RvGP2.burnsideAbsIrred, gp.r14Det,
+        ZInQ.Contrib.R10.g9Glue_of_deRhamComparisonHT r.r10,
+        G0Galois.g10Glue_of_conjTwist
+          (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 gp.homLinearLift),
+        G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
+        G0Galois.detTate_of_leaves gp.t09SymmIsogenyExists gp.isogenyQuasiInverse
+          gp.divisiblePoints t.t26,
+        G0AssembleMod.resQFiniteIndex⟩
+      (G0ModNewform.dirichletOfFinite_of_t17 t.t17) gp.carayolR17
+      Swan.swanIndependent_proved Swan.swanIntegral_proved
+      Swan.adaptedExists_proved
+      (LinkedTate.modelG3G6_of (fibreSimple_of_gp5 r t gp) (qmModelG3_of_gp5 r t gp))
+      (LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 (fibreSimple_of_gp5 r t gp)
+        (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27)
+        (UnramTate.linkedFrobRam_of gp.linkedFrob
+          (UnramTate.linkedRam_of' (qmModelG3_of_gp5 r t gp)
+            (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
+            UnramTate.localInertiaGlobal UnramTate.upperAbsInertia gp.tateRamAtThreeD))))
+  heightCopies := G0HeightCopies.heightCopiesAgree
+
+/-- **G0 after linked-ram**: `ResearchLeaves4`, `TextbookLeaves` and `GluePieces5` imply `ZInQ.SixContactMin`. -/
+theorem sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
+    ZInQ.SixContactMin :=
+  sixContactMin_of_leavesR3 r.toR3 t (gluePieces_of_gluePieces5 r t gp)
+
+end HSyn
+
+end
+
+end LinkedRamBundle
+
+#print axioms HSyn.gluePieces_of_gluePieces5
+#print axioms HSyn.sixContactMin_of_leaves5

@@ -49,3 +49,12 @@
   (v/g₀ ≤ φ(v)), `norm_eq_zpow` (value group of M is ‖ϖ‖^ℤ, from IsUnif maximality), `wild_on_of_ramSet`
   (σ ∈ G_1(M) ⇒ ‖σx−x‖ < ‖x‖ on M^×), `upperSet_wild` (u > 0: ψ(u) ≥ u > 0 so G^u(M) ⊆ G_1(M)), `upperAbsWild`.
 - `kernelFieldBreaks_of' (hB : UpperBreakBound) (h2 : BetaTrivialAtTwo) : KernelFieldBreaks`. VERIFIED.
+
+## Step 5: bundle `HSyn.GluePieces5`, `sixContactMin_of_leaves5` — VERIFIED
+- olean/GoodRedLR.lean = `import TailD` + lt-goodred's `integ/99d_proofs.lean` (verbatim): exit 0, 31 s, 0 errors.
+  So lt-goodred's `LTGoodRed.goodRedTorsion` and `LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27` compile on g0-assemble3's chain.
+- Tail.lean now imports GoodRedLR. `GluePieces5` = g0-assemble3's `GluePieces4` minus `goodRedTorsion`, `qmEndRank`
+  (lt-goodred proofs), `kernelFieldBreaks`, `tateRamAtThree`; plus `upperBreakBound` (LEAF?), `betaTrivialAtTwo` (GLUE),
+  `tateRamAtThreeD` (GLUE). 45 fields = 14 LEAF + 4 LEAF? + 27 GLUE.
+- `HSyn.gluePieces_of_gluePieces5`, `HSyn.sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves)
+  (gp : GluePieces5) : ZInQ.SixContactMin`: 0 errors, axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
