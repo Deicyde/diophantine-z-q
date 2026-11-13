@@ -34,3 +34,4 @@
 - VERIFIED: #print axioms of all main theorems = [propext, Classical.choice, Quot.sound]
   (scratch/gz-theta/Check.lean, out_check_axioms.txt).
 - (Time stamps in this log before 06:40 that read 07:00 should read 06:22.)
+- 07:00 VERIFIED (compiled): ThetaUnique.lean (eq_zero_of_theta_fe: entire f with θ's functional equations and ∫₀¹ f = 0 vanishes), TripleProduct.lean (jacobiTheta₂_eq_jtpP: Jacobi triple product; axioms standard).
