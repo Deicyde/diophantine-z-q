@@ -594,11 +594,25 @@ theorem goodPlacesAnyField_of (h : GoodPlaceAnyField) : GoodPlacesAnyField := by
     exact hOT (hfin.mem_toFinset.2 ⟨hO, hc⟩)
   exact h hab K A f hf0 hf O hinv L₀
 
-/-- **Glue N2-g2 (the local statement persists in larger fields).** Given the leaves N1 and NL:
-if the local statement at `O` holds for `L₀`, it holds for every finite extension `L₁ ⊇ L₀`.
+/-- Néron models of `A_{L₀}` over every DVR of every finite extension `L₀` of `K` (a consequence
+of N1 and NL: `localNeronModelsOf`). -/
+def LocalNeronModelsOf {K : Type} [Field K] (A : AbVar K) : Prop :=
+  ∀ (L₀ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀] (O₀ : ValuationSubring L₀)
+    [IsDiscreteValuationRing O₀], Nonempty (NeronModelOver O₀ L₀ (A.baseChange L₀))
+
+/-- (proved) N1 and NL give local Néron models of every `A_{L₀}`. -/
+theorem localNeronModelsOf (hN1 : NeronModelExists) (hNL : NeronLocalOnBase) {K : Type} [Field K]
+    (A : AbVar K) : LocalNeronModelsOf A := by
+  intro L₀ _ _ _ O₀ _
+  obtain ⟨𝒩, h𝒩⟩ := hN1 K A L₀
+  exact neronModelOver_localize hNL ⟨𝒩.G, 𝒩.gen, 𝒩.gen_hom, fun Y _ => h𝒩 Y⟩ O₀
+
+/-- **Glue N2-g2 (the local statement persists in larger fields).** Given local Néron models of
+`A` (`LocalNeronModelsOf A`, from N1 and NL): if the local statement at `O` holds for `L₀`, it holds
+for every finite extension `L₁ ⊇ L₀`.
 Proof (STANDARD, not in Mathlib): given `O₁ ⊂ L₁` over `O`, `𝒩₁`, `L' ⊇ L₁`, `O' ⊂ L'` over `O₁`
-and `𝒩'`, put `O₀ = O₁ ∩ L₀` (a DVR over `O`) and let `𝒩₀` be a Néron model over `O₀` (the
-localization of the global Néron model of N1, Néron by NL). Apply the `L₀`-statement twice: to
+and `𝒩'`, put `O₀ = O₁ ∩ L₀` (a DVR over `O`) and let `𝒩₀` be a Néron model over `O₀` (given by
+the hypothesis). Apply the `L₀`-statement twice: to
 `(O₀, 𝒩₀, L', O', 𝒩')`, giving `U → 𝒩'`, `j : U → 𝒩₀ ×_{O₀} O'`, and to `(O₀, 𝒩₀, L₁, O₁, 𝒩₁)`,
 giving `U₁ → 𝒩₁`, `j₁ : U₁ → 𝒩₀ ×_{O₀} O₁`. Base-change the second to `O'` and take for the new
 `U` the intersection of the two open subgroups `j(U)` and `(j₁)_{O'}(U₁ ×_{O₁} O')` of
@@ -609,11 +623,10 @@ L₁` agree once their composites with `A_{L₁} → A_{L₀}` agree; morphisms 
 fibre of `𝒩₀` are determined by their composite to `𝒩₀`; and
 `bcProj A L₀ L' = bcProj A L₁ L' ≫ bcProj A L₀ L₁`. No further literature input. -/
 def LocalSemistableMono : Prop :=
-  NeronModelExists → NeronLocalOnBase →
-  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
-    [IsDiscreteValuationRing O] (L₀ L₁ : Type) [Field L₀] [NumberField L₀] [Algebra K L₀]
-    [Field L₁] [NumberField L₁] [Algebra K L₁] [Algebra L₀ L₁] [IsScalarTower K L₀ L₁],
-    LocalSemistableWith A O L₀ → LocalSemistableWith A O L₁
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K), LocalNeronModelsOf A →
+  ∀ (O : ValuationSubring K) [IsDiscreteValuationRing O] (L₀ L₁ : Type) [Field L₀]
+    [NumberField L₀] [Algebra K L₀] [Field L₁] [NumberField L₁] [Algebra K L₁] [Algebra L₀ L₁]
+    [IsScalarTower K L₀ L₁], LocalSemistableWith A O L₀ → LocalSemistableWith A O L₁
 
 /-- **Glue N2-g3 (one field for all places: local identity components glue).** Given the leaf
 NL: if the local statement holds for one field `L₀` at every DVR of `K`, then for every Néron
@@ -685,7 +698,7 @@ theorem semistableCommonField (h1 : GoodPlacesAnyField) (h2 : LocalSemistableMon
   refine ⟨M, iM1, iM2, iM3, fun O hO => ?_⟩
   by_cases hOT : O ∈ T
   · obtain ⟨iFM, tFM⟩ := hM O hOT
-    exact h2 hN1 hloc K A O (F O) M (hF O hO)
+    exact h2 K A (localNeronModelsOf hN1 hloc A) O (F O) M (hF O hO)
   · exact hT O hOT M
 
 /-- **`SemistableLocalToGlobal` from the leaf NL and the glue N1-g1, N2-g1, N2-g2, N2-g3
@@ -794,6 +807,14 @@ theorem semistableNeronIdentityComponent_of_local (hN1 : NeronModelExists)
     (hglue : SemistableLocalToGlobal) : SemistableNeronIdentityComponent :=
   fun K _ _ A => hglue hN1 hab K A (fun O _ => hloc K A O)
 
+/-- **The leaf N1-loc is a consequence of N1-self (BLR §1.4 Thm 3) and NL (BLR §1.2 Prop. 4)
+(proved).** So N1-loc is not stronger than the published statements. -/
+theorem localNeronModelExists_of_self (h : NeronModelExistsSelf) (hNL : NeronLocalOnBase) :
+    LocalNeronModelExists := by
+  intro L _ _ O _ B
+  obtain ⟨𝒩⟩ := h L B
+  exact neronModelOver_localize hNL 𝒩 O
+
 /-- **N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the glue N1-g1, N1-g2, N1-g3,
 N2-g1', N2-g2, N2-g3 (proved).** -/
 theorem n1_n2_of_leaves_and_glue (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
@@ -818,3 +839,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.goodPlacesAnyField_of
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue
 #print axioms ZInQ.NeronLG.neronModelOver_localize
+#print axioms ZInQ.NeronLG.localNeronModelsOf
+#print axioms ZInQ.NeronLG.localNeronModelExists_of_self
