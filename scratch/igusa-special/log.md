@@ -34,3 +34,34 @@ sparse polynomial library over Q that parses the Lean definitions `y?c?`, `J2..J
   So `r = 1` (then `(u',v') = (u,v)`) or `ru = (4∓√r)²`, i.e. `u = t²`, `r = 16/(1+t)²`:
   the D4 sub-family `a = b = t` up to the order-6 group, with the second involution class giving
   `t' = (15-t)/(1+t)`: `(1-X)⁶E(t,t)((1+X)/(1-X)) = 2(1+t)·E(t',t')` (hand computation).
+
+## Lean (VERIFIED, `lake env lean`)
+
+- `ZInQKernel/Contrib/T28/Special/Family.lean`: compiles (~10 s). `Eqv` (equivalence via `actC`)
+  with refl/symm/trans, `Eqv.J` (transformation law), `J*_E`, `fam_alg`, `E_rot`, `E_swap`,
+  `E_orbit`, `E_D4`, `E_sep` (separation in the family, weighted equality of invariants).
+- `ZInQKernel/Contrib/T28/Special/Bolza.lean`: compiles (2m55). `det_yv_Ne`, `det_yv_Nr`
+  (product over the 15 synthemes), `J10_Nr = 256·disc`, `J10_zero_56`, `J10_zero_01`,
+  `even_to_E`, `inv_E`, `cls1_E … cls4_E`, `special_Nr`.
+- t14.py: `T_c(e(l,m,n)) = ∏` of `D_c` over the listed permutations (ratio 1 for all four
+  classes); `J10(Nr l m n) = 256 ∏ (differences of ∞-free roots)²`.
+- `ZInQKernel/Contrib/T28/Special/NormalForm.lean`: compiles (~7 s). `root2…root6`,
+  `cubic_split`, `step_inf`, `step_zero`, `step_one`, `exists_Nr`.
+- `ZInQKernel/Contrib/T28/Special.lean`: compiles (~5 s). `Eqv.det_yv` (from igusa-generic's
+  `T28.det_yv_actC`), `special_to_E`, `separationBothSpecial : T28.SeparationBothSpecial`.
+- `ZInQKernel/Contrib/T28/Assemble.lean`: compiles. `T28.igusaClebschSeparation_proved :
+  PkgI1.IgusaClebschSeparation` (leaf T28), `T28.igusaSeparationEq_proved`,
+  `T28.separationSpecial_proved : PkgI1.SeparationSpecial`.
+- `lake build ZInQKernel.Contrib.T28.Assemble`: success (after merging origin/main 6c225515 and
+  wip/igusa-generic 73bbe461). `scratch/igusa-special/Axioms.lean`: every theorem listed there
+  depends only on `[propext, Classical.choice, Quot.sound]`.
+- `diffcheck2.py`: MOD-UNNOTED 0, NOTE-ONLY 0 (no vendored file touched).
+
+## Notes
+
+- `ring` in a `Field` without `[CharZero K]` cannot cancel numeral inverses (first attempt of
+  `y1c0_Ne` failed); all `y?c?` identities need `[CharZero K]`.
+- One-shot `ring` for `det yv (Ne …)` (unfolding all 86-term `y3` chunks inside the 3×3
+  determinant) passed 8.7 GB after 8 min (stopped); staging (`y?c?_Ne` first, 11/33/73-term
+  results, then the determinant) takes 2m22 in total.
+- `ring` as a `first | ring | …` alternative never fails (falls back to `ring_nf`); use `ring1`.
