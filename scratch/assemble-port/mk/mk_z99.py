@@ -12,7 +12,8 @@ DROP = ['analyticUniformizationOfDim', 'hodgeBCInjective', 'omegaBaseChange', 'r
         'kummerVerticalFin', 'kummerAbhyankarInfGlue', 'kummerOtherBranchInf', 'kummerVerticalInf', 'r14Det', 'carayolR17',
         'goodRedTorsion', 'qmEndRank', 'kernelFieldBreaks', 'tateRamAtThree',
         's8Nonzero', 's8WeightExact', 'qmTwistLattice', 'twistDescent',
-        'heckeIrreducible', 'heckeNormalizationIrr', 'heckeDegree', 'heckeBranch', 'linkedFrob', 'heckeNoVertRam']
+        'heckeIrreducible', 'heckeNormalizationIrr', 'heckeDegree', 'heckeBranch', 'linkedFrob', 'heckeNoVertRam',
+        'kummerCompositum']
 L = blk.rstrip('\n').split('\n')
 # group into (doc+field) items: an item starts at a line beginning with '  /--' or '  --' comment, or a field line
 items = []; cur = []
@@ -29,7 +30,7 @@ def drop_field(txt, name):
 txt = items_txt + '\n'
 for n in DROP: txt = drop_field(txt, n)
 for n in DROP: assert re.search(r'\b' + n + r' :', txt) is None, n
-txt = txt.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (29 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
+txt = txt.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (28 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
 fields proved or moved since (table: docs/research/assemble-port.md §2); `LinkedTateData` now comes from lt-local's proof of
 g0-assemble2's `LinkedTateLocal` (part z93z; `UnramRoots` proved by frob-contrib, part z94b; `TateBridge35` from
 frob-pieces' leaves), so linked-tate's `linkedFrob`, `kernelFieldBreaks`, `tateRamAtThree` (the last likely false as
@@ -85,7 +86,7 @@ txt = txt.rstrip('\n') + '''
   neronMappingAbelianScheme : PkgI2.NeronMappingAbelianScheme.{0}
 '''
 fields = [f for f in re.findall(r'^  (?:/--(?:(?!-/).)*?-/ )?([a-zA-Z0-9_]+) : ', txt, re.M)]
-assert len(fields) == 29, (len(fields), fields)
+assert len(fields) == 28, (len(fields), fields)
 open('fields5.txt', 'w').write('\n'.join(fields) + '\n')
 hdr = '''/-! ## assemble-port: `GluePieces5`, `gluePieces_of_gluePieces5`, `sixContactMin_of_leaves5`
 
@@ -136,7 +137,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
   have hG3 : LinkedTate.QMModelG3 :=
     LinkedTate.qmModelG3_of r.r7a r.r6 t.t5 (LinkedTate.goodRedG3Bridge_of_torsion LTGoodRed.goodRedTorsion)
   have hTS : G0ModField.PropTSAll :=
-    PropTSGlue.propTSAll_final'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) hMob gp.kummerCompositum
+    PropTSGlue.propTSAll_final'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) hMob KummerComp.kummerCompositum_final
       TsKummer.kummerAbhyankarFinGlue TsKummer.kummerOtherBranchFin TsKummer.kummerVerticalFin
       TsKummer.kummerAbhyankarInfGlue TsKummer.kummerOtherBranchInf TsKummer.kummerVerticalInf
       (TSHecke.heckeIrreducible_of_connected gp.y3Connected)
@@ -199,8 +200,8 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (29 fields: 18 LEAF, 7 LEAF?,
-4 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (28 fields: 18 LEAF, 7 LEAF?,
+3 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
   sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
@@ -240,6 +241,7 @@ end
 #print axioms UnramTate.betaTrivialAtTwo_of_sign
 #print axioms UnramTate.tateRamAtThreeD_of_leaves
 #print axioms G0ModField.KernelField.twistDescent
+#print axioms KummerComp.kummerCompositum_final
 #print axioms LTLocal.linkedTateLocal_of_tateBridge35
 #print axioms FrobPiecesGood.tateBridge35_of_neron_nmp
 #print axioms HSyn.unramRoots_proved

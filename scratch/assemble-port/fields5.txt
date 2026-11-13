@@ -7,7 +7,6 @@ piTwistC
 cmDescends
 sphereFactorAffine
 valenceBoundGammaStar
-kummerCompositum
 homLinearLift
 senTwist
 finiteImageHT

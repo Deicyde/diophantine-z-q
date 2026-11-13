@@ -1868,6 +1868,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.UnramTate.betaTrivialAtTwo_of_sign' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.UnramTate.tateRamAtThreeD_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.G0ModField.KernelField.twistDescent' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.KummerComp.kummerCompositum_final' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.LTLocal.linkedTateLocal_of_tateBridge35' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.FrobPiecesGood.tateBridge35_of_neron_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.unramRoots_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
