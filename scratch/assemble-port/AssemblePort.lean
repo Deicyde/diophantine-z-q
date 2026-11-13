@@ -113404,6 +113404,73 @@ end HSyn
 
 end G0A3_z94_spreadout
 
+section G0A3_z95b_homunify
+/-! ## assemble-port: hom-unify's leaf `HomLatticeCorr` (mk/mk_z95b.py) -/
+
+section HomUnifySec
+
+namespace HomUnify
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3
+open ZInQ.LeafPush2 (CPts IsUniformization)
+
+/-- **The analytic representation of homomorphisms (textbook LEAF; the single leaf proposed by
+hom-unify for T11(a) in `Hom` form).** Let `A`, `B` be abelian varieties over a field `K`,
+`σ : K → ℂ`, and `Φ_A : ℂ^g → A(ℂ)_σ`, `Φ_B : ℂ^h → B(ℂ)_σ` analytic uniformizations with kernels
+`Λ_A`, `Λ_B` (`g = dim A`, `h = dim B`).
+1. (lifting) every homomorphism `f : A → B` lifts to a `ℂ`-linear `M : ℂ^g → ℂ^h` with
+   `Φ_B(Mz) = f(Φ_A(z))`;
+2. (realization, over `ℂ`) if `K = ℂ` and `σ = id`, every `ℂ`-linear `M : ℂ^g → ℂ^h` with
+   `MΛ_A ⊆ Λ_B` is induced in this way by a unique homomorphism `f : A → B`.
+
+Together: `Hom(A_ℂ, B_ℂ) ≅ {M ∈ Hom_ℂ(ℂ^g, ℂ^h) : MΛ_A ⊆ Λ_B}`, `f ↦ ρ_a(f)`, and for general `K`
+the analytic representation of `f` is that of `f_ℂ`. Sources (all UNVERIFIED numbers):
+Birkenhake–Lange, *Complex abelian varieties*, §1.2 (Prop. 1.2.1: homomorphisms of complex tori
+`ℂ^g/Λ → ℂ^h/Λ'` are exactly the maps induced by `ℂ`-linear `M` with `MΛ ⊆ Λ'`, and the analytic
+representation is injective); Mumford, *Abelian varieties*, §1 (the complex torus `A(ℂ)`) and
+§3 (`A ↦ A^an` is fully faithful on abelian varieties); Serre, GAGA (1956) / Chow, for
+"holomorphic ⇒ algebraic" in 2.; holomorphy of algebraic morphisms for 1. -/
+def HomLatticeCorr : Prop :=
+  (∀ (K : Type) [Field K] (A B : PkgI3.AbVar K) (σ : K →+* ℂ) (g h : ℕ)
+    (ΛA : Submodule ℤ (Fin g → ℂ)) (ΛB : Submodule ℤ (Fin h → ℂ))
+    (ΦA : (Fin g → ℂ) → CPts A σ) (ΦB : (Fin h → ℂ) → CPts B σ),
+    A.dim = (g : WithBot ℕ∞) → B.dim = (h : WithBot ℕ∞) →
+    IsUniformization σ ΛA ΦA → IsUniformization σ ΛB ΦB →
+    ∀ f : PkgI3.AbVar.Hom A B, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ),
+      ∀ z, ΦB (M z) = ΦA z ≫ f.hom) ∧
+  (∀ (A B : PkgI3.AbVar ℂ) (g h : ℕ) (ΛA : Submodule ℤ (Fin g → ℂ))
+    (ΛB : Submodule ℤ (Fin h → ℂ))
+    (ΦA : (Fin g → ℂ) → CPts A (RingHom.id ℂ)) (ΦB : (Fin h → ℂ) → CPts B (RingHom.id ℂ)),
+    A.dim = (g : WithBot ℕ∞) → B.dim = (h : WithBot ℕ∞) →
+    IsUniformization (RingHom.id ℂ) ΛA ΦA → IsUniformization (RingHom.id ℂ) ΛB ΦB →
+    ∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ), (∀ z ∈ ΛA, M z ∈ ΛB) →
+      ∃! f : PkgI3.AbVar.Hom A B, ∀ z, ΦB (M z) = ΦA z ≫ f.hom)
+
+/-- **`HomLinearLift` from `HomLatticeCorr` (proved):** its first clause. -/
+theorem homLinearLift_of_corr (h : HomLatticeCorr) : G0Galois.HomLinearLift := h.1
+
+theorem t11a_riemannEnd_of_corr (h : HomLatticeCorr) : ZInQ.LeafPush2.T11a_RiemannEnd :=
+  fun A g Λ Φ hA hU =>
+    ⟨fun M hM => h.2 A A g g Λ Λ Φ Φ hA hA hU hU M hM,
+     fun f => h.1 ℂ A A (RingHom.id ℂ) g g Λ Λ Φ Φ hA hA hU hU f⟩
+
+/-- **`T11aRiemannHom` (period-glue's T11(a) in `Hom` form) from `HomLatticeCorr` (proved):** the realization clause at
+`h = g` and the lifting clause at `K = ℂ`, `σ = id`. -/
+theorem t11aRiemannHom_of_corr (h : HomLatticeCorr) : HSyn.G0Split.FibreQM.PeriodGlue.T11aRiemannHom :=
+  fun A A' g Λ Λ' Φ Φ' hA hA' hU hU' =>
+    ⟨fun M hM => h.2 A A' g g Λ Λ' Φ Φ' hA hA' hU hU' M hM,
+     fun f => h.1 ℂ A A' (RingHom.id ℂ) g g Λ Λ' Φ Φ' hA hA' hU hU' f⟩
+
+end HomUnify
+
+end HomUnifySec
+
+#print axioms HomUnify.t11a_riemannEnd_of_corr
+#print axioms HomUnify.t11aRiemannHom_of_corr
+
+end G0A3_z95b_homunify
+
 section G0A3_z95_bundle4
 /-! ## g0-assemble3: `ResearchLeaves4`, `GluePieces4`, `sixContactMin_of_leaves4`
 
@@ -116449,7 +116516,7 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
     r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (28 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
+/-- **The named Props left after assemble-port** (27 fields). g0-assemble3's `GluePieces4` (46 fields) without the 29
 fields proved or moved since (table: docs/research/assemble-port.md §2); `LinkedTateData` now comes from lt-local's proof of
 g0-assemble2's `LinkedTateLocal` (part z93z; `UnramRoots` proved by frob-contrib, part z94b; `TateBridge35` from
 frob-pieces' leaves), so linked-tate's `linkedFrob`, `kernelFieldBreaks`, `tateRamAtThree` (the last likely false as
@@ -116490,8 +116557,6 @@ structure GluePieces5 : Prop where
   -- ModularConstituent: G2 (fibre-cover; Prop. TS by prop-ts, prop-ts-glue)
   -- ModularConstituent: G4 (kernel-field, kf-glue)
   -- ModularConstituent: G8-G12
-  /-- conj-twist, LEAF (N2: homomorphisms lift to `ℂ`-linear maps of uniformizations; Birkenhake–Lange 1.2.1). -/
-  homLinearLift : G0Galois.HomLinearLift
   /-- g12-det, LEAF (HT weights of a twist shift by a constant; Sen 1980). -/
   senTwist : G0Galois.SenTwist
   /-- g12-det, LEAF (finite image ⇒ HT with weights 0; Tate 1967; Ax–Sen–Tate). -/
@@ -116507,10 +116572,6 @@ structure GluePieces5 : Prop where
   /-- period-glue, LEAF? (`Γ*/ℚ^×` is the `(2,4,6)` triangle group generated by `ι(1+i+j)`, `ι((j−3)/2)`: Takeuchi 1977,
   Elkies 1998 §3, Poincaré's polygon theorem; with R4 it gives period-map's `S8WeightExact`, `s8WeightExact_of`). -/
   gammaStarGen : G0Split.FibreQM.PeriodGlue.GammaStarGen
-  /-- period-glue, LEAF (T11(a) in `Hom` form: homomorphisms of complex abelian varieties are the lattice-preserving
-  `ℂ`-linear maps; Mumford §1, Birkenhake–Lange 1.2.1, GAGA; with Skolem–Noether, proved, it gives period-map's
-  `QMTwistLattice`, `qmTwistLattice_of'`). -/
-  t11aRiemannHom : G0Split.FibreQM.PeriodGlue.T11aRiemannHom
   /-- ts-hecke, LEAF (R1conn: the canonical model `Y₃` is connected over `ℚ`, witness form; Shimura, Deligne (Bourbaki 389,
   PSPM 33 §2), Milne §5, §13 for `π₀(Sh_K)` with its Galois action; the two geometric components computed in
   `scratch/ts-hecke/pi0_check.py`). Gives prop-ts-glue's `HeckeIrreducible` (`heckeIrreducible_of_connected`). -/
@@ -116546,6 +116607,12 @@ structure GluePieces5 : Prop where
   reductionTorsionBijective : PkgI2.ReductionTorsionBijective.{0}
   /-- textbook LEAF I2-NMP (T3; `TextbookLeaves.t3`, likewise): the Néron mapping property of abelian schemes. -/
   neronMappingAbelianScheme : PkgI2.NeronMappingAbelianScheme.{0}
+  /-- hom-unify, LEAF (the analytic representation of homomorphisms, both directions: every homomorphism lifts to a
+  `ℂ`-linear map of uniformizations, and over `ℂ` every lattice-preserving `ℂ`-linear map is induced by a unique
+  homomorphism; Birkenhake–Lange §1.2, Prop. 1.2.1; Mumford §1, §3; GAGA). It replaces three leaves: T11(a)
+  (`OpenTextbookLeaves2.t11a`, `t11a_riemannEnd_of_corr`), conj-twist's `HomLinearLift` (`homLinearLift_of_corr`) and
+  period-glue's `T11aRiemannHom` (`t11aRiemannHom_of_corr`). -/
+  homLatticeCorr : HomUnify.HomLatticeCorr
 
 /-- **`GluePieces` from `GluePieces5` and leaf-fold2's open leaf bundles.** g0-assemble3's `gluePieces_of_gluePieces4`
 (part z95), with every field proved since replaced by its proof: `analyticUniformizationOfDim` by T35's transport,
@@ -116584,7 +116651,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep r.r1r2)) :=
     G0Split.FibreQM.PeriodMapH.periodMapGlue_own _ G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
-      (gp.piTwistC r.r1r2) (G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' gp.t11aRiemannHom TSkolemKW.glueDescent_leafSkolemNoether)
+      (gp.piTwistC r.r1r2) (G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' (HomUnify.t11aRiemannHom_of_corr gp.homLatticeCorr) TSkolemKW.glueDescent_leafSkolemNoether)
       (G0Split.FibreQM.PeriodMapH.piCMC_of _ _ _ (G0Split.FibreQM.own_spec _).1
         (G0Split.FibreQM.own_spec _).2.2 G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
         (gp.piTwistC r.r1r2) gp.cmDescends)
@@ -116616,7 +116683,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
         ⟨RvGP2.burnsideAbsIrred, r.r14,
           ZInQ.Contrib.R10.g9Glue_of_deRhamComparisonHT r4.r10,
           G0Galois.g10Glue_of_conjTwist
-            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 gp.homLinearLift),
+            (G0Galois.conjTwistNontrivial_of_leaves t.t5 t.t26 t.t35 (HomUnify.homLinearLift_of_corr gp.homLatticeCorr)),
           G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
           G0Galois.detTate_of_leaves gp.t09SymmIsogenyExists gp.isogenyQuasiInverse
             gp.divisiblePoints t.t26,
@@ -116633,13 +116700,59 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
             hFS (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27))))
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
+/-- **The open textbook leaves after assemble-port** (17 fields): leaf-fold2's `OpenTextbookLeaves2` without `t11a`
+(T11(a), implied by hom-unify's leaf `HomLatticeCorr`, a field of `GluePieces5`). -/
+structure OpenTextbookLeaves5 : Prop where
+  t5 : PkgI2.TorsionStructure.{0}
+  t6 : PkgI3.HomFreeFinite
+  t7 : PkgI3.CharPolyIndepOfEll
+  t8 : PkgI3.PoincareReducibility
+  t9 : LeafPush.T09_WeilPairing.{0}
+  t10 : T10Etale.T10_TateDuality
+  t11b : ZInQ.LeafPush2.T11b_Rigidity
+  t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
+  t24 : EigenformTwist
+  t26 : PkgI3.TateModuleFree
+  t27 : PkgI3.QMDichotomyYu
+  t33 : LeafModCurves.JacobianExists ℚ
+  t34 : LeafModCurves.DimJ1Genus
+  t35 : ZInQ.LeafPush2.UniformizationExists
+  /-- T38 (x1-belyi): a function field over `ℚ` with constant field `ℚ` is that of a smooth
+  proper curve. -/
+  t38 : X1Belyi.CurveOfFunctionFieldQ
+  /-- T40 (x1-belyi): `K_N` has a degree-one place. -/
+  t40 : X1Belyi.X1RationalCusp
+  t41 : ZInQ.H5Neron.NeronModelExists
+
+/-- `OpenTextbookLeaves2` from `OpenTextbookLeaves5` and `HomLatticeCorr`. -/
+theorem openTextbookLeaves2_of_5 (t : OpenTextbookLeaves5) (h : HomUnify.HomLatticeCorr) : OpenTextbookLeaves2 :=
+  { t5 := t.t5,
+    t6 := t.t6,
+    t7 := t.t7,
+    t8 := t.t8,
+    t9 := t.t9,
+    t10 := t.t10,
+    t11a := HomUnify.t11a_riemannEnd_of_corr h,
+    t11b := t.t11b,
+    t23 := t.t23,
+    t24 := t.t24,
+    t26 := t.t26,
+    t27 := t.t27,
+    t33 := t.t33,
+    t34 := t.t34,
+    t35 := t.t35,
+    t38 := t.t38,
+    t40 := t.t40,
+    t41 := t.t41 }
+
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (28 fields: 18 LEAF, 7 LEAF?,
+26 fields), the open textbook leaves (`OpenTextbookLeaves5`, 17 fields) and `GluePieces5` (27 fields: 17 LEAF, 7 LEAF?,
 3 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
-theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
+theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
-  sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
-    (gluePieces_of_gluePieces5 r t gp)
+  sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3
+    (textbookLeaves_of_open2 (openTextbookLeaves2_of_5 t gp.homLatticeCorr))
+    (gluePieces_of_gluePieces5 r (openTextbookLeaves2_of_5 t gp.homLatticeCorr) gp)
 
 end HSyn
 
@@ -116649,6 +116762,7 @@ end
 #print axioms HSyn.gluePieces_of_gluePieces5
 #print axioms HSyn.sixContactMin_of_leaves5
 #print axioms HSyn.textbookLeaves_of_open2
+#print axioms HSyn.openTextbookLeaves2_of_5
 #print axioms HSyn.t14a_proved
 #print axioms HSyn.t14b_proved
 #print axioms HSyn.t36_proved

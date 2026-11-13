@@ -1335,6 +1335,11 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
 'HDec.HSyn.unramRoots_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.abVarSpreadsOut_of_ega' depends on axioms: [propext, Classical.choice, Quot.sound]
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:9697:5: warning: Ambiguous namespace `PkgI3`: it is interpreted as `_root_.HDec.PkgI3` because this `open` occurs inside `namespace HDec.HomUnify`, while `_root_.PkgI3` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.PkgI3`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+
+Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
+'HDec.HomUnify.t11a_riemannEnd_of_corr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HomUnify.t11aRiemannHom_of_corr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.gluePieces_of_gluePieces4' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_leaves4' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_leaves4'' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -1355,59 +1360,59 @@ Note: This linter can be disabled with `set_option linter.unusedTactic false`
 'HDec.ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.PropTSGlue.propTSAll_of_pieces''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.LinkedTate.linkedTateData_of_frobRam' depends on axioms: [propext, Classical.choice, Quot.sound]
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10005:0: warning: automatically included section variable(s) unused in theorem `HDec.LTGoodRed.NLG.ringOfIntegers_mem`:
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10072:0: warning: automatically included section variable(s) unused in theorem `HDec.LTGoodRed.NLG.ringOfIntegers_mem`:
   [NumberField K]
 consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
   omit [NumberField K] in theorem ...
 
 Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10025:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10092:6: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10392:6: warning: Variable name `n` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10459:6: warning: Variable name `n` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _n
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10392:8: warning: Variable name `m` is not explicitly referenced.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10459:8: warning: Variable name `m` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _m
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10530:66: warning: this tactic is never executed
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10597:66: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10530:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10597:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10530:66: warning: Unused tactic linter: `norm_num` does nothing.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10597:66: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10536:66: warning: this tactic is never executed
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10603:66: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10536:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10603:62: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10536:66: warning: Unused tactic linter: `norm_num` does nothing.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10603:66: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10541:27: warning: this tactic is never executed
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10608:27: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10541:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10608:23: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10541:27: warning: Unused tactic linter: `norm_num` does nothing.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10608:27: warning: Unused tactic linter: `norm_num` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10687:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10754:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -1418,21 +1423,21 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10728:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10795:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10771:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10838:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10799:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10866:24: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
@@ -1443,23 +1448,23 @@ instead of
     [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
     motive 0 →
       (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:10971:69: warning: This simp argument is unused:
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11038:69: warning: This simp argument is unused:
   Polynomial.aeval_C
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [map_sub, map_pow, Polynomial.aeval_X, map_one, map_mul] at heval
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11182:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11249:32: warning: Ambiguous namespace `GlueDescent`: it is interpreted as `_root_.HDec.GlueDescent` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11182:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11249:44: warning: Ambiguous namespace `GlueDescent.B2`: it is interpreted as `_root_.HDec.GlueDescent.B2` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11182:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11249:59: warning: Ambiguous namespace `GlueDescent.B2Q`: it is interpreted as `_root_.HDec.GlueDescent.B2Q` because this `open` occurs inside `namespace HDec`, while `_root_.GlueDescent.B2Q` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.GlueDescent.B2Q`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11256:8: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11323:8: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1467,7 +1472,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11356:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11423:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1475,7 +1480,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11424:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11491:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1483,7 +1488,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11455:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11522:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1491,14 +1496,14 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11475:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.UnramTate`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11542:5: warning: Ambiguous namespace `LadicCond`: it is interpreted as `_root_.HDec.LadicCond` because this `open` occurs inside `namespace HDec.UnramTate`, while `_root_.LadicCond` is silently not opened. Specify the namespace unambiguously, e.g. `_root_.HDec.LadicCond`. The warning can sometimes also be addressed by moving the `open` outside of the surrounding `namespace`.
 
 Note: This linter can be disabled with `set_option linter.ambiguousOpen false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11500:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11567:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11514:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11581:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1506,7 +1511,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11515:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11582:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1514,15 +1519,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11524:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11591:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11670:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11737:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11699:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11766:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1530,7 +1535,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11705:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11772:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1538,7 +1543,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11793:6: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11860:6: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1546,7 +1551,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11845:8: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11912:8: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1554,7 +1559,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11895:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11962:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1562,7 +1567,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11924:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11991:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1570,7 +1575,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:11989:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12056:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1578,7 +1583,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12091:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12158:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1586,7 +1591,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12093:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12160:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1594,7 +1599,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12096:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12163:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1602,7 +1607,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12103:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12170:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1610,7 +1615,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12104:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12171:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1618,7 +1623,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12105:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12172:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1626,7 +1631,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12106:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12173:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1634,7 +1639,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12107:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12174:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1642,7 +1647,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12108:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12175:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1650,7 +1655,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12109:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12176:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1658,7 +1663,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12114:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12181:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1666,7 +1671,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12116:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12183:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1674,7 +1679,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12117:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12184:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1682,7 +1687,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12118:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12185:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1690,7 +1695,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12119:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12186:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1698,7 +1703,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12121:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12188:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1706,7 +1711,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12125:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12192:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1714,7 +1719,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12128:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12195:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -1722,7 +1727,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12129:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12196:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1730,7 +1735,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12131:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12198:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1738,7 +1743,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12132:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12199:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1746,7 +1751,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12201:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12268:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1754,7 +1759,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12210:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12277:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1762,7 +1767,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12229:4: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12296:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1770,7 +1775,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12259:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12326:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1778,7 +1783,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12261:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12328:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1786,7 +1791,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12263:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12330:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1794,7 +1799,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12302:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12369:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1802,7 +1807,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12372:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12439:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1810,7 +1815,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12383:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12450:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1818,7 +1823,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12405:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12472:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1826,7 +1831,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12503:2: warning: Try this: 
+/home/jackmccarthy/dzq-wt/assemble-port/scratch/assemble-port/olean/TailD.lean:12570:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -1838,6 +1843,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HDec.HSyn.gluePieces_of_gluePieces5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.sixContactMin_of_leaves5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.textbookLeaves_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.openTextbookLeaves2_of_5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t14a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t14b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HDec.HSyn.t36_proved' depends on axioms: [propext, Classical.choice, Quot.sound]

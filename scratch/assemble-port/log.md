@@ -169,3 +169,9 @@
 - FINAL FLAT CHECK (28-field state, kummer-comp folded): AssemblePort.lean 116 699 lines, md5 670e9889…: VERIFIED exit 0 in
   1123 s, 0 errors, no sorry, 290 axiom reports all [propext, Classical.choice, Quot.sound], incl.
   `HDec.HSyn.sixContactMin_of_leaves5` (flat_summary.txt, flat_out.txt).
+- Merged origin/wip/hom-unify (report). Part z95b (mk/mk_z95b.py): hom-unify's leaf `HomUnify.HomLatticeCorr`
+  (H20_bundle.lean L184-224 verbatim) with `homLinearLift_of_corr`, `t11a_riemannEnd_of_corr` (Contrib/HomUnify/Corr.lean
+  L109-112's text) and a new `t11aRiemannHom_of_corr`. z99: GluePieces5 − homLinearLift, t11aRiemannHom (LEAF) +
+  homLatticeCorr (LEAF); new `OpenTextbookLeaves5` = OpenTextbookLeaves2 − t11a (17 fields), `openTextbookLeaves2_of_5`;
+  `sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves5) (gp : GluePieces5)`. GluePieces5: 27
+  fields (17 LEAF, 7 LEAF?, 3 GLUE). TailD: VERIFIED exit 0, 129 s, no sorryAx, all axiom reports standard.

@@ -7,14 +7,12 @@ piTwistC
 cmDescends
 sphereFactorAffine
 valenceBoundGammaStar
-homLinearLift
 senTwist
 finiteImageHT
 t09SymmIsogenyExists
 isogenyQuasiInverse
 divisiblePoints
 gammaStarGen
-t11aRiemannHom
 y3Connected
 qmAutCard
 serreRigidity3
@@ -26,3 +24,4 @@ egaIV_17_7_8_ii
 properSmoothGenConnected
 reductionTorsionBijective
 neronMappingAbelianScheme
+homLatticeCorr
