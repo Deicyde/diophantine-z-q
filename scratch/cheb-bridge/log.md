@@ -17,3 +17,8 @@
   conclusion for (M, S, σ). Uses `Rat.HeightOneSpectrum.natGenerator`/`primesEquiv` (Mathlib) for
   𝔭 ↦ p, `FormallyUnramified.comp` + `of_surjective` for 𝓞ℚ→ℤ unramified transfer,
   `Ideal.quotientEquiv` for `#(ℤ/p) = #(𝓞ℚ/𝔭)`. COMPILED (lake env lean, no errors). VERIFIED.
+- ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean: copy of scratch/t-skolem-kw/FrobeniusDense.lean
+  (namespaces → `ZInQ.Contrib.ChebFD.{C10,HSyn}`, local leaf copy → `PkgI6.ChebotarevExists`), HSyn defs
+  (`Qbar`, `GQ`, `LiesOver`, `IsArithFrob`, `FrobeniusDense`) pasted verbatim from Leaves.lean lines 21099-21112,
+  21211-21216. `lake build` OK. `frobeniusDense_of_chebotarev : PkgI6.ChebotarevExists → ZInQ.Contrib.ChebFD.HSyn.FrobeniusDense`,
+  axioms [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
