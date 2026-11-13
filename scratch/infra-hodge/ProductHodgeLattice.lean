@@ -7208,20 +7208,19 @@ end Delta
 end ZInQ.InfraHodge
 
 
-/-! # infra-hodge, part 4: `ProductHodgeLattice`
+/-! # infra-hodge, part 4a: bases of `ω` inside the lattice (generic)
 
 * `basis_of_wedge_ne_zero`: if `L ⊗ ⋀^g V` is a line (`g ≥ 1`) and `1 ⊗ ιMulti v ≠ 0`, then `v` is
   an `L`-basis of `V`.
 * `exists_omega_basis`: a metrized model of dimension `g` has an `L`-basis of `ω_{A_L}` inside
   `ω_𝒢` (for `g = 0` assuming the cotangent space is `0`).
 * `TrivialPointsCotangent` (new named Prop, only for the case `g = 0`): a group model with a single
-  complex point has zero cotangent space.
-* **`productHodgeLattice_of : TrivialPointsCotangent → ProductHodgeLattice`.** -/
+  complex point has zero cotangent space. -/
 
 namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
-open NumberField ZInQ.DefFaltings ZInQ.Metrization Module
+open NumberField ZInQ.DefFaltings Module
 open scoped TensorProduct
 
 section Wedge
@@ -7310,15 +7309,30 @@ theorem subsingleton_of_dim_zero (h0 : TrivialPointsCotangent) (M : MetrizedMode
   rw [add_zero] at h
   exact (_root_.mul_eq_left.mp h.symm)
 
+omit [Algebra K L] in
+theorem secIndex_eq_relIndex {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+    (M : Submodule (𝓞 L) V) (s : V) :
+    secIndex M s = (Submodule.span (𝓞 L) {s}).toAddSubgroup.relIndex M.toAddSubgroup := rfl
+
 end Factor
+
+end ZInQ.InfraHodge
+
+
+/-! # infra-hodge, part 4b: `ProductHodgeLattice`
+
+**`productHodgeLattice_of : TrivialPointsCotangent → ProductHodgeLattice`.** -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings ZInQ.Metrization Module
+open scoped TensorProduct
 
 section Main
 
 variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
 
-theorem secIndex_eq_relIndex {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
-    (M : Submodule (𝓞 L) V) (s : V) :
-    secIndex M s = (Submodule.span (𝓞 L) {s}).toAddSubgroup.relIndex M.toAddSubgroup := rfl
 
 /-- **`ProductHodgeLattice` from `TrivialPointsCotangent`** (the latter is used only when one
 of the factors has `g = 0`). -/
