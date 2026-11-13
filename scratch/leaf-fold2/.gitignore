@@ -3,3 +3,4 @@ olean/*.ilean
 olean/LPrefix.lean
 olean/Tail*.lean
 olean/LF2ImagePlane.lean
+flat_out.txt

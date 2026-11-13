@@ -47,3 +47,36 @@ Marks: VERIFIED (compiled / read in a file), STANDARD, SPECULATIVE, UNVERIFIED.
   OMaximal, EndTransport, ConjTwistNontrivial, CotangentSpanBC, UniformizationLiftAnalytic).
 - Kernel Props over Mathlib-only definitions were accepted by plain term proofs (T14, T28, T36, T37,
   C1b); C2K, C3K through `toP1K` (field-by-field map of `ToP1`). VERIFIED by the compile.
+
+## Flat file (2026-11-13 09:44-10:01 PST), VERIFIED
+- `lake env lean scratch/leaf-fold2/Leaves2.lean` (81 355 lines, md5 0cfffa613c4c…): exit 0 in 999 s, 0 errors, no
+  `declaration uses 'sorry'`. 278 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`
+  (counted by script). The file still contains Leaves.lean's two `opaque` placeholders (R1(b), R17); neither
+  is a hypothesis of `sixContactMin_of_open2` (its axioms would show them otherwise only if used as axioms;
+  they are bundle-field types of the old `ResearchLeaves` only). No `axiom` declaration.
+- `#print axioms` output for the leaf-fold2 theorems (flat file, host paths removed):
+```
+'HDec.HSyn.t14a_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t14b_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t28_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t36_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t37_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.t39_of_t40' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.smoothStalkDimOne_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.constOrOntoAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.ratFactorAlgClosed_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mobiusGlue_of_t5'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.mulIsogeny_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.kerUnitOpen_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9AbVarBaseChange_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.g9Glue_of_deRhamComparisonHT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.oMaximal_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.endTransport_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.conjTwistNontrivial_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.cotangentSpanBC_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.uniformizationLiftAnalytic_proved' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.researchLeaves3_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.textbookLeaves_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.gluePieces_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HDec.HSyn.sixContactMin_of_open2' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
