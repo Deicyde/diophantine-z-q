@@ -126,7 +126,8 @@ theorem scaleChange_smul (d m : ℕ) (hm : m ≠ 0) :
 
 /-- **`L(C_{m² d}, s) = L(C_d, s)`** (Mathlib's L-function is an isomorphism invariant). -/
 theorem LFunction_cd_sq_mul (d m : ℕ) (hd : d ≠ 0) (hm : m ≠ 0) :
-    (shortCurve (-((m ^ 2 * d : ℕ) : ℚ) ^ 2)).LFunction = (shortCurve (-(d : ℚ) ^ 2)).LFunction := by
+    (shortCurve (-((m ^ 2 * d : ℕ) : ℚ) ^ 2)).LFunction =
+      (shortCurve (-(d : ℚ) ^ 2)).LFunction := by
   rw [← scaleChange_smul d m hm]
   unfold LFunction
   congr 1
@@ -140,7 +141,8 @@ theorem LFunction_cd_sq_mul (d m : ℕ) (hd : d ≠ 0) (hm : m ≠ 0) :
   rw [hloc]
 
 theorem LSeries_cd_sq_mul (d m : ℕ) (hd : d ≠ 0) (hm : m ≠ 0) (s : ℂ) :
-    (shortCurve (-((m ^ 2 * d : ℕ) : ℚ) ^ 2)).LSeries s = (shortCurve (-(d : ℚ) ^ 2)).LSeries s := by
+    (shortCurve (-((m ^ 2 * d : ℕ) : ℚ) ^ 2)).LSeries s =
+      (shortCurve (-(d : ℚ) ^ 2)).LSeries s := by
   simp only [WeierstrassCurve.LSeries, LFunction_cd_sq_mul d m hd hm]
 
 end Global

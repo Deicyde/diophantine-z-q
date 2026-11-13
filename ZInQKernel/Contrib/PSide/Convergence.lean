@@ -144,7 +144,8 @@ theorem LSeriesSummable_cdCoeff (d : ℕ) {s : ℂ} (hs : 3 / 2 < s.re) :
   rcases eq_or_ne n 0 with rfl | hn
   · simp
   have hn' : (0 : ℝ) < n := Nat.cast_pos.mpr (Nat.pos_of_ne_zero hn)
-  rw [LSeries.norm_term_eq, LSeries.norm_term_eq, if_neg hn, if_neg hn, convolution_one_one, Complex.norm_natCast]
+  rw [LSeries.norm_term_eq, LSeries.norm_term_eq, ite_eq_right hn, ite_eq_right hn,
+    convolution_one_one, Complex.norm_natCast]
   -- `‖c_n‖ ≤ σ₀(n) √n`
   have hb : ‖(cdCoeff d n : ℂ)‖ ≤ (sigma 0 n : ℝ) * Real.sqrt n := by
     rw [Complex.norm_intCast]

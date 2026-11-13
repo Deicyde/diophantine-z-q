@@ -157,7 +157,8 @@ theorem jacobiSym_sq_of_not_dvd {d p : ℕ} [hpp : Fact p.Prime] (hp : ¬ p ∣ 
   have h := legendreSym.sq_one p (a := (d : ℤ)) (by exact_mod_cast hpd)
   exact_mod_cast h
 
-/-- **The twist identity at prime powers**: `[T^k] 1/cdEulerPoly d p = (d/p)^k [T^k] 1/cdEulerPoly 1 p`. -/
+/-- **The twist identity at prime powers**:
+`[T^k] 1/cdEulerPoly d p = (d/p)^k [T^k] 1/cdEulerPoly 1 p`. -/
 theorem eulerCoeff_twist (d p : ℕ) [hpp : Fact p.Prime] (k : ℕ) :
     ((eulerCoeff d p k : ℤ) : ℂ) = (jacobiSym d p : ℂ) ^ k * ((eulerCoeff 1 p k : ℤ) : ℂ) := by
   by_cases h : p ∣ 2 * d
