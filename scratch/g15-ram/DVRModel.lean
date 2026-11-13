@@ -224,4 +224,79 @@ theorem mem_maximalIdeal_pow_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (k : ℕ) (b 
 
 end Model2
 
+section Galois
+
+attribute [local instance] algZpF FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+variable (F : Fld p) [FiniteDimensional ℚ_[p] F]
+
+attribute [local instance] torsionFree_OF
+
+instance faithful_OF : FaithfulSMul ℤ_[p] (OF F) := by
+  rw [faithfulSMul_iff_algebraMap_injective, ← Module.isTorsionFree_iff_algebraMap_injective]
+  exact torsionFree_OF F
+
+instance faithful_frac_OF : FaithfulSMul ℤ_[p] (FractionRing (OF F)) := inferInstance
+
+
+instance isFractionRing_OF : IsFractionRing (OF F) F :=
+  integralClosure.isFractionRing_of_finite_extension ℚ_[p] F
+
+theorem hcomp :
+    (algebraMap (FractionRing ℤ_[p]) (FractionRing (OF F))).comp
+        ((FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm.toRingEquiv : ℚ_[p] →+* FractionRing ℤ_[p]) =
+      ((FractionRing.algEquiv (OF F) F).symm.toRingEquiv : F →+* FractionRing (OF F)).comp
+        (algebraMap ℚ_[p] F) := by
+  apply IsLocalization.ringHom_ext (nonZeroDivisors ℤ_[p])
+  ext z
+  simp only [RingHom.comp_apply, RingHom.coe_coe, AlgEquiv.coe_toRingEquiv]
+  have h1 : (FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm (algebraMap ℤ_[p] ℚ_[p] z) =
+      algebraMap ℤ_[p] (FractionRing ℤ_[p]) z :=
+    (FractionRing.algEquiv ℤ_[p] ℚ_[p]).symm.commutes z
+  have h2 : algebraMap ℚ_[p] F (algebraMap ℤ_[p] ℚ_[p] z) =
+      algebraMap (OF F) F (algebraMap ℤ_[p] (OF F) z) := rfl
+  have h3 : (FractionRing.algEquiv (OF F) F).symm (algebraMap (OF F) F (algebraMap ℤ_[p] (OF F) z))
+      = algebraMap (OF F) (FractionRing (OF F)) (algebraMap ℤ_[p] (OF F) z) :=
+    (FractionRing.algEquiv (OF F) F).symm.commutes _
+  rw [h1, h2, h3, ← IsScalarTower.algebraMap_apply ℤ_[p] (FractionRing ℤ_[p])
+    (FractionRing (OF F)), IsScalarTower.algebraMap_apply ℤ_[p] (OF F) (FractionRing (OF F))]
+
+theorem isGalois_frac [IsGalois ℚ_[p] F] :
+    IsGalois (FractionRing ℤ_[p]) (FractionRing (OF F)) :=
+  IsGalois.of_equiv_equiv (hcomp F)
+
+theorem isSeparable_frac :
+    Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing (OF F)) :=
+  Algebra.IsSeparable.of_equiv_equiv _ _ (hcomp F)
+
+end Galois
+
+section Filtration
+
+attribute [local instance] algZpF
+
+variable {F : Fld p} [FiniteDimensional ℚ_[p] F] [IsGalois ℚ_[p] F]
+
+theorem coe_galRestrict (s : F ≃ₐ[ℚ_[p]] F) (b : OF F) :
+    ((galRestrict ℤ_[p] ℚ_[p] F (OF F) s b : OF F) : F) = s (b : F) :=
+  algebraMap_galRestrict_apply ℤ_[p] s b
+
+theorem mem_lowerRam_iff {ϖ : Kbar p} (hϖ : IsUnif F ϖ) (i : ℕ) (s : F ≃ₐ[ℚ_[p]] F) :
+    haveI := isLocalRing_OF F
+    galRestrict ℤ_[p] ℚ_[p] F (OF F) s ∈ PkgI6.lowerRam ℤ_[p] (OF F) i ↔
+      ∀ x : F, ‖(x : Kbar p)‖ ≤ 1 → ‖((s x : F) : Kbar p) - x‖ ≤ ‖ϖ‖ ^ (i + 1) := by
+  haveI := isLocalRing_OF F
+  rw [PkgI6.mem_lowerRam]
+  constructor
+  · intro h x hx
+    have := (mem_maximalIdeal_pow_iff hϖ (i + 1) _).mp (h ⟨x, (mem_OF F x).mpr hx⟩)
+    rw [Subalgebra.coe_sub, coe_galRestrict, AddSubgroupClass.coe_sub] at this
+    exact this
+  · intro h b
+    rw [mem_maximalIdeal_pow_iff hϖ, Subalgebra.coe_sub, coe_galRestrict,
+      AddSubgroupClass.coe_sub]
+    exact h b (norm_le_one F b)
+
+end Filtration
+
 end G15RamDev
