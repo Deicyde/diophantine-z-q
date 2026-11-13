@@ -325,6 +325,109 @@ theorem some_of_semistableNeronIdentityComponent (hN1 : NeronModelExists)
   obtain ⟨𝒩', h𝒩'⟩ := hN1 K A L'
   exact ⟨𝒩', h𝒩', hL L' 𝒩' h𝒩'⟩
 
+/-! ## §6. N2 split into a local leaf (SGA 7 IX 3.6 + 3.3 over DVRs) and glue
+
+The local leaf is stated canonically: the open immersions `i : U → 𝒩'` and `j : U → 𝒱` agree on
+the generic fibre after the natural maps to `𝒩₀` (`ιU ≫ j ≫ p = (i_{L'}) ≫ gen' ≫ π ≫ gen₀⁻¹ ≫ ι₀`).
+Without this compatibility, local data at different primes could not be glued by glue alone. -/
+
+/-- The ring map `O → w` for a valuation subring `w` of `L` lying over `O` (copied from
+`HDecomp`'s `toW`). -/
+def resHom {K L : Type} [Field K] [Field L] [Algebra K L] (O : ValuationSubring K)
+    (w : ValuationSubring L) (hw : w.comap (algebraMap K L) = O) : O →+* w :=
+  ((algebraMap K L).comp O.subtype).codRestrict w.toSubring (fun x => by
+    have : (x : K) ∈ w.comap (algebraMap K L) := by rw [hw]; exact x.2
+    exact this)
+
+/-- The base-change projection `A_{L'} → A_{L₀}` of schemes, for `K ⊆ L₀ ⊆ L'`. -/
+noncomputable def bcProj {K : Type} [Field K] (A : AbVar K) (L₀ L' : Type) [Field L₀] [Field L']
+    [Algebra K L₀] [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L'] :
+    (A.baseChange L').X.left ⟶ (A.baseChange L₀).X.left :=
+  pullback.map A.X.hom (Spec.map (CommRingCat.ofHom (algebraMap K L'))) A.X.hom
+    (Spec.map (CommRingCat.ofHom (algebraMap K L₀))) (𝟙 _)
+    (Spec.map (CommRingCat.ofHom (algebraMap L₀ L'))) (𝟙 _) (by simp) (by
+      rw [Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+        ← IsScalarTower.algebraMap_eq])
+
+/-- **The local semistability statement at a DVR `O ⊂ K`** (the conclusion of leaf N2-loc): there
+is a finite extension `L₀/K` such that for every DVR `O₀ ⊂ L₀` over `O`, every Néron model `𝒩₀`
+of `A_{L₀}` over `O₀`, every finite extension `L'/L₀`, every DVR `O' ⊂ L'` over `O₀` and every
+Néron model `𝒩'` of `A_{L'}` over `O'`, some group scheme `U` over `O'` (the identity component
+`𝒩'⁰`) is an open subgroup of `𝒩'` and of `𝒱 = 𝒩₀ ×_{O₀} O'`, the two embeddings agreeing on the
+generic fibre after the natural maps to `𝒩₀`. -/
+def LocalSemistableAt {K : Type} [Field K] (A : AbVar K) (O : ValuationSubring K) : Prop :=
+  ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀),
+    ∀ (O₀ : ValuationSubring L₀) [IsDiscreteValuationRing O₀], O₀.comap (algebraMap K L₀) = O →
+    ∀ (𝒩₀ : NeronModelOver O₀ L₀ (A.baseChange L₀)) (L' : Type) [Field L'] [NumberField L']
+      [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L'] (O' : ValuationSubring L')
+      [IsDiscreteValuationRing O'] (hO' : O'.comap (algebraMap L₀ L') = O₀)
+      (𝒩' : NeronModelOver O' L' (A.baseChange L')),
+      letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G) :=
+        Functor.grpObjObj
+      ∃ (U : Over (Spec (CommRingCat.of O'))) (_ : GrpObj U) (i : U ⟶ 𝒩'.G)
+        (j : U ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G),
+        IsOpenImmersion i.left ∧ IsMonHom i ∧ IsOpenImmersion j.left ∧ IsMonHom j ∧
+        pullback.fst U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) ≫ j.left ≫
+            pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO'))) =
+          ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map i).left ≫
+            𝒩'.gen.hom.left ≫ bcProj A L₀ L' ≫ 𝒩₀.gen.inv.left ≫
+            pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)))
+
+/-- **Leaf N2-loc (semistable reduction and the identity component, local form).** For an
+abelian variety `A` over a number field `K` and every DVR `O ⊂ K`, `LocalSemistableAt A O`.
+Consequence of SGA 7 I, Exp. IX, Thm 3.6 (Grothendieck: `A` acquires semistable reduction at all
+places over `O` after a finite extension `L₀`; e.g. `L₀ = K(A[m])`, `m ≥ 3` prime to the residue
+characteristic, by Exp. IX Prop. 4.7) and Exp. IX Prop./Cor. 3.3 (for semistable reduction the
+canonical morphism `(𝒩₀⁰)_{O'} → 𝒩'⁰` is an isomorphism, for any extension of DVRs), with the
+openness of the identity component of a smooth group scheme (SGA 3 VI_B 3.10). All locators
+UNVERIFIED. -/
+def LocalSemistableIdentityComponent : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (O : ValuationSubring K)
+    [IsDiscreteValuationRing O], LocalSemistableAt A O
+
+/-- N2's conclusion for one abelian variety (the body of `SemistableNeronIdentityComponent`). -/
+def SemistableNeronAt (K : Type) [Field K] [NumberField K] (A : AbVar K) : Prop :=
+  ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+    𝒩₀.IsNeronModel ∧
+    ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+      [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+      ∃ 𝒰 𝒱 : GroupModel A L', IsBaseChangeOf 𝒱 𝒩₀ ∧ IsOpenSubgroupModel 𝒰 𝒩' ∧
+        IsOpenSubgroupModel 𝒰 𝒱
+
+/-- **Glue N2-glue (local to global).** Given N1 and N1-ab: if `LocalSemistableAt A O` holds at
+every DVR `O ⊂ K`, then N2's conclusion holds for `A`. Proof (STANDARD, not in Mathlib): `A`
+has good reduction outside a finite set `S` of places (spreading out to an abelian scheme over a
+dense open, EGA IV §8; UNVERIFIED); outside `S` the Néron model is that abelian scheme (N1-ab),
+which commutes with base change, so no extension is needed there; take for `L₀` the compositum
+(`H5Neron.compositum`) of the local fields `L₀(𝔭)`, `𝔭 ∈ S`; the local open immersions are
+compatible on generic fibres, hence (schematic density of the generic fibre of the flat `U`,
+separatedness of the targets) they are restrictions of the canonical morphism
+`𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'} → 𝒩'` and glue to the identity component `𝒩'⁰` over `𝓞_{L'}`; the
+identity component of a base change is the base change of the identity component (SGA 3 VI_B),
+which passes from `L₀(𝔭)` to `L₀`; Néron models are compatible with localization (BLR §1.2).
+Glue: algebraic geometry to be formalized by the project. -/
+def SemistableLocalToGlobal : Prop :=
+  NeronModelExists → AbelianSchemeIsNeron →
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K),
+    (∀ (O : ValuationSubring K) [IsDiscreteValuationRing O], LocalSemistableAt A O) →
+      SemistableNeronAt K A
+
+/-- **N2 from the local leaf N2-loc, the leaves N1 and N1-ab, and the glue (proved).** -/
+theorem semistableNeronIdentityComponent_of_local (hN1 : NeronModelExists)
+    (hab : AbelianSchemeIsNeron) (hloc : LocalSemistableIdentityComponent)
+    (hglue : SemistableLocalToGlobal) : SemistableNeronIdentityComponent :=
+  fun K _ _ A => hglue hN1 hab K A (fun O _ => hloc K A O)
+
+/-- **N1 and N2 from the three leaves N1-loc, N1-ab, N2-loc and the two glue statements
+(proved).** -/
+theorem n1_n2_of_leaves (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNeron)
+    (hloc2 : LocalSemistableIdentityComponent) (hg1 : NeronLocalToGlobal)
+    (hg2 : SemistableLocalToGlobal) :
+    NeronModelExists ∧ SemistableNeronIdentityComponent :=
+  ⟨neronModelExists_of_local hloc1 hab hg1,
+    semistableNeronIdentityComponent_of_local (neronModelExists_of_local hloc1 hab hg1) hab hloc2
+      hg2⟩
+
 end ZInQ.TauN1N2
 
 #print axioms ZInQ.TauN1N2.neronModelExists_iff
@@ -338,3 +441,5 @@ end ZInQ.TauN1N2
 #print axioms ZInQ.TauN1N2.isMonHom_of_neron
 #print axioms ZInQ.TauN1N2.semistableNeronIdentityComponent_of_some
 #print axioms ZInQ.TauN1N2.some_of_semistableNeronIdentityComponent
+#print axioms ZInQ.TauN1N2.semistableNeronIdentityComponent_of_local
+#print axioms ZInQ.TauN1N2.n1_n2_of_leaves

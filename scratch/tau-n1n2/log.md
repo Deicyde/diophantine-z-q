@@ -34,3 +34,13 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
   group models compatible with `gen` is a group iso), `isOpenSubgroupModel_of_neron`.
 - `SemistableNeronIdentityComponentSome` (N2 with "∃ Néron 𝒩'" instead of "∀ Néron 𝒩'").
 - `semistableNeronIdentityComponent_of_some : Some → N2` PROVED; converse from N1 PROVED.
+
+## N1N2.lean §3 revised, §6 — COMPILED 04:47 (0 errors; all 13 #print axioms: propext, Classical.choice, Quot.sound)
+- §3: new leaf `AbelianSchemeIsNeron` (BLR 1.2/8, Dedekind R with fraction field L);
+  `NeronLocalToGlobal` now takes it as hypothesis (so the glue uses no literature theorem beyond
+  the textbook facts listed in its docstring); `neronModelExists_of_local hloc hab hglue`.
+- §6: `resHom` (copy of HDecomp `toW`), `bcProj` (A_{L'} → A_{L₀}), `LocalSemistableAt A O`
+  (canonical local statement: open immersions U → 𝒩', U → 𝒩₀ ×_{O₀} O', compatible on generic
+  fibres), leaf `LocalSemistableIdentityComponent` (SGA 7 IX 3.6 + 3.3 local), `SemistableNeronAt`,
+  glue `SemistableLocalToGlobal`; `semistableNeronIdentityComponent_of_local` and
+  `n1_n2_of_leaves` PROVED.
