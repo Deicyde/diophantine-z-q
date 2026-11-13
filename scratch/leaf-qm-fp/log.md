@@ -9,3 +9,8 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   Change from bp-qmmoduli: `Level3.eta : 𝒪 →+ A(K)` (K-rational points), kernel exactly 3𝒪,
   no ontoness clause (equivalent in char 0 for surfaces, docstring), so base change needs no
   counting leaf.
+- 16:47 §4-§6 added: QMPair/QMIso/pairSetoid/forget, com + HasCM4/3/24, `com_twist` (proved),
+  `IsBaseChangeOf` / `IsBaseChangeOfPair` (pullback-square relation; no `A_L` object, no
+  dimension lemma needed), `stab3`, `fieldOfModuli3`, `stabPair`, `fieldOfModuliPair`,
+  `UnramifiedAbove5` (`p ∤ NumberField.discr`), `ToP1` (morphism to P¹ by two charts) and
+  `ToP1.val` (via Mathlib `Scheme.SpecToEquivOfField`, `Scheme.evaluation`): COMPILES, 17 s.
