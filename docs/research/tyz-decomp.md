@@ -30,12 +30,23 @@ journal locators are UNVERIFIED.
 
 ## 0. Main result
 
-**The decomposition.** `TYZThm35ReadingA` follows, by glue proved in Lean, from five leaves:
+The premise (`ZInQKernel/Hypotheses/CR3Literature.lean`, unchanged):
+
+```lean
+def TYZThm35ReadingA : Prop :=
+  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
+    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → 2 ≤ analyticOrderAt F 1 →
+      T5aCl d = 0 ∧ T5bCl d = 0
+```
+
+**The decomposition.** `TYZThm35ReadingA` follows, by glue proved in Lean, from the four leaves of the
+first four rows; the fifth row is a TYZ input that is statable over Mathlib today but is not consumed by
+the glue:
 
 | leaf (Lean, namespace `ZInQ.Contrib.TYZDecomp`) | printed source | refereed? | over genuine definitions? |
 |---|---|---|---|
 | `TYZThm11Integral` | TYZ Theorem 1.1, first assertion (L371–380), odd case | yes (journal number UNVERIFIED) | **yes** |
-| `TYZLcalOne` | TYZ L1082 ("Since `𝓛(1) = 1`", asserted); classical value of `L(E₁, 1)` | yes (asserted, not proved, in TYZ) | **yes** |
+| `TYZLcalOne` | TYZ L1082 ("Since `𝓛(1) = 1`", asserted); the exact value `L(E₁, 1)/Ω = 1/8` (modular symbols / Tunnell 1983; locators UNVERIFIED) | yes (asserted, not proved, in TYZ) | **yes** |
 | `TYZLemma29Mod2` (or the alternative `TYZThm11Mod2`) | TYZ Lemma 2.9 (L1062–1066) with Proposition 2.3 (L580–586), mod 2 (resp. Theorem 1.1, congruence, set-partition reading) | yes (Lemma 2.9: same number in the journal per `locators.md`) | **yes** |
 | `TYZGenusPackage` | TYZ §3: recursion (L1325–1330), Theorem 3.3 `ε`-classes (L1299–1311), Theorem 3.5 first assertion (L1353–1356, L1295), `τ` facts (L1383–1404, from Tian, Cambridge J. Math. 2 (2014)), Lemmas 3.16, 3.18, 3.21(1),(4) (L2182–2185, L2230–2232, L2504–2516), plus F4 (standard, unprinted) | yes, except F4; but see caveats 3–4 (field-by-field faithfulness reviewed by AI only; Theorem 3.3's constant rests on a computation TYZ do not print) | **no**: bundled existential over the abstract `PropN.GenusData` (§3) |
 | `CurveA.TYZLemma316` (statable now; an input to the justification of the package fields `β_τ`, `tors_mem_range`; not used by the glue) | TYZ Lemma 3.16, second assertion (L2182–2185) | yes | **yes** |
