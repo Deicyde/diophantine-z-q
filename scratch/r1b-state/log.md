@@ -46,3 +46,7 @@
   `jNum/jDen = −0.0040860 = J(1)`): `|Σθ⁸|` between 7.7 and 108, nonzero.
 - So at both elliptic CM points −3, −4 the type-μ polarization of `Ω(τ)` has `∏θ = 0`
   (a product polarization), as the review's trap says.
+- run17-18 (07:0x): Part5_Split: `HauptmodulCompare` from `FamilyHauptmodul` (the only piece
+  using R1(b)'s family clauses), `PiOfQMLattice`, `JDenNonzero` (`hauptmodulCompare_of_parts`),
+  and `fibreQMPeriod_of_r1b_parts`. One rename (`γ` is a token under the opens; bound variable
+  renamed `g`). Clean, 0 errors; both new theorems `[propext, Classical.choice, Quot.sound]`.
