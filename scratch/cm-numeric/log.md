@@ -86,3 +86,8 @@ STANDARD, SPECULATIVE, UNVERIFIED. Scripts in this directory; outputs in `*.out`
 - `#print axioms` for 12 declarations (incl. `tyzThm35ReadingA_of_pinnedLeaves`,
   `class7GenusPtDefined_of`, `tyzSigmaFixesZn_of`, `exists_actsAsArtinO`, `tyzDelta_spec`):
   `[propext, Classical.choice, Quot.sound]` (`audit-out.txt`). VERIFIED.
+
+## Lean §9: existence of Φ₀ proved (`exists_restrict`, `exists_phi0_elem`, `exists_isPhi0`, `phi0_spec`)
+- Every element of Gal(H_e/K_e) extends to Gal(H_{e,4}/K_e) (`AlgHom.liftNormal` to `K_eˢ`, then
+  `AlgEquiv.restrictNormal` to `H_{e,4}`, normal by Tau Ceti's `isAbelianGalois_ringClassField`), so
+  `Phi0 e` satisfies `IsPhi0` for every `e ≠ 0` (no junk value). Compiles; axioms standard (audit-out.txt).

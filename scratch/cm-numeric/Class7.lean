@@ -19,7 +19,8 @@ TYZ's class-7 genus point (L1268, L1316–1318: `σ = 1`, `Cl'_n = Cl_n`, `Φ₀
 `Z(n) = Σ_{t ∈ 2Cl_n} z_n^t`; here `Z7 n := Σ_{c ∈ Pic(𝒪_{K_n})²} galPt (liftMax n c) (tyzZ7 n)`, with
 `liftMax n c` an automorphism of `ℚ̄` acting on the Hilbert class field as Tau Ceti's Artin symbol of
 `c` (§2–§3; existence proved, `exists_actsAsArtinO`). The class-5 sets `Φ₀` are pinned by
-`Phi0` (§4: one lift of an element of `2Cl'_e` over each element of `2Cl_e`, chosen). With
+`Phi0` (§4: one lift of an element of `2Cl'_e` over each element of `2Cl_e`, chosen; such a set exists,
+`phi0_spec`, §9). With
 `tyzZ := Package.tyzGenusPt Phi0 Z7` every genus point is a definition, and `GenusPointLeafCM` splits
 (via `genusPtsDefined_of` and `genusPointLeaf_of_split`) into closed leaves about pinned objects (§6–§7).
 
@@ -239,9 +240,9 @@ def IsPhi0 (e : ℕ) [NeZero e] (T : Finset GalQ) : Prop :=
     ∀ c' ∈ picSquares (OK e), ∃! ρ, ρ ∈ T ∧ ActsAsArtinO e (OK e) ρ c'
 
 open Classical in
-/-- **TYZ's `Φ₀` for class 5, pinned by choice** (junk `∅` if no `T` satisfies `IsPhi0`; one does:
-`Cl'_e/⟨σ⟩ ≅ Cl_e` maps `2Cl'_e/⟨σ⟩` onto `2Cl_e`, TYZ L1270–1276; existence not formalized). TYZ:
-Lemma 3.21 holds for any choice (L2547–2554). -/
+/-- **TYZ's `Φ₀` for class 5, pinned by choice** (the `∅` branches are never taken for `e ≠ 0`:
+`phi0_spec : IsPhi0 e (Phi0 e)`, §9, from the extension of automorphisms `H_e → H_{e,4}`; TYZ
+L1270–1276). TYZ: Lemma 3.21 holds for any choice (L2547–2554). -/
 def Phi0 (e : ℕ) : Finset GalQ :=
   if h0 : e = 0 then ∅ else
     haveI : NeZero e := ⟨h0⟩
@@ -568,6 +569,88 @@ theorem tyzThm35ReadingA_of_pinnedLeaves (h11 : TYZThm11Integral) (h1 : TYZLcalO
     (h5 : Lemma321Five) (h7' : Lemma321Seven) : ZInQ.Literature.TYZThm35ReadingA :=
   tyzThm35ReadingA_of_pinned h11 h1 h29 hcm hi hs hN h318 (class7GenusPtDefined_of hcm7 hg) h35 h5 h7'
 
+
+/-! ## §9. Existence of TYZ's `Φ₀` (so `Phi0` is never the junk value) -/
+
+section Phi0Exists
+
+variable (e : ℕ) [NeZero e]
+
+theorem hle : hilbertField e ≤ H4 e := hilbertLeH4 e inferInstance
+
+instance : Normal (QNeg e) (SeparableClosure (QNeg e)) := inferInstance
+
+/-- **Every element of `Gal(H_e/K_e)` extends to `Gal(H_{e,4}/K_e)`**: for `d' ∈ Cl(K_e)` there is
+`c₄ ∈ Pic(O_{e,4})` whose Artin symbol restricts to that of `d'` on `H_e ⊆ H_{e,4}`. -/
+theorem exists_restrict (d' : Pic (OK e)) : ∃ c4 : Pic (O4 e), ∀ x : hilbertField e,
+    ((artin4 e c4 ⟨x, hle e x.2⟩ : H4 e) : SeparableClosure (QNeg e)) =
+      ((ringClassArtinEquiv (OK e) d' x : hilbertField e) : SeparableClosure (QNeg e)) := by
+  let g := ringClassArtinEquiv (OK e) d'
+  let τ : SeparableClosure (QNeg e) ≃ₐ[QNeg e] SeparableClosure (QNeg e) :=
+    AlgEquiv.ofBijective (g.toAlgHom.liftNormal (SeparableClosure (QNeg e)))
+      (AlgHom.normal_bijective _ _ _ _)
+  refine ⟨(artin4 e).symm (AlgEquiv.restrictNormal τ (H4 e)), fun x => ?_⟩
+  rw [MulEquiv.apply_symm_apply]
+  have h1 := AlgEquiv.restrictNormal_commutes τ (H4 e) ⟨x, hle e x.2⟩
+  have h2 := AlgHom.liftNormal_commutes g.toAlgHom (SeparableClosure (QNeg e)) x
+  exact h1.trans h2
+
+theorem exists_phi0_elem {c' : Pic (OK e)} (hc : c' ∈ picSquares (OK e)) :
+    ∃ ρ : GalQ, (∃ c ∈ picSquares (O4 e), ActsAsArtin4 ρ e c) ∧ ActsAsArtinO e (OK e) ρ c' := by
+  obtain ⟨d', rfl⟩ := hc
+  obtain ⟨c4, hc4⟩ := exists_restrict e d'
+  obtain ⟨ρ, hρ⟩ := exists_actsAsArtin4 e (c4 ^ 2)
+  refine ⟨ρ, ⟨c4 ^ 2, ⟨c4, rfl⟩, hρ⟩, fun x => ?_⟩
+  have h := hρ ⟨x, hle e x.2⟩
+  change ρ (embed e (x : SeparableClosure (QNeg e))) = _ at h
+  rw [h]
+  congr 1
+  have hx1 := hc4 x
+  have hx2 := hc4 (ringClassArtinEquiv (OK e) d' x)
+  simp only [powMonoidHom_apply, pow_two, map_mul, AlgEquiv.mul_apply]
+  rw [show (artin4 e c4 ⟨x, hle e x.2⟩ : H4 e) =
+      ⟨_, hle e (ringClassArtinEquiv (OK e) d' x).2⟩ from Subtype.ext hx1]
+  exact hx2
+
+open Classical in
+/-- A fixed `ρ` for each square class (`exists_phi0_elem`). -/
+def phi0Elem (c' : Pic (OK e)) : GalQ :=
+  if h : c' ∈ picSquares (OK e) then (exists_phi0_elem e h).choose else 1
+
+theorem artinO_inj {ρ : GalQ} {c c' : Pic (OK e)} (h : ActsAsArtinO e (OK e) ρ c)
+    (h' : ActsAsArtinO e (OK e) ρ c') : c = c' := by
+  apply (ringClassArtinEquiv (OK e)).injective
+  ext x
+  have := (h x).symm.trans (h' x)
+  rw [(embed e).injective this]
+
+/-- **TYZ's `Φ₀` exists** (TYZ L1270–1276), so `Phi0 e` satisfies `IsPhi0`. -/
+theorem exists_isPhi0 : ∃ T : Finset GalQ, IsPhi0 e T := by
+  classical
+  refine ⟨(sqClasses e).image (phi0Elem e), ?_, ?_⟩
+  · intro ρ hρ
+    obtain ⟨c', hc', rfl⟩ := Finset.mem_image.mp hρ
+    rw [mem_sqClasses] at hc'
+    rw [phi0Elem, dite_eq_left hc']
+    exact (exists_phi0_elem e hc').choose_spec.1
+  · intro c' hc'
+    have hspec : ∀ c ∈ picSquares (OK e), ActsAsArtinO e (OK e) (phi0Elem e c) c := fun c hc => by
+      rw [phi0Elem, dite_eq_left hc]
+      exact (exists_phi0_elem e hc).choose_spec.2
+    refine ⟨phi0Elem e c', ⟨Finset.mem_image.mpr ⟨c', mem_sqClasses.mpr hc', rfl⟩, hspec c' hc'⟩, ?_⟩
+    rintro ρ ⟨hρ, hρc⟩
+    obtain ⟨c, hc, rfl⟩ := Finset.mem_image.mp hρ
+    rw [mem_sqClasses] at hc
+    rw [artinO_inj e (hspec c hc) hρc]
+
+theorem phi0_spec : IsPhi0 e (Phi0 e) := by
+  classical
+  have h := exists_isPhi0 e
+  simp only [Phi0, NeZero.ne e, ↓reduceDIte, h]
+  exact h.choose_spec
+
+end Phi0Exists
+
 end ZInQ.Contrib.TYZGenus.CMNumeric
 
 /-! ## Axiom audit (output in `scratch/cm-numeric/audit-out.txt`) -/
@@ -595,3 +678,5 @@ open ZInQ.Contrib.TYZGenus.CMNumeric in
 #print axioms tyzThm35ReadingA_of_pinnedLeaves
 open ZInQ.Contrib.TYZGenus.CMNumeric in
 #print axioms Copy.genusPointLeafCM_eq
+open ZInQ.Contrib.TYZGenus.CMNumeric in
+#print axioms phi0_spec

@@ -12,3 +12,4 @@
  Classical.choice,
  Quot.sound]
 'ZInQ.Contrib.TYZGenus.CMNumeric.Copy.genusPointLeafCM_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMNumeric.phi0_spec' depends on axioms: [propext, Classical.choice, Quot.sound]
