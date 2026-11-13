@@ -1,0 +1,4 @@
+'ZInQ.Contrib.BrauerT14T15.localH2CardC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.h2TwoClasses_padic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.isCoboundary2_of_sgn_mem_B2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.BrauerT14T15.exists_sgn_eq_of_two_nsmul' depends on axioms: [propext, Classical.choice, Quot.sound]
