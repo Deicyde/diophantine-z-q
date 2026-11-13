@@ -27,8 +27,10 @@ relabeling of rv-g0pieces does not break it.
 
 - `FibreUnramifiedOn Y₀ π₀` (glue): Prop. TS + Lemma NV on one curve, the large G2 item. It
   needs integral models and function-field Galois theory.
-- `TwistClassCard` (glue): `≤ 4·81` classes in an `Aut 𝒪`-twist class. Plan: the leaf
-  `TorsionStructure`, plus `|N_B(𝒪)/ℚ^×𝒪^×| = 4`, plus transport of level structures.
+- `TwistClassCard` (`≤ 4·81` classes in an `Aut 𝒪`-twist class) is proved from `TorsionBound3`
+  and `InnerTwistCount` (`twistClassCard_of`). Those two remain:
+  - `TorsionBound3`: `|A(ℚ̄)[3]| ≤ 81`, a bridge from the leaf `TorsionStructure`;
+  - `InnerTwistCount`: `|N_B(𝒪)/ℚ^×𝒪^×| ≤ 4`, glue.
 - `CurvePinned` (glue once qm-pin lands): Yoneda, Galois quotient, Möbius.
 - `UnramifiedConjugates` (textbook): the Galois closure of an unramified field is unramified.
 

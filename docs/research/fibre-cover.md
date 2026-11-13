@@ -36,6 +36,11 @@ Quot.sound]`).
 4. **The degree step needs no pin** (`fibreDegree_of : TwistClassCard → FibreDegree`). The
    bound `[ℚ(y):ℚ] ≤ 324` (with `ℚ(y)` finite over `ℚ`) follows, for every triple, from an
    intrinsic count of the `Aut 𝒪`-twist class of `P`. That count mentions no moduli scheme.
+   The count itself is reduced further (`twistClassCard_of : TorsionBound3 → InnerTwistCount →
+   TwistClassCard`). This is Glazer's `4·81`: at most 4 twists up to inner ones, and at most 81
+   choices of `η(1) ∈ A[3]`. Final composite:
+   `fibreCoverExists_of_pinned' (Y₀ π₀) : TorsionBound3 → InnerTwistCount → CurvePinned Y₀ π₀ →
+   FibreUnramifiedOn Y₀ π₀ → UnramifiedConjugates → FibreCoverExists`.
 
 **What does break the universal form is not `Φ` but `(Y, π)`.** `FibreCtx` quantifies over every
 `(Y, π)` that admits some `Φ` with R1fp and R2fp. Those clauses constrain `(Y, π)` only through
@@ -51,16 +56,20 @@ All of them are `def … : Prop` in `FibreCover.lean`, each with a docstring.
 
 | Prop | kind | content | source | depends on the pin? |
 |---|---|---|---|---|
-| `TwistClassCard` | glue | the `Aut 𝒪`-twist class of a `QML3 ℚ̄` object has `≤ 324` isomorphism classes | N5 L425-441 (`≤ 4·|(𝒪/3𝒪)^*| ≤ 4·81`) | no (intrinsic) |
+| `TwistClassCard` | glue, **proved** from `TorsionBound3` + `InnerTwistCount` | the `Aut 𝒪`-twist class of a `QML3 ℚ̄` object has `≤ 324` isomorphism classes | N5 L425-441 (`≤ 4·|(𝒪/3𝒪)^*| ≤ 4·81`) | no (intrinsic) |
+| `TorsionBound3` | glue + textbook leaf | `A(ℚ̄)[3]` has `≤ 81` points for an abelian surface | the kernel's leaf `PkgI2.TorsionStructure` (Mumford §4) at `K = ℚ̄`, plus `A(ℚ̄) ↪ A(AlgebraicClosure ℚ̄)` | no |
+| `InnerTwistCount` | glue (a computation on `𝒪`) | every `α ∈ Aut 𝒪` is `w ∘ Ad u`, with `w` in a fixed set of `≤ 4` and `u ∈ 𝒪^×` | `N_B(𝒪)/ℚ^×𝒪^× ≅ (ℤ/2)²`; N5 L425-429; Skolem–Noether T13 (proved) | no |
 | `FibreUnramifiedOn Y₀ π₀` | glue | Prop. TS + Lemma NV on one curve: `ℚ(y)` is unramified outside `T(u)` for every `ℚ̄`-point `y` over `J(u)`, `u ∉ 𝒞` | N5 L484-529; h-decomposition G2 (inputs R1(d), R2, T1, T2) | no (one fixed curve) |
 | `CurvePinned Y₀ π₀` | glue (after qm-pin) | every `(Y, π)` admitting `Φ` with R1fp, R2fp is isomorphic to `(Y₀, π₀)` over `P¹` on `ℚ̄`-points | rv-g0pieces §4, repair 1 | this *is* the pin |
 | `UnramifiedConjugates` | textbook leaf | if `ℚ(α)` is unramified at `p`, so is the splitting field of `minpoly α` (a compositum of the conjugate fields) | Neukirch ANT I §9 / III §2 (UNVERIFIED locator), STANDARD | no |
 | `FibreDegree` | glue, **proved** from `TwistClassCard` | `ℚ(y)` is finite with `[ℚ(y):ℚ] ≤ 324` | N5 L524-526 | no |
 | `FibreUnramified` | glue, **proved** from `CurvePinned` + `FibreUnramifiedOn` | the universal form of Prop. TS | N5 L509-529 | yes |
 
-### 2.1 Proof plan for `TwistClassCard` (not compiled)
+### 2.1 `TwistClassCard` (the reduction is compiled, `twistClassCard_of`)
 
-This is a decomposition into smaller items, labelled as follows.
+The proof uses three items, labelled as follows. The Lean steps are `transportLevel`,
+`transportIso`, `innerIso`, `level3_ext` and `level3_three`; the two inputs are the Props
+`InnerTwistCount` and `TorsionBound3`.
 
 - *Classes.* A class in the twist class of `P = (A, ι, η)` has the form `[(A, ι∘α, η')]`, where
   `α ∈ Aut 𝒪` and `η'` is a level structure for `(A, ι∘α)`. This is glue: transport a level
@@ -147,7 +156,7 @@ the following argument (UNVERIFIED as Lean, STANDARD as mathematics):
 
 Because of `fibreCoverOut_indep`, G2 needs only this pin of `(Y, π)`, not the full pin of `Φ`.
 
-## 4. Lean outcomes (`scratch/fibre-cover/FibreCover.lean`, 460 lines)
+## 4. Lean outcomes (`scratch/fibre-cover/FibreCover.lean`)
 
 All results below are proved without `sorry`, with standard axioms, and are VERIFIED.
 
@@ -169,6 +178,11 @@ All results below are proved without `sorry`, with standard axioms, and are VERI
     `ℚ̄`, it is finite of degree `≤ n`. The proof takes a maximal finite subfield via
     `Nat.findGreatest`.
   - `fibreDegree_of`.
+- **Part 6.**
+  - Defs: `TorsionBound3`, `InnerTwistCount`.
+  - Level structures: `level3_eta_eq`, `level3_ext`, `level3_three`.
+  - Isomorphisms: `innerIso`, `transportLevel`, `transportIso`.
+  - Composites: `twistClassCard_of`, `fibreCoverExists_of_pinned'`.
 - **Part 5.**
   - Residue fields along morphisms: `residueImage_comp_le_self(_aux)`, `residueImage_comp_iso`.
   - The pin: `FibreUnramifiedOn`, `CurvePinned` (defs), `fibreUnramified_of_pinned`.
@@ -188,6 +202,7 @@ place of `FibreCoverExists`.
 - `FibreUnramifiedOn` on the genuine curve: Prop. TS from T1-T2 or Beckmann. This needs integral
   models of `Y₃ → P¹` and function-field Galois theory, which are not in Mathlib v4.35; it is the
   large item of h-decomposition G2.
-- `TwistClassCard`: the three items of §2.1.
+- `TorsionBound3`: bridge from the leaf `TorsionStructure`. `InnerTwistCount`: the normalizer of
+  N5's `𝒪`.
 - `CurvePinned`: depends on qm-pin.
 - `UnramifiedConjugates`: textbook; not in Mathlib v4.35 for `UnramifiedAt`.
