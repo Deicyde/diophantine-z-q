@@ -1702,11 +1702,11 @@ namespace G0StableBC
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
 
+-- The following definition (docstring and body) is copied verbatim from scratch/g0-split/Split.lean.
 /-- **Missing piece 6 (definition-level glue; used by E3-E4).** The *stable* Faltings
 height is invariant under finite extension of the number field (Faltings 1983 §1; Deligne,
 Sém. Bourbaki 616). For def-faltings' infimum this needs semistable reduction and the Néron
-models of H5 (`NeronModelMinimal`); it is a property of the definition, not a literature leaf.
-(Copied verbatim from `scratch/g0-split/Split.lean`.) -/
+models of H5 (`NeronModelMinimal`); it is a property of the definition, not a literature leaf. -/
 def StableHeightBaseChange : Prop :=
   ∀ (K : Type) [Field K] [NumberField K] (L : Type) [Field L] [NumberField L] [Algebra K L]
     (A : ZInQ.DefFaltings.AbVar K),
@@ -1742,7 +1742,7 @@ def ModelHeightBaseChange : Prop :=
     (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height = 𝒢.height
 
 /-- **Glue H4a, the inequality half (used here).** `h(𝒢_{L'}) ≤ h(𝒢)` for a group model `𝒢` and
-a base change `𝒢'` of it. Strictly weaker than `ModelHeightBaseChange` (`modelHeightBaseChangeLE`
+a base change `𝒢'` of it. Implied by `ModelHeightBaseChange` (`modelHeightBaseChangeLE`
 below). Same justification (h5-neron §2): `ω` of a smooth model commutes with base change, the
 Arakelov degree is multiplied by `[L':L]`, and `𝒢'(ℂ)_{τ'} = 𝒢(ℂ)_{τ'|_L}`. -/
 def ModelHeightBaseChangeLE : Prop :=

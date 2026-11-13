@@ -28,3 +28,16 @@
   `modelHeight_eq_of_isHodgeBaseChange`, `modelHeightBaseChangeLE_of_metrization`,
   `stableHeightBaseChange_of_metrization` (and all earlier theorems).
   VERIFIED: StableHeightBaseChange ⇐ MetrizationBaseChange (geometric glue, stated).
+- Statement checks (VERIFIED by diff): `StableHeightBaseChange` docstring+body = Split.lean
+  19484-19494; Defs.part body = Split.lean 16667-18351; h5-neron's three defs identical.
+- Read-only model review (no Lean run) of BaseChangeCompIso, ModelHeightBaseChangeLE,
+  IsHodgeBaseChange, MetrizationBaseChange: all TRUE, none vacuous; two docstring fixes applied
+  ("strictly weaker" → "implied by"; verbatim docstring restored, note moved to a comment).
+- `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (6 s,
+  builds upstream lean/ helpers) so that Split.lean's imports resolve.
+- run7 StableBC.lean after docstring fixes: 0 errors, 9 axiom lines all standard, no sorryAx.
+- run8 SplitPlus.lean (= Split.lean + Main.part + integration theorems): 0 errors, no sorry,
+  2m47s. `G0StableBC.split_piece_iff : HSyn.G0Split.StableHeightBaseChange ↔
+  G0StableBC.StableHeightBaseChange := Iff.rfl`; `G0StableBC.glueOutputs_of_leaves_metrization`
+  (g0-split's main theorem with `hBC` replaced by `MetrizationBaseChange`): axioms
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
