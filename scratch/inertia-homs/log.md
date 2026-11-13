@@ -23,3 +23,14 @@
   (`φ : AbVar.Hom (bcAlong A e₁) (bcAlong B e₂)`, conclusion on `φ.hom`) and places over a prime
   (`p.Prime`, `LiesOver w p`). `ComapDVR`: valuation rings `w ∩ K` of number fields over `p` are DVRs
   (standard; to be proved).
+- 02:16 VERIFIED compiled: `InertiaHoms.mem_of_isIntegral_int`, `InertiaHoms.comap_isDVR`
+  (w ∩ F is a DVR for F a number field, w | p), `G4WeilRes.comapDVR`,
+  `G4WeilRes.inertiaFixesHomsMon_of_leaves : NOS → HomFreeFinite → InertiaFixesHomsMon`.
+- 02:20 Merged file `scratch/inertia-homs/InertiaHoms.lean` (2095 lines = G4.lean L1-1454
+  verbatim + new part). `lake env lean`: 0 errors, ~40 s. `#print axioms`: all printed
+  declarations (G4's 19 and the new `inertiaFixesHomsMon_of_leaves`, `conjAction_inertia'`,
+  `homField_of_model_leaves'`, `comap_isDVR`, `point_fixed`) depend only on
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
+- New headline `G4WeilRes.homField_of_model_leaves'`: G4 from `HomFreeFinite`,
+  `MorphismsDescend`, `NeronOggShafarevich` (+ hK, hgood, hdim).
+- Dev.lean (development copy with stubs) removed; its content is in InertiaHoms.lean.
