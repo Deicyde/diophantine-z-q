@@ -48,3 +48,16 @@ Base 322303a2 (wip/integrate-w39). Start 2026-11-13 06:42 PST.
   `x1ConstantField_of_x1RationalCusp : X1RationalCusp → X1ConstantField` (T39 ⇐ T40),
   `x1Leaves_of_t38_t40`, `x1ModelExists_of_t38_t40`.
 - All four `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## Step 6. T40 reduced to Igusa transitivity + Tate cusp (VERIFIED, `lake build ZInQKernel.Contrib.RLeaf.X1RationalCusp` OK)
+- `ZInQKernel/Contrib/RLeaf/X1RationalCusp.lean`. New Props:
+  `IgusaTransitive` (x-coords of exact-order-N points of E_j form one Gal(K̄/ℚ(j))-orbit; STANDARD
+  consequence of Igusa 1959, SL₂(ℤ/N) transitive on exact-order-N vectors),
+  `TateCusp` (∀ N, some P₀ of exact order N with HasRationalPlace (fieldX1 P₀)),
+  `TateCuspLaurent` (∀ N, some P₀ and a ℚ-embedding fieldX1 P₀ → ℚ((t)) with j ↦ non-power-series;
+  STANDARD consequence of the Tate curve: E_j ≅ E_q over ℚ((q)), j = 1/q + 744 + …, u = q^{1/N}).
+- Proved: `mem_nonunits_comap_iff`, `hasRationalPlace_of_algEquiv`, `powerSeriesVS` (ℚ[[t]] as a
+  valuation subring of ℚ((t))), `inv_not_mem_powerSeriesVS`, `hasRationalPlace_of_laurent`,
+  `tateCusp_of_laurent`, `fieldX1Equiv`, `x1RationalCusp_of_igusa_tateCusp`,
+  `x1RationalCusp_of_igusa_tate`, `x1ConstantField_of_igusa_tate`, `x1ModelExists_of_t38_igusa_tate`.
+- All `#print axioms`: [propext, Classical.choice, Quot.sound].
