@@ -562,6 +562,33 @@ theorem isSeparable_of_finrank_lt {K L : Type*} [Field K] [Field L] [Algebra K L
     have : p ≤ (minpoly K x).natDegree := by rw [h1]; nlinarith
     omega
 
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- **Glue (algebra; STANDARD): the compositum exists, with a prime over a given prime.** Let
+`E/ℚ(X)` be finite and `r = P/Q ∈ ℚ(s)` non-constant, regular at `s₀ ∈ ℚ` with `r(s₀) = t`. For
+every prime `𝔓` of the integral closure `B` of `ℚ[X]` in `E` over `X − t` and every embedding
+`φ : B/𝔓 → ℚ̄` there are a field `E'` finite over `ℚ(s)` which is a compositum `E(s)` along
+`X ↦ r` (a factor of `E ⊗_{ℚ(X)} ℚ(s)`), so `[E' : ℚ(s)] ≤ [E : ℚ(X)]`, a prime `𝔓'` of the
+integral closure of `ℚ[s]` in `E'` over `s − s₀`, and an embedding `φ'` of its residue field with
+`ℚ(φ(B/𝔓)) ⊆ ℚ(φ'(B'/𝔓'))`. Proof: every valuation of `E` over `X = t` extends to some factor
+of `E ⊗ ℚ(s)` above the valuation `s = s₀` of `ℚ(s)` (which restricts to `X = t` on `ℚ(X)`), and
+`φ` extends to the finite extension of residue fields as `ℚ̄` is algebraically closed. -/
+def KummerCompositum : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (P Q : ℚ[X]) (t s₀ : ℚ), Q.eval s₀ ≠ 0 → P.eval s₀ = t * Q.eval s₀ → (∀ a : ℚ, P ≠ C a * Q) →
+    ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime → 𝔓.under ℚ[X] = Ideal.span {X - C t} →
+    ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+    ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+      (ι : E →+* E'),
+      KummerShape E E' ι (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) ∧
+      Module.finrank (RatFunc ℚ) E' ≤ Module.finrank (RatFunc ℚ) E ∧
+      ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+        𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+        ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+          IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ (Set.range φ')
+
 end TsKummer
 
 namespace TsKummer
@@ -2384,6 +2411,106 @@ theorem kummerVerticalInf_proof : KummerVerticalInf := by
   rw [← hQpe]
   exact (unramBaseChange Rz (RatFunc ℚ) E E' Rz (RatFunc ℚ) ι σ hσ hadj
     (vertical_hL E p hp hdeg hV Rz (fun f => IsLocalization.lift_eq _ f)) Qp).1
+/-- A copy of `FractionRing D` carrying no instances inherited from the algebra structures of
+`D`. -/
+def KSyn (D : Type) [CommRing D] [IsDomain D] : Type := FractionRing D
+
+instance (D : Type) [CommRing D] [IsDomain D] : Field (KSyn D) :=
+  inferInstanceAs (Field (FractionRing D))
+instance (D : Type) [CommRing D] [IsDomain D] : Algebra D (KSyn D) :=
+  inferInstanceAs (Algebra D (FractionRing D))
+instance (D : Type) [CommRing D] [IsDomain D] : IsFractionRing D (KSyn D) :=
+  inferInstanceAs (IsFractionRing D (FractionRing D))
+
+/-- The identity `ℚ[X] → SrcPoly`. -/
+def toSrc (f : ℚ[X]) : SrcPoly := f
+
+theorem kummerCompositum_proof : KummerCompositum := by
+  intro E _ _ _ _ _ P Q t s₀ hQ hPQ hnc 𝔓 h𝔓 h𝔓u φ
+  classical
+  -- the `s`-coordinate local ring `O = ℚ[s]_(s - s₀)` (as a localization of `SrcPoly`)
+  set p0 : Ideal SrcPoly := Ideal.span {toSrc (X - C s₀)} with hp0_def
+  haveI hp0 : p0.IsPrime := by
+    change (Ideal.span {(X - C s₀ : ℚ[X])}).IsPrime
+    exact (Ideal.span_singleton_prime (X_sub_C_ne_zero s₀)).mpr (prime_X_sub_C s₀)
+  have hmem0 : ∀ f : SrcPoly, f ∈ p0 ↔ f.toPoly.eval s₀ = 0 := by
+    intro f
+    change (f.toPoly ∈ Ideal.span {(X - C s₀ : ℚ[X])}) ↔ _
+    rw [Ideal.mem_span_singleton, dvd_iff_isRoot]
+    rfl
+  set O := Localization.AtPrime p0
+  let ev0 : SrcPoly →+* ℚ := (Polynomial.evalRingHom s₀ : ℚ[X] →+* ℚ)
+  have hev0 : ∀ f : SrcPoly, ev0 f = f.toPoly.eval s₀ := fun f => rfl
+  have hunit0 : ∀ y : p0.primeCompl, IsUnit (ev0 y) := fun y =>
+    Ne.isUnit (by rw [hev0]; exact fun h => y.2 ((hmem0 _).mpr h))
+  let evO : O →+* ℚ := IsLocalization.lift (M := p0.primeCompl) (S := O) (g := ev0) hunit0
+  have hevO : ∀ f : SrcPoly, evO (algebraMap SrcPoly O f) = f.toPoly.eval s₀ :=
+    fun f => IsLocalization.lift_eq hunit0 f
+  have hQ0 : toSrc Q ∉ p0 := fun h => hQ ((hmem0 _).mp h)
+  set r : O := IsLocalization.mk' O (toSrc P) (⟨toSrc Q, hQ0⟩ : p0.primeCompl) with hr_def
+  have hrspec : r * algebraMap SrcPoly O (toSrc Q) = algebraMap SrcPoly O (toSrc P) :=
+    IsLocalization.mk'_spec O _ _
+  have hevr : evO r = t := by
+    have h1 := congrArg evO hrspec
+    rw [map_mul, hevO, hevO] at h1
+    change evO r * Q.eval s₀ = P.eval s₀ at h1
+    rw [hPQ] at h1
+    exact mul_right_cancel₀ hQ h1
+  let Csrc : ℚ →+* SrcPoly := (Polynomial.C : ℚ →+* ℚ[X])
+  let ρ : ℚ[X] →+* O := Polynomial.eval₂RingHom ((algebraMap SrcPoly O).comp Csrc) r
+  have hevρ : ∀ f : ℚ[X], evO (ρ f) = f.eval t := by
+    have : evO.comp ρ = Polynomial.evalRingHom t := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        exact RingHom.congr_fun (RingHom.ext_rat ((evO.comp ρ).comp C)
+          ((Polynomial.evalRingHom t).comp C)) a
+      · simp only [RingHom.comp_apply, coe_evalRingHom, eval_X]
+        change evO (eval₂ _ r X) = t
+        rw [eval₂_X, hevr]
+    intro f
+    exact RingHom.congr_fun this f
+  letI : Algebra ℚ[X] O := ρ.toAlgebra
+  -- `(integralClosure ℚ[X] E)` and the residue field at `𝔓`
+  haveI := h𝔓
+  let χ0 : O →+* (integralClosure ℚ[X] E) ⧸ 𝔓 := ((algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓)).comp C).comp evO
+  have hχ0 : ∀ f : ℚ[X], χ0 (ρ f) = algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓) f := by
+    intro f
+    change algebraMap ℚ[X] ((integralClosure ℚ[X] E) ⧸ 𝔓) (C (evO (ρ f))) = _
+    rw [hevρ, ← sub_eq_zero, ← map_sub,
+      IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) ((integralClosure ℚ[X] E) ⧸ 𝔓), Ideal.Quotient.algebraMap_eq,
+      Ideal.Quotient.eq_zero_iff_mem, ← Ideal.mem_comap]
+    change _ ∈ 𝔓.under ℚ[X]
+    rw [h𝔓u, Ideal.mem_span_singleton, ← dvd_neg, neg_sub]
+    exact X_sub_C_dvd_sub_C_eval
+  let χ : O →ₐ[ℚ[X]] (integralClosure ℚ[X] E) ⧸ 𝔓 := { χ0 with commutes' := hχ0 }
+  -- the tensor product `T = O ⊗_{ℚ[X]} (integralClosure ℚ[X] E)` and the prime `N` over `𝔓` and `max O`
+  let ψ0 : O ⊗[ℚ[X]] (integralClosure ℚ[X] E) →ₐ[ℚ[X]] (integralClosure ℚ[X] E) ⧸ 𝔓 :=
+    Algebra.TensorProduct.lift χ (Ideal.Quotient.mkₐ ℚ[X] 𝔓) (fun x y => Commute.all (χ x) (Ideal.Quotient.mkₐ ℚ[X] 𝔓 y))
+  set N := RingHom.ker ψ0.toRingHom
+  haveI : N.IsPrime := RingHom.ker_isPrime _
+  obtain ⟨𝔫, h𝔫min, h𝔫N⟩ := Ideal.exists_minimalPrimes_le (I := (⊥ : Ideal (O ⊗[ℚ[X]] (integralClosure ℚ[X] E))))
+    (J := N) bot_le
+  haveI h𝔫p : 𝔫.IsPrime := h𝔫min.1.1
+  -- `T` is free over `O`
+  have hinjE : Function.Injective (algebraMap ℚ[X] E) := by
+    rw [IsScalarTower.algebraMap_eq ℚ[X] (RatFunc ℚ) E]
+    exact (algebraMap (RatFunc ℚ) E).injective.comp (IsFractionRing.injective ℚ[X] (RatFunc ℚ))
+  haveI : Module.IsTorsionFree ℚ[X] E := Module.isTorsionFree_iff_algebraMap_injective.mpr hinjE
+  haveI : Algebra.IsSeparable (RatFunc ℚ) E := Algebra.IsAlgebraic.isSeparable_of_perfectField
+  haveI : Module.Free ℚ[X] (integralClosure ℚ[X] E) := IsIntegralClosure.module_free ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
+  haveI : Module.Finite ℚ[X] (integralClosure ℚ[X] E) := IsIntegralClosure.finite ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
+  haveI : Module.Free O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
+  haveI : Module.IsTorsionFree O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := inferInstance
+  have hdisj : ∀ o : O, o ≠ 0 → algebraMap O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) o ∉ 𝔫 := by
+    intro o ho hm
+    have hnzd : algebraMap O (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) o ∈ nonZeroDivisors (O ⊗[ℚ[X]] (integralClosure ℚ[X] E)) := by
+      rw [mem_nonZeroDivisors_iff_right]
+      intro x hx
+      rw [mul_comm, ← Algebra.smul_def] at hx
+      exact (smul_eq_zero_iff_right ho).mp hx
+    exact Set.disjoint_left.mp (Ideal.disjoint_nonZeroDivisors_of_mem_minimalPrimes h𝔫min) hm hnzd
+  sorry
+
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
