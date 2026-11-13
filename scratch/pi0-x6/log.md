@@ -60,3 +60,9 @@ information: Galois action on the geometric components. Inputs:
   `Pi0X6.fibre_le_two_of_R5count` (from `R5fpCount` + `hexact`: ≤ 2 points over the value),
   `Pi0X6.subsingleton_of_bundle` (R5ptProps + R5fpCount + the closed facts on ℚ(i), ℚ(√−3) as
   hypotheses + hexact₄/hexact₃ + the AG inputs hc/h0/hinf ⇒ Subsingleton S).
+- L4 (VERIFIED, compiled, `lake env lean scratch/pi0-x6/ClosedQi.lean`, 0 errors, 0 warnings):
+  closed facts for `k₄ = CyclotomicField 4 ℚ`: `gaussEquiv : GaussianInt ≃+* 𝓞 K4` (via
+  `Zsqrtd.lift` and the integral power basis), `inertCount6_K4 : inertCount6 K4 = 1` (3 prime and
+  2 not prime in `ℤ[i]`, Mathlib's `GaussianInt.prime_iff_mod_four_eq_three_of_nat_prime`),
+  `pic_R4 : Nat.card (Pic R4) = 1` (PID), `conductor_R4 : conductor R4 = 1`, `finrank_K4`,
+  `IsTotallyComplex K4`, `zeta4_sq' : ζ₄² = -1`.
