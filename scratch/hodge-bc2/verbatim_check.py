@@ -30,6 +30,17 @@ check('scratch/hodge-bc2/HodgeBCInjective.lean', ['HodgeBCInjective', 'Cotangent
 check('scratch/hodge-bc2/OmegaBC.lean', ['HodgeBCInjective', 'CotangentSpanBC', 'OmegaBaseChange'],
       [('infra-stalks CotangentBaseChange.lean body', cbc), ('infra-stalks bc_proof.lean.part', bcp),
        ('Final.lean 590-856', '\n'.join(fl[589:856]))])
+def noprint(x): return '\n'.join(l for l in x.split('\n') if not l.startswith('#print'))
+hg = noprint(open('scratch/infra-stalks/HeightBCGlue.lean').read())
+mp = noprint(open('scratch/g0-stablebc/Main.part').read())
+check('scratch/hodge-bc2/IntegrationBC.lean',
+      ['HodgeBCInjective', 'CotangentSpanBC', 'OmegaBaseChange', 'UniformizationLiftAnalytic',
+       'ModelHeightBaseChange', 'HodgeLineBaseChange'],
+      [('infra-stalks HeightBCGlue.lean (no #print)', hg),
+       ('infra-stalks stalk_tensor part', noprint(open('scratch/infra-stalks/stalk_tensor.lean.part').read())),
+       ('infra-stalks cot_bc part', noprint(open('scratch/infra-stalks/cot_bc.lean.part').read())),
+       ('g0-stablebc Main.part (no #print)', mp),
+       ('g0-stablebc def StableHeightBaseChange', blk(mp, 'StableHeightBaseChange'))])
 import os
 for extra in sys.argv[1:]:
     exec(open(extra).read())

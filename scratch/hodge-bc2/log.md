@@ -34,3 +34,11 @@
   extends over W ∋ e(s); e^♯F = 0 on e⁻¹W), `exists_mem_not_mem_of_sat` (Dedekind: nonzero ideal
   saturated at P₁ ≠ ⊥ contains P₁^n via the DVR R_{P₁}, so ⊄ P ≠ P₁), `finite_of_isClosed_not_genericPt`
   (closed Z ∌ η is finite: ⊆ minimal primes of a nonzero ideal).
+- IntegrationBC.lean (assemble_int.py: verbatim infra-stalks HeightBCGlue.lean + stalk_tensor + cot_bc
+  parts, ExtFrac, hbc_proof, omega_proof, verbatim height-bc PartE alias + g0-stablebc Main.part,
+  int_final.lean.part): VERIFIED (10:11) `lake env lean` 0 errors, 26 s, no sorry (one doc-comment
+  mention of the word); axioms standard for **`modelHeightBaseChange : ModelHeightBaseChange` (H4a)**,
+  **`hodgeLineBaseChange : HodgeLineBaseChange`**, **`stableHeightBaseChange :
+  G0StableBC.StableHeightBaseChange`** (g0-split piece 6), and for hodgeBCInjective, omegaBaseChange,
+  omegaLocalization, cotangentSpanBC, uniformizationLiftAnalytic. verbatim_check.py ALL OK.
+  FINDING: g0-stablebc's Main.part elaborates unchanged after `import Mathlib` (no breakage).
