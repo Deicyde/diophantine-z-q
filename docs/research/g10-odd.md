@@ -39,7 +39,7 @@ main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scrat
    Proved (VERIFIED, compiled): `g10GlueConcrete_of_conjTwistFromLeaves : ConjTwistFromLeaves →
    G10GlueConcrete`, with `ConjTwistFromLeaves := T11a → T11b → T35 → T5 → T26 →
    ConjTwistNontrivial` (glue). Recommendation for integration: replace `odd : G10Glue` in
-   g0-mod-galois's `ModGaloisPieces` by `ConjTwistNontrivial`. Both `G10Glue` and the
+   g0-mod-galois's `GaloisPieces` (part_bundle.lean) by `ConjTwistNontrivial`. Both `G10Glue` and the
    conclusion of `G10GlueConcrete` follow from it (`g10Out_of_conjTwist`, which needs no opaque
    hypothesis).
 
