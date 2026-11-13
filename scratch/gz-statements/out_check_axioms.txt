@@ -1,0 +1,33 @@
+fhNonvanishingCd_of_fhNonvanishing : ZInQ.GZDecomp.FHNonvanishing → FHNonvanishingCd
+grossZagierHeegnerCd_of_grossZagierHeegner : ZInQ.GZDecomp.GrossZagierHeegner → GrossZagierHeegnerCd
+grossZagierRankCd_of_grossZagierHeegnerCd : GrossZagierHeegnerCd → GrossZagierRankCd
+grossZagierCd_of_fhNonvanishingCd_grossZagierRankCd : FHNonvanishingCd → GrossZagierRankCd → ZInQ.GZDecomp.GrossZagierCd
+grossZagierCd_of_fhNonvanishingCd_grossZagierHeegnerCd : FHNonvanishingCd →
+  GrossZagierHeegnerCd → ZInQ.GZDecomp.GrossZagierCd
+frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd : ZInQ.SixContactMin →
+  ZInQ.Literature.TYZThm35ReadingA → FHNonvanishingCd → GrossZagierHeegnerCd → ZInQ.FrozenTarget
+frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierRankCd : ZInQ.SixContactMin →
+  ZInQ.Literature.TYZThm35ReadingA → FHNonvanishingCd → GrossZagierRankCd → ZInQ.FrozenTarget
+grossZagierRankCd_of_grossZagierCd : ZInQ.GZDecomp.GrossZagierCd → GrossZagierRankCd
+grossZagierHeegnerCd_of_grossZagierCd : ZInQ.GZDecomp.GrossZagierCd → GrossZagierHeegnerCd
+grossZagierHeegnerCd_of_grossZagier : ZInQ.Literature.GrossZagier → GrossZagierHeegnerCd
+'ZInQ.GZStatements.fhNonvanishingCd_of_fhNonvanishing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.grossZagierHeegnerCd_of_grossZagierHeegner' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZStatements.grossZagierRankCd_of_grossZagierHeegnerCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.grossZagierCd_of_fhNonvanishingCd_grossZagierRankCd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZStatements.grossZagierCd_of_fhNonvanishingCd_grossZagierHeegnerCd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierHeegnerCd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZStatements.frozenTarget_of_sixContactMin_tyzThm35ReadingA_fhNonvanishingCd_grossZagierRankCd' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.GZStatements.grossZagierRankCd_of_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.grossZagierHeegnerCd_of_grossZagierCd' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZStatements.grossZagierHeegnerCd_of_grossZagier' depends on axioms: [propext, Classical.choice, Quot.sound]
