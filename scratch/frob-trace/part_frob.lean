@@ -56,15 +56,17 @@ abelian variety `Ā` over a field `k` of characteristic `p`, an endomorphism `α
 `N ≠ 0` such that for every prime `ℓ ≠ p` some `ℚ_ℓ`-isomorphism
 `ℚ_ℓ ⊗ T_ℓ(A(ℚ̄)) ≅ V_ℓ(Ā)` carries `N · V_ℓ(m_{gτg⁻¹})` to `V_ℓ(α')`.
 
-Why it is true (SPECULATIVE in its Lean details; `N = 1` works): the maps `m_σ` take finitely many
-values up to `G_L` (second clause), so finitely many `F_σ` occur. Put in `S` the primes of bad
-reduction of `A` and the primes below which some such `F_σ` does not extend to the abelian
-scheme. For `p ∉ S`, `Ā` is the reduction of `A` at `w = v ∩ L` over `k = κ(w)`. On prime-to-`p`
-torsion, reduction is a bijection `A(ℚ̄)[ℓⁿ] ≅ Ā(k̄)[ℓⁿ]` (leaf I2-Red,
-`PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1). Under it, `τ` acting on coordinates
-becomes the `p`-power map of `k̄` (`IsArithFrob`), which on `k̄`-points is the absolute Frobenius
-of `Ā`, and `F_τ` becomes its reduction `F̄_τ` (Néron mapping property of the abelian scheme, leaf
-I2-NMP, `PkgI2.NeronMappingAbelianScheme`). So `m_τ` becomes `α' = F̄_τ ∘ Fr_Ā`, a `k`-morphism
+Why it is true (SPECULATIVE in its Lean details; `N = 1` works): by the first two clauses one
+`F_{σ_s}` serves the whole coset `σ_s G_L`, so finitely many morphisms occur (this is the proved
+step `algFrobLink_of_one`). Put `σ' = gτg⁻¹` and `w = g(v) ∩ L`, not `v ∩ L`: `σ'` lies in the
+decomposition group of `g(v)`. Put in `S` the primes of bad reduction of `A` and the primes below
+which some `F_{σ_s}` does not extend to the abelian scheme. For `p ∉ S`, `Ā` is the reduction of
+`A` at `w` over `k = κ(w)`. On prime-to-`p` torsion, reduction is a bijection
+`A(ℚ̄)[ℓⁿ] ≅ Ā(k̄)[ℓⁿ]` (leaf I2-Red, `PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1).
+Under it, `σ'` acting on coordinates becomes the `p`-power map of `k̄` (`IsArithFrob`), which on
+`k̄`-points is the absolute Frobenius of `Ā`, and `F_{σ'}` becomes its reduction `F̄_{σ'}` (Néron
+mapping property of the abelian scheme, leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme`). So
+`m_{σ'}` becomes `α' = F̄_{σ'} ∘ Fr_Ā`, a `k`-morphism
 fixing `0`, hence an endomorphism of `Ā`, the same for every `ℓ ≠ p`. -/
 def AlgFrobLink : Prop :=
   ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
@@ -100,7 +102,7 @@ Why it is true (SPECULATIVE in its Lean details; `N = 1` works). If such an `f` 
 over `Spec(s)` with `s = (gτg⁻¹)⁻¹|_L`, which is in the decomposition group of `w = g(v) ∩ L`;
 so `F` is an `L`-morphism `A → A^{(s)}`. Put in `S` the primes below which `A` has bad
 reduction or this `L`-morphism does not extend to the abelian-scheme models (spreading out; one
-condition for each of the finitely many `s ∈ Gal(L/ℚ)`; `S` depends on `F` only). For `p ∉ S`,
+condition: `s` is determined by `F`, since `Γ(A, 𝒪) = L`; `S` depends on `F` only). For `p ∉ S`,
 `Ā` is the reduction of `A` at `w`, over `k = κ(w)`. Reduction is a bijection on prime-to-`p`
 torsion (leaf I2-Red, `PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1); under it,
 `gτg⁻¹` acting on coordinates becomes the `p`-power map of `k̄`, i.e. the absolute Frobenius

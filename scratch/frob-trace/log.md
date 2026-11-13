@@ -26,3 +26,11 @@
 - `tateMap_bijective` (algebra: T_ℓ(r) bijective under these torsion conditions), `algFrobOne_of_red : AlgFrobRed → AlgFrobOne`
   (Ψ = ℚ_ℓ ⊗ T_ℓ(red)), `tateBridge35_of_algFrobRed : PkgI3.TateModuleFree → AlgFrobRed → G14Bridge.TateBridge35`.
 - exit 0, no sorry, 26 axiom prints, all standard (VERIFIED).
+
+## Review (07:20; one model review, read-only, no human review)
+- Finding: AlgFrobLink, AlgFrobOne, AlgFrobRed true as stated (N = 1), not vacuous, not degenerate; S before ∀ p v τ g f;
+  reduction at g(v). Docstring slips in AlgFrobLink (w = v ∩ L should be g(v) ∩ L; m_τ should be m_{gτg⁻¹}) fixed.
+  Noted: TateBridge35 does not tie Tm_ℓ to m_σ (by design, as TateBridge), so FrobTraceLink constrains the chosen normalization.
+## Composite (07:20, in progress)
+- part_compose.lean: FrobTraceCompose.g12Spec_g14_of_G7Data; build_all.sh assembles FrobTraceAll.lean with verbatim copies of
+  g14-trace's G14Trace.lean parts (*_g14.lean, cmp-identical). Needs oleans ModCurves.Glue, I3Linalg.TateBC, Conductor.Level (lake build running).
