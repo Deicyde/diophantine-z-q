@@ -40,12 +40,15 @@ def AbVarSpreadsOut : Prop :=
 set_option synthInstance.maxHeartbeats 400000 in
 /-- **`ProperSmoothGenConnected` (LEAF candidate, published: Zariski's connectedness theorem).**
 A smooth proper scheme `X` over `R = 𝓞_L[1/f]` (any presentation) whose generic fibre is
-geometrically connected is geometrically connected over `R`. Proof (STANDARD): `R` is normal and
-`X_L` is geometrically reduced (smooth) and geometrically connected and proper, so
-`H⁰(X_L, 𝒪) = L`; `f_*𝒪_X` is a finite torsion-free `R`-algebra inside `L`, integral over the
-normal `R`, hence `f_*𝒪_X = 𝒪_R`, and then all fibres of the proper `f` are geometrically
-connected (Zariski's connectedness theorem, EGA III₁ 4.3.1–4.3.4; Hartshorne III 11.3; locators
-UNVERIFIED). Not in Mathlib v4.35 (no Stein factorization). -/
+geometrically connected is geometrically connected over `R`. Proof (STANDARD): `R ≅ 𝓞_L[1/f]`
+is normal with fraction field `L` (the case `f = 0` is vacuous: no ring map from the zero ring to
+`L`), and `X_L` is geometrically reduced (smooth) and geometrically connected and proper, so
+`H⁰(X_L, 𝒪) = L`; `f_*𝒪_X` is a finite `R`-algebra, torsion-free since `X` is flat (smooth), so
+it lies inside `H⁰(X_L, 𝒪) = L` and is integral over the normal `R`, hence
+`f_*𝒪_X = 𝒪_{Spec R}`; then all fibres of the proper `f` are geometrically connected (Zariski's
+connectedness theorem, EGA III₁ 4.3.1–4.3.4; locators UNVERIFIED). The fibres are nonempty since
+`X → Spec R` is open (smooth), closed (proper), `X ≠ ∅` and `Spec R` is connected. Not in Mathlib
+v4.35 (no Stein factorization). -/
 def ProperSmoothGenConnected : Prop :=
   ∀ (L : Type) [Field L] [NumberField L] (f : 𝓞 L) (R : Type) [CommRing R] [Algebra (𝓞 L) R]
     [IsLocalization.Away f R] [Algebra R L] [IsScalarTower (𝓞 L) R L]

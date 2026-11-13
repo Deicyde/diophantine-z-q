@@ -879,7 +879,7 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'AlgFrobRedRed.fExtendCore_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AlgFrobRedRed.algFrobRed_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AlgFrobRedRed.tateBridge35_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/frob-pieces/FrobPieces.lean:4923:2: warning: Try this: 
+scratch/frob-pieces/FrobPieces.lean:4924:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -887,7 +887,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frob-pieces/FrobPieces.lean:5062:2: warning: Try this: 
+scratch/frob-pieces/FrobPieces.lean:5066:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -895,7 +895,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frob-pieces/FrobPieces.lean:5067:2: warning: Try this: 
+scratch/frob-pieces/FrobPieces.lean:5071:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -903,7 +903,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frob-pieces/FrobPieces.lean:5068:2: warning: Try this: 
+scratch/frob-pieces/FrobPieces.lean:5072:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -911,7 +911,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/frob-pieces/FrobPieces.lean:5107:2: warning: Try this: 
+scratch/frob-pieces/FrobPieces.lean:5111:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.

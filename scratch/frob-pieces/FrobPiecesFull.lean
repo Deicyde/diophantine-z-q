@@ -5300,9 +5300,10 @@ scheme (I2's `IsAbelianScheme`: a group object, proper, smooth, geometrically co
 finitely generated subring `R = ℤ[s] ⊆ L`, with generic fibre isomorphic to `A` as a group object.
 Source: `L = colim R` over finitely generated subrings; the scheme, group law and axioms descend to
 some `R` (EGA IV₃ 8.8.2), as do properness (EGA IV₃ 8.10.5 (xii)) and smoothness (EGA IV₄ 17.7.8);
-geometric connectedness of the fibres holds over a nonempty open of `Spec R` (EGA IV₃ 9.7.7;
-alternatively, Zariski connectedness, EGA III 4.3, for the proper smooth model over the normal
-`R`), and shrinking `R` to `R[1/f]` keeps it finitely generated. Locators UNVERIFIED. Same input as
+geometric connectedness of the fibres holds after shrinking `R` to a normal ring with fraction
+field `L`, e.g. `𝓞_L[1/N]` (finitely generated: an integral basis and `1/N`), by Zariski's
+connectedness theorem (EGA III₁ 4.3; this is `FrobPiecesNeron.ProperSmoothGenConnected`), or
+over a nonempty open of `Spec R` (EGA IV₃ 9.7.7, with a generic-point argument). Locators UNVERIFIED. Same input as
 neron-lg's glue N1-g1 `AbVarSpreadsOut`, plus geometric connectedness of the fibres. -/
 def AbSchemeSpreadsOut : Prop :=
   ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L),
@@ -5430,12 +5431,15 @@ def AbVarSpreadsOut : Prop :=
 set_option synthInstance.maxHeartbeats 400000 in
 /-- **`ProperSmoothGenConnected` (LEAF candidate, published: Zariski's connectedness theorem).**
 A smooth proper scheme `X` over `R = 𝓞_L[1/f]` (any presentation) whose generic fibre is
-geometrically connected is geometrically connected over `R`. Proof (STANDARD): `R` is normal and
-`X_L` is geometrically reduced (smooth) and geometrically connected and proper, so
-`H⁰(X_L, 𝒪) = L`; `f_*𝒪_X` is a finite torsion-free `R`-algebra inside `L`, integral over the
-normal `R`, hence `f_*𝒪_X = 𝒪_R`, and then all fibres of the proper `f` are geometrically
-connected (Zariski's connectedness theorem, EGA III₁ 4.3.1–4.3.4; Hartshorne III 11.3; locators
-UNVERIFIED). Not in Mathlib v4.35 (no Stein factorization). -/
+geometrically connected is geometrically connected over `R`. Proof (STANDARD): `R ≅ 𝓞_L[1/f]`
+is normal with fraction field `L` (the case `f = 0` is vacuous: no ring map from the zero ring to
+`L`), and `X_L` is geometrically reduced (smooth) and geometrically connected and proper, so
+`H⁰(X_L, 𝒪) = L`; `f_*𝒪_X` is a finite `R`-algebra, torsion-free since `X` is flat (smooth), so
+it lies inside `H⁰(X_L, 𝒪) = L` and is integral over the normal `R`, hence
+`f_*𝒪_X = 𝒪_{Spec R}`; then all fibres of the proper `f` are geometrically connected (Zariski's
+connectedness theorem, EGA III₁ 4.3.1–4.3.4; locators UNVERIFIED). The fibres are nonempty since
+`X → Spec R` is open (smooth), closed (proper), `X ≠ ∅` and `Spec R` is connected. Not in Mathlib
+v4.35 (no Stein factorization). -/
 def ProperSmoothGenConnected : Prop :=
   ∀ (L : Type) [Field L] [NumberField L] (f : 𝓞 L) (R : Type) [CommRing R] [Algebra (𝓞 L) R]
     [IsLocalization.Away f R] [Algebra R L] [IsScalarTower (𝓞 L) R L]

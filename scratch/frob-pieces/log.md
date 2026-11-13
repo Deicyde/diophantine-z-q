@@ -81,3 +81,13 @@
   `tateBridge35_of_spread_nmp`.
 - Run full-1: `lake env lean scratch/frob-pieces/FrobPiecesFull.lean` exit 0, ~3 min, 114 axiom
   prints, all [propext, Classical.choice, Quot.sound], 0 sorryAx (VERIFIED, run_full1.txt).
+
+## Review (one model review, read-only, no human review; ~10:40)
+- AbSchemeSpreadsOut: TRUE, non-vacuous (𝓞_L[1/N] = closure of a finite set; spreading out +
+  Zariski). ProperSmoothGenConnected: TRUE, non-vacuous (f = 0 vacuous; R ≅ 𝓞_L[1/f] normal;
+  f_*𝒪_X = 𝒪 and EGA III 4.3; fibres nonempty by open+closed+connected). goodRedCofinite_of_neron
+  sound.
+- Wording fixes applied to the two docstrings (ℤ[s] need not be normal; 𝒪_{Spec R}; flatness for
+  torsion-freeness; nonempty fibres; Hartshorne III 11.3 is for projective morphisms, dropped).
+- After the fixes: FrobPieces.lean run 3 exit 0, 99 prints standard, 0 sorryAx; FrobPiecesFull.lean
+  run full-1 exit 0, 114 prints standard, 0 sorryAx (VERIFIED, rerun ~10:50).

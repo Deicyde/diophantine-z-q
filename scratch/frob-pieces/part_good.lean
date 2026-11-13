@@ -18,9 +18,10 @@ scheme (I2's `IsAbelianScheme`: a group object, proper, smooth, geometrically co
 finitely generated subring `R = ℤ[s] ⊆ L`, with generic fibre isomorphic to `A` as a group object.
 Source: `L = colim R` over finitely generated subrings; the scheme, group law and axioms descend to
 some `R` (EGA IV₃ 8.8.2), as do properness (EGA IV₃ 8.10.5 (xii)) and smoothness (EGA IV₄ 17.7.8);
-geometric connectedness of the fibres holds over a nonempty open of `Spec R` (EGA IV₃ 9.7.7;
-alternatively, Zariski connectedness, EGA III 4.3, for the proper smooth model over the normal
-`R`), and shrinking `R` to `R[1/f]` keeps it finitely generated. Locators UNVERIFIED. Same input as
+geometric connectedness of the fibres holds after shrinking `R` to a normal ring with fraction
+field `L`, e.g. `𝓞_L[1/N]` (finitely generated: an integral basis and `1/N`), by Zariski's
+connectedness theorem (EGA III₁ 4.3; this is `FrobPiecesNeron.ProperSmoothGenConnected`), or
+over a nonempty open of `Spec R` (EGA IV₃ 9.7.7, with a generic-point argument). Locators UNVERIFIED. Same input as
 neron-lg's glue N1-g1 `AbVarSpreadsOut`, plus geometric connectedness of the fibres. -/
 def AbSchemeSpreadsOut : Prop :=
   ∀ (L : IF) [FiniteDimensional ℚ L] (A : PkgI3.AbVar L),
