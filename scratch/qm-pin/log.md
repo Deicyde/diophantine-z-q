@@ -49,3 +49,7 @@ Base: 883c4ddf + merges origin/wip/rv-g0pieces, origin/wip/g0-split (already in)
   0 errors, 0 sorry, 2m27s; glueOutputs_of_leaves, sixContactMin_of_leaves standard axioms. VERIFIED (run_split_full.txt).
   HDecLeavesFull (HDecLeaves-full.patch): 0 errors, 3m12s, only the known sorry (glueOutputs_of_leaves). VERIFIED (run_hdec_full.txt).
   The 20k-line edited copies are not kept (regenerable); the min-edit copies are in commit 3 history.
+- QMPinKernelFull.lean = QMLeavesFull.lean + §3-§4 lemmas on the fully patched `R1fpProps`
+  (r1fpPin_relabel_iff with the univ conjunct; r1fpPin_aut transports R1univ by g' ≫ g.inv):
+  0 errors, 1m49s wall under load 29 (7 s CPU); 13 `#print axioms`, all standard. VERIFIED.
+- Report docs/research/qm-pin.md written.
