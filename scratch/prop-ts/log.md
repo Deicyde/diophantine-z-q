@@ -79,3 +79,11 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   `padicValRat_43_27`, Mathlib `IsCyclotomicExtension.Rat.ramificationIdx_eq_of_prime` (e = 330).
   So PropTS is a genuine constraint on the cover, not inert or tautological (VERIFIED).
 - Compile: 0 errors, 0 warnings, 24 `#print axioms` lines all standard (VERIFIED).
+
+## Step 9 (07:30): building block for SpecNonMeeting
+- `scratch/prop-ts/ZXRegular.lean` (imports Mathlib only): `height_maximal_intPoly` (a maximal
+  ideal of ℤ[X] over a nonzero prime of ℤ has height 2, via Mathlib
+  `Polynomial.height_eq_height_add_one`) and `regular_dim2_intPoly` (`ℤ[X]_m` is regular local of
+  dimension 2; regularity from Mathlib's instances `IsRegularRing ℤ[X]` (Dedekind ⇒ regular,
+  polynomial over regular)). Compiled, standard axioms (VERIFIED, compile_zx.txt).
+- Note: Mathlib v4.35 has no `IsJacobsonRing ℤ` instance; the lemma takes `m ∩ ℤ ≠ 0` instead.

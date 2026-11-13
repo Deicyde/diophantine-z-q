@@ -226,9 +226,11 @@ Step 3: specialize.
 - So `B/𝔓` is a number field unramified at `p`. Its embedded image `adjoin ℚ (range φ)` is
   isomorphic to it, so the same holds for the image.
 
-Lean ingredients still missing:
+Lean ingredients still missing (one is now done):
 
-- regularity of `ℤ[X]_m`;
+- regularity of `ℤ[X]_m` with dimension 2: **proved** in `scratch/prop-ts/ZXRegular.lean`
+  (`regular_dim2_intPoly`, VERIFIED). It uses Mathlib's `IsRegularRing ℤ[X]` instances and
+  `Polynomial.height_eq_height_add_one`;
 - finiteness of the integral closure (Mathlib has `IsIntegralClosure.finite`);
 - base change of étale algebras;
 - "étale over a DVR ⇒ `UnramifiedAt`".
