@@ -15,103 +15,122 @@ network).
 ## 0. Main result
 
 The three targets are copied verbatim: `scratch/metrization/Base.lean` is byte-identical to
-`scratch/g0-heightadd/HeightAdd.lean` (VERIFIED by `cmp`), which contains
-`ZInQ.G0HeightAdd.MetrizationDimUnique`, `MetrizationExists` (from `part_heightadd.lean`) and
-`ProductMetrizationGeo` (from `part_prod.lean`) with everything they depend on. None of the three
+`scratch/g0-heightadd/HeightAdd.lean` (VERIFIED by `cmp`). That file contains
+`ZInQ.G0HeightAdd.MetrizationDimUnique` and `MetrizationExists` (from `part_heightadd.lean`) and
+`ProductMetrizationGeo` (from `part_prod.lean`), with everything they depend on. None of the three
 is false or vacuous.
 
 1. **`MetrizationDimUnique` is proved, with no hypotheses** (VERIFIED):
    ```lean
    theorem ZInQ.Metrization.metrizationDimUnique : ZInQ.G0HeightAdd.MetrizationDimUnique
    ```
-2. **`MetrizationExists` is reduced** to def-faltings' stated `HodgeLatticeTheorem`, one leaf and
-   two glue Props (VERIFIED):
+2. **`MetrizationExists` is reduced to def-faltings' stated `HodgeLatticeTheorem`, one leaf and
+   one glue Prop** (VERIFIED):
    ```lean
-   theorem ZInQ.Metrization.metrizationExists_of (hH : HodgeLatticeTheorem)
-       (hU : AnalyticUniformizationOfDim) (hJ : JacDetDescends) (hN : JacDetNondegenerate) :
+   theorem ZInQ.Metrization.metrizationExists_of' (hH : HodgeLatticeTheorem)
+       (hU : AnalyticUniformizationOfDim) (hN : JacDetNondegenerate) :
        ZInQ.G0HeightAdd.MetrizationExists
-   theorem ZInQ.Metrization.jacDetDescends_of (h : JacDetMultilinear) : JacDetDescends
    ```
-3. **`ProductMetrizationGeo` is reduced** to `JacDetDescends` and two glue Props (VERIFIED):
+   On the way, the glue Prop `JacDetDescends` (the Jacobian determinant `jacDet Φ` is the value on
+   wedges of a `τ`-semilinear map on the Hodge line) is **proved outright**
+   (`ZInQ.Metrization.jacDetDescends`), from Mathlib's scheme API and calculus.
+3. **`ProductMetrizationGeo` is reduced to two glue Props** (VERIFIED):
    ```lean
-   theorem ZInQ.Metrization.productMetrizationGeo_of' (hJ : JacDetDescends)
-       (hPU : ProductUniformization) (hPC : ProductHodgeCompat) :
-       ZInQ.G0HeightAdd.ProductMetrizationGeo
-   theorem ZInQ.Metrization.productUniformization_of (h : ProductUniformizationAnalytic) :
-       ProductUniformization
+   theorem ZInQ.Metrization.productMetrizationGeo_of''' (hPA : ProductUniformizationAnalytic)
+       (hPL : ProductHodgeLattice) : ZInQ.G0HeightAdd.ProductMetrizationGeo
    ```
-   The fourth hypothesis of the first reduction, `ProductLatticeFacts` (product of full lattices,
-   covolumes multiply), is proved from Mathlib (`productLatticeFacts`).
+   Proved on the way: `ProductLatticeFacts` (the product of full lattices is a full lattice and
+   covolumes multiply), the algebraic half of the product uniformization (`prodPts_alg`),
+   `ProductJacobian` (the Jacobian of the product uniformization is block diagonal), and
+   `JacDetDescends`.
 
-With these, g0-heightadd's piece becomes (VERIFIED):
+With these, g0-heightadd's piece `HeightAdditivity` becomes (VERIFIED):
 
 ```lean
-theorem HSyn.G0Split.heightAdditivity_of_metrization''
+theorem HSyn.G0Split.heightAdditivity_of_metrization_v2
     (hN1 : ZInQ.H5Neron.NeronModelExists)                  -- leaf N1 (Néron), as in g0-heightadd
     (h5 : LeafAdopt.H5)                                    -- = HSyn.ResearchLeaves.h5
-    (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)   -- stated in def-faltings (not mine)
+    (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)   -- stated in def-faltings (not a target here)
     (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)            -- stated in def-faltings; reduced by hodge-lattice
-    (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)   -- leaf (uniformization theorem)
-    (hJ : ZInQ.Metrization.JacDetMultilinear)              -- glue (calculus)
-    (hN : ZInQ.Metrization.JacDetNondegenerate)            -- glue (local coordinates)
+    (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)   -- leaf (the uniformization theorem)
+    (hN : ZInQ.Metrization.JacDetNondegenerate)            -- glue (local parameters are coordinates)
     (hPA : ZInQ.Metrization.ProductUniformizationAnalytic) -- glue (products, analytic half)
-    (hPC : ZInQ.Metrization.ProductHodgeCompat) :          -- glue (Hodge line of a product)
+    (hPL : ZInQ.Metrization.ProductHodgeLattice) :         -- glue (Hodge lattice of a product)
     HSyn.G0Split.HeightAdditivity
 ```
 
-g0-heightadd's version needed `MetrizationDimUnique`, `MetrizationExists` and
-`ProductMetrizationGeo` as hypotheses; the first is gone and the other two are replaced by
-smaller statements whose algebraic parts are proved.
+g0-heightadd's version (`heightAdditivity_of_geo`) had `MetrizationDimUnique`,
+`MetrizationExists` and `ProductMetrizationGeo` as hypotheses. The first is now a theorem. The
+other two are replaced by `AnalyticUniformizationOfDim`, `JacDetNondegenerate`,
+`ProductUniformizationAnalytic` and `ProductHodgeLattice`, all with their algebraic and
+calculus parts proved; the four remaining Props each need a piece of algebraic or complex
+geometry that Mathlib lacks (§4).
 
 ## 1. `MetrizationDimUnique`, proved
 
-Statement (verbatim): two metrizations `M : MetrizedModel A L g`, `M' : MetrizedModel A L g'` with
-`M.model = M'.model` have `g = g'`.
+Statement (verbatim): if `M : MetrizedModel A L g` and `M' : MetrizedModel A L g'` have
+`M.model = M'.model`, then `g = g'`.
 
 Proof (`part_dim.lean`, with `ExtLine.lean`):
 
 - **`g, g' ≥ 1`: pure algebra.** `MetrizedModel` contains `hodge.finrank_eq_one :
   finrank L (hodgeSpace g) = 1`, where `hodgeSpace g = L ⊗_{𝓞_L} ⋀^g_{𝓞_L} C` and `C = 𝔪_ξ/𝔪_ξ²`
-  is the same module for both metrizations. `ZInQ.Metrization.eq_of_finrank_one` (new, Mathlib
-  only): for a commutative ring `R`, a field `F` that is a flat `R`-algebra and any `R`-module `C`,
-  if `F ⊗_R ⋀^g C` and `F ⊗_R ⋀^{g'} C` both have `F`-dimension 1 and `g, g' ≥ 1`, then `g = g'`.
-  For `g < g + n` pick `v` with `1 ⊗ v₁ ∧ ⋯ ∧ v_{g+n} ≠ 0` (the `1 ⊗ ιMulti v` span), write
-  `v = append a b`, and let `a'`, `b'` be `a`, `b` with their first entries swapped. Right
-  multiplication by `ιMulti b` (resp. `ιMulti b'`) in the exterior algebra, base changed to `F`,
-  sends `1 ⊗ ιMulti a ↦ 1 ⊗ ιMulti v ≠ 0`, `1 ⊗ ιMulti a' ↦ 0` (resp. `↦ 0`, `↦ −1 ⊗ ιMulti v`), so
-  the two vectors are independent, contradicting dimension 1. Flatness of `L` over `𝓞_L`
-  (`IsLocalization.flat`) keeps `1 ⊗ ιMulti v ≠ 0` inside `F ⊗ ⋀C`. Mathlib has no base change for
-  exterior powers, so this argument avoids it.
+  is the same module for both metrizations. The new lemma `ZInQ.Metrization.eq_of_finrank_one`
+  (Mathlib only) says: for a commutative ring `R`, a field `F` that is a flat `R`-algebra and any
+  `R`-module `C`, if `F ⊗_R ⋀^g C` and `F ⊗_R ⋀^{g'} C` both have `F`-dimension 1 and
+  `g, g' ≥ 1`, then `g = g'`. Proof for `g < g + n`: pick `v` with `1 ⊗ v₁ ∧ ⋯ ∧ v_{g+n} ≠ 0`
+  (such tensors span). Write `v = append a b`, and let `a'`, `b'` be `a`, `b` with their first
+  entries swapped. Right multiplication by `ιMulti b` (resp. `ιMulti b'`) in the exterior algebra,
+  base changed to `F`, sends `1 ⊗ ιMulti a ↦ 1 ⊗ ιMulti v ≠ 0` and `1 ⊗ ιMulti a' ↦ 0`
+  (resp. `↦ 0` and `↦ −1 ⊗ ιMulti v`). So the two vectors are independent, which contradicts
+  dimension 1. `L` is flat over `𝓞_L` (`IsLocalization.flat`), so `1 ⊗ ιMulti v` stays nonzero in
+  `F ⊗ ⋀C`. Mathlib has no base change for exterior powers; the argument avoids it.
 - **`g = 0 < g'`: the uniformizations.** `M.arch τ` gives a surjection `Φ : ℂ⁰ → 𝒢(ℂ)_τ`, so
-  `𝒢(ℂ)_τ` is a subsingleton. `M'.arch τ` gives `Φ' : ℂ^{g'} → 𝒢(ℂ)_τ` with kernel the discrete
-  `M'.hodge.periods τ`; a discrete `ℤ`-submodule of `ℂ^{g'}`, `g' ≥ 1`, is not everything (`ℝ` is
-  connected: `t ↦ t·e₁` would be constant), so some `Φ' z ≠ 1`. A number field has an embedding
-  `τ : L → ℂ`.
+  `𝒢(ℂ)_τ` has at most one point. `M'.arch τ` gives `Φ' : ℂ^{g'} → 𝒢(ℂ)_τ` with kernel the discrete
+  lattice `M'.hodge.periods τ`. A discrete `ℤ`-submodule of `ℂ^{g'}` with `g' ≥ 1` is not all of
+  `ℂ^{g'}` (`ℝ` is connected, so `t ↦ t·e₁` would be constant), so some `Φ' z ≠ 1`. A number field
+  has an embedding `τ : L → ℂ`.
 
-So the argument sketched in def-faltings' `MetrizedModel` docstring is now a proof; it needs
+So the argument sketched in def-faltings' `MetrizedModel` docstring is now a proof. It uses
 neither the dimension theory of varieties nor the analytic structure of `A(ℂ)`.
 
 ## 2. `MetrizationExists`, reduced
 
 Statement (verbatim): every group model `𝒢` of `A_L` has a metrization (`∃ g M, M.model = 𝒢`).
 
-Proved: `exists_metrization_of_dim` builds the metrization at `g = dim A` with lattice
-`⋀^g ω_𝒢`, period lattices and coefficient maps from the uniformizations (field by field;
-`lattice_eq` is `rfl`). `dim A ∈ ℕ` is `abVar_dim_finite`, proved from g0-dim's `G0Dim.dim_finite`
-(copied verbatim into `part_g0dim.lean`). Also proved: `metrized_dim_eq` (every metrization has
-`g = dim A`, same hypotheses) and `analyticUniformizationExists_of : AnalyticUniformizationOfDim →
-AnalyticUniformizationExists` (the new leaf is not weaker than def-faltings' Prop).
+Proved: `exists_metrization_of_dim` builds the metrization at `g = dim A` field by field:
+lattice `⋀^g ω_𝒢` (so `lattice_eq` is `rfl`), period lattices and uniformizations from
+`AnalyticUniformizationOfDim`, coefficient maps from `jacDetDescends`. `dim A ∈ ℕ` is
+`abVar_dim_finite`, proved from g0-dim's `G0Dim.dim_finite` (copied verbatim into
+`part_g0dim.lean`). Also proved: `metrized_dim_eq` (every metrization has `g = dim A`, under the
+same hypotheses) and `analyticUniformizationExists_of : AnalyticUniformizationOfDim →
+AnalyticUniformizationExists`, so the new leaf is not weaker than def-faltings' Prop.
+
+**`JacDetDescends` is proved** (`part_jacdet.lean`, `part_jacgerm.lean`, `part_jacscalar.lean`,
+`part_jacclass.lean`), in two layers:
+- `jacDetDescends_of : JacDetMultilinear → JacDetDescends` (algebra): choose lifts through
+  `toCotangent` (`Function.surjInv`), build the alternating map, pass to `⋀^g`
+  (`exteriorPower.alternatingMapLinearEquiv`), extend scalars along `τ`
+  (`TensorProduct.lift` of `(x, w) ↦ τ(x)·Ψ(w)`).
+- The four clauses of `JacDetMultilinear` (class invariance, slot additivity, scaling by `τ(a)`,
+  vanishing on equal slots) are proved from facts about evaluation at complex points:
+  `ptC_hom_apply` and `one_left_apply` (the identity complex point lies over `ξ`),
+  `zero_mem_dom`, `evalAt_res`, `evalAt_add`, `evalAt_mul`, `germAlong_eventuallyEq`
+  (`germAlong Φ t` agrees near `0` with the function of any representative of `t`),
+  `evalAt_structSection` (the image of `a ∈ 𝓞_L` evaluates to `τ(a)`, by `ΓSpecIso_naturality`),
+  and `evalAt_one_eq_zero` (a section with germ in `𝔪_ξ` vanishes at the identity point: the
+  stalk map to the stalk of `Spec ℂ`, a field, is local, and `germ_injective_of_isIntegral`). Then
+  `d(germAlong Φ t)(0) = 0` for `t ∈ 𝔪_ξ²` (Leibniz, induction on `𝔪 · 𝔪`), and the row
+  operations on the determinant follow.
 
 | Prop | Kind | Statement (short) | Why true |
 | --- | --- | --- | --- |
-| `DefFaltings.HodgeLatticeTheorem` | stated in def-faltings; reduced by hodge-lattice to `TangentDimAtOrigin` and `DimBaseChange` (the latter proved by g0-dim) | `hodgeSpace (dim A)` is a line and `⋀ω_𝒢` a full lattice in it | smoothness (hodge-lattice §4) |
-| `Metrization.AnalyticUniformizationOfDim` | **leaf** (published theorem, Lean reformulation over def-faltings' `IsAnalyticUniformization`) | for `g = dim A` and every `τ`: a full lattice `Λ ⊂ ℂ^g` and an analytic uniformization `Φ : ℂ^g → 𝒢(ℂ)_τ` with kernel `Λ` | `A_τ(ℂ)` is a compact connected complex Lie group of dimension `dim A`, hence `ℂ^g/Λ` (Mumford, *Abelian varieties*, §1, UNVERIFIED locator; Serre's GAGA for the analytic structure). It is def-faltings' `AnalyticUniformizationExists` with the dimension pinned |
-| `Metrization.JacDetMultilinear` | glue (calculus) | `f ↦ jacDet Φ f` depends only on the classes `df_i`, is additive in each slot, scales by `τ(a)` for `a ∈ 𝓞_L`, and vanishes on equal slots | `Φ 0 = 1` lies over `ξ`; `dom Φ U` open, so `f ∘ Φ` near `0` is independent of the representative; evaluation is a ring map; Leibniz kills `𝔪_ξ²`; row operations on the determinant |
-| `Metrization.JacDetDescends` | glue, **proved from `JacDetMultilinear`** (`jacDetDescends_of`) | `jacDet Φ` is the value on wedges of a `τ`-semilinear `hodgeSpace g → ℂ` | universal property of `⋀^g` (`exteriorPower.alternatingMapLinearEquiv`) and `TensorProduct.lift` of `(x, w) ↦ τ(x)·Ψ(w)` |
-| `Metrization.JacDetNondegenerate` | glue (complex geometry) | for `g = dim A` and a uniformization with full-lattice kernel, some `f₁, …, f_g ∈ 𝔪_ξ` have `jacDet Φ f ≠ 0` | a regular system of parameters of `𝒪_{A_L,0}` gives holomorphic coordinates at `0` of the complex manifold `A_τ(ℂ)` and `Φ` is a local biholomorphism at `0` (STANDARD) |
+| `DefFaltings.HodgeLatticeTheorem` | stated in def-faltings; reduced by hodge-lattice to `TangentDimAtOrigin` and `DimBaseChange` (the latter proved by g0-dim) | `hodgeSpace (dim A)` is a line and `⋀ω_𝒢` is a full lattice in it | smoothness (hodge-lattice §4) |
+| `Metrization.AnalyticUniformizationOfDim` | **leaf** (published theorem, restated over def-faltings' `IsAnalyticUniformization`) | for `g = dim A` and every `τ`: a full lattice `Λ ⊂ ℂ^g` and an analytic uniformization `Φ : ℂ^g → 𝒢(ℂ)_τ` with kernel `Λ` | `A_τ(ℂ)` is a compact connected complex Lie group of dimension `dim A`, hence `ℂ^g/Λ` (Mumford, *Abelian varieties*, §1, UNVERIFIED locator; Serre's GAGA for the analytic structure). It is def-faltings' `AnalyticUniformizationExists` with the dimension pinned |
+| `Metrization.JacDetNondegenerate` | glue (complex geometry) | for `g = dim A` and a uniformization whose kernel is a full lattice, some `f₁, …, f_g ∈ 𝔪_ξ` have `jacDet Φ f ≠ 0` | a regular system of parameters of `𝒪_{A_L,0}` gives holomorphic coordinates at `0` on the complex manifold `A_τ(ℂ)`, and `Φ` is a local biholomorphism at `0`: it is continuous for the analytic topology (regular functions are holomorphic along it), so it lifts a linear map of `ℂ^g` that is complex (holomorphy) and injective (discrete kernel) (STANDARD) |
 
-`JacDetNondegenerate` is what makes the coefficient map nonzero (`HodgeData.coeff_ne_zero`).
-The hypotheses `A.dim = g` and "full lattice" are included only to make it weaker.
+`JacDetNondegenerate` makes the coefficient maps nonzero (`HodgeData.coeff_ne_zero`). The
+hypotheses `A.dim = g` and "full lattice" are there only to make it weaker.
 
 ## 3. `ProductMetrizationGeo`, reduced
 
@@ -119,55 +138,60 @@ Statement (verbatim): for `IsProductModel eC 𝒢P 𝒢₁ 𝒢₂` and metrizat
 there are a metrization `MP` of `𝒢P` of dimension `g₁ + g₂` and nonzero sections `s`, `s₁`, `s₂`
 of the three Hodge lattices whose index, coefficients and period covolumes are multiplicative.
 
-New definitions (`part_prodgeo.lean`): `leftBlock`, `rightBlock : ℂ^{g₁+g₂} → ℂ^{gᵢ}`;
-`prodLattice Λ₁ Λ₂` (the lattice `Λ₁ × Λ₂` in `Fin.append` coordinates); `prodPts e Φ₁ Φ₂ z =
-lift (Φ₁ z') (Φ₂ z'') ≫ e.inv`. `productMetrizationGeo_of` builds `MP` with lattice
+New definitions (`part_prodgeo.lean`, `part_prodsplit.lean`): `leftBlock` and
+`rightBlock : ℂ^{g₁+g₂} → ℂ^{gᵢ}`; `prodLattice Λ₁ Λ₂` (the lattice `Λ₁ × Λ₂` in `Fin.append`
+coordinates); `prodPts e Φ₁ Φ₂ z = lift (Φ₁ z') (Φ₂ z'') ≫ e.inv`; `pullGerm φ : 𝒪_{ℋ,ξ} → 𝒪_{𝒢,ξ}`
+(pull-back of germs along a homomorphism of group models, using `φ(ξ) = ξ`, proved as
+`map_genericUnit_of_isMonHom`). `productMetrizationGeo_of` builds `MP` with lattice
 `⋀^{g₁+g₂} ω_{𝒢P}`, periods `prodLattice`, uniformization `prodPts e Φ₁ Φ₂` (with `Φᵢ` from
-`Mᵢ.arch`) and coefficients from `JacDetDescends`; nonvanishing of the coefficients and
-`isLattice` follow from the compatibility in `ProductHodgeCompat`.
+`Mᵢ.arch`) and coefficients from `jacDetDescends`.
 
 | Prop | Kind | Status |
 | --- | --- | --- |
-| `Metrization.ProductLatticeFacts` | glue (pure Mathlib): `prodLattice Λ₁ Λ₂` is discrete and full, `covol = covol Λ₁ · covol Λ₂` | **proved** (`productLatticeFacts`, also standalone in `ProdLattice.lean`): discreteness by injecting into `Λ₁ × Λ₂`; full rank via `append x 0 + append 0 y`; covolume via the fundamental domain `φ⁻¹(F₁ ×ˢ F₂)` with `φ : ℂ^{g₁+g₂} ≃ ℂ^{g₁} × ℂ^{g₂}` volume preserving (`piCongrLeft` and `sumPiEquivProdPi`) and `Measure.prod_prod` |
-| `Metrization.ProductUniformization` | glue: `prodPts e Φ₁ Φ₂` is an analytic uniformization of `𝒢P(ℂ)_τ` with kernel `prodLattice Λ₁ Λ₂` | **reduced** (`productUniformization_of`): the homomorphism, kernel and surjectivity clauses are proved (`prodPts_alg`, from `e`, `MonObj.mul_comp`, `MonObj.one_comp`, `hom_ext`) |
-| `Metrization.ProductUniformizationAnalytic` | glue: `dom (prodPts e Φ₁ Φ₂) U` is open and regular functions are holomorphic along `prodPts` | open. Why true: a Zariski open of `𝒢₁ ×_{𝓞_L} 𝒢₂` is covered by basic opens `D(h)` of products `Spec(R₁ ⊗ R₂)` of affine opens; a regular function there is `a/hⁿ`, `a, h` sums of products of functions holomorphic along `Φ₁`, `Φ₂` (STANDARD) |
-| `Metrization.ProductHodgeCompat` | glue: `hodgeSpace (g₁+g₂)` of `𝒢P` is a line, and there are nonzero `s`, `s₁`, `s₂` in the lattices with `secIndex` multiplicative such that every coefficient map defined by the Jacobians of `prodPts e Φ₁ Φ₂` has `c s = coeff₁ s₁ · coeff₂ s₂` | open. Why true: `s = p₁*s₁ ∧ p₂*s₂`; `ω_{𝒢P} = p₁*ω₁ ⊕ p₂*ω₂` for a product of smooth group schemes, so `⋀^{top}` is the tensor product of the two lines and indices multiply (norms of ideals); `(p₁*f) ∘ prodPts = f ∘ Φ₁ ∘ leftBlock` near `0`, so the Jacobian is block diagonal (STANDARD) |
+| `Metrization.ProductLatticeFacts` | glue (pure Mathlib): `prodLattice Λ₁ Λ₂` is discrete and full, and `covol = covol Λ₁ · covol Λ₂` | **proved** (`productLatticeFacts`, also standalone in `ProdLattice.lean`). Discreteness: inject into `Λ₁ × Λ₂`. Full rank: `append x 0 + append 0 y`. Covolume: the fundamental domain `φ⁻¹(F₁ ×ˢ F₂)`, where `φ : ℂ^{g₁+g₂} ≃ ℂ^{g₁} × ℂ^{g₂}` preserves volume (`piCongrLeft`, `sumPiEquivProdPi`), and `Measure.prod_prod` |
+| `Metrization.ProductUniformization` | glue: `prodPts e Φ₁ Φ₂` is an analytic uniformization of `𝒢P(ℂ)_τ` with kernel `prodLattice Λ₁ Λ₂` | **reduced** to `ProductUniformizationAnalytic` (`productUniformization_of`). The homomorphism, kernel and surjectivity clauses are proved (`prodPts_alg`, from `e`, `MonObj.mul_comp`, `MonObj.one_comp`, `hom_ext`) |
+| `Metrization.ProductUniformizationAnalytic` | glue: each `dom (prodPts e Φ₁ Φ₂) U` is open and regular functions are holomorphic along `prodPts` | **open**. Why true: a Zariski open of `𝒢₁ ×_{𝓞_L} 𝒢₂` is covered by basic opens `D(h)` of products `Spec(R₁ ⊗ R₂)` of affine opens; a regular function there is `a/hⁿ` with `a, h` sums of products of functions holomorphic along `Φ₁`, `Φ₂` (STANDARD) |
+| `Metrization.ProductHodgeCompat` | glue: the Hodge line of `𝒢P` with a product section whose coefficient is the product | **reduced** (`productHodgeCompat_of`) to `ProductUniformization`, `ProductHodgeLattice` and `ProductJacobian` |
+| `Metrization.ProductJacobian` | glue (calculus): `jacDet (prodPts e Φ₁ Φ₂) (p₁*f₁, p₂*f₂) = jacDet Φ₁ f₁ · jacDet Φ₂ f₂` | **proved** (`productJacobian`): `pullGerm_germ`, `evalAt_comp`, `(p₁*t) ∘ prodPts = (t ∘ Φ₁) ∘ leftBlock` near `0`, chain rule, `reindex finSumFinEquiv` and `det_fromBlocks_zero₂₁` |
+| `Metrization.ProductHodgeLattice` | glue (algebra) | **open**. Statement: `hodgeSpace (g₁+g₂)` of `𝒢P` is a line, and there are germ tuples `f₁`, `f₂`, their pull-backs `f = (p₁*f₁, p₂*f₂)` and `a₁, a₂ ∈ L` with `sᵢ = aᵢ · 1⊗dfᵢ` nonzero in `⋀ω_{𝒢ᵢ}`, `s = a₁a₂ · 1⊗df` nonzero in `⋀ω_{𝒢P}`, and `[⋀ω_{𝒢P} : 𝓞s] = [⋀ω₁ : 𝓞s₁]·[⋀ω₂ : 𝓞s₂]`. Why true: `ω_{𝒢P} = p₁*ω₁ ⊕ p₂*ω₂` and `𝔪_ξ/𝔪_ξ² = p₁*C₁ ⊕ p₂*C₂` for a product of smooth group schemes, so `⋀^{top}` is the tensor product of the two lines, and indices multiply for invertible `𝓞_L`-modules (norms of ideals) (STANDARD; EGA IV 17.2.3, UNVERIFIED locator) |
 
-A finding on the statement of `ProductMetrizationGeo` (no defect): it asks for *equality*
-`MP.hodge.coeff σ s = M₁.hodge.coeff σ s₁ · M₂.hodge.coeff σ s₂`, not of absolute values. This
-holds for the product uniformization `prodPts`, but not for an arbitrary metrization of `𝒢P`
-with product periods: another uniformization `prodPts ∘ T` with `T(Λ₁ × Λ₂) = Λ₁ × Λ₂` changes
-`c s` by `det T`, a complex number of modulus 1. So `MP` must be built from `prodPts`, which is
-how `productMetrizationGeo_of` builds it, and `ProductHodgeCompat` is stated for coefficient maps
-attached to `prodPts` only.
+A finding about the statement of `ProductMetrizationGeo` (not a defect): it asks for equality
+`MP.hodge.coeff σ s = M₁.hodge.coeff σ s₁ · M₂.hodge.coeff σ s₂`, not just equality of absolute
+values. This holds for the product uniformization `prodPts`, but not for an arbitrary metrization
+of `𝒢P` with product periods: another uniformization `prodPts ∘ T` with `T(Λ₁ × Λ₂) = Λ₁ × Λ₂`
+multiplies `c s` by `det T`, a complex number of modulus 1. So `MP` has to be built from `prodPts`,
+which is what `productMetrizationGeo_of` does.
 
 ## 4. Leaves and glue after this task
 
-Leaves (published, cited): N1 `NeronModelExists` and `LeafAdopt.H5` (unchanged, from
-g0-heightadd); `AnalyticUniformizationOfDim` (new; the uniformization theorem). Glue, open:
-`AnalyticUniformizationUnique` (def-faltings; not one of my targets; bp-analytic's
-`IsUniformization.exists_equiv` in `ZInQKernel/HDecomp/Analytic/Uniformization.lean` proves the
-analogous statement for its own uniformization structure over `AbVar ℂ`, which might be adapted),
-`HodgeLatticeTheorem` (def-faltings; reduced by hodge-lattice), `JacDetMultilinear`,
-`JacDetNondegenerate`, `ProductUniformizationAnalytic`, `ProductHodgeCompat`. All of them are
-stated over def-faltings' definitions (`GroupModel`, `jacDet`, `IsAnalyticUniformization`,
-`detLattice`, `secIndex`), which are built from Mathlib's schemes, stalks, cotangent spaces,
-exterior powers and `fderiv`; none mentions heights or the conclusion.
+Inputs of `heightAdditivity_of_metrization_v2`:
+- Leaves (published, cited): N1 `NeronModelExists` and `LeafAdopt.H5` (unchanged from
+  g0-heightadd), and `AnalyticUniformizationOfDim` (new; the uniformization theorem).
+- Stated in def-faltings, not targets of this task: `AnalyticUniformizationUnique` (bp-analytic's
+  `IsUniformization.exists_equiv` in `ZInQKernel/HDecomp/Analytic/Uniformization.lean` proves the
+  analogous statement for its own uniformization structure over `AbVar ℂ` and might be adapted)
+  and `HodgeLatticeTheorem` (reduced by hodge-lattice).
+- New glue, open: `JacDetNondegenerate`, `ProductUniformizationAnalytic`, `ProductHodgeLattice`.
 
-What blocks the open glue is the same Mathlib gap in each case: the compatibility of the
-evaluation `evalAt` of regular functions at complex points with restriction, sums, products and
-stalks (`JacDetMultilinear`), the complex-manifold structure of `A_τ(ℂ)` (`JacDetNondegenerate`),
-and affine covers, stalks and differentials of fibre products of schemes
-(`ProductUniformizationAnalytic`, `ProductHodgeCompat`). SPECULATIVE estimate: `JacDetMultilinear`
-is the most tractable (a few hundred lines of scheme API).
+All of them are stated over def-faltings' definitions (`GroupModel`, `jacDet`, `evalAt`,
+`IsAnalyticUniformization`, `detLattice`, `secIndex`) and the new `prodPts`, `prodLattice`,
+`pullGerm`, which are built from Mathlib's schemes, stalks, cotangent spaces, exterior powers and
+`fderiv`. None mentions heights or the conclusion.
+
+What blocks each open glue Prop is missing from Mathlib: the complex-manifold structure of
+`A_τ(ℂ)` (local parameters as holomorphic coordinates) for `JacDetNondegenerate`; affine covers of
+fibre products of schemes and their rings `R₁ ⊗ R₂` for `ProductUniformizationAnalytic`; and
+stalks and differentials of fibre products for `ProductHodgeLattice`. SPECULATIVE estimate:
+`ProductUniformizationAnalytic` is the most tractable of the three (Mathlib has
+`pullbackSpecIso` and affine opens of pullbacks).
 
 ## 5. Files
 
 - `scratch/metrization/Base.lean`: verbatim copy of `scratch/g0-heightadd/HeightAdd.lean`.
 - `scratch/metrization/ExtLine.lean`: `eq_of_finrank_one` (Mathlib only; compiled).
 - `scratch/metrization/ProdLattice.lean`: `productLatticeFacts` (Mathlib only; compiled).
-- `scratch/metrization/part_dim.lean`, `part_g0dim.lean`, `part_exists.lean`, `part_prodgeo.lean`,
-  `part_prodlat.lean`, `part_final.lean`, `part_produnif.lean`, `part_jacdet.lean`: appended to
-  `Base.lean` by `build.sh` to give `Metrization.lean`.
+- `scratch/metrization/part_*.lean` (`dim`, `g0dim`, `exists`, `prodgeo`, `prodlat`, `final`,
+  `produnif`, `jacdet`, `prodsplit`, `jacgerm`, `jacscalar`, `jacclass`, `prodjac`): appended to
+  `Base.lean` in this order by `build.sh` to give `Metrization.lean` (about 4900 lines).
 - Check: `bash scratch/metrization/build.sh && lake env lean scratch/metrization/Metrization.lean`
-  (about 30 s to 2 min with Mathlib loaded).
+  (about 30 s once Mathlib is loaded; prerequisites as for g0-heightadd: none beyond Mathlib).
