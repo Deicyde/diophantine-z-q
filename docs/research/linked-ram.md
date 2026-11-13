@@ -1,4 +1,4 @@
-# linked-ram: `KernelFieldBreaks` reduced to one textbook leaf and one glue Prop at `p = 2`; `TateRamAtThree` corrected
+# linked-ram: `LinkedRam` now rests on one textbook leaf and one glue Prop (the sign of `β` at 2)
 
 Task linked-ram, 2026-11-13. Lean: `scratch/linked-ram/` (results log `log.md`). Merged before starting:
 `origin/wip/linked-tate` (already on the base), `origin/wip/lt-goodred`, `origin/wip/g0-assemble3`.
@@ -9,14 +9,27 @@ Model work only; no human review.
 
 ## 0. Main result
 
-**`LinkedRam` now rests on G3 (proved), one textbook leaf candidate and two glue Props, all stated over the
-project's genuine definitions; two of the four pieces of linked-tate's reduction are proved outright.**
+**Both glue fields that g0-assemble3 left for `LinkedRam` are removed.**
+
+- `kernelFieldBreaks` (field 45 of `GluePieces4`) is reduced to:
+  - **`UpperBreakBound`**, a textbook leaf candidate;
+  - **`BetaSignAtTwo`**, one glue Prop: the sign of `β` on high upper groups at the prime 2.
+- `tateRamAtThree` (field 46) is first **corrected** (finding F1), then **proved** from leaves already in the bundles:
+  - R6, Raynaud's criterion (`r.r6`);
+  - T5, the torsion structure (`t.t5`);
+  - `UpperBreakBound`.
+- Everything else in linked-tate's reduction of `LinkedRam` is now proved.
 
 ```lean
--- proved, no hypotheses (standard axioms):
+-- proved outright (no hypotheses):
 theorem UnramTate.kernelFieldBreaksHigh : UnramTate.KernelFieldBreaksHigh   -- KernelFieldBreaks (ii), p > D
 theorem UnramTate.upperAbsWild : UnramTate.UpperAbsWild                     -- G_{ℚ_p}^u ⊆ P_p for u > 0
+-- proved from leaves:
+theorem UnramTate.torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldFive
+theorem UnramTate.tateRamAtThreeD_of_leaves (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (hB : UpperBreakBound) : TateRamAtThreeD
 -- reductions:
+theorem UnramTate.betaTrivialAtTwo_of_sign (hB : UpperBreakBound) (h : BetaSignAtTwo) : BetaTrivialAtTwo
 theorem UnramTate.kernelFieldBreaks_of' (hB : UpperBreakBound) (h2 : BetaTrivialAtTwo) : KernelFieldBreaks
 theorem UnramTate.linkedRam_of' (hG3 : HSyn.LinkedTate.QMModelG3) (hK : KernelFieldBreaks)
     (hLI : LocalInertiaGlobal) (hUI : UpperAbsInertia) (h3 : TateRamAtThreeD) : LinkedRam
@@ -25,138 +38,216 @@ theorem HSyn.sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves)
     ZInQ.SixContactMin
 ```
 
-- **Finding F1 (statement of g0-assemble3's field 46).** g0-assemble3 added `[L:ℚ] ≤ D` to `G7Data` so that
-  linked-tate's `KernelFieldBreaks` and `TateRamAtThree` become usable. But `TateRamAtThree` is **not quantified over
-  `G7Data`**: it ranges over every `K ≤ L ≤ L'` and every `QML3 K`, with no degree bound (part c12, L107-118,
-  VERIFIED by reading). So the fix does not reach it, and linked-tate's caveat ("justified only for small `K`") still
-  applies to `GluePieces4.tateRamAtThree`. I replace it by **`TateRamAtThreeD`**, the same statement with the hypothesis
-  `Module.finrank ℚ L ≤ heightD`, and re-prove linked-tate's reduction as `linkedRam_of'`, reading the bound from
-  `G7Data`'s last clause. The old Prop implies the new one (`tateRamAtThreeD_of`). Truth of the old form for unbounded
-  `K`: SPECULATIVE (likely false; see §4).
-- **`KernelFieldBreaks` (field 45) is split** into its two clauses. Clause (ii) (`p > D`, wild inertia) is **proved**
-  from the definitions, by an elementary argument about wild elements of `G_{ℚ_p}` (§2). Clause (i) (`p ≤ D`,
-  `t > U₀`) is reduced to:
-  - **`UpperBreakBound`** (LEAF?, a textbook composite): for a finite extension `F/ℚ_p` of degree `a` inside `ℚ̄_p`,
-    `G_{ℚ_p}^u` fixes `F` for `u > 4a²`. This is exactly the bound of the manuscript L796-811, derived there from
-    Serre, *Local Fields*, Ch. III §6 (the different bound `δ ≤ e − 1 + e v_p(e)`) and Ch. IV §1-§3 (Hilbert's formula,
-    Herbrand's function) [section numbers as cited by the manuscript; proposition numbers UNVERIFIED];
-  - **`UpperAbsWild`** (glue, definitions): **proved** (§3);
-  - **`BetaTrivialAtTwo`** (GLUE): at `p = 2`, `β(decomp₂ σ) = 1` for `σ ∈ G_{ℚ_2}^t ∩ decomp⁻¹(G_L)`, `t > U₀`.
-    This is the manuscript's local-reciprocity argument (L826-843); at odd `p` the same step is proved here.
-- **lt-goodred folded.** lt-goodred's proofs of `GoodRedTorsion` and `QMEndRank` (merged here) compile verbatim on
-  g0-assemble3's olean chain (VERIFIED). `GluePieces5` drops those two fields as well.
+### Finding F1: g0-assemble3's field 46 has no degree bound
 
-**`GluePieces5`: 45 fields = 14 LEAF + 4 LEAF? + 27 GLUE** (g0-assemble3's `GluePieces4`: 46 = 14 + 3 + 29). Against
-`GluePieces4`:
-- removed: `goodRedTorsion`, `qmEndRank` (proved by lt-goodred), `kernelFieldBreaks`, `tateRamAtThree`;
-- added: `upperBreakBound` (LEAF?), `betaTrivialAtTwo` (GLUE), `tateRamAtThreeD` (GLUE, the corrected field 46).
+g0-assemble3 added `[L:ℚ] ≤ D` to `G7Data`, so that linked-tate's `KernelFieldBreaks` and `TateRamAtThree` would become
+usable.
+- **The gap.** `TateRamAtThree` is not quantified over `G7Data`. It ranges over every `K ≤ L ≤ L'` and every `QML3 K`,
+  with no degree bound (part c12, L107-118; VERIFIED by reading). So the fix does not reach `GluePieces4.tateRamAtThree`.
+- **Why that matters.** The manuscript's argument needs `[L:ℚ] ≤ D`. For unbounded `K`, the Prop is SPECULATIVELY false:
+  the field that cuts out the inertia image at 3 can have upper breaks above `U₀`. No counterexample was constructed.
+- **The fix.**
+  - `TateRamAtThreeD` is the same statement with the hypothesis `Module.finrank ℚ L ≤ heightD`.
+  - `linkedRam_of'` re-proves linked-tate's reduction, reading the bound from `G7Data`'s last clause.
+  - The old Prop implies the new one (`tateRamAtThreeD_of`).
+- **The corrected Prop is then proved** (`tateRamAtThreeD_of_leaves`, §4).
 
-VERIFIED (Lean 4.35.0, Mathlib v4.35.0): `scratch/linked-ram/olean/Tail.lean` compiles with 0 errors and no `sorry`
-against g0-assemble3's olean chain plus lt-goodred's proofs; every `#print axioms` (including
-`HSyn.sixContactMin_of_leaves5` and `HSyn.gluePieces_of_gluePieces5`) is `[propext, Classical.choice, Quot.sound]` (§5).
+### `GluePieces5`: 44 fields = 14 LEAF + 4 LEAF? + 26 GLUE
+
+g0-assemble3's `GluePieces4` has 46 fields = 14 + 3 + 29. Against it:
+- **Removed:**
+  - `goodRedTorsion`, `qmEndRank`: lt-goodred's proofs, which compile verbatim on g0-assemble3's olean chain (VERIFIED);
+  - `kernelFieldBreaks`, `tateRamAtThree`: this task.
+- **Added:**
+  - `upperBreakBound` (LEAF?);
+  - `betaSignAtTwo` (GLUE).
+
+**Verification.** VERIFIED in Lean 4.35.0 with Mathlib v4.35.0, on two builds:
+- the olean tail `scratch/linked-ram/olean/Tail.lean`;
+- the flat file of g0-assemble3 plus lt-goodred plus this task (§6).
+
+Both have 0 errors and no `sorry`. Every axiom report is `[propext, Classical.choice, Quot.sound]`.
 
 ## 1. The statements
 
-All Props are in `namespace UnramTate` (`scratch/linked-ram/olean/Tail.lean`). `KernelFieldBreaks`, `TateRamAtThree`,
-`LinkedRam`, `G7Data` are linked-tate's and g0-assemble3's definitions, unchanged.
+All of these Props are in `namespace UnramTate`. The following definitions are unchanged:
+- linked-tate's `KernelFieldBreaks`, `TateRamAtThree`, `LinkedRam`;
+- g0-assemble3's `G7Data`;
+- `LadicCond`'s `upperAbs` (`G_{ℚ_p}^u`, Serre IV §3) and `wildSet` (`P_p`, defined by `‖σx − x‖ < ‖x‖`);
+- `PkgI4.decomp`, the restriction along `embP p : ℚ̄ → ℚ̄_p`.
 
 | Prop | kind | content |
 |---|---|---|
-| `KernelFieldBreaksHigh` | **proved** | for G7 data, `p > D`, `σ ∈ P_p` (wild set): `decomp_p σ ∈ G_{L'}` (clause (ii) of `KernelFieldBreaks`) |
-| `KernelFieldBreaksLow` | reduced | for G7 data, `p ≤ D`, `t > U₀`, `σ ∈ G_{ℚ_p}^t`: `decomp_p σ ∈ G_{L'}` (clause (i)) |
-| `UpperBreakBound` | LEAF? | `F/ℚ_p` of degree `a`, `u > 4a²`, `σ ∈ G_{ℚ_p}^u` ⇒ `σ` fixes `F` pointwise |
+| `KernelFieldBreaksHigh` | **proved** | G7 data, `p > D`, `σ ∈ P_p` ⇒ `decomp_p σ ∈ G_{L'}` (clause (ii)) |
+| `KernelFieldBreaksLow` | reduced | G7 data, `p ≤ D`, `t > U₀`, `σ ∈ G_{ℚ_p}^t` ⇒ `decomp_p σ ∈ G_{L'}` (clause (i)) |
+| `UpperBreakBound` | **LEAF?** | `F/ℚ_p` of degree `a`, `u > 4a²`, `σ ∈ G_{ℚ_p}^u` ⇒ `σ` fixes `F` pointwise |
 | `UpperAbsWild` | **proved** | `u > 0` ⇒ `G_{ℚ_p}^u ⊆ P_p` |
-| `BetaTrivialAtTwo` | GLUE | G7 data, `t > U₀`, `σ ∈ G_{ℚ_2}^t`, `decomp₂ σ ∈ G_L` ⇒ `β(decomp₂ σ) = 1` |
-| `TateRamAtThreeD` | GLUE | `TateRamAtThree` with `finrank ℚ L ≤ D` |
+| `BetaTrivialAtTwo` | reduced | G7 data, `t > U₀`, `σ ∈ G_{ℚ_2}^t`, `g = decomp₂ σ ∈ G_L` ⇒ `β(g) = 1` |
+| `BetaSignAtTwo` | **GLUE** | the same with the extra hypothesis `β(g)² = 1` |
+| `TateRamAtThreeD` | **proved from leaves** | `TateRamAtThree` with `finrank ℚ L ≤ D` |
+| `TorsionFieldFive` | **proved from T5** | `QML3` over `K`: some `K₁/K` with `[K₁:K] ≤ G₀` has `G_{K₁}` fixing `A(K̄)[5]` |
+| `RaynaudAtThree` | **proved from R6, `UpperBreakBound`, `TorsionFieldFive`** | `σK ∈ G_K` matching `σ ∈ G_{ℚ_3}^t`, `t > U₀`, `[K:ℚ] ≤ D` ⇒ `(σK − 1)² = 0` on `A(K̄)[5ⁿ]` |
+| `TateRamCore` | **proved from `RaynaudAtThree`** | the same `σK` fixes `A(K̄)[5ⁿ]` |
 
-`G_{ℚ_p}^u` is `LadicCond.upperAbs p u` (Serre IV §3, through `upperSet`, `phiAt`, `ramSetR`, `ramSet`); `P_p` is
-`LadicCond.wildSet` (`‖σx − x‖ < ‖x‖` for `x ≠ 0`); `decomp_p` is `PkgI4.decomp p`, restriction along
-`embP p : ℚ̄ → ℚ̄_p` (linked-tate's `embP_decomp`).
+### About the leaf `UpperBreakBound`
+
+- **Source.** It is the bound in the manuscript at L796-811. The manuscript derives it from Serre, *Local Fields*:
+  - Ch. III §6, the different bound `δ ≤ e − 1 + e·v_p(e)`;
+  - Ch. IV §1-§3, Hilbert's formula `δ = Σ_{i≥0}(|G_i| − 1)` and Herbrand's change of variables.
+
+  The section numbers are the manuscript's; proposition numbers are UNVERIFIED.
+- **The argument.** The normal closure of a degree-`a` extension has degree `≤ a!`. Its last upper break `u*` satisfies
+  `u*/2 ≤ δ/e < 1 + v_p(e) ≤ 1 + log₂ a!`, so `u* < 4a²`. Upper numbering passes to quotients, so `G^u ⊆ G_F` for
+  `u > 4a²`.
+- **Why the encoding is faithful.** It is stated over `LadicCond`'s definitions, which encode Serre's:
+  - `ramSet` is `G_i`;
+  - `ramSetR` is `G_u = G_{⌈u⌉}`;
+  - `phiAt` is Herbrand's function `φ`;
+  - `upperSet` is `G^v = G_{ψ(v)}`, with `ψ(v) = inf{u ≥ −1 | φ(u) ≥ v}`;
+  - `upperAbs` asks this at every finite Galois level.
+
+  The facts used here (`φ(u) ≤ u`, `ψ(u) ≥ u`, the integrand antitone) are proved in §3 and behave as in Serre.
+- **Kind.** LEAF? (a textbook composite), not a single printed theorem. Formalizing it needs Hilbert's formula and the
+  different bound, which Mathlib 4.35 lacks.
 
 ## 2. `KernelFieldBreaksHigh`, proved
 
-Local lemmas (`scratch/linked-ram/test/Wild.lean`, Mathlib only, VERIFIED; copied into `Tail.lean` §1), for `σ` wild
-in `G_{ℚ_p}`:
-- **W0** `‖k‖ = 1` in `ℚ̄_p` for `p ∤ k`; `ξ^k = 1`, `p ∤ k`, `‖ξ − 1‖ < 1` ⇒ `ξ = 1` (`eq_one_of_pow_eq_one`:
-  `k = Σ_{i<k}(1 − ξ^i)` and every term has norm `< 1`).
-- **W1** `σ` fixes roots of unity of order prime to `p` (`wild_fix_root`).
-- **W2** `σ^k y = y` with `p ∤ k` ⇒ `σ y = y` (`wild_fix_of_pow`). Over the fixed field `F` of `σ` (which contains a
-  primitive `k`-th root of unity by W1), `X^k − 1 = ∏_c (X − c)`; evaluated at the `F`-linear map `σ`, every factor
-  `σ − c` with `c ≠ 1` is injective, because `σ v = c v` would give `‖σv − v‖ = ‖c − 1‖‖v‖ ≥ ‖v‖`.
-- **W4** roots of a nonzero `ℚ`-polynomial of degree `< p` are fixed (`wild_fix_of_aeval`: pigeonhole on
-  `σ^i y`, `i ≤ deg`, then W2).
-- **W5** `y^N = 1` with `p² ∤ N` ⇒ `σ y = y` (`wild_fix_of_pow_eq_one`: `y^{N'}` is a root of `1 + X + … + X^{p−1}`,
-  then W0 for `σy/y`).
-- Transfer to `G_ℚ` along `e : ℚ̄ → ℚ̄_p` with `e ∘ g = σ ∘ e`: `fix_of_finrank` (`[L:ℚ] < p` ⇒ `g ∈ G_L`),
-  `fix_of_pow_eq_one`, `pow_mem_fixing` (`L'` finite normal ⇒ `g^{p^a} ∈ G_{L'}` for some `a`: write the order of
-  `g|_{L'}` as `p^a m'` and apply W2 to the wild `σ^{p^a}`).
+### Local lemmas on wild elements
 
-The proof (`kernelFieldBreaksHigh`, via `mem_GQL'_of_wild`): let `g = decomp_p σ`, `p > D`.
-1. `p` is odd (`D ≥ 3`) and `[L:ℚ] ≤ D < p`, so `g ∈ G_L` (W4 through `minpoly`).
-2. `ε = 1` on `G_L × G_L` (`InflatedFrom`, `ε 1 1 = 1`), so `β` is multiplicative on `G_L` and `β(1) = 1`.
-3. `N = chiLevel Tm` with `Tm ⊆ T u` primes and `lev q ∈ {q, 4}`, so `p² ∤ N` (`not_sq_dvd_chiLevel`); by W5 `g` fixes
-   `μ_N`, so `cyc N g = 1` (`cyc_decomp_eq_one`, Mathlib's `modularCyclotomicCharacter.unique`) and
-   `β(g)² = χ(g) = 1`.
-4. `g^{p^a} ∈ G_{L'}` (`pow_mem_fixing`), so `β(g)^{p^a} = β(g^{p^a}) = 1` (`G7Data`'s clause
-   `G_{L'} = G_L ∩ ker β`). With `p` odd, `β(g) = 1`, so `g ∈ G_{L'}`.
+They are in `scratch/linked-ram/test/Wild.lean`, which imports only Mathlib (VERIFIED), and are copied into
+`Tail.lean` §1. Let `σ` be a wild element of `G_{ℚ_p}`.
+- **W0** (`eq_one_of_pow_eq_one`). If `ξ^k = 1`, `p ∤ k` and `‖ξ − 1‖ < 1`, then `ξ = 1`. Proof: `k = Σ_{i<k}(1 − ξ^i)`
+  and every term has norm `< 1`.
+- **W1** (`wild_fix_root`). `σ` fixes the roots of unity of order prime to `p`.
+- **W2** (`wild_fix_of_pow`). If `σ^k y = y` with `p ∤ k`, then `σ y = y`. Proof:
+  - over the fixed field of `σ`, `X^k − 1 = ∏_c (X − c)`;
+  - for `c ≠ 1`, the `F`-linear map `σ − c` is injective, because `σv = cv` would give `‖σv − v‖ = ‖c − 1‖‖v‖ ≥ ‖v‖`.
+- **W4** (`wild_fix_of_aeval`). The roots of a nonzero `ℚ`-polynomial of degree `< p` are fixed. Proof: pigeonhole,
+  then W2.
+- **W5** (`wild_fix_of_pow_eq_one`). If `y^N = 1` and `p² ∤ N`, then `y` is fixed.
+- **Transfer to `G_ℚ`.** Along `e : ℚ̄ → ℚ̄_p` with `e ∘ g = σ ∘ e`:
+  - `fix_of_finrank`: if `[L:ℚ] < p`, then `g ∈ G_L`;
+  - `fix_of_pow_eq_one`: the same for roots of unity, as in W5;
+  - `pow_mem_fixing`: if `L'` is finite and normal, then `g^{p^a} ∈ G_{L'}` for some `a`.
 
-The same `β`-step (`mem_GQL'_of_wild`) proves clause (i) at every odd `p ≤ D` once `g ∈ G_L` and `σ` is wild.
+### The β-step
+
+`mem_GQL'_of_wild`: take G7 data, `p` odd, `σ` wild, and `g = decomp_p σ ∈ G_L`.
+1. `ε = 1` on `G_L × G_L` (from `InflatedFrom` and `ε 1 1 = 1`), so `β` is multiplicative on `G_L`.
+2. `N = chiLevel Tm` with `Tm` a set of primes, so `p² ∤ N` (`not_sq_dvd_chiLevel`).
+3. `g` fixes `μ_N`, so `cyc N g = 1` (Mathlib's `modularCyclotomicCharacter.unique`). Hence `β(g)² = χ(g) = 1`.
+4. `g^{p^a} ∈ G_{L'} = G_L ∩ ker β` (from `pow_mem_fixing`), so `β(g)^{p^a} = 1`.
+5. `p` is odd, so `β(g) = 1`.
+
+### The proof of `KernelFieldBreaksHigh`
+
+For `p > D ≥ 3`:
+- `p` is odd;
+- `[L:ℚ] ≤ D < p`, so `g ∈ G_L` by W4;
+- the β-step then gives `g ∈ G_{L'}`.
 
 ## 3. `KernelFieldBreaksLow` and `UpperAbsWild`
 
-**`decomp_mem_GQL_of_breaks`** (from `UpperBreakBound`): for `[L:ℚ] ≤ D` and `t > U₀`, `decomp_p(G_{ℚ_p}^t) ⊆ G_L`.
-For `x ∈ L`, `F = ℚ_p(embP x)` has degree `deg minpoly_{ℚ_p}(embP x) ≤ deg minpoly_ℚ x ≤ [L:ℚ] ≤ D`
-(`IntermediateField.adjoin.finrank`, `minpoly.dvd`), and `4D² < U₀ = 4(DG₀)²` (`four_D_sq_lt_U0`). No Galois closure
-is needed: the leaf is stated for any finite `F`.
+**`decomp_mem_GQL_of_breaks`.** For `[L:ℚ] ≤ D` and `t > U₀`, `decomp_p(G_{ℚ_p}^t) ⊆ G_L`. Proof:
+- for `x ∈ L`, `ℚ_p(embP x)` has degree `≤ deg minpoly_ℚ x ≤ D`;
+- `4D² < U₀ = 4(DG₀)²` (`four_D_sq_lt_U0`).
 
-**`kernelFieldBreaksLow_of`**: at `p = 2`, `BetaTrivialAtTwo`; at odd `p ≤ D`, `UpperAbsWild` (`t > U₀ ≥ 0`) and
-`mem_GQL'_of_wild`.
+**`kernelFieldBreaksLow_of`.**
+- At odd `p ≤ D`: `UpperAbsWild` and the β-step.
+- At `p = 2`: `BetaTrivialAtTwo`.
 
-**`UpperAbsWild`, proved** (`upperSet_wild`, `upperAbsWild`). For `x ≠ 0` take `M` = the normal closure of
-`ℚ_p(x)` (as linked-tate's `upperAbsInertia`). `σ ∈ upperSet M u = G_{ψ(u)}(M)`:
-- the identity lies in every `ramSet M i` once a uniformizer exists, which `σ ∈ upperSet M u` itself provides; the
-  restriction images are finite (`restr_image_finite`, via `M →ₐ[ℚ_p] ℚ̄_p`);
-- the integrand `g_t/g_0` of `φ_M` is antitone, hence interval integrable, and lies in `[1/g_0, 1]` on `[0, ∞)`, so
-  `v/g_0 ≤ φ_M(v) ≤ v` for `v ≥ 0` (`le_phiAt`, `phiAt_le_self`) and `φ_M ≤ 0` on `v ≤ 0` (linked-tate);
-- hence the set `{v ≥ −1 | u ≤ φ_M(v)}` is nonempty and bounded below by `u`, so `ψ(u) ≥ u > 0` and `σ ∈ G_1(M)`;
-- `G_1(M)` acts wildly on `M^×` (`wild_on_of_ramSet`): the value group of `M` is `‖ϖ‖^ℤ` (`norm_eq_zpow`, from the
-  maximality in `IsUnif`), `x = w ϖ^k` with `‖w‖ = 1`, and `σx/x = (σw/w)(σϖ/ϖ)^k` with both factors in the group
-  `{‖z − 1‖ < 1}`.
+**`UpperAbsWild`, proved** (`upperSet_wild`, `upperAbsWild`). For `x ≠ 0`, let `M` be the normal closure of
+`ℚ_p(x)`.
+- Write `g_t = |G_t|`. The integrand `g_t/g_0` of `φ_M` is antitone, so it is interval integrable.
+- On `[0, ∞)` the integrand lies in `[1/g_0, 1]`. The identity lies in every `G_i`, and the restriction images are
+  finite (`restr_image_finite`).
+- Hence `v/g_0 ≤ φ_M(v) ≤ v`, so `ψ(u) ≥ u > 0` and `G^u(M) ⊆ G_1(M)`.
+- `G_1(M)` acts wildly on `M^×` (`wild_on_of_ramSet`):
+  - the value group of `M` is `‖ϖ‖^ℤ` (`norm_eq_zpow`, from the maximality in `IsUnif`);
+  - write `x = wϖ^k` with `‖w‖ = 1`;
+  - then `σx/x = (σw/w)(σϖ/ϖ)^k` lies in the group `{‖z − 1‖ < 1}`.
 
-## 4. `TateRamAtThree` and the corrected `TateRamAtThreeD`
+**`betaTrivialAtTwo_of_sign`.** At `2`, write `N = 2^b N'` with `b ≤ 2` (`not_eight_dvd_chiLevel`) and `N'` odd.
+- `y^{N'}` is a 4th root of unity. It has degree `≤ 4`, so `UpperBreakBound` fixes it (`64 < U₀`).
+- The odd part is fixed by wildness and W0.
+- So `χ(g) = 1` and `β(g)² = 1`. What remains is exactly `BetaSignAtTwo`.
 
-linked-tate's `TateRamAtThree` quantifies over `K ≤ L ≤ L'` with only `L'/ℚ` finite Galois. Its own docstring and
-caveat say it is "only justified for small `K`". The manuscript's argument (L814-821) needs `[L:ℚ] ≤ D`: over
-`F = L_v(A[5])`, of degree `≤ D·|GL₄(𝔽₅)| = D G₀` (`G₀ = 116064000000 = |GL₄(𝔽₅)|`, VERIFIED arithmetic:
-`624·620·600·500`), Raynaud's criterion gives semistable reduction, wild inertia of `G_F` acts trivially on `V₅`, and
-`G_{ℚ_3}^t ⊆ G_F ∩ P_3` for `t > U₀ = 4(DG₀)²` (break bound with `a = DG₀`, and `UpperAbsWild`). For unbounded `K`
-the last step fails: the field cutting out the inertia image at 3 can have upper breaks beyond `U₀` (SPECULATIVE; no
-counterexample constructed). `TateRamAtThreeD` adds `Module.finrank ℚ L ≤ heightD`; `G7Data` supplies it, and
-`linkedRam_of'` uses it. `TateRamAtThreeD` is believed true by the manuscript's argument (STANDARD route: R6 Raynaud,
-`UpperBreakBound`, `UpperAbsWild`; the unipotent action of a wild element of 3-power order on a 5-group is trivial).
+## 4. `TateRamAtThreeD`, proved from R6, T5 and `UpperBreakBound`
 
-## 5. What compiles
+This is the manuscript's argument at L814-821, done in Lean.
 
-- `scratch/linked-ram/test/Wild.lean` (`lake env lean`, imports Mathlib only): 0 errors. VERIFIED.
-- `scratch/linked-ram/olean/`: g0-assemble3's olean chain (`LPrefix → TailA → TailB → TailC → TailE → TailF`, copied
-  from the g0-assemble3 worktree, gitignored), `TailD.olean` built here from g0-assemble3's committed
-  `olean/TailD.lean` (0 errors), `GoodRedLR.lean` = `import TailD` + lt-goodred's `integ/99d_proofs.lean` verbatim
-  (0 errors, 31 s), and `Tail.lean` = `import GoodRedLR` + this task's parts (0 errors, about 10 s;
-  `ctail.sh Tail.lean`). Axiom reports, all `[propext, Classical.choice, Quot.sound]`: `kernelFieldBreaksHigh`,
-  `kernelFieldBreaks_of_halves`, `kernelFieldBreaks_of`, `kernelFieldBreaks_of'`, `upperAbsWild`, `linkedRam_of'`,
-  `HSyn.gluePieces_of_gluePieces5`, `HSyn.sixContactMin_of_leaves5`. VERIFIED.
-- Setup note: a fresh worktree needs `lake build ZInQKernel.Hypotheses.JHeight` (and the other prefix imports) before
-  the prefix oleans load ("unknown module prefix 'ZInQ'").
+1. **`TorsionFieldFive` from T5** (`torsionFieldFive_of`).
+   - `A(K̄)[5] ≅ 𝔽₅⁴` by T5, so it is finite.
+   - Point stabilizers are open (`PkgI3.RhoCont.exists_openSubgroup_galAct_eq`), so the stabilizer `S` of `A[5]` is
+     open.
+   - Set `K₁ = K̄^S`. Then `[K₁:K] = [G_K:S]` (`IntermediateField.finrank_eq_fixingSubgroup_index`, and
+     `InfiniteGalois.fixingSubgroup_fixedField`).
+   - `G_K/S` embeds in `Aut(𝔽₅⁴)`, whose order is `|GL₄(𝔽₅)| = 624·620·600·500 = G₀` (`card_GL4_F5`, by
+     `Matrix.card_GL_field`).
+2. **`RaynaudAtThree`** (`raynaudAtThree_of`).
+   - Every `y ∈ K₁` has degree `≤ [K:ℚ][K₁:K] ≤ D G₀` over `ℚ`. So `σK` fixes `K₁`, by `UpperBreakBound` and
+     `4(DG₀)² = U₀ < t`.
+   - `σK` lies in the inertia group of `ψ^*(v)`, by `upperAbsInertia` and `localInertiaGlobal` (linked-tate's proofs).
+   - Apply R6 over `K₁` with `m = 5`. `K₁` is a number field, and `O₁ = w₁ ∩ K₁` is a DVR (neron-lg's classification,
+     as copied by lt-goodred).
+   - Transport the result along `A_{K₁}(\bar{K₁}) ≅ A(K̄)` (unram-tate's `trPt` and `bcPt`).
+3. **`TateRamCore`** (`tateRamCore_of`).
+   - Set `y = σK x · x⁻¹`. Unipotence makes `y` fixed, so `σK^m x = y^m x`, and `y^{5ⁿ} = 1`. Hence `σK^{5ⁿ} x = x`.
+   - `σ` is wild (`upperAbsWild`) and `3 ∤ 5ⁿ`, so `σK x = x` by `fix_of_pow_fix`.
+   - `fix_of_pow_fix`: the stabilizer of a point is open, hence closed, hence equal to `G_{K̄^S}`; W2 moves the fixing
+     from `σK^k` to `σK`.
+4. **`TateRamAtThreeD`** (`tateRamAtThreeD_of_core`). Transport along `\bar{L'} ≅ K̄` and
+   `A_{L,L'}(\bar{L'}) ≅ A(K̄)`, exactly as lt-goodred's `goodRedTorsion` does. Then apply linked-tate's
+   `tate_eq_one_of_torsion`.
 
-## 6. What remains
+## 5. Findings
 
-- **`BetaTrivialAtTwo`** (GLUE). Needs local class field theory at 2 (the manuscript: local reciprocity, the logarithm
-  on `U_F^{e+1}`, and `ψ_{F/ℚ_2}(u) ≥ u`). What is cheap here: `χ(decomp₂ σ) = 1` follows from W1 (odd part of `N`)
-  and `UpperBreakBound` for `ℚ_2(i)`, so only the sign `β = ±1` is the genuine content (not compiled).
-- **`TateRamAtThreeD`** (GLUE). Route: the 5-torsion field `K₁ = K(A[5])` (open stabilizers: `PkgI3.RhoCont`'s
-  `exists_openSubgroup_galAct_eq`; `[K₁:K] ≤ |GL₄(𝔽₅)|` from T5), the break bound for `K₁L`, Raynaud (R6) at the place
-  above 3 transported as in lt-goodred's `goodRedTorsion`, and "unipotent of 3-power order on a 5-group ⇒ trivial"
-  (W2 applied to the torsion field). Not compiled.
-- **`UpperBreakBound`** (LEAF?). A textbook composite (Serre III §6, IV §1-§3, plus `[normal closure : ℚ_p] ≤ a!`);
-  formalizing it needs Hilbert's different formula and the different bound, which Mathlib 4.35 lacks.
-- **`LinkedFrob`**: untouched (assigned elsewhere).
+- **F1** (§0). Field 46 of `GluePieces4` lacks the degree bound. Corrected, and the corrected form is proved.
+- **F2.** `UpperBreakBound`, stated for any finite `F/ℚ_p` (not only Galois ones), is the only local-field input needed
+  for clause (i) at odd `p` and for the prime 3. No Galois-closure bookkeeping is needed in Lean.
+- **F3.** At `2`, the only content beyond `UpperBreakBound` and the definitions is the sign: `β(g) ≠ −1`. That needs
+  local class field theory, which Mathlib 4.35 lacks.
+- **Pitfalls** (recorded in `log.md`):
+  - `ι` is notation for `GrpObj.inv` under `open MonObj`;
+  - `AddAut` is an additive group in Mathlib 4.35, so use `Multiplicative`;
+  - `PkgI2.Pts` and `PkgI3`'s `Pt` agree only up to definitional unfolding: bridge them with `exact`, not `rw`;
+  - `nlinarith` on goals that contain `(heightD : ℝ)` hits the maximum recursion depth.
+
+## 6. What compiles
+
+- **`scratch/linked-ram/test/Wild.lean`** (imports Mathlib only): 0 errors. VERIFIED.
+- **The olean chain in `scratch/linked-ram/olean/`.**
+  - The prefix is g0-assemble3's olean chain, copied from the g0-assemble3 worktree (gitignored).
+  - `TailD.olean` is built here from g0-assemble3's committed `TailD.lean`.
+  - `GoodRedLR.lean` is `import TailD` followed by lt-goodred's `integ/99d_proofs.lean`, verbatim.
+  - `Tail.lean` is `import GoodRedLR` followed by this task's parts. Build with `ctail.sh Tail.lean`: 0 errors, about
+    35 s.
+  - All 15 axiom reports are standard. They include `kernelFieldBreaksHigh`, `upperAbsWild`, `kernelFieldBreaks_of'`,
+    `betaTrivialAtTwo_of_sign`, `torsionFieldFive_of`, `raynaudAtThree_of`, `tateRamAtThreeD_of_leaves`,
+    `linkedRam_of'`, `HSyn.gluePieces_of_gluePieces5` and `HSyn.sixContactMin_of_leaves5`.
+- **The flat file.** `assemble.sh` builds `LinkedRam.lean` (not committed) from three pieces:
+  - g0-assemble3's `G0Assemble3.lean`;
+  - lt-goodred's `99d_proofs.lean`;
+  - `Tail.lean` without its import line.
+
+  The result of `lake env lean` is in `flat_summary.txt`:
+  - the run before the TateRam and sign additions: exit 0 in 922 s, 0 errors, 237 standard axiom reports (VERIFIED);
+  - the final run: see `flat_summary.txt` and `log.md`.
+- **Setup for a fresh worktree.** Run `lake build ZInQKernel.Hypotheses.JHeight` (and the prefix's other imports) before
+  the prefix oleans load. Otherwise Lean reports "unknown module prefix 'ZInQ'".
+
+## 7. What remains
+
+- **`BetaSignAtTwo`** (GLUE). It says `β(decomp₂ σ) ≠ −1` on `G_{ℚ_2}^t ∩ G_L`, `t > U₀`, given `β² = 1` there. The
+  manuscript's route:
+  - local reciprocity at 2;
+  - the 2-primary factor of `χ` has conductor `≤ 4`;
+  - the logarithm identifies `U_F^{e+1}` with `𝔪_F^{e+1}`;
+  - `ψ_{F/ℚ_2}(u) ≥ u`.
+
+  Truth: STANDARD route.
+- **`UpperBreakBound`** (LEAF?). A candidate for the literature list: a textbook composite from Serre.
+- **`LinkedFrob`**: untouched (assigned to another host).
+- **Integration.** `GluePieces5` and `sixContactMin_of_leaves5` are in `Tail.lean` §LinkedRamBundle. They are built from
+  g0-assemble3's `GluePieces4` (part z95) by removing four fields and adding two. No Prop of another task was changed;
+  `TateRamAtThreeD` is a new, corrected Prop that sits beside the old one.
