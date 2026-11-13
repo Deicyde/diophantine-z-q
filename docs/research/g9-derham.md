@@ -163,7 +163,10 @@ group `Gal(F'/ℚ_ℓ)`. VERIFIED.
 - `G9Bridge.AbVarBaseChange` (F2): algebraic geometry of abelian varieties, namely base change,
   dimension, and finiteness of `A[ℓⁿ]`. Not in Mathlib. This is the main missing piece.
 - `G9Bridge.R10Weights` (F1): best handled by amending R10. Proving it needs Tate–Sen
-  (Ax–Sen–Tate), which is not in Mathlib.
+  (Ax–Sen–Tate), which is not in Mathlib. A possible refinement, not done here:
+  `R10Weights` would follow from Tate's theorem (`ℂ_p^{G_F} = F` and `ℂ_p(j)^{G_F} = 0` for
+  `j ≠ 0`; Tate 1967, UNVERIFIED locator) together with `dim V_p(A) = 2g`, by the Serre–Tate
+  independence argument (STANDARD). That would replace an amendment of R10 by a textbook leaf.
 - For the integrator: `g9Glue_of_abVarBaseChange` closes `G9Glue` as soon as both are available.
   If R10 is amended to `DeRhamComparison ∧ R10Weights`, the only new statement is
   `AbVarBaseChange`.

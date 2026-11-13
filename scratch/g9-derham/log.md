@@ -161,3 +161,6 @@
   VERIFIED: builds; axioms standard. scratch/g9-derham/Axioms.lean: 22 theorems, all
   [propext, Classical.choice, Quot.sound] (axioms-output.txt).
 - docs/research/g9-derham.md written.
+
+## 04:45 final
+- .fleet/g9-derham.md written (last commit). The second run (3c) has exited (its socket is gone).
