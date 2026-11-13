@@ -32,12 +32,7 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 
 /-! ### Objects -/
 
-/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
-`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
-embedding `K ↪ ℚ̄` that the map chooses. -/
-def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
-    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+-- (leaf-fold2) `G0Galois.resQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
 def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
@@ -64,14 +59,9 @@ lemma eq_resQ (K : Type) [Field K] [NumberField K]
   apply AlgEquiv.ext; intro x
   exact (qEmbRing K).injective ((h x).trans (resQ_spec K τ x).symm)
 
-/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
-abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
-  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+-- (leaf-fold2) `G0Galois.Vb` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
-def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
-    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
-  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+-- (leaf-fold2) `G0Galois.tate` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- The restriction of a representation to an invariant subspace. -/
 def restrictRep {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
@@ -81,11 +71,7 @@ def restrictRep {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k 
   map_one' := by ext w; simp
   map_mul' g g' := by ext w; simp
 
-/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
-def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
-    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
-    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
-  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+-- (leaf-fold2) `G0Galois.Intertwines` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-! ### Outputs of the earlier glue steps (inputs of this range) -/
 
@@ -158,8 +144,7 @@ def G8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [
 def G9Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
   PkgI4.LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ r.HasHTWeightsAtSelf ℓ {0, -1}
 
-/-- **Output of G10:** `r` is odd (`det r(c) = −1` for every complex conjugation `c`). -/
-def G10Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop := r.IsOdd
+-- (leaf-fold2) `G0Galois.G10Out` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- **Output of G11:** `r` is unramified at every prime outside `T ∪ {ℓ}`. -/
 def G11Out {ℓ : ℕ} [Fact ℓ.Prime] (T : Finset ℕ) (r : GaloisRep ℓ 2) : Prop :=
@@ -580,30 +565,11 @@ namespace G0Galois
 
 open PkgI4 (GaloisRep GaloisChar)
 
-/-- `σ ↦ σ` as ring automorphisms of `ℚ̄`. -/
-def toRingEquivQ : PkgI4.GQ →* (PkgI4.Qbar ≃+* PkgI4.Qbar) where
-  toFun σ := σ.toRingEquiv
-  map_one' := rfl
-  map_mul' _ _ := rfl
+-- (leaf-fold2) `G0Galois.toRingEquivQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- The `ℓ`-adic cyclotomic character `χ_ℓ : G_ℚ → ℤ_ℓ^× ⊆ ℚ̄_ℓ^×` (Mathlib's
-`cyclotomicCharacter` on `ℚ̄`, as `PkgI4.cyc` on `G_{ℚ_p}`). -/
-def cycQ (ℓ : ℕ) [Fact ℓ.Prime] : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
-  (Units.map ((algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).comp PadicInt.Coe.ringHom).toMonoidHom).comp
-    ((cyclotomicCharacter PkgI4.Qbar ℓ).comp toRingEquivQ)
+-- (leaf-fold2) `G0Galois.cycQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- **R14 with its published determinant clause (leaf; Shimura 1971 Thm 7.14 for `k = 2`,
-Deligne 1971 for `k ≥ 2`, Deligne–Serre 1974 for `k = 1`; locators UNVERIFIED).** For a normalized
-eigenform `g` of weight `k ≥ 1` with nebentypus, there is a semisimple `ρ_g` attached to `g` with
-`det ρ_g = ε · χ_ℓ^{k−1}`, `ε` of finite image (the nebentypus as a Galois character). This is
-`HSyn.EigenformRepExists` plus the determinant, which the published statements contain. -/
-def R14Det : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
-    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
-    0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ →
-    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g ∧
-      ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
-        ∀ σ, (ρ.mat σ).det = ((ε σ * cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+-- (leaf-fold2) `G0Galois.R14Det` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- **`det V_ℓ(A) = χ_ℓ^{dim A}` (GLUE, unproved; from T9, the Weil pairing of a polarization:
 `G_K` acts on `V_ℓ(A)` through `GSp_{2g}` with multiplier `χ_ℓ`, Mumford §20, §23, STANDARD).** -/

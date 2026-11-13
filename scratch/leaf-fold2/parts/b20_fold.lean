@@ -108,6 +108,15 @@ theorem conjTwistNontrivial_proved (h5 : PkgI2.TorsionStructure.{0}) (hT : PkgI3
     G0Galois.ConjTwistNontrivial :=
   G0Galois.conjTwistNontrivial_of_leaves h5 hT h35 hN2
 
+/-! ### Height-bc glue closed (infra-stalks, part b07) -/
+
+/-- **`CotangentSpanBC` proved** (infra-stalks, from the stalk of a fibre product). -/
+theorem cotangentSpanBC_proved : ZInQ.HeightBC.CotangentSpanBC := ZInQ.HeightBC.cotangentSpanBC
+
+/-- **`UniformizationLiftAnalytic` proved** (infra-stalks). -/
+theorem uniformizationLiftAnalytic_proved : ZInQ.HeightBC.UniformizationLiftAnalytic :=
+  ZInQ.HeightBC.uniformizationLiftAnalytic
+
 /-! ### The open statements -/
 
 /-- **The research-level leaves still open** (leaf-fold2). `ResearchLeaves3` (g0-assemble2: no
@@ -212,17 +221,15 @@ structure OpenAddedLeaves2 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
-the five now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-`endTransport`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
+the seven now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
+`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
 final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   x6KummerFibre : FS5NoCM.X6KummerFibre
   productUnifSplits : ZInQ.ProductHeight.ProductUnifSplits
   productMetrizationOfProductUnif : ZInQ.ProductHeight.ProductMetrizationOfProductUnif
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
-  cotangentSpanBC : ZInQ.HeightBC.CotangentSpanBC
   omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
-  uniformizationLiftAnalytic : ZInQ.HeightBC.UniformizationLiftAnalytic
   periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
@@ -318,7 +325,8 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
       g.productMetrizationOfProductUnif
     stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
       (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-        g.hodgeBCInjective g.cotangentSpanBC g.omegaBaseChange g.uniformizationLiftAnalytic))
+        g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
+        uniformizationLiftAnalytic_proved))
     productExists := G0Product.productExists
     reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
     thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
@@ -354,7 +362,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 15 glue Props.
+* `OpenGlue2`: 13 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -382,6 +390,8 @@ end
 #print axioms HSyn.oMaximal_proved
 #print axioms HSyn.endTransport_proved
 #print axioms HSyn.conjTwistNontrivial_proved
+#print axioms HSyn.cotangentSpanBC_proved
+#print axioms HSyn.uniformizationLiftAnalytic_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2

@@ -39019,12 +39019,7 @@ open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalC
 
 /-! ### Objects -/
 
-/-- The restriction map `G_K → G_ℚ` for a number field `K` (Mathlib's
-`Field.absoluteGaloisGroup.map` along `ℚ → K`). Its image is `G_K` inside `G_ℚ` for the
-embedding `K ↪ ℚ̄` that the map chooses. -/
-def resQ (K : Type) [Field K] [NumberField K] : Field.absoluteGaloisGroup K →* PkgI4.GQ :=
-  (Field.absoluteGaloisGroup.map (algebraMap ℚ K) :
-    Field.absoluteGaloisGroup K →* Field.absoluteGaloisGroup ℚ)
+-- (leaf-fold2) `G0Galois.resQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- The embedding `ℚ̄ → K̄` that `Field.absoluteGaloisGroup.map` chooses (`IsAlgClosed.lift`). -/
 def qEmbRing (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ →+* AlgebraicClosure K :=
@@ -39051,14 +39046,9 @@ lemma eq_resQ (K : Type) [Field K] [NumberField K]
   apply AlgEquiv.ext; intro x
   exact (qEmbRing K).injective ((h x).trans (resQ_spec K τ x).symm)
 
-/-- `ℚ̄_ℓ ⊗_{ℚ_ℓ} V_ℓ(A)`. -/
-abbrev Vb {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] : Type :=
-  TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)
+-- (leaf-fold2) `G0Galois.Vb` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- The Tate action of `G_K` on `ℚ̄_ℓ ⊗ V_ℓ(A)`. -/
-def tate {K : Type} [Field K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] :
-    Representation (PadicAlgCl ℓ) (Field.absoluteGaloisGroup K) (Vb A ℓ) :=
-  GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ)
+-- (leaf-fold2) `G0Galois.tate` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- The restriction of a representation to an invariant subspace. -/
 def restrictRep {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
@@ -39068,11 +39058,7 @@ def restrictRep {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k 
   map_one' := by ext w; simp
   map_mul' g g' := by ext w; simp
 
-/-- `e` intertwines the operators `f g` on `V` with `r(g) ⊕ r(g)` on `ℚ̄_ℓ² × ℚ̄_ℓ²`. -/
-def Intertwines {ℓ : ℕ} [Fact ℓ.Prime] {G V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
-    (f : G → Module.End (PadicAlgCl ℓ) V) (m : G → Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ))
-    (e : V ≃ₗ[PadicAlgCl ℓ] (Fin 2 → PadicAlgCl ℓ) × (Fin 2 → PadicAlgCl ℓ)) : Prop :=
-  ∀ g v, e (f g v) = ((m g).mulVec (e v).1, (m g).mulVec (e v).2)
+-- (leaf-fold2) `G0Galois.Intertwines` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-! ### Outputs of the earlier glue steps (inputs of this range) -/
 
@@ -39145,8 +39131,7 @@ def G8Out {K : Type} [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [
 def G9Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop :=
   PkgI4.LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ r.HasHTWeightsAtSelf ℓ {0, -1}
 
-/-- **Output of G10:** `r` is odd (`det r(c) = −1` for every complex conjugation `c`). -/
-def G10Out {ℓ : ℕ} [Fact ℓ.Prime] (r : GaloisRep ℓ 2) : Prop := r.IsOdd
+-- (leaf-fold2) `G0Galois.G10Out` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- **Output of G11:** `r` is unramified at every prime outside `T ∪ {ℓ}`. -/
 def G11Out {ℓ : ℕ} [Fact ℓ.Prime] (T : Finset ℕ) (r : GaloisRep ℓ 2) : Prop :=
@@ -39567,30 +39552,11 @@ namespace G0Galois
 
 open PkgI4 (GaloisRep GaloisChar)
 
-/-- `σ ↦ σ` as ring automorphisms of `ℚ̄`. -/
-def toRingEquivQ : PkgI4.GQ →* (PkgI4.Qbar ≃+* PkgI4.Qbar) where
-  toFun σ := σ.toRingEquiv
-  map_one' := rfl
-  map_mul' _ _ := rfl
+-- (leaf-fold2) `G0Galois.toRingEquivQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- The `ℓ`-adic cyclotomic character `χ_ℓ : G_ℚ → ℤ_ℓ^× ⊆ ℚ̄_ℓ^×` (Mathlib's
-`cyclotomicCharacter` on `ℚ̄`, as `PkgI4.cyc` on `G_{ℚ_p}`). -/
-def cycQ (ℓ : ℕ) [Fact ℓ.Prime] : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ :=
-  (Units.map ((algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).comp PadicInt.Coe.ringHom).toMonoidHom).comp
-    ((cyclotomicCharacter PkgI4.Qbar ℓ).comp toRingEquivQ)
+-- (leaf-fold2) `G0Galois.cycQ` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
-/-- **R14 with its published determinant clause (leaf; Shimura 1971 Thm 7.14 for `k = 2`,
-Deligne 1971 for `k ≥ 2`, Deligne–Serre 1974 for `k = 1`; locators UNVERIFIED).** For a normalized
-eigenform `g` of weight `k ≥ 1` with nebentypus, there is a semisimple `ρ_g` attached to `g` with
-`det ρ_g = ε · χ_ℓ^{k−1}`, `ε` of finite image (the nebentypus as a Galois character). This is
-`HSyn.EigenformRepExists` plus the determinant, which the published statements contain. -/
-def R14Det : Prop :=
-  ∀ (ℓ : ℕ) [Fact ℓ.Prime] (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (ιL : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ)
-    (N : ℕ) (k : ℤ) (χ : DirichletCharacter ℂ N) (g : PkgI4.CF N k),
-    0 < N → 1 ≤ k → PkgI4.IsNormalizedEigenform g χ →
-    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL g ∧
-      ∃ ε : PkgI4.GQ →* (PadicAlgCl ℓ)ˣ, (Set.range ε).Finite ∧
-        ∀ σ, (ρ.mat σ).det = ((ε σ * cycQ ℓ σ ^ (k - 1) : (PadicAlgCl ℓ)ˣ) : PadicAlgCl ℓ)
+-- (leaf-fold2) `G0Galois.R14Det` deleted: Leaves.lean (leaf-fold) declares it with the same body.
 
 /-- **`det V_ℓ(A) = χ_ℓ^{dim A}` (GLUE, unproved; from T9, the Weil pairing of a polarization:
 `G_K` acts on `V_ℓ(A)` through `GSp_{2g}` with multiplier `χ_ℓ`, Mumford §20, §23, STANDARD).** -/
@@ -41973,16 +41939,23 @@ theorem equivariant_of_asModule (ρ : Representation k G V) (σ : Representation
     ∃ e : V ≃ₗ[k] W, ∀ g v, e (ρ g v) = σ g (e v) := by
   refine ⟨{ toFun := fun v => σ.asModuleEquiv (φ (ρ.asModuleEquiv.symm v))
             invFun := fun w => ρ.asModuleEquiv (φ.symm (σ.asModuleEquiv.symm w))
-            map_add' := fun v w => by simp
+            map_add' := fun v w => by simp only [map_add]
             map_smul' := fun c v => by
               rw [ρ.asModuleEquiv_symm_map_smul, φ.map_smul,
-                Representation.asModuleEquiv_map_smul]
-              simp
-            left_inv := fun v => by simp
-            right_inv := fun w => by simp }, fun g v => ?_⟩
+                Representation.asModuleEquiv_map_smul, AlgHom.commutes, Module.algebraMap_end_apply]
+              rfl
+            left_inv := fun v => by
+              dsimp only
+              rw [σ.asModuleEquiv.symm_apply_apply, φ.symm_apply_apply,
+                ρ.asModuleEquiv.apply_symm_apply]
+            right_inv := fun w => by
+              dsimp only
+              rw [ρ.asModuleEquiv.symm_apply_apply, φ.apply_symm_apply,
+                σ.asModuleEquiv.apply_symm_apply] }, fun g v => ?_⟩
+  -- (leaf-fold2) explicit rewrites instead of `simp` (see mk_fix_tailA.py)
   simp only [LinearEquiv.coe_mk, LinearMap.coe_mk, AddHom.coe_mk]
-  rw [ρ.asModuleEquiv_symm_map_rho, φ.map_smul, Representation.asModuleEquiv_map_smul]
-  simp
+  rw [ρ.asModuleEquiv_symm_map_rho, φ.map_smul, Representation.asModuleEquiv_map_smul,
+    Representation.asAlgebraHom_of]
 
 end RepLemmas
 
@@ -77194,6 +77167,857 @@ end
 #print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
 
+
+/-! leaf-fold2: scratch/infra-stalks/HeightBCGlue.lean lines 3-850 (its Part 1: general stalk lemmas), verbatim; root namespace. -/
+
+/-! # infra-stalks: height-bc glue `CotangentSpanBC` and `UniformizationLiftAnalytic` proved
+Part 1: general lemmas (`StalkPullback.lean`, `local_structure.lean.part`). Part 2: verbatim
+`scratch/height-bc/Final.lean` (after its import). Part 3: `bc_proof.lean.part`,
+`ula_proof.lean.part`, `hbc_final.lean.part`. -/
+
+universe u
+
+open CategoryTheory Limits
+
+namespace AlgebraicGeometry
+
+/-- The stalk of `T` at `t` is *generated* by the stalk maps of `p : T ⟶ X` and `q : T ⟶ Y`:
+every element is `c / w` with `c, w` in the subring generated by the two images and `w` a unit. -/
+def StalkGen {T X Y : Scheme.{u}} (p : T ⟶ X) (q : T ⟶ Y) (t : T) : Prop :=
+  ∀ r : T.presheaf.stalk t, ∃ c ∈ (p.stalkMap t).hom.range ⊔ (q.stalkMap t).hom.range,
+    ∃ w ∈ (p.stalkMap t).hom.range ⊔ (q.stalkMap t).hom.range, IsUnit w ∧ r * w = c
+
+theorem stalkMap_comp_apply' {T X X' : Scheme.{u}} (p : T ⟶ X) (j : X ⟶ X') (t : T)
+    (y : X'.presheaf.stalk ((p ≫ j) t)) :
+    (p ≫ j).stalkMap t y = p.stalkMap t (j.stalkMap (p t) y) := by
+  rw [Scheme.Hom.stalkMap_comp]; rfl
+
+theorem range_stalkMap_comp {T X X' : Scheme.{u}} (p : T ⟶ X) (j : X ⟶ X') (t : T) :
+    ((p ≫ j).stalkMap t).hom.range = (j.stalkMap (p t)).hom.range.map (p.stalkMap t).hom := by
+  ext x
+  constructor
+  · rintro ⟨y, rfl⟩
+    exact ⟨j.stalkMap (p t) y, ⟨y, rfl⟩, (stalkMap_comp_apply' p j t y).symm⟩
+  · rintro ⟨_, ⟨y, rfl⟩, rfl⟩
+    exact ⟨y, stalkMap_comp_apply' p j t y⟩
+
+/-- Post-composing with a morphism whose stalk map is an isomorphism (e.g. an open immersion)
+does not change the image of the stalk map. -/
+theorem range_stalkMap_comp_of_isIso {T X X' : Scheme.{u}} (p : T ⟶ X) (j : X ⟶ X') (t : T)
+    [IsIso (j.stalkMap (p t))] :
+    ((p ≫ j).stalkMap t).hom.range = (p.stalkMap t).hom.range := by
+  rw [range_stalkMap_comp]
+  have hs : Function.Surjective (j.stalkMap (p t)).hom :=
+    (ConcreteCategory.bijective_of_isIso (j.stalkMap (p t))).2
+  rw [RingHom.range_eq_top.mpr hs, ← RingHom.range_eq_map]
+
+theorem StalkGen.comp_openImmersion {T X Y X' Y' : Scheme.{u}} {p : T ⟶ X} {q : T ⟶ Y} {t : T}
+    (h : StalkGen p q t) (jX : X ⟶ X') (jY : Y ⟶ Y') [IsOpenImmersion jX] [IsOpenImmersion jY] :
+    StalkGen (p ≫ jX) (q ≫ jY) t := by
+  unfold StalkGen
+  rw [range_stalkMap_comp_of_isIso, range_stalkMap_comp_of_isIso]
+  exact h
+
+/-- Transport of `StalkGen` along a morphism `m : T ⟶ Q` whose stalk map at `t` is an isomorphism
+(e.g. an open immersion). -/
+theorem StalkGen.of_comp {T Q X Y : Scheme.{u}} (m : T ⟶ Q) (p : Q ⟶ X) (q : Q ⟶ Y) (t : T)
+    [IsIso (m.stalkMap t)] (h : StalkGen (m ≫ p) (m ≫ q) t) : StalkGen p q (m t) := by
+  intro r
+  set α := m.stalkMap t
+  have hα : Function.Bijective α.hom := ConcreteCategory.bijective_of_isIso α
+  have hrange : ∀ φ : Q ⟶ X, ((m ≫ φ).stalkMap t).hom.range =
+      (φ.stalkMap (m t)).hom.range.map α.hom := fun φ => range_stalkMap_comp m φ t
+  have hrange' : ∀ φ : Q ⟶ Y, ((m ≫ φ).stalkMap t).hom.range =
+      (φ.stalkMap (m t)).hom.range.map α.hom := fun φ => range_stalkMap_comp m φ t
+  obtain ⟨c, hc, w, hw, hwu, hrw⟩ := h (α r)
+  rw [hrange, hrange', ← Subring.map_sup] at hc hw
+  obtain ⟨c', hc', rfl⟩ := hc
+  obtain ⟨w', hw', rfl⟩ := hw
+  refine ⟨c', hc', w', hw', ?_, ?_⟩
+  · have := hwu.map (inv α).hom
+    rwa [← CommRingCat.comp_apply, IsIso.hom_inv_id, CommRingCat.id_apply] at this
+  · apply hα.1
+    rw [map_mul, hrw]
+
+/-- Germs at `t` of global sections of `Spec S` coming from `R` along `φ : R ⟶ S` are images under
+the stalk map of `Spec.map φ`. -/
+theorem germ_ΓSpecIso_inv_map {R S : CommRingCat.{u}} (φ : R ⟶ S) (t : Spec S) (a : R) :
+    (Spec S).presheaf.germ ⊤ t trivial ((Scheme.ΓSpecIso S).inv (φ a)) =
+      (Spec.map φ).stalkMap t
+        ((Spec R).presheaf.germ ⊤ (Spec.map φ t) trivial ((Scheme.ΓSpecIso R).inv a)) := by
+  erw [Scheme.Hom.germ_stalkMap_apply (Spec.map φ) ⊤ t (by trivial)]
+  have h := Scheme.ΓSpecIso_inv_naturality φ
+  have h2 : (Scheme.ΓSpecIso S).inv (φ a) = (Spec.map φ).appTop ((Scheme.ΓSpecIso R).inv a) := by
+    rw [← CommRingCat.comp_apply, h, CommRingCat.comp_apply]
+  rw [h2]
+  rfl
+
+open TensorProduct in
+/-- **The affine case.** The stalk of `Spec (A ⊗[R] B)` is generated by the images of the stalks
+of `Spec A` and `Spec B`. -/
+theorem stalkGen_spec_tensor (R A B : CommRingCat.{u}) [Algebra R A] [Algebra R B]
+    (t : Spec (CommRingCat.of (A ⊗[R] B))) :
+    StalkGen (Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom :
+        A →+* A ⊗[R] B)))
+      (Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+        B →ₐ[R] A ⊗[R] B).toRingHom)) t := by
+  let T := Spec (CommRingCat.of (A ⊗[R] B))
+  set iL : T ⟶ Spec A := Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom :
+        A →+* A ⊗[R] B))
+  set iR : T ⟶ Spec B := Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+        B →ₐ[R] A ⊗[R] B).toRingHom)
+  set S' := (iL.stalkMap t).hom.range ⊔ (iR.stalkMap t).hom.range
+  let γ : A ⊗[R] B →+* T.presheaf.stalk t :=
+    (T.presheaf.germ ⊤ t trivial).hom.comp
+      (Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))).inv.hom
+  have hγ : ∀ a, γ a ∈ S' := by
+    intro a
+    induction a using TensorProduct.induction_on with
+    | zero => rw [map_zero]; exact S'.zero_mem
+    | add x y hx hy => rw [map_add]; exact S'.add_mem hx hy
+    | tmul a b =>
+      have e : a ⊗ₜ[R] b = (a ⊗ₜ[R] (1 : B)) * ((1 : A) ⊗ₜ[R] b) := by
+        simp [Algebra.TensorProduct.tmul_mul_tmul]
+      rw [e, map_mul]
+      refine S'.mul_mem ((le_sup_left : _ ≤ S') ⟨_, (germ_ΓSpecIso_inv_map
+        (CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom : A →+* A ⊗[R] B)) t a).symm⟩)
+        ((le_sup_right : _ ≤ S') ⟨_, (germ_ΓSpecIso_inv_map
+        (CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+          B →ₐ[R] A ⊗[R] B).toRingHom) t b).symm⟩)
+  intro r
+  letI : Algebra Γ(T, ⊤) (T.presheaf.stalk t) := (T.presheaf.germ ⊤ t trivial).hom.toAlgebra
+  have hL : IsLocalization.AtPrime (T.presheaf.stalk t)
+      ((isAffineOpen_top T).primeIdealOf ⟨t, trivial⟩).asIdeal :=
+    (isAffineOpen_top T).isLocalization_stalk ⟨t, trivial⟩
+  obtain ⟨⟨a, s⟩, hrs⟩ := @IsLocalization.surj _ _ _ _ _ _ hL r
+  refine ⟨_, ?_, _, ?_, @IsLocalization.map_units _ _ _ _ _ _ hL s, hrs⟩
+  · have := hγ ((Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))).hom a)
+    convert this using 1
+    exact (congrArg (T.presheaf.germ ⊤ t trivial).hom
+      (Iso.hom_inv_id_apply (Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))) a)).symm
+  · have := hγ ((Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))).hom s.1)
+    convert this using 1
+    exact (congrArg (T.presheaf.germ ⊤ t trivial).hom
+      (Iso.hom_inv_id_apply (Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))) s.1)).symm
+
+/-- An affine chart of `X` through `x`, lying over a given affine chart `jV : Spec R ⟶ S` of `S`. -/
+theorem exists_affine_chart_over {X S : Scheme.{u}} (f : X ⟶ S) {R : CommRingCat.{u}}
+    (jV : Spec R ⟶ S) [IsOpenImmersion jV] (x : X) (hx : f x ∈ Set.range jV) :
+    ∃ (A : CommRingCat.{u}) (jU : Spec A ⟶ X) (_ : IsOpenImmersion jU) (φ : R ⟶ A),
+      x ∈ Set.range jU ∧ Spec.map φ ≫ jV = jU ≫ f := by
+  obtain ⟨x', hx'⟩ : x ∈ Set.range (pullback.fst f jV) := by
+    rw [Scheme.Pullback.range_fst]; exact hx
+  let 𝒰 := (pullback f jV).affineOpenCover
+  obtain ⟨y, hy⟩ := 𝒰.covers x'
+  refine ⟨𝒰.X (𝒰.idx x'), 𝒰.f _ ≫ pullback.fst f jV, inferInstance,
+    Spec.preimage (𝒰.f _ ≫ pullback.snd f jV), ⟨y, ?_⟩, ?_⟩
+  · rw [Scheme.Hom.comp_apply, hy, hx']
+  · rw [Spec.map_preimage]
+    simp only [Category.assoc, pullback.condition]
+
+/-- **Stalks of a fibre product are generated by the stalks of the factors.** For `f : X ⟶ S`,
+`g : Y ⟶ S` and `z ∈ X ×_S Y`, every element of `𝒪_{X ×_S Y, z}` is `c / w` with `c, w` in the
+subring generated by the images of `𝒪_{X, fst z}` and `𝒪_{Y, snd z}` and `w` a unit. -/
+theorem pullback_stalkGen {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S) (z : ↥(pullback f g)) :
+    StalkGen (pullback.fst f g) (pullback.snd f g) z := by
+  let 𝒱 := S.affineOpenCover
+  let R := 𝒱.X (𝒱.idx (f (pullback.fst f g z)))
+  let jV : Spec R ⟶ S := 𝒱.f (𝒱.idx (f (pullback.fst f g z)))
+  have hs : f (pullback.fst f g z) ∈ Set.range jV := 𝒱.covers _
+  obtain ⟨A, jU, _, φ, hxU, eU⟩ := exists_affine_chart_over f jV (pullback.fst f g z) hs
+  have hs' : g (pullback.snd f g z) ∈ Set.range jV := by
+    rw [← Scheme.Hom.comp_apply, ← pullback.condition, Scheme.Hom.comp_apply]; exact hs
+  obtain ⟨B, jW, _, ψ, hyW, eW⟩ := exists_affine_chart_over g jV (pullback.snd f g z) hs'
+  let _ : Algebra R A := φ.hom.toAlgebra
+  let _ : Algebra R B := ψ.hom.toAlgebra
+  let m := pullback.map (Spec.map φ) (Spec.map ψ) f g jU jW jV eU eW
+  have hz : z ∈ Set.range m := by
+    rw [Scheme.Pullback.range_map]; exact ⟨hxU, hyW⟩
+  obtain ⟨t0, ht0⟩ := hz
+  let e := pullbackSpecIso R A B
+  let m' : Spec (CommRingCat.of (TensorProduct R A B)) ⟶ pullback f g := e.inv ≫ m
+  have h1 : m' ≫ pullback.fst f g = Spec.map (CommRingCat.ofHom
+      (Algebra.TensorProduct.includeLeftRingHom : A →+* TensorProduct R A B)) ≫ jU := by
+    simp only [m', m, e, Category.assoc, pullback.lift_fst]
+    rw [← Category.assoc]
+    exact congrArg (· ≫ jU) (pullbackSpecIso_inv_fst R A B)
+  have h2 : m' ≫ pullback.snd f g = Spec.map (CommRingCat.ofHom
+      (Algebra.TensorProduct.includeRight : B →ₐ[R] TensorProduct R A B).toRingHom) ≫ jW := by
+    simp only [m', m, e, Category.assoc, pullback.lift_snd]
+    rw [← Category.assoc]
+    exact congrArg (· ≫ jW) (pullbackSpecIso_inv_snd R A B)
+  have key := StalkGen.of_comp m' (pullback.fst f g) (pullback.snd f g) (e.hom t0)
+    (by rw [h1, h2]; exact (stalkGen_spec_tensor R A B _).comp_openImmersion jU jW)
+  have hpt : m' (e.hom t0) = m t0 := by
+    have he : e.inv (e.hom t0) = t0 := by
+      rw [← Scheme.Hom.comp_apply, Iso.hom_inv_id]; rfl
+    simp only [m']
+    rw [Scheme.Hom.comp_apply, he]
+  rw [hpt, ht0] at key
+  exact key
+
+/-! ### Maximal ideals and residue fields -/
+
+/-- `x` is *rational over* `f x`: every element of `𝒪_{X,x}` is congruent modulo `𝔪_x` to the
+image of an element of `𝒪_{S, f x}` (the residue field extension `κ(f x) → κ(x)` is onto). -/
+def RationalOver {X S : Scheme.{u}} (f : X ⟶ S) (x : X) : Prop :=
+  ∀ a : X.presheaf.stalk x, ∃ c : S.presheaf.stalk (f x),
+    a - f.stalkMap x c ∈ IsLocalRing.maximalIdeal (X.presheaf.stalk x)
+
+theorem StalkGen.comp_of_isIso {T Q X Y : Scheme.{u}} (m : T ⟶ Q) (p : Q ⟶ X) (q : Q ⟶ Y)
+    (t : T) [IsIso (m.stalkMap t)] (h : StalkGen p q (m t)) : StalkGen (m ≫ p) (m ≫ q) t := by
+  intro r
+  set α := m.stalkMap t
+  have hα : Function.Bijective α.hom := ConcreteCategory.bijective_of_isIso α
+  obtain ⟨r', rfl⟩ := hα.2 r
+  obtain ⟨c, hc, w, hw, hwu, hrw⟩ := h r'
+  refine ⟨α c, ?_, α w, ?_, hwu.map α.hom, by rw [← map_mul, hrw]⟩
+  · rw [range_stalkMap_comp, range_stalkMap_comp, ← Subring.map_sup]; exact ⟨c, hc, rfl⟩
+  · rw [range_stalkMap_comp, range_stalkMap_comp, ← Subring.map_sup]; exact ⟨w, hw, rfl⟩
+
+/-- The two composite stalk maps `𝒪_{S} → 𝒪_{T,t}` of a commutative square agree. -/
+theorem exists_stalkMap_comp_eq {T X Y S : Scheme.{u}} (p : T ⟶ X) (q : T ⟶ Y) (f : X ⟶ S)
+    (g : Y ⟶ S) (w : p ≫ f = q ≫ g) (t : T) (c : S.presheaf.stalk (f (p t))) :
+    ∃ c' : S.presheaf.stalk (g (q t)),
+      p.stalkMap t (f.stalkMap (p t) c) = q.stalkMap t (g.stalkMap (q t) c') := by
+  have hpt : (p ≫ f) t = (q ≫ g) t := by rw [w]
+  refine ⟨(S.presheaf.stalkCongr (.of_eq hpt)).hom c, ?_⟩
+  calc p.stalkMap t (f.stalkMap (p t) c) = (p ≫ f).stalkMap t c :=
+        (stalkMap_comp_apply' p f t c).symm
+    _ = (q ≫ g).stalkMap t ((S.presheaf.stalkCongr (.of_eq hpt)).hom c) := by
+        rw [Scheme.Hom.stalkMap_congr_hom (p ≫ f) (q ≫ g) w t]; rfl
+    _ = _ := stalkMap_comp_apply' q g t _
+
+section MaximalIdeal
+
+variable {T X Y S : Scheme.{u}} {p : T ⟶ X} {q : T ⟶ Y} {f : X ⟶ S} {g : Y ⟶ S}
+
+/-- The ideal `𝔪_x 𝒪_t + 𝔪_y 𝒪_t`. -/
+noncomputable abbrev stalkIdeal (p : T ⟶ X) (q : T ⟶ Y) (t : T) : Ideal (T.presheaf.stalk t) :=
+  (IsLocalRing.maximalIdeal _).map (p.stalkMap t).hom ⊔
+    (IsLocalRing.maximalIdeal _).map (q.stalkMap t).hom
+
+theorem stalkIdeal_le (t : T) : stalkIdeal p q t ≤ IsLocalRing.maximalIdeal _ := by
+  refine sup_le (Ideal.map_le_iff_le_comap.mpr fun a ha => ?_)
+    (Ideal.map_le_iff_le_comap.mpr fun a ha => ?_)
+  · exact map_nonunit (p.stalkMap t).hom a ha
+  · exact map_nonunit (q.stalkMap t).hom a ha
+
+/-- Every element of the subring generated by the two images is congruent modulo
+`𝔪_x 𝒪_t + 𝔪_y 𝒪_t` to an element coming from `𝒪_{Y,y}`, when `x` is rational over `s`. -/
+theorem exists_sub_mem_stalkIdeal (w : p ≫ f = q ≫ g) {t : T} (hrat : RationalOver f (p t))
+    {u : T.presheaf.stalk t} (hu : u ∈ (p.stalkMap t).hom.range ⊔ (q.stalkMap t).hom.range) :
+    ∃ b : Y.presheaf.stalk (q t), u - q.stalkMap t b ∈ stalkIdeal p q t := by
+  have hR : (p.stalkMap t).hom.range ⊔ (q.stalkMap t).hom.range ≤
+      Subring.closure (Set.range (p.stalkMap t).hom ∪ Set.range (q.stalkMap t).hom) :=
+    sup_le (fun x hx => Subring.subset_closure (Or.inl (RingHom.mem_range.mp hx)))
+      (fun x hx => Subring.subset_closure (Or.inr (RingHom.mem_range.mp hx)))
+  set I := stalkIdeal p q t
+  suffices H : ∀ u' (hu' : u' ∈ Subring.closure
+      (Set.range (p.stalkMap t).hom ∪ Set.range (q.stalkMap t).hom)),
+      ∃ b : Y.presheaf.stalk (q t), u' - q.stalkMap t b ∈ I from H u (hR hu)
+  intro u' hu'
+  induction hu' using Subring.closure_induction with
+  | mem x hx =>
+    rcases hx with ⟨a, rfl⟩ | ⟨b, rfl⟩
+    · obtain ⟨c, hc⟩ := hrat a
+      obtain ⟨c', hc'⟩ := exists_stalkMap_comp_eq p q f g w t c
+      refine ⟨g.stalkMap (q t) c', ?_⟩
+      rw [← hc', ← map_sub]
+      exact Ideal.mem_sup_left (Ideal.mem_map_of_mem _ hc)
+    · exact ⟨b, by rw [sub_self]; exact I.zero_mem⟩
+  | zero => exact ⟨0, by rw [map_zero, sub_self]; exact I.zero_mem⟩
+  | one => exact ⟨1, by rw [map_one, sub_self]; exact I.zero_mem⟩
+  | add x y _ _ hx hy =>
+    obtain ⟨b1, h1⟩ := hx
+    obtain ⟨b2, h2⟩ := hy
+    refine ⟨b1 + b2, ?_⟩
+    have : x + y - q.stalkMap t (b1 + b2) =
+        (x - q.stalkMap t b1) + (y - q.stalkMap t b2) := by rw [map_add]; ring
+    rw [this]; exact I.add_mem h1 h2
+  | neg x _ hx =>
+    obtain ⟨b1, h1⟩ := hx
+    refine ⟨-b1, ?_⟩
+    have : -x - q.stalkMap t (-b1) = -(x - q.stalkMap t b1) := by rw [map_neg]; ring
+    rw [this]; exact I.neg_mem h1
+  | mul x y _ _ hx hy =>
+    obtain ⟨b1, h1⟩ := hx
+    obtain ⟨b2, h2⟩ := hy
+    refine ⟨b1 * b2, ?_⟩
+    have : x * y - q.stalkMap t (b1 * b2) =
+        (x - q.stalkMap t b1) * y + q.stalkMap t b1 * (y - q.stalkMap t b2) := by
+      rw [map_mul]; ring
+    rw [this]
+    exact I.add_mem (I.mul_mem_right _ h1) (I.mul_mem_left _ h2)
+
+/-- **Maximal ideal of a stalk generated by two stalks.** If `𝒪_{T,t}` is generated by the stalks
+at `x = p t` and `y = q t` (`StalkGen`, e.g. `T = X ×_S Y`) and `x` is rational over `s`, then
+`𝔪_t = 𝔪_x 𝒪_t + 𝔪_y 𝒪_t`. -/
+theorem maximalIdeal_eq_of_stalkGen (w : p ≫ f = q ≫ g) {t : T} (h : StalkGen p q t)
+    (hrat : RationalOver f (p t)) :
+    IsLocalRing.maximalIdeal (T.presheaf.stalk t) = stalkIdeal p q t := by
+  refine le_antisymm (fun r hr => ?_) (stalkIdeal_le t)
+  obtain ⟨c, hc, w', hw', hwu, hrw⟩ := h r
+  obtain ⟨b, hb⟩ := exists_sub_mem_stalkIdeal w hrat hc
+  have hcm : c ∈ IsLocalRing.maximalIdeal _ := hrw ▸ Ideal.mul_mem_right _ _ hr
+  have hqb : q.stalkMap t b ∈ IsLocalRing.maximalIdeal _ := by
+    have := Ideal.sub_mem _ hcm (stalkIdeal_le t hb)
+    rwa [sub_sub_cancel] at this
+  have hbm : b ∈ IsLocalRing.maximalIdeal _ := by
+    intro hbu
+    exact hqb (hbu.map (q.stalkMap t).hom)
+  have hcI : c ∈ stalkIdeal p q t := by
+    have := Ideal.add_mem _ hb (Ideal.mem_sup_right (Ideal.mem_map_of_mem _ hbm))
+    rwa [sub_add_cancel] at this
+  obtain ⟨v, rfl⟩ := hwu
+  have : r = c * ↑v⁻¹ := by rw [← hrw, mul_assoc, Units.mul_inv, mul_one]
+  rw [this]
+  exact Ideal.mul_mem_right _ _ hcI
+
+/-- **Residue field of a stalk generated by two stalks.** Under the hypotheses of
+`maximalIdeal_eq_of_stalkGen`, every element of `𝒪_{T,t}` is congruent modulo `𝔪_t` to the image of
+an element of `𝒪_{Y,y}`. -/
+theorem exists_sub_mem_maximalIdeal_of_stalkGen (w : p ≫ f = q ≫ g) {t : T} (h : StalkGen p q t)
+    (hrat : RationalOver f (p t)) (r : T.presheaf.stalk t) :
+    ∃ b : Y.presheaf.stalk (q t), r - q.stalkMap t b ∈ IsLocalRing.maximalIdeal _ := by
+  obtain ⟨c, hc, w', hw', hwu, hrw⟩ := h r
+  obtain ⟨b1, hb1⟩ := exists_sub_mem_stalkIdeal w hrat hc
+  obtain ⟨b2, hb2⟩ := exists_sub_mem_stalkIdeal w hrat hw'
+  have e1 : IsLocalRing.residue _ c = IsLocalRing.residue _ (q.stalkMap t b1) := by
+    rw [← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff]; exact stalkIdeal_le t hb1
+  have e2 : IsLocalRing.residue _ w' = IsLocalRing.residue _ (q.stalkMap t b2) := by
+    rw [← sub_eq_zero, ← map_sub, IsLocalRing.residue_eq_zero_iff]; exact stalkIdeal_le t hb2
+  have hw0 : IsLocalRing.residue _ w' ≠ 0 := (IsLocalRing.residue_ne_zero_iff_isUnit _).mpr hwu
+  have hb2u : IsUnit b2 := by
+    rw [e2, IsLocalRing.residue_ne_zero_iff_isUnit] at hw0
+    exact isUnit_of_map_unit (q.stalkMap t).hom _ hw0
+  obtain ⟨v, rfl⟩ := hb2u
+  refine ⟨b1 * ↑v⁻¹, ?_⟩
+  rw [← IsLocalRing.residue_eq_zero_iff, map_sub, sub_eq_zero]
+  apply mul_right_cancel₀ hw0
+  rw [← map_mul, hrw, e1, e2, ← map_mul, ← map_mul, mul_assoc, Units.inv_mul, mul_one]
+
+end MaximalIdeal
+
+/-- **A point on a section is rational.** If `e` is a section of `f` (`e ≫ f = 𝟙`), the point
+`e s` is rational over `f (e s)`. -/
+theorem rationalOver_of_section {X S : Scheme.{u}} (f : X ⟶ S) (e : S ⟶ X) (he : e ≫ f = 𝟙 S)
+    (s : S) : RationalOver f (e s) := by
+  intro a
+  have hs : f (e s) = s := by rw [← Scheme.Hom.comp_apply, he]; rfl
+  refine ⟨(S.presheaf.stalkCongr (.of_eq hs)).inv (e.stalkMap s a), ?_⟩
+  have key : e.stalkMap s (f.stalkMap (e s) ((S.presheaf.stalkCongr (.of_eq hs)).inv
+      (e.stalkMap s a))) = e.stalkMap s a := by
+    have h3 : ∀ y, (S.presheaf.stalkCongr (.of_eq hs)).hom
+        ((S.presheaf.stalkCongr (.of_eq hs)).inv y) = y := fun y => Iso.inv_hom_id_apply _ y
+    refine (stalkMap_comp_apply' e f s _).symm.trans ?_
+    rw [Scheme.Hom.stalkMap_congr_hom (e ≫ f) (𝟙 S) he s, Scheme.Hom.stalkMap_id]
+    exact h3 _
+  intro hu
+  apply hu.map (e.stalkMap s).hom |> fun h' => ?_
+  rw [map_sub, key, sub_self] at h'
+  exact not_isUnit_zero h'
+
+/-! ### Sections and points with field stalks -/
+
+theorem StalkGen.symm {T X Y : Scheme.{u}} {p : T ⟶ X} {q : T ⟶ Y} {t : T}
+    (h : StalkGen p q t) : StalkGen q p t := by
+  intro r
+  obtain ⟨c, hc, w, hw, hu, h'⟩ := h r
+  rw [sup_comm] at hc hw
+  exact ⟨c, hc, w, hw, hu, h'⟩
+
+/-- A morphism with a retraction is rational at every point (it is surjective on stalks). -/
+theorem rationalOver_of_retraction {X S : Scheme.{u}} (f : X ⟶ S) (r : S ⟶ X)
+    (hr : f ≫ r = 𝟙 X) (x : X) : RationalOver f x := by
+  intro a
+  have hx : r (f x) = x := by rw [← Scheme.Hom.comp_apply, hr]; rfl
+  refine ⟨r.stalkMap (f x) ((X.presheaf.stalkCongr (.of_eq hx)).inv a), ?_⟩
+  have key : f.stalkMap x (r.stalkMap (f x) ((X.presheaf.stalkCongr (.of_eq hx)).inv a)) = a := by
+    have h3 : ∀ y, (X.presheaf.stalkCongr (.of_eq hx)).hom
+        ((X.presheaf.stalkCongr (.of_eq hx)).inv y) = y := fun y => Iso.inv_hom_id_apply _ y
+    refine (stalkMap_comp_apply' f r x _).symm.trans ?_
+    rw [Scheme.Hom.stalkMap_congr_hom (f ≫ r) (𝟙 X) hr x, Scheme.Hom.stalkMap_id]
+    exact h3 _
+  rw [key, sub_self]
+  exact Ideal.zero_mem _
+
+/-- The stalks of the spectrum of a field are fields. -/
+theorem maximalIdeal_stalk_spec_field (k : Type u) [Field k] (x : Spec (CommRingCat.of k)) :
+    IsLocalRing.maximalIdeal ((Spec (CommRingCat.of k)).presheaf.stalk x) = ⊥ := by
+  have h : x = genericPoint (Spec (CommRingCat.of k)) := Subsingleton.elim _ _
+  rw [← IsLocalRing.isField_iff_maximalIdeal_eq, h]
+  exact Field.toIsField (Spec (CommRingCat.of k)).functionField
+
+theorem mem_maximalIdeal_of_iso {R S : CommRingCat.{u}} [IsLocalRing R] [IsLocalRing S]
+    (φ : R ≅ S) {a : R} (ha : a ∈ IsLocalRing.maximalIdeal R) :
+    φ.hom a ∈ IsLocalRing.maximalIdeal S := by
+  intro hu
+  apply ha
+  have := hu.map φ.inv.hom
+  rwa [Iso.hom_inv_id_apply] at this
+
+/-- In a commutative square `p ≫ f = q ≫ g`, if the stalk of `Y` at `q t` is a field, the
+composite `𝒪_{S, f(p t)} → 𝒪_{X, p t} → 𝒪_{T, t}` kills the maximal ideal. -/
+theorem stalkMap_comp_eq_zero_of_maximalIdeal_eq_bot {T X Y S : Scheme.{u}} (p : T ⟶ X)
+    (q : T ⟶ Y) (f : X ⟶ S) (g : Y ⟶ S) (w : p ≫ f = q ≫ g) (t : T)
+    (hY : IsLocalRing.maximalIdeal (Y.presheaf.stalk (q t)) = ⊥)
+    (c : S.presheaf.stalk (f (p t))) (hc : c ∈ IsLocalRing.maximalIdeal _) :
+    p.stalkMap t (f.stalkMap (p t) c) = 0 := by
+  have hpt : (p ≫ f) t = (q ≫ g) t := by rw [w]
+  have e : p.stalkMap t (f.stalkMap (p t) c) =
+      q.stalkMap t (g.stalkMap (q t) ((S.presheaf.stalkCongr (.of_eq hpt)).hom c)) := by
+    calc p.stalkMap t (f.stalkMap (p t) c) = (p ≫ f).stalkMap t c :=
+          (stalkMap_comp_apply' p f t c).symm
+      _ = (q ≫ g).stalkMap t ((S.presheaf.stalkCongr (.of_eq hpt)).hom c) := by
+          rw [Scheme.Hom.stalkMap_congr_hom (p ≫ f) (q ≫ g) w t]; rfl
+      _ = _ := stalkMap_comp_apply' q g t _
+  have hc' := mem_maximalIdeal_of_iso (S.presheaf.stalkCongr (.of_eq hpt)) hc
+  have h0 : g.stalkMap (q t) ((S.presheaf.stalkCongr (.of_eq hpt)).hom c) ∈
+      IsLocalRing.maximalIdeal (Y.presheaf.stalk (q t)) := map_nonunit _ _ hc'
+  rw [hY, Ideal.mem_bot] at h0
+  rw [e, h0, map_zero]
+
+/-- **A section through a point with field stalk is an open immersion.** Let `q : P ⟶ Spec k` be
+locally of finite type over a field `k` and `u` a section of `q`. If the stalk of `P` at the
+point `u pt` is a field, then `u` is an open immersion. -/
+theorem isOpenImmersion_of_section_of_maximalIdeal_eq_bot {k : Type u} [Field k] {P : Scheme.{u}}
+    (q : P ⟶ Spec (CommRingCat.of k)) [LocallyOfFiniteType q] (u : Spec (CommRingCat.of k) ⟶ P)
+    (hu : u ≫ q = 𝟙 _) (pt : Spec (CommRingCat.of k))
+    (hm : IsLocalRing.maximalIdeal (P.presheaf.stalk (u pt)) = ⊥) : IsOpenImmersion u := by
+  have hcl : IsClosedImmersion u := isClosedImmersion_of_comp_eq_id q u hu
+  have hF : IsField (P.presheaf.stalk (u pt)) := IsLocalRing.isField_iff_maximalIdeal_eq.mpr hm
+  have hinj : Function.Injective (u.stalkMap pt).hom := by
+    letI := hF.toField
+    exact RingHom.injective _
+  have hsurj : Function.Surjective (u.stalkMap pt).hom := u.stalkMap_surjective pt
+  have hqs : Function.Surjective (q.stalkMap (u pt)).hom := by
+    intro y
+    have hpt : (u ≫ q) pt = (𝟙 (Spec (CommRingCat.of k))) pt := by rw [hu]
+    let c := ((Spec (CommRingCat.of k)).presheaf.stalkCongr (.of_eq hpt)).inv (u.stalkMap pt y)
+    have hc : (u ≫ q).stalkMap pt c = u.stalkMap pt y := by
+      rw [Scheme.Hom.stalkMap_congr_hom (u ≫ q) (𝟙 _) hu pt, Scheme.Hom.stalkMap_id]
+      exact Iso.inv_hom_id_apply ((Spec (CommRingCat.of k)).presheaf.stalkCongr (.of_eq hpt))
+        (u.stalkMap pt y)
+    refine ⟨c, hinj ?_⟩
+    rw [← hc]
+    exact (stalkMap_comp_apply' u q pt c).symm
+  have hqf : q.QuasiFiniteAt (u pt) :=
+    RingHom.QuasiFinite.of_finite (RingHom.Finite.of_surjective _ hqs)
+  have h1 : IsOpen {q.asFiber (u pt)} := Scheme.Hom.quasiFiniteAt_iff_isOpen_singleton_asFiber.mp hqf
+  have h2 : IsOpen ((q.fiberHomeo (q (u pt))) '' {q.asFiber (u pt)}) :=
+    (q.fiberHomeo _).isOpenMap _ h1
+  rw [Set.image_singleton, Scheme.Hom.asFiber, Homeomorph.apply_symm_apply] at h2
+  have hopen : IsOpen (q.base ⁻¹' {q (u pt)}) := by
+    convert isOpen_univ
+    ext y
+    simp only [Set.mem_preimage, Set.mem_singleton_iff, Set.mem_univ, iff_true]
+    exact Subsingleton.elim _ _
+  have h3 : IsOpen ({u pt} : Set P) := by
+    have := hopen.isOpenMap_subtype_val _ h2
+    simpa using this
+  have hrange : Set.range u = {u pt} := by
+    ext y
+    constructor
+    · rintro ⟨x, rfl⟩
+      rw [Subsingleton.elim x pt]
+      rfl
+    · rintro rfl
+      exact ⟨pt, rfl⟩
+  have hemb : Topology.IsOpenEmbedding u :=
+    ⟨u.isClosedEmbedding.isEmbedding, by rw [hrange]; exact h3⟩
+  haveI : ∀ x, IsIso (u.stalkMap x) := by
+    intro x
+    obtain rfl : x = pt := Subsingleton.elim x pt
+    exact (ConcreteCategory.isIso_iff_bijective _).mpr ⟨hinj, hsurj⟩
+  exact IsOpenImmersion.of_isIso_stalkMap u hemb
+
+theorem stalkMap_congr_point_apply {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X} (h : x = x')
+    (z : Y.presheaf.stalk (f x)) :
+    (X.presheaf.stalkCongr (.of_eq h)).hom (f.stalkMap x z) =
+      f.stalkMap x' ((Y.presheaf.stalkCongr (.of_eq (congrArg f h))).hom z) :=
+  ConcreteCategory.congr_hom (Scheme.Hom.stalkMap_congr_point f x x' h) z
+
+/-! ### Stalk maps between given points -/
+
+/-- The stalk map of `f` from `y` to `x`, for `f x = y`. -/
+noncomputable def Scheme.Hom.stalkMapAt {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) : Y.presheaf.stalk y ⟶ X.presheaf.stalk x :=
+  (Y.presheaf.stalkCongr (.of_eq h.symm)).hom ≫ f.stalkMap x
+
+instance {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y} (h : f x = y) :
+    IsLocalHom (f.stalkMapAt h).hom := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [CommRingCat.hom_comp]
+  infer_instance
+
+theorem Scheme.Hom.stalkMapAt_rfl {X Y : Scheme.{u}} (f : X ⟶ Y) (x : X) :
+    f.stalkMapAt (rfl : f x = f x) = f.stalkMap x := by
+  unfold Scheme.Hom.stalkMapAt
+  have : (Y.presheaf.stalkCongr (.of_eq (rfl : f x = f x).symm)).hom = 𝟙 _ :=
+    Y.presheaf.stalkSpecializes_refl _
+  rw [this, Category.id_comp]
+
+theorem Scheme.Hom.stalkMapAt_comp {X Y Z : Scheme.{u}} (f : X ⟶ Y) (g : Y ⟶ Z) {x : X} {y : Y}
+    {z : Z} (hf : f x = y) (hg : g y = z) (hfg : (f ≫ g) x = z) :
+    (f ≫ g).stalkMapAt hfg = g.stalkMapAt hg ≫ f.stalkMapAt hf := by
+  subst hf hg
+  rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl]
+  unfold Scheme.Hom.stalkMapAt
+  have : (Z.presheaf.stalkCongr (.of_eq hfg.symm)).hom = 𝟙 _ :=
+    Z.presheaf.stalkSpecializes_refl _
+  rw [this]
+  exact (Category.id_comp _).trans (Scheme.Hom.stalkMap_comp f g x)
+
+theorem Scheme.Hom.stalkMapAt_congr {X Y : Scheme.{u}} {f g : X ⟶ Y} (e : f = g) {x : X} {y : Y}
+    (hf : f x = y) (hg : g x = y) : f.stalkMapAt hf = g.stalkMapAt hg := by
+  subst e; rfl
+
+theorem Scheme.Hom.stalkMapAt_id {X : Scheme.{u}} (x : X) (h : (𝟙 X) x = x) :
+    Scheme.Hom.stalkMapAt (𝟙 X) h = 𝟙 _ := by
+  unfold Scheme.Hom.stalkMapAt
+  rw [Scheme.Hom.stalkMap_id]
+  exact (Category.comp_id _).trans (X.presheaf.stalkSpecializes_refl _)
+
+theorem Scheme.Hom.map_stalkMapAt_maximalIdeal {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) :
+    Ideal.map (f.stalkMapAt h).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk y)) =
+      Ideal.map (f.stalkMap x).hom (IsLocalRing.maximalIdeal (Y.presheaf.stalk (f x))) := by
+  subst h; rw [Scheme.Hom.stalkMapAt_rfl]
+
+theorem Scheme.Hom.exists_stalkMapAt_eq {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} {y : Y}
+    (h : f x = y) (b : Y.presheaf.stalk (f x)) :
+    ∃ c : Y.presheaf.stalk y, f.stalkMapAt h c = f.stalkMap x b := by
+  subst h; exact ⟨b, by rw [Scheme.Hom.stalkMapAt_rfl]⟩
+
+end AlgebraicGeometry
+
+
+
+/-! # Local structure of a fibre product at points with values in a field
+
+For `f : X ⟶ Spec R`, `g : Y ⟶ Spec R` and points `p₁ : Spec F ⟶ X`, `p₂ : Spec F ⟶ Y` over
+`Spec R` (`F` a field), a regular function on an open of `X ×_R Y` (pulled back along any
+`W : X ×_R Y ⟶ P`) is, near `(p₁, p₂)`, a quotient of sums of products of regular functions on
+opens `V₁ ∋ p₁`, `V₂ ∋ p₂`, uniformly for all `F`-points of `V₁ × V₂` where the denominator does
+not vanish (`exists_localStructure_pullback`). Proof: affine charts `Spec A → X`, `Spec B → Y`,
+the open chart `Spec (A ⊗[R] B) → X ×_R Y`, a basic open `D(h)` around the point inside the open,
+`s = a / h^n` on `D(h)`, and pure tensors evaluate to products. -/
+
+namespace AlgebraicGeometry
+
+open CategoryTheory Limits TensorProduct
+
+/-- The value `s(p) ∈ F` of a section at an `F`-point (and `0` if `p ∉ V`); the same formula as
+`GroupModel.evalAt`. -/
+noncomputable def evalPt {F : Type u} [Field F] {X : Scheme.{u}}
+    (p : Spec (CommRingCat.of F) ⟶ X) (V : X.Opens) (s : Γ(X, V)) : F := by
+  classical
+  exact if h : ⊤ ≤ p ⁻¹ᵁ V then (Scheme.ΓSpecIso (CommRingCat.of F)).hom (p.appLE V ⊤ h s) else 0
+
+/-- The section on `j(Spec A)` corresponding to `α ∈ A`, for an open immersion `j`. -/
+noncomputable def secOf {X : Scheme.{u}} {A : CommRingCat.{u}} (j : Spec A ⟶ X) [IsOpenImmersion j]
+    (α : A) : Γ(X, j ''ᵁ ⊤) :=
+  (j.appIso ⊤).inv ((Scheme.ΓSpecIso A).inv α)
+
+theorem appLE_secOf {X : Scheme.{u}} {A : CommRingCat.{u}} (j : Spec A ⟶ X) [IsOpenImmersion j]
+    (α : A) (e : ⊤ ≤ j ⁻¹ᵁ (j ''ᵁ ⊤)) :
+    j.appLE (j ''ᵁ ⊤) ⊤ e (secOf j α) = (Scheme.ΓSpecIso A).inv α := by
+  unfold secOf
+  rw [← CommRingCat.comp_apply, Scheme.Hom.appIso_inv_appLE]
+  have : (homOfLE (by rwa [Scheme.Hom.preimage_image_eq] at e) :
+      (⊤ : (Spec A).Opens) ⟶ ⊤) = 𝟙 _ := Subsingleton.elim _ _
+  rw [this, op_id, CategoryTheory.Functor.map_id]
+  rfl
+
+theorem ΓSpecIso_hom_appLE_top {R S : CommRingCat.{u}} (φ : R ⟶ S)
+    (e : (⊤ : (Spec S).Opens) ≤ Spec.map φ ⁻¹ᵁ ⊤) (x : Γ(Spec R, ⊤)) :
+    (Scheme.ΓSpecIso S).hom ((Spec.map φ).appLE ⊤ ⊤ e x) = φ ((Scheme.ΓSpecIso R).hom x) := by
+  have h : (Spec.map φ).appLE ⊤ ⊤ e = (Spec.map φ).appTop :=
+    (Scheme.Hom.app_eq_appLE (f := Spec.map φ) (U := ⊤)).symm
+  rw [h, ← CommRingCat.comp_apply, Scheme.ΓSpecIso_naturality]
+  rfl
+
+theorem evalPt_secOf {F : Type u} [Field F] {X : Scheme.{u}} {A : CommRingCat.{u}}
+    (j : Spec A ⟶ X) [IsOpenImmersion j] (χ : A ⟶ CommRingCat.of F) (α : A) :
+    evalPt (Spec.map χ ≫ j) (j ''ᵁ ⊤) (secOf j α) = χ α := by
+  have hle : ⊤ ≤ (Spec.map χ ≫ j) ⁻¹ᵁ (j ''ᵁ ⊤) := by
+    intro x _
+    exact ⟨Spec.map χ x, trivial, rfl⟩
+  unfold evalPt
+  rw [dif_pos hle, ← Scheme.Hom.appLE_comp_appLE (Spec.map χ) j (j ''ᵁ ⊤) ⊤ ⊤
+    (Scheme.Hom.preimage_image_eq j ⊤).ge (fun _ _ => trivial), CommRingCat.comp_apply,
+    appLE_secOf]
+  exact (ΓSpecIso_hom_appLE_top χ _ _).trans (by rw [Iso.inv_hom_id_apply])
+
+/-- Every element of `A ⊗[R] B` is a finite sum of pure tensors. -/
+theorem exists_fin_sum_tmul {R A B : Type*} [CommRing R] [CommRing A] [CommRing B] [Algebra R A]
+    [Algebra R B] (x : A ⊗[R] B) :
+    ∃ (n : ℕ) (a : Fin n → A) (b : Fin n → B), x = ∑ k, a k ⊗ₜ[R] b k := by
+  induction x using TensorProduct.induction_on with
+  | zero => exact ⟨0, Fin.elim0, Fin.elim0, by simp⟩
+  | tmul a b => exact ⟨1, fun _ => a, fun _ => b, by simp⟩
+  | add x y hx hy =>
+    obtain ⟨n, a, b, rfl⟩ := hx
+    obtain ⟨m, a', b', rfl⟩ := hy
+    refine ⟨n + m, Fin.append a a', Fin.append b b', ?_⟩
+    rw [Fin.sum_univ_add]
+    simp [Fin.append_left, Fin.append_right]
+
+/-- Two finite families of pure tensors with a common index type. -/
+theorem exists_fin_sum_tmul₂ {R A B : Type*} [CommRing R] [CommRing A] [CommRing B] [Algebra R A]
+    [Algebra R B] (x y : A ⊗[R] B) :
+    ∃ (n : ℕ) (a c : Fin n → A) (b d : Fin n → B),
+      x = ∑ k, a k ⊗ₜ[R] b k ∧ y = ∑ k, c k ⊗ₜ[R] d k := by
+  obtain ⟨n, a, b, rfl⟩ := exists_fin_sum_tmul x
+  obtain ⟨m, c, d, rfl⟩ := exists_fin_sum_tmul y
+  refine ⟨n + m, Fin.append a 0, Fin.append 0 c, Fin.append b 0, Fin.append 0 d, ?_, ?_⟩
+  · rw [Fin.sum_univ_add]; simp [Fin.append_left, Fin.append_right]
+  · rw [Fin.sum_univ_add]; simp [Fin.append_left, Fin.append_right]
+
+/-- An `F`-point lies in the basic open `D(h)` of `Spec T` iff `h` does not vanish at it. -/
+theorem SpecMap_mem_basicOpen_iff {F : Type u} [Field F] {T : CommRingCat.{u}}
+    (χ : T ⟶ CommRingCat.of F) (h : Γ(Spec T, ⊤)) (x : Spec (CommRingCat.of F)) :
+    Spec.map χ x ∈ (Spec T).basicOpen h ↔ χ ((Scheme.ΓSpecIso T).hom h) ≠ 0 := by
+  rw [basicOpen_eq_of_affine']
+  change x ∈ Spec.map χ ⁻¹ᵁ PrimeSpectrum.basicOpen _ ↔ _
+  rw [SpecMap_preimage_basicOpen]
+  change χ ((Scheme.ΓSpecIso T).hom h) ∉ x.asIdeal ↔ _
+  have hx : x.asIdeal = ⊥ := @Ideal.eq_bot_of_prime _ _ x.asIdeal x.isPrime
+  rw [hx, Ideal.mem_bot]
+
+/-- **Points of the product chart.** If `F`-points `p₁'`, `p₂'` lie in the charts `jU`, `jW`,
+then `(p₁', p₂')` factors through `Spec (A ⊗[R] B)` via a ring map `χ` with `χ (α ⊗ 1) = p₁'(α)`
+and `χ (1 ⊗ β) = p₂'(β)`. -/
+theorem exists_chart_point {F : Type u} [Field F] {R A B : CommRingCat.{u}} {X Y : Scheme.{u}}
+    (f : X ⟶ Spec R) (g : Y ⟶ Spec R) (jU : Spec A ⟶ X) [IsOpenImmersion jU] (jW : Spec B ⟶ Y)
+    [IsOpenImmersion jW] (φ : R ⟶ A) (ψ : R ⟶ B) (eU : Spec.map φ = jU ≫ f)
+    (eW : Spec.map ψ = jW ≫ g)
+    (p₁' : Spec (CommRingCat.of F) ⟶ X) (p₂' : Spec (CommRingCat.of F) ⟶ Y)
+    (hp' : p₁' ≫ f = p₂' ≫ g) (h1' : ⊤ ≤ p₁' ⁻¹ᵁ (jU ''ᵁ ⊤)) (h2' : ⊤ ≤ p₂' ⁻¹ᵁ (jW ''ᵁ ⊤)) :
+    letI : Algebra R A := φ.hom.toAlgebra
+    letI : Algebra R B := ψ.hom.toAlgebra
+    ∃ χ : CommRingCat.of (A ⊗[R] B) ⟶ CommRingCat.of F,
+      p₁' = Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom :
+          A →+* A ⊗[R] B) ≫ χ) ≫ jU ∧
+      p₂' = Spec.map (CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+          B →ₐ[R] A ⊗[R] B).toRingHom ≫ χ) ≫ jW := by
+  letI : Algebra R A := φ.hom.toAlgebra
+  letI : Algebra R B := ψ.hom.toAlgebra
+  have hr1 : Set.range p₁' ⊆ Set.range jU := by
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨y, -, hy⟩ := h1' (Set.mem_univ x)
+    exact ⟨y, hy⟩
+  have hr2 : Set.range p₂' ⊆ Set.range jW := by
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨y, -, hy⟩ := h2' (Set.mem_univ x)
+    exact ⟨y, hy⟩
+  set l₁ := IsOpenImmersion.lift jU p₁' hr1
+  set l₂ := IsOpenImmersion.lift jW p₂' hr2
+  have hl₁ : l₁ ≫ jU = p₁' := IsOpenImmersion.lift_fac _ _ _
+  have hl₂ : l₂ ≫ jW = p₂' := IsOpenImmersion.lift_fac _ _ _
+  set χ₁ := Spec.preimage l₁
+  set χ₂ := Spec.preimage l₂
+  have hχ₁ : Spec.map χ₁ = l₁ := Spec.map_preimage _
+  have hχ₂ : Spec.map χ₂ = l₂ := Spec.map_preimage _
+  have hcompat : φ ≫ χ₁ = ψ ≫ χ₂ := by
+    apply Spec.map_injective
+    rw [Spec.map_comp, Spec.map_comp, hχ₁, hχ₂, eU, eW, ← Category.assoc, ← Category.assoc, hl₁,
+      hl₂, hp']
+  letI : Algebra R F := (φ ≫ χ₁).hom.toAlgebra
+  let χ1a : A →ₐ[R] F := { χ₁.hom with commutes' := fun r => rfl }
+  let χ2a : B →ₐ[R] F :=
+    { χ₂.hom with
+      commutes' := fun r => (congrArg (fun k : R ⟶ CommRingCat.of F => k.hom r) hcompat).symm }
+  have hfg : ∀ x y, Commute (χ1a x) (χ2a y) := fun x y => Commute.all _ _
+  let χ : CommRingCat.of (A ⊗[R] B) ⟶ CommRingCat.of F :=
+    CommRingCat.ofHom (Algebra.TensorProduct.lift χ1a χ2a hfg).toRingHom
+  refine ⟨χ, ?_, ?_⟩
+  · have : CommRingCat.ofHom (Algebra.TensorProduct.includeLeftRingHom : A →+* A ⊗[R] B) ≫ χ =
+        χ₁ := by
+      ext a
+      change Algebra.TensorProduct.lift χ1a χ2a hfg (a ⊗ₜ[R] 1) = χ₁ a
+      rw [Algebra.TensorProduct.lift_tmul, map_one, mul_one]
+      rfl
+    rw [this, hχ₁, hl₁]
+  · have : CommRingCat.ofHom (Algebra.TensorProduct.includeRight :
+        B →ₐ[R] A ⊗[R] B).toRingHom ≫ χ = χ₂ := by
+      ext b
+      change Algebra.TensorProduct.lift χ1a χ2a hfg ((1 : A) ⊗ₜ[R] b) = χ₂ b
+      rw [Algebra.TensorProduct.lift_tmul, map_one, one_mul]
+      rfl
+    rw [this, hχ₂, hl₂]
+
+/-- **Local structure of a fibre product at `F`-points.** See the module docstring. -/
+theorem exists_localStructure_pullback {F : Type u} [Field F] {R : CommRingCat.{u}}
+    {X Y P : Scheme.{u}} (f : X ⟶ Spec R) (g : Y ⟶ Spec R) (W : pullback f g ⟶ P)
+    (U : P.Opens) (s : Γ(P, U)) (p₁ : Spec (CommRingCat.of F) ⟶ X)
+    (p₂ : Spec (CommRingCat.of F) ⟶ Y) (hp : p₁ ≫ f = p₂ ≫ g)
+    (hU : ⊤ ≤ (pullback.lift p₁ p₂ hp ≫ W) ⁻¹ᵁ U) :
+    ∃ (V₁ : X.Opens) (V₂ : Y.Opens) (n : ℕ) (a c : Fin n → Γ(X, V₁)) (b d : Fin n → Γ(Y, V₂)),
+      ⊤ ≤ p₁ ⁻¹ᵁ V₁ ∧ ⊤ ≤ p₂ ⁻¹ᵁ V₂ ∧
+      (∑ k, evalPt p₁ V₁ (c k) * evalPt p₂ V₂ (d k)) ≠ 0 ∧
+      ∀ (p₁' : Spec (CommRingCat.of F) ⟶ X) (p₂' : Spec (CommRingCat.of F) ⟶ Y)
+        (hp' : p₁' ≫ f = p₂' ≫ g), ⊤ ≤ p₁' ⁻¹ᵁ V₁ → ⊤ ≤ p₂' ⁻¹ᵁ V₂ →
+        (∑ k, evalPt p₁' V₁ (c k) * evalPt p₂' V₂ (d k)) ≠ 0 →
+        ⊤ ≤ (pullback.lift p₁' p₂' hp' ≫ W) ⁻¹ᵁ U ∧
+        evalPt (pullback.lift p₁' p₂' hp' ≫ W) U s *
+            (∑ k, evalPt p₁' V₁ (c k) * evalPt p₂' V₂ (d k)) =
+          ∑ k, evalPt p₁' V₁ (a k) * evalPt p₂' V₂ (b k) := by
+  classical
+  let pt : Spec (CommRingCat.of F) := default
+  have hall : ∀ x : Spec (CommRingCat.of F), x = pt := fun x => Subsingleton.elim _ _
+  obtain ⟨A, jU, _, φ, hxU, eU⟩ := exists_affine_chart_over f (𝟙 (Spec R)) (p₁ pt) ⟨_, rfl⟩
+  obtain ⟨B, jW, _, ψ, hyW, eW⟩ := exists_affine_chart_over g (𝟙 (Spec R)) (p₂ pt) ⟨_, rfl⟩
+  have eU' : Spec.map φ = jU ≫ f := by rw [← eU, Category.comp_id]
+  have eW' : Spec.map ψ = jW ≫ g := by rw [← eW, Category.comp_id]
+  letI : Algebra R A := φ.hom.toAlgebra
+  letI : Algebra R B := ψ.hom.toAlgebra
+  let m := pullback.map (Spec.map φ) (Spec.map ψ) f g jU jW (𝟙 _) eU eW
+  let e := pullbackSpecIso R A B
+  let m' : Spec (CommRingCat.of (TensorProduct R A B)) ⟶ pullback f g := e.inv ≫ m
+  have h1 : m' ≫ pullback.fst f g = Spec.map (CommRingCat.ofHom
+      (Algebra.TensorProduct.includeLeftRingHom : A →+* TensorProduct R A B)) ≫ jU := by
+    simp only [m', m, e, Category.assoc, pullback.lift_fst]
+    rw [← Category.assoc]
+    exact congrArg (· ≫ jU) (pullbackSpecIso_inv_fst R A B)
+  have h2 : m' ≫ pullback.snd f g = Spec.map (CommRingCat.ofHom
+      (Algebra.TensorProduct.includeRight : B →ₐ[R] TensorProduct R A B).toRingHom) ≫ jW := by
+    simp only [m', m, e, Category.assoc, pullback.lift_snd]
+    rw [← Category.assoc]
+    exact congrArg (· ≫ jW) (pullbackSpecIso_inv_snd R A B)
+  have hmi : IsOpenImmersion m' := by infer_instance
+  -- the chart point of `(p₁', p₂')`
+  have hlift : ∀ (p₁' : Spec (CommRingCat.of F) ⟶ X) (p₂' : Spec (CommRingCat.of F) ⟶ Y)
+      (hp' : p₁' ≫ f = p₂' ≫ g), ⊤ ≤ p₁' ⁻¹ᵁ (jU ''ᵁ ⊤) → ⊤ ≤ p₂' ⁻¹ᵁ (jW ''ᵁ ⊤) →
+      ∃ χ : CommRingCat.of (A ⊗[R] B) ⟶ CommRingCat.of F,
+        pullback.lift p₁' p₂' hp' = Spec.map χ ≫ m' ∧
+        (∀ α, evalPt p₁' (jU ''ᵁ ⊤) (secOf jU α) = χ (α ⊗ₜ[R] 1)) ∧
+        (∀ β, evalPt p₂' (jW ''ᵁ ⊤) (secOf jW β) = χ ((1 : A) ⊗ₜ[R] β)) := by
+    intro p₁' p₂' hp' h1' h2'
+    obtain ⟨χ, e1, e2⟩ := exists_chart_point f g jU jW φ ψ eU' eW' p₁' p₂' hp' h1' h2'
+    refine ⟨χ, ?_, ?_, ?_⟩
+    · apply pullback.hom_ext
+      · rw [pullback.lift_fst, Category.assoc, h1, ← Category.assoc, ← Spec.map_comp, e1]
+      · rw [pullback.lift_snd, Category.assoc, h2, ← Category.assoc, ← Spec.map_comp, e2]
+    · intro α
+      rw [e1, evalPt_secOf]
+      rfl
+    · intro β
+      rw [e2, evalPt_secOf]
+      rfl
+  -- the open, the basic open and the fraction
+  let q := pullback.lift p₁ p₂ hp
+  have hz : q pt ∈ Set.range m := by
+    rw [Scheme.Pullback.range_map]
+    refine ⟨?_, ?_⟩
+    · show pullback.fst f g (q pt) ∈ Set.range jU
+      rw [← Scheme.Hom.comp_apply, pullback.lift_fst]; exact hxU
+    · show pullback.snd f g (q pt) ∈ Set.range jW
+      rw [← Scheme.Hom.comp_apply, pullback.lift_snd]; exact hyW
+  obtain ⟨t0', ht0'⟩ := hz
+  let t0 := e.hom t0'
+  have hmt0 : m' t0 = q pt := by
+    have he : e.inv (e.hom t0') = t0' := by
+      rw [← Scheme.Hom.comp_apply, Iso.hom_inv_id]; rfl
+    simp only [m', t0]
+    rw [Scheme.Hom.comp_apply, he, ht0']
+  let U' : (Spec (CommRingCat.of (A ⊗[R] B))).Opens := (m' ≫ W) ⁻¹ᵁ U
+  have ht0 : t0 ∈ U' := by
+    show (m' ≫ W) t0 ∈ U
+    rw [Scheme.Hom.comp_apply, hmt0, ← Scheme.Hom.comp_apply]
+    exact hU (Set.mem_univ pt)
+  obtain ⟨h, hDU, ht0D⟩ := (isAffineOpen_top (Spec (CommRingCat.of (A ⊗[R] B)))).exists_basicOpen_le
+    (⟨t0, ht0⟩ : U') (Set.mem_univ _)
+  let s' := (m' ≫ W).appLE U _ hDU s
+  haveI := (isAffineOpen_top (Spec (CommRingCat.of (A ⊗[R] B)))).isLocalization_basicOpen h
+  obtain ⟨k0, a0, hs'⟩ := IsLocalization.Away.surj h s'
+  let h0 := (Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))).hom h
+  let a0' := (Scheme.ΓSpecIso (CommRingCat.of (A ⊗[R] B))).hom a0
+  obtain ⟨n, a, c, b, d, hN, hH⟩ := exists_fin_sum_tmul₂ (a0' * h0) (h0 ^ (k0 + 1))
+  -- evaluation of the sums
+  have hsum : ∀ (p₁' : Spec (CommRingCat.of F) ⟶ X) (p₂' : Spec (CommRingCat.of F) ⟶ Y)
+      (χ : CommRingCat.of (A ⊗[R] B) ⟶ CommRingCat.of F),
+      (∀ α, evalPt p₁' (jU ''ᵁ ⊤) (secOf jU α) = χ (α ⊗ₜ[R] 1)) →
+      (∀ β, evalPt p₂' (jW ''ᵁ ⊤) (secOf jW β) = χ ((1 : A) ⊗ₜ[R] β)) →
+      (∑ k, evalPt p₁' (jU ''ᵁ ⊤) (secOf jU (c k)) * evalPt p₂' (jW ''ᵁ ⊤) (secOf jW (d k)) =
+        χ (h0 ^ (k0 + 1))) ∧
+      (∑ k, evalPt p₁' (jU ''ᵁ ⊤) (secOf jU (a k)) * evalPt p₂' (jW ''ᵁ ⊤) (secOf jW (b k)) =
+        χ (a0' * h0)) := by
+    intro p₁' p₂' χ e1 e2
+    constructor
+    · rw [hH, map_sum]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [e1, e2, ← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+    · rw [hN, map_sum]
+      refine Finset.sum_congr rfl fun k _ => ?_
+      rw [e1, e2, ← map_mul, Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+  -- evaluation of `s` at a chart point in `D(h)`
+  have hval : ∀ χ : CommRingCat.of (A ⊗[R] B) ⟶ CommRingCat.of F, χ h0 ≠ 0 →
+      ⊤ ≤ (Spec.map χ ≫ m' ≫ W) ⁻¹ᵁ U ∧
+      evalPt (Spec.map χ ≫ m' ≫ W) U s * χ (h0 ^ (k0 + 1)) = χ (a0' * h0) := by
+    intro χ hχ
+    have hD : ⊤ ≤ Spec.map χ ⁻¹ᵁ (Spec (CommRingCat.of (A ⊗[R] B))).basicOpen h := by
+      intro x _
+      exact (SpecMap_mem_basicOpen_iff χ h x).mpr hχ
+    have hT : ⊤ ≤ (Spec.map χ ≫ m' ≫ W) ⁻¹ᵁ U := fun x hx => hDU (hD hx)
+    refine ⟨hT, ?_⟩
+    unfold evalPt
+    rw [dif_pos hT]
+    rw [← Scheme.Hom.appLE_comp_appLE (Spec.map χ) (m' ≫ W) U _ ⊤ hDU hD]
+    let ev : Γ(Spec (CommRingCat.of (A ⊗[R] B)), (Spec (CommRingCat.of (A ⊗[R] B))).basicOpen h)
+        →+* F := (Scheme.ΓSpecIso (CommRingCat.of F)).hom.hom.comp
+        ((Spec.map χ).appLE _ ⊤ hD).hom
+    have hev : ∀ x : Γ(Spec (CommRingCat.of (A ⊗[R] B)), ⊤),
+        ev (algebraMap _ _ x) = χ ((Scheme.ΓSpecIso _).hom x) := by
+      intro x
+      change (Scheme.ΓSpecIso (CommRingCat.of F)).hom (((Spec (CommRingCat.of (A ⊗[R] B))).presheaf.map
+        (homOfLE ((Spec (CommRingCat.of (A ⊗[R] B))).basicOpen_le h)).op ≫
+          (Spec.map χ).appLE _ ⊤ hD) x) = _
+      rw [Scheme.Hom.map_appLE]
+      exact ΓSpecIso_hom_appLE_top χ _ x
+    have key := congrArg ev hs'
+    rw [map_mul, map_pow, hev, hev] at key
+    change ev s' * χ (h0 ^ (k0 + 1)) = χ (a0' * h0)
+    rw [map_pow, pow_succ, ← mul_assoc, key, map_mul]
+  refine ⟨jU ''ᵁ ⊤, jW ''ᵁ ⊤, n, fun k => secOf jU (a k), fun k => secOf jU (c k),
+    fun k => secOf jW (b k), fun k => secOf jW (d k), ?_, ?_, ?_, ?_⟩
+  · intro x _
+    rw [hall x]
+    obtain ⟨y, hy⟩ := hxU
+    exact ⟨y, trivial, hy⟩
+  · intro x _
+    rw [hall x]
+    obtain ⟨y, hy⟩ := hyW
+    exact ⟨y, trivial, hy⟩
+  · have h1p : ⊤ ≤ p₁ ⁻¹ᵁ (jU ''ᵁ ⊤) := by
+      intro x _; rw [hall x]; obtain ⟨y, hy⟩ := hxU; exact ⟨y, trivial, hy⟩
+    have h2p : ⊤ ≤ p₂ ⁻¹ᵁ (jW ''ᵁ ⊤) := by
+      intro x _; rw [hall x]; obtain ⟨y, hy⟩ := hyW; exact ⟨y, trivial, hy⟩
+    obtain ⟨χ, hq, e1, e2⟩ := hlift p₁ p₂ hp h1p h2p
+    rw [(hsum p₁ p₂ χ e1 e2).1, map_pow]
+    refine pow_ne_zero _ ?_
+    rw [← SpecMap_mem_basicOpen_iff χ h pt]
+    have : Spec.map χ pt = t0 := by
+      apply m'.isOpenEmbedding.injective
+      rw [hmt0, ← Scheme.Hom.comp_apply, ← hq]
+    rw [this]
+    exact ht0D
+  · intro p₁' p₂' hp' h1' h2' hne
+    obtain ⟨χ, hq, e1, e2⟩ := hlift p₁' p₂' hp' h1' h2'
+    obtain ⟨hs1, hs2⟩ := hsum p₁' p₂' χ e1 e2
+    rw [hs1] at hne ⊢
+    rw [hs2]
+    have hχ : χ h0 ≠ 0 := by
+      intro h0z
+      apply hne
+      rw [map_pow, h0z, zero_pow (Nat.succ_ne_zero _)]
+    obtain ⟨hT, hv⟩ := hval χ hχ
+    rw [hq, Category.assoc]
+    exact ⟨hT, hv⟩
+
+end AlgebraicGeometry
+
 namespace HDec
 
 set_option maxHeartbeats 1000000
@@ -77602,6 +78426,355 @@ end G0Galois
 end
 
 end G0A2_b05_conjtwist
+
+section G0A2_b07_infrastalks
+/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3299, its Part 3, verbatim except
+that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20; Part 1 is module LF2Stalks) -/
+
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+
+
+/-! # infra-stalks: `CotangentSpanBC` from the stalk of a fibre product -/
+
+section InfraStalks
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-- The unit section is a section of the structure morphism. -/
+theorem unitSection_comp_hom {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.unitSection ≫ 𝒢.G.hom = 𝟙 _ := by
+  unfold GroupModel.unitSection
+  simpa using Over.w η[𝒢.G]
+
+theorem hom_genericUnit {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.G.hom 𝒢.genericUnit = genericPt L := by
+  unfold GroupModel.genericUnit
+  rw [← Scheme.Hom.comp_apply, unitSection_comp_hom]
+  rfl
+
+theorem rationalOver_genericUnit {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : RationalOver 𝒢.G.hom 𝒢.genericUnit :=
+  rationalOver_of_section _ _ (unitSection_comp_hom 𝒢) (genericPt L)
+
+/-- The stalk of `Spec 𝓞_L` at its generic point is a field. -/
+theorem isField_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) := by
+  have h : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) := by
+    rw [genericPoint_eq_bot_of_affine]; rfl
+  rw [hy, h]
+  exact Field.toIsField (Spec (CommRingCat.of (𝓞 L))).functionField
+
+theorem maximalIdeal_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsLocalRing.maximalIdeal ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) = ⊥ :=
+  (IsLocalRing.isField_iff_maximalIdeal_eq).mp (isField_stalk_genericPt L y hy)
+
+/-- Nonzero global functions are units at the generic point. -/
+theorem isUnit_germ_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) (a : 𝓞 L) (ha : a ≠ 0) :
+    IsUnit ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ y trivial
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a)) := by
+  have hF := isField_stalk_genericPt L y hy
+  letI := hF.toField
+  refine isUnit_iff_ne_zero.mpr fun h0 => ha ?_
+  have h1 := germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) (U := ⊤) y trivial
+    (h0.trans (map_zero _).symm)
+  have h2 := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).hom h1
+  rwa [Iso.inv_hom_id_apply, map_zero] at h2
+
+theorem structMap_eq_stalkMap {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (a : 𝓞 L) :
+    𝒢.structMap a = 𝒢.G.hom.stalkMap 𝒢.genericUnit
+      ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ (𝒢.G.hom 𝒢.genericUnit) trivial
+        ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a)) := by
+  erw [Scheme.Hom.germ_stalkMap_apply 𝒢.G.hom ⊤ 𝒢.genericUnit (by trivial)]
+  rfl
+
+/-- Nonzero elements of `𝓞_L` are units in the local ring at the origin of the generic fibre. -/
+theorem isUnit_structMap {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (a : 𝓞 L) (ha : a ≠ 0) : IsUnit (𝒢.structMap a) := by
+  rw [structMap_eq_stalkMap]
+  exact (isUnit_germ_genericPt L _ (hom_genericUnit 𝒢) a ha).map _
+
+/-- Elements of the maximal ideal act by zero on the cotangent space. -/
+theorem smul_cotangent_eq_of_sub_mem {R : Type*} [CommRing R] [IsLocalRing R] {r r' : R}
+    (h : r - r' ∈ IsLocalRing.maximalIdeal R) (v : IsLocalRing.CotangentSpace R) :
+    r • v = r' • v := by
+  obtain ⟨x, rfl⟩ := (IsLocalRing.maximalIdeal R).toCotangent_surjective v
+  rw [← sub_eq_zero, ← sub_smul, ← map_smul, Ideal.toCotangent_eq_zero]
+  rw [pow_two]
+  exact Ideal.mul_mem_mul h x.2
+
+/-- A nonzero `s ∈ 𝓞_L` divides a nonzero integer. -/
+theorem exists_int_dvd {L : Type} [Field L] [NumberField L] (s : 𝓞 L) (hs : s ≠ 0) :
+    ∃ (N : ℤ) (s' : 𝓞 L), N ≠ 0 ∧ (N : 𝓞 L) = s * s' := by
+  have hlt := Ideal.under_lt_under_of_integral_mem_sdiff (R := ℤ) (I := (⊥ : Ideal (𝓞 L)))
+    (J := Ideal.span {s}) bot_le (x := s)
+    ⟨Ideal.mem_span_singleton_self s, by simpa using hs⟩ (Algebra.IsIntegral.isIntegral s)
+  obtain ⟨N, hN, hN0⟩ := IsConcreteLE.exists_of_lt hlt
+  rw [Ideal.under, Ideal.mem_comap, Ideal.mem_span_singleton] at hN
+  obtain ⟨s', hs'⟩ := hN
+  refine ⟨N, s', fun h => hN0 ?_, by simpa using hs'⟩
+  rw [h]; exact Ideal.zero_mem _
+
+variable {L L' : Type} [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L']
+
+/-- `bcCot` commutes with division by a nonzero integer. -/
+theorem bcCot_intInv {𝒢 : GroupModel A L} {𝒢' : GroupModel A L'}
+    {e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G} (he : IsMonBC 𝒢 𝒢' e) (N : ℤ) (hN : N ≠ 0)
+    (u : 𝒢.cotangent) :
+    ∃ u' : 𝒢.cotangent, (↑((isUnit_structMap 𝒢' (N : 𝓞 L') (by exact_mod_cast hN)).unit⁻¹) :
+      𝒢'.genStalk) • bcCot he u = bcCot he u' := by
+  set U := (isUnit_structMap 𝒢 (N : 𝓞 L) (by exact_mod_cast hN)).unit
+  set U' := (isUnit_structMap 𝒢' (N : 𝓞 L') (by exact_mod_cast hN)).unit
+  refine ⟨(↑(U⁻¹) : 𝒢.genStalk) • u, ?_⟩
+  have hU : (U : 𝒢.genStalk) = (N : 𝒢.genStalk) := by
+    simp [U, map_intCast]
+  have hU' : (U' : 𝒢'.genStalk) = (N : 𝒢'.genStalk) := by
+    simp [U', map_intCast]
+  have h1 : u = (N : 𝒢.genStalk) • ((↑(U⁻¹) : 𝒢.genStalk) • u) := by
+    rw [smul_smul, ← hU, Units.mul_inv, one_smul]
+  have h2 : bcCot he u = (N : 𝒢'.genStalk) • bcCot he ((↑(U⁻¹) : 𝒢.genStalk) • u) := by
+    conv_lhs => rw [h1]
+    change bcCot he (((N : 𝒢.genStalk)) • ((↑(U⁻¹) : 𝒢.genStalk) • u)) = _
+    rw [Int.cast_smul_eq_zsmul, map_zsmul, Int.cast_smul_eq_zsmul]
+  rw [h2, smul_smul, ← hU', Units.inv_mul, one_smul]
+
+/-- **`CotangentSpanBC` holds** (glue BC-cot of height-bc, statement verbatim). -/
+theorem cotangentSpanBC : CotangentSpanBC := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he
+  set p := bcProj 𝒢 𝒢' e
+  set ξ' := 𝒢'.genericUnit
+  have hw : p ≫ 𝒢.G.hom = 𝒢'.G.hom ≫ bO L L' := bcProj_w 𝒢 𝒢' e
+  have hgen : StalkGen p 𝒢'.G.hom ξ' := by
+    have h0 := StalkGen.comp_of_isIso e.hom.left (pullback.fst 𝒢.G.hom (bO L L'))
+      (pullback.snd _ _) ξ' (pullback_stalkGen _ _ _)
+    have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+    rw [hsnd] at h0
+    exact h0
+  have hrat : RationalOver 𝒢.G.hom (p ξ') := by
+    have := rationalOver_genericUnit 𝒢
+    rwa [← bcProj_genericUnit he] at this
+  have hm := maximalIdeal_eq_of_stalkGen hw hgen hrat
+  dsimp only [stalkIdeal] at hm
+  rw [maximalIdeal_stalk_genericPt L' _ (hom_genericUnit 𝒢'), Ideal.map_bot, sup_bot_eq] at hm
+  have hres := exists_sub_mem_maximalIdeal_of_stalkGen hw hgen hrat
+  set N := Submodule.span (𝓞 L') (Set.range (bcCot he))
+  -- `N` is stable under the local ring `𝒪_{𝒢',ξ'}`
+  have hgenN : ∀ (r : 𝒢'.genStalk) (u : 𝒢.cotangent), r • bcCot he u ∈ N := by
+    intro r u
+    obtain ⟨b, hb⟩ := hres r
+    have e1 : r • bcCot he u = 𝒢'.G.hom.stalkMap ξ' b • bcCot he u :=
+      smul_cotangent_eq_of_sub_mem hb _
+    rw [e1]
+    -- write `b = a / s` in the stalk of `Spec 𝓞_{L'}` at the generic point
+    let Y := Spec (CommRingCat.of (𝓞 L'))
+    let y := 𝒢'.G.hom ξ'
+    letI : Algebra Γ(Y, ⊤) (Y.presheaf.stalk y) := (Y.presheaf.germ ⊤ y trivial).hom.toAlgebra
+    have hL : IsLocalization.AtPrime (Y.presheaf.stalk y)
+        ((isAffineOpen_top Y).primeIdealOf ⟨y, trivial⟩).asIdeal :=
+      (isAffineOpen_top Y).isLocalization_stalk ⟨y, trivial⟩
+    obtain ⟨⟨a, s⟩, hbs⟩ := @IsLocalization.surj _ _ _ _ _ _ hL b
+    set a0 := (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom a
+    set s0 := (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom s.1
+    have hs0 : s0 ≠ 0 := by
+      intro h0
+      apply s.2
+      have : s.1 = 0 := by
+        have := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).inv h0
+        rwa [Iso.hom_inv_id_apply, map_zero] at this
+      rw [this]; exact Ideal.zero_mem _
+    have hga : ∀ c : Γ(Y, ⊤), 𝒢'.G.hom.stalkMap ξ' (algebraMap Γ(Y, ⊤) _ c) =
+        𝒢'.structMap ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom c) := by
+      intro c
+      rw [structMap_eq_stalkMap, Iso.hom_inv_id_apply]
+      rfl
+    have hbs' : 𝒢'.G.hom.stalkMap ξ' b * 𝒢'.structMap s0 = 𝒢'.structMap a0 := by
+      rw [← hga, ← hga, ← map_mul]; exact congrArg _ hbs
+    obtain ⟨N0, s1, hN0, hN0s⟩ := exists_int_dvd s0 hs0
+    obtain ⟨u', hu'⟩ := bcCot_intInv he N0 hN0 u
+    set U' := (isUnit_structMap 𝒢' (N0 : 𝓞 L') (by exact_mod_cast hN0)).unit
+    have hb' : 𝒢'.G.hom.stalkMap ξ' b = 𝒢'.structMap (a0 * s1) * (↑(U'⁻¹) : 𝒢'.genStalk) := by
+      rw [Units.eq_mul_inv_iff_mul_eq]
+      change _ = 𝒢'.structMap (a0 * s1)
+      rw [show (U' : 𝒢'.genStalk) = 𝒢'.structMap (N0 : 𝓞 L') from rfl, hN0s, map_mul,
+        map_mul, ← _root_.mul_assoc, hbs']
+    rw [hb', mul_smul, hu']
+    exact N.smul_mem (a0 * s1) (Submodule.subset_span ⟨u', rfl⟩)
+  have hN : ∀ (r : 𝒢'.genStalk) (v : 𝒢'.cotangent), v ∈ N → r • v ∈ N := by
+    intro r v hv
+    induction hv using Submodule.span_induction with
+    | mem x hx =>
+      obtain ⟨u, rfl⟩ := hx
+      exact hgenN r u
+    | zero => rw [smul_zero]; exact N.zero_mem
+    | add x y _ _ hx hy => rw [smul_add]; exact N.add_mem hx hy
+    | smul c x _ hx =>
+      change r • (𝒢'.structMap c • x) ∈ N
+      rw [smul_smul, mul_comm, ← smul_smul]
+      exact N.smul_mem c hx
+  -- every cotangent vector lies in `N`
+  rw [eq_top_iff]
+  rintro v -
+  obtain ⟨x, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent_surjective v
+  obtain ⟨x, hx⟩ := x
+  have hx' : x ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _) := hm ▸ hx
+  have hmem : ∀ y, y ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _) →
+      y ∈ IsLocalRing.maximalIdeal 𝒢'.genStalk := fun y hy => hm ▸ hy
+  suffices H : ∀ y (hy : y ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _)),
+      (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent ⟨y, hmem y hy⟩ ∈ N from H x hx'
+  intro y hy
+  induction hy using Submodule.span_induction with
+  | mem z hz =>
+    obtain ⟨a, ha, rfl⟩ := hz
+    haveI := isIso_stalkSpecializes_bcMap he
+    set sp := 𝒢.G.left.presheaf.stalkSpecializes
+      (Inseparable.of_eq (bcProj_genericUnit he)).specializes
+    set a' := (inv sp).hom a
+    have hsa : sp.hom a' = a := by
+      simp only [a']
+      rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+    have ha' : a' ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+      intro hu
+      apply ha
+      rw [← hsa]
+      exact hu.map sp.hom
+    refine Submodule.subset_span ⟨𝒢.dCls ⟨a', ha'⟩, ?_⟩
+    rw [bcCot_dCls]
+    unfold GroupModel.dCls
+    congr 2
+    change (sp ≫ p.stalkMap ξ') a' = _
+    rw [CommRingCat.comp_apply, hsa]
+  | zero =>
+    have : (⟨0, hmem 0 (Submodule.zero_mem _)⟩ : IsLocalRing.maximalIdeal 𝒢'.genStalk) = 0 := rfl
+    rw [this, map_zero]; exact N.zero_mem
+  | add z w hz hw hzN hwN =>
+    have : (⟨z + w, hmem _ (Submodule.add_mem _ hz hw)⟩ : IsLocalRing.maximalIdeal 𝒢'.genStalk) =
+        ⟨z, hmem z hz⟩ + ⟨w, hmem w hw⟩ := rfl
+    rw [this, map_add]; exact N.add_mem hzN hwN
+  | smul c z hz hzN =>
+    have : (⟨c • z, hmem _ (Submodule.smul_mem _ c hz)⟩ :
+        IsLocalRing.maximalIdeal 𝒢'.genStalk) = c • ⟨z, hmem z hz⟩ := rfl
+    rw [this, map_smul]
+    exact hN c _ hzN
+
+end InfraStalks
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.cotangentSpanBC
+
+
+
+/-! # infra-stalks: `UniformizationLiftAnalytic` (height-bc) proved -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+
+/-- **`UniformizationLiftAnalytic` holds** (glue BC-lift-an of height-bc, statement verbatim), from
+`AlgebraicGeometry.exists_localStructure_pullback` applied to `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. -/
+theorem uniformizationLiftAnalytic : UniformizationLiftAnalytic := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ g Λ Φ' hΦ
+  let p₁ : (Fin g → ℂ) → ((GroupModel.ptC τ').left ⟶ 𝒢.G.left) :=
+    fun z => (Φ' z).left ≫ bcProj 𝒢 𝒢' e
+  let p₂ : (GroupModel.ptC τ').left ⟶ Spec (CommRingCat.of (𝓞 L')) := (GroupModel.ptC τ').hom
+  have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+  have hw : ∀ z, p₁ z ≫ 𝒢.G.hom = p₂ ≫ bO L L' := fun z =>
+    (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) (bcProj_w 𝒢 𝒢' e)).trans
+      ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ bO L L') (Over.w (Φ' z)))))
+  have hei : e.hom.left ≫ e.inv.left = 𝟙 _ := by
+    rw [← Over.comp_left, e.hom_inv_id]; rfl
+  have hlift : ∀ z, pullback.lift (p₁ z) p₂ (hw z) ≫ e.inv.left = (Φ' z).left := by
+    intro z
+    have h1 : pullback.lift (p₁ z) p₂ (hw z) = (Φ' z).left ≫ e.hom.left := by
+      apply pullback.hom_ext
+      · rw [pullback.lift_fst]
+        exact (Category.assoc _ _ _).symm
+      · rw [pullback.lift_snd]
+        exact ((Over.w (Φ' z)).symm.trans (congrArg ((Φ' z).left ≫ ·) hsnd.symm)).trans
+          (Category.assoc _ _ _).symm
+    rw [h1]
+    exact (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) hei).trans
+      (Category.comp_id _))
+  obtain ⟨-, -, -, hopen, hdiff⟩ := hΦ
+  have hloc : ∀ (U : 𝒢'.G.left.Opens) (s : Γ(𝒢'.G.left, U)) (z₀ : Fin g → ℂ),
+      z₀ ∈ 𝒢'.dom Φ' U → ∃ O : Set (Fin g → ℂ), IsOpen O ∧ z₀ ∈ O ∧ O ⊆ 𝒢'.dom Φ' U ∧
+        DifferentiableOn ℂ (fun z => 𝒢'.evalAt (Φ' z) U s) O := by
+    intro U s z₀ hz₀
+    have hU : ⊤ ≤ (pullback.lift (p₁ z₀) p₂ (hw z₀) ≫ e.inv.left) ⁻¹ᵁ U := by
+      rw [hlift]; exact hz₀
+    obtain ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, hall⟩ :=
+      exists_localStructure_pullback 𝒢.G.hom (bO L L') e.inv.left U s (p₁ z₀) p₂ (hw z₀) hU
+    let Hf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (c k) * evalPt p₂ V₂ (d k)
+    let Nf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (a k) * evalPt p₂ V₂ (b k)
+    let D1 := 𝒢.dom (fun z => bcPts e σ τ' hστ (Φ' z)) V₁
+    have hHd : DifferentiableOn ℂ Hf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (c k)).mul_const _
+    have hNd : DifferentiableOn ℂ Nf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (a k)).mul_const _
+    let O := D1 ∩ Hf ⁻¹' {0}ᶜ
+    have hO : IsOpen O := hHd.continuousOn.isOpen_inter_preimage (hopen V₁) isOpen_compl_singleton
+    have hmem : ∀ z ∈ O, z ∈ 𝒢'.dom Φ' U ∧ 𝒢'.evalAt (Φ' z) U s * Hf z = Nf z := by
+      rintro z ⟨hz1, hz2⟩
+      have := hall (p₁ z) p₂ (hw z) hz1 h2 hz2
+      refine ⟨?_, ?_⟩
+      · show ⊤ ≤ (Φ' z).left ⁻¹ᵁ U
+        exact (hlift z) ▸ this.1
+      · show evalPt (Φ' z).left U s * Hf z = Nf z
+        exact (hlift z) ▸ this.2
+    refine ⟨O, hO, ⟨h1, hne⟩, fun z hz => (hmem z hz).1, ?_⟩
+    have hq : ∀ z ∈ O, 𝒢'.evalAt (Φ' z) U s = Nf z * (Hf z)⁻¹ := by
+      intro z hz
+      rw [← div_eq_mul_inv, eq_div_iff hz.2]
+      exact (hmem z hz).2
+    exact ((hNd.mono Set.inter_subset_left).mul ((hHd.mono Set.inter_subset_left).inv
+      (fun z hz => hz.2))).congr hq
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [isOpen_iff_forall_mem_open]
+    intro z hz
+    obtain ⟨O, hO, hzO, hOsub, -⟩ := hloc U 0 z hz
+    exact ⟨O, hOsub, hO, hzO⟩
+  · intro z hz
+    obtain ⟨O, hO, hzO, -, hd⟩ := hloc U s z hz
+    exact (hd.differentiableAt (hO.mem_nhds hzO)).differentiableWithinAt
+
+/-- `UniformizationLift` is a theorem. -/
+theorem uniformizationLift : UniformizationLift :=
+  uniformizationLift_of uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
+#print axioms ZInQ.HeightBC.uniformizationLift
+
+
+
+/-! # infra-stalks: height-bc's H4a and `HodgeLineBaseChange` from two glue statements -/
+
+namespace ZInQ.HeightBC
+
+/-- **H4a (`ModelHeightBaseChange`, verbatim) from `HodgeBCInjective` and `OmegaBaseChange`**:
+`CotangentSpanBC` and `UniformizationLiftAnalytic` are now theorems. -/
+theorem modelHeightBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    ModelHeightBaseChange :=
+  modelHeightBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+/-- **`HodgeLineBaseChange` (verbatim) from `HodgeBCInjective` and `OmegaBaseChange`.** -/
+theorem hodgeLineBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+end G0A2_b07_infrastalks
 
 section G0A2_b10_abvarbc
 /-! ## leaf-fold2: g9-abvarbc (ZInQKernel/Contrib/AbVarBC/*.lean), copied; see mk_abvarbc.py -/
@@ -80099,6 +81272,15 @@ theorem conjTwistNontrivial_proved (h5 : PkgI2.TorsionStructure.{0}) (hT : PkgI3
     G0Galois.ConjTwistNontrivial :=
   G0Galois.conjTwistNontrivial_of_leaves h5 hT h35 hN2
 
+/-! ### Height-bc glue closed (infra-stalks, part b07) -/
+
+/-- **`CotangentSpanBC` proved** (infra-stalks, from the stalk of a fibre product). -/
+theorem cotangentSpanBC_proved : ZInQ.HeightBC.CotangentSpanBC := ZInQ.HeightBC.cotangentSpanBC
+
+/-- **`UniformizationLiftAnalytic` proved** (infra-stalks). -/
+theorem uniformizationLiftAnalytic_proved : ZInQ.HeightBC.UniformizationLiftAnalytic :=
+  ZInQ.HeightBC.uniformizationLiftAnalytic
+
 /-! ### The open statements -/
 
 /-- **The research-level leaves still open** (leaf-fold2). `ResearchLeaves3` (g0-assemble2: no
@@ -80203,17 +81385,15 @@ structure OpenAddedLeaves2 : Prop where
   divisiblePoints : WeilPairing.DivisiblePoints
 
 /-- **The glue still open** (leaf-fold2): g0-assemble2's `GluePieces3` fields of kind GLUE, minus
-the five now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-`endTransport`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
+the seven now proved (`smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
+`endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`) and the two no longer used (`artinTorsionSurj`, `conjUniformization`: conj-twist's
 final theorem needs neither). -/
 structure OpenGlue2 : Prop where
   x6KummerFibre : FS5NoCM.X6KummerFibre
   productUnifSplits : ZInQ.ProductHeight.ProductUnifSplits
   productMetrizationOfProductUnif : ZInQ.ProductHeight.ProductMetrizationOfProductUnif
   hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
-  cotangentSpanBC : ZInQ.HeightBC.CotangentSpanBC
   omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
-  uniformizationLiftAnalytic : ZInQ.HeightBC.UniformizationLiftAnalytic
   periodMapGlue : ∀ h : LeafAdopt.R1R2fpRep,
     G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
@@ -80309,7 +81489,8 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
       g.productMetrizationOfProductUnif
     stableHeightBaseChange := G0StableBC.stableHeightBaseChange_of_hodgeLine
       (ZInQ.HeightBC.g0_hodgeLine_iff.mpr (ZInQ.HeightBC.hodgeLineBaseChange_of_glue4
-        g.hodgeBCInjective g.cotangentSpanBC g.omegaBaseChange g.uniformizationLiftAnalytic))
+        g.hodgeBCInjective cotangentSpanBC_proved g.omegaBaseChange
+        uniformizationLiftAnalytic_proved))
     productExists := G0Product.productExists
     reverseIsogeny := G0RevIsog.reverseIsogeny_of_leaves3 r3 G0Split.dimFinite
     thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
@@ -80345,7 +81526,7 @@ theorem gluePieces_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
   form; no `opaque` placeholder);
 * `OpenTextbookLeaves2`: 18 textbook fields;
 * `OpenAddedLeaves2`: 12 leaves (9 LEAF, 3 LEAF?) introduced by the wave 26-27 reductions;
-* `OpenGlue2`: 15 glue Props.
+* `OpenGlue2`: 13 glue Props.
 The table of every field, its kind and source is `docs/research/leaf-fold2.md`. -/
 theorem sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2)
     (l : OpenAddedLeaves2) (g : OpenGlue2) : ZInQ.SixContactMin :=
@@ -80373,6 +81554,8 @@ end
 #print axioms HSyn.oMaximal_proved
 #print axioms HSyn.endTransport_proved
 #print axioms HSyn.conjTwistNontrivial_proved
+#print axioms HSyn.cotangentSpanBC_proved
+#print axioms HSyn.uniformizationLiftAnalytic_proved
 #print axioms HSyn.researchLeaves3_of_open2
 #print axioms HSyn.textbookLeaves_of_open2
 #print axioms HSyn.gluePieces_of_open2

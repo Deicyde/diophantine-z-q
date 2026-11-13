@@ -1,0 +1,345 @@
+/-! ## leaf-fold2: infra-stalks (scratch/infra-stalks/HeightBCGlue.lean lines 2955-3299, its Part 3, verbatim except
+that the lines `open PkgI3 (AbVar)` are deleted, as g0-assemble2 did for part a20; Part 1 is module LF2Stalks) -/
+
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+
+
+/-! # infra-stalks: `CotangentSpanBC` from the stalk of a fibre product -/
+
+section InfraStalks
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-- The unit section is a section of the structure morphism. -/
+theorem unitSection_comp_hom {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.unitSection ≫ 𝒢.G.hom = 𝟙 _ := by
+  unfold GroupModel.unitSection
+  simpa using Over.w η[𝒢.G]
+
+theorem hom_genericUnit {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : 𝒢.G.hom 𝒢.genericUnit = genericPt L := by
+  unfold GroupModel.genericUnit
+  rw [← Scheme.Hom.comp_apply, unitSection_comp_hom]
+  rfl
+
+theorem rationalOver_genericUnit {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) : RationalOver 𝒢.G.hom 𝒢.genericUnit :=
+  rationalOver_of_section _ _ (unitSection_comp_hom 𝒢) (genericPt L)
+
+/-- The stalk of `Spec 𝓞_L` at its generic point is a field. -/
+theorem isField_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) := by
+  have h : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) := by
+    rw [genericPoint_eq_bot_of_affine]; rfl
+  rw [hy, h]
+  exact Field.toIsField (Spec (CommRingCat.of (𝓞 L))).functionField
+
+theorem maximalIdeal_stalk_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) :
+    IsLocalRing.maximalIdeal ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk y) = ⊥ :=
+  (IsLocalRing.isField_iff_maximalIdeal_eq).mp (isField_stalk_genericPt L y hy)
+
+/-- Nonzero global functions are units at the generic point. -/
+theorem isUnit_germ_genericPt (L : Type) [Field L] [NumberField L]
+    (y : Spec (CommRingCat.of (𝓞 L))) (hy : y = genericPt L) (a : 𝓞 L) (ha : a ≠ 0) :
+    IsUnit ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ y trivial
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a)) := by
+  have hF := isField_stalk_genericPt L y hy
+  letI := hF.toField
+  refine isUnit_iff_ne_zero.mpr fun h0 => ha ?_
+  have h1 := germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) (U := ⊤) y trivial
+    (h0.trans (map_zero _).symm)
+  have h2 := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).hom h1
+  rwa [Iso.inv_hom_id_apply, map_zero] at h2
+
+theorem structMap_eq_stalkMap {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (a : 𝓞 L) :
+    𝒢.structMap a = 𝒢.G.hom.stalkMap 𝒢.genericUnit
+      ((Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ (𝒢.G.hom 𝒢.genericUnit) trivial
+        ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv a)) := by
+  erw [Scheme.Hom.germ_stalkMap_apply 𝒢.G.hom ⊤ 𝒢.genericUnit (by trivial)]
+  rfl
+
+/-- Nonzero elements of `𝓞_L` are units in the local ring at the origin of the generic fibre. -/
+theorem isUnit_structMap {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (a : 𝓞 L) (ha : a ≠ 0) : IsUnit (𝒢.structMap a) := by
+  rw [structMap_eq_stalkMap]
+  exact (isUnit_germ_genericPt L _ (hom_genericUnit 𝒢) a ha).map _
+
+/-- Elements of the maximal ideal act by zero on the cotangent space. -/
+theorem smul_cotangent_eq_of_sub_mem {R : Type*} [CommRing R] [IsLocalRing R] {r r' : R}
+    (h : r - r' ∈ IsLocalRing.maximalIdeal R) (v : IsLocalRing.CotangentSpace R) :
+    r • v = r' • v := by
+  obtain ⟨x, rfl⟩ := (IsLocalRing.maximalIdeal R).toCotangent_surjective v
+  rw [← sub_eq_zero, ← sub_smul, ← map_smul, Ideal.toCotangent_eq_zero]
+  rw [pow_two]
+  exact Ideal.mul_mem_mul h x.2
+
+/-- A nonzero `s ∈ 𝓞_L` divides a nonzero integer. -/
+theorem exists_int_dvd {L : Type} [Field L] [NumberField L] (s : 𝓞 L) (hs : s ≠ 0) :
+    ∃ (N : ℤ) (s' : 𝓞 L), N ≠ 0 ∧ (N : 𝓞 L) = s * s' := by
+  have hlt := Ideal.under_lt_under_of_integral_mem_sdiff (R := ℤ) (I := (⊥ : Ideal (𝓞 L)))
+    (J := Ideal.span {s}) bot_le (x := s)
+    ⟨Ideal.mem_span_singleton_self s, by simpa using hs⟩ (Algebra.IsIntegral.isIntegral s)
+  obtain ⟨N, hN, hN0⟩ := IsConcreteLE.exists_of_lt hlt
+  rw [Ideal.under, Ideal.mem_comap, Ideal.mem_span_singleton] at hN
+  obtain ⟨s', hs'⟩ := hN
+  refine ⟨N, s', fun h => hN0 ?_, by simpa using hs'⟩
+  rw [h]; exact Ideal.zero_mem _
+
+variable {L L' : Type} [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L']
+
+/-- `bcCot` commutes with division by a nonzero integer. -/
+theorem bcCot_intInv {𝒢 : GroupModel A L} {𝒢' : GroupModel A L'}
+    {e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G} (he : IsMonBC 𝒢 𝒢' e) (N : ℤ) (hN : N ≠ 0)
+    (u : 𝒢.cotangent) :
+    ∃ u' : 𝒢.cotangent, (↑((isUnit_structMap 𝒢' (N : 𝓞 L') (by exact_mod_cast hN)).unit⁻¹) :
+      𝒢'.genStalk) • bcCot he u = bcCot he u' := by
+  set U := (isUnit_structMap 𝒢 (N : 𝓞 L) (by exact_mod_cast hN)).unit
+  set U' := (isUnit_structMap 𝒢' (N : 𝓞 L') (by exact_mod_cast hN)).unit
+  refine ⟨(↑(U⁻¹) : 𝒢.genStalk) • u, ?_⟩
+  have hU : (U : 𝒢.genStalk) = (N : 𝒢.genStalk) := by
+    simp [U, map_intCast]
+  have hU' : (U' : 𝒢'.genStalk) = (N : 𝒢'.genStalk) := by
+    simp [U', map_intCast]
+  have h1 : u = (N : 𝒢.genStalk) • ((↑(U⁻¹) : 𝒢.genStalk) • u) := by
+    rw [smul_smul, ← hU, Units.mul_inv, one_smul]
+  have h2 : bcCot he u = (N : 𝒢'.genStalk) • bcCot he ((↑(U⁻¹) : 𝒢.genStalk) • u) := by
+    conv_lhs => rw [h1]
+    change bcCot he (((N : 𝒢.genStalk)) • ((↑(U⁻¹) : 𝒢.genStalk) • u)) = _
+    rw [Int.cast_smul_eq_zsmul, map_zsmul, Int.cast_smul_eq_zsmul]
+  rw [h2, smul_smul, ← hU', Units.inv_mul, one_smul]
+
+/-- **`CotangentSpanBC` holds** (glue BC-cot of height-bc, statement verbatim). -/
+theorem cotangentSpanBC : CotangentSpanBC := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he
+  set p := bcProj 𝒢 𝒢' e
+  set ξ' := 𝒢'.genericUnit
+  have hw : p ≫ 𝒢.G.hom = 𝒢'.G.hom ≫ bO L L' := bcProj_w 𝒢 𝒢' e
+  have hgen : StalkGen p 𝒢'.G.hom ξ' := by
+    have h0 := StalkGen.comp_of_isIso e.hom.left (pullback.fst 𝒢.G.hom (bO L L'))
+      (pullback.snd _ _) ξ' (pullback_stalkGen _ _ _)
+    have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+    rw [hsnd] at h0
+    exact h0
+  have hrat : RationalOver 𝒢.G.hom (p ξ') := by
+    have := rationalOver_genericUnit 𝒢
+    rwa [← bcProj_genericUnit he] at this
+  have hm := maximalIdeal_eq_of_stalkGen hw hgen hrat
+  dsimp only [stalkIdeal] at hm
+  rw [maximalIdeal_stalk_genericPt L' _ (hom_genericUnit 𝒢'), Ideal.map_bot, sup_bot_eq] at hm
+  have hres := exists_sub_mem_maximalIdeal_of_stalkGen hw hgen hrat
+  set N := Submodule.span (𝓞 L') (Set.range (bcCot he))
+  -- `N` is stable under the local ring `𝒪_{𝒢',ξ'}`
+  have hgenN : ∀ (r : 𝒢'.genStalk) (u : 𝒢.cotangent), r • bcCot he u ∈ N := by
+    intro r u
+    obtain ⟨b, hb⟩ := hres r
+    have e1 : r • bcCot he u = 𝒢'.G.hom.stalkMap ξ' b • bcCot he u :=
+      smul_cotangent_eq_of_sub_mem hb _
+    rw [e1]
+    -- write `b = a / s` in the stalk of `Spec 𝓞_{L'}` at the generic point
+    let Y := Spec (CommRingCat.of (𝓞 L'))
+    let y := 𝒢'.G.hom ξ'
+    letI : Algebra Γ(Y, ⊤) (Y.presheaf.stalk y) := (Y.presheaf.germ ⊤ y trivial).hom.toAlgebra
+    have hL : IsLocalization.AtPrime (Y.presheaf.stalk y)
+        ((isAffineOpen_top Y).primeIdealOf ⟨y, trivial⟩).asIdeal :=
+      (isAffineOpen_top Y).isLocalization_stalk ⟨y, trivial⟩
+    obtain ⟨⟨a, s⟩, hbs⟩ := @IsLocalization.surj _ _ _ _ _ _ hL b
+    set a0 := (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom a
+    set s0 := (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom s.1
+    have hs0 : s0 ≠ 0 := by
+      intro h0
+      apply s.2
+      have : s.1 = 0 := by
+        have := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).inv h0
+        rwa [Iso.hom_inv_id_apply, map_zero] at this
+      rw [this]; exact Ideal.zero_mem _
+    have hga : ∀ c : Γ(Y, ⊤), 𝒢'.G.hom.stalkMap ξ' (algebraMap Γ(Y, ⊤) _ c) =
+        𝒢'.structMap ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L'))).hom c) := by
+      intro c
+      rw [structMap_eq_stalkMap, Iso.hom_inv_id_apply]
+      rfl
+    have hbs' : 𝒢'.G.hom.stalkMap ξ' b * 𝒢'.structMap s0 = 𝒢'.structMap a0 := by
+      rw [← hga, ← hga, ← map_mul]; exact congrArg _ hbs
+    obtain ⟨N0, s1, hN0, hN0s⟩ := exists_int_dvd s0 hs0
+    obtain ⟨u', hu'⟩ := bcCot_intInv he N0 hN0 u
+    set U' := (isUnit_structMap 𝒢' (N0 : 𝓞 L') (by exact_mod_cast hN0)).unit
+    have hb' : 𝒢'.G.hom.stalkMap ξ' b = 𝒢'.structMap (a0 * s1) * (↑(U'⁻¹) : 𝒢'.genStalk) := by
+      rw [Units.eq_mul_inv_iff_mul_eq]
+      change _ = 𝒢'.structMap (a0 * s1)
+      rw [show (U' : 𝒢'.genStalk) = 𝒢'.structMap (N0 : 𝓞 L') from rfl, hN0s, map_mul,
+        map_mul, ← _root_.mul_assoc, hbs']
+    rw [hb', mul_smul, hu']
+    exact N.smul_mem (a0 * s1) (Submodule.subset_span ⟨u', rfl⟩)
+  have hN : ∀ (r : 𝒢'.genStalk) (v : 𝒢'.cotangent), v ∈ N → r • v ∈ N := by
+    intro r v hv
+    induction hv using Submodule.span_induction with
+    | mem x hx =>
+      obtain ⟨u, rfl⟩ := hx
+      exact hgenN r u
+    | zero => rw [smul_zero]; exact N.zero_mem
+    | add x y _ _ hx hy => rw [smul_add]; exact N.add_mem hx hy
+    | smul c x _ hx =>
+      change r • (𝒢'.structMap c • x) ∈ N
+      rw [smul_smul, mul_comm, ← smul_smul]
+      exact N.smul_mem c hx
+  -- every cotangent vector lies in `N`
+  rw [eq_top_iff]
+  rintro v -
+  obtain ⟨x, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent_surjective v
+  obtain ⟨x, hx⟩ := x
+  have hx' : x ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _) := hm ▸ hx
+  have hmem : ∀ y, y ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _) →
+      y ∈ IsLocalRing.maximalIdeal 𝒢'.genStalk := fun y hy => hm ▸ hy
+  suffices H : ∀ y (hy : y ∈ Ideal.map (p.stalkMap ξ').hom (IsLocalRing.maximalIdeal _)),
+      (IsLocalRing.maximalIdeal 𝒢'.genStalk).toCotangent ⟨y, hmem y hy⟩ ∈ N from H x hx'
+  intro y hy
+  induction hy using Submodule.span_induction with
+  | mem z hz =>
+    obtain ⟨a, ha, rfl⟩ := hz
+    haveI := isIso_stalkSpecializes_bcMap he
+    set sp := 𝒢.G.left.presheaf.stalkSpecializes
+      (Inseparable.of_eq (bcProj_genericUnit he)).specializes
+    set a' := (inv sp).hom a
+    have hsa : sp.hom a' = a := by
+      simp only [a']
+      rw [← CommRingCat.comp_apply, IsIso.inv_hom_id, CommRingCat.id_apply]
+    have ha' : a' ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+      intro hu
+      apply ha
+      rw [← hsa]
+      exact hu.map sp.hom
+    refine Submodule.subset_span ⟨𝒢.dCls ⟨a', ha'⟩, ?_⟩
+    rw [bcCot_dCls]
+    unfold GroupModel.dCls
+    congr 2
+    change (sp ≫ p.stalkMap ξ') a' = _
+    rw [CommRingCat.comp_apply, hsa]
+  | zero =>
+    have : (⟨0, hmem 0 (Submodule.zero_mem _)⟩ : IsLocalRing.maximalIdeal 𝒢'.genStalk) = 0 := rfl
+    rw [this, map_zero]; exact N.zero_mem
+  | add z w hz hw hzN hwN =>
+    have : (⟨z + w, hmem _ (Submodule.add_mem _ hz hw)⟩ : IsLocalRing.maximalIdeal 𝒢'.genStalk) =
+        ⟨z, hmem z hz⟩ + ⟨w, hmem w hw⟩ := rfl
+    rw [this, map_add]; exact N.add_mem hzN hwN
+  | smul c z hz hzN =>
+    have : (⟨c • z, hmem _ (Submodule.smul_mem _ c hz)⟩ :
+        IsLocalRing.maximalIdeal 𝒢'.genStalk) = c • ⟨z, hmem z hz⟩ := rfl
+    rw [this, map_smul]
+    exact hN c _ hzN
+
+end InfraStalks
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.cotangentSpanBC
+
+
+
+/-! # infra-stalks: `UniformizationLiftAnalytic` (height-bc) proved -/
+
+namespace ZInQ.HeightBC
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+
+/-- **`UniformizationLiftAnalytic` holds** (glue BC-lift-an of height-bc, statement verbatim), from
+`AlgebraicGeometry.exists_localStructure_pullback` applied to `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. -/
+theorem uniformizationLiftAnalytic : UniformizationLiftAnalytic := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he σ τ' hστ g Λ Φ' hΦ
+  let p₁ : (Fin g → ℂ) → ((GroupModel.ptC τ').left ⟶ 𝒢.G.left) :=
+    fun z => (Φ' z).left ≫ bcProj 𝒢 𝒢' e
+  let p₂ : (GroupModel.ptC τ').left ⟶ Spec (CommRingCat.of (𝓞 L')) := (GroupModel.ptC τ').hom
+  have hsnd : e.hom.left ≫ pullback.snd 𝒢.G.hom (bO L L') = 𝒢'.G.hom := Over.w e.hom
+  have hw : ∀ z, p₁ z ≫ 𝒢.G.hom = p₂ ≫ bO L L' := fun z =>
+    (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) (bcProj_w 𝒢 𝒢' e)).trans
+      ((Category.assoc _ _ _).symm.trans (congrArg (· ≫ bO L L') (Over.w (Φ' z)))))
+  have hei : e.hom.left ≫ e.inv.left = 𝟙 _ := by
+    rw [← Over.comp_left, e.hom_inv_id]; rfl
+  have hlift : ∀ z, pullback.lift (p₁ z) p₂ (hw z) ≫ e.inv.left = (Φ' z).left := by
+    intro z
+    have h1 : pullback.lift (p₁ z) p₂ (hw z) = (Φ' z).left ≫ e.hom.left := by
+      apply pullback.hom_ext
+      · rw [pullback.lift_fst]
+        exact (Category.assoc _ _ _).symm
+      · rw [pullback.lift_snd]
+        exact ((Over.w (Φ' z)).symm.trans (congrArg ((Φ' z).left ≫ ·) hsnd.symm)).trans
+          (Category.assoc _ _ _).symm
+    rw [h1]
+    exact (Category.assoc _ _ _).trans ((congrArg ((Φ' z).left ≫ ·) hei).trans
+      (Category.comp_id _))
+  obtain ⟨-, -, -, hopen, hdiff⟩ := hΦ
+  have hloc : ∀ (U : 𝒢'.G.left.Opens) (s : Γ(𝒢'.G.left, U)) (z₀ : Fin g → ℂ),
+      z₀ ∈ 𝒢'.dom Φ' U → ∃ O : Set (Fin g → ℂ), IsOpen O ∧ z₀ ∈ O ∧ O ⊆ 𝒢'.dom Φ' U ∧
+        DifferentiableOn ℂ (fun z => 𝒢'.evalAt (Φ' z) U s) O := by
+    intro U s z₀ hz₀
+    have hU : ⊤ ≤ (pullback.lift (p₁ z₀) p₂ (hw z₀) ≫ e.inv.left) ⁻¹ᵁ U := by
+      rw [hlift]; exact hz₀
+    obtain ⟨V₁, V₂, n, a, c, b, d, h1, h2, hne, hall⟩ :=
+      exists_localStructure_pullback 𝒢.G.hom (bO L L') e.inv.left U s (p₁ z₀) p₂ (hw z₀) hU
+    let Hf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (c k) * evalPt p₂ V₂ (d k)
+    let Nf : (Fin g → ℂ) → ℂ := fun z =>
+      ∑ k, 𝒢.evalAt (bcPts e σ τ' hστ (Φ' z)) V₁ (a k) * evalPt p₂ V₂ (b k)
+    let D1 := 𝒢.dom (fun z => bcPts e σ τ' hστ (Φ' z)) V₁
+    have hHd : DifferentiableOn ℂ Hf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (c k)).mul_const _
+    have hNd : DifferentiableOn ℂ Nf D1 :=
+      DifferentiableOn.fun_sum fun k _ => (hdiff V₁ (a k)).mul_const _
+    let O := D1 ∩ Hf ⁻¹' {0}ᶜ
+    have hO : IsOpen O := hHd.continuousOn.isOpen_inter_preimage (hopen V₁) isOpen_compl_singleton
+    have hmem : ∀ z ∈ O, z ∈ 𝒢'.dom Φ' U ∧ 𝒢'.evalAt (Φ' z) U s * Hf z = Nf z := by
+      rintro z ⟨hz1, hz2⟩
+      have := hall (p₁ z) p₂ (hw z) hz1 h2 hz2
+      refine ⟨?_, ?_⟩
+      · show ⊤ ≤ (Φ' z).left ⁻¹ᵁ U
+        exact (hlift z) ▸ this.1
+      · show evalPt (Φ' z).left U s * Hf z = Nf z
+        exact (hlift z) ▸ this.2
+    refine ⟨O, hO, ⟨h1, hne⟩, fun z hz => (hmem z hz).1, ?_⟩
+    have hq : ∀ z ∈ O, 𝒢'.evalAt (Φ' z) U s = Nf z * (Hf z)⁻¹ := by
+      intro z hz
+      rw [← div_eq_mul_inv, eq_div_iff hz.2]
+      exact (hmem z hz).2
+    exact ((hNd.mono Set.inter_subset_left).mul ((hHd.mono Set.inter_subset_left).inv
+      (fun z hz => hz.2))).congr hq
+  refine ⟨fun U => ?_, fun U s => ?_⟩
+  · rw [isOpen_iff_forall_mem_open]
+    intro z hz
+    obtain ⟨O, hO, hzO, hOsub, -⟩ := hloc U 0 z hz
+    exact ⟨O, hOsub, hO, hzO⟩
+  · intro z hz
+    obtain ⟨O, hO, hzO, -, hd⟩ := hloc U s z hz
+    exact (hd.differentiableAt (hO.mem_nhds hzO)).differentiableWithinAt
+
+/-- `UniformizationLift` is a theorem. -/
+theorem uniformizationLift : UniformizationLift :=
+  uniformizationLift_of uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
+#print axioms ZInQ.HeightBC.uniformizationLift
+
+
+
+/-! # infra-stalks: height-bc's H4a and `HodgeLineBaseChange` from two glue statements -/
+
+namespace ZInQ.HeightBC
+
+/-- **H4a (`ModelHeightBaseChange`, verbatim) from `HodgeBCInjective` and `OmegaBaseChange`**:
+`CotangentSpanBC` and `UniformizationLiftAnalytic` are now theorems. -/
+theorem modelHeightBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    ModelHeightBaseChange :=
+  modelHeightBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic
+
+/-- **`HodgeLineBaseChange` (verbatim) from `HodgeBCInjective` and `OmegaBaseChange`.** -/
+theorem hodgeLineBaseChange_of_two (h1 : HodgeBCInjective) (hω : OmegaBaseChange) :
+    HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_glue4 h1 cotangentSpanBC hω uniformizationLiftAnalytic

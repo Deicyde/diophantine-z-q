@@ -4,6 +4,7 @@
 #   olean/TailA.lean     = import LPrefix + g0-assemble's 18 parts (parts/[0-9]*.lean), inside `namespace HDec`
 #   olean/TailB/C/D.lean = g0-assemble2's parts a10-a44 / a45-a95 / z*, each part in its own section, inside `namespace HDec`
 #   olean/LF2ImagePlane.lean = scratch/image-plane/ImagePlaneFinal.lean, verbatim (root namespace, kernel objects)
+#   olean/LF2Stalks.lean = LF2Stalks.lean.src (infra-stalks' general stalk lemmas, root namespace)
 #   olean/TailE.lean     = import TailD + kernel T14/T28/RLeaf + LF2ImagePlane + parts b*, inside `namespace HDec`
 #   Leaves2.lean         = all of the above in one file (LF2ImagePlane's body at root level, before TailE's body)
 cd "$(dirname "$0")"
@@ -32,7 +33,8 @@ bodyE() { echo "$HDR"; wrap $E; echo "end HDec"; }
 { echo "import TailB"; echo; bodyC; } > olean/TailC.lean
 { echo "import TailC"; echo; bodyD; } > olean/TailD.lean
 cp ../image-plane/ImagePlaneFinal.lean olean/LF2ImagePlane.lean
-{ echo "import TailD"; echo "$EIMP"; echo "import LF2ImagePlane"; echo; bodyE; } > olean/TailE.lean
+cp LF2Stalks.lean.src olean/LF2Stalks.lean
+{ echo "import TailD"; echo "$EIMP"; echo "import LF2ImagePlane"; echo "import LF2Stalks"; echo; bodyE; } > olean/TailE.lean
 # flat file
 NIMP=$(grep -c '^import ' olean/LPrefix.lean)
 { grep '^import ' olean/LPrefix.lean; echo "$EIMP"; echo "$IPIMP" | grep -v -x -F "$(grep '^import ' olean/LPrefix.lean)";
@@ -40,5 +42,6 @@ NIMP=$(grep -c '^import ' olean/LPrefix.lean)
   bodyA; bodyB; bodyC; bodyD;
   echo "/-! ## leaf-fold2: scratch/image-plane/ImagePlaneFinal.lean (task image-plane), verbatim minus imports; root namespace, over the kernel's objects -/"
   grep -v '^import ' ../image-plane/ImagePlaneFinal.lean; echo;
+  grep -v '^import ' LF2Stalks.lean.src; echo;
   bodyE; } > Leaves2.lean
 wc -l olean/*.lean Leaves2.lean

@@ -1,0 +1,6 @@
+@Representation.asModuleEquiv : {k : Type u_5} →
+  {G : Type u_6} →
+    {V : Type u_7} →
+      [inst : Semiring k] →
+        [inst_1 : Monoid G] →
+          [inst_2 : AddCommMonoid V] → [inst_3 : Module k V] → (ρ : Representation k G V) → ρ.asModule ≃ₗ[k] V
