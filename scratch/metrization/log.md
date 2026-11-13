@@ -150,3 +150,13 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   N1 → H5 → U → HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetNondegenerate →
   ProductLocalStructure → ProductHodgeLattice → HeightAdditivity`. Axioms [propext,
   Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 25: integration check SplitMetrization.lean (build_integrated.sh) — COMPILED 05:21
+  (3 min 47 s; 0 errors; 22674 lines)
+- = g0-heightadd's SplitIntegrated.lean (g0-split's Split.lean, the full leaf-bundle file, with
+  g0-heightadd's proofs) + all metrization parts + `example (hN1) (r : HSyn.ResearchLeaves) (hU) (hH)
+  (hUD) (hN) (hLS) (hPL) : HSyn.G0Split.HeightAdditivity := heightAdditivity_of_metrization_v3 hN1
+  r.h5 hU hH hUD hN hLS hPL`. Needed first: `lake build ZInQKernel.Hypotheses.JHeight
+  ZInQKernel.Compiler.Precision.HeightConstant` (up to date). All #print axioms incl.
+  `HSyn.glueOutputs_of_leaves`, `HSyn.sixContactMin_of_leaves`: [propext, Classical.choice,
+  Quot.sound]. VERIFIED. (Generated file not committed: .gitignore.)

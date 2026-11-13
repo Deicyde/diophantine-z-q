@@ -202,5 +202,8 @@ SPECULATIVE estimate: `ProductLocalStructure` is the most tractable of the three
   g0-heightadd's proofs) and closes `HSyn.G0Split.HeightAdditivity` with `r.h5` from
   `HSyn.ResearchLeaves` (generated file `SplitMetrization.lean`, not committed; needs
   `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` first).
+  VERIFIED: compiled in 3 min 47 s, 0 errors; `#print axioms` of `HSyn.glueOutputs_of_leaves`,
+  `HSyn.sixContactMin_of_leaves` and all new theorems: `propext`, `Classical.choice`,
+  `Quot.sound`. So the parts drop into the leaf-bundle file without name clashes.
 - Check: `bash scratch/metrization/build.sh && lake env lean scratch/metrization/Metrization.lean`
   (about 30 s once Mathlib is loaded; prerequisites as for g0-heightadd: none beyond Mathlib).
