@@ -1,5 +1,7 @@
 # Contributing to the Lean formalization
 
+See [project status](project-status.md) for main/mirror/PR distinctions and [the work-selection checklist](contributing-work.md) for claims, shared suppliers and handoffs. The detailed type, kernel and acceptance requirements below remain unchanged.
+
 The root Lake project contains `ZInQKernel` and the vendored Green–Tao development.
 The earlier accepted helper library remains in `lean/`. Both use the committed
 Lean 4.35.0 and Mathlib revisions. Do not update these pins incidentally to a proof.

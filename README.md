@@ -1,5 +1,7 @@
 # Z is Diophantine in Q
 
+**Contribute to the proof:** start with [project status](docs/project-status.md), [choosing useful work](docs/contributing-work.md), and [open targets and claims](https://github.com/elliotglazer/diophantine-z-q/issues/37). Manuscript, main-kernel, mirror and unmerged-PR status are distinct.
+
 ## Version 17
 
 [Read the manuscript](manuscripts/quartic_v17.pdf) or [open the TeX source](manuscripts/quartic_v17.tex). Dated November 13, 2026, this edition presents the 214-variable quartic family and its full arithmetic argument, followed by the corrected Version 16 foundation. It retains the original large construction and the 314-variable quartic with a complete decimal coefficient table. The 214-variable family's defining threshold remains ineffective; the coefficient calculation for N >= 53 does not certify a defining member. See the [release guide and review scope](research/version17/README.md), [artifact index](research/version17/ARTIFACT-INDEX.md) and [cumulative handoff](research/version17/CUMULATIVE-HANDOFF.md).

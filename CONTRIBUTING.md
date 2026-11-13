@@ -1,5 +1,7 @@
 # Contributing and reviewing
 
+Start with [project status](docs/project-status.md) and [choosing useful work](docs/contributing-work.md). Claim one bounded consumer input in [issue #37](https://github.com/elliotglazer/diophantine-z-q/issues/37) before duplicating an existing supplier.
+
 Mathematical corrections, dependency checks, reproducibility reports, and improvements to the formalization are useful contributions. Please make each report specific enough that another reader can reproduce the issue.
 
 A focused proof note can be enough to propose a record improvement. Before promoting it as an official new record, maintainers must integrate it into a complete updated manuscript and release both its TeX project and matching built PDF, with independent review. A chain of supplements to an older manuscript is insufficient. See the [record-release requirements](docs/release-policy.md#complete-manuscript-required-for-every-official-record).
