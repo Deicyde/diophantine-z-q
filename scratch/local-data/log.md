@@ -1,0 +1,129 @@
+# local-data results log
+
+## Step 1 (2026-11-13 05:50-05:58 PST): statements and findings
+- Target: `G15Ram.LocalData p r` (scratch/g15-ram/G15Ram.lean l.177), with `SmallPrimeData`,
+  `LargePrimeData`, `TwistShape`, `TwistUpper`, `TwistTame`, `U0`, `ModData`.
+  Copied verbatim (whole lines 8-718 of G15Ram.lean, via `build.sh`) into
+  `scratch/local-data/LocalData.lean`.
+- Finding F1 (logical; VERIFIED by reading the definitions): `LocalData p r` is a predicate on a
+  bare `r : GaloisRep ℓ 2`. At `p > D` it is equivalent to "r is trivial on wild inertia"
+  (to be compiled: `largePrimeData_iff`), so it fails for `r = ψ ⊕ 1` with `ψ` a Dirichlet
+  character of conductor `p²` (wildly ramified at `p`; STANDARD, Serre *Local Fields* IV §4,
+  cyclotomic ramification groups; not formalized). Not provable as a closed statement.
+- Finding F2 (VERIFIED, read): G8's construction of `r` IS a Lean object:
+  `G0Galois.G8Out A ℓ ρ r` (scratch/g0-mod-galois/part_galois.lean l.147) with
+  `ρ = GlueDescent.rho Tm a β` (ZInQKernel/HDecomp/Descent/ProjRep.lean l.102) from
+  `G0Galois.G7Out` (l.121). g15-ram §3 ("G8's construction of `r_ℓ` is not a Lean object") is
+  superseded: `TwistShape` can be moved from `r` to G7's data.
+- Finding F3 (VERIFIED, read): g0-mod-field's interface `G7Data`/`AfterG7`
+  (scratch/g0-mod-field/ModField.lean l.611, 812) does not carry `[L:ℚ] ≤ D` (only `G4Out`
+  does). G15 at `p ≤ D` needs `[L_v:ℚ_p] ≤ D` for `e(F) ≤ (DG₀)!`; it can be recovered from
+  `IsQMModel` (A is a base change from the fibre field `K`, `[K:ℚ] ≤ 324!`) only if the
+  local Galois-closure bound is redone over `K` (SPECULATIVE). To be reported.
+- `lake build` of the 7 kernel modules needed (HDecomp not prebuilt in this worktree): started.
+
+## Step 2 (05:58-06:04 PST): reduction compiled
+- `LocalData.lean` = verbatim G15Ram.lean 8-1384 + verbatim part_galois defs (`resQ`, `Vb`, `tate`,
+  `Intertwines`, `G7Out`, `G8Out`) + `part_local.lean` (§4, new). Needed a one-time
+  `lake build` of 7 HDecomp modules and `ZInQKernel.Multiplication.Certificate.Constants`
+  (builds the upstream `lean/` package `z_in_q`).
+- Compile (VERIFIED): `lake env lean scratch/local-data/LocalData.lean` exit 0, 0 errors, no
+  sorry, ~55 s; `#print axioms` = [propext, Classical.choice, Quot.sound] for
+  `largePrimeData_iff`, `localData_large_iff`, `mat_eq_scalar_of_intertwines`,
+  `twistShape_of_g8`, `localData_of_g8`, `betaTame_of_odd`, `g15RamG_of_g8`,
+  `betaOpen_of_isLocallyConstant`, `g7LocalData_of_odd` (output: compile.out).
+- Statements proved:
+  * `largePrimeData_iff r : LargePrimeData p r ↔ ∀ σ ∈ wildSet, r.restrictLocal p σ = 1`;
+    `localData_large_iff` (p > D): `LocalData p r ↔` the same. (F1 made precise.)
+  * `localData_of_g8 : G8Out A ℓ (rho Tm a β) r → G7LocalData p Tm a β → LocalData p r`.
+  * `g15RamG_of_g8`: `G15RamG D u` from G8Out for `D.r5`, `D.r3`, `G7LocalData` at every
+    `p ≠ 5` (ℓ = 5) and at `p = 5` (ℓ = 3), and G11Out.
+  * `betaTame_of_odd (p ≠ 2) : BetaCharOn β F → BetaSqWild β F → BetaOpen β → BetaTame β F`
+    (wild σ: σ^{p^a} fixes F' via `fix_of_wild_pow`; β(σ)^{p^a} = 1 = β(σ)²).
+  * `betaOpen_of_isLocallyConstant : IsLocallyConstant β → β 1 = 1 → BetaOpen β`
+    (continuity of `Field.absoluteGaloisGroup.map`, `krullTopology_mem_nhds_one_iff`,
+    normal closure).
+  * `g7LocalData_of_odd (p ≠ 2) : IsLocallyConstant β → β 1 ≠ 0 → G7LocalDataOdd p Tm a β →
+    G7LocalData p Tm a β`.
+- Named glue Props left: `TateWildTrivial` (G4/G7 descent on G_L + R6 + D2; G3 + NOS at p > D),
+  `BetaUpper` at p = 2 (T16 + D3), `BetaCharOn` (∂β = ε, ε inflated from Gal(L/ℚ)),
+  `BetaSqWild` (β² = χ, χ tame at odd p), the e-bound / tameness of F (field degrees).
+
+## Step 3 (06:04-06:08 PST): β² = χ is trivial on wild inertia at odd p
+- New imports `ZInQKernel.HDecomp.Descent.B2Glue`, `…Chi` (lake build of both, once).
+- Proved (VERIFIED, compiled, axioms standard): `wild_fix_root` (σ ∈ wildSet, ζⁿ = 1,
+  p² ∤ n ⇒ σζ = ζ; via `wild_fix_prime_to_p`: m = ∑(1 − ηⁱ) has norm < 1 if η ≠ 1, and
+  `wild_fix_p_root`: x = ζ − 1 and ζ = ηⁱ); `decomp_spec` (embP ∘ decomp σ = σ ∘ embP);
+  `cyc_decomp_wild` (`GlueDescent.B2Q.cyc N (decomp p σ) = 1` for p² ∤ N);
+  `galChar_decomp_wild`; `not_sq_dvd_chiLevel` (p odd, T₋ primes ⇒ p² ∤ chiLevel T₋);
+  `betaSqWild_of_chi` (BetaSqWild from β² = ι ∘ galChar χ on G_F, χ mod chiLevel T₋).
+- Compile: exit 0, 0 errors, no sorry (~60 s).
+
+## Step 4 (06:08-06:11 PST): ∂β = ε, and fields of degree < p
+- Proved (VERIFIED, compiled, axioms standard): `decomp_fix_of_le` (F ⊇ embP(L) ⇒ decomp(G_F)
+  fixes L); `betaCharOn_of_cocycle` (BetaCharOn from G7Out's `β g β h = ε g h β (gh)` and
+  ε = 1 on G_L × G_L); `wild_fix_small_degree` ([E:ℚ_p] < p ⇒ wildSet ⊆ fixSet E: σ^{p^a}
+  fixes the Galois closure of ℚ_p(x), so the σ-orbit of x has p-power size ≤ deg minpoly < p);
+  `localData_large_of_g8` (p > D: LocalData p r from G8Out, [E:ℚ_p] < p, TateWildTrivial on
+  E, BetaTame on E; no Galois closure or tameness needed).
+- Compile: exit 0, 0 errors, no sorry.
+
+## Step 5 (06:11-06:14 PST): Galois closure with e ≤ n!
+- Proved (VERIFIED, compiled, axioms standard): `ramCard_zero_le_finrank` (e(F) ≤ [F:ℚ_p]);
+  `exists_finGal_ramCard_le` ([E:ℚ_p] ≤ n ⇒ ∃ finite Galois F ⊇ E with e(F) ≤ n!: splitting
+  field in ℚ̄_p of the minimal polynomial of a primitive element, Gal acting on ≤ n roots);
+  `tateWildTrivial_mono`, `betaUpper_mono`; `localData_small_of_g8` (p ≤ D: SmallPrimeData p r
+  from G8Out, [E:ℚ_p] ≤ DG₀, TateWildTrivial and BetaUpper on E).
+- Compile: exit 0, 0 errors, no sorry.
+
+## Step 6 (06:14-06:20 PST): assembly at odd p, non-vacuity, verbatim check
+- Proved (VERIFIED, compiled, axioms standard): `localData_of_g7_odd` (odd p: LocalData p r
+  from G8Out, G7 clauses ∂β = ε, β ≠ 0, β locally constant, β² = ι∘galChar χ (χ mod
+  chiLevel T₋, T₋ primes), ε = 1 on G_L², and, per case, E ⊇ embP(L) with [E:ℚ_p] ≤ DG₀
+  (p ≤ D) or < p (p > D) and TateWildTrivial on E); `g7LocalData_triv` (G7LocalData holds for
+  Tm = 1, a = 1, β = 1, F = ⊥: not contradictory).
+- `TateWildTrivial` docstring: only claimed for p ≠ ℓ (false in general at p = ℓ).
+- Verbatim check (VERIFIED, python substring test): G15Ram.lean lines 8-1384 and
+  part_galois.lean slices 23-40, 66-73, 83-88, 110-133, 142-153 occur unchanged in
+  LocalData.lean; each copied def occurs once.
+- Compile: `lake env lean scratch/local-data/LocalData.lean` exit 0, 0 errors, no sorry;
+  all 20 printed declarations [propext, Classical.choice, Quot.sound].
+
+## Step 7 (06:16-06:22 PST): p > D from [L:ℚ] ≤ D
+- Proved (VERIFIED, compiled, axioms standard): `exists_local_field_le` (L ⊆ ℚ̄ number field ⇒
+  ∃ E ⊇ embP(L) with [E:ℚ_p] ≤ [L:ℚ]; E = ℚ_p(embP α), minpoly over ℚ_p divides the image of
+  minpoly over ℚ); `tateWildTrivial_of_L`; `localData_of_g7_large` (p > D: LocalData p r from
+  G8Out, the G7 clauses, [L:ℚ] ≤ D and `TateWildTrivialL` (new glue def: a·Tm = 1 on wild σ
+  with decomp σ ∈ G_L); p ≠ 2 from `ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD`).
+- Compile: exit 0, 0 errors, no sorry.
+
+## Step 8 (06:18-06:30 PST): final form for every p
+- New defs (glue, docstrings name step and source): `Lv L` (= ℚ_p·embP(L)), `G7Clauses β ε L`
+  (G4/G7 clauses transported to ℚ̄_ℓ: L finite, [L:ℚ] ≤ D, ∂β = ε, β ≠ 0, β locally constant,
+  β² = ι∘galChar χ with χ mod chiLevel T₋, ε = 1 on G_L²), `TorsionFieldWild p Tm a L`
+  (∃ E ⊇ L_v, [E:ℚ_p] ≤ G₀[L_v:ℚ_p], TateWildTrivial on E), `LocalGlue p Tm a β L`
+  (TorsionFieldWild at p ≤ D, TateWildTrivialL at p > D, BetaUpper β L_v U₀ at p = 2).
+- Proved (VERIFIED, compiled, axioms standard): `Lv_fin` ([L_v:ℚ_p] ≤ [L:ℚ]),
+  `localData_of_g7 : G8Out A ℓ (rho Tm a β) r → G7Clauses β ε L → LocalGlue p Tm a β L →
+  LocalData p r` (every prime p), `g15RamG_of_g7` (G15RamG D u from G8Out, G7Clauses, LocalGlue
+  for D.r5 at p ≠ 5 and D.r3 at p = 5, and G11Out), `g7Clauses_triv`, `localGlue_triv`
+  (non-vacuity).
+- Pitfall (VERIFIED): `mul_comm` on `heightG0 * heightD` made the kernel evaluate `Nat.pow`
+  ("does not fit in a 32-bit unsigned integer"); `Nat.mul_comm` works.
+- Compile: exit 0, 0 errors, no sorry; 27 printed declarations, all
+  [propext, Classical.choice, Quot.sound].
+
+## Step 9 (06:24-06:36 PST): tail integration
+- `scratch/local-data/Tail.lean` (built by `build_tail.sh`: verbatim scratch/g0-mod-newform/NewForm.lean
+  with 7 imports appended, G15Ram's G0Galois block and §1-§3 as in g15-ram's build_tail.sh, the
+  part_galois copies, part_local.lean, tail_part.lean). Needed `lake build` of NewForm's imports
+  (HDecomp.Assembly, ModCurves.Glue, …, 9552 jobs, ok).
+- `G0ModNewform.modularConstituent_tail_L` (proved): the tail of ModularConstituent with
+  hypothesis `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G8LocalPack 5 D.r5 (· ≠ 5) ∧
+  G8LocalPack 3 D.r3 (· = 5) ∧ G11Out T D.r5 ∧ G11Out T D.r3` (`G8LocalPack ℓ r P`: ∃ model,
+  G7 data with G8Out, G7Clauses and LocalGlue at p ∈ P).
+- First attempt failed only with "depends on noncomputable" (part_local outside a
+  noncomputable section in Tail); fixed by wrapping it in `noncomputable section … end`.
+- Compile (VERIFIED): `lake env lean scratch/local-data/Tail.lean` exit 0, 0 errors, no sorry,
+  ~90 s; `modularConstituent_tail_L` axioms [propext, Classical.choice, Quot.sound]
+  (tail_compile.out).
