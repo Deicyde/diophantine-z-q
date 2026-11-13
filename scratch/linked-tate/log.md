@@ -68,3 +68,5 @@
   `LinkedFrobRam`, `LinkedRam`; GluePieces3 keeps `linkedRam` (fields kernelFieldBreaks, tateRamAtThree removed; 29
   fields); part 98b kept as a conditional reduction with a caveat note.
   Tail: VERIFIED 0 errors, no sorry; scalarTransferQ, linkedTateCoreDR_of, linkedRam_of, sixContactMin_of_leaves3 standard.
+- Flat file (45120 lines, final parts incl. γ₀ tie, GluePieces3 with 29 fields; one later comment-only edit in part 98b):
+  VERIFIED exit 0 in 542 s, 0 errors, no sorry, 222 axiom reports all standard, incl. `HSyn.sixContactMin_of_leaves3`.

@@ -44545,7 +44545,14 @@ For the canonical data, `ρ_ℓ(g) = β'(g)⁻¹ Tm(g)` is the Tate action on `G
 `G_{L'}` (`KernelFieldBreaks`, a statement about the field `L'` alone) and act trivially through
 the Tate module: away from `3` this is G3 (`QMModelG3`, already reduced), with local inertia
 landing in a global inertia group (`LocalInertiaGlobal`, `UpperAbsInertia`, definitions only);
-at `p = 3` (only for `ρ₅`) it is `TateRamAtThree`. -/
+at `p = 3` (only for `ρ₅`) it is `TateRamAtThree`.
+
+**Caveat (linked-tate finding).** g0-mod-field's `G7Data` does not record `[L:ℚ] ≤ D` (its `G4Out`
+does). For `G7Data` with an oversized `L` (e.g. `L ⊇ ℚ(ζ_{2^k})` with `k > U₀ + 1`, allowed when
+`M_{S_mul}(u)` is large), `KernelFieldBreaks` (i) fails: `G_{ℚ_2}^t ⊄ G_L ⊇ G_{L'}` for `U₀ < t <
+k − 1`; `TateRamAtThree` is likewise only justified for small `K`. `linkedRam_of` is a valid
+implication, but its premises are expected to hold only under `[L:ℚ] ≤ D`; `GluePieces3` therefore
+keeps `LinkedRam` itself as the field. -/
 
 section LinkedRamSec
 
