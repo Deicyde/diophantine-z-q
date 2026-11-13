@@ -84,3 +84,6 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   conjunct of `R1R2fp` (consequences of Baba–Granath's X₆/W ≅ P¹ and of R1's finite surjective
   forgetful map). Proved `exists_fibre_object` (A4: over every t ∈ P¹(ℚ̄) there is a point of Y₃
   with an object and π-value t). COMPILES, 24 s.
+- 17:2x proved `fibre_conjugates_isomorphic` (A4 + A7 from `R1R2fp` alone: for every rational j₀
+  there is an object P over ℚ̄ at a point over j₀ whose Galois conjugates all have isomorphic
+  abelian surfaces). COMPILES.

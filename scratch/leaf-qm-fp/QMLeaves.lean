@@ -1315,6 +1315,20 @@ theorem exists_fibre_object (h : R1R2fp) :
     ToP1.val_comp_right π₆ fY.left y.left
   rw [e, hx]
 
+/-- **Glue (compiled): A4 + A7 from the leaves alone.** From `R1R2fp`: for every rational
+`j₀`, there is an object `P` over `ℚ̄` at a point of `Y₃` over `j₀`, and every Galois conjugate of
+`P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic to that of `P`
+(through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for the fibre over
+`J(u) = j₀`. -/
+theorem fibre_conjugates_isomorphic (h : R1R2fp) (j₀ : ℚ) :
+    ∃ P : QML3 Qbar, ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
+      IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
+      ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
+  obtain ⟨Y, Φ, π, h1, h2, hfib⟩ := exists_fibre_object h
+  obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ Qbar j₀))
+  exact ⟨P, fun σ => conj_twist_of_rational h1 π (fun y y' P Q hP hQ => (h2 y y' P Q hP hQ).1)
+    y P hP j₀ hy σ⟩
+
 /-- The conductor `[𝒪_k : R]` of a subring `R ⊆ 𝒪_k` (0 if the index is infinite). -/
 def conductor {k : Type} [Field k] (R : Subring k) : ℕ :=
   R.toAddSubgroup.relIndex (integralClosure ℤ k).toSubring.toAddSubgroup
@@ -1428,6 +1442,7 @@ end LeafQM
 #print axioms LeafQM.AV.unramified_over_branch
 #print axioms LeafQM.AV.residue_unramified_over_branch
 #print axioms LeafQM.AV.exists_fibre_object
+#print axioms LeafQM.AV.fibre_conjugates_isomorphic
 #print axioms LeafQM.AV.Level3.exists_mul_of_range_le
 #print axioms LeafQM.AV.M3.rightMul_rightMul
 #print axioms LeafQM.AV.ToP1.val_comp_right
