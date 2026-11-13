@@ -34,3 +34,12 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   parts/40_fibresimple.lean (§5 demo lemmas `r1fpProps_twistBy`, `fibreComTrivial_twisted` take
   `R1famProps ∧ R1univProps` for the twisted Φ as an extra hypothesis; they are not used
   downstream) + checks/c1_g10.lean (g10-odd L102-239 verbatim + `g10Glue_of_conjTwist_new`).
+- `ctail.sh Tail.lean` (8185 lines; started 06:43:48, output written ~06:52): **0 errors, no
+  `sorry`**, 7 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`, including
+  `HSyn.gluePieces_of_gluePieces2`, `HSyn.sixContactMin_of_leaves2` and
+  `G0Galois.g10Glue_of_conjTwist_new` (VERIFIED, olean/Tail_out.txt).
+  ⇒ g0-assemble's composite compiles unchanged over the pinned `R1fpProps` (6 clauses); only the
+  two §5 demonstration lemmas of 40_fibresimple needed the extra hypothesis. The 27 field
+  statements are textually unchanged, and over the pinned Leaves their `R1fpProps` hypotheses
+  are stronger, so every field is (weakly) easier.
+  ⇒ g10-odd's `ConjTwistNontrivial → G10Glue` holds for g0-assemble's changed `G10Glue`.
