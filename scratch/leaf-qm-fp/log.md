@@ -25,3 +25,10 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
 - Finding: NoCM (rv-h-cm §7.2, case D(R) ≠ 1) needs `k ⊆ ℚ(x)`, not only the degree: with the
   degree form alone, disc −19 (h = 1, b = 2, degree 2h = 2) is not excluded by a fibre field
   ℚ(i) of degree 2. R5fp must carry the containment.
+- 17:20 R5fp now carries `inertCount6 k ≠ 0 → Nonempty (k →ₐ[ℚ] ℚ(x))` (from ℚ(x) = H_R ⊇ k).
+- 17:25 X₆ added to the bundle: `QMPair.twist`, `X6Props` (proper smooth curve, Ψ : X(ℚ̄) ≃
+  pairs/≅ Galois-equivariant, W-twists by automorphisms, forgetful fY : Y → X, π = π₆ ∘ fY
+  pointwise), `R2X6Props` (Baba–Granath on X₆: fibres = twist classes, CM values), `CMExists`
+  (the three CM points exist). `R1R2fp` := ∃ Y Φ π X Ψ fY π₆, R1fpProps ∧ R1heckeProps ∧
+  X6Props ∧ R2X6Props ∧ CMExists. Proved: `R2fpProps_of_X6`, `R1R2fp_Y` (the Y₃ form).
+  COMPILES, 19 s, axioms standard.

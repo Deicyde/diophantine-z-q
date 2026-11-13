@@ -617,6 +617,17 @@ def R2X6Props (X : Over (Spec (CommRingCat.of ℚ)))
       (HasCM3 P.q → π₆.val (K := Qbar) x.left = OnePoint.infty) ∧
       (HasCM24 P.q → π₆.val (K := Qbar) x.left = OnePoint.some (-16 / 27))
 
+/-- **Existence of the three CM points on `X₆`** (the "distinguished points" of Baba–Granath
+Lemma 3.1 are images of CM points; CM points by `R` exist iff `R` embeds optimally in `𝒪`,
+Shimura/Eichler; `ℤ[i], ℤ[ζ₃], ℤ[√−6]` do, by `i + j`, `(1 + j)/2`, `μ = 2j + k`). With the
+fibre clause of `R2X6Props` and the invariance of `com` under twists (`com_twist`) and
+isomorphisms, it gives the converse clauses "`π₆(x) = 0 ⇒` CM by `ℤ[i]`" etc. used by h-b1 M9. -/
+def CMExists (X : Over (Spec (CommRingCat.of ℚ)))
+    (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) : Prop :=
+  (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM4 P.q) ∧
+  (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM3 P.q) ∧
+  (∃ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P ∧ HasCM24 P.q)
+
 /-- **Glue (compiled): R2 on `Y₃` from R2 on `X₆`** through the forgetful morphism. -/
 theorem R2fpProps_of_X6 {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y} {π : ToP1 Y.left}
     {X : Over (Spec (CommRingCat.of ℚ))} {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
@@ -691,16 +702,17 @@ def R1R2fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
     (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
     (fY : Y ⟶ X) (π₆ : ToP1 X.left),
-    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ π X Ψ fY π₆ ∧ R2X6Props X Ψ π₆
+    R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ X6Props Y Φ π X Ψ fY π₆ ∧ R2X6Props X Ψ π₆ ∧
+      CMExists X Ψ
 
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
-  obtain ⟨Y, Φ, -, -, -, -, -, h1, -, -, -⟩ := h
+  obtain ⟨Y, Φ, -, -, -, -, -, h1, -, -, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
 
 /-- The form consumed on `Y₃`: R1fp + R1hecke + R2fp on one `Y` with one `π`. -/
 theorem R1R2fp_Y (h : R1R2fp) : ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     (π : ToP1 Y.left), R1fpProps Y Φ ∧ R1heckeProps Y Φ ∧ R2fpProps Y Φ π := by
-  obtain ⟨Y, Φ, π, X, Ψ, fY, π₆, h1, hh, hX, h2⟩ := h
+  obtain ⟨Y, Φ, π, X, Ψ, fY, π₆, h1, hh, hX, h2, -⟩ := h
   exact ⟨Y, Φ, π, h1, hh, R2fpProps_of_X6 hX h2⟩
 
 /-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
