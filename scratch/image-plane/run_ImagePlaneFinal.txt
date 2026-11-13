@@ -1,0 +1,55 @@
+scratch/image-plane/ImagePlaneFinal.lean:391:43: warning: Variable name `hU` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/image-plane/ImagePlaneFinal.lean:1504:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1504:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1504:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1518:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1522:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1518:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1518:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1522:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:1522:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/image-plane/ImagePlaneFinal.lean:4456:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/image-plane/ImagePlaneFinal.lean:4465:70: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/image-plane/ImagePlaneFinal.lean:4618:65: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+'LeafQM.AV.Pin.imageClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.constOrOntoAlgClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.algDep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.imagePlaneCurveIrr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.imagePlaneCurveClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.imagePlaneCurve' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.ratFactorAlgClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_T5' depends on axioms: [propext, Classical.choice, Quot.sound]

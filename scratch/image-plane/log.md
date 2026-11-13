@@ -38,3 +38,16 @@ C2K <- (L) <- (L0) leaf; (CI) proved from infra-smooth-dim.
 - Proof: image_closed with ρ = σ: diagonal equations Q(x,x) show the finite values of σ on W form
   a finite set or all of K; finite ⇒ {σ = t} (closed: complement of two basic opens) and X∖U cover
   the irreducible W (Jacobson) ⇒ σ constant; same for 1/σ (charts swapped, `ImagePlane.inv`) gives ∞.
+
+## 4. (G1') `ImagePlaneCurveClosed` PROVED outright; `MobiusGlue` from T5 alone (VERIFIED)
+- File: scratch/image-plane/ImagePlaneFinal.lean (mk_final.py: curve-glue MobiusFinal.lean verbatim
+  minus #print lines, then IC, AD, C2Kproof parts, then final theorems). 4686 lines, 0 errors,
+  compile ~26 s wall (run_ImagePlaneFinal.txt). Axioms of all ten final theorems:
+  [propext, Classical.choice, Quot.sound]:
+  imageClosed, constOrOntoAlgClosed, algDep, imagePlaneCurveIrr, imagePlaneCurveClosed,
+  imagePlaneCurve, ratFactorAlgClosed, curveFacts, CurveGlue.mobiusGlue_of_T5,
+  CurveGlue.mobiusGlueNoCM_of_T5.
+- `theorem LeafQM.AV.Pin.imagePlaneCurveClosed : ImagePlaneCurveClosed` (no hypotheses).
+- `theorem LeafQM.AV.CurveGlue.mobiusGlue_of_T5 (hT : ObjBridge.TorsionStructure) : MobiusGlue`
+  (`MobiusGlue` = kernel def ZInQKernel/HDecomp/QM/Pin.lean, imported, not redefined).
+- Kernel modules built for the import: ZInQKernel.HDecomp.QM.Pin, .Textbook.SkolemNoether (lake build OK).
