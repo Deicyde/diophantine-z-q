@@ -83,3 +83,11 @@ Named leaves (def … : Prop): `IgusaSL2X` (SL₂ part on x-coordinates; Shimura
   TateMuNAt N Ω) → TateMuN`.
 - Merged origin/wip/t40-tate (060d6026) into wip/t40-igusa: brings TateCusp*.lean
   (`ZInQ.RLeaf.tateCuspLaurent : TateCuspLaurent`, `x1RationalCusp_of_igusaTransitive`).
+
+## Step 4: T40.lean (VERIFIED, `lake env lean`, standard axioms)
+- `lake build ZInQKernel.Contrib.RLeaf.TateCusp` succeeded after merging t40-tate (9390 jobs).
+- T40.lean: `x1RationalCusp_of_x0_tateMuN : X0Transitive → TateMuN → X1RationalCusp`,
+  `x1ConstantField_of_x0_tateMuN`, `x1RationalCusp_of_x0_tateMuNLocal`,
+  `x1RationalCusp_of_igusaGL2`, `x1RationalCusp_of_igusaSL2X`, `x1ConstantField_of_igusaSL2X`.
+  To be updated to `X0Transitive → X1RationalCusp` when t40-tate's TateMuN lands.
+- docs/research/t40-igusa.md drafted.
