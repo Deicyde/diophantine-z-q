@@ -56,6 +56,8 @@ the I3 leaves that are already in the kernel. No new leaf and no new glue target
    - there is a nonzero `φ : A' → J_L` over `L`;
    - if `End⁰(A')` is a division algebra (`EndDivision A'`), there are `Z/L` and `g : Z → J_L`
      with `(φ, g) : A' × Z → J_L` an isogeny (`IsIsogenyMor`). This is N5 L861-867.
+   - For the same `A_f, θ`, it also exports `dim ρ_{f,ι} = 2`, semisimplicity of `ρ_{f,ι}` and the
+     trace clause. C9 needs these to build the isomorphism on the `A'` side.
 
 **What E1 still needs from outside this task** (§4):
 - the isomorphism `U ≃ ρ_{f,ι}|_{G_L}` on the `A'` side, which is C9's output;
