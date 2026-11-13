@@ -6,7 +6,8 @@ Task leaf-push2, 2026-11-12. Lean file: `scratch/leaf-push2/LeafPush2.lean` (one
 ## 1. Result
 
 **13 of the 14 placeholders of `scratch/h-decomposition/Leaves.lean` now have concrete
-statements somewhere in the repository; T10 is the one left.** This task adds R18, R22 and R3,
+statements somewhere in the repository (R1 only in parts (a), (c), (d); R1(b) is still
+`opaque R01b_ComplexUniformization`); T10 is the one left.** This task adds R18, R22 and R3,
 and replaces T11 and T12 by concrete textbook leaves over a new uniformization predicate. The
 other nine come from earlier reports: R1, R2, R5 (leaf-qm-fp), R16 (leaf-modcurves), R17
 (def-ladic-cond, now `LadicCond.lean`), R19-R21 (def-faltings).
@@ -26,24 +27,25 @@ other nine come from earlier reports: R1, R2, R5 (leaf-qm-fp), R16 (leaf-modcurv
   some `j ≠ 0`, or `≅ E₁ × E₂`. The statement is existential and polarization-free. It is a
   CONSEQUENCE of Example 29 plus Weil's dichotomy, and depends on the existence of a principal
   polarization of the fixed type (§3). The Igusa convention is checked in Lean:
-  `linYangTuple_onQMLocus` proves that Lin–Yang's `J`-tuple (scaling `c²`) is exactly
-  hdec-elementary's Igusa–Clebsch locus `OnQMLocus`, the input of the proved F1 glue. So the two
+  `linYangTuple_onQMLocus` proves that Lin–Yang's `J`-tuple (scaling `c²`) implies
+  hdec-elementary's Igusa–Clebsch locus `OnQMLocus` (the direction F1 uses), the input of the proved F1 glue. So the two
   conventions in the repository agree, and the warning in locators.md ("fix the J/Igusa–Clebsch
   convention") is discharged for these two definitions.
 - **R17.** `LadicCond.CarayolR17'` is confirmed as the concrete form D5/G15-G16 need, with no
   change (§4).
 - **T10-T12** (§5):
   - T11 becomes two concrete textbook leaves (`T11a_RiemannEnd`, `T11b_Rigidity`) and T12 a glue
-    target (`T12_ComplexConjEigen`, the eigenspace form G10 uses). Both rest on one new textbook
-    leaf, `UniformizationExists` (AN3 for abelian varieties).
+    target (`T12_ComplexConjEigen`, the eigenspace form G10 uses). T12 (glue) and the non-vacuity of
+    T11a rest on one new textbook leaf, `UniformizationExists` (AN3 for abelian varieties);
+    `T11a_RiemannEnd` takes `Φ` as a hypothesis and `T11b_Rigidity` does not involve it.
   - T10: Mathlib v4.35 **does** have `ℓ`-adic cohomology (pro-étale, `Scheme.EllAdicCohomology`),
     but only as an abelian group, with no `ℤ_ℓ`-structure and no functoriality. So only a
     non-equivariant group form is statable (`T10_groupIso`), not the Galois-equivariant form that
     is used.
 
 Compile: `lake env lean scratch/leaf-push2/LeafPush2.lean` gives exit 0, no errors and no
-warnings. Every `#print axioms` (15 lines, including the four leaf Props and every proved
-theorem) is `[propext, Classical.choice, Quot.sound]` (VERIFIED). No `sorry`.
+warnings. Every `#print axioms` (15 lines, including the four leaf Props and every theorem
+proved in this task, 10 of the file's 72 theorems) is `[propext, Classical.choice, Quot.sound]` (VERIFIED). No `sorry`.
 
 The independent check is in §6.
 
@@ -124,7 +126,7 @@ Statement: for `A : AbVar ℂ` of dimension 2 with `q : QMStr A`, one of two cas
 1. There are `j ≠ 0` and a sextic `a∏(x − rᵢ)` with distinct roots satisfying
    `LinYangTuple a r j`, and a curve `C` (`IsCurve`, integral) with function field
    `ℂ(x)[y]/(y² − a∏(x−rᵢ))`, whose Jacobian is `≅ A` as group schemes.
-2. `A ≅ E₁ × E₂` with `dim Eᵢ = 1`.
+2. `A ≅ E₁ × E₂` with `dim Eᵢ = 1` (a scheme isomorphism `A.X ≅ E₁.X ⊗ E₂.X`, no `IsMonHom`).
 
 The hypothesis `dim A = 2` is needed: `B × B` of dimension 4 also has QM by `𝒪`.
 
