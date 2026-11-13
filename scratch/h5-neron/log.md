@@ -24,3 +24,8 @@ Start 2026-11-12 22:53 PST. Base 01267822. Build of ZInQKernel.HDecomp.Faltings.
 - `no_metrized_succ`: no metrized model of `AbVar.zero K` with g ≥ 1 (kernel = ℂ^g not discrete).
 - `trivModel`, `trivModel_isNeronModel` (Spec 𝓞_L is a Néron model of (Spec K)_L), `trivMetrized`.
 - `stableFaltingsHeight_zero : stableFaltingsHeight (AbVar.zero K) = 0` for every number field K.
+- 23:20 added, COMPILED: `metrizedOf` (every group model of the zero AV is metrizable in g = 0),
+  `groupModel_height_zero` (every group model of it has height 0), `neronModelMinimal_zero`,
+  `stableHeightFinite_zero`, `isIsogeny_id_zero`, `isogDeg_zero_le_one`, `one_le_grKappa`,
+  `R19_zero`, `R20_zero`, `R21_zero` (the three leaves hold for A = B = zero, all hypotheses
+  satisfiable: x = 0, the identity is an isogeny).

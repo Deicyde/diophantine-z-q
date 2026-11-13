@@ -234,6 +234,105 @@ theorem stableFaltingsHeight_zero [NumberField K] : stableFaltingsHeight (AbVar.
     | zero => rw [modelHeight_dim_zero, EReal.coe_zero]
     | succ n => exact (no_metrized_succ K E.L n M).elim
 
+/-- Every group model of `(Spec K)_L` has a metrized model of dimension `0`. -/
+noncomputable def metrizedOf (𝒢 : GroupModel (AbVar.zero K) L) :
+    MetrizedModel (AbVar.zero K) L 0 where
+  model := 𝒢
+  hodge := trivHodge K L 𝒢
+  lattice_eq := rfl
+  arch τ := by
+    have hs := pts_subsingleton K L 𝒢 τ
+    refine ⟨fun _ => 1, ⟨fun _ _ => Subsingleton.elim _ _,
+      fun z => ⟨fun _ => Submodule.mem_top, fun _ => rfl⟩,
+      fun p => ⟨0, Subsingleton.elim _ _⟩, fun U => ?_, fun U s => differentiableOn_const _⟩,
+      fun f => ?_⟩
+    · rcases Set.eq_empty_or_nonempty (𝒢.dom (fun _ => (1 : 𝒢.Pts τ)) U) with h | ⟨x, hx⟩
+      · rw [h]; exact isOpen_empty
+      · have : 𝒢.dom (fun _ => (1 : 𝒢.Pts τ)) U = Set.univ :=
+          Set.eq_univ_of_forall fun y => Subsingleton.elim x y ▸ hx
+        rw [this]; exact isOpen_univ
+    · show semσ L τ (hodgeZeroEquiv _ (𝒢.wedge f)) = _
+      rw [wedge_eq_wedge0, hodgeZeroEquiv_wedge0]
+      simp [semσ, GroupModel.jacDet]
+
+/-- **Every group model of the zero abelian variety has height `0`.** -/
+theorem groupModel_height_zero (𝒢 : GroupModel (AbVar.zero K) L) : 𝒢.height = 0 := by
+  refine le_antisymm ?_ ?_
+  · refine iInf_le_of_le 0 (iInf_le_of_le (metrizedOf K L 𝒢) (iInf_le_of_le rfl ?_))
+    rw [modelHeight_dim_zero, EReal.coe_zero]
+  · refine le_iInf fun g => le_iInf fun M => le_iInf fun _ => ?_
+    cases g with
+    | zero => rw [modelHeight_dim_zero, EReal.coe_zero]
+    | succ n => exact (no_metrized_succ K L n M).elim
+
+/-- **`NeronModelMinimal` holds for the zero abelian variety.** -/
+theorem neronModelMinimal_zero (𝒩 𝒢 : GroupModel (AbVar.zero K) L) (_ : 𝒩.IsNeronModel) :
+    𝒩.height ≤ 𝒢.height := by
+  rw [groupModel_height_zero, groupModel_height_zero]
+
+/-- **`StableHeightFinite` holds for the zero abelian variety.** -/
+theorem stableHeightFinite_zero [NumberField K] :
+    stableFaltingsHeight (AbVar.zero K) ≠ ⊤ ∧ stableFaltingsHeight (AbVar.zero K) ≠ ⊥ := by
+  rw [stableFaltingsHeight_zero]; exact ⟨EReal.zero_ne_top, EReal.zero_ne_bot⟩
+
+/-- The identity of `Spec K` is an isogeny (so the hypothesis of R19 is satisfiable). -/
+theorem isIsogeny_id_zero : IsIsogeny (𝟙 (AbVar.zero K).X) :=
+  ⟨inferInstance, by rw [Over.id_left]; infer_instance, by rw [Over.id_left]; infer_instance⟩
+
+/-- Every endomorphism of the zero abelian variety has degree `≤ 1`. -/
+theorem isogDeg_zero_le_one (φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X) : isogDeg φ ≤ 1 := by
+  unfold isogDeg
+  have : Subsingleton {P : ptObj K (AlgebraicClosure K) ⟶ (AbVar.zero K).X // P ≫ φ = 1} :=
+    ⟨fun a b => Subtype.ext (toUnit_unique _ _)⟩
+  rcases isEmpty_or_nonempty {P : ptObj K (AlgebraicClosure K) ⟶ (AbVar.zero K).X // P ≫ φ = 1}
+    with h | h
+  · rw [Nat.card_of_isEmpty]; exact zero_le_one
+  · rw [Nat.card_of_subsingleton h.some]
+
+/-- **R21 for the zero abelian variety** (for every `g`, not only `g = dim`). -/
+theorem R21_zero [NumberField K] (g : ℕ) :
+    ((-(3 / 2) * g : ℝ) : EReal) ≤ stableFaltingsHeight (AbVar.zero K) := by
+  rw [stableFaltingsHeight_zero]
+  exact_mod_cast (by nlinarith [(Nat.cast_nonneg g : (0 : ℝ) ≤ g)] : -(3 / 2) * (g : ℝ) ≤ 0)
+
+/-- **R20 for the zero abelian variety.** -/
+theorem R20_zero [NumberField K] (φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X) (x y : ℝ)
+    (hx : stableFaltingsHeight (AbVar.zero K) = x) (hy : stableFaltingsHeight (AbVar.zero K) = y) :
+    |x - y| ≤ (1 / 2) * Real.log (isogDeg φ) := by
+  rw [stableFaltingsHeight_zero] at hx hy
+  have hx' : x = 0 := by exact_mod_cast hx.symm
+  have hy' : y = 0 := by exact_mod_cast hy.symm
+  rw [hx', hy', sub_zero, abs_zero]
+  have := Real.log_natCast_nonneg (isogDeg φ)
+  linarith
+
+theorem one_le_grKappa (g d : ℕ) (hd : 1 ≤ d) (x : ℝ) : 1 ≤ grKappa g d x := by
+  unfold grKappa
+  apply one_le_pow₀
+  have hm : 1 ≤ (max (max x (Real.log d)) 1) ^ 2 := one_le_pow₀ (le_max_right _ _)
+  have hd' : (1 : ℝ) ≤ d := by exact_mod_cast hd
+  have h14 : (1 : ℝ) ≤ (14 * g : ℝ) ^ (64 * g ^ 2) := by
+    rcases Nat.eq_zero_or_pos g with rfl | hg
+    · simp
+    · apply one_le_pow₀
+      have : (1 : ℝ) ≤ g := by exact_mod_cast hg
+      linarith
+  calc (1 : ℝ) = 1 * 1 * 1 := by ring
+    _ ≤ _ := by gcongr
+
+/-- **R19 for the zero abelian variety** (for every `g`). -/
+theorem R19_zero [NumberField K] (g : ℕ) (x : ℝ) (_ : stableFaltingsHeight (AbVar.zero K) = x)
+    (h : ∃ φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny φ) :
+    (∃ φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny φ ∧
+        (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) ∧
+      (∃ ψ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny ψ ∧
+        (isogDeg ψ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) := by
+  obtain ⟨φ, hφ⟩ := h
+  have hb : (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x :=
+    le_trans (by exact_mod_cast isogDeg_zero_le_one K φ)
+      (one_le_grKappa g _ Module.finrank_pos x)
+  exact ⟨⟨φ, hφ, hb⟩, ⟨φ, hφ, hb⟩⟩
+
 end ZeroAV
 
 end ZInQ.H5Neron
@@ -241,3 +340,10 @@ end ZInQ.H5Neron
 #print axioms ZInQ.H5Neron.modelHeight_dim_zero
 #print axioms ZInQ.H5Neron.trivModel_isNeronModel
 #print axioms ZInQ.H5Neron.stableFaltingsHeight_zero
+#print axioms ZInQ.H5Neron.groupModel_height_zero
+#print axioms ZInQ.H5Neron.neronModelMinimal_zero
+#print axioms ZInQ.H5Neron.stableHeightFinite_zero
+#print axioms ZInQ.H5Neron.isIsogeny_id_zero
+#print axioms ZInQ.H5Neron.R19_zero
+#print axioms ZInQ.H5Neron.R20_zero
+#print axioms ZInQ.H5Neron.R21_zero
