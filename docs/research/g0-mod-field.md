@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (640 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 760 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
@@ -10,7 +10,8 @@ is proved in Lean, with no `sorry`.** Composed with the next ranges (G8-G16, bun
 `AfterG7`), this gives `ModularConstituent`. VERIFIED: `lake env lean scratch/g0-mod-field/ModField.lean`
 gives 0 errors and no `declaration uses sorry`. `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]` for `fieldDescent`, `fieldDescentUnr`, `descentDatum_of_conjugacy`, `g7Out_of_g4Out`,
-`g7OutUnr_of_g4Out`, `modularConstituent_of_ranges` and `modularConstituent_of_ranges_T14`.
+`g7OutUnr_of_g4Out`, `modularConstituent_of_ranges`, `modularConstituent_of_ranges_T14` and
+`galoisG2Out_of_g7Data`.
 
 ```
 theorem G0ModField.fieldDescentUnr (hCover : FibreCoverExists) (hKer : KernelFieldExists)
@@ -76,7 +77,9 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
    which uses NoCM, G6), the rational discrepancy `c` and the kernel sizes. Medium-large. It
    needs Weil restriction, Tate modules of `W₀` and Skolem-Noether (T13,
    `GlueDescent.LeafSkolemNoether`, proved by t-skolem-kw per its report).
-4. `AfterG7`: the ranges G8-G16, owned by g0-mod-galois and g0-mod-newform (§3).
+4. `AfterG7`: the ranges G8-G16, owned by g0-mod-galois and g0-mod-newform (§3). Connecting
+   them to this range takes two bridge Props, `ResQRange` (Mathlib-level) and `TateBridge`
+   (medium), both stated in Lean (§3).
 
 ## 2. The descent datum on the actual `A`
 
@@ -125,9 +128,14 @@ are definitional (`abVarEquiv` is `{ X := A.X }` both ways).
 
 **Into G8-G12 (g0-mod-galois, `scratch/g0-mod-galois/part_galois.lean`, read at 02:15).** Their
 inputs are per `ℓ` over an abstract number field `K` (= `L'`), via `resQ K`:
-* their `G2Out K T` (inertia at `p ∉ T` lies in `G_K`) is `G7Data`'s clause
-  `GlueB3Unram.GalUnramifiedOutside L' (T u)` (inertia `I_w ≤ G_{L'}`), once `resQ ⟨L'⟩` is
-  identified with the inclusion `G_{L'} ≤ G_ℚ`;
+* their `G2Out K T` (inertia at `p ∉ T` lies in `G_K`) follows from `G7Data`'s clause
+  `GlueB3Unram.GalUnramifiedOutside L' (T u)` (inertia `I_w ≤ G_{L'}`). **Proved in Lean:**
+  `galoisG2Out_of_g7Data`, from `G7Data` and the named Prop `ResQRange`. `ResQRange` says the
+  image of their `resQ L' = Field.absoluteGaloisGroup.map` is `Fix(L')` for finite Galois `L'`. It is
+  true for any choice of embedding of the algebraic closures, because `L'/ℚ` is normal. It is
+  Mathlib-level Galois theory and is not proved here. Their definitions `resQ`, `Vb`, `tate`,
+  `G2Out` and `G7Out` are copied verbatim into `G0ModField.GaloisCopy` (from wip/g0-mod-galois at
+  20fa1287);
 * their `G7Out A ℓ Tm c ε a β u` has the operators `Tm σ` on `ℚ̄_ℓ ⊗ V_ℓ(A_{L'})`, which are the
   Tate functor applied to `m_σ`. The bridge `G7Data → G0Galois.G7Out` is new glue (not done here).
   It needs four things: (i) `T_ℓ` of `A_L(ℚ̄)` and of `A_{L'}(\overline{L'})` identified (choice of
@@ -137,7 +145,9 @@ inputs are per `ℓ` over an abstract number field `K` (= `L'`), via `resQ K`:
   commutation clause and rank 4 (A9/G6); (iv) continuity from inflation and glue-rho-cont. Their
   clauses `Tm = tate`, `a = 1`, `β = 1` on `G_{L'}` come from `DescentDatum` (`m_k = galAct`,
   `a_k = 1`) and `G_{L'} = G_L ∩ ker β`. `A.dim = 2` follows from `IsModelOver` with `DimBaseChange`
-  (g0-split's `model_dim`). `rank End = 4` is G5-G6, outside this range.
+  (g0-split's `model_dim`). `rank End = 4` is G5-G6, outside this range. **Stated in Lean** as the
+  Prop `TateBridge`: `G7Data` + `dim A_{L'} = 2` + `rank_ℤ End(A_{L'}) = 4` gives, for every
+  prime `ℓ`, data with `GaloisCopy.G7Out (A_{L'}) ℓ`.
 * G16 (g0-mod-newform) uses `[L':ℚ]` only through `N ≤ QM²`. The `G7Data` clause
   `(∀ q prime, q ∣ N → q ∈ T)` with `N` the modulus of `χ` serves the conductor bound G15
   (`β` is ramified only in `T` after the twist).
