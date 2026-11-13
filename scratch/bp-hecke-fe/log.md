@@ -55,3 +55,11 @@
   `cdCoeff_prime_of_mod_four_eq_three` (a_p = 0), `normFiber_eq_empty_of_mod_four_eq_three`,
   `deuring_prime_of_mod_four_eq_three`, `deuring_prime_of_dvd` (p | d), `deuring_two`:
   DeuringCd holds at every prime n = p except the split primes p ≡ 1 (mod 4), p ∤ d.
+- (VERIFIED, compiled ~18:08) `heckeEulerPoly`, `HeckeEuler d : Prop` (Euler product of
+  heckeCoeff, a statement about ℤ[i] only), `map_invOfUnit_one`, `cdCoeff_prime_eq`,
+  `deuringCd_of_heckeEuler` (HeckeEuler ∧ agreement at all primes → DeuringCd),
+  `GaussSplit d : Prop` (agreement at split primes p ≡ 1 mod 4, p ∤ d),
+  `deuringCd_of_heckeEuler_gaussSplit`, and
+  `literature_hecke_fe_of_euler_gauss_fourier : (∀d, HeckeEuler d) → (∀d, GaussSplit d) →
+   (∀d, CdFourier d) → HeckeContinuation5 ∧ Literature.FunctionalEquation5` (d ≡ 5 mod 8 sqfree).
+  HeckeEuler/GaussSplit are implied numerically by the deuring_check data (n ≤ 400).

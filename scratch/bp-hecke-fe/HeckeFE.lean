@@ -924,4 +924,98 @@ theorem deuring_two {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
     simp only [unitOf, h1, h2, h3, h4, ite_false]
   rw [key _ _ h]; simp
 
+/-! ### `DeuringCd` from the Euler product of `L(ψ_d, s)` and the split primes -/
+
+/-- The Euler polynomial of `L(ψ_d, s)` at `p`: `1 − heckeCoeff(p) T + p T²` (`1` at `p ∣ 2d`). -/
+noncomputable def heckeEulerPoly (d p : ℕ) : Polynomial ℂ :=
+  if p ∣ 2 * d then 1
+  else 1 - Polynomial.C (heckeCoeff d p) * Polynomial.X + Polynomial.C (p : ℂ) * Polynomial.X ^ 2
+
+/-- **Euler product of the Hecke L-function** (node B2, a statement about `ℤ[i]` only):
+`heckeCoeff d n = Π_{p^k ∥ n} [T^k] (1 / heckeEulerPoly d p)`. -/
+def HeckeEuler (d : ℕ) : Prop :=
+  ∀ n : ℕ, n ≠ 0 → heckeCoeff d n = n.factorization.prod fun p k =>
+    PowerSeries.coeff k (PowerSeries.invOfUnit ((heckeEulerPoly d p : Polynomial ℂ) :
+      PowerSeries ℂ) 1)
+
+theorem map_invOfUnit_one {R S : Type*} [CommRing R] [CommRing S] (f : R →+* S)
+    (φ : PowerSeries R) (h : PowerSeries.constantCoeff φ = 1) :
+    PowerSeries.map f (PowerSeries.invOfUnit φ 1) = PowerSeries.invOfUnit (PowerSeries.map f φ) 1 := by
+  have h1 : φ * PowerSeries.invOfUnit φ 1 = 1 := PowerSeries.mul_invOfUnit _ _ (by simp [h])
+  have h1' : PowerSeries.map f (PowerSeries.invOfUnit φ 1) * PowerSeries.map f φ = 1 := by
+    rw [← map_mul, mul_comm, h1, map_one]
+  have h2 : PowerSeries.map f φ * PowerSeries.invOfUnit (PowerSeries.map f φ) 1 = 1 :=
+    PowerSeries.mul_invOfUnit _ _ (by
+      rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply, PowerSeries.coeff_map,
+        PowerSeries.coeff_zero_eq_constantCoeff_apply, h, map_one, Units.val_one])
+  exact left_inv_eq_right_inv h1' h2
+
+/-- The coefficient of `L(C_d, s)` at a good prime in the form of `cdEulerPoly`. -/
+theorem cdCoeff_prime_eq {d p : ℕ} (hd : Odd d) (hsq : Squarefree d) [hpp : Fact p.Prime]
+    (hp : ¬ p ∣ 2 * d) :
+    ZInQ.Literature.cdCoeff d p =
+      (p : ℤ) + 1 - Nat.card (ZInQ.Literature.cdModel (ZMod p) d).toAffine.Point := by
+  rw [cdCoeff_eq_LFunction hd hsq hpp.out.ne_zero, ZInQ.Literature.LFunction_cd_apply_prime hd hsq p]
+  simp only [hp, ↓reduceIte, ZInQ.Literature.cdModel_eq_shortCurve]
+
+/-- **`DeuringCd` from the Euler product and the primes.** If `heckeCoeff d` has the Euler
+product `HeckeEuler d` and agrees with `a_p(C_d)` at every prime, then `DeuringCd d`. -/
+theorem deuringCd_of_heckeEuler {d : ℕ} (hd : Odd d) (hsq : Squarefree d) (hE : HeckeEuler d)
+    (hP : ∀ p : ℕ, p.Prime → ((ZInQ.Literature.cdCoeff d p : ℤ) : ℂ) = heckeCoeff d p) :
+    DeuringCd d := by
+  intro n hn
+  rw [hE n hn, ZInQ.Literature.cdCoeff]
+  simp only [hn, ↓reduceIte]
+  rw [Finsupp.prod, Int.cast_prod, Finsupp.prod]
+  refine Finset.prod_congr rfl fun p hp => ?_
+  have hpp : p.Prime := Nat.prime_of_mem_primeFactors (Nat.support_factorization n ▸ hp)
+  have : Fact p.Prime := ⟨hpp⟩
+  have hc0 : PowerSeries.constantCoeff
+      ((ZInQ.Literature.cdEulerPoly d p : Polynomial ℤ) : PowerSeries ℤ) = 1 := by
+    rw [← PowerSeries.coeff_zero_eq_constantCoeff_apply, Polynomial.coeff_coe,
+      ZInQ.Literature.cdEulerPoly_coeff_zero]
+  have hpoly : heckeEulerPoly d p = (ZInQ.Literature.cdEulerPoly d p).map (Int.castRingHom ℂ) := by
+    unfold heckeEulerPoly ZInQ.Literature.cdEulerPoly
+    split_ifs with h
+    · simp
+    · rw [← hP p hpp, cdCoeff_prime_eq hd hsq h]
+      simp [Polynomial.map_sub, Polynomial.map_add, Polynomial.map_mul]
+  rw [hpoly, Polynomial.polynomial_map_coe, ← map_invOfUnit_one _ _ hc0, PowerSeries.coeff_map]
+  rfl
+
+/-- **Gauss's theorem at the split primes** (node B3): `a_p(C_d) = heckeCoeff d p` for primes
+`p ≡ 1 (mod 4)`, `p ∤ d`; that is, `a_p = (p/d)(π + π̄)` with `π ≡ 1 (mod 2+2i)`, `ππ̄ = p`. -/
+def GaussSplit (d : ℕ) : Prop :=
+  ∀ p : ℕ, p.Prime → p % 4 = 1 → ¬ p ∣ d →
+    ((ZInQ.Literature.cdCoeff d p : ℤ) : ℂ) = heckeCoeff d p
+
+/-- **`DeuringCd` from the Euler product of `L(ψ_d, s)` and Gauss's theorem at split primes**
+(the other primes are `deuring_prime_of_mod_four_eq_three`, `deuring_prime_of_dvd`,
+`deuring_two`). -/
+theorem deuringCd_of_heckeEuler_gaussSplit {d : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    (hE : HeckeEuler d) (hS : GaussSplit d) : DeuringCd d := by
+  refine deuringCd_of_heckeEuler hd hsq hE fun p hp => ?_
+  have : Fact p.Prime := ⟨hp⟩
+  by_cases hpd : p ∣ d
+  · exact deuring_prime_of_dvd hd hsq hpd
+  rcases hp.eq_two_or_odd' with rfl | hodd
+  · exact deuring_two hd hsq
+  have : p % 4 = 1 ∨ p % 4 = 3 := by
+    have := Nat.odd_iff.mp hodd; omega
+  rcases this with h1 | h3
+  · exact hS p hp h1 hpd
+  · exact deuring_prime_of_mod_four_eq_three hd hsq h3 hpd
+
+/-- **The two literature Props from two statements about `ℤ[i]` and `𝔽_p`, plus `CdFourier`.** -/
+theorem literature_hecke_fe_of_euler_gauss_fourier
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → GaussSplit d)
+    (hFo : ∀ d : ℕ, d % 8 = 5 → Squarefree d → CdFourier d) :
+    (∀ d : ℕ, d % 8 = 5 → Squarefree d →
+      ∃ F : ℂ → ℂ, ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F) ∧
+    ZInQ.Literature.FunctionalEquation5 := by
+  have hD : ∀ d : ℕ, d % 8 = 5 → Squarefree d → DeuringCd d := fun d h5 hsq =>
+    deuringCd_of_heckeEuler_gaussSplit (Nat.odd_iff.mpr (by omega)) hsq (hE d h5 hsq) (hS d h5 hsq)
+  exact ⟨heckeContinuation5_of_deuring hD, functionalEquation5_of_deuring_fourier' hD hFo⟩
+
 end BpHeckeFE
