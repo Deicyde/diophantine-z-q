@@ -4269,6 +4269,79 @@ theorem fExtend_of_core (h : FExtendCore) : FExtend := by
   obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
   exact ⟨Ft, tSig σ hσ.1, h1, tSig_residue hσ, h2, h3⟩
 
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`FExtendGen` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
+§1.2), applied to the conjugate model `𝒜^{(t)}`).** For `F`, `σ`, `f` as in `FExtend` and
+`t = σ⁻¹|_{O_w}`: there is a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` fixing the unit
+section whose restriction to the generic fibre is `F` (through `e`):
+`e⁻¹ ≫ pr₁ ≫ F̃ = F ≫ e⁻¹ ≫ pr₁` as maps `A → 𝒜`.
+
+Why it is true: `f(x) ∈ A(ℚ̄)` for all `x` forces `F` to lie over `Spec(σ⁻¹|_L)`, so `F` is an
+`L`-morphism `A → A^{(t)}`; I2-NMP for `𝒜` and its base change `𝒜^{(t)}` along `Spec t` extends
+it; `F̃` fixes the unit section because both sides are sections of the separated `𝒜 → Spec O_w`
+agreeing at the generic point (`f(0) = 0`). -/
+def FExtendGen : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
+    ∀ p : ℕ, p.Prime →
+      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
+        (hσ : PkgI4.IsArithFrob σ v p)
+        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
+          𝒜 ≅ ObjBridge.toGrp A)
+        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F) →
+        ∃ Ft : 𝒜.X.left ⟶ 𝒜.X.left,
+          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ∧
+          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ≫ (η[𝒜.X]).left ∧
+          (e.inv.hom.hom : A.X ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom
+              (algebraMap (Ow L v) L)))).obj 𝒜.X).left ≫
+            pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))) ≫ Ft =
+          F ≫ (e.inv.hom.hom : A.X ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom
+              (algebraMap (Ow L v) L)))).obj 𝒜.X).left ≫
+            pullback.fst 𝒜.X.hom (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`FExtendCore` from `FExtendGen` (proved):** the lift of `f x` is
+`Spec(σ|_{O_v}) ≫ x' ≫ F̃`; it lies over `Spec(toW)` since `σ ∘ t = id` on `O_w`, and restricts to
+`f x` by `hf`, the generic compatibility and `Spec σ ≫ Spec(O_v ⊂ ℚ̄) = Spec(O_v ⊂ ℚ̄) ≫ Spec σ_v`. -/
+theorem fExtendCore_of_gen (h : FExtendGen) : FExtendCore := by
+  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
+  obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
+  refine ⟨Ft, h1, h2, fun x x' hx' => ?_⟩
+  have hring1 : Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫
+      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) ≫
+        Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) =
+      Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext a
+    show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L))) =
+      algebraMap L PkgI4.Qbar (a : L)
+    rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
+  have hov : (Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft) ≫ 𝒜.X.hom =
+      (Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl)))).hom := by
+    rw [Category.assoc, Category.assoc, h1, ← Category.assoc x'.left, Over.w x']
+    exact hring1
+  refine ⟨Over.homMk _ hov, ?_, rfl⟩
+  have hring2 : Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+      Spec.map (CommRingCat.ofHom v.subtype) =
+      Spec.map (CommRingCat.ofHom v.subtype) ≫ Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    rfl
+  have hfx := hf x
+  have hx'' := (Category.assoc _ _ _).symm.trans hx'
+  have hx3 := ((congrArg ((Additive.toMul x).left ≫ ·) (Category.assoc _ _ Ft).symm).trans
+    (Category.assoc _ _ Ft).symm).trans ((congrArg (· ≫ Ft) hx'').trans (Category.assoc _ _ _))
+  exact (Category.assoc _ _ _).trans <|
+    (congrArg (· ≫ _) hfx).trans <|
+    ((Category.assoc _ _ _).trans (congrArg (_ ≫ ·) (Category.assoc _ _ _))).trans <|
+    (congrArg (fun m => _ ≫ (Additive.toMul x).left ≫ m) h3.symm).trans <|
+    (congrArg (_ ≫ ·) hx3).trans <|
+    (Category.assoc _ _ _).symm.trans ((congrArg (· ≫ x'.left ≫ Ft) hring2).trans
+      (Category.assoc _ _ _))
+
 /-! ## 9. `FrobMorph` from the existence of the absolute Frobenius -/
 
 /-- **`AbsFrob` (GLUE; the absolute Frobenius of an `𝔽_p`-scheme; standard, e.g. SGA 5 XIV,
@@ -4703,6 +4776,21 @@ theorem tateBridge35_of_absFrob (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinit
     (hE : FExtendCore) (hA : AbsFrob) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_absFrob hG hS hRed hE hA)
 
+/-- **Main result, finest form: `FrobTrace.AlgFrobRed` from the leaf candidates
+`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendGen` and
+`AbsFrob` (proved).** -/
+theorem algFrobRed_of_gen (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_absFrob hG hS hRed (fExtendCore_of_gen hE) hA
+
+/-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
+`FExtendGen`, `AbsFrob` (proved).** -/
+theorem tateBridge35_of_gen (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0})
+    (hE : FExtendGen) (hA : AbsFrob) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_gen hG hS hRed hE hA)
+
 end AlgFrobRedRed
 
 end
@@ -4764,3 +4852,6 @@ end
 #print axioms AlgFrobRedRed.frobMorph_of
 #print axioms AlgFrobRedRed.algFrobRed_of_absFrob
 #print axioms AlgFrobRedRed.tateBridge35_of_absFrob
+#print axioms AlgFrobRedRed.fExtendCore_of_gen
+#print axioms AlgFrobRedRed.algFrobRed_of_gen
+#print axioms AlgFrobRedRed.tateBridge35_of_gen

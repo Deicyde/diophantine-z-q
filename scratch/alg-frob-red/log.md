@@ -121,3 +121,11 @@
 - Run 37: exit 0, no error; all axiom prints standard (VERIFIED).
 - Pitfall: work at the native type `pullback 𝒜.X.hom g'` (re-typed `let Fr : pullback .. ⟶ .. := Fr0`,
   `let e0 := η.left`, `let yl := y.left`), else Category.assoc rewrites fail on (sf 𝒜).X.left.
+
+## Run 38-40: FExtendCore from FExtendGen
+- New Prop FExtendGen (glue from I2-NMP: F̃ over Spec(tSig σ), fixing the unit section, with generic compatibility
+  e⁻¹ ≫ pr₁ ≫ F̃ = F ≫ e⁻¹ ≫ pr₁ as maps A → 𝒜; no points). Proved: fExtendCore_of_gen : FExtendGen → FExtendCore
+  (lift Spec(σ|O_v) ≫ x' ≫ F̃: over Spec(toW) since σ ∘ t = id; generic clause by hf, compatibility, and
+  Spec σ ≫ Spec(O_v ⊂ ℚ̄) = Spec(O_v ⊂ ℚ̄) ≫ Spec σ_v), algFrobRed_of_gen, tateBridge35_of_gen.
+- Run 40: exit 0, no error; all axiom prints standard (VERIFIED). Pitfall: `act σ` (GQ vs PkgI4.GQ) breaks rw/simp
+  motives; the generic equation is a term-mode Category.assoc/congrArg chain.
