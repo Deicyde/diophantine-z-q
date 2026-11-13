@@ -46,3 +46,6 @@
 - 08:25 module copies ZInQKernel/Contrib/TYZDecomp/{Leaves,CurveA}.lean (scratch files minus
   #print axioms) BUILD: `lake build ZInQKernel.Contrib.TYZDecomp.Leaves ZInQKernel.Contrib.TYZDecomp.CurveA`
   -> Build completed successfully (9114 jobs); only "consider adding `module`" warnings.
+- 08:40 final state: report docs/research/tyz-decomp.md; Lean modules + drafts compile; .fleet/tyz-decomp.md
+  written. Not done: genuine-ambient genus package (Z[i]-module instance on A(Qbar) attempted, dropped:
+  AddMonoid.End coercion lemmas; tau/beta pinning, ring class fields, CM points: report §4.2).
