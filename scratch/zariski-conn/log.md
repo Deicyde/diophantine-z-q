@@ -81,3 +81,7 @@ Target: `FrobPiecesNeron.ProperSmoothGenConnected` (scratch/frob-pieces/part_ner
 - 4.3.4 from 4.3.1 needs étale neighbourhoods with prescribed residue field + flat base change of
   f_*𝒪 (Mathlib has the latter) and "connected over k_sep ⇒ geometrically connected" (EGA IV₂ 4.5,
   missing in Mathlib). 4.3.1 from 4.1.5 needs formal completions and lim H⁰(X_n): missing.
+
+## Final (13:00)
+- .fleet/zariski-conn.md written. Unproved: the leaf `ZariskiConn.ZariskiConnectedness` (EGA III₁
+  4.3.1 + 4.3.4, published).
