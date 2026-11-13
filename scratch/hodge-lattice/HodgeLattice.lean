@@ -11,7 +11,15 @@ group model `𝒢` of `A_L` with `A.dim = g`, that
 `(𝔪_ξ/𝔪_ξ², ω_𝒢)`, from three hypotheses: `ω` finitely generated, `K ⊗ M` of `K`-rank `g`, and
 `ω` spanning `K ⊗ M` over `K` (`hodgeLattice_of_lattice`). §2 states the three hypotheses over the
 genuine objects of `Models.lean` (`OmegaFG`, `CotangentRank`, `OmegaSpans`) and derives
-`HodgeLatticeTheorem` from them (`hodgeLatticeTheorem_of`). No `sorry`, no `axiom`. -/
+`HodgeLatticeTheorem` from them (`hodgeLatticeTheorem_of`). §3-§5 prove `OmegaFG` and `OmegaSpans`
+(`omegaLocal`: `ω_𝒢` is a finitely generated full lattice). §6 reduces `CotangentRank` to the
+regularity and Krull dimension of `𝒪_{𝒢,ξ}`; §7 is a corollary; §8-§9 move these to statements about
+abelian varieties over a field and the local rings of a generic fibre. Final form:
+
+`hodgeLatticeTheorem_of_varieties : GenericFibreStalkIso → RegularAtOrigin → DimAtOrigin →
+  DimBaseChange → HodgeLatticeTheorem`.
+
+No `sorry`, no `axiom`. -/
 
 namespace ZInQ.DefFaltings.HodgeLattice
 
