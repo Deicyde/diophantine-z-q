@@ -41,6 +41,11 @@ check('scratch/hodge-bc2/IntegrationBC.lean',
        ('infra-stalks cot_bc part', noprint(open('scratch/infra-stalks/cot_bc.lean.part').read())),
        ('g0-stablebc Main.part (no #print)', mp),
        ('g0-stablebc def StableHeightBaseChange', blk(mp, 'StableHeightBaseChange'))])
+h5 = open('scratch/h5-glue/H5Final.lean').read()
+h5 = h5[:h5.index("end ZInQ.H5Glue\n\n#print axioms ZInQ.H5Glue.heightAntitone")].split('\n', 1)[1]
+check('scratch/hodge-bc2/IntegrationH5.lean', ['ModelHeightBaseChange'],
+      [('h5-glue H5Final.lean (after import, before #print block)', h5),
+       ('IntegrationBC.lean body', open('scratch/hodge-bc2/IntegrationBC.lean').read().split('\n', 2)[2])])
 import os
 for extra in sys.argv[1:]:
     exec(open(extra).read())

@@ -1,0 +1,28 @@
+
+/-! # hodge-bc2: h5-glue's H5 from the leaves N1, N2 alone (H4a now a theorem) -/
+
+namespace ZInQ.HeightBC
+
+open NumberField
+
+/-- h5-glue's `ModelHeightBaseChange` is height-bc's (verbatim copies of one statement; as
+height-bc's `h5_modelHeightBaseChange_iff`). -/
+theorem h5_modelHeightBaseChange_iff' :
+    ZInQ.H5Glue.ModelHeightBaseChange ↔ ModelHeightBaseChange := Iff.rfl
+
+/-- **H5 in the multi-field form (h5-glue's `stableFaltingsHeight_eq_neron_all'`) from the
+literature leaves N1, N2 only**: H4a is `modelHeightBaseChange`. -/
+theorem stableFaltingsHeight_eq_neron_of_N1N2 (hN1 : ZInQ.H5Glue.NeronModelExists)
+    (hN2 : ZInQ.H5Glue.SemistableNeronIdentityComponent)
+    (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : DefFaltings.GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ DefFaltings.stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : DefFaltings.GroupModel A L'), 𝒩'.IsNeronModel →
+        DefFaltings.stableFaltingsHeight A = 𝒩'.height :=
+  ZInQ.H5Glue.stableFaltingsHeight_eq_neron_all' hN1 hN2
+    (h5_modelHeightBaseChange_iff'.mpr modelHeightBaseChange) K A
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.stableFaltingsHeight_eq_neron_of_N1N2

@@ -42,3 +42,10 @@
   G0StableBC.StableHeightBaseChange`** (g0-split piece 6), and for hodgeBCInjective, omegaBaseChange,
   omegaLocalization, cotangentSpanBC, uniformizationLiftAnalytic. verbatim_check.py ALL OK.
   FINDING: g0-stablebc's Main.part elaborates unchanged after `import Mathlib` (no breakage).
+- Merged origin/main (e8eb4d61; no change under ZInQKernel/HDecomp, lakefile or manifest).
+- ZInQKernel/Contrib/HodgeBC2/ExtFrac.lean (same text as scratch ExtFrac.lean): `lake build
+  ZInQKernel.Contrib.HodgeBC2.ExtFrac` OK (10:12); axioms of extFracEquiv, extFracBasis_apply standard.
+- IntegrationH5.lean (assemble_h5.py: verbatim h5-glue H5Final.lean before its #print block +
+  IntegrationBC body + int_h5.lean.part): VERIFIED (10:15) 0 errors, 40 s;
+  `stableFaltingsHeight_eq_neron_of_N1N2` (h5-glue's H5, multi-field form, from leaves N1, N2 only)
+  axioms standard. verbatim_check.py ALL OK.
