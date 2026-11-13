@@ -23,3 +23,14 @@ Task tyz-cm, 2026-11-13. Targets: `CM.CMFieldOfDefinition ringClassFieldD`, `Pac
   `𝔟·⟨1, τ'⟩ = c⟨1, τ⟩` and `𝔟·⟨1/32, τ'⟩ = c⟨1/32, τ⟩`; all coefficients integer polynomials in n
   (using `(n−5)/4`, `(n+9)/2` ∈ ℤ); gcd of 2×2 minors = 1 (minors 4 and 4n+1).
   Fitted from 18 values of n, then verified symbolically.
+
+## 10:45 TYZSigmaFixesZn reduced (VERIFIED, compiled)
+- New leaf `Shimura.ShimuraReciprocityPic` (ShimuraRecip.lean): main theorem of CM for Heegner points
+  of X₀(32) in Gross's form, over Tau Ceti's Pic/Artin and lattices `κ(J∩O)·(L, L_N)`.
+- `Shimura.tyzSigmaFixesZn_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke) :
+  Package.TYZSigmaFixesZn` (ShimuraZn.lean). `lake build ZInQKernel.Contrib.TYZGenus.ShimuraZn` OK;
+  `#print axioms`: propext, Classical.choice, Quot.sound.
+- Proved pieces: `int_coords` (𝓞_K = ℤ[√−n], n ≡ 1 mod 4 squarefree), `idealMeetOrder_alpha`,
+  `latK`/`latNK` (lattice identities in K), `phiC_add_half`, `ptTC_add_self` (2T = (0,0) in A(ℂ)),
+  `phiC_N0`, `tyzForm'` (primitive: 1 = −(n+6)A − 2(n+6)B − (4n+23)C), `tau'_eq`,
+  `exists_galQ_neg`, `exists_normalized_embed`, `fixes_iQ_of_sigma`.
