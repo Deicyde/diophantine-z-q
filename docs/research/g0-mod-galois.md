@@ -172,95 +172,70 @@ These are combined by proved steps:
 - `N ≤ QM²` and `[L':ℚ] ≤ QM`;
 - `CommonConstituent A (J_{L'})`.
 
-### 4.1 Into g0-mod-newform (G13-G16): proved, in their exact input form
+**The three ranges already interlock through verbatim copies of this file's definitions.**
+VERIFIED by a token comparison script (log, 02:55-03:00) against the partners' pushed files:
 
-g0-mod-newform (`scratch/g0-mod-newform/part_new.lean`, commit 217e17f0) takes as input
-`G12Out A := ∃ D : ModData L A, G12Spec D`. Here `D` packs an embedding `i : ℚ̄ → L̄'`,
-embeddings `ιC`, `ι₅`, `ι₃`, and `r₅`, `r₃`. `G12Spec D` asks:
+- g0-mod-field (origin 9f698815) has `G0ModField.GaloisCopy`, a copy of `resQ`, `Vb`, `tate`,
+  `G2Out`, `G7Out`. All five are identical to the current definitions here.
+- g0-mod-newform (origin 8ab403b1) has a copy of `resQ`, `Vb`, `tate`, `Intertwines`, `G8Out`,
+  `G12Out` (the last two renamed `GalG8Out`, `GalG12Out`). All six are identical.
 
-- `r₅` and `r₃` irreducible (Burnside form);
-- `IsConstituentOf 5 A i r₅` and `IsConstituentOf 3 A i r₃`;
-- `PanOutput ιC ι₅ r₅`: weight-2 eigenform up to a twist that is a Dirichlet character at
-  Frobenius.
+(Between 02:16 and 02:50 this file had a different `resQ`, `res (qEmb K)`. It was restored to
+Mathlib's `Field.absoluteGaloisGroup.map`, which both partners copied. `qEmbRing` is the embedding
+that `map` chooses, and `resQ_spec` is proved for it.)
 
-These definitions are copied verbatim into namespace `G0Galois.NF`, and
-`NF.NewformG12Out` is their `G12Out`.
+### 4.1 The composite, step by step
 
-**`G0Galois.newformG12Out_of_galois` (proved)** derives `NF.NewformG12Out A` from:
+1. **From G2-G7 (g0-mod-field).** Its `G7Data u P L A ε N χ β L' hLL'` gives:
+   - `L'` (finite Galois, `[L':ℚ] ≤ QM`, unramified outside `T u`) and the model `A_{L'}`;
+   - this file's `G2Out L' (T u)`, through their **proved** `galoisG2Out_of_g7Data` (with their
+     proved `ResQRange`: the image of `resQ L'` is `Fix(L')`);
+   - this file's `G7Out (A_{L'}) ℓ …` at each `ℓ`, through their **stated, unproved**
+     `TateBridge` (the Tate functor on the points-level `m_σ`, coefficients in `ℚ̄_ℓ`, matrix
+     units). `TateBridge` also takes `dim A_{L'} = 2` and `rank End = 4` as hypotheses.
+2. **Inputs from outside the three ranges.**
+   - `G3Out A ℓ T`: G3's good reduction outside `T` (on leaf-qm-fp's objects
+     `LeafQM.AV.QML3.goodReduction`; g0-mod-field's `IsQMModel` makes `A` such a base change), with
+     R7a.
+   - `G6Out A`: `EndDivision`, which g0-split's `FibreSimple` covers, and noncommutativity of
+     `End_{L'}(A)` (G5-G6).
+3. **This range.**
+   - `g8_g12` (or `g8_g12_of_leaves`) at `ℓ = 5` gives `r₅` with `G8Out`, `G9Out`, `G10Out`,
+     `G11Out`, `G12Out`.
+   - `g8_g11` at `ℓ = 3` gives `r₃` with `G8Out`, …, `G11Out`.
+4. **Into G13-G16 (g0-mod-newform).**
+   - Their **proved** `g12Spec_of_galois (hDF : DirichletOfFinite) A ρ5 ρ3 r5 r3 h5 h3 h12` turns
+     `G8Out` at 3 and 5 and `G12Out r₅` into `∃ i ιC ι5, ∀ ι3, G12Spec ⟨i, ιC, ι5, ι3, r5, r3⟩`.
+     Their `DirichletOfFinite` is this file's `FiniteCharDirichlet`.
+   - Clause (iii) of their `G15RamG` is exactly `G11Out` (their proved
+     `localUnram_of_unramifiedAt` does the global-to-local inertia step).
+   - With their remaining Props (`G14TraceCompat`, clauses (i)-(ii) of `G15RamG`), their
+     `modularConstituent_tail_G` gives `N`, `J`, `0 < N`, `IsJ1 N J`, `N ≤ QM²` and
+     `CommonConstituent A (J.baseChange L')`.
+5. **Output.** Together with step 1's `[L':ℚ] ≤ QM` and model, that is `ModularConstituent`. The
+   remaining checks are `abVarEquiv` against `baseChange` (g0-mod-newform §3 step 4; probably
+   definitional) and putting all three files into one environment (§6).
 
-- the leaf bundles;
-- `GaloisPieces` (the two extra leaves and the five named glue Props);
-- `FiniteCharDirichlet`, a sixth named Prop: a finite-image character is a Dirichlet character at
-  Frobenius, from T17 Kronecker–Weber (h-trust C8 item 4). It is in this theorem because
-  g0-mod-newform put the Kronecker–Weber step into its `PanOutput`;
-- `G2Out`, `G3Out` at 3 and 5, `G6Out`, `G7Out` at 3 and 5;
-- a free choice of `ι₃`.
+This file proves the same bridge as step 4 itself (`newformG12Out_of_galois`, with
+`isConstituentOf_of_intertwines` and `panOutput_of_g12`), over its own copy of g0-mod-newform's
+definitions (`G0Galois.NF`). It also proves `commonConstituent_of_sides` (G8's `e` plus a `J`-side
+embedding gives `CommonConstituent`), an alternative to their `g13` for the last field.
 
-The proof uses:
+### 4.2 What G14 and G15 still need from this range
 
-- `g8_g12_of_leaves` at `ℓ = 5`;
-- `g8_g11` at `ℓ = 3`;
-- `isIrreducible_of_g8` for both;
-- `isConstituentOf_of_intertwines` (proved). It takes `i = qEmb K`, and the `σ ∈ G_ℚ` with
-  `i ∘ σ = τ ∘ i` is `resQ K τ` (`eq_resQ`), so G8's intertwining is their constituent clause;
-- `panOutput_of_g12`, which merges the two finite exceptional sets.
-
-So their `g13_g16` can be applied directly to this output, once both files compile in one
-environment (§6).
-
-**Points for the integrator.**
-
-- *Descent link for G14.* Their `G14TraceCompat` compares traces of `r₃`, `r₅` at Frobenius
-  elements outside `G_{L'}`. That needs the descent link, which is G8Out's clause
-  `Intertwines (GlueDescent.rho Tm a β) r.mat e` on all of `G_ℚ` (kept in `G8Out` for this
-  purpose). `NewformG12Out` forgets it. If G14TraceCompat is to be proved, it should take
-  `G8Out` at 3 and 5, not only `ModData`.
-- *Local unramifiedness for G15.* Their G15Ram clause (iii) is "inertia acts trivially on
-  `r.restrictLocal p` for `p ∉ T`" (local form). `G11Out` gives the global form
-  (`UnramifiedAt p` for every place of `ℚ̄` above `p`). The transport through
-  `decomp p : G_{ℚ_p} → G_ℚ` (its image is a decomposition group, and local inertia maps into a
-  global inertia group) is not done. Size: small-medium (STANDARD).
-- *Same `T`.* My `T : Finset ℕ` should be instantiated with g0-mod-field's
-  `T u = GlueDescent.ramSet Mult.S_mul u`, which is what G15Ram uses.
-
-### 4.2 Into `ModularConstituent` directly
-
-`commonConstituent_of_sides` (proved) gives `HSyn.G0Split.CommonConstituent A J` from two
-inputs:
-
-- G8's `e`;
-- `JSide J r₅`, an injective `G_{L'}`-equivariant `ℚ̄₅² → ℚ̄₅ ⊗ V₅(J)`.
-
-g0-mod-newform proves the corresponding statement itself (its `G13Spec` contains
-`∀ J, IsJ1 N J → CommonConstituent A (J.baseChange L)`), so this lemma is an alternative route,
-not needed if their `g13` is used.
-
-### 4.3 From g0-mod-field (G2-G7): the realization step, not stated in Lean
-
-g0-mod-field's `G7Data u P L A ε N χ β L' hLL'` (commit ceada656) is on points:
-- `DescentDatum` gives maps `m_σ` on `A(ℚ̄)` and real scalars `a_σ`, with complex `ε`;
-- `β : G_ℚ → ℂ^×` with `β² = χ`, `∂β = ε`, and `G_{L'} = G_L ∩ ker β`;
-- `L'` Galois and unramified outside `T u`, and `A_{L'}` a model of `P`.
-
-My `G7Out` is the `ℓ`-adic realization of these data. Its glue Prop, **`G7Realize`** (not stated
-in Lean, because the two files live in different environments; size: medium), says: for every
-prime `ℓ`, after choosing embeddings `ℚ̄ → ℂ` and `ℚ̄ → ℚ̄_ℓ` for the values of `β`, `ε`, and a
-fourth root for `a_σ`, the following data satisfy `G7Out (A_{L'}) ℓ`:
-
-- `Tm σ := a_σ · V_ℓ(m_σ)` on `ℚ̄_ℓ ⊗ V_ℓ(A_{L'})` (`m_σ` is additive and commutes with `ℓ`, so
-  it acts on `T_ℓ`; the point groups of `A_{L'}` over `L̄'` and of `A` over `ℚ̄` are identified
-  through `qEmb`);
-- `c(σ, τ) = n/d`;
-- the images of `ε` and `β`;
-- the matrix units of `End(A) ⊗ ℚ̄_ℓ ≅ M₂(ℚ̄_ℓ)`.
-
-The remaining inputs come from elsewhere:
-
-| input | source |
-|---|---|
-| `G2Out (L') (T u)` | g0-mod-field's `GalUnramifiedOutside L' (T u)` through `qEmb`; this is the restatement "inertia lies in `G_{L'}`" |
-| `G3Out` | G3: good reduction of `A` outside `T` (proved on leaf-qm-fp's objects, `LeafQM.AV.QML3.goodReduction`), with R7a. G3 is not one of `ModularConstituent`'s steps; it is an input from the proved G3 |
-| `G6Out`, and G7Out's clauses `dim A = 2`, `rank End_{L'}(A) = 4` | G5-G6 and A9 (`FibreSimple` covers simplicity) |
+- **G14.** g0-mod-newform's `G14TraceCompat D` compares traces of `r₃`, `r₅` at Frobenius elements
+  outside `G_{L'}`. Its proof needs the descent link that `G8Out` keeps:
+  `Intertwines (GlueDescent.rho Tm a β) r.mat e` on all of `G_ℚ`. `G12Spec` forgets it, so a proof
+  of `G14TraceCompat` should take `G8Out` at 3 and 5 (with the points-level `m_σ` of `G7Data`), as
+  their docstring says.
+- **G15 (i)-(ii).** These concern ramification of `r_ℓ` at `p ∈ T`, and need the same link
+  (`β`'s wild part, Raynaud on `V_ℓ(A)`).
+- **Normalization (their review caveat 1).** Here Pan enters as `PkgI4.PanBerger`. It is already
+  stated in the arithmetic-Frobenius trace form with a general continuous twist (its docstring
+  derives this from Pan's geometric form with `ψ = ψ'ε^{1−k}`). The weight comparison and the
+  determinant argument are then done in the same (Tate-module) normalization: R13's weights
+  `{0, 1−k}` and R14Det's `det ρ_g = εχ^{k−1}`. Finiteness of `ψ` is derived (`g12Det_of`,
+  `twist_finite`), not assumed. So `G12Out` holds in the reading their `PanOutput` needs.
 
 ## 5. Checks
 
