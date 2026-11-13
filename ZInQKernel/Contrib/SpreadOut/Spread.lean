@@ -26,18 +26,19 @@ namespace ZInQ.Contrib.SpreadOut
 /-! ### The three EGA IV leaves -/
 
 /-- **EGA IV₃ 8.8.2 (ii) (LEAF, published; locator UNVERIFIED, quoted from memory; also
-Stacks, Tag 01ZM, UNVERIFIED).**  Let `(Dᵢ)` be a cofiltered diagram of quasi-compact
-quasi-separated schemes with affine transition maps and `c` a limit cone.  Every scheme `X` of
+Stacks, Tag 01ZM, UNVERIFIED).**  Let `(Dᵢ)_{i ∈ J}` be an inverse system of quasi-compact
+quasi-separated schemes with affine transition maps, indexed by a nonempty directed preorder `J`
+(as a functor `Jᵒᵖ ⥤ Scheme`), and `c` a limit cone.  Every scheme `X` of
 finite presentation (locally of finite presentation, quasi-compact, quasi-separated) over
 `lim Dᵢ` is, up to isomorphism, the base change of a scheme `Xᵢ` of finite presentation over
 some `Dᵢ`. -/
 def EGAIV_8_8_2_ii : Prop :=
-  ∀ (I : Type) [Category.{0} I] [IsCofiltered I] (D : I ⥤ Scheme.{0})
-    [∀ {i j : I} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
+  ∀ (J : Type) [Preorder J] [IsDirectedOrder J] [Nonempty J] (D : Jᵒᵖ ⥤ Scheme.{0})
+    [∀ {i j : Jᵒᵖ} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
     [∀ i, QuasiSeparatedSpace (D.obj i)] (c : Cone D), IsLimit c →
     ∀ (X : Over c.pt), LocallyOfFinitePresentation X.hom → QuasiCompact X.hom →
       QuasiSeparated X.hom →
-      ∃ (i : I) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom ∧
+      ∃ (i : Jᵒᵖ) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom ∧
         QuasiCompact Xi.hom ∧ QuasiSeparated Xi.hom ∧
         Nonempty ((Over.pullback (c.π.app i)).obj Xi ≅ X)
 
@@ -46,24 +47,24 @@ Stacks, Tag 081F, UNVERIFIED).**  In the setting of `EGAIV_8_8_2_ii`, let `Xᵢ`
 presentation over `Dᵢ`.  If the base change of `Xᵢ` to `lim D` is proper, then the base change
 of `Xᵢ` to some `Dⱼ` (`j → i`) is proper. -/
 def EGAIV_8_10_5_xii : Prop :=
-  ∀ (I : Type) [Category.{0} I] [IsCofiltered I] (D : I ⥤ Scheme.{0})
-    [∀ {i j : I} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
+  ∀ (J : Type) [Preorder J] [IsDirectedOrder J] [Nonempty J] (D : Jᵒᵖ ⥤ Scheme.{0})
+    [∀ {i j : Jᵒᵖ} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
     [∀ i, QuasiSeparatedSpace (D.obj i)] (c : Cone D), IsLimit c →
-    ∀ (i : I) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom → QuasiCompact Xi.hom →
+    ∀ (i : Jᵒᵖ) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom → QuasiCompact Xi.hom →
       QuasiSeparated Xi.hom → IsProper ((Over.pullback (c.π.app i)).obj Xi).hom →
-      ∃ (j : I) (a : j ⟶ i), IsProper ((Over.pullback (D.map a)).obj Xi).hom
+      ∃ (j : Jᵒᵖ) (a : j ⟶ i), IsProper ((Over.pullback (D.map a)).obj Xi).hom
 
 /-- **EGA IV₄ 17.7.8 (ii) (LEAF, published; locator UNVERIFIED, quoted from memory; also
 Stacks, Tag 07RP, UNVERIFIED).**  In the setting of `EGAIV_8_8_2_ii`, let `Xᵢ` be of finite
 presentation over `Dᵢ`.  If the base change of `Xᵢ` to `lim D` is smooth, then the base change
 of `Xᵢ` to some `Dⱼ` (`j → i`) is smooth. -/
 def EGAIV_17_7_8_ii : Prop :=
-  ∀ (I : Type) [Category.{0} I] [IsCofiltered I] (D : I ⥤ Scheme.{0})
-    [∀ {i j : I} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
+  ∀ (J : Type) [Preorder J] [IsDirectedOrder J] [Nonempty J] (D : Jᵒᵖ ⥤ Scheme.{0})
+    [∀ {i j : Jᵒᵖ} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
     [∀ i, QuasiSeparatedSpace (D.obj i)] (c : Cone D), IsLimit c →
-    ∀ (i : I) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom → QuasiCompact Xi.hom →
+    ∀ (i : Jᵒᵖ) (Xi : Over (D.obj i)), LocallyOfFinitePresentation Xi.hom → QuasiCompact Xi.hom →
       QuasiSeparated Xi.hom → Smooth ((Over.pullback (c.π.app i)).obj Xi).hom →
-      ∃ (j : I) (a : j ⟶ i), Smooth ((Over.pullback (D.map a)).obj Xi).hom
+      ∃ (j : Jᵒᵖ) (a : j ⟶ i), Smooth ((Over.pullback (D.map a)).obj Xi).hom
 
 /-! ### Finiteness instances for products and base changes in `Over S` -/
 
@@ -265,27 +266,33 @@ theorem exists_grp_stage {N : Over c.pt} [GrpObj N] (s : Stage D c N) :
     (Over.pullback (c.π.app (((s.next b₁).next b₂).next b₃).k)) (stθ D c b₄)
     (((s.next b₁).next b₂).next b₃).e hm₃ hu₃ hi₃ hF⟩
 
-variable (D c)
+end Descent
+
+section DescentDirected
+
+variable {J : Type} [Preorder J] [IsDirectedOrder J] [Nonempty J] (D : Jᵒᵖ ⥤ Scheme.{0})
+  [∀ {i j : Jᵒᵖ} (f : i ⟶ j), IsAffineHom (D.map f)] [∀ i, CompactSpace (D.obj i)]
+  [∀ i, QuasiSeparatedSpace (D.obj i)] (c : Cone D) (hc : IsLimit c)
 
 include hc in
 /-- **Spreading out a smooth proper group scheme (from the three EGA IV leaves).**  Let `D` be a
-cofiltered diagram of qcqs schemes with affine transition maps and limit `c`.  A smooth proper
+directed inverse system of qcqs schemes with affine transition maps and limit `c`.  A smooth proper
 group scheme `B` over `lim D` is the base change of a smooth proper group scheme `G` over some
 stage `D k`, by an isomorphism of group schemes. -/
 theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
     (hsm : EGAIV_17_7_8_ii) (B : Over c.pt) [GrpObj B] [IsProper B.hom] [Smooth B.hom] :
-    ∃ (k : I) (G : Over (D.obj k)) (_ : GrpObj G) (_ : Smooth G.hom) (_ : IsProper G.hom)
+    ∃ (k : Jᵒᵖ) (G : Over (D.obj k)) (_ : GrpObj G) (_ : Smooth G.hom) (_ : IsProper G.hom)
       (gen : (Over.pullback (c.π.app k)).obj G ≅ B),
       letI : GrpObj ((Over.pullback (c.π.app k)).obj G) := Functor.grpObjObj
       IsMonHom gen.hom := by
-  obtain ⟨i₀, X₀, hl₀, hq₀, hs₀, ⟨e₀⟩⟩ := h882 I D c hc B inferInstance inferInstance
+  obtain ⟨i₀, X₀, hl₀, hq₀, hs₀, ⟨e₀⟩⟩ := h882 J D c hc B inferInstance inferInstance
     inferInstance
   have hp₀ : IsProper ((Over.pullback (c.π.app i₀)).obj X₀).hom := isProper_of_iso e₀
-  obtain ⟨i₁, a₁, hp₁⟩ := hpr I D c hc i₀ X₀ hl₀ hq₀ hs₀ hp₀
+  obtain ⟨i₁, a₁, hp₁⟩ := hpr J D c hc i₀ X₀ hl₀ hq₀ hs₀ hp₀
   set X₁ := (Over.pullback (D.map a₁)).obj X₀
   set e₁ : (Over.pullback (c.π.app i₁)).obj X₁ ≅ B := (stθ D c a₁).app X₀ ≪≫ e₀
   have hsm₁ : Smooth ((Over.pullback (c.π.app i₁)).obj X₁).hom := smooth_of_iso e₁
-  obtain ⟨i₂, a₂, hs₂⟩ := hsm I D c hc i₁ X₁ inferInstance inferInstance inferInstance hsm₁
+  obtain ⟨i₂, a₂, hs₂⟩ := hsm J D c hc i₁ X₁ inferInstance inferInstance inferInstance hsm₁
   let s : Stage D c B :=
     { k := i₂
       M := (Over.pullback (D.map a₂)).obj X₁
@@ -298,6 +305,6 @@ theorem exists_grpObj_descend (h882 : EGAIV_8_8_2_ii) (hpr : EGAIV_8_10_5_xii)
   obtain ⟨t, hG, ht⟩ := exists_grp_stage hc s
   exact ⟨t.k, t.M, hG, t.smooth, t.proper, t.e, ht⟩
 
-end Descent
+end DescentDirected
 
 end ZInQ.Contrib.SpreadOut
