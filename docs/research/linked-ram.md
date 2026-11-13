@@ -232,7 +232,9 @@ This is the manuscript's argument at L814-821, done in Lean.
 
   The result of `lake env lean` is in `flat_summary.txt`:
   - the run before the TateRam and sign additions: exit 0 in 922 s, 0 errors, 237 standard axiom reports (VERIFIED);
-  - the final run: see `flat_summary.txt` and `log.md`.
+  - the final run (md5 `f5c8f92e…`, 93 294 lines): exit 0 in 945 s, 0 errors, no `sorry`, 244 axiom reports, all
+    standard. They include `tateRamAtThreeD_of_leaves`, `betaTrivialAtTwo_of_sign` and `HSyn.sixContactMin_of_leaves5`
+    (VERIFIED).
 - **Setup for a fresh worktree.** Run `lake build ZInQKernel.Hypotheses.JHeight` (and the prefix's other imports) before
   the prefix oleans load. Otherwise Lean reports "unknown module prefix 'ZInQ'".
 

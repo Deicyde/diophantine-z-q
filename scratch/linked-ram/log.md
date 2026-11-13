@@ -87,3 +87,8 @@
   wildness and eq_one_of_pow_eq_one with p = 2), `betaTrivialAtTwo_of_sign (hB) (h : BetaSignAtTwo)`.
 - `BetaSignAtTwo` = BetaTrivialAtTwo with the extra hypothesis β(g)² = 1 (strictly weaker Prop). GluePieces5 field
   `betaTrivialAtTwo` → `betaSignAtTwo`. 44 fields = 14 LEAF + 4 LEAF? + 26 GLUE. Tail.lean 0 errors.
+
+## Step 9: final flat check — VERIFIED
+- LinkedRam.lean (md5 f5c8f92e…, 93 294 lines) = G0Assemble3.lean + lt-goodred 99d_proofs + final Tail.lean:
+  exit 0 in 945 s, 0 errors, no sorry, 244 axiom reports all [propext, Classical.choice, Quot.sound]
+  (incl. tateRamAtThreeD_of_leaves, betaTrivialAtTwo_of_sign, HSyn.sixContactMin_of_leaves5). `flat_summary.txt`.
