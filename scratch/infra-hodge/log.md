@@ -24,3 +24,10 @@
   `#print axioms` = [propext, Classical.choice, Quot.sound] (dev loop against the olean prefix).
   FINDING: for g₁ = 0 the Prop needs ω_{A_L} = 0 for the factor, which MetrizedModel only forces
   through `arch` (Φ : ℂ⁰ → 𝒢(ℂ)_τ surjective, so 𝒢(ℂ)_τ is trivial); hence the named Prop.
+- 11:05 Full single-file check `lake env lean scratch/infra-hodge/ProductHodgeLattice.lean` (Prefix +
+  phl_1..phl_5, 7400 lines): VERIFIED exit 0 in 45 s, 0 errors, no `sorry`; all `#print axioms`
+  [propext, Classical.choice, Quot.sound], incl. `productHodgeLattice_of`,
+  `productMetrizationGeo_of_trivialPoints : TrivialPointsCotangent → ProductMetrizationGeo`,
+  `HSyn.G0Split.heightAdditivity_of_metrization_v5` (v4 with hPL replaced by TrivialPointsCotangent).
+  `verbatim_check.py`: ALL OK (ProductHodgeLattice text identical to part_prodsplit.lean and to
+  infra-stalks' ProductLocalStructure.lean).

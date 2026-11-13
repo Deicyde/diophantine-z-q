@@ -1,0 +1,35 @@
+/-! # infra-hodge, part 5: consequences for metrization's chain -/
+
+namespace ZInQ.Metrization
+
+/-- `ProductMetrizationGeo` from `TrivialPointsCotangent` alone (with infra-stalks'
+`productLocalStructure`). -/
+theorem productMetrizationGeo_of_trivialPoints (h0 : ZInQ.InfraHodge.TrivialPointsCotangent) :
+    ZInQ.G0HeightAdd.ProductMetrizationGeo :=
+  productMetrizationGeo_of_hodgeLattice (ZInQ.InfraHodge.productHodgeLattice_of h0)
+
+end ZInQ.Metrization
+
+namespace HSyn.G0Split
+
+/-- `HeightAdditivity` with `ProductHodgeLattice` replaced by `TrivialPointsCotangent`. -/
+theorem heightAdditivity_of_metrization_v5 (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (h5 : LeafAdopt.H5) (hU : ZInQ.DefFaltings.AnalyticUniformizationUnique)
+    (hH : ZInQ.DefFaltings.HodgeLatticeTheorem)
+    (hUD : ZInQ.Metrization.AnalyticUniformizationOfDim)
+    (hN : ZInQ.Metrization.JacDetNondegenerate)
+    (h0 : ZInQ.InfraHodge.TrivialPointsCotangent) : HeightAdditivity :=
+  heightAdditivity_of_metrization_v4 hN1 h5 hU hH hUD hN
+    (ZInQ.InfraHodge.productHodgeLattice_of h0)
+
+end HSyn.G0Split
+
+#print axioms ZInQ.InfraHodge.cot_split
+#print axioms ZInQ.InfraHodge.cotG_omega
+#print axioms ZInQ.InfraHodge.detIdeal_prod
+#print axioms ZInQ.InfraHodge.idx_mul
+#print axioms ZInQ.InfraHodge.relIndex_detLat
+#print axioms ZInQ.InfraHodge.exists_omega_basis
+#print axioms ZInQ.InfraHodge.productHodgeLattice_of
+#print axioms ZInQ.Metrization.productMetrizationGeo_of_trivialPoints
+#print axioms HSyn.G0Split.heightAdditivity_of_metrization_v5
