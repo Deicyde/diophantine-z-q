@@ -98,3 +98,12 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   `jacDet_eq_zero_of_eq` (clause (iv)).
 - new glue `JacDetClassScalar` (clauses (i), (iii)); `jacDetMultilinear_of : JacDetClassScalar →
   JacDetMultilinear` PROVED. Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 16-17: + part_jacscalar — attempt 1: 1 error (final `ΓSpecIso_naturality` step needed
+  `ConcreteCategory.comp_apply`); fixed — COMPILED 05:01 (34 s; 0 errors)
+- PROVED: `evalAt_mul`, `evalAt_structSection` (the image of `a ∈ 𝓞_L` evaluates to `τ(a)` at
+  every complex point; `Over.w`, `appLE_eq_app`, `comp_appTop`, `ΓSpecIso_naturality`),
+  `germAlong_structMap_mul_eventuallyEq`, `jacDet_update_smul` (clause (iii)).
+- new glue `JacDetClassInvariant` (clause (i) only); `jacDetClassScalar_of :
+  JacDetClassInvariant → JacDetClassScalar` PROVED. Axioms [propext, Classical.choice,
+  Quot.sound]. VERIFIED.
