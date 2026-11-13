@@ -1,6 +1,47 @@
 # Local Kronecker–Weber for ℚ_p (leaf T16 / I6.3) from Tau Ceti's local class field theory
 
-Status: derivation (Step 1). The Lean results are reported at the top of this file once they compile.
+## Main result (VERIFIED: compiles, `#print axioms` below)
+
+Leaf **T16** (I6.3, local Kronecker–Weber) is proved, and with it leaf **T30** (L-B2c, the local
+square-root criterion):
+
+```lean
+-- ZInQKernel/Contrib/LocalKW/LocalKW.lean
+theorem ZInQ.Contrib.localKroneckerWeber (p : ℕ) [Fact p.Prime] : PkgI6.LocalKroneckerWeber p
+-- ZInQKernel/Contrib/LocalKW/T30.lean
+theorem ZInQ.Contrib.leafSqrtCrit : GlueDescent.B2Q.LeafSqrtCrit
+```
+
+`#print axioms` (scratch/lkw/Axioms.lean, scratch/lkw/AxiomsT30.lean):
+
+```
+'ZInQ.Contrib.localKroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.leafSqrtCrit' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
+Files (all new, under ZInQKernel/Contrib/LocalKW/):
+
+* `Basic.lean` (imports only the vendored Tau Ceti modules `Local.ExplicitCyclotomicSymbol.ArtinMap`,
+  `Local.Cyclotomic` and three Mathlib files). Declarations, all in `ZInQ.Contrib.LocalKW`, all with
+  axioms `[propext, Classical.choice, Quot.sound]` (`zpow_apply_eq_self`: `[propext, Quot.sound]`):
+  - `le_adjoin_rootsOfUnity (L : IntermediateField ℚ_[p] (AlgebraicClosure ℚ_[p])) [FiniteDimensional ℚ_[p] L]
+    [IsGalois ℚ_[p] L] [IsMulCommutative Gal(L/ℚ_[p])] : ∃ m : ℕ, 0 < m ∧ L ≤ IntermediateField.adjoin ℚ_[p] {x | x ^ m = 1}`
+  - `le_of_normGroup_le (L M) [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L] [IsMulCommutative Gal(L/ℚ_[p])]
+    [FiniteDimensional ℚ_[p] M] [IsGalois ℚ_[p] M] (h : normGroup ℚ_[p] M ≤ normGroup ℚ_[p] L) : L ≤ M` (Lemma A)
+  - `fixes_of_mem_normGroup`: a representative of the Artin symbol of a norm from an abelian `L` fixes `L`
+  - `normGroup_cyclotomic_le_powerSubgroup (hn : 0 < n) (hζ : IsPrimitiveRoot ζ (p ^ (2 * padicValNat p n + 1) * (p ^ n - 1))) :
+    normGroup ℚ_[p] ℚ_[p]⟮ζ⟯ ≤ powerSubgroup ℚ_[p]ˣ n` (Lemma C)
+  - `exists_pow_eq_of_norm_sub_one_le (hn : 0 < n) (hu : ‖u - 1‖ ≤ p ^ (-(2 v_p(n) + 1))) : ∃ z : ℤ_[p], z ^ n = u` (Lemma B)
+  - helpers `sepIncl`, `coe_sepIncl`, `artinGal` (the Artin map of an abelian layer read in `Gal(M/ℚ_p)`),
+    `localArtinMap_eq_artinGal`, `artinGal_eq_one_of_mem`, `exists_eq_zpow_mul_unit`, `valuation_unit`,
+    `norm_natCast_padicInt`, `coprime_self_pow_sub_one`, `zpow_apply_eq_self`.
+* `LocalKW.lean`: `ZInQ.Contrib.localKroneckerWeber` (imports `Basic` and `HDecomp.Conductor.I6Base`).
+* `SqrtCrit.lean`: a verbatim copy of t30-adelic's `scratch/t30-adelic/SqrtCrit.lean` (commit 85ed47cb), namespace
+  renamed `ZInQ.Contrib.LocalKW.SqrtCrit`; it proves `LeafSqrtCrit` from T16 at every prime.
+* `T30.lean`: `ZInQ.Contrib.leafSqrtCrit`.
+
+Dependencies: the vendored Tau Ceti oct16 modules of task tc-port (branch wip/tc-port, merged at 395103a4).
+No Tau Ceti module was vendored by lkw; wip/kw-new is not needed. The local existence theorem is not used.
 
 ## Target
 
@@ -59,10 +100,9 @@ Proof. Let `x ∈ N_M`, `x = p^a u` with `a ∈ ℤ`, `u ∈ ℤ_pˣ`. Since `Ga
 `R(x) ζ = ζ^(u⁻¹ mod p^k)`, hence `u⁻¹ ≡ 1`, so `u ≡ 1 mod p^k`.
 (ii) `η = ζ_m^(p^k)` has order `pⁿ − 1`, prime to `p`. `φ := R(p)` and `R(pu)` both act on `η` by
 `η ↦ η^p` (`localArtinMap_cyclotomic_padic`, `localArtinMap_cyclotomic_uniformizer`, `pu` is a
-uniformizer, `#𝓀[ℚ_p] = p`); so `R(u) η = η`. Also `R(u)` acts trivially on `μ_{p^k}`? — not
-needed: only `R(x) η = η` is used: `η = R(x) η = φ^a R(u) η = φ^a η = η^(p^a)` (for `a ≥ 0`; for
-`a < 0` replace `a` by `a mod n`, using `φⁿ η = η^(pⁿ) = η`). Writing `a = nq + r`, `0 ≤ r < n`,
-`η^(p^r) = η`, so `pⁿ − 1 ∣ p^r − 1 < pⁿ − 1`, so `r = 0`.
+uniformizer, `#𝓀[ℚ_p] = p`); so `R(u) η = η`, and `η = R(x) η = φ^a R(u) η = φ^a η`.
+Since `φⁿ η = η^(pⁿ) = η`, writing `a = nq + r` with `0 ≤ r < n` gives `η = φ^r η = η^(p^r)`, so
+`pⁿ − 1 ∣ p^r − 1 < pⁿ − 1`, so `r = 0`.
 By Lemma B, `u = zⁿ`, so `x = (p^q z)ⁿ`.
 
 **Theorem.** Let `L ⊆ Ω` be finite abelian over `K`, `n = [L : K] ≥ 1`. Then
