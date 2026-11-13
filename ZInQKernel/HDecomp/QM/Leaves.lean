@@ -198,9 +198,13 @@ projective curve `Y₃/ℚ`.
 `Y(K) ≃ M3 K` for all fields `K ⊇ ℚ`, natural in `K`.
 
 *Why faithful (a consequence, never stronger)*: restrict the representing isomorphism to
-`Spec K` for fields `K`; projective implies proper. `M3 K` drops `λ` (bp-qmmoduli §2.2: for this
-datum `λ` exists and is unique in characteristic 0; SPECULATIVE until reviewed, lattice core
-proved as `BPQM.eq_pm_E0_of_principal`; not needed on Buzzard's route), and puts `η` on
+`Spec K` for fields `K`; projective implies proper. `M3 K` drops `λ` (Lemma P (rv-qm-polar §0): for
+a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
+polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
+VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
+`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+locators UNVERIFIED;
+not needed on Buzzard's route), and puts `η` on
 `K`-points (equivalent in characteristic 0, §2 docstring). `Y` is **not** required to be
 geometrically connected (it has two geometric components over `ℚ(√−3)`, bp-qmmoduli §2.1).
 
@@ -208,9 +212,9 @@ geometrically connected (it has two geometric components over `ℚ(√−3)`, bp
 literal leaf; qualified CONSEQUENCE": the specialization of Deligne's PEL model to this functor
 (lattice, polarization-compatible level structure, PEL conditions, component convention,
 `E(G,h) = ℚ`) still needs a human check. (ii) On the Shimura–Deligne route the leaf is "published
-theorem + bp-qmmoduli §2.2" (existence and uniqueness of `λ` for `(A, ι)`), and §2.2 is
-SPECULATIVE (unreviewed; uniqueness checked by the leaf-qm-fp review, existence over `ℂ` by class
-number one and the sign argument, unformalized). On Buzzard's route no polarization enters, but
+theorem + Lemma P": the published moduli theorems are for the type-`μ` PEL problem; the λ-free
+leaves are their consequences via Lemma P (see above) and do not depend on the choice of `μ`. On
+Buzzard's route no polarization enters, but
 whether his Thm 2.1 covers full level 3 directly is UNVERIFIED. -/
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
@@ -482,8 +486,8 @@ inert in `k` (rv-nocm §3.1, h-decomposition R5); the printed condition is
 `b = 2`, degree 2) against a fibre field `ℚ(i)`.
 
 *Why faithful*: the degree of the printed field; `ℚ(x)` is the field of moduli for the coarse
-space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)`, which uses bp-qmmoduli §2.2
-(the polarization exists and is unique; SPECULATIVE, see `R1fp`);
+space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)`, which uses Lemma P
+(rv-qm-polar §0: for a fixed `μ` the type-`μ` polarization exists and is unique; see `R1fp`);
 "CM by `R`" is `End_𝒪(A) = com ι ≅ R`. Only points of `X₆` (no level structure, no quotient). The
 reading `D(R) = ∏_{p | 6 inert in k} p` is the audited one (checked on Elkies' 24 rows by
 rv-nocm Part B); `R5fpWeak` below drops the case split. -/
@@ -517,8 +521,8 @@ corrected count.** For an order `R` of conductor prime to 6 in an imaginary quad
 occurring as some `End_𝒪(A)` (equivalently, embedding optimally in `𝒪`, so neither 2 nor 3
 splits in `k`), the number of isomorphism classes of QM pairs over `ℚ̄` with `End_𝒪(A) ≅ R` (the
 CM points by `R` on `X₆ = X₀(6,1)`) is `2^{b(R)} h(R)`. *Why faithful*: `#CM(R) =
-2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs (bp-qmmoduli
-§2.2, SPECULATIVE). **Not** the
+2^{#{p | D(R)N(R)}} h(R)` with `N = 1`; points of `X₆(ℚ̄)` are classes of QM pairs (Lemma P,
+rv-qm-polar §0; see `R1fp`). **Not** the
 false `h(R)` (disc −19: `h = 1`, four points). -/
 def R5fpCount : Prop :=
   ∀ (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
@@ -534,9 +538,14 @@ def R5fpCount : Prop :=
 field-point forms). Faithfulness of every leaf (`R1rec` too, whose objects are identified with
 points of `Y₃`)
 rests on the published theorems **plus**
-bp-qmmoduli §2.2 (the polarization of a QM pair `(A, ι)` exists and is unique; SPECULATIVE until
-reviewed), because `QML3`/`QMPair` omit `λ`. Polarizations cannot be stated in Lean today
-(no dual abelian variety), so §2.2 cannot be carried as a separate Lean hypothesis. -/
+Lemma P (rv-qm-polar §0): for a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
+polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
+VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
+`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+locators UNVERIFIED, because `QML3`/`QMPair` omit `λ`. The published moduli theorems are for the
+type-`μ` PEL problem; the λ-free leaves are their consequences via Lemma P and do not depend
+on the choice of `μ`. Polarizations cannot be stated in Lean today (no dual abelian variety),
+so Lemma P cannot be carried as a separate Lean hypothesis. -/
 structure QMLeaves : Prop where
   r1r2 : R1R2fp
   r1rec : R1rec

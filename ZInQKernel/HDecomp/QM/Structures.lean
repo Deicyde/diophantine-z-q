@@ -211,8 +211,12 @@ end Level3
 /-! ## §3 The objects `(A, ι, η)`, their isomorphisms and classes, and the action of `Γ'` -/
 
 /-- **An abelian surface over `K` with QM by `𝒪` and a level-3 structure.** (No polarization:
-for this datum a principal polarization with Rosati involution `x ↦ μ⁻¹x̄μ` on `ι(𝒪)` exists and
-is unique, bp-qmmoduli §2.2, whose lattice core is `BPQM.eq_pm_E0_of_principal`.) -/
+by Lemma P (rv-qm-polar §0): for a fixed `μ` (N5's `2j+ij`), the type-`μ` principal
+polarization of `(A, ι)` exists and is unique in characteristic 0, also at CM points;
+VERIFIED as an argument, lattice cores compiled (`RvQMPolar.eq_pm_E0_of_principal`,
+`RvQMPolar.type_eq_mu_mul`, `RvQMPolar.lemmaP_lattice` in `QM/Polar.lean`), published
+locators UNVERIFIED. Without fixing `μ` it is
+not unique.) -/
 structure QML3 (K : Type) [Field K] where
   A : AbVar K
   surface : A.dim = 2
