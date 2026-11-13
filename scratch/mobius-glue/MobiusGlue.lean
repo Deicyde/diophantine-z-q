@@ -403,6 +403,138 @@ theorem mobiusGlue_of_curveFacts (hRF : CurveRatFactor) (hSu : CurveSurj)
   · obtain ⟨t, ht⟩ := OnePoint.ne_infty_iff_exists.mp hinf
     rw [← ht, hFG y t ht.symm, hid t]
 
+/-! ## §4 `TwistClassFinite` from the textbook leaf `TorsionStructure` (T5) and an algebra fact -/
+
+/-- **Algebra fact (finiteness of `Aut(𝒪)` modulo inner automorphisms by units).** Every ring
+automorphism of `𝒪` is, up to conjugation by a unit of `𝒪`, one of finitely many. (Every
+automorphism of `𝒪` extends to `B = 𝒪 ⊗ ℚ`, hence is conjugation by some `x ∈ N(𝒪)`
+(Skolem–Noether), and `N(𝒪)/ℚ^×𝒪^×` is finite: for the maximal order of the quaternion algebra
+of discriminant 6 it is the Atkin–Lehner group `W ≅ (ℤ/2)²`. STANDARD (Vignéras, *Arithmétique
+des algèbres de quaternions*; locator UNVERIFIED); not in Mathlib.) A statement about the concrete
+order `O` of the kernel only. -/
+def AutOInnerFinite : Prop :=
+  ∃ T : Set (O ≃+* O), T.Finite ∧ ∀ α : O ≃+* O, ∃ t ∈ T, ∃ v : Oˣ,
+    ∀ a : O, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)
+
+section FiniteTwist
+
+variable {K : Type} [Field K]
+
+/-- Every element of `𝒪` is congruent modulo `3𝒪` to some `liftO c`, `c ∈ (ℤ/3)⁴`. -/
+theorem exists_liftO_congr (u : O) : ∃ c : Fin 4 → ZMod 3, ∃ k : O, u - liftO c = 3 * k := by
+  obtain ⟨n, hn⟩ := u.2
+  refine ⟨fun i => (n i : ZMod 3), ⟨ofInt (fun i => n i / 3), ⟨_, rfl⟩⟩, ?_⟩
+  apply Subtype.ext
+  have h33 : ((3 : O) : B) = 3 := map_ofNat O.subtype 3
+  simp only [AddSubgroupClass.coe_sub, MulMemClass.coe_mul, h33, liftO]
+  rw [hn, ofInt_sub, three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply, ZMod.val_intCast, Nat.cast_ofNat]
+  omega
+
+/-- **Finitely many level structures on one `(A, ι)`** (characteristic 0, given the leaf
+`TorsionStructure`): by the kernel's torsor glue `Level3.torsor`, a level structure is
+`a ↦ η₀(a u₀)`, which depends only on `u₀ mod 3𝒪`. -/
+theorem level3_finite (hT : ObjBridge.TorsionStructure) [CharZero K] {A : AbVar K}
+    (s : A.dim = 2) (q : QMStr A) : Finite (Level3 q) := by
+  rcases isEmpty_or_nonempty (Level3 q) with h | h
+  · infer_instance
+  · obtain ⟨e₀⟩ := h
+    have key : ∀ e : Level3 q, ∃ c : Fin 4 → ZMod 3, ∀ a : O,
+        e.eta a = e₀.eta (a * liftO c) := by
+      intro e
+      obtain ⟨u₀, -, -, hu⟩ := Level3.torsor hT ⟨A, s, q, e₀⟩ e
+      obtain ⟨c, k, hk⟩ := exists_liftO_congr u₀
+      refine ⟨c, fun a => (hu a).trans ((e₀.eq_iff _ _).2 ⟨a * k, ?_⟩)⟩
+      calc a * u₀ - a * liftO c = a * (u₀ - liftO c) := by noncomm_ring
+        _ = a * (3 * k) := by rw [hk]
+        _ = 3 * (a * k) := by noncomm_ring
+    choose f hf using key
+    refine Finite.of_injective f fun e e' h => Level3.ext' ?_
+    ext a
+    rw [hf e a, hf e' a, h]
+
+/-- Transport of a level structure along an isomorphism of QM pairs. -/
+def transportLevel {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'} (f : QMIso q q')
+    (e : Level3 q) : Level3 q' where
+  eta := (AbVar.ptMap (L := K) f.φ).toAdditive.comp e.eta
+  linear a b := by
+    change Additive.ofMul (Additive.toMul (e.eta (a * b)) ≫ f.φ.hom) =
+      Additive.ofMul ((Additive.toMul (e.eta b) ≫ f.φ.hom) ≫ (q'.iota a).hom)
+    rw [e.linear]
+    change Additive.ofMul ((Additive.toMul (e.eta b) ≫ (q.iota a).hom) ≫ f.φ.hom) = _
+    rw [Category.assoc, f.equivariant a, Category.assoc]
+  ker a := by
+    rw [← e.ker]
+    constructor
+    · intro h
+      have h' : Additive.toMul (e.eta a) ≫ f.φ.hom = 1 := congrArg Additive.toMul h
+      have : Additive.toMul (e.eta a) = 1 := by
+        calc Additive.toMul (e.eta a) = Additive.toMul (e.eta a) ≫ f.φ.hom ≫ f.ψ.hom := by
+              rw [f.left, Category.comp_id]
+          _ = 1 := by rw [← Category.assoc, h', MonObj.one_comp]
+      exact congrArg Additive.ofMul this
+    · intro h
+      change Additive.ofMul (Additive.toMul (e.eta a) ≫ f.φ.hom) = 0
+      rw [h]
+      change Additive.ofMul ((1 : _ ⟶ _) ≫ f.φ.hom) = 0
+      rw [MonObj.one_comp]
+      rfl
+
+/-- An object is isomorphic to the transport of its level structure. -/
+def QML3.isoTransport (Q : QML3 K) {A' : AbVar K} (s' : A'.dim = 2) {q' : QMStr A'}
+    (f : QMIso Q.q q') : Q.Iso ⟨A', s', q', transportLevel f Q.e⟩ where
+  φ := f.φ
+  ψ := f.ψ
+  left := f.left
+  right := f.right
+  equivariant := f.equivariant
+  level _ := rfl
+
+/-- Twists by `t` and by `v t v⁻¹` (`v ∈ 𝒪^×`) are isomorphic through `ι(v)`. -/
+def conjUnitIso {A : AbVar K} (q : QMStr A) (t α : O ≃+* O) (v : Oˣ)
+    (hv : ∀ a, α a = (v : O) * t a * ((v⁻¹ : Oˣ) : O)) : QMIso (q.twist t) (q.twist α) where
+  φ := q.iota v
+  ψ := q.iota ↑v⁻¹
+  left := by
+    have : q.iota ↑v⁻¹ * q.iota ↑v = 1 := by rw [← map_mul, Units.inv_mul, map_one]
+    exact congrArg AbVar.Hom.hom this
+  right := by
+    have : q.iota ↑v * q.iota ↑v⁻¹ = 1 := by rw [← map_mul, Units.mul_inv, map_one]
+    exact congrArg AbVar.Hom.hom this
+  equivariant a := by
+    have : q.iota (v : O) * q.iota (t a) = q.iota (α a) * q.iota v := by
+      rw [← map_mul, ← map_mul, hv, _root_.mul_assoc, Units.inv_mul, _root_.mul_one]
+    exact congrArg AbVar.Hom.hom this
+
+/-- **`TwistClassFinite` from the leaf `TorsionStructure` and `AutOInnerFinite`.** -/
+theorem twistClassFinite_of (hT : ObjBridge.TorsionStructure) (hA : AutOInnerFinite) :
+    TwistClassFinite := by
+  obtain ⟨T, hTfin, hTα⟩ := hA
+  intro P
+  let R : (O ≃+* O) → Set (M3 Qbar) := fun t =>
+    Set.range (fun e : Level3 (P.q.twist t) => M3.mk ⟨P.A, P.surface, P.q.twist t, e⟩)
+  have hR : ∀ t, (R t).Finite := fun t => by
+    have := level3_finite hT P.surface (P.q.twist t)
+    exact Set.finite_range _
+  refine (hTfin.biUnion fun t _ => hR t).subset ?_
+  rintro m ⟨Q, rfl, α, ⟨f⟩⟩
+  obtain ⟨t, ht, v, hv⟩ := hTα α
+  let h : QMIso Q.q (P.q.twist t) := ((conjUnitIso P.q t α v hv).trans f).symm
+  refine Set.mem_biUnion ht ⟨transportLevel h Q.e, ?_⟩
+  exact Quotient.sound ⟨(QML3.isoTransport Q P.surface h).symm⟩
+
+end FiniteTwist
+
+/-! ## §5 The result -/
+
+/-- **`MobiusGlue` from two curve facts, the textbook leaf `TorsionStructure` (T5, Mumford §4)
+and the algebra fact `AutOInnerFinite`.** -/
+theorem mobiusGlue_of_named (hRF : CurveRatFactor) (hSu : CurveSurj)
+    (hT : ObjBridge.TorsionStructure) (hA : AutOInnerFinite) : MobiusGlue :=
+  mobiusGlue_of_curveFacts hRF hSu (twistClassFinite_of hT hA)
+
 end Pin
 
 end AV
@@ -412,3 +544,6 @@ end LeafQM
 #print axioms LeafQM.AV.Pin.Mob.natDegree_le_one_of_injective
 #print axioms LeafQM.AV.Pin.Mob.ratEval_eq_self
 #print axioms LeafQM.AV.Pin.mobiusGlue_of_curveFacts
+#print axioms LeafQM.AV.Pin.level3_finite
+#print axioms LeafQM.AV.Pin.twistClassFinite_of
+#print axioms LeafQM.AV.Pin.mobiusGlue_of_named
