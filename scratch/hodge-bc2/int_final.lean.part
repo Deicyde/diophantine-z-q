@@ -1,0 +1,32 @@
+
+/-! # hodge-bc2: H4a, `HodgeLineBaseChange` and `StableHeightBaseChange` without hypotheses -/
+
+namespace ZInQ.HeightBC
+
+/-- **H4a (`ModelHeightBaseChange`, verbatim) is a theorem**: infra-stalks'
+`modelHeightBaseChange_of_two` with `hodgeBCInjective` and `omegaBaseChange`. -/
+theorem modelHeightBaseChange : ModelHeightBaseChange :=
+  modelHeightBaseChange_of_two hodgeBCInjective omegaBaseChange
+
+/-- **`HodgeLineBaseChange` (verbatim) is a theorem.** -/
+theorem hodgeLineBaseChange : HodgeLineBaseChange :=
+  hodgeLineBaseChange_of_two hodgeBCInjective omegaBaseChange
+
+/-- **g0-split's piece 6 `StableHeightBaseChange` (g0-stablebc's statement, verbatim) is a
+theorem**: height-bc's `stableHeightBaseChange_of_glue4` with the four glue statements, all now
+proved (`cotangentSpanBC`, `uniformizationLiftAnalytic` by infra-stalks; `hodgeBCInjective`,
+`omegaBaseChange` here). -/
+theorem stableHeightBaseChange : G0StableBC.StableHeightBaseChange :=
+  stableHeightBaseChange_of_glue4 hodgeBCInjective cotangentSpanBC omegaBaseChange
+    uniformizationLiftAnalytic
+
+end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.hodgeBCInjective
+#print axioms ZInQ.HeightBC.omegaBaseChange
+#print axioms ZInQ.HeightBC.omegaLocalization
+#print axioms ZInQ.HeightBC.cotangentSpanBC
+#print axioms ZInQ.HeightBC.uniformizationLiftAnalytic
+#print axioms ZInQ.HeightBC.modelHeightBaseChange
+#print axioms ZInQ.HeightBC.hodgeLineBaseChange
+#print axioms ZInQ.HeightBC.stableHeightBaseChange
