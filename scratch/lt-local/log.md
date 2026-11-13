@@ -71,3 +71,6 @@
     error, no sorry; 11 axiom reports, all `[propext, Classical.choice, Quot.sound]` (compile.out).
   - `build4.sh`; `lake env lean scratch/lt-local/LtLocal4.lean` (9 626 lines): exit 0, 64 s, no
     error, no sorry; 14 axiom reports, all standard (compile4.out).
+
+## Step 6: report and fleet summary
+- docs/research/lt-local.md written; .fleet/lt-local.md written (last commit).
