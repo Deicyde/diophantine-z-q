@@ -5256,8 +5256,26 @@ theorem fExtendGen_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendGe
 theorem fExtendCore_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendCore :=
   fExtendCore_of_gen (fExtendGen_of_nmp hN)
 
+/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
+`SmoothGeomConnIntegral` and the kernel leaves I2-Red, I2-NMP (proved).** alg-frob-red's two glue
+Props are discharged: `AbsFrob` (`absFrob`, Mathlib only) and `FExtendGen` (`fExtendGen_of_nmp`). -/
+theorem algFrobRed_of_nmp (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hN : PkgI2.NeronMappingAbelianScheme.{0}) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_gen hG hS hRed (fExtendGen_of_nmp hN) absFrob
+
+/-- **`TateBridge35` from I3.M0, the two leaf candidates and I2-Red, I2-NMP (proved).** -/
+theorem tateBridge35_of_nmp (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0})
+    (hN : PkgI2.NeronMappingAbelianScheme.{0}) : G14Bridge.TateBridge35 :=
+  tateBridge35_of_gen hT hG hS hRed (fExtendGen_of_nmp hN) absFrob
+
 end AlgFrobRedRed
 
+#print axioms AlgFrobRedRed.absFrob
+#print axioms AlgFrobRedRed.fExtendCore_of_nmp
+#print axioms AlgFrobRedRed.algFrobRed_of_nmp
+#print axioms AlgFrobRedRed.tateBridge35_of_nmp
 #print axioms AlgFrobRedRed.ringHom_eq_of_normal
 #print axioms AlgFrobRedRed.hom_spec_eq_of_point
 #print axioms AlgFrobRedRed.fExtendGen_of_nmp

@@ -21,3 +21,7 @@
    a retyped `Gl`, `erw`.
 6. AfrAbsFrob.lean run 4: exit 0, no errors; 91 axiom prints, all [propext, Classical.choice, Quot.sound];
    `AlgFrobRedRed.fExtendGen_of_nmp : PkgI2.NeronMappingAbelianScheme.{0} → FExtendGen` (VERIFIED).
+7. Final AfrAbsFrob.lean (with algFrobRed_of_nmp, tateBridge35_of_nmp): exit 0, ~141 s, no errors,
+   95 axiom prints, 0 non-standard; no `sorry` in part_fext.lean / AbsFrobDef.lean (VERIFIED).
+   - absFrob, fExtendGen_of_nmp, fExtendCore_of_nmp, algFrobRed_of_nmp, tateBridge35_of_nmp,
+     ringHom_eq_of_normal, hom_spec_eq_of_point: [propext, Classical.choice, Quot.sound].
