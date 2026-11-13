@@ -437,6 +437,124 @@ theorem kummerAbhyankarFinGlue : KummerAbhyankarFinGlue := by
   rw [Ideal.span_singleton_mul_left_unit hcu] at hQu
   exact hE Q hQ hQu
 
+theorem eval₂_X_eq (f : ℚ[X]) :
+    eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X f = algebraMap ℚ[X] (RatFunc ℚ) f := by
+  have := eval₂_algebraMap_X f (IsScalarTower.toAlgHom ℚ ℚ[X] (RatFunc ℚ))
+  simpa [RatFunc.algebraMap_X] using this
+
+/-- `ℚ(X)` is the fraction field of `InfCoord = ℚ[1/X]`. -/
+theorem isFractionRing_infCoord : IsFractionRing InfCoord (RatFunc ℚ) := by
+  letI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+  have hX : (RatFunc.X : RatFunc ℚ) ≠ 0 := RatFunc.X_ne_zero
+  have key : ∀ (f : ℚ[X]) (N : ℕ), f.natDegree ≤ N →
+      eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (reflect N f) * RatFunc.X ^ N =
+        algebraMap ℚ[X] (RatFunc ℚ) f := by
+    intro f N hf
+    letI : Invertible (RatFunc.X : RatFunc ℚ) := invertibleOfNonzero hX
+    have := eval₂_reflect_mul_pow (algebraMap ℚ (RatFunc ℚ)) RatFunc.X N f hf
+    rw [invOf_eq_inv, eval₂_X_eq] at this
+    exact this
+  have hinj0 : ∀ f : ℚ[X], eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ f = 0 → f = 0 := by
+    intro f hf
+    letI : Invertible (RatFunc.X⁻¹ : RatFunc ℚ) := invertibleOfNonzero (inv_ne_zero hX)
+    have h := eval₂_reflect_mul_pow (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (f : ℚ[X]).natDegree
+      (f : ℚ[X]) le_rfl
+    rw [hf, invOf_eq_inv, inv_inv, eval₂_X_eq] at h
+    have h2 := (mul_eq_zero.mp h).resolve_right (pow_ne_zero _ (inv_ne_zero hX))
+    rw [map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ)), reflect_eq_zero_iff] at h2
+    exact h2
+  have hinj : Function.Injective (algebraMap InfCoord (RatFunc ℚ)) := by
+    rw [injective_iff_map_eq_zero]
+    intro f hf
+    exact hinj0 f hf
+  refine ⟨?_, ?_, ?_⟩
+  · rintro ⟨y, hy⟩
+    exact isUnit_iff_ne_zero.mpr ((map_ne_zero_iff _ hinj).mpr (nonZeroDivisors.ne_zero hy))
+  · intro z
+    obtain ⟨P, Q, hQ, rfl⟩ : ∃ P Q : ℚ[X], Q ≠ 0 ∧
+        z = algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q :=
+      ⟨z.num, z.denom, z.denom_ne_zero, (RatFunc.num_div_denom z).symm⟩
+    set N := max P.natDegree Q.natDegree
+    have hQN : (reflect N Q : InfCoord) ∈ nonZeroDivisors InfCoord :=
+      mem_nonZeroDivisors_of_ne_zero (M₀ := InfCoord)
+        (show (reflect N Q : InfCoord) ≠ 0 from fun h => hQ (reflect_eq_zero_iff.mp h))
+    refine ⟨⟨reflect N P, ⟨reflect N Q, hQN⟩⟩, ?_⟩
+    change algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q *
+        eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (reflect N Q) =
+      eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (reflect N P)
+    have hP := key P N (le_max_left _ _)
+    have hQ' := key Q N (le_max_right _ _)
+    have hQ0 : algebraMap ℚ[X] (RatFunc ℚ) Q ≠ 0 :=
+      (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr hQ
+    have hXN : (RatFunc.X : RatFunc ℚ) ^ N ≠ 0 := pow_ne_zero _ hX
+    have hq : eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ (reflect N Q) ≠ 0 := by
+      intro h0; rw [h0, zero_mul] at hQ'; exact hQ0 hQ'.symm
+    rw [← hP, ← hQ', mul_div_mul_right _ _ hXN, div_mul_cancel₀ _ hq]
+  · intro x y h
+    exact ⟨1, by simp [hinj h]⟩
+
+/-- **`KummerAbhyankarInfGlue` is proved** (from T2, via `abhyankar_core` with `R0 = ℚ[1/X]`). -/
+theorem kummerAbhyankarInfGlue : KummerAbhyankarInfGlue := by
+  intro t2 E _ _ _ _ _ E' _ _ _ _ _ ι c n hn hc hshape hE Q' hQ'p hQ'
+  letI := infAlg E
+  letI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+  letI : IsDedekindDomain InfCoord := inferInstanceAs (IsDedekindDomain ℚ[X])
+  letI : Algebra ℚ InfCoord := inferInstanceAs (Algebra ℚ ℚ[X])
+  haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+  haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq' rfl
+  have hcu : IsUnit (C c : ℚ[X]) := Polynomial.isUnit_C.mpr (Ne.isUnit hc)
+  let σ0 : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C c⁻¹ * X ^ n)
+  let σ : InfCoord →+* ℚ[X] := σ0
+  have hσC : ∀ a : ℚ, σ0 (C a) = C a := fun a => by simp [σ0]
+  have hσX : σ0 X = C c⁻¹ * X ^ n := by simp [σ0]
+  have hsn : σ0 (C c * X) = X ^ n := by
+    rw [map_mul, hσC, hσX, ← mul_assoc, ← C_mul, mul_inv_cancel₀ hc, C_1, one_mul]
+  have hXint : σ0.IsIntegralElem X := by
+    refine ⟨X ^ n - C (C c * X), Polynomial.monic_X_pow_sub_C _ hn.ne', ?_⟩
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, hsn, sub_self]
+  have hσ : ∀ x : InfCoord, algebraMap ℚ[X] E' (σ x) = ι (algebraMap InfCoord E x) := by
+    have : ((algebraMap ℚ[X] E').comp σ0 : ℚ[X] →+* E') =
+        (ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E') := by
+      apply Polynomial.ringHom_ext
+      · intro a
+        have := RingHom.ext_rat (((algebraMap ℚ[X] E').comp σ0).comp C)
+          (((ι.comp (algebraMap InfCoord E) : ℚ[X] →+* E')).comp C)
+        exact congrArg (fun g => g a) this
+      · simp only [RingHom.comp_apply]
+        rw [hσX]
+        change algebraMap ℚ[X] E' (C c⁻¹ * X ^ n) =
+          ι (algebraMap (RatFunc ℚ) E (eval₂ (algebraMap ℚ (RatFunc ℚ)) RatFunc.X⁻¹ X))
+        rw [eval₂_X, map_inv₀ (algebraMap (RatFunc ℚ) E), map_inv₀ ι, hshape.1,
+          ← map_inv₀ (algebraMap (RatFunc ℚ) E'),
+          IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E']
+        congr 1
+        have hCc : algebraMap ℚ[X] (RatFunc ℚ) (C c) ≠ 0 :=
+          (map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr (C_ne_zero.mpr hc)
+        rw [rInf, inv_div, eq_div_iff hCc, ← map_mul]
+        congr 1
+        have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+        linear_combination (X ^ n) * h1
+    intro x
+    exact congrArg (fun g => g x) this
+  let π0 : InfCoord := (C c * X : ℚ[X])
+  haveI : (Ideal.span {π0}).IsPrime := by
+    change (Ideal.span {(C c * X : ℚ[X])} : Ideal ℚ[X]).IsPrime
+    rw [Ideal.span_singleton_mul_left_unit hcu]
+    exact (Ideal.span_singleton_prime X_ne_zero).mpr prime_X
+  haveI : (Ideal.span {X} : Ideal ℚ[X]).IsPrime :=
+    (Ideal.span_singleton_prime X_ne_zero).mpr prime_X
+  refine abhyankar_core t2 InfCoord (RatFunc ℚ) E E' ℚ[X] ι σ hσ
+    (isIntegral_of_X σ0 hσC hXint) (polyMap_injective E') π0
+    (show (C c * X : ℚ[X]) ≠ 0 from mul_ne_zero (C_ne_zero.mpr hc) X_ne_zero) X X_ne_zero n hn hsn
+    (adjoin_eq_top_of_shape ι _ hshape) ?_ Q' hQ'
+  intro Q hQ hQu
+  have hspan : (Ideal.span {π0}) = Ideal.span {infUnif} := by
+    change (Ideal.span {(C c * X : ℚ[X])} : Ideal ℚ[X]) = Ideal.span {X}
+    rw [Ideal.span_singleton_mul_left_unit hcu]
+  rw [hspan] at hQu
+  exact hE Q hQ hQu
+
 end TsKummer
 
 #print axioms TsKummer.kummerAbhyankarFinGlue
+#print axioms TsKummer.kummerAbhyankarInfGlue
