@@ -21,20 +21,23 @@ theorem HSyn.sixContactMin_of_leaves2 (r : ResearchLeaves) (t : TextbookLeaves)
 ```
 
 `ResearchLeaves`, `TextbookLeaves`, `GluePieces` and `sixContactMin_of_leaves` are `Leaves.lean`'s,
-unchanged. `GluePieces2` has **28 fields** (§2):
+unchanged. `GluePieces2` has **27 fields** (§2):
 - 6 are literature statements: 5 leaves and 1 leaf candidate;
-- 22 are glue, 4 of which are blocked on qm-pin.
+- 21 are glue, 4 of which are blocked on qm-pin.
 
-One wave-26 glue Prop is proved here as well: g0-mod-galois' `ResQFiniteIndex`
-(`G0AssembleMod.resQFiniteIndex`, §3.3).
+Two more glue Props are proved here:
+- g0-mod-galois' `ResQFiniteIndex` (`G0AssembleMod.resQFiniteIndex`, §3.3);
+- leaf-adopt2's `HeightCopiesAgree`, the tenth `GluePieces` field
+  (`G0HeightCopies.heightCopiesAgree`, §3.4). No task had worked on it.
 
 VERIFIED:
 - Against an olean of the unchanged `Leaves.lean` (`build_prefix.sh`, then `ctail.sh Tail.lean`):
   0 errors, no `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for
   `gluePieces_of_gluePieces2`, `sixContactMin_of_leaves2`, `G0AssembleMod.afterG7_of`,
-  `G0AssembleMod.resQFiniteIndex` and `modularConstituent_of_field`.
-- The flat file `G0Assemble.lean` (41 970 lines, `Leaves.lean` plus three non-HDecomp kernel imports
-  and the parts), with `lake env lean`: exit 0 in 548 s, 0 errors, no `sorry`, and all 180 axiom
+  `G0AssembleMod.resQFiniteIndex`, `G0HeightCopies.heightCopiesAgree` and
+  `modularConstituent_of_field`.
+- The flat file `G0Assemble.lean` (42 049 lines, `Leaves.lean` plus three non-HDecomp kernel imports
+  and the parts), with `lake env lean`: exit 0 in 523 s, 0 errors, no `sorry`, and all 181 axiom
   reports standard.
 
 The interfaces were not just compared as text. Each glue step is applied to the output of the step
@@ -54,7 +57,7 @@ into G8-G12, and G12 into G13-G16.
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` | `r.r19`, `r.h5` (route B; no new leaf) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` | `fibreQMPeriod`, `thetaRatiosAlgebraic` |
 | `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` ∘ `G0AssembleMod.afterG7_of` (§3) | 16 fields of `GluePieces2`, `G0AssembleMod.resQFiniteIndex`, plus `t.t14a`, `t.t14b`, `t.t15`, `t.leafSqrtCrit` (T30), `t.t31`, `t.t33`, `t.x1ModelExists`, `t.t24`, `t.t25`, `t.t26`, `t.t6`, `t.t23`, `t.t11a`, `t.t11b`, `t.t9`, `t.frobeniusDense`, `r.r9a`, `r.r9b`, `r.r10`, `r.r11r12`, `r.r13`, `r.r14`, `r.r15`, `r.r16` |
-| `heightCopies` | none (no wave-26 task) | the field `heightCopies` itself | open |
+| `heightCopies` | none (no wave-26 task) | `G0HeightCopies.heightCopiesAgree` (§3.4) | none |
 
 g0-x1belyi's piece was already folded into `Leaves.lean` by leaf-adopt3. h5-glue reduces the
 **leaf** `ResearchLeaves.h5`, not a glue piece, so it is not used here (§4).
@@ -97,16 +100,15 @@ Kinds:
 | 26 | `adaptedExists : ∀ p, LadicCond.AdaptedExists` | kernel | GLUE | an adapted level exists |
 | 27 | `modelG3G6 : G0AssembleMod.ModelG3G6` | **new** (g0-assemble) | GLUE, **QM-PIN** (G6 half) | on G7's model `A_{L'}`: G3 (inertia outside `T(u)` acts trivially on `V₅`, `V₃`) and G6 (`End` is a noncommutative division ring) |
 | 28 | `linkedTateData : G0AssembleMod.LinkedTateData` | **new** (g0-assemble) | GLUE | g0-mod-field's `TateBridge` at `ℓ = 5, 3` from one descent datum, with g0-mod-newform's `G14TraceCompat` and clauses (i)-(ii) of its `G15RamG` (`G15RamWild`) on the resulting `r₅`, `r₃` |
-| 29 | `heightCopies : HeightCopiesAgree` | leaf-adopt2 | GLUE | transport between the two textual copies of the height |
 
 Counts:
 - LEAF: 5 (1, 2, 15, 16, 23).
 - LEAF?: 1 (11).
-- GLUE: 22.
+- GLUE: 21.
 - QM-PIN: 4 (4, 10, 13, 27).
 
-Row 21 of an earlier draft, `ResQFiniteIndex`, is proved (§3.3) and is no longer a field. The row
-numbers are kept.
+Rows 21 (`ResQFiniteIndex`, §3.3) and 29 (`HeightCopiesAgree`, §3.4) of an earlier draft are proved
+and are no longer fields. The row numbers are kept.
 
 The three QM-PIN fields named in the task (FS5, `FibreQMPeriod`, `KernelFieldExists`) are fields 4,
 10 and 13. The fourth, `ModelG3G6`, is new here: its G6 half is NoCM on the model, which has the same
@@ -197,6 +199,26 @@ VERIFIED: standard axioms. The proof:
 4. The stabilizer has finite index: its index is the size of the orbit of `β`
    (`MulAction.index_stabilizer`), and the orbit lies in the roots of `minpoly ℚ β`.
 
+### 3.4 `HeightCopiesAgree`, proved
+
+```lean
+theorem HSyn.G0HeightCopies.heightCopiesAgree : HSyn.HeightCopiesAgree
+-- ∀ K (A : PkgI3.AbVar K),
+--   ZInQ.LeafPush2.stableFaltingsHeight A
+--     = ZInQ.DefFaltings.stableFaltingsHeight ((LeafAdopt.abVarEquiv K).symm A)
+```
+
+VERIFIED: compiled at the first attempt, standard axioms. leaf-adopt3 had estimated this transport
+as medium (SPECULATIVE there). It turned out to be short:
+- The duplicated structures `HodgeData`, `GroupModel`, `MetrizedModel` and `FinExt` are converted
+  field by field in both directions (`hdTo`/`hdFrom`, `gmTo`/`gmFrom`, `mmTo`/`mmFrom`).
+- Every field type matches definitionally. That includes `MetrizedModel.arch`, which mentions the
+  copied `Pts`, `IsAnalyticUniformization`, `wedge` and `jacDet`.
+- `modelHeight` of the converted Hodge data is the same real number by `rfl`.
+- The two infima are then compared with `le_antisymm`.
+
+R18 and R22, which are stated over leaf-push2's height, now feed the glue with no extra hypothesis.
+
 ## 4. Changes to wave-26 texts, and what was not folded
 
 ### 4.1 Statement changes
@@ -248,19 +270,18 @@ because the bundle's `t17` is now the weaker `KroneckerWeberCyclic`.
 - **g4-weilres, inertia-homs, morph-descend.** These give G4's Hom field from leaves. That is part
   of `KernelFieldExists`'s content, but in a different interface (`homField_of_model_closed`), and
   `KernelFieldExists` is QM-PIN anyway. Not connected.
-- **`HeightCopiesAgree`.** No task worked on it.
 
 ## 5. Checks
 
 - **Prefix.** `build_prefix.sh` compiled `Leaves.lean` (unchanged) to an olean: exit 0 in 605 s.
 - **Iteration runs** (`ctail.sh`; full list in `log.md`). The final `Tail.lean` (7824 lines = all
   parts) gave 0 errors and no `sorry`, with standard axioms for the four theorems of §0.
-- **Flat file.** `lake env lean scratch/g0-assemble/G0Assemble.lean` (41 970 lines, final version,
-  with `resQFiniteIndex`) exits 0 in 548 s with 0 errors and no `sorry`. All 180 `#print axioms`
-  reports are `[propext, Classical.choice, Quot.sound]`: `Leaves.lean`'s 175, plus
-  `modularConstituent_of_field`, `afterG7_of`, `resQFiniteIndex`, `gluePieces_of_gluePieces2` and
-  `sixContactMin_of_leaves2`. VERIFIED. Two earlier versions gave the same result: 41 847 lines in
-  568 s, and 41 883 lines in 573 s.
+- **Flat file.** `lake env lean scratch/g0-assemble/G0Assemble.lean` (42 049 lines, final version)
+  exits 0 in 523 s with 0 errors and no `sorry`. All 181 `#print axioms` reports are
+  `[propext, Classical.choice, Quot.sound]`: `Leaves.lean`'s 175, plus `modularConstituent_of_field`,
+  `afterG7_of`, `resQFiniteIndex`, `heightCopiesAgree`, `gluePieces_of_gluePieces2` and
+  `sixContactMin_of_leaves2`. Two of them are printed over three lines. VERIFIED. Earlier versions
+  gave the same result: 41 847, 41 883 and 41 970 lines.
 - **Statements of the pieces.** Every `def` in the part files is the wave-26 task's text, except
   `G10Glue` (§4.1). The `GluePieces` fields are `Leaves.lean`'s, unchanged. `gluePieces_of_gluePieces2`
   builds them with their own types, so the kernel checks that each wave-26 conclusion is the field

@@ -54,3 +54,4 @@
   conversions `hdTo/hdFrom` (HodgeData), `gmTo/gmFrom` (GroupModel), `mmTo/mmFrom` (MetrizedModel), FinExt by
   `⟨E.L⟩`; `modelHeight` agrees by `rfl`; `le_antisymm` of the two infima. First run VERIFIED, standard axioms.
   Field `heightCopies` removed from GluePieces2 (now 27 fields). Tail run: 0 errors, no sorry.
+- Final flat file (42049 lines, with heightCopiesAgree): VERIFIED exit 0 in 523 s, 0 errors, no sorry, 181 axiom reports all standard (05:23-05:32).
