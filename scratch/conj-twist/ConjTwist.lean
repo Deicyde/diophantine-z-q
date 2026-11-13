@@ -690,6 +690,147 @@ theorem conjTwistNontrivial_of_comparison (hT : PkgI3.TateModuleFree)
 theorem conjTwistFromLeaves_of_comparison (h : ConjBettiComparison) : ConjTwistFromLeaves :=
   conjTwistFromLeaves_of_conjBettiData (conjBettiData_of_comparison h)
 
+/-! ## §6. The next split of `ConjBettiComparison` (statements compile; the assembly is not
+formalized)
+
+`ConjBettiComparison` follows (STANDARD argument, docs/research/conj-twist.md §3) from T35
+(`UniformizationExists`, applied to `A` and `A^s` at `σ = ι ∘ alg`) and the five Props below.
+`toC` is the comparison of `K̄`-points with complex points through `ι : K̄ → ℂ`. -/
+
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization)
+
+/-- `Spec(ι) : Spec ℂ → Spec K̄` over `K`. -/
+def embHom {K : Type} [Field K] (emb : AlgebraicClosure K →+* ℂ) :
+    cptObj (emb.comp (algebraMap K (AlgebraicClosure K))) ⟶
+      PkgI3.AbVar.ptObj (K := K) (AlgebraicClosure K) :=
+  Over.homMk (Spec.map (CommRingCat.ofHom emb)) (by
+    simp only [cptObj, PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp])
+
+/-- **Comparison of points through `ι` (proved to be a homomorphism):** `A(K̄) → A(ℂ)_{ι∘alg}`,
+`P ↦ P ∘ Spec(ι)`. -/
+def toC {K : Type} [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) :
+    A.Pt (AlgebraicClosure K) →* CPts A (emb.comp (algebraMap K (AlgebraicClosure K))) where
+  toFun P := embHom emb ≫ P
+  map_one' := MonObj.comp_one _
+  map_mul' _ _ := MonObj.comp_mul _ _ _
+
+/-- **N1. Torsion comparison (GLUE, unproved; STANDARD).** `toC` is injective (`Spec ℂ → Spec K̄`
+is faithfully flat, hence an epimorphism of schemes) and every `n`-torsion complex point
+(`n ≥ 1`) comes from `A(K̄)`: `A(K̄)[n]` and `A(ℂ)[n]` both have `n^{2g}` elements (T5 over `K̄`
+and over `ℂ`) and `toC` is injective. Equivalently, `A[n]` is finite étale in characteristic `0`
+(Mumford §4, §6; UNVERIFIED numbers). -/
+def ArtinTorsion : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (n : ℕ), 0 < n →
+    Function.Injective (toC A emb) ∧
+      ∀ Q : CPts A (emb.comp (algebraMap K (AlgebraicClosure K))), Q ^ n = 1 →
+        ∃ P, toC A emb P = Q
+
+/-- **N4. Tate module of a uniformized abelian variety (GLUE, unproved; STANDARD).** For a
+uniformization `Φ : ℂ^g → A(ℂ)_{ι∘alg}` with lattice `Λ` (T35), there is a `ℤ_ℓ`-isomorphism
+`α : ℤ_ℓ ⊗ Λ ≅ T_ℓ(A)` with `toC (α(1 ⊗ λ))ₙ = Φ(ℓ⁻ⁿ λ)` for `λ ∈ Λ`. (The sequence
+`Φ(ℓ⁻ⁿλ)` is compatible and `Φ(λ) = 1`; it comes from `A(K̄)` by N1; bijectivity is
+`T_ℓ = lim Λ/ℓⁿΛ = Λ ⊗ ℤ_ℓ`, `Λ ≅ ℤ^{2g}`. Mumford §1, §4; this is Artin's comparison for
+abelian varieties, SGA 4 XI 4.4; UNVERIFIED numbers.) The formula pins `α` and makes it natural
+for homomorphisms and for `c_*` (by injectivity of `toC`). -/
+def TateLattice : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (emb : AlgebraicClosure K →+* ℂ) (g : ℕ)
+    (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A (emb.comp (algebraMap K (AlgebraicClosure K)))),
+    A.dim = (g : WithBot ℕ∞) → ∀ [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    IsUniformization (emb.comp (algebraMap K (AlgebraicClosure K))) Λ Φ →
+    ∀ (ℓ : ℕ) [Fact ℓ.Prime], ∃ α : TensorProduct ℤ ℤ_[ℓ] Λ ≃ₗ[ℤ_[ℓ]] A.T ℓ,
+      ∀ (lam : Λ) (n : ℕ), toC A emb (Additive.toMul ((α (1 ⊗ₜ lam)).1 n)) =
+        Φ (((ℓ : ℂ) ^ n)⁻¹ • (lam : Fin g → ℂ))
+
+/-- **N2. T11(a) in Hom form (textbook LEAF; Birkenhake–Lange, *Complex abelian varieties*,
+Prop. 1.2.1, with holomorphy of algebraic morphisms; Mumford §1; UNVERIFIED numbers).** For
+abelian varieties `A, B` over `K`, `σ : K → ℂ` and uniformizations `Φ_A, Φ_B` of `A(ℂ)_σ`,
+`B(ℂ)_σ`, every homomorphism `f : A → B` lifts to a `ℂ`-linear map `M` with
+`Φ_B(Mz) = f(Φ_A(z))`. (`T11a_RiemannEnd`'s second half is the case `A = B` over `ℂ`.) -/
+def HomLinearLift : Prop :=
+  ∀ (K : Type) [Field K] (A B : PkgI3.AbVar K) (σ : K →+* ℂ) (g h : ℕ)
+    (ΛA : Submodule ℤ (Fin g → ℂ)) (ΛB : Submodule ℤ (Fin h → ℂ))
+    (ΦA : (Fin g → ℂ) → CPts A σ) (ΦB : (Fin h → ℂ) → CPts B σ),
+    A.dim = (g : WithBot ℕ∞) → B.dim = (h : WithBot ℕ∞) →
+    IsUniformization σ ΛA ΦA → IsUniformization σ ΛB ΦB →
+    ∀ f : PkgI3.AbVar.Hom A B, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin h → ℂ),
+      ∀ z, ΦB (M z) = ΦA z ≫ f.hom
+
+/-- `Spec(conj) : Spec ℂ → Spec ℂ`, over `K` from `σ ∘ s` to `σ`, when `σ ∘ s = conj ∘ σ`. -/
+def conjHom {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) : cptObj (σ.comp s) ⟶ cptObj σ :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (starRingEnd ℂ))) (by
+    simp only [cptObj, Over.mk_hom]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, h])
+
+/-- Complex conjugation `A(ℂ)_σ → A(ℂ)_{σ∘s}` when `σ ∘ s = conj ∘ σ`: `Q ↦ Q ∘ Spec(conj)`. -/
+def conjCs {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (Q : CPts A σ) : CPts A (σ.comp s) :=
+  conjHom σ s h ≫ Q
+
+/-- `(Over.map Spec(s)).obj (Spec ℂ via σ) ⟶ Spec ℂ via σ ∘ s` (the identity of `Spec ℂ`). -/
+def mapPtIso {K : Type} [Field K] (σ : K →+* ℂ) (s : K →+* K) :
+    (Over.map (specS s)).obj (cptObj σ) ⟶ cptObj (σ.comp s) :=
+  Over.homMk (𝟙 _) (by
+    simp only [Over.map_obj_hom, cptObj, Over.mk_hom, Category.id_comp, ← Spec.map_comp,
+      ← CommRingCat.ofHom_comp])
+
+/-- The map `A(ℂ)_σ → A^s(ℂ)_σ`, `Q ↦ Q ∘ Spec(conj)` read through `A^s(ℂ)_σ = A(ℂ)_{σ∘s}`
+(adjunction `Over.map ⊣ Over.pullback`). -/
+def twistC {K : Type} [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (Q : CPts A σ) : CPts (conjVar A s) σ :=
+  (Over.mapPullbackAdj (specS s)).homEquiv _ _ (mapPtIso σ s ≫ conjCs A σ s h Q)
+
+/-- **N3. Complex conjugation is antiholomorphic (GLUE, unproved; STANDARD).** If
+`σ ∘ s = conj ∘ σ`, then for uniformizations `Φ` of `A(ℂ)_σ` and `Φ'` of `A^s(ℂ)_σ` the map
+`twistC` lifts to an `ℝ`-linear, `ℂ`-antilinear `N` (`N(iz) = −iN(z)`) with
+`Φ'(Nz) = twistC(Φ z)`. (`z ↦ twistC(Φ(z̄))` is a holomorphic uniformization of
+`A^s(ℂ)_σ = A(ℂ)_{conj∘σ}`; two uniformizations differ by a `ℂ`-linear isomorphism, BL 1.2.1.) -/
+def ConjAntiLift : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (s : K →+* K)
+    (h : σ.comp s = (starRingEnd ℂ).comp σ) (g : ℕ) (Λ Λ' : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ) (Φ' : (Fin g → ℂ) → CPts (conjVar A s) σ),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization σ Λ Φ → IsUniformization σ Λ' Φ' →
+    ∃ N : (Fin g → ℂ) →ₗ[ℝ] (Fin g → ℂ), (∀ z, N (Complex.I • z) = -(Complex.I • N z)) ∧
+      ∀ z, Φ' (N z) = twistC A σ s h (Φ z)
+
+/-- **N5. Dimension of the conjugate (GLUE, unproved; STANDARD).** For a number field `K`, every
+ring endomorphism `s` is an automorphism, so `Spec(s)` is an isomorphism and so is
+`A^s → A`; Krull dimension is preserved. -/
+def ConjVarDim : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (s : K →+* K),
+    (conjVar A s).dim = A.dim
+
+/-- **`toC` intertwines `c_*` with `twistC` (proved):** `toC (c_* P) = twistC (toC P)` for
+`σ = ι ∘ alg`, `ι ∘ cc = conj ∘ ι`. This is the identity `Spec(ι) ≫ Spec(cc) = Spec(conj) ≫ Spec(ι)`
+read through the adjunction; it is the "`β⁻¹ c_* α = F ⊗ 1`" part of `ConjBettiComparison` at
+the level of points. -/
+theorem toC_conjPt {K : Type} [Field K] (A : PkgI3.AbVar K) (s : K →+* K)
+    (cc : AlgebraicClosure K ≃+* AlgebraicClosure K)
+    (hs : ∀ k, cc (algebraMap K _ k) = algebraMap K _ (s k)) (emb : AlgebraicClosure K →+* ℂ)
+    (hι : ∀ x, emb (cc x) = starRingEnd ℂ (emb x))
+    (h : (emb.comp (algebraMap K _)).comp s = (starRingEnd ℂ).comp (emb.comp (algebraMap K _)))
+    (P : A.Pt (AlgebraicClosure K)) :
+    toC (conjVar A s) emb (conjPt A s cc hs P) =
+      twistC A (emb.comp (algebraMap K _)) s h (toC A emb P) := by
+  change embHom emb ≫ (Over.mapPullbackAdj (specS s)).homEquiv _ _ (ccHom s cc hs ≫ P) =
+    (Over.mapPullbackAdj (specS s)).homEquiv _ _
+      (mapPtIso _ s ≫ conjCs A _ s h (embHom emb ≫ P))
+  rw [← Adjunction.homEquiv_naturality_left]
+  congr 1
+  simp only [conjCs, ← Category.assoc]
+  congr 1
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom emb) ≫
+      Spec.map (CommRingCat.ofHom (cc : AlgebraicClosure K →+* AlgebraicClosure K)) =
+    𝟙 _ ≫ Spec.map (CommRingCat.ofHom (starRingEnd ℂ)) ≫ Spec.map (CommRingCat.ofHom emb)
+  rw [Category.id_comp, ← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+    ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact hι x
+
 end G0Galois
 
 #print axioms G0Galois.faltingsV
@@ -700,3 +841,4 @@ end G0Galois
 #print axioms G0Galois.conjBettiData_of_comparison
 #print axioms G0Galois.conjTwistNontrivial_of_comparison
 #print axioms G0Galois.conjTwistFromLeaves_of_comparison
+#print axioms G0Galois.toC_conjPt

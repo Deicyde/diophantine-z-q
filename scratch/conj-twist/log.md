@@ -30,3 +30,8 @@
   `conjTwistFromLeaves_of_comparison` (ConjBettiComparison → ConjTwistFromLeaves).
   Compiles: 0 errors, 0 sorry; all 8 `#print axioms` [propext, Classical.choice, Quot.sound].
   VERIFIED (compiled).
+- 2026-11-13 05:40 §6 added (next split of ConjBettiComparison): `embHom`, `toC`
+  (A(K̄) →* A(ℂ)_{ι∘alg}), statements N1 `ArtinTorsion` (glue), N4 `TateLattice` (glue),
+  N2 `HomLinearLift` (textbook leaf, BL 1.2.1 Hom form), `conjHom`, `conjCs`, `mapPtIso`,
+  `twistC`, N3 `ConjAntiLift` (glue), N5 `ConjVarDim` (glue); proved `toC_conjPt`
+  (toC(c_* P) = twistC(toC P)). Compiles, 0 errors; axioms standard. VERIFIED (compiled).
