@@ -58,3 +58,14 @@
 - Note: with the four extra imports placed *before* NewForm's imports, the copied
   `bcPt.map_one'` (E1 copy) fails with "No goals to be solved" (its `rw` closes the goal, so
   the trailing `rfl` errors); placing them after NewForm's imports avoids it.
+
+## Step 6 (04:46-04:52 PST): WildFixTame proved
+- §2d `wildFixTame : WildFixTame p` (proved, no hypothesis). `inertiaSub F` (subgroup of
+  `G_{ℚ_p}`), `ramSet_zero_eq` (`ramSet F 0 = inertiaSub F` via `IsUnif`), `ramCard_zero_eq`
+  (`ramCard F 0 = |(inertiaSub F).map restrictNormalHom|`), Lagrange
+  (`orderOf_dvd_natCard`), and the averaging lemma `fix_of_wild_pow` (`m z = ∑(z − σ^k z)`,
+  ultrametric, `‖m‖ = 1`).
+- `g15RamG_of_dvrModel` (only closed hypothesis: `LadicDVRModel`). `Tail.lean`'s
+  `modularConstituent_tail_R` updated to it.
+- Compile (VERIFIED): `G15Ram.lean` exit 0, 0 errors, axioms standard for all 8 printed
+  declarations; `Tail.lean` exit 0, 0 errors, ~40 s, `modularConstituent_tail_R` axioms standard.

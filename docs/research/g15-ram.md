@@ -13,12 +13,11 @@ the data* `D : ModData L A`, whose fields are bare representations `r₅`, `r₃
 arbitrary `D` (a finite-order twist of `r₅` that is wildly ramified at a small prime breaks
 clause (i)), so it cannot be proved as a closed statement. It is a claim about the `r_ℓ` that G8
 builds. What this task proves is that **`G15RamG D u` follows from closed local-field Props and
-smaller Props on the same `D`**. Most of the local-field side is now proved:
+smaller Props on the same `D`**. All of the local-field side except one transport is now proved:
 
 ```
-theorem G15Ram.g15RamG_of_model
+theorem G15Ram.g15RamG_of_dvrModel
     (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModel p)          -- glue: transport (DVR model)
-    (hWT : ∀ (p : ℕ) [Fact p.Prime], WildFixTame p)           -- glue: tame extensions
     {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
     (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)  -- glue on G7/G8's D
     (h3 : LocalData 5 D.r3)
@@ -27,15 +26,31 @@ theorem G15Ram.g15RamG_of_model
     G15RamG D u
 ```
 
+and, plugged into g0-mod-newform's tail (`scratch/g15-ram/Tail.lean`, a verbatim copy of
+`NewForm.lean` plus this file):
+
+```
+theorem G0ModNewform.modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
+    (hX : X1ModelExists) (hSw : …) (hL8 : LadicCond.SwanIntegral) (hAd : …)
+    (hM : ∀ (p : ℕ) [Fact p.Prime], G15Ram.LadicDVRModel p)
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
+      (∀ p (hp : p.Prime), p ≠ 5 → @G15Ram.LocalData p ⟨hp⟩ 5 _ D.r5) ∧
+      G15Ram.LocalData 5 D.r3 ∧ G0Galois.G11Out T D.r5 ∧ G0Galois.G11Out T D.r3) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧ (N : ℝ) ≤ Q_D · M² ∧ CommonConstituent A (J_L)
+```
+
 VERIFIED: `lake env lean scratch/g15-ram/G15Ram.lean` exits 0 with no errors and no `sorry`;
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for every printed declaration
-(see §4).
+(see §4). The same holds for `Tail.lean` (`modularConstituent_tail_R`, about 40 s).
 
 T20 and T21 enter through the kernel's proved theorems `PkgI6.hilbertDifferentFormula` and
 `PkgI6.differentBound` (t-different, `ZInQKernel/HDecomp/Textbook/Different.lean`). T22
 (Herbrand) is not needed: the absolute upper filtration `LadicCond.upperAbs` is defined as the
 intersection over all finite Galois levels, so `upperAbs p t ⊆ upperSet F t` holds by definition,
-and the break bound is proved directly at the level `F` (§2). R6 (Raynaud) and T16 (local
+and the break bound is proved directly at the level `F` (§2). (Herbrand's theorem is what makes
+that definition agree with Serre's `G^v = lim G^v(F/ℚ_p)`; def-ladic-cond chose the
+intersection form, so nothing here depends on it.) R6 (Raynaud) and T16 (local
 reciprocity with upper numbering) enter only through the Props on `D` (`TwistShape`,
 `TwistUpper`), because the objects they speak about (`A` over Glazer's `L`, `μ_σ`, `β`) are not
 yet Lean objects; see §3.
@@ -46,9 +61,11 @@ yet Lean objects; see §3.
 |---|---|---|
 | `upperBreakFix_of_hilbertSerre` | `UpperBreakFix p`: for `F ⊆ ℚ̄_p` finite Galois with `e(F/ℚ_p) ≤ a!` and `t > 4a²`, `G_{ℚ_p}^t ⊆ G_F` (Glazer N5 L796-812, L824-827) | `HilbertSerreLadic p`, kernel `GlueConductor.upper_break_le` |
 | `upperWild` | `UpperWild p`: for `t > 0`, `G_{ℚ_p}^t ⊆ P_p` (`‖σx − x‖ < ‖x‖` for all `x ≠ 0`) | nothing (Mathlib) |
+| `wildFixTame` | `WildFixTame p`: if `F` is finite Galois and `p ∤ e(F/ℚ_p)`, `P_p` fixes `F` | nothing (Mathlib) |
 | `hilbertSerre_of_model` | `HilbertSerreLadic p` | `LadicDVRModel p`, T20 `PkgI6.hilbertDifferentFormula`, T21 `PkgI6.differentBound` |
 | `localRamG_of` | `LocalRamG u p r` | `UpperBreakFix`, `UpperWild`, `WildFixTame`, `LocalData p r`, `G11Out T r` (`p ≠ ℓ`) |
-| `g15RamG_of_pieces`, `g15RamG_of_hilbertSerre`, `g15RamG_of_model` | `G15RamG D u` | as above, at every prime (`r₅` at `p ≠ 5`, `r₃` at `p = 5`) |
+| `g15RamG_of_pieces`, `g15RamG_of_hilbertSerre`, `g15RamG_of_model`, `g15RamG_of_dvrModel` | `G15RamG D u` | as above, at every prime (`r₅` at `p ≠ 5`, `r₃` at `p = 5`) |
+| `modularConstituent_tail_R` (`Tail.lean`) | G13-G16's conclusion | `modularConstituent_tail_G` (g0-mod-newform) and `g15RamG_of_dvrModel` |
 
 Proof notes.
 
@@ -67,6 +84,14 @@ Proof notes.
   `exists_mem_Ioc_zpow`. The set of `y` with `‖σy − y‖ < ‖y‖` contains `ϖ` and the units of `F`,
   and is closed under products (the norm is ultrametric, `PadicAlgCl.isUltrametricDist`, and
   Galois-isometric) and under inverses.
+* **Wild inertia fixes tame extensions** (Serre's "`G_1` is the `p`-Sylow subgroup of `G_0`"
+  is avoided). Write `s` for the restriction of a wild `σ` to `F`. It lies in the inertia
+  subgroup `(inertiaSub F).map restrictNormalHom` of `Gal(F/ℚ_p)`, whose order is
+  `ramCard F 0 = e` (`ramCard_zero_eq`, using `IsUnif` to identify `ramSet F 0` with
+  `{‖σx − x‖ < 1}`). So `m = orderOf s` divides `e` and `p ∤ m`. Every `σ^k` is wild, because
+  wildness is closed under products. Put `y = m⁻¹ ∑_{k<m} σ^k x`; then `σy = y`, since
+  `σ^m x = x`. For `z = x − y` we get `m z = ∑_{k<m}(z − σ^k z)`. If `z ≠ 0`, each term has norm
+  `< ‖z‖`, and `‖m‖ = 1`, so `‖z‖ < ‖z‖`. Hence `x = y` is fixed.
 * **From T20 + T21.** `𝔇_{B/A} = 𝔪^{∑_{i<N}(|G_i|−1)}` (T20), `𝔇 ∣ 𝔪^{e−1}(e)` (T21), and
   `(e) = 𝔪^{e·v_p(e)}` in `B` (write `e = p^v u`, `p ∤ u`). Then `pow_dvd_pow_iff` in the
   cancellative monoid of ideals of the DVR `B` gives `∑_{i<N}(g_i − 1) ≤ e − 1 + e·v_p(e)`.
@@ -89,11 +114,7 @@ Néron–Ogg–Shafarevich) or proved textbook results (T20, T21).
    `Gal(F/ℚ_p) ≅ Aut_{ℤ_p}(𝓞_F)` compatible with the two filtrations. The memory note
    mathlib-435-local-galois records that locality of `integralClosure ℤ_p F` was already proved
    via the spectral norm (glue-sqrt-local). Size: SPECULATIVE, medium (0.5-1.5k lines).
-2. `WildFixTame p`: if `F` is finite Galois and `p ∤ e(F/ℚ_p)`, then `P_p` fixes `F`. Truth:
-   STANDARD (Serre IV §2, Cor. 1-4 of Prop. 7: `G_1` is the `p`-Sylow subgroup of `G_0`, and
-   `σ ∈ P_p` restricts into `G_1`; UNVERIFIED numbering). Size: SPECULATIVE, medium. It needs
-   `𝓞_F = 𝓞_{F_0}[ϖ]` (proved without completeness by t-different,
-   `TDifferent.exists_adjoin_eq_top`) and the embedding `G_i/G_{i+1} ↪ U^i/U^{i+1}`.
+2. ~~`WildFixTame p`~~: **proved** (`wildFixTame`, §2).
 
 **Glue on G7/G8's construction (Props on `D`), `LocalData p r`:**
 
@@ -118,8 +139,8 @@ Néron–Ogg–Shafarevich) or proved textbook results (T20, T21).
 
 **Honest scope of the `D`-side Props (VERIFIED as logical points).**
 - `LargePrimeData p r` follows from clause (ii) itself (take `F = ⊥`, `β = 1`). So at `p > D` the
-  reduction only separates out the local-field fact `WildFixTame`; the abelian-variety content of
-  clause (ii) is still in `LargePrimeData`.
+  reduction only separates out the local-field fact `WildFixTame`, now proved. The
+  abelian-variety content of clause (ii) is still in `LargePrimeData`.
 - At `p ≤ D`, `SmallPrimeData` is not implied by clause (i) in that trivial way. It is a
   finite-level statement (a scalar on `G_F ∩ P_p` with `e(F) ≤ (DG₀)!`) plus a bound for one
   *character* `β`. The ramification theory that turns this into clause (i) (the break bound, and
@@ -140,7 +161,8 @@ Néron–Ogg–Shafarevich) or proved textbook results (T20, T21).
 `lake env lean scratch/g15-ram/G15Ram.lean` (VERIFIED, 2026-11-13; see the log for timings):
 exit 0, 0 errors, no `sorry`. `#print axioms` = `[propext, Classical.choice, Quot.sound]` for
 `upperBreakFix_of_hilbertSerre`, `g15RamG_of_pieces`, `g15RamG_of_hilbertSerre`, `upperWild`,
-`hilbertSerre_of_model`, `g15RamG_of_model`.
+`hilbertSerre_of_model`, `g15RamG_of_model`, `wildFixTame`, `g15RamG_of_dvrModel`; and for
+`modularConstituent_tail_R` in `Tail.lean` (`scratch/g15-ram/tail_compile.out`).
 
 Verbatim copies (checked by `diff` against the sources, log step 4): `ModData`, `U0`,
 `LocalRamG`, `G15RamG` (from `scratch/g0-mod-newform/NewForm.lean`) and `G0Galois.G11Out` (from
@@ -148,10 +170,12 @@ Verbatim copies (checked by `diff` against the sources, log step 4): `ModData`, 
 
 ## 5. Integration
 
-- `g15RamG_of_model` gives `modularConstituent_tail_G`'s third conjunct. The tail's hypothesis
-  `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u` can therefore be replaced by
+- `modularConstituent_tail_R` (compiled in `Tail.lean`) replaces the tail's hypothesis
+  `∃ D, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u` by
   `∃ D, G12Spec D ∧ G14TraceCompat D ∧ (∀ p ≠ 5, LocalData p D.r5) ∧ LocalData 5 D.r3 ∧
-  G11Out T D.r5 ∧ G11Out T D.r3`, adding the closed hypotheses `LadicDVRModel` and `WildFixTame`.
+  G11Out T D.r5 ∧ G11Out T D.r3`, and adds the closed hypothesis `LadicDVRModel`.
+  `T = GlueDescent.ramSet S_mul u` is a set for which g0-mod-galois's `g11` applies (its
+  hypotheses `G2Out K T`, `G3Out A ℓ T` are for an arbitrary `T`).
 - The new local-field lemmas (`ramSet_anti`, `ramCardR_anti`, `phi_nat`, `phi_sub_le`,
   `wild_of_ramSet_one`, …) concern only `LadicCond`'s objects. They belong next to
   `ZInQKernel/HDecomp/Conductor/LadicCond.lean`.
