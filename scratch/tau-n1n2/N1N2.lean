@@ -505,6 +505,34 @@ theorem n1_n2_of_leaves (hloc1 : LocalNeronModelExists) (hab : AbelianSchemeIsNe
     semistableNeronIdentityComponent_of_local (neronModelExists_of_local hloc1 hab hg1) hab hloc2
       hg2⟩
 
+/-! ## §7. Glue lemmas for `NeronModelOver` (uniqueness), usable by the glue proofs -/
+
+/-- `NeronModelOver` satisfies `NeronProp` along `Spec L → Spec R`. -/
+theorem NeronModelOver.neronProp {R : Type} [CommRing R] {L : Type} [Field L] [Algebra R L]
+    {B : AbVar L} (𝒩 : NeronModelOver R L B) :
+    NeronProp (Spec.map (CommRingCat.ofHom (algebraMap R L))) (fun Y => Smooth Y.hom) 𝒩.G B.X
+      𝒩.gen :=
+  fun Y _ => 𝒩.neron Y
+
+/-- **Uniqueness of Néron models over any base `R`**: two Néron models of `B` over `R` are
+isomorphic by a group isomorphism compatible with the identifications of the generic fibres. -/
+theorem NeronModelOver.uniqueIso {R : Type} [CommRing R] {L : Type} [Field L] [Algebra R L]
+    {B : AbVar L} (𝒩 𝒩' : NeronModelOver R L B) :
+    ∃ φ : 𝒩.G ≅ 𝒩'.G, IsMonHom φ.hom ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).map φ.hom ≫ 𝒩'.gen.hom =
+        𝒩.gen.hom := by
+  obtain ⟨φ, hφ⟩ := 𝒩.neronProp.uniqueIso 𝒩'.neronProp
+    (show Smooth 𝒩.G.hom from inferInstance) (show Smooth 𝒩'.G.hom from inferInstance)
+  refine ⟨φ, ?_, hφ⟩
+  have hg : IsMonHom 𝒩.gen.hom := 𝒩.gen_hom
+  have hg' : IsMonHom 𝒩'.gen.hom := 𝒩'.gen_hom
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of R)))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝒩.G ⊗ 𝒩.G).hom := by
+    show Smooth (pullback.fst 𝒩.G.hom 𝒩.G.hom ≫ 𝒩.G.hom); infer_instance
+  exact isMonHom_of_reflect (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L))))
+    φ.hom 𝒩.gen.hom 𝒩'.gen.hom hφ (fun a b hab => (𝒩'.neron _).1 hab)
+    (fun a b hab => (𝒩'.neron _).1 hab)
+
 end ZInQ.TauN1N2
 
 #print axioms ZInQ.TauN1N2.neronModelExists_iff
@@ -521,3 +549,4 @@ end ZInQ.TauN1N2
 #print axioms ZInQ.TauN1N2.semistableNeronIdentityComponent_of_local
 #print axioms ZInQ.TauN1N2.n1_n2_of_leaves
 #print axioms ZInQ.TauN1N2.neronModelExistsSelf_iff
+#print axioms ZInQ.TauN1N2.NeronModelOver.uniqueIso

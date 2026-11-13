@@ -56,3 +56,7 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
 - Independent model review (subagent, read-only) of all new defs: no PROBLEM; three MINOR
   docstring points fixed (EGA IV 8.8.2 for agreement of spread-out models; compositum step;
   SGA 3 VI_A 2.4 / EGA IV 4.5.13 for identity components under base change).
+
+## N1N2.lean §7 — COMPILED 05:15 (0 errors; 15 #print axioms, all standard)
+- `NeronModelOver.neronProp`, `NeronModelOver.uniqueIso` (two Néron models over any base `R` are
+  isomorphic by a group isomorphism compatible with `gen`) PROVED (glue lemma for the two glue Props).
