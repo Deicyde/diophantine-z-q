@@ -82,8 +82,8 @@ The public repository retains its required independent Astra check and up-to-dat
 branch requirement. There is no mandatory second human or CODEOWNERS approval.
 An automated queue may identify proof-only PRs for a narrower review, but queuing,
 compilation and a green status table do not publish the Astra acceptance check.
-An eligible independent reviewer must review the exact revision and the applicable
-Protocol_D obligations, including statement fidelity, provenance, dependency use
+An eligible independent reviewer must review the exact revision,
+including statement fidelity, provenance, dependency use
 and any audit objections. The existing protected controller publishes acceptance
 only from the authenticated review process.
 

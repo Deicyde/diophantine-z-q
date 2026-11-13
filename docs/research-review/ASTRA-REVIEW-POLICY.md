@@ -2,7 +2,7 @@
 
 Adopted November 9, 2026 for `elliotglazer/diophantine-z-q`.
 
-This project uses [Protocol_D](https://github.com/elliotglazer/protocols/blob/main/Protocol_D.md). In addition, only designated Astra agents may supply the judgments that satisfy required protocol acceptance. This restriction applies to mathematical applications, repairs and finding resolutions, inventory coverage, assembled-proof acceptance, and the final protocol decision for a pull request. A non-substantive pull request still needs an eligible review of its stated scope.
+This policy was adopted together with [review protocol version 1.4](PROTOCOL.md). Under it, only designated Astra agents may supply the judgments that satisfy required protocol acceptance. This restriction applies to mathematical applications, repairs and finding resolutions, inventory coverage, assembled-proof acceptance, and the final protocol decision for a pull request. A non-substantive pull request still needs an eligible review of its stated scope.
 
 ## Contributions and review authority
 
@@ -16,7 +16,7 @@ The initially approved model identifier is exactly `gpt-6-astra`. Aliases, other
 
 Eligibility must come from the controller's trusted run and review records, including the agent identity, model, reviewed artifacts and decision. A name, model field, approval flag, or report supplied by a pull request is insufficient on its own. The existing authenticated operator and observation process remains part of the trust base; this policy does not claim provider-signed proof of the model that served a request where no such evidence is available.
 
-Earlier reports retain their original identities and scope. They may be used as research evidence, but an ineligible report cannot be relabeled or counted as a required Astra acceptance. Reuse of an eligible earlier review must meet Protocol_D's exact-version and dependency requirements.
+Earlier reports retain their original identities and scope. They may be used as research evidence, but an ineligible report cannot be relabeled or counted as a required Astra acceptance. Reuse of an eligible earlier review must meet that protocol's exact-version and dependency requirements.
 
 ## Merge enforcement
 

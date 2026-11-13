@@ -9,7 +9,7 @@ Fill this in briefly. Existing instructions and authorizations supplied elsewher
 - Conclusions that are explicitly outside this project:
 
 ## Evidence and trust
-- Governing protocol: [Protocol_D](https://github.com/elliotglazer/protocols/blob/main/Protocol_D.md), included as PROTOCOL.md, unless the owner replaces it.
+- Governing protocol: review protocol version 1.4, included as PROTOCOL.md, unless the owner replaces it.
 - Initial manuscript and source locations:
 - Known objections, disputed sources or mandatory checks:
 - Any owner-approved departure from the protocol's default trust standard:
