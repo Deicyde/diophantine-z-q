@@ -40599,6 +40599,101 @@ def LinkedFrobRam : Prop :=
           (GlueDescent.rho (tmOf hLL' A Θ h m 3) (fun _ => j3 1)
             (fun g => j3 (gam (h * g * h⁻¹)))))
 
+/-- **Glue: the Frobenius trace link for the canonical operators** (linked-tate; N5 L777-786).
+For every fibre context and G7 data, every transport `(Θ, h)` with unram-tate's `TatePoints`
+property and every points-level descent datum `(m, a, n, d)` of `A` for `ε` (the clauses of
+g0-mod-field's `DescentDatum`, the discrepancy `n/d` as functions): g14-trace's `FrobTraceLink`
+holds for `tmOf … 5` and `tmOf … 3`: outside a finite set of primes, at every arithmetic Frobenius
+`τ` there are an abelian variety `Ā` over a field of characteristic `p`, `α' ∈ End(Ā)` and
+`N ≠ 0` with `N·Tm_ℓ(τ)` conjugate to `V_ℓ(α')` at `ℓ = 3` and `ℓ = 5` (Glazer: `Ā` the
+reduction of `A_{L'}`, `α' = N·μ̄ ∘ F`; Néron mapping property and Serre–Tate). GLUE. -/
+def LinkedFrob : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : NumberField L' := numberField_of_fd L'
+    ∀ (Θ : PtQ L A ≃+ PtA (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) (h : PkgI4.GQ),
+      (∀ (σ : Field.absoluteGaloisGroup L') (σ' : Qbar ≃ₐ[L] Qbar),
+        (∀ x, σ' x = (h * (@GaloisCopy.resQ L' _ (numberField_of_fd L') σ) * h⁻¹) x) →
+        ∀ x, Θ (MonoidHom.toAdditive (A.galAct σ') x) =
+          MonoidHom.toAdditive ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).galAct σ)
+            (Θ x)) →
+    ∀ (m : GQ → (PtQ L A →+ PtQ L A)) (a : GQ → ℝ) (n d : GQ → GQ → ℤ),
+      (∀ σ, 0 < a σ) →
+      (∀ σ k : GQ, k ∈ GQL L → a k = 1 ∧ a (σ * k) = a σ ∧ a (k * σ) = a σ) →
+      (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
+        m σ = MonoidHom.toAdditive (A.galAct σ')) →
+      (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) →
+      (∀ (σ : GQ) (f : PkgI3.AbVar.End A),
+        (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
+          (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) →
+      (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) →
+      (∀ σ τ, n σ τ ≠ 0 ∧ d σ τ ≠ 0 ∧ d σ τ • (m σ).comp (m τ) = n σ τ • m (σ * τ) ∧
+        (((a σ * a τ * ((n σ τ : ℝ) / d σ τ) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ)) →
+      (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
+        ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F σ) →
+      G14Trace.FrobTraceLink (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))
+        (tmOf hLL' A Θ h m 5) (tmOf hLL' A Θ h m 3)
+
+/-- **Glue: Glazer's wild ramification for the canonical descended operators** (linked-tate;
+N5 L819-852, D1-D4). Same data as `LinkedFrob`, and every `γ₀ : G_ℚ → ℚ̄` with `∂γ₀ = n/d`,
+constant on `G_{L'}`-cosets and `1` on `G_{L'}`, and all embeddings `j₅`, `j₃`: `RhoRamWild` for
+`ρ₅ = (j₅∘β')⁻¹ Tm₅` at `p ≠ 5` and for `ρ₃` at `p = 5` (`β' g = γ₀(hgh⁻¹)`, `a = 1`). GLUE. -/
+def LinkedRam : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : LeafQM.AV.PtEquiv Y) (π : LeafQM.AV.ToP1 Y.left)
+    (u : ℚ) (P : LeafQM.AV.QML3 Qbar), FibreCtx Y Φ π u P →
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ)
+    (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
+    [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : NumberField L' := numberField_of_fd L'
+    ∀ (Θ : PtQ L A ≃+ PtA (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) (h : PkgI4.GQ),
+      (∀ (σ : Field.absoluteGaloisGroup L') (σ' : Qbar ≃ₐ[L] Qbar),
+        (∀ x, σ' x = (h * (@GaloisCopy.resQ L' _ (numberField_of_fd L') σ) * h⁻¹) x) →
+        ∀ x, Θ (MonoidHom.toAdditive (A.galAct σ') x) =
+          MonoidHom.toAdditive ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).galAct σ)
+            (Θ x)) →
+    ∀ (m : GQ → (PtQ L A →+ PtQ L A)) (a : GQ → ℝ) (n d : GQ → GQ → ℤ),
+      (∀ σ, 0 < a σ) →
+      (∀ σ k : GQ, k ∈ GQL L → a k = 1 ∧ a (σ * k) = a σ ∧ a (k * σ) = a σ) →
+      (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
+        m σ = MonoidHom.toAdditive (A.galAct σ')) →
+      (∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ)) →
+      (∀ (σ : GQ) (f : PkgI3.AbVar.End A),
+        (m σ).comp (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)) =
+          (MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := Qbar) f)).comp (m σ)) →
+      (∀ σ, Function.Surjective (m σ) ∧ ((m σ).ker : Set (PtQ L A)).Finite) →
+      (∀ σ τ, n σ τ ≠ 0 ∧ d σ τ ≠ 0 ∧ d σ τ • (m σ).comp (m τ) = n σ τ • m (σ * τ) ∧
+        (((a σ * a τ * ((n σ τ : ℝ) / d σ τ) : ℝ) : ℂ)) = (ε σ τ : ℂ) * ((a (σ * τ) : ℝ) : ℂ)) →
+      (∃ F : GQ → (A.X.left ⟶ A.X.left), ∀ σ, IsFinite (F σ) ∧ Surjective (F σ) ∧
+        ∀ x : PtQ L A, (Additive.toMul (m σ x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F σ) →
+    ∀ (gam : GQ → PkgI4.Qbar), (∀ σ, gam σ ≠ 0) →
+      (∀ σ τ, gam σ * gam τ = ((n σ τ : PkgI4.Qbar) / (d σ τ : PkgI4.Qbar)) * gam (σ * τ)) →
+      (∀ σ, ∀ k ∈ GQL L', gam (σ * k) = gam σ) → (∀ k ∈ GQL L', gam k = 1) →
+    ∀ (j5 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 5) (j3 : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl 3),
+      ∀ p : ℕ, ∀ hp : p.Prime,
+        (p ≠ 5 → HSyn.LinkedTate.RhoRamWild p hp
+          (GlueDescent.rho (tmOf hLL' A Θ h m 5) (fun _ => j5 1)
+            (fun g => j5 (gam (h * g * h⁻¹))))) ∧
+        (p = 5 → HSyn.LinkedTate.RhoRamWild p hp
+          (GlueDescent.rho (tmOf hLL' A Θ h m 3) (fun _ => j3 1)
+            (fun g => j3 (gam (h * g * h⁻¹)))))
+
+/-- `LinkedFrobRam` is the conjunction of `LinkedFrob` and `LinkedRam` (proved). -/
+theorem linkedFrobRam_of (hF : LinkedFrob) (hR : LinkedRam) : LinkedFrobRam := by
+  intro Y Φ π u P hctx L _ _ A ε N _ χ β L' _ _ hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8
+    gam g1 g2 g3 g4 j5 j3
+  exact ⟨hF Y Φ π u P hctx L A ε N χ β L' hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8,
+    hR Y Φ π u P hctx L A ε N χ β L' hLL' hD Θ h hΘ m a n d h1 h2 h3 h4 h5 h6 h7 h8 gam g1 g2 g3 g4
+      j5 j3⟩
+
 set_option maxHeartbeats 1000000 in
 /-- **`LinkedTateCoreDR`, proved** from the leaf I3.M0 (`PkgI3.TateModuleFree`, through
 unram-tate's `tateCont_of_tateModuleFree`) and the glue `LinkedFrobRam`. The data: unram-tate's
@@ -40764,6 +40859,25 @@ theorem HSyn.LinkedTate.linkedTateData_of_frobRam (hM : PkgI3.CharPolyIndepOfEll
   HSyn.LinkedTate.linkedTateData_of hM
     (HSyn.LinkedTate.linkedTateCore_of hFS hR (UnramTate.linkedTateCoreDR_of hT hFR))
 
+/-- **`AfterG7` (G8-G16) with both joint Props of g0-assemble reduced** (proved): g0-assemble's
+inputs of `afterG7_of` (leaf bundles, `GaloisPieces`, `DirichletOfFinite`, `CarayolR17'`, the
+three LadicCond glue Props) with `ModelG3G6` and `LinkedTateData` replaced by the glue Props
+`FibreSimple` (already a `GluePieces` field), `GoodRedG3Bridge`, `QMEndRank`, `LinkedFrob`,
+`LinkedRam`; the leaves used are the bundles' R6, R7a, T5 (G3), T7 (G14) and T26 = I3.M0. -/
+theorem HSyn.LinkedTate.afterG7_of_final (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves)
+    (m : G0Galois.GaloisPieces) (hDF : G0ModNewform.DirichletOfFinite)
+    (hCar : LadicCond.CarayolR17')
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral)
+    (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    (hFS : HSyn.G0Split.FibreSimple) (hB : HSyn.LinkedTate.GoodRedG3Bridge)
+    (hR : HSyn.LinkedTate.QMEndRank) (hF : UnramTate.LinkedFrob) (hRam : UnramTate.LinkedRam) :
+    G0ModField.AfterG7 :=
+  HSyn.G0AssembleMod.afterG7_of r t m hDF hCar hSw hL8 hAd
+    (HSyn.LinkedTate.modelG3G6_of hFS (HSyn.LinkedTate.qmModelG3_of r.r7a r.r6 t.t5 hB))
+    (HSyn.LinkedTate.linkedTateData_of_frobRam t.t7 t.t26 hFS hR
+      (UnramTate.linkedFrobRam_of hF hRam))
+
 end
 
 end LinkedDataSec
@@ -40771,5 +40885,7 @@ end LinkedDataSec
 #print axioms UnramTate.tateBridge_of_tateModuleFree
 #print axioms UnramTate.scalarTransferQ
 #print axioms UnramTate.linkedTateCoreDR_of
+#print axioms UnramTate.linkedFrobRam_of
 #print axioms HSyn.LinkedTate.linkedTateData_of_frobRam
+#print axioms HSyn.LinkedTate.afterG7_of_final
 

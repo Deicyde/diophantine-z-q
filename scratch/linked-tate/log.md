@@ -28,3 +28,7 @@
   operators), glue Prop `UnramTate.LinkedFrobRam`, `UnramTate.linkedTateCoreDR_of (hT : TateModuleFree) (hFR :
   LinkedFrobRam) : LinkedTateCoreDR`, `HSyn.LinkedTate.linkedTateData_of_frobRam (t7) (I3.M0) (FibreSimple) (QMEndRank)
   (LinkedFrobRam) : LinkedTateData`. First run VERIFIED 0 errors, no sorry, all standard axioms.
+- `LinkedFrobRam` split into `UnramTate.LinkedFrob` (FrobTraceLink for `tmOf`, no γ₀/j quantifiers) and
+  `UnramTate.LinkedRam` (RhoRamWild); `linkedFrobRam_of` proved. Composite `HSyn.LinkedTate.afterG7_of_final
+  (r t m hDF hCar hSw hL8 hAd) (FibreSimple) (GoodRedG3Bridge) (QMEndRank) (LinkedFrob) (LinkedRam) : AfterG7`.
+  Tail run: VERIFIED 0 errors, all standard axioms.
