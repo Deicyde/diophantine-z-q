@@ -24,3 +24,13 @@
   pullback_stalkGen at e'(s') ⇒ f'·w = G'^♯γ + u, u ∈ π^♯(I_{e(s)})𝒪; applying e'^♯ gives γ = 0),
   **`omegaBaseChange_of_localization : OmegaLocalization → OmegaBaseChange`**.
   New named Prop `OmegaLocalization` (one group model: ∀ s, ∀ v ∈ omegaAt s, ∃ d ∉ s, d•v ∈ omega).
+- OmegaBC.lean regenerated (10:09): **`ZInQ.HeightBC.omegaBaseChange : OmegaBaseChange` PROVED** and
+  **`omegaLocalization : OmegaLocalization`** (so the named Prop introduced above is discharged).
+  VERIFIED: `lake env lean`, 0 errors, 0 sorry, 21 s; all 12 `#print axioms` [propext, Classical.choice,
+  Quot.sound]; verbatim_check.py ALL OK (HodgeBCInjective, CotangentSpanBC, OmegaBaseChange).
+  New lemmas: `omegaAt_sat` (u ∉ s, u•w ∈ omegaAt s ⇒ w ∈ omegaAt s; multiply generators by the unit
+  G^♯(u)⁻¹), `omegaAt_full` (c•v ∈ omegaAt s₁ with c ≠ 0; affine chart around e(s₁), 𝒪_ξ = Γ(U)_𝔭,
+  e^♯a vanishes on e⁻¹U by germ injectivity at the generic point), `omegaAt_open` (germ of I_{e(s)}
+  extends over W ∋ e(s); e^♯F = 0 on e⁻¹W), `exists_mem_not_mem_of_sat` (Dedekind: nonzero ideal
+  saturated at P₁ ≠ ⊥ contains P₁^n via the DVR R_{P₁}, so ⊄ P ≠ P₁), `finite_of_isClosed_not_genericPt`
+  (closed Z ∌ η is finite: ⊆ minimal primes of a nonzero ideal).

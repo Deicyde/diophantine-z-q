@@ -27,6 +27,9 @@ fl = fin.split('\n')
 check('scratch/hodge-bc2/HodgeBCInjective.lean', ['HodgeBCInjective', 'CotangentSpanBC'],
       [('infra-stalks CotangentBaseChange.lean body', cbc), ('infra-stalks bc_proof.lean.part', bcp),
        ('Final.lean 590-856', '\n'.join(fl[589:856]))])
+check('scratch/hodge-bc2/OmegaBC.lean', ['HodgeBCInjective', 'CotangentSpanBC', 'OmegaBaseChange'],
+      [('infra-stalks CotangentBaseChange.lean body', cbc), ('infra-stalks bc_proof.lean.part', bcp),
+       ('Final.lean 590-856', '\n'.join(fl[589:856]))])
 import os
 for extra in sys.argv[1:]:
     exec(open(extra).read())

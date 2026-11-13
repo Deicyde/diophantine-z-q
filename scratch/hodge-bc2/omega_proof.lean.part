@@ -51,6 +51,71 @@ theorem mem_of_forall_locSub {R M : Type*} [CommRing R] [AddCommGroup M] [Module
     obtain ⟨d, hd, hdv⟩ := h P hP
     exact absurd (hJP (by simpa [J] using hdv)) hd
 
+/-! ### Dedekind lemmas -/
+
+/-- A nonzero ideal of a Dedekind domain that is saturated at a nonzero prime `P₁` is not contained
+in any prime `P ≠ P₁` (it contains a power of `P₁`, by the DVR `R_{P₁}`). -/
+theorem exists_mem_not_mem_of_sat {R : Type*} [CommRing R] [IsDedekindDomain R] (P₁ P : Ideal R)
+    [P₁.IsPrime] [hP : P.IsPrime] (hP₁ : P₁ ≠ ⊥) (hne : P ≠ P₁) (J : Ideal R) (hJ : J ≠ ⊥)
+    (hsat : ∀ u ∉ P₁, ∀ d, u * d ∈ J → d ∈ J) : ∃ d ∈ J, d ∉ P := by
+  by_contra hcon
+  push_neg at hcon
+  have hJP : J ≤ P := fun d hd => hcon d hd
+  let Rp := Localization.AtPrime P₁
+  haveI : IsDiscreteValuationRing Rp :=
+    IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain R hP₁ Rp
+  have hinj : Function.Injective (algebraMap R Rp) :=
+    IsLocalization.injective Rp P₁.primeCompl_le_nonZeroDivisors
+  have hmap : J.map (algebraMap R Rp) ≠ ⊥ := by
+    obtain ⟨c, hc, hc0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hJ
+    intro h
+    apply hc0
+    have : algebraMap R Rp c = 0 := by
+      rw [← Ideal.mem_bot, ← h]; exact Ideal.mem_map_of_mem _ hc
+    exact hinj (this.trans (map_zero _).symm)
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible Rp
+  obtain ⟨n, hn⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hmap hϖ
+  have hle : P₁ ^ n ≤ J := by
+    intro a ha
+    have hpow : (P₁ ^ n).map (algebraMap R Rp) = Ideal.span {ϖ ^ n} := by
+      rw [Ideal.map_pow, IsLocalization.AtPrime.map_eq_maximalIdeal, hϖ.maximalIdeal_eq,
+        Ideal.span_singleton_pow]
+    have ha' : algebraMap R Rp a ∈ J.map (algebraMap R Rp) := by
+      rw [hn, ← hpow]; exact Ideal.mem_map_of_mem _ ha
+    obtain ⟨⟨j, u⟩, hju⟩ := (IsLocalization.mem_map_algebraMap_iff P₁.primeCompl Rp).mp ha'
+    have hau : (u : R) * a = j := hinj (by rw [map_mul, mul_comm]; exact hju)
+    exact hsat u u.2 a (hau ▸ j.2)
+  have h1 : P₁ ≤ P := Ideal.IsPrime.le_of_pow_le (hle.trans hJP)
+  have hmax : P₁.IsMaximal := Ideal.IsPrime.isMaximal ‹_› hP₁
+  exact hne (hmax.eq_of_le hP.ne_top h1).symm
+
+/-- A closed subset of `Spec 𝓞_L` avoiding the generic point is finite. -/
+theorem finite_of_isClosed_not_genericPt (L : Type) [Field L] [NumberField L]
+    (Z : Set (Spec (CommRingCat.of (𝓞 L)))) (hZ : IsClosed Z) (hg : genericPt L ∉ Z) :
+    Z.Finite := by
+  obtain ⟨I, hI⟩ := (PrimeSpectrum.isClosed_iff_zeroLocus_ideal
+    (show Set (PrimeSpectrum (𝓞 L)) from Z)).mp hZ
+  have hI0 : I ≠ ⊥ := by
+    rintro rfl
+    apply hg
+    change (genericPt L : PrimeSpectrum (𝓞 L)) ∈ (show Set (PrimeSpectrum (𝓞 L)) from Z)
+    rw [hI]
+    intro x hx
+    simp only [Submodule.bot_coe, Set.mem_singleton_iff] at hx
+    rw [hx]; exact Ideal.zero_mem _
+  have hfin := Ideal.finite_minimalPrimes_of_isNoetherianRing (𝓞 L) I
+  refine (hfin.preimage (Set.injOn_of_injective
+    (fun p q (h : (p : PrimeSpectrum (𝓞 L)).asIdeal = (q : PrimeSpectrum (𝓞 L)).asIdeal) =>
+      PrimeSpectrum.ext h))).subset ?_
+  intro p hp
+  have hp' : (p : PrimeSpectrum (𝓞 L)) ∈ PrimeSpectrum.zeroLocus (I : Set (𝓞 L)) := by
+    rw [← hI]; exact hp
+  have hIp : I ≤ (p : PrimeSpectrum (𝓞 L)).asIdeal := fun x hx => hp' hx
+  refine ⟨⟨(p : PrimeSpectrum (𝓞 L)).isPrime, hIp⟩, fun q hq hqp => ?_⟩
+  have hq0 : q ≠ ⊥ := fun h => hI0 (le_bot_iff.mp (h ▸ hq.2))
+  have hqmax : q.IsMaximal := Ideal.IsPrime.isMaximal hq.1 hq0
+  exact (hqmax.eq_of_le (p : PrimeSpectrum (𝓞 L)).isPrime.ne_top hqp).symm.le
+
 section OmegaBC
 
 variable {K : Type} [Field K] {A : AbVar K}
@@ -550,6 +615,76 @@ theorem omegaBaseChange_of_localization (hloc : OmegaLocalization) : OmegaBaseCh
   obtain ⟨d₂, hd₂, hd₂v⟩ := hle hdv
   exact ⟨d₂ * d, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim hd₂ hd, by rw [mul_smul]; exact hd₂v⟩
 
+
+/-- **`OmegaLocalization` holds.** For a generator `df` of `(ω_𝒢)_s` (`f ∈ I_{e(s)}`): `f` extends
+over an open `W ∋ e(s)` (`omegaAt_open`), so `df ∈ (ω_𝒢)_{s₁}` whenever `e(s₁) ∈ W`; the other
+points form a finite set of closed points `≠ s` (`finite_of_isClosed_not_genericPt`); at each of
+them the ideal `{d | d • df ∈ (ω_𝒢)_{s₁}}` is nonzero (`omegaAt_full`) and saturated
+(`omegaAt_sat`), hence has an element `∉ s` (`exists_mem_not_mem_of_sat`); their product works. -/
+theorem omegaLocalization : OmegaLocalization := by
+  intro K _ A L _ _ _ 𝒢 s v hv
+  classical
+  haveI := s.isPrime
+  suffices key : 𝒢.omegaAt s ≤ locSub s.asIdeal 𝒢.omega from key hv
+  unfold GroupModel.omegaAt
+  rw [Submodule.span_le]
+  rintro _ ⟨f, hf, h, rfl⟩
+  obtain ⟨W, hsW, hW⟩ := omegaAt_open 𝒢 s f hf h
+  set m := 𝒢.dCls ⟨_, h⟩
+  set Z : Set (Spec (CommRingCat.of (𝓞 L))) := {s₁ | 𝒢.unitSection s₁ ∉ W}
+  have hZc : IsClosed Z := by
+    have : IsOpen ((𝒢.unitSection ⁻¹ᵁ W : (Spec (CommRingCat.of (𝓞 L))).Opens) :
+        Set (Spec (CommRingCat.of (𝓞 L)))) := (𝒢.unitSection ⁻¹ᵁ W).isOpen
+    exact this.isClosed_compl
+  have hξW : 𝒢.genericUnit ∈ W := (𝒢.specializes_genericUnit s).mem_open W.isOpen hsW
+  have hgen : genericPt L ∉ Z := fun h' => h' hξW
+  have hZfin := finite_of_isClosed_not_genericPt L Z hZc hgen
+  have hd : ∀ s₁ ∈ Z, ∃ d : 𝓞 L, d ∉ s.asIdeal ∧ d • m ∈ 𝒢.omegaAt s₁ := by
+    intro s₁ hs₁
+    haveI := s₁.isPrime
+    let J : Ideal (𝓞 L) := (𝒢.omegaAt s₁).comap (LinearMap.toSpanSingleton (𝓞 L) _ m)
+    have hJ0 : J ≠ ⊥ := by
+      obtain ⟨c, hc0, hc⟩ := omegaAt_full 𝒢 s₁ m
+      intro hJ
+      apply hc0
+      have : c ∈ J := hc
+      rw [hJ] at this
+      exact this
+    have hsat : ∀ u ∉ s₁.asIdeal, ∀ d, u * d ∈ J → d ∈ J := by
+      intro u hu d hud
+      apply omegaAt_sat 𝒢 s₁ u hu (d • m)
+      have : (u * d) • m ∈ 𝒢.omegaAt s₁ := hud
+      rwa [mul_smul] at this
+    have hne : s₁.asIdeal ≠ ⊥ := by
+      intro h0
+      apply hgen
+      have : s₁ = genericPt L := PrimeSpectrum.ext h0
+      rw [← this]; exact hs₁
+    have hss : s.asIdeal ≠ s₁.asIdeal := by
+      intro h0
+      apply hs₁
+      have : s = s₁ := PrimeSpectrum.ext h0
+      rw [← this]; exact hsW
+    obtain ⟨d, hdJ, hdP⟩ := exists_mem_not_mem_of_sat s₁.asIdeal s.asIdeal hne hss J hJ0 hsat
+    exact ⟨d, hdP, hdJ⟩
+  choose! dd hdd using hd
+  refine ⟨∏ s₁ ∈ hZfin.toFinset, dd s₁, ?_, ?_⟩
+  · intro hD
+    obtain ⟨s₁, hs₁, h1⟩ := Ideal.IsPrime.prod_mem_iff.mp hD
+    exact (hdd s₁ (hZfin.mem_toFinset.mp hs₁)).1 h1
+  · rw [GroupModel.omega, Submodule.mem_iInf]
+    intro s₁
+    by_cases hs₁ : s₁ ∈ Z
+    · rw [← Finset.mul_prod_erase _ _ (hZfin.mem_toFinset.mpr hs₁), mul_comm, mul_smul]
+      exact Submodule.smul_mem _ _ (hdd s₁ hs₁).2
+    · have : 𝒢.unitSection s₁ ∈ W := by
+        by_contra h'; exact hs₁ h'
+      exact Submodule.smul_mem _ _ (hW s₁ this)
+
+/-- **`OmegaBaseChange` holds** (height-bc glue BC-omega; statement verbatim). -/
+theorem omegaBaseChange : OmegaBaseChange :=
+  omegaBaseChange_of_localization omegaLocalization
+
 end ZInQ.HeightBC
 
 #print axioms ZInQ.HeightBC.hodgeBCInjective
@@ -557,3 +692,10 @@ end ZInQ.HeightBC
 #print axioms ZInQ.HeightBC.exists_act
 #print axioms ZInQ.HeightBC.omegaAt_bc_local
 #print axioms ZInQ.HeightBC.omegaBaseChange_of_localization
+#print axioms ZInQ.HeightBC.exists_mem_not_mem_of_sat
+#print axioms ZInQ.HeightBC.finite_of_isClosed_not_genericPt
+#print axioms ZInQ.HeightBC.omegaAt_sat
+#print axioms ZInQ.HeightBC.omegaAt_full
+#print axioms ZInQ.HeightBC.omegaAt_open
+#print axioms ZInQ.HeightBC.omegaLocalization
+#print axioms ZInQ.HeightBC.omegaBaseChange
