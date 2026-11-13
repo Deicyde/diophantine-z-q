@@ -688,8 +688,11 @@ clause carries an extra `Γ₀`/Fricke-stability condition and is **not** used h
 (`docs/research/locators.md`, row R16); (ii) `V_ℓ(A_f)` free of rank 2 over `K_f ⊗ ℚ_ℓ`
 (Shimura 1971 §7.4; Ribet 1977; UNVERIFIED locators); (iii) the Eichler–Shimura congruence
 relation `T_p = Frob_p + p⟨p⟩Frob_p⁻¹` on `J₁(N)` mod `p ∤ N` (Shimura 1971 Thm 7.9;
-Diamond–Shurman Thm 8.7.2; UNVERIFIED), giving the characteristic polynomial
-`X² − ι(a_p)X + ι(χ(p))p` of arithmetic Frobenius on each `ι`-component of the covariant `V_ℓ`.
+Diamond–Shurman Thm 8.7.2; UNVERIFIED). The relation alone only gives an annihilating polynomial
+of Frobenius on each `ι`-component; the characteristic polynomial `X² − ι(a_p)X + ι(χ(p))p` of
+arithmetic Frobenius on the covariant `V_ℓ(A_f)`, `p ∤ Nℓ`, is printed as such in Diamond–Shurman
+Thm 9.5.4 and Shimura 1971 Thm 7.11 / Ribet 1977 (UNVERIFIED numbers; review finding 2026-11-12),
+which is the supplier to cite for the trace and determinant clauses.
 Shimura's theorems are for his canonical model of `X₁(N)`; they transfer to every model of §D
 because any two are `ℚ`-isomorphic (leaf MC9 of bp-modcurves: Shimura's canonical model for
 `Γ₁(N)` has function field `ℚ(j, f_{(0,1/N)})`, `ℚ`-isomorphic to `K_N`; Shimura 1971 §6.7,

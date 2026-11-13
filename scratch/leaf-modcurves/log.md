@@ -29,3 +29,11 @@
   of ℚ̄), `isFrobAt_of_isArithFrob` (PkgI4 arithmetic Frobenius at v over p ⇒ kernel `GlueC10.IsFrobAt` with
   𝔓 = 𝔪_v ∩ ℤ̄): so R16' (IsFrobAt form) implies its IsArithFrob form. `lake env lean`: exit 0, no
   warnings; standard axioms. VERIFIED.
+- 16:58 Independent model review (read-only subagent) of ModCurveLeaves.lean: no leaf false, over-strong or
+  vacuous; definitions at the right strength (IsX1Model incl. N = 1..4 and Shimura's field = K_N; IsJacobian
+  genus 0; eigenFun dim 2 for all ℓ; frobOn = transpose; arithmetic Frobenius on covariant V_ℓ; a_p/ā_p
+  absorbed by θ∘c; no Fricke clause; DimJ1Genus small N; IsBelyiFunction, BelyiX1, X1ModelExists true).
+  One sourcing finding: the congruence relation (Shimura 1971 Thm 7.9) gives only an annihilating
+  polynomial; the trace/det clauses must cite the printed characteristic polynomial (Diamond–Shurman
+  Thm 9.5.4, Shimura 1971 Thm 7.11 / Ribet 1977, UNVERIFIED numbers). Applied to the R16 docstring and to
+  docs/research/leaf-modcurves.md §3, §6. Recompiled: exit 0, no warnings, standard axioms. VERIFIED.

@@ -1,7 +1,7 @@
 # leaf-modcurves: `X₁(N)`, `J₁(N)` over `ℚ` and a concrete R16
 
 Task leaf-modcurves, 2026-11-12, following `docs/research/bp-modcurves.md`. The Lean file is
-`scratch/leaf-modcurves/ModCurveLeaves.lean` (797 lines; it imports the kernel modules
+`scratch/leaf-modcurves/ModCurveLeaves.lean` (about 840 lines; it imports the kernel modules
 `ZInQKernel.HDecomp.Objects` and `ZInQKernel.HDecomp.C10.C10`). The results log is
 `scratch/leaf-modcurves/log.md`.
 
@@ -49,7 +49,11 @@ host has no network).
      hypothesis `hρ₅` of the kernel's `GlueC10.c10`.
    - `dualAct_mem`: `G_ℚ` preserves the `ι`-eigenfunctionals. Because this is proved, R16 does
      not assume it.
-6. **What remains before C9, E1, E2 can be instantiated** is listed in §5. In short:
+   - `isFrobAt_of_isArithFrob`: `Leaves.lean`'s arithmetic Frobenius implies the kernel's
+     `IsFrobAt`.
+6. **An independent model review** found no false, over-strong or vacuous leaf. Its one
+   sourcing finding is applied (§6).
+7. **What remains before C9, E1, E2 can be instantiated** is listed in §5. In short:
    - C9 needs bridges from R16's `ρ_{f,ι}` to the abstract eigenform representation of
      `EigenformRepExists` and to C8's `r₅`.
    - E1 needs `ρ_{f,ι}` as a *sub*representation of `V_ℓ(J₁(N)_{L'}) ⊗ E`. This comes from
@@ -62,13 +66,13 @@ host has no network).
 ## §1. What compiles (VERIFIED: `lake env lean scratch/leaf-modcurves/ModCurveLeaves.lean`, exit 0, no errors, no warnings, no `sorry`)
 
 Every `#print axioms` (for `genus_Gamma1_le`, `IsJacobian.unique`, `dualAct_mem`, `dim_J1_le`,
-`exists_J1_dim_le`, `exists_J1_quotient`, `rhoF_traces`) gives `propext`, `Classical.choice`,
+`exists_J1_dim_le`, `exists_J1_quotient`, `rhoF_traces`, `isFrobAt_of_isArithFrob`) gives `propext`, `Classical.choice`,
 `Quot.sound`.
 
 | § | Content | Origin |
 | --- | --- | --- |
 | A | `pmSubgroup`, `belyiDeg`, `nu2`, `nu3`, `nuInf`, `genus`; `genus_Gamma1_le : genus (Γ₁ N) ≤ N²` (proved) | copied from bp-modcurves `Gamma1Genus.lean` |
-| B | `GQ`, `IsFrobAt` (= kernel `GlueC10.IsFrobAt`), `CF`, `coeff`, `HasNebentypus`, `IsNormalizedEigenform`, `oldSpace`, `IsNewform`; new `coeffField f = ℚ(a_n(f)) ⊆ ℂ` | copied from `Leaves.lean` (`PkgI4` §2) |
+| B | `GQ`, `IsFrobAt` (= kernel `GlueC10.IsFrobAt`), `LiesOver`, `IsArithFrob`, `zbar_mem`, `isFrobAt_of_isArithFrob` (proved), `CF`, `coeff`, `HasNebentypus`, `IsNormalizedEigenform`, `oldSpace`, `IsNewform`; new `coeffField f = ℚ(a_n(f)) ⊆ ℂ` | copied from `Leaves.lean` (`PkgI4` §2) |
 | C | `Ej`, `Ej_j`, `EjBar`, `xCoord`, `fieldX1 P = ℚ(j)(x(P))`, `Y1j`, `jMap` | copied from bp-modcurves `ModularCurveDefs.lean` |
 | D | `IsCurve`, `IsX1Model N X`, `RatPt` | new |
 | E | `IsJacobian` (over kernel `PkgI3.AbVar`), `JacobianExists` (leaf), `IsJacobian.unique` (proved), `IsJ1 N J` | adapted from bp-modcurves `Jacobian.lean` |
@@ -171,10 +175,16 @@ def R16_EichlerShimuraJ1' : Prop :=
   condition is neither needed nor silently dropped. This is `locators.md`'s reading, row R16.
 - (ii) **`V_ℓ(A_f)` is free of rank 2 over `K_f ⊗ ℚ_ℓ`**, for every `ℓ` (Shimura 1971 §7.4;
   Ribet 1977; UNVERIFIED locators). This gives `finrank (eigenFun) = 2`.
-- (iii) **Eichler–Shimura congruence relation** `T_p = Frob_p + p⟨p⟩Frob_p⁻¹` on `J₁(N)` mod
-  `p ∤ N` (Shimura 1971 Thm 7.9; Diamond–Shurman Thm 8.7.2; UNVERIFIED). On each `V'_ι` it gives
-  the characteristic polynomial `X² − ι(a_p)X + ι(χ(p))p` of arithmetic Frobenius on the
-  covariant `V_ℓ` (for `p ∤ Nℓ`).
+- (iii) **The characteristic polynomial of Frobenius on `V'_ι`**, `X² − ι(a_p)X + ι(χ(p))p`
+  for arithmetic Frobenius on the covariant `V_ℓ(A_f)`, `p ∤ Nℓ`. This is printed as such in
+  Diamond–Shurman Thm 9.5.4 and in Shimura 1971 Thm 7.11 / Ribet 1977 (UNVERIFIED numbers). It
+  rests on the Eichler–Shimura congruence relation `T_p = Frob_p + p⟨p⟩Frob_p⁻¹` (Shimura 1971
+  Thm 7.9; Diamond–Shurman Thm 8.7.2; UNVERIFIED). *Review finding (2026-11-12):* the congruence
+  relation alone only gives an annihilating polynomial of Frobenius on `V'_ι`. If its roots
+  `α ≠ β`, then `Frob = α·Id` would also satisfy it, with trace `2α`. So the citation for the
+  trace and determinant clauses must be the printed characteristic polynomial, not Thm 7.9
+  alone. The leaf statement is unchanged; its Lean docstring now cites the characteristic
+  polynomial.
 - **Arithmetic Frobenius, covariant `V_ℓ`.** On the kernel's `V_ℓ` (points over `ℚ̄`, `σ` acting
   on coordinates), arithmetic Frobenius acts like the Frobenius endomorphism. For an elliptic
   curve it has trace `a_p` and determinant `p`. With geometric Frobenius the statement would be
@@ -189,10 +199,15 @@ def R16_EichlerShimuraJ1' : Prop :=
   so the leaf is weaker than Shimura's construction.
 
 **Frobenius predicate.** `IsFrobAt` is the kernel's `GlueC10.IsFrobAt`: some prime `𝔓` of `ℤ̄`
-over `p` with `g x ≡ x^p mod 𝔓` on `ℤ̄`. It is the predicate that C10 consumes. It is equivalent
-to `PkgI4.IsArithFrob` at the place `ℤ̄_𝔓`: valuation rings of `ℚ̄` containing `ℤ̄` are its
-localizations, and the congruence extends to fractions `a/s` with `s ∉ 𝔓`. So the two
-formulations of R16 are interchangeable. SPECULATIVE as stated; this is a small glue lemma.
+over `p` with `g x ≡ x^p mod 𝔓` on `ℤ̄`. It is the predicate that C10 consumes, and it is the
+standard notion. For `x ∈ 𝔓`, `g x ≡ x^p ≡ 0`, so `g𝔓 ⊆ 𝔓`, hence `g𝔓 = 𝔓`, and `g` induces
+`x ↦ x^p` on `ℤ̄/𝔓`.
+- **Proved bridge** `isFrobAt_of_isArithFrob` (VERIFIED, compiled): an arithmetic Frobenius at
+  a place `v` in the sense of `Leaves.lean`'s `PkgI4.IsArithFrob` is an `IsFrobAt`, with
+  `𝔓 = 𝔪_v ∩ ℤ̄`. The proof uses `zbar_mem`: `ℤ̄` lies in every valuation subring of `ℚ̄`.
+- Consequence: R16' implies its `IsArithFrob` form, which is the form R14
+  (`EigenformRepExists`) uses.
+- The converse direction (take `v = ℤ̄_𝔓`) is not needed and was not formalized.
 
 ---
 
@@ -261,7 +276,29 @@ field of degree `d`: `h_F(J_ℚ̄) ≤ 13·10⁶·g·d⁵`". Here `g := dim J` u
 
 ---
 
-## §6. Risks and open checks
+## §6. Independent review (2026-11-12, one model review, read-only)
+
+Verdict: **no leaf is false, stronger than its source, or vacuous, and every definition has the
+right strength.** The review checked:
+- `IsX1Model`: constant field `ℚ`; `N = 1..4`, with degrees 1, 3, 4, 6 over `ℚ(j)`; Shimura's
+  field `ℚ(j, f_{(0,1/N)})` is literally `K_N` for some `P`; the `μ_N` form is `ℚ`-isomorphic;
+  `≃+*` is adequate.
+- `IsJacobian` and `JacobianExists`: genus 0 (`AbVar.zero`), the base point, universes.
+- `eigenFun`: dimension 2 for every `ℓ`, including `ℓ ∣ N`.
+- `frobOn` (a transpose, with the same trace and determinant); arithmetic Frobenius on the
+  covariant `V_ℓ` (geometric Frobenius would be wrong).
+- The `a_p`/`ā_p` conventions: `θ ↦ θ∘c` maps `eigenFun(θ∘c, ι)` to `eigenFun(θ, ι∘c)`.
+- Absence of the Fricke clause.
+- `DimJ1Genus` for `N = 1..4`: `(μ, ν₂, ν₃, ν∞) = (1,1,1,1), (3,1,0,2), (4,0,1,2), (6,0,0,3)`,
+  all giving genus 0.
+- `IsBelyiFunction`, `BelyiX1`, `X1ModelExists`: true; for example the cusp `(Tate(q), q^{1/N})`
+  is rational on the `ℤ/N` form.
+
+The one finding was **sourcing** (characteristic polynomial against congruence relation). It is
+applied in §3 and in the Lean docstring. Minor: Shimura 1973 Thm 1 may be phrased for primitive
+forms in `S₂(N, ψ)` (UNVERIFIED). This is harmless because R16' is restricted to newforms.
+
+## §7. Risks and open checks
 
 1. The locators of (ii), (iii), MC9, Prop. 1.40 and Milne are UNVERIFIED (no network). The
    locator audit read Shimura 1973 Thm 1 only.
