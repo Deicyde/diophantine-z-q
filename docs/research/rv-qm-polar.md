@@ -70,8 +70,10 @@ Status of Lemma P itself:
   - Uniqueness is h-trust A4 item 2, re-checked.
   - The existence lattice core is compiled: bp-qmmoduli `eq_pm_E0_of_principal`, copied here,
     and `type_eq_mu_mul`.
-  - The sign step is proved here by reverse Cauchy–Schwarz and was VERIFIED numerically by
-    rv-blueprints (`sheet_check.py`).
+  - The sign step is **compiled** (`riemann_sign`, `lemmaP_lattice`, §5): for every complex
+    structure `j`, exactly one of `±E₀` is a principal Riemann form. So Lemma P holds on every
+    QM torus `ℂ²/𝒪v`, with every step in Lean except class number one (`H₁` free) and the
+    descent from `ℂ` to `F`.
 - *Published:* see §1.2. The locators are UNVERIFIED (no network). N5's v14 text cites Buzzard
   1997, p. 592, for exactly this uniqueness (h-v14 rows L699-705 and L1014; UNCHECKED there).
 
@@ -146,8 +148,12 @@ are statements about type-`μ` triples `(A, ι, λ)` (plus `η`), not about pair
     over `ℝ`. Both `μ⁻¹` and `xjx̄` are timelike when `nrd x ≠ 0`, and `xjx̄` is null but nonzero
     when `x ≠ 0` has `nrd x = 0`. Reverse Cauchy–Schwarz makes their pairing nonzero, with a sign
     constant on each sheet of `{j² = −1}`.
-  - So exactly one of `±E₀` is a Riemann form. (Numerically VERIFIED by rv-blueprints
-    `sheet_check.py` on 30 random `j`; not in Lean.)
+  - So exactly one of `±E₀` is a Riemann form. **Compiled** in a different form from the
+    Cauchy–Schwarz argument above. The Gram matrix of `x ↦ E₀(xj, x)` (`j = ai + bj + ck`,
+    `q = 3b² − 2a² − 6c² = 1`) has leading minors `2(b−c)`, `4(b²−2c²)`, `8(b+c)q` and `16q²`.
+    These are all positive when `b > 0` and alternate in sign when `b < 0` (`Qpoly_ldl`,
+    `riemann_sign`, `lemmaP_lattice`). This agrees with rv-blueprints' numerical
+    `sheet_check.py`.
 - **Existence over `F`.**
   - `A, ι` are defined over a finitely generated subfield; embed it in `ℂ`. The polarization
     over `F̄` is unique, hence fixed by `Gal(F̄/F)` (which fixes `ι`), and it descends because
@@ -243,7 +249,8 @@ The one structural caveat:
   Lemma P". This cannot be split into two Lean hypotheses until `PkgI3.AbVar` has dual abelian
   varieties and polarizations (WP4).
 - If the human check of Buzzard p. 592 or Rotger 2003 finds only uniqueness printed, existence
-  becomes glue. It is proved in §1.2, with its lattice core in Lean and its sign step on paper.
+  becomes glue. It is proved in §1.2, with its lattice core and sign step in Lean
+  (`eq_smul_E0`, `lemmaP_lattice`).
 
 ---
 
@@ -308,8 +315,8 @@ The one structural caveat:
 
 `lake env lean scratch/rv-qm-polar/QMPolar.lean` takes about 1 minute: no errors, linter warnings
 only. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `two_principal_types`,
-`Enu_not_rosati_mu`, `type_eq_mu_mul`, `twist_type`, `dag_conj_chi3`, `chi3_normalizes` and
-`w_eq_chi_mul` (VERIFIED).
+`Enu_not_rosati_mu`, `type_eq_mu_mul`, `twist_type`, `dag_conj_chi3`, `chi3_normalizes`,
+`w_eq_chi_mul`, `riemann_sign`, `E0R_mul_j` and `lemmaP_lattice` (VERIFIED). There is no `sorry`.
 - §§1-4 are copied from bp-qmmoduli `QMOrder.lean`: `O`, `mu`, `dag`, `E0`, `gram_det`,
   `eq_smul_E0`, `eq_pm_E0_of_principal`.
 - §5:
@@ -325,9 +332,17 @@ only. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for `two_p
   - `chi2_mu`, `chi3_mu`, `chi2_chi3`;
   - `chi2_normalizes`, `chi3_normalizes`;
   - `dag_conj_chi2`, `dag_conj_chi3`, `dag_conj_mu`, `w_eq_chi_mul`.
+- §8 (over `B_ℝ = QuaternionAlgebra ℝ 2 0 (−3)`):
+  - `pure_of_sq`: `j² = −1` gives `j` pure with `nrd j = 1`;
+  - `E0R_mul_j`: `E₀(xj, yj) = E₀(x, y)`;
+  - `Qpoly_ldl` (explicit `LDLᵀ`), `Qpoly_pos`;
+  - **`riemann_sign`**: `x ↦ E₀(xj, x)` is positive definite if `imJ(j) > 0` and negative
+    definite if `imJ(j) < 0`;
+  - **`lemmaP_lattice`**: exactly one `r ∈ ℚ` has `det(r·gram) = 1` and `r·E₀(xj, x) > 0` for all
+    `x ≠ 0`.
 
 Not in Lean:
-- the sign step of existence (reverse Cauchy–Schwarz; numerically verified elsewhere);
+- class number one of `𝒪` (`H₁(A, ℤ)` free over `𝒪`);
 - Lemma P at the level of abelian varieties, which needs polarizations (WP4);
 - `π₀(A) = 1` for `D = 6` (evidence only).
 
