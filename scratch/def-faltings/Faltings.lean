@@ -1242,6 +1242,38 @@ noncomputable def omegaAt (s : Spec (CommRingCat.of (𝓞 L))) : Submodule (𝓞
     ∃ h : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f ∈
       IsLocalRing.maximalIdeal 𝒢.genStalk, m = 𝒢.dCls ⟨_, h⟩}
 
+/-- Sanity check of `omegaAt`: at the generic point of `Spec 𝓞_L` the local lattice is all of
+`ω_{A_L}` (the stalk of `e*Ω¹` at the generic point is the generic stalk), so `omega` is the
+intersection of genuine local lattices at the closed points. Proved. -/
+theorem omegaAt_genericPt : 𝒢.omegaAt (genericPt L) = ⊤ := by
+  rw [eq_top_iff]
+  rintro m -
+  obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent_surjective m
+  have hspec : ∀ x, (𝒢.G.left.presheaf.stalkSpecializes
+      (𝒢.specializes_genericUnit (genericPt L))).hom x = x := by
+    intro x
+    rw [show 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L)) =
+      𝟙 _ from TopCat.Presheaf.stalkSpecializes_refl _ _]
+    rfl
+  have hfield : IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L)) := by
+    have : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+      (genericPoint_eq_bot_of_affine (CommRingCat.of (𝓞 L))).symm
+    rw [this]
+    exact Field.toIsField _
+  apply Submodule.subset_span
+  refine ⟨(f : 𝒢.genStalk), ?_, ?_, ?_⟩
+  · show (𝒢.unitSection.stalkMap (genericPt L)).hom (f : 𝒢.genStalk) = 0
+    have hloc : (𝒢.unitSection.stalkMap (genericPt L)).hom (f : 𝒢.genStalk) ∈
+        IsLocalRing.maximalIdeal _ :=
+      map_nonunit _ _ ((IsLocalRing.mem_maximalIdeal _).mp f.2)
+    rw [IsLocalRing.isField_iff_maximalIdeal_eq.mp hfield] at hloc
+    exact hloc
+  · convert f.2 using 1
+    exact hspec _
+  · unfold dCls
+    congr 1
+    exact Subtype.ext (hspec _).symm
+
 /-- **Node M2.** `ω_𝒢 = Γ(Spec 𝓞_L, e*Ω¹_{𝒢/𝓞_L}) = ⋂_s (ω_𝒢)_s ⊆ ω_{A_L}`. -/
 noncomputable def omega : Submodule (𝓞 L) 𝒢.cotangent := ⨅ s, 𝒢.omegaAt s
 
@@ -1879,6 +1911,7 @@ end ZInQ.DefFaltings
 
 #print axioms ZInQ.DefFaltings.stableFaltingsHeight
 #print axioms ZInQ.DefFaltings.stableFaltingsHeight_le
+#print axioms ZInQ.DefFaltings.GroupModel.omegaAt_genericPt
 #print axioms ZInQ.DefFaltings.stableFaltingsHeightDeligne_eq
 #print axioms ZInQ.DefFaltings.GroupModel.semilinear_ext_wedge
 #print axioms ZInQ.DefFaltings.GroupModel.jacDet_comp

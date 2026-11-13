@@ -24,3 +24,4 @@
 - Added §22 (R18, R22: missing objects) and #print axioms block.
 - Compile (17:00): `lake env lean scratch/def-faltings/Faltings.lean`: no errors, no warnings;
   every #print axioms line lists [propext, Classical.choice, Quot.sound] (VERIFIED).
+- Added GroupModel.omegaAt_genericPt (sanity: local lattice at the generic point is all of ω_{A_L}); proved, compiled (VERIFIED).
