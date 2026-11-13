@@ -1,0 +1,142 @@
+
+/-! ## §5 The glue Props (statements copied verbatim) -/
+
+/-! ### curve-facts: `SmoothStalkDimOne` (scratch/curve-facts/CurveFacts.lean, §8) -/
+
+namespace LeafQM
+
+namespace AV
+
+namespace Pin
+
+open CategoryTheory AlgebraicGeometry Limits
+
+/-- **(C1b) Local rings of a smooth curve at closed points have dimension 1.** If `X → Spec K`
+is smooth of relative dimension 1 over a field `K` and `x` is a closed point, then
+`dim 𝒪_{X,x} = 1` (STANDARD: smooth of relative dimension `n` over a field means `dim_x X = n`
+at every point, and at a closed point of a scheme locally of finite type over a field
+`dim 𝒪_{X,x} = dim_x X`; e.g. Stacks, *Morphisms*, smooth morphisms and dimension of fibres,
+UNVERIFIED tags). Glue (dimension theory), not in Mathlib v4.35; Mathlib has
+`ringKrullDim_stalk_eq_coheight` (Stacks 02IZ), used below. -/
+def SmoothStalkDimOne : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsClosed ({x} : Set X) →
+      ringKrullDim (X.presheaf.stalk x) = 1
+
+/-- **`SmoothStalkDimOne` holds** (task infra-smooth-dim). -/
+theorem smoothStalkDimOne : SmoothStalkDimOne := by
+  intro K _ X f hf x hx
+  have := (InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension f 1 x hx).1
+  rw [this, Nat.cast_one]
+
+end Pin
+
+end AV
+
+end LeafQM
+
+/-! ### hodge-lattice: `RegularAtOrigin`, `DimAtOrigin`, `TangentDimAtOrigin`
+(scratch/hodge-lattice/HodgeLattice.lean, §9 and §11; `originPt` copied verbatim from §9) -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry MonoidalCategory MonObj
+open PkgI3 (AbVar)
+
+/-- The origin `0 ∈ B` of an abelian variety over a field `L` (image of the point of `Spec L`
+under the unit section). -/
+noncomputable def originPt {L : Type} [Field L] (B : AbVar L) : B.X.left :=
+  (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+/-- **(V1)** The local ring of an abelian variety at its origin is regular (a smooth variety is
+regular). -/
+def RegularAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L), IsRegularLocalRing (B.X.left.presheaf.stalk (originPt B))
+
+/-- **(V2)** The local ring of an abelian variety of dimension `g` at its origin has Krull dimension
+`g` (the local ring of an irreducible variety at a closed point has dimension `dim`). -/
+def DimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    ringKrullDim (B.X.left.presheaf.stalk (originPt B)) = g
+
+end ZInQ.DefFaltings.HodgeLattice
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry IsLocalRing
+open PkgI3 (AbVar)
+
+/-- **(V)** The tangent space of an abelian variety `B/L` at the origin has dimension `dim B`. -/
+def TangentDimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    Module.finrank (ResidueField (B.X.left.presheaf.stalk (originPt B)))
+      (CotangentSpace (B.X.left.presheaf.stalk (originPt B))) = g
+
+end ZInQ.DefFaltings.HodgeLattice
+
+namespace InfraSmoothDim
+open CategoryTheory AlgebraicGeometry MonoidalCategory MonObj
+open ZInQ.DefFaltings.HodgeLattice
+
+/-- A section of a morphism to `Spec K` is a closed immersion (copied from
+scratch/mul-rigidity/MulRigidity.lean). -/
+theorem isClosedImmersion_point {K : Type*} [Field K] (G : Over (Spec (.of K)))
+    (x : 𝟙_ (Over (Spec (.of K))) ⟶ G) : IsClosedImmersion x.left :=
+  isClosedImmersion_of_comp_eq_id (Y := Spec (.of K)) G.hom x.left (by simp)
+
+/-- The origin of an abelian variety is a closed point. -/
+theorem isClosed_originPt {L : Type} [Field L] (B : PkgI3.AbVar L) :
+    IsClosed ({originPt B} : Set B.X.left) := by
+  have := isClosedImmersion_point B.X η[B.X]
+  have hr : Set.range (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left.base =
+      {originPt B} := by
+    ext y
+    constructor
+    · rintro ⟨a, rfl⟩
+      have : Subsingleton (PrimeSpectrum L) := inferInstance
+      exact congrArg _ (Subsingleton.elim (α := PrimeSpectrum L) a ⟨⊥, Ideal.isPrime_bot⟩)
+    · rintro rfl
+      exact ⟨_, rfl⟩
+  rw [← hr]
+  exact (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left.isClosedEmbedding.isClosed_range
+
+/-- Dimension and embedding dimension at the origin equal `dim B`. -/
+theorem originPt_dims {L : Type} [Field L] (B : PkgI3.AbVar L) :
+    B.dim = ringKrullDim (B.X.left.presheaf.stalk (originPt B)) ∧
+      ((IsLocalRing.maximalIdeal (B.X.left.presheaf.stalk (originPt B))).spanFinrank :
+        WithBot ℕ∞) = ringKrullDim (B.X.left.presheaf.stalk (originPt B)) := by
+  have : IrreducibleSpace B.X.left :=
+    GeometricallyIrreducible.irreducibleSpace_of_subsingleton (f := B.X.hom)
+  exact topologicalKrullDim_eq_of_smooth B.X.hom (originPt B) (isClosed_originPt B)
+
+end InfraSmoothDim
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry IsLocalRing
+open PkgI3 (AbVar)
+
+/-- **`RegularAtOrigin` holds** (task infra-smooth-dim). -/
+theorem regularAtOrigin : RegularAtOrigin := by
+  intro L _ B
+  have : IsLocallyNoetherian B.X.left := LocallyOfFiniteType.isLocallyNoetherian B.X.hom
+  exact (isRegularLocalRing_iff _).mpr (InfraSmoothDim.originPt_dims B).2
+
+/-- **`DimAtOrigin` holds** (task infra-smooth-dim). -/
+theorem dimAtOrigin : DimAtOrigin := by
+  intro L _ B g hg
+  rw [← (InfraSmoothDim.originPt_dims B).1, hg]
+
+/-- **`TangentDimAtOrigin` holds** (task infra-smooth-dim). -/
+theorem tangentDimAtOrigin : TangentDimAtOrigin := by
+  intro L _ B g hg
+  have : IsLocallyNoetherian B.X.left := LocallyOfFiniteType.isLocallyNoetherian B.X.hom
+  obtain ⟨h1, h2⟩ := InfraSmoothDim.originPt_dims B
+  rw [← spanFinrank_maximalIdeal_eq_finrank_cotangentSpace]
+  rw [← h1, hg] at h2
+  exact_mod_cast h2
+
+end ZInQ.DefFaltings.HodgeLattice
+
+#print axioms LeafQM.AV.Pin.smoothStalkDimOne
+#print axioms ZInQ.DefFaltings.HodgeLattice.regularAtOrigin
+#print axioms ZInQ.DefFaltings.HodgeLattice.dimAtOrigin
+#print axioms ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin

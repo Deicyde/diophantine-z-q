@@ -1,0 +1,26 @@
+IDENTICAL ConstOrOntoAlgClosed                          scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL RatFactorAlgClosed                            scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ptOf                                          scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ratEval                                       scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL isOpen_connectedComponent_of_noetherian       scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ConstOrOntoAlgClosed                          scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL RatFactorAlgClosed                            scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ptOf                                          scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ratEval                                       scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL R1pi0Props                                    scratch/curve-glue/CMPoints.lean vs scratch/h-decomposition/Leaves.lean
+IDENTICAL R2X6PropsIff                                  scratch/curve-glue/CMPoints.lean vs scratch/h-decomposition/Leaves.lean
+IDENTICAL cmExists_of_iff                               scratch/curve-glue/CMPoints.lean vs scratch/h-decomposition/Leaves.lean
+IDENTICAL r2X6Props_of_iff                              scratch/curve-glue/CMPoints.lean vs scratch/h-decomposition/Leaves.lean
+IDENTICAL R1R2fpRep (statement; docstring abridged)
+IDENTICAL R1R2fp_of_rep (statement and proof; docstring abridged)
+IDENTICAL CurveGlueAll.lean contains CurveFacts.lean (header to end of §8) verbatim
+IDENTICAL MobiusEnd.lean: mobius-glue §1-§5 verbatim except the h1' destructuring line
+IDENTICAL MobiusEnd.lean: mobius-glue §7-§8 verbatim
+IDENTICAL MobiusEnd.lean: CurveGlueAll.lean §1 to the end verbatim
+IDENTICAL L0.lean copy of C2K block starting /-- Restriction of sections along
+IDENTICAL L0.lean copy of C2K block starting /-- The constant section
+IDENTICAL L0.lean copy of C2K block starting /-- **(L) "Liouville"
+IDENTICAL MobiusFinal: infra-smooth-dim §0-§4
+IDENTICAL MobiusFinal: smoothStalkDimOne proof
+IDENTICAL MobiusFinal: L0.lean reduction block
+IDENTICAL MobiusFinal: MobiusEnd body (from first section)

@@ -1,0 +1,56 @@
+scratch/curve-glue/MobiusFinal.lean:391:43: warning: Variable name `hU` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hU
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/curve-glue/MobiusFinal.lean:1504:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/curve-glue/MobiusFinal.lean:1504:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/curve-glue/MobiusFinal.lean:1504:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/curve-glue/MobiusFinal.lean:1518:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/curve-glue/MobiusFinal.lean:1522:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/curve-glue/MobiusFinal.lean:1518:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/curve-glue/MobiusFinal.lean:1518:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/curve-glue/MobiusFinal.lean:1522:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/curve-glue/MobiusFinal.lean:1522:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+'LeafQM.AV.Pin.mobiusGlue_of_curves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.mobiusGlue_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.smoothStalkDimOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.globalFunctionsConst_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_G1' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_G1'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L_G1_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_G1_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_G1_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_G1'_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_G1'_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_CI_G1''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_G1''_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_G1''_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_CI_AD_IC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.componentIrreducible' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_AD_IC' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_AD_IC_T5' depends on axioms: [propext, Classical.choice, Quot.sound]

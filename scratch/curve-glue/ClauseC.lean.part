@@ -1,0 +1,204 @@
+/-! ## §5 Clause (c) of (G1') from irreducibility of the component (task curve-glue) -/
+
+/-- **(CI) Connected components of a proper smooth curve over a field are irreducible.** If
+`X → Spec K` is proper and smooth of relative dimension 1 over a field, every connected component of
+`X` is irreducible (properness is not needed, but is kept: it is where (CI) is used, and it makes
+the Lean proof `componentIrreducible` in `MobiusFinal.lean` a Noetherian argument).
+
+Why true (STANDARD; references UNVERIFIED): smooth over a field implies regular, hence normal
+(Stacks, *Varieties*, smooth ⇒ normal; Hartshorne II.8 for regular local rings being domains);
+a locally Noetherian normal scheme is a disjoint union of integral open subschemes (its local rings
+are domains, so irreducible components are disjoint and open), so its connected components are
+its irreducible components. Glue (standard commutative algebra and topology). Not in Mathlib
+v4.35 as stated (task infra-smooth-dim proved that the local rings at closed points are regular of
+dimension 1, `stalk_dim_of_smoothOfRelativeDimension`, which is the main input; with it, (CI) is
+proved in `MobiusFinal.lean`, `componentIrreducible`). -/
+def ComponentIrreducible : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)), IsProper f →
+    SmoothOfRelativeDimension 1 f → ∀ x : X, IsIrreducible (connectedComponent x)
+
+open Polynomial in
+/-- **(G1'') `ImagePlaneCurveClosed` without clause (c).** Either `ρ ≡ ∞` on the `K`-points of
+the component `W` of `p₀`, or there is an irreducible `P ∈ K[x][y]` of `y`-degree `≥ 1` with
+(a) `P(σ(p), ρ(p)) = 0` at the `K`-points of `W` with both values finite, and (b'') the affine
+image `{(σ(p), ρ(p))}` is Zariski closed in `K²`. Why true: §6 of the report (clauses (a), (b'')
+of (G1')). Glue. -/
+def ImagePlaneCurveIrr : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p ≠ σ.val p₀) →
+      (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) →
+        ρ.val p = OnePoint.infty) ∨
+      ∃ P : K[X][X], Irreducible P ∧ 1 ≤ P.natDegree ∧
+        (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0) ∧
+        ∃ S : Set K[X][X], ∀ t u : K,
+          (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+            connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧
+            σ.val p = OnePoint.some t ∧ ρ.val p = OnePoint.some u) ↔
+          ∀ Q ∈ S, Alg.evalXY t u Q = 0
+
+section ClauseC
+
+variable {K : Type} [Field K] {X : Scheme.{0}}
+
+/-- `cst f O` as a ring hom. -/
+def cstRH (f : X ⟶ Spec (CommRingCat.of K)) (O : X.Opens) : K →+* Γ(X, O) :=
+  (res le_top).comp ((f.appTop).hom.comp (Scheme.ΓSpecIso (CommRingCat.of K)).inv.hom)
+
+open Polynomial in
+/-- `P(F, G) ∈ Γ(X, O)` for `P ∈ K[x][y]` and sections `F, G`. -/
+def polySec (f : X ⟶ Spec (CommRingCat.of K)) {O : X.Opens} (P : K[X][X]) (F G : Γ(X, O)) :
+    Γ(X, O) :=
+  P.eval₂ (eval₂RingHom (cstRH f O) F) G
+
+open Polynomial in
+theorem ev_polySec (f : X ⟶ Spec (CommRingCat.of K)) (p : Spec (CommRingCat.of K) ⟶ X)
+    (hp : p ≫ f = 𝟙 _) {O : X.Opens} (hx : ptOf p ∈ O) (P : K[X][X]) (F G : Γ(X, O)) :
+    ev p hx (polySec f P F G) = P.eval₂ (evalRingHom (ev p hx F)) (ev p hx G) := by
+  unfold polySec
+  rw [hom_eval₂]
+  congr 1
+  refine Polynomial.ringHom_ext (fun a => ?_) ?_
+  · simp only [RingHom.coe_comp, Function.comp_apply, coe_eval₂RingHom, eval₂_C,
+      coe_evalRingHom, eval_C]
+    exact ev_cst f p hp hx a
+  · simp
+
+open Polynomial in
+/-- **Clause (c) from (a) and irreducibility** (Lean-proved). On a preirreducible open `W` with a
+`K`-point where `σ` is finite and `ρ ∈ K^×`, if `P(σ, ρ) = 0` at the finite points of `W`, then
+`lc_y(P)(σ(p₁)) = 0` at every `K`-point `p₁` of `W` with `σ(p₁)` finite and `ρ(p₁) = ∞`: the
+section `P^rev(σ, 1/ρ)` on `W ∩ {σ ≠ ∞} ∩ {ρ ≠ 0}` vanishes on the dense open `{ρ ≠ ∞}`, hence
+at `p₁`, where it equals `lc_y(P)(σ(p₁))`. -/
+theorem lc_eval_eq_zero_of_irreducible [IsAlgClosed K] (f : X ⟶ Spec (CommRingCat.of K))
+    [LocallyOfFiniteType f] [JacobsonSpace X] (σ ρ : ToP1 X) (W : X.Opens)
+    (hW : IsPreirreducible (W : Set X)) (P : K[X][X])
+    (ha : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W → ∀ t u : K,
+      σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0)
+    (hne : ((W : Set X) ∩ ((σ.U : Set X) ∩ ((ρ.U : Set X) ∩ ρ.V))).Nonempty)
+    (p₁ : Spec (CommRingCat.of K) ⟶ X) (hp₁ : p₁ ≫ f = 𝟙 _) (hW₁ : ptOf p₁ ∈ W) (t : K)
+    (ht : σ.val p₁ = OnePoint.some t) (hρ : ρ.val p₁ = OnePoint.infty) :
+    P.leadingCoeff.eval t = 0 := by
+  have hσU : ptOf p₁ ∈ σ.U := by
+    by_contra h
+    rw [val_of_not_mem σ p₁ h] at ht
+    exact OnePoint.infty_ne_coe t ht
+  have hρU : ptOf p₁ ∉ ρ.U := fun h => by
+    rw [val_of_mem ρ p₁ h] at hρ
+    exact OnePoint.coe_ne_infty _ hρ
+  have hρV : ptOf p₁ ∈ ρ.V := mem_V_of_not_mem_U ρ hρU
+  let O' : X.Opens := W ⊓ σ.U ⊓ ρ.V
+  have hle1 : O' ≤ σ.U := fun x hx => hx.1.2
+  have hle2 : O' ≤ ρ.V := fun x hx => hx.2
+  let h' : Γ(X, O') := polySec f P.reverse (res hle1 σ.f) (res hle2 ρ.g)
+  have hev : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O',
+      ev p hx h' = P.reverse.eval₂ (evalRingHom (ev p (hle1 hx) σ.f)) (ev p (hle2 hx) ρ.g) := by
+    intro p hp hx
+    simp only [h']
+    rw [ev_polySec f p hp, ev_res, ev_res]
+  have hvan : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O',
+      ptOf p ∈ ρ.U → ev p hx h' = 0 := by
+    intro p hp hx hU
+    rw [hev p hp hx]
+    have hu : ev p hU ρ.f * ev p (hle2 hx) ρ.g = 1 := ev_f_mul_g ρ p hU (hle2 hx)
+    have hu0 : ev p hU ρ.f ≠ 0 := left_ne_zero_of_mul_eq_one hu
+    have hg : ev p (hle2 hx) ρ.g = (ev p hU ρ.f)⁻¹ := eq_inv_of_mul_eq_one_right hu
+    have hPa : Alg.evalXY (ev p (hle1 hx) σ.f) (ev p hU ρ.f) P = 0 :=
+      ha p hp hx.1.1 _ _ (val_of_mem σ p (hle1 hx)) (val_of_mem ρ p hU)
+    let _ : Invertible (ev p hU ρ.f) := invertibleOfNonzero hu0
+    have key := eval₂_reverse_mul_pow (evalRingHom (ev p (hle1 hx) σ.f)) (ev p hU ρ.f) P
+    have e2 : P.eval₂ (evalRingHom (ev p (hle1 hx) σ.f)) (ev p hU ρ.f) =
+        Alg.evalXY (ev p (hle1 hx) σ.f) (ev p hU ρ.f) P := (Polynomial.eval_map _ _).symm
+    rw [invOf_eq_inv, e2, hPa] at key
+    rw [hg]
+    exact (mul_eq_zero.mp key).resolve_right (pow_ne_zero _ hu0)
+  have hsub : ((O' : Set X) ∩ ρ.U) ⊆ ((X.basicOpen h' : X.Opens) : Set X)ᶜ := by
+    rintro x ⟨hxO, hxU⟩ hxb
+    obtain ⟨p, hp, ⟨hpO, hpU⟩, hpb⟩ := exists_point_of_isLocallyClosed f
+      (Z := ((O' : Set X) ∩ ρ.U) ∩ X.basicOpen h')
+      ((O'.isOpen.inter ρ.U.isOpen).inter (X.basicOpen h').isOpen).isLocallyClosed
+      ⟨x, ⟨hxO, hxU⟩, hxb⟩
+    exact (ev_eq_zero_iff p hpO h').1 (hvan p hp hpO hpU) hpb
+  have hcl : ptOf p₁ ∈ closure ((O' : Set X) ∩ ρ.U) := by
+    have hopen : IsOpen ((σ.U : Set X) ∩ ((ρ.U : Set X) ∩ ρ.V)) :=
+      σ.U.isOpen.inter (ρ.U.isOpen.inter ρ.V.isOpen)
+    have h := subset_closure_inter_of_isPreirreducible_of_isOpen hW hopen hne hW₁
+    have e : (W : Set X) ∩ ((σ.U : Set X) ∩ ((ρ.U : Set X) ∩ ρ.V)) = (O' : Set X) ∩ ρ.U := by
+      ext x
+      simp only [O', Opens.coe_inf, Set.mem_inter_iff, SetLike.mem_coe]
+      tauto
+    rwa [e] at h
+  have hnot : ptOf p₁ ∉ X.basicOpen h' :=
+    closure_minimal hsub (X.basicOpen h').isOpen.isClosed_compl hcl
+  have hx₁ : ptOf p₁ ∈ O' := ⟨⟨hW₁, hσU⟩, hρV⟩
+  have h0 := (ev_eq_zero_iff p₁ hx₁ h').2 hnot
+  rw [hev p₁ hp₁ hx₁, ev_g_eq_zero ρ p₁ (hle2 hx₁) hρU, eval₂_at_zero, coeff_zero_reverse] at h0
+  have hs : ev p₁ (hle1 hx₁) σ.f = t := by
+    have e := val_of_mem σ p₁ hσU
+    rw [ht] at e
+    exact (OnePoint.coe_injective e).symm
+  rw [hs] at h0
+  simpa using h0
+
+end ClauseC
+
+open Polynomial in
+/-- **(G1') from (CI) and (G1'').** -/
+theorem imagePlaneCurveClosed_of (hI : ComponentIrreducible) (hG : ImagePlaneCurveIrr) :
+    ImagePlaneCurveClosed := by
+  intro K _ _ X f hP hS σ ρ p₀ hp₀ hne
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  set x₀ := ptOf p₀ with hx₀
+  let W : X.Opens := ⟨connectedComponent x₀, isOpen_connectedComponent_of_noetherian x₀⟩
+  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ W ↔
+      connectedComponent (ptOf p) = connectedComponent x₀ :=
+    fun p => ⟨fun h => (connectedComponent_eq h).symm,
+      fun h => by
+        show ptOf p ∈ connectedComponent x₀
+        rw [← h]; exact mem_connectedComponent⟩
+  have hWi : IsPreirreducible (W : Set X) := (hI K X f hP hS x₀).isPreirreducible
+  by_cases hinf : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      connectedComponent (ptOf p) = connectedComponent x₀ → ρ.val p = OnePoint.infty
+  · exact Or.inl hinf
+  rcases hG K X f hP hS σ ρ p₀ hp₀ hne with hinf' | ⟨P, hirr, hdeg, ha, hclo⟩
+  · exact absurd hinf' hinf
+  refine Or.inr ⟨P, hirr, hdeg, ha, ?_, hclo⟩
+  intro p₁ hp₁ hpc₁ t ht hρ
+  refine lc_eval_eq_zero_of_irreducible f σ ρ W hWi P
+    (fun p hp hpW => ha p hp ((memW p).1 hpW)) ?_ p₁ hp₁ ((memW p₁).2 hpc₁) t ht hρ
+  have h1 : ((W : Set X) ∩ σ.U).Nonempty := by
+    obtain ⟨p, hp, hpc, hv⟩ := hne
+    by_cases h : ptOf p₀ ∈ σ.U
+    · exact ⟨_, (mem_connectedComponent : x₀ ∈ connectedComponent x₀), h⟩
+    · have hpU : ptOf p ∈ σ.U := by
+        by_contra h'
+        exact hv (by rw [val_of_not_mem σ p h', val_of_not_mem σ p₀ h])
+      exact ⟨_, (memW p).2 hpc, hpU⟩
+  have h2 : ((W : Set X) ∩ ρ.U).Nonempty := by
+    push Not at hinf
+    obtain ⟨p, hp, hpc, hv⟩ := hinf
+    have hpU : ptOf p ∈ ρ.U := by
+      by_contra h'
+      exact hv (val_of_not_mem ρ p h')
+    exact ⟨_, (memW p).2 hpc, hpU⟩
+  have h3 : ((W : Set X) ∩ ρ.V).Nonempty := by
+    refine ⟨_, (memW p₁).2 hpc₁, mem_V_of_not_mem_U ρ fun h => ?_⟩
+    rw [val_of_mem ρ p₁ h] at hρ
+    exact OnePoint.coe_ne_infty _ hρ
+  have h23 := hWi _ _ ρ.U.isOpen ρ.V.isOpen h2 h3
+  exact hWi _ _ σ.U.isOpen (ρ.U.isOpen.inter ρ.V.isOpen) h1 h23
+
+/-- **C3K from C2K, (CI) and (G1'').** -/
+theorem ratFactorAlgClosed_of_irr (h2 : ConstOrOntoAlgClosed) (hI : ComponentIrreducible)
+    (hG : ImagePlaneCurveIrr) : RatFactorAlgClosed :=
+  ratFactorAlgClosed_of_closed h2 (imagePlaneCurveClosed_of hI hG)
+
