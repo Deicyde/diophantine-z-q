@@ -25,3 +25,6 @@
   residue lemma (stalk of Spec 𝓞_L at s' is a localization; stalkSpecializes_stalkMap).
   Fullness of N from (C) at the generic point plus `omegaAt_genericPt`.
   ClaimA.lean: dCls_mem_omegaAt alone (also inside Local.lean).
+- 23:30 Local.lean merged into HodgeLattice.lean §5 (Local.lean, ClaimA.lean removed). Compiles,
+  0 errors. `hodgeLatticeTheorem_of_cotangentRank : CotangentRank → HodgeLatticeTheorem`,
+  axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
