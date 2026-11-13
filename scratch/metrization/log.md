@@ -107,3 +107,21 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
 - new glue `JacDetClassInvariant` (clause (i) only); `jacDetClassScalar_of :
   JacDetClassInvariant → JacDetClassScalar` PROVED. Axioms [propext, Classical.choice,
   Quot.sound]. VERIFIED.
+
+## Run 18-21: + part_jacclass — attempts 1-3: errors (presheaf of `ptC.left` vs `Spec ℂ` not
+  syntactically equal: worked through `q' : Spec ℂ ⟶ 𝒢.G.left := q` and `change`; instances on
+  `(Over.mk _).left` stalks; `Ideal.toCotangent_eq` takes `I` explicitly; `x ∈ ⊤` not `trivial`;
+  product rule via `fderiv_mul` + `ext; simp`) — COMPILED 05:08 (33 s; 0 errors)
+- PROVED: `evalAt_one_eq_zero` (a section with germ in `𝔪_ξ` vanishes at the identity complex point:
+  `germ_stalkMap`, local `stalkMap`, stalk of `Spec ℂ` at its generic point is a field,
+  `germ_injective_of_isIntegral`), `germAlong_zero_of_mem`, `germAlong_mul_eventuallyEq`,
+  `fderiv_germAlong_eq_zero_of_mem_sq` (induction on `𝔪 * 𝔪`), `jacDet_congr_dCls` (clause (i)),
+  `jacDetClassInvariant`.
+- **`ZInQ.Metrization.jacDetDescends : JacDetDescends` PROVED, no hypotheses.** VERIFIED.
+- `metrizationExists_of' : HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetNondegenerate →
+  MetrizationExists`; `productMetrizationGeo_of'' : ProductUniformizationAnalytic →
+  ProductHodgeLattice → ProductJacobian → ProductMetrizationGeo`;
+  `HSyn.G0Split.heightAdditivity_of_metrization_final : N1 → H5 → U → HodgeLatticeTheorem →
+  AnalyticUniformizationOfDim → JacDetNondegenerate → ProductUniformizationAnalytic →
+  ProductHodgeLattice → ProductJacobian → HeightAdditivity`. All axioms [propext, Classical.choice,
+  Quot.sound]; `grep -c sorry Metrization.lean` = 0. VERIFIED.
