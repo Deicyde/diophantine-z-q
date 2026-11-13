@@ -1788,4 +1788,497 @@ theorem javanpeykarBound_mono {g d d' : ℕ} (hdd : d ≤ d') :
 
 end R18Sec
 
+/-! ## R22 (Pazuki): complex points, analytic uniformization, Siegel space, theta constants -/
+
+section R22Sec
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3 Complex
+
+variable {K : Type} [Field K]
+
+/-- `Spec ℂ` as a `K`-scheme via `σ : K → ℂ`. -/
+noncomputable def cptObj (σ : K →+* ℂ) : Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom σ))
+
+/-- The complex points `A(ℂ)_σ` of an abelian variety over `K` at `σ : K → ℂ`, a group
+(Mathlib's group structure on morphisms into a group object). -/
+abbrev CPts (A : AbVar K) (σ : K →+* ℂ) : Type := cptObj σ ⟶ A.X
+
+noncomputable example (A : AbVar K) (σ : K →+* ℂ) : Group (CPts A σ) := inferInstance
+
+/-- The value `s(p) ∈ ℂ` of a regular function `s ∈ Γ(U, 𝒪_A)` at a complex point `p ∈ U(ℂ)`
+(`0` if `p ∉ U(ℂ)`); adapted from `GroupModel.evalAt` of def-faltings §17. -/
+noncomputable def cEvalAt {A : AbVar K} {σ : K →+* ℂ} (p : CPts A σ) (U : A.X.left.Opens)
+    (s : Γ(A.X.left, U)) : ℂ := by
+  classical
+  exact if h : ⊤ ≤ p.left ⁻¹ᵁ U then
+    (Scheme.ΓSpecIso (CommRingCat.of ℂ)).hom (p.left.appLE U ⊤ h s) else 0
+
+/-- `Φ⁻¹(U(ℂ)) ⊆ ℂ^g`. -/
+def cDom {A : AbVar K} {σ : K →+* ℂ} {g : ℕ} (Φ : (Fin g → ℂ) → CPts A σ) (U : A.X.left.Opens) :
+    Set (Fin g → ℂ) := {z | ⊤ ≤ (Φ z).left ⁻¹ᵁ U}
+
+/-- **Analytic uniformization of `A(ℂ)_σ`** (def-faltings' `IsAnalyticUniformization`, with the
+abelian variety in place of a group model): `Φ : ℂ^g → A(ℂ)_σ` a surjective homomorphism with
+kernel `Λ`, with open preimages of affine-chart points and holomorphic regular functions. -/
+def IsUniformization {A : AbVar K} (σ : K →+* ℂ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A σ) : Prop :=
+  (∀ z w, Φ (z + w) = Φ z * Φ w) ∧
+  (∀ z, Φ z = 1 ↔ z ∈ Λ) ∧
+  Function.Surjective Φ ∧
+  (∀ U, IsOpen (cDom Φ U)) ∧
+  (∀ U (s : Γ(A.X.left, U)), DifferentiableOn ℂ (fun z => cEvalAt (Φ z) U s) (cDom Φ U))
+
+/-- **Siegel upper half space** `𝔥₂`: symmetric `Ω` with `Im Ω` positive definite. -/
+def IsSiegel (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Prop :=
+  Ω.transpose = Ω ∧ (Ω.map Complex.im).PosDef
+
+/-- **`Ω` is a period matrix of the lattice `Λ`**: a `ℂ`-linear automorphism `T` of `ℂ²` maps
+`Λ` onto `Ωℤ² + ℤ²`. For `Ω ∈ 𝔥₂`, `ℂ²/(Ωℤ² + ℤ²)` carries the principal polarization with
+Hermitian form `(Im Ω)⁻¹` (Birkenhake–Lange, *Complex abelian varieties*, §8.1, UNVERIFIED
+number), and every principal polarization of `ℂ²/Λ` with every symplectic basis arises this way.
+So "for all `Ω ∈ 𝔥₂` with `IsPeriodMatrix Λ Ω`" = "for all principal polarizations of `ℂ²/Λ`
+and all symplectic bases". No polarization object is needed. -/
+def IsPeriodMatrix (Λ : Submodule ℤ (Fin 2 → ℂ)) (Ω : Matrix (Fin 2) (Fin 2) ℂ) : Prop :=
+  ∃ T : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ), ∀ z, z ∈ Λ ↔
+    ∃ m n : Fin 2 → ℤ, T z = Ω.mulVec (fun i => (m i : ℂ)) + fun i => (n i : ℂ)
+
+/-- Theta characteristics of level 2: `m = (a, b)`, `a, b ∈ {0, 1}²` standing for `a/2, b/2`. -/
+abbrev Char2 : Type := (Fin 2 → Fin 2) × (Fin 2 → Fin 2)
+
+/-- **The theta constant** `θ[a;b](0, Ω) = ∑_{n ∈ ℤ²} exp(πi (n+a/2)ᵀΩ(n+a/2) + 2πi (n+a/2)ᵀ b/2)`
+(Mumford, *Tata Lectures on Theta I*, II §1, UNVERIFIED number). Absolutely convergent for
+`Ω ∈ 𝔥₂`; the `tsum` junk value `0` occurs only outside `𝔥₂`. The six odd characteristics give
+`0`, so the point has the same height as the ten even theta constants used by the project. -/
+noncomputable def thetaConst (Ω : Matrix (Fin 2) (Fin 2) ℂ) (m : Char2) : ℂ :=
+  ∑' n : Fin 2 → ℤ,
+    Complex.exp (Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ
+          Ω.mulVec (fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2)) +
+      2 * Real.pi * I *
+        ((fun i => (n i : ℂ) + ((m.1 i : ℕ) : ℂ) / 2) ⬝ᵥ (fun i => ((m.2 i : ℕ) : ℂ) / 2)))
+
+/-- (copied from scratch/rv-loc-leaves/PazukiR22.lean) Absolute logarithmic Weil height (sup
+norms) of a point of projective space over a number field: Mathlib's `Height.logHeight` divided by
+`[K : ℚ]`. -/
+noncomputable def absLogHeight {L : Type*} [Field L] [NumberField L] {J : Type*} [Finite J]
+    (z : J → L) : ℝ :=
+  Height.logHeight z / Module.finrank ℚ L
+
+/-- (copied) Pazuki's constant `C₂(2, 2) = 1000 · 2⁴ · (log 2⁴)⁵`. -/
+noncomputable def pazukiC2 : ℝ := 1000 * 2 ^ 4 * (Real.log (2 ^ 4)) ^ 5
+
+/-- **R22. Pazuki** (Bull. SMF 140 (2012), Cor. 1.3(2), pp. 21-22 (`g = r = 2`), metric p. 26,
+theta height p. 30; arXiv:0907.1458v2 Cor. 1.3(2) p. 3, Def. 2.1 pp. 6-7, Def. 2.6 p. 9; read by
+the locator audit, docs/research/locators.md item 5). Printed (literal): for a principally
+polarized abelian surface over `ℚ̄`, `|max(1,h_Θ) − max(1,h_D)/2| ≤ C₂ log(min(max(1,h_Θ),
+max(1,h_D)) + 2)`, `h_D` in Deligne's metric, `h_Θ` the theta height with Euclidean norms at the
+infinite places.
+
+**Stated form (a consequence; the audit's upper half, rv-loc-leaves (c)).** For an abelian
+surface `A` over a number field `K` whose stable Faltings height (Faltings' normalization) is the
+real number `x`, and any `X ≥ max(1, x + log π)`; for every complex embedding `σ`, every analytic
+uniformization `Φ` of `A(ℂ)_σ` with kernel `Λ`, every `Ω ∈ 𝔥₂` that is a period matrix of `Λ`
+(= every principal polarization of `A(ℂ)_σ` with a symplectic basis), and every algebraic
+representative `z ∈ L¹⁶` (`L` a number field, `emb : L → ℂ`) of the theta-null point
+`[θ_m(0, Ω)]_m`: `h(z) ≤ X/2 + C₂ log(X + 2)`.
+
+Why it is a consequence (each step is a citation-chain fact, not a Lean leaf):
+* `h_D = h_F + log π` for surfaces (audit; `stableFaltingsHeightDeligne_eq`), so the hypothesis
+  on `X` gives `X ≥ max(1, h_D)`; the three algebraic steps from the literal corollary are proved
+  (`pazuki_upper_of_literal` in scratch/rv-loc-leaves, recompiled in §R22-glue below).
+* The sup-norm height `absLogHeight` is `≤` the Euclidean-norm height of the paper (each
+  archimedean factor `max |z_m| ≤ (∑|z_m|²)^{1/2}`); so an upper bound on Pazuki's `h_Θ` bounds it.
+* Every analytic principal polarization of `A(ℂ)_σ` is algebraic and defined over `ℚ̄` (Riemann's
+  theorem / GAGA, Mumford §§1-3 (T11-type input); rigidity of `NS`); its theta-null point is
+  Pazuki's (Def. 2.6, level `r = 2`; the identification of his coordinates with the classical
+  `θ[a;b](0, Ω)`, `a, b ∈ {0,½}²`, follows the project's reading (h-decomposition R22, pkg-I5),
+  UNVERIFIED here). A change of symplectic basis permutes the `θ_m` up to eighth roots of unity
+  and one common factor (theta transformation formula), so the height does not depend on it.
+* **H5** identifies `stableFaltingsHeight` with the published height (rv-blueprints F2); taking
+  the height through a real `x` (not `EReal.toReal`) keeps the statement no stronger.
+
+Non-vacuity rests on standard facts not proved here: uniformizations exist (the `AbVar` analogue
+of def-faltings' `AnalyticUniformizationExists`), principally polarizable abelian surfaces exist
+over number fields (Jacobians of genus-2 curves), the theta-null point is algebraic up to a
+common factor; and `𝔥₂ ≠ ∅` (`isSiegel_I`, proved below). -/
+def R22_Pazuki : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K), A.dim = (2 : WithBot ℕ∞) →
+    ∀ x : ℝ, stableFaltingsHeight A = x →
+    ∀ X : ℝ, max 1 (x + Real.log Real.pi) ≤ X →
+    ∀ (σ : K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φ : (Fin 2 → ℂ) → CPts A σ),
+      IsUniformization σ Λ Φ →
+    ∀ Ω : Matrix (Fin 2) (Fin 2) ℂ, IsSiegel Ω → IsPeriodMatrix Λ Ω →
+    ∀ (L : Type) [Field L] [NumberField L] (emb : L →+* ℂ) (z : Char2 → L) (c : ℂ), c ≠ 0 →
+      (∀ m, emb (z m) = c * thetaConst Ω m) →
+      absLogHeight z ≤ X / 2 + pazukiC2 * Real.log (X + 2)
+
+/-- The hardened form used by the glue (`X = max(1, h_F + 3)`, rv-leaves-a §3.3). -/
+theorem R22_plus3 (h : R22_Pazuki) (K : Type) [Field K] [NumberField K] (A : AbVar K)
+    (hA : A.dim = (2 : WithBot ℕ∞)) (x : ℝ) (hx : stableFaltingsHeight A = x)
+    (σ : K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φ : (Fin 2 → ℂ) → CPts A σ)
+    (hΦ : IsUniformization σ Λ Φ) (Ω : Matrix (Fin 2) (Fin 2) ℂ) (hΩ : IsSiegel Ω)
+    (hP : IsPeriodMatrix Λ Ω) (L : Type) [Field L] [NumberField L] (emb : L →+* ℂ)
+    (z : Char2 → L) (c : ℂ) (hc : c ≠ 0) (hz : ∀ m, emb (z m) = c * thetaConst Ω m) :
+    absLogHeight z ≤ max 1 (x + 3) / 2 + pazukiC2 * Real.log (max 1 (x + 3) + 2) := by
+  have hpi : Real.log Real.pi ≤ 3 := by
+    have h4 : Real.log Real.pi ≤ Real.log 4 :=
+      Real.log_le_log Real.pi_pos (by linarith [Real.pi_lt_four])
+    have h42 : Real.log 4 = 2 * Real.log 2 := by
+      rw [show (4 : ℝ) = 2 ^ 2 by norm_num, Real.log_pow]; norm_num
+    linarith [Real.log_two_lt_d9]
+  exact h K A hA x hx (max 1 (x + 3)) (max_le_max le_rfl (by linarith)) σ Λ Φ hΦ Ω hΩ hP
+    L emb z c hc hz
+
+/-- Sanity: `i · 1 ∈ 𝔥₂` (the `Ω`-quantifier of R22 is not empty). -/
+theorem isSiegel_I : IsSiegel (Complex.I • (1 : Matrix (Fin 2) (Fin 2) ℂ)) := by
+  refine ⟨by simp, ?_⟩
+  have : ((Complex.I • (1 : Matrix (Fin 2) (Fin 2) ℂ)).map Complex.im) = 1 := by
+    ext i j
+    by_cases h : i = j <;> simp [Matrix.one_apply, h]
+  rw [this]
+  exact Matrix.PosDef.one
+
+end R22Sec
+
+/-! ## R3 (Lin–Yang): the QM surfaces of discriminant 6 are Jacobians on the Lin–Yang family -/
+
+section R3Sec
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3
+
+/-! ### The order `𝒪` and QM structures (copied from `scratch/leaf-qm-fp/QMLeaves.lean` §0-§1) -/
+
+/-- (copied) `B = (2, −3)_ℚ` (`i² = 2`, `j² = −3`). -/
+abbrev B := QuaternionAlgebra ℚ 2 0 (-3)
+
+/-- (copied) -/
+def ofInt (n : Fin 4 → ℤ) : B :=
+  ⟨n 0 + (n 2 : ℚ) / 2, n 1 + (n 3 : ℚ) / 2, (n 2 : ℚ) / 2, (n 3 : ℚ) / 2⟩
+
+/-- (copied) -/
+def InO (x : B) : Prop := ∃ n : Fin 4 → ℤ, x = ofInt n
+
+/-- (copied) -/
+def mulCoord (n m : Fin 4 → ℤ) : Fin 4 → ℤ :=
+  ![m 0 * n 0 + 2 * m 1 * n 1 + 2 * m 1 * n 3 - m 2 * n 2 + 2 * m 3 * n 3,
+    m 0 * n 1 + m 1 * n 0 + m 1 * n 2 - m 2 * n 3 + m 3 * n 2,
+    m 0 * n 2 - 2 * m 1 * n 3 + m 2 * n 0 + m 2 * n 2 + 2 * m 3 * n 1,
+    m 0 * n 3 - m 1 * n 2 + m 2 * n 1 + m 2 * n 3 + m 3 * n 0]
+
+theorem ofInt_mul (n m : Fin 4 → ℤ) : ofInt n * ofInt m = ofInt (mulCoord n m) := by
+  ext <;> simp [ofInt, mulCoord] <;> ring
+
+theorem ofInt_add (n m : Fin 4 → ℤ) : ofInt n + ofInt m = ofInt (n + m) := by
+  ext <;> simp [ofInt] <;> ring
+
+theorem ofInt_neg (n : Fin 4 → ℤ) : -ofInt n = ofInt (-n) := by
+  ext <;> simp [ofInt] <;> ring
+
+theorem ofInt_zero : ofInt 0 = 0 := by ext <;> simp [ofInt]
+
+theorem ofInt_one : ofInt ![1, 0, 0, 0] = 1 := by ext <;> simp [ofInt]
+
+/-- (copied) The maximal order `𝒪 = ℤ⟨1, i, (1+j)/2, (i+k)/2⟩` of `B = (2,−3)`. -/
+def O : Subring B where
+  carrier := {x | InO x}
+  mul_mem' := by
+    rintro _ _ ⟨n, rfl⟩ ⟨m, rfl⟩
+    exact ⟨mulCoord n m, ofInt_mul n m⟩
+  one_mem' := ⟨![1, 0, 0, 0], ofInt_one.symm⟩
+  add_mem' := by
+    rintro _ _ ⟨n, rfl⟩ ⟨m, rfl⟩
+    exact ⟨n + m, ofInt_add n m⟩
+  zero_mem' := ⟨0, ofInt_zero.symm⟩
+  neg_mem' := by
+    rintro _ ⟨n, rfl⟩
+    exact ⟨-n, ofInt_neg n⟩
+
+/-- (copied) **A QM structure by `𝒪` on `A`**: an injective unital ring homomorphism
+`ι : 𝒪 → End_K(A)`. No polarization (see the R3 docstring). -/
+structure QMStr {K : Type} [Field K] (A : AbVar K) where
+  iota : O →+* AbVar.End A
+  injective : Function.Injective iota
+
+/-! ### Igusa–Clebsch and Igusa invariants of a sextic (copied from
+`scratch/hdec-elementary/Leaves.lean` §1; Igusa's `J`'s new here) -/
+
+variable {k : Type*} [Field k]
+
+/-- (copied) `(rᵢ - rⱼ)²`. -/
+def dsq (r : Fin 6 → k) (i j : Fin 6) : k := (r i - r j) ^ 2
+
+/-- (copied) Igusa–Clebsch `I₂` of `a ∏ (X - rᵢ)`. -/
+def IC2 (a : k) (r : Fin 6 → k) : k :=
+  a ^ 2 * (∑ σ : Equiv.Perm (Fin 6),
+    dsq r (σ 0) (σ 1) * dsq r (σ 2) (σ 3) * dsq r (σ 4) (σ 5)) / 48
+
+/-- (copied) Igusa–Clebsch `I₄`. -/
+def IC4 (a : k) (r : Fin 6 → k) : k :=
+  a ^ 4 * (∑ σ : Equiv.Perm (Fin 6),
+    dsq r (σ 0) (σ 1) * dsq r (σ 1) (σ 2) * dsq r (σ 2) (σ 0) *
+    dsq r (σ 3) (σ 4) * dsq r (σ 4) (σ 5) * dsq r (σ 5) (σ 3)) / 72
+
+/-- (copied) Igusa–Clebsch `I₆`. -/
+def IC6 (a : k) (r : Fin 6 → k) : k :=
+  a ^ 6 * (∑ σ : Equiv.Perm (Fin 6),
+    dsq r (σ 0) (σ 1) * dsq r (σ 1) (σ 2) * dsq r (σ 2) (σ 0) *
+    dsq r (σ 3) (σ 4) * dsq r (σ 4) (σ 5) * dsq r (σ 5) (σ 3) *
+    dsq r (σ 0) (σ 3) * dsq r (σ 1) (σ 4) * dsq r (σ 2) (σ 5)) / 12
+
+/-- (copied) Igusa–Clebsch `I₁₀`: the discriminant `a¹⁰ ∏_{i<j} (rᵢ - rⱼ)²`. -/
+def IC10 (a : k) (r : Fin 6 → k) : k :=
+  a ^ 10 * ∏ i : Fin 6, ∏ j : Fin 6, if i < j then dsq r i j else 1
+
+/-- (copied) `y² = a ∏ (X - rᵢ)` is a genus-2 curve: `a ≠ 0` and distinct roots. -/
+def IsGenus2 (a : k) (r : Fin 6 → k) : Prop := a ≠ 0 ∧ Function.Injective r
+
+/-- (copied) The QM locus in Igusa–Clebsch coordinates (hdec-elementary). -/
+def OnQMLocus (a : k) (r : Fin 6 → k) (j : k) : Prop :=
+  ∃ c : k, c ≠ 0 ∧ IC2 a r = c ^ 2 * (96 * (j + 1)) ∧ IC4 a r = c ^ 4 * (576 * j) ∧
+    IC6 a r = c ^ 6 * (4608 * j * (5 * j + 4)) ∧ IC10 a r = c ^ 10 * (4096 * j ^ 3)
+
+/-- Igusa's `J₂ = I₂/8`. -/
+def IgJ2 (a : k) (r : Fin 6 → k) : k := IC2 a r / 8
+/-- Igusa's `J₄ = (4J₂² − I₄)/96`. -/
+def IgJ4 (a : k) (r : Fin 6 → k) : k := (4 * IgJ2 a r ^ 2 - IC4 a r) / 96
+/-- Igusa's `J₆ = (8J₂³ − 160J₂J₄ − I₆)/576`. -/
+def IgJ6 (a : k) (r : Fin 6 → k) : k :=
+  (8 * IgJ2 a r ^ 3 - 160 * IgJ2 a r * IgJ4 a r - IC6 a r) / 576
+/-- Igusa's `J₁₀ = I₁₀/4096`. -/
+def IgJ10 (a : k) (r : Fin 6 → k) : k := IC10 a r / 4096
+
+/-- **Lin–Yang's tuple** (arXiv:1807.00466v1 Example 29, eqs. (13)-(14)): the weighted-projective
+point `[J₂ : J₄ : J₆ : J₁₀]` (weights `1, 2, 3, 5`) of `a ∏ (X - rᵢ)` is
+`[12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`. The `J`/Igusa–Clebsch convention is Igusa's
+(`I₂ = 8J₂`, `I₄ = 4J₂² − 96J₄`, `I₆ = 8J₂³ − 160J₂J₄ − 576J₆`, `I₁₀ = 4096J₁₀`; the convention of
+hdec-elementary's `igusa_thomae_check.py`); locators.md asks to fix it before use: the check
+`linYangTuple_onQMLocus` below ties it to hdec-elementary's `OnQMLocus`. -/
+def LinYangTuple (a : k) (r : Fin 6 → k) (j : k) : Prop :=
+  ∃ t : k, t ≠ 0 ∧ IgJ2 a r = t * (12 * (j + 1)) ∧ IgJ4 a r = t ^ 2 * (6 * (j ^ 2 + j + 1)) ∧
+    IgJ6 a r = t ^ 3 * (4 * (j ^ 3 - 2 * j ^ 2 + 1)) ∧ IgJ10 a r = t ^ 5 * j ^ 3
+
+/-- **Convention check (proved).** Lin–Yang's `J`-tuple with scaling `t = c²` is
+hdec-elementary's Igusa–Clebsch locus `OnQMLocus` (the input of the proved F1 glue
+`HDec.j_eq_of_onQMLocus`). Over an algebraically closed field every `t` is a square. -/
+theorem linYangTuple_onQMLocus [CharZero k] {a : k} {r : Fin 6 → k} {j c : k} (hc : c ≠ 0)
+    (h2 : IgJ2 a r = c ^ 2 * (12 * (j + 1)))
+    (h4 : IgJ4 a r = (c ^ 2) ^ 2 * (6 * (j ^ 2 + j + 1)))
+    (h6 : IgJ6 a r = (c ^ 2) ^ 3 * (4 * (j ^ 3 - 2 * j ^ 2 + 1)))
+    (h10 : IgJ10 a r = (c ^ 2) ^ 5 * j ^ 3) : OnQMLocus a r j := by
+  have e2 : IC2 a r = 8 * IgJ2 a r := by unfold IgJ2; field_simp
+  have e4 : IC4 a r = 4 * IgJ2 a r ^ 2 - 96 * IgJ4 a r := by
+    rw [show IgJ4 a r = (4 * IgJ2 a r ^ 2 - IC4 a r) / 96 from rfl]; field_simp; ring
+  have e6 : IC6 a r = 8 * IgJ2 a r ^ 3 - 160 * IgJ2 a r * IgJ4 a r - 576 * IgJ6 a r := by
+    rw [show IgJ6 a r = (8 * IgJ2 a r ^ 3 - 160 * IgJ2 a r * IgJ4 a r - IC6 a r) / 576 from rfl]
+    field_simp; ring
+  have e10 : IC10 a r = 4096 * IgJ10 a r := by unfold IgJ10; field_simp
+  refine ⟨c, hc, ?_, ?_, ?_, ?_⟩
+  · rw [e2, h2]; ring
+  · rw [e4, h2, h4]; ring
+  · rw [e6, h2, h4, h6]; ring
+  · rw [e10, h10]; ring
+
+/-- `LinYangTuple` gives `OnQMLocus` when the scaling is a square (e.g. `k` algebraically
+closed), hence, by hdec-elementary's proved glue, `j = 3779136 · I₁₀² / I₄⁵`. -/
+theorem onQMLocus_of_linYangTuple [CharZero k] [IsAlgClosed k] {a : k} {r : Fin 6 → k} {j : k}
+    (h : LinYangTuple a r j) : OnQMLocus a r j := by
+  obtain ⟨t, ht, h2, h4, h6, h10⟩ := h
+  obtain ⟨c, hc⟩ := IsAlgClosed.exists_pow_nat_eq t (by norm_num : 0 < 2)
+  have hc0 : c ≠ 0 := by rintro rfl; simp at hc; exact ht hc.symm
+  rw [← hc] at h2 h4 h6 h10
+  exact linYangTuple_onQMLocus hc0 h2 h4 h6 h10
+
+/-! ### The curve `y² = a ∏ (X − rᵢ)` as a scheme -/
+
+/-- The sextic `a ∏ (X − rᵢ)`. -/
+noncomputable def sextic (a : k) (r : Fin 6 → k) : Polynomial k :=
+  Polynomial.C a * ∏ i, (Polynomial.X - Polynomial.C (r i))
+
+/-- **`C` has the affine model `y² = a ∏ (X − rᵢ)`**: its function field is generated over `k`
+by `x` transcendental and `y` with `y² = a ∏ (x − rᵢ)` (so it is `k(x)[y]/(y² − f(x))`, `f`
+squarefree of degree 6 under `IsGenus2`). For a smooth proper geometrically connected curve this
+determines `C` up to `k`-isomorphism (Hartshorne I.6.12 with II.6.7, UNVERIFIED numbers). -/
+def HasSexticModel {K : Type} [Field K] (C : Over (Spec (CommRingCat.of K))) [IsIntegral C.left]
+    (a : K) (r : Fin 6 → K) : Prop :=
+  letI := ffAlgebra C
+  ∃ x y : C.left.functionField, Transcendental K x ∧ y ^ 2 = Polynomial.aeval x (sextic a r) ∧
+    IntermediateField.adjoin K {x, y} = ⊤
+
+/-- **R3. Lin–Yang** (Math. Z. 295 (2020), 775-819; arXiv:1807.00466v1 **Example 29**, pp. 20-21,
+discriminant 6, eqs. (13)-(14); read in arXiv v1 by the locator audit, journal numbering
+UNVERIFIED; alternative supplier of the tuple and of the finite-nonzero-`j` Jacobian assertion:
+Baba–Granath, Canad. J. Math. 60 (2008), Prop. 3.6, p. 742, read by the audit). Printed: on the
+finite nonzero `j`-locus, the principally polarized QM surface of discriminant 6 over `j` is the
+Jacobian of a genus-2 curve with `[J₂:J₄:J₆:J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`.
+
+**Stated form (a consequence; polarization-free and coordinate-free).** Every abelian surface `A`
+over `ℂ` with an embedding `𝒪 ↪ End(A)` is either `≅ Jac(C)` (as group schemes) for a curve `C`
+with an affine model `y² = a ∏ (x − rᵢ)` (six distinct roots) on the Lin–Yang family at some
+`j ≠ 0`, or `≅ E₁ × E₂` for elliptic curves `E₁, E₂`.
+
+Why it is a consequence (citation chain, not Lean leaves):
+* `(A, ι)` carries a principal polarization of the fixed type, so it is a point of `X₆` with a
+  value `j ∈ ℙ¹` of the Hauptmodul of `X₆/W` (bp-qmmoduli §2.2, existence of the polarization:
+  SPECULATIVE in the repository, under review in rv-qm-polar; Baba–Granath Thm 2.1 for `X₆/W`).
+* `j ≠ 0, ∞`: Lin–Yang's assertion, forgetting the polarization (`≅` of group schemes).
+* `j ∈ {0, ∞}`: the tuple has `J₁₀ = 0` there (in weighted-projective coordinates), so the
+  principally polarized surface is not the Jacobian of a smooth curve, hence a product of elliptic
+  curves (Weil's dichotomy for principally polarized abelian surfaces; Weil 1957, UNVERIFIED).
+  The second disjunct is weaker than "product with its product polarization".
+
+**Polarization (rv-qm-polar).** The statement is existential in `C` and does not mention a
+polarization, so it stays a consequence if a QM surface carries several principal polarizations
+(each gives a curve; Lin–Yang's is one of them). What would change: a form "for **every** genus-2
+`C` with `Jac C ≅ A`, `C` lies on the family" (not stated here; false in general if `A` carries a
+principal polarization whose Rosati involution is not of the fixed type), and the
+coordinate-linked form "`j` = the value `π₆(x)` of the moduli point" (needs leaf-qm-fp's `X₆`
+package and the polarization type; not stated here).
+
+**Over `ℂ`** (Lin–Yang's setting). The `ℚ̄`-form used at A7/F1 follows by the Lefschetz principle
+(the Shimura curve, the family and the Igusa invariants are defined over `ℚ`): glue target
+`R03_LinYang_algClosed` below, not a leaf. -/
+def R03_LinYang : Prop :=
+  ∀ (A : AbVar ℂ) (_ : QMStr A), A.dim = (2 : WithBot ℕ∞) →
+    (∃ (j a : ℂ) (r : Fin 6 → ℂ), j ≠ 0 ∧ IsGenus2 a r ∧ LinYangTuple a r j ∧
+      ∃ (C : Over (Spec (CommRingCat.of ℂ))) (_ : IsCurve C) (_ : IsIntegral C.left),
+        HasSexticModel C a r ∧
+        ∃ (P₀ : 𝟙_ (Over (Spec (CommRingCat.of ℂ))) ⟶ C) (J : AbVar ℂ) (aj : C ⟶ J.X),
+          IsJacobian C P₀ J aj ∧ ∃ e : J.X ≅ A.X, IsMonHom e.hom) ∨
+    (∃ E₁ E₂ : AbVar ℂ, E₁.dim = (1 : WithBot ℕ∞) ∧ E₂.dim = (1 : WithBot ℕ∞) ∧
+      Nonempty (A.X ≅ E₁.X ⊗ E₂.X))
+
+/-- **Glue target (Lefschetz principle), not a leaf**: `R03_LinYang` over every algebraically
+closed field of characteristic 0 (the case `k = ℚ̄` is the one A7/F1 use). -/
+def R03_LinYang_algClosed : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (A : AbVar k) (_ : QMStr A),
+    A.dim = (2 : WithBot ℕ∞) →
+    (∃ (j a : k) (r : Fin 6 → k), j ≠ 0 ∧ IsGenus2 a r ∧ LinYangTuple a r j ∧
+      ∃ (C : Over (Spec (CommRingCat.of k))) (_ : IsCurve C) (_ : IsIntegral C.left),
+        HasSexticModel C a r ∧
+        ∃ (P₀ : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ C) (J : AbVar k) (aj : C ⟶ J.X),
+          IsJacobian C P₀ J aj ∧ ∃ e : J.X ≅ A.X, IsMonHom e.hom) ∨
+    (∃ E₁ E₂ : AbVar k, E₁.dim = (1 : WithBot ℕ∞) ∧ E₂.dim = (1 : WithBot ℕ∞) ∧
+      Nonempty (A.X ≅ E₁.X ⊗ E₂.X))
+
+/-- The algebraically closed form contains the leaf (`k = ℂ`). -/
+theorem R03_of_algClosed (h : R03_LinYang_algClosed) : R03_LinYang :=
+  fun A q hA => h ℂ A q hA
+
+/-- Consumer form (F1): on the first branch, Lin–Yang's `j` is the weight-0 Igusa invariant
+`3779136 · I₁₀² / I₄⁵` of the curve (from `onQMLocus_of_linYangTuple` and hdec-elementary's
+`j_eq_of_onQMLocus`, whose two-line proof is repeated here). -/
+theorem linYang_j_eq [CharZero k] [IsAlgClosed k] {a : k} {r : Fin 6 → k} {j : k} (hj : j ≠ 0)
+    (h : LinYangTuple a r j) : j = 3779136 * IC10 a r ^ 2 / IC4 a r ^ 5 := by
+  obtain ⟨c, hc, -, h4, -, h10⟩ := onQMLocus_of_linYangTuple h
+  rw [h4, h10]
+  field_simp
+  ring
+
+end R3Sec
+
+/-! ## T10-T12: what a concrete statement needs (only the parts statable over the definitions
+above; no étale cohomology is built). See docs/research/leaf-push2.md §5. -/
+
+section TSec
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3
+
+/-- **AN3 for abelian varieties (textbook leaf; the analytic half of T11/T12).** Every abelian
+variety over a field `K` and every `σ : K → ℂ`: `A(ℂ)_σ` has an analytic uniformization by
+`ℂ^g`, `g = dim A`, with kernel a full lattice (Mumford, *Abelian varieties*, §1, with GAGA,
+Serre 1956, for the complex Lie group structure; UNVERIFIED numbers). The `AbVar` analogue of
+def-faltings' `AnalyticUniformizationExists`. -/
+def UniformizationExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (σ : K →+* ℂ) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A σ),
+      ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ IsUniformization σ Λ Φ
+
+/-- **T11(a), Riemann/GAGA for endomorphisms (textbook leaf).** For an abelian variety over `ℂ`
+with a uniformization `Φ` (kernel `Λ`) at `σ = id`, the endomorphisms of `A` are exactly the
+`ℂ`-linear maps of `ℂ^g` preserving `Λ`: each such `M` is induced by a unique endomorphism `f`
+(`Φ(Mz) = f ∘ Φ(z)`), and each `f` is induced by some `M`. (Mumford §1 and §2, Birkenhake–Lange
+Prop. 1.2.1 for complex tori; GAGA, Serre 1956, for "holomorphic ⇒ algebraic"; UNVERIFIED
+numbers.) With `ℚ ⊗`, this is `End⁰(A_ℂ) = End(H₁(A(ℂ),ℚ))` ∩ (Hodge endomorphisms), the form of
+T11 used at G5/G10. -/
+def T11a_RiemannEnd : Prop :=
+  ∀ (A : AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) Λ Φ →
+    (∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ Λ, M z ∈ Λ) →
+      ∃! f : AbVar.End A, ∀ z, Φ (M z) = Φ z ≫ f.hom) ∧
+    (∀ f : AbVar.End A, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), ∀ z, Φ (M z) = Φ z ≫ f.hom)
+
+/-- **T11(b), rigidity (textbook leaf).** For abelian varieties over an algebraically closed field
+`k` of characteristic 0 and an extension `k → L`, every homomorphism `A_L → B_L` descends uniquely
+to a homomorphism `A → B` (Conrad 2006, §3; Milne 1986 §20; UNVERIFIED numbers). With `k = ℚ̄`,
+`L = ℂ` this is `Hom_ℚ̄ = Hom_ℂ`. -/
+def T11b_Rigidity : Prop :=
+  ∀ (k : Type) [Field k] [IsAlgClosed k] [CharZero k] (L : Type) [Field L] [Algebra k L]
+    (A B : AbVar k) (ψ : (A.baseChange L).X ⟶ (B.baseChange L).X), IsMonHom ψ →
+    ∃! φ : A.X ⟶ B.X, IsMonHom φ ∧
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap k L)))).map φ = ψ
+
+/-- Complex conjugation in `G_ℚ`: `c` restricts complex conjugation along some embedding
+`ℚ̄ ↪ ℂ`. -/
+def IsComplexConj (c : AlgebraicClosure ℚ ≃ₐ[ℚ] AlgebraicClosure ℚ) : Prop :=
+  ∃ emb : AlgebraicClosure ℚ →ₐ[ℚ] ℂ, ∀ x, emb (c x) = starRingEnd ℂ (emb x)
+
+/-- **T12, in the form used at G10 (oddness).** For an abelian variety `A/ℚ` of dimension `g`,
+complex conjugation acts on `V_ℓ(A)` with `+1`- and `−1`-eigenspaces of dimension `g` each.
+Not a single published statement: Artin's comparison `V_ℓ(A) ≅ H₁(A(ℂ),ℚ) ⊗ ℚ_ℓ` compatibly with
+complex conjugation (SGA 4 XI 4.4; for abelian varieties elementary through `ℂ^g/Λ`: the
+`ℓⁿ`-torsion of `A(ℂ)` is `Φ(ℓ⁻ⁿΛ)`, and `A(ℚ̄)[ℓⁿ] → A(ℂ)[ℓⁿ]` is bijective by T5), plus the
+computation that an antiholomorphic involution of `ℂ^g/Λ` acts on `Λ ⊗ ℝ = ℂ^g` with eigenspaces
+of real dimension `g` (`ℂ^g = W ⊕ iW`). A **glue target** from `UniformizationExists` and T5. -/
+def T12_ComplexConjEigen : Prop :=
+  ∀ (A : AbVar ℚ) (g : ℕ), A.dim = (g : WithBot ℕ∞) → ∀ (ℓ : ℕ) [Fact ℓ.Prime]
+    (c : Field.absoluteGaloisGroup ℚ), IsComplexConj c →
+    Module.finrank ℚ_[ℓ] (LinearMap.ker (AbVar.galRep ℓ A c - 1)) = g ∧
+      Module.finrank ℚ_[ℓ] (LinearMap.ker (AbVar.galRep ℓ A c + 1)) = g
+
+/-- Sanity: complex conjugations exist in `G_ℚ` (so T12's quantifier over `c` is not empty). -/
+theorem exists_isComplexConj : ∃ c : Field.absoluteGaloisGroup ℚ, IsComplexConj c := by
+  obtain ⟨emb⟩ : Nonempty (AlgebraicClosure ℚ →ₐ[ℚ] ℂ) := ⟨IsAlgClosed.lift⟩
+  let _ : Algebra (AlgebraicClosure ℚ) ℂ := emb.toRingHom.toAlgebra
+  have : IsScalarTower ℚ (AlgebraicClosure ℚ) ℂ :=
+    IsScalarTower.of_algebraMap_eq (fun x => (emb.commutes x).symm)
+  let χ : ℂ ≃ₐ[ℚ] ℂ := Complex.conjAe.restrictScalars ℚ
+  refine ⟨χ.restrictNormal (AlgebraicClosure ℚ), emb, fun x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes χ (AlgebraicClosure ℚ) x
+
+/-- **T10, the part statable in Mathlib v4.35 (not the form used).** Mathlib has `ℓ`-adic
+cohomology as pro-étale cohomology, `Scheme.EllAdicCohomology X ℓ n` (Bhatt–Scholze 2015,
+Def. 6.8.1; `Mathlib/AlgebraicGeometry/Sites/ElladicCohomology.lean`), but only as an abelian group:
+no `ℤ_ℓ`-module structure and no pullback maps, hence no Galois action. What is statable is the
+underlying group isomorphism `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`: a consequence of Milne 1986,
+Thm 15.1(a) (UNVERIFIED number) together with the comparison of pro-étale and classical `ℓ`-adic
+cohomology for qcqs schemes (Bhatt–Scholze 2015 §5.6, UNVERIFIED number; Mathlib's docstring
+announces this comparison as future work). The form used (derive R10's Tate-module form) needs
+the Galois-equivariant version: `ℤ_ℓ`-linearity and functoriality of `EllAdicCohomology` in `X`. -/
+def T10_groupIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime],
+    Nonempty ((A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃+
+      Module.Dual ℤ_[ℓ] (A.T ℓ))
+
+end TSec
+
 end ZInQ.LeafPush2
+
+#print axioms ZInQ.LeafPush2.stableFaltingsHeight
+#print axioms ZInQ.LeafPush2.R18_real
+#print axioms ZInQ.LeafPush2.javanpeykarBound_pos
+#print axioms ZInQ.LeafPush2.javanpeykarBound_mono
+#print axioms ZInQ.LeafPush2.R22_plus3
+#print axioms ZInQ.LeafPush2.isSiegel_I
+#print axioms ZInQ.LeafPush2.linYangTuple_onQMLocus
+#print axioms ZInQ.LeafPush2.onQMLocus_of_linYangTuple
+#print axioms ZInQ.LeafPush2.linYang_j_eq
+#print axioms ZInQ.LeafPush2.R03_of_algClosed
+#print axioms ZInQ.LeafPush2.exists_isComplexConj
+#print axioms ZInQ.LeafPush2.T10_groupIso
+#print axioms ZInQ.LeafPush2.R03_LinYang
+#print axioms ZInQ.LeafPush2.R22_Pazuki
+#print axioms ZInQ.LeafPush2.R18_Javanpeykar
