@@ -160,8 +160,11 @@ consequence; 32 of 33 textbook: T1-T11, T13-T31, T33-T35), parts (a), (c), (d) o
 T10). The bundles have 64 fields: 61 concrete Props and 3 placeholders (R1(b), R17, T10). The
 Shimura-curve leaves and R3 rest on Lemma P of rv-qm-polar (type `μ` fixed, characteristic 0,
 `𝒪` maximal; folded into each leaf, published locators UNVERIFIED), and the leaves over the
-Faltings height (R18-R22, H5) are not yet known to be non-vacuous (§2.1 R1, R19, H5;
-docs/research/leaf-adopt2.md). *Superseded counts after leaf-adopt*: **48 of 56 leaves** were stated
+Faltings height (R18-R22) say something only together with H5: where the height is `⊤` (no
+metrized model) R19, R20, R22 are vacuous and R21 is trivial, so a defect of the definition would
+surface as a false H5 (`StableHeightFinite`) or a false R18 (which asserts `h < ⊤`), not as
+vacuity (rv-leaves48 P1, compiled for R19-R21 and H5; formerly "not yet known to be
+non-vacuous"; §2.1 R1, R19, H5; docs/research/leaf-adopt2.md). *Superseded counts after leaf-adopt*: **48 of 56 leaves** were stated
 concretely (18 of 23 research-level: R2, R4-R16, R19-R21, H5, with R11 and R12 through their
 joint consequence; 30 of 33 textbook: T1-T9, T13-T31, T33, T34), parts (a), (c), (d) of R1 and
 the new clause `π₀(X₆) = 1` are concrete while R1(b) is a placeholder, and **7 leaves are
@@ -272,7 +275,9 @@ theorems and 33 textbook results listed, plus 20 glue steps; in Lean, 53 of thes
 three of the four parts of a 54th, R1) are stated concretely, and the last part of the glue is
 proved." (Counts as of leaf-adopt2, 2026-11-12; with the caveats that the Shimura-curve leaves
 and R3 rest on Lemma P of rv-qm-polar, a published input folded into each leaf whose locators are
-UNVERIFIED, and that the height leaves R18-R22, H5 are not yet known to be non-vacuous.) It is **not** yet true that
+UNVERIFIED, and that the height leaves R18-R22 are consequences of their publications only
+together with H5, which is where a defect of the height's definition would surface (rv-leaves48
+P1; formerly "not yet known to be non-vacuous").) It is **not** yet true that
 formalizing the literature theorems alone would complete the proof: most of the glue for H
 (Glazer's descent, modularity and conductor arguments, the repository's Lemma PR and NoCM) still
 has to be formalized, and it has only model reviews.
@@ -318,20 +323,23 @@ after hsyn-fix:
   integrated; the adelic bookkeeping of A3 is open).
 - **Still not formalized**: the glue G1-G17, G19 as a whole (`HSyn.glueOutputs_of_leaves` is
   `sorry`); every step that needs the actual abelian surface `A` or `J₁(N)` (Mathlib cannot build
-  a nonzero abelian variety); the 14 placeholder leaves; and every leaf itself (all are hypotheses).
+  a nonzero abelian variety); the 14 placeholder leaves (the count at hsyn-fold; current counts in
+  §2.3; fact-check w34b); and every leaf itself (all are hypotheses).
 
 **Changes since hsyn-fold (leaf-adopt, 2026-11-12).** Folded into `Leaves.lean` (VERIFIED: `lake
 env lean scratch/h-decomposition/Leaves.lean` exits 0, about 3.5 min, one `sorry`, 8 `opaque`, no
 `axiom`; every new `#print axioms` is `propext`, `Classical.choice`, `Quot.sound`). The four
 report files are copied as sections `GlueT32aSec`, `LeafQMSec`, `LeafModCurvesSec`,
-`DefFaltingsSec` (they import kernel modules whose namespaces `PkgI2`, `PkgI3`, `ObjBridge`,
-`GlueC10` are also defined in `Leaves.lean`, so they cannot be imported; the only change to a
+`DefFaltingsSec` (two of them, QMLeaves.lean and ModCurveLeaves.lean, import kernel modules whose
+namespaces `PkgI2`, `PkgI3`, `ObjBridge`, `GlueC10` are also defined in `Leaves.lean`, so they
+cannot be imported; T32a.lean and Faltings.lean import only Mathlib; fact-check w34b item 14; the only change to a
 statement-bearing line is the renaming `GlueA6Alg.goodReduction_of_QM_rational3'` ↦
 `PkgI2.goodReduction_of_QM_rational3'`, same statement), and the repairs are a new section
 `LeafAdoptSec`.
 - **leaf-qm-fp**: R1 (a), (c), (d), R1 at level one, R2 and R5 are concrete, field-point form
   (`LeafQM.AV.R1R2fp`, `R1rec`, `R5fp`, `R5fpCount`). Every one rests on the published theorems
-  **plus the SPECULATIVE premise bp-qmmoduli §2.2** (a QM pair `(A, ι)` in characteristic 0 has a
+  **plus the SPECULATIVE premise bp-qmmoduli §2.2** (now Lemma P of rv-qm-polar, leaf-adopt2;
+  fact-check w34b item 5) (a QM pair `(A, ι)` in characteristic 0 has a
   unique principal polarization with Rosati involution `x ↦ μ⁻¹x̄μ`), because `QML3`, `QMPair`
   omit the polarization; it cannot be a Lean hypothesis (no polarizations in Mathlib). Recorded in
   every docstring of the bundle fields. R5fp carries `k ↪ ℚ(x)` when `b ≥ 1`.
@@ -523,7 +531,7 @@ connected (Mathlib `GeometricallyConnected`; Deligne 1971 §2, `π₀ = ℚ^×_{
 UNVERIFIED locator); a glue alternative from `R5fpCount` and Kummer parity is sketched in
 rv-blueprints Q4 (SPECULATIVE). Part (b) is the placeholder `R01b_ComplexUniformization`, restated
 in **family form** (rv-blueprints Q3: every `τ ∈ ℍ` occurs and `τ ↦ π(P_τ)` is holomorphic; F1's
-Hauptmodul comparison needs both). **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled, class number one and the descent from `ℂ` not in Lean); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet. Faithfulness review: §7 of
+Hauptmodul comparison needs both). **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled for N5's `μ` on `Λ = 𝒪` only, `eq_pm_E0_of_principal`, `riemann_sign`, `lemmaP_lattice`; the `E0R`/`E0` identification, `Λ = 𝒪v`, Riemann forms ↔ polarizations, class number one and the descent from `ℂ` not in Lean; fact-check w34b item 3); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet. Faithfulness review: §7 of
 `docs/research/leaf-adopt.md`.
 
 **R2. Baba–Granath** (restated by loc-adopt, 2026-11-12, after the locator audit; the statement
@@ -551,7 +559,7 @@ same value iff their QM pairs are `Aut 𝒪`-twists; CM by `ℤ[i]`, `ℤ[ζ₃]
 `0, ∞, −16/27`, the biconditional repair Q5 of rv-blueprints) and `X6Surj` (`π₆` and `Y₃ → X₆`
 onto on `ℚ̄`-points). The biconditionals are derived (`LeafAdopt.r2X6PropsIff_of`) from
 leaf-qm-fp's one-way clauses with `CMExists`, so they add nothing to the published content. The
-orbifold orders are deliberately not asserted. **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled, class number one and the descent from `ℂ` not in Lean); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet.
+orbifold orders are deliberately not asserted. **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled for N5's `μ` on `Λ = 𝒪` only, `eq_pm_E0_of_principal`, `riemann_sign`, `lemmaP_lattice`; the `E0R`/`E0` identification, `Λ = 𝒪v`, Riemann forms ↔ polarizations, class number one and the descent from `ℂ` not in Lean; fact-check w34b item 3); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet.
 
 **R3. Lin–Yang.** On the finite nonzero `j`-locus, the QM surface over `j` is a genus-2 Jacobian
 with `[J₂:J₄:J₆:J₁₀] = [12(j+1) : 6(j²+j+1) : 4(j³−2j²+1) : j³]`. Ref: Math. Z. 295 (2020),
@@ -625,7 +633,7 @@ moduli: `[ℚ(x):ℚ] = 2h(R)` and `k ↪ ℚ(x)` if `b(k) ≥ 1`, `[ℚ(x):ℚ]
 equivalent to rv-blueprints' repaired `R5fpStrong`, `LeafAdopt.R5fp_iff_R5fpStrong`, so Q2 is
 satisfied), `LeafQM.AV.R5fpCount` (Prop. 5.6: `#CM(R) = 2^{b(R)} h(R)`) and, on residue fields of
 points of `X₆`, `R5ptProps` inside `LeafAdopt.R1R2fpRep`. The simple transitivity of
-`W(R) × Gal(H_R/k)` is not stated (the adopted NoCM proof does not use it). **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled, class number one and the descent from `ℂ` not in Lean); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet.
+`W(R) × Gal(H_R/k)` is not stated (the adopted NoCM proof does not use it). **Premise: Lemma P** (rv-qm-polar §0; leaf-adopt2): like every leaf over leaf-qm-fp's objects, it is the published statement for the type-`μ` PEL problem, or a consequence of it, together with Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a field of characteristic 0, `𝒪` maximal, has exactly one principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)`, also at CM points (`QML3`, `QMPair` omit `λ`; rv-qm-polar §2: no statement needs correcting, and the λ-free statements do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar §1.2; lattice core and sign step compiled for N5's `μ` on `Λ = 𝒪` only, `eq_pm_E0_of_principal`, `riemann_sign`, `lemmaP_lattice`; the `E0R`/`E0` identification, `Λ = 𝒪v`, Riemann forms ↔ polarizations, class number one and the descent from `ℂ` not in Lean; fact-check w34b item 3); its published locators (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness, existence is glue. Without fixing `μ` the polarization is not unique (rv-qm-polar §1.3). Lemma P is folded into the leaf because polarizations cannot be stated in Lean yet.
 
 **R6. Raynaud's criterion, Galois form.** `K` with a DVR `O`, `A/K` abelian, `m ≥ 3` invertible
 in `O`, `A[m]` rational over `K` ⇒ every inertia element satisfies `(σ−1)² = 0` on `A(K̄)[ℓⁿ]`
@@ -774,7 +782,10 @@ canonical model) is a citation-chain fact, not a leaf (rv-blueprints M1). The fo
 (a 2-dimensional subquotient of `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`) is derived: `LeafModCurves.g13_constituent`,
 from the glue target `VSurjOfSurjective`. Supplier of the characteristic polynomial: Diamond–Shurman
 Thm 9.5.4 / Shimura 1971 Thm 7.11 / Ribet 1977 (UNVERIFIED numbers; leaf-modcurves review). The
-statement is non-vacuous only with `X1ModelExists` (glue target) and T33.
+statement is non-vacuous only with `X1ModelExists` (glue target) and T33. The same holds for T34
+(`DimJ1Genus`, also over `IsJ1`); `X1ModelExists` is in neither bundle and is proved by no theorem
+of `Leaves.lean` (at 01267822), so the glue for C9, E1, E2 cannot use R16 or T34 until it is proved or added as a
+leaf (rv-leaves48 P2).
 
 **R17. Carayol.** For a weight-2 newform of level `N` and `p ≠ ℓ`, the Artin conductor exponent
 of `ρ_{f,λ}|G_{ℚ_p}` is `v_p(N)`. Ref: Ann. Sci. ÉNS 19 (1986), Théorème (A). C. Lean: **new
@@ -824,8 +835,10 @@ over a number field `K`, `A.dim = g`, `stableFaltingsHeight A = x` (a real `x`, 
 `A`, `B` isogenous ⇒ isogenies `A → B` and `B → A` of degree `≤ κ = grKappa g [K:ℚ] x`. Isogeny =
 finite surjective homomorphism, degree = `#ker(K̄)`. Normalization-sensitive (rv-blueprints F4):
 a consequence only if Gaudron–Rémond's `h` is the original Faltings normalization (the audit read
-it so). Consequence of the publication only together with H5. **Not yet known to be non-vacuous**
-(AN3 open; see H5 below).
+it so). Consequence of the publication only together with H5. If `A` has no metrized model,
+`stableFaltingsHeight A = ⊤` and R19 is vacuous at `A`; so R19 is true for the definition and says
+something only together with H5 (rv-leaves48 P1; formerly "not yet known to be non-vacuous"; see
+H5 below).
 
 **R20. Faltings' height lemma.** `|h_F(A) − h_F(B)| ≤ ½ log deg φ`. Ref: Faltings 1983, Lemma 5;
 Raynaud, Astérisque 127 (1985), VII Cor. 2.1.3. E. Lean: **yes** since leaf-adopt (below). Step E4. Locator audit
@@ -839,7 +852,8 @@ it needs Néron models and H5. The former remark "additivity and invariance unde
 follow from the definition: glue" was false for additivity.
 *Lean (leaf-adopt).* **Concrete**: `ZInQ.DefFaltings.R20_FaltingsLemma5`: for an isogeny `φ`
 over a number field and reals `x = h(A)`, `y = h(B)`, `|x − y| ≤ ½ log deg φ`. Consequence of
-Faltings' Lemma 5 together with H5; not yet known to be non-vacuous (AN3 open).
+Faltings' Lemma 5 together with H5; vacuous at an `A` with `h = ⊤` (no metrized model), so it says
+something only together with H5 (rv-leaves48 P1; formerly "not yet known to be non-vacuous").
 
 **R21. Bost.** `h_F(A) ≥ −(3/2)dim A`. Ref: Bost, Sém. Bourbaki 795 (1996), via Gaudron–Rémond
 2014 §9 (read by a model). C (weaker constant). Lean: **yes** since leaf-adopt (below). Step E4. Locator audit
@@ -848,8 +862,9 @@ unreadable: UNVERIFIED from Bost. Gaudron–Rémond §9 (proof of Lemma 9.1, p. 
 `−(3/2)dim A` (read), which verifies their published use, not Bost's constant. Conditional on a
 Deligne-normalized bound `h_D ≥ −(g/2)log(2π)`, one gets `h_F ≥ −(g/2)log(2π²) > −(3/2)g`.
 *Lean (leaf-adopt, 2026-11-12).* **Concrete**: `ZInQ.DefFaltings.R21_Bost`: `A.dim = g` ⇒
-`−(3/2)g ≤ stableFaltingsHeight A` in `EReal`. Holds trivially if `h = ⊤`, so it is not yet known
-to be non-vacuous (AN3 open); it excludes `h = ⊥` (`stableFaltingsHeight_ne_bot_of_R21`).
+`−(3/2)g ≤ stableFaltingsHeight A` in `EReal`. Holds trivially if `h = ⊤` (no metrized model), so
+it says something only together with H5 (rv-leaves48 P1; formerly "not yet known to be
+non-vacuous"); it excludes `h = ⊥` (`stableFaltingsHeight_ne_bot_of_R21`).
 
 **R22. Pazuki.** `h_Θ(A) ≤ ½X_D + C₂ log(X_D+2)` for principally polarized abelian surfaces,
 `C₂ = 1000·2⁴(log 2⁴)⁵`, used in the hardened form `X_D = max(1, h_F(A) + 3)` (rv-leaves-a §3.3: the
@@ -899,8 +914,11 @@ direction needs it (F1). **Caveat**: `StableHeightFinite` for def-faltings' infi
 that the index set is nonempty, which is what the open Props `AnalyticUniformizationExists` and
 `HodgeLatticeTheorem` (with `AnalyticUniformizationUnique`) assert; they are true theorems
 (Mumford §1 with GAGA; smoothness of group models) that are not proved in Lean. So H5 is
-"published theorem + correctness of the definition", and until AN3 is proved no leaf over the
-height is known to be non-vacuous. Steps E2-E4 (G18), F3 (G19).
+"published theorem + correctness of the definition": `stableFaltingsHeight A = ⊤` exactly when `A`
+has no metrized model, R19-R21 stay true there (R19, R20 vacuous, R21 trivial), and a defect of the
+definition would show up as a false H5 (rv-leaves48 P1, compiled: `RvLeaves48D.sfh_eq_top_iff`,
+`H5_forces_metrized_model`; formerly "until AN3 is proved no leaf over the height is known to be
+non-vacuous"). Steps E2-E4 (G18), F3 (G19).
 
 ### §2.2 Textbook foundations (route P)
 
@@ -934,19 +952,19 @@ height is known to be non-vacuous. Steps E2-E4 (G18), F3 (G19).
 | T19 | Brauer–Nesbitt (char 0, trace form) | Curtis–Reiner §30; Lang XVII 3.8 | E | yes, `HSyn.BrauerNesbitt` (also `PkgI6.BrauerNesbittChar0`) | none found |
 | T29 | Local normalizers of maximal quaternion orders (index 2 at ramified `p`, 1 at split `p`) | Vignéras LNM 800 Ch. II | E | **yes** (leaf-push): `LeafPush.T29a_DivisionNormalizer`, `T29b_SplitNormalizer`; for N5's order every fact A3(a) uses is **proved** (glue-vigneras, `scratch/glue-vigneras/`, not in `Leaves.lean`) | glue-vigneras |
 | T30 | Local square-root criterion: `χ\|G_{ℚ_p}` has a continuous square root iff `χ(u) = 1` for `u ≡ −1 mod p^k`, `≡ 1` prime to `p` | consequence of local CFT for `ℚ_p` (Serre, *Local fields*) | C | yes, `GlueDescent.B2Q.LeafSqrtCrit` | none |
-| T31 | Unramified classes of `H²(G_{ℚ_p}, ±1)` vanish (`cd ℤ̂ = 1`) | Serre, *Galois cohomology* II §3 | C | yes, `GlueDescent.B2Q.LeafUnramified` | none |
+| T31 | Unramified classes of `H²(G_{ℚ_p}, ±1)` vanish (`cd ℤ̂ = 1`) | Serre, *Galois cohomology* I §3.2 (UNVERIFIED, from memory; formerly cited here as II §3, while glue-descent.md cites I §3; rv-leaves48 P6) | C | yes, `GlueDescent.B2Q.LeafUnramified` | none |
 | ~~T32~~ | Tame inertia of `ℚ_p` has a unique quadratic character; a quadratic Dirichlet character ramifies exactly at its conductor | Serre, *Local fields* IV §2 | — | **glue, proved** (leaf-adopt, 2026-11-12): T32(a) by glue-t32a (`scratch/glue-t32a/T32a.lean`, `GlueB3Unram.t32a`), T32(b) by glue-b3b (`scratch/glue-b3b/B3b.lean`, `GlueB3Unram.t32b`); both copied into `Leaves.lean` as `HSyn.t32a_glue`, `HSyn.t32b_glue`, so B3(v) rests on no leaf. Removed from `TextbookLeaves` | — |
 | **(d) Ramification** | | | | | |
 | T20 | Hilbert's different formula | Serre, *Corps locaux* IV §1 Prop. 4 | E | yes, `GlueConductor.HilbertDifferentFormula` (global; cite localization of the different and of `G_i`, Serre III §4, I §7, rv-leaves-b), or the local `PkgI6.HilbertDifferentFormula` (I6.7) | Tau Ceti |
 | T21 | Different bound `v(𝔇) ≤ e − 1 + v(e)` | Serre III §6 | E | yes, `GlueConductor.SerreDifferentBound` (global; same localization citation), or the local `PkgI6.DifferentBound` (I6.6) | not located |
 | T22 | Herbrand: quotients `(G/H)^v = G^vH/H`, transitivity of `φ` | Serre IV §3 Props. 14, 15 | E | yes, `PkgI6.HerbrandQuotient`, `PkgI6.HerbrandTransitivity` | Tau Ceti `map_restrictNormalHom_upperRamificationGroup` |
 | **(e) p-adic Hodge theory** | | | | | |
-| T23 | Fontaine: de Rham representations closed under duals, ⊗, ⊕, subquotients | Astérisque 223, Thm 3.8 | E | **yes** (leaf-push): `PkgI4.T23_FontaineClosure`, matrix form, `ℚ_p` coefficients (the `E`-coefficient reduction is glue) | none |
+| T23 | Fontaine: de Rham representations closed under duals, ⊗, ⊕, subquotients | Astérisque 223, Thm 3.8 | E | **yes** (leaf-push): `PkgI4.T23_FontaineClosure`, matrix form, `ℚ_p` coefficients (the `E`-coefficient reduction is glue); the Lean form, on `V^∨`, is a consequence of the published statement, not exact (rv-leaves48 P4) | none |
 | **(f) Modular forms, invariants** | | | | | |
 | T24 | Twisting an eigenform by a Dirichlet character | Shimura 1971 Prop. 3.64; Atkin–Li 1978 | C | yes, `HSyn.EigenformTwist` | none |
 | T25 | Newforms: each eigensystem away from the level is that of a newform of level dividing it | Li 1975 Thm 5; Miyake 4.6.19 | C | yes, `PkgI4.NewformOfEigenform` (newforms through the old space) | Tau Ceti (newform bookkeeping) |
 | T28 | Clebsch–Bolza–Igusa: Igusa invariants separate `GL₂`-orbits of binary sextics with nonzero discriminant | Igusa, Ann. of Math. 72 (1960) | E | yes, `PkgI1.IgusaClebschSeparation` | none |
-| T34 | `dim J₁(N)` equals the genus `1 + μ/12 − ν₂/4 − ν₃/3 − ν∞/2` of `Γ₁(N)` (new, leaf-adopt, from leaf-modcurves) | Shimura 1971 Prop. 1.40 and §6.7; Milne 1986 (`dim Jac = genus`) (UNVERIFIED numbers); the `ℚ`-isomorphism of the canonical model with the `K_N` model is a citation-chain fact (rv-blueprints M1) | C | yes, `LeafModCurves.DimJ1Genus`; glue `dim_J1_le` (`≤ N²`) proved | none |
+| T34 | `dim J₁(N)` equals the genus `1 + μ/12 − ν₂/4 − ν₃/3 − ν∞/2` of `Γ₁(N)` (new, leaf-adopt, from leaf-modcurves) | Shimura 1971 Prop. 1.40 and §6.7; Milne 1986 (`dim Jac = genus`) (UNVERIFIED numbers); the `ℚ`-isomorphism of the canonical model with the `K_N` model is a citation-chain fact (rv-blueprints M1) | C | yes, `LeafModCurves.DimJ1Genus`; glue `dim_J1_le` (`≤ N²`) proved; like R16, non-vacuous only with `X1ModelExists` and T33 (rv-leaves48 P2) | none |
 
 ### §2.3 Counts (VERIFIED from the lists and the compiled file; updated by leaf-adopt2, 2026-11-12)
 
@@ -960,8 +978,9 @@ height is known to be non-vacuous. Steps E2-E4 (G18), F3 (G19).
   placeholders**. R17 has a concrete statement outside `Leaves.lean` (`LadicCond.CarayolR17'`,
   def-ladic-cond, confirmed by leaf-push2 §4); folding it would make 54 of 56.
 - Premises (docstrings): R1, R2, R5 and R3 rest on Lemma P (rv-qm-polar; type `μ` fixed,
-  characteristic 0, `𝒪` maximal); R18-R22 and H5 are not yet known to be non-vacuous; R18, R22
-  also rest on H5 for leaf-push2's copy of the height.
+  characteristic 0, `𝒪` maximal); R18-R22 are consequences only together with H5, where a defect
+  of the height's definition would surface (rv-leaves48 P1; formerly "R18-R22 and H5 are not yet
+  known to be non-vacuous"); R18, R22 also rest on H5 for leaf-push2's copy of the height.
 - *The bullets below are leaf-adopt's (counts then: 48 of 56, 7 placeholders).*
 
 - **leaf-adopt counts.** Research-level: **23** leaves (R1-R22 and H5). Textbook: **33** leaves
@@ -1003,8 +1022,9 @@ height is known to be non-vacuous. Steps E2-E4 (G18), F3 (G19).
 - `sorry` list: one, `HSyn.glueOutputs_of_leaves` (G1-G17, G19). No other `sorry` in the file
   (VERIFIED again by leaf-adopt).
 - Lean check (leaf-adopt, VERIFIED 2026-11-12 19:4x PST): `lake env lean
-  scratch/h-decomposition/Leaves.lean` exits 0 (about 3.5 min, 19.2k lines); one `sorry` warning
-  (`HSyn.glueOutputs_of_leaves`); 8 `opaque`; no `axiom`; 118 `#print axioms`, all `propext`,
+  scratch/h-decomposition/Leaves.lean` exits 0 (about 3.5 min, about 19.3k lines: 19350 at 01267822); one `sorry` warning
+  (`HSyn.glueOutputs_of_leaves`); 8 `opaque`; no `axiom`; 115 `#print axioms` lines for 114
+  declarations (`HSyn.sixContactMin_of_leaves` is printed twice; fact-check w34b item 8), all `propext`,
   `Classical.choice`, `Quot.sound` except `HSyn.sixContactMin_of_leaves` (adds `sorryAx`).
 - Lean check (hsyn-fold, VERIFIED 2026-11-12 00:16 PST): `lake env lean
   scratch/h-decomposition/Leaves.lean` exits 0 (about 1.5 min); one `sorry` warning
@@ -1025,9 +1045,9 @@ item has model reviews only, except what is marked proved.
 | --- | --- | --- | --- | --- | --- |
 | G0 | The leaves imply `SixContactMin` | G1-G20 | N5 L404-964 | **stated**: `HSyn.sixContactMin_of_leaves` = (G1-G17, G19 non-Arakelov part: `HSyn.glueOutputs_of_leaves`, `sorry`) then (G18-G20: **proved**) | small |
 | G1 | Fibre datum: Gram matrix det 1, Rosati, unique polarization, normalizer index 4, `deg(Y₃→P¹_j) ≤ 324` | R1, R2, T29 | N5 L410-441; h-b1 M1-M3 | **proved**: `𝒪` an order of discriminant 6, Gram determinant 1, the Rosati identity and positivity, `\|(𝒪/3𝒪)^*\| = 72`, `4·72 ≤ 324` (glue-repo `A1Quaternion.lean`; `PkgI1.gram_det`); CM elements of `𝒪` (`PkgI1.cm4`, `cm3`, `cm24`); normalizer index `[N_B(𝒪):ℚ^×𝒪^×] = 4` and the local normalizers **proved** (glue-vigneras, not in `Leaves.lean`; adelic bookkeeping open); the quotient `Y₃/Γ' = P¹_j` needs R1's objects | medium |
-| G2 | Lemma PR(i): fibre field `K` Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`; `J(u)` not a branch value | G1; R1(d), R2, T1, T2 | repository, h-b1 (rv-h-b1) | **proved**: the whole valuation case analysis of PR(i) (for `p ≥ 17`, the three inertia orders are 1 iff `p ∤ M_S(u)`, `GlueRepo.PR.inertia_orders_eq_one_iff`), `[K:ℚ] ≤ 324!`, `G⁶ − 97200F² = H²`, `J(u)` finite, nonzero, not a branch value (`PkgI1.G6_sub_F2`, `Ju_ne_branch`); unproved: Prop. TS itself (from T1-T2 or Beckmann 1991 Prop. 4.2) and Lemma NV ; leaf-adopt: Lemma NV step 2 (residue fields over the three branch values unramified at `p ≥ 5`) **proved** from R1's concrete clauses, `LeafQM.AV.residue_unramified_over_branch`; step 4 uses `π₀(X₆) = 1`, now the clause `LeafAdopt.R1pi0Props` (Q4); degree theory of curves and the function-field Galois theory are open (leaf-qm-fp §4) | large |
+| G2 | Lemma PR(i): fibre field `K` Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`; `J(u)` not a branch value | G1; R1(d), R2, T1, T2 | repository, h-b1 (rv-h-b1) | **proved**: the whole valuation case analysis of PR(i) (for `p ≥ 17`, the three inertia orders are 1 iff `p ∤ M_S(u)`, `GlueRepo.PR.inertia_orders_eq_one_iff`), `[K:ℚ] ≤ 324!` (as the generic `splitting_degree_le`: a separable `f ∈ ℚ[X]` of degree `≤ 324` has splitting field of degree `≤ 324!`; not a statement about the fibre field; fact-check w34b item 18), `G⁶ − 97200F² = H²`, `J(u)` finite, nonzero, not a branch value (`PkgI1.G6_sub_F2`, `Ju_ne_branch`); unproved: Prop. TS itself (from T1-T2 or Beckmann 1991 Prop. 4.2) and Lemma NV ; leaf-adopt: Lemma NV step 2 (residue fields over the three branch values unramified at `p ≥ 5`) **proved** from R1's concrete clauses, `LeafQM.AV.residue_unramified_over_branch`; step 4 uses `π₀(X₆) = 1`, now the clause `LeafAdopt.R1pi0Props` (Q4); degree theory of curves and the function-field Galois theory are open (leaf-qm-fp §4) | large |
 | G3 | Lemma PR(ii): `A`, `σA` good reduction at `v ∤ 3` | R1(a); h-b1 route: R8, R7b, T3; Raynaud route: R6 (SGA 7 IX 4.7 with 3.5), R7a (Serre–Tate Thm 1), T5 (Mumford §4), `B ⊗ ℚ₃` a division algebra | repository, h-b1 §4(ii); Raynaud route new in pkg-I2 §4.2, reviewed in rv-a6-route (sound after repairs R1-R2 to pkg-I2's steps 2-3) | **proved** on the Raynaud route from the three leaves `RaynaudCriterion`, `NeronOggShafarevich`, `TorsionStructure` alone: `PkgI2.goodReduction_of_QM_rational3` (and `…'` without the auxiliary `w`); `QuatUnipotentTrivial` **proved** (`PkgI2.quatUnipotentTrivial`, glue-a6-alg); the instantiation on the actual `A` (R1) is open; `1 + 3M_r(ℤ₃)` torsion-free and `B` a division algebra **proved** (glue-repo `TorsionFree.lean`) ; leaf-adopt: on leaf-qm-fp's objects, every `QML3` object has good reduction at every DVR with `3` a unit (`LeafQM.AV.QML3.goodReduction`, through `Level3.onto`), proved | medium |
-| G4 | Conjugates have one moduli point; Hom field `L`, `[L:ℚ] ≤ D`, unramified outside `T` | G2, G3; R2, R3, T6, R7a, T28; Minkowski's lemma | N5 L532-563 | A7's algebraic step **proved** (`PkgI1.equiv_of_lyVec`, from T28); Minkowski's bound and `[EK:ℚ] ≤ F₀·3^{r²} ≤ D` **proved** (glue-repo); Weil restriction, the Hom field unproved ; leaf-adopt: A7 itself (the conjugates of a fibre object are geometrically isomorphic) **proved** from R1-R2's concrete leaves, `LeafQM.AV.conj_iso_of_rational`, `fibre_conjugates_isomorphic`, and A4 (`exists_fibre_object`), leaf-qm-fp | medium |
+| G4 | Conjugates have one moduli point; Hom field `L`, `[L:ℚ] ≤ D`, unramified outside `T` | G2, G3; R2, R3, T6, R7a, T28; Minkowski's lemma | N5 L532-563 | A7's algebraic step **proved** (`PkgI1.equiv_of_lyVec`, from T28); Minkowski's bound and `[EK:ℚ] ≤ F₀·3^{r²} ≤ D` **proved** (glue-repo); Weil restriction, the Hom field unproved ; leaf-adopt: A7 itself (the conjugates of a fibre object are geometrically isomorphic) **proved** from R1-R2's concrete leaves, `LeafQM.AV.conj_iso_of_rational`, `fibre_conjugates_isomorphic`, and A4 (`exists_fibre_object`), leaf-qm-fp; as stated, `fibre_conjugates_isomorphic` gives only some `P : QML3 ℚ̄` whose conjugates are all `Aut 𝒪`-twists of it, the link to a point over `j₀` being in its proof; the linked form is `exists_fibre_object` with `conj_twist_of_rational` (fact-check w34b item 1) | medium |
 | G5 | `End⁰(A_ℚ̄) ∈ {B, M₂(k)}` | T27 (or T11 + centralizer) | N5 L564-577; pkg-I3 | immediate from T27 once `A` exists | small |
 | G6 | NoCM: no CM point over `J(u)`, so `End⁰ = B` | G5; R1(d), R2, R5 | repository, h-cm, rv-h-cm §7.2 | **proved**: Elkies identities (`PkgI1.elkies_t`, `elkies_t_sub_one`), the fibre over `t(u)` is a free `W`-orbit with no real point and complex conjugation acts as `w₃` (`GlueRepo.PR.fibre_free`), `ℚ(√−2) ⊄ B`; the counting with R5 unproved ; leaf-adopt: R5 is now concrete (`LeafQM.AV.R5fp` = `R5fpStrong`, with `k ↪ ℚ(x)`, which the case `D(R) ≠ 1` needs; `R5fpCount`; `R5ptProps` on residue fields), and `cm_of_val` (h-b1 M9) is proved from R2's clauses; the Kummer model of `X₆ → P¹` and the class-number arithmetic are open (leaf-qm-fp §4) | small |
 | G7 | Scalar descent: `μ_σ`, `ε`, `χ` with `m ≤ 2R^R M`, `β`, `[L':ℚ] ≤ QM` | G4, G6; T13-T16 | N5 L632-716 (Glazer); pkg-I6 (B2 via local Kronecker–Weber, SPECULATIVE) | **B2-B3 proved** over Mathlib's `G_ℚ`, Dirichlet characters and intermediate fields from glue-descent's cochain forms of T14-T15 (`LeafHasse`, `LeafLocalTwo`; their derivation from `PkgI6.BrauerHasse2`, `BrauerReciprocity2`, `LocalH2Card` is unproved, WP3), T30, T31: `GlueDescent.B3Q.b3_degree_le_QM` gives `χ`, `β` with `β² = χ`, `∂β = ε`, `L'` Galois with `[L':ℚ] ≤ Q·M` against the repository's `heightQ`, `contactSupport`; B1's algebra (cocycle, sign normalization, centralizer `c ∈ ℚ^×`, `B` central simple) **proved** (glue-descent `B1Quat`, `Cochain`); B2's Brauer step also from pkg-I6's forms (`PkgI6.eq_of_same_finite_support`, and from the cochain forms `PkgI6.cob_of_same_finite_support`); finite-group cores of the local square-root criterion (`GlueI6Rest.exists_half_iff`) and of `[ε]_p = 0` at unramified `p` by cyclic inflation (`GlueI6Rest.inflation_two_eq_coboundary`) **proved** in glue-I6-rest (`scratch/glue-I6-rest/`, not copied here), their local-field parts open (no cyclotomic or unramified extensions of `ℚ_p` in Mathlib); unramifiedness of `L'` (B3(v)) **proved** in glue-b3-unram from `LeafB3a`, `LeafB3b`, `LeafConj` (not in `Leaves.lean`); T32 (both parts) and `LeafB3a` **proved** (glue-t32a, glue-b3b; in `Leaves.lean` since leaf-adopt: `HSyn.t32a_glue`, `t32b_glue`, `leafB3a_glue`), so B3(v) rests on no leaf (glue-t32a); both Galois halves of the local square-root criterion proved in glue-sqrt-local (disjointness open); unproved: instantiation on the actual `A` | medium-large |
@@ -1113,7 +1133,7 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
 | WP7 | N5's appendix lemma (G9) over pkg-I4's de Rham layer (T23 now stated, leaf-push; `ker θ` principal and `B_dR` classical, bdr-kertheta); `B_dR`'s Galois action compatibility | — | T23, G9 |
 | WP8 | Prove the p-adic Hodge theory leaves (R10, R11+R12 via `PanBerger`, R13) — the deepest route-P leaves; long term | WP7 | route P's modularity block |
 | WP9 | `X₁(N)`, `J₁(N)` over `ℚ`: predicates done (leaf-modcurves); prove `X1ModelExists` (relative normalization of `P¹_j` in `K_N`, rational cusp), `BelyiX1`, `VSurjOfSurjective`; T33 | WP4 | R16, R18; G13, G17; route K's K2 |
-| WP10 | Stable Faltings height: defined (def-faltings); prove `HodgeLatticeTheorem`, `AnalyticUniformizationExists`/`Unique` (AN3, which make R19-R21, H5 non-vacuous), H5, acceptance tests AT1-AT5 (rv-blueprints F3); R18, R22 stated (leaf-adopt2); prove T35 `UniformizationExists` (bp-analytic's blueprint); identify leaf-push2's and def-faltings' copies of the height | WP4, Néron models | R18-R22, H5; instantiating `GlueOutputs` |
+| WP10 | Stable Faltings height: defined (def-faltings); prove `HodgeLatticeTheorem`, `AnalyticUniformizationExists`/`Unique` (AN3, needed for H5's finiteness clause; R19-R21 are true for the definition without them, rv-leaves48 P1), H5, acceptance tests AT1-AT5 (rv-blueprints F3); R18, R22 stated (leaf-adopt2); prove T35 `UniformizationExists` (bp-analytic's blueprint); identify leaf-push2's and def-faltings' copies of the height | WP4, Néron models | R18-R22, H5; instantiating `GlueOutputs` |
 | WP11 | Classical analysis and invariant theory: prove T28 (first fundamental theorem for sextics) and R4 (theta transformation formula in genus 2) | — | 2 leaves closed |
 | WP12 | QM moduli: field-point layer done (leaf-qm-fp); state Lemma P (rv-qm-polar) as a separate hypothesis once polarizations exist, or use Buzzard's polarization-free problem; R1(b) in family form (analytification); R3 stated (leaf-adopt2), its Lefschetz glue `R03_LinYang_algClosed` and the link `j = π₆(x)`; the glue of leaf-qm-fp §4 (degree theory of curves, function-field Galois theory, the Kummer model of `X₆ → P¹`) | WP4 | R1-R3, R5, G1-G6 |
 | WP13 | Statement checks: locators, Pan's trace reading, QM dichotomy's combined locator, Pazuki's normalization (hardened to `+3` meanwhile), the localization citation for the global different leaves, Ribet's printed form (route K) | none | §6 |
@@ -1126,7 +1146,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
    ℓ-adic cohomology).
 2. Premises: Lemma P (rv-qm-polar; human check of Buzzard 1997 p. 592 and Rotger 2003/2004; it
    becomes a separate hypothesis once polarizations exist, WP4); AN3's three Props and
-   `HodgeLatticeTheorem` (non-vacuity of R18-R22, H5); Pazuki's Def. 2.6 coordinates (R22);
+   `HodgeLatticeTheorem` (H5's finiteness for the definition, on which R18-R22 depend; rv-leaves48
+   P1); Pazuki's Def. 2.6 coordinates (R22);
    Lin–Yang's printed (13)-(14) against `LinYangTuple` (R3).
 3. Glue targets: `T12_ComplexConjEigen`, `R03_LinYang_algClosed` (leaf-push2), `HSyn.HeightCopiesAgree`
    (leaf-adopt2); `X1ModelExists`,
@@ -1141,8 +1162,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
 1. Placeholders: R1(b) (analytification, family form), R3 (QM locus, Igusa invariants), R17
    (fold def-ladic-cond's `CarayolR17'` and its glue Props), R18 (Belyi maps, genus over `ℚ̄`),
    R22 (polarizations, theta height), T10-T12 (étale cohomology, analytification).
-2. Premises: bp-qmmoduli §2.2 (human review of the polarization claim, or a polarization-free
-   moduli problem); AN3's three Props and `HodgeLatticeTheorem` (non-vacuity of the height leaves).
+2. Premises: bp-qmmoduli §2.2 (now Lemma P of rv-qm-polar, leaf-adopt2; fact-check w34b item 5)
+   (human review of the polarization claim, or a polarization-free moduli problem); AN3's three Props and `HodgeLatticeTheorem` (non-vacuity of the height leaves).
 3. Glue targets introduced by the adopted reports: `X1ModelExists`, `BelyiX1`,
    `VSurjOfSurjective` (leaf-modcurves); the four missing glue pieces of leaf-qm-fp §4.
 4. Unification (WP1): `ZInQ.DefFaltings.AbVar` is a copy of `PkgI3.AbVar` (identified by the
@@ -1231,7 +1252,9 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
   a Lean hypothesis). (ii) The
   height leaves R19-R21 and H5 are over a definition whose finiteness depends on the open Props
   `AnalyticUniformizationExists`, `AnalyticUniformizationUnique`, `HodgeLatticeTheorem`: until they
-  are proved, no leaf over the height is known to be non-vacuous. (iii) R19 depends on
+  are proved, H5's finiteness clause is not known to hold for the definition; R19-R21 are true for
+  it in any case (vacuous or trivial where `h = ⊤`), so the risk sits in H5 (rv-leaves48 P1;
+  formerly "no leaf over the height is known to be non-vacuous"). (iii) R19 depends on
   Gaudron–Rémond's normalization being Faltings' original one (rv-blueprints F4). (iv) R1's
   audit verdict is a qualified consequence (Deligne's PEL model specialized to this functor needs a
   human check).
