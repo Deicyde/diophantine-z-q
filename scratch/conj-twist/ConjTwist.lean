@@ -6,13 +6,17 @@ Check with `lake env lean scratch/conj-twist/ConjTwist.lean` (after
 `lake build ZInQKernel.HDecomp.LeafPush2.T`). No `sorry`; all `#print axioms` are standard.
 
 **Main results** (end of file):
-* `conjTwistFromLeaves_final' : HomLinearLift → ConjUniformizationAnalytic → ConjTwistFromLeaves`
-* `conjTwistNontrivial_final' : PkgI2.TorsionStructure → PkgI3.TateModuleFree →
-  UniformizationExists → HomLinearLift → ConjUniformizationAnalytic → ConjTwistNontrivial`
+* `conjTwistFromLeaves_of_homLinearLift : HomLinearLift → ConjTwistFromLeaves`
+* `conjTwistNontrivial_of_leaves : PkgI2.TorsionStructure → PkgI3.TateModuleFree →
+  UniformizationExists → HomLinearLift → ConjTwistNontrivial`
 
-`HomLinearLift` (N2) is a textbook leaf (T11(a) in Hom form, Birkenhake–Lange 1.2.1);
-`ConjUniformizationAnalytic` (N3a-an) is glue (the two analytic clauses of `IsUniformization` for
-the complex conjugate of a uniformization, on the conjugate variety).
+`HomLinearLift` (N2) is a textbook leaf (T11(a) in Hom form, Birkenhake–Lange 1.2.1). No glue
+Prop remains in the main results. The glue forms they use are all proved here: torsion
+surjectivity under a uniformization (`torsion_surj_of_T5`), `TateLatticeInj`, `ConjAntiLiftLat`,
+`ConjUniformization`, `ConjUniformizationAnalytic`, `TwistCEval`, `ConjVarDim`. The stronger
+intermediate Props `ArtinTorsion`, `TateLattice`, `ConjAntiLift`, `ConjBettiData` and
+`ConjBettiComparison` are kept with their reductions for reference. They are not proved and not
+needed.
 
 * §1 verbatim copies from `scratch/g10-odd/G10Odd.lean` (`ConjTwistNontrivial`,
   `ConjTwistFromLeaves`, `resQ`, `qEmbRing`, ..., `betti_skeleton_fd` with its lemmas).
@@ -22,7 +26,8 @@ the complex conjugate of a uniformization, on the conjugate variety).
 * §6 `toC`, `twistC`, statements N1-N5, `toC_injective`, `toC_conjPt`; §7 naturality;
   §8 `lattice_contradiction`; §9 `conjVarDim` (N5); §9b N3 from N2 + N3a; §10 the main
   reduction `conjTwistNontrivial_of_latticeInj`; §11 the comparison `ℤ_ℓ ⊗ Λ ↪ T_ℓ(A)`;
-  §12 N1-surj; §13 N1-surj from T5; §14 N3a from its analytic clauses.
+  §12 N1-surj; §13 N1-surj from T5; §14 N3a from its analytic clauses; §15 the analytic
+  clauses from `TwistCEval`; §16 `TwistCEval` proved, and the main results.
 -/
 
 noncomputable section
