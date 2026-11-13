@@ -137,4 +137,56 @@ noncomputable def Zhat : Subgroup BAˣ where
           rw [← mul_assoc, ← map_mul, inv_mul_cancel₀ hc0, map_one, one_mul]
       _ = algebraMap _ _ c⁻¹ := by rw [h1, mul_one]
 
+/-! ### Components of the normalizer -/
+
+open Classical in
+/-- The element of `B̂` with component `y` at `p` and `0` elsewhere. -/
+noncomputable def single (p : Nat.Primes) (y : Bp (p : ℕ)) : BA :=
+  RestrictedProduct.single (fun q : Nat.Primes => OpSub (q : ℕ)) p y
+
+theorem single_apply_self (p : Nat.Primes) (y : Bp (p : ℕ)) : single p y p = y := by
+  classical
+  simp [single]
+
+theorem single_apply_ne {p q : Nat.Primes} (h : q ≠ p) (y : Bp (p : ℕ)) : single p y q = 0 := by
+  classical
+  simp [single, h]
+
+theorem conj_apply (x : BAˣ) (y : BA) (q : Nat.Primes) :
+    ((x : BA) * y * ((x⁻¹ : BAˣ) : BA)) q =
+      ((comp q x : (Bp (q : ℕ))ˣ) : Bp (q : ℕ)) * y q * (((comp q x)⁻¹ : (Bp (q : ℕ))ˣ) :
+        Bp (q : ℕ)) := by
+  rw [comp_val, comp_inv_val, RestrictedProduct.mul_apply, RestrictedProduct.mul_apply]
+
+theorem single_mem_Ohat (p : Nat.Primes) {y : Bp (p : ℕ)} (hy : y ∈ Op (p : ℕ)) :
+    single p y ∈ Ohat := by
+  intro q
+  by_cases h : q = p
+  · subst h; rw [single_apply_self]; exact hy
+  · rw [single_apply_ne h]; exact (OpSub (q : ℕ)).zero_mem
+
+/-- **Components of the normalizer.** If `x ∈ N`, every `x_p` normalizes `𝒪_p`. -/
+theorem normalizer_component {x : BAˣ} (hx : x ∈ Nhat) (p : Nat.Primes) :
+    comp p x ∈ normalizerOp (p : ℕ) := by
+  intro y
+  have key : ∀ q : Nat.Primes, ((x : BA) * single p y * ((x⁻¹ : BAˣ) : BA)) q ∈ Op (q : ℕ) ↔
+      (q = p → ((comp p x : (Bp (p : ℕ))ˣ) : Bp (p : ℕ)) * y *
+        (((comp p x)⁻¹ : (Bp (p : ℕ))ˣ) : Bp (p : ℕ)) ∈ Op (p : ℕ)) := by
+    intro q
+    rw [conj_apply]
+    by_cases h : q = p
+    · subst h; rw [single_apply_self]; simp
+    · rw [single_apply_ne h, mul_zero, zero_mul]
+      simp only [h, IsEmpty.forall_iff, iff_true]
+      exact (OpSub (q : ℕ)).zero_mem
+  constructor
+  · intro hy
+    have := (hx (single p y)).mp (single_mem_Ohat p hy) p
+    exact (key p).mp this rfl
+  · intro hy
+    have h1 : (x : BA) * single p y * ((x⁻¹ : BAˣ) : BA) ∈ Ohat := fun q => (key q).mpr
+      (fun h => by subst h; exact hy)
+    have := (hx (single p y)).mpr h1 p
+    rwa [single_apply_self] at this
+
 end G1Adelic
