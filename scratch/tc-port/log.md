@@ -42,3 +42,19 @@
     `Sylow.maximal_isPGroup : Maximal (fun Q : Subgroup G ↦ IsPGroup p Q) (P : Subgroup G)`.
 - Final: `lake build` of all 721 + backport: Build completed successfully (5256 jobs).
   1119 TauCeti oleans (1118 vendored + 1 backport). No `declaration uses sorry` warning.
+
+## Step 5 (VERIFIED, compiled)
+- scratch/tc-port/Axioms.lean (+ Axioms.out): #print axioms of Chebotarev density, the
+  Exponent/Permutation theorems and 11 CFT theorems: all [propext, Classical.choice, Quot.sound].
+- scratch/tc-port/AllKW.lean: imports all 1119 modules; collectAxioms over all 24759 constants
+  of modules under ZInQKernel.Contrib.TauCeti: union = {propext, Classical.choice, Quot.sound};
+  0 constants with a nonstandard axiom (so no sorry, no native_decide). 1m57s.
+- grep of sorry/native_decide/axiom/admit in vendored sources: only docstring hits.
+
+## Step 6 (VERIFIED)
+- Cold full build of 1119 modules (TauCeti outputs moved to /tmp/tc-port-build-backup-1794568897):
+  real 6m02s, user 66m43s, sys 8m22s. Warm rebuild: real 5.8s.
+- docs/research/tc-port.md and ZInQKernel/Contrib/TauCeti/Notice.lean written; Notice.lean
+  checks with lake env lean.
+- Regeneration check: exactly 8 vendored files differ from tcport.py output (the ones listed),
+  plus the new MathlibBackport/Sylow.lean.
