@@ -1,4 +1,4 @@
-# period-glue: period-map's six glue Props — three proved, two reduced to leaves alone, one to leaves plus one AG glue Prop (`FibreGenericC`)
+# period-glue: period-map's six glue Props — three proved, three reduced to leaves, no glue left
 
 Task period-glue, 2026-11-13. Base 6f296292 (contains origin/wip/period-map). Lean:
 `scratch/period-glue/` (results log `log.md`). No file under `ZInQKernel/`, `blueprint/` or another
@@ -7,17 +7,23 @@ task's directory was edited. Model work only, no human review.
 ## 1. Result
 
 **Verdict.** None of the six statements was changed. As far as model review can tell, all six are
-true and not vacuous. Every theorem below compiles with no `sorry` and only the axioms
+true and not vacuous.
+- Three of them are **proved from Mathlib alone**.
+- The other three are **reduced to leaves only**: published or textbook statements. Two of their
+  inputs are proved by other tasks or by the kernel, and three leaves are flagged for a human check.
+- No new glue remains.
+
+Every theorem below compiles with no `sorry` and only the axioms
 `[propext, Classical.choice, Quot.sound]` (VERIFIED, §7).
 
 | Prop (period-map) | outcome | Lean |
 |---|---|---|
-| `S8Nonzero` | **PROVED** from Mathlib alone. It is a certified theta evaluation: `Re Σθ_m⁸(Ω(√2+i)) < 0` | `S8.lean`: `s8Nonzero_proof` |
-| `BaseChangeClassUnique` | **PROVED** from Mathlib alone, using mul-rigidity's proof of rigidity (copied) | `BCU.lean`: `baseChangeClassUnique_proof` |
-| `SphereFactorAffine` | **PROVED** from Mathlib alone. Three complex-analysis lemmas are proved on the way: the open mapping theorem for `ℍ → P¹`, removable singularities through a branched cover, and injective holomorphic maps of `P¹` | `SFA.lean`: `sphereFactorAffine_proof` |
-| `S8WeightExact` | **REDUCED to two leaves, no glue left**: Igusa's `ThetaModularity` (pkg-I1, unchanged) and `GammaStarGen` (leaf candidate, §5.3) | `W8.lean`: `s8WeightExact_of` |
-| `QMTwistLattice` | **REDUCED to one textbook leaf**, `T11aRiemannHom`, plus Skolem–Noether, which the kernel proves | `QMTwist.lean`: `qmTwistLattice_of'` |
-| `PiTwistC` | **REDUCED to leaves plus one glue Prop.** The leaves are R1fp, R1hecke and R2fp (all three in the own-triple bundle) and T5 (`TorsionStructure`). One supporting fact is proved by mobius-glue (`AutOInnerFinite`). The remaining glue is `FibreGenericC`, the generic-fibre half of a transfer from `ℚ̄`- to `ℂ`-points. The other half, `ToP1AgreeC`, is proved | `PiTwist.lean`: `piTwistC_of`, `twistOrbitFinite_of'`, `fibreTransferC_of'` |
+| `S8Nonzero` | **PROVED.** A certified theta evaluation: `Re Σθ_m⁸(Ω(√2+i)) < 0` | `S8.lean`: `s8Nonzero_proof` |
+| `BaseChangeClassUnique` | **PROVED**, with rigidity from mul-rigidity (copied) | `BCU.lean`: `baseChangeClassUnique_proof` |
+| `SphereFactorAffine` | **PROVED.** On the way: the open mapping theorem for `ℍ → P¹`, removable singularities through a branched cover, and injective holomorphic maps of `P¹` | `SFA.lean`: `sphereFactorAffine_proof` |
+| `S8WeightExact` | **REDUCED to two leaves**: Igusa's `ThetaModularity` (pkg-I1) and `GammaStarGen` (leaf candidate, §5.3) | `W8.lean`: `s8WeightExact_of` |
+| `QMTwistLattice` | **REDUCED to the textbook leaf** `T11aRiemannHom`, plus Skolem–Noether (proved in the kernel) | `QMTwist.lean`: `qmTwistLattice_of'` |
+| `PiTwistC` | **REDUCED to leaves**: R1fp, R1hecke, R2fp (own-triple bundle) and T5 (`TorsionStructure`), plus `AutOInnerFinite` (proved by mobius-glue) | `PiTwist.lean`: `piTwistC_of`, `twistOrbitFinite_of'`, `fibreTransferC_proof` |
 
 ```lean
 theorem s8Nonzero_proof : S8Nonzero
@@ -30,15 +36,14 @@ theorem piTwistC_of (Y Φ π) (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π)
     (hT : TwistOrbitFinite Y Φ) (hF : FibreTransferC Y π) : PiTwistC Y Φ π
 theorem twistOrbitFinite_of' (Y Φ) (hH : R1heckeProps Y Φ) (hT : ObjBridge.TorsionStructure)
     (hA : AutOInnerFinite) : TwistOrbitFinite Y Φ
-theorem fibreTransferC_of' (Y π) (hG : FibreGenericC Y π) : FibreTransferC Y π
-theorem toP1AgreeC_proof (Y) : ToP1AgreeC Y
+theorem fibreTransferC_proof (Y π) : FibreTransferC Y π
 ```
 
 The namespace is `HSyn.G0Split.FibreQM.PeriodGlue`. Two hypotheses are proved outside this task:
 - `GlueDescent.LeafSkolemNoether` is the kernel's definition, copied verbatim in the scratch base.
   The kernel proves it (`TSkolemKW.leafSkolemNoether`, `ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`).
-- `AutOInnerFinite` is mobius-glue's statement, copied verbatim; mobius-glue proves it
-  (`scratch/mobius-glue/MobiusGlue.lean` §7-§8).
+- `AutOInnerFinite` is mobius-glue's statement, with `LeafQM.O` written for `O`. mobius-glue proves
+  it (`scratch/mobius-glue/MobiusGlue.lean` §7-§8).
 
 Neither proof can be imported next to the scratch copies, because the namespaces clash. At
 integration each hypothesis is replaced by its theorem.
@@ -52,7 +57,6 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hHom : T11aRiemannHom)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hTors : ObjBridge.TorsionStructure) (hAI : AutOInnerFinite)
-    (hFG : FibreGenericC (ownY h) (ownπ h))
     (hSN : GlueDescent.LeafSkolemNoether) (hD : CMDescends)
     (hTM : PkgI1.ThetaModularity) (hG : GammaStarGen)
     (hV : PeriodMap.ValenceBoundGammaStar) (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod
@@ -65,17 +69,17 @@ theorem fibreQMPeriod_periodGlue (h : R1R2fp) (hM : Pin.MobiusGlue)
   - SN, which the kernel proves.
 - **Glue proved by another task:** `MobiusGlue` (mobius-glue / image-plane) and
   `AutOInnerFinite` (mobius-glue).
-- **Glue still open:** `FibreGenericC` (§4) and the inherited `CPtsTransport`.
+- **The only remaining glue** is the inherited `CPtsTransport`, which was not among this task's
+  targets.
 
 **Effect on period-map's three targets.**
 - `HauptmodulUnique ⇐ S8Nonzero, SphereFactorAffine`. Both are now theorems, so
   `HauptmodulUnique` is a theorem from Mathlib alone.
-- `QMDenZeroCM3 ⇐ S8Nonzero, S8WeightExact, ValenceBoundGammaStar`. It now needs only leaves:
-  `ThetaModularity`, `GammaStarGen` and `ValenceBoundGammaStar`.
+- `QMDenZeroCM3`. It now needs only `ThetaModularity`, `GammaStarGen` and
+  `ValenceBoundGammaStar`.
 - `PeriodMapGlue` at the own triple. It now needs:
   - the leaves R1fp, R1hecke, R2fp, T5, `T11aRiemannHom` and `CMDescends`;
-  - SN and `AutOInnerFinite` (proved elsewhere);
-  - the glue `FibreGenericC`.
+  - SN and `AutOInnerFinite`, both proved elsewhere.
 
 ## 2. What was proved
 
@@ -183,8 +187,9 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
 
 ### 2.6 `PiTwistC` (`PiTwist.lean`)
 
-- **Reduction** (`piTwistC_of`). `PiTwistC ⇐ R1fp, R2fp, TwistOrbitFinite, FibreTransferC`;
-  then `FibreTransferC ⇐ ToP1AgreeC + FibreGenericC` (`fibreTransferC_of`).
+- **Reduction** (`piTwistC_of`). `PiTwistC ⇐ R1fp, R2fp, TwistOrbitFinite, FibreTransferC`.
+  Then `FibreTransferC ⇐ ToP1AgreeC + FibreGenericC` (`fibreTransferC_of`), and both halves are
+  proved below (`fibreTransferC_proof`).
   - On `ℚ̄`-points: the R2fp fibres equal the twist classes, which equal the `G`-orbits.
   - `FibreTransferC` carries this to `ℂ`-points.
   - On `ℂ`-points, `TwistOrbitFinite` turns the `G`-orbits back into twist classes.
@@ -207,62 +212,62 @@ The certificate is structural. It needs only crude bounds on `q = e^{−π/2}`.
   - The difference of the chart functions vanishes at all closed points. So its non-vanishing
     locus is empty (Jacobson), and it vanishes in every residue field
     (`basicOpen_eq_bot_iff_forall_evaluation_eq_zero`). No reducedness is needed.
+- **`FibreGenericC`** (`fibreGenericC_proof`, Jacobson on `P = Y ×_ℚ Y`).
+  - The agreement locus `A` of `π∘pr₁` and `π∘pr₂` is closed (`isClosed_agree`, by the chart
+    cover; `disagree_nhds` uses `f₁g₂ − 1`).
+  - `Γ = ⋃_{g∈G} (pr₁ ≫ g, pr₂)⁻¹(range Δ)` is closed, because `Y` is separated.
+  - A closed point of `A \ Γ` would be the point of a `ℚ̄`-point of `P` (`exists_qbarPt`), that is,
+    a pair of `ℚ̄`-points with equal `π`-values. The hypothesis puts it in some graph, a
+    contradiction. Since `A \ Γ` is locally closed and `P` is Jacobson, `A ⊆ Γ`.
+  - The `ℂ`-point `(y, y')` lies in `A`, hence over `range Δ` after `(pr₁ ≫ g, pr₂)`.
+  - A field-valued point over the diagonal has equal projections (`diag_eq`). Its residue maps
+    are both sections of the injective `κ(Δq) → κ(q)` (`diag_rfm`). This gives `y ≫ g = y'`.
 - **`UnitLiftMod3`** (`unitLiftMod3_proof`, a finite computation).
   - `nrd` is multiplicative (`nrdZ_mulCoord`), so `u₀` invertible mod 3 gives `3 ∤ nrd(u₀)`.
   - A table of 72 units with coordinates at most 3 (`py/unit_table.py`) covers every class with
     `nrd ≢ 0 mod 3`. `decide` checks it over the 81 classes (`unitTbl_spec`).
 
-## 3. The new named Props
+
+## 3. The named Props introduced here
 
 | Prop | kind | statement (informal) | status |
 |---|---|---|---|
 | `GammaStarGen` | **LEAF candidate** (flagged, §5.3) | `Γ* ⊆ ⟨ι(1+i+j), ι((j−3)/2), ℚ^×⟩` | signature `(0;2,4,6)` + Poincaré + covolume; numerically checked on 30 independent elements |
 | `T11aRiemannHom` | **LEAF** (textbook) | analytic representation of `Hom(A, A')` for uniformized `A, A'/ℂ` | Mumford §1, Birkenhake–Lange Prop. 1.2.1, GAGA (UNVERIFIED locators). The kernel's `T11aRiemannEnd` is its case `A = A'` (`t11aRiemannEnd_of_hom`) |
-| `FibreGenericC Y π` | **GLUE (AG)**, open | for `Y` proper smooth over `ℚ`: if the fibres of `π` on `ℚ̄`-points are the `G`-orbits, two `ℂ`-points with equal `π`-values are in one `G`-orbit | §4 |
-| `FibreTransferC Y π` | glue, **reduced to `FibreGenericC`** | (⇐) and (⇒) of the transfer | §2.6 |
-| `ToP1AgreeC Y` | glue, **PROVED** | two maps `Y → P¹` agreeing on `ℚ̄`-points agree on `ℂ`-points | §2.6 |
-| `AutOInnerFinite` | glue, proved by mobius-glue | `Aut 𝒪` is finite mod conjugation by `𝒪^×` | copy of mobius-glue's statement |
+| `AutOInnerFinite` | glue, proved by mobius-glue | `Aut 𝒪` is finite mod conjugation by `𝒪^×` | mobius-glue's statement, copied |
 | `QMLatticeTwistAlg` | glue, **PROVED** (from SN) | twist relation on QM lattices ⇔ `τ' ∈ Γ*τ` | §2.4 |
-| `TwistOrbitFinite Y Φ` | glue, **PROVED** from R1hecke, T5, `AutOInnerFinite` | twist relation = orbits of a finite `G ⊆ Aut(Y)` (`ℚ̄`, `ℂ`) | §2.6 |
-| `UnitLiftMod3` | glue, **PROVED** | `𝒪^× → (𝒪/3𝒪)^×` onto | §2.6 |
-| `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine` | glue, **PROVED** | §2.5 | §2.5 |
+| `TwistOrbitFinite` | glue, **PROVED** from R1hecke, T5, `AutOInnerFinite` | twist relation = orbits of a finite `G ⊆ Aut(Y)` | §2.6 |
+| `UnitLiftMod3` | glue, **PROVED** (`decide`) | `𝒪^× → (𝒪/3𝒪)^×` onto | §2.6 |
+| `FibreTransferC`, `ToP1AgreeC`, `FibreGenericC` | glue, **PROVED** | `ℚ̄`-to-`ℂ` transfer of the fibres of `π` | §2.6 |
+| `HolP1OpenMap`, `HolP1FactorHol`, `SphereInjAffine` | glue, **PROVED** | complex analysis on `P¹` | §2.5 |
 | `S8Omega0` | glue, **PROVED** | `Σθ⁸(Ω₀) ≠ 0` | §2.1 |
 
 **Checks on the statements** (model checks):
-- `FibreTransferC` carries `IsProper Y.hom` and `SmoothOfRelativeDimension 1 Y.hom` as hypotheses.
-  Without them it is false: `Y = Spec ℂ` has no `ℚ̄`-points.
+- `FibreTransferC` and its halves carry `IsProper Y.hom` and `SmoothOfRelativeDimension 1 Y.hom`
+  as hypotheses. Without them they are false: `Y = Spec ℂ` has no `ℚ̄`-points. The proofs use only
+  properness, through finite type and separatedness.
 - `T11aRiemannHom` is the published `Hom` statement, and its `End` case is the kernel's leaf
   verbatim.
-- The P¹-holomorphy notions `IsHolC1At` and `IsHolSphere` (chart form) have the same shape as
-  fibre-qm-period's `IsHolP1At`. All three lemmas built on them are proved, so no new leaf rests
-  on these definitions.
+- The `P¹`-holomorphy notions `IsHolC1At` and `IsHolSphere` (chart form) have the same shape as
+  fibre-qm-period's `IsHolP1At`. All lemmas built on them are proved, so no leaf rests on these
+  definitions.
+- Two findings from the work:
+  - period-map's `periodMapGlue_of` uses `PiTwistC` as a full iff, so both halves of the transfer
+    are needed;
+  - `Ω(√2+i)` is the explicit matrix `[[(−1+i)/2, 1], [1, −1+i]]`, a product-type point where one
+    even theta constant vanishes.
 
-## 4. What remains: `FibreGenericC` (AG glue) and how to prove it
+## 4. What remains
 
-**Statement.** `Y` is proper smooth over `ℚ` and `G` is a finite set of automorphisms with
-`ℚ̄`-fibres of `π` equal to the `G`-orbits. If two `ℂ`-points have `π(y) = π(y')`, then
-`y' = y ≫ g` for some `g ∈ G`. It is the (⇒) half of `FibreTransferC`. The (⇐) half is
-`ToP1AgreeC`, proved. Both halves are needed: period-map's `periodMapGlue_of` uses the full iff for
-the fibre clause.
-
-**Model proof.** Work on `P = Y ×_ℚ Y`, locally of finite type over `ℚ`, hence Jacobson.
-1. Let `A = {p : π∘pr₁ and π∘pr₂ agree at p}`. It is closed. In the charts of the two maps it is
-   cut out by `f₁ − f₂`, `g₁ − g₂`, `f₁g₂ − 1` and `g₁f₂ − 1` on the four pieces of an open cover;
-   the same chart bookkeeping as in `toP1AgreeC_proof`.
-2. Let `Γ = ⋃_{g ∈ G} (fst ≫ g, snd)⁻¹(range Δ)`. It is closed: `Y` is separated, so the
-   diagonal `Δ` is a closed immersion.
-3. `A \ Γ` is locally closed. A closed point of it would be the point of a `ℚ̄`-point
-   (`exists_qbarPt` applied to `P`), that is, a pair of `ℚ̄`-points with equal `π`-values outside
-   every graph, which contradicts the hypothesis. So `A ⊆ Γ`.
-4. The `ℂ`-point `(y, y')` lies in `A`, hence in some `(fst ≫ g, snd)⁻¹(range Δ)`.
-5. A field-valued point whose image lies in `range Δ` has equal compositions with the two
-   projections. The residue maps of `pr₁` and `pr₂` at `Δ(q)` are both sections of the injective
-   map `κ(Δ q) → κ(q)`. This gives `y ≫ g = y'`.
-
-All ingredients exist in Mathlib v4.35: `JacobsonSpace`, `nonempty_inter_closedPoints`,
-`IsSeparated`, `pullback.diagonal`, `SpecToEquivOfField_eq_iff`, `residueFieldMap_comp`. Steps 1-4
-reuse `toP1AgreeC_proof`'s lemmas. Step 5 is the dependent-type bookkeeping with
-`residueFieldCongr`, which this task did not finish. Size: medium.
+- **Leaves for a human check:** `ValenceBoundGammaStar`, `CMDescends`, `GammaStarGen` (§5), and the
+  textbook `T11aRiemannHom`.
+- **Integration:**
+  - replace the copied `LeafSkolemNoether` and `AutOInnerFinite` hypotheses by the kernel's and
+    mobius-glue's theorems;
+  - move `scratch/period-glue/*.lean` onto the build's `PkgI3`/`LeafQM` layer, as the other
+    period-map files are.
+- **Inherited, not this task's targets:** `CPtsTransport`, `R1bFamily` against r1b-state, and the
+  SPECULATIVE premise bp-qmmoduli §2.2.
 
 ## 5. The two flagged leaves, restated, plus `GammaStarGen`
 
@@ -375,17 +380,18 @@ is independent of the generators. Greedy reduction of `cosh d(γp, p)` by the ve
 - `triangle.py`: `x₂ = (3/2)i + 2j + (1/2)ij` with `x₂x₄ = 2x₆`.
 - `gen_check.py`: the 30-element generation check.
 - `unit_table.py`: the 72-unit table.
+- `verbatim_check.py`: the copies and the bases.
 
 ## 7. Lean outcomes (VERIFIED; outputs `scratch/period-glue/run_*.txt`)
 
 | run | file | outcome |
 |---|---|---|
 | run_prereq | `lake build …QMLattice …JHeight …HeightConstant …Objects` | OK, 1m25s |
-| run_base1 | `build_base.sh`: `PGBase.lean` = FibreQM 1-20634 + part_fqm + period-map's parts (= DevHeavy content), `lake env lean -o` | 0 errors, 3m13s |
+| run_base1 | `build_base.sh`: `PGBase.lean` = FibreQM 1-20634 + part_fqm + period-map's parts, `lake env lean -o` | 0 errors, 3m13s |
 | run_light_base | `build_light.sh`: `PGLight.lean` = period-map's PMLight.lean | 0 errors, 1m25s |
 | run_bcu | `BCU.lean` (PGBase) | 0 errors; standard axioms |
 | run_qmtwist | `QMTwist.lean` (PGBase) | 0 errors; `qmTwistLattice_of`, `qmLatticeTwistAlg_mpr`, `qmTwistLattice_of'` standard axioms |
-| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `fibreTransferC_of`, `toP1AgreeC_proof`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
+| run_pitwist | `PiTwist.lean` (PGBase) | 0 errors; `piTwistC_of`, `fibreTransferC_of`, `toP1AgreeC_proof`, `fibreTransferC_proof`, `unitLiftMod3_proof`, `twistOrbitFinite_of` standard axioms |
 | run_s8 | `S8.lean` (PGLight) | 0 errors; `s8Nonzero_iff`, `s8Nonzero_proof` standard axioms |
 | run_w8 | `W8.lean` (PGLight) | 0 errors; `s8WeightExact_of` standard axioms |
 | run_sfa | `SFA.lean` (PGLight) | 0 errors; `holP1OpenMap_proof`, `holP1FactorHol_proof`, `sphereInjAffine_proof`, `sphereFactorAffine_proof` standard axioms |
@@ -397,8 +403,8 @@ is independent of the generators. Greedy reduction of `cosh d(γp, p)` by the ve
 3. `scratch/period-glue/check.sh scratch/period-glue/<File>.lean`, or
    `scratch/period-glue/build_all.sh`.
 
-The base files are verbatim assemblies of fibre-qm-period's and period-map's committed files.
-They are gitignored and rebuilt by the scripts.
+The base files are verbatim assemblies of fibre-qm-period's and period-map's committed files
+(`py/verbatim_check.py`). They are gitignored and rebuilt by the scripts.
 
 **Copies.** These are copied verbatim from other tasks' scratch files, with the source named at
 each copy:
