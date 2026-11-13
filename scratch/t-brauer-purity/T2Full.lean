@@ -725,3 +725,47 @@ end Assembly
 
 end TBrauerPurity
 
+
+namespace PkgI2
+
+universe u
+
+/-! Copied verbatim from `scratch/h-decomposition/Leaves.lean` (section `PkgI2Sec`). -/
+
+/-- **Leaf I2-AbDVR (Abhyankar's lemma, DVR form).** SGA 1, Exp. X, Lemme 3.6 (number
+UNVERIFIED); also Stichtenoth, *Algebraic function fields and codes*, Thm 3.9.1, and Cornell,
+Gold (classical). `R` a DVR with fraction field `K`, uniformizer `π`; `L/K` finite separable, tamely
+ramified over `R` (every prime `Q` of the integral closure `S` of `R` in `L` over the maximal
+ideal has `e(Q)` invertible in `R` and separable residue extension); `n` invertible in `R` with every
+`e(Q) ∣ n`. Let `M = L(t)` with `tⁿ = π`. Then every prime of the integral closure of `R` in `M`
+over the maximal ideal has ramification index exactly `n` and separable residue extension
+(equivalently: `M/K(t)` is unramified above `R`, as `K(t)/K` is totally ramified of degree `n`). -/
+def AbhyankarDVR : Prop :=
+  ∀ (R K L M : Type u) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field L] [Algebra K L] [Algebra R L] [IsScalarTower R K L]
+    [FiniteDimensional K L] [Algebra.IsSeparable K L]
+    [Field M] [Algebra L M] [Algebra K M] [Algebra R M]
+    [IsScalarTower K L M] [IsScalarTower R K M]
+    (π : R), Irreducible π → ∀ (n : ℕ), 0 < n → IsUnit (n : R) →
+    (∀ (Q : Ideal (integralClosure R L)) [Q.IsPrime] [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+      IsUnit ((Q.ramificationIdx R : ℕ) : R) ∧ Q.ramificationIdx R ∣ n ∧
+      Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R L ⧸ Q)) →
+    ∀ t : M, t ^ n = algebraMap R M π → IntermediateField.adjoin L {t} = ⊤ →
+      ∀ (Q : Ideal (integralClosure R M)) [Q.IsPrime]
+        [Q.LiesOver (IsLocalRing.maximalIdeal R)],
+        Q.ramificationIdx R = n ∧
+        Algebra.IsSeparable (R ⧸ IsLocalRing.maximalIdeal R) (integralClosure R M ⧸ Q)
+
+end PkgI2
+
+namespace TBrauerPurity
+
+/-- **Leaf T2 (`PkgI2.AbhyankarDVR`), proved.** -/
+theorem abhyankarDVR : PkgI2.AbhyankarDVR.{u} := by
+  intro R K L M _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ π hπ n hn0 hn htame t ht hM Q _ _
+  exact abhyankarDVR_main R K L M π hπ n hn0 hn htame t ht hM Q
+
+end TBrauerPurity
+
+#print axioms TBrauerPurity.abhyankarDVR
