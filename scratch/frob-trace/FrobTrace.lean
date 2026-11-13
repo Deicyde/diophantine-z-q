@@ -2244,6 +2244,95 @@ theorem algFrobLink_of_one (hO : AlgFrobOne) : AlgFrobLink := by
     rfl
   exact hSf (res σ') p hp hpS0 v τ hv hτ g (m σ') hf
 
+/-! ## `AlgFrobOne` from a reduction homomorphism on points -/
+
+/-- `T_ℓ(r)` is bijective if `r` is injective on `ℓ`-power torsion and every `ℓⁿ`-torsion point
+of the target has an `ℓⁿ`-torsion preimage. -/
+theorem tateMap_bijective (ℓ : ℕ) [Fact ℓ.Prime] {M N : Type*} [AddCommGroup M]
+    [AddCommGroup N] (r : M →+ N)
+    (hinj : ∀ (n : ℕ) (x : M), (ℓ ^ n) • x = 0 → r x = 0 → x = 0)
+    (hsurj : ∀ (n : ℕ) (y : N), (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ r x = y) :
+    Function.Bijective (PkgI3.Tate.map (ℓ := ℓ) r) := by
+  constructor
+  · rw [injective_iff_map_eq_zero]
+    intro x hx
+    apply Subtype.ext
+    funext n
+    exact hinj n (x.1 n) (PkgI3.Tate.pow_smul_eq_zero x.2 n)
+      (congrFun (congrArg Subtype.val hx) n)
+  · intro y
+    choose X hX using fun n => hsurj n (y.1 n) (PkgI3.Tate.pow_smul_eq_zero y.2 n)
+    have h0 : X 0 = 0 := by simpa using (hX 0).1
+    have hs : ∀ n, ℓ • X (n + 1) = X n := by
+      intro n
+      have := hinj n (ℓ • X (n + 1) - X n) (by
+          rw [smul_sub, smul_smul, ← pow_succ, (hX (n + 1)).1, (hX n).1, sub_zero])
+        (by rw [map_sub, map_nsmul, (hX (n + 1)).2, (hX n).2, y.2.2 n, sub_self])
+      exact sub_eq_zero.mp this
+    exact ⟨⟨X, h0, hs⟩, Subtype.ext (funext fun n => (hX n).2)⟩
+
+/-- **`AlgFrobRed` (GLUE, AV side; Glazer N5 L777-786; the reduction map).** `AlgFrobOne` with
+the `ℓ`-adic isomorphisms replaced by one homomorphism on points: for `F`, `S`, `p ∉ S`, `τ`, `g`
+and `f(x) = F ∘ x ∘ Spec(gτg⁻¹)` as in `AlgFrobOne`, there are an abelian variety `Ā` over a
+field `k` of characteristic `p`, `α' ∈ End(Ā)`, `N ≠ 0` and a group homomorphism
+`red : A(ℚ̄) → Ā(k̄)` with `red ∘ (N·f) = α' ∘ red`, injective on `ℓ`-power torsion and with
+every `ℓⁿ`-torsion point of `Ā(k̄)` the image of an `ℓⁿ`-torsion point, for every prime `ℓ ≠ p`.
+
+Why it is true (SPECULATIVE in its Lean details; `N = 1`). `S` as in `AlgFrobOne`. Let
+`v' = g(v)`, at which `σ' = gτg⁻¹` is an arithmetic Frobenius, `w = v' ∩ L`, `𝒜` the abelian
+scheme over `O_w`, `Ā` its special fibre over `k = κ(w)`. `red` is the reduction map
+`A(ℚ̄) = 𝒜(O_{v'}) → Ā(κ(v'))` (valuative criterion of properness), followed by a `k`-isomorphism
+`κ(v') ≅ k̄`. Since `σ'` preserves `O_{v'}` and `F` extends to `𝒜` (leaf I2-NMP), `f` lifts to
+`𝒜(O_{v'})` and reduces to `x̄ ↦ F̄ ∘ x̄ ∘ Spec(Frob_p) = (F̄ ∘ Fr_Ā)(x̄)`, which is
+`α' := F̄ ∘ Fr_Ā ∈ End(Ā)` (see `AlgFrobOne`). The torsion clauses are leaf I2-Red
+(`PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1) for `m = ℓⁿ`, prime to `p`. -/
+def AlgFrobRed : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
+    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
+      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
+        PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → ∀ (g : PkgI4.GQ)
+        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
+          Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F) →
+        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
+          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
+          ∃ red : PtQ L A →+ Additive (Ab.Pt (AlgebraicClosure k)),
+            (∀ x, red (N • f x) =
+              MonoidHom.toAdditive (PkgI3.AbVar.ptMap (L := AlgebraicClosure k) α) (red x)) ∧
+            ∀ ℓ : ℕ, ℓ.Prime → ℓ ≠ p → ∀ n : ℕ,
+              (∀ x : PtQ L A, (ℓ ^ n) • x = 0 → red x = 0 → x = 0) ∧
+              (∀ y, (ℓ ^ n) • y = 0 → ∃ x, (ℓ ^ n) • x = 0 ∧ red x = y)
+
+/-- **`AlgFrobOne` from `AlgFrobRed` (proved):** `Ψ = ℚ_ℓ ⊗ T_ℓ(red)`. -/
+theorem algFrobOne_of_red (hR : AlgFrobRed) : AlgFrobOne := by
+  intro L _ _ A F hF1 hF2
+  obtain ⟨S, hS⟩ := hR L A F hF1 hF2
+  refine ⟨S, fun p hp hpS v τ hv hτ g f hf => ?_⟩
+  obtain ⟨k, _, hk, Ab, α, N, hN, red, hred, hbij⟩ := hS p hp hpS v τ hv hτ g f hf
+  refine ⟨k, _, hk, Ab, α, N, hN, fun ℓ _ hℓp => ?_⟩
+  let Ψ0 := LinearEquiv.ofBijective (PkgI3.Tate.map (ℓ := ℓ) red)
+    (tateMap_bijective ℓ red (fun n => (hbij ℓ (Fact.out) hℓp n).1)
+      (fun n => (hbij ℓ (Fact.out) hℓp n).2))
+  refine ⟨Ψ0.baseChange ℤ_[ℓ] ℚ_[ℓ] _ _, ?_⟩
+  have h1 : Ψ0.conj (N • PkgI3.Tate.map (ℓ := ℓ) f) = PkgI3.AbVar.homT (ℓ := ℓ) α := by
+    apply LinearMap.ext
+    intro z
+    obtain ⟨w, rfl⟩ := Ψ0.surjective z
+    rw [LinearEquiv.conj_apply_apply, LinearEquiv.symm_apply_apply]
+    apply Subtype.ext
+    funext n
+    show (PkgI3.Tate.map red ((N • PkgI3.Tate.map f) w)).1 n =
+      (PkgI3.AbVar.homT (ℓ := ℓ) α (PkgI3.Tate.map red w)).1 n
+    rw [LinearMap.smul_apply, map_nsmul]
+    simp only [AddSubgroup.coe_nsmul, Pi.smul_apply, PkgI3.Tate.map_apply, PkgI3.AbVar.homT]
+    rw [← map_nsmul, hred]
+  have h2 : (N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ] =
+      (N • PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ] := by
+    rw [← Nat.cast_smul_eq_nsmul ℤ_[ℓ] N (PkgI3.Tate.map (ℓ := ℓ) f), LinearMap.baseChange_smul,
+      Nat.cast_smul_eq_nsmul, Nat.cast_smul_eq_nsmul]
+  rw [h2, conj_baseChange, h1]
+
 /-! ## From the points-level comparison to `FrobCompare` for `opV(Θ ∘ f ∘ Θ⁻¹)` -/
 
 /-- The comparison for `f` on `V_ℓ(A(ℚ̄))` gives the kernel's `FrobCompare` for the transported
@@ -2665,6 +2754,12 @@ theorem tateBridge35_of_algFrobOne (hT : PkgI3.TateModuleFree) (hO : AlgFrobOne)
     G14Bridge.TateBridge35 :=
   tateBridge35_of_algFrobLink hT (algFrobLink_of_one hO)
 
+/-- **Main result, finest form: `TateBridge35` from the leaf I3.M0 and the glue `AlgFrobRed`
+(the reduction homomorphism on points).** -/
+theorem tateBridge35_of_algFrobRed (hT : PkgI3.TateModuleFree) (hR : AlgFrobRed) :
+    G14Bridge.TateBridge35 :=
+  tateBridge35_of_algFrobOne hT (algFrobOne_of_red hR)
+
 end FrobTrace
 
 end
@@ -2677,3 +2772,6 @@ end
 #print axioms FrobTrace.tateBridge35_of_algFrobLink
 #print axioms FrobTrace.algFrobLink_of_one
 #print axioms FrobTrace.tateBridge35_of_algFrobOne
+#print axioms FrobTrace.tateMap_bijective
+#print axioms FrobTrace.algFrobOne_of_red
+#print axioms FrobTrace.tateBridge35_of_algFrobRed

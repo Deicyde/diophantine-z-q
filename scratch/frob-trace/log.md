@@ -19,3 +19,10 @@
 - `algFrobLink_of_one : AlgFrobOne → AlgFrobLink` (one representative σ_s per s ∈ Gal(L/ℚ); m_{σ_s k} = F_{σ_s} ∘ x ∘ Spec(σ_s k); S = union over Gal(L/ℚ)).
 - `tateBridge35_of_algFrobOne : PkgI3.TateModuleFree → AlgFrobOne → G14Bridge.TateBridge35`.
 - Run 5: exit 0, no sorry, all axioms standard (VERIFIED).
+
+## Run 6 (06:55): reduction-map glue
+- New `FrobTrace.AlgFrobRed`: one group hom red : A(ℚ̄) → Ā(k̄) with red ∘ (N·f) = α' ∘ red, injective on ℓ-power torsion and
+  ℓⁿ-torsion-surjective (with ℓⁿ-torsion preimages) for every prime ℓ ≠ p.
+- `tateMap_bijective` (algebra: T_ℓ(r) bijective under these torsion conditions), `algFrobOne_of_red : AlgFrobRed → AlgFrobOne`
+  (Ψ = ℚ_ℓ ⊗ T_ℓ(red)), `tateBridge35_of_algFrobRed : PkgI3.TateModuleFree → AlgFrobRed → G14Bridge.TateBridge35`.
+- exit 0, no sorry, 26 axiom prints, all standard (VERIFIED).
