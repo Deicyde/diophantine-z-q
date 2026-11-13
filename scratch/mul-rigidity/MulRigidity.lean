@@ -207,10 +207,16 @@ end G0FibreSimple
 # mul-rigidity: the textbook leaf `MulIsogeny` reduced to smaller named Props
 
 `MulIsogeny` is copied verbatim from scratch/g0-fibresimple/FibreSimple.lean (§4″). Mathlib
-proves "finite and surjective" from local properties of `[n]`: proper (`A` proper) and locally
-quasi-finite give finite (Zariski's main theorem, Mathlib `IsFinite.of_isProper_of_locallyQuasiFinite`,
-Stacks 02LS); open (flat + locally of finite presentation, `UniversallyOpen.of_flat`) and closed
-(proper) with `A` irreducible and nonempty give surjective.
+proves "finite and surjective" from local properties of `[n]`:
+* proper (`A` proper) and locally quasi-finite give finite (Zariski's main theorem, Mathlib
+  `IsFinite.of_isProper_of_locallyQuasiFinite`, Stacks 02LS);
+* a locally quasi-finite closed self-map of an irreducible Noetherian scheme is surjective
+  (`surjective_of_lqf_self`, generic-point orbit), so `QuasiFiniteEndSurjective` is proved;
+* formally unramified + locally of finite type gives locally quasi-finite;
+* `[n]` is formally unramified once the unit section of `A[n]` is an open immersion
+  (`diagonal_isPullback`: `Δ_f` is a base change of that section).
+Chain: `KerUnitOpenOfCotangentSurj` + `CotangentMulN` (glue, unproved) ⇒ `KerUnitOpen` (leaf,
+implied by the published `MulEtale`) ⇒ `MulUnramified` ⇒ `MulIsogeny`.
 -/
 
 noncomputable section

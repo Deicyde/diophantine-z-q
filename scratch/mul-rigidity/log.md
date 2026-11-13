@@ -66,3 +66,8 @@
 - Truth checks (argument, STANDARD): n = 0 gives cotangent map 0 (f^♯ factors through the residue map, which kills
   m₀), consistent with KerUnitOpenOfCotangentSurj (ker [0] = A, unit section open iff dim A = 0 iff m₀/m₀² = 0).
   Neither glue Prop is proved: Mathlib v4.35 lacks stalks of fibre products / tangent vectors as k[ε]-points.
+
+## Final check
+- 05:47 Mul.lean module docstring updated; reassembled. Rigidity.lean exit 0 (7 s), Mul.lean exit 0 (4 s),
+  MulRigidity.lean exit 0 (12 s); no errors, no sorryAx; nine `#print axioms` all [propext, Classical.choice,
+  Quot.sound]. No files under ZInQKernel/ or blueprint/ changed.
