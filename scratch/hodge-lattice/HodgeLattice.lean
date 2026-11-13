@@ -695,8 +695,142 @@ theorem hodgeLatticeTheorem_of_cotangentRank (h : CotangentRank) : HodgeLatticeT
 
 end ZInQ.DefFaltings.HodgeLattice
 
+/-! ## 6. `CotangentRank` from the regularity and the dimension of `𝒪_{𝒢,ξ}`
+
+The residue field `κ(ξ)` of `𝒪_{𝒢,ξ}` is a fraction field of `𝓞_L` (through `structMap`; the
+residue lemma of §5 at the generic point), so `L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ² ≅ 𝔪_ξ/𝔪_ξ²` has `L`-rank the
+`κ(ξ)`-dimension of the cotangent space (`rank_tensor_cotangent`). With Mathlib's
+`IsRegularLocalRing.iff_finrank_cotangentSpace` this reduces `CotangentRank` to two statements
+about the local ring `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}`: it is regular (`RegularOrigin`) and has Krull
+dimension `dim A` (`DimOrigin`). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry TensorProduct
+open PkgI3 (AbVar)
+
+/-- **(G2')** The tangent space of `A_L` at the origin has dimension `dim A` over `κ(ξ)`. -/
+def TangentDim : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ), A.dim = g →
+    Module.finrank (IsLocalRing.ResidueField 𝒢.genStalk)
+      (IsLocalRing.CotangentSpace 𝒢.genStalk) = g
+
+/-- **(G2a)** `𝒪_{𝒢,ξ}` (`= 𝒪_{A_L,0}`) is a regular local ring. -/
+def RegularOrigin : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L), IsRegularLocalRing 𝒢.genStalk
+
+/-- **(G2b)** `𝒪_{𝒢,ξ}` (`= 𝒪_{A_L,0}`) has Krull dimension `dim A`. -/
+def DimOrigin : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ), A.dim = g → ringKrullDim 𝒢.genStalk = g
+
+section Tangent
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+theorem isUnit_structMap {c : 𝓞 L} (hc : c ≠ 0) : IsUnit (𝒢.structMap c) := by
+  have hfield : IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L)) := by
+    have : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+      (genericPoint_eq_bot_of_affine (CommRingCat.of (𝓞 L))).symm
+    rw [this]; exact Field.toIsField _
+  let φ : 𝒢.genStalk →+* (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L) :=
+    (𝒢.unitSection.stalkMap (genericPt L)).hom
+  haveI : IsLocalHom φ := inferInstanceAs (IsLocalHom (𝒢.unitSection.stalkMap (genericPt L)).hom)
+  have hφ : φ (𝒢.structMap c) = (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ (genericPt L)
+      (TopologicalSpace.Opens.mem_top _) ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c) :=
+    stalkMap_structGerm 𝒢 (genericPt L) c
+  have hne : φ (𝒢.structMap c) ≠ 0 := by
+    rw [hφ]; intro h0
+    have h1 : (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c = 0 :=
+      germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) (genericPt L)
+        (TopologicalSpace.Opens.mem_top _) (h0.trans (map_zero _).symm)
+    apply hc
+    have := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).hom h1
+    rwa [Iso.inv_hom_id_apply, map_zero] at this
+  obtain ⟨b, hb⟩ := hfield.mul_inv_cancel hne
+  exact isUnit_of_map_unit φ _ (isUnit_iff_exists_inv.mpr ⟨b, hb⟩)
+
+theorem spec_genericPt (y : 𝒢.genStalk) : spec 𝒢 (genericPt L) y = y := by
+  show (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L))).hom y = y
+  rw [show 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L)) =
+    𝟙 _ from TopCat.Presheaf.stalkSpecializes_refl _ _]
+  rfl
+
+/-- `rank_L (L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ²) = rank_{κ(ξ)} (𝔪_ξ/𝔪_ξ²)`. -/
+theorem rank_tensor_cotangent :
+    Module.rank L (L ⊗[𝓞 L] 𝒢.cotangent) =
+      Module.rank (IsLocalRing.ResidueField 𝒢.genStalk) (IsLocalRing.CotangentSpace 𝒢.genStalk) := by
+  classical
+  set κ := IsLocalRing.ResidueField 𝒢.genStalk
+  set ψ : 𝓞 L →+* κ := (IsLocalRing.residue 𝒢.genStalk).comp 𝒢.structMap with hψ
+  have hψ0 : ∀ c : 𝓞 L, c ≠ 0 → ψ c ≠ 0 := fun c hc =>
+    (IsLocalRing.residue_ne_zero_iff_isUnit _).mpr (isUnit_structMap 𝒢 hc)
+  let _ : Algebra (𝓞 L) κ := ψ.toAlgebra
+  have halg : ∀ c, algebraMap (𝓞 L) κ c = ψ c := fun _ => rfl
+  have : IsFractionRing (𝓞 L) κ := by
+    refine (isLocalization_iff (nonZeroDivisors (𝓞 L)) κ).mpr ⟨fun y => ?_, fun z => ?_, fun {x y} h => ?_⟩
+    · rw [halg]; exact (hψ0 _ (nonZeroDivisors.ne_zero y.2)).isUnit
+    · obtain ⟨w, rfl⟩ := IsLocalRing.residue_surjective z
+      obtain ⟨c, t, ht, hct⟩ := residue 𝒢 (genericPt L) w
+      have ht0 : t ≠ 0 := fun h => ht (h ▸ Ideal.zero_mem _)
+      refine ⟨(c, ⟨t, mem_nonZeroDivisors_of_ne_zero ht0⟩), ?_⟩
+      rw [spec_genericPt] at hct
+      have h0 := (IsLocalRing.residue_eq_zero_iff _).mpr hct
+      rw [map_sub, map_mul] at h0
+      simp only [halg, hψ, RingHom.comp_apply]
+      linear_combination h0
+    · refine ⟨1, ?_⟩
+      have h0 : ψ (x - y) = 0 := by rw [map_sub, ← halg, ← halg, h, sub_self]
+      by_cases hxy : x - y = 0
+      · simp [sub_eq_zero.mp hxy]
+      · exact absurd h0 (hψ0 _ hxy)
+  set e : L ≃ₐ[𝓞 L] κ := IsLocalization.algEquiv (nonZeroDivisors (𝓞 L)) L κ
+  let _ : Module L 𝒢.cotangent := (Module.compHom (IsLocalRing.CotangentSpace 𝒢.genStalk)
+    e.toRingHom : Module L (IsLocalRing.CotangentSpace 𝒢.genStalk))
+  have key : ∀ (r : 𝒢.genStalk) (n : IsLocalRing.CotangentSpace 𝒢.genStalk),
+      (algebraMap 𝒢.genStalk κ r) • n = r • n := fun r n => algebraMap_smul κ r n
+  have : IsScalarTower (𝓞 L) L 𝒢.cotangent :=
+      ⟨fun c l (n : IsLocalRing.CotangentSpace 𝒢.genStalk) => by
+    change (e (c • l)) • n = 𝒢.structMap c • ((e l) • n)
+    rw [map_smul, Algebra.smul_def, halg, mul_smul]
+    exact key _ _⟩
+  have hloc : IsLocalizedModule (nonZeroDivisors (𝓞 L))
+      (LinearMap.id : 𝒢.cotangent →ₗ[𝓞 L] 𝒢.cotangent) := isLocalizedModule_id _ _ L
+  have hbc : IsBaseChange L (LinearMap.id : 𝒢.cotangent →ₗ[𝓞 L] 𝒢.cotangent) :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors (𝓞 L)) L _).mp hloc
+  rw [hbc.equiv.rank_eq]
+  exact rank_eq_of_equiv_equiv e
+    (AddEquiv.refl 𝒢.cotangent : 𝒢.cotangent ≃+ IsLocalRing.CotangentSpace 𝒢.genStalk)
+    e.bijective (fun l n => rfl)
+
+end Tangent
+
+theorem cotangentRank_of_tangentDim (h : TangentDim) : CotangentRank := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  rw [rank_tensor_cotangent 𝒢]
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  rw [← Module.finrank_eq_rank, h K A L 𝒢 g hg]
+
+theorem tangentDim_of_regular (h1 : RegularOrigin) (h2 : DimOrigin) : TangentDim := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  have := (IsRegularLocalRing.iff_finrank_cotangentSpace 𝒢.genStalk).mp (h1 K A L 𝒢)
+  rw [h2 K A L 𝒢 g hg] at this
+  exact_mod_cast this
+
+/-- **Main result, final form.** `HodgeLatticeTheorem` follows from the two statements on the
+local ring `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}`: it is regular, of Krull dimension `dim A`. -/
+theorem hodgeLatticeTheorem_of_regular (h1 : RegularOrigin) (h2 : DimOrigin) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_cotangentRank (cotangentRank_of_tangentDim (tangentDim_of_regular h1 h2))
+
+end ZInQ.DefFaltings.HodgeLattice
+
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLattice_of_lattice
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_local
 #print axioms ZInQ.DefFaltings.HodgeLattice.omegaLocal
 #print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_cotangentRank
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_regular

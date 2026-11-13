@@ -28,3 +28,11 @@
 - 23:30 Local.lean merged into HodgeLattice.lean §5 (Local.lean, ClaimA.lean removed). Compiles,
   0 errors. `hodgeLatticeTheorem_of_cotangentRank : CotangentRank → HodgeLatticeTheorem`,
   axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:45 §6 added; file compiles, 0 errors. VERIFIED.
+  - `isUnit_structMap` (c ≠ 0 ⇒ structMap c unit), `spec_genericPt`.
+  - `rank_tensor_cotangent : rank_L (L ⊗_{𝓞_L} cot) = rank_{κ(ξ)} (CotangentSpace 𝒪_{𝒢,ξ})`
+    (κ(ξ) is a fraction field of 𝓞_L via residue ∘ structMap; IsBaseChange of id).
+  - `TangentDim`, `RegularOrigin` (IsRegularLocalRing 𝒪_{𝒢,ξ}), `DimOrigin` (ringKrullDim 𝒪_{𝒢,ξ} = dim A).
+  - `cotangentRank_of_tangentDim`, `tangentDim_of_regular`,
+    `hodgeLatticeTheorem_of_regular : RegularOrigin → DimOrigin → HodgeLatticeTheorem`,
+    axioms [propext, Classical.choice, Quot.sound].
