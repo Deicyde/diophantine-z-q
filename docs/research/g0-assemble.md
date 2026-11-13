@@ -92,7 +92,7 @@ Kinds:
 | 25 | `swanIntegral : LadicCond.SwanIntegral` | kernel L8 | GLUE | `Sw = ∫ codim V^{G^u}` |
 | 26 | `adaptedExists : ∀ p, LadicCond.AdaptedExists` | kernel | GLUE | an adapted level exists |
 | 27 | `modelG3G6 : G0AssembleMod.ModelG3G6` | **new** (g0-assemble) | GLUE, **QM-PIN** (G6 half) | on G7's model `A_{L'}`: G3 (inertia outside `T(u)` acts trivially on `V₅`, `V₃`) and G6 (`End` is a noncommutative division ring) |
-| 28 | `linkedTateData : G0AssembleMod.LinkedTateData` | **new** (g0-assemble) | GLUE | g0-mod-field's `TateBridge` at `ℓ = 5, 3` from one descent datum, with g0-mod-newform's `G14TraceCompat` and `G15RamG` on the resulting `r₅`, `r₃` |
+| 28 | `linkedTateData : G0AssembleMod.LinkedTateData` | **new** (g0-assemble) | GLUE | g0-mod-field's `TateBridge` at `ℓ = 5, 3` from one descent datum, with g0-mod-newform's `G14TraceCompat` and clauses (i)-(ii) of its `G15RamG` (`G15RamWild`) on the resulting `r₅`, `r₃` |
 | 29 | `heightCopies : HeightCopiesAgree` | leaf-adopt2 | GLUE | transport between the two textual copies of the height |
 
 Counts:
@@ -163,13 +163,15 @@ character of `Gal(L'/ℚ)` changes `r_ℓ` but not its restriction to `G_{L'}`. 
 ∀ r₅ r₃, G14TraceCompat" would be false as a pair of separate Props.
 
 `LinkedTateData` asks for the ℓ = 5 and ℓ = 3 data together (the Tate functor applied to one family
-`m_σ = μ_σ∘σ`). It then asks for `G14TraceCompat` and `G15RamG` for every `r₅`, `r₃` that G8
+`m_σ = μ_σ∘σ`). It then asks for `G14TraceCompat` and `G15RamWild` for every `r₅`, `r₃` that G8
 attaches to those data. This is a correct form: G8's `G8Out` intertwines `ρ = rho Tm a β` with
 `r ⊕ r` on all of `G_ℚ`, so `r_ℓ` is determined by the data. That it is true for Glazer's data is
 SPECULATIVE (model judgement, the same as g0-mod-newform's review of the two Props).
 
-Clause (iii) of `G15RamG` is G11's output (`G0Galois.g11`) and could be split off; it is left in.
-`ModelG3G6`'s G3 half is glue that is not blocked (R7a with g0-mod-field's `IsQMModel`).
+Only clauses (i)-(ii) of `G15RamG` are asked (`G15RamWild`). Clause (iii) is G11's output: the
+proved `g15RamG_of_wild` derives `G15RamG` from `G15RamWild` and `G0Galois.G11Out (T u)` for `r₅`
+and `r₃`, which `g8_g12_of_leaves` and `g8_g11` deliver. `ModelG3G6`'s G3 half is glue that is not
+blocked (R7a with g0-mod-field's `IsQMModel`).
 
 ## 4. Changes to wave-26 texts, and what was not folded
 
