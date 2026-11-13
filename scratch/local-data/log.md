@@ -49,7 +49,7 @@
   `BetaUpper` at p = 2 (T16 + D3), `BetaCharOn` (∂β = ε, ε inflated from Gal(L/ℚ)),
   `BetaSqWild` (β² = χ, χ tame at odd p), the e-bound / tameness of F (field degrees).
 
-## Step 3 (06:05-06:20 PST): β² = χ is trivial on wild inertia at odd p
+## Step 3 (06:04-06:08 PST): β² = χ is trivial on wild inertia at odd p
 - New imports `ZInQKernel.HDecomp.Descent.B2Glue`, `…Chi` (lake build of both, once).
 - Proved (VERIFIED, compiled, axioms standard): `wild_fix_root` (σ ∈ wildSet, ζⁿ = 1,
   p² ∤ n ⇒ σζ = ζ; via `wild_fix_prime_to_p`: m = ∑(1 − ηⁱ) has norm < 1 if η ≠ 1, and
@@ -58,3 +58,12 @@
   `galChar_decomp_wild`; `not_sq_dvd_chiLevel` (p odd, T₋ primes ⇒ p² ∤ chiLevel T₋);
   `betaSqWild_of_chi` (BetaSqWild from β² = ι ∘ galChar χ on G_F, χ mod chiLevel T₋).
 - Compile: exit 0, 0 errors, no sorry (~60 s).
+
+## Step 4 (06:08-06:20 PST): ∂β = ε, and fields of degree < p
+- Proved (VERIFIED, compiled, axioms standard): `decomp_fix_of_le` (F ⊇ embP(L) ⇒ decomp(G_F)
+  fixes L); `betaCharOn_of_cocycle` (BetaCharOn from G7Out's `β g β h = ε g h β (gh)` and
+  ε = 1 on G_L × G_L); `wild_fix_small_degree` ([E:ℚ_p] < p ⇒ wildSet ⊆ fixSet E: σ^{p^a}
+  fixes the Galois closure of ℚ_p(x), so the σ-orbit of x has p-power size ≤ deg minpoly < p);
+  `localData_large_of_g8` (p > D: LocalData p r from G8Out, [E:ℚ_p] < p, TateWildTrivial on
+  E, BetaTame on E; no Galois closure or tameness needed).
+- Compile: exit 0, 0 errors, no sorry.

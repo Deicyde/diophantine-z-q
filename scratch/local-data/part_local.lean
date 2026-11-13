@@ -538,6 +538,108 @@ theorem betaSqWild_of_chi (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {F : Fld 
   rw [hsq σ hσ.1, galChar_decomp_wild χ (not_sq_dvd_chiLevel hp2 hTm) hσ.2, map_one,
     Units.val_one]
 
+/-! ### `BetaCharOn` from `∂β = ε` (proved) -/
+
+/-- `decomp(G_F) ⊆ G_L` when `F ⊇ embP(L)` (`L ⊆ ℚ̄`; `F ⊇ L_v` for the place `v` of `embP`). -/
+theorem decomp_fix_of_le {L : IntermediateField ℚ PkgI4.Qbar} {F : Fld p}
+    (hLF : ∀ x ∈ L, embP x ∈ F) {σ : GQp p} (hσ : σ ∈ fixSet F) :
+    ∀ x ∈ L, decomp p σ x = x := by
+  intro x hx
+  apply (embP (p := p)).injective
+  rw [decomp_spec]
+  exact hσ _ (hLF x hx)
+
+/-- **`BetaCharOn` from G7's `∂β = ε` (proved).** If `β g β h = ε(g,h) β(gh)` (a clause of
+`G0Galois.G7Out`), `ε = 1` on `G_L × G_L` (`ε` is inflated from `Gal(L/ℚ)` and normalized,
+g0-mod-field `DescentDatum`), and `F ⊇ embP(L)`, then `β` is a character on `G_F`. -/
+theorem betaCharOn_of_cocycle {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
+    (hβ : ∀ g h, β g * β h = ε g h * β (g * h)) {L : IntermediateField ℚ PkgI4.Qbar}
+    (hε : ∀ g h : GQ, (∀ x ∈ L, g x = x) → (∀ x ∈ L, h x = x) → ε g h = 1)
+    {F : Fld p} (hLF : ∀ x ∈ L, embP x ∈ F) : BetaCharOn β F := by
+  intro σ hσ τ hτ
+  rw [hβ, hε _ _ (decomp_fix_of_le hLF hσ) (decomp_fix_of_le hLF hτ), one_mul, map_mul]
+
+/-! ### Wild inertia fixes fields of degree `< p` (proved) -/
+
+/-- **Wild inertia fixes every finite `E ⊆ ℚ̄_p` with `[E:ℚ_p] < p` (proved).** For `x ∈ E`
+and wild `σ`, `σ^{p^a}` fixes the Galois closure of `ℚ_p(x)` (`exists_pow_fix_of_wild`), so the
+`σ`-orbit of `x` has `p`-power size; its elements are distinct roots of the minimal polynomial
+of `x`, of degree `≤ [E:ℚ_p] < p`; so the orbit is `{x}`. (This replaces "the Galois closure of
+`L_v` is tame" at `p > D`.) -/
+theorem wild_fix_small_degree {E : Fld p} [FiniteDimensional ℚ_[p] E]
+    (hE : Module.finrank ℚ_[p] E < p) : wildSet ⊆ fixSet E := by
+  classical
+  intro σ hσ x hx
+  let F := FiniteGaloisIntermediateField.adjoin ℚ_[p] ({x} : Set (Kbar p))
+  have hF : IsFinGal F.toIntermediateField := ⟨inferInstance, inferInstance⟩
+  have hxF : x ∈ F.toIntermediateField :=
+    FiniteGaloisIntermediateField.subset_adjoin ℚ_[p] {x} rfl
+  obtain ⟨a, ha⟩ := exists_pow_fix_of_wild hσ hF
+  have hper : Function.IsPeriodicPt σ (p ^ a) x := by
+    unfold Function.IsPeriodicPt Function.IsFixedPt
+    rw [← AlgEquiv.coe_pow]
+    exact ha x hxF
+  set k := Function.minimalPeriod σ x with hk
+  have hkdvd : k ∣ p ^ a := hper.minimalPeriod_dvd
+  have hkpos : 0 < k := hper.minimalPeriod_pos (pow_pos (Fact.out : p.Prime).pos a)
+  -- the orbit lies in the roots of the minimal polynomial
+  have hint : IsIntegral ℚ_[p] x := IsIntegral.of_finite ℚ_[p] (⟨x, hx⟩ : E) |>.map E.val
+  set P := minpoly ℚ_[p] x with hP
+  have hroot : ∀ i : ℕ, (σ^[i] x) ∈ P.aroots (Kbar p) := by
+    intro i
+    rw [Polynomial.mem_aroots]
+    refine ⟨minpoly.ne_zero hint, ?_⟩
+    rw [← AlgEquiv.coe_pow, Polynomial.aeval_algEquiv, AlgHom.comp_apply, minpoly.aeval,
+      map_zero]
+  have hcard : k ≤ P.natDegree := by
+    have hinj : Set.InjOn (fun i => σ^[i] x) (Finset.range k : Set ℕ) := by
+      intro i hi j hj hij
+      have := Function.iterate_injOn_Iio_minimalPeriod (f := σ) (x := x)
+      exact this (by simpa using hi) (by simpa using hj) hij
+    have hsub : (Finset.range k).image (fun i => σ^[i] x) ⊆ (P.aroots (Kbar p)).toFinset := by
+      intro y hy
+      obtain ⟨i, -, rfl⟩ := Finset.mem_image.mp hy
+      exact Multiset.mem_toFinset.mpr (hroot i)
+    calc k = ((Finset.range k).image (fun i => σ^[i] x)).card := by
+          rw [Finset.card_image_of_injOn hinj, Finset.card_range]
+      _ ≤ (P.aroots (Kbar p)).toFinset.card := Finset.card_le_card hsub
+      _ ≤ Multiset.card (P.aroots (Kbar p)) := Multiset.toFinset_card_le _
+      _ ≤ P.natDegree := by
+          rw [Polynomial.aroots_def]
+          exact (Polynomial.card_roots' _).trans Polynomial.natDegree_map_le
+  have hdeg : P.natDegree ≤ Module.finrank ℚ_[p] E := by
+    have h1 : (minpoly ℚ_[p] (⟨x, hx⟩ : E)).natDegree ≤ Module.finrank ℚ_[p] E :=
+      minpoly.natDegree_le _
+    rwa [IntermediateField.minpoly_eq] at h1
+  have hkp : k < p := lt_of_le_of_lt (hcard.trans hdeg) hE
+  obtain ⟨b, -, hb⟩ := (Nat.dvd_prime_pow (Fact.out : p.Prime)).mp hkdvd
+  have hb0 : b = 0 := by
+    by_contra hb0
+    have : p ≤ p ^ b := Nat.le_self_pow hb0 p
+    omega
+  rw [hb0, pow_zero] at hb
+  have h1 : Function.IsPeriodicPt σ 1 x := by
+    rw [← hb]; exact Function.isPeriodicPt_minimalPeriod σ x
+  exact h1
+
+/-- **`LocalData` at `p > D` from a field of degree `< p` (proved).** If `E ⊆ ℚ̄_p` has
+`[E:ℚ_p] < p` (Glazer: `E = L_v`, `[L_v:ℚ_p] ≤ D < p`) and `a·Tm` and `β` are trivial on
+`G_E ∩ P_p`, then `LocalData p r` holds at `p > D` for G8's `r`. -/
+theorem localData_large_of_g8 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
+    {r : GaloisRep ℓ 2} (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
+    (hp : (ZInQ.heightD : ℝ) < p) {E : Fld p} [FiniteDimensional ℚ_[p] E]
+    (hE : Module.finrank ℚ_[p] E < p) (hT : TateWildTrivial Tm a E) (hB : BetaTame β E) :
+    LocalData p r := by
+  rw [localData_large_iff r hp]
+  intro σ hσ
+  have hfix := wild_fix_small_degree hE hσ
+  have h1 : ((r.restrictLocal p σ : GL (Fin 2) (PadicAlgCl ℓ)) :
+      Matrix (Fin 2) (Fin 2) (PadicAlgCl ℓ)) = Matrix.scalar (Fin 2) ((β (decomp p σ))⁻¹) :=
+    twistShape_of_g8 hG8 hT σ ⟨hfix, hσ⟩
+  rw [hB σ ⟨hfix, hσ⟩, inv_one, Matrix.scalar_apply, Matrix.diagonal_one] at h1
+  exact Units.ext h1
+
 end LocalDataSec
 
 end G15Ram
@@ -555,3 +657,6 @@ end G15Ram
 #print axioms G15Ram.galChar_decomp_wild
 #print axioms G15Ram.not_sq_dvd_chiLevel
 #print axioms G15Ram.betaSqWild_of_chi
+#print axioms G15Ram.betaCharOn_of_cocycle
+#print axioms G15Ram.wild_fix_small_degree
+#print axioms G15Ram.localData_large_of_g8
