@@ -708,7 +708,10 @@ specified subfield of index 2 of `H_R` if `D(R) = 1`; `D(R)` = product of the pr
 inert in `k` (rv-nocm §3.1, h-decomposition R5).
 
 *Lean form*: for a QM pair over `ℚ̄` with `End_𝒪(A) ≅ R`,
-`[ℚ(x) : ℚ] = 2h(R)` if `b(k) ≥ 1` and `h(R)` if `b(k) = 0`, `h(R) = #Pic(R)`.
+`[ℚ(x) : ℚ] = 2h(R)` if `b(k) ≥ 1` and `h(R)` if `b(k) = 0`, `h(R) = #Pic(R)`; and if
+`b(k) ≥ 1`, `k` embeds in `ℚ(x)` (from `ℚ(x) = H_R ⊇ k`). The containment is needed by NoCM
+(rv-h-cm §7.2, case `D(R) ≠ 1`): the degree alone does not exclude `k = ℚ(√−19)` (`h = 1`,
+`b = 2`, degree 2) against a fibre field `ℚ(i)`.
 
 *Why faithful*: the degree of the printed field; `ℚ(x)` is the field of moduli for the coarse
 space `X₆` (STANDARD); the points of `X₆` are QM pairs `(A, ι)` (polarization unique, as in R1fp);
@@ -721,7 +724,8 @@ def R5fp : Prop :=
     ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring → Nat.Coprime (conductor R) 6 →
       ∀ P : QMPair Qbar, Nonempty (com P.q ≃+* R) →
         Module.finrank ℚ (fieldOfModuliPair P) =
-          (if inertCount6 k = 0 then 1 else 2) * Nat.card (CommRing.Pic R)
+          (if inertCount6 k = 0 then 1 else 2) * Nat.card (CommRing.Pic R) ∧
+        (inertCount6 k ≠ 0 → Nonempty (k →ₐ[ℚ] fieldOfModuliPair P))
 
 /-- R5fp without the case split (bp-qmmoduli's `R5fp`): `[ℚ(x) : ℚ] ∈ {h(R), 2h(R)}`. -/
 def R5fpWeak : Prop :=
@@ -734,7 +738,7 @@ def R5fpWeak : Prop :=
 
 theorem R5fpWeak_of_R5fp (h : R5fp) : R5fpWeak := by
   intro k _ _ _ hk R hR hc P hP
-  have := h k hk R hR hc P hP
+  have := (h k hk R hR hc P hP).1
   split_ifs at this
   · left; simpa using this
   · right; exact this
