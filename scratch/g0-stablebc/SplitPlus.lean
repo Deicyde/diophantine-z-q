@@ -20423,6 +20423,107 @@ theorem modelHeightBaseChangeLE_of_metrization (h : MetrizationBaseChange) :
   refine iInf_le_of_le g (iInf_le_of_le Mm' (iInf_le_of_le hM' ?_))
   rw [modelHeight_eq_of_isHodgeBaseChange Mm.hodge Mm'.hodge ψ hι]
 
+/-- **Glue H4a, geometric content, stated without metrized models.** For a base change `𝒢'` of
+`𝒢` and each `g`, the natural map `ψ : ⋀^g ω_{A_L} → ⋀^g ω_{A_{L'}}` (induced by
+`𝒪_{𝒢,ξ} → 𝒪_{𝒢',ξ'}`):
+* is `L`-semilinear over `L → L'` and injective on nonzero vectors, and the Hodge space of `𝒢'` is
+  an `L'`-line when that of `𝒢` is an `L`-line (it is `L' ⊗_L` of it);
+* carries the lattice: `⋀^g ω_{𝒢'} = 𝓞_{L'} · ψ(⋀^g ω_𝒢)` (formation of `e*Ω¹` of a smooth group
+  scheme commutes with base change; EGA IV 17.2.3, UNVERIFIED locator);
+* is compatible with uniformizations: an analytic uniformization `Φ` of `𝒢(ℂ)_{τ'|_L}` gives one
+  `Φ'` of `𝒢'(ℂ)_{τ'}` with the same kernel (compose with the bijection
+  `𝒢(ℂ)_{τ'|_L} ≅ 𝒢'(ℂ)_{τ'}` of the pullback), and if a coefficient map `c` is computed by `Φ` on
+  wedges of germs, its `τ'`-semilinear extension `c'` (`c' ∘ ψ = c`) is computed by `Φ'` on wedges
+  of germs of `𝒢'` (both sides are `τ'`-semilinear alternating functions of the differentials
+  `df'_i`, and they agree on pulled-back germs, which span).
+Glue (a property of def-faltings' definitions), STANDARD; not a literature leaf. -/
+def HodgeLineBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → ∀ g : ℕ,
+    ∃ ψ : 𝒢.hodgeSpace g →+ 𝒢'.hodgeSpace g,
+      (∀ (c : L) v, ψ (c • v) = algebraMap L L' c • ψ v) ∧
+      (∀ v, v ≠ 0 → ψ v ≠ 0) ∧
+      (Module.finrank L (𝒢.hodgeSpace g) = 1 → Module.finrank L' (𝒢'.hodgeSpace g) = 1) ∧
+      𝒢'.detLattice g = Submodule.span (𝓞 L') (ψ '' 𝒢.detLattice g) ∧
+      ∀ (τ' : L' →+* ℂ) (Λ : Submodule ℤ (Fin g → ℂ))
+        (Φ : (Fin g → ℂ) → 𝒢.Pts (τ'.comp (algebraMap L L'))),
+        𝒢.IsAnalyticUniformization _ Λ Φ →
+        ∃ Φ' : (Fin g → ℂ) → 𝒢'.Pts τ', 𝒢'.IsAnalyticUniformization τ' Λ Φ' ∧
+          ∀ (c : 𝒢.hodgeSpace g →ₛₗ[τ'.comp (algebraMap L L')] ℂ)
+            (c' : 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ),
+            (∀ f, c (𝒢.wedge f) = 𝒢.jacDet Φ f) → (∀ v, c' (ψ v) = c v) →
+            ∀ f', c' (𝒢'.wedge f') = 𝒢'.jacDet Φ' f'
+
+/-- **`MetrizationBaseChange` from `HodgeLineBaseChange`.** The Hodge data of `𝒢'`: lattice
+`⋀^g ω_{𝒢'}`, restricted period lattices, and the `τ'`-semilinear extension of the coefficient
+maps along `ψ` (through the coordinate `c ↦ c · ψ(w)` on the `L'`-line). Proved. -/
+theorem metrizationBaseChange_of_hodgeLine (h : HodgeLineBaseChange) :
+    MetrizationBaseChange := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' h𝒢 g Mm hM
+  subst hM
+  obtain ⟨ψ, hsmul, hne, hfin, hlat, harch⟩ := h K A L L' Mm.model 𝒢' h𝒢 g
+  obtain ⟨w, hwM, hw, hi⟩ := Mm.hodge.isLattice
+  have hw' : ψ w ≠ 0 := hne w hw
+  have hfin' : Module.finrank L' (𝒢'.hodgeSpace g) = 1 := hfin Mm.hodge.finrank_eq_one
+  -- the coordinate `c ↦ c • ψ w` on the `L'`-line
+  have hinj : Function.Injective (LinearMap.toSpanSingleton L' (𝒢'.hodgeSpace g) (ψ w)) :=
+    fun a b hab => smul_left_injective L' hw' hab
+  have hsurj : Function.Surjective (LinearMap.toSpanSingleton L' (𝒢'.hodgeSpace g) (ψ w)) :=
+    fun v => (finrank_eq_one_iff_of_nonzero' (ψ w) hw').mp hfin' v
+  let e : L' ≃ₗ[L'] 𝒢'.hodgeSpace g := LinearEquiv.ofBijective _ ⟨hinj, hsurj⟩
+  have he : ∀ c, e c = c • ψ w := fun c => rfl
+  -- the extended coefficient maps
+  let lin : ∀ τ' : L' →+* ℂ, L' →ₛₗ[τ'] ℂ := fun τ' =>
+    { toFun := fun c => τ' c * Mm.hodge.coeff (τ'.comp (algebraMap L L')) w
+      map_add' := fun a b => by rw [map_add, add_mul]
+      map_smul' := fun a b => by rw [smul_eq_mul, map_mul, smul_eq_mul, _root_.mul_assoc] }
+  let coeff' : ∀ τ' : L' →+* ℂ, 𝒢'.hodgeSpace g →ₛₗ[τ'] ℂ := fun τ' =>
+    (lin τ').comp e.symm.toLinearMap
+  have hcoeff' : ∀ (τ' : L' →+* ℂ) v,
+      coeff' τ' (ψ v) = Mm.hodge.coeff (τ'.comp (algebraMap L L')) v := by
+    intro τ' v
+    obtain ⟨a, rfl⟩ := (finrank_eq_one_iff_of_nonzero' w hw).mp Mm.hodge.finrank_eq_one v
+    have h1 : e.symm (ψ (a • w)) = algebraMap L L' a := by
+      rw [LinearEquiv.symm_apply_eq, he, hsmul]
+    show lin τ' (e.symm (ψ (a • w))) = _
+    rw [h1]
+    show τ' (algebraMap L L' a) * _ = _
+    rw [map_smulₛₗ, smul_eq_mul]
+    rfl
+  have hlat' : 𝒢'.detLattice g = Submodule.span (𝓞 L') (ψ '' Mm.hodge.lattice) := by
+    rw [hlat, Mm.lattice_eq]
+  let D' : HodgeData L' g (𝒢'.hodgeSpace g) :=
+    { lattice := 𝒢'.detLattice g
+      finrank_eq_one := hfin'
+      isLattice := by
+        refine ⟨ψ w, ?_, hw', ?_⟩
+        · rw [hlat']; exact Submodule.subset_span ⟨w, hwM, rfl⟩
+        · rw [hlat', secIndex_baseChange Mm.hodge.finrank_eq_one ψ hsmul _ hwM hw hw' hi]
+          exact pow_ne_zero _ hi
+      periods := fun τ' => Mm.hodge.periods (τ'.comp (algebraMap L L'))
+      periods_discrete := fun τ' => Mm.hodge.periods_discrete _
+      periods_isZLattice := fun τ' => Mm.hodge.periods_isZLattice _
+      coeff := coeff'
+      coeff_ne_zero := fun τ' h0 => by
+        have h2 := hcoeff' τ' w
+        rw [h0, LinearMap.zero_apply] at h2
+        exact Mm.hodge.coeff_apply_ne_zero _ hw h2.symm }
+  let Mm' : MetrizedModel A L' g :=
+    { model := 𝒢'
+      hodge := D'
+      lattice_eq := rfl
+      arch := fun τ' => by
+        obtain ⟨Φ, hΦ, hc⟩ := Mm.arch (τ'.comp (algebraMap L L'))
+        obtain ⟨Φ', hΦ', hc'⟩ := harch τ' _ Φ hΦ
+        exact ⟨Φ', hΦ', hc' _ (coeff' τ') hc (hcoeff' τ')⟩ }
+  exact ⟨Mm', ψ, rfl,
+    { smul := hsmul
+      ne_zero := hne
+      lattice := hlat'
+      periods := fun _ => rfl
+      coeff := hcoeff' }⟩
+
 /-! ### The piece, from the glue (proved) -/
 
 /-- **`StableHeightBaseChange` from three glue statements** (`BaseChangeCompIso`, and h5-neron's
@@ -20471,8 +20572,15 @@ theorem stableHeightBaseChange_of_metrization (h : MetrizationBaseChange) :
     StableHeightBaseChange :=
   stableHeightBaseChange_of_modelHeightBaseChangeLE (modelHeightBaseChangeLE_of_metrization h)
 
+/-- **`StableHeightBaseChange` from `HodgeLineBaseChange` alone.** -/
+theorem stableHeightBaseChange_of_hodgeLine (h : HodgeLineBaseChange) :
+    StableHeightBaseChange :=
+  stableHeightBaseChange_of_metrization (metrizationBaseChange_of_hodgeLine h)
+
 end G0StableBC
 
+#print axioms G0StableBC.metrizationBaseChange_of_hodgeLine
+#print axioms G0StableBC.stableHeightBaseChange_of_hodgeLine
 #print axioms G0StableBC.secIndex_baseChange
 #print axioms G0StableBC.modelHeight_eq_of_isHodgeBaseChange
 #print axioms G0StableBC.modelHeightBaseChangeLE_of_metrization
@@ -20505,4 +20613,18 @@ theorem G0StableBC.glueOutputs_of_leaves_metrization (r : HSyn.ResearchLeaves)
   HSyn.glueOutputs_of_leaves r t hR18 hR22 hDimF hDim hBelyi hSimp hAdd
     (G0StableBC.split_stableHeightBaseChange hMet) hProdE hRev hThetaPt hMod
 
+/-- g0-split's main theorem with `hBC` replaced by the geometric glue `HodgeLineBaseChange`. -/
+theorem G0StableBC.glueOutputs_of_leaves_hodgeLine (r : HSyn.ResearchLeaves)
+    (t : HSyn.TextbookLeaves)
+    (hR18 : HSyn.G0Split.R18_JavanpeykarConcrete) (hR22 : HSyn.G0Split.R22_PazukiConcrete)
+    (hDimF : HSyn.G0Split.DimFinite) (hDim : HSyn.G0Split.DimBaseChange)
+    (hBelyi : HSyn.G0Split.X1BelyiOnModel) (hSimp : HSyn.G0Split.FibreSimple)
+    (hAdd : HSyn.G0Split.HeightAdditivity) (hHL : G0StableBC.HodgeLineBaseChange)
+    (hProdE : HSyn.G0Split.ProductExists) (hRev : HSyn.G0Split.ReverseIsogeny)
+    (hThetaPt : HSyn.G0Split.ThetaPointOfFibre) (hMod : HSyn.G0Split.ModularConstituent) :
+    GlueAssembly.GlueOutputs ZInQ.Mult.S_mul :=
+  G0StableBC.glueOutputs_of_leaves_metrization r t hR18 hR22 hDimF hDim hBelyi hSimp hAdd
+    (G0StableBC.metrizationBaseChange_of_hodgeLine hHL) hProdE hRev hThetaPt hMod
+
 #print axioms G0StableBC.glueOutputs_of_leaves_metrization
+#print axioms G0StableBC.glueOutputs_of_leaves_hodgeLine
