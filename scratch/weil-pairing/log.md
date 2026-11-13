@@ -40,3 +40,4 @@
   `G12_DetInput` and `g12_detInput_of_leaves : T09_SymmIsogenyExists → IsogenyQuasiInverse →
   PkgI3.TateModuleFree → DivisiblePoints → G12_DetInput` (PROVED).
 - §10 COMPILES: `polarization_zero` (T9⁺ holds at A = 0), `weil_ne_zero_of`.
+- §11 COMPILES: `muO`, `oElt`, `RosatiTypeMu`, leaf candidate `LemmaP_Exists` (existence half only), `lemmaP_zero_vacuous`. File imports ZInQKernel.HDecomp.{Objects, Assembly.C8, QM.Structures} (oleans built with lake build).

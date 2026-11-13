@@ -2,6 +2,7 @@ import ZInQKernel.HDecomp.Objects
 import Mathlib.NumberTheory.Cyclotomic.CyclotomicCharacter
 import Mathlib.LinearAlgebra.Matrix.BilinearForm
 import ZInQKernel.HDecomp.Assembly.C8
+import ZInQKernel.HDecomp.QM.Structures
 
 /-!
 # weil-pairing: polarizations and the Weil pairing over `PkgI3.AbVar`
@@ -18,7 +19,11 @@ Task weil-pairing (2026-11-12). Over the project's abelian-variety layer
 * §4 leaves (`def … : Prop`, with references) and the restated T9;
 * §5 the old consequence-form leaf `LeafPush.T09_WeilPairing` (copied verbatim, universe `0`)
   derived from the new T9 and the isogeny leaf;
-* §6 the G12 input: `det² = χ^{rank}` for a perfect pairing with multiplier.
+* §6 the G12 input at finite level (cyclotomic multiplier) and the determinant lemma;
+* §7 the `ℓ`-adic Weil pairing `E^λ` on `T_ℓ A`, with cyclotomic multiplier;
+* §8 nondegeneracy of `E^λ`, `det ρ_ℓ(σ)² = χ_ℓ(σ)^{rank}` on `V_ℓ A`;
+* §9 `T_ℓ(μ) ↪ ℤ_ℓ` and the G12 input `G12_DetInput` from four leaves;
+* §10 further non-vacuity checks; §11 rv-qm-polar's Lemma P (existence) over these definitions.
 
 No `sorry`, no `axiom`.
 -/
@@ -1145,6 +1150,48 @@ theorem weil_ne_zero_of {A : AbVar K} (S : SymmIsogeny A) {ψ : Hom S.D.dual A} 
     (hψ : ∀ z : P S.D.dual, homP S.lam (homP ψ z) = d • z) {n : ℕ} (hn : 0 < n)
     (hnK : (n : K) ≠ 0) (h0 : weil S.D S.lam n = 0) (x : tors A n) : d • x = 0 :=
   weil_nondeg S.D S.lam hψ hn hnK x fun y => by rw [h0]; rfl
+
+
+/-! ## §11. The QM polarization premise (rv-qm-polar's Lemma P) over these definitions -/
+
+section QMPolar
+
+open LeafQM LeafQM.AV
+
+/-- `μ = 2j + k ∈ 𝒪`, `μ² = −6` (N5's `μ`; rv-qm-polar `mu`, `mu_mem`). -/
+def muO : O := ⟨⟨0, 0, 2, 1⟩, ⟨![-2, -1, 4, 2], by ext <;> simp [ofInt] <;> norm_num⟩⟩
+
+/-- The element `ofInt n` of `𝒪`. -/
+def oElt (n : Fin 4 → ℤ) : O := ⟨ofInt n, ⟨n, rfl⟩⟩
+
+/-- **Rosati type `μ`** of a principal symmetric isogeny `λ` (inverse `g`) on a QM abelian
+variety `(A, ι)`: for every `b = ofInt n ∈ 𝒪` and every dual `ι(b)^∨`, the Rosati image
+`ι(b)† = g ∘ ι(b)^∨ ∘ λ` satisfies `ι(μ) ∘ ι(b)† = ι(b̄) ∘ ι(μ)`, i.e. `ι(b)† = ι(μ⁻¹ b̄ μ)`,
+written with `b̄ = trd(b) − b`, `trd(ofInt n) = 2 n₀ + n₂`. -/
+def RosatiTypeMu {A : AbVar K} (q : QMStr A) (S : SymmIsogeny A) (g : Hom S.D.dual A) : Prop :=
+  ∀ (n : Fin 4 → ℤ) (bv : End S.D.dual), IsDualHom S.D S.D (q.iota (oElt n)) bv →
+    q.iota muO * WeilPairing.comp (WeilPairing.comp S.lam bv) g =
+      ((2 * n 0 + n 2 : ℤ) : End A) * q.iota muO - q.iota (oElt n) * q.iota muO
+
+/-- **Lemma P, existence (leaf candidate; rv-qm-polar §0, C1-C3).** An abelian surface over a
+field of characteristic `0` with QM by `𝒪` carries a principal polarization of Rosati type `μ`.
+Published inputs as listed in `docs/research/rv-qm-polar.md` §1.2 (Rotger; Buzzard 1997 p. 592
+for the uniqueness; Milne for descent), all UNVERIFIED here. Existential in the dual, hence safe
+over `WeilDual`; the uniqueness half is NOT stated (it would quantify over all `WeilDual`s,
+see `WeilDual`'s docstring). -/
+def LemmaP_Exists : Prop :=
+  ∀ (F : Type) [Field F] [CharZero F] (A : AbVar F) (q : QMStr A), A.dim = 2 →
+    ∃ S : Polarization A, ∃ g : Hom S.D.dual A,
+      (WeilPairing.comp S.lam g).hom = 𝟙 _ ∧ (WeilPairing.comp g S.lam).hom = 𝟙 _ ∧
+        RosatiTypeMu q S.toSymmIsogeny g
+
+/-- `LemmaP_Exists` is not refuted at `A = 0`: there is no QM structure on `0`
+(`LeafQM.AV.not_qmStr_zero`), so its hypothesis is never met there. (Non-vacuity in the other
+direction needs a nonzero abelian variety, which Mathlib cannot construct.) -/
+theorem lemmaP_zero_vacuous (q : QMStr (AbVar.zero K)) : False :=
+  (not_qmStr_zero (K := K)).false q
+
+end QMPolar
 
 end WeilPairing
 
