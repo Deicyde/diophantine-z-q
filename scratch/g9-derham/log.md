@@ -143,3 +143,14 @@
   Quot.sound] for both. Bridge F3 eliminated.
 - VERIFIED: scratch/g9-derham/AllImports.lean (imports Final and G9Weights) compiles: no name clash
   across the G9 directory.
+
+## 06:30 LocalModel.lean
+- `G9Bridge.AbVarBaseChange` (F2'): for `i : K →+* L` (char 0) and `A : PkgI3.AbVar K`, ∃ `A' : PkgI4.I3.AbVar L`,
+  `c : V_ℓ(A') ≃ₗ[ℚ_ℓ] V_ℓ(A)`, `A'.dim = A.dim`, `c ∘ galRep A' σ = galRep A (absoluteGaloisGroup.map i σ) ∘ c`.
+- `localModel_of_abVarBaseChange : AbVarBaseChange → LocalModel` (Galois part proved: F := normal closure in ℚ̄_ℓ
+  of the ℚ_ℓ-span of the image of a ℚ-basis of K; conjugacy via `exists_aut_comp` (two k-embeddings of k̄
+  differ by an automorphism, `AlgHom.restrictNormal`)).
+- `g9Glue_of_abVarBaseChange : AbVarBaseChange → R10Weights → G9Glue`.
+  VERIFIED: `lake build ZInQKernel.Contrib.G9.LocalModel` OK; #print axioms → standard three for both.
+  (`set_option maxHeartbeats 2000000 in` on `localModel_of_abVarBaseChange`: the final anonymous
+  constructor times out at 200000.)
