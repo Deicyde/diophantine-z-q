@@ -43,7 +43,7 @@ AUDIT-READ), which is not a human check.
 **Claim for H** (the six-contact height estimate: the one instance of Theorem 4.1 of Glazer's
 manuscript that the proof uses). *leaf-adopt3 (2026-11-13): the numbers in this paragraph are
 leaf-adopt2's; the current ones are 23 research-level and 35 textbook leaves, and the glue is
-proved in Lean from the leaves and eleven named glue pieces (dated paragraph at the end of §0).*
+proved in Lean from the leaves and ten named glue pieces (dated paragraph at the end of §0).*
 On the manuscript's own route, H follows from **23
 research-level theorems** of the literature (22 publications R1-R22 and H5, the theorem that the
 stable Faltings height is finite and attained by Néron models, an explicit leaf since leaf-adopt),
@@ -144,10 +144,11 @@ scratch/h-decomposition/Leaves.lean`, see §2.3.)
 - **G0 is a theorem.** `HSyn.sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
   (gp : GluePieces) : ZInQ.SixContactMin`, with exactly these three hypotheses, uses only
   `propext`, `Classical.choice`, `Quot.sound`. Its proof is g0-split's `glueOutputs_of_leaves`
-  (glue G1-G17, G19) followed by glue-assembly's G18-G20. `GluePieces` bundles the eleven glue
-  Props that remain to be proved (§3, table "Glue pieces"): g0-split's ten pieces, with piece 5
-  (additivity) narrowed to the model-level `ProductModelHeight` (h5-neron), and leaf-adopt2's
-  `HeightCopiesAgree` (R18, R22 are now taken from the bundle through it).
+  (glue G1-G17, G19) followed by glue-assembly's G18-G20. `GluePieces` bundles the ten glue
+  Props that remain to be proved (§3, table "Glue pieces"): g0-split's ten pieces less piece 3
+  (`X1BelyiOnModel`, proved here from `BelyiX1` by transport), with piece 5 (additivity) narrowed
+  to the model-level `ProductModelHeight` (h5-neron), plus leaf-adopt2's `HeightCopiesAgree` (R18,
+  R22 are now taken from the bundle through it).
 - **Textbook leaves proved or narrowed.** T13 (Skolem–Noether), T19 (Brauer–Nesbitt), T22
   (Herbrand, both parts) are proved (t-skolem-kw, t-different), and T30 is proved from T16(a)
   (t30-adelic); all four leave the bundle. T20, T21 are proved in local form (the global forms
@@ -1028,7 +1029,7 @@ No theorem concludes H5 (its `NeronModelMinimal` half is a hypothesis of the red
   concrete). Total **56 of 58**, plus R1 in part. Placeholders: R17 and R1(b) (**2 `opaque`**).
   Bundle fields (VERIFIED by counting the structures): `ResearchLeaves` 26 (24 concrete, 2
   `opaque`: `r1an`, `r17`), `TextbookLeaves` 35 (all concrete; `x1` bundles T36-T40):
-  **59 concrete Props, 2 placeholders**. `GluePieces`: 11 glue Props (§3).
+  **59 concrete Props, 2 placeholders**. `GluePieces`: 10 glue Props (§3).
 - Lean check (leaf-adopt3, VERIFIED 2026-11-13): see `docs/research/leaf-adopt3.md` §1 for the
   run; **no `sorry`**, 2 `opaque`, no `axiom`; every `#print axioms` line, including
   `HSyn.sixContactMin_of_leaves`, gives `propext`, `Classical.choice`, `Quot.sound`.
@@ -1109,7 +1110,7 @@ item has model reviews only, except what is marked proved.
 
 | # | Statement | Inputs | Origin | Lean status | Size |
 | --- | --- | --- | --- | --- | --- |
-| G0 | The leaves imply `SixContactMin` | G1-G20 | N5 L404-964 | **proved** (leaf-adopt3, from g0-split): `HSyn.sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces)` = (G1-G17, G19: `HSyn.glueOutputs_of_leaves`, proved from the bundles) then (G18-G20, proved); `GluePieces` = the eleven glue Props of the table below, still to be proved | small |
+| G0 | The leaves imply `SixContactMin` | G1-G20 | N5 L404-964 | **proved** (leaf-adopt3, from g0-split): `HSyn.sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces)` = (G1-G17, G19: `HSyn.glueOutputs_of_leaves`, proved from the bundles) then (G18-G20, proved); `GluePieces` = the ten glue Props of the table below, still to be proved | small |
 | G1 | Fibre datum: Gram matrix det 1, Rosati, unique polarization, normalizer index 4, `deg(Y₃→P¹_j) ≤ 324` | R1, R2, T29 | N5 L410-441; h-b1 M1-M3 | **proved**: `𝒪` an order of discriminant 6, Gram determinant 1, the Rosati identity and positivity, `\|(𝒪/3𝒪)^*\| = 72`, `4·72 ≤ 324` (glue-repo `A1Quaternion.lean`; `PkgI1.gram_det`); CM elements of `𝒪` (`PkgI1.cm4`, `cm3`, `cm24`); normalizer index `[N_B(𝒪):ℚ^×𝒪^×] = 4` and the local normalizers **proved** (glue-vigneras, not in `Leaves.lean`; adelic bookkeeping open); the quotient `Y₃/Γ' = P¹_j` needs R1's objects | medium |
 | G2 | Lemma PR(i): fibre field `K` Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`; `J(u)` not a branch value | G1; R1(d), R2, T1, T2 | repository, h-b1 (rv-h-b1) | **proved**: the whole valuation case analysis of PR(i) (for `p ≥ 17`, the three inertia orders are 1 iff `p ∤ M_S(u)`, `GlueRepo.PR.inertia_orders_eq_one_iff`), `[K:ℚ] ≤ 324!` (as the generic `splitting_degree_le`: a separable `f ∈ ℚ[X]` of degree `≤ 324` has splitting field of degree `≤ 324!`; not a statement about the fibre field; fact-check w34b item 18), `G⁶ − 97200F² = H²`, `J(u)` finite, nonzero, not a branch value (`PkgI1.G6_sub_F2`, `Ju_ne_branch`); unproved: Prop. TS itself (from T1-T2 or Beckmann 1991 Prop. 4.2) and Lemma NV ; leaf-adopt: Lemma NV step 2 (residue fields over the three branch values unramified at `p ≥ 5`) **proved** from R1's concrete clauses, `LeafQM.AV.residue_unramified_over_branch`; step 4 uses `π₀(X₆) = 1`, now the clause `LeafAdopt.R1pi0Props` (Q4); degree theory of curves and the function-field Galois theory are open (leaf-qm-fp §4) | large |
 | G3 | Lemma PR(ii): `A`, `σA` good reduction at `v ∤ 3` | R1(a); h-b1 route: R8, R7b, T3; Raynaud route: R6 (SGA 7 IX 4.7 with 3.5), R7a (Serre–Tate Thm 1), T5 (Mumford §4), `B ⊗ ℚ₃` a division algebra | repository, h-b1 §4(ii); Raynaud route new in pkg-I2 §4.2, reviewed in rv-a6-route (sound after repairs R1-R2 to pkg-I2's steps 2-3) | **proved** on the Raynaud route from the three leaves `RaynaudCriterion`, `NeronOggShafarevich`, `TorsionStructure` alone: `PkgI2.goodReduction_of_QM_rational3` (and `…'` without the auxiliary `w`); `QuatUnipotentTrivial` **proved** (`PkgI2.quatUnipotentTrivial`, glue-a6-alg); the instantiation on the actual `A` (R1) is open; `1 + 3M_r(ℤ₃)` torsion-free and `B` a division algebra **proved** (glue-repo `TorsionFree.lean`) ; leaf-adopt: on leaf-qm-fp's objects, every `QML3` object has good reduction at every DVR with `3` a unit (`LeafQM.AV.QML3.goodReduction`, through `Level3.onto`), proved | medium |
@@ -1127,7 +1128,7 @@ item has model reviews only, except what is marked proved.
 | G15 | Conductor exponents `≤ E₀` (`p ≤ R`), `≤ 2` (`R < p ∈ T`), `0` outside `T` | G3, G7, G14; R6, T16, T20-T22 | N5 L796-852 (Glazer); glue-conductor | D1 **proved** from T20-T21 over Mathlib (`GlueConductor.D1_genuine`), and its `e ≤ a!` in global form (glue-I6-rest, `PkgI6.ramificationIdx_le_factorial`, not copied here) and in local form through the decomposition group (`GlueD1Local.D1_local'`, `D1_krasner'`, glue-d1-local); the transports from Glazer's local field (Krasner's choice of `K`, `D_P ≅ Gal(L_P/ℚ_p)` with filtrations) are STANDARD and not in Lean; break, Herbrand, Swan/Artin arithmetic **proved**; `(U^{e+1})⁴ = U^{3e+1}` **proved** (`GlueConductor.fourth_pow_mem`; removes Silverman IV.6.4; pkg-I6's form D3 `PkgI6.sq_principalUnits` **proved**); D2 core **proved** (`PkgI2.D2_fixed_of_raynaud`); D4's `f(V) ≤ dim V·(1+U)` **proved** (`PkgI6.artinConductor_le_of_upper`, glue-I6-rest, with fewer hypotheses than pkg-I6's statement) ; **leaf-adopt3**: T20, T21 proved in local form and T22 proved (t-different); the local-to-global transport for T20, T21 is still not in Lean | large |
 | G16 | `N ≤ ∏_{p≤R} p^{E₀}·M² ≤ Q_R·M²` | G13, G15; R17 | N5 L852-857 | **proved** from the exponents over the repository's `heightQ`, `contactSupport` (`GlueConductor.level_le`) | small |
 | G17 | `L'`-isogeny `A × Z → J₁(N)` | G6, G13; R9, T8, T26 | N5 L861-867 | **proved**: nonzero equivariant map ⇒ nonzero homomorphism (`PkgI3.exists_hom_ne_zero_of_equivariant`) and invariants under coefficient extension (`GlueAssembly.invariants_ne_bot_of_baseChange`); E1's first half **proved**: a common constituent of `V_ℓ(A) ⊗ E` and `V_ℓ(J) ⊗ E` gives a nonzero `Hom_K(A, J)` (`PkgI3.E1_exists_hom_ne_zero`, from R9, T26 and `SemisimpleBaseChange`, hypotheses; glue-I3-linalg); the application of T8 unproved (it needs `EndDivision A`, glue-I3-linalg §2) ; **leaf-adopt3**: E1's hypothesis `SemisimpleBaseChange` proved (glue-ssbc); the application of T8 is in `glueOutputs_of_leaves`, with `EndDivision A` the glue piece `FibreSimple`; the reverse isogeny and products are the pieces `ReverseIsogeny`, `ProductExists`, `DimFinite` (`isogenousProduct`) | small-medium |
-| G18 | `h_F(A) ≤ Q¹⁷M²⁴` | G16, G17; R18-R21, H5, T34 | N5 L868-905 | **proved** as arithmetic from the inequalities (`GlueAssembly.transfer_of_level`), with `[SL₂(ℤ):Γ₁(N)] ≤ N²` (`GlueAssembly.index_Gamma1_le`); E2's genus half `dim J₁(N) ≤ N²` **proved** from T34 (`LeafModCurves.dim_J1_le`, leaf-adopt); R19-R21 and H5 stated over def-faltings' height; E4's additivity direction needs H5 and Néron models (rv-blueprints F1); `BelyiX1` (E2's Belyi half) is a glue target ; **leaf-adopt3**: `BelyiX1` **proved** from T36, T37 (x1-belyi); R18 on `J₁(N)` proved (`javanpeykarJ1`) modulo the glue piece `X1BelyiOnModel` (transport of `BelyiX1` to the model of `IsJ1`); E3-E4 numerics proved (`transfer_core`); additivity proved from T41, H5 and the piece `ProductModelHeight` (`heightAdditivity_of_h5neron`) | small |
+| G18 | `h_F(A) ≤ Q¹⁷M²⁴` | G16, G17; R18-R21, H5, T34 | N5 L868-905 | **proved** as arithmetic from the inequalities (`GlueAssembly.transfer_of_level`), with `[SL₂(ℤ):Γ₁(N)] ≤ N²` (`GlueAssembly.index_Gamma1_le`); E2's genus half `dim J₁(N) ≤ N²` **proved** from T34 (`LeafModCurves.dim_J1_le`, leaf-adopt); R19-R21 and H5 stated over def-faltings' height; E4's additivity direction needs H5 and Néron models (rv-blueprints F1); `BelyiX1` (E2's Belyi half) is a glue target ; **leaf-adopt3**: `BelyiX1` **proved** from T36, T37 (x1-belyi); R18 on `J₁(N)` proved (`javanpeykarJ1`), with `X1BelyiOnModel` proved from `BelyiX1` (`G0Split.x1BelyiOnModel_of_belyiX1`); E3-E4 numerics proved (`transfer_core`); additivity proved from T41, H5 and the piece `ProductModelHeight` (`heightAdditivity_of_h5neron`) | small |
 | G19 | `h(J(u)) ≤ 40h([z_m]) + 22`, `h([z_m]) ≤ 10⁴·2²⁴max(1,h_F(A))` | G18; R3, R4, R22 | N5 L908-947 | **proved**: F2 on Mathlib's Weil heights (`GlueAssembly.logHeight_Phi_le`), heights of rationals in number fields, F3 normalizations and arithmetic, F1's algebra (`PkgI1.f1_algebra`) and theta-structure independence (`PkgI1.thetaRatio_invariant`); unproved: that the theta point of the actual `A` satisfies F1 (from R1-R4); leaf-adopt2: R3 and R22 concrete, `ZInQ.LeafPush2.R22_plus3` (the hardened form) and `linYang_j_eq` (F1's `j`-formula on R3's first branch) proved | medium |
 | G20 | `JHeightBound Mult.S_mul → SixContactMin` | — | N5 L949-964 | **proved** (`ZInQ.JHeight.sixContactMin_of_jHeightBound`) | — |
 
@@ -1152,7 +1153,7 @@ Sizes SPECULATIVE (g0-split).
 | --- | --- | --- | --- | --- |
 | 1 | `G0Split.DimFinite` (`dimFinite`) | definition level (G17) | open | small |
 | 2 | `G0Split.DimBaseChange` (`dimBaseChange`) | definition level (E2, G17; also gives `HodgeLatticeTheorem` with two Props, hodge-lattice) | open | medium |
-| 3 | `G0Split.X1BelyiOnModel` (`belyi`) | E2, Belyi half | `BelyiX1` proved from T36, T37; the transport to the model of `IsJ1` (x1-belyi notes, about 50-100 lines) open | small-medium |
+| (3) | `G0Split.X1BelyiOnModel` (no longer a field) | E2, Belyi half | **proved** (leaf-adopt3): `G0Split.x1BelyiOnModel_of_belyiX1` (transport along `ℚ(X) ≅ K_N`) with `BelyiX1` from T36, T37 (x1-belyi) | — |
 | 4 | `G0Split.FibreSimple` (`fibreSimple`) | G5-G6 on `A` | open (cores proved: T27 at `(2,−3)`, `fibre_free`, `cm_of_val`) | medium |
 | 5 | `ZInQ.H5Neron.ProductModelHeight` (`productModelHeight`) | E4 at model level | open; replaces g0-split's `HeightAdditivity`, now proved from it with T41 and H5 | medium |
 | 6 | `G0Split.StableHeightBaseChange` (`stableHeightBaseChange`) | definition level (E3-E4) | open (h5-neron: needs a Néron-model transport glue not yet stated) | large |
@@ -1217,7 +1218,7 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
 | WP6 | Instantiate G7-G8 (B1, C1 algebra and B2-B3 already proved by glue-descent) on the actual abelian surface; unramifiedness of `L'` with T32 | WP4 | G7, G8 |
 | WP7 | N5's appendix lemma (G9) over pkg-I4's de Rham layer (T23 now stated, leaf-push; `ker θ` principal and `B_dR` classical, bdr-kertheta); `B_dR`'s Galois action compatibility | — | T23, G9 |
 | WP8 | Prove the p-adic Hodge theory leaves (R10, R11+R12 via `PanBerger`, R13) — the deepest route-P leaves; long term | WP7 | route P's modularity block |
-| WP9 | `X₁(N)`, `J₁(N)` over `ℚ`: predicates done (leaf-modcurves); prove `X1ModelExists` (relative normalization of `P¹_j` in `K_N`, rational cusp), `BelyiX1`, `VSurjOfSurjective`; T33 (leaf-adopt3: `X1ModelExists`, `BelyiX1` proved from T36-T40 (x1-belyi), `VSurjOfSurjective` proved (e1-sub); remaining: the glue piece `X1BelyiOnModel` (transport)) | WP4 | R16, R18; G13, G17; route K's K2 |
+| WP9 | `X₁(N)`, `J₁(N)` over `ℚ`: predicates done (leaf-modcurves); prove `X1ModelExists` (relative normalization of `P¹_j` in `K_N`, rational cusp), `BelyiX1`, `VSurjOfSurjective`; T33 (leaf-adopt3: `X1ModelExists`, `BelyiX1` proved from T36-T40 (x1-belyi), `VSurjOfSurjective` proved (e1-sub); `X1BelyiOnModel` proved by transport (leaf-adopt3); remaining: nothing on the `X₁(N)` side of G0's hypotheses) | WP4 | R16, R18; G13, G17; route K's K2 |
 | WP10 | Stable Faltings height: defined (def-faltings); prove `HodgeLatticeTheorem`, `AnalyticUniformizationExists`/`Unique` (AN3, needed for H5's finiteness clause; R19-R21 are true for the definition without them, rv-leaves48 P1), H5, acceptance tests AT1-AT5 (rv-blueprints F3); R18, R22 stated (leaf-adopt2); prove T35 `UniformizationExists` (bp-analytic's blueprint); identify leaf-push2's and def-faltings' copies of the height (leaf-adopt3: `HodgeLatticeTheorem` from `RegularAtOrigin`, `DimAtOrigin`, `DimBaseChange` (hodge-lattice); H5's Néron identity from N1 (T41), N2 and glue (h5-neron); `HeightCopiesAgree` is glue piece 11) | WP4, Néron models | R18-R22, H5; instantiating `GlueOutputs` |
 | WP11 | Classical analysis and invariant theory: prove T28 (first fundamental theorem for sextics) and R4 (theta transformation formula in genus 2) | — | 2 leaves closed |
 | WP12 | QM moduli: field-point layer done (leaf-qm-fp); state Lemma P (rv-qm-polar) as a separate hypothesis once polarizations exist, or use Buzzard's polarization-free problem; R1(b) in family form (analytification); R3 stated (leaf-adopt2), its Lefschetz glue `R03_LinYang_algClosed` and the link `j = π₆(x)`; the glue of leaf-qm-fp §4 (degree theory of curves, function-field Galois theory, the Kummer model of `X₆ → P¹`) | WP4 | R1-R3, R5, G1-G6 |
@@ -1226,9 +1227,8 @@ G15), both new (hdec-elementary §2.2), verified as arguments by one adversarial
 ---
 
 **Remaining work after leaf-adopt3 (2026-11-13).**
-1. The eleven glue pieces of `HSyn.GluePieces` (§3, table "Glue pieces"), the only Lean work left
-   between the leaves and H: smallest first `DimFinite`, `DimBaseChange`, `X1BelyiOnModel`
-   (transport only), `FibreSimple`, `ProductModelHeight`, `HeightCopiesAgree`,
+1. The ten glue pieces of `HSyn.GluePieces` (§3, table "Glue pieces"), the only Lean work left
+   between the leaves and H: smallest first `DimFinite`, `DimBaseChange`, `FibreSimple`, `ProductModelHeight`, `HeightCopiesAgree`,
    `StableHeightBaseChange`, `ProductExists`, `ReverseIsogeny`, `ThetaPointOfFibre`,
    `ModularConstituent` (the bulk: G2, G4, G7-G16 on the actual `A`).
 2. Placeholders: R1(b) (analytification, family form), R17 (fold def-ladic-cond's `CarayolR17'`).
