@@ -68,3 +68,9 @@
   shows false (n = 23, …). **Fixed**: `PosOrient n` (Im ιC(embed √−n) > 0) and `p2Ideal n` = (2, θ − m) if
   PosOrient else (2, 1 − θ − m) — the prime with image (2, (i√n − δ)/2) in ℂ, the one tested numerically.
   `normP2` reproved for both branches; Bridge.lean recompiled, 0 errors, all axioms standard (VERIFIED).
+- `plan36.py` → `plan36.out` (VERIFIED computed, 8 n = 7…71): for TYZ's class-7 data, Q' = [32, δ, (n+δ²)/128] is a
+  Heegner form with τ_{Q'} = W(τ_{Q̄}) (W τ = −1/(32τ), Q̄ = [A, −δ, 1]), its class is [𝔭₂]^5, and
+  z_{Q'} = T − conj(z_n). This is the numerical backbone of the follow-up plan TYZThm36Seven ⇐ tyz-cm's
+  ShimuraReciprocityPic (J = 𝔭̄₂^5 = (32, (−√−n − δ)/2), c = (−δ − i√n)/2, hand-computed lattice identity) +
+  x0-32's EtaModelFricke + cm-points' cmComplexConj (proved). Not formalized (time).
+  thm36_7.py refactored (main guarded for import); rerun output identical.

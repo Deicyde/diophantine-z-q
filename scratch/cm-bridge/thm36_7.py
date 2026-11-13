@@ -38,22 +38,23 @@ T = (pari(2), pari(-4))
 out = []
 def say(s): print(s); out.append(s)
 
-for n in [7, 15, 23, 31, 39, 47, 55, 71, 79, 87, 95, 103]:
-    if not pari.issquarefree(n): continue
-    D = -n
-    d = [t for t in range(128) if (t*t + n) % 128 == 0][0]
-    reps = heegner_reps(D, d)
-    z = xy(tau_of((n + d*d)//4, d, D))
-    b0 = d % 4
-    P2 = pari.Qfb(2, b0, (b0*b0 + n)//8)
-    cls = {}
-    for e in (5, -5):
-        r = red(P2**e) if e > 0 else red(pari.qfbpow(P2, e))
-        A, B, C = reps[r]
-        cls[e] = xy(tau_of(A, B, D))
-    S = add(conjP(z), cls[5])
-    Sw = add(conjP(z), cls[-5])
-    order = int(pari.qfbclassno(D))
-    say(f'n={n} h={order} d={d} [p2]^5={red(P2**5)}: |conj z + rho z - T| = {dist(S, T):.1e} ; '
-        f'wrong sign [p2]^-5: {dist(Sw, T):.1e}')
-open('thm36_7.out', 'w').write('\n'.join(out) + '\n')
+if __name__ == "__main__":
+    for n in [7, 15, 23, 31, 39, 47, 55, 71, 79, 87, 95, 103]:
+        if not pari.issquarefree(n): continue
+        D = -n
+        d = [t for t in range(128) if (t*t + n) % 128 == 0][0]
+        reps = heegner_reps(D, d)
+        z = xy(tau_of((n + d*d)//4, d, D))
+        b0 = d % 4
+        P2 = pari.Qfb(2, b0, (b0*b0 + n)//8)
+        cls = {}
+        for e in (5, -5):
+            r = red(P2**e) if e > 0 else red(pari.qfbpow(P2, e))
+            A, B, C = reps[r]
+            cls[e] = xy(tau_of(A, B, D))
+        S = add(conjP(z), cls[5])
+        Sw = add(conjP(z), cls[-5])
+        order = int(pari.qfbclassno(D))
+        say(f'n={n} h={order} d={d} [p2]^5={red(P2**5)}: |conj z + rho z - T| = {dist(S, T):.1e} ; '
+            f'wrong sign [p2]^-5: {dist(Sw, T):.1e}')
+    open('thm36_7.out', 'w').write('\n'.join(out) + '\n')
