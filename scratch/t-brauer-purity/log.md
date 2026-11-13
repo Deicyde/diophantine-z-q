@@ -42,3 +42,10 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
   `Ideal.sum_ramification_inertia_eq_finrank` and `IsIntegralClosure.rank`);
   `abhyankarDVR_conclusion_of_L_eq_K`: the exact conclusion of `PkgI2.AbhyankarDVR` (e = n and
   separable residue extension, with the leaf's quotient-algebra instance) when `L = K`.
+- `KummerUnramified.lean` (Mathlib only): COMPILES, standard axioms.
+  `isUnramifiedAt_of_pow_eq`: `A` Dedekind with fraction field `K`, `L/K` finite separable, `B`
+  Dedekind integral closure of `A` in `L` (finite, torsion-free), `w ∈ B` with `wᵉ = u ∈ A`,
+  `e ≥ 1` invertible in `A`, `K[w] = L`: `A → B` is unramified at every prime `P` with `u ∉ P`
+  (via `dvd_differentIdeal_iff`, `aeval_derivative_mem_differentIdeal`,
+  `minpoly.isIntegrallyClosed_dvd`); `ramificationIdx_eq_one_of_pow_eq` (e(P) = 1).
+  Step (b) of the T2 plan, in global Dedekind form.
