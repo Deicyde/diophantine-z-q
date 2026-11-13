@@ -519,6 +519,59 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
       field_simp
     · rw [← IntermediateField.restrictScalars_eq_top_iff (K := L),
         IntermediateField.restrictScalars_adjoin_eq_sup, hM, sup_top_eq]
+  -- primes and ramification indices
+  have hmax0 : IsLocalRing.maximalIdeal R ≠ ⊥ := by
+    rw [(IsDiscreteValuationRing.irreducible_iff_uniformizer π).mp hπ, Ne,
+      Ideal.span_singleton_eq_bot]
+    exact hπ.ne_zero
+  haveI : P.LiesOver (IsLocalRing.maximalIdeal R) :=
+    Ideal.LiesOver.trans P Q (IsLocalRing.maximalIdeal R)
+  have hP0 : P ≠ ⊥ := by
+    intro h
+    apply hmax0
+    rw [(P.over_def (IsLocalRing.maximalIdeal R)), h]
+    exact Ideal.comap_bot_of_injective _ (by
+      intro a b hab
+      apply IsFractionRing.injective R K
+      apply (algebraMap K M).injective
+      rw [← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
+      have h3 : algebraMap L M (algebraMap R L a) = algebraMap L M (algebraMap R L b) :=
+        congrArg (fun x => ((x : L1) : M)) (congrArg Subtype.val hab)
+      rw [IsScalarTower.algebraMap_apply R L M, IsScalarTower.algebraMap_apply R L M b]
+      exact h3)
+  haveI : P.IsMaximal := Ideal.IsPrime.isMaximal inferInstance hP0
+  -- `e(Q'|P) · f(Q'|P) ≤ [M : L₁]`
+  haveI : IsFractionRing (integralClosure R M) M :=
+    integralClosure.isFractionRing_of_finite_extension K M
+  have hsum := Ideal.sum_ramification_inertia (integralClosure R M) L1 M hP0
+  have hQ'mem : Q' ∈ IsDedekindDomain.primesOverFinset P (integralClosure R M) :=
+    (IsDedekindDomain.mem_primesOverFinset_iff hP0 _).mpr ⟨inferInstance, inferInstance⟩
+  have hef : P.ramificationIdx' Q' * P.inertiaDeg' Q' ≤ m :=
+    le_trans (Finset.single_le_sum (f := fun Q'' => P.ramificationIdx' Q'' * P.inertiaDeg' Q'')
+      (fun _ _ => Nat.zero_le _) hQ'mem) (hsum.trans_le hm_le)
+  haveI : Q'.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal Q' P
+  rw [Ideal.ramificationIdx'_eq_ramificationIdx P Q' hP0,
+    Ideal.inertiaDeg'_eq_inertiaDeg] at hef
+  -- `n ∣ e(Q'|𝔪) = e · e(Q'|P)`
+  have hdvd := abhyankar_dvd_ramificationIdx (K := K) (L := L) π hπ n hn0 hn t ht hM Q'
+  have hPQ : P.ramificationIdx (integralClosure R L) = 1 := Ideal.ramificationIdx_eq_one P _
+  have htow1 : Q'.ramificationIdx R =
+      P.ramificationIdx R * Q'.ramificationIdx (integralClosure (integralClosure R L) L1) :=
+    Ideal.ramificationIdx_tower (R := R) P Q'
+  have htow2 : P.ramificationIdx R = Q.ramificationIdx R * P.ramificationIdx (integralClosure R L) :=
+    Ideal.ramificationIdx_tower (R := R) Q P
+  rw [htow2, hPQ, mul_one, ← he_def] at htow1
+  have hE0 : 0 < Q'.ramificationIdx (integralClosure (integralClosure R L) L1) :=
+    Ideal.ramificationIdx_pos _ Q'
+  have hF0 : 0 < Q'.inertiaDeg (integralClosure (integralClosure R L) L1) :=
+    Ideal.inertiaDeg_pos Q' _
+  rw [htow1, hm] at hdvd
+  have hmE : m ∣ Q'.ramificationIdx (integralClosure (integralClosure R L) L1) :=
+    Nat.dvd_of_mul_dvd_mul_left he0 hdvd
+  have hmE' := Nat.le_of_dvd hE0 hmE
+  have hE : Q'.ramificationIdx (integralClosure (integralClosure R L) L1) = m := by nlinarith
+  have hF : Q'.inertiaDeg (integralClosure (integralClosure R L) L1) = 1 := by nlinarith
+  refine ⟨by rw [htow1, hE, hm], ?_⟩
   sorry
 
 end Assembly
