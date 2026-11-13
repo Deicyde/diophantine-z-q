@@ -1,3 +1,4 @@
 'HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 exit 0

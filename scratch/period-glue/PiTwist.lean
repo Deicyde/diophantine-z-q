@@ -262,7 +262,128 @@ theorem twistOrbitFinite_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv
     fun y y' Q Q' hQ hQ' => twist_iff_orbit Y Φ hT hU T hTα U hUu g hg h hh Qbar y y' Q Q' hQ hQ',
     fun y y' Q Q' hQ hQ' => twist_iff_orbit Y Φ hT hU T hTα U hUu g hg h hh ℂ y y' Q Q' hQ hQ'⟩
 
+/-! ## `UnitLiftMod3` (proved by a finite computation) -/
+
+/-- The reduced norm of `ofInt n` (`= nrd`, an integer). -/
+def nrdZ (n : Fin 4 → ℤ) : ℤ :=
+  n 0 ^ 2 + n 0 * n 2 + n 2 ^ 2 - 2 * n 1 ^ 2 - 2 * n 1 * n 3 - 2 * n 3 ^ 2
+
+theorem nrdZ_mulCoord (n m : Fin 4 → ℤ) : nrdZ (LeafQM.mulCoord n m) = nrdZ n * nrdZ m := by
+  simp [nrdZ, LeafQM.mulCoord]; ring
+
+/-- Coordinates of the conjugate of `ofInt n`. -/
+def conjC (n : Fin 4 → ℤ) : Fin 4 → ℤ := ![n 0 + n 2, -n 1, -n 2, -n 3]
+
+theorem mulCoord_conjC (n : Fin 4 → ℤ) : LeafQM.mulCoord (conjC n) n = ![nrdZ n, 0, 0, 0] := by
+  funext i; fin_cases i <;> simp [LeafQM.mulCoord, conjC, nrdZ] <;> ring
+
+theorem mulCoord_conjC' (n : Fin 4 → ℤ) : LeafQM.mulCoord n (conjC n) = ![nrdZ n, 0, 0, 0] := by
+  funext i; fin_cases i <;> simp [LeafQM.mulCoord, conjC, nrdZ] <;> ring
+
+/-- A unit of `𝒪` in each class of `(𝒪/3𝒪)^×` (`py/unit_table.py`; entry `c₀ + 3c₁ + 9c₂ + 27c₃`). -/
+def unitTbl : Fin 81 → (Fin 4 → ℤ) :=
+  ![![1, 0, 0, 0], ![1, 0, 0, 0], ![-1, 0, 0, 0], ![-3, -2, 0, 0], ![1, 1, 0, 0], ![-1, 1, 0, 0], ![-3, -1, -3, -3], ![1, -1, 0, 0], ![-1, -1, 0, 0], ![0, 0, 1, 0], ![1, 0, 0, 0], ![-1, 0, 1, 0], ![0, 1, 1, 0], ![1, 1, 1, 0], ![-1, 1, 1, 0], ![0, -1, 1, 0], ![1, -1, 1, 0], ![-1, -1, 1, 0], ![0, 0, -1, 0], ![1, 0, -1, 0], ![1, 0, 0, 0], ![0, 1, -1, 0], ![1, 1, -1, 0], ![-1, 1, -1, 0], ![0, -1, -1, 0], ![1, -1, -1, 0], ![-1, -1, -1, 0], ![-3, 0, 0, -2], ![1, 0, 0, 1], ![-1, 0, 0, 1], ![1, 0, 0, 0], ![-2, -2, 3, 1], ![-1, -2, 3, 1], ![-3, 2, 0, -2], ![1, -1, 0, 1], ![-1, -1, 0, 1], ![0, 0, 1, 1], ![1, 0, 1, 1], ![-1, 0, 1, 1], ![-3, -2, 1, 1], ![1, 0, 0, 0], ![-1, -2, -2, 1], ![0, -1, 1, 1], ![1, -1, 1, 1], ![-1, -1, 1, 1], ![0, 0, -1, 1], ![1, 0, -1, 1], ![-1, 0, -1, 1], ![-3, -2, 2, 1], ![-2, -2, -1, 1], ![1, 0, 0, 0], ![0, -1, -1, 1], ![1, -1, -1, 1], ![-1, -1, -1, 1], ![-3, -3, -3, -1], ![1, 0, 0, -1], ![-1, 0, 0, -1], ![-3, -2, 0, 2], ![1, 1, 0, -1], ![-1, 1, 0, -1], ![1, 0, 0, 0], ![-2, -1, 3, -1], ![-1, -1, 3, -1], ![0, 0, 1, -1], ![1, 0, 1, -1], ![-1, 0, 1, -1], ![0, 1, 1, -1], ![1, 1, 1, -1], ![-1, 1, 1, -1], ![-3, -1, 1, -1], ![1, 0, 0, 0], ![-1, -1, -2, -1], ![0, 0, -1, -1], ![1, 0, -1, -1], ![-1, 0, -1, -1], ![0, 1, -1, -1], ![1, 1, -1, -1], ![-1, 1, -1, -1], ![-3, -1, 2, -1], ![-2, -1, -1, -1], ![1, 0, 0, 0]]
+
+/-- The index of a class. -/
+def encC (a b c d : ZMod 3) : Fin 81 :=
+  ⟨a.val + 3 * b.val + 9 * c.val + 27 * d.val, by
+    have ha : a.val < 3 := ZMod.val_lt a
+    have hb : b.val < 3 := ZMod.val_lt b
+    have hc : c.val < 3 := ZMod.val_lt c
+    have hd : d.val < 3 := ZMod.val_lt d
+    omega⟩
+
+theorem unitTbl_spec : ∀ a b c d : ZMod 3, a ^ 2 + a * c + c ^ 2 - 2 * b ^ 2 - 2 * b * d - 2 * d ^ 2 ≠ 0 →
+    (((unitTbl (encC a b c d) 0 : ℤ) : ZMod 3) = a ∧ ((unitTbl (encC a b c d) 1 : ℤ) : ZMod 3) = b ∧
+      ((unitTbl (encC a b c d) 2 : ℤ) : ZMod 3) = c ∧ ((unitTbl (encC a b c d) 3 : ℤ) : ZMod 3) = d) ∧
+    (nrdZ (unitTbl (encC a b c d)) = 1 ∨ nrdZ (unitTbl (encC a b c d)) = -1) := by
+  set_option maxRecDepth 100000 in decide
+
+/-- **`UnitLiftMod3` (proved).** -/
+theorem unitLiftMod3_proof : UnitLiftMod3 := by
+  rintro ⟨u₀, n, hn⟩ ⟨v₀, m, hm⟩ ⟨⟨c, k, hk⟩, hc⟩
+  have hc' := congrArg Subtype.val hc
+  simp only [AddSubgroupClass.coe_sub, MulMemClass.coe_mul, OneMemClass.coe_one] at hc'
+  have h33 : ((3 : LeafQM.O) : LeafQM.B) = 3 := map_ofNat LeafQM.O.subtype 3
+  rw [h33, hm, hn, hk, LeafQM.ofInt_mul, ← LeafQM.ofInt_one, LeafQM.AV.ofInt_sub,
+    LeafQM.AV.three_mul_ofInt] at hc'
+  have hco := LeafQM.AV.ofInt_injective hc'
+  -- `nrd(u₀) ≢ 0 mod 3`
+  have hmn : ∀ i, LeafQM.mulCoord m n i = ![1, 0, 0, 0] i + 3 * k i := fun i => by
+    have := congrFun hco i
+    simp only [Pi.sub_apply] at this
+    linear_combination this
+  have hn1 : ((nrdZ (LeafQM.mulCoord m n) : ℤ) : ZMod 3) = 1 := by
+    have e : LeafQM.mulCoord m n = fun i => ![1, 0, 0, 0] i + 3 * k i := funext hmn
+    rw [e]
+    simp only [nrdZ]
+    push_cast
+    have h3 : (3 : ZMod 3) = 0 := rfl
+    rw [h3]
+    norm_num
+  have hnrd : (nrdZ n : ZMod 3) ≠ 0 := by
+    intro h0
+    rw [nrdZ_mulCoord, Int.cast_mul, h0, mul_zero] at hn1
+    exact zero_ne_one hn1
+  obtain ⟨⟨t0, t1, t2, t3⟩, hpm⟩ := unitTbl_spec (n 0 : ZMod 3) (n 1 : ZMod 3) (n 2 : ZMod 3)
+    (n 3 : ZMod 3) (by
+      have : ((nrdZ n : ℤ) : ZMod 3) = (n 0 : ZMod 3) ^ 2 + (n 0 : ZMod 3) * (n 2 : ZMod 3) +
+          (n 2 : ZMod 3) ^ 2 - 2 * (n 1 : ZMod 3) ^ 2 - 2 * (n 1 : ZMod 3) * (n 3 : ZMod 3) -
+          2 * (n 3 : ZMod 3) ^ 2 := by simp [nrdZ]
+      rw [← this]; exact hnrd)
+  set t := unitTbl (encC (n 0 : ZMod 3) (n 1 : ZMod 3) (n 2 : ZMod 3) (n 3 : ZMod 3)) with htdef
+  set ε := nrdZ t with hε
+  have hεε : ε * ε = 1 := by rcases hpm with h | h <;> rw [h] <;> norm_num
+  -- the unit `ofInt t`, with inverse `ε · conj`
+  let x : LeafQM.O := ⟨LeafQM.ofInt t, t, rfl⟩
+  let y : LeafQM.O := ⟨LeafQM.ofInt (ε • conjC t), ε • conjC t, rfl⟩
+  have hxy : x * y = 1 := by
+    apply Subtype.ext
+    show LeafQM.ofInt t * LeafQM.ofInt (ε • conjC t) = 1
+    rw [LeafQM.ofInt_mul, ← LeafQM.ofInt_one]
+    congr 1
+    funext i
+    have := congrFun (mulCoord_conjC' t) i
+    fin_cases i <;> simp [LeafQM.mulCoord, conjC] at this ⊢ <;>
+      first | linear_combination ε * this | linear_combination ε * this + hεε
+  have hyx : y * x = 1 := by
+    apply Subtype.ext
+    show LeafQM.ofInt (ε • conjC t) * LeafQM.ofInt t = 1
+    rw [LeafQM.ofInt_mul, ← LeafQM.ofInt_one]
+    congr 1
+    funext i
+    have := congrFun (mulCoord_conjC t) i
+    fin_cases i <;> simp [LeafQM.mulCoord, conjC] at this ⊢ <;>
+      first | linear_combination ε * this | linear_combination ε * this + hεε
+  refine ⟨⟨x, y, hxy, hyx⟩, ?_⟩
+  -- the congruence
+  have hdiv : ∀ i, ∃ q : ℤ, t i - n i = 3 * q := by
+    intro i
+    have hti : ((t i : ℤ) : ZMod 3) = (n i : ZMod 3) := by
+      fin_cases i
+      · exact t0
+      · exact t1
+      · exact t2
+      · exact t3
+    obtain ⟨q, hq⟩ := (ZMod.intCast_eq_intCast_iff_dvd_sub _ _ 3).mp hti.symm
+    exact ⟨q, by push_cast at hq; linear_combination hq⟩
+  choose q hq using hdiv
+  refine ⟨⟨LeafQM.ofInt q, q, rfl⟩, Subtype.ext ?_⟩
+  show LeafQM.ofInt t - u₀ = ((3 : LeafQM.O) : LeafQM.B) * LeafQM.ofInt q
+  rw [h33, hn, LeafQM.AV.ofInt_sub, LeafQM.AV.three_mul_ofInt]
+  congr 1
+  funext i
+  simp only [Pi.sub_apply]
+  exact hq i
+
+/-- **`TwistOrbitFinite` from R1hecke, `TorsionStructure` and `AutOInnerFinite` (proved).** -/
+theorem twistOrbitFinite_of' (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (hH : R1heckeProps Y Φ) (hT : ObjBridge.TorsionStructure) (hA : AutOInnerFinite) :
+    TwistOrbitFinite Y Φ :=
+  twistOrbitFinite_of Y Φ hH hT hA unitLiftMod3_proof
+
 end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of
