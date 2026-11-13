@@ -909,7 +909,8 @@ end
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # The five Hecke Props, copied verbatim from `scratch/prop-ts-glue/PropTSGlue.lean`
-(lines 3356-3428, Part C; namespace `PropTSGlue` and its `open` line kept)
+(lines 3356-3442, Part C, with the two composition theorems; namespace `PropTSGlue` and its
+`open` line kept)
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
 noncomputable section
@@ -992,6 +993,20 @@ def HeckeNoVertRam : Prop :=
       [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
       [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
       ∀ p : ℕ, p.Prime → 324 < p → NoVerticalRam E p
+
+/-- **`CoverModelOfHeckeN` from the four pieces** (compiled). -/
+theorem coverModelOfHeckeN_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
+    (hB : HeckeBranch) (hV : HeckeNoVertRam) : CoverModelOfHeckeN := by
+  intro Y Φ π h1 hh h2
+  obtain ⟨E, i1, i2, i3, i4, i5, i6, hM⟩ := hN Y Φ π h1 hh h2
+  exact ⟨E, i1, i2, i3, i4, i5, i6, hM, ⟨hD Y Φ π h1 hh h2 E hM, hB Y Φ π h1 hh h2 E hM⟩,
+    hV Y Φ π h1 hh h2 E hM⟩
+
+/-- **`CoverModelOfHecke` from the four pieces** (through prop-ts's
+`functionFieldModel_of_normalization`, compiled). -/
+theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
+    (hB : HeckeBranch) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
+  fun Y Φ π h1 hh h2 => coverModel_of_N (coverModelOfHeckeN_of_pieces hN hD hB hV Y Φ π h1 hh h2)
 
 end PropTSGlue
 
@@ -4118,6 +4133,25 @@ theorem heckeBranch_of_R1R2fp (hRR : R1R2fp) (hR : RamOfFibreCount) (hCI : Curve
     (hF : HeckeFibreSizes) (hT : ObjBridge.TorsionStructure) : HeckeBranch :=
   heckeBranch_of hR hCI hF hT (cm_objects_of_R1R2fp hRR)
 
+/-! ## Part 5: the composite -/
+
+/-- **`HeckeBranch` from the curve glue `CurveChartInf`, the moduli input `HeckeFibreSizes` and
+the leaves `TorsionStructure`, `R1R2fp`** (compiled; `RamOfFibreCount` is proved). -/
+theorem heckeBranch_of' (hRR : R1R2fp) (hCI : CurveChartInf) (hF : HeckeFibreSizes)
+    (hT : ObjBridge.TorsionStructure) : HeckeBranch :=
+  heckeBranch_of_R1R2fp hRR ramOfFibreCount hCI hF hT
+
+/-- **`CoverModelOfHecke` from ts-hecke's reductions** (compiled). Hypotheses:
+* leaves: R1conn (`Y3Connected`, Shimura/Deligne `π₀` with reciprocity), the kernel's
+  `ObjBridge.TorsionStructure` (Mumford §4) and the bundle leaf `R1R2fp`;
+* glue: `CurveGaloisChart`, `CurveChartInf` (curve theory with no moduli), `HeckeFibreSizes`
+  (the moduli count of Baba–Granath's elliptic table) and `HeckeNoVertRam` (Lemma NV, open). -/
+theorem coverModelOfHecke_of_tsHecke (hconn : Y3Connected) (hRR : R1R2fp)
+    (hT : ObjBridge.TorsionStructure) (hCG : CurveGaloisChart) (hCI : CurveChartInf)
+    (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
+  coverModelOfHecke_of_pieces (heckeNormalization_of hconn hCG hT) (heckeDegree_of_torsion hT)
+    (heckeBranch_of' hRR hCI hF hT) hV
+
 end TSHecke
 
 end
@@ -4152,3 +4186,5 @@ end
 #print axioms TSHecke.heckeBranch_of_R1R2fp
 #print axioms TSHecke.isFractionRing_infCoord
 #print axioms TSHecke.ramOfFibreCount
+#print axioms TSHecke.heckeBranch_of'
+#print axioms TSHecke.coverModelOfHecke_of_tsHecke

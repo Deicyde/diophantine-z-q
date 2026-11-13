@@ -93,3 +93,14 @@ ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
 - `isFractionRing_infCoord` (ℚ(X) = Frac ℚ[s], s ↦ X⁻¹; via `Polynomial.reflect`).
 - `ramOfFibreCount : RamOfFibreCount` (clause (a) from `eq_bot_of_under_eq_bot` +
   `ramificationIdx_bot_eq_one`; (b), (c) from `ramCount`).
+
+## Step 8. Composite and verbatim check — VERIFIED
+
+- Copy extended to PropTSGlue.lean 3356-3442 (adds prop-ts-glue's `coverModelOfHeckeN_of_pieces`,
+  `coverModelOfHecke_of_pieces`, verbatim).
+- `heckeBranch_of'`, `coverModelOfHecke_of_tsHecke : Y3Connected → R1R2fp → TorsionStructure →
+  CurveGaloisChart → CurveChartInf → HeckeFibreSizes → HeckeNoVertRam → CoverModelOfHecke`.
+- `check_identical.py`: ALL OK (prop-ts prefix, Hecke Props, AutOFinite 3-1037, SmoothStalk 3-388,
+  ComponentIrreducible, CIproof; PropTSGlue 1-906 = PropTS.lean 1-906).
+- Full file: `lake env lean scratch/ts-hecke/TSHecke.lean` 0 errors; every `#print axioms` line
+  standard (no sorryAx).

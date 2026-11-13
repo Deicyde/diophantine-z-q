@@ -14,7 +14,8 @@ out.append(lines(G, 3, 906))
 out.append('''
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # The five Hecke Props, copied verbatim from `scratch/prop-ts-glue/PropTSGlue.lean`
-(lines 3356-3428, Part C; namespace `PropTSGlue` and its `open` line kept)
+(lines 3356-3442, Part C, with the two composition theorems; namespace `PropTSGlue` and its
+`open` line kept)
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
 noncomputable section
@@ -25,7 +26,7 @@ open Polynomial G0ModField PropTSRed
 open scoped TensorProduct
 
 ''')
-out.append(lines(G, 3356, 3428))
+out.append(lines(G, 3356, 3442))
 out.append('\nend PropTSGlue\n\nend\n')
 out.append('''
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
