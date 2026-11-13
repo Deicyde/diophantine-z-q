@@ -15,7 +15,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
   - `X₆` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with `W` and the forgetful `Y → X`;
   - `π₆ : X → P¹` (by charts) whose fibres are the W-orbits, with CM values `0, ∞, −16/27`;
   - the three CM points exist.
-- `R1rec`: Shimura reciprocity in unramified form (p ≥ 5).
+- Shimura reciprocity in unramified form (p ≥ 5), in two versions: `R1recProps` (residue
+  fields of CM points of `Y₃`, inside `R1R2fp`) and `R1rec` (fields of moduli of CM objects).
 - `R5fp`: González–Rotger Thm 5.12, giving the degree, and `k ⊆ ℚ(x)` when `D(R) ≠ 1`.
 - `R5fpCount`: Prop. 5.6, `#CM(R) = 2^b h(R)`.
 
@@ -33,8 +34,8 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
 - h-b1 M9 on `X₆` (`cm_of_val`): the fibres over 0, ∞, −16/27 are CM points by ℤ[i], ℤ[ζ₃],
   ℤ[√−6]. This uses invariance of CM under isomorphism and twist.
 - R2 on `Y₃` from R2 on `X₆` (`R1R2fp_Y`).
-- Lemma NV step 2 (`unramified_over_branch`): points over the branch values have fields of
-  moduli unramified at p ≥ 5.
+- Lemma NV step 2 (`residue_unramified_over_branch`): points of `Y₃` over the branch values
+  have residue fields unramified at p ≥ 5.
 - From the kernel leaf `TorsionStructure`: level structures are onto `A(K̄)[3]`, so `A[3]` is
   `K`-rational. Hence the level-structure torsor for A3 (`Level3.torsor`, which also uses the
   `𝒪^×` action laws), and A6 on every object (`QML3.goodReduction`, through the kernel's A6).

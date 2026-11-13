@@ -25,8 +25,8 @@ The leaves, bundled as `LeafQM.AV.QMLeaves`:
 
 | Lean name | Replaces | Content (field-point form) | Source |
 | --- | --- | --- | --- |
-| `R1R2fp` (with `R1fpProps`, `R1heckeProps`, `X6Props`, `R2X6Props`, `CMExists`) | R1(a), R1(c), R2 | a proper smooth curve `Y/ℚ` with `Y(K) ≃ M3 K` for every field `K ⊇ ℚ`, natural in `K`; `Γ'` acts by automorphisms of `Y`; a proper smooth curve `X/ℚ` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with the `W`-twists and the forgetful map `Y → X`; a morphism `π₆ : X → P¹` whose fibres are the `W`-orbits and whose values at the CM points of discriminants −4, −3, −24 are `0, ∞, −16/27`; these CM points exist | Shimura 1967 / Deligne 1971 (R1), Baba–Granath 2008 Thm 2.1, Lemma 3.1 (R2) |
-| `R1rec` | R1(d) | the field of moduli of a level-3 object over `ℚ̄` with CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` is a number field unramified at every `p ≥ 5` | Shimura reciprocity (Shimura 1967 Main Thm II; Deligne 1971 §3) |
+| `R1R2fp` (with `R1fpProps`, `R1heckeProps`, `X6Props`, `R2X6Props`, `CMExists`, `R1recProps`) | R1(a), R1(c), R1(d), R2 | a proper smooth curve `Y/ℚ` with `Y(K) ≃ M3 K` for every field `K ⊇ ℚ`, natural in `K`; `Γ'` acts by automorphisms of `Y`; a proper smooth curve `X/ℚ` with `X(ℚ̄) ≃ {QM pairs}/≅`, Galois-equivariant, with the `W`-twists and the forgetful map `Y → X`; a morphism `π₆ : X → P¹` whose fibres are the `W`-orbits and whose values at the CM points of discriminants −4, −3, −24 are `0, ∞, −16/27`; these CM points exist | Shimura 1967 / Deligne 1971 (R1), Baba–Granath 2008 Thm 2.1, Lemma 3.1 (R2) |
+| `R1recProps` (inside `R1R2fp`) and `R1rec` | R1(d) | point form: the residue field of a `ℚ̄`-point of `Y₃` whose object has CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` is a number field unramified at every `p ≥ 5`; object form (`R1rec`): the same for the field of moduli of the object, unramified at every `p ≥ 5` | Shimura reciprocity (Shimura 1967 Main Thm II; Deligne 1971 §3) |
 | `R5fp` | R5(ii) | on `X₆`: `[ℚ(x):ℚ] = 2h(R)` and `k ⊆ ℚ(x)` if some `p ∣ 6` is inert in `k`; `[ℚ(x):ℚ] = h(R)` otherwise | González–Rotger 2006, Thm 5.12 (with Thm 5.8) |
 | `R5fpCount` | R5(i) | on `X₆`: `#CM(R) = 2^{b(R)} h(R)` | González–Rotger 2006, Prop. 5.6 |
 
@@ -57,9 +57,10 @@ Glue proved in the same file from these leaves (VERIFIED, compiled):
     `Level3.exists_mul_of_range_le` and `Level3.range_le`.
   - Consequence: a `ℚ̄`-fibre of `Y₃ → X₆` has at most `#(𝒪/3𝒪)^× = 72` points
     (bp-qmmoduli's `Units72`). Assembling this count in Lean is a small step not done here.
-- **Lemma NV step 2 (`unramified_over_branch`)**, from `R1R2fp` and `R1rec`: a `ℚ̄`-point of
-  `Y₃` over `0`, `∞` or `−16/27` has a field of moduli that is a number field unramified at
-  every `p ≥ 5`.
+- **Lemma NV step 2.** `residue_unramified_over_branch` (from `R1R2fp` alone) says: a
+  `ℚ̄`-point of `Y₃` over `0`, `∞` or `−16/27` has a residue field that is a number field
+  unramified at every `p ≥ 5`. This is the form h-b1 §3 uses. `unramified_over_branch` (from
+  `R1R2fp` and `R1rec`) is the same for fields of moduli.
 - **A6 on the leaves' objects (`QML3.goodReduction`).** Every `QML3` object over a field of
   characteristic 0 has good reduction at every DVR in which 3 is a unit. It follows from the
   kernel's leaves `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` through
@@ -244,9 +245,14 @@ def R1fpProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
   via `i + j`, `(1 + j)/2` and `μ`.
 - Composite: the fibre clause combines Baba–Granath with R1 at level one.
 
-### 2.4 `R1rec` (R1(d), unramified form)
+### 2.4 `R1recProps` and `R1rec` (R1(d), unramified form)
 
 ```lean
+def R1recProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+  ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
+      UnramifiedAbove5 (residueImage (X := Y.left) y.left)
+
 def R1rec : Prop :=
   ∀ P : QML3 Qbar, (HasCM4 P.q ∨ HasCM3 P.q ∨ HasCM24 P.q) →
     UnramifiedAbove5 (fieldOfModuli3 P)
@@ -256,8 +262,19 @@ def R1rec : Prop :=
   Thm II; Deligne 1971 §§3.7-3.13 and Thm 4.19, read by the audit as "consequence with
   qualifications"). `Gal(E^ab/E)` acts on a CM point `y` through `rec`, and `∏_{ℓ≠3} 𝒪_{E,ℓ}^×`
   maps into `K₃`, so `E(y)/E` is unramified outside 3 (h-b1 §3 step 2).
-- **Faithful.** `ℚ(y) ⊆ E(y)`, and `E/ℚ` is ramified only at 2 and 3. The field of moduli equals
-  `ℚ(y)` for a fine moduli space (R1). This is the only consequence used, by Lemma NV step 2.
+- **Faithful.**
+  - `ℚ(y) ⊆ E(y)`, and `E/ℚ` is ramified only at 2 and 3. This is the only consequence used, by
+    Lemma NV step 2.
+  - The point form `R1recProps` is the printed form, since reciprocity is about points of the
+    canonical model. `residueImage y` is the image of `κ(x) ↪ ℚ̄`, computed with
+    `Scheme.SpecToEquivOfField`.
+  - The object form needs "field of moduli = `ℚ(y)`" (fine moduli, R1).
+- **Why both.** The bridge from fields of moduli to residue fields cannot be proved in Lean with
+  the present definitions. It needs the uniqueness of base change up to isomorphism of objects,
+  which needs rigidity: a morphism of abelian varieties preserving 0 is a homomorphism, and
+  Mathlib does not have this. One inclusion (field of moduli ⊆ residue field) would go through,
+  but that is the wrong direction for unramifiedness. So the bundle carries the point form, and
+  the object form remains as a separate leaf.
 
 ### 2.5 `R5fp`, `R5fpCount` (R5)
 
@@ -296,7 +313,8 @@ v1/v2 and the journal, YES on `X₀(D, N)`):
 ## 3. Comparison with the placeholders of `Leaves.lean`
 
 - **`R01_ShimuraDeligne`** (a)-(d) becomes `R1R2fp` (the `R1fpProps`, `R1heckeProps` and
-  `X6Props` parts) plus `R1rec`. Part (b), complex uniformization, is R1an. It needs the
+  `X6Props` parts, and `R1recProps` for (d)); `R1rec` is the object form of (d). Part (b),
+  complex uniformization, is R1an. It needs the
   analytification (bp-qmmoduli N14) and is not stated here.
 - **`R02_BabaGranath`** becomes `R2X6Props` and `CMExists` (inside `R1R2fp`). Its orbifold-order
   sentence is deliberately not a leaf clause (§2.3).
