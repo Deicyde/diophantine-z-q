@@ -43,11 +43,10 @@ The node is shared by three blueprints:
    (faithfulness review in §4.2).
 
    **Glue proved over the leaf (BUILT):**
-   - *Uniqueness.* Two uniformizations of the same `A` differ by a `ℂ`-linear map carrying one
-     lattice into the other (`IsUniformization.exists_complexLinear`). So the period lattice,
-     and everything computed from it, does not depend on the choice.
-     Moreover `T` is an isomorphism with `T(Λ) = Λ'`, and `g` is the same for all
-     uniformizations (`exists_equiv`, `dim_eq`).
+   - *Uniqueness.* Two uniformizations of the same `A` differ by a `ℂ`-linear isomorphism `T`
+     with `T(Λ) = Λ'`, and `g` is the same for all of them (`IsUniformization.exists_equiv`,
+     `IsUniformization.dim_eq`). So the period lattice, and everything computed from it, does
+     not depend on the choice.
    - *Endomorphisms act linearly.* Every endomorphism `α` of the group scheme `A` acts on `ℂ^g`
      by a `ℂ`-linear map `ρ(α)` preserving `Λ` (`exists_complexLinear_endo`, `analyticRep`).
      - `ρ` is unital, additive and multiplicative: `analyticRep_id`, `analyticRep_mul`,
