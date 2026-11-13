@@ -15,3 +15,4 @@
 - ResearchLeaves: r1r2 : LeafAdopt.R1R2fpRep (Q4 + Q5 repaired R1R2fp); r1an : R01b (placeholder); r1rec : LeafQM.AV.R1rec; r5 : LeafQM.AV.R5fp (= R5fpStrong, proved iff); r5count : LeafQM.AV.R5fpCount; r16 : LeafModCurves.R16_EichlerShimuraJ1'; r19-r21 : ZInQ.DefFaltings.R19_GaudronRemond, R20_FaltingsLemma5, R21_Bost; h5 : LeafAdopt.H5 (new leaf, F2).
 - TextbookLeaves: t32a, t32b removed (now theorems HSyn.t32a_glue, t32b_glue); t33 : LeafModCurves.JacobianExists ℚ, t34 : LeafModCurves.DimJ1Genus added.
 - Glue: no glue step consumed the removed placeholders (glueOutputs_of_leaves ignores its arguments), so no glue changed. X1ModelExists is a glue target (unproved), not put in the leaf bundle.
+- run4 (after header docstring; final state before review): 0 errors, one sorry (L19202 glueOutputs_of_leaves), 8 opaque, 0 axiom, 2m27s.
