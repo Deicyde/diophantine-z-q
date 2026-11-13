@@ -6,6 +6,10 @@ PAIRS = [
     # (name, owner file, copy file)
     ("SmoothGeomConnIntegral", "scratch/alg-frob-red/part_red.lean",
      "ZInQKernel/Contrib/FrobPieces/SmoothGeomConnIntegral.lean"),
+    ("HasAbelianSchemeAway", "scratch/neron-lg/NeronLG.lean", "scratch/frob-pieces/part_neron.lean"),
+    ("AbVarSpreadsOut", "scratch/neron-lg/NeronLG.lean", "scratch/frob-pieces/part_neron.lean"),
+    ("GoodRedCofinite", "scratch/alg-frob-red/part_red.lean", "scratch/frob-pieces/FrobPieces.lean"),
+    ("SmoothGeomConnIntegral", "scratch/alg-frob-red/part_red.lean", "scratch/frob-pieces/FrobPieces.lean"),
 ]
 EXTRA = [l.split('|') for l in sys.argv[1:]]  # name|owner|copy
 ok = True

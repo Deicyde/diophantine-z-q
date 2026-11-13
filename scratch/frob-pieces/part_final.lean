@@ -34,6 +34,23 @@ theorem tateBridge35_of_spread (hT : PkgI3.TateModuleFree) (hG : AbSchemeSpreads
     G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_spread hG hRed hE hA)
 
+/-- **`AlgFrobRed` from neron-lg's glue N1-g1 `AbVarSpreadsOut`, `ProperSmoothGenConnected`,
+I2-Red, `FExtendGen`, `AbsFrob` (proved).** -/
+theorem algFrobRed_of_neron (hsp : FrobPiecesNeron.AbVarSpreadsOut)
+    (hc : FrobPiecesNeron.ProperSmoothGenConnected)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_gen (FrobPiecesNeron.goodRedCofinite_of_neron hsp hc) smoothGeomConnIntegral hRed
+    hE hA
+
+/-- **`TateBridge35` from I3.M0, N1-g1, `ProperSmoothGenConnected`, I2-Red, `FExtendGen`,
+`AbsFrob` (proved).** -/
+theorem tateBridge35_of_neron (hT : PkgI3.TateModuleFree) (hsp : FrobPiecesNeron.AbVarSpreadsOut)
+    (hc : FrobPiecesNeron.ProperSmoothGenConnected)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendGen) (hA : AbsFrob) :
+    G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_neron hsp hc hRed hE hA)
+
 end FrobPiecesGood
 
 end
@@ -45,3 +62,8 @@ end
 #print axioms FrobPiecesGood.algFrobRed_of_spread
 #print axioms FrobPiecesGood.algFrobRed_of_four
 #print axioms FrobPiecesGood.tateBridge35_of_spread
+#print axioms FrobPiecesNeron.geometricallyConnected_of_geometricallyIntegral
+#print axioms FrobPiecesNeron.hasGoodReduction_of_base
+#print axioms FrobPiecesNeron.goodRedCofinite_of_neron
+#print axioms FrobPiecesGood.algFrobRed_of_neron
+#print axioms FrobPiecesGood.tateBridge35_of_neron

@@ -887,6 +887,38 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frob-pieces/FrobPieces.lean:5062:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frob-pieces/FrobPieces.lean:5067:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frob-pieces/FrobPieces.lean:5068:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/frob-pieces/FrobPieces.lean:5107:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'FrobPiecesGood.isUnit_intCast_of_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FrobPiecesGood.pullbackGrp_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FrobPiecesGood.goodRedCofinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -894,3 +926,10 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'FrobPiecesGood.algFrobRed_of_spread' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FrobPiecesGood.algFrobRed_of_four' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FrobPiecesGood.tateBridge35_of_spread' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesNeron.geometricallyConnected_of_geometricallyIntegral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrobPiecesNeron.hasGoodReduction_of_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesNeron.goodRedCofinite_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.tateBridge35_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -45,3 +45,20 @@
   (~20 s per iteration instead of ~2 min).
 - Note: task afr-absfrob (origin/wip/afr-absfrob) is drafting FExtendGen from I2-NMP
   (part_fext.lean, 09:27); not duplicated here.
+
+## GoodRedCofinite: second reduction, to neron-lg's N1-g1 + ProperSmoothGenConnected (VERIFIED)
+- part_neron.lean: verbatim copies of neron-lg's `HasAbelianSchemeAway`, `AbVarSpreadsOut`
+  (scratch/neron-lg/NeronLG.lean L449-469, same opens; py/verbatim_check.py: True).
+- New Prop `FrobPiecesNeron.ProperSmoothGenConnected` (leaf candidate, published: Zariski's
+  connectedness theorem, EGA III₁ 4.3, UNVERIFIED locators): smooth proper X over a presentation
+  of 𝓞_L[1/f] with geometrically connected generic fibre is geometrically connected.
+- Proved: `geometricallyConnected_of_geometricallyIntegral`, `hasGoodReduction_of_base` (base
+  change of an abelian scheme along R → O compatible with the maps to K),
+  `goodRedCofinite_of_neron : AbVarSpreadsOut → ProperSmoothGenConnected → GoodRedCofinite`
+  (R = Localization.Away f; S = prime factors of absNorm (span {f}); `Ideal.absNorm_mem` gives
+  N ∈ (f), N a unit of O_w, so f is a unit of O_w; φ = IsLocalization.Away.lift;
+  `Grp.mkIso' gen` turns neron-lg's (G, gen, IsMonHom) into a Grp iso).
+- part_final: `algFrobRed_of_neron`, `tateBridge35_of_neron`.
+- Run 3: FrobPieces.lean exit 0, ~2 min 15 s, 99 axiom prints all standard, 0 sorryAx (VERIFIED,
+  run3.txt). Pitfall: `RespectsIso @GeometricallyConnected` not found by instance search; give it
+  as `MorphismProperty.IsStableUnderBaseChange.respectsIso` with the type annotated at Scheme.{0}.
