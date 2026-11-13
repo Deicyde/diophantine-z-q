@@ -1,20 +1,6 @@
 name: Quartic 214 receiving revision 2
 
 on:
-  pull_request:
-    paths:
-      - 'research/quartic214-manuscript-revision2/**'
-      - 'research/version17/**'
-      - 'research/quartic214-manuscript/**'
-      - 'research/quartic214-manuscript-review/**'
-      - 'research/quartic214-protocol-d-progress/**'
-      - 'research/quartic214/**'
-      - 'manuscripts/quartic_v16.tex'
-      - 'CURRENT_214_REVIEW.md'
-      - '.github/workflows/quartic214-manuscript-revision2.yml'
-  push:
-    branches:
-      - 'proposal/quartic-214-protocol-d'
   workflow_dispatch:
 
 permissions:
