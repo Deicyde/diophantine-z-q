@@ -292,47 +292,167 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/prop-ts-glue/PropTSGlue.lean:3183:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3215:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3216:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3217:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3218:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3222:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3233:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3257:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3312:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3315:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3334:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3350:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3366:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3456:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3521:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3530:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:3723:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3183:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3723:28: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:3230:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3770:48: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:3231:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3771:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3231:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3771:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3369:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3909:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3403:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3943:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3403:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3943:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3405:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3945:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3407:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3947:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:3408:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:3948:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
@@ -372,6 +492,10 @@ Hint: Replace the deprecated name:
 'PropTSGlue.finiteDimensional_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.snSpecialize_of_unram' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.rbar_isLocalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snSpecializeUnram' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_final''' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.isSeparable_of_finrank_lt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.verticalResidueSeparable_of_degree' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.functionFieldModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
