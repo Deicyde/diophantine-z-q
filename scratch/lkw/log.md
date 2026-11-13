@@ -22,3 +22,11 @@
 - Pitfalls met: `Field.absoluteGaloisGroup K` is a `def` (not reducible to `Gal(AlgebraicClosure K/K)`): products/sets must be
   formed in `Field.absoluteGaloisGroup` and elements re-typed with `let w' : Gal(..) := w`; `Nontrivial ℚ_[p]`, `IsGalois ℚ_[p] Ω`
   and `Algebra.IsSeparable ℚ_[p] L` time out in instance search with the TC imports: supplied by hand.
+
+## Step 4: T30 (03:45–04:00 PST)
+- ZInQKernel/Contrib/LocalKW/SqrtCrit.lean: verbatim copy of scratch/t30-adelic/SqrtCrit.lean (t30-adelic, 85ed47cb), namespace
+  T30 → ZInQ.Contrib.LocalKW.SqrtCrit, trailing #print axioms dropped. It must not import Tau Ceti: with TC in scope,
+  `Normal ℚ_[p] K` instance search times out at lines 282/283/316 (VERIFIED, first attempt).
+- ZInQKernel/Contrib/LocalKW/T30.lean: `theorem ZInQ.Contrib.leafSqrtCrit : GlueDescent.B2Q.LeafSqrtCrit`
+  (= leafSqrtCrit_of_t16a applied to localKroneckerWeber). `lake build ZInQKernel.Contrib.LocalKW.T30`: success (9616 jobs).
+  #print axioms (scratch/lkw/AxiomsT30.lean): [propext, Classical.choice, Quot.sound]. VERIFIED.
