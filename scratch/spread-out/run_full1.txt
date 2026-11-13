@@ -1,0 +1,1021 @@
+scratch/spread-out/SpreadOutFull.lean:169:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:169:48: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:170:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:171:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:171:62: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:172:6: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:173:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:173:62: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:174:6: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:175:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:175:34: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:175:46: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:287:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:514:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:531:10: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/spread-out/SpreadOutFull.lean:539:10: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/spread-out/SpreadOutFull.lean:495:15: warning: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/spread-out/SpreadOutFull.lean:589:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:723:28: warning: Variable name `P` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _P
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+scratch/spread-out/SpreadOutFull.lean:853:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:927:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:929:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:930:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:940:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:946:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:947:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:950:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:951:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:953:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:954:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:958:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1183:8: warning: This simp argument is unused:
+  wPP
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPJ, wJJ, hPP,
+    hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:1184:29: warning: This simp argument is unused:
+  zero_sub
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, add_zero, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:1184:39: warning: This simp argument is unused:
+  add_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, zero_add,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:1184:49: warning: This simp argument is unused:
+  zero_add
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero,
+    neg_zero]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:1184:59: warning: This simp argument is unused:
+  neg_zero
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [e, Fin.zero_eta, Fin.mk_one, Fin.isValue, ite_true, one_ne_zero, zero_ne_one, ite_false,
+    _root_.mul_assoc, mul_sub, sub_mul, _root_.mul_one, _root_.one_mul, smul_mul_assoc, mul_smul_comm, wPP, wPJ, wJJ,
+    hPP, hPJ, hJ, smul_smul, smul_sub, sub_self, hc, one_smul, mul_zero, smul_zero, sub_zero, zero_sub, add_zero,
+    zero_add]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:1185:14: warning: Unused tactic linter: `rfl` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/spread-out/SpreadOutFull.lean:1185:27: warning: Unused tactic linter: `(simp only [sub_sub_cancel, sub_self, smul_zero])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/spread-out/SpreadOutFull.lean:1185:79: warning: Unused tactic linter: `skip` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/spread-out/SpreadOutFull.lean:1185:27: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/spread-out/SpreadOutFull.lean:1185:79: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/spread-out/SpreadOutFull.lean:1211:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/spread-out/SpreadOutFull.lean:1211:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/spread-out/SpreadOutFull.lean:1223:30: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/spread-out/SpreadOutFull.lean:1223:30: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+
+Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
+scratch/spread-out/SpreadOutFull.lean:1312:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1438:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1440:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1447:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1448:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1451:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1452:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1454:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1455:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1479:20: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/spread-out/SpreadOutFull.lean:1559:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1767:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1768:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1769:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1770:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1771:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1772:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1778:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1779:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1782:4: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1783:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1785:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1786:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1848:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1873:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1900:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1901:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:1902:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'UnramTate.opVHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.matrixUnits_of_quat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.jO_sq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tateBridge_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.resQEmbedding' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tateCont_of_tateModuleFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.scalarTransfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tateBridge_of_points' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.endBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tateBridge_of_tatePoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tatePoints' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.tateBridge_of_tateModuleFree' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.unramifiedSup_mf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'UnramTate.modularConstituent_of_ranges_T14'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G14Bridge.tateBridge_five_three_of_35' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/spread-out/SpreadOutFull.lean:2104:2: warning: `LinearEquiv.ofLinear` has been deprecated: Use `LinearEquiv.ofLinearMap` instead
+
+Hint: Replace the deprecated name:
+  LinearEquiv.ofLinearM̲a̲p̲
+scratch/spread-out/SpreadOutFull.lean:2374:22: warning: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+scratch/spread-out/SpreadOutFull.lean:2530:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:2539:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:2540:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:2541:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:2578:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'FrobTrace.tateMapEquiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.conj_baseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.frobCompare_opV_conjE' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.g7Out_rescale' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.scalarsQbar' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.tateBridge35_of_algFrobLink' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.algFrobLink_of_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.tateBridge35_of_algFrobOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.tateMap_bijective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.algFrobOne_of_red' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobTrace.tateBridge35_of_algFrobRed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0FibreSimple.rigidityHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/spread-out/SpreadOutFull.lean:3174:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3174:21: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3174:40: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3241:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3337:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3338:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3428:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3444:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3661:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3663:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3664:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3669:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3670:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3760:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3777:48: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+
+Hint: Replace the deprecated name:
+  zero_le'̵
+scratch/spread-out/SpreadOutFull.lean:3779:14: warning: `zero_le'` has been deprecated: Use `zero_le` instead
+
+Hint: Replace the deprecated name:
+  zero_le'̵
+scratch/spread-out/SpreadOutFull.lean:3815:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3817:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3818:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:3819:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4112:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4125:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4142:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4399:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4400:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4447:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4577:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4609:26: warning: This simp argument is unused:
+  map_natCast
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [ne_eq]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/spread-out/SpreadOutFull.lean:4632:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4633:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:4634:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'AlgFrobRedRed.algFrobRed_of_at' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRedAt_of_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_good' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.sf_isAbelianVariety' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.charP_kw' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.isUnit_cast_of_ne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRedGood_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.genMap_comm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.exists_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.lift_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.exists_redRel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.redRel_unique' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.reductionMapGood_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.sigV' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.residue_sigV' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.reductionFrobGood_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.isLocalHom_toW' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.residueAlgClosure_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.residueAlgClosed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.residueAlgebraic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.pb_symm_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.pb_symm_mul'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.redRelMul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_fine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_fine' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_finest' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_final' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_main' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_five' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.thetaHom' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.thetaW_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.thetaW_surjective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.redRel_of_isReductionOf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.redTorsionQbar_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_I2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_I2' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.owDVR' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tSig' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tSig_residue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.fExtend_of_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_core' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.isLocalHom_of_resPow' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.sf_eta_fst' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.frobMorph_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_absFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_absFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.fExtendCore_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_gen' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.absFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/spread-out/SpreadOutFull.lean:5133:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5134:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5135:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5136:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5137:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5182:4: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5193:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5249:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'AlgFrobRedRed.absFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.fExtendCore_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.algFrobRed_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.tateBridge35_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.ringHom_eq_of_normal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.hom_spec_eq_of_point' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.fExtendGen_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/spread-out/SpreadOutFull.lean:5349:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5491:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5496:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5497:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/spread-out/SpreadOutFull.lean:5536:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'FrobPiecesGood.isUnit_intCast_of_coprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.pullbackGrp_congr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.goodRedCofinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.smoothGeomConnIntegral' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_spread' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_four' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.tateBridge35_of_spread' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesNeron.geometricallyConnected_of_geometricallyIntegral' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'FrobPiecesNeron.hasGoodReduction_of_base' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesNeron.goodRedCofinite_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.tateBridge35_of_neron' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.absFrob' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AlgFrobRedRed.fExtendGen_of_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_neron_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_spread_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.algFrobRed_of_goodRed_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.tateBridge35_of_neron_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FrobPiecesGood.tateBridge35_of_spread_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SpreadOutFull.frobPiecesNeron_abVarSpreadsOut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SpreadOutFull.algFrobRed_of_ega_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.SpreadOutFull.tateBridge35_of_ega_nmp' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	2m23.232s
+user	4m5.021s
+sys	0m3.170s
