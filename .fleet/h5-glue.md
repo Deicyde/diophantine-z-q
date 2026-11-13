@@ -33,7 +33,9 @@ Its main pieces:
   `HodgeLatticeTheorem` was needed; that is superseded.
 - `ProductModelHeight` needs AN3-type analytic input, both existence and uniqueness: a product
   uniformization has to split into uniformizations of the factors (SPECULATIVE).
-- The model review of the statements found nothing false or vacuous.
+- Two read-only model reviews found no false or vacuous statement. The second confirmed that the
+  final theorems have exactly the stated hypotheses; its wording fixes are applied. All 12
+  scratch files were recompiled one after another at the end: 0 errors, standard axioms only.
 
 **Remains.**
 - `ModelHeightBaseChange`: flat base change of ω and ⋀^g, Arakelov degree, ℂ-points, a min ≤ avg
