@@ -88,3 +88,6 @@
   `Omega_eq_PF`, `Omega_mem_siegelSpace` (Ω(τ) ∈ 𝔥₂ for Im τ > 0: xᵀ Im Ω x = y/|τ+1|²·((√2+2)/2)(x₀−√2x₁)²
   + y/|τ−3|²·(3(2−√2)/2)(x₀+√2x₁)²). COMPILED; axioms standard. pkg-I1's faithfulness claim (symmetric,
   Im > 0, period matrix of ℂ²/Λ_τ) is now fully proved except the Riemann-form compatibility.
+- Independent model read-through of §10 (read-only subagent): no problem found; clauses (i)-(iii) judged true for
+  every AbVar ℂ, evalAt correct, not vacuous. Remarks adopted: locators (Mumford §1 + §4, SGA 1 XII 2.4/3.1/3.2),
+  differentials glue A6 is extra, torsion_iff uses only φ.

@@ -458,8 +458,10 @@ theorem IsUniformization.exists_complexLinear_endo (hφ : IsUniformization A Λ 
       ∀ v, Additive.toMul (φ (proj Λ (T v))) = Additive.toMul (φ (proj Λ v)) ≫ α
 ```
 
-**Faithfulness review of the leaf.** This is the author's review (SPECULATIVE); a reviewer should
-check it.
+**Faithfulness review of the leaf.** This is the author's review (SPECULATIVE), plus one
+independent model read-through. The read-through found no problem: it judged every clause true for
+every `AbVar ℂ`, `evalAt` correct, and the statement not vacuous. It made three minor remarks,
+recorded at the end of this list. A human reviewer should still check it.
 - *Not vacuous.* The leaf asserts the existence of a lattice and of a group isomorphism with
   properties, over Mathlib's points and regular functions. It invents no structure.
 - *Not stronger than the source.* Each clause follows from `A^an ≅ ℂ^g/Λ` (Mumford §1) and the
@@ -482,6 +484,14 @@ check it.
 - *Dimension.* `g` is existential. Clause (ii) forces `g = dim A` analytically. A consumer that
   needs `g = dim A` algebraically can add it as a conjunct, which is a consequence of Mumford §1.
   `dim_eq` (BUILT) shows that `g` is the same for all uniformizations.
+- *Model read-through, remarks.*
+  - **Locators.** In Mumford, "a compact connected complex Lie group is a torus" is §1, but its
+    application to `A(ℂ)` is §4. Compactness and connectedness of `A^an` are SGA 1 XII 3.2 and
+    2.4 (with 3.1). All of these are UNVERIFIED.
+  - **Functions, not differentials.** The leaf speaks about functions only. Comparing `Λ` with
+    `H⁰(A, Ω¹)` (glue A6, needed for the Faltings metric) is extra glue. It looks derivable,
+    because forms are locally `f·dh` with `f`, `h` regular.
+  - **Torsion.** `torsion_iff` uses only the group isomorphism `φ`, not the analytic clauses.
 
 ## 5. Findings that affect other notes
 
@@ -507,10 +517,10 @@ check it.
 ## 6. Unchecked items (UNVERIFIED or not done)
 
 1. **Locators recalled from memory:**
-   - Mumford, *Abelian varieties*: §1 (analytic theory: `A(ℂ)` is a complex torus), §3 (GAGA
-     consequences), §6 (projectivity);
+   - Mumford, *Abelian varieties*: §1 (a compact connected complex Lie group is a torus), §3
+     (GAGA consequences), §4 (application to `A(ℂ)`), §6 (projectivity);
    - Serre, *Géométrie algébrique et géométrie analytique* (1956), §2;
-   - SGA 1 XII 2.4, 3.2;
+   - SGA 1 XII 2.4, 3.1, 3.2;
    - Eichler's class-number theorem for indefinite quaternion orders;
    - Silverman, AEC VI;
    - Birkenhake-Lange, *Complex abelian varieties*, Ch. 1 and 4 (period matrices, Riemann
@@ -519,4 +529,5 @@ check it.
    polarization of `ℂ²/Λ_τ` (N5's Riemann form in the symplectic basis).
 3. **Library items not re-checked:** Tau Ceti Riemann forms (prereq-survey A9).
 4. **Estimates and review:** the size tiers and line estimates are SPECULATIVE. The faithfulness
-   review of `IsUniformization` (§4.2) is the author's and has had no independent review.
+   review of `IsUniformization` (§4.2) is the author's, plus one model read-through. No human
+   has reviewed it.

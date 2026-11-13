@@ -1197,7 +1197,8 @@ analytic structure of `A(ℂ)`:
 (iii) `φ⁻¹` is continuous for the topology defined by regular functions (the analytic topology of
 `A(ℂ)`, which on an affine open is the subspace topology of `ℂ^n`).
 The leaf is a consequence of Mumford, *Abelian varieties*, §1 (a compact connected complex Lie
-group is a torus) applied to `A^an` (Serre, GAGA §2; SGA 1 XII §1); locators UNVERIFIED. It is not
+group is a torus) applied to `A^an` (Mumford §4; Serre, GAGA §2; SGA 1 XII §1, 2.4, 3.1, 3.2);
+locators UNVERIFIED. It is not
 stronger than the published statement. -/
 
 namespace BPAnalytic.Uniformization
