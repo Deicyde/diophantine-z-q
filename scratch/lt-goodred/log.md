@@ -49,3 +49,12 @@
   `lake env lean`: VERIFIED exit 0 in 160 s, 0 errors, no `sorry`, 9 axiom reports, all [propext, Classical.choice, Quot.sound]
   (goodRedTorsion, quatB6_isUnit, quatEmbed, four_le_finrank, qmEndRank_of, eq_zero_of_mul_self_eq_zero, eight_le_finrank,
   qmSplitCaseRank, qmEndRank_of_leaves).
+- Integration (scratch/lt-goodred/integ/, against linked-tate's committed Leaves.lean, imports_extra.txt and parts, read only):
+  `build.sh prefix` (LTPrefix olean = linked-tate's Leaves + imports): VERIFIED exit 0 in 533 s;
+  `build.sh tail` (LTTail olean = linked-tate's 28 parts): VERIFIED exit 0 in 241 s, 0 errors;
+  `build.sh integ` (Integ = import LTTail + 99d_proofs.lean (this task's proofs, generated from parts/ by make_proofs.py,
+  without the copies linked-tate already has) + 99e_bundle4.lean): VERIFIED exit 0 in 103 s, 0 errors, no sorry, 11 axiom
+  reports all standard, incl. `HSyn.gluePieces3_of_gluePieces4 (t : TextbookLeaves) (gp4 : GluePieces4) : GluePieces3`
+  and `HSyn.sixContactMin_of_leaves4 (r : ResearchLeaves) (t : TextbookLeaves) (gp4 : GluePieces4) : ZInQ.SixContactMin`.
+  `GluePieces4` = linked-tate's GluePieces3 minus `goodRedTorsion`, `qmEndRank` (27 fields, the others verbatim);
+  `goodRedTorsion := LTGoodRed.goodRedTorsion`, `qmEndRank := LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27`.
