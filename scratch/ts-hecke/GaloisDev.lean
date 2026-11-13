@@ -956,6 +956,104 @@ theorem range_comp_subset [LocallyOfFiniteType Y.hom]
   refine ⟨y' s, ?_⟩
   rw [← Scheme.Hom.comp_apply, ← hy', Scheme.Hom.comp_apply, hy s]
 
+/-- A nonzero prime of `ℚ[X]` is the kernel of evaluation at some `t ∈ ℚ̄` (compiled). -/
+theorem exists_ker_eval' (P : Ideal ℚ[X]) [hP : P.IsPrime] (h0 : P ≠ ⊥) :
+    ∃ t : Qbar, P = RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := by
+  have hmax : P.IsMaximal := hP.isMaximal h0
+  obtain ⟨p, rfl⟩ := (Submodule.IsPrincipal.principal P)
+  have hp0 : p ≠ 0 := by rintro rfl; exact h0 (by simp)
+  have hdeg : (p.map (algebraMap ℚ Qbar)).degree ≠ 0 := by
+    rw [Polynomial.degree_map]
+    intro hd
+    rw [Polynomial.eq_C_of_degree_eq_zero hd] at hmax
+    apply hmax.ne_top
+    rw [Ideal.submodule_span_eq, Ideal.span_singleton_eq_top]
+    have : p.coeff 0 ≠ 0 := by
+      intro hc; apply hp0; rw [Polynomial.eq_C_of_degree_eq_zero hd, hc, map_zero]
+    exact Polynomial.isUnit_C.2 (Ne.isUnit this)
+  obtain ⟨t, ht⟩ := IsAlgClosed.exists_root _ hdeg
+  refine ⟨t, hmax.eq_of_le (RingHom.ker_ne_top _) ?_⟩
+  rw [Ideal.submodule_span_eq, Ideal.span_le, Set.singleton_subset_iff]
+  show Polynomial.eval₂ (algebraMap ℚ Qbar) t p = 0
+  rw [← Polynomial.eval_map]
+  exact ht
+
+/-- **Separation by `ℚ̄`-points** (compiled): in a domain `B` finite over `ℚ[X]`, two elements with
+the same value under every ring map `B → ℚ̄` are equal (`B` is Jacobson; every maximal ideal is
+the kernel of such a map). -/
+theorem eq_of_forall_qbar {B : Type} [CommRing B] [IsDomain B] [Algebra ℚ[X] B]
+    [Algebra.IsIntegral ℚ[X] B] (hinj : Function.Injective (algebraMap ℚ[X] B)) (a b : B)
+    (h : ∀ ψ : B →+* Qbar, ψ a = ψ b) : a = b := by
+  haveI : IsJacobsonRing B := isJacobsonRing_of_isIntegral (R := ℚ[X])
+  rw [← sub_eq_zero]
+  have hjac := IsJacobsonRing.out (R := B) inferInstance
+    (Ideal.isRadical_bot_of_noZeroDivisors (R := B))
+  rw [← Ideal.mem_bot, ← hjac, Ideal.jacobson, Ideal.mem_sInf]
+  rintro m ⟨-, hm⟩
+  haveI := hm
+  set P := m.under ℚ[X]
+  haveI hPmax : P.IsMaximal := Ideal.isMaximal_under_of_isIntegral_of_isMaximal (R := ℚ[X]) m
+  have hP0 : P ≠ ⊥ := by
+    intro h0
+    rw [h0] at hPmax
+    exact Polynomial.not_isField ℚ (Ring.isField_iff_maximal_bot.2 hPmax)
+  obtain ⟨t, ht⟩ := exists_ker_eval' P hP0
+  let φ : ℚ[X] →+* Qbar := Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t
+  haveI : m.LiesOver P := ⟨rfl⟩
+  letI : Algebra (ℚ[X] ⧸ P) Qbar :=
+    (Ideal.Quotient.lift P φ (fun x hx => by rw [ht] at hx; exact RingHom.mem_ker.1 hx)).toAlgebra
+  letI : Field (ℚ[X] ⧸ P) := Ideal.Quotient.field P
+  letI : Field (B ⧸ m) := Ideal.Quotient.field m
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) (B ⧸ m) :=
+    Module.isTorsionFree_iff_faithfulSMul.2 inferInstance
+  haveI : Module.IsTorsionFree (ℚ[X] ⧸ P) Qbar := by
+    rw [Module.isTorsionFree_iff_algebraMap_injective]
+    exact (algebraMap (ℚ[X] ⧸ P) Qbar).injective
+  haveI : Algebra.IsAlgebraic (ℚ[X] ⧸ P) (B ⧸ m) := Algebra.IsIntegral.isAlgebraic
+  let L : (B ⧸ m) →ₐ[ℚ[X] ⧸ P] Qbar := IsAlgClosed.lift
+  have h1 := h (L.toRingHom.comp (Ideal.Quotient.mk m))
+  simp only [RingHom.coe_comp, Function.comp_apply] at h1
+  have h2 := L.toRingHom.injective h1
+  rw [← Ideal.Quotient.mk_eq_mk_iff_sub_mem]
+  exact h2
+
+/-- **The ring map induced by a `π`-preserving endomorphism** (compiled). -/
+theorem exists_sigma [LocallyOfFiniteType Y.hom] [Algebra (RatFunc ℚ) E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    (h : Spec (CommRingCat.of (integralClosure ℚ[X] E)) ⟶ Y.left) [IsOpenImmersion h]
+    (himg : ∀ y : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) y ≠ OnePoint.infty →
+      ∃ y' : Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of (integralClosure ℚ[X] E)),
+        y = y' ≫ h)
+    (hval : ∀ ψ : integralClosure ℚ[X] E →+* Qbar,
+      π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) =
+        OnePoint.some (ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X)))
+    (g : Y.left ⟶ Y.left)
+    (hg : ∀ z : Spec (CommRingCat.of Qbar) ⟶ Y.left, π.val (K := Qbar) (z ≫ g) = π.val (K := Qbar) z) :
+    ∃ σ : integralClosure ℚ[X] E →+* integralClosure ℚ[X] E,
+      Spec.map (CommRingCat.ofHom σ) ≫ h = h ≫ g ∧
+      σ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ[X] (integralClosure ℚ[X] E) X := by
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  have hr := range_comp_subset h himg hval g hg
+  set k := IsOpenImmersion.lift h (h ≫ g) hr
+  have hk : k ≫ h = h ≫ g := IsOpenImmersion.lift_fac h (h ≫ g) hr
+  refine ⟨(Spec.preimage k).hom, ?_, ?_⟩
+  · rw [CommRingCat.ofHom_hom, Spec.map_preimage, hk]
+  · apply eq_of_forall_qbar hinjB
+    intro ψ
+    have e1 := hval (ψ.comp (Spec.preimage k).hom)
+    have e2 : Spec.map (CommRingCat.ofHom (ψ.comp (Spec.preimage k).hom)) ≫ h =
+        (Spec.map (CommRingCat.ofHom ψ) ≫ h) ≫ g := by
+      rw [CommRingCat.ofHom_comp, Spec.map_comp, CommRingCat.ofHom_hom, Spec.map_preimage,
+        Category.assoc, hk, Category.assoc]
+    rw [e2, hg, hval ψ] at e1
+    exact (OnePoint.coe_injective e1).symm
+
 end TSHeckeGal
 
 end
