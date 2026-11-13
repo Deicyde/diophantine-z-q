@@ -1,0 +1,25 @@
+scratch/period-glue/QMTwist.lean:714:8: warning: This simp argument is unused:
+  Matrix.mulVec
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [dotProduct, Fin.sum_univ_two] at c0 c1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/period-glue/QMTwist.lean:714:23: warning: This simp argument is unused:
+  dotProduct
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mulVec, Fin.sum_univ_two] at c0 c1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/period-glue/QMTwist.lean:714:35: warning: This simp argument is unused:
+  Fin.sum_univ_two
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [Matrix.mulVec, dotProduct] at c0 c1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+'HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.qmLatticeTwistAlg_mpr' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0
