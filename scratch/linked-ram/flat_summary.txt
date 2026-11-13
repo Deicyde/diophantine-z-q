@@ -1,0 +1,5 @@
+FINAL flat LinkedRam.lean (md5 f5c8f92e60523d3c1c07aeadb4ba8827, 93294 lines; G0Assemble3.lean + lt-goodred 99d_proofs + olean/Tail.lean): exit 0 in 945s
+errors: 0; sorry: 0; axiom reports: 244, all [propext, Classical.choice, Quot.sound]
+' depends on axioms: [propext, Classical.choice, Quot.sound]scratch/linked-ram/LinkedRam.lean:90539:0: warning: automatically included section variable(s) unused in theorem `LTGoodRed.NLG.ringOfIntegers_mem`: [NumberField K]--
+
+Earlier run (before TateRam/sign additions): md5 f6a325c3…, 92561 lines, exit 0 in 922 s, 0 errors, 237 standard reports.
