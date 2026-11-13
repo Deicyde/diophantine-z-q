@@ -1,0 +1,713 @@
+[
+  {
+    "id": "P-SF01-rows",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/PROOF.md",
+        "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+      },
+      "start_line": 1,
+      "end_line": 49,
+      "excerpt_sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+    },
+    "use_ids": [
+      "SF01-rows"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. The coefficient threshold 53 does not imply a defining threshold; reciprocal equations impose q0*q1!=0."
+  },
+  {
+    "id": "P-SF02-recovery",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/existence.md",
+        "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+      },
+      "start_line": 1,
+      "end_line": 92,
+      "excerpt_sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+    },
+    "use_ids": [
+      "SF02-recovery"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Recover f,S,g from Q0,Q1,Q3 first; forced149 makes the Q2 coefficient nonzero; never divide by a tested numerator or component."
+  },
+  {
+    "id": "P-SF03-local",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF03-local"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Use exponents (5,2,4), special 3; max place valuation ell; gamma=408/409; no old exponent-four conclusion supplies this."
+  },
+  {
+    "id": "P-SF04-logs",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF04-logs"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. At least one of h,h-1 is a p-unit; relative precision becomes absolute only after integrality."
+  },
+  {
+    "id": "P-SF05-aggregate",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF05-aggregate"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Fixed graph closure in E0^8, independent blocks, positive same-block pole sums, O(3O)/Segre embedding; F+=2T; M2 fixed ineffective."
+  },
+  {
+    "id": "P-SF06-reflect",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF06-reflect"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Maps 2+1/t and 2+1/(2-t), inverse row norms3,7; finite Sigma loss and disjoint blocks within each scale; no coprimality between scales."
+  },
+  {
+    "id": "P-SF07-sound",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF07-sound"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. c=|a|>=149^L_N, L_N=floor(9(2N-1)/4)+1; exponent14/9<2; v^2|51 forces v=1."
+  },
+  {
+    "id": "P-SF08-scalar",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF08-scalar"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Fix real neighborhoods before progression moduli; W_s=O(R_s^-4), b_s=O(R_s^-6); local squareclasses at2,3,17."
+  },
+  {
+    "id": "P-SF09-selection",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF09-selection"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Fix (N,x),labels,T,D,L before analytic size; U,V,L CRT compatibility uses two-torsion and norm valuations6,2."
+  },
+  {
+    "id": "P-SF10-freshpole",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/uniform-existence.md",
+        "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+      },
+      "start_line": 1,
+      "end_line": 84,
+      "excerpt_sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+    },
+    "use_ids": [
+      "SF10-freshpole"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Selected depth1, trace residue1 or2; remaining valuations even; depths4,2,2; q>0; no old pole witnesses reused."
+  },
+  {
+    "id": "P-SF11-geometry",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/geometry-carry.md",
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+      },
+      "start_line": 1,
+      "end_line": 81,
+      "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    "use_ids": [
+      "SF11-geometry"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Use full3 division lattice, all components/multipliers and canonical model; D6/full5 and modular Jacobian covers are different objects."
+  },
+  {
+    "id": "P-SF12-tame",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/geometry-carry.md",
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+      },
+      "start_line": 1,
+      "end_line": 81,
+      "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    "use_ids": [
+      "SF12-tame"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Ten determinants support only2,3,5,7; actual tame w=z^2 charts, not determinants alone, imply unramified fibers."
+  },
+  {
+    "id": "P-SF13-geometricmetric",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/geometry-carry.md",
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+      },
+      "start_line": 1,
+      "end_line": 81,
+      "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    "use_ids": [
+      "SF13-geometricmetric"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Original stable normalization; positive log210; maximal stack at bad primes, no coarse smooth-model substitution."
+  },
+  {
+    "id": "P-SF14-cm",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/geometry-carry.md",
+        "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+      },
+      "start_line": 1,
+      "end_line": 81,
+      "excerpt_sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+    },
+    "use_ids": [
+      "SF14-cm"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. L-defined idempotents and maximal-order elliptic quotient; discriminant<=4R; dimension-two same-field isogeny."
+  },
+  {
+    "id": "P-SF15-lift",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF15-lift"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Positive fourth-root degree normalization; chi order divides U; kill unwanted quadratic inertia; coefficient fields do not replace L-prime."
+  },
+  {
+    "id": "P-SF16-modular",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF16-modular"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Covariant Tate modules and arithmetic Frobenius; no residual hypothesis or unavailable final Pan text substituted."
+  },
+  {
+    "id": "P-SF17-primitive",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF17-primitive"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Li Theorem5 is uniqueness only; inverse finite-unit character matches arithmetic Frobenius; no change to controlled L-prime."
+  },
+  {
+    "id": "P-SF18-companion",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF18-companion"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Divide by denominator n and by2; trace equality in common number field; actual global isomorphism preserves local object."
+  },
+  {
+    "id": "P-SF19-conductor",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF19-conductor"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Full11 only at2,3,5,7; wild valuations17,4,4,1; tame term retained; no monodromy loss."
+  },
+  {
+    "id": "P-SF20-multiplicity",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/modularity.md",
+        "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+      },
+      "start_line": 1,
+      "end_line": 125,
+      "excerpt_sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+    },
+    "use_ids": [
+      "SF20-multiplicity"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Same final f and ker epsilon; rational Frobenius traces, Hom descent, Fricke-stable span and invariant Jacobian; growing r not isogeny dimension."
+  },
+  {
+    "id": "P-SF21-integral",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-evaluation.md",
+        "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+      },
+      "start_line": 1,
+      "end_line": 129,
+      "excerpt_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+    },
+    "use_ids": [
+      "SF21-integral"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Generic trace fixes scalar; finite-projective dual commutes with nonflat t=2 specialization; same generic differential throughout."
+  },
+  {
+    "id": "P-SF22-lattice",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-evaluation.md",
+        "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+      },
+      "start_line": 1,
+      "end_line": 129,
+      "excerpt_sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+    },
+    "use_ids": [
+      "SF22-lattice"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Dot-product trace on K^d; overlattice degree positive; no replacement by maximal order."
+  },
+  {
+    "id": "P-SF23-different",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-different.md",
+        "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+      },
+      "start_line": 1,
+      "end_line": 131,
+      "excerpt_sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+    },
+    "use_ids": [
+      "SF23-different"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Full residue degrees; sum e_j f_j=d; field splitting fiber cancels; elliptic scheme at p>3 uses finite flat torsion."
+  },
+  {
+    "id": "P-SF24-analyticmetric",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-metric.md",
+        "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+      },
+      "start_line": 1,
+      "end_line": 59,
+      "excerpt_sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+    },
+    "use_ids": [
+      "SF24-analyticmetric"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Both complex embeddings counted; no factorial or pi shift; same E,F,C; choose I once over K."
+  },
+  {
+    "id": "P-SF25-heightassembly",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-assembly.md",
+        "sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5"
+      },
+      "start_line": 1,
+      "end_line": 57,
+      "excerpt_sha256": "1866f9452526b2c243f5f05267f74caa2a4532dfc23891a9b0e95abed2d00fe5"
+    },
+    "use_ids": [
+      "SF25-heightassembly"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Same curve/order/lattice/trace/metric; auxiliary K not L-prime; g<=d."
+  },
+  {
+    "id": "P-SF26-average",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-averaging.md",
+        "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+      },
+      "start_line": 1,
+      "end_line": 60,
+      "excerpt_sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+    },
+    "use_ids": [
+      "SF26-average"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Product isomorphism for additivity; isogeny category only for counts; C_i->A over L-prime; historical quotient route superseded."
+  },
+  {
+    "id": "P-SF27-numeric",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/height-supplier.md",
+        "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+      },
+      "start_line": 1,
+      "end_line": 134,
+      "excerpt_sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+    },
+    "use_ids": [
+      "SF27-numeric"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. B_S=1857890364330; k=9339/1000; no false large-primorial shortcut; exponent<7/3."
+  },
+  {
+    "id": "P-SF28-rc",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+      },
+      "start_line": 1,
+      "end_line": 40,
+      "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    "use_ids": [
+      "SF28-rc"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. j=35152/9 non-CM; distinct CM index curve; full Selmer includes divisible Sha before finiteness."
+  },
+  {
+    "id": "P-SF29-kato",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+      },
+      "start_line": 1,
+      "end_line": 40,
+      "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    "use_ids": [
+      "SF29-kato"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Corestriction transitivity has no Euler or degree factor on equal support; fixed2-power clearing; inverse deck action and arithmetic Frobenius."
+  },
+  {
+    "id": "P-SF30-gi",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+        "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+      },
+      "start_line": 1,
+      "end_line": 47,
+      "excerpt_sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+    },
+    "use_ids": [
+      "SF30-gi"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Choose real lifts, remove lattice discrepancies, divide same lifts by M; global unit vectors and exact vertical laws retained."
+  },
+  {
+    "id": "P-SF31-tz",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+        "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+      },
+      "start_line": 1,
+      "end_line": 47,
+      "excerpt_sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+    },
+    "use_ids": [
+      "SF31-tz"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Proof adaptation, not literal modulus-dependent theorem; same uniform estimates, not numerical equality of local factors; slow cutoff."
+  },
+  {
+    "id": "P-SF32-foundation",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/source-carry.md",
+        "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+      },
+      "start_line": 1,
+      "end_line": 40,
+      "excerpt_sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+    },
+    "use_ids": [
+      "SF32-foundation"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. V15 byte equality is historical; V16 current corrections operative; no paired-root/trace-quotient reduction imported."
+  },
+  {
+    "id": "P-SF33-receiving",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+        "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+      },
+      "start_line": 1,
+      "end_line": 45035,
+      "excerpt_sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+    },
+    "use_ids": [
+      "SF33-receiving"
+    ],
+    "reason": "Source-first whole-source locator for this specific use; reconcile to narrower receiving/application locators after freeze. Revision3 corrects L_3 L_4 and T t_0; least modulus and primitive extraction operative; two certificate types distinct; no final acceptance inferred from map."
+  },
+  {
+    "id": "SUP-34",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/primary-source-bridges.md",
+        "sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c"
+      },
+      "start_line": 1,
+      "end_line": 55,
+      "excerpt_sha256": "2c95d02a13ffa972eb6cb8d956b9063e970e33fd960e282c6d53ae8bb655c43c"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-35",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/proofs/provider-scope-carry.md",
+        "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154"
+      },
+      "start_line": 1,
+      "end_line": 68,
+      "excerpt_sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-36",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/sources/aggregate-bridge.md",
+        "sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5"
+      },
+      "start_line": 1,
+      "end_line": 19,
+      "excerpt_sha256": "668e84f5864b5961b67599ef9c3ffd1b44c66c93679cef9853ef596fce4267f5"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-37",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/sources/conductor-sections1-3.md",
+        "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88"
+      },
+      "start_line": 1,
+      "end_line": 182,
+      "excerpt_sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-38",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/sources/support-section1.md",
+        "sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940"
+      },
+      "start_line": 1,
+      "end_line": 58,
+      "excerpt_sha256": "bb3e2cc7a102ba317ed984f463762cddc52576b3d7416e7a981093243cb16940"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-39",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/sources/evaluation-sections1-4.tex",
+        "sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c"
+      },
+      "start_line": 1,
+      "end_line": 442,
+      "excerpt_sha256": "70919ebd13613f7c9f7317995b285348398c6895808a61463be0aac139b8511c"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-40",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214/sources/factor-extraction.tex",
+        "sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109"
+      },
+      "start_line": 1,
+      "end_line": 136,
+      "excerpt_sha256": "38236daca2811087e08e7f26eb79504dc25171dc78019a557d99966471edb109"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-41",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/version15/quartics/quartic-222/provenance/shared-T-redundancy224-006/PROOF.md",
+        "sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732"
+      },
+      "start_line": 1,
+      "end_line": 16,
+      "excerpt_sha256": "7b39db664ba3884897eda4e4e6550ec552ee8ef916509681e69b04b7990e0732"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-42",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "research/quartic214-manuscript/introduction.tex",
+        "sha256": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3"
+      },
+      "start_line": 1,
+      "end_line": 134,
+      "excerpt_sha256": "d700aba170fa697c737ee4a9dc7b05fe959fe78c9bff1650c9a4228ce5d261d3"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  },
+  {
+    "id": "SUP-43",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v16.tex",
+        "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+      },
+      "start_line": 1,
+      "end_line": 39932,
+      "excerpt_sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    },
+    "use_ids": [],
+    "reason": "Supplier text or representation source. Read at the scopes described in INITIAL-SCOPE.json; the complete unchanged V16 body has not received a fresh line-by-line reproof. Exact reuse and receiving transport remain pending."
+  }
+]

@@ -1,0 +1,38 @@
+{
+  "schema": "protocol-source-first/v1",
+  "sources": [
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+    }
+  ],
+  "uses": [
+    {
+      "id": "SF40-v17-receiving-transport",
+      "consumer": "PR30-RECEIVING",
+      "passages": [
+        "V17-PREAMBLE",
+        "V17-BODY"
+      ],
+      "assertion": {
+        "statement": "The numbered Version17 recipient supplies the same complete214-variable definability argument and retained foundations as the reviewed revision3 mathematical body.",
+        "objects": "The same188 primitive integral quadratic residuals in214 rational coordinates and their quartic sum of squares; N is a fixed coefficient parameter, not another coordinate.",
+        "hypotheses": "Every original algebraic, arithmetic, geometric, modular and height hypothesis remains as in the exactly unchanged body; the reciprocal chart requires q0*q1 nonzero.",
+        "quantifiers": "There exists one integer N0>=1 such that every integer N>=N0 and every rational x satisfy x in Z iff some y in Q^213 has P_N(x,y)=0.",
+        "parameter_range": "The identical full rational solution family, parameter domain, coefficient conventions and retained internal theorem scopes; no particular defining member is added.",
+        "uniformity": "One fixed ineffective defining threshold applies to all rational x. The original order of fixing constants, finite patterns and auxiliary limits is unchanged.",
+        "constants": "All constants are preserved byte for byte. The coefficient maximum149^(4N+2)+1 for N>=53 is distinct from the ineffective defining threshold.",
+        "normalizations": "All curve, logarithmic, height, field, character and lattice normalizations are unchanged; title/version, displayed author, date and PDF title are metadata only.",
+        "exceptional_cases": "All existing zero branches, negative and denominator cases, deep contacts, CM and M=1 cases retain their original treatment and scope qualifications.",
+        "limit_order": "No new limiting operation or uniformity claim is introduced by promotion. The exact prior supplier and source-reading limits remain in force."
+      },
+      "classification": "dependency",
+      "reason": "Derived from direct complete source comparison: only four metadata lines differ, and the entire body after begin{document} is byte-identical to the already reviewed complete receiving argument.",
+      "shared_contract_justification": "The entire new file either announces or repeats the single exact previously reviewed complete argument. Grouping its unchanged internal uses at this transport boundary does not claim a fresh proof of them or omit their existing39-use inventory.",
+      "supplier": null,
+      "application_id": null,
+      "inline_argument": null
+    }
+  ]
+}

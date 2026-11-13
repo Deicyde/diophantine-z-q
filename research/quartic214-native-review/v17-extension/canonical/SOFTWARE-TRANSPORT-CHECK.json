@@ -1,0 +1,36 @@
+{
+  "status": "PASS",
+  "run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "changed_bindings": [
+    [
+      {
+        "path": "docs/release-policy.md",
+        "sha256": "4acbbdb4406ea7ba916cf7242d693c9947a9c43b0191cec18157d1286e177fdc",
+        "bytes": 5839
+      },
+      {
+        "path": "docs/release-policy.md",
+        "sha256": "7df7ee649d002d83285d5b8421822fbeb2f7e80457f877f8335427f51834f2b6",
+        "bytes": 5804
+      }
+    ],
+    [
+      {
+        "path": "scripts/check_current_manuscript.py",
+        "sha256": "ebc45e56fce617602002e9232d215e4f988f23fd4e6b10dd42bcea5e166e0dfe",
+        "bytes": 5642
+      },
+      {
+        "path": "scripts/check_current_manuscript.py",
+        "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154",
+        "bytes": 5527
+      }
+    ]
+  ],
+  "all24_bindings_verified": true,
+  "all9_frozen_authorities_verified": true,
+  "unchanged_adapter": true,
+  "new_receipt_validated": true,
+  "stale_receipt_rejected": true,
+  "scope": "Exact byte transport and unchanged validator run on a minimal canonical fixture. Not the full Linux historical self-test; that remains a separate canonical-export execution."
+}

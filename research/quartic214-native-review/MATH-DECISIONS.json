@@ -1,0 +1,357 @@
+[
+  {
+    "subject": "connection:SF01-rows",
+    "subject_sha256": "110cb3cf22ffa62fadafc26dee70ee6ece13b719b015a668f0950ec0ae262df8",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF02-recovery",
+    "subject_sha256": "23213a02a56104c6f4723e84be4533668cc03ac0f66988ce027dc456f68276e4",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF03-local",
+    "subject_sha256": "dfdab6fee4a933efd9917db27a9ed3993d407909442a70c7af5de2cf69cd4a8b",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF04-logs",
+    "subject_sha256": "287a177ecfdb49e1d7f10e86fe98b330a6f1ae2930cc3f14eca40e47cfe01bc2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF05-aggregate",
+    "subject_sha256": "a0f128717237254173dfd8947a7c254a925605a975287c953277fe55c222908a",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF06-reflect",
+    "subject_sha256": "92931aefee45b271be17d019985e5ba3bbb2f5b83001a06852b80a2ca9caac90",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF07-sound",
+    "subject_sha256": "0b0343eca3abb8b2a55189ee3ea2f6d6803d7c8678830bcbca663dfa86bc4d44",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF08-scalar",
+    "subject_sha256": "44f589f182e6cbba69990b4eaf0228a9d7e9c5105729a88f7b2b10b5bac71569",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF09-selection",
+    "subject_sha256": "1ad162abb948b96c2505565991d30fb8888981e8f64c9ad3086016a13b59465a",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF10-freshpole",
+    "subject_sha256": "5d3f011acd1f1b62cb12f416ce8eaeb851e11f5704e6f2f0382a4ce28693b2f9",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF11-geometry",
+    "subject_sha256": "356c99f280b388138ddea6e0820b042816d06fe10daa4efd3ac953b5d321c8fa",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF12-tame",
+    "subject_sha256": "920da796bb1d565a099848aa14237ba3c95a23f5392f0ac323b1cd92f86373c5",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF13-geometricmetric",
+    "subject_sha256": "bf8bbeedd68b352592541e6e147703cbcb52f889d183beb513f81482eabc8def",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF14-cm",
+    "subject_sha256": "0ea813eff6f17b44d91f7c90f8665ac157c6b723660c152ae8d92f51f551bfe5",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF15-lift",
+    "subject_sha256": "19d8af4f4aa9a7350d1872db756d2eb7eca048a8a6186832b02b1ade05871ecd",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF16-modular",
+    "subject_sha256": "a812c9d1dda08562458bcb18d009f322a4f2cf6d8ea8d6b93211e638e89293ff",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF17-primitive",
+    "subject_sha256": "53b71f7b326b066f85007a9d3b90540b04eed50791bf05e40d4fa84023eac286",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF18-companion",
+    "subject_sha256": "65db26afab6acd97bc458da5a5c39e91549b8525c27fb2451889845048524a41",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF19-conductor",
+    "subject_sha256": "0c15314217b5aa88f2c5492067f409a8ca222658a7dfd224a5c8203a1cd4871b",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF20-multiplicity",
+    "subject_sha256": "81c7438b384ea2ad788fa8b80d8a09d13975ad0b856ba281e65fc6ff12595fe5",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF21-integral",
+    "subject_sha256": "dec268793ba3e716aff358d99bdc3b7bf429ada38167f4fa0f36ef14abd1b7d3",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF22-lattice",
+    "subject_sha256": "15e8c54dbfa1b1243a99747cf1be24a70f80eb32ada399108d406f86fedbe67f",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF23-different",
+    "subject_sha256": "992e6d87330e1e425b265f4c54dfc2f15da21ea83e2a05ea6b8fb2f18c68cf63",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF24-analyticmetric",
+    "subject_sha256": "9d3c169ecd246b978ecf9d5ac43da310c2a9a48c6ad9131728de1da4d03753cb",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF25-heightassembly",
+    "subject_sha256": "127fc4b50191ca8e081a184e15f17e115f95fd7ed68d404bef317b582615e5ea",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF26-average",
+    "subject_sha256": "c5357cbd73a30f9e534ffd16e0454835aeab535fd6822fcf3cf4284a13ed6926",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF27-numeric",
+    "subject_sha256": "3279a7a17bb8b20f524281923958b83e558a5560641516117fc15500b6a5363c",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF28-rc",
+    "subject_sha256": "fd7df8aa6cd89331aa7fc218654e0eda88463dfeeec6101a2d3f71a41daad820",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF29-kato",
+    "subject_sha256": "85b898cd5cf9a061782eadf621c6feed0a024654c7c5238418de416ded2cd9f4",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF30-gi",
+    "subject_sha256": "3fff65b058ebca44935c45aaf21a059146c8e27851e3885ce4765c088e14cbf2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF31-tz",
+    "subject_sha256": "406900ce68ce2e60ef89c9696c0cd110af52caee4aaac31876d6e12551bc882d",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF32-foundation",
+    "subject_sha256": "8288281da7fe714f6e25920d988f59cdf06c547f8163f8407a7c1f7e3d54c004",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF33-receiving",
+    "subject_sha256": "1144066cf6c4fd2a1747416cd165b09719fd1c42c8c83fa5f46854654b729f3d",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF34-receiving-arithmetic",
+    "subject_sha256": "55c4b4c3226a272060a8b7ca56a7ee8dd04be6b70f3ba1c96e323e9dcfaaf150",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF35-receiving-height",
+    "subject_sha256": "58e4c27f9115242c69031e7273743b0beb369c34f253f7222e233fd45b8af69a",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF36-receiving-algebra",
+    "subject_sha256": "e17242b9ed65ade6981e9a8bab8205a0a71a3daf31d5a5b7588db64cd2a5c8b1",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF37-receiving-foundation",
+    "subject_sha256": "20e3c62ce4ef3202e76a8a0d8b989c5d3dafdf497df9813d4710046175f3f0a2",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF38-arithmetic-recovery",
+    "subject_sha256": "d7a0df51ae3992f2150a19ddca7f717aac59091cbb13db3d5e1fbf44875e2a13",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reconstructed",
+    "prior_review": null,
+    "scope": "The exact source-derived consumer/supplier interface, all indexed receiving repetitions, hypotheses and adverse cases, as reconstructed and reconciled in FINAL_REVIEW.md. Component internal derivations are reused only at the explicit exact scopes there.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  },
+  {
+    "subject": "connection:SF39-retained-v16",
+    "subject_sha256": "8be47693aaa6c80a492b725a053016c3fba7a9ec09c2e3bf2f65e0d118d84124",
+    "outcome": "accepted_within_scope",
+    "review_basis": "reused_exact_derivation",
+    "prior_review": {
+      "side": "head",
+      "path": "research/version16/review/current/REVIEW.md",
+      "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2"
+    },
+    "scope": "Exact unchanged complete Version16 scope, with its coverage review, TZ precision addendum and duplicate-location repair retained as explained in FINAL_REVIEW.md.",
+    "limitations": "No fresh reproof of unchanged published ancestry, effective threshold, reviewer authentication or App acceptance. Exact source pins and every original supplier qualification remain mandatory."
+  }
+]

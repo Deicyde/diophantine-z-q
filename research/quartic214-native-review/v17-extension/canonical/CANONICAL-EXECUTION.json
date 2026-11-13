@@ -1,0 +1,35 @@
+{
+  "schema": "pr30-canonical-independent-execution/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "recorded_at": "2026-11-13T11:28:06.861436+00:00",
+  "linux": {
+    "image": "pr30-tex-ubuntu2404:local",
+    "network": "none",
+    "repository_mount": "read-only",
+    "memory_bytes": 536870912,
+    "cpus": 1,
+    "command": "python3 -B research/version17/historical-continuation/check_records.py --self-test --reviewed-artifacts",
+    "exit_code": 0,
+    "original_controls": 22,
+    "integration_controls": 22,
+    "current_controls": 9,
+    "maximum_rss_kib": 52224,
+    "review_mode": "independently reviewed",
+    "mathematical_acceptance_renewed": false,
+    "controller_acceptance": false
+  },
+  "installed_builder": {
+    "command": "python -X utf8 -B scripts/check_application_reviews.py --self-test",
+    "exit_code": 0,
+    "negative_controls": 29,
+    "historical_contracts": 8,
+    "historical_manuscript": "manuscripts/quartic_v14.tex"
+  },
+  "inputs": {
+    "continuation_sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
+    "active_review_sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47",
+    "builder_binding_sha256": "4c45082185bb5903df11ac2fa739ad2f11681af74f725da70d5d961937a2067d"
+  },
+  "scope": "Actual independent tool executions after canonical source alignment and successor receipt installation. Every validator-bound current file uses the checked canonical bytes. This is not live GitHub CI, a new TeX build, native authentication or protected acceptance."
+}

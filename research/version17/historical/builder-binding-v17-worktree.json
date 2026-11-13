@@ -1,0 +1,24 @@
+{
+  "schema": 1,
+  "builder": {
+    "path": "scripts/build_paper.py",
+    "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+  },
+  "profile": {
+    "path": "docs/current-manuscript.json",
+    "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890"
+  },
+  "historical_review": {
+    "path": "docs/audit-history/current.json",
+    "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
+  },
+  "selected_manuscript": {
+    "path": "manuscripts/quartic_v17.tex",
+    "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+  },
+  "review": {
+    "path": "research/quartic214-native-review/v17-extension/BUILDER-REVIEW.json",
+    "sha256": "100187c73b7ebd7af056a06629cae8cb72edb97d6e9daf7a59e670311a4c3355"
+  },
+  "scope": "The exact independent review binds the unchanged profile-driven builder and Version17 selector. Historical V14 application records remain at their original manuscript and review scope. The separate Version17 source/body, policy and delivery reviews govern this promotion; neither this binding nor a build claims protected App acceptance."
+}

@@ -1,0 +1,30 @@
+{
+  "schema": "version17-cumulative-base/v1",
+  "previous_version": 16,
+  "previous_archive_name": "z-in-q-version16-cumulative.zip",
+  "previous_archive_bytes": 287551307,
+  "previous_archive_sha256": "703b75f3bf4eee5a94d2e7cd12fcab92fd6f8d101422cb4248b36afccf0b11d9",
+  "published_release": "https://github.com/elliotglazer/diophantine-z-q/releases/tag/quartic-222-version-16",
+  "published_asset": "https://github.com/elliotglazer/diophantine-z-q/releases/download/quartic-222-version-16/z-in-q-version16-cumulative.zip",
+  "selection": "Every regular raw Git blob and executable bit in an explicit immutable tree; the listed public additions must be present in that staged tree. Only byte/mode-proven effective historical matches may be omitted from the new overlay. No checkout conversion or export filtering.",
+  "additional_paths": [
+    "research/version17",
+    "research/quartic214-native-review",
+    "research/quartic214-native-review/v17-extension",
+    "manuscripts/quartic_v17.tex",
+    "manuscripts/quartic_v17.pdf",
+    "CURRENT_VERSION17.md",
+    "scripts/check_version_increment.py",
+    "scripts/test_version_increment.py"
+  ],
+  "manifest_excludes": [
+    "research/version17/MANIFEST.json",
+    "SHA256SUMS"
+  ],
+  "verified_base_layers_in_order": [
+    ["historical/z-in-q-version15-cumulative.zip", "history/version14/r2-delivery-delta/"],
+    ["historical/z-in-q-version15-cumulative.zip", "version15-overlay/"],
+    ["overlay/"]
+  ],
+  "preservation": "Keep the exact Version 16 ZIP as a stored nested archive; do not remove historical files during reconstruction. No conversations, credentials, publication action or signature is supplied by this package."
+}

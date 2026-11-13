@@ -1,0 +1,9 @@
+{
+  "protocol_coverage": "1.4-substantive-records-reviewed",
+  "connection_record_sha256": "b128ae3103d446e39928091165943d69b37e3fbce8f79107e9e65710b44ac726",
+  "connection_count": 40,
+  "related_finding_count": 31,
+  "protocol14_limitation": "Checks exact declared relationships, evidence bytes and reviewer bindings only. Does not establish mathematical truth, inventory/search completeness, honest review or independence of thought. No release or publication authorization.",
+  "scope": "Isolated structural/hash check with permissive in-memory app files. No authored-app closure, authentication, receipt or protected gate result.",
+  "initial_unchanged": true
+}

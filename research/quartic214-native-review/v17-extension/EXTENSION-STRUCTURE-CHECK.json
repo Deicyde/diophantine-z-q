@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "original_initial_uses": 33,
+  "extension_initial_uses": 1,
+  "reconciled_uses": 40,
+  "extension_source_lines": 45035,
+  "scope": "Source-extension and same-agent continuation shape, exact snapshot/excerpt pins and chronology assertions checked. IDs agree with recorded native locators but are not authenticated by this isolated script."
+}

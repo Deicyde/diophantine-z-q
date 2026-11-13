@@ -1,0 +1,257 @@
+[
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/modularity.md",
+    "sha256": "814676050b389793d196346f45e2797f39e2c5be0f3fee8457bb709b2607606e"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision3/quartic214.tex",
+    "sha256": "938d96e6d310b2b551f610e2a23b662f147bd2eb4b05ec222d274b0b8be55d6b"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/height-supplier.md",
+    "sha256": "4974b167ab415159e0ff996b341528008c2ba8ae8e2a1ebf69bab5bc9a9b9c12"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-review/current-astra-20261112/FINDINGS.json",
+    "sha256": "1e1c54f027af7aef963e6ae7fc9981ff536793addafa91a2e647f918ac0c9999"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-review/FINDINGS.json",
+    "sha256": "26e633790c4a5d5a5f48cc584896dcd79b1da67e334c6e6ffc3b430c7cff72d5"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/height-different.md",
+    "sha256": "025885f763a9a72e9750ed10ec0bbfec4e8834ed85557acccda92a766c0ebcfa"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/existence.md",
+    "sha256": "37ab929ed3f4b4dee2b91d2e39408e7070e8a9176b981bcc9c352d17b9cc2332"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/PROOF.md",
+    "sha256": "0feb164c3ed33543136b89aa87b27bc890f4aadef2d082d465263f55dc26d165"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/height-evaluation.md",
+    "sha256": "d691da0a6827d9b45c6c68294405163f679a2d57f08e2ecda56fd071b3579502"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/sources/conductor-sections1-3.md",
+    "sha256": "c2e04a42dd82e244b1872b4a9a7298f1a9e45ca49ffcc436ff7c5149d6ee5d88"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/height-metric.md",
+    "sha256": "ea61f4ce58481b8ffb3a2000189fbbc84a8ded3c91d7c447ffe98ae98f30ad8e"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision2-review/REPORT.md",
+    "sha256": "113ab5c7092bd1490bb002027b9cb59cbed7aae094a350d5bb4e7b277d446485"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/sources/contact-line-certificate.json",
+    "sha256": "64896dfbb8661e04c044a68aa8679ee5dc20c0da36cc9a57640a885b7ca46614"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/sources/small-support-certificate.json",
+    "sha256": "0e7280479d5ace418b4383c814361812863cb097f424916b801c17ddbc8eb51e"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/provider-scope-carry.md",
+    "sha256": "368774d2b96a606df4dd5e81a3c4fecaf22f09f33f27e49e0a80e37b02157154"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision2-review/FINDINGS_F8_F11.json",
+    "sha256": "b9dfd12e052df760c9a46d235098dcc299611870bbaaace26a9785a58754e653"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript/assemble.py",
+    "sha256": "c82053474d9ce627640862ce309bb1cd931d615276920fd4df2186eb3ae2f549"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision2/RECEIVING_OVERLAY.json",
+    "sha256": "006f032f2935ee0d73ecaa1a5e992329a114a434bd1c2a173223150e81625468"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/height-averaging.md",
+    "sha256": "bb87f61d7134c09d695f9bbff2c26b12b8c9ce5fe74a4ec598b2e4410f100192"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision3/BUILD.json",
+    "sha256": "29be3e16178faa673bd06be2beeacb70c10a6f6b8cfc28255d067d6a46c80e45"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-revision3-review/REVIEW.json",
+    "sha256": "f1673f43c723b0c258d9a87ba3e1d7cb64cefb1c1622a513a4e626eec7745342"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-review/FOUNDATION_TRANSITION.md",
+    "sha256": "9a3a081bfb6c3e5c0893065ab1c1ea19f36c91b997999064371886e270c3d936"
+  },
+  {
+    "side": "head",
+    "path": "manuscripts/quartic_v16.tex",
+    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/source-carry.md",
+    "sha256": "f7f4e550a4dcfbbd3b5ffcf783b11411f7888c821dbab7febb5132b7b2b891ed"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-main-integration/check_historical_records.py",
+    "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-main-integration/CONTINUATION.json",
+    "sha256": "7a16cc6c480bc4ab306a5c9548e94f6af1ce3e5ce993feee9a5fd26e56b1a5f3"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-main-integration/COMPARISON.json",
+    "sha256": "80fe79e58762a4f9b74c4f89ecfada7154a5478a1c6f10d73069c6e23b19ad67"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-main-integration/REVIEW.json",
+    "sha256": "d8f03f2ce95880720cb68c1a61ba1cfc455d8ff9a339599d7f06cf599c6dc832"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/geometry-carry.md",
+    "sha256": "b3cb8201de84f733b0518ad68a9c0d0bc1e78534ffd39aca5d8c70f1bae69e76"
+  },
+  {
+    "side": "head",
+    "path": "research/version14/proofs/h5-full-three-v1/PROOF.md",
+    "sha256": "054ec4a656b82e1d1d17c7e9d3575afe722c42594f933256e7ea225f6a3f5e3b"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/proofs/uniform-existence.md",
+    "sha256": "d13cc2b846dc72a3f5b5cce8dcf11d3f11b33c45ebc3883263840afb8d82f3bc"
+  },
+  {
+    "side": "head",
+    "path": "docs/lean-contributions.md",
+    "sha256": "d5a009c0a87e724d70deea6836170016bd62c2c433be46d1eedd5e5bff262fe6"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-manuscript-revision3/CORRECTIONS.json",
+    "sha256": "59eac7bf89978860d17906abf5f389f0aae8332ca829f498deede38db78ccfd9"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214/construction/artifacts/candidate214-brox/candidate214-ir.json",
+    "sha256": "b15d6477439c3e4be1e98723b69053244debce59e8715683c28fee82aa847ca4"
+  },
+  {
+    "side": "head",
+    "path": "research/quartic214-protocol-d-review/CURRENT_OPEN_QUEUE.json",
+    "sha256": "9654fd03ed9876d8c8bd0a0c1ced8cbf77f665479f48195f95616561883d8cec"
+  },
+  {
+    "side": "head",
+    "path": "research/version16/review/current/REVIEW.md",
+    "sha256": "093e9e7e921ac9e1e24ecdb4f3568295fcf02a78115e70f7b884265efb99e9c2"
+  },
+  {
+    "side": "head",
+    "path": "docs/research-review/PROTOCOL.md",
+    "sha256": "3d16c4d58d030ff745460386b081eb21c8c0d3f375cbfb06c4f9777c235a12f9"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-h-c8.md",
+    "sha256": "ba9dff0408cc064f22f6d9d7e75c5663fb5216a8cb0382726ea84aba49cc18a6"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-h-a9c9.md",
+    "sha256": "92c746666102fb81e1e75ebd8ea9342c7da902937e2a403b9c7828c23a6268bd"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-h-b1.md",
+    "sha256": "8267380e4e8a34f6bc3b06db738ef063a744498f8d3ae84e50330a98ff64156d"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-a6-route.md",
+    "sha256": "94cad19d04a8fc308ff9ebd583deec5f5bfeac0938b19214dbcd3e240fb60715"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-h-cm.md",
+    "sha256": "da9460df15a0fab4a3300bf19ba8725597cc70934f31c2c04f8cff12777ea89d"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-up.md",
+    "sha256": "4617463799a3d57a742d2dbe32f4a71e1b938b9d23e78ae3143b80baf61fae11"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/nt-tyz.md",
+    "sha256": "381af30dfb16dac34ca9dfabf00bdc6ce0deb5b64c57e1609fb13fff8c8979dc"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-nt-tyz.md",
+    "sha256": "c7983307970678c2255f8ee6deda36d4c31c43a9c12c6d14aa60068a6be1dfb3"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-route-k.md",
+    "sha256": "b5ba9c342e3ab77e6e3d8e719601d878cd1f2aca0154dcb2849bd4c5d56e7e8c"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/pc-audit.md",
+    "sha256": "81df040ee0f1c00f0e1e2539f7819ab9f3ed30817313395ba75f30f923856251"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/up-cr3.md",
+    "sha256": "b2f4486736e2e7ad97bfd227bd31b2ce4a144f89eb81f703f0a457036a91eeb3"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/aud-ap.md",
+    "sha256": "132bb29ecabc7fea2011e9289cbe7604a06a708764d121813a3707d1fa66ab8c"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/rv-hsyn.md",
+    "sha256": "cba9c416edefc86d72ae6d725182926b709f94df622f481f7980cae731a3fb10"
+  },
+  {
+    "side": "head",
+    "path": "docs/research/up-rest.md",
+    "sha256": "d4cb2f78f52b6d69c97b70d77ffbc440ddba7e43eace02321a9556f6c7140724"
+  }
+]

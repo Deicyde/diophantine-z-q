@@ -1,0 +1,12 @@
+{
+  "schema": "pr30-related-location-check/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "finding_groups": 31,
+  "checked_locations": 3393,
+  "unique_source_paths": 51,
+  "checks": [
+    "Every related-use location's complete source SHA-256 matches the current candidate bytes.",
+    "Every related-use location's inclusive line range has the recorded exact excerpt SHA-256."
+  ],
+  "limitation": "Byte and range consistency only. This does not establish mathematical truth, provenance, author identity or protected acceptance."
+}

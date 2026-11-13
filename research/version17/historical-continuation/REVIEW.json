@@ -1,0 +1,60 @@
+{
+  "schema": "v17-navigation-continuation-review/v1",
+  "authors": [
+    "/root",
+    "/root/pr30_final_repair_review"
+  ],
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_agent_id": "01a1d453-9237-7752-8e4c-628a97fa9cf7",
+  "reviewer_run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "decision": "accepted-at-stated-scope",
+  "controller_acceptance": false,
+  "mathematical_acceptance_renewed": false,
+  "historical_substitutions": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md",
+    "docs/current-manuscript.json",
+    "docs/release-policy.md"
+  ],
+  "record": {
+    "path": "research/version17/historical-continuation/CONTINUATION.json",
+    "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381",
+    "bytes": 4939
+  },
+  "reviewed_at": "2026-11-13T11:25:16.429836+00:00",
+  "limitations": [
+    "Only these four historical identities are substituted. Navigation is routed through old.safe and selector/policy through the original validator read, with explicit test overrides preserved. Every other path remains current.",
+    "The initial strict two-path adapter failure is preserved in the author record. The four-domain scope is explicit and separately reviewed, not a silent enlargement.",
+    "The old validator, authority manifests, old receipt and all old controls remain required. Its output describes its own historical two-path scope, followed by the new four-domain result.",
+    "Current selector validation and the Research checks trusted-event version rule are separate mandatory current checks. Historical acceptance does not certify the new mathematical document.",
+    "The independent Linux run used the existing offline image, read-only repository,512MiB Docker cap,one CPU and original resource limit; original22, prior integration22 and new9 controls passed.",
+    "Task strings and passing structural tests do not authenticate a reviewer or establish protected acceptance.",
+    "The cited earlier Linux run concerns the original worktree-pin attempt. This successor independently verifies the author replacement changes only two canonical SHA256/byte-count pairs, checks all24 current bindings and9 frozen authorities, and preserves the unchanged adapter. A fresh canonical-export full execution is a separate final check."
+  ],
+  "evidence_files": [
+    {
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b",
+      "bytes": 8116
+    },
+    {
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed",
+      "bytes": 1186
+    },
+    {
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf",
+      "bytes": 10923
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
+      "bytes": 10001
+    }
+  ],
+  "prior_review": {
+    "path": "research/quartic214-native-review/v17-extension/NAVIGATION-REVIEW.json",
+    "sha256": "8ebbe831b5ca18b9ddae91a5eb8a08a809d809cd06ff6240080ee32ee3f74253"
+  }
+}

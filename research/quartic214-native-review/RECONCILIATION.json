@@ -1,0 +1,626 @@
+[
+  {
+    "id": "use:SF01-rows",
+    "before_sha256": "533f177e9362c8a4594bba280c1d226490d6872eb69026bdd166108499188bce",
+    "after_sha256": "8306610ff61ee9fe4ede4cdce6f848233b2ac78b399b08482b2b4b8f38f452e6",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF02-recovery",
+    "before_sha256": "6e598c26160b158a3adb8dbad404097fd119395cb8525ef99436e23e2d1d88a1",
+    "after_sha256": "44634582922c938f9b8d99340c10bc0018439f36ce96e13d691badc347f7d1df",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF03-local",
+    "before_sha256": "fed1adbcceba527721a12e062365a186b84c5f62036a9272e257f00e00246b10",
+    "after_sha256": "10e8f5a331bf58c4b005245912bb7d9b27caaf19fc596816118c8903f468d042",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF04-logs",
+    "before_sha256": "26d5648e892c4398d5ecc8b254c25d0116c71f0af8049da0e89cb78fb1794b33",
+    "after_sha256": "aff05ab01f1422c02d50d740c0665cd8c94a14a6597379e63401d48d2f9b98b2",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF05-aggregate",
+    "before_sha256": "e8344700246e367a34739d7c23159149de8506189c4dfd879079c596b2d97b8d",
+    "after_sha256": "06f164f9e54a7c3f7c1fe3326f807679869b526cefdfcb982609095e3d8eb72b",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF06-reflect",
+    "before_sha256": "f4b46c072229ee28e561d80694d126bc86d274a6fdda3ddd2cd3f3ef91d75cf4",
+    "after_sha256": "f3930e0ac6c42d12f95e8702ef1f228c961882ab5c8eca13881253b32abac574",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF07-sound",
+    "before_sha256": "ebdf374ba9602d5c55a5e9a40c48b1a8e17268128f54fe25bc745c749716a1a5",
+    "after_sha256": "3abef25ed403b28c0fb7bbc653670f7d6182b2da3aa5c200b90243b5f4c0582f",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF08-scalar",
+    "before_sha256": "7cad5eacb5bca38f888cac130aaf4e3701e1af09a0021eb3da988a5a5d48b3f0",
+    "after_sha256": "98a73f08d0550a4857d6506731f0560688f1861803708dc63e525cc12e08377c",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF09-selection",
+    "before_sha256": "2e4c0b33c3bb6f9d4f392f909c0b9e752b485c187150b401a2d6693cf5f2f8b9",
+    "after_sha256": "cc11dba397bb1dece7c67a22c6951d60ab99df892487d5e79dccf411f0e969e7",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF10-freshpole",
+    "before_sha256": "b19fab633d00dc1379e5468a57c84ef85eb17909482fecda01baf53acbfda2d1",
+    "after_sha256": "ba10f32b59c516847838f0b25b0c9b8cbf7acf639e4c625fc3b6d947f6e1364c",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF11-geometry",
+    "before_sha256": "224965ceb7e9e5f8d93e9e258f7ad382fe159627ded3b0d5e97a9cba83335fe9",
+    "after_sha256": "e154363a4cfb9171f4dc2801d0ee1db5a0a5ab765fdf57954e212e332f4c9225",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF12-tame",
+    "before_sha256": "97ceda7371651ba51a7e8258fc0d20eee97db68a9b446a95d994d32abe4ad819",
+    "after_sha256": "b7a00e9c97042b2f3b885973562aa9f1490bb177c8e9329b396e44871a9cd615",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF13-geometricmetric",
+    "before_sha256": "36a7f5b95114b7a003865148732e9466b2a8b60f92e42883f53004d9c52c6e9d",
+    "after_sha256": "8cda83cc4e17c6ab1e8392c977215a03658077171caf80236a91301e6255aa5c",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF14-cm",
+    "before_sha256": "8157168223ff6157af537ddeb976520dc37173f28a7dd783697599a15179f1bd",
+    "after_sha256": "467c0a57445d051194586a7e5e1a3866e4122f536f845dc0950223147757712f",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF15-lift",
+    "before_sha256": "ad7ab5d67395f0e85e230945fa15a8834d4ad964466cb7a71b0740933f03ffa4",
+    "after_sha256": "b3fd01b126cdb8f12f63865439ec267c9424f972ded2535d2e48cec845059fca",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF16-modular",
+    "before_sha256": "af660a159fc4b6dd0518c704b67628140c35ce481360192a5c75b37974b433b0",
+    "after_sha256": "c448277478d265f150dcdaf342d8db60b79de156d856bd22269dac3d83286f7a",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF17-primitive",
+    "before_sha256": "9a3567f10d66f1eeb460197683b187b4819f919351646aa6e652a7af5e52838f",
+    "after_sha256": "ba461fbf169a2036c4010f5c4e1b4c1372061d31a39efbbdcde312ee9b34d9a6",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF18-companion",
+    "before_sha256": "52bab5e1976b91e6d124d0075fb0bc2c02381687e9f6874f2cb7bbf255153d6e",
+    "after_sha256": "418d4174ce1b208b195d7a6854147cf6c1feb05caecd76b40703315f31624523",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF19-conductor",
+    "before_sha256": "9d5c85312ca77b1550abdbcd09a38394d5d8a8fdc3a93c6fef0a9807f6510df1",
+    "after_sha256": "e08ccf85caa2636f819f0d558ae8c65391b8ee3189548264da65f21193fcdf39",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF20-multiplicity",
+    "before_sha256": "7278da587658270d5e01aecdb6b4c9a052d65b526069c973ef4a569d4fab1d2b",
+    "after_sha256": "ba6e0f7cf130c68a562fa31d05afc0646cd1aad05bba52c029b8ab254fa6c37b",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF21-integral",
+    "before_sha256": "0e02894c1c97f81ad44f8fb260799f2278cee4dcf79248f8cf355fdf2256b8c0",
+    "after_sha256": "9a376906be72c0cf7917e48f7b6fff723d4ae96cbdfcd0fdb5c47e5490ad2570",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF22-lattice",
+    "before_sha256": "189995f39bdbc797a1e3ef5266d4da0b0dc85e7382d77c061410e7011039d722",
+    "after_sha256": "8f98b67a82e79be502bd0d0c5261a4e3c580778884d9650f7907cf1cbd7197dc",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF23-different",
+    "before_sha256": "7ffb0efa275df0267d8b437fbd37977a78489f2f516a2cdf383df4c056256f88",
+    "after_sha256": "fd5fc66df9de2e3fa8304eeb36b7efc4c6ba1a895dadb8cfff708e3d9d209931",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF24-analyticmetric",
+    "before_sha256": "d7bd1a3649b8692a475a0ed5ad9f207bee4d1f4eb0cbe571f7b0d2fc696cd837",
+    "after_sha256": "d500042507b412525a6456af2dbd621ce268994b42d5cd19e70345aa75e03c4c",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF25-heightassembly",
+    "before_sha256": "beba28e30440af9b2eb09c139c865017e188e1da6af7ac387351e163623bf59d",
+    "after_sha256": "4ba48019be1908ff63901b0fa251dbb7389c9a964ad987209fad1a84ffb2914d",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF26-average",
+    "before_sha256": "6b213a9e584b85c722205200a123b2fdc42506bf5973fdc560066fb9e402e7b8",
+    "after_sha256": "8fc15573ffb22cd785a3fee034f1cf52bfece7c48b60efa0162d388d243eaa0b",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF27-numeric",
+    "before_sha256": "cf23c050634959a61d3c4d04c35002c09d7f9f4079eca9dec8644735efb2323f",
+    "after_sha256": "7343b0df9a70c3a8e833150276349696e9d20166875fd1bf857aec24ebc9570e",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF28-rc",
+    "before_sha256": "e62a8fbc8ef6fc1a26e0578ebc93bee6cc5a75c882bee0fd10f5d5b7b0eda0eb",
+    "after_sha256": "3409f42c7f967fb6dd88e9fe84274dd24a59deaf75e4f8ed2dacdd68a07e11ab",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF29-kato",
+    "before_sha256": "353f3ab7d409454643bdd87ebb3f6a3e515bbb6a40d771aad4488c384c2d1d72",
+    "after_sha256": "1afbafe19b7a66521e48da6fb96f8daa7d42b2a8f7c5360a84828335d4dee082",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF30-gi",
+    "before_sha256": "cd0631cc02c2d18c144efd874b823ddd6d5881134692a5e0a31076405666bc4b",
+    "after_sha256": "45cb8c249872b61e47997b7064137af58521c40f47a7ec9c6937f019ce2b80e0",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF31-tz",
+    "before_sha256": "50d3d2b6a2058332b13d5f6ccc84012f9adb50909f46c9070c3f523fa9f34cc8",
+    "after_sha256": "6c2b839d0332f080c003381e1ff856994843fc48a7d4ad6fb8a79a1e308a620f",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF32-foundation",
+    "before_sha256": "3748d090baafe143c4cf293cf9ec8472182779a19b764f4aad85fdac09da4799",
+    "after_sha256": "28262766ed0de5ed69d0e190ec0a86f198f96d0dcaad0ff3a5f1b5085483b1f7",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF33-receiving",
+    "before_sha256": "efebb3039208c8976c13db5abb3075aab7e50c6e61134ee0b30f77b385ae741d",
+    "after_sha256": "675d6fc3ec13453b7aea9b66d47400c585ff0fc2178f3b8a7cf0b4c87c1c3451",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Preserved original source-derived assertion; resolved exact supplier/application and every source/receiving occurrence after comparison.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF34-receiving-arithmetic",
+    "before_sha256": null,
+    "after_sha256": "bbc14d1cf8b12ea239c46f953d0e147b1b9d5446ba0dd4394efd79e215b2a995",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF35-receiving-height",
+    "before_sha256": null,
+    "after_sha256": "7724da2966e59871ff2d5a353d23f4636222e9692eeab94dc2f39d5fbf3a1607",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF36-receiving-algebra",
+    "before_sha256": null,
+    "after_sha256": "16366de70f813a6c11b13a5ae3c9384a72438acbfc8b3f06f4f639b94f5d6909",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF37-receiving-foundation",
+    "before_sha256": null,
+    "after_sha256": "93f05a2522ff0fc17de72918bfb5a7bfb145da4fc43a75644e3a536d5ab91ac9",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF38-arithmetic-recovery",
+    "before_sha256": null,
+    "after_sha256": "6d8a424157ee52402e87b067d01e4ab6e94f665d946c1c24226c7f4b18ab3e64",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "use:SF39-retained-v16",
+    "before_sha256": null,
+    "after_sha256": "33a0c037e06092983f22898a64804e42293b62d30403c310193d5e1ae04a27b3",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Made explicit the direct application or exact full-V16 reuse boundary already required by the source; no new theorem or weakened scope.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-ALGEBRA->PR30-FOUNDATIONS",
+    "before_sha256": null,
+    "after_sha256": "a7b7ad27ecf33c228a8d92384589d0b1de7979b590e5cefe437500863df3782d",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-HEIGHT->PR30-FOUNDATIONS",
+    "before_sha256": null,
+    "after_sha256": "d7190125b61b319802328a652093560e44b2dce03874a9808c4d134adf17aaef",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-ARITHMETIC->PR30-ALGEBRA",
+    "before_sha256": null,
+    "after_sha256": "8dac7dba515997a7d4c896313bda98da471337c1d9ea1a7f1b498ba2bdb1bdb4",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-ARITHMETIC->PR30-HEIGHT",
+    "before_sha256": null,
+    "after_sha256": "4202f7426feac1f74599c74ade4ca63635741e53160416349e3b2d4cc9f0a7b9",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-ARITHMETIC->PR30-FOUNDATIONS",
+    "before_sha256": null,
+    "after_sha256": "305198b2bd8fd364206ca31ef58f2f1509c747e9bad23d8144f4d692f71b58db",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-RECEIVING->PR30-ALGEBRA",
+    "before_sha256": null,
+    "after_sha256": "5db0bb6570c5cb38ce54ac09c0e0b1fb94faffdcd64f9c3548284db1aade4ecf",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-RECEIVING->PR30-ARITHMETIC",
+    "before_sha256": null,
+    "after_sha256": "b920cf407be3646254ee569716cfa881406899f4b7cd094adeaa7fb2f4979dc7",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-RECEIVING->PR30-HEIGHT",
+    "before_sha256": null,
+    "after_sha256": "583052cc84b791c39070a537bd361504f7bbbd0debba465d54e11f0be26332b5",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-RECEIVING->PR30-FOUNDATIONS",
+    "before_sha256": null,
+    "after_sha256": "f72743014a927c9e93038636ae8ba48ab81b770a737c76807349312d155c062a",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Direct mathematical interface",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-COMPUTATION->PR30-ALGEBRA",
+    "before_sha256": null,
+    "after_sha256": "04dc0a5f5d21568a9d3c402a60432961dbe5b5b29715f14082f509e87afa497a",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Retained computation/delivery prerequisite; no additional mathematical source use is asserted.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-DELIVERY->PR30-RECEIVING",
+    "before_sha256": null,
+    "after_sha256": "5e7e865e86038c6316a5ccfda5ae22f0584f956c88afe957db963f8e144816dd",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Retained computation/delivery prerequisite; no additional mathematical source use is asserted.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-DELIVERY->PR30-COMPUTATION",
+    "before_sha256": null,
+    "after_sha256": "dd4f8746e201ed4158b3e2b7331cdbe2bbf6589bec70c59531509f80bd762a21",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Retained computation/delivery prerequisite; no additional mathematical source use is asserted.",
+        "finding_ids": []
+      }
+    ]
+  },
+  {
+    "id": "edge:PR30-DELIVERY->PR30-INTEGRATION-POLICY",
+    "before_sha256": null,
+    "after_sha256": "ef03fa6f3940f8f94cb49c828c9f281b9a936a97b64bc56158f87dca1ed28a73",
+    "history": [
+      {
+        "status": "resolved",
+        "reason": "Native bundle decomposition of the compared source graph. Retained computation/delivery prerequisite; no additional mathematical source use is asserted.",
+        "finding_ids": []
+      }
+    ]
+  }
+]

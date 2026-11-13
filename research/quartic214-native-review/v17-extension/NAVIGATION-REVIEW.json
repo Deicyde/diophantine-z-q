@@ -1,0 +1,55 @@
+{
+  "schema": "v17-navigation-continuation-review/v1",
+  "authors": [
+    "/root",
+    "/root/pr30_final_repair_review"
+  ],
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_agent_id": "01a1d453-9237-7752-8e4c-628a97fa9cf7",
+  "reviewer_run_id": "01a1d47d-d45d-7ce1-9e38-96ed10c3b735",
+  "decision": "accepted-at-stated-scope",
+  "controller_acceptance": false,
+  "mathematical_acceptance_renewed": false,
+  "historical_substitutions": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md",
+    "docs/current-manuscript.json",
+    "docs/release-policy.md"
+  ],
+  "record": {
+    "path": "research/version17/historical-continuation/CONTINUATION.json",
+    "sha256": "2bbae75807206762eb9b507678b89a48ef943bd0d06a6e263a80b245890824e6",
+    "bytes": 4939
+  },
+  "reviewed_at": "2026-11-13T11:02:19.931691+00:00",
+  "limitations": [
+    "Only these four historical identities are substituted. Navigation is routed through old.safe and selector/policy through the original validator read, with explicit test overrides preserved. Every other path remains current.",
+    "The initial strict two-path adapter failure is preserved in the author record. The four-domain scope is explicit and separately reviewed, not a silent enlargement.",
+    "The old validator, authority manifests, old receipt and all old controls remain required. Its output describes its own historical two-path scope, followed by the new four-domain result.",
+    "Current selector validation and the Research checks trusted-event version rule are separate mandatory current checks. Historical acceptance does not certify the new mathematical document.",
+    "The independent Linux run used the existing offline image, read-only repository,512MiB Docker cap,one CPU and original resource limit; original22, prior integration22 and new9 controls passed.",
+    "Task strings and passing structural tests do not authenticate a reviewer or establish protected acceptance."
+  ],
+  "evidence_files": [
+    {
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b",
+      "bytes": 8116
+    },
+    {
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed",
+      "bytes": 1186
+    },
+    {
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf",
+      "bytes": 10923
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
+      "bytes": 10001
+    }
+  ]
+}

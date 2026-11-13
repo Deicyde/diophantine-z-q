@@ -1,0 +1,135 @@
+{
+  "schema": "pr30-v17-independent-software-checks/v1",
+  "reviewed_at": "2026-11-13T11:02:19.931691+00:00",
+  "source_files": [
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "4acbbdb4406ea7ba916cf7242d693c9947a9c43b0191cec18157d1286e177fdc"
+    },
+    {
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf"
+    },
+    {
+      "path": "scripts/test_version_increment.py",
+      "sha256": "57e06eb1845e88d23cbfa88ab3b31f3b8b4ec87199c86fa9055b2cb447c9c0ba"
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c"
+    },
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f"
+    },
+    {
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "ebc45e56fce617602002e9232d215e4f988f23fd4e6b10dd42bcea5e166e0dfe"
+    },
+    {
+      "path": "scripts/check_application_reviews.py",
+      "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890"
+    },
+    {
+      "path": "docs/audit-history/current.json",
+      "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
+    },
+    {
+      "path": "README.md",
+      "sha256": "e84e33cc5db9585814e70df6276c036639e6e014da57a11cb88c16545c59b0aa"
+    },
+    {
+      "path": "docs/current-manuscript-build.md",
+      "sha256": "6d70be0af7a8513ed91b71508e7491e29ec932e1f2d50dedddba530328eb7eb7"
+    },
+    {
+      "path": "manuscripts/README.md",
+      "sha256": "12ae4a1956f7d1837b14d0c65d4c3d592677bd1ef3e85bab394e1d976b342cda"
+    },
+    {
+      "path": "CITATION.bib",
+      "sha256": "8cf406db3c1d6a0f51e7277e1f6a5ad0daaba3d8cb3f64a067e15168edfd6371"
+    },
+    {
+      "path": "research/version17/build_pdf.py",
+      "sha256": "4eefebadab14cc1ef9923ab295ca63be35c7755178960cec29b562e02ee5f01d"
+    },
+    {
+      "path": "research/version17/BUILD.json",
+      "sha256": "1aeb718e4101365943c4d41df8030cd4682be0a27548e164bc745c17cdbe0d73"
+    },
+    {
+      "path": "research/version17/SOURCE-PROMOTION.json",
+      "sha256": "1299c088720358cc1517169fe25f6d60178097974398c72acd1660fd93d93a55"
+    },
+    {
+      "path": "research/version17/BUILD-ADAPTATION.json",
+      "sha256": "8531df0cf027d520c0ed41ef242a1a53278b1e856c7b32d8dd37e5f84d56136e"
+    },
+    {
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b"
+    },
+    {
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed"
+    },
+    {
+      "path": "research/version17/historical-continuation/CONTINUATION.json",
+      "sha256": "2bbae75807206762eb9b507678b89a48ef943bd0d06a6e263a80b245890824e6"
+    },
+    {
+      "path": "research/version17/historical-continuation/README.md",
+      "sha256": "6b206894d7e6ff24877995809a75af22b50ffb270a1df0de47dc579033acdad0"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/README.md",
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/quartic214-manuscript.yml",
+      "sha256": "b59d6b302643cf39424be7df482eef717275467837c6588368a6730dd5e0f8c1"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+    }
+  ],
+  "version_tests": {
+    "total": 26,
+    "passed": 26
+  },
+  "selector_tests": {
+    "total": 15,
+    "passed": 14,
+    "skipped": 1,
+    "skip_reason": "Windows symlink privilege"
+  },
+  "real_transition": {
+    "baseline": "a5937595cde3e3db00975b81e5171cdef92c801a",
+    "before": 16,
+    "after": 17,
+    "preserved_manuscript_files": 14,
+    "authority": "explicit local diagnostic, not live GitHub CI"
+  },
+  "historical_controls": {
+    "original": 22,
+    "integration": 22,
+    "new": 9,
+    "independent_linux": true
+  },
+  "new_review_receipt_validation": "passed against actual adapter and exact continuation",
+  "limits": "Trusted event selection was source-reviewed and tested with mock event/remote transport. Live CI/publication and protected App acceptance remain pending."
+}

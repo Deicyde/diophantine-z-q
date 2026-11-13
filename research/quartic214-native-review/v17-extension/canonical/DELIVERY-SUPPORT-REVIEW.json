@@ -1,0 +1,240 @@
+{
+  "schema": "pr30-delivery-support-review/v1",
+  "reviewer": "/root/pr30_final_coverage",
+  "reviewer_run_id": "01a1d4a0-bf87-7e92-8ae9-c4d26efba54f",
+  "reviewed_at": "2026-11-13T11:33:22.597245+00:00",
+  "decision": "accepted_within_support_scope",
+  "author_of_reviewed_source_or_support_implementation": false,
+  "application_ids": [
+    "PR30-INTEGRATION-POLICY",
+    "PR30-DELIVERY"
+  ],
+  "reviewed_file_pins": [
+    {
+      "side": "head",
+      "path": "research/version17/pack_handoff.py",
+      "sha256": "9a611ea3f53a2e3123c679f76c4c2a74a7249acaf75f3d8fb5731015cd796551"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/HANDOFF-BASE.json",
+      "sha256": "e5858636674c8b6ed7fdbe7b8e6c5c91a1f32b2f75f32b2b057236080a6cc014"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/CUMULATIVE-HANDOFF.md",
+      "sha256": "00ce8d169cc348ef443c795c1a217c9d92ac4415212118138d2b1454e760e820"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/README.md",
+      "sha256": "7e7de646b2b7676d30f756fcb99626d22bec32afc8a8ff9001ef55ed63397436"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/ARTIFACT-INDEX.md",
+      "sha256": "52cc0bf9803d5aa2c6018e810db2ec8be7fb69af998e2009078379b8eeb8b84b"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/RELEASE-NOTES.md",
+      "sha256": "c94259cb636635cf7df62a23c46fafcda7417df8d81245fa9ae2238ab558f982"
+    },
+    {
+      "side": "head",
+      "path": "README.md",
+      "sha256": "e84e33cc5db9585814e70df6276c036639e6e014da57a11cb88c16545c59b0aa"
+    },
+    {
+      "side": "head",
+      "path": "CURRENT_VERSION17.md",
+      "sha256": "4dc5adf07389e13e23adbf35ca77e6ecfb11cd8e55a75d09ca1fddaa9066d24b"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/README.md",
+      "sha256": "12ae4a1956f7d1837b14d0c65d4c3d592677bd1ef3e85bab394e1d976b342cda"
+    },
+    {
+      "side": "head",
+      "path": "CITATION.bib",
+      "sha256": "8cf406db3c1d6a0f51e7277e1f6a5ad0daaba3d8cb3f64a067e15168edfd6371"
+    },
+    {
+      "side": "head",
+      "path": "docs/current-manuscript-build.md",
+      "sha256": "6d70be0af7a8513ed91b71508e7491e29ec932e1f2d50dedddba530328eb7eb7"
+    },
+    {
+      "side": "head",
+      "path": "docs/audit-history/builder-binding.json",
+      "sha256": "4c45082185bb5903df11ac2fa739ad2f11681af74f725da70d5d961937a2067d"
+    },
+    {
+      "side": "head",
+      "path": "docs/release-policy.md",
+      "sha256": "7df7ee649d002d83285d5b8421822fbeb2f7e80457f877f8335427f51834f2b6"
+    },
+    {
+      "side": "head",
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf"
+    },
+    {
+      "side": "head",
+      "path": "scripts/test_version_increment.py",
+      "sha256": "57e06eb1845e88d23cbfa88ab3b31f3b8b4ec87199c86fa9055b2cb447c9c0ba"
+    },
+    {
+      "side": "head",
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c"
+    },
+    {
+      "side": "head",
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f"
+    },
+    {
+      "side": "head",
+      "path": "scripts/build_paper.py",
+      "sha256": "f62e565f8543b7ff44a66d3cac6aa47189d1f8d7802e169ed4f9f3864bf4f86f"
+    },
+    {
+      "side": "head",
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154"
+    },
+    {
+      "side": "head",
+      "path": "scripts/check_application_reviews.py",
+      "sha256": "9dc85ba98fc3fd75a2fb1e71bbe157cdef6342db7e1836c42168d1ac5d2e9b4c"
+    },
+    {
+      "side": "head",
+      "path": "docs/current-manuscript.json",
+      "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890"
+    },
+    {
+      "side": "head",
+      "path": "docs/audit-history/current.json",
+      "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/build_pdf.py",
+      "sha256": "4eefebadab14cc1ef9923ab295ca63be35c7755178960cec29b562e02ee5f01d"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/BUILD.json",
+      "sha256": "1aeb718e4101365943c4d41df8030cd4682be0a27548e164bc745c17cdbe0d73"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/SOURCE-PROMOTION.json",
+      "sha256": "1299c088720358cc1517169fe25f6d60178097974398c72acd1660fd93d93a55"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/BUILD-ADAPTATION.json",
+      "sha256": "8531df0cf027d520c0ed41ef242a1a53278b1e856c7b32d8dd37e5f84d56136e"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/CONTINUATION.json",
+      "sha256": "cf4b8b241917a25d7296ff5fffdefd4363aa7614ebe451711f2b921112fa1381"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/README.md",
+      "sha256": "6b206894d7e6ff24877995809a75af22b50ffb270a1df0de47dc579033acdad0"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/historical/README.md",
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/historical/quartic214-manuscript.yml",
+      "sha256": "b59d6b302643cf39424be7df482eef717275467837c6588368a6730dd5e0f8c1"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/historical/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+    },
+    {
+      "side": "head",
+      "path": "research/version17/historical-continuation/historical/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v17.tex",
+      "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+    },
+    {
+      "side": "head",
+      "path": "manuscripts/quartic_v17.pdf",
+      "sha256": "20ee7ebabdbba1e15406af72d31854206beaaa257e1c52fca2abd113243ea7ea"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/DELIVERY-SOURCE-REVIEW.json",
+      "sha256": "3f5814d6003359da35f9aa1c86621884bc03cb409dbd6f17ca0a2672517cb21a"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/SOFTWARE-CHECKS.json",
+      "sha256": "b95b22d99406707b0d6ccffc30012c351371369d6f99c38fc40945ec48e55ff3"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/BUILDER-REVIEW.json",
+      "sha256": "82e538e7fe632bc3d6415a3b1cb28df1ec56161aa3ce994a1ecf9699fb080ee0"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/NAVIGATION-REVIEW.json",
+      "sha256": "c18daac135b5780c54d5d710351fadfbfe41bd6ff53759099448f68f393fac47"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/CANONICAL-EXECUTION.json",
+      "sha256": "869767ef173b9e3d18047b34b9b1fc1f2f6cc4517dad63578acd5b144c6dfdb5"
+    },
+    {
+      "side": "head",
+      "path": "research/quartic214-native-review/v17-extension/canonical/TRANSPORT-REVIEW.json",
+      "sha256": "a8cedd3cf8425ba8c15b1362762723c2ea13dbe27b67a7f79b197f6e2317d6b4"
+    }
+  ],
+  "scope": "Completed independent review of the current Version17 source/PDF identity, builder/navigation, integer-version policy, bounded historical adapter and canonical inventory/packer implementation. This is a public support report, not an exact final-target ACK or a claim that a future archive already passed.",
+  "checks": [
+    "Exact Version17 body identity and source/PDF pair retain the complete214 mathematical scope; numerical coefficient threshold remains distinct from the ineffective defining threshold.",
+    "The current policy requires the next integer publication version for changed artifacts and preserves published predecessors. Trusted event baseline routing and state-only exceptions retain their explicit scopes.",
+    "Canonical LF receipt repair changes only byte identities; all40 mathematical connection contracts and31 native finding dispositions remain unchanged. Original source-first records and unsuccessful worktree-pin attempt remain preserved.",
+    "The installed canonical adapter passed the actual independent offline Linux reviewed-artifacts run:22 original,22 integration and9 current controls, maximum RSS52224KiB. Installed builder validation passed29 controls with8 unchanged historical V14 contracts.",
+    "The canonical Git packer was read completely and23 isolated fixtures passed independently, including LF/CRLF preservation, executable modes, historical-layer precedence and rejection of post-freeze drift. Actual old raw Git manifest objects were independently hashed; this does not approve a future replacement manifest or archive."
+  ],
+  "finalization_requirements": [
+    "Regenerate MANIFEST.json and SHA256SUMS after this report is included. Independently compare every final manifest entry, canonical Git object/mode, exact changed-file classification and checksum record before the final target ACK. These self-containing integrity files are deliberately not pinned by this report.",
+    "Root must genuinely author/adopt the exact native applications. The later authentic reviewer acknowledgment must bind the exact application/dependency objects, final Git target and this report; it must record the actual final-file checks rather than infer them from this support review.",
+    "Actual replacement ZIP construction, full readback, historical-base identity and external checksum verification remain mandatory separate release operations before publication. Preserve the superseded ZIP as an unsuccessful acceptance candidate; do not reuse its completion as approval of a repaired archive.",
+    "Live CI and protected controller acceptance remain required at their proper boundaries. This source report supplies no model authentication, App acceptance, merge or publication authorization."
+  ],
+  "boundary": "The native DELIVERY contract may state the complete source/PDF, reviewed inventory/packer implementation and exact Git-file support. Actual ZIP verification remains an explicitly required release operation and is not represented as an already satisfied premise of this pre-frozen source report. The final exact target ACK occurs only after actual manifest and file checks; archive/release checks are not waived.",
+  "prior_pattern": "This separation follows the existing Version16 DELIVERY-SUPPORT-REVIEW scope/finalization pattern. That record is not used as proof of any Version17 file or execution."
+}

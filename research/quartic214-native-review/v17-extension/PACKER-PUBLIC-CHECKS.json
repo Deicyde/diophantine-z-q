@@ -1,0 +1,32 @@
+{
+  "schema": "pr30-v17-independent-packer-check/v1",
+  "packer_sha256": "9a611ea3f53a2e3123c679f76c4c2a74a7249acaf75f3d8fb5731015cd796551",
+  "runs": [
+    {
+      "source": "test_handoff.py",
+      "source_sha256": "33c7586f8d62fe10833cc1abdb3b8e5494c69bbb72e46f1094150b52a67b3549",
+      "adaptation": "Only module import path and HERE evidence/temp root redirected to independent review folder; fixture logic unchanged.",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"checks\": [\n    \"actual bytes hashed\",\n    \"later layers override earlier\",\n    \"unknown deeper paths not assumed\",\n    \"wrong historical hash rejected\",\n    \"unsafe/private paths rejected\",\n    \"streamed overlay readback\",\n    \"stored historical archive byte identity\"\n  ],\n  \"scope\": \"Exact small fixtures; actual published-base plan is recorded separately. No production archive or public manifest written by this test.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "source": "test_git_tree.py",
+      "source_sha256": "de4dde7cee6ffea6297ab6a44eadd881e80764bd60e3b058470f0ba7b147aa6a",
+      "adaptation": "Only module import path and HERE evidence/temp root redirected to independent review folder; fixture logic unchanged.",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"checks\": [\n    \"LF Git blob preserved despite CRLF checkout\",\n    \"genuine CRLF Git blob preserved despite LF checkout\",\n    \"unstaged files ignored\",\n    \"raw bytes hashed rather than guessed\",\n    \"Git executable bit preserved\",\n    \"canonical blobs and modes survive ZIP readback\",\n    \"export-ignore cannot omit raw-tree files\",\n    \"export-subst marker remains literal in raw blob\",\n    \"mutable tree reference rejected\"\n  ],\n  \"scope\": \"Isolated temporary repository/index only; no commits, public index changes, production manifest or archive.\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "source": "test_freeze_roundtrip.py",
+      "source_sha256": "6669e56b943471caf16953c249197fe1d4d37a58b39d4cfb8eb4926490f6e9b3",
+      "adaptation": "Only module import path and HERE evidence/temp root redirected to independent review folder; fixture logic unchanged.",
+      "exit_code": 0,
+      "stdout": "{\n  \"status\": \"PASS\",\n  \"checks\": [\n    \"pre-manifest tree freeze\",\n    \"final tree adds only cycle exclusions\",\n    \"raw Git bytes survive worktree drift\",\n    \"exact historical ZIP preserved\",\n    \"CURRENT-TREE lists exactly final Git paths\",\n    \"external checksum emitted\",\n    \"post-freeze staged content drift rejected\"\n  ],\n  \"scope\": \"Temporary Git index fixture only; no commit, public index or production manifest/archive.\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "limitations": "Isolated fixture execution; no production manifest/archive or final publication tree acceptance.",
+  "scope": "Public summary of the same independent executions, with local fixture paths reduced to filenames. Exact fixture-source SHA256 values and execution outputs remain recorded; the offside original is retained."
+}

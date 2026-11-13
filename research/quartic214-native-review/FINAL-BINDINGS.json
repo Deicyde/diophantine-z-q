@@ -1,0 +1,26 @@
+{
+  "schema": "pr30-final-review-bindings/v1",
+  "written_at": "2026-11-13T10:24:41.472591+00:00",
+  "run_id": "01a1d453-930b-7e03-9b94-d540aef2c425",
+  "finding_input": {
+    "path": "work\\pr30-completion-20261113\\native-packet\\FINDINGS.json",
+    "sha256": "8c0b6c7069bf271a3f2ff18594f56fa0b66778cb6f332975de65e202abf03d72"
+  },
+  "counts": {
+    "sources": 24,
+    "uses": 39,
+    "passages": 1920,
+    "findings": 31
+  },
+  "files": {
+    "INITIAL.json": "c92ca49fa574e3a3a495024f8349005f055cfa40f435942f424c67c7f4b738fa",
+    "INITIAL-SCOPE.json": "9e2098d2594ae43727c89343def0126d220b8453c7f8e9f2f1c5261cc26ac052",
+    "FINAL_REVIEW.md": "616eb821cef812121b6d0d2557acdbae0767ea0466476a920d33b68d3262437a",
+    "DOSSIER.json": "6f5ca7e14c6debd172f2f0b3b91914738830deda74405a2e9acead66d51fdd7f",
+    "CONNECTIONS.json": "2a4f9ce2ea7c76570223255cd27d9e715f23df90a70acaa23e9ffe853262c8d7",
+    "COVERAGE-REVIEW.json": "ebc98670666776bd0a4ddb78d7db7bd7ee8bace033323b703fce96d1742e21ff",
+    "ASSEMBLY-REVIEW.json": "7f669a9edd6fd3d8f084a27a96946f537b87ab02fac857595488ebe14a19d2bd"
+  },
+  "connection_canonical_sha256": "47e0a1b54b33d18d9122e042d00775e2ae9547a983e228853f175f7d26b7ce26",
+  "scope": "Own review artifact binding only; not a receipt, model attestation, protected gate result or final public-head acknowledgment."
+}

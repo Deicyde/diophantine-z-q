@@ -6,19 +6,19 @@
   },
   "profile": {
     "path": "docs/current-manuscript.json",
-    "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33"
+    "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890"
   },
   "historical_review": {
     "path": "docs/audit-history/current.json",
     "sha256": "2b0dd7653076633f53c1e32b43dd4c11a664b5ace5b5685ff6afc30ed4b82ca4"
   },
   "selected_manuscript": {
-    "path": "manuscripts/quartic_v16.tex",
-    "sha256": "aeb2b6a42a03943d7f8c46682389c8da693d2903ba92ccc164bbbd236451de74"
+    "path": "manuscripts/quartic_v17.tex",
+    "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
   },
   "review": {
-    "path": "docs/research-review/record-manuscript-policy-2026-11-11/REVIEW.json",
-    "sha256": "154173c3448fffaa6afd52ce3a583ad82f626e30fde5c7e8f0d8982c8b503370"
+    "path": "research/quartic214-native-review/v17-extension/canonical/BUILDER-REVIEW.json",
+    "sha256": "82e538e7fe632bc3d6415a3b1cb28df1ec56161aa3ce994a1ecf9699fb080ee0"
   },
-  "scope": "The exact accepted policy/software review covers this profile-driven builder and profile. The selected current TeX is checked at its exact profile pin. The V14 application record remains historical and every contract, edit, approval, follow-up and evidence check still applies to its own pinned manuscript. This binding neither transfers those V14 approvals to V16 nor supplies mathematical or protected release acceptance."
+  "scope": "The exact independent review binds the unchanged profile-driven builder and Version17 selector. Historical V14 application records remain at their original manuscript and review scope. The separate Version17 source/body, policy and delivery reviews govern this promotion; neither this binding nor a build claims protected App acceptance."
 }

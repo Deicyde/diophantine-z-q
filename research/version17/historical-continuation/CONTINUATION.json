@@ -1,0 +1,136 @@
+{
+  "schema": "v17-navigation-continuation/v1",
+  "authors": [
+    "/root",
+    "/root/pr30_final_repair_review"
+  ],
+  "historical_substitutions": [
+    ".github/workflows/quartic214-manuscript.yml",
+    "README.md",
+    "docs/current-manuscript.json",
+    "docs/release-policy.md"
+  ],
+  "mathematical_acceptance_renewed": false,
+  "bindings": [
+    {
+      "path": ".github/workflows/quartic214-manuscript.yml",
+      "sha256": "7a9ae6791d7d8522dd934f4c976269b04e601d69205f69bf1e8acdf17cb9555f",
+      "bytes": 2195
+    },
+    {
+      "path": ".github/workflows/research-checks.yml",
+      "sha256": "357ad486fde5be994be1909f433abb58d5a7b7b4c24052106d1125df1d08552c",
+      "bytes": 10001
+    },
+    {
+      "path": "README.md",
+      "sha256": "e84e33cc5db9585814e70df6276c036639e6e014da57a11cb88c16545c59b0aa",
+      "bytes": 17204
+    },
+    {
+      "path": "docs/current-manuscript.json",
+      "sha256": "e9efcf581616cfc866263cda9e633892e399eaf6f86a63e1edd88d61b10e1890",
+      "bytes": 517
+    },
+    {
+      "path": "docs/release-policy.md",
+      "sha256": "7df7ee649d002d83285d5b8421822fbeb2f7e80457f877f8335427f51834f2b6",
+      "bytes": 5804
+    },
+    {
+      "path": "research/quartic214-main-integration/CONTINUATION.json",
+      "sha256": "7a16cc6c480bc4ab306a5c9548e94f6af1ce3e5ce993feee9a5fd26e56b1a5f3",
+      "bytes": 2956
+    },
+    {
+      "path": "research/quartic214-main-integration/README.md",
+      "sha256": "0e1d8339a5d171606891462d93340ace1cfc1ec240637768293314b11d81bfea",
+      "bytes": 1862
+    },
+    {
+      "path": "research/quartic214-main-integration/REVIEW.json",
+      "sha256": "d8f03f2ce95880720cb68c1a61ba1cfc455d8ff9a339599d7f06cf599c6dc832",
+      "bytes": 3827
+    },
+    {
+      "path": "research/quartic214-main-integration/check_historical_records.py",
+      "sha256": "a96f020adcfc2309c9f66228e036d3b020104bef8e4d7b5dbb079342874b993b",
+      "bytes": 11844
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/README.md",
+      "sha256": "761aa1e86ea71bdc9e9b8e6bd7b7318ee9e8d49f9d40c1496a66cd8e7cbd9dde",
+      "bytes": 16393
+    },
+    {
+      "path": "research/quartic214-main-integration/historical/quartic214-manuscript.yml",
+      "sha256": "44213c08614752640e03167ac0a94bddca0a4a5d4527a5df587a54783eb32317",
+      "bytes": 2108
+    },
+    {
+      "path": "research/quartic214-manuscript-review/REVIEW_DECISION.json",
+      "sha256": "8eb7a8969ab80598b5841d07a67327a7d8552fca8c4ee5e73522d9d42d0ac3ab",
+      "bytes": 25706
+    },
+    {
+      "path": "research/quartic214-manuscript-review/check_records.py",
+      "sha256": "d7cbb73da766903e3b1419e5c9501e69ce9c36f51666597ace5240da3a3bea9c",
+      "bytes": 27581
+    },
+    {
+      "path": "research/quartic214-manuscript/RELEASE_MANIFEST.json",
+      "sha256": "f0aa633ae5e88aa49a5966bcd6152663b723cbef11925a0c76e5f9b77701f539",
+      "bytes": 28556
+    },
+    {
+      "path": "research/version17/historical-continuation/FROZEN.json",
+      "sha256": "505ae77aee3def1247d4829600add4e4422744a9687298d12a4a47c9776e65ed",
+      "bytes": 1186
+    },
+    {
+      "path": "research/version17/historical-continuation/README.md",
+      "sha256": "6b206894d7e6ff24877995809a75af22b50ffb270a1df0de47dc579033acdad0",
+      "bytes": 2367
+    },
+    {
+      "path": "research/version17/historical-continuation/check_records.py",
+      "sha256": "c4f76a0b4b5fad013a0105390386604eaa8eacd50b308fe310599a2536c1363b",
+      "bytes": 8116
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/README.md",
+      "sha256": "2daac2a8a2b8d2d0d9b2c32b7fcca28595d971968c615e43fba7e102129bcd7b",
+      "bytes": 16623
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/current-manuscript.json",
+      "sha256": "09eec8156ee16c4b35f99b8abcd3221ed15fec568e046f6456e8638cd9846f33",
+      "bytes": 517
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/quartic214-manuscript.yml",
+      "sha256": "b59d6b302643cf39424be7df482eef717275467837c6588368a6730dd5e0f8c1",
+      "bytes": 2168
+    },
+    {
+      "path": "research/version17/historical-continuation/historical/release-policy.md",
+      "sha256": "0f59e41c695dfe493ac6e863c2ba752c5dd8de16cc10bc7ded60b1b15fd6ef5c",
+      "bytes": 2854
+    },
+    {
+      "path": "scripts/check_current_manuscript.py",
+      "sha256": "da533c8d5a480f152b9879bde10d944b035580d77d648e80afc4329c48099154",
+      "bytes": 5527
+    },
+    {
+      "path": "scripts/check_version_increment.py",
+      "sha256": "ac6d98f3fc56e88df0e65264e820d04d621d75552c7d9a20fb8dad8975a6b2cf",
+      "bytes": 10923
+    },
+    {
+      "path": "scripts/test_version_increment.py",
+      "sha256": "57e06eb1845e88d23cbfa88ab3b31f3b8b4ec87199c86fa9055b2cb447c9c0ba",
+      "bytes": 13988
+    }
+  ]
+}

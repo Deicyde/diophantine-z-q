@@ -1,0 +1,36 @@
+[
+  {
+    "id": "V17-PREAMBLE",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v17.tex",
+        "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+      },
+      "start_line": 1,
+      "end_line": 62,
+      "excerpt_sha256": "271a8cea94a84fafbf5acad6f05f3f019ef7ed87addd28a2039547e35dbd570e"
+    },
+    "use_ids": [
+      "SF40-v17-receiving-transport"
+    ],
+    "reason": "All macros retain their original semantics; four title/author/date/PDF-title lines announce the same argument as Version17."
+  },
+  {
+    "id": "V17-BODY",
+    "location": {
+      "pin": {
+        "side": "head",
+        "path": "manuscripts/quartic_v17.tex",
+        "sha256": "f6bf186008d33270dadbba6bd490f22116c66168975c3f84ad5bc6f281726e12"
+      },
+      "start_line": 63,
+      "end_line": 45035,
+      "excerpt_sha256": "042b83b21bac9b450a7bc5d30cf1d09a17b2b1d3087116876d13982b26fcc815"
+    },
+    "use_ids": [
+      "SF40-v17-receiving-transport"
+    ],
+    "reason": "Complete mathematical receiving body, including all original and historical qualifications, transported byte for byte from reviewed revision3."
+  }
+]
