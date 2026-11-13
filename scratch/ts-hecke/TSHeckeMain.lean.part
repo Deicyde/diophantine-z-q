@@ -52,7 +52,8 @@ the set of geometric components of `Sh_K` is `ℚ_{>0}^× \ 𝔸_f^× / nrd(K)`,
 it through the cyclotomic character (Artin reciprocity), i.e. through multiplication by `ℤ̂^×`.
 *Consequence used*: for `K₃ = ker(𝒪̂^× → (𝒪/3𝒪)^×)`, `nrd(K₃) = ∏_{ℓ≠3} ℤ_ℓ^× × (1 + 3ℤ_3)`, so the
 set of components is `(ℤ/3)^×` (two points) and `ℤ̂^×` acts transitively on it: `Y₃` is
-`ℚ`-connected (its two geometric components are swapped by `Gal(ℚ(√−3)/ℚ)`).
+`ℚ`-connected (its two geometric components are swapped by `Gal(ℚ(√−3)/ℚ)`, in particular by
+complex conjugation).
 *Computation* (VERIFIED, `scratch/ts-hecke/pi0_check.py`): in Shimura's uniformization
 `Y₃(ℂ) = 𝒪^× \ (ℍ^± × (𝒪/3𝒪)^×)` there are exactly two orbits, separated by `s · nrd(a) mod 3`,
 and complex conjugation `(s, a) ↦ (−s, a)` swaps them. -/
@@ -505,7 +506,13 @@ def CurveChartInf : Prop :=
 There is `M` (it is `144 = |Γ'|`) such that every twist fibre has at most `M` classes, the fibre
 of an object without CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M`, and at objects with CM by
 `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `M` divides `4` (resp. `6`, `2`) times the fibre size (the
-expected sizes are `36`, `24`, `72`). *Source*: the fibre of `Y₃ → P¹` through a point `y` has
+expected sizes are `36`, `24`, `72`). *Count*: a fixed pair `(A, ι)` over `ℚ̄` has
+`72 = |(𝒪/3𝒪)^×|` level structures, permuted freely by `com(ι)^×/{±1}` (trivial unless CM by
+`ℤ[i]` or `ℤ[ζ₃]`); `Aut(𝒪)/Inn(𝒪^×) = W` has order 4 and acts freely on the pairs except at CM by
+`ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` (stabilizers `⟨w₂⟩`, `⟨w₃⟩`, `⟨w₆⟩`); CM points of discriminants `−8`
+and `−12` do not exist on `X₆` (`3` splits in `ℚ(√−2)`; `2` divides conductor and discriminant).
+So the sizes are `4·36 = 144`, `2·18 = 36`, `2·12 = 24`, `2·36 = 72`. *Source*: the fibre of
+`Y₃ → P¹` through a point `y` has
 `|Γ'| / |Stab(y)|` points; `Stab(y)` is trivial off the elliptic points of `Γ*`, whose orders are
 `4, 6, 2` at the CM points of discriminants `−4, −3, −24` (Baba–Granath, Canad. J. Math. 60
 (2008), §3.1, the elliptic-order table, p. 740 per docs/research/locators.md; signature

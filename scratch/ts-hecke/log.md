@@ -73,3 +73,11 @@ Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the publishe
   (π-fibre = twist fibre), `ker_eval_rat`, `exists_ker_eval`, `finrank_le_twistFibre`,
   `heckeBranch_of : RamOfFibreCount → CurveChartInf → HeckeFibreSizes → TorsionStructure →
   (CM objects) → HeckeBranch`, `heckeBranch_of_R1R2fp` (CM objects from R1R2fp).
+
+## Step 6. Independent review (read-only model agent, no Lean) — all new Props TRUE
+
+Y3Connected, GenericFibreCount (statement), CurveGaloisChart, CurveChartInf/NormalizationModelInf,
+RamOfFibreCount (clause (a): Mathlib `ramificationIdx_bot_eq_one`, a prime over ⊥ is ⊥),
+HeckeFibreSizes (M = 144; sizes 144 / 36 / 24 / 72; disc −8 and −12 CM points absent): TRUE,
+non-vacuous, no hidden triviality in the reductions. Docstring improvements suggested (applied to
+ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
