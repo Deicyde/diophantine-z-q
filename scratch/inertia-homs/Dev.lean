@@ -885,4 +885,17 @@ theorem inertiaFixesHomsMon (hNOS : PkgI2.NeronOggShafarevich.{0}) (hHFF : HomFr
   have := tateHom_injective hHFF A₁ B₂ ℓ hne key
   exact congrArg AbVar.Hom.hom this
 
+/-- `ComapDVR` holds (glue, proved: `InertiaHoms.comap_isDVR`). -/
+theorem comapDVR : ComapDVR := by
+  intro K _ f w p hp hw
+  haveI : NumberField K := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+  exact comap_isDVR f w p hp hw
+
+/-- **`InertiaFixesHomsMon` from the two leaves (glue, proved).** Leaves:
+`PkgI2.NeronOggShafarevich` (Serre–Tate 1968 Thm 1) and `PkgI3.HomFreeFinite` (Mumford §19
+Thm 3). -/
+theorem inertiaFixesHomsMon_of_leaves (hNOS : PkgI2.NeronOggShafarevich.{0})
+    (hHFF : HomFreeFinite) : InertiaFixesHomsMon :=
+  inertiaFixesHomsMon hNOS hHFF comapDVR
+
 end G4WeilRes
