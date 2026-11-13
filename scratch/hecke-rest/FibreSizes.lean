@@ -1423,10 +1423,13 @@ def QMAutCard : Prop :=
     ¬ (HasCM4 q ∧ HasCM3 q) ∧ ¬ (HasCM4 q ∧ HasCM24 q) ∧ ¬ (HasCM3 q ∧ HasCM24 q)
 
 /-- **Leaf (Serre's lemma, level 3).** An endomorphism of finite order of an abelian variety
-over `ℚ̄` that fixes every `3`-torsion point is the identity (J.-P. Serre, *Rigidité du foncteur
-de Jacobi d'échelon n ≥ 3*, appendix to Sém. H. Cartan 13 (1960/61), exp. 17; Mumford,
-*Abelian varieties*, §21, Theorem 5; locators UNVERIFIED). Stated over the kernel's genuine
-abelian varieties `PkgI3.AbVar` and their `ℚ̄`-points. -/
+over `ℚ̄` that fixes every `3`-torsion point is the identity (Serre's lemma in its finite-order
+form: J.-P. Serre, *Rigidité du foncteur de Jacobi d'échelon n ≥ 3*, appendix to Sém. H. Cartan
+13 (1960/61), exp. 17; Silverberg–Zarhin, J. Pure Appl. Algebra 111 (1996); Mumford,
+*Abelian varieties*, §21, Theorem 5 is the polarized form; locators UNVERIFIED. Proof: `φ − 1`
+kills `A[3]`, so `φ = 1 + 3β` with `β ∈ End(A)`; an eigenvalue `ζ ≠ 1` of the semisimple `φ`
+would make `(ζ − 1)/3` integral). Stated over the kernel's genuine abelian varieties
+`PkgI3.AbVar` and their `ℚ̄`-points. -/
 def SerreRigidity3 : Prop :=
   ∀ (A : AbVar Qbar) (φ : AbVar.End A), (∃ m : ℕ, 0 < m ∧ φ ^ m = 1) →
     (∀ x : A.Pt Qbar, x ^ 3 = 1 → x ≫ φ.hom = x) → φ = 1
