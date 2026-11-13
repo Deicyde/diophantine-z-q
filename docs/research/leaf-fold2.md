@@ -25,14 +25,14 @@ theorem HDec.HSyn.sixContactMin_of_open2 (r : OpenResearchLeaves2) (t : OpenText
 **VERIFIED.** It has no `sorry`, and `#print axioms` gives `[propext, Classical.choice,
 Quot.sound]`. The checks are in §5.
 
-The hypotheses are 69 named Props, and none of them is an `opaque` placeholder:
+The hypotheses are 67 named Props, and none of them is an `opaque` placeholder:
 
 | bundle | fields | kind |
 |---|---|---|
 | `OpenResearchLeaves2` | 26 | research-level leaves (R1-R22, H5). R1(b), R10, R14 and R17 appear in concrete or corrected form |
 | `OpenTextbookLeaves2` | 18 | textbook leaves |
 | `OpenAddedLeaves2` | 12 | leaves that the wave 26-27 reductions introduced: 9 LEAF, 3 LEAF? (composite leaf candidates) |
-| `OpenGlue2` | 13 | glue still to be proved by the project |
+| `OpenGlue2` | 11 | glue still to be proved by the project |
 
 **Count before and after.** Before, the open statement was g0-assemble2's
 `sixContactMin_of_leaves3` with leaf-fold's closures applied. That means `ResearchLeaves3` (24),
@@ -41,10 +41,10 @@ plus leaf-fold's `OpenTextbookLeaves` (26), plus `GluePieces3` (40).
 | | research leaves | textbook leaves | added leaves (LEAF/LEAF?) | glue | total |
 |---|---|---|---|---|---|
 | before (g0-assemble2 + leaf-fold) | 24 | 26 | 18 | 22 | **90** |
-| after (`sixContactMin_of_open2`) | 26 | 18 | 12 | 13 | **69** |
+| after (`sixContactMin_of_open2`) | 26 | 18 | 12 | 11 | **67** |
 
 The research-leaf count rises by two because two fields move into that bundle (see the first bullet
-below). Glue falls from 22 to 13, and the literature side (leaves) from 68 to 56. For comparison:
+below). Glue falls from 22 to 11, and the literature side (leaves) from 68 to 56. For comparison:
 - leaf-fold's own `sixContactMin_of_open` has 26 + 26 + 11 = 63 fields. Two of them are `opaque`,
   and its 11 glue pieces are the large unsplit ones.
 - g0-assemble2's `sixContactMin_of_leaves3` has 24 + 35 + 40 = 99 fields.
@@ -55,11 +55,14 @@ What changed:
   to the research leaves.
 - **Merged into existing leaves.** `r14Det` merges into R14, and `g9R10Weights` merges into
   R10 (`PkgI4.DeRhamComparisonHT`, r10-amend).
-- **Proved.** 11 fields are proved:
+- **Proved.** 12 fields are proved, and one more follows from a leaf already in the bundle:
   - textbook leaves: T14(a′), T14(b′), T36, T37;
   - added leaves: `mulEtale` (through `MulIsogeny`), `constOrOntoAlgClosed`;
   - glue: `smoothStalkDimOne`, `ratFactorAlgClosed`, `g9AbVarBaseChange`, `oMaximal`,
-    `endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`. That is 7 glue fields.
+    `endTransport`, `cotangentSpanBC`, `uniformizationLiftAnalytic`, `productUnifSplits`. That is
+    8 glue fields;
+  - from the textbook leaf T35: the glue `productMetrizationOfProductUnif` (unif-dims, with
+    infra-smooth-dim's `TangentDimAtOrigin`).
 - **Derived.** T39 follows from T40.
 - **No longer used.** Two glue fields are dropped: `artinTorsionSurj` and `conjUniformization`.
   conj-twist's final theorem needs neither.
@@ -75,8 +78,9 @@ proof is the imported or copied theorem, so Lean checks that the two statements 
   (definitional unfolding, as in leaf-fold §2).
 - **Structures.** For statements over a structure of which the kernel has its own copy, there are
   two methods:
-  - for `ToP1`, an explicit field-by-field map `toP1K`;
-  - for `PkgI3.AbVar`, the proof is copied over the file's objects.
+  - an explicit field-by-field map: `toP1K` for `ToP1`, and `toAbVarK` for `TangentDimAtOrigin`'s
+    `AbVar`, whose fields are all Mathlib types;
+  - for proofs that build objects (AbVarBC, unif-dims), the proof is copied over the file's objects.
 
   Structures are nominal, so a kernel `PkgI3.AbVar` is a different type from `HDec.PkgI3.AbVar`.
   VERIFIED, read in both files.
@@ -99,6 +103,8 @@ proof is the imported or copied theorem, so Lean checks that the two statements 
 | `oMaximal` | GLUE | `G0ModField.KernelField.oMaximal` | kernel-field's later `New.lean` (commits 8a8d29bf, 3106cab5) replaces part a75's older copy (`mk_a75.py`) | kernel-field |
 | `endTransport` | GLUE | `endTransport_of (endTransportBC_of_rigidity G0FibreSimple.rigidityHom)`; `RigidityHom` is proved by mul-rigidity | same | kernel-field, mul-rigidity |
 | `artinTorsionSurj`, `conjUniformization` | GLUE | no longer used: G10 comes from `G0Galois.conjTwistNontrivial_of_leaves : T5 → T26 → T35 → HomLinearLift → ConjTwistNontrivial` | conj-twist's §13-§16 copied (part b05). Its later commit added `[NumberField K]` to `ConjUniformization`, and a30's copy was updated (diff: no other change) | conj-twist |
+| `productUnifSplits` | GLUE | `ZInQ.ProductUnif.productUnifSplits` (no hypotheses) | product-unif §1-§3 copied (part b08, `mk_b08.sh`) | product-unif |
+| `productMetrizationOfProductUnif` | GLUE | **from T35**: `ZInQ.UnifDims.productMetrizationOfProductUnif_of_tangentDim t.t35 tangentDimAtOrigin_proved` | unif-dims' `Combined.lean` chain copied (part b09, `mk_unifdims.py`; root lemmas in module `LF2UnifRoot`); `TangentDimAtOrigin` from infra-smooth-dim's `SmoothDimProps.lean` (module `LF2SmoothDim`, namespaces renamed `LF2.*`), transferred through `toAbVarK`. In metrization2's transport section a local field-by-field coercion `ZInQ.DefFaltings.AbVar → PkgI3.AbVar` (= `LeafAdopt.abVarEquiv`) is added, since Leaves.lean has two copies of the structure where the kernel has one | unif-dims, infra-smooth-dim, product-unif, metrization2 |
 | `cotangentSpanBC`, `uniformizationLiftAnalytic` | GLUE | `ZInQ.HeightBC.cotangentSpanBC`, `uniformizationLiftAnalytic` | infra-stalks' `HeightBCGlue.lean`: its Part 3 copied (part b07), its Part 1 as module `LF2Stalks` | infra-stalks |
 | `r1bFamily` | LEAF | moved to `OpenResearchLeaves2.r1b` (R1(b) concretely; it was the `opaque` `r1an`) | — | fibre-qm-period, g0-assemble2 |
 | `carayolR17` | LEAF | moved to `OpenResearchLeaves2.r17` (it was the `opaque` `r17`) | — | g0-mod-newform, g0-assemble2 |
@@ -187,13 +193,11 @@ the field's statement or role.
 | `isogenyQuasiInverse : WeilPairing.IsogenyQuasiInverse` | LEAF | Mumford §7-8 | weil-pairing |
 | `divisiblePoints : WeilPairing.DivisiblePoints` | LEAF | Mumford §4 Appl. 2 | weil-pairing |
 
-### 2.4 `OpenGlue2` (13, all GLUE)
+### 2.4 `OpenGlue2` (11, all GLUE)
 
 | field | content | last touched; reductions available but not folded |
 |---|---|---|
 | `x6KummerFibre : FS5NoCM.X6KummerFibre` | the Kummer fibre of `X₆ → P¹` | fs5-nocm |
-| `productUnifSplits : ProductHeight.ProductUnifSplits` | a product's uniformization splits | product-height. unif-dims' `productModelHeight_of_tangentDim` gives the whole P2 from T35 and `TangentDimAtOrigin`, which infra-smooth-dim proves; not folded (§4) |
-| `productMetrizationOfProductUnif : ProductHeight.ProductMetrizationOfProductUnif` | metrizations of factors from a product form | product-height; unif-dims proves it from T35 and `TangentDimAtOrigin` (§4) |
 | `hodgeBCInjective : HeightBC.HodgeBCInjective` | `ψ` injective on the Hodge line | height-bc, infra-stalks (open) |
 | `omegaBaseChange : HeightBC.OmegaBaseChange` | `ω` base-changes | height-bc, infra-stalks (open) |
 | `periodMapGlue : ∀ h, FibreQM.PeriodMapGlue …` | the period map's fibres and values | fibre-qm-period. period-map reduces it to `BaseChangeClassUnique`, `PiTwistC`, `QMTwistLattice`, `CMDescends` |
@@ -230,15 +234,6 @@ fact that they are unused is VERIFIED by the compile.
 
 ## 4. Not folded
 
-- **unif-dims and infra-smooth-dim (P2).** unif-dims' `productModelHeight_of_tangentDim` gives
-  `ProductModelHeight` from T35 and hodge-lattice's `TangentDimAtOrigin`. infra-smooth-dim proves
-  `TangentDimAtOrigin` with no hypotheses (VERIFIED, read in both reports). Together they would remove
-  the glue `productUnifSplits` and `productMetrizationOfProductUnif`.
-  - Both proofs live in scratch files over the kernel's objects. unif-dims' `Combined.lean` alone
-    is about 6 400 lines, and the abelian-variety statements cannot be transferred by
-    definitional unfolding (§1).
-  - So both would have to be copied over this file's objects, as was done for AbVarBC.
-  - Not done in the time available. It is the next fold.
 - **Reductions, not closures.** These are listed in §2.4: period-map (`periodMapGlue`,
   `hauptmodulUnique`, `qmDenZeroCM3`), prop-ts (`propTSAll`), linked-tate and g8-object (their own
   Props), and r1b-state (§1). Each replaces a field by other named Props, so folding it would not
@@ -252,7 +247,7 @@ fact that they are unused is VERIFIED by the compile.
   `LF2Stalks`.
 - Every module compiles with 0 errors and no `sorry` (times in `log.md`). `LPrefix` takes 582 s and
   `TailC` 193 s; each of the others takes under 110 s.
-- In TailE's output, all 23 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
+- In TailE's output, all 26 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
   These include `HDec.HSyn.sixContactMin_of_open2`, `gluePieces_of_open2` and every `*_proved`.
   The output is `scratch/leaf-fold2/olean/TailE_out.txt`, which is not committed: run `./ctail.sh TailE.lean TailE`.
 
@@ -286,6 +281,8 @@ fact that they are unused is VERIFIED by the compile.
 | `mk_fix_c.py` | one `synthInstance.maxHeartbeats 400000` in a95 | an `IsDedekindFiniteMonoid` search timed out |
 | `mk_abvarbc.py` | AbVarBC moved over the file's `PkgI3`/`PkgI4` | copied rather than imported (§1) |
 | `mk_b07.sh` | infra-stalks' Part 3 lines `open PkgI3 (AbVar)` deleted, as g0-assemble2 did | — |
+| `mk_b08.sh` | product-unif §1-§3, lines `open PkgI3 (AbVar)` deleted | same |
+| `mk_unifdims.py` | unif-dims' chain without the parts already present (product-height, product-unif §1-§3, g0-dim); root-namespace lemmas moved to module `LF2UnifRoot`; `open ZInQ.LeafPush2` restricted to the six names used; a local coercion between the two abelian-variety structures in one section; infra-smooth-dim's namespaces renamed `LF2.*` in module `LF2SmoothDim` | Leaves.lean's `ZInQ.LeafPush2` repeats most of `ZInQ.DefFaltings`, and it has two `AbVar` structures; the kernel has one of each |
 
 **No statement of a leaf or glue Prop was changed.** There are two exceptions, both forced:
 - `TextbookLeaves` loses its ten unused fields;
