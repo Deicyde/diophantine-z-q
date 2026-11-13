@@ -1,3 +1,7 @@
+scratch/ag-inputs/AGInputs.lean:1279:52: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
 'AGIn.subsingleton_of_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGIn.subsingleton_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGIn.inertCount6_K4' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -13,3 +17,6 @@
 'AGIn.fibres_finite' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGIn.agInputs_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
 'AGIn.r1pi0Props_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AGInO.extAut' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AGInO.autModInnFinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'AGInO.r1pi0Props_of_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound]
