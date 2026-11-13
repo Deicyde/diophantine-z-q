@@ -395,6 +395,107 @@ end DarbouxProof
 theorem detTate_of_tateGSp (hW : TateGSp) : DetTate :=
   detTate_of_darboux hW darboux
 
+
+/-! ## `TateGSp` from the `ℤ_ℓ`-level Weil pairing (scratch/weil-pairing) and T26 -/
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **The `ℓ`-adic Weil pairing on `T_ℓ(A)`, `ℤ_ℓ`-valued (GLUE, proved in scratch/weil-pairing
+from leaves, up to restatement).** There is an alternating `ℤ_ℓ`-bilinear form on `T_ℓ(A)` with
+trivial left kernel and multiplier the cyclotomic character of `G_K` on `K̄`. In
+scratch/weil-pairing this is `B = (tatePairing D lam hℓ).compr₂ (tmuCoordLin hg)` for a
+polarization `S.lam` (leaf `T09_SymmIsogenyExists`), with `tatePairing_self` (alternating),
+`tatePairing_cyclotomic` (multiplier), and `tatePairing_left_ker` + `tmuCoordLin_injective`
+(trivial left kernel; leaves `IsogenyQuasiInverse`, `DivisiblePoints`), exactly as in the proof
+of `det_galRep_sq` / `g12_detInput_of_leaves` there (VERIFIED by reading WeilPairing.lean
+L969-1148). The statement below is not compiled against that file (scratch files cannot import
+each other); its `B` is theirs. -/
+def TatePairingZl : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : PkgI3.AbVar K) (ℓ : ℕ) [Fact ℓ.Prime],
+    ∃ B : LinearMap.BilinForm ℤ_[ℓ] (A.T ℓ), B.SeparatingLeft ∧ (∀ x, B x x = 0) ∧
+      ∀ (σ : Field.absoluteGaloisGroup K) (x y : A.T ℓ),
+        B (A.galT σ x) (A.galT σ y) =
+          ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) * B x y
+
+lemma skew_of_alt' {R V : Type*} [CommRing R] [AddCommGroup V] [Module R V]
+    (B : LinearMap.BilinForm R V) (halt : ∀ x, B x x = 0) (x y : V) : B y x = - B x y := by
+  have h := halt (x + y)
+  simp only [map_add, LinearMap.add_apply, halt x, halt y, zero_add, add_zero] at h
+  linear_combination h
+
+/-- **`TateGSp` from `TatePairingZl` and T26 (`PkgI3.TateModuleFree`, leaf I3 of Objects).** The
+form on `V_ℓ = ℚ_ℓ ⊗ T_ℓ` is the one with the same Gram matrix in the base-changed basis. -/
+theorem tateGSp_of_zl (hZ : TatePairingZl) (hT : PkgI3.TateModuleFree) : TateGSp := by
+  intro K _ _ A ℓ _ g hdim
+  classical
+  obtain ⟨B0, hsep, halt0, hmult⟩ := hZ K A ℓ
+  have hℓ : (ℓ : K) ≠ 0 := by exact_mod_cast (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfree, hfin, hrk⟩ := hT K A ℓ hℓ
+  have hrank : Module.finrank ℤ_[ℓ] (A.T ℓ) = 2 * g := by
+    rw [hdim] at hrk
+    have h3 : (((Module.finrank ℤ_[ℓ] (A.T ℓ) : ℕ) : ℕ∞) : WithBot ℕ∞) =
+        (((2 * g : ℕ) : ℕ∞) : WithBot ℕ∞) := by
+      rw [hrk]; push_cast; rfl
+    exact_mod_cast WithBot.coe_injective h3
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  let bV : Module.Basis _ ℚ_[ℓ] (A.V ℓ) := Algebra.TensorProduct.basis ℚ_[ℓ] b
+  have hnd0 : B0.Nondegenerate := LinearMap.BilinForm.Nondegenerate.ofSeparatingLeft hsep
+  have hdet0 := (LinearMap.BilinForm.nondegenerate_iff_det_ne_zero b).1 hnd0
+  set G := LinearMap.BilinForm.toMatrix b B0 with hG
+  let φ := algebraMap ℤ_[ℓ] ℚ_[ℓ]
+  have hφ : Function.Injective φ := IsFractionRing.injective ℤ_[ℓ] ℚ_[ℓ]
+  set G' := G.map φ with hG'
+  let B : LinearMap.BilinForm ℚ_[ℓ] (A.V ℓ) := Matrix.toBilin bV G'
+  have hBG : LinearMap.BilinForm.toMatrix bV B = G' := LinearMap.BilinForm.toMatrix_toBilin _ _
+  haveI : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := Module.Finite.of_basis bV
+  refine ⟨inferInstance, B, ?_, ?_, ?_, ?_⟩
+  · rw [Module.finrank_baseChange, hrank]
+  · rw [LinearMap.BilinForm.nondegenerate_iff_det_ne_zero bV, hBG, hG', show G.map φ = φ.mapMatrix G from rfl, ← RingHom.map_det]
+    exact fun h => hdet0 (hφ (by rw [h, map_zero]))
+  · -- alternating: the Gram matrix is alternating, and `2 ≠ 0`
+    have hskew : ∀ i j, G' j i = - G' i j := by
+      intro i j
+      simp only [hG', hG, Matrix.map_apply, LinearMap.BilinForm.toMatrix_apply]
+      rw [skew_of_alt' B0 halt0, map_neg]
+    intro x
+    have hsum : B x x = ∑ i, ∑ j, bV.repr x i * G' i j * bV.repr x j := Matrix.toBilin_apply bV G' x x
+    have hsum' : B x x = - B x x := by
+      conv_rhs => rw [hsum, Finset.sum_comm]
+      rw [hsum, ← Finset.sum_neg_distrib]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [← Finset.sum_neg_distrib]
+      refine Finset.sum_congr rfl fun j _ => ?_
+      rw [hskew j i]
+      ring
+    have h2 : (2 : ℚ_[ℓ]) * B x x = 0 := by linear_combination hsum'
+    exact (mul_eq_zero.1 h2).resolve_left two_ne_zero
+  · intro σ
+    set c0 := ((cyclotomicCharacter (AlgebraicClosure K) ℓ σ.toRingEquiv : ℤ_[ℓ]ˣ) : ℤ_[ℓ])
+    have hc0 : B0.comp (A.galT σ) (A.galT σ) = c0 • B0 := by
+      refine LinearMap.ext fun x => LinearMap.ext fun y => ?_
+      change B0 (A.galT σ x) (A.galT σ y) = c0 * B0 x y
+      rw [hmult σ x y]
+    set M := LinearMap.toMatrix b b (A.galT σ) with hM
+    have h1 := LinearMap.BilinForm.toMatrix_comp b b B0 (A.galT σ) (A.galT σ)
+    rw [hc0, map_smul] at h1
+    -- `h1 : c0 • G = Mᵀ * G * M`
+    have hfM : LinearMap.toMatrix bV bV (A.galRep ℓ σ) = M.map φ :=
+      LinearMap.toMatrix_baseChange ℚ_[ℓ] (A.galT σ) b b
+    have hcomp : B.comp (A.galRep ℓ σ) (A.galRep ℓ σ) = (φ c0) • B := by
+      apply (LinearMap.BilinForm.toMatrix bV).injective
+      rw [LinearMap.BilinForm.toMatrix_comp bV bV, hfM, hBG, map_smul, hBG, hG']
+      have h2 := congrArg (fun X => X.map φ) h1
+      simp only [Matrix.map_mul, Matrix.transpose_map] at h2
+      rw [← hG] at h2
+      exact h2.symm
+    intro x y
+    have := congrArg (fun C : LinearMap.BilinForm ℚ_[ℓ] (A.V ℓ) => C x y) hcomp
+    simpa [φ] using this
+
+/-- **`DetTate` from the `ℤ_ℓ`-level Weil pairing and T26.** -/
+theorem detTate_of_zl (hZ : TatePairingZl) (hT : PkgI3.TateModuleFree) : DetTate :=
+  detTate_of_tateGSp (tateGSp_of_zl hZ hT)
+
 end G0Galois
 
 end
@@ -405,3 +506,5 @@ end
 #print axioms G0Galois.detTate_of_darboux
 #print axioms G0Galois.darboux
 #print axioms G0Galois.detTate_of_tateGSp
+#print axioms G0Galois.tateGSp_of_zl
+#print axioms G0Galois.detTate_of_zl
