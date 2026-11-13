@@ -31,3 +31,36 @@
   (`htMultOver … 0 = g`, `… (−1) = g`), not the vanishing at other weights; so `HasHTWeights p r
   {0, −1}` (all w) does not follow from R10 as stated. Also htMultOver is a truncated division;
   the F'-structure on htSpaceOver (`finrank_dvd_Dsp`) makes it exact.
+
+## (previous run, committed) Speiser.lean, Descent.lean, Galois.lean
+- `speiser_finrank` (Speiser's lemma, dimension form), `descent_finrank` (finite Galois descent for
+  spaces `Dsp` of equivariant maps), `range_gfToGqp` (image of `G_F` in `G_{ℚ_p}` = kernel of
+  `G_{ℚ_p} → Gal(F'/ℚ_p)`). VERIFIED: modules build (commits f07b7788, ac5c3c70, 685af793).
+
+## 03:40 OverF.lean
+- `finrank_Dsp_congr`, `finrank_Dsp_pi`, `finrank_Dsp_prod`, `overF_count`. VERIFIED:
+  `lake build ZInQKernel.Contrib.G9.OverF` OK.
+
+## 03:45 integrator update: target is g0-mod-galois's `G9Glue`
+- Merged origin/main (c303557d) without conflict.
+- VERIFIED (read, `git show origin/wip/g0-mod-galois:scratch/g0-mod-galois/ModGalois.lean`,
+  L20241): `G9Glue : Prop := PkgI4.DeRhamComparison → (∀ p [Fact p.Prime], PkgI4.T23_FontaineClosure p) →
+  ∀ K [NumberField K] (A : PkgI3.AbVar K) ℓ r e, A.dim = 2 → Intertwines (tate A ℓ) (r ∘ resQ K) e → G9Out r`,
+  `G9Out r := LocalIsDeRham ℓ 2 (r.restrictLocal ℓ) ∧ r.HasHTWeightsAtSelf ℓ {0, -1}`.
+- Finding F1 (VERIFIED, read of the definitions): `HasHTWeights p ρ S` is `∀ w, htMult p ρ w = S.count w`,
+  so `G9Out` requires `htMult = 0` at every `w ∉ {0, −1}`. R10 (`DeRhamComparison`) gives
+  `htMultOver` only at `0` and `−1`. No hypothesis of `G9Glue` bounds `htMultOver` at other weights;
+  that needs Tate's theorem `ℂ_p(j)^{G_F} = 0` (j ≠ 0) and Sen's independence, which are not in
+  Mathlib (bdr-kertheta.md "What remains" (b)). So `G9Glue` is not derivable from R10 + T23 without
+  formalizing Tate–Sen; the published R10 (HT decomposition `ℂ_p ⊗ V_p(A) ≅ ℂ_p^g ⊕ ℂ_p(1)^g`)
+  contains the vanishing, the Lean R10 drops it.
+- Finding F2 (VERIFIED, read): R10 is stated for `PkgI4.I3.AbVar F` over a finite `F/ℚ_ℓ`; `G9Glue`'s
+  `A` is a `PkgI3.AbVar K` over a number field. Using R10 needs base change `A ↦ A_F` and the
+  comparison `V_ℓ(A_F) ≅ V_ℓ(A)|G_F`, i.e. that every `ℓⁿ`-torsion point of `A` over `F̄` is defined
+  over `K̄` (finiteness of `A[ℓⁿ]`, Mumford §4/§6, not in Mathlib, not among the hypotheses).
+- Finding F3 (VERIFIED, read): the descent `F → ℚ_ℓ` for `D_dR` needs an equivariant embedding
+  `F' → B_dR` (`ℚ̄_p ⊆ B_dR^+`, Hensel in the complete DVR `B_dR^+`); pkg-I4 and bdr-kertheta do not
+  construct it (bdr-kertheta "What remains" (a): compatibility with `bdrAct` unchecked). For `ℂ_p`
+  (Hodge–Tate part) the embedding `F' ⊆ ℚ̄_p ⊆ ℂ_p` is available.
+- Plan: prove the local core (descent + counting) and `G9Glue` from R10, T23 and named bridge Props
+  for F1-F3.
