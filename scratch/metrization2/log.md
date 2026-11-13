@@ -29,3 +29,4 @@
   metrizationExists_of_productMap, analyticUniformizationOfDim_of_uniformizationExists,
   HSyn.G0Split.heightAdditivity_of_metrization_v4: propext, Classical.choice, Quot.sound (VERIFIED).
 - part_pml1.lean (toward ProductMapLocalStructure): ev (evaluation at complex points of any scheme) with ev_comp, ev_res, ev_add, ev_mul, ev_zero, ev_one, ev_pow, ev_sum, ev_ne_zero_of_mem, mem_basicOpen_of_ev_ne_zero; exists_sum_of_isPushout (every element of a CommRingCat pushout is Σ inl α·inr β, via the universal property and Subring.closure). Compiles, 0 errors (VERIFIED).
+- part_pml2.lean: core_local (local structure of X₁ ×_S X₂, S affine, at complex points: affine opens V_i, Q = V₁ ×_S V₂ affine with Γ(Q) a pushout, basic open D(h) ⊆ j⁻¹W, t = a/h^N, H = h^{N+1}); compiles, 0 errors (VERIFIED).
