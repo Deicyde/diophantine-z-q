@@ -25,3 +25,8 @@
 - Compile (17:00): `lake env lean scratch/def-faltings/Faltings.lean`: no errors, no warnings;
   every #print axioms line lists [propext, Classical.choice, Quot.sound] (VERIFIED).
 - Added GroupModel.omegaAt_genericPt (sanity: local lattice at the generic point is all of ω_{A_L}); proved, compiled (VERIFIED).
+- Independent model review of §15-22: no faithfulness errors in the definitions; fixed (1) AT1
+  conditional hypothesis hP now allows a translation x ↦ x + c_σ (b₂ ≠ 0, e.g. 11a1), proof via
+  hypVol_one_comp_add; (2) documented that hmin is the ≥ half of the AT1/AT2 conclusions (H5
+  output); (3) corrected the MetrizedModel docstring on g = 0. Recompiled: no errors, no
+  warnings (VERIFIED).

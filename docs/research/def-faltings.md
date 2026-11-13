@@ -102,8 +102,9 @@ recalled from memory (no network).
     already an `𝒪_{S,s}`-module.
 - **The Hodge line.** `cotangent` is an `L`-vector space, so
   `L ⊗_{𝓞_L} ⋀^g_{𝓞_L} cotangent ≅ ⋀^g_L ω_{A_L}` (localization commutes with `⋀`). If `g` is
-  not the dimension of `A`, the field `hodge.finrank_eq_one` cannot hold, so there is no metrized
-  model with that `g`. The case `g = 0` is excluded for `dim A > 0` by surjectivity of `Φ`.
+  not the dimension of `A` and `g > 0`, the field `hodge.finrank_eq_one` cannot hold, so there is
+  no metrized model with that `g`. The case `g = 0` passes `finrank_eq_one`, because
+  `hodgeSpace 0 ≅ L`. It is excluded for `dim A > 0` by surjectivity of `Φ : ℂ⁰ → A_τ(ℂ)`.
 - **Archimedean data.**
   - Let `Φ` satisfy the Prop and let `Λ` be a full lattice. Then `Φ` is continuous for the
     analytic topology, because the topology of each `U(ℂ)` is induced by the regular functions on
@@ -151,9 +152,9 @@ Route (a) of bp-faltings §2.3 is the recommended way to prove the theorem.
 | --- | --- | --- |
 | AT1 statement | `AcceptanceEC : Prop`: for `W` elliptic over a number field `K` and `A : AbVar K` with `IsEllipticCurveOf A W`, `stableFaltingsHeight A = faltingsHeightEC W` | stated; unproved (needs AV7, AN4, AN5, M2 for the minimal model, AT1a, H5) |
 | AT1 identification | `IsEllipticCurveOf A W`: `A ∖ {O}` is an affine open whose ring of functions is `K`-isomorphic to Mathlib's `W.toAffine.CoordinateRing` | the smooth projective model of a function field is unique, and so is the group law with a given origin (rigidity): STANDARD |
-| AT1 conditional | `stableFaltingsHeight_eq_faltingsHeightEC` | **proved**. The hypotheses are the outputs of the missing nodes: a metrized model over `K` with lattice free on `η₀` and `η₀ ↦ dz` for period pairs (AN4, M2), the Weierstrass polynomial match (AN4), the vanishing finite part (AT1a), `PeriodAreaFormula` (AN5), and `hmin` (H5) |
+| AT1 conditional | `stableFaltingsHeight_eq_faltingsHeightEC` | **proved**. The hypotheses are the outputs of the missing nodes: a metrized model over `K` with lattice free on `η₀` and `η₀ ↦ dz` for period pairs (AN4, M2); the Weierstrass polynomial equal to `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ`, so any `b₂` is allowed, e.g. 11a1 with `b₂ = −4` (AN4); the vanishing finite part (AT1a); `PeriodAreaFormula` (AN5); and `hmin` (H5). **Caveat:** `hmin` ("no metrized model has smaller height") is literally the `≥` half of the conclusion. The theorem's content is the computation `M.hodge.modelHeight = faltingsHeightEC W`. `hmin` is what H5 (`IsNeronModel`, `NeronModelMinimal`, semistable base change) must supply. The theorem does not assume `IsEllipticCurveOf A W`; `M` is tied to `W` only through its hypotheses |
 | AT2 statement | not writable: no Jacobians in Mathlib v4.35, so no way to say that an `AbVar` is `Jac C` | — |
-| AT2 conditional | `HodgeData.modelHeight_eq_faltingsHeightGood`, `stableFaltingsHeight_eq_faltingsHeightGood` | **proved**. Hypotheses: lattice free on `η₀ = ω₀∧ω₁` (M8), archimedean metric `= hypVol 2` (AN6, Riemann bilinear relations), `hmin` (H5) |
+| AT2 conditional | `HodgeData.modelHeight_eq_faltingsHeightGood`, `stableFaltingsHeight_eq_faltingsHeightGood` | **proved**. Hypotheses: lattice free on `η₀ = ω₀∧ω₁` (M8), archimedean metric `= hypVol 2` (AN6, Riemann bilinear relations), `hmin` (H5; same caveat as AT1) |
 
 The right-hand sides `faltingsHeightEC` and `faltingsHeightGood` are pkg-I5's definitions, copied
 verbatim.
@@ -214,7 +215,28 @@ listed declarations are: `stableFaltingsHeight`, `stableFaltingsHeight_le`,
 5. H5 (XL): Néron models and semistable reduction; `StableHeightFinite`, `NeronModelMinimal`.
 6. R18 and R22: Jacobians, Belyi maps, polarizations, theta heights.
 
-## 8. Unchecked items
+## 8. Independent review
+
+A model review of §15-22 of the Lean file was run against the Mathlib sources and locators.md.
+It found no faithfulness error in the definitions. It confirmed:
+- the map directions in `omegaAt`;
+- the line `hodgeSpace`;
+- that `IsAnalyticUniformization` pins `Φ` down up to linear changes and excludes fake data
+  (Galois twists, `g > dim A`, degenerate `Φ`);
+- the Deligne shift;
+- that R19-R21 are not stronger than the published statements.
+
+It flagged three issues, all fixed:
+- AT1's polynomial hypothesis forced `b₂ = 0`; it now allows a translation, as bp-faltings'
+  `modelHeight_ofIdeal_eq_faltingsHeightEC'` does;
+- `hmin` is half of the conclusion; this is now documented as the caveat in §4;
+- the docstring on a wrong `g` was false for `g = 0`; it is now corrected.
+
+The bp-faltings bridge `modelHeight_eq_faltingsHeightEC` (free case, copied in §5 of the Lean
+file) still carries the `b₂ = 0` restriction. The general conditional theorem above does not use
+it.
+
+## 9. Unchecked items
 
 - Locators recalled from memory: EGA IV 17.2.5; BLR 1.2/1, 1.4/3, 9.5 Thm 4; SGA 7 IX 3.3, 3.6;
   Mumford §1.

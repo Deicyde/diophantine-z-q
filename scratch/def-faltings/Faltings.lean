@@ -1402,7 +1402,9 @@ period lattice and the coefficient map come from an analytic uniformization of `
 (`arch`): `coeff_τ(1 ⊗ df₁ ∧ ⋯ ∧ df_g) = det(∂(f_i ∘ Φ)/∂z_j(0))`. Since the wedges `wedge f`
 span `hodgeSpace g` over `L`, `arch` determines `coeff`; by `AnalyticUniformizationUnique` and
 `HodgeData.modelHeight_recoord`, `hodge.modelHeight` depends only on `𝒢`. A wrong `g` makes the
-structure empty (`hodge.finrank_eq_one` fails). -/
+structure empty: for `0 < g ≠ dim A`, `hodge.finrank_eq_one` fails (and for `g > dim A` also
+`periods_discrete`); `g = 0` passes `finrank_eq_one` (`hodgeSpace 0 ≅ L`) but is excluded for
+`dim A ≥ 1` by surjectivity of `Φ : ℂ⁰ → A_τ(ℂ)` (STANDARD reasoning, not proved). -/
 structure MetrizedModel {K : Type} [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L]
     [Algebra K L] (g : ℕ) where
   /-- the smooth group model -/
@@ -1720,25 +1722,40 @@ def AcceptanceEC : Prop :=
 /-- **AT1, conditional form over the general definition (proved).** Let `M` be a metrized model
 of `A` over `K` itself whose Hodge lattice is free on `η₀` with `η₀ ↦ dz` for period pairs
 `Lp σ` (outputs of AN4 and M2 for a minimal semistable Weierstrass model: `η₀ = dx/(2y+a₁x+a₃)`),
-with the Weierstrass polynomial matching `4x³ − g₂x − g₃` and the finite part of
-`faltingsHeightEC` vanishing (AT1a: the model is semistable and minimal everywhere), and assume
-that no metrized model has smaller height (`hmin`, the output of H5: Néron mapping property and
-semistable base change). Then, given the area formula AN5, `stableFaltingsHeight A` is pkg-I5's
-`faltingsHeightEC W`. -/
+with the Weierstrass polynomial equal to `4x³ − g₂x − g₃` after a translation `x ↦ x + c_σ`
+(so any `b₂` is allowed: `g₂ = σ(c₄)/12`, `g₃ = σ(c₆)/216`) and the finite part of
+`faltingsHeightEC` vanishing (AT1a: the model is semistable and minimal everywhere). Then, given
+the area formula AN5, `M.hodge.modelHeight = faltingsHeightEC W` (the content of the theorem),
+and with `hmin` the stable height equals it.
+
+Caveat: `hmin` ("no metrized model of `A` has smaller height") is literally the `≥` half of the
+conclusion. It is the output H5 must supply for this `A`: the Néron mapping property
+(`GroupModel.IsNeronModel`, `NeronModelMinimal`) plus semistable base change (SGA 7 IX), none of
+which is proved. The theorem ties `M` to `W` only through the hypotheses on `M`; it does not
+assume `IsEllipticCurveOf A W`. -/
 theorem stableFaltingsHeight_eq_faltingsHeightEC [NumberField K] (hA : PeriodAreaFormula)
     (W : WeierstrassCurve K) [W.IsElliptic] (A : AbVar K) (M : MetrizedModel A K 1)
     {η₀ : M.model.hodgeSpace 1}
     (hspan : M.hodge.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
     (Lp : (K →+* ℂ) → PeriodPair) (hper : ∀ σ, M.hodge.periods σ = (Lp σ).lattice1)
-    (hco : ∀ σ, M.hodge.coeff σ η₀ = 1)
+    (hco : ∀ σ, M.hodge.coeff σ η₀ = 1) (c : (K →+* ℂ) → ℂ)
     (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
-      4 * X ^ 3 - C (Lp σ).g₂ * X - C (Lp σ).g₃)
+      (4 * X ^ 3 - C (Lp σ).g₂ * X - C (Lp σ).g₃).comp (X + C (c σ)))
     (hfin : finiteHeightPart W.j = ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖)
     (hmin : ∀ (E : FinExt K) (g : ℕ) (M' : MetrizedModel A E.L g),
       faltingsHeightEC W ≤ M'.hodge.modelHeight) :
     stableFaltingsHeight A = (faltingsHeightEC W : EReal) := by
-  have hM : M.hodge.modelHeight = faltingsHeightEC W :=
-    modelHeight_eq_faltingsHeightEC hA W M.hodge hspan hη₀ Lp hper hco hP hfin
+  have hM : M.hodge.modelHeight = faltingsHeightEC W := by
+    rw [M.hodge.modelHeight_of_span hspan hη₀, faltingsHeightEC, hfin, sub_self, zero_div,
+      zero_sub]
+    have hterm : ∀ σ : K →+* ℂ, torusMetricSq (M.hodge.periods σ) (M.hodge.coeff σ η₀) =
+        hypVol 1 ((4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ) := by
+      intro σ
+      rw [hco, hper, hP, hypVol_one_comp_add, torusMetricSq, PeriodPair.covolume_lattice1, hA]
+      simp
+    simp only [hterm]
+    have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+    field_simp
   refine le_antisymm ?_ ?_
   · exact (stableFaltingsHeight_le A M).trans_eq (by rw [hM])
   · exact le_stableFaltingsHeight A fun E g M' => EReal.coe_le_coe_iff.mpr (hmin E g M')
@@ -1804,7 +1821,9 @@ theorem HodgeData.modelHeight_eq_faltingsHeightGood {K : Type*} [Field K] [Numbe
   have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
   field_simp
 
-/-- **AT2, conditional form over the general definition (proved).** -/
+/-- **AT2, conditional form over the general definition (proved).** As in AT1, `hmin` is the `≥`
+half of the conclusion (the output H5 must supply); the content is
+`HodgeData.modelHeight_eq_faltingsHeightGood`. -/
 theorem stableFaltingsHeight_eq_faltingsHeightGood {K : Type} [Field K] [NumberField K]
     (E : Genus2Eq (𝓞 K)) (A : AbVar K) (M : MetrizedModel A K 2) {η₀ : M.model.hodgeSpace 2}
     (hspan : M.hodge.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
