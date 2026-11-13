@@ -129,7 +129,126 @@ theorem exists_two_roots [IsAlgClosed K] [CharZero K] {P : K[X][X]} (hirr : Irre
   exact ⟨t, u, u', hne, (mem_roots hPt0).1 (Multiset.mem_toFinset.1 hu),
     (mem_roots hPt0).1 (Multiset.mem_toFinset.1 hu')⟩
 
+/-- An irreducible `P ∈ K[x][y]` of `y`-degree 1 has coprime coefficients. -/
+theorem isCoprime_coeff_of_irreducible {P : K[X][X]} (hirr : Irreducible P)
+    (h1 : P.natDegree = 1) : IsCoprime (P.coeff 1) (P.coeff 0) := by
+  have hP : P = C (P.coeff 1) * X + C (P.coeff 0) := eq_X_add_C_of_natDegree_le_one h1.le
+  refine IsRelPrime.isCoprime fun d hdA hdB => ?_
+  obtain ⟨a, ha⟩ := hdA
+  obtain ⟨b, hb⟩ := hdB
+  have hfac : P = C d * (C a * X + C b) := by
+    rw [hP, ha, hb, C_mul, C_mul]; ring
+  rcases hirr.isUnit_or_isUnit hfac with h | h
+  · exact isUnit_C.mp h
+  · exfalso
+    have h0 := natDegree_eq_zero_of_isUnit h
+    have : P.natDegree ≤ 0 := by
+      rw [hfac]; exact (natDegree_C_mul_le _ _).trans h0.le
+    omega
+
 end Alg
+
+/-! ## §2 The geometric glue (G1) and the reduction -/
+
+open Polynomial in
+/-- **(G1) The image of a connected component under `(σ, ρ)` is a plane curve.** Setting of C3K
+(without characteristic 0): `X → Spec K` proper and smooth of relative dimension 1, `K`
+algebraically closed, `σ, ρ : X → P¹`, `W` the connected component of the `K`-point `p₀`, and
+`σ` nonconstant on the `K`-points of `W`. Then either `ρ ≡ ∞` on the `K`-points of `W`, or there
+is an irreducible `P ∈ K[x][y]` of `y`-degree `≥ 1` such that
+(a) `P(σ(p), ρ(p)) = 0` at every `K`-point `p` of `W` with both values finite;
+(b) every `(t, u) ∈ K²` with `P(t, u) = 0` is `(σ(p), ρ(p))` for a `K`-point `p` of `W`;
+(c) a `K`-point `p` of `W` with `σ(p) = t` finite and `ρ(p) = ∞` has `lc_y(P)(t) = 0`.
+
+Why true (STANDARD; references UNVERIFIED): `W` is a complete nonsingular irreducible curve
+(smooth ⇒ normal, so connected components are irreducible), so its image `D` under
+`(σ, ρ) : W → P¹ × P¹` is closed (properness) and irreducible, and not a point (σ nonconstant).
+If `ρ ≢ ∞`, `D ∩ 𝔸²` is a nonempty open, hence dense, subset of `D`, an irreducible closed curve
+in `𝔸²`, so `D ∩ 𝔸² = V(P)` with `P` irreducible (`K[x, y]` is a UFD and height-one primes are
+principal: Hartshorne I.1.12 / Ex. I.1.1-type facts); `P ∉ K[x]` because `σ` is nonconstant on
+the dense set `W ∩ (σ, ρ)⁻¹(𝔸²)`. (a) is `D ∩ 𝔸² ⊆ V(P)`. (b): `V(P) ⊆ D`, and every closed point
+of `D` is the image of a closed point of `W` (the fibre is a nonempty closed subset of a scheme of
+finite type over `K`), i.e. of a `K`-point (Nullstellensatz). (c): `D` lies in the closure of
+`V(P)` in `𝔸¹ × P¹`, which lies in `V(P^h)`, `P^h(x; y₀ : y₁) = Σ a_i(x) y₁^i y₀^{d−i}`, whose
+points over `y = ∞` (`y₀ = 0`) have `a_d(x) = 0`.
+
+Classified as **glue** (several textbook facts: image of a proper curve, plane curves as
+hypersurfaces, closure and homogenization). Characteristic 0 is not used here; it enters only
+through the Lean-proved `Alg.exists_two_roots`. Not in Mathlib v4.35 (no `P¹ × P¹`, no plane
+curves). -/
+def ImagePlaneCurve : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p ≠ σ.val p₀) →
+      (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) →
+        ρ.val p = OnePoint.infty) ∨
+      ∃ P : K[X][X], Irreducible P ∧ 1 ≤ P.natDegree ∧
+        (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0) ∧
+        (∀ t u : K, Alg.evalXY t u P = 0 → ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧
+          σ.val p = OnePoint.some t ∧ ρ.val p = OnePoint.some u) ∧
+        (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.infty → P.leadingCoeff.eval t = 0)
+
+open Polynomial in
+/-- **C3K from (G1) and the Lean-proved algebra.** The fibre condition and
+`Alg.exists_two_roots` force `deg_y P = 1`, `P = A y + B` with `A, B` coprime, and then
+`ρ = [−B : A] ∘ σ` at every `K`-point of `W` with finite `σ`-value (clause (c) for `ρ = ∞`). -/
+theorem ratFactorAlgClosed_of (hG : ImagePlaneCurve) : RatFactorAlgClosed := by
+  intro K _ _ _ X f hP hS σ ρ p₀ hp₀ hne hfib
+  rcases hG K X f hP hS σ ρ p₀ hp₀ hne with hinf | ⟨P, hirr, hdeg, ha, hb, hc⟩
+  · refine ⟨1, 0, isCoprime_one_left, fun p hp hpc t _ => ?_⟩
+    rw [hinf p hp hpc]
+    simp [Mob.ratEval]
+  · have hd1 : P.natDegree = 1 := by
+      by_contra h
+      obtain ⟨t, u, u', hne', hu, hu'⟩ := Alg.exists_two_roots hirr (by omega)
+      obtain ⟨p, hp, hpc, hpt, hpu⟩ := hb t u hu
+      obtain ⟨p', hp', hpc', hpt', hpu'⟩ := hb t u' hu'
+      have e := hfib p p' hp hp' hpc hpc' (hpt.trans hpt'.symm)
+      rw [hpu, hpu'] at e
+      exact hne' (OnePoint.coe_injective e)
+    have hcop := Alg.isCoprime_coeff_of_irreducible hirr hd1
+    have hPe : P = C (P.coeff 1) * Polynomial.X + C (P.coeff 0) :=
+      eq_X_add_C_of_natDegree_le_one hd1.le
+    have hev : ∀ t u : K, Alg.evalXY t u P = (P.coeff 1).eval t * u + (P.coeff 0).eval t := by
+      intro t u
+      rw [Alg.evalXY]
+      conv_lhs => rw [hPe]
+      simp
+    have hlc : P.leadingCoeff = P.coeff 1 := by rw [leadingCoeff, hd1]
+    have hnotboth : ∀ t : K, (P.coeff 1).eval t = 0 → (P.coeff 0).eval t ≠ 0 := by
+      intro t h1 h0
+      obtain ⟨a, b, hab⟩ := hcop
+      have e := congrArg (eval t) hab
+      simp [eval_add, eval_mul, h1, h0] at e
+    refine ⟨-(P.coeff 0), P.coeff 1, hcop.symm.neg_left, fun p hp hpc t ht => ?_⟩
+    induction hρ : ρ.val p using OnePoint.rec with
+    | infty =>
+      have e := hc p hp hpc t ht hρ
+      rw [hlc] at e
+      unfold Mob.ratEval
+      split_ifs
+      rfl
+    | coe u =>
+      have e := ha p hp hpc t u ht hρ
+      rw [hev] at e
+      by_cases hA : (P.coeff 1).eval t = 0
+      · exfalso
+        rw [hA, zero_mul, zero_add] at e
+        exact hnotboth t hA e
+      · unfold Mob.ratEval
+        split_ifs
+        rw [eval_neg]
+        refine congrArg _ ?_
+        field_simp
+        linear_combination e
 
 end Pin
 
@@ -138,3 +257,6 @@ end AV
 end LeafQM
 
 end
+
+#print axioms LeafQM.AV.Pin.ratFactorAlgClosed_of
+#print axioms LeafQM.AV.Pin.Alg.exists_two_roots
