@@ -57,7 +57,7 @@ theorem cmPointsExist : CMPointsExist := by
     have hgdet : 0 < g.det.val := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     refine ⟨⟨0, 1, 1, 0⟩, g, ⟨√2 + Complex.I, by simp⟩, cm4.1, cm4.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√2 + Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
     rw [iota_eq]
@@ -72,7 +72,7 @@ theorem cmPointsExist : CMPointsExist := by
     have hgdet : 0 < g.det.val := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     refine ⟨⟨1/2, 0, 1/2, 0⟩, g, ⟨√3 * Complex.I, by simp⟩, cm3.1, cm3.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√3 * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
     rw [iota_eq]
@@ -89,7 +89,7 @@ theorem cmPointsExist : CMPointsExist := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     have hpos : (0 : ℝ) < 9 + 6 * √2 := by positivity
     refine ⟨mu, g, ⟨√(9 + 6 * √2) * Complex.I, by simp [hpos]⟩, cm24.1, cm24.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√(9 + 6 * √2) * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) +
         ((iota _ 1 1 : ℝ) : ℂ))

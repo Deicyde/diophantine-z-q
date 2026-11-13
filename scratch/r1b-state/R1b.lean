@@ -1056,7 +1056,8 @@ def FamilyCMValues : Prop :=
         (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
         Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) →
     ∀ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x →
-      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → g • τ = τ →
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det →
+      g • τ = τ →
       (x * x = -1 → π.val (K := ℂ) (y τ).left = ((0 : ℂ) : OnePoint ℂ)) ∧
       (x * x - x + 1 = 0 → π.val (K := ℂ) (y τ).left = OnePoint.infty) ∧
       (x * x = -6 → π.val (K := ℂ) (y τ).left = ((-16 / 27 : ℂ) : OnePoint ℂ))
@@ -1065,11 +1066,14 @@ def FamilyCMValues : Prop :=
 `ι((1+j)/2)` fixes `i√3`, `ι(2j + ij)` fixes `i√(9+6√2)` (pkg-I1's numerics, `jden_check.py`). -/
 def CMPointsExist : Prop :=
   (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x = -1 ∧
-    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ) ∧
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det ∧
+    g • τ = τ) ∧
   (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x - x + 1 = 0 ∧
-    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ) ∧
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det ∧
+    g • τ = τ) ∧
   (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x = -6 ∧
-    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ)
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det ∧
+    g • τ = τ)
 
 theorem extH_eq (f : UpperHalfPlane → OnePoint ℂ) (τ : UpperHalfPlane) :
     extH f (τ : ℂ) = f τ := by
@@ -1086,14 +1090,14 @@ theorem familyHauptmodul_of_parts (hM : MobiusRigidity) (hH : HauptmodulHolomorp
     show _ = extH F t
     unfold extH
     rw [dif_pos (show 0 < t.im from ht)]
-  obtain ⟨⟨x₁, g₁, t₁, i₁, e₁, m₁, f₁⟩, ⟨x₂, g₂, t₂, i₂, e₂, m₂, f₂⟩,
-    ⟨x₃, g₃, t₃, i₃, e₃, m₃, f₃⟩⟩ := hE
+  obtain ⟨⟨x₁, g₁, t₁, i₁, e₁, m₁, p₁, f₁⟩, ⟨x₂, g₂, t₂, i₂, e₂, m₂, p₂, f₂⟩,
+    ⟨x₃, g₃, t₃, i₃, e₃, m₃, p₃, f₃⟩⟩ := hE
   have v₁ : f t₁ = ((0 : ℂ) : OnePoint ℂ) := hf.2.2.2.2.1 x₁ i₁ e₁ g₁ m₁ t₁ f₁
   have v₂ : f t₂ = OnePoint.infty := hf.2.2.2.2.2.1 x₂ i₂ e₂ g₂ m₂ t₂ f₂
   have v₃ : f t₃ = ((-16 / 27 : ℂ) : OnePoint ℂ) := hf.2.2.2.2.2.2 x₃ i₃ e₃ g₃ m₃ t₃ f₃
-  have w₁ : F t₁ = f t₁ := by rw [v₁]; exact (hV Y Φ π h1 h2 y hb x₁ g₁ t₁ i₁ m₁ f₁).1 e₁
-  have w₂ : F t₂ = f t₂ := by rw [v₂]; exact (hV Y Φ π h1 h2 y hb x₂ g₂ t₂ i₂ m₂ f₂).2.1 e₂
-  have w₃ : F t₃ = f t₃ := by rw [v₃]; exact (hV Y Φ π h1 h2 y hb x₃ g₃ t₃ i₃ m₃ f₃).2.2 e₃
+  have w₁ : F t₁ = f t₁ := by rw [v₁]; exact (hV Y Φ π h1 h2 y hb x₁ g₁ t₁ i₁ m₁ p₁ f₁).1 e₁
+  have w₂ : F t₂ = f t₂ := by rw [v₂]; exact (hV Y Φ π h1 h2 y hb x₂ g₂ t₂ i₂ m₂ p₂ f₂).2.1 e₂
+  have w₃ : F t₃ = f t₃ := by rw [v₃]; exact (hV Y Φ π h1 h2 y hb x₃ g₃ t₃ i₃ m₃ p₃ f₃).2.2 e₃
   have d₁₂ : f t₁ ≠ f t₂ := by rw [v₁, v₂]; exact OnePoint.coe_ne_infty 0
   have d₂₃ : f t₂ ≠ f t₃ := by rw [v₂, v₃]; exact (OnePoint.coe_ne_infty _).symm
   have d₁₃ : f t₁ ≠ f t₃ := by
@@ -1169,7 +1173,7 @@ theorem cmPointsExist : CMPointsExist := by
     have hgdet : 0 < g.det.val := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     refine ⟨⟨0, 1, 1, 0⟩, g, ⟨√2 + Complex.I, by simp⟩, cm4.1, cm4.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√2 + Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
     rw [iota_eq]
@@ -1184,7 +1188,7 @@ theorem cmPointsExist : CMPointsExist := by
     have hgdet : 0 < g.det.val := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     refine ⟨⟨1/2, 0, 1/2, 0⟩, g, ⟨√3 * Complex.I, by simp⟩, cm3.1, cm3.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√3 * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
     rw [iota_eq]
@@ -1201,7 +1205,7 @@ theorem cmPointsExist : CMPointsExist := by
       rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
     have hpos : (0 : ℝ) < 9 + 6 * √2 := by positivity
     refine ⟨mu, g, ⟨√(9 + 6 * √2) * Complex.I, by simp [hpos]⟩, cm24.1, cm24.2, rfl,
-      smul_eq_self_of hgdet _ ?_⟩
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
     change ((iota _ 0 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
       (√(9 + 6 * √2) * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) +
         ((iota _ 1 1 : ℝ) : ℂ))
