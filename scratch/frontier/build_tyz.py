@@ -2,7 +2,7 @@
 verbatim except that `import` lines are dropped and each body's top-level `noncomputable section` is closed,
 followed by this task's composition (TYZChainTail.lean)."""
 import subprocess, re
-R = "/home/jackmccarthy/dzq-wt/frontier"
+R = "."
 TCM = "66d92d11"
 CMB = "68d27814"
 parts = [(TCM, f"ZInQKernel/Contrib/TYZGenus/{m}.lean") for m in

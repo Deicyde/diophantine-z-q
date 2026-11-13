@@ -23,6 +23,10 @@ import ZInQKernel.Contrib.Dim.IntegralHom
 import ZInQKernel.Contrib.Dim.LeafPush2
 import ZInQKernel.Contrib.Dim.HodgeLattice
 import ZInQKernel.Contrib.HeightBC.Main
+import ZInQKernel.Contrib.AbsFrob.AlgFrobRed
+import ZInQKernel.Contrib.AbsFrob.Sanity
+import ZInQKernel.Contrib.UnramRoots.Main
+import ZInQKernel.Contrib.UnramRoots.Sanity
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -95,3 +99,16 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.Contrib.HeightBC.openSubgroupHeight
 #print axioms ZInQ.Contrib.HeightBC.neronModelMinimal
 #print axioms ZInQ.Contrib.HeightBC.stableFaltingsHeight_eq_neron_of_N1N2
+#print axioms AbsFrobDef.fr
+#print axioms AbsFrobDef.fr_naturality
+#print axioms AbsFrobDef.fr_Spec
+#print axioms AbsFrobDef.fr_naturality'
+#print axioms AbsFrobDef.fr_Spec_zmod
+#print axioms AbsFrobDef.fr_Spec_polynomial_ne_id
+#print axioms AlgFrobRedRed.absFrob
+#print axioms UnramRootsTask.unramRoots
+#print axioms UnramRootsTask.unramRoots_all
+#print axioms UnramRootsTask.unramRoots_two
+#print axioms UnramRootsTask.unramProcyclic_of_frobData
+#print axioms UnramRootsTask.frobData_exists
+#print axioms UnramRootsTask.Sanity.unramRoots_two_nonvacuous
