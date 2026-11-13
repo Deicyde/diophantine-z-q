@@ -697,6 +697,25 @@ def TwistDescent : Prop :=
       SemilinearTwistAt L (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL))
         ((@endBC K _ B L _ (incAlg hKL)).comp ιB) E α
 
+/-- **The standard theorem behind `TwistDescent` (statement only; not used in any proof).**
+Galois descent of morphisms along `ℚ̄/L`: for `L ⊆ ℚ̄` a number field, `X` quasi-compact and
+quasi-separated and `Y` locally of finite presentation over `L`, every `ℚ̄`-morphism
+`φ : X_ℚ̄ → Y_ℚ̄` fixed by conjugation through `G_L` (`G4Conj.conj`, as in `HomDescends`) is the base
+change of a unique `L`-morphism. (SGA 1 VIII; Stacks, descent along fpqc coverings; locators
+UNVERIFIED.) In the project: `morphismsDescend` (EGA IV 8.8.2, proved) descends `φ` to a finite
+`L'`; Mathlib's `EffectiveEpi` for flat surjective quasi-compact morphisms (`Sites/Fpqc.lean`)
+then needs `L' ⊗_L L' ≅ ∏_{Gal(L'/L)} L'` (not in Mathlib v4.35). `TwistDescent` follows from this
+statement applied to the σ-semilinear maps `Ē_σ` (after identifying them with maps out of `^σB_L`)
+together with the conjugate bookkeeping; that deduction is a model check, not compiled. -/
+def GaloisDescentMor : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] (X Y : Over (Spec (CommRingCat.of L)))
+    [QuasiCompact X.hom] [QuasiSeparated X.hom] [LocallyOfFinitePresentation Y.hom]
+    (φ : (Over.pullback (G4WeilRes.specIncl L)).obj X ⟶ (Over.pullback (G4WeilRes.specIncl L)).obj Y),
+    (∀ σ ∈ L.fixingSubgroup,
+      ∀ hf : G4WeilRes.specIncl L = G4WeilRes.specGal σ ≫ G4WeilRes.specIncl L,
+        G4Conj.conj X Y (G4WeilRes.specGal σ) hf hf φ = φ) →
+    ∃! ψ : X ⟶ Y, (Over.pullback (G4WeilRes.specIncl L)).map ψ = φ
+
 /-- **Transport (proved, rigidity).** A base change `Q` of `PK` along `e : K → ℚ̄`
 (`IsBaseChangeOf`, a pullback square compatible with `ι` and `η`) is isomorphic to the conjugate
 `B_e` as an abelian variety with `𝒪`-action. -/

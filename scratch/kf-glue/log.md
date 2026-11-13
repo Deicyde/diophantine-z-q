@@ -62,3 +62,7 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
 ## Step 7. Sanity check — VERIFIED (compiled, build7.txt, rc=0)
 - `semilinearTwistAt_bot : SemilinearTwistAt ⊥ A ι' (fun _ => 𝟙 _) (fun _ => RingEquiv.refl O)` for every
   A over ℚ and every ι' (so the level-2 Prop is satisfiable). Axioms standard.
+
+## Step 8. `GaloisDescentMor` stated (typechecked, unused) — VERIFIED (compiled, build7.txt, rc=0)
+- Statement: Galois descent of morphisms along ℚ̄/L (X qcqs, Y lfp; G4Conj.conj-invariance ⇒ unique L-morphism).
+- Grep of Mathlib v4.35: no `L' ⊗_L L' ≅ ∏ L'` (Galois) found; fpqc subcanonical + EffectiveEpi present.

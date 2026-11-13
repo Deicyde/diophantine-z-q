@@ -161,7 +161,16 @@ The hypothesis is proved for the rational fibre `PK` (`conjTwist_of_rational`):
      3. use the `EffectiveEpi` of `X_{L'} → X` together with `L' ⊗_L L' ≅ ∏_{Gal(L'/L)} L'`,
         which splits the kernel pair into Galois translates.
    - Not formalized: steps 2 and 3 above, plus the bookkeeping that identifies `B_{K.val}` with
-     `(B_L)_{ℚ̄}` and semilinear maps with maps out of `^σB_L`.
+     `(B_L)_{ℚ̄}` and semilinear maps with maps out of `^σB_L`. A grep of Mathlib v4.35 found no
+     `L' ⊗_L L' ≅ ∏ L'` for Galois `L'/L`.
+   - **`GaloisDescentMor`** (`New.lean`, statement only, typechecked, unused) is the standard
+     theorem in the project's language. Hypotheses: `X` quasi-compact and quasi-separated, `Y`
+     locally of finite presentation over a number field `L ⊆ ℚ̄`. Claim: a `ℚ̄`-morphism
+     `X_ℚ̄ → Y_ℚ̄` fixed by `G4Conj.conj` through `G_L` is the base change of a unique `L`-morphism.
+     Sources: SGA 1 VIII; Stacks, fpqc descent; locators UNVERIFIED.
+     - Whoever formalizes `TwistDescent` should prove this first.
+     - The deduction `GaloisDescentMor ⟹ TwistDescent` is a model check (SPECULATIVE), not
+       compiled.
 2. **`MulIsogeny`** (mul-rigidity's open item). It reduces to the leaf `KerUnitOpen` (implied by
    `MulEtale`) or to two glue statements on the cotangent space at `0`.
 3. **FS5 `FibreComTrivial`** (g0-fibresimple). Unchanged: it is the only NoCM input
