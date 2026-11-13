@@ -458,6 +458,223 @@ theorem sphereInjAffine_proof : SphereInjAffine := by
     field_simp at h1 ⊢
     linear_combination -h1
 
+/-! ### `HolP1FactorHol` (proved) -/
+
+/-- **Removable singularity through a branched cover.** If `Ψ ∘ A = H` near `t₀` with `A, H`
+analytic, `A` not locally constant and `Ψ` continuous at `A t₀`, then `Ψ` is analytic at `A t₀`:
+off the (isolated) critical points `A` has an analytic local inverse, so `Ψ` is holomorphic on a
+punctured neighbourhood of `A t₀` (open mapping), and continuity removes the singularity. -/
+theorem core_removable {A H Ψ : ℂ → ℂ} {t0 : ℂ} (hA : AnalyticAt ℂ A t0) (hH : AnalyticAt ℂ H t0)
+    (hnc : ¬ ∀ᶠ t in 𝓝 t0, A t = A t0) (hΨ : ContinuousAt Ψ (A t0))
+    (hrel : ∀ᶠ t in 𝓝 t0, Ψ (A t) = H t) : AnalyticAt ℂ Ψ (A t0) := by
+  -- critical points of `A` are isolated
+  have hd : ∀ᶠ t in 𝓝[≠] t0, deriv A t ≠ 0 := by
+    rcases hA.deriv.eventually_eq_zero_or_eventually_ne_zero with h | h
+    · exfalso
+      apply hnc
+      obtain ⟨r, hr, hb⟩ := Metric.eventually_nhds_iff_ball.mp (h.and hA.eventually_analyticAt)
+      filter_upwards [Metric.ball_mem_nhds t0 hr] with t ht
+      exact Metric.isOpen_ball.is_const_of_deriv_eq_zero (convex_ball t0 r).isPreconnected
+        (fun y hy => (hb y hy).2.differentiableAt.differentiableWithinAt)
+        (fun y hy => (hb y hy).1) ht (Metric.mem_ball_self hr)
+    · exact h
+  have hopen : 𝓝 (A t0) ≤ map A (𝓝 t0) :=
+    (hA.eventually_constant_or_nhds_le_map_nhds).resolve_left hnc
+  -- the good set
+  have hgood : ∀ᶠ t in 𝓝 t0, t ≠ t0 → AnalyticAt ℂ Ψ (A t) := by
+    have h1 := eventually_nhdsWithin_iff.mp hd
+    filter_upwards [h1, hrel.eventually_nhds, hH.eventually_analyticAt,
+      hA.eventually_analyticAt] with t ht hrt hHt hAt hne
+    have hcomp : AnalyticAt ℂ (Ψ ∘ A) t := hHt.congr (by
+      filter_upwards [hrt] with t' ht'; exact ht'.symm)
+    exact (analyticAt_comp_iff_of_deriv_ne_zero hAt (ht hne)).mp hcomp
+  obtain ⟨V, hV, hVgood⟩ := hgood.exists_mem
+  have hAV : A '' V ∈ 𝓝 (A t0) :=
+    hopen (Filter.mem_map.mpr (Filter.mem_of_superset hV (Set.subset_preimage_image A V)))
+  apply Complex.analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt _ hΨ
+  rw [eventually_nhdsWithin_iff]
+  filter_upwards [hAV] with s hs hs0
+  obtain ⟨t, htV, rfl⟩ := hs
+  have hne : t ≠ t0 := fun h => hs0 (by rw [h]; rfl)
+  exact (hVgood t htV hne).differentiableAt
+
+/-- `ℂ`-coordinate of a point of `P¹` (junk `0` at `∞`). -/
+def toC (x : OnePoint ℂ) : ℂ := x.elim 0 id
+/-- The coordinate of the chart at `∞` (`∞ ↦ 0`, `z ↦ 1/z`). -/
+def invC (x : OnePoint ℂ) : ℂ := x.elim 0 (fun z => z⁻¹)
+
+theorem toC_coe (z : ℂ) : toC (z : OnePoint ℂ) = z := rfl
+theorem invC_coe (z : ℂ) : invC (z : OnePoint ℂ) = z⁻¹ := rfl
+theorem invC_infty : invC OnePoint.infty = 0 := rfl
+
+theorem continuousAt_toC (z : ℂ) : ContinuousAt toC (z : OnePoint ℂ) := by
+  rw [← OnePoint.isOpenEmbedding_coe.continuousAt_iff]
+  exact continuousAt_id
+
+theorem continuousAt_invC_infty : ContinuousAt invC OnePoint.infty := by
+  unfold ContinuousAt
+  rw [invC_infty, OnePoint.nhds_infty_eq, Filter.tendsto_sup]
+  constructor
+  · rw [Filter.tendsto_map'_iff]
+    have : invC ∘ ((↑) : ℂ → OnePoint ℂ) = fun z => z⁻¹ := rfl
+    rw [this, Filter.coclosedCompact_eq_cocompact, ← Metric.cobounded_eq_cocompact]
+    exact Filter.tendsto_inv₀_cobounded
+  · rw [Filter.tendsto_pure_left]
+    intro s hs
+    rw [invC_infty]; exact mem_of_mem_nhds hs
+
+theorem chartInf_invC {x : OnePoint ℂ} (hx : x ≠ ((0 : ℂ) : OnePoint ℂ)) : chartInf (invC x) = x := by
+  induction x using OnePoint.rec with
+  | infty => simp [chartInf, invC_infty]
+  | coe z =>
+    have hz : z ≠ 0 := fun h => hx (by rw [h])
+    rw [invC_coe, chartInf, if_neg (inv_ne_zero hz), inv_inv]
+
+theorem invC_chartInf (w : ℂ) : invC (chartInf w) = w := by
+  by_cases hw : w = 0
+  · rw [hw]; simp [chartInf, invC_infty]
+  · rw [chartInf, if_neg hw, invC_coe, inv_inv]
+
+theorem continuous_chartInf : Continuous chartInf := by
+  rw [continuous_iff_continuousAt]
+  intro w
+  by_cases hw : w = 0
+  · rw [hw]
+    unfold ContinuousAt
+    have : chartInf 0 = OnePoint.infty := by simp [chartInf]
+    rw [this]
+    exact tendsto_ite_inv continuousAt_id rfl
+  · have hev : chartInf =ᶠ[𝓝 w] (fun w' => ((w'⁻¹ : ℂ) : OnePoint ℂ)) := by
+      filter_upwards [isOpen_ne.mem_nhds hw] with w' hw'
+      rw [chartInf, if_neg hw']
+    exact (OnePoint.continuous_coe.continuousAt.comp (continuousAt_inv₀ hw)).congr hev.symm
+
+theorem not_isOpen_singleton_P1 (x : OnePoint ℂ) : ¬ IsOpen ({x} : Set (OnePoint ℂ)) := by
+  induction x using OnePoint.rec with
+  | infty =>
+    intro h
+    rw [OnePoint.isOpen_iff_of_mem (Set.mem_singleton _)] at h
+    obtain ⟨-, h2⟩ := h
+    have : (OnePoint.some ⁻¹' ({OnePoint.infty} : Set (OnePoint ℂ)))ᶜ = (Set.univ : Set ℂ) := by
+      ext z; simp
+    rw [this] at h2
+    exact noncompact_univ ℂ h2
+  | coe z =>
+    intro h
+    have h2 : IsOpen (((↑) : ℂ → OnePoint ℂ) ⁻¹' {(z : OnePoint ℂ)}) :=
+      h.preimage OnePoint.continuous_coe
+    have : ((↑) : ℂ → OnePoint ℂ) ⁻¹' {(z : OnePoint ℂ)} = {z} := by
+      ext w; simp
+    rw [this] at h2
+    exact not_isOpen_singleton z h2
+
+/-- **`HolP1FactorHol` (proved).** -/
+theorem holP1FactorHol_proof : HolP1FactorHol := by
+  intro f h φ hf hh hsurj hφc hfac
+  have hnc : ∃ τ τ', f τ ≠ f τ' := by
+    obtain ⟨τ, hτ⟩ := hsurj ((0 : ℂ) : OnePoint ℂ)
+    obtain ⟨τ', hτ'⟩ := hsurj OnePoint.infty
+    exact ⟨τ, τ', by rw [hτ, hτ']; exact OnePoint.coe_ne_infty 0⟩
+  have hopen : IsOpenMap f := holP1OpenMap_proof f hf hnc
+  -- `f` is not locally constant anywhere
+  have hfnc : ∀ τ0 : UpperHalfPlane, ¬ ∀ᶠ τ in 𝓝 τ0, f τ = f τ0 := by
+    intro τ0 hc
+    obtain ⟨U, hU, hUo, hτU⟩ := eventually_nhds_iff.mp hc
+    have himg : f '' U = {f τ0} := by
+      ext x; constructor
+      · rintro ⟨τ, hτ, rfl⟩; exact hU τ hτ
+      · intro hx; rw [Set.mem_singleton_iff] at hx; exact ⟨τ0, hτU, hx.symm⟩
+    exact not_isOpen_singleton_P1 _ (himg ▸ hopen U hUo)
+  -- the key step, in a source chart `f = C ∘ A`
+  have key : ∀ (τ0 : UpperHalfPlane) (C : ℂ → OnePoint ℂ) (A : ℂ → ℂ),
+      ContinuousAt C (A τ0) → AnalyticAt ℂ A τ0 →
+      (∀ᶠ z in 𝓝 (τ0 : ℂ), ∀ hz : 0 < z.im, f ⟨z, hz⟩ = C (A z)) →
+      IsHolC1At (fun w => φ (C w)) (A τ0) := by
+    intro τ0 C A hC hA hfA
+    have hAnc : ¬ ∀ᶠ t in 𝓝 (τ0 : ℂ), A t = A τ0 := by
+      intro hc
+      apply hfnc τ0
+      rw [eventually_coe_iff]
+      filter_upwards [hc, hfA] with z hz hfz hzi
+      rw [hfz hzi, hz]
+      have := (hfA.self_of_nhds) τ0.im_pos
+      exact this.symm
+    have hΦ : ContinuousAt (fun w => φ (C w)) (A τ0) := hφc.continuousAt.comp hC
+    have hhA : ∀ᶠ z in 𝓝 (τ0 : ℂ), ∀ hz : 0 < z.im, h ⟨z, hz⟩ = φ (C (A z)) := by
+      filter_upwards [hfA] with z hz hzi
+      rw [hfac, hz hzi]
+    have hh0 : h τ0 = φ (C (A τ0)) := (hhA.self_of_nhds) τ0.im_pos
+    have him : ∀ᶠ z in 𝓝 (τ0 : ℂ), 0 < z.im :=
+      (isOpen_lt continuous_const Complex.continuous_im).mem_nhds τ0.im_pos
+    rcases hh τ0 with ⟨H, hH, hevH⟩ | ⟨H, hH, hH0, hevH⟩
+    · -- finite value
+      have hval : φ (C (A τ0)) = ((H τ0 : ℂ) : OnePoint ℂ) := by
+        rw [← hh0]; exact (hevH.self_of_nhds) τ0.im_pos
+      left
+      refine ⟨fun w => toC (φ (C w)), ?_, ?_⟩
+      · apply core_removable hA hH hAnc
+        · show ContinuousAt (toC ∘ fun w => φ (C w)) (A τ0)
+          apply ContinuousAt.comp _ hΦ
+          rw [hval]; exact continuousAt_toC _
+        · filter_upwards [hhA, hevH, him] with z hz hHz hzi
+          show toC (φ (C (A z))) = H z
+          rw [← hz hzi, hHz hzi, toC_coe]
+      · have hfin : ∀ᶠ w in 𝓝 (A τ0), φ (C w) ∈ Set.range ((↑) : ℂ → OnePoint ℂ) :=
+          hΦ (OnePoint.isOpen_range_coe.mem_nhds (by
+            show φ (C (A (τ0 : ℂ))) ∈ _
+            rw [hval]; exact ⟨_, rfl⟩))
+        filter_upwards [hfin] with w hw
+        obtain ⟨v, hv⟩ := hw
+        rw [← hv, toC_coe]
+    · -- the value `∞`
+      have hval : φ (C (A τ0)) = OnePoint.infty := by
+        rw [← hh0]
+        have := (hevH.self_of_nhds) τ0.im_pos
+        rw [this, if_pos hH0]
+      right
+      refine ⟨fun w => invC (φ (C w)), ?_, ?_, ?_⟩
+      · apply core_removable hA hH hAnc
+        · show ContinuousAt (invC ∘ fun w => φ (C w)) (A τ0)
+          apply ContinuousAt.comp _ hΦ
+          rw [hval]; exact continuousAt_invC_infty
+        · filter_upwards [hhA, hevH, him] with z hz hHz hzi
+          show invC (φ (C (A z))) = H z
+          rw [← hz hzi, hHz hzi]
+          exact invC_chartInf (H z)
+      · show invC (φ (C (A τ0))) = 0
+        rw [hval, invC_infty]
+      · have hne0 : ∀ᶠ w in 𝓝 (A τ0), φ (C w) ≠ ((0 : ℂ) : OnePoint ℂ) :=
+          hΦ (isOpen_ne.mem_nhds (by
+            show φ (C (A (τ0 : ℂ))) ≠ _
+            rw [hval]; exact (OnePoint.coe_ne_infty 0).symm))
+        filter_upwards [hne0] with w hw
+        exact (chartInf_invC hw).symm
+  refine ⟨fun z => ?_, ?_⟩
+  · obtain ⟨τ0, hτ0⟩ := hsurj (z : OnePoint ℂ)
+    rcases hf τ0 with ⟨G, hG, hevG⟩ | ⟨G, hG, hG0, hevG⟩
+    · have hGz : G τ0 = z := by
+        have := (hevG.self_of_nhds) τ0.im_pos
+        rw [show (⟨(τ0 : ℂ), τ0.im_pos⟩ : UpperHalfPlane) = τ0 from rfl, hτ0] at this
+        exact (OnePoint.coe_injective this).symm
+      have := key τ0 (↑) G OnePoint.continuous_coe.continuousAt hG hevG
+      rwa [hGz] at this
+    · exfalso
+      have := (hevG.self_of_nhds) τ0.im_pos
+      rw [show (⟨(τ0 : ℂ), τ0.im_pos⟩ : UpperHalfPlane) = τ0 from rfl, hτ0, if_pos hG0] at this
+      exact OnePoint.coe_ne_infty z this
+  · obtain ⟨τ0, hτ0⟩ := hsurj OnePoint.infty
+    rcases hf τ0 with ⟨G, hG, hevG⟩ | ⟨G, hG, hG0, hevG⟩
+    · exfalso
+      have := (hevG.self_of_nhds) τ0.im_pos
+      rw [show (⟨(τ0 : ℂ), τ0.im_pos⟩ : UpperHalfPlane) = τ0 from rfl, hτ0] at this
+      exact OnePoint.coe_ne_infty _ this.symm
+    · have := key τ0 chartInf G continuous_chartInf.continuousAt hG hevG
+      rwa [hG0] at this
+
+/-- **`SphereFactorAffine` (proved, from Mathlib alone).** -/
+theorem sphereFactorAffine_proof : SphereFactorAffine :=
+  sphereFactorAffine_of holP1OpenMap_proof holP1FactorHol_proof sphereInjAffine_proof
+
 /-- **`SphereFactorAffine` from `HolP1FactorHol` alone (proved).** -/
 theorem sphereFactorAffine_of'' (hB : HolP1FactorHol) : SphereFactorAffine :=
   sphereFactorAffine_of holP1OpenMap_proof hB sphereInjAffine_proof
@@ -467,4 +684,6 @@ end HSyn.G0Split.FibreQM.PeriodGlue
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereInjAffine_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_of''
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.holP1FactorHol_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.holP1OpenMap_proof

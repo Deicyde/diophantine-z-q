@@ -102,3 +102,13 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   GlueDescent.LeafSkolemNoether (kernel-proved), CMDescends, HolP1OpenMap, HolP1FactorHol,
   SphereInjAffine, ThetaModularity, GammaStarGen, ValenceBoundGammaStar, CPtsTransport.
   Axioms standard. (T11aRiemannEnd dropped: derived from T11aRiemannHom.)
+
+## SphereFactorAffine — PROVED (VERIFIED, run_sfa.txt: `sphereFactorAffine_proof`, axioms standard)
+- `holP1OpenMap_proof`: open mapping for P¹-valued holomorphic maps on ℍ (charts, identity theorem
+  on balls, clopen argument on connected ℍ, Mathlib `eventually_constant_or_nhds_le_map_nhds`).
+- `sphereInjAffine_proof`: f = φ|ℂ entire injective; z₁ with f'(z₁) ≠ 0; r = 1/dslope f z₁ entire,
+  r → G'(0) at ∞ (chart at ∞), Liouville (`apply_eq_of_tendsto_cocompact`) ⇒ f affine.
+- `holP1FactorHol_proof`: `core_removable` (removable singularity through a branched cover: local
+  analytic inverse off isolated critical points, `analyticAt_comp_iff_of_deriv_ne_zero`, open mapping,
+  `Complex.analyticAt_of_differentiable_on_punctured_nhds_of_continuousAt`); chart bookkeeping with
+  `toC`, `invC`, `continuous_chartInf`, `not_isOpen_singleton_P1`.
