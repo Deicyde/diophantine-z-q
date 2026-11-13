@@ -16,3 +16,11 @@
   along the iso stalk map of e, + Module.Flat.linearIndependent_one_tmul over the field κ(η));
   `bcCotBasis` (π^*∘b is an L'-basis; span from cotangentSpanBC); `extFracBasis` both sides,
   ψ(B s) = B' s; finrank = Nat.card (powersetCard I g) on both sides.
+- OmegaBC.lean (= HBCPrefix (now also verbatim Final.lean 1150-1163, `OmegaBaseChange`) + hbc_proof +
+  omega_proof.lean.part): VERIFIED (10:4x) `lake env lean` 0 errors, 0 sorry, 28 s; axioms standard for
+  `mem_of_forall_locSub` (Step A: v ∈ N if ∀ maximal P ∃ d ∉ P, d•v ∈ N), `exists_act` (elements of
+  𝒪_{𝒢,e(s)} act on ω through 𝒪_{S,s} = (𝓞_L)_s: t•(r•v) = p•v, t ∉ s, p ∉ s if r unit),
+  `omegaAt_bc_local` (Step B: v ∈ (ω_{𝒢'})_{s'} ⇒ ∃ d ∉ s', d•v ∈ 𝓞_{L'}·π^*((ω_𝒢)_{bO s'}); proof:
+  pullback_stalkGen at e'(s') ⇒ f'·w = G'^♯γ + u, u ∈ π^♯(I_{e(s)})𝒪; applying e'^♯ gives γ = 0),
+  **`omegaBaseChange_of_localization : OmegaLocalization → OmegaBaseChange`**.
+  New named Prop `OmegaLocalization` (one group model: ∀ s, ∀ v ∈ omegaAt s, ∃ d ∉ s, d•v ∈ omega).

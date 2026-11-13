@@ -373,4 +373,44 @@ theorem omegaAt_bc_local (he : IsMonBC 𝒢 𝒢' e) (s' : Spec (CommRingCat.of 
 
 end OmegaBC
 
+/-- **Glue `OmegaLocalization` (the local lattices of `ω_𝒢` are its localizations).** For a group
+model `𝒢` over `𝓞_L` and a point `s` of `Spec 𝓞_L`, every vector of `(ω_𝒢)_s = omegaAt s` has a
+multiple `d • v` with `d ∉ s` lying in `ω_𝒢 = ⋂_t omegaAt t`. True: `omegaAt s` is the stalk at `s`
+of the coherent conormal sheaf `e^*(I/I²)` (`I` the ideal of the unit section), and the global
+sections of a coherent sheaf on the Dedekind scheme `Spec 𝓞_L` localize to its stalks (a germ at
+`s` extends over an open `U ∋ s`; at the finitely many closed points outside `U` the local lattices
+are full and `𝒪_t`-stable, and a suitable `d ∈ 𝔭_t^k ∖ s` clears them). A statement about one group
+model; glue (not a literature leaf). STANDARD (Hartshorne II.5.x / EGA I 1.3, UNVERIFIED locators). -/
+def OmegaLocalization : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : Spec (CommRingCat.of (𝓞 L))) (v : 𝒢.cotangent),
+    v ∈ 𝒢.omegaAt s → ∃ d : 𝓞 L, d ∉ s.asIdeal ∧ d • v ∈ 𝒢.omega
+
+/-- **`OmegaBaseChange` from `OmegaLocalization`** (Steps A and B). -/
+theorem omegaBaseChange_of_localization (hloc : OmegaLocalization) : OmegaBaseChange := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢 𝒢' e he v hv
+  set N := Submodule.span (𝓞 L') (bcCot he '' 𝒢.omega)
+  apply mem_of_forall_locSub N v
+  intro P hP
+  haveI := hP.isPrime
+  let s' : Spec (CommRingCat.of (𝓞 L')) := ⟨P, hP.isPrime⟩
+  have hv' : v ∈ 𝒢'.omegaAt s' := by
+    rw [GroupModel.omega, Submodule.mem_iInf] at hv; exact hv s'
+  obtain ⟨d, hd, hdv⟩ := omegaAt_bc_local he s' v hv'
+  have hle : Submodule.span (𝓞 L') (bcCot he '' 𝒢.omegaAt (bO L L' s')) ≤ locSub P N := by
+    rw [Submodule.span_le]
+    rintro _ ⟨w, hw, rfl⟩
+    obtain ⟨c, hc, hcw⟩ := hloc K A L 𝒢 (bO L L' s') w hw
+    refine ⟨algebraMap (𝓞 L) (𝓞 L') c, fun h => hc h, ?_⟩
+    rw [← map_smulₛₗ]
+    exact Submodule.subset_span ⟨_, hcw, rfl⟩
+  obtain ⟨d₂, hd₂, hd₂v⟩ := hle hdv
+  exact ⟨d₂ * d, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim hd₂ hd, by rw [mul_smul]; exact hd₂v⟩
+
 end ZInQ.HeightBC
+
+#print axioms ZInQ.HeightBC.hodgeBCInjective
+#print axioms ZInQ.HeightBC.mem_of_forall_locSub
+#print axioms ZInQ.HeightBC.exists_act
+#print axioms ZInQ.HeightBC.omegaAt_bc_local
+#print axioms ZInQ.HeightBC.omegaBaseChange_of_localization

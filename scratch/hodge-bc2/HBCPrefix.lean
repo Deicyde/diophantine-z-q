@@ -1547,6 +1547,21 @@ def HodgeBCInjective : Prop :=
     (∀ v, v ≠ 0 → bcHodge he g v ≠ 0) ∧
       (Module.finrank L (𝒢.hodgeSpace g) = 1 ↔ Module.finrank L' (𝒢'.hodgeSpace g) = 1)
 
+/-- **Glue BC-omega (flat base change of `e*Ω¹`, the hard inclusion).** Every element of
+`ω_{𝒢'} = Γ(Spec 𝓞_{L'}, e'*Ω¹_{𝒢'/𝓞_{L'}})` is an `𝓞_{L'}`-combination of pull-backs
+`π^*η`, `η ∈ ω_𝒢`. True: `e*Ω¹_{𝒢/𝓞_L}` is locally free (`𝒢` smooth), its formation commutes with
+base change (EGA IV 16.4.5 / 17.2.5, UNVERIFIED locators), and for the projective `𝓞_L`-module
+`ω_𝒢`, `Γ(Spec 𝓞_{L'}, f^*ω̃) = 𝓞_{L'} ⊗ ω_𝒢`. The other inclusion is proved (`bcCot_omega`).
+A model review notes that this inclusion needs less: `e` is a closed immersion (`𝒢` separated),
+`omegaAt s` is the image of the stalk of the quasi-coherent conormal `e^*(I/I²)`, and
+`I'_{e'(s')} = I_{e(s)} · 𝒪_{𝒢',e'(s')}` for the base-changed section, so
+`d(a · π^*f) = e'^#(a) · π^*(df)`; smoothness is not used. STANDARD. -/
+def OmegaBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L') (e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G)
+    (he : IsMonBC 𝒢 𝒢' e), 𝒢'.omega ≤ Submodule.span (𝓞 L') (bcCot he '' 𝒢.omega)
+
 
 /-! # infra-stalks: `CotangentSpanBC` from the stalk of a fibre product -/
 
