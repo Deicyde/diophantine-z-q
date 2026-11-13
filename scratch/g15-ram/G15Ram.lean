@@ -787,6 +787,68 @@ theorem hilbertSerre_of_model (hM : LadicDVRModel p) : HilbertSerreLadic p := by
 
 end Bridge
 
+/-! ## §2e. The DVR model over `ℤ_p`: the arithmetic conjuncts are automatic -/
+
+section BridgeZp
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+instance perfectField_residueField_Zp (p : ℕ) [Fact p.Prime] :
+    PerfectField (ResidueField ℤ_[p]) :=
+  PerfectField.of_ringEquiv (K := ZMod p) PadicInt.residueField.symm
+
+/-- **Glue: the DVR model of a finite Galois `F ⊆ ℚ̄_p` over `ℤ_p`** (transport; Serre, *Corps
+locaux* II §2, IV §1). There is a DVR `B` (namely `𝓞_F`, the elements of norm `≤ 1`), finite,
+torsion-free, separable and Galois over `ℤ_p`, whose lower ramification groups
+`PkgI6.lowerRam ℤ_p B i` have the orders `ramCard F i` and are trivial only when `ramSet F i`
+fixes `F`. This is `LadicDVRModel` with `A = ℤ_p`; its other conjuncts are proved
+(`ladicDVRModel_of_Zp`). -/
+def LadicDVRModelZp (p : ℕ) [Fact p.Prime] : Prop :=
+  ∀ F : Fld p, IsFinGal F →
+    ∃ (B : Type) (_ : CommRing B) (_ : IsDomain B) (_ : IsDiscreteValuationRing B)
+      (_ : Algebra ℤ_[p] B) (_ : Module.Finite ℤ_[p] B) (_ : Module.IsTorsionFree ℤ_[p] B)
+      (_ : Algebra.IsSeparable (FractionRing ℤ_[p]) (FractionRing B))
+      (_ : IsGalois (FractionRing ℤ_[p]) (FractionRing B)),
+      (∀ i, Nat.card (PkgI6.lowerRam ℤ_[p] B i) = ramCard F i) ∧
+      (∀ i, PkgI6.lowerRam ℤ_[p] B i = ⊥ → ramSet F i ⊆ fixSet F)
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- **`LadicDVRModel` from its `ℤ_p` form (GLUE, proved).** `e(B/ℤ_p) = |G_0|`
+(t-different's `TDifferent.card_lowerRam_zero`), `(p) = 𝔪_{ℤ_p}` maps to `𝔪_B^e`
+(`TDifferent.map_maximalIdeal_eq_pow`), and integers prime to `p` are units of `ℤ_p`. -/
+theorem ladicDVRModel_of_Zp (h : LadicDVRModelZp p) : LadicDVRModel p := by
+  intro F hF
+  obtain ⟨B, _, _, _, _, _, _, _, _, hcard, hbot⟩ := h F hF
+  have : IsGaloisGroup (B ≃ₐ[ℤ_[p]] B) ℤ_[p] B := TDifferent.isGaloisGroup_algEquiv ℤ_[p] B
+  have : Finite (B ≃ₐ[ℤ_[p]] B) := TDifferent.finite_algEquiv ℤ_[p] B
+  have : PerfectField (maximalIdeal ℤ_[p]).ResidueField :=
+    PerfectField.of_ringEquiv (K := ResidueField ℤ_[p])
+      (RingEquiv.ofBijective
+        (algebraMap (ℤ_[p] ⧸ maximalIdeal ℤ_[p]) (maximalIdeal ℤ_[p]).ResidueField :
+          ResidueField ℤ_[p] →+* _)
+        (maximalIdeal ℤ_[p]).bijective_algebraMap_quotient_residueField)
+  have : Algebra.HasSeparableResidueFieldsAt ℤ_[p] B (maximalIdeal ℤ_[p]) := inferInstance
+  have he : Ideal.ramificationIdx (maximalIdeal B) ℤ_[p] = ramCard F 0 := by
+    rw [← TDifferent.card_lowerRam_zero ℤ_[p] B, hcard 0]
+  refine ⟨ℤ_[p], B, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
+    inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
+    inferInstance, inferInstance, hcard, hbot, he, ?_, ?_⟩
+  · have hmap := TDifferent.map_maximalIdeal_eq_pow ℤ_[p] B
+    rw [PadicInt.maximalIdeal_eq_span_p, Ideal.map_span, Set.image_singleton, map_natCast,
+      he] at hmap
+    exact hmap
+  · intro n hn
+    have hu : IsUnit (n : ℤ_[p]) := by
+      rw [PadicInt.isUnit_iff, PadicInt.norm_natCast_eq_one_iff]
+      exact (Nat.Prime.coprime_iff_not_dvd Fact.out).mpr hn
+    have := hu.map (algebraMap ℤ_[p] B)
+    rwa [map_natCast] at this
+
+end BridgeZp
+
 /-! ## §3. The reduction (proved) -/
 
 section Reduction
@@ -881,6 +943,17 @@ theorem g15RamG_of_dvrModel
     G15RamG D u :=
   g15RamG_of_model hM (fun p _ => wildFixTame) D u h5 h3 h11₅ h11₃
 
+/-- **`G15RamG` from the `ℤ_p`-model of finite Galois `F ⊆ ℚ̄_p` (GLUE, proved).** -/
+theorem g15RamG_of_zpModel
+    (hM : ∀ (p : ℕ) [Fact p.Prime], LadicDVRModelZp p)
+    {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L} (D : ModData L A) (u : ℚ)
+    (h5 : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalData p ⟨hp⟩ 5 _ D.r5)
+    (h3 : LocalData 5 D.r3)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_dvrModel (fun p _ => ladicDVRModel_of_Zp (hM p)) D u h5 h3 h11₅ h11₃
+
 end Reduction
 
 end G15Ram
@@ -893,3 +966,5 @@ end G15Ram
 #print axioms G15Ram.g15RamG_of_model
 #print axioms G15Ram.wildFixTame
 #print axioms G15Ram.g15RamG_of_dvrModel
+#print axioms G15Ram.ladicDVRModel_of_Zp
+#print axioms G15Ram.g15RamG_of_zpModel
