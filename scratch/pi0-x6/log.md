@@ -79,3 +79,8 @@ information: Galois action on the geometric components. Inputs:
   over0, overInf, descend), `subsingleton_components_of_bundle` and
   `r1pi0Props_of_bundle : R5ptProps X Ψ → R5fpCount → R2X6CMExact Ψ π₆ → AGInputs π₆ →
   GeometricallyConnected X.hom`.
+- L7 (VERIFIED, compiled, `Pi0X6.lean`, 0 errors, 0 warnings; 9 audited declarations, standard
+  axioms only): Galois compatibility of components PROVED: `galXbar σ := pullback.map … (𝟙)
+  (Spec σ⁻¹)` on `X_ℚ̄`, `secOf_comp`, `ptOf_galPt : ptOf (σ·x) = galXbar σ (ptOf x)`,
+  `compOf_galois` (via `Continuous.connectedComponentsMap_mk`). `AGInputs` reduced to `over0`,
+  `overInf`, `descend`.

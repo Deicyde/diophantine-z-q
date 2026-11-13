@@ -4,6 +4,7 @@ import Mathlib.NumberTheory.NumberField.Cyclotomic.Basic
 import Mathlib.NumberTheory.NumberField.Cyclotomic.Embeddings
 import Mathlib.NumberTheory.NumberField.Cyclotomic.PID
 import Mathlib.NumberTheory.Zsqrtd.QuadraticReciprocity
+import Mathlib.Topology.Connected.TotallyDisconnected
 
 /-!
 # pi0-x6: `π₀(X₆) = 1` from the bundle's clauses, modulo exact CM and algebraic geometry
@@ -687,30 +688,91 @@ def R2X6CMExact (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π�
     (π₆.val (K := Qbar) x.left = OnePoint.infty ↔ Nonempty (com P.q ≃+* R3))
 
 /-- `X_ℚ̄ = X ×_ℚ Spec ℚ̄`. -/
-def Xbar (X : Over (Spec (CommRingCat.of ℚ))) : Scheme :=
+abbrev Xbar (X : Over (Spec (CommRingCat.of ℚ))) : Scheme :=
   pullback X.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
 
-/-- The point of `X_ℚ̄` of a `ℚ̄`-point `x` of `X` (the image of the section `(x, id)`). -/
+/-- The section `Spec ℚ̄ → X_ℚ̄` of a morphism `y : Spec ℚ̄ → X` over `ℚ`. -/
+def secOf (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    Spec (CommRingCat.of Qbar) ⟶ Xbar X :=
+  pullback.lift y (𝟙 _) (by rw [w, Category.id_comp])
+
+/-- The point of `Spec ℚ̄`. -/
+def ptQ : Spec (CommRingCat.of Qbar) := (IsLocalRing.closedPoint Qbar : PrimeSpectrum Qbar)
+
+/-- The point of `X_ℚ̄` of a `ℚ̄`-point `x` (the image of the section `(x, id)`). -/
 def ptOf (x : fieldPt Qbar ⟶ X) : Xbar X :=
-  pullback.lift x.left (𝟙 _) ((Over.w x).trans (Category.id_comp _).symm)
-    (IsLocalRing.closedPoint Qbar)
+  secOf x.left (Over.w x) ptQ
 
 /-- The connected component of `X_ℚ̄` containing the point of `x`. -/
 def compOf (x : fieldPt Qbar ⟶ X) : _root_.ConnectedComponents (Xbar X) :=
   _root_.ConnectedComponents.mk (ptOf x)
 
+/-- `σ ∈ Aut(ℚ̄/ℚ)` acting on `X_ℚ̄ = X ×_ℚ Spec ℚ̄` through the second factor (`id × Spec σ⁻¹`). -/
+def galXbar (σ : Qbar ≃ₐ[ℚ] Qbar) : Xbar X ⟶ Xbar X :=
+  pullback.map X.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) X.hom
+    (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) (𝟙 _)
+    (Spec.map (CommRingCat.ofHom ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar))) (𝟙 _)
+    (by simp) (by
+      rw [Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+      congr 2
+      ext q
+      simp)
+
+theorem specMap_sigma_comp_symm (σ : Qbar ≃ₐ[ℚ] Qbar) :
+    Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫
+      Spec.map (CommRingCat.ofHom ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) = 𝟙 _ := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  have : ((σ : Qbar →+* Qbar)).comp ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar) =
+      RingHom.id Qbar := by
+    ext q; simp
+  rw [this]
+  exact Spec.map_id _
+
+theorem secOf_comp (σ : Qbar ≃ₐ[ℚ] Qbar) (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+    (w' : (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) ≫ X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    secOf (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) w' =
+      Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ secOf y w ≫ galXbar σ := by
+  apply pullback.hom_ext
+  · simp only [secOf, galXbar, Category.assoc, pullback.lift_fst, pullback.map,
+      Category.comp_id]
+  · simp only [secOf, galXbar, Category.assoc, pullback.lift_snd, pullback.lift_snd_assoc,
+      pullback.map, Category.id_comp]
+    rw [specMap_sigma_comp_symm]
+
+theorem secOf_galois_apply (σ : Qbar ≃ₐ[ℚ] Qbar) (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+    (w' : (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) ≫ X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    secOf (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) w'
+        ptQ =
+      galXbar σ (secOf y w ptQ) := by
+  rw [secOf_comp σ y w w', Scheme.Hom.comp_apply, Scheme.Hom.comp_apply]
+  congr 2
+  exact Subsingleton.elim _ _
+
+/-- **The Galois action on `X(ℚ̄)` is the action on `X_ℚ̄`**: `pt(σ · x) = galXbar σ (pt x)`. -/
+theorem ptOf_galPt (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) :
+    ptOf (galPt σ x) = galXbar σ (ptOf x) :=
+  secOf_galois_apply σ x.left (Over.w x) (Over.w (galPt σ x))
+
+theorem compOf_galois (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X)
+    (h : compOf x = compOf x') : compOf (galPt σ x) = compOf (galPt σ x') := by
+  unfold compOf at *
+  rw [ptOf_galPt, ptOf_galPt, ← (galXbar σ).continuous.connectedComponentsMap_mk,
+    ← (galXbar σ).continuous.connectedComponentsMap_mk, h]
+
 /-- **The algebraic-geometry inputs (input (d) of docs/research/pi0-x6.md §2; glue, NOT proved,
 Mathlib v4.35 lacks the theory).** For `X₆` with `π₆`:
-(i) `Aut(ℚ̄/ℚ)` permutes the components of `X_ℚ̄` compatibly with `x ↦ x ∘ Spec σ` (it acts on
-`X_ℚ̄` by `id × Spec σ`);
-(ii)-(iii) every connected component of `X_ℚ̄` contains a `ℚ̄`-point over `0` and one over `∞`
+(the Galois compatibility of components is NOT an input: it is proved, `compOf_galois`);
+(i)-(ii) every connected component of `X_ℚ̄` contains a `ℚ̄`-point over `0` and one over `∞`
 (components are smooth proper irreducible curves over `ℚ̄`; `π₆` is nonconstant on each since its
 fibres are finite twist orbits, `Aut(𝒪)/Inn(𝒪^×) ≅ (ℤ/2)²`; the image is closed, irreducible, not
 a point, hence `P¹`; closed points are `ℚ̄`-points);
-(iv) connected over `ℚ̄` implies geometrically connected (Stacks, Varieties; UNVERIFIED tag). -/
+(iii) connected over `ℚ̄` implies geometrically connected (Stacks, Varieties; UNVERIFIED tag). -/
 structure AGInputs (π₆ : ToP1 X.left) : Prop where
-  galois : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X), compOf x = compOf x' →
-    compOf (galPt σ x) = compOf (galPt σ x')
   over0 : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ x : fieldPt Qbar ⟶ X,
     compOf x = t ∧ π₆.val (K := Qbar) x.left = OnePoint.some 0
   overInf : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ y : fieldPt Qbar ⟶ X,
@@ -728,7 +790,7 @@ theorem subsingleton_components_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotien
     K3 finrank_K3 R3 le_rfl (by rw [conductor_R3]; norm_num) inertCount6_K3 pic_R3
     (2 * IsCyclotomicExtension.zeta 3 ℚ K3 + 1) sqrt3_sq
     (fun x P hP h0 => ((hex x P hP).1).1 h0) (fun x P hP hi => ((hex x P hP).2).1 hi)
-    compOf hag.galois hag.over0 hag.overInf
+    compOf compOf_galois hag.over0 hag.overInf
 
 /-- **The clause `R1pi0Props X` (`GeometricallyConnected X.hom`) from `R5ptProps`, `R5fpCount`,
 `R2X6CMExact` and `AGInputs`.** -/
@@ -749,3 +811,4 @@ end Pi0X6
 #print axioms Pi0X6.pic_R3
 #print axioms Pi0X6.subsingleton_components_of_bundle
 #print axioms Pi0X6.r1pi0Props_of_bundle
+#print axioms Pi0X6.compOf_galois
