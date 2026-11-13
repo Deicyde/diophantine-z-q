@@ -22,3 +22,9 @@
 - `#print axioms` for `belyiX1_of_leaves`, `x1ModelExists_of_leaves`, `finrank_fieldX1_le`:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
 - 23:25 T2 hypothesis on Δ strengthened to `¬p∣b ∧ ¬p∣c` (Δ a p-adic unit, explicit); bundle `X1Leaves`, `x1ModelExists_and_belyiX1`, `modCurveLeaves_of`: compile, axioms standard. VERIFIED.
+- 23:30 `divpoly_check.py` (PARI, `elldivpol`), E_j = Mathlib `ofJNe0Or1728 j`: disc E = j²(j−1728)⁹;
+  the polynomial of x-coordinates of points of exact order N, N = 2..7, is irreducible over ℚ(j) of
+  degree 3, 4, 6, 12, 12, 24 (= μ = [SL₂(ℤ) : ±Γ₁(N)] for N = 3..7, ≤ N²), and its x-discriminant
+  is supported on {j, j − 1728} (times a constant). So for N ≤ 7, ℚ(j)(x(P))/ℚ(j) is unramified
+  over every finite place of ℚ[j] other than j = 0, 1728 (étale algebra criterion), consistent with
+  leaf T2 and with the degree bound. VERIFIED (computed), N ≤ 7 only.
