@@ -1,3 +1,11 @@
+import ZInQKernel.HDecomp.ModCurves.Glue
+import ZInQKernel.HDecomp.I3Linalg.C2
+import ZInQKernel.HDecomp.I3Linalg.RhoCont
+import ZInQKernel.HDecomp.I3Linalg.TateBC
+import ZInQKernel.HDecomp.Conductor.Level
+import ZInQKernel.HDecomp.Assembly
+import ZInQKernel.HDecomp.C10.Link
+import ZInQKernel.Main
 import ZInQKernel.HDecomp.Descent.B3Assembly
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.Numerics
@@ -14,10 +22,6 @@ import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Progressions.Final.Instance
 import ZInQKernel.Size.Constants.T
 import ZInQKernel.HDecomp.I3Linalg.RhoCont
-import ZInQKernel.HDecomp.ModCurves.Glue
-import ZInQKernel.HDecomp.I3Linalg.TateBC
-import ZInQKernel.HDecomp.Conductor.Level
-import ZInQKernel.HDecomp.C10.Link
 
 /-! Copied from scratch/c9-rhof/C9.lean (compiled there), lines 4-632. -/
 section C9Copy

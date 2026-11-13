@@ -34,7 +34,13 @@ both fixed.
 **What compiles (VERIFIED).** `scratch/frob-trace/FrobTrace.lean` (`build.sh`: verbatim copies of
 `scratch/unram-tate/TateBridge.lean` and `scratch/g14-trace/part_bridge.lean`, plus
 `part_frob.lean`): exit 0, no `sorry`, all 26 `#print axioms` standard.
-COMPOSITE_PLACEHOLDER
+`scratch/frob-trace/FrobTraceAll.lean` (`build_all.sh`) adds verbatim copies of g14-trace's
+`G14Trace.lean` parts to the same environment. It also compiles with exit 0, no `sorry` and all
+58 axiom prints standard (it needs `lake build ZInQKernel.Main` first). It proves
+`FrobTraceCompose.g12Spec_g14_of_G7Data`: from G7's data, the leaves I3.M0 and T7, the glue
+`AlgFrobRed` and `DirichletOfFinite`, and G8-G12 (as hypotheses, in g0-mod-galois' shapes),
+it gives data `D` with `G12Spec D ∧ G14TraceCompat D`. This composes `TateBridge35` with
+g14-trace's consumer, which g14-trace had left in two separate files.
 
 **What remains.** The glue `AlgFrobRed`, i.e. reduction of PkgI3 abelian varieties. Proving it
 from I2-Red and I2-NMP needs spreading out, a PkgI3↔PkgI2 points translation, the reduction map

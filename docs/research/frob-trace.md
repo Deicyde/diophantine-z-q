@@ -146,6 +146,32 @@ Notation: `σ' = gτg⁻¹` is an arithmetic Frobenius at `v' = g(v)`, and `w = 
   - absolute Frobenius on points.
 
   None of this was attempted.
-- Not composed here: `G14Trace.g12Spec_g14_of_linked` (g14-trace's `G14Trace.lean`) and this
-  file are separate environments. As in g14-trace, `G14Bridge.FrobTraceLink` and
-  `G14Trace.FrobTraceLink` match by identical text only.
+- **Composite with g14-trace (VERIFIED).** `scratch/frob-trace/FrobTraceAll.lean` is one
+  environment. `build_all.sh` assembles it from:
+  - verbatim copies of g14-trace's `G14Trace.lean` parts (`*_g14.lean`, `cmp`-identical to
+    `scratch/g14-trace/{part_c9_src,part_e1_src,part_new,part_g14}.lean`);
+  - this task's parts;
+  - `part_compose.lean`.
+
+  It needs `lake build ZInQKernel.Main` first. It compiles with exit 0 and no `sorry`, in about
+  2 min, and all 58 axiom prints are standard. New theorem:
+
+  ```
+  theorem FrobTraceCompose.g12Spec_g14_of_G7Data (hT : PkgI3.TateModuleFree)
+      (hR : FrobTrace.AlgFrobRed) (hDF : G0ModNewform.DirichletOfFinite)
+      (hM : PkgI3.CharPolyIndepOfEll) ... (hD : G7Data u P L A ε N χ β L' hLL') (hdim) (hrk)
+      (hG5 : ∀ Tm c e a b uu, G14Trace.G7Out A' 5 Tm c e a b uu →
+        ∃ r5, GalG8Out A' 5 (rho Tm a b) r5 ∧ GalG12Out r5)
+      (hG3 : ∀ Tm c e a b uu, G14Trace.G7Out A' 3 Tm c e a b uu →
+        ∃ r3, GalG8Out A' 3 (rho Tm a b) r3) :
+      ∃ r5 r3 (D : ModData L' A'), D.r5 = r5 ∧ D.r3 = r3 ∧ G12Spec D ∧ G14TraceCompat D
+  ```
+
+  Here `A'` is `A` base-changed to `L'`. `hG5` and `hG3` are G8-G12 in the shapes of
+  g0-mod-galois' `g8_g12` and `g8_g11`. So from G7's data, G14's two conjuncts (`G12Spec` and
+  `G14TraceCompat`) now rest on the leaves I3.M0 and T7, the glue `AlgFrobRed` and
+  `DirichletOfFinite`, and G8-G12.
+
+  The two copies of `G7Out`, `Vb`, `resQ`, `tate` and `FrobTraceLink` (g0-mod-field's
+  `GaloisCopy`/`G14Bridge` and g0-mod-newform's/g14-trace's) are identified by unfolding, with
+  no conversion lemma. This closes the "two files, not composed" item of g14-trace §5.
