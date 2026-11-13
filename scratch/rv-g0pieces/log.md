@@ -35,3 +35,26 @@ Base: wip/rv-g0pieces (883c4ddf) + `git merge origin/wip/g0-split` (c20fa62b): t
   `Φ ∘ τ` satisfies `R1fpProps`; `R2fpProps` survives if `s` maps π-fibres to π-fibres (over
   rational points: needs the two fibres ℚ-isomorphic as finite étale schemes) and fixes the CM fibres.
   So g0-split §3's "these clauses pin down Y₃ and the Hauptmodul" is false for `Φ`.
+
+## Compile outcomes (VERIFIED)
+- run1 `lake env lean scratch/rv-g0pieces/Exotic.lean` (Split.lean 1-15140 + section `RvG0Pieces`):
+  0 errors, 4m09s; `#print axioms LeafQM.AV.r1r2_relabel` = `[propext, Classical.choice, Quot.sound]`.
+- `ExoticCore.lean` (Mathlib only; copies of `specToEquivOfField_comp`, `fieldPt`, `fieldMap`):
+  first run unterminated comment / missing `end` (assembly slips), then 0 errors;
+  `relabelOver_natural`, `relabelPt_point` standard axioms.
+- run2 `Exotic.lean` with section `RvG0Exotic` added (non-geometric relabeling `relabelPt`,
+  `relabelPt_bijective`, `relabelPt_comp`, `relabelPt_point`, `relabelOver`, `relabelOver_natural`,
+  `r1fp_exotic`): 0 errors, 2m05s; `r1r2_relabel`, `r1fp_exotic`, `relabelPt_point` standard axioms
+  (`exotic_run2.summary.txt`).
+
+## Statements compiled
+- `r1fp_relabel : R1fpProps Y Φ → IsNaturalRelabel Y τ → R1fpProps Y (relabel Φ τ)`.
+- `r2fp_relabel`: R2fp preserved if τ maps π-fibres of ℚ̄-points to π-fibres and fixes the CM fibres.
+- `r1fp_exotic (h : R1fpProps Y Φ) (s : Y.left ≃ Y.left) (φ : ∀ x, κ(s x) ≅ κ(x)) :
+  R1fpProps Y (relabel Φ (relabelOver Y s φ))`; `relabelPt_point`: τ moves the point of y to s(point).
+
+## Verdicts (see docs/research/rv-g0pieces.md)
+UNSURE (universal form; TRUE for the genuine triple): ThetaPointOfFibre, FibreSimple.
+TRUE given Glazer §4 (universal form likely robust, SPECULATIVE): ModularConstituent.
+TRUE: HeightAdditivity, StableHeightBaseChange, ReverseIsogeny, ProductExists, X1BelyiOnModel,
+DimBaseChange, DimFinite. No piece refuted.

@@ -14,8 +14,8 @@ stated, they cannot be proved from the leaves.** `FibreSimple`, `ThetaPointOfFib
 `R2fpProps Y Φ π`. g0-split justified this with "these clauses pin down `Y₃` and the
 Hauptmodul" (g0-split.md §3). That is **false for `Φ`**. `R1fpProps` asks only that `Φ` be
 natural under field homomorphisms. Composing `Φ` with a natural, non-geometric relabeling `τ`
-of the field points of `Y` keeps both clause lists (the Lean half is compiled in
-`Exotic.lean`, §3). Such a `τ` can move the points over `J(u)` to the points over another
+of the field points of `Y` keeps both clause lists (compiled in `Exotic.lean`:
+`r1fp_exotic`, `r1r2_relabel`; §3). Such a `τ` can move the points over `J(u)` to the points over another
 rational value of `π`, provided the two fibres are isomorphic as finite étale `ℚ`-schemes.
 
 - For the genuine triple, all three pieces are true. The arguments are below.
@@ -229,7 +229,7 @@ are stated for arbitrary fields and remain true there.
 
 ## 3. The relabeling argument (where the three UNSURE verdicts come from)
 
-**Construction (VERIFIED by argument).** A field point `y : Spec K → Y` over `ℚ` is a pair
+**Construction (VERIFIED, compiled).** A field point `y : Spec K → Y` over `ℚ` is a pair
 `(x, ι : κ(x) → K)` (`Scheme.SpecToEquivOfField`). Take:
 
 - a bijection `s` of the closed points of `Y`;
@@ -237,7 +237,18 @@ are stated for arbitrary fields and remain true there.
 
 Put `τ_K(x, ι) = (s x, ι ∘ φ_x)`. Then `τ` is a bijection, natural in `K`: post-composition
 with `f : K → L` commutes with it (`specToEquivOfField_comp` in the file). `τ` comes from a
-morphism of schemes only if `s` and `φ` do.
+morphism of schemes only if `s` and `φ` do; nothing asks `s` to be continuous.
+
+`Exotic.lean`, section `RvG0Exotic`, compiles this construction:
+
+- `relabelPt` and `relabelPt_bijective`;
+- `relabelPt_comp` (naturality);
+- `relabelPt_point` (the point of `τ y` is `s` of the point of `y`);
+- `relabelOver` and `relabelOver_natural` (on `fieldPt K ⟶ Y`; any two maps `Spec K → Spec ℚ`
+  agree);
+- `r1fp_exotic`: for every `(Y, Φ)` with `R1fpProps`, every bijection `s` of the points of `Y`
+  and every family of residue-field isomorphisms, `relabel Φ (relabelOver Y s φ)` again
+  satisfies `R1fpProps`.
 
 **Effect on the clause lists (VERIFIED, compiled).** In `scratch/rv-g0pieces/Exotic.lean`,
 `relabel Φ τ` is `τ` followed by `Φ`. Three lemmas are proved:
@@ -247,7 +258,9 @@ morphism of schemes only if `s` and `φ` do.
   fixes the three CM fibres;
 - `r1r2_relabel`: both together.
 
-The file is Split.lean lines 1-15140 (through `R2fpProps`) followed by the new section.
+The file is Split.lean lines 1-15140 (through `R2fpProps`) followed by the two new sections.
+Not compiled: the arithmetic input, i.e. a pair of `ℚ`-isomorphic rational fibres of `Y₃ → P¹`
+with different properties.
 
 **When `τ` can move a fibre.** `τ` is natural, hence Galois-equivariant on `ℚ̄`-points. So the
 image of the fibre over a rational point is a Galois-stable geometric fibre, i.e. a fibre over a
@@ -284,7 +297,11 @@ The other seven pieces do not mention `(Y, Φ, π)`.
 
 ## 5. Lean outcomes
 
-- `scratch/rv-g0pieces/Exotic.lean` (15228 lines: Split.lean 1-15140 plus the
-  `RvG0Pieces` section): COMPILE RESULT recorded in `log.md` (run1).
+- `scratch/rv-g0pieces/Exotic.lean` (Split.lean 1-15140 plus sections `RvG0Pieces` and
+  `RvG0Exotic`) gives **0 errors** (`lake env lean`, 2m05s, run2). `#print axioms` of
+  `LeafQM.AV.r1r2_relabel`, `r1fp_exotic` and `relabelPt_point` is
+  `[propext, Classical.choice, Quot.sound]`.
+- `scratch/rv-g0pieces/ExoticCore.lean` (Mathlib only) is a fast test copy of the `RvG0Exotic`
+  core. It gives 0 errors.
 - No other Lean was needed: no piece is false in a way that a small Lean counterexample could
   exhibit. A vacuity witness is not meaningful here, because a vacuously true piece is harmless.
