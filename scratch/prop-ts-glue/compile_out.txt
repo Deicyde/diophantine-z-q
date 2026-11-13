@@ -50,6 +50,30 @@ scratch/prop-ts-glue/PropTSGlue.lean:1317:27: warning: `if_neg` has been depreca
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1455:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1489:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1489:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1491:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1493:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1494:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
 'PropTSGlue.regular_dim2_intPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.zxMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.not_dvd_den_of_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -59,6 +83,8 @@ Hint: Replace the deprecated name:
 'PropTSGlue.coeff_X_pow_sub_C_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.kummerMeetFin_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.kummerMeetGlue_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetInf_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetGlue_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHeckeN_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHecke_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.propTSAll_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]

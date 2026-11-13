@@ -448,6 +448,155 @@ theorem kummerMeetGlue_of_pieces (hC : KummerCompositum) (hA : KummerAbhyankarFi
     (hI : PkgI2.AbhyankarDVR.{0} → KummerMeetInf) : KummerMeetGlue :=
   fun t2 => kummerMeet_of_cases (kummerMeetFin_of_pieces hC (hA t2) hO hVF) (hI t2)
 
+
+/-! ### The case at `∞` -/
+
+/-- **Glue from T2 (Abhyankar's lemma), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`
+(`c ≠ 0`) and every prime of the integral closure of `ℚ[1/X]` in `E` over `1/X` has ramification
+index dividing `n`, then `E'/ℚ(s)` is unramified over `s = 0`. Proof: T2 for the DVR
+`ℚ[1/X]_(1/X)` with uniformizer `c · (1/X) = s^n`, and multiplicativity of `e`. -/
+def KummerAbhyankarInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rInf c n) →
+    (letI := infAlg E
+      ∀ Q : Ideal (integralClosure InfCoord E), Q.IsPrime →
+        Q.under InfCoord = Ideal.span {infUnif} → Q.ramificationIdx InfCoord ∣ n) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.under ℚ[X] = Ideal.span {X} →
+      Q'.ramificationIdx ℚ[X] = 1
+
+/-- `KummerAbhyankarInf` is glue whose proof uses the bundle leaf T2. -/
+def KummerAbhyankarInfGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerAbhyankarInf
+
+/-- **Glue (ramification in a compositum), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`
+and `E/ℚ(X)` is unramified over every finite prime other than the `X − b'` (`b' ∈ S`), then a
+ramified prime of `E'/ℚ(s)` lies over `s = 0` or contains `b' s^n − c` for some `b' ∈ S ∖ {0}`.
+Proof: `ℚ(s)/ℚ(X)` ramifies only over `X = ∞` (`s = 0`) and `X = 0` (`s = ∞`, not a prime of
+`ℚ[s]`); over `s = α ≠ 0` the point `X = c/α^n` is finite and nonzero, and the compositum is
+ramified there only if `E` is, i.e. `c/α^n = b' ∈ S`. -/
+def KummerOtherBranchInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rInf c n) →
+    ∀ S : Finset ℚ,
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime →
+      (∀ b' ∈ S, Q.under ℚ[X] ≠ Ideal.span {X - C b'}) → Q.ramificationIdx ℚ[X] = 1) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.ramificationIdx ℚ[X] ≠ 1 →
+      Q'.under ℚ[X] = Ideal.span {X} ∨
+        ∃ b' ∈ S, b' ≠ 0 ∧ C b' * X ^ n - C c ∈ Q'.under ℚ[X]
+
+/-- **Glue (Gauss valuation), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`, `0 < n < p`,
+`c` a `p`-unit, `[E : ℚ(X)] < p`, and `E` has no vertical ramification at `p`, then neither has
+`E'`. Proof: for `f ∈ ℤ_(p)[X]` primitive of degree `d`, `s^{nd} f(c/s^n) ∈ ℤ_(p)[s]` is primitive
+(the substitution is injective mod `p`), so the Gauss valuation of `ℚ(s)` restricts to that of
+`ℚ(X)`, with `e = 1` and residue extension separable of degree `n < p`; then as in
+`KummerVerticalFin`. -/
+def KummerVerticalInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ) (p : ℕ), p.Prime → 0 < n → n < p →
+    Module.finrank (RatFunc ℚ) E < p → c ≠ 0 → padicValRat p c = 0 →
+    KummerShape E E' ι (rInf c n) → NoVerticalRam E p → NoVerticalRam E' p
+
+/-- **`KummerMeetInf` from the four pieces** (compiled; `t = p^{−M} u`, `c = u^{1−n}`,
+`s₀ = p^{M/n} / u`, so `c / s₀^n = t`). -/
+theorem kummerMeetInf_of_pieces (hC : KummerCompositum) (hA : KummerAbhyankarInf)
+    (hO : KummerOtherBranchInf) (hVI : KummerVerticalInf) : KummerMeetInf := by
+  intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+  have : Fact p.Prime := ⟨hp⟩
+  have ht0 : t ≠ 0 := by
+    rintro rfl
+    simp at hm
+  set M : ℕ := (-padicValRat p t).toNat with hMdef
+  have hM : padicValRat p t = -(M : ℤ) := by rw [hMdef]; omega
+  obtain ⟨k, hk⟩ : nInf ∣ M := hinf
+  have hp0 : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  set u : ℚ := t * (p : ℚ) ^ M with hu
+  have hu0 : u ≠ 0 := mul_ne_zero ht0 (pow_ne_zero _ hp0)
+  have hvu : padicValRat p u = 0 := by
+    rw [hu, padicValRat.mul ht0 (pow_ne_zero _ hp0), padicValRat.pow, padicValRat.self hp.one_lt,
+      hM]
+    ring
+  set c : ℚ := (u ^ (nInf - 1))⁻¹ with hc
+  have hc0 : c ≠ 0 := inv_ne_zero (pow_ne_zero _ hu0)
+  have hvc : padicValRat p c = 0 := by rw [hc, padicValRat.inv, padicValRat.pow, hvu]; simp
+  set s₀ : ℚ := (p : ℚ) ^ k / u with hs₀
+  have hs₀0 : s₀ ≠ 0 := div_ne_zero (pow_ne_zero _ hp0) hu0
+  have hts : t * s₀ ^ nInf = c := by
+    have e1 : t = u / (p : ℚ) ^ M := by rw [hu]; field_simp
+    obtain ⟨j, hj⟩ : ∃ j, nInf = j + 1 := ⟨nInf - 1, by omega⟩
+    rw [e1, hs₀, hc, hk, hj, Nat.add_sub_cancel, div_pow, ← pow_mul, mul_comm k (j + 1)]
+    field_simp
+    ring
+  have hvs₀ : 0 ≤ padicValRat p s₀ := by
+    rw [hs₀, padicValRat.div (pow_ne_zero _ hp0) hu0, padicValRat.pow, padicValRat.self hp.one_lt,
+      hvu]
+    simp
+  have hQ : (X ^ nInf : ℚ[X]).eval s₀ ≠ 0 := by simpa using pow_ne_zero nInf hs₀0
+  have hPQ : (C c : ℚ[X]).eval s₀ = t * (X ^ nInf : ℚ[X]).eval s₀ := by
+    simp only [eval_C, eval_pow, eval_X]
+    exact hts.symm
+  have hnc : ∀ a : ℚ, (C c : ℚ[X]) ≠ C a * X ^ nInf := by
+    intro a h
+    have := congrArg (fun f : ℚ[X] => f.coeff 0) h
+    simp only [coeff_C_zero, coeff_C_mul, coeff_X_pow] at this
+    rw [if_neg (by omega), mul_zero] at this
+    exact hc0 this
+  obtain ⟨E', i1, i2, i3, i4, i5, ι, hshape, hdeg', 𝔓', hP', hU', φ', hle⟩ :=
+    hC E (C c) (X ^ nInf) t s₀ hQ hPQ hnc 𝔓 hP hU φ
+  have hshape' : KummerShape E E' ι (rInf c nInf) := hshape
+  refine ⟨E', i1, i2, i3, i4, i5, s₀, lt_of_le_of_lt hdeg' hdeg,
+    hVI E E' ι c nInf p hp hinf0 hinf1 hdeg hc0 hvc hshape' hV, hvs₀, ?_,
+    𝔓', hP', hU', φ', hle⟩
+  intro Q' hQ' he
+  rcases hO E E' ι c nInf hinf0 hc0 hshape' S hBr.1 Q' hQ' he with h0 | ⟨b', hb'S, hb'0, hmem⟩
+  · exact absurd (hA E E' ι c nInf hinf0 hc0 hshape' hBr.2.2 Q' hQ' h0) he
+  · have hb't : b' - t ≠ 0 := sub_ne_zero.mpr (fun e => ht (e ▸ hb'S))
+    have hval : padicValRat p (b' - t) = -(M : ℤ) := by
+      have e2 : b' - t = -t + b' := by ring
+      have hlt : padicValRat p (-t) < padicValRat p b' := by
+        rw [padicValRat.neg, hM]
+        have := hint b' hb'S
+        have : (0 : ℤ) < M := by
+          by_contra h0'
+          have : M = 0 := by omega
+          rw [this] at hM
+          omega
+        omega
+      rw [e2, padicValRat.add_eq_of_lt (by rw [← e2]; exact hb't) (neg_ne_zero.mpr ht0) hb'0 hlt,
+        padicValRat.neg, hM]
+    have hev : (C b' * X ^ nInf - C c : ℚ[X]).eval s₀ = c * (b' - t) / t := by
+      simp only [eval_sub, eval_mul, eval_C, eval_pow, eval_X]
+      rw [← hts]
+      field_simp
+    refine ⟨C b' * X ^ nInf - C c, hmem, ?_, ?_, ?_⟩
+    · intro i
+      rw [coeff_sub, coeff_C_mul, coeff_X_pow, coeff_C]
+      by_cases h1 : i = nInf
+      · subst h1
+        rw [if_pos rfl, if_neg (by omega), mul_one, sub_zero]
+        exact hint b' hb'S
+      · rw [if_neg h1, mul_zero]
+        by_cases h0 : i = 0
+        · rw [if_pos h0, zero_sub, padicValRat.neg, hvc]
+        · rw [if_neg h0, sub_zero, padicValRat.zero]
+    · rw [hev]
+      exact div_ne_zero (mul_ne_zero hc0 hb't) ht0
+    · rw [hev, padicValRat.div (mul_ne_zero hc0 hb't) ht0, padicValRat.mul hc0 hb't, hvc, hval, hM]
+      ring
+
+/-- **`KummerMeetGlue` from the eight pieces**: T2 enters only through the two Abhyankar steps. -/
+theorem kummerMeetGlue_of_pieces' (hC : KummerCompositum) (hAF : KummerAbhyankarFinGlue)
+    (hOF : KummerOtherBranchFin) (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue)
+    (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf) : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces hC hAF hOF hVF (fun t2 => kummerMeetInf_of_pieces hC (hAI t2) hOI hVI)
+
 /-! ## Part C: `CoverModelOfHecke` from three properties of the normalization chart -/
 
 /-- **Glue (curve theory; h-b1 M1, M2, M8): the normalization chart of `Y₃ → P¹_j`.** A triple
@@ -520,10 +669,10 @@ theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
 theorem propTSAll_of_pieces (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
     (hPur : PurityGlobalDim2.{0}) (hL : SNLocalData) (hH : SNHeightOne) (hS : SNSpecialize)
     (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin)
-    (hVF : KummerVerticalFin) (hI : PkgI2.AbhyankarDVR.{0} → KummerMeetInf)
-    (hN : HeckeNormalization) (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
+    (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf)
+    (hVI : KummerVerticalInf) (hN : HeckeNormalization) (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
     PropTSAll :=
-  propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces hC hA hO hVF hI)
+  propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
     (specNonMeeting_of_pieces hPur hL hH hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
 
 end PropTSGlue
@@ -539,6 +688,8 @@ end
 #print axioms PropTSGlue.coeff_X_pow_sub_C_nonneg
 #print axioms PropTSGlue.kummerMeetFin_of_pieces
 #print axioms PropTSGlue.kummerMeetGlue_of_pieces
+#print axioms PropTSGlue.kummerMeetInf_of_pieces
+#print axioms PropTSGlue.kummerMeetGlue_of_pieces'
 #print axioms PropTSGlue.coverModelOfHeckeN_of_pieces
 #print axioms PropTSGlue.coverModelOfHecke_of_pieces
 #print axioms PropTSGlue.propTSAll_of_pieces

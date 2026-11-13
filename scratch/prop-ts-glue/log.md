@@ -21,3 +21,10 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
 - Part C: `coverModelOfHecke_of_pieces : HeckeNormalization → HeckeDegree → HeckeBranch →
   HeckeNoVertRam → CoverModelOfHecke` (via prop-ts's `coverModel_of_N`).
 - Part D: `propTSAll_of_pieces` (the composite).
+
+## Step 2 (08:15): the case at ∞, compiled
+- Added `KummerAbhyankarInf`(+`Glue`), `KummerOtherBranchInf`, `KummerVerticalInf` and
+  `kummerMeetInf_of_pieces` (t = p^{−M} u, c = u^{1−n}, s₀ = p^{M/n}/u, c/s₀^n = t; the meeting
+  polynomial `b' s^n − c` has f(s₀) = c(b' − t)/t, a p-unit), `kummerMeetGlue_of_pieces'`
+  (eight pieces, T2 only through the two Abhyankar steps). `propTSAll_of_pieces` now uses it.
+- Compile: 0 errors; 14 PropTSGlue `#print axioms` lines, all standard (VERIFIED).
