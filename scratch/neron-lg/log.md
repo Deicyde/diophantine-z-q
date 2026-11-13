@@ -66,7 +66,7 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
 - Verbatim check (python): the 12 copied blocks of scratch/tau-n1n2/N1N2.lean (§1 and §5) occur
   unchanged in NeronLG.lean.
 
-## NeronLG.lean §6 — glue N2-g1' PROVED — COMPILED 06:58 / 07:00 (0 errors; 16 #print axioms, all standard)
+## NeronLG.lean §6 — glue N2-g1' PROVED — COMPILED 06:57 (0 errors; 16 #print axioms, all standard)
 - Copied (verbatim, tau-n1n2) `isMonHom_of_reflect`, `NeronModelOver.neronProp`, `NeronModelOver.uniqueIso`.
 - Pasting lemmas: `pbCompInv_fst` (via `conjugateEquiv_counit`; `simp [pbCompInv, Over.pullbackComp,
   conjugateIsoEquiv, Over.mapComp]` closes it), `pbCompHom_fst`, `pbEq_fst`, `pbMap_fst`.
@@ -85,7 +85,7 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
   type-correct at implicit transparency"); state lemmas at the syntactic pullback types (`bcA'`,
   `bcProj'`) and transfer by `exact`.
 
-## NeronLG.lean N1-g2 bad primes — COMPILED 07:03 (0 errors; 18 #print axioms, all standard)
+## NeronLG.lean N1-g2 bad primes — COMPILED 06:59 (0 errors; 18 #print axioms, all standard)
 - `goodPlacesAnyField` (N2-g1 as a theorem). Glue `NeronNearBadPoint` (N1-g2 only at primes ∋ f);
   `neronNearPoint_of` PROVED (other primes: `neronOverAway_of_abelian`);
   `n1_n2_of_leaves_and_glue''` : N1 ∧ N2 from N1-loc, N1-ab, N2-loc, NL + N1-g1, N1-g2(bad),
