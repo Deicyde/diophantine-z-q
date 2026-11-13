@@ -10,8 +10,10 @@ Markers: **VERIFIED** = compiled or read here. **STANDARD** = published, with a 
 
 **Verdict.** `G15RamG D u` (copied verbatim from `scratch/g0-mod-newform/`) is a *predicate on
 the data* `D : ModData L A`, whose fields are bare representations `r₅`, `r₃`. It is false for
-arbitrary `D` (a finite-order twist of `r₅` that is wildly ramified at a small prime breaks
-clause (i)), so it cannot be proved as a closed statement. It is a claim about the `r_ℓ` that G8
+arbitrary `D`. For example, twisting `r₅` by a Dirichlet character of conductor `2^k` with
+`k > U₀ + 1` breaks clause (i) at `p = 2`, because the character's last upper break at 2 is
+`k − 1` (STANDARD; this counterexample is not formalized). So `G15RamG` cannot be proved as a
+closed statement. It is a claim about the `r_ℓ` that G8
 builds. What this task proves is that **`G15RamG D u` follows from closed local-field Props and
 smaller Props on the same `D`**. All of the local-field side except one transport is now proved:
 
@@ -111,9 +113,10 @@ Néron–Ogg–Shafarevich) or proved textbook results (T20, T21).
    when `ramSet F i` fixes `F`, with `e(B/A) = ramCard F 0`, `(p) = 𝔪_B^e`, and every integer
    prime to `p` a unit of `B`. Truth: STANDARD (Serre, *Corps locaux* II §2, IV §1; UNVERIFIED
    numbering). In Mathlib this needs the valuation ring of `F` as a DVR, and the identification
-   `Gal(F/ℚ_p) ≅ Aut_{ℤ_p}(𝓞_F)` compatible with the two filtrations. The memory note
-   mathlib-435-local-galois records that locality of `integralClosure ℤ_p F` was already proved
-   via the spectral norm (glue-sqrt-local). Size: SPECULATIVE, medium (0.5-1.5k lines).
+   `Gal(F/ℚ_p) ≅ Aut_{ℤ_p}(𝓞_F)` compatible with the two filtrations. glue-sqrt-local
+   (docs/research/glue-sqrt-local.md) already proved `y ∈ F` integral over `ℤ_p` iff its
+   spectral norm is `≤ 1` (`isIntegral_iff_spectralNorm_le_one`) and the locality of the integral
+   closure; neither is copied here. Size: SPECULATIVE, medium (0.5-1.5k lines).
 2. ~~`WildFixTame p`~~: **proved** (`wildFixTame`, §2).
 
 **Glue on G7/G8's construction (Props on `D`), `LocalData p r`:**
@@ -164,7 +167,7 @@ exit 0, 0 errors, no `sorry`. `#print axioms` = `[propext, Classical.choice, Quo
 `hilbertSerre_of_model`, `g15RamG_of_model`, `wildFixTame`, `g15RamG_of_dvrModel`; and for
 `modularConstituent_tail_R` in `Tail.lean` (`scratch/g15-ram/tail_compile.out`).
 
-Verbatim copies (checked by `diff` against the sources, log step 4): `ModData`, `U0`,
+Verbatim copies (checked by a python string comparison against the sources, log step 3): `ModData`, `U0`,
 `LocalRamG`, `G15RamG` (from `scratch/g0-mod-newform/NewForm.lean`) and `G0Galois.G11Out` (from
 `scratch/g0-mod-galois/part_galois.lean`).
 
