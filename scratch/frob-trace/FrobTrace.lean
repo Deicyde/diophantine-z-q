@@ -2152,6 +2152,98 @@ def AlgFrobLink : Prop :=
                   (PkgI3.Tate.map (ℓ := ℓ) (m (g * τ * g⁻¹))).baseChange ℚ_[ℓ]) =
                 (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ]
 
+/-- **`AlgFrobOne` (GLUE, AV side; Glazer N5 L777-786; reduction of one morphism modulo `p`).**
+`AlgFrobLink` for a single morphism of schemes. Let `A` be an abelian variety over a finite Galois
+`L ⊆ ℚ̄` and `F : A → A` a finite surjective morphism of schemes. There is a finite set `S` of
+primes such that: for every arithmetic Frobenius `τ` at a place `v` above `p ∉ S`, every
+`g ∈ G_ℚ`, and every additive map `f` of `A(ℚ̄)` of the form `f(x) = F ∘ x ∘ Spec(gτg⁻¹)`, there
+are an abelian variety `Ā` over a field `k` of characteristic `p`, `α' ∈ End(Ā)` and `N ≠ 0`
+such that for every prime `ℓ ≠ p` some `ℚ_ℓ`-isomorphism `ℚ_ℓ ⊗ T_ℓ(A(ℚ̄)) ≅ V_ℓ(Ā)` carries
+`N · V_ℓ(f)` to `V_ℓ(α')`.
+
+Why it is true (SPECULATIVE in its Lean details; `N = 1` works). If such an `f` exists, `F` lies
+over `Spec(s)` with `s = (gτg⁻¹)⁻¹|_L`, which is in the decomposition group of `w = g(v) ∩ L`;
+so `F` is an `L`-morphism `A → A^{(s)}`. Put in `S` the primes below which `A` has bad
+reduction or this `L`-morphism does not extend to the abelian-scheme models (spreading out; one
+condition for each of the finitely many `s ∈ Gal(L/ℚ)`; `S` depends on `F` only). For `p ∉ S`,
+`Ā` is the reduction of `A` at `w`, over `k = κ(w)`. Reduction is a bijection on prime-to-`p`
+torsion (leaf I2-Red, `PkgI2.ReductionTorsionBijective`, Serre–Tate 1968 §1); under it,
+`gτg⁻¹` acting on coordinates becomes the `p`-power map of `k̄`, i.e. the absolute Frobenius
+`Fr_Ā` on `k̄`-points, and `F` becomes its reduction `F̄` (leaf I2-NMP,
+`PkgI2.NeronMappingAbelianScheme`). So `f` becomes `F̄ ∘ Fr_Ā`, which lies over `Spec(id_k)`
+and fixes `0` (`f` is additive), hence `α' := F̄ ∘ Fr_Ā ∈ End(Ā)` (rigidity, Mumford §4 Cor. 1,
+UNVERIFIED locator), the same for every `ℓ ≠ p`. -/
+def AlgFrobOne : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
+    ∃ S : Finset ℕ, ∀ p : ℕ, p.Prime → p ∉ S →
+      ∀ (v : ValuationSubring PkgI4.Qbar) (τ : PkgI4.GQ),
+        PkgI4.LiesOver v p → PkgI4.IsArithFrob τ v p → ∀ (g : PkgI4.GQ)
+        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
+          Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F) →
+        ∃ (k : Type) (_ : Field k), CharP k p ∧ ∃ (Ab : PkgI3.AbVar k)
+          (α : PkgI3.AbVar.End Ab) (N : ℕ), N ≠ 0 ∧
+          ∀ (ℓ : ℕ) [Fact ℓ.Prime], ℓ ≠ p →
+            ∃ Ψ : TensorProduct ℤ_[ℓ] ℚ_[ℓ] (PkgI3.Tate.T ℓ (PtQ L A)) ≃ₗ[ℚ_[ℓ]] Ab.V ℓ,
+              Ψ.conj ((N : ℚ_[ℓ]) • (PkgI3.Tate.map (ℓ := ℓ) f).baseChange ℚ_[ℓ]) =
+                (PkgI3.AbVar.homT (ℓ := ℓ) α).baseChange ℚ_[ℓ]
+
+/-- **`AlgFrobLink` from `AlgFrobOne` (proved).** The maps `m_σ` take only finitely many shapes:
+for each `s ∈ Gal(L/ℚ)` fix one `σ_s` restricting to `s`; then
+`m_{σ_s k}(x) = F_{σ_s} ∘ x ∘ Spec(σ_s k)` for `k ∈ G_L` (second and first clauses), so one
+morphism `F_{σ_s}` serves the whole coset, and `S` is the union of the `|Gal(L/ℚ)|` sets
+`AlgFrobOne` gives for the `F_{σ_s}`. -/
+theorem algFrobLink_of_one (hO : AlgFrobOne) : AlgFrobLink := by
+  classical
+  intro L _ _ A m hmL hmLL hFalg
+  obtain ⟨F, hF⟩ := hFalg
+  let res : GQ →* (L ≃ₐ[ℚ] L) := AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L
+  -- a representative of each restriction class
+  let rep : (L ≃ₐ[ℚ] L) → GQ := fun s =>
+    if h : ∃ σ : GQ, res σ = s then h.choose else 1
+  have hrep : ∀ σ : GQ, res (rep (res σ)) = res σ := by
+    intro σ
+    have h : ∃ σ' : GQ, res σ' = res σ := ⟨σ, rfl⟩
+    simp only [rep, h, dite_true]
+    exact h.choose_spec
+  choose Sf hSf using fun s : L ≃ₐ[ℚ] L => hO L A (F (rep s)) (hF (rep s)).1 (hF (rep s)).2.1
+  refine ⟨Finset.univ.biUnion Sf, fun p hp hpS v τ hv hτ g => ?_⟩
+  let σ' : GQ := g * τ * g⁻¹
+  let σ0 : GQ := rep (res σ')
+  have hpS0 : p ∉ Sf (res σ') := fun h' =>
+    hpS (Finset.mem_biUnion.mpr ⟨res σ', Finset.mem_univ _, h'⟩)
+  -- `k = σ0⁻¹ σ' ∈ G_L`
+  have hk : σ0⁻¹ * σ' ∈ GQL L := by
+    have h1 : res (σ0⁻¹ * σ') = 1 := by
+      rw [map_mul, map_inv, hrep, inv_mul_cancel]
+    rw [mem_GQL]
+    intro x hx
+    exact (AlgEquiv.restrictNormal_eq_one_iff L _).mp h1 x hx
+  have hσ' : σ' = σ0 * (σ0⁻¹ * σ') := by group
+  have hf : ∀ x : PtQ L A, (Additive.toMul (m σ' x)).left =
+      Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+        (Additive.toMul x).left ≫ F σ0 := by
+    intro x
+    have hm : m σ' = (m σ0).comp (m (σ0⁻¹ * σ')) := by
+      conv_lhs => rw [hσ']
+      exact (hmLL σ0 _ hk).1
+    have hmk := hmL (σ0⁻¹ * σ') (toLAut _ hk) (fun _ => rfl)
+    rw [hm, AddMonoidHom.comp_apply, (hF σ0).2.2, hmk]
+    show Spec.map (CommRingCat.ofHom ((act σ0 : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+        (PkgI3.AbVar.galHom (toLAut _ hk) ≫ Additive.toMul x).left ≫ F σ0 = _
+    have hSpec : Spec.map (CommRingCat.ofHom ((act σ0 : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+        Spec.map (CommRingCat.ofHom ((toLAut _ hk : Qbar ≃ₐ[L] Qbar) : Qbar →+* Qbar)) =
+        Spec.map (CommRingCat.ofHom ((act (g * τ * g⁻¹) : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) := by
+      rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+      congr 2
+      ext y
+      have h0 : σ0 * (σ0⁻¹ * σ') = σ' := by group
+      exact congrArg (fun s : GQ => act s y) h0
+    rw [← hSpec, Category.assoc]
+    rfl
+  exact hSf (res σ') p hp hpS0 v τ hv hτ g (m σ') hf
+
 /-! ## From the points-level comparison to `FrobCompare` for `opV(Θ ∘ f ∘ Θ⁻¹)` -/
 
 /-- The comparison for `f` on `V_ℓ(A(ℚ̄))` gives the kernel's `FrobCompare` for the transported
@@ -2567,6 +2659,12 @@ theorem tateBridge35_of_algFrobLink (hT : PkgI3.TateModuleFree) (hF : AlgFrobLin
     frobCompare_opV_conjE A _ Θ (m (h * τ * h⁻¹)) 3 Ab α N' Ψ3 hΨ3,
     frobCompare_opV_conjE A _ Θ (m (h * τ * h⁻¹)) 5 Ab α N' Ψ5 hΨ5⟩
 
+/-- **Main result: `TateBridge35` from the leaf I3.M0 and the single-morphism glue
+`AlgFrobOne`.** -/
+theorem tateBridge35_of_algFrobOne (hT : PkgI3.TateModuleFree) (hO : AlgFrobOne) :
+    G14Bridge.TateBridge35 :=
+  tateBridge35_of_algFrobLink hT (algFrobLink_of_one hO)
+
 end FrobTrace
 
 end
@@ -2577,3 +2675,5 @@ end
 #print axioms FrobTrace.g7Out_rescale
 #print axioms FrobTrace.scalarsQbar
 #print axioms FrobTrace.tateBridge35_of_algFrobLink
+#print axioms FrobTrace.algFrobLink_of_one
+#print axioms FrobTrace.tateBridge35_of_algFrobOne

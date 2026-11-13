@@ -13,3 +13,9 @@
   FrobTrace.tateMapEquiv, conj_baseChange, frobCompare_opV_conjE, g7Out_rescale, scalarsQbar,
   tateBridge35_of_algFrobLink : PkgI3.TateModuleFree → AlgFrobLink → G14Bridge.TateBridge35.
 - Remaining glue: `FrobTrace.AlgFrobLink` (points-level reduction mod p of the algebraic maps m_σ). Leaf: I3.M0 TateModuleFree.
+
+## Run 3-5 (06:25-06:40): single-morphism glue
+- New `FrobTrace.AlgFrobOne` (AlgFrobLink for one finite surjective scheme morphism F : A → A, f(x) = F ∘ x ∘ Spec(gτg⁻¹)).
+- `algFrobLink_of_one : AlgFrobOne → AlgFrobLink` (one representative σ_s per s ∈ Gal(L/ℚ); m_{σ_s k} = F_{σ_s} ∘ x ∘ Spec(σ_s k); S = union over Gal(L/ℚ)).
+- `tateBridge35_of_algFrobOne : PkgI3.TateModuleFree → AlgFrobOne → G14Bridge.TateBridge35`.
+- Run 5: exit 0, no sorry, all axioms standard (VERIFIED).
