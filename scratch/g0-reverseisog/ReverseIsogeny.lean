@@ -210,6 +210,21 @@ def IsogenyQuasiInverse : Prop :=
     ∃ (ψ : B.X ⟶ A.X) (n : ℕ), 0 < n ∧ ZInQ.DefFaltings.IsIsogeny ψ ∧
       φ ≫ ψ = (𝟙 A.X) ^ n ∧ ψ ≫ φ = (𝟙 B.X) ^ n
 
+/-- **Glue interface (the property `ReverseIsogeny` actually uses).** Over a number field, an
+isogeny `A → B` of abelian varieties has an isogeny `B → A` in the other direction. It follows from
+the textbook leaf `IsogenyQuasiInverse` (`isogenyReverseExists_of_quasiInverse`) and, in
+`SplitRev.lean`, from the bundle's research leaf R19 (Gaudron-Rémond) with H5's finiteness and
+`DimFinite` (`isogenyReverseExists_of_r19`). -/
+def IsogenyReverseExists : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : ZInQ.DefFaltings.AbVar K) (φ : A.X ⟶ B.X),
+    ZInQ.DefFaltings.IsIsogeny φ → ∃ ψ : B.X ⟶ A.X, ZInQ.DefFaltings.IsIsogeny ψ
+
+/-- **Proved.** The leaf gives the interface. -/
+theorem isogenyReverseExists_of_quasiInverse (hQ : IsogenyQuasiInverse) : IsogenyReverseExists := by
+  intro K _ _ A B φ hφ
+  obtain ⟨ψ, -, -, hψ, -, -⟩ := hQ K A B φ hφ
+  exact ⟨ψ, hψ⟩
+
 /-! ### Glue (proved): a closed surjective map does not lower the Krull dimension -/
 
 section Topo
@@ -308,13 +323,19 @@ theorem isogeny_of_product {L : Type} [Field L] (A J Z : PkgI3.AbVar L)
   · rw [Over.comp_left]
     infer_instance
 
-/-- **`ReverseIsogeny` (G17 after Poincaré), proved from the leaf `IsogenyQuasiInverse`.** -/
-theorem reverseIsogeny (hQ : IsogenyQuasiInverse) : G0Split.ReverseIsogeny := by
+/-- **`ReverseIsogeny` (G17 after Poincaré), proved from the interface `IsogenyReverseExists`.**
+The map `h = f ∘ p₁ + g ∘ p₂ : P → J` is an isogeny (`isogeny_of_product`); the interface gives an
+isogeny `ψ : J → P`; `h` and `ψ` give `dim J = dim P` (`dim_eq_of_isogenies`). -/
+theorem reverseIsogeny_of_exists (hE : IsogenyReverseExists) : G0Split.ReverseIsogeny := by
   intro L _ _ A J Z P f g hP hiso
   obtain ⟨h, hh⟩ := isogeny_of_product A J Z P f g hP hiso
   replace hh : ZInQ.DefFaltings.IsIsogeny (A := P) (B := (LeafAdopt.abVarEquiv L).symm J) h := hh
-  obtain ⟨ψ, n, -, hψ, -, -⟩ := hQ L P ((LeafAdopt.abVarEquiv L).symm J) h hh
+  obtain ⟨ψ, hψ⟩ := hE L P ((LeafAdopt.abVarEquiv L).symm J) h hh
   exact ⟨ψ, hψ, dim_eq_of_isogenies h ψ hh hψ⟩
+
+/-- **`ReverseIsogeny`, proved from the textbook leaf `IsogenyQuasiInverse`.** -/
+theorem reverseIsogeny (hQ : IsogenyQuasiInverse) : G0Split.ReverseIsogeny :=
+  reverseIsogeny_of_exists (isogenyReverseExists_of_quasiInverse hQ)
 
 end G0RevIsog
 
