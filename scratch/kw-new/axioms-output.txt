@@ -1,0 +1,11 @@
+'ZInQ.Contrib.KroneckerWeber.hSynKroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.glueKroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.tSkolemKW_kroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.kroneckerWeberCyclic' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.dirichletCharacter_of_openKer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.dirichletCharacter_of_continuous' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.ker_ge_of_openKer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.KroneckerWeber.eq_of_agree_on_roots' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TauCeti.ClassFieldTheory.kroneckerWeber' depends on axioms: [propext, Classical.choice, Quot.sound]
