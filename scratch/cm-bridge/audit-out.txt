@@ -33,3 +33,7 @@
 'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven' depends on axioms: [propext,
  Classical.choice,
  Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm36Seven_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CMBridge.tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]

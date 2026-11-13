@@ -3125,6 +3125,26 @@ theorem tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma32
   tyzThm35ReadingA_of_cmLeaves7 h11 h1 h29 hcm hsh h318 h35 h5
     (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) h36)
 
+
+open ZInQ.Contrib.TYZDecomp in
+/-- **Main theorem of cm-bridge, textbook CM form**: as the previous theorem, with TYZ Theorem 3.6(3)
+replaced by the textbook leaves it is derived from in §14 — tyz-cm's `ShimuraReciprocityPic` (main
+theorem of CM for Heegner points of `X₀(32)`, Gross's form), x0-32's `X0.EtaModelFricke` (the Fricke
+involution acts on `A` as `P ↦ T − P`) and cm-points' `CM.CMAlgebraic` (CM values are algebraic) —
+and `TYZSigmaShiftsF0` replaced by cm-points' `TYZSigmaFixesZn` (which tyz-cm derives from the same
+two leaves, `Shimura.tyzSigmaFixesZn_of`, branch `wip/tyz-cm`; tyz-cm also derives
+`CM.CMFieldOfDefinition ringClassFieldD` from `ShimuraReciprocityPic`). -/
+theorem tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura
+    (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
+    (hcm : CM.CMFieldOfDefinition ringClassFieldD) (hs : TYZSigmaFixesZn)
+    (h318 : Lemma318Literal HHprime) (h35 : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → Thm35First ℓ tyzZ)
+    (h5 : Lemma321Five) (hS : TyzCm.ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
+    (hA : CMAlgebraic) : ZInQ.Literature.TYZThm35ReadingA :=
+  tyzThm35ReadingA_of_pinnedLeaves h11 h1 h29 (RingClassBridge.cmFieldTYZ_of_ringClassD hcm)
+    RingClassBridge.iInH4 hs RingClassBridge.hprimeNormal h318 (cmFieldOfDefinition7_of hcm)
+    genusFieldLeLni h35 h5
+    (lemma321Seven_of' (cmFieldOfDefinition7_of hcm) (tyzThm36Seven_of hS hF hA))
+
 end ZInQ.Contrib.TYZGenus.CMBridge
 
 /-! ## Axiom audit (output in `scratch/cm-bridge/audit-out.txt`) -/
@@ -3184,3 +3204,5 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm36Seven_of
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura

@@ -74,3 +74,16 @@
   ShimuraReciprocityPic (J = 𝔭̄₂^5 = (32, (−√−n − δ)/2), c = (−δ − i√n)/2, hand-computed lattice identity) +
   x0-32's EtaModelFricke + cm-points' cmComplexConj (proved). Not formalized (time).
   thm36_7.py refactored (main guarded for import); rerun output identical.
+- **§14 COMPILED: `tyzThm36Seven_of : TyzCm.ShimuraReciprocityPic → X0.EtaModelFricke → CM.CMAlgebraic →
+  TYZThm36Seven`** (VERIFIED, standard axioms). `TyzCm.ShimuraReciprocityPic` and its definitions (kappa,
+  idealMeetOrder, idealLat, discOf) are a verbatim copy of tyz-cm's leaf (branch wip/tyz-cm commit 66d92d11,
+  ShimuraRecip.lean; verbatim check by string containment: True); helpers kappaAlg/kappaLin/
+  map_mulLeft_span_pair copied from tyz-cm's ShimuraZn.lean. Proof: J = (32, ū) = 𝔭̄₂^5 (resp. (32, u) in the
+  other orientation; `span_two_pow_five`), [J] = [𝔭₂]^{−5} (`span_two_mul_span_two`, `mk0_inv_of_mul`),
+  lattice identities κ(J)(L', L'_N) = ū(L, L_N) for Q' = [32, δ, (n+δ²)/128] (`latK7`, `latNK7`, and conjugates),
+  Fricke τ_{Q'} = −1/(32τ_{Q̄}) (`heegnerPt_tyzForm7'`), complex conjugation (`cmComplexConj`), and the
+  negative orientation handled by e = γ∘embed, ρ' = γργ⁻¹. CMAlgebraic is needed because TYZThm36Seven is not
+  junk-safe (heegnerPt is 0 when no algebraic point exists).
+- New final theorem `tyzThm35ReadingA_of_ringClassD_sigmaFixesZn_lemma318_thm35First_lemma321Five_shimura`
+  (hyps: 3 𝓛-leaves, CMFieldOfDefinition ringClassFieldD, TYZSigmaFixesZn, Lemma318Literal, Thm35First,
+  Lemma321Five, ShimuraReciprocityPic, EtaModelFricke, CMAlgebraic). VERIFIED compiled.
