@@ -286,8 +286,94 @@ theorem torsFix_of_descent (hR6 : ObjBridge.RaynaudCriterion)
     rw [hfix, hQdef, MulEquiv.apply_symm_apply] at h1
     exact h1.symm
 
+/-- `|GL₄(𝔽₅)| = G₀ = 116064000000` (proved). -/
+theorem card_GL4_five :
+    Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod 5)) = ZInQ.heightG0 := by
+  haveI : Fact (Nat.Prime 5) := ⟨by norm_num⟩
+  rw [Matrix.card_GL_field, ZMod.card, Fin.prod_univ_four]
+  unfold ZInQ.heightG0
+  norm_num
+
+/-- **`TorsFixWildOdd` at every `p ≠ ℓ` (proved)** from the leaves R6, I2-Tors and the glue
+`DescentPts`: `torsFix_of_descent` with `M = L_v` and `q = 3` (`q = 5` if `p = 3`);
+`|GL₄(𝔽₃)| = 24261120 ≤ G₀` and `|GL₄(𝔽₅)| = G₀` (Glazer's `E = L_v(A_L[3])`, resp. `A_L[5]`). -/
+theorem torsFixWildOdd_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
+    {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
+    {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) : TorsFixWildOdd (p := p) A ℓ L := by
+  obtain ⟨hLvfd, -⟩ := Lv_fin (p := p) L
+  haveI := hLvfd
+  have key : ∃ q : ℕ, ∃ _ : Fact q.Prime, 3 ≤ q ∧ q ≠ p ∧
+      Nat.card (Matrix.GeneralLinearGroup (Fin 4) (ZMod q)) ≤ ZInQ.heightG0 := by
+    by_cases h3 : p = 3
+    · exact ⟨5, ⟨by norm_num⟩, by norm_num, by omega, card_GL4_five.le⟩
+    · refine ⟨3, ⟨by norm_num⟩, le_refl _, Ne.symm h3, ?_⟩
+      rw [card_GL4_three]
+      unfold ZInQ.heightG0
+      norm_num
+  obtain ⟨q, hq, hq3, hqp, hqN⟩ := key
+  obtain ⟨E, hEfd, hLvE, hdeg, hfix⟩ :=
+    torsFix_of_descent hR6 hTors hD hℓp q hq3 hqp (Lv (p := p) L) le_rfl
+  exact ⟨E, hEfd, hLvE, hdeg.trans (Nat.mul_le_mul_right _ hqN), hfix⟩
+
+/-- **`TorsFixWildE` from `BetaTwist2` (proved; used at `p = 2`, valid for `p ≠ 3`)**:
+`torsFix_of_descent` with `q = 3` over `BetaTwist2`'s `M`; `4·|GL₄(𝔽₃)| ≤ G₀`. -/
+theorem torsFixWildE_of_twist (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K}
+    {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hD : DescentPts A L)
+    {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (hp3 : p ≠ 3) {β : GQ → PadicAlgCl ℓ}
+    (hB : BetaTwist2 (p := p) β L) : TorsFixWildE (p := p) A ℓ β L := by
+  obtain ⟨M, hMfd, hLvM, hMdeg, hMβ⟩ := hB
+  haveI := hMfd
+  haveI : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+  obtain ⟨E, hEfd, hME, hdeg, hfix⟩ :=
+    torsFix_of_descent hR6 hTors hD hℓp 3 le_rfl (Ne.symm hp3) M hLvM
+  refine ⟨E, hEfd, hLvM.trans hME, ?_, fun σ hσ =>
+    ⟨hMβ σ ⟨fun x hx => hσ.1 x (hME hx), hσ.2⟩, hfix σ hσ⟩⟩
+  rw [card_GL4_three] at hdeg
+  calc Module.finrank ℚ_[p] E ≤ 24261120 * Module.finrank ℚ_[p] M := hdeg
+    _ ≤ 24261120 * (4 * Module.finrank ℚ_[p] (Lv (p := p) L)) := Nat.mul_le_mul_left _ hMdeg
+    _ = 97044480 * Module.finrank ℚ_[p] (Lv (p := p) L) := by ring
+    _ ≤ ZInQ.heightG0 * Module.finrank ℚ_[p] (Lv (p := p) L) :=
+        Nat.mul_le_mul_right _ (by unfold ZInQ.heightG0; norm_num)
+
+/-- **`TateWildKE` at every `p ≠ ℓ` (proved)** from R6, I2-Tors, `DescentPts`, G7's clauses and,
+at `p = 2`, `BetaTwist2`. -/
+theorem tateWildKE_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {A : PkgI3.AbVar K} {ℓ : ℕ} [Fact ℓ.Prime]
+    {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
+    {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L] (hC : G7Clauses β ε L)
+    (hD : DescentPts A L) (hℓp : ℓ ≠ p) (hB : p = 2 → BetaTwist2 (p := p) β L) :
+    TateWildKE (p := p) A ℓ β L := by
+  by_cases h2 : p = 2
+  · exact tateWildKE_of_torsFixWildE
+      (torsFixWildE_of_twist hR6 hTors hD hℓp (by omega) (hB h2))
+  · exact tateWildKE_of_torsFixWildE
+      (torsFixWildE_of_odd h2 hC (torsFixWildOdd_of_descent hR6 hTors hD hℓp))
+
+/-- **`LocalGlue p Tm a β L` on G7's data (proved)** from the leaves R6 and I2-Tors and the glue
+`KerWild` (all `p`), `DescentPts` (`p ≤ 5`) and `BetaTwist2` (`p = 2`). -/
+theorem localGlue_of_descent (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ)
+    {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
+    {a β : GQ → PadicAlgCl ℓ} {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)}
+    (h7 : G0Galois.G7Out A ℓ Tm c ε a β u) {L : IntermediateField ℚ PkgI4.Qbar}
+    [FiniteDimensional ℚ L] (hC : G7Clauses β ε L) (hK : KerWild K β L)
+    (hD : p ≤ 5 → DescentPts A L) (hB : p = 2 → BetaTwist2 (p := p) β L) :
+    LocalGlue (p := p) Tm a β L :=
+  localGlue_of_leaves hR6 hTors hpℓ h7 hC hK
+    (fun h5 => tateWildKE_of_descent hR6 hTors hC (hD h5) (Ne.symm hpℓ) hB) hB
+
 end DescentSec
 
 end G15Ram
 
 end
+
+#print axioms G15Ram.index_torsStab_le
+#print axioms G15Ram.torsFix_of_descent
+#print axioms G15Ram.torsFixWildOdd_of_descent
+#print axioms G15Ram.torsFixWildE_of_twist
+#print axioms G15Ram.tateWildKE_of_descent
+#print axioms G15Ram.localGlue_of_descent
