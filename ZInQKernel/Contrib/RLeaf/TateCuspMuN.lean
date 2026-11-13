@@ -158,6 +158,23 @@ theorem xCoord_tate {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametric
   rw [tateUniformizationHom_apply, toMul_ofMul, tateUniformization_of_ne_one q hq h1]
   rfl
 
+theorem tate_ofMul_pow {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametricDist K]
+    [DecidableEq K] (q : Kˣ) (hq : ‖(q : K)‖ < 1) (y : Kˣ) (m : ℕ) :
+    tateUniformizationHom q hq (Additive.ofMul ((y ^ m : Kˣ) : Kˣ ⧸ Subgroup.zpowers q)) =
+      m • tateUniformizationHom q hq (Additive.ofMul (y : Kˣ ⧸ Subgroup.zpowers q)) := by
+  rw [QuotientGroup.mk_pow, ofMul_pow, map_nsmul]
+
+theorem ne_zero_of_addOrderOf_map {A B : Type*} [AddCommGroup A] [AddCommGroup B] (Φ : A →+ B)
+    (x : A) {N : ℕ} (hN : 2 ≤ N) (h : addOrderOf (Φ x) = N) : x ≠ 0 := by
+  rintro rfl
+  rw [map_zero, addOrderOf_zero] at h
+  omega
+
+theorem nsmul_map_eq {A B C' : Type*} [AddCommGroup A] [AddCommGroup B] [AddCommGroup C']
+    (Φ : B →+ C') (t : A →+ B) (x y : A) (m : ℕ) (h : t y = m • t x) :
+    m • Φ (t x) = Φ (t y) := by
+  rw [← map_nsmul, h]
+
 theorem tateCurveAt_congr {K : Type*} [NormedField K] [CompleteSpace K] [IsUltrametricDist K]
     {q q' : Kˣ} (h : q = q') (hq : ‖(q : K)‖ < 1) (hq' : ‖(q' : K)‖ < 1) :
     tateCurveAt q hq = tateCurveAt q' hq' := by
@@ -198,6 +215,32 @@ theorem uR_mem {Ω : Type*} [Field Ω] [CharZero Ω] (ι : LaurentSeries ℚ →
     rw [this, hT2]
     exact div_mem (sub_mem (div_mem (hιR _) ha2R) (hιR _)) ⟨12, map_ofNat ι 12⟩
 
+theorem exists_nat_zsmul_eq {G : Type*} [AddCommGroup G] (Q : G) {N : ℕ} (hQ : addOrderOf Q = N)
+    (hN : 0 < N) (k : ℤ) : ∃ m : ℕ, m < N ∧ k • Q = m • Q := by
+  have hNQ : N • Q = 0 := by rw [← hQ]; exact addOrderOf_nsmul_eq_zero Q
+  have hk0 : 0 ≤ k % (N : ℤ) := Int.emod_nonneg k (by exact_mod_cast hN.ne')
+  have hkN : k % (N : ℤ) < N := Int.emod_lt_of_pos k (by exact_mod_cast hN)
+  refine ⟨(k % (N : ℤ)).toNat, by omega, ?_⟩
+  have hmk : (((k % (N : ℤ)).toNat : ℕ) : ℤ) = k % (N : ℤ) := Int.toNat_of_nonneg hk0
+  have h1 : ((N : ℤ) * (k / N)) • Q = 0 := by
+    rw [mul_comm, ← smul_smul, natCast_zsmul, hNQ, zsmul_zero]
+  conv_lhs => rw [← Int.mul_ediv_add_emod k N]
+  rw [add_zsmul, h1, zero_add]
+  conv_lhs => rw [← hmk]
+  rw [natCast_zsmul]
+
+theorem coprime_of_addOrderOf_nsmul {G : Type*} [AddCommGroup G] (Q : G) {N : ℕ}
+    (hQ : addOrderOf Q = N) (hN : 2 ≤ N) (m : ℕ) (hm : addOrderOf (m • Q) = N) :
+    Nat.Coprime m N := by
+  have hm0 : m ≠ 0 := by
+    rintro rfl
+    rw [zero_nsmul, addOrderOf_zero] at hm
+    omega
+  rw [addOrderOf_nsmul' _ hm0, hQ] at hm
+  rcases (Nat.div_eq_self.mp hm) with h | h
+  · omega
+  · rw [Nat.coprime_comm]; exact h
+
 /-! ### The Tate curve over `ℚ((t))` and its `j`-invariant -/
 
 /-- `E_t` over `ℚ((t))`. -/
@@ -220,64 +263,322 @@ theorem WL_j_not_mem : WL.j ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ) := 
 /-- `ℚ(j) → ℚ((t))`, `j ↦ j(E_t)`. -/
 def phiL : Qj →+* LaurentSeries ℚ := TateCuspGlue.phi WL.j WL_j_not_mem
 
-/-! ### Level `N`: `K = ℚ(ζ_N)`, `L' = K((t))`, `Ω = \overline{L'}` -/
+/-! ### The cusp over an arbitrary complete extension `F` of `ℚ((t))`
 
-section Level
+Everything is stated for a complete non-archimedean normed field `F` with an isometric
+embedding `incl : ℚ((t)) → F`, so that all structures on `F` come from `[NormedField F]` (and
+the kernel never compares two instance paths on a concrete field). -/
+
+section Generic
+
+variable (F : Type) [NormedField F] [CompleteSpace F] [IsUltrametricDist F] [CharZero F]
+  [DecidableEq F] (incl : LaurentSeries ℚ →+* F) [RingHomIsometric incl]
+
+/-- `Ω = \overline{F}`, a copy of `AlgebraicClosure F` remembering `incl` (so that its
+`ℚ(j)`-algebra structure `j ↦ j(E_t)` can be an instance). -/
+def ΩF (_incl : LaurentSeries ℚ →+* F) : Type := AlgebraicClosure F
+
+instance : Field (ΩF F incl) := inferInstanceAs (Field (AlgebraicClosure F))
+instance : IsAlgClosed (ΩF F incl) := inferInstanceAs (IsAlgClosed (AlgebraicClosure F))
+instance : Algebra F (ΩF F incl) := inferInstanceAs (Algebra F (AlgebraicClosure F))
+instance : IsAlgClosure F (ΩF F incl) := inferInstanceAs (IsAlgClosure F (AlgebraicClosure F))
+instance : Module.IsTorsionFree F (ΩF F incl) :=
+  inferInstanceAs (Module.IsTorsionFree F (AlgebraicClosure F))
+instance : CharZero (ΩF F incl) :=
+  charZero_of_injective_algebraMap (algebraMap F (ΩF F incl)).injective
+noncomputable instance : DecidableEq (ΩF F incl) := Classical.decEq _
+
+/-- `ℚ((t)) → Ω`. -/
+abbrev ιF : LaurentSeries ℚ →+* ΩF F incl := (algebraMap F (ΩF F incl)).comp incl
+
+/-- `Ω` as a `ℚ(j)`-algebra through `j ↦ j(E_t)`. -/
+instance algQjΩF : Algebra Qj (ΩF F incl) := ((ιF F incl).comp phiL).toAlgebra
+
+/-- The parameter `q = t` in `F`. -/
+def qF : Fˣ := Units.map (incl : LaurentSeries ℚ →* F) (tK ℚ)
+
+theorem norm_qF : ‖((qF F incl : Fˣ) : F)‖ < 1 := by
+  rw [qF, Units.coe_map, MonoidHom.coe_ofClass, RingHomIsometric.norm_map]
+  exact norm_tK_lt_one ℚ
+
+theorem WL_map_incl : WL.map incl = tateCurveAt (qF F incl) (norm_qF F incl) := by
+  unfold WL
+  exact map_tateCurveAt incl (tK ℚ) _
+
+theorem algebraMap_Qj_ΩF (a : Qj) : algebraMap Qj (ΩF F incl) a = ιF F incl (phiL a) := rfl
+
+theorem ΩF_c₄ : (Ej.baseChange (ΩF F incl)).c₄ = ιF F incl (phiL Ej.c₄) := by
+  show (Ej.map (algebraMap Qj (ΩF F incl))).c₄ = _
+  rw [WeierstrassCurve.map_c₄, algebraMap_Qj_ΩF]
+
+theorem ΩF_c₆ : (Ej.baseChange (ΩF F incl)).c₆ = ιF F incl (phiL Ej.c₆) := by
+  show (Ej.map (algebraMap Qj (ΩF F incl))).c₆ = _
+  rw [WeierstrassCurve.map_c₆, algebraMap_Qj_ΩF]
+
+theorem ΩF_b₂ : (Ej.baseChange (ΩF F incl)).b₂ = ιF F incl (phiL Ej.b₂) := by
+  show (Ej.map (algebraMap Qj (ΩF F incl))).b₂ = _
+  rw [WeierstrassCurve.map_b₂, algebraMap_Qj_ΩF]
+
+instance : (Ej.baseChange (ΩF F incl)).IsElliptic := inferInstanceAs ((Ej.map _).IsElliptic)
+
+theorem ΩF_j : (Ej.baseChange (ΩF F incl)).j = (WL.map (ιF F incl)).j := by
+  rw [WeierstrassCurve.map_j]
+  show (Ej.map (algebraMap Qj (ΩF F incl))).j = _
+  rw [WeierstrassCurve.map_j, Ej_j, algebraMap_Qj_ΩF, phiL, TateCuspGlue.phi_X]
+
+/-- The automorphism of `Ω` extending a ring automorphism `σ` of `F` that fixes `ℚ((t))`; it
+fixes `ℚ(j)`. -/
+def tauF (σ : F ≃+* F) (hσ : ∀ z, σ (incl z) = incl z) : ΩF F incl ≃ₐ[Qj] ΩF F incl :=
+  AlgEquiv.ofRingEquiv (f := IsAlgClosure.equivOfEquiv (ΩF F incl) (ΩF F incl) σ) fun a => by
+    simp only [algebraMap_Qj_ΩF, ιF, RingHom.comp_apply]
+    rw [IsAlgClosure.equivOfEquiv_algebraMap, hσ]
+
+theorem tauF_algebraMap (σ : F ≃+* F) (hσ : ∀ z, σ (incl z) = incl z) (s : F) :
+    tauF F incl σ hσ (algebraMap F (ΩF F incl) s) = algebraMap F (ΩF F incl) (σ s) :=
+  IsAlgClosure.equivOfEquiv_algebraMap _ _ _ s
+
+theorem tauF_ιF (σ : F ≃+* F) (hσ : ∀ z, σ (incl z) = incl z) (z : LaurentSeries ℚ) :
+    tauF F incl σ hσ (ιF F incl z) = ιF F incl z := by
+  simp only [ιF, RingHom.comp_apply]
+  rw [tauF_algebraMap, hσ]
+
+
+/-- The transport of points from a curve `E` over `F` with `E = W ⊗ F` to a curve `T` over `Ω`
+with `C • T = W ⊗ Ω`. -/
+def PhiF (W : WeierstrassCurve (LaurentSeries ℚ)) (E : WeierstrassCurve F)
+    (hW : W.map incl = E) (T : WeierstrassCurve (ΩF F incl))
+    (C : WeierstrassCurve.VariableChange (ΩF F incl)) (hC : C • T = W.map (ιF F incl)) :
+    E.toAffine.Point →+ T.toAffine.Point :=
+  (WeierstrassCurve.Affine.Point.addEquivVariableChange T C).toAddMonoidHom.comp
+    ((castEquiv hC.symm).toAddMonoidHom.comp
+      ((castEquiv (W.map_map incl (algebraMap F (ΩF F incl)))).toAddMonoidHom.comp
+        ((AddMonoidHom.mk'
+          (WeierstrassCurve.Affine.Point.mapAlong (algebraMap F (ΩF F incl))
+            (algebraMap F (ΩF F incl)).injective)
+          (WeierstrassCurve.Affine.Point.mapAlong_add _ _)).comp
+          (castEquiv hW.symm).toAddMonoidHom)))
+
+theorem PhiF_injective (W : WeierstrassCurve (LaurentSeries ℚ)) (E : WeierstrassCurve F)
+    (hW : W.map incl = E) (T : WeierstrassCurve (ΩF F incl))
+    (C : WeierstrassCurve.VariableChange (ΩF F incl)) (hC : C • T = W.map (ιF F incl)) :
+    Function.Injective (PhiF F incl W E hW T C hC) := fun a b h =>
+  (castEquiv hW.symm).injective (WeierstrassCurve.Affine.Point.mapAlong_injective
+    (algebraMap F (ΩF F incl)) (algebraMap F (ΩF F incl)).injective
+    ((castEquiv (W.map_map incl (algebraMap F (ΩF F incl)))).injective
+      ((castEquiv hC.symm).injective
+      ((WeierstrassCurve.Affine.Point.addEquivVariableChange T C).injective h))))
+
+theorem xCoord_PhiF (W : WeierstrassCurve (LaurentSeries ℚ)) (E : WeierstrassCurve F)
+    (hW : W.map incl = E) (T : WeierstrassCurve (ΩF F incl))
+    (C : WeierstrassCurve.VariableChange (ΩF F incl)) (hC : C • T = W.map (ιF F incl))
+    (P : E.toAffine.Point) (hP : P ≠ 0) :
+    xCoord (PhiF F incl W E hW T C hC P) =
+      (C.u : ΩF F incl) ^ 2 * algebraMap F (ΩF F incl) (xCoord P) + C.r := by
+  set X := (castEquiv hC.symm) ((castEquiv (W.map_map incl (algebraMap F (ΩF F incl))))
+        (WeierstrassCurve.Affine.Point.mapAlong (algebraMap F (ΩF F incl))
+            (algebraMap F (ΩF F incl)).injective (castEquiv hW.symm P))) with hX
+  have hX0 : X ≠ 0 := by
+    intro h0
+    apply hP
+    apply PhiF_injective F incl W E hW T C hC
+    show WeierstrassCurve.Affine.Point.addEquivVariableChange T C X = _
+    rw [h0, map_zero, map_zero]
+  show xCoord (WeierstrassCurve.Affine.Point.addEquivVariableChange T C X) = _
+  rw [xCoord_addEquivVariableChange _ _ _ hX0, hX, xCoord_castEquiv, xCoord_castEquiv,
+    TateCuspGlue.xCoord_mapAlong, xCoord_castEquiv]
+
+/-- The Galois-type input: `σ` with `σ(u) = u^m`. -/
+theorem sigma_X (σ : F ≃+* F) (hσc : Continuous σ) (hσ : ∀ z, σ (incl z) = incl z) (u : Fˣ)
+    (m : ℕ) (hu : Units.map (σ : F →* F) u = u ^ m) :
+    σ (tateUniformizationX (qF F incl) u) = tateUniformizationX (qF F incl) (u ^ m) := by
+  have h := map_tateUniformizationX (σ : F →+* F) hσc (qF F incl) u (norm_qF F incl)
+  have hq : Units.map ((σ : F →+* F) : F →* F) (qF F incl) = qF F incl := by
+    ext; simp [qF, hσ]
+  have hu' : Units.map ((σ : F →+* F) : F →* F) u = u ^ m := hu
+  rw [hq, hu'] at h
+  exact h
+
+/-- **The cusp `μ_N` over `Ω = \overline{F}`.** -/
+theorem tateMuNAt_of_unit (N : ℕ) (hN : 2 ≤ N) (u : Fˣ)
+    (hu : orderOf (u : Fˣ ⧸ Subgroup.zpowers (qF F incl)) = N)
+    (hgal : ∀ m : ℕ, m < N → Nat.Coprime m N → ∃ σ : F ≃+* F, Continuous σ ∧
+      (∀ z, σ (incl z) = incl z) ∧ Units.map (σ : F →* F) u = u ^ m) :
+    TateMuNAt N (ΩF F incl) := by
+  obtain ⟨C, hC⟩ := WeierstrassCurve.exists_variableChange_of_j_eq _ _ (ΩF_j F incl)
+  obtain ⟨⟨α, hα⟩, ⟨β, hβ⟩⟩ :=
+    uR_mem (ιF F incl) WL_j_not_mem _ (ΩF_c₄ F incl) (ΩF_c₆ F incl) (ΩF_b₂ F incl) C hC
+  have hq := norm_qF F incl
+  have hΦ := PhiF_injective F incl WL _ (WL_map_incl F incl) _ C hC
+  have htate : Function.Injective (tateUniformizationHom (qF F incl) hq) :=
+    tateUniformizationHom_injective _ hq
+  have hQ₀ : addOrderOf (PhiF F incl WL _ (WL_map_incl F incl) _ C hC
+      (tateUniformizationHom (qF F incl) hq
+        (Additive.ofMul (u : Fˣ ⧸ Subgroup.zpowers (qF F incl))))) = N := by
+    have hx₀ : addOrderOf (Additive.ofMul (u : Fˣ ⧸ Subgroup.zpowers (qF F incl))) = N := by
+      rw [addOrderOf_ofMul_eq_orderOf, hu]
+    rw [addOrderOf_injective _ hΦ]
+    exact (addOrderOf_injective _ htate _).trans hx₀
+  refine ⟨_, hQ₀, fun R hR hRo => ?_⟩
+  obtain ⟨k, rfl⟩ := AddSubgroup.mem_zmultiples_iff.mp hR
+  obtain ⟨m, hmN, hkm⟩ := exists_nat_zsmul_eq _ hQ₀ (by omega) k
+  rw [hkm] at hRo ⊢
+  have hcop := coprime_of_addOrderOf_nsmul _ hQ₀ hN m hRo
+  obtain ⟨σ, hσc, hσ, hσu⟩ := hgal m hmN hcop
+  refine ⟨tauF F incl σ hσ, ?_⟩
+  have hEq := nsmul_map_eq (PhiF F incl WL _ (WL_map_incl F incl) _ C hC)
+    (tateUniformizationHom (qF F incl) hq)
+    (Additive.ofMul (u : Fˣ ⧸ Subgroup.zpowers (qF F incl)))
+    (Additive.ofMul ((u ^ m : Fˣ) : Fˣ ⧸ Subgroup.zpowers (qF F incl))) m
+    (tate_ofMul_pow (qF F incl) hq u m)
+  rw [hEq] at hRo ⊢
+  have hNz : ∀ y, addOrderOf (PhiF F incl WL _ (WL_map_incl F incl) _ C hC
+      (tateUniformizationHom (qF F incl) hq y)) = N →
+      tateUniformizationHom (qF F incl) hq y ≠ 0 := fun y hy =>
+    ne_zero_of_addOrderOf_map (PhiF F incl WL _ (WL_map_incl F incl) _ C hC) _ hN hy
+  rw [xCoord_PhiF F incl WL _ (WL_map_incl F incl) _ C hC _ (hNz _ hQ₀),
+    xCoord_PhiF F incl WL _ (WL_map_incl F incl) _ C hC _ (hNz _ hRo),
+    xCoord_tate _ hq _ (hNz _ hQ₀), xCoord_tate _ hq _ (hNz _ hRo), ← hα, ← hβ,
+    map_add, map_mul, tauF_ιF, tauF_ιF, tauF_algebraMap, sigma_X F incl σ hσc hσ u m hσu]
+
+end Generic
+
+/-! ### Specialization: `F = K((t))` -/
+
+section Laurent
+
+variable (K : Type) [Field K] [CharZero K]
+
+noncomputable instance : DecidableEq (LaurentSeries K) := Classical.decEq _
+
+instance : CharZero (LaurentSeries K) :=
+  charZero_of_injective_algebraMap (algebraMap ℚ (LaurentSeries K)).injective
+
+/-- `ℚ((t)) → K((t))`. -/
+def inclK : LaurentSeries ℚ →+* LaurentSeries K := HahnSeries.mapRingHom (algebraMap ℚ K)
+
+instance : RingHomIsometric (inclK K) :=
+  inferInstanceAs (RingHomIsometric (HahnSeries.mapRingHom (Γ := ℤ) (algebraMap ℚ K)))
+
+theorem qF_inclK : qF (LaurentSeries K) (inclK K) = tK K := by
+  ext n
+  simp only [qF, tK, Units.coe_map, MonoidHom.coe_ofClass, Units.val_mk0, inclK,
+    HahnSeries.coeff_mapRingHom, HahnSeries.coeff_single]
+  split_ifs <;> simp
+
+/-- A nonzero `ζ ∈ K` as a unit of `K((t))`. -/
+def uζ (ζ : K) (hζ0 : ζ ≠ 0) : (LaurentSeries K)ˣ := Units.mk0 (HahnSeries.C ζ) (HahnSeries.C_ne_zero hζ0)
+
+theorem orderOf_uζ (ζ : K) (hζ0 : ζ ≠ 0) (N : ℕ) (hN : 0 < N) (hζ : IsPrimitiveRoot ζ N) :
+    orderOf ((uζ K ζ hζ0 : (LaurentSeries K)ˣ) :
+      (LaurentSeries K)ˣ ⧸ Subgroup.zpowers (qF (LaurentSeries K) (inclK K))) = N := by
+  rw [qF_inclK]
+  have hpow : ∀ m : ℕ, ((uζ K ζ hζ0 ^ m : (LaurentSeries K)ˣ) : LaurentSeries K) =
+      HahnSeries.C (ζ ^ m) := fun m => by
+    rw [Units.val_pow_eq_pow_val, map_pow]; rfl
+  rw [orderOf_eq_iff hN]
+  refine ⟨?_, fun m hm hm0 h => ?_⟩
+  · rw [← QuotientGroup.mk_pow, QuotientGroup.eq_one_iff]
+    have : uζ K ζ hζ0 ^ N = 1 := by
+      ext; rw [hpow, hζ.pow_eq_one, map_one, Units.val_one]
+    rw [this]; exact one_mem _
+  · rw [← QuotientGroup.mk_pow, QuotientGroup.eq_one_iff, Subgroup.mem_zpowers_iff] at h
+    obtain ⟨k, hk⟩ := h
+    have hv := congrArg (fun u : (LaurentSeries K)ˣ => Valued.v (u : LaurentSeries K)) hk
+    simp only [valuation_tK_zpow, hpow] at hv
+    rw [valuation_C (pow_ne_zero _ hζ0)] at hv
+    have hk0 : k = 0 := by
+      rw [← WithZero.exp_zero, WithZero.exp_inj] at hv; omega
+    rw [hk0, zpow_zero] at hk
+    have h1 : HahnSeries.C (ζ ^ m) = (HahnSeries.C (1 : K) : LaurentSeries K) := by
+      rw [← hpow, ← hk, map_one]; rfl
+    have h2 := HahnSeries.C_injective h1
+    exact absurd (Nat.le_of_dvd hm0 (hζ.dvd_of_pow_eq_one m h2)) (by omega)
+
+/-- The coefficientwise action of a ring automorphism `g` of `K` on `K((t))`. -/
+def sigmaK (g : K ≃+* K) : LaurentSeries K ≃+* LaurentSeries K :=
+  RingEquiv.ofRingHom (HahnSeries.mapRingHom (g : K →+* K))
+    (HahnSeries.mapRingHom (g.symm : K →+* K))
+    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
+    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
+
+theorem sigmaK_inclK (g : K ≃+* K) (z : LaurentSeries ℚ) :
+    sigmaK K g (inclK K z) = inclK K z := by
+  show HahnSeries.mapRingHom (g : K →+* K) (HahnSeries.mapRingHom _ z) = _
+  ext n
+  simp [inclK, HahnSeries.coeff_mapRingHom, RingHom.map_rat_algebraMap]
+
+theorem continuous_sigmaK (g : K ≃+* K) : Continuous (sigmaK K g) :=
+  continuous_mapRingHom (g : K →+* K)
+
+theorem sigmaK_uζ (g : K ≃+* K) (ζ : K) (hζ0 : ζ ≠ 0) (m : ℕ) (hg : g ζ = ζ ^ m) :
+    Units.map (sigmaK K g : LaurentSeries K →* LaurentSeries K) (uζ K ζ hζ0) =
+      uζ K ζ hζ0 ^ m := by
+  ext n
+  rw [Units.coe_map, Units.val_pow_eq_pow_val, MonoidHom.coe_ofClass]
+  show HahnSeries.coeff (HahnSeries.mapRingHom (g : K →+* K) (HahnSeries.C _)) n = _
+  rw [HahnSeries.coeff_mapRingHom, uζ, Units.val_mk0, ← map_pow, HahnSeries.C_apply,
+    HahnSeries.C_apply, HahnSeries.coeff_single, HahnSeries.coeff_single]
+  split_ifs <;> simp [hg]
+
+/-- **The cusp `μ_N` over `\overline{K((t))}`.** -/
+theorem tateMuNAt_of_root (N : ℕ) (hN : 2 ≤ N) (ζ : K) (hζ : IsPrimitiveRoot ζ N)
+    (hgal : ∀ m : ℕ, m < N → Nat.Coprime m N → ∃ g : K ≃+* K, g ζ = ζ ^ m) :
+    TateMuNAt N (ΩF (LaurentSeries K) (inclK K)) := by
+  have hζ0 : ζ ≠ 0 := hζ.ne_zero (by omega)
+  exact tateMuNAt_of_unit (LaurentSeries K) (inclK K) N hN (uζ K ζ hζ0)
+    (orderOf_uζ K ζ hζ0 N (by omega) hζ) fun m hmN hcop => by
+      obtain ⟨g, hg⟩ := hgal m hmN hcop
+      exact ⟨sigmaK K g, continuous_sigmaK K g, sigmaK_inclK K g, sigmaK_uζ K g ζ hζ0 m hg⟩
+
+end Laurent
+
+/-! ### The cyclotomic field `ℚ(ζ_N)` -/
+
+section Cyclotomic
 
 variable (N : ℕ) [NeZero N]
 
 abbrev KN := CyclotomicField N ℚ
-abbrev LN := LaurentSeries (KN N)
-abbrev ΩN := AlgebraicClosure (LN N)
 
-instance : CharZero (ΩN N) := algebraRat.charZero _
+instance : IsCyclotomicExtension {N} ℚ (KN N) := CyclotomicField.isCyclotomicExtension N ℚ
 
-/-- `ℚ((t)) → ℚ(ζ_N)((t))`. -/
-def inclN : LaurentSeries ℚ →+* LN N := HahnSeries.mapRingHom (algebraMap ℚ (KN N))
+/-- The Galois element `ζ ↦ ζ^m` of `ℚ(ζ_N)`. -/
+def galN (m : ℕ) (hcop : Nat.Coprime m N) : KN N ≃ₐ[ℚ] KN N :=
+  (IsCyclotomicExtension.autEquivPow (KN N)
+    (Polynomial.cyclotomic.irreducible_rat (NeZero.pos N))).symm (ZMod.unitOfCoprime m hcop)
 
-/-- `ℚ((t)) → Ω`. -/
-def ιN : LaurentSeries ℚ →+* ΩN N := (algebraMap (LN N) (ΩN N)).comp (inclN N)
+theorem galN_zeta (m : ℕ) (hcop : Nat.Coprime m N) (hmN : m < N) :
+    galN N m hcop (IsCyclotomicExtension.zeta N ℚ (KN N)) =
+      IsCyclotomicExtension.zeta N ℚ (KN N) ^ m := by
+  have hζ := IsCyclotomicExtension.zeta_spec N ℚ (KN N)
+  have h1 := hζ.autToPow_spec ℚ (galN N m hcop)
+  have h2 : (IsCyclotomicExtension.autEquivPow (KN N)
+      (Polynomial.cyclotomic.irreducible_rat (NeZero.pos N))) (galN N m hcop) =
+        ZMod.unitOfCoprime m hcop :=
+    MulEquiv.apply_symm_apply _ _
+  rw [IsCyclotomicExtension.autEquivPow_apply] at h2
+  have h3 : ((hζ.autToPow ℚ (galN N m hcop) : (ZMod N)ˣ) : ZMod N) = (m : ZMod N) := by
+    rw [← ZMod.coe_unitOfCoprime m hcop, ← h2]; rfl
+  rw [← h1, h3, ZMod.val_natCast, Nat.mod_eq_of_lt hmN]
 
-/-- `Ω` as a `ℚ(j)`-algebra through `j ↦ j(E_t)`. -/
-@[reducible] def algQjΩ : Algebra Qj (ΩN N) := ((ιN N).comp phiL).toAlgebra
 
-attribute [local instance] algQjΩ
+end Cyclotomic
 
-theorem algebraMap_Qj_ΩN (a : Qj) : algebraMap Qj (ΩN N) a = ιN N (phiL a) := rfl
-
-/-- The coefficientwise action of `g ∈ Gal(K/ℚ)` on `K((t))`. -/
-def sigmaN (g : KN N ≃ₐ[ℚ] KN N) : LN N ≃+* LN N :=
-  RingEquiv.ofRingHom (HahnSeries.mapRingHom (g : KN N →+* KN N))
-    (HahnSeries.mapRingHom (g.symm : KN N →+* KN N))
-    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
-    (by rw [← HahnSeries.mapRingHom_comp]; ext x n; simp [HahnSeries.coeff_mapRingHom])
-
-theorem sigmaN_inclN (g : KN N ≃ₐ[ℚ] KN N) (z : LaurentSeries ℚ) :
-    sigmaN N g (inclN N z) = inclN N z := by
-  show HahnSeries.mapRingHom (g : KN N →+* KN N) (HahnSeries.mapRingHom _ z) = _
-  ext n
-  simp [inclN, HahnSeries.coeff_mapRingHom]
-
-/-- The automorphism of `Ω` extending `σ_g`; it fixes `ℚ(j)`. -/
-def tauN (g : KN N ≃ₐ[ℚ] KN N) : ΩN N ≃ₐ[Qj] ΩN N :=
-  AlgEquiv.ofRingEquiv (f := IsAlgClosure.equivOfEquiv (ΩN N) (ΩN N) (sigmaN N g)) fun a => by
-    rw [algebraMap_Qj_ΩN, ιN, RingHom.comp_apply, IsAlgClosure.equivOfEquiv_algebraMap,
-      sigmaN_inclN]
-
-theorem tauN_algebraMap (g : KN N ≃ₐ[ℚ] KN N) (s : LN N) :
-    tauN N g (algebraMap (LN N) (ΩN N) s) = algebraMap (LN N) (ΩN N) (sigmaN N g s) :=
-  IsAlgClosure.equivOfEquiv_algebraMap _ _ _ s
-
-theorem tauN_ιN (g : KN N ≃ₐ[ℚ] KN N) (z : LaurentSeries ℚ) : tauN N g (ιN N z) = ιN N z := by
-  rw [ιN, RingHom.comp_apply, tauN_algebraMap, sigmaN_inclN]
-
-theorem continuous_sigmaN (g : KN N ≃ₐ[ℚ] KN N) : Continuous (sigmaN N g) :=
-  continuous_mapRingHom (g : KN N →+* KN N)
-
-theorem sigmaN_tK (g : KN N ≃ₐ[ℚ] KN N) :
-    Units.map (sigmaN N g : LN N →+* LN N).toMonoidHom (tK (KN N)) = tK (KN N) :=
-  mapRingHom_tK (g : KN N →+* KN N)
-
-end Level
+/-- **`TateMuN` (task t40-igusa) is proved.** -/
+theorem _root_.ZInQ.RLeaf.tateMuN : TateMuN := by
+  refine tateMuN_of_at fun N hN => ?_
+  by_cases hN1 : N = 1
+  · subst hN1
+    refine ⟨Kbar, inferInstance, inferInstance, inferInstance, inferInstance, 0, addOrderOf_zero,
+      fun R hR _ => ⟨AlgEquiv.refl, ?_⟩⟩
+    obtain ⟨k, rfl⟩ := AddSubgroup.mem_zmultiples_iff.mp hR
+    rw [zsmul_zero]; rfl
+  · haveI : NeZero N := ⟨hN.ne'⟩
+    exact ⟨ΩF (LaurentSeries (KN N)) (inclK (KN N)), inferInstance, inferInstance,
+      inferInstance, _,
+      tateMuNAt_of_root (KN N) N (by omega) _ (IsCyclotomicExtension.zeta_spec N ℚ (KN N))
+        fun m hmN hcop => ⟨(galN N m hcop).toRingEquiv, galN_zeta N m hcop hmN⟩⟩
 
 end ZInQ.RLeaf.TateCuspMuN
+
+#print axioms ZInQ.RLeaf.tateMuN
