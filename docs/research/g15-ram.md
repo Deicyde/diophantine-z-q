@@ -46,7 +46,7 @@ theorem G0ModNewform.modularConstituent_tail_R (lv : NewformLeaves) (hJac : Jaco
 ```
 
 VERIFIED: `lake env lean scratch/g15-ram/G15Ram.lean` exits 0 with no errors and no `sorry`
-(about 15 s), and `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for all twelve
+(about 15 s), and `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for all thirteen
 printed declarations (§4). `Tail.lean` also exits 0 with no errors (about 40 s), and its
 `modularConstituent_tail_R` has the same three axioms.
 
@@ -170,8 +170,8 @@ The following are VERIFIED as logical points, except where marked.
   finite-level statement (a scalar on `G_F ∩ P_p`, with `e(F) ≤ (DG₀)!`) plus a bound for one
   *character* `β`. The ramification theory that turns it into clause (i) (the break bound, and
   "upper groups are wild") is proved here.
-- `LocalData p r` is satisfiable (trivial `r`, `F = ⊥`, `β = 1`), so the hypotheses are
-  consistent.
+- `LocalData p r` is satisfiable: it holds for the trivial representation with `F = ⊥` and
+  `β = 1` (`localData_trivRep`, compiled). So the hypotheses are consistent.
 - Truth on Glazer's construction is SPECULATIVE but direct from N5 L719-851. `TwistShape` holds
   because `r_ℓ ⊕ r_ℓ ≅ ρ_ℓ` and `ρ_ℓ` is scalar on `G_F ∩ P_p`. For `TwistUpper` at `p = 2`,
   Glazer argues over the Galois closure of `L_v` (degree `≤ D!`). That field's fixer contains
@@ -187,7 +187,8 @@ The following are VERIFIED as logical points, except where marked.
 `sorry`. `#print axioms` gives `[propext, Classical.choice, Quot.sound]` for each of:
 `upperBreakFix_of_hilbertSerre`, `g15RamG_of_pieces`, `g15RamG_of_hilbertSerre`, `upperWild`,
 `hilbertSerre_of_model`, `g15RamG_of_model`, `wildFixTame`, `g15RamG_of_dvrModel`,
-`ladicDVRModel_of_Zp`, `g15RamG_of_zpModel`, `ladicDVRModelZp`, `g15RamG_of_localData`.
+`ladicDVRModel_of_Zp`, `g15RamG_of_zpModel`, `ladicDVRModelZp`, `g15RamG_of_localData`,
+`localData_trivRep`.
 
 `lake env lean scratch/g15-ram/Tail.lean` exits 0 with 0 errors, and `modularConstituent_tail_R`
 has the same three axioms (`scratch/g15-ram/tail_compile.out`).

@@ -1339,6 +1339,36 @@ theorem g15RamG_of_zpModel
     G15RamG D u :=
   g15RamG_of_dvrModel (fun p _ => ladicDVRModel_of_Zp (hM p)) D u h5 h3 h11₅ h11₃
 
+/-- The trivial two-dimensional representation (for the non-vacuity check below). -/
+def trivRep (ℓ : ℕ) [Fact ℓ.Prime] : GaloisRep ℓ 2 := ⟨1, continuous_const⟩
+
+/-- **Non-vacuity check (proved).** `LocalData p r` holds for the trivial representation (with
+`F = ℚ_p`, `β = 1`), so the hypotheses on `D` are not contradictory. -/
+theorem localData_trivRep (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime] :
+    LocalData p (trivRep ℓ) := by
+  have hF : IsFinGal (⊥ : Fld p) := ⟨inferInstance, inferInstance⟩
+  have hshape : TwistShape p (trivRep ℓ) ⊥ (fun _ => 1) := by
+    intro σ _
+    simp [trivRep, PkgI4.GaloisRep.restrictLocal]
+  have he : ramCard (⊥ : Fld p) 0 = 1 := by
+    have h1 := one_le_ramCard hF 0
+    have h2 : ramCard (⊥ : Fld p) 0 ≤ 1 := by
+      unfold ramCard
+      have hfin := (finite_restr hF (ramSet (⊥ : Fld p) 0)).to_subtype
+      refine Finite.card_le_one_iff_subsingleton.mpr ⟨fun a b => ?_⟩
+      apply Subtype.ext
+      obtain ⟨σ, -, hσ⟩ := a.2
+      obtain ⟨τ, -, hτ⟩ := b.2
+      rw [← hσ, ← hτ]
+      funext x
+      obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp x.2
+      simp only [restr, ← hq, AlgEquiv.commutes]
+    omega
+  refine ⟨fun _ => ⟨⊥, fun _ => 1, hF, ?_, hshape, fun _ _ _ _ => rfl⟩,
+    fun _ => ⟨⊥, fun _ => 1, hF, ?_, hshape, fun _ _ => rfl⟩⟩
+  · rw [he]; exact Nat.one_le_iff_ne_zero.mpr (Nat.factorial_ne_zero _)
+  · rw [he]; exact (Nat.Prime.one_lt Fact.out).ne' ∘ Nat.dvd_one.mp
+
 /-- **`G15RamG` from the data of G7-G8 on `D` and G11's output alone (GLUE, proved).** Every
 closed local-field input is proved: `UpperBreakFix` (from T20, T21 and `ladicDVRModelZp`),
 `UpperWild`, `WildFixTame`. -/
@@ -1367,3 +1397,4 @@ end G15Ram
 #print axioms G15Ram.g15RamG_of_zpModel
 #print axioms G15Ram.ladicDVRModelZp
 #print axioms G15Ram.g15RamG_of_localData
+#print axioms G15Ram.localData_trivRep

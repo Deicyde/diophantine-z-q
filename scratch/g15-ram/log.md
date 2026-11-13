@@ -91,3 +91,8 @@
   `Tail.lean`'s `modularConstituent_tail_R` now has no local-field hypothesis.
 - Compile (VERIFIED): `G15Ram.lean` exit 0, 0 errors, 12 printed declarations all with
   [propext, Classical.choice, Quot.sound]; `Tail.lean` exit 0, 0 errors.
+
+## Step 8 (05:15-05:20 PST): non-vacuity in Lean
+- `localData_trivRep : LocalData p (trivRep ℓ)` (trivial representation, `F = ⊥`, `β = 1`;
+  `ramCard ⊥ 0 = 1`). Compile (VERIFIED): `G15Ram.lean` exit 0, 0 errors, axioms standard;
+  `Tail.lean` rebuilt, exit 0, 0 errors.
