@@ -11,3 +11,5 @@
 #print axioms R1bState.iota_mul
 #print axioms R1bState.hauptmodulCompare_of_parts
 #print axioms R1bState.fibreQMPeriod_of_r1b_parts
+#print axioms R1bState.familyHauptmodul_of_parts
+#print axioms R1bState.fibreQMPeriod_of_r1b_fine

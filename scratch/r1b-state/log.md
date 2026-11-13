@@ -50,3 +50,7 @@
   using R1(b)'s family clauses), `PiOfQMLattice`, `JDenNonzero` (`hauptmodulCompare_of_parts`),
   and `fibreQMPeriod_of_r1b_parts`. One rename (`γ` is a token under the opens; bound variable
   renamed `g`). Clean, 0 errors; both new theorems `[propext, Classical.choice, Quot.sound]`.
+- run19-20: Part6_Family: `FamilyHauptmodul` from `MobiusRigidity` (pure analysis),
+  `HauptmodulHolomorphic` (theta only), `FamilyOrbits`, `FamilyCMValues`, `CMPointsExist`
+  (`familyHauptmodul_of_parts`), and `fibreQMPeriod_of_r1b_fine`. Clean, 0 errors; axioms
+  standard (VERIFIED).

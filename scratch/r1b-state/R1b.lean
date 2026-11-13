@@ -966,6 +966,151 @@ theorem fibreQMPeriod_of_r1b_parts (hR1b : R01b_ComplexUniformization')
 
 end R1bState
 
+/-! # r1b-state, part 6: `FamilyHauptmodul` split into pure analysis and moduli inputs
+
+`familyHauptmodul_of_parts` proves `FamilyHauptmodul` from
+* `MobiusRigidity` (pure complex analysis, no moduli: two holomorphic maps `ℍ → P¹` whose fibres
+  are the orbits of the same set `G ⊆ GL₂(ℝ)`, the first continuous and onto, which agree at three
+  points with distinct values, are equal);
+* `HauptmodulHolomorphic` (`QMHauptmodul`'s `f` is holomorphic into `P¹`: theta functions only);
+* `FamilyOrbits` (the fibres of `τ ↦ π(y(τ))` on the family are the `Γ*`-orbits);
+* `FamilyCMValues` (the family takes `π = 0, ∞, −16/27` at the fixed points of `ι(x)`, `x` of
+  discriminant `−4, −3, −24`);
+* `CMPointsExist` (`ι(x)` has such fixed points in `ℍ`; an elementary computation);
+together with R1(b)(c) through the holomorphy of `τ ↦ π(y(τ))` (part 2). -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic
+open scoped Topology
+
+/-- A function on `ℍ` extended to `ℂ` (by `∞` off `ℍ`; only used on `ℍ`). -/
+def extH (f : UpperHalfPlane → OnePoint ℂ) : ℂ → OnePoint ℂ :=
+  fun τ => if h : 0 < τ.im then f ⟨τ, h⟩ else OnePoint.infty
+
+theorem isOpen_UHP : IsOpen UHP := isOpen_lt continuous_const Complex.continuous_im
+
+theorem HolomorphicP1On.congr {F F' : ℂ → OnePoint ℂ} {D : Set ℂ} (hF : HolomorphicP1On F D)
+    (hD : IsOpen D) (he : ∀ τ ∈ D, F τ = F' τ) : HolomorphicP1On F' D := by
+  intro τ₀ hτ₀
+  obtain ⟨N, hN, h, hh, hor⟩ := hF τ₀ hτ₀
+  refine ⟨N ∩ D, Filter.inter_mem hN (hD.mem_nhds hτ₀), h, hh.mono Set.inter_subset_left, ?_⟩
+  rcases hor with hl | hr
+  · exact Or.inl fun τ hτ => (he τ hτ.2).symm.trans (hl τ hτ.1)
+  · exact Or.inr fun τ hτ => (he τ hτ.2).symm.trans (hr τ hτ.1)
+
+/-- **GLUE (pure complex analysis; no moduli).** Let `G ⊆ GL₂(ℝ)` and `f, F : ℍ → P¹`, both
+holomorphic, with fibres exactly the `G`-orbits, `f` continuous and onto. If `F` and `f` agree at
+three points where `f` takes three distinct values, then `F = f`. Why true: `f` is open
+(nonconstant holomorphic), so `F = g ∘ f` for a continuous bijection `g` of `P¹`; `g` is
+holomorphic off the image of the critical points of `f`, a closed discrete (`G`-saturated
+preimage) hence finite subset of `P¹`, so holomorphic (removable singularities); a holomorphic
+bijection of `P¹` is a Möbius map, and one fixing three points is the identity. (If `G` contains
+orientation-reversing elements the hypotheses are contradictory.) Mathlib has removable
+singularities; it lacks the degree theory of holomorphic maps `P¹ → P¹`. -/
+def MobiusRigidity : Prop :=
+  ∀ (G : Set (GL (Fin 2) ℝ)) (f F : UpperHalfPlane → OnePoint ℂ),
+    Continuous f → Function.Surjective f →
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ g ∈ G, g • τ = τ') →
+    (∀ τ τ' : UpperHalfPlane, F τ = F τ' ↔ ∃ g ∈ G, g • τ = τ') →
+    HolomorphicP1On (extH f) UHP → HolomorphicP1On (extH F) UHP →
+    ∀ τ₁ τ₂ τ₃ : UpperHalfPlane, f τ₁ ≠ f τ₂ → f τ₁ ≠ f τ₃ → f τ₂ ≠ f τ₃ →
+      F τ₁ = f τ₁ → F τ₂ = f τ₂ → F τ₃ = f τ₃ → F = f
+
+/-- **GLUE (theta functions only).** `QMHauptmodul`'s `f` is holomorphic into `P¹`. Why true:
+`f = jNum/jDen ∘ Ω` off the zeros of `jDen ∘ Ω`, a quotient of holomorphic functions of `τ`
+(theta constants are holomorphic on `𝔥₂`, `Ω` is holomorphic on `ℍ` by bp-analytic's partial
+fractions), and `f` is continuous, so `f` is the meromorphic quotient. -/
+def HauptmodulHolomorphic : Prop :=
+  ∀ f, QMHauptmodulProps f → HolomorphicP1On (extH f) UHP
+
+/-- **GLUE (the family's `π`-fibres are the `Γ*`-orbits).** Why true: for `γ = ι(n)`,
+`n ∈ N_B(𝒪)` of positive norm, `Λ_{γτ}` is a scalar multiple of `ι(n)Λ_τ`, so the QM pairs at
+`τ` and `γτ` are twist-isomorphic (by `Ad n`), and conversely an `ι`-twisted isomorphism of the
+QM pairs at `τ`, `τ'` is a linear map carrying `Λ_τ` to `Λ_{τ'}` and normalizing `ι(𝒪)`, i.e.
+`ι(n)` up to a scalar (Skolem–Noether, T13); with GAGA (T11a) and R2's fibre clause on
+`ℂ`-points. -/
+def FamilyOrbits : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∀ y : ℂ → (fieldPt ℂ ⟶ Y),
+      (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) →
+    ∀ τ τ' : UpperHalfPlane, π.val (K := ℂ) (y τ).left = π.val (K := ℂ) (y τ').left ↔
+      ∃ g ∈ PkgI1.GammaStar, g • τ = τ'
+
+/-- **GLUE (the family's CM values).** At a fixed point `τ` of `ι(x)`, `x ∈ 𝒪` with `x² = −1`
+(resp. `x² − x + 1 = 0`, `x² = −6`), `π(y(τ)) = 0` (resp. `∞`, `−16/27`). Why true: if
+`ι(x)(τ, 1)ᵀ = λ(τ, 1)ᵀ`, multiplication by `λ` preserves `Λ_τ` and commutes with `ι(𝒪)`, so it is
+an endomorphism of the QM pair at `τ` (algebraic by T11a) in `End_𝒪` with `λ² = −1` (resp. …),
+and R2's CM clauses (on `ℂ`-points) give the value. -/
+def FamilyCMValues : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∀ y : ℂ → (fieldPt ℂ ⟶ Y),
+      (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) →
+    ∀ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x →
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → g • τ = τ →
+      (x * x = -1 → π.val (K := ℂ) (y τ).left = ((0 : ℂ) : OnePoint ℂ)) ∧
+      (x * x - x + 1 = 0 → π.val (K := ℂ) (y τ).left = OnePoint.infty) ∧
+      (x * x = -6 → π.val (K := ℂ) (y τ).left = ((-16 / 27 : ℂ) : OnePoint ℂ))
+
+/-- **Elementary (not compiled): CM points exist in `ℍ`.** E.g. `ι(i + j)` fixes `√2 + i`,
+`ι((1+j)/2)` fixes `i√3`, `ι(2j + ij)` fixes `i√(9+6√2)` (pkg-I1's numerics, `jden_check.py`). -/
+def CMPointsExist : Prop :=
+  (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x = -1 ∧
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ) ∧
+  (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x - x + 1 = 0 ∧
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ) ∧
+  (∃ (x : PkgI1.B) (g : GL (Fin 2) ℝ) (τ : UpperHalfPlane), PkgI1.InO x ∧ x * x = -6 ∧
+    (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ)
+
+theorem extH_eq (f : UpperHalfPlane → OnePoint ℂ) (τ : UpperHalfPlane) :
+    extH f (τ : ℂ) = f τ := by
+  unfold extH
+  rw [dif_pos (show 0 < (τ : ℂ).im from τ.im_pos)]
+
+/-- **`FamilyHauptmodul` from the five pieces (proved).** -/
+theorem familyHauptmodul_of_parts (hM : MobiusRigidity) (hH : HauptmodulHolomorphic)
+    (hO : FamilyOrbits) (hV : FamilyCMValues) (hE : CMPointsExist) : FamilyHauptmodul := by
+  intro Y Φ π h1 h2 y hb hhol f hf τ hτ
+  set F : UpperHalfPlane → OnePoint ℂ := fun t => π.val (K := ℂ) (y t).left with hFdef
+  have hFhol : HolomorphicP1On (extH F) UHP := by
+    refine hhol.congr isOpen_UHP fun t ht => ?_
+    show _ = extH F t
+    unfold extH
+    rw [dif_pos (show 0 < t.im from ht)]
+  obtain ⟨⟨x₁, g₁, t₁, i₁, e₁, m₁, f₁⟩, ⟨x₂, g₂, t₂, i₂, e₂, m₂, f₂⟩,
+    ⟨x₃, g₃, t₃, i₃, e₃, m₃, f₃⟩⟩ := hE
+  have v₁ : f t₁ = ((0 : ℂ) : OnePoint ℂ) := hf.2.2.2.2.1 x₁ i₁ e₁ g₁ m₁ t₁ f₁
+  have v₂ : f t₂ = OnePoint.infty := hf.2.2.2.2.2.1 x₂ i₂ e₂ g₂ m₂ t₂ f₂
+  have v₃ : f t₃ = ((-16 / 27 : ℂ) : OnePoint ℂ) := hf.2.2.2.2.2.2 x₃ i₃ e₃ g₃ m₃ t₃ f₃
+  have w₁ : F t₁ = f t₁ := by rw [v₁]; exact (hV Y Φ π h1 h2 y hb x₁ g₁ t₁ i₁ m₁ f₁).1 e₁
+  have w₂ : F t₂ = f t₂ := by rw [v₂]; exact (hV Y Φ π h1 h2 y hb x₂ g₂ t₂ i₂ m₂ f₂).2.1 e₂
+  have w₃ : F t₃ = f t₃ := by rw [v₃]; exact (hV Y Φ π h1 h2 y hb x₃ g₃ t₃ i₃ m₃ f₃).2.2 e₃
+  have d₁₂ : f t₁ ≠ f t₂ := by rw [v₁, v₂]; exact OnePoint.coe_ne_infty 0
+  have d₂₃ : f t₂ ≠ f t₃ := by rw [v₂, v₃]; exact (OnePoint.coe_ne_infty _).symm
+  have d₁₃ : f t₁ ≠ f t₃ := by
+    rw [v₁, v₃]; intro h; have := OnePoint.coe_injective h; norm_num at this
+  have hEq := hM PkgI1.GammaStar f F hf.1 hf.2.2.2.1 hf.2.2.1 (hO Y Φ π h1 h2 y hb) (hH f hf)
+    hFhol t₁ t₂ t₃ d₁₂ d₁₃ d₂₃ w₁ w₂ w₃
+  exact congrFun hEq ⟨τ, hτ⟩
+
+/-- **`FibreQMPeriod` from R1(b), `QMHauptmodul` and the finest named glue (proved).** -/
+theorem fibreQMPeriod_of_r1b_fine (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hM : MobiusRigidity) (hHol : HauptmodulHolomorphic)
+    (hO : FamilyOrbits) (hV : FamilyCMValues) (hE : CMPointsExist) (hB : PiOfQMLattice)
+    (hC : JDenNonzero) (hU : UnifBaseChange) : FibreQMPeriod' :=
+  fibreQMPeriod_of_r1b_parts hR1b hH (familyHauptmodul_of_parts hM hHol hO hV hE) hB hC hU
+
+end R1bState
+
 /-! ## Axiom audit -/
 #print axioms R1bState.r1bProps_of_leaf
 #print axioms R1bState.R1bProps.of_hom
@@ -978,3 +1123,5 @@ end R1bState
 #print axioms R1bState.iota_mul
 #print axioms R1bState.hauptmodulCompare_of_parts
 #print axioms R1bState.fibreQMPeriod_of_r1b_parts
+#print axioms R1bState.familyHauptmodul_of_parts
+#print axioms R1bState.fibreQMPeriod_of_r1b_fine
