@@ -45,3 +45,7 @@
   Tail runs: 1 (Nontrivial via finrank; `mul_assoc` ambiguous; Module.Finite of AdjoinRoot), 2 (one extra tactic),
   3: VERIFIED exit 0 in 43 s, 0 errors; standard axioms for eq_zero_of_mul_self_eq_zero, eight_le_finrank,
   qmSplitCaseRank, qmEndRank_of_leaves (and the earlier ones).
+- Flat file `scratch/lt-goodred/GoodRed.lean` (16417 lines = Leaves.lean L1-14993 + closers + parts 05, 10, 20, 30, 40, 50),
+  `lake env lean`: VERIFIED exit 0 in 160 s, 0 errors, no `sorry`, 9 axiom reports, all [propext, Classical.choice, Quot.sound]
+  (goodRedTorsion, quatB6_isUnit, quatEmbed, four_le_finrank, qmEndRank_of, eq_zero_of_mul_self_eq_zero, eight_le_finrank,
+  qmSplitCaseRank, qmEndRank_of_leaves).
