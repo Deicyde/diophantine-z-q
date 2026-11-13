@@ -34,7 +34,7 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   parts/40_fibresimple.lean (§5 demo lemmas `r1fpProps_twistBy`, `fibreComTrivial_twisted` take
   `R1famProps ∧ R1univProps` for the twisted Φ as an extra hypothesis; they are not used
   downstream) + checks/c1_g10.lean (g10-odd L102-239 verbatim + `g10Glue_of_conjTwist_new`).
-- `ctail.sh Tail.lean` (8185 lines; started 06:43:48, output written ~06:52): **0 errors, no
+- `ctail.sh Tail.lean` (8185 lines; started 06:43:48, finished 06:46:17, ~150 s): **0 errors, no
   `sorry`**, 7 `#print axioms` reports, all `[propext, Classical.choice, Quot.sound]`, including
   `HSyn.gluePieces_of_gluePieces2`, `HSyn.sixContactMin_of_leaves2` and
   `G0Galois.g10Glue_of_conjTwist_new` (VERIFIED, olean/Tail_out.txt).
@@ -43,3 +43,15 @@ Target: the 27 fields of `HSyn.GluePieces2` in scratch/g0-assemble/G0Assemble.le
   statements are textually unchanged, and over the pinned Leaves their `R1fpProps` hypotheses
   are stronger, so every field is (weakly) easier.
   ⇒ g10-odd's `ConjTwistNontrivial → G10Glue` holds for g0-assemble's changed `G10Glue`.
+
+## Proved fields, re-checked on G0Assemble's own constants (over the pinned prefix)
+
+- Layout changed: olean/TailBase.olean (parts, 8029 lines): exit 0 in 152 s, 0 errors. Each
+  check file `checks/X.lean` compiles as `olean/Check_X.lean` = `import TailBase` + body.
+- c1_g10: exit 0 in 47 s; `G0Galois.g10Glue_of_conjTwist_new : ConjTwistNontrivial → G10Glue`
+  standard axioms (VERIFIED).
+- c2_proved: first run failed (`eq_of_finrank_one` lives in metrization's ExtLine.lean); with the
+  ExtLine body added: exit 0 in 40 s, 0 errors. Standard axioms (VERIFIED) for
+  `RvGP2.finiteDescends : G0FibreSimple.FiniteDescends` (field 3),
+  `RvGP2.unramifiedSup : G0ModField.UnramifiedSup` (field 14),
+  `RvGP2.metrizationDimUnique : ZInQ.G0HeightAdd.MetrizationDimUnique` (field 6).

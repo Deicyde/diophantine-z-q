@@ -1,0 +1,1 @@
+'G0Galois.g10Glue_of_conjTwist_new' depends on axioms: [propext, Classical.choice, Quot.sound]

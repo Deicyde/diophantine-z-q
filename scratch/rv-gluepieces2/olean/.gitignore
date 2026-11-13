@@ -1,3 +1,5 @@
 *.olean
 *.ilean
 LPrefix.lean
+Tail*.lean
+Check_*.lean
