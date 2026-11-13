@@ -88,3 +88,11 @@
   LocalData.lean; each copied def occurs once.
 - Compile: `lake env lean scratch/local-data/LocalData.lean` exit 0, 0 errors, no sorry;
   all 20 printed declarations [propext, Classical.choice, Quot.sound].
+
+## Step 7 (06:16-06:22 PST): p > D from [L:ℚ] ≤ D
+- Proved (VERIFIED, compiled, axioms standard): `exists_local_field_le` (L ⊆ ℚ̄ number field ⇒
+  ∃ E ⊇ embP(L) with [E:ℚ_p] ≤ [L:ℚ]; E = ℚ_p(embP α), minpoly over ℚ_p divides the image of
+  minpoly over ℚ); `tateWildTrivial_of_L`; `localData_of_g7_large` (p > D: LocalData p r from
+  G8Out, the G7 clauses, [L:ℚ] ≤ D and `TateWildTrivialL` (new glue def: a·Tm = 1 on wild σ
+  with decomp σ ∈ G_L); p ≠ 2 from `ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD`).
+- Compile: exit 0, 0 errors, no sorry.

@@ -771,6 +771,103 @@ theorem localData_of_g7_odd (hp2 : p ≠ 2) {K : Type} [Field K] [NumberField K]
   · obtain ⟨E, hEfd, hLE, hdeg, hT⟩ := hlarge hp
     exact (localData_large_of_g8 hG8 hp hdeg hT (htame E hLE)).2 hp
 
+/-! ### `p > D` from `[L:ℚ] ≤ D` (proved) -/
+
+/-- **`[ℚ_p · embP(L) : ℚ_p] ≤ [L:ℚ]` (proved).** For a number field `L ⊆ ℚ̄`, the field
+`E = ℚ_p(embP α)` (`α` a primitive element of `L`) contains `embP(L)` and has degree
+`≤ deg minpoly_ℚ α = [L:ℚ]` (the minimal polynomial over `ℚ_p` divides the image of the one
+over `ℚ`). This is `[L_v:ℚ_p] ≤ [L:ℚ]`. -/
+theorem exists_local_field_le (L : IntermediateField ℚ PkgI4.Qbar) [FiniteDimensional ℚ L] :
+    ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧ (∀ x ∈ L, embP x ∈ E) ∧
+      Module.finrank ℚ_[p] E ≤ Module.finrank ℚ L := by
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ L
+  set αQ : PkgI4.Qbar := (α : PkgI4.Qbar) with hαQ
+  have hintQ : IsIntegral ℚ αQ := (IsIntegral.of_finite ℚ α).map L.val
+  set g := minpoly ℚ αQ with hg
+  set a : Kbar p := embP αQ with ha
+  have hroot : Polynomial.aeval a (g.map (algebraMap ℚ ℚ_[p])) = 0 := by
+    rw [Polynomial.aeval_map_algebraMap, ha]
+    have : Polynomial.aeval (embP (p := p) αQ) g = embP (Polynomial.aeval αQ g) := by
+      rw [Polynomial.aeval_def, Polynomial.aeval_def, Polynomial.hom_eval₂]
+      congr 1
+      exact RingHom.ext_rat _ _
+    rw [this, minpoly.aeval, map_zero]
+  have hg0 : g.map (algebraMap ℚ ℚ_[p]) ≠ 0 :=
+    (Polynomial.map_ne_zero_iff (algebraMap ℚ ℚ_[p]).injective).mpr (minpoly.ne_zero hintQ)
+  have hint : IsIntegral ℚ_[p] a :=
+    ⟨_, (minpoly.monic hintQ).map _, by
+      rw [← Polynomial.aeval_def]; exact hroot⟩
+  set E : Fld p := IntermediateField.adjoin ℚ_[p] {a} with hE
+  haveI : FiniteDimensional ℚ_[p] E := IntermediateField.adjoin.finiteDimensional hint
+  refine ⟨E, inferInstance, ?_, ?_⟩
+  · intro x hx
+    have h1 : (⟨x, hx⟩ : L) ∈ IntermediateField.adjoin ℚ {α} := by rw [hα]; trivial
+    have h2 : x ∈ (IntermediateField.adjoin ℚ {α}).map L.val := ⟨⟨x, hx⟩, h1, rfl⟩
+    rw [IntermediateField.adjoin_map, Set.image_singleton] at h2
+    have h3 : embP (p := p) x ∈
+        (IntermediateField.adjoin ℚ {L.val α}).map (embP (p := p)).toRatAlgHom :=
+      ⟨x, h2, rfl⟩
+    rw [IntermediateField.adjoin_map, Set.image_singleton] at h3
+    have hle : IntermediateField.adjoin ℚ {(embP (p := p)).toRatAlgHom (L.val α)} ≤
+        E.restrictScalars ℚ := by
+      rw [IntermediateField.adjoin_simple_le_iff]
+      exact IntermediateField.mem_adjoin_simple_self ℚ_[p] a
+    exact hle h3
+  · rw [IntermediateField.adjoin.finrank hint]
+    have hdvd : minpoly ℚ_[p] a ∣ g.map (algebraMap ℚ ℚ_[p]) := minpoly.dvd ℚ_[p] a hroot
+    have h1 := Polynomial.natDegree_le_of_dvd hdvd hg0
+    rw [Polynomial.natDegree_map] at h1
+    have h2 : g.natDegree = Module.finrank ℚ L := by
+      have h3 : (minpoly ℚ α).natDegree ≤ Module.finrank ℚ L := minpoly.natDegree_le _
+      have h4 : Module.finrank ℚ L ≤ (minpoly ℚ α).natDegree := by
+        have := IntermediateField.adjoin.finrank (IsIntegral.of_finite ℚ α)
+        rw [hα, IntermediateField.finrank_top'] at this
+        omega
+      rw [hg, ← IntermediateField.minpoly_eq]
+      omega
+    omega
+
+/-- **Glue on G3 + Néron–Ogg–Shafarevich + the descent datum on `G_L` (N5 L848-851).** At
+`p > D`: on wild inertia elements whose image in `G_ℚ` lies in `G_L`, `a_σ μ_σ ∘ σ` is the
+identity (it is the Tate action of `A/L`, which has good reduction at `v ∤ 3`, so inertia acts
+trivially, `PkgI2.inertiaTrivial_of_goodReduction`). Only claimed for `p ≠ ℓ`. -/
+def TateWildTrivialL {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a : GQ → PadicAlgCl ℓ)
+    (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ∀ σ ∈ wildSet, (∀ x ∈ L, decomp p σ x = x) → a (decomp p σ) • Tm (decomp p σ) = 1
+
+theorem tateWildTrivial_of_L {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) V} {a : GQ → PadicAlgCl ℓ}
+    {L : IntermediateField ℚ PkgI4.Qbar} (h : TateWildTrivialL (p := p) Tm a L) {E : Fld p}
+    (hLE : ∀ x ∈ L, embP x ∈ E) : TateWildTrivial Tm a E :=
+  fun σ hσ => h σ hσ.2 (decomp_fix_of_le hLE hσ.1)
+
+/-- **`LocalData p r` at `p > D` for G8's `r` (proved)** from G7's clauses (as in
+`localData_of_g7_odd`), `[L:ℚ] ≤ D` (G4's output `G4Out`), and `TateWildTrivialL`. -/
+theorem localData_of_g7_large {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
+    {ε : GQ → GQ → PadicAlgCl ℓ} {r : GaloisRep ℓ 2}
+    (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r)
+    (hβε : ∀ g h, β g * β h = ε g h * β (g * h)) (hβ0 : ∀ g, β g ≠ 0)
+    (hβlc : IsLocallyConstant β)
+    {Tmin : Finset ℕ} (hTm : ∀ q ∈ Tmin, q.Prime) [NeZero (GlueDescent.chiLevel Tmin)]
+    (χ : DirichletCharacter ℂ (GlueDescent.chiLevel Tmin)) (ι : ℂˣ →* (PadicAlgCl ℓ)ˣ)
+    (hsq : ∀ g, β g ^ 2 = (ι (GlueDescent.B2Q.galChar χ g) : PadicAlgCl ℓ))
+    {L : IntermediateField ℚ PkgI4.Qbar} [FiniteDimensional ℚ L]
+    (hε : ∀ g h : GQ, (∀ x ∈ L, g x = x) → (∀ x ∈ L, h x = x) → ε g h = 1)
+    (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) (hp : (ZInQ.heightD : ℝ) < p)
+    (hT : TateWildTrivialL (p := p) Tm a L) :
+    LocalData p r := by
+  have hpD : ZInQ.heightD < p := by exact_mod_cast hp
+  have hp2 : p ≠ 2 := by
+    have := ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD
+    omega
+  obtain ⟨E, hEfd, hLE, hdeg⟩ := exists_local_field_le (p := p) L
+  refine localData_of_g7_odd hp2 hG8 hβε hβ0 hβlc hTm χ ι hsq hε
+    (fun hle => absurd hp (not_lt.mpr hle)) (fun _ => ⟨E, hEfd, hLE, ?_, ?_⟩)
+  · omega
+  · exact tateWildTrivial_of_L hT hLE
+
 /-! ### Non-vacuity (proved) -/
 
 /-- **`G7LocalData` is satisfiable (proved):** it holds for trivial data (`Tm = 1`, `a = 1`,
@@ -815,3 +912,5 @@ end G15Ram
 #print axioms G15Ram.localData_small_of_g8
 #print axioms G15Ram.localData_of_g7_odd
 #print axioms G15Ram.g7LocalData_triv
+#print axioms G15Ram.exists_local_field_le
+#print axioms G15Ram.localData_of_g7_large
