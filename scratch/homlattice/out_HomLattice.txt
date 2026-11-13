@@ -62,3 +62,7 @@ macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
 'ZInQ.HomLattice.t11a_riemannEnd_of_strong_gaga' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.t11aHom_of_strong_gaga' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.HomLattice.bp_of_isStrongUnif' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.analyticMapAlgebraic_of_gaga'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11a_riemannEnd_of_leaf_gaga' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.t11aHom_of_leaf_gaga' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.HomLattice.leafAll_of_strong' depends on axioms: [propext, Classical.choice, Quot.sound]

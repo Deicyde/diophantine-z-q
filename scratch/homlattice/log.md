@@ -59,3 +59,9 @@
   predicates agree at σ = id).
 - `lake env lean scratch/homlattice/HomLattice.lean`: exit 0; 41 `#print axioms`, all
   [propext, Classical.choice, Quot.sound]; 0 sorryAx. VERIFIED.
+
+## Step 7: ℂ-only variants; Strong ⇒ existing leaf
+- Proved: analyticMapAlgebraic_of_gaga' (needs strong unifs at σ = id only),
+  t11a_riemannEnd_of_leaf_gaga (UniformizationLeafAll ∧ GAGAMorphism ⇒ T11a_RiemannEnd),
+  t11aHom_of_leaf_gaga, leafAll_of_strong (StrongUniformizationExists ⇒ UniformizationLeafAll).
+- compile: exit 0; 45 `#print axioms`, all standard; 0 sorryAx. VERIFIED.
