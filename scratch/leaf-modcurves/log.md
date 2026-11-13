@@ -1,6 +1,6 @@
 # leaf-modcurves results log
 
-(Times PST by the host clock.)
+(Times PST, written by hand: they run up to ~10 minutes ahead of the host clock; the commit timestamps are exact.)
 
 - 16:45 `ModCurveLeaves.lean` §A-§F: genus of Γ₁(N) (copied from bp-modcurves Gamma1Genus, through
   `genus_Gamma1_le`); modular-form defs copied from Leaves.lean (PkgI4 §2) plus `coeffField f`;
