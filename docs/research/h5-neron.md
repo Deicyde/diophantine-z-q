@@ -2,8 +2,9 @@
 
 Status: research note (task h5-neron, 2026-11-12). Lean: `scratch/h5-neron/H5Neron.lean`
 (self-contained, imports only `ZInQKernel.HDecomp.Faltings.Leaves`; compiled; no `sorry`, no
-`axiom`; every `#print axioms` lists only `propext`, `Classical.choice`, `Quot.sound`). The parts
-also compile separately: `Neron.lean` (A), `ZeroAV.lean` (B), `Reduction.lean` (C). Results log:
+`axiom`; all 27 `#print axioms` list only `propext`, `Classical.choice`, `Quot.sound`). The parts
+also compile separately: `Neron.lean` (A), `ZeroAV.lean` (B), `Reduction.lean` (C),
+`ProductModel.lean` (E). Results log:
 `scratch/h5-neron/log.md`. No file under `ZInQKernel/` or `blueprint/` and no other task's files
 were edited.
 
@@ -26,9 +27,14 @@ network).
      `GroupModelBaseChangeExists`, `OpenSubgroupHeight`;
    - the compositum of two number fields over `K` is **proved** (`compositum`).
 2. **The additivity direction `h(A) + h(B) ≤ h(A × B)` (rv-blueprints F1, step E4)** is proved from
-   N1, `NeronModelMinimal` and two product glue statements (`stableFaltingsHeight_add_le`). The
-   categorical core, "a product of Néron models is a Néron model", is **proved**
-   (`NeronProp.tensor`, `isNeronModel_of_isProductModel`). No semistable reduction is needed.
+   N1, `NeronModelMinimal` and one product glue statement, `ProductModelHeight`
+   (`stableFaltingsHeight_add_le'`). Two pieces of glue are **proved**:
+   - "a product of Néron models is a Néron model" (`NeronProp.tensor`,
+     `isNeronModel_of_isProductModel`);
+   - "group models of `A_L` and `B_L` give a group model of `(A × B)_L`"
+     (`productGroupModelExists`, glue P1).
+
+   No semistable reduction is needed.
 3. **Non-vacuity, in the only case Mathlib can construct** (VERIFIED). For the zero abelian variety
    `AbVar.zero K = Spec K`, the only `AbVar` constructible in Mathlib v4.35:
    - `stableFaltingsHeight (AbVar.zero K) = 0` for every number field `K`
@@ -90,11 +96,11 @@ network).
 | `ModelHeightBaseChange` | glue H4a | `h(𝒢_{L'}) = h(𝒢)` for a fixed smooth model | stated |
 | `GroupModelBaseChangeExists` | glue H4b | a group model base-changes to a group model | stated |
 | `OpenSubgroupHeight` | glue M6 | an open subgroup model has the same height | stated |
-| `ProductGroupModelExists` | glue P1 | group models of `A_L`, `B_L` give one of `C_L` | stated |
+| `ProductGroupModelExists` | glue P1 | group models of `A_L`, `B_L` give one of `C_L` | **proved** (`productGroupModelExists`, with `isMonHom_prodComparisonIso`) |
 | `ProductModelHeight` | glue P2 | `h(𝒢₁) + h(𝒢₂) ≤ h(𝒢₁ × 𝒢₂)` (equality holds) | stated |
 | `compositum` | glue | number fields `L, L₀ ⊇ K` embed in a common number field | proved |
 | `stableFaltingsHeight_eq_neron(_all)` | H5 | from N1, N2 and the glue (§0.1) | proved |
-| `stableFaltingsHeight_add_le` | H7 `≥` | `h(A) + h(B) ≤ h(C)` for `C ≅ A × B` | proved |
+| `stableFaltingsHeight_add_le`, `stableFaltingsHeight_add_le'` | H7 `≥` | `h(A) + h(B) ≤ h(C)` for `C ≅ A × B` (the primed form assumes only N1, `NeronModelMinimal`, P2) | proved |
 | `modelHeight_dim_zero` | glue | every metrized model of dimension `g = 0`, of any `A`, has height `0` | proved |
 | `pts_subsingleton`, `no_metrized_succ` | glue | a group model of `Spec K` has one complex point; no metrized model with `g ≥ 1` | proved |
 | `trivModel`, `trivModel_isNeronModel`, `metrizedOf` | glue | `Spec 𝓞_L` is a Néron model of `(Spec K)_L`; every group model of it is metrizable | proved |
@@ -132,9 +138,10 @@ network).
 - `NeronModelMinimal`: see §1(d).
 - `ProductModelHeight`: `ω_{𝒢₁×𝒢₂} = ω₁ ⊕ ω₂`, `det(ω₁ ⊕ ω₂) = det ω₁ ⊗ det ω₂`, and the product
   of uniformizations is a uniformization; this gives equality.
-- `GroupModelBaseChangeExists`, `ProductGroupModelExists`: stability of
-  smooth/separated/quasi-compact under base change and composition (Mathlib instances), group
-  objects through the monoidal functor `Over.pullback`, and the generic fibres by pullback pasting.
+- `GroupModelBaseChangeExists`: smooth, separated and quasi-compact are stable under base change
+  (Mathlib instances). The group object comes through the monoidal functor `Over.pullback`, and
+  the generic fibre through pullback pasting. (`ProductGroupModelExists`, the analogue for
+  products, is proved in Lean.)
 
 ## 3. The two derivations (proved; see the Lean file for the full terms)
 
@@ -145,7 +152,7 @@ Néron model over `L'` (N1), and `𝒰, 𝒱` as in N2. Then
 `h(𝒩₀) = h(𝒱) = h(𝒰) = h(𝒩') ≤ h(𝒢') = h(𝒢)`, by H4a, M6, M6, `NeronModelMinimal` and H4a.
 
 **Additivity.** Fix `L` and a group model `𝒢` of `C_L`. Let `𝒩_A, 𝒩_B` be Néron models over `L`
-(N1) and `𝒫` a group model with `𝒫 ≅ 𝒩_A × 𝒩_B` (P1). `𝒫` is a Néron model of `C_L`
+(N1) and `𝒫 = 𝒩_A ×_{𝓞_L} 𝒩_B` (P1, proved). `𝒫` is a Néron model of `C_L`
 (`isNeronModel_of_isProductModel`, proved). So
 `h(A) + h(B) ≤ h(𝒩_A) + h(𝒩_B) ≤ h(𝒫) ≤ h(𝒢)`, by the infimum, P2 and `NeronModelMinimal`.
 Take the infimum over `L, 𝒢`.
@@ -171,7 +178,7 @@ The facts used for `Spec K`:
 
 | Item | Size (SPECULATIVE) | Needs |
 | --- | --- | --- |
-| `GroupModelBaseChangeExists`, `ProductGroupModelExists` | M (category theory) | monoidality of `Over.pullbackComp`, `GrpObj` of products |
+| `GroupModelBaseChangeExists` | M (category theory) | `IsMonHom` for the components of `Over.pullbackComp` and of `eqToIso` along `jL' ≫ φ = ψ ≫ jL`. `NatTrans.IsMonoidal.of_cartesianMonoidalCategory` exists, but the two `MonObj` structures on `F(G(X))` (composite functor or iterated) agree only propositionally |
 | `OpenSubgroupHeight` | M-L | transport of `MetrizedModel` along open immersions (stalks along the unit section, `Pts` bijection) |
 | `ModelHeightBaseChange` | L | flat base change of `ω`, `⋀^g` and Arakelov degree under `𝓞_L → 𝓞_{L'}`, restriction of embeddings |
 | `NeronModelMinimal` | L | functoriality of `omegaAt` along the comparison map; transport of uniformizations |
@@ -180,7 +187,7 @@ The facts used for `Spec K`:
 | leaves N1, N2 | literature | Néron models and semistable reduction are absent from Mathlib (prereq-survey) |
 
 Integration suggestion (for after the announcement): replace `LeafAdopt.H5` by N1 and N2 as
-leaves, and list the four H5 glue statements, P1 and P2 as glue targets. Keep `StableHeightFinite`
+leaves. List the four H5 glue statements and P2 as glue targets; P1 is proved. Keep `StableHeightFinite`
 as the correctness-of-definition statement it is (def-faltings §3), and use
 `stableFaltingsHeight_eq_neron_all` and `stableFaltingsHeight_add_le` in place of H5 and the
 "needs H5" remark in G18.
@@ -190,4 +197,28 @@ as the correctness-of-definition statement it is (def-faltings §3), and use
 - All locators (BLR 1.2/1, 1.2/2, 1.4/3; SGA 7 IX 3.3, 3.6; SGA 3 VI_B 3.10; Silverman) are from
   memory: UNVERIFIED.
 - The glue sketches in §2 are STANDARD mathematics, not Lean proofs.
-- An independent model review of the Lean statements was run (§7).
+- An independent model review of the Lean statements was run (§7). No human review.
+
+## 7. Independent review
+
+A read-only model review of `H5Neron.lean` (before part E was added) checked:
+- that N1 and N2 are consequences of BLR 1.4/3 and of SGA 7 IX 3.6 + 3.3: quantifier order,
+  every `GroupModel` field of `𝒰 = 𝒩'⁰` and `𝒱 = 𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'}`, and the orientation of
+  `IsBaseChangeOf` and `IsOpenSubgroupModel`;
+- that all glue statements are true, including the `EReal` edge cases;
+- that `IsProductAbVar` and `IsProductModel` express the intended isomorphisms;
+- that the dimension-0 result is not a degeneracy: a positive-dimensional `A` has infinitely many
+  complex points, so no `Φ : ℂ⁰ → Pts τ` is onto.
+
+It found **no problem**. It flagged two docstring inaccuracies, both fixed:
+- `OpenSubgroupHeight` claimed "the identity on `A_L(ℂ)`"; it is a group bijection, not
+  necessarily compatible with the two `gen` maps;
+- `stableFaltingsHeight_eq_neron_all` said "so `A_{L₀}` semistable"; the Lean statement does not
+  record semistability, which is a property of the intended witness.
+
+It also remarked that `ProductModelHeight` holds with equality, and that `ModelHeightBaseChange`
+holds for arbitrary base change, flatness not being needed.
+
+Related existing leaf: `PkgI2.NeronMappingAbelianScheme` (T3, `Objects.lean`) is the local
+abelian-scheme case of the mapping property over a DVR. N1 is the global statement over `𝓞_L`
+for arbitrary reduction, and neither implies the other in Lean as stated.
