@@ -1,4 +1,5 @@
 import ZInQKernel.HDecomp.ModCurves.Glue
+set_option linter.unusedSimpArgs false
 
 /-!
 # x1-belyi: the glue targets `X1ModelExists` and `BelyiX1` from literature leaves
@@ -93,7 +94,8 @@ def GoodReductionUnramified : Prop :=
     [DecidableEq (AlgebraicClosure (RatFunc k))] (p : k[X]), Irreducible p →
     (∀ a ∈ ({W.a₁, W.a₂, W.a₃, W.a₄, W.a₆} : Set (RatFunc k)),
       ∃ b c : k[X], ¬ p ∣ c ∧ a * algebraMap k[X] (RatFunc k) c = algebraMap k[X] (RatFunc k) b) →
-    (∃ b c : k[X], ¬ p ∣ b ∧ W.Δ * algebraMap k[X] (RatFunc k) c = algebraMap k[X] (RatFunc k) b) →
+    (∃ b c : k[X], ¬ p ∣ b ∧ ¬ p ∣ c ∧
+      W.Δ * algebraMap k[X] (RatFunc k) c = algebraMap k[X] (RatFunc k) b) →
     ∀ P : (W.baseChange (AlgebraicClosure (RatFunc k))).toAffine.Point,
     (∃ N : ℕ, 0 < N ∧ N • P = 0) →
     ∀ w : ValuationSubring (IntermediateField.adjoin (RatFunc k) {xCoord P}),
@@ -311,9 +313,10 @@ theorem belyiX1_of_leaves (hT : TorsionStructure) (hG : GoodReductionUnramified)
       · exact ⟨0, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
       · exact ⟨-36 * (X - 1728) ^ 3, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
       · exact ⟨-(X - 1728) ^ 5, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
-    have hdisc : ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ b ∧
+    have hdisc : ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ b ∧ ¬ scaleEquiv q ∣ c ∧
         Ej.Δ * algebraMap ℚ[X] Qj c = algebraMap ℚ[X] Qj b :=
-      ⟨X ^ 2 * (X - 1728) ^ 9, 1, scale_not_dvd q hqm hqi hqX hqX1, by
+      ⟨X ^ 2 * (X - 1728) ^ 9, 1, scale_not_dvd q hqm hqi hqX hqX1,
+        fun h => hp.not_isUnit (isUnit_of_dvd_one h), by
         rw [Ej, ofJNe0Or1728_Δ, map_one, mul_one, map_mul, map_pow, map_pow, map_sub,
           RatFunc.algebraMap_X, hA]⟩
     have h1728 : algebraMap Qj (fieldX1 P) RatFunc.X =
@@ -338,8 +341,30 @@ theorem belyiX1_of_leaves (hT : TorsionStructure) (hG : GoodReductionUnramified)
     obtain ⟨y, hy, rfl⟩ := hG ℚ Ej (scaleEquiv q) hp hcoef hdisc P ⟨N, hN, hNP⟩ w hc hπ x hx
     exact ⟨y, hy, congrArg (· * y) KI⟩
 
+/-! ## The bundle -/
+
+/-- **The leaves of this file.** -/
+structure X1Leaves : Prop where
+  torsion : TorsionStructure
+  goodRed : GoodReductionUnramified
+  curve : CurveOfFunctionFieldQ
+  constants : X1ConstantField
+  cusp : X1RationalCusp
+
+/-- **MC4 + MC5 + MC10 (glue, proved from the leaves).** -/
+theorem x1ModelExists_and_belyiX1 (L : X1Leaves) : X1ModelExists ∧ BelyiX1 :=
+  ⟨x1ModelExists_of_leaves L.torsion L.curve L.constants L.cusp,
+    belyiX1_of_leaves L.torsion L.goodRed⟩
+
+/-- `ModCurveLeaves` of `ZInQKernel/HDecomp/ModCurves/Leaves.lean` with its field `x1`
+discharged by the leaves of this file. -/
+theorem modCurveLeaves_of (L : X1Leaves) (hJ : JacobianExists ℚ) (h16 : R16_EichlerShimuraJ1')
+    (hd : DimJ1Genus) : ModCurveLeaves :=
+  ⟨hJ, (x1ModelExists_and_belyiX1 L).1, h16, hd⟩
+
 end X1Belyi
 
 #print axioms X1Belyi.belyiX1_of_leaves
 #print axioms X1Belyi.x1ModelExists_of_leaves
 #print axioms X1Belyi.finrank_fieldX1_le
+#print axioms X1Belyi.x1ModelExists_and_belyiX1

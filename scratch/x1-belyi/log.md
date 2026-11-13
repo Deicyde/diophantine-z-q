@@ -21,3 +21,4 @@
   VERIFIED (compiled).
 - `#print axioms` for `belyiX1_of_leaves`, `x1ModelExists_of_leaves`, `finrank_fieldX1_le`:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:25 T2 hypothesis on Δ strengthened to `¬p∣b ∧ ¬p∣c` (Δ a p-adic unit, explicit); bundle `X1Leaves`, `x1ModelExists_and_belyiX1`, `modCurveLeaves_of`: compile, axioms standard. VERIFIED.
