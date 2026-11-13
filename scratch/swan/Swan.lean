@@ -657,7 +657,128 @@ theorem wildAt_of_ramSet_one {L : Fld p} {σ : GQp p} (hσ : σ ∈ ramSet L 1) 
   rw [hxe]
   exact hwy.mul (hwϖ.zpow _)
 
+/-! ### `ψ_L(u) > 0` for `u > 0`, so `G^u(L) ⊆ G_1(L)` -/
+
+theorem ramSet_anti {L : Fld p} {i j : ℕ} (h : i ≤ j) : ramSet L j ⊆ ramSet L i := by
+  rintro σ ⟨ϖ, hϖ, hb⟩
+  exact ⟨ϖ, hϖ, fun x hx h1 => (hb x hx h1).trans
+    (pow_le_pow_of_le_one (norm_nonneg _) hϖ.2.1.le (by omega))⟩
+
+theorem ramSetR_anti {L : Fld p} {t t' : ℝ} (h : t ≤ t') : ramSetR L t' ⊆ ramSetR L t := by
+  unfold ramSetR
+  split_ifs with h1 h2 h2
+  · exact le_rfl
+  · exact absurd (h.trans h1) h2
+  · exact Set.subset_univ _
+  · exact ramSet_anti (Int.toNat_le_toNat (Int.ceil_mono h))
+
+theorem one_mem_ramSetR {L : Fld p} (hL : IsFinGal L) (t : ℝ) : (1 : GQp p) ∈ ramSetR L t := by
+  unfold ramSetR
+  split_ifs
+  · trivial
+  · obtain ⟨ϖ, hϖ⟩ := exists_isUnif hL.1
+    exact fixSet_subset_ramSet hϖ _ (fun x _ => rfl)
+
+theorem one_le_ramCardR {L : Fld p} (hL : IsFinGal L) (t : ℝ) : 1 ≤ ramCardR L t := by
+  have hfin := (finite_restr hL (ramSetR L t)).to_subtype
+  have hne : Nonempty (restr L '' ramSetR L t) := ⟨⟨restr L 1, 1, one_mem_ramSetR hL t, rfl⟩⟩
+  exact Nat.one_le_iff_ne_zero.2 (Nat.card_ne_zero.2 ⟨hne, hfin⟩)
+
+theorem ramCardR_le {L : Fld p} (hL : IsFinGal L) (t : ℝ) :
+    ramCardR L t ≤ Nat.card (restr L '' (Set.univ : Set (GQp p))) :=
+  Nat.card_mono (finite_restr hL _) (Set.image_mono (Set.subset_univ _))
+
+theorem ramCardR_anti {L : Fld p} (hL : IsFinGal L) :
+    Antitone (fun t => (ramCardR L t : ℝ) / (ramCard L 0 : ℝ)) := by
+  intro t t' h
+  refine div_le_div_of_nonneg_right ?_ (Nat.cast_nonneg _)
+  exact_mod_cast Nat.card_mono (finite_restr hL _) (Set.image_mono (ramSetR_anti h))
+
+theorem phiAt_nonpos {L : Fld p} {t : ℝ} (ht : t ≤ 0) : phiAt L t ≤ 0 := by
+  rw [phiAt, intervalIntegral.integral_symm, neg_nonpos]
+  exact intervalIntegral.integral_nonneg ht fun x _ => by positivity
+
+theorem phiAt_ge {L : Fld p} (hL : IsFinGal L) {t : ℝ} (ht : 0 ≤ t) :
+    t / (ramCard L 0 : ℝ) ≤ phiAt L t := by
+  have h := intervalIntegral.integral_mono_on (μ := MeasureTheory.volume) ht
+    (f := fun _ => 1 / (ramCard L 0 : ℝ))
+    (g := fun t => (ramCardR L t : ℝ) / (ramCard L 0 : ℝ))
+    intervalIntegrable_const (ramCardR_anti hL).intervalIntegrable
+    (fun x _ => div_le_div_of_nonneg_right (by exact_mod_cast one_le_ramCardR hL x)
+      (Nat.cast_nonneg _))
+  rw [intervalIntegral.integral_const, smul_eq_mul, sub_zero, mul_one_div] at h
+  exact h
+
+theorem phiAt_le {L : Fld p} (hL : IsFinGal L) {t : ℝ} (ht : 0 ≤ t) :
+    phiAt L t ≤ t * ((Nat.card (restr L '' (Set.univ : Set (GQp p))) : ℝ) / (ramCard L 0 : ℝ)) := by
+  have h := intervalIntegral.integral_mono_on (μ := MeasureTheory.volume) ht
+    (g := fun _ => (Nat.card (restr L '' (Set.univ : Set (GQp p))) : ℝ) / (ramCard L 0 : ℝ))
+    (f := fun t => (ramCardR L t : ℝ) / (ramCard L 0 : ℝ))
+    (ramCardR_anti hL).intervalIntegrable intervalIntegrable_const
+    (fun x _ => div_le_div_of_nonneg_right (by exact_mod_cast ramCardR_le hL x)
+      (Nat.cast_nonneg _))
+  rw [intervalIntegral.integral_const, smul_eq_mul, sub_zero] at h
+  exact h
+
+/-- **`G^u(L) ⊆ G_1(L)` for `u > 0`** (preimages in `G_{ℚ_p}`): `ψ_L(u) > 0`, from
+`t/g_0 ≤ φ_L(t) ≤ t·|Gal(L/ℚ_p)|/g_0` for `t ≥ 0` and `φ_L ≤ 0` on `[−1, 0]`. -/
+theorem upperSet_subset_ramSet_one {L : Fld p} (hL : IsFinGal L) {u : ℝ} (hu : 0 < u) :
+    upperSet L u ⊆ ramSet L 1 := by
+  obtain ⟨ϖ, hϖ⟩ := exists_isUnif hL.1
+  set g0 : ℝ := (ramCard L 0 : ℝ) with hg0
+  have hg0pos : 0 < g0 := by
+    rw [hg0]; exact_mod_cast Nat.pos_of_ne_zero (ramCard_ne_zero hL hϖ 0)
+  set C : ℝ := (Nat.card (restr L '' (Set.univ : Set (GQp p))) : ℝ) with hC
+  have hC1 : 1 ≤ C := by
+    rw [hC]; exact_mod_cast (one_le_ramCardR hL 0).trans (ramCardR_le hL 0)
+  have hCg : 0 < C / g0 := div_pos (by linarith) hg0pos
+  set S := {t : ℝ | -1 ≤ t ∧ u ≤ phiAt L t} with hS
+  have hne : S.Nonempty := by
+    refine ⟨u * g0, by nlinarith, ?_⟩
+    have := phiAt_ge hL (t := u * g0) (by positivity)
+    rwa [mul_div_assoc, div_self hg0pos.ne', mul_one] at this
+  have hlb : ∀ t ∈ S, u / (C / g0) ≤ t := by
+    rintro t ⟨-, ht⟩
+    by_cases h0 : t ≤ 0
+    · exact absurd (ht.trans (phiAt_nonpos h0)) (not_le.2 hu)
+    · rw [div_le_iff₀ hCg]
+      exact ht.trans (phiAt_le hL (le_of_lt (not_le.1 h0)))
+  have hs : 0 < sInf S := lt_of_lt_of_le (div_pos hu hCg) (le_csInf hne hlb)
+  intro σ hσ
+  unfold upperSet ramSetR at hσ
+  rw [← hS] at hσ
+  split_ifs at hσ with hle
+  · exact absurd hle (by linarith)
+  refine ramSet_anti ?_ hσ
+  have : 0 < ⌈sInf S⌉ := Int.ceil_pos.2 hs
+  omega
+
+/-- Every `x ∈ ℚ̄_p` lies in a finite Galois `L/ℚ_p` (the normal closure of `ℚ_p(x)`). -/
+theorem exists_finGal_mem (x : Kbar p) : ∃ L : Fld p, IsFinGal L ∧ x ∈ L := by
+  have hint : IsIntegral ℚ_[p] x := (Algebra.IsAlgebraic.isAlgebraic x).isIntegral
+  set K : Fld p := IntermediateField.adjoin ℚ_[p] {x} with hK
+  have : FiniteDimensional ℚ_[p] K := IntermediateField.adjoin.finiteDimensional hint
+  refine ⟨IntermediateField.normalClosure ℚ_[p] K (Kbar p),
+    ⟨normalClosure.is_finiteDimensional _ _ _, isGalois_iff.2 ⟨inferInstance, inferInstance⟩⟩, ?_⟩
+  exact K.le_normalClosure (IntermediateField.mem_adjoin_simple_self ℚ_[p] x)
+
+/-- **H2 (`UpperAbsWild`) is proved.** -/
+theorem upperAbsWild : UpperAbsWild := by
+  intro p _ u hu σ hσ x hx0
+  obtain ⟨L, hL, hxL⟩ := exists_finGal_mem x
+  exact (wildAt_of_ramSet_one (upperSet_subset_ramSet_one hL hu (hσ L hL)) hxL hx0).2
+
 end Wild2
+
+/-! ## §8. Final form -/
+
+/-- **Main result.** `AdaptedExists` holds outright; `SwanIndependent` (every `p`) and
+`SwanIntegral` (L8) follow from one glue Prop, H1 `SwanAtIntegral` (the finite-level change of
+variables), and one leaf, `HerbrandUpper` (Herbrand's theorem). -/
+theorem swan_final (h1 : SwanAtIntegral) (hH : HerbrandUpper) :
+    (∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p)) ∧ LadicCond.SwanIntegral ∧
+      (∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p)) :=
+  swan_all h1 upperAbsWild (upperAbsSurj_of_herbrand hH)
 
 end Swan
 
@@ -667,3 +788,5 @@ end Swan
 #print axioms Swan.swan_all
 #print axioms Swan.upperAbsSurj_of_herbrand
 #print axioms Swan.swan_all'
+#print axioms Swan.upperAbsWild
+#print axioms Swan.swan_final

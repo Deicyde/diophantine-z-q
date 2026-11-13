@@ -16,14 +16,19 @@ used by scratch/g0-mod-newform G15). Lean: scratch/swan/Swan.lean (imports the k
   integral over the absolute upper filtration).
 
 ## Compile outcomes
-- 04:35 Swan.lean §0-§2 (verbatim copies + rfl, wild p-power order `wild_pow_fix`, matrix estimate `Bd.pow_sub`): compiles, no errors. VERIFIED.
-- 04:45 **AdaptedExists PROVED**: `Swan.adaptedExists : LadicCond.AdaptedExists (p := p)` compiles, `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED (lake env lean scratch/swan/Swan.lean, exit 0, no sorry).
-- 04:55 §5 reduction compiles: `swanIntegral_of`, `swanIndependent_of`, `swan_all` from
+- Swan.lean §0-§2 (verbatim copies + rfl, wild p-power order `wild_pow_fix`, matrix estimate `Bd.pow_sub`): compiles, no errors. VERIFIED.
+- **AdaptedExists PROVED**: `Swan.adaptedExists : LadicCond.AdaptedExists (p := p)` compiles, `#print axioms` = [propext, Classical.choice, Quot.sound]. VERIFIED (lake env lean scratch/swan/Swan.lean, exit 0, no sorry).
+- §5 reduction compiles: `swanIntegral_of`, `swanIndependent_of`, `swan_all` from
   H1 `SwanAtIntegral` (finite-level change of variables), H2 `UpperAbsWild` (G^u ⊆ P for u>0),
   H3 `UpperAbsSurj` (G^u → G^u(L) onto). Axioms standard. VERIFIED.
   Key lemma `invariants_upperAbs`: V^{G^u} = V^{G^u(L) ∩ P} for L adapted, u > 0.
-- 05:05 §6 compiles: `upperAbsSurj_of_herbrand : HerbrandUpper → UpperAbsSurj` (finite intersection
+- §6 compiles: `upperAbsSurj_of_herbrand : HerbrandUpper → UpperAbsSurj` (finite intersection
   property + Mathlib's `CompactSpace Gal(K/k)` for Galois K/k), `swan_all'` (H1, H2, HerbrandUpper ⇒ all
   three). Leaf `HerbrandUpper` = Serre IV §3 Prop. 14 (UNVERIFIED numbering) over LadicCond's upperSet;
   same theorem as PkgI6.HerbrandQuotient (I6.8). Axioms standard. VERIFIED.
 - 04:36 §7 part 1 compiles: `wildAt_of_ramSet_one` (σ ∈ ramSet L 1 ⇒ ‖σx−x‖<‖x‖ on L^×), WildAt closure. VERIFIED.
+- §7 compiles: **H2 `UpperAbsWild` PROVED** (`Swan.upperAbsWild`): `upperSet_subset_ramSet_one` (ψ_L(u) > 0 via
+  t/g_0 ≤ φ_L(t) ≤ t·|Gal|/g_0 for t ≥ 0, φ_L ≤ 0 on [−1,0]; antitone integrand ⇒ interval integrable),
+  `wildAt_of_ramSet_one`, `exists_finGal_mem` (normal closure of ℚ_p(x)). VERIFIED.
+- §8 `swan_final (h1 : SwanAtIntegral) (hH : HerbrandUpper)` : SwanIndependent ∀p ∧ SwanIntegral ∧ AdaptedExists ∀p.
+  Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
