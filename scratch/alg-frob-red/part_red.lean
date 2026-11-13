@@ -1226,6 +1226,65 @@ theorem redRel_of_isReductionOf {L : IF} {A : PkgI3.AbVar L}
     simp only [Category.assoc] at h3
     exact h3
 
+/-- `t = σ⁻¹|_{O_w}` (for `σ ∈ D(v)`, `L/ℚ` Galois). -/
+def tSig {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ)
+    (hσ : σ ∈ v.decompositionSubgroup ℚ) : Ow L v →+* Ow L v where
+  toFun a := ⟨(σ⁻¹).restrictNormal L (a : L), by
+    show algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L)) ∈ v
+    rw [AlgEquiv.restrictNormal_commutes]
+    exact (sigV σ⁻¹ (inv_mem hσ) ⟨_, a.2⟩).2⟩
+  map_one' := Subtype.ext (map_one _)
+  map_mul' a b := Subtype.ext (map_mul _ _ _)
+  map_zero' := Subtype.ext (map_zero _)
+  map_add' a b := Subtype.ext (map_add _ _ _)
+
+/-- `t = σ⁻¹|_{O_w}` induces `Frob⁻¹` on `κ(w)` (proved from `IsArithFrob`). -/
+theorem tSig_residue {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} {σ : PkgI4.GQ}
+    {p : ℕ} (hσ : PkgI4.IsArithFrob σ v p) (a : Ow L v) :
+    IsLocalRing.residue (Ow L v) (tSig σ hσ.1 a) ^ p = IsLocalRing.residue (Ow L v) a := by
+  apply (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).injective
+  rw [map_pow, IsLocalRing.ResidueField.map_residue, IsLocalRing.ResidueField.map_residue,
+    ← residue_sigV hσ]
+  congr 1
+  apply Subtype.ext
+  show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L (a : L))) =
+    algebraMap L PkgI4.Qbar (a : L)
+  rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
+
+set_option synthInstance.maxHeartbeats 400000 in
+/-- **`FExtendCore` (GLUE; leaf I2-NMP, `PkgI2.NeronMappingAbelianScheme` (BLR, *Néron models*,
+§1.2), applied to the conjugate model).** `FExtend` with `t = σ⁻¹|_{O_w}` fixed (`tSig`): there is
+a morphism of schemes `F̃ : 𝒜 → 𝒜` over `Spec(t)` fixing the unit section and extending `F`
+(whenever `x'` is the lift of `x`, `Spec(σ|_{O_v}) ≫ x' ≫ F̃` is a lift of `f x`). See `FExtend`
+for why it is true. -/
+def FExtendCore : Prop :=
+  ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (A : PkgI3.AbVar L)
+    (F : A.X.left ⟶ A.X.left), IsFinite F → Surjective F →
+    ∀ p : ℕ, p.Prime →
+      ∀ (v : ValuationSubring PkgI4.Qbar) (σ : PkgI4.GQ) (_ : PkgI4.LiesOver v p)
+        (hσ : PkgI4.IsArithFrob σ v p)
+        (𝒜 : Grp (Over (Spec (.of (Ow L v))))) [PkgI2.IsAbelianScheme 𝒜]
+        (e : (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)))).mapGrp.obj
+          𝒜 ≅ ObjBridge.toGrp A)
+        (f : PtQ L A →+ PtQ L A), (∀ x : PtQ L A, (Additive.toMul (f x)).left =
+          Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
+            (Additive.toMul x).left ≫ F) →
+        ∃ Ft : 𝒜.X.left ⟶ 𝒜.X.left,
+          Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ∧
+          (η[𝒜.X]).left ≫ Ft = Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) ≫ (η[𝒜.X]).left ∧
+          ∀ (x : PtQ L A)
+            (x' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X),
+            genMap v 𝒜 e x = Spec.map (CommRingCat.ofHom v.subtype) ≫ x'.left →
+            ∃ x'' : Over.mk (Spec.map (CommRingCat.ofHom (PkgI2.toW (Ow L v) v rfl))) ⟶ 𝒜.X,
+              genMap v 𝒜 e (f x) = Spec.map (CommRingCat.ofHom v.subtype) ≫ x''.left ∧
+              x''.left = Spec.map (CommRingCat.ofHom (sigV σ hσ.1)) ≫ x'.left ≫ Ft
+
+/-- **`FExtend` from `FExtendCore` (proved):** `t = tSig σ`, `t(a)^p ≡ a` by `tSig_residue`. -/
+theorem fExtend_of_core (h : FExtendCore) : FExtend := by
+  intro L _ _ A F hF1 hF2 p hp v σ hv hσ 𝒜 _ e f hf
+  obtain ⟨Ft, h1, h2, h3⟩ := h L A F hF1 hF2 p hp v σ hv hσ 𝒜 e f hf
+  exact ⟨Ft, tSig σ hσ.1, h1, tSig_residue hσ, h2, h3⟩
+
 /-- **Main result, finest form: `AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
 `SmoothGeomConnIntegral` and the glue `ResidueAlgClosure`, `RedRelMul`, `RedTorsionQbar`,
 `FExtend`, `FrobMorph` (proved).** -/
@@ -1519,6 +1578,21 @@ theorem tateBridge35_of_leaves (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite
     (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_leaves hG hS hRed hE hFr)
 
+/-- **Main result, finest form: `FrobTrace.AlgFrobRed` from the leaf candidates
+`GoodRedCofinite`, `SmoothGeomConnIntegral`, the kernel leaf I2-Red, and the glue `FExtendCore`
+and `FrobMorph` (proved).** -/
+theorem algFrobRed_of_core (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtendCore) (hFr : FrobMorph) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_leaves hG hS hRed (fExtend_of_core hE) hFr
+
+/-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`,
+`FExtendCore`, `FrobMorph` (proved).** -/
+theorem tateBridge35_of_core (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0})
+    (hE : FExtendCore) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_core hG hS hRed hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -1570,3 +1644,8 @@ end
 #print axioms AlgFrobRedRed.owDVR
 #print axioms AlgFrobRedRed.algFrobRed_of_leaves
 #print axioms AlgFrobRedRed.tateBridge35_of_leaves
+#print axioms AlgFrobRedRed.tSig
+#print axioms AlgFrobRedRed.tSig_residue
+#print axioms AlgFrobRedRed.fExtend_of_core
+#print axioms AlgFrobRedRed.algFrobRed_of_core
+#print axioms AlgFrobRedRed.tateBridge35_of_core

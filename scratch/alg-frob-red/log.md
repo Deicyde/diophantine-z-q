@@ -105,3 +105,9 @@
 - Pitfalls: Mathlib's mapPullbackAdj is built with mkOfHomEquiv, so `homEquiv` is not definitionally the given
   toFun (pullback.lift_fst does not apply), but `homEquiv.symm v` has left `v.left ≫ fst` definitionally; define
   thetaW with pullback.lift directly. Pts (toGrp A) Ω vs A.Pt Ω: re-type with `let xw : A.Pt _ := xw0` before rw.
+
+## Run 32-33: FExtend split
+- New: tSig (t = σ⁻¹|O_w via AlgEquiv.restrictNormal and sigV σ⁻¹), tSig_residue (t induces Frob⁻¹ on κ(w), proved
+  from IsArithFrob through the injective κ(w) → κ(v)), FExtendCore (glue: FExtend with t = tSig fixed, no residue
+  clause), fExtend_of_core : FExtendCore → FExtend, algFrobRed_of_core, tateBridge35_of_core.
+- Run 33: exit 0, no error; 79 axiom prints, all [propext, Classical.choice, Quot.sound] (VERIFIED).
