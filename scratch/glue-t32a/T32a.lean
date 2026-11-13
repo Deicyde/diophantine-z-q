@@ -1883,6 +1883,182 @@ theorem val_rat_eq_zpow (hp : p.Prime) (hw : LiesOver w p) (q : ℚ) (hq : q ≠
   push_cast at ha hb
   rw [ha, hb, zpow_sub₀ hvp, zpow_natCast, zpow_natCast]
 
+theorem pow_eq_zpow_aux {Γ : Type*} [LinearOrderedCommGroupWithZero Γ] (P X : Γ) (hP : P ≠ 0)
+    (hX : X ≠ 0) (a b : ℤ) (i j : ℕ) (hij : i < j) (h : P ^ a * X ^ i = P ^ b * X ^ j) :
+    X ^ (j - i) = P ^ (a - b) := by
+  have hXi : X ^ i ≠ 0 := pow_ne_zero _ hX
+  have h2 : P ^ a = P ^ b * X ^ (j - i) := by
+    apply mul_right_cancel₀ hXi
+    rw [h, mul_assoc, ← pow_add, Nat.sub_add_cancel hij.le]
+  rw [zpow_sub₀ hP, h2, mul_div_cancel_left₀ _ (zpow_ne_zero _ hP)]
+
+/-- **Values are rational powers of `v(p)`** (Newton polygon of the minimal polynomial): for
+`x ≠ 0` in `ℚ̄`, `v(x)^n = v(p)^m` for some `n ≥ 1`, `m ∈ ℤ`. -/
+theorem val_pow_eq_zpow (hp : p.Prime) (hw : LiesOver w p) (x : Qbar) (hx : x ≠ 0) :
+    ∃ n : ℕ, 0 < n ∧ ∃ m : ℤ, w.valuation x ^ n = w.valuation (p : Qbar) ^ m := by
+  classical
+  set f := minpoly ℚ x with hfdef
+  have hmon : f.Monic := minpoly.monic (Algebra.IsIntegral.isIntegral x)
+  set d := f.natDegree
+  let t : ℕ → Qbar := fun i => algebraMap ℚ Qbar (f.coeff i) * x ^ i
+  have h0 : ∑ i ∈ Finset.range (d + 1), t i = 0 := by
+    have := minpoly.aeval ℚ x
+    rw [Polynomial.aeval_eq_sum_range] at this
+    simpa [t, Algebra.smul_def] using this
+  have hvt : ∀ i, w.valuation (t i) = w.valuation (algebraMap ℚ Qbar (f.coeff i)) *
+      w.valuation x ^ i := fun i => by simp only [t, map_mul, map_pow]
+  obtain ⟨j, hj, hjmax⟩ := Finset.exists_max_image (Finset.range (d + 1))
+    (fun i => w.valuation (t i)) ⟨d, by simp⟩
+  have hvx : w.valuation x ≠ 0 := by rwa [Ne, Valuation.zero_iff]
+  have htd : w.valuation (t d) ≠ 0 := by
+    rw [hvt, show f.coeff d = 1 from hmon.coeff_natDegree, map_one, map_one, one_mul]
+    exact pow_ne_zero _ hvx
+  have htj : w.valuation (t j) ≠ 0 := by
+    intro h0'
+    have := hjmax d (by simp)
+    rw [h0'] at this
+    exact htd (le_antisymm this zero_le')
+  obtain ⟨i, hi, hij, heq⟩ : ∃ i ∈ Finset.range (d + 1), i ≠ j ∧
+      w.valuation (t i) = w.valuation (t j) := by
+    by_contra hcon
+    push_neg at hcon
+    have := Valuation.map_sum_eq_of_lt w.valuation hj (fun i hi => by
+      rw [Finset.mem_sdiff, Finset.mem_singleton] at hi
+      exact lt_of_le_of_ne (hjmax i hi.1) (hcon i hi.1 hi.2))
+    rw [h0, map_zero] at this
+    exact htj this.symm
+  have hcj : f.coeff j ≠ 0 := by
+    intro hc; apply htj; rw [hvt, hc, map_zero, map_zero, zero_mul]
+  have hci : f.coeff i ≠ 0 := by
+    intro hc; apply htj; rw [← heq, hvt, hc, map_zero, map_zero, zero_mul]
+  obtain ⟨a, ha⟩ := val_rat_eq_zpow hp hw _ hci
+  obtain ⟨b, hb⟩ := val_rat_eq_zpow hp hw _ hcj
+  rw [hvt, hvt, ha, hb] at heq
+  have hvp : w.valuation (p : Qbar) ≠ 0 := val_natCast_ne_zero hp
+  rcases lt_or_gt_of_ne hij with h | h
+  · exact ⟨j - i, Nat.sub_pos_of_lt h, a - b, pow_eq_zpow_aux _ _ hvp hvx a b i j h heq⟩
+  · exact ⟨i - j, Nat.sub_pos_of_lt h, b - a, pow_eq_zpow_aux _ _ hvp hvx b a j i h heq.symm⟩
+
+/-- **Kummer generator.** A continuous character `χ : I_w → ℤˣ` is `τ ↦ τ(β)/β` for some
+`β ≠ 0` in `ℚ̄`. -/
+theorem exists_kummer (w : ValuationSubring Qbar) (χ : LeafPush.inertiaQ w →* ℤˣ)
+    (hχ : Continuous χ) : ∃ β : Qbar, β ≠ 0 ∧ ∀ (τ : Gal) (hτ : τ ∈ LeafPush.inertiaQ w),
+      τ β = (((χ ⟨τ, hτ⟩ : ℤˣ) : ℤ) : Qbar) * β := by
+  classical
+  -- Step 1: an element `γ` whose stabilizer in `I` lies in `ker χ`
+  have hopen : IsOpen ((χ ⁻¹' {1}) : Set (LeafPush.inertiaQ w)) := (isOpen_discrete _).preimage hχ
+  rw [isOpen_induced_iff] at hopen
+  obtain ⟨t, ht, hteq⟩ := hopen
+  have h1t : (1 : Gal) ∈ t := by
+    have : (1 : LeafPush.inertiaQ w) ∈ (χ ⁻¹' {1} : Set (LeafPush.inertiaQ w)) := by simp
+    rw [← hteq] at this; exact this
+  obtain ⟨E, hEfin, hEt⟩ := (krullTopology_mem_nhds_one_iff ℚ Qbar t).mp (ht.mem_nhds h1t)
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ E
+  set γ : Qbar := (α : Qbar) with hγdef
+  have hE : IntermediateField.adjoin ℚ {γ} = E := by
+    rw [← IntermediateField.lift_adjoin_simple, hα, IntermediateField.lift_top]
+  have hker : ∀ σ (hσ : σ ∈ LeafPush.inertiaQ w), σ γ = γ → χ ⟨σ, hσ⟩ = 1 := by
+    intro σ hσ hσγ
+    have hfix : σ ∈ E.fixingSubgroup := by
+      rw [← hE]
+      have hle : IntermediateField.adjoin ℚ {γ} ≤
+          IntermediateField.fixedField (Subgroup.zpowers σ) := by
+        rw [IntermediateField.adjoin_simple_le_iff, IntermediateField.mem_fixedField_iff]
+        intro g hg
+        have : g ∈ MulAction.stabilizer Gal γ :=
+          (Subgroup.zpowers_le.mpr (MulAction.mem_stabilizer_iff.mpr hσγ)) hg
+        exact this
+      exact (IntermediateField.le_iff_le _ _).mp hle (Subgroup.mem_zpowers σ)
+    have : (⟨σ, hσ⟩ : LeafPush.inertiaQ w) ∈ (Subtype.val ⁻¹' t : Set (LeafPush.inertiaQ w)) := hEt hfix
+    rw [hteq] at this; exact this
+  have hcons : ∀ σ (hσ : σ ∈ LeafPush.inertiaQ w) τ (hτ : τ ∈ LeafPush.inertiaQ w), σ γ = τ γ → χ ⟨σ, hσ⟩ = χ ⟨τ, hτ⟩ := by
+    intro σ hσ τ hτ h
+    have h' : (τ⁻¹ * σ) γ = γ := by
+      rw [AlgEquiv.mul_apply, h, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
+    have := hker (τ⁻¹ * σ) ((LeafPush.inertiaQ w).mul_mem ((LeafPush.inertiaQ w).inv_mem hτ) hσ) h'
+    have e : (⟨τ⁻¹ * σ, (LeafPush.inertiaQ w).mul_mem ((LeafPush.inertiaQ w).inv_mem hτ) hσ⟩ : LeafPush.inertiaQ w) = (⟨τ, hτ⟩ : LeafPush.inertiaQ w)⁻¹ * ⟨σ, hσ⟩ := rfl
+    rw [e, map_mul, map_inv, inv_mul_eq_one] at this
+    exact this.symm
+  -- Step 2: the class function `c` on the orbit of `γ`
+  let c : Qbar → ℤ := fun y => if h : ∃ τ, ∃ hτ : τ ∈ LeafPush.inertiaQ w, τ γ = y then
+    ((χ ⟨h.choose, h.choose_spec.choose⟩ : ℤˣ) : ℤ) else 0
+  have hc : ∀ τ (hτ : τ ∈ LeafPush.inertiaQ w), c (τ γ) = χ ⟨τ, hτ⟩ := by
+    intro τ hτ
+    have h : ∃ τ', ∃ hτ' : τ' ∈ LeafPush.inertiaQ w, τ' γ = τ γ := ⟨τ, hτ, rfl⟩
+    simp only [c, dif_pos h]
+    rw [hcons _ h.choose_spec.choose _ hτ h.choose_spec.choose_spec]
+  have hc0 : ∀ y, (¬ ∃ τ, ∃ hτ : τ ∈ LeafPush.inertiaQ w, τ γ = y) → c y = 0 := fun y h => by
+    simp only [c, dif_neg h]
+  have hcσ : ∀ σ (hσ : σ ∈ LeafPush.inertiaQ w) y, c (σ y) = ((χ ⟨σ, hσ⟩ : ℤˣ) : ℤ) * c y := by
+    intro σ hσ y
+    by_cases h : ∃ τ, ∃ hτ : τ ∈ LeafPush.inertiaQ w, τ γ = y
+    · obtain ⟨τ, hτ, rfl⟩ := h
+      rw [← AlgEquiv.mul_apply, hc _ ((LeafPush.inertiaQ w).mul_mem hσ hτ), hc τ hτ]
+      have e : (⟨σ * τ, (LeafPush.inertiaQ w).mul_mem hσ hτ⟩ : LeafPush.inertiaQ w) = ⟨σ, hσ⟩ * ⟨τ, hτ⟩ := rfl
+      rw [e, map_mul, Units.val_mul]
+    · have h' : ¬ ∃ τ, ∃ hτ : τ ∈ LeafPush.inertiaQ w, τ γ = σ y := by
+        rintro ⟨τ, hτ, hτy⟩
+        apply h
+        refine ⟨σ⁻¹ * τ, (LeafPush.inertiaQ w).mul_mem ((LeafPush.inertiaQ w).inv_mem hσ) hτ, ?_⟩
+        rw [AlgEquiv.mul_apply, hτy, ← AlgEquiv.mul_apply, inv_mul_cancel, AlgEquiv.one_apply]
+      rw [hc0 _ h, hc0 _ h', mul_zero]
+  have hcσ' : ∀ σ (hσ : σ ∈ LeafPush.inertiaQ w) y, c y = ((χ ⟨σ, hσ⟩ : ℤˣ) : ℤ) * c (σ y) := by
+    intro σ hσ y
+    rw [hcσ σ hσ y, ← mul_assoc, ← Units.val_mul, Int.units_mul_self, Units.val_one, one_mul]
+  -- Step 3: the roots of the minimal polynomial of `γ`
+  have hγint : IsIntegral ℚ γ := Algebra.IsIntegral.isIntegral γ
+  set R : Finset Qbar := ((minpoly ℚ γ).aroots Qbar).toFinset with hRdef
+  have hR : ∀ σ : Gal, ∀ y ∈ R, σ y ∈ R := by
+    intro σ y hy
+    simp only [hRdef, Multiset.mem_toFinset, Polynomial.mem_aroots] at hy ⊢
+    refine ⟨hy.1, ?_⟩
+    have := Polynomial.aeval_algHom_apply (σ : Qbar →ₐ[ℚ] Qbar) y (minpoly ℚ γ)
+    rw [hy.2, map_zero] at this
+    exact this
+  have hγR : γ ∈ R := by
+    simp only [hRdef, Multiset.mem_toFinset, Polynomial.mem_aroots]
+    exact ⟨minpoly.ne_zero hγint, minpoly.aeval ℚ γ⟩
+  have hγ1 : c γ = 1 := by
+    have := hc 1 (LeafPush.inertiaQ w).one_mem
+    rw [AlgEquiv.one_apply] at this
+    rw [this]
+    have e : (⟨1, (LeafPush.inertiaQ w).one_mem⟩ : LeafPush.inertiaQ w) = 1 := rfl
+    rw [e, map_one, Units.val_one]
+  -- Step 4: some power sum `∑ c(y) y^j` is nonzero (Vandermonde)
+  let bsum : ℕ → Qbar := fun j => ∑ y ∈ R, (c y : Qbar) * y ^ j
+  obtain ⟨j, hj⟩ : ∃ j, bsum j ≠ 0 := by
+    by_contra hall
+    push_neg at hall
+    let e : Fin R.card ≃ R := R.equivFin.symm
+    let v : Fin R.card → Qbar := fun i => (e i : Qbar)
+    let cv : Fin R.card → Qbar := fun i => (c (e i) : Qbar)
+    have hmul : (Matrix.vandermonde v).transpose.mulVec cv = 0 := by
+      funext k
+      have hk := hall k
+      simp only [Matrix.mulVec, dotProduct, Matrix.transpose_apply, Matrix.vandermonde_apply,
+        Pi.zero_apply]
+      rw [← hk]
+      simp only [bsum, v, cv]
+      rw [← Finset.sum_coe_sort R, ← Equiv.sum_comp e]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      ring
+    have hdet : (Matrix.vandermonde v).transpose.det ≠ 0 := by
+      rw [Matrix.det_transpose]
+      exact Matrix.det_vandermonde_ne_zero_iff.mpr fun a b h => e.injective (Subtype.ext h)
+    have h0 := Matrix.eq_zero_of_mulVec_eq_zero hdet hmul
+    have := congrFun h0 (e.symm ⟨γ, hγR⟩)
+    simp only [cv, Equiv.apply_symm_apply, hγ1, Pi.zero_apply] at this
+    norm_num at this
+  -- Step 5: `β = ∑ c(y) y^j` transforms by `χ`
+  refine ⟨bsum j, hj, fun σ hσ => ?_⟩
+  simp only [bsum, map_sum, map_mul, map_intCast, map_pow]
+  rw [Finset.mul_sum]
+  refine Finset.sum_nbij' (fun y => σ y) (fun y => σ⁻¹ y) (fun y hy => hR σ y hy)
+    (fun y hy => hR σ⁻¹ y hy) (fun y _ => by simp) (fun y _ => by simp) fun y _ => ?_
+  rw [hcσ' σ hσ y]
+  push_cast
+  ring
+
 end T32a
 
 end GlueB3Unram
