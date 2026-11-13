@@ -32,17 +32,20 @@ Layout (each block copied verbatim from a report's compiled draft, inside its ow
 * `HSyn` §0-§1 (from the hdec-faithful draft): the absolute Galois group of `ℚ`, places,
   Frobenius, continuous `GL_n(ℚ̄_ℓ)`-representations, cusp forms with nebentypus, normalized
   eigenforms, and the leaves statable over them.
-* `HSyn` §2: every other leaf as a **placeholder** `opaque … : Prop`. **A placeholder carries no
-  content**: it is an uninterpreted proposition whose docstring records the exact statement and
-  reference. A theorem with a placeholder among its hypotheses says nothing until the placeholder
-  is replaced by a genuine statement.
-* `HSyn` §3: the leaves bundled (`ResearchLeaves`, `TextbookLeaves`) and the top-level theorem
-  `sixContactMin_of_leaves : ResearchLeaves → TextbookLeaves → ZInQ.SixContactMin`, which is
-  `glueOutputs_of_leaves` (glue G1-G17, G19, `sorry`) followed by glue-assembly's proved
-  `GlueOutputs Mult.S_mul → SixContactMin` (G18-G20, checked against the real
-  `ZInQ.SixContactMin`). `GlueOutputs` is a numerical interface, not a leaf.
+* `HSyn` §2: the remaining placeholders (`opaque … : Prop`; since leaf-adopt3 only R1(b) and
+  R17). **A placeholder carries no content**: it is an uninterpreted proposition whose docstring
+  records the exact statement and reference. A theorem with a placeholder among its hypotheses
+  says nothing until the placeholder is replaced by a genuine statement.
+* `HSyn` §3: the leaves bundled (`ResearchLeaves`, `TextbookLeaves`), the glue pieces bundled
+  (`GluePieces`, leaf-adopt3) and the top-level theorem
+  `sixContactMin_of_leaves : ResearchLeaves → TextbookLeaves → GluePieces → ZInQ.SixContactMin`,
+  which is `glueOutputs_of_leaves` (glue G1-G17, G19: **proved** from the bundles, g0-split, folded
+  by leaf-adopt3) followed by glue-assembly's proved `GlueOutputs Mult.S_mul → SixContactMin`
+  (G18-G20, checked against the real `ZInQ.SixContactMin`). `GlueOutputs` is a numerical
+  interface, not a leaf.
 
-The only `sorry` in the file is `glueOutputs_of_leaves` (hsyn-fix, after the reviews): A6
+**leaf-adopt3 (2026-11-13): the file has no `sorry`.** The paragraph below is historical.
+Before leaf-adopt3 the only `sorry` in the file was `glueOutputs_of_leaves` (hsyn-fix, after the reviews): A6
 (`PkgI2.goodReduction_of_QM_rational3`, rv-a6-route), D4 (`PkgI6.artinConductor_le_of_upper`,
 glue-I6-rest) and D3 (`PkgI6.sq_principalUnits`) are now proved. Their remaining assumptions are
 explicit hypotheses: the glue Prop `PkgI2.QuatUnipotentTrivial` (pure algebra, paper proof in
@@ -73,11 +76,29 @@ AN3 for abelian varieties) and the glue target `T12_ComplexConjEigen` (T12 is no
 placeholders are now R1(b), R17, T10 (3 `opaque`). The Shimura-curve leaves (R1, R2, R5) and
 R3 rest on Lemma P of rv-qm-polar (type `μ` fixed, characteristic 0, `𝒪` maximal), a published
 input folded into each leaf because polarizations cannot be stated in Lean yet; the height
-leaves (R18-R22, H5) are not yet known to be non-vacuous (AN3 open); see the docstrings,
+leaves (R18-R22) say something only together with H5: where the height is `⊤` (no metrized
+model) R19, R20, R22 are vacuous and R21 is trivial, so a defect of the definition surfaces as a
+false H5 (`StableHeightFinite`) or a false R18 (which asserts `h < ⊤`), not as vacuity
+(rv-leaves48 P1, compiled for R19-R21 and H5); see the docstrings,
 `docs/research/leaf-adopt.md` and `docs/research/leaf-adopt2.md`.
 
-No `axiom` declarations. Leaf numbering (R1-R22 and H5 research-level, T1-T35 textbook, T12 and
-T32 now glue) is that of the note's §2.
+leaf-adopt3 (2026-11-13) folded in wave 25 and g0-split, each in its own section:
+`GlueSSBCSec` (glue-ssbc's `SemisimpleBaseChange`, before `HSyn`); between `HSyn` §2 and the bundles,
+`TDifferentSec` (T20, T21 local forms and T22 proved), `TSkolemKWSec` (T13, T19 proved; T18's
+density form from `ChebotarevExists`; T17 narrowed to `KroneckerWeberCyclic`; `c10_of_chebotarev`),
+`T30Sec` (T30 from T16(a), with copies of the kernel's `GlueI6Rest`, `GlueSqrtLocal`,
+`GlueSqrtDisj`), `T10EtaleSec` (T10 concrete and Galois-equivariant), `Pi0X6Sec` (`R1pi0Props`
+from clauses plus two Props; R1's clause kept), `HodgeLatticeSec` (`HodgeLatticeTheorem` from two
+Props and `DimBaseChange`), `H5NeronSec` (H5's Néron identity from N1, N2 and glue; additivity),
+`X1BelyiSec` (`X1ModelExists`, `BelyiX1` from five new leaves T36-T40), `E1SubSec`
+(`VSurjOfSurjective` proved), `C9RhofSec` (C9 proved); and in §3 the proof of
+`glueOutputs_of_leaves` (g0-split) with the bundle `GluePieces`. Bundle changes: `t10` concrete;
+`t13`, `t19`, `t22a`, `t22b`, `t30` removed (proved, `HSyn.t13_proved` etc.); `t17`, `t18`
+narrowed; new `x1` (T36-T40), `t41` (N1, Néron models exist). See
+`docs/research/leaf-adopt3.md`.
+
+No `axiom` declarations. Leaf numbering (R1-R22 and H5 research-level, T1-T41 textbook; T12, T13,
+T19, T22, T30, T32 now glue, proved except T12) is that of the note's §2.
 -/
 
 section PkgI1Sec
@@ -4695,7 +4716,7 @@ the first `a` coordinates, `ρ₂` the quotient), then `ρ` de Rham ⇒ `ρ₁, 
 sums (block diagonal); (v) tensor products (Kronecker product, reindexed by `Fin a × Fin b ≃
 Fin (a * b)`). Every clause is a special case of the published statement (matrix form of the
 same representations); (i) is the basis independence of `dim D_dR`, a triviality included so
-that the leaf is basis-free. Exact. -/
+that the leaf is basis-free. Consequence (matrix form of the published statement). -/
 def T23_FontaineClosure : Prop :=
   (∀ (n : ℕ) (ρ ρ' : GQp p →* GL (Fin n) ℚ_[p]) (P : GL (Fin n) ℚ_[p]),
     (∀ σ, ρ' σ = P * ρ σ * P⁻¹) → (IsDeRham p ρ ↔ IsDeRham p ρ')) ∧
@@ -5152,8 +5173,10 @@ by `x ↦ x^q`, and which maps `U^{(⌈v⌉)}` onto `G^v` for every real `v ≥ 
 is the upper numbering theorem; for the other `v` it adds Hasse–Arf, Serre V §7 Thm 1, that the
 upper jumps of an abelian extension are integers).
 Serre, *Corps locaux*, XIII §4 Prop. 13 and XV §2 Thm 1, Cor. 3; Serre, *Local class field
-theory* in Cassels–Fröhlich, §§2.8, 4.? (UNVERIFIED locators).  The canonical reciprocity map
-is one such `θ`, so this ∃-form is a consequence of the published theorem. -/
+theory* in Cassels–Fröhlich, §§2.8, 4.? (UNVERIFIED locators).  The reciprocity map normalized
+to send uniformizers to arithmetic Frobenius elements (Serre's convention) is one such `θ`; its
+inverse normalization does not satisfy clause 3 (rv-leaves48 P5). So this ∃-form is a
+consequence of the published theorem. -/
 def LocalReciprocityUpper : Prop :=
   ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
     [IsAdicComplete (maximalIdeal A) A] [Finite (ResidueField A)]
@@ -15315,8 +15338,9 @@ literal leaf; qualified CONSEQUENCE": the specialization of Deligne's PEL model 
 theorem for the type-`μ` PEL problem + Lemma P" (rv-qm-polar §2: a consequence, independent of
 the choice of `μ`; Lemma P is folded into the leaf because polarizations cannot be stated in Lean
 yet; if the sources print only uniqueness, its existence half is glue, argued in rv-qm-polar
-§1.2 with the lattice core and sign step compiled, class number one and the descent from `ℂ`
-not in Lean). On Buzzard's route no polarization enters, but
+§1.2 with the lattice core and sign step compiled for N5's `μ` on `Λ = 𝒪` only; the `E0R`/`E0`
+identification, `Λ = 𝒪v`, Riemann forms ↔ polarizations, class number one and the descent from
+`ℂ` are not in Lean; fact-check w34b item 3). On Buzzard's route no polarization enters, but
 whether his Thm 2.1 covers full level 3 directly is UNVERIFIED. -/
 def R1fp : Prop :=
   ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ
@@ -15342,7 +15366,9 @@ are natural automorphisms of the moduli functor (they are defined for families o
 `(A, ι, η) ↦ (A, ι∘α, η∘α)` and `η ↦ η(·u)`), so by Yoneda each is induced by an automorphism of
 the representing scheme. This is a consequence of R1(a) alone; on field points it is this
 clause. (With `λ` in the functor: `(A, ι∘α, η∘α)` has Rosati type `α⁻¹(μ)`, not `μ`, unless
-`α(μ) ∈ ℚ^×μ`; a matching `λ' = ±λ∘ι(μ⁻¹μ')`, `μ'` rescaled to norm 6, is defined in families, so
+`α(μ) ∈ ℚ^×μ`; a matching `λ' = λ∘ι(εv)`, `v = μ⁻¹α(μ) ∈ 𝒪¹` `†`-symmetric (`twist_type`),
+`ε = sign trd v`, is defined in families (for the Atkin–Lehner generators `i`, `j + k`, `v = −1`
+and `λ' = λ`; rv-qm-polar repair 3, fact-check w34b item 4), so
 the twist is still a functor automorphism. Alternatively: `n ∈ N_B(𝒪)` normalizes `K₃`, so right
 translation by `n_f` is an automorphism of `Y₃` over `E(G,X) = ℚ`; this is the "subgroup
 preserving level and datum" of the audit.) (`α = Ad n`, `n ∈ N_B(𝒪)`, by Skolem–Noether T13; `u` acts through `(𝒪/3𝒪)^×`,
@@ -15524,11 +15550,13 @@ theorem exists_fibre_object (h : R1R2fp) :
     ToP1.val_comp_right π₆ fY.left y.left
   rw [e, hx]
 
-/-- **Glue (compiled): A4 + A7 from the leaves alone.** From `R1R2fp`: for every rational
-`j₀`, there is an object `P` over `ℚ̄` at a point of `Y₃` over `j₀`, and every Galois conjugate of
-`P` (its base change `Q` along any `σ ∈ Aut(ℚ̄/ℚ)`) has abelian surface isomorphic to that of `P`
-(through an `Aut(𝒪)`-twisted QM isomorphism). This is pkg-I1's (I1-out)(ii) for the fibre over
-`J(u) = j₀`. -/
+/-- **Glue (compiled): A4 + A7 from the leaves alone.** From `R1R2fp`: there is an object
+`P : QML3 ℚ̄` such that every Galois conjugate of `P` (its base change `Q` along any
+`σ ∈ Aut(ℚ̄/ℚ)`) is an `Aut(𝒪)`-twist of `P` (so its abelian surface is isomorphic to that of
+`P`). The statement does not link `P` to `j₀`: the proof chooses `P` at a point of `Y₃` over `j₀`
+(`exists_fibre_object`), but the conclusion only asserts some `P`. For the linked form, pkg-I1's
+(I1-out)(ii) for the fibre over `J(u) = j₀`, use `exists_fibre_object` with
+`conj_twist_of_rational` (fact-check w34b item 1). -/
 theorem fibre_conjugates_isomorphic (h : R1R2fp) (j₀ : ℚ) :
     ∃ P : QML3 Qbar, ∀ σ : Qbar ≃ₐ[ℚ] Qbar, ∃ Q : QML3 Qbar,
       IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
@@ -16682,7 +16710,8 @@ end LeafModCurvesSec
 section DefFaltingsSec
 /-! ### leaf-adopt (2026-11-12): copied from `scratch/def-faltings/Faltings.lean` (compiled there).
 Only changes: imports and `#print axioms` lines dropped. Note: its `ZInQ.DefFaltings.AbVar` is a
-second copy of the kernel's abelian-variety structure (same four fields as `PkgI3.AbVar`), so
+second copy of the kernel's abelian-variety structure (same five fields as `PkgI3.AbVar`: `X`
+and four instances; fact-check w34b), so
 R19-R21 and H5 are over that copy; `LeafAdopt.abVarEquiv` (proved) identifies the two, and
 unifying the declarations is WP1 work. -/
 
@@ -18713,8 +18742,10 @@ with** Lemma P: for a fixed `μ` (N5's `2j+ij`), a QM pair `(A, ι)` over a fiel
 0 (`𝒪` maximal) has exactly one principal polarization with Rosati involution `x ↦ μ⁻¹x̄μ` on
 `ι(𝒪)`, also at CM points (rv-qm-polar §2: no statement needs correcting, and the λ-free
 clauses do not depend on the choice of `μ`). Lemma P is VERIFIED as an argument (rv-qm-polar
-§1.2; lattice core and sign step compiled: `eq_pm_E0_of_principal`, `type_eq_mu_mul`,
-`lemmaP_lattice`; class number one and the descent from `ℂ` not in Lean); its published locators
+§1.2; lattice core and sign step compiled for N5's `μ` on `Λ = 𝒪` only: `eq_pm_E0_of_principal`,
+`type_eq_mu_mul`, `lemmaP_lattice`; the `E0R`/`E0` identification, `Λ = 𝒪v`, Riemann forms ↔
+polarizations, class number one and the descent from `ℂ` not in Lean; fact-check w34b item 3);
+its published locators
 (Buzzard 1997 p. 592; Rotger 2003, 2004) are UNVERIFIED, and if they print only uniqueness its
 existence half becomes glue. Without fixing `μ` the polarization is not unique (one per type
 `c`, `c² = −6`, up to sign; `two_principal_types`). Polarizations cannot be stated in Lean today,
@@ -21539,11 +21570,13 @@ degree `d > 0`, `stableFaltingsHeight J ≤ 13·10⁶ · g · d⁵` (in `EReal`)
 /-! leaf-adopt (2026-11-12): the placeholders `R19_GaudronRemond`, `R20_FaltingsHeightLemma`,
 `R21_Bost` are replaced by def-faltings' `ZInQ.DefFaltings.R19_GaudronRemond`,
 `R20_FaltingsLemma5`, `R21_Bost` over `stableFaltingsHeight` (section `DefFaltingsSec`), with H5
-as an explicit leaf `LeafAdopt.H5` (rv-blueprints F2). **Not yet known to be non-vacuous**: the
+as an explicit leaf `LeafAdopt.H5` (rv-blueprints F2). **The height may be `⊤`** (formerly
+worded "not yet known to be non-vacuous"; rv-leaves48 P1): the
 three Props `AnalyticUniformizationExists`, `AnalyticUniformizationUnique`,
 `HodgeLatticeTheorem` (node AN3 and the Hodge lattice) are open, and until they are proved the
 index set of the infimum may be empty (`h = ⊤`): then R21 holds trivially and R19, R20 have no
-instance. R19 is normalization-sensitive (a consequence only if Gaudron–Rémond's `h` is Faltings'
+instance. So R19-R21 are true for the definition, and a defect of it would surface as a false H5
+(`StableHeightFinite`), not as vacuity. R19 is normalization-sensitive (a consequence only if Gaudron–Rémond's `h` is Faltings'
 original normalization, rv-blueprints F4). -/
 
 
@@ -21557,9 +21590,9 @@ coordinates (Def. 2.6) with `θ[a;b](0, Ω)` is UNVERIFIED (the main risk). The 
 `X = max(1, h_F + 3)` is `ZInQ.LeafPush2.R22_plus3` (proved). -/
 
 
-/-- **T10. `V_ℓ(A) ≅ H¹_et(A_K̄, ℚ_ℓ)^∨`**, Galois-equivariantly (Milne in Cornell–Silverman 1986,
-Thm 15.1(a), UNVERIFIED). Missing: ℓ-adic étale cohomology (large). -/
-opaque T10_TateDuality : Prop
+/-! leaf-adopt3 (2026-11-13): the placeholder `T10_TateDuality` is removed. T10 is now t10-etale's
+concrete Galois-equivariant `T10Etale.T10_TateDuality` over Mathlib's pro-étale `ℓ`-adic cohomology
+(section `T10EtaleSec`, below the bundles' reopening point). -/
 
 /-! leaf-adopt2 (2026-11-12): the placeholders `T11_RiemannGAGA` and `T12_ArtinComparison` are
 removed. T11 is now the two concrete textbook leaves `ZInQ.LeafPush2.T11a_RiemannEnd`
@@ -21579,7 +21612,8 @@ predicate is the one R22 and T11a quantify over, it ties `g` to `dim A`, and it 
 /-! hsyn-fold: R8, T9, T23, T29 and T32 are no longer placeholders. Their concrete statements
 (task leaf-push) are `PkgI2.GrothendieckMonodromy` (= `LeafPush.R08_GrothendieckMonodromy`,
 consequence form), `LeafPush.T09_WeilPairing` (consequence, polarization hidden),
-`PkgI4.T23_FontaineClosure` (exact, matrix form, `ℚ_p` coefficients),
+`PkgI4.T23_FontaineClosure` (consequence: matrix form of the published statement, `ℚ_p`
+coefficients; rv-leaves48 P4),
 `LeafPush.T29a_DivisionNormalizer` and `LeafPush.T29b_SplitNormalizer` (exact),
 `LeafPush.T32a_TameQuadratic` and `LeafPush.T32b_QuadraticRamification` (consequences).
 leaf-adopt (2026-11-12): T32 is now glue, proved (`HSyn.t32a_glue`, `HSyn.t32b_glue`, §3).
@@ -21649,6 +21683,11280 @@ end HSyn
 end
 
 
+section TDifferentSec
+
+/-! ### Copied from `scratch/t-different/All.lean` (task t-different, wave 25; compiled there
+against Mathlib only).  Proves the local leaves T20 (`PkgI6.HilbertDifferentFormula`, I6.7),
+T21 (`PkgI6.DifferentBound`, I6.6), T22a (`PkgI6.HerbrandQuotient`, I6.8), T22b
+(`PkgI6.HerbrandTransitivity`, I6.9) over the Leaves.lean definitions above (section PkgI6Sec).
+Deleted as duplicates of Leaves.lean (character-identical): `PkgI6.lowerRam`, `PkgI6.mem_lowerRam`,
+`PkgI6.lowerRamR`, `PkgI6.herbrandPhi`, `PkgI6.upperRam`, `PkgI6.lowerRam_tower` and the four leaf
+`def`s.  Docs: `docs/research/t-different.md`. -/
+
+open IsLocalRing Polynomial MeasureTheory Set
+
+namespace TDifferent
+
+/-- `∫_a^b 1_{t ≤ c} dt = min b c - min a c`. -/
+theorem integral_indicator_Iic (a b c : ℝ) :
+    ∫ t in a..b, (Iic c).indicator (fun _ => (1 : ℝ)) t = min b c - min a c := by
+  have key : ∀ a b : ℝ, a ≤ b →
+      ∫ t in a..b, (Iic c).indicator (fun _ => (1 : ℝ)) t = min b c - min a c := by
+    intro a b hab
+    rw [intervalIntegral.integral_of_le hab, setIntegral_indicator measurableSet_Iic,
+      setIntegral_const, Ioc_inter_Iic, Real.volume_real_Ioc, smul_eq_mul, mul_one]
+    rw [show b ⊓ c = min b c from rfl]
+    rcases le_total c a with h | h
+    · rw [min_eq_right (h.trans hab), min_eq_right h, sub_self]
+      exact max_eq_right (by linarith)
+    · rw [min_eq_left h]
+      exact max_eq_left (by rw [sub_nonneg]; exact le_min hab h)
+  rcases le_total a b with h | h
+  · exact key a b h
+  · rw [intervalIntegral.integral_symm, key b a h]; ring
+
+section Abstract
+
+variable {G : Type*} [Group G] [Fintype G] [DecidableEq G]
+
+/-- Real-indexed lower numbering of an abstract filtration (`PkgI6.lowerRamR`'s formula). -/
+noncomputable def filtR (Γ : ℕ → Subgroup G) (t : ℝ) : Subgroup G :=
+  if t ≤ -1 then ⊤ else Γ (⌈t⌉.toNat)
+
+/-- Herbrand's function of an abstract filtration (`PkgI6.herbrandPhi`'s formula). -/
+noncomputable def phiF (Γ : ℕ → Subgroup G) (u : ℝ) : ℝ :=
+  ∫ t in (0 : ℝ)..u, (Nat.card (filtR Γ t) : ℝ) / (Nat.card (filtR Γ 0) : ℝ)
+
+theorem filtR_zero (Γ : ℕ → Subgroup G) : filtR Γ 0 = Γ 0 := by
+  simp [filtR]
+
+open Classical in
+theorem card_eq_sum (H : Subgroup G) :
+    (Nat.card H : ℝ) = ∑ s : G, if s ∈ H then (1 : ℝ) else 0 := by
+  rw [Finset.sum_boole, Nat.card_eq_fintype_card]
+  congr 1
+  exact_mod_cast (Fintype.card_subtype (fun s => s ∈ H))
+
+/-- **The min-formula** (Serre, *Corps locaux*, IV §3, Lemma 1 form): if `s ∈ Γ i ↔ i < n s` for
+`s ≠ 1`, then for `u ≥ -1`, `|Γ_0| (φ(u) + 1) = (u + 1) + ∑_{s ≠ 1} min(n s, u + 1)`. -/
+theorem phiF_formula (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {u : ℝ} (hu : -1 ≤ u) :
+    (Nat.card (Γ 0) : ℝ) * (phiF Γ u + 1) =
+      (u + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (u + 1) := by
+  classical
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  -- the integrand on `Ι 0 u`
+  have hpt : ∀ t : ℝ, -1 < t → (Nat.card (filtR Γ t) : ℝ) =
+      1 + ∑ s ∈ Finset.univ.erase 1, (Iic ((n s : ℝ) - 1)).indicator (fun _ => (1 : ℝ)) t := by
+    intro t ht
+    rw [card_eq_sum, ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : G)),
+      if_pos (Subgroup.one_mem _)]
+    congr 1
+    refine Finset.sum_congr rfl fun s hs => ?_
+    have hs1 : s ≠ 1 := Finset.ne_of_mem_erase hs
+    simp only [filtR, if_neg (not_le.mpr ht), hΓ _ s hs1, indicator, mem_Iic]
+    have hc : (0 : ℤ) ≤ ⌈t⌉ := Int.ceil_nonneg_of_neg_one_lt ht
+    have h1 : (⌈t⌉.toNat < n s) ↔ ⌈t⌉ ≤ (n s : ℤ) - 1 := by omega
+    by_cases ha : ⌈t⌉.toNat < n s
+    · have : t ≤ (n s : ℝ) - 1 := by
+        have := h1.mp ha; rw [Int.ceil_le] at this; push_cast at this; exact this
+      simp [ha, this]
+    · have : ¬ t ≤ (n s : ℝ) - 1 := fun h => ha (h1.mpr (by rw [Int.ceil_le]; push_cast; exact h))
+      simp [ha, this]
+  have hint : ∀ c : ℝ, IntervalIntegrable ((Iic c).indicator (fun _ => (1 : ℝ))) volume 0 u := by
+    intro c
+    apply Antitone.intervalIntegrable
+    intro a b hab
+    by_cases hb : b ≤ c
+    · simp [indicator, hab.trans hb, hb]
+    · simp only [indicator, mem_Iic, hb, if_false]
+      split_ifs <;> norm_num
+  have hI : ∫ t in (0 : ℝ)..u, (Nat.card (filtR Γ t) : ℝ) =
+      u + ∑ s ∈ Finset.univ.erase 1, (min u ((n s : ℝ) - 1) - min 0 ((n s : ℝ) - 1)) := by
+    rw [intervalIntegral.integral_congr_ae (g := fun t => 1 + ∑ s ∈ Finset.univ.erase 1,
+      (Iic ((n s : ℝ) - 1)).indicator (fun _ => (1 : ℝ)) t)]
+    · have hsum : IntervalIntegrable (fun t => ∑ s ∈ Finset.univ.erase (1 : G),
+          (Iic ((n s : ℝ) - 1)).indicator (fun _ => (1 : ℝ)) t) volume 0 u := by
+        have := IntervalIntegrable.sum (Finset.univ.erase (1 : G)) (fun s _ => hint ((n s : ℝ) - 1))
+        convert this using 1
+        ext t; simp [Finset.sum_apply]
+      rw [intervalIntegral.integral_add intervalIntegrable_const hsum,
+        intervalIntegral.integral_const,
+        intervalIntegral.integral_finset_sum fun s _ => hint _]
+      simp only [smul_eq_mul, mul_one, sub_zero, integral_indicator_Iic]
+    · refine Filter.Eventually.of_forall fun t ht => hpt t ?_
+      rw [uIoc, mem_Ioc] at ht
+      have : -1 ≤ min 0 u := le_min (by norm_num) hu
+      linarith [ht.1]
+  have hg0' : (Nat.card (Γ 0) : ℝ) =
+      1 + ∑ s ∈ Finset.univ.erase 1, if 0 < n s then (1 : ℝ) else 0 := by
+    rw [card_eq_sum, ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : G)),
+      if_pos (Subgroup.one_mem _)]
+    congr 1
+    refine Finset.sum_congr rfl fun s hs => ?_
+    by_cases h : 0 < n s <;> simp [h, hΓ 0 s (Finset.ne_of_mem_erase hs)]
+  have hphi : phiF Γ u = (∫ t in (0 : ℝ)..u, (Nat.card (filtR Γ t) : ℝ)) / Nat.card (Γ 0) := by
+    rw [phiF, intervalIntegral.integral_div, filtR_zero]
+  rw [hphi, mul_add, mul_div_cancel₀ _ hg0.ne', hI, mul_one]
+  rw [hg0']
+  have hterm : ∀ s ∈ Finset.univ.erase (1 : G),
+      (min u ((n s : ℝ) - 1) - min 0 ((n s : ℝ) - 1)) + (if 0 < n s then (1 : ℝ) else 0) =
+        min (n s : ℝ) (u + 1) := by
+    intro s _
+    rcases Nat.eq_zero_or_pos (n s) with h0 | h0
+    · simp only [h0, Nat.cast_zero, lt_irrefl, if_false, add_zero, zero_sub]
+      rw [min_eq_right (by linarith), min_eq_right (by norm_num), min_eq_left (by linarith)]
+      ring
+    · have : (1 : ℝ) ≤ n s := by exact_mod_cast h0
+      simp only [h0, if_true]
+      rw [min_eq_left (show (0:ℝ) ≤ n s - 1 by linarith)]
+      rcases le_total u ((n s : ℝ) - 1) with h | h
+      · rw [min_eq_left h, min_eq_right (by linarith)]; ring
+      · rw [min_eq_right h, min_eq_left (by linarith)]; ring
+  rw [← Finset.sum_congr rfl hterm, Finset.sum_add_distrib]
+  ring
+
+theorem phiF_ge (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {u : ℝ} (hu : -1 ≤ u) : -1 ≤ phiF Γ u := by
+  have h := phiF_formula Γ n hΓ hu
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h2 : 0 ≤ (u + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (u + 1) :=
+    add_nonneg (by linarith) (Finset.sum_nonneg fun s _ => le_min (Nat.cast_nonneg _) (by linarith))
+  rw [← h] at h2
+  by_contra hlt
+  push Not at hlt
+  nlinarith
+
+theorem phiF_mono (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a b : ℝ} (ha : -1 ≤ a) (hab : a ≤ b) :
+    phiF Γ a ≤ phiF Γ b := by
+  have h1 := phiF_formula Γ n hΓ ha
+  have h2 := phiF_formula Γ n hΓ (ha.trans hab)
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h3 : (a + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (a + 1) ≤
+      (b + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (b + 1) :=
+    add_le_add (by linarith) (Finset.sum_le_sum fun s _ => min_le_min_left _ (by linarith))
+  rw [← h1, ← h2] at h3
+  have := le_of_mul_le_mul_left h3 hg0
+  linarith
+
+theorem phiF_zero (Γ : ℕ → Subgroup G) : phiF Γ 0 = 0 := by simp [phiF]
+
+end Abstract
+
+section Trans
+
+variable {G H Q : Type*} [Group G] [Fintype G] [DecidableEq G] [Group H] [Fintype H]
+  [DecidableEq H] [Group Q] [Fintype Q] [DecidableEq Q]
+
+theorem fiber_sum (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s) (s0 : G) (f : G → ℝ) :
+    ∑ s ∈ Finset.univ.filter (fun s => r s = r s0), f s = ∑ h : H, f (s0 * ι h) := by
+  symm
+  apply Finset.sum_nbij (fun h => s0 * ι h)
+  · intro h _
+    simp [Finset.mem_filter, map_mul, (hexact (ι h)).mpr ⟨h, rfl⟩]
+  · intro a _ b _ e
+    exact hι (mul_left_cancel e)
+  · intro s hs
+    simp only [Finset.coe_filter, Finset.mem_univ, true_and, Set.mem_setOf_eq] at hs
+    obtain ⟨h, hh⟩ := (hexact (s0⁻¹ * s)).mp (by rw [map_mul, map_inv, hs, inv_mul_cancel])
+    exact ⟨h, Finset.mem_coe.mpr (Finset.mem_univ _), by simp [hh]⟩
+  · intro h _; rfl
+
+/-- **Coset lemma** (Serre IV §3): if `s'` has maximal `i_G` in its coset `s'H` and `s'H ≠ H`,
+then `i_G(s' h) = min(i_G(s'), i_G(h))` for `h ∈ H`, `h ≠ 1`. -/
+theorem coset_min (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s) {s' : G} (hs' : r s' ≠ 1)
+    (hmax : ∀ s, r s = r s' → nG s ≤ nG s') {h : H} (hh : h ≠ 1) :
+    nG (s' * ι h) = min (nG s') (nG (ι h)) := by
+  have hιh : ι h ≠ 1 := fun e => hh (hι (e.trans (map_one ι).symm))
+  have hrι : r (ι h) = 1 := (hexact (ι h)).mpr ⟨h, rfl⟩
+  have hrp : r (s' * ι h) = r s' := by rw [map_mul, hrι, mul_one]
+  have hp1 : s' * ι h ≠ 1 := fun e => hs' (by rw [← hrp, e, map_one])
+  have hs1 : s' ≠ 1 := fun e => hs' (by rw [e, map_one])
+  apply le_antisymm
+  · rcases lt_or_ge (nG (ι h)) (nG s') with hk | hk
+    · rw [min_eq_right hk.le]
+      by_contra hlt
+      push Not at hlt
+      have h1 : s' * ι h ∈ ΓG (nG (ι h)) := (hG _ _ hp1).mpr hlt
+      have h2 : s' ∈ ΓG (nG (ι h)) := (hG _ _ hs1).mpr hk
+      have h3 : ι h ∈ ΓG (nG (ι h)) := by
+        have := (ΓG (nG (ι h))).mul_mem ((ΓG _).inv_mem h2) h1
+        rwa [← mul_assoc, inv_mul_cancel, one_mul] at this
+      exact lt_irrefl _ ((hG _ _ hιh).mp h3)
+    · rw [min_eq_left hk]
+      exact hmax _ hrp
+  · by_contra hlt
+    push Not at hlt
+    have h2 : s' ∈ ΓG (nG (s' * ι h)) := (hG _ _ hs1).mpr (lt_of_lt_of_le hlt (min_le_left _ _))
+    have h3 : ι h ∈ ΓG (nG (s' * ι h)) := (hG _ _ hιh).mpr (lt_of_lt_of_le hlt (min_le_right _ _))
+    exact lt_irrefl _ ((hG _ _ hp1).mp ((ΓG _).mul_mem h2 h3))
+
+/-- **Transitivity of Herbrand's function, abstract form** (Serre IV §3 Prop. 15, from IV §1
+Prop. 3 = `hP3`). `ι : H → G` and `r : G → Q` form an exact sequence `1 → H → G → Q → 1`,
+`ΓG`, `ΓQ` are filtrations with index functions `nG`, `nQ`, and the filtration of `H` is the
+induced one. -/
+theorem phiF_trans (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {u : ℝ} (hu : -1 ≤ u) :
+    phiF ΓG u = phiF ΓQ (phiF (fun i => (ΓG i).comap ι) u) := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  have hh0 : (0 : ℝ) < Nat.card (ΓH 0) := by exact_mod_cast Nat.card_pos
+  -- the identity `|G_0| (φ_G(w)+1) = |H_0| |Q_0| (φ_Q(φ_H(w))+1)`
+  have main : ∀ w : ℝ, -1 ≤ w → (Nat.card (ΓG 0) : ℝ) * (phiF ΓG w + 1) =
+      (Nat.card (ΓH 0) : ℝ) * ((Nat.card (ΓQ 0) : ℝ) * (phiF ΓQ (phiF ΓH w) + 1)) := by
+    intro w hw
+    set v := phiF ΓH w with hv_def
+    have hv : -1 ≤ v := phiF_ge ΓH nH hH hw
+    rw [phiF_formula ΓG nG hG hw, phiF_formula ΓQ nQ hQ hv]
+    let F : G → ℝ := fun s => if s = 1 then w + 1 else min (nG s : ℝ) (w + 1)
+    let FQ : Q → ℝ := fun σ => if σ = 1 then v + 1 else min (nQ σ : ℝ) (v + 1)
+    have hF : (w + 1) + ∑ s ∈ Finset.univ.erase 1, min (nG s : ℝ) (w + 1) = ∑ s, F s := by
+      rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : G))]
+      simp only [F, if_pos rfl]
+      congr 1
+      exact Finset.sum_congr rfl fun s hs => by rw [if_neg (Finset.ne_of_mem_erase hs)]
+    have hFQ : (v + 1) + ∑ σ ∈ Finset.univ.erase 1, min (nQ σ : ℝ) (v + 1) = ∑ σ, FQ σ := by
+      rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : Q))]
+      simp only [FQ, if_pos rfl]
+      congr 1
+      exact Finset.sum_congr rfl fun σ hσ => by rw [if_neg (Finset.ne_of_mem_erase hσ)]
+    rw [hF, hFQ, Finset.mul_sum, ← Finset.sum_fiberwise Finset.univ r F]
+    refine Finset.sum_congr rfl fun σ _ => ?_
+    obtain ⟨s0, hs0⟩ := hr σ
+    by_cases hσ : σ = 1
+    · -- the fibre over `1` is `H`
+      subst hσ
+      have := fiber_sum ι hι r hexact 1 F
+      rw [map_one] at this
+      rw [this]
+      have hHf := phiF_formula ΓH nH hH hw
+      rw [← hv_def] at hHf
+      simp only [FQ, if_pos rfl]
+      rw [hHf, ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))]
+      simp only [one_mul, F, map_one, if_pos rfl]
+      congr 1
+      refine Finset.sum_congr rfl fun h hh => ?_
+      have hh1 : h ≠ 1 := Finset.ne_of_mem_erase hh
+      rw [if_neg (fun e => hh1 ((hι1 h).mp e))]
+    · -- a coset `s'H ≠ H`, with `s'` of maximal `i_G`
+      obtain ⟨s', hs'mem, hs'max⟩ := Finset.exists_max_image
+        (Finset.univ.filter (fun s => r s = σ)) nG ⟨s0, by simp [hs0]⟩
+      have hrs' : r s' = σ := by simpa using hs'mem
+      have hmax : ∀ s, r s = r s' → nG s ≤ nG s' := fun s hs =>
+        hs'max s (by simp [hs, hrs'])
+      have hs'1 : r s' ≠ 1 := hrs' ▸ hσ
+      set m := nG s' with hm
+      have hfib : ∀ f : G → ℝ, ∑ s ∈ Finset.univ.filter (fun s => r s = σ), f s =
+          ∑ h : H, f (s' * ι h) := fun f => by
+        rw [← hrs']; exact fiber_sum ι hι r hexact s' f
+      have hcos : ∀ h : H, h ≠ 1 → nG (s' * ι h) = min m (nH h) := fun h hh =>
+        coset_min ΓG nG hG ι hι r hexact hs'1 hmax hh
+      have hne1 : ∀ h : H, s' * ι h ≠ 1 := fun h e => by
+        have := congrArg r e
+        rw [map_mul, (hexact (ι h)).mpr ⟨h, rfl⟩, mul_one, map_one] at this
+        exact hs'1 this
+      -- `nQ σ = φ_H(m - 1) + 1`
+      have hm1 : -1 ≤ (m : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) m; linarith
+      have hHm := phiF_formula ΓH nH hH hm1
+      have hnQ : (nQ σ : ℝ) = phiF ΓH ((m : ℝ) - 1) + 1 := by
+        have hP := hP3 σ hσ
+        rw [show (Nat.card ((ΓG 0).comap ι) : ℝ) = Nat.card (ΓH 0) from rfl, hfib,
+          ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))] at hP
+        simp only [map_one, mul_one] at hP
+        rw [Finset.sum_congr rfl (fun h hh => by
+          rw [hcos h (Finset.ne_of_mem_erase hh)])] at hP
+        have : (Nat.card (ΓH 0) : ℝ) * nQ σ = (Nat.card (ΓH 0) : ℝ) * (phiF ΓH ((m : ℝ) - 1) + 1) := by
+          rw [hP, hHm, sub_add_cancel]
+          congr 1
+          refine Finset.sum_congr rfl fun h _ => ?_
+          push_cast
+          exact min_comm _ _
+        exact mul_left_cancel₀ hh0.ne' this
+      -- the fibre sum
+      set w1 := min (m : ℝ) (w + 1) - 1 with hw1
+      have hw1' : -1 ≤ w1 := by
+        have : 0 ≤ min (m : ℝ) (w + 1) := le_min (Nat.cast_nonneg _) (by linarith)
+        linarith
+      have hHw1 := phiF_formula ΓH nH hH hw1'
+      rw [hfib]
+      simp only [F, if_neg (hne1 _), FQ, if_neg hσ]
+      have hmin : min (nQ σ : ℝ) (v + 1) = phiF ΓH w1 + 1 := by
+        rw [hnQ, hv_def]
+        have hmono : ∀ {a b : ℝ}, -1 ≤ a → a ≤ b → phiF ΓH a ≤ phiF ΓH b :=
+          fun ha hab => phiF_mono ΓH nH hH ha hab
+        have : min (phiF ΓH ((m : ℝ) - 1)) (phiF ΓH w) = phiF ΓH (min ((m : ℝ) - 1) w) := by
+          rcases le_total ((m : ℝ) - 1) w with h | h
+          · rw [min_eq_left h, min_eq_left (hmono hm1 h)]
+          · rw [min_eq_right h, min_eq_right (hmono hw h)]
+        rw [min_add_add_right, this]
+        congr 2
+        rw [hw1]
+        rcases le_total (m : ℝ) (w + 1) with h | h
+        · rw [min_eq_left h, min_eq_left (by linarith)]
+        · rw [min_eq_right h, min_eq_right (by linarith)]; ring
+      have hL : ∑ h : H, min (nG (s' * ι h) : ℝ) (w + 1) = min (m : ℝ) (w + 1) +
+          ∑ h ∈ Finset.univ.erase 1, min (nH h : ℝ) (min (m : ℝ) (w + 1)) := by
+        rw [← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H)), map_one, mul_one]
+        congr 1
+        refine Finset.sum_congr rfl fun h hh => ?_
+        rw [hcos h (Finset.ne_of_mem_erase hh)]
+        push_cast
+        rw [min_comm (m : ℝ) (nH h : ℝ), min_assoc]
+      rw [hmin, hHw1, hL, show w1 + 1 = min (m : ℝ) (w + 1) by rw [hw1]; ring]
+  -- conclude
+  have h0 := main 0 (by norm_num)
+  rw [phiF_zero, phiF_zero, phiF_zero, zero_add, mul_one, mul_one] at h0
+  have hu' := main u hu
+  rw [← mul_assoc, ← h0] at hu'
+  have hg0 : (0 : ℝ) < Nat.card (ΓG 0) := by exact_mod_cast Nat.card_pos
+  have := mul_left_cancel₀ hg0.ne' hu'
+  linarith
+
+end Trans
+
+section Upper
+
+variable {G H Q : Type*} [Group G] [Fintype G] [DecidableEq G] [Group H] [Fintype H]
+  [DecidableEq H] [Group Q] [Fintype Q] [DecidableEq Q]
+
+theorem ceil_toNat_lt_iff {t : ℝ} (ht : -1 < t) (n : ℕ) : ⌈t⌉.toNat < n ↔ t ≤ (n : ℝ) - 1 := by
+  have hc : (0 : ℤ) ≤ ⌈t⌉ := Int.ceil_nonneg_of_neg_one_lt ht
+  have h1 : (⌈t⌉.toNat < n) ↔ ⌈t⌉ ≤ (n : ℤ) - 1 := by omega
+  rw [h1, Int.ceil_le]
+  push_cast
+  rfl
+
+/-- The min-formula as an explicit function. -/
+noncomputable def phiExpl (Γ : ℕ → Subgroup G) (n : G → ℕ) (u : ℝ) : ℝ :=
+  ((u + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (u + 1)) / (Nat.card (Γ 0) : ℝ) - 1
+
+theorem phiF_eq_phiExpl (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {u : ℝ} (hu : -1 ≤ u) :
+    phiF Γ u = phiExpl Γ n u := by
+  have h := phiF_formula Γ n hΓ hu
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  rw [phiExpl, ← h, mul_div_cancel_left₀ _ hg0.ne', add_sub_cancel_right]
+
+theorem phiF_strictMono (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a b : ℝ} (ha : -1 ≤ a) (hab : a < b) :
+    phiF Γ a < phiF Γ b := by
+  have h1 := phiF_formula Γ n hΓ ha
+  have h2 := phiF_formula Γ n hΓ (ha.trans hab.le)
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h3 : (a + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (a + 1) <
+      (b + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (b + 1) :=
+    add_lt_add_of_lt_of_le (by linarith)
+      (Finset.sum_le_sum fun s _ => min_le_min_left _ (by linarith))
+  rw [← h1, ← h2] at h3
+  have := lt_of_mul_lt_mul_left h3 hg0.le
+  linarith
+
+theorem phiF_neg_one (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) : phiF Γ (-1) = -1 := by
+  have h := phiF_formula Γ n hΓ (le_refl (-1 : ℝ))
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have hs : ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (-1 + 1) = 0 :=
+    Finset.sum_eq_zero fun s _ => by rw [neg_add_cancel, min_eq_right (Nat.cast_nonneg _)]
+  rw [hs, neg_add_cancel, add_zero] at h
+  have := (mul_eq_zero.mp h).resolve_left hg0.ne'
+  linarith
+
+theorem exists_phiF_eq (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {v : ℝ} (hv : -1 ≤ v) :
+    ∃ a, -1 ≤ a ∧ phiF Γ a = v := by
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  set M : ℝ := (Nat.card (Γ 0) : ℝ) * (v + 1)
+  have hM : -1 ≤ M := by have : 0 ≤ M := mul_nonneg hg0.le (by linarith); linarith
+  have hcont : Continuous (phiExpl Γ n) := by
+    unfold phiExpl
+    fun_prop
+  obtain ⟨a, ha, hfa⟩ := intermediate_value_Icc hM hcont.continuousOn
+    (show v ∈ Icc (phiExpl Γ n (-1)) (phiExpl Γ n M) by
+      constructor
+      · rw [← phiF_eq_phiExpl Γ n hΓ le_rfl, phiF_neg_one Γ n hΓ]; exact hv
+      · unfold phiExpl
+        have hsum : 0 ≤ ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (M + 1) :=
+          Finset.sum_nonneg fun s _ => le_min (Nat.cast_nonneg _) (by linarith)
+        rw [le_sub_iff_add_le, le_div_iff₀ hg0]
+        nlinarith)
+  exact ⟨a, ha.1, (phiF_eq_phiExpl Γ n hΓ ha.1).trans hfa⟩
+
+theorem sInf_phiF (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a v : ℝ} (ha : -1 ≤ a) (hav : phiF Γ a = v) :
+    sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = a := by
+  have : {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = Ici a := by
+    ext u
+    simp only [mem_setOf_eq, mem_Ici]
+    constructor
+    · rintro ⟨hu, hvu⟩
+      by_contra hlt
+      push Not at hlt
+      have := phiF_strictMono Γ n hΓ hu hlt
+      linarith
+    · intro hau
+      refine ⟨ha.trans hau, ?_⟩
+      rw [← hav]
+      exact phiF_mono Γ n hΓ ha hau
+  rw [this, csInf_Ici]
+
+theorem sInf_phiF_of_le (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {v : ℝ} (hv : v ≤ -1) :
+    sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = -1 := by
+  have : {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = Ici (-1) := by
+    ext u
+    simp only [mem_setOf_eq, mem_Ici]
+    exact ⟨fun h => h.1, fun hu => ⟨hu, hv.trans (phiF_ge Γ n hΓ hu)⟩⟩
+  rw [this, csInf_Ici]
+
+/-- `nQ σ = φ_H(m - 1) + 1` with `m` the maximal `i_G` in the fibre (from Prop. 3). -/
+theorem nQ_eq (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {s' : G} (hs'1 : r s' ≠ 1) (hmax : ∀ s, r s = r s' → nG s ≤ nG s') :
+    (nQ (r s') : ℝ) = phiF (fun i => (ΓG i).comap ι) ((nG s' : ℝ) - 1) + 1 := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  have hh0 : (0 : ℝ) < Nat.card (ΓH 0) := by exact_mod_cast Nat.card_pos
+  have hcos : ∀ h : H, h ≠ 1 → nG (s' * ι h) = min (nG s') (nH h) := fun h hh =>
+    coset_min ΓG nG hG ι hι r hexact hs'1 hmax hh
+  have hm1 : -1 ≤ (nG s' : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) (nG s'); linarith
+  have hHm := phiF_formula ΓH nH hH hm1
+  have hP := hP3 (r s') hs'1
+  rw [show (Nat.card ((ΓG 0).comap ι) : ℝ) = Nat.card (ΓH 0) from rfl,
+    fiber_sum ι hι r hexact s', ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))] at hP
+  simp only [map_one, mul_one] at hP
+  rw [Finset.sum_congr rfl (fun h hh => by rw [hcos h (Finset.ne_of_mem_erase hh)])] at hP
+  have : (Nat.card (ΓH 0) : ℝ) * nQ (r s') =
+      (Nat.card (ΓH 0) : ℝ) * (phiF ΓH ((nG s' : ℝ) - 1) + 1) := by
+    rw [hP, hHm, sub_add_cancel]
+    congr 1
+    refine Finset.sum_congr rfl fun h _ => ?_
+    push_cast
+    exact min_comm _ _
+  exact mul_left_cancel₀ hh0.ne' this
+
+/-- **Herbrand's lemma** (Serre IV §3, Lemma 5): `G_u H/H = (G/H)_{φ_{L/K'}(u)}`. -/
+theorem herbrand_lemma (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {u : ℝ} (hu : -1 ≤ u) :
+    (filtR ΓG u).map r = filtR ΓQ (phiF (fun i => (ΓG i).comap ι) u) := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  rcases eq_or_lt_of_le hu with h1 | h1
+  · subst h1
+    rw [phiF_neg_one ΓH nH hH]
+    simp only [filtR, le_refl, if_true]
+    exact Subgroup.map_top_of_surjective r hr
+  · have hv : -1 < phiF ΓH u := by
+      have := phiF_strictMono ΓH nH hH le_rfl h1
+      rwa [phiF_neg_one ΓH nH hH] at this
+    have hnot : ¬ u ≤ -1 := not_le.mpr h1
+    have hnotv : ¬ phiF ΓH u ≤ -1 := not_le.mpr hv
+    simp only [filtR, hnot, hnotv, if_false]
+    ext σ
+    rw [Subgroup.mem_map]
+    by_cases hσ : σ = 1
+    · subst hσ
+      exact ⟨fun _ => Subgroup.one_mem _, fun _ => ⟨1, Subgroup.one_mem _, map_one r⟩⟩
+    obtain ⟨s0, hs0⟩ := hr σ
+    obtain ⟨s', hs'mem, hs'max⟩ := Finset.exists_max_image
+      (Finset.univ.filter (fun s => r s = σ)) nG ⟨s0, by simp [hs0]⟩
+    have hrs' : r s' = σ := by simpa using hs'mem
+    have hmax : ∀ s, r s = r s' → nG s ≤ nG s' := fun s hs =>
+      hs'max s (by simp [hs, hrs'])
+    have hs'1 : r s' ≠ 1 := hrs' ▸ hσ
+    have hnQ := nQ_eq ΓG nG ΓQ nQ ι hι r hexact hG hP3 hs'1 hmax
+    rw [hrs'] at hnQ
+    rw [hQ _ σ hσ, ceil_toNat_lt_iff hv, hnQ, add_sub_cancel_right]
+    have hm1 : -1 ≤ (nG s' : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) (nG s'); linarith
+    have hiff : phiF ΓH u ≤ phiF ΓH ((nG s' : ℝ) - 1) ↔ u ≤ (nG s' : ℝ) - 1 := by
+      constructor
+      · intro h
+        by_contra hlt
+        push Not at hlt
+        have := phiF_strictMono ΓH nH hH hm1 hlt
+        linarith
+      · intro h; exact phiF_mono ΓH nH hH hu h
+    rw [hiff, ← ceil_toNat_lt_iff h1]
+    constructor
+    · rintro ⟨s, hs, hrs⟩
+      have hs1 : s ≠ 1 := fun e => hσ (by rw [← hrs, e, map_one])
+      exact lt_of_lt_of_le ((hG _ s hs1).mp hs) (hmax s (by rw [hrs, hrs']))
+    · intro h
+      have hs'ne : s' ≠ 1 := fun e => hs'1 (by rw [e, map_one])
+      exact ⟨s', (hG _ s' hs'ne).mpr h, hrs'⟩
+
+/-- **Herbrand's theorem, abstract form** (Serre IV §3, Prop. 14): `(G/H)^v = G^v H/H`. -/
+theorem upper_map (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    (v : ℝ) :
+    filtR ΓQ (sInf {w : ℝ | -1 ≤ w ∧ v ≤ phiF ΓQ w}) =
+      (filtR ΓG (sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF ΓG u})).map r := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  rcases le_or_gt v (-1) with hv | hv
+  · rw [sInf_phiF_of_le ΓQ nQ hQ hv, sInf_phiF_of_le ΓG nG hG hv]
+    simp only [filtR, le_refl, if_true]
+    exact (Subgroup.map_top_of_surjective r hr).symm
+  · obtain ⟨a, ha, hav⟩ := exists_phiF_eq ΓG nG hG hv.le
+    have hb : -1 ≤ phiF ΓH a := phiF_ge ΓH nH hH ha
+    have hbv : phiF ΓQ (phiF ΓH a) = v := by
+      rw [← phiF_trans ΓG nG ΓQ nQ ι hι r hr hexact hG hQ hP3 ha]; exact hav
+    rw [sInf_phiF ΓG nG hG ha hav, sInf_phiF ΓQ nQ hQ hb hbv,
+      herbrand_lemma ΓG nG ΓQ nQ ι hι r hr hexact hG hQ hP3 ha]
+
+end Upper
+
+
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-! ### If `B = A[x]`, then `σ ∈ G_I ↔ σ x - x ∈ I`. -/
+
+theorem mem_inertia_iff_of_adjoin {A B : Type*} [CommRing A] [CommRing B] [Algebra A B]
+    {x : B} (hx : Algebra.adjoin A {x} = ⊤) (I : Ideal B) (σ : B ≃ₐ[A] B) :
+    σ ∈ I.toAddSubgroup.inertia (B ≃ₐ[A] B) ↔ σ x - x ∈ I := by
+  refine ⟨fun h => h x, fun h b => ?_⟩
+  have hb : b ∈ Algebra.adjoin A {x} := hx ▸ Algebra.mem_top
+  change σ b - b ∈ I
+  induction hb using Algebra.adjoin_induction with
+  | mem y hy => rw [Set.mem_singleton_iff.mp hy]; exact h
+  | algebraMap r => simp
+  | add y z _ _ hy hz =>
+      have : σ (y + z) - (y + z) = (σ y - y) + (σ z - z) := by rw [map_add]; ring
+      rw [this]; exact I.add_mem hy hz
+  | mul y z _ _ hy hz =>
+      have : σ (y * z) - y * z = σ y * (σ z - z) + (σ y - y) * z := by rw [map_mul]; ring
+      rw [this]; exact I.add_mem (I.mul_mem_left _ hz) (I.mul_mem_right _ hy)
+
+/-! ### Valuations in a DVR. -/
+
+section DVR
+
+variable {B : Type*} [CommRing B] [IsDomain B] [IsDiscreteValuationRing B]
+
+theorem span_eq_maximalIdeal_pow {a : B} (ha : a ≠ 0) :
+    ∃ n, Ideal.span {a} = maximalIdeal B ^ n := by
+  obtain ⟨ϖ, hϖ⟩ := IsDiscreteValuationRing.exists_irreducible B
+  obtain ⟨n, hn⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible
+    (s := Ideal.span {a}) (by simpa using ha) hϖ
+  exact ⟨n, by rw [hn, hϖ.maximalIdeal_eq, Ideal.span_singleton_pow]⟩
+
+theorem maximalIdeal_pow_le_iff {m n : ℕ} :
+    maximalIdeal B ^ m ≤ maximalIdeal B ^ n ↔ n ≤ m :=
+  (Ideal.pow_right_strictAnti _ (IsDiscreteValuationRing.not_a_field B)
+    (maximalIdeal.isMaximal B).ne_top).le_iff_ge
+
+/-- An element of `𝔪 \ 𝔪²` generates `𝔪`. -/
+theorem maximalIdeal_eq_span_of_mem_of_notMem {t : B} (ht : t ∈ maximalIdeal B)
+    (ht2 : t ∉ maximalIdeal B ^ 2) : maximalIdeal B = Ideal.span {t} := by
+  have ht0 : t ≠ 0 := by rintro rfl; exact ht2 (Ideal.zero_mem _)
+  obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow ht0
+  have h1 : 1 ≤ n := by
+    rw [← maximalIdeal_pow_le_iff (B := B), ← hn, pow_one, Ideal.span_singleton_le_iff_mem]; exact ht
+  have h2 : ¬ 2 ≤ n := by
+    rw [← maximalIdeal_pow_le_iff (B := B), ← hn, Ideal.span_singleton_le_iff_mem]; exact ht2
+  rw [hn, show n = 1 by omega, pow_one]
+
+end DVR
+
+section Monogenic
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [PerfectField (ResidueField A)]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B]
+
+/-- **Monogenicity** (Serre, *Corps locaux*, III §6, Prop. 12; here without completeness: only
+Nakayama's lemma over the local ring `A` is used). -/
+theorem exists_adjoin_eq_top : ∃ x : B, Algebra.adjoin A {x} = ⊤ := by
+  classical
+  have hinjAB : Function.Injective (algebraMap A B) := FaithfulSMul.algebraMap_injective A B
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have : Module.Finite (ResidueField A) (ResidueField B) := inferInstance
+  have : Algebra.IsSeparable (ResidueField A) (ResidueField B) := inferInstance
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element (ResidueField A) (ResidueField B)
+  have hαadj : Algebra.adjoin (ResidueField A) {α} = ⊤ := by
+    rw [← IntermediateField.adjoin_simple_toSubalgebra_of_isAlgebraic
+      (Algebra.IsAlgebraic.isAlgebraic α), hα, IntermediateField.top_toSubalgebra]
+  have hlift : ∀ z : ResidueField B, ∃ P : A[X], aeval α P = z := by
+    intro z
+    have hz : z ∈ Algebra.adjoin (ResidueField A) {α} := hαadj ▸ Algebra.mem_top
+    rw [Algebra.adjoin_singleton_eq_range_aeval] at hz
+    obtain ⟨p, rfl⟩ := hz
+    obtain ⟨P, rfl⟩ := Polynomial.map_surjective (residue A) residue_surjective p
+    exact ⟨P, by rw [← ResidueField.algebraMap_eq]; exact (aeval_map_algebraMap _ _ _).symm⟩
+  have hres : ∀ (P : A[X]) (y : B), residue B (aeval y P) = aeval (residue B y) P := by
+    intro P y
+    have := Polynomial.aeval_algHom_apply (IsScalarTower.toAlgHom A B (ResidueField B)) y P
+    simpa [ResidueField.algebraMap_eq] using this.symm
+  obtain ⟨g, hg⟩ := Polynomial.map_surjective (residue A) residue_surjective
+    (minpoly (ResidueField A) α)
+  have hgα : aeval α g = 0 := by
+    rw [← minpoly.aeval (ResidueField A) α, ← hg, ← ResidueField.algebraMap_eq,
+      aeval_map_algebraMap]
+  have hg'α : aeval α (derivative g) ≠ 0 := by
+    have := (Algebra.IsSeparable.isSeparable (ResidueField A) α).aeval_derivative_ne_zero
+      (minpoly.aeval (ResidueField A) α)
+    rwa [← hg, derivative_map, ← ResidueField.algebraMap_eq, aeval_map_algebraMap] at this
+  obtain ⟨x, hx⟩ := residue_surjective α
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible B
+  have hπm : maximalIdeal B = Ideal.span {π} := hπ.maximalIdeal_eq
+  have hπmem : π ∈ maximalIdeal B := hπm ▸ Ideal.mem_span_singleton_self π
+  have hπ2 : π ∉ maximalIdeal B ^ 2 := by
+    intro h
+    have : maximalIdeal B ^ 1 ≤ maximalIdeal B ^ 2 := by
+      rw [pow_one, hπm, Ideal.span_singleton_le_iff_mem, ← hπm]; exact h
+    exact absurd (maximalIdeal_pow_le_iff.mp this) (by norm_num)
+  -- a lift `y` of `α` with `g(y) ∈ 𝔪 \ 𝔪²`
+  have key : ∃ y : B, residue B y = α ∧ aeval y g ∈ maximalIdeal B ∧
+      aeval y g ∉ maximalIdeal B ^ 2 := by
+    by_cases h2 : aeval x g ∈ maximalIdeal B ^ 2
+    · have hy : residue B (x + π) = α := by
+        rw [map_add, hx, (residue_eq_zero_iff π).mpr hπmem, add_zero]
+      refine ⟨x + π, hy, (residue_eq_zero_iff _).mp (by rw [hres, hy, hgα]), ?_⟩
+      intro h
+      obtain ⟨k, hk⟩ := (g.map (algebraMap A B)).binomExpansion x π
+      rw [eval_map_algebraMap, eval_map_algebraMap, derivative_map, eval_map_algebraMap] at hk
+      have hu : IsUnit (aeval x (derivative g)) := by
+        rw [← residue_ne_zero_iff_isUnit, hres, hx]; exact hg'α
+      have hmem : aeval x (derivative g) * π ∈ maximalIdeal B ^ 2 := by
+        have e : aeval x (derivative g) * π = aeval (x + π) g - aeval x g - k * π ^ 2 := by
+          rw [hk]; ring
+        rw [e]
+        refine Ideal.sub_mem _ (Ideal.sub_mem _ h h2) (Ideal.mul_mem_left _ _ ?_)
+        rw [hπm, Ideal.span_singleton_pow]; exact Ideal.mem_span_singleton_self _
+      apply hπ2
+      obtain ⟨u, hu⟩ := hu
+      have : π = ↑u⁻¹ * (aeval x (derivative g) * π) := by
+        rw [← hu, ← mul_assoc, Units.inv_mul, one_mul]
+      rw [this]; exact Ideal.mul_mem_left _ _ hmem
+    · exact ⟨x, hx, (residue_eq_zero_iff _).mp (by rw [hres, hx, hgα]), h2⟩
+  obtain ⟨y, hy, hym, hym2⟩ := key
+  set t := aeval y g
+  have ht : maximalIdeal B = Ideal.span {t} := maximalIdeal_eq_span_of_mem_of_notMem hym hym2
+  set C := Algebra.adjoin A {y}
+  have hPC : ∀ P : A[X], aeval y P ∈ C := fun P => aeval_mem_adjoin_singleton A y
+  have approx : ∀ j : ℕ, ∀ b : B, ∃ c ∈ C, b - c ∈ maximalIdeal B ^ j := by
+    intro j
+    induction j with
+    | zero => intro b; exact ⟨0, C.zero_mem, by simp⟩
+    | succ j ih =>
+      intro b
+      obtain ⟨P, hP⟩ := hlift (residue B b)
+      have h1 : b - aeval y P ∈ maximalIdeal B := by
+        rw [← residue_eq_zero_iff, map_sub, hres, hy, hP, sub_self]
+      rw [ht, Ideal.mem_span_singleton'] at h1
+      obtain ⟨b₁, hb₁⟩ := h1
+      obtain ⟨c₁, hc₁, hbc⟩ := ih b₁
+      refine ⟨aeval y P + t * c₁, C.add_mem (hPC P) (C.mul_mem (hPC g) hc₁), ?_⟩
+      have e : b - (aeval y P + t * c₁) = t * (b₁ - c₁) := by
+        rw [mul_sub, mul_comm t b₁, hb₁]; ring
+      rw [e, pow_succ']
+      exact Ideal.mul_mem_mul hym hbc
+  have hmA : (maximalIdeal A).map (algebraMap A B) ≠ ⊥ := by
+    rw [ne_eq, Ideal.map_eq_bot_iff_of_injective hinjAB]
+    exact IsDiscreteValuationRing.not_a_field A
+  obtain ⟨j, hj⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hmA hπ
+  rw [← Ideal.span_singleton_pow, ← hπm] at hj
+  have hle : (⊤ : Submodule A B) ≤ Subalgebra.toSubmodule C ⊔ maximalIdeal A • ⊤ := by
+    intro b _
+    obtain ⟨c, hc, hbc⟩ := approx j b
+    rw [Ideal.smul_top_eq_map, hj]
+    exact Submodule.mem_sup.mpr ⟨c, hc, b - c, hbc, by ring⟩
+  have hN := Submodule.le_of_le_smul_of_le_jacobson_bot (Module.Finite.fg_top)
+    (IsLocalRing.jacobson_eq_maximalIdeal ⊥ bot_ne_top).ge hle
+  refine ⟨y, ?_⟩
+  rw [eq_top_iff]
+  intro b _
+  exact hN Submodule.mem_top
+
+end Monogenic
+
+
+
+/-- `𝔪_A B = 𝔪_B ^ e` with `e` Mathlib's `Ideal.ramificationIdx`. -/
+theorem map_maximalIdeal_eq_pow (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] :
+    (maximalIdeal A).map (algebraMap A B) =
+      maximalIdeal B ^ Ideal.ramificationIdx (maximalIdeal B) A := by
+  have hinjAB : Function.Injective (algebraMap A B) := FaithfulSMul.algebraMap_injective A B
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have hmA : (maximalIdeal A).map (algebraMap A B) ≠ ⊥ := by
+    rw [ne_eq, Ideal.map_eq_bot_iff_of_injective hinjAB]
+    exact IsDiscreteValuationRing.not_a_field A
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible B
+  obtain ⟨j, hj⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hmA hπ
+  rw [← Ideal.span_singleton_pow, ← hπ.maximalIdeal_eq] at hj
+  rw [← Ideal.ramificationIdx'_eq_ramificationIdx (maximalIdeal A) (maximalIdeal B)
+    (IsDiscreteValuationRing.not_a_field A)]
+  rw [Ideal.ramificationIdx'_spec (n := j) (by rw [hj]) (by rw [hj, maximalIdeal_pow_le_iff]; omega)]
+  exact hj
+
+
+
+
+section GaloisSetup
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
+  [CommRing B] [IsDomain B] [IsIntegrallyClosed B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+  [IsGalois (FractionRing A) (FractionRing B)]
+
+omit [Algebra.IsSeparable (FractionRing A) (FractionRing B)] in
+theorem isGaloisGroup_algEquiv : IsGaloisGroup (B ≃ₐ[A] B) A B := by
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) (FractionRing B) :=
+    IsIntegralClosure.isLocalization _ (FractionRing A) _ _
+  have : FiniteDimensional (FractionRing A) (FractionRing B) :=
+    .of_isLocalization A B (nonZeroDivisors A)
+  exact ⟨inferInstance, inferInstance,
+    Algebra.isInvariant_of_isGalois' A (FractionRing A) (FractionRing B) B⟩
+
+omit [Algebra.IsSeparable (FractionRing A) (FractionRing B)] [IsGalois (FractionRing A) (FractionRing B)] in
+theorem finite_algEquiv : Finite (B ≃ₐ[A] B) := by
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) (FractionRing B) :=
+    IsIntegralClosure.isLocalization _ (FractionRing A) _ _
+  have : FiniteDimensional (FractionRing A) (FractionRing B) :=
+    .of_isLocalization A B (nonZeroDivisors A)
+  exact Finite.of_equiv _ (galRestrict A (FractionRing A) (FractionRing B) B).toEquiv
+
+end GaloisSetup
+
+section Tower
+
+variable (A C B : Type) [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
+  [CommRing C] [IsDomain C] [IsIntegrallyClosed C] [Algebra A C] [Module.Finite A C]
+  [Module.IsTorsionFree A C] [IsGalois (FractionRing A) (FractionRing C)]
+  [CommRing B] [IsDomain B] [IsIntegrallyClosed B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [IsGalois (FractionRing A) (FractionRing B)]
+  [Algebra C B] [IsScalarTower A C B] [Module.IsTorsionFree C B]
+
+/-- The restriction `Gal(B/A) → Gal(C/A)`. -/
+noncomputable def resHom : (B ≃ₐ[A] B) →* (C ≃ₐ[A] C) :=
+  haveI := finite_algEquiv A B
+  haveI := finite_algEquiv A C
+  haveI := isGaloisGroup_algEquiv A B
+  haveI := isGaloisGroup_algEquiv A C
+  IsGaloisGroup.restrictHom (B ≃ₐ[A] B) (C ≃ₐ[A] C) A C B
+
+theorem resHom_apply (g : B ≃ₐ[A] B) (c : C) :
+    algebraMap C B (resHom A C B g c) = g (algebraMap C B c) := by
+  have := finite_algEquiv A B
+  have := finite_algEquiv A C
+  have := isGaloisGroup_algEquiv A B
+  have := isGaloisGroup_algEquiv A C
+  exact IsGaloisGroup.algebraMap_restrictHom_smul (B ≃ₐ[A] B) (C ≃ₐ[A] C) A C B g c
+
+theorem resHom_surjective : Function.Surjective (resHom A C B) := by
+  have := finite_algEquiv A B
+  have := finite_algEquiv A C
+  have := isGaloisGroup_algEquiv A B
+  have := isGaloisGroup_algEquiv A C
+  exact IsGaloisGroup.restrictHom_surjective (B ≃ₐ[A] B) (C ≃ₐ[A] C) A C B
+
+theorem resHom_eq_one_iff (g : B ≃ₐ[A] B) :
+    resHom A C B g = 1 ↔ ∃ h : B ≃ₐ[C] B, AlgEquiv.restrictScalarsHom A h = g := by
+  have hinj : Function.Injective (algebraMap C B) := FaithfulSMul.algebraMap_injective C B
+  constructor
+  · intro h1
+    refine ⟨AlgEquiv.ofRingEquiv (f := (g : B ≃+* B)) (fun c => ?_), ?_⟩
+    · have := resHom_apply A C B g c
+      rw [h1] at this
+      exact this.symm
+    · ext b; rfl
+  · rintro ⟨h, rfl⟩
+    ext c
+    apply hinj
+    rw [resHom_apply]
+    exact h.commutes c
+
+include A in
+omit [IsGalois (FractionRing A) (FractionRing C)] [Module.Finite A C] in
+/-- `B ≃ₐ[C] B` is a Galois group of `B/C`. -/
+theorem isGaloisGroup_tower : IsGaloisGroup (B ≃ₐ[C] B) C B := by
+  have := finite_algEquiv A B
+  have := isGaloisGroup_algEquiv A B
+  have hG := IsGaloisGroup.of_isScalarTower (B ≃ₐ[A] B) A B C
+  refine ⟨inferInstance, inferInstance, ⟨fun b hb => ?_⟩⟩
+  refine hG.isInvariant.isInvariant b (fun g => ?_)
+  have hg : ∀ c : C, (g : B ≃ₐ[A] B) (algebraMap C B c) = algebraMap C B c := fun c =>
+    (mem_fixingSubgroup_iff _).mp g.2 _ ⟨c, rfl⟩
+  have := hb (AlgEquiv.ofRingEquiv (f := ((g : B ≃ₐ[A] B) : B ≃+* B)) hg)
+  exact this
+
+end Tower
+
+section Product
+
+/-- If `S = R[x]` and `|Aut_R(S)| = deg minpoly`, the minimal polynomial splits as
+`∏_σ (X - σ x)`. -/
+theorem minpoly_map_eq_prod {R S : Type*} [CommRing R] [IsDomain R] [IsIntegrallyClosed R]
+    [CommRing S] [IsDomain S] [Algebra R S] [Module.IsTorsionFree R S]
+    [Fintype (S ≃ₐ[R] S)] {x : S} (hint : IsIntegral R x) (hx : Algebra.adjoin R {x} = ⊤)
+    (hcard : Fintype.card (S ≃ₐ[R] S) = (minpoly R x).natDegree) :
+    (minpoly R x).map (algebraMap R S) = ∏ σ : S ≃ₐ[R] S, (X - C (σ x)) := by
+  classical
+  have hinj : Function.Injective (fun σ : S ≃ₐ[R] S => σ x) := by
+    intro σ τ h
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun y hy => by
+      rw [Set.mem_singleton_iff.mp hy]; exact h)
+  set T : Multiset S := Finset.univ.val.map (fun σ : S ≃ₐ[R] S => σ x)
+  set f := (minpoly R x).map (algebraMap R S)
+  have hf0 : f ≠ 0 := ((minpoly.monic hint).map _).ne_zero
+  have hTroots : T ≤ f.roots := by
+    rw [Multiset.le_iff_subset (Multiset.Nodup.map hinj Finset.univ.nodup)]
+    intro y hy
+    obtain ⟨σ, -, rfl⟩ := Multiset.mem_map.mp hy
+    rw [mem_roots hf0, IsRoot.def, eval_map_algebraMap]
+    have : aeval (σ x) (minpoly R x) = σ (aeval x (minpoly R x)) :=
+      (Polynomial.aeval_algHom_apply (σ : S →ₐ[R] S) x _)
+    rw [this, minpoly.aeval, map_zero]
+  have hfT : f = (T.map fun a => X - C a).prod := by
+    refine eq_of_monic_of_dvd_of_natDegree_le (monic_multiset_prod_of_monic _ _
+      fun a _ => monic_X_sub_C a) ((minpoly.monic hint).map _)
+      ((Multiset.prod_X_sub_C_dvd_iff_le_roots hf0 T).mpr hTroots) ?_
+    rw [natDegree_multiset_prod_X_sub_C_eq_card, (minpoly.monic hint).natDegree_map, ← hcard]
+    simp [T]
+  rw [hfT, Finset.prod_eq_multiset_prod, Multiset.map_map]
+  rfl
+
+end Product
+
+section Prop3
+
+variable (A C B : Type) [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
+  [CommRing C] [IsDomain C] [IsDiscreteValuationRing C] [Algebra A C] [Module.Finite A C]
+  [Module.IsTorsionFree A C] [IsGalois (FractionRing A) (FractionRing C)]
+  [CommRing B] [IsDomain B] [IsIntegrallyClosed B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [IsGalois (FractionRing A) (FractionRing B)]
+  [Algebra C B] [IsScalarTower A C B] [Module.IsTorsionFree C B]
+
+omit [IsDiscreteValuationRing C] [Module.Finite A C] [IsGalois (FractionRing A) (FractionRing C)] in
+theorem adjoin_tower_eq_top {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    Algebra.adjoin C {x} = ⊤ := by
+  rw [eq_top_iff]
+  intro b hb0
+  clear hb0
+  have hb : b ∈ Algebra.adjoin A {x} := hx ▸ Algebra.mem_top
+  induction hb using Algebra.adjoin_induction with
+  | mem z hz => exact Algebra.subset_adjoin hz
+  | algebraMap r =>
+      rw [IsScalarTower.algebraMap_apply A C B]; exact Subalgebra.algebraMap_mem _ _
+  | add a b _ _ ha hb => exact add_mem ha hb
+  | mul a b _ _ ha hb => exact mul_mem ha hb
+
+include A in
+omit [Module.Finite A C] [IsGalois (FractionRing A) (FractionRing C)] in
+theorem finite_tower : Finite (B ≃ₐ[C] B) := by
+  have : Module.Finite C B := Module.Finite.of_restrictScalars_finite A C B
+  have := isGaloisGroup_tower A C B
+  exact IsGaloisGroup.finite (B ≃ₐ[C] B) C B
+
+omit [Module.Finite A C] [IsGalois (FractionRing A) (FractionRing C)] in
+theorem card_tower_eq [Fintype (B ≃ₐ[C] B)] {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    Fintype.card (B ≃ₐ[C] B) = (minpoly C x).natDegree := by
+  have hxC := adjoin_tower_eq_top A C B hx
+  have : Module.Finite C B := Module.Finite.of_restrictScalars_finite A C B
+  have := isGaloisGroup_tower A C B
+  have : Finite (B ≃ₐ[C] B) := IsGaloisGroup.finite (B ≃ₐ[C] B) C B
+  rw [← Nat.card_eq_fintype_card, IsGaloisGroup.card_eq_finrank' (B ≃ₐ[C] B) C B,
+    (IsAdjoinRootMonic.mkOfAdjoinEqTop' hxC).finrank]
+
+open Classical in
+/-- **Serre, *Corps locaux*, IV §1, Prop. 3, ideal form.** If `B = A[x]` and `C = A[y]`, then for
+`σ ∈ Gal(C/A)`, `(σ y - y) B = (∏_{s ↦ σ} (x - s x))`. -/
+theorem span_sub_eq_span_prod {x : B} (hx : Algebra.adjoin A {x} = ⊤) {y : C}
+    (hy : Algebra.adjoin A {y} = ⊤) [Fintype (B ≃ₐ[A] B)] (σ : C ≃ₐ[A] C) :
+    Ideal.span {algebraMap C B (σ y - y)} =
+      Ideal.span {∏ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), (x - s x)} := by
+  classical
+  have := finite_tower A C B
+  have := Fintype.ofFinite (B ≃ₐ[C] B)
+  have hxC := adjoin_tower_eq_top A C B hx
+  have hint : IsIntegral C x := by
+    have : Module.Finite C B := Module.Finite.of_restrictScalars_finite A C B
+    exact Algebra.IsIntegral.isIntegral x
+  have hprod := minpoly_map_eq_prod hint hxC (card_tower_eq A C B hx)
+  obtain ⟨s0, hs0⟩ := resHom_surjective A C B σ
+  have hs0c : ∀ c : C, s0 (algebraMap C B c) = algebraMap C B (σ c) := fun c => by
+    rw [← resHom_apply, hs0]
+  set f := minpoly C x with hf_def
+  -- the fibre product
+  have hfib : ∏ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), (x - s x) =
+      ∏ h : B ≃ₐ[C] B, (x - s0 (h x)) := by
+    symm
+    apply Finset.prod_nbij (fun h => s0 * AlgEquiv.restrictScalarsHom A h)
+    · intro h _
+      have h1 : resHom A C B (AlgEquiv.restrictScalars A h) = 1 :=
+        (resHom_eq_one_iff A C B _).mpr ⟨h, rfl⟩
+      simp [Finset.mem_filter, map_mul, h1, hs0]
+    · intro a _ b _ e
+      have := mul_left_cancel e
+      exact AlgEquiv.restrictScalars_injective A this
+    · intro s hs
+      simp only [Finset.coe_filter, Finset.mem_univ, true_and, Set.mem_setOf_eq] at hs
+      obtain ⟨h, hh⟩ := (resHom_eq_one_iff A C B (s0⁻¹ * s)).mp
+        (by rw [map_mul, map_inv, hs, hs0, inv_mul_cancel])
+      refine ⟨h, Finset.mem_coe.mpr (Finset.mem_univ _), ?_⟩
+      show s0 * AlgEquiv.restrictScalarsHom A h = s
+      rw [hh, mul_inv_cancel_left]
+    · intro h _; rfl
+  -- `P = f^σ(x)`
+  have hP : ∏ h : B ≃ₐ[C] B, (x - s0 (h x)) = aeval x (f.map (σ : C →+* C)) := by
+    have hcomp : (algebraMap C B).comp (σ : C →+* C) = (s0 : B →+* B).comp (algebraMap C B) := by
+      ext c; simp [hs0c]
+    rw [← eval_map_algebraMap, Polynomial.map_map, hcomp, ← Polynomial.map_map, hprod,
+      Polynomial.map_prod, eval_prod]
+    refine Finset.prod_congr rfl fun h _ => ?_
+    simp
+  rw [hfib, hP]
+  apply le_antisymm
+  · -- `(σ y - y) ∈ (f^σ(x))`
+    rw [Ideal.span_singleton_le_iff_mem]
+    obtain ⟨g, hg⟩ : ∃ g : A[X], aeval x g = algebraMap C B y := by
+      have : algebraMap C B y ∈ Algebra.adjoin A {x} := hx ▸ Algebra.mem_top
+      rw [Algebra.adjoin_singleton_eq_range_aeval] at this
+      exact this
+    set gC : C[X] := g.map (algebraMap A C) - Polynomial.C y
+    have hgC : aeval x gC = 0 := by
+      simp only [gC, map_sub, aeval_C, aeval_map_algebraMap, hg, sub_self]
+    obtain ⟨q, hq⟩ := minpoly.isIntegrallyClosed_dvd hint hgC
+    have hσA : (σ : C →+* C).comp (algebraMap A C) = algebraMap A C := by
+      ext a; simp
+    have hmap : gC.map (σ : C →+* C) = (f.map (σ : C →+* C)) * (q.map (σ : C →+* C)) := by
+      rw [hq, Polynomial.map_mul]
+    have hmap' : gC.map (σ : C →+* C) = g.map (algebraMap A C) - Polynomial.C (σ y) := by
+      simp only [gC, Polynomial.map_sub, Polynomial.map_map, hσA, map_C]
+      rfl
+    have key : algebraMap C B y - algebraMap C B (σ y) =
+        aeval x (f.map (σ : C →+* C)) * aeval x (q.map (σ : C →+* C)) := by
+      rw [← map_mul, ← hmap, hmap', map_sub, aeval_C, aeval_map_algebraMap, hg]
+    rw [Ideal.mem_span_singleton']
+    exact ⟨-aeval x (q.map (σ : C →+* C)), by rw [map_sub, neg_mul, mul_comm, ← key]; ring⟩
+  · -- `f^σ(x) ∈ (σ y - y)`
+    rw [Ideal.span_singleton_le_iff_mem]
+    have hcoef : ∀ c : C, σ c - c ∈ Ideal.span {σ y - y} := by
+      intro c
+      have hc : c ∈ Algebra.adjoin A {y} := hy ▸ Algebra.mem_top
+      induction hc using Algebra.adjoin_induction with
+      | mem z hz =>
+          rw [Set.mem_singleton_iff.mp hz]; exact Ideal.mem_span_singleton_self _
+      | algebraMap r => simp
+      | add a b _ _ ha hb =>
+          have : σ (a + b) - (a + b) = (σ a - a) + (σ b - b) := by rw [map_add]; ring
+          rw [this]; exact Ideal.add_mem _ ha hb
+      | mul a b _ _ ha hb =>
+          have : σ (a * b) - a * b = σ a * (σ b - b) + (σ a - a) * b := by rw [map_mul]; ring
+          rw [this]; exact Ideal.add_mem _ (Ideal.mul_mem_left _ _ hb) (Ideal.mul_mem_right _ _ ha)
+    have h0 : aeval x f = 0 := minpoly.aeval C x
+    have : aeval x (f.map (σ : C →+* C)) = aeval x (f.map (σ : C →+* C) - f) := by
+      rw [map_sub, h0, sub_zero]
+    rw [this, aeval_eq_sum_range]
+    refine Ideal.sum_mem _ fun i _ => ?_
+    rw [Algebra.smul_def]
+    refine Ideal.mul_mem_right _ _ ?_
+    rw [coeff_sub, coeff_map]
+    obtain ⟨d, hd⟩ := Ideal.mem_span_singleton'.mp (hcoef (f.coeff i))
+    rw [show (σ : C →+* C) (f.coeff i) = σ (f.coeff i) from rfl, ← hd, map_mul, mul_comm]
+    exact Ideal.mul_mem_right _ _ (Ideal.mem_span_singleton_self _)
+
+end Prop3
+
+
+
+section Card
+
+variable (C B : Type) [CommRing C] [IsDomain C] [IsDiscreteValuationRing C]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra C B] [Module.Finite C B]
+  [Module.IsTorsionFree C B]
+
+/-- `|H_0| = e(B/C)` (Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn`). -/
+theorem card_lowerRam_zero [Finite (B ≃ₐ[C] B)] [IsGaloisGroup (B ≃ₐ[C] B) C B]
+    [Algebra.HasSeparableResidueFieldsAt C B (maximalIdeal C)] :
+    Nat.card (PkgI6.lowerRam C B 0) = Ideal.ramificationIdx (maximalIdeal B) C := by
+  have : Algebra.IsIntegral C B := Algebra.IsIntegral.of_finite C B
+  have : IsLocalHom (algebraMap C B) := Algebra.IsIntegral.isLocalHom C B
+  have h1 : PkgI6.lowerRam C B 0 = Ideal.inertia (B ≃ₐ[C] B) (maximalIdeal B) := by
+    simp only [PkgI6.lowerRam, zero_add, pow_one]
+  rw [h1, Ideal.card_inertia_eq_ramificationIdxIn (maximalIdeal C) (maximalIdeal B),
+    Ideal.ramificationIdxIn_eq_ramificationIdx (maximalIdeal C) (maximalIdeal B) (B ≃ₐ[C] B)]
+
+end Card
+
+section Assembly
+
+theorem herbrandPhi_eq_phiF (A B : Type) [CommRing A] [CommRing B] [Algebra A B] [IsLocalRing B]
+    (u : ℝ) : PkgI6.herbrandPhi A B u = phiF (PkgI6.lowerRam A B) u := rfl
+
+variable (A C B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [PerfectField (ResidueField A)]
+  [CommRing C] [IsDomain C] [IsDiscreteValuationRing C] [Algebra A C] [Module.Finite A C]
+  [Module.IsTorsionFree A C] [IsGalois (FractionRing A) (FractionRing C)]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [IsGalois (FractionRing A) (FractionRing B)]
+  [Algebra C B] [IsScalarTower A C B] [Module.Finite C B] [Module.IsTorsionFree C B]
+
+open Classical in
+/-- The data of the tower `B/C/A`: index functions `i_G`, `i_{G/H}` and Prop. 3. -/
+theorem tower_data [Fintype (B ≃ₐ[A] B)] [Fintype (C ≃ₐ[A] C)] :
+    ∃ (nG : (B ≃ₐ[A] B) → ℕ) (nQ : (C ≃ₐ[A] C) → ℕ),
+      (∀ i s, s ≠ 1 → (s ∈ PkgI6.lowerRam A B i ↔ i < nG s)) ∧
+      (∀ i σ, σ ≠ 1 → (σ ∈ PkgI6.lowerRam A C i ↔ i < nQ σ)) ∧
+      (∀ σ : C ≃ₐ[A] C, σ ≠ 1 →
+        (Nat.card ((PkgI6.lowerRam A B 0).comap
+          (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B))) : ℝ) * nQ σ =
+        ∑ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), (nG s : ℝ)) := by
+  obtain ⟨x, hx⟩ := exists_adjoin_eq_top A B
+  obtain ⟨y, hy⟩ := exists_adjoin_eq_top A C
+  have := finite_tower A C B
+  let := Fintype.ofFinite (B ≃ₐ[C] B)
+  have hinjG : ∀ s : B ≃ₐ[A] B, s ≠ 1 → x - s x ≠ 0 := by
+    intro s hs h
+    apply hs
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun z hz => by
+      rw [Set.mem_singleton_iff.mp hz]; exact (sub_eq_zero.mp h).symm)
+  have hinjQ : ∀ σ : C ≃ₐ[A] C, σ ≠ 1 → σ y - y ≠ 0 := by
+    intro σ hσ h
+    apply hσ
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hy (fun z hz => by
+      rw [Set.mem_singleton_iff.mp hz]; exact sub_eq_zero.mp h)
+  have hnG : ∀ s : B ≃ₐ[A] B, ∃ n : ℕ, s ≠ 1 → Ideal.span {x - s x} = maximalIdeal B ^ n :=
+    fun s => by
+      by_cases hs : s = 1
+      · exact ⟨0, fun h => (h hs).elim⟩
+      · obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow (hinjG s hs); exact ⟨n, fun _ => hn⟩
+  choose nG hnG using hnG
+  have hnQ : ∀ σ : C ≃ₐ[A] C, ∃ n : ℕ, σ ≠ 1 → Ideal.span {σ y - y} = maximalIdeal C ^ n :=
+    fun σ => by
+      by_cases hσ : σ = 1
+      · exact ⟨0, fun h => (h hσ).elim⟩
+      · obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow (hinjQ σ hσ); exact ⟨n, fun _ => hn⟩
+  choose nQ hnQ using hnQ
+  have hG : ∀ i s, s ≠ 1 → (s ∈ PkgI6.lowerRam A B i ↔ i < nG s) := by
+    intro i s hs
+    rw [PkgI6.lowerRam, mem_inertia_iff_of_adjoin hx, ← Submodule.neg_mem_iff, neg_sub,
+      ← Ideal.span_singleton_le_iff_mem, hnG s hs, maximalIdeal_pow_le_iff]
+    omega
+  have hQ : ∀ i σ, σ ≠ 1 → (σ ∈ PkgI6.lowerRam A C i ↔ i < nQ σ) := by
+    intro i σ hσ
+    rw [PkgI6.lowerRam, mem_inertia_iff_of_adjoin hy, ← Ideal.span_singleton_le_iff_mem,
+      hnQ σ hσ, maximalIdeal_pow_le_iff]
+    omega
+  -- `e' = |H_0|`
+  have : IsGaloisGroup (B ≃ₐ[C] B) C B := isGaloisGroup_tower A C B
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : Algebra.IsIntegral A C := Algebra.IsIntegral.of_finite A C
+  have : IsLocalHom (algebraMap A C) := Algebra.IsIntegral.isLocalHom A C
+  have : PerfectField (maximalIdeal A).ResidueField :=
+    PerfectField.of_ringEquiv (K := ResidueField A)
+      (RingEquiv.ofBijective
+        (algebraMap (A ⧸ maximalIdeal A) (maximalIdeal A).ResidueField : ResidueField A →+* _)
+        (maximalIdeal A).bijective_algebraMap_quotient_residueField)
+  have : Algebra.HasSeparableResidueFieldsAt A B (maximalIdeal A) := inferInstance
+  have : Algebra.HasSeparableResidueFieldsAt C B (maximalIdeal C) :=
+    Algebra.HasSeparableResidueFieldsAt.tower_top (maximalIdeal A) (maximalIdeal C)
+  have hcard := card_lowerRam_zero C B
+  set e' := Ideal.ramificationIdx (maximalIdeal B) C with he'
+  have hmapC : (maximalIdeal C).map (algebraMap C B) = maximalIdeal B ^ e' :=
+    map_maximalIdeal_eq_pow C B
+  have hP3 : ∀ σ : C ≃ₐ[A] C, σ ≠ 1 →
+      (Nat.card ((PkgI6.lowerRam A B 0).comap (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B))) : ℝ) * nQ σ =
+        ∑ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), (nG s : ℝ) := by
+    intro σ hσ
+    have hcomap : (PkgI6.lowerRam A B 0).comap (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B)) =
+        PkgI6.lowerRam C B 0 := (PkgI6.lowerRam_tower A B C 0).symm
+    rw [hcomap, hcard]
+    have hspan := span_sub_eq_span_prod A C B hx hy σ
+    have hL : Ideal.span {algebraMap C B (σ y - y)} = maximalIdeal B ^ (e' * nQ σ) := by
+      rw [← Set.image_singleton, ← Ideal.map_span, hnQ σ hσ, Ideal.map_pow, hmapC, ← pow_mul]
+    have hR : Ideal.span {∏ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), (x - s x)} =
+        maximalIdeal B ^ (∑ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), nG s) := by
+      rw [← Ideal.prod_span_singleton, ← Finset.prod_pow_eq_pow_sum]
+      refine Finset.prod_congr rfl fun s hs => hnG s ?_
+      intro h1
+      rw [Finset.mem_filter] at hs
+      apply hσ
+      rw [← hs.2, h1, map_one]
+    have heq : e' * nQ σ = ∑ s ∈ Finset.univ.filter (fun s => resHom A C B s = σ), nG s := by
+      have h := hL.symm.trans (hspan.trans hR)
+      exact le_antisymm (maximalIdeal_pow_le_iff.mp h.ge) (maximalIdeal_pow_le_iff.mp h.le)
+    exact_mod_cast heq
+  exact ⟨nG, nQ, hG, hQ, hP3⟩
+
+/-- **Transitivity of Herbrand's function** (Serre, *Corps locaux*, IV §3, Prop. 15). -/
+theorem herbrand_trans {u : ℝ} (hu : -1 ≤ u) :
+    PkgI6.herbrandPhi A B u = PkgI6.herbrandPhi A C (PkgI6.herbrandPhi C B u) := by
+  classical
+  have := finite_algEquiv A B
+  have := finite_algEquiv A C
+  let := Fintype.ofFinite (B ≃ₐ[A] B)
+  let := Fintype.ofFinite (C ≃ₐ[A] C)
+  obtain ⟨nG, nQ, hG, hQ, hP3⟩ := tower_data A C B
+  have hι : Function.Injective (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B)) :=
+    AlgEquiv.restrictScalars_injective A
+  have := finite_tower A C B
+  let := Fintype.ofFinite (B ≃ₐ[C] B)
+  have key := phiF_trans (PkgI6.lowerRam A B) nG (PkgI6.lowerRam A C) nQ
+    (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B)) hι (resHom A C B)
+    (resHom_surjective A C B) (resHom_eq_one_iff A C B) hG hQ hP3 hu
+  have hCB : (fun i => (PkgI6.lowerRam A B i).comap
+      (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B))) =
+      PkgI6.lowerRam C B := funext fun i => (PkgI6.lowerRam_tower A B C i).symm
+  rw [hCB] at key
+  exact key
+
+/-- **Herbrand's theorem** (Serre, *Corps locaux*, IV §3, Prop. 14): `Gal(C/A)^v = r(Gal(B/A)^v)`. -/
+theorem herbrand_quotient (r : (B ≃ₐ[A] B) →* (C ≃ₐ[A] C))
+    (hr : ∀ σ c, algebraMap C B (r σ c) = σ (algebraMap C B c)) (v : ℝ) :
+    PkgI6.upperRam A C v = (PkgI6.upperRam A B v).map r := by
+  classical
+  have hr_eq : r = resHom A C B := by
+    refine MonoidHom.ext fun σ => AlgEquiv.ext fun c => ?_
+    apply FaithfulSMul.algebraMap_injective C B
+    rw [hr, resHom_apply]
+  subst hr_eq
+  have := finite_algEquiv A B
+  have := finite_algEquiv A C
+  let := Fintype.ofFinite (B ≃ₐ[A] B)
+  let := Fintype.ofFinite (C ≃ₐ[A] C)
+  obtain ⟨nG, nQ, hG, hQ, hP3⟩ := tower_data A C B
+  have hι : Function.Injective (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B)) :=
+    AlgEquiv.restrictScalars_injective A
+  have := finite_tower A C B
+  let := Fintype.ofFinite (B ≃ₐ[C] B)
+  exact upper_map (PkgI6.lowerRam A B) nG (PkgI6.lowerRam A C) nQ
+    (AlgEquiv.restrictScalarsHom A : (B ≃ₐ[C] B) →* (B ≃ₐ[A] B)) hι (resHom A C B)
+    (resHom_surjective A C B) (resHom_eq_one_iff A C B) hG hQ hP3 v
+
+end Assembly
+
+open PkgI6
+
+/-! ### Counting: `∑_{i<N} (|G_i| - 1) = ∑_{σ ≠ 1} i_G(σ)`. -/
+
+section Counting
+
+variable {G : Type*} [Group G] [Fintype G] [DecidableEq G]
+
+open Classical in
+theorem card_sub_one_eq (H : Subgroup G) :
+    Nat.card H - 1 = ((Finset.univ.erase 1).filter (· ∈ H)).card := by
+  classical
+  have h1 : Nat.card H = (Finset.univ.filter (· ∈ H)).card := by
+    rw [Nat.card_eq_fintype_card]
+    convert Fintype.card_subtype (fun σ => σ ∈ H)
+  rw [h1, Finset.filter_erase, Finset.card_erase_of_mem (by simp [H.one_mem])]
+
+theorem sum_card_sub_one (H : ℕ → Subgroup G) (n : G → ℕ) (N : ℕ)
+    (hH : ∀ i σ, σ ≠ 1 → (σ ∈ H i ↔ i < n σ)) (hN : ∀ σ, σ ≠ 1 → n σ ≤ N) :
+    ∑ i ∈ Finset.range N, (Nat.card (H i) - 1) = ∑ σ ∈ Finset.univ.erase 1, n σ := by
+  classical
+  calc ∑ i ∈ Finset.range N, (Nat.card (H i) - 1)
+      = ∑ i ∈ Finset.range N, ((Finset.univ.erase 1).filter (fun σ => i < n σ)).card := by
+        refine Finset.sum_congr rfl fun i _ => ?_
+        rw [card_sub_one_eq]
+        exact congrArg Finset.card <| Finset.filter_congr fun σ hσ => hH i σ (Finset.ne_of_mem_erase hσ)
+    _ = ∑ i ∈ Finset.range N, ∑ σ ∈ Finset.univ.erase 1, if i < n σ then 1 else 0 := by
+        simp only [Finset.card_filter]
+    _ = ∑ σ ∈ Finset.univ.erase 1, ∑ i ∈ Finset.range N, if i < n σ then 1 else 0 :=
+        Finset.sum_comm
+    _ = ∑ σ ∈ Finset.univ.erase 1, n σ := by
+        refine Finset.sum_congr rfl fun σ hσ => ?_
+        rw [← Finset.card_filter]
+        have hle := hN σ (Finset.ne_of_mem_erase hσ)
+        have : (Finset.range N).filter (fun i => i < n σ) = Finset.range (n σ) := by
+          ext i; simp only [Finset.mem_filter, Finset.mem_range]; omega
+        rw [this, Finset.card_range]
+
+end Counting
+
+/-! ### The derivative of the minimal polynomial of a generator, Galois case. -/
+
+section Product
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsIntegrallyClosed A]
+  [CommRing B] [IsDomain B] [IsIntegrallyClosed B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+
+omit [IsIntegrallyClosed A] [Algebra.IsSeparable (FractionRing A) (FractionRing B)] in
+/-- If `B = A[x]` then `Frac B = (Frac A)(x)`. -/
+theorem adjoin_fractionRing_eq_top {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    Algebra.adjoin (FractionRing A) {algebraMap B (FractionRing B) x} = ⊤ := by
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  set S := Algebra.adjoin K {algebraMap B L x}
+  have hB : ∀ b : B, algebraMap B L b ∈ S := by
+    intro b
+    have hb : b ∈ Algebra.adjoin A {x} := hx ▸ Algebra.mem_top
+    induction hb using Algebra.adjoin_induction with
+    | mem y hy => rw [Set.mem_singleton_iff.mp hy]; exact Algebra.subset_adjoin rfl
+    | algebraMap r =>
+        rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply A K L]
+        exact S.algebraMap_mem _
+    | add y z _ _ hy hz => rw [map_add]; exact S.add_mem hy hz
+    | mul y z _ _ hy hz => rw [map_mul]; exact S.mul_mem hy hz
+  rw [eq_top_iff]
+  intro z _
+  obtain ⟨b, s, _, rfl⟩ := IsFractionRing.div_surjective (A := B) z
+  rw [div_eq_mul_inv]
+  refine S.mul_mem (hB b) ?_
+  exact S.inv_mem_of_algebraic (x := ⟨_, hB s⟩) (Algebra.IsAlgebraic.isAlgebraic _)
+
+variable [IsGalois (FractionRing A) (FractionRing B)]
+
+/-- `f'(x) = ∏_{σ ≠ 1} (x - σ x)` for `f` the minimal polynomial of a generator `x` of `B/A`. -/
+theorem aeval_derivative_minpoly_eq_prod [Fintype (B ≃ₐ[A] B)] [DecidableEq (B ≃ₐ[A] B)]
+    {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    aeval x (derivative (minpoly A x)) = ∏ σ ∈ Finset.univ.erase (1 : B ≃ₐ[A] B), (x - σ x) := by
+  classical
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  have hAx : IsIntegral A x := Algebra.IsIntegral.isIntegral x
+  have hKx : IsIntegral K (algebraMap B L x) := Algebra.IsIntegral.isIntegral _
+  -- injectivity of `σ ↦ σ x`
+  have hinj : Function.Injective (fun σ : B ≃ₐ[A] B => σ x) := by
+    intro σ τ h
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun y hy => by
+      rw [Set.mem_singleton_iff.mp hy]; exact h)
+  -- the degree of the minimal polynomial is `|G|`
+  have hdeg : (minpoly A x).natDegree = Fintype.card (B ≃ₐ[A] B) := by
+    have h1 : (minpoly A x).natDegree = (minpoly K (algebraMap B L x)).natDegree := by
+      rw [minpoly.isIntegrallyClosed_eq_field_fractions K L hAx,
+        (minpoly.monic hAx).natDegree_map]
+    have h2 : IntermediateField.adjoin K {algebraMap B L x} = ⊤ := by
+      rw [← IntermediateField.toSubalgebra_inj,
+        IntermediateField.adjoin_simple_toSubalgebra_of_isAlgebraic hKx.isAlgebraic,
+        IntermediateField.top_toSubalgebra]
+      exact adjoin_fractionRing_eq_top A B hx
+    have h3 : Fintype.card (B ≃ₐ[A] B) = Module.finrank K L := by
+      rw [← Nat.card_eq_fintype_card, ← Nat.card_congr (galRestrict A K L B).toEquiv,
+        IsGalois.card_aut_eq_finrank]
+    rw [h1, h3, ← IntermediateField.adjoin.finrank hKx, h2, IntermediateField.finrank_top']
+  -- `f = ∏_σ (X - σ x)` in `B[X]`
+  set S : Multiset B := Finset.univ.val.map (fun σ : B ≃ₐ[A] B => σ x)
+  set f := (minpoly A x).map (algebraMap A B)
+  have hf0 : f ≠ 0 := ((minpoly.monic hAx).map _).ne_zero
+  have hSroots : S ≤ f.roots := by
+    rw [Multiset.le_iff_subset (Multiset.Nodup.map hinj Finset.univ.nodup)]
+    intro y hy
+    obtain ⟨σ, -, rfl⟩ := Multiset.mem_map.mp hy
+    rw [mem_roots hf0, IsRoot.def, eval_map_algebraMap]
+    have : aeval (σ x) (minpoly A x) = σ (aeval x (minpoly A x)) :=
+      (Polynomial.aeval_algHom_apply (σ : B →ₐ[A] B) x _)
+    rw [this, minpoly.aeval, map_zero]
+  have hfS : f = (S.map fun a => X - C a).prod := by
+    refine eq_of_monic_of_dvd_of_natDegree_le (monic_multiset_prod_of_monic _ _
+      fun a _ => monic_X_sub_C a) ((minpoly.monic hAx).map _)
+      ((Multiset.prod_X_sub_C_dvd_iff_le_roots hf0 S).mpr hSroots) ?_
+    rw [natDegree_multiset_prod_X_sub_C_eq_card, (minpoly.monic hAx).natDegree_map, hdeg]
+    simp [S]
+  have hxS : x ∈ S := Multiset.mem_map.mpr ⟨1, Finset.mem_univ_val _, rfl⟩
+  rw [← eval_map_algebraMap, ← derivative_map]
+  change eval x (derivative f) = _
+  rw [hfS, eval_multiset_prod_X_sub_C_derivative hxS]
+  have : S.erase x = (Finset.univ.erase (1 : B ≃ₐ[A] B)).val.map (fun σ => σ x) := by
+    rw [Finset.erase_val, Finset.univ.nodup.erase_eq_filter]
+    rw [show x = (fun σ : B ≃ₐ[A] B => σ x) 1 from rfl, ← Multiset.map_erase _ hinj]
+    simp [Finset.univ.nodup.erase_eq_filter]
+  rw [this, Multiset.map_map, Finset.prod_eq_multiset_prod]
+  rfl
+
+end Product
+
+/-! ### Hilbert's formula when `B = A[x]`. -/
+
+section Main
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Hilbert's different formula for a monogenic Galois extension of DVRs.** If `B = A[x]`
+(no completeness or residue-field hypothesis is needed for this step), then some `G_N` is trivial
+and `𝔇_{B/A} = 𝔪_B ^ ∑_{i<N} (|G_i| - 1)`. -/
+theorem hilbertDifferentFormula_of_adjoin_eq_top
+    (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)] {x : B} (hx : Algebra.adjoin A {x} = ⊤) :
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1)) := by
+  classical
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  have : Finite (B ≃ₐ[A] B) := Finite.of_equiv _ (galRestrict A K L B).toEquiv
+  have := Fintype.ofFinite (B ≃ₐ[A] B)
+  have hD : differentIdeal A B =
+      Ideal.span {∏ σ ∈ Finset.univ.erase (1 : B ≃ₐ[A] B), (x - σ x)} := by
+    have h := conductor_mul_differentIdeal A K L x (adjoin_fractionRing_eq_top A B hx)
+    rw [conductor_eq_top_of_adjoin_eq_top hx, Ideal.top_mul,
+      aeval_derivative_minpoly_eq_prod A B hx] at h
+    exact h
+  have hne : ∀ σ : B ≃ₐ[A] B, σ ≠ 1 → x - σ x ≠ 0 := by
+    intro σ hσ h
+    apply hσ
+    apply AlgEquiv.coe_toAlgHom_injective
+    exact AlgHom.ext_of_adjoin_eq_top hx (fun y hy => by
+      rw [Set.mem_singleton_iff.mp hy]; exact (sub_eq_zero.mp h).symm)
+  have hn : ∀ σ : B ≃ₐ[A] B, ∃ n : ℕ, σ ≠ 1 → Ideal.span {x - σ x} = maximalIdeal B ^ n := by
+    intro σ
+    by_cases hσ : σ = 1
+    · exact ⟨0, fun h => (h hσ).elim⟩
+    · obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow (hne σ hσ)
+      exact ⟨n, fun _ => hn⟩
+  choose n hn using hn
+  have hmem : ∀ σ, σ ≠ 1 → ∀ k, (σ x - x ∈ maximalIdeal B ^ k ↔ k ≤ n σ) := by
+    intro σ hσ k
+    rw [← Submodule.neg_mem_iff, neg_sub, ← Ideal.span_singleton_le_iff_mem, hn σ hσ,
+      maximalIdeal_pow_le_iff]
+  have hH : ∀ i σ, σ ≠ 1 → (σ ∈ lowerRam A B i ↔ i < n σ) := by
+    intro i σ hσ
+    rw [lowerRam, mem_inertia_iff_of_adjoin hx, hmem σ hσ]
+    omega
+  set N := ∑ σ ∈ Finset.univ.erase (1 : B ≃ₐ[A] B), n σ
+  have hN : ∀ σ, σ ≠ 1 → n σ ≤ N := fun σ hσ =>
+    Finset.single_le_sum (fun _ _ => Nat.zero_le _) (Finset.mem_erase.mpr ⟨hσ, Finset.mem_univ _⟩)
+  refine ⟨N, ?_, ?_⟩
+  · rw [eq_bot_iff]
+    intro σ hσ
+    rw [Subgroup.mem_bot]
+    by_contra h
+    have h1 := (hH N σ h).mp hσ
+    have h2 := hN σ h
+    omega
+  · rw [sum_card_sub_one (lowerRam A B) n N hH hN, hD, ← Ideal.prod_span_singleton,
+      ← Finset.prod_pow_eq_pow_sum]
+    exact Finset.prod_congr rfl fun σ hσ => hn σ (Finset.ne_of_mem_erase hσ)
+
+end Main
+
+section Hensel
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [IsAdicComplete (maximalIdeal A) A]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B]
+
+omit [IsDiscreteValuationRing A] [IsAdicComplete (maximalIdeal A) A] [IsDomain B]
+  [IsDiscreteValuationRing B] [Module.Finite A B] [Module.IsTorsionFree A B] in
+lemma repr_mem_of_mem_smul_top {ι : Type*} (b : Module.Basis ι A B) (I : Ideal A) {x : B}
+    (hx : x ∈ I • (⊤ : Submodule A B)) (i : ι) : b.repr x i ∈ I := by
+  refine Submodule.smul_induction_on hx (fun a ha y _ => ?_) (fun y z hy hz => ?_)
+  · rw [map_smul, Finsupp.smul_apply, smul_eq_mul]; exact I.mul_mem_right _ ha
+  · rw [map_add, Finsupp.add_apply]; exact I.add_mem hy hz
+
+/-- `B` is `𝔪_A`-adically precomplete (it is a finite free module over the complete ring `A`). -/
+lemma exists_limit {f : ℕ → B}
+    (hf : ∀ {m n}, m ≤ n → f m - f n ∈ (maximalIdeal A ^ m) • (⊤ : Submodule A B)) :
+    ∃ L : B, ∀ n, f n - L ∈ (maximalIdeal A ^ n) • (⊤ : Submodule A B) := by
+  classical
+  let b := Module.Free.chooseBasis A B
+  have hc : ∀ i, ∃ Li : A, ∀ n, b.repr (f n) i - Li ∈ maximalIdeal A ^ n := by
+    intro i
+    have hprec : IsPrecomplete (maximalIdeal A) A := inferInstance
+    obtain ⟨Li, hLi⟩ := hprec.prec (f := fun n => b.repr (f n) i) (fun {m n} hmn => by
+      rw [SModEq.sub_mem, smul_eq_mul, Ideal.mul_top]
+      have : b.repr (f m) i - b.repr (f n) i = b.repr (f m - f n) i := by simp
+      rw [this]
+      exact repr_mem_of_mem_smul_top A B b _ (hf hmn) i)
+    refine ⟨Li, fun n => ?_⟩
+    have := hLi n
+    rwa [SModEq.sub_mem, smul_eq_mul, Ideal.mul_top] at this
+  choose Li hLi using hc
+  refine ⟨∑ i, Li i • b i, fun n => ?_⟩
+  rw [← b.sum_repr (f n), ← Finset.sum_sub_distrib]
+  refine Submodule.sum_mem _ fun i _ => ?_
+  rw [← sub_smul]
+  exact Submodule.smul_mem_smul (hLi i n) Submodule.mem_top
+
+/-- **Hensel's lemma in `B`** (for a simple root modulo `𝔪_B`). -/
+theorem exists_root_of_residue {g : A[X]} {x : B} (hgx : aeval x g ∈ maximalIdeal B)
+    (hg'x : IsUnit (aeval x (derivative g))) :
+    ∃ u : B, aeval u g = 0 ∧ u - x ∈ maximalIdeal B := by
+  obtain ⟨w, hw⟩ : ∃ w, aeval x (derivative g) * w = 1 := hg'x.exists_right_inv
+  have hG : ∀ (p : A[X]) (y : B), aeval y p = (p.map (algebraMap A B)).eval y :=
+    fun p y => (eval_map_algebraMap ..).symm
+  let u : ℕ → B := fun m => Nat.rec x (fun _ y => y - w * aeval y g) m
+  have hu0 : u 0 = x := rfl
+  have hu_succ : ∀ m, u (m + 1) = u m - w * aeval (u m) g := fun m => rfl
+  have key : ∀ m, u m - x ∈ maximalIdeal B ∧ aeval (u m) g ∈ maximalIdeal B ^ (m + 1) := by
+    intro m
+    induction m with
+    | zero => rw [hu0, sub_self, zero_add, pow_one]; exact ⟨Ideal.zero_mem _, hgx⟩
+    | succ m ih =>
+      obtain ⟨h1, h2⟩ := ih
+      have hδ : w * aeval (u m) g ∈ maximalIdeal B ^ (m + 1) := Ideal.mul_mem_left _ _ h2
+      constructor
+      · rw [hu_succ, sub_right_comm]
+        exact Ideal.sub_mem _ h1 (Ideal.pow_le_self (by omega) hδ)
+      · obtain ⟨k, hk⟩ := (g.map (algebraMap A B)).binomExpansion (u m) (-(w * aeval (u m) g))
+        rw [hu_succ, sub_eq_add_neg, hG, hk, derivative_map, ← hG, ← hG]
+        have hd : aeval x (derivative g) - aeval (u m) (derivative g) ∈ maximalIdeal B := by
+          obtain ⟨c, hc⟩ := sub_dvd_eval_sub x (u m) ((derivative g).map (algebraMap A B))
+          rw [hG, hG, hc]
+          exact Ideal.mul_mem_right _ _ (by rw [← neg_sub]; exact neg_mem h1)
+        have e : aeval (u m) g + aeval (u m) (derivative g) * -(w * aeval (u m) g) +
+            k * (-(w * aeval (u m) g)) ^ 2 =
+            aeval (u m) g * ((aeval x (derivative g) - aeval (u m) (derivative g)) * w) +
+              k * w ^ 2 * (aeval (u m) g) ^ 2 := by
+          linear_combination (-(aeval (u m) g)) * hw
+        rw [e]
+        refine Ideal.add_mem _ ?_ ?_
+        · rw [pow_succ]
+          exact Ideal.mul_mem_mul h2 (Ideal.mul_mem_right _ _ hd)
+        · apply Ideal.mul_mem_left
+          have : (aeval (u m) g) ^ 2 ∈ (maximalIdeal B ^ (m + 1)) ^ 2 := Ideal.pow_mem_pow h2 2
+          rw [← pow_mul] at this
+          exact Ideal.pow_le_pow_right (by omega) this
+  have tele : ∀ a b, a ≤ b → u a - u b ∈ maximalIdeal B ^ (a + 1) := by
+    intro a b hab
+    induction b, hab using Nat.le_induction with
+    | base => rw [sub_self]; exact Ideal.zero_mem _
+    | succ b hab ih =>
+      have : u a - u (b + 1) = (u a - u b) + w * aeval (u b) g := by rw [hu_succ]; ring
+      rw [this]
+      exact Ideal.add_mem _ ih
+        (Ideal.pow_le_pow_right (by omega) (Ideal.mul_mem_left _ _ (key b).2))
+  -- the `𝔪_A`-adic topology on `B` is the `𝔪_B`-adic one
+  set e := Ideal.ramificationIdx (maximalIdeal B) A
+  have hmap : _ = maximalIdeal B ^ e := map_maximalIdeal_eq_pow A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have he1 : 1 ≤ e := by
+    by_contra h0
+    have h0 : e = 0 := by omega
+    have hle : (maximalIdeal A).map (algebraMap A B) ≤ maximalIdeal B := by
+      exact Ideal.map_le_iff_le_comap.mpr
+        (Ideal.LiesOver.over (P := maximalIdeal B) (p := maximalIdeal A)).le
+    rw [hmap, h0, pow_zero, Ideal.one_eq_top, top_le_iff] at hle
+    exact (maximalIdeal.isMaximal B).ne_top hle
+  have hsmul : ∀ m, (maximalIdeal A ^ m) • (⊤ : Submodule A B) =
+      (maximalIdeal B ^ (e * m)).restrictScalars A := by
+    intro m
+    rw [Ideal.smul_top_eq_map, Ideal.map_pow, hmap, pow_mul]
+  obtain ⟨L, hL⟩ := exists_limit A B (f := fun m => u (e * m)) (fun {m n} hmn => by
+    rw [hsmul]
+    exact Ideal.pow_le_pow_right (by omega)
+      (tele _ _ (Nat.mul_le_mul_left e hmn)))
+  have hL' : ∀ n, u (e * n) - L ∈ maximalIdeal B ^ (e * n) := fun n => by
+    have := hL n; rwa [hsmul] at this
+  refine ⟨L, ?_, ?_⟩
+  · have hmem : ∀ n, aeval L g ∈ maximalIdeal B ^ n := by
+      intro n
+      have h1 : aeval (u (e * n)) g ∈ maximalIdeal B ^ (e * n) :=
+        Ideal.pow_le_pow_right (by omega) (key _).2
+      obtain ⟨c, hc⟩ := sub_dvd_eval_sub (u (e * n)) L (g.map (algebraMap A B))
+      rw [← hG, ← hG] at hc
+      have h2 : aeval L g = aeval (u (e * n)) g - (u (e * n) - L) * c := by rw [← hc]; ring
+      rw [h2]
+      refine Ideal.pow_le_pow_right (show n ≤ e * n by nlinarith) ?_
+      exact Ideal.sub_mem _ h1 (Ideal.mul_mem_right _ _ (hL' n))
+    by_contra hne
+    obtain ⟨N, hN⟩ := span_eq_maximalIdeal_pow hne
+    have : maximalIdeal B ^ N ≤ maximalIdeal B ^ (N + 1) := by
+      rw [← hN, Ideal.span_singleton_le_iff_mem]; exact hmem _
+    rw [maximalIdeal_pow_le_iff] at this
+    omega
+  · have h1 : u (e * 1) - L ∈ maximalIdeal B := Ideal.pow_le_self (by omega) (hL' 1)
+    have h2 := (key (e * 1)).1
+    have : L - x = (u (e * 1) - x) - (u (e * 1) - L) := by ring
+    rw [this]
+    exact Ideal.sub_mem _ h2 h1
+
+end Hensel
+
+section Trace
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+
+set_option linter.deprecated false in
+set_option synthInstance.maxHeartbeats 400000 in
+set_option maxHeartbeats 1000000 in
+/-- **`e ∈ Tr_{B/A}(B)`.** With `u ∈ B` a Hensel root of a monic lift `g` of the minimal polynomial
+of a generator of `k_B/k_A`, and `E = K(u)` (so `[E : K] = f`, `[L : E] = e`), the element
+`z = u^{f-1} / g'(u) ∈ B` has `Tr_{E/K}(z) = 1` (Euler; Mathlib's `traceDual_powerBasis_eq`), hence
+`Tr_{L/K}(z) = Tr_{E/K}(e z) = e`. -/
+theorem exists_intTrace_eq_ramificationIdx :
+    ∃ z : B, Algebra.intTrace A B z = ((Ideal.ramificationIdx (maximalIdeal B) A : ℕ) : A) := by
+  classical
+  set e := Ideal.ramificationIdx (maximalIdeal B) A
+  set K := FractionRing A
+  set L := FractionRing B
+  have : IsLocalization (Algebra.algebraMapSubmonoid B (nonZeroDivisors A)) L :=
+    IsIntegralClosure.isLocalization _ K _ _
+  have : FiniteDimensional K L := .of_isLocalization A B (nonZeroDivisors A)
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have : Module.Finite (ResidueField A) (ResidueField B) := inferInstance
+  have : Algebra.IsSeparable (ResidueField A) (ResidueField B) := inferInstance
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element (ResidueField A) (ResidueField B)
+  have hαint : IsIntegral (ResidueField A) α := Algebra.IsIntegral.isIntegral α
+  have hres : ∀ (P : A[X]) (y : B), residue B (aeval y P) = aeval (residue B y) P := by
+    intro P y
+    have := Polynomial.aeval_algHom_apply (IsScalarTower.toAlgHom A B (ResidueField B)) y P
+    simpa [ResidueField.algebraMap_eq] using this.symm
+  set f := (minpoly (ResidueField A) α).natDegree with hf_def
+  have hf : Module.finrank (ResidueField A) (ResidueField B) = f := by
+    rw [hf_def, ← IntermediateField.adjoin.finrank hαint, hα, IntermediateField.finrank_top']
+  have hf0 : 0 < f := minpoly.natDegree_pos hαint
+  obtain ⟨g, hgmap, hgdeg, hgmon⟩ := Polynomial.lifts_and_natDegree_eq_and_monic
+    ((Polynomial.mem_lifts _).mpr
+      (Polynomial.map_surjective (residue A) residue_surjective (minpoly (ResidueField A) α)))
+    (minpoly.monic hαint)
+  have hgα : aeval α g = 0 := by
+    rw [← minpoly.aeval (ResidueField A) α, ← hgmap, ← ResidueField.algebraMap_eq,
+      aeval_map_algebraMap]
+  have hg'α : aeval α (derivative g) ≠ 0 := by
+    have := (Algebra.IsSeparable.isSeparable (ResidueField A) α).aeval_derivative_ne_zero
+      (minpoly.aeval (ResidueField A) α)
+    rwa [← hgmap, derivative_map, ← ResidueField.algebraMap_eq, aeval_map_algebraMap] at this
+  obtain ⟨x, hx⟩ := residue_surjective α
+  have hgx : aeval x g ∈ maximalIdeal B := (residue_eq_zero_iff _).mp (by rw [hres, hx, hgα])
+  have hg'x : IsUnit (aeval x (derivative g)) := by
+    rw [← residue_ne_zero_iff_isUnit, hres, hx]; exact hg'α
+  obtain ⟨u, hu, hux⟩ := exists_root_of_residue A B hgx hg'x
+  have hures : residue B u = α := by
+    rw [← sub_add_cancel u x, map_add, (residue_eq_zero_iff _).mpr hux, zero_add, hx]
+  have hg'u : IsUnit (aeval u (derivative g)) := by
+    rw [← residue_ne_zero_iff_isUnit, hres, hures]; exact hg'α
+  obtain ⟨w, hw⟩ := hg'u.exists_right_inv
+  have hAu : IsIntegral A u := Algebra.IsIntegral.isIntegral u
+  have hmin : minpoly A u = g := by
+    have hdvd : minpoly A u ∣ g := minpoly.isIntegrallyClosed_dvd hAu hu
+    refine (eq_of_monic_of_dvd_of_natDegree_le (minpoly.monic hAu) hgmon hdvd ?_).symm
+    rw [hgdeg]
+    have h1 : minpoly (ResidueField A) α ∣ (minpoly A u).map (residue A) := by
+      apply minpoly.dvd
+      rw [← ResidueField.algebraMap_eq, aeval_map_algebraMap, ← hures, ← hres, minpoly.aeval,
+        map_zero]
+    calc _
+        ≤ ((minpoly A u).map (residue A)).natDegree :=
+          natDegree_le_of_dvd h1 ((minpoly.monic hAu).map _).ne_zero
+      _ = (minpoly A u).natDegree := (minpoly.monic hAu).natDegree_map _
+  -- the field `E = K(u)`
+  set u' := algebraMap B L u
+  have hKu : IsIntegral K u' := Algebra.IsIntegral.isIntegral _
+  have hminK : minpoly K u' = g.map (algebraMap A K) := by
+    rw [minpoly.isIntegrallyClosed_eq_field_fractions K L hAu, hmin]
+  have hfE : Module.finrank K (IntermediateField.adjoin K {u'}) = f := by
+    rw [IntermediateField.adjoin.finrank hKu, hminK, hgmon.natDegree_map, hgdeg]
+  -- the fundamental identity `e f = [L : K]`
+  have hfund : e * f = Module.finrank K L := by
+    have := Ideal.ramificationIdx_mul_inertiaDeg_of_isLocalRing (R := A) (S := B) K L
+      (p := maximalIdeal A) (IsDiscreteValuationRing.not_a_field A)
+    rw [Ideal.ramificationIdx'_eq_ramificationIdx (maximalIdeal A) (maximalIdeal B)
+      (IsDiscreteValuationRing.not_a_field A), Ideal.inertiaDeg'_algebraMap] at this
+    rw [← this, ← hf]
+    rfl
+  have hEL : Module.finrank (IntermediateField.adjoin K {u'}) L = e := by
+    have h := Module.finrank_mul_finrank K (IntermediateField.adjoin K {u'}) L
+    rw [hfE, ← hfund] at h
+    exact Nat.eq_of_mul_eq_mul_left hf0 (h.trans (mul_comm _ _))
+  -- Euler: `Tr_{E/K}(u^{f-1} / g'(u)) = 1`
+  let pb := IntermediateField.adjoin.powerBasis hKu
+  have hdim : pb.dim = f := by
+    rw [IntermediateField.adjoin.powerBasis_dim, hminK, hgmon.natDegree_map, hgdeg]
+  let i : Fin pb.dim := ⟨f - 1, by omega⟩
+  have hgen : pb.gen = IntermediateField.AdjoinSimple.gen K u' := rfl
+  have h1 := Module.Basis.trace_traceDual_mul pb.basis i i
+  rw [if_pos rfl, Module.Basis.traceDual_powerBasis_eq, PowerBasis.coe_basis] at h1
+  have hcoeff : (minpolyDiv K pb.gen).coeff (f - 1) = 1 := by
+    have hnd : (minpolyDiv K pb.gen).natDegree = f - 1 := by
+      rw [natDegree_minpolyDiv, hgen, IntermediateField.minpoly_gen, hminK,
+        hgmon.natDegree_map, hgdeg]
+    rw [← hnd]
+    exact minpolyDiv_monic (IntermediateField.adjoin.powerBasis hKu).isIntegral_gen
+  simp only [i, hcoeff] at h1
+  -- transport to `L`
+  set cE : IntermediateField.adjoin K {u'} :=
+    1 / aeval pb.gen (derivative (minpoly K pb.gen)) * pb.gen ^ (f - 1) with hcE
+  have hcEL : algebraMap (IntermediateField.adjoin K {u'}) L cE = algebraMap B L (w * u ^ (f - 1)) := by
+    have hw' : algebraMap B L w = (algebraMap B L (aeval u (derivative g)))⁻¹ :=
+      eq_inv_of_mul_eq_one_right (by rw [← map_mul, hw, map_one])
+    rw [hcE, map_mul, map_div₀, map_one, map_pow, ← aeval_algebraMap_apply, hgen,
+      IntermediateField.AdjoinSimple.algebraMap_gen, IntermediateField.minpoly_gen, hminK,
+      derivative_map, aeval_map_algebraMap, map_mul, map_pow, hw', aeval_algebraMap_apply,
+      one_div]
+  refine ⟨w * u ^ (f - 1), ?_⟩
+  apply IsFractionRing.injective A K
+  rw [Algebra.algebraMap_intTrace_fractionRing, ← hcEL, ← Algebra.trace_trace (S := IntermediateField.adjoin K {u'}),
+    Algebra.trace_algebraMap, hEL, map_nsmul, h1, map_natCast, nsmul_eq_mul, mul_one]
+
+end Trace
+
+end TDifferent
+
+namespace PkgI6
+
+open IsLocalRing
+
+attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
+
+/-- **Monogenicity (Serre, *Corps locaux*, III §6, Prop. 12; UNVERIFIED locator).** For a finite
+separable extension of complete discrete valuation rings whose residue field extension is
+separable (here: the residue field of `A` is perfect), `B = A[x]` for some `x ∈ B`. -/
+def MonogenicDVR : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)],
+    ∃ x : B, Algebra.adjoin A {x} = ⊤
+
+/-- **T20 (local) from monogenicity.** -/
+theorem hilbertDifferentFormula_of_monogenicDVR (h : MonogenicDVR) : HilbertDifferentFormula := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _ _
+  obtain ⟨x, hx⟩ := h A B
+  exact TDifferent.hilbertDifferentFormula_of_adjoin_eq_top A B hx
+
+/-- `MonogenicDVR` holds (`TDifferent.exists_adjoin_eq_top`; completeness is not needed). -/
+theorem monogenicDVR : MonogenicDVR := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _
+  exact TDifferent.exists_adjoin_eq_top A B
+
+/-- **Hilbert's formula without completeness.** The proof of T20 uses neither
+`IsAdicComplete (maximalIdeal A) A` nor any property of `B` beyond being a DVR finite over `A`
+(so it applies, e.g., to the localization of `𝓞_L` at a prime of the decomposition field). -/
+theorem hilbertDifferentFormula_of_dvr
+    (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)]
+    [IsGalois (FractionRing A) (FractionRing B)] :
+    ∃ N : ℕ, lowerRam A B N = ⊥ ∧
+      differentIdeal A B =
+        maximalIdeal B ^ (∑ i ∈ Finset.range N, (Nat.card (lowerRam A B i) - 1)) := by
+  obtain ⟨x, hx⟩ := TDifferent.exists_adjoin_eq_top A B
+  exact TDifferent.hilbertDifferentFormula_of_adjoin_eq_top A B hx
+
+/-- **T20, local form (`PkgI6.HilbertDifferentFormula`, Leaves.lean line 5092): proved.** -/
+theorem hilbertDifferentFormula : HilbertDifferentFormula :=
+  hilbertDifferentFormula_of_monogenicDVR monogenicDVR
+
+
+/-- **The trace statement (equivalent content of T21).** In the setting of `DifferentBound`, the
+ramification index `e` lies in the trace ideal `Tr_{B/A}(B)`.  (Standard proof: `e = Tr(u)` for
+`u` in the maximal unramified subring `U = A[u]` with `Tr_{U/A}(u) = 1`, since
+`Tr_{B/A}(u) = Tr_{U/A}(e·u)`; Serre, *Corps locaux*, III §5-§6, UNVERIFIED locator.) -/
+def TraceContainsRamificationIdx : Prop :=
+  ∀ (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+    [IsAdicComplete (maximalIdeal A) A] [PerfectField (ResidueField A)]
+    [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+    [Module.IsTorsionFree A B] [Algebra.IsSeparable (FractionRing A) (FractionRing B)],
+    ∃ z : B, Algebra.intTrace A B z = ((Ideal.ramificationIdx (maximalIdeal B) A : ℕ) : A)
+
+/-- **T21 (local) from the trace statement.** -/
+theorem differentBound_of_trace (h : TraceContainsRamificationIdx) : DifferentBound := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _
+  obtain ⟨z, hz⟩ := h A B
+  set e := Ideal.ramificationIdx (maximalIdeal B) A with he_def
+  have hinjAB : Function.Injective (algebraMap A B) := FaithfulSMul.algebraMap_injective A B
+  have hmap := TDifferent.map_maximalIdeal_eq_pow A B
+  rw [← he_def] at hmap
+  by_cases heB : ((e : ℕ) : B) = 0
+  · rw [heB, Ideal.span_singleton_eq_bot.mpr rfl, Ideal.mul_bot]
+    exact dvd_zero _
+  have heA : ((e : ℕ) : A) ≠ 0 := by
+    intro h; apply heB; rw [← map_natCast (algebraMap A B), h, map_zero]
+  have he1 : 1 ≤ e := by
+    rcases Nat.eq_zero_or_pos e with h0 | h0
+    · exact absurd (by rw [h0, Nat.cast_zero]) heB
+    · exact h0
+  obtain ⟨k, hk⟩ := TDifferent.span_eq_maximalIdeal_pow heA
+  have hkB : Ideal.span {((e : ℕ) : B)} = maximalIdeal B ^ (e * k) := by
+    rw [← map_natCast (algebraMap A B), ← Set.image_singleton, ← Ideal.map_span, hk, Ideal.map_pow, hmap, pow_mul]
+  have hD0 : differentIdeal A B ≠ ⊥ := differentIdeal_ne_bot
+  obtain ⟨d, hd⟩ : ∃ d, differentIdeal A B = maximalIdeal B ^ d := by
+    obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible B
+    obtain ⟨d, hd⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hD0 hπ
+    exact ⟨d, by rw [hd, hπ.maximalIdeal_eq, Ideal.span_singleton_pow]⟩
+  rw [hkB, ← pow_add, hd, Ideal.dvd_iff_le, TDifferent.maximalIdeal_pow_le_iff]
+  by_contra hlt
+  rw [not_le] at hlt
+  -- `𝔪_B ^ (e (k+1)) = (𝔪_A ^ (k+1)) B` divides `𝔇`, contradicting `Tr z = e ∉ 𝔪_A ^ (k+1)`.
+  have hP : maximalIdeal B ^ (e * (k + 1)) * ⊤ = (maximalIdeal A ^ (k + 1)).map (algebraMap A B) := by
+    rw [Ideal.mul_top, Ideal.map_pow, hmap, pow_mul]
+  apply not_dvd_differentIdeal_of_intTrace_notMem A _ ⊤ hP z Submodule.mem_top
+  · rw [hz]
+    intro hmem
+    have : maximalIdeal A ^ k ≤ maximalIdeal A ^ (k + 1) := by
+      rw [← hk, Ideal.span_singleton_le_iff_mem]; exact hmem
+    rw [TDifferent.maximalIdeal_pow_le_iff] at this
+    omega
+  · rw [hd, Ideal.dvd_iff_le, TDifferent.maximalIdeal_pow_le_iff]
+    have : e * (k + 1) = e + e * k := by ring
+    omega
+
+/-- `TraceContainsRamificationIdx` holds (`TDifferent.exists_intTrace_eq_ramificationIdx`). -/
+theorem traceContainsRamificationIdx : TraceContainsRamificationIdx := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _
+  exact TDifferent.exists_intTrace_eq_ramificationIdx A B
+
+/-- **T21, local form (`PkgI6.DifferentBound`, Leaves.lean line 5080): proved.** -/
+theorem differentBound : DifferentBound :=
+  differentBound_of_trace traceContainsRamificationIdx
+
+
+/-- **T22a (`PkgI6.HerbrandQuotient`, Leaves.lean line 5105): proved.** -/
+theorem herbrandQuotient : HerbrandQuotient := by
+  intro A C B _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ r hr v
+  have : Module.Finite C B := Module.Finite.of_restrictScalars_finite A C B
+  exact TDifferent.herbrand_quotient A C B r hr v
+
+/-- **T22b (`PkgI6.HerbrandTransitivity`, Leaves.lean line 5122): proved.** -/
+theorem herbrandTransitivity : HerbrandTransitivity := by
+  intro A C B _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ u hu
+  exact TDifferent.herbrand_trans A C B hu
+
+
+end PkgI6
+
+end TDifferentSec
+
+section TSkolemKWSec
+
+/-! ### Copied from `scratch/t-skolem-kw/` (task t-skolem-kw, wave 25; compiled there against
+Mathlib only, also concatenated as `AllCheck.lean`): `SkolemNoether.lean`, `BrauerNesbitt.lean`,
+`FrobeniusDense.lean` (its part `TSkolemKW.C10`, a verbatim copy of glue-c10's `GlueC10` above, is
+deleted and `GlueC10`'s originals are used instead), `KroneckerWeberUse.lean`, and the theorem
+`c10_of_chebotarev` of `C10Closed.lean` (restated over `GlueC10`).  `ChebotarevCyclotomic.lean` (a
+sanity check of `ChebotarevExists` for cyclotomic fields) is omitted.  The local copies
+`TSkolemKW.SkolemNoether`, `TSkolemKW.HSynSkolemNoether`, `TSkolemKW.LeafSkolemNoether`,
+`TSkolemKW.BrauerNesbittChar0`, `TSkolemKW.HSynBrauerNesbitt`, `TSkolemKW.HS.FrobeniusDense` (with
+`HS.Qbar`, `HS.GQ`, `HS.LiesOver`, `HS.IsArithFrob`), `TSkolemKW.KW.KroneckerWeber` (with `KW.Qbar`,
+`KW.GQ`) are character-identical to the Leaves.lean definitions; the bridges at the end restate the
+results over the Leaves.lean names.  Docs: `docs/research/t-skolem-kw.md`. -/
+
+-- ===== SkolemNoether.lean =====
+/-!
+# t-skolem-kw: leaf T13 (Skolem–Noether), proved
+
+The statement `SkolemNoether` is copied verbatim from `scratch/h-decomposition/Leaves.lean`
+(`PkgI6.SkolemNoether`; `HSyn.SkolemNoether` is the same Prop up to the name of a bound
+variable).  The automorphism form `LeafSkolemNoether` (`Leaves.lean`, glue-descent section) is
+derived at the end.
+
+Proof (the standard one, e.g. Farb–Dennis, *Noncommutative algebra*, Thm 3.14 (UNVERIFIED
+locator)):
+1. `isSimpleRing_tensor`: `C ⊗[K] B` is simple when `C` is central simple and `B` is simple
+   (minimal-length argument in a basis of `B`).
+2. `nonempty_linearEquiv_of_finrank_eq`: over a simple Artinian `K`-algebra `R`, two modules of
+   the same finite `K`-dimension are isomorphic (both are powers of the unique simple module).
+3. `A` is a module over `R = Aᵐᵒᵖ ⊗[K] B` in two ways, `(a ⊗ b) • x = f b * x * a` and
+   `(a ⊗ b) • x = g b * x * a`; an `R`-isomorphism between them is left multiplication by a unit
+   `u` with `u * f b = g b * u`.
+-/
+
+open TensorProduct
+
+namespace TSkolemKW
+
+/-! ## The statements (verbatim from `scratch/h-decomposition/Leaves.lean`) -/
+
+/-- **Leaf I6.1 (Skolem–Noether).** Verbatim `PkgI6.SkolemNoether`. -/
+def SkolemNoether : Prop :=
+  ∀ (K A B : Type) [Field K] [Ring A] [Algebra K A] [Algebra.IsCentral K A] [IsSimpleRing A]
+    [FiniteDimensional K A] [Ring B] [Algebra K B] [IsSimpleRing B] [FiniteDimensional K B]
+    (f g : B →ₐ[K] A), ∃ u : Aˣ, ∀ b : B, g b = (u : A) * f b * ((u⁻¹ : Aˣ) : A)
+
+/-- **L14. Skolem–Noether.** Verbatim `HSyn.SkolemNoether`. -/
+def HSynSkolemNoether : Prop :=
+  ∀ (K A B : Type) [Field K] [Ring A] [Algebra K A] [Algebra.IsCentral K A] [IsSimpleRing A]
+    [FiniteDimensional K A] [Ring B] [Algebra K B] [IsSimpleRing B] [FiniteDimensional K B]
+    (f g : B →ₐ[K] A), ∃ x : Aˣ, ∀ b, g b = (x : A) * f b * ((x⁻¹ : Aˣ) : A)
+
+/-- **Leaf L-B1 (Skolem–Noether, automorphism case).** Verbatim `LeafSkolemNoether`. -/
+def LeafSkolemNoether : Prop :=
+  ∀ (K : Type) [Field K] (A : Type) [Ring A] [Algebra K A] [Algebra.IsCentral K A]
+    [IsSimpleRing A] [FiniteDimensional K A] (φ : A ≃ₐ[K] A),
+    ∃ u : Aˣ, ∀ a : A, φ a = u * a * (u⁻¹ : Aˣ)
+
+/-! ## Step 1. `C ⊗ B` is simple for `C` central simple and `B` simple -/
+
+section TensorSimple
+
+variable {K C B : Type*} [Field K] [Ring C] [Algebra K C] [Algebra.IsCentral K C]
+  [IsSimpleRing C] [Ring B] [Algebra K B] [IsSimpleRing B]
+
+theorem isSimpleRing_tensor : IsSimpleRing (C ⊗[K] B) := by
+  classical
+  let e := Module.Free.chooseBasis K B
+  let E := TensorProduct.equivFinsuppOfBasisRight (M := C) e
+  have hmul : ∀ (a a' : C) (x : C ⊗[K] B) i,
+      E ((a ⊗ₜ (1 : B)) * x * (a' ⊗ₜ (1 : B))) i = a * E x i * a' := by
+    intro a a' x i
+    induction x using TensorProduct.induction_on with
+    | zero => simp
+    | tmul c b =>
+      simp only [Algebra.TensorProduct.tmul_mul_tmul, one_mul, mul_one,
+        TensorProduct.equivFinsuppOfBasisRight_apply_tmul_apply, E]
+      rw [mul_smul_comm, smul_mul_assoc]
+    | add x y hx hy => simp only [mul_add, add_mul, map_add, Finsupp.add_apply, hx, hy]
+  have hE0 : ∀ x, E x = 0 → x = 0 := fun x h => E.map_eq_zero_iff.1 h
+  have hnt : Nontrivial (C ⊗[K] B) := by
+    refine ⟨⟨1, 0, fun h => ?_⟩⟩
+    have h1 : E (1 : C ⊗[K] B) ≠ 0 := by
+      rw [Algebra.TensorProduct.one_def, TensorProduct.equivFinsuppOfBasisRight_apply_tmul]
+      intro h0
+      have hr : e.repr (1 : B) ≠ 0 := by
+        rw [Ne, LinearEquiv.map_eq_zero_iff]; exact one_ne_zero
+      apply hr
+      ext i
+      have := congrArg (fun d => d i) h0
+      simpa using this
+    exact h1 (by rw [h, map_zero])
+  refine IsSimpleRing.of_eq_bot_or_eq_top fun I => ?_
+  by_cases hI : I = ⊥
+  · exact Or.inl hI
+  right
+  have hex : ∃ x ∈ I, x ≠ 0 := by
+    by_contra hcon
+    push Not at hcon
+    exact hI (eq_bot_iff.2 fun x hx => (TwoSidedIdeal.mem_bot _).2 (hcon x hx))
+  have H : ∃ n, ∃ x ∈ I, x ≠ 0 ∧ (E x).support.card = n := by
+    obtain ⟨x, hx, hx0⟩ := hex
+    exact ⟨_, x, hx, hx0, rfl⟩
+  obtain ⟨x, hxI, hx0, hxn⟩ := Nat.find_spec H
+  have hmin : ∀ y ∈ I, y ≠ 0 → Nat.find H ≤ (E y).support.card :=
+    fun y hy hy0 => Nat.find_min' H ⟨y, hy, hy0, rfl⟩
+  obtain ⟨i0, hi0⟩ : (E x).support.Nonempty := by
+    rw [Finsupp.support_nonempty_iff]
+    exact fun h => hx0 (hE0 x h)
+  -- the two-sided ideal of `C` of `i0`-coefficients of elements of `I` supported in `supp x`
+  let J : TwoSidedIdeal C := TwoSidedIdeal.mk'
+    {a | ∃ y ∈ I, (E y).support ⊆ (E x).support ∧ E y i0 = a}
+    ⟨0, I.zero_mem, by simp, by simp⟩
+    (by
+      rintro _ _ ⟨y, hy, hys, rfl⟩ ⟨y', hy', hys', rfl⟩
+      refine ⟨y + y', I.add_mem hy hy', ?_, by simp⟩
+      rw [map_add]
+      exact Finsupp.support_add.trans (Finset.union_subset hys hys'))
+    (by
+      rintro _ ⟨y, hy, hys, rfl⟩
+      refine ⟨-y, I.neg_mem hy, ?_, by simp⟩
+      rw [map_neg, Finsupp.support_neg]
+      exact hys)
+    (by
+      rintro a _ ⟨y, hy, hys, rfl⟩
+      refine ⟨(a ⊗ₜ (1 : B)) * y * ((1 : C) ⊗ₜ (1 : B)),
+        I.mul_mem_right _ _ (I.mul_mem_left _ _ hy), fun j hj => hys ?_, by rw [hmul, mul_one]⟩
+      rw [Finsupp.mem_support_iff] at hj ⊢
+      intro h
+      apply hj
+      rw [hmul, h, mul_zero, zero_mul])
+    (by
+      rintro _ a ⟨y, hy, hys, rfl⟩
+      refine ⟨((1 : C) ⊗ₜ (1 : B)) * y * (a ⊗ₜ (1 : B)),
+        I.mul_mem_right _ _ (I.mul_mem_left _ _ hy), fun j hj => hys ?_, by rw [hmul, one_mul]⟩
+      rw [Finsupp.mem_support_iff] at hj ⊢
+      intro h
+      apply hj
+      rw [hmul, h, mul_zero, zero_mul])
+  have h1J : (1 : C) ∈ J := by
+    refine IsSimpleRing.one_mem_of_ne_zero_mem J (Finsupp.mem_support_iff.1 hi0) ?_
+    rw [TwoSidedIdeal.mem_mk']
+    exact ⟨x, hxI, le_rfl, rfl⟩
+  rw [TwoSidedIdeal.mem_mk'] at h1J
+  obtain ⟨y, hyI, hys, hy1⟩ := h1J
+  have hy0 : y ≠ 0 := by
+    rintro rfl
+    simp at hy1
+  -- every coefficient of `y` is central
+  have hcomm : ∀ (a : C) j, a * E y j = E y j * a := by
+    intro a
+    let z := (a ⊗ₜ (1 : B)) * y * ((1 : C) ⊗ₜ (1 : B)) -
+      ((1 : C) ⊗ₜ (1 : B)) * y * (a ⊗ₜ (1 : B))
+    have hzc : ∀ j, E z j = a * E y j - E y j * a := by
+      intro j
+      simp only [z, map_sub, Finsupp.sub_apply, hmul, mul_one, one_mul]
+    have hzI : z ∈ I := I.sub_mem (I.mul_mem_right _ _ (I.mul_mem_left _ _ hyI))
+      (I.mul_mem_right _ _ (I.mul_mem_left _ _ hyI))
+    have hzs : (E z).support ⊆ (E y).support.erase i0 := by
+      intro j hj
+      rw [Finsupp.mem_support_iff, hzc] at hj
+      rw [Finset.mem_erase, Finsupp.mem_support_iff]
+      constructor
+      · rintro rfl
+        apply hj
+        rw [hy1, mul_one, one_mul, sub_self]
+      · intro h
+        apply hj
+        rw [h, mul_zero, zero_mul, sub_self]
+    have hz0 : z = 0 := by
+      by_contra hz0
+      have h1 := hmin z hzI hz0
+      have h2 := Finset.card_le_card hzs
+      have h3 : ((E y).support.erase i0).card < (E y).support.card :=
+        Finset.card_erase_lt_of_mem (Finsupp.mem_support_iff.2 (by rw [hy1]; exact one_ne_zero))
+      have h4 := Finset.card_le_card hys
+      omega
+    intro j
+    have := hzc j
+    rw [hz0, map_zero, Finsupp.zero_apply] at this
+    exact (sub_eq_zero.1 this.symm)
+  have hcen : ∀ j, ∃ k : K, E y j = algebraMap K C k := fun j =>
+    (Algebra.IsCentral.mem_center_iff K).1 (Subalgebra.mem_center_iff.2 fun a => hcomm a j)
+  choose k hk using hcen
+  have hinj : Function.Injective (algebraMap K C) := (algebraMap K C).injective
+  let d : Module.Free.ChooseBasisIndex K B →₀ K := Finsupp.onFinset (E y).support k (by
+    intro j hj
+    rw [Finsupp.mem_support_iff, hk]
+    intro h
+    exact hj (hinj (by rw [h, map_zero])))
+  let b : B := e.repr.symm d
+  have hyb : (1 : C) ⊗ₜ b = y := by
+    apply E.injective
+    ext j
+    rw [TensorProduct.equivFinsuppOfBasisRight_apply_tmul_apply, hk, Algebra.algebraMap_eq_smul_one]
+    simp [b, d]
+  have hb0 : b ≠ 0 := by
+    rintro hb
+    rw [hb, TensorProduct.tmul_zero] at hyb
+    exact hy0 hyb.symm
+  let J' : TwoSidedIdeal B := TwoSidedIdeal.comap (Algebra.TensorProduct.includeRight (R := K)
+    (A := C) (B := B)) I
+  have hbJ : b ∈ J' := by
+    rw [TwoSidedIdeal.mem_comap]
+    simpa [hyb] using hyI
+  have h1J' := IsSimpleRing.one_mem_of_ne_zero_mem J' hb0 hbJ
+  rw [TwoSidedIdeal.mem_comap, map_one] at h1J'
+  exact eq_top_iff.2 fun z _ => by simpa using I.mul_mem_left z 1 h1J'
+
+end TensorSimple
+
+/-! ## Step 2. Modules over a simple Artinian algebra are classified by their dimension -/
+
+theorem nonempty_linearEquiv_of_finrank_eq {K R M N : Type*} [Field K] [Ring R] [Algebra K R]
+    [IsSimpleRing R] [IsArtinianRing R]
+    [AddCommGroup M] [Module K M] [Module R M] [IsScalarTower K R M] [FiniteDimensional K M]
+    [AddCommGroup N] [Module K N] [Module R N] [IsScalarTower K R N] [FiniteDimensional K N]
+    (h : Module.finrank K M = Module.finrank K N) : Nonempty (M ≃ₗ[R] N) := by
+  rcases subsingleton_or_nontrivial M with hM | hM
+  · have : Subsingleton N := by
+      rw [← Module.finrank_zero_iff (R := K), ← h]
+      exact Module.finrank_zero_of_subsingleton
+    exact ⟨LinearEquiv.ofSubsingleton M N⟩
+  have hN : Nontrivial N := by
+    rw [← Module.finrank_pos_iff (R := K), ← h]
+    exact Module.finrank_pos
+  have : Module.Finite R M := Module.Finite.of_restrictScalars_finite K R M
+  have : Module.Finite R N := Module.Finite.of_restrictScalars_finite K R N
+  obtain ⟨n, _, S, hS, ⟨eM⟩⟩ := (IsSimpleRing.isIsotypic R M).linearEquiv_fun
+  obtain ⟨m, _, T, hT, ⟨eN⟩⟩ := (IsSimpleRing.isIsotypic R N).linearEquiv_fun
+  -- the two simple modules are isomorphic
+  have eST : Nonempty (S ≃ₗ[R] T) := by
+    let S' := S.map (LinearMap.inl R M N)
+    let T' := T.map (LinearMap.inr R M N)
+    let eS : S ≃ₗ[R] S' := S.equivMapOfInjective _ LinearMap.inl_injective
+    let eT : T ≃ₗ[R] T' := T.equivMapOfInjective _ LinearMap.inr_injective
+    have : IsSimpleModule R S' := IsSimpleModule.congr eS.symm
+    have : IsSimpleModule R T' := IsSimpleModule.congr eT.symm
+    obtain ⟨e'⟩ := IsSimpleRing.isIsotypic R (M × N) S' T'
+    exact ⟨(eS.trans e'.symm).trans eT.symm⟩
+  obtain ⟨eST⟩ := eST
+  have : Module.Finite K S :=
+    Module.Finite.of_injective (S.subtype.restrictScalars K) Subtype.val_injective
+  have : Nontrivial S := IsSimpleModule.nontrivial R S
+  have hd : 0 < Module.finrank K S := Module.finrank_pos
+  have hM' : Module.finrank K M = n * Module.finrank K S := by
+    rw [(eM.restrictScalars K).finrank_eq, Module.finrank_pi_fintype]
+    simp
+  have hN' : Module.finrank K N = m * Module.finrank K S := by
+    rw [((eN.trans (LinearEquiv.piCongrRight fun _ => eST.symm)).restrictScalars K).finrank_eq,
+      Module.finrank_pi_fintype]
+    simp
+  have hnm : n = m := Nat.eq_of_mul_eq_mul_right hd (hM'.symm.trans (h.trans hN'))
+  subst hnm
+  exact ⟨eM.trans ((LinearEquiv.piCongrRight fun _ => eST).trans eN.symm)⟩
+
+/-! ## Step 3. `A` as a module through an algebra map to `End_K A` -/
+
+/-- `A` viewed as an `R`-module through `ρ : R →ₐ[K] End_K A`. -/
+def Twist {K R A : Type*} [CommRing K] [Ring R] [Algebra K R] [AddCommGroup A] [Module K A]
+    (_ρ : R →ₐ[K] Module.End K A) : Type _ := A
+
+namespace Twist
+
+variable {K R A : Type*} [CommRing K] [Ring R] [Algebra K R] [AddCommGroup A] [Module K A]
+  (ρ : R →ₐ[K] Module.End K A)
+
+instance : AddCommGroup (Twist ρ) := inferInstanceAs (AddCommGroup A)
+instance : Module K (Twist ρ) := inferInstanceAs (Module K A)
+instance : Module R (Twist ρ) := Module.compHom A (ρ : R →+* Module.End K A)
+
+/-- The identity `A → Twist ρ`. -/
+def of : A ≃ₗ[K] Twist ρ := LinearEquiv.refl K A
+
+theorem smul_of (r : R) (x : A) : r • of ρ x = of ρ (ρ r x) := rfl
+
+instance isScalarTower : IsScalarTower K R (Twist ρ) :=
+  ⟨fun k r x => by
+    change ρ (k • r) x = k • ρ r x
+    rw [map_smul]
+    rfl⟩
+
+end Twist
+
+/-! ## The theorem -/
+
+theorem skolemNoether : SkolemNoether := by
+  intro K A B _ _ _ _ _ _ _ _ _ _ f g
+  let R := Aᵐᵒᵖ ⊗[K] B
+  have : IsSimpleRing R := isSimpleRing_tensor
+  have : IsArtinianRing R := IsArtinianRing.of_finite K R
+  let ρ : (B →ₐ[K] A) → R →ₐ[K] Module.End K A := fun h =>
+    (AlgHom.mulLeftRight K A).comp
+      ((Algebra.TensorProduct.map h (AlgHom.id K Aᵐᵒᵖ)).comp
+        (Algebra.TensorProduct.comm K Aᵐᵒᵖ B).toAlgHom)
+  have hρ : ∀ (h : B →ₐ[K] A) (a : A) (b : B) (x : A),
+      ρ h (MulOpposite.op a ⊗ₜ b) x = h b * x * a := by
+    intro h a b x
+    change AlgHom.mulLeftRight K A ((Algebra.TensorProduct.map h (AlgHom.id K Aᵐᵒᵖ))
+      ((Algebra.TensorProduct.comm K Aᵐᵒᵖ B) (MulOpposite.op a ⊗ₜ b))) x = _
+    rw [Algebra.TensorProduct.comm_tmul, Algebra.TensorProduct.map_tmul,
+      AlgHom.mulLeftRight_apply]
+    rfl
+  have : FiniteDimensional K (Twist (ρ f)) := inferInstanceAs (FiniteDimensional K A)
+  have : FiniteDimensional K (Twist (ρ g)) := inferInstanceAs (FiniteDimensional K A)
+  have : IsScalarTower K R (Twist (ρ f)) := Twist.isScalarTower (ρ f)
+  have : IsScalarTower K R (Twist (ρ g)) := Twist.isScalarTower (ρ g)
+  obtain ⟨φ⟩ := @nonempty_linearEquiv_of_finrank_eq K R (Twist (ρ f)) (Twist (ρ g)) _ _ _ _ _
+    _ _ _ (Twist.isScalarTower (ρ f)) _ _ _ _ (Twist.isScalarTower (ρ g)) _ rfl
+  let Φ : A → A := fun x => Twist.of (ρ g) |>.symm (φ (Twist.of (ρ f) x))
+  have hΦinj : Function.Injective Φ := fun x y hxy => by
+    simpa [Φ] using hxy
+  have hΦsurj : Function.Surjective Φ := fun y =>
+    ⟨(Twist.of (ρ f)).symm (φ.symm (Twist.of (ρ g) y)), by simp [Φ]⟩
+  have hΦact : ∀ (a : A) (b : B) (x : A), Φ (f b * x * a) = g b * Φ x * a := by
+    intro a b x
+    have h1 : Twist.of (ρ f) (f b * x * a) = (MulOpposite.op a ⊗ₜ b : R) • Twist.of (ρ f) x := by
+      rw [Twist.smul_of, hρ]
+    show (Twist.of (ρ g)).symm (φ (Twist.of (ρ f) (f b * x * a))) = g b * Φ x * a
+    rw [h1, map_smul, ← hρ g a b]
+    rfl
+  let u := Φ 1
+  have hΦx : ∀ x, Φ x = u * x := fun x => by
+    simpa using hΦact x 1 1
+  have hΦb : ∀ b, Φ (f b) = g b * u := fun b => by
+    simpa using hΦact 1 b 1
+  obtain ⟨v, hv⟩ := hΦsurj 1
+  rw [hΦx] at hv
+  have hvu : v * u = 1 := by
+    apply hΦinj
+    rw [hΦx, hΦx, ← mul_assoc, hv, one_mul, mul_one]
+  refine ⟨⟨u, v, hv, hvu⟩, fun b => ?_⟩
+  change g b = u * f b * v
+  rw [← hΦx, hΦb, mul_assoc, hv, mul_one]
+
+theorem hsynSkolemNoether : HSynSkolemNoether := skolemNoether
+
+theorem leafSkolemNoether : LeafSkolemNoether := by
+  intro K _ A _ _ _ _ _ φ
+  obtain ⟨u, hu⟩ := skolemNoether K A A (AlgHom.id K A) φ.toAlgHom
+  exact ⟨u, fun a => by simpa using hu a⟩
+
+end TSkolemKW
+
+-- ===== BrauerNesbitt.lean =====
+/-!
+# t-skolem-kw: leaf T19 (Brauer–Nesbitt in characteristic 0)
+
+The statement `BrauerNesbittChar0` is copied verbatim from `scratch/h-decomposition/Leaves.lean`
+(`PkgI6.BrauerNesbittChar0`, also `GlueC10.BrauerNesbittChar0`).
+
+Proof (standard; cf. Curtis–Reiner (27.13), Lang, *Algebra* XVII Cor. 3.8, both UNVERIFIED
+locators), for modules over an arbitrary `k`-algebra `R`:
+1. `isNilpotent_of_trace_pow_eq_zero`: in characteristic 0 an endomorphism all of whose powers
+   have trace 0 is nilpotent (Cayley–Hamilton gives `det = 0`; induct on the range).
+2. `exists_injective_of_trace_eq`: if `M`, `N` have equal traces, `N` is semisimple and `S ⊆ M`
+   is simple, then `S` embeds in `N`: the annihilator `J` of `N` acts nilpotently on `M` (1),
+   hence kills `S` (if `t • s = s` for some `t ∈ J` then `s = 0`); so `S` is a quotient of
+   `R / ann N ⊆ N^d`, hence (semisimplicity) a submodule of `N^d`, hence of `N`.
+3. Induction on `dim M`: split off `S` from both sides.
+-/
+
+open Module
+
+namespace TSkolemKW
+
+/-! ## The statement (verbatim from `scratch/h-decomposition/Leaves.lean`) -/
+
+/-- **Leaf I6.5 (Brauer–Nesbitt, characteristic 0, trace form).** Verbatim
+`PkgI6.BrauerNesbittChar0`. -/
+def BrauerNesbittChar0 : Prop :=
+  ∀ (k G V W : Type) [Field k] [CharZero k] [Group G] [AddCommGroup V] [Module k V]
+    [FiniteDimensional k V] [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    (ρ : Representation k G V) (σ : Representation k G W),
+    IsSemisimpleModule (MonoidAlgebra k G) ρ.asModule →
+    IsSemisimpleModule (MonoidAlgebra k G) σ.asModule →
+    (∀ g : G, LinearMap.trace k V (ρ g) = LinearMap.trace k W (σ g)) →
+    Nonempty (ρ.asModule ≃ₗ[MonoidAlgebra k G] σ.asModule)
+
+/-! ## Step 1. Traces of powers vanish ⇒ nilpotent (characteristic 0) -/
+
+theorem isNilpotent_of_trace_pow_eq_zero {k : Type*} [Field k] [CharZero k] :
+    ∀ (n : ℕ) {V : Type*} [AddCommGroup V] [Module k V] [FiniteDimensional k V],
+    finrank k V = n → ∀ f : V →ₗ[k] V,
+    (∀ j, 0 < j → LinearMap.trace k V (f ^ j) = 0) → IsNilpotent f := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+  intro V _ _ _ hn f hf
+  rcases subsingleton_or_nontrivial V with hV | hV
+  · exact ⟨1, Subsingleton.elim _ _⟩
+  -- `f` is not injective: the constant term of the characteristic polynomial vanishes
+  have hc0 : f.charpoly.coeff 0 = 0 := by
+    have h0 := congrArg (LinearMap.trace k V) (LinearMap.aeval_self_charpoly f)
+    rw [Polynomial.aeval_eq_sum_range, map_sum, map_zero, Finset.sum_range_succ'] at h0
+    rw [Finset.sum_eq_zero (fun i _ => by rw [map_smul, hf (i + 1) (Nat.succ_pos i), smul_zero]),
+      zero_add, pow_zero, map_smul, LinearMap.trace_one, smul_eq_mul] at h0
+    have hpos : (finrank k V : k) ≠ 0 := Nat.cast_ne_zero.2 Module.finrank_pos.ne'
+    exact (mul_eq_zero.1 h0).resolve_right hpos
+  have hroot : f.charpoly.IsRoot 0 := by
+    rw [Polynomial.IsRoot, ← Polynomial.coeff_zero_eq_eval_zero, hc0]
+  obtain ⟨v, hv, hv0⟩ := ((Module.End.hasEigenvalue_iff_isRoot_charpoly f 0).2 hroot).exists_hasEigenvector
+  have hfv : f v = 0 := by
+    have := Module.End.mem_eigenspace_iff.1 hv
+    simpa using this
+  -- restrict to the range
+  let W := LinearMap.range f
+  let g : W →ₗ[k] W := f.restrict (fun x _ => LinearMap.mem_range_self f x)
+  have hgpow : ∀ j (w : W), (((g ^ j) w : W) : V) = (f ^ j) (w : V) := by
+    intro j
+    induction j with
+    | zero => intro w; rfl
+    | succ j ihj =>
+      intro w
+      rw [pow_succ', Module.End.mul_apply, pow_succ', Module.End.mul_apply, ← ihj]
+      rfl
+  have hW : finrank k W < n := by
+    have h1 := LinearMap.finrank_range_add_finrank_ker f
+    have h2 : 0 < finrank k (LinearMap.ker f) := by
+      have : Nontrivial (LinearMap.ker f) := ⟨⟨⟨v, hfv⟩, 0, fun h => hv0 (congrArg Subtype.val h)⟩⟩
+      exact Module.finrank_pos
+    change finrank k (LinearMap.range f) < n
+    omega
+  have hgtr : ∀ j, 0 < j → LinearMap.trace k W (g ^ j) = 0 := by
+    intro j hj
+    obtain ⟨i, rfl⟩ : ∃ i, j = i + 1 := ⟨j - 1, by omega⟩
+    have e1 : g ^ (i + 1) = (f.rangeRestrict ∘ₗ (f ^ i)) ∘ₗ W.subtype := by
+      ext w
+      rw [hgpow, pow_succ', Module.End.mul_apply]
+      rfl
+    have e2 : f ^ (i + 1) = W.subtype ∘ₗ (f.rangeRestrict ∘ₗ (f ^ i)) := by
+      ext x
+      rw [pow_succ']
+      rfl
+    rw [e1, ← LinearMap.trace_comp_comm', ← e2]
+    exact hf _ hj
+  obtain ⟨m, hm⟩ := ih _ hW rfl g hgtr
+  refine ⟨m + 1, ?_⟩
+  ext x
+  rw [pow_succ, Module.End.mul_apply, ← show (((g ^ m) ⟨f x, LinearMap.mem_range_self f x⟩ : W) : V)
+    = (f ^ m) (f x) from hgpow m _, hm]
+  rfl
+
+/-! ## The action of `R` on a module, as `k`-linear maps -/
+
+section Act
+
+variable {k R : Type*} [Field k] [Ring R] [Algebra k R]
+
+/-- `r : R` acting on `M`, as a `k`-linear endomorphism. -/
+abbrev act (M : Type*) [AddCommGroup M] [Module k M] [Module R M] [IsScalarTower k R M]
+    (r : R) : M →ₗ[k] M :=
+  DistribSMul.toLinearMap k M r
+
+variable {M P A B : Type*} [AddCommGroup M] [Module k M] [Module R M] [IsScalarTower k R M]
+  [AddCommGroup P] [Module k P] [Module R P] [IsScalarTower k R P]
+  [AddCommGroup A] [Module k A] [Module R A] [IsScalarTower k R A]
+  [AddCommGroup B] [Module k B] [Module R B] [IsScalarTower k R B]
+
+theorem act_pow (r : R) (j : ℕ) : act (k := k) M (r ^ j) = (act M r) ^ j := by
+  induction j with
+  | zero => ext x; rw [pow_zero, pow_zero, Module.End.one_apply]; exact one_smul R x
+  | succ j ih =>
+    ext x
+    rw [pow_succ, pow_succ, Module.End.mul_apply, ← ih]
+    exact mul_smul (r ^ j) r x
+
+theorem trace_act_equiv [FiniteDimensional k M] [FiniteDimensional k P] (e : M ≃ₗ[R] P) (r : R) :
+    LinearMap.trace k M (act M r) = LinearMap.trace k P (act P r) := by
+  rw [← LinearMap.trace_conj' (act M r) (e.restrictScalars k)]
+  congr 1
+  ext x
+  change e (r • e.symm x) = r • x
+  rw [map_smul, e.apply_symm_apply]
+
+theorem trace_act_prod [FiniteDimensional k A] [FiniteDimensional k B] (r : R) :
+    LinearMap.trace k (A × B) (act (A × B) r) =
+      LinearMap.trace k A (act A r) + LinearMap.trace k B (act B r) := by
+  rw [← LinearMap.trace_prodMap']
+  rfl
+
+end Act
+
+/-! ## Step 2. A simple constituent of `M` embeds in `N` -/
+
+section Main
+
+variable {k R : Type*} [Field k] [CharZero k] [Ring R] [Algebra k R]
+
+omit [CharZero k] in
+theorem fd_sub {M : Type*} [AddCommGroup M] [Module k M] [Module R M] [IsScalarTower k R M]
+    [FiniteDimensional k M] (S : Submodule R M) : FiniteDimensional k S :=
+  Module.Finite.of_injective (S.subtype.restrictScalars k) Subtype.val_injective
+
+theorem exists_injective_of_trace_eq {M N : Type*}
+    [AddCommGroup M] [Module k M] [Module R M] [IsScalarTower k R M] [FiniteDimensional k M]
+    [AddCommGroup N] [Module k N] [Module R N] [IsScalarTower k R N] [FiniteDimensional k N]
+    [IsSemisimpleModule R N]
+    (htr : ∀ r : R, LinearMap.trace k M (act M r) = LinearMap.trace k N (act N r))
+    (S : Submodule R M) [IsSimpleModule R S] : ∃ j : S →ₗ[R] N, Function.Injective j := by
+  classical
+  -- the annihilator of `N` acts nilpotently on `M`
+  have hnil : ∀ r : R, (∀ n : N, r • n = 0) → IsNilpotent (act (k := k) M r) := by
+    intro r hr
+    refine isNilpotent_of_trace_pow_eq_zero _ rfl _ fun j hj => ?_
+    rw [← act_pow, htr, act_pow]
+    have : act (k := k) N r = 0 := LinearMap.ext hr
+    rw [this, zero_pow hj.ne', map_zero]
+  -- the left ideal `ann N`
+  let Jl : Submodule R R :=
+    { carrier := {t | ∀ n : N, t • n = 0}
+      add_mem' := fun {a b} ha hb n => by rw [add_smul, ha n, hb n, add_zero]
+      zero_mem' := fun n => zero_smul R n
+      smul_mem' := fun c t ht n => by
+        change (c * t) • n = 0
+        rw [mul_smul, ht n, smul_zero] }
+  -- it kills `S`
+  have hkill : ∀ r : R, (∀ n : N, r • n = 0) → ∀ s ∈ S, r • s = 0 := by
+    intro r hr s hs
+    by_contra hne
+    let Jm : Submodule R M := Jl.map (LinearMap.toSpanSingleton R M s)
+    have hle : Jm ≤ S := by
+      rintro _ ⟨t, -, rfl⟩
+      exact S.smul_mem t hs
+    have hne' : Jm ≠ ⊥ := by
+      intro h
+      apply hne
+      have : r • s ∈ Jm := ⟨r, hr, rfl⟩
+      rw [h] at this
+      exact (Submodule.mem_bot R).1 this
+    have hatom : IsAtom S := isSimpleModule_iff_isAtom.1 ‹_›
+    have hJS : Jm = S := ((hatom.le_iff).1 hle).resolve_left hne'
+    have hsJ : s ∈ Jm := hJS ▸ hs
+    obtain ⟨t, ht, hts⟩ := hsJ
+    change t • s = s at hts
+    obtain ⟨m, hm⟩ := hnil t ht
+    have hpow : ∀ i, ((act (k := k) M t) ^ i) s = s := by
+      intro i
+      induction i with
+      | zero => rfl
+      | succ i ih => rw [pow_succ', Module.End.mul_apply, ih]; exact hts
+    have := hpow m
+    rw [hm, LinearMap.zero_apply] at this
+    exact hne (by rw [← this, smul_zero])
+  -- `S` is a quotient of `R / ann N ⊆ N^d`
+  have : Nontrivial S := IsSimpleModule.nontrivial R S
+  obtain ⟨s, hs⟩ := exists_ne (0 : S)
+  let b := Module.finBasis k N
+  let L : R →ₗ[R] (Fin (finrank k N) → N) :=
+    LinearMap.pi fun i => LinearMap.toSpanSingleton R N (b i)
+  have hker : ∀ t, L t = 0 → ∀ n : N, t • n = 0 := by
+    intro t ht n
+    have hti : ∀ i, t • b i = 0 := fun i => congrFun ht i
+    rw [← b.sum_repr n, Finset.smul_sum]
+    exact Finset.sum_eq_zero fun i _ => by rw [smul_comm, hti i, smul_zero]
+  let ψ0 : R →ₗ[R] S := LinearMap.toSpanSingleton R S s
+  have hle : LinearMap.ker L ≤ LinearMap.ker ψ0 := by
+    intro t ht
+    rw [LinearMap.mem_ker] at ht ⊢
+    exact Subtype.ext (hkill t (hker t ht) s s.2)
+  let φ := (LinearMap.ker L).liftQ ψ0 hle
+  let e := L.quotKerEquivRange
+  let ψ : LinearMap.range L →ₗ[R] S := φ ∘ₗ e.symm.toLinearMap
+  have hψ : ψ ≠ 0 := by
+    intro h
+    apply hs
+    have h1 : ψ (e (Submodule.Quotient.mk 1)) = s := by
+      simp [ψ, φ, ψ0]
+    rw [← h1, h, LinearMap.zero_apply]
+  obtain ⟨T, ⟨eT⟩⟩ := LinearMap.linearEquiv_of_ne_zero hψ
+  let g : S →ₗ[R] (Fin (finrank k N) → N) :=
+    (LinearMap.range L).subtype ∘ₗ T.subtype ∘ₗ eT.toLinearMap
+  have hg : Function.Injective g :=
+    Subtype.val_injective.comp (Subtype.val_injective.comp eT.injective)
+  have hg0 : g ≠ 0 := by
+    intro h
+    apply hs
+    apply hg
+    rw [h, map_zero, LinearMap.zero_apply]
+  obtain ⟨i, hi⟩ : ∃ i, LinearMap.proj i ∘ₗ g ≠ 0 := by
+    by_contra hcon
+    push Not at hcon
+    apply hg0
+    ext x i
+    exact congrArg (fun F => F x) (hcon i)
+  exact ⟨_, LinearMap.injective_of_ne_zero hi⟩
+
+/-! ## Step 3. Brauer–Nesbitt for modules over a `k`-algebra -/
+
+theorem brauerNesbitt_module : ∀ (n : ℕ) (M N : Type*)
+    [AddCommGroup M] [Module k M] [Module R M] [IsScalarTower k R M] [FiniteDimensional k M]
+    [AddCommGroup N] [Module k N] [Module R N] [IsScalarTower k R N] [FiniteDimensional k N],
+    finrank k M = n → IsSemisimpleModule R M → IsSemisimpleModule R N →
+    (∀ r : R, LinearMap.trace k M (act M r) = LinearMap.trace k N (act N r)) →
+    Nonempty (M ≃ₗ[R] N) := by
+  intro n
+  induction n using Nat.strong_induction_on with
+  | _ n ih =>
+  intro M N _ _ _ _ _ _ _ _ _ _ hn hM hN htr
+  rcases subsingleton_or_nontrivial M with hMs | hMn
+  · have h1 := htr 1
+    have e1 : act (k := k) M (1 : R) = LinearMap.id := LinearMap.ext fun x => one_smul R x
+    have e2 : act (k := k) N (1 : R) = LinearMap.id := LinearMap.ext fun x => one_smul R x
+    rw [e1, e2, ← Module.End.one_eq_id, ← Module.End.one_eq_id, LinearMap.trace_one,
+      LinearMap.trace_one, Module.finrank_zero_of_subsingleton, Nat.cast_zero, eq_comm,
+      Nat.cast_eq_zero, Module.finrank_zero_iff] at h1
+    exact ⟨LinearEquiv.ofSubsingleton M N⟩
+  obtain ⟨S, hS⟩ := IsSemisimpleModule.exists_simple_submodule R M
+  obtain ⟨j, hj⟩ := exists_injective_of_trace_eq htr S
+  obtain ⟨M', hM'⟩ := exists_isCompl S
+  obtain ⟨N', hN'⟩ := exists_isCompl (LinearMap.range j)
+  have := fd_sub (k := k) S
+  have := fd_sub (k := k) M'
+  have := fd_sub (k := k) (LinearMap.range j)
+  have := fd_sub (k := k) N'
+  let eM := Submodule.prodEquivOfIsCompl S M' hM'
+  let eN := Submodule.prodEquivOfIsCompl _ N' hN'
+  let eS : S ≃ₗ[R] LinearMap.range j := LinearEquiv.ofInjective j hj
+  have htr' : ∀ r : R, LinearMap.trace k M' (act M' r) = LinearMap.trace k N' (act N' r) := by
+    intro r
+    have h1 := htr r
+    rw [← trace_act_equiv eM, ← trace_act_equiv eN, trace_act_prod, trace_act_prod,
+      trace_act_equiv eS] at h1
+    exact add_left_cancel h1
+  have hdim : finrank k M' < n := by
+    have h1 := (eM.restrictScalars k).finrank_eq
+    rw [Module.finrank_prod] at h1
+    have : Nontrivial S := IsSimpleModule.nontrivial R S
+    have h2 : 0 < finrank k S := Module.finrank_pos
+    omega
+  obtain ⟨e'⟩ := ih _ hdim M' N' rfl inferInstance inferInstance htr'
+  exact ⟨eM.symm.trans ((eS.prodCongr e').trans eN)⟩
+
+end Main
+
+/-! ## The leaf -/
+
+theorem brauerNesbittChar0 : BrauerNesbittChar0 := by
+  intro k G V W _ _ _ _ _ _ _ _ _ ρ σ hρ hσ htr
+  refine brauerNesbitt_module (k := k) (R := MonoidAlgebra k G) _ ρ.asModule σ.asModule rfl hρ hσ ?_
+  intro r
+  induction r using MonoidAlgebra.induction_on with
+  | of g =>
+    have e1 : ∀ (U : Type) [AddCommGroup U] [Module k U] [FiniteDimensional k U]
+        (τ : Representation k G U),
+        LinearMap.trace k τ.asModule (act τ.asModule (MonoidAlgebra.of k G g)) =
+          LinearMap.trace k U (τ g) := by
+      intro U _ _ _ τ
+      rw [← LinearMap.trace_conj' _ τ.asModuleEquiv]
+      congr 1
+      ext x
+      simp [LinearEquiv.conj_apply]
+      rfl
+    rw [e1, e1]
+    exact htr g
+  | add f g hf hg =>
+    rw [show act (k := k) ρ.asModule (f + g) = act ρ.asModule f + act ρ.asModule g from
+      LinearMap.ext fun x => add_smul f g x,
+      show act (k := k) σ.asModule (f + g) = act σ.asModule f + act σ.asModule g from
+      LinearMap.ext fun x => add_smul f g x, map_add, map_add, hf, hg]
+  | smul c f hf =>
+    rw [show act (k := k) ρ.asModule (c • f) = c • act ρ.asModule f from
+      LinearMap.ext fun x => smul_assoc c f x,
+      show act (k := k) σ.asModule (c • f) = c • act σ.asModule f from
+      LinearMap.ext fun x => smul_assoc c f x, map_smul, map_smul, hf]
+
+
+/-! ## The matrix form `HSyn.BrauerNesbitt` -/
+
+/-- **L19. Brauer–Nesbitt.** Verbatim `HSyn.BrauerNesbitt`. -/
+def HSynBrauerNesbitt : Prop :=
+  ∀ (G : Type) [Group G] (E : Type) [Field E] [CharZero E] (n : ℕ)
+    (ρ₁ ρ₂ : G →* GL (Fin n) E),
+    (∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E)) ≤ W') →
+    (∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)) ≤ W') →
+    (∀ g, Matrix.trace (ρ₁ g : Matrix (Fin n) (Fin n) E) =
+      Matrix.trace (ρ₂ g : Matrix (Fin n) (Fin n) E)) →
+    ∃ P : GL (Fin n) E, ∀ g, ρ₂ g = P * ρ₁ g * P⁻¹
+
+section Matrix
+
+variable {G E : Type} [Group G] [Field E] {n : ℕ}
+
+/-- The representation of `G` on `E^n` given by a homomorphism to `GL_n(E)`. -/
+noncomputable def repOfGL (ρ : G →* GL (Fin n) E) : Representation E G (Fin n → E) :=
+  (Matrix.toLinAlgEquiv' : Matrix (Fin n) (Fin n) E ≃ₐ[E] Module.End E (Fin n → E)).toAlgHom
+    |>.toMonoidHom.comp ((Units.coeHom _).comp ρ)
+
+theorem repOfGL_apply (ρ : G →* GL (Fin n) E) (g : G) :
+    repOfGL ρ g = Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E) := rfl
+
+theorem isSemisimpleModule_repOfGL (ρ : G →* GL (Fin n) E)
+    (h : ∀ W : Submodule E (Fin n → E),
+      (∀ g, W.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ W) →
+      ∃ W', IsCompl W W' ∧ ∀ g, W'.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ W') :
+    IsSemisimpleModule (MonoidAlgebra E G) (repOfGL ρ).asModule := by
+  rw [isSemisimpleModule_iff]
+  refine (OrderIso.complementedLattice_iff (repOfGL ρ).mapSubmodule).1 ⟨fun ⟨p, hp⟩ => ?_⟩
+  have hp' : ∀ g, p.map (Matrix.toLin' (ρ g : Matrix (Fin n) (Fin n) E)) ≤ p := fun g =>
+    (Module.End.mem_invtSubmodule_iff_map_le _).1 ((repOfGL ρ).mem_invtSubmodule.1 hp g)
+  obtain ⟨W', hc, hW'⟩ := h p hp'
+  have hW'mem : W' ∈ (repOfGL ρ).invtSubmodule :=
+    (repOfGL ρ).mem_invtSubmodule.2 fun g => (Module.End.mem_invtSubmodule_iff_map_le _).2 (hW' g)
+  refine ⟨⟨W', hW'mem⟩, ?_, ?_⟩
+  · rw [disjoint_iff]
+    apply Subtype.ext
+    exact hc.inf_eq_bot
+  · rw [codisjoint_iff]
+    apply Subtype.ext
+    exact hc.sup_eq_top
+
+end Matrix
+
+theorem hsynBrauerNesbitt : HSynBrauerNesbitt := by
+  intro G _ E _ _ n ρ₁ ρ₂ h₁ h₂ htr
+  obtain ⟨φ⟩ := brauerNesbittChar0 E G (Fin n → E) (Fin n → E) (repOfGL ρ₁) (repOfGL ρ₂)
+    (isSemisimpleModule_repOfGL ρ₁ h₁) (isSemisimpleModule_repOfGL ρ₂ h₂)
+    (fun g => by rw [repOfGL_apply, repOfGL_apply, Matrix.trace_toLin'_eq,
+      Matrix.trace_toLin'_eq, htr g])
+  let f : (Fin n → E) ≃ₗ[E] (Fin n → E) :=
+    ((repOfGL ρ₁).asModuleEquiv.symm.trans (φ.restrictScalars E)).trans
+      (repOfGL ρ₂).asModuleEquiv
+  have hf : ∀ g x, f (Matrix.toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E) x) =
+      Matrix.toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E) (f x) := by
+    intro g x
+    rw [← repOfGL_apply, ← repOfGL_apply]
+    simp only [f, LinearEquiv.trans_apply, Representation.asModuleEquiv_symm_map_rho,
+      LinearEquiv.restrictScalars_apply, map_smul, Representation.asModuleEquiv_map_smul,
+      Representation.asAlgebraHom_of]
+  let P : GL (Fin n) E :=
+    ⟨LinearMap.toMatrix' f.toLinearMap, LinearMap.toMatrix' f.symm.toLinearMap,
+      by rw [← LinearMap.toMatrix'_comp]; simp, by rw [← LinearMap.toMatrix'_comp]; simp⟩
+  refine ⟨P, fun g => Units.ext ?_⟩
+  change (ρ₂ g : Matrix (Fin n) (Fin n) E) = LinearMap.toMatrix' f.toLinearMap *
+    (ρ₁ g : Matrix (Fin n) (Fin n) E) * LinearMap.toMatrix' f.symm.toLinearMap
+  rw [← LinearMap.toMatrix'_toLin' (ρ₁ g : Matrix (Fin n) (Fin n) E), ← LinearMap.toMatrix'_comp,
+    ← LinearMap.toMatrix'_comp]
+  conv_lhs => rw [← LinearMap.toMatrix'_toLin' (ρ₂ g : Matrix (Fin n) (Fin n) E)]
+  congr 1
+  ext x
+  simp only [LinearMap.comp_apply, LinearEquiv.coe_coe]
+  rw [hf, LinearEquiv.apply_symm_apply]
+
+end TSkolemKW
+
+-- ===== FrobeniusDense.lean (part `TSkolemKW.C10` deleted: it is `GlueC10` of Leaves.lean) =====
+/-!
+# t-skolem-kw: leaf T18 (Frobenius density) reduced to its finite form
+
+`HSyn.FrobeniusDense` (verbatim below as `HS.FrobeniusDense`, over `HSyn`'s `Qbar`, `GQ`,
+`LiesOver`, `IsArithFrob`, also verbatim) is proved from `PkgI6.ChebotarevExists`
+(= `GlueC10.ChebotarevExists`, verbatim).  So T18 rests on the finite (existence) form of
+Chebotarev's theorem alone.
+
+Part C10 is copied verbatim from `scratch/h-decomposition/Leaves.lean`, section `GlueC10Sec`
+(lines 11328-11333, 11375-11630, 11747-11750 at base 01267822): the lift of a finite-level
+Frobenius to `G_ℚ` at a prime of `\bar ℤ`.  New here (`HS` section): the localization of `\bar ℤ`
+at a prime `𝔓` is a valuation subring of `\bar ℚ` (`zbarLoc`, via the DVR `(𝓞_E)_{𝔓 ∩ 𝓞_E}` of
+each finite layer), an arithmetic Frobenius at `𝔓` is an `IsArithFrob` at this place, and the
+Krull-topology step.
+-/
+
+open NumberField
+
+/-! ## `HSyn.FrobeniusDense` from the finite form -/
+
+namespace TSkolemKW.HS
+
+open scoped Pointwise
+open GlueC10 (ChebotarevExists FrobDense IsFrobAt Zbar toZbar toZbar_coe frobDense)
+
+/-! ### Definitions (verbatim from `HSyn` §0-§1 of `scratch/h-decomposition/Leaves.lean`) -/
+
+/-- `ℚ̄`. -/
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- `G_ℚ = Gal(ℚ̄/ℚ)`, with Mathlib's Krull topology. -/
+abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
+
+/-- `v` is a place of `ℚ̄` above the prime `p`: a valuation subring of `ℚ̄` in which `p` is not a
+unit. -/
+def LiesOver (v : ValuationSubring Qbar) (p : ℕ) : Prop := (p : Qbar) ∈ v.nonunits
+
+/-- `σ` is an arithmetic Frobenius at the place `v` above `p`. -/
+def IsArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) : Prop :=
+  σ ∈ v.decompositionSubgroup ℚ ∧ ∀ x ∈ v, σ x - x ^ p ∈ v.nonunits
+
+/-- **L18. Chebotarev, in the density form used** (Neukirch VII.13.4; Tau Ceti). Frobenius
+elements are dense in `G_ℚ`, avoiding any finite set of primes. Consequence. -/
+def FrobeniusDense : Prop :=
+  ∀ (U : Subgroup GQ), IsOpen (U : Set GQ) → ∀ (σ : GQ) (S : Finset ℕ),
+    ∃ p, p.Prime ∧ p ∉ S ∧ ∃ (v : ValuationSubring Qbar) (τ : GQ),
+      LiesOver v p ∧ IsArithFrob τ v p ∧ τ⁻¹ * σ ∈ U
+
+/-! ### The localization of `\bar ℤ` at a prime is a valuation subring of `\bar ℚ` -/
+
+variable (P : Ideal Zbar) [hP : P.IsPrime]
+
+/-- Membership in `\bar ℤ_𝔓`. -/
+def LocMem (x : Qbar) : Prop := ∃ a s : Zbar, s ∉ P ∧ x * (s : Qbar) = a
+
+theorem one_notMem : (1 : Zbar) ∉ P := (Ideal.ne_top_iff_one P).1 hP.ne_top
+
+omit hP in
+theorem natCast_mem (p : ℕ) (hPp : P.under ℤ = Ideal.span {(p : ℤ)}) : (p : Zbar) ∈ P := by
+  have h1 : (p : ℤ) ∈ P.under ℤ := by rw [hPp]; exact Ideal.mem_span_singleton_self _
+  have h2 : algebraMap ℤ Zbar (p : ℤ) ∈ P := h1
+  simpa using h2
+
+omit hP in
+/-- In a number field `K`, for a nonzero prime `Q` of `𝓞_K`, every `x ∈ K` or its inverse is a
+fraction `r / s` with `s ∉ Q` (the localization `(𝓞_K)_Q` is a DVR, hence a valuation ring). -/
+theorem exists_frac_or_inv (K : Type) [Field K] [NumberField K] (Q : Ideal (𝓞 K)) [Q.IsPrime]
+    (hQ0 : Q ≠ ⊥) (x : K) (hx0 : x ≠ 0) :
+    ∃ r s : 𝓞 K, s ∉ Q ∧ (x * (s : K) = r ∨ x⁻¹ * (s : K) = r) := by
+  let Aₘ := Localization.AtPrime Q
+  haveI := IsLocalization.AtPrime.isDiscreteValuationRing_of_dedekind_domain (𝓞 K) hQ0 Aₘ
+  obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (A := 𝓞 K) x
+  have hb0 : (b : K) ≠ 0 := by
+    have := nonZeroDivisors.ne_zero hb
+    exact_mod_cast this
+  have ha0 : (a : K) ≠ 0 := by
+    intro h
+    apply hx0
+    rw [← hab]
+    change (a : K) / (b : K) = 0
+    rw [h, zero_div]
+  obtain ⟨c, hc⟩ := PreValuationRing.cond (algebraMap (𝓞 K) Aₘ a) (algebraMap (𝓞 K) Aₘ b)
+  obtain ⟨⟨r, s, hs⟩, rfl⟩ := IsLocalization.mk'_surjective Q.primeCompl c
+  have hinj := IsLocalization.injective Aₘ Q.primeCompl_le_nonZeroDivisors
+  refine ⟨r, s, hs, ?_⟩
+  rcases hc with hc | hc
+  · right
+    have e : a * r = b * s := by
+      apply hinj
+      rw [map_mul, map_mul, ← hc, mul_assoc]
+      congr 1
+      exact (IsLocalization.mk'_spec Aₘ r ⟨s, hs⟩).symm
+    have eE : (a : K) * (r : K) = (b : K) * (s : K) := by
+      exact_mod_cast congrArg (fun z : 𝓞 K => (z : K)) e
+    rw [← hab]
+    change ((a : K) / (b : K))⁻¹ * (s : K) = (r : K)
+    field_simp
+    linear_combination eE.symm
+  · left
+    have e : b * r = a * s := by
+      apply hinj
+      rw [map_mul, map_mul, ← hc, mul_assoc]
+      congr 1
+      exact (IsLocalization.mk'_spec Aₘ r ⟨s, hs⟩).symm
+    have eE : (b : K) * (r : K) = (a : K) * (s : K) := by
+      exact_mod_cast congrArg (fun z : 𝓞 K => (z : K)) e
+    rw [← hab]
+    change (a : K) / (b : K) * (s : K) = (r : K)
+    field_simp
+    linear_combination eE.symm
+
+/-- Every `x ∈ \bar ℚ` or its inverse lies in `\bar ℤ_𝔓`: pass to the DVR `(𝓞_E)_{𝔓 ∩ 𝓞_E}`
+for `E = ℚ(x)`. -/
+theorem locMem_or_inv (p : ℕ) (hp : p.Prime) (hPp : P.under ℤ = Ideal.span {(p : ℤ)})
+    (x : Qbar) : LocMem P x ∨ LocMem P x⁻¹ := by
+  by_cases hx0 : x = 0
+  · left
+    exact ⟨0, 1, one_notMem P, by simp [hx0]⟩
+  have hxi : IsIntegral ℚ x := Algebra.IsIntegral.isIntegral _
+  let E := IntermediateField.adjoin ℚ ({x} : Set Qbar)
+  have : FiniteDimensional ℚ E := IntermediateField.adjoin.finiteDimensional hxi
+  have : NumberField E := ⟨⟩
+  let Q := P.comap (toZbar E)
+  have : Q.IsPrime := Ideal.comap_isPrime _ _
+  have hpQ : ((p : ℤ) : 𝓞 E) ∈ Q := by
+    change toZbar E ((p : ℤ) : 𝓞 E) ∈ P
+    simpa using natCast_mem P p hPp
+  have hQ0 : Q ≠ ⊥ := by
+    intro h0
+    rw [h0, Ideal.mem_bot] at hpQ
+    exact (by exact_mod_cast hp.ne_zero : ((p : ℤ) : 𝓞 E) ≠ 0) hpQ
+  let x' : E := ⟨x, IntermediateField.mem_adjoin_simple_self ℚ x⟩
+  have hx'0 : x' ≠ 0 := fun h => hx0 (congrArg Subtype.val h)
+  obtain ⟨r, s, hs, h | h⟩ := exists_frac_or_inv E Q hQ0 x' hx'0
+  · left
+    refine ⟨toZbar E r, toZbar E s, hs, ?_⟩
+    rw [toZbar_coe, toZbar_coe]
+    have := congrArg (fun z : E => (z : Qbar)) h
+    simpa using this
+  · right
+    refine ⟨toZbar E r, toZbar E s, hs, ?_⟩
+    rw [toZbar_coe, toZbar_coe]
+    have := congrArg (fun z : E => (z : Qbar)) h
+    simpa using this
+
+/-- `\bar ℤ_𝔓` as a valuation subring of `\bar ℚ`. -/
+def zbarLoc (p : ℕ) (hp : p.Prime) (hPp : P.under ℤ = Ideal.span {(p : ℤ)}) :
+    ValuationSubring Qbar where
+  carrier := {x | LocMem P x}
+  mul_mem' := by
+    rintro x y ⟨a, s, hs, ha⟩ ⟨b, t, ht, hb⟩
+    refine ⟨a * b, s * t, fun h => (hP.mem_or_mem h).elim hs ht, ?_⟩
+    push_cast
+    linear_combination (y * (t : Qbar)) * ha + (a : Qbar) * hb
+  one_mem' := ⟨1, 1, one_notMem P, by simp⟩
+  add_mem' := by
+    rintro x y ⟨a, s, hs, ha⟩ ⟨b, t, ht, hb⟩
+    refine ⟨a * t + b * s, s * t, fun h => (hP.mem_or_mem h).elim hs ht, ?_⟩
+    push_cast
+    linear_combination (t : Qbar) * ha + (s : Qbar) * hb
+  zero_mem' := ⟨0, 1, one_notMem P, by simp⟩
+  neg_mem' := by
+    rintro x ⟨a, s, hs, ha⟩
+    refine ⟨-a, s, hs, ?_⟩
+    push_cast
+    linear_combination -ha
+  mem_or_inv_mem' := locMem_or_inv P p hp hPp
+
+theorem mem_zbarLoc {p : ℕ} {hp : p.Prime} {hPp : P.under ℤ = Ideal.span {(p : ℤ)}} {x : Qbar} :
+    x ∈ zbarLoc P p hp hPp ↔ LocMem P x := Iff.rfl
+
+/-! ### An arithmetic Frobenius at `𝔓` is an `IsArithFrob` at `\bar ℤ_𝔓` -/
+
+/-- `g ∈ G_ℚ` maps `\bar ℤ` to itself. -/
+def gZ (g : GQ) (z : Zbar) : Zbar :=
+  ⟨g z, (z.2 : IsIntegral ℤ (z : Qbar)).map ((g : Qbar →ₐ[ℚ] Qbar).restrictScalars ℤ)⟩
+
+@[simp] theorem gZ_coe (g : GQ) (z : Zbar) : ((gZ g z : Zbar) : Qbar) = g z := rfl
+
+theorem liesOver_and_isArithFrob (h : GQ) (p : ℕ) (hp : p.Prime)
+    (hPp : P.under ℤ = Ideal.span {(p : ℤ)})
+    (hh : ∀ x y : Zbar, (y : Qbar) = h (x : Qbar) - (x : Qbar) ^ p → y ∈ P) :
+    LiesOver (zbarLoc P p hp hPp) p ∧ IsArithFrob h (zbarLoc P p hp hPp) p := by
+  have hcong : ∀ z : Zbar, gZ h z - z ^ p ∈ P := fun z => hh z _ (by push_cast; rfl)
+  have hmemP : ∀ z : Zbar, gZ h z ∈ P ↔ z ∈ P := by
+    intro z
+    constructor
+    · intro hz
+      have : z ^ p ∈ P := by
+        have := P.sub_mem hz (hcong z)
+        rwa [sub_sub_cancel] at this
+      exact hP.mem_of_pow_mem p this
+    · intro hz
+      have := P.add_mem (hcong z) (P.pow_mem_of_mem hz p hp.pos)
+      rwa [sub_add_cancel] at this
+  have hpP := natCast_mem P p hPp
+  refine ⟨?_, ?_, ?_⟩
+  · -- `p` is a nonunit
+    rw [LiesOver, ValuationSubring.mem_nonunits_iff_or]
+    right
+    rintro ⟨a, s, hs, ha⟩
+    apply hs
+    have : s = (p : Zbar) * a := by
+      apply Subtype.ext
+      push_cast
+      rw [← ha, ← mul_assoc, mul_inv_cancel₀ (by exact_mod_cast hp.ne_zero), one_mul]
+    rw [this]
+    exact P.mul_mem_right _ hpP
+  · -- `h` stabilizes the place
+    refine MulAction.mem_stabilizer_iff.2 (SetLike.ext fun x => ?_)
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem, AlgEquiv.smul_def]
+    constructor
+    · rintro ⟨a, s, hs, ha⟩
+      refine ⟨gZ h a, gZ h s, fun h' => hs ((hmemP s).1 h'), ?_⟩
+      have := congrArg h ha
+      rw [map_mul] at this
+      simpa [AlgEquiv.aut_inv] using this
+    · rintro ⟨a, s, hs, ha⟩
+      have hts : gZ h (gZ h⁻¹ s) = s := by
+        apply Subtype.ext
+        simp [AlgEquiv.aut_inv]
+      refine ⟨gZ h⁻¹ a, gZ h⁻¹ s, fun h' => hs (hts ▸ (hmemP _).2 h'), ?_⟩
+      have := congrArg (fun y => (h⁻¹ : GQ) y) ha
+      simp only [map_mul] at this
+      simpa using this
+  · -- the Frobenius congruence on the place
+    rintro x ⟨a, s, hs, ha⟩
+    rw [ValuationSubring.mem_nonunits_iff_or]
+    by_cases hd : h x - x ^ p = 0
+    · exact Or.inl hd
+    right
+    rintro ⟨a', s', hs', hd'⟩
+    let n : Zbar := gZ h a * s ^ p - a ^ p * gZ h s
+    have hn : n ∈ P := by
+      have : n = (gZ h a - a ^ p) * s ^ p - a ^ p * (gZ h s - s ^ p) := by ring
+      rw [this]
+      exact P.sub_mem (P.mul_mem_right _ (hcong a)) (P.mul_mem_left _ (hcong s))
+    have e1 : h x * h (s : Qbar) = h (a : Qbar) := by rw [← map_mul, ha]
+    have e2 : x ^ p * (s : Qbar) ^ p = (a : Qbar) ^ p := by rw [← mul_pow, ha]
+    have e3 : (h x - x ^ p) * (h (s : Qbar) * (s : Qbar) ^ p) = (n : Qbar) := by
+      simp only [n]
+      push_cast
+      simp only [gZ_coe]
+      linear_combination ((s : Qbar) ^ p) * e1 - (h (s : Qbar)) * e2
+    have e4 : (s' : Qbar) = (h x - x ^ p) * (a' : Qbar) := by
+      rw [← hd', ← mul_assoc, mul_inv_cancel₀ hd, one_mul]
+    have e5 : s' * (gZ h s * s ^ p) = a' * n := by
+      apply Subtype.ext
+      push_cast
+      simp only [gZ_coe]
+      rw [e4, ← e3]
+      ring
+    have hmem : s' * (gZ h s * s ^ p) ∈ P := e5 ▸ P.mul_mem_left _ hn
+    rcases hP.mem_or_mem hmem with h1 | h1
+    · exact hs' h1
+    rcases hP.mem_or_mem h1 with h2 | h2
+    · exact hs ((hmemP s).1 h2)
+    · exact hs (hP.mem_of_pow_mem p h2)
+
+/-! ### The reduction -/
+
+/-- **T18 from its finite form, via `FrobDense` (GLUE, proved).** -/
+theorem frobeniusDense_of_frobDense (hD : ∀ S, FrobDense S) : FrobeniusDense := by
+  intro U hU σ S
+  obtain ⟨E, hE, hEU⟩ :=
+    (krullTopology_mem_nhds_one_iff ℚ Qbar (U : Set GQ)).1 (hU.mem_nhds U.one_mem)
+  obtain ⟨h, p, hp, hpS, ⟨P, hP, hPp, hh⟩, hhE⟩ := hD S E hE σ
+  obtain ⟨hL, hF⟩ := liesOver_and_isArithFrob P h p hp hPp hh
+  refine ⟨p, hp, hpS, zbarLoc P p hp hPp, h, hL, hF, hEU ?_⟩
+  rw [SetLike.mem_coe, IntermediateField.mem_fixingSubgroup_iff]
+  intro x hx
+  rw [AlgEquiv.mul_apply, AlgEquiv.aut_inv, ← hhE x hx, AlgEquiv.symm_apply_apply]
+
+/-- **T18 (`HSyn.FrobeniusDense`) from the finite form `PkgI6.ChebotarevExists` (GLUE,
+proved).** -/
+theorem frobeniusDense_of_chebotarev (hC : ChebotarevExists) : FrobeniusDense :=
+  frobeniusDense_of_frobDense fun S => frobDense hC S
+
+end TSkolemKW.HS
+
+-- ===== KroneckerWeberUse.lean =====
+/-!
+# t-skolem-kw: leaf T17 (Kronecker–Weber) in the form the proof uses
+
+T17 itself (`HSyn.KroneckerWeber`, verbatim below) is NOT proved here (see
+`docs/research/t-skolem-kw.md`).  This file proves the glue that turns it into the form step C8
+of h-trust uses ("the fixed field of `ker ψ` is finite abelian over `ℚ`, hence cyclotomic, so `ψ`
+is a Dirichlet character"; glue-assembly §2.1 listed it as "not written"):
+
+* `ker_ge_of_kroneckerWeber`: for a homomorphism `ψ : G_ℚ → G` to a commutative group with open
+  kernel, there is `m ≥ 1` such that `ψ` kills every `σ` fixing all `m`-th roots of unity;
+* `eq_of_agree_on_roots`: `ψ σ` depends only on the action of `σ` on the `m`-th roots of unity,
+  i.e. `ψ` factors through `Gal(ℚ(μ_m)/ℚ) ≅ (ℤ/m)ˣ`;
+* `isOpen_ker_of_continuous`: a continuous homomorphism with finite image to a `T1` group has
+  open kernel (the hypothesis as it arises in C8, `ψ` with values in `\bar ℚ₅^×`);
+* `KroneckerWeberCyclic` (T17 for cyclic `L/ℚ`, a consequence of T17:
+  `kroneckerWeberCyclic_of_kroneckerWeber`) already suffices when `ψ` takes values in a field:
+  `ker_ge_of_kroneckerWeberCyclic`, `eq_of_agree_on_roots_cyclic` (`Gal(L/ℚ) ≅ im ψ ⊆ Eˣ` is
+  cyclic).
+-/
+
+namespace TSkolemKW.KW
+
+/-- `ℚ̄` (as in `HSyn`). -/
+abbrev Qbar := AlgebraicClosure ℚ
+
+/-- `G_ℚ = Gal(ℚ̄/ℚ)`, with Mathlib's Krull topology (as in `HSyn`). -/
+abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
+
+/-- **L17. Kronecker–Weber** (Washington, *Cyclotomic fields*, Thm 14.1; Tau Ceti
+`kroneckerWeber`). Exact.  Verbatim `HSyn.KroneckerWeber`. -/
+def KroneckerWeber : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] [IsGalois ℚ L],
+    (∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ) →
+    ∃ n : ℕ+, Nonempty (L →ₐ[ℚ] CyclotomicField (n : ℕ) ℚ)
+
+instance : IsGalois ℚ Qbar := ⟨⟩
+
+/-- A normal subfield `L ⊆ \bar ℚ` that embeds in `ℚ(ζ_m)` lies in the field generated by the
+`m`-th roots of unity, so every `σ` fixing them fixes `L`. -/
+theorem fixes_of_embeds (L : IntermediateField ℚ Qbar) [Normal ℚ L] (m : ℕ+)
+    (j : L →ₐ[ℚ] CyclotomicField (m : ℕ) ℚ) (σ : GQ)
+    (hσ : ∀ ζ : Qbar, ζ ^ (m : ℕ) = 1 → σ ζ = ζ) (x : Qbar) (hx : x ∈ L) : σ x = x := by
+  -- `L` is normal, so it is the image of `ι ∘ j` for any embedding `ι` of `ℚ(ζ_m)` into `ℚ̄`
+  let ι : CyclotomicField (m : ℕ) ℚ →ₐ[ℚ] Qbar := IsAlgClosed.lift
+  have hrange : (ι.comp j).fieldRange = L := AlgHom.fieldRange_of_normal (ι.comp j)
+  have hxr : x ∈ (ι.comp j).fieldRange := by rw [hrange]; exact hx
+  obtain ⟨y, rfl⟩ := hxr
+  -- `σ` fixes the subalgebra generated by the `m`-th roots of unity
+  let Eq := AlgHom.equalizer (σ : Qbar →ₐ[ℚ] Qbar) (AlgHom.id ℚ Qbar)
+  have hT : Algebra.adjoin ℚ {w : Qbar | w ^ (m : ℕ) = 1} ≤ Eq :=
+    Algebra.adjoin_le fun w hw => hσ w hw
+  have : NeZero ((m : ℕ) : ℚ) := ⟨by exact_mod_cast m.ne_zero⟩
+  have := CyclotomicField.isCyclotomicExtension (m : ℕ) ℚ
+  have hy : j y ∈ Algebra.adjoin ℚ
+      {b : CyclotomicField (m : ℕ) ℚ | ∃ n : ℕ, n ∈ ({(m : ℕ)} : Set ℕ) ∧ n ≠ 0 ∧ b ^ n = 1} :=
+    (CyclotomicField.isCyclotomicExtension (m : ℕ) ℚ).adjoin_roots (j y)
+  have hιy : ι (j y) ∈ Algebra.adjoin ℚ {w : Qbar | w ^ (m : ℕ) = 1} := by
+    have h1 : ι (j y) ∈ (Algebra.adjoin ℚ
+        {b : CyclotomicField (m : ℕ) ℚ | ∃ n : ℕ, n ∈ ({(m : ℕ)} : Set ℕ) ∧ n ≠ 0 ∧ b ^ n = 1}).map ι :=
+      Subalgebra.mem_map.2 ⟨_, hy, rfl⟩
+    rw [AlgHom.map_adjoin] at h1
+    have h2 : (ι : CyclotomicField (m : ℕ) ℚ → Qbar) ''
+        {b : CyclotomicField (m : ℕ) ℚ | ∃ n : ℕ, n ∈ ({(m : ℕ)} : Set ℕ) ∧ n ≠ 0 ∧ b ^ n = 1} ⊆
+        {w : Qbar | w ^ (m : ℕ) = 1} := by
+      rintro _ ⟨b, ⟨n, hn, -, hb⟩, rfl⟩
+      rw [Set.mem_singleton_iff] at hn
+      subst hn
+      change ι b ^ (m : ℕ) = 1
+      rw [← map_pow, hb, map_one]
+    exact Algebra.adjoin_mono h2 h1
+  exact hT hιy
+
+/-- **Finite-order characters of `G_ℚ` are Dirichlet characters (GLUE, proved from T17).** -/
+theorem ker_ge_of_kroneckerWeber (hKW : KroneckerWeber) {G : Type*} [CommGroup G]
+    (ψ : GQ →* G) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ m : ℕ+, ∀ σ : GQ, (∀ ζ : Qbar, ζ ^ (m : ℕ) = 1 → σ ζ = ζ) → ψ σ = 1 := by
+  let H : ClosedSubgroup GQ := ⟨ψ.ker, Subgroup.isClosed_of_isOpen _ hψ⟩
+  let L : IntermediateField ℚ Qbar := IntermediateField.fixedField (H : Subgroup GQ)
+  have hLfix : L.fixingSubgroup = ψ.ker := InfiniteGalois.fixingSubgroup_fixedField H
+  have hfin : FiniteDimensional ℚ L :=
+    (InfiniteGalois.isOpen_iff_finite L).1 (by
+      change IsOpen (L.fixingSubgroup : Set GQ)
+      rw [hLfix]
+      exact hψ)
+  have hgal : IsGalois ℚ L :=
+    (InfiniteGalois.normal_iff_isGalois L).1 (by rw [hLfix]; exact ψ.normal_ker)
+  have : NumberField L := ⟨⟩
+  have hab : ∀ σ τ : L ≃ₐ[ℚ] L, σ * τ = τ * σ := by
+    intro σ τ
+    obtain ⟨σ', rfl⟩ := AlgEquiv.restrictNormalHom_surjective Qbar σ
+    obtain ⟨τ', rfl⟩ := AlgEquiv.restrictNormalHom_surjective Qbar τ
+    rw [← map_mul, ← map_mul, MonoidHom.eq_iff, L.restrictNormalHom_ker, hLfix,
+      MonoidHom.mem_ker, map_mul, map_inv, map_mul, map_mul, mul_comm (ψ τ') (ψ σ'),
+      inv_mul_cancel]
+  obtain ⟨m, ⟨j⟩⟩ := hKW L hab
+  refine ⟨m, fun σ hσ => ?_⟩
+  rw [← MonoidHom.mem_ker, ← hLfix, IntermediateField.mem_fixingSubgroup_iff]
+  intro x hx
+  exact fixes_of_embeds L m j σ hσ x hx
+
+/-! ## The case C8 uses: cyclic extensions -/
+
+/-- **Kronecker–Weber for cyclic extensions** (the case step C8 uses: the fixed field of the kernel
+of a finite-order character with values in a field).  A consequence of `KroneckerWeber`
+(`kroneckerWeberCyclic_of_kroneckerWeber`), so never stronger than the published theorem. -/
+def KroneckerWeberCyclic : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] [IsGalois ℚ L], IsCyclic (L ≃ₐ[ℚ] L) →
+    ∃ n : ℕ+, Nonempty (L →ₐ[ℚ] CyclotomicField (n : ℕ) ℚ)
+
+theorem kroneckerWeberCyclic_of_kroneckerWeber (h : KroneckerWeber) : KroneckerWeberCyclic := by
+  intro L _ _ _ hc
+  let _ : CommGroup (L ≃ₐ[ℚ] L) := IsCyclic.commGroup
+  exact h L fun σ τ => mul_comm σ τ
+
+/-- **Finite-order characters of `G_ℚ` with values in a field are Dirichlet characters (GLUE,
+proved from the cyclic case of T17).** -/
+theorem ker_ge_of_kroneckerWeberCyclic (hKW : KroneckerWeberCyclic) {E : Type*} [Field E]
+    (ψ : GQ →* Eˣ) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ m : ℕ+, ∀ σ : GQ, (∀ ζ : Qbar, ζ ^ (m : ℕ) = 1 → σ ζ = ζ) → ψ σ = 1 := by
+  let H : ClosedSubgroup GQ := ⟨ψ.ker, Subgroup.isClosed_of_isOpen _ hψ⟩
+  let L : IntermediateField ℚ Qbar := IntermediateField.fixedField (H : Subgroup GQ)
+  have hLfix : L.fixingSubgroup = ψ.ker := InfiniteGalois.fixingSubgroup_fixedField H
+  have hfin : FiniteDimensional ℚ L :=
+    (InfiniteGalois.isOpen_iff_finite L).1 (by
+      change IsOpen (L.fixingSubgroup : Set GQ)
+      rw [hLfix]
+      exact hψ)
+  have hgal : IsGalois ℚ L :=
+    (InfiniteGalois.normal_iff_isGalois L).1 (by rw [hLfix]; exact ψ.normal_ker)
+  have : NumberField L := ⟨⟩
+  -- `Gal(L/ℚ) ≅ G_ℚ / ker ψ ≅ im ψ ⊆ Eˣ` is cyclic
+  have hker : (AlgEquiv.restrictNormalHom (K₁ := Qbar) L).ker = ψ.ker := by
+    rw [L.restrictNormalHom_ker, hLfix]
+  let e : (L ≃ₐ[ℚ] L) ≃* ψ.range :=
+    ((QuotientGroup.quotientKerEquivOfSurjective _
+      (AlgEquiv.restrictNormalHom_surjective Qbar)).symm.trans
+      (QuotientGroup.quotientMulEquivOfEq hker)).trans (QuotientGroup.quotientKerEquivRange ψ)
+  have hcyc : IsCyclic (L ≃ₐ[ℚ] L) :=
+    isCyclic_of_injective_ringHom ((Units.coeHom E).comp (ψ.range.subtype.comp e.toMonoidHom))
+      (Units.val_injective.comp (Subtype.val_injective.comp e.injective))
+  obtain ⟨m, ⟨j⟩⟩ := hKW L hcyc
+  refine ⟨m, fun σ hσ => ?_⟩
+  rw [← MonoidHom.mem_ker, ← hLfix, IntermediateField.mem_fixingSubgroup_iff]
+  intro x hx
+  exact fixes_of_embeds L m j σ hσ x hx
+
+/-- `ψ σ` depends only on the action of `σ` on the `m`-th roots of unity, i.e. `ψ` factors
+through `Gal(ℚ(μ_m)/ℚ) ≅ (ℤ/m)ˣ` (GLUE, proved from T17). -/
+theorem eq_of_agree_on_roots (hKW : KroneckerWeber) {G : Type*} [CommGroup G]
+    (ψ : GQ →* G) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ m : ℕ+, ∀ σ τ : GQ, (∀ ζ : Qbar, ζ ^ (m : ℕ) = 1 → σ ζ = τ ζ) → ψ σ = ψ τ := by
+  obtain ⟨m, hm⟩ := ker_ge_of_kroneckerWeber hKW ψ hψ
+  refine ⟨m, fun σ τ h => ?_⟩
+  have h1 : ψ (τ⁻¹ * σ) = 1 := hm _ fun ζ hζ => by
+    rw [AlgEquiv.mul_apply, h ζ hζ, AlgEquiv.aut_inv, AlgEquiv.symm_apply_apply]
+  rw [map_mul, map_inv, inv_mul_eq_one] at h1
+  exact h1.symm
+
+/-- The cyclic-case version of `eq_of_agree_on_roots`, for `ψ` with values in a field. -/
+theorem eq_of_agree_on_roots_cyclic (hKW : KroneckerWeberCyclic) {E : Type*} [Field E]
+    (ψ : GQ →* Eˣ) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ m : ℕ+, ∀ σ τ : GQ, (∀ ζ : Qbar, ζ ^ (m : ℕ) = 1 → σ ζ = τ ζ) → ψ σ = ψ τ := by
+  obtain ⟨m, hm⟩ := ker_ge_of_kroneckerWeberCyclic hKW ψ hψ
+  refine ⟨m, fun σ τ h => ?_⟩
+  have h1 : ψ (τ⁻¹ * σ) = 1 := hm _ fun ζ hζ => by
+    rw [AlgEquiv.mul_apply, h ζ hζ, AlgEquiv.aut_inv, AlgEquiv.symm_apply_apply]
+  rw [map_mul, map_inv, inv_mul_eq_one] at h1
+  exact h1.symm
+
+/-! ## The Dirichlet character, through Mathlib's mod-`m` cyclotomic character -/
+
+/-- A primitive `m`-th root of unity in `ℚ̄` (a root of the `m`-th cyclotomic polynomial). -/
+theorem exists_isPrimitiveRoot_qbar (m : ℕ+) : ∃ ζ : Qbar, IsPrimitiveRoot ζ (m : ℕ) := by
+  have : NeZero ((m : ℕ) : Qbar) := ⟨by exact_mod_cast m.ne_zero⟩
+  obtain ⟨ζ, hζ⟩ := IsAlgClosed.exists_root (Polynomial.cyclotomic (m : ℕ) Qbar)
+    (Polynomial.degree_cyclotomic_pos (m : ℕ) Qbar m.pos).ne'
+  exact ⟨ζ, (Polynomial.isRoot_cyclotomic_iff).1 hζ⟩
+
+theorem card_rootsOfUnity_qbar (m : ℕ+) : Nat.card (rootsOfUnity (m : ℕ) Qbar) = m :=
+  (exists_isPrimitiveRoot_qbar m).choose_spec.card_rootsOfUnity
+
+/-- `G_ℚ → Aut(ℚ̄)` as rings. -/
+noncomputable def toRingAut : GQ →* (Qbar ≃+* Qbar) where
+  toFun σ := σ.toRingEquiv
+  map_one' := rfl
+  map_mul' _ _ := rfl
+
+/-- The mod-`m` cyclotomic character `G_ℚ → (ℤ/m)ˣ` (Mathlib's `modularCyclotomicCharacter`). -/
+noncomputable def cycChar (m : ℕ+) : GQ →* (ZMod m)ˣ :=
+  (modularCyclotomicCharacter Qbar (card_rootsOfUnity_qbar m)).comp toRingAut
+
+theorem cycChar_spec (m : ℕ+) (σ : GQ) (ζ : Qbar) (hζ : ζ ^ (m : ℕ) = 1) :
+    σ ζ = ζ ^ ((cycChar m σ : (ZMod m)ˣ) : ZMod m).val := by
+  have hζ0 : ζ ≠ 0 := by
+    rintro rfl
+    rw [zero_pow (by exact_mod_cast m.ne_zero)] at hζ
+    exact zero_ne_one hζ
+  have ht : Units.mk0 ζ hζ0 ∈ rootsOfUnity (m : ℕ) Qbar := by
+    rw [mem_rootsOfUnity]
+    ext
+    simpa using hζ
+  exact modularCyclotomicCharacter.spec Qbar (card_rootsOfUnity_qbar m) σ.toRingEquiv ht
+
+theorem agree_of_cycChar_eq (m : ℕ+) (σ τ : GQ) (h : cycChar m σ = cycChar m τ) (ζ : Qbar)
+    (hζ : ζ ^ (m : ℕ) = 1) : σ ζ = τ ζ := by
+  rw [cycChar_spec m σ ζ hζ, cycChar_spec m τ ζ hζ, h]
+
+/-- The mod-`m` cyclotomic character of `G_ℚ` is surjective (irreducibility of the cyclotomic
+polynomial over `ℚ`, Mathlib's `autEquivPow`, and lifting from `ℚ(ζ_m)` to `ℚ̄`). -/
+theorem cycChar_surjective (m : ℕ+) : Function.Surjective (cycChar m) := by
+  intro u
+  obtain ⟨ζ₀, hζ₀⟩ := exists_isPrimitiveRoot_qbar m
+  let F : IntermediateField ℚ Qbar := IntermediateField.adjoin ℚ {ζ₀}
+  have := hζ₀.intermediateField_adjoin_isCyclotomicExtension ℚ
+  let ζ := IsCyclotomicExtension.zeta (m : ℕ) ℚ F
+  have hζ : IsPrimitiveRoot ζ (m : ℕ) := IsCyclotomicExtension.zeta_spec (m : ℕ) ℚ F
+  let τ : F ≃ₐ[ℚ] F := (IsCyclotomicExtension.autEquivPow F
+    (Polynomial.cyclotomic.irreducible_rat m.pos)).symm u
+  have hτ : τ ζ = ζ ^ (u : ZMod m).val := by
+    have h1 := hζ.autToPow_spec ℚ τ
+    have h2 : hζ.autToPow ℚ τ = u := by
+      have := (IsCyclotomicExtension.autEquivPow F
+        (Polynomial.cyclotomic.irreducible_rat m.pos)).apply_symm_apply u
+      rwa [IsCyclotomicExtension.autEquivPow_apply] at this
+    rw [← h1, h2]
+  have : IsGalois ℚ F := IsCyclotomicExtension.isGalois {(m : ℕ)} ℚ F
+  let σ : GQ := τ.liftNormal Qbar
+  let ι : F →ₐ[ℚ] Qbar := F.val
+  have hσζ : σ (ι ζ) = ι ζ ^ (u : ZMod m).val := by
+    have h1 := AlgEquiv.liftNormal_commutes τ Qbar ζ
+    change σ (ι ζ) = ι (τ ζ) at h1
+    rw [h1, hτ, map_pow]
+  refine ⟨σ, ?_⟩
+  have hιζ : IsPrimitiveRoot (ι ζ) (m : ℕ) := hζ.map_of_injective ι.injective
+  symm
+  apply Units.ext
+  refine modularCyclotomicCharacter.unique Qbar (card_rootsOfUnity_qbar m) σ.toRingEquiv ?_
+  intro t ht
+  have htm : (t : Qbar) ^ (m : ℕ) = 1 := by
+    rw [mem_rootsOfUnity] at ht
+    simpa using congrArg Units.val ht
+  obtain ⟨i, -, hi⟩ := hιζ.eq_pow_of_pow_eq_one htm
+  change σ (t : Qbar) = (t : Qbar) ^ _
+  rw [← hi, map_pow, hσζ, ← pow_mul, ← pow_mul, mul_comm]
+
+/-- **Finite-order characters of `G_ℚ` are Dirichlet characters (GLUE, proved from the cyclic
+case of T17).** For `ψ : G_ℚ →* Eˣ` (`E` a field) with open kernel there are `m ≥ 1` and a
+Dirichlet character `χ` mod `m` (Mathlib's `DirichletCharacter`) with `ψ = χ ∘ cyc_m`, where
+`cyc_m` is the mod-`m` cyclotomic character. -/
+theorem dirichletCharacter_of_kroneckerWeberCyclic (hKW : KroneckerWeberCyclic) {E : Type*}
+    [Field E] (ψ : GQ →* Eˣ) (hψ : IsOpen (ψ.ker : Set GQ)) :
+    ∃ (m : ℕ+) (χ : DirichletCharacter E (m : ℕ)),
+      ∀ σ : GQ, (ψ σ : E) = χ ((cycChar m σ : (ZMod m)ˣ) : ZMod m) := by
+  obtain ⟨m, hm⟩ := eq_of_agree_on_roots_cyclic hKW ψ hψ
+  have hψc : ∀ σ τ : GQ, cycChar m σ = cycChar m τ → ψ σ = ψ τ := fun σ τ h =>
+    hm σ τ (agree_of_cycChar_eq m σ τ h)
+  let s := Function.surjInv (cycChar_surjective m)
+  have hs : ∀ u, cycChar m (s u) = u := Function.surjInv_eq (cycChar_surjective m)
+  let χu : (ZMod m)ˣ →* Eˣ :=
+    { toFun := fun u => ψ (s u)
+      map_one' := by
+        rw [← map_one ψ]
+        exact hψc _ _ (by rw [hs, map_one])
+      map_mul' := fun u v => by
+        rw [← map_mul ψ]
+        exact hψc _ _ (by rw [hs, map_mul, hs, hs]) }
+  refine ⟨m, MulChar.ofUnitHom χu, fun σ => ?_⟩
+  rw [MulChar.ofUnitHom_coe]
+  change (ψ σ : E) = (ψ (s (cycChar m σ)) : E)
+  rw [hψc σ (s (cycChar m σ)) (hs _).symm]
+
+/-- A continuous homomorphism with finite image to a `T1` topological group has open kernel. -/
+theorem isOpen_ker_of_continuous {G : Type*} [Group G] [TopologicalSpace G] [T1Space G]
+    (ψ : GQ →* G) (hc : Continuous ψ) (hfin : (Set.range ψ).Finite) :
+    IsOpen (ψ.ker : Set GQ) := by
+  have hcl : IsClosed (ψ ⁻¹' (Set.range ψ \ {1})) :=
+    ((hfin.subset Set.sdiff_subset).isClosed).preimage hc
+  have : (ψ.ker : Set GQ) = (ψ ⁻¹' (Set.range ψ \ {1}))ᶜ := by
+    ext σ
+    simp [MonoidHom.mem_ker]
+  rw [this]
+  exact hcl.isOpen_compl
+
+end TSkolemKW.KW
+
+-- ===== C10Closed.lean (the final theorem only, over Leaves.lean's `GlueC10`) =====
+
+namespace TSkolemKW.C10
+
+/-- `GlueC10.BrauerNesbittChar0` is the same Prop as `TSkolemKW.BrauerNesbittChar0`. -/
+theorem brauerNesbittChar0' : GlueC10.BrauerNesbittChar0 := TSkolemKW.brauerNesbittChar0
+
+/-- **C10 from Chebotarev alone (GLUE, proved).** `GlueC10.c10` with the Brauer–Nesbitt
+hypothesis discharged by `TSkolemKW.brauerNesbittChar0`. -/
+theorem c10_of_chebotarev (hC : GlueC10.ChebotarevExists) (S : Finset ℕ)
+    (C : Type) [Field C] (c a : ℕ → C)
+    (k₅ V₅ W₅ : Type) [Field k₅] [AddCommGroup V₅] [Module k₅ V₅]
+    [AddCommGroup W₅] [Module k₅ W₅] (ι₅ : C →+* k₅)
+    (r₅ : Representation k₅ GlueC10.GQ V₅) (ρ₅ : Representation k₅ GlueC10.GQ W₅)
+    (h₅ : ∀ g p, p.Prime → p ∉ S → GlueC10.IsFrobAt g p →
+      LinearMap.trace k₅ V₅ (r₅ g) = LinearMap.trace k₅ W₅ (ρ₅ g))
+    (hr₅ : ∀ g p, p.Prime → p ∉ S → GlueC10.IsFrobAt g p →
+      LinearMap.trace k₅ V₅ (r₅ g) = ι₅ (c p))
+    (hρ₅ : ∀ g p, p.Prime → p ∉ S → GlueC10.IsFrobAt g p →
+      LinearMap.trace k₅ W₅ (ρ₅ g) = ι₅ (a p))
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (r₃ : Representation k GlueC10.GQ V) (ρ₃ : Representation k GlueC10.GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bV bV (r₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k GlueC10.GQ) r₃.asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GlueC10.GQ) ρ₃.asModule)
+    (hr₃ : ∀ g p, p.Prime → p ∉ S → GlueC10.IsFrobAt g p →
+      LinearMap.trace k V (r₃ g) = ι₃ (c p))
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → GlueC10.IsFrobAt g p →
+      LinearMap.trace k W (ρ₃ g) = ι₃ (a p)) :
+    Nonempty (r₃.asModule ≃ₗ[MonoidAlgebra k GlueC10.GQ] ρ₃.asModule) :=
+  GlueC10.c10 hC brauerNesbittChar0' S C c a k₅ V₅ W₅ ι₅ r₅ ρ₅ h₅ hr₅ hρ₅ k V W ι κ ι₃ bV bW
+    r₃ ρ₃ hrc hρc hr hρ hr₃ hρ₃
+
+end TSkolemKW.C10
+
+/-! ## Bridges to the Leaves.lean statements (types exactly the Leaves.lean Props) -/
+
+namespace TSkolemKW
+
+/-- **T13 proved** (`PkgI6.SkolemNoether`, leaf I6.1). -/
+theorem pkgI6_skolemNoether : PkgI6.SkolemNoether := skolemNoether
+
+/-- **T13 proved** (`HSyn.SkolemNoether`, bundle field `t13`). -/
+theorem hsyn_t13 : HSyn.SkolemNoether := hsynSkolemNoether
+
+/-- **T13 proved** (`GlueDescent.LeafSkolemNoether`, the automorphism case used by B1). -/
+theorem glueDescent_leafSkolemNoether : GlueDescent.LeafSkolemNoether := leafSkolemNoether
+
+/-- **T19 proved** (`PkgI6.BrauerNesbittChar0`, leaf I6.5). -/
+theorem pkgI6_brauerNesbittChar0 : PkgI6.BrauerNesbittChar0 := brauerNesbittChar0
+
+/-- **T19 proved** (`HSyn.BrauerNesbitt`, bundle field `t19`). -/
+theorem hsyn_t19 : HSyn.BrauerNesbitt := hsynBrauerNesbitt
+
+/-- **T18 reduced to `PkgI6.ChebotarevExists`** (bundle field `t18 : HSyn.FrobeniusDense`). -/
+theorem hsyn_t18_of_chebotarev (h : PkgI6.ChebotarevExists) : HSyn.FrobeniusDense :=
+  HS.frobeniusDense_of_chebotarev h
+
+/-- **T17: the narrowed leaf follows from the bundle's `HSyn.KroneckerWeber`.** -/
+theorem kroneckerWeberCyclic_of_hsyn (h : HSyn.KroneckerWeber) : KW.KroneckerWeberCyclic :=
+  KW.kroneckerWeberCyclic_of_kroneckerWeber h
+
+/-- **C8's use form of T17 (GLUE, proved from the narrowed leaf), over `HSyn.GQ`.** A character
+`ψ : G_ℚ →* Eˣ` (`E` a field) with open kernel is `χ ∘ cyc_m` for a Dirichlet character `χ`. -/
+theorem hsyn_dirichletCharacter_of_kroneckerWeberCyclic (hKW : KW.KroneckerWeberCyclic)
+    {E : Type*} [Field E] (ψ : HSyn.GQ →* Eˣ) (hψ : IsOpen (ψ.ker : Set HSyn.GQ)) :
+    ∃ (m : ℕ+) (χ : DirichletCharacter E (m : ℕ)),
+      ∀ σ : HSyn.GQ, (ψ σ : E) = χ ((KW.cycChar m σ : (ZMod m)ˣ) : ZMod m) :=
+  KW.dirichletCharacter_of_kroneckerWeberCyclic hKW ψ hψ
+
+end TSkolemKW
+
+end TSkolemKWSec
+
+/-! # Fold of t30-adelic, part T30 (leaf-adopt3)
+Source: scratch/t30-adelic/SqrtCrit.lean. It imports `ZInQKernel.HDecomp.Sqrt.Disj` (which imports
+`Sqrt.SqrtLocal`, `Conductor.SqrtChar`, `Conductor.I6Base`) and `ZInQKernel.HDecomp.Descent.B2Glue`.
+`GlueDescent.B2Q` (B2Glue) and `PkgI6.LocalKroneckerWeber` (I6Base) are already in this file
+(textually identical). The namespaces `GlueI6Rest`, `GlueSqrtLocal`, `GlueSqrtDisj` are NOT, so the
+three kernel files `Conductor/SqrtChar.lean`, `Sqrt/SqrtLocal.lean`, `Sqrt/Disj.lean` are copied
+below verbatim (imports dropped), each in its own section (their top-level `open`s are file-scoped
+there). The G1-adelic part (Adelic.lean, G1Count.lean) is NOT folded. -/
+
+section T30Sec
+
+section T30KernelSqrtCharSec
+/-! ### Copied from `ZInQKernel/HDecomp/Conductor/SqrtChar.lean` (kernel; namespace `GlueI6Rest`). -/
+
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt from
+`scratch/glue-I6-rest/SqrtChar.lean`.
+The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
+
+
+/-!
+# glue-I6-rest: the group-theoretic core of B2's square-root criterion
+
+pkg-I6 (§2, B2, glue item 2): "a character of a profinite abelian group `Γ` is a square iff it
+kills `Γ[2]`".  For characters with values in `ℚ/ℤ` (written additively; finite-order characters
+of a profinite group take values in `μ_∞ ≅ ℚ/ℤ`) and any abelian group `Γ`, this is proved here
+from the divisibility (Baer injectivity) of `ℚ/ℤ`, Mathlib's
+`CharacterModule.dual_surjective_of_injective`.  Applied to a finite quotient `Γ` of `G_{ℚ_p}^{ab}`
+through which `χ` factors, it gives a square root on `Γ`, hence a continuous one on `G_{ℚ_p}`.
+-/
+
+namespace GlueI6Rest
+
+/-- `χ : Γ → ℚ/ℤ` is twice a character iff `χ` vanishes on the `2`-torsion `Γ[2]`. -/
+theorem exists_half_iff {Γ : Type} [AddCommGroup Γ] (χ : Γ →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Γ →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ g) ↔ ∀ g : Γ, 2 • g = 0 → χ g = 0 := by
+  constructor
+  · rintro ⟨ψ, hψ⟩ g hg
+    rw [← hψ, ← map_nsmul, hg, map_zero]
+  · intro h
+    let d : Γ →+ Γ :=
+      { toFun := fun g => 2 • g, map_zero' := smul_zero 2, map_add' := fun a b => smul_add 2 a b }
+    have hker : d.ker ≤ χ.ker := fun g hg => h g (AddMonoidHom.mem_ker.mp hg)
+    let χq := QuotientAddGroup.lift d.ker χ hker
+    let e := QuotientAddGroup.quotientKerEquivRange d
+    let χr : d.range →+ AddCircle (1 : ℚ) := χq.comp e.symm.toAddMonoidHom
+    obtain ⟨ψ, hψ⟩ := CharacterModule.dual_surjective_of_injective (R := ℤ)
+      d.range.subtype.toIntLinearMap Subtype.val_injective χr
+    refine ⟨ψ, fun g => ?_⟩
+    have hm : d g ∈ d.range := AddMonoidHom.mem_range.mpr ⟨g, rfl⟩
+    have h1 := DFunLike.congr_fun hψ ⟨d g, hm⟩
+    have h2 : e.symm ⟨d g, hm⟩ = (g : Γ ⧸ d.ker) := by
+      rw [AddEquiv.symm_apply_eq]; rfl
+    calc 2 • ψ g = ψ (d g) := (map_nsmul ψ 2 g).symm
+      _ = χr ⟨d g, hm⟩ := h1
+      _ = χ g := by
+        simp only [χr, AddMonoidHom.comp_apply, AddEquiv.coe_toAddMonoidHom, h2, χq,
+          QuotientAddGroup.lift_mk]
+
+end GlueI6Rest
+
+end T30KernelSqrtCharSec
+
+section T30KernelSqrtLocalSec
+/-! ### Copied from `ZInQKernel/HDecomp/Sqrt/SqrtLocal.lean` (kernel; namespace `GlueSqrtLocal`). -/
+
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt2 from
+`scratch/glue-sqrt-local/SqrtLocal.lean`.
+The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
+
+
+/-!
+# glue-sqrt-local: the local square-root criterion, `p`-power cyclotomic part
+
+* `cyclotomic_prime_pow_irreducible_padic`: `Φ_{p^{n+1}}` is irreducible over `ℚ_p` (Eisenstein).
+* `galEquivUnits`, `finrank_eq_totient`: `Gal(L/ℚ_p) ≅ (ℤ/p^{n+1})ˣ`, `[L:ℚ_p] = φ(p^{n+1})` for any
+  `p^{n+1}`-th cyclotomic extension `L` of `ℚ_p`.
+* `gal_sqrt_criterion` (`p` odd): a `ℚ/ℤ`-character of `Gal(L/ℚ_p)` is twice a character iff it
+  kills `τ₋₁` (`τ₋₁ ζ = ζ⁻¹`, `tauNeg_mul_self`).
+* `sqrt_criterion_finite` (every `p`): the same criterion on the finite model
+  `(ℤ/p^{k+1})ˣ × ℤ/2f → (ℤ/p^k)ˣ × ℤ/f` of `Gal(ℚ_p(μ_{p^{k+1}m'})/ℚ_p) → Gal(ℚ_p(μ_{p^k m})/ℚ_p)`.
+-/
+
+open Polynomial
+
+namespace GlueSqrtLocal
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+/-- `Φ_{p^{n+1}}(X + 1)` is Eisenstein at the maximal ideal `(p)` of `ℤ_p`. -/
+theorem cyclotomic_prime_pow_comp_isEisensteinAt_padicInt (n : ℕ) :
+    ((cyclotomic (p ^ (n + 1)) ℤ_[p]).comp (X + 1)).IsEisensteinAt
+      (Ideal.span {(p : ℤ_[p])}) := by
+  have hZ := cyclotomic_prime_pow_comp_X_add_one_isEisensteinAt p n
+  have hmap : (cyclotomic (p ^ (n + 1)) ℤ_[p]).comp (X + 1) =
+      ((cyclotomic (p ^ (n + 1)) ℤ).comp (X + 1)).map (Int.castRingHom ℤ_[p]) := by
+    simp [map_comp]
+  have hne : Ideal.span {(p : ℤ_[p])} ≠ ⊤ := by
+    rw [Ne, Ideal.span_singleton_eq_top]
+    exact PadicInt.p_nonunit
+  rw [hmap]
+  refine Monic.isEisensteinAt_of_mem_of_notMem ?_ hne ?_ ?_
+  · refine Monic.map _ ?_
+    rw [show (X + 1 : ℤ[X]) = X + C 1 by simp]
+    refine (cyclotomic.monic _ ℤ).comp (monic_X_add_C 1) fun h => ?_
+    rw [natDegree_X_add_C] at h
+    exact zero_ne_one h.symm
+  · intro i hi
+    rw [coeff_map]
+    have hi' : i < ((cyclotomic (p ^ (n + 1)) ℤ).comp (X + 1)).natDegree := by
+      rwa [natDegree_map_eq_of_injective (RingHom.injective_int _)] at hi
+    have hm := hZ.mem hi'
+    rw [Ideal.submodule_span_eq, Ideal.mem_span_singleton] at hm
+    obtain ⟨c, hc⟩ := hm
+    rw [Ideal.mem_span_singleton]
+    exact ⟨(c : ℤ_[p]), by rw [hc]; simp⟩
+  · rw [coeff_map, coeff_zero_eq_eval_zero, eval_comp, eval_add, eval_X, eval_one, zero_add,
+      eval_one_cyclotomic_prime_pow]
+    rw [Ideal.span_singleton_pow, Ideal.mem_span_singleton]
+    rintro ⟨c, hc⟩
+    have h1 : (p : ℤ_[p]) * (1 - p * c) = 0 := by
+      simp only [map_natCast] at hc
+      linear_combination hc
+    rcases mul_eq_zero.mp h1 with h | h
+    · exact hp.out.ne_zero (by exact_mod_cast h)
+    · apply PadicInt.p_nonunit (p := p)
+      exact IsUnit.of_mul_eq_one c (by linear_combination -h)
+
+/-- **`Φ_{p^{n+1}}` is irreducible over `ℚ_p`.** -/
+theorem cyclotomic_prime_pow_irreducible_padic (n : ℕ) :
+    Irreducible (cyclotomic (p ^ (n + 1)) ℚ_[p]) := by
+  have hE := cyclotomic_prime_pow_comp_isEisensteinAt_padicInt p n
+  have hmon : ((cyclotomic (p ^ (n + 1)) ℤ_[p]).comp (X + 1)).Monic := by
+    rw [show (X + 1 : ℤ_[p][X]) = X + C 1 by simp]
+    refine (cyclotomic.monic _ ℤ_[p]).comp (monic_X_add_C 1) fun h => ?_
+    rw [natDegree_X_add_C] at h
+    exact zero_ne_one h.symm
+  have hprime : (Ideal.span {(p : ℤ_[p])}).IsPrime := by
+    rw [Ideal.span_singleton_prime (by exact_mod_cast hp.out.ne_zero)]
+    exact PadicInt.prime_p
+  have hdeg : 0 < ((cyclotomic (p ^ (n + 1)) ℤ_[p]).comp (X + 1)).natDegree := by
+    rw [natDegree_comp, natDegree_cyclotomic]
+    simp only [show (X + 1 : ℤ_[p][X]) = X + C 1 by simp, natDegree_X_add_C, mul_one]
+    exact Nat.totient_pos.mpr (pow_pos hp.out.pos _)
+  have hirr := hE.irreducible hprime hmon.isPrimitive hdeg
+  have hirrQ := (hmon.irreducible_iff_irreducible_map_fraction_map (K := ℚ_[p])).mp hirr
+  have hmapQ : ((cyclotomic (p ^ (n + 1)) ℤ_[p]).comp (X + 1)).map (algebraMap ℤ_[p] ℚ_[p]) =
+      algEquivAevalXAddC (1 : ℚ_[p]) (cyclotomic (p ^ (n + 1)) ℚ_[p]) := by
+    rw [map_comp, map_cyclotomic]
+    simp [algEquivAevalXAddC, ← comp_eq_aeval]
+  rw [hmapQ] at hirrQ
+  exact (MulEquiv.irreducible_iff (algEquivAevalXAddC (1 : ℚ_[p])).toMulEquiv).mp hirrQ
+
+
+
+
+/-! Proved by `GlueI6Rest.exists_half_iff` (`Conductor/SqrtChar.lean`). -/
+/-- `χ : Γ → ℚ/ℤ` is twice a character iff `χ` vanishes on the `2`-torsion `Γ[2]`. -/
+theorem exists_half_iff {Γ : Type} [AddCommGroup Γ] (χ : Γ →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Γ →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ g) ↔ ∀ g : Γ, 2 • g = 0 → χ g = 0 :=
+  GlueI6Rest.exists_half_iff χ
+
+
+/-- Odd prime powers: `p^k ∣ x² - 1` forces `p^k ∣ x - 1` or `p^k ∣ x + 1`. -/
+theorem dvd_sub_or_add_of_dvd_sq_sub_one_odd {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ)
+    {x : ℤ} (h : (p : ℤ) ^ k ∣ x ^ 2 - 1) : (p : ℤ) ^ k ∣ x - 1 ∨ (p : ℤ) ^ k ∣ x + 1 := by
+  have hpZ : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hfac : x ^ 2 - 1 = (x - 1) * (x + 1) := by ring
+  rw [hfac] at h
+  by_cases h1 : (p : ℤ) ∣ x + 1
+  · by_cases h2 : (p : ℤ) ∣ x - 1
+    · exfalso
+      have h3 : (p : ℤ) ∣ 2 := by
+        have := dvd_sub h1 h2
+        rwa [show x + 1 - (x - 1) = 2 by ring] at this
+      have h4 : p ∣ 2 := by exact_mod_cast h3
+      rcases (Nat.dvd_prime Nat.prime_two).mp h4 with h5 | h5
+      · exact hp.ne_one h5
+      · exact hp2 h5
+    · right
+      have hc : IsCoprime ((p : ℤ) ^ k) (x - 1) :=
+        ((Irreducible.coprime_iff_not_dvd hpZ.irreducible).mpr h2).pow_left
+      exact hc.dvd_of_dvd_mul_left h
+  · left
+    have hc : IsCoprime ((p : ℤ) ^ k) (x + 1) :=
+      ((Irreducible.coprime_iff_not_dvd hpZ.irreducible).mpr h1).pow_left
+    exact hc.dvd_of_dvd_mul_right h
+
+/-- All primes, losing one power of `p`: `p^{k+1} ∣ x² - 1` forces `p^k ∣ x ∓ 1`. -/
+theorem dvd_sub_or_add_of_dvd_sq_sub_one {p : ℕ} (hp : p.Prime) (k : ℕ)
+    {x : ℤ} (h : (p : ℤ) ^ (k + 1) ∣ x ^ 2 - 1) : (p : ℤ) ^ k ∣ x - 1 ∨ (p : ℤ) ^ k ∣ x + 1 := by
+  by_cases hp2 : p = 2
+  · subst hp2
+    rcases k with _ | j
+    · simp
+    have hfac : x ^ 2 - 1 = (x - 1) * (x + 1) := by ring
+    rw [hfac] at h
+    -- `x` is odd
+    have h2 : (2 : ℤ) ∣ (x - 1) * (x + 1) := dvd_trans (dvd_pow_self (2 : ℤ) (by omega : j + 1 + 1 ≠
+        0)) (by exact_mod_cast h)
+    have hx : (2 : ℤ) ∣ x - 1 := by
+      rcases (Int.prime_two.dvd_or_dvd h2) with h3 | h3
+      · exact h3
+      · have := dvd_sub h3 (dvd_refl 2)
+        rwa [show x + 1 - 2 = x - 1 by ring] at this
+    obtain ⟨a, ha⟩ := hx
+    have hxa : x + 1 = 2 * (a + 1) := by linarith
+    rw [ha, hxa, show (2 * a) * (2 * (a + 1)) = 2 ^ 2 * (a * (a + 1)) by ring] at h
+    push_cast at h
+    rw [show j + 1 + 1 = 2 + j by ring, pow_add] at h
+    have h' : (2 : ℤ) ^ j ∣ a * (a + 1) := (mul_dvd_mul_iff_left (by norm_num)).mp h
+    by_cases hev : (2 : ℤ) ∣ a
+    · left
+      have hc : IsCoprime ((2 : ℤ) ^ j) (a + 1) := by
+        refine IsCoprime.pow_left ((Irreducible.coprime_iff_not_dvd Int.prime_two.irreducible).mpr
+            ?_)
+        intro hd
+        have := dvd_sub hd hev
+        rw [show a + 1 - a = 1 by ring] at this
+        norm_num at this
+      have := hc.dvd_of_dvd_mul_right h'
+      push_cast
+      rw [ha, pow_succ, mul_comm]
+      exact mul_dvd_mul_left 2 this
+    · right
+      have hc : IsCoprime ((2 : ℤ) ^ j) a :=
+        ((Irreducible.coprime_iff_not_dvd Int.prime_two.irreducible).mpr hev).pow_left
+      have := hc.dvd_of_dvd_mul_left h'
+      push_cast
+      rw [hxa, pow_succ, mul_comm]
+      exact mul_dvd_mul_left 2 this
+  · exact dvd_sub_or_add_of_dvd_sq_sub_one_odd hp hp2 k
+      (dvd_trans (pow_dvd_pow _ (Nat.le_succ k)) h)
+
+
+/-- Reduction `(ℤ/p^{k+1})ˣ → (ℤ/p^k)ˣ`. -/
+noncomputable def redU (p k : ℕ) : (ZMod (p ^ (k + 1)))ˣ →* (ZMod (p ^ k))ˣ :=
+  Units.map (ZMod.castHom (pow_dvd_pow p (Nat.le_succ k)) (ZMod (p ^ k))).toMonoidHom
+
+theorem redU_val (p k : ℕ) (u : (ZMod (p ^ (k + 1)))ˣ) :
+    ((redU p k u : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) =
+      ZMod.castHom (pow_dvd_pow p (Nat.le_succ k)) (ZMod (p ^ k)) u := rfl
+
+theorem redU_neg_one (p k : ℕ) : redU p k (-1) = -1 := by
+  ext; rw [redU_val]; simp only [Units.val_neg, Units.val_one, map_neg, map_one]
+
+theorem intCast_eq_one_or_neg_one {n : ℕ} {x : ℤ} (h : (n : ℤ) ∣ x - 1 ∨ (n : ℤ) ∣ x + 1) :
+    (x : ZMod n) = 1 ∨ (x : ZMod n) = -1 := by
+  rcases h with h | h
+  · left
+    have : ((x - 1 : ℤ) : ZMod n) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mpr h
+    push_cast at this
+    exact sub_eq_zero.mp this
+  · right
+    have : ((x + 1 : ℤ) : ZMod n) = 0 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mpr h
+    push_cast at this
+    exact eq_neg_of_add_eq_zero_left this
+
+theorem dvd_of_sq_eq_one {n : ℕ} (u : (ZMod n)ˣ) (hu : u ^ 2 = 1) {x : ℤ}
+    (hx : (x : ZMod n) = u) : (n : ℤ) ∣ x ^ 2 - 1 := by
+  have : ((x ^ 2 - 1 : ℤ) : ZMod n) = 0 := by
+    push_cast
+    rw [hx, ← Units.val_pow_eq_pow_val, hu]
+    simp
+  exact (ZMod.intCast_zmod_eq_zero_iff_dvd _ _).mp this
+
+/-- For odd `p`, the only square roots of `1` in `(ℤ/p^k)ˣ` are `±1`. -/
+theorem units_sq_eq_one_odd {p : ℕ} (hp : p.Prime) (hp2 : p ≠ 2) (k : ℕ)
+    (u : (ZMod (p ^ k))ˣ) (hu : u ^ 2 = 1) : u = 1 ∨ u = -1 := by
+  obtain ⟨x, hx⟩ := ZMod.intCast_surjective (u : ZMod (p ^ k))
+  have h := dvd_of_sq_eq_one u hu hx
+  push_cast at h
+  have h2 := intCast_eq_one_or_neg_one (n := p ^ k) (x := x)
+    (by push_cast; exact dvd_sub_or_add_of_dvd_sq_sub_one_odd hp hp2 k h)
+  rw [hx] at h2
+  rcases h2 with h2 | h2
+  · left; ext; simpa using h2
+  · right; ext; simpa using h2
+
+/-- For every prime `p`, a square root of `1` in `(ℤ/p^{k+1})ˣ` reduces to `±1` in `(ℤ/p^k)ˣ`. -/
+theorem redU_sq_eq_one {p : ℕ} (hp : p.Prime) (k : ℕ) (u : (ZMod (p ^ (k + 1)))ˣ)
+    (hu : u ^ 2 = 1) : redU p k u = 1 ∨ redU p k u = -1 := by
+  obtain ⟨x, hx⟩ := ZMod.intCast_surjective (u : ZMod (p ^ (k + 1)))
+  have h := dvd_of_sq_eq_one u hu hx
+  push_cast at h
+  have h2 := intCast_eq_one_or_neg_one (n := p ^ k) (x := x)
+    (by push_cast; exact dvd_sub_or_add_of_dvd_sq_sub_one hp k h)
+  have hred : ((redU p k u : (ZMod (p ^ k))ˣ) : ZMod (p ^ k)) = (x : ZMod (p ^ k)) := by
+    rw [redU_val, ← hx, map_intCast]
+  rcases h2 with h2 | h2
+  · left; ext; rw [hred, h2]; simp
+  · right; ext; rw [hred, h2]; simp
+
+/-- `2a = 0` in `ℤ/2f` forces `a ↦ 0` in `ℤ/f`. -/
+theorem cast_eq_zero_of_two_nsmul (f : ℕ) (a : ZMod (2 * f)) (ha : 2 • a = 0) :
+    ZMod.castHom (dvd_mul_left f 2) (ZMod f) a = 0 := by
+  obtain ⟨x, rfl⟩ := ZMod.intCast_surjective a
+  rw [map_intCast]
+  have h : (((2 * x : ℤ)) : ZMod (2 * f)) = 0 := by push_cast; rw [← ha]; simp [two_mul]
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd] at h
+  push_cast at h
+  rw [ZMod.intCast_zmod_eq_zero_iff_dvd]
+  exact (mul_dvd_mul_iff_left (by norm_num : (2 : ℤ) ≠ 0)).mp h
+
+/-- The finite model `(ℤ/p^{k+1})ˣ × ℤ/2f` of a quotient of `G_{ℚ_p}^{ab}`, and its quotient
+`(ℤ/p^k)ˣ × ℤ/f`. -/
+abbrev Gbig (p k f : ℕ) := Additive (ZMod (p ^ (k + 1)))ˣ × ZMod (2 * f)
+abbrev Gsmall (p k f : ℕ) := Additive (ZMod (p ^ k))ˣ × ZMod f
+
+noncomputable def proj (p k f : ℕ) : Gbig p k f →+ Gsmall p k f :=
+  (MonoidHom.toAdditive (redU p k)).prodMap
+    (ZMod.castHom (dvd_mul_left f 2) (ZMod f)).toAddMonoidHom
+
+theorem proj_apply (p k f : ℕ) (u : Additive (ZMod (p ^ (k + 1)))ˣ) (a : ZMod (2 * f)) :
+    proj p k f (u, a) = (Additive.ofMul (redU p k (Additive.toMul u)),
+      ZMod.castHom (dvd_mul_left f 2) (ZMod f) a) := rfl
+
+/-- The image of the `2`-torsion of `(ℤ/p^{k+1})ˣ × ℤ/2f` in `(ℤ/p^k)ˣ × ℤ/f` is
+`{0, (-1, 0)}`. -/
+theorem proj_two_torsion {p : ℕ} (hp : p.Prime) (k f : ℕ) (g : Gbig p k f) (hg : 2 • g = 0) :
+    proj p k f g = 0 ∨ proj p k f g = (Additive.ofMul (-1), 0) := by
+  obtain ⟨u, a⟩ := g
+  rw [Prod.ext_iff] at hg
+  simp only [Prod.smul_fst, Prod.smul_snd, Prod.fst_zero, Prod.snd_zero] at hg
+  obtain ⟨hu, ha⟩ := hg
+  have hu' : (Additive.toMul u) ^ 2 = 1 := by
+    have := congrArg Additive.toMul hu
+    simpa using this
+  have hb := cast_eq_zero_of_two_nsmul f a ha
+  rcases redU_sq_eq_one hp k _ hu' with h | h
+  · left
+    rw [proj_apply, Prod.ext_iff]
+    exact ⟨by simpa using congrArg Additive.ofMul h, hb⟩
+  · right
+    rw [proj_apply, Prod.ext_iff]
+    exact ⟨by simpa using congrArg Additive.ofMul h, hb⟩
+
+/-- **Square-root criterion on the finite model, every prime `p`.** A character `χ` of
+`(ℤ/p^k)ˣ × ℤ/f` becomes twice a character after pulling back to `(ℤ/p^{k+1})ˣ × ℤ/2f` iff
+`χ(-1, 0) = 0`. -/
+theorem sqrt_criterion_finite {p : ℕ} (hp : p.Prime) (k f : ℕ)
+    (χ : Gsmall p k f →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Gbig p k f →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ (proj p k f g)) ↔
+      χ (Additive.ofMul (-1), 0) = 0 := by
+  rw [show (∃ ψ : Gbig p k f →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ (proj p k f g)) ↔
+      (∃ ψ : Gbig p k f →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = (χ.comp (proj p k f)) g) from
+      Iff.rfl, exists_half_iff]
+  constructor
+  · intro h
+    have h1 := h (Additive.ofMul (-1), 0) (by
+      rw [Prod.ext_iff]
+      refine ⟨?_, by simp⟩
+      change Additive.ofMul ((-1 : (ZMod (p ^ (k + 1)))ˣ) ^ 2) = Additive.ofMul 1
+      simp)
+    have h2 : proj p k f (Additive.ofMul (-1), 0) = (Additive.ofMul (-1), 0) := by
+      rw [proj_apply, Prod.ext_iff]
+      refine ⟨?_, by simp⟩
+      change Additive.ofMul (redU p k (-1)) = _
+      rw [redU_neg_one]
+    simpa [h2] using h1
+  · intro h g hg
+    rcases proj_two_torsion hp k f g hg with h1 | h1
+    · simp [h1]
+    · simp [h1, h]
+
+
+/-! ## The Galois group of a `p^{n+1}`-th cyclotomic extension of `ℚ_p` -/
+
+section Gal
+
+variable (p : ℕ) [hp : Fact p.Prime] (n : ℕ) (L : Type) [Field L] [Algebra ℚ_[p] L]
+  [IsCyclotomicExtension {p ^ (n + 1)} ℚ_[p] L]
+
+/-- `Gal(L/ℚ_p) ≃* (ℤ/p^{n+1})ˣ`, `σ ↦ a` with `σ ζ = ζ^a`. -/
+noncomputable def galEquivUnits : Gal(L/ℚ_[p]) ≃* (ZMod (p ^ (n + 1)))ˣ :=
+  IsCyclotomicExtension.autEquivPow L (cyclotomic_prime_pow_irreducible_padic p n)
+
+/-- `[L : ℚ_p] = φ(p^{n+1})`. -/
+theorem finrank_eq_totient : Module.finrank ℚ_[p] L = (p ^ (n + 1)).totient :=
+  IsCyclotomicExtension.finrank L (cyclotomic_prime_pow_irreducible_padic p n)
+
+/-- The element `τ₋₁ ∈ Gal(L/ℚ_p)` corresponding to `-1 ∈ (ℤ/p^{n+1})ˣ`. -/
+noncomputable def tauNeg : Gal(L/ℚ_[p]) := (galEquivUnits p n L).symm (-1)
+
+/-- `τ₋₁` acts by `ζ ↦ ζ⁻¹` on all `p^{n+1}`-th roots of unity of `L`. -/
+theorem tauNeg_mul_self (x : L) (hx : x ^ (p ^ (n + 1)) = 1) : tauNeg p n L x * x = 1 := by
+  have : NeZero (p ^ (n + 1)) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+  have hζ := IsCyclotomicExtension.zeta_spec (p ^ (n + 1)) ℚ_[p] L
+  obtain ⟨i, -, rfl⟩ := hζ.eq_pow_of_pow_eq_one hx
+  have h1 : hζ.autToPow ℚ_[p] (tauNeg p n L) = -1 := by
+    have := (galEquivUnits p n L).apply_symm_apply (-1)
+    exact this
+  have h2 := hζ.autToPow_spec ℚ_[p] (tauNeg p n L)
+  rw [h1] at h2
+  rw [map_pow, ← h2, ← pow_mul, ← pow_add]
+  rw [hζ.pow_eq_one_iff_dvd, ← ZMod.natCast_eq_zero_iff]
+  push_cast
+  simp only [ZMod.natCast_val, ZMod.cast_id', id, Units.val_neg, Units.val_one]
+  ring
+
+theorem tauNeg_sq : tauNeg p n L ^ 2 = 1 := by
+  apply (galEquivUnits p n L).injective
+  rw [map_pow, tauNeg, MulEquiv.apply_symm_apply, map_one]
+  simp
+
+/-- `Gal(L/ℚ_p)` is commutative (it embeds in `(ℤ/p^{n+1})ˣ`). -/
+noncomputable abbrev galCommGroup : CommGroup Gal(L/ℚ_[p]) :=
+  { (inferInstance : Group Gal(L/ℚ_[p])) with
+    mul_comm := fun a b => (galEquivUnits p n L).injective (by rw [map_mul, map_mul, mul_comm]) }
+
+/-- **Square-root criterion for `Gal(ℚ_p(μ_{p^{n+1}})/ℚ_p)`, `p` odd.** A character `χ` of the
+Galois group (values in `ℚ/ℤ`) is twice a character iff `χ(τ₋₁) = 0`. -/
+theorem gal_sqrt_criterion (hp2 : p ≠ 2)
+    (χ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = χ g) ↔
+      χ (Additive.ofMul (tauNeg p n L)) = 0 := by
+  letI := galCommGroup p n L
+  refine (exists_half_iff χ).trans ?_
+  constructor
+  · intro h
+    apply h
+    change Additive.ofMul (tauNeg p n L ^ 2) = Additive.ofMul 1
+    rw [tauNeg_sq]
+  · intro h g hg
+    have hσ : (Additive.toMul g) ^ 2 = 1 := by
+      have := congrArg Additive.toMul hg
+      simpa using this
+    have he : (galEquivUnits p n L (Additive.toMul g)) ^ 2 = 1 := by
+      rw [← map_pow, hσ, map_one]
+    rcases units_sq_eq_one_odd hp.out hp2 (n + 1) _ he with h1 | h1
+    · have : Additive.toMul g = 1 := by
+        apply (galEquivUnits p n L).injective; rw [h1, map_one]
+      have hg0 : g = 0 := congrArg Additive.ofMul this
+      rw [hg0, map_zero]
+    · have : Additive.toMul g = tauNeg p n L := by
+        rw [tauNeg, ← h1, MulEquiv.symm_apply_apply]
+      have hg0 : g = Additive.ofMul (tauNeg p n L) := congrArg Additive.ofMul this
+      rw [hg0, h]
+
+/-- The action of `Gal(L/ℚ_p)` on `μ_{p^n}` (`L` of level `p^{n+1}`), as a map to `(ℤ/p^n)ˣ`. -/
+noncomputable def actLower : Additive Gal(L/ℚ_[p]) →+ Additive (ZMod (p ^ n))ˣ :=
+  MonoidHom.toAdditive ((redU p n).comp (galEquivUnits p n L).toMonoidHom)
+
+theorem actLower_apply (g : Gal(L/ℚ_[p])) :
+    actLower p n L (Additive.ofMul g) = Additive.ofMul (redU p n (galEquivUnits p n L g)) := rfl
+
+/-- `actLower` describes the action on `p^n`-th roots of unity: `g x = x^a` with
+`a = actLower g`. -/
+theorem apply_eq_pow_actLower (g : Gal(L/ℚ_[p])) (x : L) (hx : x ^ (p ^ n) = 1) :
+    g x = x ^ ((redU p n (galEquivUnits p n L g) : ZMod (p ^ n)).val) := by
+  have : NeZero (p ^ (n + 1)) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+  have : NeZero (p ^ n) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+  have hζ := IsCyclotomicExtension.zeta_spec (p ^ (n + 1)) ℚ_[p] L
+  have hx' : x ^ (p ^ (n + 1)) = 1 := by
+    rw [pow_succ, pow_mul, hx, one_pow]
+  obtain ⟨i, -, rfl⟩ := hζ.eq_pow_of_pow_eq_one hx'
+  have h2 := hζ.autToPow_spec ℚ_[p] g
+  set a := ((galEquivUnits p n L g : (ZMod (p ^ (n + 1)))ˣ) : ZMod (p ^ (n + 1)))
+  have ha : (hζ.autToPow ℚ_[p] g : ZMod (p ^ (n + 1))) = a := rfl
+  rw [ha] at h2
+  have step1 : g ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) =
+      ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ a.val := by
+    rw [map_pow, ← h2, ← pow_mul, ← pow_mul, mul_comm]
+  rw [step1]
+  have hred : ∀ u : ℕ, ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ u =
+      ((IsCyclotomicExtension.zeta (p ^ (n + 1)) ℚ_[p] L) ^ i) ^ (u % p ^ n) := fun u => by
+    conv_lhs => rw [← Nat.mod_add_div u (p ^ n)]
+    rw [pow_add, pow_mul, hx, one_pow, mul_one]
+  rw [hred a.val]
+  conv_rhs => rw [hred]
+  congr 1
+  have hb : ((redU p n (galEquivUnits p n L g) : (ZMod (p ^ n))ˣ) : ZMod (p ^ n)) =
+      ZMod.castHom (pow_dvd_pow p (Nat.le_succ n)) (ZMod (p ^ n)) a := rfl
+  have : ((a.val : ℕ) : ZMod (p ^ n)) =
+      (((redU p n (galEquivUnits p n L g) : (ZMod (p ^ n))ˣ) : ZMod (p ^ n)).val : ZMod (p ^ n)) :=
+          by
+    rw [ZMod.natCast_zmod_val, hb, ZMod.castHom_apply, ZMod.cast_eq_val]
+  exact (ZMod.natCast_eq_natCast_iff' _ _ _).mp this
+
+/-- **Square-root criterion on `Gal(ℚ_p(μ_{p^{n+1}})/ℚ_p)`, every prime `p` (including `2`).**
+A character `χ₀` of `(ℤ/p^n)ˣ`, pulled back along the action on `μ_{p^n}`, is twice a character
+of `Gal(L/ℚ_p)` iff `χ₀(−1) = 0`. -/
+theorem gal_sqrt_criterion_lower (χ₀ : Additive (ZMod (p ^ n))ˣ →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g, 2 • ψ g = χ₀ (actLower p n L g)) ↔ χ₀ (Additive.ofMul (-1)) = 0 := by
+  letI := galCommGroup p n L
+  refine (exists_half_iff (χ₀.comp (actLower p n L))).trans ?_
+  constructor
+  · intro h
+    have h1 := h (Additive.ofMul (tauNeg p n L)) (by
+      change Additive.ofMul (tauNeg p n L ^ 2) = Additive.ofMul 1
+      rw [tauNeg_sq])
+    rw [AddMonoidHom.comp_apply, actLower_apply, tauNeg, MulEquiv.apply_symm_apply,
+      redU_neg_one] at h1
+    exact h1
+  · intro h g hg
+    have hσ : (Additive.toMul g) ^ 2 = 1 := by
+      have := congrArg Additive.toMul hg
+      simpa using this
+    have he : (galEquivUnits p n L (Additive.toMul g)) ^ 2 = 1 := by
+      rw [← map_pow, hσ, map_one]
+    rw [AddMonoidHom.comp_apply, show g = Additive.ofMul (Additive.toMul g) from rfl,
+      actLower_apply]
+    rcases redU_sq_eq_one hp.out n _ he with h1 | h1
+    · rw [h1]; exact map_zero χ₀
+    · rw [h1]; exact h
+
+end Gal
+
+end GlueSqrtLocal
+
+end T30KernelSqrtLocalSec
+
+section T30KernelDisjSec
+/-! ### Copied from `ZInQKernel/HDecomp/Sqrt/Disj.lean` (kernel; namespaces `GlueSqrtLocal`,
+`GlueSqrtDisj`). -/
+
+/-! Glue of `docs/research/h-decomposition.md`, adopted by task hdec-adopt2 from
+`scratch/glue-sqrt-disj/Disj.lean`.
+The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
+
+
+open Polynomial IsLocalRing
+open scoped Pointwise
+
+namespace GlueSqrtLocal
+
+variable (p : ℕ) [hp : Fact p.Prime] (L : Type) [Field L] [Algebra ℚ_[p] L]
+  [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]
+
+/-! ### Locality of the integral closure (spectral norm) -/
+
+/-- `y ∈ L` is integral over `ℤ_p` iff its spectral norm is at most `1`. -/
+theorem isIntegral_iff_spectralNorm_le_one (y : L) :
+    IsIntegral ℤ_[p] y ↔ spectralNorm ℚ_[p] L y ≤ 1 := by
+  have hyQ : IsIntegral ℚ_[p] y := Algebra.IsIntegral.isIntegral y
+  rw [spectralNorm, spectralValue_le_one_iff (minpoly.monic hyQ)]
+  constructor
+  · intro hy n
+    rw [minpoly.isIntegrallyClosed_eq_field_fractions' ℚ_[p] hy, coeff_map]
+    exact PadicInt.norm_le_one _
+  · intro h
+    have hl : minpoly ℚ_[p] y ∈ lifts (algebraMap ℤ_[p] ℚ_[p]) := by
+      rw [lifts_iff_coeff_lifts]
+      intro n
+      exact ⟨⟨_, h n⟩, rfl⟩
+    obtain ⟨q, hq, -, hqm⟩ := lifts_and_natDegree_eq_and_monic hl (minpoly.monic hyQ)
+    refine ⟨q, hqm, ?_⟩
+    rw [← aeval_def, ← aeval_map_algebraMap ℚ_[p], hq, minpoly.aeval]
+
+local notation "N" => spectralNorm ℚ_[p] L
+
+theorem spectralNorm_mul' (x y : L) : N (x * y) = N x * N y :=
+  (spectralMulAlgNorm ℚ_[p] L).map_mul x y
+
+/-- **The integral closure of `ℤ_p` in a finite extension `L` of `ℚ_p` is a local ring.** -/
+theorem isLocalRing_integralClosure : IsLocalRing (integralClosure ℤ_[p] L) := by
+  have hle : ∀ x : integralClosure ℤ_[p] L, N (x : L) ≤ 1 := fun x =>
+    (isIntegral_iff_spectralNorm_le_one p L x).mp x.2
+  have hunit : ∀ x : integralClosure ℤ_[p] L, IsUnit x ↔ N (x : L) = 1 := by
+    intro x
+    constructor
+    · rintro ⟨u, rfl⟩
+      have h1 : N ((u : integralClosure ℤ_[p] L) : L) * N (((u⁻¹ : _ˣ) : integralClosure ℤ_[p] L) :
+          L)
+          = 1 := by
+        rw [← spectralNorm_mul', ← Subalgebra.coe_mul, Units.mul_inv, Subalgebra.coe_one,
+          spectralNorm_one]
+      have a1 := hle u
+      have a2 := hle (u⁻¹ : _ˣ)
+      have b1 := spectralNorm_nonneg (K := ℚ_[p]) ((u : integralClosure ℤ_[p] L) : L)
+      have b2 := spectralNorm_nonneg (K := ℚ_[p]) (((u⁻¹ : _ˣ) : integralClosure ℤ_[p] L) : L)
+      nlinarith
+    · intro h
+      have hx0 : (x : L) ≠ 0 := by
+        intro h0; rw [h0, spectralNorm_zero] at h; exact zero_ne_one h
+      have hinv : N ((x : L)⁻¹) = 1 := by
+        have := spectralNorm_mul' p L (x : L) (x : L)⁻¹
+        rw [mul_inv_cancel₀ hx0, spectralNorm_one, h, one_mul] at this
+        exact this.symm
+      have hint : IsIntegral ℤ_[p] ((x : L)⁻¹) :=
+        (isIntegral_iff_spectralNorm_le_one p L _).mpr hinv.le
+      refine IsUnit.of_mul_eq_one (⟨_, hint⟩ : integralClosure ℤ_[p] L) ?_
+      apply Subtype.ext
+      simp [hx0]
+  refine IsLocalRing.of_nonunits_add ?_
+  intro a b ha hb
+  rw [mem_nonunits_iff, hunit] at ha hb ⊢
+  have ha' : N (a : L) < 1 := lt_of_le_of_ne (hle a) ha
+  have hb' : N (b : L) < 1 := lt_of_le_of_ne (hle b) hb
+  have := isNonarchimedean_spectralNorm (K := ℚ_[p]) (L := L) (a : L) (b : L)
+  rw [Subalgebra.coe_add]
+  intro hab
+  rw [hab] at this
+  exact absurd this (not_le.mpr (max_lt ha' hb'))
+
+
+/-- `ℤ_p/(p)` has `p` elements. -/
+theorem card_quotient_maximalIdeal : Nat.card (ℤ_[p] ⧸ maximalIdeal ℤ_[p]) = p := by
+  rw [← PadicInt.ker_toZMod]
+  rw [Nat.card_congr (RingHom.quotientKerEquivOfSurjective
+    (ZMod.ringHom_surjective (PadicInt.toZMod (p := p)))).toEquiv]
+  simp
+
+/-- **Frobenius in a finite Galois extension of `ℚ_p`.** There is `σ ∈ Gal(L/ℚ_p)` with
+`σ ζ = ζ^p` for every root of unity `ζ ∈ L` of order prime to `p`. -/
+theorem exists_frobenius :
+    ∃ σ : Gal(L/ℚ_[p]), ∀ (m : ℕ), ¬ p ∣ m → ∀ ζ : L, ζ ^ m = 1 → σ ζ = ζ ^ p := by
+  let S := integralClosure ℤ_[p] L
+  have : IsFractionRing S L := integralClosure.isFractionRing_of_finite_extension ℚ_[p] L
+  have : IsGaloisGroup Gal(L/ℚ_[p]) ℤ_[p] S :=
+    IsGaloisGroup.of_isFractionRing Gal(L/ℚ_[p]) ℤ_[p] S ℚ_[p] L
+  have : Module.Finite ℤ_[p] S := IsIntegralClosure.finite ℤ_[p] ℚ_[p] L S
+  have hinjL : Function.Injective (algebraMap ℤ_[p] L) := by
+    rw [IsScalarTower.algebraMap_eq ℤ_[p] ℚ_[p] L]
+    exact (algebraMap ℚ_[p] L).injective.comp (IsFractionRing.injective ℤ_[p] ℚ_[p])
+  have : FaithfulSMul ℤ_[p] S := by
+    rw [faithfulSMul_iff_algebraMap_injective]
+    intro a b h
+    apply hinjL
+    rw [IsScalarTower.algebraMap_apply ℤ_[p] S L, h, ← IsScalarTower.algebraMap_apply]
+  obtain ⟨Q, hQmax, hQ⟩ := Ideal.exists_maximal_ideal_liesOver_of_isIntegral (S := S)
+    (maximalIdeal ℤ_[p])
+  have hunder : Q.under ℤ_[p] = maximalIdeal ℤ_[p] := (Ideal.liesOver_iff _ _).mp hQ |>.symm
+  have : Finite (ℤ_[p] ⧸ Q.under ℤ_[p]) := by
+    rw [hunder]
+    exact Nat.finite_of_card_ne_zero (by rw [card_quotient_maximalIdeal p]; exact hp.out.ne_zero)
+  have : Module.Finite (ℤ_[p] ⧸ Q.under ℤ_[p]) (S ⧸ Q) :=
+    Module.Finite.of_restrictScalars_finite ℤ_[p] _ _
+  have : Finite (S ⧸ Q) := Module.finite_of_finite (ℤ_[p] ⧸ Q.under ℤ_[p])
+  obtain ⟨σ, hσ⟩ := IsArithFrobAt.exists_of_isInvariant ℤ_[p] Gal(L/ℚ_[p]) Q
+  refine ⟨σ, fun m hm ζ hζ => ?_⟩
+  have hm0 : m ≠ 0 := by rintro rfl; exact hm (dvd_zero p)
+  have hζS : IsIntegral ℤ_[p] ζ := ⟨X ^ m - C 1, monic_X_pow_sub_C 1 hm0, by simp [hζ]⟩
+  let z : S := ⟨ζ, hζS⟩
+  have hz : z ^ m = 1 := Subtype.ext (by simp [z, hζ])
+  have hmQ : (m : S) ∉ Q := by
+    intro h
+    have h1 : (m : ℤ_[p]) ∈ Q.under ℤ_[p] := by
+      rw [Ideal.under, Ideal.mem_comap, map_natCast]; exact h
+    rw [hunder, ← PadicInt.ker_toZMod, RingHom.mem_ker, map_natCast,
+      ZMod.natCast_eq_zero_iff] at h1
+    exact hm h1
+  have key := hσ.apply_of_pow_eq_one hz hmQ
+  rw [hunder, card_quotient_maximalIdeal p] at key
+  have := congrArg (fun s : S => (s : L)) key
+  simp only [SubmonoidClass.coe_pow, z] at this
+  exact this
+
+/-- Two `m`-th roots of unity congruent modulo a prime `Q` with `m ∉ Q` are equal. -/
+theorem eq_of_pow_eq_one_of_sub_mem {R : Type*} [CommRing R] [IsDomain R] (Q : Ideal R) {m : ℕ}
+    {x y : R} (hx : x ^ m = 1) (hy : y ^ m = 1) (hxy : x - y ∈ Q) (hm : (m : R) ∉ Q) :
+    x = y := by
+  have hm0 : m ≠ 0 := by rintro rfl; exact hm (by simp)
+  by_contra hne
+  have h1 : (∑ i ∈ Finset.range m, x ^ i * y ^ (m - 1 - i)) = 0 := by
+    have := geom_sum₂_mul x y m
+    rw [hx, hy, sub_self] at this
+    exact (mul_eq_zero.mp this).resolve_right (sub_ne_zero.mpr hne)
+  have h2 : Ideal.Quotient.mk Q x = Ideal.Quotient.mk Q y := Ideal.Quotient.eq.mpr hxy
+  have h3 := congrArg (Ideal.Quotient.mk Q) h1
+  simp only [map_sum, map_mul, map_pow, h2, map_zero] at h3
+  have h4 : ∀ i ∈ Finset.range m, (Ideal.Quotient.mk Q y) ^ i * (Ideal.Quotient.mk Q y) ^ (m - 1 -
+      i)
+      = (Ideal.Quotient.mk Q y) ^ (m - 1) := fun i hi => by
+    rw [← pow_add]; congr 1; have := Finset.mem_range.mp hi; omega
+  rw [Finset.sum_congr rfl h4, Finset.sum_const, Finset.card_range, nsmul_eq_mul] at h3
+  have h5 : (Ideal.Quotient.mk Q y) ^ (m - 1) * Ideal.Quotient.mk Q y = 1 := by
+    rw [← pow_succ, Nat.sub_add_cancel (Nat.pos_of_ne_zero hm0), ← map_pow, hy, map_one]
+  have h6 : (m : R ⧸ Q) = 0 := by
+    have := congrArg (· * Ideal.Quotient.mk Q y) h3
+    simp only [zero_mul, mul_assoc, h5, mul_one] at this
+    exact this
+  apply hm
+  rw [← Ideal.Quotient.eq_zero_iff_mem, map_natCast]
+  exact h6
+
+attribute [local instance] Ideal.Quotient.field in
+/-- **Every element of `Gal(L/ℚ_p)` acts as a power of Frobenius on prime-to-`p` roots of
+unity**, provided the integral closure of `ℤ_p` in `L` is local (true for every finite `L/ℚ_p`;
+not proved here). -/
+theorem pow_frobenius_of_isLocalRing (hloc : IsLocalRing (integralClosure ℤ_[p] L))
+    (τ : Gal(L/ℚ_[p])) :
+    ∃ n : ℕ, ∀ m : ℕ, ¬ p ∣ m → ∀ ζ : L, ζ ^ m = 1 → τ ζ = ζ ^ (p ^ n) := by
+  let S := integralClosure ℤ_[p] L
+  have : IsFractionRing S L := integralClosure.isFractionRing_of_finite_extension ℚ_[p] L
+  have : IsGaloisGroup Gal(L/ℚ_[p]) ℤ_[p] S :=
+    IsGaloisGroup.of_isFractionRing Gal(L/ℚ_[p]) ℤ_[p] S ℚ_[p] L
+  have : Module.Finite ℤ_[p] S := IsIntegralClosure.finite ℤ_[p] ℚ_[p] L S
+  have hinjL : Function.Injective (algebraMap ℤ_[p] L) := by
+    rw [IsScalarTower.algebraMap_eq ℤ_[p] ℚ_[p] L]
+    exact (algebraMap ℚ_[p] L).injective.comp (IsFractionRing.injective ℤ_[p] ℚ_[p])
+  have : FaithfulSMul ℤ_[p] S := by
+    rw [faithfulSMul_iff_algebraMap_injective]
+    intro a b h
+    apply hinjL
+    rw [IsScalarTower.algebraMap_apply ℤ_[p] S L, h, ← IsScalarTower.algebraMap_apply]
+  obtain ⟨Q, hQmax, hQ⟩ := Ideal.exists_maximal_ideal_liesOver_of_isIntegral (S := S)
+    (maximalIdeal ℤ_[p])
+  have hunder : Q.under ℤ_[p] = maximalIdeal ℤ_[p] := (Ideal.liesOver_iff _ _).mp hQ |>.symm
+  have : Finite (ℤ_[p] ⧸ Q.under ℤ_[p]) := by
+    rw [hunder]
+    exact Nat.finite_of_card_ne_zero (by rw [card_quotient_maximalIdeal p]; exact hp.out.ne_zero)
+  have : Module.Finite (ℤ_[p] ⧸ Q.under ℤ_[p]) (S ⧸ Q) :=
+    Module.Finite.of_restrictScalars_finite ℤ_[p] _ _
+  have : Finite (S ⧸ Q) := Module.finite_of_finite (ℤ_[p] ⧸ Q.under ℤ_[p])
+  have hQeq : Q = maximalIdeal S := IsLocalRing.eq_maximalIdeal hQmax
+  have hstab : τ ∈ MulAction.stabilizer Gal(L/ℚ_[p]) Q := by
+    rw [MulAction.mem_stabilizer_iff, hQeq]
+    ext x
+    rw [Ideal.mem_pointwise_smul_iff_inv_smul_mem, IsLocalRing.mem_maximalIdeal,
+      IsLocalRing.mem_maximalIdeal, mem_nonunits_iff, mem_nonunits_iff, not_iff_not]
+    exact isUnit_map_iff (MulSemiringAction.toRingEquiv Gal(L/ℚ_[p]) S τ⁻¹) x
+  have : (Q.under ℤ_[p]).IsMaximal := by rw [hunder]; infer_instance
+  let φ := Ideal.Quotient.stabilizerHom Q (Q.under ℤ_[p]) Gal(L/ℚ_[p]) ⟨τ, hstab⟩
+  have : Fintype (ℤ_[p] ⧸ Q.under ℤ_[p]) := Fintype.ofFinite _
+  obtain ⟨⟨n, _hnlt⟩, hn⟩ := (FiniteField.bijective_frobeniusAlgEquivOfAlgebraic_pow
+    (ℤ_[p] ⧸ Q.under ℤ_[p]) (S ⧸ Q)).2 φ
+  have hcard : Fintype.card (ℤ_[p] ⧸ Q.under ℤ_[p]) = p := by
+    rw [Fintype.card_eq_nat_card, Nat.card_congr (Ideal.quotEquivOfEq hunder).toEquiv,
+      card_quotient_maximalIdeal p]
+  refine ⟨n, fun m hm ζ hζ => ?_⟩
+  have hm0 : m ≠ 0 := by rintro rfl; exact hm (dvd_zero p)
+  have hζS : IsIntegral ℤ_[p] ζ := ⟨X ^ m - C 1, monic_X_pow_sub_C 1 hm0, by simp [hζ]⟩
+  let z : S := ⟨ζ, hζS⟩
+  have hz : z ^ m = 1 := Subtype.ext (by simp [z, hζ])
+  have hmQ : (m : S) ∉ Q := by
+    intro h
+    have h1 : (m : ℤ_[p]) ∈ Q.under ℤ_[p] := by
+      rw [Ideal.under, Ideal.mem_comap, map_natCast]; exact h
+    rw [hunder, ← PadicInt.ker_toZMod, RingHom.mem_ker, map_natCast,
+      ZMod.natCast_eq_zero_iff] at h1
+    exact hm h1
+  have h1 : Ideal.Quotient.mk Q (τ • z) = Ideal.Quotient.mk Q (z ^ (p ^ n)) := by
+    have := congrArg (fun f => f (Ideal.Quotient.mk Q z)) hn
+    simp only at this
+    rw [AlgEquiv.coe_pow, FiniteField.coe_frobeniusAlgEquivOfAlgebraic_iterate, hcard] at this
+    beta_reduce at this
+    rw [map_pow, this]
+    rfl
+  have hτz : (τ • z) ^ m = 1 := by rw [← smul_pow', hz, smul_one]
+  have hzp : (z ^ (p ^ n)) ^ m = 1 := by rw [← pow_mul, mul_comm, pow_mul, hz, one_pow]
+  have h2 := eq_of_pow_eq_one_of_sub_mem Q hτz hzp (Ideal.Quotient.eq.mp h1) hmQ
+  have := congrArg (fun s : S => (s : L)) h2
+  simp only [SubmonoidClass.coe_pow, z] at this
+  exact this
+
+/-- If `σ ζ = ζ^k` for a primitive `m`-th root `ζ`, then `autToPow σ = k` in `ZMod m`. -/
+theorem autToPow_eq_of_apply {K F : Type*} [Field K] [Field F] [Algebra K F] {m : ℕ} [NeZero m]
+    {ζ : F} (hζ : IsPrimitiveRoot ζ m) (σ : Gal(F/K)) (k : ℕ) (h : σ ζ = ζ ^ k) :
+    ((hζ.autToPow K σ : (ZMod m)ˣ) : ZMod m) = k := by
+  have h1 := hζ.autToPow_spec K σ
+  rw [h] at h1
+  have hk : ζ ^ k = ζ ^ (k % m) := by
+    conv_lhs => rw [← Nat.mod_add_div k m]
+    rw [pow_add, pow_mul, hζ.pow_eq_one, one_pow, mul_one]
+  rw [hk] at h1
+  have h2 := hζ.pow_inj (ZMod.val_lt _) (Nat.mod_lt _ (NeZero.pos m)) h1
+  rw [← ZMod.natCast_zmod_val ((hζ.autToPow K σ : (ZMod m)ˣ) : ZMod m), h2, ZMod.natCast_mod]
+
+/-- **The unramified Galois group.** For `p ∤ m` and an `m`-th cyclotomic extension `L` of `ℚ_p`,
+the image of `Gal(L/ℚ_p) ↪ (ℤ/m)ˣ` (`σ ζ = ζ^a`) is the cyclic group generated by `p`, provided the
+integral closure of `ℤ_p` in `L` is local. -/
+theorem range_autToPow_eq_zpowers (hloc : IsLocalRing (integralClosure ℤ_[p] L)) {m : ℕ}
+    [NeZero m] (hm : ¬ p ∣ m) {ζ : L} (hζ : IsPrimitiveRoot ζ m) :
+    (hζ.autToPow ℚ_[p]).range =
+      Subgroup.zpowers (ZMod.unitOfCoprime p ((Nat.Prime.coprime_iff_not_dvd hp.out).mpr hm)) := by
+  set u := ZMod.unitOfCoprime p ((Nat.Prime.coprime_iff_not_dvd hp.out).mpr hm)
+  apply le_antisymm
+  · rintro _ ⟨τ, rfl⟩
+    obtain ⟨n, hn⟩ := pow_frobenius_of_isLocalRing p L hloc τ
+    refine ⟨n, ?_⟩
+    ext
+    rw [autToPow_eq_of_apply hζ τ (p ^ n) (hn m hm ζ hζ.pow_eq_one)]
+    simp [u]
+  · rw [Subgroup.zpowers_le]
+    obtain ⟨σ, hσ⟩ := exists_frobenius p L
+    refine ⟨σ, ?_⟩
+    ext
+    rw [autToPow_eq_of_apply hζ σ p (hσ m hm ζ hζ.pow_eq_one)]
+    simp [u]
+
+/-- **The unramified Galois group, unconditionally.** For `p ∤ m` and a primitive `m`-th root of
+unity `ζ` in a finite Galois extension `L/ℚ_p`, the image of `Gal(L/ℚ_p) → (ℤ/m)ˣ` is `⟨p⟩`. -/
+theorem range_autToPow_eq_zpowers' {m : ℕ} [NeZero m] (hm : ¬ p ∣ m) {ζ : L}
+    (hζ : IsPrimitiveRoot ζ m) :
+    (hζ.autToPow ℚ_[p]).range =
+      Subgroup.zpowers (ZMod.unitOfCoprime p ((Nat.Prime.coprime_iff_not_dvd hp.out).mpr hm)) :=
+  range_autToPow_eq_zpowers p L (isLocalRing_integralClosure p L) hm hζ
+
+/-- Every element of `Gal(L/ℚ_p)` acts as a power of Frobenius on prime-to-`p` roots of unity. -/
+theorem pow_frobenius (τ : Gal(L/ℚ_[p])) :
+    ∃ n : ℕ, ∀ m : ℕ, ¬ p ∣ m → ∀ ζ : L, ζ ^ m = 1 → τ ζ = ζ ^ (p ^ n) :=
+  pow_frobenius_of_isLocalRing p L (isLocalRing_integralClosure p L) τ
+
+/-- **Degree of the unramified cyclotomic extension.** If `p ∤ m` and `L` is an `m`-th cyclotomic
+extension of `ℚ_p`, then `[L : ℚ_p] = ord_m(p)`, and `Gal(L/ℚ_p) ≃* ⟨p⟩ ⊆ (ℤ/m)ˣ`. -/
+theorem finrank_eq_orderOf {m : ℕ} [NeZero m] (hm : ¬ p ∣ m)
+    [IsCyclotomicExtension {m} ℚ_[p] L] :
+    Module.finrank ℚ_[p] L =
+      orderOf (ZMod.unitOfCoprime p ((Nat.Prime.coprime_iff_not_dvd hp.out).mpr hm)) := by
+  have hζ := IsCyclotomicExtension.zeta_spec m ℚ_[p] L
+  rw [← IsGalois.card_aut_eq_finrank, ← Nat.card_zpowers, ← range_autToPow_eq_zpowers' p L hm hζ]
+  exact (Nat.card_congr (Equiv.ofInjective _ (hζ.autToPow_injective ℚ_[p])))
+
+/-- `Gal(L/ℚ_p)` is cyclic for an `m`-th cyclotomic extension with `p ∤ m`. -/
+theorem isCyclic_gal {m : ℕ} [NeZero m] (hm : ¬ p ∣ m) [IsCyclotomicExtension {m} ℚ_[p] L] :
+    IsCyclic Gal(L/ℚ_[p]) := by
+  have hζ := IsCyclotomicExtension.zeta_spec m ℚ_[p] L
+  have e := MonoidHom.ofInjective (hζ.autToPow_injective ℚ_[p])
+  rw [range_autToPow_eq_zpowers' p L hm hζ] at e
+  exact isCyclic_of_surjective e.symm.toMonoidHom e.symm.surjective
+
+end GlueSqrtLocal
+
+/-! `GlueSqrtLocal.exists_half_iff`, `redU`, `redU_sq_eq_one` and their helpers
+(copied in the draft) are imported from `ZInQKernel.HDecomp.Sqrt.SqrtLocal`. -/
+
+namespace GlueSqrtDisj
+
+variable (p : ℕ) [hp : Fact p.Prime] (L : Type) [Field L] [Algebra ℚ_[p] L]
+  [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]
+
+/-- `ℤ_p/(p)` has `p` elements (copied from glue-sqrt-local). -/
+theorem card_quotient_maximalIdeal : Nat.card (ℤ_[p] ⧸ maximalIdeal ℤ_[p]) = p := by
+  rw [← PadicInt.ker_toZMod]
+  rw [Nat.card_congr (RingHom.quotientKerEquivOfSurjective
+    (ZMod.ringHom_surjective (PadicInt.toZMod (p := p)))).toEquiv]
+  simp
+
+/-- Two `m`-th roots of unity congruent modulo a prime `Q` with `m ∉ Q` are equal
+(copied from glue-sqrt-local). -/
+theorem eq_of_pow_eq_one_of_sub_mem {R : Type*} [CommRing R] [IsDomain R] (Q : Ideal R) {m : ℕ}
+    {x y : R} (hx : x ^ m = 1) (hy : y ^ m = 1) (hxy : x - y ∈ Q) (hm : (m : R) ∉ Q) :
+    x = y := by
+  have hm0 : m ≠ 0 := by rintro rfl; exact hm (by simp)
+  by_contra hne
+  have h1 : (∑ i ∈ Finset.range m, x ^ i * y ^ (m - 1 - i)) = 0 := by
+    have := geom_sum₂_mul x y m
+    rw [hx, hy, sub_self] at this
+    exact (mul_eq_zero.mp this).resolve_right (sub_ne_zero.mpr hne)
+  have h2 : Ideal.Quotient.mk Q x = Ideal.Quotient.mk Q y := Ideal.Quotient.eq.mpr hxy
+  have h3 := congrArg (Ideal.Quotient.mk Q) h1
+  simp only [map_sum, map_mul, map_pow, h2, map_zero] at h3
+  have h4 : ∀ i ∈ Finset.range m, (Ideal.Quotient.mk Q y) ^ i * (Ideal.Quotient.mk Q y) ^ (m - 1 -
+      i)
+      = (Ideal.Quotient.mk Q y) ^ (m - 1) := fun i hi => by
+    rw [← pow_add]; congr 1; have := Finset.mem_range.mp hi; omega
+  rw [Finset.sum_congr rfl h4, Finset.sum_const, Finset.card_range, nsmul_eq_mul] at h3
+  have h5 : (Ideal.Quotient.mk Q y) ^ (m - 1) * Ideal.Quotient.mk Q y = 1 := by
+    rw [← pow_succ, Nat.sub_add_cancel (Nat.pos_of_ne_zero hm0), ← map_pow, hy, map_one]
+  have h6 : (m : R ⧸ Q) = 0 := by
+    have := congrArg (· * Ideal.Quotient.mk Q y) h3
+    simp only [zero_mul, mul_assoc, h5, mul_one] at this
+    exact this
+  apply hm
+  rw [← Ideal.Quotient.eq_zero_iff_mem, map_natCast]
+  exact h6
+
+/-- In a domain, if `p` lies in a prime `Q` and `z` is a primitive `p^k`-th root of unity, then
+`p ∈ Q^φ(p^k)`: `p = Φ_{p^k}(1) = ∏ (1 - μ)` over the primitive roots `μ`, and each `1 - μ`
+lies in `Q`. -/
+theorem prime_mem_pow_totient {R : Type*} [CommRing R] [IsDomain R] (Q : Ideal R) [Q.IsPrime]
+    {k : ℕ} {z : R} (hz : IsPrimitiveRoot z (p ^ k)) (hpQ : (p : R) ∈ Q) :
+    (p : R) ∈ Q ^ (p ^ k).totient := by
+  rcases Nat.eq_zero_or_pos k with rfl | hk
+  · simpa using hpQ
+  have hpk : 0 < p ^ k := pow_pos hp.out.pos k
+  have hprod : (p : R) = ∏ μ ∈ primitiveRoots (p ^ k) R, (1 - μ) := by
+    have h1 := congrArg (eval 1) (cyclotomic_eq_prod_X_sub_primitiveRoots hz)
+    obtain ⟨j, rfl⟩ : ∃ j, k = j + 1 := ⟨k - 1, by omega⟩
+    rw [eval_one_cyclotomic_prime_pow (R := R) (p := p) j, eval_prod] at h1
+    simpa using h1
+  -- some `1 - μ₀` lies in `Q`
+  obtain ⟨μ₀, hμ₀, hμ₀Q⟩ : ∃ μ₀ ∈ primitiveRoots (p ^ k) R, 1 - μ₀ ∈ Q := by
+    rw [hprod] at hpQ
+    exact (Ideal.IsPrime.prod_mem_iff (p := Q)).mp hpQ
+  have hμ₀' : IsPrimitiveRoot μ₀ (p ^ k) := (mem_primitiveRoots hpk).mp hμ₀
+  have hall : ∀ μ ∈ primitiveRoots (p ^ k) R, 1 - μ ∈ Q := by
+    intro μ hμ
+    have hμ' : IsPrimitiveRoot μ (p ^ k) := (mem_primitiveRoots hpk).mp hμ
+    obtain ⟨i, -, rfl⟩ := hμ₀'.eq_pow_of_pow_eq_one hμ'.pow_eq_one
+    obtain ⟨c, hc⟩ := one_sub_dvd_one_sub_pow μ₀ i
+    rw [hc]
+    exact Q.mul_mem_right c hμ₀Q
+  have := Ideal.prod_mem_prod (s := primitiveRoots (p ^ k) R) (I := fun _ => Q)
+    (x := fun μ => 1 - μ) hall
+  rw [Finset.prod_const, hz.card_primitiveRoots] at this
+  rw [hprod]
+  exact this
+
+
+/-- **Degree bound.** Let `L/ℚ_p` be finite Galois, containing a primitive `p^k`-th root of
+unity `ζ` and a primitive `m`-th root of unity `η` with `p ∤ m`. Then
+`φ(p^k) · ord_m(p) ≤ [L:ℚ_p]`. Proof: the fundamental identity `g·e·f = |Gal(L/ℚ_p)|` for the
+integral closure `S` of `ℤ_p`; `e ≥ φ(p^k)` because `p ∈ Q^φ(p^k)`; `f ≥ ord_m(p)` because
+`η^(p^f) = η` (Frobenius of `S/Q`, and `m`-th roots of unity stay distinct mod `Q`). -/
+theorem totient_mul_orderOf_le_finrank {k m : ℕ} [NeZero m] (hcop : p.Coprime m) {ζ η : L}
+    (hζ : IsPrimitiveRoot ζ (p ^ k)) (hη : IsPrimitiveRoot η m) :
+    (p ^ k).totient * orderOf (ZMod.unitOfCoprime p hcop) ≤ Module.finrank ℚ_[p] L := by
+  let S := integralClosure ℤ_[p] L
+  have : IsFractionRing S L := integralClosure.isFractionRing_of_finite_extension ℚ_[p] L
+  have : IsGaloisGroup Gal(L/ℚ_[p]) ℤ_[p] S :=
+    IsGaloisGroup.of_isFractionRing Gal(L/ℚ_[p]) ℤ_[p] S ℚ_[p] L
+  have : Module.Finite ℤ_[p] S := IsIntegralClosure.finite ℤ_[p] ℚ_[p] L S
+  have hinjL : Function.Injective (algebraMap ℤ_[p] L) := by
+    rw [IsScalarTower.algebraMap_eq ℤ_[p] ℚ_[p] L]
+    exact (algebraMap ℚ_[p] L).injective.comp (IsFractionRing.injective ℤ_[p] ℚ_[p])
+  have : FaithfulSMul ℤ_[p] S := by
+    rw [faithfulSMul_iff_algebraMap_injective]
+    intro a b h
+    apply hinjL
+    rw [IsScalarTower.algebraMap_apply ℤ_[p] S L, h, ← IsScalarTower.algebraMap_apply]
+  have : IsDedekindDomain S := integralClosure.isDedekindDomain ℤ_[p] ℚ_[p] L
+  have : Module.Flat ℤ_[p] S := inferInstance
+  obtain ⟨Q, hQmax, hQ⟩ := Ideal.exists_maximal_ideal_liesOver_of_isIntegral (S := S)
+    (maximalIdeal ℤ_[p])
+  have hunder : Q.under ℤ_[p] = maximalIdeal ℤ_[p] := (Ideal.liesOver_iff _ _).mp hQ |>.symm
+  -- the fundamental identity
+  have hfund := Ideal.ncard_primesOver_mul_ramificationIdxIn_mul_inertiaDegIn
+    (maximalIdeal ℤ_[p]) S Gal(L/ℚ_[p])
+  rw [Ideal.ramificationIdxIn_eq_ramificationIdx (maximalIdeal ℤ_[p]) Q Gal(L/ℚ_[p]),
+    Ideal.inertiaDegIn_eq_inertiaDeg (maximalIdeal ℤ_[p]) Q Gal(L/ℚ_[p]),
+    IsGalois.card_aut_eq_finrank] at hfund
+  have hG : 0 < Module.finrank ℚ_[p] L := Module.finrank_pos
+  have hef : Q.ramificationIdx ℤ_[p] * Q.inertiaDeg ℤ_[p] ≤ Module.finrank ℚ_[p] L := by
+    rw [← hfund]
+    apply Nat.le_mul_of_pos_left
+    rcases Nat.eq_zero_or_pos (Ideal.primesOver (maximalIdeal ℤ_[p]) S).ncard with h | h
+    · rw [h, zero_mul] at hfund; omega
+    · exact h
+  refine le_trans (Nat.mul_le_mul ?_ ?_) hef
+  · -- `e ≥ φ(p^k)`
+    have hpQ : (p : S) ∈ Q := by
+      have : (p : ℤ_[p]) ∈ Q.under ℤ_[p] := by
+        rw [hunder, PadicInt.maximalIdeal_eq_span_p]
+        exact Ideal.subset_span rfl
+      rw [Ideal.under, Ideal.mem_comap, map_natCast] at this
+      exact this
+    have hζS : IsIntegral ℤ_[p] ζ := ⟨X ^ (p ^ k) - C 1,
+      monic_X_pow_sub_C 1 (pow_pos hp.out.pos k).ne', by simp [hζ.pow_eq_one]⟩
+    let z : S := ⟨ζ, hζS⟩
+    have hz : IsPrimitiveRoot z (p ^ k) :=
+      IsPrimitiveRoot.of_map_of_injective (f := (integralClosure ℤ_[p] L).val) hζ
+        Subtype.val_injective
+    have hmem := prime_mem_pow_totient p Q hz hpQ
+    have hne : Ideal.map (algebraMap ℤ_[p] S) (maximalIdeal ℤ_[p]) ≠ ⊥ :=
+      Ideal.map_ne_bot_of_ne_bot (by
+        rw [PadicInt.maximalIdeal_eq_span_p]; simp [hp.out.ne_zero])
+    rw [Ideal.IsDedekindDomain.ramificationIdx_eq_multiplicity (maximalIdeal ℤ_[p]) Q hne]
+    have hQ0 : ¬ IsUnit Q := by
+      rw [Ideal.isUnit_iff]; exact hQmax.ne_top
+    apply (FiniteMultiplicity.of_not_isUnit hQ0 hne).le_multiplicity_of_pow_dvd
+    rw [Ideal.dvd_iff_le, PadicInt.maximalIdeal_eq_span_p, Ideal.map_span, Set.image_singleton,
+      Ideal.span_le, Set.singleton_subset_iff, map_natCast]
+    exact hmem
+  · -- `f ≥ ord_m(p)`
+    have hm : ¬ p ∣ m := (Nat.Prime.coprime_iff_not_dvd hp.out).mp hcop
+    have hm0 : m ≠ 0 := NeZero.ne m
+    have hcard := Ideal.cardQuot_pow_inertiaDeg (maximalIdeal ℤ_[p]) Q
+    rw [Submodule.cardQuot_apply, Submodule.cardQuot_apply] at hcard
+    change Nat.card (ℤ_[p] ⧸ maximalIdeal ℤ_[p]) ^ _ = Nat.card (S ⧸ Q) at hcard
+    rw [card_quotient_maximalIdeal p] at hcard
+    set f := Q.inertiaDeg ℤ_[p]
+    have hf : 0 < f := Ideal.inertiaDeg_pos (R := ℤ_[p]) Q
+    let _ : Field (S ⧸ Q) := Ideal.Quotient.field Q
+    have : Finite (S ⧸ Q) := Nat.finite_of_card_ne_zero (by
+      rw [← hcard]; exact pow_ne_zero _ hp.out.ne_zero)
+    let _ := Fintype.ofFinite (S ⧸ Q)
+    have hηS : IsIntegral ℤ_[p] η := ⟨X ^ m - C 1, monic_X_pow_sub_C 1 hm0,
+      by simp [hη.pow_eq_one]⟩
+    let w : S := ⟨η, hηS⟩
+    have hw : w ^ m = 1 := Subtype.ext (by simp [w, hη.pow_eq_one])
+    have hmQ : (m : S) ∉ Q := by
+      intro h
+      have h1 : (m : ℤ_[p]) ∈ Q.under ℤ_[p] := by
+        rw [Ideal.under, Ideal.mem_comap, map_natCast]; exact h
+      rw [hunder, ← PadicInt.ker_toZMod, RingHom.mem_ker, map_natCast,
+        ZMod.natCast_eq_zero_iff] at h1
+      exact hm h1
+    have hfrob : Ideal.Quotient.mk Q (w ^ (p ^ f)) = Ideal.Quotient.mk Q w := by
+      rw [map_pow, hcard, Nat.card_eq_fintype_card, FiniteField.pow_card]
+    have hwf : w ^ (p ^ f) = w := by
+      refine eq_of_pow_eq_one_of_sub_mem Q (m := m) ?_ hw (Ideal.Quotient.eq.mp hfrob) hmQ
+      rw [← pow_mul, mul_comm, pow_mul, hw, one_pow]
+    have hηf : η ^ (p ^ f) = η := by
+      have := congrArg Subtype.val hwf
+      simpa [w] using this
+    have hpf : 1 ≤ p ^ f := Nat.one_le_pow _ _ hp.out.pos
+    have h1 : η ^ (p ^ f - 1) = 1 := by
+      apply mul_right_cancel₀ (hη.ne_zero hm0)
+      rw [← pow_succ, Nat.sub_add_cancel hpf, one_mul]; exact hηf
+    have h2 : m ∣ p ^ f - 1 := hη.dvd_of_pow_eq_one _ h1
+    have h3 : ((p ^ f - 1 : ℕ) : ZMod m) = 0 := (ZMod.natCast_eq_zero_iff _ _).mpr h2
+    rw [Nat.cast_sub hpf, sub_eq_zero, Nat.cast_pow, Nat.cast_one] at h3
+    apply orderOf_le_of_pow_eq_one hf
+    ext
+    simp only [Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one]
+    exact h3
+
+
+/-! ### Disjointness: `Gal(ℚ_p(μ_{p^k m})/ℚ_p) ≅ (ℤ/p^k)ˣ × ⟨p⟩` -/
+
+section Disj
+
+theorem card_subgroup_prod {G N : Type*} [Group G] [Group N] (H : Subgroup G) (K : Subgroup N) :
+    Nat.card (H.prod K) = Nat.card H * Nat.card K := by
+  rw [Nat.card_congr (Subgroup.prodEquiv H K).toEquiv, Nat.card_prod]
+
+open GlueSqrtLocal
+
+variable {p L} (k m : ℕ) [NeZero m] (hcop : p.Coprime m) [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L]
+
+include hp in
+theorem zeta_pow_m :
+    IsPrimitiveRoot ((IsCyclotomicExtension.zeta (p ^ k * m) ℚ_[p] L) ^ m) (p ^ k) :=
+  (IsCyclotomicExtension.zeta_spec (p ^ k * m) ℚ_[p] L).pow
+    (Nat.mul_pos (pow_pos hp.out.pos k) (NeZero.pos m)) (mul_comm _ _)
+
+include hp in
+theorem zeta_pow_pk :
+    IsPrimitiveRoot ((IsCyclotomicExtension.zeta (p ^ k * m) ℚ_[p] L) ^ (p ^ k)) m :=
+  (IsCyclotomicExtension.zeta_spec (p ^ k * m) ℚ_[p] L).pow
+    (Nat.mul_pos (pow_pos hp.out.pos k) (NeZero.pos m)) rfl
+
+instance neZero_pow : NeZero (p ^ k) := ⟨pow_ne_zero _ hp.out.ne_zero⟩
+
+/-- The action on `μ_{p^k}` and on `μ_m`: `g ↦ (a, b)` with `g ζ₁ = ζ₁^a`, `g ζ₂ = ζ₂^b`. -/
+noncomputable def galToProd : Gal(L/ℚ_[p]) →* (ZMod (p ^ k))ˣ × (ZMod m)ˣ :=
+  ((zeta_pow_m (p := p) (L := L) k m).autToPow ℚ_[p]).prod
+    ((zeta_pow_pk (p := p) (L := L) k m).autToPow ℚ_[p])
+
+omit [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] in
+theorem fix_of_autToPow_eq_one {n : ℕ} [NeZero n] {μ : L} (hμ : IsPrimitiveRoot μ n)
+    (g : Gal(L/ℚ_[p])) (h : hμ.autToPow ℚ_[p] g = 1) : g μ = μ := by
+  rw [← hμ.autToPow_spec ℚ_[p] g, h, Units.val_one, ZMod.val_one_eq_one_mod,
+    hμ.eq_orderOf, pow_mod_orderOf, pow_one]
+
+include hcop in
+theorem galToProd_injective : Function.Injective (galToProd (p := p) (L := L) k m) := by
+  rw [injective_iff_map_eq_one]
+  intro g hg
+  set ζ := IsCyclotomicExtension.zeta (p ^ k * m) ℚ_[p] L
+  have hζ := IsCyclotomicExtension.zeta_spec (p ^ k * m) ℚ_[p] L
+  have hg1 : g (ζ ^ m) = ζ ^ m :=
+    fix_of_autToPow_eq_one (zeta_pow_m k m) g (congrArg Prod.fst hg)
+  have hg2 : g (ζ ^ (p ^ k)) = ζ ^ (p ^ k) :=
+    fix_of_autToPow_eq_one (zeta_pow_pk k m) g (congrArg Prod.snd hg)
+  have hζ0 : ζ ≠ 0 := hζ.ne_zero (NeZero.ne _)
+  have hbez : ((Nat.gcd m (p ^ k) : ℕ) : ℤ) = m * Nat.gcdA m (p ^ k) + p ^ k * Nat.gcdB m (p ^ k) :=
+      by
+    rw [Nat.gcd_eq_gcd_ab]; push_cast; ring
+  have hgcd : Nat.gcd m (p ^ k) = 1 := (Nat.Coprime.pow_left k hcop).symm
+  rw [hgcd, Nat.cast_one] at hbez
+  have hdecomp : ζ = (ζ ^ m) ^ Nat.gcdA m (p ^ k) * (ζ ^ (p ^ k)) ^ Nat.gcdB m (p ^ k) := by
+    rw [← zpow_natCast, ← zpow_natCast, ← zpow_mul, ← zpow_mul, ← zpow_add₀ hζ0]
+    conv_lhs => rw [← zpow_one ζ]
+    congr 1
+  have hfix : g ζ = ζ := by
+    conv_lhs => rw [hdecomp]
+    rw [map_mul, map_zpow₀, map_zpow₀, hg1, hg2, ← hdecomp]
+  apply hζ.autToPow_injective ℚ_[p]
+  rw [map_one]
+  ext
+  rw [autToPow_eq_of_apply hζ g 1 (by rw [pow_one]; exact hfix)]
+  simp
+
+/-- **Disjointness.** For `p ∤ m`, the image of `Gal(ℚ_p(μ_{p^k m})/ℚ_p)` in
+`(ℤ/p^k)ˣ × (ℤ/m)ˣ` is `(ℤ/p^k)ˣ × ⟨p⟩`. -/
+theorem range_galToProd :
+    (galToProd (p := p) (L := L) k m).range =
+      (⊤ : Subgroup (ZMod (p ^ k))ˣ).prod (Subgroup.zpowers (ZMod.unitOfCoprime p hcop)) := by
+  have hm : ¬ p ∣ m := (Nat.Prime.coprime_iff_not_dvd hp.out).mp hcop
+  have hle : (galToProd (p := p) (L := L) k m).range ≤
+      (⊤ : Subgroup (ZMod (p ^ k))ˣ).prod (Subgroup.zpowers (ZMod.unitOfCoprime p hcop)) := by
+    rintro _ ⟨g, rfl⟩
+    refine ⟨Subgroup.mem_top _, ?_⟩
+    have := range_autToPow_eq_zpowers' p L hm (zeta_pow_pk (p := p) (L := L) k m)
+    have hmem : (zeta_pow_pk (p := p) (L := L) k m).autToPow ℚ_[p] g ∈
+        ((zeta_pow_pk (p := p) (L := L) k m).autToPow ℚ_[p]).range := ⟨g, rfl⟩
+    rw [this] at hmem
+    exact hmem
+  have hcardG : Nat.card (galToProd (p := p) (L := L) k m).range = Module.finrank ℚ_[p] L := by
+    rw [← IsGalois.card_aut_eq_finrank]
+    exact Nat.card_congr (Equiv.ofInjective _ (galToProd_injective k m hcop)).symm
+  apply Subgroup.eq_of_le_of_card_ge hle
+  rw [hcardG, card_subgroup_prod, Subgroup.card_top, Nat.card_zpowers,
+    Nat.card_eq_fintype_card (α := (ZMod (p ^ k))ˣ), ZMod.card_units_eq_totient]
+  exact totient_mul_orderOf_le_finrank p L hcop (zeta_pow_m (p := p) (L := L) k m)
+    (zeta_pow_pk (p := p) (L := L) k m)
+
+/-- **The Galois group of `ℚ_p(μ_{p^k m})`** for `p ∤ m`:
+`Gal(L/ℚ_p) ≃* (ℤ/p^k)ˣ × ⟨p⟩`, through the action on `μ_{p^k}` and `μ_m`. -/
+noncomputable def galEquivProd : Gal(L/ℚ_[p]) ≃*
+    ((⊤ : Subgroup (ZMod (p ^ k))ˣ).prod (Subgroup.zpowers (ZMod.unitOfCoprime p hcop)) :
+      Subgroup ((ZMod (p ^ k))ˣ × (ZMod m)ˣ)) :=
+  (MonoidHom.ofInjective (galToProd_injective (p := p) (L := L) k m hcop)).trans
+    (MulEquiv.subgroupCongr (range_galToProd k m hcop))
+
+/-- **Degree.** `[ℚ_p(μ_{p^k m}):ℚ_p] = φ(p^k) · ord_m(p)` for `p ∤ m`. -/
+theorem finrank_eq_totient_mul_orderOf :
+    Module.finrank ℚ_[p] L = (p ^ k).totient * orderOf (ZMod.unitOfCoprime p hcop) := by
+  rw [← IsGalois.card_aut_eq_finrank, Nat.card_congr (galEquivProd (L := L) k m hcop).toEquiv,
+    card_subgroup_prod, Subgroup.card_top, Nat.card_zpowers,
+    Nat.card_eq_fintype_card (α := (ZMod (p ^ k))ˣ), ZMod.card_units_eq_totient]
+
+
+/-- `galToProd` is the action on `μ_{p^k}`: `g x = x^a` for every `x` with `x^{p^k} = 1`. -/
+theorem galToProd_fst_spec (g : Gal(L/ℚ_[p])) (x : L) (hx : x ^ (p ^ k) = 1) :
+    g x = x ^ (((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))).val := by
+  obtain ⟨i, -, rfl⟩ := (zeta_pow_m (p := p) (L := L) k m).eq_pow_of_pow_eq_one hx
+  rw [map_pow, ← (zeta_pow_m (p := p) (L := L) k m).autToPow_spec ℚ_[p] g]
+  simp only [galToProd, MonoidHom.prod_apply]
+  simp only [← pow_mul]
+  ring_nf
+
+/-- `galToProd` is the action on `μ_m`: `g y = y^b` for every `y` with `y^m = 1`. -/
+theorem galToProd_snd_spec (g : Gal(L/ℚ_[p])) (y : L) (hy : y ^ m = 1) :
+    g y = y ^ (((galToProd (p := p) (L := L) k m g).2 : ZMod m)).val := by
+  obtain ⟨i, -, rfl⟩ := (zeta_pow_pk (p := p) (L := L) k m).eq_pow_of_pow_eq_one hy
+  rw [map_pow, ← (zeta_pow_pk (p := p) (L := L) k m).autToPow_spec ℚ_[p] g]
+  simp only [galToProd, MonoidHom.prod_apply]
+  simp only [← pow_mul]
+  ring_nf
+
+omit [NeZero m] [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] in
+/-- **Compatibility with restriction.** For a subextension `K` of level `p^{k'} m'`
+(`k' ≤ k`, `m' ∣ m`), restriction `Gal(L/ℚ_p) → Gal(K/ℚ_p)` corresponds to reduction
+`(ℤ/p^k)ˣ × (ℤ/m)ˣ → (ℤ/p^{k'})ˣ × (ℤ/m')ˣ`. -/
+theorem galToProd_restrict [NeZero m] [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L]
+    (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k' m' : ℕ) [NeZero m'] [IsCyclotomicExtension {p ^ k' * m'} ℚ_[p] K]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hk : k' ≤ k) (hm : m' ∣ m) (g : Gal(L/ℚ_[p])) :
+    (((galToProd (p := p) (L := K) k' m' (g.restrictNormal K)).1 : ZMod (p ^ k')) =
+        ZMod.castHom (pow_dvd_pow p hk) _ ((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))) ∧
+    (((galToProd (p := p) (L := K) k' m' (g.restrictNormal K)).2 : ZMod m') =
+        ZMod.castHom hm _ ((galToProd (p := p) (L := L) k m g).2 : ZMod m)) := by
+  constructor
+  · set a := ((galToProd (p := p) (L := L) k m g).1 : ZMod (p ^ k))
+    have h := autToPow_eq_of_apply (zeta_pow_m (p := p) (L := K) k' m') (g.restrictNormal K) a.val
+      (by
+        apply (algebraMap K L).injective
+        rw [AlgEquiv.restrictNormal_commutes, map_pow _ _ a.val]
+        refine galToProd_fst_spec (p := p) (L := L) k m g _ ?_
+        rw [← map_pow, ← map_one (algebraMap K L)]
+        congr 1
+        obtain ⟨c, hc⟩ := pow_dvd_pow p hk
+        rw [hc, pow_mul, (zeta_pow_m (p := p) (L := K) k' m').pow_eq_one, one_pow])
+    simp only [galToProd, MonoidHom.prod_apply] at h ⊢
+    rw [h, ZMod.castHom_apply, ZMod.cast_eq_val]
+  · set b := ((galToProd (p := p) (L := L) k m g).2 : ZMod m)
+    have h := autToPow_eq_of_apply (zeta_pow_pk (p := p) (L := K) k' m') (g.restrictNormal K) b.val
+      (by
+        apply (algebraMap K L).injective
+        rw [AlgEquiv.restrictNormal_commutes, map_pow _ _ b.val]
+        refine galToProd_snd_spec (p := p) (L := L) k m g _ ?_
+        rw [← map_pow, ← map_one (algebraMap K L)]
+        congr 1
+        obtain ⟨c, hc⟩ := hm
+        rw [hc, pow_mul, (zeta_pow_pk (p := p) (L := K) k' m').pow_eq_one, one_pow])
+    simp only [galToProd, MonoidHom.prod_apply] at h ⊢
+    rw [h, ZMod.castHom_apply, ZMod.cast_eq_val]
+
+end Disj
+
+
+/-! ### The local square-root criterion at a finite level, with the level change -/
+
+section Crit
+
+open GlueSqrtLocal
+
+variable {p L}
+
+/-- `Gal(ℚ_p(μ_{p^k m})/ℚ_p)` is commutative (it embeds in `(ℤ/p^k)ˣ × (ℤ/m)ˣ`). -/
+noncomputable abbrev galCommGroup (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] : CommGroup Gal(L/ℚ_[p]) :=
+  { (inferInstance : Group Gal(L/ℚ_[p])) with
+    mul_comm := fun a b => galToProd_injective (p := p) (L := L) k m hcop
+      (by rw [map_mul, map_mul, mul_comm]) }
+
+/-- **Local square-root criterion, finite level, every prime `p` (including `2`).**
+`K = ℚ_p(μ_{p^k m})` and `L = ℚ_p(μ_{p^{k+1} m'})` with `p ∤ m m'`, `m ∣ m'`, `K ⊆ L`, and
+`ord_{m'}(p) = 2 ord_m(p)` (e.g. `m' = p^{2f} - 1`, see `Level.lean`). Let `τ ∈ Gal(K/ℚ_p)` act
+by `ζ ↦ ζ⁻¹` on `μ_{p^k}` and trivially on `μ_m`. A `ℚ/ℤ`-character `χ` of `Gal(K/ℚ_p)`,
+inflated to `Gal(L/ℚ_p)`, is twice a character of `Gal(L/ℚ_p)` iff `χ(τ) = 0`. -/
+theorem sqrt_criterion_level (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m m' : ℕ) [NeZero m] [NeZero m'] (hcop : p.Coprime m) (hcop' : p.Coprime m')
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K] [IsCyclotomicExtension {p ^ (k + 1) * m'} ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hm : m ∣ m')
+    (hord : orderOf (ZMod.unitOfCoprime p hcop') = 2 * orderOf (ZMod.unitOfCoprime p hcop))
+    (τ : Gal(K/ℚ_[p])) (hτ : galToProd (p := p) (L := K) k m τ = (-1, 1))
+    (χ : Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      χ (Additive.ofMul τ) = 0 := by
+  letI := galCommGroup (p := p) (L := L) (k + 1) m' hcop'
+  have hk : k ≤ k + 1 := Nat.le_succ k
+  have hres := fun g => galToProd_restrict (p := p) (L := L) (k + 1) m' K k m hk hm g
+  have hinjK := galToProd_injective (p := p) (L := K) k m hcop
+  let φ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ) :=
+    χ.comp (MonoidHom.toAdditive (AlgEquiv.restrictNormalHom (F := ℚ_[p]) (K₁ := L) K))
+  have hφ : ∀ g : Gal(L/ℚ_[p]), φ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K)) :=
+    fun g => rfl
+  have key : (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+      ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ), ∀ g, 2 • ψ g = φ g) :=
+    ⟨fun ⟨ψ, h⟩ => ⟨ψ, fun g => h (Additive.toMul g)⟩, fun ⟨ψ, h⟩ => ⟨ψ, fun g => h (Additive.ofMul
+        g)⟩⟩
+  rw [key, exists_half_iff φ]
+  constructor
+  · intro h
+    obtain ⟨g0, hg0⟩ : ((-1 : (ZMod (p ^ (k + 1)))ˣ), (1 : (ZMod m')ˣ)) ∈
+        (galToProd (p := p) (L := L) (k + 1) m').range := by
+      rw [range_galToProd (k + 1) m' hcop']
+      exact ⟨Subgroup.mem_top _, Subgroup.one_mem _⟩
+    have hsq : g0 ^ 2 = 1 := galToProd_injective (p := p) (L := L) (k + 1) m' hcop' (by
+      rw [map_pow, hg0, map_one]
+      ext <;> simp)
+    have hr : g0.restrictNormal K = τ := by
+      apply hinjK
+      rw [hτ]
+      obtain ⟨h1, h2⟩ := hres g0
+      rw [hg0] at h1 h2
+      ext
+      · rw [h1]
+        first
+          | simp [-ZMod.castHom_apply]
+          | (dsimp only; rw [Units.val_neg, Units.val_one, map_neg, map_one, Units.val_neg,
+              Units.val_one])
+      · rw [h2]
+        first
+          | simp [-ZMod.castHom_apply]
+          | (dsimp only; rw [Units.val_one, map_one, Units.val_one])
+    have := h (Additive.ofMul g0) (by
+      change Additive.ofMul (g0 ^ 2) = Additive.ofMul 1
+      rw [hsq])
+    rw [hφ, hr] at this
+    exact this
+  · intro hχ g hg
+    set g' := Additive.toMul g with hg'def
+    have hgg : g = Additive.ofMul g' := rfl
+    have hg2 : g' ^ 2 = 1 := by
+      have := congrArg Additive.toMul hg
+      simpa [toMul_nsmul] using this
+    set a := (galToProd (p := p) (L := L) (k + 1) m' g').1 with ha_def
+    set b := (galToProd (p := p) (L := L) (k + 1) m' g').2 with hb_def
+    have hsq : galToProd (p := p) (L := L) (k + 1) m' g' ^ 2 = 1 := by
+      rw [← map_pow, hg2, map_one]
+    have ha : a ^ 2 = 1 := by rw [ha_def, ← Prod.pow_fst, hsq, Prod.fst_one]
+    have hb : b ^ 2 = 1 := by rw [hb_def, ← Prod.pow_snd, hsq, Prod.snd_one]
+    have hbmem : b ∈ Subgroup.zpowers (ZMod.unitOfCoprime p hcop') := by
+      have hmem : galToProd (p := p) (L := L) (k + 1) m' g' ∈
+          (galToProd (p := p) (L := L) (k + 1) m').range := ⟨g', rfl⟩
+      rw [range_galToProd (k + 1) m' hcop'] at hmem
+      exact hmem.2
+    obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hbmem
+    have h2j : (orderOf (ZMod.unitOfCoprime p hcop') : ℤ) ∣ j * 2 := by
+      rw [orderOf_dvd_iff_zpow_eq_one, zpow_mul, hj]
+      exact_mod_cast hb
+    rw [hord] at h2j
+    push_cast at h2j
+    have hfj : (orderOf (ZMod.unitOfCoprime p hcop) : ℤ) ∣ j := by
+      rw [mul_comm j] at h2j
+      exact (mul_dvd_mul_iff_left (by norm_num : (2 : ℤ) ≠ 0)).mp h2j
+    have hbK : ZMod.castHom hm (ZMod m) (b : ZMod m') = 1 := by
+      have hU : Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom (ZMod.unitOfCoprime p hcop') =
+          ZMod.unitOfCoprime p hcop := Units.ext (by simp)
+      have := congrArg (Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom) hj
+      rw [map_zpow, hU, orderOf_dvd_iff_zpow_eq_one.mp hfj] at this
+      have := congrArg Units.val this
+      simpa using this.symm
+    obtain ⟨h1, h2⟩ := hres g'
+    rw [← ha_def] at h1
+    rw [← hb_def, hbK] at h2
+    have hsnd : (galToProd (p := p) (L := K) k m (g'.restrictNormal K)).2 = 1 := Units.ext h2
+    rw [hgg, hφ]
+    rcases redU_sq_eq_one hp.out k a ha with hpos | hneg
+    · have : g'.restrictNormal K = 1 := by
+        apply hinjK
+        rw [map_one]
+        ext
+        · rw [h1, ← redU_val, hpos]; rfl
+        · rw [hsnd]; rfl
+      rw [this]; exact map_zero χ
+    · have : g'.restrictNormal K = τ := by
+        apply hinjK
+        rw [hτ]
+        ext
+        · rw [h1, ← redU_val, hneg]
+        · rw [hsnd]
+      rw [this]; exact hχ
+
+
+/-! ### Level change `m ↦ p^{2f} - 1` (copied from `Level.lean`) -/
+
+/-- `p` is a unit mod `p^n - 1` (`n ≥ 1`). -/
+theorem coprime_pow_sub_one {p : ℕ} (hp : 2 ≤ p) {n : ℕ} (hn : 0 < n) : p.Coprime (p ^ n - 1) := by
+  have h1 : 1 ≤ p ^ n := Nat.one_le_pow _ _ (by omega)
+  have hd : Nat.gcd p (p ^ n - 1) ∣ p ^ n := (Nat.gcd_dvd_left _ _).trans (dvd_pow_self p hn.ne')
+  have hd' : Nat.gcd p (p ^ n - 1) ∣ p ^ n - 1 := Nat.gcd_dvd_right _ _
+  have := Nat.dvd_sub hd hd'
+  rwa [Nat.sub_sub_self h1, Nat.dvd_one] at this
+
+/-- **Level change.** The order of `p` modulo `p^n - 1` is `n` (for `p ≥ 2`, `n ≥ 1`). -/
+theorem orderOf_unit_pow_sub_one {p : ℕ} (hp : 2 ≤ p) {n : ℕ} (hn : 0 < n) :
+    orderOf (ZMod.unitOfCoprime p (coprime_pow_sub_one hp hn)) = n := by
+  have h1 : 1 ≤ p ^ n := Nat.one_le_pow _ _ (by omega)
+  have key : ∀ d, ((ZMod.unitOfCoprime p (coprime_pow_sub_one hp hn)) ^ d = 1 ↔
+      p ^ n - 1 ∣ p ^ d - 1) := by
+    intro d
+    have hd1 : 1 ≤ p ^ d := Nat.one_le_pow _ _ (by omega)
+    rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+      ← Nat.cast_pow, ← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one,
+      Nat.cast_pow]
+  rw [orderOf_eq_iff hn]
+  refine ⟨(key n).mpr dvd_rfl, fun d hdn hd0 h => ?_⟩
+  have hdvd := (key d).mp h
+  have hlt : p ^ d < p ^ n := Nat.pow_lt_pow_right (by omega) hdn
+  have hpos : 0 < p ^ d - 1 := by
+    have : p ≤ p ^ d := Nat.le_self_pow hd0.ne' p
+    omega
+  have := Nat.le_of_dvd hpos hdvd
+  omega
+
+/-- If `f = ord_m(p)` then `m ∣ p^f - 1`, hence `m ∣ p^(2f) - 1`. -/
+theorem dvd_pow_orderOf_sub_one {p m : ℕ} (hcop : p.Coprime m) (t : ℕ) :
+    m ∣ p ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) - 1 := by
+  have h := pow_orderOf_eq_one (ZMod.unitOfCoprime p hcop)
+  have h' : (ZMod.unitOfCoprime p hcop) ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) = 1 := by
+    rw [mul_comm, pow_mul, h, one_pow]
+  rcases Nat.eq_zero_or_pos p with rfl | hp0
+  · have : m = 1 := by simpa using hcop
+    subst this; exact one_dvd _
+  have hd1 : 1 ≤ p ^ (t * orderOf (ZMod.unitOfCoprime p hcop)) := Nat.one_le_pow _ _ hp0
+  rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+    ← Nat.cast_pow] at h'
+  rw [← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one]
+  exact h'
+
+
+/-- `τ₋₁` exists: some `τ ∈ Gal(ℚ_p(μ_{p^k m})/ℚ_p)` acts by `ζ ↦ ζ⁻¹` on `μ_{p^k}` and
+trivially on `μ_m`. -/
+theorem exists_tau (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] L] :
+    ∃ τ : Gal(L/ℚ_[p]), galToProd (p := p) (L := L) k m τ = (-1, 1) := by
+  have : ((-1 : (ZMod (p ^ k))ˣ), (1 : (ZMod m)ˣ)) ∈ (galToProd (p := p) (L := L) k m).range := by
+    rw [range_galToProd k m hcop]
+    exact ⟨Subgroup.mem_top _, Subgroup.one_mem _⟩
+  exact this
+
+/-- **`sqrt_criterion_level` at the level `m' = p^{2f} - 1`, `f = ord_m(p)`.** The hypotheses
+`m ∣ m'` and `ord_{m'}(p) = 2f` are discharged. -/
+theorem sqrt_criterion_level_pow (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [NeZero (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)]
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K]
+    [IsCyclotomicExtension {p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)}
+      ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L]
+    (τ : Gal(K/ℚ_[p])) (hτ : galToProd (p := p) (L := K) k m τ = (-1, 1))
+    (χ : Additive Gal(K/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(L/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g : Gal(L/ℚ_[p]), 2 • ψ (Additive.ofMul g) = χ (Additive.ofMul (g.restrictNormal K))) ↔
+      χ (Additive.ofMul τ) = 0 := by
+  have hp2 : 2 ≤ p := hp.out.two_le
+  have hf : 0 < orderOf (ZMod.unitOfCoprime p hcop) := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime p hcop) := by omega
+  refine sqrt_criterion_level K k m _ hcop (coprime_pow_sub_one hp2 h2f) ?_ ?_ τ hτ χ
+  · exact dvd_pow_orderOf_sub_one hcop 2
+  · rw [orderOf_unit_pow_sub_one hp2 h2f]
+
+end Crit
+
+end GlueSqrtDisj
+
+/-! `PkgI6.LocalKroneckerWeber` is imported from `Conductor/I6Base.lean`. -/
+
+namespace GlueSqrtDisj
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+/-- `ℚ_p(μ_n) ⊆ \bar ℚ_p`. -/
+noncomputable abbrev muField (n : ℕ) : IntermediateField ℚ_[p] (PadicAlgCl p) :=
+  IntermediateField.adjoin ℚ_[p] {x : PadicAlgCl p | x ^ n = 1}
+
+/-- `ℚ_p(μ_n) ⊆ \bar ℚ_p` is an `n`-th cyclotomic extension of `ℚ_p`. -/
+theorem isCyclotomicExtension_muField (n : ℕ) [NeZero n] :
+    IsCyclotomicExtension {n} ℚ_[p] (muField p n) := by
+  have hn : NeZero ((n : ℕ) : PadicAlgCl p) := NeZero.charZero
+  have h := IntermediateField.isCyclotomicExtension_adjoin_of_exists_isPrimitiveRoot {n} ℚ_[p]
+    (L := PadicAlgCl p) (fun n' hn' _ => by
+      rw [Set.mem_singleton_iff] at hn'
+      subst hn'
+      exact HasEnoughRootsOfUnity.exists_isPrimitiveRoot (PadicAlgCl p) n')
+  have hset : {b : PadicAlgCl p | ∃ n' ∈ ({n} : Set ℕ), n' ≠ 0 ∧ b ^ n' = 1} =
+      {x : PadicAlgCl p | x ^ n = 1} := by
+    ext b
+    simp [NeZero.ne n]
+  rw [hset] at h
+  exact h
+
+/-- Levels are monotone: `ℚ_p(μ_a) ≤ ℚ_p(μ_b)` when `a ∣ b`. -/
+theorem muField_mono {a b : ℕ} (hab : a ∣ b) : muField p a ≤ muField p b := by
+  apply IntermediateField.adjoin.mono
+  intro x hx
+  obtain ⟨c, rfl⟩ := hab
+  simp only [Set.mem_ofPred_eq] at hx ⊢
+  rw [pow_mul, hx, one_pow]
+
+/-- **I6.3, normalized.** Under local Kronecker–Weber, every finite abelian `M ⊆ \bar ℚ_p` lies in
+`ℚ_p(μ_{p^k m})` for some `k` and some `m ≥ 1` prime to `p`. -/
+theorem le_muField_of_lkw (hLKW : PkgI6.LocalKroneckerWeber p)
+    (M : IntermediateField ℚ_[p] (PadicAlgCl p)) [FiniteDimensional ℚ_[p] M]
+    [IsAbelianGalois ℚ_[p] M] :
+    ∃ k m : ℕ, 0 < m ∧ p.Coprime m ∧ M ≤ muField p (p ^ k * m) := by
+  obtain ⟨n, hn, hM⟩ := hLKW M inferInstance inferInstance
+  obtain ⟨e, m, hpm, rfl⟩ := Nat.exists_eq_pow_mul_and_not_dvd hn.ne' p hp.out.one_lt.ne'
+  refine ⟨e, m, Nat.pos_of_ne_zero ?_, (Nat.Prime.coprime_iff_not_dvd hp.out).mpr hpm, hM⟩
+  rintro rfl
+  simp at hn
+
+/-- The bigger level used by the criterion: `p^k m ∣ p^{k+1} (p^{2f} - 1)`, `f = ord_m(p)`, so
+`ℚ_p(μ_{p^k m}) ≤ ℚ_p(μ_{p^{k+1}(p^{2f}-1)})`. -/
+theorem muField_le_level (k m : ℕ) (hcop : p.Coprime m) :
+    muField p (p ^ k * m) ≤
+      muField p (p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)) := by
+  apply muField_mono
+  apply Nat.mul_dvd_mul (pow_dvd_pow p (Nat.le_succ k))
+  -- `m ∣ p^{2f} - 1`
+  have h := pow_orderOf_eq_one (ZMod.unitOfCoprime p hcop)
+  have h' : (ZMod.unitOfCoprime p hcop) ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) = 1 := by
+    rw [pow_mul', h, one_pow]
+  have hd1 : 1 ≤ p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) :=
+    Nat.one_le_pow _ _ hp.out.pos
+  rw [Units.ext_iff, Units.val_pow_eq_pow_val, ZMod.coe_unitOfCoprime, Units.val_one,
+    ← Nat.cast_pow] at h'
+  rw [← ZMod.natCast_eq_zero_iff, Nat.cast_sub hd1, sub_eq_zero, Nat.cast_one]
+  exact h'
+
+end GlueSqrtDisj
+
+
+/-! ### The criterion on the subfields `ℚ_p(μ_n)` of `\bar ℚ_p` -/
+
+namespace GlueSqrtDisj
+
+section MuField
+
+variable (p : ℕ) [hp : Fact p.Prime]
+
+instance neZero_prime : NeZero p := ⟨hp.out.ne_zero⟩
+
+instance (n : ℕ) [NeZero n] : IsCyclotomicExtension {n} ℚ_[p] (muField p n) :=
+  isCyclotomicExtension_muField p n
+
+instance (n : ℕ) [NeZero n] : FiniteDimensional ℚ_[p] (muField p n) :=
+  IsCyclotomicExtension.finiteDimensional {n} ℚ_[p] _
+
+instance (n : ℕ) [NeZero n] : IsGalois ℚ_[p] (muField p n) :=
+  IsCyclotomicExtension.isGalois {n} ℚ_[p] _
+
+/-- The inclusion `ℚ_p(μ_a) ⊆ ℚ_p(μ_b)` for `a ∣ b`, as an algebra. -/
+noncomputable instance muAlgebra (a b : ℕ) [Fact (a ∣ b)] : Algebra (muField p a) (muField p b) :=
+  (IntermediateField.inclusion (muField_mono p (Fact.out : a ∣ b))).toRingHom.toAlgebra
+
+instance (a b : ℕ) [Fact (a ∣ b)] : IsScalarTower ℚ_[p] (muField p a) (muField p b) :=
+  IsScalarTower.of_algebraMap_eq (fun _ => rfl)
+
+/-- **The local square-root criterion on `ℚ_p(μ_{p^k m}) ⊆ ℚ_p(μ_{p^{k+1}(p^{2f}-1)}) ⊆ \bar ℚ_p`**,
+every `p` (including `2`), `p ∤ m`, `f = ord_m(p)`: a character `χ` of `Gal(ℚ_p(μ_{p^k m})/ℚ_p)`
+inflated to the bigger level is twice a character iff `χ(τ₋₁) = 0`. -/
+theorem sqrt_criterion_muField (k m : ℕ) [NeZero m] (hcop : p.Coprime m)
+    [NeZero (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1)]
+    [Fact (p ^ k * m ∣ p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1))]
+    (τ : Gal(muField p (p ^ k * m)/ℚ_[p]))
+    (hτ : galToProd (p := p) (L := muField p (p ^ k * m)) k m τ = (-1, 1))
+    (χ : Additive Gal(muField p (p ^ k * m)/ℚ_[p]) →+ AddCircle (1 : ℚ)) :
+    (∃ ψ : Additive Gal(muField p (p ^ (k + 1) *
+          (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1))/ℚ_[p]) →+ AddCircle (1 : ℚ),
+        ∀ g, 2 • ψ (Additive.ofMul g) =
+          χ (Additive.ofMul (g.restrictNormal (muField p (p ^ k * m))))) ↔
+      χ (Additive.ofMul τ) = 0 :=
+  sqrt_criterion_level_pow (muField p (p ^ k * m)) k m hcop τ hτ χ
+
+/-- The divisibility needed for `sqrt_criterion_muField`'s `Fact` instance. -/
+theorem level_dvd (k m : ℕ) (hcop : p.Coprime m) :
+    p ^ k * m ∣ p ^ (k + 1) * (p ^ (2 * orderOf (ZMod.unitOfCoprime p hcop)) - 1) :=
+  Nat.mul_dvd_mul (pow_dvd_pow p (Nat.le_succ k)) (dvd_pow_orderOf_sub_one hcop 2)
+
+end MuField
+
+end GlueSqrtDisj
+
+end T30KernelDisjSec
+
+section T30SqrtCritSec
+/-! ### t30-adelic: `scratch/t30-adelic/SqrtCrit.lean` (verbatim, imports and `#print` dropped).
+Bridge: `T30.leafSqrtCrit_of_t16a : (∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p) →
+GlueDescent.B2Q.LeafSqrtCrit` (HSyn's `t16a` ⇒ HSyn's `t30`). -/
+
+/-!
+# t30-adelic, part T30: the local square-root criterion from local Kronecker–Weber
+
+`GlueDescent.B2Q.LeafSqrtCrit` (leaf L-B2c) is proved from `PkgI6.LocalKroneckerWeber p` at
+every prime `p` (leaf T16).  The finite-level criterion is `GlueSqrtDisj` (imported); this file
+does the descent through `Gal(ℚ_p(μ_n)/ℚ_p)` and the inflation to `G_{ℚ_p}`.
+-/
+
+open GlueDescent.B2Q GlueSqrtDisj
+
+namespace T30
+
+local instance (p : Nat.Primes) : Fact (p : ℕ).Prime := ⟨p.2⟩
+
+/-! ### Elementary lemmas on roots of unity -/
+
+section Roots
+
+variable {F : Type*} [Field F]
+
+theorem zpow_congr_of_dvd {x : F} {q : ℕ} (hq : x ^ q = 1) (hx : x ≠ 0) {s t : ℤ}
+    (h : (q : ℤ) ∣ s - t) : x ^ s = x ^ t := by
+  obtain ⟨c, hc⟩ := h
+  have : s = t + q * c := by linarith
+  rw [this, zpow_add₀ hx, zpow_mul, zpow_natCast, hq, one_zpow, mul_one]
+
+theorem ne_zero_of_pow_eq_one {x : F} {q : ℕ} (hq0 : 0 < q) (hq : x ^ q = 1) : x ≠ 0 := by
+  rintro rfl
+  rw [zero_pow hq0.ne'] at hq
+  exact zero_ne_one hq
+
+/-- Bezout decomposition of a root of unity of order dividing `a b` with `a ⊥ b`. -/
+theorem exists_decomp {a b : ℕ} (hab : a.Coprime b) (h0 : 0 < a * b) {z : F}
+    (hz : z ^ (a * b) = 1) : ∃ x y : F, x ^ a = 1 ∧ y ^ b = 1 ∧ z = x * y := by
+  have hz0 : z ≠ 0 := ne_zero_of_pow_eq_one h0 hz
+  obtain ⟨u, v, huv⟩ := Nat.isCoprime_iff_coprime.mpr hab
+  have hzab : z ^ ((a * b : ℕ) : ℤ) = 1 := by rw [zpow_natCast, hz]
+  refine ⟨z ^ (v * b), z ^ (u * a), ?_, ?_, ?_⟩
+  · rw [← zpow_natCast, ← zpow_mul, show v * (b : ℤ) * a = (a * b : ℕ) * v by push_cast; ring,
+      zpow_mul, hzab, one_zpow]
+  · rw [← zpow_natCast, ← zpow_mul, show u * (a : ℤ) * b = (a * b : ℕ) * u by push_cast; ring,
+      zpow_mul, hzab, one_zpow]
+  · rw [← zpow_add₀ hz0, show v * (b : ℤ) + u * a = 1 by linarith, zpow_one]
+
+/-- An automorphism acting by `x ↦ x^e` on `μ_a` and on `μ_b` (`a ⊥ b`) acts so on `μ_{ab}`. -/
+theorem act_crt (f : F ≃+* F) {a b : ℕ} (hab : a.Coprime b) (h0 : 0 < a * b) (e : ℕ)
+    (h1 : ∀ x : F, x ^ a = 1 → f x = x ^ e) (h2 : ∀ y : F, y ^ b = 1 → f y = y ^ e)
+    (z : F) (hz : z ^ (a * b) = 1) : f z = z ^ e := by
+  obtain ⟨x, y, hx, hy, rfl⟩ := exists_decomp hab h0 hz
+  rw [map_mul, h1 x hx, h2 y hy, mul_pow]
+
+/-- `((a.val : ℤ) : ZMod N) = a`. -/
+theorem intCast_val {N : ℕ} [NeZero N] (a : ZMod N) : (((a.val : ℕ) : ℤ) : ZMod N) = a := by
+  rw [Int.cast_natCast, ZMod.natCast_zmod_val]
+
+theorem dvd_val_sub {N : ℕ} [NeZero N] (a : ZMod N) (t : ℤ) (h : (t : ZMod N) = a) :
+    (N : ℤ) ∣ ((a.val : ℕ) : ℤ) - t := by
+  rw [← ZMod.intCast_eq_intCast_iff_dvd_sub, h, intCast_val]
+
+end Roots
+
+/-! ### The decomposition map and the cyclotomic character -/
+
+section Resp
+
+variable (p : Nat.Primes)
+
+/-- An element of `G_{ℚ_p}` as an automorphism of `\bar ℚ_p`. -/
+def actp (σ : GQp p) : PadicAlgCl (p : ℕ) ≃ₐ[ℚ_[(p : ℕ)]] PadicAlgCl (p : ℕ) := σ
+
+/-- `resp p σ` is the restriction of `σ` along an embedding `ℚ̄ → ℚ̄_p`. -/
+theorem exists_emb : ∃ g : AlgebraicClosure ℚ →+* PadicAlgCl (p : ℕ),
+    ∀ (σ : GQp p) (x : AlgebraicClosure ℚ), g (act (resp p σ) x) = actp p σ (g x) := by
+  letI : Algebra ℚ ℚ_[(p : ℕ)] := (algebraMap ℚ ℚ_[(p : ℕ)]).toAlgebra
+  let g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[(p : ℕ)] := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[(p : ℕ)]) := g.toAlgebra
+  refine ⟨g.toRingHom, fun σ x => ?_⟩
+  exact (AlgEquiv.restrictNormal_commutes (σ.restrictScalars ℚ) (AlgebraicClosure ℚ) x)
+
+/-- **The cyclotomic character of `resp p σ`** is read off from the action of `σ` on the `N`-th
+roots of unity of `\bar ℚ_p`. -/
+theorem cyc_resp_eq (N : ℕ) [NeZero N] (σ : GQp p) (u : (ZMod N)ˣ)
+    (h : ∀ x : PadicAlgCl (p : ℕ), x ^ N = 1 → actp p σ x = x ^ ((u : ZMod N)).val) :
+    cyc N (resp p σ) = u := by
+  obtain ⟨g, hg⟩ := exists_emb p
+  apply Units.ext
+  haveI : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  refine (modularCyclotomicCharacter.unique (AlgebraicClosure ℚ)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+    (toRingAut (resp p σ)) (c := (u : ZMod N)) ?_).symm
+  intro t ht
+  apply g.injective
+  have ht' : (t : AlgebraicClosure ℚ) ^ N = 1 := by
+    rw [mem_rootsOfUnity] at ht
+    rw [← Units.val_pow_eq_pow_val, ht, Units.val_one]
+  change g (act (resp p σ) t) = _
+  rw [hg, map_pow]
+  exact h _ (by rw [← map_pow, ht', map_one])
+
+theorem cyc_resp_eq_one (N : ℕ) [NeZero N] (σ : GQp p)
+    (h : ∀ x : PadicAlgCl (p : ℕ), x ^ N = 1 → actp p σ x = x) : cyc N (resp p σ) = 1 := by
+  apply cyc_resp_eq
+  intro x hx
+  rw [h x hx]
+  have hx0 := ne_zero_of_pow_eq_one (Nat.pos_of_ne_zero (NeZero.ne N)) hx
+  have := zpow_congr_of_dvd hx hx0 (dvd_val_sub ((1 : (ZMod N)ˣ) : ZMod N) 1 (by simp))
+  rw [zpow_natCast, zpow_one] at this
+  exact this.symm
+
+/-- If `σ` inverts `μ_{p^k}` and fixes `μ_{N'}`, `N = p^k N'`, then `cyc_N(σ) = u` for the unit
+`u ≡ -1 mod p^k`, `u ≡ 1 mod N'`. -/
+theorem cyc_resp_eq_u (N k N' : ℕ) [NeZero N] (hN : N = (p : ℕ) ^ k * N')
+    (hcop : ((p : ℕ) ^ k).Coprime N') (σ : GQp p) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1)
+    (h1 : ∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x = x⁻¹)
+    (h2 : ∀ y : PadicAlgCl (p : ℕ), y ^ N' = 1 → actp p σ y = y) :
+    cyc N (resp p σ) = u := by
+  have hN0 : 0 < (p : ℕ) ^ k * N' := hN ▸ Nat.pos_of_ne_zero (NeZero.ne N)
+  have hpk0 : 0 < (p : ℕ) ^ k := Nat.pos_of_ne_zero (fun h => by simp [h] at hN0)
+  have hN'0 : 0 < N' := Nat.pos_of_ne_zero (fun h => by simp [h] at hN0)
+  haveI : NeZero ((p : ℕ) ^ k) := ⟨hpk0.ne'⟩
+  haveI : NeZero N' := ⟨hN'0.ne'⟩
+  set e := (u : ZMod N).val with he
+  have he1 : (((p : ℕ) ^ k : ℕ) : ℤ) ∣ (-1 : ℤ) - (e : ℤ) := by
+    rw [← ZMod.intCast_eq_intCast_iff_dvd_sub]
+    have := hu1
+    rw [ZMod.cast_eq_val] at this
+    push_cast
+    exact this
+  have he2 : (N' : ℤ) ∣ (1 : ℤ) - (e : ℤ) := by
+    rw [← ZMod.intCast_eq_intCast_iff_dvd_sub]
+    have := hu2
+    rw [ZMod.cast_eq_val] at this
+    push_cast
+    exact this
+  apply cyc_resp_eq
+  intro z hz
+  rw [hN] at hz
+  refine act_crt (actp p σ).toRingEquiv hcop hN0 e (fun x hx => ?_) (fun y hy => ?_) z hz
+  · rw [AlgEquiv.coe_toRingEquiv, h1 x hx]
+    have hx0 := ne_zero_of_pow_eq_one hpk0 hx
+    have := zpow_congr_of_dvd hx hx0 he1
+    rw [zpow_neg_one, zpow_natCast] at this
+    exact this
+  · rw [AlgEquiv.coe_toRingEquiv, h2 y hy]
+    have hy0 := ne_zero_of_pow_eq_one hN'0 hy
+    have := zpow_congr_of_dvd hy hy0 he2
+    rw [zpow_one, zpow_natCast] at this
+    exact this
+
+end Resp
+
+/-! ### The action of `σ` on the roots of unity of a cyclotomic level -/
+
+section Level
+
+variable (p : Nat.Primes)
+
+/-- If `τ' ∈ Gal(ℚ_p(μ_{p^k m})/ℚ_p)` is the restriction of `σ`, then `σ` acts on `μ_{p^k}` and
+`μ_m` through `galToProd τ'`. -/
+theorem act_of_gal (k m : ℕ) [NeZero m] (σ : GQp p)
+    (τ' : Gal(muField (p : ℕ) ((p : ℕ) ^ k * m)/ℚ_[(p : ℕ)]))
+    (hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ k * m), ((τ' x : _) : PadicAlgCl (p : ℕ)) = actp p σ x) :
+    (∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x =
+        x ^ (((galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ').1 :
+          ZMod ((p : ℕ) ^ k))).val) ∧
+    (∀ y : PadicAlgCl (p : ℕ), y ^ m = 1 → actp p σ y =
+        y ^ (((galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ').2 :
+          ZMod m)).val) := by
+  have hmem : ∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k * m) = 1 →
+      x ∈ muField (p : ℕ) ((p : ℕ) ^ k * m) := fun x hx => IntermediateField.subset_adjoin _ _ hx
+  constructor
+  · intro x hx
+    have hxK := hmem x (by rw [pow_mul, hx, one_pow])
+    have h2 := galToProd_fst_spec (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ'
+      ⟨x, hxK⟩ (Subtype.ext (by simpa using hx))
+    have h1 := hc ⟨x, hxK⟩
+    rw [h2] at h1
+    rw [← h1]
+    simp
+  · intro y hy
+    have hyK := hmem y (by rw [mul_comm, pow_mul, hy, one_pow])
+    have h2 := galToProd_snd_spec (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ'
+      ⟨y, hyK⟩ (Subtype.ext (by simpa using hy))
+    have h1 := hc ⟨y, hyK⟩
+    rw [h2] at h1
+    rw [← h1]
+    simp
+
+/-- The restriction of `σ` satisfies the compatibility of `act_of_gal`. -/
+theorem restrictNormal_compat (n : ℕ) [NeZero n] (σ : GQp p) (x : muField (p : ℕ) n) :
+    ((((actp p σ).restrictNormal (muField (p : ℕ) n)) x : _) : PadicAlgCl (p : ℕ)) =
+      actp p σ x :=
+  AlgEquiv.restrictNormal_commutes (actp p σ) (muField (p : ℕ) n) x
+
+end Level
+
+/-! ### Square roots of `ℂˣ`-valued characters -/
+
+section SqrtC
+
+theorem complexUnits_pow_surj {n : ℕ} (hn : n ≠ 0) : Function.Surjective (fun a : ℂˣ => a ^ n) := by
+  intro x
+  obtain ⟨z, hz⟩ := IsAlgClosed.exists_pow_nat_eq (x : ℂ) (Nat.pos_of_ne_zero hn)
+  have hz0 : z ≠ 0 := by
+    rintro rfl
+    rw [zero_pow hn] at hz
+    exact x.ne_zero hz.symm
+  exact ⟨Units.mk0 z hz0, Units.ext (by simp [hz])⟩
+
+/-- **A `ℂˣ`-valued character of an abelian group is a square iff it kills the `2`-torsion.**
+(`ℂˣ` is divisible, hence an injective `ℤ`-module.) -/
+theorem exists_sqrt_iff {Γ : Type*} [CommGroup Γ] (χ : Γ →* ℂˣ) :
+    (∃ ψ : Γ →* ℂˣ, ∀ g, ψ g ^ 2 = χ g) ↔ ∀ g : Γ, g ^ 2 = 1 → χ g = 1 := by
+  constructor
+  · rintro ⟨ψ, hψ⟩ g hg
+    rw [← hψ, ← map_pow, hg, map_one]
+  · intro h
+    letI : RootableBy ℂˣ ℕ := rootableByOfPowLeftSurj _ _ complexUnits_pow_surj
+    letI : RootableBy ℂˣ ℤ := Group.rootableByIntOfRootableByNat ℂˣ
+    letI : DivisibleBy (Additive ℂˣ) ℤ := divisibleByOfSMulRightSurj _ _ (fun {n} hn a => by
+      obtain ⟨b, hb⟩ := RootableBy.surjective_pow ℂˣ ℤ hn (Additive.toMul a)
+      exact ⟨Additive.ofMul b, by show n • Additive.ofMul b = a; rw [← ofMul_zpow]; exact congrArg Additive.ofMul hb⟩)
+    let χa : Additive Γ →+ Additive ℂˣ := MonoidHom.toAdditive χ
+    let d : Additive Γ →+ Additive Γ :=
+      { toFun := fun g => 2 • g, map_zero' := smul_zero 2, map_add' := fun a b => smul_add 2 a b }
+    have hker : d.ker ≤ χa.ker := fun g hg => by
+      have h2 : (Additive.toMul g) ^ 2 = 1 := AddMonoidHom.mem_ker.mp hg
+      exact AddMonoidHom.mem_ker.mpr (congrArg Additive.ofMul (h _ h2))
+    let χq := QuotientAddGroup.lift d.ker χa hker
+    let e := QuotientAddGroup.quotientKerEquivRange d
+    let χr : d.range →+ Additive ℂˣ := χq.comp e.symm.toAddMonoidHom
+    obtain ⟨ψ, hψ⟩ := (Module.Baer.of_divisible (Additive ℂˣ)).extension_property_addMonoidHom
+      d.range.subtype Subtype.val_injective χr
+    refine ⟨MonoidHom.toAdditive.symm ψ, fun g => ?_⟩
+    have hm : d (Additive.ofMul g) ∈ d.range := AddMonoidHom.mem_range.mpr ⟨_, rfl⟩
+    have h1 := DFunLike.congr_fun hψ ⟨d (Additive.ofMul g), hm⟩
+    have h2 : e.symm ⟨d (Additive.ofMul g), hm⟩ = ((Additive.ofMul g : Additive Γ) : _ ⧸ d.ker) := by
+      rw [AddEquiv.symm_apply_eq]; rfl
+    have h3 : ψ (d (Additive.ofMul g)) = χa (Additive.ofMul g) := by
+      rw [show ψ (d (Additive.ofMul g)) = (ψ.comp d.range.subtype) ⟨d (Additive.ofMul g), hm⟩
+        from rfl, h1]
+      simp only [χr, AddMonoidHom.comp_apply, AddEquiv.coe_toAddMonoidHom, h2, χq,
+        QuotientAddGroup.lift_mk]
+    have h4 : ψ (d (Additive.ofMul g)) = 2 • ψ (Additive.ofMul g) := map_nsmul ψ 2 _
+    rw [h4] at h3
+    exact congrArg Additive.toMul h3
+
+end SqrtC
+
+/-! ### Two-torsion at the bigger level (from the proof of `sqrt_criterion_level`) -/
+
+section Torsion
+
+open GlueSqrtLocal
+
+/-- At the level `L = ℚ_p(μ_{p^{k+1} m'})` with `ord_{m'}(p) = 2 ord_m(p)`, an element of order
+`≤ 2` restricts to `1` or to `τ₋₁` on `K = ℚ_p(μ_{p^k m})`. -/
+theorem restrict_sq_eq_one {p : ℕ} [hp : Fact p.Prime] {L : Type} [Field L] [Algebra ℚ_[p] L]
+    [Algebra ℤ_[p] L] [IsScalarTower ℤ_[p] ℚ_[p] L] [FiniteDimensional ℚ_[p] L] [IsGalois ℚ_[p] L]
+    (K : Type) [Field K] [Algebra ℚ_[p] K] [Algebra ℤ_[p] K]
+    [IsScalarTower ℤ_[p] ℚ_[p] K] [FiniteDimensional ℚ_[p] K] [IsGalois ℚ_[p] K]
+    (k m m' : ℕ) [NeZero m] [NeZero m'] (hcop : p.Coprime m) (hcop' : p.Coprime m')
+    [IsCyclotomicExtension {p ^ k * m} ℚ_[p] K] [IsCyclotomicExtension {p ^ (k + 1) * m'} ℚ_[p] L]
+    [Algebra K L] [IsScalarTower ℚ_[p] K L] (hm : m ∣ m')
+    (hord : orderOf (ZMod.unitOfCoprime p hcop') = 2 * orderOf (ZMod.unitOfCoprime p hcop))
+    (g' : Gal(L/ℚ_[p])) (hg2 : g' ^ 2 = 1) :
+    galToProd (p := p) (L := K) k m (g'.restrictNormal K) = 1 ∨
+      galToProd (p := p) (L := K) k m (g'.restrictNormal K) = (-1, 1) := by
+  have hk : k ≤ k + 1 := Nat.le_succ k
+  have hres := fun g => galToProd_restrict (p := p) (L := L) (k + 1) m' K k m hk hm g
+  set a := (galToProd (p := p) (L := L) (k + 1) m' g').1 with ha_def
+  set b := (galToProd (p := p) (L := L) (k + 1) m' g').2 with hb_def
+  have hsq : galToProd (p := p) (L := L) (k + 1) m' g' ^ 2 = 1 := by
+    rw [← map_pow, hg2, map_one]
+  have ha : a ^ 2 = 1 := by rw [ha_def, ← Prod.pow_fst, hsq, Prod.fst_one]
+  have hb : b ^ 2 = 1 := by rw [hb_def, ← Prod.pow_snd, hsq, Prod.snd_one]
+  have hbmem : b ∈ Subgroup.zpowers (ZMod.unitOfCoprime p hcop') := by
+    have hmem : galToProd (p := p) (L := L) (k + 1) m' g' ∈
+        (galToProd (p := p) (L := L) (k + 1) m').range := ⟨g', rfl⟩
+    rw [range_galToProd (k + 1) m' hcop'] at hmem
+    exact hmem.2
+  obtain ⟨j, hj⟩ := Subgroup.mem_zpowers_iff.mp hbmem
+  have h2j : (orderOf (ZMod.unitOfCoprime p hcop') : ℤ) ∣ j * 2 := by
+    rw [orderOf_dvd_iff_zpow_eq_one, zpow_mul, hj]
+    exact_mod_cast hb
+  rw [hord] at h2j
+  push_cast at h2j
+  have hfj : (orderOf (ZMod.unitOfCoprime p hcop) : ℤ) ∣ j := by
+    rw [mul_comm j] at h2j
+    exact (mul_dvd_mul_iff_left (by norm_num : (2 : ℤ) ≠ 0)).mp h2j
+  have hbK : ZMod.castHom hm (ZMod m) (b : ZMod m') = 1 := by
+    have hU : Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom (ZMod.unitOfCoprime p hcop') =
+        ZMod.unitOfCoprime p hcop := Units.ext (by simp)
+    have := congrArg (Units.map (ZMod.castHom hm (ZMod m)).toMonoidHom) hj
+    rw [map_zpow, hU, orderOf_dvd_iff_zpow_eq_one.mp hfj] at this
+    have := congrArg Units.val this
+    simpa using this.symm
+  obtain ⟨h1, h2⟩ := hres g'
+  rw [← ha_def] at h1
+  rw [← hb_def, hbK] at h2
+  have hsnd : (galToProd (p := p) (L := K) k m (g'.restrictNormal K)).2 = 1 := Units.ext h2
+  rcases redU_sq_eq_one hp.out k a ha with hpos | hneg
+  · left
+    ext
+    · rw [h1, ← redU_val, hpos]; rfl
+    · rw [hsnd]; rfl
+  · right
+    ext
+    · rw [h1, ← redU_val, hneg]
+    · rw [hsnd]
+
+end Torsion
+
+/-! ### The criterion over `G_{ℚ_p}` -/
+
+section Main
+
+theorem pow_val_one {F : Type*} [Field F] {q : ℕ} [NeZero q] {x : F} (hx : x ^ q = 1) :
+    x ^ ((1 : ZMod q).val) = x := by
+  have hx0 := ne_zero_of_pow_eq_one (Nat.pos_of_ne_zero (NeZero.ne q)) hx
+  have := zpow_congr_of_dvd hx hx0 (dvd_val_sub (1 : ZMod q) 1 (by simp))
+  rwa [zpow_natCast, zpow_one] at this
+
+theorem pow_val_neg_one {F : Type*} [Field F] {q : ℕ} [NeZero q] {x : F} (hx : x ^ q = 1) :
+    x ^ ((-1 : ZMod q).val) = x⁻¹ := by
+  have hx0 := ne_zero_of_pow_eq_one (Nat.pos_of_ne_zero (NeZero.ne q)) hx
+  have := zpow_congr_of_dvd hx hx0 (dvd_val_sub (-1 : ZMod q) (-1) (by simp))
+  rwa [zpow_natCast, zpow_neg_one] at this
+
+variable (p : Nat.Primes)
+
+/-- The type of `G_{ℚ_p}` written as a Galois group. -/
+abbrev Gp := PadicAlgCl (p : ℕ) ≃ₐ[ℚ_[(p : ℕ)]] PadicAlgCl (p : ℕ)
+
+/-- `σ` restricts to `1` on `ℚ_p(μ_{p^k m})`: it fixes `μ_{p^k m}`. -/
+theorem fix_of_galToProd_one (k m : ℕ) [NeZero m] (σ : GQp p)
+    (τ' : Gal(muField (p : ℕ) ((p : ℕ) ^ k * m)/ℚ_[(p : ℕ)]))
+    (hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ k * m), ((τ' x : _) : PadicAlgCl (p : ℕ)) = actp p σ x)
+    (h : galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ' = 1) :
+    (∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x = x) ∧
+      (∀ y : PadicAlgCl (p : ℕ), y ^ m = 1 → actp p σ y = y) := by
+  obtain ⟨h1, h2⟩ := act_of_gal p k m σ τ' hc
+  rw [h] at h1 h2
+  exact ⟨fun x hx => by rw [h1 x hx]; exact pow_val_one hx,
+    fun y hy => by rw [h2 y hy]; exact pow_val_one hy⟩
+
+/-- `σ` restricts to `τ₋₁` on `ℚ_p(μ_{p^k m})`: it inverts `μ_{p^k}` and fixes `μ_m`. -/
+theorem act_of_galToProd_tau (k m : ℕ) [NeZero m] (σ : GQp p)
+    (τ' : Gal(muField (p : ℕ) ((p : ℕ) ^ k * m)/ℚ_[(p : ℕ)]))
+    (hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ k * m), ((τ' x : _) : PadicAlgCl (p : ℕ)) = actp p σ x)
+    (h : galToProd (p := (p : ℕ)) (L := muField (p : ℕ) ((p : ℕ) ^ k * m)) k m τ' = (-1, 1)) :
+    (∀ x : PadicAlgCl (p : ℕ), x ^ ((p : ℕ) ^ k) = 1 → actp p σ x = x⁻¹) ∧
+      (∀ y : PadicAlgCl (p : ℕ), y ^ m = 1 → actp p σ y = y) := by
+  obtain ⟨h1, h2⟩ := act_of_gal p k m σ τ' hc
+  rw [h] at h1 h2
+  refine ⟨fun x hx => ?_, fun y hy => by rw [h2 y hy]; exact pow_val_one hy⟩
+  rw [h1 x hx]
+  simpa using pow_val_neg_one hx
+
+/-- Abstract inflation: a character `χ'` of `G_{ℚ_p}` trivial on `Gal(\bar ℚ_p/L)` (`L` finite
+abelian) and on every element whose image in `Gal(L/ℚ_p)` has order `≤ 2` has a locally constant
+square root. -/
+theorem sqrt_of_inflated (L : IntermediateField ℚ_[(p : ℕ)] (PadicAlgCl (p : ℕ)))
+    [FiniteDimensional ℚ_[(p : ℕ)] L] [IsGalois ℚ_[(p : ℕ)] L]
+    (hcomm : ∀ a b : Gal(L/ℚ_[(p : ℕ)]), a * b = b * a) (χ' : Gp p →* ℂˣ)
+    (hker : ∀ σ : Gp p, AlgEquiv.restrictNormalHom L σ = 1 → χ' σ = 1)
+    (htor : ∀ σ : Gp p, (AlgEquiv.restrictNormalHom L σ) ^ 2 = 1 → χ' σ = 1) :
+    ∃ φ : Gp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = χ' x := by
+  let rL : Gp p →* Gal(L/ℚ_[(p : ℕ)]) := AlgEquiv.restrictNormalHom L
+  have hsurj : Function.Surjective rL := AlgEquiv.restrictNormalHom_surjective _
+  have hker' : rL.ker ≤ χ'.ker := fun σ hσ => hker σ hσ
+  let χL : Gal(L/ℚ_[(p : ℕ)]) →* ℂˣ :=
+    rL.liftOfRightInverse (Function.surjInv hsurj) (Function.rightInverse_surjInv hsurj) ⟨χ', hker'⟩
+  have hχL : ∀ σ, χL (rL σ) = χ' σ := fun σ =>
+    rL.liftOfRightInverse_comp_apply _ _ ⟨χ', hker'⟩ σ
+  letI : CommGroup Gal(L/ℚ_[(p : ℕ)]) := { (inferInstance : Group Gal(L/ℚ_[(p : ℕ)])) with
+    mul_comm := hcomm }
+  obtain ⟨ψ, hψ⟩ := (exists_sqrt_iff χL).mpr (by
+    intro g' hg'
+    obtain ⟨σ, rfl⟩ := hsurj g'
+    rw [hχL]
+    exact htor σ hg')
+  refine ⟨ψ.comp rL, ?_, fun x => ?_⟩
+  · exact (IsLocallyConstant.of_discrete ψ).comp_continuous
+      (InfiniteGalois.restrictNormalHom_continuous L)
+  · show ψ (rL x) ^ 2 = χ' x
+    rw [hψ]
+    exact hχL x
+
+/-- `σ` trivial on `ℚ_p(μ_n)`, `N ∣ n`, has trivial `cyc_N`. -/
+theorem cyc_eq_one_of_restrict (N n : ℕ) [NeZero N] [NeZero n] (hNn : N ∣ n) (σ : Gp p)
+    (hσ : AlgEquiv.restrictNormalHom (muField (p : ℕ) n) σ = 1) : cyc N (resp p σ) = 1 := by
+  apply cyc_resp_eq_one
+  intro x hx
+  have hxL : x ∈ muField (p : ℕ) n := IntermediateField.subset_adjoin _ _ (by
+    obtain ⟨c, hc⟩ := hNn
+    show x ^ n = 1
+    rw [hc, pow_mul, hx, one_pow])
+  have := AlgEquiv.restrictNormalHom_apply (muField (p : ℕ) n) σ ⟨x, hxL⟩
+  rw [hσ, AlgEquiv.one_apply] at this
+  exact this.symm
+
+theorem coe_algebraMap_mu (a b : ℕ) [Fact (a ∣ b)] (y : muField (p : ℕ) a) :
+    ((algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) y : muField (p : ℕ) b) :
+      PadicAlgCl (p : ℕ)) = y := by
+  have : algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) y =
+      IntermediateField.inclusion (muField_mono (p : ℕ) (Fact.out : a ∣ b)) y := rfl
+  rw [this, IntermediateField.coe_inclusion]
+
+/-- Restriction in two steps `\bar ℚ_p ⊇ ℚ_p(μ_b) ⊇ ℚ_p(μ_a)`. -/
+theorem restrict_restrict_compat (a b : ℕ) [NeZero a] [NeZero b] [Fact (a ∣ b)] (σ : Gp p)
+    (x : muField (p : ℕ) a) :
+    ((((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ).restrictNormal
+      (muField (p : ℕ) a)) x : muField (p : ℕ) a) : PadicAlgCl (p : ℕ)) = actp p σ x := by
+  have e1 := AlgEquiv.restrictNormal_commutes (AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ)
+    (muField (p : ℕ) a) x
+  calc _ = ((algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b)
+        (((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ).restrictNormal
+          (muField (p : ℕ) a)) x) : muField (p : ℕ) b) : PadicAlgCl (p : ℕ)) :=
+        (coe_algebraMap_mu p a b _).symm
+    _ = ((AlgEquiv.restrictNormalHom (muField (p : ℕ) b) σ
+          (algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) x) : muField (p : ℕ) b) :
+          PadicAlgCl (p : ℕ)) := by rw [e1]
+    _ = actp p σ (algebraMap (muField (p : ℕ) a) (muField (p : ℕ) b) x) :=
+        AlgEquiv.restrictNormalHom_apply _ σ _
+    _ = actp p σ x := by rw [coe_algebraMap_mu]
+
+/-- The two-torsion step at the level `L = ℚ_p(μ_{p^{k+1}(p^{2f}-1)})`. -/
+theorem cyc_of_torsion (N k N' : ℕ) [NeZero N] [NeZero N'] (hN : N = (p : ℕ) ^ k * N')
+    (hcopN' : (p : ℕ).Coprime N')
+    [NeZero ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)]
+    [Fact ((p : ℕ) ^ k * N' ∣
+      (p : ℕ) ^ (k + 1) * ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1))]
+    (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (σ : Gp p)
+    (hσ : (AlgEquiv.restrictNormalHom (muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1))) σ) ^ 2 = 1) :
+    cyc N (resp p σ) = 1 ∨ cyc N (resp p σ) = u := by
+  have hcop : ((p : ℕ) ^ k).Coprime N' := hcopN'.pow_left k
+  have hp2 : 2 ≤ (p : ℕ) := p.2.two_le
+  have hf0 : 0 < orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := by omega
+  have hcop' := coprime_pow_sub_one hp2 h2f
+  have hord := orderOf_unit_pow_sub_one hp2 h2f
+  have hm := dvd_pow_orderOf_sub_one hcopN' 2
+  have hc := restrict_restrict_compat p ((p : ℕ) ^ k * N') ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)) σ
+  rcases restrict_sq_eq_one (L := muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)))
+      (muField (p : ℕ) ((p : ℕ) ^ k * N')) k N' _ hcopN' hcop' hm hord.symm.symm _ hσ with h1 | h1
+  · left
+    obtain ⟨a1, a2⟩ := fix_of_galToProd_one p k N' σ _ hc h1
+    apply cyc_resp_eq_one
+    intro z hz
+    rw [hN] at hz
+    have := act_crt (actp p σ).toRingEquiv hcop (hN ▸ Nat.pos_of_ne_zero (NeZero.ne N)) 1
+      (fun x hx => by rw [AlgEquiv.coe_toRingEquiv, a1 x hx, pow_one])
+      (fun y hy => by rw [AlgEquiv.coe_toRingEquiv, a2 y hy, pow_one]) z hz
+    rwa [pow_one] at this
+  · right
+    obtain ⟨a1, a2⟩ := act_of_galToProd_tau p k N' σ _ hc h1
+    exact cyc_resp_eq_u p N k N' hN hcop σ u hu1 hu2 a1 a2
+
+/-- **The "if" direction** (no Kronecker–Weber needed), with `N = p^k N'` given. -/
+theorem sqrt_of_chi' (N k N' : ℕ) [NeZero N] [NeZero N'] (hN : N = (p : ℕ) ^ k * N')
+    (hcopN' : (p : ℕ).Coprime N') (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (hχ : χ.toUnitHom u = 1) :
+    ∃ φ : Gp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = χ.toUnitHom (cyc N (resp p x)) := by
+  have hp2 : 2 ≤ (p : ℕ) := p.2.two_le
+  have hf0 : 0 < orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := orderOf_pos _
+  have h2f : 0 < 2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN') := by omega
+  have hcop' := coprime_pow_sub_one hp2 h2f
+  have hm'0 : (p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1 ≠ 0 := by
+    have := Nat.le_self_pow h2f.ne' (p : ℕ)
+    omega
+  haveI : NeZero ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1) := ⟨hm'0⟩
+  haveI : Fact ((p : ℕ) ^ k * N' ∣
+      (p : ℕ) ^ (k + 1) * ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)) :=
+    ⟨level_dvd (p : ℕ) k N' hcopN'⟩
+  have hNL : N ∣ (p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1) :=
+    hN ▸ level_dvd (p : ℕ) k N' hcopN'
+  refine sqrt_of_inflated p (muField (p : ℕ) ((p : ℕ) ^ (k + 1) *
+      ((p : ℕ) ^ (2 * orderOf (ZMod.unitOfCoprime (p : ℕ) hcopN')) - 1)))
+    (fun a b => galToProd_injective (p := (p : ℕ)) (k + 1) _ hcop' (by
+      rw [map_mul, map_mul]; exact mul_comm _ _))
+    ((χ.toUnitHom.comp (cyc N)).comp (resp p)) (fun σ hσ => ?_) (fun σ hσ => ?_)
+  · show χ.toUnitHom (cyc N (resp p σ)) = 1
+    rw [cyc_eq_one_of_restrict p N _ hNL σ hσ, map_one]
+  · show χ.toUnitHom (cyc N (resp p σ)) = 1
+    rcases cyc_of_torsion p N k N' hN hcopN' u hu1 hu2 σ hσ with h | h
+    · rw [h, map_one]
+    · rw [h, hχ]
+
+/-- **The "only if" direction, from local Kronecker–Weber.** -/
+theorem chi_of_sqrt' (hLKW : PkgI6.LocalKroneckerWeber (p : ℕ)) (N k N' : ℕ) [NeZero N]
+    [NeZero N'] (hN : N = (p : ℕ) ^ k * N') (hcopN' : (p : ℕ).Coprime N')
+    (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ k)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod N') = 1) (φ : Gp p →* ℂˣ) (hφl : IsLocallyConstant φ)
+    (hφ : ∀ x, φ x ^ 2 = χ.toUnitHom (cyc N (resp p x))) : χ.toUnitHom u = 1 := by
+  have hcop := hcopN'.pow_left k
+  have hHo : IsOpen ((φ.ker : Subgroup (Gp p)) : Set (Gp p)) := by
+    have := hφl.isOpen_fiber 1
+    convert this using 1
+    ext x
+    simp
+  have hHc : IsClosed ((φ.ker : Subgroup (Gp p)) : Set (Gp p)) :=
+    Subgroup.isClosed_of_isOpen _ hHo
+  have hMH : (IntermediateField.fixedField φ.ker).fixingSubgroup = φ.ker :=
+    InfiniteGalois.fixingSubgroup_fixedField ⟨φ.ker, hHc⟩
+  haveI : FiniteDimensional ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    (InfiniteGalois.isOpen_iff_finite _).mp (by rw [hMH]; exact hHo)
+  haveI hgal : IsGalois ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    (InfiniteGalois.normal_iff_isGalois _).mp (by rw [hMH]; exact φ.normal_ker)
+  have hsM : Function.Surjective
+      (AlgEquiv.restrictNormalHom (IntermediateField.fixedField φ.ker) : Gp p →* _) :=
+    AlgEquiv.restrictNormalHom_surjective _
+  have hcommM : ∀ a b : Gal(IntermediateField.fixedField φ.ker/ℚ_[(p : ℕ)]), a * b = b * a := by
+    intro a b
+    obtain ⟨σ, rfl⟩ := hsM a
+    obtain ⟨τ, rfl⟩ := hsM b
+    rw [← map_mul, ← map_mul, MonoidHom.eq_iff, IntermediateField.restrictNormalHom_ker, hMH,
+      MonoidHom.mem_ker, map_mul, map_inv, map_mul, map_mul, mul_comm (φ τ) (φ σ),
+      inv_mul_cancel]
+  haveI : IsAbelianGalois ℚ_[(p : ℕ)] (IntermediateField.fixedField φ.ker) :=
+    { toIsGalois := hgal, toIsMulCommutative := ⟨⟨hcommM⟩⟩ }
+  obtain ⟨a, b, hb, hcopb, hMle⟩ := le_muField_of_lkw (p : ℕ) hLKW
+    (IntermediateField.fixedField φ.ker)
+  haveI : NeZero (N' * b) := ⟨Nat.mul_ne_zero (NeZero.ne N') hb.ne'⟩
+  have hcop0 : (p : ℕ).Coprime (N' * b) := Nat.Coprime.mul_right hcopN' hcopb
+  have hMK : IntermediateField.fixedField φ.ker ≤ muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b)) :=
+    hMle.trans (muField_mono _ (Nat.mul_dvd_mul (pow_dvd_pow _ (Nat.le_add_left a k))
+      (dvd_mul_left b N')))
+  obtain ⟨τ, hτ⟩ := exists_tau (p := (p : ℕ))
+    (L := muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b))) (k + a) (N' * b) hcop0
+  have hsK : Function.Surjective (AlgEquiv.restrictNormalHom
+      (muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b))) : Gp p →* _) :=
+    AlgEquiv.restrictNormalHom_surjective _
+  obtain ⟨σ, hσ⟩ := hsK τ
+  have hτ2 : τ ^ 2 = 1 := galToProd_injective (p := (p : ℕ)) (k + a) (N' * b) hcop0 (by
+    rw [map_pow, hτ, map_one]
+    ext <;> simp)
+  have hσ2 : σ ^ 2 ∈ φ.ker := by
+    rw [← hMH]
+    apply IntermediateField.fixingSubgroup_antitone hMK
+    rw [← IntermediateField.restrictNormalHom_ker, MonoidHom.mem_ker, map_pow, hσ, hτ2]
+  have hc : ∀ x : muField (p : ℕ) ((p : ℕ) ^ (k + a) * (N' * b)),
+      ((τ x : _) : PadicAlgCl (p : ℕ)) = actp p σ x := fun x => by
+    rw [← hσ]
+    exact AlgEquiv.restrictNormalHom_apply _ σ x
+  obtain ⟨a1, a2⟩ := act_of_galToProd_tau p (k + a) (N' * b) σ τ hc hτ
+  have hcyc := cyc_resp_eq_u p N k N' hN hcop σ u hu1 hu2
+    (fun x hx => a1 x (by
+      obtain ⟨c, hc⟩ := pow_dvd_pow (p : ℕ) (Nat.le_add_right k a)
+      rw [hc, pow_mul, hx, one_pow]))
+    (fun y hy => a2 y (by rw [pow_mul, hy, one_pow]))
+  rw [← hcyc, ← hφ σ, ← map_pow]
+  exact hσ2
+
+end Main
+
+/-! ### The leaf -/
+
+/-- **T30 at one prime:** the square-root criterion at `p` follows from local Kronecker–Weber at
+`p` (only the "only if" direction uses it). -/
+theorem sqrtCrit_at (p : Nat.Primes) (hLKW : PkgI6.LocalKroneckerWeber (p : ℕ)) (N : ℕ) [NeZero N]
+    (χ : DirichletCharacter ℂ N) (u : (ZMod N)ˣ)
+    (hu1 : ((u : ZMod N).cast : ZMod ((p : ℕ) ^ N.factorization p)) = -1)
+    (hu2 : ((u : ZMod N).cast : ZMod (N / (p : ℕ) ^ N.factorization p)) = 1) :
+    (∃ φ : GQp p →* ℂˣ, IsLocallyConstant φ ∧ ∀ x, φ x ^ 2 = galChar χ (resp p x)) ↔
+      χ.toUnitHom u = 1 := by
+  have hN : N = (p : ℕ) ^ N.factorization p * (N / (p : ℕ) ^ N.factorization p) :=
+    (Nat.ordProj_mul_ordCompl_eq_self N p).symm
+  have hcopN' := Nat.coprime_ordCompl p.2 (NeZero.ne N)
+  haveI : NeZero (N / (p : ℕ) ^ N.factorization p) :=
+    ⟨fun h => NeZero.ne N (by rw [hN, h, mul_zero])⟩
+  constructor
+  · rintro ⟨φ, hφl, hφ⟩
+    exact chi_of_sqrt' p hLKW N _ _ hN hcopN' χ u hu1 hu2 φ hφl hφ
+  · intro hχ
+    exact sqrt_of_chi' p N _ _ hN hcopN' χ u hu1 hu2 hχ
+
+/-- **T30: the local square-root criterion `LeafSqrtCrit` (leaf L-B2c) follows from local
+Kronecker–Weber (leaf T16, `PkgI6.LocalKroneckerWeber`) at every prime.** -/
+theorem leafSqrtCrit_of_localKroneckerWeber
+    (hLKW : ∀ p : Nat.Primes, PkgI6.LocalKroneckerWeber (p : ℕ)) : LeafSqrtCrit :=
+  fun p N _ χ u hu1 hu2 => sqrtCrit_at p (hLKW p) N χ u hu1 hu2
+
+/-- The same with T16 in the form of the field `t16a` of `HSyn` (`scratch/h-decomposition`). -/
+theorem leafSqrtCrit_of_t16a (h : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p) :
+    LeafSqrtCrit :=
+  leafSqrtCrit_of_localKroneckerWeber fun p => h (p : ℕ)
+
+end T30
+
+end T30SqrtCritSec
+
+end T30Sec
+
+/-! # Fold of t10-etale (leaf-adopt3)
+Source: scratch/t10-etale/T10Etale.lean (imports `ZInQKernel.HDecomp.Objects`, whose `PkgI3`
+section is textually identical to Leaves.lean lines 2425-2771). Replaces the placeholder
+`opaque HSyn.T10_TateDuality` by `T10Etale.T10_TateDuality` (field `t10` of `TextbookLeaves`). -/
+
+section T10EtaleSec
+
+/-! # t10-etale: T10 over Mathlib's `ℓ`-adic cohomology
+
+Mathlib v4.35 defines `Scheme.EllAdicCohomology X ℓ n` (pro-étale cohomology with coefficients in
+the sheaf `U ↦ C(U, ℤ_ℓ)`, Bhatt–Scholze 2015 Def. 6.8.1) as an abelian group only. This file
+1. gives it its `ℤ_ℓ`-module structure (multiplication by `a ∈ ℤ_ℓ` on the coefficient sheaf,
+   applied through the functoriality `Sheaf.H.map` of sheaf cohomology), and checks it:
+   `H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)` (`H0Equiv`);
+2. constructs the transport `e_* : Hⁿ(X, ℤ_ℓ) → Hⁿ(Y, ℤ_ℓ)` along a scheme isomorphism
+   `e : X ≅ Y` (equivalence of pro-étale sites → equivalence of sheaf categories → `Ext`), proves it
+   `ℤ_ℓ`-linear (`transport_smul`) and bijective (`transport_bijective`), and checks it in degree 0
+   (`transport_H0`: it is `f ↦ f ∘ e⁻¹` on global sections);
+3. defines the Galois action `galH` of `Gal(K̄/K)` on `H¹(A_K̄, ℤ_ℓ)` by transport along
+   `1 × Spec(σ⁻¹)`;
+4. states T10: `T10_linIso` (`ℤ_ℓ`-linear isomorphism `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`) and
+   **`T10_TateDuality`** (the same, Galois-equivariant), with `T10_TateDuality → T10_linIso →
+   T10_groupIso` (leaf-push2's form) and the content check `T10_linIso_zero`.
+No `sorry`; only the axioms `propext`, `Classical.choice`, `Quot.sound`.
+-/
+
+open CategoryTheory Limits AlgebraicGeometry
+
+
+universe u
+namespace T10Etale
+
+section Coh
+
+set_option backward.isDefEq.respectTransparency.types false
+
+variable (X : Scheme.{u}) (ℓ : ℕ) [Fact ℓ.Prime]
+
+noncomputable abbrev F : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1} :=
+  (sheafCompose _ AddCommGrpCat.uliftFunctor.{u + 1}).obj (X.ellAdicSheaf ℓ)
+
+/-- The sections of the coefficient sheaf are `ULift C(U, ℤ_ℓ)` (by `rfl`). -/
+example (U : X.ProEt) : ((F X ℓ).obj.obj (Opposite.op U) : Type (u+1)) = ULift.{u+1} C(U.left, ℤ_[ℓ]) := rfl
+
+/-- multiplication by `a` on `ULift C(U, ℤ_ℓ)`. -/
+noncomputable def smulHom (U : Scheme.{u}) (a : ℤ_[ℓ]) :
+    ULift.{u+1} C(U, ℤ_[ℓ]) →+ ULift.{u+1} C(U, ℤ_[ℓ]) where
+  toFun x := ⟨ContinuousMap.const U a * x.down⟩
+  map_zero' := by ext1; simp
+  map_add' x y := by ext1; simp [mul_add]
+
+noncomputable def smulEnd (a : ℤ_[ℓ]) : F X ℓ ⟶ F X ℓ :=
+  ObjectProperty.homMk
+  { app U := AddCommGrpCat.ofHom (smulHom ℓ U.unop.left a)
+    naturality U V f := by
+      ext x
+      rfl }
+
+
+@[simp] lemma smulHom_apply (U : Scheme.{u}) (a : ℤ_[ℓ]) (x : ULift.{u+1} C(U, ℤ_[ℓ])) :
+    smulHom ℓ U a x = ⟨ContinuousMap.const U a * x.down⟩ := rfl
+
+lemma smulHom_one (U : Scheme.{u}) : smulHom ℓ U 1 = AddMonoidHom.id _ := by
+  ext x : 2; simp
+
+lemma smulHom_mul (U : Scheme.{u}) (a b : ℤ_[ℓ]) :
+    smulHom ℓ U (a * b) = (smulHom ℓ U a).comp (smulHom ℓ U b) := by
+  refine AddMonoidHom.ext fun x => ULift.ext (ContinuousMap.ext fun p => ?_)
+  simp [mul_assoc]
+
+lemma smulHom_add (U : Scheme.{u}) (a b : ℤ_[ℓ]) :
+    smulHom ℓ U (a + b) = smulHom ℓ U a + smulHom ℓ U b := by
+  refine AddMonoidHom.ext fun x => ULift.ext (ContinuousMap.ext fun p => ?_)
+  simp [add_mul]
+
+lemma smulHom_zero (U : Scheme.{u}) : smulHom ℓ U 0 = 0 := by
+  ext x : 2; simp
+
+lemma smulEnd_one : smulEnd X ℓ 1 = 𝟙 _ := by
+  apply Sheaf.hom_ext; ext U : 2; apply AddCommGrpCat.hom_ext; exact smulHom_one ℓ _
+
+lemma smulEnd_mul (a b : ℤ_[ℓ]) : smulEnd X ℓ (a * b) = smulEnd X ℓ b ≫ smulEnd X ℓ a := by
+  apply Sheaf.hom_ext; ext U : 2; apply AddCommGrpCat.hom_ext; exact smulHom_mul ℓ _ a b
+
+lemma smulEnd_add (a b : ℤ_[ℓ]) : smulEnd X ℓ (a + b) = smulEnd X ℓ a + smulEnd X ℓ b := by
+  apply Sheaf.hom_ext; ext U : 2; apply AddCommGrpCat.hom_ext; exact smulHom_add ℓ _ a b
+
+lemma smulEnd_zero : smulEnd X ℓ 0 = 0 := by
+  apply Sheaf.hom_ext; ext U : 2; apply AddCommGrpCat.hom_ext; exact smulHom_zero ℓ _
+
+
+/-- The `ℤ_ℓ`-module structure on `Hⁿ_proet(X, ℤ_ℓ)`: `a` acts through the sheaf endomorphism
+"multiplication by `a`" of the coefficient sheaf `U ↦ C(U, ℤ_ℓ)`. -/
+noncomputable instance (n : ℕ) : Module ℤ_[ℓ] (X.EllAdicCohomology ℓ n) where
+  smul a x := Sheaf.H.map (smulEnd X ℓ a) n x
+  one_smul x := by
+    change Sheaf.H.map (smulEnd X ℓ 1) n x = x
+    rw [smulEnd_one]; exact Sheaf.H.map_id_apply _
+  mul_smul a b x := by
+    change Sheaf.H.map (smulEnd X ℓ (a * b)) n x =
+      Sheaf.H.map (smulEnd X ℓ a) n (Sheaf.H.map (smulEnd X ℓ b) n x)
+    rw [smulEnd_mul]; exact Sheaf.H.map_comp_apply _ _ _
+  smul_zero a := map_zero (Sheaf.H.map (smulEnd X ℓ a) n)
+  smul_add a x y := map_add (Sheaf.H.map (smulEnd X ℓ a) n) x y
+  add_smul a b x := by
+    change Sheaf.H.map (smulEnd X ℓ (a + b)) n x =
+      Sheaf.H.map (smulEnd X ℓ a) n x + Sheaf.H.map (smulEnd X ℓ b) n x
+    rw [smulEnd_add]; exact Sheaf.H.map_add_apply _ _ _
+  zero_smul x := by
+    change Sheaf.H.map (smulEnd X ℓ 0) n x = 0
+    rw [smulEnd_zero]
+    have h := Sheaf.H.map_add_apply (0 : F X ℓ ⟶ F X ℓ) 0 (x : (F X ℓ).H n)
+    rw [add_zero] at h
+    simpa using h
+
+
+lemma smul_def {n : ℕ} (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ n) :
+    a • x = Sheaf.H.map (smulEnd X ℓ a) n x := rfl
+
+/-! ## Sanity check: `H⁰(X, ℤ_ℓ) = C(X, ℤ_ℓ)` as `ℤ_ℓ`-modules -/
+
+/-- `X → X` is the terminal object of the pro-étale site of `X`. -/
+noncomputable def terminalProEt : X.ProEt :=
+  MorphismProperty.Over.mk ⊤ (𝟙 X) (MorphismProperty.id_mem _ X)
+
+noncomputable def isTerminalProEt : IsTerminal (terminalProEt X) :=
+  MorphismProperty.Over.mkIdTerminal @WeaklyEtale X
+
+/-- **`H⁰(X, ℤ_ℓ) ≃ₗ[ℤ_ℓ] C(X, ℤ_ℓ)`.** The global sections of the coefficient sheaf, with
+`ℤ_ℓ` acting by multiplication. This shows the module structure above is the expected one, and
+that `EllAdicCohomology` is not trivially zero. -/
+noncomputable def H0Equiv : X.EllAdicCohomology ℓ 0 ≃ₗ[ℤ_[ℓ]] C(X, ℤ_[ℓ]) where
+  __ := (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)).trans
+    (AddEquiv.ulift : ULift.{u+1} C(X, ℤ_[ℓ]) ≃+ C(X, ℤ_[ℓ]))
+  map_smul' a x := by
+    change (show ULift.{u+1} C(X, ℤ_[ℓ]) from
+        (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)) (Sheaf.H.map (smulEnd X ℓ a) 0 x)).down
+      = ContinuousMap.const X a *
+        (show ULift.{u+1} C(X, ℤ_[ℓ]) from (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X)) x).down
+    rw [← Sheaf.H.equiv₀_naturality]
+    rfl
+
+/-- `H⁰` of a nonempty scheme is a nonzero `ℤ_ℓ`-module. -/
+lemma nontrivial_H0 [Nonempty X] : Nontrivial (X.EllAdicCohomology ℓ 0) :=
+  (H0Equiv X ℓ).toEquiv.nontrivial
+
+/-- The `ℤ_ℓ`-action on `H⁰` is the multiplication of functions. -/
+lemma H0Equiv_smul (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ 0) :
+    H0Equiv X ℓ (a • x) = ContinuousMap.const X a * H0Equiv X ℓ x :=
+  (H0Equiv X ℓ).map_smul a x
+
+
+end Coh
+
+/-! ## Transport along scheme isomorphisms (for the Galois action) -/
+
+section Transport
+
+set_option backward.isDefEq.respectTransparency.types false
+
+open Scheme Opposite
+
+variable {X Y : Scheme.{u}} (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `π_X : X.ProEt ⥤ Scheme`, `(U → X) ↦ U`. -/
+abbrev piX (X : Scheme.{u}) : X.ProEt ⥤ Scheme.{u} := Scheme.ProEt.forget X ⋙ Over.forget X
+
+/-- **Lemma A.** A sieve on `U` in the small pro-étale site of `X` covers iff its image in
+`Scheme` is a pro-étale covering sieve of `U.left`. -/
+lemma mem_topology_iff {U : X.ProEt} (S : Sieve U) :
+    S ∈ Scheme.ProEt.topology X U ↔ S.functorPushforward (piX X) ∈ proetaleTopology U.left := by
+  have h2 : Scheme.ProEt.topology X =
+      (Scheme.ProEt.forget X).restrictedTopology (proetaleTopology.over X) :=
+    MorphismProperty.toGrothendieck_comap_forget_eq_restrictedTopology (P := @WeaklyEtale) (S := X)
+      _ proetalePrecoverage_le_precoverage_weaklyEtale
+  rw [h2, Functor.mem_restrictedTopology_iff, GrothendieckTopology.mem_over_iff,
+    Sieve.functorPushforward_comp]
+  rfl
+
+
+/-- `WeaklyEtale` holds for isomorphisms. -/
+lemma weaklyEtale_hom (e : X ≅ Y) : (@WeaklyEtale : MorphismProperty Scheme.{u}) e.hom :=
+  (inferInstance : WeaklyEtale e.hom)
+
+/-- The functor `X.ProEt ⥤ Y.ProEt`, `(U → X) ↦ (U → X → Y)`, for a scheme isomorphism `e`. -/
+noncomputable def proEtMap (e : X ≅ Y) : X.ProEt ⥤ Y.ProEt :=
+  MorphismProperty.Over.map ⊤ (weaklyEtale_hom e)
+
+/-- The equivalence of small pro-étale sites induced by a scheme isomorphism. -/
+noncomputable def proEtEquiv (e : X ≅ Y) : X.ProEt ≌ Y.ProEt :=
+  CategoryTheory.Equivalence.mk (proEtMap e) (proEtMap e.symm)
+    ((MorphismProperty.Over.mapId ⊤ X).symm ≪≫
+      MorphismProperty.Over.mapComp ⊤ (weaklyEtale_hom e) (weaklyEtale_hom e.symm) (𝟙 X) (by simp))
+    ((MorphismProperty.Over.mapComp ⊤ (weaklyEtale_hom e.symm) (weaklyEtale_hom e) (𝟙 Y)
+      (by simp)).symm ≪≫ MorphismProperty.Over.mapId ⊤ Y)
+
+instance (e : X ≅ Y) : (proEtEquiv e).inverse.IsDenseSubsite (Scheme.ProEt.topology Y)
+    (Scheme.ProEt.topology X) where
+  functorPushforward_mem_iff {U S} := by
+    rw [mem_topology_iff, mem_topology_iff, ← Sieve.functorPushforward_comp]
+    rfl
+
+/-- The equivalence of categories of abelian sheaves on the pro-étale sites. -/
+noncomputable def sheafEquiv (e : X ≅ Y) :
+    Sheaf (Scheme.ProEt.topology X) Ab.{u+1} ≌ Sheaf (Scheme.ProEt.topology Y) Ab.{u+1} :=
+  (proEtEquiv e).sheafCongr _ _ _
+
+instance (e : X ≅ Y) : (sheafEquiv e).functor.Additive where
+  map_add := by intros; apply Sheaf.hom_ext; rfl
+
+
+
+/-- The sheaf equivalence carries the `ℓ`-adic coefficient sheaf of `X` to that of `Y`
+(componentwise the identity of `ULift C(U, ℤ_ℓ)`). -/
+noncomputable def ellIso (e : X ≅ Y) : (sheafEquiv e).functor.obj (F X ℓ) ≅ F Y ℓ :=
+  ObjectProperty.isoMk _ (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => rfl))
+
+/-- The image `(X → Y)` of the terminal object `X → X`; terminal in `Y.ProEt`. -/
+noncomputable def isTerminalImg (e : X ≅ Y) :
+    IsTerminal ((proEtEquiv e).functor.obj (terminalProEt X)) :=
+  (isTerminalProEt X).isTerminalObj _
+
+/-- `constantSheaf_X ⋙ (sheafEquiv e).functor ⊣` sections at the image of the terminal object. -/
+noncomputable def adjL (e : X ≅ Y) :
+    constantSheaf (Scheme.ProEt.topology X) Ab.{u+1} ⋙ (sheafEquiv e).functor ⊣
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+  ((constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).comp
+    (sheafEquiv e).toAdjunction).ofNatIsoRight
+    (NatIso.ofComponents (fun _ => Iso.refl _) (fun _ => by simp only [Iso.refl_hom]; rfl))
+
+/-- `constantSheaf_Y ⊣` sections at the image of the terminal object. -/
+noncomputable def adjR (e : X ≅ Y) :
+    constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1} ⊣
+      (sheafSections _ _).obj (op ((proEtEquiv e).functor.obj (terminalProEt X))) :=
+  constantSheafAdj (Scheme.ProEt.topology Y) Ab.{u+1} (isTerminalImg e)
+
+/-- The sheaf equivalence carries constant sheaves to constant sheaves (uniqueness of left
+adjoints of the global-sections functor). -/
+noncomputable def constIso (e : X ≅ Y) (A : Ab.{u+1}) :
+    (sheafEquiv e).functor.obj ((constantSheaf (Scheme.ProEt.topology X) Ab.{u+1}).obj A) ≅
+      (constantSheaf (Scheme.ProEt.topology Y) Ab.{u+1}).obj A :=
+  (Adjunction.leftAdjointUniq (adjL e) (adjR e)).app A
+
+/-- **Transport of `ℓ`-adic cohomology along a scheme isomorphism** `e : X ≅ Y`
+(`e_* = (e⁻¹)^*`). -/
+noncomputable def transport (e : X ≅ Y) (n : ℕ) :
+    X.EllAdicCohomology ℓ n →+ Y.EllAdicCohomology ℓ n :=
+  ((Abelian.Ext.mk₀ (constIso e _).inv).precomp _ (zero_add n)).comp
+    (((Abelian.Ext.mk₀ (ellIso ℓ e).hom).postcomp _ (add_zero n)).comp
+      ((sheafEquiv e).functor.mapExtAddHom _ _ n))
+
+lemma ellIso_smulEnd (e : X ≅ Y) (a : ℤ_[ℓ]) :
+    (sheafEquiv e).functor.map (smulEnd X ℓ a) ≫ (ellIso ℓ e).hom =
+      (ellIso ℓ e).hom ≫ smulEnd Y ℓ a := by
+  apply Sheaf.hom_ext; ext U : 2; rfl
+
+/-- Transport is `ℤ_ℓ`-linear. -/
+lemma transport_smul (e : X ≅ Y) (n : ℕ) (a : ℤ_[ℓ]) (x : X.EllAdicCohomology ℓ n) :
+    transport ℓ e n (a • x) = a • transport ℓ e n x := by
+  change (Abelian.Ext.mk₀ (constIso e _).inv).comp
+      ((((x : (F X ℓ).H n).comp (Abelian.Ext.mk₀ (smulEnd X ℓ a)) (add_zero n)).mapExactFunctor
+        (sheafEquiv e).functor).comp (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero n)) (zero_add n) =
+    ((Abelian.Ext.mk₀ (constIso e _).inv).comp
+      (((x : (F X ℓ).H n).mapExactFunctor (sheafEquiv e).functor).comp
+        (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero n)) (zero_add n)).comp
+      (Abelian.Ext.mk₀ (smulEnd Y ℓ a)) (add_zero n)
+  rw [Abelian.Ext.mapExactFunctor_comp, Abelian.Ext.mapExactFunctor_mk₀,
+    Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, ellIso_smulEnd,
+    ← Abelian.Ext.mk₀_comp_mk₀, Abelian.Ext.comp_assoc_of_third_deg_zero,
+    Abelian.Ext.comp_assoc_of_third_deg_zero]
+
+/-- Transport as a `ℤ_ℓ`-linear map. -/
+noncomputable def transportₗ (e : X ≅ Y) (n : ℕ) :
+    X.EllAdicCohomology ℓ n →ₗ[ℤ_[ℓ]] Y.EllAdicCohomology ℓ n where
+  __ := transport ℓ e n
+  map_smul' a x := transport_smul ℓ e n a x
+
+/-- Precomposition with an isomorphism is bijective on `Ext`. -/
+lemma ext_precomp_iso_bijective {C : Type*} [Category* C] [Abelian C] [HasExt.{u+1} C]
+    {A B Z : C} (i : A ≅ B) (n : ℕ) :
+    Function.Bijective ((Abelian.Ext.mk₀ i.hom).precomp Z (zero_add n)) := by
+  refine Function.bijective_iff_has_inverse.mpr
+    ⟨(Abelian.Ext.mk₀ i.inv).precomp Z (zero_add n), fun x => ?_, fun x => ?_⟩
+  · change (Abelian.Ext.mk₀ i.inv).comp ((Abelian.Ext.mk₀ i.hom).comp x (zero_add n)) (zero_add n) = x
+    rw [Abelian.Ext.mk₀_comp_mk₀_assoc, Iso.inv_hom_id, Abelian.Ext.mk₀_id_comp]
+  · change (Abelian.Ext.mk₀ i.hom).comp ((Abelian.Ext.mk₀ i.inv).comp x (zero_add n)) (zero_add n) = x
+    rw [Abelian.Ext.mk₀_comp_mk₀_assoc, Iso.hom_inv_id, Abelian.Ext.mk₀_id_comp]
+
+/-- Postcomposition with an isomorphism is bijective on `Ext`. -/
+lemma ext_postcomp_iso_bijective {C : Type*} [Category* C] [Abelian C] [HasExt.{u+1} C]
+    {A B Z : C} (i : A ≅ B) (n : ℕ) :
+    Function.Bijective ((Abelian.Ext.mk₀ i.hom).postcomp Z (add_zero n)) := by
+  refine Function.bijective_iff_has_inverse.mpr
+    ⟨(Abelian.Ext.mk₀ i.inv).postcomp Z (add_zero n), fun x => ?_, fun x => ?_⟩
+  · change (x.comp (Abelian.Ext.mk₀ i.hom) (add_zero n)).comp (Abelian.Ext.mk₀ i.inv) (add_zero n) = x
+    rw [Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, Iso.hom_inv_id,
+      Abelian.Ext.comp_mk₀_id]
+  · change (x.comp (Abelian.Ext.mk₀ i.inv) (add_zero n)).comp (Abelian.Ext.mk₀ i.hom) (add_zero n) = x
+    rw [Abelian.Ext.comp_assoc_of_third_deg_zero, Abelian.Ext.mk₀_comp_mk₀, Iso.inv_hom_id,
+      Abelian.Ext.comp_mk₀_id]
+
+/-- **Non-degeneracy check: transport is bijective** (the sheaf equivalence is exact, fully faithful
+and preserves injectives, so it induces bijections on `Ext`). In particular the Galois action
+`galH` below is by automorphisms, never degenerate. -/
+lemma transport_bijective (e : X ≅ Y) (n : ℕ) : Function.Bijective (transport ℓ e n) := by
+  have h1 := (sheafEquiv e).functor.mapExt_bijective_of_preservesInjectiveObjects
+    ((constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ)) (F X ℓ) n
+  have h2 := ext_postcomp_iso_bijective
+    (Z := (sheafEquiv e).functor.obj
+      ((constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ)))
+    (ellIso ℓ e) n
+  have h3 := ext_precomp_iso_bijective (Z := F Y ℓ) (constIso e ↧(ULift ℤ)).symm n
+  exact h3.comp (h2.comp h1)
+
+lemma transport_mk₀ (e : X ≅ Y)
+    (g : (constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj ↧(ULift ℤ) ⟶ F X ℓ) :
+    transport ℓ e 0 (Abelian.Ext.mk₀ g) = Abelian.Ext.mk₀ ((constIso e _).inv ≫
+      (sheafEquiv e).functor.map g ≫ (ellIso ℓ e).hom) := by
+  change (Abelian.Ext.mk₀ (constIso e _).inv).comp (((Abelian.Ext.mk₀ g).mapExactFunctor
+    (sheafEquiv e).functor).comp (Abelian.Ext.mk₀ (ellIso ℓ e).hom) (add_zero 0)) (zero_add 0) = _
+  rw [Abelian.Ext.mapExactFunctor_mk₀, Abelian.Ext.mk₀_comp_mk₀, Abelian.Ext.mk₀_comp_mk₀]
+
+lemma unit_ellIso_sections (e : X ≅ Y) (z : ULift.{u+1} C(X, ℤ_[ℓ])) :
+    (((sheafEquiv e).toAdjunction.homEquiv (F X ℓ) (F Y ℓ)) (ellIso ℓ e).hom).hom.app
+      (op (terminalProEt X)) z = z := by
+  rw [Adjunction.homEquiv_unit]
+  simp only [sheafEquiv, ellIso, Equivalence.sheafCongr, Equivalence.toAdjunction_unit]
+  simp
+  have h2 : ((proEtEquiv e).inverse.obj ((proEtEquiv e).functor.obj (terminalProEt X))).hom =
+      𝟙 X := by
+    change (𝟙 X ≫ e.hom) ≫ e.inv = 𝟙 X
+    simp
+  have h : ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left ≫ 𝟙 X =
+      ((proEtEquiv e).inverse.obj ((proEtEquiv e).functor.obj (terminalProEt X))).hom := by
+    simpa [terminalProEt, proEtEquiv, proEtMap] using
+      ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).w
+  have hw : ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left = 𝟙 X :=
+    (Category.comp_id _).symm.trans (h.trans h2)
+  show (⟨z.down.comp ((proEtEquiv e).unitIso.inv.app (terminalProEt X)).left.base.hom⟩ :
+    ULift.{u+1} C(X, ℤ_[ℓ])) = z
+  rw [hw]
+  rfl
+
+lemma transport_homEquiv (e : X ≅ Y) {A : Ab.{u+1}}
+    (g : (constantSheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}).obj A ⟶ F X ℓ) :
+    (adjR e).homEquiv _ _ ((constIso e A).inv ≫ (sheafEquiv e).functor.map g ≫ (ellIso ℓ e).hom) =
+      (constantSheafAdj (Scheme.ProEt.topology X) Ab.{u+1} (isTerminalProEt X)).homEquiv _ _ g := by
+  rw [Adjunction.homEquiv_naturality_right, constIso, Iso.app_inv,
+    Adjunction.leftAdjointUniq_inv_app]
+  erw [Adjunction.homEquiv_leftAdjointUniq_hom_app]
+  rw [← Adjunction.homEquiv_unit]
+  erw [adjL, Adjunction.homEquiv_ofNatIsoRight_apply, Adjunction.comp_homEquiv]
+  erw [Equiv.trans_apply, Adjunction.homEquiv_naturality_left,
+    Adjunction.homEquiv_naturality_right]
+  rw [Category.assoc]
+  simp only [NatIso.ofComponents_hom_app, Iso.refl_hom]
+  ext y
+  simp only [CategoryTheory.comp_apply]
+  exact unit_ellIso_sections ℓ e _
+
+/-- **Degree-0 check of `transport`.** Computing global sections of `Y` at the terminal object
+`(X →e Y)` of `Y.ProEt` (whose sections are again `C(X, ℤ_ℓ)`), `transport e` in degree 0 is the
+identity of `C(X, ℤ_ℓ)`; i.e. on `C(Y, ℤ_ℓ)` it is `f ↦ f ∘ e⁻¹`, the pushforward `e_*`. This
+shows that `constIso` is the canonical isomorphism (no sign or other automorphism of the constant
+sheaf creeps in). -/
+theorem transport_H0 (e : X ≅ Y) (x : X.EllAdicCohomology ℓ 0) :
+    (Sheaf.H.equiv₀ (F Y ℓ) (isTerminalImg e) (transport ℓ e 0 x) : ULift.{u+1} C(X, ℤ_[ℓ])) =
+      (Sheaf.H.equiv₀ (F X ℓ) (isTerminalProEt X) x : ULift.{u+1} C(X, ℤ_[ℓ])) := by
+  have hm : ∀ {A B : Sheaf (Scheme.ProEt.topology X) AddCommGrpCat.{u+1}} (f : A ⟶ B),
+      Abelian.Ext.addEquiv₀ (Abelian.Ext.mk₀ f) = f := fun f => Abelian.Ext.addEquiv₀.right_inv f
+  have hm' : ∀ {A B : Sheaf (Scheme.ProEt.topology Y) AddCommGrpCat.{u+1}} (f : A ⟶ B),
+      Abelian.Ext.addEquiv₀ (Abelian.Ext.mk₀ f) = f := fun f => Abelian.Ext.addEquiv₀.right_inv f
+  rw [← Abelian.Ext.mk₀_addEquiv₀_apply x, transport_mk₀]
+  simp only [Sheaf.H.equiv₀, AddEquiv.trans_apply, hm, hm', Adjunction.homAddEquiv_apply]
+  rw [← transport_homEquiv ℓ e]
+  rfl
+
+end Transport
+
+/-! ## T10 as a `ℤ_ℓ`-linear isomorphism -/
+
+section AbVarSec
+
+open PkgI3 MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **T10, `ℤ_ℓ`-linear form (textbook leaf; not yet Galois-equivariant).** For an abelian variety
+`A` over a field `K` and a prime `ℓ ≠ char K`, `H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)` as
+`ℤ_ℓ`-modules, where `H¹` is Mathlib's pro-étale `ℓ`-adic cohomology with the module structure
+`instModule…` above. A consequence of Milne 1986 (Cornell–Silverman), Thm 15.1(a)
+(`H¹_et(A_K̄, ℤ_ℓ) ≅ Hom(T_ℓ A, ℤ_ℓ)`; UNVERIFIED number) and of the comparison of pro-étale and
+classical `ℓ`-adic cohomology for schemes of finite type over an algebraically closed field
+(Bhatt–Scholze 2015, §5.6; UNVERIFIED number), both `ℤ_ℓ`-linear. -/
+def T10_linIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    Nonempty ((A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃ₗ[ℤ_[ℓ]]
+      Module.Dual ℤ_[ℓ] (A.T ℓ))
+
+-- leaf-adopt3 fold: the scratch file's local copy `T10Etale.T10_groupIso` (statement-identical to
+-- `ZInQ.LeafPush2.T10_groupIso` of Leaves.lean) is deleted; the Leaves.lean original is used.
+
+/-- The linear form implies leaf-push2's group form. -/
+theorem T10_groupIso_of_linIso (h : T10_linIso) : ZInQ.LeafPush2.T10_groupIso := by
+  intro K _ A ℓ _ hℓ
+  obtain ⟨e⟩ := h K A ℓ hℓ
+  exact ⟨e.toAddEquiv⟩
+
+/-- `T_ℓ` of the zero abelian variety is zero. -/
+instance subsingleton_T_zero (K : Type) [Field K] (ℓ : ℕ) [Fact ℓ.Prime] :
+    Subsingleton ((AbVar.zero K).T ℓ) := by
+  have : Subsingleton (Additive ((AbVar.zero K).Pt (AlgebraicClosure K))) :=
+    ⟨fun P Q => CartesianMonoidalCategory.toUnit_unique (Additive.toMul P) (Additive.toMul Q)⟩
+  constructor
+  intro x y
+  apply Subtype.ext
+  funext n
+  exact Subsingleton.elim _ _
+
+/-- **Content check.** At the zero abelian variety `T10_linIso` says
+`H¹_proet(Spec K̄ ×_K Spec K, ℤ_ℓ) = 0`: a true statement (`Spec K̄` is w-contractible,
+Bhatt–Scholze 2015 §2.4; UNVERIFIED number) that is not provable from the definitions by
+unfolding. -/
+theorem T10_linIso_zero (h : T10_linIso) (K : Type) [Field K] (ℓ : ℕ) [Fact ℓ.Prime]
+    (hℓ : (ℓ : K) ≠ 0) :
+    Subsingleton (((AbVar.zero K).baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1) := by
+  obtain ⟨e⟩ := h K (AbVar.zero K) ℓ hℓ
+  exact e.toEquiv.subsingleton
+
+/-! ## The Galois action on `H¹(A_K̄, ℤ_ℓ)` and the equivariant form of T10 -/
+
+/-- `Spec K̄ → Spec K`. -/
+noncomputable abbrev specAlg (K : Type) [Field K] :
+    Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K (AlgebraicClosure K)))
+
+/-- `Spec(σ) : Spec K̄ → Spec K̄`. -/
+noncomputable def specAut {K : Type} [Field K] (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    Spec (CommRingCat.of (AlgebraicClosure K)) ⟶ Spec (CommRingCat.of (AlgebraicClosure K)) :=
+  Spec.map (CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K))
+
+lemma specAut_comp {K : Type} [Field K] (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    specAut σ ≫ specAlg K = specAlg K := by
+  simp only [specAut, specAlg, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  simp
+
+lemma specAut_mul {K : Type} [Field K] (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    specAut (σ * τ) = specAut σ ≫ specAut τ := by
+  simp only [specAut, ← Spec.map_comp]
+  congr 1
+
+lemma specAut_one {K : Type} [Field K] :
+    specAut (1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) = 𝟙 _ := by
+  rw [specAut, show CommRingCat.ofHom ((1 : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    AlgebraicClosure K →+* AlgebraicClosure K) = 𝟙 _ from by ext; rfl]
+  exact Spec.map_id _
+
+/-- `A_K̄ = A ×_K Spec K̄` as a scheme (definitionally `(A.baseChange K̄).X.left`). -/
+noncomputable abbrev AKbar {K : Type} [Field K] (A : AbVar K) : Scheme :=
+  pullback A.X.hom (specAlg K)
+
+example {K : Type} [Field K] (A : AbVar K) : (A.baseChange (AlgebraicClosure K)).X.left = AKbar A :=
+  rfl
+
+/-- `1 × Spec(σ)` on `A_K̄ = A ×_K Spec K̄`. -/
+noncomputable def galAut {K : Type} [Field K] (A : AbVar K)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) : AKbar A ⟶ AKbar A :=
+  pullback.map A.X.hom (specAlg K) A.X.hom (specAlg K) (𝟙 _) (specAut σ) (𝟙 _)
+    (by simp) (by rw [Category.comp_id, specAut_comp])
+
+lemma galAut_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galAut A (σ * τ) = galAut A σ ≫ galAut A τ := by
+  simp only [galAut, pullback.map_comp, specAut_mul, Category.comp_id]
+
+lemma galAut_one {K : Type} [Field K] (A : AbVar K) : galAut A 1 = 𝟙 _ := by
+  simp only [galAut, specAut_one]
+  exact pullback.map_id
+
+/-- `1 × Spec(σ)` as an automorphism of the scheme `A_K̄`. -/
+noncomputable def galIso {K : Type} [Field K] (A : AbVar K) (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    AKbar A ≅ AKbar A where
+  hom := galAut A σ
+  inv := galAut A σ⁻¹
+  hom_inv_id := by rw [← galAut_mul, mul_inv_cancel, galAut_one]
+  inv_hom_id := by rw [← galAut_mul, inv_mul_cancel, galAut_one]
+
+lemma galIso_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galIso A (σ * τ) = galIso A σ ≪≫ galIso A τ :=
+  Iso.ext (galAut_mul A σ τ)
+
+/-- The isomorphisms used by `galH`: `s_{στ} = s_τ ≪≫ s_σ` with `s_σ = galIso A σ⁻¹` (diagrammatic
+order), so `galH (στ) = galH σ ∘ galH τ` follows from functoriality of `transport`
+(`transport (e ≪≫ e') = transport e' ∘ transport e`, not proved here). -/
+lemma galIso_inv_mul {K : Type} [Field K] (A : AbVar K)
+    (σ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :
+    galIso A (σ * τ)⁻¹ = galIso A τ⁻¹ ≪≫ galIso A σ⁻¹ := by
+  rw [mul_inv_rev, galIso_mul]
+
+/-- **The Galois action on `H¹(A_K̄, ℤ_ℓ)`**, by transport of structure: `σ` acts by `s_*`,
+`s = 1 × Spec(σ⁻¹)` (`s_σ ∘ s_τ = s_{στ}`, so this is a left action once functoriality of
+`transport` is proved). -/
+noncomputable def galH {K : Type} [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (σ : Field.absoluteGaloisGroup K) :
+    (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 →ₗ[ℤ_[ℓ]]
+      (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 :=
+  transportₗ ℓ (galIso A (σ⁻¹ : Field.absoluteGaloisGroup K)) 1
+
+/-- **T10, Galois-equivariant form (textbook leaf).** For an abelian variety `A/K` and a prime
+`ℓ ≠ char K` there is a `ℤ_ℓ`-linear isomorphism `φ : H¹(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)`
+intertwining the Galois action `galH` on `H¹` with the contragredient action
+`σ · f = f ∘ σ⁻¹` on the dual of `T_ℓ A` (`A.galT σ` acts on points by `P ↦ P ∘ Spec σ`).
+Equivalently `V_ℓ(A) ≅ H¹(A_K̄, ℚ_ℓ)^∨` as `G_K`-representations after `⊗ ℚ_ℓ`.
+A consequence of Milne 1986 (Cornell–Silverman), Thm 15.1(a) (UNVERIFIED number) and the
+pro-étale/étale comparison (Bhatt–Scholze 2015 §5.6; UNVERIFIED number), both natural in the
+scheme, hence compatible with transport along `1 × Spec(σ⁻¹)`. -/
+def T10_TateDuality : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime], (ℓ : K) ≠ 0 →
+    ∃ φ : (A.baseChange (AlgebraicClosure K)).X.left.EllAdicCohomology ℓ 1 ≃ₗ[ℤ_[ℓ]]
+        Module.Dual ℤ_[ℓ] (A.T ℓ),
+      ∀ (σ : Field.absoluteGaloisGroup K) x,
+        φ (galH A ℓ σ x) = (A.galT (ℓ := ℓ) σ⁻¹).dualMap (φ x)
+
+theorem T10_linIso_of_tateDuality (h : T10_TateDuality) : T10_linIso := by
+  intro K _ A ℓ _ hℓ
+  obtain ⟨φ, -⟩ := h K A ℓ hℓ
+  exact ⟨φ⟩
+
+end AbVarSec
+
+end T10Etale
+
+/-! ## leaf-adopt3 bridge -/
+
+namespace T10Etale
+
+/-- The Galois-equivariant leaf implies leaf-push2's group form `ZInQ.LeafPush2.T10_groupIso`. -/
+theorem T10_groupIso_of_tateDuality (h : T10_TateDuality) : ZInQ.LeafPush2.T10_groupIso :=
+  T10_groupIso_of_linIso (T10_linIso_of_tateDuality h)
+
+end T10Etale
+
+end T10EtaleSec
+
+/-! # Fold of pi0-x6 (leaf-adopt3)
+Source: scratch/pi0-x6/Pi0X6.lean (imports `ZInQKernel.HDecomp.QM.Leaves`; every `LeafQM.AV`
+declaration it uses is textually identical to the copy in section `LeafQMSec` of Leaves.lean).
+Adds the reduction of the clause `LeafAdopt.R1pi0Props X` as proved theorems; the bundle
+`LeafAdopt.R1R2fpRep` is unchanged. -/
+
+section Pi0X6Sec
+
+/-!
+# pi0-x6: `π₀(X₆) = 1` from the bundle's clauses, modulo exact CM and algebraic geometry
+
+See `docs/research/pi0-x6.md`.
+* §1-§4: the Galois input, stabilizers of `ℚ̄`-points, the core `subsingleton_of_galois`, and
+  its hypotheses from `R5ptProps`, `R5fpCount` (`subsingleton_of_bundle`).
+* §5: the closed facts for `ℚ(i) = ℚ(ζ₄)`.
+* §6: the closed facts for `ℚ(√−3) = ℚ(ζ₃)`.
+* §7: the exact-CM clause `R2X6CMExact` (input (c), option c1), the Galois action on
+  `X_ℚ̄` and the proved compatibility `compOf_galois`, the algebraic-geometry inputs `AGInputs`
+  (input (d) minus Galois compatibility; unproved glue), and the final theorem
+  `r1pi0Props_of_bundle : R5ptProps → R5fpCount → R2X6CMExact → AGInputs → R1pi0Props`.
+No `sorry`, no `axiom`.
+-/
+
+noncomputable section
+
+namespace Pi0X6
+
+section CoreSec
+
+
+/-! ## §1 Galois input -/
+
+
+
+local notation "Qb" => AlgebraicClosure ℚ
+
+open Polynomial IntermediateField
+
+theorem not_isSquare_three_int (m : ℤ) : m * m ≠ 3 := by
+  intro h
+  have h1 : -2 < m := by nlinarith
+  have h2 : m < 2 := by nlinarith
+  interval_cases m <;> omega
+
+theorem rat_sq_ne_three (q : ℚ) : q * q ≠ 3 := by
+  intro h
+  have hsq : IsSquare (3 : ℚ) := ⟨q, h.symm⟩
+  rw [Rat.isSquare_iff] at hsq
+  obtain ⟨⟨m, hm⟩, -⟩ := hsq
+  exact not_isSquare_three_int m (by simpa using hm.symm)
+
+/-- `ℚ(√−3)` contains no square root of `−1`. -/
+theorem sqrt_neg_one_not_mem (z s : Qb) (hz : z ^ 2 = -1) (hs : s ^ 2 = -3) :
+    z ∉ ℚ⟮s⟯ := by
+  intro hmem
+  have hint : IsIntegral ℚ s := Algebra.IsIntegral.isIntegral s
+  let pb := IntermediateField.adjoin.powerBasis hint
+  obtain ⟨f, hfdeg, hf⟩ := pb.exists_eq_aeval ⟨z, hmem⟩
+  have hdim : pb.dim ≤ 2 := by
+    rw [IntermediateField.adjoin.powerBasis_dim]
+    have hp : (X ^ 2 + C (3 : ℚ)) ≠ 0 := by
+      intro h0
+      have := congrArg natDegree h0
+      rw [natDegree_X_pow_add_C] at this
+      simp at this
+    have hdvd : minpoly ℚ s ∣ X ^ 2 + C (3 : ℚ) := by
+      apply minpoly.dvd
+      simp [hs]
+    have := natDegree_le_of_dvd hdvd hp
+    rwa [natDegree_X_pow_add_C] at this
+  have hf1 : f.natDegree ≤ 1 := by omega
+  obtain ⟨a, b, rfl⟩ := exists_eq_X_add_C_of_natDegree_le_one hf1
+  have hz' : z = (a : Qb) * s + (b : Qb) := by
+    have := congrArg Subtype.val hf
+    simp only [map_add, map_mul, aeval_C, aeval_X] at this
+    rw [this]
+    simp [eq_ratCast, pb, IntermediateField.adjoin.powerBasis_gen]
+  rw [hz'] at hz
+  have key : ((2 * a * b : ℚ) : Qb) * s = ((-1 + 3 * a ^ 2 - b ^ 2 : ℚ) : Qb) := by
+    push_cast
+    linear_combination hz - (a : Qb) ^ 2 * hs
+  by_cases hab : (2 * a * b : ℚ) = 0
+  · rw [hab] at key
+    simp only [Rat.cast_zero, zero_mul] at key
+    have key' : (-1 + 3 * a ^ 2 - b ^ 2 : ℚ) = 0 := by exact_mod_cast key.symm
+    rcases mul_eq_zero.1 hab with ha | hb
+    · have ha0 : a = 0 := by linarith
+      subst ha0; nlinarith [sq_nonneg b]
+    · subst hb
+      exact rat_sq_ne_three (3 * a) (by nlinarith)
+  · set q : ℚ := (-1 + 3 * a ^ 2 - b ^ 2) / (2 * a * b)
+    have hsq : s = (q : Qb) := by
+      have hne : ((2 * a * b : ℚ) : Qb) ≠ 0 := by exact_mod_cast hab
+      rw [show q = (-1 + 3 * a ^ 2 - b ^ 2) / (2 * a * b) from rfl, Rat.cast_div, ← key]
+      field_simp
+    rw [hsq] at hs
+    have : q ^ 2 = -3 := by exact_mod_cast hs
+    nlinarith [sq_nonneg q]
+
+/-- **Galois input**: for `z² = −1` and `s² = −3` in `ℚ̄` there is `σ ∈ Aut(ℚ̄/ℚ)` fixing `s` and
+moving `z` (so `Gal(ℚ̄/ℚ(√−3)) ⊄ Gal(ℚ̄/ℚ(i))`). -/
+theorem exists_fix_moves (z s : Qb) (hz : z ^ 2 = -1) (hs : s ^ 2 = -3) :
+    ∃ σ : Qb ≃ₐ[ℚ] Qb, σ s = s ∧ σ z ≠ z := by
+  by_contra h
+  push Not at h
+  apply sqrt_neg_one_not_mem z s hz hs
+  rw [← InfiniteGalois.fixedField_fixingSubgroup ℚ⟮s⟯]
+  intro σ
+  apply h σ.1
+  exact σ.2 ⟨s, IntermediateField.mem_adjoin_simple_self ℚ s⟩
+
+
+/-! ## §2 Stabilizers of `ℚ̄`-points -/
+
+open CategoryTheory AlgebraicGeometry LeafQM LeafQM.AV
+
+variable {X : Over (Spec (CommRingCat.of ℚ))}
+
+/-- `Aut(ℚ̄/ℚ)` acting on `X(ℚ̄)`: `x ↦ x ∘ Spec σ`. -/
+def galPt (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) : fieldPt Qbar ⟶ X :=
+  fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ x
+
+theorem galPt_left (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) :
+    (galPt σ x).left = Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ x.left := rfl
+
+/-- If `σ` fixes `F` pointwise it fixes `F`'s generators' adjunction (helper). -/
+theorem fixes_adjoin (σ : Qbar ≃ₐ[ℚ] Qbar) (S : Set Qbar) (hS : ∀ z ∈ S, σ z = z) :
+    ∀ z ∈ IntermediateField.adjoin ℚ S, σ z = z := by
+  have hle : IntermediateField.adjoin ℚ S ≤
+      IntermediateField.fixedField (Subgroup.zpowers σ) := by
+    rw [IntermediateField.adjoin_le_iff]
+    intro z hz
+    rw [SetLike.mem_coe, IntermediateField.mem_fixedField_iff]
+    intro f hf
+    have hst : σ ∈ MulAction.stabilizer (Qbar ≃ₐ[ℚ] Qbar) z := by
+      rw [MulAction.mem_stabilizer_iff, AlgEquiv.smul_def]; exact hS z hz
+    have := (Subgroup.zpowers_le.2 hst) hf
+    rwa [MulAction.mem_stabilizer_iff, AlgEquiv.smul_def] at this
+  intro z hz
+  exact (IntermediateField.mem_fixedField_iff _ _).1 (hle hz) σ (Subgroup.mem_zpowers σ)
+
+/-- The stabilizer of a `ℚ̄`-point of a scheme (as a morphism `Spec ℚ̄ → X`). -/
+theorem spec_comp_eq_self_iff {Z : Scheme.{0}} (σ : Qbar ≃ₐ[ℚ] Qbar)
+    (y : Spec (CommRingCat.of Qbar) ⟶ Z) :
+    Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y = y ↔
+      ∀ z ∈ residueImage (X := Z) y, σ z = z := by
+  rw [← (Scheme.SpecToEquivOfField Qbar Z).injective.eq_iff, specToEquivOfField_comp]
+  set p := Scheme.SpecToEquivOfField Qbar Z y with hp
+  constructor
+  · intro h z hz
+    have h2 : p.2 ≫ CommRingCat.ofHom (σ : Qbar →+* Qbar) = p.2 := by
+      have := (Sigma.mk.inj_iff.1 h).2
+      exact eq_of_heq this
+    refine fixes_adjoin σ _ ?_ z hz
+    rintro _ ⟨t, rfl⟩
+    exact congrArg (fun g => g.hom t) h2
+  · intro h
+    have h2 : p.2 ≫ CommRingCat.ofHom (σ : Qbar →+* Qbar) = p.2 := by
+      ext t
+      exact h _ (IntermediateField.subset_adjoin ℚ _ ⟨t, rfl⟩)
+    rw [h2]
+
+/-- **The stabilizer of a `ℚ̄`-point is the fixing group of its residue field**: `σx = x` iff
+`σ` fixes `ℚ(x)` (`residueImage`) pointwise. -/
+theorem galPt_eq_self_iff (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) :
+    galPt σ x = x ↔ ∀ z ∈ residueImage (X := X.left) x.left, σ z = z := by
+  have hx : ∀ y y' : fieldPt Qbar ⟶ X, y = y' ↔ y.left = y'.left :=
+    fun y y' => ⟨fun h => h ▸ rfl, fun h => Over.OverMorphism.ext h⟩
+  rw [hx, galPt_left]
+  exact spec_comp_eq_self_iff σ x.left
+
+/-- If `ℚ(x) = ℚ⟮z⟯` then `σx = x ↔ σ z = z`. -/
+theorem galPt_eq_self_iff_of_eq_adjoin (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) (z : Qbar)
+    (hz : residueImage (X := X.left) x.left = IntermediateField.adjoin ℚ {z}) :
+    galPt σ x = x ↔ σ z = z := by
+  rw [galPt_eq_self_iff, hz]
+  constructor
+  · intro h; exact h z (IntermediateField.mem_adjoin_simple_self ℚ z)
+  · intro h; exact fixes_adjoin σ {z} (by simpa using h)
+
+/-- `π`-values are rational at a `ℚ`-rational value: `π(σx) = σ(π x)`. -/
+theorem val_galPt (π : ToP1 X.left) (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) :
+    π.val (K := Qbar) (galPt σ x).left = (π.val (K := Qbar) x.left).map (σ : Qbar →+* Qbar) :=
+  π.val_comp (σ : Qbar →+* Qbar) x.left
+
+/-! ## §3 The core -/
+
+/-- **The `π₀`-core (glue, compiled).** Let `c : X(ℚ̄) → S` be compatible with `Aut(ℚ̄/ℚ)` (two
+points in one class stay in one class after `σ`), and suppose every class contains a point over
+`0` and a point over `∞`. Suppose the fibre of `π` over `0` has at most two `ℚ̄`-points, each with
+residue field `ℚ⟮z⟯`, `z² = −1`, and every point over `∞` has residue field `ℚ⟮s⟯`, `s² = −3`.
+Then `S` has at most one element.
+
+Application (docs/research/pi0-x6.md §3): `S = π₀(X_ℚ̄)`, `c x` = the component of `x`; the
+residue fields come from `R5ptProps` (`k = ℚ(i)`, `ℚ(√−3)`), the count from `R5fpCount`
+(`#CM(ℤ[i]) = 2`). -/
+theorem subsingleton_of_galois (π : ToP1 X.left) {S : Type*} (c : (fieldPt Qbar ⟶ X) → S)
+    (hc : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X), c x = c x' →
+      c (galPt σ x) = c (galPt σ x'))
+    (h0 : ∀ t : S, ∃ x : fieldPt Qbar ⟶ X, c x = t ∧ π.val (K := Qbar) x.left = OnePoint.some 0)
+    (hinf : ∀ t : S, ∃ y : fieldPt Qbar ⟶ X, c y = t ∧ π.val (K := Qbar) y.left = OnePoint.infty)
+    (hcount : ∀ x x' x'' : fieldPt Qbar ⟶ X, π.val (K := Qbar) x.left = OnePoint.some 0 →
+      π.val (K := Qbar) x'.left = OnePoint.some 0 → π.val (K := Qbar) x''.left = OnePoint.some 0 →
+      x = x' ∨ x = x'' ∨ x' = x'')
+    (hres0 : ∀ x : fieldPt Qbar ⟶ X, π.val (K := Qbar) x.left = OnePoint.some 0 →
+      ∃ z : Qbar, z ^ 2 = -1 ∧ residueImage (X := X.left) x.left = IntermediateField.adjoin ℚ {z})
+    (hresinf : ∀ y : fieldPt Qbar ⟶ X, π.val (K := Qbar) y.left = OnePoint.infty →
+      ∃ s : Qbar, s ^ 2 = -3 ∧ residueImage (X := X.left) y.left = IntermediateField.adjoin ℚ {s}) :
+    Subsingleton S := by
+  refine ⟨fun t₁ t₂ => ?_⟩
+  obtain ⟨x₁, rfl, hx₁⟩ := h0 t₁
+  obtain ⟨x₂, rfl, hx₂⟩ := h0 t₂
+  obtain ⟨y, hy, hyv⟩ := hinf (c x₁)
+  obtain ⟨z, hz, hzr⟩ := hres0 x₁ hx₁
+  obtain ⟨s, hs, hsr⟩ := hresinf y hyv
+  obtain ⟨σ, hσs, hσz⟩ := exists_fix_moves z s hz hs
+  have hσy : galPt σ y = y := (galPt_eq_self_iff_of_eq_adjoin σ y s hsr).2 hσs
+  have hσx : galPt σ x₁ ≠ x₁ := fun h => hσz ((galPt_eq_self_iff_of_eq_adjoin σ x₁ z hzr).1 h)
+  have hv : π.val (K := Qbar) (galPt σ x₁).left = OnePoint.some 0 := by
+    rw [val_galPt, hx₁]; simp
+  rcases hcount x₁ x₂ (galPt σ x₁) hx₁ hx₂ hv with h | h | h
+  · rw [h]
+  · exact (hσx h.symm).elim
+  · have := hc σ y x₁ hy
+    rw [hσy, ← h] at this
+    rw [← hy, this]
+
+/-! ## §4 The hypotheses of the core from the bundle's clauses `R5ptProps`, `R5fpCount`
+
+The concrete facts about `ℚ(i)` and `ℚ(√−3)` (`inertCount6 = 1`, `#Pic 𝒪 = 1`, conductor 1) are
+hypotheses here (closed number-theoretic facts, glue not done). "CM by `R`" at the points over a
+branch value is the hypothesis `hexact` (`com ≅ R`; the bundle's `HasCM4` only gives `φ² = −1`
+in `com`). -/
+
+variable {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+
+/-- A degree-2 subfield of `ℚ̄` receiving `k ∋ w`, `w² = d` non-square, is `ℚ⟮z⟯`, `z² = d`. -/
+theorem eq_adjoin_of_finrank_two (F : IntermediateField ℚ Qbar) (hdeg : Module.finrank ℚ F = 2)
+    (k : Type) [Field k] [Algebra ℚ k] (φ : k →ₐ[ℚ] F) (w : k) (d : ℚ) (hw : w ^ 2 = (d : k))
+    (hd : ¬ IsSquare d) :
+    ∃ z : Qbar, z ^ 2 = (d : Qbar) ∧ F = IntermediateField.adjoin ℚ {z} := by
+  have hz : ((φ w : F) : Qbar) ^ 2 = (d : Qbar) := by
+    have h1 : φ (w ^ 2) = φ (d : k) := by rw [hw]
+    rw [map_pow, map_ratCast] at h1
+    have h2 := congrArg (fun t : F => (t : Qbar)) h1
+    simpa using h2
+  refine ⟨(φ w : Qbar), hz, ?_⟩
+  have : FiniteDimensional ℚ F := Module.finite_of_finrank_pos (by rw [hdeg]; norm_num)
+  have hle : IntermediateField.adjoin ℚ {(φ w : Qbar)} ≤ F :=
+    IntermediateField.adjoin_simple_le_iff.2 (φ w).2
+  symm
+  refine IntermediateField.eq_of_le_of_finrank_le hle ?_
+  rw [hdeg]
+  have : FiniteDimensional ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) :=
+    IntermediateField.adjoin.finiteDimensional (Algebra.IsIntegral.isIntegral _)
+  have hpos : 0 < Module.finrank ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) :=
+    Module.finrank_pos
+  have hne : Module.finrank ℚ (IntermediateField.adjoin ℚ {(φ w : Qbar)}) ≠ 1 := by
+    intro h1
+    rw [IntermediateField.finrank_eq_one_iff, IntermediateField.adjoin_simple_eq_bot_iff,
+      IntermediateField.mem_bot] at h1
+    obtain ⟨q, hq⟩ := h1
+    apply hd
+    refine ⟨q, ?_⟩
+    rw [← hq, eq_ratCast] at hz
+    have : ((q * q : ℚ) : Qbar) = (d : Qbar) := by push_cast; rw [← hz]; ring
+    exact (Rat.cast_injective this).symm
+  omega
+
+/-- **Residue fields from `R5ptProps`.** If `b(k) = 1`, `#Pic R = 1` and `k = ℚ(w)` with
+`w² = d` (`d` not a square), a `ℚ̄`-point of `X₆` with `com ≅ R` has residue field `ℚ⟮z⟯`,
+`z² = d`. -/
+theorem residue_eq_adjoin_of_R5pt (h5 : R5ptProps X Ψ)
+    (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+    (hk : Module.finrank ℚ k = 2) (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring)
+    (hc : Nat.Coprime (conductor R) 6) (hb : inertCount6 k = 1)
+    (hh : Nat.card (CommRing.Pic R) = 1) (w : k) (d : ℚ) (hw : w ^ 2 = (d : k))
+    (hd : ¬ IsSquare d) (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar) (hP : Ψ x = Quotient.mk _ P)
+    (hRP : Nonempty (com P.q ≃+* R)) :
+    ∃ z : Qbar, z ^ 2 = (d : Qbar) ∧
+      residueImage (X := X.left) x.left = IntermediateField.adjoin ℚ {z} := by
+  obtain ⟨hdeg, hemb⟩ := h5 k hk R hR hc x P hP hRP
+  rw [hb, hh] at hdeg
+  simp only [one_ne_zero, ite_false, mul_one] at hdeg
+  obtain ⟨φ⟩ := hemb (by rw [hb]; exact one_ne_zero)
+  exact eq_adjoin_of_finrank_two _ hdeg k φ w d hw hd
+
+/-- **At most two points over a value, from `R5fpCount`.** If every `ℚ̄`-point over `t` has
+`com ≅ R` (`hexact`) with `b(k) = 1` and `#Pic R = 1`, there are at most `2^1·1 = 2` of them. -/
+theorem fibre_le_two_of_R5count (hcnt : R5fpCount) (π : ToP1 X.left) (t : OnePoint Qbar)
+    (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k]
+    (hk : Module.finrank ℚ k = 2) (R : Subring k) (hR : R ≤ (integralClosure ℤ k).toSubring)
+    (hc : Nat.Coprime (conductor R) 6) (hb : inertCount6 k = 1)
+    (hh : Nat.card (CommRing.Pic R) = 1)
+    (hexact : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = t → Nonempty (com P.q ≃+* R))
+    (x x' x'' : fieldPt Qbar ⟶ X) (h : π.val (K := Qbar) x.left = t)
+    (h' : π.val (K := Qbar) x'.left = t) (h'' : π.val (K := Qbar) x''.left = t) :
+    x = x' ∨ x = x'' ∨ x' = x'' := by
+  have hm : ∀ y : fieldPt Qbar ⟶ X, π.val (K := Qbar) y.left = t →
+      ∃ P : QMPair Qbar, Quotient.mk _ P = Ψ y ∧ Nonempty (com P.q ≃+* R) := fun y hy =>
+    ⟨(Ψ y).out, Quotient.out_eq _, hexact y _ (Quotient.out_eq _).symm hy⟩
+  have hcard := hcnt k hk R hR hc (by
+    obtain ⟨P, -, hP⟩ := hm x h
+    exact ⟨P, hP⟩)
+  rw [hb, hh] at hcard
+  norm_num at hcard
+  let T := {c : Quotient (pairSetoid Qbar) //
+    ∃ P : QMPair Qbar, Quotient.mk _ P = c ∧ Nonempty (com P.q ≃+* R)}
+  have hT : Nat.card T = 2 := hcard
+  have : Finite T := Nat.finite_of_card_ne_zero (by rw [hT]; norm_num)
+  let e := Finite.equivFin T
+  let a : T := ⟨Ψ x, hm x h⟩
+  let b : T := ⟨Ψ x', hm x' h'⟩
+  let c : T := ⟨Ψ x'', hm x'' h''⟩
+  have ha := (e a).isLt
+  have hb' := (e b).isLt
+  have hc' := (e c).isLt
+  have key : (e a).val = (e b).val ∨ (e a).val = (e c).val ∨ (e b).val = (e c).val := by omega
+  rcases key with k1 | k1 | k1
+  · exact Or.inl (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1))))
+  · exact Or.inr (Or.inl (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1)))))
+  · exact Or.inr (Or.inr (Ψ.injective (congrArg Subtype.val (e.injective (Fin.ext k1)))))
+
+/-- **`π₀`-core from the bundle's clauses (glue, compiled).** `R5ptProps` and `R5fpCount` at
+`k₄ = ℚ(i)` (`R₄ = ℤ[i]`) and `k₃ = ℚ(√−3)` (`R₃ = ℤ[ζ₃]`), with the closed facts about these
+two fields as hypotheses, and "CM exactly by `R₄` over `0`, by `R₃` over `∞`" (`hexact₄`,
+`hexact₃`): every Galois-compatible map `c` whose classes all meet the fibres over `0` and `∞`
+is constant. With `S = π₀(X_ℚ̄)` (the algebraic-geometry inputs `hc`, `h0`, `hinf`) this is
+`π₀(X₆_ℚ̄) = 1`. -/
+theorem subsingleton_of_bundle (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (π : ToP1 X.left)
+    (k₄ : Type) [Field k₄] [NumberField k₄] [NumberField.IsTotallyComplex k₄]
+    (hk₄ : Module.finrank ℚ k₄ = 2) (R₄ : Subring k₄)
+    (hR₄ : R₄ ≤ (integralClosure ℤ k₄).toSubring) (hc₄ : Nat.Coprime (conductor R₄) 6)
+    (hb₄ : inertCount6 k₄ = 1) (hh₄ : Nat.card (CommRing.Pic R₄) = 1) (i₄ : k₄)
+    (hi₄ : i₄ ^ 2 = ((-1 : ℚ) : k₄))
+    (k₃ : Type) [Field k₃] [NumberField k₃] [NumberField.IsTotallyComplex k₃]
+    (hk₃ : Module.finrank ℚ k₃ = 2) (R₃ : Subring k₃)
+    (hR₃ : R₃ ≤ (integralClosure ℤ k₃).toSubring) (hc₃ : Nat.Coprime (conductor R₃) 6)
+    (hb₃ : inertCount6 k₃ = 1) (hh₃ : Nat.card (CommRing.Pic R₃) = 1) (s₃ : k₃)
+    (hs₃ : s₃ ^ 2 = ((-3 : ℚ) : k₃))
+    (hexact₄ : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = OnePoint.some 0 → Nonempty (com P.q ≃+* R₄))
+    (hexact₃ : ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+      π.val (K := Qbar) x.left = OnePoint.infty → Nonempty (com P.q ≃+* R₃))
+    {S : Type*} (c : (fieldPt Qbar ⟶ X) → S)
+    (hc : ∀ (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X), c x = c x' →
+      c (galPt σ x) = c (galPt σ x'))
+    (h0 : ∀ t : S, ∃ x : fieldPt Qbar ⟶ X, c x = t ∧ π.val (K := Qbar) x.left = OnePoint.some 0)
+    (hinf : ∀ t : S, ∃ y : fieldPt Qbar ⟶ X, c y = t ∧
+      π.val (K := Qbar) y.left = OnePoint.infty) :
+    Subsingleton S := by
+  have hsq1 : ¬ IsSquare (-1 : ℚ) := by
+    rintro ⟨q, hq⟩; nlinarith [mul_self_nonneg q]
+  have hsq3 : ¬ IsSquare (-3 : ℚ) := by
+    rintro ⟨q, hq⟩; nlinarith [mul_self_nonneg q]
+  refine subsingleton_of_galois π c hc h0 hinf
+    (fun x x' x'' h h' h'' => fibre_le_two_of_R5count hcnt π _ k₄ hk₄ R₄ hR₄ hc₄ hb₄ hh₄
+      hexact₄ x x' x'' h h' h'') (fun x hx => ?_) (fun y hy => ?_)
+  · obtain ⟨z, hz, hzr⟩ := residue_eq_adjoin_of_R5pt h5 k₄ hk₄ R₄ hR₄ hc₄ hb₄ hh₄ i₄ (-1) hi₄
+      hsq1 x _ (Quotient.out_eq _).symm (hexact₄ x _ (Quotient.out_eq _).symm hx)
+    exact ⟨z, by rw [hz]; push_cast; ring, hzr⟩
+  · obtain ⟨s, hs, hsr⟩ := residue_eq_adjoin_of_R5pt h5 k₃ hk₃ R₃ hR₃ hc₃ hb₃ hh₃ s₃ (-3) hs₃
+      hsq3 y _ (Quotient.out_eq _).symm (hexact₃ y _ (Quotient.out_eq _).symm hy)
+    exact ⟨s, by rw [hs]; push_cast; ring, hsr⟩
+
+
+end CoreSec
+
+/-! ## §5 Closed facts for `ℚ(i)` -/
+
+section QiSec
+
+
+open NumberField LeafQM LeafQM.AV
+
+/-! ## The closed facts for `k₄ = ℚ(i) = ℚ(ζ₄)` -/
+
+abbrev K4 := CyclotomicField 4 ℚ
+
+instance : NeZero ((4 : ℕ) : ℚ) := ⟨by norm_num⟩
+
+instance : IsCyclotomicExtension {4} ℚ K4 := CyclotomicField.isCyclotomicExtension 4 ℚ
+
+theorem hζ4 : IsPrimitiveRoot (IsCyclotomicExtension.zeta 4 ℚ K4) 4 :=
+  IsCyclotomicExtension.zeta_spec 4 ℚ K4
+
+theorem zeta4_sq : (IsCyclotomicExtension.zeta 4 ℚ K4) ^ 2 = -1 := by
+  have h := hζ4.pow_eq_one
+  have h2 : (IsCyclotomicExtension.zeta 4 ℚ K4) ^ 2 ≠ 1 := by
+    intro h2
+    have := hζ4.pow_eq_one_iff_dvd 2
+    rw [this] at h2
+    norm_num at h2
+  have : ((IsCyclotomicExtension.zeta 4 ℚ K4) ^ 2 - 1) *
+      ((IsCyclotomicExtension.zeta 4 ℚ K4) ^ 2 + 1) = 0 := by
+    linear_combination h
+  rcases mul_eq_zero.1 this with h3 | h3
+  · exact (h2 (sub_eq_zero.1 h3)).elim
+  · exact eq_neg_of_add_eq_zero_left h3
+
+instance : NumberField.IsTotallyComplex K4 :=
+  IsCyclotomicExtension.Rat.isTotallyComplex (n := 4) K4 (by norm_num)
+
+theorem finrank_K4 : Module.finrank ℚ K4 = 2 := by
+  rw [IsCyclotomicExtension.finrank K4 (Polynomial.cyclotomic.irreducible_rat (n := 4) (by norm_num))]
+  decide
+
+/-- `i := ζ₄ ∈ 𝓞 ℚ(ζ₄)`, with `i² = −1`. -/
+def iInt : 𝓞 K4 := hζ4.toInteger
+
+theorem alg_iInt : algebraMap (𝓞 K4) K4 iInt = IsCyclotomicExtension.zeta 4 ℚ K4 := rfl
+
+theorem iInt_mul_self : iInt * iInt = ((-1 : ℤ) : 𝓞 K4) := by
+  apply RingOfIntegers.coe_injective
+  rw [map_mul, alg_iInt, map_intCast]; push_cast; rw [← pow_two, zeta4_sq]
+
+/-- `ℤ[i] → 𝓞 ℚ(ζ₄)`, `a + bi ↦ a + bζ₄`. -/
+def gaussToO : GaussianInt →+* 𝓞 K4 := Zsqrtd.lift ⟨iInt, iInt_mul_self⟩
+
+theorem gaussToO_apply (z : GaussianInt) :
+    gaussToO z = (z.re : 𝓞 K4) + (z.im : 𝓞 K4) * iInt := by
+  simp [gaussToO, Zsqrtd.lift]
+
+theorem gaussToO_bijective : Function.Bijective gaussToO := by
+  constructor
+  · rw [injective_iff_map_eq_zero]
+    intro z hz
+    rw [gaussToO_apply] at hz
+    have hK := congrArg (algebraMap (𝓞 K4) K4) hz
+    rw [map_add, map_mul, alg_iInt, map_intCast, map_intCast, map_zero] at hK
+    have him : z.im = 0 := by
+      by_contra hb
+      have hb' : ((z.im : ℚ) : K4) ≠ 0 := by exact_mod_cast hb
+      have hζ : IsCyclotomicExtension.zeta 4 ℚ K4 = ((-(z.re : ℚ) / z.im : ℚ) : K4) := by
+        push_cast
+        field_simp
+        linear_combination hK
+      have := zeta4_sq
+      rw [hζ] at this
+      have h' : ((-(z.re : ℚ) / z.im) ^ 2 : ℚ) = -1 := by exact_mod_cast this
+      nlinarith [sq_nonneg (-(z.re : ℚ) / z.im)]
+    have hre : z.re = 0 := by
+      rw [him] at hK
+      simp at hK
+      exact_mod_cast hK
+    exact Zsqrtd.ext hre him
+  · intro y
+    let pb := hζ4.integralPowerBasis
+    obtain ⟨f, hfdeg, hf⟩ := pb.exists_eq_aeval y
+    have hdim : pb.dim = 2 := by
+      simp only [pb, IsPrimitiveRoot.integralPowerBasis_dim]; decide
+    have hf1 : f.natDegree ≤ 1 := by omega
+    obtain ⟨a, b, rfl⟩ := Polynomial.exists_eq_X_add_C_of_natDegree_le_one hf1
+    refine ⟨⟨b, a⟩, ?_⟩
+    rw [gaussToO_apply, hf]
+    simp only [map_add, map_mul, Polynomial.aeval_X,
+      IsPrimitiveRoot.integralPowerBasis_gen, pb, iInt, eq_intCast, map_intCast]
+    ring
+
+/-- `ℤ[i] ≃ 𝓞 ℚ(ζ₄)`. -/
+def gaussEquiv : GaussianInt ≃+* 𝓞 K4 := RingEquiv.ofBijective gaussToO gaussToO_bijective
+
+theorem gaussEquiv_natCast (n : ℕ) : gaussEquiv (n : GaussianInt) = (n : 𝓞 K4) := map_natCast _ n
+
+theorem prime_three_O4 : Prime (3 : 𝓞 K4) := by
+  have : Fact (Nat.Prime 3) := ⟨by norm_num⟩
+  have h := (GaussianInt.prime_iff_mod_four_eq_three_of_nat_prime 3).2 (by norm_num)
+  have := (MulEquiv.prime_iff gaussEquiv.toMulEquiv).2 h
+  have e3 : gaussEquiv.toMulEquiv ((3 : ℕ) : GaussianInt) = (3 : 𝓞 K4) := by
+    change gaussEquiv ((3 : ℕ) : GaussianInt) = 3
+    rw [map_natCast]; norm_num
+  rwa [e3] at this
+
+theorem not_prime_two_O4 : ¬ Prime (2 : 𝓞 K4) := by
+  have : Fact (Nat.Prime 2) := ⟨by norm_num⟩
+  intro h2
+  have h := (GaussianInt.prime_iff_mod_four_eq_three_of_nat_prime 2).1
+  have : Prime ((2 : ℕ) : GaussianInt) := by
+    have := (MulEquiv.prime_iff gaussEquiv.symm.toMulEquiv).2 h2
+    have e2 : gaussEquiv.symm.toMulEquiv (2 : 𝓞 K4) = ((2 : ℕ) : GaussianInt) := by
+      change gaussEquiv.symm 2 = _
+      rw [map_ofNat]; norm_num
+    rwa [e2] at this
+  have := h this
+  norm_num at this
+
+theorem inertCount6_K4 : inertCount6 K4 = 1 := by
+  unfold inertCount6
+  have h2 : ¬ (Ideal.span {(2 : 𝓞 K4)}).IsPrime := by
+    rw [Ideal.span_singleton_prime (by norm_num)]; exact not_prime_two_O4
+  have h3 : (Ideal.span {(3 : 𝓞 K4)}).IsPrime := by
+    rw [Ideal.span_singleton_prime (by norm_num)]; exact prime_three_O4
+  simp [h2, h3]
+
+/-- `R₄ = 𝓞 ℚ(ζ₄)` as a subring. -/
+abbrev R4 : Subring K4 := (integralClosure ℤ K4).toSubring
+
+theorem conductor_R4 : conductor R4 = 1 := AddSubgroup.relIndex_self _
+
+theorem pic_R4 : Nat.card (CommRing.Pic R4) = 1 := by
+  have e : GaussianInt ≃+* R4 := gaussEquiv.trans (RingEquiv.refl _)
+  have : IsPrincipalIdealRing R4 := IsPrincipalIdealRing.of_surjective e.toRingHom e.surjective
+  have : Subsingleton (CommRing.Pic R4) := inferInstance
+  exact Nat.card_eq_one_iff_unique.2 ⟨inferInstance, ⟨1⟩⟩
+
+theorem zeta4_sq' : (IsCyclotomicExtension.zeta 4 ℚ K4) ^ 2 = (((-1 : ℚ)) : K4) := by
+  rw [zeta4_sq]; push_cast; ring
+
+
+end QiSec
+
+/-! ## §6 Closed facts for `ℚ(√−3)` -/
+
+section Q3Sec
+
+
+open NumberField LeafQM LeafQM.AV
+
+/-! ## The closed facts for `k₃ = ℚ(√−3) = ℚ(ζ₃)` -/
+
+abbrev K3 := CyclotomicField 3 ℚ
+
+instance : NeZero ((3 : ℕ) : ℚ) := ⟨by norm_num⟩
+
+instance : IsCyclotomicExtension {3} ℚ K3 := CyclotomicField.isCyclotomicExtension 3 ℚ
+
+theorem hζ3 : IsPrimitiveRoot (IsCyclotomicExtension.zeta 3 ℚ K3) 3 :=
+  IsCyclotomicExtension.zeta_spec 3 ℚ K3
+
+local notation "ζ₃" => IsCyclotomicExtension.zeta 3 ℚ K3
+
+theorem zeta3_sq : ζ₃ ^ 2 + ζ₃ + 1 = 0 := by
+  have h := hζ3.pow_eq_one
+  have h1 : ζ₃ ≠ 1 := hζ3.ne_one (by norm_num)
+  have : (ζ₃ - 1) * (ζ₃ ^ 2 + ζ₃ + 1) = 0 := by linear_combination h
+  rcases mul_eq_zero.1 this with h3 | h3
+  · exact (h1 (sub_eq_zero.1 h3)).elim
+  · exact h3
+
+instance : NumberField.IsTotallyComplex K3 :=
+  IsCyclotomicExtension.Rat.isTotallyComplex (n := 3) K3 (by norm_num)
+
+theorem finrank_K3 : Module.finrank ℚ K3 = 2 := by
+  rw [IsCyclotomicExtension.finrank K3 (Polynomial.cyclotomic.irreducible_rat (n := 3) (by norm_num))]
+  decide
+
+/-- `√−3 = 2ζ₃ + 1`. -/
+theorem sqrt3_sq : (2 * ζ₃ + 1) ^ 2 = (((-3 : ℚ)) : K3) := by
+  push_cast; linear_combination 4 * zeta3_sq
+
+/-- `ζ₃ ∈ 𝓞 ℚ(ζ₃)`. -/
+def zInt : 𝓞 K3 := hζ3.toInteger
+
+theorem alg_zInt : algebraMap (𝓞 K3) K3 zInt = ζ₃ := rfl
+
+theorem zInt_sq : zInt ^ 2 = -zInt - 1 := by
+  apply RingOfIntegers.coe_injective
+  rw [map_pow, map_sub, map_neg, map_one, alg_zInt]
+  linear_combination zeta3_sq
+
+/-- `1, ζ₃` are independent over `ℤ`. -/
+theorem coord_eq_zero (a b : ℤ) (h : (a : 𝓞 K3) + (b : 𝓞 K3) * zInt = 0) : a = 0 ∧ b = 0 := by
+  have hK := congrArg (algebraMap (𝓞 K3) K3) h
+  rw [map_add, map_mul, alg_zInt, map_intCast, map_intCast, map_zero] at hK
+  have hb : b = 0 := by
+    by_contra hb
+    have hb' : ((b : ℚ) : K3) ≠ 0 := by exact_mod_cast hb
+    have hζ : ζ₃ = ((-(a : ℚ) / b : ℚ) : K3) := by
+      push_cast
+      field_simp
+      linear_combination hK
+    have := zeta3_sq
+    rw [hζ] at this
+    have h' : ((-(a : ℚ) / b) ^ 2 + (-(a : ℚ) / b) + 1 : ℚ) = 0 := by exact_mod_cast this
+    nlinarith [sq_nonneg (-(a : ℚ) / b + 1 / 2)]
+  refine ⟨?_, hb⟩
+  rw [hb] at hK
+  simp at hK
+  exact_mod_cast hK
+
+/-- Every element of `𝓞 ℚ(ζ₃)` is `a + bζ₃`. -/
+theorem exists_coord (y : 𝓞 K3) : ∃ a b : ℤ, y = (a : 𝓞 K3) + (b : 𝓞 K3) * zInt := by
+  let pb := hζ3.integralPowerBasis
+  obtain ⟨f, hfdeg, hf⟩ := pb.exists_eq_aeval y
+  have hdim : pb.dim = 2 := by
+    simp only [pb, IsPrimitiveRoot.integralPowerBasis_dim]; decide
+  have hf1 : f.natDegree ≤ 1 := by omega
+  obtain ⟨a, b, rfl⟩ := Polynomial.exists_eq_X_add_C_of_natDegree_le_one hf1
+  refine ⟨b, a, ?_⟩
+  rw [hf]
+  simp only [map_add, map_mul, Polynomial.aeval_X,
+    IsPrimitiveRoot.integralPowerBasis_gen, pb, zInt, eq_intCast, map_intCast]
+  ring
+
+theorem coord_eq (a b c d : ℤ)
+    (h : (a : 𝓞 K3) + (b : 𝓞 K3) * zInt = (c : 𝓞 K3) + (d : 𝓞 K3) * zInt) : a = c ∧ b = d := by
+  have := coord_eq_zero (a - c) (b - d) (by push_cast; linear_combination h)
+  omega
+
+theorem dvd_iff_coord (n a b : ℤ) :
+    (n : 𝓞 K3) ∣ (a : 𝓞 K3) + (b : 𝓞 K3) * zInt ↔ n ∣ a ∧ n ∣ b := by
+  constructor
+  · rintro ⟨y, hy⟩
+    obtain ⟨c, d, rfl⟩ := exists_coord y
+    have := coord_eq a b (n * c) (n * d) (by rw [hy]; push_cast; ring)
+    exact ⟨⟨c, this.1⟩, ⟨d, this.2⟩⟩
+  · rintro ⟨⟨c, rfl⟩, ⟨d, rfl⟩⟩
+    exact ⟨(c : 𝓞 K3) + (d : 𝓞 K3) * zInt, by push_cast; ring⟩
+
+theorem not_prime_three_O3 : ¬ Prime (3 : 𝓞 K3) := by
+  intro h
+  -- `λ = ζ − 1`, `λ² = −3ζ`
+  have hl : (3 : 𝓞 K3) ∣ (zInt - 1) * (zInt - 1) :=
+    ⟨-zInt, by linear_combination zInt_sq⟩
+  have h1 := h.dvd_or_dvd hl
+  have h2 : ¬ ((3 : ℤ) : 𝓞 K3) ∣ ((-1 : ℤ) : 𝓞 K3) + ((1 : ℤ) : 𝓞 K3) * zInt := by
+    rw [dvd_iff_coord]; omega
+  apply h2
+  have e : ((-1 : ℤ) : 𝓞 K3) + ((1 : ℤ) : 𝓞 K3) * zInt = zInt - 1 := by push_cast; ring
+  rw [e]
+  rcases h1 with h1 | h1 <;> exact_mod_cast h1
+
+theorem parity_lemma : ∀ a b c d : ZMod 2, a * c - b * d = 0 → a * d + b * c - b * d = 0 →
+    (a = 0 ∧ b = 0) ∨ (c = 0 ∧ d = 0) := by decide
+
+theorem prime_two_O3 : Prime (2 : 𝓞 K3) := by
+  refine ⟨two_ne_zero, ?_, ?_⟩
+  · intro hu
+    have : ((2 : ℤ) : 𝓞 K3) ∣ ((1 : ℤ) : 𝓞 K3) + ((0 : ℤ) : 𝓞 K3) * zInt := by
+      have : (2 : 𝓞 K3) ∣ 1 := hu.dvd
+      push_cast; simpa using this
+    rw [dvd_iff_coord] at this; omega
+  · intro x y hxy
+    obtain ⟨a, b, rfl⟩ := exists_coord x
+    obtain ⟨c, d, rfl⟩ := exists_coord y
+    have hprod : ((a : 𝓞 K3) + (b : 𝓞 K3) * zInt) * ((c : 𝓞 K3) + (d : 𝓞 K3) * zInt) =
+        ((a * c - b * d : ℤ) : 𝓞 K3) + ((a * d + b * c - b * d : ℤ) : 𝓞 K3) * zInt := by
+      push_cast; linear_combination (b : 𝓞 K3) * d * zInt_sq
+    rw [hprod, show (2 : 𝓞 K3) = ((2 : ℤ) : 𝓞 K3) by norm_num, dvd_iff_coord] at hxy
+    rw [show (2 : 𝓞 K3) = ((2 : ℤ) : 𝓞 K3) by norm_num, dvd_iff_coord, dvd_iff_coord]
+    obtain ⟨h1, h2⟩ := hxy
+    have e : ∀ n : ℤ, (2 : ℤ) ∣ n ↔ ((n : ZMod 2) = 0) := fun n => by
+      rw [ZMod.intCast_zmod_eq_zero_iff_dvd]; norm_num
+    simp only [e] at h1 h2 ⊢
+    push_cast at h1 h2
+    exact parity_lemma _ _ _ _ h1 h2
+
+theorem inertCount6_K3 : inertCount6 K3 = 1 := by
+  unfold inertCount6
+  have h2 : (Ideal.span {(2 : 𝓞 K3)}).IsPrime := by
+    rw [Ideal.span_singleton_prime (by norm_num)]; exact prime_two_O3
+  have h3 : ¬ (Ideal.span {(3 : 𝓞 K3)}).IsPrime := by
+    rw [Ideal.span_singleton_prime (by norm_num)]; exact not_prime_three_O3
+  simp [h2, h3]
+
+/-- `R₃ = 𝓞 ℚ(ζ₃)` as a subring. -/
+abbrev R3 : Subring K3 := (integralClosure ℤ K3).toSubring
+
+theorem conductor_R3 : conductor R3 = 1 := AddSubgroup.relIndex_self _
+
+theorem pic_R3 : Nat.card (CommRing.Pic R3) = 1 := by
+  have e : 𝓞 K3 ≃+* R3 := RingEquiv.refl _
+  have : IsPrincipalIdealRing (𝓞 K3) := IsCyclotomicExtension.Rat.three_pid K3
+  have : IsPrincipalIdealRing R3 := IsPrincipalIdealRing.of_surjective e.toRingHom e.surjective
+  have : Subsingleton (CommRing.Pic R3) := inferInstance
+  exact Nat.card_eq_one_iff_unique.2 ⟨inferInstance, ⟨1⟩⟩
+
+
+end Q3Sec
+
+/-! ## §7 The exact-CM clause, the algebraic-geometry inputs, and the final theorem -/
+
+section Final
+
+open CategoryTheory AlgebraicGeometry Limits NumberField LeafQM LeafQM.AV
+
+variable {X : Over (Spec (CommRingCat.of ℚ))}
+
+/-- **R2's CM clauses at `0` and `∞` with "CM by `R`" in its printed meaning** (`End_𝒪(A) ≅ R`,
+not merely `φ ∈ com` with `φ² = −1`): a `ℚ̄`-point lies over `0` iff its pair has `com ≅ ℤ[i]`,
+and over `∞` iff `com ≅ ℤ[ζ₃]`. *Published*: Baba–Granath 2008 Thm 2.1 and the §3.1 table (the
+fibres over `0`, `∞` are the CM points of discriminants `−4`, `−3`), as for `R2X6PropsIff`; a
+consequence of the same statement. Only the forward directions are used. -/
+def R2X6CMExact (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)) (π₆ : ToP1 X.left) : Prop :=
+  ∀ (x : fieldPt Qbar ⟶ X) (P : QMPair Qbar), Ψ x = Quotient.mk _ P →
+    (π₆.val (K := Qbar) x.left = OnePoint.some 0 ↔ Nonempty (com P.q ≃+* R4)) ∧
+    (π₆.val (K := Qbar) x.left = OnePoint.infty ↔ Nonempty (com P.q ≃+* R3))
+
+/-- `X_ℚ̄ = X ×_ℚ Spec ℚ̄`. -/
+abbrev Xbar (X : Over (Spec (CommRingCat.of ℚ))) : Scheme :=
+  pullback X.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+
+/-- The section `Spec ℚ̄ → X_ℚ̄` of a morphism `y : Spec ℚ̄ → X` over `ℚ`. -/
+def secOf (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    Spec (CommRingCat.of Qbar) ⟶ Xbar X :=
+  pullback.lift y (𝟙 _) (by rw [w, Category.id_comp])
+
+/-- The point of `Spec ℚ̄`. -/
+def ptQ : Spec (CommRingCat.of Qbar) := (IsLocalRing.closedPoint Qbar : PrimeSpectrum Qbar)
+
+/-- The point of `X_ℚ̄` of a `ℚ̄`-point `x` (the image of the section `(x, id)`). -/
+def ptOf (x : fieldPt Qbar ⟶ X) : Xbar X :=
+  secOf x.left (Over.w x) ptQ
+
+/-- The connected component of `X_ℚ̄` containing the point of `x`. -/
+def compOf (x : fieldPt Qbar ⟶ X) : _root_.ConnectedComponents (Xbar X) :=
+  _root_.ConnectedComponents.mk (ptOf x)
+
+/-- `σ ∈ Aut(ℚ̄/ℚ)` acting on `X_ℚ̄ = X ×_ℚ Spec ℚ̄` through the second factor (`id × Spec σ⁻¹`). -/
+def galXbar (σ : Qbar ≃ₐ[ℚ] Qbar) : Xbar X ⟶ Xbar X :=
+  pullback.map X.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) X.hom
+    (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) (𝟙 _)
+    (Spec.map (CommRingCat.ofHom ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar))) (𝟙 _)
+    (by simp) (by
+      rw [Category.comp_id, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+      congr 2
+      ext q
+      simp)
+
+theorem specMap_sigma_comp_symm (σ : Qbar ≃ₐ[ℚ] Qbar) :
+    Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫
+      Spec.map (CommRingCat.ofHom ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) = 𝟙 _ := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  have : ((σ : Qbar →+* Qbar)).comp ((σ.symm : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar) =
+      RingHom.id Qbar := by
+    ext q; simp
+  rw [this]
+  exact Spec.map_id _
+
+theorem secOf_comp (σ : Qbar ≃ₐ[ℚ] Qbar) (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+    (w' : (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) ≫ X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    secOf (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) w' =
+      Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ secOf y w ≫ galXbar σ := by
+  apply pullback.hom_ext
+  · simp only [secOf, galXbar, Category.assoc, pullback.lift_fst, pullback.map,
+      Category.comp_id]
+  · simp only [secOf, galXbar, Category.assoc, pullback.lift_snd, pullback.lift_snd_assoc,
+      pullback.map, Category.id_comp]
+    rw [specMap_sigma_comp_symm]
+
+theorem secOf_galois_apply (σ : Qbar ≃ₐ[ℚ] Qbar) (y : Spec (CommRingCat.of Qbar) ⟶ X.left)
+    (w : y ≫ X.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+    (w' : (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) ≫ X.hom =
+      Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))) :
+    secOf (Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar)) ≫ y) w'
+        ptQ =
+      galXbar σ (secOf y w ptQ) := by
+  rw [secOf_comp σ y w w', Scheme.Hom.comp_apply, Scheme.Hom.comp_apply]
+  congr 2
+  exact Subsingleton.elim _ _
+
+/-- **The Galois action on `X(ℚ̄)` is the action on `X_ℚ̄`**: `pt(σ · x) = galXbar σ (pt x)`. -/
+theorem ptOf_galPt (σ : Qbar ≃ₐ[ℚ] Qbar) (x : fieldPt Qbar ⟶ X) :
+    ptOf (galPt σ x) = galXbar σ (ptOf x) :=
+  secOf_galois_apply σ x.left (Over.w x) (Over.w (galPt σ x))
+
+theorem compOf_galois (σ : Qbar ≃ₐ[ℚ] Qbar) (x x' : fieldPt Qbar ⟶ X)
+    (h : compOf x = compOf x') : compOf (galPt σ x) = compOf (galPt σ x') := by
+  unfold compOf at *
+  rw [ptOf_galPt, ptOf_galPt, ← (galXbar σ).continuous.connectedComponentsMap_mk,
+    ← (galXbar σ).continuous.connectedComponentsMap_mk, h]
+
+/-- **The algebraic-geometry inputs (input (d) of docs/research/pi0-x6.md §2; glue, NOT proved,
+Mathlib v4.35 lacks the theory).** For `X₆` with `π₆`:
+(the Galois compatibility of components is NOT an input: it is proved, `compOf_galois`);
+(i)-(ii) every connected component of `X_ℚ̄` contains a `ℚ̄`-point over `0` and one over `∞`
+(components are smooth proper irreducible curves over `ℚ̄`; `π₆` is nonconstant on each since its
+fibres are finite twist orbits, `Aut(𝒪)/Inn(𝒪^×) ≅ (ℤ/2)²`; the image is closed, irreducible, not
+a point, hence `P¹`; closed points are `ℚ̄`-points);
+(iii) connected over `ℚ̄` implies geometrically connected, for any `ℚ`-scheme (Stacks, Varieties,
+"geometrically connected"; UNVERIFIED tag). -/
+structure AGInputs (π₆ : ToP1 X.left) : Prop where
+  over0 : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ x : fieldPt Qbar ⟶ X,
+    compOf x = t ∧ π₆.val (K := Qbar) x.left = OnePoint.some 0
+  overInf : ∀ t : _root_.ConnectedComponents (Xbar X), ∃ y : fieldPt Qbar ⟶ X,
+    compOf y = t ∧ π₆.val (K := Qbar) y.left = OnePoint.infty
+  descend : ConnectedSpace (Xbar X) → GeometricallyConnected X.hom
+
+/-- **`π₀(X₆_ℚ̄) = 1` (glue, compiled) from the bundle's clauses `R5ptProps`, `R5fpCount`, the
+exact-CM clause `R2X6CMExact`, and the algebraic-geometry inputs `AGInputs` (unproved).** The
+closed facts about `ℚ(i)` and `ℚ(√−3)` are proved (§5, §6). -/
+theorem subsingleton_components_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {π₆ : ToP1 X.left} (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (hex : R2X6CMExact Ψ π₆)
+    (hag : AGInputs π₆) : Subsingleton (_root_.ConnectedComponents (Xbar X)) :=
+  subsingleton_of_bundle h5 hcnt π₆ K4 finrank_K4 R4 le_rfl (by rw [conductor_R4]; norm_num)
+    inertCount6_K4 pic_R4 (IsCyclotomicExtension.zeta 4 ℚ K4) zeta4_sq'
+    K3 finrank_K3 R3 le_rfl (by rw [conductor_R3]; norm_num) inertCount6_K3 pic_R3
+    (2 * IsCyclotomicExtension.zeta 3 ℚ K3 + 1) sqrt3_sq
+    (fun x P hP h0 => ((hex x P hP).1).1 h0) (fun x P hP hi => ((hex x P hP).2).1 hi)
+    compOf compOf_galois hag.over0 hag.overInf
+
+/-- Subsingleton components and a point give a connected space. -/
+theorem connectedSpace_of_subsingleton {α : Type*} [TopologicalSpace α] (x : α)
+    (h : Subsingleton (_root_.ConnectedComponents α)) : ConnectedSpace α := by
+  have hu : connectedComponent x = Set.univ := Set.eq_univ_of_forall fun y =>
+    ConnectedComponents.coe_eq_coe'.1 (Subsingleton.elim (ConnectedComponents.mk y) _)
+  exact { isPreconnected_univ := hu ▸ isPreconnected_connectedComponent, toNonempty := ⟨x⟩ }
+
+/-- **The clause `R1pi0Props X` (`GeometricallyConnected X.hom`) from `R5ptProps`, `R5fpCount`,
+`R2X6CMExact`, `AGInputs` and one `ℚ̄`-point of `X` (`X6Props` supplies it).** -/
+theorem r1pi0Props_of_bundle {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)}
+    {π₆ : ToP1 X.left} (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (hex : R2X6CMExact Ψ π₆)
+    (hag : AGInputs π₆) (x₀ : fieldPt Qbar ⟶ X) : GeometricallyConnected X.hom :=
+  hag.descend (connectedSpace_of_subsingleton (ptOf x₀)
+    (subsingleton_components_of_bundle h5 hcnt hex hag))
+
+/-- **The same, from the repaired bundle's clauses on one `X₆`**: `X6Props` (for the `ℚ̄`-point),
+`R5ptProps`, plus `R5fpCount`, `R2X6CMExact`, `AGInputs`. -/
+theorem r1pi0Props_of_X6Props {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)} {fY : Y ⟶ X} {π₆ : ToP1 X.left}
+    (h6 : X6Props Y Φ X Ψ fY) (h5 : R5ptProps X Ψ) (hcnt : R5fpCount)
+    (hex : R2X6CMExact Ψ π₆) (hag : AGInputs π₆) : GeometricallyConnected X.hom := by
+  obtain ⟨-, -, ⟨x₀⟩, -, -, -⟩ := h6
+  exact r1pi0Props_of_bundle h5 hcnt hex hag x₀
+
+end Final
+
+end Pi0X6
+
+end
+
+
+/-! ## leaf-adopt3 bridges: the conclusion stated as the clause `LeafAdopt.R1pi0Props X` -/
+
+namespace Pi0X6
+
+open CategoryTheory AlgebraicGeometry LeafQM LeafQM.AV
+
+/-- **Reduction of the clause `LeafAdopt.R1pi0Props X` (Q4, `π₀(X₆) = 1`)** to the bundle's
+clauses `R5ptProps X Ψ`, `R5fpCount`, the exact-CM clause `R2X6CMExact Ψ π₆` (Baba–Granath, CM
+"by `R`" in its printed meaning), the algebraic-geometry inputs `AGInputs π₆` (unproved glue) and
+one `ℚ̄`-point of `X`. -/
+theorem leafAdopt_r1pi0Props_of_bundle {X : Over (Spec (CommRingCat.of ℚ))}
+    {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)} {π₆ : ToP1 X.left}
+    (h5 : R5ptProps X Ψ) (hcnt : R5fpCount) (hex : R2X6CMExact Ψ π₆) (hag : AGInputs π₆)
+    (x₀ : fieldPt Qbar ⟶ X) : LeafAdopt.R1pi0Props X :=
+  r1pi0Props_of_bundle h5 hcnt hex hag x₀
+
+/-- The same, with the `ℚ̄`-point supplied by the bundle clause `X6Props`. -/
+theorem leafAdopt_r1pi0Props_of_X6Props {X Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar)} {fY : Y ⟶ X} {π₆ : ToP1 X.left}
+    (h6 : X6Props Y Φ X Ψ fY) (h5 : R5ptProps X Ψ) (hcnt : R5fpCount)
+    (hex : R2X6CMExact Ψ π₆) (hag : AGInputs π₆) : LeafAdopt.R1pi0Props X :=
+  r1pi0Props_of_X6Props h6 h5 hcnt hex hag
+
+end Pi0X6
+
+end Pi0X6Sec
+
+section HodgeLatticeSec
+/-! ### leaf-adopt3 fold (2026-11-13): task hodge-lattice
+
+Copied from `scratch/hodge-lattice/HodgeLattice.lean` (compiled there against the kernel module
+`ZInQKernel.HDecomp.Faltings.Models`). Changes: the `import` line and the `#print axioms` lines are
+dropped, and the nine lines `open PkgI3 (AbVar)` are deleted. In the kernel `ZInQ.DefFaltings` has
+no `AbVar` of its own (it uses `PkgI3.AbVar`); in this file it has def-faltings' copy
+`ZInQ.DefFaltings.AbVar`, over which `GroupModel` and `HodgeLatticeTheorem` are stated. Inside
+`namespace ZInQ.DefFaltings.HodgeLattice` the bare name `AbVar` resolves to that copy through the
+namespace prefix, so every statement below is over `ZInQ.DefFaltings.AbVar`. All other kernel
+declarations used (`GroupModel`, `genericFibre`, `genericPt`, `secIndex`, `hodgeSpace`,
+`detLattice`, `omegaAt`, ...) are textually identical in section `DefFaltingsSec` above. -/
+
+/-! # `HodgeLatticeTheorem`: the algebraic reduction (task hodge-lattice)
+
+`ZInQ.DefFaltings.HodgeLatticeTheorem` (ZInQKernel/HDecomp/Faltings/Models.lean) asks, for a smooth
+group model `𝒢` of `A_L` with `A.dim = g`, that
+* `hodgeSpace g = L ⊗_{𝓞_L} ⋀^g_{𝓞_L} (𝔪_ξ/𝔪_ξ²)` is an `L`-line, and
+* `detLattice g = 𝓞_L-span {1 ⊗ v₁ ∧ ⋯ ∧ v_g : vᵢ ∈ ω_𝒢}` is a full lattice in it.
+
+§1 proves this, for an arbitrary `𝓞_K`-module `M` and submodule `ω` in place of
+`(𝔪_ξ/𝔪_ξ², ω_𝒢)`, from three hypotheses: `ω` finitely generated, `K ⊗ M` of `K`-rank `g`, and
+`ω` spanning `K ⊗ M` over `K` (`hodgeLattice_of_lattice`). §2 states the three hypotheses over the
+genuine objects of `Models.lean` (`OmegaFG`, `CotangentRank`, `OmegaSpans`) and derives
+`HodgeLatticeTheorem` from them (`hodgeLatticeTheorem_of`). §3-§5 prove `OmegaFG` and `OmegaSpans`
+(`omegaLocal`: `ω_𝒢` is a finitely generated full lattice). §6 reduces `CotangentRank` to the
+regularity and Krull dimension of `𝒪_{𝒢,ξ}`; §7 is a corollary; §8-§9 move these to statements about
+abelian varieties over a field and the local rings of a generic fibre; §10 proves the latter
+(`genericFibreStalkIso`); §11 needs only the tangent dimension at the origin. Final form:
+
+`hodgeLatticeTheorem_of_tangent : TangentDimAtOrigin → DimBaseChange → HodgeLatticeTheorem`
+(and `tangentDimAtOrigin_of : RegularAtOrigin → DimAtOrigin → TangentDimAtOrigin`).
+
+No unproved step, no `axiom` (in the source file). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+
+open NumberField TensorProduct
+
+/-! ## 1. Commutative algebra -/
+
+/-- A top-degree alternating map on `R^g`, with values in any module, is `det · F(e)`. -/
+theorem alt_eq_smulRight {R N : Type*} [CommRing R] [AddCommGroup N] [Module R N] {g : ℕ}
+    (F : (Fin g → R) [⋀^Fin g]→ₗ[R] N) :
+    F = (Pi.basisFun R (Fin g)).det.smulRight (F (Pi.basisFun R (Fin g))) := by
+  refine Module.Basis.ext_alternating (Pi.basisFun R (Fin g)) fun i h => ?_
+  let σ : Equiv.Perm (Fin g) := Equiv.ofBijective i (Finite.injective_iff_bijective.1 h)
+  change F (Pi.basisFun R (Fin g) ∘ σ) =
+    ((Pi.basisFun R (Fin g)).det.smulRight (F (Pi.basisFun R (Fin g)))) (Pi.basisFun R (Fin g) ∘ σ)
+  rw [AlternatingMap.smulRight_apply, AlternatingMap.map_perm, AlternatingMap.map_perm,
+    Module.Basis.det_self]
+  rcases Int.units_eq_one_or (Equiv.Perm.sign σ) with h | h <;> simp [h]
+
+variable {K : Type*} [Field K] [NumberField K]
+variable {M : Type*} [AddCommGroup M] [Module (𝓞 K) M]
+
+/-- Clearing denominators in `K ⊗_{𝓞_K} M`: if every `1 ⊗ v` is a `K`-combination of the
+`1 ⊗ w_j`, then some nonzero multiple of `v` is an `𝓞_K`-combination of the `w_j` in `M`. -/
+theorem exists_clear {g : ℕ} (w : Fin g → M)
+    (hb : ∀ v : M, (1 : K) ⊗ₜ[𝓞 K] v ∈
+      Submodule.span K (Set.range fun j => (1 : K) ⊗ₜ[𝓞 K] w j)) (v : M) :
+    ∃ D : 𝓞 K, D ≠ 0 ∧ ∃ a : Fin g → 𝓞 K, D • v = ∑ j, a j • w j := by
+  obtain ⟨c, hc⟩ := (Submodule.mem_span_range_iff_exists_fun K).mp (hb v)
+  obtain ⟨d, hd⟩ := IsLocalization.exist_integer_multiples (nonZeroDivisors (𝓞 K)) Finset.univ c
+  choose a ha using fun j => hd j (Finset.mem_univ j)
+  have key : (TensorProduct.mk (𝓞 K) K M 1) ((d : 𝓞 K) • v) =
+      TensorProduct.mk (𝓞 K) K M 1 (∑ j, a j • w j) := by
+    simp only [TensorProduct.mk_apply, TensorProduct.tmul_sum, TensorProduct.tmul_smul]
+    rw [← hc, Finset.smul_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [← algebraMap_smul K (a j), ha j, smul_assoc]
+  have : IsLocalizedModule (nonZeroDivisors (𝓞 K)) (TensorProduct.mk (𝓞 K) K M 1) :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors (𝓞 K)) K _).mpr
+      (TensorProduct.isBaseChange _ _ _)
+  obtain ⟨e, he⟩ := IsLocalizedModule.exists_of_eq (S := nonZeroDivisors (𝓞 K)) key
+  refine ⟨(e : 𝓞 K) * d, mul_ne_zero (nonZeroDivisors.ne_zero e.2)
+    (nonZeroDivisors.ne_zero d.2), fun j => (e : 𝓞 K) * a j, ?_⟩
+  have he' : (e : 𝓞 K) • ((d : 𝓞 K) • v) = (e : 𝓞 K) • ∑ j, a j • w j := he
+  rw [mul_smul, he', Finset.smul_sum]
+  simp only [mul_smul]
+
+/-- The wedge of any `g` vectors is an `K`-multiple of the wedge of `w`, as soon as every vector
+has a nonzero multiple in the `𝓞_K`-span of `w`. -/
+theorem tmul_ιMulti_mem_span {g : ℕ} (w : Fin g → M)
+    (hw : ∀ v : M, ∃ D : 𝓞 K, D ≠ 0 ∧ ∃ a : Fin g → 𝓞 K, D • v = ∑ j, a j • w j)
+    (v : Fin g → M) :
+    (1 : K) ⊗ₜ[𝓞 K] exteriorPower.ιMulti (𝓞 K) g v ∈
+      Submodule.span K {(1 : K) ⊗ₜ[𝓞 K] exteriorPower.ιMulti (𝓞 K) g w} := by
+  choose D hD a ha using hw
+  set ψ := Fintype.linearCombination (𝓞 K) w with hψ
+  have h1 : exteriorPower.ιMulti (𝓞 K) g (fun i => D (v i) • v i) =
+      (∏ i, D (v i)) • exteriorPower.ιMulti (𝓞 K) g v :=
+    MultilinearMap.map_smul_univ _ _ _
+  have h2 : (fun i => D (v i) • v i) = fun i => ψ (a (v i)) := by
+    funext i; rw [ha, hψ, Fintype.linearCombination_apply]
+  have he : (fun i => ψ (Pi.basisFun (𝓞 K) (Fin g) i)) = w := by
+    funext i
+    classical
+    rw [Pi.basisFun_apply, hψ, Fintype.linearCombination_apply_single, one_smul]
+  have hF := congrArg (fun F => F (fun i => a (v i)))
+    (alt_eq_smulRight ((exteriorPower.ιMulti (𝓞 K) g).compLinearMap ψ))
+  simp only [AlternatingMap.compLinearMap_apply, AlternatingMap.smulRight_apply] at hF
+  set c : 𝓞 K := (Pi.basisFun (𝓞 K) (Fin g)).det (fun i => a (v i))
+  have hF' : (∏ i, D (v i)) • exteriorPower.ιMulti (𝓞 K) g v =
+      c • exteriorPower.ιMulti (𝓞 K) g w := by
+    rw [← h1, h2, hF, he]
+  have hP : (∏ i, D (v i)) ≠ 0 := Finset.prod_ne_zero_iff.mpr fun i _ => hD _
+  have hPK : algebraMap (𝓞 K) K (∏ i, D (v i)) ≠ 0 := fun h =>
+    hP (IsFractionRing.injective (𝓞 K) K (by rw [h, map_zero]))
+  rw [Submodule.mem_span_singleton]
+  refine ⟨(algebraMap (𝓞 K) K (∏ i, D (v i)))⁻¹ * algebraMap (𝓞 K) K c, ?_⟩
+  rw [mul_smul, algebraMap_smul K c, ← TensorProduct.tmul_smul, ← hF',
+    TensorProduct.tmul_smul, ← algebraMap_smul K (∏ i, D (v i)), smul_smul, inv_mul_cancel₀ hPK,
+    one_smul]
+
+/-- The Hodge lattice of `ω ⊆ M` in `K ⊗ ⋀^g M` (the shape of `GroupModel.detLattice`). -/
+noncomputable def detLat (ω : Submodule (𝓞 K) M) (g : ℕ) :
+    Submodule (𝓞 K) (K ⊗[𝓞 K] ⋀[𝓞 K]^g M) :=
+  Submodule.span (𝓞 K) (Set.range fun v : Fin g → ω =>
+    (1 : K) ⊗ₜ[𝓞 K] exteriorPower.ιMulti (𝓞 K) g (fun i => (v i : M)))
+
+/-- **The algebraic content of `HodgeLatticeTheorem`.** If `ω ⊆ M` is finitely generated,
+`K ⊗ M` has `K`-rank `g`, and `ω` spans `K ⊗ M` over `K`, then `K ⊗ ⋀^g M` is a `K`-line and
+`detLat ω g` is a full lattice in it (some nonzero element generates a subgroup of finite index). -/
+theorem hodgeLattice_of_lattice {g : ℕ} (ω : Submodule (𝓞 K) M) (hfg : ω.FG)
+    (hrank : Module.rank K (K ⊗[𝓞 K] M) = g)
+    (hspan : Submodule.span K (Set.range fun x : ω => (1 : K) ⊗ₜ[𝓞 K] (x : M)) = ⊤) :
+    Module.finrank K (K ⊗[𝓞 K] ⋀[𝓞 K]^g M) = 1 ∧
+      ∃ s ∈ detLat ω g, s ≠ 0 ∧ secIndex (detLat ω g) s ≠ 0 := by
+  classical
+  set V := K ⊗[𝓞 K] M
+  set f : ω → V := fun x => (1 : K) ⊗ₜ[𝓞 K] (x : M) with hf
+  have : FiniteDimensional K V := Module.finite_of_rank_eq_nat hrank
+  have hfin : Module.finrank K V = g := Module.finrank_eq_of_rank_eq hrank
+  -- Step 1: a `K`-basis of `V` of the form `1 ⊗ w_j` with `w_j ∈ ω`.
+  obtain ⟨s, hs_sub, hs_span, hs_li⟩ := exists_linearIndependent K (Set.range f)
+  let bs : Module.Basis s K V := Module.Basis.mk hs_li (by
+    rw [Subtype.range_coe, hs_span, hspan])
+  let b : Module.Basis (Fin g) K V :=
+    bs.reindex (bs.indexEquiv (Module.finBasisOfFinrankEq K V hfin))
+  have hmem : ∀ j, ∃ x : ω, f x = b j := fun j => by
+    have : (b j : V) ∈ s := by
+      simp only [b, Module.Basis.reindex_apply, bs, Module.Basis.coe_mk]
+      exact Subtype.mem _
+    exact hs_sub this
+  choose w hw using hmem
+  set w' : Fin g → M := fun j => (w j : M) with hw'
+  have hbw : ∀ j, (1 : K) ⊗ₜ[𝓞 K] w' j = b j := hw
+  -- Step 2: every vector of `M` has a nonzero multiple in the `𝓞_K`-span of `w'`.
+  have hclear := exists_clear (K := K) w' (fun v => by
+    have hr : Set.range (fun j => (1 : K) ⊗ₜ[𝓞 K] w' j) = Set.range b := by
+      rw [show (fun j => (1 : K) ⊗ₜ[𝓞 K] w' j) = b from funext hbw]
+    rw [hr, b.span_eq]; exact Submodule.mem_top)
+  -- Step 3: `s₀ = 1 ⊗ w'_1 ∧ ⋯ ∧ w'_g` spans `K ⊗ ⋀^g M` over `K`.
+  set s0 : K ⊗[𝓞 K] ⋀[𝓞 K]^g M := (1 : K) ⊗ₜ[𝓞 K] exteriorPower.ιMulti (𝓞 K) g w' with hs0
+  have hone : ∀ x : ⋀[𝓞 K]^g M, (1 : K) ⊗ₜ[𝓞 K] x ∈ Submodule.span K {s0} := by
+    intro x
+    have hx : x ∈ Submodule.span (𝓞 K) (Set.range (exteriorPower.ιMulti (𝓞 K) g)) := by
+      rw [exteriorPower.ιMulti_span]; exact Submodule.mem_top
+    induction hx using Submodule.span_induction with
+    | mem y hy =>
+      obtain ⟨v, rfl⟩ := hy
+      exact tmul_ιMulti_mem_span w' hclear v
+    | zero => rw [TensorProduct.tmul_zero]; exact Submodule.zero_mem _
+    | add y z _ _ hy hz => rw [TensorProduct.tmul_add]; exact Submodule.add_mem _ hy hz
+    | smul r y _ hy =>
+      rw [TensorProduct.tmul_smul]; exact Submodule.smul_of_tower_mem _ r hy
+  have htop : Submodule.span K {s0} = ⊤ := by
+    rw [eq_top_iff]
+    rintro h -
+    induction h using TensorProduct.induction_on with
+    | zero => exact Submodule.zero_mem _
+    | tmul k x =>
+      have : k ⊗ₜ[𝓞 K] x = k • ((1 : K) ⊗ₜ[𝓞 K] x) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+      rw [this]; exact Submodule.smul_mem _ k (hone x)
+    | add x y hx hy => exact Submodule.add_mem _ hx hy
+  -- Step 4: `s₀ ≠ 0`, through the functional induced by `det_b`.
+  let φ : M [⋀^Fin g]→ₗ[𝓞 K] K :=
+    { toMultilinearMap := (b.det.toMultilinearMap.restrictScalars (𝓞 K)).compLinearMap
+        (fun _ => TensorProduct.mk (𝓞 K) K M 1)
+      map_eq_zero_of_eq' := fun v i j hv hij =>
+        b.det.map_eq_zero_of_eq (fun k => (1 : K) ⊗ₜ[𝓞 K] v k) (by simp [hv]) hij }
+  let Ψ : (K ⊗[𝓞 K] ⋀[𝓞 K]^g M) →ₗ[K] K :=
+    (exteriorPower.alternatingMapLinearEquiv φ).liftBaseChange K
+  have hΨ : Ψ s0 = 1 := by
+    simp only [Ψ, hs0, LinearMap.liftBaseChange_one_tmul,
+      exteriorPower.alternatingMapLinearEquiv_apply_ιMulti]
+    change b.det (fun k => (1 : K) ⊗ₜ[𝓞 K] w' k) = 1
+    rw [show (fun k => (1 : K) ⊗ₜ[𝓞 K] w' k) = b from funext hbw, Module.Basis.det_self]
+  have hs0ne : s0 ≠ 0 := fun h => by rw [h, map_zero] at hΨ; exact zero_ne_one hΨ
+  refine ⟨?_, s0, Submodule.subset_span ⟨w, rfl⟩, hs0ne, ?_⟩
+  · rw [← finrank_top K, ← htop]
+    exact finrank_span_singleton hs0ne
+  -- Step 5: `detLat ω g` lies in a finitely generated module, hence in `𝓞_K · t₀` with
+  -- `s₀ = d • t₀`; so `𝓞_K s₀` has finite index in it.
+  have : Module.Finite (𝓞 K) ω := Module.Finite.iff_fg.mpr hfg
+  set R : Submodule (𝓞 K) (K ⊗[𝓞 K] ⋀[𝓞 K]^g M) := LinearMap.range
+    ((TensorProduct.mk (𝓞 K) K (⋀[𝓞 K]^g M) 1) ∘ₗ exteriorPower.map g ω.subtype) with hR
+  have hRfg : R.FG := by
+    rw [hR, LinearMap.range_eq_map]; exact (Module.Finite.fg_top).map _
+  have hDR : detLat ω g ≤ R := by
+    rw [detLat, Submodule.span_le]
+    rintro _ ⟨v, rfl⟩
+    exact ⟨exteriorPower.ιMulti (𝓞 K) g v, by
+      simp [exteriorPower.map_apply_ιMulti]; rfl⟩
+  obtain ⟨S, hS⟩ := hRfg
+  have hc : ∀ t : K ⊗[𝓞 K] ⋀[𝓞 K]^g M, ∃ c : K, c • s0 = t := fun t => by
+    have : t ∈ Submodule.span K {s0} := by rw [htop]; exact Submodule.mem_top
+    exact Submodule.mem_span_singleton.mp this
+  choose c hc using hc
+  obtain ⟨d, hd⟩ := IsLocalization.exist_integer_multiples (nonZeroDivisors (𝓞 K)) S c
+  have hd0 : (d : 𝓞 K) ≠ 0 := nonZeroDivisors.ne_zero d.2
+  have hdK : algebraMap (𝓞 K) K (d : 𝓞 K) ≠ 0 := fun h =>
+    hd0 (IsFractionRing.injective (𝓞 K) K (by rw [h, map_zero]))
+  set t0 : K ⊗[𝓞 K] ⋀[𝓞 K]^g M := (algebraMap (𝓞 K) K (d : 𝓞 K))⁻¹ • s0 with ht0
+  have hst : s0 = (d : 𝓞 K) • t0 := by
+    rw [ht0, ← algebraMap_smul K (d : 𝓞 K), smul_smul, mul_inv_cancel₀ hdK, one_smul]
+  have hRt : R ≤ Submodule.span (𝓞 K) {t0} := by
+    rw [← hS, Submodule.span_le]
+    intro t ht
+    obtain ⟨a, ha⟩ := hd t ht
+    rw [SetLike.mem_coe, Submodule.mem_span_singleton]
+    refine ⟨a, ?_⟩
+    rw [← algebraMap_smul K a, ha, ht0, smul_smul]
+    conv_rhs => rw [← hc t]
+    congr 1
+    rw [Algebra.smul_def, mul_comm, ← mul_assoc, inv_mul_cancel₀ hdK, one_mul]
+  have ht0ne : t0 ≠ 0 := fun h => hs0ne (by rw [hst, h, smul_zero])
+  have hidx : secIndex (Submodule.span (𝓞 K) {t0}) s0 ≠ 0 := by
+    rw [hst, secIndex_smul _ (Submodule.mem_span_singleton_self t0) ht0ne]
+    have h1 : secIndex (Submodule.span (𝓞 K) {t0}) t0 = 1 := by
+      unfold secIndex; exact AddSubgroup.relIndex_self _
+    rw [h1, mul_one]
+    simp [Int.natAbs_eq_zero, (Algebra.norm_ne_zero_iff (R := ℤ)).mpr hd0]
+  unfold secIndex at hidx ⊢
+  intro h0
+  exact hidx (AddSubgroup.relIndex_eq_zero_of_le_right
+    (show (detLat ω g).toAddSubgroup ≤ (Submodule.span (𝓞 K) {t0}).toAddSubgroup from
+      fun x hx => hRt (hDR hx)) h0)
+
+/-! ## 2. The three geometric inputs, over the objects of `Models.lean`
+
+For a smooth group model `𝒢` of `A_L` (`GroupModel A L`), write `cot = 𝔪_ξ/𝔪_ξ²`
+(`GroupModel.cotangent`, an `𝓞_L`-module through `structMap`) and `ω_𝒢 = ⋂_s (ω_𝒢)_s ⊆ cot`
+(`GroupModel.omega`). -/
+
+
+/-- **(G1)** `ω_𝒢` is a finitely generated `𝓞_L`-module. (Geometrically: `ω_𝒢 = Γ(S, e*Ω¹_{𝒢/S})`
+with `e*Ω¹` coherent, indeed locally free of rank `g`, on `S = Spec 𝓞_L`.) -/
+def OmegaFG : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L), 𝒢.omega.FG
+
+/-- **(G2)** `L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ²` (which is `𝔪_ξ/𝔪_ξ² = ω_{A_L}` itself) has `L`-dimension
+`g = dim A`. (Geometrically: `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}`, and the local ring of a smooth `L`-variety
+of pure dimension `g` at a rational point is regular of dimension `g`.) -/
+def CotangentRank : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ), A.dim = g →
+    Module.rank L (L ⊗[𝓞 L] 𝒢.cotangent) = g
+
+/-- **(G3)** `ω_𝒢` spans `ω_{A_L}` over `L`: the image of `L ⊗ ω_𝒢 → L ⊗ cot` is everything.
+(Geometrically: the generic stalk of the coherent sheaf `e*Ω¹_{𝒢/S}` is `ω_{A_L}`, and a coherent
+sheaf on an affine scheme is generated by global sections.) -/
+def OmegaSpans : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L),
+    Submodule.span L (Set.range fun x : 𝒢.omega => (1 : L) ⊗ₜ[𝓞 L] (x : 𝒢.cotangent)) = ⊤
+
+/-- `detLattice` is the generic `detLat` of `§1`. -/
+theorem detLattice_eq {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L]
+    [Algebra K L] (𝒢 : GroupModel A L) (g : ℕ) : 𝒢.detLattice g = detLat 𝒢.omega g := rfl
+
+/-- **Main result.** `HodgeLatticeTheorem` follows from the three geometric inputs; everything
+else (the exterior algebra, the line, the full lattice) is proved. -/
+theorem hodgeLatticeTheorem_of (h1 : OmegaFG) (h2 : CotangentRank) (h3 : OmegaSpans) :
+    HodgeLatticeTheorem := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  rw [detLattice_eq]
+  exact hodgeLattice_of_lattice 𝒢.omega (h1 K A L 𝒢) (h2 K A L 𝒢 g hg) (h3 K A L 𝒢)
+
+end ZInQ.DefFaltings.HodgeLattice
+
+namespace ZInQ.DefFaltings.HodgeLattice
+
+open NumberField TensorProduct
+
+/-! ## 3. Local-to-global over `Spec R` (pure algebra)
+
+For a family `Ω s` of submodules indexed by the points of `Spec R`, finiteness and fullness of
+`⋂_s Ω s` follow from local statements on a cover by basic opens `D(a)`. -/
+
+section LocalGlobal
+
+variable {R : Type*} [CommRing R] {V : Type*} [AddCommGroup V] [Module R V]
+
+/-- Finitely many basic opens `D(a s)` cover `Spec R` if `s ∈ D(a s)` for every `s`. -/
+theorem exists_finset_cover (a : PrimeSpectrum R → R) (ha : ∀ s, a s ∉ s.asIdeal) :
+    ∃ F : Finset (PrimeSpectrum R), ∀ s' : PrimeSpectrum R, ∃ s ∈ F, a s ∉ s'.asIdeal := by
+  classical
+  have htop : Ideal.span (Set.range a) = ⊤ := by
+    by_contra h
+    obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal _ h
+    exact ha ⟨m, hm.isPrime⟩ (hle (Ideal.subset_span ⟨_, rfl⟩))
+  obtain ⟨T, hT, hTtop⟩ := (Ideal.span_eq_top_iff_finite _).mp htop
+  refine ⟨T.attach.image (fun r => (hT r.2).choose), fun s' => ?_⟩
+  by_contra hno
+  push_neg at hno
+  have : Ideal.span (T : Set R) ≤ s'.asIdeal := by
+    rw [Ideal.span_le]
+    intro r hr
+    have := hno _ (Finset.mem_image_of_mem _ (Finset.mem_attach T ⟨r, hr⟩))
+    rwa [(hT hr).choose_spec] at this
+  exact s'.isPrime.ne_top (top_le_iff.mp (hTtop ▸ this))
+
+/-- **Finiteness, local to global.** -/
+theorem fg_iInf_of_local [IsNoetherianRing R] (Ω : PrimeSpectrum R → Submodule R V)
+    (h : ∀ s : PrimeSpectrum R, ∃ a : R, a ∉ s.asIdeal ∧ ∃ N : Submodule R V, N.FG ∧
+      ∀ s' : PrimeSpectrum R, a ∉ s'.asIdeal → ∀ x ∈ Ω s', ∃ t ∉ s'.asIdeal, t • x ∈ N) :
+    (⨅ s, Ω s).FG := by
+  classical
+  choose a ha N hN hloc using h
+  obtain ⟨F, hF⟩ := exists_finset_cover a ha
+  set N0 := F.sup N
+  have hN0 : N0.FG := Submodule.fg_finset_sup F N fun i _ => hN i
+  refine Submodule.FG.of_le hN0 fun x hx => ?_
+  set J : Ideal R := N0.comap (LinearMap.toSpanSingleton R V x)
+  have hJ : J = ⊤ := by
+    by_contra hJ
+    obtain ⟨m, hm, hle⟩ := Ideal.exists_le_maximal _ hJ
+    obtain ⟨s, hsF, hs⟩ := hF ⟨m, hm.isPrime⟩
+    obtain ⟨t, ht, htN⟩ := hloc s ⟨m, hm.isPrime⟩ hs x (Submodule.mem_iInf _ |>.mp hx _)
+    exact ht (hle (show t ∈ J from Finset.le_sup (f := N) hsF htN))
+  have : (1 : R) ∈ J := hJ ▸ Submodule.mem_top
+  simpa [J] using this
+
+/-- **Fullness, local to global.** -/
+theorem exists_smul_mem_iInf_of_local [IsDomain R] (Ω : PrimeSpectrum R → Submodule R V)
+    (h : ∀ s : PrimeSpectrum R, ∃ a : R, a ∉ s.asIdeal ∧ ∃ N : Submodule R V,
+      (∀ x : V, ∃ c : R, c ≠ 0 ∧ c • x ∈ N) ∧
+      ∀ s' : PrimeSpectrum R, a ∉ s'.asIdeal → N ≤ Ω s') (x : V) :
+    ∃ c : R, c ≠ 0 ∧ c • x ∈ ⨅ s, Ω s := by
+  classical
+  choose a ha N hN hle using h
+  obtain ⟨F, hF⟩ := exists_finset_cover a ha
+  choose c hc0 hcN using fun s => hN s x
+  refine ⟨∏ s ∈ F, c s, Finset.prod_ne_zero_iff.mpr fun s _ => hc0 s, ?_⟩
+  rw [Submodule.mem_iInf]
+  intro s'
+  obtain ⟨s, hsF, hs⟩ := hF s'
+  apply hle s s' hs
+  rw [← Finset.mul_prod_erase F c hsF, mul_comm, mul_smul]
+  exact Submodule.smul_mem _ _ (hcN s)
+
+end LocalGlobal
+
+/-! ## 4. `OmegaFG` and `OmegaSpans` from one local statement
+
+`OmegaLocal` says: near every point `s` of `S = Spec 𝓞_L` (on a basic open `D(a) ∋ s`), the
+stalks `(ω_𝒢)_{s'}` (`omegaAt s'`) are the localizations of one finitely generated `N ⊆ ω_{A_L}`
+that spans `ω_{A_L}` over `L`. This is "`e*Ω¹_{𝒢/S}` is quasi-coherent of finite type with generic
+stalk `ω_{A_L}`" in the form needed: for an affine open `U = Spec B ⊆ 𝒢` with `e(D(a)) ⊆ U` and
+`ε : B → 𝓞_L[1/a]` the section, take `N` = the `𝓞_L`-span of `d i`, `i` running over generators
+of `I = ker ε` (finitely many: `B` is noetherian). It uses only that `𝒢` is locally of finite type
+over `𝓞_L` (not smoothness). -/
+
+/-- **(G-loc)** The local finiteness and fullness of `e*Ω¹_{𝒢/S}`. -/
+def OmegaLocal : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (s : PrimeSpectrum (𝓞 L)), ∃ a : 𝓞 L, a ∉ s.asIdeal ∧
+    ∃ N : Submodule (𝓞 L) 𝒢.cotangent, N.FG ∧ (∀ x : 𝒢.cotangent, ∃ c : 𝓞 L, c ≠ 0 ∧ c • x ∈ N) ∧
+      ∀ s' : PrimeSpectrum (𝓞 L), a ∉ s'.asIdeal →
+        N ≤ 𝒢.omegaAt s' ∧ ∀ x ∈ 𝒢.omegaAt s', ∃ t ∉ s'.asIdeal, t • x ∈ N
+
+theorem omegaFG_of_omegaLocal (h : OmegaLocal) : OmegaFG := by
+  intro K _ A L _ _ _ 𝒢
+  exact fg_iInf_of_local (R := 𝓞 L) (fun s => 𝒢.omegaAt s) fun s => by
+    obtain ⟨a, ha, N, hN, -, hloc⟩ := h K A L 𝒢 s
+    exact ⟨a, ha, N, hN, fun s' hs' => (hloc s' hs').2⟩
+
+theorem omegaSpans_of_omegaLocal (h : OmegaLocal) : OmegaSpans := by
+  intro K _ A L _ _ _ 𝒢
+  rw [eq_top_iff]
+  rintro y -
+  induction y using TensorProduct.induction_on with
+  | zero => exact Submodule.zero_mem _
+  | add x y hx hy => exact Submodule.add_mem _ hx hy
+  | tmul k x =>
+    obtain ⟨c, hc0, hc⟩ := exists_smul_mem_iInf_of_local (R := 𝓞 L) (fun s => 𝒢.omegaAt s)
+      (fun s => by
+        obtain ⟨a, ha, N, -, hspan, hloc⟩ := h K A L 𝒢 s
+        exact ⟨a, ha, N, hspan, fun s' hs' => (hloc s' hs').1⟩) x
+    have hcK : algebraMap (𝓞 L) L c ≠ 0 := fun h0 =>
+      hc0 (IsFractionRing.injective (𝓞 L) L (by rw [h0, map_zero]))
+    have hmem : (1 : L) ⊗ₜ[𝓞 L] (c • x) ∈
+        Submodule.span L (Set.range fun x : 𝒢.omega => (1 : L) ⊗ₜ[𝓞 L] (x : 𝒢.cotangent)) :=
+      Submodule.subset_span ⟨⟨c • x, hc⟩, rfl⟩
+    have : k ⊗ₜ[𝓞 L] x = (k * (algebraMap (𝓞 L) L c)⁻¹) • ((1 : L) ⊗ₜ[𝓞 L] (c • x)) := by
+      rw [TensorProduct.tmul_smul, ← algebraMap_smul L c, smul_smul, mul_assoc,
+        inv_mul_cancel₀ hcK, mul_one, TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+    rw [this]
+    exact Submodule.smul_mem _ _ hmem
+
+/-- **Main result, sharpened.** `HodgeLatticeTheorem` from `OmegaLocal` (finite type) and
+`CotangentRank` (the dimension of the tangent space at the origin). -/
+theorem hodgeLatticeTheorem_of_local (h1 : OmegaLocal) (h2 : CotangentRank) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of (omegaFG_of_omegaLocal h1) h2 (omegaSpans_of_omegaLocal h1)
+
+end ZInQ.DefFaltings.HodgeLattice
+
+/-! ## 5. `OmegaLocal` is a theorem (affine charts, stalks as localizations) -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry Limits MonoidalCategory MonObj
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+local notation "S" => Spec (CommRingCat.of (𝓞 L))
+
+theorem unitSection_comp : 𝒢.unitSection ≫ 𝒢.G.hom = 𝟙 _ := by
+  unfold GroupModel.unitSection
+  rw [Over.w]
+  rfl
+
+/-- `ε(π^* c) = c`, at the level of stalks. -/
+theorem stalkMap_structGerm (s : S) (c : 𝓞 L) :
+    𝒢.unitSection.stalkMap s (𝒢.G.left.presheaf.germ ⊤ (𝒢.unitSection s) (TopologicalSpace.Opens.mem_top _)
+      (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c))) =
+    (S).presheaf.germ ⊤ s (TopologicalSpace.Opens.mem_top _) ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c) := by
+  rw [Scheme.Hom.germ_stalkMap_apply]
+  have h : 𝒢.unitSection.appTop (𝒢.G.hom.appTop
+      ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c)) =
+      (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c := by
+    have h1 : (Scheme.Hom.appTop (𝒢.unitSection ≫ 𝒢.G.hom)).hom
+        ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c) =
+        (Scheme.Hom.appTop (𝟙 (S))).hom ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c) := by
+      rw [unitSection_comp]
+    rw [Scheme.Hom.comp_appTop, Scheme.Hom.id_appTop] at h1
+    exact h1
+  exact congrArg _ h
+
+theorem structMap_eq (c : 𝓞 L) : 𝒢.structMap c = 𝒢.G.left.presheaf.germ ⊤ 𝒢.genericUnit
+      (TopologicalSpace.Opens.mem_top _)
+      (𝒢.G.hom.appTop ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c)) := rfl
+
+theorem isUnit_germ_iff (s : S) (t : 𝓞 L) :
+    IsUnit ((S).presheaf.germ ⊤ s (TopologicalSpace.Opens.mem_top _) ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv t)) ↔
+      t ∉ (s : PrimeSpectrum (𝓞 L)).asIdeal := by
+  rw [← Scheme.mem_basicOpen _ _ _ (TopologicalSpace.Opens.mem_top _),
+    AlgebraicGeometry.basicOpen_eq_of_affine]
+  rfl
+
+/-- On an affine open, every element of a stalk is a fraction of sections. -/
+theorem exists_germ_frac {X : Scheme} {U : X.Opens} (hU : IsAffineOpen U) (x : X) (hx : x ∈ U)
+    (f : X.presheaf.stalk x) : ∃ b u : Γ(X, U), IsUnit (X.presheaf.germ U x hx u) ∧
+      f * X.presheaf.germ U x hx u = X.presheaf.germ U x hx b := by
+  let := X.presheaf.algebra_section_stalk ⟨x, hx⟩
+  have hl := hU.isLocalization_stalk ⟨x, hx⟩
+  obtain ⟨⟨b, u⟩, h⟩ := IsLocalization.surj (hU.primeIdealOf ⟨x, hx⟩).asIdeal.primeCompl f
+  exact ⟨b, u, IsLocalization.map_units _ u, h⟩
+
+/-- The specialization `𝒪_{𝒢,e(s')} → 𝒪_{𝒢,ξ}`. -/
+noncomputable abbrev spec (s' : S) : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s') →+* 𝒢.genStalk :=
+  (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s')).hom
+
+theorem genericPt_specializes (s' : S) : genericPt L ⤳ s' :=
+  (PrimeSpectrum.le_iff_specializes (genericPt L) s').mp bot_le
+
+/-- **Residue lemma.** Every germ at `e(s')`, specialized to `ξ`, is congruent modulo `𝔪_ξ` to a
+fraction `c/t` with `c, t ∈ 𝓞_L`, `t ∉ s'`. -/
+theorem residue (s' : S) (w : 𝒢.G.left.presheaf.stalk (𝒢.unitSection s')) :
+    ∃ c t : 𝓞 L, t ∉ (s' : PrimeSpectrum (𝓞 L)).asIdeal ∧
+      𝒢.structMap t * spec 𝒢 s' w - 𝒢.structMap c ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+  set z := 𝒢.unitSection.stalkMap s' w
+  obtain ⟨r, u, hu, hru⟩ := exists_germ_frac (isAffineOpen_top (S)) s'
+    (TopologicalSpace.Opens.mem_top _) z
+  set iso := Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))
+  have hr : iso.inv (iso.hom r) = r := iso.hom_inv_id_apply r
+  have hu' : iso.inv (iso.hom u) = u := iso.hom_inv_id_apply u
+  refine ⟨iso.hom r, iso.hom u, ?_, ?_⟩
+  · rw [← isUnit_germ_iff, hu']; exact hu
+  by_contra hnot
+  have hunit : IsUnit (𝒢.structMap (iso.hom u) * spec 𝒢 s' w - 𝒢.structMap (iso.hom r)) := by
+    by_contra h'
+    exact hnot ((IsLocalRing.mem_maximalIdeal _).mpr h')
+  let φ : 𝒢.genStalk →+* (S).presheaf.stalk (genericPt L) :=
+    (𝒢.unitSection.stalkMap (genericPt L)).hom
+  have himg := hunit.map φ
+  have hη := genericPt_specializes (L := L) s'
+  have hspec : φ (spec 𝒢 s' w) =
+      (S).presheaf.stalkSpecializes hη z :=
+    Scheme.Hom.stalkSpecializes_stalkMap_apply 𝒢.unitSection (genericPt L) s' hη w
+  have hst : ∀ c : 𝓞 L, φ (𝒢.structMap c) =
+      (S).presheaf.germ ⊤ (genericPt L) (TopologicalSpace.Opens.mem_top _) (iso.inv c) :=
+    fun c => stalkMap_structGerm 𝒢 (genericPt L) c
+  rw [map_sub, map_mul, hspec, hst, hst, hr, hu'] at himg
+  have hz : (S).presheaf.stalkSpecializes hη z *
+      (S).presheaf.germ ⊤ (genericPt L) (TopologicalSpace.Opens.mem_top _) u =
+      (S).presheaf.germ ⊤ (genericPt L) (TopologicalSpace.Opens.mem_top _) r := by
+    have := congrArg ((S).presheaf.stalkSpecializes hη).hom hru
+    rw [map_mul, TopCat.Presheaf.germ_stalkSpecializes_apply,
+      TopCat.Presheaf.germ_stalkSpecializes_apply] at this
+    exact this
+  rw [mul_comm, hz, sub_self] at himg
+  exact not_isUnit_zero himg
+
+/-- `c • x` on `cot` is `structMap c • x`. -/
+theorem smul_cot_of_congr {y : 𝒢.genStalk} {c t : 𝓞 L}
+    (h : 𝒢.structMap t * y - 𝒢.structMap c ∈ IsLocalRing.maximalIdeal 𝒢.genStalk)
+    (n : 𝒢.cotangent) : t • (y • n) = c • n := by
+  change 𝒢.structMap t • (y • n) = 𝒢.structMap c • n
+  rw [smul_smul]
+  have : 𝒢.structMap t * y = 𝒢.structMap c + (𝒢.structMap t * y - 𝒢.structMap c) := by ring
+  rw [this, add_smul]
+  have h0 : (𝒢.structMap t * y - 𝒢.structMap c) • n = 0 :=
+    Ideal.Cotangent.smul_eq_zero_of_mem h n
+  rw [h0, add_zero]
+
+theorem dCls_add (x y : 𝒢.genStalk) (hx : x ∈ IsLocalRing.maximalIdeal 𝒢.genStalk)
+    (hy : y ∈ IsLocalRing.maximalIdeal 𝒢.genStalk)
+    (hxy : x + y ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.dCls ⟨x + y, hxy⟩ = 𝒢.dCls ⟨x, hx⟩ + 𝒢.dCls ⟨y, hy⟩ :=
+  (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent.map_add ⟨x, hx⟩ ⟨y, hy⟩
+
+theorem dCls_mul (a g : 𝒢.genStalk) (hg : g ∈ IsLocalRing.maximalIdeal 𝒢.genStalk)
+    (hag : a * g ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.dCls ⟨a * g, hag⟩ = a • 𝒢.dCls ⟨g, hg⟩ :=
+  (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent.map_smul a ⟨g, hg⟩
+
+theorem dCls_zero (h : (0 : 𝒢.genStalk) ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.dCls ⟨0, h⟩ = 0 := by
+  unfold GroupModel.dCls
+  exact (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent.map_zero
+
+/-- `d g` for a germ `g` (and `0` if `g ∉ 𝔪_ξ`). -/
+noncomputable def dOf (g : 𝒢.genStalk) : 𝒢.cotangent := by
+  classical
+  exact if h : g ∈ IsLocalRing.maximalIdeal 𝒢.genStalk then 𝒢.dCls ⟨g, h⟩ else 0
+
+theorem dOf_eq (g : 𝒢.genStalk) (h : g ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    dOf 𝒢 g = 𝒢.dCls ⟨g, h⟩ := by
+  unfold dOf; rw [dif_pos h]
+
+theorem dCls_sum {J : Type*} (T : Finset J) (a g : J → 𝒢.genStalk)
+    (hg : ∀ i ∈ T, g i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk)
+    (hy : ∑ i ∈ T, a i * g i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.dCls ⟨∑ i ∈ T, a i * g i, hy⟩ = ∑ i ∈ T, a i • dOf 𝒢 (g i) := by
+  classical
+  induction T using Finset.induction_on with
+  | empty =>
+    simp only [Finset.sum_empty]
+    exact dCls_zero 𝒢 _
+  | insert j T hj ih =>
+    have hgT : ∀ i ∈ T, g i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk :=
+      fun i hi => hg i (Finset.mem_insert_of_mem hi)
+    have hgj := hg j (Finset.mem_insert_self j T)
+    have hT : ∑ i ∈ T, a i * g i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk :=
+      Ideal.sum_mem _ fun i hi => Ideal.mul_mem_left _ _ (hgT i hi)
+    simp only [Finset.sum_insert hj]
+    rw [dCls_add 𝒢 _ _ (Ideal.mul_mem_left _ _ hgj) hT, dCls_mul 𝒢 _ _ hgj, ih hgT hT,
+      dOf_eq 𝒢 _ hgj]
+
+/-- A regular function `i` on an open `U ∋ e(s')` whose pullback along the unit section vanishes
+near `s'` gives an element `d i` of the local lattice `(ω_𝒢)_{s'}`. -/
+theorem dCls_mem_omegaAt (U : 𝒢.G.left.Opens) (i : Γ(𝒢.G.left, U))
+    (s' : Spec (CommRingCat.of (𝓞 L))) (hs' : 𝒢.unitSection s' ∈ U)
+    (h0 : (Spec (CommRingCat.of (𝓞 L))).presheaf.germ (𝒢.unitSection ⁻¹ᵁ U) s' hs'
+      (𝒢.unitSection.app U i) = 0)
+    (hm : 𝒢.G.left.presheaf.germ U 𝒢.genericUnit
+      ((𝒢.specializes_genericUnit s').mem_open U.isOpen hs') i ∈
+        IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.dCls ⟨_, hm⟩ ∈ 𝒢.omegaAt s' := by
+  apply Submodule.subset_span
+  refine ⟨𝒢.G.left.presheaf.germ U (𝒢.unitSection s') hs' i, ?_, ?_, ?_⟩
+  · rw [RingHom.mem_ker, Scheme.Hom.germ_stalkMap_apply]; exact h0
+  · rw [TopCat.Presheaf.germ_stalkSpecializes_apply]; exact hm
+  · congr 2
+    rw [TopCat.Presheaf.germ_stalkSpecializes_apply]
+
+/-- `{x | ∃ t ∉ p, t • x ∈ N}`: the elements of `V` that lie in `N_p`. -/
+def locSub {R V : Type*} [CommRing R] [AddCommGroup V] [Module R V] (p : Ideal R) [p.IsPrime]
+    (N : Submodule R V) : Submodule R V where
+  carrier := {x | ∃ t ∉ p, t • x ∈ N}
+  add_mem' := by
+    rintro x y ⟨t, ht, hx⟩ ⟨u, hu, hy⟩
+    refine ⟨t * u, fun h => (Ideal.IsPrime.mem_or_mem ‹_› h).elim ht hu, ?_⟩
+    rw [smul_add]
+    refine N.add_mem ?_ ?_
+    · rw [mul_comm, mul_smul]; exact N.smul_mem _ hx
+    · rw [mul_smul]; exact N.smul_mem _ hy
+  zero_mem' := ⟨1, fun h => (‹p.IsPrime›).ne_top ((Ideal.eq_top_iff_one _).mpr h), by simp⟩
+  smul_mem' := by
+    rintro c x ⟨t, ht, hx⟩
+    exact ⟨t, ht, by rw [smul_comm]; exact N.smul_mem _ hx⟩
+
+end ZInQ.DefFaltings.HodgeLattice
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry Limits MonoidalCategory MonObj
+
+/-- **`OmegaLocal` holds** (it uses only that `𝒢 → Spec 𝓞_L` is locally of finite type, through
+smoothness, and that `e` is a section). -/
+theorem omegaLocal : OmegaLocal := by
+  intro K _ A L _ _ _ 𝒢 s
+  classical
+  -- an affine chart `U ∋ e(s)` and a basic open `D(a) ∋ s` with `e(D(a)) ⊆ U`
+  obtain ⟨U, hU, hsU, -⟩ := (TopologicalSpace.Opens.isBasis_iff_nbhd.mp
+    𝒢.G.left.isBasis_affineOpens) (TopologicalSpace.Opens.mem_top (𝒢.unitSection s))
+  obtain ⟨_, ⟨a, rfl⟩, hsa, hsub⟩ :=
+    PrimeSpectrum.isTopologicalBasis_basic_opens.exists_subset_of_mem_open
+      (show s ∈ ((𝒢.unitSection ⁻¹ᵁ U : (Spec (CommRingCat.of (𝓞 L))).Opens) :
+        Set (Spec (CommRingCat.of (𝓞 L)))) from hsU) (𝒢.unitSection ⁻¹ᵁ U).isOpen
+  have hD : ∀ s' : PrimeSpectrum (𝓞 L), a ∉ s'.asIdeal → 𝒢.unitSection s' ∈ U :=
+    fun s' h => hsub ((PrimeSpectrum.mem_basicOpen _ _).mpr h)
+  have hsa' : a ∉ s.asIdeal := (PrimeSpectrum.mem_basicOpen _ _).mp hsa
+  -- `Γ(U)` is noetherian; `I = ker(e^* : Γ(U) → Γ(e⁻¹U))` is finitely generated
+  have : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  have : IsNoetherianRing Γ(𝒢.G.left, U) := IsLocallyNoetherian.component_noetherian ⟨U, hU⟩
+  set I : Ideal Γ(𝒢.G.left, U) := RingHom.ker (𝒢.unitSection.app U).hom with hIdef
+  obtain ⟨T, hT⟩ : I.FG := IsNoetherian.noetherian I
+  have hTI : ∀ i ∈ T, i ∈ I := fun i hi => hT ▸ Submodule.subset_span hi
+  have hξU : 𝒢.genericUnit ∈ U := (𝒢.specializes_genericUnit s).mem_open U.isOpen hsU
+  set gξ := 𝒢.G.left.presheaf.germ U 𝒢.genericUnit hξU
+  have hmI : ∀ i ∈ I, gξ i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk := by
+    intro i hi
+    rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+    intro hunit
+    let φ : 𝒢.genStalk →+* (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L) :=
+      (𝒢.unitSection.stalkMap (genericPt L)).hom
+    have h1 := hunit.map φ
+    have h0 : φ (gξ i) = 0 :=
+      (Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection U (genericPt L) hξU i).trans
+        (by rw [RingHom.mem_ker.mp hi, map_zero])
+    rw [h0] at h1
+    exact not_isUnit_zero h1
+  set N : Submodule (𝓞 L) 𝒢.cotangent :=
+    Submodule.span (𝓞 L) ((fun i => dOf 𝒢 (gξ i)) '' (T : Set Γ(𝒢.G.left, U))) with hNdef
+  have hNfg : N.FG := ⟨T.image fun i => dOf 𝒢 (gξ i), by rw [Finset.coe_image]⟩
+  -- (C): the stalks `(ω_𝒢)_{s'}` lie in `N_{s'}`
+  have hC : ∀ s' : PrimeSpectrum (𝓞 L), a ∉ s'.asIdeal →
+      𝒢.omegaAt s' ≤ locSub s'.asIdeal N := by
+    intro s' hs'
+    have hs'U := hD s' hs'
+    unfold GroupModel.omegaAt
+    rw [Submodule.span_le]
+    rintro _ ⟨f, hf, hfm, rfl⟩
+    obtain ⟨b, u, hu, hfu⟩ := exists_germ_frac hU (𝒢.unitSection s') hs'U f
+    have hb : b ∈ I := by
+      rw [RingHom.mem_ker]
+      have h1 : (𝒢.unitSection.stalkMap s').hom
+          (𝒢.G.left.presheaf.germ U (𝒢.unitSection s') hs'U b) = 0 := by
+        rw [← hfu, map_mul, RingHom.mem_ker.mp hf, zero_mul]
+      have h2 := (Scheme.Hom.germ_stalkMap_apply 𝒢.unitSection U
+        (show Spec (CommRingCat.of (𝓞 L)) from s') hs'U b).symm.trans h1
+      exact germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) _ hs'U
+        (h2.trans (map_zero _).symm)
+    rw [← hT] at hb
+    obtain ⟨r, -, hr⟩ := Submodule.mem_span_finset.mp hb
+    set v := hu.unit⁻¹
+    have hf' : f = 𝒢.G.left.presheaf.germ U (𝒢.unitSection s') hs'U b * ↑v := by
+      rw [← hfu, _root_.mul_assoc, IsUnit.mul_val_inv, _root_.mul_one]
+    set w : Γ(𝒢.G.left, U) → 𝒢.G.left.presheaf.stalk (𝒢.unitSection s') := fun i =>
+      𝒢.G.left.presheaf.germ U (𝒢.unitSection s') hs'U (r i) * ↑v
+    have hsf : spec 𝒢 s' f = ∑ i ∈ T, spec 𝒢 s' (w i) * gξ i := by
+      rw [hf', ← hr, map_sum, Finset.sum_mul, map_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      simp only [w, smul_eq_mul, map_mul, spec, TopCat.Presheaf.germ_stalkSpecializes_apply]
+      ring
+    choose c t ht hct using fun i => residue 𝒢 s' (w i)
+    refine ⟨∏ i ∈ T, t i, ?_, ?_⟩
+    · intro hmem
+      obtain ⟨i, -, hi⟩ := (Ideal.IsPrime.prod_mem_iff).mp hmem
+      exact ht i hi
+    · have hsum : ∑ i ∈ T, spec 𝒢 s' (w i) * gξ i ∈ IsLocalRing.maximalIdeal 𝒢.genStalk :=
+        hsf ▸ hfm
+      have he : (⟨spec 𝒢 s' f, hfm⟩ : IsLocalRing.maximalIdeal 𝒢.genStalk) =
+          ⟨∑ i ∈ T, spec 𝒢 s' (w i) * gξ i, hsum⟩ := Subtype.ext hsf
+      change (∏ i ∈ T, t i) • 𝒢.dCls ⟨spec 𝒢 s' f, hfm⟩ ∈ N
+      rw [he, dCls_sum 𝒢 T _ _ (fun i hi => hmI i (hTI i hi)), Finset.smul_sum]
+      refine Submodule.sum_mem _ fun i hi => ?_
+      rw [← Finset.mul_prod_erase T t hi, mul_comm, mul_smul, smul_cot_of_congr 𝒢 (hct i)]
+      exact Submodule.smul_mem _ _ (Submodule.smul_mem _ _ (Submodule.subset_span ⟨i, hi, rfl⟩))
+  refine ⟨a, hsa', N, hNfg, ?_, fun s' hs' => ⟨?_, fun x hx => hC s' hs' hx⟩⟩
+  · intro x
+    have ha0 : a ∉ (genericPt L : PrimeSpectrum (𝓞 L)).asIdeal := by
+      intro h
+      have : a = 0 := h
+      exact hsa' (this ▸ Ideal.zero_mem _)
+    have hx : x ∈ 𝒢.omegaAt (genericPt L) := by rw [𝒢.omegaAt_genericPt]; trivial
+    obtain ⟨t, ht, htx⟩ := hC (genericPt L) ha0 hx
+    exact ⟨t, fun h0 => ht (h0 ▸ Ideal.zero_mem _), htx⟩
+  · rw [Submodule.span_le]
+    rintro _ ⟨i, hi, rfl⟩
+    have hiI := hTI i hi
+    have h := dCls_mem_omegaAt 𝒢 U i s' (hD s' hs')
+      (by rw [RingHom.mem_ker.mp hiI, map_zero]) (hmI i hiI)
+    have e := dOf_eq 𝒢 _ (hmI i hiI)
+    exact (congrArg (· ∈ 𝒢.omegaAt s') e).mpr h
+
+end ZInQ.DefFaltings.HodgeLattice
+
+
+namespace ZInQ.DefFaltings.HodgeLattice
+
+/-- **Main result.** `HodgeLatticeTheorem` follows from `CotangentRank` alone. -/
+theorem hodgeLatticeTheorem_of_cotangentRank (h : CotangentRank) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_local omegaLocal h
+
+end ZInQ.DefFaltings.HodgeLattice
+
+/-! ## 6. `CotangentRank` from the regularity and the dimension of `𝒪_{𝒢,ξ}`
+
+The residue field `κ(ξ)` of `𝒪_{𝒢,ξ}` is a fraction field of `𝓞_L` (through `structMap`; the
+residue lemma of §5 at the generic point), so `L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ² ≅ 𝔪_ξ/𝔪_ξ²` has `L`-rank the
+`κ(ξ)`-dimension of the cotangent space (`rank_tensor_cotangent`). With Mathlib's
+`IsRegularLocalRing.iff_finrank_cotangentSpace` this reduces `CotangentRank` to two statements
+about the local ring `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}`: it is regular (`RegularOrigin`) and has Krull
+dimension `dim A` (`DimOrigin`). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry TensorProduct
+
+/-- **(G2')** The tangent space of `A_L` at the origin has dimension `dim A` over `κ(ξ)`. -/
+def TangentDim : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ), A.dim = g →
+    Module.finrank (IsLocalRing.ResidueField 𝒢.genStalk)
+      (IsLocalRing.CotangentSpace 𝒢.genStalk) = g
+
+/-- **(G2a)** `𝒪_{𝒢,ξ}` (`= 𝒪_{A_L,0}`) is a regular local ring. -/
+def RegularOrigin : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L), IsRegularLocalRing 𝒢.genStalk
+
+/-- **(G2b)** `𝒪_{𝒢,ξ}` (`= 𝒪_{A_L,0}`) has Krull dimension `dim A`. -/
+def DimOrigin : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ), A.dim = g → ringKrullDim 𝒢.genStalk = g
+
+section Tangent
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+theorem isUnit_structMap {c : 𝓞 L} (hc : c ≠ 0) : IsUnit (𝒢.structMap c) := by
+  have hfield : IsField ((Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L)) := by
+    have : genericPt L = genericPoint (Spec (CommRingCat.of (𝓞 L))) :=
+      (genericPoint_eq_bot_of_affine (CommRingCat.of (𝓞 L))).symm
+    rw [this]; exact Field.toIsField _
+  let φ : 𝒢.genStalk →+* (Spec (CommRingCat.of (𝓞 L))).presheaf.stalk (genericPt L) :=
+    (𝒢.unitSection.stalkMap (genericPt L)).hom
+  haveI : IsLocalHom φ := inferInstanceAs (IsLocalHom (𝒢.unitSection.stalkMap (genericPt L)).hom)
+  have hφ : φ (𝒢.structMap c) = (Spec (CommRingCat.of (𝓞 L))).presheaf.germ ⊤ (genericPt L)
+      (TopologicalSpace.Opens.mem_top _) ((Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c) :=
+    stalkMap_structGerm 𝒢 (genericPt L) c
+  have hne : φ (𝒢.structMap c) ≠ 0 := by
+    rw [hφ]; intro h0
+    have h1 : (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).inv c = 0 :=
+      germ_injective_of_isIntegral (Spec (CommRingCat.of (𝓞 L))) (genericPt L)
+        (TopologicalSpace.Opens.mem_top _) (h0.trans (map_zero _).symm)
+    apply hc
+    have := congrArg (Scheme.ΓSpecIso (CommRingCat.of (𝓞 L))).hom h1
+    rwa [Iso.inv_hom_id_apply, map_zero] at this
+  obtain ⟨b, hb⟩ := hfield.mul_inv_cancel hne
+  exact isUnit_of_map_unit φ _ (isUnit_iff_exists_inv.mpr ⟨b, hb⟩)
+
+theorem spec_genericPt (y : 𝒢.genStalk) : spec 𝒢 (genericPt L) y = y := by
+  show (𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L))).hom y = y
+  rw [show 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit (genericPt L)) =
+    𝟙 _ from TopCat.Presheaf.stalkSpecializes_refl _ _]
+  rfl
+
+/-- `rank_L (L ⊗_{𝓞_L} 𝔪_ξ/𝔪_ξ²) = rank_{κ(ξ)} (𝔪_ξ/𝔪_ξ²)`. -/
+theorem rank_tensor_cotangent :
+    Module.rank L (L ⊗[𝓞 L] 𝒢.cotangent) =
+      Module.rank (IsLocalRing.ResidueField 𝒢.genStalk) (IsLocalRing.CotangentSpace 𝒢.genStalk) := by
+  classical
+  set κ := IsLocalRing.ResidueField 𝒢.genStalk
+  set ψ : 𝓞 L →+* κ := (IsLocalRing.residue 𝒢.genStalk).comp 𝒢.structMap with hψ
+  have hψ0 : ∀ c : 𝓞 L, c ≠ 0 → ψ c ≠ 0 := fun c hc =>
+    (IsLocalRing.residue_ne_zero_iff_isUnit _).mpr (isUnit_structMap 𝒢 hc)
+  let _ : Algebra (𝓞 L) κ := ψ.toAlgebra
+  have halg : ∀ c, algebraMap (𝓞 L) κ c = ψ c := fun _ => rfl
+  have : IsFractionRing (𝓞 L) κ := by
+    refine (isLocalization_iff (nonZeroDivisors (𝓞 L)) κ).mpr ⟨fun y => ?_, fun z => ?_, fun {x y} h => ?_⟩
+    · rw [halg]; exact (hψ0 _ (nonZeroDivisors.ne_zero y.2)).isUnit
+    · obtain ⟨w, rfl⟩ := IsLocalRing.residue_surjective z
+      obtain ⟨c, t, ht, hct⟩ := residue 𝒢 (genericPt L) w
+      have ht0 : t ≠ 0 := fun h => ht (h ▸ Ideal.zero_mem _)
+      refine ⟨(c, ⟨t, mem_nonZeroDivisors_of_ne_zero ht0⟩), ?_⟩
+      rw [spec_genericPt] at hct
+      have h0 := (IsLocalRing.residue_eq_zero_iff _).mpr hct
+      rw [map_sub, map_mul] at h0
+      simp only [halg, hψ, RingHom.comp_apply]
+      linear_combination h0
+    · refine ⟨1, ?_⟩
+      have h0 : ψ (x - y) = 0 := by rw [map_sub, ← halg, ← halg, h, sub_self]
+      by_cases hxy : x - y = 0
+      · simp [sub_eq_zero.mp hxy]
+      · exact absurd h0 (hψ0 _ hxy)
+  set e : L ≃ₐ[𝓞 L] κ := IsLocalization.algEquiv (nonZeroDivisors (𝓞 L)) L κ
+  let _ : Module L 𝒢.cotangent := (Module.compHom (IsLocalRing.CotangentSpace 𝒢.genStalk)
+    e.toRingHom : Module L (IsLocalRing.CotangentSpace 𝒢.genStalk))
+  have key : ∀ (r : 𝒢.genStalk) (n : IsLocalRing.CotangentSpace 𝒢.genStalk),
+      (algebraMap 𝒢.genStalk κ r) • n = r • n := fun r n => algebraMap_smul κ r n
+  have : IsScalarTower (𝓞 L) L 𝒢.cotangent :=
+      ⟨fun c l (n : IsLocalRing.CotangentSpace 𝒢.genStalk) => by
+    change (e (c • l)) • n = 𝒢.structMap c • ((e l) • n)
+    rw [map_smul, Algebra.smul_def, halg, mul_smul]
+    exact key _ _⟩
+  have hloc : IsLocalizedModule (nonZeroDivisors (𝓞 L))
+      (LinearMap.id : 𝒢.cotangent →ₗ[𝓞 L] 𝒢.cotangent) := isLocalizedModule_id _ _ L
+  have hbc : IsBaseChange L (LinearMap.id : 𝒢.cotangent →ₗ[𝓞 L] 𝒢.cotangent) :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors (𝓞 L)) L _).mp hloc
+  rw [hbc.equiv.rank_eq]
+  exact rank_eq_of_equiv_equiv e
+    (AddEquiv.refl 𝒢.cotangent : 𝒢.cotangent ≃+ IsLocalRing.CotangentSpace 𝒢.genStalk)
+    e.bijective (fun l n => rfl)
+
+end Tangent
+
+theorem cotangentRank_of_tangentDim (h : TangentDim) : CotangentRank := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  rw [rank_tensor_cotangent 𝒢]
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  rw [← Module.finrank_eq_rank, h K A L 𝒢 g hg]
+
+theorem tangentDim_of_regular (h1 : RegularOrigin) (h2 : DimOrigin) : TangentDim := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  have := (IsRegularLocalRing.iff_finrank_cotangentSpace 𝒢.genStalk).mp (h1 K A L 𝒢)
+  rw [h2 K A L 𝒢 g hg] at this
+  exact_mod_cast this
+
+/-- **Main result, final form.** `HodgeLatticeTheorem` follows from the two statements on the
+local ring `𝒪_{𝒢,ξ} = 𝒪_{A_L,0}`: it is regular, of Krull dimension `dim A`. -/
+theorem hodgeLatticeTheorem_of_regular (h1 : RegularOrigin) (h2 : DimOrigin) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_cotangentRank (cotangentRank_of_tangentDim (tangentDim_of_regular h1 h2))
+
+end ZInQ.DefFaltings.HodgeLattice
+
+/-! ## 7. Corollary: `ω_𝒢` and `⋀^g ω_𝒢` are lattices, and `L ⊗ ⋀^g ω_𝒢 → hodgeSpace g` is onto
+
+(Projectivity of the rank-one `𝓞_L`-module `detLattice g` then follows from: finitely generated and
+torsion-free over a Dedekind domain; STANDARD, not in Mathlib in this form.) -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField TensorProduct
+
+theorem detLat_fg {K : Type*} [Field K] [NumberField K] {M : Type*} [AddCommGroup M]
+    [Module (𝓞 K) M] (ω : Submodule (𝓞 K) M) (hfg : ω.FG) (g : ℕ) : (detLat ω g).FG := by
+  have : Module.Finite (𝓞 K) ω := Module.Finite.iff_fg.mpr hfg
+  have hRfg : (LinearMap.range ((TensorProduct.mk (𝓞 K) K (⋀[𝓞 K]^g M) 1) ∘ₗ
+      exteriorPower.map g ω.subtype)).FG := by
+    rw [LinearMap.range_eq_map]; exact (Module.Finite.fg_top).map _
+  refine Submodule.FG.of_le hRfg ?_
+  rw [detLat, Submodule.span_le]
+  rintro _ ⟨v, rfl⟩
+  exact ⟨exteriorPower.ιMulti (𝓞 K) g v, by simp [exteriorPower.map_apply_ιMulti]; rfl⟩
+
+/-- Under `RegularOrigin` and `DimOrigin`: `ω_𝒢` and `detLattice g` are finitely generated, and
+`detLattice g` spans the Hodge line over `L`. -/
+theorem hodgeLattice_lattice_of_regular (h1 : RegularOrigin) (h2 : DimOrigin)
+    (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (g : ℕ) (hg : A.dim = g) :
+    𝒢.omega.FG ∧ (𝒢.detLattice g).FG ∧
+      Submodule.span L (𝒢.detLattice g : Set (𝒢.hodgeSpace g)) = ⊤ := by
+  have hfg := omegaFG_of_omegaLocal omegaLocal K A L 𝒢
+  refine ⟨hfg, by rw [detLattice_eq]; exact detLat_fg _ hfg g, ?_⟩
+  obtain ⟨hrank, s, hs, hs0, -⟩ := hodgeLatticeTheorem_of_regular h1 h2 K A L 𝒢 g hg
+  rw [eq_top_iff]
+  intro w _
+  obtain ⟨c, rfl⟩ := (finrank_eq_one_iff_of_nonzero' s hs0).mp hrank w
+  exact Submodule.smul_mem _ c (Submodule.subset_span hs)
+
+end ZInQ.DefFaltings.HodgeLattice
+
+/-! ## 8. The remaining inputs, stated over abelian varieties
+
+`RegularOrigin` and `DimOrigin` concern the model `𝒢`. Both follow from statements about the
+abelian variety `B = A_L` over the field `L` alone, plus one scheme-theoretic identification
+(`OriginStalkIso`: the local ring of `𝒢` at the identity `ξ` of its generic fibre is the local ring
+of `A_L` at its origin; true because `Spec L → Spec 𝓞_L` is a localization and `𝒢.gen` is an
+isomorphism of group schemes). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry MonoidalCategory MonObj
+
+/-- The origin `0 ∈ B` of an abelian variety over a field `L` (image of the point of `Spec L`
+under the unit section). -/
+noncomputable def originPt {L : Type} [Field L] (B : AbVar L) : B.X.left :=
+  (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+/-- **(S)** `𝒪_{𝒢,ξ} ≅ 𝒪_{A_L,0}`. -/
+def OriginStalkIso : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L),
+    Nonempty (𝒢.genStalk ≃+* (A.baseChange L).X.left.presheaf.stalk (originPt (A.baseChange L)))
+
+/-- **(V1)** The local ring of an abelian variety at its origin is regular (a smooth variety is
+regular). -/
+def RegularAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L), IsRegularLocalRing (B.X.left.presheaf.stalk (originPt B))
+
+/-- **(V2)** The local ring of an abelian variety of dimension `g` at its origin has Krull dimension
+`g` (the local ring of an irreducible variety at a closed point has dimension `dim`). -/
+def DimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    ringKrullDim (B.X.left.presheaf.stalk (originPt B)) = g
+
+/-- **(V3)** Dimension is invariant under extension of the base field. -/
+def DimBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [Algebra K L],
+    (A.baseChange L).dim = A.dim
+
+theorem regularOrigin_of (h0 : OriginStalkIso) (h1 : RegularAtOrigin) : RegularOrigin := by
+  intro K _ A L _ _ _ 𝒢
+  obtain ⟨e⟩ := h0 K A L 𝒢
+  haveI := h1 L (A.baseChange L)
+  exact IsRegularLocalRing.of_ringEquiv e.symm
+
+theorem dimOrigin_of (h0 : OriginStalkIso) (h2 : DimAtOrigin) (h3 : DimBaseChange) :
+    DimOrigin := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  obtain ⟨e⟩ := h0 K A L 𝒢
+  rw [ringKrullDim_eq_of_ringEquiv e]
+  exact h2 L (A.baseChange L) g ((h3 K A L).trans hg)
+
+/-- **Main result, over abelian varieties.** -/
+theorem hodgeLatticeTheorem_of_abVar (h0 : OriginStalkIso) (h1 : RegularAtOrigin)
+    (h2 : DimAtOrigin) (h3 : DimBaseChange) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_regular (regularOrigin_of h0 h1) (dimOrigin_of h0 h2 h3)
+
+end ZInQ.DefFaltings.HodgeLattice
+
+/-! ## 9. `OriginStalkIso` from the local rings of the generic fibre
+
+`p : 𝒢_L = 𝒢 ×_{𝓞_L} L → 𝒢` sends the identity `ξ_L` of `𝒢_L` to `ξ` (`fst_genericFibreUnit`, from
+`η_{𝒢_L} = ε ≫ (pullback).map η_𝒢` and `Over.w ε`), and `𝒢.gen` sends `ξ_L` to the origin of
+`A_L` (`gen_genericFibreUnit`, from `IsMonHom.one_hom`). So `OriginStalkIso` follows from
+`GenericFibreStalkIso`: `p` induces isomorphisms on local rings (true for any scheme over `𝓞_L`,
+since `Spec L → Spec 𝓞_L` is a localization). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry Limits MonoidalCategory MonObj
+
+/-- `Spec L → Spec 𝓞_L`. -/
+noncomputable abbrev toGeneric (L : Type) [Field L] [NumberField L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of (𝓞 L)) :=
+  Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))
+
+/-- **(S')** The projection `X_L = X ×_{𝓞_L} L → X` induces isomorphisms on local rings. -/
+def GenericFibreStalkIso : Prop :=
+  ∀ (L : Type) [Field L] [NumberField L] (X : Over (Spec (CommRingCat.of (𝓞 L))))
+    (x : (genericFibre L X).left), IsIso ((pullback.fst X.hom (toGeneric L)).stalkMap x)
+
+section
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+variable (𝒢 : GroupModel A L)
+
+theorem fst_genericFibre_unit :
+    letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+    (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left ≫
+      pullback.fst 𝒢.G.hom (toGeneric L) = toGeneric L ≫ 𝒢.unitSection := by
+  let _ : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  change (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L)) ≫
+    (Over.pullback (toGeneric L)).map η[𝒢.G]).left ≫ pullback.fst 𝒢.G.hom (toGeneric L) = _
+  rw [Over.comp_left, Category.assoc]
+  have h1 : ((Over.pullback (toGeneric L)).map η[𝒢.G]).left ≫
+      pullback.fst 𝒢.G.hom (toGeneric L) =
+      pullback.fst _ (toGeneric L) ≫ (η[𝒢.G] : 𝟙_ _ ⟶ 𝒢.G).left := by
+    simp
+  rw [h1, ← Category.assoc]
+  have h2 : (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L))).left ≫
+      pullback.snd ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (toGeneric L) = 𝟙 _ :=
+    Over.w (Functor.LaxMonoidal.ε (Over.pullback (toGeneric L)))
+  have hc := pullback.condition (f := (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom)
+    (g := toGeneric L)
+  have hc' : pullback.fst ((𝟙_ (Over (Spec (CommRingCat.of (𝓞 L))))).hom) (toGeneric L) =
+      pullback.snd _ _ ≫ toGeneric L := by
+    rw [← hc]; exact (Category.comp_id _).symm
+  rw [hc', ← Category.assoc, h2, Category.id_comp]
+  rfl
+
+omit [NumberField L] in
+theorem toGeneric_pt [NumberField L] :
+    (toGeneric L) (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L) = genericPt L := by
+  change PrimeSpectrum.comap (algebraMap (𝓞 L) L) ⟨⊥, Ideal.isPrime_bot⟩ = _
+  refine PrimeSpectrum.ext (Ideal.ext fun x => ?_)
+  simp only [PrimeSpectrum.comap_asIdeal, Ideal.mem_comap, Ideal.mem_bot, genericPt]
+  exact map_eq_zero_iff _ (IsFractionRing.injective (𝓞 L) L)
+
+/-- The identity `ξ_L` of the generic fibre. -/
+noncomputable def genericFibreUnit : (genericFibre L 𝒢.G).left :=
+  letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  (η[genericFibre L 𝒢.G] : 𝟙_ _ ⟶ genericFibre L 𝒢.G).left
+    (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)
+
+theorem fst_genericFibreUnit :
+    pullback.fst 𝒢.G.hom (toGeneric L) (genericFibreUnit 𝒢) = 𝒢.genericUnit := by
+  have h := congrArg (fun φ => φ (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L))
+    (fst_genericFibre_unit 𝒢)
+  exact ((Scheme.Hom.comp_apply _ _ _).symm.trans h).trans
+    ((Scheme.Hom.comp_apply _ _ _).trans (congrArg (fun y => 𝒢.unitSection y) (toGeneric_pt (L := L))))
+
+theorem gen_genericFibreUnit :
+    𝒢.gen.hom.left (genericFibreUnit 𝒢) = originPt (A.baseChange L) := by
+  letI : GrpObj (genericFibre L 𝒢.G) := Functor.grpObjObj
+  haveI := 𝒢.gen_hom
+  have h := congrArg (fun φ : (𝟙_ _ ⟶ (A.baseChange L).X) =>
+    φ.left (⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum L)) (IsMonHom.one_hom (f := 𝒢.gen.hom))
+  simp only [Over.comp_left] at h
+  exact (Scheme.Hom.comp_apply _ _ _).symm.trans h
+
+end
+
+theorem originStalkIso_of (h : GenericFibreStalkIso) : OriginStalkIso := by
+  intro K _ A L _ _ _ 𝒢
+  have hp : IsIso ((pullback.fst 𝒢.G.hom (toGeneric L)).stalkMap (genericFibreUnit 𝒢)) :=
+    h L 𝒢.G _
+  have hφ : IsOpenImmersion ((Over.forget _).mapIso 𝒢.gen).hom := inferInstance
+  have hφs : IsIso (((Over.forget _).mapIso 𝒢.gen).hom.stalkMap (genericFibreUnit 𝒢)) :=
+    (IsOpenImmersion.iff_isIso_stalkMap.mp hφ).2 _
+  let e1 : 𝒢.genStalk ≅ (genericFibre L 𝒢.G).left.presheaf.stalk (genericFibreUnit 𝒢) :=
+    𝒢.G.left.presheaf.stalkCongr (Inseparable.of_eq (fst_genericFibreUnit 𝒢).symm) ≪≫
+      @asIso _ _ _ _ _ hp
+  let e2 : (A.baseChange L).X.left.presheaf.stalk (originPt (A.baseChange L)) ≅
+      (genericFibre L 𝒢.G).left.presheaf.stalk (genericFibreUnit 𝒢) :=
+    (A.baseChange L).X.left.presheaf.stalkCongr
+      (Inseparable.of_eq (gen_genericFibreUnit 𝒢).symm) ≪≫ @asIso _ _ _ _ _ hφs
+  exact ⟨(e1 ≪≫ e2.symm).commRingCatIsoToRingEquiv⟩
+
+/-- **Main result, final form.** `HodgeLatticeTheorem` from one scheme-theoretic fact (local rings of
+the generic fibre) and three facts about abelian varieties over a field. -/
+theorem hodgeLatticeTheorem_of_varieties (h0 : GenericFibreStalkIso) (h1 : RegularAtOrigin)
+    (h2 : DimAtOrigin) (h3 : DimBaseChange) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_abVar (originStalkIso_of h0) h1 h2 h3
+
+end ZInQ.DefFaltings.HodgeLattice
+
+
+/-! ## 10. `GenericFibreStalkIso` is a theorem
+
+"All stalk maps bijective" is Zariski-local on the target (Mathlib's
+`stalkwiseIsZariskiLocalAtTarget_of_respectsIso`); over an affine chart `Spec A → X` the projection
+is, up to the pasting isomorphisms, `Spec (A ⊗_{𝓞_L} L) → Spec A` (`pullbackSpecIso`), and
+`A ⊗_{𝓞_L} L` is the localization of `A` at the image of `𝓞_L ∖ 0` (`IsLocalization.tensor`), whose
+stalk maps are isomorphisms (`isIso_specMap_stalkMap_localization`). -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry Limits TensorProduct
+
+/-- Bijectivity of ring maps respects isomorphisms. -/
+theorem bijective_respectsIso :
+    RingHom.RespectsIso (fun {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) =>
+      Function.Bijective f) :=
+  ⟨fun f e hf => e.bijective.comp hf, fun f e hf => hf.comp e.bijective⟩
+
+local notation "Pb" => stalkwise (fun {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) =>
+      Function.Bijective f)
+
+/-- `Spec (A ⊗_R K) → Spec A` has bijective stalk maps when `K` is a localization of `R`. -/
+theorem stalkwise_tensor_localization (R : Type) [CommRing R] (K : Type) [CommRing K]
+    [Algebra R K] (M : Submonoid R) [IsLocalization M K] (A : Type) [CommRing A] [Algebra R A] :
+    Pb (Spec.map (CommRingCat.ofHom (algebraMap A (A ⊗[R] K)))) := by
+  have := stalkwise_respectsIso bijective_respectsIso
+  set M' := Algebra.algebraMapSubmonoid A M
+  let e : A ⊗[R] K ≃ₐ[A] Localization M' := IsLocalization.algEquiv M' _ _
+  have hfac : CommRingCat.ofHom (algebraMap A (A ⊗[R] K)) =
+      CommRingCat.ofHom (algebraMap A (Localization M')) ≫
+        CommRingCat.ofHom e.symm.toAlgHom.toRingHom := by
+    ext a
+    simp
+  have : IsIso (CommRingCat.ofHom e.symm.toAlgHom.toRingHom) :=
+    ⟨⟨CommRingCat.ofHom e.toAlgHom.toRingHom,
+      CommRingCat.hom_ext (RingHom.ext fun y => e.apply_symm_apply y),
+      CommRingCat.hom_ext (RingHom.ext fun y => e.symm_apply_apply y)⟩⟩
+  rw [hfac, Spec.map_comp]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  intro x
+  have h := isIso_specMap_stalkMap_localization (CommRingCat.of A) M' x
+  exact (ConcreteCategory.isIso_iff_bijective _).mp h
+
+/-- On an affine chart: `Spec A ×_{𝓞_L} Spec L → Spec A` has bijective stalk maps. -/
+theorem stalkwise_fst_toGeneric {L : Type} [Field L] [NumberField L] {A : CommRingCat}
+    (g : Spec A ⟶ Spec (CommRingCat.of (𝓞 L))) : (Pb) (pullback.fst g (toGeneric L)) := by
+  have : (Pb).RespectsIso := stalkwise_respectsIso bijective_respectsIso
+  let φ := Spec.preimage g
+  letI : Algebra (𝓞 L) A := φ.hom.toAlgebra
+  have hg : g = Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) A)) := by
+    rw [← Spec.map_preimage g]; rfl
+  have he2 : (pullback.congrHom hg rfl).hom ≫ pullback.fst _ _ = pullback.fst g (toGeneric L) := by
+    simp [pullback.congrHom]
+  rw [← he2]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  rw [← pullbackSpecIso_hom_fst' (𝓞 L) A L]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  exact stalkwise_tensor_localization (𝓞 L) L (nonZeroDivisors (𝓞 L)) A
+
+/-- **`GenericFibreStalkIso` holds**: base change along `Spec L → Spec 𝓞_L` does not change local
+rings (Zariski-local on the target; on an affine chart it is `Spec (A ⊗_{𝓞_L} L) → Spec A`, a
+localization). -/
+theorem genericFibreStalkIso : GenericFibreStalkIso := by
+  intro L _ _ X x
+  have : (Pb).RespectsIso := stalkwise_respectsIso bijective_respectsIso
+  have : IsZariskiLocalAtTarget (Pb) :=
+    stalkwiseIsZariskiLocalAtTarget_of_respectsIso bijective_respectsIso
+  suffices H : (Pb) (pullback.fst X.hom (toGeneric L)) from
+    (ConcreteCategory.isIso_iff_bijective _).mpr (H x)
+  refine IsZariskiLocalAtTarget.of_openCover X.left.affineOpenCover.openCover ?_
+  intro i
+  show (Pb) (pullback.snd (pullback.fst X.hom (toGeneric L)) (X.left.affineOpenCover.f i))
+  have he : (pullbackSymmetry (pullback.fst X.hom (toGeneric L)) (X.left.affineOpenCover.f i) ≪≫
+      pullbackRightPullbackFstIso X.hom (toGeneric L) (X.left.affineOpenCover.f i)).hom ≫
+        pullback.fst (X.left.affineOpenCover.f i ≫ X.hom) (toGeneric L) =
+      pullback.snd (pullback.fst X.hom (toGeneric L)) (X.left.affineOpenCover.f i) := by
+    simp
+  rw [← he]
+  refine (MorphismProperty.cancel_left_of_respectsIso _ _ _).mpr ?_
+  exact stalkwise_fst_toGeneric _
+
+/-- **Main result, final form.** `HodgeLatticeTheorem` from three facts about abelian varieties over
+a field: the local ring at the origin is regular, of Krull dimension `dim B`, and dimension is
+invariant under field extension. -/
+theorem hodgeLatticeTheorem_of_abVarFacts (h1 : RegularAtOrigin) (h2 : DimAtOrigin)
+    (h3 : DimBaseChange) : HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_varieties genericFibreStalkIso h1 h2 h3
+
+end ZInQ.DefFaltings.HodgeLattice
+
+
+/-! ## 11. Two facts suffice: the tangent space at the origin, and base change of dimension
+
+`RegularAtOrigin` and `DimAtOrigin` are used only through their consequence `TangentDimAtOrigin`
+(the cotangent space at the origin has dimension `dim B`), which is itself a standard fact. -/
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry IsLocalRing
+
+/-- **(V)** The tangent space of an abelian variety `B/L` at the origin has dimension `dim B`. -/
+def TangentDimAtOrigin : Prop :=
+  ∀ (L : Type) [Field L] (B : AbVar L) (g : ℕ), B.dim = g →
+    Module.finrank (ResidueField (B.X.left.presheaf.stalk (originPt B)))
+      (CotangentSpace (B.X.left.presheaf.stalk (originPt B))) = g
+
+theorem tangentDimAtOrigin_of (h1 : RegularAtOrigin) (h2 : DimAtOrigin) : TangentDimAtOrigin := by
+  intro L _ B g hg
+  haveI := h1 L B
+  have := (IsRegularLocalRing.iff_finrank_cotangentSpace _).mp this
+  rw [h2 L B g hg] at this
+  exact_mod_cast this
+
+theorem tangentDim_of_abVar (h1 : TangentDimAtOrigin) (h3 : DimBaseChange) : TangentDim := by
+  intro K _ A L _ _ _ 𝒢 g hg
+  obtain ⟨e⟩ := originStalkIso_of genericFibreStalkIso K A L 𝒢
+  have h := h1 L (A.baseChange L) g ((h3 K A L).trans hg)
+  haveI : IsLocallyNoetherian 𝒢.G.left := LocallyOfFiniteType.isLocallyNoetherian 𝒢.G.hom
+  haveI : IsLocallyNoetherian (A.baseChange L).X.left :=
+    LocallyOfFiniteType.isLocallyNoetherian (A.baseChange L).X.hom
+  rw [← spanFinrank_maximalIdeal_eq_finrank_cotangentSpace] at h ⊢
+  rw [← map_ringEquiv_maximalIdeal e, Ideal.spanFinrank_map_eq_of_ringEquiv] at h
+  exact h
+
+/-- **Main result, two-fact form.** -/
+theorem hodgeLatticeTheorem_of_tangent (h1 : TangentDimAtOrigin) (h3 : DimBaseChange) :
+    HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_cotangentRank (cotangentRank_of_tangentDim (tangentDim_of_abVar h1 h3))
+
+end ZInQ.DefFaltings.HodgeLattice
+
+end HodgeLatticeSec
+
+section H5NeronSec
+/-! ### leaf-adopt3 fold (2026-11-13): task h5-neron
+
+Copied from `scratch/h5-neron/H5Neron.lean` (compiled there against the kernel module
+`ZInQKernel.HDecomp.Faltings.Leaves`). Changes: the `import` line and the `#print axioms` lines are
+dropped; the four lines `open PkgI3 (AbVar)` are deleted (in this file `open DefFaltings` already
+brings def-faltings' copy `ZInQ.DefFaltings.AbVar`, and keeping both would make `AbVar` ambiguous);
+`AbVar.zero` (= `PkgI3.AbVar.zero` in the kernel) is restated for the copy as
+`ZInQ.H5Neron.AbVar.zero`, just before `section ZeroAV`. The bridges at the end are new. All
+`ZInQ.DefFaltings` declarations used (`GroupModel`, `IsNeronModel`, `height`, `MetrizedModel`,
+`stableFaltingsHeight_eq_iInf_height`, `NeronModelMinimal`, `StableHeightFinite`, `isogDeg`,
+`ptObj`, `grKappa`, ...) are textually identical in section `DefFaltingsSec` above. -/
+
+/-! # h5-neron: Néron models and the stable Faltings height (node H5), combined file
+
+Self-contained combination of `Neron.lean` (part A), `ZeroAV.lean` (part B) and
+`Reduction.lean` (part C) of `scratch/h5-neron/`, with part D (the leaves and glue for the zero
+abelian variety). Mathlib + project only; no unproved step, no `axiom`. See `docs/research/h5-neron.md`. -/
+
+namespace ZInQ.H5Neron
+
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory
+
+section General
+
+variable {S S' : Scheme.{0}} (j : S' ⟶ S) (P : Over S → Prop)
+
+/-- The Néron mapping property of `N` (over `S`) for `A` (over `S'`) along `j`, tested on the
+objects satisfying `P`. -/
+def NeronProp (N : Over S) (A : Over S') (e : (Over.pullback j).obj N ≅ A) : Prop :=
+  ∀ Y : Over S, P Y → Function.Bijective fun f : Y ⟶ N => (Over.pullback j).map f ≫ e.hom
+
+variable {j P}
+
+/-- Existence and uniqueness of the extension. -/
+theorem NeronProp.lift {N : Over S} {A : Over S'} {e : (Over.pullback j).obj N ≅ A}
+    (h : NeronProp j P N A e) {Y : Over S} (hY : P Y) (g : (Over.pullback j).obj Y ⟶ A) :
+    ∃! f : Y ⟶ N, (Over.pullback j).map f ≫ e.hom = g := by
+  obtain ⟨f, hf⟩ := (h Y hY).2 g
+  exact ⟨f, hf, fun f' hf' => (h Y hY).1 (hf'.trans hf.symm)⟩
+
+/-- **Uniqueness of Néron models**: two Néron models of `A` (each a test object) are isomorphic,
+compatibly with the identifications of their generic fibres. -/
+theorem NeronProp.uniqueIso {N N' : Over S} {A : Over S'} {e : (Over.pullback j).obj N ≅ A}
+    {e' : (Over.pullback j).obj N' ≅ A} (h : NeronProp j P N A e) (h' : NeronProp j P N' A e')
+    (hN : P N) (hN' : P N') :
+    ∃ φ : N ≅ N', (Over.pullback j).map φ.hom ≫ e'.hom = e.hom := by
+  obtain ⟨f, hf⟩ := (h' N hN).2 e.hom
+  obtain ⟨f', hf'⟩ := (h N' hN').2 e'.hom
+  simp only at hf hf'
+  have h1 : f ≫ f' = 𝟙 N := by
+    apply (h N hN).1
+    simp only [Functor.map_comp, Category.assoc, hf', hf]
+    erw [(Over.pullback j).map_id, Category.id_comp]
+  have h2 : f' ≫ f = 𝟙 N' := by
+    apply (h' N' hN').1
+    simp only [Functor.map_comp, Category.assoc, hf', hf]
+    erw [(Over.pullback j).map_id, Category.id_comp]
+  exact ⟨⟨f, f', h1, h2⟩, hf⟩
+
+/-- The identification of the generic fibre of `N₁ ⊗ N₂` with `A₁ ⊗ A₂`. -/
+noncomputable def tensorGen {N₁ N₂ : Over S} {A₁ A₂ : Over S'}
+    (e₁ : (Over.pullback j).obj N₁ ≅ A₁) (e₂ : (Over.pullback j).obj N₂ ≅ A₂) :
+    (Over.pullback j).obj (N₁ ⊗ N₂) ≅ A₁ ⊗ A₂ :=
+  prodComparisonIso (Over.pullback j) N₁ N₂ ≪≫ tensorIso e₁ e₂
+
+theorem tensorGen_fst {N₁ N₂ : Over S} {A₁ A₂ : Over S'}
+    (e₁ : (Over.pullback j).obj N₁ ≅ A₁) (e₂ : (Over.pullback j).obj N₂ ≅ A₂) :
+    (tensorGen e₁ e₂).hom ≫ fst A₁ A₂ = (Over.pullback j).map (fst N₁ N₂) ≫ e₁.hom := by
+  rw [tensorGen, Iso.trans_hom, prodComparisonIso_hom, tensorIso_hom, Category.assoc, tensorHom_fst,
+    CartesianMonoidalCategory.prodComparison_fst_assoc]
+
+theorem tensorGen_snd {N₁ N₂ : Over S} {A₁ A₂ : Over S'}
+    (e₁ : (Over.pullback j).obj N₁ ≅ A₁) (e₂ : (Over.pullback j).obj N₂ ≅ A₂) :
+    (tensorGen e₁ e₂).hom ≫ snd A₁ A₂ = (Over.pullback j).map (snd N₁ N₂) ≫ e₂.hom := by
+  rw [tensorGen, Iso.trans_hom, prodComparisonIso_hom, tensorIso_hom, Category.assoc, tensorHom_snd,
+    CartesianMonoidalCategory.prodComparison_snd_assoc]
+
+/-- **A product of Néron models is a Néron model of the product.** -/
+theorem NeronProp.tensor {N₁ N₂ : Over S} {A₁ A₂ : Over S'}
+    {e₁ : (Over.pullback j).obj N₁ ≅ A₁} {e₂ : (Over.pullback j).obj N₂ ≅ A₂}
+    (h₁ : NeronProp j P N₁ A₁ e₁) (h₂ : NeronProp j P N₂ A₂ e₂) :
+    NeronProp j P (N₁ ⊗ N₂) (A₁ ⊗ A₂) (tensorGen e₁ e₂) := by
+  intro Y hY
+  have hfst : ∀ f : Y ⟶ N₁ ⊗ N₂, ((Over.pullback j).map f ≫ (tensorGen e₁ e₂).hom) ≫
+      fst A₁ A₂ = (Over.pullback j).map (f ≫ fst N₁ N₂) ≫ e₁.hom := by
+    intro f
+    rw [Category.assoc, tensorGen_fst, Functor.map_comp, Category.assoc]
+  have hsnd : ∀ f : Y ⟶ N₁ ⊗ N₂, ((Over.pullback j).map f ≫ (tensorGen e₁ e₂).hom) ≫
+      snd A₁ A₂ = (Over.pullback j).map (f ≫ snd N₁ N₂) ≫ e₂.hom := by
+    intro f
+    rw [Category.assoc, tensorGen_snd, Functor.map_comp, Category.assoc]
+  constructor
+  · intro f f' hff'
+    have a := hfst f
+    have b := hfst f'
+    have c := hsnd f
+    have d := hsnd f'
+    simp only at hff'
+    rw [hff'] at a c
+    apply CartesianMonoidalCategory.hom_ext
+    · exact (h₁ Y hY).1 (a.symm.trans b)
+    · exact (h₂ Y hY).1 (c.symm.trans d)
+  · intro g
+    obtain ⟨f₁, hf₁⟩ := (h₁ Y hY).2 (g ≫ fst A₁ A₂)
+    obtain ⟨f₂, hf₂⟩ := (h₂ Y hY).2 (g ≫ snd A₁ A₂)
+    refine ⟨CartesianMonoidalCategory.lift f₁ f₂, ?_⟩
+    apply CartesianMonoidalCategory.hom_ext
+    · rw [hfst, CartesianMonoidalCategory.lift_fst]; exact hf₁
+    · rw [hsnd, CartesianMonoidalCategory.lift_snd]; exact hf₂
+
+end General
+
+section GroupModels
+
+open NumberField DefFaltings
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- `Spec L → Spec 𝓞_L`. -/
+noncomputable abbrev jL (L : Type) [Field L] [NumberField L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of (𝓞 L)) :=
+  Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))
+
+/-- The project's `IsNeronModel` is `NeronProp` for smooth test objects. -/
+theorem GroupModel.isNeronModel_iff (𝒩 : GroupModel A L) :
+    𝒩.IsNeronModel ↔ NeronProp (jL L) (fun Y => Smooth Y.hom) 𝒩.G (A.baseChange L).X 𝒩.gen :=
+  ⟨fun h Y hY => @h Y hY, fun h Y hY => h Y hY⟩
+
+/-- The comparison morphism `𝒢 → 𝒩` from any group model to a Néron model, compatible with the
+identifications of the generic fibres with `A_L`, and unique with this property. -/
+theorem GroupModel.IsNeronModel.lift {𝒩 : GroupModel A L} (h𝒩 : 𝒩.IsNeronModel)
+    (𝒢 : GroupModel A L) :
+    ∃! f : 𝒢.G ⟶ 𝒩.G, (Over.pullback (jL L)).map f ≫ 𝒩.gen.hom = 𝒢.gen.hom :=
+  ((GroupModel.isNeronModel_iff 𝒩).mp h𝒩).lift (P := fun Y => Smooth Y.hom)
+    (show Smooth 𝒢.G.hom from inferInstance) 𝒢.gen.hom
+
+/-- Two Néron models of `A_L` are isomorphic over `𝓞_L`, compatibly with `gen`. -/
+theorem GroupModel.IsNeronModel.uniqueIso {𝒩 𝒩' : GroupModel A L} (h : 𝒩.IsNeronModel)
+    (h' : 𝒩'.IsNeronModel) :
+    ∃ φ : 𝒩.G ≅ 𝒩'.G, (Over.pullback (jL L)).map φ.hom ≫ 𝒩'.gen.hom = 𝒩.gen.hom :=
+  ((GroupModel.isNeronModel_iff 𝒩).mp h).uniqueIso ((GroupModel.isNeronModel_iff 𝒩').mp h')
+    (show Smooth 𝒩.G.hom from inferInstance) (show Smooth 𝒩'.G.hom from inferInstance)
+
+end GroupModels
+
+/-! ## Transport along isomorphisms, and the additivity direction `h(A) + h(B) ≤ h(A × B)` -/
+
+section Transport
+
+variable {S S' : Scheme.{0}} {j : S' ⟶ S} {P : Over S → Prop}
+
+/-- The Néron property is invariant under isomorphisms of `N` and of `A`. -/
+theorem NeronProp.of_iso {N N' : Over S} {A A' : Over S'} {e : (Over.pullback j).obj N ≅ A}
+    (h : NeronProp j P N A e) (φ : N' ≅ N) (ψ : A ≅ A') (e' : (Over.pullback j).obj N' ≅ A')
+    (he : (Over.pullback j).map φ.hom ≫ e.hom ≫ ψ.hom = e'.hom) : NeronProp j P N' A' e' := by
+  intro Y hY
+  have key : (fun f : Y ⟶ N' => (Over.pullback j).map f ≫ e'.hom) =
+      (fun g => g ≫ ψ.hom) ∘ (fun f : Y ⟶ N => (Over.pullback j).map f ≫ e.hom) ∘
+        (fun f => f ≫ φ.hom) := by
+    funext f
+    simp only [Function.comp, Functor.map_comp, Category.assoc, ← he]
+  rw [key]
+  refine Function.Bijective.comp ?_ ((h Y hY).comp ?_)
+  · exact ⟨fun a b hab => (cancel_mono ψ.hom).mp hab, fun c => ⟨c ≫ ψ.inv, by simp⟩⟩
+  · exact ⟨fun a b hab => (cancel_mono φ.hom).mp hab, fun c => ⟨c ≫ φ.inv, by simp⟩⟩
+
+end Transport
+
+section Additivity
+
+open NumberField DefFaltings
+
+variable {K : Type} [Field K]
+
+/-- `C ≅ A × B` as abelian varieties: an isomorphism `C ≅ A ⊗ B` of `K`-schemes whose two
+components are homomorphisms. (Mathlib v4.35 cannot form `A × B` as an `AbVar`: it lacks the
+stability of geometric integrality under composition; so the product enters as `C`.) -/
+def IsProductAbVar (C A B : AbVar K) : Prop :=
+  ∃ e : C.X ≅ A.X ⊗ B.X, IsMonHom (e.hom ≫ fst A.X B.X) ∧ IsMonHom (e.hom ≫ snd A.X B.X)
+
+/-- `C_L ≅ A_L ⊗ B_L`. -/
+noncomputable def bcProd {A B C : AbVar K} (L : Type) [Field L] [Algebra K L]
+    (eC : C.X ≅ A.X ⊗ B.X) : (C.baseChange L).X ≅ (A.baseChange L).X ⊗ (B.baseChange L).X :=
+  (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).mapIso eC ≪≫
+    prodComparisonIso (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))) A.X B.X
+
+/-- `𝒢P ≅ 𝒢₁ × 𝒢₂` as group models of `C_L ≅ A_L × B_L`. -/
+def IsProductModel {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (eC : C.X ≅ A.X ⊗ B.X) (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) :
+    Prop :=
+  ∃ e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G, IsMonHom (e.hom ≫ fst _ _) ∧ IsMonHom (e.hom ≫ snd _ _) ∧
+    (Over.pullback (jL L)).map e.hom ≫ (tensorGen 𝒢₁.gen 𝒢₂.gen).hom =
+      𝒢P.gen.hom ≫ (bcProd L eC).hom
+
+/-- **A product of Néron models is a Néron model** (for group models). -/
+theorem isNeronModel_of_isProductModel {A B C : AbVar K} {L : Type} [Field L] [NumberField L]
+    [Algebra K L] {eC : C.X ≅ A.X ⊗ B.X} {𝒢P : GroupModel C L} {𝒩₁ : GroupModel A L}
+    {𝒩₂ : GroupModel B L} (h₁ : 𝒩₁.IsNeronModel) (h₂ : 𝒩₂.IsNeronModel)
+    (hP : IsProductModel eC 𝒢P 𝒩₁ 𝒩₂) : 𝒢P.IsNeronModel := by
+  obtain ⟨e, -, -, he⟩ := hP
+  rw [GroupModel.isNeronModel_iff] at h₁ h₂ ⊢
+  refine (h₁.tensor h₂).of_iso e (bcProd L eC).symm 𝒢P.gen ?_
+  rw [← Category.assoc, he]
+  erw [Category.assoc, Iso.symm_hom, Iso.hom_inv_id, Category.comp_id]
+
+/-- **Leaf N1 (Néron)**, as in `Reduction.lean` (BLR §1.4 Thm 3, UNVERIFIED locator). -/
+def NeronModelExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L],
+    ∃ 𝒩 : GroupModel A L, 𝒩.IsNeronModel
+
+/-- **Glue P1.** Group models of `A_L` and `B_L` give a group model of `C_L ≅ A_L × B_L`
+(the fibre product over `𝓞_L`; smooth, separated, quasi-compact; `GrpObj` of a product). -/
+def ProductGroupModelExists : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (eC : C.X ≅ A.X ⊗ B.X),
+    IsMonHom (eC.hom ≫ fst A.X B.X) → IsMonHom (eC.hom ≫ snd A.X B.X) →
+    ∀ (L : Type) [Field L] [NumberField L] [Algebra K L] (𝒢₁ : GroupModel A L)
+      (𝒢₂ : GroupModel B L), ∃ 𝒢P : GroupModel C L, IsProductModel eC 𝒢P 𝒢₁ 𝒢₂
+
+/-- **Glue P2** (the direction used). The height of a product model is at least the sum of the
+heights: `ω_{𝒢₁×𝒢₂} = ω_{𝒢₁} ⊕ ω_{𝒢₂}`, `det(ω₁ ⊕ ω₂) = det ω₁ ⊗ det ω₂`, the Arakelov degree is
+additive, and a product of uniformizations is a uniformization of the product (equality holds). -/
+def ProductModelHeight : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (eC : C.X ≅ A.X ⊗ B.X) (L : Type) [Field L]
+    [NumberField L] [Algebra K L] (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L)
+    (𝒢₂ : GroupModel B L), IsProductModel eC 𝒢P 𝒢₁ 𝒢₂ → 𝒢₁.height + 𝒢₂.height ≤ 𝒢P.height
+
+/-- **`h(A) + h(B) ≤ h(A × B)`** (rv-blueprints F1, the direction step E4 uses) from Néron
+existence, Néron minimality and the two product glue statements. No semistable reduction is
+needed: the comparison is made over each `L` separately. -/
+theorem stableFaltingsHeight_add_le (hN1 : NeronModelExists) (hmin : NeronModelMinimal)
+    (hP : ProductGroupModelExists) (hH : ProductModelHeight) (A B C : AbVar K)
+    (hC : IsProductAbVar C A B) :
+    stableFaltingsHeight A + stableFaltingsHeight B ≤ stableFaltingsHeight C := by
+  obtain ⟨eC, h1, h2⟩ := hC
+  rw [stableFaltingsHeight_eq_iInf_height C]
+  refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+  obtain ⟨𝒩₁, hN₁⟩ := hN1 K A E.L
+  obtain ⟨𝒩₂, hN₂⟩ := hN1 K B E.L
+  obtain ⟨𝒢P, h𝒢P⟩ := hP K A B C eC h1 h2 E.L 𝒩₁ 𝒩₂
+  have hA : stableFaltingsHeight A ≤ 𝒩₁.height := by
+    rw [stableFaltingsHeight_eq_iInf_height]; exact iInf_le_of_le E (iInf_le_of_le 𝒩₁ le_rfl)
+  have hB : stableFaltingsHeight B ≤ 𝒩₂.height := by
+    rw [stableFaltingsHeight_eq_iInf_height]; exact iInf_le_of_le E (iInf_le_of_le 𝒩₂ le_rfl)
+  calc stableFaltingsHeight A + stableFaltingsHeight B ≤ 𝒩₁.height + 𝒩₂.height :=
+        add_le_add hA hB
+    _ ≤ 𝒢P.height := hH K A B C eC E.L 𝒢P 𝒩₁ 𝒩₂ h𝒢P
+    _ ≤ 𝒢.height :=
+        hmin K C E.L 𝒢P 𝒢 (isNeronModel_of_isProductModel hN₁ hN₂ h𝒢P)
+
+end Additivity
+
+
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField MeasureTheory DefFaltings
+open scoped TensorProduct
+
+/-- Maps into an object isomorphic to the unit are equal. -/
+theorem hom_ext_of_iso_unit {C : Type*} [Category C] [CartesianMonoidalCategory C] {X Y : C}
+    (i : X ≅ 𝟙_ C) (f g : Y ⟶ X) : f = g := by
+  rw [← cancel_mono i.hom]; exact toUnit_unique _ _
+
+section DimZero
+
+variable {L : Type} [Field L] [NumberField L] {K : Type} [Field K] [Algebra K L] {A : AbVar K}
+
+/-- `⋀^0 ω ≅ L`. -/
+noncomputable def hodgeZeroEquiv (𝒢 : GroupModel A L) : 𝒢.hodgeSpace 0 ≃ₗ[L] L :=
+  TensorProduct.AlgebraTensorModule.congr (LinearEquiv.refl L L)
+      (exteriorPower.zeroEquiv (𝓞 L) 𝒢.cotangent) ≪≫ₗ
+    TensorProduct.AlgebraTensorModule.rid (𝓞 L) L L
+
+/-- The empty wedge `1 ⊗ 1 ∈ ⋀^0`. -/
+noncomputable def wedge0 (𝒢 : GroupModel A L) : 𝒢.hodgeSpace 0 :=
+  (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) 0 (fun i : Fin 0 => (i.elim0 : 𝒢.cotangent))
+
+theorem hodgeZeroEquiv_wedge0 (𝒢 : GroupModel A L) : hodgeZeroEquiv 𝒢 (wedge0 𝒢) = 1 := by
+  simp [hodgeZeroEquiv, wedge0]
+
+theorem wedge0_ne_zero (𝒢 : GroupModel A L) : wedge0 𝒢 ≠ 0 := by
+  intro h
+  have := congrArg (hodgeZeroEquiv 𝒢) h
+  rw [hodgeZeroEquiv_wedge0, LinearEquiv.map_zero] at this
+  exact one_ne_zero this
+
+theorem wedge_eq_wedge0 (𝒢 : GroupModel A L) (f : Fin 0 → IsLocalRing.maximalIdeal 𝒢.genStalk) :
+    𝒢.wedge f = wedge0 𝒢 := by
+  unfold GroupModel.wedge wedge0
+  congr 2
+  funext i
+  exact i.elim0
+
+theorem detLattice_zero (𝒢 : GroupModel A L) :
+    𝒢.detLattice 0 = Submodule.span (𝓞 L) {wedge0 𝒢} := by
+  unfold GroupModel.detLattice
+  congr 1
+  ext x
+  simp only [Set.mem_range, Set.mem_singleton_iff]
+  constructor
+  · rintro ⟨v, rfl⟩
+    unfold wedge0
+    congr 2
+    funext i
+    exact i.elim0
+  · rintro rfl
+    refine ⟨fun i => i.elim0, ?_⟩
+    unfold wedge0
+    congr 2
+    funext i
+    exact i.elim0
+
+/-- The covolume of the (only) lattice in `ℂ⁰` is `1`. -/
+theorem covolume_fin_zero (Λ : Submodule ℤ (Fin 0 → ℂ)) [DiscreteTopology Λ] [IsZLattice ℝ Λ] :
+    ZLattice.covolume Λ = 1 := by
+  rw [ZLattice.covolume_eq_measure_fundamentalDomain Λ volume (F := Set.univ)
+    (IsAddFundamentalDomain.mk' nullMeasurableSet_univ fun x =>
+      ⟨0, Set.mem_univ _, fun y _ => Subsingleton.elim _ _⟩)]
+  simp [Measure.real, volume_pi]
+
+/-- **Every metrized model of dimension `0` has height `0`** (for every `A`). -/
+theorem modelHeight_dim_zero (M : MetrizedModel A L 0) : M.hodge.modelHeight = 0 := by
+  have hs : M.hodge.lattice = Submodule.span (𝓞 L) {wedge0 M.model} :=
+    M.lattice_eq.trans (detLattice_zero _)
+  rw [M.hodge.modelHeight_of_span hs (wedge0_ne_zero _)]
+  have hc : ∀ τ, M.hodge.coeff τ (wedge0 M.model) = 1 := by
+    intro τ
+    obtain ⟨Φ, -, hΦ⟩ := M.arch τ
+    have := hΦ (fun i => i.elim0)
+    rw [wedge_eq_wedge0] at this
+    rw [this]
+    simp [GroupModel.jacDet]
+  have hcov : ∀ τ, torusMetricSq (M.hodge.periods τ) 1 = 1 := by
+    intro τ
+    have := M.hodge.periods_discrete τ
+    have := M.hodge.periods_isZLattice τ
+    simp [torusMetricSq, covolume_fin_zero]
+  simp [hc, hcov]
+
+end DimZero
+
+/-- (leaf-adopt3 fold) The zero abelian variety `Spec K`, for def-faltings' copy
+`ZInQ.DefFaltings.AbVar`: the body of `PkgI3.AbVar.zero` (`ZInQKernel/HDecomp/Objects.lean`, also in
+this file in section `PkgI3`) verbatim. In the kernel the source file used `PkgI3.AbVar.zero`
+(there `ZInQ.DefFaltings` works over `PkgI3.AbVar`); here `GroupModel` needs the copy. Inside
+`namespace ZInQ.H5Neron` the name `AbVar.zero` resolves to this declaration. -/
+noncomputable def AbVar.zero (K : Type) [Field K] : ZInQ.DefFaltings.AbVar K :=
+  haveI : IsProper (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
+  haveI : GeometricallyIntegral (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by
+    dsimp; infer_instance
+  { X := 𝟙_ (Over (Spec (CommRingCat.of K))) }
+
+section ZeroAV
+
+variable (K : Type) [Field K] (L : Type) [Field L] [NumberField L] [Algebra K L]
+
+/-- `((Spec K)_L) ≅ 𝟙`. -/
+noncomputable def bcUnitIso : ((AbVar.zero K).baseChange L).X ≅ 𝟙_ _ :=
+  (Functor.Monoidal.εIso (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L))))).symm
+
+/-- The trivial group model `Spec 𝓞_L` of `(Spec K)_L`. -/
+noncomputable def trivModel : GroupModel (AbVar.zero K) L where
+  G := 𝟙_ _
+  smooth := by dsimp; infer_instance
+  separated := by dsimp; infer_instance
+  qc := by dsimp; infer_instance
+  gen := (Functor.Monoidal.εIso (Over.pullback (jL L))).symm ≪≫ (bcUnitIso K L).symm
+  gen_hom := by
+    letI : GrpObj (genericFibre L (𝟙_ (Over (Spec (CommRingCat.of (𝓞 L)))))) :=
+      Functor.grpObjObj
+    exact ⟨hom_ext_of_iso_unit (bcUnitIso K L) _ _, hom_ext_of_iso_unit (bcUnitIso K L) _ _⟩
+
+/-- `Spec 𝓞_L` is a Néron model of `(Spec K)_L`. -/
+theorem trivModel_isNeronModel : (trivModel K L).IsNeronModel := by
+  intro Y _
+  refine ⟨fun f g _ => toUnit_unique _ _, fun g => ⟨toUnit Y, hom_ext_of_iso_unit (bcUnitIso K L) _ _⟩⟩
+
+/-- A group model of `(Spec K)_L` has exactly one complex point at each `τ`: `𝒢(ℂ)_τ` injects
+into `(Spec K)_L(ℂ)_τ` (adjunction `Over.map ⊣ Over.pullback`), which is a point. -/
+theorem pts_subsingleton (𝒢 : GroupModel (AbVar.zero K) L) (τ : L →+* ℂ) :
+    Subsingleton (𝒢.Pts τ) := by
+  constructor
+  intro p q
+  let P' : Over (Spec (CommRingCat.of L)) := Over.mk (Spec.map (CommRingCat.ofHom τ))
+  let e : GroupModel.ptC τ ≅ (Over.map (jL L)).obj P' := Over.isoMk (Iso.refl _) (by
+    simp only [GroupModel.ptC, P', jL, Over.map_obj_hom, Over.mk_hom, Iso.refl_hom,
+      Category.id_comp, ← Spec.map_comp]
+    rfl)
+  let adj := Over.mapPullbackAdj (jL L)
+  rw [← cancel_epi e.inv]
+  apply (adj.homEquiv P' 𝒢.G).injective
+  have := hom_ext_of_iso_unit (bcUnitIso K L) ((adj.homEquiv P' 𝒢.G) (e.inv ≫ p) ≫ 𝒢.gen.hom)
+    ((adj.homEquiv P' 𝒢.G) (e.inv ≫ q) ≫ 𝒢.gen.hom)
+  exact (cancel_mono 𝒢.gen.hom).mp this
+
+/-- The zero abelian variety has no metrized model of dimension `g ≥ 1`: the kernel of a
+uniformization `ℂ^g → 𝒢(ℂ)_τ = {pt}` would be all of `ℂ^g`, which is not discrete. -/
+theorem no_metrized_succ (n : ℕ) (M : MetrizedModel (AbVar.zero K) L (n + 1)) : False := by
+  haveI : Algebra.IsAlgebraic ℚ L := inferInstance
+  let τ : L →+* ℂ := (IsAlgClosed.lift (M := ℂ) (R := ℚ) (S := L)).toRingHom
+  obtain ⟨Φ, hΦ, -⟩ := M.arch τ
+  have hall : ∀ z, z ∈ M.hodge.periods τ := fun z => by
+    have := pts_subsingleton K L M.model τ
+    exact (hΦ.2.1 z).mp (Subsingleton.elim _ _)
+  have := M.hodge.periods_discrete τ
+  obtain ⟨t, ht, hpre⟩ := isOpen_induced_iff.mp
+    (isOpen_discrete ({⟨0, hall 0⟩} : Set (M.hodge.periods τ)))
+  have h0 : (0 : Fin (n + 1) → ℂ) ∈ t := by
+    have : (⟨0, hall 0⟩ : M.hodge.periods τ) ∈ Subtype.val ⁻¹' t := by
+      rw [hpre]; exact Set.mem_singleton _
+    exact this
+  obtain ⟨ε, hε, hball⟩ := Metric.isOpen_iff.mp ht 0 h0
+  let y : Fin (n + 1) → ℂ := fun _ => ((ε / 2 : ℝ) : ℂ)
+  have hy : y ∈ t := by
+    apply hball
+    rw [Metric.mem_ball, dist_zero_right, pi_norm_const, Complex.norm_real, Real.norm_eq_abs,
+      abs_of_pos (by linarith)]
+    linarith
+  have : (⟨y, hall y⟩ : M.hodge.periods τ) ∈ ({⟨0, hall 0⟩} : Set (M.hodge.periods τ)) := by
+    rw [← hpre]; exact hy
+  have hy0 : y = 0 := congrArg Subtype.val (Set.mem_singleton_iff.mp this)
+  have := congrFun hy0 0
+  simp only [y, Pi.zero_apply, Complex.ofReal_eq_zero] at this
+  linarith
+
+/-- `τ` as a `τ`-semilinear map `L → ℂ`. -/
+noncomputable def semσ (σ : L →+* ℂ) : L →ₛₗ[σ] ℂ where
+  toFun := σ
+  map_add' := map_add σ
+  map_smul' a x := map_mul σ a x
+
+/-- The Hodge data of a group model in dimension `0`. -/
+noncomputable def trivHodge (𝒢 : GroupModel (AbVar.zero K) L) : HodgeData L 0 (𝒢.hodgeSpace 0) where
+  lattice := 𝒢.detLattice 0
+  finrank_eq_one := by rw [(hodgeZeroEquiv 𝒢).finrank_eq, Module.finrank_self]
+  isLattice := ⟨wedge0 𝒢, by rw [detLattice_zero]; exact Submodule.mem_span_singleton_self _,
+    wedge0_ne_zero 𝒢, by
+      rw [detLattice_zero]; unfold secIndex; rw [AddSubgroup.relIndex_self]; norm_num⟩
+  periods _ := ⊤
+  periods_discrete _ := inferInstance
+  periods_isZLattice _ := ⟨eq_top_iff.mpr fun x _ => by
+    rw [Subsingleton.elim x 0]; exact zero_mem _⟩
+  coeff σ := (semσ L σ).comp (hodgeZeroEquiv 𝒢).toLinearMap
+  coeff_ne_zero σ h := by
+    have := LinearMap.congr_fun h (wedge0 𝒢)
+    simp [semσ, hodgeZeroEquiv_wedge0] at this
+
+/-- The metrized trivial model. -/
+noncomputable def trivMetrized : MetrizedModel (AbVar.zero K) L 0 where
+  model := trivModel K L
+  hodge := trivHodge K L (trivModel K L)
+  lattice_eq := rfl
+  arch τ := ⟨fun _ => toUnit _,
+    ⟨fun _ _ => toUnit_unique _ _, fun z => ⟨fun _ => Submodule.mem_top, fun _ => toUnit_unique _ _⟩,
+      fun p => ⟨0, toUnit_unique _ _⟩,
+      fun U => by
+        rcases Set.eq_empty_or_nonempty ((trivModel K L).dom (fun _ => toUnit _) U) with h | ⟨x, hx⟩
+        · rw [h]; exact isOpen_empty
+        · have : (trivModel K L).dom (fun _ => toUnit _) U = Set.univ :=
+            Set.eq_univ_of_forall fun y => Subsingleton.elim x y ▸ hx
+          rw [this]; exact isOpen_univ,
+      fun U s => differentiableOn_const _⟩,
+    fun f => by
+      show semσ L τ (hodgeZeroEquiv _ ((trivModel K L).wedge f)) = _
+      rw [wedge_eq_wedge0, hodgeZeroEquiv_wedge0]
+      simp [semσ, GroupModel.jacDet]⟩
+
+/-- **The stable Faltings height of the zero abelian variety is `0`.** -/
+theorem stableFaltingsHeight_zero [NumberField K] : stableFaltingsHeight (AbVar.zero K) = 0 := by
+  refine le_antisymm ?_ ?_
+  · have := stableFaltingsHeight_le (AbVar.zero K) (trivMetrized K K)
+    rwa [modelHeight_dim_zero, EReal.coe_zero] at this
+  · refine le_stableFaltingsHeight _ fun E g M => ?_
+    cases g with
+    | zero => rw [modelHeight_dim_zero, EReal.coe_zero]
+    | succ n => exact (no_metrized_succ K E.L n M).elim
+
+/-- Every group model of `(Spec K)_L` has a metrized model of dimension `0`. -/
+noncomputable def metrizedOf (𝒢 : GroupModel (AbVar.zero K) L) :
+    MetrizedModel (AbVar.zero K) L 0 where
+  model := 𝒢
+  hodge := trivHodge K L 𝒢
+  lattice_eq := rfl
+  arch τ := by
+    have hs := pts_subsingleton K L 𝒢 τ
+    refine ⟨fun _ => 1, ⟨fun _ _ => Subsingleton.elim _ _,
+      fun z => ⟨fun _ => Submodule.mem_top, fun _ => rfl⟩,
+      fun p => ⟨0, Subsingleton.elim _ _⟩, fun U => ?_, fun U s => differentiableOn_const _⟩,
+      fun f => ?_⟩
+    · rcases Set.eq_empty_or_nonempty (𝒢.dom (fun _ => (1 : 𝒢.Pts τ)) U) with h | ⟨x, hx⟩
+      · rw [h]; exact isOpen_empty
+      · have : 𝒢.dom (fun _ => (1 : 𝒢.Pts τ)) U = Set.univ :=
+          Set.eq_univ_of_forall fun y => Subsingleton.elim x y ▸ hx
+        rw [this]; exact isOpen_univ
+    · show semσ L τ (hodgeZeroEquiv _ (𝒢.wedge f)) = _
+      rw [wedge_eq_wedge0, hodgeZeroEquiv_wedge0]
+      simp [semσ, GroupModel.jacDet]
+
+/-- **Every group model of the zero abelian variety has height `0`.** -/
+theorem groupModel_height_zero (𝒢 : GroupModel (AbVar.zero K) L) : 𝒢.height = 0 := by
+  refine le_antisymm ?_ ?_
+  · refine iInf_le_of_le 0 (iInf_le_of_le (metrizedOf K L 𝒢) (iInf_le_of_le rfl ?_))
+    rw [modelHeight_dim_zero, EReal.coe_zero]
+  · refine le_iInf fun g => le_iInf fun M => le_iInf fun _ => ?_
+    cases g with
+    | zero => rw [modelHeight_dim_zero, EReal.coe_zero]
+    | succ n => exact (no_metrized_succ K L n M).elim
+
+/-- **`NeronModelMinimal` holds for the zero abelian variety.** -/
+theorem neronModelMinimal_zero (𝒩 𝒢 : GroupModel (AbVar.zero K) L) (_ : 𝒩.IsNeronModel) :
+    𝒩.height ≤ 𝒢.height := by
+  rw [groupModel_height_zero, groupModel_height_zero]
+
+/-- **`StableHeightFinite` holds for the zero abelian variety.** -/
+theorem stableHeightFinite_zero [NumberField K] :
+    stableFaltingsHeight (AbVar.zero K) ≠ ⊤ ∧ stableFaltingsHeight (AbVar.zero K) ≠ ⊥ := by
+  rw [stableFaltingsHeight_zero]; exact ⟨EReal.zero_ne_top, EReal.zero_ne_bot⟩
+
+/-- The identity of `Spec K` is an isogeny (so the hypothesis of R19 is satisfiable). -/
+theorem isIsogeny_id_zero : IsIsogeny (𝟙 (AbVar.zero K).X) :=
+  ⟨inferInstance, by rw [Over.id_left]; infer_instance, by rw [Over.id_left]; infer_instance⟩
+
+/-- Every endomorphism of the zero abelian variety has degree `≤ 1`. -/
+theorem isogDeg_zero_le_one (φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X) : isogDeg φ ≤ 1 := by
+  unfold isogDeg
+  have : Subsingleton {P : ptObj K (AlgebraicClosure K) ⟶ (AbVar.zero K).X // P ≫ φ = 1} :=
+    ⟨fun a b => Subtype.ext (toUnit_unique _ _)⟩
+  rcases isEmpty_or_nonempty {P : ptObj K (AlgebraicClosure K) ⟶ (AbVar.zero K).X // P ≫ φ = 1}
+    with h | h
+  · rw [Nat.card_of_isEmpty]; exact zero_le_one
+  · rw [Nat.card_of_subsingleton h.some]
+
+/-- **R21 for the zero abelian variety** (for every `g`, not only `g = dim`). -/
+theorem R21_zero [NumberField K] (g : ℕ) :
+    ((-(3 / 2) * g : ℝ) : EReal) ≤ stableFaltingsHeight (AbVar.zero K) := by
+  rw [stableFaltingsHeight_zero]
+  exact_mod_cast (by nlinarith [(Nat.cast_nonneg g : (0 : ℝ) ≤ g)] : -(3 / 2) * (g : ℝ) ≤ 0)
+
+/-- **R20 for the zero abelian variety.** -/
+theorem R20_zero [NumberField K] (φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X) (x y : ℝ)
+    (hx : stableFaltingsHeight (AbVar.zero K) = x) (hy : stableFaltingsHeight (AbVar.zero K) = y) :
+    |x - y| ≤ (1 / 2) * Real.log (isogDeg φ) := by
+  rw [stableFaltingsHeight_zero] at hx hy
+  have hx' : x = 0 := by exact_mod_cast hx.symm
+  have hy' : y = 0 := by exact_mod_cast hy.symm
+  rw [hx', hy', sub_zero, abs_zero]
+  have := Real.log_natCast_nonneg (isogDeg φ)
+  linarith
+
+theorem one_le_grKappa (g d : ℕ) (hd : 1 ≤ d) (x : ℝ) : 1 ≤ grKappa g d x := by
+  unfold grKappa
+  apply one_le_pow₀
+  have hm : 1 ≤ (max (max x (Real.log d)) 1) ^ 2 := one_le_pow₀ (le_max_right _ _)
+  have hd' : (1 : ℝ) ≤ d := by exact_mod_cast hd
+  have h14 : (1 : ℝ) ≤ (14 * g : ℝ) ^ (64 * g ^ 2) := by
+    rcases Nat.eq_zero_or_pos g with rfl | hg
+    · simp
+    · apply one_le_pow₀
+      have : (1 : ℝ) ≤ g := by exact_mod_cast hg
+      linarith
+  calc (1 : ℝ) = 1 * 1 * 1 := by ring
+    _ ≤ _ := by gcongr
+
+/-- **R19 for the zero abelian variety** (for every `g`). -/
+theorem R19_zero [NumberField K] (g : ℕ) (x : ℝ) (_ : stableFaltingsHeight (AbVar.zero K) = x)
+    (h : ∃ φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny φ) :
+    (∃ φ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny φ ∧
+        (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) ∧
+      (∃ ψ : (AbVar.zero K).X ⟶ (AbVar.zero K).X, IsIsogeny ψ ∧
+        (isogDeg ψ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) := by
+  obtain ⟨φ, hφ⟩ := h
+  have hb : (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x :=
+    le_trans (by exact_mod_cast isogDeg_zero_le_one K φ)
+      (one_le_grKappa g _ Module.finrank_pos x)
+  exact ⟨⟨φ, hφ, hb⟩, ⟨φ, hφ, hb⟩⟩
+
+end ZeroAV
+
+
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+
+section Defs
+
+variable {K : Type} [Field K] {A : AbVar K}
+
+/-- `𝒢'` (over `𝓞_{L'}`) is the base change of `𝒢` (over `𝓞_L`) along `𝓞_L → 𝓞_{L'}`, as a group
+scheme: an isomorphism of group objects `𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}`. (The identifications with
+`A_{L'}` are not compared; the height does not use them.) -/
+def IsBaseChangeOf {L L' : Type} [Field L] [NumberField L] [Algebra K L] [Field L']
+    [NumberField L'] [Algebra K L'] [Algebra L L'] (𝒢' : GroupModel A L') (𝒢 : GroupModel A L) :
+    Prop :=
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj
+    𝒢.G) := Functor.grpObjObj
+  ∃ e : 𝒢'.G ≅ (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G,
+    IsMonHom e.hom
+
+/-- `𝒰 → 𝒢` is an open immersion of group schemes over `𝓞_L`. -/
+def IsOpenSubgroupModel {L : Type} [Field L] [NumberField L] [Algebra K L]
+    (𝒰 𝒢 : GroupModel A L) : Prop :=
+  ∃ f : 𝒰.G ⟶ 𝒢.G, IsOpenImmersion f.left ∧ IsMonHom f
+
+end Defs
+
+/-! ## Leaves -/
+
+/-- **Leaf N2 (semistable reduction and base change of the identity component).** For `A` over
+a number field `K` there are a finite extension `L₀/K` and a Néron model `𝒩₀` over `𝓞_{L₀}` such
+that for every finite extension `L'/L₀` and every Néron model `𝒩'` over `𝓞_{L'}`, there is a group
+model `𝒰` (the identity component `𝒩'⁰`) that is an open subgroup both of `𝒩'` and of a base
+change `𝒱` of `𝒩₀` (namely `𝒱 = 𝒩₀ ×_{𝓞_{L₀}} 𝓞_{L'}`, with `𝒰 = 𝒩₀⁰ ×_{𝓞_{L₀}} 𝓞_{L'}`).
+Consequence of SGA 7 IX Thm 3.6 (Grothendieck's semistable reduction theorem: `A_{L₀}` is
+semistable for some finite `L₀`) and SGA 7 IX Prop./Cor. 3.3 (in the semistable case
+`(𝒩_{L'})⁰ = (𝒩⁰)_{L'}`), with the openness of the identity component (SGA 3 VI_B 3.10) and
+the compatibility of Néron models with localization (BLR §1.2); all locators UNVERIFIED. -/
+def SemistableNeronIdentityComponent : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K),
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+        ∃ 𝒰 𝒱 : GroupModel A L', IsBaseChangeOf 𝒱 𝒩₀ ∧ IsOpenSubgroupModel 𝒰 𝒩' ∧
+          IsOpenSubgroupModel 𝒰 𝒱
+
+/-! ## Glue (stated; to be proved by the project) -/
+
+/-- **Glue H4a.** The height of a fixed smooth model is invariant under base change:
+`ω_{𝒢_{L'}} = ω_𝒢 ⊗ 𝓞_{L'}` (flat base change of the conormal sheaf), the Arakelov degree is
+multiplied by `[L':L]`, and each `τ' : L' → ℂ` restricts to `τ = τ'|_L` with the same
+uniformization. -/
+def ModelHeightBaseChange : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L) (𝒢' : GroupModel A L'), IsBaseChangeOf 𝒢' 𝒢 → 𝒢'.height = 𝒢.height
+
+/-- **Glue H4b.** A group model base-changes to a group model (smoothness, separatedness and
+quasi-compactness are stable under base change; the group structure is transported by the monoidal
+functor `Over.pullback`; the generic fibre is `A_L ×_L L' ≅ A_{L'}` by pullback pasting). -/
+def GroupModelBaseChangeExists : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L'] [IsScalarTower K L L']
+    (𝒢 : GroupModel A L), ∃ 𝒢' : GroupModel A L', IsBaseChangeOf 𝒢' 𝒢
+
+/-- **Glue M6.** An open subgroup model has the same height: an open immersion `𝒰 → 𝒢` of group
+schemes induces isomorphisms of the local rings along the unit section (so the same `ω`) and a
+group bijection on complex points (on generic fibres it is an open immersion from a proper
+connected scheme, hence an isomorphism; it need not be compatible with the two `gen`). -/
+def OpenSubgroupHeight : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒰 𝒢 : GroupModel A L), IsOpenSubgroupModel 𝒰 𝒢 → 𝒰.height = 𝒢.height
+
+/-! ## Glue (proved): composita -/
+
+/-- **The compositum.** Two number fields `L, L₀` over a number field `K` embed `K`-linearly in a
+common number field `L'`. Proved (inside `AlgebraicClosure K`). -/
+theorem compositum (K : Type) [Field K] [NumberField K] (L L₀ : Type) [Field L] [NumberField L]
+    [Algebra K L] [Field L₀] [NumberField L₀] [Algebra K L₀] :
+    ∃ (L' : Type) (_ : Field L') (_ : NumberField L') (_ : Algebra K L') (_ : Algebra L L')
+      (_ : Algebra L₀ L'), IsScalarTower K L L' ∧ IsScalarTower K L₀ L' := by
+  let Ω := AlgebraicClosure K
+  haveI : Module.Finite K L := Module.Finite.of_restrictScalars_finite ℚ K L
+  haveI : Module.Finite K L₀ := Module.Finite.of_restrictScalars_finite ℚ K L₀
+  let eL : L →ₐ[K] Ω := IsAlgClosed.lift
+  let eL₀ : L₀ →ₐ[K] Ω := IsAlgClosed.lift
+  let E : IntermediateField K Ω := eL.fieldRange ⊔ eL₀.fieldRange
+  haveI : FiniteDimensional K eL.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL).toLinearEquiv
+  haveI : FiniteDimensional K eL₀.fieldRange :=
+    LinearEquiv.finiteDimensional (AlgEquiv.ofInjectiveField eL₀).toLinearEquiv
+  haveI : FiniteDimensional K E := IntermediateField.finiteDimensional_sup _ _
+  haveI : CharZero E := charZero_of_injective_algebraMap (algebraMap K E).injective
+  haveI : FiniteDimensional ℚ E := Module.Finite.trans K E
+  haveI : NumberField E := ⟨⟩
+  let f : L →ₐ[K] E := (IntermediateField.inclusion le_sup_left).comp
+    (AlgEquiv.ofInjectiveField eL).toAlgHom
+  let f₀ : L₀ →ₐ[K] E := (IntermediateField.inclusion le_sup_right).comp
+    (AlgEquiv.ofInjectiveField eL₀).toAlgHom
+  letI : Algebra L E := f.toRingHom.toAlgebra
+  letI : Algebra L₀ E := f₀.toRingHom.toAlgebra
+  refine ⟨E, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance, ?_, ?_⟩
+  · exact IsScalarTower.of_algebraMap_eq fun x => (f.commutes x).symm
+  · exact IsScalarTower.of_algebraMap_eq fun x => (f₀.commutes x).symm
+
+/-! ## The reduction (proved) -/
+
+/-- **H5 from the leaves N1, N2 and the glue.** For every abelian variety over a number field
+there are a finite extension `L₀` and a Néron model `𝒩₀` over `𝓞_{L₀}` whose height is the stable
+Faltings height. -/
+theorem stableFaltingsHeight_eq_neron (hN1 : NeronModelExists)
+    (hN2 : SemistableNeronIdentityComponent) (hmin : NeronModelMinimal)
+    (hbc : ModelHeightBaseChange) (hbcE : GroupModelBaseChangeExists)
+    (hop : OpenSubgroupHeight) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height := by
+  obtain ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, hbase⟩ := hN2 K A
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, ?_⟩
+  rw [stableFaltingsHeight_eq_iInf_height]
+  refine le_antisymm (iInf_le_of_le (FinExt.mk L₀) (iInf_le_of_le 𝒩₀ le_rfl)) ?_
+  refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+  obtain ⟨L', j1, j2, j3, j4, j5, t1, t2⟩ := compositum K E.L L₀
+  obtain ⟨𝒢', h𝒢'⟩ := hbcE K A E.L L' 𝒢
+  obtain ⟨𝒩', h𝒩'⟩ := hN1 K A L'
+  obtain ⟨𝒰, 𝒱, h𝒱, h𝒰𝒩, h𝒰𝒱⟩ := hbase L' 𝒩' h𝒩'
+  calc 𝒩₀.height = 𝒱.height := (hbc K A L₀ L' 𝒩₀ 𝒱 h𝒱).symm
+    _ = 𝒰.height := (hop K A L' 𝒰 𝒱 h𝒰𝒱).symm
+    _ = 𝒩'.height := hop K A L' 𝒰 𝒩' h𝒰𝒩
+    _ ≤ 𝒢'.height := hmin K A L' 𝒩' 𝒢' h𝒩'
+    _ = 𝒢.height := hbc K A E.L L' 𝒢 𝒢' h𝒢'
+
+/-- **H5, the form R19-R21 need.** Under the same hypotheses, with `L₀` and `𝒩₀` given by N2 (the
+intended witness is a field of semistable reduction, where `𝒩₀.height` is Faltings' published
+stable height; the Lean statement does not record semistability): the stable height equals
+the Néron-model height over `L₀` and over **every** finite extension `L'` of `L₀`. -/
+theorem stableFaltingsHeight_eq_neron_all (hN1 : NeronModelExists)
+    (hN2 : SemistableNeronIdentityComponent) (hmin : NeronModelMinimal)
+    (hbc : ModelHeightBaseChange) (hbcE : GroupModelBaseChangeExists)
+    (hop : OpenSubgroupHeight) (K : Type) [Field K] [NumberField K] (A : AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀) (𝒩₀ : GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel A L'), 𝒩'.IsNeronModel →
+        stableFaltingsHeight A = 𝒩'.height := by
+  obtain ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, hbase⟩ := hN2 K A
+  have heq : stableFaltingsHeight A = 𝒩₀.height := by
+    rw [stableFaltingsHeight_eq_iInf_height]
+    refine le_antisymm (iInf_le_of_le (FinExt.mk L₀) (iInf_le_of_le 𝒩₀ le_rfl)) ?_
+    refine le_iInf fun E => le_iInf fun 𝒢 => ?_
+    obtain ⟨L', j1, j2, j3, j4, j5, t1, t2⟩ := compositum K E.L L₀
+    obtain ⟨𝒢', h𝒢'⟩ := hbcE K A E.L L' 𝒢
+    obtain ⟨𝒩', h𝒩'⟩ := hN1 K A L'
+    obtain ⟨𝒰, 𝒱, h𝒱, h𝒰𝒩, h𝒰𝒱⟩ := hbase L' 𝒩' h𝒩'
+    calc 𝒩₀.height = 𝒱.height := (hbc K A L₀ L' 𝒩₀ 𝒱 h𝒱).symm
+      _ = 𝒰.height := (hop K A L' 𝒰 𝒱 h𝒰𝒱).symm
+      _ = 𝒩'.height := hop K A L' 𝒰 𝒩' h𝒰𝒩
+      _ ≤ 𝒢'.height := hmin K A L' 𝒩' 𝒢' h𝒩'
+      _ = 𝒢.height := hbc K A E.L L' 𝒢 𝒢' h𝒢'
+  refine ⟨L₀, i1, i2, i3, 𝒩₀, h𝒩₀, heq, ?_⟩
+  intro L' j1 j2 j3 j4 j5 𝒩' h𝒩'
+  obtain ⟨𝒰, 𝒱, h𝒱, h𝒰𝒩, h𝒰𝒱⟩ := hbase L' 𝒩' h𝒩'
+  rw [heq, ← hbc K A L₀ L' 𝒩₀ 𝒱 h𝒱, ← hop K A L' 𝒰 𝒱 h𝒰𝒱, hop K A L' 𝒰 𝒩' h𝒰𝒩]
+
+
+/-! ## Part D: the leaves N1, N2 and the glue hold for the zero abelian variety (proved)
+
+So the hypotheses of `stableFaltingsHeight_eq_neron` and `stableFaltingsHeight_add_le` are
+consistent with the definitions in the only case Mathlib can construct. -/
+
+section ZeroInstances
+
+/-- A morphism into a monoid object isomorphic to the unit is a monoid morphism (instance
+arguments are unified, not synthesized). -/
+theorem isMonHom_of_iso_unit {C : Type*} [Category C] [CartesianMonoidalCategory C] {M N : C}
+    {_ : MonObj M} {_ : MonObj N} (i : N ≅ 𝟙_ C) (f : M ⟶ N) : IsMonHom f :=
+  ⟨hom_ext_of_iso_unit i _ _, hom_ext_of_iso_unit i _ _⟩
+
+/-- A Néron model of `(Spec K)_L` is isomorphic to the unit `Spec 𝓞_L`. -/
+theorem neron_zero_iso_unit (K : Type) [Field K] (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒩 : GroupModel (AbVar.zero K) L) (h : 𝒩.IsNeronModel) : Nonempty (𝒩.G ≅ 𝟙_ _) := by
+  obtain ⟨φ, -⟩ := GroupModel.IsNeronModel.uniqueIso h (trivModel_isNeronModel K L)
+  exact ⟨φ⟩
+
+/-- **N1 for the zero abelian variety.** -/
+theorem neronModelExists_zero (K : Type) [Field K] (L : Type) [Field L] [NumberField L]
+    [Algebra K L] : ∃ 𝒩 : GroupModel (AbVar.zero K) L, 𝒩.IsNeronModel :=
+  ⟨trivModel K L, trivModel_isNeronModel K L⟩
+
+/-- **N2 for the zero abelian variety** (with `L₀ = K`, `𝒩₀ = Spec 𝓞_K`). -/
+theorem semistableNeronIdentityComponent_zero (K : Type) [Field K] [NumberField K] :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀)
+      (𝒩₀ : GroupModel (AbVar.zero K) L₀),
+      𝒩₀.IsNeronModel ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : GroupModel (AbVar.zero K) L'), 𝒩'.IsNeronModel →
+        ∃ 𝒰 𝒱 : GroupModel (AbVar.zero K) L', IsBaseChangeOf 𝒱 𝒩₀ ∧
+          IsOpenSubgroupModel 𝒰 𝒩' ∧ IsOpenSubgroupModel 𝒰 𝒱 := by
+  refine ⟨K, inferInstance, inferInstance, inferInstance, trivModel K K,
+    trivModel_isNeronModel K K, ?_⟩
+  intro L' i1 i2 i3 i4 i5 𝒩' h𝒩'
+  letI : Algebra K L' := i3
+  obtain ⟨i⟩ := neron_zero_iso_unit K L' 𝒩' h𝒩'
+  refine ⟨trivModel K L', trivModel K L', ?_, ?_, ?_⟩
+  · unfold IsBaseChangeOf
+    exact ⟨Functor.Monoidal.εIso _, isMonHom_of_iso_unit (Functor.Monoidal.εIso _).symm _⟩
+  · refine ⟨i.inv, ?_, ⟨hom_ext_of_iso_unit i _ _, hom_ext_of_iso_unit i _ _⟩⟩
+    show IsOpenImmersion ((Over.forget _).map i.inv)
+    infer_instance
+  · refine ⟨𝟙 _, ?_, inferInstance⟩
+    rw [Over.id_left]; infer_instance
+
+/-- **The glue statements hold for the zero abelian variety** (all its group models have height
+`0`, `groupModel_height_zero`). -/
+theorem glue_zero (K : Type) [Field K] (L L' : Type) [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] :
+    (∀ (𝒢 : GroupModel (AbVar.zero K) L) (𝒢' : GroupModel (AbVar.zero K) L'),
+      𝒢'.height = 𝒢.height) ∧
+    (∀ 𝒰 𝒢 : GroupModel (AbVar.zero K) L, 𝒰.height = 𝒢.height) ∧
+    (∀ 𝒢₁ 𝒢₂ 𝒢₃ : GroupModel (AbVar.zero K) L, 𝒢₁.height + 𝒢₂.height ≤ 𝒢₃.height) := by
+  refine ⟨fun 𝒢 𝒢' => ?_, fun 𝒰 𝒢 => ?_, fun 𝒢₁ 𝒢₂ 𝒢₃ => ?_⟩ <;>
+    simp only [groupModel_height_zero, add_zero, le_refl]
+
+end ZeroInstances
+
+/-! ## Part E: the glue `ProductGroupModelExists`, proved; additivity from three hypotheses -/
+
+section ProductProof
+
+open scoped Obj
+
+/-- `prodComparison` of a braided monoidal functor between cartesian categories is a monoid
+morphism. -/
+theorem isMonHom_prodComparisonIso {S S' : Scheme.{0}} (j : S' ⟶ S) (X Y : Over S) [GrpObj X]
+    [GrpObj Y] :
+    IsMonHom (prodComparisonIso (Over.pullback j) X Y).hom := by
+  have h : (prodComparisonIso (Over.pullback j) X Y).hom =
+      (Functor.Monoidal.μIso (Over.pullback j) X Y).inv := by
+    rw [prodComparisonIso_hom, ← Functor.OplaxMonoidal.δ_of_cartesianMonoidalCategory]
+    rfl
+  have h0 : IsMonHom (Functor.Monoidal.μIso (Over.pullback j) X Y).hom :=
+    (inferInstance : IsMonHom (Functor.LaxMonoidal.μ (Over.pullback j) X Y))
+  rw [h]
+  infer_instance
+
+/-- **Glue P1, proved.** -/
+theorem productGroupModelExists : ProductGroupModelExists := by
+  unfold ProductGroupModelExists
+  intro K _ A B C eC h1 h2 L _ _ _ 𝒢₁ 𝒢₂
+  haveI : Smooth (𝒢₁.G ⊗ 𝒢₂.G).hom := by
+    show Smooth (pullback.fst 𝒢₁.G.hom 𝒢₂.G.hom ≫ 𝒢₁.G.hom); infer_instance
+  haveI : IsSeparated (𝒢₁.G ⊗ 𝒢₂.G).hom := by
+    show IsSeparated (pullback.fst 𝒢₁.G.hom 𝒢₂.G.hom ≫ 𝒢₁.G.hom); infer_instance
+  haveI : QuasiCompact (𝒢₁.G ⊗ 𝒢₂.G).hom := by
+    show QuasiCompact (pullback.fst 𝒢₁.G.hom 𝒢₂.G.hom ≫ 𝒢₁.G.hom); infer_instance
+  haveI : IsMonHom eC.hom := by
+    have : eC.hom = lift (eC.hom ≫ fst A.X B.X) (eC.hom ≫ snd A.X B.X) := by
+      apply CartesianMonoidalCategory.hom_ext <;> simp
+    rw [this]; infer_instance
+  let F := Over.pullback (jL L)
+  let F' := Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))
+  let gen : genericFibre L (𝒢₁.G ⊗ 𝒢₂.G) ≅ (C.baseChange L).X :=
+    tensorGen 𝒢₁.gen 𝒢₂.gen ≪≫ (bcProd L eC).symm
+  have gen_hom : letI : GrpObj (genericFibre L (𝒢₁.G ⊗ 𝒢₂.G)) := Functor.grpObjObj
+      IsMonHom gen.hom := by
+    let g₁ : F.obj 𝒢₁.G ⟶ F'.obj A.X := 𝒢₁.gen.hom
+    let g₂ : F.obj 𝒢₂.G ⟶ F'.obj B.X := 𝒢₂.gen.hom
+    have g1 : IsMonHom g₁ := 𝒢₁.gen_hom
+    have g2 : IsMonHom g₂ := 𝒢₂.gen_hom
+    have p1 := isMonHom_prodComparisonIso (jL L) 𝒢₁.G 𝒢₂.G
+    have p2 := isMonHom_prodComparisonIso (Spec.map (CommRingCat.ofHom (algebraMap K L))) A.X B.X
+    have : IsMonHom ((prodComparisonIso F 𝒢₁.G 𝒢₂.G).hom ≫
+        (g₁ ⊗ₘ g₂) ≫
+        (prodComparisonIso F' A.X B.X).inv ≫ F'.map eC.inv) := inferInstance
+    exact this
+  refine ⟨⟨𝒢₁.G ⊗ 𝒢₂.G, gen, gen_hom⟩, Iso.refl _, ?_, ?_, ?_⟩
+  · show IsMonHom (𝟙 _ ≫ fst _ _); infer_instance
+  · show IsMonHom (𝟙 _ ≫ snd _ _); infer_instance
+  · show F.map (𝟙 _) ≫ _ = (tensorGen 𝒢₁.gen 𝒢₂.gen ≪≫ (bcProd L eC).symm).hom ≫ _
+    rw [F.map_id, Category.id_comp, Iso.trans_hom, Iso.symm_hom, Category.assoc,
+      Iso.inv_hom_id, Category.comp_id]
+
+
+/-- **`h(A) + h(B) ≤ h(A × B)` from N1, `NeronModelMinimal` and `ProductModelHeight` only.** -/
+theorem stableFaltingsHeight_add_le' (hN1 : NeronModelExists) (hmin : NeronModelMinimal)
+    (hH : ProductModelHeight) {K : Type} [Field K] (A B C : AbVar K) (hC : IsProductAbVar C A B) :
+    stableFaltingsHeight A + stableFaltingsHeight B ≤ stableFaltingsHeight C :=
+  stableFaltingsHeight_add_le hN1 hmin productGroupModelExists hH A B C hC
+
+end ProductProof
+
+end ZInQ.H5Neron
+
+/-! ### leaf-adopt3 fold: bridges to `LeafAdopt.H5` and to g0-split's `HeightAdditivity`
+
+No theorem of h5-neron concludes `LeafAdopt.H5` or either of its halves for a general `A`:
+`NeronModelMinimal` is a *hypothesis* of every reduction, and `StableHeightFinite` is proved only for
+the zero abelian variety (`stableHeightFinite_zero`). The bridges below therefore take `LeafAdopt.H5`
+(the bundle field `ResearchLeaves.h5`) as the source of `NeronModelMinimal`. -/
+
+namespace ZInQ.H5Neron
+
+open CategoryTheory MonoidalCategory CartesianMonoidalCategory MonObj
+
+/-- **H5, the form R19-R21 need, from the bundle field `h5`** (its `NeronModelMinimal` half), N1, N2
+and the three base-change glue statements. -/
+theorem stableFaltingsHeight_eq_neron_all_of_H5 (h5 : LeafAdopt.H5) (hN1 : NeronModelExists)
+    (hN2 : SemistableNeronIdentityComponent) (hbc : ModelHeightBaseChange)
+    (hbcE : GroupModelBaseChangeExists) (hop : OpenSubgroupHeight)
+    (K : Type) [Field K] [NumberField K] (A : ZInQ.DefFaltings.AbVar K) :
+    ∃ (L₀ : Type) (_ : Field L₀) (_ : NumberField L₀) (_ : Algebra K L₀)
+      (𝒩₀ : ZInQ.DefFaltings.GroupModel A L₀),
+      𝒩₀.IsNeronModel ∧ ZInQ.DefFaltings.stableFaltingsHeight A = 𝒩₀.height ∧
+      ∀ (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L']
+        [IsScalarTower K L₀ L'] (𝒩' : ZInQ.DefFaltings.GroupModel A L'), 𝒩'.IsNeronModel →
+        ZInQ.DefFaltings.stableFaltingsHeight A = 𝒩'.height :=
+  stableFaltingsHeight_eq_neron_all hN1 hN2 h5.2 hbc hbcE hop K A
+
+/-- **Additivity `h(A) + h(B) ≤ h(C)` for `C ≅ A × B`, from the bundle field `h5`**, N1 and P2. -/
+theorem stableFaltingsHeight_add_le_of_H5 (h5 : LeafAdopt.H5) (hN1 : NeronModelExists)
+    (hH : ProductModelHeight) {K : Type} [Field K] (A B C : ZInQ.DefFaltings.AbVar K)
+    (hC : IsProductAbVar C A B) :
+    ZInQ.DefFaltings.stableFaltingsHeight A + ZInQ.DefFaltings.stableFaltingsHeight B ≤
+      ZInQ.DefFaltings.stableFaltingsHeight C :=
+  stableFaltingsHeight_add_le' hN1 h5.2 hH A B C hC
+
+/-- **g0-split's glue piece `HeightAdditivity`, with `IsProductOf` unfolded** (g0-split's
+`HSyn.G0Split.HeightAdditivity` and `IsProductOf` come later in this file, so they cannot be named
+here). From N1, `NeronModelMinimal` and P2 (`ProductModelHeight`). The bridge, to be placed after
+g0-split's definitions:
+`fun L _ _ P A Z ⟨p₁, p₂, h₁, h₂, h⟩ => heightAdditivity_unfolded hN1 hmin hH L P A Z p₁ p₂ h₁ h₂ h`. -/
+theorem heightAdditivity_unfolded (hN1 : NeronModelExists)
+    (hmin : ZInQ.DefFaltings.NeronModelMinimal) (hH : ProductModelHeight) :
+    ∀ (L : Type) [Field L] [NumberField L] (P A Z : ZInQ.DefFaltings.AbVar L)
+      (p₁ : P.X ⟶ A.X) (p₂ : P.X ⟶ Z.X), IsMonHom p₁ → IsMonHom p₂ → IsIso (CartesianMonoidalCategory.lift p₁ p₂) →
+      ∀ a z p : ℝ, ZInQ.DefFaltings.stableFaltingsHeight A = a →
+        ZInQ.DefFaltings.stableFaltingsHeight Z = z →
+        ZInQ.DefFaltings.stableFaltingsHeight P = p → a + z ≤ p := by
+  intro L _ _ P A Z p₁ p₂ h₁ h₂ hiso a z p ha hz hp
+  have hC : IsProductAbVar P A Z := by
+    refine ⟨asIso (CartesianMonoidalCategory.lift p₁ p₂), ?_, ?_⟩
+    · rw [asIso_hom, CartesianMonoidalCategory.lift_fst]; exact h₁
+    · rw [asIso_hom, CartesianMonoidalCategory.lift_snd]; exact h₂
+  have key := stableFaltingsHeight_add_le' hN1 hmin hH A Z P hC
+  rw [ha, hz, hp] at key
+  exact_mod_cast key
+
+end ZInQ.H5Neron
+
+end H5NeronSec
+
+/-! ## x1-belyi (wave 25; leaf-adopt3 fold): `X1ModelExists` and `BelyiX1` from five leaves
+
+Copied verbatim from `scratch/x1-belyi/X1Belyi.lean` (which imported
+`ZInQKernel.HDecomp.ModCurves.Glue`; every kernel name it uses is in `LeafModCurvesSec` above with
+the same body). Changes: the import and the `#print axioms` lines are dropped; the file-level
+`set_option linter.unusedSimpArgs false` is scoped to this section; the bridge
+`X1Belyi.exists_J1_of_leaves` is added at the end. New leaf Props: `X1Belyi.TorsionStructure`,
+`GoodReductionUnramified`, `CurveOfFunctionFieldQ`, `X1ConstantField`, `X1RationalCusp` (bundled
+as `X1Belyi.X1Leaves`). No proof holes. -/
+
+section X1BelyiSec
+
+set_option linter.unusedSimpArgs false
+
+
+/-!
+# x1-belyi: the glue targets `X1ModelExists` and `BelyiX1` from literature leaves
+
+Task x1-belyi (2026-11-12), nodes MC4, MC5, MC10 of `docs/research/bp-modcurves.md`.
+The targets are the definitions `LeafModCurves.X1ModelExists` and `LeafModCurves.BelyiX1` of
+`ZInQKernel/HDecomp/ModCurves/Leaves.lean` (imported, not restated).
+
+Leaves (`def … : Prop`, published statements or consequences of them, over genuine
+definitions):
+* `TorsionStructure`: `E[N](K) ≅ ℤ/N × ℤ/N` over an algebraically closed field of
+  characteristic 0 (Silverman, AEC, Cor. III.6.4(b), UNVERIFIED number).
+* `GoodReductionUnramified`: good reduction at a place of `k(T)` with residue characteristic 0
+  ⇒ the field of an `N`-torsion `x`-coordinate is unramified there (Serre–Tate 1968, Thm 1 /
+  Néron–Ogg–Shafarevich, Silverman AEC Prop. VII.4.1, UNVERIFIED numbers).
+* `CurveOfFunctionFieldQ`: a finite extension `F` of `ℚ(T)` with constant field `ℚ` is the
+  function field of a smooth proper geometrically connected integral curve over `ℚ`, which has a
+  `ℚ`-point when `F` has a place of degree 1 (Stacks, Curves and function fields; UNVERIFIED tags).
+* `X1ConstantField`: `ℚ` is algebraically closed in `K_N = ℚ(j)(x(P))` (Igusa; geometric
+  irreducibility of `X₁(N)` over `ℚ`; UNVERIFIED).
+* `X1RationalCusp`: `K_N` has a place of degree 1 over `ℚ` (a `ℚ`-rational cusp of `X₁(N)`;
+  UNVERIFIED).
+
+Proved (glue): `belyiX1_of_leaves : TorsionStructure → GoodReductionUnramified → BelyiX1` and
+`x1ModelExists_of_leaves : TorsionStructure → CurveOfFunctionFieldQ → X1ConstantField →
+X1RationalCusp → X1ModelExists`.
+-/
+
+noncomputable section
+
+namespace X1Belyi
+
+open LeafModCurves
+open WeierstrassCurve AlgebraicGeometry CategoryTheory
+open Polynomial
+
+/-! ## Definitions -/
+
+/-- The `N`-torsion subgroup `W[N]` of the points of a Weierstrass curve over a field. -/
+def nTors {K : Type} [Field K] [DecidableEq K] (W : WeierstrassCurve K) (N : ℕ) :
+    AddSubgroup W.toAffine.Point where
+  carrier := {P | N • P = 0}
+  zero_mem' := nsmul_zero N
+  add_mem' := by
+    intro a b ha hb
+    simp only [Set.mem_ofPred_eq] at *
+    rw [nsmul_add, ha, hb, add_zero]
+  neg_mem' := by
+    intro a ha
+    simp only [Set.mem_ofPred_eq] at *
+    rw [smul_neg, ha, neg_zero]
+
+/-- `ℚ → F` for a field `F` over `ℚ(T)` (avoids a second `ℚ`-algebra instance). -/
+def ratHom (F : Type) [Field F] [Algebra Qj F] : ℚ →+* F :=
+  (algebraMap Qj F).comp (algebraMap ℚ Qj)
+
+/-- `ℚ` is algebraically closed in `F`: every element of `F` algebraic over `ℚ` is rational. -/
+def ConstantFieldIsQ (F : Type) [Field F] [Algebra Qj F] : Prop :=
+  ∀ x : F, (∃ f : ℚ[X], f ≠ 0 ∧ f.eval₂ (ratHom F) x = 0) → x ∈ Set.range (ratHom F)
+
+/-- `F` has a place of degree 1 over `ℚ`: a proper valuation subring containing `ℚ` whose
+residue field is `ℚ` (every element of `w` is congruent to a rational modulo `𝔪_w`). -/
+def HasRationalPlace (F : Type) [Field F] [Algebra Qj F] : Prop :=
+  ∃ w : ValuationSubring F, w ≠ ⊤ ∧ (∀ c : ℚ, ratHom F c ∈ w) ∧
+    ∀ x ∈ w, ∃ c : ℚ, x - ratHom F c ∈ w.nonunits
+
+/-! ## Leaves -/
+
+/-- **Leaf T1 (structure of `E[N]`).** For an elliptic curve `E` over an algebraically closed
+field `K` of characteristic 0 and `N ≥ 1`, `E[N] ≅ ℤ/N × ℤ/N`. Silverman, *The Arithmetic of
+Elliptic Curves*, Cor. III.6.4(b) (UNVERIFIED number; the published statement for `char K ∤ N`,
+specialized to characteristic 0). -/
+def TorsionStructure : Prop :=
+  ∀ (K : Type) [Field K] [DecidableEq K] [IsAlgClosed K] [CharZero K] (W : WeierstrassCurve K) [W.IsElliptic]
+    (N : ℕ), 0 < N → Nonempty (nTors W N ≃+ (ZMod N × ZMod N))
+
+/-- **Leaf T2 (good reduction ⇒ unramified torsion), function-field form.** Let `k` be a field of
+characteristic 0, `E/k(T)` an elliptic curve, `p ∈ k[T]` irreducible, and suppose `E` has good
+reduction at `p`: its coefficients are `p`-integral and its discriminant is a `p`-adic unit. Let
+`P ∈ E(\overline{k(T)})` be a torsion point and `L = k(T)(x(P))`. Then `L/k(T)` is unramified at
+`p`: for every valuation subring `w` of `L` containing `k[T]` with `p ∈ 𝔪_w`, `p` generates `𝔪_w`.
+
+Source: Néron–Ogg–Shafarevich, in the form of Serre–Tate, *Good reduction of abelian varieties*,
+Ann. of Math. 88 (1968), Thm 1 (for any discretely valued field: good reduction ⇒ inertia acts
+trivially on `E[m]`, `m` prime to the residue characteristic; here the residue characteristic is
+0); Silverman AEC Prop. VII.4.1 for complete fields (UNVERIFIED numbers). The step from "inertia
+acts trivially on `E[N]`" to "`k(T)(x(P))` has ramification index 1 at every place over `p`" is the
+standard characterization of the fixed field of inertia (Serre, *Local Fields*, I §7, UNVERIFIED).
+A consequence of the published statement, specialized to `K = k(T)`. -/
+def GoodReductionUnramified : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (W : WeierstrassCurve (RatFunc k)) [W.IsElliptic]
+    [DecidableEq (AlgebraicClosure (RatFunc k))] (p : k[X]), Irreducible p →
+    (∀ a ∈ ({W.a₁, W.a₂, W.a₃, W.a₄, W.a₆} : Set (RatFunc k)),
+      ∃ b c : k[X], ¬ p ∣ c ∧ a * algebraMap k[X] (RatFunc k) c = algebraMap k[X] (RatFunc k) b) →
+    (∃ b c : k[X], ¬ p ∣ b ∧ ¬ p ∣ c ∧
+      W.Δ * algebraMap k[X] (RatFunc k) c = algebraMap k[X] (RatFunc k) b) →
+    ∀ P : (W.baseChange (AlgebraicClosure (RatFunc k))).toAffine.Point,
+    (∃ N : ℕ, 0 < N ∧ N • P = 0) →
+    ∀ w : ValuationSubring (IntermediateField.adjoin (RatFunc k) {xCoord P}),
+      (∀ c : k[X], algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) c) ∈ w) →
+      algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) p) ∈ w.nonunits →
+      ∀ x ∈ w.nonunits, ∃ y ∈ w,
+        x = algebraMap (RatFunc k) _ (algebraMap k[X] (RatFunc k) p) * y
+
+/-- **Leaf M1 (curves and function fields over `ℚ`).** Let `F` be a finite extension of `ℚ(T)` in
+which `ℚ` is algebraically closed. Then there is a smooth proper geometrically connected integral
+curve `X` over `ℚ` with function field `F`; if `F` has a place of degree 1 over `ℚ`, then `X` has
+a `ℚ`-point.
+
+Source (UNVERIFIED tags and numbers): the Stacks Project, chapter *Algebraic Curves*, section
+"Curves and function fields" (a finitely generated extension of transcendence degree 1 is the
+function field of a normal projective curve, whose closed points correspond to the nontrivial
+valuation rings of `F/k`, with the same residue fields); normal of dimension 1 over a perfect
+field ⇒ smooth; `H⁰(X, 𝒪_X)` is the algebraic closure of `k` in `F`, so `X` is geometrically
+connected when `k` is algebraically closed in `F`. Hartshorne I.6.7-6.12 and II.6.7 over an
+algebraically closed field. The published statement specialized to `k = ℚ`. -/
+def CurveOfFunctionFieldQ : Prop :=
+  ∀ (F : Type) [Field F] [Algebra Qj F] [FiniteDimensional Qj F],
+    ConstantFieldIsQ F →
+    ∃ X : Over SpecQ, IsCurve X ∧ (HasRationalPlace F → Nonempty (RatPt X)) ∧
+      ∃ (_ : IsIntegral X.left), Nonempty (X.left.functionField ≃+* F)
+
+/-- **Leaf M2 (constant field of `K_N`).** For `P` of exact order `N` on `E_j`, `ℚ` is
+algebraically closed in `K_N = ℚ(j)(x(P))`: `X₁(N)` is geometrically irreducible over `ℚ`.
+Igusa, *Fibre systems of Jacobian varieties III*, Amer. J. Math. 81 (1959) (the Galois group of
+`ℚ̄(j)(E[N])/ℚ̄(j)` is `SL₂(ℤ/N)/±1` up to `±`, so the constants of `ℚ(j)(E[N])` are `ℚ(ζ_N)`, and
+the subfield fixed by the stabilizer of `±P` meets them in `ℚ`); Shimura 1971 §6.2, Prop. 6.9
+(UNVERIFIED numbers). -/
+def X1ConstantField : Prop :=
+  ∀ (N : ℕ) (P : EjBar.toAffine.Point), 0 < N → addOrderOf P = N → ConstantFieldIsQ (fieldX1 P)
+
+/-- **Leaf M3 (a rational cusp).** For `P` of exact order `N` on `E_j`, `K_N` has a place of
+degree 1 over `ℚ`. (On the Tate curve over `ℚ((q))` the point `q^{1/N}` has exact order `N` and
+`x(q^{1/N}) ∈ ℚ((q^{1/N}))`, totally ramified over `j = ∞` with residue field `ℚ`; all points of
+exact order `N` are conjugate over `ℚ(j)` up to sign by Igusa's theorem. Silverman, *Advanced
+Topics*, Thm V.3.1 for the Tate curve; the rational cusps of `X₁(N)`: Ogg, *Rational points on
+certain elliptic modular curves* (1973), UNVERIFIED.) -/
+def X1RationalCusp : Prop :=
+  ∀ (N : ℕ) (P : EjBar.toAffine.Point), 0 < N → addOrderOf P = N → HasRationalPlace (fieldX1 P)
+
+/-! ## Basic facts -/
+
+instance : CharZero Kbar :=
+  charZero_of_injective_algebraMap (algebraMap Qj Kbar).injective
+
+instance : EjBar.IsElliptic := inferInstanceAs ((Ej.map (algebraMap Qj Kbar)).IsElliptic)
+
+theorem nTors_card (K : Type) [Field K] [DecidableEq K] (W : WeierstrassCurve K) (N : ℕ) (hN : 0 < N)
+    (e : nTors W N ≃+ (ZMod N × ZMod N)) : Nat.card (nTors W N) = N ^ 2 := by
+  have : NeZero N := ⟨hN.ne'⟩
+  rw [Nat.card_congr e.toEquiv, Nat.card_prod, Nat.card_zmod, sq]
+
+/-- A point of exact order `N` from `E[N] ≅ ℤ/N × ℤ/N`. -/
+theorem exists_addOrderOf (K : Type) [Field K] [DecidableEq K] (W : WeierstrassCurve K) (N : ℕ)
+    (e : nTors W N ≃+ (ZMod N × ZMod N)) : ∃ P : W.toAffine.Point, addOrderOf P = N := by
+  refine ⟨(e.symm (1, 0) : W.toAffine.Point), ?_⟩
+  rw [AddSubgroup.addOrderOf_coe, AddEquiv.addOrderOf_eq, Prod.addOrderOf, ZMod.addOrderOf_one,
+    addOrderOf_zero, Nat.lcm_one_right]
+
+/-! ## The degree bound `[K_N : ℚ(j)] ≤ N²` (from leaf T1) -/
+
+/-- `x(σ P) = σ(x(P))`. -/
+theorem xCoord_map (σ : Kbar ≃ₐ[Qj] Kbar) (P : EjBar.toAffine.Point) :
+    xCoord (WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P) = σ (xCoord P) := by
+  cases P with
+  | zero => exact (map_zero σ).symm
+  | some x y h => rfl
+
+theorem map_mem_nTors (σ : Kbar ≃ₐ[Qj] Kbar) (N : ℕ) (P : EjBar.toAffine.Point) (hP : N • P = 0) :
+    WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P ∈ nTors EjBar N := by
+  show N • _ = 0
+  exact (map_nsmul _ N P).symm.trans ((congrArg _ hP).trans (map_zero _))
+
+/-- **Degree bound (glue, proved from T1).** For `N • P = 0`, `N ≥ 1`:
+`[ℚ(j)(x(P)) : ℚ(j)] ≤ N²`. The conjugates of `x(P)` over `ℚ(j)` are the `x(σP)`, `σP ∈ E[N]`. -/
+theorem finrank_fieldX1_le (hT : TorsionStructure) (N : ℕ) (hN : 0 < N)
+    (P : EjBar.toAffine.Point) (hP : N • P = 0) : Module.finrank Qj (fieldX1 P) ≤ N ^ 2 := by
+  obtain ⟨e⟩ := hT Kbar EjBar N hN
+  have hx : IsIntegral Qj (xCoord P) := Algebra.IsIntegral.isIntegral _
+  rw [fieldX1, IntermediateField.adjoin.finrank hx]
+  have hirr := minpoly.irreducible hx
+  have hsep : (minpoly Qj (xCoord P)).Separable := hirr.separable
+  have hspl : ((minpoly Qj (xCoord P)).map (algebraMap Qj Kbar)).Splits := IsAlgClosed.splits _
+  rw [← card_rootSet_eq_natDegree hsep hspl]
+  have hsub : (minpoly Qj (xCoord P)).rootSet Kbar ⊆ xCoord '' (nTors EjBar N : Set EjBar.toAffine.Point) := by
+    intro r hr
+    have hroot : aeval r (minpoly Qj (xCoord P)) = 0 := (mem_rootSet.mp hr).2
+    have hmin : minpoly Qj r = minpoly Qj (xCoord P) :=
+      (minpoly.eq_of_irreducible_of_monic hirr hroot (minpoly.monic hx)).symm
+    obtain ⟨σ, hσ⟩ := (Normal.minpoly_eq_iff_mem_orbit (F := Qj) (E := Kbar)).mp hmin
+    refine ⟨WeierstrassCurve.Affine.Point.map (W' := Ej) σ.toAlgHom P,
+      map_mem_nTors σ N P hP, ?_⟩
+    exact (xCoord_map σ P).trans hσ
+  have hfin : (nTors EjBar N : Set EjBar.toAffine.Point).Finite := by
+    have : NeZero N := ⟨hN.ne'⟩
+    have : Finite (nTors EjBar N) := Finite.of_equiv _ e.toEquiv.symm
+    exact Set.toFinite _
+  calc Fintype.card ((minpoly Qj (xCoord P)).rootSet Kbar)
+      = ((minpoly Qj (xCoord P)).rootSet Kbar).ncard := Nat.card_eq_fintype_card.symm.trans (Nat.card_coe_set_eq _)
+    _ ≤ (xCoord '' (nTors EjBar N : Set EjBar.toAffine.Point)).ncard := Set.ncard_le_ncard hsub (hfin.image _)
+    _ ≤ (nTors EjBar N : Set EjBar.toAffine.Point).ncard := Set.ncard_image_le hfin
+    _ = N ^ 2 := (Nat.card_coe_set_eq _).symm.trans (nTors_card Kbar EjBar N hN e)
+
+/-! ## `X1ModelExists` (MC4 + MC10) -/
+
+/-- **`X1ModelExists` (glue, proved from T1, M1, M2, M3).** -/
+theorem x1ModelExists_of_leaves (hT : TorsionStructure) (hC : CurveOfFunctionFieldQ)
+    (hK : X1ConstantField) (hR : X1RationalCusp) : X1ModelExists := by
+  intro N hN
+  obtain ⟨e⟩ := hT Kbar EjBar N hN
+  obtain ⟨P, hP⟩ := exists_addOrderOf Kbar EjBar N e
+  have hx : IsIntegral Qj (xCoord P) := Algebra.IsIntegral.isIntegral _
+  have : FiniteDimensional Qj (fieldX1 P) := IntermediateField.adjoin.finiteDimensional hx
+  obtain ⟨X, hX, hpt, hint, ⟨φ⟩⟩ := hC (fieldX1 P) (hK N P hN hP)
+  exact ⟨X, (hpt (hR N P hN hP)).some, hX, hint, P, hP, ⟨φ⟩⟩
+
+/-! ## `BelyiX1` (MC5) -/
+
+/-- The substitution `T ↦ T/1728` of `ℚ[T]`, an automorphism (inverse `T ↦ 1728 T`). -/
+def scaleEquiv : ℚ[X] ≃ₐ[ℚ] ℚ[X] :=
+  AlgEquiv.ofAlgHom (aeval (C (1728⁻¹ : ℚ) * X)) (aeval (C (1728 : ℚ) * X))
+    (by
+      apply Polynomial.algHom_ext
+      simp only [AlgHom.coe_comp, Function.comp_apply, aeval_X, map_mul, aeval_C,
+        algebraMap_eq, AlgHom.coe_id, id_eq]
+      rw [← mul_assoc, ← C_mul]
+      norm_num)
+    (by
+      apply Polynomial.algHom_ext
+      simp only [AlgHom.coe_comp, Function.comp_apply, aeval_X, map_mul, aeval_C,
+        algebraMap_eq, AlgHom.coe_id, id_eq]
+      rw [← mul_assoc, ← C_mul]
+      norm_num)
+
+theorem scaleEquiv_apply (q : ℚ[X]) : scaleEquiv q = q.comp (C (1728⁻¹ : ℚ) * X) := rfl
+
+theorem scaleEquiv_symm_X : scaleEquiv.symm X = C (1728 : ℚ) * X := by
+  change aeval (C (1728 : ℚ) * X) X = _
+  simp
+
+theorem scaleEquiv_symm_X_sub : scaleEquiv.symm (X - 1728) = C (1728 : ℚ) * (X - 1) := by
+  simp only [map_sub, scaleEquiv_symm_X, map_ofNat]
+  ring
+
+/-- `p := q(T/1728)` is irreducible and does not divide `T²(T − 1728)⁹` when `q` is monic
+irreducible, `q ≠ T, T − 1`. -/
+theorem scale_not_dvd (q : ℚ[X]) (hqm : q.Monic) (hqi : Irreducible q) (hqX : q ≠ X)
+    (hqX1 : q ≠ X - 1) : ¬ scaleEquiv q ∣ X ^ 2 * (X - 1728) ^ 9 := by
+  intro h
+  have h' : q ∣ scaleEquiv.symm (X ^ 2 * (X - 1728) ^ 9) := by
+    have := map_dvd scaleEquiv.symm h
+    rwa [AlgEquiv.symm_apply_apply] at this
+  rw [map_mul, map_pow, map_pow, scaleEquiv_symm_X, scaleEquiv_symm_X_sub] at h'
+  have hp := hqi.prime
+  have hu : IsUnit (C (1728 : ℚ)) := isUnit_C.mpr (isUnit_iff_ne_zero.mpr (by norm_num))
+  rcases hp.dvd_or_dvd h' with h1 | h1
+  · have h2 := hp.dvd_of_dvd_pow h1
+    rw [hu.dvd_mul_left] at h2
+    exact hqX (eq_of_monic_of_associated hqm monic_X (hqi.associated_of_dvd irreducible_X h2))
+  · have h2 := hp.dvd_of_dvd_pow h1
+    rw [hu.dvd_mul_left] at h2
+    exact hqX1 (eq_of_monic_of_associated hqm (monic_X_sub_C 1)
+      (hqi.associated_of_dvd (irreducible_X_sub_C 1) (by simpa using h2)))
+
+theorem transcendental_X_div : Transcendental ℚ (RatFunc.X / 1728 : Qj) := by
+  intro h
+  apply RatFunc.transcendental_X (K := ℚ)
+  have := h.smul (1728 : ℚ)
+  rw [Algebra.smul_def, map_ofNat, mul_div_cancel₀ _ (by norm_num : (1728 : Qj) ≠ 0)] at this
+  convert this using 1
+  exact Subsingleton.elim _ _
+
+/-- **`BelyiX1` (glue, proved from T1 and T2).** -/
+theorem belyiX1_of_leaves (hT : TorsionStructure) (hG : GoodReductionUnramified) : BelyiX1 := by
+  intro N P hN hP
+  have hNP : N • P = 0 := hP ▸ addOrderOf_nsmul_eq_zero P
+  refine ⟨⟨?_, ?_⟩, finrank_fieldX1_le hT N hN P hNP⟩
+  · -- transcendence
+    let φ : Qj →ₐ[ℚ] fieldX1 P :=
+      { algebraMap Qj (fieldX1 P) with
+        commutes' := fun r => by
+          change algebraMap Qj (fieldX1 P) (algebraMap ℚ Qj r) = algebraMap ℚ (fieldX1 P) r
+          rw [← RingHom.comp_apply]
+          exact DFunLike.congr_fun (RingHom.ext_rat ((algebraMap Qj (fieldX1 P)).comp
+            (algebraMap ℚ Qj)) (algebraMap ℚ (fieldX1 P))) r }
+    intro h
+    exact transcendental_X_div ((isAlgebraic_algHom_iff φ φ.toRingHom.injective).mp h)
+  · intro w hk ht q hqm hqi hqX hqX1 hq x hx
+    have hratF : algebraMap ℚ (fieldX1 P) = (algebraMap Qj (fieldX1 P)).comp (algebraMap ℚ Qj) := RingHom.ext_rat _ _
+    have hratQ : (algebraMap ℚ[X] Qj).comp C = algebraMap ℚ Qj := RingHom.ext_rat _ _
+    have hr : algebraMap ℚ[X] Qj (C (1728⁻¹ : ℚ) * X) = RatFunc.X / 1728 := by
+      rw [map_mul, RatFunc.algebraMap_X, ← RingHom.comp_apply, hratQ, eq_ratCast]
+      push_cast
+      ring
+    -- the key identity `p(j) = q(t)`
+    have KI : algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (scaleEquiv q)) =
+        Polynomial.aeval (algebraMap Qj (fieldX1 P) (RatFunc.X / 1728)) q := by
+      rw [scaleEquiv_apply, Polynomial.comp, hom_eval₂, hratQ, hr, aeval_def, hratF, hom_eval₂]
+    have hp : Irreducible (scaleEquiv q) := (MulEquiv.irreducible_iff scaleEquiv).mpr hqi
+    have hA : algebraMap ℚ[X] Qj 1728 = 1728 := map_ofNat _ _
+    have hA36 : algebraMap ℚ[X] Qj 36 = 36 := map_ofNat _ _
+    have hcoef : ∀ a ∈ ({Ej.a₁, Ej.a₂, Ej.a₃, Ej.a₄, Ej.a₆} : Set Qj),
+        ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ c ∧
+          a * algebraMap ℚ[X] Qj c = algebraMap ℚ[X] Qj b := by
+      have h1 : ¬ scaleEquiv q ∣ 1 := fun h => hp.not_isUnit (isUnit_of_dvd_one h)
+      intro a ha
+      simp only [Set.mem_insert_iff, Set.mem_singleton_iff] at ha
+      rcases ha with rfl | rfl | rfl | rfl | rfl
+      · exact ⟨X - 1728, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨0, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨0, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨-36 * (X - 1728) ^ 3, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+      · exact ⟨-(X - 1728) ^ 5, 1, h1, by simp [Ej, ofJNe0Or1728, hA, hA36]⟩
+    have hdisc : ∃ b c : ℚ[X], ¬ scaleEquiv q ∣ b ∧ ¬ scaleEquiv q ∣ c ∧
+        Ej.Δ * algebraMap ℚ[X] Qj c = algebraMap ℚ[X] Qj b :=
+      ⟨X ^ 2 * (X - 1728) ^ 9, 1, scale_not_dvd q hqm hqi hqX hqX1,
+        fun h => hp.not_isUnit (isUnit_of_dvd_one h), by
+        rw [Ej, ofJNe0Or1728_Δ, map_one, mul_one, map_mul, map_pow, map_pow, map_sub,
+          RatFunc.algebraMap_X, hA]⟩
+    have h1728 : algebraMap Qj (fieldX1 P) RatFunc.X =
+        algebraMap ℚ (fieldX1 P) 1728 * algebraMap Qj (fieldX1 P) (RatFunc.X / 1728) := by
+      rw [hratF, RingHom.comp_apply, ← map_mul, map_ofNat]
+      congr 1
+      field_simp
+    have hCa : ∀ a : ℚ, algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (C a)) =
+        algebraMap ℚ (fieldX1 P) a := fun a => by
+      rw [hratF, RingHom.comp_apply, ← hratQ, RingHom.comp_apply]
+    have hc : ∀ c : ℚ[X], algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj c) ∈ w := by
+      intro c
+      induction c using Polynomial.induction_on with
+      | C a => rw [hCa]; exact hk a
+      | add f g hf hg => rw [map_add, map_add]; exact w.add_mem _ _ hf hg
+      | monomial n a _ =>
+        rw [map_mul, map_mul, map_pow, map_pow, RatFunc.algebraMap_X, h1728]
+        refine w.mul_mem _ _ ?_ (w.pow_mem (w.mul_mem _ _ (hk 1728) ht) _)
+        rw [hCa]; exact hk a
+    have hπ : algebraMap Qj (fieldX1 P) (algebraMap ℚ[X] Qj (scaleEquiv q)) ∈ w.nonunits := by
+      rw [KI]; exact hq
+    obtain ⟨y, hy, rfl⟩ := hG ℚ Ej (scaleEquiv q) hp hcoef hdisc P ⟨N, hN, hNP⟩ w hc hπ x hx
+    exact ⟨y, hy, congrArg (· * y) KI⟩
+
+/-! ## The bundle -/
+
+/-- **The leaves of this file.** -/
+structure X1Leaves : Prop where
+  torsion : TorsionStructure
+  goodRed : GoodReductionUnramified
+  curve : CurveOfFunctionFieldQ
+  constants : X1ConstantField
+  cusp : X1RationalCusp
+
+/-- **MC4 + MC5 + MC10 (glue, proved from the leaves).** -/
+theorem x1ModelExists_and_belyiX1 (L : X1Leaves) : X1ModelExists ∧ BelyiX1 :=
+  ⟨x1ModelExists_of_leaves L.torsion L.curve L.constants L.cusp,
+    belyiX1_of_leaves L.torsion L.goodRed⟩
+
+/-- `ModCurveLeaves` of `ZInQKernel/HDecomp/ModCurves/Leaves.lean` with its field `x1`
+discharged by the leaves of this file. -/
+theorem modCurveLeaves_of (L : X1Leaves) (hJ : JacobianExists ℚ) (h16 : R16_EichlerShimuraJ1')
+    (hd : DimJ1Genus) : ModCurveLeaves :=
+  ⟨hJ, (x1ModelExists_and_belyiX1 L).1, h16, hd⟩
+
+/-- **Bridge (non-vacuity of `IsJ1`).** With T33 (`JacobianExists ℚ`, field `t33`) and the five
+leaves of this file, a `J₁(N)` exists for every `N ≥ 1`. -/
+theorem exists_J1_of_leaves (L : X1Leaves) (hJ : LeafModCurves.JacobianExists ℚ) (N : ℕ)
+    (hN : 0 < N) : ∃ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J :=
+  LeafModCurves.exists_J1 hJ (x1ModelExists_and_belyiX1 L).1 N hN
+
+end X1Belyi
+
+end
+
+end X1BelyiSec
+
+/-! ## e1-sub (wave 25; leaf-adopt3 fold): `VSurjOfSurjective` proved; E1 for R16
+
+From `scratch/e1-sub/E1Sub.lean` (which imported `ZInQKernel.HDecomp.ModCurves.Glue`,
+`ZInQKernel.HDecomp.I3Linalg.C2`, `ZInQKernel.HDecomp.I3Linalg.TateBC`). Kernel declarations used
+by it that are NOT in Leaves.lean are supplied first, under their kernel names:
+* `GlueI3.isSemisimpleRepresentation_baseChange`, `GlueI3.semisimpleBaseChange`
+  (kernel `I3Linalg/C2.lean` §SSBC): here one-line wrappers around glue-ssbc's
+  `GlueSSBC.isSemisimpleRepresentation_baseChange` (section `GlueSSBCSec`, inserted before this
+  fragment); `GlueSSBC.repBaseChange` and `GlueI3.repBaseChange` have the same body, so the
+  types agree by unfolding. (`GlueI3.isSemisimpleRepresentation_baseChange` is also used by the
+  c9-rhof fragment.)
+* `PkgI3.E1_exists_hom_ne_zero'` (kernel `I3Linalg/C2.lean`), verbatim.
+* `PkgI3.Tate.map_injective` ... `PkgI3.Tate.map_bijective` (all of kernel
+  `I3Linalg/TateBC.lean` §2), verbatim.
+The e1-sub text is verbatim except: no import, no `#print axioms`, and the two
+`open LeafModCurves` lines get `hiding` (see the comment there). No proof holes. -/
+
+section E1SubSec
+
+noncomputable section
+
+/-! ### Kernel `I3Linalg/C2.lean`, glue-ssbc part (not in Leaves.lean), through `GlueSSBC` -/
+
+namespace GlueI3
+
+/-- **`SemisimpleBaseChange`, proved** (kernel name; proof: glue-ssbc,
+`GlueSSBC.isSemisimpleRepresentation_baseChange`). -/
+theorem isSemisimpleRepresentation_baseChange {k G V : Type*} [Field k] [Monoid G]
+    [AddCommGroup V] [Module k V] [FiniteDimensional k V] [CharZero k] (E : Type*) [Field E]
+    [Algebra k E] (ρ : Representation k G V) (hρ : ρ.IsSemisimpleRepresentation) :
+    (repBaseChange E ρ).IsSemisimpleRepresentation :=
+  GlueSSBC.isSemisimpleRepresentation_baseChange E ρ hρ
+
+/-- **`SemisimpleBaseChange` (GLUE, proved by glue-ssbc).** (Kernel statement and proof.) -/
+theorem semisimpleBaseChange : SemisimpleBaseChange :=
+  fun _ E _ _ _ _ _ _ _ _ _ _ ρ hρ => isSemisimpleRepresentation_baseChange E ρ hρ
+
+end GlueI3
+
+/-! ### Kernel `I3Linalg/C2.lean`: E1 with `SemisimpleBaseChange` discharged (verbatim) -/
+
+namespace PkgI3
+
+open GlueI3 AbVar
+
+/-- **E1, unconditional in `SemisimpleBaseChange`.** -/
+theorem E1_exists_hom_ne_zero' (hS : FaltingsSemisimple) (hF : FaltingsTate)
+    (hT : TateModuleFree)
+    {K : Type} [Field K] [NumberField K] (A J : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime]
+    (E : Type) [Field E] [Algebra ℚ_[ℓ] E]
+    (U : Subrepresentation (repBaseChange E (A.galRep ℓ)))
+    (U' : Subrepresentation (repBaseChange E (J.galRep ℓ))) (hU : U ≠ ⊥)
+    (e : U.toSubmodule ≃ₗ[E] U'.toSubmodule)
+    (he : ∀ g (u : U.toSubmodule),
+      (e ⟨repBaseChange E (A.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ :
+        TensorProduct ℚ_[ℓ] E (J.V ℓ)) = repBaseChange E (J.galRep ℓ) g (e u)) :
+    ∃ f : Hom A J, f ≠ 0 :=
+  E1_exists_hom_ne_zero hS hF hT semisimpleBaseChange A J ℓ E U U' hU e he
+
+end PkgI3
+
+/-! ### Kernel `I3Linalg/TateBC.lean` §2 (verbatim; not in Leaves.lean) -/
+
+/-! ## 2. Injective maps of groups: saturation and bijectivity on Tate modules -/
+
+namespace PkgI3.Tate
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M N : Type*} [AddCommGroup M] [AddCommGroup N]
+
+lemma map_injective (φ : M →+ N) (hφ : Function.Injective φ) :
+    Function.Injective (map (ℓ := ℓ) φ) := by
+  intro x y h
+  apply Subtype.ext; funext n
+  exact hφ (by simpa using congrArg (fun z : T ℓ N => z.1 n) h)
+
+/-- `(ℓ • x)ₙ₊₁ = xₙ`. -/
+lemma ell_smul_succ (x : T ℓ M) (n : ℕ) : ((ℓ : ℤ_[ℓ]) • x).1 (n + 1) = x.1 n := by
+  rw [← x.2.2 n]
+  exact smulSeq_congr x.2 (n + 1) (c := ℓ) (by simp)
+
+/-- **Saturation.** If `ℓ • x` lies in the image of `T_ℓ M → T_ℓ N`, so does `x`. -/
+lemma mem_range_of_ell_smul (φ : M →+ N) (hφ : Function.Injective φ) (x : T ℓ N)
+    (h : (ℓ : ℤ_[ℓ]) • x ∈ LinearMap.range (map (ℓ := ℓ) φ)) :
+    x ∈ LinearMap.range (map (ℓ := ℓ) φ) := by
+  obtain ⟨y, hy⟩ := h
+  have hy' : ∀ n, φ (y.1 (n + 1)) = x.1 n := fun n => by
+    rw [← ell_smul_succ x n, ← hy]; rfl
+  refine ⟨⟨fun n => y.1 (n + 1), ?_, fun n => ?_⟩, ?_⟩
+  · exact hφ (by rw [hy', x.2.1, map_zero])
+  · apply hφ
+    change φ (ℓ • y.1 (n + 1 + 1)) = φ (y.1 (n + 1))
+    rw [map_nsmul, hy', hy', x.2.2]
+  · apply Subtype.ext; funext n; exact hy' n
+
+lemma mem_range_of_pow_smul (φ : M →+ N) (hφ : Function.Injective φ) (k : ℕ) :
+    ∀ x : T ℓ N, ((ℓ : ℤ_[ℓ]) ^ k) • x ∈ LinearMap.range (map (ℓ := ℓ) φ) →
+      x ∈ LinearMap.range (map (ℓ := ℓ) φ) := by
+  induction k with
+  | zero => intro x h; simpa using h
+  | succ k ih =>
+    intro x h
+    rw [pow_succ, mul_smul] at h
+    exact mem_range_of_ell_smul φ hφ x (ih _ h)
+
+/-- The cokernel of `T_ℓ M → T_ℓ N` is torsion-free. -/
+lemma mem_range_of_smul (φ : M →+ N) (hφ : Function.Injective φ) (x : T ℓ N) {a : ℤ_[ℓ]}
+    (ha : a ≠ 0) (h : a • x ∈ LinearMap.range (map (ℓ := ℓ) φ)) :
+    x ∈ LinearMap.range (map (ℓ := ℓ) φ) := by
+  apply mem_range_of_pow_smul φ hφ a.valuation
+  have : ((ℓ : ℤ_[ℓ]) ^ a.valuation) • x =
+      ((PadicInt.unitCoeff ha)⁻¹ : ℤ_[ℓ]ˣ) • (a • x) := by
+    have hspec := PadicInt.unitCoeff_spec ha
+    have key : (((PadicInt.unitCoeff ha)⁻¹ : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) * a = (ℓ : ℤ_[ℓ]) ^ a.valuation :=
+      calc _ = (((PadicInt.unitCoeff ha)⁻¹ : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) *
+            ((PadicInt.unitCoeff ha : ℤ_[ℓ]) * (ℓ : ℤ_[ℓ]) ^ a.valuation) :=
+            congrArg (fun t => (((PadicInt.unitCoeff ha)⁻¹ : ℤ_[ℓ]ˣ) : ℤ_[ℓ]) * t) hspec
+        _ = _ := by rw [← mul_assoc, Units.inv_mul, one_mul]
+    rw [Units.smul_def, smul_smul, key]
+  rw [this]
+  exact Submodule.smul_of_tower_mem _ _ h
+
+/-- **Comparison of Tate modules (GLUE, proved).** If `φ : M → N` is injective, `T_ℓ M` and
+`T_ℓ N` are finite over `ℤ_ℓ` of the same rank, and `T_ℓ M` is free, then
+`T_ℓ(φ) : T_ℓ M → T_ℓ N` is bijective. Applied to `A(K̄) → A(L̄) = A_L(L̄)` with
+`TateModuleFree` over `K` and over `L` and `dim A_L = dim A`, it identifies `T_ℓ(A)` with
+`T_ℓ(A_L)`. -/
+theorem map_bijective (φ : M →+ N) (hφ : Function.Injective φ)
+    [Module.Free ℤ_[ℓ] (T ℓ M)] [Module.Finite ℤ_[ℓ] (T ℓ M)] [Module.Finite ℤ_[ℓ] (T ℓ N)]
+    (hrank : Module.finrank ℤ_[ℓ] (T ℓ M) = Module.finrank ℤ_[ℓ] (T ℓ N)) :
+    Function.Bijective (map (ℓ := ℓ) φ) := by
+  refine ⟨map_injective φ hφ, ?_⟩
+  set R := LinearMap.range (map (ℓ := ℓ) φ)
+  have h1 := Submodule.finrank_quotient_add_finrank R
+  have h2 : Module.finrank ℤ_[ℓ] R = Module.finrank ℤ_[ℓ] (T ℓ M) :=
+    LinearMap.finrank_range_of_inj (map_injective φ hφ)
+  have h0 : Module.finrank ℤ_[ℓ] (T ℓ N ⧸ R) = 0 := by omega
+  rw [Module.finrank_eq_zero_iff] at h0
+  intro x
+  obtain ⟨a, ha, hax⟩ := h0 (Submodule.Quotient.mk x)
+  rw [← Submodule.Quotient.mk_smul, Submodule.Quotient.mk_eq_zero] at hax
+  exact mem_range_of_smul φ hφ x ha hax
+
+end PkgI3.Tate
+
+/-! ### e1-sub (verbatim from `scratch/e1-sub/E1Sub.lean`, lines 20-870) -/
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI3 PkgI3.AbVar
+open scoped TensorProduct
+
+namespace E1Sub
+
+/-! ## §1. A surjective homomorphism is surjective on `V_ℓ` -/
+
+section VSurj
+
+variable {K : Type} [Field K]
+
+/-- Precomposition with `π : J → A`, `Hom(A, B) → Hom(J, B)`. -/
+def precomp {J A B : AbVar K} (π : Hom J A) : Hom A B →ₗ[ℤ] Hom J B :=
+  AddMonoidHom.toIntLinearMap
+    { toFun := fun f => Hom.mk' (π.hom ≫ f.hom)
+      map_zero' := Hom.ext' (by simp)
+      map_add' := fun f g => Hom.ext' (by simp [MonObj.comp_mul]) }
+
+@[simp] lemma precomp_hom {J A B : AbVar K} (π : Hom J A) (f : Hom A B) :
+    (precomp π f).hom = π.hom ≫ f.hom := rfl
+
+lemma isReduced_left (A : AbVar K) : IsReduced A.X.left :=
+  GeometricallyReduced.isReduced_of_flat_of_isLocallyNoetherian A.X.hom
+
+/-- Precomposition with a surjective homomorphism is injective (`A` is reduced, `B` separated). -/
+lemma precomp_injective {J A B : AbVar K} (π : Hom J A) (hπ : Surjective π.hom.left) :
+    Function.Injective (precomp (B := B) π) := by
+  rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+  intro f hf
+  have h1 : π.hom ≫ f.hom = π.hom ≫ (1 : A.X ⟶ B.X) := by
+    have := congrArg Hom.hom hf
+    simp only [precomp_hom, Hom.hom_zero] at this
+    rw [this, MonObj.comp_one]
+  have := isReduced_left A
+  apply Hom.ext'
+  rw [Hom.hom_zero]
+  apply Over.OverMorphism.ext
+  exact ext_of_isDominant_of_isSeparated B.X.hom (by simp) π.hom.left
+    (by rw [← Over.comp_left, ← Over.comp_left, h1])
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `V_ℓ(π)` over any field. -/
+def homVK {J A : AbVar K} (π : Hom J A) : J.V ℓ →ₗ[ℚ_[ℓ]] A.V ℓ :=
+  (homT (ℓ := ℓ) π).baseChange ℚ_[ℓ]
+
+lemma homT_comp {J A B : AbVar K} (π : Hom J A) (f : Hom A B) (x : J.T ℓ) :
+    homT (ℓ := ℓ) (precomp π f) x = homT f (homT π x) := by
+  apply Subtype.ext; funext n
+  change Additive.ofMul (Additive.toMul (x.1 n) ≫ π.hom ≫ f.hom) =
+    Additive.ofMul ((Additive.toMul (x.1 n) ≫ π.hom) ≫ f.hom)
+  rw [Category.assoc]
+
+lemma tateHomZl_precomp {J A B : AbVar K} (π : Hom J A) (z : ℤ_[ℓ] ⊗[ℤ] Hom A B) (x : J.T ℓ) :
+    tateHomZl ℓ J B ((precomp π).lTensor ℤ_[ℓ] z) x = tateHomZl ℓ A B z (homT π x) := by
+  induction z using TensorProduct.induction_on with
+  | zero => simp
+  | tmul a f =>
+    simp only [LinearMap.lTensor_tmul]
+    change (a • tateHom ℓ J B (precomp π f)) x = (a • tateHom ℓ A B f) (homT π x)
+    simp only [LinearMap.smul_apply]
+    exact congrArg (a • ·) (homT_comp ℓ π f x)
+  | add y z hy hz => simp only [map_add, LinearMap.add_apply, hy, hz]
+
+lemma homVK_galRep {J A : AbVar K} (π : Hom J A) (σ : Field.absoluteGaloisGroup K) :
+    homVK ℓ π ∘ₗ J.galRep ℓ σ = A.galRep ℓ σ ∘ₗ homVK ℓ π := by
+  have h1 : homT (ℓ := ℓ) π ∘ₗ J.galT σ = A.galT σ ∘ₗ homT π :=
+    LinearMap.ext fun t => homT_galT π σ t
+  change (homT π).baseChange ℚ_[ℓ] ∘ₗ (J.galT σ).baseChange ℚ_[ℓ] =
+    (A.galT σ).baseChange ℚ_[ℓ] ∘ₗ (homT π).baseChange ℚ_[ℓ]
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, h1]
+
+/-- Complement of a subrepresentation, as `IsCompl` of submodules. -/
+lemma isCompl_toSubmodule {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V]
+    {ρ : Representation k G V} {W W' : Subrepresentation ρ} (h : IsCompl W W') :
+    IsCompl W.toSubmodule W'.toSubmodule := by
+  constructor
+  · rw [disjoint_iff]
+    have := congrArg Subrepresentation.toSubmodule h.inf_eq_bot
+    simp only [Subrepresentation.toSubmodule_inf] at this
+    exact this
+  · rw [codisjoint_iff]
+    have := congrArg Subrepresentation.toSubmodule h.sup_eq_top
+    simp only [Subrepresentation.toSubmodule_sup] at this
+    exact this
+
+/-- **`VSurjOfSurjective` over a number field (GLUE, proved from Faltings' Satz 3 and Satz 4 and
+`TateModuleFree`).** If `π : J → A` is a homomorphism of abelian varieties over a number field
+whose underlying morphism of schemes is surjective, then `V_ℓ(π) : V_ℓ(J) → V_ℓ(A)` is surjective.
+
+Proof: the image `R` is `G_K`-stable; by semisimplicity it has an invariant complement `R'`. The
+projection `p` onto `R'` is equivariant and kills `R`. Clearing denominators, `s • p` comes from an
+equivariant `h : T_ℓ A → T_ℓ A`, which by Faltings is `tateHomZl z`, `z ∈ ℤ_ℓ ⊗ End(A)`. Since
+`h ∘ T_ℓ(π) = 0`, injectivity of `tateHomZl` on `Hom(J, A)` and flatness of `ℤ_ℓ` over `ℤ` give
+`z = 0` (precomposition with `π` is injective because `A` is reduced and `π` is dominant).
+So `p = 0` and `R' = 0`. -/
+theorem homVK_surjective (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree)
+    [NumberField K] (J A : AbVar K) (π : Hom J A) (hπ : Surjective π.hom.left) :
+    Function.Surjective (homVK ℓ π) := by
+  classical
+  have hℓK : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfreeA, hfinA, -⟩ := hT K A ℓ hℓK
+  have : Module.FinitePresentation ℤ_[ℓ] (A.T ℓ) := Module.finitePresentation_of_finite _ _
+  -- the image as a subrepresentation
+  let R : Subrepresentation (A.galRep ℓ) :=
+    { toSubmodule := LinearMap.range (homVK ℓ π)
+      apply_mem_toSubmodule := by
+        rintro σ _ ⟨w, rfl⟩
+        exact ⟨J.galRep ℓ σ w, LinearMap.congr_fun (homVK_galRep ℓ π σ) w⟩ }
+  obtain ⟨R', hR'⟩ := (hS K A ℓ).exists_isCompl R
+  have hc := isCompl_toSubmodule hR'.symm
+  -- if `R' = 0` we are done
+  suffices hR'0 : R'.toSubmodule = ⊥ by
+    have htop : R.toSubmodule = ⊤ := by
+      have := hc.symm.sup_eq_top
+      rwa [hR'0, sup_bot_eq] at this
+    intro v
+    have : v ∈ R.toSubmodule := htop ▸ Submodule.mem_top
+    exact this
+  by_contra hne
+  -- the projection onto `R'` along `R`
+  set p : A.V ℓ →ₗ[ℚ_[ℓ]] A.V ℓ := R'.toSubmodule.projection R.toSubmodule hc with hpdef
+  have hpeq : ∀ σ, p ∘ₗ A.galRep ℓ σ = A.galRep ℓ σ ∘ₗ p :=
+    GlueI3.projection_comm R' R hc
+  have hpR : ∀ w, p (homVK ℓ π w) = 0 := fun w =>
+    Submodule.projection_apply_of_mem_right hc ⟨w, rfl⟩
+  obtain ⟨r, hrR', hr0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hne
+  have hpr : p r = r := Submodule.projection_apply_of_mem_left hc hrR'
+  -- lattice clearing (as in `PkgI3.exists_hom_ne_zero_of_equivariant`)
+  let ιA : A.T ℓ →ₗ[ℤ_[ℓ]] A.V ℓ := TensorProduct.mk ℤ_[ℓ] ℚ_[ℓ] (A.T ℓ) 1
+  let ιJ : J.T ℓ →ₗ[ℤ_[ℓ]] J.V ℓ := TensorProduct.mk ℤ_[ℓ] ℚ_[ℓ] (J.T ℓ) 1
+  have : IsLocalizedModule (nonZeroDivisors ℤ_[ℓ]) ιA := inferInstance
+  obtain ⟨h, s, hs⟩ := Module.FinitePresentation.exists_lift_of_isLocalizedModule
+    (nonZeroDivisors ℤ_[ℓ]) ιA ((p.restrictScalars ℤ_[ℓ]) ∘ₗ ιA)
+  have hs0 : (s : ℤ_[ℓ]) ≠ 0 := nonZeroDivisors.ne_zero s.2
+  have hιA : Function.Injective ιA := by
+    rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+    intro y hy
+    obtain ⟨t, ht⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ_[ℓ]) ιA).mp hy
+    exact (smul_eq_zero.mp ht).resolve_left (nonZeroDivisors.ne_zero t.2)
+  have hιAσ : ∀ σ x, ιA (A.galT σ x) = A.galRep ℓ σ (ιA x) := fun σ x => by
+    simp [ιA, galRep, LinearMap.baseChange_tmul]
+  have hsp : ∀ x, ιA (h x) = (s : ℤ_[ℓ]) • p (ιA x) := fun x => by
+    have := congrArg (fun g => g x) hs
+    simp only [LinearMap.coe_comp, Function.comp_apply, LinearMap.smul_apply,
+      LinearMap.coe_restrictScalars, Submonoid.smul_def] at this
+    exact this
+  have hheq : IsGalEquivariant h := by
+    intro σ x
+    apply hιA
+    rw [hsp, hιAσ, hιAσ, hsp]
+    have := congrArg (fun g => g (ιA x)) (hpeq σ)
+    simp only [LinearMap.coe_comp, Function.comp_apply] at this
+    rw [this, LinearMap.map_smul_of_tower]
+  -- `h ∘ T_ℓ(π) = 0`
+  have hhπ : ∀ x, h (homT π x) = 0 := fun x => by
+    apply hιA
+    rw [hsp, map_zero]
+    have : ιA (homT π x) = homVK ℓ π (ιJ x) := by
+      simp [ιA, ιJ, homVK, LinearMap.baseChange_tmul]
+    rw [this, hpR, smul_zero]
+  -- Faltings: `h = tateHomZl z`
+  obtain ⟨z, hz⟩ : h ∈ Set.range (tateHomZl ℓ A A) := by
+    rw [(hF K A A ℓ).2]; exact hheq
+  have hz0 : (precomp π).lTensor ℤ_[ℓ] z = 0 := by
+    apply (hF K J A ℓ).1
+    rw [map_zero]
+    apply LinearMap.ext; intro x
+    rw [tateHomZl_precomp, hz, hhπ, LinearMap.zero_apply]
+  have hinj : Function.Injective ((precomp (B := A) π).lTensor ℤ_[ℓ]) :=
+    Module.Flat.lTensor_preserves_injective_linearMap _ (precomp_injective π hπ)
+  have hz' : z = 0 := hinj (by rw [hz0, map_zero])
+  have hh0 : h = 0 := by rw [← hz, hz', map_zero]
+  -- hence `p = 0`, contradicting `p r = r ≠ 0`
+  have hpι : ∀ x, p (ιA x) = 0 := fun x => by
+    have h1 : (s : ℤ_[ℓ]) • p (ιA x) = 0 := by rw [← hsp, hh0]; simp
+    rw [← algebraMap_smul ℚ_[ℓ] (s : ℤ_[ℓ])] at h1
+    exact (smul_eq_zero.mp h1).resolve_left (by
+      simpa using (IsFractionRing.injective ℤ_[ℓ] ℚ_[ℓ]).ne hs0)
+  have hp0 : ∀ v, p v = 0 := fun v => by
+    induction v using TensorProduct.induction_on with
+    | zero => simp
+    | tmul q x =>
+      have : (q ⊗ₜ[ℤ_[ℓ]] x : A.V ℓ) = q • ιA x := by simp [ιA, TensorProduct.smul_tmul']
+      rw [this, map_smul, hpι, smul_zero]
+    | add v w hv hw => rw [map_add, hv, hw, add_zero]
+  exact hr0 (by rw [← hpr, hp0])
+
+end VSurj
+
+/-- **`LeafModCurves.VSurjOfSurjective` (the glue target of leaf-modcurves), proved.** -/
+theorem vSurjOfSurjective (hS : FaltingsSemisimple) (hF : FaltingsTate) (hT : TateModuleFree) :
+    LeafModCurves.VSurjOfSurjective := by
+  intro J A π ℓ _ hπ
+  exact homVK_surjective ℓ hS hF hT J A π hπ
+
+/-! ## §2. Equivariant sections out of a semisimple representation -/
+
+section Section
+
+variable {k G V W : Type*} [Field k] [Monoid G] [AddCommGroup V] [Module k V] [AddCommGroup W]
+  [Module k W]
+
+/-- A surjective equivariant map `q : V → W` out of a semisimple representation restricts to an
+equivariant isomorphism from a subrepresentation of `V` onto `W` (an invariant complement of
+`ker q`). -/
+theorem exists_subrep_equiv_of_surjective (ρ : Representation k G V) (σ : Representation k G W)
+    (hss : ρ.IsSemisimpleRepresentation) (q : V →ₗ[k] W) (hq : Function.Surjective q)
+    (hqeq : ∀ g v, q (ρ g v) = σ g (q v)) :
+    ∃ (U : Subrepresentation ρ) (e : U.toSubmodule ≃ₗ[k] W),
+      ∀ g (u : U.toSubmodule), e ⟨ρ g u, U.apply_mem_toSubmodule g u.2⟩ = σ g (e u) := by
+  let Kr : Subrepresentation ρ :=
+    { toSubmodule := LinearMap.ker q
+      apply_mem_toSubmodule := fun g v hv => by
+        rw [LinearMap.mem_ker] at hv ⊢; rw [hqeq, hv, map_zero] }
+  obtain ⟨U, hU⟩ := hss.exists_isCompl Kr
+  have hc : IsCompl Kr.toSubmodule U.toSubmodule := isCompl_toSubmodule hU
+  have hbij : Function.Bijective (q ∘ₗ U.toSubmodule.subtype) := by
+    constructor
+    · rw [← LinearMap.ker_eq_bot, LinearMap.ker_eq_bot']
+      intro u hu
+      have hK : (u : V) ∈ Kr.toSubmodule := hu
+      exact Subtype.ext ((Submodule.disjoint_def.mp hc.disjoint) u hK u.2)
+    · intro w
+      obtain ⟨v, rfl⟩ := hq w
+      have hv : v ∈ Kr.toSubmodule ⊔ U.toSubmodule := by rw [hc.sup_eq_top]; exact Submodule.mem_top
+      obtain ⟨a, ha, b, hb, rfl⟩ := Submodule.mem_sup.mp hv
+      have ha' : q a = 0 := ha
+      exact ⟨⟨b, hb⟩, by simp [ha']⟩
+  refine ⟨U, LinearEquiv.ofBijective _ hbij, fun g u => ?_⟩
+  simp [LinearEquiv.ofBijective_apply, hqeq]
+
+end Section
+
+/-- Base change of a surjective linear map is surjective. -/
+lemma baseChange_surjective {R M N : Type*} [CommRing R] [AddCommGroup M] [AddCommGroup N]
+    [Module R M] [Module R N] (E : Type*) [CommRing E] [Algebra R E] (f : M →ₗ[R] N)
+    (hf : Function.Surjective f) : Function.Surjective (f.baseChange E) := by
+  intro y
+  induction y using TensorProduct.induction_on with
+  | zero => exact ⟨0, map_zero _⟩
+  | tmul e n =>
+    obtain ⟨m, rfl⟩ := hf n
+    exact ⟨e ⊗ₜ m, by simp⟩
+  | add y z hy hz =>
+    obtain ⟨a, rfl⟩ := hy
+    obtain ⟨b, rfl⟩ := hz
+    exact ⟨a + b, map_add _ _ _⟩
+
+/-! ## §3. `ρ_{f,ι}` is a subrepresentation of `V_ℓ(J) ⊗ ℚ̄_ℓ` (over `G_ℚ`) -/
+
+section RhoSub
+
+-- leaf-adopt3: `hiding` added (Leaves.lean has `LeafModCurves` copies of these `PkgI4` names)
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
+open PkgI4 (GQ)
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- Evaluation of the `ι`-eigenfunctionals: `V_ℓ(A) → (eigenFun)^∨`, `v ↦ (φ ↦ φ v)`. -/
+def evalEig (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ) :
+    A.V ℓ →ₗ[ℚ_[ℓ]] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) where
+  toFun v :=
+    { toFun := fun φ => (φ : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v
+      map_add' := fun φ ψ => rfl
+      map_smul' := fun c φ => rfl }
+  map_add' v w := by ext φ; simp
+  map_smul' c v := by ext φ; simp
+
+/-- Its `ℚ̄_ℓ`-linear extension `V_ℓ(A) ⊗ ℚ̄_ℓ → (eigenFun)^∨`. -/
+def evalEigE (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ) :
+    TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) →ₗ[PadicAlgCl ℓ]
+      Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+  (evalEig ℓ A θ emb).liftBaseChange (PadicAlgCl ℓ)
+
+theorem evalEigE_equivariant (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) (σ : GQ) (x : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)) :
+    evalEigE ℓ A θ emb (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ x) =
+      rhoF ℓ A θ emb σ (evalEigE ℓ A θ emb x) := by
+  induction x using TensorProduct.induction_on with
+  | zero => simp
+  | tmul e v =>
+    change evalEigE ℓ A θ emb ((A.galRep ℓ σ).baseChange (PadicAlgCl ℓ) (e ⊗ₜ v)) = _
+    rw [LinearMap.baseChange_tmul]
+    simp only [evalEigE, LinearMap.liftBaseChange_tmul, map_smul]
+    congr 1
+  | add x y hx hy => simp only [map_add, hx, hy]
+
+theorem evalEigE_surjective (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    Function.Surjective (evalEigE ℓ A θ emb) := by
+  rw [← LinearMap.range_eq_top]
+  by_contra hne
+  obtain ⟨f, hf0, hf⟩ := Submodule.exists_dual_map_eq_bot_of_lt_top (lt_top_iff_ne_top.2 hne)
+    inferInstance
+  set w := (Module.evalEquiv (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)).symm f
+  have hfw : ∀ g, f g = g w := fun g => by
+    have : f = Module.evalEquiv (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) w := by simp [w]
+    rw [this]; rfl
+  have hv : ∀ v, (w : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v = 0 := fun v => by
+    have hx : evalEigE ℓ A θ emb (1 ⊗ₜ v) ∈ LinearMap.range (evalEigE ℓ A θ emb) := ⟨_, rfl⟩
+    have := Submodule.mem_map_of_mem (f := f) hx
+    rw [hf, Submodule.mem_bot, hfw] at this
+    simp only [evalEigE, LinearMap.liftBaseChange_tmul, one_smul] at this
+    exact this
+  have hw0 : w = 0 := Subtype.ext (LinearMap.ext hv)
+  apply hf0
+  ext g
+  rw [hfw, hw0, map_zero]; rfl
+
+/-- **`ρ_{f,ι}` as a subrepresentation (GLUE, proved).** If `V_ℓ(π) : V_ℓ(J) → V_ℓ(A)` is
+surjective, the representation `rhoF ℓ A θ ι` of `G_ℚ` on `(eigenFun)^∨` is equivariantly
+isomorphic to a subrepresentation of `V_ℓ(J) ⊗ ℚ̄_ℓ` (Faltings' semisimplicity of `V_ℓ(J)`,
+kept under extension of scalars by `GlueI3.semisimpleBaseChange`). -/
+theorem rhoF_subrep_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A : AbVar ℚ)
+    (π : Hom J A) (hπ : Function.Surjective (homV ℓ π)) {F : Type} [Field F]
+    (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ)))
+      (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+      ∀ g (u : U.toSubmodule),
+        e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) g u, U.apply_mem_toSubmodule g u.2⟩ =
+          rhoF ℓ A θ emb g (e u) := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfin, -⟩ := hT ℚ J ℓ hℓ
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hss := GlueI3.semisimpleBaseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ (J.galRep ℓ) (hS ℚ J ℓ)
+  refine exists_subrep_equiv_of_surjective _ (rhoF ℓ A θ emb) hss
+    (evalEigE ℓ A θ emb ∘ₗ (homV ℓ π).baseChange (PadicAlgCl ℓ))
+    ((evalEigE_surjective ℓ A θ emb).comp (baseChange_surjective _ _ hπ)) ?_
+  intro g v
+  simp only [LinearMap.coe_comp, Function.comp_apply]
+  rw [← evalEigE_equivariant]
+  congr 1
+  change ((homV ℓ π).baseChange _ ∘ₗ (J.galRep ℓ g).baseChange _) v =
+    ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
+
+/-- **`ρ_{f,ι}` is semisimple (GLUE, proved)**: it is an equivariant quotient of the semisimple
+`V_ℓ(J) ⊗ ℚ̄_ℓ` (a C9 input). -/
+theorem rhoF_semisimple_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A : AbVar ℚ)
+    (π : Hom J A) (hπ : Function.Surjective (homV ℓ π)) {F : Type} [Field F]
+    (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    (rhoF ℓ A θ emb).IsSemisimpleRepresentation := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfin, -⟩ := hT ℚ J ℓ hℓ
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hss := GlueI3.semisimpleBaseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ (J.galRep ℓ) (hS ℚ J ℓ)
+  refine GlueI3.isSemisimple_of_surjective _ (rhoF ℓ A θ emb) hss
+    (evalEigE ℓ A θ emb ∘ₗ (homV ℓ π).baseChange (PadicAlgCl ℓ))
+    ((evalEigE_surjective ℓ A θ emb).comp (baseChange_surjective _ _ hπ)) ?_
+  intro g v
+  simp only [LinearMap.coe_comp, Function.comp_apply]
+  rw [← evalEigE_equivariant]
+  congr 1
+  change ((homV ℓ π).baseChange _ ∘ₗ (J.galRep ℓ g).baseChange _) v =
+    ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
+
+/-- **G13 as a subrepresentation (GLUE, proved from R16 and the I3 leaves).** For a newform `f`
+of level `N` and any `J₁(N)` `J`: Shimura's `A_f`, `π : J ↠ A_f`, `θ : K_f → End⁰(A_f)` such that
+for every prime `ℓ` and embedding `ι : K_f → ℚ̄_ℓ`, R16's `ρ_{f,ι} = rhoF ℓ A_f θ ι` is
+2-dimensional, has Frobenius traces `ι(a_p(f))` at `p ∤ Nℓ`, and is equivariantly isomorphic to a
+subrepresentation `U` of `V_ℓ(J) ⊗ ℚ̄_ℓ` (as `G_ℚ`-representations). This replaces the quotient
+of `LeafModCurves.g13_constituent` by a sub, and discharges its hypothesis `VSurjOfSurjective`. -/
+theorem rhoF_subrep_J (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
+        (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+          ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
+        ∃ (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ)))
+          (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+          ∀ g (u : U.toSubmodule),
+            e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) g u,
+                U.apply_mem_toSubmodule g u.2⟩ = rhoF ℓ A θ emb g (e u) := by
+  obtain ⟨-, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  have : FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+    Module.finite_of_finrank_pos (by omega)
+  have hVs := vSurjOfSurjective hS hF hT J A π ℓ hπ
+  refine ⟨finrank_rhoF ℓ A θ emb h2, rhoF_semisimple_of_surj ℓ hS hT J A π hVs θ emb,
+    fun p hp hpN σ hσ a ha => ?_,
+    rhoF_subrep_of_surj ℓ hS hT J A π (vSurjOfSurjective hS hF hT J A π ℓ hπ) θ emb⟩
+  rw [trace_rhoF ℓ A θ emb h2]
+  exact (hfr p hp hpN σ hσ).1 a ha
+
+/-- `LeafModCurves.g13_constituent` with its glue hypothesis `VSurjOfSurjective` discharged. -/
+theorem g13_constituent' (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (ℓ : ℕ) [Fact ℓ.Prime] :
+    ∀ emb : coeffField f →+* PadicAlgCl ℓ, ∃ W : Submodule (PadicAlgCl ℓ)
+        (J.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ), Module.finrank (PadicAlgCl ℓ) W = 2 ∧
+      ∃ hW : ∀ σ : GQ, ∀ φ ∈ W, dualAct ℓ J σ φ ∈ W,
+      ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+        (∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) W ((dualAct ℓ J σ).restrict (hW σ)) = emb a) ∧
+        (∀ c : coeffField f, (c : ℂ) = χ (p : ZMod N) →
+            LinearMap.det ((dualAct ℓ J σ).restrict (hW σ)) = emb c * p) :=
+  g13_constituent hR16 (vSurjOfSurjective hS hF hT) N hN χ f hf J hJ ℓ
+
+end RhoSub
+
+end E1Sub
+
+/-! ## §4. `V_ℓ` under base change -/
+
+section BCsec
+open scoped CategoryTheory.Obj
+
+namespace E1Sub
+
+section BaseChange
+
+variable {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
+
+/-- `Spec M₂ → Spec M₁` over `K`, for a `K`-algebra map `M₁ → M₂`. -/
+def specHom {M₁ M₂ : Type} [Field M₁] [Field M₂] [Algebra K M₁] [Algebra K M₂]
+    (i : M₁ →ₐ[K] M₂) : ptObj (K := K) M₂ ⟶ ptObj (K := K) M₁ :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (i : M₁ →+* M₂))) (by
+    simp only [ptObj, Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp)
+
+/-- `Spec M → Spec M ×_{Spec K} Spec L` over `L` (graph of the structure maps). -/
+def ptUnit (M : Type) [Field M] [Algebra L M] [Algebra K M] [IsScalarTower K L M] :
+    ptObj (K := L) M ⟶
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).obj (ptObj (K := K) M) :=
+  Over.homMk (pullback.lift (𝟙 _) (Spec.map (CommRingCat.ofHom (algebraMap L M))) (by
+    simp only [ptObj, Over.mk_hom, Category.id_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp,
+      ← IsScalarTower.algebraMap_eq])) (pullback.lift_snd _ _ _)
+
+variable (L) in
+/-- Points of `A` with values in an `L`-algebra `M` become points of `A_L`. -/
+def bcPt (J : AbVar K) (M : Type) [Field M] [Algebra L M] [Algebra K M] [IsScalarTower K L M] :
+    J.Pt M →* (J.baseChange L).Pt M where
+  toFun Q := ptUnit M ≫ (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map Q
+  map_one' := by
+    change ptUnit M ≫ (Over.pullback _).map (1 : ptObj (K := K) M ⟶ J.X) = 1
+    rw [Functor.map_one, MonObj.comp_one]
+    -- leaf-adopt3: `rfl` dropped here (the goal is closed by `rw` in Leaves.lean's context)
+  map_mul' Q Q' := by
+    change ptUnit M ≫ (Over.pullback _).map (Q * Q') =
+      (ptUnit M ≫ (Over.pullback _).map Q) * (ptUnit M ≫ (Over.pullback _).map Q')
+    rw [Functor.map_mul, MonObj.comp_mul]
+    rfl
+
+lemma bcPt_fst (J : AbVar K) (M : Type) [Field M] [Algebra L M] [Algebra K M]
+    [IsScalarTower K L M] (Q : J.Pt M) :
+    (bcPt L J M Q).left ≫ pullback.fst _ _ = Q.left := by
+  change ((ptUnit (K := K) (L := L) M).left ≫
+    ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map Q).left) ≫
+      pullback.fst _ _ = Q.left
+  simp only [ptUnit, Over.pullback_map_left, Category.assoc, pullback.lift_fst]
+  exact (pullback.lift_fst_assoc _ _ _ _).trans (Category.id_comp _)
+
+lemma bcPt_injective (J : AbVar K) (M : Type) [Field M] [Algebra L M] [Algebra K M]
+    [IsScalarTower K L M] : Function.Injective (bcPt L J M) := by
+  intro Q Q' h
+  apply Over.OverMorphism.ext
+  rw [← bcPt_fst (L := L) J M Q, ← bcPt_fst (L := L) J M Q', h]
+
+/-- Precomposition with `Spec ι`, `A(M₁) → A(M₂)`. -/
+def precompPt (J : AbVar K) {M₁ M₂ : Type} [Field M₁] [Field M₂] [Algebra K M₁] [Algebra K M₂]
+    (i : M₁ →ₐ[K] M₂) : J.Pt M₁ →* J.Pt M₂ where
+  toFun P := specHom i ≫ P
+  map_one' := MonObj.comp_one _
+  map_mul' _ _ := MonObj.comp_mul _ _ _
+
+lemma precompPt_injective (J : AbVar K) {M₁ M₂ : Type} [Field M₁] [Field M₂] [Algebra K M₁]
+    [Algebra K M₂] (i : M₁ →ₐ[K] M₂) : Function.Injective (precompPt J i) := by
+  intro P P' h
+  have hd : IsDominant (specHom (K := K) i).left := by
+    constructor
+    have : Subsingleton (ptObj (K := K) M₁).left :=
+      inferInstanceAs (Subsingleton (PrimeSpectrum M₁))
+    have hne : Nonempty (ptObj (K := K) M₂).left :=
+      inferInstanceAs (Nonempty (PrimeSpectrum M₂))
+    obtain ⟨x⟩ := hne
+    intro y
+    rw [Subsingleton.elim y ((specHom (K := K) i).left x)]
+    exact subset_closure (Set.mem_range_self x)
+  have : IsReduced (ptObj (K := K) M₁).left :=
+    inferInstanceAs (IsReduced (Spec (CommRingCat.of M₁)))
+  apply Over.OverMorphism.ext
+  exact ext_of_isDominant_of_isSeparated J.X.hom (by simp) (specHom (K := K) i).left
+    (by rw [← Over.comp_left, ← Over.comp_left]; exact congrArg CommaMorphism.left h)
+
+end BaseChange
+
+section BC2
+
+variable {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
+
+/-- The point map `A(K̄) → A_L(L̄)` along a `K`-embedding `i : K̄ → L̄`. -/
+def bcPhi (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    J.Pt (AlgebraicClosure K) →* (J.baseChange L).Pt (AlgebraicClosure L) :=
+  (bcPt L J (AlgebraicClosure L)).comp (precompPt J i)
+
+lemma bcPhi_injective (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    Function.Injective (bcPhi J i) := by
+  intro a b h
+  exact precompPt_injective J i (bcPt_injective (L := L) J (AlgebraicClosure L) h)
+
+variable (K) in
+/-- `τ ∈ Gal(L̄/L)` acting on `Spec L̄` over `K`. -/
+def galHomK (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) :
+    ptObj (K := K) (AlgebraicClosure L) ⟶ ptObj (K := K) (AlgebraicClosure L) :=
+  specHom ((τ.restrictScalars K).toAlgHom)
+
+lemma specHom_galHom (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ x, i (σ x) = τ (i x)) :
+    specHom i ≫ galHom σ = galHomK K τ ≫ specHom i := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (i : AlgebraicClosure K →+* AlgebraicClosure L)) ≫
+      Spec.map (CommRingCat.ofHom (σ : AlgebraicClosure K →+* AlgebraicClosure K)) =
+    Spec.map (CommRingCat.ofHom ((τ.restrictScalars K).toAlgHom :
+        AlgebraicClosure L →+* AlgebraicClosure L)) ≫
+      Spec.map (CommRingCat.ofHom (i : AlgebraicClosure K →+* AlgebraicClosure L))
+  rw [← Spec.map_comp, ← Spec.map_comp]
+  congr 1
+  ext x
+  exact h x
+
+lemma galHom_ptUnit (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) :
+    galHom τ ≫ ptUnit (K := K) (L := L) (AlgebraicClosure L) =
+      ptUnit (AlgebraicClosure L) ≫
+        (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map (galHomK K τ) := by
+  apply Over.OverMorphism.ext
+  simp only [Over.comp_left, Over.pullback_map_left]
+  apply pullback.hom_ext
+  · simp only [Category.assoc, pullback.lift_fst]
+    erw [pullback.lift_fst, pullback.lift_fst_assoc, Category.comp_id]
+  · simp only [Category.assoc, pullback.lift_snd]
+    erw [pullback.lift_snd]
+    change Spec.map (CommRingCat.ofHom (τ : AlgebraicClosure L →+* AlgebraicClosure L)) ≫
+      Spec.map (CommRingCat.ofHom (algebraMap L (AlgebraicClosure L))) =
+        Spec.map (CommRingCat.ofHom (algebraMap L (AlgebraicClosure L)))
+    rw [← Spec.map_comp]
+    congr 1
+    ext x
+    exact τ.commutes x
+
+/-- **Equivariance of the point map.** For `τ ∈ G_L` and `σ ∈ G_K` with `i ∘ σ = τ ∘ i`. -/
+lemma bcPhi_galAct (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ x, i (σ x) = τ (i x)) (P : J.Pt (AlgebraicClosure K)) :
+    bcPhi J i (J.galAct σ P) = (J.baseChange L).galAct τ (bcPhi J i P) := by
+  change ptUnit (AlgebraicClosure L) ≫
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map
+        (specHom i ≫ galHom σ ≫ P) =
+    galHom τ ≫ ptUnit (AlgebraicClosure L) ≫
+      (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map (specHom i ≫ P)
+  rw [← Category.assoc (galHom τ), galHom_ptUnit, Category.assoc, ← Functor.map_comp,
+    ← Category.assoc (specHom i), specHom_galHom i τ σ h, Category.assoc]
+
+/-- Every `τ ∈ G_L` restricts along `i` to some `σ ∈ G_K`. -/
+lemma exists_res (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) :
+    ∃ σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, ∀ x, i (σ x) = τ (i x) := by
+  letI : Algebra (AlgebraicClosure K) (AlgebraicClosure L) := i.toRingHom.toAlgebra
+  haveI : IsScalarTower K (AlgebraicClosure K) (AlgebraicClosure L) :=
+    IsScalarTower.of_algebraMap_eq (fun x => (i.commutes x).symm)
+  refine ⟨(τ.restrictScalars K).restrictNormal (AlgebraicClosure K), fun x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes (τ.restrictScalars K) (AlgebraicClosure K) x
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `T_ℓ(A) → T_ℓ(A_L)` along `i`. -/
+def bcT (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    J.T ℓ →ₗ[ℤ_[ℓ]] (J.baseChange L).T ℓ :=
+  Tate.map (MonoidHom.toAdditive (bcPhi J i))
+
+lemma bcT_injective (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    Function.Injective (bcT ℓ J i) :=
+  Tate.map_injective _ (bcPhi_injective J i)
+
+lemma bcT_galT (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ x, i (σ x) = τ (i x)) (x : J.T ℓ) :
+    bcT ℓ J i (J.galT σ x) = (J.baseChange L).galT τ (bcT ℓ J i x) := by
+  apply Subtype.ext; funext n
+  change Additive.ofMul (bcPhi J i (J.galAct σ (Additive.toMul (x.1 n)))) =
+    Additive.ofMul ((J.baseChange L).galAct τ (bcPhi J i (Additive.toMul (x.1 n))))
+  rw [bcPhi_galAct J i τ σ h]
+
+/-- `V_ℓ(A) → V_ℓ(A_L)` along `i`. -/
+def bcV (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    J.V ℓ →ₗ[ℚ_[ℓ]] (J.baseChange L).V ℓ :=
+  (bcT ℓ J i).baseChange ℚ_[ℓ]
+
+lemma bcV_injective (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    Function.Injective (bcV ℓ J i) := by
+  haveI : Module.Flat ℤ_[ℓ] ℚ_[ℓ] := IsLocalization.flat ℚ_[ℓ] (nonZeroDivisors ℤ_[ℓ])
+  exact Module.Flat.lTensor_preserves_injective_linearMap _ (bcT_injective ℓ J i)
+
+lemma bcV_galRep (J : AbVar K) (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ x, i (σ x) = τ (i x)) :
+    bcV ℓ J i ∘ₗ J.galRep ℓ σ = (J.baseChange L).galRep ℓ τ ∘ₗ bcV ℓ J i := by
+  have h1 : bcT ℓ J i ∘ₗ J.galT σ = (J.baseChange L).galT τ ∘ₗ bcT ℓ J i :=
+    LinearMap.ext fun x => bcT_galT ℓ J i τ σ h x
+  change (bcT ℓ J i).baseChange ℚ_[ℓ] ∘ₗ (J.galT σ).baseChange ℚ_[ℓ] =
+    ((J.baseChange L).galT τ).baseChange ℚ_[ℓ] ∘ₗ (bcT ℓ J i).baseChange ℚ_[ℓ]
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, h1]
+
+/-- **`V_ℓ` under base change (GLUE, proved).** For an abelian variety `J` over `K`, a field
+extension `L/K` and a `K`-embedding `i : K̄ → L̄`, `V_ℓ(i) : V_ℓ(J) → V_ℓ(J_L)` is injective and
+intertwines `σ ∈ G_K` with `τ ∈ G_L` whenever `i ∘ σ = τ ∘ i`; after extension of scalars to any
+field `E ⊇ ℚ_ℓ` it stays injective and equivariant. (With `TateModuleFree` over `K` and `L` and
+`dim J_L = dim J` it is bijective, `PkgI3.Tate.map_bijective`; injectivity suffices for E1.) -/
+theorem bcVE_injective (E : Type) [Field E] [Algebra ℚ_[ℓ] E] (J : AbVar K)
+    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    Function.Injective ((bcV ℓ J i).baseChange E) :=
+  Module.Flat.lTensor_preserves_injective_linearMap _ (bcV_injective ℓ J i)
+
+theorem bcVE_equivariant (E : Type) [Field E] [Algebra ℚ_[ℓ] E] (J : AbVar K)
+    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+    (σ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    (h : ∀ x, i (σ x) = τ (i x)) (v : TensorProduct ℚ_[ℓ] E (J.V ℓ)) :
+    (bcV ℓ J i).baseChange E (GlueI3.repBaseChange E (J.galRep ℓ) σ v) =
+      GlueI3.repBaseChange E ((J.baseChange L).galRep ℓ) τ ((bcV ℓ J i).baseChange E v) := by
+  change ((bcV ℓ J i).baseChange E ∘ₗ (J.galRep ℓ σ).baseChange E) v =
+    (((J.baseChange L).galRep ℓ τ).baseChange E ∘ₗ (bcV ℓ J i).baseChange E) v
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, bcV_galRep ℓ J i τ σ h]
+
+end BC2
+
+/-! ### The restriction `G_L → G_K` along `i` and bijectivity under `TateModuleFree` -/
+
+section Res
+
+variable {K : Type} [Field K] {L : Type} [Field L] [Algebra K L]
+
+/-- The restriction `res_i : G_L → G_K`, `i ∘ res_i(τ) = τ ∘ i` (unique since `i` is injective). -/
+def res (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) :
+    (AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) →* (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
+    where
+  toFun τ := Classical.choose (exists_res i τ)
+  map_one' := by
+    apply AlgEquiv.ext; intro x
+    apply i.toRingHom.injective
+    exact (Classical.choose_spec (exists_res i 1) x).trans rfl
+  map_mul' τ₁ τ₂ := by
+    apply AlgEquiv.ext; intro x
+    apply i.toRingHom.injective
+    change i _ = i _
+    rw [Classical.choose_spec (exists_res i (τ₁ * τ₂)) x]
+    change τ₁ (τ₂ (i x)) = i (Classical.choose (exists_res i τ₁)
+      (Classical.choose (exists_res i τ₂) x))
+    rw [Classical.choose_spec (exists_res i τ₁), Classical.choose_spec (exists_res i τ₂)]
+
+lemma res_spec (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L)
+    (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (x : AlgebraicClosure K) :
+    i (res i τ x) = τ (i x) :=
+  Classical.choose_spec (exists_res i τ) x
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **`T_ℓ` under base change is bijective (GLUE, proved from `TateModuleFree` and the
+dimension being unchanged by base change).** `dim A_L = dim A` is a standard fact (dimension of
+a scheme locally of finite type over a field is invariant under field extension; Stacks, Tag
+00P4 for algebras, UNVERIFIED tag) taken here as a hypothesis; it is not needed for E1. -/
+theorem bcT_bijective (hT : TateModuleFree) (J : AbVar K)
+    (i : AlgebraicClosure K →ₐ[K] AlgebraicClosure L) (hℓ : (ℓ : K) ≠ 0)
+    (hdim : (J.baseChange L).dim = J.dim) : Function.Bijective (bcT ℓ J i) := by
+  have hℓL : (ℓ : L) ≠ 0 := by
+    rw [← map_natCast (algebraMap K L)]
+    exact (map_ne_zero_iff _ (algebraMap K L).injective).2 hℓ
+  obtain ⟨hfr, hfi, hr⟩ := hT K J ℓ hℓ
+  obtain ⟨-, hfiL, hrL⟩ := hT L (J.baseChange L) ℓ hℓL
+  refine Tate.map_bijective _ (bcPhi_injective J i) ?_
+  have : ((Module.finrank ℤ_[ℓ] (J.T ℓ) : ℕ∞) : WithBot ℕ∞) =
+      ((Module.finrank ℤ_[ℓ] ((J.baseChange L).T ℓ) : ℕ∞) : WithBot ℕ∞) := by
+    rw [hr, hrL, hdim]
+  exact_mod_cast this
+
+end Res
+
+end E1Sub
+
+end BCsec
+
+/-! ## §5. E1 for R16: `ρ_{f,ι}` is a subrepresentation of `V_ℓ(J₁(N)_L) ⊗ ℚ̄_ℓ` -/
+
+namespace E1Sub
+
+section Final
+
+-- leaf-adopt3: `hiding` added (Leaves.lean has `LeafModCurves` copies of these `PkgI4` names)
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
+open PkgI4 (GQ)
+
+/-- **E1 for R16 (GLUE, proved from R16 and the I3 leaves `FaltingsSemisimple`, `FaltingsTate`,
+`TateModuleFree`).** Let `f` be a weight-2 newform of level `N`, `J` a `J₁(N)` over `ℚ`, `L` any
+field of characteristic `0` (in the application, the number field `L'` of N5 L861-867) and
+`i : ℚ̄ → L̄` an embedding. Then there are Shimura's `A_f`, `π : J ↠ A_f` and `θ : K_f → End⁰(A_f)`
+such that for every prime `ℓ` and embedding `ι : K_f → ℚ̄_ℓ`, R16's `ρ_{f,ι} = rhoF ℓ A_f θ ι` (on
+a 2-dimensional `ℚ̄_ℓ`-space, with Frobenius traces `ι(a_p(f))` at `p ∤ Nℓ`) is equivariantly
+isomorphic to a subrepresentation `U` of `V_ℓ(J_L) ⊗ ℚ̄_ℓ`, where `τ ∈ G_L` acts on `ρ_{f,ι}`
+through any `σ ∈ G_ℚ` with `i ∘ σ = τ ∘ i` (such `σ` exists, `exists_res`, and is unique
+because `i` is injective; `rhoFL_subrep_JL` restates this with `res i`). This is the `U'` that `PkgI3.E1_exists_hom_ne_zero`
+consumes on the `J` side (with `K = L'`, `E = ℚ̄_ℓ`). -/
+theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (L : Type) [Field L] [Algebra ℚ L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
+        (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+          ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
+        ∃ (U : Subrepresentation
+            (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)))
+          (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+          ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : GQ),
+            (∀ x, i (σ x) = τ (i x)) → ∀ u : U.toSubmodule,
+              e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ u,
+                  U.apply_mem_toSubmodule τ u.2⟩ = rhoF ℓ A θ emb σ (e u) := by
+  obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_J hR16 hS hF hT N hN χ f hf J hJ
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, hss, htr, U0, e0, he0⟩ := hrest ℓ emb
+  refine ⟨h2, hss, htr, ?_⟩
+  let Ψ := (bcV ℓ J i).baseChange (PadicAlgCl ℓ)
+  have hΨ : Function.Injective Ψ := bcVE_injective ℓ (PadicAlgCl ℓ) J i
+  let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)) :=
+    { toSubmodule := U0.toSubmodule.map Ψ
+      apply_mem_toSubmodule := by
+        rintro τ _ ⟨u, hu, rfl⟩
+        obtain ⟨σ, hσ⟩ := exists_res i τ
+        refine ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u,
+          U0.apply_mem_toSubmodule σ hu, ?_⟩
+        exact bcVE_equivariant ℓ (PadicAlgCl ℓ) J i τ σ hσ u }
+  let eM := Submodule.equivMapOfInjective Ψ hΨ U0.toSubmodule
+  refine ⟨U, eM.symm.trans e0, fun τ σ hσ u => ?_⟩
+  obtain ⟨u0, rfl⟩ := eM.surjective u
+  have hmap : (⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (eM u0),
+      U.apply_mem_toSubmodule τ (eM u0).2⟩ : U.toSubmodule) =
+      eM ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u0,
+        U0.apply_mem_toSubmodule σ u0.2⟩ := by
+    apply Subtype.ext
+    change GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (Ψ u0) =
+      Ψ (GlueI3.repBaseChange (PadicAlgCl ℓ) (J.galRep ℓ) σ u0)
+    exact (bcVE_equivariant ℓ (PadicAlgCl ℓ) J i τ σ hσ u0).symm
+  simp only [LinearEquiv.trans_apply]
+  rw [hmap, LinearEquiv.symm_apply_apply, LinearEquiv.symm_apply_apply]
+  exact he0 σ u0
+
+/-- `ρ_{f,ι}|_{G_L}`: R16's representation restricted along `res_i : G_L → G_ℚ`. -/
+def rhoFL (ℓ : ℕ) [Fact ℓ.Prime] (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0)
+    (emb : F →+* PadicAlgCl ℓ) {L : Type} [Field L] [Algebra ℚ L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    Representation (PadicAlgCl ℓ) (AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L)
+      (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) :=
+  (rhoF ℓ A θ emb).comp (res i)
+
+/-- **E1 for R16, as `G_L`-representations.** `ρ_{f,ι}|_{G_L}` (`rhoFL`) is isomorphic to a
+subrepresentation of `V_ℓ(J_L) ⊗ ℚ̄_ℓ`. -/
+theorem rhoFL_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (L : Type) [Field L] [Algebra ℚ L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        ∃ (U : Subrepresentation
+            (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)))
+          (e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)),
+          ∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (u : U.toSubmodule),
+            e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ u,
+                U.apply_mem_toSubmodule τ u.2⟩ = rhoFL ℓ A θ emb i τ (e u) := by
+  obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, -, -, U, e, he⟩ := hrest ℓ emb
+  exact ⟨h2, U, e, fun τ u => he τ (res i τ) (res_spec i τ) u⟩
+
+/-- **E1 for R16, assembled (GLUE, proved).** In the situation of `rhoF_subrep_JL`, with `L` a
+number field: for every abelian variety `A'` over `L` (the QM surface of N5) and every nonzero
+subrepresentation `U` of `V_ℓ(A') ⊗ ℚ̄_ℓ` that is `G_L`-equivariantly isomorphic to
+`ρ_{f,ι}|_{G_L}` (the output C9 must supply: `r_ℓ ≅ ρ_{f,ι}` on a constituent of `V_ℓ(A')`; the
+dimension, semisimplicity and trace clauses for these `A_f, θ` are exported for that purpose), there
+is a nonzero homomorphism `A' → J_L` over `L`; if moreover `End⁰(A')` is a division algebra,
+Poincaré reducibility (leaf T8) gives an abelian variety `Z` and `g : Z → J_L` with
+`(φ, g) : A' × Z → J_L` an isogeny (N5 L861-867). -/
+theorem E1_R16 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
+    (hF : FaltingsTate) (hT : TateModuleFree) (hP : PoincareReducibility) (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : PkgI4.CF N 2) (hf : PkgI4.IsNewform f χ) (J : AbVar ℚ)
+    (hJ : IsJ1 N J) (L : Type) [Field L] [NumberField L]
+    (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
+    ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
+        (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+          ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
+        ∀ (A' : AbVar L)
+        (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ))),
+        U ≠ ⊥ →
+        ∀ eA : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb),
+          (∀ (τ : AlgebraicClosure L ≃ₐ[L] AlgebraicClosure L) (σ : GQ),
+            (∀ x, i (σ x) = τ (i x)) → ∀ u : U.toSubmodule,
+              eA ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u,
+                  U.apply_mem_toSubmodule τ u.2⟩ = rhoF ℓ A θ emb σ (eA u)) →
+          ∃ φ : Hom A' (J.baseChange L), φ ≠ 0 ∧
+            (EndDivision A' → ∃ (Z : AbVar L) (g : Hom Z (J.baseChange L)),
+              IsIsogenyMor (fst A'.X Z.X ≫ φ.hom * snd A'.X Z.X ≫ g.hom)) := by
+  obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, hss, htr, U', eJ, heJ⟩ := hrest ℓ emb
+  refine ⟨h2, hss, htr, fun A' U hU eA heA => ?_⟩
+  let e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] U'.toSubmodule := eA.trans eJ.symm
+  have he : ∀ (τ : Field.absoluteGaloisGroup L) (u : U.toSubmodule),
+      (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ :
+        TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) ((J.baseChange L).V ℓ)) =
+        GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (e u) := by
+    intro τ u
+    obtain ⟨σ, hσ⟩ := exists_res i τ
+    have h1 : eJ ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ) τ (e u),
+        U'.apply_mem_toSubmodule τ (e u).2⟩ =
+        eJ (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u,
+          U.apply_mem_toSubmodule τ u.2⟩) := by
+      rw [heJ τ σ hσ (e u)]
+      simp only [e, LinearEquiv.trans_apply, LinearEquiv.apply_symm_apply]
+      rw [heA τ σ hσ u]
+    exact congrArg Subtype.val (eJ.injective h1).symm
+  obtain ⟨φ, hφ⟩ := E1_exists_hom_ne_zero' hS hF hT A' (J.baseChange L) ℓ (PadicAlgCl ℓ) U U' hU
+    e he
+  exact ⟨φ, hφ, fun hdiv => hP L A' (J.baseChange L) hdiv φ hφ⟩
+
+end Final
+
+end E1Sub
+
+end
+
+end E1SubSec
+
+/-! ## c9-rhof (wave 25; leaf-adopt3 fold): glue C9 for R16's `ρ_{f,ι}` (`LeafModCurves.rhoF`)
+
+From `scratch/c9-rhof/C9.lean` (which imported `ZInQKernel.HDecomp.ModCurves.Glue`,
+`ZInQKernel.HDecomp.I3Linalg.C2`, `ZInQKernel.HDecomp.I3Linalg.RhoCont`). Needs the e1-sub
+fragment before it (for `GlueI3.isSemisimpleRepresentation_baseChange`, which needs glue-ssbc's
+section `GlueSSBCSec`).
+* Kernel `I3Linalg/RhoCont.lean` (glue-rho-cont), none of which is in Leaves.lean, is copied
+  first, verbatim (namespaces `PkgI3.RhoCont`, `PkgI3.Tate`, and
+  `PkgI3.continuous_galRep_of_tateModuleFree`). It declares the global instances
+  `PkgI3.RhoCont.instTopologicalSpacePt`, `PkgI3.RhoCont.instTopologicalSpaceV` (module topology on
+  `V_ℓ(A)`) and two `DiscreteTopology`/`IsModuleTopology` instances.
+* The c9-rhof text is verbatim except: no import, no `#print axioms`; its §7 (`PkgI4.EigenformRepExists`,
+  `PkgI4.EigenformTwist`, `PkgI4.NewformOfEigenform`, `PkgI4.GaloisRep.AttachedUpToTwist`) is deleted
+  (identical copies already in Leaves.lean, section `PkgI4`); `open ... LeafModCurves` gets `hiding`.
+  `C9Rhof.FrobeniusDense` (a verbatim copy of `HSyn.FrobeniusDense` over `PkgI4`'s names) is kept;
+  bridges to the bundle forms are added at the end (`frobeniusDense_of_hsyn`, `c9_hsyn`, ...).
+No proof holes (the task file's one occurrence of the word is in its module docstring, not copied). -/
+
+section C9RhofSec
+
+noncomputable section
+
+/-! ### Kernel `I3Linalg/RhoCont.lean` §3 (verbatim; not in Leaves.lean) -/
+
+/-! pkg-I3's object layer and leaves (§1-§4 of the draft, a verbatim copy of
+`scratch/pkg-I3/I3.lean`) are imported from `ZInQKernel.HDecomp.Objects` (§A), whose
+QM leaf is `PkgI3.QMDichotomyYu`. -/
+
+/-! ## 3. Continuity of `ρ_ℓ` (new: task glue-rho-cont) -/
+
+/-! ### 3a. A discrete action with open stabilizers is continuous -/
+
+namespace PkgI3.RhoCont
+
+theorem continuous_orbit {G X : Type*} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
+    [TopologicalSpace X] [DiscreteTopology X] (act : G → X → X)
+    (hmul : ∀ g h x, act (g * h) x = act g (act h x))
+    (hstab : ∀ x, ∃ H : OpenSubgroup G, ∀ g ∈ H, act g x = x) (x : X) :
+    Continuous (fun g => act g x) := by
+  rw [continuous_discrete_rng]
+  intro b
+  rw [isOpen_iff_forall_mem_open]
+  intro g₀ hg₀
+  obtain ⟨H, hH⟩ := hstab x
+  refine ⟨(fun g => g₀⁻¹ * g) ⁻¹' (H : Set G), ?_,
+    H.isOpen.preimage (continuous_const.mul continuous_id), by simp⟩
+  intro g hg
+  simp only [Set.mem_preimage, Set.mem_singleton_iff, SetLike.mem_coe] at hg hg₀ ⊢
+  have : g = g₀ * (g₀⁻¹ * g) := by group
+  rw [this, hmul, hH _ hg, hg₀]
+
+theorem continuous_act {G X : Type*} [Group G] [TopologicalSpace G] [IsTopologicalGroup G]
+    [TopologicalSpace X] [DiscreteTopology X] (act : G → X → X)
+    (hmul : ∀ g h x, act (g * h) x = act g (act h x))
+    (hstab : ∀ x, ∃ H : OpenSubgroup G, ∀ g ∈ H, act g x = x) :
+    Continuous (fun p : G × X => act p.1 p.2) :=
+  continuous_prod_of_discrete_right.2 (continuous_orbit act hmul hstab)
+
+end PkgI3.RhoCont
+
+/-! ### 3b. The inverse-limit topology on `T_ℓ(M)` for a discrete group `M`
+
+`T ℓ M` is a subgroup of `ℕ → M`; with `M` discrete it carries the subspace topology of the
+product, i.e. the inverse-limit topology of the discrete groups `M[ℓⁿ]` (Mathlib's instances,
+no new definition). -/
+
+namespace PkgI3.Tate
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M : Type*} [AddCommGroup M] [TopologicalSpace M]
+  [DiscreteTopology M]
+
+omit hℓ in
+lemma isOpen_coord_eq (n : ℕ) (m : M) : IsOpen {x : T ℓ M | x.1 n = m} := by
+  have hc : Continuous (fun x : T ℓ M => x.1 n) := (continuous_apply n).comp continuous_subtype_val
+  exact hc.isOpen_preimage {m} (isOpen_discrete _)
+
+omit hℓ [TopologicalSpace M] [DiscreteTopology M] in
+lemma pow_smul_shift {x : ℕ → M} (hx : x ∈ T ℓ M) (n k : ℕ) : (ℓ ^ n) • x (k + n) = x k := by
+  induction n with
+  | zero => simp
+  | succ n ih => rw [pow_succ, mul_smul, ← add_assoc, hx.2 (k + n), ih]
+
+omit [TopologicalSpace M] [DiscreteTopology M] in
+/-- The kernel of the `n`-th coordinate is `ℓⁿ T_ℓ(M)`. -/
+lemma coord_eq_zero_iff (x : T ℓ M) (n : ℕ) :
+    x.1 n = 0 ↔ ∃ y : T ℓ M, x = ((ℓ : ℤ_[ℓ]) ^ n) • y := by
+  constructor
+  · intro hx
+    let y : T ℓ M := ⟨fun k => x.1 (n + k), by simpa using hx, fun k => by
+      show ℓ • x.1 (n + (k + 1)) = x.1 (n + k)
+      rw [← add_assoc]; exact x.2.2 (n + k)⟩
+    refine ⟨y, ?_⟩
+    apply Subtype.ext; funext k
+    change x.1 k = smulSeq ((ℓ : ℤ_[ℓ]) ^ n) y.1 k
+    rw [smulSeq_congr y.2 k (c := ℓ ^ n) (by rw [map_pow, map_natCast, Nat.cast_pow])]
+    change x.1 k = (ℓ ^ n) • x.1 (n + k)
+    rw [add_comm n k, pow_smul_shift x.2 n k]
+  · rintro ⟨y, rfl⟩
+    rw [smul_apply]
+    have : (PadicInt.toZModPow n ((ℓ : ℤ_[ℓ]) ^ n)) = 0 := by
+      rw [map_pow, map_natCast]; exact_mod_cast ZMod.natCast_self (ℓ ^ n)
+    rw [this, ZMod.val_zero, zero_smul]
+
+end PkgI3.Tate
+
+namespace PkgI3.Tate
+
+variable {ℓ : ℕ} [hℓ : Fact ℓ.Prime] {M : Type*} [AddCommGroup M] [TopologicalSpace M]
+  [DiscreteTopology M]
+
+/-- The inverse-limit topology on `T_ℓ(M)` is the `ℓ`-adic one: every `ℤ_ℓ`-linear functional
+`T_ℓ(M) → ℤ_ℓ` is continuous. -/
+theorem continuous_of_linearMap_padicInt (c : T ℓ M →ₗ[ℤ_[ℓ]] ℤ_[ℓ]) : Continuous c := by
+  apply continuous_of_continuousAt_zero c
+  rw [ContinuousAt, map_zero, Metric.tendsto_nhds]
+  intro ε hε
+  obtain ⟨n, hn⟩ := PadicInt.exists_pow_neg_lt ℓ hε
+  filter_upwards [(isOpen_coord_eq (ℓ := ℓ) (M := M) n 0).mem_nhds rfl] with x hx
+  obtain ⟨y, rfl⟩ := (coord_eq_zero_iff x n).1 hx
+  rw [map_smul, dist_zero_right, smul_eq_mul, norm_mul, PadicInt.norm_p_pow]
+  calc (ℓ : ℝ) ^ (-(n : ℤ)) * ‖c y‖ ≤ (ℓ : ℝ) ^ (-(n : ℤ)) * 1 :=
+        mul_le_mul_of_nonneg_left (PadicInt.norm_le_one _) (zpow_nonneg (Nat.cast_nonneg _) _)
+    _ < ε := by simpa using hn
+
+omit hℓ [TopologicalSpace M] [DiscreteTopology M] in
+lemma coord_eq_zero_of_le {x : T ℓ M} {n k : ℕ} (hx : x.1 n = 0) (hk : k ≤ n) : x.1 k = 0 := by
+  rw [← pow_smul_shift x.2 (n - k) k, Nat.add_sub_cancel' hk, hx, smul_zero]
+
+omit hℓ in
+/-- **The inverse-limit topology is the `ℓ`-adic topology.** The sets `{x | xₙ = 0} = ℓⁿ T_ℓ(M)`
+(`coord_eq_zero_iff`) form a basis of neighbourhoods of `0`. -/
+theorem nhds_zero_hasBasis :
+    (nhds (0 : T ℓ M)).HasBasis (fun _ : ℕ => True) (fun n => {x : T ℓ M | x.1 n = 0}) := by
+  refine ⟨fun U => ⟨fun hU => ?_, fun ⟨n, _, hn⟩ =>
+    Filter.mem_of_superset ((isOpen_coord_eq n 0).mem_nhds rfl) hn⟩⟩
+  rw [nhds_subtype, Filter.mem_comap] at hU
+  obtain ⟨V, hV, hVU⟩ := hU
+  rw [nhds_pi, Filter.mem_pi'] at hV
+  obtain ⟨I, t, ht, hIt⟩ := hV
+  refine ⟨I.sup id, trivial, fun x hx => hVU (hIt fun k hk => ?_)⟩
+  have hk' : k ≤ I.sup id := Finset.le_sup (f := id) hk
+  show x.1 k ∈ t k
+  rw [coord_eq_zero_of_le hx hk']
+  exact mem_of_mem_nhds (ht k)
+
+omit [DiscreteTopology M] in
+/-- Functoriality is jointly continuous: if `G` acts continuously on the discrete group `M`, the
+induced action on `T_ℓ(M)` is continuous. -/
+theorem continuous_map_action {G : Type*} [TopologicalSpace G] (act : G → (M →+ M))
+    (hc : Continuous (fun p : G × M => act p.1 p.2)) :
+    Continuous (fun p : G × T ℓ M => map (ℓ := ℓ) (act p.1) p.2) := by
+  apply continuous_induced_rng.2
+  apply continuous_pi
+  intro n
+  exact hc.comp (continuous_fst.prodMk
+    ((continuous_apply n).comp (continuous_subtype_val.comp continuous_snd)))
+
+end PkgI3.Tate
+
+/-! ### 3c. Open stabilizers on `A(K̄)`
+
+Each `K̄`-point `P` of a scheme locally of finite type over `K` is fixed by the open subgroup
+`Gal(K̄/E)` for a finite extension `E/K`: the stalk map `κ = 𝒪_{A,x} → K̄` of `P` is determined
+by finitely many values (`𝒪_{A,x}` is essentially of finite type over `K`), and these generate
+a finite extension `E` because `K̄/K` is algebraic. -/
+
+namespace PkgI3.RhoCont
+
+open CategoryTheory AlgebraicGeometry Limits AbVar
+
+universe u
+
+variable {K : Type u} [Field K]
+
+local notation "Kbar" => AlgebraicClosure K
+
+lemma stalkClosedPointTo_comp_galois
+    (g : Spec (CommRingCat.of Kbar) ⟶ Spec (CommRingCat.of K))
+    (hg : g = Spec.map (CommRingCat.ofHom (algebraMap K Kbar))) (σ : Kbar ≃ₐ[K] Kbar) :
+    Scheme.stalkClosedPointTo g ≫ CommRingCat.ofHom (σ : Kbar →+* Kbar) =
+      Scheme.stalkClosedPointTo g := by
+  subst hg
+  ext y
+  obtain ⟨U, hU, s, rfl⟩ := TopCat.Presheaf.exists_germ_eq _ y
+  have hUtop : U = ⊤ := by
+    ext z
+    simp only [TopologicalSpace.Opens.coe_top, Set.mem_univ, iff_true]
+    have : z = (Spec.map (CommRingCat.ofHom (algebraMap K Kbar)))
+        (IsLocalRing.closedPoint Kbar) := Subsingleton.elim _ _
+    rw [this]; exact hU
+  subst hUtop
+  have h := Scheme.germ_stalkClosedPointTo_Spec (CommRingCat.ofHom (algebraMap K Kbar))
+  have h2 : (Spec (CommRingCat.of K)).presheaf.germ ⊤ _ trivial ≫
+      Scheme.stalkClosedPointTo (Spec.map (CommRingCat.ofHom (algebraMap K Kbar))) ≫
+        CommRingCat.ofHom (σ : Kbar →+* Kbar) =
+      (Spec (CommRingCat.of K)).presheaf.germ ⊤ _ trivial ≫
+        Scheme.stalkClosedPointTo (Spec.map (CommRingCat.ofHom (algebraMap K Kbar))) := by
+    rw [← Category.assoc, h, Category.assoc, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext c
+    exact σ.commutes c
+  exact congrArg (fun φ => φ.hom s) h2
+
+/-- **Open stabilizers.** Every `K̄`-point of an abelian variety (indeed of any `K`-scheme locally
+of finite type) is fixed by an open subgroup of `G_K`. -/
+theorem exists_openSubgroup_galAct_eq (A : AbVar K) (P : A.Pt Kbar) :
+    ∃ H : OpenSubgroup (Field.absoluteGaloisGroup K), ∀ σ ∈ H, A.galAct σ P = P := by
+  set p : Spec (CommRingCat.of Kbar) ⟶ A.X.left := P.left with hp
+  set x := p (IsLocalRing.closedPoint Kbar)
+  set s := Scheme.stalkClosedPointTo p
+  have hfin : (A.X.hom.stalkMap x).hom.EssFiniteType := LocallyOfFiniteType.stalkMap (f := A.X.hom)
+      x
+  let S : Set Kbar := s.hom '' (hfin.finset : Set _)
+  have : Finite S := ((hfin.finset.finite_toSet).image _).to_subtype
+  let E := IntermediateField.adjoin K S
+  have : FiniteDimensional K E :=
+    IntermediateField.finiteDimensional_adjoin (fun z _ => Algebra.IsIntegral.isIntegral z)
+  refine ⟨⟨E.fixingSubgroup, E.fixingSubgroup_isOpen⟩, fun (σ : Kbar ≃ₐ[K] Kbar) hσ => ?_⟩
+  have key : s ≫ CommRingCat.ofHom (σ : Kbar →+* Kbar) = s := by
+    apply CommRingCat.hom_ext
+    refine RingHom.EssFiniteType.ext hfin ?_ ?_
+    · have hw : p ≫ A.X.hom = Spec.map (CommRingCat.ofHom (algebraMap K Kbar)) := by
+        simpa [ptObj] using Over.w P
+      have h := stalkClosedPointTo_comp_galois (p ≫ A.X.hom) hw σ
+      rw [Scheme.stalkClosedPointTo_comp] at h
+      have := congrArg CommRingCat.Hom.hom h
+      simp only [CommRingCat.hom_comp, RingHom.comp_assoc] at this ⊢
+      exact this
+    · intro y hy
+      exact (IntermediateField.mem_fixingSubgroup_iff E σ).1 hσ _
+        (IntermediateField.subset_adjoin K S ⟨y, hy, rfl⟩)
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (σ : Kbar →+* Kbar)) ≫ p = p
+  conv_lhs => rw [← Scheme.Spec_stalkClosedPointTo_fromSpecStalk p]
+  rw [← Spec.map_comp_assoc, key, Scheme.Spec_stalkClosedPointTo_fromSpecStalk]
+
+end PkgI3.RhoCont
+
+/-! ### 3d. Continuity of `ρ_ℓ` on `T_ℓ(A)` and on `V_ℓ(A)` -/
+
+namespace PkgI3.RhoCont
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj AbVar
+open scoped TensorProduct
+
+universe u
+
+variable {K : Type u} [Field K]
+
+local notation "Kbar" => AlgebraicClosure K
+
+/-- `A(K̄)` with the discrete topology (so `A[ℓⁿ](K̄)` is discrete and `T_ℓ(A)` carries the
+inverse-limit topology of section 3b). -/
+instance instTopologicalSpacePt (A : AbVar K) : TopologicalSpace (Additive (A.Pt Kbar)) := ⊥
+
+instance (A : AbVar K) : DiscreteTopology (Additive (A.Pt Kbar)) := ⟨rfl⟩
+
+lemma galAct_mul (A : AbVar K) (σ τ : Field.absoluteGaloisGroup K) (P : A.Pt Kbar) :
+    A.galAct (σ * τ) P = A.galAct σ (A.galAct τ P) := by
+  have h := galHom_mul (K := K) (L := Kbar) σ τ
+  exact (congrArg (· ≫ P) h).trans (Category.assoc _ _ _)
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **`ρ_ℓ` is continuous on `T_ℓ(A)`**: the action map `G_K × T_ℓ(A) → T_ℓ(A)` is continuous
+for the Krull topology on `G_K` and the inverse-limit topology on `T_ℓ(A)`. Unconditional. -/
+theorem continuous_galT (A : AbVar K) :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.T ℓ => A.galT p.1 p.2) := by
+  apply Tate.continuous_map_action (act := fun σ => MonoidHom.toAdditive (A.galAct (L := Kbar) σ))
+  exact continuous_act (fun σ (m : Additive (A.Pt Kbar)) => MonoidHom.toAdditive (A.galAct (L :=
+      Kbar) σ) m)
+    (fun σ τ m => galAct_mul A σ τ (Additive.toMul m))
+    (fun m => exists_openSubgroup_galAct_eq A (Additive.toMul m))
+
+/-- The `ℓ`-adic topology on `V_ℓ(A)`: the module topology over `ℚ_ℓ` (when `T_ℓ(A) ≅ ℤ_ℓ^r`,
+this is the product topology of `ℚ_ℓ^r`, see `continuous_galRep`). -/
+instance instTopologicalSpaceV (A : AbVar K) : TopologicalSpace (A.V ℓ) :=
+  moduleTopology ℚ_[ℓ] (A.V ℓ)
+
+instance (A : AbVar K) : IsModuleTopology ℚ_[ℓ] (A.V ℓ) := ⟨rfl⟩
+
+/-- `T_ℓ(A) → V_ℓ(A)`, `x ↦ 1 ⊗ x`, is continuous when `T_ℓ(A)` is free of finite rank. -/
+theorem continuous_one_tmul (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun x : A.T ℓ => (1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] x) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  have h : (fun x : A.T ℓ => (1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] x) = fun x =>
+      ∑ i, ((b.coord i x : ℤ_[ℓ]) : ℚ_[ℓ]) • (b.baseChange ℚ_[ℓ] i) := by
+    funext x
+    conv_lhs => rw [← b.sum_repr x]
+    rw [TensorProduct.tmul_sum]
+    refine Finset.sum_congr rfl fun i _ => ?_
+    rw [TensorProduct.tmul_smul, Module.Basis.baseChange_apply, Module.Basis.coord_apply,
+      ← algebraMap_smul ℚ_[ℓ] (b.repr x i)]
+    rfl
+  rw [h]
+  refine continuous_finsetSum _ fun i _ => ?_
+  exact continuous_smul.comp ((continuous_subtype_val.comp
+    (Tate.continuous_of_linearMap_padicInt (b.coord i))).prodMk continuous_const)
+
+/-- **`ρ_ℓ` is continuous on `V_ℓ(A)`**: if `T_ℓ(A)` is free of finite rank over `ℤ_ℓ` (Mumford,
+leaf I3.M0 `TateModuleFree`), the action map `G_K × V_ℓ(A) → V_ℓ(A)` is continuous for the Krull
+topology and the `ℓ`-adic topology. -/
+theorem continuous_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  let b := Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)
+  let bV := b.baseChange ℚ_[ℓ]
+  have h : (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) = fun p =>
+      ∑ j, bV.coord j p.2 • ((1 : ℚ_[ℓ]) ⊗ₜ[ℤ_[ℓ]] A.galT p.1 (b j)) := by
+    funext ⟨σ, v⟩
+    conv_lhs => rw [← bV.sum_repr v]
+    rw [map_sum]
+    refine Finset.sum_congr rfl fun j _ => ?_
+    rw [map_smul, Module.Basis.coord_apply]
+    congr 1
+    change (A.galT σ).baseChange ℚ_[ℓ] (bV j) = _
+    rw [Module.Basis.baseChange_apply, LinearMap.baseChange_tmul]
+  rw [h]
+  refine continuous_finsetSum _ fun j _ => ?_
+  exact continuous_smul.comp
+    (((IsModuleTopology.continuous_of_linearMap (bV.coord j)).comp continuous_snd).prodMk
+      ((continuous_one_tmul ℓ A).comp
+        ((continuous_galT ℓ A).comp (continuous_fst.prodMk continuous_const))))
+
+/-- **Continuous traces** (the input C10 needs: Chebotarev density with Brauer–Nesbitt):
+`σ ↦ tr ρ_ℓ(σ)` is continuous `G_K → ℚ_ℓ`. -/
+theorem continuous_trace_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] :
+    Continuous (fun σ : Field.absoluteGaloisGroup K =>
+      LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  let bV := (Module.Free.chooseBasis ℤ_[ℓ] (A.T ℓ)).baseChange ℚ_[ℓ]
+  have h : (fun σ : Field.absoluteGaloisGroup K =>
+      LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) =
+      fun σ => ∑ i, bV.coord i (A.galRep ℓ σ (bV i)) := by
+    funext σ
+    classical
+    rw [LinearMap.trace_eq_matrix_trace ℚ_[ℓ] bV]
+    simp only [Matrix.trace, Matrix.diag_apply, LinearMap.toMatrix_apply,
+      Module.Basis.coord_apply]
+  have hρ : ∀ v : A.V ℓ, Continuous (fun σ : Field.absoluteGaloisGroup K => A.galRep ℓ σ v) := by
+    intro v
+    have h1 : Continuous (fun σ : Field.absoluteGaloisGroup K => (σ, v)) :=
+      continuous_id.prodMk continuous_const
+    have h2 := (continuous_galRep ℓ A).comp h1
+    refine h2.congr fun σ => ?_
+    simp only [Function.comp_apply]
+  have hc : ∀ i, Continuous (bV.coord i) := fun i =>
+    IsModuleTopology.continuous_of_linearMap (bV.coord i)
+  rw [h]
+  refine continuous_finsetSum _ fun i _ => ?_
+  refine ((hc i).comp (hρ (bV i))).congr fun σ => ?_
+  simp only [Function.comp_apply]
+
+/-- **Matrix form (`ρ_ℓ : G_K → GL_r(ℚ_ℓ)` continuous).** In any finite `ℚ_ℓ`-basis `b` of
+`V_ℓ(A)`, the matrix of `ρ_ℓ(σ)` depends continuously on `σ` (entrywise topology). -/
+theorem continuous_toMatrix_galRep (A : AbVar K) [Module.Free ℤ_[ℓ] (A.T ℓ)]
+    [Module.Finite ℤ_[ℓ] (A.T ℓ)] {I : Type*} [Fintype I] [DecidableEq I]
+    (b : Module.Basis I ℚ_[ℓ] (A.V ℓ)) :
+    Continuous (fun σ : Field.absoluteGaloisGroup K => LinearMap.toMatrix b b (A.galRep ℓ σ)) := by
+  have := IsModuleTopology.toContinuousAdd ℚ_[ℓ] (A.V ℓ)
+  have hρ : ∀ v : A.V ℓ, Continuous (fun σ : Field.absoluteGaloisGroup K => A.galRep ℓ σ v) := by
+    intro v
+    have h1 : Continuous (fun σ : Field.absoluteGaloisGroup K => (σ, v)) :=
+      continuous_id.prodMk continuous_const
+    refine ((continuous_galRep ℓ A).comp h1).congr fun σ => ?_
+    simp only [Function.comp_apply]
+  refine continuous_pi fun i => continuous_pi fun j => ?_
+  refine ((IsModuleTopology.continuous_of_linearMap (b.coord i)).comp (hρ (b j))).congr
+    fun σ => ?_
+  simp only [Function.comp_apply, LinearMap.toMatrix_apply, Module.Basis.coord_apply]
+
+end PkgI3.RhoCont
+
+/-! ### 3e. With pkg-I3's leaf I3.M0 -/
+
+namespace PkgI3
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj AbVar
+
+/-! `TateModuleFree` (leaf I3.M0) is `PkgI3.TateModuleFree` of `Objects`. -/
+
+/-- **Continuity of `ρ_ℓ` from leaf I3.M0.** For `ℓ ≠ char K` (every `ℓ` for a number field),
+`ρ_ℓ : G_K × V_ℓ(A) → V_ℓ(A)` is continuous and `σ ↦ tr ρ_ℓ(σ)` is continuous. -/
+theorem continuous_galRep_of_tateModuleFree (hT : TateModuleFree) {K : Type} [Field K]
+    (A : AbVar K) (ℓ : ℕ) [Fact ℓ.Prime] (hℓ : (ℓ : K) ≠ 0) :
+    Continuous (fun p : Field.absoluteGaloisGroup K × A.V ℓ => A.galRep ℓ p.1 p.2) ∧
+      Continuous (fun σ : Field.absoluteGaloisGroup K =>
+        LinearMap.trace ℚ_[ℓ] (A.V ℓ) (A.galRep ℓ σ)) := by
+  obtain ⟨h1, h2, -⟩ := hT K A ℓ hℓ
+  exact ⟨RhoCont.continuous_galRep ℓ A, RhoCont.continuous_trace_galRep ℓ A⟩
+
+end PkgI3
+
+/-! ### c9-rhof (verbatim from `scratch/c9-rhof/C9.lean`; §7 deleted as duplicate) -/
+
+namespace C9Rhof
+
+open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
+  GaloisChar)
+-- leaf-adopt3: `LeafModCurves` opened with `hiding` (Leaves.lean has `LeafModCurves` copies of
+-- these `PkgI4` names; the kernel had none, so the names below are `PkgI4`'s as in the kernel)
+open PkgI3 PkgI3.AbVar
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-! ## §1. `rhoF` as a quotient of `V_ℓ(A) ⊗ ℚ̄_ℓ` -/
+
+section Quot
+
+variable (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+
+/-- Evaluation `v ↦ (φ ↦ φ v)`, `V_ℓ(A) → (ι-eigenfunctionals)^∨`, `ℚ_ℓ`-linear. -/
+def ev : A.V ℓ →ₗ[ℚ_[ℓ]] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) where
+  toFun v :=
+    { toFun := fun φ => (φ : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v
+      map_add' := fun _ _ => rfl
+      map_smul' := fun _ _ => rfl }
+  map_add' v w := by
+    ext φ
+    simp
+  map_smul' c v := by
+    ext φ
+    simp [Algebra.smul_def]
+
+@[simp] theorem ev_apply (v : A.V ℓ) (φ : eigenFun ℓ A θ emb) :
+    ev ℓ A θ emb v φ = (φ : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v := rfl
+
+/-- The `ℚ̄_ℓ`-linear extension `V_ℓ(A) ⊗_{ℚ_ℓ} ℚ̄_ℓ → (ι-eigenfunctionals)^∨` of `ev`. -/
+def quotMap : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) →ₗ[PadicAlgCl ℓ]
+    Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+  (ev ℓ A θ emb).liftBaseChange (PadicAlgCl ℓ)
+
+theorem rhoF_ev (σ : GQ) (v : A.V ℓ) :
+    rhoF ℓ A θ emb σ (ev ℓ A θ emb v) = ev ℓ A θ emb (A.galRep ℓ σ v) := by
+  ext φ
+  rfl
+
+/-- `quotMap` is `G_ℚ`-equivariant from the base change of `ρ_ℓ` to `rhoF`. -/
+theorem quotMap_equivariant (σ : GQ) (x : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)) :
+    quotMap ℓ A θ emb (GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σ x) =
+      rhoF ℓ A θ emb σ (quotMap ℓ A θ emb x) := by
+  induction x using TensorProduct.inductionOn with
+  | tmul e v =>
+    change quotMap ℓ A θ emb ((A.galRep ℓ σ).baseChange (PadicAlgCl ℓ) (e ⊗ₜ v)) = _
+    rw [LinearMap.baseChange_tmul]
+    simp only [quotMap, LinearMap.liftBaseChange_tmul, map_smul, rhoF_ev]
+  | add x y hx hy => simp only [map_add, hx, hy]
+
+/-- `quotMap` is onto when the eigenfunctionals are finite-dimensional. -/
+theorem quotMap_surjective [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    Function.Surjective (quotMap ℓ A θ emb) := by
+  rw [← LinearMap.range_eq_top, quotMap, LinearMap.range_liftBaseChange]
+  apply Submodule.span_eq_top_of_ne_zero
+  intro z hz
+  have : (z : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) ≠ 0 := by
+    intro h; exact hz (Subtype.ext h)
+  obtain ⟨v, hv⟩ : ∃ v, (z : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ) v ≠ 0 := by
+    by_contra h
+    push Not at h
+    exact this (LinearMap.ext h)
+  exact ⟨ev ℓ A θ emb v, ⟨v, rfl⟩, hv⟩
+
+end Quot
+
+/-! ## §2. Semisimplicity -/
+
+section SS
+
+variable (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+
+instance : CharZero (PadicAlgCl ℓ) :=
+  charZero_of_injective_algebraMap (algebraMap ℚ_[ℓ] (PadicAlgCl ℓ)).injective
+
+/-- `V_ℓ(A)` is finite-dimensional over `ℚ_ℓ` (from the leaf I3.M0). -/
+theorem finiteDimensional_V (hT : TateModuleFree) : FiniteDimensional ℚ_[ℓ] (A.V ℓ) := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨h1, h2, -⟩ := hT ℚ A ℓ hℓ
+  infer_instance
+
+/-- **Semisimplicity of `ρ_{f,ι}` (GLUE, proved from Faltings' Satz 3 and I3.M0).** -/
+theorem rhoF_semisimple (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    (rhoF ℓ A θ emb).IsSemisimpleRepresentation := by
+  have := finiteDimensional_V ℓ A hT
+  have h1 : (A.galRep ℓ).IsSemisimpleRepresentation := hS ℚ A ℓ
+  have h2 := GlueI3.isSemisimpleRepresentation_baseChange (PadicAlgCl ℓ) (A.galRep ℓ) h1
+  exact GlueI3.isSemisimple_of_surjective _ _ h2 (quotMap ℓ A θ emb)
+    (quotMap_surjective ℓ A θ emb) (fun σ x => quotMap_equivariant ℓ A θ emb σ x)
+
+/-- The same, in the form `GlueC10` consumes. -/
+theorem rhoF_isSemisimpleModule (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) (rhoF ℓ A θ emb).asModule :=
+  (Representation.isSemisimpleRepresentation_iff_isSemisimpleModule_asModule _).mp
+    (rhoF_semisimple ℓ A θ emb hS hT)
+
+end SS
+
+/-! ## §3. Continuity -/
+
+section Cont
+
+variable (A : AbVar ℚ) {F : Type} [Field F] (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+
+/-- For every `x ∈ V_ℓ(A) ⊗ ℚ̄_ℓ` and every linear form `c` on `(ι-eigenfunctionals)^∨`,
+`σ ↦ c(ρ_{f,ι}(σ) (quotMap x))` is continuous. -/
+theorem continuous_coord (hT : TateModuleFree)
+    (c : Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) →ₗ[PadicAlgCl ℓ] PadicAlgCl ℓ)
+    (x : TensorProduct ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ)) :
+    Continuous fun σ : GQ => c (rhoF ℓ A θ emb σ (quotMap ℓ A θ emb x)) := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  have hρ : ∀ v : A.V ℓ, Continuous fun σ : GQ => A.galRep ℓ σ v := by
+    intro v
+    have h1 : Continuous fun σ : GQ => (σ, v) := continuous_id.prodMk continuous_const
+    exact ((continuous_galRep_of_tateModuleFree hT A ℓ hℓ).1.comp h1).congr fun σ => rfl
+  induction x using TensorProduct.inductionOn with
+  | tmul e v =>
+    have hL : Continuous ((c.restrictScalars ℚ_[ℓ]) ∘ₗ ev ℓ A θ emb) :=
+      IsModuleTopology.continuous_of_linearMap _
+    have : (fun σ : GQ => c (rhoF ℓ A θ emb σ (quotMap ℓ A θ emb (e ⊗ₜ v)))) =
+        fun σ => e * ((c.restrictScalars ℚ_[ℓ]) ∘ₗ ev ℓ A θ emb) (A.galRep ℓ σ v) := by
+      funext σ
+      simp only [quotMap, LinearMap.liftBaseChange_tmul, map_smul, rhoF_ev, smul_eq_mul,
+        LinearMap.coe_comp, Function.comp_apply, LinearMap.coe_restrictScalars]
+    rw [this]
+    exact continuous_const.mul (hL.comp (hρ v))
+  | add x y hx hy =>
+    simp only [map_add]
+    exact hx.add hy
+
+/-- **Continuity of `ρ_{f,ι}` (GLUE, proved from I3.M0).** In any finite basis `b` of the
+representation space, `σ ↦ [ρ_{f,ι}(σ)]_b` is continuous (Krull topology on `G_ℚ`, the
+spectral-norm topology on `ℚ̄_ℓ`). -/
+theorem rhoF_continuous (hT : TateModuleFree)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] {ι : Type} [Fintype ι] [DecidableEq ι]
+    (b : Module.Basis ι (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb))) :
+    Continuous fun σ : GQ => LinearMap.toMatrix b b (rhoF ℓ A θ emb σ) := by
+  refine continuous_pi fun i => continuous_pi fun j => ?_
+  obtain ⟨x, hx⟩ := quotMap_surjective ℓ A θ emb (b j)
+  refine (continuous_coord ℓ A θ emb hT (b.coord i) x).congr fun σ => ?_
+  simp only [LinearMap.toMatrix_apply, Module.Basis.coord_apply, hx]
+
+end Cont
+
+/-! ## §4. Density of arithmetic Frobenius elements (leaf T18) -/
+
+/-- **L18 = T18. Chebotarev, in the density form used** (Neukirch VII.13.4; Tau Ceti). Frobenius
+elements are dense in `G_ℚ`, avoiding any finite set of primes. Consequence. Copied verbatim from
+`HSyn.FrobeniusDense` of `scratch/h-decomposition/Leaves.lean`. -/
+def FrobeniusDense : Prop :=
+  ∀ (U : Subgroup GQ), IsOpen (U : Set GQ) → ∀ (σ : GQ) (S : Finset ℕ),
+    ∃ p, p.Prime ∧ p ∉ S ∧ ∃ (v : ValuationSubring Qbar) (τ : GQ),
+      LiesOver v p ∧ IsArithFrob τ v p ∧ τ⁻¹ * σ ∈ U
+
+/-- Two continuous functions on `G_ℚ` with Hausdorff values that agree at every arithmetic
+Frobenius (`PkgI4.IsArithFrob`) above every prime outside `S` are equal (GLUE, proved from T18). -/
+theorem eq_of_eq_on_arithFrob (hD : FrobeniusDense) {X : Type*} [TopologicalSpace X] [T2Space X]
+    (S : Finset ℕ) (f₁ f₂ : GQ → X) (h₁ : Continuous f₁) (h₂ : Continuous f₂)
+    (hfr : ∀ p, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p →
+      IsArithFrob τ v p → f₁ τ = f₂ τ) : f₁ = f₂ := by
+  funext g
+  by_contra hne
+  have hopen : IsOpen {x | f₁ x ≠ f₂ x} := isOpen_ne_fun h₁ h₂
+  have hmem : (fun y => g * y) ⁻¹' {x | f₁ x ≠ f₂ x} ∈ nhds (1 : GQ) := by
+    apply (hopen.preimage (continuous_const.mul continuous_id)).mem_nhds
+    simpa using hne
+  obtain ⟨E, hE, hsub⟩ := (krullTopology_mem_nhds_one_iff ℚ Qbar _).mp hmem
+  have hU : IsOpen (E.fixingSubgroup : Set GQ) := IntermediateField.fixingSubgroup_isOpen E
+  obtain ⟨p, hp, hpS, v, τ, hv, hτ, hU'⟩ := hD E.fixingSubgroup hU g S
+  have hfix : g⁻¹ * τ ∈ E.fixingSubgroup := by
+    have := E.fixingSubgroup.inv_mem hU'
+    simpa using this
+  have := hsub hfix
+  simp only [Set.mem_preimage, mul_inv_cancel_left, Set.mem_ofPred_eq] at this
+  exact this (hfr p hp hpS v τ hv hτ)
+
+/-! ## §5. Brauer–Nesbitt (leaf T19) with arithmetic Frobenius traces -/
+
+section BN
+
+variable {k V W ι κ : Type} [Field k] [TopologicalSpace k] [IsTopologicalRing k] [T2Space k]
+  [AddCommGroup V] [Module k V] [AddCommGroup W] [Module k W]
+  [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ]
+
+/-- Continuous representations with equal traces at arithmetic Frobenius outside `S` have equal
+traces everywhere (GLUE, proved from T18). -/
+theorem trace_eq_of_arithFrob (hD : FrobeniusDense) (S : Finset ℕ)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (ρ : Representation k GQ V) (σ : Representation k GQ W)
+    (hρc : Continuous fun g => LinearMap.toMatrix bV bV (ρ g))
+    (hσc : Continuous fun g => LinearMap.toMatrix bW bW (σ g))
+    (htr : ∀ p, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p →
+      IsArithFrob τ v p → LinearMap.trace k V (ρ τ) = LinearMap.trace k W (σ τ)) :
+    ∀ g, LinearMap.trace k V (ρ g) = LinearMap.trace k W (σ g) :=
+  congrFun (eq_of_eq_on_arithFrob hD S _ _ (GlueC10.continuous_trace bV ρ hρc)
+    (GlueC10.continuous_trace bW σ hσc) htr)
+
+/-- **C10-type comparison with `IsArithFrob` (GLUE, proved from T18 and T19).** -/
+theorem iso_of_arithFrob [CharZero k] [FiniteDimensional k V] [FiniteDimensional k W]
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense) (S : Finset ℕ)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (ρ : Representation k GQ V) (σ : Representation k GQ W)
+    (hρc : Continuous fun g => LinearMap.toMatrix bV bV (ρ g))
+    (hσc : Continuous fun g => LinearMap.toMatrix bW bW (σ g))
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GQ) ρ.asModule)
+    (hσ : IsSemisimpleModule (MonoidAlgebra k GQ) σ.asModule)
+    (htr : ∀ p, p.Prime → p ∉ S → ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p →
+      IsArithFrob τ v p → LinearMap.trace k V (ρ τ) = LinearMap.trace k W (σ τ)) :
+    Nonempty (ρ.asModule ≃ₗ[MonoidAlgebra k GQ] σ.asModule) :=
+  hBN k GQ V W ρ σ hρ hσ (trace_eq_of_arithFrob hD S bV bW ρ σ hρc hσc htr)
+
+end BN
+
+/-! ## §6. C9 -/
+
+section C9
+
+/-- The core of C9 for a fixed `A`, `θ`, `ι` (GLUE, proved). -/
+theorem c9_core (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
+    (N : ℕ) (hN : 0 < N) {F : Type} [Field F] (a : ℕ → F)
+    (A : AbVar ℚ) (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    (h2 : Module.finrank (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) = 2)
+    (hfr : ∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+      LinearMap.trace (PadicAlgCl ℓ) _ (frobOn ℓ A θ emb σ) = emb (a p))
+    (S : Finset ℕ) {W κ : Type} [AddCommGroup W] [Module (PadicAlgCl ℓ) W]
+    [FiniteDimensional (PadicAlgCl ℓ) W] [Fintype κ] [DecidableEq κ]
+    (bW : Module.Basis κ (PadicAlgCl ℓ) W) (r : Representation (PadicAlgCl ℓ) GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bW bW (r g))
+    (hr : IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) r.asModule)
+    (hatt : ∀ p, p.Prime → p ∉ S → ¬ p ∣ N * ℓ → ∀ (v : ValuationSubring Qbar) (τ : GQ),
+      LiesOver v p → IsArithFrob τ v p → LinearMap.trace (PadicAlgCl ℓ) W (r τ) = emb (a p)) :
+    (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
+      (∀ {ι' : Type} [Fintype ι'] [DecidableEq ι'] (b : Module.Basis ι' (PadicAlgCl ℓ)
+          (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb))),
+        Continuous fun g => LinearMap.toMatrix b b (rhoF ℓ A θ emb g)) ∧
+      Nonempty (r.asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ] (rhoF ℓ A θ emb).asModule) ∧
+      (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) W (r g) =
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g)) ∧
+      (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g) = emb (a p)) := by
+  have hfd : FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
+    Module.finite_of_finrank_pos (by rw [h2]; norm_num)
+  have hFrob : ∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+      LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g) = emb (a p) := by
+    intro g p hp hpN hg
+    rw [trace_rhoF ℓ A θ emb h2]
+    exact hfr p hp hpN g hg
+  have hNℓ : N * ℓ ≠ 0 := Nat.mul_ne_zero hN.ne' (Fact.out : ℓ.Prime).ne_zero
+  have htr : ∀ p, p.Prime → p ∉ S ∪ (N * ℓ).primeFactors → ∀ (v : ValuationSubring Qbar)
+      (τ : GQ), LiesOver v p → IsArithFrob τ v p → LinearMap.trace (PadicAlgCl ℓ) W (r τ) =
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb τ) := by
+    intro p hp hpS v τ hv hτ
+    have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+    have hpN : ¬ p ∣ N * ℓ := fun h =>
+      hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hNℓ⟩))
+    rw [hatt p hp hpS1 hpN v τ hv hτ, hFrob τ p hp hpN (isFrobAt_of_isArithFrob τ v p hp hv hτ)]
+  have hcont : ∀ {ι' : Type} [Fintype ι'] [DecidableEq ι'] (b : Module.Basis ι' (PadicAlgCl ℓ)
+      (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb))),
+      Continuous fun g => LinearMap.toMatrix b b (rhoF ℓ A θ emb g) :=
+    fun b => rhoF_continuous ℓ A θ emb hT b
+  let bV := Module.finBasis (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb))
+  refine ⟨rhoF_semisimple ℓ A θ emb hS hT, hcont, ?_, ?_, hFrob⟩
+  · exact iso_of_arithFrob hBN hD _ bW bV r _ hrc (hcont bV) hr
+      (rhoF_isSemisimpleModule ℓ A θ emb hS hT) htr
+  · exact trace_eq_of_arithFrob hD _ bW bV r _ hrc (hcont bV) htr
+
+/-- **C9 (GLUE, proved from R16, Faltings' Satz 3, I3.M0, T18 and T19).** Let `f` be a newform of
+weight 2, level `N` and nebentypus `χ`, `J` a `J₁(N)`, `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄_ℓ`. Let `r` be a
+continuous semisimple finite-dimensional representation of `G_ℚ` over `ℚ̄_ℓ` whose arithmetic
+Frobenius traces outside a finite set `S` are those of `f` (through `ιC`, `ιL`). Then for R16's
+`A_f` and `ρ_{f,ι} = rhoF` with `ι = ιL ∘ ιC⁻¹` (`embOf`):
+(i) `ρ_{f,ι}` is 2-dimensional, semisimple and continuous;
+(ii) `r ≅ ρ_{f,ι}` (Brauer–Nesbitt);
+(iii) `tr r(g) = tr ρ_{f,ι}(g)` for every `g ∈ G_ℚ` (needs T18 and continuity only), which is the
+hypothesis `h₅` of `GlueC10.c10`;
+(iv) `tr ρ_{f,ι}(g) = ι(a_p(f))` at every `GlueC10.IsFrobAt g p`, `p ∤ Nℓ`: the hypothesis `hρ₅`. -/
+theorem c9 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
+    (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ)
+    (J : AbVar ℚ) (hJ : IsJ1 N J) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (S : Finset ℕ) {W κ : Type} [AddCommGroup W] [Module (PadicAlgCl ℓ) W]
+    [FiniteDimensional (PadicAlgCl ℓ) W] [Fintype κ] [DecidableEq κ]
+    (bW : Module.Basis κ (PadicAlgCl ℓ) W) (r : Representation (PadicAlgCl ℓ) GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bW bW (r g))
+    (hr : IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) r.asModule)
+    (hatt : ∀ p, p.Prime → p ∉ S → ¬ p ∣ N * ℓ → ∃ α : Qbar, ιC α = coeff f p ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        LinearMap.trace (PadicAlgCl ℓ) W (r τ) = ιL α) :
+    ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+      (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+      Module.finrank (PadicAlgCl ℓ)
+        (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ (embOf ℓ ιC ιL (coeffField f)))) = 2 ∧
+      (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).IsSemisimpleRepresentation ∧
+      (∀ {ι' : Type} [Fintype ι'] [DecidableEq ι'] (b : Module.Basis ι' (PadicAlgCl ℓ)
+          (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ (embOf ℓ ιC ιL (coeffField f))))),
+        Continuous fun g => LinearMap.toMatrix b b (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+      Nonempty (r.asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+        (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+      (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) W (r g) =
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+      (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) =
+          embOf ℓ ιC ιL (coeffField f) ⟨coeff f p, coeff_mem_coeffField f p⟩) := by
+  obtain ⟨hfin, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  obtain ⟨h2, hfr⟩ := hrest ℓ (embOf ℓ ιC ιL (coeffField f))
+  refine ⟨hfin, A, π, θ, hπ, finrank_rhoF ℓ A θ _ h2,
+    c9_core ℓ hS hT hBN hD N hN (fun p => ⟨coeff f p, coeff_mem_coeffField f p⟩) A θ _ h2
+      (fun p hp hpN σ hσ => (hfr p hp hpN σ hσ).1 _ rfl) S bW r hrc hr ?_⟩
+  intro p hp hpS hpN v τ hv hτ
+  obtain ⟨α, hα, hrα⟩ := hatt p hp hpS hpN
+  rw [hrα v τ hv hτ]
+  exact (embOf_spec ℓ ιC ιL (coeffField f) _ α hα).symm
+
+end C9
+
+end C9Rhof
+
+namespace C9Rhof
+
+open PkgI4 (Qbar GQ LiesOver IsArithFrob CF coeff IsNewform IsNormalizedEigenform GaloisRep
+  GaloisChar)
+-- leaf-adopt3: `LeafModCurves` opened with `hiding` (Leaves.lean has `LeafModCurves` copies of
+-- these `PkgI4` names; the kernel had none, so the names below are `PkgI4`'s as in the kernel)
+open PkgI3 PkgI3.AbVar
+open LeafModCurves hiding Qbar GQ LiesOver IsArithFrob CF coeff HasNebentypus IsNormalizedEigenform
+  scaleH oldSpace IsNewform
+
+/-! ## §8. `GaloisRep` (matrix form) as a `Representation` -/
+
+section Bridge
+
+variable {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+/-- A `GaloisRep` as a `Representation` on `ℚ̄_ℓ^n`. -/
+def toRep (ρ : GaloisRep ℓ n) : Representation (PadicAlgCl ℓ) GQ (Fin n → PadicAlgCl ℓ) where
+  toFun σ := Matrix.toLin' (ρ.mat σ)
+  map_one' := by
+    simp only [GaloisRep.mat, map_one, Units.val_one, Matrix.toLin'_one]; rfl
+  map_mul' σ τ := by
+    simp only [GaloisRep.mat, map_mul, Units.val_mul, Matrix.toLin'_mul]; rfl
+
+theorem toRep_apply (ρ : GaloisRep ℓ n) (σ : GQ) : toRep ρ σ = Matrix.toLin' (ρ.mat σ) := rfl
+
+theorem toMatrix_toRep (ρ : GaloisRep ℓ n) (σ : GQ) :
+    LinearMap.toMatrix (Pi.basisFun (PadicAlgCl ℓ) (Fin n)) (Pi.basisFun (PadicAlgCl ℓ) (Fin n))
+      (toRep ρ σ) = ρ.mat σ := by
+  rw [toRep_apply, LinearMap.toMatrix_eq_toMatrix', LinearMap.toMatrix'_toLin']
+
+theorem toRep_continuous (ρ : GaloisRep ℓ n) :
+    Continuous fun σ => LinearMap.toMatrix (Pi.basisFun (PadicAlgCl ℓ) (Fin n))
+      (Pi.basisFun (PadicAlgCl ℓ) (Fin n)) (toRep ρ σ) := by
+  simp_rw [toMatrix_toRep]
+  exact Units.continuous_val.comp ρ.continuous_toHom
+
+theorem trace_toRep (ρ : GaloisRep ℓ n) (σ : GQ) :
+    LinearMap.trace (PadicAlgCl ℓ) _ (toRep ρ σ) = (ρ.mat σ).trace := by
+  rw [LinearMap.trace_eq_matrix_trace (PadicAlgCl ℓ) (Pi.basisFun (PadicAlgCl ℓ) (Fin n)),
+    toMatrix_toRep]
+
+/-- Invariant complements give a semisimple representation. -/
+theorem semisimple_of_complements {k G V : Type*} [Field k] [Monoid G] [AddCommGroup V]
+    [Module k V] (ρ : Representation k G V)
+    (h : ∀ W : Submodule k V, (∀ g, ∀ v ∈ W, ρ g v ∈ W) →
+      ∃ W' : Submodule k V, IsCompl W W' ∧ ∀ g, ∀ v ∈ W', ρ g v ∈ W') :
+    ρ.IsSemisimpleRepresentation := by
+  refine ⟨fun a => ?_⟩
+  obtain ⟨W', hc, hW'⟩ := h a.toSubmodule (fun g v hv => a.apply_mem_toSubmodule g hv)
+  refine ⟨⟨W', fun g v hv => hW' g v hv⟩, ⟨?_, ?_⟩⟩
+  · rw [disjoint_iff]
+    apply Subrepresentation.toSubmodule_injective
+    exact hc.inf_eq_bot
+  · rw [codisjoint_iff]
+    apply Subrepresentation.toSubmodule_injective
+    exact hc.sup_eq_top
+
+/-- `GaloisRep.IsSemisimple` gives a semisimple `MonoidAlgebra`-module. -/
+theorem toRep_semisimple (ρ : GaloisRep ℓ n) (h : ρ.IsSemisimple) :
+    IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) (toRep ρ).asModule := by
+  rw [← Representation.isSemisimpleRepresentation_iff_isSemisimpleModule_asModule]
+  apply semisimple_of_complements
+  intro W hW
+  obtain ⟨W', hc, hW'⟩ := h W (fun σ => Submodule.map_le_iff_le_comap.mpr
+    (fun v hv => hW σ v hv))
+  exact ⟨W', hc, fun σ v hv => hW' σ (Submodule.mem_map_of_mem hv)⟩
+
+/-- **Irreducible (Burnside form) implies semisimple (GLUE, proved).** If the image of `ρ` spans
+`M_n(ℚ̄_ℓ)` as an algebra, the only invariant subspaces are `⊥` and `⊤`. -/
+theorem isSemisimple_of_isIrreducible (ρ : GaloisRep ℓ n) (h : ρ.IsIrreducible) :
+    ρ.IsSemisimple := by
+  intro W hW
+  let S : Subalgebra (PadicAlgCl ℓ) (Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)) :=
+    { carrier := {M | ∀ v ∈ W, M.mulVec v ∈ W}
+      mul_mem' := fun {M N} hM hN v hv => by
+        rw [← Matrix.mulVec_mulVec]; exact hM _ (hN v hv)
+      add_mem' := fun {M N} hM hN v hv => by
+        rw [Matrix.add_mulVec]; exact W.add_mem (hM v hv) (hN v hv)
+      algebraMap_mem' := fun c v hv => by
+        rw [Algebra.algebraMap_eq_smul_one, Matrix.smul_mulVec, Matrix.one_mulVec]
+        exact W.smul_mem c hv }
+  have hrange : Set.range ρ.mat ⊆ S := by
+    rintro _ ⟨σ, rfl⟩ v hv
+    exact hW σ ⟨v, hv, rfl⟩
+  have hall : ∀ M : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ), ∀ v ∈ W, M.mulVec v ∈ W := by
+    intro M
+    have : M ∈ S := by
+      have h1 := Algebra.adjoin_le hrange
+      rw [h] at h1
+      exact h1 Algebra.mem_top
+    exact this
+  by_cases hbot : W = ⊥
+  · refine ⟨⊤, hbot ▸ isCompl_bot_top, fun σ => le_top⟩
+  · obtain ⟨w, hwW, hw0⟩ := Submodule.exists_mem_ne_zero_of_ne_bot hbot
+    obtain ⟨i, hi⟩ : ∃ i, w i ≠ 0 := by
+      by_contra hc
+      push Not at hc
+      exact hw0 (funext hc)
+    have htop : W = ⊤ := by
+      rw [eq_top_iff]
+      intro u _
+      let M : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ) :=
+        Matrix.of fun a b => if b = i then u a * (w i)⁻¹ else 0
+      have hM : M.mulVec w = u := by
+        funext a
+        simp only [M, Matrix.mulVec, dotProduct, Matrix.of_apply, ite_mul, zero_mul,
+          Finset.sum_ite_eq', Finset.mem_univ, ite_true]
+        field_simp
+      rw [← hM]
+      exact hall M w hwW
+    refine ⟨⊥, htop ▸ isCompl_top_bot, fun σ => ?_⟩
+    rw [Submodule.map_bot]
+
+end Bridge
+
+/-! ## §9. C9 against R14 and against C8's `r₅` -/
+
+section Apps
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **C9 against R14 (GLUE, proved from R14, R16, Faltings' Satz 3, I3.M0, T18, T19).** For a
+newform `f` of weight 2 and level `N`, a `J₁(N)` `J` and embeddings `ιC`, `ιL`: R14's semisimple
+`ρ` attached to `f` is isomorphic to R16's `ρ_{f,ι}` (`ι = ιL ∘ ιC⁻¹`), and they have the same
+trace at every `g ∈ G_ℚ`. -/
+theorem c9_R14 (hR14 : PkgI4.EigenformRepExists) (hR16 : R16_EichlerShimuraJ1')
+    (hS : FaltingsSemisimple) (hT : TateModuleFree) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : FrobeniusDense) (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2)
+    (hf : IsNewform f χ) (J : AbVar ℚ) (hJ : IsJ1 N J) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) :
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL f ∧
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep ρ).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        ∀ g : GQ, (ρ.mat g).trace =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) := by
+  obtain ⟨ρ, hss, hatt⟩ := hR14 ℓ ιC ιL N 2 χ f hN (by norm_num) hf.1
+  have hNℓ : N * ℓ ≠ 0 := Nat.mul_ne_zero hN.ne' (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, -⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J hJ
+    ιC ιL (N * ℓ).primeFactors (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep ρ)
+    (toRep_continuous ρ) (toRep_semisimple ρ hss) (by
+      intro p hp hpS _
+      have hpN : ¬ p ∣ N * ℓ := fun h => hpS (Nat.mem_primeFactors.mpr ⟨hp, h, hNℓ⟩)
+      obtain ⟨-, α, hα, h⟩ := hatt p hp hpN
+      exact ⟨α, hα, fun v τ hv hτ => by rw [trace_toRep]; exact h v τ hv hτ⟩)
+  exact ⟨ρ, hss, hatt, hfin, A, π, θ, hπ, hiso, fun g => by rw [← trace_toRep]; exact htr g⟩
+
+/-- **C9 for C8's `r₅` (GLUE, proved from T24 EigenformTwist, T25 NewformOfEigenform, R16,
+Faltings' Satz 3, I3.M0, T18, T19).** C8's output: a semisimple `r : G_ℚ → GL₂(ℚ̄_ℓ)` attached up
+to the twist `ψ` to a normalized eigenform `g` of weight 2 and level `M` (Pan's trace form,
+`PkgI4.GaloisRep.AttachedUpToTwist`), where `ψ` is (at arithmetic Frobenius outside `S`) the
+Dirichlet character `ψD` mod `m` through `ιC`, `ιL` (C8 steps 1-4: determinant argument and
+Kronecker–Weber). Then there is a newform `f` of weight 2 and level `N ∣ M m²` such that for every
+`J₁(N)`: `r ≅ ρ_{f,ι}` (`ι = ιL ∘ ιC⁻¹`), their traces agree on all of `G_ℚ` (`h₅` of
+`GlueC10.c10`), and `tr ρ_{f,ι}(g) = ι(a_p(f))` at every `IsFrobAt g p`, `p ∤ Nℓ` (`hρ₅`).
+The hypothesis `hr` follows from Pan's hypothesis `r.IsIrreducible` by
+`isSemisimple_of_isIrreducible`. -/
+theorem c9_r5 (hTw : PkgI4.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
+    (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : FrobeniusDense)
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (M : ℕ) (hM : 0 < M) (χg : DirichletCharacter ℂ M) (g : CF M 2)
+    (hg : IsNormalizedEigenform g χg) (m : ℕ) (hm : 0 < m) (ψD : DirichletCharacter ℂ m)
+    (ψ : GaloisChar ℓ) (S : Finset ℕ) (r : GaloisRep ℓ 2) (hr : r.IsSemisimple)
+    (hrg : r.AttachedUpToTwist ψ ιC ιL g S)
+    (hψ : ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        (ψ.toHom τ : PadicAlgCl ℓ) = ιL β) :
+    ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), 0 < N ∧ N ∣ M * m ^ 2 ∧
+      IsNewform f χ ∧ ∀ J : AbVar ℚ, IsJ1 N J →
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep r).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) _ (toRep r g) =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+        (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) =
+            embOf ℓ ιC ιL (coeffField f) ⟨coeff f p, coeff_mem_coeffField f p⟩) := by
+  obtain ⟨χ', g', hg', hcoef⟩ := hTw M m 2 χg ψD g hM hm hg
+  obtain ⟨N, χ, f, hN, hNd, hf, hcf⟩ := hNew (M * m ^ 2) 2 χ' g' (by positivity) hg'
+  refine ⟨N, χ, f, hN, hNd, hf, fun J hJ => ?_⟩
+  have hMm : M * m ≠ 0 := Nat.mul_ne_zero hM.ne' hm.ne'
+  obtain ⟨hfin, A, π, θ, hπ, -, -, -, hiso, htr, hFrob⟩ := c9 ℓ hR16 hS hT hBN hD N hN χ f hf J
+    hJ ιC ιL (S ∪ (M * m).primeFactors) (Pi.basisFun (PadicAlgCl ℓ) (Fin 2)) (toRep r)
+    (toRep_continuous r) (toRep_semisimple r hr) (by
+      intro p hp hpS _
+      have hpS1 : p ∉ S := fun h => hpS (Finset.mem_union_left _ h)
+      have hpMm : ¬ p ∣ M * m := fun h =>
+        hpS (Finset.mem_union_right _ (Nat.mem_primeFactors.mpr ⟨hp, h, hMm⟩))
+      have hpMm2 : ¬ p ∣ M * m ^ 2 := by
+        intro h
+        rcases (Nat.Prime.dvd_mul hp).mp h with h1 | h1
+        · exact hpMm (dvd_mul_of_dvd_left h1 _)
+        · exact hpMm (dvd_mul_of_dvd_right (hp.dvd_of_dvd_pow h1) _)
+      obtain ⟨-, α, hα, htrα⟩ := hrg p hp hpS1
+      obtain ⟨β, hβ, hψp⟩ := hψ p hp hpS1
+      refine ⟨β * α, ?_, fun v τ hv hτ => ?_⟩
+      · rw [map_mul, hβ, hα, hcf p hp hpMm2, hcoef p hp hpMm]
+      · rw [trace_toRep, htrα v τ hv hτ, hψp v τ hv hτ, map_mul])
+  exact ⟨hfin, A, π, θ, hπ, hiso, htr, hFrob⟩
+
+/-- **C9's outputs fit `GlueC10.c10` (GLUE, proved).** With `ρ₅ := ρ_{f,ι}` (`rhoF`), C9's
+trace identity `tr r₅ = tr ρ_{f,ι}` (from `c9`, `c9_r5`) is `h₅`, and its Frobenius clause is
+`hρ₅` for every `S` containing the primes of `Nℓ`; the remaining inputs of `c10` (the
+abelian-variety traces `hr₅`, `hr₃` and the data at 3) are passed through. -/
+theorem c10_via_c9 (hC : GlueC10.ChebotarevExists) (hBN : GlueC10.BrauerNesbittChar0)
+    (N : ℕ) {C : Type} [Field C] (c a : ℕ → C) (A : AbVar ℚ) (θ : C →+* A.End0)
+    (emb : C →+* PadicAlgCl ℓ) (S : Finset ℕ) (hSN : ∀ p, p.Prime → p ∣ N * ℓ → p ∈ S)
+    {V₅ : Type} [AddCommGroup V₅] [Module (PadicAlgCl ℓ) V₅]
+    (r₅ : Representation (PadicAlgCl ℓ) GQ V₅)
+    (h₅ : ∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) V₅ (r₅ g) =
+      LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g))
+    (hFrob : ∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+      LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb g) = emb (a p))
+    (hr₅ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p →
+      LinearMap.trace (PadicAlgCl ℓ) V₅ (r₅ g) = emb (c p))
+    (k V W ι κ : Type) [Field k] [CharZero k] [TopologicalSpace k] [IsTopologicalRing k]
+    [T2Space k] [AddCommGroup V] [Module k V] [FiniteDimensional k V]
+    [AddCommGroup W] [Module k W] [FiniteDimensional k W]
+    [Fintype ι] [DecidableEq ι] [Fintype κ] [DecidableEq κ] (ι₃ : C →+* k)
+    (bV : Module.Basis ι k V) (bW : Module.Basis κ k W)
+    (r₃ : Representation k GQ V) (ρ₃ : Representation k GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bV bV (r₃ g))
+    (hρc : Continuous fun g => LinearMap.toMatrix bW bW (ρ₃ g))
+    (hr : IsSemisimpleModule (MonoidAlgebra k GQ) r₃.asModule)
+    (hρ : IsSemisimpleModule (MonoidAlgebra k GQ) ρ₃.asModule)
+    (hr₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k V (r₃ g) = ι₃ (c p))
+    (hρ₃ : ∀ g p, p.Prime → p ∉ S → IsFrobAt g p → LinearMap.trace k W (ρ₃ g) = ι₃ (a p)) :
+    Nonempty (r₃.asModule ≃ₗ[MonoidAlgebra k GQ] ρ₃.asModule) :=
+  GlueC10.c10 hC hBN S C c a (PadicAlgCl ℓ) V₅ _ emb r₅ (rhoF ℓ A θ emb)
+    (fun g _ _ _ _ => h₅ g) hr₅
+    (fun g p hp hpS hg => hFrob g p hp (fun h => hpS (hSN p hp h)) hg)
+    k V W ι κ ι₃ bV bW r₃ ρ₃ hrc hρc hr hρ hr₃ hρ₃
+
+end Apps
+
+/-! ## leaf-adopt3: bridges to the bundle forms of the leaves
+
+`TextbookLeaves.t18 : HSyn.FrobeniusDense`, `ResearchLeaves.r14 : HSyn.EigenformRepExists` and
+`TextbookLeaves.t24 : HSyn.EigenformTwist` are stated over `HSyn`'s copies of `Qbar`, `GQ`,
+`LiesOver`, `IsArithFrob`, `GaloisRep`, `CF`, `coeff`, `IsNormalizedEigenform`; this file uses
+`PkgI4`'s (same bodies). The three conversions are definitional unfoldings. -/
+
+section HSynBridges
+
+/-- T18, bundle form (`HSyn.FrobeniusDense`, field `t18`) ⇒ this file's verbatim copy. -/
+theorem frobeniusDense_of_hsyn (h : HSyn.FrobeniusDense) : FrobeniusDense := by
+  intro U hU σ S
+  obtain ⟨p, hp, hpS, v, τ, hv, hτ, hU'⟩ := h U hU σ S
+  exact ⟨p, hp, hpS, v, τ, hv, hτ, hU'⟩
+
+/-- R14, bundle form (`HSyn.EigenformRepExists`, field `r14`, over `HSyn.GaloisRep`) ⇒
+`PkgI4.EigenformRepExists` (the same statement over `PkgI4.GaloisRep`). -/
+theorem eigenformRepExists_of_hsyn (h : HSyn.EigenformRepExists) :
+    PkgI4.EigenformRepExists := by
+  intro ℓ _ ιC ιL N k χ g hN hk hg
+  obtain ⟨ρ, hss, hatt⟩ := h ℓ ιC ιL N k χ g hN hk hg
+  exact ⟨⟨ρ.toHom, ρ.continuous_toHom⟩, hss, hatt⟩
+
+/-- T24, bundle form (`HSyn.EigenformTwist`, field `t24`) ⇒ `PkgI4.EigenformTwist`. -/
+theorem eigenformTwist_of_hsyn (h : HSyn.EigenformTwist) : PkgI4.EigenformTwist := by
+  intro N m k χ ψ g hN hm hg
+  obtain ⟨χ', g', hg', hc⟩ := h N m k χ ψ g hN hm hg
+  exact ⟨χ', g', hg', hc⟩
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- **C9, bundle form**: `c9` with T18 as `HSyn.FrobeniusDense` (field `t18`). Other hypotheses:
+R16 (`r16`), Faltings Satz 3 (`r9a`), I3.M0 (`t26`), T19 module form
+(`GlueC10.BrauerNesbittChar0`; proved by t-skolem-kw, `TSkolemKW.brauerNesbittChar0`). -/
+theorem c9_hsyn (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : HSyn.FrobeniusDense)
+    (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ)
+    (J : AbVar ℚ) (hJ : IsJ1 N J) (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (S : Finset ℕ) {W κ : Type} [AddCommGroup W] [Module (PadicAlgCl ℓ) W]
+    [FiniteDimensional (PadicAlgCl ℓ) W] [Fintype κ] [DecidableEq κ]
+    (bW : Module.Basis κ (PadicAlgCl ℓ) W) (r : Representation (PadicAlgCl ℓ) GQ W)
+    (hrc : Continuous fun g => LinearMap.toMatrix bW bW (r g))
+    (hr : IsSemisimpleModule (MonoidAlgebra (PadicAlgCl ℓ) GQ) r.asModule)
+    (hatt : ∀ p, p.Prime → p ∉ S → ¬ p ∣ N * ℓ → ∃ α : Qbar, ιC α = coeff f p ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        LinearMap.trace (PadicAlgCl ℓ) W (r τ) = ιL α) :
+    ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+      (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+      Module.finrank (PadicAlgCl ℓ)
+        (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ (embOf ℓ ιC ιL (coeffField f)))) = 2 ∧
+      (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).IsSemisimpleRepresentation ∧
+      (∀ {ι' : Type} [Fintype ι'] [DecidableEq ι'] (b : Module.Basis ι' (PadicAlgCl ℓ)
+          (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ (embOf ℓ ιC ιL (coeffField f))))),
+        Continuous fun g => LinearMap.toMatrix b b (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+      Nonempty (r.asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+        (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+      (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) W (r g) =
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+      (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+        LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) =
+          embOf ℓ ιC ιL (coeffField f) ⟨coeff f p, coeff_mem_coeffField f p⟩) :=
+  c9 ℓ hR16 hS hT hBN (frobeniusDense_of_hsyn hD) N hN χ f hf J hJ ιC ιL S bW r hrc hr hatt
+
+/-- **C9 against R14, bundle form** (`r14`, `r16`, `r9a`, `t26`, `t18`; T19 module form). -/
+theorem c9_R14_hsyn (hR14 : HSyn.EigenformRepExists) (hR16 : R16_EichlerShimuraJ1')
+    (hS : FaltingsSemisimple) (hT : TateModuleFree) (hBN : GlueC10.BrauerNesbittChar0)
+    (hD : HSyn.FrobeniusDense) (N : ℕ) (hN : 0 < N) (χ : DirichletCharacter ℂ N) (f : CF N 2)
+    (hf : IsNewform f χ) (J : AbVar ℚ) (hJ : IsJ1 N J) (ιC : Qbar →ₐ[ℚ] ℂ)
+    (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) :
+    ∃ ρ : GaloisRep ℓ 2, ρ.IsSemisimple ∧ ρ.AttachedTo ιC ιL f ∧
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep ρ).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        ∀ g : GQ, (ρ.mat g).trace =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) :=
+  c9_R14 ℓ (eigenformRepExists_of_hsyn hR14) hR16 hS hT hBN (frobeniusDense_of_hsyn hD) N hN χ f
+    hf J hJ ιC ιL
+
+/-- **C9 for C8's `r₅`, bundle form** (`t24`, `t25`, `r16`, `r9a`, `t26`, `t18`; T19 module
+form). -/
+theorem c9_r5_hsyn (hTw : HSyn.EigenformTwist) (hNew : PkgI4.NewformOfEigenform)
+    (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple) (hT : TateModuleFree)
+    (hBN : GlueC10.BrauerNesbittChar0) (hD : HSyn.FrobeniusDense)
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ)
+    (M : ℕ) (hM : 0 < M) (χg : DirichletCharacter ℂ M) (g : CF M 2)
+    (hg : IsNormalizedEigenform g χg) (m : ℕ) (hm : 0 < m) (ψD : DirichletCharacter ℂ m)
+    (ψ : GaloisChar ℓ) (S : Finset ℕ) (r : GaloisRep ℓ 2) (hr : r.IsSemisimple)
+    (hrg : r.AttachedUpToTwist ψ ιC ιL g S)
+    (hψ : ∀ p : ℕ, p.Prime → p ∉ S → ∃ β : Qbar, ιC β = ψD (p : ZMod m) ∧
+      ∀ (v : ValuationSubring Qbar) (τ : GQ), LiesOver v p → IsArithFrob τ v p →
+        (ψ.toHom τ : PadicAlgCl ℓ) = ιL β) :
+    ∃ (N : ℕ) (χ : DirichletCharacter ℂ N) (f : CF N 2), 0 < N ∧ N ∣ M * m ^ 2 ∧
+      IsNewform f χ ∧ ∀ J : AbVar ℚ, IsJ1 N J →
+      ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+        (θ : coeffField f →+* A.End0), AlgebraicGeometry.Surjective π.hom.left ∧
+        Nonempty ((toRep r).asModule ≃ₗ[MonoidAlgebra (PadicAlgCl ℓ) GQ]
+          (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f))).asModule) ∧
+        (∀ g : GQ, LinearMap.trace (PadicAlgCl ℓ) _ (toRep r g) =
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g)) ∧
+        (∀ (g : GQ) (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → IsFrobAt g p →
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) g) =
+            embOf ℓ ιC ιL (coeffField f) ⟨coeff f p, coeff_mem_coeffField f p⟩) :=
+  c9_r5 ℓ (eigenformTwist_of_hsyn hTw) hNew hR16 hS hT hBN (frobeniusDense_of_hsyn hD) ιC ιL M hM
+    χg g hg m hm ψD ψ S r hr hrg hψ
+
+end HSynBridges
+
+end C9Rhof
+
+end
+
+end C9RhofSec
+
 noncomputable section
 
 namespace HSyn
@@ -21659,11 +32967,15 @@ open scoped MatrixGroups ModularForm
 uninterpreted. Genuine statements: `R4` (pkg-I1), `R6`, `R7` (pkg-I2), `R9` (pkg-I3), `R10`,
 `R11`+`R12`, `R13` (pkg-I4), `R14`, `R15` (§1 here); leaf-adopt (2026-11-12): R1 (a, c, d),
 R2, R5 (leaf-qm-fp, repaired), R16 (leaf-modcurves), R19-R21 and H5 (def-faltings);
-leaf-adopt2 (2026-11-12): R3, R18, R22 (leaf-push2). Remaining placeholders: R1(b), R17. -/
+leaf-adopt2 (2026-11-12): R3, R18, R22 (leaf-push2). Remaining placeholders: R1(b), R17.
+leaf-adopt3 (2026-11-13): no field changed. -/
 structure ResearchLeaves : Prop where
   /-- R1 (a), (c), (d), `π₀(X₆) = 1` (rv-blueprints Q4), R1 at level one, R2 with biconditional CM
   clauses (Q5) and R5 on points of `X₆`, on one `Y₃`, `X₆` (leaf-qm-fp, repaired by leaf-adopt).
-  Premise Lemma P of rv-qm-polar (type-`μ` polarization exists and is unique), see the definition. -/
+  Premise (rv-qm-polar Lemma P): for a QM pair `(A, ι)` in characteristic 0 there is exactly one
+  principal polarization whose Rosati involution is `x ↦ μ⁻¹x̄μ` on `ι(𝒪)` (`μ = 2j + ij`, the
+  type fixed by the PEL datum); see the definition. Checked by model reviews (rv-qm-polar), no
+  human review. -/
   r1r2 : LeafAdopt.R1R2fpRep
   /-- R1(b), complex uniformization in family form (Q3): still a placeholder. -/
   r1an : R01b_ComplexUniformization
@@ -21696,7 +33008,10 @@ structure ResearchLeaves : Prop where
   r17 : R17_Carayol
   /-- R18, Javanpeykar, over leaf-push2's stable Faltings height on `PkgI3.AbVar` (with H5). -/
   r18 : ZInQ.LeafPush2.R18_Javanpeykar
-  /-- R19-R21 over def-faltings' `stableFaltingsHeight` (not yet known non-vacuous: AN3 open). -/
+  /-- R19-R21 over def-faltings' `stableFaltingsHeight`. Its value is `⊤` (no metrized model) or
+  the stable Faltings height in Faltings' normalization, so R19-R21 are true for the definition;
+  they say something only together with `h5` (`StableHeightFinite`), which is where a defect of
+  the definition would surface, as a false leaf (rv-leaves48, `RvLeaves48D`). -/
   r19 : ZInQ.DefFaltings.R19_GaudronRemond
   r20 : ZInQ.DefFaltings.R20_FaltingsLemma5
   r21 : ZInQ.DefFaltings.R21_Bost
@@ -21716,14 +33031,19 @@ structure TextbookLeaves : Prop where
   t7 : PkgI3.CharPolyIndepOfEll
   t8 : PkgI3.PoincareReducibility
   t9 : LeafPush.T09_WeilPairing.{0}
-  t10 : T10_TateDuality
+  /-- T10, Galois-equivariant Tate duality (t10-etale, leaf-adopt3; replaces the placeholder): for
+  an abelian variety `A/K` and a prime `ℓ ≠ char K`, a `ℤ_ℓ`-linear isomorphism
+  `H¹_proet(A_K̄, ℤ_ℓ) ≅ Hom_{ℤ_ℓ}(T_ℓ A, ℤ_ℓ)` intertwining the Galois action `T10Etale.galH`
+  (transport along `1 × Spec σ⁻¹`) with the contragredient action. Milne 1986 Thm 15.1(a) with the
+  pro-étale/étale comparison of Bhatt–Scholze 2015 §5.6 (UNVERIFIED numbers). -/
+  t10 : T10Etale.T10_TateDuality
   /-- T11(a), Riemann/GAGA for endomorphisms (leaf-push2). -/
   t11a : ZInQ.LeafPush2.T11a_RiemannEnd
   /-- T11(b), rigidity of homomorphisms under extension of an algebraically closed field
   (leaf-push2). -/
   t11b : ZInQ.LeafPush2.T11b_Rigidity
   -- leaf-adopt2: T12 is glue (`ZInQ.LeafPush2.T12_ComplexConjEigen`, a target), no longer a field.
-  t13 : SkolemNoether
+  -- leaf-adopt3: T13 (Skolem–Noether) is proved (t-skolem-kw, `TSkolemKW.hsyn_t13`), no longer a field.
   -- hsyn-fix: the cochain forms I6.2a′-c′ (rv-leaves-b repair 3; Mathlib does not yet compare
   -- `continuousCohomology` with inhomogeneous cochains). `PkgI6.BrauerHasse2` etc. remain in the file.
   t14a : PkgI6.BrauerHasse2C
@@ -21731,13 +33051,19 @@ structure TextbookLeaves : Prop where
   t15 : PkgI6.LocalH2CardC
   t16a : ∀ (p : ℕ) [Fact p.Prime], PkgI6.LocalKroneckerWeber p
   t16b : PkgI6.LocalReciprocityUpper
-  t17 : KroneckerWeber
-  t18 : FrobeniusDense
-  t19 : BrauerNesbitt
+  /-- T17 narrowed (t-skolem-kw, leaf-adopt3): Kronecker–Weber for cyclic `L/ℚ`, the case C8
+  uses; a consequence of `HSyn.KroneckerWeber` (`TSkolemKW.kroneckerWeberCyclic_of_hsyn`). C8's
+  use form is proved from it (`TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic`). -/
+  t17 : TSkolemKW.KW.KroneckerWeberCyclic
+  /-- T18 narrowed (t-skolem-kw, leaf-adopt3): Chebotarev, existence form; the density form
+  `HSyn.FrobeniusDense` is proved from it (`TSkolemKW.hsyn_t18_of_chebotarev`). -/
+  t18 : PkgI6.ChebotarevExists
+  -- leaf-adopt3: T19 (Brauer–Nesbitt, char 0) is proved (t-skolem-kw, `TSkolemKW.hsyn_t19`).
   t20 : GlueConductor.HilbertDifferentFormula
   t21 : GlueConductor.SerreDifferentBound
-  t22a : PkgI6.HerbrandQuotient
-  t22b : PkgI6.HerbrandTransitivity
+  -- leaf-adopt3: T20, T21 in local form are proved (t-different: `PkgI6.hilbertDifferentFormula`,
+  -- `PkgI6.differentBound`); the global forms above remain leaves. T22 (both parts) is proved
+  -- (`PkgI6.herbrandQuotient`, `PkgI6.herbrandTransitivity`), no longer a field.
   t23 : ∀ (p : ℕ) [Fact p.Prime], PkgI4.T23_FontaineClosure p
   t24 : EigenformTwist
   t25 : PkgI4.NewformOfEigenform
@@ -21746,7 +33072,7 @@ structure TextbookLeaves : Prop where
   t28 : PkgI1.IgusaClebschSeparation
   t29a : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29a_DivisionNormalizer p
   t29b : ∀ (p : ℕ) [Fact p.Prime], LeafPush.T29b_SplitNormalizer p
-  t30 : GlueDescent.B2Q.LeafSqrtCrit
+  -- leaf-adopt3: T30 is proved from T16(a) (t30-adelic, `T30.leafSqrtCrit_of_t16a`).
   t31 : GlueDescent.B2Q.LeafUnramified
   -- leaf-adopt: T32 is glue (`HSyn.t32a_glue`, `HSyn.t32b_glue`), no longer a field.
   /-- T33 (new, leaf-modcurves): existence of the Jacobian of a pointed curve (Weil; Milne 1986). -/
@@ -21757,6 +33083,78 @@ structure TextbookLeaves : Prop where
   /-- T35 (new, leaf-push2): analytic uniformization of `A(ℂ)_σ` by `ℂ^{dim A}` with a full
   lattice (Mumford §1 with GAGA; AN3 for abelian varieties). -/
   t35 : ZInQ.LeafPush2.UniformizationExists
+  /-- T36-T40 (new, x1-belyi, leaf-adopt3): the five leaves from which `LeafModCurves.X1ModelExists`
+  (`X1Belyi.x1ModelExists_of_leaves`) and `LeafModCurves.BelyiX1` (`X1Belyi.belyiX1_of_leaves`) are
+  proved: T36 `TorsionStructure` (`E[N] ≅ (ℤ/N)²` over an algebraically closed field of
+  characteristic 0; Silverman AEC III.6.4(b)), T37 `GoodReductionUnramified` (Néron–Ogg–Shafarevich
+  over `k(T)`; Serre–Tate 1968 Thm 1), T38 `CurveOfFunctionFieldQ` (a function field over `ℚ` with
+  constant field `ℚ` is that of a smooth proper curve; Hartshorne I.6, II.6.7), T39
+  `X1ConstantField` (`ℚ` algebraically closed in `K_N`; Igusa 1959, Shimura 1971 §6.2), T40
+  `X1RationalCusp` (`K_N` has a degree-one place). Locators UNVERIFIED. With T33 they make `r16`,
+  `t34` non-vacuous (`X1Belyi.exists_J1_of_leaves`; rv-leaves48 P2). -/
+  x1 : X1Belyi.X1Leaves
+  /-- T41 (new, h5-neron, leaf-adopt3): **Néron models exist** (leaf N1): for an abelian variety
+  `A/K` and a number field `L ⊇ K`, `A_L` has a smooth group model over `𝓞_L` with the Néron
+  mapping property (Bosch–Lütkebohmert–Raynaud 1.2/1, 1.4/3; UNVERIFIED locators). With H5's
+  `NeronModelMinimal` and the glue piece `ProductModelHeight` it gives E4's additivity
+  (`ZInQ.H5Neron.heightAdditivity_unfolded`). -/
+  t41 : ZInQ.H5Neron.NeronModelExists
+
+
+/-! ### leaf-adopt3 (2026-11-13): former bundle fields, now theorems or consequences of narrower fields
+
+Wave 25 proved T13, T19, T22 (both parts) and T30 (from T16(a)), narrowed T17 and T18, made T10
+concrete and added the leaves T36-T41. The former fields remain available as theorems. -/
+
+/-- T13, Skolem–Noether (t-skolem-kw; proved, no leaf). -/
+theorem t13_proved : SkolemNoether := TSkolemKW.hsyn_t13
+
+/-- T19, Brauer–Nesbitt in characteristic 0, matrix form (t-skolem-kw; proved, no leaf). -/
+theorem t19_proved : BrauerNesbitt := TSkolemKW.hsyn_t19
+
+/-- T22(a), Herbrand's quotient formula (t-different; proved, no leaf). -/
+theorem t22a_proved : PkgI6.HerbrandQuotient := PkgI6.herbrandQuotient
+
+/-- T22(b), transitivity of Herbrand's function (t-different; proved, no leaf). -/
+theorem t22b_proved : PkgI6.HerbrandTransitivity := PkgI6.herbrandTransitivity
+
+/-- T20 in local form (I6.7, t-different; proved). The global form `t20` remains a leaf. -/
+theorem t20_local_proved : PkgI6.HilbertDifferentFormula := PkgI6.hilbertDifferentFormula
+
+/-- T21 in local form (I6.6, t-different; proved). The global form `t21` remains a leaf. -/
+theorem t21_local_proved : PkgI6.DifferentBound := PkgI6.differentBound
+
+/-- T18's density form from the narrowed field `t18 : ChebotarevExists` (t-skolem-kw). -/
+theorem TextbookLeaves.frobeniusDense (t : TextbookLeaves) : FrobeniusDense :=
+  TSkolemKW.hsyn_t18_of_chebotarev t.t18
+
+/-- T30 from T16(a) (t30-adelic). -/
+theorem TextbookLeaves.leafSqrtCrit (t : TextbookLeaves) : GlueDescent.B2Q.LeafSqrtCrit :=
+  T30.leafSqrtCrit_of_t16a t.t16a
+
+/-- leaf-push2's group-isomorphism form of T10 from the Galois-equivariant field (t10-etale). -/
+theorem TextbookLeaves.t10_groupIso (t : TextbookLeaves) : ZInQ.LeafPush2.T10_groupIso :=
+  T10Etale.T10_groupIso_of_tateDuality t.t10
+
+/-- `X₁(N)` has a model over `ℚ` (leaf-modcurves' glue target, x1-belyi; from T36, T38-T40). -/
+theorem TextbookLeaves.x1ModelExists (t : TextbookLeaves) : LeafModCurves.X1ModelExists :=
+  (X1Belyi.x1ModelExists_and_belyiX1 t.x1).1
+
+/-- `j/1728` is a Belyi function of degree `≤ N²` on `K_N` (E2's Belyi half, x1-belyi; from T36,
+T37). -/
+theorem TextbookLeaves.belyiX1 (t : TextbookLeaves) : LeafModCurves.BelyiX1 :=
+  (X1Belyi.x1ModelExists_and_belyiX1 t.x1).2
+
+/-- Non-vacuity of `IsJ1` (so of `r16`, `t34`; rv-leaves48 P2): a `J₁(N)` exists, from T33 and
+T36, T38-T40 (x1-belyi). -/
+theorem TextbookLeaves.exists_J1 (t : TextbookLeaves) (N : ℕ) (hN : 0 < N) :
+    ∃ J : PkgI3.AbVar ℚ, LeafModCurves.IsJ1 N J :=
+  X1Belyi.exists_J1_of_leaves t.x1 t.t33 N hN
+
+/-- leaf-modcurves' bundle `ModCurveLeaves` from the two bundles (x1-belyi). -/
+theorem modCurveLeaves_of_bundles (r : ResearchLeaves) (t : TextbookLeaves) :
+    LeafModCurves.ModCurveLeaves :=
+  X1Belyi.modCurveLeaves_of t.x1 t.t33 r.r16 t.t34
 
 
 /-! ## §3′. g0-split: the glue G1-G17, G19 split into named pieces (task g0-split, 2026-11-12;
@@ -22181,6 +33579,32 @@ theorem transfer_core (r19 : R19_GaudronRemond) (r20 : R20_FaltingsLemma5) (r21 
   · have hgZr : (gZ : ℝ) ≤ g := by exact_mod_cast hgZ
     linarith
 
+/-- **E4's additivity (g0-split's piece 5) from h5-neron (proved, leaf-adopt3)**: T41 (Néron
+models exist), H5's `NeronModelMinimal` and the model-level glue `ProductModelHeight`. -/
+theorem heightAdditivity_of_h5neron (hN1 : ZInQ.H5Neron.NeronModelExists)
+    (hmin : ZInQ.DefFaltings.NeronModelMinimal) (hH : ZInQ.H5Neron.ProductModelHeight) :
+    HeightAdditivity :=
+  fun L _ _ P A Z ⟨p₁, p₂, h₁, h₂, h⟩ =>
+    ZInQ.H5Neron.heightAdditivity_unfolded hN1 hmin hH L P A Z p₁ p₂ h₁ h₂ h
+
+-- leaf-adopt3: `X1BelyiOnModel` from leaf-modcurves' `IsJ1` data is transport of `BelyiX1`
+-- (x1-belyi notes); `BelyiX1` itself is now `TextbookLeaves.belyiX1` (from T36, T37). The
+-- transport (about 50-100 lines: `IsBelyiFunction` along a `ℚ`-algebra isomorphism and
+-- `[ℚ(X):ℚ(t)] = [K_N:ℚ(j)]`) is not done, so `X1BelyiOnModel` stays a glue piece.
+
+/-- g0-split's `DimBaseChange` is hodge-lattice's (same statement, binders reordered; leaf-adopt3). -/
+theorem dimBaseChange_iff_hodgeLattice :
+    DimBaseChange ↔ ZInQ.DefFaltings.HodgeLattice.DimBaseChange :=
+  ⟨fun h K _ A L _ _ => h K L A, fun h K _ L _ _ A => h K A L⟩
+
+/-- **AN3's algebraic third from glue piece 2 (leaf-adopt3)**: `HodgeLatticeTheorem` (def-faltings)
+from hodge-lattice's two remaining Props and g0-split's `DimBaseChange`. -/
+theorem hodgeLatticeTheorem_of_dimBaseChange (hDim : DimBaseChange)
+    (h1 : ZInQ.DefFaltings.HodgeLattice.RegularAtOrigin)
+    (h2 : ZInQ.DefFaltings.HodgeLattice.DimAtOrigin) : ZInQ.DefFaltings.HodgeLatticeTheorem :=
+  ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts h1 h2
+    (dimBaseChange_iff_hodgeLattice.mp hDim)
+
 /-- glue-ssbc's theorem in `GlueI3`'s statement. -/
 theorem semisimpleBaseChange : GlueI3.SemisimpleBaseChange :=
   fun k E G V _ _ _ _ _ _ _ _ ρ hρ => GlueSSBC.semisimpleBaseChange k E G V ρ hρ
@@ -22207,8 +33631,11 @@ structure GluePieces : Prop where
   belyi : G0Split.X1BelyiOnModel
   /-- 4. G5-G6 on the fibre surface: simplicity. -/
   fibreSimple : G0Split.FibreSimple
-  /-- 5. E4: additivity of the stable height on products. -/
-  additivity : G0Split.HeightAdditivity
+  /-- 5. E4 at model level (h5-neron's glue P2, leaf-adopt3; replaces g0-split's
+  `HeightAdditivity`, which now follows from it with T41 (Néron models exist) and H5's
+  `NeronModelMinimal`, `G0Split.heightAdditivity_of_h5neron`): the height of a product group model
+  is at least the sum of the heights. -/
+  productModelHeight : ZInQ.H5Neron.ProductModelHeight
   /-- 6. Stable height invariant under base change. -/
   stableHeightBaseChange : G0Split.StableHeightBaseChange
   /-- 7. G17: products of abelian varieties exist. -/
@@ -22233,7 +33660,8 @@ glue-assembly's interface `GlueOutputs` at `S = Mult.S_mul`. Applied proved piec
 R19-R21). The non-CM disjunct is used (G6, NoCM). -/
 theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (gp : GluePieces) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
-  obtain ⟨hDimF, hDim, hBelyi, hSimp, hAdd, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  obtain ⟨hDimF, hDim, hBelyi, hSimp, hPMH, hBC, hProdE, hRev, hThetaPt, hMod, hCopies⟩ := gp
+  have hAdd : HeightAdditivity := heightAdditivity_of_h5neron t.t41 r.h5.2 hPMH
   have hR18 : R18_JavanpeykarConcrete := r18Concrete_of r.r18 hCopies
   have hR22 : R22_PazukiConcrete := r22Concrete_of r.r22 hCopies
   -- A4: the moduli data and an object over every value
@@ -22453,3 +33881,41 @@ end
 #print axioms HSyn.G0Split.thetaPazuki
 #print axioms HSyn.G0Split.isogenousProduct
 #print axioms HSyn.G0Split.semisimpleBaseChange
+-- leaf-adopt3: wave-25 folds and the new bundle consequences
+#print axioms HSyn.G0Split.r18Concrete_of
+#print axioms HSyn.G0Split.r22Concrete_of
+#print axioms HSyn.G0Split.heightAdditivity_of_h5neron
+#print axioms HSyn.G0Split.hodgeLatticeTheorem_of_dimBaseChange
+#print axioms HSyn.t13_proved
+#print axioms HSyn.t19_proved
+#print axioms HSyn.t22a_proved
+#print axioms HSyn.t22b_proved
+#print axioms HSyn.t20_local_proved
+#print axioms HSyn.t21_local_proved
+#print axioms HSyn.TextbookLeaves.frobeniusDense
+#print axioms HSyn.TextbookLeaves.leafSqrtCrit
+#print axioms HSyn.TextbookLeaves.t10_groupIso
+#print axioms HSyn.TextbookLeaves.x1ModelExists
+#print axioms HSyn.TextbookLeaves.belyiX1
+#print axioms HSyn.TextbookLeaves.exists_J1
+#print axioms HSyn.modCurveLeaves_of_bundles
+#print axioms TSkolemKW.glueDescent_leafSkolemNoether
+#print axioms TSkolemKW.pkgI6_brauerNesbittChar0
+#print axioms TSkolemKW.hsyn_dirichletCharacter_of_kroneckerWeberCyclic
+#print axioms TSkolemKW.C10.c10_of_chebotarev
+#print axioms Pi0X6.leafAdopt_r1pi0Props_of_bundle
+#print axioms Pi0X6.leafAdopt_r1pi0Props_of_X6Props
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_tangent
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem_of_abVarFacts
+#print axioms ZInQ.H5Neron.stableFaltingsHeight_eq_neron_all
+#print axioms ZInQ.H5Neron.stableFaltingsHeight_add_le'
+#print axioms X1Belyi.belyiX1_of_leaves
+#print axioms X1Belyi.x1ModelExists_of_leaves
+#print axioms E1Sub.vSurjOfSurjective
+#print axioms C9Rhof.rhoF_semisimple
+#print axioms C9Rhof.rhoF_continuous
+#print axioms C9Rhof.c9
+#print axioms C9Rhof.c9_R14
+#print axioms C9Rhof.c9_r5
+#print axioms C9Rhof.c10_via_c9
+#print axioms C9Rhof.c9_hsyn

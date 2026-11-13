@@ -22,3 +22,14 @@
 - 02:0x tail with all fragments, new bundles (t10 concrete; t13, t19, t22a/b, t30 removed; t17 → KroneckerWeberCyclic;
   t18 → ChebotarevExists; new x1 (T36-T40), t41 (N1)), GluePieces.additivity → productModelHeight, derived
   theorems (65_derived), hodge-lattice bridge: exit 0, 0 errors, no sorry, all `#print axioms` standard (380 s).
+- 02:1x FULL CHECK: `lake env lean scratch/h-decomposition/Leaves.lean` (33 921 lines, assembled by
+  `assemble.py full` = base prefix + parts + header_edits.py + apply_repairs.py): exit 0 in 574 s, 0 errors,
+  no `declaration uses 'sorry'`, 174 `#print axioms` lines, all `[propext, Classical.choice, Quot.sound]`
+  (incl. HSyn.sixContactMin_of_leaves); 2 `opaque` (R01b, R17), no `axiom`. Output: compile_full.txt.
+- Statement diff (stmt_diff.py, base 883c4ddf vs new, comments stripped, 1683 base decls): changed only
+  HSyn.TextbookLeaves, HSyn.glueOutputs_of_leaves, HSyn.sixContactMin_of_leaves; removed only
+  HSyn.T10_TateDuality (opaque). ResearchLeaves unchanged.
+- Fold diff (fold_diff.py, task files vs new Leaves.lean): every copied declaration identical except
+  TSkolemKW.C10.{brauerNesbittChar0', c10_of_chebotarev} (now over GlueC10's identical originals),
+  T10Etale.T10_groupIso_of_linIso (now concludes ZInQ.LeafPush2.T10_groupIso, the identical original),
+  E1Sub.bcPt (an `rfl` dropped).
