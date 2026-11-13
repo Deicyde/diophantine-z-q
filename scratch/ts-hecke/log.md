@@ -81,3 +81,15 @@ RamOfFibreCount (clause (a): Mathlib `ramificationIdx_bot_eq_one`, a prime over 
 HeckeFibreSizes (M = 144; sizes 144 / 36 / 24 / 72; disc −8 and −12 CM points absent): TRUE,
 non-vacuous, no hidden triviality in the reductions. Docstring improvements suggested (applied to
 ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
+
+## Step 7. RamOfFibreCount proved — VERIFIED (compiled, 0 errors, no sorryAx)
+
+- `RamCount.lean` (Mathlib only): `RamCount.ramCount` — for E/F finite Galois, F = Frac A, A a PID,
+  B = integral closure, φ : A → Ω (Ω alg. closed, char 0) with ker φ ≠ ⊥, Q over ker φ:
+  e(Q) · #{ψ : B → Ω | ψ ∘ (A → B) = φ} = [E:F]. Proof: Mathlib's
+  `Ideal.sum_ramification_inertia_eq_finrank` + `ramificationIdx_eq_of_isGaloisGroup` (Gal(E/F)
+  acting on B, `IsGaloisGroup.of_isFractionRing`) + fibre equivalence {ψ | ker ψ = q} ≃
+  (B/q →ₐ[A/P] Ω) (`fiberEquiv`) + `AlgHom.natCard_of_splits` + `inertiaDeg_eq_of_isMaximal`.
+- `isFractionRing_infCoord` (ℚ(X) = Frac ℚ[s], s ↦ X⁻¹; via `Polynomial.reflect`).
+- `ramOfFibreCount : RamOfFibreCount` (clause (a) from `eq_bot_of_under_eq_bot` +
+  `ramificationIdx_bot_eq_one`; (b), (c) from `ramCount`).

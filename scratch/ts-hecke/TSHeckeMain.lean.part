@@ -841,6 +841,124 @@ theorem heckeBranch_of (hR : RamOfFibreCount) (hCI : CurveChartInf) (hF : HeckeF
     rw [← h] at hdvd
     exact Nat.dvd_of_mul_dvd_mul_right hF0 hdvd
 
+/-! ### `RamOfFibreCount` is proved (from `RamCount.ramCount`) -/
+
+/-- `ℚ(X)` is the fraction field of `ℚ[s]` through `s ↦ X⁻¹` (compiled). -/
+theorem isFractionRing_infCoord : IsFractionRing InfCoord (RatFunc ℚ) := by
+  have hX : (RatFunc.X : RatFunc ℚ) ≠ 0 := RatFunc.X_ne_zero
+  letI : Invertible (RatFunc.X : RatFunc ℚ) := invertibleOfNonzero hX
+  have hev : Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X =
+      algebraMap ℚ[X] (RatFunc ℚ) :=
+    Polynomial.ringHom_ext (fun a => RingHom.congr_fun (Subsingleton.elim
+      ((Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X).comp Polynomial.C)
+      ((algebraMap ℚ[X] (RatFunc ℚ)).comp Polynomial.C)) a)
+      (by rw [Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X, RatFunc.algebraMap_X])
+  have key : ∀ (N : ℕ) (f : ℚ[X]), f.natDegree ≤ N →
+      algebraMap InfCoord (RatFunc ℚ) (Polynomial.reflect N f : ℚ[X]) * RatFunc.X ^ N =
+        algebraMap ℚ[X] (RatFunc ℚ) f := by
+    intro N f hf
+    change Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (RatFunc.X⁻¹) (Polynomial.reflect N f) *
+      RatFunc.X ^ N = _
+    rw [show (RatFunc.X⁻¹ : RatFunc ℚ) = ⅟RatFunc.X from (invOf_eq_inv _).symm,
+      Polynomial.eval₂_reflect_mul_pow _ _ N f hf, ← hev, Polynomial.coe_eval₂RingHom]
+  have hinj : Function.Injective (algebraMap InfCoord (RatFunc ℚ)) := by
+    rw [injective_iff_map_eq_zero]
+    show ∀ p : ℚ[X], algebraMap InfCoord (RatFunc ℚ) p = 0 → p = 0
+    intro p hp
+    have h1 := Polynomial.eval₂_reflect_mul_pow (algebraMap ℚ (RatFunc ℚ)) RatFunc.X p.natDegree
+      (Polynomial.reflect p.natDegree p) (Polynomial.natDegree_reflect_le.trans (by simp))
+    rw [Polynomial.reflect_reflect] at h1
+    have hp' : Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (⅟RatFunc.X) p = 0 := by
+      rw [invOf_eq_inv]; exact hp
+    rw [hp', zero_mul, ← Polynomial.coe_eval₂RingHom, hev] at h1
+    have h2 := (map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).1 h1.symm
+    rwa [Polynomial.reflect_eq_zero_iff] at h2
+  haveI : FaithfulSMul InfCoord (RatFunc ℚ) := (faithfulSMul_iff_algebraMap_injective _ _).2 hinj
+  refine IsFractionRing.of_field InfCoord (RatFunc ℚ) fun z => ?_
+  set N := max (RatFunc.num z).natDegree (RatFunc.denom z).natDegree
+  refine ⟨(Polynomial.reflect N (RatFunc.num z) : ℚ[X]),
+    (Polynomial.reflect N (RatFunc.denom z) : ℚ[X]), ?_⟩
+  have h1 := key N (RatFunc.num z) (le_max_left _ _)
+  have h2 := key N (RatFunc.denom z) (le_max_right _ _)
+  have hXN : (RatFunc.X : RatFunc ℚ) ^ N ≠ 0 := pow_ne_zero _ hX
+  calc z = algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.num z) /
+        algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.denom z) := (RatFunc.num_div_denom z).symm
+    _ = _ := by rw [← h1, ← h2, mul_div_mul_right _ _ hXN]
+
+/-- **`RamOfFibreCount` is proved** (compiled; `RamCount.ramCount` at `ℚ[X]` and at `ℚ[s]`). -/
+theorem ramOfFibreCount : RamOfFibreCount := by
+  intro E _ _ _ _ _ _
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  refine ⟨?_, ?_, ?_⟩
+  · intro Q hQ h0
+    have : Q = ⊥ := Ideal.eq_bot_of_under_eq_bot (R := ℚ[X]) h0
+    subst this
+    exact Ideal.ramificationIdx_bot_eq_one (R := ℚ[X]) (S := integralClosure ℚ[X] E)
+  · intro t Q hQ hQt
+    have hφ : RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) ≠ ⊥ := by
+      obtain ⟨p, hp0, hp⟩ := Algebra.IsAlgebraic.isAlgebraic (R := ℚ) (A := Qbar) t
+      intro hbot
+      apply hp0
+      have : p ∈ RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := hp
+      rw [hbot] at this
+      exact this
+    have h := RamCount.ramCount (F := RatFunc ℚ) (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t)
+      hφ Q hQt
+    convert h using 3
+    ext ψ
+    simp only [Set.mem_setOf_eq]
+    constructor
+    · intro hψ
+      refine Polynomial.ringHom_ext (fun a => ?_) ?_
+      · exact RingHom.congr_fun (Subsingleton.elim
+          ((ψ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E))).comp Polynomial.C)
+          ((Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t).comp Polynomial.C)) a
+      · simp [hψ]
+    · intro hψ
+      have := RingHom.congr_fun hψ X
+      simpa using this
+  · letI := infAlg E
+    haveI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+    haveI : IsPrincipalIdealRing InfCoord := inferInstanceAs (IsPrincipalIdealRing ℚ[X])
+    haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+    haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq fun _ => rfl
+    intro Q hQ hQs
+    let φ : InfCoord →+* Qbar := Polynomial.eval₂RingHom (algebraMap ℚ Qbar) 0
+    have hker : RingHom.ker φ = Ideal.span {infUnif} := by
+      have := ker_eval_rat 0
+      rw [map_zero, map_zero, sub_zero] at this
+      exact this
+    have hφ : RingHom.ker φ ≠ ⊥ := by
+      rw [hker]
+      intro h
+      rw [Ideal.span_singleton_eq_bot] at h
+      exact Polynomial.X_ne_zero h
+    have h := RamCount.ramCount (F := RatFunc ℚ) φ hφ Q (hQs.trans hker.symm)
+    convert h using 3
+    ext ψ
+    simp only [Set.mem_setOf_eq]
+    constructor
+    · intro hψ
+      refine Polynomial.ringHom_ext (R := ℚ) (f := ψ.comp (algebraMap InfCoord _)) (g := φ)
+        (fun a => ?_) ?_
+      · exact RingHom.congr_fun (Subsingleton.elim
+          ((ψ.comp (algebraMap InfCoord (integralClosure InfCoord E))).comp Polynomial.C)
+          (φ.comp Polynomial.C)) a
+      · change ψ (algebraMap InfCoord _ infUnif) = φ X
+        rw [hψ]
+        exact (Polynomial.eval₂_X (algebraMap ℚ Qbar) (0 : Qbar)).symm
+    · intro hψ
+      have := RingHom.congr_fun hψ (X : ℚ[X])
+      change ψ (algebraMap InfCoord _ infUnif) = φ X at this
+      rw [this]
+      exact Polynomial.eval₂_X (algebraMap ℚ Qbar) (0 : Qbar)
+
 /-- **`HeckeBranch` with the CM objects supplied by the bundle leaf `R1R2fp`** (compiled). -/
 theorem heckeBranch_of_R1R2fp (hRR : R1R2fp) (hR : RamOfFibreCount) (hCI : CurveChartInf)
     (hF : HeckeFibreSizes) (hT : ObjBridge.TorsionStructure) : HeckeBranch :=
@@ -878,3 +996,5 @@ end
 #print axioms TSHecke.finrank_le_twistFibre
 #print axioms TSHecke.heckeBranch_of
 #print axioms TSHecke.heckeBranch_of_R1R2fp
+#print axioms TSHecke.isFractionRing_infCoord
+#print axioms TSHecke.ramOfFibreCount

@@ -2815,6 +2815,137 @@ end GFC
 end GFCopy
 
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/RamCount.lean` (task ts-hecke, Mathlib only), minus its import and `#print`
+lines: `RamCount.ramCount` (`e(Q) · #{ψ} = [E : F]` for Galois extensions).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section RamCountCopy
+
+/-! # ts-hecke: ramification index × geometric fibre = degree (development file, Mathlib only)
+
+For a finite Galois extension `E/F`, `F = Frac A` with `A` a principal ideal domain, `B` the
+integral closure of `A` in `E`, `φ : A → Ω` (`Ω` algebraically closed of characteristic 0) with
+nonzero kernel `P`, and a prime `Q` of `B` over `P`:
+`e(Q) · #{ψ : B → Ω | ψ ∘ (A → B) = φ} = [E : F]`. -/
+
+open Polynomial
+
+namespace RamCount
+
+variable {A F E Ω : Type} [CommRing A] [IsDomain A] [IsPrincipalIdealRing A]
+  [Field F] [Algebra A F] [IsFractionRing A F]
+  [Field E] [Algebra F E] [Algebra A E] [IsScalarTower A F E] [FiniteDimensional F E]
+  [IsGalois F E] [CharZero F] [Field Ω] [IsAlgClosed Ω] [CharZero Ω]
+
+/-- The fibre of `ψ ↦ ker ψ` over a prime `q` is the set of `A ⧸ P`-embeddings of `B ⧸ q`. -/
+noncomputable def fiberEquiv {B : Type} [CommRing B] [Algebra A B] (φ : A →+* Ω)
+    (q : (RingHom.ker φ).primesOver B) [q.1.IsMaximal]
+    (f : {ψ : B →+* Ω // ψ.comp (algebraMap A B) = φ} → (RingHom.ker φ).primesOver B)
+    (hf : ∀ ψ, (f ψ).1 = RingHom.ker ψ.1) :
+    letI : Algebra (A ⧸ RingHom.ker φ) Ω :=
+      (Ideal.Quotient.lift (RingHom.ker φ) φ (fun _ ha => RingHom.mem_ker.1 ha)).toAlgebra
+    {ψ // f ψ = q} ≃ (B ⧸ q.1 →ₐ[A ⧸ RingHom.ker φ] Ω) :=
+  letI : Algebra (A ⧸ RingHom.ker φ) Ω :=
+    (Ideal.Quotient.lift (RingHom.ker φ) φ (fun _ ha => RingHom.mem_ker.1 ha)).toAlgebra
+  letI : Field (B ⧸ q.1) := Ideal.Quotient.field q.1
+  { toFun := fun ψ =>
+      { toRingHom := Ideal.Quotient.lift q.1 ψ.1.1 (fun x hx => by
+          have h : RingHom.ker ψ.1.1 = q.1 := (hf ψ.1).symm.trans (congrArg Subtype.val ψ.2)
+          rw [← h] at hx; exact hx)
+        commutes' := by
+          intro r
+          obtain ⟨a, rfl⟩ := Ideal.Quotient.mk_surjective r
+          change ψ.1.1 (algebraMap A B a) = φ a
+          exact congrArg (fun g : A →+* Ω => g a) ψ.1.2 }
+    invFun := fun χ => ⟨⟨χ.toRingHom.comp (Ideal.Quotient.mk q.1), RingHom.ext fun a => by
+        change χ (Ideal.Quotient.mk q.1 (algebraMap A B a)) = φ a
+        exact χ.commutes (Ideal.Quotient.mk _ a)⟩, by
+        apply Subtype.ext
+        rw [hf]
+        ext x
+        simp only [RingHom.mem_ker, RingHom.coe_comp, Function.comp_apply]
+        rw [show (χ.toRingHom (Ideal.Quotient.mk q.1 x) = 0) ↔ Ideal.Quotient.mk q.1 x = 0 from
+          map_eq_zero_iff χ.toRingHom χ.toRingHom.injective, Ideal.Quotient.eq_zero_iff_mem]⟩
+    left_inv := fun ψ => by
+      apply Subtype.ext; apply Subtype.ext
+      ext x
+      rfl
+    right_inv := fun χ => by
+      ext x
+      obtain ⟨y, rfl⟩ := Ideal.Quotient.mk_surjective x
+      rfl }
+
+theorem ramCount (φ : A →+* Ω) (hφ : RingHom.ker φ ≠ ⊥)
+    (Q : Ideal (integralClosure A E)) [hQ : Q.IsPrime] (hQP : Q.under A = RingHom.ker φ) :
+    Q.ramificationIdx A *
+      {ψ : integralClosure A E →+* Ω | ψ.comp (algebraMap A (integralClosure A E)) = φ}.ncard =
+      Module.finrank F E := by
+  classical
+  set P := RingHom.ker φ with hPdef
+  haveI hPprime : P.IsPrime := RingHom.ker_isPrime φ
+  haveI hPmax : P.IsMaximal := hPprime.isMaximal hφ
+  haveI : Q.LiesOver P := ⟨hQP.symm⟩
+  have hinjAE : Function.Injective (algebraMap A E) := by
+    rw [IsScalarTower.algebraMap_eq A F E]
+    exact (algebraMap F E).injective.comp (IsFractionRing.injective A F)
+  haveI : Module.IsTorsionFree A E := Module.isTorsionFree_iff_algebraMap_injective.2 hinjAE
+  haveI : Module.Finite A (integralClosure A E) := IsIntegralClosure.finite A F E _
+  haveI : Module.Free A (integralClosure A E) := IsIntegralClosure.module_free A F E _
+  haveI : IsFractionRing (integralClosure A E) E :=
+    IsIntegralClosure.isFractionRing_of_finite_extension A F E _
+  have hrank : Module.finrank A (integralClosure A E) = Module.finrank F E :=
+    IsIntegralClosure.rank A F E _
+  haveI : SMulCommClass Gal(E/F) A E := ⟨fun g a x => by
+    rw [AlgEquiv.smul_def, AlgEquiv.smul_def, Algebra.smul_def, Algebra.smul_def, map_mul,
+      IsScalarTower.algebraMap_apply A F E, AlgEquiv.commutes]⟩
+  haveI : IsGaloisGroup Gal(E/F) A (integralClosure A E) :=
+    IsGaloisGroup.of_isFractionRing Gal(E/F) A (integralClosure A E) F E
+  haveI : Fintype (P.primesOver (integralClosure A E)) :=
+    (Algebra.QuasiFinite.finite_primesOver P).fintype
+  have hsum := Ideal.sum_ramification_inertia_eq_finrank P (integralClosure A E)
+  have he : ∀ q : P.primesOver (integralClosure A E),
+      q.1.ramificationIdx A = Q.ramificationIdx A :=
+    fun q => Ideal.ramificationIdx_eq_of_isGaloisGroup P q.1 Q Gal(E/F)
+  -- the count of embeddings
+  letI : Algebra (A ⧸ P) Ω := (Ideal.Quotient.lift P φ (fun _ ha => RingHom.mem_ker.1 ha)).toAlgebra
+  letI : Field (A ⧸ P) := Ideal.Quotient.field P
+  haveI : CharZero (A ⧸ P) := RingHom.charZero (algebraMap (A ⧸ P) Ω)
+  let f : {ψ : integralClosure A E →+* Ω // ψ.comp (algebraMap A (integralClosure A E)) = φ} →
+      P.primesOver (integralClosure A E) := fun ψ =>
+    ⟨RingHom.ker ψ.1, RingHom.ker_isPrime _, ⟨by
+      rw [Ideal.under, RingHom.comap_ker, ψ.2]⟩⟩
+  have hcount : {ψ : integralClosure A E →+* Ω |
+      ψ.comp (algebraMap A (integralClosure A E)) = φ}.ncard =
+      ∑ q : P.primesOver (integralClosure A E), q.1.inertiaDeg A := by
+    rw [← Nat.card_coe_set_eq]
+    change Nat.card {ψ : integralClosure A E →+* Ω //
+      ψ.comp (algebraMap A (integralClosure A E)) = φ} = _
+    rw [← Nat.card_congr (Equiv.sigmaFiberEquiv f)]
+    have hfib : ∀ q : P.primesOver (integralClosure A E),
+        Nat.card {ψ // f ψ = q} = q.1.inertiaDeg A := by
+      intro q
+      haveI : q.1.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal q.1 P
+      letI : Field (integralClosure A E ⧸ q.1) := Ideal.Quotient.field q.1
+      rw [Nat.card_congr (fiberEquiv φ q f (fun _ => rfl)),
+        AlgHom.natCard_of_splits (A ⧸ P) (integralClosure A E ⧸ q.1) Ω
+          (fun _ => IsAlgClosed.splits _),
+        Ideal.inertiaDeg_eq_of_isMaximal P q.1]
+    haveI : ∀ q : P.primesOver (integralClosure A E), Finite {ψ // f ψ = q} := by
+      intro q
+      haveI : q.1.IsMaximal := Ideal.IsMaximal.of_liesOver_isMaximal q.1 P
+      letI : Field (integralClosure A E ⧸ q.1) := Ideal.Quotient.field q.1
+      exact Finite.of_equiv _ (fiberEquiv φ q f (fun _ => rfl)).symm
+    rw [Nat.card_sigma]
+    exact Finset.sum_congr rfl fun q _ => hfib q
+  rw [hcount, Finset.mul_sum, ← hrank, ← hsum]
+  exact Finset.sum_congr rfl fun q _ => by rw [he q]
+
+end RamCount
+
+
+end RamCountCopy
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
 # `scratch/ts-hecke/Units.lean` (task ts-hecke), minus its import and `#print` lines:
 `TSHeckeUnits.exists_unit_congr` (`𝒪^× → (𝒪/3𝒪)^×` is onto).
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
@@ -3075,7 +3206,8 @@ the set of geometric components of `Sh_K` is `ℚ_{>0}^× \ 𝔸_f^× / nrd(K)`,
 it through the cyclotomic character (Artin reciprocity), i.e. through multiplication by `ℤ̂^×`.
 *Consequence used*: for `K₃ = ker(𝒪̂^× → (𝒪/3𝒪)^×)`, `nrd(K₃) = ∏_{ℓ≠3} ℤ_ℓ^× × (1 + 3ℤ_3)`, so the
 set of components is `(ℤ/3)^×` (two points) and `ℤ̂^×` acts transitively on it: `Y₃` is
-`ℚ`-connected (its two geometric components are swapped by `Gal(ℚ(√−3)/ℚ)`).
+`ℚ`-connected (its two geometric components are swapped by `Gal(ℚ(√−3)/ℚ)`, in particular by
+complex conjugation).
 *Computation* (VERIFIED, `scratch/ts-hecke/pi0_check.py`): in Shimura's uniformization
 `Y₃(ℂ) = 𝒪^× \ (ℍ^± × (𝒪/3𝒪)^×)` there are exactly two orbits, separated by `s · nrd(a) mod 3`,
 and complex conjugation `(s, a) ↦ (−s, a)` swaps them. -/
@@ -3528,7 +3660,13 @@ def CurveChartInf : Prop :=
 There is `M` (it is `144 = |Γ'|`) such that every twist fibre has at most `M` classes, the fibre
 of an object without CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M`, and at objects with CM by
 `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `M` divides `4` (resp. `6`, `2`) times the fibre size (the
-expected sizes are `36`, `24`, `72`). *Source*: the fibre of `Y₃ → P¹` through a point `y` has
+expected sizes are `36`, `24`, `72`). *Count*: a fixed pair `(A, ι)` over `ℚ̄` has
+`72 = |(𝒪/3𝒪)^×|` level structures, permuted freely by `com(ι)^×/{±1}` (trivial unless CM by
+`ℤ[i]` or `ℤ[ζ₃]`); `Aut(𝒪)/Inn(𝒪^×) = W` has order 4 and acts freely on the pairs except at CM by
+`ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` (stabilizers `⟨w₂⟩`, `⟨w₃⟩`, `⟨w₆⟩`); CM points of discriminants `−8`
+and `−12` do not exist on `X₆` (`3` splits in `ℚ(√−2)`; `2` divides conductor and discriminant).
+So the sizes are `4·36 = 144`, `2·18 = 36`, `2·12 = 24`, `2·36 = 72`. *Source*: the fibre of
+`Y₃ → P¹` through a point `y` has
 `|Γ'| / |Stab(y)|` points; `Stab(y)` is trivial off the elliptic points of `Γ*`, whose orders are
 `4, 6, 2` at the CM points of discriminants `−4, −3, −24` (Baba–Granath, Canad. J. Math. 60
 (2008), §3.1, the elliptic-order table, p. 740 per docs/research/locators.md; signature
@@ -3857,6 +3995,124 @@ theorem heckeBranch_of (hR : RamOfFibreCount) (hCI : CurveChartInf) (hF : HeckeF
     rw [← h] at hdvd
     exact Nat.dvd_of_mul_dvd_mul_right hF0 hdvd
 
+/-! ### `RamOfFibreCount` is proved (from `RamCount.ramCount`) -/
+
+/-- `ℚ(X)` is the fraction field of `ℚ[s]` through `s ↦ X⁻¹` (compiled). -/
+theorem isFractionRing_infCoord : IsFractionRing InfCoord (RatFunc ℚ) := by
+  have hX : (RatFunc.X : RatFunc ℚ) ≠ 0 := RatFunc.X_ne_zero
+  letI : Invertible (RatFunc.X : RatFunc ℚ) := invertibleOfNonzero hX
+  have hev : Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X =
+      algebraMap ℚ[X] (RatFunc ℚ) :=
+    Polynomial.ringHom_ext (fun a => RingHom.congr_fun (Subsingleton.elim
+      ((Polynomial.eval₂RingHom (algebraMap ℚ (RatFunc ℚ)) RatFunc.X).comp Polynomial.C)
+      ((algebraMap ℚ[X] (RatFunc ℚ)).comp Polynomial.C)) a)
+      (by rw [Polynomial.coe_eval₂RingHom, Polynomial.eval₂_X, RatFunc.algebraMap_X])
+  have key : ∀ (N : ℕ) (f : ℚ[X]), f.natDegree ≤ N →
+      algebraMap InfCoord (RatFunc ℚ) (Polynomial.reflect N f : ℚ[X]) * RatFunc.X ^ N =
+        algebraMap ℚ[X] (RatFunc ℚ) f := by
+    intro N f hf
+    change Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (RatFunc.X⁻¹) (Polynomial.reflect N f) *
+      RatFunc.X ^ N = _
+    rw [show (RatFunc.X⁻¹ : RatFunc ℚ) = ⅟RatFunc.X from (invOf_eq_inv _).symm,
+      Polynomial.eval₂_reflect_mul_pow _ _ N f hf, ← hev, Polynomial.coe_eval₂RingHom]
+  have hinj : Function.Injective (algebraMap InfCoord (RatFunc ℚ)) := by
+    rw [injective_iff_map_eq_zero]
+    show ∀ p : ℚ[X], algebraMap InfCoord (RatFunc ℚ) p = 0 → p = 0
+    intro p hp
+    have h1 := Polynomial.eval₂_reflect_mul_pow (algebraMap ℚ (RatFunc ℚ)) RatFunc.X p.natDegree
+      (Polynomial.reflect p.natDegree p) (Polynomial.natDegree_reflect_le.trans (by simp))
+    rw [Polynomial.reflect_reflect] at h1
+    have hp' : Polynomial.eval₂ (algebraMap ℚ (RatFunc ℚ)) (⅟RatFunc.X) p = 0 := by
+      rw [invOf_eq_inv]; exact hp
+    rw [hp', zero_mul, ← Polynomial.coe_eval₂RingHom, hev] at h1
+    have h2 := (map_eq_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).1 h1.symm
+    rwa [Polynomial.reflect_eq_zero_iff] at h2
+  haveI : FaithfulSMul InfCoord (RatFunc ℚ) := (faithfulSMul_iff_algebraMap_injective _ _).2 hinj
+  refine IsFractionRing.of_field InfCoord (RatFunc ℚ) fun z => ?_
+  set N := max (RatFunc.num z).natDegree (RatFunc.denom z).natDegree
+  refine ⟨(Polynomial.reflect N (RatFunc.num z) : ℚ[X]),
+    (Polynomial.reflect N (RatFunc.denom z) : ℚ[X]), ?_⟩
+  have h1 := key N (RatFunc.num z) (le_max_left _ _)
+  have h2 := key N (RatFunc.denom z) (le_max_right _ _)
+  have hXN : (RatFunc.X : RatFunc ℚ) ^ N ≠ 0 := pow_ne_zero _ hX
+  calc z = algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.num z) /
+        algebraMap ℚ[X] (RatFunc ℚ) (RatFunc.denom z) := (RatFunc.num_div_denom z).symm
+    _ = _ := by rw [← h1, ← h2, mul_div_mul_right _ _ hXN]
+
+/-- **`RamOfFibreCount` is proved** (compiled; `RamCount.ramCount` at `ℚ[X]` and at `ℚ[s]`). -/
+theorem ramOfFibreCount : RamOfFibreCount := by
+  intro E _ _ _ _ _ _
+  have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
+    intro a b hab
+    have h' := congrArg Subtype.val hab
+    change algebraMap ℚ[X] E a = algebraMap ℚ[X] E b at h'
+    rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+      IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E b] at h'
+    exact IsFractionRing.injective ℚ[X] (RatFunc ℚ) ((algebraMap (RatFunc ℚ) E).injective h')
+  refine ⟨?_, ?_, ?_⟩
+  · intro Q hQ h0
+    have : Q = ⊥ := Ideal.eq_bot_of_under_eq_bot (R := ℚ[X]) h0
+    subst this
+    exact Ideal.ramificationIdx_bot_eq_one (R := ℚ[X]) (S := integralClosure ℚ[X] E)
+  · intro t Q hQ hQt
+    have hφ : RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) ≠ ⊥ := by
+      obtain ⟨p, hp0, hp⟩ := Algebra.IsAlgebraic.isAlgebraic (R := ℚ) (A := Qbar) t
+      intro hbot
+      apply hp0
+      have : p ∈ RingHom.ker (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t) := hp
+      rw [hbot] at this
+      exact this
+    have h := RamCount.ramCount (F := RatFunc ℚ) (Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t)
+      hφ Q hQt
+    convert h using 3
+    ext ψ
+    simp only [Set.mem_setOf_eq]
+    constructor
+    · intro hψ
+      refine Polynomial.ringHom_ext (fun a => ?_) ?_
+      · exact RingHom.congr_fun (Subsingleton.elim
+          ((ψ.comp (algebraMap ℚ[X] (integralClosure ℚ[X] E))).comp Polynomial.C)
+          ((Polynomial.eval₂RingHom (algebraMap ℚ Qbar) t).comp Polynomial.C)) a
+      · simp [hψ]
+    · intro hψ
+      have := RingHom.congr_fun hψ X
+      simpa using this
+  · letI := infAlg E
+    haveI : IsDomain InfCoord := inferInstanceAs (IsDomain ℚ[X])
+    haveI : IsPrincipalIdealRing InfCoord := inferInstanceAs (IsPrincipalIdealRing ℚ[X])
+    haveI : IsFractionRing InfCoord (RatFunc ℚ) := isFractionRing_infCoord
+    haveI : IsScalarTower InfCoord (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq fun _ => rfl
+    intro Q hQ hQs
+    let φ : InfCoord →+* Qbar := Polynomial.eval₂RingHom (algebraMap ℚ Qbar) 0
+    have hker : RingHom.ker φ = Ideal.span {infUnif} := by
+      have := ker_eval_rat 0
+      rw [map_zero, map_zero, sub_zero] at this
+      exact this
+    have hφ : RingHom.ker φ ≠ ⊥ := by
+      rw [hker]
+      intro h
+      rw [Ideal.span_singleton_eq_bot] at h
+      exact Polynomial.X_ne_zero h
+    have h := RamCount.ramCount (F := RatFunc ℚ) φ hφ Q (hQs.trans hker.symm)
+    convert h using 3
+    ext ψ
+    simp only [Set.mem_setOf_eq]
+    constructor
+    · intro hψ
+      refine Polynomial.ringHom_ext (R := ℚ) (f := ψ.comp (algebraMap InfCoord _)) (g := φ)
+        (fun a => ?_) ?_
+      · exact RingHom.congr_fun (Subsingleton.elim
+          ((ψ.comp (algebraMap InfCoord (integralClosure InfCoord E))).comp Polynomial.C)
+          (φ.comp Polynomial.C)) a
+      · change ψ (algebraMap InfCoord _ infUnif) = φ X
+        rw [hψ]
+        exact (Polynomial.eval₂_X (algebraMap ℚ Qbar) (0 : Qbar)).symm
+    · intro hψ
+      have := RingHom.congr_fun hψ (X : ℚ[X])
+      change ψ (algebraMap InfCoord _ infUnif) = φ X at this
+      rw [this]
+      exact Polynomial.eval₂_X (algebraMap ℚ Qbar) (0 : Qbar)
+
 /-- **`HeckeBranch` with the CM objects supplied by the bundle leaf `R1R2fp`** (compiled). -/
 theorem heckeBranch_of_R1R2fp (hRR : R1R2fp) (hR : RamOfFibreCount) (hCI : CurveChartInf)
     (hF : HeckeFibreSizes) (hT : ObjBridge.TorsionStructure) : HeckeBranch :=
@@ -3894,3 +4150,5 @@ end
 #print axioms TSHecke.finrank_le_twistFibre
 #print axioms TSHecke.heckeBranch_of
 #print axioms TSHecke.heckeBranch_of_R1R2fp
+#print axioms TSHecke.isFractionRing_infCoord
+#print axioms TSHecke.ramOfFibreCount

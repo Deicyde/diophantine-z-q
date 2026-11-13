@@ -79,6 +79,19 @@ section GFCopy
 ''')
 out.append('\n'.join(gf))
 out.append('\nend GFCopy\n')
+rc = open('scratch/ts-hecke/RamCount.lean').read().split('\n')
+assert rc[0] == 'import Mathlib'
+rc = [l for l in rc[1:] if not l.startswith('#print')]
+out.append('''
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/RamCount.lean` (task ts-hecke, Mathlib only), minus its import and `#print`
+lines: `RamCount.ramCount` (`e(Q) · #{ψ} = [E : F]` for Galois extensions).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section RamCountCopy
+''')
+out.append('\n'.join(rc))
+out.append('\nend RamCountCopy\n')
 un = open('scratch/ts-hecke/Units.lean').read().split('\n')
 assert un[0].startswith('import ZInQKernel.HDecomp.QM.Structures')
 un = [l for l in un[1:] if not l.startswith('#print')]
