@@ -19,3 +19,16 @@ Targets (namespace `HSyn.G0Split.FibreQM.PeriodMap`): `S8Nonzero` (scratch/perio
   (cross term exp(2πi x₀x₁) = exp(2πi n₀n₁)·exp(πi(a₁x₀ + a₀x₁))·exp(−πi a₀a₁/2)).
 - Hence Σθ⁸ = (Z₀⁸ + Z₁⁸ + T⁸)(P₀⁸ + P₁⁸ + Q⁸), Z_b = ϑ[0,b](w₁), T = ϑ[1,0](w₁), P_b = ϑ[0,b](w₂), Q = ϑ[1,0](w₂);
   P_b real, Q = e^{−iπ/4}·(positive), T = e^{−iπ/8}·(real), Z₀ ≈ 1.0037 − 0.4158i, Z₁ = conj.
+
+## S8Nonzero: Lean (part_nonzero.lean; DevNonzero.lean = import PNBase + the same text)
+- DevNonzero iterations 1-6: errors fixed (rewrite side of `exp_add_int_mul`, linear_combination coefficients of `I_sq`,
+  `Summable.tsum_pos` name, `Complex.exp_int_mul` argument order, sum over the 10 chars via `Finset.sum_insert (by decide)`).
+- Final DevNonzero: 0 errors, 9s; `s8Nonzero_proof : S8Nonzero`, axioms `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+- run_full1 (`build.sh`: PNFull.lean = period-map light files verbatim + part_nonzero.lean, `lake env lean`): 0 errors,
+  all axioms lines standard, 24s. VERIFIED.
+- Proof structure (all compiled): `omega_s2I`, `thetaConst_split`, `th1_zero_two`, `th1_one_two`, `th1_one_one`, `P_real`,
+  `Q_eq`, `T_eq`, `th1_zero_zero`, `th1_zero_one`, `jt_approx` (tail ≤ e^{−2π}/(1−e^{−π})), `exp_bounds`
+  (0.135 < e^{−π/2} < 0.227, tail ≤ 1/380, from Mathlib's `Real.exp_one_gt_d9`/`lt_d9`, π ∈ (3,4)), `re_pow8_neg`,
+  `re_Z0`, `re_Z1`, `thetaSum8_s2I`, `s8Nonzero_proof`.
+- py/nonzero_num.py (nonzero_num_out.txt): splitting VERIFIED to 1e-15 for all 10 chars; F1 = −11.646, F2 = 2.9115,
+  F1·F2 = S = −33.9079; Re Z_b⁸ = −1.941; T⁸ = −7.764; P₀ = Q·e^{iπ/4} = 0.91358, P₁ = 1.08643.
