@@ -37,6 +37,15 @@ Before making the historical archive public, complete the per-source rights revi
   Vasily Ilin as a lean-eval benchmark submission. Ported to Lean 4.35.0 / Mathlib v4.35.0 with local proof edits;
   provenance and the list of modifications are in `ThirdParty/GreenTao/NOTICE.md`. Used by
   `ZInQKernel/External/GreenTaoPrimes.lean`.
+- `ZInQKernel/Contrib/TauCeti/`: modules of Tau Ceti, a Lean library downstream of Mathlib (the Chebotarev density
+  theorem, Hilbert's different formula, local and global class field theory, the Kronecker–Weber theorem), copied
+  from TauCetiProject/TauCeti, commit `5a01f5fe3621126cccf9ba22e700493cbc7b7156` (later additions from commit
+  `97a5b23586f9c42610765c701daedc7522a93c26`), under the Apache License 2.0 (`ThirdParty/TauCeti/LICENSE`).
+  Copyright 2026 The Tau Ceti contributors. Module paths are moved under `ZInQKernel.Contrib.TauCeti`; names and
+  namespaces are unchanged. A few files were edited for this repository's Mathlib revision and say so in a comment
+  line; provenance and the list of modified files are in `ThirdParty/TauCeti/NOTICE`. Used by the textbook-leaf proofs
+  in `ZInQKernel/Contrib/Chebotarev/`, `ZInQKernel/Contrib/Different/`, `ZInQKernel/Contrib/LocalKW/` and
+  `ZInQKernel/Contrib/KroneckerWeber/`.
 
 ## NOTICE: vendored Selberg sieve (PrimeNumberTheoremAnd)
 
