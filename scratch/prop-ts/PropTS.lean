@@ -524,6 +524,36 @@ theorem propTSAll_of_bundle (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hKG : K
     (propTS_of_coverModel_tame (beckmannSITTame_of_glue (hKG t2) hN hMono) Y₀ π₀
       (hC Y₀ Φ₀ π₀ h1 hh h2))
 
+/-- **`UnramifiedMono` is a theorem** (Mathlib: `Ideal.exists_ideal_over_prime_of_isIntegral`,
+`Ideal.ramificationIdx_below_dvd` for the flat extension `𝓞 L → 𝓞 L'` of Dedekind domains). -/
+theorem unramifiedMono : UnramifiedMono := by
+  intro L L' _ hle p hU
+  have : FiniteDimensional ℚ L := FiniteDimensional.of_injective
+    (IntermediateField.inclusion hle).toLinearMap (IntermediateField.inclusion hle).injective
+  have : NumberField L := ⟨⟩
+  have : NumberField L' := ⟨⟩
+  let : Algebra L L' := (IntermediateField.inclusion hle).toRingHom.toAlgebra
+  intro P hP hpP
+  have : Algebra.IsIntegral (NumberField.RingOfIntegers L) (NumberField.RingOfIntegers L') :=
+    inferInstance
+  have : Module.Flat (NumberField.RingOfIntegers L) (NumberField.RingOfIntegers L') :=
+    inferInstance
+  obtain ⟨r, -, hr, hrP⟩ := Ideal.exists_ideal_over_prime_of_isIntegral P
+    (⊥ : Ideal (NumberField.RingOfIntegers L')) (by simp)
+  have hpr : ((p : ℤ) : NumberField.RingOfIntegers L') ∈ r := by
+    have h1 : ((p : ℤ) : NumberField.RingOfIntegers L) ∈ r.under (NumberField.RingOfIntegers L) :=
+      hrP ▸ hpP
+    simpa using h1
+  have : r.LiesOver P := ⟨hrP.symm⟩
+  have hd := Ideal.ramificationIdx_below_dvd (R := ℤ) P r
+  rw [hU r hr hpr] at hd
+  exact Nat.dvd_one.mp hd
+
+/-- **The composite without a Beckmann leaf and without `UnramifiedMono`.** -/
+theorem propTSAll_of_bundle' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hKG : KummerGlue)
+    (hN : SpecNonMeeting) (hM : MobiusGlue) (hC : CoverModelOfHecke) : PropTSAll :=
+  propTSAll_of_bundle t2 hR hKG hN unramifiedMono hM hC
+
 end PropTSRed
 
 end
@@ -539,3 +569,5 @@ end
 #print axioms PropTSRed.beckmannSITTame_of_glue
 #print axioms PropTSRed.propTS_of_coverModel_tame
 #print axioms PropTSRed.propTSAll_of_bundle
+#print axioms PropTSRed.unramifiedMono
+#print axioms PropTSRed.propTSAll_of_bundle'

@@ -36,3 +36,12 @@ Base f90cf864 (wip/prop-ts). Object: `G0ModField.PropTS`, `PropTSAll` from
   MobiusGlue → CoverModelOfHecke → PropTSAll`.
 - `NonMeeting` requires `f.eval s₀ ≠ 0` explicitly (padicValRat p 0 = 0 would otherwise let a
   vanishing f count as a unit).
+
+## Step 4 (07:00): UnramifiedMono proved
+- `unramifiedMono : UnramifiedMono` compiled, standard axioms (VERIFIED). Uses Mathlib's
+  `Ideal.exists_ideal_over_prime_of_isIntegral`, `Ideal.ramificationIdx_below_dvd`, and the
+  instances `Algebra (𝓞 L) (𝓞 L')`, `Module.Flat` (Dedekind + torsion-free).
+- `propTSAll_of_bundle' : AbhyankarDVR → R1R2fp → KummerGlue → SpecNonMeeting → MobiusGlue →
+  CoverModelOfHecke → PropTSAll` (VERIFIED).
+- Note: this also proves fibre-cover's tower direction "subfield of unramified is unramified"
+  (fibre-cover's `UnramifiedConjugates` is the other direction, compositum; not done).
