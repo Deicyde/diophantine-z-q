@@ -374,16 +374,7 @@ Hint: Replace the deprecated name:
 'PropTSGlue.functionFieldModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModel_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coverModelOfHecke_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/ts-kummer/KummerTS.lean:3801:4: error: failed to synthesize
-  Algebra.IsSeparable (Rp ⧸ maximalIdeal Rp) (↥(integralClosure Rp L) ⧸ Q)
-(deterministic) timeout at `typeclass`, maximum number of heartbeats (20000) has been reached
-
-Note: Use `set_option synthInstance.maxHeartbeats <num>` to set the limit.
-
-Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
-
-Hint: Additional diagnostic information may be available using the `set_option diagnostics true` command.
-scratch/ts-kummer/KummerTS.lean:3688:8: warning: Overlapping instance parameters in `abhyankar_core`:
+scratch/ts-kummer/KummerTS.lean:3704:8: warning: Overlapping instance parameters in `abhyankar_core`:
 
 ⚠️ `[IsDomain
    R0]` and `[IsDedekindDomain
@@ -395,7 +386,7 @@ scratch/ts-kummer/KummerTS.lean:3688:8: warning: Overlapping instance parameters
 💡️ Of these, `[IsDomain A]` may be removed.
 
 Note: This linter can be disabled with `set_option linter.overlappingInstances false`
-scratch/ts-kummer/KummerTS.lean:4161:8: warning: Overlapping instance parameters in `compositum_core0`:
+scratch/ts-kummer/KummerTS.lean:4155:8: warning: Overlapping instance parameters in `compositum_core0`:
 
 ⚠️ `[IsDomain
    R0]` and `[IsDedekindDomain
@@ -407,38 +398,19 @@ scratch/ts-kummer/KummerTS.lean:4161:8: warning: Overlapping instance parameters
 💡️ Of these, `[IsDomain A]` may be removed.
 
 Note: This linter can be disabled with `set_option linter.overlappingInstances false`
-scratch/ts-kummer/KummerTS.lean:4405:16: warning: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
-scratch/ts-kummer/KummerTS.lean:4495:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/ts-kummer/KummerTS.lean:4399:16: warning: `Prime.not_unit` has been deprecated: Use `Prime.not_isUnit` instead
+scratch/ts-kummer/KummerTS.lean:4489:2: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-'TsKummer.kummerAbhyankarFinGlue' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
-'TsKummer.kummerAbhyankarInfGlue' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'TsKummer.kummerAbhyankarFinGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.kummerAbhyankarInfGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TsKummer.compositum_core0' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TsKummer.kummerOtherBranchFin_of_unram' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TsKummer.unramCompositum' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/ts-kummer/KummerTS.lean:4790:2: error: Type mismatch
-  propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin hVF kummerAbhyankarInfGlue hOI hVI hI hNI
-    hD hB hV
-has type
-  G0ModField.PropTSAll
-of sort `Prop` but is expected to have type
-  PropTSAll
-of sort `Sort u_1`
-scratch/ts-kummer/KummerTS.lean:4784:0: error: type of theorem `TsKummer.propTSAll_ts` is not a proposition
-  {PropTSAll : Sort u_1} →
-    PkgI2.AbhyankarDVR →
-      R1R2fp →
-        Pin.MobiusGlue →
-          SNSpecialize →
-            KummerCompositum →
-              KummerVerticalFin →
-                KummerOtherBranchInf →
-                  KummerVerticalInf →
-                    HeckeIrreducible → HeckeNormalizationIrr → HeckeDegree → HeckeBranch → HeckeNoVertRam → PropTSAll
 'TsKummer.kummerOtherBranchFin' depends on axioms: [propext, Classical.choice, Quot.sound]
-'TsKummer.kummerMeetGlue_of_remaining' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
-'TsKummer.propTSAll_ts' does not depend on any axioms
+'TsKummer.kummerMeetGlue_of_remaining' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TsKummer.propTSAll_ts' depends on axioms: [propext, Classical.choice, Quot.sound]

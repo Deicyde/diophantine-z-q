@@ -67,3 +67,14 @@ KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf), the open glue 
   D = integralClosure R M, which is formally unramified (`isUnramifiedAt_iff_map_eq`).
 - Compile: 0 errors; `unramCompositum` axioms standard (VERIFIED). So
   `kummerOtherBranchFin_of_unram unramCompositum : KummerOtherBranchFin` (PROVED).
+
+## Step 4: final file assembled, compiled
+- `scratch/ts-kummer/KummerTS.lean` = PropTSGlue.lean verbatim (two extra Mathlib import lines after
+  its imports) + appendix from Core.lean (dev copies of the PropTSGlue definitions removed) +
+  `FinalTail.lean.part` (`TsKummer.kummerOtherBranchFin`, `kummerMeetGlue_of_remaining`,
+  `propTSAll_ts`). Built by `make_final.py`; `check_identical.py` prints PREFIX IDENTICAL (VERIFIED).
+- `lake env lean scratch/ts-kummer/KummerTS.lean` (1 min 44 s): 0 errors; every `#print axioms`
+  line standard (VERIFIED, compile_out.txt).
+- Lean pitfall: in the bigger environment `infer_instance` for `Algebra.IsSeparable (R⧸m) (S⧸Q)`
+  timed out (20000 heartbeats); replaced by the explicit
+  `Algebra.IsAlgebraic.isSeparable_of_perfectField`.

@@ -3679,6 +3679,22 @@ theorem intCl_isLocalization (R0 Rp L : Type) [CommRing R0] [CommRing Rp] [Field
     rfl
   exact ⟨h1, h2, IsLocalization.integralClosure P⟩
 
+/-- In residue characteristic `0`, residue field extensions over a `ℚ`-algebra are separable. -/
+theorem isSeparable_residue_of_rat {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
+    [Algebra ℚ R] (m : Ideal R) [m.IsMaximal] (Q : Ideal S) [Q.IsMaximal] [Q.LiesOver m]
+    [Algebra.IsIntegral R S] :
+    letI : Field (R ⧸ m) := Ideal.Quotient.field _
+    letI : Field (S ⧸ Q) := Ideal.Quotient.field _
+    Algebra.IsSeparable (R ⧸ m) (S ⧸ Q) := by
+  letI : Field (R ⧸ m) := Ideal.Quotient.field _
+  letI : Field (S ⧸ Q) := Ideal.Quotient.field _
+  haveI : CharZero (R ⧸ m) := by
+    have : Function.Injective ((Ideal.Quotient.mk m).comp (algebraMap ℚ R)) := RingHom.injective _
+    exact charZero_of_injective_ringHom this
+  haveI : Algebra.IsIntegral (R ⧸ m) (S ⧸ Q) := inferInstance
+  haveI : Algebra.IsAlgebraic (R ⧸ m) (S ⧸ Q) := Algebra.IsIntegral.isAlgebraic
+  exact Algebra.IsAlgebraic.isSeparable_of_perfectField
+
 /-- **Abstract Abhyankar transfer from T2.** `R0` a Dedekind `ℚ`-algebra with fraction field `K`,
 `L/K` finite separable, `ι : L → M` a field embedding, `A` a Dedekind domain with `A → M`
 injective, and `σ : R0 → A` integral with `A → M` compatible with `ι` on `R0`. If `π0` generates a
@@ -3789,16 +3805,8 @@ theorem abhyankar_core (t2 : PkgI2.AbhyankarDVR.{0})
     refine ⟨hunit _ (fun h0 => by rw [h0, zero_dvd_iff] at hdvd; omega), hdvd, ?_⟩
     haveI : Q.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := Rp) Q
       (by rw [← Ideal.LiesOver.over (P := Q) (p := maximalIdeal Rp)]; infer_instance)
-    letI : Field (Rp ⧸ maximalIdeal Rp) := Ideal.Quotient.field _
-    letI : Field (integralClosure Rp L ⧸ Q) := Ideal.Quotient.field _
-    haveI : CharZero (Rp ⧸ maximalIdeal Rp) := by
-      have : Function.Injective
-          ((Ideal.Quotient.mk (maximalIdeal Rp)).comp ((algebraMap R0 Rp).comp (algebraMap ℚ R0))) :=
-        RingHom.injective _
-      exact charZero_of_injective_ringHom this
-    haveI : Algebra.IsIntegral (Rp ⧸ maximalIdeal Rp) (integralClosure Rp L ⧸ Q) :=
-      inferInstance
-    infer_instance
+    letI : Algebra ℚ Rp := ((algebraMap R0 Rp).comp (algebraMap ℚ R0)).toAlgebra
+    exact isSeparable_residue_of_rat (maximalIdeal Rp) Q
   -- T2 applied to `M = L(s)`
   have ht : (algebraMap A M s) ^ n = algebraMap Rp M (algebraMap R0 Rp π0) := by
     rw [← IsScalarTower.algebraMap_apply R0 Rp M, IsScalarTower.algebraMap_apply R0 A M, ← map_pow]
@@ -4138,20 +4146,6 @@ theorem locTransfer_up (R0 F : Type) [CommRing R0] [IsDomain R0] [Field F] [Alge
     IsLocalization.AtPrime.liesOver_map_of_liesOver p _ _ P,
     IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx p _ _ P⟩
 
-/-- In residue characteristic `0`, residue field extensions over a `ℚ`-algebra are separable. -/
-theorem isSeparable_residue_of_rat {R S : Type*} [CommRing R] [CommRing S] [Algebra R S]
-    [Algebra ℚ R] (m : Ideal R) [m.IsMaximal] (Q : Ideal S) [Q.IsMaximal] [Q.LiesOver m]
-    [Algebra.IsIntegral R S] :
-    letI : Field (R ⧸ m) := Ideal.Quotient.field _
-    letI : Field (S ⧸ Q) := Ideal.Quotient.field _
-    Algebra.IsSeparable (R ⧸ m) (S ⧸ Q) := by
-  letI : Field (R ⧸ m) := Ideal.Quotient.field _
-  letI : Field (S ⧸ Q) := Ideal.Quotient.field _
-  haveI : CharZero (R ⧸ m) := by
-    have : Function.Injective ((Ideal.Quotient.mk m).comp (algebraMap ℚ R)) := RingHom.injective _
-    exact charZero_of_injective_ringHom this
-  haveI : Algebra.IsIntegral (R ⧸ m) (S ⧸ Q) := inferInstance
-  infer_instance
 
 /-- **Abstract compositum transfer (residue characteristic 0).** As `abhyankar_core`, with the
 Kummer step replaced by an extension `A/R0` (finite via `σ`) unramified over `p`: if every prime of
@@ -4769,7 +4763,7 @@ end TsKummer
 
 namespace TsKummer
 
-open Polynomial PropTSRed PropTSGlue
+open Polynomial G0ModField PropTSRed PropTSGlue
 
 /-- **`KummerOtherBranchFin` is proved** (from `UnramCompositum`, which is proved). -/
 theorem kummerOtherBranchFin : KummerOtherBranchFin :=
