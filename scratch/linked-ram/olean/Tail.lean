@@ -943,6 +943,13 @@ section TateRam
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 
+/-- The Galois action on points is an action (`galHom_mul`). -/
+theorem galAct_mul' {K : Type} [Field K] (A : PkgI3.AbVar K)
+    (a b : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) (P : A.Pt (AlgebraicClosure K)) :
+    A.galAct (a * b) P = A.galAct a (A.galAct b P) := by
+  show PkgI3.AbVar.galHom (a * b) ≫ P = PkgI3.AbVar.galHom a ≫ PkgI3.AbVar.galHom b ≫ P
+  rw [PkgI3.AbVar.galHom_mul, Category.assoc]
+
 /-- Compatibility with an isomorphism `ψ : K̄ ≅ ℚ̄` passes to powers. -/
 theorem psi_pow_compat {K : Type} [Field K] (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar)
     (σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
@@ -958,34 +965,34 @@ for `σK ∈ G_K` matching a wild `σ ∈ G_{ℚ_p}` under some `ψ : K̄ ≅ �
 point is open (`PkgI3.RhoCont`), hence closed, so `S = G_{K̄^S}`; `σK^k` fixes `K̄^S`, and W2 moves
 this to `σK`. -/
 theorem fix_of_pow_fix {K : Type} [Field K] [CharZero K] (A : PkgI3.AbVar K)
-    (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+    (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
     {p : ℕ} [Fact p.Prime] (σ : PkgI4.GQp p) (hσ : σ ∈ (LadicCond.wildSet : Set (PkgI4.GQp p)))
     (hc : ∀ y, ψ (σK y) = PkgI4.decomp p σ (ψ y)) {k : ℕ} (hk0 : 0 < k) (hk : ¬ p ∣ k)
     (x : A.Pt (AlgebraicClosure K)) (hx : A.galAct (σK ^ k) x = x) : A.galAct σK x = x := by
   haveI : IsGalois K (AlgebraicClosure K) := {}
-  have hone : A.galAct (1 : Field.absoluteGaloisGroup K) x = x := by
+  have hone : A.galAct (1 : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x = x := by
     show PkgI3.AbVar.galHom 1 ≫ x = x
     rw [PkgI3.AbVar.galHom_one, Category.id_comp]
   obtain ⟨U, hU⟩ := PkgI3.RhoCont.exists_openSubgroup_galAct_eq A x
-  let S : Subgroup (Field.absoluteGaloisGroup K) :=
+  let S : Subgroup (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :=
     { carrier := {g | A.galAct g x = x}
       mul_mem' := fun {a b} ha hb => by
         show A.galAct (a * b) x = x
-        rw [PkgI3.RhoCont.galAct_mul, show A.galAct b x = x from hb, show A.galAct a x = x from ha]
+        rw [galAct_mul', show A.galAct b x = x from hb, show A.galAct a x = x from ha]
       one_mem' := hone
       inv_mem' := fun {a} ha => by
         show A.galAct a⁻¹ x = x
         have ha' : A.galAct a x = x := ha
         conv_lhs => rw [← ha']
-        rw [← PkgI3.RhoCont.galAct_mul, inv_mul_cancel, hone] }
-  have hSopen : IsOpen (S : Set (Field.absoluteGaloisGroup K)) :=
+        rw [← galAct_mul', inv_mul_cancel, hone] }
+  have hSopen : IsOpen (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
     Subgroup.isOpen_mono (H₁ := U.toSubgroup) (fun g hg => hU g hg) U.isOpen
-  have hSclosed : IsClosed (S : Set (Field.absoluteGaloisGroup K)) :=
+  have hSclosed : IsClosed (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
     Subgroup.isClosed_of_isOpen S hSopen
   have hfix := InfiniteGalois.fixingSubgroup_fixedField (⟨S, hSclosed⟩ : ClosedSubgroup _)
   have hk' : σK ^ k ∈ S := hx
   have hmem : σK ∈ (IntermediateField.fixedField S).fixingSubgroup := by
-    rw [IntermediateField.mem_fixingSubgroup_iff]
+    refine (IntermediateField.mem_fixingSubgroup_iff _ σK).mpr ?_
     intro y hy
     have hyk : (σK ^ k) y = y := (IntermediateField.mem_fixedField_iff S y).mp hy _ hk'
     apply ψ.injective
@@ -1010,7 +1017,7 @@ criterion (R6, `PkgI2.RaynaudCriterion`, with `m = 5`) over `K₁` at that place
 transport of R6 along `K ⊆ K₁`, as lt-goodred transported NOS). -/
 def RaynaudAtThree : Prop :=
   ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K), Module.finrank ℚ K ≤ ZInQ.heightD →
-    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
       (t : ℝ), G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 3 t,
       (∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y)) →
       ∀ (n : ℕ) (x : PK.A.Pt (AlgebraicClosure K)), x ^ (5 ^ n) = 1 →
@@ -1019,7 +1026,7 @@ def RaynaudAtThree : Prop :=
 /-- **The model statement at `3`** (over `K` itself): the same `σK` fixes `A(K̄)[5ⁿ]`. -/
 def TateRamCore : Prop :=
   ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K), Module.finrank ℚ K ≤ ZInQ.heightD →
-    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : Field.absoluteGaloisGroup K)
+    ∀ (ψ : AlgebraicClosure K ≃+* PkgI4.Qbar) (σK : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)
       (t : ℝ), G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 3 t,
       (∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y)) →
       ∀ (n : ℕ) (x : PK.A.Pt (AlgebraicClosure K)), x ^ (5 ^ n) = 1 → PK.A.galAct σK x = x
@@ -1037,6 +1044,7 @@ theorem tateRamCore_of (hR : RaynaudAtThree) : TateRamCore := by
     have h2 : s (s x) * (s x)⁻¹ = ((s x)⁻¹ * x)⁻¹ := by
       rw [eq_inv_iff_mul_eq_one, ← hu]; group
     rw [h2, mul_inv_rev, inv_inv, mul_comm]
+  have hsx : y * x = s x := by simp only [hy, inv_mul_cancel_right]
   have hiter : ∀ m : ℕ, PK.A.galAct (σK ^ m) x = y ^ m * x := by
     intro m
     induction m with
@@ -1044,9 +1052,9 @@ theorem tateRamCore_of (hR : RaynaudAtThree) : TateRamCore := by
       show PkgI3.AbVar.galHom 1 ≫ x = 1 * x
       rw [PkgI3.AbVar.galHom_one, Category.id_comp, _root_.one_mul]
     | succ m ih =>
-      rw [pow_succ', PkgI3.RhoCont.galAct_mul, ih, map_mul, map_pow, hsy]
+      rw [pow_succ', galAct_mul', ih, map_mul, map_pow, hsy]
       show y ^ m * s x = y ^ (m + 1) * x
-      rw [show s x = y * x by rw [hy]; group, pow_succ, _root_.mul_assoc]
+      rw [pow_succ, _root_.mul_assoc, hsx]
   have hy5 : y ^ (5 ^ n) = 1 := by
     rw [hy, mul_pow, ← map_pow, hx, map_one, inv_pow, hx, inv_one, _root_.mul_one]
   have hfix5 : PK.A.galAct (σK ^ (5 ^ n)) x = x := by rw [hiter, hy5, _root_.one_mul]
@@ -1075,7 +1083,6 @@ theorem tateRamAtThreeD_of_core (hC : TateRamCore) : TateRamAtThreeD := by
     (IntermediateField.finrank_le_of_le_right hKL).trans hLD
   apply HSyn.LinkedTate.tate_eq_one_of_torsion
   intro n x hx
-  set A := PK.A with hAdef
   letI iKL : Algebra K L := incAlg hKL
   letI iLL' : Algebra L L' := incAlg hLL'
   letI iKL' : Algebra K L' := incAlg (hKL.trans hLL')
@@ -1098,6 +1105,8 @@ theorem tateRamAtThreeD_of_core (hC : TateRamCore) : TateRamAtThreeD := by
   let τ : AlgebraicClosure L' ≃ₐ[K] AlgebraicClosure K :=
     IsAlgClosure.equiv K (AlgebraicClosure L') (AlgebraicClosure K)
   let g : PkgI4.Qbar →ₐ[ℚ] AlgebraicClosure L' := (G0Galois.qEmbRing L').toRatAlgHom
+  haveI hKalg : Algebra.IsAlgebraic ℚ (AlgebraicClosure L') :=
+    Algebra.IsAlgebraic.trans ℚ L' (AlgebraicClosure L')
   have hgbij : Function.Bijective g := by
     letI : Algebra PkgI4.Qbar (AlgebraicClosure L') := g.toAlgebra
     haveI : IsScalarTower ℚ PkgI4.Qbar (AlgebraicClosure L') :=
@@ -1122,22 +1131,22 @@ theorem tateRamAtThreeD_of_core (hC : TateRamCore) : TateRamAtThreeD := by
     exact hspec.symm
   have hcomp : ∀ y, ψ (σK y) = PkgI4.decomp 3 σ (ψ y) := by
     intro y; rw [hres, hσ']
-  let E := (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL))
-    (AlgebraicClosure L')).trans ((UnramTate.bcPt (K := K) (L := L) A (AlgebraicClosure L')).trans
-      (UnramTate.trPt A τ))
+  let E := (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))
+    (AlgebraicClosure L')).trans ((UnramTate.bcPt (K := K) (L := L) PK.A (AlgebraicClosure L')).trans
+      (UnramTate.trPt PK.A τ))
   have hE : ∀ y, E ((@PkgI3.AbVar.baseChange L _
-      (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y) =
-      A.galAct σK (E y) := by
+      (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y) =
+      PK.A.galAct σK (E y) := by
     intro y
-    show UnramTate.trPt A τ (UnramTate.bcPt (K := K) (L := L) A (AlgebraicClosure L')
-        (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL))
+    show UnramTate.trPt PK.A τ (UnramTate.bcPt (K := K) (L := L) PK.A (AlgebraicClosure L')
+        (UnramTate.bcPt (K := L) (L := L') (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))
           (AlgebraicClosure L')
           ((@PkgI3.AbVar.baseChange L _
-            (@PkgI3.AbVar.baseChange K _ A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y))) = _
+            (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) L' _ (incAlg hLL')).galAct s' y))) = _
     rw [UnramTate.bcPt_galAct, UnramTate.bcPt_galAct]
-    exact UnramTate.trPt_galAct A τ _ σK (fun z => by rw [hσK, AlgEquiv.symm_apply_apply]; rfl) _
+    exact UnramTate.trPt_galAct PK.A τ _ σK (fun z => by rw [hσK, AlgEquiv.symm_apply_apply]; rfl) _
   have hEx : E x ^ (5 ^ n) = 1 := by rw [← map_pow, hx, map_one]
-  have hfix : A.galAct σK (E x) = E x := hC K PK hKD ψ σK t ht σ hσ hcomp n (E x) hEx
+  have hfix : PK.A.galAct σK (E x) = E x := hC K PK hKD ψ σK t ht σ hσ hcomp n (E x) hEx
   apply E.injective
   exact (hE x).trans hfix
 
@@ -1156,7 +1165,7 @@ def TorsionFieldFive : Prop :=
   ∀ (K : IF) [FiniteDimensional ℚ K] (PK : LeafQM.AV.QML3 K),
     ∃ K₁ : IntermediateField K (AlgebraicClosure K), FiniteDimensional K K₁ ∧
       Module.finrank K K₁ ≤ ZInQ.heightG0 ∧
-      ∀ g : Field.absoluteGaloisGroup K, (∀ y ∈ K₁, g y = y) →
+      ∀ g : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K, (∀ y ∈ K₁, g y = y) →
         ∀ x : PK.A.Pt (AlgebraicClosure K), x ^ 5 = 1 → PK.A.galAct g x = x
 
 /-- `4 (D G₀)² = U₀`. -/
@@ -1173,7 +1182,6 @@ theorem raynaudAtThree_of (hRay : PkgI2.RaynaudCriterion.{0}) (hB : UpperBreakBo
   intro K _ PK hK ψ σK t ht σ hσ hc n x hx
   obtain ⟨K₁, hK₁fd, hK₁deg, hK₁fix⟩ := hT K PK
   haveI := hK₁fd
-  set A := PK.A with hAdef
   have ht0 : 0 < t := lt_of_le_of_lt U0_nonneg ht
   -- (1) `σK` fixes `K₁`
   have hfixK₁ : ∀ y ∈ K₁, σK y = y := by
@@ -1186,7 +1194,7 @@ theorem raynaudAtThree_of (hRay : PkgI2.RaynaudCriterion.{0}) (hB : UpperBreakBo
     have hdegz : (minpoly ℚ z).natDegree ≤ ZInQ.heightD * ZInQ.heightG0 := by
       have h1 : minpoly ℚ z = minpoly ℚ y := minpoly.algEquiv_eq ψ.toRatAlgEquiv y
       have h2 : minpoly ℚ y = minpoly ℚ (⟨y, hy⟩ : K₁) :=
-        (minpoly.algebraMap_eq (algebraMap K₁ (AlgebraicClosure K)).injective (⟨y, hy⟩ : K₁)).symm
+        minpoly.algebraMap_eq (A := ℚ) (algebraMap K₁ (AlgebraicClosure K)).injective (⟨y, hy⟩ : K₁)
       have h3 : (minpoly ℚ (⟨y, hy⟩ : K₁)).natDegree ≤ Module.finrank ℚ K₁ := minpoly.natDegree_le _
       have h4 : Module.finrank ℚ K₁ = Module.finrank ℚ K * Module.finrank K K₁ :=
         (Module.finrank_mul_finrank ℚ K K₁).symm
@@ -1282,39 +1290,39 @@ theorem raynaudAtThree_of (hRay : PkgI2.RaynaudCriterion.{0}) (hB : UpperBreakBo
       rw [hc₁]; exact hv1 (ψ₁ y)
     · rw [LTGoodRed.mem_nonunits_comap v ψ₁, map_sub, hc₁]
       exact hv2 (ψ₁ a) ha
-  -- (4) the points: `E₁ : A_{K₁}(K̄₁) ≃* A(K̄)`
-  let A₁ : PkgI3.AbVar K₁ := A.baseChange K₁
-  let E₁ := (UnramTate.trPt A₁ τ₁).trans (UnramTate.bcPt (K := K) (L := K₁) A (AlgebraicClosure K))
+  -- (4) the points: `E₁ : A_{K₁}(K̄₁) ≃* PK.A(K̄)`
+  let A₁ : PkgI3.AbVar K₁ := PK.A.baseChange K₁
+  let E₁ := (UnramTate.trPt A₁ τ₁).trans (UnramTate.bcPt (K := K) (L := K₁) PK.A (AlgebraicClosure K))
   have hE₁ : ∀ (g : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K₁)
       (g' : AlgebraicClosure K ≃ₐ[K₁] AlgebraicClosure K), (∀ y, τ₁ (g y) = g' (τ₁ y)) →
-      ∀ p, E₁ (A₁.galAct g p) = A.galAct (g'.restrictScalars K) (E₁ p) := by
+      ∀ p, E₁ (A₁.galAct g p) = PK.A.galAct (g'.restrictScalars K) (E₁ p) := by
     intro g g' hg p
-    show UnramTate.bcPt (K := K) (L := K₁) A (AlgebraicClosure K)
+    show UnramTate.bcPt (K := K) (L := K₁) PK.A (AlgebraicClosure K)
         (UnramTate.trPt A₁ τ₁ (A₁.galAct g p)) = _
     rw [UnramTate.trPt_galAct A₁ τ₁ g g' (fun y => (hg y).symm) p, UnramTate.bcPt_galAct]
     rfl
   -- (5) `A_{K₁}[5]` is rational over `K₁`
   have hrat : ∀ g : AlgebraicClosure K₁ ≃ₐ[K₁] AlgebraicClosure K₁,
-      ∀ p ∈ PkgI2.AV.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) 5,
-        PkgI2.AV.galAct (ObjBridge.toGrp A₁) g p = p := by
+      ∀ p ∈ PkgI2.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) 5,
+        PkgI2.galAct (ObjBridge.toGrp A₁) g p = p := by
     intro g p hp
     let g' : AlgebraicClosure K ≃ₐ[K₁] AlgebraicClosure K := (τ₁.symm.trans g).trans τ₁
     have hg : ∀ y, τ₁ (g y) = g' (τ₁ y) := fun y => by
       show τ₁ (g y) = τ₁ (g (τ₁.symm (τ₁ y))); rw [AlgEquiv.symm_apply_apply]
     have hp5 : (E₁ p) ^ 5 = 1 := by
       have : p ^ 5 = 1 := hp
-      rw [← map_pow, this, map_one]
+      exact (map_pow E₁ p 5).symm.trans ((congrArg E₁ this).trans (map_one E₁))
     have hfix := hK₁fix (g'.restrictScalars K) (fun y hy => g'.commutes ⟨y, hy⟩) (E₁ p) hp5
     apply E₁.injective
     exact (hE₁ g g' hg p).trans hfix
   -- (6) Raynaud
-  have hx₁ : E₁.symm x ∈ PkgI2.AV.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) (5 ^ n) := by
+  have hx₁ : E₁.symm x ∈ PkgI2.torsion (ObjBridge.toGrp A₁) (AlgebraicClosure K₁) (5 ^ n) := by
     show (E₁.symm x) ^ (5 ^ n) = 1
-    rw [← map_pow, hx, map_one]
+    exact (map_pow E₁.symm x (5 ^ n)).symm.trans ((congrArg E₁.symm hx).trans (map_one E₁.symm))
   have hu := hRay K₁ O₁ w₁ rfl (ObjBridge.toGrp A₁) 5 (by norm_num) h5 hrat σ₁ hI₁ 5
     Nat.prime_five (by exact_mod_cast h5) n (E₁.symm x) hx₁
   -- (7) transport `(σ₁ − 1)² = 0` back
-  have hσ' : ∀ p, E₁ (A₁.galAct σ₁ p) = A.galAct σK (E₁ p) := fun p => by
+  have hσ' : ∀ p, E₁ (A₁.galAct σ₁ p) = PK.A.galAct σK (E₁ p) := fun p => by
     rw [hE₁ σ₁ σK₁ hσ₁ p, hrs]
   have hu' : A₁.galAct σ₁ (A₁.galAct σ₁ (E₁.symm x)) * (A₁.galAct σ₁ (E₁.symm x))⁻¹ *
       (A₁.galAct σ₁ (E₁.symm x))⁻¹ * E₁.symm x = 1 := hu
@@ -1334,49 +1342,49 @@ theorem card_GL4_F5 : Nat.card (GL (Fin 4) (ZMod 5)) = ZInQ.heightG0 := by
 theorem card_addAut_le : Nat.card ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) ≤ ZInQ.heightG0 := by
   rw [← card_GL4_F5, ← Nat.card_congr (Matrix.GeneralLinearGroup.toLin (n := Fin 4)
     (R := ZMod 5)).symm.toEquiv]
-  let ι : ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) →
+  let toGL : ((Fin 4 → ZMod 5) ≃+ (Fin 4 → ZMod 5)) →
       LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) := fun f =>
-    { val := f.toAddMonoidHom.toZModLinearMap 5
-      inv := f.symm.toAddMonoidHom.toZModLinearMap 5
-      val_inv := LinearMap.ext fun v => by simp
-      inv_val := LinearMap.ext fun v => by simp }
-  have hι : Function.Injective ι := by
+    Units.mk (f.toAddMonoidHom.toZModLinearMap 5) (f.symm.toAddMonoidHom.toZModLinearMap 5)
+      (LinearMap.ext fun v => by simp) (LinearMap.ext fun v => by simp)
+  have htoGL : Function.Injective ι := by
     intro f g h
     ext v
     have := congrArg (fun u : LinearMap.GeneralLinearGroup (ZMod 5) (Fin 4 → ZMod 5) =>
       (u : (Fin 4 → ZMod 5) →ₗ[ZMod 5] (Fin 4 → ZMod 5)) v) h
-    simpa [ι] using this
-  exact Nat.card_le_card_of_injective ι hι
+    simpa [toGL] using this
+  exact Nat.card_le_card_of_injective toGL htoGL
 
 /-- **`TorsionFieldFive`, proved from T5** (`PkgI2.TorsionStructure`): the stabilizer `S` of
 `A(K̄)[5] ≅ 𝔽₅⁴` is open (finitely many open point stabilizers), `K₁ = K̄^S` is finite with
 `[K₁:K] = [G_K : S]`, and `G_K/S` embeds in `Aut(𝔽₅⁴)`, of order `G₀`. -/
+set_option maxHeartbeats 1000000 in
 theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldFive := by
   intro K _ PK
   haveI : IsGalois K (AlgebraicClosure K) := {}
   set A := PK.A with hAdef
-  obtain ⟨e, he⟩ := hTors K (ObjBridge.toGrp A) 2 5 (by rw [← PK.surface]; rfl) (by norm_num)
+  obtain ⟨e, he⟩ := hTors K (ObjBridge.toGrp A) 2 5
+    (by have h := PK.surface; simp only [PkgI3.AbVar.dim] at h; rw [h]; norm_cast) (by norm_num)
     (by norm_num)
   let V := Fin 4 → ZMod 5
-  have hone : ∀ x : A.Pt (AlgebraicClosure K), A.galAct (1 : Field.absoluteGaloisGroup K) x = x := by
+  have hone : ∀ x : A.Pt (AlgebraicClosure K), A.galAct (1 : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x = x := by
     intro x
     show PkgI3.AbVar.galHom 1 ≫ x = x
     rw [PkgI3.AbVar.galHom_one, Category.id_comp]
-  have hinv : ∀ (g : Field.absoluteGaloisGroup K) x, A.galAct g⁻¹ (A.galAct g x) = x := by
-    intro g x; rw [← PkgI3.RhoCont.galAct_mul, inv_mul_cancel, hone]
-  have hinv' : ∀ (g : Field.absoluteGaloisGroup K) x, A.galAct g (A.galAct g⁻¹ x) = x := by
-    intro g x; rw [← PkgI3.RhoCont.galAct_mul, mul_inv_cancel, hone]
+  have hinv : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x, A.galAct g⁻¹ (A.galAct g x) = x := by
+    intro g x; rw [← galAct_mul', inv_mul_cancel, hone]
+  have hinv' : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) x, A.galAct g (A.galAct g⁻¹ x) = x := by
+    intro g x; rw [← galAct_mul', mul_inv_cancel, hone]
   -- membership in `A[5]` is preserved
-  have hmem : ∀ (g : Field.absoluteGaloisGroup K) (x : A.Pt (AlgebraicClosure K)),
+  have hmem : ∀ (g : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) (x : A.Pt (AlgebraicClosure K)),
       x ^ 5 = 1 → (A.galAct g x) ^ 5 = 1 := by
     intro g x hx; rw [← map_pow, hx, map_one]
-  let T := PkgI2.AV.torsion (ObjBridge.toGrp A) (AlgebraicClosure K) 5
+  let T := PkgI2.torsion (ObjBridge.toGrp A) (AlgebraicClosure K) 5
   haveI hTfin : Finite T := Finite.of_equiv _ e.symm
   -- the stabilizer `S` of `A[5]`
-  let S : Subgroup (Field.absoluteGaloisGroup K) :=
+  let S : Subgroup (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) :=
     { carrier := {g | ∀ x : A.Pt (AlgebraicClosure K), x ^ 5 = 1 → A.galAct g x = x}
       mul_mem' := fun {a b} ha hb x hx => by
-        rw [PkgI3.RhoCont.galAct_mul, hb x hx, ha x hx]
+        rw [galAct_mul', hb x hx, ha x hx]
       one_mem' := fun x _ => hone x
       inv_mem' := fun {a} ha x hx => by
         have h1 := ha (A.galAct a⁻¹ x) (hmem _ x hx)
@@ -1385,38 +1393,38 @@ theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldF
   -- `S` is open
   choose U hU using fun x : A.Pt (AlgebraicClosure K) =>
     PkgI3.RhoCont.exists_openSubgroup_galAct_eq A x
-  have hSnhds : (S : Set (Field.absoluteGaloisGroup K)) ∈ nhds 1 := by
+  have hSnhds : (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) ∈ nhds 1 := by
     have hfinT : (T : Set (A.Pt (AlgebraicClosure K))).Finite := Set.toFinite T
     refine Filter.mem_of_superset ((Filter.biInter_mem hfinT).mpr
       (fun x _ => (U x).isOpen.mem_nhds (U x).one_mem)) ?_
     intro g hg x hx
     exact hU x g (Set.mem_iInter₂.mp hg x hx)
-  have hSopen : IsOpen (S : Set (Field.absoluteGaloisGroup K)) := Subgroup.isOpen_of_mem_nhds S hSnhds
-  have hSclosed : IsClosed (S : Set (Field.absoluteGaloisGroup K)) :=
+  have hSopen : IsOpen (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) := Subgroup.isOpen_of_mem_nhds S hSnhds
+  have hSclosed : IsClosed (S : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
     Subgroup.isClosed_of_isOpen S hSopen
   let K₁ := IntermediateField.fixedField S
   have hfix : K₁.fixingSubgroup = S :=
     InfiniteGalois.fixingSubgroup_fixedField (⟨S, hSclosed⟩ : ClosedSubgroup _)
   have hfd : FiniteDimensional K K₁ := by
     rw [← InfiniteGalois.isOpen_iff_finite]
-    show IsOpen (K₁.fixingSubgroup : Set (Field.absoluteGaloisGroup K))
+    show IsOpen (K₁.fixingSubgroup : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K))
     rw [hfix]; exact hSopen
   -- `G_K / S ↪ Aut(𝔽₅⁴)`
-  have hesymm : ∀ v w : V, ((e.symm (v + w) : T) : A.Pt (AlgebraicClosure K)) =
-      (e.symm v : A.Pt (AlgebraicClosure K)) * (e.symm w : A.Pt (AlgebraicClosure K)) := by
+  have hesymm : ∀ v w : V, (e.symm (v + w)).1 =
+      (e.symm v).1 * (e.symm w).1 := by
     intro v w
-    have h5 : (e.symm v : A.Pt (AlgebraicClosure K)) * (e.symm w : A.Pt (AlgebraicClosure K)) ∈ T := by
+    have h5 : (e.symm v).1 * (e.symm w).1 ∈ T := by
       show (_ * _) ^ 5 = 1
       rw [mul_pow, (e.symm v).2, (e.symm w).2, _root_.one_mul]
     have := he (e.symm v) (e.symm w) h5
     rw [Equiv.apply_symm_apply, Equiv.apply_symm_apply] at this
     rw [← this, Equiv.symm_apply_apply]
-  let act : Field.absoluteGaloisGroup K → V → V := fun g v =>
-    e ⟨A.galAct g (e.symm v), hmem g _ (e.symm v).2⟩
+  let act : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) → V → V := fun g v =>
+    e ⟨A.galAct g (e.symm v).1, hmem g _ (e.symm v).2⟩
   have hact_add : ∀ g v w, act g (v + w) = act g v + act g w := by
     intro g v w
-    show e ⟨A.galAct g (e.symm (v + w)), _⟩ = e ⟨A.galAct g (e.symm v), _⟩ + e ⟨A.galAct g (e.symm w), _⟩
-    have h5 : A.galAct g (e.symm v) * A.galAct g (e.symm w) ∈ T := by
+    show e ⟨A.galAct g (e.symm (v + w)).1, _⟩ = e ⟨A.galAct g (e.symm v).1, _⟩ + e ⟨A.galAct g (e.symm w).1, _⟩
+    have h5 : A.galAct g (e.symm v).1 * A.galAct g (e.symm w).1 ∈ T := by
       show (_ * _) ^ 5 = 1
       rw [mul_pow, hmem g _ (e.symm v).2, hmem g _ (e.symm w).2, _root_.one_mul]
     rw [← he _ _ h5]
@@ -1424,14 +1432,14 @@ theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldF
     rw [hesymm, map_mul]
   have hact_mul : ∀ g h v, act (g * h) v = act g (act h v) := by
     intro g h v
-    show e ⟨A.galAct (g * h) (e.symm v), _⟩ = e ⟨A.galAct g (e.symm (e ⟨A.galAct h (e.symm v), _⟩)), _⟩
-    rw [Equiv.symm_apply_apply, PkgI3.RhoCont.galAct_mul]
+    show e ⟨A.galAct (g * h) (e.symm v).1, _⟩ = e ⟨A.galAct g (e.symm (e ⟨A.galAct h (e.symm v).1, _⟩)).1, _⟩
+    rw [Equiv.symm_apply_apply, galAct_mul']
   have hact_one : ∀ v, act 1 v = v := by
     intro v
-    show e ⟨A.galAct 1 (e.symm v), _⟩ = v
+    show e ⟨A.galAct 1 (e.symm v).1, _⟩ = v
     simp only [hone]
     exact e.apply_symm_apply v
-  let φ : Field.absoluteGaloisGroup K →* (V ≃+ V) :=
+  let φ : (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) →* (V ≃+ V) :=
     { toFun := fun g =>
         { toFun := act g
           invFun := act g⁻¹
@@ -1455,8 +1463,8 @@ theorem torsionFieldFive_of (hTors : PkgI2.TorsionStructure.{0}) : TorsionFieldF
       apply AddEquiv.ext
       intro v
       show act g v = v
-      show e ⟨A.galAct g (e.symm v), _⟩ = v
-      rw [show (⟨A.galAct g (e.symm v), hmem g _ (e.symm v).2⟩ : T) = e.symm v from
+      show e ⟨A.galAct g (e.symm v).1, _⟩ = v
+      rw [show (⟨A.galAct g (e.symm v).1, hmem g _ (e.symm v).2⟩ : T) = e.symm v from
         Subtype.ext (hg _ (e.symm v).2)]
       exact e.apply_symm_apply v
   haveI : Finite (V ≃+ V) :=
