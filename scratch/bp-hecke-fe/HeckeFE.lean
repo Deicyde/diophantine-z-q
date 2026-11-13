@@ -2630,4 +2630,75 @@ theorem sum_normFiber_prime (f : ℤ × ℤ → ℂ) :
 
 end Split
 
+theorem card_unitsZ : unitsZ.card = 4 := by decide
+
+open Classical in
+/-- **`HeckePrimePowSplit d` holds for every `d`** (the Hecke relation at split primes). -/
+theorem heckePrimePowSplit (d : ℕ) : HeckePrimePowSplit d := by
+  intro p hp hp1 hpd k
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨a, b, hab⟩ := Nat.Prime.sq_add_sq (p := p) (by omega)
+  have hpos : 0 < p := hp.pos
+  -- the sum over `A_p`
+  have hsplit : ∑ x ∈ normFiber p, psi d x = 4 * psi d (piZ a b) + 4 * psi d (conjZ (piZ a b)) := by
+    rw [sum_normFiber_prime hp hp1 hab,
+      Finset.sum_congr rfl fun e he => psi_gmul_unit d he (piZ a b),
+      Finset.sum_congr rfl fun e he => psi_gmul_unit d he (conjZ (piZ a b)),
+      Finset.sum_const, Finset.sum_const, card_unitsZ]
+    simp
+  -- multiplying by `π` and `π̄`
+  have he1 : p * p ^ (k + 1) = p ^ (k + 2) := by ring
+  have he2 : p ^ 2 * p ^ k = p ^ (k + 2) := by ring
+  have hbij1 := sum_mul_bij (n := p ^ (k + 1)) (norm_piZ hp hp1 hab) hpos (psi d)
+  have hbij2 := sum_mul_bij (n := p ^ (k + 1)) (norm_conj_piZ hp hp1 hab) hpos (psi d)
+  rw [he1] at hbij1 hbij2
+  have hpz : ((p : ℤ), (0 : ℤ)).1 ^ 2 + ((p : ℤ), (0 : ℤ)).2 ^ 2 = ((p ^ 2 : ℕ) : ℤ) := by
+    push_cast; ring
+  have hbij3 := sum_mul_bij (n := p ^ k) hpz (by positivity) (psi d)
+  rw [he2] at hbij3
+  have htoGp : toG ((p : ℤ), 0) = (p : GaussianInt) := by
+    ext <;> simp [toG]
+  -- inclusion–exclusion over `A_{p^{k+2}}`
+  have hincl : (∑ γ ∈ (normFiber (p ^ (k + 2))).filter (fun γ => toG (piZ a b) ∣ toG γ), psi d γ) +
+      (∑ γ ∈ (normFiber (p ^ (k + 2))).filter
+        (fun γ => toG (conjZ (piZ a b)) ∣ toG γ), psi d γ) =
+      (∑ γ ∈ normFiber (p ^ (k + 2)), psi d γ) +
+      ∑ γ ∈ (normFiber (p ^ (k + 2))).filter (fun γ => toG ((p : ℤ), 0) ∣ toG γ), psi d γ := by
+    rw [Finset.sum_filter, Finset.sum_filter, Finset.sum_filter, ← Finset.sum_add_distrib,
+      ← Finset.sum_add_distrib]
+    refine Finset.sum_congr rfl fun γ hγ => ?_
+    have hN : (p : ℤ) ∣ (toG γ).norm := by
+      rw [norm_toG, mem_normFiber.mp hγ]; push_cast
+      exact dvd_pow_self _ (by omega)
+    obtain ⟨hor, hand⟩ := split_dvd hp hp1 hab hN
+    rw [htoGp]
+    by_cases h1 : toG (piZ a b) ∣ toG γ <;> by_cases h2 : toG (conjZ (piZ a b)) ∣ toG γ
+    · rw [if_pos h1, if_pos h2, if_pos (hand.mp ⟨h1, h2⟩)]
+    · rw [if_pos h1, if_neg h2, if_neg (fun h => h2 (hand.mpr h).2)]
+    · rw [if_neg h1, if_pos h2, if_neg (fun h => h1 (hand.mpr h).1)]; ring
+    · exact absurd hor (by tauto)
+  have hpsi_p : ∀ δ : ℤ × ℤ, psi d (gmul ((p : ℤ), 0) δ) = p * psi d δ := fun δ => by
+    rw [psi_mul, psi_split_prime hp hp1 hpd]
+  -- assemble
+  have key : (∑ x ∈ normFiber p, psi d x) * (∑ β ∈ normFiber (p ^ (k + 1)), psi d β) =
+      4 * ((∑ γ ∈ normFiber (p ^ (k + 2)), psi d γ) + p * ∑ δ ∈ normFiber (p ^ k), psi d δ) := by
+    have hA : ∀ z : ℤ × ℤ, psi d z * (∑ β ∈ normFiber (p ^ (k + 1)), psi d β) =
+        ∑ β ∈ normFiber (p ^ (k + 1)), psi d (gmul z β) := fun z => by
+      rw [Finset.mul_sum]; simp_rw [psi_mul]
+    have hB : ∑ δ ∈ normFiber (p ^ k), psi d (gmul ((p : ℤ), 0) δ) =
+        p * ∑ δ ∈ normFiber (p ^ k), psi d δ := by
+      simp_rw [hpsi_p]; rw [Finset.mul_sum]
+    rw [hsplit]
+    have := hA (piZ a b)
+    have := hA (conjZ (piZ a b))
+    linear_combination 4 * hA (piZ a b) + 4 * hA (conjZ (piZ a b)) + 4 * hbij1 + 4 * hbij2 +
+      4 * hincl - 4 * hbij3 + 4 * hB
+  rw [heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi, heckeCoeff_eq_sum_psi]
+  linear_combination (-(1 : ℂ) / 16) * key
+
+/-- **Final form**: the two literature Props from Gauss's point count on `y² = x³ − x` alone. -/
+theorem literature_hecke_fe_of_gaussPointCount (h1 : GaussPointCount) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_split_gaussPointCount (fun d _ _ => heckePrimePowSplit d) h1
+
 end BpHeckeFE

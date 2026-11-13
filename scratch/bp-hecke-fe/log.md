@@ -116,3 +116,10 @@
   elements), `gmul_mem_normFiber`, `heckeCoeff_zero`, `heckeMult` (HeckeMult d for all d), and
   `literature_hecke_fe_of_split_gaussPointCount : (∀ d ≡ 5 (8) sqfree, HeckePrimePowSplit d) →
    GaussPointCount → HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.
+- (VERIFIED, compiled ~19:30; axioms standard) node B2c DONE: `isUnit_of_norm_one`,
+  `prime_of_norm_prime`, `psi_split_prime` (ψ_d(p) = p), `sum_mul_bij`, `unit_mem_unitsZ`,
+  `norm_unitsZ`, `psi_gmul_unit`, section Split (`split_ne`, `piZ`, `norm_piZ`, `norm_conj_piZ`,
+  `not_conj_dvd`, `prime_piZ`, `prime_conj_piZ`, `p_eq_mul`, `split_dvd`, `sum_normFiber_prime`),
+  `card_unitsZ`, `heckePrimePowSplit` (HeckePrimePowSplit d for all d), and
+  `literature_hecke_fe_of_gaussPointCount : GaussPointCount → HeckeContinuation5 ∧
+   ZInQ.Literature.FunctionalEquation5`.  The only remaining hypothesis is Gauss's point count.
