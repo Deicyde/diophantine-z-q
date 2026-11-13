@@ -8,3 +8,4 @@ import ZInQKernel.Contrib.T28.Mestre
 #print axioms T28.igusaSeparationEq_of_split
 #print axioms T28.igusaSeparationEq_of_generic_bothSpecial
 #check @T28.separationGeneric
+#print axioms T28.genericLocus_congr

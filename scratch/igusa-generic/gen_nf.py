@@ -125,10 +125,10 @@ def M3At (f : Fin 7 → K) : Prop :=
 theorem pair_comm' (u v : Fin 3 → K) : pair u v = pair v u := by simp only [pair]; ring
 
 theorem cub_swap12 (u v w : Fin 3 → K) : cub u v w = cub v u w := by
-  funext m; fin_cases m <;> simp only [cub, Matrix.cons_val, Fin.zero_eta, Fin.mk_one] <;> ring
+  funext m; fin_cases m <;> simp only [cub, Matrix.cons_val, Fin.zero_eta, Fin.mk_one] <;> ring_nf
 
 theorem cub_swap23 (u v w : Fin 3 → K) : cub u v w = cub u w v := by
-  funext m; fin_cases m <;> simp only [cub, Matrix.cons_val, Fin.zero_eta, Fin.mk_one] <;> ring
+  funext m; fin_cases m <;> simp only [cub, Matrix.cons_val, Fin.zero_eta, Fin.mk_one] <;> ring_nf
 
 theorem m3At_nf [CharZero K] (p q r s : K) : M3At (nf p q r s) := by
   refine ⟨fun i j => ?_, fun i j k => ?_⟩
@@ -306,4 +306,29 @@ theorem igusaClebschSeparation_of_bothSpecial (hS : SeparationBothSpecial) :
 ''')
 src=open('ZInQKernel/Contrib/T28/Mestre.lean').read()
 src=src.replace("\nend T28\n\nend\n","\n"+"\n".join(p2)+"\nend T28\n\nend\n")
+open('ZInQKernel/Contrib/T28/Mestre.lean','w').write(src)
+extra = '''
+/-- The generic locus is cut out by the invariants: `det (Gram yv) = 4 (det yv)²` and the Gram
+matrix is `gramJ (J₂, J₄, J₆, J₁₀)` (M3). -/
+theorem genericLocus_iff_gramJ (L : Type) [Field L] [IsAlgClosed L] [CharZero L]
+    (f : Fin 7 → L) (hf : J10 f ≠ 0) :
+    GenericLocus f ↔ (Matrix.of (gramJ (J2 f) (J4 f) (J6 f) (J10 f))).det ≠ 0 := by
+  have hG := (m3At_of_J10 f hf).1
+  have hM : Matrix.of (gramJ (J2 f) (J4 f) (J6 f) (J10 f)) =
+      Matrix.of (yv f) * Pm L * (Matrix.of (yv f)).transpose := by
+    ext i j; rw [gram_apply]; exact (hG i j).symm
+  have hP : (Pm L).det = 4 := by simp [Pm, Matrix.det_fin_three]; norm_num
+  rw [hM, Matrix.det_mul, Matrix.det_mul, Matrix.det_transpose, hP, GenericLocus]
+  constructor
+  · intro h; exact mul_ne_zero (mul_ne_zero h (by norm_num)) h
+  · intro h h0; apply h; rw [h0]; ring
+
+/-- Sextics with the same Igusa invariants (and `J₁₀ ≠ 0`) are both generic or both special. -/
+theorem genericLocus_congr (L : Type) [Field L] [IsAlgClosed L] [CharZero L] (f g : Fin 7 → L)
+    (hf : J10 f ≠ 0) (hg : J10 g ≠ 0) (h2 : J2 g = J2 f) (h4 : J4 g = J4 f) (h6 : J6 g = J6 f)
+    (h10 : J10 g = J10 f) : GenericLocus g ↔ GenericLocus f := by
+  rw [genericLocus_iff_gramJ L f hf, genericLocus_iff_gramJ L g hg, h2, h4, h6, h10]
+'''
+src=open('ZInQKernel/Contrib/T28/Mestre.lean').read()
+src=src.replace("\nend T28\n\nend\n", extra+"\nend T28\n\nend\n")
 open('ZInQKernel/Contrib/T28/Mestre.lean','w').write(src)

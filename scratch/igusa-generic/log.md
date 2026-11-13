@@ -26,3 +26,6 @@
   `T28.igusaClebschSeparation_of_specialLocus`, `T28.igusaClebschSeparation_of_bothSpecial`.
   #print axioms (scratch/igusa-generic/axioms.lean) = [propext, Classical.choice, Quot.sound]
   for all of them.
+- Added `T28.genericLocus_iff_gramJ` (GenericLocus f ↔ det gramJ(J f) ≠ 0 when J10 f ≠ 0) and
+  `T28.genericLocus_congr` (equal J's ⇒ both generic or both special). VERIFIED compiles
+  (Mestre.lean 74 s); axioms standard three.
