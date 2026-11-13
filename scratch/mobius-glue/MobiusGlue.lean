@@ -6,21 +6,31 @@ import ZInQKernel.HDecomp.Textbook.SkolemNoether
 
 Task mobius-glue (2026-11-13). See `docs/research/mobius-glue.md`.
 
-`LeafQM.AV.Pin.MobiusGlue` (qm-pin §3.2, copied verbatim from `scratch/qm-pin/QMPin.lean`
-together with the definitions it uses) is proved here from three named facts:
+**Main result** (`mobiusGlue_of_curves`): `LeafQM.AV.Pin.MobiusGlue` (qm-pin §3.2, copied
+verbatim from `scratch/qm-pin/QMPin.lean` together with the definitions it uses) follows from
 
 * `CurveRatFactor` (curves): on a proper smooth curve over `ℚ`, a morphism `ρ` to `P¹` that is
   constant on the fibres of a morphism `σ` to `P¹` is a rational function of `σ` on `ℚ̄`-points;
 * `CurveSurj` (curves): a morphism to `P¹` with finite fibres on `ℚ̄`-points, from a proper
   smooth curve over `ℚ` with a `ℚ̄`-point, is onto `P¹(ℚ̄)`;
-* `TwistClassFinite` (moduli): a twist class of level-3 objects over `ℚ̄` contains only
-  finitely many isomorphism classes.
+* `ObjBridge.TorsionStructure` (the decomposition's textbook leaf T5, `A(K̄)[n] ≅ (ℤ/n)^{2g}`).
 
-Compiled here: an injective rational function on an algebraically closed field of
-characteristic 0 has degree at most one (`natDegree_le_one_of_injective`, Wronskian argument); a
-rational function of degree at most one without finite pole fixing `0` and `c ≠ 0` is the
-identity (`ratEval_eq_self`; together: a Möbius map fixing `0, ∞, c` is the identity); and the
-reduction `mobiusGlue_of_curveFacts`. No `sorry`, no `axiom`.
+Contents.
+* §0 the qm-pin definitions (verbatim).
+* §1 an injective rational function on an algebraically closed field of characteristic 0 has
+  degree at most one (`Mob.natDegree_le_one_of_injective`, Wronskian argument); one of degree at
+  most one without finite pole fixing `0` and `c ≠ 0` is the identity (`Mob.ratEval_eq_self`).
+* §2 the named facts; §3 `mobiusGlue_of_curveFacts` (from the curve facts and
+  `TwistClassFinite`).
+* §4 `TwistClassFinite` from T5 and `AutOInnerFinite` (finitely many level structures per pair via
+  the kernel's `Level3.torsor`; transport of level structures; twists by conjugate automorphisms).
+* §5-§6 the combined statements and the downstream comparison/transfer (qm-pin §4 copied).
+* §7 `AutOInnerFinite` from Skolem–Noether (the kernel's `TSkolemKW.leafSkolemNoether`, through
+  an explicit extension of `α ∈ Aut 𝒪` to `B`) and `NormalizerFinite`.
+* §8 `NormalizerFinite` proved (`N(𝒪)/ℚ^×𝒪^× = {1, i, j, ij}`, descent on the reduced norm), hence
+  `autOInnerFinite`, `twistClassFinite`, `mobiusGlue_of_curves`, `sameTripleMor_of_curves`,
+  `pointwise_of_witness_curves`.
+No `sorry`, no `axiom`.
 -/
 
 noncomputable section
@@ -850,7 +860,7 @@ theorem autOInnerFinite_of_normalizer (hN : NormalizerFinite) : AutOInnerFinite 
   have hf : ∀ β ∈ T', f β ∈ T ∧ P β (f β) := by
     intro β hβ
     have hβ' : ∃ t ∈ T, P β t := hβ
-    simp only [f, dif_pos hβ']
+    simp only [f, hβ', dite_true]
     exact Classical.choose_spec hβ'
   have hT' : T'.Finite := by
     refine Set.Finite.of_finite_image (f := f) (hT.subset (t := f '' T') ?_) ?_

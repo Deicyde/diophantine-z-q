@@ -1,4 +1,3 @@
-scratch/mobius-glue/MobiusGlue.lean:853:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 'LeafQM.AV.Pin.Mob.natDegree_le_one_of_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.Pin.Mob.ratEval_eq_self' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.Pin.mobiusGlue_of_curveFacts' depends on axioms: [propext, Classical.choice, Quot.sound]
