@@ -1,7 +1,7 @@
 # rv-jac-ext: does the degree-one-divisor extension for Axiom's Jacobians fit Theorem 4.1's bounds?
 
-Task: settle the open question of `docs/research/axiom-bridge.md` §4. Axiom's `Faltings.Jacobian`
-(bridged to our layer by `AxiomBridge.ofJacobian`) is constructed only for a
+Task: settle the open question of `docs/research/axiom-bridge.md` §4 (on the axiom-bridge branch, not merged here). Axiom's `Faltings.Jacobian`
+(bridged to our layer by `AxiomBridge.ofJacobian`, on the axiom-bridge branch, not merged here) is constructed only for a
 `CurveWithDegreeOneDivisor k`: a smooth projective geometrically integral curve with a divisor of
 closed points with `∑ n_x [κ(x):k] = 1`. The QM surface `A` of N5's Theorem 4.1 is geometrically a
 genus-2 Jacobian (R3). Over which field does a curve with a degree-one divisor exist, and do the
@@ -15,7 +15,7 @@ nothing downstream sees it.
 
 1. **The curve needs no extension.** Let `(A, λ)` be the principally polarized fibre over `K` (A4).
    Then there is a genus-2 curve `C` over `K` itself with `(Jac C, θ_C) ≅ (A, λ)` over `K` (§2,
-   N1). Mestre's obstruction (axiom-bridge §4(a)) concerns the field of moduli `ℚ(j) = ℚ` and does
+   N1). Mestre's obstruction (axiom-bridge §4(a), not on this branch) concerns the field of moduli `ℚ(j) = ℚ` and does
    not arise, because the proof works over `K`. The obstruction is real over `ℚ`: `Aut(C_ℚ̄) = C₂`,
    VERIFIED below.
 2. **A degree-one divisor over `K` is not guaranteed** (VERIFIED computation, §3). `G_K` acts on
@@ -83,7 +83,9 @@ simply transitively on the geometric fibre. Fix a fibre point `x`. For `σ ∈ G
 `σx = γ_σ x`. The stabilizer of `x` fixes every `γx`, because `σ(γx) = γ(σx)`. So `K` is the fixed
 field of that stabilizer, and `[K:ℚ] ≤ |Γ'_eff| = deg(Y₃→P¹_j) ≤ 324`. (Elementary.
 SPECULATIVE only in that the repository has not written it out. h-b1 M2-M3 contains it with 144.)
-G2 currently proves `[K:ℚ] ≤ 324!` in Lean and should output `≤ 324`.
+G2's Lean (`GlueRepo.Numerics.splitting_degree_le`, ZInQKernel/HDecomp/Repo/Numerics.lean:29) is the
+generic bound `[ℚ(f):ℚ] ≤ 324!` for the splitting field of any separable `f` of degree `≤ 324`; it says
+nothing about the fibre field. G2 should output `[K:ℚ] ≤ 324` for the fibre field.
 
 ## 2. The extension: exact statements, sources, cost
 
@@ -145,8 +147,9 @@ If only `ι` over `L` were available (and not over `K`), (iii) would weaken to `
     over `𝒪₂`) needs Riemann–Roch on curves and the Tate module of a Jacobian. Axiom's library has
     the Picard functor but not Riemann–Roch for `h⁰`; medium.
   - N1 is a leaf: large to prove, cheap to state once `PkgI3.AbVar` has polarizations (WP4).
-  - Base change `AbVar K → AbVar K̃` is needed to state "`A_{K̃} ≅ ofJacobian J`" and is not in our
-    layer (WP4). It is needed anyway for G17 (`A` over `L'`).
+  - Base change exists (`PkgI3.AbVar.baseChange`, Objects.lean:376); what is missing to state
+    "`A_{K̃} ≅ ofJacobian J`" is the bridge itself (and polarizations, WP4). Base change is also
+    what G17 (`A` over `L'`) uses.
 
 ### 2.3 Route D (no extension; not needed)
 
@@ -185,7 +188,7 @@ Output (`scratch/rv-jac-ext/weier2.output.txt`):
 So the extension is genuinely needed in general, unless `C` has an odd-degree non-Weierstrass point.
 Whether the index of `C/K` is ever 2 here is not decided (SPECULATIVE that it occurs). The minimal
 non-Galois fix has degree ≤ 4 over `K` (the fixed field of a `C₃` in `A₄`, or of a `C₂` in `V₄`).
-That matches axiom-bridge's "≤ 4", but over `K` and not over `ℚ(j)`. The Galois fix `K(A[2])` has
+That matches axiom-bridge's "≤ 4" (axiom-bridge branch, not merged here), but over `K` and not over `ℚ(j)`. The Galois fix `K(A[2])` has
 degree dividing 12.
 
 `autcheck.py`: the only `u ∈ 𝒪` with `μ⁻¹ūμu = 1` are `±1`. Exact argument: the norm `−1` case
@@ -209,20 +212,22 @@ does not matter (N1).
   cusp, or base-change the Jacobian. The second needs the small glue "the base change of a Jacobian
   is a Jacobian" (the Picard functor restricted to `L'`-schemes), which is not in Axiom.
 - The Hecke action and `G_ℚ`-equivariance (G13) need functoriality of `Jacobian` for
-  correspondences, as axiom-bridge §4 already notes. This is unrelated to divisors.
+  correspondences, as axiom-bridge §4 (not on this branch) already notes. This is unrelated to divisors.
 
 ## 5. Lean (`scratch/rv-jac-ext/JacExt.lean`, Mathlib only)
 
 Compiled with `lean` and `LEAN_PATH` set to the package build directories. `lake env` on this
 branch tries to fetch `Mordell` and fails offline. No errors. Axioms
-`[propext, Classical.choice, Quot.sound]` for every theorem.
+`[propext, Classical.choice, Quot.sound]` for every theorem (`#print axioms` covers 5 of the 8
+theorems directly; the other 3 are used by them).
 
 | Name | Statement |
 | --- | --- |
 | `perm_eq_one_of_fixes_pairs` | `3 ≤ card α`, `σ` fixes every `{i, j}` ⇒ `σ = 1` (N2's core) |
 | `finrank_finset_sup_le` | intermediate fields of degree `≤ c` ⇒ `finrank (s.sup t) ≤ c ^ s.card` (N3(iii)) |
 | `twelve_pow_bound` | `324·12^324 ≤ 324!` (`decide +kernel`) |
-| `routeW_degree`, `routeW_finrank` | `[K:ℚ] ≤ 324`, `[M:K] ≤ 12^{[K:ℚ]}` ⇒ `[M:ℚ] ≤ F₀` (tower law) |
+| `routeW_degree` | `k ≤ 324`, `m ≤ 12^k` ⇒ `k·m ≤ F₀` (in ℕ) |
+| `routeW_finrank` | `[K:ℚ] ≤ 324`, `[M:K] ≤ 12^{[K:ℚ]}` ⇒ `[M:ℚ] ≤ F₀` (fields; tower law) |
 | `routeL_degree` | `d ≤ k·3^{(16k²)²}`, `k ≤ 324` ⇒ `12d ≤ D` |
 | `routeL_degree_noCM` | `d ≤ k·3^{(4k²)²}`, `1 ≤ k ≤ F₀` ⇒ `12d ≤ D` |
 

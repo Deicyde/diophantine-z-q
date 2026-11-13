@@ -59,7 +59,7 @@ host has no network).
      `V_ℓ(J₁(N)) ⊗ ℚ̄_ℓ`" of the former R16 placeholder, now derived.
    - **`rhoF_attached`** (C9 bridge). Given `ιC : ℚ̄ → ℂ` and `ιL : ℚ̄ → ℚ̄_ℓ`, R16's `ρ_{f,ι}`
      with `ι = ιL ∘ ιC⁻¹` (`embOf`) satisfies the trace clause of `Leaves.lean`'s
-     `PkgI4.GaloisRep.AttachedTo`. At `p ∤ Nℓ` there is `α ∈ ℚ̄` with `ιC α = a_p(f)`, and
+     `PkgI4.GaloisRep.AttachedTo` (in `Representation` form, not literally `AttachedTo`'s). At `p ∤ Nℓ` there is `α ∈ ℚ̄` with `ιC α = a_p(f)`, and
      `tr ρ(σ) = ιL α` for every `PkgI4.IsArithFrob σ`.
 6. **An independent model review** found no false, over-strong or vacuous leaf. Its one
    sourcing finding is applied (§6).
@@ -125,8 +125,8 @@ def IsX1Model (N : ℕ) (X : Over SpecQ) : Prop :=
 - **Which `ℚ`-form.** `K_N` is the field of the moduli problem `(E, ℤ/N ↪ E)`. Shimura's
   canonical model (rational `q`-expansions at `∞`) is the `μ_N`-form. The two forms are
   `ℚ`-isomorphic as curves via `(E, P) ↦ (E/⟨P⟩, E[N]/⟨P⟩ ≅ μ_N)` (the Weil pairing
-  `e_N(P, ·)`; STANDARD, Diamond–Im §9.3, UNVERIFIED locator). This is bp-modcurves' leaf MC9.
-  It is used once, to transfer Shimura's results to every model (§3).
+  `e_N(P, ·)`; STANDARD, Diamond–Im §9.3, UNVERIFIED locator). This is bp-modcurves' leaf MC9 (now a citation-chain fact, not a leaf: Leaves.lean, rv-blueprints
+  M1). It is used once, to transfer Shimura's results to every model (§3).
 
 ### §2.2 `J₁(N)` (Albanese predicate)
 
@@ -279,13 +279,15 @@ field of degree `d`: `h_F(J_ℚ̄) ≤ 13·10⁶·g·d⁵`". Here `g := dim J` u
 **Leaf count added by this task.**
 - New leaves: `JacobianExists` (Weil/Milne), `R16_EichlerShimuraJ1'` (replacing the R16
   placeholder) and `DimJ1Genus` (Shimura Prop. 1.40 + canonical model + `dim Jac = g`).
-- New glue targets: `X1ModelExists` (it may also be taken as a leaf) and `BelyiX1`.
+- New glue targets: `X1ModelExists` (it may also be taken as a leaf), `BelyiX1` and
+  `VSurjOfSurjective`.
 - R18 stays a placeholder.
 
-**Integration** (after the announcement, by the owner of `Leaves.lean`):
+**Integration** (done by leaf-adopt: `ResearchLeaves.r16`, `TextbookLeaves.t33`, `t34` in
+`Leaves.lean`; kernel `ZInQKernel/HDecomp/ModCurves/`. The original plan:)
 - Replace `R16_EichlerShimuraJ1` in `ResearchLeaves` by `LeafModCurves.R16_EichlerShimuraJ1'`.
 - Add `JacobianExists ℚ`, `X1ModelExists` and `DimJ1Genus`. Their docstrings give the citations.
-- Copy §A-§H in as one block. The file has no dependency on other scratch files.
+- Copy §A-§J in as one block. The file has no dependency on other scratch files.
 
 ---
 
