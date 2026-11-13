@@ -1,0 +1,92 @@
+scratch/period-map/DevOrder.lean:134:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-map/DevOrder.lean:136:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-map/DevOrder.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevOrder.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevOrder.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevOrder.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevOrder.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevOrder.lean:549:4: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
+scratch/period-map/DevOrder.lean:549:22: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
+scratch/period-map/DevOrder.lean:578:68: warning: this tactic is never executed
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.omegaSiegel_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevOrder.lean:930:31: error(lean.unknownIdentifier): Unknown identifier `hγ`
+scratch/period-map/DevOrder.lean:1058:12: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  ?m.2405 / w ^ 2 * w ^ 2
+in the target expression
+  deriv G8 τ₃ * (1 / dz τ₃ ^ 2) * w ^ 2 = dz τ₃ ^ 8 * deriv G8 τ₃ * w ^ 2
+hT : ThetaOmegaAnalytic
+h : S8WeightExact
+hGa : AnalyticOnNhd ℂ G8 U
+g : GL (Fin 2) ℝ := glOf x3 ⋯
+hg : g = glOf x3 ⋯
+hgm : ↑g = !![1 / 2, -3 / 2; 1 / 2, 1 / 2]
+hdetg : (↑g).det = 1
+dz : ℂ → ℂ := fun z => z / 2 + 1 / 2
+hdz : dz = fun z => z / 2 + 1 / 2
+mz : ℂ → ℂ := fun z => (z / 2 - 3 / 2) / (z / 2 + 1 / 2)
+hmz : mz = fun z => (z / 2 - 3 / 2) / (z / 2 + 1 / 2)
+hden : ∀ (z : UpperHalfPlane), denom g ↑z = dz ↑z
+hsmul : ∀ (z : UpperHalfPlane), ↑(g • z) = mz ↑z
+hFE : ∀ (z : ℂ), 0 < z.im → G8 (mz z) = dz z ^ 8 * G8 z
+τ₃ : ℂ := ↑tau3
+hτ₃ : τ₃ = ↑tau3
+hτ₃U : τ₃ ∈ U
+hτ₃im : 0 < τ₃.im
+hmτ : mz τ₃ = τ₃
+w : ℂ := dz τ₃
+hw : w = dz τ₃
+h3 : ↑√3 ^ 2 = 3
+hwv : w = 1 / 2 + ↑√3 / 2 * I
+hw3 : w ^ 3 = -1
+hw2 : w ^ 2 = -1 / 2 + ↑√3 / 2 * I
+hw0 : w ≠ 0
+hG0 : G8 τ₃ = 0
+hGd : DifferentiableAt ℂ G8 τ₃
+hdzd : ∀ (z : ℂ), HasDerivAt dz (1 / 2) z
+hnumd : HasDerivAt (fun z => z / 2 - 3 / 2) (1 / 2) τ₃
+hmzd : HasDerivAt mz ((1 / 2 * dz τ₃ - (τ₃ / 2 - 3 / 2) * (1 / 2)) / dz τ₃ ^ 2) τ₃
+hL : HasDerivAt (G8 ∘ mz) (deriv G8 τ₃ * ((1 / 2 * dz τ₃ - (τ₃ / 2 - 3 / 2) * (1 / 2)) / dz τ₃ ^ 2)) τ₃
+hR : HasDerivAt (fun z => dz z ^ 8 * G8 z) (↑8 * dz τ₃ ^ (8 - 1) * (1 / 2) * G8 τ₃ + dz τ₃ ^ 8 * deriv G8 τ₃) τ₃
+hEq : G8 ∘ mz =ᶠ[𝓝 τ₃] fun z => dz z ^ 8 * G8 z
+hL' :
+  HasDerivAt (fun z => dz z ^ 8 * G8 z) (deriv G8 τ₃ * ((1 / 2 * dz τ₃ - (τ₃ / 2 - 3 / 2) * (1 / 2)) / dz τ₃ ^ 2)) τ₃
+huniq : deriv G8 τ₃ * (1 / dz τ₃ ^ 2) = dz τ₃ ^ 8 * deriv G8 τ₃
+hnum1 : 1 / 2 * dz τ₃ - (τ₃ / 2 - 3 / 2) * (1 / 2) = 1
+hw10 : w ^ 10 = -w
+e3 : deriv G8 τ₃ * (1 / dz τ₃ ^ 2) * w ^ 2 = dz τ₃ ^ 8 * deriv G8 τ₃ * w ^ 2
+⊢ deriv G8 τ₃ = w ^ 10 * deriv G8 τ₃
+'HSyn.G0Split.FibreQM.PeriodMap.s8Weight8_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.s8OrderCM3_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of''' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+real	0m14.200s
+user	0m24.424s
+sys	0m1.780s

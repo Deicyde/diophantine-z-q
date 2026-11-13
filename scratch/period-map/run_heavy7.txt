@@ -1,0 +1,311 @@
+scratch/period-map/DevHeavy.lean:134:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-map/DevHeavy.lean:136:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-map/DevHeavy.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevHeavy.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevHeavy.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevHeavy.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevHeavy.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevHeavy.lean:648:2: warning: Try this: 
+  haveI̵
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+scratch/period-map/DevHeavy.lean:673:6: error: `simp` made no progress
+scratch/period-map/DevHeavy.lean:728:80: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  -1 • ?x
+in the target expression
+  -1 • 1 = -1
+case refine_1
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x = -1
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO = -1
+hl : lam * lam = -1
+⊢ -1 • 1 = -1
+scratch/period-map/DevHeavy.lean:734:64: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?r - ?s) • ?y
+in the target expression
+  (lam * lam) • v - lam • v + v = (lam * lam - lam + 1) • v
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x - x + 1 = 0
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO - xO + 1 = 0
+⊢ (lam * lam) • v - lam • v + v = (lam * lam - lam + 1) • v
+scratch/period-map/DevHeavy.lean:741:39: error: Tactic `rewrite` failed: Did not find an occurrence of the pattern
+  (?r - ?s) • ?y
+in the target expression
+  (lam * lam) • 1 - lam • 1 + 1 = (lam * lam - lam + 1) • 1
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x - x + 1 = 0
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO - xO + 1 = 0
+hl : lam * lam - lam + 1 = 0
+⊢ (lam * lam) • 1 - lam • 1 + 1 = (lam * lam - lam + 1) • 1
+scratch/period-map/DevHeavy.lean:744:47: error: Type mismatch: After simplification, term
+  h
+ has type
+  @Eq PkgI1.B (x * x) (-6)
+but is expected to have type
+  @Eq LeafQM.B (↑xO * ↑xO) (-↑6)
+scratch/period-map/DevHeavy.lean:748:48: error: unsolved goals
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x = -6
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO = -6
+⊢ Q.q.iota 6 = 6
+scratch/period-map/DevHeavy.lean:750:61: error: unsolved goals
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this✝ : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x = -6
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO = -6
+this : Q.q.iota (-6) = -6
+⊢ ρ 6 = 6
+scratch/period-map/DevHeavy.lean:745:32: error: unsolved goals
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this✝¹ : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x = -6
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO = -6
+this✝ : Q.q.iota (-6) = -6
+this : ρ (-6) = -6 • 1
+⊢ 6 * v = 6 • v
+scratch/period-map/DevHeavy.lean:742:2: error: unsolved goals
+case refine_3
+hR : T11aRiemannEnd
+Q : QML3 ℂ
+τ : UpperHalfPlane
+Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)
+hU : IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice ⋯) Φu
+hc : IotaCompatible Q Φu
+x : PkgI1.B
+g : GL (Fin 2) ℝ
+hx : PkgI1.InO x
+hg : ↑g = PkgI1.iota x
+hgτ : g • τ = τ
+this : DiscreteTopology ↥(BPAnalytic.QM.qmLattice ⋯)
+ρ : Q.A.End →+* Module.End ℂ (Fin 2 → ℂ)
+hρ : ∀ (e : Q.A.End) (z : Fin 2 → ℂ), Φu ((ρ e) z) = Φu z ≫ PkgI3.AbVar.Hom.hom e
+hpres : ∀ (e : Q.A.End), ∀ z ∈ BPAnalytic.QM.qmLattice ⋯, (ρ e) z ∈ BPAnalytic.QM.qmLattice ⋯
+hρι : ∀ (a : ↥LeafQM.O), ρ (Q.q.iota a) = Matrix.toLin' (qmMat a)
+hinj : ∀ (e e' : Q.A.End), ρ e = ρ e' → e = e'
+xO : ↥LeafQM.O := ⟨x, ⋯⟩
+hxO : xO = ⟨x, ⋯⟩
+v : Fin 2 → ℂ := ![↑τ, 1]
+hv : v = ![↑τ, 1]
+lam : ℂ := UpperHalfPlane.denom g ↑τ
+hlam : lam = UpperHalfPlane.denom g ↑τ
+hΛ : BPAnalytic.QM.qmLattice ⋯ = Submodule.span ℤ (Set.range (BPAnalytic.QM.qmVec ↑τ))
+hvΛ : v ∈ BPAnalytic.QM.qmLattice ⋯
+hcases : 0 < (↑g).det → ∃ φ ∈ com Q.q, ρ φ = lam • 1 ∧ (ρ (Q.q.iota xO)) v = lam • v
+hsq : (ρ (Q.q.iota xO)) v = lam • v → (ρ (Q.q.iota (xO * xO))) v = (lam * lam) • v
+hcoord : ∀ (c c' : ℂ), c • v = c' • v → c = c'
+h : x * x = -6
+φ : Q.A.End
+hφc : φ ∈ com Q.q
+hρφ : ρ φ = lam • 1
+hxv : (ρ (Q.q.iota xO)) v = lam • v
+hx2 : xO * xO = -6
+hl : lam * lam = -6
+⊢ -6 • 1 = -ρ 6
+'HSyn.G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap' depends on axioms: [propext, Classical.choice, Quot.sound]
