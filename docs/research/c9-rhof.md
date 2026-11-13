@@ -68,7 +68,10 @@ The theorems (namespace `C9Rhof`):
 
 Also proved: the `GaloisRep` → `Representation` bridge (leaf-modcurves §5 C9(c)). It consists of
 `toRep`, `toRep_continuous`, `trace_toRep` and `toRep_semisimple` (from `GaloisRep.IsSemisimple`,
-via `semisimple_of_complements`).
+via `semisimple_of_complements`). Also proved: **`isSemisimple_of_isIrreducible`**, which says a
+`GaloisRep` irreducible in Burnside's form (`GaloisRep.IsIrreducible`, one of the hypotheses of
+Pan's theorem on `r₅`) is semisimple. So the semisimplicity hypothesis of `c9_r5` follows from the
+irreducibility of `r₅`.
 
 ## §1. Leaves used (all as hypotheses)
 
@@ -119,10 +122,11 @@ the definition `GaloisRep.AttachedUpToTwist`.
 ## §3. What remains (not done here)
 
 - **C8's two outputs, assumed by `c9_r5`.**
-  - (a) `r₅` semisimple as a `GaloisRep` (`GaloisRep.IsSemisimple`). C2 gives `r₅` absolutely
-    irreducible (`PkgI3.C2_absolutelyIrreducible'`, over the abelian variety's representation),
-    and irreducible implies semisimple. Linking C2's `r₅` (a subrepresentation of `V₅(A) ⊗ E`) to
-    a `GaloisRep 5 2` (a choice of basis) is small glue.
+  - (a) `r₅` as a `GaloisRep 5 2` with `IsIrreducible`; `isSemisimple_of_isIrreducible` then
+    gives the hypothesis `hr` of `c9_r5`. C2 gives `r₅` absolutely irreducible
+    (`PkgI3.C2_absolutelyIrreducible'`, for the abelian variety's representation). Still to do:
+    pass from C2's `r₅`, a subrepresentation of `V₅(A) ⊗ E`, to a `GaloisRep 5 2` (choose a
+    basis; Burnside's theorem gives the `IsIrreducible` form). Small to medium glue.
   - (b) `hψ`: the twisting character is a Dirichlet character at Frobenius. C8 steps 3-4 are needed:
     the finiteness of `ψ` (`GlueAssembly.twist_finite`, proved) and Kronecker–Weber (T17)
     converting a finite-image `ψ` into a Dirichlet character, with `ψ(Frob_p) = ψD(p)`. That
