@@ -30,8 +30,9 @@ Repository: https://github.com/TauCetiProject/TauCeti
   LFunction/, Twist/, HeckeSlash/ and four top-level files), and single modules in
   Analysis/, FieldTheory/Galois/, LinearAlgebra/, NumberTheory/LSeries/ and
   NumberTheory/MulChar/ (list in scratch/gz-license/new-modules.txt).
-- Commit 5a01f5fe (as above): one module vendored unmodified by the Z-in-Q task
-  gz-theta, NumberTheory/ModularForms/Newforms/BadPrime/Vanishing.lean (list in
+- Commit 5a01f5fe (as above): seven modules vendored unmodified by the Z-in-Q task
+  gz-theta: NumberTheory/ModularForms/Newforms/BadPrime/{Vanishing,AtkinLehner,Descent}.lean
+  and NumberTheory/ModularForms/AtkinLehner/{LevelRaise,NewSpace,OldSpace,Sign}.lean (list in
   scratch/gz-theta/tc-modules.txt).
 
 Location in this repository
