@@ -7,14 +7,18 @@ open PkgI4 (GaloisRep GaloisChar)
 
 noncomputable section
 
-/-- The five named pieces of the range G8-G12 (`G8Matrix` is proved from Burnside's theorem,
-`g8Matrix_of_burnside`, so the bundle holds Burnside, a textbook leaf, in its place). -/
+/-- The pieces of the range G8-G12 that are not in the leaf bundles: Burnside (a textbook leaf;
+`G8Matrix` is proved from it, `g8Matrix_of_burnside`), R14's determinant clause (a leaf, R14 as
+published), and the named glue `G9Glue`, `G10Glue`, `G12Weight`, `DetTate`, `ResQFiniteIndex`
+(`G12Det` is proved from the last two, R14Det and T18, `g12Det_of`). -/
 structure GaloisPieces : Prop where
   burnside : BurnsideAbsIrred
+  r14det : R14Det
   deRham : G9Glue
   odd : G10Glue
   weight : G12Weight
-  det : G12Det
+  detTate : DetTate
+  finIndex : ResQFiniteIndex
 
 /-- **G8-G12 from the leaf bundles** (`HSyn.ResearchLeaves`, `HSyn.TextbookLeaves`), glue-ssbc's
 proved `SemisimpleBaseChange`, the outputs of G2, G3, G6, G7 and the five named pieces. -/
@@ -28,7 +32,8 @@ theorem g8_g12_of_leaves (r : HSyn.ResearchLeaves) (t : HSyn.TextbookLeaves) (m 
     ∃ r₅ : GaloisRep 5 2, G8Out A 5 (GlueDescent.rho Tm a β) r₅ ∧ G9Out r₅ ∧ G10Out r₅ ∧
       G11Out T r₅ ∧ G12Out r₅ :=
   g8_g12 r.r9a r.r9b t.t26 t.t6 HSyn.G0Split.semisimpleBaseChange r.r10 t.t23 t.t11 t.t12
-    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight m.det
+    r.r11r12 r.r14 r.r13 r.r15 t.t18 t.t19 t.t9 (g8Matrix_of_burnside m.burnside) m.deRham m.odd m.weight
+    (g12Det_of m.r14det m.detTate m.finIndex (frobeniusDenseQ_of t.t18))
     A T h2 h6 h3 Tm c ε a β u h7
 
 /-! ### How the conclusion feeds G13-G16 and `ModularConstituent` -/

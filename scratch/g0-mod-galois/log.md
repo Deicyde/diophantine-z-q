@@ -52,3 +52,11 @@
   place of `G8Matrix`. VERIFIED 0 errors, 0 sorry; axioms standard for g8, g8Matrix_of_burnside,
   g11, g12, g8_g12, g8_g12_of_leaves, commonConstituent_of_sides, isConstituentOf_of_intertwines,
   newformG12Out_of_galois.
+- run9-10: part_det.lean: `R14Det` (R14 with its published determinant clause, a leaf), `DetTate`
+  (glue from T9), `ResQFiniteIndex` (glue), `FrobeniusDenseQ` (= the bundle's T18, `frobeniusDenseQ_of`
+  by defeq), copied `eq_of_eq_on_arithFrob` (c9-rhof), `det_fin_two_eq_trace`, and
+  `g12Det_of : R14Det → DetTate → ResQFiniteIndex → FrobeniusDenseQ → G12Det`. run10 VERIFIED:
+  `g12Det_of` axioms standard.
+- run11 (2m31s): `GaloisPieces` = {burnside, r14det, deRham, odd, weight, detTate, finIndex}; the
+  bundle theorems use `g8Matrix_of_burnside` and `g12Det_of`. VERIFIED 0 errors, 0 sorry, all ten
+  G0Galois theorems on [propext, Classical.choice, Quot.sound].
