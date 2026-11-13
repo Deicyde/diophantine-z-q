@@ -32,3 +32,11 @@ R1fp, R5fp, R5fpCount, QMLeaves (Leaves). Docstrings only; wrap.py rewrapped two
 ## 23:07 PST: `lake build ZInQKernel` exit 0 (9989 jobs), after every Lean change. VERIFIED.
 ## 23:09 PST: `lake env lean scripts/print_axioms.lean` exit 0: 390 entries (332 + 58 new), all
 exactly [propext, Classical.choice, Quot.sound]; list in axioms.txt. VERIFIED.
+
+## 23:09 PST: new glue `LeafPush2/Bridge.lean` (isSiegel_iff, isPeriodMatrix_periodLattice,
+isPeriodMatrix_of_map, isSiegel_Omega, isPeriodMatrix_qmLattice, thetaConst_eq): `lake env lean`
+exit 0, no output. Added to HDecomp.lean and print_axioms (6 entries).
+## 23:10 PST: `lake build ZInQKernel` exit 0 (9990 jobs); print_axioms exit 0, 396 entries, all
+exactly [propext, Classical.choice, Quot.sound] (axioms.txt). VERIFIED. Rerun of adopt4.py:
+generated modules byte-identical (git status clean).
+## 23:12 PST: report docs/research/hdec-adopt4.md.
