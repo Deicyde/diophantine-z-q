@@ -351,8 +351,78 @@ lemma exists_pow_mul_eq (R A : Type*) [CommRing R] [IsDomain R] [IsDiscreteValua
     [CommRing A] [IsDedekindDomain A] [Algebra R A] [Algebra.IsIntegral R A]
     [Module.IsTorsionFree R A] (π : R) (hπ : Irreducible π) (Q : Ideal A) [Q.IsPrime]
     [Q.LiesOver (IsLocalRing.maximalIdeal R)] :
-    ∃ ϖ u : A, ϖ ≠ 0 ∧ algebraMap R A π = u * ϖ ^ (Q.ramificationIdx R) ∧ u ∉ Q := by
-  sorry
+    ∃ ϖ b a : A, ϖ ≠ 0 ∧ b ∉ Q ∧ a ∉ Q ∧
+      b * algebraMap R A π = ϖ ^ (Q.ramificationIdx R) * a := by
+  set e := Q.ramificationIdx R
+  have hm : IsLocalRing.maximalIdeal R = Ideal.span {π} :=
+    (IsDiscreteValuationRing.irreducible_iff_uniformizer π).mp hπ
+  have hinj : Function.Injective (algebraMap R A) := FaithfulSMul.algebraMap_injective R A
+  have hπA : algebraMap R A π ≠ 0 := fun h => hπ.ne_zero (hinj (by rw [h, map_zero]))
+  have hmap : (IsLocalRing.maximalIdeal R).map (algebraMap R A) = Ideal.span {algebraMap R A π} := by
+    rw [hm, Ideal.map_span, Set.image_singleton]
+  have hmap0 : (IsLocalRing.maximalIdeal R).map (algebraMap R A) ≠ ⊥ := by
+    rw [hmap, Ne, Ideal.span_singleton_eq_bot]; exact hπA
+  have hQ0 : Q ≠ ⊥ := by
+    intro h
+    have h1 : (IsLocalRing.maximalIdeal R) = Q.under R := Q.over_def _
+    rw [h] at h1
+    change _ = Ideal.comap _ ⊥ at h1
+    rw [Ideal.comap_bot_of_injective _ hinj, hm, Ideal.span_singleton_eq_bot] at h1
+    exact hπ.ne_zero h1
+  have hQ1 : Q ≠ ⊤ := Ideal.IsPrime.ne_top ‹_›
+  have hQirr : Irreducible Q := (Ideal.prime_of_isPrime hQ0 ‹_›).irreducible
+  -- `count_Q (π) = e`
+  have hcount : (UniqueFactorizationMonoid.normalizedFactors (Ideal.span {algebraMap R A π})).count Q = e := by
+    rw [← hmap]
+    exact (Ideal.IsDedekindDomain.ramificationIdx_eq_normalizedFactors_count _ Q hmap0).symm
+  have hle : Ideal.span {algebraMap R A π} ≤ Q ^ e := by
+    have h1 := Ideal.le_pow_ramificationIdx' (p := IsLocalRing.maximalIdeal R) (P := Q)
+    have hm0 : IsLocalRing.maximalIdeal R ≠ ⊥ := by
+      rw [hm, Ne, Ideal.span_singleton_eq_bot]; exact hπ.ne_zero
+    rwa [Ideal.ramificationIdx'_eq_ramificationIdx _ Q hm0, hmap] at h1
+  have hnle : ¬ Ideal.span {algebraMap R A π} ≤ Q ^ (e + 1) := by
+    intro h
+    have hd : Q ^ (e + 1) ∣ Ideal.span {algebraMap R A π} := Ideal.dvd_iff_le.mpr h
+    rw [UniqueFactorizationMonoid.dvd_iff_normalizedFactors_le_normalizedFactors
+      (pow_ne_zero _ hQ0) (by rwa [Ne, Ideal.zero_eq_bot, Ideal.span_singleton_eq_bot])] at hd
+    have := Multiset.count_le_of_le Q hd
+    rw [UniqueFactorizationMonoid.normalizedFactors_pow,
+      UniqueFactorizationMonoid.normalizedFactors_irreducible hQirr, normalize_eq,
+      Multiset.count_nsmul, Multiset.count_singleton_self, hcount] at this
+    omega
+  -- a local uniformizer `ϖ ∈ Q \ Q²`
+  obtain ⟨ϖ, hϖQ, hϖQ2⟩ := Ideal.exists_mem_pow_notMem_pow_succ Q hQ0 hQ1 1
+  rw [pow_one] at hϖQ
+  have hϖ0 : ϖ ≠ 0 := fun h => hϖQ2 (h ▸ Ideal.zero_mem _)
+  obtain ⟨J2, hJ2⟩ : Q ∣ Ideal.span {ϖ} := Ideal.dvd_iff_le.mpr
+    ((Ideal.span_singleton_le_iff_mem _).mpr hϖQ)
+  have hJ2Q : ¬ J2 ≤ Q := by
+    intro h
+    apply hϖQ2
+    have : Ideal.span {ϖ} ≤ Q ^ (1 + 1) := by
+      rw [hJ2, pow_two]; exact Ideal.mul_mono_right h
+    exact (Ideal.span_singleton_le_iff_mem _).mp this
+  have hJ2eQ : ¬ J2 ^ e ≤ Q := fun h => hJ2Q (Ideal.IsPrime.le_of_pow_le h)
+  obtain ⟨b, hbJ, hbQ⟩ := IsConcreteLE.not_le_iff_exists.mp hJ2eQ
+  obtain ⟨J1, hJ1⟩ : Q ^ e ∣ Ideal.span {algebraMap R A π} := Ideal.dvd_iff_le.mpr hle
+  have hmem : b * algebraMap R A π ∈ Ideal.span {ϖ ^ e} := by
+    have h1 : b * algebraMap R A π ∈ J2 ^ e * Ideal.span {algebraMap R A π} :=
+      Ideal.mul_mem_mul hbJ (Ideal.mem_span_singleton_self _)
+    have h2 : J2 ^ e * Ideal.span {algebraMap R A π} = Ideal.span {ϖ ^ e} * J1 := by
+      rw [hJ1, ← Ideal.span_singleton_pow, hJ2, mul_pow]; ring
+    rw [h2] at h1
+    exact (Ideal.mul_le_left : Ideal.span {ϖ ^ e} * J1 ≤ Ideal.span {ϖ ^ e}) h1
+  obtain ⟨a, ha⟩ := Ideal.mem_span_singleton'.mp hmem
+  refine ⟨ϖ, b, a, hϖ0, hbQ, ?_, by rw [← ha, mul_comm]⟩
+  intro haQ
+  apply hnle
+  rw [Ideal.span_singleton_le_iff_mem]
+  have h3 : b * algebraMap R A π ∈ Q ^ (e + 1) := by
+    rw [← ha, pow_succ']
+    exact Ideal.mul_mem_mul haQ (Ideal.pow_mem_pow hϖQ e)
+  rcases Ideal.IsPrime.mul_mem_pow Q h3 with h | h
+  · exact absurd h hbQ
+  · exact h
 
 /-- Residue separability is transitive along a tower of primes. -/
 lemma isSeparable_quotient_trans {R A B : Type*} [CommRing R] [CommRing A] [CommRing B]
@@ -435,23 +505,42 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
     apply (algebraMap K L).injective
     rw [← IsScalarTower.algebraMap_apply, ← IsScalarTower.algebraMap_apply]
     exact congrArg Subtype.val hab
-  obtain ⟨ϖ, u, hϖ0, hπu, huQ⟩ := exists_pow_mul_eq R (integralClosure R L) π hπ Q
-  rw [← he_def] at hπu
-  -- `w = t^m / ϖ`, with `wᵉ = u`
+  obtain ⟨ϖ, b, a, hϖ0, hbQ, haQ, hba⟩ := exists_pow_mul_eq R (integralClosure R L) π hπ Q
+  rw [← he_def] at hba
+  set u : integralClosure R L := b ^ (e - 1) * a with hu_def
+  have huQ : u ∉ Q := by
+    intro h
+    rcases Ideal.IsPrime.mem_or_mem (inferInstance : Q.IsPrime) h with h | h
+    · exact hbQ (Ideal.IsPrime.mem_of_pow_mem (inferInstance : Q.IsPrime) _ h)
+    · exact haQ h
+  -- `w = b t^m / ϖ`, with `wᵉ = u`
   let ϖM : M := algebraMap L M ((ϖ : integralClosure R L) : L)
+  let bM : M := algebraMap L M ((b : integralClosure R L) : L)
+  let aM : M := algebraMap L M ((a : integralClosure R L) : L)
   have hϖM : ϖM ≠ 0 := by
     simp only [ϖM, ne_eq, map_eq_zero]
     exact fun h => hϖ0 (Subtype.ext h)
-  let w : M := t ^ m / ϖM
+  have hbM : bM ≠ 0 := by
+    simp only [bM, ne_eq, map_eq_zero]
+    intro h
+    apply hbQ
+    have : b = 0 := Subtype.ext h
+    rw [this]; exact Q.zero_mem
+  have h1 : bM * algebraMap R M π = ϖM ^ e * aM := by
+    have := congrArg (fun x : integralClosure R L => algebraMap L M (x : L)) hba
+    simp only [MulMemClass.coe_mul, SubmonoidClass.coe_pow, map_mul, map_pow] at this
+    rw [IsScalarTower.algebraMap_apply R L M]
+    exact this
+  let w : M := bM * t ^ m / ϖM
   have hw : w ^ e = algebraMap L M ((u : integralClosure R L) : L) := by
-    have h1 : t ^ (e * m) = algebraMap L M ((u : integralClosure R L) : L) * ϖM ^ e := by
-      rw [← hm, ht, IsScalarTower.algebraMap_apply R L M]
-      have : algebraMap R L π = ((algebraMap R (integralClosure R L) π : integralClosure R L) : L) :=
-        rfl
-      rw [this, hπu]
-      simp [ϖM, map_mul, map_pow]
-    simp only [w, div_pow, ← pow_mul, mul_comm m e, h1]
-    field_simp
+    rw [hu_def]
+    simp only [MulMemClass.coe_mul, SubmonoidClass.coe_pow, map_mul, map_pow]
+    change (bM * t ^ m / ϖM) ^ e = bM ^ (e - 1) * aM
+    rw [div_pow, mul_pow, ← pow_mul, mul_comm m e, ← hm, ht, div_eq_iff (pow_ne_zero _ hϖM)]
+    obtain ⟨k, hk⟩ : ∃ k, e = k + 1 := ⟨e - 1, by omega⟩
+    rw [hk, Nat.add_sub_cancel]
+    rw [hk] at h1
+    linear_combination bM ^ k * h1
   -- `L₁ = L(w)` and `A₂ = integral closure of A₁ in L₁`
   have hwint : IsIntegral L w := ⟨X ^ e - C ((u : integralClosure R L) : L),
     monic_X_pow_sub_C _ he0.ne', by
@@ -547,10 +636,10 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
     have h2 := congrArg Subtype.val hab
     exact Subtype.ext (Subtype.ext h2)
   have hm_le : Module.finrank L1 M ≤ m := by
-    have hc : w * ϖM ∈ L1 := L1.mul_mem (IntermediateField.mem_adjoin_simple_self L w)
-      (L1.algebraMap_mem _)
-    refine finrank_le_of_pow_eq_field (F := L1) hm0 (t := t) (c := ⟨w * ϖM, hc⟩) ?_ ?_
-    · change t ^ m = w * ϖM
+    have hc : w * ϖM / bM ∈ L1 := L1.div_mem (L1.mul_mem (IntermediateField.mem_adjoin_simple_self L w)
+      (L1.algebraMap_mem _)) (L1.algebraMap_mem _)
+    refine finrank_le_of_pow_eq_field (F := L1) hm0 (t := t) (c := ⟨w * ϖM / bM, hc⟩) ?_ ?_
+    · change t ^ m = w * ϖM / bM
       simp only [w]
       field_simp
     · rw [← IntermediateField.restrictScalars_eq_top_iff (K := L),
