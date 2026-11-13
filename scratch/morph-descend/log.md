@@ -10,3 +10,4 @@
   limits, Over.forget preserves connected limits.
 - 02:05 Colim.lean: `ringCoconeIsColimit` (ℚ̄ = filtered colimit of finite subextensions ⊇ E₀ in
   CommRingCat) COMPILED, no errors.
+- 02:14 Descend.lean: specConeIsLimit (Spec ℚ̄ = lim Spec L in Over (Spec K)), bcConeIsLimit (ℚ̄ ×_K X = lim L ×_K X in Scheme), bcDiag_map, bcCone_π_app (rfl) COMPILED.
