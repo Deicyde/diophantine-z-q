@@ -28,3 +28,8 @@
   Galois), `chi_eq_one_of_isSquare` (genus characters trivial at primes split in genusAmb; Mathlib's
   `FiniteField.isSquare_odd_prime_iff`, `isSquare_neg_one_iff`), `genusField_le_genusAmb` (Bauer),
   `LniK` (L_n(i) pulled back to K_nˢ, contains K_n since √−n = ±i∏√p), `genusAmb_le_LniK`.
+- `Bridge.lean` §10 (rewiring) + §11 (GenusFieldLeLni) COMPILED: `lake env lean scratch/cm-bridge/Bridge.lean`
+  no errors (34 s); all audited declarations [propext, Classical.choice, Quot.sound] (VERIFIED).
+  `tyzThm35ReadingA_of_cmLeaves7` hyps: TYZThm11Integral, TYZLcalOne, TYZLemma29Mod2,
+  CM.CMFieldOfDefinition ringClassFieldD, TYZSigmaShiftsF0, Lemma318Literal HHprime, Thm35First, Lemma321Five,
+  Lemma321Seven.
