@@ -1,0 +1,148 @@
+
+/-! ## Consumers in g0-fibresimple: FS2 closed, FS3 from T6 and `KerUnitOpen`
+
+`EndDivisionOfSchemeIso`, `EndDivisionOfEnd0Division` and the proofs
+`endDivisionOfSchemeIso_of_rigidity`, `end0Division_of_homFree` are copied verbatim from
+scratch/g0-fibresimple/FibreSimple.lean (§4″, §4‴). -/
+
+namespace G0FibreSimple
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped Quaternion TensorProduct
+
+/-- **Glue piece FS2 (rigidity: simplicity is invariant under scheme isomorphism).** If two
+abelian varieties over `k` have isomorphic underlying `k`-schemes, and every nonzero endomorphism
+of one is an isogeny, the same holds for the other. *Why true* (STANDARD): by rigidity
+(Mumford, *Abelian varieties*, §4 Cor. 1, UNVERIFIED number) a `k`-isomorphism `φ` followed by the
+translation by `-φ(0)` is an isomorphism of group schemes, and conjugation by it identifies the
+endomorphism rings, preserving "finite and surjective". `FibreOver` gives only an isomorphism of
+`ℚ̄`-schemes, so this step is needed. Glue. -/
+def EndDivisionOfSchemeIso : Prop :=
+  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k), Nonempty (A.X ≅ B.X) →
+    PkgI3.EndDivision B → PkgI3.EndDivision A
+
+/-- **Glue piece FS3 (`End⁰(A)` a division algebra ⇒ every nonzero endomorphism is an isogeny;
+Mumford §19 Cor. 2 direction "End⁰ division ⇒ simple", UNVERIFIED number).** *Why true*
+(STANDARD): `End(A)` is torsion-free (Mumford §19 Thm 3), so `f ≠ 0` gives `1 ⊗ f ≠ 0` in
+`End⁰(A)`; a unit there gives `g` with `g ∘ f = [n]`, `n ≠ 0`; `[n]` is an isogeny (Mumford §4),
+so `ker f` is finite, `f(A)` is closed of dimension `dim A`, hence `f` is surjective, and
+proper quasi-finite, hence finite. Glue (textbook). -/
+def EndDivisionOfEnd0Division : Prop :=
+  ∀ (k : Type) [Field k] [CharZero k] (A : PkgI3.AbVar k),
+    (∀ x : PkgI3.AbVar.End0 A, x ≠ 0 → IsUnit x) → PkgI3.EndDivision A
+/-- **FS3 is proved from T6 (`PkgI3.HomFreeFinite`) and `MulIsogeny`.** If `1 ⊗ f` is a unit of
+`End⁰(A)` with inverse `u⁻¹`, clearing denominators gives `g` and `s ≠ 0` with `g ∘ f = [s]` and
+`f ∘ g = [s]` (freeness of `End(A)` makes `m ↦ 1 ⊗ m` injective). `[s]` is finite and surjective,
+so `f` is finite (Mathlib `IsFinite.of_comp`, `g` separated since `A` is proper) and surjective
+(`Surjective.of_comp`). -/
+theorem end0Division_of_homFree (hHF : PkgI3.HomFreeFinite) (hMul : MulIsogeny) :
+    EndDivisionOfEnd0Division := by
+  intro k _ _ A hdiv f hf
+  have hfree : Module.Free ℤ (PkgI3.AbVar.End A) := (hHF k A A).1
+  let F := TensorProduct.mk ℤ ℚ (PkgI3.AbVar.End A) 1
+  have hloc : IsLocalizedModule (nonZeroDivisors ℤ) F :=
+    (isLocalizedModule_iff_isBaseChange (nonZeroDivisors ℤ) ℚ F).mpr
+      (TensorProduct.isBaseChange (R := ℤ) (M := PkgI3.AbVar.End A) (S := ℚ))
+  have hinj : ∀ m : PkgI3.AbVar.End A, (1 : ℚ) ⊗ₜ[ℤ] m = 0 → m = 0 := by
+    intro m hm
+    obtain ⟨s', hs'⟩ := (IsLocalizedModule.eq_zero_iff (nonZeroDivisors ℤ) F).mp hm
+    rw [Submonoid.smul_def] at hs'
+    exact (smul_eq_zero.mp hs').resolve_left (nonZeroDivisors.coe_ne_zero s')
+  have e1 : ∀ x y : PkgI3.AbVar.End A,
+      (1 : ℚ) ⊗ₜ[ℤ] (x * y) = ((1 : ℚ) ⊗ₜ[ℤ] x) * ((1 : ℚ) ⊗ₜ[ℤ] y) := by
+    intro x y; rw [Algebra.TensorProduct.tmul_mul_tmul, _root_.mul_one]
+  have hx : (1 : ℚ) ⊗ₜ[ℤ] f ≠ 0 := fun h => hf (hinj f h)
+  obtain ⟨u, hu⟩ := hdiv _ hx
+  obtain ⟨⟨g, s⟩, hs⟩ := IsLocalizedModule.surj (nonZeroDivisors ℤ) F (↑u⁻¹ : PkgI3.AbVar.End0 A)
+  have hs' : (1 : ℚ) ⊗ₜ[ℤ] g = (s : ℤ) • (↑u⁻¹ : PkgI3.AbVar.End0 A) := by
+    rw [Submonoid.smul_def] at hs; exact hs.symm
+  have hs0 : (s : ℤ) ≠ 0 := nonZeroDivisors.coe_ne_zero s
+  have hcast : (1 : ℚ) ⊗ₜ[ℤ] ((s : ℤ) : PkgI3.AbVar.End A) = ((s : ℤ) : PkgI3.AbVar.End0 A) :=
+    map_intCast (Algebra.TensorProduct.includeRight :
+      PkgI3.AbVar.End A →ₐ[ℤ] ℚ ⊗[ℤ] PkgI3.AbVar.End A) _
+  have hgf : g * f = ((s : ℤ) : PkgI3.AbVar.End A) := by
+    apply sub_eq_zero.mp; apply hinj
+    rw [TensorProduct.tmul_sub, e1, hs', ← hu, smul_mul_assoc, Units.inv_mul, hcast,
+      zsmul_eq_mul, _root_.mul_one, sub_self]
+  have hfg : f * g = ((s : ℤ) : PkgI3.AbVar.End A) := by
+    apply sub_eq_zero.mp; apply hinj
+    rw [TensorProduct.tmul_sub, e1, hs', ← hu, mul_smul_comm, Units.mul_inv, hcast,
+      zsmul_eq_mul, _root_.mul_one, sub_self]
+  obtain ⟨hfin, hsurj⟩ := hMul k A (s : ℤ) hs0
+  rw [← hgf] at hfin
+  rw [← hfg] at hsurj
+  change IsFinite (f.hom ≫ g.hom).left at hfin
+  change Surjective (g.hom ≫ f.hom).left at hsurj
+  rw [Over.comp_left] at hfin hsurj
+  have hsep : IsSeparated (g.hom.left ≫ A.X.hom) := by rw [Over.w g.hom]; infer_instance
+  have : IsSeparated g.hom.left := IsSeparated.of_comp (f := g.hom.left) (g := A.X.hom)
+  exact ⟨IsFinite.of_comp f.hom.left g.hom.left, Surjective.of_comp g.hom.left f.hom.left⟩
+
+/-- **FS2 is proved from `RigidityHom`.** For a `k`-isomorphism `e : A.X ≅ B.X`, put
+`b = e(0)`, `ψ = e - b` and `ψ' = e⁻¹ ∘ (· + b)` (translations, in the group of morphisms into
+the group object). They are inverse, preserve the identity, hence are homomorphisms by rigidity;
+conjugation by them carries nonzero endomorphisms of `A` to nonzero endomorphisms of `B`, and
+"finite and surjective" back. -/
+theorem endDivisionOfSchemeIso_of_rigidity (hR : RigidityHom) : EndDivisionOfSchemeIso := by
+  intro k _ A B ⟨e⟩ hB
+  set b : 𝟙_ (Over (Spec (CommRingCat.of k))) ⟶ B.X := η[A.X] ≫ e.hom with hb
+  set ψ : A.X ⟶ B.X := e.hom * (toUnit A.X ≫ b⁻¹) with hψdef
+  set ψ' : B.X ⟶ A.X := (𝟙 B.X * (toUnit B.X ≫ b)) ≫ e.inv with hψ'def
+  have hu : η[A.X] ≫ toUnit A.X = 𝟙 _ := toUnit_unique _ _
+  have hu' : η[B.X] ≫ toUnit B.X = 𝟙 _ := toUnit_unique _ _
+  have h1 : ψ ≫ ψ' = 𝟙 A.X := by
+    rw [hψ'def, ← Category.assoc, MonObj.comp_mul, Category.comp_id,
+      ← Category.assoc, toUnit_unique (ψ ≫ toUnit B.X) (toUnit A.X), hψdef, _root_.mul_assoc,
+      ← MonObj.comp_mul, inv_mul_cancel, MonObj.comp_one, _root_.mul_one, e.hom_inv_id]
+  have h2 : ψ' ≫ ψ = 𝟙 B.X := by
+    have k1 : ψ' ≫ e.hom = 𝟙 B.X * (toUnit B.X ≫ b) := by
+      rw [hψ'def, Category.assoc, e.inv_hom_id, Category.comp_id]
+    have k2 : ψ' ≫ toUnit A.X ≫ b⁻¹ = toUnit B.X ≫ b⁻¹ := by
+      rw [← Category.assoc, toUnit_unique (ψ' ≫ toUnit A.X) (toUnit B.X)]
+    rw [hψdef, MonObj.comp_mul, k1, k2, _root_.mul_assoc, ← MonObj.comp_mul, mul_inv_cancel,
+      MonObj.comp_one, _root_.mul_one]
+  have h3 : η[A.X] ≫ ψ = η[B.X] := by
+    rw [hψdef, MonObj.comp_mul, ← Category.assoc, hu, Category.id_comp, ← hb, mul_inv_cancel,
+      MonObj.one_eq_one]
+  have h4 : η[B.X] ≫ ψ' = η[A.X] := by
+    rw [hψ'def, ← Category.assoc, MonObj.comp_mul, Category.comp_id, ← Category.assoc, hu',
+      Category.id_comp, MonObj.one_eq_one, _root_.one_mul, hb, Category.assoc, e.hom_inv_id,
+      Category.comp_id]
+  have hψ : IsMonHom ψ := hR k A B ψ h3
+  have hψ' : IsMonHom ψ' := hR k B A ψ' h4
+  intro f hf
+  let g : PkgI3.AbVar.End B := PkgI3.AbVar.Hom.mk' (ψ' ≫ f.hom ≫ ψ)
+  have hfg : f.hom = ψ ≫ g.hom ≫ ψ' := by
+    change f.hom = ψ ≫ (ψ' ≫ f.hom ≫ ψ) ≫ ψ'
+    simp only [Category.assoc, h1, Category.comp_id]
+    rw [← Category.assoc, h1, Category.id_comp]
+  have hg0 : g ≠ 0 := by
+    intro hg
+    apply hf
+    apply PkgI3.AbVar.Hom.ext'
+    rw [hfg, hg, PkgI3.AbVar.Hom.hom_zero, MonObj.one_comp, MonObj.comp_one,
+      PkgI3.AbVar.Hom.hom_zero]
+  obtain ⟨hfin, hsurj⟩ := hB g hg0
+  have : IsIso ψ.left := ⟨ψ'.left, by rw [← Over.comp_left, h1]; rfl,
+    by rw [← Over.comp_left, h2]; rfl⟩
+  have : IsIso ψ'.left := ⟨ψ.left, by rw [← Over.comp_left, h2]; rfl,
+    by rw [← Over.comp_left, h1]; rfl⟩
+  rw [hfg]
+  show IsFinite (ψ ≫ g.hom ≫ ψ').left ∧ Surjective (ψ ≫ g.hom ≫ ψ').left
+  rw [Over.comp_left, Over.comp_left]
+  exact ⟨inferInstance, inferInstance⟩
+
+
+/-- **FS2 holds unconditionally** (`RigidityHom` is proved, `rigidityHom`). -/
+theorem endDivisionOfSchemeIso : EndDivisionOfSchemeIso :=
+  endDivisionOfSchemeIso_of_rigidity rigidityHom
+
+/-- **FS3 from the leaf T6 (`PkgI3.HomFreeFinite`) and the leaf `KerUnitOpen`.** -/
+theorem end0Division_of_homFree_kerUnitOpen (hHF : PkgI3.HomFreeFinite)
+    (h : MulRigidity.KerUnitOpen) : EndDivisionOfEnd0Division :=
+  end0Division_of_homFree hHF (MulRigidity.mulIsogeny_of_kerUnitOpen h)
+
+end G0FibreSimple
+
+#print axioms G0FibreSimple.endDivisionOfSchemeIso
+#print axioms G0FibreSimple.end0Division_of_homFree_kerUnitOpen
