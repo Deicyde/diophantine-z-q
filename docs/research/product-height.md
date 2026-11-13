@@ -183,7 +183,8 @@ No new literature leaf is introduced.
   together with
   `example (hS : ProductUnifSplits) (hA : ProductMetrizationOfProductUnif) :
   ZInQ.H5Neron.ProductModelHeight := productModelHeight_of_splits hS hA`.
-  - `lake env lean` on the result gives 0 errors (8.5 min; re-run on the final file, 8.2 min).
+  - `lake env lean` on the result gives 0 errors (last run on the final file, with Lean §5b
+    and §6b: 8.9 min).
   - `productModelHeight_of_splits` and `productModelHeight_of_geo` use only the standard axioms
     there.
   - The generated file is not committed (log).

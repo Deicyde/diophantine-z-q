@@ -63,3 +63,5 @@
   `congr 1` after the `dif_pos` rewrites), `analyticClauses_comp`, `analyticClauses_precomp`,
   `proj_analyticClauses` (clauses 4, 5 for `z ↦ p₁(Φ(ℓ z))`, any linear `ℓ`). Compile: 0 errors,
   23/23 `#print axioms` standard (VERIFIED); 4 deprecation warnings (`dif_pos`/`dif_neg`).
+- Integration check re-run on the final file (with §5b and §6b): 0 errors, 8 min 54 s; standard
+  axioms (VERIFIED). Generated file deleted again.

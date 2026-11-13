@@ -39,7 +39,7 @@ formalized.
   `analyticUnif_left_…`.
 - **Integration check:** the file was pasted into a copy of `scratch/h-decomposition/Leaves.lean`,
   with an `example` closing its `GluePieces.productModelHeight` type from the two glue Props.
-  Result: 0 errors (8.2 min on the final file), standard axioms (`build_integrated.sh`).
+  Result: 0 errors (8.9 min on the final file), standard axioms (`build_integrated.sh`).
 
 **What remains.** S-an and S-alg are unproved (sizes SPECULATIVE):
 - S-an, medium: closed subgroups of `ℝⁿ` (not in Mathlib) and the Zariski-closedness of `p₁ x = 1`.
