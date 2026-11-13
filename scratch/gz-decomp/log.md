@@ -24,3 +24,14 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
   `frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd`,
   `frozenTarget_of_sixContactMin_tyzInputs_grossZagierCd`, `grossZagierCd_of_grossZagier`:
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Steps 2-3: leaves, glue, assembly (`scratch/gz-decomp/Decomp.lean`)
+- Compiles with `lake env lean` (7 s). Objects: TC `HeckeRing.GL2.Newform`, `Newform.frickeSign`,
+  Mathlib `qExpansion`, `LSeries`, `jacobiSym`, `Affine.Point.map`, `AdjoinRoot`.
+- Leaves stated: `HeckeThetaNewform` (L1), `FHNonvanishing` (L2), `GrossZagierHeegner` (L3).
+- Glue proved: `modular_cd` (G1), `isEntireCont_of_isLContinuation` (G2),
+  `exists_rat_point_of_heegner` (G4, with TC `exists_baseChange_eq_of_map_eq`),
+  `exists_quadratic_field` (G5, `AdjoinRoot (X² − D)`), `grossZagierCd_of_leaves` (G0 assembly).
+- Glue open: `SignOfSimpleZero` (G3), hypothesis of the assembly.
+- `#print axioms grossZagierCd_of_leaves`, `modular_cd`, `exists_rat_point_of_heegner`:
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
