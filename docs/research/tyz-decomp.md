@@ -107,6 +107,12 @@ From `scratch/tyz-decomp/CurveA.lean` (namespace `ZInQ.Contrib.TYZDecomp.CurveA`
 theorem nonsingular_iPt {x y : Qbar} (h : curveAbar.toAffine.Nonsingular x y) :
     curveAbar.toAffine.Nonsingular (-x) (iQ * y)
 theorem lemma316_zero : IsDefinedOver Qi (0 : PtA) ∧ 2 • ((0 : PtA) + iPt 0) = 0
+theorem slope_iPt (x₁ x₂ y₁ y₂ : Qbar) :
+    curveAbar.toAffine.slope (-x₁) (-x₂) (iQ * y₁) (iQ * y₂) =
+      -iQ * curveAbar.toAffine.slope x₁ x₂ y₁ y₂
+theorem iPt_add (P Q : PtA) : iPt (P + Q) = iPt P + iPt Q      -- [i] is additive
+theorem iPt_iPt (P : PtA) : iPt (iPt P) = -P                   -- [i]² = −1
+def iHom : PtA →+ PtA := AddMonoidHom.mk' iPt iPt_add
 ```
 
 `#print axioms` output (VERIFIED, 2026-11-13, `lake env lean`):
@@ -124,6 +130,8 @@ theorem lemma316_zero : IsDefinedOver Qi (0 : PtA) ∧ 2 • ((0 : PtA) + iPt 0)
 'ZInQ.Contrib.TYZDecomp.genusPackage_iff_readingA' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.CurveA.nonsingular_iPt' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.TYZDecomp.CurveA.lemma316_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.CurveA.iPt_add' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZDecomp.CurveA.iPt_iPt' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 No leaf is proved here; the leaves are `def … : Prop`. The glue is proved.
@@ -329,9 +337,9 @@ Beyond Proposition N (already in Lean), the glue is:
 To state the package's fields as separate leaves over genuine definitions, Lean needs, in this order:
 
 1. **`A(K)` as a `ℤ[i]`-module with Galois action.** Available in part: `CurveA.lean` has `A(ℚ̄)`, `[i]`
-   as a function, and `A(K)` for `K ⊆ ℚ̄`; Mathlib has `Point.map` for the Galois action. Missing: the
-   additivity of `[i]` (textbook: an isomorphism of Weierstrass curves fixing `O` is a group
-   homomorphism; provable, est. 150–300 lines). With it, `τ` is pinned by its explicit values (the cusp
+   with `[i]` additive and `[i]² = −1` (`iPt_add`, `iPt_iPt`, proved here), and `A(K)` for `K ⊆ ℚ̄`;
+   Mathlib has `Point.map` for the Galois action. Missing: the `ℤ[i]`-module instance built from `iHom`
+   (routine) and the arithmetic of the explicit 2-power torsion points. With them, `τ` is pinned by its explicit values (the cusp
    dictionary of rv-tyz-inputs §1.5a: `τ(1) = (0,0)`, `τ(±1/2) = (2,∓4)`, `τ((1±i)/2) = (∓2i,0)` up to the
    signs listed there), and Lemma 3.16 becomes a usable field.
 2. **The lifting `β'`.** Pinnable as any `σ ∈ Gal(ℚ̄/ℚ)` with `σ(√D) = sgn(D)·(−2, D)₂·√D` for all
