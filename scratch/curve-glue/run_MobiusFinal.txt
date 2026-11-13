@@ -44,3 +44,6 @@ Note: This linter can be disabled with `set_option linter.unusedTactic false`
 'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_G1_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_G1'_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_G1'_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.Pin.curveFacts_of_L0_CI_G1''' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_L0_CI_G1''_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_L0_CI_G1''_T5' depends on axioms: [propext, Classical.choice, Quot.sound]

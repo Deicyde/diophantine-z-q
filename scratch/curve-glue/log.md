@@ -77,3 +77,13 @@
   properness alone suffices; clopen needed: 𝔸¹ ⊂ P¹ fails for merely open W).
 - `ImagePlaneCurveClosed`: TRUE, not vacuous (S = {P} works; S = ∅ would force the image to be all of K², so the
   clause is a real constraint; cases ρ ≡ c, ρ ≡ ∞, σ = ∞ checked).
+
+## 11. Clause (c) from irreducibility (`ClauseC.lean.part`, assembled into CurveGlueAll/MobiusEnd/MobiusFinal)
+- (CI) `ComponentIrreducible`: smooth rel. dim 1 over a field ⇒ connected components irreducible (glue, STANDARD).
+- (G1'') `ImagePlaneCurveIrr` = (G1') without clause (c).
+- `lc_eval_eq_zero_of_irreducible`: section P^rev(σ, 1/ρ) on W ∩ {σ≠∞} ∩ {ρ≠0} vanishes on the dense open {ρ≠∞}
+  (via (a), `eval₂_reverse_mul_pow`), hence at p₁ (closure, `subset_closure_inter_of_isPreirreducible_of_isOpen`),
+  where it is lc(P)(t) (`eval₂_at_zero`, `coeff_zero_reverse`).
+- `imagePlaneCurveClosed_of (hI) (hG'') : ImagePlaneCurveClosed`, `ratFactorAlgClosed_of_irr`,
+  `curveFacts_of_glue''`, `curveFacts_of_L0_CI_G1''`, `mobiusGlue_of_L0_CI_G1''_T5`, `mobiusGlueNoCM_of_L0_CI_G1''_T5`.
+  All three composite files recompiled: 0 errors, standard axioms (VERIFIED, run_*.txt).
