@@ -85,3 +85,9 @@
   (GaussSplit 1 → GaussSplit d, d ≡ 1 mod 4 odd sqfree; quadratic reciprocity),
   `literature_hecke_fe_final : (∀ d ≡ 5 (8) sqfree, HeckeEuler d) → GaussSplit 1 →
    (∀ odd prime p, OddGauss p) → HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.
+- (VERIFIED, compiled ~18:40; axioms standard) node C2'' done: `chiC`, `gP`, `chiC_isQuadratic`,
+  `chiC_ne_one`, `sum_chi_psi_mul`, `chiC_sq_of_ne_zero`, `sum_psi_sq`, `sum_psi_complete_sq`,
+  `chiC_inv_eq`, `gP_sq`, `gP_ne_zero`, `gauss2D` (Σ_{x,y∈𝔽_p} χ(x²+y²)e((xn₁+yn₂)/p) = p χ(n₁²+n₂²)),
+  `jacobiSym_eq_chiC`, `oddGauss_prime` (OddGauss p for odd primes p), and
+  `literature_hecke_fe_of_heckeEuler_gaussSplit : (∀ d ≡ 5 (8) sqfree, HeckeEuler d) → GaussSplit 1 →
+   HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`. The Fourier side is fully proved.

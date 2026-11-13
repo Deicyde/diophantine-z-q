@@ -1814,6 +1814,48 @@ theorem gauss2D (hp2 : p ≠ 2) (n1 n2 : ZMod p) :
   rw [this, hsq]
   linear_combination (p * chiC p (n1 ^ 2 + n2 ^ 2)) * hm1
 
+theorem jacobiSym_eq_chiC (m : ℤ) : (jacobiSym m p : ℂ) = chiC p (m : ZMod p) := by
+  rw [← jacobiSym.legendreSym.to_jacobiSym, legendreSym]
+  simp [chiC, MulChar.ringHomComp_apply]
+
+/-- **`OddGauss p` for every odd prime `p`.** -/
+theorem oddGauss_prime (hp2 : p ≠ 2) : OddGauss p := by
+  intro ν
+  set f : Fin p × Fin p → ZMod p × ZMod p := fun b => (((b.1 : ℕ) : ZMod p), ((b.2 : ℕ) : ZMod p))
+  have hinj : Function.Injective f := by
+    rintro ⟨a, b⟩ ⟨a', b'⟩ h
+    simp only [f, Prod.mk.injEq] at h
+    have h1 := congrArg ZMod.val h.1
+    have h2 := congrArg ZMod.val h.2
+    rw [ZMod.val_natCast_of_lt a.2, ZMod.val_natCast_of_lt a'.2] at h1
+    rw [ZMod.val_natCast_of_lt b.2, ZMod.val_natCast_of_lt b'.2] at h2
+    rw [Fin.ext h1, Fin.ext h2]
+  have hbij : Function.Bijective f := by
+    rw [Fintype.bijective_iff_injective_and_card]
+    exact ⟨hinj, by simp [Fintype.card_prod, ZMod.card]⟩
+  have hR : chiC p ((ν.1 ^ 2 + ν.2 ^ 2 : ℤ) : ZMod p) =
+      chiC p ((ν.1 : ZMod p) ^ 2 + (ν.2 : ZMod p) ^ 2) := by push_cast; rfl
+  rw [oddSum, jacobiSym_eq_chiC, hR, ← gauss2D hp2, ← Fintype.sum_prod_type']
+  refine Fintype.sum_bijective f hbij _ _ fun b => ?_
+  simp only [f]
+  rw [jacobiSym_eq_chiC]
+  congr 1
+  · push_cast; rfl
+  · rw [show (2 * π * I * (((b.1 : ℕ) : ℂ) * ν.1 + ((b.2 : ℕ) : ℂ) * ν.2) / p : ℂ) =
+        2 * π * I * ((((b.1 : ℕ) * ν.1 + (b.2 : ℕ) * ν.2 : ℤ)) : ℂ) / p by push_cast; ring,
+      ← ZMod.stdAddChar_coe]
+    push_cast; rfl
+
 end OddGaussPrime
+
+/-- **Final form**: the two literature Props from `HeckeEuler` (the Euler product of `L(ψ_d, s)`,
+a statement about `ℤ[i]`) and Gauss's theorem for the single curve `y² = x³ − x`
+(`GaussSplit 1`). The Fourier side (`OddGauss`) is fully proved. -/
+theorem literature_hecke_fe_of_heckeEuler_gaussSplit
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d) (h1 : GaussSplit 1) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_final hE h1 fun p hp hp2 => by
+    have : Fact p.Prime := ⟨hp⟩
+    exact oddGauss_prime hp2
 
 end BpHeckeFE
