@@ -24,6 +24,7 @@ import ZInQKernel.HDecomp.Repo.TorsionFree
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Progressions.Final.Instance
 import ZInQKernel.Size.Constants.T
+import ZInQKernel.HDecomp.Textbook.SkolemNoether
 H
 echo
 echo "/-! # Part 1. scratch/morph-descend/Descend.lean lines 3-401 (verbatim) -/"

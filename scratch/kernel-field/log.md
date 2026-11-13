@@ -13,6 +13,9 @@
 - 05:48 torsionCountPts_of_leaf (TorsionCountPts from leaf PkgI2.TorsionStructure, via exists_closure_equiv + MonObj.comp_pow)
   and kernelFieldExists_of_leaves (hHFF hNOS hRay hTors hMaps : ConjMapsOnHomField) : KernelFieldExists compiled,
   standard axioms only (VERIFIED, build3.txt).
-- 05:58 §6.6: FS5 FibreComTrivial copied verbatim (namespace G0FibreSimple); ConjMapsNoCM (NoCM as explicit
+- 05:51 §6.6: FS5 FibreComTrivial copied verbatim (namespace G0FibreSimple); ConjMapsNoCM (NoCM as explicit
   hypothesis com P.q = ℤ); conjMapsOnHomField_of (FS5 + ConjMapsNoCM → ConjMapsOnHomField) and
   kernelFieldExists_of_leaves_FS5 compiled, standard axioms (VERIFIED, build4.txt).
+- 06:0x §6.7 aut_O_inner (every ring automorphism of 𝒪 is conjugation by a unit of B = (2,-3)_ℚ; via
+  QuaternionAlgebra.Basis.liftHom on α(i), α(j), RingHom.injective (B simple), TSkolemKW.leafSkolemNoether, agreement on
+  2a ∈ ℤ[1,i,j,ij]) compiled, standard axioms (VERIFIED, build5.txt). Import added: ZInQKernel.HDecomp.Textbook.SkolemNoether.

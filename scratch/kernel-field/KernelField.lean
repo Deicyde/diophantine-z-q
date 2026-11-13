@@ -17,6 +17,7 @@ import ZInQKernel.HDecomp.Repo.TorsionFree
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Progressions.Final.Instance
 import ZInQKernel.Size.Constants.T
+import ZInQKernel.HDecomp.Textbook.SkolemNoether
 
 /-! # Part 1. scratch/morph-descend/Descend.lean lines 3-401 (verbatim) -/
 section PartDescend
@@ -4413,6 +4414,90 @@ theorem kernelFieldExists_of_leaves_FS5 (hHFF : PkgI3.HomFreeFinite)
 
 end G0ModField.KernelField
 
+
+/-! ## §6.7 Skolem–Noether on `𝒪` (proved): every twist `α ∈ Aut(𝒪)` is inner in `B`
+
+A7 (`LeafQM.AV.conj_twist_of_rational`) gives `^σP ≅ P` only up to a twist of the QM action by a
+ring automorphism `α_σ` of `𝒪`. The algebraic half of the Skolem–Noether descent (N5 L632-640):
+`α` extends to a `ℚ`-automorphism of `B = (2,-3)_ℚ` (through the quaternion basis
+`α(i), α(j)`), which is inner by Skolem–Noether (T13, proved in
+`ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`). So `α(a) = u a u⁻¹` for some `u ∈ B^×`, and
+`ι(Nu) ∘ (QM iso)` is a `B`-linear isogeny for any `N ≥ 1` with `Nu ∈ 𝒪`. -/
+
+section AutO
+
+open LeafQM LeafQM.AV
+
+namespace G0ModField.KernelField
+
+theorem oj_mul_oi' : oj * oi = -(oi * oj) := by
+  apply Subtype.ext
+  rw [Subring.coe_neg, Subring.coe_mul, Subring.coe_mul]
+  ext <;> simp [oi, oj, LeafQM.ofInt]
+
+/-- The quaternion basis `α(i), α(j), α(i)α(j)` of `B` given by a ring automorphism `α` of `𝒪`. -/
+noncomputable def autBasis (α : O ≃+* O) : QuaternionAlgebra.Basis B (2 : ℚ) 0 (-3) where
+  i := (α oi : B)
+  j := (α oj : B)
+  k := (α oi : B) * (α oj : B)
+  i_mul_i := by
+    rw [← Subring.coe_mul, ← map_mul, oi_mul_oi, map_ofNat, zero_smul, add_zero, Algebra.smul_def,
+      _root_.mul_one, map_ofNat]
+    rfl
+  j_mul_j := by
+    rw [← Subring.coe_mul, ← map_mul, oj_mul_oj, map_neg, map_ofNat, Subring.coe_neg,
+      Algebra.smul_def, _root_.mul_one, map_neg, map_ofNat]
+    rfl
+  i_mul_j := rfl
+  j_mul_i := by
+    rw [← Subring.coe_mul, ← map_mul, oj_mul_oi', map_neg, map_mul]
+    simp
+
+/-- **Skolem–Noether on `𝒪` (proved, from T13).** Every ring automorphism `α` of the maximal
+order `𝒪 ⊂ B = (2,-3)_ℚ` is conjugation by a unit of `B`. -/
+theorem aut_O_inner (α : O ≃+* O) : ∃ u : Bˣ, ∀ a : O, (α a : B) = u * a * (u⁻¹ : Bˣ) := by
+  let φ : B →ₐ[ℚ] B := (autBasis α).liftHom
+  have hinj : Function.Injective φ := φ.toRingHom.injective
+  have hbij : Function.Bijective φ :=
+    ⟨hinj, (LinearMap.injective_iff_surjective (f := φ.toLinearMap)).mp hinj⟩
+  obtain ⟨u, hu⟩ := TSkolemKW.leafSkolemNoether ℚ B (AlgEquiv.ofBijective φ hbij)
+  refine ⟨u, fun a => ?_⟩
+  rw [← hu]
+  show (α a : B) = φ a
+  let ψ1 : O →+* B := (Subring.subtype O).comp α.toRingHom
+  let ψ2 : O →+* B := φ.toRingHom.comp (Subring.subtype O)
+  have hi : ψ1 oi = ψ2 oi := by
+    show (α oi : B) = (autBasis α).lift (oi : B)
+    simp [QuaternionAlgebra.Basis.lift, oi, LeafQM.ofInt, autBasis]
+  have hj : ψ1 oj = ψ2 oj := by
+    show (α oj : B) = (autBasis α).lift (oj : B)
+    simp [QuaternionAlgebra.Basis.lift, oj, LeafQM.ofInt, autBasis]
+  obtain ⟨n, hn⟩ := a.2
+  have h2 : (2 : O) * a = ((2 * n 0 + n 2 : ℤ) : O) + ((2 * n 1 + n 3 : ℤ) : O) * oi +
+      ((n 2 : ℤ) : O) * oj + ((n 3 : ℤ) : O) * (oi * oj) := by
+    apply Subtype.ext
+    simp only [Subring.coe_add, Subring.coe_mul, Subring.coe_intCast]
+    rw [show ((2 : O) : B) = 2 from rfl, hn]
+    ext <;> simp [oi, oj, LeafQM.ofInt, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> ring
+  have key : ∀ ψ : O →+* B, ψ ((2 : O) * a) = ((2 * n 0 + n 2 : ℤ) : B) +
+      ((2 * n 1 + n 3 : ℤ) : B) * ψ oi + ((n 2 : ℤ) : B) * ψ oj +
+      ((n 3 : ℤ) : B) * (ψ oi * ψ oj) := by
+    intro ψ
+    rw [h2]; simp only [map_add, map_mul, map_intCast]
+  have e : (2 : B) * ψ1 a = (2 : B) * ψ2 a := by
+    have := key ψ1
+    rw [map_mul, map_ofNat] at this
+    rw [this, hi, hj, ← key ψ2, map_mul, map_ofNat]
+  have e2 : (2 : ℚ) • ψ1 a = (2 : ℚ) • ψ2 a := by
+    rw [two_smul, two_smul, ← two_mul, ← two_mul]; exact e
+  exact smul_right_injective B (two_ne_zero : (2 : ℚ) ≠ 0) e2
+
+end G0ModField.KernelField
+
+end AutO
+
+#print axioms G0ModField.KernelField.aut_O_inner
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves_FS5
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves
 #print axioms G0ModField.KernelField.conjugacyData_of_maps
