@@ -4666,6 +4666,12 @@ theorem mobiusGlue_of_T5 (hT : ObjBridge.TorsionStructure) : MobiusGlue :=
 theorem mobiusGlueNoCM_of_T5 (hT : ObjBridge.TorsionStructure) (h : R1R2fp) : MobiusGlueNoCM :=
   mobiusGlue_noCM_of (mobiusGlue_of_T5 hT) h
 
+/-- **The same with T5 in the form of `HSyn.TextbookLeaves.t5`** (`PkgI2.TorsionStructure.{0}`;
+the kernel's `ObjBridge.torsionStructure_iff` is `Iff.rfl`): this discharges the field `mobius`
+of `HSyn.GluePiecesPin` from the textbook bundle. -/
+theorem mobiusGlue_of_t5 (h : PkgI2.TorsionStructure.{0}) : MobiusGlue :=
+  mobiusGlue_of_T5 (ObjBridge.torsionStructure_iff.2 h)
+
 end CurveGlue
 
 end AV
@@ -4684,3 +4690,4 @@ end
 #print axioms LeafQM.AV.Pin.curveFacts
 #print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_T5
 #print axioms LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_T5
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5

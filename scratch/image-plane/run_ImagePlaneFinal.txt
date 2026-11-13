@@ -53,3 +53,4 @@ Hint: Replace the deprecated name:
 'LeafQM.AV.Pin.curveFacts' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlue_of_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
 'LeafQM.AV.CurveGlue.mobiusGlueNoCM_of_T5' depends on axioms: [propext, Classical.choice, Quot.sound]
+'LeafQM.AV.CurveGlue.mobiusGlue_of_t5' depends on axioms: [propext, Classical.choice, Quot.sound]
