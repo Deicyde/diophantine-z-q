@@ -16,3 +16,34 @@
   in plain Python (fractions, cmath).
 - COMPILED: ZInQKernel/Contrib/TYZGenus/X0.lean skeleton (defs + leaves X0-EQ, X0-INV, X0-BIJ, X0-DIFF,
   X0-NEWFORM, X0-CUSP, X0-DICT; `lake env lean`, no errors).
+
+## 07:20 algebraic part proved (X0.lean §4–§10), all axioms = [propext, Classical.choice, Quot.sound]
+
+- COMPILED (`lake build ZInQKernel.Contrib.TYZGenus.X0`; audit `scratch/x0-32/Audit.lean`):
+  `scalePt_add` (generic `(x,y) ↦ (w²x, w³y)` between short curves is additive),
+  `iotaInv_iota`, `iota_iotaInv` (`ι : A ≅ C₁` over ℚ(i), w = (1+i)/2),
+  `psi_phi : psi (phi P) = 2 • P`, `phi_psi : phi (psi Q) = 2 • Q` (φ = ι∘(1+[i]), ψ = (1−[i])∘ι⁻¹),
+  `phi_some` (φ(x,y) = (y²/4x², y(x²−4)/8x²), x ≠ 0), `psi_some` (ψ(x,y) = (y²/x², y(x²+1)/x²)),
+  `phi_map`, `psi_map` (commute with every σ : ℚ̄ →ₐ[ℚ] ℚ̄),
+  `two_nsmul_add_iPt_eq_zero_iff` (A[(1+i)³] = {O,(0,0),(2,±4),(−2,±4i),(±2i,0)}),
+  `lemma316_mpr` (A[(1+i)³] ⊆ A(ℚ(i))), `tyzLemma316_iff` (TYZLemma316 ↔ A(ℚ(i)) ⊆ A[(1+i)³]),
+  `curveX0_j = 1728`, `curveC1_j = 1728`, `curve32a3_j = curve32a4_j = 287496`, Δ = −4096, 64, 512, 512,
+  `not_exists_variableChange_X0_C1` (no ℚ-isomorphism y²=x³+4x → y²=x³−x; c₄ ratio −1/4 < 0),
+  `isoVC_smul` (explicit VariableChange over ℚ̄, u = 1 − i, maps A to C₁),
+  `isCuspImage_toC` (cusp-image set over ℂ = image of A[(1+i)³] under a fixed ℚ̄ → ℂ).
+- Finding: proving additivity of the 2-isogeny by brute-force formulas was avoided: φ = ι∘(1+[i]) reduces it
+  to additivity of linear scalings plus CurveA's `iPt_add`.
+
+## 08:00–08:40
+
+- COMPILED: `X0Newform.lean` (leaf `NewformTC32` over Tau Ceti's `HeckeRing.GL2.Newform 32 2`).
+- COMPILED: leaves `EtaModelWeierstrass` (eta model = ℘_L ∘ Eichler integral for any L with g₂=−16, g₃=0)
+  and `EtaModelFricke`; `X0AnalyticModel` = conjunction of 9 leaves.
+- VERIFIED (`fricke.py`): φ(−1/(32τ)) + φ(τ) = (2,−4) at 3 points (12 digits); x(W₃₂τ) =
+  2 + 8η(2τ)η(16τ)²/(η(τ)²η(8τ)).
+- COMPILED: holomorphy of x, y, f on ℍ; f, y nonvanishing; `phiC_eq_some`, `phiC_ne_zero` (under
+  EtaModelEquation); `eta_add_nat`; `xC_yC_fC_T_smul` (T-invariance). Audit: 28 declarations, all
+  [propext, Classical.choice, Quot.sound].
+- VERIFIED (`ModParamRfl.lean`): cm-points' `CM.modParam` (verbatim copy) is `rfl`-equal to `X0.modParamF`.
+- Merged origin/main (6c225515) once (STATUS.md only).
+- Report docs/research/x0-32.md written.
