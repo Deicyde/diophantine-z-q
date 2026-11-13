@@ -1,0 +1,40 @@
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_isIntegralHom_of_surjective' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.height_eq_natCard_of_isMaximal_mvPolynomial' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_and_spanFinrank_localization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_stalk_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.isRegularLocalRing_stalk_of_smooth' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.finrank_cotangentSpace_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_stalk_of_section' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_ringKrullDim_stalk_of_smooth' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.ringKrullDim_eq_trdeg_fractionRing' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.exists_aeval_eq_zero_of_trdeg_le_one' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.topologicalKrullDim_eq_trdeg_functionField' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.trdeg_functionField_eq_of_smoothOfRelativeDimension' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdegAlg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.algDepOfTrdegOne' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.smoothTrdeg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.curveFnFieldAlgDep' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimEqTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.smoothTrdegOver' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.curveAlgOverTranscendental' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.regularAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.dimBaseChange' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.tangentDimAtOrigin' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.Dim.hodgeLatticeTheorem' depends on axioms: [propext, Classical.choice, Quot.sound]
