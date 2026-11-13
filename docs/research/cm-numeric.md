@@ -41,7 +41,8 @@ log: `scratch/cm-numeric/log.md`. Marks: **VERIFIED** (computed, compiled, or re
        (h5 : Lemma321Five) (h7' : Lemma321Seven) : ZInQ.Literature.TYZThm35ReadingA
    ```
 
-   COMPILE STATUS: see §3.
+   (VERIFIED compiled, standard axioms; §3.) `Phi0` is never junk: TYZ's `Φ₀` exists (`phi0_spec`,
+   proved).
 
 ## 1. Statements (Lean, `namespace ZInQ.Contrib.TYZGenus.CMNumeric`)
 
@@ -53,7 +54,7 @@ Pinned objects (definitions):
   `liftMax d c` (a chosen lift for the maximal order); `sqClasses d = Cl(K_d)²`.
 * `Z7 e = Σ_{c ∈ Cl(K_e)²} galPt (liftMax e c) (tyzZ7 e)` (TYZ L1316–1318 with σ = 1: Φ₀ = 2Cl_e).
 * `IsPhi0 e T`, `Phi0 e` (class 5: a chosen set of lifts of elements of `2Cl'_e`, exactly one over
-  each element of `2Cl_e`; junk `∅` if none — existence is TYZ L1270–1276, not formalized).
+  each element of `2Cl_e`); `phi0_spec : IsPhi0 e (Phi0 e)` for `e ≠ 0` (proved, §9 of the file).
 * `tyzZ = tyzGenusPt Phi0 Z7`, `hilbertBar d`, `genusBar d`.
 
 Leaves (`def … : Prop`, about pinned objects):
@@ -81,13 +82,22 @@ Leaves (`def … : Prop`, about pinned objects):
   `tyzThm35ReadingA_of_cmLeaves`), `tyzThm35ReadingA_of_pinnedLeaves`.
 * §7: `fixed_of_mem_Hprimebar` (easy half of the Galois correspondence for `H'_d`),
   `tyzSigmaFixesZn_of : TYZSigmaShiftsF0 → IInHprime → TYZSigmaFixesZn`.
+* §9 `exists_restrict` (every element of `Gal(H_e/K_e)` extends to `Gal(H_{e,4}/K_e)`),
+  `exists_phi0_elem`, `artinO_inj`, `exists_isPhi0`, `phi0_spec`.
 * §8 Galois descent for class 7: `galPt_mul`, `galPt_congr`, `actsO_mem`, `actsO_agree`, `actsO_mul`,
   `sum_sqClasses_mul`, `Z7_mem`, `galPt_Z7` (lifts of `2Cl_e` fix `Z(e)`), `mem_genusBar_of_fixed`,
   `class7GenusPtDefined_of`.
 
 ## 3. Compile status
 
-(filled in below after the Lean run)
+`lake build ZInQKernel.Contrib.TYZGenus.Package` (10092 jobs, clean), then
+`lake env lean scratch/cm-numeric/Class7.lean`: no errors, no warnings (VERIFIED, 2026-11-13).
+`#print axioms` (output `scratch/cm-numeric/audit-out.txt`) for `tyzDelta_spec`, `exists_actsAsArtinO`,
+`lemma321_of`, `genusPointLeafCM_of_pinned`, `genusPointLeaf_of_pinned`, `tyzThm35ReadingA_of_pinned`,
+`tyzThm35ReadingA_of_pinned'`, `tyzSigmaFixesZn_of`, `galPt_Z7`, `class7GenusPtDefined_of`,
+`tyzThm35ReadingA_of_pinnedLeaves`, `Copy.genusPointLeafCM_eq`, `phi0_spec`: all
+`[propext, Classical.choice, Quot.sound]`. The file sets `maxRecDepth 8000` (needed by the
+generic-order Artin lemmas) and uses `decide +kernel` (no `native_decide`).
 
 ## 4. What the numerics do not settle
 
@@ -98,5 +108,5 @@ Leaves (`def … : Prop`, about pinned objects):
 * `Lemma318Literal` (torsion of `A(ℍ'_n)`) is not testable with these tools (fields of degree ≥ 2^k·h).
 * The sign of `[i]` in `tyzZn` (cm-points caveat 5) is not singled out by any of the checks here:
   `TYZSigmaFixesZn` and Lemma 3.21(1) hold for both `1 − [i]` and `1 + [i]`.
-* `Phi0`'s existence (a set of lifts as in `IsPhi0`) is not formalized; it is TYZ's L1270–1276 and
-  needs the compatibility of Tau Ceti's Artin maps for `O4 d` and the maximal order.
+* `GenusFieldLeLni` stays a leaf: ring-class proves the genus field has degree `2^{t−1}` and is cut
+  out by the genus characters (`genusField_eq_fixedField_chi`), but not that it equals `ℚ(√p*)`.
