@@ -206,10 +206,34 @@ def EtaModelWeierstrass : Prop :=
     modParamF τ ∉ L.lattice ∧ xC τ = L.weierstrassP (modParamF τ) ∧
       yC τ = L.derivWeierstrassP (modParamF τ) / 2
 
-/-- The analytic model of `X₀(32)` (all six leaves). -/
+theorem nonsingular_TC : curveAC.toAffine.Nonsingular 2 (-4) := by
+  rw [WeierstrassCurve.Affine.nonsingular_iff', WeierstrassCurve.Affine.equation_iff']
+  have h4 : curveAC.a₄ = 4 := by simp [curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+  have h0 : curveAC.a₁ = 0 ∧ curveAC.a₂ = 0 ∧ curveAC.a₃ = 0 ∧ curveAC.a₆ = 0 := by
+    simp [curveAC, curveA, shortCurve, WeierstrassCurve.baseChange]
+  rw [h4, h0.1, h0.2.1, h0.2.2.1, h0.2.2.2]
+  refine ⟨by norm_num, Or.inr ?_⟩
+  norm_num
+
+/-- `T = (2, −4) ∈ A(ℂ)`, the image of the cusp `0` (`τ(1/2)` in TYZ's notation). -/
+def ptTC : PtAC := .some 2 (-4) nonsingular_TC
+
+/-- **Leaf X0-FRICKE** (the Fricke involution `W₃₂ : τ ↦ −1/(32τ)` on `X₀(32) = A`):
+`φ(W₃₂τ) + φ(τ) = T = (2, −4)`, i.e. `W₃₂` acts on `A` as `P ↦ T − P` (`W₃₂`-eigenvalue `−1` on
+`f`, root number `+1` of `A`; `W₃₂` swaps the cusps `∞ ↦ 0`, `O ↦ T`).
+
+VERIFIED numerically here (`scratch/x0-32/fricke.py`, three `τ`, 12 digits). Exact form: by
+`η(−1/z) = √(z/i) η(z)`, `x(W₃₂τ) = 2 + 8 η(2τ)η(16τ)²/(η(τ)²η(8τ))` (VERIFIED numerically). The
+action of `W_N` on the modular parametrization (`φ ∘ W_N = −w_N φ + φ(0)`, `w_N` the
+`W_N`-eigenvalue): STANDARD (e.g. Darmon, *Rational points on modular elliptic curves*, CBMS 101,
+§2; locator UNVERIFIED); used by TYZ (rv-tyz-inputs §1.5: "`[∞]^W = [0]`"). -/
+def EtaModelFricke : Prop :=
+  ∀ τ τ' : UpperHalfPlane, (τ' : ℂ) = -1 / (32 * (τ : ℂ)) → phiC τ' + phiC τ = ptTC
+
+/-- The analytic model of `X₀(32)`: the conjunction of the nine leaves of §3. -/
 def X0AnalyticModel : Prop :=
   EtaModelEquation ∧ EtaModelInvariant ∧ EtaModelBijective ∧ EtaModelDifferential ∧
-    NewformEta32 ∧ CuspFormEta32 ∧ CuspDictionary
+    NewformEta32 ∧ CuspFormEta32 ∧ CuspDictionary ∧ EtaModelWeierstrass ∧ EtaModelFricke
 
 open WeierstrassCurve WeierstrassCurve.Affine
 
