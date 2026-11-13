@@ -28,3 +28,13 @@
     `PkgI6.HilbertDifferentFormula` (no completeness or perfectness used).
   * `PkgI6.hilbertDifferentFormula_of_monogenicDVR : MonogenicDVR → HilbertDifferentFormula`, where
     `MonogenicDVR` = Serre, Corps locaux III §6 Prop. 12 (UNVERIFIED locator): `∃ x, A[x] = B`.
+
+## Step 3 (22:45 PST): T20 local PROVED
+- `TDifferent.exists_adjoin_eq_top` (monogenicity, Serre III §6 Prop. 12, UNVERIFIED locator):
+  DVRs `A → B`, `B` finite torsion-free over `A`, residue field of `A` perfect ⇒ `∃ x, A[x] = B`.
+  Proof: primitive element `α` of `k_B/k_A`, lift `x`, and `x` or `x + π` makes `g(y) ∈ 𝔪 \ 𝔪²`
+  (`g` a lift of the minimal polynomial of `α`); then `B = A[y] + 𝔪^j` for all `j` and Nakayama.
+  Completeness of `A` is not used.
+- `PkgI6.hilbertDifferentFormula : PkgI6.HilbertDifferentFormula` (the verbatim leaf I6.7 = T20 local),
+  VERIFIED: `lake env lean scratch/t-different/HilbertLocal.lean` compiles; axioms propext,
+  Classical.choice, Quot.sound.  (Monogenic.lean development file folded in and removed.)

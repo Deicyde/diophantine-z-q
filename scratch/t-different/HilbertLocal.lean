@@ -1,8 +1,12 @@
 import Mathlib
 
 /-!
-# t-different: Hilbert's different formula (local, T20 = PkgI6.HilbertDifferentFormula)
-# from the monogenicity of the extension (Serre, *Corps locaux*, III §6, Prop. 12)
+# t-different: Hilbert's different formula (local, T20 = PkgI6.HilbertDifferentFormula), proved
+
+Route (Serre, *Corps locaux*, III §6 Prop. 12 and IV §1 Prop. 4): `B = A[x]` (monogenicity, proved
+here by Nakayama's lemma: `TDifferent.exists_adjoin_eq_top`), so `𝔇 = (f'(x))` (Mathlib's
+`conductor_mul_differentIdeal`), `f'(x) = ∏_{σ≠1} (x - σx)`, `v(x - σx) = i_G(σ)` and
+`∑_{σ≠1} i_G(σ) = ∑_i (|G_i| - 1)`.
 
 Check with `lake env lean scratch/t-different/HilbertLocal.lean`.
 -/
@@ -99,7 +103,132 @@ theorem maximalIdeal_pow_le_iff {m n : ℕ} :
   (Ideal.pow_right_strictAnti _ (IsDiscreteValuationRing.not_a_field B)
     (maximalIdeal.isMaximal B).ne_top).le_iff_ge
 
+/-- An element of `𝔪 \ 𝔪²` generates `𝔪`. -/
+theorem maximalIdeal_eq_span_of_mem_of_notMem {t : B} (ht : t ∈ maximalIdeal B)
+    (ht2 : t ∉ maximalIdeal B ^ 2) : maximalIdeal B = Ideal.span {t} := by
+  have ht0 : t ≠ 0 := by rintro rfl; exact ht2 (Ideal.zero_mem _)
+  obtain ⟨n, hn⟩ := span_eq_maximalIdeal_pow ht0
+  have h1 : 1 ≤ n := by
+    rw [← maximalIdeal_pow_le_iff (B := B), ← hn, pow_one, Ideal.span_singleton_le_iff_mem]; exact ht
+  have h2 : ¬ 2 ≤ n := by
+    rw [← maximalIdeal_pow_le_iff (B := B), ← hn, Ideal.span_singleton_le_iff_mem]; exact ht2
+  rw [hn, show n = 1 by omega, pow_one]
+
 end DVR
+
+section Monogenic
+
+variable (A B : Type) [CommRing A] [IsDomain A] [IsDiscreteValuationRing A]
+  [PerfectField (ResidueField A)]
+  [CommRing B] [IsDomain B] [IsDiscreteValuationRing B] [Algebra A B] [Module.Finite A B]
+  [Module.IsTorsionFree A B]
+
+/-- **Monogenicity** (Serre, *Corps locaux*, III §6, Prop. 12; here without completeness: only
+Nakayama's lemma over the local ring `A` is used). -/
+theorem exists_adjoin_eq_top : ∃ x : B, Algebra.adjoin A {x} = ⊤ := by
+  classical
+  have hinjAB : Function.Injective (algebraMap A B) := FaithfulSMul.algebraMap_injective A B
+  have : Algebra.IsIntegral A B := Algebra.IsIntegral.of_finite A B
+  have : IsLocalHom (algebraMap A B) := Algebra.IsIntegral.isLocalHom A B
+  have : Module.Finite (ResidueField A) (ResidueField B) := inferInstance
+  have : Algebra.IsSeparable (ResidueField A) (ResidueField B) := inferInstance
+  obtain ⟨α, hα⟩ := Field.exists_primitive_element (ResidueField A) (ResidueField B)
+  have hαadj : Algebra.adjoin (ResidueField A) {α} = ⊤ := by
+    rw [← IntermediateField.adjoin_simple_toSubalgebra_of_isAlgebraic
+      (Algebra.IsAlgebraic.isAlgebraic α), hα, IntermediateField.top_toSubalgebra]
+  have hlift : ∀ z : ResidueField B, ∃ P : A[X], aeval α P = z := by
+    intro z
+    have hz : z ∈ Algebra.adjoin (ResidueField A) {α} := hαadj ▸ Algebra.mem_top
+    rw [Algebra.adjoin_singleton_eq_range_aeval] at hz
+    obtain ⟨p, rfl⟩ := hz
+    obtain ⟨P, rfl⟩ := Polynomial.map_surjective (residue A) residue_surjective p
+    exact ⟨P, by rw [← ResidueField.algebraMap_eq]; exact (aeval_map_algebraMap _ _ _).symm⟩
+  have hres : ∀ (P : A[X]) (y : B), residue B (aeval y P) = aeval (residue B y) P := by
+    intro P y
+    have := Polynomial.aeval_algHom_apply (IsScalarTower.toAlgHom A B (ResidueField B)) y P
+    simpa [ResidueField.algebraMap_eq] using this.symm
+  obtain ⟨g, hg⟩ := Polynomial.map_surjective (residue A) residue_surjective
+    (minpoly (ResidueField A) α)
+  have hgα : aeval α g = 0 := by
+    rw [← minpoly.aeval (ResidueField A) α, ← hg, ← ResidueField.algebraMap_eq,
+      aeval_map_algebraMap]
+  have hg'α : aeval α (derivative g) ≠ 0 := by
+    have := (Algebra.IsSeparable.isSeparable (ResidueField A) α).aeval_derivative_ne_zero
+      (minpoly.aeval (ResidueField A) α)
+    rwa [← hg, derivative_map, ← ResidueField.algebraMap_eq, aeval_map_algebraMap] at this
+  obtain ⟨x, hx⟩ := residue_surjective α
+  obtain ⟨π, hπ⟩ := IsDiscreteValuationRing.exists_irreducible B
+  have hπm : maximalIdeal B = Ideal.span {π} := hπ.maximalIdeal_eq
+  have hπmem : π ∈ maximalIdeal B := hπm ▸ Ideal.mem_span_singleton_self π
+  have hπ2 : π ∉ maximalIdeal B ^ 2 := by
+    intro h
+    have : maximalIdeal B ^ 1 ≤ maximalIdeal B ^ 2 := by
+      rw [pow_one, hπm, Ideal.span_singleton_le_iff_mem, ← hπm]; exact h
+    exact absurd (maximalIdeal_pow_le_iff.mp this) (by norm_num)
+  -- a lift `y` of `α` with `g(y) ∈ 𝔪 \ 𝔪²`
+  have key : ∃ y : B, residue B y = α ∧ aeval y g ∈ maximalIdeal B ∧
+      aeval y g ∉ maximalIdeal B ^ 2 := by
+    by_cases h2 : aeval x g ∈ maximalIdeal B ^ 2
+    · have hy : residue B (x + π) = α := by
+        rw [map_add, hx, (residue_eq_zero_iff π).mpr hπmem, add_zero]
+      refine ⟨x + π, hy, (residue_eq_zero_iff _).mp (by rw [hres, hy, hgα]), ?_⟩
+      intro h
+      obtain ⟨k, hk⟩ := (g.map (algebraMap A B)).binomExpansion x π
+      rw [eval_map_algebraMap, eval_map_algebraMap, derivative_map, eval_map_algebraMap] at hk
+      have hu : IsUnit (aeval x (derivative g)) := by
+        rw [← residue_ne_zero_iff_isUnit, hres, hx]; exact hg'α
+      have hmem : aeval x (derivative g) * π ∈ maximalIdeal B ^ 2 := by
+        have e : aeval x (derivative g) * π = aeval (x + π) g - aeval x g - k * π ^ 2 := by
+          rw [hk]; ring
+        rw [e]
+        refine Ideal.sub_mem _ (Ideal.sub_mem _ h h2) (Ideal.mul_mem_left _ _ ?_)
+        rw [hπm, Ideal.span_singleton_pow]; exact Ideal.mem_span_singleton_self _
+      apply hπ2
+      obtain ⟨u, hu⟩ := hu
+      have : π = ↑u⁻¹ * (aeval x (derivative g) * π) := by
+        rw [← hu, ← mul_assoc, Units.inv_mul, one_mul]
+      rw [this]; exact Ideal.mul_mem_left _ _ hmem
+    · exact ⟨x, hx, (residue_eq_zero_iff _).mp (by rw [hres, hx, hgα]), h2⟩
+  obtain ⟨y, hy, hym, hym2⟩ := key
+  set t := aeval y g
+  have ht : maximalIdeal B = Ideal.span {t} := maximalIdeal_eq_span_of_mem_of_notMem hym hym2
+  set C := Algebra.adjoin A {y}
+  have hPC : ∀ P : A[X], aeval y P ∈ C := fun P => aeval_mem_adjoin_singleton A y
+  have approx : ∀ j : ℕ, ∀ b : B, ∃ c ∈ C, b - c ∈ maximalIdeal B ^ j := by
+    intro j
+    induction j with
+    | zero => intro b; exact ⟨0, C.zero_mem, by simp⟩
+    | succ j ih =>
+      intro b
+      obtain ⟨P, hP⟩ := hlift (residue B b)
+      have h1 : b - aeval y P ∈ maximalIdeal B := by
+        rw [← residue_eq_zero_iff, map_sub, hres, hy, hP, sub_self]
+      rw [ht, Ideal.mem_span_singleton'] at h1
+      obtain ⟨b₁, hb₁⟩ := h1
+      obtain ⟨c₁, hc₁, hbc⟩ := ih b₁
+      refine ⟨aeval y P + t * c₁, C.add_mem (hPC P) (C.mul_mem (hPC g) hc₁), ?_⟩
+      have e : b - (aeval y P + t * c₁) = t * (b₁ - c₁) := by
+        rw [mul_sub, mul_comm t b₁, hb₁]; ring
+      rw [e, pow_succ']
+      exact Ideal.mul_mem_mul hym hbc
+  have hmA : (maximalIdeal A).map (algebraMap A B) ≠ ⊥ := by
+    rw [ne_eq, Ideal.map_eq_bot_iff_of_injective hinjAB]
+    exact IsDiscreteValuationRing.not_a_field A
+  obtain ⟨j, hj⟩ := IsDiscreteValuationRing.ideal_eq_span_pow_irreducible hmA hπ
+  rw [← Ideal.span_singleton_pow, ← hπm] at hj
+  have hle : (⊤ : Submodule A B) ≤ Subalgebra.toSubmodule C ⊔ maximalIdeal A • ⊤ := by
+    intro b _
+    obtain ⟨c, hc, hbc⟩ := approx j b
+    rw [Ideal.smul_top_eq_map, hj]
+    exact Submodule.mem_sup.mpr ⟨c, hc, b - c, hbc, by ring⟩
+  have hN := Submodule.le_of_le_smul_of_le_jacobson_bot (Module.Finite.fg_top)
+    (IsLocalRing.jacobson_eq_maximalIdeal ⊥ bot_ne_top).ge hle
+  refine ⟨y, ?_⟩
+  rw [eq_top_iff]
+  intro b _
+  exact hN Submodule.mem_top
+
+end Monogenic
 
 /-! ### The derivative of the minimal polynomial of a generator, Galois case. -/
 
@@ -311,6 +440,15 @@ theorem hilbertDifferentFormula_of_monogenicDVR (h : MonogenicDVR) : HilbertDiff
   obtain ⟨x, hx⟩ := h A B
   exact TDifferent.hilbertDifferentFormula_of_adjoin_eq_top A B hx
 
+/-- `MonogenicDVR` holds (`TDifferent.exists_adjoin_eq_top`; completeness is not needed). -/
+theorem monogenicDVR : MonogenicDVR := by
+  intro A B _ _ _ _ _ _ _ _ _ _ _ _
+  exact TDifferent.exists_adjoin_eq_top A B
+
+/-- **T20, local form (`PkgI6.HilbertDifferentFormula`, Leaves.lean line 5092): proved.** -/
+theorem hilbertDifferentFormula : HilbertDifferentFormula :=
+  hilbertDifferentFormula_of_monogenicDVR monogenicDVR
+
 end PkgI6
 
-#print axioms PkgI6.hilbertDifferentFormula_of_monogenicDVR
+#print axioms PkgI6.hilbertDifferentFormula
