@@ -1,6 +1,6 @@
 # Z is Diophantine in Q: where the Lean formalization stands (2026-11-12)
 
-Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main cdb31e22). Mirrored upstream as branch deicyde/kernel-formalization of
+Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 62f394e5). Mirrored upstream as branch deicyde/kernel-formalization of
 https://github.com/elliotglazer/diophantine-z-q (pull request #24 carries an earlier snapshot).
 
 ## The claim in one paragraph
@@ -85,11 +85,11 @@ arguments, bookkeeping). An audit of the citations against the primary sources b
 (docs/research/locators.md) corrected several theorem and example numbers, and the corrections have been
 applied to the repository's notes; some locators (Faltings 1983, Serre–Tate, SGA 7, Bost's constant, Shimura 1967) are still
 unverified. Several leaves are derived or assembled forms of the printed theorems, which the note flags for a
-check that they are not stronger than published. Reviews on 2026-11-12 found three leaves to repair: the
-González–Rotger count of CM points, as worded, is false (the correct count carries a factor 2^b(R); the step that
-uses it holds with the correct count); the Lean statement of Yu's QM dichotomy omits Yu's hypothesis that the
-quaternion algebra is indefinite, which makes it stronger than published; and the branching data of the
-Atkin–Lehner quotient was misworded. The repairs are under way.
+check that they are not stronger than published. Reviews on 2026-11-12 found three leaves misstated, and all
+three are repaired on main: the González–Rotger count of CM points now carries the factor 2^b(R) (the step that
+uses it holds with the correct count); the Lean statement of Yu's QM dichotomy now includes Yu's hypothesis that
+the quaternion algebra is indefinite (as first written it was stronger than published); and the branching data of
+the Atkin–Lehner quotient is reworded.
 - In Lean today: 40 of the 54 leaves are stated over genuine definitions (`scratch/h-decomposition/Leaves.lean`
   compiles, no `axiom`); the other 14 are named placeholders with no content until their definitions exist.
 - The top theorem "leaves imply H" is stated in Lean with conclusion `ZInQ.SixContactMin`; its hypotheses are
@@ -119,9 +119,9 @@ to be formalized, and it has been reviewed only by AI models.
 
 ## Verification
 
-Every Lean change is built on our own machines before it reaches main. At the current Lean (main cdb31e22): the
-build completes (9,952 jobs); all 180 declarations listed in `scripts/print_axioms.lean` (the headline and its
-variants, the reductions, the Proposition N lemmas, and 88 glue lemmas of the decomposition of H) depend only on
+Every Lean change is built on our own machines before it reaches main. At the current Lean (main 62f394e5): the
+build completes (9,952 jobs); all 182 declarations listed in `scripts/print_axioms.lean` (the headline and its
+variants, the reductions, the Proposition N lemmas, and the glue lemmas of the decomposition of H) depend only on
 the three standard axioms, with no `sorry`; `scripts/check_target.py` confirms the statement; and the blueprint
 checks pass (657 articles, 2,041 dependencies). An independent machine re-checked the
 earlier snapshot proposed for pull request #24 (before Proposition N): 9,923 jobs, 80 declarations with standard
