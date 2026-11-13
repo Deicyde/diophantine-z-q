@@ -28,3 +28,12 @@
 - §4 Mob.exists_interp PROVED (values in P¹ at finitely many nodes by coprime [F : G]).
 - §5 curveSurj_of_comp : C1 → C2 → CurveSurj; curveRatFactor_of_comp : C2 → C3 → CurveRatFactor;
   curveFacts_of_comp. All compiled.
+
+## Step 2: C1 from C1a (compiled, EXIT 0, run5.txt; axioms propext, Classical.choice, Quot.sound)
+- bcQbar made an `abbrev` (own definition; no statement of the task changed).
+- named Prop SmoothCurveNoIsolatedPoint (C1a): ∀ field K, X, f : X ⟶ Spec K smooth of rel. dim 1,
+  ∀ x, ¬ IsOpen {x}.
+- PROVED: isOpen_connectedComponent_of_noetherian; exists_isOpen_singleton_of_finite_closedPoints
+  (Jacobson space); geomCompInfinite_of : C1a → GeomCompInfinite (S_ℚ̄ Noetherian, Jacobson via
+  LocallyOfFiniteType.jacobsonSpace; closed points ↔ ℚ̄-points via Mathlib's pointOfClosedPoint).
+- curveFacts_of_named : C1a → C2 → C3 → CurveRatFactor ∧ CurveSurj.

@@ -84,7 +84,7 @@ def CurveSurj : Prop :=
 /-! ## §1 Geometric components (genuine definitions) -/
 
 /-- `S_ℚ̄ = S ×_{Spec ℚ} Spec ℚ̄` (Mathlib's pullback). -/
-def bcQbar (S : Over (Spec (CommRingCat.of ℚ))) : Scheme.{0} :=
+abbrev bcQbar (S : Over (Spec (CommRingCat.of ℚ))) : Scheme.{0} :=
   pullback S.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
 
 /-- The `ℚ̄`-point `Spec ℚ̄ → S_ℚ̄` (a section over `Spec ℚ̄`) induced by a `ℚ̄`-point of `S`
@@ -162,8 +162,7 @@ def GeomCompFinite : Prop :=
 
 theorem geomCompFinite : GeomCompFinite := by
   intro S hP
-  have : IsNoetherian (bcQbar S) := by
-    unfold bcQbar; exact { }
+  have : IsNoetherian (bcQbar S) := { }
   have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := bcQbar S)
   classical
   refine (hfin.image (fun Z => if h : Z.Nonempty then connectedComponent h.some else ∅)).subset ?_
@@ -288,6 +287,117 @@ theorem curveFacts_of_comp (h1 : GeomCompInfinite) (h2 : GeomCompConstOrOnto)
     (h3 : GeomCompRatFactor) : CurveRatFactor ∧ CurveSurj :=
   ⟨curveRatFactor_of_comp h2 h3, curveSurj_of_comp h1 h2⟩
 
+/-! ## §6 (C1) from "no isolated points" -/
+
+/-- **(C1a) A scheme smooth of relative dimension 1 over a field has no isolated point.**
+Glue (STANDARD): every point of `X` has an open neighbourhood étale over `𝔸¹_K`, so every
+irreducible component of `X` has dimension 1 and every nonempty open of `X` is infinite; an open
+point would be a nonempty finite open. Stated for any field `K` and any `X` (the use below is
+`X = S_ℚ̄`, `K = ℚ̄`). Not in Mathlib v4.35 (no dimension theory of smooth morphisms). -/
+def SmoothCurveNoIsolatedPoint : Prop :=
+  ∀ (K : Type) [Field K] (X : Scheme.{0}) (f : X ⟶ Spec (CommRingCat.of K)),
+    SmoothOfRelativeDimension 1 f → ∀ x : X, ¬ IsOpen ({x} : Set X)
+
+/-- In a Noetherian space, connected components are open. -/
+theorem isOpen_connectedComponent_of_noetherian {α : Type*} [TopologicalSpace α]
+    [TopologicalSpace.NoetherianSpace α] (x : α) : IsOpen (connectedComponent x) := by
+  classical
+  have hfin := TopologicalSpace.NoetherianSpace.finite_irreducibleComponents (α := α)
+  have hc : (connectedComponent x)ᶜ =
+      ⋃ Z ∈ {Z ∈ irreducibleComponents α | ¬ Z ⊆ connectedComponent x}, Z := by
+    ext z
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_setOf_eq, exists_prop]
+    constructor
+    · intro hz
+      exact ⟨irreducibleComponent z, ⟨irreducibleComponent_mem_irreducibleComponents z,
+        fun h => hz (h mem_irreducibleComponent)⟩, mem_irreducibleComponent⟩
+    · rintro ⟨Z, ⟨hZ, hZC⟩, hzZ⟩ hzC
+      apply hZC
+      have : Z ⊆ connectedComponent z := hZ.1.isConnected.subset_connectedComponent hzZ
+      rwa [← connectedComponent_eq hzC] at this
+  rw [← isClosed_compl_iff, hc]
+  exact (hfin.subset fun Z hZ => hZ.1).isClosed_biUnion fun Z hZ =>
+    isClosed_of_mem_irreducibleComponents Z hZ.1
+
+/-- In a Jacobson space, a nonempty open set with finitely many closed points contains an open
+point. -/
+theorem exists_isOpen_singleton_of_finite_closedPoints {α : Type*} [TopologicalSpace α]
+    [JacobsonSpace α] {U : Set α} (hU : IsOpen U) (hne : U.Nonempty)
+    (hfin : (U ∩ closedPoints α).Finite) : ∃ z, IsOpen ({z} : Set α) := by
+  classical
+  set F := U ∩ closedPoints α with hF
+  have hclosed : ∀ G ⊆ F, IsClosed G := by
+    intro G hG
+    rw [← G.biUnion_of_singleton]
+    exact (hfin.subset hG).isClosed_biUnion fun w hw => mem_closedPoints_iff.mp (hG hw).2
+  have hFc : IsClosed F := hclosed F le_rfl
+  -- `U ⊆ F`: otherwise `U \ F` is a nonempty open with no closed point
+  have hUF : U ⊆ F := by
+    by_contra hsub
+    obtain ⟨z, hzU, hzF⟩ := Set.not_subset.mp hsub
+    obtain ⟨w, ⟨hwU, hwF⟩, hwc⟩ := nonempty_inter_closedPoints (Z := U ∩ Fᶜ)
+      ⟨z, hzU, hzF⟩ (hU.inter hFc.isOpen_compl).isLocallyClosed
+    exact hwF ⟨hwU, hwc⟩
+  obtain ⟨z, hz⟩ := hne
+  refine ⟨z, ?_⟩
+  have hrest : IsClosed (F \ {z}) := hclosed _ Set.diff_subset
+  have : ({z} : Set α) = U ∩ (F \ {z})ᶜ := by
+    ext w
+    simp only [Set.mem_singleton_iff, Set.mem_inter_iff, Set.mem_compl_iff, Set.mem_diff,
+      not_and, not_not]
+    constructor
+    · rintro rfl; exact ⟨hz, fun _ => rfl⟩
+    · rintro ⟨hwU, h⟩; exact h (hUF hwU)
+  rw [this]; exact hU.inter hrest.isOpen_compl
+
+/-- **(C1) from (C1a).** -/
+theorem geomCompInfinite_of (h : SmoothCurveNoIsolatedPoint) : GeomCompInfinite := by
+  intro S hP hS y₀
+  classical
+  let f : bcQbar S ⟶ Spec (CommRingCat.of Qbar) :=
+    pullback.snd S.hom (Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar)))
+  have : IsNoetherian (bcQbar S) := { }
+  have : LocallyOfFiniteType f := by
+    show LocallyOfFiniteType (pullback.snd _ _); infer_instance
+  have hsm : SmoothOfRelativeDimension 1 f := by
+    show SmoothOfRelativeDimension 1 (pullback.snd _ _); infer_instance
+  have : JacobsonSpace (bcQbar S) := LocallyOfFiniteType.jacobsonSpace f
+  set x₀ := (Scheme.SpecToEquivOfField Qbar (bcQbar S) (bcPt y₀)).1 with hx₀
+  -- the closed points of the component of `x₀` are infinitely many
+  have hCinf : (connectedComponent x₀ ∩ closedPoints (bcQbar S)).Infinite := by
+    intro hfin
+    obtain ⟨z, hz⟩ := exists_isOpen_singleton_of_finite_closedPoints
+      (isOpen_connectedComponent_of_noetherian x₀) ⟨x₀, mem_connectedComponent⟩ hfin
+    exact h Qbar (bcQbar S) f hsm z hz
+  -- each of them comes from a `ℚ̄`-point of `S` in the component
+  intro hfin
+  apply hCinf
+  refine (hfin.image fun y => (Scheme.SpecToEquivOfField Qbar (bcQbar S) (bcPt y)).1).subset ?_
+  rintro x ⟨hxC, hxc⟩
+  let p : Spec (CommRingCat.of Qbar) ⟶ bcQbar S := pointOfClosedPoint f x hxc
+  have hp : p ≫ f = 𝟙 _ := pointOfClosedPoint_comp f x hxc
+  let y : fieldPt Qbar ⟶ S := Over.homMk (p ≫ pullback.fst _ _) (by
+    change (p ≫ pullback.fst _ _) ≫ S.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))
+    rw [Category.assoc, pullback.condition, ← Category.assoc]
+    change (p ≫ f) ≫ _ = _
+    rw [hp, Category.id_comp])
+  have hy : bcPt y = p := by
+    apply pullback.hom_ext
+    · exact pullback.lift_fst _ _ _
+    · exact (pullback.lift_snd _ _ _).trans hp.symm
+  have hpt : (Scheme.SpecToEquivOfField Qbar (bcQbar S) (bcPt y)).1 = x := by
+    rw [hy]; exact pointOfClosedPoint_apply f x hxc _
+  refine ⟨y, ?_, hpt⟩
+  show geomComp y = geomComp y₀
+  unfold geomComp
+  rw [hpt, ← hx₀]
+  exact (connectedComponent_eq hxC).symm
+
+/-- **Both curve facts from (C1a), (C2), (C3).** -/
+theorem curveFacts_of_named (h1 : SmoothCurveNoIsolatedPoint) (h2 : GeomCompConstOrOnto)
+    (h3 : GeomCompRatFactor) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_comp (geomCompInfinite_of h1) h2 h3
+
 end Pin
 
 end AV
@@ -298,3 +408,4 @@ end
 
 #print axioms LeafQM.AV.Pin.curveFacts_of_comp
 #print axioms LeafQM.AV.Pin.geomCompFinite
+#print axioms LeafQM.AV.Pin.curveFacts_of_named
