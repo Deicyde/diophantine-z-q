@@ -48,7 +48,11 @@ Proof plan for a Lean proof (tier M; the steps are numerically VERIFIED for 10 p
    `J ≡ −1 (mod (i − 1)²) = (mod 2)`; one more factor of `(1 + i)` is needed (Ireland–Rosen Ch. 9 §9,
    the congruence for quartic Jacobi sums; UNVERIFIED locator). Then `S = −(π + π̄)` for the primary
    `π = −J`, which is `GaussPointCount` once `heckeCoeff 1 p = π + π̄` (from `sum_normFiber_prime` and
-   `psi_gmul_unit`).
+   `psi_gmul_unit`). An alternative for the sign (SPECULATIVE, checked by hand only): steps 1–2 give
+   `S = ±2a`. The sign follows from `#E(𝔽_p) = N + 1 ≡ 0 (mod 8)`, because `p ≡ 1 + b² (mod 8)`. For the
+   count, the maps `σ(x, y) = (−x, iy)` and `τ(x, y) = (−1/x, y/x²)` commute and generate a group of
+   order 8 acting on the points with `y ≠ 0`. `σ` acts freely, and only `σ²τ` has fixed points: the four
+   points with `x = ±i`, `y² = ∓2i`, which exist because `2i = (1 + i)²`. So `N − 3 ≡ 4 (mod 8)`.
 
 Or the team can take it as a leaf.
 
