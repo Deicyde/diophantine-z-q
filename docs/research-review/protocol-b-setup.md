@@ -8,20 +8,28 @@ No API keys are included in this repository. The old controller stays retired.
 The owner creates a dedicated GitHub App for this gate. Give it only repository
 Checks read/write, plus GitHub's mandatory metadata read access, and install it
 only on `elliotglazer/diophantine-z-q`. It needs no webhook, code-write permission,
-or external server. Do not reuse the retired controller's key.
+or external server. The retired App identity can instead be reused after
+rotating its key, deleting its old keys, removing any other installations and
+confirming the old controller cannot use the new key. Do not reuse the retired
+controller's key. These setup operations require the owner's authorization;
+this document does not assert they have been performed.
 
 Create a GitHub Environment named `protocol-b`. Restrict its deployment branches
 to the default branch, `main`. Do not permit arbitrary branches or tags. Put:
 
 | Type | Name | Value |
 |---|---|---|
-| Environment variable | `PROTOCOL_B_APP_ID` | The new App's numeric App ID, also its integration ID |
-| Environment secret | `PROTOCOL_B_APP_PRIVATE_KEY` | The new App's private key |
+| Environment variable | `PROTOCOL_B_APP_ID` | The dedicated App's numeric App ID, also its integration ID |
+| Environment secret | `PROTOCOL_B_APP_PRIVATE_KEY` | The dedicated App's fresh private key |
 | Environment secret | `OPENAI_API_KEY` | Key allowed to call `gpt-6-astra` |
 | Environment secret | `ANTHROPIC_API_KEY` | Key allowed to call `claude-fable-5-2` |
 
 Do not put these keys in repository-level secrets. Branch workflows must not be
 able to access them. Keep values out of comments, logs and review packets.
+
+`PROTOCOL_B_MODE` and `PROTOCOL_B_TEST_PR` are **repository variables**, not
+Environment variables. The job's start condition needs them before GitHub loads
+the Environment. They are settings, not secrets.
 
 The workflow uses the official, commit-pinned `actions/create-github-app-token`
 action twice. One token creates the initially blocked check; a fresh token
@@ -43,14 +51,18 @@ therefore leaves a blocked check rather than an indefinitely running one.
 
 A complete diff and the exact declaration `No mathematical content changed.`
 permit the editorial path. It accepts trailing-whitespace-only Markdown changes
-outside policy paths and text-only corrections in `README.md`, `CONTRIBUTORS.md`,
-`docs/credits.md` or `docs/navigation.md` when no mathematical or policy terms
+outside policy paths and text-only corrections in the actual root files
+`README.md` and `CREDITS.md` when no mathematical or policy terms
 trigger escalation. Other changes receive both reviews. This is a conservative
 classification rule, not a proof that arbitrary natural language is harmless.
 Do not use the declaration to misclassify a change.
 
-Working notes update one comment per reviewer/run. Completed reports are
-appended; all findings remain available across reruns. HTTP failures are logged
+Working notes update one comment per reviewer/run. If they exceed the comment
+limit, the comment shows recent notes and links to the run artifact containing
+the complete notes. The review continues. After an interrupted run, retrieve
+any omitted observations from that artifact; an unavailable artifact leaves
+that part of the history unchecked. Completed reports are appended, and their
+findings are supplied to later reviews. HTTP failures are logged
 as infrastructure failures, not invented mathematical objections. Initial 429
 and 5xx responses from a model provider get at most two retries. Partly received
 streams and uncertain GitHub writes are never automatically replayed.
@@ -59,6 +71,25 @@ A new default-branch commit does not invalidate an in-flight review if the
 trusted workflow and instructions are unchanged. GitHub must still require the
 PR branch to be up to date before merging. A new PR head needs a fresh run;
 reviewers reuse unchanged mathematical arguments within their review scope.
+
+### Documented limits
+
+Earlier findings are read from `github-actions[bot]` comments. A collaborator
+with write access can run a workflow as that bot and edit or delete its
+comments. The gate therefore trusts collaborators to preserve review history;
+it does not reconstruct tamper-resistant history from App checks across all PR
+commits. Outside fork contributors do not have that ability. This limit does
+not change override authority, which still comes from the dedicated App's
+check output rather than bot comments. Preserve substantive objections in the
+project's findings record as well as the PR discussion.
+
+The 8,000,000-character tool-result guard is a runaway-input limit, not a model
+token-window estimate. It excludes instructions, conversation output and other
+provider accounting. A provider can reject a request for context length first;
+the error is retained and the review fails without acceptance. Scope source
+reads to the changed argument and affected consumers. The full-manuscript
+offline simulation tests data handling, not whether that whole input fits in
+either model's context. Actual review capacity remains part of the live test.
 
 ## Collaborator commands
 

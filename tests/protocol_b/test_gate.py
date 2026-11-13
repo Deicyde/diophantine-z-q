@@ -169,7 +169,8 @@ class Checks(unittest.TestCase):
         self.assertNotEqual(gate.classify([changed()], False), 'editorial')
 
     def test_editorial_typos_and_credits(self):
-        for path, diff in [('README.md', '-Welcom\n+Welcome'), ('CONTRIBUTORS.md', '-Jenn Park\n+Jennifer Park')]:
+        for path, diff in [('README.md', '-Welcom\n+Welcome'), ('CREDITS.md', '-Jenn Park\n+Jennifer Park')]:
+            self.assertTrue((ROOT / path).is_file())
             self.assertEqual(gate.classify([changed(path, diff)], True), 'editorial')
 
     def test_editorial_math_and_sensitive_paths_rejected(self):
@@ -458,6 +459,36 @@ class Transport(unittest.TestCase):
             with self.assertRaises(RuntimeError):
                 gate.request('https://api.github.com/repos/x/y/issues', {}, 'POST', {})
             self.assertEqual(open_url.call_count, 1)
+
+    def test_long_working_notes_continue_and_preserve_full_artifact(self):
+        gh = FakeGH()
+        r = gate.Review(gh, gh.pr, [], [], {}, {}, 'instructions', 'fable', 'local mathematical')
+        r.reads, r.history_read = [{'path': 'p'}], True
+        notes = [f'Observation {i}: ' + 'x' * 5000 for i in range(10)]
+        outputs = [[{'type': 'text', 'text': note}] for note in notes]
+        outputs.append([{'type': 'tool_use', 'id': 'f', 'name': 'finish_review', 'input': report()}])
+        with tempfile.TemporaryDirectory() as tmp, patch.object(gate, 'OUT', Path(tmp)), \
+             patch.dict(os.environ, {'GITHUB_RUN_ID': '1', 'GITHUB_RUN_ATTEMPT': '1'}), \
+             patch.object(gate, 'model_turn', side_effect=[(out, gate.MODELS['fable'], {}, 'm', 'end_turn') for out in outputs]):
+            self.assertEqual(r.run()['decision'], 'accept')
+            saved = json.loads((Path(tmp) / 'fable-working-notes.json').read_text())
+            self.assertEqual(saved['notes'], notes)
+        self.assertEqual(len(gh.posts), 1)
+        self.assertEqual(len(gh.edits), 9)
+        final = gh.edits[-1]['body']
+        self.assertLessEqual(len(final.encode('utf-8')), 45_000)
+        self.assertIn(notes[-1], final)
+        self.assertIn('Earlier notes are in the run artifact', final)
+
+    def test_single_huge_unicode_note_fits_without_mutating_original(self):
+        note = ('\U0001F50E\x00"\\' * 20_000) + 'LATEST TEXT'
+        working = {'reviewer': 'fable', 'run': '1', 'attempt': '1', 'notes': [note],
+                   'artifact_url': 'https://github.com/x/y/actions/runs/1/attempts/1'}
+        rendered = gate.working_comment_body(working)
+        self.assertLessEqual(len(rendered.encode('utf-8')), 45_000)
+        self.assertIn('LATEST TEXT', rendered)
+        self.assertIn('earlier_notes_in_artifact', rendered)
+        self.assertEqual(working['notes'], [note])
 
 
 if __name__ == '__main__':

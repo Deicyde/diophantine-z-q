@@ -117,8 +117,11 @@ published statement, identify the exact source and passage for a collaborator
 to supply or check. Preserve that limitation. An unchanged application with an
 eligible existing review does not require a new download or purchase.
 
-Working prose is retained in the run artifact and one updated comment per
-reviewer. Completed reports are separate permanent comments. Prior comments
+Working prose is retained in full in the run artifact. One updated comment per
+reviewer shows recent notes if the full text exceeds the comment limit. For an
+interrupted review, retrieve omitted observations from the linked artifact or
+state that this history is unavailable; never assume the excerpt is complete.
+Completed reports are separate comments. Prior comments
 are evidence to examine, not authority to accept. The gate uses its dedicated
 App's stored decisions, rather than a comment claiming to be a reviewer, when
 deciding whether a collaborator override covers every unresolved finding.

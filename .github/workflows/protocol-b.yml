@@ -185,7 +185,7 @@ jobs:
               """Editorial paths plus a complete diff guard; ambiguous changes escalate."""
               if not files:
                   raise ValueError("Empty or unavailable diff")
-              editorial_paths = {"README.md", "CONTRIBUTORS.md", "docs/credits.md", "docs/navigation.md"}
+              editorial_paths = {"README.md", "CREDITS.md"}
               math_text = re.compile(r"[0-9$\\=<>^]|\b(theorem|lemma|proof|claim|conjecture|axiom|degree|quartic|polynomial|variable|coefficient|bound|rational|integer|diophantine|decidab\w*|verif\w*|audit\w*|protocol|require\w*|policy)\b", re.I)
               editorial = declaration and all(
                   f["status"] == "modified" and f["filename"].endswith(".md") and
@@ -349,6 +349,35 @@ jobs:
               return [blocks[i] for i in sorted(blocks)], final.get("model"), final.get("usage"), final.get("id"), final.get("stop_reason")
 
 
+          def working_comment_body(working):
+              """Keep the latest prose within one comment; complete notes live in artifacts."""
+              value = {**working, 'notes': list(working['notes'])}
+              def render():
+                  notice = 'Partial review, not a verdict.'
+                  if value.get('earlier_notes_in_artifact'):
+                      notice += '\nEarlier notes are in the run artifact: ' + value['artifact_url']
+                  return WORKING_MARKER + '\n' + notice + '\n```json\n' + json.dumps(value, ensure_ascii=False) + '\n```'
+              if len(render().encode('utf-8')) <= 45_000:
+                  return render()
+              value['earlier_notes_in_artifact'] = True
+              while len(value['notes']) > 1 and len(render().encode('utf-8')) > 45_000:
+                  value['notes'].pop(0)
+              if len(render().encode('utf-8')) > 45_000:
+                  # One note can itself exceed the limit. Find a suffix that fits, taking
+                  # UTF-8 bytes and JSON escaping into account rather than counting chars.
+                  note = value['notes'][0]
+                  low, high = 0, len(note)
+                  while low < high:
+                      keep = (low + high + 1) // 2
+                      value['notes'] = ['[Earlier text in run artifact]\n' + note[-keep:]]
+                      if len(render().encode('utf-8')) <= 45_000:
+                          low = keep
+                      else:
+                          high = keep - 1
+                  value['notes'] = ['[Earlier text in run artifact]\n' + (note[-low:] if low else '')]
+              return render()
+
+
           class Review:
               def __init__(self, gh, pr, files, history, prior, overrides, instructions, family, change_class):
                   self.gh, self.pr, self.family = gh, pr, family
@@ -426,10 +455,10 @@ jobs:
                           # notification on every turn. Complete output is in artifacts.
                           working = {"reviewer": self.family, "head": self.pr['head']['sha'],
                                      "run": os.environ['GITHUB_RUN_ID'], "attempt": os.environ['GITHUB_RUN_ATTEMPT'],
-                                     "notes": self.notes}
-                          if len(json.dumps(working).encode()) > 45_000:
-                              raise ValueError("Working notes exceed comment capacity; full text preserved in run artifact")
-                          body = WORKING_MARKER + "\nPartial review, not a verdict.\n```json\n" + json.dumps(working) + "\n```"
+                                     "notes": self.notes,
+                                     "artifact_url": f"https://github.com/{self.gh.repo}/actions/runs/{os.environ['GITHUB_RUN_ID']}/attempts/{os.environ['GITHUB_RUN_ATTEMPT']}"}
+                          record(self.family + '-working-notes.json', working)
+                          body = working_comment_body(working)
                           if self.working_comment is None:
                               self.working_comment = self.gh.call(f"/issues/{self.pr['number']}/comments", "POST", {"body": body})['id']
                           else:
