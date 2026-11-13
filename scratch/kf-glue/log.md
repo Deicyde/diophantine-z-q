@@ -58,3 +58,7 @@ Base: wip/integrate-w38b (f90cf864) + merges of origin/wip/kernel-field, origin/
 - `conjIsogMaps_of_kerUnitOpen : KerUnitOpen → TwistDescent → ConjIsogMaps`,
   `conjIsogMaps_of_cotangent : KerUnitOpenOfCotangentSurj → CotangentMulN → TwistDescent → ConjIsogMaps`,
   `kernelFieldExists_of_kerUnitOpen` (6 leaves: T6, NOS, Raynaud, TorsionStructure, T27, KerUnitOpen; glue: FS5, TwistDescent).
+
+## Step 7. Sanity check — VERIFIED (compiled, build7.txt, rc=0)
+- `semilinearTwistAt_bot : SemilinearTwistAt ⊥ A ι' (fun _ => 𝟙 _) (fun _ => RingEquiv.refl O)` for every
+  A over ℚ and every ι' (so the level-2 Prop is satisfiable). Axioms standard.

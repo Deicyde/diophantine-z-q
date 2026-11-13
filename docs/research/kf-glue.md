@@ -6,13 +6,13 @@ Task kf-glue, 2026-11-13.
     lines 3-182 and 205-604;
   - new parts: `scratch/kf-glue/Points.lean` (120 lines, Mathlib only) and `scratch/kf-glue/New.lean`
     (859 lines).
-- Results log: `scratch/kf-glue/log.md`. Compiler output: `scratch/kf-glue/build6.txt`.
+- Results log: `scratch/kf-glue/log.md`. Compiler output: `scratch/kf-glue/build7.txt`.
 - Base: `wip/integrate-w38b` (f90cf864), merged with `origin/wip/kernel-field` and `origin/wip/mul-rigidity`.
 
 ## 1. Main result
 
 **VERIFIED (compiled).** `lake env lean scratch/kf-glue/KfGlue.lean` exits 0, with no `sorry`
-anywhere. Each of the 20 new `#print axioms` lines gives `[propext, Classical.choice, Quot.sound]`.
+anywhere. Each of the 21 new `#print axioms` lines gives `[propext, Classical.choice, Quot.sound]`.
 `Points.lean` also compiles on its own.
 
 Both statements are kernel-field's, copied verbatim and unchanged (they sit inside the verbatim
@@ -183,8 +183,9 @@ The hypothesis is proved for the rational fibre `PK` (`conjTwist_of_rational`):
 - **Non-vacuity.**
   - The levels are linked by implications, so each new Prop implies `ConjIsogMaps`.
   - `ConjIsogMapsAt` is satisfiable (kernel-field's `conjIsogMapsAt_bot`).
-  - `SemilinearTwistAt` and `SemilinearIsogAt` are satisfied over `L = ℚ` by `E_σ = F_σ = 𝟙`,
-    `τ = id`, `α = id`. This was checked by reading, not compiled.
+  - `SemilinearTwistAt` is satisfied over `L = ℚ` by `E_σ = 𝟙`, `τ = id`, `α = id`, for every
+    abelian variety and every `ι'`. This is compiled: `semilinearTwistAt_bot`.
+  - `SemilinearIsogAt` is satisfied in the same way by `F_σ = 𝟙` (checked by reading).
 - **`TwistDescent` is stated over genuine objects.**
   - It uses `PkgI3.AbVar`, Mathlib pullbacks, `G4WeilRes.conjData`/`conjAction`, `endBC`, and the new
     `bcEnd` (`Over.pullback` on endomorphisms).
@@ -208,7 +209,7 @@ The hypothesis is proved for the rational fibre `PK` (`conjTwist_of_rational`):
 
 ## 6. Labels
 
-- **VERIFIED (compiled):** every theorem in §1-§2 and its axiom list (`build6.txt`). Also
+- **VERIFIED (compiled):** every theorem in §1-§2 and its axiom list (`build7.txt`). Also
   `Points.lean` standalone.
 - **VERIFIED (read):** Mathlib's `Fpqc.lean` (subcanonical, `EffectiveEpi`);
   `ResidueField.lean` (`SpecToEquivOfField`); the definitions `ConjIsogMapsAt`, `ConjIsogMaps`,

@@ -6943,6 +6943,27 @@ theorem semilinearIsogAt_of_twist (hMul : G0FibreSimple.MulIsogeny)
     simp only [Category.assoc]
     rfl
 
+/-- **Sanity check (proved): `SemilinearTwistAt` is satisfiable** — over `L = ℚ`, `E_σ = 𝟙`,
+`α_σ = id`, `τ = id`, for any abelian variety and any `ι'`. -/
+theorem semilinearTwistAt_bot (A : PkgI3.AbVar (⊥ : IF)) (ι' : O →+* PkgI3.AbVar.End A) :
+    SemilinearTwistAt ⊥ A ι' (fun _ => 𝟙 _) (fun _ => RingEquiv.refl O) := by
+  have hid : Spec.map (CommRingCat.ofHom ((RingEquiv.refl (⊥ : IF) : (⊥ : IF) ≃+* (⊥ : IF)) :
+      (⊥ : IF) →+* (⊥ : IF))) = 𝟙 _ := by
+    rw [← Spec.map_id]; rfl
+  intro σ
+  refine ⟨inferInstance, ⟨RingEquiv.refl _, fun x => ?_, ?_, ?_, ?_⟩, fun a => ?_, fun k _ => ?_⟩
+  · obtain ⟨q, hq⟩ := IntermediateField.mem_bot.mp x.2
+    show (x : Qbar) = act σ⁻¹ (x : Qbar)
+    rw [← hq]; exact ((act σ⁻¹).commutes q).symm
+  · rw [hid, Category.id_comp, Category.comp_id]
+  · rw [Category.comp_id]
+    symm
+    refine Eq.trans (congrArg (fun m => m ≫ μ[A.X].left) ?_) (Category.id_comp _)
+    apply pullback.hom_ext <;> simp
+  · rw [hid, Category.id_comp, Category.comp_id]
+  · simp
+  · exact ⟨rfl, rfl, rfl, rfl, rfl, rfl⟩
+
 /-- `SemilinearIsogMaps` from `SemilinearTwistIsos`, `MulIsogeny` and `RigidityHom` (proved). -/
 theorem semilinearIsogMaps_of_twist (hMul : G0FibreSimple.MulIsogeny)
     (hR : G0FibreSimple.RigidityHom) (h : SemilinearTwistIsos) : SemilinearIsogMaps := by
@@ -7207,3 +7228,4 @@ end KfGlueLevel3
 #print axioms G0ModField.KernelField.conjIsogMaps_of_kerUnitOpen
 #print axioms G0ModField.KernelField.conjIsogMaps_of_cotangent
 #print axioms G0ModField.KernelField.kernelFieldExists_of_kerUnitOpen
+#print axioms G0ModField.KernelField.semilinearTwistAt_bot
