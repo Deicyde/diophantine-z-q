@@ -170,3 +170,22 @@
   (A[m] K-rational) : RaynaudPlace A m`** — the leaf R6 applies at the place of embP; PkgI2's
   galAct/UnipSq/torsion on `ObjBridge.toGrp A` are defeq to PkgI3's (VERIFIED by the compile).
 - Compile: exit 0, no sorry, all printed axioms standard.
+
+## Step 13 (07:52-08:00 PST): RaynaudPlace proved from R6 + I2-Tors (general case)
+- `bc_block.lean` (mk_bc_block.sh): verbatim scratch/unram-tate/BCPoints.lean l.14-142
+  (origin/wip/unram-tate): `UnramTate.bcPt`, `bcPt_galAct`, `trPt`, `trPt_galAct`.
+- Proved (VERIFIED, compiled, axioms standard): `normVS_ne_top`, `isUnit_natCast_normVS`,
+  `isInertia_of_wild_gen` (f ∘ τ = σ ∘ f, σ wild ⇒ IsInertia (normVS f) τ), `torsStab`,
+  `exists_fin_le_torsStab` (G_{F'} ⊆ stab A[m], F' finite: ptFinite + I2-Tors finiteness),
+  **`raynaudPlace_of_R6 (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+  (A) (dim A = 2) (3 ≤ m) (p ∤ m) : RaynaudPlace A m`** — R6 applied over F = fixedField(stab A[m])
+  (closed since open: `Subgroup.isOpen_mono`, `IntermediateField.fixingSubgroup_isOpen`,
+  `InfiniteGalois.fixingSubgroup_fixedField`), a number field; Ω = AlgebraicClosure F ≅ K̄
+  (`IsAlgClosure.equiv`); A_F = A.baseChange F with points via bcPt/trPt; valuation rings
+  normVS (ιbar ∘ ψ); σ₁ = ψ⁻¹σ'ψ inertial by `isInertia_of_wild_gen`; A_F[m] F-rational since
+  G_F = stab A[m].
+  **`tateWildK_of_R6`**: TateWildK A ℓ at p ≥ 7, p ≠ ℓ from R6 + I2-Tors + dim A = 2 alone.
+- `G7LocalPackR` has no clause at p ≥ 7 any more; `g7LocalPackK_of_R`, `g15RamG_of_packR`,
+  `modularConstituent_tail_R` take `hR6 : ObjBridge.RaynaudCriterion` and `hTors`.
+- Compile: LocalGlue.lean exit 0, no sorry, 56 printed declarations all standard axioms;
+  TailK.lean exit 0, no sorry, tail_K/tail_R standard axioms.

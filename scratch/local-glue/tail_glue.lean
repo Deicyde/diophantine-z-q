@@ -28,12 +28,12 @@ theorem modularConstituent_tail_K (lv : NewformLeaves) (hJac : JacobianExists �
     ⟨D, h12, hc, g8LocalPack_of_K h5, g8LocalPack_of_K h3, h11a, h11b⟩
 
 /-- **G13-G16 with the local glue in leaf-and-bridge form (GLUE, proved).** As
-`modularConstituent_tail_K`, with `G7LocalPackR` and the leaf I2-Tors (`g7LocalPackK_of_R`). -/
+`modularConstituent_tail_K`, with `G7LocalPackR` and the leaves R6, I2-Tors (`g7LocalPackK_of_R`). -/
 theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
     (hX : X1ModelExists)
     (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
     (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
-    (hTors : ObjBridge.TorsionStructure)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
     {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
     (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
       G7LocalPackR 5 D.r5 (fun p => p ≠ 5) ∧ G7LocalPackR 3 D.r3 (fun p => p = 5) ∧
@@ -44,8 +44,8 @@ theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists �
       CommonConstituent A (J.baseChange L) := by
   obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
   exact modularConstituent_tail_K lv hJac hX hSw hL8 hAd A u
-    ⟨D, h12, hc, g7LocalPackK_of_R hTors (fun _ h => h) h5,
-      g7LocalPackK_of_R hTors (fun p h => by rw [h]; norm_num) h3, h11a, h11b⟩
+    ⟨D, h12, hc, g7LocalPackK_of_R hR6 hTors (fun _ h => h) h5,
+      g7LocalPackK_of_R hR6 hTors (fun p h => by rw [h]; norm_num) h3, h11a, h11b⟩
 
 end G0ModNewform
 

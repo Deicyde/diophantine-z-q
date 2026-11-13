@@ -5,11 +5,14 @@
 cd "$(dirname "$0")"
 {
   echo "import Mathlib.AlgebraicGeometry.AffineTransitionLimit"
+  echo "import Mathlib.NumberTheory.NumberField.Completion.FinitePlace"
   cat ../local-data/Tail.lean
   echo
   cat galois_block.lean
   grep -v '^#print axioms' part_glue.lean
   grep -v '^#print axioms' part_ptfinite.lean
+  cat neron_block.lean bc_block.lean
+  grep -v '^#print axioms' part_raynaud.lean
   sed '/^-- BEGIN verbatim copy/,/^-- END verbatim copy/d' part_pack.lean | grep -v '^#print axioms'
   cat tail_glue.lean
 } > TailK.lean

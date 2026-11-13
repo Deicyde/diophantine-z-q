@@ -1,4 +1,5 @@
 import Mathlib.AlgebraicGeometry.AffineTransitionLimit
+import Mathlib.NumberTheory.NumberField.Completion.FinitePlace
 import ZInQKernel.HDecomp.ModCurves.Glue
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.I3Linalg.RhoCont
@@ -5850,6 +5851,669 @@ end G15Ram
 end
 
 
+/-! ## §7c' (local-glue). Verbatim slices of scratch/neron-lg/NeronLG.lean (origin/wip/neron-lg)
+l.207-215, l.225-236, l.1406-1472 -/
+
+noncomputable section
+
+namespace ZInQ.NeronLG
+
+open NumberField
+open CategoryTheory MonObj
+
+/-- The discrete valuation ring `𝓞_{L,v}` of a nonzero prime `v` of `𝓞_L`, as a valuation subring
+of `L` (the ring of the `v`-adic valuation). -/
+noncomputable def dvrAt {L : Type} [Field L] [NumberField L]
+    (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) : ValuationSubring L :=
+  (v.valuation L).valuationSubring
+
+instance {L : Type} [Field L] [NumberField L] (v : IsDedekindDomain.HeightOneSpectrum (𝓞 L)) :
+    IsDiscreteValuationRing (dvrAt v) := by
+  unfold dvrAt; infer_instance
+
+section Classify
+
+set_option linter.unusedSectionVars false
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- Every valuation subring of a number field contains `𝓞_K` (it is integrally closed). -/
+theorem ringOfIntegers_mem (O : ValuationSubring K) (x : 𝓞 K) : (x : K) ∈ O := by
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.1
+    (show IsIntegral O (x : K) from x.isIntegral_coe.tower_top)
+  exact hy ▸ y.2
+
+/-- The inclusion `𝓞_K → O`. -/
+def toO (O : ValuationSubring K) : 𝓞 K →+* O :=
+  (algebraMap (𝓞 K) K).codRestrict O.toSubring (ringOfIntegers_mem O)
+
+theorem toO_coe (O : ValuationSubring K) (x : 𝓞 K) : ((toO O x : O) : K) = algebraMap (𝓞 K) K x :=
+  rfl
+
+end Classify
+
+section Restrict
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- The center of a valuation subring `O ≠ ⊤` of a number field on `𝓞_K`: a nonzero prime. -/
+def center' (O : ValuationSubring K) (hO : O ≠ ⊤) :
+    IsDedekindDomain.HeightOneSpectrum (𝓞 K) where
+  asIdeal := (IsLocalRing.maximalIdeal O).comap (toO O)
+  isPrime := Ideal.comap_isPrime _ _
+  ne_bot := by
+    obtain ⟨y, hy⟩ : ∃ y : K, y ∉ O := by
+      by_contra h
+      push_neg at h
+      exact hO (eq_top_iff.2 fun y _ => h y)
+    have hy0 : y ≠ 0 := fun h => hy (h ▸ O.zero_mem)
+    have hyi : y⁻¹ ∈ O := (O.mem_or_inv_mem y).resolve_left hy
+    let x : O := ⟨y⁻¹, hyi⟩
+    have hx : x ∈ IsLocalRing.maximalIdeal O := by
+      rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+      intro hu
+      obtain ⟨u, hu'⟩ := hu
+      apply hy
+      have : ((u⁻¹ : Oˣ) : O) * x = 1 := by rw [← hu']; exact u.inv_mul
+      have h2 : ((((u⁻¹ : Oˣ) : O) : K)) * y⁻¹ = 1 := congrArg Subtype.val this
+      have h3 : y = (((u⁻¹ : Oˣ) : O) : K) := by
+        field_simp at h2
+        exact h2.symm
+      rw [h3]; exact (((u⁻¹ : Oˣ) : O)).2
+    have hx0 : x ≠ 0 := fun h => inv_ne_zero hy0 (congrArg Subtype.val h)
+    obtain ⟨a, b, hb, hab⟩ := IsFractionRing.div_surjective (𝓞 K) (x : K)
+    have hb0 : algebraMap (𝓞 K) K b ≠ 0 := by
+      rw [ne_eq, map_eq_zero_iff _ (IsFractionRing.injective (𝓞 K) K)]
+      exact nonZeroDivisors.ne_zero hb
+    have ha : toO O a = x * toO O b := by
+      apply Subtype.ext
+      rw [toO_coe, Subring.coe_mul, toO_coe, ← hab, div_mul_cancel₀ _ hb0]
+    intro hbot
+    have hmem : a ∈ (IsLocalRing.maximalIdeal O).comap (toO O) := by
+      rw [Ideal.mem_comap, ha]; exact Ideal.mul_mem_right _ _ hx
+    rw [hbot, Ideal.mem_bot] at hmem
+    apply hx0
+    apply Subtype.ext
+    rw [← hab, hmem, map_zero, zero_div]; rfl
+
+/-- **Every valuation subring `O ≠ ⊤` of a number field is `𝓞_{K,v}` (proved).** -/
+theorem dvrAt_center' (O : ValuationSubring K) (hO : O ≠ ⊤) : dvrAt (center' O hO) = O := by
+  apply ValuationSubring.eq_of_le_of_ne_top _ _ hO
+  intro x hx
+  obtain ⟨n, d, hnd⟩ :=
+    IsDedekindDomain.HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer (center' O hO) x hx
+  have hd : IsUnit (toO O d) := by
+    by_contra h
+    exact d.2 ((IsLocalRing.mem_maximalIdeal _).2 h)
+  have hvd : O.valuation (algebraMap (𝓞 K) K d) = 1 := (O.valuation_eq_one_iff _).1 hd
+  apply O.mem_of_valuation_le_one
+  have h2 := congrArg O.valuation hnd
+  rw [map_mul, hvd, _root_.mul_one] at h2
+  rw [h2]
+  exact O.valuation_le_one (toO O n)
+
+/-- Every valuation subring `O ≠ ⊤` of a number field is a DVR. -/
+theorem isDiscreteValuationRing_of_ne_top (O : ValuationSubring K) (hO : O ≠ ⊤) :
+    IsDiscreteValuationRing O := by
+  rw [← dvrAt_center' O hO]
+  infer_instance
+
+end Restrict
+
+end ZInQ.NeronLG
+
+end
+
+
+/-! ## §7c'' (local-glue). Verbatim copy of scratch/unram-tate/BCPoints.lean
+(origin/wip/unram-tate) l.14-142 -/
+
+noncomputable section
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped CategoryTheory.Obj
+
+namespace UnramTate
+
+/-- `Spec L → Spec K`. -/
+noncomputable abbrev sK (K L : Type) [Field K] [Field L] [Algebra K L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of K) :=
+  Spec.map (CommRingCat.ofHom (algebraMap K L))
+
+section BC
+
+variable {K L : Type} [Field K] [Field L] [Algebra K L] (A : PkgI3.AbVar K)
+  (Ω : Type) [Field Ω] [Algebra L Ω] [Algebra K Ω] [IsScalarTower K L Ω]
+
+theorem specMap_comp_sK :
+    Spec.map (CommRingCat.ofHom (algebraMap L Ω)) ≫ sK K L =
+      Spec.map (CommRingCat.ofHom (algebraMap K Ω)) := by
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, IsScalarTower.algebraMap_eq K L Ω]
+
+/-- `Over.map (Spec L → Spec K) (Spec Ω / L) ≅ Spec Ω / K`. -/
+noncomputable def ptMapIso :
+    (Over.map (sK K L)).obj (PkgI3.AbVar.ptObj (K := L) Ω) ≅ PkgI3.AbVar.ptObj (K := K) Ω :=
+  Over.isoMk (Iso.refl _) (by
+    simp only [Over.map_obj_hom, Iso.refl_hom, PkgI3.AbVar.ptObj, Over.mk_hom]
+    erw [Category.id_comp]
+    exact (specMap_comp_sK (K := K) (L := L) Ω).symm)
+
+/-- The adjunction bijection is multiplicative. -/
+theorem homEquiv_mul (X : Over (Spec (CommRingCat.of L)))
+    (p q : (Over.map (sK K L)).obj X ⟶ A.X) :
+    (Over.mapPullbackAdj (sK K L)).homEquiv X A.X (p * q) =
+      (Over.mapPullbackAdj (sK K L)).homEquiv X A.X p *
+        (Over.mapPullbackAdj (sK K L)).homEquiv X A.X q := by
+  rw [Adjunction.homEquiv_unit, Adjunction.homEquiv_unit, Adjunction.homEquiv_unit,
+    Functor.map_mul, MonObj.comp_mul]
+
+/-- **Points of a base change**: `A_L(Ω) ≃* A(Ω)`. -/
+noncomputable def bcPt : (A.baseChange L).Pt Ω ≃* A.Pt Ω where
+  toFun p := (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm p
+  invFun x := (Over.mapPullbackAdj (sK K L)).homEquiv _ _ ((ptMapIso Ω).hom ≫ x)
+  left_inv p := Equiv.apply_symm_apply ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X) p
+  right_inv x := by
+    show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+      ((Over.mapPullbackAdj (sK K L)).homEquiv _ _ ((ptMapIso Ω).hom ≫ x)) = x
+    rw [Equiv.symm_apply_apply, ← Category.assoc, Iso.inv_hom_id, Category.id_comp]
+  map_mul' p q := by
+    obtain ⟨p', rfl⟩ := ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X).surjective p
+    obtain ⟨q', rfl⟩ := ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X).surjective q
+    show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+        ((Over.mapPullbackAdj (sK K L)).homEquiv _ A.X p' *
+          (Over.mapPullbackAdj (sK K L)).homEquiv _ A.X q') = _
+    rw [← homEquiv_mul, Equiv.symm_apply_apply, Equiv.symm_apply_apply, Equiv.symm_apply_apply,
+      MonObj.comp_mul]
+
+/-- `bcPt` is natural for `L`-automorphisms of `Ω`. -/
+theorem bcPt_galAct (σ : Ω ≃ₐ[L] Ω) (p : (A.baseChange L).Pt Ω) :
+    bcPt A Ω ((A.baseChange L).galAct σ p) = A.galAct (σ.restrictScalars K) (bcPt A Ω p) := by
+  show (ptMapIso Ω).inv ≫ ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm
+      (PkgI3.AbVar.galHom σ ≫ p) =
+    PkgI3.AbVar.galHom (σ.restrictScalars K) ≫ (ptMapIso Ω).inv ≫
+      ((Over.mapPullbackAdj (sK K L)).homEquiv _ _).symm p
+  have hnat := Adjunction.homEquiv_naturality_left_symm (Over.mapPullbackAdj (sK K L))
+    (PkgI3.AbVar.galHom σ) (p : PkgI3.AbVar.ptObj Ω ⟶ (Over.pullback (sK K L)).obj A.X)
+  have hsq : (ptMapIso Ω).inv ≫ (Over.map (sK K L)).map (PkgI3.AbVar.galHom σ) =
+      PkgI3.AbVar.galHom (σ.restrictScalars K) ≫ (ptMapIso Ω).inv := by
+    apply Over.OverMorphism.ext
+    simp [ptMapIso, PkgI3.AbVar.galHom]
+    rfl
+  erw [hnat]
+  rw [← Category.assoc, hsq, Category.assoc]
+
+end BC
+
+section Tr
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K)
+  {Ω Ω₂ : Type} [Field Ω] [Algebra K Ω] [Field Ω₂] [Algebra K Ω₂]
+
+/-- `Spec Ω₂ → Spec Ω` over `K`, for a `K`-isomorphism `φ : Ω ≃ Ω₂`. -/
+noncomputable def trHom (φ : Ω ≃ₐ[K] Ω₂) :
+    PkgI3.AbVar.ptObj (K := K) Ω₂ ⟶ PkgI3.AbVar.ptObj (K := K) Ω :=
+  Over.homMk (Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂))) (by
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    simp)
+
+theorem trHom_left (φ : Ω ≃ₐ[K] Ω₂) :
+    (trHom φ).left = Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) := rfl
+
+theorem trHom_symm_comp (φ : Ω ≃ₐ[K] Ω₂) : trHom φ.symm ≫ trHom φ = 𝟙 _ := by
+  apply Over.OverMorphism.ext
+  change Spec.map (CommRingCat.ofHom (φ.symm : Ω₂ →+* Ω)) ≫
+    Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) = 𝟙 (Spec (CommRingCat.of Ω))
+  rw [← Spec.map_comp, ← CommRingCat.ofHom_comp,
+    show (φ.symm : Ω₂ →+* Ω).comp (φ : Ω →+* Ω₂) = RingHom.id Ω by ext x; simp,
+    CommRingCat.ofHom_id, Spec.map_id]
+
+theorem trHom_comp_symm (φ : Ω ≃ₐ[K] Ω₂) : trHom φ ≫ trHom φ.symm = 𝟙 _ := by
+  simpa using trHom_symm_comp φ.symm
+
+/-- **Transport of points** along `φ : Ω ≃ₐ[K] Ω₂`. -/
+noncomputable def trPt (φ : Ω ≃ₐ[K] Ω₂) : A.Pt Ω ≃* A.Pt Ω₂ where
+  toFun p := trHom φ ≫ p
+  invFun x := trHom φ.symm ≫ x
+  left_inv p := by simp [← Category.assoc, trHom_symm_comp]
+  right_inv x := by simp [← Category.assoc, trHom_comp_symm]
+  map_mul' p q := MonObj.comp_mul _ _ _
+
+/-- `trPt φ` carries the action of `σ` to that of `φσφ⁻¹`. -/
+theorem trPt_galAct (φ : Ω ≃ₐ[K] Ω₂) (σ : Ω ≃ₐ[K] Ω) (σ₂ : Ω₂ ≃ₐ[K] Ω₂)
+    (h : ∀ x, σ₂ (φ x) = φ (σ x)) (p : A.Pt Ω) :
+    trPt A φ (A.galAct σ p) = A.galAct σ₂ (trPt A φ p) := by
+  show trHom φ ≫ PkgI3.AbVar.galHom σ ≫ p = PkgI3.AbVar.galHom σ₂ ≫ trHom φ ≫ p
+  have hsq : trHom φ ≫ PkgI3.AbVar.galHom σ = PkgI3.AbVar.galHom σ₂ ≫ trHom φ := by
+    apply Over.OverMorphism.ext
+    change Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂)) ≫
+        Spec.map (CommRingCat.ofHom (σ : Ω →+* Ω)) =
+      Spec.map (CommRingCat.ofHom (σ₂ : Ω₂ →+* Ω₂)) ≫ Spec.map (CommRingCat.ofHom (φ : Ω →+* Ω₂))
+    rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+    congr 2
+    ext x
+    exact (h x).symm
+  rw [← Category.assoc, ← Category.assoc, hsq]
+
+end Tr
+
+end UnramTate
+
+end
+
+
+/-! ## §7c (local-glue). Raynaud's criterion (R6) at the place of `embP`: the rational case
+
+`raynaudPlace_rational` (proved): if `A[m]` is `K`-rational (`m ≥ 3`, `p ∤ m`), the leaf R6
+(`ObjBridge.RaynaudCriterion`) gives `RaynaudPlace A m`. The valuation-theoretic bridge is proved:
+* `wK`, `OK`: the valuation subrings of `K̄` and `K` at the place of `embP` (norm `≤ 1` after
+  `K̄ ≅ ℚ̄ → ℚ̄_p`); `OK` is a DVR (`OK_ne_top` and neron-lg's `isDiscreteValuationRing_of_ne_top`);
+* `m`, `ℓ` prime to `p` are units of `OK`;
+* a wild `σ'` (over `decomp σ`) lies in the inertia group of `wK` (`isInertia_of_wild`).
+The general case of `RaynaudPlace` needs R6 over `K(A[m])` and the base change of `A`. -/
+
+noncomputable section
+
+namespace G15Ram
+
+open PkgI4 (GQp GQ decomp)
+open LadicCond
+open CategoryTheory MonObj
+open scoped Pointwise
+
+section RaynaudSec
+
+/-- The valuation subring `{x : ‖f x‖ ≤ 1}` for a ring map `f` to an ultrametric normed field. -/
+def normVS {F E : Type*} [Field F] [NormedField E] [IsUltrametricDist E] (f : F →+* E) :
+    ValuationSubring F where
+  carrier := {x | ‖f x‖ ≤ 1}
+  mul_mem' {a b} ha hb := by
+    simp only [Set.mem_setOf_eq, map_mul, norm_mul] at *
+    exact mul_le_one₀ ha (norm_nonneg _) hb
+  one_mem' := by simp
+  add_mem' {a b} ha hb := by
+    simp only [Set.mem_setOf_eq, map_add] at *
+    exact (IsUltrametricDist.norm_add_le_max _ _).trans (max_le ha hb)
+  zero_mem' := by simp
+  neg_mem' {a} ha := by simpa using ha
+  mem_or_inv_mem' x := by
+    by_cases h : ‖f x‖ ≤ 1
+    · exact Or.inl h
+    · right
+      show ‖f x⁻¹‖ ≤ 1
+      rw [map_inv₀, norm_inv]
+      exact inv_le_one_of_one_le₀ (le_of_lt (not_le.mp h))
+
+theorem mem_normVS {F E : Type*} [Field F] [NormedField E] [IsUltrametricDist E] (f : F →+* E)
+    (x : F) : x ∈ normVS f ↔ ‖f x‖ ≤ 1 := Iff.rfl
+
+variable {p : ℕ} [Fact p.Prime] {K : Type} [Field K] [NumberField K]
+
+/-- `ℚ̄ ≅ K̄` (`qEmbRing` is bijective). -/
+def eK (K : Type) [Field K] [NumberField K] : AlgebraicClosure ℚ ≃+* AlgebraicClosure K :=
+  RingEquiv.ofBijective (G0Galois.qEmbRing K)
+    ⟨(G0Galois.qEmbRing K).injective, qEmbRing_surjective K⟩
+
+/-- `K̄ ≅ ℚ̄ → ℚ̄_p`, the place of `embP` on `K̄`. -/
+def ιbar (p : ℕ) [Fact p.Prime] (K : Type) [Field K] [NumberField K] :
+    AlgebraicClosure K →+* Kbar p :=
+  (embP (p := p)).comp (eK K).symm.toRingHom
+
+/-- The valuation ring of `K̄` at the place of `embP`. -/
+def wK (p : ℕ) [Fact p.Prime] (K : Type) [Field K] [NumberField K] :
+    ValuationSubring (AlgebraicClosure K) :=
+  normVS (ιbar p K)
+
+/-- The valuation ring of `K` at the place of `embP`. -/
+def OK (p : ℕ) [Fact p.Prime] (K : Type) [Field K] [NumberField K] : ValuationSubring K :=
+  normVS ((ιbar p K).comp (algebraMap K (AlgebraicClosure K)))
+
+theorem wK_comap : (wK p K).comap (algebraMap K (AlgebraicClosure K)) = OK p K := by
+  ext x; exact Iff.rfl
+
+theorem OK_ne_top : OK p K ≠ ⊤ := by
+  intro h
+  have hmem : ((p : K))⁻¹ ∈ OK p K := by rw [h]; exact ValuationSubring.mem_top _
+  rw [OK, mem_normVS] at hmem
+  simp only [map_inv₀, map_natCast, norm_inv] at hmem
+  rw [norm_p_kbar, inv_inv] at hmem
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  linarith
+
+instance OK_dvr : IsDiscreteValuationRing (OK p K) :=
+  ZInQ.NeronLG.isDiscreteValuationRing_of_ne_top _ OK_ne_top
+
+/-- A natural number prime to `p` is a unit of `OK`. -/
+theorem isUnit_natCast_OK {n : ℕ} (hn : ¬ p ∣ n) : IsUnit ((n : OK p K)) := by
+  have hnorm : ‖(n : Kbar p)‖ = 1 := norm_natCast_kbar hn
+  have hn0 : (n : K) ≠ 0 := by
+    intro h0
+    have : (n : Kbar p) = 0 := by
+      have := congrArg ((ιbar p K).comp (algebraMap K (AlgebraicClosure K))) h0
+      simpa using this
+    rw [this, norm_zero] at hnorm
+    exact zero_ne_one hnorm
+  have hinv : ((n : K))⁻¹ ∈ OK p K := by
+    rw [OK, mem_normVS]
+    simp only [map_inv₀, map_natCast, norm_inv, hnorm, inv_one, le_refl]
+  refine isUnit_iff_exists_inv.2 ⟨⟨_, hinv⟩, Subtype.ext ?_⟩
+  change ((n : OK p K) : K) * ((n : K))⁻¹ = 1
+  rw [show ((n : OK p K) : K) = (n : K) from by simp]
+  exact mul_inv_cancel₀ hn0
+
+/-- `ιbar ∘ σ' = σ ∘ ιbar` for `σ'` over `decomp σ` (proved, from `resQ_spec`, `decomp_spec`). -/
+theorem ιbar_apply {σ : GQp p} {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
+    (hσ' : G0Galois.resQ K σ' = decomp p σ) (y : AlgebraicClosure K) :
+    ιbar p K (σ' y) = σ (ιbar p K y) := by
+  obtain ⟨z, rfl⟩ := (eK K).surjective y
+  have h1 : σ' (eK K z) = eK K (decomp p σ z) := by
+    have := G0Galois.resQ_spec K σ' z
+    rw [hσ'] at this
+    exact this.symm
+  simp only [ιbar, RingHom.comp_apply, RingEquiv.toRingHom_eq_coe, RingEquiv.coe_toRingHom]
+  rw [h1, RingEquiv.symm_apply_apply, RingEquiv.symm_apply_apply, decomp_spec]
+
+theorem norm_wild_eq {σ : GQp p} (hσ : σ ∈ wildSet) (u : Kbar p) : ‖σ u‖ = ‖u‖ := by
+  by_cases hu : u = 0
+  · rw [hu, map_zero]
+  have h := hσ u hu
+  have : σ u = u + (σ u - u) := by ring
+  rw [this, IsUltrametricDist.norm_add_eq_max_of_norm_ne_norm (ne_of_gt h),
+    max_eq_left (le_of_lt h)]
+
+/-- **A wild `σ'` lies in the inertia group of `wK` (proved).** -/
+theorem isInertia_of_wild {σ : GQp p} (hσ : σ ∈ wildSet)
+    {σ' : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K}
+    (hσ' : G0Galois.resQ K σ' = decomp p σ) : PkgI2.IsInertia (wK p K) σ' := by
+  have hnorm : ∀ y, ‖ιbar p K (σ' y)‖ = ‖ιbar p K y‖ := fun y => by
+    rw [ιbar_apply hσ', norm_wild_eq hσ]
+  have hnorm' : ∀ y, ‖ιbar p K (σ'⁻¹ y)‖ = ‖ιbar p K y‖ := fun y => by
+    have := hnorm (σ'⁻¹ y)
+    rw [show σ' (σ'⁻¹ y) = y from by
+      change (σ' * σ'⁻¹) y = y; rw [mul_inv_cancel]; rfl] at this
+    exact this.symm
+  have hdec : σ' ∈ (wK p K).decompositionSubgroup K := by
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem]
+    change ‖ιbar p K (σ'⁻¹ x)‖ ≤ 1 ↔ ‖ιbar p K x‖ ≤ 1
+    rw [hnorm']
+  refine ⟨hdec, ?_⟩
+  rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+  apply RingEquiv.ext
+  intro r
+  obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective r
+  change (⟨σ', hdec⟩ : (wK p K).decompositionSubgroup K) • IsLocalRing.residue (wK p K) a =
+    IsLocalRing.residue (wK p K) a
+  rw [← IsLocalRing.ResidueField.residue_smul]
+  apply Ideal.Quotient.eq.mpr
+  rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+  intro hu
+  set b : wK p K := (⟨σ', hdec⟩ : (wK p K).decompositionSubgroup K) • a - a with hb
+  have hbval : (b : AlgebraicClosure K) = σ' a - a := rfl
+  have hlt : ‖ιbar p K (b : AlgebraicClosure K)‖ < 1 := by
+    rw [hbval, map_sub, ιbar_apply hσ']
+    by_cases ha0 : ιbar p K (a : AlgebraicClosure K) = 0
+    · rw [ha0, map_zero, sub_zero, norm_zero]; exact zero_lt_one
+    · exact lt_of_lt_of_le (hσ _ ha0) a.2
+  obtain ⟨c, hc⟩ := isUnit_iff_exists_inv.1 hu
+  have hc' : ιbar p K (b : AlgebraicClosure K) * ιbar p K (c : AlgebraicClosure K) = 1 := by
+    rw [← map_mul]
+    have := congrArg Subtype.val hc
+    simp only [Subring.coe_mul, OneMemClass.coe_one] at this
+    rw [show ((b * c : wK p K) : AlgebraicClosure K) = (b : AlgebraicClosure K) * c from rfl] at this
+    rw [this, map_one]
+  have hcn : ‖ιbar p K (c : AlgebraicClosure K)‖ ≤ 1 := c.2
+  have := congrArg norm hc'
+  rw [norm_mul, norm_one] at this
+  have h0 : 0 ≤ ‖ιbar p K (b : AlgebraicClosure K)‖ := norm_nonneg _
+  nlinarith
+
+/-- **`RaynaudPlace` when `A[m]` is `K`-rational, from the leaf R6 (proved).** -/
+theorem raynaudPlace_rational (hR6 : ObjBridge.RaynaudCriterion) (A : PkgI3.AbVar K) {m : ℕ}
+    (hm3 : 3 ≤ m) (hpm : ¬ p ∣ m)
+    (hrat : ∀ τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K,
+      ∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct τ P = P) :
+    RaynaudPlace (p := p) A m := by
+  intro σ hσ σ' hσ' _ ℓ hℓ hℓp n x hx
+  have hℓp' : ¬ p ∣ ℓ := fun h =>
+    hℓp ((Nat.prime_dvd_prime_iff_eq Fact.out hℓ).mp h).symm
+  exact hR6 K (OK p K) (wK p K) wK_comap (ObjBridge.toGrp A) m hm3 (isUnit_natCast_OK hpm)
+    hrat σ' (isInertia_of_wild hσ hσ') ℓ hℓ (isUnit_natCast_OK hℓp') n x hx
+
+end RaynaudSec
+
+
+/-! ### The general case: R6 over the field of `A[m]`, via the base change of `A` -/
+
+section RaynaudGen
+
+variable {p : ℕ} [Fact p.Prime]
+
+/-- `normVS f ≠ ⊤` for a map of a field to `ℚ̄_p` (`1/p ∉`). -/
+theorem normVS_ne_top {F : Type} [Field F] [CharZero F] (f : F →+* Kbar p) : normVS f ≠ ⊤ := by
+  intro h
+  have hmem : ((p : F))⁻¹ ∈ normVS f := by rw [h]; exact ValuationSubring.mem_top _
+  rw [mem_normVS] at hmem
+  simp only [map_inv₀, map_natCast, norm_inv] at hmem
+  rw [norm_p_kbar, inv_inv] at hmem
+  have hp1 : (1 : ℝ) < p := by exact_mod_cast (Fact.out : p.Prime).one_lt
+  linarith
+
+/-- A natural number prime to `p` is a unit of `normVS f`. -/
+theorem isUnit_natCast_normVS {F : Type} [Field F] (f : F →+* Kbar p) {n : ℕ} (hn : ¬ p ∣ n) :
+    IsUnit ((n : normVS f)) := by
+  have hnorm : ‖(n : Kbar p)‖ = 1 := norm_natCast_kbar hn
+  have hn0 : (n : F) ≠ 0 := by
+    intro h0
+    have : (n : Kbar p) = 0 := by simpa using congrArg f h0
+    rw [this, norm_zero] at hnorm
+    exact zero_ne_one hnorm
+  have hinv : ((n : F))⁻¹ ∈ normVS f := by
+    rw [mem_normVS]
+    simp only [map_inv₀, map_natCast, norm_inv, hnorm, inv_one, le_refl]
+  refine isUnit_iff_exists_inv.2 ⟨⟨_, hinv⟩, Subtype.ext ?_⟩
+  change ((n : normVS f) : F) * ((n : F))⁻¹ = 1
+  rw [show ((n : normVS f) : F) = (n : F) from by simp]
+  exact mul_inv_cancel₀ hn0
+
+/-- **Wild elements are inertial (general form, proved).** If `f ∘ τ = σ ∘ f` with `σ` wild, then
+`τ` lies in the inertia group of `normVS f`. -/
+theorem isInertia_of_wild_gen {K₀ Ω : Type} [Field K₀] [Field Ω] [Algebra K₀ Ω]
+    (f : Ω →+* Kbar p) {σ : GQp p} (hσ : σ ∈ wildSet) (τ : Ω ≃ₐ[K₀] Ω)
+    (hf : ∀ y, f (τ y) = σ (f y)) : PkgI2.IsInertia (normVS f) τ := by
+  have hnorm : ∀ y, ‖f (τ y)‖ = ‖f y‖ := fun y => by rw [hf, norm_wild_eq hσ]
+  have hnorm' : ∀ y, ‖f (τ⁻¹ y)‖ = ‖f y‖ := fun y => by
+    have := hnorm (τ⁻¹ y)
+    rw [show τ (τ⁻¹ y) = y from by
+      change (τ * τ⁻¹) y = y; rw [mul_inv_cancel]; rfl] at this
+    exact this.symm
+  have hdec : τ ∈ (normVS f).decompositionSubgroup K₀ := by
+    rw [MulAction.mem_stabilizer_iff]
+    ext x
+    rw [ValuationSubring.mem_pointwise_smul_iff_inv_smul_mem]
+    change ‖f (τ⁻¹ x)‖ ≤ 1 ↔ ‖f x‖ ≤ 1
+    rw [hnorm']
+  refine ⟨hdec, ?_⟩
+  rw [ValuationSubring.inertiaSubgroup, MonoidHom.mem_ker]
+  apply RingEquiv.ext
+  intro r
+  obtain ⟨a, rfl⟩ := IsLocalRing.residue_surjective r
+  change (⟨τ, hdec⟩ : (normVS f).decompositionSubgroup K₀) • IsLocalRing.residue (normVS f) a =
+    IsLocalRing.residue (normVS f) a
+  rw [← IsLocalRing.ResidueField.residue_smul]
+  apply Ideal.Quotient.eq.mpr
+  rw [IsLocalRing.mem_maximalIdeal, mem_nonunits_iff]
+  intro hu
+  set b : normVS f := (⟨τ, hdec⟩ : (normVS f).decompositionSubgroup K₀) • a - a with hb
+  have hbval : (b : Ω) = τ a - a := rfl
+  have hlt : ‖f (b : Ω)‖ < 1 := by
+    rw [hbval, map_sub, hf]
+    by_cases ha0 : f (a : Ω) = 0
+    · rw [ha0, map_zero, sub_zero, norm_zero]; exact zero_lt_one
+    · exact lt_of_lt_of_le (hσ _ ha0) a.2
+  obtain ⟨c, hc⟩ := isUnit_iff_exists_inv.1 hu
+  have hc' : f (b : Ω) * f (c : Ω) = 1 := by
+    rw [← map_mul]
+    have := congrArg Subtype.val hc
+    simp only [Subring.coe_mul, OneMemClass.coe_one] at this
+    rw [show ((b * c : normVS f) : Ω) = (b : Ω) * c from rfl] at this
+    rw [this, map_one]
+  have hcn : ‖f (c : Ω)‖ ≤ 1 := c.2
+  have := congrArg norm hc'
+  rw [norm_mul, norm_one] at this
+  have h0 : 0 ≤ ‖f (b : Ω)‖ := norm_nonneg _
+  nlinarith
+
+variable {K : Type} [Field K] [NumberField K]
+
+/-- The stabilizer of `A(K̄)[m]` in `G_K`. -/
+def torsStab (A : PkgI3.AbVar K) (m : ℕ) :
+    Subgroup (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) where
+  carrier := {τ | ∀ P : A.Pt (AlgebraicClosure K), P ^ m = 1 → A.galAct τ P = P}
+  mul_mem' {a b} ha hb P hP := by
+    rw [← galAct_galAct, hb P hP, ha P hP]
+  one_mem' P _ := by
+    change PkgI3.AbVar.galHom 1 ≫ P = P
+    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
+  inv_mem' {a} ha P hP := by
+    calc A.galAct a⁻¹ P = A.galAct a⁻¹ (A.galAct a P) := by rw [ha P hP]
+      _ = P := galAct_inv_galAct A a P
+
+/-- The stabilizer of `A[m]` contains `G_{F'}` for a finite `F'/K` (from `ptFinite`, `A[m]`
+finite by I2-Tors). -/
+theorem exists_fin_le_torsStab (A : PkgI3.AbVar K) (m : ℕ) [NeZero m] (hT : TorsGL A m) :
+    ∃ F' : IntermediateField K (AlgebraicClosure K), FiniteDimensional K F' ∧
+      F'.fixingSubgroup ≤ torsStab A m := by
+  obtain ⟨e, -⟩ := hT
+  haveI : Finite {P : A.Pt (AlgebraicClosure K) | P ^ m = 1} := Finite.of_equiv _ e.symm
+  choose F hF hP using fun P : {P : A.Pt (AlgebraicClosure K) | P ^ m = 1} => ptFinite A P.1
+  haveI : ∀ i, FiniteDimensional K (F i) := hF
+  refine ⟨⨆ i, F i, inferInstance, fun τ hτ P hPm => ?_⟩
+  refine hP ⟨P, hPm⟩ τ (fun x hx => ?_)
+  rw [IntermediateField.mem_fixingSubgroup_iff] at hτ
+  exact hτ x ((le_iSup F ⟨P, hPm⟩) hx)
+
+/-- **`RaynaudPlace` from the leaves R6 and I2-Tors (proved), for `dim A = 2`, `3 ≤ m`,
+`p ∤ m`.** R6 is applied over `F = K(A[m])` (the fixed field of the stabilizer of `A[m]`, finite
+by `ptFinite`) to the base change `A_F`, with the valuation rings at the place of `embP`
+transported along `K̄ ≅ F̄`; points of `A_F` are those of `A` (`bcPt`, `trPt`, copied from
+scratch/unram-tate). -/
+theorem raynaudPlace_of_R6 (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) (A : PkgI3.AbVar K) (hdim : A.dim = 2) {m : ℕ}
+    (hm3 : 3 ≤ m) (hpm : ¬ p ∣ m) : RaynaudPlace (p := p) A m := by
+  intro σ hσ σ' hσ' hfix ℓ hℓ hℓp n x hx
+  set σg : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K := σ' with hσg
+  haveI : NeZero m := ⟨by omega⟩
+  set H := torsStab A m with hHdef
+  obtain ⟨F', hF'fd, hF'H⟩ := exists_fin_le_torsStab A m (torsGL_of_leaf hTors A hdim m (by omega))
+  have hHopen : IsOpen (H : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
+    Subgroup.isOpen_mono hF'H (IntermediateField.fixingSubgroup_isOpen F')
+  have hHclosed : IsClosed (H : Set (AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K)) :=
+    Subgroup.isClosed_of_isOpen H hHopen
+  set F : IntermediateField K (AlgebraicClosure K) := IntermediateField.fixedField H with hFdef
+  have hFH : F.fixingSubgroup = H :=
+    InfiniteGalois.fixingSubgroup_fixedField ⟨H, hHclosed⟩
+  have hFF' : F ≤ F' := by
+    intro y hy
+    rw [← InfiniteGalois.fixedField_fixingSubgroup F']
+    rw [IntermediateField.mem_fixedField_iff] at hy ⊢
+    exact fun τ hτ => hy τ (hF'H hτ)
+  haveI : FiniteDimensional K F :=
+    Module.Finite.of_injective (IntermediateField.inclusion hFF').toLinearMap
+      (IntermediateField.inclusion hFF').injective
+  haveI : FiniteDimensional ℚ F := Module.Finite.trans K F
+  haveI : NumberField F := ⟨⟩
+  -- `σ'` fixes `F`
+  have hσ'F : ∀ y ∈ F, σg y = y := fun y hy =>
+    ((IntermediateField.mem_fixedField_iff _ _).mp hy) σg hfix
+  have hℓp' : ¬ p ∣ ℓ := fun h =>
+    hℓp ((Nat.prime_dvd_prime_iff_eq Fact.out hℓ).mp h).symm
+  -- `K̄` is an algebraic closure of `F`
+  haveI : IsAlgClosure F (AlgebraicClosure K) :=
+    ⟨inferInstance, Algebra.IsAlgebraic.tower_top (K := K) (L := F) (A := AlgebraicClosure K)⟩
+  let Ω := AlgebraicClosure F
+  let ψ : Ω ≃ₐ[F] AlgebraicClosure K := IsAlgClosure.equiv F Ω (AlgebraicClosure K)
+  let σF : AlgebraicClosure K ≃ₐ[F] AlgebraicClosure K :=
+    { σg.toRingEquiv with commutes' := fun c => hσ'F c c.2 }
+  let σ₁ : Ω ≃ₐ[F] Ω := (ψ.trans σF).trans ψ.symm
+  have hσ₁ : ∀ y, ψ (σ₁ y) = σg (ψ y) := fun y => by
+    simp only [σ₁, AlgEquiv.trans_apply, AlgEquiv.apply_symm_apply]
+    rfl
+  let f₁ : Ω →+* Kbar p := (ιbar p K).comp (ψ : Ω →+* AlgebraicClosure K)
+  have hf₁ : ∀ y, f₁ (σ₁ y) = σ (f₁ y) := fun y => by
+    change ιbar p K (ψ (σ₁ y)) = σ (ιbar p K (ψ y))
+    rw [hσ₁ y]
+    exact ιbar_apply (σ' := σg) hσ' (ψ y)
+  let w₁ : ValuationSubring Ω := normVS f₁
+  let O₁ : ValuationSubring F := normVS (f₁.comp (algebraMap F Ω))
+  have hw₁ : w₁.comap (algebraMap F Ω) = O₁ := by ext; exact Iff.rfl
+  haveI : IsDiscreteValuationRing O₁ :=
+    ZInQ.NeronLG.isDiscreteValuationRing_of_ne_top _ (normVS_ne_top _)
+  -- points of `A_F` over `Ω` are points of `A` over `K̄`
+  let A₁ : PkgI3.AbVar F := A.baseChange F
+  let ψK : Ω ≃ₐ[K] AlgebraicClosure K := ψ.restrictScalars K
+  let Φ : A₁.Pt Ω ≃* A.Pt (AlgebraicClosure K) :=
+    (UnramTate.bcPt A Ω).trans (UnramTate.trPt A ψK)
+  have hΦ : ∀ (τ₁ : Ω ≃ₐ[F] Ω) (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K),
+      (∀ y, τ (ψ y) = ψ (τ₁ y)) → ∀ z, Φ (A₁.galAct τ₁ z) = A.galAct τ (Φ z) := by
+    intro τ₁ τ h z
+    change UnramTate.trPt A ψK (UnramTate.bcPt A Ω (A₁.galAct τ₁ z)) =
+      A.galAct τ (UnramTate.trPt A ψK (UnramTate.bcPt A Ω z))
+    rw [UnramTate.bcPt_galAct, UnramTate.trPt_galAct A ψK (τ₁.restrictScalars K) τ h]
+  have hrat : ∀ τ₁ : Ω ≃ₐ[F] Ω, ∀ z ∈ PkgI2.torsion (ObjBridge.toGrp A₁) Ω m,
+      PkgI2.galAct (ObjBridge.toGrp A₁) τ₁ z = z := by
+    intro τ₁ z₀ hz
+    let z : A₁.Pt Ω := z₀
+    change A₁.galAct τ₁ z = z
+    let τF : AlgebraicClosure K ≃ₐ[F] AlgebraicClosure K := (ψ.symm.trans τ₁).trans ψ
+    let τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K := τF.restrictScalars K
+    have hτ : ∀ y, τ (ψ y) = ψ (τ₁ y) := fun y => by
+      change ψ (τ₁ (ψ.symm (ψ y))) = ψ (τ₁ y)
+      rw [AlgEquiv.symm_apply_apply]
+    have hτH : τ ∈ H := by
+      rw [← hFH, IntermediateField.mem_fixingSubgroup_iff]
+      intro y hy
+      exact τF.commutes ⟨y, hy⟩
+    have hz' : z ^ m = 1 := hz
+    have hzm : (Φ z) ^ m = 1 := by rw [← map_pow, hz', map_one]
+    have h1 := hΦ τ₁ τ hτ z
+    rw [hτH (Φ z) hzm] at h1
+    exact Φ.injective h1
+  have hxm : (Φ.symm x) ^ (ℓ ^ n) = 1 := by rw [← map_pow, hx, map_one]
+  have hU := hR6 F O₁ w₁ hw₁ (ObjBridge.toGrp A₁) m hm3 (isUnit_natCast_normVS _ hpm) hrat σ₁
+    (isInertia_of_wild_gen f₁ hσ σ₁ hf₁) ℓ hℓ (isUnit_natCast_normVS _ hℓp') n (Φ.symm x) hxm
+  have hU' : A₁.galAct σ₁ (A₁.galAct σ₁ (Φ.symm x)) * (A₁.galAct σ₁ (Φ.symm x))⁻¹ *
+      (A₁.galAct σ₁ (Φ.symm x))⁻¹ * Φ.symm x = 1 := hU
+  have hcomm : ∀ z, Φ (A₁.galAct σ₁ z) = A.galAct σg (Φ z) :=
+    hΦ σ₁ σg (fun y => (hσ₁ y).symm)
+  have h2 := congrArg Φ hU'
+  simp only [map_one, map_mul, map_inv, hcomm, MulEquiv.apply_symm_apply] at h2
+  exact h2
+
+/-- **`TateWildK` at `p ≥ 7`, `p ≠ ℓ`, from the leaves R6 and I2-Tors alone (proved).**
+`m = 3` for `p ≠ 13`, `m = 7` for `p = 13` (`raynaudPlace_of_R6`, `tateWildK_of_raynaud`). -/
+theorem tateWildK_of_R6 (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
+    {A : PkgI3.AbVar K} (hdim : A.dim = 2) {ℓ : ℕ} [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (h7 : 7 ≤ p) :
+    TateWildK (p := p) A ℓ := by
+  have hp : p.Prime := Fact.out
+  refine tateWildK_of_raynaud hℓp h7 hTors hdim (fun _ => raynaudPlace_of_R6 hR6 hTors A hdim
+    (by norm_num) ?_) (fun h13 => raynaudPlace_of_R6 hR6 hTors A hdim (by norm_num) ?_)
+  · intro h
+    have := Nat.le_of_dvd (by norm_num) h
+    omega
+  · intro h
+    rw [h13] at h
+    norm_num at h
+
+end RaynaudGen
+
+end G15Ram
+
+end
+
+
 noncomputable section
 
 /-! ## §8 (local-glue). The packs: G8's data with the local glue replaced by Props on `A/K`
@@ -5899,12 +6563,12 @@ theorem g15RamG_of_packK {L : Type} [Field L] [NumberField L] {A : AbVar L} (D :
   obtain ⟨K₃, _, _, A₃, Tm₃, a₃, β₃, ε₃, L₃, h8₃, hC₃, hG₃⟩ := g8LocalPack_of_K h3
   exact G15Ram.g15RamG_of_g7 D u h8₅ hC₅ hG₅ h8₃ hC₃ (hG₃ 5 (by norm_num) rfl) h11₅ h11₃
 
-/-- **G7's data for `r` with the local glue at `p ∈ P` in leaf-and-bridge form (GLUE).**
-At `p ≥ 7`: `RaynaudPlace A 3` (`p ≠ 13`), resp. `RaynaudPlace A 7` (`p = 13`) (R6 at the place,
-with `m` prime to `p`; `PtFinite` is proved, `G15Ram.ptFinite`); at
+/-- **G7's data for `r` with the local glue at `p ∈ P` in leaf form (GLUE).**
+At `p ≥ 7` nothing: the local glue there follows from the leaves R6 and I2-Tors
+(`G15Ram.raynaudPlace_of_R6`, `G15Ram.ptFinite`); at
 `p ∈ {3, 5}`: `TorsFixWildOdd`; at `p = 2`: `TorsFixWildE` and `BetaTwist2` (which replaces
-`BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaf I2-Tors
-and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
+`BetaUpper`, `G15Ram.betaUpper_of_twist`). With the leaves R6 and
+I2-Tors and `p ≠ ℓ` on `P`, it gives `G7LocalPackK` (`g7LocalPackK_of_R`). -/
 def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ → Prop) : Prop :=
   ∃ (K : Type) (_ : Field K) (_ : NumberField K) (A : AbVar K)
     (Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)) (c ε : GQ → GQ → PadicAlgCl ℓ)
@@ -5913,36 +6577,40 @@ def G7LocalPackR (ℓ : ℕ) [Fact ℓ.Prime] (r : GaloisRep ℓ 2) (P : ℕ →
     G0Galois.G7Out A ℓ Tm c ε a β u ∧ G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r ∧
     G15Ram.G7Clauses β ε L ∧ G15Ram.KerWild K β L ∧
     ∀ (p : ℕ) (hp : p.Prime), P p →
-      (7 ≤ p → p ≠ 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 3) ∧
-      (p = 13 → @G15Ram.RaynaudPlace p ⟨hp⟩ K _ _ A 7) ∧
       (3 ≤ p → p ≤ 5 → @G15Ram.TorsFixWildOdd p ⟨hp⟩ K _ _ A ℓ _ L) ∧
       (p = 2 → @G15Ram.TorsFixWildE p ⟨hp⟩ K _ _ A ℓ _ β L ∧ @G15Ram.BetaTwist2 p ⟨hp⟩ ℓ _ β L)
 
 /-- **`G7LocalPackK` from `G7LocalPackR`, the leaf I2-Tors and `p ≠ ℓ` on `P` (proved).** -/
-theorem g7LocalPackK_of_R (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
+theorem g7LocalPackK_of_R (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime]
     {r : GaloisRep ℓ 2} {P : ℕ → Prop} (hPℓ : ∀ p, P p → p ≠ ℓ) (h : G7LocalPackR ℓ r P) :
     G7LocalPackK ℓ r P := by
   obtain ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, hloc⟩ := h
   refine ⟨K, _, _, A, Tm, c, ε, a, β, u, L, h7, h8, hC, hK, fun p hp hP => ?_⟩
   have : Fact p.Prime := ⟨hp⟩
-  obtain ⟨hR3, hR7, hO, h2⟩ := hloc p hp hP
+  obtain ⟨hO, h2⟩ := hloc p hp hP
   refine ⟨fun h7p => ?_, fun h5 => ?_, fun h2' => G15Ram.betaUpper_of_twist hC (h2 h2').2⟩
   · exact G15Ram.torsFixWild_of_raynaud (Ne.symm (hPℓ p hP)) h7p
       (G15Ram.wildIter A) (G15Ram.torsGL_of_leaf hTors A h7.1 3 (by norm_num))
-      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num)) (hR3 h7p) hR7
+      (G15Ram.torsGL_of_leaf hTors A h7.1 7 (by norm_num))
+      (fun _ => G15Ram.raynaudPlace_of_R6 hR6 hTors A h7.1 (by norm_num)
+        (fun h => by have := Nat.le_of_dvd (by norm_num) h; omega))
+      (fun h13 => G15Ram.raynaudPlace_of_R6 hR6 hTors A h7.1 (by norm_num)
+        (by rw [h13]; norm_num))
   · by_cases hp2 : p = 2
     · exact (h2 hp2).1
     · have h3 : 3 ≤ p := by have := hp.two_le; omega
       exact G15Ram.torsFixWildE_of_odd hp2 hC (hO h3 h5)
 
 /-- **`G15RamG` from the leaf-and-bridge packs and I2-Tors (proved).** -/
-theorem g15RamG_of_packR (hTors : ObjBridge.TorsionStructure) {L : Type} [Field L]
+theorem g15RamG_of_packR (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {L : Type} [Field L]
     [NumberField L] {A : AbVar L} (D : ModData L A) (u : ℚ)
     (h5 : G7LocalPackR 5 D.r5 (fun p => p ≠ 5)) (h3 : G7LocalPackR 3 D.r3 (fun p => p = 5))
     (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
     (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) : G15RamG D u :=
-  g15RamG_of_packK D u (g7LocalPackK_of_R hTors (fun _ h => h) h5)
-    (g7LocalPackK_of_R hTors (fun p h => by rw [h]; norm_num) h3) h11₅ h11₃
+  g15RamG_of_packK D u (g7LocalPackK_of_R hR6 hTors (fun _ h => h) h5)
+    (g7LocalPackK_of_R hR6 hTors (fun p h => by rw [h]; norm_num) h3) h11₅ h11₃
 
 end G0ModNewform
 
@@ -5978,12 +6646,12 @@ theorem modularConstituent_tail_K (lv : NewformLeaves) (hJac : JacobianExists �
     ⟨D, h12, hc, g8LocalPack_of_K h5, g8LocalPack_of_K h3, h11a, h11b⟩
 
 /-- **G13-G16 with the local glue in leaf-and-bridge form (GLUE, proved).** As
-`modularConstituent_tail_K`, with `G7LocalPackR` and the leaf I2-Tors (`g7LocalPackK_of_R`). -/
+`modularConstituent_tail_K`, with `G7LocalPackR` and the leaves R6, I2-Tors (`g7LocalPackK_of_R`). -/
 theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists ℚ)
     (hX : X1ModelExists)
     (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
     (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
-    (hTors : ObjBridge.TorsionStructure)
+    (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
     {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
     (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧
       G7LocalPackR 5 D.r5 (fun p => p ≠ 5) ∧ G7LocalPackR 3 D.r3 (fun p => p = 5) ∧
@@ -5994,8 +6662,8 @@ theorem modularConstituent_tail_R (lv : NewformLeaves) (hJac : JacobianExists �
       CommonConstituent A (J.baseChange L) := by
   obtain ⟨D, h12, hc, h5, h3, h11a, h11b⟩ := h
   exact modularConstituent_tail_K lv hJac hX hSw hL8 hAd A u
-    ⟨D, h12, hc, g7LocalPackK_of_R hTors (fun _ h => h) h5,
-      g7LocalPackK_of_R hTors (fun p h => by rw [h]; norm_num) h3, h11a, h11b⟩
+    ⟨D, h12, hc, g7LocalPackK_of_R hR6 hTors (fun _ h => h) h5,
+      g7LocalPackK_of_R hR6 hTors (fun p h => by rw [h]; norm_num) h3, h11a, h11b⟩
 
 end G0ModNewform
 
