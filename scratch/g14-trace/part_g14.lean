@@ -61,10 +61,10 @@ theorem g7Out_twist (Tm : GQ → Module.End (PadicAlgCl ℓ) (Vb A ℓ))
     G7Out A ℓ Tm c ε (fun g => (χ g : PadicAlgCl ℓ) * a g) β u := by
   obtain ⟨h1, h2, h3, h4, h5, h6, h7, h8, h9⟩ := h
   refine ⟨h1, h2, h3, fun g k => ?_, h5, h6, fun σ => ?_, h8, fun f v => ?_⟩
-  · rw [map_mul, Units.val_mul]
+  · simp only [map_mul, Units.val_mul]
     linear_combination (χ g : PadicAlgCl ℓ) * (χ k) * h4 g k
   · obtain ⟨t1, t2, t3⟩ := h7 σ
-    exact ⟨t1, by rw [t2, hχ σ]; simp, t3⟩
+    exact ⟨t1, by simp only [t2, hχ σ, Units.val_one, mul_one], t3⟩
   · have hc : Continuous fun g => (χ g : PadicAlgCl ℓ) :=
       Units.continuous_val.comp hχc
     have : (fun g => f (GlueDescent.rho Tm (fun g => (χ g : PadicAlgCl ℓ) * a g) β g v)) =
