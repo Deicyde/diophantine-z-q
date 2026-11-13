@@ -34,3 +34,8 @@
   OMaximal (pure algebra Prop: subring of B ⊇ O with integral elements is ⊆ O); endEqOFibre_of (T27 + T6 + OMaximal →
   EndEqOFibre) and kernelFieldExists_of_split'' (leaves HFF, NOS, Raynaud, TorsionStructure, T27; glue FS5, OMaximal,
   EndTransport, ConjIsogMaps) compiled, standard axioms (VERIFIED, build_final.txt).
+- 06:4x §6.10 OMaximal PROVED (oMaximal): int_of_integral (integral ⟹ trd, nrd ∈ ℤ, via modByMonic by X²-tX+n and
+  IsIntegrallyClosed.eq_map_mul_C_of_dvd), zmod3_aux/zmod8_aux by decide, lattice argument. Python check
+  (omax_cosets.py, sympy/fractions): of the 36 classes of O^∨/O only 0 has integral norm (VERIFIED, computed).
+  kernelFieldExists_of_final (leaves HFF, NOS, Raynaud, TorsionStructure, T27; glue FS5, EndTransport, ConjIsogMaps)
+  compiled, standard axioms (VERIFIED, build_final.txt).

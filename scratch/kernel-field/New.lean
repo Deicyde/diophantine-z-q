@@ -1291,6 +1291,183 @@ end
 
 end FS4Copy
 
+
+/-! ## §6.10 `𝒪` is a maximal order (proved)
+
+An element of `B` integral over `ℤ` has integral reduced trace and norm (division by
+`X² - tX + n`, Gauss's lemma `IsIntegrallyClosed.eq_map_mul_C_of_dvd`). For `x` in an order
+`R ⊇ 𝒪`, the traces `t₁..t₄` of `x·1, x·i, x·(1+j)/2, x·(i+k)/2` and `nrd(x)` are integers;
+`24·nrd(x) = 6t₁² - 3t₂² + 2(t₁-2t₃)² - (2t₄-t₂)²`, and the congruences mod 3 and mod 8
+(`decide` on `ZMod 3`, `ZMod 8`) put `x` in `𝒪`. (Python check: of the 36 classes of `𝒪^∨/𝒪`,
+only `0` has integral norm.) -/
+
+section OMaxSec
+
+open Polynomial
+
+
+namespace G0ModField.KernelField
+
+/-- The reduced norm form of `B = (2,-3)_ℚ`. -/
+def nrdB (x : LeafQM.B) : ℚ := x.re ^ 2 - 2 * x.imI ^ 2 + 3 * x.imJ ^ 2 - 6 * x.imK ^ 2
+
+/-- **An element of `B` integral over `ℤ` has integral reduced trace and norm.** -/
+theorem int_of_integral {x : LeafQM.B} (hx : IsIntegral ℤ x) :
+    (∃ t : ℤ, 2 * x.re = t) ∧ ∃ n : ℤ, nrdB x = n := by
+  by_cases hq : x.imI = 0 ∧ x.imJ = 0 ∧ x.imK = 0
+  · -- `x ∈ ℚ`
+    obtain ⟨h1, h2, h3⟩ := hq
+    have hxr : x = algebraMap ℚ LeafQM.B x.re := by
+      ext <;> simp [QuaternionAlgebra.algebraMap_eq, h1, h2, h3]
+    have hint : IsIntegral ℤ x.re := by
+      rw [hxr] at hx
+      exact (isIntegral_algHom_iff ((Algebra.ofId ℚ LeafQM.B).restrictScalars ℤ)
+        (algebraMap ℚ LeafQM.B).injective).mp hx
+    obtain ⟨k, hk⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
+    have hk' : x.re = k := by rw [← hk]; rfl
+    refine ⟨⟨2 * k, by rw [hk']; push_cast; ring⟩, ⟨k ^ 2, ?_⟩⟩
+    simp only [nrdB, hk', h1, h2, h3]; push_cast; ring
+  · obtain ⟨p, hpm, hpx⟩ := hx
+    set t : ℚ := 2 * x.re
+    set n : ℚ := nrdB x
+    let q : ℚ[X] := X ^ 2 - C t * X + C n
+    have hqm : q.Monic := by
+      have : q = X ^ 2 + (-(C t) * X + C n) := by ring
+      rw [this]
+      refine Monic.add_of_left (monic_X_pow 2) ?_
+      refine (degree_add_le _ _).trans_lt (max_lt ?_ ?_)
+      · calc (-(C t) * X).degree ≤ 1 := by
+              rw [← C_neg]; exact degree_C_mul_X_le _
+          _ < (X ^ 2 : ℚ[X]).degree := by rw [degree_X_pow]; norm_num
+      · calc (C n).degree ≤ 0 := degree_C_le
+          _ < (X ^ 2 : ℚ[X]).degree := by rw [degree_X_pow]; norm_num
+    have hqx : aeval x q = 0 := by
+      simp only [q, map_add, map_sub, map_mul, aeval_X_pow, aeval_C, aeval_X]
+      ext <;> simp [sq, QuaternionAlgebra.algebraMap_eq, t, n, nrdB] <;> ring
+    have hpx' : aeval x (p.map (algebraMap ℤ ℚ)) = 0 := by
+      rw [aeval_map_algebraMap]; exact hpx
+    set r := p.map (algebraMap ℤ ℚ) %ₘ q with hr
+    have hrx : aeval x r = 0 := by
+      have e := modByMonic_add_div (p.map (algebraMap ℤ ℚ)) q
+      have := congrArg (aeval x) e
+      rw [map_add, map_mul, hqx, zero_mul, add_zero, hpx'] at this
+      exact this
+    have hq2 : q.natDegree = 2 := by
+      simp only [q]; compute_degree!
+    have hrdeg : r.degree ≤ 1 := by
+      have := natDegree_modByMonic_lt (p.map (algebraMap ℤ ℚ)) hqm
+        (fun h => by rw [h, natDegree_one] at hq2; exact absurd hq2 (by norm_num))
+      rw [hq2] at this
+      exact degree_le_of_natDegree_le (Nat.lt_succ_iff.mp this)
+    have hr0 : r = 0 := by
+      rw [eq_X_add_C_of_degree_le_one hrdeg] at hrx ⊢
+      simp only [map_add, map_mul, aeval_C, aeval_X] at hrx
+      have e1 := congrArg QuaternionAlgebra.imI hrx
+      have e2 := congrArg QuaternionAlgebra.imJ hrx
+      have e3 := congrArg QuaternionAlgebra.imK hrx
+      have e0 := congrArg QuaternionAlgebra.re hrx
+      simp [QuaternionAlgebra.algebraMap_eq] at e0 e1 e2 e3
+      have hc1 : r.coeff 1 = 0 := by
+        by_contra hc
+        apply hq
+        exact ⟨(e1.resolve_left hc), (e2.resolve_left hc), (e3.resolve_left hc)⟩
+      rw [hc1] at e0 ⊢
+      simp at e0
+      simp [e0]
+    have hdvd : q ∣ p.map (algebraMap ℤ ℚ) := (modByMonic_eq_zero_iff_dvd hqm).mp hr0
+    obtain ⟨g, hg⟩ := IsIntegrallyClosed.eq_map_mul_C_of_dvd ℚ hpm hdvd
+    rw [hqm.leadingCoeff, C_1, _root_.mul_one] at hg
+    have c1 := congrArg (fun f : ℚ[X] => f.coeff 1) hg
+    have c0 := congrArg (fun f : ℚ[X] => f.coeff 0) hg
+    simp [q, coeff_X, coeff_C] at c1 c0
+    refine ⟨⟨-g.coeff 1, ?_⟩, ⟨g.coeff 0, ?_⟩⟩
+    · push_cast; linarith
+    · linarith
+
+end G0ModField.KernelField
+
+namespace G0ModField.KernelField
+
+theorem zmod3_aux : ∀ u v : ZMod 3, 2 * u ^ 2 - v ^ 2 = 0 → u = 0 ∧ v = 0 := by decide
+
+theorem zmod8_aux : ∀ a b c d : ZMod 8,
+    6 * a ^ 2 - 3 * b ^ 2 + 2 * (a - 2 * c) ^ 2 - (2 * d - b) ^ 2 = 0 → 4 * b = 0 ∧ 4 * d = 0 := by
+  decide
+
+
+/-- `𝒪` is a maximal order (statement as `OMaximal` in `New.lean`). -/
+theorem oMaximal' : ∀ R : Subring LeafQM.B, LeafQM.O ≤ R → (∀ x ∈ R, IsIntegral ℤ x) →
+    R ≤ LeafQM.O := by
+  intro R hOR hint x hx
+  have hmem : ∀ v : Fin 4 → ℤ, x * LeafQM.ofInt v ∈ R := fun v =>
+    R.mul_mem hx (hOR ⟨v, rfl⟩)
+  obtain ⟨⟨t1, ht1⟩, ⟨nn, hnn⟩⟩ := int_of_integral (hint x hx)
+  obtain ⟨⟨t2, ht2⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 1, 0, 0]))
+  obtain ⟨⟨t3, ht3⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 0, 1, 0]))
+  obtain ⟨⟨t4, ht4⟩, -⟩ := int_of_integral (hint _ (hmem ![0, 0, 0, 1]))
+  simp [LeafQM.ofInt, QuaternionAlgebra.re_mul] at ht2 ht3 ht4
+  unfold nrdB at hnn
+  set a := x.re
+  set b := x.imI
+  set c := x.imJ
+  set d := x.imK
+  -- `a = t1/2`, `b = t2/4`, `c = (t1 - 2 t3)/6`, `d = (2 t4 - t2)/12`
+  have hQ : 6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 = 24 * nn := by
+    have : ((6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 : ℤ) : ℚ) =
+        ((24 * nn : ℤ) : ℚ) := by
+      push_cast
+      rw [← ht1, ← hnn]
+      have e2 : (t2 : ℚ) = 4 * b := by linarith
+      have e3 : (t3 : ℚ) = a - 3 * c := by linarith
+      have e4 : (t4 : ℚ) = 2 * b + 6 * d := by linarith
+      rw [e2, e3, e4]; ring
+    exact_mod_cast this
+  -- mod 3
+  set u := t1 - 2 * t3 with hu
+  set v := 2 * t4 - t2 with hv
+  have h3dvd : (3 : ℤ) ∣ 2 * u ^ 2 - v ^ 2 :=
+    ⟨8 * nn - 2 * t1 ^ 2 + t2 ^ 2, by linear_combination hQ⟩
+  have h3 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 3).mpr h3dvd
+  push_cast at h3
+  obtain ⟨hu3, hv3⟩ := zmod3_aux _ _ h3
+  obtain ⟨u', hu'⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd u 3).mp hu3
+  obtain ⟨v', hv'⟩ := (ZMod.intCast_zmod_eq_zero_iff_dvd v 3).mp hv3
+  -- mod 8
+  have h8dvd : (8 : ℤ) ∣ 6 * t1 ^ 2 - 3 * t2 ^ 2 + 2 * (t1 - 2 * t3) ^ 2 - (2 * t4 - t2) ^ 2 :=
+    ⟨3 * nn, by rw [hQ]; ring⟩
+  have h8 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mpr h8dvd
+  push_cast at h8
+  obtain ⟨hb8, hd8⟩ := zmod8_aux _ _ _ _ h8
+  have hb2 : (8 : ℤ) ∣ 4 * t2 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mp (by push_cast; exact hb8)
+  have hd2 : (8 : ℤ) ∣ 4 * t4 := (ZMod.intCast_zmod_eq_zero_iff_dvd _ 8).mp (by push_cast; exact hd8)
+  obtain ⟨s2, hs2⟩ : ∃ s, t2 = 2 * s := ⟨t2 / 2, by omega⟩
+  obtain ⟨s4, hs4⟩ : ∃ s, t4 = 2 * s := ⟨t4 / 2, by omega⟩
+  -- the coordinates of `x` in `𝒪`
+  have hn2 : 2 * c = u' := by
+    have : (u : ℚ) = 3 * u' := by exact_mod_cast hu'
+    rw [hu] at this; push_cast at this; linarith
+  obtain ⟨w, hw⟩ : ∃ w : ℤ, v' = 2 * w := ⟨v' / 2, by omega⟩
+  have hn3 : 2 * d = w := by
+    have : (v : ℚ) = 3 * v' := by exact_mod_cast hv'
+    rw [hv] at this; push_cast at this
+    have : (v' : ℚ) = 2 * w := by exact_mod_cast hw
+    linarith
+  have hvz : 2 * t4 - t2 = 3 * v' := by rw [← hv, hv']; norm_num
+  have hvq : (3 * v' : ℚ) = 4 * s4 - 2 * s2 := by
+    have : 3 * v' = 4 * s4 - 2 * s2 := by rw [← hvz, hs2, hs4]; ring
+    exact_mod_cast this
+  have es4 : (t4 : ℚ) = 2 * s4 := by exact_mod_cast hs4
+  refine ⟨![t3 + u', s4 - v', u', w], ?_⟩
+  have e2 : (t2 : ℚ) = 4 * b := by linarith
+  have e3 : (t3 : ℚ) = a - 3 * c := by linarith
+  have e4 : (t4 : ℚ) = 2 * b + 6 * d := by linarith
+  have es2 : (t2 : ℚ) = 2 * s2 := by exact_mod_cast hs2
+  ext <;> simp [LeafQM.ofInt] <;> linarith
+
+end G0ModField.KernelField
+
+end OMaxSec
+
 section EndEqOSec
 
 open CategoryTheory AlgebraicGeometry Limits
@@ -1302,9 +1479,12 @@ namespace G0ModField.KernelField
 `B` containing `𝒪` whose elements are integral over `ℤ` is contained in `𝒪`. STANDARD (the
 order `𝒪 = ℤ⟨1, i, (1+j)/2, (i+k)/2⟩` has reduced discriminant `6 = disc B`; Vignéras,
 *Arithmétique des algèbres de quaternions*, III §5, UNVERIFIED locator). A finite lattice
-computation; not compiled here. -/
+computation, proved below (`oMaximal`). -/
 def OMaximal : Prop :=
   ∀ R : Subring LeafQM.B, LeafQM.O ≤ R → (∀ x ∈ R, IsIntegral ℤ x) → R ≤ LeafQM.O
+
+/-- **`OMaximal`, proved** (§6.10). -/
+theorem oMaximal : OMaximal := oMaximal'
 
 /-- **`EndEqOFibre` from T27 (Yu), T6 (Mumford §19 Thm 3) and `OMaximal` (proved).** -/
 theorem endEqOFibre_of (t27 : PkgI3.QMDichotomyYu) (hHF : PkgI3.HomFreeFinite)
@@ -1409,6 +1589,16 @@ theorem kernelFieldExists_of_split'' (hHFF : PkgI3.HomFreeFinite)
     (hG : ConjIsogMaps) : KernelFieldExists :=
   kernelFieldExists_of_split' hHFF hNOS hRay hTors h5 hG (endEqOFibre_of t27 hHFF hmax) hb
 
+/-- **Headline, final split form (proved).** `KernelFieldExists` from the leaves `HomFreeFinite`
+(T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, `QMDichotomyYu` (T27) and the
+glue FS5 `FibreComTrivial`, `EndTransport`, `ConjIsogMaps`. -/
+theorem kernelFieldExists_of_final (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hb : EndTransport) (hG : ConjIsogMaps) :
+    KernelFieldExists :=
+  kernelFieldExists_of_split'' hHFF hNOS hRay hTors t27 h5 oMaximal hb hG
+
 end G0ModField.KernelField
 
 end EndEqOSec
@@ -1419,6 +1609,8 @@ end EndEqOSec
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split'
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split''
 #print axioms G0ModField.KernelField.endEqOFibre_of
+#print axioms G0ModField.KernelField.oMaximal
+#print axioms G0ModField.KernelField.kernelFieldExists_of_final
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.center_O
 #print axioms G0ModField.KernelField.aut_O_inner
