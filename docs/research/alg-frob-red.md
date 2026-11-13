@@ -160,6 +160,15 @@ earlier steps. Each is now a theorem, possibly from the listed inputs.
   `Bijective j` is redundant given compatibility, and `FrobMorph` does not need `𝒜` abelian. Since
   then, `ResidueAlgClosure`, `RedRelMul` and `RedTorsionQbar` (the last from I2-Red) have been
   proved in Lean. That settles their truth.
+- **Second review.** A second read-only model review (no human review) checked the two glue Props
+  added later, `FExtendGen` and `AbsFrob`. Verdict: both TRUE and correctly oriented.
+  - In `FExtendGen`, `t = σ⁻¹|_{O_w}` is forced by `σ ∘ ι ∘ s = ι`.
+  - Clause (3), `e⁻¹ ≫ pr₁ ≫ F̃ = F ≫ e⁻¹ ≫ pr₁`, has the right direction and is consistent with
+    clause (1).
+  - `F̃` exists by the Néron mapping property for `𝒜 → 𝒜^{(t)}`.
+  - The unit section is fixed, by three facts: separatedness, `f(0) = 0`, and
+    `Spec ℚ̄ → Spec L` being an epimorphism.
+  - `AbsFrob` is naturality of the absolute Frobenius.
 - **Not degenerate.** `RedRel` uses the genuine special fibre (`Over.pullback` along
   `Spec κ(O) → Spec O`) and the genuine generic clause of I2's `IsReductionOf`. The glue Props
   are stated over genuine notions: the kernel's `HasGoodReduction` and `IsAbelianScheme`,

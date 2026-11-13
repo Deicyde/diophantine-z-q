@@ -129,3 +129,9 @@
   Spec σ ≫ Spec(O_v ⊂ ℚ̄) = Spec(O_v ⊂ ℚ̄) ≫ Spec σ_v), algFrobRed_of_gen, tateBridge35_of_gen.
 - Run 40: exit 0, no error; all axiom prints standard (VERIFIED). Pitfall: `act σ` (GQ vs PkgI4.GQ) breaks rw/simp
   motives; the generic equation is a term-mode Category.assoc/congrArg chain.
+
+## Review 2 (one model review, read-only, no human review; ~08:45)
+- FExtendGen: TRUE. t = σ⁻¹|O_w is forced (σ∘ι∘s = ι); clause (3) direction correct and consistent with (1)
+  (j∘t = s∘j); F̃ exists by Néron mapping property for 𝒜 → 𝒜^{(t)} (BLR 1.2/8); clause (2) by separatedness, f(0)=0 and
+  Spec ℚ̄ → Spec L epi. IsFinite/Surjective F unused (harmless).
+- AbsFrob: TRUE and correctly oriented (naturality of the absolute Frobenius; R = 0 excluded by CharP).
