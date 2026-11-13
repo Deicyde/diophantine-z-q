@@ -39,6 +39,11 @@ theorem G15Ram.localGlue_of_g7 {K} [Field K] [NumberField K] {A : PkgI3.AbVar K}
     LocalGlue (p := p) Tm a β L
 ```
 
+`localGlue_of_g7_twist` has the same form with `hB : p = 2 → BetaTwist2 β L`. That Prop is
+much smaller than `BetaUpper`: some `M ⊇ L_v` with `[M:L_v] ≤ 4` has `β = 1` on wild inertia
+of `G_M`. `betaUpper_of_twist` proves `BetaUpper` from it with **no T16, no D3 and no
+Herbrand** (finding G6).
+
 At `p ≥ 7`, `p ≠ ℓ`, the Tate-module Prop `TateWildK` is in turn proved from:
 - the leaf **I2-Tors** (`ObjBridge.TorsionStructure`);
 - `dim A = 2` (a clause of `G7Out`);
@@ -68,6 +73,12 @@ Finally `tate_eq_one_of_torsFix` passes from torsion points to `ℚ̄_ℓ ⊗ V_
 - `g15RamG_of_packK` gives g15-ram's `G15RamG D u`.
 - `modularConstituent_tail_K` (in `TailK.lean`) is g0-mod-newform's tail (G13-G16) with this
   hypothesis.
+- `G7LocalPackR` is the same pack in leaf-and-bridge form. Its local clauses are:
+  - at `p ≥ 7`: `PtFinite A`, `RaynaudPlace A 3` and `RaynaudPlace A 7`;
+  - at `p ∈ {3,5}`: `TorsFixWildOdd`;
+  - at `p = 2`: `TorsFixWildE` and `BetaTwist2`.
+- `g7LocalPackK_of_R` turns `G7LocalPackR` into `G7LocalPackK`, given the leaf I2-Tors and
+  `p ≠ ℓ`. `modularConstituent_tail_R` is the tail on `G7LocalPackR`.
 
 ### The remaining named Props
 
@@ -79,8 +90,8 @@ is a leaf. The leaves they rest on (in **bold**) are in the bundles already.
 | `KerWild K β L` | all | `g ∈ G_L`, `β(g) = 1` ⟹ `g ∈ G_K` | GLUE: g0-mod-field's `G7Data` clause `σ ∈ G_{L'} ↔ σ ∈ G_L ∧ β σ = 1`, transported to `G7Out`'s `K` and `ℚ̄_ℓ`-valued `β` (with local-data's F3/F5) |
 | `PtFinite A` | `p ≥ 7` | every `P ∈ A(K̄)` is fixed by `G_F` for a finite `F/K` | GLUE, Mathlib-level: a `K̄`-point of a finite-type `K`-scheme factors through a finite extension |
 | `RaynaudPlace p A m` (`m = 3, 7`) | `p ≥ 7`, `p ≠ ℓ` | a wild `σ' ∈ G_K` fixing `A(K̄)[m]` has `(σ'−1)² = 0` on `A(K̄)[ℓⁿ]` | GLUE on **R6** (`PkgI2.RaynaudCriterion`): the bridge from `(K, embP)` to a DVR of `K(A[m])` and a valuation ring of `K̄` over it, and the base change of `A` to `K(A[m])` |
-| `TorsFixWildE p A ℓ β L` | `p ∈ {2,3,5}`, `p ≠ ℓ` | some `E ⊇ L_v`, `[E:ℚ_p] ≤ G₀[L_v:ℚ_p]`: wild `σ ∈ G_E` has `β(σ) = 1` and fixes `A(K̄)[ℓⁿ]` | GLUE on **R6**, **I2-Tors** and the descent `A = (A_L)_{L'}` (finding G3) |
-| `BetaUpper β L_v U₀` | `p = 2` | unchanged from local-data | GLUE on **T16** (`ZInQ.Contrib.localKroneckerWeber`), D3 and Herbrand (local-data §4.2) |
+| `TorsFixWildOdd p A ℓ L` (`p ∈ {3,5}`) / `TorsFixWildE p A ℓ β L` (`p = 2`) | `p ≠ ℓ` | some `E ⊇ L_v`, `[E:ℚ_p] ≤ G₀[L_v:ℚ_p]`: wild `σ ∈ G_E` has `β(σ) = 1` and fixes `A(K̄)[ℓⁿ]` | GLUE on **R6**, **I2-Tors** and the descent `A = (A_L)_{L'}` (finding G3) |
+| `BetaTwist2 β L` (⟹ `BetaUpper`) | `p = 2` | some `M ⊇ L_v`, `[M:ℚ_2] ≤ 4[L_v:ℚ_2]`, with `β = 1` on wild `σ ∈ G_M` | GLUE: `β⁴ = χ²` is unramified at `2`; an unramified `η` with `η⁴ = β⁴` exists (`G_{L_v}/I` procyclic); `M` = kernel field of `βη⁻¹`. No leaf needed |
 
 `TorsFixWild` (`p ≥ 7`) and `WildIter` are no longer open. They are proved from the rows above
 (`torsFixWild_of_raynaud`, `wildIter_of_ptFinite`).
@@ -109,8 +120,11 @@ declaration.
 | `qEmbRing_surjective` | `ℚ̄ → K̄` is onto | `K̄` integral over `ℚ̄` (`IsAlgClosed.ringHom_bijective_of_isIntegral`) |
 | `wild_pow_fix_elem`, `wild_pow_fix_field` | a wild `σ'` has `p`-power period on each `x ∈ K̄` and on each finite `F/K` | `exists_pow_fix_of_wild` on the normal closure of `ℚ_p(embP y)`; a basis of `F` |
 | `wildIter_of_ptFinite`, `tateWildK_of_leaves'` | §1 | — |
+| `betaUpper_of_twist`, `localGlue_of_g7_twist` | `G7Clauses`, `BetaTwist2` ⟹ `BetaUpper β L_v U₀` | `exists_finGal_ramCard_le`, `UpperBreakFix` (proved), `upperWild` |
+| `torsFixWildE_of_odd` | odd `p`: `TorsFixWildOdd` (no `β` clause) ⟹ `TorsFixWildE` | `beta_wild_of_clauses` |
 | `G0ModNewform.g8LocalPack_of_K`, `g15RamG_of_packK` | packs (§1) | `localGlue_of_g7`; local-data's `g15RamG_of_g7` |
-| `G0ModNewform.modularConstituent_tail_K` (`TailK.lean`) | the tail of G13-G16 on `G7LocalPackK` | local-data's `modularConstituent_tail_L` |
+| `G0ModNewform.g7LocalPackK_of_R`, `g15RamG_of_packR` | `G7LocalPackR` (leaf-and-bridge form), I2-Tors, `p ≠ ℓ` ⟹ `G7LocalPackK` | `torsFixWild_of_raynaud`, `wildIter_of_ptFinite`, `torsGL_of_leaf`, `torsFixWildE_of_odd`, `betaUpper_of_twist` |
+| `G0ModNewform.modularConstituent_tail_K`, `modularConstituent_tail_R` (`TailK.lean`) | the tail of G13-G16 on `G7LocalPackK`, resp. on `G7LocalPackR` and I2-Tors | local-data's `modularConstituent_tail_L` |
 
 ## 3. Findings
 
@@ -143,6 +157,17 @@ declaration.
 - **G4 (VERIFIED, compiled).** At `p ≥ 7`, `m = 3` (`p ≠ 13`) or `m = 7` (`p = 13`) has
   `p ∤ |GL₄(𝔽_m)|`. So `TateWildK` needs no degree bound and no descent: Glazer's `L_v(A[3])` of
   degree `≤ DG₀` can be replaced by `L_v` itself at those primes.
+- **G6 (VERIFIED, compiled). T16 is not needed for G15 at `p = 2`.** local-data's
+  `BetaUpper` (Glazer's route) bounds the conductor of `β|G_F` by local reciprocity: T16, D3
+  `(U^{e+1})⁴ = U^{3e+1}`, then Herbrand's `ψ ≥ id`. Instead, `betaUpper_of_twist` uses:
+  - the field `M ⊇ L_v` of degree `≤ 4` over `L_v` that kills `β` on wild inertia
+    (`BetaTwist2`);
+  - the degree-based break bound already proved for G15 (`UpperBreakFix`, from T20 + T21 through
+    `hilbertSerre_of_model` and `ladicDVRModelZp`), applied to the Galois closure of `M`
+    (`[M:ℚ_2] ≤ 4D ≤ DG₀`, so `e ≤ (DG₀)!` and `G^t ⊆ G_M` for `t > U₀`);
+  - `upperWild`.
+
+  The bound `U₀ = 4(DG₀)²` is unchanged.
 - **G5 (VERIFIED, compiled).** The PkgI2 leaf I2-Tors applies directly to the PkgI3 abelian
   variety through `ObjBridge.toGrp`. The torsion subset and the group law agree definitionally
   (`torsGL_of_leaf` is `⟨e, he⟩` from the leaf), so no transport is needed for torsion. R6 is
@@ -161,13 +186,21 @@ declaration.
    `G_L` (`DescentDatum` of g0-mod-field, transported to `ℚ̄_ℓ ⊗ V_ℓ`), plus the degree bound on
    `L_v'(A_L[m])`.
 4. `KerWild`: the transport of G7Data to G7Out (also local-data's F3/F5).
-5. `BetaUpper` at `p = 2`: as in local-data §4.2 (relative upper numbering and Herbrand's
-   `ψ ≥ id` over `LadicCond`; T16 is now `ZInQ.Contrib.localKroneckerWeber`).
+5. `BetaTwist2` at `p = 2`:
+   - inertia at `2` fixes the roots of unity of odd order, so `χ²` is trivial on inertia
+     (local-data's `wild_fix_root` covers wild inertia only);
+   - unramified characters of `G_{L_v}` factor through the procyclic `G_{L_v}/I` and have 4th
+     roots;
+   - the kernel field of a character of order dividing 4 has degree `≤ 4`.
+
+   None of these is in `LadicCond` yet.
 
 ## 5. Compile record
 
 - `lake env lean scratch/local-glue/LocalGlue.lean`: exit 0, 0 errors, no `sorry`; every
   `#print axioms` line `[propext, Classical.choice, Quot.sound]` (`compile.out`).
-- `lake env lean scratch/local-glue/TailK.lean`: see `tail_compile.out` and the log.
+- `lake env lean scratch/local-glue/TailK.lean`: exit 0, 0 errors, no `sorry`, about 50 s.
+  `modularConstituent_tail_K` and `modularConstituent_tail_R` have axioms
+  `[propext, Classical.choice, Quot.sound]` (`tail_compile.out`).
 - Building first required `lake build` of the imports of `LocalData.lean` and of local-data's
   `Tail.lean`.
