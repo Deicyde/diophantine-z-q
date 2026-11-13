@@ -1,0 +1,57 @@
+
+/-! ## Part 13: full T5 from `deg [n] = n^{2g}` and separability in positive characteristic -/
+
+namespace T5Torsion
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open PkgI2 (IsAbelianVariety torsion)
+open Degree
+
+/-- **Leaf candidate `MulUnramifiedPosChar`**: `MulUnramifiedAll` in positive characteristic only
+(Mumford §4 / §6 Application 2: `n_X` is separable iff `char k ∤ n`; Milne, *Abelian varieties*,
+Thm 8.2; locators UNVERIFIED). The characteristic-`0` case is proved (`mulUnramified_charZero`). -/
+def MulUnramifiedPosChar : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (n : ℕ), 0 < n → (n : K) ≠ 0 → ¬ CharZero K →
+    FormallyUnramified (mulN A n)
+
+/-- **`TorsionCard` from `KernelDegree` and `MulUnramifiedPosChar`.** -/
+theorem torsionCard_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    TorsionCard.{0} := by
+  intro K _ A _ g n hg hn hnK
+  have hU : FormallyUnramified (mulN (ObjBridge.ofGrp A) n) := by
+    by_cases h0 : CharZero K
+    · haveI := h0
+      exact mulUnramified_charZero (ObjBridge.ofGrp A) n hn
+    · exact hP K (ObjBridge.ofGrp A) n hn hnK h0
+  exact natCard_torsion_of_degree hD (ObjBridge.ofGrp A) g n hg hn hnK hU
+
+/-- **Full T5 from `KernelDegree` (Mumford §6 App. 2) and `MulUnramifiedPosChar`.** -/
+theorem torsionStructure_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    PkgI2.TorsionStructure.{0} :=
+  torsionStructure_of_torsionCard (torsionCard_of_degree hD hP)
+
+/-- **Full T26 from the same two leaves.** -/
+theorem tateModuleFree_of_degree (hD : KernelDegree) (hP : MulUnramifiedPosChar) :
+    PkgI3.TateModuleFree :=
+  TateFree.tateModuleFree_of_torsionStructure (torsionStructure_of_degree hD hP)
+
+/-- T5 in characteristic `0`. -/
+def TorsionStructureCharZero : Prop :=
+  ∀ (K : Type) [Field K] [CharZero K] (A : Grp (Over (Spec (.of K)))) [IsAbelianVariety A]
+    (g n : ℕ), topologicalKrullDim A.X.left = (g : WithBot ℕ∞) → 0 < n →
+      ∃ e : torsion A (AlgebraicClosure K) n ≃ (Fin (2 * g) → ZMod n),
+        ∀ x y : torsion A (AlgebraicClosure K) n,
+          ∀ h : x.1 * y.1 ∈ torsion A (AlgebraicClosure K) n, e ⟨x.1 * y.1, h⟩ = e x + e y
+
+/-- **T5 in characteristic `0` from `KernelDegree` alone** (separability is proved). -/
+theorem torsionStructureCharZero_of_degree (hD : KernelDegree) : TorsionStructureCharZero := by
+  intro K _ _ A _ g n hg hn
+  refine exists_torsion_equiv_of_counts A (AlgebraicClosure K) g n hn (fun m hm => ?_)
+  have hm0 : 0 < m := Nat.pos_of_dvd_of_pos hm hn
+  exact natCard_torsion_of_degree_charZero (ObjBridge.ofGrp A) hD g m hg hm0
+
+end T5Torsion
+
+#print axioms T5Torsion.torsionStructure_of_degree
+#print axioms T5Torsion.tateModuleFree_of_degree
+#print axioms T5Torsion.torsionStructureCharZero_of_degree

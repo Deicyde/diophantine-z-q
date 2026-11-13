@@ -65,3 +65,14 @@
 - T5Full.lean: the complete artifact (parts 1-11). Built as T5Mobius.lean (= T5Torsion.lean + import Mobius + mobius.part)
   + a6.part + count.part + tate.part (= Tate.lean body + part 9) + nf.part + surj.part + surj2.part, imports merged.
 - Standalone compiling pieces: GroupGlue.lean, Torus.lean, Descent.lean, T5Torsion.lean (parts 1-4b), Tate.lean (part 8), T5Mobius.lean.
+- Degree.lean (= part 12 of T5Full.lean): `Degree.natCard_algHom_eq_finrank` (finite formally unramified K-algebra R,
+  Ω alg. closed: #(R →ₐ[K] Ω) = finrank K R, via Ω ⊗ R, IsFiniteSplit.algHomEquivPrimeSpectrum, equivPiOfIsSepClosed),
+  `natCard_torsion_eq_kerPts` (A(Ω)[n] ↔ Ω-points of kerN = pullback [n] e over K), `natCard_specPts`,
+  `KernelDegree` (leaf candidate: kerN ≅ Spec R, finrank K R = n^{2g}), `MulUnramifiedAll`,
+  `natCard_torsion_of_degree` (KernelDegree + FormallyUnramified [n] ⇒ #A(K̄)[n] = n^{2g}),
+  `mulUnramified_charZero` (from the kernel's kerUnitOpen), `natCard_torsion_of_degree_charZero`. COMPILES (VERIFIED).
+- part 13: `MulUnramifiedPosChar`, `torsionCard_of_degree`, `torsionStructure_of_degree : KernelDegree → MulUnramifiedPosChar → T5`,
+  `tateModuleFree_of_degree`, `torsionStructureCharZero_of_degree : KernelDegree → T5 (char 0)`. COMPILES (VERIFIED).
+- Pitfall: `MorphismProperty.pullback_snd (P := @FormallyUnramified)` fails (IsStableUnderBaseChangeAlong not synthesized);
+  `MorphismProperty.IsStableUnderBaseChange.of_isPullback (P := @FormallyUnramified) (IsPullback.of_hasPullback f g) h` works;
+  for an iso use `IsPullback.of_horiz_isIso` (RespectsIso instance not found).
