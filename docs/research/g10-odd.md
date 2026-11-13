@@ -2,7 +2,7 @@
 
 Task g10-odd, 2026-11-13. Lean: `scratch/g10-odd/G10Odd.lean` (602 lines; compiles with
 `lake env lean scratch/g10-odd/G10Odd.lean` after
-`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`; no `sorry`; the seven
+`lake build ZInQKernel.HDecomp.LeafPush2.T ZInQKernel.HDecomp.I3Linalg.C2`; no `sorry`; the eight
 main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scratch/g10-odd/log.md`.
 
 ## Result
@@ -62,6 +62,10 @@ main theorems use only `propext`, `Classical.choice`, `Quot.sound`). Log: `scrat
    in the `E`-span of `W ⊗ 1`, read through an injective canonical map
    `E ⊗ Hom → Hom_E(E⊗H, E⊗H')`. Then `F = 0`. The ingredients are
    `mem_of_one_tmul_mem_span` (`(W ⊗ E) ∩ U = W`) and `eq_zero_of_holo_of_antiholo`.
+   `betti_skeleton_fd` is the finite-dimensional form with no canonical-map hypothesis. Its
+   hypothesis is `F ⊗ 1 ∈ span_E {φ ⊗ 1 : φ ∈ W}` inside `Hom_E(E⊗H, E⊗H')`, which is exactly
+   what Faltings plus the Artin comparison give. Its proof goes through matrices
+   (`LinearMap.toMatrix_baseChange`, `matrix_mem_of_map_mem_span`, `mem_of_baseChange_mem_span`).
 
 5. **`ConjTwistNontrivial` is not vacuous in its quantifier** (§8, VERIFIED, compiled):
    `exists_resQ_conj`. For `K/ℚ` Galois and `g ∈ G_ℚ`, every `g σ g⁻¹` with `σ ∈ G_K` is
@@ -88,8 +92,7 @@ and `c_* = ρ_A(c)`. This is the argument sketched in `G10Glue`'s docstring, mad
 - the map `c_*` on Tate modules;
 - the Artin comparison `T_ℓ(A) ≅ Λ ⊗ ℤ_ℓ` at `ι` for `A` over a number field, with the
   semilinear `c_*` matched to `F_*`;
-- the instantiation of `betti_skeleton`, including injectivity of
-  `E ⊗ Hom_ℚ(H,H') → Hom_E(E⊗H, E⊗H')` for finite-dimensional `H`.
+- the instantiation of `betti_skeleton_fd` (its linear algebra is done).
 
 T12 shares these needs (its docstring), but `T12_ComplexConjEigen` itself is too weak (F4).
 
