@@ -5755,6 +5755,8 @@ instance (D : Type) [CommRing D] [IsDomain D] : IsFractionRing D (KSyn D) :=
 /-- The identity `ℚ[X] → SrcPoly`. -/
 def toSrc (f : ℚ[X]) : SrcPoly := f
 
+set_option synthInstance.maxHeartbeats 400000 in
+set_option maxHeartbeats 1600000 in
 /-- The construction behind `KummerCompositum`, from an abstract ring `D` (in the application
 `D = (O ⊗_{ℚ[X]} B)/𝔫` for a minimal prime `𝔫`). -/
 theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
@@ -6101,6 +6103,8 @@ theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E
       (IntermediateField.subset_adjoin _ _ ⟨_, rfl⟩)
 
 
+set_option synthInstance.maxHeartbeats 400000 in
+set_option maxHeartbeats 1600000 in
 theorem kummerCompositum_proof : KummerCompositum := by
   intro E _ _ _ _ _ P Q t s₀ hQ hPQ hnc 𝔓 h𝔓 h𝔓u φ
   classical
@@ -6395,7 +6399,9 @@ theorem kummerCompositum : KummerCompositum := kummerCompositum_proof
 
 /-- **`KummerMeetGlue` is proved** (all seven Kummer pieces are proved; the two Abhyankar pieces
 use T2, which is `KummerMeetGlue`'s own hypothesis). -/
-theorem kummerMeetGlue : KummerMeetGlue := kummerMeetGlue_of_compositum kummerCompositum
+theorem kummerMeetGlue : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces' kummerCompositum kummerAbhyankarFinGlue kummerOtherBranchFin
+    kummerVerticalFin kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
 
 /-- `KummerMeetGlue` from `KummerCompositum` alone (the other six Kummer pieces are proved;
 the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/

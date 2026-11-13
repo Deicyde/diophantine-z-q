@@ -1,40 +1,43 @@
 # ts-kummer (fleet summary)
 
-**Result: six of the seven Kummer pieces under `KummerMeetGlue` are proved in Lean. The seventh,
-`KummerCompositum`, remains open glue (true; plan in docs/research/ts-kummer.md §4). No statement
-was changed or found false.**
+**Result: all seven Kummer pieces under `KummerMeetGlue` are proved in Lean, so `KummerMeetGlue`
+is a theorem (`TsKummer.kummerMeetGlue`). No statement was changed, and none was found false,
+vacuous or inert.**
 
-Proved, in namespace `TsKummer`, all with `#print axioms` = `[propext, Classical.choice,
-Quot.sound]`:
+Proved, in namespace `TsKummer`:
 
 | Piece | Lean name |
 |---|---|
+| `KummerCompositum` | `kummerCompositum` |
 | `KummerAbhyankarFinGlue` | `kummerAbhyankarFinGlue` |
-| `KummerAbhyankarInfGlue` | `kummerAbhyankarInfGlue` |
 | `KummerOtherBranchFin` | `kummerOtherBranchFin` |
-| `KummerOtherBranchInf` | `kummerOtherBranchInf` |
 | `KummerVerticalFin` | `kummerVerticalFin` |
+| `KummerAbhyankarInfGlue` | `kummerAbhyankarInfGlue` |
+| `KummerOtherBranchInf` | `kummerOtherBranchInf` |
 | `KummerVerticalInf` | `kummerVerticalInf` |
 
-The two Abhyankar pieces use exactly their own hypothesis, T2 (`PkgI2.AbhyankarDVR`). Two general
-DVR lemmas are proved along the way: `unramCompositum` (a compositum of unramified extensions is
-unramified) and `unramBaseChange` (unramified base change).
+- The two Abhyankar pieces use exactly the T2 (`PkgI2.AbhyankarDVR`) hypothesis that their
+  statements carry.
+- General lemmas proved along the way:
+  - `unramCompositum`: a compositum of unramified extensions over a DVR is unramified;
+  - `unramBaseChange`: unramified base change along any map of DVRs;
+  - `ratFunc_transc`: a non-constant `P/Q` is transcendental over ℚ;
+  - transfers between ℚ[X], ℚ[1/X] and their localizations.
+- Finding: the hypothesis `n < p` in the two vertical pieces is unused.
 
-Consequences, also compiled:
+**Consequence.** `propTSAll_ts'` gives `PropTSAll` from:
 
-- `kummerMeetGlue_of_compositum : KummerCompositum → KummerMeetGlue`.
-- `propTSAll_ts`: `PropTSAll` from
-  - T2, `R1R2fp`, `MobiusGlue`;
-  - `SNSpecialize`, `KummerCompositum`, and the five Hecke Props.
+- T2, `R1R2fp`, `MobiusGlue`;
+- `SNSpecialize` and the five Hecke Props.
 
-  That is 7 open glue Props instead of prop-ts-glue's 13.
+That is 6 open glue Props instead of prop-ts-glue's 13.
 
-**What compiles:** `lake env lean scratch/ts-kummer/KummerTS.lean` gives 0 errors in 1 min 42 s.
-KummerTS.lean is PropTSGlue.lean verbatim (`check_identical.py`: PREFIX IDENTICAL, apart from 3
-extra Mathlib imports) plus the appendix.
+**What compiles:** `lake env lean scratch/ts-kummer/KummerTS.lean` gives 0 errors in 1 min 5 s, and
+every `#print axioms` line is `[propext, Classical.choice, Quot.sound]`. KummerTS.lean is
+PropTSGlue.lean verbatim (`check_identical.py`: PREFIX IDENTICAL, apart from 3 extra Mathlib
+imports) plus the appendix. The development file is `scratch/ts-kummer/Core.lean`.
 
-**What remains:** `KummerCompositum`, which needs a factor `E'` of `E ⊗ ℚ(s)` with a prime over
-`s − s₀` above the given prime `𝔓`. The construction is via a minimal prime of `O ⊗ B`;
-docs §4 gives the steps.
+**What remains:** nothing among the Kummer pieces. Under Proposition TS the remaining open glue is
+`SNSpecialize` and the Hecke pieces (prop-ts-glue's report §6).
 
 Model work; no human review. Details: docs/research/ts-kummer.md, scratch/ts-kummer/log.md.

@@ -1,137 +1,141 @@
-# ts-kummer: the seven Kummer pieces under Proposition TS
+# ts-kummer: the seven Kummer pieces under Proposition TS — all proved
 
 Task ts-kummer, 2026-11-13. The objects are the seven open glue Props under
-`PropTSRed.KummerMeetGlue` in `scratch/prop-ts-glue/PropTSGlue.lean`
-(docs/research/prop-ts-glue.md, merged from origin/wip/prop-ts-glue), which compose to
-`KummerMeetGlue` by prop-ts-glue's `kummerMeetGlue_of_pieces'`.
+`PropTSRed.KummerMeetGlue` in `scratch/prop-ts-glue/PropTSGlue.lean` (docs/research/prop-ts-glue.md,
+merged from origin/wip/prop-ts-glue). prop-ts-glue's `kummerMeetGlue_of_pieces'` composes them into
+`KummerMeetGlue`.
 
-Model work only; no human has reviewed it. Marks: **VERIFIED** means compiled, computed or read
-in a named source; **STANDARD** a published result with reference; **PROVED HERE** an argument
-written here (all of them compiled in Lean, so the Lean proofs are VERIFIED); locators from memory
-are **UNVERIFIED** (no network).
+Model work only; no human has reviewed it.
+
+- **VERIFIED** means compiled, computed or read in a named source. Every Lean statement below is
+  VERIFIED.
+- Locators given from memory are **UNVERIFIED** (no network).
 
 ## 1. Main result
 
-**Six of the seven pieces are proved in Lean, with no new hypothesis and no new leaf. The two
-Abhyankar pieces are proved from the bundle's leaf T2 (`PkgI2.AbhyankarDVR`), which is exactly
-the hypothesis their statements carry. No statement was changed, and none is false, vacuous or
-inert.**
+**All seven pieces are proved in Lean.** No statement was changed, no new hypothesis or leaf was
+added, and none of the seven is false, vacuous or inert.
 
-| Piece | Status | Lean name (namespace `TsKummer`) |
-|---|---|---|
-| `KummerAbhyankarFinGlue` (= T2 → `KummerAbhyankarFin`) | **proved** | `kummerAbhyankarFinGlue` |
-| `KummerAbhyankarInfGlue` (= T2 → `KummerAbhyankarInf`) | **proved** | `kummerAbhyankarInfGlue` |
-| `KummerOtherBranchFin` | **proved** | `kummerOtherBranchFin` |
-| `KummerOtherBranchInf` | **proved** | `kummerOtherBranchInf` |
-| `KummerVerticalFin` | **proved** | `kummerVerticalFin` |
-| `KummerVerticalInf` | **proved** | `kummerVerticalInf` |
-| `KummerCompositum` | **open glue** (true; plan in §4) | — |
+- The two Abhyankar pieces are proved from T2 (`PkgI2.AbhyankarDVR`), which is exactly the
+  hypothesis their statements carry.
+- So **`KummerMeetGlue` is a theorem** (`TsKummer.kummerMeetGlue`). The T2 it needs is its own
+  hypothesis.
 
-Consequences, compiled:
+| Piece | Lean name (namespace `TsKummer`) |
+|---|---|
+| `KummerCompositum` | `kummerCompositum` |
+| `KummerAbhyankarFinGlue` (= T2 → `KummerAbhyankarFin`) | `kummerAbhyankarFinGlue` |
+| `KummerOtherBranchFin` | `kummerOtherBranchFin` |
+| `KummerVerticalFin` | `kummerVerticalFin` |
+| `KummerAbhyankarInfGlue` (= T2 → `KummerAbhyankarInf`) | `kummerAbhyankarInfGlue` |
+| `KummerOtherBranchInf` | `kummerOtherBranchInf` |
+| `KummerVerticalInf` | `kummerVerticalInf` |
 
-- `kummerMeetGlue_of_compositum : KummerCompositum → KummerMeetGlue`.
-- `propTSAll_ts`: `PropTSAll` from
-  - T2 and `R1R2fp` (leaves);
-  - `MobiusGlue` (proved in the kernel);
-  - `SNSpecialize`, `KummerCompositum`, and the five Hecke Props (open glue).
+**Consequence:** `propTSAll_ts'` gives `PropTSAll` from the following hypotheses:
 
-  This is prop-ts-glue's `propTSAll_final` with the six proved pieces removed: 7 open glue Props
-  instead of 13.
+- leaves: T2 and `R1R2fp`;
+- proved in the kernel: `MobiusGlue`;
+- open glue: `SNSpecialize` and the five Hecke Props (`HeckeIrreducible`,
+  `HeckeNormalizationIrr`, `HeckeDegree`, `HeckeBranch`, `HeckeNoVertRam`).
+
+This is prop-ts-glue's `propTSAll_final` without the seven Kummer pieces: 6 open glue Props
+instead of 13.
 
 **What is VERIFIED:**
 
-- `lake env lean scratch/ts-kummer/KummerTS.lean` (1 min 42 s on this host) gives 0 errors. The
-  warnings are linter and deprecation warnings only.
-- Every `#print axioms` line, including the 15 `TsKummer` lines, reads
-  `[propext, Classical.choice, Quot.sound]` (scratch/ts-kummer/compile_out.txt).
+- `lake env lean scratch/ts-kummer/KummerTS.lean` gives 0 errors in 1 min 5 s on this host. The
+  warnings are linter and deprecation warnings only. Output: scratch/ts-kummer/compile_out.txt.
+- Every `#print axioms` line reads `[propext, Classical.choice, Quot.sound]`. This includes the
+  19 `TsKummer` lines, among them `kummerMeetGlue` and `propTSAll_ts'`.
 - `check_identical.py` prints `PREFIX IDENTICAL`: KummerTS.lean is
   `scratch/prop-ts-glue/PropTSGlue.lean` byte for byte, apart from three extra Mathlib import lines
   after its two imports. So the seven statements and everything they depend on are verbatim.
+
+**Finding:** the hypothesis `n < p` of the two vertical pieces is not used. The base change of an
+unramified extension along any ring map of DVRs is unramified.
 
 ## 2. Files
 
 | File | Contents |
 |---|---|
 | `scratch/ts-kummer/KummerTS.lean` | the final file: PropTSGlue.lean verbatim + appendix + `FinalTail.lean.part` |
-| `scratch/ts-kummer/Core.lean` | the development file (Objects + Mathlib only; verbatim dev copies of the PropTSGlue definitions it needs, removed in the final file); compiles alone in about 30 s |
+| `scratch/ts-kummer/Core.lean` | the development file. It imports only `ZInQKernel.HDecomp.Objects` and Mathlib, carries verbatim dev copies of the PropTSGlue definitions it needs (removed in the final file), and compiles alone in about 45 s |
 | `scratch/ts-kummer/make_final.py`, `check_identical.py` | build and check the final file |
-| `scratch/ts-kummer/log.md`, `compile_out.txt` | results log; compiler output of the final file |
+| `scratch/ts-kummer/log.md`, `compile_out.txt` | the results log, and the compiler output of the final file |
 
 ## 3. The proofs
 
-### 3.1 Two new general lemmas, proved
+### 3.1 General lemmas proved here
 
-Both are in the binder style of T2 (discrete valuation ring `R`, fraction field `K`, `L/K` finite
-separable).
+All are in T2's binder style.
 
-- **`unramCompositum : UnramCompositum`** (the Prop is defined in the file).
-  - Statement: if the integral closures of `R` in `L` and in `L'` are unramified over the maximal
-    ideal of `R` (`e = 1` and separable residue fields at every prime over it), then so is the
-    integral closure of `R` in the compositum `M = L·L'`.
+- **`unramCompositum : UnramCompositum`**. The Prop is defined in the file.
+  - Statement: `R` is a DVR, and `L, L'` are finite separable over `Frac R`. If the integral
+    closures of `R` in `L` and in `L'` are unramified over the maximal ideal (`e = 1`, separable
+    residue fields), then so is the integral closure of `R` in `M = L·L'`.
   - Proof:
-    1. `B`, `B'` are formally unramified over `R` (`fu_of_unram`).
-    2. The image `D` of `B ⊗_R B'` in `M` is finite and formally unramified over `R`.
-    3. At each maximal ideal of `D`, `Algebra.FormallyUnramified.map_maximalIdeal` makes the
-       maximal ideal principal, generated by a uniformizer of `R`. So the localization is a DVR
-       (`IsDiscreteValuationRing.TFAE`).
-    4. Hence `D` is integrally closed (`IsIntegrallyClosed.of_localization_maximal`).
-    5. `Frac D = M`, so `D` is the integral closure of `R` in `M`, and it is unramified
-       (`Algebra.isUnramifiedAt_iff_map_eq`).
-- **`unramBaseChange`**.
-  - Statement: let `R → T` be any ring map of DVRs, and let `M` be generated by `L` and `Frac T`.
-    If `B = integralClosure R L` is unramified over `R`, then every prime of
-    `integralClosure T M` over the maximal ideal of `T` is unramified.
-  - Proof: the same argument, with `T ⊗_R B` in place of `B ⊗_R B'`.
+    1. The image `D` of `B ⊗_R B'` in `M` is finite and formally unramified over `R`
+       (`fu_of_unram`).
+    2. At a maximal ideal of `D`, `Algebra.FormallyUnramified.map_maximalIdeal` makes the maximal
+       ideal principal, so the localization is a DVR (`IsDiscreteValuationRing.TFAE`).
+    3. Hence `D` is integrally closed (`IsIntegrallyClosed.of_localization_maximal`).
+    4. Since `Frac D = M`, `D` is the integral closure of `R` in `M`.
+- **`unramBaseChange`**: the same statement with `T ⊗_R B` in place of `B ⊗_R B'`, for any ring
+  map `R → T` of DVRs.
+- **Transfers.** Mathlib's `Ideal.ramificationIdx` is the length of `S_q/pS_q`, so it depends only
+  on the local ring. The tools are:
+  - `IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx`;
+  - `Ideal.ramificationIdx_tower`;
+  - `ramificationIdx_map_algEquiv` (new);
+  - the abstract transfers `abhyankar_core`, `compositum_core0` and `infTransfer`, which moves
+    between `ℚ[1/X]` and `ℚ[X]` away from `0` and `∞`.
+- **`isFractionRing_infCoord`**: `ℚ(X)` is the fraction field of `ℚ[1/X]`, via `reflect`.
+- **`ratFunc_transc`**: a non-constant `P/Q` is transcendental over `ℚ`.
+- **`ratFunc_mem_closure`**: `ℚ(X)` is the field generated by `X`.
 
-### 3.2 The transfers
-
-- Mathlib's `Ideal.ramificationIdx` is the length of `S_q/pS_q`, so it depends only on the local
-  ring. The transfers are:
-  - `IsLocalization.AtPrime.ramificationIdx_map_eq_ramificationIdx`, for localizing the base;
-  - `Ideal.ramificationIdx_tower`, for flat towers;
-  - `ramificationIdx_map_algEquiv`, new: invariance under an algebra isomorphism.
-- `abhyankar_core` and `compositum_core0` are abstract transfers from a Dedekind base `R0` to its
-  localization. In both, the integral closure of `A = ℚ[s]` in `M` is the integral closure of
-  `R0` (same carrier).
-- `infTransfer` moves between `ℚ[1/X]` and `ℚ[X]` away from `0` and `∞`.
-
-### 3.3 The six pieces
+### 3.2 The seven pieces
 
 | Piece | Proof |
 |---|---|
-| `KummerAbhyankarFinGlue` | T2 at `R = ℚ[X]_{(X−b)}` with `π = c(X − b) = s^n`. Then `e(Q'│R) = n`, and the tower `R → ℚ[s] → B'` with `e((s)│R) = n` gives `e(Q'│ℚ[s]) = 1` |
-| `KummerAbhyankarInfGlue` | the same, with `R0 = ℚ[1/X]` (`isFractionRing_infCoord`, via `Polynomial.reflect`) and `π = c/X = s^n` |
-| `KummerOtherBranchFin` | case split on `h = g ∩ ℚ[X]`, with `g = Q' ∩ ℚ[s]`: (1) if `X − b ∈ h`, then `g = (s)`; (2) if `h = (X − b')`, then `s^n − c(b' − b) ∈ g`; (3) otherwise `E` is unramified over `h`, and so is `ℚ[s]` over `h` (`polyUnram`: the derivative test plus separability of the generator of `h`), so `UnramCompositum` applies |
-| `KummerOtherBranchInf` | the same, with `R0 = ℚ[1/X]` and `infTransfer` |
-| `KummerVerticalFin` | `unramBaseChange` along `σ : ℤ[X]_(p) → ℤ[s]_(p)`, `X ↦ b + s^n/c`, followed by localization transfers. Units: for `f ∉ pℤ[X]`, `(scaleRoots f s)∘N` has a coefficient prime to `p` (Gauss; `unit_of_scaleRoots`). `E` is unramified over `ℤ[X]_(p)` with separable residue fields (`vertical_hL`: `NoVerticalRam`, the residue degree is at most `[E:ℚ(X)] < p` by `Ideal.inertiaDeg_le_finrank`, then prop-ts-glue's `isSeparable_of_finrank_lt`) |
-| `KummerVerticalInf` | the same, with `X ↦ c/s^n` and `f(c/s^n) = reflect(f)(s^n/c)·(c/s^n)^{deg f}` |
+| `KummerAbhyankarFinGlue` | T2 at `R = ℚ[X]_{(X−b)}` with `π = c(X−b) = s^n` gives `e(Q'│R) = n`. The tower `R → ℚ[s] → B'` with `e((s)│R) = n` then gives `e(Q'│ℚ[s]) = 1` |
+| `KummerAbhyankarInfGlue` | the same with `ℚ[1/X]` and `π = c/X` |
+| `KummerOtherBranchFin` | case split on `h = Q' ∩ ℚ[X]`. In the remaining case, `E` and `ℚ[s]` are both unramified over `h` (`polyUnram`: derivative test plus separability of the generator of `h`), so `UnramCompositum` applies |
+| `KummerOtherBranchInf` | the same, with `infTransfer` |
+| `KummerVerticalFin`, `KummerVerticalInf` | `unramBaseChange` along `ℤ[X]_(p) → ℤ[s]_(p)`. Units come from Gauss (`unit_of_scaleRoots`; for `∞` through `reflect`). `E` is unramified over `ℤ[X]_(p)` with separable residue fields (`vertical_hL`: `NoVerticalRam`; residue degree `≤ [E:ℚ(X)] < p` by `Ideal.inertiaDeg_le_finrank`, then prop-ts-glue's `isSeparable_of_finrank_lt`) |
+| `KummerCompositum` | see below |
 
-**Finding:** the hypothesis `n < p` of the two vertical pieces is not used (base change of an
-unramified extension is unramified for any ring map of DVRs). The statements are unchanged.
+**Proof of `KummerCompositum`.**
 
-## 4. What remains: `KummerCompositum` (open glue, true)
+1. **Setup.** Let `O = ℚ[s]_{(s−s₀)}` and `ρ : ℚ[X] → O`, `X ↦ P/Q`. Let `T = O ⊗_{ℚ[X]} B`.
+   The map `o ⊗ b ↦ o(s₀)·b̄` into `B/𝔓` has prime kernel `N`, lying over `𝔓` and over `max O`.
+2. **The ring `D`.** Take a minimal prime `𝔫 ⊆ N`. Since `T` is `O`-free, `O ∖ 0` avoids `𝔫`. Set
+   `D = T/𝔫` and `E' = Frac D`.
+3. **The embedding and `KummerShape`.** `ι` comes from `B ↪ D`; it is injective by
+   `ratFunc_transc` and integrality. `KummerShape` holds because `X ⊗ 1 = 1 ⊗ r`.
+4. **Degree bound.** Take a primitive element `θ` of `E/ℚ(X)`. Then `E' = ℚ(s)(ιθ)`, so
+   `[E' : ℚ(s)] ≤ deg m_θ = [E : ℚ(X)]`.
+5. **The prime `𝔓'`.** Lying over in the integral closure `C` of `O` in `E'` gives a prime `𝔐`.
+   Set `𝔓' = 𝔐 ∩ B'`; it lies over `s − s₀`.
+6. **The embedding `φ'`.** `φ` extends along `B/𝔓 → C/𝔐` (`IsAlgClosed.lift`). Every element of
+   `C/𝔐` is a quotient of images of `B'/𝔓'`, so `ℚ(φ(B/𝔓)) ⊆ ℚ(φ'(B'/𝔓'))`.
 
-The statement is true. This agrees with prop-ts-glue's review, and I re-derived it. Proof plan,
-not yet in Lean (SPECULATIVE as to effort):
+The abstract part is `kc_core`.
 
-1. Let `O = ℚ[s]_{(s−s₀)}`, and let `ℚ[X] → O` send `X ↦ r = P/Q` (`Q(s₀) ≠ 0`).
-2. On `T = O ⊗_{ℚ[X]} B`, the map `b ⊗ o ↦ b̄·ō` into `B/𝔓` (`O → ℚ` is evaluation at `s₀`;
-   compatible since `r(s₀) = t`) has a prime kernel `N` over `𝔓` and over `max O`.
-3. Choose a minimal prime `𝔫 ⊆ N` (`Ideal.exists_minimalPrimes_le`). `T` is `O`-free because `B`
-   is `ℚ[X]`-free. So nonzero elements of `O` are nonzerodivisors and avoid `𝔫`.
-4. Set `D = T/𝔫` (a domain, finite over `O`) and `E' = Frac D`. Then:
-   - `[E':ℚ(s)] ≤ rank_O T = [E:ℚ(X)]`;
-   - `ι : E → E'` comes from `B ↪ D`; injective because `𝔫 ∩ B` lies over `0`;
-   - `KummerShape` holds: `X ⊗ 1 = 1 ⊗ r`.
-5. Lying over in `D ⊆ integralClosure O E'` gives `𝔐` over `N/𝔫`. Then `𝔓' = 𝔐 ∩ B'`, and
-   `B'/𝔓' ≅ (integralClosure O E')/𝔐` (`IsLocalization.AtPrime.equivQuotientMapOfIsMaximal`)
-   receives `B/𝔓`.
-6. `φ` extends along this field map to `φ'` (`IsAlgClosed.lift`), so
-   `ℚ(φ(B/𝔓)) ⊆ ℚ(φ'(B'/𝔓'))`.
+## 4. What remains
 
-The Lean obstacle is plumbing, not mathematics:
+Nothing among the seven pieces. Under `PropTSAll` the open glue is now:
 
-- a type synonym for `E'`, because `FractionRing D` inherits the `X`-coordinate `ℚ[X]`-algebra
-  from the tensor product, while `E'` needs the `s`-coordinate one;
-- the degree bound;
-- the residue-field identification.
+- `SNSpecialize`, with prop-ts-glue's suggested route (docs/research/prop-ts-glue.md §6);
+- the five Hecke Props.
+
+Lean notes for integrators (details in log.md):
+
+- `KSyn D` is a type copy of `FractionRing D`, and `SrcPoly` and `InfCoord` are copies of `ℚ[X]`.
+  These copies keep the `X`- and `s`-coordinate `ℚ[X]`-algebra structures apart.
+- `infer_instance` for residue-field separability timed out in the big environment, and the
+  `HasQuotient` instance for `integralClosure (Localization.AtPrime (vertPrime p)) E` failed to
+  elaborate. Both are worked around in the file.
+- `kc_core` and `kummerCompositum_proof` carry per-declaration
+  `set_option synthInstance.maxHeartbeats 400000` and `maxHeartbeats 1600000`. Inside the big
+  PropTSGlue environment, instance searches on quotients of `integralClosure` exceed the default
+  limits; the dev file builds without these options.

@@ -133,3 +133,13 @@ KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf), the open glue 
 - Lean pitfall: `exact kc_core … _ hiOinj …` (with `iO` left as `_`) hit a whnf timeout (even at
   10^6 heartbeats); giving `iO` explicitly and closing the hypotheses as separate `refine` goals
   elaborates in seconds.
+
+## Step 8: final file with all seven pieces, compiled
+- FinalTail: `TsKummer.kummerCompositum`, `kummerMeetGlue : KummerMeetGlue`, `propTSAll_ts'`
+  (PropTSAll from T2, R1R2fp, MobiusGlue, SNSpecialize and the five Hecke Props).
+- In the PropTSGlue environment, `kc_core`/`kummerCompositum_proof` exceeded the default heartbeat
+  limits (typeclass search on quotients of integral closures); fixed by per-declaration
+  `set_option synthInstance.maxHeartbeats 400000` and `maxHeartbeats 1600000`.
+- `lake env lean scratch/ts-kummer/KummerTS.lean` (1 min 5 s): 0 errors; all 19 TsKummer
+  `#print axioms` lines and all PropTSGlue lines standard (VERIFIED); check_identical.py:
+  PREFIX IDENTICAL (VERIFIED).

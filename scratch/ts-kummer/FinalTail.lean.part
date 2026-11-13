@@ -23,7 +23,9 @@ theorem kummerCompositum : KummerCompositum := kummerCompositum_proof
 
 /-- **`KummerMeetGlue` is proved** (all seven Kummer pieces are proved; the two Abhyankar pieces
 use T2, which is `KummerMeetGlue`'s own hypothesis). -/
-theorem kummerMeetGlue : KummerMeetGlue := kummerMeetGlue_of_compositum kummerCompositum
+theorem kummerMeetGlue : KummerMeetGlue :=
+  kummerMeetGlue_of_pieces' kummerCompositum kummerAbhyankarFinGlue kummerOtherBranchFin
+    kummerVerticalFin kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
 
 /-- `KummerMeetGlue` from `KummerCompositum` alone (the other six Kummer pieces are proved;
 the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/
