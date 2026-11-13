@@ -2,7 +2,7 @@
 
 Status: research note and blueprint (task bp-analytic, 2026-11-12), written for a crowdsourced
 Lean team.
-- Lean file: `scratch/bp-analytic/Torus.lean`, about 1 430 lines. It compiles with no errors and
+- Lean file: `scratch/bp-analytic/Torus.lean`, about 1 650 lines. It compiles with no errors and
   no warnings and has no `sorry`.
 - It uses Mathlib only, with no project imports. Definitions copied from
   `ZInQKernel/HDecomp/Objects.lean` and `scratch/pkg-I1/I1.lean` are marked "copied" in the file.
@@ -46,9 +46,14 @@ The node is shared by three blueprints:
    - *Uniqueness.* Two uniformizations of the same `A` differ by a `ℂ`-linear map carrying one
      lattice into the other (`IsUniformization.exists_complexLinear`). So the period lattice,
      and everything computed from it, does not depend on the choice.
+     Moreover `T` is an isomorphism with `T(Λ) = Λ'`, and `g` is the same for all
+     uniformizations (`exists_equiv`, `dim_eq`).
    - *Endomorphisms act linearly.* Every endomorphism `α` of the group scheme `A` acts on `ℂ^g`
-     by a `ℂ`-linear map preserving `Λ` (`IsUniformization.exists_complexLinear_endo`). This is
-     the analytic representation `End(A) → M_g(ℂ)` that R1an, T11 and T12 use.
+     by a `ℂ`-linear map `ρ(α)` preserving `Λ` (`exists_complexLinear_endo`, `analyticRep`).
+     - `ρ` is unital, additive and multiplicative: `analyticRep_id`, `analyticRep_mul`,
+       `analyticRep_comp`.
+     - This is the analytic representation `End(A) → M_g(ℂ)` that R1an, T11 and T12 use.
+   - *Torsion.* `A(ℂ)[n] = φ((1/n)Λ/Λ)` (`torsion_iff`), the input of T12.
 
    The leaf's *proof*, i.e. analytification, is the XL work package of §2-§3. No consumer needs
    it in order to be stated or glued.
@@ -86,11 +91,14 @@ The node is shared by three blueprints:
      - `F'(τ) = F₀(τ)P⁻¹` is invertible and carries `Ω(τ)ℤ² + ℤ²` onto `Λ_τ`
        (`map_periodLattice_Omega`);
      - so `det Im Ω(τ) ≠ 0`, `Ω(τ)ᵀ = Ω(τ)` (`Omega_transpose`), and
-       `ℂ²/Λ_{Ω(τ)} ≃ ℂ²/Λ_τ` biholomorphically as groups (`qmPeriodDiffeo`).
+       `ℂ²/Λ_{Ω(τ)} ≃ ℂ²/Λ_τ` biholomorphically as groups (`qmPeriodDiffeo`);
+     - for `Im τ > 0`, `Ω(τ) ∈ 𝔥₂` (`Omega_mem_siegelSpace`, via the partial-fraction form
+       `Ω(τ) = A₀ + C/(τ+1) + B/(τ−3)` with `−C`, `−B` positive semidefinite of rank one).
 
      pkg-I1 §4 stated "`Ω(τ)` is a period matrix of `(ℂ²/Λ_τ, E)`" from numerical checks
-     (pkg-I1.md, "Faithfulness"). The lattice, torus and symmetry part is now a theorem.
-     `Im Ω(τ) > 0` is checked symbolically (sympy) only.
+     (pkg-I1.md, "Faithfulness"). The lattice, torus, symmetry and positivity parts are now
+     theorems. The compatibility with N5's Riemann form holds by pkg-I1's construction and is
+     not re-proved here.
 3. **What each consumer needs (§1).** None of them needs the analytification of a general scheme.
    - **The Faltings height (AN3)** needs the period lattice `Λ_σ ⊂ Lie(A_σ)` and the
      identification of `η ∈ ω_A` with `c·dz₁∧⋯∧dz_g`. The lattice and its independence of
@@ -98,15 +106,16 @@ The node is shared by three blueprints:
      `‖c‖²·det Im Ω` for a normalized period matrix (BUILT). The identification of `η`
      (node A6) is S-M glue over the leaf and bp-faltings' cotangent model.
    - **F1 (R1an)** needs an `𝒪`-equivariant `A_σ(ℂ) ≅ ℂ²/Λ_τ`.
-     - The `𝒪`-action on `(ℂ², Λ)` by `ℂ`-linear maps is BUILT over the leaf.
+     - The `𝒪`-action on `(ℂ², Λ)` by `ℂ`-linear maps, as a ring homomorphism, is BUILT over
+       the leaf.
      - "A rank-one `𝒪`-lattice is `ι(𝒪)v`" is lattice algebra.
      - The torus and theta side is BUILT.
      - Flagged (§1.2): bp-qmmoduli's step "two Hauptmoduln coincide" also needs the analytic
        uniformization of the Shimura curve in families, which is not part of AN3.
    - **R22, T11, T12** (§1.3-§1.5).
      - T12 reduces to the leaf plus elementary glue (torsion, complex conjugation).
-     - R22's theta constants are `thetaChar` (BUILT); its period matrix in `𝔥₂` needs node P4
-       (polarizations).
+     - R22's theta constants are `thetaChar` (BUILT). Its period matrix in `𝔥₂` needs node P4
+       (polarizations). For the QM family this is BUILT (`Omega_mem_siegelSpace`).
      - T11 needs, besides the leaf, a separate GAGA-type leaf: every holomorphic endomorphism is
        algebraic. The algebraic-to-linear direction is BUILT (`exists_complexLinear_endo`).
 4. **Sizes (SPECULATIVE, Lean lines).**
@@ -156,9 +165,8 @@ The node is shared by three blueprints:
   carrying the polarization to `±E₀`.
 - **Over the leaf:**
   1. **BUILT.** Each endomorphism of `A`, in particular each `ι(x)`, `x ∈ 𝒪`, acts on `ℂ²` by a
-     `ℂ`-linear `T_x` with `T_xΛ ⊆ Λ` (`exists_complexLinear_endo`).
-     - Additivity and multiplicativity of `x ↦ T_x` follow from the uniqueness of the lift
-       (S, not built).
+     `ℂ`-linear `ρ(x)` with `ρ(x)Λ ⊆ Λ` (`exists_complexLinear_endo`, `analyticRep`).
+     - `ρ` is a ring homomorphism (`analyticRep_id`, `analyticRep_mul`, `analyticRep_comp`).
      - This makes `Λ` an `𝒪`-module and `ℂ²` an `𝒪 ⊗ ℂ`-module.
   2. **Lattice algebra (M).** `Λ` is a torsion-free `𝒪`-module of `ℤ`-rank 4. So it is a
      locally free right ideal class of `𝒪`, and free of rank one: `Λ = ι(𝒪)v` for some `v`, after
@@ -169,6 +177,7 @@ The node is shared by three blueprints:
      - `qmPeriodDiffeo` identifies `ℂ²/Λ_τ` with `ℂ²/Λ_{Ω(τ)}`.
      - `Omega_transpose` gives `Ω(τ)ᵀ = Ω(τ)`, so `θ(·, Ω(τ))` is quasi-periodic for that
        torus (`riemannTheta_Omega_add_period`).
+     - `Omega_mem_siegelSpace` gives `Ω(τ) ∈ 𝔥₂` for `Im τ > 0`.
      - `thetaConst_eq_riemannTheta` identifies pkg-I1's ten theta constants at `Ω(τ)` with
        values of `θ` at 2-torsion points.
   4. **Polarization.** bp-qmmoduli's `eq_pm_E0_of_principal` (done there) gives `±E₀`.
@@ -214,7 +223,7 @@ The node is shared by three blueprints:
   `(−1)^g` (oddness of `r_ℓ`).
 - **Over the leaf, elementary glue (M):**
   - `A(ℂ)[n] = φ((1/n)Λ/Λ)`, because `φ` is a group isomorphism and the torsion of `ℂ^g/Λ` is
-    `(1/n)Λ/Λ`. So `T_ℓA ≅ Λ ⊗ ℤ_ℓ`.
+    `(1/n)Λ/Λ` (BUILT: `torsion_iff`, `nsmul_proj_eq_zero_iff`). So `T_ℓA ≅ Λ ⊗ ℤ_ℓ`.
   - For `A` defined over `ℝ`, `c` acts on `A(ℂ)` antiholomorphically: by (i),
     `f∘c = conj∘f^c` for regular `f`.
   - The argument of `continuous_endo` and `exists_realLinear_endo` adapts to the map `φ⁻¹cφ`, so
@@ -229,10 +238,10 @@ The node is shared by three blueprints:
 | Consumer | Needs the leaf | Needs more | Built here for it |
 | --- | --- | --- | --- |
 | AN3 (Faltings) | yes, to define `Λ_σ` and `c_σ(η)` | A6 (tangent glue) | torus, `periodLattice`, `covolume_periodLattice`, `torusDiffeo`, `exists_complexLinear` (independence of choices) |
-| R1an (F1) | yes | lattice algebra (M); the Shimura-curve family uniformization (not AN3) | `exists_complexLinear_endo`, `qmLattice`, `qmPeriodDiffeo`, `Omega_transpose`, `thetaConst_eq_riemannTheta` |
+| R1an (F1) | yes | lattice algebra (M); the Shimura-curve family uniformization (not AN3) | `analyticRep` (ring hom), `qmLattice`, `qmPeriodDiffeo`, `Omega_transpose`, `Omega_mem_siegelSpace`, `thetaConst_eq_riemannTheta` |
 | R22 | yes | P4 (polarization ⇒ `𝔥₂`), Faltings height | `thetaChar`, `riemannTheta_add_period` |
-| T11 | yes | a GAGA leaf | `exists_complexLinear_endo`, `exists_complexLinear_lift` |
-| T12 | yes | torsion and conjugation glue (M) | `exists_realLinear_lift`, `continuous_endo` pattern, `ker_torusExp` |
+| T11 | yes | a GAGA leaf | `analyticRep`, `exists_complexLinear_lift` |
+| T12 | yes | conjugation glue (M) | `torsion_iff`, `exists_realLinear_lift`, `continuous_endo` pattern |
 
 ## 2. Dependency graph
 
@@ -304,16 +313,16 @@ Statuses:
 | P2 | `θ(z + Ωm + n) = e(−½mᵀΩm − mᵀz)θ(z)`; `θ[c,d](Ω) = e(½cᵀΩc + cᵀd)·θ(Ωc + d)` | S | **BUILT** (`riemannTheta_add_period`, `thetaChar_eq`; no convergence needed) |
 | P3 | `covol(Ωℤ^g + ℤ^g) = |det Im Ω|` for Lebesgue measure on `ℂ^g` | M | **BUILT** (§9, `covolume_periodLattice`): `ZSpan.measureReal_fundamentalDomain` with the standard real basis (fundamental domain of volume 1, `volume_fundamentalDomain_stdRealBasis`) and coordinate matrix `[[Im Ω, 0], [Re Ω, 1]]` (`toMatrix_periodVec`) |
 | P4 | A principal polarization (positive unimodular Riemann form `E` on Λ, `E(iu, iv) = E(u, v)`) gives a symplectic basis in which the period matrix lies in `𝔥_g` | M | Route: symplectic basis of a unimodular alternating `ℤ`-form (Frobenius normal form, M), then Riemann's bilinear relations (S given the basis). Tau Ceti has Riemann forms = polarizations (prereq-survey A9, not re-checked) |
-| Q1 | pkg-I1: `Λ_τ = ι(𝒪)(τ,1)ᵀ` is a full lattice; `F'(τ)` maps `Ω(τ)ℤ² + ℤ²` onto it; `Ω(τ)` symmetric | S | **BUILT** (§7). `Im Ω(τ) > 0` for `Im τ > 0`: sympy only (`det Im Ω(x+iy) = 12y²/(((x−3)²+y²)((x+1)²+y²))`, VERIFIED computation). In Lean it follows from P4 with N5's Riemann form, or from a direct computation (S-M) |
+| Q1 | pkg-I1: `Λ_τ = ι(𝒪)(τ,1)ᵀ` is a full lattice; `F'(τ)` maps `Ω(τ)ℤ² + ℤ²` onto it; `Ω(τ)` symmetric; `Ω(τ) ∈ 𝔥₂` for `Im τ > 0` | S | **BUILT** (§7). Positivity by the partial-fraction form (`OmegaPF`, `Omega_mem_siegelSpace`); sympy cross-check `det Im Ω(x+iy) = 12y²/(((x−3)²+y²)((x+1)²+y²))` (VERIFIED computation) |
 | A1 | Analytic topology on `X(ℂ)` for `X` locally of finite type over `ℂ` | M-L | Cheapest faithful definition: the coarsest topology for which every `{P ∈ U}` (`U` Zariski open) is open and every `evalAt U f` is continuous on it (the "function topology"; `evalAt` is BUILT). This is the topology of the leaf's clause (iii). Then prove that on an affine `U ↪ 𝔸^n` it is the subspace topology of `ℂ^n` (M). Points: Mathlib's `Spec ℂ ⟶ X`, or closed points via `pointEquivClosedPoint` |
 | A2 | For `X` smooth of relative dimension `g`, `X(ℂ)` is a complex manifold, with charts given by `g` local parameters | L | Route: at a point, choose `f₁…f_g` whose differentials span `𝔪/𝔪²` (algebraic: smoothness; bp-faltings AV3). On an affine chart `U = V(h₁…h_r) ⊂ ℂ^n`, the Jacobian criterion and the analytic inverse function theorem (M-ana) make `(f_i)` a local biholomorphism onto an open subset of `ℂ^g`. Transition maps are analytic because they are again regular functions. Main cost: the Jacobian criterion for smooth `ℂ`-algebras (Mathlib has `Smooth` and Kähler differentials, not the criterion in this form; M-L) |
 | A3 | Morphisms of `ℂ`-schemes give holomorphic maps; for a group scheme `G`, `G(ℂ)` is a complex Lie group | M | from A2 and (i), since pulled-back coordinates are regular. `G(ℂ)` as a group is Mathlib (`MonObj.Hom.group`); `evalAt_comp` (BUILT) is the pull-back rule |
 | A4 | `X` proper over `ℂ` ⇒ `X(ℂ)` compact | XL | Routes: (a) Chow's lemma + `ℂP^N` compact (both absent; XL); (b) for abelian varieties, projectivity (Mumford §6, XL algebraic) + `ℂP^N`; (c) a direct analytic valuative criterion (curve selection + extension over a puncture; research-level formalization). **The most expensive node.** Standard reference SGA 1 XII 3.2 (UNVERIFIED) |
 | A4' | `X` geometrically integral ⇒ `X(ℂ)` connected | L | SGA 1 XII 2.4 (UNVERIFIED), via irreducible curves through two points. A5 needs `A(ℂ)` connected as an input, so A4' cannot be avoided by the Lie-theoretic argument |
 | A5 | A compact connected commutative complex Lie group `G` is `Lie(G)/Λ` with `Λ = ker exp` a full lattice | L | Route: (1) one-parameter subgroups: flows of invariant vector fields exist for all time by translation invariance (M-ode, uniform time), after restricting `G` to a real manifold (absent API, S-M); (2) commutativity makes `exp` a homomorphism; it is holomorphic because flows of holomorphic invariant fields commute with `J` (M); (3) `d exp₀ = id`, so `exp` is a local biholomorphism (M-ana); (4) the image is an open subgroup, hence all of `G`; (5) the kernel is discrete; (6) compactness forces the kernel to span `Lie(G)` over `ℝ`, and `torusDiffeo` finishes. Commutativity is algebraic for abelian varieties (Mathlib), so the Lie-theoretic proof (Liouville applied to `Ad`) is not needed |
-| U1 | Two uniformizations differ by a `ℂ`-linear map of lattices | M | **BUILT** (`continuous_comparison` from (i)+(iii); `exists_realLinear` from T2; `exists_complexLinear` from (i)+(ii) and the analytic inverse function theorem) |
-| U2 | `End(A)` acts on `(ℂ^g, Λ)` by `ℂ`-linear maps | M | **BUILT** (`ptMap`, `evalAt_comp`, `continuous_endo`, `exists_realLinear_endo`, `exists_complexLinear_endo`). Not built: additivity/multiplicativity of `α ↦ T_α` (S, by uniqueness of lifts) |
-| U3 | Torsion `A(ℂ)[n] = φ((1/n)Λ/Λ)`; complex conjugation lifts to an antilinear involution | M | route in §1.5 |
+| U1 | Two uniformizations differ by a `ℂ`-linear isomorphism of lattices; `g` is invariant | M | **BUILT** (`continuous_comparison` from (i)+(iii); `exists_realLinear` from T2; `exists_complexLinear` from (i)+(ii) and the analytic inverse function theorem; `eq_of_proj_eq`, `exists_equiv`, `dim_eq`) |
+| U2 | `End(A)` acts on `(ℂ^g, Λ)` by `ℂ`-linear maps, as a ring homomorphism | M | **BUILT** (`ptMap`, `evalAt_comp`, `continuous_endo`, `exists_realLinear_endo`, `exists_complexLinear_endo`, `analyticRep`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp`, `isMonHom_mul`, `analyticRep_mul`) |
+| U3 | Torsion `A(ℂ)[n] = φ((1/n)Λ/Λ)`; complex conjugation lifts to an antilinear involution | M | torsion **BUILT** (`torsion_iff`); conjugation: route in §1.5 |
 | A6 | Tangent identification `dφ₀ : ℂ^g ≅ T_eA` and `φ^*η = c(η)·dz` | S-M | glue over the leaf, §1.1; needs bp-faltings' AV3 (`𝔪/𝔪²`) |
 | G1 | GAGA for abelian varieties: holomorphic homomorphisms `A(ℂ) → B(ℂ)` are algebraic | XL | **lit** (Serre 1956; Mumford §3, UNVERIFIED); a separate leaf for T11 |
 
@@ -331,14 +340,14 @@ Statuses:
 
 ## 3. Recommended order of work
 
-1. **WP-U0 (done here).** T1, T2, P1-P3, Q1, the leaf, U1, U2.
+1. **WP-U0 (done here).** T1, T2, P1-P3, Q1, the leaf, U1, U2, and the torsion half of U3.
 2. **WP-U1 (S-M, can start now; unblocks every consumer).**
-   - A6, U3, and the algebra of `α ↦ T_α`.
+   - A6 and the conjugation half of U3.
    - Restate bp-faltings' `HodgeData` construction (M4) as "Hodge data from
      `IsUniformization`", using `covolume_periodLattice` and `exists_complexLinear`.
    - Restate bp-qmmoduli's R1an as glue over the leaf (plus the family input of §1.2).
-3. **WP-U2 (M).** P4 (polarizations, symplectic bases, `𝔥_g`); `Ω(τ) ∈ 𝔥₂` with N5's Riemann
-   form.
+3. **WP-U2 (M).** P4 (polarizations, symplectic bases, `𝔥_g`) for a general principally
+   polarized `A`.
 4. **WP-U3 (L).** A1-A3: analytic topology and complex-manifold structure of `X(ℂ)` for smooth
    `X`; morphisms are holomorphic; `G(ℂ)` is a complex Lie group.
 5. **WP-U4 (L).** A5, including real flows on complex Lie groups. With T1 this proves the leaf
@@ -353,12 +362,15 @@ lists only `propext`, `Classical.choice`, `Quot.sound` for each of these:
   `ker_torusExp`, `contMDiff_torusExp_smul`, `torusDiffeo`;
 - `thetaConst_eq_riemannTheta`, `riemannTheta_add_period`, `two_nsmul_proj_charPoint`;
 - `QM.det_im_Omega_ne_zero`, `QM.qmPeriodDiffeo`, `QM.qmPeriodDiffeo_add`,
-  `QM.Omega_transpose`, `QM.riemannTheta_Omega_add_period`;
+  `QM.Omega_transpose`, `QM.riemannTheta_Omega_add_period`, `QM.Omega_eq_PF`,
+  `QM.Omega_mem_siegelSpace`;
 - `exists_realLinear_lift`, `exists_complexLinear_lift`;
 - `covolume_periodLattice`, `covolume_periodLattice_of_mem`;
 - `Uniformization.evalAt_comp`, `IsUniformization.continuous_comparison`,
   `IsUniformization.exists_realLinear`, `IsUniformization.exists_realLinear_endo`,
-  `IsUniformization.exists_complexLinear_endo`, `IsUniformization.exists_complexLinear`.
+  `IsUniformization.exists_complexLinear_endo`, `IsUniformization.exists_complexLinear`,
+  `IsUniformization.exists_equiv`, `IsUniformization.dim_eq`, `analyticRep_id`,
+  `analyticRep_comp`, `analyticRep_mul`, `torsion_iff`.
 
 ### 4.1 Contents of `Torus.lean`
 
@@ -370,10 +382,10 @@ lists only `propext`, `Classical.choice`, `Quot.sound` for each of these:
 | 4 | `SiegelSpace`, `periodVec`, `periodVec_linearIndependent`, `card_periodIndex`, `periodBasis`, `coe_periodBasis`, `periodLattice` (+ `DiscreteTopology`, `IsZLattice ℝ`), `det_im_ne_zero_of_mem_siegelSpace`, `mem_periodLattice_iff`, `SiegelTorus` | the period lattice of `Ω` (P1) |
 | 5 | `intVec`, `riemannTheta`, `dotProduct_mulVec_symm`, `riemannTheta_add_int`, `riemannTheta_add_mulVec`, `riemannTheta_add_period`, `thetaChar`, `thetaChar_eq`, `Char2`, `thetaConst` (copied from pkg-I1), `charHalf`, `thetaConst_eq_thetaChar`, `thetaConst_eq_riemannTheta`, `two_nsmul_proj_charPoint` | theta functions (P2) |
 | 6 | `torusAddEquiv`, `torusAddEquiv_proj`, `torusAddEquiv_symm_proj`, `torusDiffeo`, `torusDiffeo_apply` | linear changes of coordinates |
-| 7 | namespace `QM`: `B`, `oBasis`, `Mi`, `Mj`, `iota`, `latVec`, `Emat`, `F0mat`, `Pinv`, `Omega` (copied from pkg-I1); `latVec0`-`latVec3`, `Emat_eq`, `F0mat_eq`, `Fp`, `det_Fp`, `sqrt2_ne_zero`, `det_Fp_ne_zero`, `Fp_mul_Omega`, `qmVec`, `qmVec_linearIndependent`, `qmBasis`, `qmLattice` (+ instances), `qmLattice_eq`, `QMTorus`, `mulVec_col`, `Fp_mulVec_periodVec`, `det_im_ne_zero_of_linearIndependent`, `imgVec`, `Fp_mulVec_periodVec'`, `imgVec_linearIndependent`, `span_imgVec`, `FpEquiv`, `FpEquiv_apply`, `det_im_Omega_ne_zero`, `map_periodLattice_Omega`, `qmPeriodDiffeo`, `qmPeriodDiffeo_add`, `qmPeriodDiffeo_proj`, `sqrt2_sq`, `Fp_mul_Emat_transpose`, `Omega_transpose`, `riemannTheta_Omega_add_period` | pkg-I1's QM torus and its period matrix (Q1) |
+| 7 | namespace `QM`: `B`, `oBasis`, `Mi`, `Mj`, `iota`, `latVec`, `Emat`, `F0mat`, `Pinv`, `Omega` (copied from pkg-I1); `latVec0`-`latVec3`, `Emat_eq`, `F0mat_eq`, `Fp`, `det_Fp`, `sqrt2_ne_zero`, `det_Fp_ne_zero`, `Fp_mul_Omega`, `qmVec`, `qmVec_linearIndependent`, `qmBasis`, `qmLattice` (+ instances), `qmLattice_eq`, `QMTorus`, `mulVec_col`, `Fp_mulVec_periodVec`, `det_im_ne_zero_of_linearIndependent`, `imgVec`, `Fp_mulVec_periodVec'`, `imgVec_linearIndependent`, `span_imgVec`, `FpEquiv`, `FpEquiv_apply`, `det_im_Omega_ne_zero`, `map_periodLattice_Omega`, `qmPeriodDiffeo`, `qmPeriodDiffeo_add`, `qmPeriodDiffeo_proj`, `sqrt2_sq`, `Fp_mul_Emat_transpose`, `Omega_transpose`, `riemannTheta_Omega_add_period`, `OmegaPF`, `Fp_mul_OmegaPF`, `Omega_eq_PF`, `Omega_mem_siegelSpace` | pkg-I1's QM torus and its period matrix (Q1) |
 | 8 | `eventuallyEq_const_of_mem`, `exists_realLinear_lift`, `exists_complexLinear_lift` | homomorphisms of tori are linear (T2) |
 | 9 | `sigmaEquiv`, `stdRealBasis`, `stdRealBasis_repr_inl/inr`, `volume_unitSquare`, `volume_fundamentalDomain_stdRealBasis`, `toMatrix_periodVec`, `covolume_periodLattice`, `covolume_periodLattice_of_mem` | covolume = `|det Im Ω|` (P3) |
-| 10 | namespace `Uniformization`: `AbVar`, `AbVar.ptObj`, `AbVar.Pt` (copied from `Objects.lean`), `PtIn`, `evalAt`, `IsUniformization`, `UniformizationLeaf`, `UniformizationLeafAll`, `IsUniformization.continuous_comparison`, `IsUniformization.exists_realLinear`, `ptMap`, `evalAt_comp`, `IsUniformization.continuous_endo`, `IsUniformization.exists_realLinear_endo`, `IsUniformization.exists_complexLinear_endo`, `IsUniformization.exists_complexLinear` | the leaf (AN3) and its glue (U1, U2) |
+| 10 | namespace `Uniformization`: `AbVar`, `AbVar.ptObj`, `AbVar.Pt` (copied from `Objects.lean`), `PtIn`, `evalAt`, `IsUniformization`, `UniformizationLeaf`, `UniformizationLeafAll`, `IsUniformization.continuous_comparison`, `IsUniformization.exists_realLinear`, `ptMap`, `evalAt_comp`, `IsUniformization.continuous_endo`, `IsUniformization.exists_realLinear_endo`, `IsUniformization.exists_complexLinear_endo`, `IsUniformization.exists_complexLinear`, `eq_of_proj_eq`, `IsUniformization.exists_equiv`, `IsUniformization.dim_eq`, `analyticRep`, `analyticRep_mem`, `analyticRep_spec`, `analyticRep_unique`, `analyticRep_id`, `analyticRep_comp`, `isMonHom_mul`, `analyticRep_mul`, `nsmul_proj_eq_zero_iff`, `torsion_iff` | the leaf (AN3) and its glue (U1, U2, U3 torsion) |
 
 Key statements (abridged):
 
@@ -470,14 +482,14 @@ check it.
   only evaluates at points of `U`.
 - *Dimension.* `g` is existential. Clause (ii) forces `g = dim A` analytically. A consumer that
   needs `g = dim A` algebraically can add it as a conjunct, which is a consequence of Mumford §1.
-  `exists_complexLinear` shows that `g` is the same for all uniformizations, up to applying the
-  symmetric statement and comparing ranks (S, not built).
+  `dim_eq` (BUILT) shows that `g` is the same for all uniformizations.
 
 ## 5. Findings that affect other notes
 
 1. **pkg-I1's "Faithfulness" claim** (that `Ω(τ)` is a period matrix of `ℂ²/Λ_τ`) is now proved
-   in Lean, for every `τ ∉ ℝ`, for the lattice, torus and symmetry part (`qmPeriodDiffeo`,
-   `Omega_transpose`). `Im Ω(τ) > 0` remains a symbolic computation (sympy, VERIFIED here).
+   in Lean: for every `τ ∉ ℝ`, the lattice, torus and symmetry parts (`qmPeriodDiffeo`,
+   `Omega_transpose`); for `Im τ > 0`, `Ω(τ) ∈ 𝔥₂` (`Omega_mem_siegelSpace`). The compatibility
+   with N5's Riemann form is by pkg-I1's construction and is not re-proved here.
 2. **bp-qmmoduli R1an**, as written, is pointwise in `P`. The glue that turns it into F1 also uses
    the holomorphy of `τ ↦ π(A_τ)`, a family statement about the Shimura curve (§1.2). Recommend
    recording that input in R1an or R1.
@@ -504,8 +516,8 @@ check it.
    - Silverman, AEC VI;
    - Birkenhake-Lange, *Complex abelian varieties*, Ch. 1 and 4 (period matrices, Riemann
      relations).
-2. **Not built:** P4, A1-A5, A6, U3, G1, and the algebra of `α ↦ T_α`. **Not proved in Lean:**
-   `Ω(τ) ∈ 𝔥₂` (positivity of `Im Ω(τ)`), the polarization of `ℂ²/Λ_τ`, and the invariance of `g`.
+2. **Not built:** P4, A1-A5, A6, the conjugation half of U3, G1. **Not proved in Lean:** the
+   polarization of `ℂ²/Λ_τ` (N5's Riemann form in the symplectic basis).
 3. **Library items not re-checked:** Tau Ceti Riemann forms (prereq-survey A9).
 4. **Estimates and review:** the size tiers and line estimates are SPECULATIVE. The faithfulness
    review of `IsUniformization` (§4.2) is the author's and has had no independent review.
