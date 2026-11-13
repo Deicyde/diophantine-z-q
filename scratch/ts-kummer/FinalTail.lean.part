@@ -18,13 +18,21 @@ theorem kummerVerticalFin : KummerVerticalFin := kummerVerticalFin_proof
 /-- **`KummerVerticalInf` is proved.** -/
 theorem kummerVerticalInf : KummerVerticalInf := kummerVerticalInf_proof
 
-/-- **`KummerMeetGlue` from `KummerCompositum` alone** (the other six Kummer pieces are proved;
+/-- **`KummerCompositum` is proved.** -/
+theorem kummerCompositum : KummerCompositum := kummerCompositum_proof
+
+/-- **`KummerMeetGlue` is proved** (all seven Kummer pieces are proved; the two Abhyankar pieces
+use T2, which is `KummerMeetGlue`'s own hypothesis). -/
+theorem kummerMeetGlue : KummerMeetGlue := kummerMeetGlue_of_compositum kummerCompositum
+
+/-- `KummerMeetGlue` from `KummerCompositum` alone (the other six Kummer pieces are proved;
 the two Abhyankar pieces use T2 inside `KummerMeetGlue`'s own hypothesis). -/
 theorem kummerMeetGlue_of_compositum (hC : KummerCompositum) : KummerMeetGlue :=
   kummerMeetGlue_of_pieces' hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
     kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf
 
-/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed. -/
+/-- `PropTSAll` (prop-ts-glue's `propTSAll_final`) with the six proved Kummer pieces removed
+(superseded by `propTSAll_ts'`). -/
 theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
     (hS : SNSpecialize) (hC : KummerCompositum)
     (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
@@ -32,8 +40,19 @@ theorem propTSAll_ts (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.Mobiu
   propTSAll_final t2 hR hM hS hC kummerAbhyankarFinGlue kummerOtherBranchFin kummerVerticalFin
     kummerAbhyankarInfGlue kummerOtherBranchInf kummerVerticalInf hI hNI hD hB hV
 
+/-- **`PropTSAll` with all seven Kummer pieces removed**: from T2, `R1R2fp`, `MobiusGlue`,
+`SNSpecialize` and the five Hecke Props. -/
+theorem propTSAll_ts' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_ts t2 hR hM hS kummerCompositum hI hNI hD hB hV
+
 end TsKummer
 
+#print axioms TsKummer.kummerCompositum
+#print axioms TsKummer.kummerMeetGlue
+#print axioms TsKummer.propTSAll_ts'
 #print axioms TsKummer.kummerOtherBranchFin
 #print axioms TsKummer.kummerOtherBranchInf
 #print axioms TsKummer.kummerVerticalFin

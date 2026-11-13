@@ -111,3 +111,25 @@ KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf), the open glue 
   `propTSAll_ts` (prop-ts-glue's `propTSAll_final` without the six proved Kummer pieces).
 - `lake env lean scratch/ts-kummer/KummerTS.lean` (1 min 42 s): 0 errors; every `#print axioms`
   line `[propext, Classical.choice, Quot.sound]` (VERIFIED, compile_out.txt).
+
+## Step 7: KummerCompositum PROVED (dev file), compiled
+- Construction: O = ℚ[s]_(s−s₀) (as `Localization.AtPrime` of `SrcPoly`, a copy of ℚ[X], to keep the
+  two coordinates apart), ρ : ℚ[X] → O, X ↦ r = P/Q; T = O ⊗_{ℚ[X]} B; ψ0 : T → B/𝔓,
+  o ⊗ b ↦ ev_{s₀}(o)·b̄ (compatible since r(s₀) = t and X − t ∈ 𝔓); N = ker ψ0; a minimal prime
+  𝔫 ⊆ N (`Ideal.exists_minimalPrimes_le`); T is O-free, so O∖0 avoids 𝔫
+  (`Ideal.disjoint_nonZeroDivisors_of_mem_minimalPrimes`); D = T/𝔫; E' = KSyn D (a type copy of
+  FractionRing D, so no ℚ[X]-algebra instance leaks from the tensor product).
+- `TsKummer.kc_core` (abstract D): ι from B ↪ D (injective: a nonzero b divides a nonzero
+  c ∈ ℚ[X], and ρ is injective by `ratFunc_transc`: a non-constant P/Q is transcendental over ℚ,
+  via integral closedness of ℚ[X]); KummerShape (X ⊗ 1 = 1 ⊗ r; closure via
+  `ratFunc_mem_closure`); [E':ℚ(s)] ≤ [E:ℚ(X)] by a primitive element θ of E/ℚ(X): E' = ℚ(s)(ιθ)
+  and ιθ is a root of m_θ mapped by κ : ℚ(X) → ℚ(s), X ↦ P/Q; prime 𝔐 of the integral closure
+  of O in E' over N/𝔫 (`Ideal.exists_ideal_over_prime_of_isIntegral`), 𝔓' = 𝔐 ∩ B'
+  (𝔓' ∩ ℚ[s] = (s − s₀)); φ' = φ'' ∘ (B'/𝔓' → C/𝔐) with φ'' extending φ along B/𝔓 → C/𝔐
+  (`IsAlgClosed.lift`; algebraicity through O/max O ≅ ℚ); the range inclusion via
+  `IsIntegral.exists_multiple_integral_of_isLocalization` (each element of C/𝔐 is a quotient of
+  images of B'/𝔓').
+- `TsKummer.kummerCompositum_proof : KummerCompositum`. Compile: 0 errors, axioms standard (VERIFIED).
+- Lean pitfall: `exact kc_core … _ hiOinj …` (with `iO` left as `_`) hit a whnf timeout (even at
+  10^6 heartbeats); giving `iO` explicitly and closing the hypotheses as separate `refine` goals
+  elaborates in seconds.
