@@ -14,3 +14,7 @@
 - `hasSum_gaussLambda`: for Re s > 3/2, Σ_p π^{−s}Γ(s) gz/gq^s = gaussLambda a b s.
 - `gaussL_continuation`: the shifted lattice series Σ_p ((m+a)+i(n+b))/((m+a)²+(n+b)²)^s has an
   entire continuation F(s) = π^s Γ(s)⁻¹ Λ(s) from Re s > 3/2.
+- (VERIFIED, compiled ~17:45) `twistedL M c s = Σ'_{p∈ℤ²} c(p mod M)·(p₁+ip₂)/(p₁²+p₂²)^s`;
+  `summable_twisted` (Re s > 3/2), `twistedL_eq` (block decomposition into M² shifted series,
+  via `blockEquiv : (Fin M)² × ℤ² ≃ ℤ²`), `twistedL_continuation`: entire continuation for
+  every c : (ZMod M)² → ℂ.

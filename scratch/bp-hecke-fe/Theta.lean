@@ -261,4 +261,98 @@ theorem gaussL_continuation (a b : ℝ) : ∃ F : ℂ → ℂ, Differentiable �
     rw [tsum_mul_left, cpow_neg]
     field_simp
 
+
+/-! ### Periodic twists: `Σ_{α ∈ ℤ[i]} c(α mod M) α N(α)^{−s}` -/
+
+/-- The lattice series of `ℤ[i]` twisted by a function `c` of `α mod M`. -/
+noncomputable def twistedL (M : ℕ) (c : ZMod M × ZMod M → ℂ) (s : ℂ) : ℂ :=
+  ∑' p : ℤ × ℤ, c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p / (gq 0 0 p : ℂ) ^ s
+
+/-- `ℤ² ≃ (Fin M)² × ℤ²`, `(q, j) ↦ qM + j`. -/
+def blockEquiv (M : ℕ) [NeZero M] : (Fin M × Fin M) × (ℤ × ℤ) ≃ ℤ × ℤ :=
+  (Equiv.mk (fun x : (Fin M × Fin M) × (ℤ × ℤ) => ((x.2.1, x.1.1), (x.2.2, x.1.2)))
+    (fun y => ((y.1.2, y.2.2), (y.1.1, y.2.1))) (fun _ => rfl) (fun _ => rfl)).trans
+    (Equiv.prodCongr (Int.divModEquiv M).symm (Int.divModEquiv M).symm)
+
+theorem blockEquiv_apply (M : ℕ) [NeZero M] (j : Fin M × Fin M) (q : ℤ × ℤ) :
+    blockEquiv M (j, q) = (q.1 * M + j.1, q.2 * M + j.2) := rfl
+
+theorem gz_block (M : ℕ) [NeZero M] (j : Fin M × Fin M) (q : ℤ × ℤ) :
+    gz 0 0 (blockEquiv M (j, q)) = (M : ℂ) * gz ((j.1 : ℝ) / M) ((j.2 : ℝ) / M) q := by
+  have hM : (M : ℂ) ≠ 0 := Nat.cast_ne_zero.mpr (NeZero.ne M)
+  simp only [blockEquiv_apply, gz]
+  push_cast
+  field_simp
+  ring
+
+theorem gq_block (M : ℕ) [NeZero M] (j : Fin M × Fin M) (q : ℤ × ℤ) :
+    gq 0 0 (blockEquiv M (j, q)) = (M : ℝ) ^ 2 * gq ((j.1 : ℝ) / M) ((j.2 : ℝ) / M) q := by
+  have hM : (M : ℝ) ≠ 0 := Nat.cast_ne_zero.mpr (NeZero.ne M)
+  simp only [blockEquiv_apply, gq]
+  push_cast
+  field_simp
+  ring
+
+theorem gq_nonneg (a b : ℝ) (p : ℤ × ℤ) : 0 ≤ gq a b p := by
+  unfold gq; positivity
+
+theorem summable_gz_div (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    Summable fun p : ℤ × ℤ => ‖gz a b p / (gq a b p : ℂ) ^ s‖ := by
+  have h := (hasSum_gaussLambda a b hs).summable.mul_left (π ^ (-s) * Gamma s)⁻¹
+  have hG : Gamma s ≠ 0 := Gamma_ne_zero_of_re_pos (by linarith)
+  have hpi : (π : ℂ) ^ (-s) ≠ 0 := (cpow_ne_zero_iff_of_exponent_ne_zero
+      (by rintro h; rw [neg_eq_zero] at h; subst h; norm_num at hs)).mpr
+      (ofReal_ne_zero.mpr pi_ne_zero)
+  refine summable_norm_iff.mpr (h.congr fun p => ?_)
+  field_simp
+
+theorem summable_twisted (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ}
+    (hs : 3 / 2 < s.re) :
+    Summable fun p : ℤ × ℤ => c ((p.1 : ZMod M), (p.2 : ZMod M)) * gz 0 0 p / (gq 0 0 p : ℂ) ^ s := by
+  set C := ∑ x, ‖c x‖
+  refine Summable.of_norm_bounded ((summable_gz_div 0 0 hs).mul_left C) fun p => ?_
+  rw [mul_div_assoc, norm_mul]
+  exact mul_le_mul_of_nonneg_right
+    (Finset.single_le_sum (f := fun x => ‖c x‖) (fun _ _ => norm_nonneg _) (Finset.mem_univ _))
+    (norm_nonneg _)
+
+/-- **Block decomposition** of the twisted series into shifted lattice series. -/
+theorem twistedL_eq (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    twistedL M c s = ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+      ((M : ℂ) / (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ s) * gaussL ((j.1 : ℝ) / M) ((j.2 : ℝ) / M) s := by
+  have hsum := summable_twisted M c hs
+  have h2 := (blockEquiv M).summable_iff.mpr hsum
+  rw [twistedL, ← (blockEquiv M).tsum_eq]
+  refine (h2.tsum_prod).trans ?_
+  rw [tsum_fintype]
+  refine Finset.sum_congr rfl fun j _ => ?_
+  rw [gaussL, ← tsum_mul_left]
+  refine tsum_congr fun q => ?_
+  simp only [Function.comp_apply]
+  rw [gz_block, gq_block, ofReal_mul,
+    mul_cpow_ofReal_nonneg (by positivity) (gq_nonneg _ _ _)]
+  have hc : c ((((blockEquiv M (j, q)).1 : ℤ) : ZMod M), (((blockEquiv M (j, q)).2 : ℤ) : ZMod M)) =
+      c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) := by
+    simp [blockEquiv_apply]
+  rw [hc]
+  ring
+
+/-- **Hecke's continuation for periodic twists**: for every `c : (ℤ/M)² → ℂ`, the series
+`Σ_{α ∈ ℤ[i]} c(α mod M) α N(α)^{−s}` (absolutely convergent for `Re s > 3/2`) has an entire
+continuation. -/
+theorem twistedL_continuation (M : ℕ) [NeZero M] (c : ZMod M × ZMod M → ℂ) :
+    ∃ F : ℂ → ℂ, Differentiable ℂ F ∧ ∀ s : ℂ, 3 / 2 < s.re → F s = twistedL M c s := by
+  choose G hG hGeq using fun j : Fin M × Fin M => gaussL_continuation ((j.1 : ℝ) / M) ((j.2 : ℝ) / M)
+  have hM : (((M : ℝ) ^ 2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast pow_ne_zero 2 (Nat.cast_ne_zero.mpr (NeZero.ne M))
+  have : NeZero (((M : ℝ) ^ 2 : ℝ) : ℂ) := ⟨hM⟩
+  refine ⟨fun s => ∑ j : Fin M × Fin M, c (((j.1 : ℤ) : ZMod M), ((j.2 : ℤ) : ZMod M)) *
+      ((M : ℂ) / (((M : ℝ) ^ 2 : ℝ) : ℂ) ^ s) * G j s, ?_, fun s hs => ?_⟩
+  · refine Differentiable.fun_sum fun j _ => ?_
+    refine (Differentiable.const_mul ?_ _).mul (hG j)
+    simp_rw [div_eq_mul_inv, ← cpow_neg]
+    exact (differentiable_const_cpow_of_neZero _).comp differentiable_id.neg |>.const_mul _
+  · rw [twistedL_eq M c hs]
+    exact Finset.sum_congr rfl fun j _ => by rw [hGeq j s hs]
+
 end BpHeckeFE
