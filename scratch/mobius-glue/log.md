@@ -57,3 +57,8 @@ from `scratch/qm-pin/QMPin.lean` (lines 553-567).
   dvd_of_prime_dvd_nrd (p ∤ 6); two_dvd_mulCoord_ei, three_dvd_mulCoord_ej (decide over ZMod 2, ZMod 3);
   T_mul_ui, T_mul_uj; descent (strong induction on |nrd|); normalizerFinite : NormalizerFinite.
   run (05:00): 0 errors; axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
+- MobiusGlue.lean §8 = Normalizer.lean content (namespace LeafQM.AV.Pin.NormO) + autOInnerFinite,
+  twistClassFinite (from T5 alone), mobiusGlue_of_curves : CurveRatFactor → CurveSurj →
+  ObjBridge.TorsionStructure → MobiusGlue, sameTripleMor_of_curves, pointwise_of_witness_curves.
+  run (05:00): 0 errors, 1 deprecation warning; 16 `#print axioms`, all [propext, Classical.choice,
+  Quot.sound] (run_final.txt). VERIFIED.
