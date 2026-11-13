@@ -140,6 +140,7 @@ Copied verbatim from h5-neron (statements, namespace changed): `IsBaseChangeOf`,
 | `JacDet.lean` | the transport along a generic isomorphism; `heightAntitone_of_omegaSpans` |
 | `H5Glue.lean` | intermediate combined file (H4b, minimality and M6 reductions, H5 from three glue statements) |
 | `BaseChange.lean`, `Minimal.lean`, `OpenSub.lean`, `Pts.lean`, `Stalk.lean`, `Analytic.lean`, `Additivity.lean` | the steps, each standalone |
+| `BaseChangePts.lean` | an ingredient of H4a: ℂ-points of a base change (`ptsBaseChangeEquiv`) |
 
 Build: `lake build ZInQKernel.HDecomp.Faltings.Leaves` (1m27 on this host), then
 `lake env lean scratch/h5-glue/H5Final.lean` (about 18 s).
@@ -151,7 +152,9 @@ Build: `lake build ZInQKernel.HDecomp.Faltings.Leaves` (1m27 on this host), then
     `ω_{𝒢'} = 𝓞_{L'} ⊗ ω_𝒢` inside the generic cotangent space;
   - the Arakelov degree under base change (`IdealLines.lean` already has it for fractional
     ideals);
-  - ℂ-points `𝒢'(ℂ)_{τ'} ≅ 𝒢(ℂ)_{τ'|_L}` (the pullback universal property);
+  - ℂ-points `𝒢'(ℂ)_{τ'} ≅ 𝒢(ℂ)_{τ'|_L}`. The bijection is **proved**
+    (`ptsBaseChangeEquiv`, `BaseChangePts.lean`); its compatibility with the group law and with
+    values of functions is not;
   - because `GroupModel.height` is an infimum over metrizations, for `≥`: choosing for each `τ`
     the best `τ'` above it (a minimum is at most the average).
 
