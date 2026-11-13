@@ -4332,6 +4332,88 @@ theorem kernelFieldExists_of_leaves (hHFF : PkgI3.HomFreeFinite)
 
 end G0ModField.KernelField
 
+
+/-! ## §6.6 The NoCM input made explicit: `FibreComTrivial` (g0-fibresimple's FS5, verbatim) -/
+
+section FS5Copy
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ ZInQ.JHeight LeafQM.AV
+
+namespace G0FibreSimple
+
+/-- **Glue piece FS5 = G6 (NoCM, rv-h-cm §7.2, on the actual fibre object).** For `u ∉ 𝒞` and an
+object `P` of `Y₃` at a `ℚ̄`-point over `J(u)`, the centralizer `End_𝒪(P.A)` is `ℤ` (the point is
+not a CM point). *Why true* (rv-h-cm §7.2, model-checked, no human review): `R1fpProps`,
+`R2fpProps` pin down `Y₃` and the Hauptmodul (g0-split §3); the fibre of `X₆ → P¹` over `t(u)` is
+a free `W`-orbit with residue field `ℚ(i)` (Elkies' model; `GlueRepo.PR.fibre_free`, proved); a CM
+order `R` has conductor prime to 6 with 2, 3 non-split (Vignéras, (Emb)); González–Rotger
+Thm 5.12 (leaf R5, `LeafQM.AV.R5ptProps`) and Prop. 5.6 then force `R = ℤ[i]` (excluded since
+`t(u) ≠ 1`, `F(u) ≠ 0`) or `#CM(R) = 2 < 4 = #W·x`. Unproved: the Kummer model of `X₆ → P¹`
+(function-field Galois theory), the identification of an arbitrary `(Y, Φ, π)` with the bundle's
+`X₆`, the class-number arithmetic. Glue, using the leaves R1, R2, R5. -/
+def FibreComTrivial : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (y : fieldPt LeafQM.AV.Qbar ⟶ Y) (P : QML3 LeafQM.AV.Qbar), Φ LeafQM.AV.Qbar y = M3.mk P →
+      π.val (K := LeafQM.AV.Qbar) y.left = OnePoint.some (algebraMap ℚ LeafQM.AV.Qbar (Jmap u)) →
+      ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A)
+
+end G0FibreSimple
+
+end FS5Copy
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+
+namespace G0ModField.KernelField
+
+open G0ModField
+
+/-- **Remaining glue 2′ (the conjugacy maps, NoCM given).** As `ConjMapsOnHomField`, with the
+NoCM input `End_𝒪(P.A) = ℤ` (FS5's conclusion) as an explicit hypothesis and with only what the
+construction uses: moduli data with R1-R2's clauses, a `ℚ̄`-point `y` over a rational `j₀` with
+object `P`, a rational fibre `PK/K` over `P`, and a Hom field `L ⊇ K` of `PK.A`. Construction
+(N5 L632-645): A7 (`LeafQM.AV.conj_twist_of_rational`, compiled, for every such triple) gives
+`^σP ≅ P` up to a twist `α_σ ∈ Aut 𝒪`; Skolem–Noether (T13, proved,
+`ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`) writes `α_σ` as conjugation by `b_σ ∈ B^×`, and
+`μ_σ = ι(b_σ)∘(iso)` is a `B`-linear isogeny, defined over the Hom field `L`; the discrepancy
+`μ_σ ^σμ_τ μ_στ⁻¹` commutes with `ι(𝒪)`, hence is rational by `End_𝒪 = ℤ`; with T27 (Yu)
+`End⁰ = B`, so `m_σ = μ_σ∘σ` commutes with `End_L(A_L)`. The quantifier over `(Y, Φ, π)` costs
+nothing here: A7 holds for every triple with R1fp-R2fp, and the NoCM input is a hypothesis. -/
+def ConjMapsNoCM : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ (j₀ : ℚ) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P → π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) →
+    (∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : PkgI3.AbVar.End P.A)) →
+    ∀ (K : IF) [FiniteDimensional ℚ K] [IsGalois ℚ K] (PK : QML3 K), RationalFibre Y Φ P K PK →
+      ∀ (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L] (hKL : K ≤ L),
+        (∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K PK.A σ = 1) →
+        ∃ m : GQ → (PtQ L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) →+
+            PtQ L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL))),
+          ConjMaps L (@PkgI3.AbVar.baseChange K _ PK.A L _ (incAlg hKL)) m
+
+/-- **`ConjMapsOnHomField` from FS5 and the NoCM-given maps (proved).** -/
+theorem conjMapsOnHomField_of (h5 : G0FibreSimple.FibreComTrivial) (h : ConjMapsNoCM) :
+    ConjMapsOnHomField := by
+  intro Y Φ π u P hctx K _ _ _ _ PK hPK L _ _ hKL hfix
+  obtain ⟨hR1, hR2, hu, y, hy, hπ⟩ := hctx
+  exact h Y Φ π hR1 hR2 (ZInQ.JHeight.Jmap u) y P hy hπ (h5 Y Φ π hR1 hR2 u hu y P hy hπ) K PK hPK
+    L hKL hfix
+
+/-- **Headline with the NoCM input explicit (proved).** `KernelFieldExists` from the leaves
+`HomFreeFinite`, `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`, the glue FS5
+`FibreComTrivial` (g0-fibresimple; its truth for every triple is qm-pin's repair) and the glue
+`ConjMapsNoCM`. -/
+theorem kernelFieldExists_of_leaves_FS5 (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (h5 : G0FibreSimple.FibreComTrivial)
+    (hMaps : ConjMapsNoCM) : KernelFieldExists :=
+  kernelFieldExists_of_leaves hHFF hNOS hRay hTors (conjMapsOnHomField_of h5 hMaps)
+
+end G0ModField.KernelField
+
+#print axioms G0ModField.KernelField.kernelFieldExists_of_leaves_FS5
 #print axioms G0ModField.KernelField.kernelFieldExists_of_leaves
 #print axioms G0ModField.KernelField.conjugacyData_of_maps
 #print axioms G0ModField.KernelField.kernelField_core

@@ -13,3 +13,6 @@
 - 05:48 torsionCountPts_of_leaf (TorsionCountPts from leaf PkgI2.TorsionStructure, via exists_closure_equiv + MonObj.comp_pow)
   and kernelFieldExists_of_leaves (hHFF hNOS hRay hTors hMaps : ConjMapsOnHomField) : KernelFieldExists compiled,
   standard axioms only (VERIFIED, build3.txt).
+- 05:58 §6.6: FS5 FibreComTrivial copied verbatim (namespace G0FibreSimple); ConjMapsNoCM (NoCM as explicit
+  hypothesis com P.q = ℤ); conjMapsOnHomField_of (FS5 + ConjMapsNoCM → ConjMapsOnHomField) and
+  kernelFieldExists_of_leaves_FS5 compiled, standard axioms (VERIFIED, build4.txt).
