@@ -38,3 +38,4 @@
 - TailC to olean (142 s) and TailD (z80, z90; 7 s): VERIFIED 0 errors, no sorry; `gluePieces_of_gluePieces3`,
   `sixContactMin_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3)`,
   `sixContactMin_of_leaves3'`, `researchLeaves3_of`: [propext, Classical.choice, Quot.sound].
+- Flat file `lake env lean scratch/g0-assemble2/G0Assemble2.lean` (66352 lines, without a95): VERIFIED exit 0 in 749 s, 0 errors, no sorry, 200 `#print axioms` reports all [propext, Classical.choice, Quot.sound] (two printed over three lines) (07:21-07:34).
