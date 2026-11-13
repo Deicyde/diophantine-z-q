@@ -5,7 +5,11 @@
 'FS5NoCM.fibreComTrivialOwn_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FS5NoCM.fibreComTrivialFull_of_own' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FS5NoCM.fibreComTrivialFull_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.B6_central_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.com_int_of_end0_quat' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.comIntOrQuadOrder_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-real	0m7.596s
-user	0m7.079s
-sys	0m2.282s
+real	0m11.414s
+user	0m13.735s
+sys	0m2.270s

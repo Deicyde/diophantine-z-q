@@ -13,6 +13,16 @@ theorem fibreComTrivialFull_of_curves (hL : R1R2fpFull) (hRF : CurveRatFactor)
     (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
   fibreComTrivialFull_of hL (mobiusGlue_of_curves hRF hSu hT) hA hB hK hC
 
+/-- **FS5 with the repaired clauses, from leaves and named glue only, with mobius-glue's curve
+facts**: the bundle, R5fpCount, T5, T6, T27, N1b (leaves), and `CurveRatFactor`, `CurveSurj`,
+N1a-CM, N2 (glue). -/
+theorem fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull) (hRF : CurveRatFactor)
+    (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure) (t27 : PkgI3.QMDichotomyYu)
+    (t6 : PkgI3.HomFreeFinite) (hCM : ComOfMatrixEnd0) (hB : CMConductorCoprime6)
+    (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull :=
+  fibreComTrivialFull_of_leaves hL (mobiusGlue_of_curves hRF hSu hT) t27 t6 hCM hB hK hC
+
 end FS5NoCM
 
 #print axioms FS5NoCM.fibreComTrivialFull_of_curves
+#print axioms FS5NoCM.fibreComTrivialFull_of_curves_leaves

@@ -1,6 +1,7 @@
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.Repo.PRArith
 import ZInQKernel.Hypotheses.JHeight
+import ZInQKernel.HDecomp.Descent.B1Quat
 
 /-!
 # fs5-nocm: FS5 `FibreComTrivial` (NoCM on the fibre) from NoCM's inputs
