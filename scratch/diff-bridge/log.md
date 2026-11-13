@@ -37,3 +37,16 @@
   `Ideal.exists_forall_ramificationGroup_eq_bot` (FaithfulSMul via `IsGaloisGroup.faithful (𝓞 ℚ)`),
   `finsum_eq_sum_of_support_subset`, `Ideal.finiteMultiplicity`, `pow_multiplicity_dvd`,
   `FiniteMultiplicity.not_pow_dvd_of_multiplicity_lt`.
+
+## Step 3: T21 global and the Contrib file (VERIFIED, compiled)
+- `ZInQ.Contrib.Different.multiplicity_span_ramificationIdx_le : multiplicity P (span {(e : 𝓞 L)}) ≤ e * padicValNat p e`
+  (e = p^k m, p ∤ m; `emultiplicity_mul/pow` for the prime ideal P; `v_P(p) = e` by
+  `Ideal.IsDedekindDomain.ramificationIdx_eq_multiplicity`; `m ∉ P` from `P.under ℤ = (p)`).
+- `ZInQ.Contrib.Different.serreDifferentBound : GlueConductor.SerreDifferentBound` from Tau Ceti
+  `multiplicity_differentIdeal_le_ramificationIdx_sub_one_add_multiplicity_span` (K = ℚ, v = w.under (𝓞 ℚ)).
+- `ZInQ.Contrib.Different.D1_genuine_closed`: `GlueConductor.D1_genuine` with both leaves applied.
+- File `ZInQKernel/Contrib/Different/Global.lean` (namespace `ZInQ.Contrib.Different`).
+  `lake build ZInQKernel.Contrib.Different.Global`: Build completed successfully (9225 jobs).
+- scratch/diff-bridge/AxiomsGlobal.lean: `example : GlueConductor.HilbertDifferentFormula := …`,
+  `example : GlueConductor.SerreDifferentBound := …` typecheck; #print axioms of
+  hilbertDifferentFormula, serreDifferentBound, D1_genuine_closed: [propext, Classical.choice, Quot.sound].
