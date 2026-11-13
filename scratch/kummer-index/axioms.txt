@@ -1,0 +1,24 @@
+ZInQ.Contrib.T14.kummerIndexBound : ZInQ.Contrib.BrauerT14T15.KummerIndexBound
+ZInQ.Contrib.T14.brauerHasse2C : PkgI6.BrauerHasse2C
+ZInQ.Contrib.T14.brauerReciprocity2C : PkgI6.BrauerReciprocity2C
+'ZInQ.Contrib.T14.kummerIndexBound' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.brauerHasse2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.brauerReciprocity2C' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.leaves_T14_T15' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.cob_of_same_finite_support'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.T14.leafHasse' depends on axioms: [propext, Classical.choice, Quot.sound]
+def ZInQ.Contrib.BrauerT14T15.KummerIndexBound : Prop :=
+∀ (F L : Type) [inst : Field F] [inst_1 : NumberField F] [inst_2 : Field L] [inst_3 : NumberField L]
+  [inst_4 : Algebra F L] [IsGalois F L] (p : ℕ) [Fact (Nat.Prime p)] [HasEnoughRootsOfUnity F p],
+  Module.finrank F L = p → (TauCeti.GlobalNumberFields.ideleClassNormMap F L).range.index ≤ p
+def PkgI6.BrauerHasse2C : Prop :=
+∀ (ε : Field.absoluteGaloisGroup ℚ → Field.absoluteGaloisGroup ℚ → ZMod 2),
+  PkgI6.IsCocycle2 ε →
+    PkgI6.IsCoboundary2 (PkgI6.resC ℝ ε) →
+      (∀ (p : ℕ) [inst : Fact (Nat.Prime p)], PkgI6.IsCoboundary2 (PkgI6.resC ℚ_[p] ε)) → PkgI6.IsCoboundary2 ε
+def PkgI6.BrauerReciprocity2C : Prop :=
+∀ (ε : Field.absoluteGaloisGroup ℚ → Field.absoluteGaloisGroup ℚ → ZMod 2),
+  PkgI6.IsCocycle2 ε →
+    {p | ¬PkgI6.IsCoboundary2 (PkgI6.resC ℚ_[↑p] ε)}.Finite ∧
+      Even
+        ({p | ¬PkgI6.IsCoboundary2 (PkgI6.resC ℚ_[↑p] ε)}.ncard + if PkgI6.IsCoboundary2 (PkgI6.resC ℝ ε) then 0 else 1)
