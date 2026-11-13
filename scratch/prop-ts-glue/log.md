@@ -28,3 +28,14 @@ Task: reduce `PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue`, `PropTSRed.
   polynomial `b' s^n − c` has f(s₀) = c(b' − t)/t, a p-unit), `kummerMeetGlue_of_pieces'`
   (eight pieces, T2 only through the two Abhyankar steps). `propTSAll_of_pieces` now uses it.
 - Compile: 0 errors; 14 PropTSGlue `#print axioms` lines, all standard (VERIFIED).
+
+## Step 3 (08:35): SNLocalData PROVED, compiled
+- `isFractionRing_zx`: ℚ(X) is the fraction field of ℤ[X] (via `IsLocalization.integerNormalization_spec`).
+- `snLocalData : SNLocalData`: for E/ℚ(X) finite and m maximal in ℤ[X], the integral closure of
+  ℤ[X]_m in E is integrally closed (`integralClosure.isIntegrallyClosedOfFiniteExtension`),
+  module-finite (`IsIntegralClosure.finite`; ℤ[X]_m Noetherian and normal via
+  `isIntegrallyClosed_of_isLocalization`), and contains ℤ[X]_m (`IsFractionRing.injective`).
+  Developed in `LocalData.lean` (Mathlib only; compiled, standard axioms), pasted into the appendix.
+- `specNonMeeting_of_pieces' : PurityGlobalDim2 → SNHeightOne → SNSpecialize → SpecNonMeeting`.
+- Compile of PropTSGlue.lean: 0 errors, 17 PropTSGlue axiom lines all standard (VERIFIED);
+  prefix still IDENTICAL.

@@ -22,7 +22,7 @@
 'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
-scratch/prop-ts-glue/PropTSGlue.lean:1086:2: warning: Try this: 
+scratch/prop-ts-glue/PropTSGlue.lean:1010:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -30,47 +30,109 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/prop-ts-glue/PropTSGlue.lean:1269:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1042:6: warning: This simp argument is unused:
+  Polynomial.map_mul
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_C, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/prop-ts-glue/PropTSGlue.lean:1042:26: warning: This simp argument is unused:
+  Polynomial.map_C
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom, Polynomial.map_mul, hmapP,
+    hmapQ, map_mul, eq_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/prop-ts-glue/PropTSGlue.lean:1044:28: warning: This simp argument is unused:
+  Int.cast_id
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [map_intCast, Polynomial.map_intCast]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/prop-ts-glue/PropTSGlue.lean:1059:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:1060:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:1061:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:1084:13: warning: This simp argument is unused:
+  IntermediateField.algebraMap_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp only [Subalgebra.coe_algebraMap] at h1
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+scratch/prop-ts-glue/PropTSGlue.lean:1175:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:1364:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1269:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1364:28: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:1316:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1411:48: warning: `if_true` has been deprecated: Use `ite_true` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
-scratch/prop-ts-glue/PropTSGlue.lean:1317:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1412:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1317:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1412:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1455:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1550:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1489:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1584:12: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1489:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1584:24: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1491:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1586:12: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1493:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1588:14: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/prop-ts-glue/PropTSGlue.lean:1494:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/prop-ts-glue/PropTSGlue.lean:1589:14: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
@@ -79,6 +141,9 @@ Hint: Replace the deprecated name:
 'PropTSGlue.not_dvd_den_of_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.exists_secIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.specNonMeeting_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.isFractionRing_zx' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.snLocalData' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces'' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.kummerMeet_of_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.coeff_X_pow_sub_C_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
 'PropTSGlue.kummerMeetFin_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -82,7 +82,7 @@ theorem zxMap_injective (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra 
       rw [(zxMap_injective E) (h.trans (map_zero _).symm)]
       exact m.zero_mem)).toAlgebra
 
-/-- **Glue (commutative algebra; STANDARD): the normalization of the local base.** For `E/ℚ(X)`
+/-- **The normalization of the local base (PROVED below, `snLocalData`).** For `E/ℚ(X)`
 finite and a maximal ideal `m` of `ℤ[X]`, the integral closure `S` of `R = ℤ[X]_m` in `E` is
 integrally closed, module-finite over `R` (`R` is Noetherian and normal, `E/Frac R` finite
 separable: Mathlib `IsIntegralClosure.finite`), and `R → S` is injective. (`S` is a domain as a
@@ -96,6 +96,95 @@ def SNLocalData : Prop :=
     Module.Finite (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) ∧
     Function.Injective
       (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E))
+
+/-- `ℚ(X)` is the fraction field of `ℤ[X]` (through `ℤ[X] → ℚ[X] → ℚ(X)`). -/
+theorem isFractionRing_zx :
+    letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+    IsFractionRing ℤ[X] (RatFunc ℚ) := by
+  letI : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  have hinj : Function.Injective (algebraMap ℤ[X] (RatFunc ℚ)) := zxMap_injective (RatFunc ℚ)
+  refine ⟨?_, ?_, ?_⟩
+  · intro y
+    rw [isUnit_iff_ne_zero]
+    intro h
+    exact nonZeroDivisors.coe_ne_zero y (hinj (h.trans (map_zero _).symm))
+  · intro z
+    obtain ⟨⟨P, Q⟩, hz⟩ := IsLocalization.surj (nonZeroDivisors ℚ[X]) z
+    obtain ⟨bP, hbPM, hbP⟩ := IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ) P
+    obtain ⟨bQ, hbQM, hbQ⟩ := IsLocalization.integerNormalization_spec (nonZeroDivisors ℤ)
+      (Q : ℚ[X])
+    set P' := IsLocalization.integerNormalization (nonZeroDivisors ℤ) P
+    set Q' := IsLocalization.integerNormalization (nonZeroDivisors ℤ) (Q : ℚ[X])
+    have hbP0 : bP ≠ 0 := nonZeroDivisors.ne_zero hbPM
+    have hbQ0 : bQ ≠ 0 := nonZeroDivisors.ne_zero hbQM
+    have hQ0 : (Q : ℚ[X]) ≠ 0 := nonZeroDivisors.coe_ne_zero Q
+    have hmapQ : Q'.map (Int.castRingHom ℚ) = C (bQ : ℚ) * Q := by
+      rw [← smul_eq_C_mul]
+      simpa [Algebra.smul_def] using hbQ
+    have hmapP : P'.map (Int.castRingHom ℚ) = C (bP : ℚ) * P := by
+      rw [← smul_eq_C_mul]
+      simpa [Algebra.smul_def] using hbP
+    have hy : C bP * Q' ∈ nonZeroDivisors ℤ[X] := by
+      rw [mem_nonZeroDivisors_iff_ne_zero]
+      refine mul_ne_zero (by simpa using hbP0) ?_
+      intro h0
+      have := hmapQ
+      rw [h0, Polynomial.map_zero] at this
+      exact mul_ne_zero (by simpa using hbQ0) hQ0 this.symm
+    refine ⟨⟨C bQ * P', ⟨_, hy⟩⟩, ?_⟩
+    simp only [RingHom.algebraMap_toAlgebra, zxMap, RingHom.comp_apply, coe_mapRingHom,
+      Polynomial.map_mul, Polynomial.map_C, hmapP, hmapQ, map_mul, eq_intCast]
+    rw [← hz]
+    simp only [map_intCast, Int.cast_id, Polynomial.map_intCast]
+    ring
+  · intro x y h
+    exact ⟨1, by rw [hinj h]⟩
+
+/-- **`SNLocalData` holds** (the normalization of `ℤ[X]_m` in `E` is normal, finite, and
+contains `ℤ[X]_m`). -/
+theorem snLocalData_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (m : Ideal ℤ[X]) [m.IsMaximal] :
+    letI := locAlg E m
+    IsIntegrallyClosed (integralClosure (Localization.AtPrime m) E) ∧
+    Module.Finite (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) ∧
+    Function.Injective
+      (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E)) := by
+  letI iE : Algebra (Localization.AtPrime m) E := locAlg E m
+  letI iK : Algebra (Localization.AtPrime m) (RatFunc ℚ) := locAlg (RatFunc ℚ) m
+  letI iZ : Algebra ℤ[X] (RatFunc ℚ) := (zxMap (RatFunc ℚ)).toAlgebra
+  have hZ : IsFractionRing ℤ[X] (RatFunc ℚ) := isFractionRing_zx
+  have hT1 : IsScalarTower ℤ[X] (Localization.AtPrime m) (RatFunc ℚ) := by
+    apply IsScalarTower.of_algebraMap_eq'
+    exact (IsLocalization.lift_comp _).symm
+  have hfr : IsFractionRing (Localization.AtPrime m) (RatFunc ℚ) :=
+    IsFractionRing.isFractionRing_of_isDomain_of_isLocalization m.primeCompl _ _
+  have hT2 : IsScalarTower (Localization.AtPrime m) (RatFunc ℚ) E := by
+    apply IsScalarTower.of_algebraMap_eq'
+    apply IsLocalization.ringHom_ext m.primeCompl
+    rw [RingHom.comp_assoc]
+    change (IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime m)) =
+      (algebraMap (RatFunc ℚ) E).comp
+        ((IsLocalization.lift _).comp (algebraMap ℤ[X] (Localization.AtPrime m)))
+    rw [IsLocalization.lift_comp, IsLocalization.lift_comp]
+    simp only [zxMap, ← RingHom.comp_assoc, ← IsScalarTower.algebraMap_eq]
+  have hic : IsIntegrallyClosed (Localization.AtPrime m) :=
+    isIntegrallyClosed_of_isLocalization _ m.primeCompl m.primeCompl_le_nonZeroDivisors
+  refine ⟨integralClosure.isIntegrallyClosedOfFiniteExtension (RatFunc ℚ),
+    IsIntegralClosure.finite (Localization.AtPrime m) (RatFunc ℚ) E
+      (integralClosure (Localization.AtPrime m) E), ?_⟩
+  intro a b h
+  have h1 := congrArg Subtype.val h
+  simp only [IntermediateField.algebraMap_apply, Subalgebra.coe_algebraMap] at h1
+  rw [IsScalarTower.algebraMap_apply (Localization.AtPrime m) (RatFunc ℚ) E,
+    IsScalarTower.algebraMap_apply (Localization.AtPrime m) (RatFunc ℚ) E] at h1
+  exact IsFractionRing.injective (Localization.AtPrime m) (RatFunc ℚ)
+    ((algebraMap (RatFunc ℚ) E).injective h1)
+
+/-- **`SNLocalData` is a theorem** (Mathlib: `IsIntegralClosure.finite`,
+`integralClosure.isIntegrallyClosedOfFiniteExtension`, `isIntegrallyClosed_of_isLocalization`;
+`ℚ(X)` is the fraction field of `ℤ[X]_m` via `isFractionRing_zx`). -/
+theorem snLocalData : SNLocalData := fun E _ _ _ _ _ m _ => snLocalData_aux E m
 
 /-- **Glue (prop-ts §4.1 step 1): unramified in codimension one at the section `X = s₀` over
 `p`.** Let `E/ℚ(X)` be finite with `[E : ℚ(X)] < p`, no vertical ramification at `p`, and let
@@ -188,6 +277,12 @@ theorem specNonMeeting_of_pieces (hPur : PurityGlobalDim2.{0}) (hL : SNLocalData
   have het := hPur (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) hdim hinj
     (hH E p hp hdeg hV s₀ hs₀ hNM m hpm hsm)
   exact hS E p hp s₀ hs₀ m hpm hsm het 𝔓 hP𝔓 hU φ
+
+/-- **`SpecNonMeeting` from purity (proved by t-purity3) and the two remaining pieces**
+(`SNLocalData` is proved: `snLocalData`). -/
+theorem specNonMeeting_of_pieces' (hPur : PurityGlobalDim2.{0}) (hH : SNHeightOne)
+    (hS : SNSpecialize) : SpecNonMeeting :=
+  specNonMeeting_of_pieces hPur snLocalData hH hS
 
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
@@ -667,13 +762,13 @@ theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
 /-- **`PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue `MobiusGlue`, purity
 (proved by t-purity3), and the smaller glue of Parts A-C.** -/
 theorem propTSAll_of_pieces (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
-    (hPur : PurityGlobalDim2.{0}) (hL : SNLocalData) (hH : SNHeightOne) (hS : SNSpecialize)
+    (hPur : PurityGlobalDim2.{0}) (hH : SNHeightOne) (hS : SNSpecialize)
     (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin)
     (hVF : KummerVerticalFin) (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf)
     (hVI : KummerVerticalInf) (hN : HeckeNormalization) (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
     PropTSAll :=
   propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
-    (specNonMeeting_of_pieces hPur hL hH hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
+    (specNonMeeting_of_pieces' hPur hH hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
 
 end PropTSGlue
 
@@ -684,6 +779,9 @@ end
 #print axioms PropTSGlue.not_dvd_den_of_nonneg
 #print axioms PropTSGlue.exists_secIdeal
 #print axioms PropTSGlue.specNonMeeting_of_pieces
+#print axioms PropTSGlue.isFractionRing_zx
+#print axioms PropTSGlue.snLocalData
+#print axioms PropTSGlue.specNonMeeting_of_pieces'
 #print axioms PropTSGlue.kummerMeet_of_cases
 #print axioms PropTSGlue.coeff_X_pow_sub_C_nonneg
 #print axioms PropTSGlue.kummerMeetFin_of_pieces
