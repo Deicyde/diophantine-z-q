@@ -2579,6 +2579,76 @@ theorem kc_core (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E
     intro z _
     obtain ⟨a, b, _, rfl⟩ := IsFractionRing.div_surjective (A := D) z
     exact div_mem (hDF a) (hDF b)
+  -- `κ : ℚ(X) → ℚ(s)`, `X ↦ P/Q`, compatible with `ι`
+  have hκg : Function.Injective (oK.comp ρ) := by
+    intro a b h
+    apply hρ
+    apply hgO
+    rw [← hKO, ← hKO]
+    exact congrArg (algebraMap (RatFunc ℚ) (KSyn D)) h
+  let κ : RatFunc ℚ →+* RatFunc ℚ := IsFractionRing.lift (A := ℚ[X]) (K := RatFunc ℚ) hκg
+  have hκ : ∀ k, algebraMap (RatFunc ℚ) (KSyn D) (κ k) = ι (algebraMap (RatFunc ℚ) E k) := by
+    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp κ = ι.comp (algebraMap (RatFunc ℚ) E) := by
+      apply IsLocalization.ringHom_ext (nonZeroDivisors ℚ[X])
+      apply RingHom.ext
+      intro f
+      simp only [RingHom.comp_apply]
+      rw [IsFractionRing.lift_algebraMap, RingHom.comp_apply, hKO,
+        ← IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+        IsScalarTower.algebraMap_apply ℚ[X] (integralClosure ℚ[X] E) E, hι]
+      change gO (ρ f) = algebraMap D (KSyn D) (iB _)
+      rw [hiB]
+      rfl
+    intro k
+    exact RingHom.congr_fun this k
+  -- a primitive element
+  obtain ⟨θ, hθ⟩ := Field.exists_primitive_element (RatFunc ℚ) E
+  have hθint : IsIntegral (RatFunc ℚ) θ := .of_finite _ _
+  set m := minpoly (RatFunc ℚ) θ
+  have hroot : aeval (ι θ) (m.map κ) = 0 := by
+    rw [aeval_def, eval₂_map]
+    have : (algebraMap (RatFunc ℚ) (KSyn D)).comp κ = ι.comp (algebraMap (RatFunc ℚ) E) :=
+      RingHom.ext hκ
+    rw [this, ← Polynomial.hom_eval₂, ← aeval_def, minpoly.aeval, map_zero]
+  have hmon : (m.map κ).Monic := (minpoly.monic hθint).map κ
+  have hιθint : IsIntegral (RatFunc ℚ) (ι θ) := ⟨_, hmon, hroot⟩
+  -- `E' = ℚ(s)(ι θ)`
+  have hadjtop : IntermediateField.adjoin (RatFunc ℚ) {ι θ} = ⊤ := by
+    set L' := IntermediateField.adjoin (RatFunc ℚ) {ι θ}
+    have hrange : ∀ e : E, ι e ∈ L' := by
+      intro e
+      have hle : (IntermediateField.adjoin (RatFunc ℚ) {θ}).toSubfield ≤
+          L'.toSubfield.comap ι := by
+        rw [IntermediateField.adjoin_toSubfield, Subfield.closure_le]
+        rintro _ (⟨k, rfl⟩ | h)
+        · change ι (algebraMap (RatFunc ℚ) E k) ∈ L'
+          rw [← hκ]; exact L'.algebraMap_mem _
+        · rw [Set.mem_singleton_iff] at h
+          subst h
+          exact IntermediateField.mem_adjoin_simple_self _ _
+      have he : e ∈ (IntermediateField.adjoin (RatFunc ℚ) {θ}).toSubfield := by
+        rw [hθ]; trivial
+      exact hle he
+    have hFle : F ≤ L'.toSubfield := by
+      rw [hF, Subfield.closure_le]
+      rintro _ (⟨e, rfl⟩ | h)
+      · exact hrange e
+      · rw [Set.mem_singleton_iff] at h
+        rw [h]; exact L'.algebraMap_mem _
+    rw [eq_top_iff]
+    intro z _
+    exact hFle (hFtop ▸ Subfield.mem_top z)
+  haveI hfd : FiniteDimensional (RatFunc ℚ) (KSyn D) := by
+    have h1 := IntermediateField.adjoin.finiteDimensional hιθint
+    rw [hadjtop] at h1
+    exact LinearEquiv.finiteDimensional IntermediateField.topEquiv.toLinearEquiv
+  have hfin : Module.finrank (RatFunc ℚ) (KSyn D) ≤ Module.finrank (RatFunc ℚ) E := by
+    rw [← IntermediateField.finrank_top', ← hadjtop, IntermediateField.adjoin.finrank hιθint,
+      ← IntermediateField.finrank_top' (F := RatFunc ℚ) (E := E), ← hθ,
+      IntermediateField.adjoin.finrank hθint]
+    calc (minpoly (RatFunc ℚ) (ι θ)).natDegree ≤ (m.map κ).natDegree :=
+          natDegree_le_of_dvd (minpoly.dvd _ _ hroot) hmon.ne_zero
+      _ = m.natDegree := natDegree_map κ
   sorry
 
 
