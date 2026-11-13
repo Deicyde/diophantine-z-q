@@ -170,7 +170,7 @@ theorem geomCompFinite : GeomCompFinite := by
   set x := (Scheme.SpecToEquivOfField Qbar (bcQbar S) (bcPt y)).1 with hx
   have hne : (irreducibleComponent x).Nonempty := ⟨x, mem_irreducibleComponent⟩
   refine ⟨irreducibleComponent x, irreducibleComponent_mem_irreducibleComponents x, ?_⟩
-  simp only [dif_pos hne]
+  simp only [dite_eq_left hne]
   exact (connectedComponent_eq (irreducibleComponent_subset_connectedComponent hne.some_mem)).symm
 
 /-! ## §4 Rational interpolation by a coprime pair -/
@@ -213,7 +213,7 @@ theorem exists_interp (T : Finset K) (r : K → OnePoint K) :
     rw [hFeval a haT]
     have : ¬ ∃ v : K, r a = OnePoint.some v := by
       rintro ⟨v, hv⟩; rw [hra] at hv; exact OnePoint.infty_ne_coe v hv
-    simp only [w, dif_neg this]
+    simp only [w, dite_eq_right this]
   · intro t ht
     by_cases hti : t ∈ Tinf
     · rw [(Finset.mem_filter.mp hti).2]; simp [ratEval, hG0 t hti]
@@ -223,8 +223,8 @@ theorem exists_interp (T : Finset K) (r : K → OnePoint K) :
         | infty => exact absurd h hrt
         | coe v => exact ⟨v, rfl⟩
       have hGt := hGne t hti
-      rw [ratEval, if_neg hGt, hFeval t ht]
-      simp only [w, dif_pos hex]
+      rw [ratEval, ite_eq_right hGt, hFeval t ht]
+      simp only [w, dite_eq_left hex]
       rw [mul_div_cancel_right₀ _ hGt]
       exact hex.choose_spec.symm
 
@@ -265,7 +265,7 @@ theorem curveRatFactor_of_comp (h2 : GeomCompConstOrOnto) (h3 : GeomCompRatFacto
       rintro _ ⟨y, rfl⟩
       have h : ∃ y' : fieldPt Qbar ⟶ S, geomComp y' = geomComp y := ⟨y, rfl⟩
       refine ⟨geomComp y, ⟨y, rfl⟩, ?_⟩
-      simp only [dif_pos h]
+      simp only [dite_eq_left h]
       exact (hnc h.choose y h.choose_spec.symm).symm
     have hT : {t : Qbar | (OnePoint.some t) ∈
         Set.range fun y : fieldPt Qbar ⟶ S => σ.val (K := Qbar) y.left}.Finite :=
@@ -279,7 +279,7 @@ theorem curveRatFactor_of_comp (h2 : GeomCompConstOrOnto) (h3 : GeomCompRatFacto
       rw [Set.Finite.mem_toFinset]; exact ⟨y, hy⟩
     have h : ∃ y : fieldPt Qbar ⟶ S, σ.val (K := Qbar) y.left = OnePoint.some t := ⟨y, hy⟩
     rw [hFG t hmem]
-    simp only [r, dif_pos h]
+    simp only [r, dite_eq_left h]
     exact hfib y h.choose (hy.trans h.choose_spec.symm)
 
 /-- **Both curve facts from (C1), (C2), (C3).** -/
@@ -306,7 +306,7 @@ theorem isOpen_connectedComponent_of_noetherian {α : Type*} [TopologicalSpace �
   have hc : (connectedComponent x)ᶜ =
       ⋃ Z ∈ {Z ∈ irreducibleComponents α | ¬ Z ⊆ connectedComponent x}, Z := by
     ext z
-    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_setOf_eq, exists_prop]
+    simp only [Set.mem_compl_iff, Set.mem_iUnion, Set.mem_ofPred_eq, exists_prop]
     constructor
     · intro hz
       exact ⟨irreducibleComponent z, ⟨irreducibleComponent_mem_irreducibleComponents z,
@@ -340,10 +340,10 @@ theorem exists_isOpen_singleton_of_finite_closedPoints {α : Type*} [Topological
     exact hwF ⟨hwU, hwc⟩
   obtain ⟨z, hz⟩ := hne
   refine ⟨z, ?_⟩
-  have hrest : IsClosed (F \ {z}) := hclosed _ Set.diff_subset
+  have hrest : IsClosed (F \ {z}) := hclosed _ Set.sdiff_subset
   have : ({z} : Set α) = U ∩ (F \ {z})ᶜ := by
     ext w
-    simp only [Set.mem_singleton_iff, Set.mem_inter_iff, Set.mem_compl_iff, Set.mem_diff,
+    simp only [Set.mem_singleton_iff, Set.mem_inter_iff, Set.mem_compl_iff, Set.mem_sdiff,
       not_and, not_not]
     constructor
     · rintro rfl; exact ⟨hz, fun _ => rfl⟩

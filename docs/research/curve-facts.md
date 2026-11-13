@@ -9,7 +9,7 @@ another task's directory was edited. Model work only; no human has reviewed it.
 **Both curve facts of mobius-glue are proved in Lean from three smaller named facts, each stated
 over an arbitrary field (algebraically closed for the two curve leaves), as in Hartshorne.** One
 is a textbook leaf and two are glue. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles
-with 0 errors and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run7.txt`):
+with 0 errors, 0 warnings and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run8.txt`):
 
 ```lean
 theorem curveFacts_of_leaves (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)

@@ -50,7 +50,7 @@
   geomCompConstOrOnto_of : C2K → C2; geomCompRatFactor_of : C3K → C3;
   curveFacts_of_algClosed : C1a → C2K → C3K → CurveRatFactor ∧ CurveSurj.
 
-## Step 5: C1a from C1b (compiled, EXIT 0, run7.txt; std axioms)
+## Step 5: C1a from C1b (compiled, EXIT 0, run8.txt; std axioms)
 - named Prop SmoothStalkDimOne (C1b): X → Spec K smooth rel. dim 1, x closed ⇒
   ringKrullDim (X.presheaf.stalk x) = 1.
 - PROVED smoothCurveNoIsolatedPoint_of : C1b → C1a (open point closed by Jacobson;
@@ -60,3 +60,4 @@
 ## Step 6: independent model review (fresh agent, statements only; not human)
 - C1a, C2K, C3K: all TRUE, none vacuous (P¹_K satisfies all hypotheses). C2K needs properness and
   alg. closure, not smoothness; C3K needs char 0 and alg. closure. C1b not reviewed (STANDARD).
+- run8.txt: deprecated names replaced; 0 errors, 0 warnings; verbatim check re-run IDENTICAL.
