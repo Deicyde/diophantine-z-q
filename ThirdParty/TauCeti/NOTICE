@@ -16,6 +16,9 @@ Repository: https://github.com/TauCetiProject/TauCeti
   commit on Lean v4.35.0): the 1118 modules vendored by the Z-in-Q task tc-port.
 - Commit 97a5b23586f9c42610765c701daedc7522a93c26 (2026-11-02): the modules and
   backported declarations added by the Z-in-Q task kw-new (Kronecker-Weber).
+- Commit 5a01f5fe (as above): the 206 further modules vendored by the Z-in-Q task
+  t25-newform (the closure of the newform decomposition; list in
+  scratch/t25-newform/vendor-new.txt).
 
 Location in this repository
 ---------------------------
@@ -49,6 +52,7 @@ modifications are distributed under the same license. At the time of writing the
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
 - NumberTheory/ClassFieldTheory/Formation/InvariantKernel.lean
+- NumberTheory/ModularForms/Basic.lean
 - RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean
 - RepresentationTheory/Homological/GroupCohomology/PrimeIndex.lean
 - RepresentationTheory/Homological/TateCohomology/TrivialityCriterion.lean

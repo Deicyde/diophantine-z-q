@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: Chris Birkbeck
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 5a01f5fe3621, module TauCeti.NumberTheory.ModularForms.Basic), Apache-2.0.
+-- Modified for the Z-in-Q kernel: explicit `IsSMulApply … UpperHalfPlane ℂ` arguments (older Mathlib).
 module
 
 public import Mathlib.NumberTheory.ModularForms.Basic
