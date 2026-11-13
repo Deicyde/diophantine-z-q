@@ -174,8 +174,7 @@ geometric half).** Maps `m_σ = μ_σ ∘ σ` on `A(ℚ̄)` with the first four 
 `DescentDatum`; the discrepancy `c(σ,τ) = n/d ∈ ℚ^×` with `d·m_σ m_τ = n·m_{στ}`, a 2-cocycle
 inflated from `Gal(L/ℚ)` with `c(1,1) = 1`; and degree multiplicativity in the form
 `|ker m_σ|·|ker m_τ| = c(σ,τ)⁴·|ker m_{στ}|` (`deg μ = |ker μ(ℚ̄)|` in characteristic 0,
-`deg[n] = n⁴` on a surface); and `|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|` for
-`k ∈ G_L` (`m_k` is bijective; derivable from the first two clauses, kept as a clause). -/
+`deg[n] = n⁴` on a surface). -/
 def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A))
     (c : GQ → GQ → ℚ) : Prop :=
   (∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
@@ -191,9 +190,67 @@ def ConjugacyData (L : IF) (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A
   (∀ σ σ' τ τ' : GQ, (∀ x ∈ L, act σ x = act σ' x) → (∀ x ∈ L, act τ x = act τ' x) →
       c σ τ = c σ' τ') ∧
   c 1 1 = 1 ∧
-  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker) ∧
-  (∀ σ k : GQ, k ∈ GQL L → Nat.card (m k).ker = 1 ∧ Nat.card (m (σ * k)).ker = Nat.card (m σ).ker ∧
-      Nat.card (m (k * σ)).ker = Nat.card (m σ).ker)
+  (∀ σ τ, (Nat.card (m σ).ker : ℚ) * Nat.card (m τ).ker = c σ τ ^ 4 * Nat.card (m (σ * τ)).ker)
+
+/-- The Galois action of `σ' ∈ Aut(ℚ̄/L)` on `A(ℚ̄)` is bijective. -/
+theorem galAct_bijective {L : IF} (A : PkgI3.AbVar L) (σ' : Qbar ≃ₐ[L] Qbar) :
+    Function.Bijective (A.galAct σ') := by
+  have key : ∀ (g h : Qbar ≃ₐ[L] Qbar) (P : A.Pt Qbar),
+      A.galAct g (A.galAct h P) = A.galAct (g * h) P := by
+    intro g h P
+    show PkgI3.AbVar.galHom g ≫ PkgI3.AbVar.galHom h ≫ P = PkgI3.AbVar.galHom (g * h) ≫ P
+    rw [PkgI3.AbVar.galHom_mul, Category.assoc]
+  have one : ∀ P : A.Pt Qbar, A.galAct 1 P = P := by
+    intro P
+    show PkgI3.AbVar.galHom 1 ≫ P = P
+    rw [PkgI3.AbVar.galHom_one, Category.id_comp]
+  refine ⟨fun P Q h => ?_, fun Q => ⟨A.galAct σ'⁻¹ Q, ?_⟩⟩
+  · have := congrArg (A.galAct σ'⁻¹) h
+    rwa [key, key, inv_mul_cancel, one, one] at this
+  · rw [key, mul_inv_cancel, one]
+
+/-- `k ∈ G_L` as an `L`-automorphism of `ℚ̄`. -/
+noncomputable def toLAut {L : IF} (k : GQ) (hk : k ∈ GQL L) : Qbar ≃ₐ[L] Qbar :=
+  AlgEquiv.ofRingEquiv (f := (act k).toRingEquiv) (fun x => mem_GQL.mp hk x x.2)
+
+theorem toLAut_apply {L : IF} (k : GQ) (hk : k ∈ GQL L) (x : Qbar) : toLAut k hk x = act k x :=
+  rfl
+
+/-- The kernel sizes of `m_k`, `m_{σk}`, `m_{kσ}` for `k ∈ G_L` (from the first two clauses of
+`ConjugacyData`). -/
+theorem card_ker_GL {L : IF} {A : PkgI3.AbVar L} {m : GQ → (PtQ L A →+ PtQ L A)}
+    (hgal : ∀ (σ : GQ) (σ' : Qbar ≃ₐ[L] Qbar), (∀ x, σ' x = act σ x) →
+      m σ = MonoidHom.toAdditive (A.galAct σ'))
+    (hinfl : ∀ σ k : GQ, k ∈ GQL L → m (σ * k) = (m σ).comp (m k) ∧ m (k * σ) = (m k).comp (m σ))
+    (σ k : GQ) (hk : k ∈ GQL L) :
+    Nat.card (m k).ker = 1 ∧ Nat.card (m (σ * k)).ker = Nat.card (m σ).ker ∧
+      Nat.card (m (k * σ)).ker = Nat.card (m σ).ker := by
+  have hmk : m k = MonoidHom.toAdditive (A.galAct (toLAut k hk)) :=
+    hgal k (toLAut k hk) (toLAut_apply k hk)
+  have hbij : Function.Bijective (m k) := by
+    rw [hmk]; exact galAct_bijective A (toLAut k hk)
+  have hker : (m k).ker = ⊥ := by
+    rw [eq_bot_iff]
+    intro x hx
+    have : m k x = m k 0 := by rw [map_zero]; exact hx
+    exact hbij.1 this
+  refine ⟨by rw [hker]; simp, ?_, ?_⟩
+  · rw [(hinfl σ k hk).1]
+    refine Nat.card_congr (Equiv.ofBijective (fun x => ⟨m k x, x.2⟩) ⟨?_, ?_⟩)
+    · intro x y h
+      exact Subtype.ext (hbij.1 (congrArg Subtype.val h))
+    · rintro ⟨y, hy⟩
+      obtain ⟨x, rfl⟩ := hbij.2 y
+      exact ⟨⟨x, hy⟩, rfl⟩
+  · have hk2 : ((m k).comp (m σ)).ker = (m σ).ker := by
+      ext x
+      simp only [AddMonoidHom.mem_ker, AddMonoidHom.coe_comp, Function.comp_apply]
+      constructor
+      · intro h
+        have : m k (m σ x) = m k 0 := by rw [map_zero]; exact h
+        exact hbij.1 this
+      · intro h; rw [h, map_zero]
+    rw [(hinfl σ k hk).2, hk2]
 
 /-- `a_σ = |ker m_σ|^{-1/4}` (`= (deg μ_σ)^{-1/4}`, N5 L645). -/
 noncomputable def normA {L : IF} {A : PkgI3.AbVar L} (m : GQ → (PtQ L A →+ PtQ L A)) (σ : GQ) :
@@ -205,7 +262,8 @@ normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, and `(m, a 
 theorem descentDatum_of_conjugacy (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (A : PkgI3.AbVar L) (m : GQ → (PtQ L A →+ PtQ L A)) (c : GQ → GQ → ℚ)
     (h : ConjugacyData L A m c) : DescentDatum L A (fun σ τ => sgnU (c σ τ)) := by
-  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg, hkerL⟩ := h
+  obtain ⟨hgal, hinfl, hend, hfin, hc, hcoc, hcinf, hc11, hdeg⟩ := h
+  have hkerL := card_ker_GL hgal hinfl
   have hcard : ∀ σ, 0 < Nat.card (m σ).ker := fun σ => by
     haveI : Finite (m σ).ker := (hfin σ).2.to_subtype
     exact Nat.card_pos

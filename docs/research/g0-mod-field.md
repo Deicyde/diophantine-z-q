@@ -1,6 +1,6 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (822 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 880 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
@@ -113,7 +113,9 @@ check).** First, `a` on `G_L`: The first draft did not constrain `a`
 on `G_L`. That left `a` free up to a character `G_ℚ → ℝ_{>0}` (the identity
 `a_σ a_τ c = ε a_{στ}` is invariant under `a ↦ aλ`). g0-mod-galois' `G7Out` asks for `a = 1` on
 `G_{L'}`. The clauses `a_k = 1`, `a_{σk} = a_{kσ} = a_σ` were added, and B1's normalization
-proves them from `|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|`.
+proves them from `|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|`, which are
+derived from the `G_L` clauses of `ConjugacyData` (`card_ker_GL`, using that the Galois action is
+bijective, `galAct_bijective`).
 
 Second, the models. `KernelFieldExists` first quantified over every `K`-model `A` of `P`. That
 is false in general. A twist of the fibre by a cocycle in `H¹(G_K, Aut A_ℚ̄)` that is ramified

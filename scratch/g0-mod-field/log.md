@@ -87,3 +87,10 @@
    would break G15's exponent bound `≤ 2`. Fix: clause `∃ T₋ ⊆ T, N = chiLevel T₋`
    (`= ∏ lev p`, `lev 2 = 4`); `b2_of_leaves_level` (copy of `b2_of_leaves` exposing the level) proves it.
 - VERIFIED: 0 errors; all eight `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## run27-28 (02:28): kernel clauses derived
+- New: `galAct_bijective` (from `galHom_mul`, `galHom_one`), `toLAut` (`k ∈ G_L` as an
+  `L`-automorphism, `AlgEquiv.ofRingEquiv`), `card_ker_GL` (`|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| =
+  |ker m_σ|` from the first two clauses of `ConjugacyData`). The corresponding clause removed from
+  `ConjugacyData`.
+- VERIFIED: 0 errors; axioms standard.
