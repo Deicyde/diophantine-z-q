@@ -130,3 +130,5 @@
 'ZInQ.Contrib.G15.Ladic.placeBelow' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq_card_localRam' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.Contrib.G15.Ladic.finrank_Lj_eq_finrank_adicCompletion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.apply_j_eq_of_mem_ramSet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.G15.Ladic.ramGroup_one_eq_bot_iff' depends on axioms: [propext, Classical.choice, Quot.sound]

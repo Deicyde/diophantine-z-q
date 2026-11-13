@@ -2,7 +2,7 @@
 
 Task g15-decomp, branch `wip/g15-decomp`, 2026-11-13. Six new Lean files under
 `ZInQKernel/Contrib/G15/`. All of them compile at the project pins (Lean 4.35.0, Mathlib
-56a00585). They contain 130 declarations. `#print axioms` on each of them gives exactly
+56a00585). They contain 132 declarations. `#print axioms` on each of them gives exactly
 `[propext, Classical.choice, Quot.sound]` (VERIFIED: `scratch/g15-decomp/Axioms.lean`, output in
 `scratch/g15-decomp/axioms-out.txt`). No `sorry`, no `axiom`, no existing file edited.
 
@@ -196,6 +196,12 @@ theorem ramCard_Lj_eq_card_localRam (i : ℕ) :
 theorem finrank_Lj_eq_finrank_adicCompletion :
     Module.finrank ℚ_[p] (Lj j) =
       Module.finrank ((placeBelow j).adicCompletion ℚ) ((primeOf j).adicCompletion L)
+theorem apply_j_eq_of_mem_ramSet {i : ℕ} (h : GlueConductor.ramGroup L (primeOf j).asIdeal i = ⊥)
+    {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} (hσ : σ ∈ LadicCond.ramSet (Lj j) i) (x : L) :
+    σ (j x) = j x
+theorem ramGroup_one_eq_bot_iff :          -- tame criterion, from Tau Ceti
+    GlueConductor.ramGroup L (primeOf j).asIdeal 1 = ⊥ ↔
+      (((primeOf j).asIdeal.ramificationIdx (𝓞 ℚ) : ℕ) : 𝓞 ℚ ⧸ (placeBelow j).asIdeal) ≠ 0
 ```
 
 ## 2. How the proofs go
@@ -254,4 +260,4 @@ Tau Ceti modules used: all were already vendored by tc-port. No new module was v
 `lake build ZInQKernel.Contrib.G15.LadicUpper ZInQKernel.Contrib.G15.Combined
 ZInQKernel.Contrib.G15.D1Completion` succeeds (VERIFIED). The results log is
 `scratch/g15-decomp/log.md`, and the axiom check is `scratch/g15-decomp/Axioms.lean` with its
-output in `axioms-out.txt` (130 declarations, all `[propext, Classical.choice, Quot.sound]`).
+output in `axioms-out.txt` (132 declarations, all `[propext, Classical.choice, Quot.sound]`).

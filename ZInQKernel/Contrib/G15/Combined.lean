@@ -1,5 +1,6 @@
 import ZInQKernel.Contrib.G15.Transport
 import ZInQKernel.Contrib.G15.LadicBridge
+import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.RamificationGroup
 
 /-!
 # G15: the three readings of the lower filtration agree
@@ -47,6 +48,24 @@ theorem finrank_Lj_eq_finrank_adicCompletion :
     Module.finrank ℚ_[p] (Lj j) =
       Module.finrank ((placeBelow j).adicCompletion ℚ) ((primeOf j).adicCompletion L) := by
   rw [finrank_Lj, ← card_decompGroup_eq_finrank (placeBelow j) (primeOf j)]
+
+/-- If `G_i(P) = 1`, every `σ ∈ LadicCond.ramSet (Lj j) i` fixes `j L` pointwise. -/
+theorem apply_j_eq_of_mem_ramSet {i : ℕ} (h : GlueConductor.ramGroup L (primeOf j).asIdeal i = ⊥)
+    {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} (hσ : σ ∈ LadicCond.ramSet (Lj j) i) (x : L) :
+    σ (j x) = j x := by
+  have h1 := (mem_ramSet_iff (tauOf_spec j σ) i).mp hσ
+  rw [h, Subgroup.mem_bot] at h1
+  rw [← tauOf_spec, h1]
+  rfl
+
+/-- **Tame criterion** (Tau Ceti's `ramificationGroup_one_eq_bot_iff_natCast_ramificationIdx_ne_zero`):
+`G_1(P) = 1` iff `e(P | v)` is nonzero in the residue field of `v`. -/
+theorem ramGroup_one_eq_bot_iff :
+    GlueConductor.ramGroup L (primeOf j).asIdeal 1 = ⊥ ↔
+      (((primeOf j).asIdeal.ramificationIdx (𝓞 ℚ) : ℕ) : 𝓞 ℚ ⧸ (placeBelow j).asIdeal) ≠ 0 := by
+  rw [ramGroup_eq_ramificationGroup]
+  exact HeightOneSpectrum.ramificationGroup_one_eq_bot_iff_natCast_ramificationIdx_ne_zero
+    (placeBelow j) (primeOf j)
 
 end ZInQ.Contrib.G15.Ladic
 

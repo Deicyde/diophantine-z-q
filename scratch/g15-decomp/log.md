@@ -54,3 +54,15 @@
   mem_decompFilt_iff (s ∈ G_i ↔ i < lowerIdx s), tauOf_eq_one_of_mem_upperSet (1 ≤ a, g_0(Lj) ≤ a!,
   4a² < v, σ ∈ upperSet (Lj j) v ⇒ σ|_{jL} = 1), apply_j_eq_of_mem_upperAbs (same for σ ∈ upperAbs p v),
   restrictNormal_decomp_eq_one_of_mem_upperAbs (ℚ̄ form). VERIFIED (compiled).
+
+## ZInQKernel/Contrib/G15/Combined.lean
+- 05:00 compiles: finrank_Lj ([Lj:ℚ_p] = |D_P|), placeBelow, ramCard_Lj_eq_card_localRam,
+  finrank_Lj_eq_finrank_adicCompletion, apply_j_eq_of_mem_ramSet, ramGroup_one_eq_bot_iff (tame
+  criterion via Tau Ceti). VERIFIED (compiled).
+
+## Axioms
+- 05:00 scratch/g15-decomp/Axioms.lean: 132 declarations of the six files, each
+  `[propext, Classical.choice, Quot.sound]`. VERIFIED (axioms-out.txt).
+- Finding: `PkgI2.D2_fixed_of_raynaud` (ZInQKernel/HDecomp/Objects.lean:1139) is stated with inertia in
+  `AlgebraicClosure K` directly, so clause (ii) of G15RamG does not need a wildSet ↔ G_1(P) transport
+  at finite level. VERIFIED (read). The relation wildSet ⊆ ramSet (Lj j) 1 is not proved.

@@ -132,3 +132,5 @@ import ZInQKernel.Contrib.G15.Combined
 #print axioms ZInQ.Contrib.G15.Ladic.placeBelow
 #print axioms ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq_card_localRam
 #print axioms ZInQ.Contrib.G15.Ladic.finrank_Lj_eq_finrank_adicCompletion
+#print axioms ZInQ.Contrib.G15.Ladic.apply_j_eq_of_mem_ramSet
+#print axioms ZInQ.Contrib.G15.Ladic.ramGroup_one_eq_bot_iff
