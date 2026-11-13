@@ -124,3 +124,17 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   `include b`, universe of `Fin m` vs `Type*` → `Type`, `card_fin`); final: 0 errors, 0 sorry;
   `htExtend` on [propext, Classical.choice, Quot.sound].
 - run (05:23-05:26) Weight.lean full: 0 errors, 0 sorry; `g12Weight_of_senTwist : SenTwist → FiniteImageHT → G12Weight` and the nine other G0Galois theorems on [propext, Classical.choice, Quot.sound].
+
+## Integration check against g0-mod-galois (VERIFIED, compiled)
+
+- build_det.sh now derives DetLeaves.lean from DetTate.lean directly (part_dt.lean removed);
+  rerun (05:26): 0 errors, 0 sorry, `tatePairingZl_of_leaves`, `detTate_of_leaves` standard.
+- build_int.py → Integrate.lean (23.3k lines) = scratch/g0-mod-galois/ModGalois.lean (its
+  `#print`s dropped) + the NEW parts of g12-det only (all copied definitions removed, so
+  `G12Weight`, `DetTate`, `ResQFiniteIndex`, `GaloisPieces` are g0-mod-galois's own constants;
+  weil-pairing §1-§9 compiled over Split.lean's PkgI3) + part_integrate.lean:
+  `galoisPieces_of : BurnsideAbsIrred → R14Det → G9Glue → G10Glue → SenTwist → FiniteImageHT →
+  T09_SymmIsogenyExists → IsogenyQuasiInverse → DivisiblePoints → PkgI3.TateModuleFree →
+  GaloisPieces` and `g8_g12_of_leaves'` (G8-G12 from the leaf bundles with glue `G9Glue`,
+  `G10Glue` only; T26 = the bundle's `t26`).
+- run (05:27-05:31): 0 errors, 0 sorry; both on [propext, Classical.choice, Quot.sound].
