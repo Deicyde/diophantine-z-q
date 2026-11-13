@@ -47,3 +47,15 @@
 - VERIFIED (`ModParamRfl.lean`): cm-points' `CM.modParam` (verbatim copy) is `rfl`-equal to `X0.modParamF`.
 - Merged origin/main (6c225515) once (STATUS.md only).
 - Report docs/research/x0-32.md written.
+
+## 09:00–09:40
+
+- COMPILED: `phi_iPt` (φ is ℤ[i]-linear), §13 `eta_neg_conj`, `xC/yC/fC_neg_conj`, `phiC_neg_conj`.
+- Merged origin/wip/cm-points (ba214e17, includes ring-class) to import CM.lean.
+- COMPILED: `ZInQKernel/Contrib/TYZGenus/X0CM.lean`: `cmComplexConj : CM.CMComplexConj` (cm-points' leaf
+  CM-4 proved), `tauH_conj`, `toC_galPt`; axioms [propext, Classical.choice, Quot.sound]
+  (`scratch/x0-32/AuditCM.lean`).
+- COMPILED: `ZInQKernel/Contrib/TYZGenus/X0Pkg.lean` (imports Package.lean; Package build incl. ring-class
+  vendored TC took 3 min): `tauG_range_iff` (range of cm-points' tauG = IsTorsI3 = A[(1+i)³]),
+  `lemma318_iff` (Package.Lemma318 ↔ torsion of A(ℍ'_n) ⊆ A[(1+i)³], no τ), `two_nsmul_add_iPt_tauG`;
+  axioms standard (`scratch/x0-32/AuditPkg.lean`).
