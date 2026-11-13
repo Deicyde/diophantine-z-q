@@ -8,4 +8,4 @@ start=$(date +%s)
 lake env bash -c "LEAN_PATH=$D:\$LEAN_PATH lean $D/Tail.lean" > $D/tail_out.txt 2>&1
 echo "exit $? in $(( $(date +%s) - start ))s"
 grep -E "^[^ ]*: error|error:" $D/tail_out.txt | head -30
-grep -c "error" $D/tail_out.txt
+grep -c "error" $D/tail_out.txt || true
