@@ -17,3 +17,17 @@ Build: `lake build ZInQKernel.HDecomp.LeafPush2.T` (2 min, cached), then `lake e
   Proved `cDom_comp` (rfl), `cEvalAt_comp` (pullback of regular functions), and
   **`homLinearLift_of_holoHomLift : HoloHomLift → HomLinearLift`**. `HomLinearLift` copied
   verbatim (VERIFIED by diff). 0 errors, 0 sorry, axioms standard. VERIFIED (compiled).
+- 2026-11-13 08:10 `scratch/conj-pieces/Conj.lean`: copies verbatim from conj-twist (20 blocks,
+  VERIFIED by substring check): specS, conjVar, homEquiv_mul_conj, conjHom, conjCs, mapPtIso,
+  twistC, twistC_one, conjL(+lemmas), ConjUniformization, conjHomInv, mapPtIsoInv,
+  twistC_inj_aux, twistC_injective, ringHom_bijective_of_numberField. Proved: `twistC_mul`,
+  `twistC_surj_aux`, `twistC_surjective`, `isUniformization_twist` (group clauses), new glue def
+  `ConjHolo` (the two analytic clauses for any holomorphic Ψ), **`conjUniformization_of_conjHolo :
+  ConjHolo → ConjUniformization`**; analytic lemmas `top_le_preimage_spec`, `top_le_of_comp_eq`,
+  `eval_of_comp_eq_conj` (ΓSpecIso naturality: value at r = conj(value at q)), `homEquiv_left_fst`,
+  `cfst`, `cconj`, `twistC_left_fst` (twistC Q ≫ pr₁ = Spec(conj) ≫ Q), `cEvalAt_twistC`,
+  `differentiableOn_conj_conj` (z ↦ conj F(z̄) holomorphic, via restrictScalars),
+  **`conjHolo_of_bijective`** (ConjHolo's conclusion for bijective s, no hypotheses beyond),
+  new def `ConjUniformizationNF` (ConjUniformization with [NumberField K]) and
+  **`conjUniformizationNF : ConjUniformizationNF`** (proved outright). 0 errors, 0 sorry,
+  axioms standard (2 #print axioms). VERIFIED (compiled).
