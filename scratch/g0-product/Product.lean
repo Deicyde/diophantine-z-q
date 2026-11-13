@@ -167,7 +167,7 @@ namespace G0Product
 
 open CategoryTheory AlgebraicGeometry Limits
 
-/-- **Textbook leaf (dimension of a product over a field).** For schemes `X`, `Y` of finite
+/-- **Glue, proved in §4-§5 (dimension of a product over a field).** For schemes `X`, `Y` of finite
 type over a field `K`, `dim (X ×_K Y) = dim X + dim Y` (Krull dimensions of the underlying
 spaces, in `WithBot ℕ∞`; both sides are `⊥` if `X` or `Y` is empty). Source: Stacks Project,
 Varieties, Lemma 33.20.5 (Tag 0B2L?, UNVERIFIED number); Görtz-Wedhorn, *Algebraic Geometry I*,
@@ -298,15 +298,16 @@ theorem wb_add_le_of_forall {a b c : WithBot ℕ∞}
       (by rw [← ENat.WithBot.coe_eq_natCast]; exact WithBot.coe_le_coe.mpr hm)
     rwa [Nat.add_sub_cancel' hx0.le] at this
 
-/-- **Textbook leaf (dimension of a tensor product of finitely generated algebras over a
-field).** For finitely generated algebras `R`, `S` over a field `K`,
+/-- **Glue, proved below (`dimTensorFG`, §5): the dimension of a tensor product of finitely
+generated algebras over a field.** For finitely generated algebras `R`, `S` over a field `K`,
 `dim (R ⊗_K S) = dim R + dim S` (Krull dimensions in `WithBot ℕ∞`; both sides are `⊥` when
 `R = 0` or `S = 0`). Source: Stacks Project, Algebra, Lemma 10.116.? (section "Dimension of
 finite type algebras over fields", reprise; tag UNVERIFIED); classical via Noether
 normalization: `R ⊗ S` is finite over `K[x₁..x_a, y₁..y_b]` (`a = dim R`, `b = dim S`),
-injectively. STANDARD. Note Mathlib has Noether normalization
-(`exists_finite_inj_algHom_of_fg`) and `MvPolynomial.ringKrullDim_of_isNoetherianRing`, but not
-the invariance of Krull dimension under integral injective extensions. -/
+injectively. STANDARD. Proved in §5 from Mathlib's Noether normalization
+(`exists_integral_inj_algHom_of_fg`), `MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite`
+and going up; the invariance of Krull dimension under integral injective extensions is proved
+there (`ringKrullDim_eq_of_integral_injective`). -/
 def DimTensorFG : Prop :=
   ∀ (K : Type) [Field K] (R S : Type) [CommRing R] [CommRing S] [Algebra K R] [Algebra K S],
     Algebra.FiniteType K R → Algebra.FiniteType K S →
@@ -362,4 +363,111 @@ theorem productExists_of_dimTensorFG (hT : DimTensorFG) : G0Split.ProductExists 
 
 end G0Product
 
-#print axioms G0Product.productExists_of_dimTensorFG
+/-! ## §5. `DimTensorFG` proved from Mathlib; `ProductExists` unconditionally -/
+
+namespace G0Product
+
+open TensorProduct
+
+/-- **Glue (proved, commutative algebra).** Krull dimension is invariant under an injective
+integral ring map `A → R`: `≤` by incomparability (`Ideal.IsIntegral.under_lt_under`), `≥` by
+lying over and going up (`Ideal.exists_ideal_over_prime_of_isIntegral`,
+`Ideal.exists_ltSeries_of_hasGoingUp`). -/
+theorem ringKrullDim_eq_of_integral_injective {A R : Type*} [CommRing A] [CommRing R]
+    (f : A →+* R) (hinj : Function.Injective f) (hint : f.IsIntegral) :
+    ringKrullDim R = ringKrullDim A := by
+  let _ := f.toAlgebra
+  have : Algebra.IsIntegral A R := ⟨hint⟩
+  apply le_antisymm
+  · refine Order.krullDim_le_of_strictMono (PrimeSpectrum.comap (algebraMap A R)) ?_
+    intro p q hpq
+    exact Ideal.IsIntegral.under_lt_under (R := A) (I := p.asIdeal) (J := q.asIdeal) hpq
+  · refine wb_le_of_forall_nat fun n hn => ?_
+    obtain ⟨l, hl⟩ := Order.le_krullDim_iff.mp hn
+    obtain ⟨P, -, hP, hPo⟩ := Ideal.exists_ideal_over_prime_of_isIntegral
+      (S := R) l.head.asIdeal ⊥ (by
+        intro x hx
+        have : algebraMap A R x = 0 := hx
+        rw [show x = 0 from hinj (show f x = f 0 by rw [map_zero]; exact this)]
+        exact zero_mem _)
+    have : P.LiesOver l.head.asIdeal := ⟨hPo.symm⟩
+    obtain ⟨L, hL, -, -⟩ := Ideal.exists_ltSeries_of_hasGoingUp l P
+    exact Order.le_krullDim_iff.mpr ⟨L, hL.trans hl⟩
+
+/-- **Glue (proved).** The tensor product `g ⊗ h` of integral algebra maps is integral. -/
+theorem tensorMap_isIntegral {K A B R S : Type*} [CommRing K] [CommRing A] [CommRing B]
+    [CommRing R] [CommRing S] [Algebra K A] [Algebra K B] [Algebra K R] [Algebra K S]
+    (g : A →ₐ[K] R) (h : B →ₐ[K] S) (hg : g.IsIntegral) (hh : h.IsIntegral) :
+    (Algebra.TensorProduct.map g h).toRingHom.IsIntegral := by
+  set F := (Algebra.TensorProduct.map g h).toRingHom
+  have hL : ∀ r : R, F.IsIntegralElem (r ⊗ₜ[K] (1 : S)) := by
+    intro r
+    have e : (Algebra.TensorProduct.includeLeftRingHom : R →+* R ⊗[K] S).comp g.toRingHom =
+        F.comp Algebra.TensorProduct.includeLeftRingHom := by
+      ext a; simp [F]
+    have := (hg r).map (Algebra.TensorProduct.includeLeftRingHom : R →+* R ⊗[K] S)
+    rw [e] at this
+    exact this.of_comp
+  have hR : ∀ s : S, F.IsIntegralElem ((1 : R) ⊗ₜ[K] s) := by
+    intro s
+    have e : (Algebra.TensorProduct.includeRight : S →ₐ[K] R ⊗[K] S).toRingHom.comp
+        h.toRingHom = F.comp (Algebra.TensorProduct.includeRight : B →ₐ[K] A ⊗[K] B).toRingHom := by
+      ext b; simp [F]
+    have := (hh s).map (Algebra.TensorProduct.includeRight : S →ₐ[K] R ⊗[K] S).toRingHom
+    rw [e] at this
+    exact this.of_comp
+  intro x
+  induction x using TensorProduct.inductionOn with
+  | tmul r s =>
+    have : r ⊗ₜ[K] s = (r ⊗ₜ[K] (1:S)) * ((1:R) ⊗ₜ[K] s) := by
+      simp [Algebra.TensorProduct.tmul_mul_tmul]
+    rw [this]; exact RingHom.IsIntegralElem.mul F (hL r) (hR s)
+  | add x y hx hy => exact RingHom.IsIntegralElem.add F hx hy
+
+/-- `dim K[X₀..X_{a-1}] = a` over a field (Mathlib). -/
+theorem dim_mvPolynomial_fin (K : Type*) [Field K] (a : ℕ) :
+    ringKrullDim (MvPolynomial (Fin a) K) = a := by
+  simp [ringKrullDim_eq_zero_of_field]
+
+/-- **`DimTensorFG`, proved.** Noether normalization (Mathlib's `exists_integral_inj_algHom_of_fg`)
+gives injective integral `K[X₀..X_{a-1}] → R`, `K[Y₀..Y_{b-1}] → S`; their tensor product
+`K[X] ⊗ K[Y] → R ⊗ S` is injective (flatness over a field) and integral, so
+`dim (R ⊗ S) = dim (K[X] ⊗ K[Y]) = dim K[X][Y] = a + b = dim R + dim S`. The cases `R = 0`,
+`S = 0` give `⊥ = ⊥`. -/
+theorem dimTensorFG : DimTensorFG := by
+  intro K _ R S _ _ _ _ hR hS
+  by_cases hR0 : Subsingleton R
+  · have : Subsingleton (R ⊗[K] S) := subsingleton_of_zero_eq_one (by
+      rw [Algebra.TensorProduct.one_def, Subsingleton.elim (1 : R) 0, zero_tmul])
+    rw [ringKrullDim_eq_bot_of_subsingleton, ringKrullDim_eq_bot_of_subsingleton, WithBot.bot_add]
+  by_cases hS0 : Subsingleton S
+  · have : Subsingleton (R ⊗[K] S) := subsingleton_of_zero_eq_one (by
+      rw [Algebra.TensorProduct.one_def, Subsingleton.elim (1 : S) 0, tmul_zero])
+    rw [ringKrullDim_eq_bot_of_subsingleton, ringKrullDim_eq_bot_of_subsingleton (R := S),
+      WithBot.add_bot]
+  rw [not_subsingleton_iff_nontrivial] at hR0 hS0
+  obtain ⟨a, g, hginj, hgint⟩ := exists_integral_inj_algHom_of_fg K R
+  obtain ⟨b, h, hhinj, hhint⟩ := exists_integral_inj_algHom_of_fg K S
+  have dR : ringKrullDim R = a :=
+    (ringKrullDim_eq_of_integral_injective g.toRingHom hginj hgint).trans (dim_mvPolynomial_fin K a)
+  have dS : ringKrullDim S = b :=
+    (ringKrullDim_eq_of_integral_injective h.toRingHom hhinj hhint).trans (dim_mvPolynomial_fin K b)
+  have hFinj : Function.Injective (Algebra.TensorProduct.map g h) :=
+    TensorProduct.map_injective_of_flat_flat g.toLinearMap h.toLinearMap hginj hhinj
+  have dT : ringKrullDim (R ⊗[K] S) =
+      ringKrullDim (MvPolynomial (Fin a) K ⊗[K] MvPolynomial (Fin b) K) :=
+    ringKrullDim_eq_of_integral_injective _ hFinj (tensorMap_isIntegral g h hgint hhint)
+  have dP : ringKrullDim (MvPolynomial (Fin a) K ⊗[K] MvPolynomial (Fin b) K) = a + b := by
+    rw [ringKrullDim_eq_of_ringEquiv
+      (MvPolynomial.algebraTensorAlgEquiv (σ := Fin b) K (MvPolynomial (Fin a) K)).toRingEquiv,
+      MvPolynomial.ringKrullDim_of_isNoetherianRing_of_finite, dim_mvPolynomial_fin]
+    simp
+  rw [dT, dP, dR, dS]
+/-- **G17, `ProductExists` (`G0Split.ProductExists`, verbatim statement), proved with no
+hypotheses**, from Mathlib only. -/
+theorem productExists : G0Split.ProductExists :=
+  productExists_of_dimTensorFG dimTensorFG
+
+end G0Product
+
+#print axioms G0Product.productExists
