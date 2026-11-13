@@ -3,6 +3,7 @@ import ZInQKernel.HDecomp.Descent.Constants
 import ZInQKernel.HDecomp.Descent.B2Glue
 import ZInQKernel.Multiplication.Certificate.Constants
 import ZInQKernel.Hypotheses.JHeight
+import ZInQKernel.HDecomp.Repo.PRArith
 
 /-!
 # fibre-cover: the glue Prop `FibreCoverExists` (G2: Prop. TS + Lemma NV)
@@ -656,6 +657,56 @@ PkgI2.TorsionStructure.{0}`, scratch/h-decomposition/Leaves.lean). -/
 theorem torsionBound3_of_t5 (t5 : PkgI2.TorsionStructure.{0}) : TorsionBound3 :=
   torsionBound3_of (ObjBridge.torsionStructure_iff.mpr t5)
 
+/-! ## Part 8: Prop. TS in Beckmann's inertia form; the valuation analysis is the repository's -/
+
+/-- **Glue from leaves: Prop. TS (specialization inertia) on one cover `π₀ : Y₀ → P¹`**
+(N5 L484-525; Beckmann, *On extensions of number fields obtained by specializing branched
+coverings*, J. reine angew. Math. 419 (1991), Prop. 4.2, UNVERIFIED number; or T1-T2 with the
+integral model R1(d)). For a rational non-branch value `t` and a prime `p > 324` (so
+`p ∤ |G|`, `p ∤ 30`: good reduction, and the branch points `0, ∞, −16/27` stay distinct mod `p`),
+the residue field of a `ℚ̄`-point over `t` is unramified at `p` once the three Beckmann inertia
+orders `e_b / gcd(e_b, m_b)` are `1`: `e = 4, 6, 2` at `0, ∞, −16/27` (the indices of
+`Y₃ → P¹`, `RvNocm.ramification_eq_orbifold_order`), `m_b` the intersection multiplicities
+`v_p(t)⁺`, `(−v_p(t))⁺`, `v_p(t + 16/27)⁺`. -/
+def PropTS (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left) : Prop :=
+  ∀ (t : ℚ) (y : fieldPt Qbar ⟶ Y₀), t ≠ 0 → t ≠ -16 / 27 →
+    π₀.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar t) →
+    ∀ p : Nat.Primes, 324 < (p : ℕ) →
+      4 ∣ (padicValRat p t).toNat → 6 ∣ (-padicValRat p t).toNat →
+      2 ∣ (padicValRat p (t + 16 / 27)).toNat →
+      UnramifiedAt (residueImage (X := Y₀.left) y.left) p
+
+/-- **`FibreUnramifiedOn` from Prop. TS**: for `p ∉ T(u)` (so `p > 324` and `p ∤ M_S(u)`), the
+three inertia orders at `t = J(u)` are `1` (`GlueRepo.PR.inertia_trivial_iff_not_dvd`, the
+repository's valuation case analysis), and `J(u) ≠ 0, −16/27` for `u ∉ 𝒞`. -/
+theorem fibreUnramifiedOn_of_propTS (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left)
+    (h : PropTS Y₀ π₀) : FibreUnramifiedOn Y₀ π₀ := by
+  intro u y hu hπ p hp
+  have hp' : (p : ℕ) ∉ Mult.S_mul ∪ (contactSupport Mult.S_mul u).primeFactors := hp
+  have hS : ∀ q, q.Prime → q ≤ 324 → q ∈ Mult.S_mul := fun q hq hq' =>
+    Mult.mem_S_mul.mpr (Or.inl (Mult.mem_S_ht.mpr ⟨hq, hq'⟩))
+  have hpS : (p : ℕ) ∉ Mult.S_mul := fun h' => hp' (Finset.mem_union_left _ h')
+  have hp324 : 324 < (p : ℕ) := by
+    by_contra h'
+    exact hpS (hS _ p.2 (by omega))
+  have hndvd : ¬ (p : ℕ) ∣ contactSupport Mult.S_mul u := fun hd =>
+    hp' (Finset.mem_union_right _
+      (Nat.mem_primeFactors.mpr ⟨p.2, hd, (GlueDescent.contactSupport_pos _ _).ne'⟩))
+  have : Fact (p : ℕ).Prime := ⟨p.2⟩
+  obtain ⟨h4, h6, h2⟩ :=
+    (GlueRepo.PR.inertia_trivial_iff_not_dvd (p := p) Mult.S_mul hS hpS hu).mpr hndvd
+  exact h (ZInQ.JHeight.Jmap u) y (GlueRepo.PR.J_ne_zero hu) (GlueRepo.PR.J_ne_branch u) hπ p
+    hp324 h4 h6 h2
+
+/-- **The composite on the leaves of the bundle**: `FibreCoverExists` from T5
+(`TorsionStructure`), `InnerTwistCount`, the pin `CurvePinned Y₀ π₀`, Prop. TS on `(Y₀, π₀)`, and
+`UnramifiedConjugates`. -/
+theorem fibreCoverExists_of_propTS (Y₀ : Over (Spec (CommRingCat.of ℚ))) (π₀ : ToP1 Y₀.left)
+    (t5 : PkgI2.TorsionStructure.{0}) (hW : InnerTwistCount) (hpin : CurvePinned Y₀ π₀)
+    (hTS : PropTS Y₀ π₀) (hU : UnramifiedConjugates) : FibreCoverExists :=
+  fibreCoverExists_of_pinned' Y₀ π₀ (torsionBound3_of_t5 t5) hW hpin
+    (fibreUnramifiedOn_of_propTS Y₀ π₀ hTS) hU
+
 end G0ModField
 
 #print axioms G0ModField.fibreCoverOut_iff
@@ -669,3 +720,5 @@ end G0ModField
 #print axioms G0ModField.torsionBound3_of
 #print axioms G0ModField.fibreCoverExists_of_leafTorsion
 #print axioms G0ModField.torsionBound3_of_t5
+#print axioms G0ModField.fibreUnramifiedOn_of_propTS
+#print axioms G0ModField.fibreCoverExists_of_propTS

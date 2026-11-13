@@ -66,3 +66,16 @@
   `fibreCoverExists_of_leafTorsion`.
 - Pitfall: `ι` is a token (GrpObj.inv notation) under these opens; rename binders.
 - VERIFIED: 0 errors, 0 warnings; all eleven `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## run20-22: Part 8, Prop. TS in Beckmann's inertia form
+- New Prop `PropTS Y₀ π₀` (glue from leaves: Beckmann 1991 Prop. 4.2 or T1-T2 + R1(d)): for
+  rational non-branch `t`, `p > 324`, and the three inertia orders `e_b/gcd(e_b, m_b) = 1`
+  (`4 ∣ v_p(t)⁺`, `6 ∣ (−v_p(t))⁺`, `2 ∣ v_p(t+16/27)⁺`), `ℚ(y)` is unramified at `p` for every
+  `ℚ̄`-point `y` over `t`.
+- Proved: `fibreUnramifiedOn_of_propTS` (with `GlueRepo.PR.inertia_trivial_iff_not_dvd`,
+  `J_ne_zero`, `J_ne_branch`; `S_mul ⊇ primes ≤ 324` by `Mult.mem_S_mul`, `mem_S_ht`;
+  `ZInQ.JHeight.Jmap` and `GlueRepo.PR.Jmap` agree by `rfl`), `fibreCoverExists_of_propTS`
+  (T5, InnerTwistCount, CurvePinned, PropTS, UnramifiedConjugates ⊢ FibreCoverExists).
+- Added import `ZInQKernel.HDecomp.Repo.PRArith` (olean present).
+- VERIFIED: 0 errors, 0 warnings; all 13 `#print axioms`: [propext, Classical.choice, Quot.sound].
+- VERIFIED (script): the seven copied definitions are character-identical to ModField.lean.
