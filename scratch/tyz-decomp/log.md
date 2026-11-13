@@ -11,3 +11,16 @@
 - Finding F0 (VERIFIED, Lean, already in repo): ZInQ.Contrib.PSide.tyzInputs_iff_readingA_of_hecke:
   HeckeContinuation -> (PropN.TYZInputs <-> TYZThm35ReadingA). So TYZInputs, whose L and GenusData
   are existential, adds no trust reduction over reading A itself.
+- PARI/cypari2 is not installed on this host and installing it needs the network (forbidden):
+  no new numerics. The normalization of lcalSq (2^{2k-3}, Omega_m = (2/sqrt m) int_1^oo dx/sqrt(x^3-x))
+  is copied from scratch/rv-tyz-inputs/tyzcalc.py (transcribed there from TYZ L338-353), where
+  ~200 values were VERIFIED to be integer squares and Lemma 2.9 mod 2 / Thm 1.1 (Lam reading) held on
+  30 m (rv-tyz-inputs log step 8); calL_small.py gives value 1 at m = 1, 3, 11, 19, 33.
+- 05:20 scratch/tyz-decomp/TYZDecomp.lean COMPILES (lake env lean, no errors), all 10 #print axioms
+  = [propext, Classical.choice, Quot.sound]. Declarations (namespace ZInQ.Contrib.TYZDecomp):
+  defs S51B S51C Thm35Reading Thm35ReadingA/B/C omegaInt omegaTYZ lValOne lcalSq IsTYZLcal
+  leaves TYZThm11Integral TYZLcalOne TYZLemma29Mod2 TYZThm11Mod2 TYZGenusPackage;
+  theorems readingA_iff, not_reading_of, lValOne_eq, isTYZLcal_lcalChoice, lemma29Mod2_of_thm11Mod2,
+  tyzInputs_of_leaves, tyzThm35ReadingA_of_leaves(+'), genusData_nonempty_iff,
+  genusPackage_iff_readingA (given TYZThm11Integral, TYZLcalOne, TYZLemma29Mod2:
+  TYZGenusPackage <-> TYZThm35ReadingA; Hecke discharged by ZInQ.Contrib.heckeContinuation).
