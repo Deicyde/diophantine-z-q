@@ -5448,6 +5448,191 @@ end G0ModField.KernelField
 
 end EndEqOSec
 
+
+/-! ## §6.11 `EndTransportBC` from rigidity (attempt)
+
+Copied verbatim: `RigidityHom` (g0-fibresimple `Tail.lean` lines 357-363) and the faithful base
+change instances and `endBC_injective` (bp-qmmoduli `QMAbVar.lean` lines 558-575, `AbVar`
+qualified). -/
+
+section RigCopy
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped CategoryTheory.Obj
+
+namespace G0FibreSimple
+
+
+/-- **Textbook leaf (rigidity; Mumford, *Abelian varieties*, §4 Cor. 1; Milne, *Abelian
+varieties* (Cornell–Silverman 1986), Cor. 2.2, over any field; locators UNVERIFIED).** A morphism
+of `k`-schemes between abelian varieties that sends the identity to the identity is a
+homomorphism. -/
+def RigidityHom : Prop :=
+  ∀ (k : Type) [Field k] (A B : PkgI3.AbVar k) (h : A.X ⟶ B.X), η[A.X] ≫ h = η[B.X] → IsMonHom h
+
+end G0FibreSimple
+
+namespace G0ModField.KernelField
+
+variable {K : Type} [Field K]
+
+/-- `Spec L → Spec K` is flat, surjective and quasi-compact, so `Over.pullback` along it is
+faithful (Mathlib, `Morphisms/FlatDescent.lean`). -/
+instance specMap_flat (L : Type) [Field L] [Algebra K L] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap K L))) := by
+  rw [HasRingHomProperty.Spec_iff (P := @Flat)]
+  exact RingHom.flat_algebraMap_iff.mpr inferInstance
+
+instance specMap_surjective (L : Type) [Field L] [Algebra K L] :
+    Surjective (Spec.map (CommRingCat.ofHom (algebraMap K L))) :=
+  ⟨fun _ => ⟨IsLocalRing.closedPoint L, Subsingleton.elim _ _⟩⟩
+
+/-- Base change on endomorphisms is injective. -/
+theorem endBC_injective (A : PkgI3.AbVar K) (L : Type) [Field L] [Algebra K L] :
+    Function.Injective (endBC A L) := by
+  intro f g h
+  apply PkgI3.AbVar.Hom.ext'
+  exact (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap K L)))).map_injective
+    (congrArg PkgI3.AbVar.Hom.hom h)
+
+end G0ModField.KernelField
+
+end RigCopy
+
+section RigProof
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped CategoryTheory.Obj
+open LeafQM.AV
+
+namespace G0ModField.KernelField
+
+/-- **`EndTransportBC` from the textbook leaf `RigidityHom` (proved).** -/
+theorem endTransportBC_of_rigidity (hR : G0FibreSimple.RigidityHom) : EndTransportBC := by
+  intro K PK Q hbc hEndQ L hKL f
+  letI : Algebra K L := incAlg hKL
+  obtain ⟨g, hpb, hι, hη⟩ := hbc
+  let sKL := Spec.map (CommRingCat.ofHom (algebraMap K L))
+  let sLQ := Spec.map (CommRingCat.ofHom (algebraMap L Qbar))
+  let AL : PkgI3.AbVar L := PK.A.baseChange L
+  let ALQ : PkgI3.AbVar Qbar := AL.baseChange Qbar
+  have hcomp : sLQ ≫ sKL = Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) := by
+    rw [← Spec.map_comp]; congr 1
+  have hpb1 : IsPullback (pullback.fst AL.X.hom sLQ) (pullback.snd AL.X.hom sLQ) AL.X.hom sLQ :=
+    IsPullback.of_hasPullback _ _
+  have hpb2 : IsPullback (pullback.fst PK.A.X.hom sKL) (pullback.snd PK.A.X.hom sKL)
+      PK.A.X.hom sKL := IsPullback.of_hasPullback _ _
+  have hpb3 : IsPullback (pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL)
+      (pullback.snd AL.X.hom sLQ) PK.A.X.hom
+      (Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar))) := by
+    rw [← hcomp]; exact hpb1.paste_horiz hpb2
+  let θ : ALQ.X.left ≅ Q.A.X.left := hpb3.isoIsPullback _ _ hpb
+  have hθfst : θ.hom ≫ g =
+      (pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL : ALQ.X.left ⟶ PK.A.X.left) :=
+    hpb3.isoIsPullback_hom_fst _ _ hpb
+  have hθsnd : θ.hom ≫ Q.A.X.hom = (pullback.snd AL.X.hom sLQ : ALQ.X.left ⟶ _) :=
+    hpb3.isoIsPullback_hom_snd _ _ hpb
+  let h : ALQ.X ⟶ Q.A.X := Over.homMk θ.hom hθsnd
+  let hinv : Q.A.X ⟶ ALQ.X := Over.homMk θ.inv ((Iso.inv_comp_eq θ).mpr hθsnd.symm)
+  have hhi : h ≫ hinv = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.hom_inv_id
+  have hih : hinv ≫ h = 𝟙 _ := by
+    apply Over.OverMorphism.ext; exact θ.inv_hom_id
+  -- the identity sections correspond
+  have hu : ∀ {R : Type} [Field R] {U : Over (Spec (CommRingCat.of R))},
+      (toUnit U).left = U.hom := fun {R _ U} => by
+    have := Over.w (toUnit U); simpa using this
+  have hid : ∀ (R : Type) [Field R], Spec.map (CommRingCat.ofHom (algebraMap R R)) = 𝟙 _ :=
+    fun R _ => by rw [Algebra.algebraMap_self, CommRingCat.ofHom_id, Spec.map_id]
+  have hηQ : η[Q.A.X].left ≫ g =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫ η[PK.A.X].left := by
+    have := hη 0
+    have h0Q : Additive.toMul (Q.e.eta 0) = 1 := by rw [map_zero]; rfl
+    have h0P : Additive.toMul (PK.e.eta 0) = 1 := by rw [map_zero]; rfl
+    rw [h0Q, h0P] at this
+    change (toUnit (PkgI3.AbVar.ptObj (K := Qbar) Qbar) ≫ η[Q.A.X]).left ≫ g =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫
+        (toUnit (PkgI3.AbVar.ptObj (K := K) K) ≫ η[PK.A.X]).left at this
+    rw [Over.comp_left, Over.comp_left, hu, hu] at this
+    simp only [PkgI3.AbVar.ptObj, Over.mk_hom, hid, Category.assoc] at this
+    erw [Category.id_comp, Category.id_comp] at this
+    exact this
+  have hηW : η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL =
+      Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫ η[PK.A.X].left := by
+    have e1 := G4Conj.one_left_fst sLQ AL.X
+    have e2 := G4Conj.one_left_fst sKL PK.A.X
+    calc η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ ≫ pullback.fst PK.A.X.hom sKL
+        = (η[ALQ.X].left ≫ pullback.fst AL.X.hom sLQ) ≫ pullback.fst PK.A.X.hom sKL :=
+          (Category.assoc _ _ _).symm
+      _ = (sLQ ≫ η[AL.X].left) ≫ pullback.fst PK.A.X.hom sKL := by erw [e1]
+      _ = sLQ ≫ (η[AL.X].left ≫ pullback.fst PK.A.X.hom sKL) := Category.assoc _ _ _
+      _ = sLQ ≫ (sKL ≫ η[PK.A.X].left) := by erw [e2]
+      _ = _ := by rw [← Category.assoc, hcomp]
+  have hunit : η[ALQ.X] ≫ h = η[Q.A.X] := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left]
+    apply hpb.hom_ext
+    · show η[ALQ.X].left ≫ θ.hom ≫ g = η[Q.A.X].left ≫ g
+      rw [hθfst, hηW, hηQ]
+    · rw [Category.assoc, Over.w h, Over.w η[ALQ.X], Over.w η[Q.A.X]]
+  have hunit' : η[Q.A.X] ≫ hinv = η[ALQ.X] := by
+    rw [← hunit, Category.assoc, hhi, Category.comp_id]
+  haveI hmh : IsMonHom h := hR Qbar ALQ Q.A h hunit
+  haveI hmi : IsMonHom hinv := hR Qbar Q.A ALQ hinv hunit'
+  -- transport `f` to `Q.A`
+  let g' : PkgI3.AbVar.End Q.A := PkgI3.AbVar.Hom.mk' (hinv ≫ (endBC AL Qbar f).hom ≫ h)
+  obtain ⟨a, ha⟩ := hEndQ g'
+  have hf1 : (endBC AL Qbar f).hom = h ≫ (Q.q.iota a).hom ≫ hinv := by
+    have : g'.hom = (Q.q.iota a).hom := by rw [ha]
+    change hinv ≫ (endBC AL Qbar f).hom ≫ h = _ at this
+    rw [← this]
+    simp only [← Category.assoc, hhi, Category.id_comp]
+    rw [Category.assoc, hhi, Category.comp_id]
+  have hf2 : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom ≫ h = h ≫ (Q.q.iota a).hom := by
+    apply Over.OverMorphism.ext
+    rw [Over.comp_left, Over.comp_left]
+    apply hpb.hom_ext
+    · change (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫ θ.hom ≫ g =
+        θ.hom ≫ (Q.q.iota a).hom.left ≫ g
+      have hm1 : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫
+          (pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) =
+          (pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (endBC PK.A L (PK.q.iota a)).hom.left :=
+        pullback.lift_fst _ _ _
+      have hm2 : (endBC PK.A L (PK.q.iota a)).hom.left ≫
+          (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left) =
+          (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left) ≫ (PK.q.iota a).hom.left :=
+        pullback.lift_fst _ _ _
+      rw [hι a, hθfst, ← Category.assoc θ.hom g, hθfst]
+      have key : (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom.left ≫
+          ((pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left)) =
+          ((pullback.fst AL.X.hom sLQ : ALQ.X.left ⟶ AL.X.left) ≫
+            (pullback.fst PK.A.X.hom sKL : AL.X.left ⟶ PK.A.X.left)) ≫ (PK.q.iota a).hom.left := by
+        erw [← Category.assoc, hm1, Category.assoc, hm2, Category.assoc]
+        rfl
+      exact key
+    · rw [Category.assoc, Category.assoc, Over.w h, Over.w (Q.q.iota a).hom, Over.w h]
+      exact Over.w ((Over.pullback sLQ).map ((Over.pullback sKL).map (PK.q.iota a).hom))
+  have hf3 : (endBC AL Qbar f).hom = (endBC AL Qbar (endBC PK.A L (PK.q.iota a))).hom := by
+    rw [hf1, ← Category.assoc, ← hf2, Category.assoc, hhi, Category.comp_id]
+  refine ⟨a, endBC_injective AL Qbar (PkgI3.AbVar.Hom.ext' hf3)⟩
+
+/-- **Headline (proved): `KernelFieldExists` from six leaves and two glue Props.** Leaves:
+`HomFreeFinite` (T6), `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure`,
+`QMDichotomyYu` (T27), `RigidityHom` (Mumford §4 Cor. 1; g0-fibresimple's textbook leaf). Glue:
+FS5 `FibreComTrivial` (g0-fibresimple) and `ConjIsogMaps`. -/
+theorem kernelFieldExists_of_rigidity (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (hRig : G0FibreSimple.RigidityHom) (h5 : G0FibreSimple.FibreComTrivial)
+    (hG : ConjIsogMaps) : KernelFieldExists :=
+  kernelFieldExists_of_final' hHFF hNOS hRay hTors t27 h5 (endTransportBC_of_rigidity hRig) hG
+
+end G0ModField.KernelField
+
+end RigProof
+
 #print axioms G0ModField.KernelField.conjMaps_of_qm
 #print axioms G0ModField.KernelField.conjIsogMapsAt_bot
 #print axioms G0ModField.KernelField.kernelFieldExists_of_split
@@ -5457,6 +5642,8 @@ end EndEqOSec
 #print axioms G0ModField.KernelField.oMaximal
 #print axioms G0ModField.KernelField.kernelFieldExists_of_final
 #print axioms G0ModField.KernelField.kernelFieldExists_of_final'
+#print axioms G0ModField.KernelField.endTransportBC_of_rigidity
+#print axioms G0ModField.KernelField.kernelFieldExists_of_rigidity
 #print axioms G0ModField.KernelField.faithful_O
 #print axioms G0ModField.KernelField.blinear_of_twisted_iso
 #print axioms G0ModField.KernelField.center_O

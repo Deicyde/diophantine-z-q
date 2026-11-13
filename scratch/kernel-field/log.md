@@ -46,3 +46,8 @@
 - endEqO_of_iso (End = ι(O) along a QML3 iso), EndTransportBC (base change + rigidity, Prop), endTransport_of
   (R1 naturality at K ⊆ ℚ̄ + Quotient.exact + endEqO_of_iso), kernelFieldExists_of_final' compiled, standard axioms
   (VERIFIED, build_final.txt).
+- 06:57 §6.11 endTransportBC_of_rigidity PROVED (pasting of pullbacks, isoIsPullback, identity sections via η(0) and
+  G4Conj.one_left_fst, RigidityHom twice, transport of f, pullback.lift_fst naturality, endBC_injective copied from
+  bp-qmmoduli with its faithful-base-change instances). kernelFieldExists_of_rigidity (leaves HFF, NOS, Raynaud,
+  TorsionStructure, T27, RigidityHom; glue FS5, ConjIsogMaps) compiled, standard axioms, 0 errors, no sorry
+  (VERIFIED, build_final.txt).

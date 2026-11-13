@@ -532,6 +532,36 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/kernel-field/KernelField.lean:5513:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/kernel-field/KernelField.lean:5544:31: warning: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+scratch/kernel-field/KernelField.lean:5580:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/kernel-field/KernelField.lean:5581:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'G0ModField.KernelField.conjMaps_of_qm' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.conjIsogMapsAt_bot' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -541,6 +571,8 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'G0ModField.KernelField.oMaximal' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_final' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.kernelFieldExists_of_final'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.KernelField.endTransportBC_of_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
+'G0ModField.KernelField.kernelFieldExists_of_rigidity' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.faithful_O' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.blinear_of_twisted_iso' depends on axioms: [propext, Classical.choice, Quot.sound]
 'G0ModField.KernelField.center_O' depends on axioms: [propext, Classical.choice, Quot.sound]
