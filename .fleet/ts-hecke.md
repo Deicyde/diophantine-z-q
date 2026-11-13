@@ -1,8 +1,9 @@
 # ts-hecke (2026-11-13): the five Hecke Props under CoverModelOfHecke
 
 **Verdict.** All five Props (`HeckeIrreducible`, `HeckeNormalizationIrr`, `HeckeDegree`,
-`HeckeBranch`, `HeckeNoVertRam`) are true. None was changed. Four are reduced in Lean, and
-`HeckeDegree` is proved outright from an existing leaf.
+`HeckeBranch`, `HeckeNoVertRam`) are true. None was changed. `HeckeDegree` is proved outright
+from an existing leaf. Three more are reduced in Lean to smaller named Props. `HeckeNoVertRam`
+stays open.
 
 **Results:**
 
@@ -26,13 +27,13 @@
 - **`HeckeNoVertRam`** stays open. The analysis is in report §6: two routes (Lemma NV, or good
   reduction), and an example showing that branch data alone cannot give it.
 
-**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 67
+**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 71
 `#print axioms` lines are standard, with no sorryAx. The file contains prop-ts-glue's whole file
 verbatim (`check_identical.py` ALL OK). The composite `TSHecke.propTSAll_of_tsHecke` replaces
 prop-ts-glue's five Hecke Props by: Y3Connected, TorsionStructure, CurveGaloisChart,
 CurveChartInf, HeckeFibreSizes, HeckeNoVertRam. The primed version takes CurveNormChart in place
 of CurveGaloisChart. An independent read-only review found every new
-Prop true.
+Prop it saw true; `CurveNormChart` (added later) was not reviewed.
 
 **What remains.** Leaf R1conn (`Y3Connected`). Glue: `CurveNormChart`, `CurveChartInf`,
 `HeckeFibreSizes`, `HeckeNoVertRam`. Report: docs/research/ts-hecke.md. Log: scratch/ts-hecke/log.md.
