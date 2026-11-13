@@ -1388,9 +1388,9 @@ end
 # hecke-rest, Part 1: `HeckeFibreSizes` from three leaves on QM pairs and `TorsionStructure`
 
 The count (computed in `fibre_sizes.py`): a twist fibre is the set of classes of
-`(A, ι ∘ t_k, et)`, `k ∈ Fin 4`, `et` one of the `72` level structures on `(A, ι ∘ t_k)`.
-`(A, ι ∘ t_k, et) ≅ (A, ι ∘ t_l, et')` iff some `φ : (A, ι ∘ t_k) ≅ (A, ι ∘ t_l)` carries `et` to
-`et'`; distinct `φ` give distinct `et'` (Serre's lemma). So each class has `s · a` members, where
+`(A, ι ∘ t_k, η)`, `k ∈ Fin 4`, `η` one of the `72` level structures on `(A, ι ∘ t_k)`.
+`(A, ι ∘ t_k, η) ≅ (A, ι ∘ t_l, η')` iff some `φ : (A, ι ∘ t_k) ≅ (A, ι ∘ t_l)` carries `η` to
+`η'`; distinct `φ` give distinct `η'` (Serre's lemma). So each class has `s · a` members, where
 `a = |Aut(A, ι)|` and `s = #{m | (A, ι ∘ t_m) ≅ (A, ι)}`, and `n · s · a = 4 · 72 = 288`.
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
 
@@ -1619,7 +1619,7 @@ theorem nrd3_ne_zero_of_inv (u₀ v₀ : O) (h : ∃ c : O, v₀ * u₀ - 1 = 3 
   rw [nrdC_mul, Int.cast_mul, nrdC_cast nu, h0, mul_zero] at hn1
   exact zero_ne_one hn1
 
-/-- The level structure `et ∘ (· u_c)` on the pair of `P`. -/
+/-- The level structure `η ∘ (· u_c)` on the pair of `P`. -/
 def lv (P : QML3 Qbar) (c : Good) : Level3 P.q := P.e.rightMul (uc c)
 
 theorem lv_eta (P : QML3 Qbar) (c : Good) (a : O) :
@@ -1741,7 +1741,7 @@ section Count
 
 variable (P : QML3 Qbar)
 
-/-- The object `(A, ι ∘ t_k, et ∘ t_k)`. -/
+/-- The object `(A, ι ∘ t_k, η ∘ t_k)`. -/
 abbrev Pk (k : Fin 4) : QML3 Qbar := P.twist (rep k)
 
 /-- `(k, c) ↦` the class of `(A, ι ∘ t_k, et_k ∘ (· u_c))`. -/
@@ -1934,7 +1934,7 @@ theorem sP_pos (P : QML3 Qbar) : 1 ≤ sP P := by
   show P.q.iota (rep 0 a) = P.q.iota a
   rw [rep_zero]
 
-theorem sP_le (hW : ALFixedPoints) (P : QML3 Qbar) (m₀ : Fin 4)
+theorem sP_le (P : QML3 Qbar) (m₀ : Fin 4)
     (h : ∀ m : Fin 4, m ≠ 0 → m ≠ m₀ → Nonempty (QMIso (P.q.twist (rep m)) P.q) → False) :
     sP P ≤ 2 := by
   calc sP P ≤ ({0, m₀} : Finset (Fin 4)).card := by
@@ -1948,7 +1948,7 @@ theorem sP_le (hW : ALFixedPoints) (P : QML3 Qbar) (m₀ : Fin 4)
         exact (h m h0 h1 hm.2).elim
     _ ≤ 2 := Finset.card_le_two
 
-theorem sP_eq_one (hW : ALFixedPoints) (P : QML3 Qbar)
+theorem sP_eq_one (P : QML3 Qbar)
     (h : ∀ m : Fin 4, m ≠ 0 → Nonempty (QMIso (P.q.twist (rep m)) P.q) → False) :
     sP P = 1 := by
   apply le_antisymm _ (sP_pos P)
@@ -1986,7 +1986,7 @@ theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
   · intro P h4 h3 h24
     obtain ⟨h, ha, -⟩ := key P
     rw [if_neg h4, if_neg h3] at ha
-    have hs : sP P = 1 := sP_eq_one hW P (fun m hm hI => by
+    have hs : sP P = 1 := sP_eq_one P (fun m hm hI => by
       obtain ⟨w1, w2, w3⟩ := hAL P
       fin_cases m
       · exact hm rfl
@@ -1999,7 +1999,7 @@ theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
     obtain ⟨h, ha, -, x2, -⟩ := key P
     rw [if_pos h4] at ha
     have hs := sP_pos P
-    have hs2 : sP P ≤ 2 := sP_le hW P 1 (fun m hm hm1 hI => by
+    have hs2 : sP P ≤ 2 := sP_le P 1 (fun m hm hm1 hI => by
       obtain ⟨w1, w2, w3⟩ := hAL P
       fin_cases m
       · exact hm rfl
@@ -2012,7 +2012,7 @@ theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
     obtain ⟨h, ha, x1, -, x3⟩ := key P
     rw [if_neg (fun h4 => x1 ⟨h4, h3⟩), if_pos h3] at ha
     have hs := sP_pos P
-    have hs2 : sP P ≤ 2 := sP_le hW P 2 (fun m hm hm2 hI => by
+    have hs2 : sP P ≤ 2 := sP_le P 2 (fun m hm hm2 hI => by
       obtain ⟨w1, w2, w3⟩ := hAL P
       fin_cases m
       · exact hm rfl
@@ -2025,7 +2025,7 @@ theorem heckeFibreSizes_of (hT : ObjBridge.TorsionStructure) (hA : QMAutCard)
     obtain ⟨h, ha, -, x2, x3⟩ := key P
     rw [if_neg (fun h4 => x2 ⟨h4, h24⟩), if_neg (fun h3 => x3 ⟨h3, h24⟩)] at ha
     have hs := sP_pos P
-    have hs2 : sP P ≤ 2 := sP_le hW P 3 (fun m hm hm3 hI => by
+    have hs2 : sP P ≤ 2 := sP_le P 3 (fun m hm hm3 hI => by
       obtain ⟨w1, w2, w3⟩ := hAL P
       fin_cases m
       · exact hm rfl

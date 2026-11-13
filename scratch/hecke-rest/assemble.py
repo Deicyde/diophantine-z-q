@@ -41,3 +41,33 @@ main = open("scratch/hecke-rest/FibreSizesMain.lean.part", encoding="utf-8").rea
 out = "\n".join(parts) + "\n" + main
 open("scratch/hecke-rest/FibreSizes.lean", "w", encoding="utf-8").write(out)
 print("wrote", out.count("\n"), "lines")
+
+# ---- NoVert.lean: prop-ts prefix (lines 6-889) + HeckeNoVertRam (3427-3437) + new part
+HEADER2 = """import Mathlib
+import ZInQKernel.HDecomp.QM.Pin
+import ZInQKernel.HDecomp.Descent.B2Glue
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest: `HeckeNoVertRam` (assembled by `scratch/hecke-rest/assemble.py`)
+
+Verbatim copies from `scratch/ts-hecke/TSHecke.lean`: lines 6-889 (the prop-ts prefix:
+`NoVerticalRam`, `intPolyAlg`, `vertPrime`, `NormalizationModel`, ...) and, inside
+`namespace PropTSGlue`, lines 3427-3437 (`HeckeNoVertRam`, the target). New work below the
+second banner. No `sorry`, no `axiom`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+"""
+GLUE_OPEN = """
+open CategoryTheory AlgebraicGeometry Limits
+open LeafQM.AV GlueDescent.B2Q
+
+noncomputable section
+
+namespace PropTSGlue
+
+open Polynomial G0ModField PropTSRed
+"""
+parts2 = [HEADER2, rng(6, 889), GLUE_OPEN, rng(3427, 3437), "", "end PropTSGlue", "", "end", ""]
+main2 = open("scratch/hecke-rest/NoVertMain.lean.part", encoding="utf-8").read()
+out2 = "\n".join(parts2) + "\n" + main2
+open("scratch/hecke-rest/NoVert.lean", "w", encoding="utf-8").write(out2)
+print("wrote NoVert", out2.count("\n"), "lines")

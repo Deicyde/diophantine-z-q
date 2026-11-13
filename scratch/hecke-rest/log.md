@@ -33,3 +33,16 @@ HeckeFibreSizes, HeckeNoVertRam.
   `heckeFibreSizes_of : TorsionStructure → QMAutCard → SerreRigidity3 → ALFixedPoints →
   HeckeFibreSizes` (M = 144).
 - `#print axioms`: heckeFibreSizes_of, ncard_mul: [propext, Classical.choice, Quot.sound].
+
+## Step 3. Lean: HeckeNoVertRam (`NoVert.lean`, assembled by `assemble.py`) — VERIFIED (compiled, 0 errors, ~15 s)
+- Verbatim copies from TSHecke.lean: 6-889 (prop-ts prefix: NoVerticalRam, intPolyAlg,
+  vertPrime, NormalizationModel), 3427-3437 (HeckeNoVertRam, inside namespace PropTSGlue).
+- Proved: `ramIdx_eq_of_under_eq` (Galois E/F, A integrally closed domain with Frac A = F: two
+  primes of integralClosure A E over the same prime have equal ramificationIdx; via
+  IsGaloisGroup.of_isFractionRing, Algebra.IsInvariant.exists_smul_of_under_eq,
+  Ideal.ramificationIdx_smul), `isFractionRing_int` (ℚ(X) = Frac ℤ[X]),
+  `noVerticalRam_of_witness : VertUnramWitness E p → NoVerticalRam E p` (Galois E),
+  `heckeNoVertRam_of_witness : HeckeVertWitness → HeckeNoVertRam`.
+- New glue Prop `HeckeVertWitness` (one prime over pℤ[X] with e = 1, p > 324), with routes GR and
+  NV in its docstring.
+- `#print axioms` (3 lines): [propext, Classical.choice, Quot.sound].
