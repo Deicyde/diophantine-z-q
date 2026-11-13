@@ -1,0 +1,273 @@
+/-! # infra-hodge, part 4: `ProductHodgeLattice`
+
+* `basis_of_wedge_ne_zero`: if `L ⊗ ⋀^g V` is a line (`g ≥ 1`) and `1 ⊗ ιMulti v ≠ 0`, then `v` is
+  an `L`-basis of `V`.
+* `exists_omega_basis`: a metrized model of dimension `g` has an `L`-basis of `ω_{A_L}` inside
+  `ω_𝒢` (for `g = 0` assuming the cotangent space is `0`).
+* `TrivialPointsCotangent` (new named Prop, only for the case `g = 0`): a group model with a single
+  complex point has zero cotangent space.
+* **`productHodgeLattice_of : TrivialPointsCotangent → ProductHodgeLattice`.** -/
+
+namespace ZInQ.InfraHodge
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField ZInQ.DefFaltings ZInQ.Metrization Module
+open scoped TensorProduct
+
+section Wedge
+
+variable {L : Type*} [Field L] [NumberField L]
+variable {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V] [IsScalarTower (𝓞 L) L V]
+
+theorem basis_of_wedge_ne_zero {g : ℕ} (hg : 0 < g)
+    (hfr : finrank L (L ⊗[𝓞 L] ⋀[𝓞 L]^g V) = 1) (v : Fin g → V)
+    (hv : (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g v ≠ 0) :
+    ∃ b : Basis (Fin g) L V, ∀ k, b k = v k := by
+  have hL : exteriorPower.ιMulti L g v ≠ 0 := fun h => hv (by
+    rw [← ZInQ.HodgeBC2.extFracEquiv_ιMulti (R := 𝓞 L), h, map_zero])
+  have hli : LinearIndependent L v := by
+    by_contra h
+    exact hL ((exteriorPower.ιMulti L g).map_linearDependent v h)
+  have hfr' : finrank L (⋀[L]^g V) = 1 := by
+    rw [(ZInQ.HodgeBC2.extFracEquiv (R := 𝓞 L) (K := L) (M := V) g).finrank_eq]; exact hfr
+  haveI : FiniteDimensional L (⋀[L]^g V) := Module.finite_of_finrank_pos (by omega)
+  have hsp : ⊤ ≤ Submodule.span L (Set.range v) := by
+    intro x _
+    by_contra hx
+    have hli' : LinearIndependent L (Fin.snoc v x : Fin (g + 1) → V) :=
+      linearIndependent_fin_snoc.mpr ⟨hli, hx⟩
+    have h2 := exteriorPower.ιMulti_family_linearIndependent_field (n := g) hli'
+    have h3 := h2.fintype_card_le_finrank
+    rw [hfr'] at h3
+    have : Fintype.card (Set.powersetCard (Fin (g + 1)) g) = g + 1 := by
+      rw [Fintype.card_eq_nat_card, Set.powersetCard.card, Nat.card_eq_fintype_card,
+        Fintype.card_fin, Nat.choose_succ_self_right]
+    omega
+  exact ⟨Basis.mk hli hsp, fun k => Basis.mk_apply _ _ _⟩
+
+end Wedge
+
+section Factor
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+theorem exists_omega_basis {g : ℕ} (M : MetrizedModel A L g)
+    (h0 : g = 0 → Subsingleton M.model.cotangent) :
+    letI := cotL M.model; ∃ u : Basis (Fin g) L M.model.cotangent, ∀ k, u k ∈ M.model.omega := by
+  letI := cotL M.model
+  haveI := cotL_isScalarTower M.model
+  rcases Nat.eq_zero_or_pos g with rfl | hg
+  · haveI := h0 rfl
+    exact ⟨Basis.empty _, fun k => k.elim0⟩
+  obtain ⟨s, hs, hs0, -⟩ := M.hodge.isLattice
+  rw [M.lattice_eq] at hs
+  have : ∃ v : Fin g → M.model.omega, (1 : L) ⊗ₜ[𝓞 L]
+      exteriorPower.ιMulti (𝓞 L) g (fun i => (v i : M.model.cotangent)) ≠ 0 := by
+    by_contra hcon
+    push_neg at hcon
+    apply hs0
+    have hbot : M.model.detLattice g = ⊥ := by
+      unfold GroupModel.detLattice
+      rw [Submodule.span_eq_bot]
+      rintro _ ⟨v, rfl⟩
+      exact hcon v
+    rw [hbot] at hs
+    exact (Submodule.mem_bot _).mp hs
+  obtain ⟨v, hv⟩ := this
+  obtain ⟨b, hb⟩ := basis_of_wedge_ne_zero hg M.hodge.finrank_eq_one _ hv
+  exact ⟨b, fun k => by rw [hb]; exact (v k).2⟩
+
+/-- **Named Prop (used only for metrized models of dimension `0`).** A smooth group model `𝒢` of
+`A_L` over `𝓞_L` whose complex points at some `τ : L → ℂ` reduce to the identity has zero cotangent
+space `𝔪_ξ/𝔪_ξ² = ω_{A_L}`. Why true (STANDARD, unproved here): `𝒢(ℂ)_τ = A_τ(ℂ)`; a group scheme
+of finite type over `ℂ` with one `ℂ`-point is, by the Nullstellensatz (Jacobson), topologically a
+point, so `A_τ` is smooth of dimension `0`, i.e. étale over `ℂ`, and its cotangent space at the
+origin, which is `ℂ ⊗_{L,τ} ω_{A_L}` (cotangent spaces commute with field extension, infra-stalks'
+`cotangent_baseChange_injective`), vanishes. Glue (geometry of smooth varieties). -/
+def TrivialPointsCotangent : Prop :=
+  ∀ (K : Type) [Field K] (A : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢 : GroupModel A L) (τ : L →+* ℂ), (∀ p : 𝒢.Pts τ, p = 1) → Subsingleton 𝒢.cotangent
+
+theorem subsingleton_of_dim_zero (h0 : TrivialPointsCotangent) (M : MetrizedModel A L 0) :
+    Subsingleton M.model.cotangent := by
+  obtain ⟨τ⟩ := (inferInstance : Nonempty (L →+* ℂ))
+  obtain ⟨Φ, hΦ, -⟩ := M.arch τ
+  refine h0 K A L M.model τ fun p => ?_
+  obtain ⟨z, rfl⟩ := hΦ.2.2.1 p
+  have hz : z = 0 := Subsingleton.elim _ _
+  subst hz
+  have h := hΦ.1 0 0
+  rw [add_zero] at h
+  exact (_root_.mul_eq_left.mp h.symm)
+
+end Factor
+
+section Main
+
+variable {K : Type} [Field K] {A B C : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+theorem secIndex_eq_relIndex {V : Type*} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+    (M : Submodule (𝓞 L) V) (s : V) :
+    secIndex M s = (Submodule.span (𝓞 L) {s}).toAddSubgroup.relIndex M.toAddSubgroup := rfl
+
+/-- **`ProductHodgeLattice` from `TrivialPointsCotangent`** (the latter is used only when one
+of the factors has `g = 0`). -/
+theorem productHodgeLattice_of (h0 : TrivialPointsCotangent) : ProductHodgeLattice := by
+  intro K _ A B C L _ _ _ 𝒢P g₁ g₂ M₁ M₂ e hfst hsnd
+  haveI := hfst
+  haveI := hsnd
+  letI := cotL M₁.model
+  letI := cotL M₂.model
+  letI := cotL 𝒢P
+  haveI := cotL_isScalarTower M₁.model
+  haveI := cotL_isScalarTower M₂.model
+  haveI := cotL_isScalarTower 𝒢P
+  have hz : ∀ {g : ℕ} {X : AbVar K} (M : MetrizedModel X L g), g = 0 →
+      Subsingleton M.model.cotangent := by
+    intro g X M hg; subst hg; exact subsingleton_of_dim_zero h0 M
+  obtain ⟨u, hu⟩ := exists_omega_basis M₁ (hz M₁)
+  obtain ⟨w, hw⟩ := exists_omega_basis M₂ (hz M₂)
+  set P1 := cotGL (e.hom ≫ fst _ _) (hp1 e)
+  set P2 := cotGL (e.hom ≫ snd _ _) (hp2 e)
+  set I1 := cotGL (incl1 e) (hi1 e)
+  set I2 := cotGL (incl2 e) (hi2 e)
+  let Ψ : (M₁.model.cotangent × M₂.model.cotangent) ≃ₗ[L] 𝒢P.cotangent :=
+    LinearEquiv.ofLinearMap (P1.coprod P2) (I1.prod I2)
+      (LinearMap.ext fun v => (cot_split e v).symm)
+      (LinearMap.ext fun v => by
+        refine Prod.ext ?_ ?_
+        · show I1 (P1 v.1 + P2 v.2) = v.1
+          rw [map_add]
+          exact (congrArg₂ (· + ·) (cot_i1_p1 e v.1) (cot_i1_p2 e v.2)).trans (add_zero _)
+        · show I2 (P1 v.1 + P2 v.2) = v.2
+          rw [map_add]
+          exact (congrArg₂ (· + ·) (cot_i2_p1 e v.1) (cot_i2_p2 e v.2)).trans (zero_add _))
+  have hΨ : ∀ x y, Ψ (x, y) = P1 x + P2 y := fun x y => rfl
+  have hΨs : ∀ v, Ψ.symm v = (I1 v, I2 v) := fun v => rfl
+  set B : Basis (Fin (g₁ + g₂)) L 𝒢P.cotangent := ((u.prod w).map Ψ).reindex finSumFinEquiv
+    with hBdef
+  have hB1 : ∀ i, B (Fin.castAdd g₂ i) = P1 (u i) := by
+    intro i
+    rw [hBdef, Basis.reindex_apply, Basis.map_apply, finSumFinEquiv_symm_apply_castAdd,
+      Basis.prod_apply]
+    show Ψ (u i, 0) = _
+    rw [hΨ, map_zero, add_zero]
+  have hB2 : ∀ j, B (Fin.natAdd g₁ j) = P2 (w j) := by
+    intro j
+    rw [hBdef, Basis.reindex_apply, Basis.map_apply, finSumFinEquiv_symm_apply_natAdd,
+      Basis.prod_apply]
+    show Ψ (0, w j) = _
+    rw [hΨ, map_zero, zero_add]
+  have hPω1 : ∀ x ∈ M₁.model.omega, P1 x ∈ 𝒢P.omega :=
+    fun x hx => cotG_omega _ (IsMonHom.one_hom _) (hp1 e) hx
+  have hPω2 : ∀ x ∈ M₂.model.omega, P2 x ∈ 𝒢P.omega :=
+    fun x hx => cotG_omega _ (IsMonHom.one_hom _) (hp2 e) hx
+  have hIω1 : ∀ v ∈ 𝒢P.omega, I1 v ∈ M₁.model.omega :=
+    fun v hv => cotG_omega _ (one_comp_incl1 e) (hi1 e) hv
+  have hIω2 : ∀ v ∈ 𝒢P.omega, I2 v ∈ M₂.model.omega :=
+    fun v hv => cotG_omega _ (one_comp_incl2 e) (hi2 e) hv
+  have hBω : ∀ k, B k ∈ 𝒢P.omega := by
+    intro k
+    refine Fin.addCases (fun i => ?_) (fun j => ?_) k
+    · rw [hB1]; exact hPω1 _ (hu i)
+    · rw [hB2]; exact hPω2 _ (hw j)
+  have hdet : detIdeal B 𝒢P.omega =
+      detIdeal (u.prod w) (M₁.model.omega.prod M₂.model.omega) := by
+    apply le_antisymm
+    · rw [detIdeal, Submodule.span_le]
+      rintro _ ⟨v, rfl⟩
+      refine Submodule.subset_span ⟨fun k => ⟨Ψ.symm (v (finSumFinEquiv k)),
+        Submodule.mem_prod.mpr ⟨hIω1 _ (v _).2, hIω2 _ (v _).2⟩⟩, ?_⟩
+      show (u.prod w).det (fun k => Ψ.symm (v (finSumFinEquiv k))) = B.det (fun k => (v k : _))
+      rw [hBdef, Basis.det_reindex, Basis.det_map]
+      rfl
+    · rw [detIdeal, Submodule.span_le]
+      rintro _ ⟨x, rfl⟩
+      refine Submodule.subset_span ⟨fun k => ⟨Ψ (x (finSumFinEquiv.symm k)), ?_⟩, ?_⟩
+      · obtain ⟨h1, h2⟩ := Submodule.mem_prod.mp (x (finSumFinEquiv.symm k)).2
+        rw [show Ψ (x (finSumFinEquiv.symm k)) =
+          P1 ((x (finSumFinEquiv.symm k) : M₁.model.cotangent × M₂.model.cotangent).1) +
+          P2 ((x (finSumFinEquiv.symm k) : M₁.model.cotangent × M₂.model.cotangent).2) from rfl]
+        exact add_mem (hPω1 _ h1) (hPω2 _ h2)
+      · show B.det (fun k => Ψ (x (finSumFinEquiv.symm k))) = (u.prod w).det (fun k => (x k : _))
+        rw [hBdef, Basis.det_reindex, Basis.det_map]
+        congr 1
+        funext k
+        simp
+  choose f₁ hf₁ using fun i =>
+    (IsLocalRing.maximalIdeal M₁.model.genStalk).toCotangent_surjective (u i)
+  choose f₂ hf₂ using fun j =>
+    (IsLocalRing.maximalIdeal M₂.model.genStalk).toCotangent_surjective (w j)
+  let f : Fin (g₁ + g₂) → IsLocalRing.maximalIdeal 𝒢P.genStalk := Fin.append
+    (fun i => ⟨((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom (f₁ i),
+      map_nonunit ((e.hom ≫ fst _ _).left.stalkMapAt (hp1 e)).hom _ (f₁ i).2⟩)
+    (fun j => ⟨((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom (f₂ j),
+      map_nonunit ((e.hom ≫ snd _ _).left.stalkMapAt (hp2 e)).hom _ (f₂ j).2⟩)
+  have hf1 : ∀ i, (f (Fin.castAdd g₂ i) : 𝒢P.genStalk) =
+      (pullGerm (e.hom ≫ fst _ _)).hom (f₁ i) := by
+    intro i; simp only [f, Fin.append_left]; rfl
+  have hf2 : ∀ j, (f (Fin.natAdd g₁ j) : 𝒢P.genStalk) =
+      (pullGerm (e.hom ≫ snd _ _)).hom (f₂ j) := by
+    intro j; simp only [f, Fin.append_right]; rfl
+  have hdf : (fun k => 𝒢P.dCls (f k)) = fun k => B k := by
+    funext k
+    refine Fin.addCases (fun i => ?_) (fun j => ?_) k
+    · rw [hB1]
+      simp only [f, Fin.append_left]
+      show (IsLocalRing.maximalIdeal _).toCotangent _ = cotMapAt (e.hom ≫ fst _ _).left (hp1 e) (u i)
+      rw [← hf₁ i, cotMapAt_toCotangent]
+    · rw [hB2]
+      simp only [f, Fin.append_right]
+      show (IsLocalRing.maximalIdeal _).toCotangent _ = cotMapAt (e.hom ≫ snd _ _).left (hp2 e) (w j)
+      rw [← hf₂ j, cotMapAt_toCotangent]
+  have hwP : 𝒢P.wedge f = (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) (g₁ + g₂) B := by
+    unfold GroupModel.wedge
+    rw [hdf]
+  have hw1 : M₁.model.wedge f₁ = (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g₁ u := by
+    unfold GroupModel.wedge
+    congr 2
+    funext i
+    exact hf₁ i
+  have hw2 : M₂.model.wedge f₂ = (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g₂ w := by
+    unfold GroupModel.wedge
+    congr 2
+    funext j
+    exact hf₂ j
+  have hne : ∀ {V : Type} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+      [IsScalarTower (𝓞 L) L V] {n : ℕ} (b : Basis (Fin n) L V),
+      (1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) n b ≠ 0 := by
+    intro V _ _ _ _ n b h
+    have := congrArg (delta b) h
+    rw [delta_tmul_one, b.det_self, map_zero] at this
+    exact one_ne_zero this
+  have hone : ∀ {V : Type} [AddCommGroup V] [Module L V] [Module (𝓞 L) V]
+      [IsScalarTower (𝓞 L) L V] {n : ℕ} (b : Basis (Fin n) L V) (W : Submodule (𝓞 L) V),
+      (∀ k, b k ∈ W) → (1 : L) ∈ detIdeal b W := by
+    intro V _ _ _ _ n b W hb
+    exact Submodule.subset_span ⟨fun k => ⟨b k, hb k⟩, b.det_self⟩
+  have eP : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) (g₁ + g₂) B}).toAddSubgroup.relIndex
+      (𝒢P.detLattice (g₁ + g₂)).toAddSubgroup = idx (detIdeal B 𝒢P.omega) :=
+    relIndex_detLat B 𝒢P.omega
+  have e1 : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g₁ u}).toAddSubgroup.relIndex
+      (M₁.model.detLattice g₁).toAddSubgroup = idx (detIdeal u M₁.model.omega) :=
+    relIndex_detLat u M₁.model.omega
+  have e2 : (Submodule.span (𝓞 L) {(1 : L) ⊗ₜ[𝓞 L] exteriorPower.ιMulti (𝓞 L) g₂ w}).toAddSubgroup.relIndex
+      (M₂.model.detLattice g₂).toAddSubgroup = idx (detIdeal w M₂.model.omega) :=
+    relIndex_detLat w M₂.model.omega
+  refine ⟨finrank_hodge B, f₁, f₂, f, 1, 1, hf1, hf2, ?_, ?_, ?_, ?_, ?_, ?_, ?_⟩
+  · rw [one_smul, M₁.lattice_eq, hw1]
+    exact Submodule.subset_span ⟨fun k => ⟨u k, hu k⟩, rfl⟩
+  · rw [one_smul, hw1]; exact hne u
+  · rw [one_smul, M₂.lattice_eq, hw2]
+    exact Submodule.subset_span ⟨fun k => ⟨w k, hw k⟩, rfl⟩
+  · rw [one_smul, hw2]; exact hne w
+  · rw [_root_.mul_one, one_smul, hwP]
+    exact Submodule.subset_span ⟨fun k => ⟨B k, hBω k⟩, rfl⟩
+  · rw [_root_.mul_one, one_smul, hwP]; exact hne B
+  · rw [_root_.mul_one, one_smul, one_smul, one_smul, M₁.lattice_eq, M₂.lattice_eq, hwP, hw1, hw2,
+      secIndex_eq_relIndex, secIndex_eq_relIndex, secIndex_eq_relIndex, eP, e1, e2, hdet,
+      detIdeal_prod, idx_mul (hone u _ hu) (hone w _ hw)]
+
+end Main
+
+end ZInQ.InfraHodge
