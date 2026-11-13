@@ -6761,7 +6761,7 @@ noncomputable section
 namespace LGKerWild
 
 open CategoryTheory AlgebraicGeometry
-open ZInQ LeafQM.AV GlueDescent G0ModField
+open ZInQ LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q G0ModField
 
 /-! ### §1. `KerWild` from the kernel-field clause -/
 
@@ -6785,7 +6785,7 @@ then `β_ℓ(g) = 1 ⇒ β_ℂ(g) = 1`. -/
 theorem transport_one {ℓ : ℕ} [Fact ℓ.Prime] (βQ : PkgI4.GQ → PkgI4.Qbar)
     (j : PkgI4.Qbar →ₐ[ℚ] PadicAlgCl ℓ) (ιC : PkgI4.Qbar →ₐ[ℚ] ℂ) (βC : PkgI4.GQ → ℂˣ)
     (hC : ∀ g, ιC (βQ g) = (βC g : ℂ)) (g : PkgI4.GQ) (h1 : j (βQ g) = 1) : βC g = 1 := by
-  have hQ : βQ g = 1 := j.toRingHom.injective (by rw [h1, map_one])
+  have hQ : βQ g = 1 := j.toRingHom.injective (show j (βQ g) = j 1 by rw [h1, map_one])
   apply Units.ext
   rw [← hC g, hQ, map_one, Units.val_one]
 
