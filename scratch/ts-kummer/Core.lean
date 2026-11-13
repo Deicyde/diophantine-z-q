@@ -359,6 +359,90 @@ def KummerAbhyankarInf : Prop :=
 /-- `KummerAbhyankarInf` is glue whose proof uses the bundle leaf T2. -/
 def KummerAbhyankarInfGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerAbhyankarInf
 
+/-- The prime `p·ℤ[X]` of `ℤ[X]`: the generic point of the fibre of `P¹_ℤ` at `p`. -/
+def vertPrime (p : ℕ) : Ideal ℤ[X] := Ideal.map (C : ℤ →+* ℤ[X]) (Ideal.span {(p : ℤ)})
+
+/-- **No vertical ramification at `p`** (Beckmann's hypothesis (d)): every prime of the integral
+closure of `ℤ[X]` in `E` lying over `p·ℤ[X]` (the height-one primes of the fibre at `p`) has
+ramification index `1`. Mathlib's `ramificationIdx` localizes at the prime, so this is the
+ramification index of the discrete valuation ring at the generic point of a component of the
+fibre at `p`. (With `[E : ℚ(X)] < p` the residue extensions are then separable: the inseparable
+degree is a power of `p` dividing `f ≤ [E : ℚ(X)]`.) -/
+def NoVerticalRam (E : Type) [Field E] [Algebra ℚ[X] E] (p : ℕ) : Prop :=
+  letI := intPolyAlg E
+  ∀ Q : Ideal (integralClosure ℤ[X] E), Q.IsPrime → Q.under ℤ[X] = vertPrime p →
+    Q.ramificationIdx ℤ[X] = 1
+
+/-- **Glue (ramification in a compositum), finite branch point.** If `E' = E(s)` with
+`s^n = c (X − b)`, `b ∈ S` and `E/ℚ(X)` is unramified over every finite prime other than the
+`X − b'` (`b' ∈ S`), then a ramified prime of `E'/ℚ(s)` lies over `s = 0` or contains
+`s^n − c (b' − b)` for some `b' ∈ S ∖ {b}`. Proof: over a prime `g` of `ℚ[s]` with
+`g ∩ ℚ[X] = h`: if `h = (X − b)` then `g = (s)`; if `h = (X − b')` then `s^n − c(b' − b) ∈ g`;
+otherwise `E` and `ℚ(s)` are both unramified over `h` (`ℚ(s)/ℚ(X)` ramifies only over `b` and
+`∞`), hence so is the compositum. -/
+def KummerOtherBranchFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rFin b c n) →
+    ∀ S : Finset ℚ, b ∈ S →
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime →
+      (∀ b' ∈ S, Q.under ℚ[X] ≠ Ideal.span {X - C b'}) → Q.ramificationIdx ℚ[X] = 1) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.ramificationIdx ℚ[X] ≠ 1 →
+      Q'.under ℚ[X] = Ideal.span {X} ∨
+        ∃ b' ∈ S, b' ≠ b ∧ X ^ n - C (c * (b' - b)) ∈ Q'.under ℚ[X]
+
+/-- **Glue (Gauss valuation), finite branch point.** If `E' = E(s)` with `s^n = c (X − b)`,
+`0 < n < p`, `c` a `p`-unit, `b` `p`-integral, `[E : ℚ(X)] < p`, and `E` has no vertical
+ramification at `p`, then neither has `E'`. Proof: the Gauss valuation of `ℚ(s)` restricts to the
+Gauss valuation of `ℚ(X)` (the substitution `X ↦ b + s^n/c` is injective mod `p`), with `e = 1`
+and residue extension `𝔽_p(s)/𝔽_p(X̄)` separable of degree `n < p`; the vertical primes of `E` are
+unramified with separable residue fields (`[E : ℚ(X)] < p`); a compositum of extensions unramified
+at a valuation is unramified there. -/
+def KummerVerticalFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ) (p : ℕ), p.Prime → 0 < n → n < p →
+    Module.finrank (RatFunc ℚ) E < p → c ≠ 0 → padicValRat p c = 0 → 0 ≤ padicValRat p b →
+    KummerShape E E' ι (rFin b c n) → NoVerticalRam E p → NoVerticalRam E' p
+
+/-- **Glue (ramification in a compositum), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`
+and `E/ℚ(X)` is unramified over every finite prime other than the `X − b'` (`b' ∈ S`), then a
+ramified prime of `E'/ℚ(s)` lies over `s = 0` or contains `b' s^n − c` for some `b' ∈ S ∖ {0}`.
+Proof: `ℚ(s)/ℚ(X)` ramifies only over `X = ∞` (`s = 0`) and `X = 0` (`s = ∞`, not a prime of
+`ℚ[s]`); over `s = α ≠ 0` the point `X = c/α^n` is finite and nonzero, and the compositum is
+ramified there only if `E` is, i.e. `c/α^n = b' ∈ S`. -/
+def KummerOtherBranchInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rInf c n) →
+    ∀ S : Finset ℚ,
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime →
+      (∀ b' ∈ S, Q.under ℚ[X] ≠ Ideal.span {X - C b'}) → Q.ramificationIdx ℚ[X] = 1) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.ramificationIdx ℚ[X] ≠ 1 →
+      Q'.under ℚ[X] = Ideal.span {X} ∨
+        ∃ b' ∈ S, b' ≠ 0 ∧ C b' * X ^ n - C c ∈ Q'.under ℚ[X]
+
+/-- **Glue (Gauss valuation), branch point `∞`.** If `E' = E(s)` with `s^n = c / X`, `0 < n < p`,
+`c` a `p`-unit, `[E : ℚ(X)] < p`, and `E` has no vertical ramification at `p`, then neither has
+`E'`. Proof: for `f ∈ ℤ_(p)[X]` primitive of degree `d`, `s^{nd} f(c/s^n) ∈ ℤ_(p)[s]` is primitive
+(the substitution is injective mod `p`), so the Gauss valuation of `ℚ(s)` restricts to that of
+`ℚ(X)`, with `e = 1` and residue extension separable of degree `n < p`; then as in
+`KummerVerticalFin`. -/
+def KummerVerticalInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (c : ℚ) (n : ℕ) (p : ℕ), p.Prime → 0 < n → n < p →
+    Module.finrank (RatFunc ℚ) E < p → c ≠ 0 → padicValRat p c = 0 →
+    KummerShape E E' ι (rInf c n) → NoVerticalRam E p → NoVerticalRam E' p
+
 
 end TsKummer
 
@@ -907,7 +991,146 @@ theorem finite_of_isIntegral (r : ℚ[X])
   haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
   exact Algebra.IsIntegral.finite
 
+/-- Compatibility of the finite Kummer substitution with `ι` (from `KummerShape`). -/
+theorem finSubst_compat {E E' : Type} [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] (ι : E →+* E') (b c : ℚ) (n : ℕ) (hc : c ≠ 0)
+    (hshape : KummerShape E E' ι (rFin b c n)) (x : ℚ[X]) :
+    algebraMap ℚ[X] E' (Polynomial.eval₂RingHom C (C b + C c⁻¹ * X ^ n) x) =
+      ι (algebraMap ℚ[X] E x) := by
+  have : (algebraMap ℚ[X] E').comp (Polynomial.eval₂RingHom C (C b + C c⁻¹ * X ^ n)) =
+      ι.comp (algebraMap ℚ[X] E) := by
+    apply Polynomial.ringHom_ext
+    · intro a
+      have := RingHom.ext_rat
+        (((algebraMap ℚ[X] E').comp (Polynomial.eval₂RingHom C (C b + C c⁻¹ * X ^ n))).comp C)
+        ((ι.comp (algebraMap ℚ[X] E)).comp C)
+      exact congrArg (fun g => g a) this
+    · simp only [RingHom.comp_apply, coe_eval₂RingHom, eval₂_X]
+      rw [IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E,
+        IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E', RatFunc.algebraMap_X, hshape.1]
+      congr 1
+      rw [rFin, eq_div_iff ((map_ne_zero_iff _ (IsFractionRing.injective ℚ[X] (RatFunc ℚ))).mpr
+        (C_ne_zero.mpr hc)), ← map_mul]
+      congr 1
+      have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+      rw [C_mul]
+      linear_combination (X ^ n) * h1
+  exact congrArg (fun g => g x) this
+
+/-- A prime of `ℚ[X]` containing an irreducible `f` is `(f)`. -/
+theorem eq_span_of_irreducible_mem {f : ℚ[X]} (hf : Irreducible f) (g : Ideal ℚ[X])
+    [hg : g.IsPrime] (hX : f ∈ g) : g = Ideal.span {f} := by
+  have hmax : (Ideal.span {f} : Ideal ℚ[X]).IsMaximal :=
+    PrincipalIdealRing.isMaximal_of_irreducible hf
+  exact (hmax.eq_of_le hg.ne_top (Ideal.span_le.mpr (Set.singleton_subset_iff.mpr hX))).symm
+
+/-- `X` is the only prime of `ℚ[X]` containing `X`. -/
+theorem eq_span_X_of_mem (g : Ideal ℚ[X]) [hg : g.IsPrime] (hX : X ∈ g) : g = Ideal.span {X} :=
+  eq_span_of_irreducible_mem irreducible_X g hX
+
+/-- `r' = C (c⁻¹ n) X^(n-1)` lies outside every prime not containing `X`. -/
+theorem derivative_notMem (a c : ℚ) (n : ℕ) (hn : 0 < n) (hc : c ≠ 0) (g : Ideal ℚ[X])
+    [hg : g.IsPrime] (hX : X ∉ g) : derivative (C a + C c⁻¹ * X ^ n) ∉ g := by
+  rw [derivative_add, derivative_C, zero_add, derivative_C_mul_X_pow]
+  intro hm
+  rcases hg.mem_or_mem hm with h1 | h1
+  · refine hg.ne_top (Ideal.eq_top_of_isUnit_mem _ h1 (isUnit_C.mpr (Ne.isUnit ?_)))
+    exact mul_ne_zero (inv_ne_zero hc) (by exact_mod_cast hn.ne')
+  · exact hX (hg.mem_of_pow_mem _ h1)
+
+/-- **`KummerOtherBranchFin` from `UnramCompositum`.** -/
+theorem kummerOtherBranchFin_of_unram (hU : UnramCompositum) : KummerOtherBranchFin := by
+  intro E _ _ _ _ _ E' _ _ _ _ _ ι b c n hn hc hshape S hbS hE Q' hQ'p hQ'e
+  classical
+  let σ : ℚ[X] →+* ℚ[X] := Polynomial.eval₂RingHom C (C b + C c⁻¹ * X ^ n)
+  have hσC : ∀ a : ℚ, σ (C a) = C a := fun a => by simp [σ]
+  have hσX : σ X = C b + C c⁻¹ * X ^ n := by simp [σ]
+  have hsn : σ (C c * (X - C b)) = X ^ n := by
+    rw [map_mul, map_sub, hσC, hσC, hσX, add_sub_cancel_left, ← mul_assoc, ← C_mul,
+      mul_inv_cancel₀ hc, C_1, one_mul]
+  have hXint : σ.IsIntegralElem X := by
+    refine ⟨X ^ n - C (C c * (X - C b)), Polynomial.monic_X_pow_sub_C _ hn.ne', ?_⟩
+    rw [eval₂_sub, eval₂_X_pow, eval₂_C, hsn, sub_self]
+  have hint : σ.IsIntegral := isIntegral_of_X σ hσC hXint
+  have hrdeg : 0 < (C b + C c⁻¹ * X ^ n : ℚ[X]).natDegree := by
+    rw [natDegree_C_add, natDegree_C_mul_X_pow n _ (inv_ne_zero hc)]; exact hn
+  have hσinj : Function.Injective σ := by
+    rw [injective_iff_map_eq_zero]; intro f hf
+    change f.comp (C b + C c⁻¹ * X ^ n) = 0 at hf
+    rw [comp_eq_zero_iff] at hf
+    rcases hf with hf | ⟨_, hr'⟩
+    · exact hf
+    · exfalso
+      have := congrArg natDegree hr'
+      rw [natDegree_C] at this; omega
+  by_contra hcon
+  push_neg at hcon
+  obtain ⟨hne, hS'⟩ := hcon
+  apply hQ'e
+  set g := Q'.under ℚ[X] with hg_def
+  haveI hgp : g.IsPrime := Ideal.IsPrime.under _ _
+  have hQ'0 : Q' ≠ ⊥ := by rintro rfl; exact hQ'e (Ideal.ramificationIdx_bot_eq_one _)
+  have hg0 : g ≠ ⊥ := Ideal.IsIntegral.under_ne_bot ℚ[X] hQ'0
+  have hXg : X ∉ g := fun hX => hne (eq_span_X_of_mem g hX)
+  set h := g.comap σ with hh_def
+  haveI hhp : h.IsPrime := Ideal.IsPrime.comap σ
+  have hh0 : h ≠ ⊥ := by
+    letI : Algebra SrcPoly ℚ[X] := (σ : SrcPoly →+* ℚ[X]).toAlgebra
+    haveI : Algebra.IsIntegral SrcPoly ℚ[X] := ⟨hint⟩
+    exact Ideal.IsIntegral.under_ne_bot SrcPoly hg0
+  have hXb : ∀ g' : Ideal ℚ[X], g'.IsPrime → g'.comap σ = h → X ∉ g' → X - C b ∉ h := by
+    intro g' hg'p hg' hXg' hm
+    rw [← hg'] at hm
+    have hm' : σ (X - C b) ∈ g' := hm
+    rw [map_sub, hσX, hσC, add_sub_cancel_left] at hm'
+    rcases hg'p.mem_or_mem hm' with h1 | h1
+    · exact hg'p.ne_top (Ideal.eq_top_of_isUnit_mem _ h1
+        (isUnit_C.mpr (Ne.isUnit (inv_ne_zero hc))))
+    · exact hXg' (hg'p.mem_of_pow_mem n h1)
+  have hhS : ∀ b' ∈ S, h ≠ Ideal.span {X - C b'} := by
+    intro b' hb' heq
+    have hmem : X - C b' ∈ h := heq ▸ Ideal.mem_span_singleton_self _
+    by_cases hbb : b' = b
+    · subst hbb; exact hXb g hgp rfl hXg hmem
+    · apply hS' b' hb' hbb
+      have hm' : σ (X - C b') ∈ g := hmem
+      have e : (X ^ n - C (c * (b' - b)) : ℚ[X]) = C c * σ (X - C b') := by
+        rw [map_sub, hσX, hσC]
+        have h1 : C c * C c⁻¹ = (1 : ℚ[X]) := by rw [← C_mul, mul_inv_cancel₀ hc, C_1]
+        rw [C_mul, C_sub]
+        linear_combination (-(X ^ n)) * h1
+      rw [e]; exact Ideal.mul_mem_left _ _ hm'
+  have hadj : letI := ι.toAlgebra
+      IntermediateField.adjoin E (Set.range (algebraMap ℚ[X] E')) = ⊤ := by
+    letI := ι.toAlgebra
+    refine eq_top_iff.mpr ((adjoin_eq_top_of_shape ι _ hshape).symm.le.trans
+      (IntermediateField.adjoin.mono _ _ _ ?_))
+    rintro _ rfl
+    exact ⟨X, rfl⟩
+  refine compositum_core0 hU ℚ[X] (RatFunc ℚ) E E' ℚ[X] ι σ
+    (finSubst_compat ι b c n hc hshape) (finite_of_isIntegral _ hint) hσinj (polyMap_injective E')
+    h hh0 hadj ?_ ?_ Q' rfl
+  · intro Q hQ hQu
+    exact hE Q hQ (fun b' hb' => by rw [hQu]; exact hhS b' hb')
+  · intro g' hg'p hg'
+    have hg'0 : g' ≠ ⊥ := by
+      rintro rfl
+      apply hh0
+      rw [← hg', Ideal.comap_bot_of_injective σ hσinj]
+    have hXg' : X ∉ g' := by
+      intro hX
+      apply hhS b hbS
+      have hm : X - C b ∈ h := by
+        rw [← hg']
+        change σ (X - C b) ∈ g'
+        rw [map_sub, hσX, hσC, add_sub_cancel_left]
+        exact Ideal.mul_mem_left _ _ (Ideal.pow_mem_of_mem _ hX n hn)
+      exact eq_span_of_irreducible_mem (irreducible_X_sub_C b) h hm
+    exact polyUnram _ hrdeg hint g' hg'0 (derivative_notMem b c n hn hc g' hXg')
+
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
 #print axioms TsKummer.compositum_core0
+#print axioms TsKummer.kummerOtherBranchFin_of_unram

@@ -37,3 +37,19 @@ KummerAbhyankarInfGlue, KummerOtherBranchInf, KummerVerticalInf), the open glue 
   [propext, Classical.choice, Quot.sound] (VERIFIED). Statements: verbatim copies of
   KummerShape, rFin, rInf, InfCoord, infAlg, infUnif, KummerAbhyankarFin(Glue),
   KummerAbhyankarInf(Glue) from PropTSGlue.lean (dev copies; final file uses the verbatim prefix).
+
+## Step 2: UnramCompositum (new glue Prop) and KummerOtherBranchFin reduced to it, compiled
+- New Prop `TsKummer.UnramCompositum` (DVR form, T2's binder conventions): R DVR, K = Frac R,
+  L/K and L'/K finite separable, M = L·L' (`IntermediateField.adjoin L (range L') = ⊤`); if every
+  prime of integralClosure R L and of integralClosure R L' over the maximal ideal has e = 1 and
+  separable residue field, then so does every such prime of integralClosure R M. Glue, STANDARD
+  (étale base change and composition).
+- `TsKummer.compositum_core0` (abstract transfer, residue characteristic 0; L' = FractionRing A).
+- `TsKummer.polyUnram`: the substitution X ↦ r (r non-constant, integral) is unramified at every
+  nonzero prime g of the target ℚ[X] with r' ∉ g (Mathlib e = ramificationIdx' via
+  `ramificationIdx'_eq_ramificationIdx`, `ramificationIdx'_spec`; derivative + separability of the
+  irreducible generator of g ∩ ℚ[X]).
+- `TsKummer.kummerOtherBranchFin_of_unram : UnramCompositum → KummerOtherBranchFin` (case split on
+  h = g ∩ ℚ[X]: X − b ∈ h ⇒ g = (s); h = (X − b') ⇒ s^n − c(b' − b) ∈ g; otherwise
+  compositum_core0 with p = h).
+- Compile: 0 errors, all four `#print axioms` standard (VERIFIED).
