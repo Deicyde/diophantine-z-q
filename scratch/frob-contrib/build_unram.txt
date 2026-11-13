@@ -1,0 +1,376 @@
+⚠ [9125/9131] Built ZInQKernel.HDecomp.Conductor.LadicCond (59s)
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:421:29: `dite_cond_eq_true` has been deprecated: Use `dite_eq_left_of_eq_true` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵t̵e̵_̵c̵o̵n̵d̵_̵e̵q̵_̵t̵r̵u̵e̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲_̲o̲f̲_̲e̲q̲_̲t̲r̲u̲e̲
+warning: ZInQKernel/HDecomp/Conductor/LadicCond.lean:640:21: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [9126/9131] Built ZInQKernel.Contrib.UnramRoots.Reduction (5.0s)
+warning: ZInQKernel/Contrib/UnramRoots/Reduction.lean:155:64: `if_pos` has been deprecated: Use `ite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/UnramRoots/Reduction.lean:162:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9127/9131] Built ZInQKernel.Contrib.UnramRoots.Metric (5.3s)
+warning: ZInQKernel/Contrib/UnramRoots/Metric.lean:54:51: Variable name `hN` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hN
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+warning: ZInQKernel/Contrib/UnramRoots/Metric.lean:159:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9128/9131] Built ZInQKernel.Contrib.UnramRoots.FrobData (9.8s)
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:44:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:45:2: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:46:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:47:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:54:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:55:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:56:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:73:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:74:4: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:75:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:76:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/FrobData.lean:77:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+⚠ [9129/9131] Built ZInQKernel.Contrib.UnramRoots.Procyclic (7.7s)
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:53:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:102:19: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:128:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:149:21: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:150:21: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:160:19: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:169:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+warning: ZInQKernel/Contrib/UnramRoots/Procyclic.lean:165:72: Variable name `hFK` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _hFK
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+⚠ [9130/9131] Built ZInQKernel.Contrib.UnramRoots.Main (3.9s)
+warning: ZInQKernel/Contrib/UnramRoots/Main.lean:17:47: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✖ [9131/9131] Building ZInQKernel.Contrib.UnramRoots.Sanity (4.3s)
+trace: .> LEAN_PATH=/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/Cli/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/batteries/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/Qq/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/aesop/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/proofwidgets/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/importGraph/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/LeanSearchClient/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/plausible/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/packages/mathlib/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/lean/.lake/build/lib/lean:/home/jackmccarthy/dzq-wt/frob-contrib/.lake/build/lib/lean /home/jackmccarthy/.elan/toolchains/leanprover--lean4---v4.35.0/bin/lean /home/jackmccarthy/dzq-wt/frob-contrib/ZInQKernel/Contrib/UnramRoots/Sanity.lean -o /home/jackmccarthy/dzq-wt/frob-contrib/.lake/build/lib/lean/ZInQKernel/Contrib/UnramRoots/Sanity.olean -i /home/jackmccarthy/dzq-wt/frob-contrib/.lake/build/lib/lean/ZInQKernel/Contrib/UnramRoots/Sanity.ilean -c /home/jackmccarthy/dzq-wt/frob-contrib/.lake/build/ir/ZInQKernel/Contrib/UnramRoots/Sanity.c --setup /home/jackmccarthy/dzq-wt/frob-contrib/.lake/build/ir/ZInQKernel/Contrib/UnramRoots/Sanity.setup.json --json
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:34:4: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:38:61: Invalid field `nonarchimedean`: The environment does not contain `AbsoluteValue.nonarchimedean`, so it is not possible to project the field `nonarchimedean` from an expression
+  padicNormE
+of type `AbsoluteValue ℚ_[?m.263] ℚ`
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:55:32: Type mismatch
+  RingHom.charZero (algebraMap ℚ_[2] (Kbar 2))
+has type
+  CharZero ℚ_[2]
+but is expected to have type
+  CharZero (Kbar 2)
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:90:36: failed to synthesize instance of type class
+  Decidable (σ ω = ω)
+
+Hint: Type class instance resolution failures can be inspected with the `set_option trace.Meta.synthInstance true` command.
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:92:61: unsolved goals
+case inl.inl
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ τ : GQp 2
+hne : ω ≠ ω ^ 2
+h1 : σ ω = ω
+h2 : τ ω = ω
+⊢ sorry () = sorry () * sorry ()
+
+case inl.inr
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ τ : GQp 2
+hne : ω ≠ ω ^ 2
+h1 : σ ω = ω
+h2 : τ ω = ω ^ 2
+⊢ sorry () = sorry () * sorry ()
+
+case inr.inl
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ τ : GQp 2
+hne : ω ≠ ω ^ 2
+h1 : σ ω = ω ^ 2
+h2 : τ ω = ω
+⊢ sorry () = sorry () * sorry ()
+
+case inr.inr
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ τ : GQp 2
+hne : ω ≠ ω ^ 2
+h1 : σ ω = ω ^ 2
+h2 : τ ω = ω ^ 2
+⊢ sorry () = sorry () * sorry ()
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:10: declaration uses `sorry`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:13: This simp argument is unused:
+  AlgEquiv.mul_apply
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, h1, h2, map_pow, hω4, hω2, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:33: This simp argument is unused:
+  h1
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h2, map_pow, hω4, hω2, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:37: This simp argument is unused:
+  h2
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h1, map_pow, hω4, hω2, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:41: This simp argument is unused:
+  map_pow
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h1, h2, hω4, hω2, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:50: This simp argument is unused:
+  hω4
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h1, h2, map_pow, hω2, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:55: This simp argument is unused:
+  hω2
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h1, h2, map_pow, hω4, hne]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:95:60: This simp argument is unused:
+  hne
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ, AlgEquiv.mul_apply, h1, h2, map_pow, hω4, hω2]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:105:2: `push_neg` has been deprecated. Prefer using `push Not` instead.
+If you'd rather continue using `push_neg` in your project, you can implement it as follows:
+```
+open Lean.Parser.Tactic in
+macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
+  `(tactic| push $cfg:optConfig Not $[$loc]?)
+```
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:106:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:118:26: unsolved goals
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ : GQp 2
+hσ : σ ω ≠ ω
+⊢ sorry () = -1
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:118:35: declaration uses `sorry`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:118:38: This simp argument is unused:
+  hσ
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:120:97: unsolved goals
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+hint : IsIntegral ℚ_[2] ω
+σ : GQp 2
+hσ : σ ∈ fixSet ℚ_[2]⟮ω⟯
+⊢ sorry () = 1
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:126:8: declaration uses `sorry`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:126:11: This simp argument is unused:
+  hσ ω (IntermediateField.mem_adjoin_simple_self ℚ_[2] ω)
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:128:76: unsolved goals
+ℓ : ℕ
+inst✝ : Fact (Nat.Prime ℓ)
+σ : GQp 2
+hσ : σ ∈ fixSet ⊥ ∩ inertiaSet
+this : σ ω = ω
+⊢ sorry () = 1
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:132:8: declaration uses `sorry`
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:132:11: This simp argument is unused:
+  this
+
+Hint: Omit it from the simp argument list.
+  [apply] simp [ψ]
+
+Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
+error: ZInQKernel/Contrib/UnramRoots/Sanity.lean:146:39: Type mismatch
+  RingHom.charZero (algebraMap ℚ_[ℓ] (PadicAlgCl ℓ))
+has type
+  CharZero ℚ_[ℓ]
+but is expected to have type
+  CharZero (PadicAlgCl ℓ)
+warning: ZInQKernel/Contrib/UnramRoots/Sanity.lean:146:4: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+Some required targets logged failures:
+- ZInQKernel.Contrib.UnramRoots.Sanity
+error: build failed
+exit 1
