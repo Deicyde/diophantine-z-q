@@ -19,10 +19,20 @@ Contents.
   in place of the first two.
 * §3 Route U implies route S (`productMetrizationSplit_of`): the two routes are consistent, and S
   is no stronger than the inputs of U.
-* §4 What `ProductModelHeight` forces (the necessity argument, formal part):
-  `metrizable_left_of_productModelHeight`, `metrizable_right_of_productModelHeight`: a metrization
-  of the product forces metrizations of the factors. And `le_of_productModelHeight`: every single
-  metrization of the product is bounded below by the sum of the factor heights. -/
+* §4 What `ProductModelHeight` forces: `metrizable_left/right_of_productModelHeight`,
+  `analyticUnif_left_of_productModelHeight` (a metrization of the product forces metrizations,
+  hence uniformizations, of the factors) and `le_of_productModelHeight`.
+* §5 Complex points of a product model (`ptsEquiv`) and the product uniformization (`prodUnif`,
+  algebraic clauses proved; analytic clauses = glue `ProductUnifAnalytic`).
+* §6 **Main result.** `productModelHeight_of_splits : ProductUnifSplits →
+  ProductMetrizationOfProductUnif → ProductModelHeight`. Neither glue Prop involves AN3: the first
+  splits the product's *own* uniformization by elementary analysis, the second is Hodge theory
+  with the uniformizations given. The change of coordinates (`recoordM`) is proved.
+
+Correction (run 1). An earlier version of this header and of §4 claimed that P2 needs analytic
+input of AN3 type. An independent model review refuted this (log). The splitting is elementary
+(§6), and the §4 lemmas show only that P2 forces descent of uniformizations to the factors, which
+§6's `ProductUnifSplits` provides without AN3. -/
 
 namespace ZInQ.ProductHeight
 
@@ -108,16 +118,17 @@ theorem height_ne_top_of_model {g : ℕ} (M : MetrizedModel A L g) {𝒢 : Group
 
 end Basic
 
-/-! ## §1. Route S: `ProductModelHeight` from the splitting of metrizations (no AN3-uniqueness) -/
+/-! ## §1. Route S: `ProductModelHeight` from the splitting of metrizations (no AN3) -/
 
 /-- **Glue S (splitting of a metrization of a product model).** If `𝒢P ≅ 𝒢₁ × 𝒢₂`
 (`IsProductModel`), then every metrization `MP` of `𝒢P` (of any dimension `g`) yields metrizations
 `M₁` of `𝒢₁` and `M₂` of `𝒢₂` with `h(M₁) + h(M₂) ≤ h(MP)`.
 
-Why true (STANDARD; the input is analytic, of type AN3): `g = g₁ + g₂`, and a holomorphic
-surjective homomorphism `Φ : ℂ^g → 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` with lattice kernel splits, after a
-`ℂ`-linear change of coordinates `T`, as `Φ₁ × Φ₂` (a holomorphic homomorphism of complex tori
-lifts to a linear map; Mumford, *Abelian varieties* §1, UNVERIFIED locator). Then
+Why true (STANDARD; elementary analysis, no AN3; reduced in §6 to `ProductUnifSplits` and
+`ProductMetrizationOfProductUnif`): a holomorphic surjective homomorphism
+`Φ : ℂ^g → 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` with lattice kernel splits, after a `ℂ`-linear change of
+coordinates `T`, as `Φ₁ × Φ₂` (restrict `Φ` to the identity components of `ker(p₂ ∘ Φ)` and
+`ker(p₁ ∘ Φ)`, which are complementary complex subspaces). Then `g = g₁ + g₂`,
 `⋀^{g}ω_{𝒢P} = ⋀^{g₁}ω_{𝒢₁} ⊗ ⋀^{g₂}ω_{𝒢₂}`, the Jacobian is block diagonal and
 `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`, so equality holds (`modelHeight_add_of`). The
 algebraic half is the same as in `ProductMetrizationGeo`. Unproved. -/
@@ -322,12 +333,13 @@ theorem productMetrizationSplit_of (hH : MetrizationHeightUnique) (hE : Metrizat
 
 /-! ## §4. What `ProductModelHeight` forces
 
-`ProductModelHeight` is not a statement about the algebraic data alone: it forces, from a single
-metrization of the product (an analytic uniformization `Φ` of `(𝒢₁ × 𝒢₂)(ℂ)_τ` at every `τ`, with
-its Hodge data), the existence of metrizations of each factor, i.e. of analytic uniformizations
-of `𝒢₁(ℂ)_τ` with a *discrete* kernel. The composite `p₁ ∘ Φ` is onto but has a non-discrete
-kernel; producing a discrete one is the splitting of complex tori (AN3-type input). It also bounds
-every single metrization of the product from below, whatever its uniformization. -/
+`ProductModelHeight` forces, from a single metrization of the product (an analytic
+uniformization `Φ` of `(𝒢₁ × 𝒢₂)(ℂ)_τ` at every `τ`, with its Hodge data), the existence of
+metrizations of each factor, i.e. of analytic uniformizations of `𝒢₁(ℂ)_τ` with a *discrete*
+kernel. The composite `p₁ ∘ Φ` is onto but has a non-discrete kernel. A discrete one is obtained
+by restricting `Φ` to the identity component of `ker(p₂ ∘ Φ)`, an elementary step (§6,
+`ProductUnifSplits`); this is *not* AN3. (An earlier version of this text called it AN3-type; that
+was wrong.) P2 also bounds every single metrization of the product from below. -/
 
 section Forces
 
@@ -363,10 +375,10 @@ theorem metrizable_right_of_productModelHeight (h : ProductModelHeight)
 
 end Forces
 
-/-- **`ProductModelHeight` forces AN3-existence on the left factor** (proved): if the product
+/-- **`ProductModelHeight` forces uniformizations of the left factor** (proved): if the product
 model has a metrization and `h(𝒢₂) ≠ ⊥`, then at every `τ` the complex points `𝒢₁(ℂ)_τ` have an
-analytic uniformization with a full discrete lattice as kernel: the conclusion of
-`AnalyticUniformizationExists` for `𝒢₁`, obtained from the product's. -/
+analytic uniformization with a full discrete lattice as kernel (the conclusion of
+`AnalyticUniformizationExists` for `𝒢₁`, obtained from the product's; elementary, see §6). -/
 theorem analyticUnif_left_of_productModelHeight (h : ProductModelHeight)
     {K : Type} [Field K] {A B C : AbVar K} {eC : C.X ≅ A.X ⊗ B.X} {L : Type} [Field L]
     [NumberField L] [Algebra K L] {𝒢P : GroupModel C L} {𝒢₁ : GroupModel A L}
@@ -494,8 +506,8 @@ theorem prodUnif_isAnalyticUniformization (hA : ProductUnifAnalytic)
 
 /-- The splitting direction, formal part: for any uniformization `Φ` of the product, `p₁ ∘ Φ`
 is a surjective homomorphism `ℂ^g → 𝒢₁(ℂ)_τ` (proved). Its kernel `Φ⁻¹(1 × 𝒢₂(ℂ)_τ)` is not
-discrete when `𝒢₂(ℂ)_τ` is infinite; extracting a uniformization of `𝒢₁` from it is the
-AN3-type step of §4. -/
+discrete when `𝒢₂(ℂ)_τ` is infinite; a uniformization of `𝒢₁` is extracted by restricting `Φ`
+to the identity component of `ker(p₂ ∘ Φ)` (§6, `ProductUnifSplits`; elementary). -/
 theorem proj_comp_unif (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)]
     [IsMonHom (e.hom ≫ snd _ _)] {τ : L →+* ℂ} {g : ℕ} {Λ : Submodule ℤ (Fin g → ℂ)}
     {Φ : (Fin g → ℂ) → 𝒢P.Pts τ} (hΦ : 𝒢P.IsAnalyticUniformization τ Λ Φ) :
@@ -507,6 +519,174 @@ theorem proj_comp_unif (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.ho
   exact ⟨z, by simp only [hz, MulEquiv.apply_symm_apply]⟩
 
 end Points
+
+/-! ## §6. Route S refined: the splitting is elementary (no AN3)
+
+An independent model review (log) pointed out that the splitting needed by route S uses only the
+product's own uniformization, so neither half of AN3 is needed (the author re-checked each
+step). Let `Φ` uniformize
+`𝒢P(ℂ)_τ = 𝒢₁(ℂ)_τ × 𝒢₂(ℂ)_τ` with full discrete kernel `Λ`, and let `Kᵢ = ker(pᵢ ∘ Φ)`.
+- `K₁` is closed: `p₁ x = 1` is a Zariski-closed condition, and clause 4 makes `Φ` continuous
+  for the Zariski opens.
+- The identity component `W₂` of `K₁` is a real subspace (closed subgroups of `ℝ^{2g}`), and it
+  is complex: `t ↦ f(p₁ Φ(t w))` is holomorphic (clause 5) and constant on `ℝ`.
+- `K₁ + K₂ = ℂ^g` (surjectivity), so `W₁ + W₂ = ℂ^g` (Baire). `W₁ ∩ W₂ ⊆ Λ` is discrete, hence
+  `0`.
+- So `Φ` restricted to `Wᵢ` gives uniformizations `Φᵢ` of the factors, and `Φ ∘ T = Φ₁ × Φ₂` for
+  a linear `T`.
+
+This analytic step is the glue Prop `ProductUnifSplits`. The rest is the Hodge-theoretic glue
+`ProductMetrizationOfProductUnif`, mirror image of `ProductMetrizationGeo`. The change of
+coordinates is proved here (`recoordM`, from def-faltings' `HodgeData.recoord`,
+`GroupModel.jacDet_comp` and `HodgeData.modelHeight_recoord`). -/
+
+section Recoord
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+/-- **Precomposing an analytic uniformization with a `ℂ`-linear automorphism `T`** gives an
+analytic uniformization with lattice `T⁻¹ Λ` (proved). -/
+theorem isAnalyticUniformization_comp {𝒢 : GroupModel A L} {τ : L →+* ℂ} {g : ℕ}
+    {Λ : Submodule ℤ (Fin g → ℂ)} {Φ : (Fin g → ℂ) → 𝒢.Pts τ}
+    (h : 𝒢.IsAnalyticUniformization τ Λ Φ) (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)) :
+    𝒢.IsAnalyticUniformization τ (ZLattice.comap ℝ Λ (realify T).toLinearMap)
+      (fun z => Φ (T z)) := by
+  obtain ⟨hm, hk, hs, ho, hd⟩ := h
+  have hTc : Continuous (T : (Fin g → ℂ) → (Fin g → ℂ)) := (realify T).continuous
+  refine ⟨fun z w => by simp only [map_add, hm], fun z => ?_, fun p => ?_, fun U => ?_,
+    fun U s => ?_⟩
+  · rw [hk]; rfl
+  · obtain ⟨w, rfl⟩ := hs p
+    exact ⟨T.symm w, by simp⟩
+  · exact (ho U).preimage hTc
+  · let T' : (Fin g → ℂ) →L[ℂ] (Fin g → ℂ) :=
+      LinearMap.toContinuousLinearMap (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ))
+    exact (hd U s).comp T'.differentiableOn (fun z hz => hz)
+
+/-- **Change of linear coordinates of a metrized model** (proved): same group model, Hodge data
+`hodge.recoord T`, uniformizations `Φ ∘ T_τ`. -/
+noncomputable def recoordM {g : ℕ} (M : MetrizedModel A L g)
+    (T : (L →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) : MetrizedModel A L g where
+  model := M.model
+  hodge := M.hodge.recoord T
+  lattice_eq := M.lattice_eq
+  arch τ := by
+    obtain ⟨Φ, hΦ, hc⟩ := M.arch τ
+    refine ⟨fun z => Φ (T τ z), isAnalyticUniformization_comp hΦ (T τ), fun f => ?_⟩
+    show (LinearMap.det (T τ : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) • M.hodge.coeff τ)
+      (M.model.wedge f) = _
+    rw [GroupModel.jacDet_comp, LinearMap.smul_apply, hc, smul_eq_mul, mul_comm]
+
+theorem recoordM_model {g : ℕ} (M : MetrizedModel A L g)
+    (T : (L →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) : (recoordM M T).model = M.model := rfl
+
+theorem recoordM_modelHeight {g : ℕ} (M : MetrizedModel A L g)
+    (T : (L →+* ℂ) → ((Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ))) :
+    (recoordM M T).hodge.modelHeight = M.hodge.modelHeight :=
+  HodgeData.modelHeight_recoord _ _
+
+end Recoord
+
+/-- **Glue S-an (splitting of a uniformization of a product; elementary analysis, no AN3).**
+Let `e : 𝒢P ≅ 𝒢₁ ⊗ 𝒢₂` have homomorphic components. Every analytic uniformization `Φ` of
+`𝒢P(ℂ)_τ` with a full discrete lattice `Λ ⊂ ℂ^g` as kernel splits: for some `g₁ + g₂ = g`, full
+discrete lattices `Λᵢ ⊂ ℂ^{gᵢ}`, analytic uniformizations `Φᵢ` of `𝒢ᵢ(ℂ)_τ` with kernels `Λᵢ` and a
+`ℂ`-linear automorphism `T`, we have `Φ ∘ T = Φ₁ × Φ₂` (`prodUnif`, coordinates `Fin.append`).
+
+Why true (STANDARD, argued in the section header; no uniformization theorem is used). The
+ingredients are the structure of closed subgroups of `ℝⁿ` (Bourbaki, *Topologie générale* VII §1,
+UNVERIFIED), the identity theorem in one complex variable, Baire's theorem, and the
+compatibility of `evalAt` with the projections. Then `Φᵢ = pᵢ ∘ Φ|_{Wᵢ}` with
+`Wᵢ = ker(p_{3-i} ∘ Φ)⁰`, `Λᵢ = Λ ∩ Wᵢ`. Unproved. -/
+def ProductUnifSplits : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢P : GroupModel C L) (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L)
+    (e : 𝒢P.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)]
+    (τ : L →+* ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ)) [DiscreteTopology Λ]
+    (Φ : (Fin g → ℂ) → 𝒢P.Pts τ), IsZLattice ℝ Λ → 𝒢P.IsAnalyticUniformization τ Λ Φ →
+    ∃ (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+      (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+      (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ) (T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ)),
+      (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧ (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+      𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ ∧
+      ∀ z, Φ (T z) = prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))
+
+/-- **Glue S-alg (metrizations of the factors from a product-form metrization; Hodge theory, no
+AN3).** Let `e : MP.model ≅ 𝒢₁ ⊗ 𝒢₂` have homomorphic components. Suppose that at every `τ` the
+metrization `MP` of the product model is in product form: its period lattice is `Λ₁ × Λ₂` and its
+coefficient map is computed by `Φ₁ × Φ₂`, for full discrete lattices `Λᵢ ⊂ ℂ^{gᵢ(τ)}` and analytic
+uniformizations `Φᵢ` of the factors. Then the factors have metrizations `M₁`, `M₂` with
+`h(M₁) + h(M₂) ≤ h(MP)`.
+
+Why true (STANDARD; mirror image of `ProductMetrizationGeo`).
+- `gᵢ(τ) = dim 𝒢ᵢ`: the Jacobian of `Φ₁ × Φ₂` at `0` on `p₁*f ∧ p₂*h` is block diagonal and
+  nonsingular, because `coeff ≠ 0`.
+- `ω_{MP} = ω₁ ⊕ ω₂` and `⋀^{top}ω_{MP} = ⋀ω₁ ⊗ ⋀ω₂`.
+- `jacDet Φᵢ` descends to a semilinear map on `⋀^{gᵢ}`.
+- Indices, coefficients and covolumes multiply (`modelHeight_add_of`); equality holds.
+
+Unproved. -/
+def ProductMetrizationOfProductUnif : Prop :=
+  ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
+    (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
+    (e : MP.model.G ≅ 𝒢₁.G ⊗ 𝒢₂.G) [IsMonHom (e.hom ≫ fst _ _)] [IsMonHom (e.hom ≫ snd _ _)],
+    (∀ τ : L →+* ℂ, ∃ (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+        (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+        (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+        (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧
+        (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+        𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ ∧
+        (∀ z, z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) ∧
+        ∀ f, MP.hodge.coeff τ (MP.model.wedge f) =
+          MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f) →
+    ∃ (g₁ g₂ : ℕ) (M₁ : MetrizedModel A L g₁) (M₂ : MetrizedModel B L g₂),
+      M₁.model = 𝒢₁ ∧ M₂.model = 𝒢₂ ∧
+      M₁.hodge.modelHeight + M₂.hodge.modelHeight ≤ MP.hodge.modelHeight
+
+/-- **`ProductMetrizationSplit` from S-an and S-alg (proved).** The change of coordinates
+`Φ ↦ Φ ∘ T_τ` is done by `recoordM`, which does not change the height. -/
+theorem productMetrizationSplit_of_splits (hS : ProductUnifSplits)
+    (hA : ProductMetrizationOfProductUnif) : ProductMetrizationSplit := by
+  intro K _ A B C eC L _ _ _ 𝒢P 𝒢₁ 𝒢₂ hPM g MP hMP
+  obtain ⟨e, he₁, he₂, -⟩ := hPM
+  subst hMP
+  have key : ∀ τ : L →+* ℂ, ∃ T : (Fin g → ℂ) ≃ₗ[ℂ] (Fin g → ℂ),
+      ∃ (g₁ g₂ : ℕ) (hg : g₁ + g₂ = g) (Λ₁ : Submodule ℤ (Fin g₁ → ℂ))
+        (Λ₂ : Submodule ℤ (Fin g₂ → ℂ)) (Φ₁ : (Fin g₁ → ℂ) → 𝒢₁.Pts τ)
+        (Φ₂ : (Fin g₂ → ℂ) → 𝒢₂.Pts τ),
+        (∃ _ : DiscreteTopology Λ₁, IsZLattice ℝ Λ₁) ∧
+        (∃ _ : DiscreteTopology Λ₂, IsZLattice ℝ Λ₂) ∧
+        𝒢₁.IsAnalyticUniformization τ Λ₁ Φ₁ ∧ 𝒢₂.IsAnalyticUniformization τ Λ₂ Φ₂ ∧
+        (∀ z, T z ∈ MP.hodge.periods τ ↔ (fun i => z (Fin.cast hg i)) ∈ prodLattice Λ₁ Λ₂) ∧
+        ∀ f, LinearMap.det (T : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) *
+            MP.hodge.coeff τ (MP.model.wedge f) =
+          MP.model.jacDet (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) f := by
+    intro τ
+    obtain ⟨Φ, hΦ, hc⟩ := MP.arch τ
+    have := MP.hodge.periods_discrete τ
+    obtain ⟨g₁, g₂, hg, Λ₁, Λ₂, Φ₁, Φ₂, T, hl₁, hl₂, hu₁, hu₂, hT⟩ :=
+      hS K A B C L MP.model 𝒢₁ 𝒢₂ e τ g (MP.hodge.periods τ) Φ
+        (MP.hodge.periods_isZLattice τ) hΦ
+    refine ⟨T, g₁, g₂, hg, Λ₁, Λ₂, Φ₁, Φ₂, hl₁, hl₂, hu₁, hu₂, fun z => ?_, fun f => ?_⟩
+    · rw [← hΦ.2.1, hT, (prodUnif_clauses e hu₁ hu₂).2.1]
+    · have hfun : (fun z => prodUnif e Φ₁ Φ₂ (fun i => z (Fin.cast hg i))) =
+          fun z => Φ (T z) := funext fun z => (hT z).symm
+      rw [hfun, GroupModel.jacDet_comp, hc, mul_comm]
+  choose T g₁ g₂ hg Λ₁ Λ₂ Φ₁ Φ₂ hl₁ hl₂ hu₁ hu₂ hper hco using key
+  obtain ⟨h₁, h₂, M₁, M₂, hM₁, hM₂, hle⟩ := @hA K _ A B C L _ _ _ 𝒢₁ 𝒢₂ g (recoordM MP T) e he₁ he₂
+    (fun τ => ⟨g₁ τ, g₂ τ, hg τ, Λ₁ τ, Λ₂ τ, Φ₁ τ, Φ₂ τ, hl₁ τ, hl₂ τ, hu₁ τ, hu₂ τ,
+      fun z => hper τ z, fun f => by
+        show (LinearMap.det (T τ : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)) • MP.hodge.coeff τ)
+          (MP.model.wedge f) = _
+        rw [LinearMap.smul_apply, smul_eq_mul]
+        exact hco τ f⟩)
+  exact ⟨h₁, h₂, M₁, M₂, hM₁, hM₂, hle.trans_eq (recoordM_modelHeight MP T)⟩
+
+/-- **`ProductModelHeight` from S-an and S-alg (proved).** Neither half of AN3 is used: no
+`AnalyticUniformizationExists`, no `AnalyticUniformizationUnique`, no `MetrizationExists`. -/
+theorem productModelHeight_of_splits (hS : ProductUnifSplits)
+    (hA : ProductMetrizationOfProductUnif) : ProductModelHeight :=
+  productModelHeight_of_split (productMetrizationSplit_of_splits hS hA)
 
 end ZInQ.ProductHeight
 
@@ -524,3 +704,7 @@ end ZInQ.ProductHeight
 #print axioms ZInQ.ProductHeight.prodUnif_clauses
 #print axioms ZInQ.ProductHeight.prodUnif_isAnalyticUniformization
 #print axioms ZInQ.ProductHeight.proj_comp_unif
+#print axioms ZInQ.ProductHeight.isAnalyticUniformization_comp
+#print axioms ZInQ.ProductHeight.recoordM_modelHeight
+#print axioms ZInQ.ProductHeight.productMetrizationSplit_of_splits
+#print axioms ZInQ.ProductHeight.productModelHeight_of_splits

@@ -18,3 +18,19 @@
   `proj_comp_unif`.
 - Docstring of `ProductUnifAnalytic` corrected (products of opens are not a basis of the Zariski
   topology of a fibre product; basic opens `D(Σ aᵢ ⊗ bᵢ)` of affine products are).
+- Independent read-only model review (general-purpose agent) of `ProductHeight.lean`. Findings:
+  all Props true; `ProductUnifAnalytic` docstring correct. **The §4 necessity claim (P2 needs
+  AN3-type input) is unsound**: the product's own uniformization `Φ` splits by elementary
+  analysis. `K₁ = ker(p₁∘Φ)` is closed, because `p₁ x = 1` is Zariski-closed, the unit section of
+  a separated scheme being a closed immersion. Its identity component `W₂` is a complex subspace,
+  by the identity theorem and clause 5. `W₁ + W₂ = ℂ^g` (Baire) and `W₁ ∩ W₂ ⊆ Λ`, so
+  `W₁ ∩ W₂ = 0`. Then `Φ ∘ T = Φ₁ × Φ₂`. `ProductMetrizationSplit` is nearly a restatement of P2
+  (attained infima).
+  Author re-check of each step: agrees (kernel of `Φ|_{W₁}` is `Λ ∩ W₁` since
+  `W₁ ∩ K₁ ⊆ K₁ ∩ K₂ = Λ`; `Λ = Λ∩W₁ ⊕ Λ∩W₂`). Verdict changed: AN3 not needed.
+- Compile 4-6 (§6: `isAnalyticUniformization_comp`, `recoordM`, `recoordM_modelHeight`,
+  glue `ProductUnifSplits` (S-an), `ProductMetrizationOfProductUnif` (S-alg),
+  `productMetrizationSplit_of_splits`, `productModelHeight_of_splits`): fixes were a
+  `DifferentiableOn.comp` term, a namespace rename (`recoordM`) and an explicit `@hA` for the
+  `IsMonHom` instances across `recoordM`. Final: 0 errors, 18/18 `#print axioms` standard
+  (VERIFIED). Docstrings of §1, §4 and the header corrected (no AN3 claim).
