@@ -67,7 +67,7 @@
   **`conjTwistFromLeaves_of_N123 : ArtinTorsion → HomLinearLift → ConjAntiLift →
   ConjTwistFromLeaves`**. Whole file: 0 errors, 0 sorry, 20 `#print axioms` standard.
   VERIFIED (compiled).
-- 2026-11-13 06:12 §12 added: **`toC_injective`** (proved with Mathlib's
+- 2026-11-13 06:09 §12 added: **`toC_injective`** (proved with Mathlib's
   `ext_of_isDominant_of_isSeparated`: Spec ℂ → Spec K̄ surjective, Spec K̄ reduced, A proper),
   glue def `ArtinTorsionSurj` (N1-surj), `artinTorsion_of_surj`,
   **`conjTwistNontrivial_of_surj : TateModuleFree → UniformizationExists → ArtinTorsionSurj →
