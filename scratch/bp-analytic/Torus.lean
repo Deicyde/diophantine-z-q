@@ -571,4 +571,132 @@ theorem torusDiffeo_apply (Λ' : Submodule ℤ E') [DiscreteTopology Λ'] (T : E
 
 end Iso
 
+
+/-! ## §7. pkg-I1's QM lattice `ι(𝒪)(τ, 1)ᵀ` and its period matrix `Ω(τ)`
+
+The definitions `B`, `oBasis`, `Mi`, `Mj`, `iota`, `latVec`, `Emat`, `F0mat`, `Pinv`, `Omega` are
+copied verbatim from `scratch/pkg-I1/I1.lean` (§1, §2, §4). We prove: for `Im τ ≠ 0`,
+* `Λ_τ = ι(𝒪)(τ, 1)ᵀ` is a full lattice in `ℂ²`;
+* `F'(τ) = F₀(τ)P⁻¹` is invertible and carries `Ω(τ)ℤ² + ℤ²` onto `Λ_τ`;
+* hence `det Im Ω(τ) ≠ 0` and `F'(τ)` induces a biholomorphic group isomorphism
+  `ℂ² ⧸ Λ_{Ω(τ)} ≃ ℂ² ⧸ Λ_τ`: `Ω(τ)` is a period matrix of the QM torus `A_τ = ℂ² ⧸ Λ_τ`
+  (pkg-I1 §4 claimed this from numerical checks; the polarization is not treated here). -/
+
+namespace QM
+
+open Matrix
+
+/-- (pkg-I1) `B = (2,-3)`. -/
+abbrev B := QuaternionAlgebra ℚ 2 0 (-3)
+
+/-- (pkg-I1) N5's ordered basis `(1, i, (1+j)/2, (i+ij)/2)` of the maximal order `𝒪`. -/
+def oBasis : Fin 4 → B := ![⟨1, 0, 0, 0⟩, ⟨0, 1, 0, 0⟩, ⟨1/2, 0, 1/2, 0⟩, ⟨0, 1/2, 0, 1/2⟩]
+
+/-- (pkg-I1) `ι(i) = [[√2,0],[0,-√2]]`. -/
+def Mi : Matrix (Fin 2) (Fin 2) ℝ := !![√2, 0; 0, -√2]
+/-- (pkg-I1) `ι(j) = [[0,-3],[1,0]]`. -/
+def Mj : Matrix (Fin 2) (Fin 2) ℝ := !![0, -3; 1, 0]
+
+/-- (pkg-I1) The real embedding `ι : B → M₂(ℝ)`. -/
+def iota (x : B) : Matrix (Fin 2) (Fin 2) ℝ :=
+  (x.re : ℝ) • 1 + (x.imI : ℝ) • Mi + (x.imJ : ℝ) • Mj + (x.imK : ℝ) • (Mi * Mj)
+
+/-- (pkg-I1) `ι(x)·(τ, 1)ᵀ`. -/
+def latVec (x : B) (τ : ℂ) : Fin 2 → ℂ := (iota x).map (fun r : ℝ => (r : ℂ)) *ᵥ ![τ, 1]
+
+/-- (pkg-I1) `E(τ)`: columns `ι(1)v_τ`, `ι(i)v_τ`. -/
+def Emat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  Matrix.of fun r c => ![latVec (oBasis 0) τ, latVec (oBasis 1) τ] c r
+
+/-- (pkg-I1) `F₀(τ)`: columns `ι((1+j)/2)v_τ`, `ι((i+ij)/2)v_τ`. -/
+def F0mat (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  Matrix.of fun r c => ![latVec (oBasis 2) τ, latVec (oBasis 3) τ] c r
+
+/-- (pkg-I1) `P⁻¹` for `P = [[-1,1],[1,-2]]`. -/
+def Pinv : Matrix (Fin 2) (Fin 2) ℂ := !![-2, -1; -1, -1]
+
+/-- (pkg-I1) The period matrix `Ω(τ) = (F₀(τ)P⁻¹)⁻¹E(τ)`. -/
+def Omega (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := (F0mat τ * Pinv)⁻¹ * Emat τ
+
+theorem latVec0 (τ : ℂ) : latVec (oBasis 0) τ = ![τ, 1] := by
+  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
+
+theorem latVec1 (τ : ℂ) : latVec (oBasis 1) τ = ![√2 * τ, -√2] := by
+  ext i; fin_cases i <;> simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two]
+
+theorem latVec2 (τ : ℂ) : latVec (oBasis 2) τ = ![(τ - 3) / 2, (τ + 1) / 2] := by
+  ext i; fin_cases i <;>
+    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;> ring
+
+theorem latVec3 (τ : ℂ) : latVec (oBasis 3) τ = ![√2 * (τ - 3) / 2, -(√2 * (τ + 1)) / 2] := by
+  ext i; fin_cases i <;>
+    simp [latVec, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;>
+    ring
+
+
+theorem Emat_eq (τ : ℂ) : Emat τ = !![τ, √2 * τ; 1, -√2] := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [Emat, latVec0, latVec1]
+
+theorem F0mat_eq (τ : ℂ) :
+    F0mat τ = !![(τ - 3) / 2, √2 * (τ - 3) / 2; (τ + 1) / 2, -(√2 * (τ + 1)) / 2] := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [F0mat, latVec2, latVec3]
+
+/-- `F'(τ) = F₀(τ)P⁻¹`. -/
+def Fp (τ : ℂ) : Matrix (Fin 2) (Fin 2) ℂ := F0mat τ * Pinv
+
+theorem det_Fp (τ : ℂ) : (Fp τ).det = -((√2 : ℂ) * (τ - 3) * (τ + 1)) / 2 := by
+  rw [Fp, det_mul, F0mat_eq, Pinv, det_fin_two_of, det_fin_two_of]
+  ring
+
+theorem sqrt2_ne_zero : (√2 : ℂ) ≠ 0 :=
+  Complex.ofReal_ne_zero.mpr (Real.sqrt_ne_zero'.mpr two_pos)
+
+theorem det_Fp_ne_zero {τ : ℂ} (hτ : τ.im ≠ 0) : (Fp τ).det ≠ 0 := by
+  rw [det_Fp]
+  have h3 : τ - 3 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have h1 : τ + 1 ≠ 0 := fun h => hτ (by simpa using congrArg Complex.im h)
+  have := sqrt2_ne_zero
+  field_simp
+  simp [this, h3, h1]
+
+theorem Fp_mul_Omega {τ : ℂ} (hτ : τ.im ≠ 0) : Fp τ * Omega τ = Emat τ := by
+  rw [Omega, ← Fp, ← Matrix.mul_assoc, Matrix.mul_nonsing_inv _ (Ne.isUnit (det_Fp_ne_zero hτ)),
+    Matrix.one_mul]
+
+/-- The four generators `ι(b_k)(τ, 1)ᵀ` of `Λ_τ`. -/
+def qmVec (τ : ℂ) (k : Fin 4) : Fin 2 → ℂ := latVec (oBasis k) τ
+
+
+theorem qmVec_linearIndependent {τ : ℂ} (hτ : τ.im ≠ 0) : LinearIndependent ℝ (qmVec τ) := by
+  rw [Fintype.linearIndependent_iff]
+  intro c hc
+  have e0 := congrFun hc 0
+  have e1 := congrFun hc 1
+  simp only [qmVec, Fin.sum_univ_four, latVec0, latVec1, latVec2, latVec3, Finset.sum_apply,
+    Pi.smul_apply, Matrix.cons_val_zero, Matrix.cons_val_one, Pi.zero_apply,
+    Complex.real_smul] at e0 e1
+  have r0 := congrArg Complex.re e0
+  have i0 := congrArg Complex.im e0
+  have r1 := congrArg Complex.re e1
+  have i1 := congrArg Complex.im e1
+  simp at r0 i0 r1 i1
+  set x := τ.re
+  set y := τ.im
+  have hs : √2 ≠ 0 := Real.sqrt_ne_zero'.mpr two_pos
+  have hA : y * (c 2 - √2 * c 3) = 0 := by linear_combination 2 * i1
+  have A : c 2 - √2 * c 3 = 0 := (mul_eq_zero.mp hA).resolve_left hτ
+  have hK : y * (c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2) = 0 := by linear_combination i0
+  have K : c 0 + √2 * c 1 + c 2 / 2 + √2 * c 3 / 2 = 0 := (mul_eq_zero.mp hK).resolve_left hτ
+  have Bq : c 2 + √2 * c 3 = 0 := by linear_combination (2 / 3 * x) * K - (2 / 3) * r0
+  have h3' : √2 * c 3 = 0 := by linear_combination (Bq - A) / 2
+  have h3 : c 3 = 0 := (mul_eq_zero.mp h3').resolve_left hs
+  have h2 : c 2 = 0 := by linear_combination A + h3'
+  have C : c 0 - √2 * c 1 = 0 := by linear_combination r1 - ((x + 1) / 2) * A
+  have h1' : √2 * c 1 = 0 := by linear_combination (K - C) / 2 - Bq / 4
+  have h1 : c 1 = 0 := (mul_eq_zero.mp h1').resolve_left hs
+  have h0 : c 0 = 0 := by linear_combination C + h1'
+  intro i; fin_cases i <;> assumption
+
+end QM
+
 end BPAnalytic
