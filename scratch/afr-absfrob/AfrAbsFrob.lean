@@ -5100,6 +5100,20 @@ theorem pb_eta_fst {S S' : Scheme.{0}} (g' : S' ⟶ S) (𝒜 : Grp (Over S)) :
   show ((Functor.LaxMonoidal.ε F) ≫ F.map η[𝒜.X]).left ≫ pullback.fst 𝒜.X.hom g' = _
   rw [Over.comp_left, Category.assoc, hmap, ← Category.assoc, hε2]
 
+/-- `Spec(O_w → L)`. -/
+abbrev jSpec (L : IF) (v : ValuationSubring PkgI4.Qbar) :
+    Spec (.of L) ⟶ Spec (.of (Ow L v)) :=
+  Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))
+
+/-- `Spec(t)`, `t = σ⁻¹|_{O_w}`. -/
+abbrev tSpec {L : IF} [IsGalois ℚ L] {v : ValuationSubring PkgI4.Qbar} (σ : PkgI4.GQ)
+    (hσ : σ ∈ v.decompositionSubgroup ℚ) : Spec (.of (Ow L v)) ⟶ Spec (.of (Ow L v)) :=
+  Spec.map (CommRingCat.ofHom (tSig σ hσ))
+
+/-- `τ = σ⁻¹|_L`. -/
+abbrev tauL (L : IF) [IsGalois ℚ L] (σ : PkgI4.GQ) : L →+* L :=
+  (((σ⁻¹).restrictNormal L : L ≃ₐ[ℚ] L) : L →+* L)
+
 set_option synthInstance.maxHeartbeats 400000 in
 set_option maxHeartbeats 1000000 in
 /-- **`FExtendGen` from the leaf I2-NMP (proved).**
@@ -5113,32 +5127,36 @@ set_option maxHeartbeats 1000000 in
    (separatedness of `𝒜`, dominance of `Spec L → Spec O_w`). -/
 theorem fExtendGen_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendGen := by
   intro L _ _ A F _ _ p hp v σ hv hσ 𝒜 h𝒜 e f hf
+  generalize hσ.1 = hσ1
   haveI : IsDiscreteValuationRing (Ow L v) := owDVR L v p hp hv
   haveI : IsProper 𝒜.X.hom := h𝒜.proper
   haveI : Smooth 𝒜.X.hom := h𝒜.smooth
   haveI : GeometricallyConnected 𝒜.X.hom := h𝒜.geomConnected
   haveI : IsIntegral A.X.left := GeometricallyIntegral.isIntegral_of_subsingleton A.X.hom
-  -- `τ = σ⁻¹|_L`
-  let τ : L →+* L := (((σ⁻¹).restrictNormal L : L ≃ₐ[ℚ] L) : L →+* L)
   -- ring identities
   have hR1 : Spec.map (CommRingCat.ofHom ((act σ : Qbar ≃ₐ[ℚ] Qbar) : Qbar →+* Qbar)) ≫
-      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫ Spec.map (CommRingCat.ofHom τ) =
+      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫ Spec.map (CommRingCat.ofHom (tauL L σ)) =
       Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) := by
     rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
     congr 2
     ext a
     show σ (algebraMap L PkgI4.Qbar ((σ⁻¹).restrictNormal L a)) = algebraMap L PkgI4.Qbar a
     rw [AlgEquiv.restrictNormal_commutes, AlgEquiv.aut_inv, AlgEquiv.apply_symm_apply]
-  have hR2 : Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) ≫
-      Spec.map (CommRingCat.ofHom (tSig σ hσ.1)) =
-      Spec.map (CommRingCat.ofHom τ) ≫ Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L)) := by
+  have hR2 : jSpec L v ≫ tSpec σ hσ1 = Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ jSpec L v := by
+    show Spec.map _ ≫ Spec.map _ = Spec.map _ ≫ Spec.map _
     rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
     rfl
   -- the zero point
   let x0 : Spec (.of Qbar) ⟶ A.X.left := (Additive.toMul (0 : PtQ L A)).left
+  have hu : (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)).left =
+      Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) :=
+    (Category.comp_id _).symm.trans
+      (Over.w (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)))
   have hx0 : x0 = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫ (η[A.X]).left := by
-    have hu := Over.w (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar))
-    exact (congrArg (· ≫ (η[A.X]).left) (hu.symm.trans (Category.comp_id _) |>.symm)).symm
+    show (CartesianMonoidalCategory.toUnit (PkgI3.AbVar.ptObj (K := L) Qbar)).left ≫
+      (η[A.X]).left = _
+    rw [hu]
+    rfl
   have hx0w : x0 ≫ A.X.hom = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) :=
     Over.w (Additive.toMul (0 : PtQ L A))
   have hηw : (η[A.X]).left ≫ A.X.hom = 𝟙 _ := Over.w η[A.X]
@@ -5148,84 +5166,91 @@ theorem fExtendGen_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendGe
     rw [map_zero] at this
     exact this.symm
   have hpt : x0 ≫ F = Spec.map (CommRingCat.ofHom (algebraMap L Qbar)) ≫
-      Spec.map (CommRingCat.ofHom τ) ≫ (η[A.X]).left := by
+      Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ (η[A.X]).left := by
     apply spec_aut_cancel (act σ)
-    rw [hf0, ← Category.assoc, ← Category.assoc, Category.assoc _ _ (Spec.map _), hR1, hx0]
+    rw [hf0, reassoc_of% hR1]
+    exact hx0
   -- Step 1: `F` lies over `Spec τ`
-  have hFover : F ≫ A.X.hom = A.X.hom ≫ Spec.map (CommRingCat.ofHom τ) := by
+  have hFover : F ≫ A.X.hom = A.X.hom ≫ Spec.map (CommRingCat.ofHom (tauL L σ)) := by
     apply hom_spec_eq_of_point _ _ x0
-    rw [← Category.assoc, hpt, Category.assoc, Category.assoc, hηw, Category.comp_id,
-      ← Category.assoc, hx0w]
+    rw [reassoc_of% hpt, hηw, reassoc_of% hx0w]
+    erw [Category.comp_id]
   -- `F(0) = 0`, twisted
-  have hF0 : (η[A.X]).left ≫ F = Spec.map (CommRingCat.ofHom τ) ≫ (η[A.X]).left := by
+  have hF0 : (η[A.X]).left ≫ F = Spec.map (CommRingCat.ofHom (tauL L σ)) ≫ (η[A.X]).left := by
     haveI := isDominant_Spec_map_of_injective (CommRingCat.ofHom (algebraMap L Qbar))
       (algebraMap L Qbar).injective
-    refine ext_of_isDominant_of_isSeparated A.X.hom ?_
+    refine ext_of_isDominant_of_isSeparated (X := Spec (.of L)) A.X.hom ?_
       (Spec.map (CommRingCat.ofHom (algebraMap L Qbar))) ?_
-    · rw [Category.assoc, hFover, ← Category.assoc, hηw, Category.id_comp, Category.assoc, hηw,
-        Category.comp_id]
-    · rw [← Category.assoc, ← hx0, hpt]
+    · simp only [Category.assoc]
+      rw [hFover, reassoc_of% hηw, hηw]
+      erw [Category.comp_id]
+    · calc _ = x0 ≫ F := by rw [hx0, Category.assoc]
+        _ = _ := hpt
   -- Step 2: the conjugate model
-  let ℬ := (Over.pullback (Spec.map (CommRingCat.ofHom (tSig σ hσ.1)))).mapGrp.obj 𝒜
+  let ℬ := (Over.pullback (tSpec σ hσ1)).mapGrp.obj 𝒜
   haveI hℬ : PkgI2.IsAbelianScheme ℬ :=
-    ⟨show IsProper (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (tSig σ hσ.1)))) from
-        inferInstance,
-      show Smooth (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (tSig σ hσ.1)))) from
-        inferInstance,
-      show GeometricallyConnected
-        (pullback.snd 𝒜.X.hom (Spec.map (CommRingCat.ofHom (tSig σ hσ.1)))) from inferInstance⟩
+    ⟨show IsProper (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance,
+      show Smooth (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance,
+      show GeometricallyConnected (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) from inferInstance⟩
   -- Step 3: the generic morphism and I2-NMP
-  let jS := Spec.map (CommRingCat.ofHom (algebraMap (Ow L v) L))
-  let tS := Spec.map (CommRingCat.ofHom (tSig σ hσ.1))
-  let E : pullback 𝒜.X.hom jS ⟶ A.X.left := e.hom.hom.hom.left
-  let Ei : A.X.left ⟶ pullback 𝒜.X.hom jS := e.inv.hom.hom.left
+  let E : pullback 𝒜.X.hom (jSpec L v) ⟶ A.X.left := e.hom.hom.hom.left
+  let Ei : A.X.left ⟶ pullback 𝒜.X.hom (jSpec L v) := e.inv.hom.hom.left
   have hEi : Ei ≫ E = 𝟙 _ := congrArg (fun m => m.hom.hom.left) e.inv_hom_id
-  have hEw : E ≫ A.X.hom = pullback.snd 𝒜.X.hom jS := Over.w e.hom.hom.hom
-  have hEiw : Ei ≫ pullback.snd 𝒜.X.hom jS = A.X.hom := Over.w e.inv.hom.hom
-  have c1 : (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom jS) ≫ 𝒜.X.hom =
-      (pullback.snd 𝒜.X.hom jS ≫ jS) ≫ tS := by
+  have hEw : E ≫ A.X.hom = pullback.snd 𝒜.X.hom (jSpec L v) := Over.w e.hom.hom.hom
+  have hEiw : Ei ≫ pullback.snd 𝒜.X.hom (jSpec L v) = A.X.hom := Over.w e.inv.hom.hom
+  have c1 : (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v)) ≫ 𝒜.X.hom =
+      (pullback.snd 𝒜.X.hom (jSpec L v) ≫ jSpec L v) ≫ tSpec σ hσ1 := by
     simp only [Category.assoc]
-    rw [pullback.condition, ← Category.assoc Ei, hEiw, ← Category.assoc F, hFover,
-      Category.assoc, ← Category.assoc E, hEw]
-    exact congrArg (pullback.snd 𝒜.X.hom jS ≫ ·) hR2.symm
-  let inner : pullback 𝒜.X.hom jS ⟶ pullback 𝒜.X.hom tS :=
-    pullback.lift (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom jS) (pullback.snd 𝒜.X.hom jS ≫ jS) c1
-  let φl : pullback 𝒜.X.hom jS ⟶ pullback (pullback.snd 𝒜.X.hom tS) jS :=
-    pullback.lift inner (pullback.snd 𝒜.X.hom jS) (pullback.lift_snd _ _ _)
-  let φ : (Over.pullback jS).obj 𝒜.X ⟶ (Over.pullback jS).obj ℬ.X :=
+    rw [pullback.condition, reassoc_of% hEiw, reassoc_of% hFover, reassoc_of% hEw, hR2]
+  let inner : pullback 𝒜.X.hom (jSpec L v) ⟶ pullback 𝒜.X.hom (tSpec σ hσ1) :=
+    pullback.lift (E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v))
+      (pullback.snd 𝒜.X.hom (jSpec L v) ≫ jSpec L v) c1
+  let φl : pullback 𝒜.X.hom (jSpec L v) ⟶
+      pullback (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) :=
+    pullback.lift inner (pullback.snd 𝒜.X.hom (jSpec L v)) (pullback.lift_snd _ _ _)
+  let φ : (Over.pullback (jSpec L v)).obj 𝒜.X ⟶ (Over.pullback (jSpec L v)).obj ℬ.X :=
     Over.homMk φl (pullback.lift_snd _ _ _)
   obtain ⟨G, hG⟩ := (hN L (Ow L v) 𝒜 ℬ).2 φ
-  let Ft : 𝒜.X.left ⟶ 𝒜.X.left := G.left ≫ pullback.fst 𝒜.X.hom tS
-  have hGl : pullback.fst 𝒜.X.hom jS ≫ G.left = φl ≫ pullback.fst (pullback.snd 𝒜.X.hom tS) jS := by
-    have h1 : ((Over.pullback jS).map G).left ≫ pullback.fst (pullback.snd 𝒜.X.hom tS) jS =
-        pullback.fst 𝒜.X.hom jS ≫ G.left := pullback.lift_fst _ _ _
-    rw [← h1, hG]
-    rfl
-  have hfst : pullback.fst 𝒜.X.hom jS ≫ Ft = E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom jS := by
-    show pullback.fst 𝒜.X.hom jS ≫ G.left ≫ pullback.fst 𝒜.X.hom tS = _
-    rw [← Category.assoc, hGl, Category.assoc, pullback.lift_fst_assoc, pullback.lift_fst]
-  have hC3 : Ei ≫ pullback.fst 𝒜.X.hom jS ≫ Ft = F ≫ Ei ≫ pullback.fst 𝒜.X.hom jS := by
+  have hG' : (Over.pullback (jSpec L v)).map G = φ := hG
+  let Gl : 𝒜.X.left ⟶ pullback 𝒜.X.hom (tSpec σ hσ1) := G.left
+  let Ft : 𝒜.X.left ⟶ 𝒜.X.left := Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1)
+  have hGl : pullback.fst 𝒜.X.hom (jSpec L v) ≫ Gl =
+      φl ≫ pullback.fst (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) := by
+    have h1 : ((Over.pullback (jSpec L v)).map G).left ≫
+        pullback.fst (pullback.snd 𝒜.X.hom (tSpec σ hσ1)) (jSpec L v) =
+        pullback.fst 𝒜.X.hom (jSpec L v) ≫ G.left := pullback.lift_fst _ _ _
+    have h2 : ((Over.pullback (jSpec L v)).map G).left = φl := congrArg (fun m => m.left) hG'
+    rw [← h2]
+    exact h1.symm
+  have hfst : pullback.fst 𝒜.X.hom (jSpec L v) ≫ Ft =
+      E ≫ F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
+    show pullback.fst 𝒜.X.hom (jSpec L v) ≫ Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1) = _
+    rw [← Category.assoc (pullback.fst 𝒜.X.hom (jSpec L v)), hGl, Category.assoc φl]
+    simp only [φl, inner, pullback.lift_fst_assoc, pullback.lift_fst]
+  have hC3 : Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) ≫ Ft =
+      F ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
     rw [hfst, ← Category.assoc Ei E, hEi, Category.id_comp]
-  have hGw : G.left ≫ pullback.snd 𝒜.X.hom tS = 𝒜.X.hom := Over.w G
-  have hC1 : Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ tS := by
-    show (G.left ≫ pullback.fst 𝒜.X.hom tS) ≫ 𝒜.X.hom = _
-    rw [Category.assoc, pullback.condition, ← Category.assoc, hGw]
+  have hGw : Gl ≫ pullback.snd 𝒜.X.hom (tSpec σ hσ1) = 𝒜.X.hom := Over.w G
+  have hC1 : Ft ≫ 𝒜.X.hom = 𝒜.X.hom ≫ tSpec σ hσ1 := by
+    show (Gl ≫ pullback.fst 𝒜.X.hom (tSpec σ hσ1)) ≫ 𝒜.X.hom = _
+    rw [Category.assoc, pullback.condition, reassoc_of% hGw]
   refine ⟨Ft, hC1, ?_, hC3⟩
   -- Step 4: the unit section
   have hηO : (η[𝒜.X]).left ≫ 𝒜.X.hom = 𝟙 _ := Over.w η[𝒜.X]
-  have hηL : jS ≫ (η[𝒜.X]).left = (η[A.X]).left ≫ Ei ≫ pullback.fst 𝒜.X.hom jS := by
-    rw [← pb_eta_fst jS 𝒜, ← Category.assoc]
+  have hηL : jSpec L v ≫ (η[𝒜.X]).left =
+      (η[A.X]).left ≫ Ei ≫ pullback.fst 𝒜.X.hom (jSpec L v) := by
+    rw [← pb_eta_fst (jSpec L v) 𝒜, ← Category.assoc]
     congr 1
-    have h1 : η[A.X] ≫ e.inv.hom.hom = η[((Over.pullback jS).mapGrp.obj 𝒜).X] :=
-      IsMonHom.one_hom
-    exact (congrArg Over.Hom.left h1).symm
+    have h1 : η[A.X] ≫ e.inv.hom.hom = η[((Over.pullback (jSpec L v)).mapGrp.obj 𝒜).X] :=
+      IsMonHom.one_hom _
+    exact (congrArg (fun m => m.left) h1).symm
   haveI := isDominant_Spec_map_of_injective (CommRingCat.ofHom (algebraMap (Ow L v) L))
     (Subtype.val_injective)
-  refine ext_of_isDominant_of_isSeparated 𝒜.X.hom ?_ jS ?_
-  · rw [Category.assoc, hC1, ← Category.assoc, hηO, Category.id_comp, Category.assoc, hηO,
-      Category.comp_id]
-  · rw [← Category.assoc, hηL, Category.assoc, Category.assoc, hC3, ← Category.assoc, hF0,
-      ← Category.assoc jS, hR2, Category.assoc, hηL, Category.assoc]
+  refine ext_of_isDominant_of_isSeparated (X := Spec (.of (Ow L v))) 𝒜.X.hom ?_ (jSpec L v) ?_
+  · simp only [Category.assoc]
+    rw [hC1, reassoc_of% hηO, hηO]
+    erw [Category.comp_id]
+  · rw [reassoc_of% hηL, hC3, reassoc_of% hF0, reassoc_of% hR2, hηL]
 
 /-- **`FExtendCore` from I2-NMP (proved).** -/
 theorem fExtendCore_of_nmp (hN : PkgI2.NeronMappingAbelianScheme.{0}) : FExtendCore :=
