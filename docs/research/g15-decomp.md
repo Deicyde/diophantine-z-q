@@ -204,6 +204,25 @@ theorem ramGroup_one_eq_bot_iff :          -- tame criterion, from Tau Ceti
       (((primeOf j).asIdeal.ramificationIdx (𝓞 ℚ) : ℕ) : 𝓞 ℚ ⧸ (placeBelow j).asIdeal) ≠ 0
 ```
 
+### `#print axioms` (excerpt; the full output for all 132 declarations is in `scratch/g15-decomp/axioms-out.txt`)
+
+```
+'ZInQ.Contrib.G15.decompEquiv' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.map_ramGroup_decompEquiv' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.ramCard_eq_card_localRam' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.D1_completion' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.mem_ramSet_iff' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.isFinGal_Lj' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.mem_upperSet_iff' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.decompEquivLj' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.D1_Lj' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.tauOf_eq_one_of_mem_upperSet' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.apply_j_eq_of_mem_upperAbs' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.restrictNormal_decomp_eq_one_of_mem_upperAbs' depends on axioms: [propext, Classical.choice, Quot.sound] 
+'ZInQ.Contrib.G15.Ladic.ramCard_Lj_eq_card_localRam' depends on axioms: [propext, Classical.choice, Quot.sound]
+```
+
 ## 2. How the proofs go
 
 * (A) is a restatement of Tau Ceti's `HeightOneSpectrum.decompositionEquiv`,
