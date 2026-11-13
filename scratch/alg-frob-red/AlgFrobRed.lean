@@ -3725,6 +3725,30 @@ def ResidueAlgebraic : Prop :=
     @Algebra.IsAlgebraic (kw L v) (IsLocalRing.ResidueField v) _ _
       (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
 
+/-- **`ResidueAlgClosed` holds (proved from Mathlib):** lift a monic irreducible `q` over `κ(v)`
+to a monic `Q` over `O_v`, take a root `z ∈ ℚ̄` of `Q`; `z` is integral over the integrally closed
+`O_v`, so `z ∈ O_v`, and its residue is a root of `q`. -/
+theorem residueAlgClosed : ResidueAlgClosed := by
+  intro v
+  refine IsAlgClosed.of_exists_root _ (fun q hq hirr => ?_)
+  obtain ⟨Q, hQmap, hQdeg, hQmon⟩ := Polynomial.lifts_and_natDegree_eq_and_monic
+    (Polynomial.mem_lifts_of_surjective IsLocalRing.residue_surjective q) hq
+  have hinj : Function.Injective (algebraMap v PkgI4.Qbar) := IsFractionRing.injective v PkgI4.Qbar
+  have hdeg : (Q.map (algebraMap v PkgI4.Qbar)).degree ≠ 0 := by
+    rw [Polynomial.degree_map_eq_of_injective hinj]
+    intro h
+    have h1 : Q.natDegree = 0 := Polynomial.natDegree_eq_of_degree_eq_some h
+    rw [hQdeg] at h1
+    exact (Irreducible.natDegree_pos hirr).ne' h1
+  obtain ⟨z, hz⟩ := IsAlgClosed.exists_root _ hdeg
+  rw [Polynomial.IsRoot, Polynomial.eval_map] at hz
+  have hint : IsIntegral v z := ⟨Q, hQmon, hz⟩
+  obtain ⟨y, rfl⟩ := IsIntegrallyClosed.isIntegral_iff.mp hint
+  rw [Polynomial.eval₂_hom] at hz
+  have h0 : Q.eval y = 0 := hinj (hz.trans (map_zero _).symm)
+  refine ⟨IsLocalRing.residue v y, ?_⟩
+  rw [← hQmap, Polynomial.eval_map, Polynomial.eval₂_hom, h0, map_zero]
+
 set_option synthInstance.maxHeartbeats 400000 in
 /-- **`ResidueAlgClosure` from `ResidueAlgClosed` and `ResidueAlgebraic` (proved):** `κ(v)` is an
 algebraic closure of `κ(w)`, so `IsAlgClosure.equiv` gives `j`. -/
@@ -3758,6 +3782,14 @@ theorem tateBridge35_of_fine (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_fine hG hS hR hM h2 hE hFr)
 
+/-- **`AlgFrobRed` with `ResidueAlgClosure` split (proved).** Leaf candidates
+`GoodRedCofinite`, `SmoothGeomConnIntegral`; glue `ResidueAlgClosed`, `ResidueAlgebraic`,
+`RedRelMul`, `RedTorsionQbar`, `FExtend`, `FrobMorph`. -/
+theorem algFrobRed_of_finest (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hC : ResidueAlgClosed) (hA : ResidueAlgebraic) (hM : RedRelMul) (h2 : RedTorsionQbar)
+    (hE : FExtend) (hFr : FrobMorph) : FrobTrace.AlgFrobRed :=
+  algFrobRed_of_fine hG hS (residueAlgClosure_of hC hA) hM h2 hE hFr
+
 end AlgFrobRedRed
 
 end
@@ -3785,5 +3817,7 @@ end
 #print axioms AlgFrobRedRed.reductionFrobGood_of
 #print axioms AlgFrobRedRed.isLocalHom_toW
 #print axioms AlgFrobRedRed.residueAlgClosure_of
+#print axioms AlgFrobRedRed.residueAlgClosed
 #print axioms AlgFrobRedRed.algFrobRed_of_fine
 #print axioms AlgFrobRedRed.tateBridge35_of_fine
+#print axioms AlgFrobRedRed.algFrobRed_of_finest

@@ -65,3 +65,8 @@
   (O_v strictly henselian, 𝒜[m] finite étale); GoodRedCofinite, SmoothGeomConnIntegral standard (locators UNSURE).
 - Remarks (no truth issue): IsFinite/Surjective F unused in FExtend, ReductionFrobGood; Bijective j redundant in
   RedTorsionQbar given compatibility; FrobMorph does not need 𝒜 abelian.
+
+## Run 16-17: ResidueAlgClosed proved
+- residueAlgClosed : ResidueAlgClosed (proved from Mathlib: lifts_and_natDegree_eq_and_monic, IsAlgClosed.exists_root,
+  IsIntegrallyClosed.isIntegral_iff for the valuation subring, eval₂_hom). Run 17: exit 0, 28 prints, all standard.
+- Added algFrobRed_of_final / tateBridge35_of_final (without ResidueAlgClosed); compile check in the next run.
