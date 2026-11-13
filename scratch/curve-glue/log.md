@@ -62,3 +62,12 @@
 - Lean lemmas: `exists_nilpotent_sub_of_finite` (Artinian + trivial idempotents ⇒ unit or nilpotent via
   `IsArtinian.exists_pow_succ_smul_dvd`; eigenvalue via `Module.End.exists_eigenvalue`);
   `idempotent_trivial_of_isPreconnected` (germs of idempotents in local rings; `IsPreconnected.subset_or_subset`).
+
+## 9. (G1) reduced to (G1') ImagePlaneCurveClosed + C2K (`C3K.lean` §2 additions)
+- `Alg.finite_common_zeros` (Bezout-type: P irreducible, deg_y ≥ 1, P ∤ Q ⇒ V(P,Q) ⊆ K² finite; resultant +
+  `exists_mul_add_mul_eq_C_resultant` + `map_eval_ne_zero`) compiled.
+- (G1') = (G1) with (b) replaced by (b''): the affine image {(σ p, ρ p)} is the zero set of some S ⊆ K[x][y].
+- `imagePlaneCurve_of (h2 : ConstOrOntoAlgClosed) (hG : ImagePlaneCurveClosed) : ImagePlaneCurve`,
+  `ratFactorAlgClosed_of_closed` compiled, standard axioms (VERIFIED, `run_C3K.txt`).
+- `py/assemble.py` regenerates CurveGlueAll/MobiusEnd/MobiusFinal; all three recompiled, 0 errors (VERIFIED).
+  New: `curveFacts_of_glue'`, `curveFacts_of_L0_G1'`, `mobiusGlue_of_L0_G1'_T5`, `mobiusGlueNoCM_of_L0_G1'_T5`.

@@ -22,7 +22,7 @@ checks = [
      ['ConstOrOntoAlgClosed', 'RatFactorAlgClosed', 'ptOf', 'ratEval',
       'isOpen_connectedComponent_of_noetherian']),
     ('scratch/curve-glue/C3K.lean', 'scratch/curve-facts/CurveFacts.lean',
-     ['RatFactorAlgClosed', 'ptOf', 'ratEval']),
+     ['ConstOrOntoAlgClosed', 'RatFactorAlgClosed', 'ptOf', 'ratEval']),
     ('scratch/curve-glue/CMPoints.lean', 'scratch/h-decomposition/Leaves.lean',
      ['R1pi0Props', 'R2X6PropsIff', 'cmExists_of_iff', 'r2X6Props_of_iff']),
 ]

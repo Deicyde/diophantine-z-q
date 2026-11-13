@@ -3,6 +3,7 @@ IDENTICAL RatFactorAlgClosed                            scratch/curve-glue/C2K.l
 IDENTICAL ptOf                                          scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
 IDENTICAL ratEval                                       scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
 IDENTICAL isOpen_connectedComponent_of_noetherian       scratch/curve-glue/C2K.lean vs scratch/curve-facts/CurveFacts.lean
+IDENTICAL ConstOrOntoAlgClosed                          scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
 IDENTICAL RatFactorAlgClosed                            scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
 IDENTICAL ptOf                                          scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean
 IDENTICAL ratEval                                       scratch/curve-glue/C3K.lean vs scratch/curve-facts/CurveFacts.lean

@@ -1754,8 +1754,8 @@ theorem curveFacts_of_leaves (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed
 
 Everything above is `scratch/curve-facts/CurveFacts.lean` verbatim (its `#print axioms` lines
 dropped). Below: `scratch/curve-glue/C2K.lean` §1-§4 (C2K from the leaf `GlobalFunctionsConst`)
-and `scratch/curve-glue/C3K.lean` §1-§2 (C3K from the glue `ImagePlaneCurve` and Lean-proved
-algebra), then the composite `curveFacts_of_glue`. -/
+and `scratch/curve-glue/C3K.lean` §1-§2 (C3K from the glue `ImagePlaneCurve`, or from C2K and
+`ImagePlaneCurveClosed`, and Lean-proved algebra), then the composites. -/
 
 open Opposite TopologicalSpace
 
@@ -2172,6 +2172,59 @@ theorem isCoprime_coeff_of_irreducible {P : K[X][X]} (hirr : Irreducible P)
       rw [hfac]; exact (natDegree_C_mul_le _ _).trans h0.le
     omega
 
+theorem evalXY_mul (t u : K) (P Q : K[X][X]) :
+    evalXY t u (P * Q) = evalXY t u P * evalXY t u Q := by
+  simp [evalXY]
+
+/-- An irreducible `P ∈ K[x][y]` of positive `y`-degree does not vanish identically on a vertical
+line: `P(t, y) ≠ 0` for every `t` (else `x − t` divides the content). -/
+theorem map_eval_ne_zero {P : K[X][X]} (hirr : Irreducible P) (hdeg : 1 ≤ P.natDegree) (t : K) :
+    P.map (evalRingHom t) ≠ 0 := by
+  intro h0
+  have hprim := hirr.isPrimitive (by omega)
+  have hdvd : C (X - C t) ∣ P := by
+    rw [C_dvd_iff_dvd_coeff]
+    intro i
+    rw [dvd_iff_isRoot]
+    have := congrArg (fun q => q.coeff i) h0
+    simpa [coeff_map] using this
+  exact not_isUnit_X_sub_C t ((isPrimitive_iff_isUnit_of_C_dvd.mp hprim) _ hdvd)
+
+/-- **Bezout-type finiteness** (Lean-proved): if `P ∈ K[x][y]` is irreducible of positive
+`y`-degree and does not divide `Q`, then `P = Q = 0` has finitely many solutions in `K²`
+(`Res_y(P, Q) ∈ K[x]` is nonzero, and each fibre of `P = 0` is finite). -/
+theorem finite_common_zeros {P Q : K[X][X]} (hirr : Irreducible P) (hdeg : 1 ≤ P.natDegree)
+    (hPQ : ¬ P ∣ Q) :
+    {z : K × K | evalXY z.1 z.2 P = 0 ∧ evalXY z.1 z.2 Q = 0}.Finite := by
+  classical
+  have hd0 : P.natDegree ≠ 0 := by omega
+  set φ := algebraMap K[X] (FractionRing K[X]) with hφ
+  have hinj : Function.Injective φ := IsFractionRing.injective _ _
+  have hprim := hirr.isPrimitive hd0
+  have hirr' : Irreducible (P.map φ) :=
+    (hprim.irreducible_iff_irreducible_map_fraction_map).1 hirr
+  have hndvd : ¬ P.map φ ∣ Q.map φ := fun h =>
+    hPQ ((hprim.dvd_iff_fraction_map_dvd_fraction_map (FractionRing K[X])).2 h)
+  have hcop : IsCoprime (P.map φ) (Q.map φ) := hirr'.coprime_iff_not_dvd.2 hndvd
+  have hres := resultant_ne_zero _ _ hcop
+  rw [natDegree_map_eq_of_injective hinj, natDegree_map_eq_of_injective hinj,
+    resultant_map_map] at hres
+  set r := resultant P Q P.natDegree Q.natDegree with hr
+  have hr0 : r ≠ 0 := fun h => hres (by rw [h, map_zero])
+  obtain ⟨a, b, -, -, hab⟩ := exists_mul_add_mul_eq_C_resultant P Q le_rfl le_rfl (Or.inl hd0)
+  refine ((r.roots.toFinset.finite_toSet).biUnion fun t _ =>
+    ((P.map (evalRingHom t)).roots.toFinset.finite_toSet.image fun u => (t, u))).subset ?_
+  rintro ⟨t, u⟩ ⟨h1, h2⟩
+  have hrt : r.eval t = 0 := by
+    have e := congrArg (evalXY t u) hab
+    rw [← hr] at e
+    simp only [evalXY, Polynomial.map_add, Polynomial.map_mul, eval_add, eval_mul,
+      Polynomial.map_C, eval_C, coe_evalRingHom] at e h1 h2
+    rw [h1, h2] at e
+    simpa using e.symm
+  simp only [Set.mem_iUnion, Set.mem_image, Finset.mem_coe, Multiset.mem_toFinset]
+  refine ⟨t, (mem_roots hr0).2 hrt, u, (mem_roots (map_eval_ne_zero hirr hdeg t)).2 h1, rfl⟩
+
 end Alg
 
 /-! ## §2 The geometric glue (G1) and the reduction -/
@@ -2277,6 +2330,91 @@ theorem ratFactorAlgClosed_of (hG : ImagePlaneCurve) : RatFactorAlgClosed := by
         linear_combination e
 
 
+open Polynomial in
+/-- **(G1') The affine image is Zariski closed, and `P` cuts out the image curve.** As
+`ImagePlaneCurve`, with clause (b) ("every point of `V(P)` is hit") replaced by (b''): the set of
+pairs `(σ(p), ρ(p)) ∈ K²` over the `K`-points `p` of `W` with both values finite is Zariski
+closed, i.e. the common zero set of some family `S ⊆ K[x][y]`.
+
+Why true (STANDARD): the image `D` of `W` under `(σ, ρ)` is closed in `P¹ × P¹` (properness), so
+`D ∩ 𝔸²` is closed in `𝔸²`, and its closed points are exactly the images of `K`-points of `W`
+(fibres of `W → D` over closed points contain closed points, which are `K`-points). Clauses (a)
+and (c) are those of `ImagePlaneCurve` (§6 of the report). (b) of `ImagePlaneCurve` follows in Lean
+(`imagePlaneCurve_of`) from (b''), C2K (`σ` onto, so the affine image is infinite) and
+Bezout-type finiteness (`Alg.finite_common_zeros`). Glue. -/
+def ImagePlaneCurveClosed : Prop :=
+  ∀ (K : Type) [Field K] [IsAlgClosed K] (X : Scheme.{0})
+    (f : X ⟶ Spec (CommRingCat.of K)), IsProper f → SmoothOfRelativeDimension 1 f →
+    ∀ (σ ρ : ToP1 X) (p₀ : Spec (CommRingCat.of K) ⟶ X), p₀ ≫ f = 𝟙 _ →
+      (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p ≠ σ.val p₀) →
+      (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+        connectedComponent (ptOf p) = connectedComponent (ptOf p₀) →
+        ρ.val p = OnePoint.infty) ∨
+      ∃ P : K[X][X], Irreducible P ∧ 1 ≤ P.natDegree ∧
+        (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t u : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.some u → Alg.evalXY t u P = 0) ∧
+        (∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+          connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → ∀ t : K,
+          σ.val p = OnePoint.some t → ρ.val p = OnePoint.infty → P.leadingCoeff.eval t = 0) ∧
+        ∃ S : Set K[X][X], ∀ t u : K,
+          (∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+            connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧
+            σ.val p = OnePoint.some t ∧ ρ.val p = OnePoint.some u) ↔
+          ∀ Q ∈ S, Alg.evalXY t u Q = 0
+
+open Polynomial in
+/-- **(G1) from C2K and (G1').** -/
+theorem imagePlaneCurve_of (h2 : ConstOrOntoAlgClosed) (hG : ImagePlaneCurveClosed) :
+    ImagePlaneCurve := by
+  classical
+  intro K _ _ X f hP hS σ ρ p₀ hp₀ hne
+  rcases hG K X f hP hS σ ρ p₀ hp₀ hne with hinf | ⟨P, hirr, hdeg, ha, hc, S, hSc⟩
+  · exact Or.inl hinf
+  refine Or.inr ⟨P, hirr, hdeg, ha, ?_, hc⟩
+  have honto : ∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+      connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p = t := by
+    rcases h2 K X f hP hS σ p₀ hp₀ with hcst | ho
+    · obtain ⟨p, hp, hpc, hv⟩ := hne
+      exact absurd (hcst p hp hpc) hv
+    · exact ho
+  let Im : Set (K × K) := {z | ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+    connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧
+    σ.val p = OnePoint.some z.1 ∧ ρ.val p = OnePoint.some z.2}
+  have hImInf : Im.Infinite := by
+    have hlc0 : P.leadingCoeff ≠ 0 := leadingCoeff_ne_zero.mpr hirr.ne_zero
+    have hsub : {t : K | P.leadingCoeff.eval t ≠ 0} ⊆ Prod.fst '' Im := by
+      intro t ht
+      obtain ⟨p, hp, hpc, hpt⟩ := honto (OnePoint.some t)
+      induction hρ : ρ.val p using OnePoint.rec with
+      | infty => exact absurd (hc p hp hpc t hpt hρ) ht
+      | coe u => exact ⟨(t, u), ⟨p, hp, hpc, hpt, hρ⟩, rfl⟩
+    have hinfK : {t : K | P.leadingCoeff.eval t ≠ 0}.Infinite := by
+      have e : {t : K | P.leadingCoeff.eval t ≠ 0} =
+          ((P.leadingCoeff.roots.toFinset : Finset K) : Set K)ᶜ := by
+        ext t
+        simp [mem_roots hlc0]
+      rw [e]
+      exact (Finset.finite_toSet _).infinite_compl
+    exact fun hfin => hinfK ((hfin.image Prod.fst).subset hsub)
+  intro t u htu
+  refine (hSc t u).2 fun Q hQ => ?_
+  by_cases hPQ : P ∣ Q
+  · obtain ⟨R, rfl⟩ := hPQ
+    rw [Alg.evalXY_mul, htu, zero_mul]
+  · exfalso
+    apply hImInf
+    refine (Alg.finite_common_zeros hirr hdeg hPQ).subset ?_
+    rintro ⟨t', u'⟩ ⟨p, hp, hpc, hpt, hpu⟩
+    exact ⟨ha p hp hpc t' u' hpt hpu, (hSc t' u').1 ⟨p, hp, hpc, hpt, hpu⟩ Q hQ⟩
+
+/-- **C3K from C2K and (G1').** -/
+theorem ratFactorAlgClosed_of_closed (h2 : ConstOrOntoAlgClosed) (hG : ImagePlaneCurveClosed) :
+    RatFactorAlgClosed :=
+  ratFactorAlgClosed_of (imagePlaneCurve_of h2 hG)
+
+
 /-- **Both curve facts of mobius-glue from C1b (`SmoothStalkDimOne`, glue, task
 infra-smooth-dim), the textbook leaf (L) `GlobalFunctionsConst` and the glue (G1)
 `ImagePlaneCurve`.** -/
@@ -2284,6 +2422,10 @@ theorem curveFacts_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
     (hG : ImagePlaneCurve) : CurveRatFactor ∧ CurveSurj :=
   curveFacts_of_leaves h1 (constOrOntoAlgClosed_of hL) (ratFactorAlgClosed_of hG)
 
+/-- **The same with (G1') `ImagePlaneCurveClosed` (affine image Zariski closed) for (G1).** -/
+theorem curveFacts_of_glue' (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
+    (hG : ImagePlaneCurveClosed) : CurveRatFactor ∧ CurveSurj :=
+  curveFacts_of_glue h1 hL (imagePlaneCurve_of (constOrOntoAlgClosed_of hL) hG)
 
 /-- **The kernel's `MobiusGlue` from C1b, the leaf (L), the glue (G1) and the textbook leaf T5.** -/
 theorem mobiusGlue_of_glue (h1 : SmoothStalkDimOne) (hL : GlobalFunctionsConst)
