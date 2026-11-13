@@ -15,8 +15,9 @@
   ⇒ F = g ∈ cuspFormsNew.
   #print axioms: all three = [propext, Classical.choice, Quot.sound]
   (scratch/atkin-li/Check.lean, out_check_axioms.txt).
-- 10:05 VERIFIED (compiled): GZTheta/ALFricke.lean — twist_fricke: (G⊗(·/r))(−1/(Mr²τ)) = c r² χ(−M) τ² (G⊗χ)(τ) for G ∈ S₂(Γ₁(M), 1) with G(−1/(Mz)) = c z² G(z), r odd squarefree coprime to M.
-- 10:20 VERIFIED (compiled): GZTheta/ALBasic.lean — def NewformUniqueAcrossLevels (Miyake 4.6.19/4.6.20, TC main level_eq_and_coe_eq_of_comp_unitsMap_eq); newform_fricke_ne; twistJ, exists_eigenformAway_twist.
-- 10:35 VERIFIED (compiled): GZTheta/ALRep.lean — exists_coeff_rep (needs NewformUniqueAcrossLevels), fun_rep_of_coeff_rep.
-- 10:55 VERIFIED (compiled): GZTheta/ALArith.lean — level_eq_of_reps: from H = Σ_{e|P} c_e b(·/e), Fricke κH = c_g Σ c_e (P/e)² b(·/(P/e)), H(p^j)=0 at p|P, v_p(N)=2 ⇒ M' = N (via ν = Dirichlet inverse of b, c = H⋆ν multiplicative).
+- 09:50 VERIFIED (compiled): GZTheta/ALFricke.lean — twist_fricke: (G⊗(·/r))(−1/(Mr²τ)) = c r² χ(−M) τ² (G⊗χ)(τ) for G ∈ S₂(Γ₁(M), 1) with G(−1/(Mz)) = c z² G(z), r odd squarefree coprime to M.
+- 09:54 VERIFIED (compiled): GZTheta/ALBasic.lean — def NewformUniqueAcrossLevels (Miyake 4.6.19/4.6.20, TC main level_eq_and_coe_eq_of_comp_unitsMap_eq); newform_fricke_ne; twistJ, exists_eigenformAway_twist.
+- 09:57 VERIFIED (compiled): GZTheta/ALRep.lean — exists_coeff_rep (needs NewformUniqueAcrossLevels), fun_rep_of_coeff_rep.
+- 10:00 VERIFIED (compiled): GZTheta/ALArith.lean — level_eq_of_reps: from H = Σ_{e|P} c_e b(·/e), Fricke κH = c_g Σ c_e (P/e)² b(·/(P/e)), H(p^j)=0 at p|P, v_p(N)=2 ⇒ M' = N (via ν = Dirichlet inverse of b, c = H⋆ν multiplicative).
 - 10:02 VERIFIED (compiled): GZTheta/ALMain.lean — atkinLiTwistNew_of_newformUniqueAcrossLevels : NewformUniqueAcrossLevels → AtkinLiTwistNew. Axioms standard (scratch/atkin-li/Check2.lean, out_check_axioms2.txt). Finding: the Fricke identity alone does not exclude p ∥ M, p ∤ r with g' unramified at p and a_p(g') = ±(1+p) (needs Ramanujan); the twist-back step (strong multiplicity one) excludes it.
+- 10:09 VERIFIED (compiled): Backport/ (TC main 4d91513e): Newforms/{OldAtPrime,PrimeDecomposition,SupportAwayFromLevel} whole; partial: Data/Nat/Prime/Basic, ModularForms/{Basic,Degeneracy,CongruenceSubgroups/Basic,Fricke/OldSpace,Newforms/Basic,Newforms/Descent/CharacterSpace,Petersson/Trace}, Newforms/StrongMultiplicityOne/Across. GZTheta/ALFinal.lean: newformUniqueAcrossLevels, atkinLiTwistNew, heckeThetaNewform_via_atkinLi; axioms standard (Check3.lean, out_check_axioms3.txt).

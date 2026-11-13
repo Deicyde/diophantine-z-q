@@ -1,7 +1,9 @@
 # atkin-li: the leaf `HeckeThetaNewform` is proved
 
 Status: research note (task atkin-li, 2026-11-13), branch `wip/atkin-li` (base fork main
-57a7fa26, merged with `origin/wip/gz-theta` 9720252a). Log `scratch/atkin-li/log.md`. No existing
+57a7fa26, merged with `origin/wip/gz-theta` 9720252a). New Lean files:
+`ZInQKernel/Contrib/GZTheta/{NewCMFinal,ALFricke,ALBasic,ALRep,ALArith,ALMain,ALFinal}.lean` and
+the Tau Ceti backports listed in §3. Log `scratch/atkin-li/log.md`. No existing
 file of the project was edited (the merge conflict in `ThirdParty/TauCeti/NOTICE` was resolved by
 keeping both sides' entries).
 
@@ -44,22 +46,42 @@ def ZInQ.GZDecomp.HeckeThetaNewform : Prop :=
       ∀ n : ℕ, n ≠ 0 → coeff f n = ZInQ.Contrib.HeckeFE.heckeCoeff d n
 ```
 
-**Second result: Atkin–Li's twist theorem from strong multiplicity one.** gz-theta's Prop
-`AtkinLiTwistNew` (Atkin–Li 1978, Thm 3.1) is proved from strong multiplicity one across levels
-(`NewformUniqueAcrossLevels`, Miyake Thm 4.6.19 / Cor. 4.6.20; it is a theorem of Tau Ceti's main,
-`HeckeRing.GL2.Newform.level_eq_and_coe_eq_of_comp_unitsMap_eq`, commit 4d91513e, VERIFIED by
-reading, not in the vendored commit-5a01f5fe modules):
+**Second result: Atkin–Li's twist theorem is proved outright** (gz-theta's Prop
+`AtkinLiTwistNew`, Atkin–Li 1978 Thm 3.1, for weight 2, trivial nebentypus and `(·/r)`,
+`r ≡ 1 mod 4` squarefree prime to the level), through strong multiplicity one across levels
+(`NewformUniqueAcrossLevels`, Miyake Thm 4.6.19 / Cor. 4.6.20), which is proved by backporting
+Tau Ceti main's `HeckeRing.GL2.Newform.level_eq_and_coe_eq_of_comp_unitsMap_eq` (commit 4d91513e)
+with its dependencies. This gives a second, independent proof of the leaf (gz-theta's route
+`heckeThetaNewform_of_atkinLi`).
 
 ```lean
+-- ZInQKernel/Contrib/GZTheta/ALFinal.lean
+theorem ZInQ.GZTheta.newformUniqueAcrossLevels : ZInQ.GZTheta.NewformUniqueAcrossLevels
+theorem ZInQ.GZTheta.atkinLiTwistNew : ZInQ.GZTheta.AtkinLiTwistNew
+theorem ZInQ.GZTheta.heckeThetaNewform_via_atkinLi : ZInQ.GZDecomp.HeckeThetaNewform
 -- ZInQKernel/Contrib/GZTheta/ALMain.lean
 theorem ZInQ.GZTheta.atkinLiTwistNew_of_newformUniqueAcrossLevels :
     ZInQ.GZTheta.NewformUniqueAcrossLevels → ZInQ.GZTheta.AtkinLiTwistNew
 ```
 ```
+'ZInQ.GZTheta.newformUniqueAcrossLevels' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.atkinLiTwistNew' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.heckeThetaNewform_via_atkinLi' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.GZTheta.atkinLiTwistNew_of_newformUniqueAcrossLevels' depends on axioms:
   [propext, Classical.choice, Quot.sound]
 ```
-(VERIFIED: `scratch/atkin-li/Check2.lean`, `out_check_axioms2.txt`.)
+(VERIFIED: `scratch/atkin-li/Check3.lean`, `out_check_axioms3.txt`; `Check2.lean`,
+`out_check_axioms2.txt`.)
+
+The two Props, verbatim (`AtkinLiTwistNew` is gz-theta's, `Split.lean`; the named Prop is ours):
+
+```lean
+def AtkinLiTwistNew : Prop :=
+  ∀ (M : ℕ) [NeZero M] (g : Newform M 2), g.χ = 1 →
+    ∀ (r : ℕ) [NeZero r], r % 4 = 1 → Squarefree r → Nat.Coprime r M →
+      CuspForm.twist (jacobiChar r) (dvd_twist_left M r) (dvd_twist_right M r) g.toCuspForm ∈
+        TauCeti.cuspFormsNew (M * r ^ 2) 2
+```
 
 ```lean
 -- ZInQKernel/Contrib/GZTheta/ALBasic.lean
@@ -121,10 +143,29 @@ consistent with `p ∥ M`, `p ∤ r`, `g'` unramified at `p` with `a_p(g') = ±(
 `h = g'(τ) ∓ p g'(pτ)` (a `p`-stabilization). Only the Ramanujan bound (Deligne) or strong
 multiplicity one across levels excludes it.
 
-## 3. What remains
+## 3. Tau Ceti backport (licence)
 
-* `NewformUniqueAcrossLevels` (strong multiplicity one across levels; STANDARD: Miyake,
-  *Modular forms*, Thm 4.6.19 and Cor. 4.6.20; Li, Math. Ann. 212 (1975); UNVERIFIED locators).
-  Tau Ceti's main proves it; backporting needs main's `Newforms/OldAtPrime` (the `q`-new
-  subspaces) and its dependencies (`cuspFormsOldOf`, `Degeneracy.gamma1Conj`, Petersson-trace
-  orthogonality across levels). Not needed for `HeckeThetaNewform`.
+Backported by hand from Tau Ceti's main, commit 4d91513e (Apache-2.0), under
+`ZInQKernel/Contrib/TauCeti/Backport/`, compiled against the commit-5a01f5fe modules vendored
+here; each file keeps Tau Ceti's copyright header and carries a "Backported from Tau Ceti (...)"
+line (the whole modules also a "Modified for the Z-in-Q kernel" line); NOTICE entry added
+(`ThirdParty/TauCeti/NOTICE`). `python3 ~/dzq-runs/tc/diffcheck2.py`: MOD-UNNOTED 0, NOTE-ONLY 0
+(VERIFIED).
+
+* whole modules (absent at 5a01f5fe): `NumberTheory/ModularForms/Newforms/OldAtPrime` (the
+  `q`-new and `q`-old subspaces), `Newforms/PrimeDecomposition`, `Newforms/SupportAwayFromLevel`;
+* declarations added after 5a01f5fe: `Data/Nat/Prime/Basic` (two `gcd`/`lcm` lemmas),
+  `ModularForms/Basic` (`restrict_trace`), `ModularForms/Degeneracy` (`gamma1Conj`),
+  `ModularForms/CongruenceSubgroups/Basic` (`Gamma1_lcm_eq_inf`,
+  `exists_mul_eq_of_mem_Gamma1_gcd`), `Fricke/OldSpace` (`frickeOperatorCusp_mem_cuspFormsOldOf`),
+  `Newforms/Basic` (`cuspFormsOldOf`), `Newforms/Descent/CharacterSpace`
+  (`exists_mem_cuspFormCharSpace_qExpansion_coeff_eq_ite_dvd`), `Petersson/Trace`
+  (`peterssonInnerCosets_restrict_restrict_eq_zero`), and the cross-level part of
+  `Newforms/StrongMultiplicityOne/Basic` (`Newforms/StrongMultiplicityOne/Across.lean`; one call
+  adapted to the 5a01f5fe signature of `CuspForm.qExpansion_levelRaise_coeff`).
+
+## 4. What remains
+
+Nothing for this task's target: `HeckeThetaNewform` and `AtkinLiTwistNew` are proved.
+`Literature.GrossZagier` now rests on gz-decomp's two leaves `FHNonvanishing` and
+`GrossZagierHeegner`; the headline needs `SixContactMin`, `TYZThm35ReadingA` and those two.
