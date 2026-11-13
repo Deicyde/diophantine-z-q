@@ -30,6 +30,22 @@ Repository: https://github.com/TauCetiProject/TauCeti
   LFunction/, Twist/, HeckeSlash/ and four top-level files), and single modules in
   Analysis/, FieldTheory/Galois/, LinearAlgebra/, NumberTheory/LSeries/ and
   NumberTheory/MulChar/ (list in scratch/gz-license/new-modules.txt).
+- Commit 97a5b235 (as above): the 22 further modules vendored by the Z-in-Q task
+  ring-class (the closure of ClassFields.RingClass.Field, Tau Ceti's ring class
+  fields: RingClass/, GlobalExistence/{AbelianLayer,Correspondence,Existence,Kummer,
+  UpwardClosure}, NumberField/Global/Orders/, RingTheory/Ideal/{Conductor,
+  Quotient/Artinian,Quotient/Coprime}, the CoprimeRepresentative files, GroupTheory/
+  Index/Comap, Formation/ExistenceInduction, Global/Kummer/Layer), and commit
+  5a01f5fe (as above): two more modules of that closure, ClassFieldTheory/KummerLayer
+  and NumberField/Global/Orders/Quadratic/Conductor, whose commit-97a5b235 versions
+  use names absent from the pinned Mathlib (list of all 24 in
+  scratch/ring-class/vendor-new.txt). Task ring-class also added nine Backport/
+  files (commit 97a5b235): FieldTheory/Galois/AbsoluteGaloisGroup/{FiniteExtension,
+  Norm}, NumberTheory/ClassFieldTheory/Global/IdeleClass/Norm, NumberTheory/
+  ClassFieldTheory/Global/Kummer/IdelesRingClass, NumberTheory/ClassFieldTheory/
+  GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
+  Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
+  NumberTheory/NumberField/Global/RayClass/Integral.
 
 Location in this repository
 ---------------------------
@@ -79,8 +95,13 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 - NumberTheory/ClassFieldTheory/Global/LocalArtin/Frobenius.lean
 - NumberTheory/ClassFieldTheory/Global/Reciprocity.lean
 - NumberTheory/ClassFieldTheory/GlobalExistence/NormLimitation.lean
+- NumberTheory/ClassFieldTheory/GlobalExistence/AbelianLayer.lean (task ring-class)
+- NumberTheory/ClassFieldTheory/GlobalExistence/Correspondence.lean (task ring-class)
+- NumberTheory/ClassFieldTheory/GlobalExistence/Existence.lean (task ring-class)
+- NumberTheory/ClassFieldTheory/GlobalExistence/Kummer.lean (task ring-class)
 - NumberTheory/ModularForms/Basic.lean
 - NumberTheory/ModularForms/LFunction/Sign.lean
+- NumberTheory/NumberField/Global/Orders/RayClass.lean (task ring-class)
 - NumberTheory/NumberField/InfinitePlace/Completion/Real.lean
 - RepresentationTheory/Cyclic/Norm.lean
 - RepresentationTheory/Homological/ContCohomology/Coinduced/Discrete.lean
@@ -97,6 +118,8 @@ are (paths relative to ZInQKernel/Contrib/TauCeti/):
 Each file's note line says in a few words what changed. The 19 files with a
 commit-97a5b235 provenance line (task kw-new) mostly differ from their source only by
 extra imports of Backport/ modules; ModularForms/LFunction/Sign.lean is task gz-decomp's;
+the five files marked (task ring-class) only import Backport/ files (Kummer.lean
+imports the Backport/ version of Global/Kummer/Norm in place of the vendored one);
 the changes in the remaining files are also described in docs/research/tc-port.md.
 Comparing a vendored file with the source module at the commit named in its provenance
 line shows every edit.
