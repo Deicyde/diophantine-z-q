@@ -95,9 +95,10 @@ the leaves as separate hypotheses is `G0Galois.g8_g12`.
 The coefficient field is `ℚ̄_ℓ = PadicAlgCl ℓ` throughout (Pan's coefficients). The model is
 `A : PkgI3.AbVar K` over `K = L'`. ModularConstituent's model is
 `ZInQ.DefFaltings.AbVar L.K`, which `LeafAdopt.abVarEquiv` carries to `PkgI3.AbVar`.
-`resQ K : G_K →* G_ℚ` is the restriction along the fixed embedding `qEmb K : ℚ̄ → K̄`
-(`IsAlgClosed.lift`; `res` copied from scratch/e1-sub), so `qEmb K ∘ resQ K τ = τ ∘ qEmb K`
-(`resQ_spec`), and `resQ K τ` is the unique such element (`eq_resQ`). `tate A ℓ` is the
+`resQ K : G_K →* G_ℚ` is Mathlib's `Field.absoluteGaloisGroup.map (algebraMap ℚ K)`.
+`qEmbRing K : ℚ̄ → K̄` is the embedding that `map` chooses (`IsAlgClosed.lift`), with
+`qEmbRing K (resQ K τ x) = τ (qEmbRing K x)` (`resQ_spec`, proved by unfolding `map`). Hence
+`resQ K τ` is the unique `σ` with `qEmb K ∘ σ = τ ∘ qEmb K` (`eq_resQ`). `tate A ℓ` is the
 `G_K`-action on `ℚ̄_ℓ ⊗ V_ℓ(A)` (`GlueI3.repBaseChange` of pkg-I3's `galRep`). The names
 `G2Out`, `G7Out`, `G12Out` also occur in the partner files, as different definitions in other
 namespaces (`G0ModField`, `G0ModNewform`). Here they are `G0Galois.G2Out` and so on.
@@ -252,16 +253,16 @@ embedding gives `CommonConstituent`), an alternative to their `g13` for the last
 
 ## 6. Status of the files
 
-- `scratch/g0-mod-galois/part_galois.lean` (502 lines): objects (`resQ` via `qEmb`/`res`,
-  `Vb`, `tate`, `restrictRep`, `Intertwines`), the input and output Props, the five named glue
-  Props, and the theorems `g8`, `g11`, `finitelyRamified_of_g11`, `isIrreducible_of_g8`, `g12`,
+- `scratch/g0-mod-galois/part_galois.lean` (473 lines): objects (`resQ`, `qEmbRing`, `qEmb`, `resQ_spec`, `eq_resQ`,
+  `Vb`, `tate`, `restrictRep`, `Intertwines`), the input and output Props, the named glue Props
+  of the first draft (`G8Matrix`, `G9Glue`, `G10Glue`, `G12Weight`, `G12Det`), and the theorems `g8`, `g11`, `finitelyRamified_of_g11`, `isIrreducible_of_g8`, `g12`,
   `g8_g11`, `g8_g12`.
 - `scratch/g0-mod-galois/part_matrix.lean` (87 lines): `BurnsideAbsIrred` and
   `g8Matrix_of_burnside`.
-- `scratch/g0-mod-galois/part_det.lean`: `cycQ`, `R14Det`, `DetTate`, `ResQFiniteIndex`,
+- `scratch/g0-mod-galois/part_det.lean` (164 lines): `cycQ`, `R14Det`, `DetTate`, `ResQFiniteIndex`,
   `FrobeniusDenseQ` (with `frobeniusDenseQ_of` from the bundle's T18), the copied
   `eq_of_eq_on_arithFrob`, `det_fin_two_eq_trace` and `g12Det_of`.
-- `scratch/g0-mod-galois/part_bundle.lean`: `GaloisPieces`,
+- `scratch/g0-mod-galois/part_bundle.lean` (270 lines): `GaloisPieces`,
   `g8_g12_of_leaves`, `JSide`, `commonConstituent_of_sides`, the copied newform interface
   (`NF.*`), `FiniteCharDirichlet`, `isConstituentOf_of_intertwines`, `panOutput_of_g12`,
   `newformG12Out_of_galois`.
