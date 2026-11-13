@@ -80626,6 +80626,866 @@ end -- noncomputable section (g0-assemble3)
 
 end G0A3_d20_kfglue
 
+section G0A3_d25_twistdescent
+/-! ## assemble-port: `scratch/../ZInQKernel/Contrib/TwistDescent/GaloisDescent.lean`, `scratch/twist-descent/PartXC.lean`, `scratch/twist-descent/PartHFD.lean`, `scratch/twist-descent/PartMain.lean`, `scratch/twist-descent/PartFinal.lean`, verbatim minus `import`/`#print` lines (mk/mk_pg.py) -/
+
+
+/-!
+# twist-descent: Galois descent of morphisms of schemes
+
+Task twist-descent (2026-11-13): Galois descent of morphisms of schemes along a finite Galois
+extension of fields, from Mathlib (no project imports).
+
+* `exists_open_gal`: for a finite Galois extension `k'/k` and two morphisms `u v : Z → Spec k'`
+  agreeing over `Spec k`, every point of `Z` has an open neighbourhood on which
+  `v = u ≫ Spec g` for some `g ∈ Gal(k'/k)` (the scheme form of `k' ⊗_k k' ≅ ∏_{Gal} k'`; proved
+  with a primitive element `θ` and the polynomial `∏_g (X - gθ) ∈ k[X]`).
+* `descend`: if `X' = X ×_{k} k'` (any pullback square) and `f : X' → Y` is invariant under the
+  Galois translates of `X'` over `X`, then `f` factors through `X' → X` (Mathlib: flat surjective
+  quasi-compact morphisms are effective epimorphisms, `Sites/Fpqc.lean`).
+* `epi_of_isPullback_field`: the base change of `Spec k' → Spec k` along any morphism is an
+  epimorphism, for any field extension `k'/k`.
+-/
+
+open CategoryTheory Limits AlgebraicGeometry Polynomial
+
+namespace TwistDescentGD
+
+section Ring
+
+variable {k k' : Type} [Field k] [Field k'] [Algebra k k']
+
+/-- Two ring maps out of `k'` agreeing on `k` and on a generator of `k'/k` agree. -/
+theorem ringHom_eq_of_gen {R : Type*} [CommRing R] (θ : k') (hθ : Algebra.adjoin k {θ} = ⊤)
+    (φ₁ φ₂ : k' →+* R) (hk : φ₁.comp (algebraMap k k') = φ₂.comp (algebraMap k k'))
+    (h : φ₁ θ = φ₂ θ) : φ₁ = φ₂ := by
+  ext x
+  have hx : x ∈ Algebra.adjoin k {θ} := hθ ▸ Algebra.mem_top
+  induction hx using Algebra.adjoin_induction with
+  | mem x hx => rw [Set.mem_singleton_iff.mp hx]; exact h
+  | algebraMap r => exact congrArg (fun f => f r) hk
+  | add x y _ _ hx hy => rw [map_add, map_add, hx, hy]
+  | mul x y _ _ hx hy => rw [map_mul, map_mul, hx, hy]
+
+/-- A primitive element generates `k'` as a `k`-algebra. -/
+theorem exists_gen [FiniteDimensional k k'] [Algebra.IsSeparable k k'] :
+    ∃ θ : k', Algebra.adjoin k {θ} = ⊤ := by
+  obtain ⟨θ, hθ⟩ := Field.exists_primitive_element k k'
+  refine ⟨θ, ?_⟩
+  rw [← IntermediateField.adjoin_simple_toSubalgebra_of_isAlgebraic
+    (Algebra.IsAlgebraic.isAlgebraic θ), hθ, IntermediateField.top_toSubalgebra]
+
+/-- **The product formula.** For ring maps `us, vs : k' → R` agreeing on `k`, with `k'/k` finite
+Galois, `∏_{g ∈ Gal(k'/k)} (vs θ - us (g θ)) = 0`. -/
+theorem prod_eq_zero_of_galois [FiniteDimensional k k'] [IsGalois k k'] {R : Type*} [CommRing R]
+    (us vs : k' →+* R) (hk : us.comp (algebraMap k k') = vs.comp (algebraMap k k')) (θ : k') :
+    ∏ g : (k' ≃ₐ[k] k'), (vs θ - us (g θ)) = 0 := by
+  obtain ⟨p, hp1, -, -⟩ := Polynomial.lifts_and_natDegree_eq_and_monic
+    (Algebra.IsInvariant.charpoly_mem_lifts k k' (k' ≃ₐ[k] k') θ)
+    (MulSemiringAction.monic_charpoly (k' ≃ₐ[k] k') θ)
+  have h0 : (p.map (algebraMap k k')).eval θ = 0 := by
+    rw [hp1, MulSemiringAction.eval_charpoly]
+  have key := congrArg (fun q => (q.map us).eval (vs θ)) hp1
+  rw [Polynomial.map_map, hk, ← Polynomial.map_map, Polynomial.eval_map,
+    Polynomial.eval₂_at_apply, h0, map_zero, MulSemiringAction.charpoly_eq,
+    Polynomial.map_prod, Polynomial.eval_prod] at key
+  rw [key]
+  refine Finset.prod_congr rfl fun g _ => ?_
+  simp [AlgEquiv.smul_def]
+
+end Ring
+
+section Schemes
+
+/-- The ring map `R → Γ(Z, ⊤)` of a morphism `u : Z → Spec R`. -/
+noncomputable def sharp {Z : Scheme.{0}} {R : CommRingCat.{0}} (u : Z ⟶ Spec R) :
+    R →+* Γ(Z, ⊤) :=
+  ((Scheme.ΓSpecIso R).inv ≫ u.appTop).hom
+
+theorem sharp_comp_spec {Z : Scheme.{0}} {R S : CommRingCat.{0}} (u : Z ⟶ Spec S) (f : R ⟶ S) :
+    sharp (u ≫ Spec.map f) = (sharp u).comp f.hom := by
+  unfold sharp
+  rw [Scheme.Hom.comp_appTop, ← Category.assoc, ← Scheme.ΓSpecIso_inv_naturality,
+    Category.assoc]
+  rfl
+
+theorem sharp_comp {W Z : Scheme.{0}} {R : CommRingCat.{0}} (i : W ⟶ Z) (u : Z ⟶ Spec R) :
+    sharp (i ≫ u) = i.appTop.hom.comp (sharp u) := by
+  unfold sharp
+  rw [Scheme.Hom.comp_appTop]
+  rfl
+
+theorem ext_sharp {Z : Scheme.{0}} {R : CommRingCat.{0}} {u v : Z ⟶ Spec R}
+    (h : sharp u = sharp v) : u = v := by
+  apply ext_of_isAffine
+  have h' : (Scheme.ΓSpecIso R).inv ≫ u.appTop = (Scheme.ΓSpecIso R).inv ≫ v.appTop :=
+    CommRingCat.hom_ext h
+  simpa using congrArg ((Scheme.ΓSpecIso R).hom ≫ ·) h'
+
+/-- The restriction of `F` to (the image of) the open subscheme `D(F)` is a unit. -/
+theorem isUnit_appTop_basicOpen {Z : Scheme.{0}} (F : Γ(Z, ⊤)) :
+    IsUnit ((Z.basicOpen F).ι.appTop.hom F) := by
+  have h1 := RingedSpace.isUnit_res_basicOpen Z.toRingedSpace F
+  have hle : ((Z.basicOpen F).ι ''ᵁ ⊤ : TopologicalSpace.Opens Z) ≤
+      Z.toRingedSpace.basicOpen F := by
+    rw [Scheme.Opens.ι_image_top]; rfl
+  have h2 := h1.map (Z.toRingedSpace.presheaf.map
+    (@homOfLE (TopologicalSpace.Opens Z) _ _ _ hle).op).hom
+  rw [← CommRingCat.comp_apply, ← Functor.map_comp] at h2
+  rw [Scheme.Opens.ι_appTop]
+  exact h2
+
+variable {k k' : Type} [Field k] [Field k'] [Algebra k k']
+
+/-- **Local triviality of `Spec k' ×_k Spec k'`.** For `k'/k` finite Galois and two morphisms
+`u v : Z → Spec k'` agreeing over `Spec k`, every point `z` has an open neighbourhood `U` with
+`v|_U = u|_U ≫ Spec g` for some `g ∈ Gal(k'/k)`. -/
+theorem exists_open_gal [FiniteDimensional k k'] [IsGalois k k'] {Z : Scheme.{0}}
+    (u v : Z ⟶ Spec (CommRingCat.of k'))
+    (h : u ≫ Spec.map (CommRingCat.ofHom (algebraMap k k')) =
+      v ≫ Spec.map (CommRingCat.ofHom (algebraMap k k')))
+    (z : Z) : ∃ (U : Z.Opens) (g : k' ≃ₐ[k] k'), z ∈ U ∧
+      U.ι ≫ v = U.ι ≫ u ≫ Spec.map (CommRingCat.ofHom (g : k' →+* k')) := by
+  classical
+  obtain ⟨θ, hgen⟩ := exists_gen (k := k) (k' := k')
+  set us := sharp u
+  set vs := sharp v
+  have hk : us.comp (algebraMap k k') = vs.comp (algebraMap k k') := by
+    have := congrArg sharp h
+    rwa [sharp_comp_spec, sharp_comp_spec] at this
+  let f : (k' ≃ₐ[k] k') → Γ(Z, ⊤) := fun g => vs θ - us (g θ)
+  have hprod : ∏ g, f g = 0 := prod_eq_zero_of_galois us vs hk θ
+  let germ := (Z.presheaf.germ ⊤ z trivial).hom
+  have hex : ∃ g, ¬ IsUnit (germ (f g)) := by
+    by_contra hall
+    push Not at hall
+    have hu : IsUnit (germ (∏ g, f g)) := by
+      rw [map_prod]
+      exact Finset.prod_induction _ IsUnit (fun _ _ => IsUnit.mul) isUnit_one fun g _ => hall g
+    rw [hprod, map_zero] at hu
+    exact not_isUnit_zero hu
+  obtain ⟨g, hg⟩ := hex
+  have hne : ∀ h, h ≠ g → g θ - h θ ≠ 0 := by
+    intro h hhg hzero
+    apply hhg
+    have : (g : k' →+* k') = (h : k' →+* k') :=
+      ringHom_eq_of_gen θ hgen _ _ (by ext r; simp) (sub_eq_zero.mp hzero)
+    exact (AlgEquiv.ext fun x => (congrArg (fun φ : k' →+* k' => φ x) this).symm)
+  have hunit : ∀ h, h ≠ g → IsUnit (germ (f h)) := by
+    intro h hhg
+    have e : f h = f g + us (g θ - h θ) := by
+      simp only [f, map_sub]; ring
+    have hb : IsUnit (germ (us (g θ - h θ))) :=
+      ((IsUnit.mk0 _ (hne h hhg)).map us).map germ
+    have hsum : germ (f h) + -germ (f g) = germ (us (g θ - h θ)) := by
+      rw [e, map_add]; ring
+    rcases IsLocalRing.isUnit_or_isUnit_of_isUnit_add (hsum ▸ hb) with h1 | h1
+    · exact h1
+    · exact absurd (IsUnit.neg_iff _ |>.mp h1) hg
+  let F : Γ(Z, ⊤) := ∏ h ∈ Finset.univ.erase g, f h
+  have hF : IsUnit (germ F) := by
+    simp only [F, map_prod]
+    exact Finset.prod_induction _ IsUnit (fun _ _ => IsUnit.mul) isUnit_one
+      fun h hh => hunit h (Finset.ne_of_mem_erase hh)
+  refine ⟨Z.basicOpen F, g, (Z.mem_basicOpen_top F z).mpr hF, ?_⟩
+  set ρ := (Z.basicOpen F).ι.appTop.hom
+  have hρF : IsUnit (ρ F) := isUnit_appTop_basicOpen F
+  have hfg : ρ (f g) = 0 := by
+    have : ρ (f g) * ρ F = 0 := by
+      rw [← map_mul, Finset.mul_prod_erase _ _ (Finset.mem_univ g), hprod, map_zero]
+    exact hρF.mul_left_eq_zero.mp this
+  apply ext_sharp
+  rw [sharp_comp, sharp_comp, sharp_comp_spec]
+  apply ringHom_eq_of_gen θ hgen
+  · ext r
+    have := congrArg (fun φ : k →+* Γ(Z, ⊤) => ρ (φ r)) hk
+    change ρ (us (algebraMap k k' r)) = ρ (vs (algebraMap k k' r)) at this
+    change ρ (vs (algebraMap k k' r)) = ρ (us (g (algebraMap k k' r)))
+    rw [g.commutes]
+    exact this.symm
+  · change ρ (vs θ) = ρ (us (g θ))
+    have := hfg
+    simp only [f, map_sub, sub_eq_zero] at this
+    exact this
+
+/-- `Spec k' → Spec k` is flat, surjective and quasi-compact, for any field extension. -/
+theorem spec_field_props (k k' : Type) [Field k] [Field k'] [Algebra k k'] :
+    Flat (Spec.map (CommRingCat.ofHom (algebraMap k k'))) ∧
+      Surjective (Spec.map (CommRingCat.ofHom (algebraMap k k'))) ∧
+      QuasiCompact (Spec.map (CommRingCat.ofHom (algebraMap k k'))) := by
+  refine ⟨?_, ⟨fun x => ⟨default, Subsingleton.elim _ _⟩⟩, inferInstance⟩
+  exact Flat.SpecMap_iff.mpr (RingHom.flat_algebraMap_iff.mpr inferInstance)
+
+/-- **The base change of `Spec k' → Spec k` is an epimorphism** (flat, surjective, quasi-compact,
+hence an effective epimorphism by Mathlib's `Sites/Fpqc.lean`). -/
+theorem effectiveEpi_of_isPullback_field {X X' : Scheme.{0}} {p : X ⟶ Spec (CommRingCat.of k)}
+    {q : X' ⟶ X} {s : X' ⟶ Spec (CommRingCat.of k')}
+    (hpb : IsPullback q s p (Spec.map (CommRingCat.ofHom (algebraMap k k')))) :
+    EffectiveEpi q := by
+  obtain ⟨h1, h2, h3⟩ := spec_field_props k k'
+  have : Flat q := MorphismProperty.of_isPullback (P := @Flat) hpb.flip h1
+  have : Surjective q := MorphismProperty.of_isPullback (P := @Surjective) hpb.flip h2
+  have : QuasiCompact q := MorphismProperty.of_isPullback (P := @QuasiCompact) hpb.flip h3
+  infer_instance
+
+theorem epi_of_isPullback_field {X X' : Scheme.{0}} {p : X ⟶ Spec (CommRingCat.of k)}
+    {q : X' ⟶ X} {s : X' ⟶ Spec (CommRingCat.of k')}
+    (hpb : IsPullback q s p (Spec.map (CommRingCat.ofHom (algebraMap k k')))) : Epi q := by
+  have := effectiveEpi_of_isPullback_field hpb
+  infer_instance
+
+/-- **Galois descent of morphisms** along a finite Galois extension `k'/k`. Let `X' → X` be the
+base change of `Spec k' → Spec k` along `p : X → Spec k`. A morphism `f : X' → Y` that is
+invariant under (some choice of) the Galois translates `c` of `X'` over `X` factors through
+`X' → X`. -/
+theorem descend [FiniteDimensional k k'] [IsGalois k k'] {X X' Y : Scheme.{0}}
+    {p : X ⟶ Spec (CommRingCat.of k)} {q : X' ⟶ X} {s : X' ⟶ Spec (CommRingCat.of k')}
+    (hpb : IsPullback q s p (Spec.map (CommRingCat.ofHom (algebraMap k k'))))
+    (f : X' ⟶ Y)
+    (hf : ∀ g : k' ≃ₐ[k] k', ∃ c : X' ⟶ X', c ≫ q = q ∧
+      c ≫ s = s ≫ Spec.map (CommRingCat.ofHom (g : k' →+* k')) ∧ c ≫ f = f) :
+    ∃ f₀ : X ⟶ Y, q ≫ f₀ = f := by
+  have := effectiveEpi_of_isPullback_field hpb
+  refine ⟨EffectiveEpi.desc q f fun {Z} a b hab => ?_, EffectiveEpi.fac q f _⟩
+  apply Scheme.hom_ext_of_forall
+  intro z
+  have hw : (a ≫ s) ≫ Spec.map (CommRingCat.ofHom (algebraMap k k')) =
+      (b ≫ s) ≫ Spec.map (CommRingCat.ofHom (algebraMap k k')) := by
+    rw [Category.assoc, Category.assoc, ← hpb.w, reassoc_of% hab]
+  obtain ⟨U, g, hz, hU⟩ := exists_open_gal (a ≫ s) (b ≫ s) hw z
+  obtain ⟨c, hc1, hc2, hc3⟩ := hf g
+  refine ⟨U, hz, ?_⟩
+  have hb : U.ι ≫ b = U.ι ≫ a ≫ c := by
+    apply hpb.hom_ext
+    · rw [Category.assoc, Category.assoc, Category.assoc, hc1, hab]
+    · rw [Category.assoc, Category.assoc, Category.assoc, hc2, ← Category.assoc a, ← hU]
+  rw [← Category.assoc U.ι b, hb, Category.assoc, Category.assoc, hc3]
+
+end Schemes
+
+end TwistDescentGD
+
+
+/-! # twist-descent, part XC: comparison maps between base changes along different bases
+
+Generic category theory (any `C` with pullbacks), generalizing `G4Conj.cmp` (one base `T`) to two
+bases: for `f₂ = s ≫ f₁` with `s : T₂ ⟶ T₁`, the comparison `X ×_{S,f₂} T₂ → X ×_{S,f₁} T₁`
+(`xc`), its pullback square, composition, and compatibility with base-changed endomorphisms,
+units and multiplications. -/
+
+section TwistDescentXC
+
+open CategoryTheory Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open scoped Obj
+
+namespace TwistDescentXC
+
+variable {C : Type*} [Category C] [HasPullbacks C] {S : C} (X : Over S)
+
+attribute [local instance] Over.cartesianMonoidalCategory Over.braidedCategory
+
+/-- `X ×_{f₂} T₂ → X ×_{f₁} T₁` over `s`, for `f₂ = s ≫ f₁`. -/
+noncomputable def xc {T₁ T₂ : C} {f₁ : T₁ ⟶ S} {f₂ : T₂ ⟶ S} (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    pullback X.hom f₂ ⟶ pullback X.hom f₁ :=
+  pullback.lift (pullback.fst _ _) (pullback.snd _ _ ≫ s)
+    (by rw [pullback.condition, h, Category.assoc])
+
+variable {T₁ T₂ T₃ : C} {f₁ : T₁ ⟶ S} {f₂ : T₂ ⟶ S} {f₃ : T₃ ⟶ S}
+
+@[reassoc (attr := simp)]
+theorem xc_fst (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    xc X s h ≫ pullback.fst X.hom f₁ = pullback.fst X.hom f₂ := pullback.lift_fst _ _ _
+
+@[reassoc (attr := simp)]
+theorem xc_snd (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    xc X s h ≫ pullback.snd X.hom f₁ = pullback.snd X.hom f₂ ≫ s := pullback.lift_snd _ _ _
+
+/-- The comparison square over `s` is a pullback. -/
+theorem xc_isPullback (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    IsPullback (xc X s h) (pullback.snd X.hom f₂) (pullback.snd X.hom f₁) s := by
+  have sq : IsPullback (pullback.fst X.hom f₂) (pullback.snd X.hom f₂) X.hom (s ≫ f₁) := by
+    rw [← h]; exact IsPullback.of_hasPullback _ _
+  have e : xc X s h = (IsPullback.of_hasPullback X.hom f₁).lift (pullback.fst X.hom f₂)
+      (pullback.snd X.hom f₂ ≫ s) (by rw [sq.w, Category.assoc]) := by
+    apply pullback.hom_ext
+    · rw [xc_fst]; exact (IsPullback.lift_fst _ _ _ _).symm
+    · rw [xc_snd]; exact (IsPullback.lift_snd _ _ _ _).symm
+  rw [e]
+  exact IsPullback.of_right' sq (IsPullback.of_hasPullback X.hom f₁)
+
+theorem xc_comp (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) (s' : T₃ ⟶ T₂) (h' : f₃ = s' ≫ f₂)
+    (h'' : f₃ = (s' ≫ s) ≫ f₁) : xc X s' h' ≫ xc X s h = xc X (s' ≫ s) h'' := by
+  apply pullback.hom_ext <;> simp
+
+theorem xc_comp_eq (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) (s' : T₃ ⟶ T₂) (h' : f₃ = s' ≫ f₂)
+    (t : T₃ ⟶ T₁) (ht : f₃ = t ≫ f₁) (hst : s' ≫ s = t) :
+    xc X s' h' ≫ xc X s h = xc X t ht := by
+  subst hst; exact xc_comp X s h s' h' ht
+
+theorem xc_congr {s s' : T₂ ⟶ T₁} (hs : s = s') (h : f₂ = s ≫ f₁) (h' : f₂ = s' ≫ f₁) :
+    xc X s h = xc X s' h' := by
+  subst hs; rfl
+
+theorem xc_self (s : T₁ ⟶ T₁) (hs : s = 𝟙 T₁) (h : f₁ = s ≫ f₁) : xc X s h = 𝟙 _ := by
+  apply pullback.hom_ext
+  · simp
+  · rw [xc_snd, hs, Category.comp_id, Category.id_comp]
+
+/-- `xc` intertwines base-changed endomorphisms. -/
+theorem xc_map (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) (f : X ⟶ X) :
+    ((Over.pullback f₂).map f).left ≫ xc X s h = xc X s h ≫ ((Over.pullback f₁).map f).left := by
+  apply pullback.hom_ext
+  · simp only [Category.assoc, xc_fst, Over.pullback_map_left, pullback.lift_fst, xc_fst_assoc]
+  · simp only [Category.assoc, xc_snd, Over.pullback_map_left, pullback.lift_snd,
+      pullback.lift_snd_assoc]
+
+/-- `xc` on the self-products. -/
+noncomputable def xc2 (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    ((Over.pullback f₂).obj X ⊗ (Over.pullback f₂).obj X).left ⟶
+      ((Over.pullback f₁).obj X ⊗ (Over.pullback f₁).obj X).left :=
+  pullback.lift (pullback.fst _ _ ≫ xc X s h) (pullback.snd _ _ ≫ xc X s h) (by
+    show (pullback.fst _ _ ≫ xc X s h) ≫ pullback.snd X.hom f₁ =
+      (pullback.snd _ _ ≫ xc X s h) ≫ pullback.snd X.hom f₁
+    simp only [Category.assoc, xc_snd]
+    exact pullback.condition_assoc s)
+
+@[reassoc (attr := simp)]
+theorem xc2_fst (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    xc2 X s h ≫ pullback.fst _ _ = pullback.fst _ _ ≫ xc X s h :=
+  pullback.lift_fst _ _ _
+
+@[reassoc (attr := simp)]
+theorem xc2_snd (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    xc2 X s h ≫ pullback.snd _ _ = pullback.snd _ _ ≫ xc X s h :=
+  pullback.lift_snd _ _ _
+
+/-- **`xc` respects the multiplications.** -/
+theorem xc_mul [MonObj X] (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    (μ[(Over.pullback f₂).obj X]).left ≫ xc X s h =
+      xc2 X s h ≫ (μ[(Over.pullback f₁).obj X]).left := by
+  apply pullback.hom_ext
+  · rw [Category.assoc, xc_fst, Category.assoc, G4Conj.mul_left_fst, G4Conj.mul_left_fst,
+      ← Category.assoc (xc2 X s h)]
+    congr 1
+    apply pullback.hom_ext
+    · simp only [Category.assoc, pullback.lift_fst, xc2_fst_assoc, xc_fst]
+    · simp only [Category.assoc, pullback.lift_snd, xc2_snd_assoc, xc_fst]
+  · rw [Category.assoc, xc_snd, Category.assoc]
+    have h2 := Over.w (μ[(Over.pullback f₂).obj X])
+    have h1 := Over.w (μ[(Over.pullback f₁).obj X])
+    erw [← Category.assoc, h2, h1]
+    show (pullback.fst _ _ ≫ pullback.snd X.hom f₂) ≫ s =
+      xc2 X s h ≫ (pullback.fst _ _ ≫ pullback.snd X.hom f₁)
+    rw [xc2_fst_assoc, xc_snd, Category.assoc]
+
+/-- **`xc` respects the units.** -/
+theorem xc_one [MonObj X] (s : T₂ ⟶ T₁) (h : f₂ = s ≫ f₁) :
+    (η[(Over.pullback f₂).obj X]).left ≫ xc X s h = s ≫ (η[(Over.pullback f₁).obj X]).left := by
+  apply pullback.hom_ext
+  · rw [Category.assoc, xc_fst, G4Conj.one_left_fst, Category.assoc, G4Conj.one_left_fst, h,
+      Category.assoc]
+  · rw [Category.assoc, xc_snd, Category.assoc]
+    have h2 := Over.w (η[(Over.pullback f₂).obj X])
+    have h1 := Over.w (η[(Over.pullback f₁).obj X])
+    erw [← Category.assoc, h2, h1]
+    simp
+
+end TwistDescentXC
+
+end TwistDescentXC
+
+
+/-! # twist-descent, part HFD: descent of `G_L`-invariant morphisms between conjugates
+
+For a field `K ⊆ ℚ̄`, `K`-schemes `X` (quasi-compact, quasi-separated) and `Y` (locally of finite
+presentation), a number field `L ⊆ ℚ̄` and two embeddings `e₁L, e₂L : K → L`, a `ℚ̄`-morphism
+`φ : X ×_{K,e₁} ℚ̄ → Y ×_{K,e₂} ℚ̄` (`eᵢ = (L ↪ ℚ̄) ∘ eᵢL`) that commutes with the Galois translates
+by `G_L` is the base change of a morphism `X ×_{K,e₁L} L → Y ×_{K,e₂L} L` (`hfd`). Proof: EGA IV₃ 8.8.2 (`MorphDescend.exists_descend`,
+proved) descends `φ` to a finite `L₁ ⊇ L`; pass to the normal closure `L'` of `L₁`; the descended
+morphism is `Gal(L'/L)`-invariant (checked after the epimorphism `B_{ℚ̄} → B_{L'}`), so it descends
+to `L` by `TwistDescentGD.descend` (Galois descent along `L'/L`, from Mathlib's fpqc descent). -/
+
+section TwistDescentHFD
+
+open CategoryTheory AlgebraicGeometry Limits
+open TwistDescentXC
+
+namespace TwistDescentHFD
+
+/-- `Spec` of a ring map. -/
+noncomputable abbrev sp {R S : Type} [CommRing R] [CommRing S] (f : R →+* S) :
+    Spec (CommRingCat.of S) ⟶ Spec (CommRingCat.of R) :=
+  Spec.map (CommRingCat.ofHom f)
+
+theorem sp_comp_eq {R₁ R₂ R₃ : Type} [CommRing R₁] [CommRing R₂] [CommRing R₃] (s : R₁ →+* R₂)
+    (t : R₂ →+* R₃) (u : R₁ →+* R₃) (h : ∀ x, t (s x) = u x) : sp t ≫ sp s = sp u := by
+  rw [sp, sp, sp, ← Spec.map_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+  ext x
+  exact h x
+
+theorem sp_eq {R₁ R₂ R₃ : Type} [CommRing R₁] [CommRing R₂] [CommRing R₃] (s : R₁ →+* R₂)
+    (t : R₂ →+* R₃) (u : R₁ →+* R₃) (h : ∀ x, t (s x) = u x) : sp u = sp t ≫ sp s :=
+  (sp_comp_eq s t u h).symm
+
+theorem sp_id_eq {R : Type} [CommRing R] (t : R →+* R) (h : ∀ x, t x = x) : sp t = 𝟙 _ := by
+  rw [sp, ← Spec.map_id]
+  congr 1
+  ext x
+  exact h x
+
+abbrev Qb : Type := AlgebraicClosure ℚ
+
+variable {K : IntermediateField ℚ Qb} (X Y : Over (Spec (CommRingCat.of K)))
+
+/-- `ℚ̄ → B_{L'}` comparisons are epimorphisms (flat surjective quasi-compact base change). -/
+theorem xc_epi {L : IntermediateField ℚ Qb} (eL : K →+* L) (e : K →+* Qb)
+    (h : sp e = sp (algebraMap L Qb) ≫ sp eL) : Epi (xc X (sp (algebraMap L Qb)) h) :=
+  TwistDescentGD.epi_of_isPullback_field (xc_isPullback X _ h)
+
+/-- **Hom-field descent.** -/
+theorem hfd [QuasiCompact X.hom] [QuasiSeparated X.hom] [LocallyOfFinitePresentation Y.hom]
+    {L : IntermediateField ℚ Qb} [FiniteDimensional ℚ L]
+    (e₁L e₂L : K →+* L) (e₁ e₂ : K →+* Qb)
+    (h₁ : sp e₁ = sp (algebraMap L Qb) ≫ sp e₁L) (h₂ : sp e₂ = sp (algebraMap L Qb) ≫ sp e₂L)
+    (he₁ : ∀ x, (e₁L x : Qb) = e₁ x) (he₂ : ∀ x, (e₂L x : Qb) = e₂ x)
+    (φ : pullback X.hom (sp e₁) ⟶ pullback Y.hom (sp e₂))
+    (hφ : φ ≫ pullback.snd _ _ = pullback.snd _ _)
+    (hinv : ∀ k : Qb ≃ₐ[ℚ] Qb, k ∈ L.fixingSubgroup →
+      ∀ (k₁ : sp e₁ = sp (k : Qb →+* Qb) ≫ sp e₁) (k₂ : sp e₂ = sp (k : Qb →+* Qb) ≫ sp e₂),
+        xc X (sp (k : Qb →+* Qb)) k₁ ≫ φ = φ ≫ xc Y (sp (k : Qb →+* Qb)) k₂) :
+    ∃ φL : pullback X.hom (sp e₁L) ⟶ pullback Y.hom (sp e₂L),
+      xc X (sp (algebraMap L Qb)) h₁ ≫ φL = φ ≫ xc Y (sp (algebraMap L Qb)) h₂ := by
+  have hm₁ : ∀ x, e₁ x ∈ L := fun x => he₁ x ▸ (e₁L x).2
+  have hm₂ : ∀ x, e₂ x ∈ L := fun x => he₂ x ▸ (e₂L x).2
+  obtain ⟨L₁, ψ, hψ⟩ := MorphDescend.exists_descend L X Y e₁ e₂ hm₁ hm₂ φ hφ
+  obtain ⟨L₁, hfin₁, hLL₁⟩ := L₁
+  let L' : IntermediateField ℚ Qb := IntermediateField.normalClosure ℚ L₁ Qb
+  have hL₁L' : L₁ ≤ L' := IntermediateField.le_normalClosure L₁
+  have hLL' : L ≤ L' := hLL₁.trans hL₁L'
+  let _ : Algebra L L' := G0ModField.incAlg hLL'
+  have : IsScalarTower ℚ L L' := IsScalarTower.of_algebraMap_eq fun x => rfl
+  have : FiniteDimensional ℚ L₁ := hfin₁
+  have : FiniteDimensional ℚ L' := inferInstance
+  have : IsGalois ℚ L' := inferInstance
+  have : FiniteDimensional L L' := FiniteDimensional.right ℚ L L'
+  have : IsGalois L L' := IsGalois.tower_top_of_isGalois ℚ L L'
+  -- the maps at level `L'`
+  let e₁' : K →+* L' := (algebraMap L L').comp e₁L
+  have hq : sp e₁' = sp (algebraMap L L') ≫ sp e₁L := sp_eq _ _ _ fun _ => rfl
+  let q : pullback X.hom (sp e₁') ⟶ pullback X.hom (sp e₁L) := xc X (sp (algebraMap L L')) hq
+  have hpb := xc_isPullback X (sp (algebraMap L L')) hq
+  let r₁ := MorphDescend.restrL L e₁ hm₁ ⟨L₁, hfin₁, hLL₁⟩
+  let r₂ := MorphDescend.restrL L e₂ hm₂ ⟨L₁, hfin₁, hLL₁⟩
+  have ha : sp e₁' = sp (IntermediateField.inclusion hL₁L' : L₁ →+* L') ≫ sp r₁ :=
+    sp_eq _ _ _ fun x => Subtype.ext (he₁ x).symm
+  have hb : sp r₂ = sp (IntermediateField.inclusion hLL₁ : L →+* L₁) ≫ sp e₂L :=
+    sp_eq _ _ _ fun x => Subtype.ext (he₂ x)
+  let f : pullback X.hom (sp e₁') ⟶ pullback Y.hom (sp e₂L) :=
+    xc X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha ≫ ψ ≫
+      xc Y (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb
+  have hQ' : sp e₁ = sp (algebraMap L' Qb) ≫ sp e₁' := sp_eq _ _ _ fun x => (he₁ x)
+  have hepi : Epi (xc X (sp (algebraMap L' Qb)) hQ') := xc_epi X e₁' e₁ hQ'
+  -- `f` after `ℚ̄ → L'` is `φ ≫ (ℚ̄ → L)`
+  have hfQ : xc X (sp (algebraMap L' Qb)) hQ' ≫ f = φ ≫ xc Y (sp (algebraMap L Qb)) h₂ := by
+    have c1 : xc X (sp (algebraMap L' Qb)) hQ' ≫
+        xc X (sp (IntermediateField.inclusion hL₁L' : L₁ →+* L')) ha =
+        MorphDescend.cmp L X e₁ hm₁ ⟨L₁, hfin₁, hLL₁⟩ :=
+      xc_comp_eq X _ _ _ _ (sp (algebraMap L₁ Qb)) (sp_eq _ _ _ fun _ => rfl)
+        (sp_comp_eq _ _ _ fun _ => rfl)
+    have c2 : MorphDescend.cmp L Y e₂ hm₂ ⟨L₁, hfin₁, hLL₁⟩ ≫
+        xc Y (sp (IntermediateField.inclusion hLL₁ : L →+* L₁)) hb =
+        xc Y (sp (algebraMap L Qb)) h₂ :=
+      xc_comp_eq Y _ _ (sp (algebraMap L₁ Qb)) (sp_eq _ _ _ fun _ => rfl) _ _
+        (sp_comp_eq _ _ _ fun _ => rfl)
+    simp only [f]
+    rw [← Category.assoc, c1, ← reassoc_of% hψ, c2]
+  obtain ⟨φL, hφL⟩ := TwistDescentGD.descend hpb f (fun g => by
+    have hc : sp e₁' = sp (g : L' →+* L') ≫ sp e₁' :=
+      sp_eq _ _ _ fun x => g.commutes (e₁L x)
+    refine ⟨xc X (sp (g : L' →+* L')) hc, ?_, xc_snd _ _ _, ?_⟩
+    · exact xc_comp_eq X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => g.commutes y)
+    · -- lift `g` to `k ∈ G_ℚ`
+      obtain ⟨k, hk⟩ := AlgEquiv.restrictNormalHom_surjective (F := ℚ) (K₁ := L') (E := Qb)
+        (g.restrictScalars ℚ)
+      have hkx : ∀ x : L', k (x : Qb) = (g x : Qb) := fun x => by
+        rw [← AlgEquiv.restrictNormalHom_apply L' k x, hk]; rfl
+      have hkL : k ∈ L.fixingSubgroup := by
+        rw [IntermediateField.mem_fixingSubgroup_iff]
+        intro y hy
+        have := hkx (algebraMap L L' ⟨y, hy⟩)
+        rw [g.commutes] at this
+        exact this
+      have hkL' : ∀ y : L, k (y : Qb) = y := fun y =>
+        (IntermediateField.mem_fixingSubgroup_iff L k).mp hkL y y.2
+      have k₁ : sp e₁ = sp (k : Qb →+* Qb) ≫ sp e₁ :=
+        sp_eq _ _ _ fun x => by rw [← he₁ x]; exact hkL' _
+      have k₂ : sp e₂ = sp (k : Qb →+* Qb) ≫ sp e₂ :=
+        sp_eq _ _ _ fun x => by rw [← he₂ x]; exact hkL' _
+      have hu : sp e₁ = sp ((algebraMap L' Qb).comp (g : L' →+* L')) ≫ sp e₁' :=
+        sp_eq _ _ _ fun x => by
+          show ((g (algebraMap L L' (e₁L x)) : L') : Qb) = e₁ x
+          rw [g.commutes]; exact he₁ x
+      have c4 : xc X (sp (algebraMap L' Qb)) hQ' ≫ xc X (sp (g : L' →+* L')) hc =
+          xc X (sp (k : Qb →+* Qb)) k₁ ≫ xc X (sp (algebraMap L' Qb)) hQ' :=
+        (xc_comp_eq X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun _ => rfl)).trans
+          (xc_comp_eq X _ _ _ _ _ hu (sp_comp_eq _ _ _ fun x => hkx x)).symm
+      have c5 : xc Y (sp (k : Qb →+* Qb)) k₂ ≫ xc Y (sp (algebraMap L Qb)) h₂ =
+          xc Y (sp (algebraMap L Qb)) h₂ :=
+        xc_comp_eq Y _ _ _ _ _ _ (sp_comp_eq _ _ _ fun y => hkL' y)
+      rw [← cancel_epi (xc X (sp (algebraMap L' Qb)) hQ'), ← Category.assoc, c4,
+        Category.assoc, hfQ, ← Category.assoc, hinv k hkL k₁ k₂, Category.assoc, c5])
+  refine ⟨φL, ?_⟩
+  have c3 : xc X (sp (algebraMap L Qb)) h₁ = xc X (sp (algebraMap L' Qb)) hQ' ≫ q :=
+    (xc_comp_eq X _ _ _ _ _ _ (sp_comp_eq _ _ _ fun _ => rfl)).symm
+  rw [c3, Category.assoc, hφL, hfQ]
+
+end TwistDescentHFD
+
+end TwistDescentHFD
+
+
+/-! # twist-descent, part MAIN: `TwistDescent` (kf-glue) proved
+
+For `σ ∈ G_ℚ` with restriction `ρ = σ|_L`: the hypothesis gives a twisted isomorphism
+`φ : B_{e₀} ≅ B_{σ⁻¹e₀}` over `ℚ̄` (`e₀ : K ↪ ℚ̄`); it is `G_L`-invariant (`L` is a Hom field,
+`td_hom_inv`), so it descends to `φ_L : B_L → B ×_{K,τ∘(K↪L)} L` (`hfd`, `τ = σ⁻¹|_L`); then
+`E = φ_L ≫ c_τ`, with `c_τ` the comparison over `Spec τ`. `φ_L` is a homomorphism by rigidity
+(`G0FibreSimple.rigidityHom`, proved in kf-glue). `E` and `α` are chosen as functions of `σ|_L`,
+with `E = 𝟙`, `α = id` on the trivial class (`twistDescent`). -/
+
+section TwistDescentMain
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ LeafQM LeafQM.AV GlueDescent GlueDescent.B2 GlueDescent.B2Q GlueDescent.B3Q
+open TwistDescentXC TwistDescentHFD
+
+namespace G0ModField.KernelField
+
+open G0ModField
+
+/-- **`G_L` fixes homomorphisms between conjugates** (from the Hom-field hypothesis of
+`TwistDescent`): `k ∘ φ = φ ∘ k` for `k ∈ G_L` and `φ : B_{e₁} → B_{e₂}`. -/
+theorem td_hom_inv {K : IF} [IsGalois ℚ K] (B : PkgI3.AbVar K) {L : IF} (hKL : K ≤ L)
+    (hHF : ∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K B σ = 1)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K B).A e₁) ((G4WeilRes.conjData K B).A e₂))
+    (k : Qbar ≃ₐ[ℚ] Qbar) (hk : k ∈ L.fixingSubgroup)
+    (k₁ : sp (e₁ : K →+* Qbar) = sp (k : Qbar →+* Qbar) ≫ sp (e₁ : K →+* Qbar))
+    (k₂ : sp (e₂ : K →+* Qbar) = sp (k : Qbar →+* Qbar) ≫ sp (e₂ : K →+* Qbar)) :
+    xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ φ.hom.left =
+      φ.hom.left ≫ xc B.X (sp (k : Qbar →+* Qbar)) k₂ := by
+  classical
+  have hs : ∀ e : K →ₐ[ℚ] Qbar, (G4WeilRes.embAct K k).symm e = e := by
+    intro e
+    ext x
+    have hx : e x ∈ L :=
+      hKL ((SetLike.ext_iff.mp (AlgHom.fieldRange_of_normal e) (e x)).mp ⟨x, rfl⟩)
+    exact (IntermediateField.mem_fixingSubgroup_iff L _).mp (inv_mem hk) _ hx
+  let m : G4WeilRes.HomLattice (G4WeilRes.conjData K B).A := Pi.single (e₁, e₂) φ
+  have hm : G4WeilRes.conjAct K B k m = m := LinearEquiv.congr_fun (hHF k hk) m
+  have h0 := G4WeilRes.conjAct_isConjAction K B k m e₁ e₂
+  dsimp only at h0
+  rw [hm] at h0
+  have hme : m (e₁, e₂) = φ := Pi.single_eq_same _ _
+  rw [hme] at h0
+  have gen : ∀ (x y : K →ₐ[ℚ] Qbar) (hx : x = e₁) (hy : y = e₂)
+      (p₁ : G4WeilRes.specEmb K e₁ = G4WeilRes.specGal k ≫ G4WeilRes.specEmb K x)
+      (p₂ : G4WeilRes.specEmb K e₂ = G4WeilRes.specGal k ≫ G4WeilRes.specEmb K y),
+      φ.hom.left ≫ G4Conj.cmp B.X (G4WeilRes.specGal k) p₂ =
+        G4Conj.cmp B.X (G4WeilRes.specGal k) p₁ ≫ (m (x, y)).hom.left →
+      xc B.X (sp (k : Qbar →+* Qbar)) k₁ ≫ φ.hom.left =
+        φ.hom.left ≫ xc B.X (sp (k : Qbar →+* Qbar)) k₂ := by
+    intro x y hx hy p₁ p₂ h
+    subst hx hy
+    rw [hme] at h
+    exact h.symm
+  exact gen _ _ (hs e₁) (hs e₂) (G4WeilRes.specEmb_symm K k e₁) (G4WeilRes.specEmb_symm K k e₂) h0
+
+/-- The clauses of `SemilinearTwistAt` at one `σ`, in terms of `ρ = σ|_L`. -/
+def TwistClause (L : IF) (A : PkgI3.AbVar L) (ι' : O →+* PkgI3.AbVar.End A) (ρ : L ≃ₐ[ℚ] L)
+    (E : A.X.left ⟶ A.X.left) (α : O ≃+* O) : Prop :=
+  IsIso E ∧
+    (∃ τ : L ≃+* L, (∀ x : L, τ x = ρ⁻¹ x) ∧
+      ∃ hτ : E ≫ A.X.hom = A.X.hom ≫ Spec.map (CommRingCat.ofHom (τ : L →+* L)),
+        μ[A.X].left ≫ E =
+          pullback.map A.X.hom A.X.hom A.X.hom A.X.hom E E
+            (Spec.map (CommRingCat.ofHom (τ : L →+* L))) hτ.symm hτ.symm ≫ μ[A.X].left ∧
+        η[A.X].left ≫ E = Spec.map (CommRingCat.ofHom (τ : L →+* L)) ≫ η[A.X].left) ∧
+    (∀ a : O, (ι' a).hom.left ≫ E = E ≫ (ι' (α a)).hom.left)
+
+/-- `Spec ℚ̄ → Spec L` is an epimorphism. -/
+theorem specQbar_epi (L : IF) : Epi (sp (algebraMap L Qbar)) := by
+  obtain ⟨h1, h2, h3⟩ := TwistDescentGD.spec_field_props L Qbar
+  infer_instance
+
+/-- The trivial class: `E = 𝟙`, `α = id`. -/
+theorem twistClause_one (L : IF) (A : PkgI3.AbVar L) (ι' : O →+* PkgI3.AbVar.End A) :
+    TwistClause L A ι' 1 (𝟙 _) (RingEquiv.refl O) := by
+  have hid : Spec.map (CommRingCat.ofHom ((RingEquiv.refl L : L ≃+* L) : L →+* L)) = 𝟙 _ := by
+    rw [← Spec.map_id]; rfl
+  refine ⟨inferInstance, ⟨RingEquiv.refl _, fun x => rfl, ?_, ?_, ?_⟩, fun a => ?_⟩
+  · rw [hid, Category.id_comp, Category.comp_id]
+  · rw [Category.comp_id]
+    symm
+    refine Eq.trans (congrArg (fun m => m ≫ μ[A.X].left) ?_) (Category.id_comp _)
+    apply pullback.hom_ext <;> simp
+  · rw [hid, Category.id_comp, Category.comp_id]
+  · simp
+
+set_option maxHeartbeats 1000000 in
+/-- **The construction at one `σ`** (`E = φ_L ≫ c_τ`, `α = α_φ⁻¹`). -/
+theorem td_construct {K : IF} [FiniteDimensional ℚ K] [IsGalois ℚ K] (B : PkgI3.AbVar K)
+    (ιB : O →+* PkgI3.AbVar.End B) {L : IF} [FiniteDimensional ℚ L] [IsGalois ℚ L] (hKL : K ≤ L)
+    (hHF : ∀ σ ∈ L.fixingSubgroup, G4WeilRes.conjAction K B σ = 1)
+    (hTw : ∀ e₁ e₂ : K →ₐ[ℚ] Qbar, ∃ (α : O ≃+* O)
+        (φ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K B).A e₁) ((G4WeilRes.conjData K B).A e₂))
+        (ψ : PkgI3.AbVar.Hom ((G4WeilRes.conjData K B).A e₂) ((G4WeilRes.conjData K B).A e₁)),
+        φ.hom ≫ ψ.hom = 𝟙 _ ∧ ψ.hom ≫ φ.hom = 𝟙 _ ∧
+        ∀ a : O, (bcEnd K B e₁ (ιB (α a))).hom ≫ φ.hom = φ.hom ≫ (bcEnd K B e₂ (ιB a)).hom)
+    (σ : Qbar ≃ₐ[ℚ] Qbar) :
+    ∃ (E : (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left ⟶
+        (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left) (α : O ≃+* O),
+      TwistClause L (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL))
+        ((@endBC K _ B L _ (incAlg hKL)).comp ιB) (AlgEquiv.restrictNormalHom L σ) E α := by
+  letI : Algebra K L := incAlg hKL
+  let e₀ : K →ₐ[ℚ] Qbar := K.val
+  let e₂ : K →ₐ[ℚ] Qbar := G4WeilRes.embAct K σ⁻¹ e₀
+  obtain ⟨α, φ, ψ, hφψ, hψφ, htw⟩ := hTw e₀ e₂
+  let τ : L ≃+* L := (AlgEquiv.restrictNormalHom L σ⁻¹ : L ≃ₐ[ℚ] L).toRingEquiv
+  have hτx : ∀ x : L, (τ x : Qbar) = σ⁻¹ x := fun x => AlgEquiv.restrictNormalHom_apply L σ⁻¹ x
+  let e₁L : K →+* L := algebraMap K L
+  let e₂L : K →+* L := (τ : L →+* L).comp e₁L
+  have he₁ : ∀ x, (e₁L x : Qbar) = (e₀ : K →+* Qbar) x := fun x => rfl
+  have he₂ : ∀ x, (e₂L x : Qbar) = (e₂ : K →+* Qbar) x := fun x => hτx _
+  have h₁ : sp (e₀ : K →+* Qbar) = sp (algebraMap L Qbar) ≫ sp e₁L := sp_eq _ _ _ he₁
+  have h₂ : sp (e₂ : K →+* Qbar) = sp (algebraMap L Qbar) ≫ sp e₂L := sp_eq _ _ _ he₂
+  let φ₀ : pullback B.X.hom (sp (e₀ : K →+* Qbar)) ⟶ pullback B.X.hom (sp (e₂ : K →+* Qbar)) :=
+    φ.hom.left
+  let ψ₀ : pullback B.X.hom (sp (e₂ : K →+* Qbar)) ⟶ pullback B.X.hom (sp (e₀ : K →+* Qbar)) :=
+    ψ.hom.left
+  have hφs : φ₀ ≫ pullback.snd B.X.hom (sp (e₂ : K →+* Qbar)) =
+      pullback.snd B.X.hom (sp (e₀ : K →+* Qbar)) := Over.w φ.hom
+  have hψs : ψ₀ ≫ pullback.snd B.X.hom (sp (e₀ : K →+* Qbar)) =
+      pullback.snd B.X.hom (sp (e₂ : K →+* Qbar)) := Over.w ψ.hom
+  obtain ⟨φL, hφL⟩ := hfd B.X B.X e₁L e₂L _ _ h₁ h₂ he₁ he₂ φ₀ hφs
+    (fun k hk k₁ k₂ => td_hom_inv B hKL hHF e₀ e₂ φ k hk k₁ k₂)
+  obtain ⟨ψL, hψL⟩ := hfd B.X B.X e₂L e₁L _ _ h₂ h₁ he₂ he₁ ψ₀ hψs
+    (fun k hk k₁ k₂ => td_hom_inv B hKL hHF e₂ e₀ ψ k hk k₁ k₂)
+  have ep₁ := xc_epi B.X e₁L _ h₁
+  have ep₂ := xc_epi B.X e₂L _ h₂
+  have hφψ' : φ₀ ≫ ψ₀ = 𝟙 _ := congrArg Over.Hom.left hφψ
+  have hψφ' : ψ₀ ≫ φ₀ = 𝟙 _ := congrArg Over.Hom.left hψφ
+  have hφψL : φL ≫ ψL = 𝟙 _ := by
+    rw [← cancel_epi (xc B.X (sp (algebraMap L Qbar)) h₁), ← Category.assoc, hφL,
+      Category.assoc, hψL, ← Category.assoc, hφψ', Category.id_comp, Category.comp_id]
+  have hψφL : ψL ≫ φL = 𝟙 _ := by
+    rw [← cancel_epi (xc B.X (sp (algebraMap L Qbar)) h₂), ← Category.assoc, hψL,
+      Category.assoc, hφL, ← Category.assoc, hψφ', Category.id_comp, Category.comp_id]
+  have hφLs : φL ≫ pullback.snd B.X.hom (sp e₂L) = pullback.snd B.X.hom (sp e₁L) := by
+    rw [← cancel_epi (xc B.X (sp (algebraMap L Qbar)) h₁), ← Category.assoc, hφL,
+      Category.assoc, xc_snd, ← Category.assoc, hφs, xc_snd]
+  have hc : sp e₂L = sp (τ : L →+* L) ≫ sp e₁L := sp_eq _ _ _ fun _ => rfl
+  have hci : sp e₁L = sp (τ.symm : L →+* L) ≫ sp e₂L :=
+    sp_eq _ _ _ fun x => τ.symm_apply_apply _
+  let c := xc B.X (sp (τ : L →+* L)) hc
+  let cinv := xc B.X (sp (τ.symm : L →+* L)) hci
+  have hcc : c ≫ cinv = 𝟙 _ := by
+    rw [xc_comp_eq B.X _ _ _ _ (sp (RingHom.id L)) (sp_eq _ _ _ fun _ => rfl)
+      (sp_comp_eq _ _ _ fun x => τ.apply_symm_apply x)]
+    exact xc_self B.X _ (sp_id_eq _ fun _ => rfl) _
+  have hcc' : cinv ≫ c = 𝟙 _ := by
+    rw [xc_comp_eq B.X _ _ _ _ (sp (RingHom.id L)) (sp_eq _ _ _ fun _ => rfl)
+      (sp_comp_eq _ _ _ fun x => τ.symm_apply_apply x)]
+    exact xc_self B.X _ (sp_id_eq _ fun _ => rfl) _
+  -- `φ_L` is a homomorphism (rigidity)
+  let A₂ : PkgI3.AbVar L := G4WeilRes.bcAlong B e₂L
+  let φL' : (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X ⟶ A₂.X := Over.homMk φL hφLs
+  haveI := specQbar_epi L
+  have o1 := xc_one B.X (sp (algebraMap L Qbar)) h₁
+  have o2 := xc_one B.X (sp (algebraMap L Qbar)) h₂
+  have o3 : η[((G4WeilRes.conjData K B).A e₀).X].left ≫ φ₀ =
+      η[((G4WeilRes.conjData K B).A e₂).X].left := by
+    show (η[((G4WeilRes.conjData K B).A e₀).X] ≫ φ.hom).left = _
+    rw [IsMonHom.one_hom]
+  have hηL : η[(@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X].left ≫ φL =
+      η[A₂.X].left := by
+    have eq : sp (algebraMap L Qbar) ≫
+        η[(@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X].left ≫ φL =
+        sp (algebraMap L Qbar) ≫ η[A₂.X].left :=
+      (Category.assoc _ _ _).symm.trans <|
+        (congrArg (· ≫ φL) o1.symm).trans <|
+          (Category.assoc _ _ _).trans <|
+            (congrArg (η[((G4WeilRes.conjData K B).A e₀).X].left ≫ ·) hφL).trans <|
+              (Category.assoc _ _ _).symm.trans <|
+                (congrArg (· ≫ xc B.X (sp (algebraMap L Qbar)) h₂) o3).trans o2
+    exact (cancel_epi (sp (algebraMap L Qbar))).mp eq
+  have hη : η[(@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X] ≫ φL' = η[A₂.X] :=
+    Over.OverMorphism.ext hηL
+  have hmon : IsMonHom φL' := G0FibreSimple.rigidityHom L _ _ φL' hη
+  have hiso : IsIso (φL ≫ c) :=
+    ⟨⟨cinv ≫ ψL, by rw [Category.assoc, reassoc_of% hcc, hφψL],
+      by rw [Category.assoc, reassoc_of% hψφL, hcc']⟩⟩
+  have hτ : (φL ≫ c) ≫ pullback.snd B.X.hom (sp e₁L) =
+      pullback.snd B.X.hom (sp e₁L) ≫ sp (τ : L →+* L) := by
+    rw [Category.assoc, xc_snd, reassoc_of% hφLs]
+  have m1 : μ[(@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X].left ≫ φL =
+      (φL' ⊗ₘ φL').left ≫ μ[A₂.X].left :=
+    congrArg Over.Hom.left (IsMonHom.mul_hom (f := φL'))
+  have m2 := xc_mul B.X (sp (τ : L →+* L)) hc
+  have m3 : (φL' ⊗ₘ φL').left ≫ xc2 B.X (sp (τ : L →+* L)) hc =
+      pullback.map (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.hom
+        (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.hom
+        (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.hom
+        (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.hom (φL ≫ c) (φL ≫ c)
+        (Spec.map (CommRingCat.ofHom (τ : L →+* L))) hτ.symm hτ.symm := by
+    have f1 := xc2_fst B.X (sp (τ : L →+* L)) hc
+    have f2 := Over.tensorHom_left_fst (pullback.snd B.X.hom (sp e₂L)) (pullback.snd B.X.hom (sp e₂L)) φL' φL'
+    have g1 := xc2_snd B.X (sp (τ : L →+* L)) hc
+    have g2 := Over.tensorHom_left_snd (pullback.snd B.X.hom (sp e₂L)) (pullback.snd B.X.hom (sp e₂L)) φL' φL'
+    apply pullback.hom_ext
+    · exact (Category.assoc _ _ _).trans <| (congrArg _ f1).trans <|
+        (Category.assoc _ _ _).symm.trans <| (congrArg (· ≫ c) f2).trans <|
+          (Category.assoc _ _ _).trans (pullback.lift_fst _ _ _).symm
+    · exact (Category.assoc _ _ _).trans <| (congrArg _ g1).trans <|
+        (Category.assoc _ _ _).symm.trans <| (congrArg (· ≫ c) g2).trans <|
+          (Category.assoc _ _ _).trans (pullback.lift_snd _ _ _).symm
+  refine ⟨φL ≫ c, α.symm, hiso, ⟨τ, fun x => ?_, hτ, ?_, ?_⟩, fun a => ?_⟩
+  · rw [← map_inv]; rfl
+  · exact (Category.assoc _ _ _).symm.trans <|
+      (congrArg (· ≫ c) m1).trans <|
+        (Category.assoc _ _ _).trans <|
+          (congrArg ((φL' ⊗ₘ φL').left ≫ ·) m2).trans <|
+            (Category.assoc _ _ _).symm.trans (congrArg (· ≫ _) m3)
+  · exact (Category.assoc _ _ _).symm.trans <|
+      (congrArg (· ≫ c) hηL).trans (xc_one B.X (sp (τ : L →+* L)) hc)
+  · have hmap : ∀ f₁ f₂ : B.X ⟶ B.X,
+        ((Over.pullback (sp (e₀ : K →+* Qbar))).map f₁).left ≫ φ₀ =
+          φ₀ ≫ ((Over.pullback (sp (e₂ : K →+* Qbar))).map f₂).left →
+        ((Over.pullback (sp e₁L)).map f₁).left ≫ φL =
+          φL ≫ ((Over.pullback (sp e₂L)).map f₂).left := by
+      intro f₁ f₂ h
+      rw [← cancel_epi (xc B.X (sp (algebraMap L Qbar)) h₁)]
+      calc xc B.X (sp (algebraMap L Qbar)) h₁ ≫ ((Over.pullback (sp e₁L)).map f₁).left ≫ φL
+          = ((Over.pullback (sp (e₀ : K →+* Qbar))).map f₁).left ≫ φ₀ ≫
+              xc B.X (sp (algebraMap L Qbar)) h₂ := by
+            rw [← Category.assoc, ← xc_map B.X _ h₁ f₁, Category.assoc, hφL]
+        _ = φ₀ ≫ xc B.X (sp (algebraMap L Qbar)) h₂ ≫
+              ((Over.pullback (sp e₂L)).map f₂).left := by
+            rw [← Category.assoc, h, Category.assoc, xc_map B.X _ h₂ f₂]
+        _ = _ := by rw [← Category.assoc, ← hφL, Category.assoc]
+    have ht := htw (α.symm a)
+    rw [RingEquiv.apply_symm_apply] at ht
+    have ht' := congrArg Over.Hom.left ht
+    rw [Over.comp_left, Over.comp_left] at ht'
+    have key := hmap (ιB a).hom (ιB (α.symm a)).hom ht'
+    change ((Over.pullback (sp e₁L)).map (ιB a).hom).left ≫ φL ≫ c =
+      (φL ≫ c) ≫ ((Over.pullback (sp e₁L)).map (ιB (α.symm a)).hom).left
+    rw [← Category.assoc, key, Category.assoc, xc_map B.X _ hc, Category.assoc]
+
+/-- **`TwistDescent` holds** (kf-glue's glue Prop, statement verbatim; no hypotheses). -/
+theorem twistDescent : TwistDescent := by
+  intro K _ _ B ιB L _ _ hKL hHF hTw
+  classical
+  have key : ∀ ρ : L ≃ₐ[ℚ] L, ∃ (E : (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left ⟶
+      (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left) (α : O ≃+* O),
+      TwistClause L (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL))
+        ((@endBC K _ B L _ (incAlg hKL)).comp ιB) ρ E α := by
+    intro ρ
+    obtain ⟨σ, rfl⟩ := AlgEquiv.restrictNormalHom_surjective (F := ℚ) (K₁ := L) (E := Qbar) ρ
+    exact td_construct B ιB hKL hHF hTw σ
+  let G : (L ≃ₐ[ℚ] L) → ((@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left ⟶
+      (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL)).X.left) :=
+    fun ρ => if ρ = 1 then 𝟙 _ else (key ρ).choose
+  let Gα : (L ≃ₐ[ℚ] L) → (O ≃+* O) :=
+    fun ρ => if ρ = 1 then RingEquiv.refl O else (key ρ).choose_spec.choose
+  have hG : ∀ ρ, TwistClause L (@PkgI3.AbVar.baseChange K _ B L _ (incAlg hKL))
+      ((@endBC K _ B L _ (incAlg hKL)).comp ιB) ρ (G ρ) (Gα ρ) := by
+    intro ρ
+    by_cases h : ρ = 1
+    · subst h
+      simp only [G, Gα, if_pos rfl]
+      exact twistClause_one L _ _
+    · simp only [G, Gα, if_neg h]
+      exact (key ρ).choose_spec.choose_spec
+  let r : GQ → (L ≃ₐ[ℚ] L) := fun σ => AlgEquiv.restrictNormalHom L (act σ)
+  have hr : ∀ k ∈ GQL L, r k = 1 := by
+    intro k hk
+    ext x
+    show ((AlgEquiv.restrictNormalHom L (act k) x : L) : Qbar) = (x : Qbar)
+    rw [AlgEquiv.restrictNormalHom_apply]
+    exact mem_GQL.mp hk x x.2
+  refine ⟨fun σ => G (r σ), fun σ => Gα (r σ), fun σ => ?_⟩
+  obtain ⟨h1, ⟨τ, hτ, hrest⟩, h3⟩ := hG (r σ)
+  refine ⟨h1, ⟨τ, fun x => ?_, hrest⟩, h3, fun k hk => ?_⟩
+  · rw [hτ x, ← map_inv, AlgEquiv.restrictNormalHom_apply]
+    rfl
+  · have e1 : r (σ * k) = r σ := by
+      show AlgEquiv.restrictNormalHom L (act σ * act k) = _
+      rw [map_mul]
+      exact (congrArg (r σ * ·) (hr k hk)).trans (mul_one _)
+    have e2 : r (k * σ) = r σ := by
+      show AlgEquiv.restrictNormalHom L (act k * act σ) = _
+      rw [map_mul]
+      exact (congrArg (· * r σ) (hr k hk)).trans (one_mul _)
+    refine ⟨?_, ?_, ?_, ?_, ?_, ?_⟩
+    · show G (r k) = 𝟙 _
+      rw [hr k hk]; exact if_pos rfl
+    · show Gα (r k) = RingEquiv.refl O
+      rw [hr k hk]; exact if_pos rfl
+    · show G (r (σ * k)) = G (r σ); rw [e1]
+    · show G (r (k * σ)) = G (r σ); rw [e2]
+    · show Gα (r (σ * k)) = Gα (r σ); rw [e1]
+    · show Gα (r (k * σ)) = Gα (r σ); rw [e2]
+
+end G0ModField.KernelField
+
+end TwistDescentMain
+
+
+/-! # twist-descent, part FINAL: consequences (kf-glue's reductions with `TwistDescent` discharged) -/
+
+section TwistDescentFinal
+
+namespace G0ModField.KernelField
+
+/-- **`ConjIsogMaps` from `MulIsogeny` alone** (kf-glue's `conjIsogMaps_of_descent` with
+`twistDescent`). -/
+theorem conjIsogMaps_of_mulIsogeny (hMul : G0FibreSimple.MulIsogeny) : ConjIsogMaps :=
+  conjIsogMaps_of_descent hMul twistDescent
+
+/-- **`ConjIsogMaps` from mul-rigidity's leaf `KerUnitOpen` alone.** -/
+theorem conjIsogMaps_of_kerUnitOpen' (hK : MulRigidity.KerUnitOpen) : ConjIsogMaps :=
+  conjIsogMaps_of_kerUnitOpen hK twistDescent
+
+/-- **`ConjIsogMaps` from mul-rigidity's two cotangent glue statements alone.** -/
+theorem conjIsogMaps_of_cotangent' (h1 : MulRigidity.KerUnitOpenOfCotangentSurj)
+    (h2 : MulRigidity.CotangentMulN) : ConjIsogMaps :=
+  conjIsogMaps_of_cotangent h1 h2 twistDescent
+
+/-- **`KernelFieldExists` without `TwistDescent`.** Leaves: T6, NOS, Raynaud, TorsionStructure,
+T27, `KerUnitOpen`; glue: FS5 `FibreComTrivial`. -/
+theorem kernelFieldExists_of_kerUnitOpen' (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hK : MulRigidity.KerUnitOpen) :
+    KernelFieldExists :=
+  kernelFieldExists_of_kerUnitOpen hHFF hNOS hRay hTors t27 h5 hK twistDescent
+
+/-- **`KernelFieldExists` without `TwistDescent`**, with `MulIsogeny`. -/
+theorem kernelFieldExists_of_mulIsogeny (hHFF : PkgI3.HomFreeFinite)
+    (hNOS : PkgI2.NeronOggShafarevich.{0}) (hRay : PkgI2.RaynaudCriterion.{0})
+    (hTors : PkgI2.TorsionStructure.{0}) (t27 : PkgI3.QMDichotomyYu)
+    (h5 : G0FibreSimple.FibreComTrivial) (hMul : G0FibreSimple.MulIsogeny) :
+    KernelFieldExists :=
+  kernelFieldExists_of_descent hHFF hNOS hRay hTors t27 h5 hMul twistDescent
+
+end G0ModField.KernelField
+
+end TwistDescentFinal
+
+end G0A3_d25_twistdescent
+
 section G0A3_d30_conjtwist
 /-! ## g0-assemble3: conj-twist §13-§16 (scratch/conj-twist/ConjTwist.lean lines 1624-1996, verbatim, inside its
 file's `noncomputable section`, `namespace G0Galois` and opens, lines 37-43). §1-§12 are part a30 (whose
@@ -86976,7 +87836,7 @@ theorem abhyankar_core (t2 : PkgI2.AbhyankarDVR.{0})
     intro k hk
     have h1 : IsUnit ((algebraMap R0 Rp).comp (algebraMap ℚ R0) (k : ℚ)) :=
       (Ne.isUnit (by exact_mod_cast hk : (k : ℚ) ≠ 0)).map _
-    simpa using h1
+    simpa only [RingHom.comp_apply, map_natCast] using h1
   -- localizing the integral closure of `R0` in `L`
   obtain ⟨hL1, hL2, hL3⟩ := intCl_isLocalization R0 Rp L p.primeCompl hPL
   letI := (intClIncl R0 Rp L).toAlgebra
@@ -90423,6 +91283,1738 @@ end
 end G0A3pm_heavy
 
 end G0A3_e20_periodmap
+
+section G0A3_e21_s8
+/-! ## assemble-port: `scratch/period-glue/S8.lean`, verbatim minus `import`/`#print` lines (mk/mk_pg.py) -/
+
+/-! # period-glue: `S8Nonzero` reduced to a statement about one explicit matrix
+
+Task period-glue, 2026-11-13. `S8Nonzero` (period-map, `PGLight`, unchanged) says
+`Σ_{m even} θ_m(Ω(√2 + i))⁸ ≠ 0`. Proved here: `Ω(√2 + i) = Ω₀ := [[(−1+i)/2, 1], [1, −1+i]]`
+exactly (`omega_cm4`), so `S8Nonzero ⇔ S8Omega0` (`s8Nonzero_iff`). `S8Omega0` is a statement about
+theta constants at an explicit point of `𝔥₂` with `Im Ω₀ = diag(1/2, 1)`; its certificate is in
+`docs/research/period-glue.md` §3 (`py/s8_exact.py`): `Σθ⁸(Ω₀) = −9 ϑ₀₀(i)¹⁶` numerically to 60
+digits, each `θ_m(Ω₀)⁸ ∈ {−¼, −1, −4, 0}·ϑ₀₀(i)¹⁶`. -/
+
+noncomputable section
+
+namespace HSyn.G0Split.FibreQM.PeriodGlue
+
+open Complex Matrix HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap
+
+/-- The period matrix at the CM point `√2 + i` (discriminant `−4`). -/
+def Omega0 : Matrix (Fin 2) (Fin 2) ℂ := !![(-1 + I) / 2, 1; 1, -1 + I]
+
+theorem dF_cm4_ne : dF ((√2 : ℂ) + I) ≠ 0 := by
+  unfold dF
+  have h2 : (√2 : ℂ) ≠ 0 := by exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)).ne'
+  have h3 : (√2 : ℂ) + I - 3 ≠ 0 := fun h => by simpa using congrArg Complex.im h
+  have h4 : (√2 : ℂ) + I + 1 ≠ 0 := fun h => by simpa using congrArg Complex.im h
+  have := mul_ne_zero (mul_ne_zero (neg_ne_zero.mpr h2) h3) h4
+  exact div_ne_zero this two_ne_zero
+
+/-- **`Ω(√2 + i) = Ω₀` (proved).** Closed form `omega_eq` (period-map) and `√2² = 2`, `i² = −1`;
+the `linear_combination` coefficients are from `py/omega0_lc.py`. -/
+theorem omega_cm4 : PkgI1.Omega ((√2 : ℂ) + I) = Omega0 := by
+  ext i j
+  rw [omega_eq, div_eq_iff dF_cm4_ne]
+  fin_cases i <;> fin_cases j <;> simp only [Nf, dF, Omega0] <;> simp
+  · linear_combination
+      (2 * I ^ 2 + I * (√2 : ℂ) + (√2 : ℂ) + 4) / 4 * sqrt2_sq + (I * (√2 : ℂ) - √2 + 2) / 4 * I_mul_I
+  · linear_combination (-1 : ℂ) * sqrt2_sq + I_mul_I
+  · linear_combination (-1 : ℂ) * sqrt2_sq + I_mul_I
+  · linear_combination
+      (2 * I ^ 2 + I * (√2 : ℂ) + (√2 : ℂ) + 4) / 2 * sqrt2_sq + (I * (√2 : ℂ) - √2 + 2) / 2 * I_mul_I
+
+/-- **GLUE (numerical, at an explicit matrix).** `Σ_{m even} θ_m(Ω₀)⁸ ≠ 0` for
+`Ω₀ = [[(−1+i)/2, 1], [1, −1+i]]`.
+
+Certificate (period-glue §3, `py/s8_exact.py`, VERIFIED numerically): since `(Ω₀)₀₁ = 1`, every
+term factors, `θ_{(a,b)}(Ω₀) = u·ϑ[a₁, b₁+a₂]((−1+i)/2)·ϑ[a₂, b₂+a₁](−1+i)` with `u ∈ {1, −i}`;
+`|exp(πi vᵀΩ₀v)| = exp(−π(v₀²/2 + v₁²))`, so truncating at `|n_k| ≤ 2` leaves a tail
+`< 2.2·10⁻⁴` per theta constant; the truncated sums give `Σθ⁸ ∈ −33.9079 ± 0.01`. Exactly:
+`θ_m(Ω₀)⁸ = −c_m ϑ₀₀(i)¹⁶` with `c_m = ¼, 1, 4, 0` (four, four, one, one characteristics), so
+`Σθ⁸(Ω₀) = −9 ϑ₀₀(i)¹⁶ < 0` (60 digits); a symbolic proof needs the transformation of
+one-variable theta constants under `τ ↦ τ + 1`, `τ ↦ −1/τ` (Mathlib:
+`jacobiTheta₂_functional_equation`) and the factorization. -/
+def S8Omega0 : Prop := PkgI1.thetaSum8 Omega0 ≠ 0
+
+/-- **`S8Nonzero ⇔ S8Omega0` (proved).** -/
+theorem s8Nonzero_iff : S8Nonzero ↔ S8Omega0 := by
+  unfold S8Nonzero S8Omega0
+  rw [omega_cm4]
+
+theorem s8Nonzero_of (h : S8Omega0) : S8Nonzero := s8Nonzero_iff.mpr h
+
+/-! ## `S8Omega0` proved: every `θ_m(Ω₀)⁸` has non-positive real part
+
+Proof (no numerics beyond crude bounds on `e^{−π/2}`):
+* `(Ω₀)₀₁ = 1` makes each theta constant a product of two one-variable theta series,
+  `θ_m(Ω₀) = u·Θ[a₁, b₁+a₂](τ₁)·Θ[a₂, b₂+a₁](τ₂)` with `τ₁ = (−1+i)/2`, `τ₂ = −1+i`, `u⁸ = 1`
+  (`thetaConst_factor`);
+* at `τ₂` every term of `Θ[a,b]` is a fixed eighth root of unity times a real number, so
+  `Θ[a,b](τ₂)⁸ ≥ 0` is real (`th1_τ2`);
+* at `τ₁`, `Θ[1,b](τ₁) = ω·R` with `ω⁸ = −1`, `R` real (`th1_τ1_one`), and
+  `Θ[0,b](τ₁) = P + σ E i` with `σ = ±1`, `1 ≤ P ≤ 1 + 2q³/(1−q²)`, `2q ≤ E ≤ 2q/(1−q²)`,
+  `q = e^{−π/2} ∈ [0.173, 0.2798]`; then `Re (P + σEi)⁸ < 0` (`re_th1_τ1_zero`);
+* so `Re θ_m(Ω₀)⁸ ≤ 0` for every characteristic, `< 0` for `m = ((0,0),(0,1))`. -/
+
+open Real in
+/-- `τ₁ = (−1+i)/2`. -/
+def τ1 : ℂ := (-1 + I) / 2
+/-- `τ₂ = −1+i`. -/
+def τ2 : ℂ := -1 + I
+
+theorem τ1_im : 0 < τ1.im := by simp [τ1]
+theorem τ2_im : 0 < τ2.im := by simp [τ2]
+
+/-- The terms of the one-variable theta series with characteristic `[a/2, b/2]`. -/
+def thT (a b : ℕ) (τ : ℂ) (n : ℤ) : ℂ :=
+  cexp (Real.pi * I * ((n : ℂ) + (a : ℂ) / 2) ^ 2 * τ +
+    Real.pi * I * ((n : ℂ) + (a : ℂ) / 2) * (b : ℂ))
+
+/-- `Θ[a, b](τ) = Σ_n exp(πi(n + a/2)²τ + πi(n + a/2)b)`. -/
+def th1 (a b : ℕ) (τ : ℂ) : ℂ := ∑' n : ℤ, thT a b τ n
+
+theorem thT_eq_jac (a b : ℕ) (τ : ℂ) (n : ℤ) :
+    thT a b τ n = cexp (Real.pi * I * (a : ℂ) ^ 2 * τ / 4 + Real.pi * I * (a : ℂ) * b / 2) *
+      jacobiTheta₂_term n (((a : ℂ) * τ + b) / 2) τ := by
+  unfold thT jacobiTheta₂_term
+  rw [← Complex.exp_add]
+  congr 1
+  ring
+
+theorem summable_thT (a b : ℕ) {τ : ℂ} (hτ : 0 < τ.im) : Summable (thT a b τ) := by
+  have h := ((summable_jacobiTheta₂_term_iff (((a : ℂ) * τ + b) / 2) τ).mpr hτ).mul_left
+    (cexp (Real.pi * I * (a : ℂ) ^ 2 * τ / 4 + Real.pi * I * (a : ℂ) * b / 2))
+  convert h using 1
+  funext n
+  exact thT_eq_jac a b τ n
+
+theorem summable_norm_thT (a b : ℕ) {τ : ℂ} (hτ : 0 < τ.im) :
+    Summable (fun n => ‖thT a b τ n‖) :=
+  summable_norm_iff.mpr (summable_thT a b hτ)
+
+/-- **Factorization at `Ω₀` (proved).** -/
+theorem thetaConst_factor (m : PkgI1.Char2) :
+    PkgI1.thetaConst m Omega0 =
+      cexp (-(Real.pi * I * ((m.1 0 : ℕ) : ℂ) * ((m.1 1 : ℕ) : ℂ) / 2)) *
+        (th1 (m.1 0 : ℕ) ((m.2 0 : ℕ) + (m.1 1 : ℕ)) τ1 *
+          th1 (m.1 1 : ℕ) ((m.2 1 : ℕ) + (m.1 0 : ℕ)) τ2) := by
+  unfold PkgI1.thetaConst th1
+  rw [tsum_mul_tsum_of_summable_norm (summable_norm_thT _ _ τ1_im) (summable_norm_thT _ _ τ2_im),
+    ← tsum_mul_left, ← (piFinTwoEquiv fun _ => ℤ).symm.tsum_eq]
+  congr 1
+  funext p
+  simp only [piFinTwoEquiv_symm_apply, thT]
+  rw [← Complex.exp_add, ← Complex.exp_add]
+  apply Complex.exp_eq_exp_iff_exists_int.mpr
+  refine ⟨p.1 * p.2, ?_⟩
+  simp only [Matrix.mulVec, dotProduct, Fin.sum_univ_two, Omega0, τ1, τ2, Fin.cons_zero,
+    Fin.cons_one, Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+    Matrix.head_cons, Matrix.empty_val', Matrix.cons_val_fin_one]
+  push_cast
+  ring
+
+/-! ### Phases of the one-variable terms -/
+
+theorem exp_int_piI (k : ℤ) : cexp ((k : ℂ) * (Real.pi * I)) = (-1) ^ k := by
+  rw [Complex.exp_int_mul, Complex.exp_pi_mul_I]
+
+/-- A tsum of terms `ω · (real)` is `ω · (real)`. -/
+theorem tsum_ofReal_mul (ω : ℂ) (f : ℤ → ℂ) (h : ∀ n, ∃ r : ℝ, f n = ω * r) :
+    ∃ ρ : ℝ, ∑' n, f n = ω * ρ := by
+  choose r hr using h
+  refine ⟨∑' n, r n, ?_⟩
+  rw [Complex.ofReal_tsum, ← tsum_mul_left]
+  exact tsum_congr hr
+
+theorem thT_τ2_zero (b : ℕ) (n : ℤ) :
+    thT 0 b τ2 n = (((-1 : ℝ) ^ (n * (b : ℤ) - n ^ 2) * Real.exp (-Real.pi * (n : ℝ) ^ 2) : ℝ) : ℂ) := by
+  have e : Real.pi * I * ((n : ℂ) + ((0 : ℕ) : ℂ) / 2) ^ 2 * τ2 +
+      Real.pi * I * ((n : ℂ) + ((0 : ℕ) : ℂ) / 2) * (b : ℂ) =
+      ((-Real.pi * (n : ℝ) ^ 2 : ℝ) : ℂ) + ((n * (b : ℤ) - n ^ 2 : ℤ) : ℂ) * (Real.pi * I) := by
+    simp only [τ2]; push_cast
+    linear_combination (Real.pi * (n : ℂ) ^ 2) * Complex.I_sq
+  unfold thT
+  rw [e, Complex.exp_add, exp_int_piI, ← Complex.ofReal_exp]
+  push_cast; ring
+
+theorem thT_τ2_one (b : ℕ) (n : ℤ) :
+    thT 1 b τ2 n = cexp (Real.pi * I * ((b : ℂ) / 2 - 1 / 4)) *
+      (((-1 : ℝ) ^ (n * (b : ℤ) - n ^ 2 - n) *
+        Real.exp (-Real.pi * ((n : ℝ) + 1 / 2) ^ 2) : ℝ) : ℂ) := by
+  have e : Real.pi * I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) ^ 2 * τ2 +
+      Real.pi * I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) * (b : ℂ) =
+      ((-Real.pi * ((n : ℝ) + 1 / 2) ^ 2 : ℝ) : ℂ) +
+        ((n * (b : ℤ) - n ^ 2 - n : ℤ) : ℂ) * (Real.pi * I) +
+        Real.pi * I * ((b : ℂ) / 2 - 1 / 4) := by
+    simp only [τ2]; push_cast
+    linear_combination (Real.pi * ((n : ℂ) + 1 / 2) ^ 2) * Complex.I_sq
+  unfold thT
+  rw [e, Complex.exp_add, Complex.exp_add, exp_int_piI, ← Complex.ofReal_exp]
+  push_cast; ring
+
+theorem thT_τ1_one (b : ℕ) (n : ℤ) : ∃ r : ℝ,
+    thT 1 b τ1 n = cexp (Real.pi * I * ((b : ℂ) / 2 - 1 / 8)) * r := by
+  obtain ⟨k, hk⟩ := Int.even_mul_succ_self n
+  have hk' : (n : ℂ) ^ 2 + n = 2 * k := by
+    have := congrArg (fun t : ℤ => (t : ℂ)) hk
+    push_cast at this; linear_combination this
+  refine ⟨(-1 : ℝ) ^ (n * (b : ℤ) - k) * Real.exp (-Real.pi * ((n : ℝ) + 1 / 2) ^ 2 / 2), ?_⟩
+  have e : Real.pi * I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) ^ 2 * τ1 +
+      Real.pi * I * ((n : ℂ) + ((1 : ℕ) : ℂ) / 2) * (b : ℂ) =
+      ((-Real.pi * ((n : ℝ) + 1 / 2) ^ 2 / 2 : ℝ) : ℂ) +
+        ((n * (b : ℤ) - k : ℤ) : ℂ) * (Real.pi * I) +
+        Real.pi * I * ((b : ℂ) / 2 - 1 / 8) := by
+    simp only [τ1]; push_cast
+    linear_combination (Real.pi * ((n : ℂ) + 1 / 2) ^ 2 / 2) * Complex.I_sq +
+      (-(Real.pi * I) / 2) * hk'
+  unfold thT
+  rw [e, Complex.exp_add, Complex.exp_add, exp_int_piI, ← Complex.ofReal_exp]
+  push_cast; ring
+
+theorem omega_τ2_pow (b : ℕ) : cexp (Real.pi * I * ((b : ℂ) / 2 - 1 / 4)) ^ 8 = 1 := by
+  rw [← Complex.exp_nat_mul]
+  have : ((8 : ℕ) : ℂ) * (Real.pi * I * ((b : ℂ) / 2 - 1 / 4)) =
+      ((4 * (b : ℤ) - 2 : ℤ) : ℂ) * (Real.pi * I) := by push_cast; ring
+  rw [this, exp_int_piI]
+  exact Even.neg_one_zpow ⟨2 * (b : ℤ) - 1, by ring⟩
+
+theorem omega_τ1_pow (b : ℕ) : cexp (Real.pi * I * ((b : ℂ) / 2 - 1 / 8)) ^ 8 = -1 := by
+  rw [← Complex.exp_nat_mul]
+  have : ((8 : ℕ) : ℂ) * (Real.pi * I * ((b : ℂ) / 2 - 1 / 8)) =
+      ((4 * (b : ℤ) - 1 : ℤ) : ℂ) * (Real.pi * I) := by push_cast; ring
+  rw [this, exp_int_piI]
+  exact Odd.neg_one_zpow ⟨2 * (b : ℤ) - 1, by ring⟩
+
+/-- `Θ[a,b](τ₂)⁸` is a non-negative real number (`a ∈ {0, 1}`). -/
+theorem th1_τ2 (a b : ℕ) (ha : a = 0 ∨ a = 1) : ∃ ρ : ℝ, th1 a b τ2 ^ 8 = ((ρ ^ 8 : ℝ) : ℂ) := by
+  rcases ha with rfl | rfl
+  · obtain ⟨ρ, hρ⟩ := tsum_ofReal_mul 1 (thT 0 b τ2) fun n => ⟨_, by rw [thT_τ2_zero, one_mul]⟩
+    refine ⟨ρ, ?_⟩
+    unfold th1; rw [hρ, one_mul]; push_cast; ring
+  · obtain ⟨ρ, hρ⟩ := tsum_ofReal_mul _ (thT 1 b τ2) fun n => ⟨_, thT_τ2_one b n⟩
+    refine ⟨ρ, ?_⟩
+    unfold th1; rw [hρ, mul_pow, omega_τ2_pow, one_mul]; push_cast; ring
+
+/-- `Θ[1,b](τ₁)⁸ = −R⁸` with `R` real. -/
+theorem th1_τ1_one (b : ℕ) : ∃ R : ℝ, th1 1 b τ1 ^ 8 = -((R ^ 8 : ℝ) : ℂ) := by
+  obtain ⟨R, hR⟩ := tsum_ofReal_mul _ (thT 1 b τ1) (thT_τ1_one b)
+  refine ⟨R, ?_⟩
+  unfold th1; rw [hR, mul_pow, omega_τ1_pow]; push_cast; ring
+
+/-! ### `Θ[0,b](τ₁)`: real and imaginary parts -/
+
+/-- `E(n) = e^{−πn²/2} = |Θ[0,b](τ₁)`'s `n`-th term`|`. -/
+def Eg (n : ℤ) : ℝ := Real.exp (-Real.pi * (n : ℝ) ^ 2 / 2)
+
+theorem thT_τ1_zero_even (b : ℕ) (m : ℤ) : thT 0 b τ1 (2 * m) = ((Eg (2 * m) : ℝ) : ℂ) := by
+  have e : Real.pi * I * (((2 * m : ℤ) : ℂ) + ((0 : ℕ) : ℂ) / 2) ^ 2 * τ1 +
+      Real.pi * I * (((2 * m : ℤ) : ℂ) + ((0 : ℕ) : ℂ) / 2) * (b : ℂ) =
+      ((-Real.pi * ((2 * m : ℤ) : ℝ) ^ 2 / 2 : ℝ) : ℂ) +
+        ((2 * (m * (b : ℤ) - m ^ 2) : ℤ) : ℂ) * (Real.pi * I) := by
+    simp only [τ1]; push_cast
+    linear_combination (Real.pi * (2 * (m : ℂ)) ^ 2 / 2) * Complex.I_sq
+  unfold thT Eg
+  rw [e, Complex.exp_add, exp_int_piI, Even.neg_one_zpow ⟨m * (b : ℤ) - m ^ 2, by ring⟩, mul_one,
+    ← Complex.ofReal_exp]
+
+theorem exp_neg_pi_div_two_I : cexp (Real.pi * I * (-1 / 2)) = -I := by
+  have : Real.pi * I * (-1 / 2) = ((-(Real.pi / 2) : ℝ) : ℂ) * I := by push_cast; ring
+  rw [this, Complex.exp_mul_I, ← Complex.ofReal_cos, ← Complex.ofReal_sin, Real.cos_neg,
+    Real.sin_neg, Real.cos_pi_div_two, Real.sin_pi_div_two]
+  push_cast; ring
+
+theorem thT_τ1_zero_odd (b : ℕ) (m : ℤ) :
+    thT 0 b τ1 (2 * m + 1) = ((Eg (2 * m + 1) : ℝ) : ℂ) * ((((-1 : ℝ) ^ b : ℝ) : ℂ) * (-I)) := by
+  have e : Real.pi * I * (((2 * m + 1 : ℤ) : ℂ) + ((0 : ℕ) : ℂ) / 2) ^ 2 * τ1 +
+      Real.pi * I * (((2 * m + 1 : ℤ) : ℂ) + ((0 : ℕ) : ℂ) / 2) * (b : ℂ) =
+      ((-Real.pi * ((2 * m + 1 : ℤ) : ℝ) ^ 2 / 2 : ℝ) : ℂ) +
+        ((2 * (m * (b : ℤ) - m ^ 2 - m) : ℤ) : ℂ) * (Real.pi * I) + ((b : ℤ) : ℂ) * (Real.pi * I) +
+        Real.pi * I * (-1 / 2) := by
+    simp only [τ1]; push_cast
+    linear_combination (Real.pi * (2 * (m : ℂ) + 1) ^ 2 / 2) * Complex.I_sq
+  unfold thT Eg
+  rw [e, Complex.exp_add, Complex.exp_add, Complex.exp_add, exp_int_piI, exp_int_piI,
+    Even.neg_one_zpow ⟨m * (b : ℤ) - m ^ 2 - m, by ring⟩, exp_neg_pi_div_two_I,
+    ← Complex.ofReal_exp, zpow_natCast]
+  push_cast; ring
+
+theorem Eg_nonneg (n : ℤ) : 0 ≤ Eg n := (Real.exp_pos _).le
+
+/-- The real part, the sign `σ` and the (non-negative) imaginary weight of the terms. -/
+theorem thT_τ1_zero_parts (b : ℕ) (n : ℤ) :
+    0 ≤ (thT 0 b τ1 n).re ∧ 0 ≤ (-(-1 : ℝ) ^ b) * (thT 0 b τ1 n).im ∧
+      (thT 0 b τ1 n).re + (-(-1 : ℝ) ^ b) * (thT 0 b τ1 n).im = Eg n := by
+  have hb : ((-1 : ℝ) ^ b) ^ 2 = 1 := by rw [← pow_mul, mul_comm, pow_mul]; norm_num
+  obtain ⟨m, rfl | rfl⟩ := Int.even_or_odd' n
+  · rw [thT_τ1_zero_even]
+    simp only [Complex.ofReal_re, Complex.ofReal_im, mul_zero, add_zero, le_refl, and_true]
+    exact Eg_nonneg _
+  · rw [thT_τ1_zero_odd]
+    simp only [Complex.mul_re, Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im,
+      Complex.neg_re, Complex.neg_im, Complex.I_re, Complex.I_im]
+    refine ⟨by simp, ?_, ?_⟩
+    · have := Eg_nonneg (2 * m + 1)
+      nlinarith [hb]
+    · linear_combination (Eg (2 * m + 1)) * hb
+
+theorem thT_τ1_zero_at0 (b : ℕ) : (thT 0 b τ1 0).re = 1 := by
+  have := thT_τ1_zero_even b 0
+  rw [mul_zero] at this
+  rw [this]; simp [Eg]
+
+theorem thT_τ1_zero_at1 (b : ℕ) (n : ℤ) (hn : n = 1 ∨ n = -1) :
+    (-(-1 : ℝ) ^ b) * (thT 0 b τ1 n).im = Real.exp (-Real.pi / 2) := by
+  have hb : ((-1 : ℝ) ^ b) ^ 2 = 1 := by rw [← pow_mul, mul_comm, pow_mul]; norm_num
+  have key : ∀ m : ℤ, (2 * m + 1 = 1 ∨ 2 * m + 1 = -1) →
+      (-(-1 : ℝ) ^ b) * (thT 0 b τ1 (2 * m + 1)).im = Real.exp (-Real.pi / 2) := by
+    intro m hm
+    rw [thT_τ1_zero_odd]
+    simp only [Complex.mul_im, Complex.ofReal_re, Complex.ofReal_im, Complex.mul_re,
+      Complex.neg_re, Complex.neg_im, Complex.I_re, Complex.I_im]
+    have hE : Eg (2 * m + 1) = Real.exp (-Real.pi / 2) := by
+      unfold Eg; congr 1
+      rcases hm with h | h <;> rw [show (((2 * m + 1 : ℤ)) : ℝ) = ((2 * m + 1 : ℤ) : ℝ) from rfl, h] <;>
+        push_cast <;> ring
+    rw [hE]; linear_combination (Real.exp (-Real.pi / 2)) * hb
+  rcases hn with rfl | rfl
+  · have h := key 0 (by norm_num)
+    rwa [show (2 * 0 + 1 : ℤ) = 1 by norm_num] at h
+  · have h := key (-1) (by norm_num)
+    rwa [show (2 * (-1) + 1 : ℤ) = -1 by norm_num] at h
+
+/-! ### Crude bounds and the sign of `Re Θ[0,b](τ₁)⁸` -/
+
+theorem hasSum_geom_int {s : ℝ} (h0 : 0 ≤ s) (h1 : s < 1) :
+    HasSum (fun n : ℤ => s ^ n.natAbs) ((1 - s)⁻¹ + s * (1 - s)⁻¹) := by
+  apply HasSum.of_nat_of_neg_add_one
+  · convert hasSum_geometric_of_lt_one h0 h1 using 1
+    funext n; simp
+  · convert (hasSum_geometric_of_lt_one h0 h1).mul_left s using 1
+    funext n
+    rw [show (-((n : ℤ) + 1)).natAbs = n + 1 by omega, pow_succ, mul_comm]
+
+theorem Eg_le (n : ℤ) : Eg n ≤ Real.exp (Real.pi / 2) * Real.exp (-Real.pi) ^ n.natAbs -
+    (if n = 0 then Real.exp (Real.pi / 2) - 1 else 0) := by
+  by_cases hn : n = 0
+  · subst hn; simp [Eg]
+  · rw [ite_eq_right_iff.mpr (fun h => absurd h hn), sub_zero, ← Real.exp_nat_mul, ← Real.exp_add]
+    unfold Eg
+    apply Real.exp_le_exp.mpr
+    have ha : ((n.natAbs : ℕ) : ℝ) = |(n : ℝ)| := by rw [Nat.cast_natAbs, Int.cast_abs]
+    rw [ha]
+    nlinarith [Real.pi_pos, sq_nonneg (|(n : ℝ)| - 1), sq_abs (n : ℝ)]
+
+theorem re_pow8 (x y : ℝ) : (((x : ℂ) + (y : ℂ) * I) ^ 8).re =
+    x ^ 8 - 28 * x ^ 6 * y ^ 2 + 70 * x ^ 4 * y ^ 4 - 28 * x ^ 2 * y ^ 6 + y ^ 8 := by
+  simp [pow_succ, Complex.mul_re, Complex.mul_im]
+  ring
+
+theorem q_lower : (0.173 : ℝ) ≤ Real.exp (-Real.pi / 2) := by
+  have h8 : Real.exp (-Real.pi / 2) = Real.exp (-Real.pi / 16) ^ 8 := by
+    rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
+  have h1 : 1 - Real.pi / 16 ≤ Real.exp (-Real.pi / 16) := by
+    have := Real.add_one_le_exp (-Real.pi / 16); linarith
+  have h2 : (0.803125 : ℝ) ≤ 1 - Real.pi / 16 := by have := Real.pi_lt_d2; linarith
+  rw [h8]
+  calc (0.173 : ℝ) ≤ 0.803125 ^ 8 := by norm_num
+    _ ≤ Real.exp (-Real.pi / 16) ^ 8 := pow_le_pow_left₀ (by norm_num) (h2.trans h1) 8
+
+theorem q_upper : Real.exp (-Real.pi / 2) ≤ (0.2532 : ℝ) := by
+  have h8 : Real.exp (Real.pi / 2) = Real.exp (Real.pi / 16) ^ 8 := by
+    rw [← Real.exp_nat_mul]; congr 1; push_cast; ring
+  have h1 : 1 + Real.pi / 16 ≤ Real.exp (Real.pi / 16) := by
+    have := Real.add_one_le_exp (Real.pi / 16); linarith
+  have h2 : (1.1875 : ℝ) ≤ 1 + Real.pi / 16 := by have := Real.pi_gt_three; linarith
+  have h3 : (3.95 : ℝ) ≤ Real.exp (Real.pi / 2) := by
+    rw [h8]
+    calc (3.95 : ℝ) ≤ 1.1875 ^ 8 := by norm_num
+      _ ≤ Real.exp (Real.pi / 16) ^ 8 := pow_le_pow_left₀ (by norm_num) (h2.trans h1) 8
+  have h4 : Real.exp (-Real.pi / 2) = (Real.exp (Real.pi / 2))⁻¹ := by
+    rw [← Real.exp_neg]; congr 1; ring
+  rw [h4]
+  calc (Real.exp (Real.pi / 2))⁻¹ ≤ (3.95 : ℝ)⁻¹ := inv_anti₀ (by norm_num) h3
+    _ ≤ 0.2532 := by norm_num
+
+theorem poly8_neg (p u : ℝ) (hp1 : 1 ≤ p) (hp2 : p ≤ 1.0707) (hu1 : 0.1197 ≤ u)
+    (hu2 : u ≤ 0.2928) :
+    p ^ 4 - 28 * p ^ 3 * u + 70 * p ^ 2 * u ^ 2 - 28 * p * u ^ 3 + u ^ 4 < 0 := by
+  have h1 : 0 ≤ u - 0.11 * p := by linarith
+  have h2 : 0 ≤ 0.293 * p - u := by linarith
+  have h3 : 0 < p * (1.2561 * p - 0.21 * u) := mul_pos (by linarith) (by linarith)
+  have key : p ^ 2 - 28 * p * u + 70 * u ^ 2 < 0 := by nlinarith [mul_nonneg h1 h2]
+  have hu3 : 0 ≤ u ^ 3 * (28 * p - u) := mul_nonneg (by positivity) (by linarith)
+  have h4 : 0 < p ^ 2 * -(p ^ 2 - 28 * p * u + 70 * u ^ 2) :=
+    mul_pos (by positivity) (neg_pos.mpr key)
+  nlinarith [h4, hu3]
+
+theorem q_frac_bounds (q : ℝ) (hq1 : 0.173 ≤ q) (hq2 : q ≤ 0.2532) :
+    2 * q ^ 3 / (1 - q ^ 2) ≤ 0.0347 ∧ 2 * q / (1 - q ^ 2) ≤ 0.5411 := by
+  have h0 : 0 ≤ q := by linarith
+  have hq2' : q ^ 2 ≤ 0.2532 ^ 2 := pow_le_pow_left₀ h0 hq2 2
+  have hq3 : q ^ 3 ≤ 0.2532 ^ 3 := pow_le_pow_left₀ h0 hq2 3
+  have hd : 0 < 1 - q ^ 2 := by nlinarith
+  constructor
+  · rw [div_le_iff₀ hd]; nlinarith
+  · rw [div_le_iff₀ hd]; nlinarith
+
+set_option maxHeartbeats 1000000 in
+/-- **`Re Θ[0,b](τ₁)⁸ < 0` (proved).** -/
+theorem re_th1_τ1_zero (b : ℕ) : (th1 0 b τ1 ^ 8).re < 0 := by
+  set σ : ℝ := -(-1 : ℝ) ^ b with hσdef
+  have hσ : σ ^ 2 = 1 := by
+    rw [hσdef, neg_sq, ← pow_mul, mul_comm, pow_mul]; norm_num
+  have hsum := summable_thT 0 b τ1_im
+  have hre : Summable (fun n => (thT 0 b τ1 n).re) := Complex.reCLM.summable hsum
+  have him : Summable (fun n => (thT 0 b τ1 n).im) := Complex.imCLM.summable hsum
+  have hen : Summable (fun n => σ * (thT 0 b τ1 n).im) := him.mul_left σ
+  set P := ∑' n, (thT 0 b τ1 n).re with hPdef
+  set Es := ∑' n, σ * (thT 0 b τ1 n).im with hEdef
+  have hΘ : th1 0 b τ1 = (P : ℂ) + ((σ * Es : ℝ) : ℂ) * I := by
+    apply Complex.ext
+    · simp [th1, Complex.re_tsum hsum, hPdef]
+    · simp only [th1, Complex.im_tsum hsum, Complex.add_im, Complex.ofReal_im, Complex.mul_im,
+        Complex.ofReal_re, Complex.I_re, Complex.I_im, mul_zero, mul_one, zero_add, hEdef]
+      rw [tsum_mul_left, ← mul_assoc, ← sq, hσ, one_mul]
+      simp
+  have hP1 : 1 ≤ P := by
+    rw [← thT_τ1_zero_at0 b]
+    exact hre.le_tsum 0 (fun j _ => (thT_τ1_zero_parts b j).1)
+  set q := Real.exp (-Real.pi / 2) with hq
+  have hE1 : 2 * q ≤ Es := by
+    have := hen.sum_le_tsum {1, -1} (fun j _ => (thT_τ1_zero_parts b j).2.1)
+    rw [Finset.sum_pair (by norm_num), thT_τ1_zero_at1 b 1 (Or.inl rfl),
+      thT_τ1_zero_at1 b (-1) (Or.inr rfl)] at this
+    linarith
+  have hq1 := q_lower
+  have hq2 := q_upper
+  rw [← hq] at hq1 hq2
+  have hs : Real.exp (-Real.pi) = q ^ 2 := by
+    rw [hq, ← Real.exp_nat_mul]; congr 1; push_cast; ring
+  have hqi : Real.exp (Real.pi / 2) = q⁻¹ := by
+    rw [hq, ← Real.exp_neg]; congr 1; ring
+  have hs1 : q ^ 2 < 1 := by nlinarith
+  have hM := ((hasSum_geom_int (s := Real.exp (-Real.pi)) (Real.exp_pos _).le
+    (by rw [hs]; exact hs1)).mul_left (Real.exp (Real.pi / 2))).sub
+    (hasSum_ite_eq (0 : ℤ) (Real.exp (Real.pi / 2) - 1))
+  have hG : P + Es ≤ 1 + 2 * q / (1 - q ^ 2) := by
+    rw [hPdef, hEdef, ← hre.tsum_add hen]
+    refine ((hre.add hen).tsum_le_tsum (fun n => ?_) hM.summable).trans (le_of_eq ?_)
+    · rw [(thT_τ1_zero_parts b n).2.2]
+      exact Eg_le n
+    · rw [hM.tsum_eq, hs, hqi]
+      have hq0 : q ≠ 0 := (Real.exp_pos _).ne'
+      have h1q : 1 - q ^ 2 ≠ 0 := by nlinarith
+      field_simp
+      ring
+  have hPup : P ≤ 1 + 2 * q ^ 3 / (1 - q ^ 2) := by
+    have h1q : 0 < 1 - q ^ 2 := by nlinarith
+    have : 2 * q / (1 - q ^ 2) - 2 * q = 2 * q ^ 3 / (1 - q ^ 2) := by
+      field_simp; ring
+    linarith
+  obtain ⟨hb1, hb2⟩ := q_frac_bounds q hq1 hq2
+  have hPb : P ≤ 1.0347 := by linarith
+  have hEb : Es ≤ 0.5411 := by linarith
+  have hEl : 0.346 ≤ Es := by linarith
+  rw [hΘ, re_pow8]
+  set p := P ^ 2 with hp
+  set u := Es ^ 2 with hu
+  have e : P ^ 8 - 28 * P ^ 6 * (σ * Es) ^ 2 + 70 * P ^ 4 * (σ * Es) ^ 4 -
+      28 * P ^ 2 * (σ * Es) ^ 6 + (σ * Es) ^ 8 =
+      p ^ 4 - 28 * p ^ 3 * u + 70 * p ^ 2 * u ^ 2 - 28 * p * u ^ 3 + u ^ 4 := by
+    have h2 : (σ * Es) ^ 2 = u := by rw [mul_pow, hσ, one_mul]
+    have h4 : (σ * Es) ^ 4 = u ^ 2 := by rw [show (4 : ℕ) = 2 * 2 from rfl, pow_mul, h2]
+    have h6 : (σ * Es) ^ 6 = u ^ 3 := by rw [show (6 : ℕ) = 2 * 3 from rfl, pow_mul, h2]
+    have h8 : (σ * Es) ^ 8 = u ^ 4 := by rw [show (8 : ℕ) = 2 * 4 from rfl, pow_mul, h2]
+    rw [h2, h4, h6, h8, hp]; ring
+  rw [e]
+  have hP0 : 0 ≤ P := by linarith
+  have hE0 : 0 ≤ Es := by linarith
+  exact poly8_neg p u (by rw [hp]; nlinarith) (by rw [hp]; nlinarith) (by rw [hu]; nlinarith)
+    (by rw [hu]; nlinarith)
+
+/-! ### Assembly -/
+
+theorem fin2_val (x : Fin 2) : (x : ℕ) = 0 ∨ (x : ℕ) = 1 := by have := x.isLt; omega
+
+theorem u_pow8 (a1 a2 : ℕ) :
+    cexp (-(Real.pi * I * (a1 : ℂ) * (a2 : ℂ) / 2)) ^ 8 = 1 := by
+  rw [← Complex.exp_nat_mul]
+  have : ((8 : ℕ) : ℂ) * -(Real.pi * I * (a1 : ℂ) * (a2 : ℂ) / 2) =
+      ((-2 * (a1 : ℤ) * a2 : ℤ) : ℂ) * (2 * Real.pi * I) := by push_cast; ring
+  rw [this, Complex.exp_int_mul_two_pi_mul_I]
+
+/-- **Every `θ_m(Ω₀)⁸` has non-positive real part (proved).** -/
+theorem re_theta8_nonpos (m : PkgI1.Char2) : (PkgI1.thetaConst m Omega0 ^ 8).re ≤ 0 := by
+  rw [thetaConst_factor, mul_pow, u_pow8, one_mul, mul_pow]
+  obtain ⟨ρ, hρ⟩ := th1_τ2 (m.1 1 : ℕ) ((m.2 1 : ℕ) + (m.1 0 : ℕ)) (fin2_val _)
+  rw [hρ, Complex.re_mul_ofReal]
+  have hρ8 : 0 ≤ ρ ^ 8 := Even.pow_nonneg ⟨4, by norm_num⟩ ρ
+  rcases fin2_val (m.1 0) with h | h
+  · rw [h]
+    exact mul_nonpos_of_nonpos_of_nonneg (re_th1_τ1_zero _).le hρ8
+  · rw [h]
+    obtain ⟨R, hR⟩ := th1_τ1_one ((m.2 0 : ℕ) + (m.1 1 : ℕ))
+    rw [hR]
+    simp only [Complex.neg_re, Complex.ofReal_re]
+    have hR8 : 0 ≤ R ^ 8 := Even.pow_nonneg ⟨4, by norm_num⟩ R
+    nlinarith [mul_nonneg hR8 hρ8]
+
+/-- `Θ[0,1](τ₂) = Σ e^{−πn²} ≥ 1`. -/
+theorem th1_τ2_01 : ∃ ρ : ℝ, 1 ≤ ρ ∧ th1 0 1 τ2 = ρ := by
+  have hterm : ∀ n : ℤ, thT 0 1 τ2 n = ((Real.exp (-Real.pi * (n : ℝ) ^ 2) : ℝ) : ℂ) := by
+    intro n
+    rw [thT_τ2_zero]
+    have hev : Even (n * ((1 : ℕ) : ℤ) - n ^ 2) := by
+      obtain ⟨k, hk⟩ := Int.even_mul_succ_self (n - 1)
+      exact ⟨-k, by push_cast; linear_combination (-1 : ℤ) * hk⟩
+    rw [hev.neg_one_zpow, one_mul]
+  have hsum := summable_thT 0 1 τ2_im
+  have hre : Summable (fun n => (thT 0 1 τ2 n).re) := Complex.reCLM.summable hsum
+  have hre' : ∀ n, (thT 0 1 τ2 n).re = Real.exp (-Real.pi * (n : ℝ) ^ 2) := fun n => by
+    rw [hterm, Complex.ofReal_re]
+  refine ⟨∑' n, (thT 0 1 τ2 n).re, ?_, ?_⟩
+  · have h0 := hre.le_tsum 0 (fun j _ => by rw [hre']; exact (Real.exp_pos _).le)
+    rw [hre'] at h0
+    simpa using h0
+  · rw [Complex.ofReal_tsum]
+    unfold th1
+    exact tsum_congr fun n => by rw [hre', hterm]
+
+/-- The characteristic `((0,0),(0,1))`. -/
+def m0 : PkgI1.Char2 := (![0, 0], ![0, 1])
+
+theorem re_theta8_m0 : (PkgI1.thetaConst m0 Omega0 ^ 8).re < 0 := by
+  rw [thetaConst_factor, mul_pow, u_pow8, one_mul, mul_pow]
+  have e1 : ((m0.1 0 : Fin 2) : ℕ) = 0 := rfl
+  have e2 : ((m0.1 1 : Fin 2) : ℕ) = 0 := rfl
+  have e3 : ((m0.2 0 : Fin 2) : ℕ) = 0 := rfl
+  have e4 : ((m0.2 1 : Fin 2) : ℕ) = 1 := rfl
+  rw [e1, e2, e3, e4]
+  obtain ⟨ρ, hρ1, hρ⟩ := th1_τ2_01
+  rw [show (1 + 0 : ℕ) = 1 from rfl, show (0 + 0 : ℕ) = 0 from rfl, hρ, ← Complex.ofReal_pow,
+    Complex.re_mul_ofReal]
+  have : 0 < ρ ^ 8 := by positivity
+  exact mul_neg_of_neg_of_pos (re_th1_τ1_zero 0) this
+
+/-- **`S8Omega0` (proved): `Re Σθ⁸(Ω₀) < 0`.** -/
+theorem s8Omega0_re_neg : (PkgI1.thetaSum8 Omega0).re < 0 := by
+  unfold PkgI1.thetaSum8
+  rw [Complex.re_sum]
+  have hm0 : m0 ∈ PkgI1.evenChars := by decide
+  rw [← Finset.add_sum_erase _ _ hm0]
+  have hrest : ∑ x ∈ PkgI1.evenChars.erase m0, (PkgI1.thetaConst x Omega0 ^ 8).re ≤ 0 :=
+    Finset.sum_nonpos fun m _ => re_theta8_nonpos m
+  linarith [re_theta8_m0]
+
+theorem s8Omega0_proof : S8Omega0 := fun h => by
+  have := s8Omega0_re_neg
+  rw [h, Complex.zero_re] at this
+  exact lt_irrefl 0 this
+
+/-- **`S8Nonzero` (proved).** -/
+theorem s8Nonzero_proof : S8Nonzero := s8Nonzero_of s8Omega0_proof
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
+end  -- assemble-port: closes the file's `noncomputable section`
+
+end G0A3_e21_s8
+
+section G0A3_e22_w8
+/-! ## assemble-port: `scratch/period-glue/W8.lean`, verbatim minus `import`/`#print` lines (mk/mk_pg.py) -/
+
+/-! # period-glue: `S8WeightExact` from Igusa's `ThetaModularity` and the generation of `Γ*`
+
+Task period-glue, 2026-11-13. `S8WeightExact` (period-map, `PGLight`, unchanged) is proved from
+* `PkgI1.ThetaModularity` (**LEAF**, Igusa; pkg-I1's statement, unchanged), and
+* `GammaStarGen` (**LEAF candidate**: `Γ* = ℚ^×·⟨ι(1+i+j), ι((j−3)/2)⟩`, a consequence of the
+  published signature `(0; 2, 4, 6)` of `Γ*/ℚ^×` with Poincaré's polygon theorem; flagged for a
+  human check),
+by `s8WeightExact_of`. Proved here, with no other input:
+* the elements of `GL₂(ℝ)⁺` for which `G8` has the exact automorphy form a subgroup
+  (`G8AutoSubgroup`; the cocycle of `denom`), containing the rational scalars;
+* the modular embedding of the two generators: explicit `M ∈ Sp₄(ℤ)` with
+  `Ω(gτ) = M·Ω(τ)` and `det g · det(CΩ(τ) + D)(τ−3)(τ+1) = −(cτ+d)²(gτ−3)(gτ+1)`
+  (`py/modemb.py` found them; the `linear_combination` coefficients are from `py/w8_lean.py`). -/
+
+noncomputable section
+
+namespace HSyn.G0Split.FibreQM.PeriodGlue
+
+open Complex Matrix HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMap
+open UpperHalfPlane (num denom σ coe_smul_of_det_pos denom_ne_zero)
+
+/-! ### The automorphy subgroup -/
+
+/-- `g ∈ GL₂(ℝ)⁺` and `G8` has the exact automorphy of `S8WeightExact` for `g`. -/
+def G8Auto (γ : GL (Fin 2) ℝ) : Prop :=
+  0 < (γ : Matrix (Fin 2) (Fin 2) ℝ).det ∧ ∀ z : UpperHalfPlane,
+    G8 ((γ • z : UpperHalfPlane) : ℂ) * (((γ : Matrix (Fin 2) (Fin 2) ℝ).det : ℝ) : ℂ) ^ 4 =
+      denom γ z ^ 8 * G8 (z : ℂ)
+
+theorem detv (g : GL (Fin 2) ℝ) : (g.det : ℝ) = (g : Matrix (Fin 2) (Fin 2) ℝ).det :=
+  Matrix.GeneralLinearGroup.val_det_apply g
+
+theorem σ_of_pos {g : GL (Fin 2) ℝ} (h : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det) (w : ℂ) :
+    σ g w = w := by
+  have h' : 0 < (g.det : ℝ) := by rwa [detv]
+  simp only [σ, if_pos h', ContinuousAlgEquiv.refl_apply]
+
+theorem denom_mul_pos (g h : GL (Fin 2) ℝ) (hh : 0 < (h : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (z : UpperHalfPlane) : denom (g * h) z = denom g ((h • z : UpperHalfPlane) : ℂ) * denom h z := by
+  rw [UpperHalfPlane.denom_cocycle_σ, σ_of_pos hh]
+
+theorem g8Auto_one : G8Auto 1 := by
+  refine ⟨by simp, fun z => ?_⟩
+  simp [UpperHalfPlane.denom]
+
+theorem g8Auto_mul {g h : GL (Fin 2) ℝ} (hg : G8Auto g) (hh : G8Auto h) : G8Auto (g * h) := by
+  refine ⟨by rw [Units.val_mul, det_mul]; exact mul_pos hg.1 hh.1, fun z => ?_⟩
+  rw [mul_smul, denom_mul_pos g h hh.1, Units.val_mul, det_mul]
+  have e1 := hg.2 (h • z)
+  have e2 := hh.2 z
+  push_cast
+  calc G8 ((g • h • z : UpperHalfPlane) : ℂ) *
+        (((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) * ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ)) ^ 4
+      = (G8 ((g • h • z : UpperHalfPlane) : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 4) *
+          ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 4 := by ring
+    _ = denom g ((h • z : UpperHalfPlane) : ℂ) ^ 8 * (G8 ((h • z : UpperHalfPlane) : ℂ) *
+          ((h : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 4) := by rw [e1]; ring
+    _ = _ := by rw [e2]; ring
+
+theorem g8Auto_inv {g : GL (Fin 2) ℝ} (hg : G8Auto g) : G8Auto g⁻¹ := by
+  have hd : ((g⁻¹ : GL (Fin 2) ℝ) : Matrix (Fin 2) (Fin 2) ℝ).det =
+      ((g : Matrix (Fin 2) (Fin 2) ℝ).det)⁻¹ := by
+    rw [Matrix.coe_units_inv, Matrix.det_nonsing_inv, Ring.inverse_eq_inv']
+  refine ⟨by rw [hd]; exact inv_pos.mpr hg.1, fun z => ?_⟩
+  set z' := g⁻¹ • z with hz'
+  have e := hg.2 z'
+  rw [hz', smul_inv_smul] at e
+  have hc := denom_mul_pos g g⁻¹ (by rw [hd]; exact inv_pos.mpr hg.1) z
+  rw [mul_inv_cancel] at hc
+  have h1 : denom (1 : GL (Fin 2) ℝ) z = 1 := by simp [UpperHalfPlane.denom]
+  rw [h1] at hc
+  have hD : denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ) ≠ 0 := denom_ne_zero _ _
+  have hdet : ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ≠ 0 := by exact_mod_cast hg.1.ne'
+  rw [hd]
+  push_cast
+  have key : G8 ((g⁻¹ • z : UpperHalfPlane) : ℂ) = G8 (z : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) ^ 4 /
+      denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ) ^ 8 := by
+    rw [eq_div_iff (pow_ne_zero _ hD), e]; ring
+  rw [key]
+  have hinv : denom g⁻¹ z = (denom g ((g⁻¹ • z : UpperHalfPlane) : ℂ))⁻¹ :=
+    (eq_inv_of_mul_eq_one_right hc.symm)
+  rw [hinv]
+  field_simp
+
+theorem g8Auto_scalar {g : GL (Fin 2) ℝ} (q : ℚ) (hq : q ≠ 0)
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = (q : ℝ) • 1) : G8Auto g := by
+  have hq' : (q : ℝ) ≠ 0 := by exact_mod_cast hq
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = (q : ℝ) ^ 2 := by
+    rw [hg, Matrix.det_smul, Matrix.det_one]; simp
+  have hpos : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det := by rw [hdet]; positivity
+  have e00 : (g : Matrix (Fin 2) (Fin 2) ℝ) 0 0 = q := by rw [hg]; simp
+  have e01 : (g : Matrix (Fin 2) (Fin 2) ℝ) 0 1 = 0 := by rw [hg]; simp
+  have e10 : (g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 = 0 := by rw [hg]; simp
+  have e11 : (g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 = q := by rw [hg]; simp
+  refine ⟨hpos, fun z => ?_⟩
+  have hden : denom g z = (q : ℂ) := by simp [UpperHalfPlane.denom, e10, e11]
+  have hsm : g • z = z := by
+    ext1
+    rw [coe_smul_of_det_pos (by rwa [detv]), hden]
+    simp only [UpperHalfPlane.num, e00, e01]
+    have : (q : ℂ) ≠ 0 := by exact_mod_cast hq
+    field_simp
+    push_cast; ring
+  rw [hsm, hden, hdet]
+  push_cast; ring
+
+/-- The automorphy group of `G8` (a subgroup of `GL₂(ℝ)⁺`). -/
+def G8AutoSubgroup : Subgroup (GL (Fin 2) ℝ) where
+  carrier := {γ | G8Auto γ}
+  one_mem' := g8Auto_one
+  mul_mem' := g8Auto_mul
+  inv_mem' := g8Auto_inv
+
+/-! ### From the modular embedding of one element to its automorphy -/
+
+theorem dF_ne {z : ℂ} (hz : 0 < z.im) : dF z ≠ 0 := by
+  unfold dF
+  have h2 : (√2 : ℂ) ≠ 0 := by exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0 : ℝ) < 2)).ne'
+  have h3 : z - 3 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  have h4 : z + 1 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  exact div_ne_zero (mul_ne_zero (mul_ne_zero (neg_ne_zero.mpr h2) h3) h4) two_ne_zero
+
+theorem zz_ne {z : ℂ} (hz : 0 < z.im) : (z - 3) * (z + 1) ≠ 0 := by
+  have h3 : z - 3 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  have h4 : z + 1 ≠ 0 := fun h => by have := congrArg Complex.im h; simp at this; linarith
+  exact mul_ne_zero h3 h4
+
+theorem sub3_add1_ne {z : ℂ} (hz : 0 < z.im) : z - 3 ≠ 0 ∧ z + 1 ≠ 0 :=
+  ⟨fun h => by have := congrArg Complex.im h; simp at this; linarith,
+   fun h => by have := congrArg Complex.im h; simp at this; linarith⟩
+
+theorem g8Auto_of_sp (hT : PkgI1.ThetaModularity) (g : GL (Fin 2) ℝ)
+    (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ) (hM : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    (hrel : ∀ z : ℂ, 0 < z.im →
+      PkgI1.spAct M (PkgI1.Omega z) = PkgI1.Omega (num g z / denom g z))
+    (ε : ℂ) (hε : ε ^ 4 = 1)
+    (hfac : ∀ z : ℂ, 0 < z.im →
+      PkgI1.spFactor M (PkgI1.Omega z) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+        ((z - 3) * (z + 1)) =
+      ε * denom g z ^ 2 * ((num g z / denom g z - 3) * (num g z / denom g z + 1))) :
+    G8Auto g := by
+  refine ⟨hdet, fun z => ?_⟩
+  have hw : ((g • z : UpperHalfPlane) : ℂ) = num g z / denom g z :=
+    coe_smul_of_det_pos (by rwa [detv]) z
+  have hwim : 0 < (num g z / denom g z).im := by rw [← hw]; exact (g • z).im_pos
+  have hmod := (hT M hM (PkgI1.Omega z) (omegaSiegel_proof z z.im_pos)).1
+  rw [hrel z z.im_pos] at hmod
+  have hf := hfac z z.im_pos
+  unfold G8
+  rw [hw, hmod]
+  have hf4 : (PkgI1.spFactor M (PkgI1.Omega z) * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+      ((z - 3) * (z + 1))) ^ 4 =
+      (denom g z ^ 2 * ((num g z / denom g z - 3) * (num g z / denom g z + 1))) ^ 4 := by
+    rw [hf, mul_assoc, mul_pow, hε, one_mul]
+  obtain ⟨h3, h4⟩ := sub3_add1_ne z.im_pos
+  obtain ⟨h5, h6⟩ := sub3_add1_ne hwim
+  have hD : denom g z ≠ 0 := denom_ne_zero g z
+  generalize num g z / denom g z = w at *
+  field_simp
+  linear_combination (PkgI1.thetaSum8 (PkgI1.Omega z)) * hf4
+
+/-! ### The two generators -/
+
+/-- `x₄ = 1 + i + j` (reduced norm 2; `ι(x₄)` is elliptic of order 4 in `PSL₂(ℝ)`, fixing
+`√2 + i`). -/
+def x4 : PkgI1.B := ⟨1, 1, 1, 0⟩
+/-- `x₆ = (j − 3)/2 = j(1+j)/2` (reduced norm 3; `ι(x₆)` is elliptic of order 6, fixing `i√3`). -/
+def x6 : PkgI1.B := ⟨-3 / 2, 0, 1 / 2, 0⟩
+
+/-- `Nf` homogenized: `V²·Nf(W/V)`. -/
+def Nfh (W V : ℂ) : Matrix (Fin 2) (Fin 2) ℂ :=
+  !![(√2 : ℂ) * (W ^ 2 / 2 + W * V - 3 / 2 * V ^ 2) - W ^ 2 / 2 - 3 / 2 * V ^ 2,
+     (√2 : ℂ) * (-W ^ 2 / 2 - W * V + 3 / 2 * V ^ 2) + W ^ 2 + 3 * V ^ 2;
+     (√2 : ℂ) * (-W ^ 2 / 2 - W * V + 3 / 2 * V ^ 2) + W ^ 2 + 3 * V ^ 2,
+     (√2 : ℂ) * (W ^ 2 + 2 * W * V - 3 * V ^ 2) - W ^ 2 - 3 * V ^ 2]
+
+/-- `dF` homogenized: `V²·dF(W/V)`. -/
+def dFh (W V : ℂ) : ℂ := -(√2 : ℂ) * (W - 3 * V) * (W + V) / 2
+
+theorem Nf_hom (W V : ℂ) (hV : V ≠ 0) : Nf (W / V) = (V ^ 2)⁻¹ • Nfh W V := by
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp [Nf, Nfh] <;> field_simp <;> ring
+
+theorem dF_hom (W V : ℂ) (hV : V ≠ 0) : dF (W / V) = dFh W V / V ^ 2 := by
+  simp only [dF, dFh]; field_simp
+
+theorem omega_smul {z : ℂ} (hz : dF z ≠ 0) : PkgI1.Omega z = (dF z)⁻¹ • Nf z := by
+  ext i j
+  rw [omega_eq, Matrix.smul_apply, smul_eq_mul, div_eq_inv_mul]
+
+/-- **`spAct` from a polynomial identity (proved).** -/
+theorem spAct_of_poly (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ)
+    (A B C D : Matrix (Fin 2) (Fin 2) ℂ) (hM : M.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A B C D)
+    (z W V : ℂ) (hV : V ≠ 0) (hz : dF z ≠ 0) (hw : dF (W / V) ≠ 0)
+    (hP : (C * Nf z + dF z • D).det ≠ 0)
+    (hI : dFh W V • (A * Nf z + dF z • B) = Nfh W V * (C * Nf z + dF z • D)) :
+    PkgI1.spAct M (PkgI1.Omega z) = PkgI1.Omega (W / V) := by
+  unfold PkgI1.spAct
+  simp only [hM, Matrix.toBlocks_fromBlocks₁₁, Matrix.toBlocks_fromBlocks₁₂,
+    Matrix.toBlocks_fromBlocks₂₁, Matrix.toBlocks_fromBlocks₂₂]
+  rw [omega_smul hz, omega_smul hw, Nf_hom W V hV, dF_hom W V hV]
+  set c := (dF z)⁻¹ with hc
+  have hc0 : c ≠ 0 := inv_ne_zero hz
+  set P := C * Nf z + dF z • D with hPdef
+  set X := A * Nf z + dF z • B with hX
+  have hZ : C * (c • Nf z) + D = c • P := by
+    rw [hPdef, smul_add, smul_smul, hc, inv_mul_cancel₀ hz, one_smul, Matrix.mul_smul]
+  have hY : A * (c • Nf z) + B = c • X := by
+    rw [hX, smul_add, smul_smul, hc, inv_mul_cancel₀ hz, one_smul, Matrix.mul_smul]
+  rw [hZ, hY]
+  have hdetZ : (c • P).det ≠ 0 := by
+    rw [Matrix.det_smul]; exact mul_ne_zero (pow_ne_zero _ hc0) hP
+  letI := Matrix.invertibleOfIsUnitDet (c • P) (isUnit_iff_ne_zero.mpr hdetZ)
+  rw [Matrix.mul_inv_eq_iff_eq_mul_of_invertible]
+  have hdFh : dFh W V ≠ 0 := by
+    intro h0; apply hw; rw [dF_hom W V hV, h0, zero_div]
+  rw [Matrix.smul_mul, Matrix.smul_mul, Matrix.mul_smul, hI.symm]
+  match_scalars
+  all_goals field_simp
+  all_goals ring
+
+/-! #### `g₄ = ι(1 + i + j)` -/
+
+def A4 : Matrix (Fin 2) (Fin 2) ℂ := !![1, 0; 0, 1]
+def B4 : Matrix (Fin 2) (Fin 2) ℂ := !![1, -2; -2, 2]
+def C4 : Matrix (Fin 2) (Fin 2) ℂ := !![0, 1; 1, 0]
+def D4 : Matrix (Fin 2) (Fin 2) ℂ := !![-1, 2; 1, -1]
+/-- The symplectic matrix of `g₄` (`py/modemb.py`). -/
+def M4 : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ :=
+  Matrix.fromBlocks !![1, 0; 0, 1] !![1, -2; -2, 2] !![0, 1; 1, 0] !![-1, 2; 1, -1]
+
+theorem M4_map : M4.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A4 B4 C4 D4 := by
+  unfold M4 A4 B4 C4 D4
+  rw [Matrix.fromBlocks_map]
+  congr 1 <;> ext i j <;> fin_cases i <;> fin_cases j <;> simp
+
+theorem M4_symp : M4 ∈ Matrix.symplecticGroup (Fin 2) ℤ := by
+  rw [SymplecticGroup.mem_iff]
+  unfold M4 Matrix.J
+  ext i j
+  rcases i with i | i <;> rcases j with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fintype.sum_sum_type, Fin.sum_univ_two, Matrix.fromBlocks_transpose]
+
+theorem I1_g4 (z : ℂ) :
+    dFh ((√2 : ℂ) * z + z - 3) (-(√2 : ℂ) + z + 1) • (A4 * Nf z + dF z • B4) =
+      Nfh ((√2 : ℂ) * z + z - 3) (-(√2 : ℂ) + z + 1) * (C4 * Nf z + dF z • D4) := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [A4, B4, C4, D4, Nf, Nfh, dF, dFh, Matrix.mul_apply, Fin.sum_univ_two]
+  · linear_combination ((√2 : ℂ)^2*z^3 - 6*(√2 : ℂ)^2*z^2 - 3*(√2 : ℂ)^2*z - (√2 : ℂ)*z^4/2 +
+      7*(√2 : ℂ)*z^3 + 21*(√2 : ℂ)*z + 9*(√2 : ℂ)/2 - 2*z^4 - 12*z^2 - 18) * sqrt2_sq
+  · linear_combination (-(√2 : ℂ)^2*z^4/4 - 2*(√2 : ℂ)^2*z^3 + 21*(√2 : ℂ)^2*z^2/2 +
+      6*(√2 : ℂ)^2*z - 9*(√2 : ℂ)^2/4 + (√2 : ℂ)*z^4/2 - 11*(√2 : ℂ)*z^3 - 33*(√2 : ℂ)*z -
+      9*(√2 : ℂ)/2 + 3*z^4 + 18*z^2 + 27) * sqrt2_sq
+  · linear_combination (-(√2 : ℂ)^2*z^4/4 - 2*(√2 : ℂ)^2*z^3 + 21*(√2 : ℂ)^2*z^2/2 +
+      6*(√2 : ℂ)^2*z - 9*(√2 : ℂ)^2/4 + (√2 : ℂ)*z^4/2 - 11*(√2 : ℂ)*z^3 - 33*(√2 : ℂ)*z -
+      9*(√2 : ℂ)/2 + 3*z^4 + 18*z^2 + 27) * sqrt2_sq
+  · linear_combination (2*(√2 : ℂ)^2*z^3 - 12*(√2 : ℂ)^2*z^2 - 6*(√2 : ℂ)^2*z - (√2 : ℂ)*z^4 +
+      14*(√2 : ℂ)*z^3 + 42*(√2 : ℂ)*z + 9*(√2 : ℂ) - 4*z^4 - 24*z^2 - 36) * sqrt2_sq
+
+theorem I2_g4 (z : ℂ) :
+    (C4 * Nf z + dF z • D4).det * 2 * ((z - 3) * (z + 1)) =
+      -1 * dF z ^ 2 * ((((√2 : ℂ) * z + z - 3) - 3 * (-(√2 : ℂ) + z + 1)) *
+        (((√2 : ℂ) * z + z - 3) + (-(√2 : ℂ) + z + 1))) := by
+  rw [Matrix.det_fin_two]
+  simp [C4, D4, Nf, dF, Matrix.mul_apply, Fin.sum_univ_two]
+  linear_combination ((√2 : ℂ)^2*z^6/4 - (√2 : ℂ)^2*z^5/2 - 13*(√2 : ℂ)^2*z^4/4 +
+    5*(√2 : ℂ)^2*z^3 + 39*(√2 : ℂ)^2*z^2/4 - 9*(√2 : ℂ)^2*z/2 - 27*(√2 : ℂ)^2/4 - z^6/2 + z^5 -
+    3*z^4/2 + 6*z^3 + 9*z^2/2 + 9*z + 27/2) * sqrt2_sq
+
+/-! #### `g₆ = ι((j − 3)/2)` -/
+
+def A6 : Matrix (Fin 2) (Fin 2) ℂ := !![0, 0; 0, 0]
+def B6 : Matrix (Fin 2) (Fin 2) ℂ := !![0, -1; 1, 0]
+def C6 : Matrix (Fin 2) (Fin 2) ℂ := !![0, 1; -1, 0]
+def D6 : Matrix (Fin 2) (Fin 2) ℂ := !![-1, 2; -1, 1]
+/-- The symplectic matrix of `g₆` (`py/modemb.py`). -/
+def M6 : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ :=
+  Matrix.fromBlocks !![0, 0; 0, 0] !![0, -1; 1, 0] !![0, 1; -1, 0] !![-1, 2; -1, 1]
+
+theorem M6_map : M6.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A6 B6 C6 D6 := by
+  unfold M6 A6 B6 C6 D6
+  rw [Matrix.fromBlocks_map]
+  congr 1 <;> ext i j <;> fin_cases i <;> fin_cases j <;> simp
+
+theorem M6_symp : M6 ∈ Matrix.symplecticGroup (Fin 2) ℤ := by
+  rw [SymplecticGroup.mem_iff]
+  unfold M6 Matrix.J
+  ext i j
+  rcases i with i | i <;> rcases j with j | j <;> fin_cases i <;> fin_cases j <;>
+    simp [Matrix.mul_apply, Fintype.sum_sum_type, Fin.sum_univ_two, Matrix.fromBlocks_transpose]
+
+theorem I1_g6 (z : ℂ) :
+    dFh (-3 * z / 2 - 3 / 2) (z / 2 - 3 / 2) • (A6 * Nf z + dF z • B6) =
+      Nfh (-3 * z / 2 - 3 / 2) (z / 2 - 3 / 2) * (C6 * Nf z + dF z • D6) := by
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [A6, B6, C6, D6, Nf, Nfh, dF, dFh, Matrix.mul_apply, Fin.sum_univ_two]
+  · ring
+  · linear_combination (-3*z^4/4 - 9*z^2/2 - 27/4) * sqrt2_sq
+  · linear_combination (3*z^4/4 + 9*z^2/2 + 27/4) * sqrt2_sq
+  · ring
+
+theorem I2_g6 (z : ℂ) :
+    (C6 * Nf z + dF z • D6).det * 3 * ((z - 3) * (z + 1)) =
+      -1 * dF z ^ 2 * (((-3 * z / 2 - 3 / 2) - 3 * (z / 2 - 3 / 2)) *
+        ((-3 * z / 2 - 3 / 2) + (z / 2 - 3 / 2))) := by
+  rw [Matrix.det_fin_two]
+  simp [C6, D6, Nf, dF, Matrix.mul_apply, Fin.sum_univ_two]
+  linear_combination (3*z^6/4 - 3*z^5/2 + 9*z^4/4 - 9*z^3 - 27*z^2/4 - 27*z/2 - 81/4) * sqrt2_sq
+
+/-! ### Assembly -/
+
+/-- **The automorphy factor from a polynomial identity (proved).** -/
+theorem spFactor_of_poly (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ)
+    (A B C D : Matrix (Fin 2) (Fin 2) ℂ) (hM : M.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A B C D)
+    (z W V detg : ℂ) (hV : V ≠ 0) (hz : dF z ≠ 0)
+    (hI2 : (C * Nf z + dF z • D).det * detg * ((z - 3) * (z + 1)) =
+      -1 * dF z ^ 2 * ((W - 3 * V) * (W + V))) :
+    PkgI1.spFactor M (PkgI1.Omega z) * detg * ((z - 3) * (z + 1)) =
+      -1 * V ^ 2 * ((W / V - 3) * (W / V + 1)) := by
+  unfold PkgI1.spFactor
+  simp only [hM, Matrix.toBlocks_fromBlocks₂₁, Matrix.toBlocks_fromBlocks₂₂]
+  rw [omega_smul hz]
+  have hZ : C * ((dF z)⁻¹ • Nf z) + D = (dF z)⁻¹ • (C * Nf z + dF z • D) := by
+    rw [smul_add, smul_smul, inv_mul_cancel₀ hz, one_smul, Matrix.mul_smul]
+  rw [hZ, Matrix.det_smul, Fintype.card_fin]
+  calc (dF z)⁻¹ ^ 2 * (C * Nf z + dF z • D).det * detg * ((z - 3) * (z + 1))
+      = (dF z)⁻¹ ^ 2 * ((C * Nf z + dF z • D).det * detg * ((z - 3) * (z + 1))) := by ring
+    _ = _ := by rw [hI2]; field_simp
+
+/-- `G8` has the exact automorphy for `g = ι(x)` once the modular embedding identities hold. -/
+theorem g8Auto_gen (hT : PkgI1.ThetaModularity) (g : GL (Fin 2) ℝ)
+    (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (M : Matrix (Fin 2 ⊕ Fin 2) (Fin 2 ⊕ Fin 2) ℤ) (hMs : M ∈ Matrix.symplecticGroup (Fin 2) ℤ)
+    (A B C D : Matrix (Fin 2) (Fin 2) ℂ) (hM : M.map (Int.cast : ℤ → ℂ) = Matrix.fromBlocks A B C D)
+    (hI1 : ∀ z : ℂ, dFh (num g z) (denom g z) • (A * Nf z + dF z • B) =
+      Nfh (num g z) (denom g z) * (C * Nf z + dF z • D))
+    (hI2 : ∀ z : ℂ, (C * Nf z + dF z • D).det * ((g : Matrix (Fin 2) (Fin 2) ℝ).det : ℂ) *
+      ((z - 3) * (z + 1)) = -1 * dF z ^ 2 * ((num g z - 3 * denom g z) * (num g z + denom g z))) :
+    G8Auto g := by
+  have hw : ∀ z : ℂ, 0 < z.im → 0 < (num g z / denom g z).im := fun z hz => by
+    have := (g • (⟨z, hz⟩ : UpperHalfPlane)).im_pos
+    rwa [← UpperHalfPlane.coe_im, coe_smul_of_det_pos (by rwa [detv])] at this
+  have hV : ∀ z : ℂ, 0 < z.im → denom g z ≠ 0 := fun z hz =>
+    UpperHalfPlane.denom_ne_zero_of_im g hz.ne'
+  have hP : ∀ z : ℂ, 0 < z.im → (C * Nf z + dF z • D).det ≠ 0 := fun z hz h0 => by
+    have e := hI2 z
+    rw [h0, zero_mul, zero_mul] at e
+    obtain ⟨h5, h6⟩ := sub3_add1_ne (hw z hz)
+    have h7 : num g z - 3 * denom g z ≠ 0 := fun h => h5 (by
+      rw [show num g z = 3 * denom g z by linear_combination h, mul_div_assoc,
+        div_self (hV z hz)]; ring)
+    have h8 : num g z + denom g z ≠ 0 := fun h => h6 (by
+      rw [show num g z = -denom g z by linear_combination h, neg_div, div_self (hV z hz)]; ring)
+    have := dF_ne hz
+    have : -1 * dF z ^ 2 * ((num g z - 3 * denom g z) * (num g z + denom g z)) ≠ 0 := by
+      apply mul_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero _ this)) (mul_ne_zero h7 h8)
+    exact this e.symm
+  refine g8Auto_of_sp hT g hdet M hMs (fun z hz => ?_) (-1) (by norm_num) (fun z hz => ?_)
+  · exact spAct_of_poly M A B C D hM z _ _ (hV z hz) (dF_ne hz) (dF_ne (hw z hz)) (hP z hz) (hI1 z)
+  · exact spFactor_of_poly M A B C D hM z _ _ _ (hV z hz) (dF_ne hz) (hI2 z)
+
+theorem iota_x4 : PkgI1.iota x4 = !![1 + √2, -3; 1, 1 - √2] := by
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x4]
+
+theorem iota_x6 : PkgI1.iota x6 = !![-3 / 2, -3 / 2; 1 / 2, -3 / 2] := by
+  rw [iota_apply]; ext i j; fin_cases i <;> fin_cases j <;> simp [x6] <;> norm_num
+
+theorem g8Auto_g4 (hT : PkgI1.ThetaModularity) {g : GL (Fin 2) ℝ}
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x4) : G8Auto g := by
+  rw [iota_x4] at hg
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = 2 := by
+    rw [hg, Matrix.det_fin_two_of]; linear_combination (-1 : ℝ) * sqrt2_sq'
+  have hnum : ∀ z : ℂ, num g z = (√2 : ℂ) * z + z - 3 := fun z => by
+    simp only [UpperHalfPlane.num, hg]; simp; ring
+  have hden : ∀ z : ℂ, denom g z = -(√2 : ℂ) + z + 1 := fun z => by
+    simp only [UpperHalfPlane.denom, hg]; simp; ring
+  refine g8Auto_gen hT g (by rw [hdet]; norm_num) M4 M4_symp A4 B4 C4 D4 M4_map
+    (fun z => by rw [hnum, hden]; exact I1_g4 z) (fun z => ?_)
+  rw [hnum, hden, hdet]; push_cast; exact I2_g4 z
+
+theorem g8Auto_g6 (hT : PkgI1.ThetaModularity) {g : GL (Fin 2) ℝ}
+    (hg : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x6) : G8Auto g := by
+  rw [iota_x6] at hg
+  have hdet : (g : Matrix (Fin 2) (Fin 2) ℝ).det = 3 := by
+    rw [hg, Matrix.det_fin_two_of]; norm_num
+  have hnum : ∀ z : ℂ, num g z = -3 * z / 2 - 3 / 2 := fun z => by
+    simp only [UpperHalfPlane.num, hg]; simp; ring
+  have hden : ∀ z : ℂ, denom g z = z / 2 - 3 / 2 := fun z => by
+    simp only [UpperHalfPlane.denom, hg]; simp; ring
+  refine g8Auto_gen hT g (by rw [hdet]; norm_num) M6 M6_symp A6 B6 C6 D6 M6_map
+    (fun z => by rw [hnum, hden]; exact I1_g6 z) (fun z => ?_)
+  rw [hnum, hden, hdet]; push_cast; exact I2_g6 z
+
+/-- **LEAF candidate (generation of `Γ*`; flagged for a human check).** Every `γ ∈ Γ*` lies in
+the subgroup of `GL₂(ℝ)` generated by `ι(1 + i + j)`, `ι((j − 3)/2)` and the rational scalars.
+
+Source and derivation: `Γ*/ℚ^× = N_B(𝒪)⁺/ℚ^×` (image in `PSL₂(ℝ)`) is a Fuchsian group of
+signature `(0; 2, 4, 6)`, i.e. the `(2, 4, 6)` triangle group, of covolume
+`2π(−2 + 1/2 + 3/4 + 5/6) = π/6` (Takeuchi, *Commensurability classes of arithmetic triangle
+groups*, J. Fac. Sci. Univ. Tokyo 24 (1977), the class of `(2, 4, 6)` with quaternion algebra of
+discriminant 6; Elkies, *Shimura curve computations*, ANTS 1998, §3 (`X*(6)` and the `(2,4,6)`
+group); locators UNVERIFIED). Derivation of the stated form (model argument, numerics VERIFIED in
+`py/triangle.py`): `g₄ = ι(1+i+j)` and `g₆ = ι((j−3)/2)` are elliptic of orders 4 and 6 in
+`PSL₂(ℝ)` (`trd² / nrd = 2, 3`), fixing `√2 + i` and `i√3`; `x₂ = 2x₆x₄⁻¹ = (3/2)i + 2j + (1/2)ij`
+has `trd = 0`, so `g₆g₄⁻¹` has order 2; the hyperbolic distance `d` of the two fixed points has
+`cosh d = 1 + ((√2)² + (√3 − 1)²)/(2·√3) = √3 = cot(π/4)cot(π/6)`, which is the side of the
+hyperbolic triangle with angles `π/4, π/6, π/2`. By Poincaré's polygon theorem (Beardon, *The
+geometry of discrete groups*, §9.8 and §10.6, UNVERIFIED) `⟨g₄, g₆⟩` is the `(2,4,6)` triangle group
+of that triangle, covolume `π/6`, so it has index 1 in `Γ*/ℚ^×`; an element of `N_B(𝒪)⁺` that is
+a real multiple of a word in `x₄, x₆` is a rational multiple (the center of `B` is `ℚ`). -/
+def GammaStarGen : Prop :=
+  ∀ γ ∈ PkgI1.GammaStar, γ ∈ Subgroup.closure
+    ({γ : GL (Fin 2) ℝ | (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x4} ∪
+      {γ : GL (Fin 2) ℝ | (γ : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x6} ∪
+      {γ : GL (Fin 2) ℝ | ∃ q : ℚ, q ≠ 0 ∧ (γ : Matrix (Fin 2) (Fin 2) ℝ) = (q : ℝ) • 1})
+
+/-- **`S8WeightExact` from Igusa's `ThetaModularity` and `GammaStarGen` (proved).** -/
+theorem s8WeightExact_of (hT : PkgI1.ThetaModularity) (hG : GammaStarGen) : S8WeightExact := by
+  intro γ hγ z
+  have hmem : γ ∈ G8AutoSubgroup := by
+    refine (Subgroup.closure_le (K := G8AutoSubgroup)).mpr ?_ (hG γ hγ)
+    rintro g ((hg | hg) | ⟨q, hq, hg⟩)
+    · exact g8Auto_g4 hT hg
+    · exact g8Auto_g6 hT hg
+    · exact g8Auto_scalar q hq hg
+  exact hmem.2 z
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
+end  -- assemble-port: closes the file's `noncomputable section`
+
+end G0A3_e22_w8
+
+section G0A3_e23_qmtwist
+/-! ## assemble-port: `scratch/period-glue/QMTwist.lean`, verbatim minus `import`/`#print` lines (mk/mk_pg.py) -/
+
+/-! # period-glue: `QMTwistLattice` from the `Hom` form of T11a and a lattice statement
+
+Task period-glue, 2026-11-13. `QMTwistLattice` (period-map, `PGBase`, unchanged) is proved from
+* `T11aRiemannHom` (**LEAF**, textbook: the `Hom` form of T11a), and
+* `QMLatticeTwistAlg` (**GLUE**, pure linear algebra over `ℚ`/`ℂ`: the twist relation on lattices
+  is the `Γ*`-relation on `ℍ`),
+by `qmTwistLattice_of`. -/
+
+noncomputable section
+
+namespace HSyn.G0Split.FibreQM.PeriodGlue
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open _root_.ZInQ ZInQ LeafQM.AV ZInQ.DefFaltings
+open HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMapH
+open ZInQ.LeafPush2 (CPts cptObj IsUniformization cDom cEvalAt)
+
+/-- **LEAF (T11a, `Hom` form; textbook).** For abelian varieties `A, A'/ℂ` of dimension `g` with
+analytic uniformizations `Φ : ℂ^g → A(ℂ)`, `Φ' : ℂ^g → A'(ℂ)` with kernels `Λ, Λ'`: every
+`ℂ`-linear `M` with `MΛ ⊆ Λ'` is the analytic representation of exactly one homomorphism
+`f : A → A'` (`Φ'(Mz) = f(Φ z)`), and every homomorphism has an analytic representation.
+
+Sources: for complex tori, `Hom(ℂ^g/Λ, ℂ^g/Λ') = {M : MΛ ⊆ Λ'}` (Mumford, *Abelian Varieties*,
+§1, the analytic description of homomorphisms; Birkenhake–Lange, *Complex Abelian Varieties*,
+Prop. 1.2.1; locators UNVERIFIED), and every holomorphic homomorphism of abelian varieties is
+algebraic (GAGA: Serre, *Géométrie algébrique et géométrie analytique*, 1956, Thm. 3 / Cor.;
+Mumford §1 / §4; UNVERIFIED). The kernel's `T11aRiemannEnd` is the case `A = A'`, `Φ = Φ'`
+(this statement is the same text with `Hom A A'` in place of `End A`). -/
+def T11aRiemannHom : Prop :=
+  ∀ (A A' : PkgI3.AbVar ℂ) (g : ℕ) (Λ Λ' : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)) (Φ' : (Fin g → ℂ) → CPts A' (RingHom.id ℂ)),
+    A.dim = (g : WithBot ℕ∞) → A'.dim = (g : WithBot ℕ∞) →
+    IsUniformization (RingHom.id ℂ) Λ Φ → IsUniformization (RingHom.id ℂ) Λ' Φ' →
+    (∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ Λ, M z ∈ Λ') →
+      ∃! f : PkgI3.AbVar.Hom A A', ∀ z, Φ' (M z) = Φ z ≫ f.hom) ∧
+    (∀ f : PkgI3.AbVar.Hom A A', ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ),
+      ∀ z, Φ' (M z) = Φ z ≫ f.hom)
+
+/-- `T11aRiemannEnd` is the special case `A = A'` of `T11aRiemannHom` (proved). -/
+theorem t11aRiemannEnd_of_hom (h : T11aRiemannHom) : T11aRiemannEnd :=
+  fun A g Λ Φ hA hU => h A A g Λ Λ Φ Φ hA hA hU hU
+
+/-- **GLUE (pure algebra: twists of QM lattices).** For `τ, τ' ∈ ℍ`: there are `α ∈ Aut(𝒪)` and
+a `ℂ`-linear automorphism `M` of `ℂ²` with `MΛ_τ = Λ_τ'` and `M ∘ ι(α(a)) = ι(a) ∘ M` for all
+`a ∈ 𝒪` iff `τ' ∈ Γ*τ`.
+
+Why true (model argument, Shimura 1967 §1-2 for the general statement):
+(⇐) `g = ι(u) ∈ Γ*` with `u ∈ N_B(𝒪)`, `nrd u > 0`: take `M = (cτ + d)⁻¹ι(u)` and
+`α(a) = u⁻¹au` (in `Aut(𝒪)` because `u` normalizes `𝒪`); then
+`MΛ_τ = (cτ+d)⁻¹ι(u𝒪u⁻¹)ι(u)v_τ = ι(𝒪)v_τ' = Λ_τ'`.
+(⇒) `α` extends to a `ℚ`-algebra automorphism of `B = 𝒪 ⊗ ℚ`, inner by Skolem–Noether (the
+kernel's `TSkolemKW.leafSkolemNoether`): `α(a) = u⁻¹au`, `u ∈ N_B(𝒪)`. Then `M ι(u)⁻¹`
+commutes with `ι(B)`, which spans `M₂(ℂ)`, so `M = c ι(u)`, `c ∈ ℂ^×`. From `MΛ_τ = Λ_τ'`:
+`v_τ' = c ι(x)v_τ` for some `x ∈ 𝒪u`, and `ι(𝒪)ι(x)v_τ = ι(𝒪)ι(u)v_τ`; `b ↦ ι(b)v_τ` is
+injective on `B` (`ι(b)` is invertible for `b ≠ 0`, `B` a division algebra, and `v_τ ≠ 0`), so
+`𝒪x = 𝒪u`, `x = eu` with `e ∈ 𝒪^×`, so `x ∈ N_B(𝒪)`; `ι(x)τ = τ' ∈ ℍ` forces
+`det ι(x) = nrd x > 0`, so `g = ι(x) ∈ Γ*` and `gτ = τ'`. Size: medium (Skolem–Noether is
+proved in the kernel; the rest is `2 × 2` linear algebra over `ℚ(√2)`). -/
+def QMLatticeTwistAlg : Prop :=
+  ∀ τ τ' : UpperHalfPlane,
+    ((∃ α : LeafQM.O ≃+* LeafQM.O, ∃ M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+        (∀ z, z ∈ BPAnalytic.QM.qmLattice τ.im_pos.ne' ↔
+          M z ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne') ∧
+        ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z)) ↔
+      ∃ g ∈ PkgI1.GammaStar, g • τ = τ')
+
+/-- A homomorphism keeps the identity point. -/
+theorem one_comp_hom {A A' : PkgI3.AbVar ℂ} (f : PkgI3.AbVar.Hom A A') :
+    (1 : CPts A (RingHom.id ℂ)) ≫ f.hom = 1 := MonObj.one_comp f.hom
+
+/-- Points of the kernel: a map `M` lifting a homomorphism sends `Λ` into `Λ'`. -/
+theorem lift_maps_lattice {A A' : PkgI3.AbVar ℂ} {Λ Λ' : Submodule ℤ (Fin 2 → ℂ)}
+    {Φ : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)} {Φ' : (Fin 2 → ℂ) → CPts A' (RingHom.id ℂ)}
+    (hU : IsUniformization (RingHom.id ℂ) Λ Φ) (hU' : IsUniformization (RingHom.id ℂ) Λ' Φ')
+    {M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)} {f : PkgI3.AbVar.Hom A A'}
+    (hM : ∀ z, Φ' (M z) = Φ z ≫ f.hom) : ∀ z ∈ Λ, M z ∈ Λ' := by
+  intro z hz
+  rw [← hU'.2.1, hM, (hU.2.1 z).mpr hz, one_comp_hom]
+
+theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwistLattice := by
+  intro Q Q' τ τ' ⟨Φ, hU, hc⟩ ⟨Φ', hU', hc'⟩
+  set Λ := BPAnalytic.QM.qmLattice τ.im_pos.ne' with hΛ
+  set Λ' := BPAnalytic.QM.qmLattice τ'.im_pos.ne' with hΛ'
+  have : DiscreteTopology Λ := by rw [hΛ]; unfold BPAnalytic.QM.qmLattice; infer_instance
+  have : DiscreteTopology Λ' := by rw [hΛ']; unfold BPAnalytic.QM.qmLattice; infer_instance
+  have H := hH Q.A Q'.A 2 Λ Λ' Φ Φ' Q.surface Q'.surface hU hU'
+  have H' := hH Q'.A Q.A 2 Λ' Λ Φ' Φ Q'.surface Q.surface hU' hU
+  have HQ := hH Q.A Q.A 2 Λ Λ Φ Φ Q.surface Q.surface hU hU
+  have HQ' := hH Q'.A Q'.A 2 Λ' Λ' Φ' Φ' Q'.surface Q'.surface hU' hU'
+  rw [← hA τ τ']
+  constructor
+  · rintro ⟨α, ⟨e⟩⟩
+    obtain ⟨M, hM⟩ := H.2 e.φ
+    obtain ⟨N, hN⟩ := H'.2 e.ψ
+    have hNM : N ∘ₗ M = LinearMap.id := lift_unique hU fun z => by
+      rw [LinearMap.comp_apply, hN, hM, Category.assoc, e.left, Category.comp_id,
+        LinearMap.id_apply]
+    have hMN : M ∘ₗ N = LinearMap.id := lift_unique hU' fun z => by
+      rw [LinearMap.comp_apply, hM, hN, Category.assoc, e.right, Category.comp_id,
+        LinearMap.id_apply]
+    refine ⟨α, LinearEquiv.ofLinearMap M N hMN hNM, fun z => ⟨fun hz => ?_, fun hz => ?_⟩,
+      fun a z => ?_⟩
+    · exact lift_maps_lattice hU hU' hM z hz
+    · have := lift_maps_lattice hU' hU hN _ hz
+      simpa [LinearEquiv.coe_ofLinearMap, ← LinearMap.comp_apply, hNM] using this
+    · show M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z)
+      have key : M ∘ₗ Matrix.toLin' (qmMat (α a)) = Matrix.toLin' (qmMat a) ∘ₗ M :=
+        lift_unique hU' fun w => by
+          rw [LinearMap.comp_apply, LinearMap.comp_apply, Matrix.toLin'_apply,
+            Matrix.toLin'_apply, hM, hc, hc', hM, Category.assoc, Category.assoc]
+          congr 1
+          exact e.equivariant a
+      have := LinearMap.congr_fun key z
+      simpa [Matrix.toLin'_apply] using this
+  · rintro ⟨α, M, hML, hMeq⟩
+    have hMΛ : ∀ z ∈ Λ, (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈ Λ' :=
+      fun z hz => (hML z).mp hz
+    have hNΛ : ∀ z ∈ Λ', (M.symm : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈ Λ := fun z hz => by
+      rw [hML]; simpa using hz
+    obtain ⟨φ, hφ, -⟩ := H.1 M hMΛ
+    obtain ⟨ψ, hψ, -⟩ := H'.1 M.symm hNΛ
+    have hφ' : ∀ z, Φ' (M z) = Φ z ≫ φ.hom := hφ
+    -- uniqueness of the endomorphism lifting `id`
+    obtain ⟨one, -, hone⟩ := HQ.1 LinearMap.id (fun z hz => hz)
+    obtain ⟨one', -, hone'⟩ := HQ'.1 LinearMap.id (fun z hz => hz)
+    have hleft : φ.hom ≫ ψ.hom = 𝟙 _ := by
+      have h1 := hone (PkgI3.AbVar.Hom.mk' (φ.hom ≫ ψ.hom)) fun z => by
+        rw [PkgI3.AbVar.Hom.hom_mk', ← Category.assoc, ← hφ, ← hψ]; simp
+      have h2 := hone 1 fun z => by
+        change Φ z = Φ z ≫ 𝟙 _
+        rw [Category.comp_id]
+      exact congrArg PkgI3.AbVar.Hom.hom (h1.trans h2.symm)
+    have hright : ψ.hom ≫ φ.hom = 𝟙 _ := by
+      have h1 := hone' (PkgI3.AbVar.Hom.mk' (ψ.hom ≫ φ.hom)) fun z => by
+        rw [PkgI3.AbVar.Hom.hom_mk', ← Category.assoc, ← hψ, ← hφ]; simp
+      have h2 := hone' 1 fun z => by
+        change Φ' z = Φ' z ≫ 𝟙 _
+        rw [Category.comp_id]
+      exact congrArg PkgI3.AbVar.Hom.hom (h1.trans h2.symm)
+    refine ⟨α, ⟨{ φ := φ, ψ := ψ, left := hleft, right := hright, equivariant := ?_ }⟩⟩
+    intro a
+    -- both sides lift `M ∘ ι(α a) = ι(a) ∘ M`
+    have hlat : ∀ z ∈ Λ, (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))
+        ((qmMat (α a)).mulVec z) ∈ Λ' := by
+      intro z hz
+      apply hMΛ
+      have := lift_maps_lattice hU hU (f := Q.q.iota (α a))
+        (M := Matrix.toLin' (qmMat (α a))) (fun w => by rw [Matrix.toLin'_apply, hc]) z hz
+      simpa [Matrix.toLin'_apply] using this
+    obtain ⟨f, -, hf⟩ := H.1 ((M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) ∘ₗ
+      Matrix.toLin' (qmMat (α a))) (fun z hz => by simpa [Matrix.toLin'_apply] using hlat z hz)
+    have e1 := hf (PkgI3.AbVar.Hom.mk' ((Q.q.iota (α a)).hom ≫ φ.hom)) fun z => by
+      rw [PkgI3.AbVar.Hom.hom_mk', LinearMap.comp_apply, Matrix.toLin'_apply, hφ, hc,
+        Category.assoc]
+    have e2 := hf (PkgI3.AbVar.Hom.mk' (φ.hom ≫ (Q'.q.iota a).hom)) fun z => by
+      rw [PkgI3.AbVar.Hom.hom_mk', LinearMap.comp_apply, Matrix.toLin'_apply]
+      change Φ' (M ((qmMat (α a)).mulVec z)) = _
+      rw [hMeq, hc', hφ', Category.assoc]
+    exact congrArg PkgI3.AbVar.Hom.hom (e1.trans e2.symm)
+
+/-! ## `QMLatticeTwistAlg`, direction `τ' ∈ Γ*τ ⇒ twist` (proved) -/
+
+open scoped Matrix
+
+/-- `ι(x)` as a complex matrix. -/
+def cM (x : LeafQM.B) : Matrix (Fin 2) (Fin 2) ℂ := (BPAnalytic.QM.iota x).map (fun r : ℝ => (r : ℂ))
+
+theorem qmMat_eq (a : LeafQM.O) : qmMat a = cM a := rfl
+
+theorem cM_mul (x y : LeafQM.B) : cM (x * y) = cM x * cM y := by
+  unfold cM
+  have : BPAnalytic.QM.iota (x * y) = BPAnalytic.QM.iota x * BPAnalytic.QM.iota y :=
+    PeriodMap.iota_mul x y
+  rw [this]
+  exact Matrix.map_mul (f := Complex.ofRealHom)
+
+theorem cM_one : cM 1 = 1 := by
+  unfold cM
+  have : BPAnalytic.QM.iota 1 = 1 := PeriodMap.iota_one
+  rw [this]
+  exact Matrix.map_one _ (by simp) (by simp)
+
+theorem latVec_eq (b : LeafQM.B) (τ : ℂ) : BPAnalytic.QM.latVec b τ = cM b *ᵥ ![τ, 1] := rfl
+
+theorem latVec_mul (x y : LeafQM.B) (τ : ℂ) :
+    BPAnalytic.QM.latVec (x * y) τ = cM x *ᵥ BPAnalytic.QM.latVec y τ := by
+  rw [latVec_eq, latVec_eq, cM_mul, Matrix.mulVec_mulVec]
+
+theorem latVec_ofInt (c : Fin 4 → ℤ) (τ : ℂ) :
+    ∑ i, c i • BPAnalytic.QM.qmVec τ i = BPAnalytic.QM.latVec (LeafQM.ofInt c) τ := by
+  ext k
+  fin_cases k <;>
+    simp [BPAnalytic.QM.qmVec, BPAnalytic.QM.latVec, BPAnalytic.QM.iota, BPAnalytic.QM.oBasis,
+      LeafQM.ofInt, BPAnalytic.QM.Mi, BPAnalytic.QM.Mj, Fin.sum_univ_four, Matrix.mulVec,
+      dotProduct, Fin.sum_univ_two] <;> ring
+
+theorem mem_qmLattice_iff {τ : ℂ} (hτ : τ.im ≠ 0) (z : Fin 2 → ℂ) :
+    z ∈ BPAnalytic.QM.qmLattice hτ ↔ ∃ b : LeafQM.B, b ∈ LeafQM.O ∧ z = BPAnalytic.QM.latVec b τ := by
+  rw [BPAnalytic.QM.qmLattice_eq, Submodule.mem_span_range_iff_exists_fun]
+  constructor
+  · rintro ⟨c, hc⟩
+    exact ⟨LeafQM.ofInt c, ⟨c, rfl⟩, by rw [← hc, latVec_ofInt]⟩
+  · rintro ⟨b, ⟨c, rfl⟩, rfl⟩
+    exact ⟨c, latVec_ofInt c τ⟩
+
+theorem inO_iff (x : LeafQM.B) : PkgI1.InO x ↔ x ∈ LeafQM.O := by
+  refine ⟨fun h => mem_O_of_inO h, fun ⟨n, hn⟩ => ⟨n, ?_⟩⟩
+  rw [hn]
+  ext <;> simp [LeafQM.ofInt, PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+
+/-- **`QMLatticeTwistAlg`, (⇐) (proved).** -/
+theorem qmLatticeTwistAlg_mpr (τ τ' : UpperHalfPlane) (hg : ∃ g ∈ PkgI1.GammaStar, g • τ = τ') :
+    ∃ α : LeafQM.O ≃+* LeafQM.O, ∃ M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+      (∀ z, z ∈ BPAnalytic.QM.qmLattice τ.im_pos.ne' ↔
+        M z ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne') ∧
+      ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z) := by
+  obtain ⟨g, ⟨x, ⟨y, hxy, hyx, hN⟩, hgx, hdet⟩, hgτ⟩ := hg
+  have hN' : ∀ a : LeafQM.B, a ∈ LeafQM.O → y * a * x ∈ LeafQM.O ∧ x * a * y ∈ LeafQM.O := by
+    intro a ha
+    obtain ⟨h1, h2⟩ := hN a ((inO_iff a).mpr ha)
+    exact ⟨(inO_iff _).mp h2, (inO_iff _).mp h1⟩
+  have key1 : ∀ a : LeafQM.B, x * (y * a * x) * y = a := fun a => by
+    calc x * (y * a * x) * y = (x * y) * a * (x * y) := by noncomm_ring
+      _ = a := by rw [hxy, _root_.one_mul, _root_.mul_one]
+  have key2 : ∀ a : LeafQM.B, y * (x * a * y) * x = a := fun a => by
+    calc y * (x * a * y) * x = (y * x) * a * (y * x) := by noncomm_ring
+      _ = a := by rw [hyx, _root_.one_mul, _root_.mul_one]
+  let α : LeafQM.O ≃+* LeafQM.O :=
+    { toFun := fun a => ⟨y * a * x, (hN' a a.2).1⟩
+      invFun := fun a => ⟨x * a * y, (hN' a a.2).2⟩
+      left_inv := fun a => Subtype.ext (key1 a)
+      right_inv := fun a => Subtype.ext (key2 a)
+      map_mul' := fun a b => Subtype.ext (by
+        change y * ((a : LeafQM.B) * b) * x = (y * a * x) * (y * b * x)
+        calc y * ((a : LeafQM.B) * b) * x = y * a * 1 * b * x := by noncomm_ring
+          _ = y * a * (x * y) * b * x := by rw [hxy]
+          _ = (y * a * x) * (y * b * x) := by noncomm_ring)
+      map_add' := fun a b => Subtype.ext (by
+        change y * ((a : LeafQM.B) + b) * x = y * a * x + y * b * x
+        noncomm_ring) }
+  have hα : ∀ a : LeafQM.O, ((α a : LeafQM.O) : LeafQM.B) = y * a * x := fun a => rfl
+  have hgM : (g : Matrix (Fin 2) (Fin 2) ℝ).map (fun r : ℝ => (r : ℂ)) = cM x := by
+    rw [hgx]; rfl
+  set c := UpperHalfPlane.denom g τ with hc
+  have hc0 : c ≠ 0 := UpperHalfPlane.denom_ne_zero g τ
+  have hXY : cM x * cM y = 1 := by rw [← cM_mul, hxy, cM_one]
+  have hYX : cM y * cM x = 1 := by rw [← cM_mul, hyx, cM_one]
+  let Mf : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := c⁻¹ • Matrix.toLin' (cM x)
+  let Mg : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := c • Matrix.toLin' (cM y)
+  have h1 : Mf ∘ₗ Mg = LinearMap.id := by
+    refine LinearMap.ext fun z => ?_
+    simp only [Mf, Mg, LinearMap.comp_apply, LinearMap.smul_apply, Matrix.toLin'_apply,
+      LinearMap.id_apply, Matrix.mulVec_smul, Matrix.mulVec_mulVec, hXY, Matrix.one_mulVec,
+      smul_smul, inv_mul_cancel₀ hc0, one_smul]
+  have h2 : Mg ∘ₗ Mf = LinearMap.id := by
+    refine LinearMap.ext fun z => ?_
+    simp only [Mf, Mg, LinearMap.comp_apply, LinearMap.smul_apply, Matrix.toLin'_apply,
+      LinearMap.id_apply, Matrix.mulVec_smul, Matrix.mulVec_mulVec, hYX, Matrix.one_mulVec,
+      smul_smul, mul_inv_cancel₀ hc0, one_smul]
+  let M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ) := LinearEquiv.ofLinearMap Mf Mg h1 h2
+  have hM : ∀ z, M z = c⁻¹ • (cM x *ᵥ z) := fun z => rfl
+  -- `ι(x)(τ, 1)ᵀ = c (τ', 1)ᵀ`
+  have hτ' : ((τ' : UpperHalfPlane) : ℂ) = UpperHalfPlane.num g τ / c := by
+    rw [← hgτ]
+    exact UpperHalfPlane.coe_smul_of_det_pos (by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet) τ
+  have hv : cM x *ᵥ ![(τ : ℂ), 1] = c • ![((τ' : UpperHalfPlane) : ℂ), 1] := by
+    rw [← hgM, hτ']
+    ext k
+    fin_cases k
+    · have hc0' : (τ : ℂ) * ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) +
+          ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ) ≠ 0 := by
+        have : ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 0 : ℂ) * τ +
+            ((g : Matrix (Fin 2) (Fin 2) ℝ) 1 1 : ℂ) ≠ 0 := hc0
+        rwa [mul_comm] at this
+      simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.num, hc,
+        UpperHalfPlane.denom]
+      field_simp
+    · simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, hc, UpperHalfPlane.denom]
+  have hlat : ∀ b : LeafQM.B, M (BPAnalytic.QM.latVec b τ) =
+      BPAnalytic.QM.latVec (x * b * y) τ' := by
+    intro b
+    rw [hM, ← latVec_mul]
+    have : x * b = (x * b * y) * x := by
+      calc x * b = x * b * 1 := (_root_.mul_one _).symm
+        _ = x * b * (y * x) := by rw [hyx]
+        _ = (x * b * y) * x := by noncomm_ring
+    conv_lhs => rw [this]
+    rw [latVec_mul, latVec_eq x, hv, Matrix.mulVec_smul, smul_smul, inv_mul_cancel₀ hc0,
+      one_smul, ← latVec_eq]
+  refine ⟨α, M, fun z => ⟨fun hz => ?_, fun hz => ?_⟩, fun a z => ?_⟩
+  · obtain ⟨b, hb, rfl⟩ := (mem_qmLattice_iff _ z).mp hz
+    rw [hlat]
+    exact (mem_qmLattice_iff _ _).mpr ⟨_, (hN' b hb).2, rfl⟩
+  · obtain ⟨b', hb', hzb⟩ := (mem_qmLattice_iff _ _).mp hz
+    have : z = BPAnalytic.QM.latVec (y * b' * x) τ := by
+      apply M.injective
+      rw [hzb, hlat, key1]
+    rw [this]
+    exact (mem_qmLattice_iff _ _).mpr ⟨_, (hN' b' hb').1, rfl⟩
+  · have e : x * (y * (a : LeafQM.B) * x) = a * x := by
+      calc x * (y * (a : LeafQM.B) * x) = (x * y) * a * x := by noncomm_ring
+        _ = a * x := by rw [hxy, _root_.one_mul]
+    rw [hM, hM, qmMat_eq, qmMat_eq, hα, Matrix.mulVec_smul, Matrix.mulVec_mulVec,
+      Matrix.mulVec_mulVec, ← cM_mul, ← cM_mul, e]
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
+/-! ## Extension of `α ∈ Aut 𝒪` to `B` (copied verbatim from mobius-glue,
+`scratch/mobius-glue/MobiusGlue.lean` §7, namespace `PeriodGlue.AutOExt`) -/
+
+namespace PeriodGlue.AutOExt
+
+open LeafQM
+
+/-! ### Extension of a ring automorphism of `𝒪` to `B` -/
+
+theorem mem_O_of_int (z0 z1 z2 z3 : ℤ) : (⟨z0, z1, z2, z3⟩ : B) ∈ O := by
+  refine ⟨![z0 - z2, z1 - z3, 2 * z2, 2 * z3], ?_⟩
+  ext <;> simp [ofInt]
+
+theorem nat_smul_mem (n : ℕ) {x : B} (hx : x ∈ O) : (n : ℚ) • x ∈ O := by
+  rw [Algebra.smul_def, map_natCast]
+  exact O.mul_mem (natCast_mem O n) hx
+
+theorem den_mul_int (q : ℚ) (k : ℕ) : ∃ z : ℤ, ((k * q.den : ℕ) : ℚ) * q = z :=
+  ⟨k * q.num, by push_cast; rw [mul_assoc, Rat.den_mul_eq_num]⟩
+
+/-- Every element of `B` has a positive integer multiple in `𝒪`. -/
+theorem exists_nat_smul_mem (b : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O := by
+  set m := b.re.den * b.imI.den * b.imJ.den * b.imK.den with hm
+  refine ⟨m, by positivity, ?_⟩
+  obtain ⟨z0, h0⟩ := den_mul_int b.re (b.imI.den * b.imJ.den * b.imK.den)
+  obtain ⟨z1, h1⟩ := den_mul_int b.imI (b.re.den * b.imJ.den * b.imK.den)
+  obtain ⟨z2, h2⟩ := den_mul_int b.imJ (b.re.den * b.imI.den * b.imK.den)
+  obtain ⟨z3, h3⟩ := den_mul_int b.imK (b.re.den * b.imI.den * b.imJ.den)
+  have e : (m : ℚ) • b = ⟨z0, z1, z2, z3⟩ := by
+    ext
+    · rw [QuaternionAlgebra.re_smul, ← h0, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imI_smul, ← h1, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imJ_smul, ← h2, smul_eq_mul, hm]; push_cast; ring
+    · rw [QuaternionAlgebra.imK_smul, ← h3, smul_eq_mul, hm]
+  rw [e]
+  exact mem_O_of_int z0 z1 z2 z3
+
+variable (α : O ≃+* O)
+
+/-- A chosen positive integer `m` with `m b ∈ 𝒪`. -/
+def extDen (b : B) : ℕ := Classical.choose (exists_nat_smul_mem b)
+
+theorem extDen_pos (b : B) : 0 < extDen b := (Classical.choose_spec (exists_nat_smul_mem b)).1
+
+theorem extDen_mem (b : B) : ((extDen b : ℕ) : ℚ) • b ∈ O :=
+  (Classical.choose_spec (exists_nat_smul_mem b)).2
+
+/-- `α̃(b) = m⁻¹ α(m b)`. -/
+def extFun (b : B) : B := ((extDen b : ℚ)⁻¹) • (α ⟨_, extDen_mem b⟩ : B)
+
+theorem natCast_mul_eq_smul (n : ℕ) (x : B) : (n : B) * x = (n : ℚ) • x := by
+  rw [Algebra.smul_def, map_natCast]
+
+theorem alpha_nat_smul (n : ℕ) (x : B) (hx : x ∈ O) (hnx : (n : ℚ) • x ∈ O) :
+    (α ⟨_, hnx⟩ : B) = (n : ℚ) • (α ⟨x, hx⟩ : B) := by
+  have : (⟨_, hnx⟩ : O) = (n : O) * ⟨x, hx⟩ := by
+    apply Subtype.ext
+    simp only [MulMemClass.coe_mul, SubringClass.coe_natCast]
+    rw [natCast_mul_eq_smul]
+  rw [this, map_mul, map_natCast, MulMemClass.coe_mul, SubringClass.coe_natCast,
+    natCast_mul_eq_smul]
+
+/-- Independence of the choice of `m`. -/
+theorem extFun_eq (b : B) (m : ℕ) (hm : 0 < m) (hb : (m : ℚ) • b ∈ O) :
+    extFun α b = ((m : ℚ)⁻¹) • (α ⟨_, hb⟩ : B) := by
+  have hd : 0 < extDen b := extDen_pos b
+  have hdm : (m : ℚ) • ((extDen b : ℚ) • b) ∈ O := nat_smul_mem m (extDen_mem b)
+  have hmd : (extDen b : ℚ) • ((m : ℚ) • b) ∈ O := nat_smul_mem (extDen b) hb
+  have e1 := alpha_nat_smul α m _ (extDen_mem b) hdm
+  have e2 := alpha_nat_smul α (extDen b) _ hb hmd
+  have e3 : (⟨_, hdm⟩ : O) = ⟨_, hmd⟩ := Subtype.ext (smul_comm _ _ _)
+  rw [e3, e2] at e1
+  -- e1 : d • α(m b) = m • α(d b)
+  unfold extFun
+  have hX : (α ⟨_, extDen_mem b⟩ : B) = ((m : ℚ)⁻¹ * extDen b) • (α ⟨_, hb⟩ : B) := by
+    rw [mul_smul, e1, smul_smul, inv_mul_cancel₀ (by exact_mod_cast hm.ne'), one_smul]
+  rw [hX, smul_smul]
+  congr 1
+  have : (extDen b : ℚ) ≠ 0 := by exact_mod_cast hd.ne'
+  field_simp
+
+theorem extFun_coe (a : O) : extFun α a = α a := by
+  have h1 : ((1 : ℕ) : ℚ) • (a : B) ∈ O := by simp
+  rw [extFun_eq α a 1 one_pos h1]
+  have : (⟨_, h1⟩ : O) = a := Subtype.ext (by simp)
+  rw [this]; simp
+
+/-- A common multiplier for two elements. -/
+theorem common_den (b c : B) : ∃ m : ℕ, 0 < m ∧ (m : ℚ) • b ∈ O ∧ (m : ℚ) • c ∈ O := by
+  refine ⟨extDen b * extDen c, Nat.mul_pos (extDen_pos b) (extDen_pos c), ?_, ?_⟩
+  · have := nat_smul_mem (extDen c) (extDen_mem b)
+    rwa [smul_smul, ← Nat.cast_mul, mul_comm] at this
+  · have := nat_smul_mem (extDen b) (extDen_mem c)
+    rwa [smul_smul, ← Nat.cast_mul] at this
+
+theorem extFun_add (b c : B) : extFun α (b + c) = extFun α b + extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc : (m : ℚ) • (b + c) ∈ O := by rw [smul_add]; exact O.add_mem hb hc
+  rw [extFun_eq α _ m hm hbc, extFun_eq α _ m hm hb, extFun_eq α _ m hm hc, ← smul_add]
+  congr 1
+  have : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ + ⟨_, hc⟩ := Subtype.ext (by simp [smul_add])
+  rw [this, map_add]; rfl
+
+theorem smul_mul_smul' (r s : ℚ) (x y : B) : (r • x) * (s • y) = (r * s) • (x * y) := by
+  rw [smul_mul_assoc, mul_smul_comm, smul_smul]
+
+theorem extFun_mul (b c : B) : extFun α (b * c) = extFun α b * extFun α c := by
+  obtain ⟨m, hm, hb, hc⟩ := common_den b c
+  have hbc0 : ((m : ℚ) * m) • (b * c) ∈ O := by
+    rw [← smul_mul_smul']; exact O.mul_mem hb hc
+  have hbc : ((m * m : ℕ) : ℚ) • (b * c) ∈ O := by rw [Nat.cast_mul]; exact hbc0
+  have hprod : (⟨_, hbc⟩ : O) = ⟨_, hb⟩ * ⟨_, hc⟩ := by
+    apply Subtype.ext
+    show ((m * m : ℕ) : ℚ) • (b * c) = ((m : ℚ) • b) * ((m : ℚ) • c)
+    rw [smul_mul_smul', Nat.cast_mul]
+  have e1 : (α ⟨_, hbc⟩ : B) = (α ⟨_, hb⟩ : B) * (α ⟨_, hc⟩ : B) := by
+    rw [hprod, map_mul, MulMemClass.coe_mul]
+  rw [extFun_eq α _ (m * m) (Nat.mul_pos hm hm) hbc, extFun_eq α _ m hm hb,
+    extFun_eq α _ m hm hc, smul_mul_smul', e1, Nat.cast_mul, mul_inv]
+
+theorem extFun_algebraMap (q : ℚ) : extFun α (algebraMap ℚ B q) = algebraMap ℚ B q := by
+  have hq : ((q.den : ℕ) : ℚ) • algebraMap ℚ B q ∈ O := by
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast]
+    exact intCast_mem O q.num
+  rw [extFun_eq α _ q.den q.den_pos hq]
+  have : (⟨_, hq⟩ : O) = (q.num : O) := Subtype.ext (by
+    simp only [SubringClass.coe_intCast]
+    rw [Algebra.smul_def, ← map_mul, Rat.den_mul_eq_num, map_intCast])
+  rw [this, map_intCast, SubringClass.coe_intCast, ← map_intCast (algebraMap ℚ B),
+    Algebra.smul_def, ← map_mul]
+  congr 1
+  rw [inv_mul_eq_div, Rat.num_div_den]
+
+/-- The extension `α̃ : B → B` as a `ℚ`-algebra map. -/
+def extAlgHom : B →ₐ[ℚ] B where
+  toFun := extFun α
+  map_one' := by simpa using extFun_coe α 1
+  map_zero' := by simpa using extFun_coe α 0
+  map_add' := extFun_add α
+  map_mul' := extFun_mul α
+  commutes' := extFun_algebraMap α
+
+theorem extAlgHom_apply (b : B) : extAlgHom α b = extFun α b := rfl
+
+theorem extAlgHom_coe (a : O) : extAlgHom α a = α a := extFun_coe α a
+
+theorem extAlgHom_symm_comp : (extAlgHom α.symm).comp (extAlgHom α) = AlgHom.id ℚ B := by
+  refine AlgHom.ext fun b => ?_
+  change extAlgHom α.symm (extFun α b) = b
+  rw [extFun_eq α b (extDen b) (extDen_pos b) (extDen_mem b), map_smul, extAlgHom_coe,
+    RingEquiv.symm_apply_apply, smul_smul, inv_mul_cancel₀ (by exact_mod_cast (extDen_pos b).ne'),
+    one_smul]
+
+/-- The extension as a `ℚ`-algebra automorphism of `B`. -/
+def extAlgEquiv : B ≃ₐ[ℚ] B :=
+  AlgEquiv.ofAlgHom (extAlgHom α) (extAlgHom α.symm)
+    (by simpa using extAlgHom_symm_comp α.symm) (extAlgHom_symm_comp α)
+
+theorem extAlgEquiv_apply (b : B) : extAlgEquiv α b = extFun α b := rfl
+
+/-- **Every automorphism of `𝒪` is inner (proved from Skolem–Noether).** `LeafSkolemNoether` is
+the kernel's `GlueDescent.LeafSkolemNoether` (copied verbatim in `PGBase`), which the kernel proves
+(`TSkolemKW.leafSkolemNoether`, `ZInQKernel/HDecomp/Textbook/SkolemNoether.lean`; it cannot be
+imported next to the scratch copy). -/
+theorem autO_inner (hSN : GlueDescent.LeafSkolemNoether) (α : O ≃+* O) :
+    ∃ u : Bˣ, ∀ a : O, ((α a : O) : B) = u * a * ((u⁻¹ : Bˣ) : B) := by
+  obtain ⟨u, hu⟩ := GlueDescent.B6_inner hSN (extAlgEquiv α)
+  exact ⟨u, fun a => by rw [← extFun_coe α a]; exact hu a⟩
+
+end PeriodGlue.AutOExt
+
+namespace HSyn.G0Split.FibreQM.PeriodGlue
+
+open scoped Matrix
+open _root_.ZInQ ZInQ LeafQM.AV HSyn.G0Split.FibreQM HSyn.G0Split.FibreQM.PeriodMapH
+
+theorem cM_apply (x : LeafQM.B) : cM x =
+    !![((x.re : ℝ) : ℂ) + (x.imI : ℝ) * (√2 : ℝ), -3 * ((x.imJ : ℝ) : ℂ) - 3 * (√2 : ℝ) * (x.imK : ℝ);
+       ((x.imJ : ℝ) : ℂ) - (√2 : ℝ) * (x.imK : ℝ), ((x.re : ℝ) : ℂ) - (x.imI : ℝ) * (√2 : ℝ)] := by
+  unfold cM
+  have : BPAnalytic.QM.iota x = PkgI1.iota x := rfl
+  rw [this, PeriodMap.iota_apply]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp
+
+/-- `b ↦ ι(b)(τ, 1)ᵀ` is injective on `B` for `τ ∉ ℝ`. -/
+theorem latVec_eq_zero {c : LeafQM.B} {τ : ℂ} (hτ : τ.im ≠ 0)
+    (h : BPAnalytic.QM.latVec c τ = 0) : c = 0 := by
+  rw [latVec_eq, cM_apply] at h
+  have h0 := congrFun h 0
+  have h1 := congrFun h 1
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two] at h0 h1
+  have h0r := congrArg Complex.re h0
+  have h0i := congrArg Complex.im h0
+  have h1r := congrArg Complex.re h1
+  have h1i := congrArg Complex.im h1
+  simp at h0r h0i h1r h1i
+  have hs : (0 : ℝ) < √2 := Real.sqrt_pos.mpr (by norm_num)
+  have a1 : (c.re : ℝ) + c.imI * √2 = 0 := by
+    rcases h0i with h | h
+    · exact h
+    · exact absurd h hτ
+  have a2 : (c.imJ : ℝ) - √2 * c.imK = 0 := by
+    rcases h1i with h | h
+    · exact h
+    · exact absurd h hτ
+  have b1 : -3 * (c.imJ : ℝ) - 3 * √2 * c.imK = 0 := by
+    have := h0r; rw [a1] at this; linarith
+  have b2 : (c.re : ℝ) - c.imI * √2 = 0 := by
+    have := h1r; rw [a2] at this; linarith
+  have e0 : (c.re : ℝ) = 0 := by linarith
+  have e1 : (c.imI : ℝ) = 0 := by
+    have : (c.imI : ℝ) * √2 = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_right hs.ne'
+  have e3 : (c.imK : ℝ) = 0 := by
+    have : √2 * (c.imK : ℝ) = 0 := by linarith
+    exact (mul_eq_zero.mp this).resolve_left hs.ne'
+  have e2 : (c.imJ : ℝ) = 0 := by linarith
+  ext
+  · exact_mod_cast e0
+  · exact_mod_cast e1
+  · exact_mod_cast e2
+  · exact_mod_cast e3
+
+/-- A linear map commuting with `ι(i)` and `ι(j)` is a scalar. -/
+theorem scalar_of_commute (N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))
+    (hi : ∀ z, N (cM ⟨0, 1, 0, 0⟩ *ᵥ z) = cM ⟨0, 1, 0, 0⟩ *ᵥ N z)
+    (hj : ∀ z, N (cM ⟨0, 0, 1, 0⟩ *ᵥ z) = cM ⟨0, 0, 1, 0⟩ *ᵥ N z) :
+    ∃ p : ℂ, ∀ z, N z = p • z := by
+  have hs : ((√2 : ℝ) : ℂ) ≠ 0 := by
+    exact_mod_cast (Real.sqrt_pos.mpr (by norm_num : (0:ℝ) < 2)).ne'
+  set A := LinearMap.toMatrix' N with hA
+  have hN : ∀ z, N z = A *ᵥ z := fun z => by
+    rw [hA, ← Matrix.toLin'_apply, Matrix.toLin'_toMatrix']
+  have comm : ∀ x : LeafQM.B, (∀ z, N (cM x *ᵥ z) = cM x *ᵥ N z) → A * cM x = cM x * A := by
+    intro x hx
+    apply Matrix.toLin'.injective
+    refine LinearMap.ext fun z => ?_
+    rw [Matrix.toLin'_apply, Matrix.toLin'_apply, ← Matrix.mulVec_mulVec, ← Matrix.mulVec_mulVec,
+      ← hN, ← hN, hx]
+  have hAi := comm _ hi
+  have hAj := comm _ hj
+  rw [cM_apply] at hAi hAj
+  have i01 := congrFun (congrFun hAi 0) 1
+  have i10 := congrFun (congrFun hAi 1) 0
+  have j01 := congrFun (congrFun hAj 0) 1
+  simp [Matrix.mul_apply, Fin.sum_univ_two] at i01 i10 j01
+  have a01 : A 0 1 = 0 := by
+    have : 2 * ((√2 : ℝ) : ℂ) * A 0 1 = 0 := by linear_combination -i01
+    simpa [hs] using this
+  have a10 : A 1 0 = 0 := by
+    have : 2 * ((√2 : ℝ) : ℂ) * A 1 0 = 0 := by linear_combination i10
+    simpa [hs] using this
+  have a11 : A 1 1 = A 0 0 := by
+    linear_combination (-1/3 : ℂ) * j01
+  refine ⟨A 0 0, fun z => ?_⟩
+  rw [hN]
+  ext k
+  fin_cases k <;> simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two, a01, a10, a11]
+
+theorem cM_sub (a b : LeafQM.B) : cM (a - b) = cM a - cM b := by
+  rw [cM_apply, cM_apply, cM_apply]
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp <;> ring
+
+theorem latVec_sub (a b : LeafQM.B) (τ : ℂ) :
+    BPAnalytic.QM.latVec (a - b) τ = BPAnalytic.QM.latVec a τ - BPAnalytic.QM.latVec b τ := by
+  rw [latVec_eq, latVec_eq, latVec_eq, cM_sub, Matrix.sub_mulVec]
+
+theorem cM_injective {a b : LeafQM.B} (h : cM a = cM b) : a = b := by
+  have h0 : BPAnalytic.QM.latVec (a - b) Complex.I = 0 := by
+    rw [latVec_sub, latVec_eq, latVec_eq, h, sub_self]
+  exact sub_eq_zero.mp (latVec_eq_zero (by simp) h0)
+
+/-- **`QMLatticeTwistAlg`, (⇒) (proved from Skolem–Noether).** -/
+theorem qmLatticeTwistAlg_mp (hSN : GlueDescent.LeafSkolemNoether) (τ τ' : UpperHalfPlane)
+    (h : ∃ α : LeafQM.O ≃+* LeafQM.O, ∃ M : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ),
+      (∀ z, z ∈ BPAnalytic.QM.qmLattice τ.im_pos.ne' ↔
+        M z ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne') ∧
+      ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z)) :
+    ∃ g ∈ PkgI1.GammaStar, g • τ = τ' := by
+  obtain ⟨α, M, hML, hMeq⟩ := h
+  obtain ⟨w, hw⟩ := PeriodGlue.AutOExt.autO_inner hSN α
+  set wv : LeafQM.B := (w : LeafQM.B) with hwvdef
+  set u : LeafQM.B := ((w⁻¹ : LeafQM.Bˣ) : LeafQM.B) with hudef
+  have hwu : wv * u = 1 := w.mul_inv
+  have huw : u * wv = 1 := w.inv_mul
+  have hα : ∀ a : LeafQM.O, ((α a : LeafQM.O) : LeafQM.B) = wv * a * u := hw
+  have hαs : ∀ c : LeafQM.O, ((α.symm c : LeafQM.O) : LeafQM.B) = u * c * wv := by
+    intro c
+    have h1 := hα (α.symm c)
+    rw [RingEquiv.apply_symm_apply] at h1
+    rw [h1]
+    calc ((α.symm c : LeafQM.O) : LeafQM.B) = (u * wv) * (α.symm c : LeafQM.B) * (u * wv) := by
+          rw [huw, _root_.one_mul, _root_.mul_one]
+      _ = u * (wv * (α.symm c : LeafQM.B) * u) * wv := by noncomm_ring
+  -- `N = M ∘ ι(w)` commutes with `ι(𝒪)`
+  let N : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) :=
+    (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) ∘ₗ Matrix.toLin' (cM wv)
+  have hN : ∀ z, N z = M (cM wv *ᵥ z) := fun z => rfl
+  have hNa : ∀ a : LeafQM.O, ∀ z, N (cM a *ᵥ z) = cM a *ᵥ N z := by
+    intro a z
+    rw [hN, hN]
+    have e : wv * a = (wv * a * u) * wv := by
+      calc wv * (a : LeafQM.B) = wv * a * 1 := (_root_.mul_one _).symm
+        _ = wv * a * (u * wv) := by rw [huw]
+        _ = (wv * a * u) * wv := by noncomm_ring
+    rw [Matrix.mulVec_mulVec, ← cM_mul, e, cM_mul, ← Matrix.mulVec_mulVec, ← hα, ← qmMat_eq,
+      hMeq, qmMat_eq]
+  have qi_mem : (⟨0, 1, 0, 0⟩ : LeafQM.B) ∈ LeafQM.O :=
+    ⟨![0, 1, 0, 0], by ext <;> simp [LeafQM.ofInt]⟩
+  have qj_mem : (⟨0, 0, 1, 0⟩ : LeafQM.B) ∈ LeafQM.O :=
+    ⟨![-1, 0, 2, 0], by ext <;> simp [LeafQM.ofInt]⟩
+  obtain ⟨p, hp⟩ := scalar_of_commute N (hNa ⟨_, qi_mem⟩) (hNa ⟨_, qj_mem⟩)
+  have hMz : ∀ z, M z = p • (cM u *ᵥ z) := by
+    intro z
+    have hz : z = cM wv *ᵥ (cM u *ᵥ z) := by
+      rw [Matrix.mulVec_mulVec, ← cM_mul, hwu, cM_one, Matrix.one_mulVec]
+    calc M z = M (cM wv *ᵥ (cM u *ᵥ z)) := by rw [← hz]
+      _ = N (cM u *ᵥ z) := (hN _).symm
+      _ = p • (cM u *ᵥ z) := hp _
+  have hp0 : p ≠ 0 := by
+    intro h0
+    have h1 : M ![1, 0] = M 0 := by rw [hMz, h0, zero_smul, map_zero]
+    have := congrFun (M.injective h1) 0
+    simp at this
+  have hτ : (τ : ℂ).im ≠ 0 := τ.im_pos.ne'
+  -- `(τ', 1)ᵀ = p ι(x) (τ, 1)ᵀ` with `x = u b₁`
+  have hv1 : BPAnalytic.QM.latVec 1 τ' ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne' :=
+    (mem_qmLattice_iff _ _).mpr ⟨1, LeafQM.O.one_mem, rfl⟩
+  obtain ⟨b1, hb1, hz1⟩ := (mem_qmLattice_iff _ _).mp
+    ((hML (M.symm (BPAnalytic.QM.latVec 1 τ'))).mpr (by rw [M.apply_symm_apply]; exact hv1))
+  set x := u * b1 with hxdef
+  have hvx : BPAnalytic.QM.latVec 1 τ' = p • BPAnalytic.QM.latVec x τ := by
+    have h1 := congrArg M hz1
+    rw [M.apply_symm_apply] at h1
+    rw [h1, hMz, hxdef, latVec_mul]
+  have hv1' : BPAnalytic.QM.latVec 1 τ' = ![((τ' : UpperHalfPlane) : ℂ), 1] := by
+    rw [latVec_eq, cM_one, Matrix.one_mulVec]
+  have hlat' : ∀ b', BPAnalytic.QM.latVec b' τ' = p • BPAnalytic.QM.latVec (b' * x) τ := by
+    intro b'
+    rw [latVec_eq, ← hv1', hvx, Matrix.mulVec_smul, latVec_mul b' x]
+  -- `u 𝒪 ⊆ 𝒪 x`
+  have hA : ∀ b ∈ LeafQM.O, ∃ b' ∈ LeafQM.O, u * b = b' * x := by
+    intro b hb
+    have hm : M (BPAnalytic.QM.latVec b τ) ∈ BPAnalytic.QM.qmLattice τ'.im_pos.ne' :=
+      (hML _).mp ((mem_qmLattice_iff _ _).mpr ⟨b, hb, rfl⟩)
+    obtain ⟨b', hb', hbe⟩ := (mem_qmLattice_iff _ _).mp hm
+    refine ⟨b', hb', ?_⟩
+    rw [hMz, ← latVec_mul, hlat'] at hbe
+    have h2 : BPAnalytic.QM.latVec (u * b) τ = BPAnalytic.QM.latVec (b' * x) τ :=
+      smul_right_injective _ hp0 hbe
+    have h3 : BPAnalytic.QM.latVec (u * b - b' * x) τ = 0 := by rw [latVec_sub, h2, sub_self]
+    exact sub_eq_zero.mp (latVec_eq_zero hτ h3)
+  -- `b₁` is a unit of `𝒪`
+  obtain ⟨b', hb', hb'e⟩ := hA 1 LeafQM.O.one_mem
+  set e := wv * b' * u with hedef
+  have he : e ∈ LeafQM.O := by
+    have := (α ⟨b', hb'⟩).2
+    rwa [hα] at this
+  have heb1 : e * b1 = 1 := by
+    calc e * b1 = wv * (b' * (u * b1)) := by rw [hedef]; noncomm_ring
+      _ = wv * (u * 1) := by rw [← hxdef, ← hb'e]
+      _ = 1 := by rw [_root_.mul_one, hwu]
+  have hb1e : b1 * e = 1 := by
+    apply cM_injective
+    rw [cM_mul, cM_one]
+    have : cM e * cM b1 = 1 := by rw [← cM_mul, heb1, cM_one]
+    exact mul_eq_one_comm.mp this
+  set y := e * wv with hydef
+  have hxy : x * y = 1 := by
+    calc x * y = u * (b1 * e) * wv := by rw [hxdef, hydef]; noncomm_ring
+      _ = 1 := by rw [hb1e, _root_.mul_one, huw]
+  have hyx : y * x = 1 := by
+    calc y * x = e * (wv * u) * b1 := by rw [hxdef, hydef]; noncomm_ring
+      _ = 1 := by rw [hwu, _root_.mul_one, heb1]
+  have hnorm : ∀ z : PkgI1.B, PkgI1.InO z → PkgI1.InO (x * z * y) ∧ PkgI1.InO (y * z * x) := by
+    intro z hz
+    have hz' := (inO_iff z).mp hz
+    constructor
+    · rw [inO_iff]
+      have hc : b1 * z * e ∈ LeafQM.O :=
+        LeafQM.O.mul_mem (LeafQM.O.mul_mem hb1 hz') he
+      have := (α.symm ⟨_, hc⟩).2
+      rw [hαs] at this
+      have eq : x * z * y = u * (b1 * z * e) * wv := by rw [hxdef, hydef]; noncomm_ring
+      rw [eq]; exact this
+    · rw [inO_iff]
+      have hc := (α ⟨z, hz'⟩).2
+      rw [hα] at hc
+      have eq : y * z * x = e * (wv * z * u) * b1 := by rw [hxdef, hydef]; noncomm_ring
+      rw [eq]
+      exact LeafQM.O.mul_mem (LeafQM.O.mul_mem he hc) hb1
+  -- the element of `GL₂(ℝ)`
+  have hI1 : PkgI1.iota x * PkgI1.iota y = 1 := by
+    rw [← PeriodMap.iota_mul, hxy, PeriodMap.iota_one]
+  have hI2 : PkgI1.iota y * PkgI1.iota x = 1 := by
+    rw [← PeriodMap.iota_mul, hyx, PeriodMap.iota_one]
+  let g : GL (Fin 2) ℝ := ⟨PkgI1.iota x, PkgI1.iota y, hI1, hI2⟩
+  have hgm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x := rfl
+  have hgc : cM x = (g : Matrix (Fin 2) (Fin 2) ℝ).map (fun r : ℝ => (r : ℂ)) := rfl
+  -- `τ' = gτ`
+  have hcomp := hvx
+  rw [hv1', latVec_eq, hgc] at hcomp
+  have c0 := congrFun hcomp 0
+  have c1 := congrFun hcomp 1
+  simp [Matrix.mulVec, dotProduct, Fin.sum_univ_two] at c0 c1
+  have hden : UpperHalfPlane.denom g τ = p⁻¹ := by
+    have h1 : p * UpperHalfPlane.denom g τ = 1 := by
+      simp only [UpperHalfPlane.denom]; rw [c1]
+    rw [← mul_right_inj' hp0, h1, mul_inv_cancel₀ hp0]
+  have hnum : ((τ' : UpperHalfPlane) : ℂ) = UpperHalfPlane.num g τ / UpperHalfPlane.denom g τ := by
+    rw [hden, div_inv_eq_mul, c0]
+    simp only [UpperHalfPlane.num]; ring
+  have hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det := by
+    have him := UpperHalfPlane.moebius_im g τ
+    rw [← hnum] at him
+    have h1 : 0 < ((τ' : UpperHalfPlane) : ℂ).im := τ'.im_pos
+    have h2 : 0 < Complex.normSq (UpperHalfPlane.denom g τ) :=
+      Complex.normSq_pos.mpr (UpperHalfPlane.denom_ne_zero g τ)
+    have h3 : 0 < (τ : ℂ).im := τ.im_pos
+    rw [him, Matrix.GeneralLinearGroup.val_det_apply] at h1
+    have := (div_pos_iff_of_pos_right h2).mp h1
+    exact pos_of_mul_pos_left this h3.le
+  refine ⟨g, ⟨x, ⟨y, hxy, hyx, hnorm⟩, hgm, hdet⟩, ?_⟩
+  ext1
+  rw [UpperHalfPlane.coe_smul_of_det_pos (by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet),
+    ← hnum]
+
+/-- **`QMLatticeTwistAlg` (proved from Skolem–Noether).** -/
+theorem qmLatticeTwistAlg_of (hSN : GlueDescent.LeafSkolemNoether) : QMLatticeTwistAlg :=
+  fun τ τ' => ⟨qmLatticeTwistAlg_mp hSN τ τ', qmLatticeTwistAlg_mpr τ τ'⟩
+
+/-- **`QMTwistLattice` from the `Hom` form of T11a and Skolem–Noether (proved).** -/
+theorem qmTwistLattice_of' (hH : T11aRiemannHom) (hSN : GlueDescent.LeafSkolemNoether) :
+    QMTwistLattice :=
+  qmTwistLattice_of hH (qmLatticeTwistAlg_of hSN)
+
+end HSyn.G0Split.FibreQM.PeriodGlue
+
+end  -- assemble-port: closes the file's `noncomputable section`
+
+end G0A3_e23_qmtwist
 
 section G0A3_e25_hodgeclosed
 /-! ## g0-assemble3: infra-smooth-dim's `closed_part.lean.part` (§6 of HodgeLatticeClosed.lean: `RegularAtOrigin`,
@@ -98978,10 +101570,12 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
     r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (29 fields). g0-assemble3's `GluePieces4` (46 fields) without the 20
+/-- **The named Props left after assemble-port** (27 fields). g0-assemble3's `GluePieces4` (46 fields) without the 24
 fields proved or moved since (table: docs/research/assemble-port.md §2), plus linked-ram's `upperBreakBound` (LEAF?) and
 `betaTrivialAtTwo` (GLUE), which replace `kernelFieldBreaks`, and linked-ram's corrected `tateRamAtThreeD` (GLUE), which
-replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1). -/
+replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1),
+and period-glue's leaves `gammaStarGen` (LEAF?) and `t11aRiemannHom` (LEAF), which replace `s8WeightExact` and
+`qmTwistLattice`. -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -99004,16 +101598,10 @@ structure GluePieces5 : Prop where
     G0Split.FibreQM.PeriodMapH.PiTwistC (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep h))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep h))
-  /-- period-map, GLUE (the QM twist acts on the period lattice). -/
-  qmTwistLattice : G0Split.FibreQM.PeriodMapH.QMTwistLattice
   /-- period-map, LEAF? (CM points descend; Shimura's theory of CM). -/
   cmDescends : G0Split.FibreQM.PeriodMapH.CMDescends
-  /-- period-map, GLUE (numerical: `Σθ⁸(Ω(√2 + i)) ≠ 0`). -/
-  s8Nonzero : G0Split.FibreQM.PeriodMap.S8Nonzero
   /-- period-map, GLUE (textbook complex analysis: a holomorphic map of the sphere factoring affinely). -/
   sphereFactorAffine : G0Split.FibreQM.PeriodMap.SphereFactorAffine
-  /-- period-map, GLUE (`Σθ⁸∘Ω` has exact weight 8). -/
-  s8WeightExact : G0Split.FibreQM.PeriodMap.S8WeightExact
   /-- period-map, LEAF (the valence formula for `Γ*`). -/
   valenceBoundGammaStar : G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar
   -- ModularConstituent: G2 (fibre-cover; Prop. TS by prop-ts, prop-ts-glue)
@@ -99024,8 +101612,6 @@ structure GluePieces5 : Prop where
   /-- prop-ts-glue, GLUE. -/ heckeBranch : PropTSGlue.HeckeBranch
   /-- prop-ts-glue, GLUE (Lemma NV). -/ heckeNoVertRam : PropTSGlue.HeckeNoVertRam
   -- ModularConstituent: G4 (kernel-field, kf-glue)
-  /-- kf-glue, GLUE (Galois descent of the twisted isomorphisms). -/
-  twistDescent : G0ModField.KernelField.TwistDescent
   -- ModularConstituent: G8-G12
   /-- conj-twist, LEAF (N2: homomorphisms lift to `ℂ`-linear maps of uniformizations; Birkenhake–Lange 1.2.1). -/
   homLinearLift : G0Galois.HomLinearLift
@@ -99052,12 +101638,21 @@ structure GluePieces5 : Prop where
   /-- linked-ram, GLUE (corrected field 46: `TateRamAtThree` with the hypothesis `[L:ℚ] ≤ D`, D1-D2 at `p = 3` for
   `ρ₅`; implied by the old field, `tateRamAtThreeD_of`). -/
   tateRamAtThreeD : UnramTate.TateRamAtThreeD
+  /-- period-glue, LEAF? (`Γ*/ℚ^×` is the `(2,4,6)` triangle group generated by `ι(1+i+j)`, `ι((j−3)/2)`: Takeuchi 1977,
+  Elkies 1998 §3, Poincaré's polygon theorem; with R4 it gives period-map's `S8WeightExact`, `s8WeightExact_of`). -/
+  gammaStarGen : G0Split.FibreQM.PeriodGlue.GammaStarGen
+  /-- period-glue, LEAF (T11(a) in `Hom` form: homomorphisms of complex abelian varieties are the lattice-preserving
+  `ℂ`-linear maps; Mumford §1, Birkenhake–Lange 1.2.1, GAGA; with Skolem–Noether, proved, it gives period-map's
+  `QMTwistLattice`, `qmTwistLattice_of'`). -/
+  t11aRiemannHom : G0Split.FibreQM.PeriodGlue.T11aRiemannHom
 
 /-- **`GluePieces` from `GluePieces5` and leaf-fold2's open leaf bundles.** g0-assemble3's `gluePieces_of_gluePieces4`
 (part z95), with every field proved since replaced by its proof: `analyticUniformizationOfDim` by T35's transport,
 `hodgeBCInjective`, `omegaBaseChange` (hodge-bc2), `baseChangeClassUnique`, `cPtsTransport` (cpts-transport),
 `SpecNonMeeting` and six Kummer pieces inside `propTSAll_final''` (prop-ts-glue, ts-kummer), `goodRedTorsion`,
-`qmEndRank` (lt-goodred), `KernelFieldBreaks` (linked-ram, from `upperBreakBound`, `betaTrivialAtTwo`), linked-tate's
+`qmEndRank` (lt-goodred), `KernelFieldBreaks` (linked-ram, from `upperBreakBound`, `betaTrivialAtTwo`), `twistDescent` (twist-descent), `s8Nonzero`
+(period-glue), `s8WeightExact`, `qmTwistLattice` (period-glue, from `gammaStarGen`, `t11aRiemannHom` and the proved
+Skolem–Noether), linked-tate's
 `LinkedRam` through linked-ram's `linkedRam_of'` with the corrected `tateRamAtThreeD`; `r1bFamily`, `r14Det`, `carayolR17` are the fields `r1b`, `r14`, `r17` of
 `OpenResearchLeaves2`. -/
 theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
@@ -99083,7 +101678,7 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep r.r1r2)) :=
     G0Split.FibreQM.PeriodMapH.periodMapGlue_own _ G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
-      (gp.piTwistC r.r1r2) gp.qmTwistLattice
+      (gp.piTwistC r.r1r2) (G0Split.FibreQM.PeriodGlue.qmTwistLattice_of' gp.t11aRiemannHom TSkolemKW.glueDescent_leafSkolemNoether)
       (G0Split.FibreQM.PeriodMapH.piCMC_of _ _ _ (G0Split.FibreQM.own_spec _).1
         (G0Split.FibreQM.own_spec _).2.2 G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof
         (gp.piTwistC r.r1r2) gp.cmDescends)
@@ -99101,15 +101696,15 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     thetaPoint := G0Split.ThetaPt.thetaPointOfFibre_of_qm_ratios
       (G0Split.FibreQM.fibreQMPeriod_main_rep r.r1r2 hMob gp.qmHauptmodul
         t.t35 t.t11a gp.qmClassNumberOne (r.r1b r.r1r2) hPM
-        (G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' gp.s8Nonzero gp.sphereFactorAffine)
-        (G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' gp.s8Nonzero gp.s8WeightExact
+        (G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' G0Split.FibreQM.PeriodGlue.s8Nonzero_proof gp.sphereFactorAffine)
+        (G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of'' G0Split.FibreQM.PeriodGlue.s8Nonzero_proof (G0Split.FibreQM.PeriodGlue.s8WeightExact_of r.r4 gp.gammaStarGen)
           gp.valenceBoundGammaStar)
         G0Split.FibreQM.cPtsTransport_proof)
       gp.thetaRatiosAlgebraic
     modularConstituent := modularConstituent_of_field t3
       (G0ModField.fibreCoverExists_of_propTSAll' t.t5 hTS G0ModField.unramifiedConjugates)
       (G0ModField.KernelField.kernelFieldExists_of_descent t.t6 r.r7a r.r6 t.t5 t.t27
-        hFS5 MulRigidity.mulIsogeny gp.twistDescent)
+        hFS5 MulRigidity.mulIsogeny G0ModField.KernelField.twistDescent)
       UnramTate.unramifiedSup_mf
       (G0AssembleMod.afterG7_of3 r4.toR3 t3
         ⟨RvGP2.burnsideAbsIrred, r.r14,
@@ -99134,8 +101729,8 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (29 fields: 10 LEAF, 4 LEAF?,
-15 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (27 fields: 11 LEAF, 5 LEAF?,
+11 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
   sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
@@ -99172,6 +101767,10 @@ end
 #print axioms UnramTate.kernelFieldBreaks_of'
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.kernelFieldBreaksHigh
+#print axioms G0ModField.KernelField.twistDescent
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.s8WeightExact_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of'
 #print axioms UnramTate.upperAbsWild
 
 end G0A3_z99_bundle5

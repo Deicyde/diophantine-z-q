@@ -93,3 +93,13 @@
   `gluePieces_of_gluePieces4` with proved fields replaced, linked-ram's `linkedRam_of'` route), since
   `GluePieces4.tateRamAtThree` is not implied by linked-ram's corrected `TateRamAtThreeD`. GluePieces5: 29 fields
   (10 LEAF, 4 LEAF?, 15 GLUE). TailD: VERIFIED exit 0, 31 s, 0 errors, no sorryAx, all axiom reports standard.
+- Flat run 1 (AssemblePort.lean at the 29-field state, 99 179 lines, md5 a660b0c9…): 1 error, in part e12
+  (`abhyankar_core`: `simpa using h1` closed to a different goal by a simp lemma active only in the flat file's context).
+  Fix in mk/mk_e12.py: `simpa only [RingHom.comp_apply, map_natCast] using h1` (statement unchanged). 268 axiom reports.
+- Merged origin/wip/twist-descent and origin/wip/period-glue (both with reports). Parts (mk/mk_pg.py): d25 = twist-descent's
+  Mathlib-only module GaloisDescent.lean (copied) + PartXC/HFD/Main/Final (PartGDM omitted: `GaloisDescentMor` is not in
+  part d20); e21 = period-glue S8.lean (`s8Nonzero_proof`), e22 = W8.lean (`s8WeightExact_of`), e23 = QMTwist.lean
+  (`qmTwistLattice_of'`; + leaf-push2 open). Run 1: 15 errors (GaloisDescentMor unknown; CPts unknown) → fixed as stated.
+- GluePieces5: − twistDescent, s8Nonzero (proved), − s8WeightExact, qmTwistLattice (reduced), + gammaStarGen (LEAF?),
+  t11aRiemannHom (LEAF); Skolem–Noether from Leaves.lean's `TSkolemKW.glueDescent_leafSkolemNoether`. 27 fields
+  (11 LEAF, 5 LEAF?, 11 GLUE). TailF 138 s, TailD 34 s: VERIFIED exit 0, 0 errors, no sorryAx, all axiom reports standard.

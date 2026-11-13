@@ -191,7 +191,7 @@ theorem abhyankar_core (t2 : PkgI2.AbhyankarDVR.{0})
     intro k hk
     have h1 : IsUnit ((algebraMap R0 Rp).comp (algebraMap ℚ R0) (k : ℚ)) :=
       (Ne.isUnit (by exact_mod_cast hk : (k : ℚ) ≠ 0)).map _
-    simpa using h1
+    simpa only [RingHom.comp_apply, map_natCast] using h1
   -- localizing the integral closure of `R0` in `L`
   obtain ⟨hL1, hL2, hL3⟩ := intCl_isLocalization R0 Rp L p.primeCompl hPL
   letI := (intClIncl R0 Rp L).toAlgebra

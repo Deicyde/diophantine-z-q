@@ -4,11 +4,8 @@ thetaRatiosAlgebraic
 qmHauptmodul
 qmClassNumberOne
 piTwistC
-qmTwistLattice
 cmDescends
-s8Nonzero
 sphereFactorAffine
-s8WeightExact
 valenceBoundGammaStar
 kummerCompositum
 heckeIrreducible
@@ -16,7 +13,6 @@ heckeNormalizationIrr
 heckeDegree
 heckeBranch
 heckeNoVertRam
-twistDescent
 homLinearLift
 senTwist
 finiteImageHT
@@ -27,3 +23,5 @@ linkedFrob
 upperBreakBound
 betaTrivialAtTwo
 tateRamAtThreeD
+gammaStarGen
+t11aRiemannHom
