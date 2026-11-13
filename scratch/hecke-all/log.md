@@ -15,3 +15,17 @@
   variables when j is integral (both minimal models differ by v(u) = 1; good/additive classes and #W̃(κ) agree).
 - `hj_cdLocal` (c₄³ = 1728Δ for C_d), `scaleChange`, `scaleChange_smul`, `LFunction_cd_sq_mul`,
   `LSeries_cd_sq_mul`: L(C_{m²d}, s) = L(C_d, s) for d, m ≠ 0.
+
+## Continuation.lean (VERIFIED: `lake build ZInQKernel.Contrib.HeckeAll.Continuation`, 22:25; axioms propext, Classical.choice, Quot.sound)
+- `jacobiSym_mul_right_all`, `jacobiSym_factorization`: J(a | ·) completely multiplicative (incl. 0).
+- `eulerCoeff d p k` = [T^k] 1/cdEulerPoly d p; `eulerCoeff_cast`, `eulerCoeff_of_dvd`, `eulerCoeff_zero`.
+- `cdEulerPoly_twist` (p ∤ 2d: a_p(C_d) = J(d|p)·a_p(C_1), from card_cd_affine_eq + sum_quadraticChar_twist),
+  `coeff_twist_quadratic`, `jacobiSym_sq_of_not_dvd`, `eulerCoeff_twist` (all d, p prime, k),
+  `cdCoeff_twist`: cdCoeff d n = J(d|n)·cdCoeff 1 n for every d and n ≠ 0 (formal identity of the Euler products).
+- `twChar d` on (ZMod 4d)²: ¼·J(d | val² + val²)·unitOf(val mod 4); `unitG_eq_zero_of_two_mul` (decide),
+  `twChar_intCast`: for q ∈ normFiber n, twChar d (q mod 4d) = ¼ J(d|n) unitOf(q mod 4) (periodicity of J(d|·) mod 4d on odd args).
+- `isLContinuation_of_squarefree : GaussPointCount → Squarefree d → ∃ F, IsLContinuation (C_d) F`.
+- **`ZInQ.Contrib.heckeContinuation_of_gaussPointCount : HeckeAll.GaussPointCount → ZInQ.Literature.HeckeContinuation`**
+  (d = b²a, a squarefree, via LSeries_cd_sq_mul).
+- HeckeFE.lean: verbatim copy of scratch/bp-hecke-fe/HeckeFE.lean, namespace BpHeckeFE → ZInQ.Contrib.HeckeAll
+  (GaussPointCount unchanged). Built with lake (20 s).
