@@ -39,3 +39,4 @@
   compiles; `#print axioms t28_check` = [propext, Classical.choice, Quot.sound]. VERIFIED.
   => leaf T28 is proved (generic half here, special half igusa-special; assembly file
   `Assemble.lean` is owned by igusa-special: `T28.igusaClebschSeparation_proved`).
+- Merged origin/wip/igusa-special through 2d7f26e2 (Assemble.lean); t28_check also prints axioms of T28.igusaClebschSeparation_proved = standard three. VERIFIED.
