@@ -16,3 +16,6 @@
 - TextbookLeaves: t32a, t32b removed (now theorems HSyn.t32a_glue, t32b_glue); t33 : LeafModCurves.JacobianExists ℚ, t34 : LeafModCurves.DimJ1Genus added.
 - Glue: no glue step consumed the removed placeholders (glueOutputs_of_leaves ignores its arguments), so no glue changed. X1ModelExists is a glue target (unproved), not put in the leaf bundle.
 - run4 (after header docstring; final state before review): 0 errors, one sorry (L19202 glueOutputs_of_leaves), 8 opaque, 0 axiom, 2m27s.
+
+## Independent check (model review, read-only, no Lean run)
+- Verdict: no DEFECT. Every replaced leaf is the published statement or a consequence, none vacuous by a definitional mistake. RISKs: bp-qmmoduli §2.2 premise (R1R2fpRep, R1rec, R5fp, R5fpCount); R1 PEL specialization (audit "qualified consequence"); R16 char-poly supplier numbers; R19 normalization (Gaudron–Rémond = original Faltings, per locators.md); R19/R20 no instance and R21 trivial until AN3 + HodgeLatticeTheorem are proved; H5 = published theorem + correctness of the definition; R20 locator unread. T32 removal: t32a_glue/t32b_glue have exactly the leaf types; no shadowing LeafPush copy. Recorded in docs/research/leaf-adopt.md §6.

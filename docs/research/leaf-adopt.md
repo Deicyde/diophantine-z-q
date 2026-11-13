@@ -142,4 +142,57 @@ h-decomposition §5 ends with this list as "Remaining work after leaf-adopt".
 
 ## 6. Independent check of this diff
 
-(See §7.)
+**Method.** One adversarial model review (a subagent; read-only; it ran no Lean process and was
+not told my conclusions) read the five sections of `Leaves.lean` that hold the replaced leaves,
+together with the source notes. For each leaf it was asked three questions: (a) is the Lean text
+the published statement or a consequence of it, never stronger; (b) is it non-vacuous, other than
+through a definitional mistake; (c) does it depend on an unstated premise. My own reading of the
+same points agrees; the leaf-specific checks I made myself are marked *(own)*. This is a model
+review, not a human one.
+
+**Verdict: no DEFECT.** No replaced leaf is stronger than its source, and none is vacuous because
+of a definitional mistake. The remaining risks are premises and locators, all recorded in the
+docstrings.
+
+| Leaf | (a) published or consequence | (b) non-vacuous | (c) premise | verdict |
+| --- | --- | --- | --- | --- |
+| `LeafAdopt.R1R2fpRep` | consequence; see note 1 | yes, see note 2 | bp-qmmoduli §2.2; R1's audit verdict "qualified consequence" (PEL specialization needs a human check) | RISK |
+| `LeafQM.AV.R1rec` | consequence of Shimura reciprocity (`E(y)/E` unramified outside 3; `E` ramified only at 2, 3) | yes | §2.2; reflex-field qualifications | RISK |
+| `LeafQM.AV.R5fp` (= `R5fpStrong`) | consequence of González–Rotger Thm 5.12; junk excluded (infinite index gives `conductor = 0`, and `Nat.Coprime 0 6` is false); `R5fp_iff_R5fpStrong` is a genuine proof | yes | §2.2 | RISK (mild) |
+| `LeafQM.AV.R5fpCount` | consequence of Prop. 5.6, `2^b h(R)`; consistent with the elliptic points and with disc −19 (4 points) | yes | §2.2 | RISK (mild) |
+| `LeafModCurves.R16_EichlerShimuraJ1'` | consequence; see note 3 | yes, see note 4 | MC9 as a citation-chain fact; char-poly supplier, UNVERIFIED numbers | RISK |
+| `LeafModCurves.JacobianExists ℚ` (T33) | published (Weil; Milne) | yes | none | OK |
+| `LeafModCurves.DimJ1Genus` (T34) | consequence; genus by cosets, fixed points of `S`, `ST`, `⟨T⟩`-orbits; `∃ g : ℕ` avoids junk | yes | canonical ≅ `K_N` model (citation chain) | OK |
+| `ZInQ.DefFaltings.R19_GaudronRemond` | consequence **only if** Gaudron–Rémond's `h` is Faltings' original normalization; the height enters as `= x`, never `toReal` | not until a `MetrizedModel` exists (AN3 open) | AN3, `HodgeLatticeTheorem`, normalization | RISK |
+| `R20_FaltingsLemma5` | consequence (absolute value; stable form standard) | as R19 | as R19; Lemma 5 locator unread | RISK |
+| `R21_Bost` | consequence in either normalization (`−(g/2)log(2π²) ≥ −(3/2)g`) | trivially true while `h = ⊤` | as R19 | OK |
+| `LeafAdopt.H5` | holds for the true objects (`ω_𝒩 ⊆ ω_𝒢` gives the minimality); see note 5 | not vacuous by design (the Néron model satisfies `IsNeronModel`) | it is "published theorem + correctness of the definition" (docstring) | RISK (stated) |
+| T32 removed | `HSyn.t32a_glue`, `t32b_glue` have exactly the types `LeafPush.T32a_TameQuadratic`, `T32b_QuadraticRamification`; there is one `namespace LeafPush`, so no copy shadows them; no `sorry` in the copied section | — | none | OK |
+
+Notes to the table:
+1. **`R1R2fpRep`, faithfulness.**
+   - `PtEquiv` is fine moduli restricted to field points; the Hecke and twist automorphisms come
+     from Yoneda.
+   - The values `0, ∞, −16/27` add nothing, because `π₆` is existential.
+   - The CM clauses are exact, because `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]` are maximal orders. Each CM set
+     has `2^b h = 2` points and is a single `W`-orbit *(own)*. This rests on Baba–Granath's §3.1
+     table, not on Thm 2.1.
+   - `GeometricallyConnected X.hom` holds for the canonical `X₆`.
+2. **`R1R2fpRep`, non-vacuity.** The clauses `Nonempty (fieldPt Qbar ⟶ Y)` and
+   `Nonempty (fieldPt Qbar ⟶ X)` exclude `Y = ∅` and `X = ∅`. The objects are uninhabited only
+   because Mathlib cannot construct an abelian surface, which is expected.
+3. **R16, faithfulness.** `IsFrobAt` is arithmetic Frobenius, and `frobOn` is the transpose on the
+   `ι`-eigenfunctionals. So the trace and determinant are those of the `ι`-component of the
+   covariant `V_ℓ`: `ι(a_p)` and `ι(χ(p))p`. The conjugate convention is absorbed by the
+   existential `θ`.
+4. **R16, non-vacuity.** `IsJ1` is satisfiable (rational cusp); with the glue target
+   `X1ModelExists` and T33 some `J₁(N)` exists.
+5. **H5's quantifier.** `NeronModelMinimal`'s "any `K`" is not too broad, since `K ⊆ L` with `L`
+   a number field.
+
+**Points recorded for human checking** (none is a defect):
+1. R19's dependence on Gaudron–Rémond's normalization (locators.md read it as original Faltings).
+2. If AN3 were false (it is not, mathematically), the height would be `⊤` and R19-R21 would hold
+   trivially. None of them could become false.
+3. bp-qmmoduli §2.2 underlies every Shimura-curve leaf and cannot be a Lean hypothesis today.
+4. R20's locator, Faltings 1983 Lemma 5, is unread (UNVERIFIED).
