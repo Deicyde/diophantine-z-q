@@ -1524,4 +1524,94 @@ theorem literature_hecke_fe_of_euler_gauss_oddGaussPrime
   literature_hecke_fe_of_euler_gauss_oddGauss hE hS fun d h5 hsq =>
     oddGauss_of_prime hP d (Nat.odd_iff.mpr (by omega)) hsq
 
+/-! ### `GaussSplit d` from `GaussSplit 1` (quadratic twist) -/
+
+/-- `#{(x, y) ∈ 𝔽_p² : y² = x³ − d²x} = p + Σ_x ((x³ − d²x)/p)` for odd `p`. -/
+theorem card_cd_affine_eq {p : ℕ} [Fact p.Prime] (hp2 : p ≠ 2) (d : ℕ) :
+    (Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1} : ℤ) =
+      p + ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) := by
+  classical
+  have hc : ringChar (ZMod p) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; exact hp2
+  rw [Nat.card_eq_fintype_card, Fintype.card_subtype, Finset.card_filter, Fintype.sum_prod_type]
+  push_cast
+  have : ∀ x : ZMod p, (∑ y : ZMod p, if y ^ 2 = x ^ 3 - (d : ZMod p) ^ 2 * x then (1 : ℤ) else 0) =
+      quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) + 1 := fun x => by
+    rw [← quadraticChar_card_sqrts hc, Set.toFinset_ofPred, Finset.card_filter]
+    push_cast; rfl
+  simp_rw [this]
+  rw [Finset.sum_add_distrib]
+  simp [ZMod.card, add_comm]
+
+/-- The quadratic twist: `Σ_x ((x³ − d²x)/p) = (d/p) Σ_x ((x³ − x)/p)` for `p ∤ d`. -/
+theorem sum_quadraticChar_twist {p : ℕ} [Fact p.Prime] (d : ℕ) (hpd : (d : ZMod p) ≠ 0) :
+    ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) =
+      quadraticChar (ZMod p) d * ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - x) := by
+  rw [Finset.mul_sum, ← Equiv.sum_comp (Equiv.mulLeft₀ (d : ZMod p) hpd)]
+  refine Finset.sum_congr rfl fun t _ => ?_
+  change quadraticChar (ZMod p) (((d : ZMod p) * t) ^ 3 - (d : ZMod p) ^ 2 * ((d : ZMod p) * t)) = _
+  have h : ((d : ZMod p) * t) ^ 3 - (d : ZMod p) ^ 2 * ((d : ZMod p) * t) =
+      (d : ZMod p) ^ 2 * ((d : ZMod p) * (t ^ 3 - t)) := by ring
+  rw [h, map_mul, quadraticChar_sq_one' hpd, one_mul, map_mul]
+
+/-- `heckeCoeff d p = (p/d) · heckeCoeff 1 p` (the factor `(N α/d)` is constant on the fiber). -/
+theorem heckeCoeff_prime_twist (d p : ℕ) :
+    heckeCoeff d p = (jacobiSym p d : ℂ) * heckeCoeff 1 p := by
+  rw [heckeCoeff, heckeCoeff, Finset.mul_sum, Finset.mul_sum, Finset.mul_sum]
+  refine Finset.sum_congr rfl fun q hq => ?_
+  rw [mem_normFiber.mp hq, jacobiSym.one_right]
+  push_cast
+  ring
+
+/-- **`GaussSplit d` from the single curve `y² = x³ − x`** (`d ≡ 1 (mod 4)`, odd squarefree). -/
+theorem gaussSplit_of_one {d : ℕ} (hd4 : d % 4 = 1) (hsq : Squarefree d) (h1 : GaussSplit 1) :
+    GaussSplit d := by
+  intro p hp hp4 hpd
+  have : Fact p.Prime := ⟨hp⟩
+  have hodd : Odd d := Nat.odd_iff.mpr (by omega)
+  have hp2 : p ≠ 2 := by rintro rfl; omega
+  have h2d : ¬ p ∣ 2 * d := by
+    intro h
+    rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+    · exact hp2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h)
+    · exact hpd h
+  have h21 : ¬ p ∣ 2 * 1 := by
+    intro h
+    rcases (Nat.Prime.dvd_mul hp).mp h with h | h
+    · exact hp2 ((Nat.prime_dvd_prime_iff_eq hp Nat.prime_two).mp h)
+    · exact hp.one_lt.ne' (Nat.dvd_one.mp h)
+  have hpdZ : (d : ZMod p) ≠ 0 := by
+    rw [Ne, ZMod.natCast_eq_zero_iff]; exact hpd
+  -- `a_p(C_d) = (d/p) a_p(C_1)`
+  have hcd : ZInQ.Literature.cdCoeff d p = -∑ x : ZMod p,
+      quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) := by
+    rw [cdCoeff_eq_LFunction hodd hsq hp.ne_zero,
+      ZInQ.Literature.LFunction_cd_apply_prime_eq_sub_card hodd hsq p h2d, card_cd_affine_eq hp2]
+    ring
+  have hc1 : ZInQ.Literature.cdCoeff 1 p = -∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - x) := by
+    rw [cdCoeff_eq_LFunction odd_one squarefree_one hp.ne_zero]
+    rw [ZInQ.Literature.LFunction_cd_apply_prime_eq_sub_card odd_one squarefree_one p h21,
+      card_cd_affine_eq hp2 1]
+    simp only [Nat.cast_one, one_pow, one_mul]
+    ring
+  have hleg : quadraticChar (ZMod p) d = jacobiSym p d := by
+    have := jacobiSym.legendreSym.to_jacobiSym p d
+    rw [legendreSym] at this
+    push_cast at this
+    rw [this, jacobiSym.quadratic_reciprocity_one_mod_four' hodd hp4]
+  rw [heckeCoeff_prime_twist, ← h1 p hp hp4 (by
+    intro h; exact hp.one_lt.ne' (Nat.dvd_one.mp h)), hcd, hc1,
+    sum_quadraticChar_twist d hpdZ, hleg]
+  push_cast
+  ring
+
+/-- **Final form**: the two literature Props from `HeckeEuler` (about `ℤ[i]`), Gauss's theorem for
+the single curve `y² = x³ − x` (`GaussSplit 1`), and the quadratic Gauss sums `OddGauss p`. -/
+theorem literature_hecke_fe_final
+    (hE : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeEuler d)
+    (h1 : GaussSplit 1)
+    (hP : ∀ p : ℕ, p.Prime → p ≠ 2 → OddGauss p) :
+    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
+  literature_hecke_fe_of_euler_gauss_oddGaussPrime hE
+    (fun d h5 hsq => gaussSplit_of_one (by omega) hsq h1) hP
+
 end BpHeckeFE

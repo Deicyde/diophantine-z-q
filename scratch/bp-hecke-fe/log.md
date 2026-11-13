@@ -80,3 +80,8 @@
   (OddGauss multiplicative), `oddGauss_one`, `oddGauss_of_prime` (odd squarefree d from odd primes),
   `literature_hecke_fe_of_euler_gauss_oddGaussPrime : (∀d≡5(8) sqfree, HeckeEuler d) →
    (∀ such d, GaussSplit d) → (∀ odd prime p, OddGauss p) → HeckeContinuation5 ∧ FunctionalEquation5`.
+- (VERIFIED, compiled ~18:27; axioms standard) `card_cd_affine_eq` (#E_d^aff(𝔽_p) = p + Σχ),
+  `sum_quadraticChar_twist`, `heckeCoeff_prime_twist`, `gaussSplit_of_one`
+  (GaussSplit 1 → GaussSplit d, d ≡ 1 mod 4 odd sqfree; quadratic reciprocity),
+  `literature_hecke_fe_final : (∀ d ≡ 5 (8) sqfree, HeckeEuler d) → GaussSplit 1 →
+   (∀ odd prime p, OddGauss p) → HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.
