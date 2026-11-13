@@ -33,6 +33,7 @@ other four files) succeeds, and every `#print axioms` line reads
 | `ZInQ.RLeaf.x1RationalCusp_of_igusa_tateCusp` | `IgusaTransitive → TateCusp → X1Belyi.X1RationalCusp` | same |
 | `ZInQ.RLeaf.x1ConstantField_of_igusa_tate` | `IgusaTransitive → TateCuspLaurent → X1Belyi.X1ConstantField` | same |
 | `ZInQ.RLeaf.x1ModelExists_of_t38_igusa_tate` | `X1Belyi.CurveOfFunctionFieldQ → IgusaTransitive → TateCuspLaurent → LeafModCurves.X1ModelExists` | same |
+| `ZInQ.RLeaf.x1Leaves_of_t38_igusa_tate` | `X1Belyi.CurveOfFunctionFieldQ → IgusaTransitive → TateCuspLaurent → X1Belyi.X1Leaves` | `X1RationalCusp.lean` |
 | `ZInQ.RLeaf.x1Leaves_of`, `ZInQ.RLeaf.x1ModelExists_of` | the same with T38, T39, T40 as hypotheses | `BelyiX1.lean` |
 
 The leaf statements, verbatim from `ZInQKernel/HDecomp/ModCurves/X1Belyi.lean`:
@@ -103,6 +104,7 @@ Both are consequences of published theorems (STANDARD).
 'ZInQ.RLeaf.x1RationalCusp_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1ConstantField_of_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1ModelExists_of_t38_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1Leaves_of_t38_igusa_tate' depends on axioms: [propext, Classical.choice, Quot.sound]
 ```
 
 **Effect on the leaf list.**
