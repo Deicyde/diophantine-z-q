@@ -281,7 +281,8 @@ theorem scalarsQbar (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (a : 
     IntermediateField.subset_adjoin ℚ _ (Or.inr ⟨σ, rfl⟩)
   letI : Algebra F Qbar := ψ.toAlgebra
   haveI : IsScalarTower ℚ F Qbar := IsScalarTower.of_algebraMap_eq (fun x => (ψ.commutes x).symm)
-  haveI : Algebra.IsAlgebraic F Qbar := Algebra.IsAlgebraic.tower_top ℚ
+  haveI : Algebra.IsAlgebraic F Qbar :=
+    Algebra.IsAlgebraic.extendScalars (R := ℚ) (algebraMap ℚ F).injective
   let ιF : Qbar →ₐ[F] ℂ := IsAlgClosed.lift
   let ιC : Qbar →ₐ[ℚ] ℂ := ιF.restrictScalars ℚ
   have hιψ : ∀ x : F, ιC (ψ x) = x := fun x => ιF.commutes x
@@ -498,11 +499,6 @@ theorem tateBridge35_of_algFrobLink (hT : PkgI3.TateModuleFree) (hF : AlgFrobLin
   exact ⟨k, _, hk, Ab, α, N', hN',
     frobCompare_opV_conjE A _ Θ (m (h * τ * h⁻¹)) 3 Ab α N' Ψ3 hΨ3,
     frobCompare_opV_conjE A _ Θ (m (h * τ * h⁻¹)) 5 Ab α N' Ψ5 hΨ5⟩
-
-/-- **The `ℓ = 5, 3` conclusions of `TateBridge` follow** (g14-trace's
-`tateBridge_five_three_of_35`). -/
-theorem tateBridge_five_three (hT : PkgI3.TateModuleFree) (hF : AlgFrobLink) :=
-  G14Bridge.tateBridge_five_three_of_35 (tateBridge35_of_algFrobLink hT hF)
 
 end FrobTrace
 
