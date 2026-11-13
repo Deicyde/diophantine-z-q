@@ -4279,6 +4279,102 @@ theorem tateBridge35_of_five (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_five hG hS h2 hE hFr)
 
+/-! ### `OwDVR` (proved; adapted from neron-lg's `dvrAt_center`) -/
+
+section DVR
+
+open NumberField
+
+/-- The DVR `𝓞_{L,P}` of a nonzero prime `P` of `𝓞_L`, as a valuation subring of `L` (as in
+neron-lg's `dvrAt`). -/
+noncomputable def dvrAt' {K : Type} [Field K] [NumberField K]
+    (P : IsDedekindDomain.HeightOneSpectrum (𝓞 K)) : ValuationSubring K :=
+  (P.valuation K).valuationSubring
+
+instance {K : Type} [Field K] [NumberField K] (P : IsDedekindDomain.HeightOneSpectrum (𝓞 K)) :
+    IsDiscreteValuationRing (dvrAt' P) := by
+  unfold dvrAt'; infer_instance
+
+theorem ringOfIntegers_mem' {K : Type} [Field K] [NumberField K] (O : ValuationSubring K)
+    (x : 𝓞 K) : (x : K) ∈ O := by
+  obtain ⟨y, hy⟩ := IsIntegrallyClosed.isIntegral_iff.1
+    (show IsIntegral O (x : K) from x.isIntegral_coe.tower_top)
+  exact hy ▸ y.2
+
+/-- The inclusion `𝓞_K → O`. -/
+def toO' {K : Type} [Field K] [NumberField K] (O : ValuationSubring K) : 𝓞 K →+* O :=
+  (algebraMap (𝓞 K) K).codRestrict O.toSubring (ringOfIntegers_mem' O)
+
+/-- `p ∈ 𝔪_{O_w}` for `v ∣ p`. -/
+theorem natCast_mem_maximalIdeal {L : IF} {v : ValuationSubring PkgI4.Qbar} {p : ℕ}
+    (hp : p.Prime) (hv : PkgI4.LiesOver v p) :
+    (p : Ow L v) ∈ IsLocalRing.maximalIdeal (Ow L v) := by
+  have h1 : ((p : Ow L v) : L) ∈ (Ow L v).nonunits := by
+    rw [ValuationSubring.mem_nonunits_iff_or]
+    right
+    intro hin
+    rw [ValuationSubring.mem_comap, map_inv₀] at hin
+    have he : (algebraMap L PkgI4.Qbar ((p : Ow L v) : L)) = (p : PkgI4.Qbar) := by simp
+    rw [he] at hin
+    have hv' := hv
+    unfold PkgI4.LiesOver at hv'
+    rw [ValuationSubring.mem_nonunits_iff_or] at hv'
+    rcases hv' with h0 | h0
+    · exact (Nat.cast_ne_zero.mpr hp.ne_zero) h0
+    · exact h0 hin
+  exact (ValuationSubring.coe_mem_nonunits_iff).mp h1
+
+/-- **`OwDVR` holds (proved):** `O_w` contains `𝓞_L`; its center `P = 𝔪_{O_w} ∩ 𝓞_L` is a nonzero
+prime (it contains `p`); `𝓞_{L,P} ⊆ O_w`, and a DVR is a maximal proper valuation subring
+(`ValuationSubring.eq_of_le_of_ne_top`), so `O_w = 𝓞_{L,P}`. -/
+theorem owDVR : OwDVR := by
+  intro L _ v p hp hv
+  haveI : NumberField L := { to_charZero := inferInstance, to_finiteDimensional := inferInstance }
+  have hpm := natCast_mem_maximalIdeal (L := L) hp hv
+  let P : IsDedekindDomain.HeightOneSpectrum (𝓞 L) :=
+    { asIdeal := (IsLocalRing.maximalIdeal (Ow L v)).comap (toO' (Ow L v))
+      isPrime := Ideal.comap_isPrime _ _
+      ne_bot := by
+        intro hbot
+        have hmem : (p : 𝓞 L) ∈ (IsLocalRing.maximalIdeal (Ow L v)).comap (toO' (Ow L v)) := by
+          rw [Ideal.mem_comap, map_natCast]; exact hpm
+        rw [hbot, Ideal.mem_bot] at hmem
+        exact hp.ne_zero (by exact_mod_cast hmem) }
+  have hP : ∀ x : 𝓞 L, x ∈ P.asIdeal ↔ toO' (Ow L v) x ∈ IsLocalRing.maximalIdeal (Ow L v) :=
+    fun x => Iff.rfl
+  have heq : dvrAt' P = Ow L v := by
+    apply ValuationSubring.eq_of_le_of_ne_top
+    · intro x hx
+      obtain ⟨n, d, hnd⟩ :=
+        IsDedekindDomain.HeightOneSpectrum.exists_primeCompl_mul_eq_of_integer P x hx
+      have hd : IsUnit (toO' (Ow L v) d) := by
+        by_contra h
+        exact d.2 ((hP d).2 ((IsLocalRing.mem_maximalIdeal _).2 h))
+      have hvd : (Ow L v).valuation (algebraMap (𝓞 L) L d) = 1 :=
+        ((Ow L v).valuation_eq_one_iff _).1 hd
+      apply (Ow L v).mem_of_valuation_le_one
+      have h2 := congrArg (Ow L v).valuation hnd
+      rw [map_mul, hvd, _root_.mul_one] at h2
+      rw [h2]
+      exact (Ow L v).valuation_le_one (toO' (Ow L v) n)
+    · intro htop
+      have hall : ∀ y : L, y ∈ Ow L v := by
+        intro y; rw [htop]; exact ValuationSubring.mem_top y
+      have hp0 : ((p : Ow L v) : L) ≠ 0 := by
+        simp only [ne_eq, map_natCast]
+        push_cast
+        exact_mod_cast hp.ne_zero
+      have hu : IsUnit (p : Ow L v) := by
+        refine isUnit_iff_exists_inv.2 ⟨⟨_, hall (((p : Ow L v) : L))⁻¹⟩, Subtype.ext ?_⟩
+        rw [Subring.coe_mul]
+        exact mul_inv_cancel₀ hp0
+      exact (IsLocalRing.mem_maximalIdeal _).1 hpm hu
+  have key : ∀ O' : ValuationSubring L, dvrAt' P = O' → IsDiscreteValuationRing O' := by
+    rintro O' rfl; infer_instance
+  exact key _ heq
+
+end DVR
+
 set_option synthInstance.maxHeartbeats 400000 in
 /-- **`RedTorsionQbar` from the leaf I2-Red and `OwDVR` (proved).** Transport along an
 `L`-isomorphism `ψ : L‾ ≅ ℚ̄` (`UnramTate.trPt`) and the bijective homomorphism `Θ` from I2's
@@ -4392,6 +4488,21 @@ theorem tateBridge35_of_I2 (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_I2 hG hS hRed hD hE hFr)
 
+/-- **Main result, final form: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`
+and `SmoothGeomConnIntegral`, the kernel leaf I2-Red (`PkgI2.ReductionTorsionBijective`), and the
+glue `FExtend` and `FrobMorph` (proved).** -/
+theorem algFrobRed_of_leaves (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtend) (hFr : FrobMorph) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_I2 hG hS hRed owDVR hE hFr
+
+/-- **`TateBridge35` from I3.M0, I2-Red, `GoodRedCofinite`, `SmoothGeomConnIntegral`, `FExtend`,
+`FrobMorph` (proved).** -/
+theorem tateBridge35_of_leaves (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hRed : PkgI2.ReductionTorsionBijective.{0}) (hE : FExtend)
+    (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_leaves hG hS hRed hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -4440,3 +4551,6 @@ end
 #print axioms AlgFrobRedRed.redTorsionQbar_of
 #print axioms AlgFrobRedRed.algFrobRed_of_I2
 #print axioms AlgFrobRedRed.tateBridge35_of_I2
+#print axioms AlgFrobRedRed.owDVR
+#print axioms AlgFrobRedRed.algFrobRed_of_leaves
+#print axioms AlgFrobRedRed.tateBridge35_of_leaves

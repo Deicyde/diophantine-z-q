@@ -91,3 +91,17 @@
 - Run 23 (after ./build.sh): exit 0, no error; 64 `#print axioms` lines in the file (frob-trace's, rigidityHom, and 37
   AlgFrobRedRed), all [propext, Classical.choice, Quot.sound]; `sorry` occurs only in comments (VERIFIED).
   Note: run 22's count was on a stale AlgFrobRed.lean for the last two theorems; run 23 is the check of the final file.
+
+## Run 24-31: RedTorsionQbar from the kernel leaf I2-Red; OwDVR proved
+- New: OwDVR (Prop), wOf (w = ψ⁻¹(v) for ψ : L‾ ≃ₐ[L] ℚ̄), hw_of, psiW (O_w' ≃+* O_v), psiW_toW, iotaW (Spec(j ∘ κ(ψ)) over
+  Spec O_w), thetaW (I2's κ(w')-points of 𝒜 → κ(w)‾-points of sf 𝒜, via pullback.lift), thetaW_left, thetaW_symm,
+  thetaHom (monoid hom), iotaW_isIso_left, thetaW_injective, thetaW_surjective, pb_mul/pb_one (+ primed forms),
+  redRel_of_isReductionOf (I2's IsReductionOf ⇒ RedRel after transport), redTorsionQbar_of :
+  PkgI2.ReductionTorsionBijective → OwDVR → RedTorsionQbar, algFrobRed_of_I2.
+- owDVR : OwDVR (proved; adapted from neron-lg's dvrAt_center: center P = 𝔪 ∩ 𝓞_L ∋ p, 𝓞_{L,P} ≤ O_w,
+  ValuationSubring.eq_of_le_of_ne_top), natCast_mem_maximalIdeal, dvrAt', toO', ringOfIntegers_mem'.
+- algFrobRed_of_leaves : GoodRedCofinite → SmoothGeomConnIntegral → PkgI2.ReductionTorsionBijective → FExtend → FrobMorph
+  → FrobTrace.AlgFrobRed; tateBridge35_of_leaves (adds PkgI3.TateModuleFree).
+- Pitfalls: Mathlib's mapPullbackAdj is built with mkOfHomEquiv, so `homEquiv` is not definitionally the given
+  toFun (pullback.lift_fst does not apply), but `homEquiv.symm v` has left `v.left ≫ fst` definitionally; define
+  thetaW with pullback.lift directly. Pts (toGrp A) Ω vs A.Pt Ω: re-type with `let xw : A.Pt _ := xw0` before rw.
