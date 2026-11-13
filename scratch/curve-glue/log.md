@@ -37,3 +37,9 @@
 
 ## 5. Verbatim copies
 - `py/verbatim.py` → `verbatim.txt`: all copied declarations IDENTICAL to sources (VERIFIED).
+
+## 6. Independent model check (fresh agent, given only the Lean files; no human)
+- `GlobalFunctionsConst`: TRUE, not vacuous (empty W: Γ = 0; nonempty: Γ(W) finite connected K-algebra ⇒ K ⊕ nilradical;
+  X = P¹_K satisfies the hypotheses).
+- `ImagePlaneCurve`: TRUE without char 0, not vacuous (cases ρ ≡ ∞, ρ ≡ b (P = y − b), ρ nonconstant (D ∩ 𝔸² = V(P)));
+  variable direction of `evalXY` and `leadingCoeff` checked; spot checks ρ = 1/σ (P = xy − 1), Frobenius (P = y^p − x).
