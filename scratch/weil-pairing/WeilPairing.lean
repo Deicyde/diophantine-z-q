@@ -1127,6 +1127,25 @@ theorem g12_detInput_of_leaves (h9 : T09_SymmIsogenyExists) (hQ : IsogenyQuasiIn
     (fun k t ht => tate_surj (hD K A ℓ (Fact.out : ℓ.Prime).pos) k t ht)
     (tmuCoordLin hg) (tmuCoordLin_injective hg) σ
 
+
+/-! ## §10. Further non-vacuity checks -/
+
+/-- `T09plus_PolarizationExists` holds at `A = 0` (Rosati positivity is vacuous there:
+`End(0) = 0`). With `symmIsogeny_zero`, the leaves of §4 are consistent. -/
+theorem polarization_zero (K : Type) [Field K] : Nonempty (Polarization (AbVar.zero K)) := by
+  obtain ⟨S⟩ := symmIsogeny_zero K
+  refine ⟨{ toSymmIsogeny := S, pos := ?_ }⟩
+  intro ℓ _ _ d ψ _ _ φ φv _ hφ
+  exact absurd (Hom.ext' (CartesianMonoidalCategory.toUnit_unique _ _)) hφ
+
+/-- The Weil pairing of a symmetric isogeny is not forced to vanish: on any `A`, if some
+`e^λ_n` (`n` invertible) is identically zero then `d • A[n] = 0` for every quasi-inverse
+exponent `d` of `λ`. (Hence, granted `A[n] ≅ (ℤ/n)^{2g}` with `g ≥ 1` and `n ∤ d`, `e^λ_n ≠ 0`.) -/
+theorem weil_ne_zero_of {A : AbVar K} (S : SymmIsogeny A) {ψ : Hom S.D.dual A} {d : ℕ}
+    (hψ : ∀ z : P S.D.dual, homP S.lam (homP ψ z) = d • z) {n : ℕ} (hn : 0 < n)
+    (hnK : (n : K) ≠ 0) (h0 : weil S.D S.lam n = 0) (x : tors A n) : d • x = 0 :=
+  weil_nondeg S.D S.lam hψ hn hnK x fun y => by rw [h0]; rfl
+
 end WeilPairing
 
 #print axioms WeilPairing.oldT9_of_symmIsogeny

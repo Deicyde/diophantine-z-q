@@ -39,3 +39,4 @@
   `tmuCoord`, `tmuCoordLin` (T_ℓ(μ) →ₗ ℤ_ℓ), `tmuCoordLin_injective`; glue target
   `G12_DetInput` and `g12_detInput_of_leaves : T09_SymmIsogenyExists → IsogenyQuasiInverse →
   PkgI3.TateModuleFree → DivisiblePoints → G12_DetInput` (PROVED).
+- §10 COMPILES: `polarization_zero` (T9⁺ holds at A = 0), `weil_ne_zero_of`.
