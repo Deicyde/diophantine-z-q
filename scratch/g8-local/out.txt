@@ -1,0 +1,1 @@
+scratch/g8-local/G8Local.lean:1:0: error: import ZInQKernel.Contrib.Different.Local failed, environment already contains 'PkgI6.TraceContainsRamificationIdx' from ZInQKernel.HDecomp.Textbook.Different

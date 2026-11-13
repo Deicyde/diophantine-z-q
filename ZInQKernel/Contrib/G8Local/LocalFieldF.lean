@@ -1,6 +1,5 @@
 import ZInQKernel.HDecomp.Conductor.LadicCond
 import ZInQKernel.HDecomp.Conductor.I6Base
-import ZInQKernel.Contrib.G15.LadicD1
 
 /-!
 # g8-local, part C: the local field `F` of G15's local data
@@ -14,7 +13,10 @@ at most `a!`".
   normal closure `F` of `ℚ_p(jQ M)` (the splitting field of the minimal polynomial of a primitive
   element) is finite Galois, contains `jQ M`, and `e(F/ℚ_p) ≤ [M:ℚ]!`. No Krasner argument is
   needed: `F` is built inside `ℚ̄_p`, and its degree is bounded through the minimal polynomial.
-* `ramCard_Lj_le_finrank`: `e(ℚ_p(j L)/ℚ_p) ≤ [L:ℚ]` for the kernel's `Lj` (g15-decomp).
+  If `M` is Galois over `ℚ`, then `[F:ℚ_p] ≤ [M:ℚ]` and `F` lies in every `F' ⊇ jQ M`.
+* `decomp_spec`: the embedding `ℚ̄ → ℚ̄_p` underlying `PkgI4.decomp` (copied from g15-decomp's
+  `ZInQ.Contrib.G15.Ladic.decomp_spec`; this file does not import `ZInQKernel.Contrib.G15`, whose
+  `Contrib.Different.Local` clashes with `HDecomp.Textbook.Different` in the scratch assembly).
 
 No `sorry`, no `axiom`.
 -/
@@ -48,11 +50,14 @@ theorem ramCard_le_finrank (F : Fld p) (hF : IsFinGal F) :
     _ = Module.finrank ℚ_[p] F := IsGalois.card_aut_eq_finrank ℚ_[p] F
 
 /-- **The normal closure of `ℚ_p(jQ M)` (proved).** For `M ⊆ ℚ̄` finite over `ℚ` and a ring map
-`jQ : ℚ̄ → ℚ̄_p`, some finite Galois `F ⊆ ℚ̄_p` contains `jQ M` and has `e(F/ℚ_p) ≤ [M:ℚ]!`. -/
+`jQ : ℚ̄ → ℚ̄_p`, some finite Galois `F ⊆ ℚ̄_p` contains `jQ M` and has `e(F/ℚ_p) ≤ [M:ℚ]!`; if
+`M/ℚ` is Galois, `[F:ℚ_p] ≤ [M:ℚ]` and `F` lies in every subfield containing `jQ M`. -/
 theorem exists_galois_closure (jQ : AlgebraicClosure ℚ →+* Kbar p)
     (M : IntermediateField ℚ (AlgebraicClosure ℚ)) [FiniteDimensional ℚ M] :
     ∃ F : Fld p, IsFinGal F ∧ (∀ x ∈ M, jQ x ∈ F) ∧
-      ramCard F 0 ≤ (Module.finrank ℚ M).factorial := by
+      ramCard F 0 ≤ (Module.finrank ℚ M).factorial ∧
+      (IsGalois ℚ M → Module.finrank ℚ_[p] F ≤ Module.finrank ℚ M ∧
+        ∀ F' : Fld p, (∀ x ∈ M, jQ x ∈ F') → ∀ z ∈ F, z ∈ F') := by
   obtain ⟨α, hα⟩ := Field.exists_primitive_element ℚ M
   set a : AlgebraicClosure ℚ := (α : AlgebraicClosure ℚ) with ha
   set y : Kbar p := jQ a with hy
@@ -81,11 +86,12 @@ theorem exists_galois_closure (jQ : AlgebraicClosure ℚ →+* Kbar p)
       have := minpoly.natDegree_le (A := ℚ) α
       rwa [IntermediateField.minpoly_eq] at this
     omega
-  refine ⟨F, hFG, ?_, ?_⟩
-  · -- `jQ M ⊆ F`
+  -- `M` maps into any `ℚ_p`-subfield containing `y`
+  have hMin : ∀ E : Fld p, y ∈ E → ∀ x ∈ M, jQ x ∈ E := by
+    intro E hyE
     let G : IntermediateField ℚ (AlgebraicClosure ℚ) :=
-      (F.restrictScalars ℚ).comap jQ.toRatAlgHom
-    have haG : a ∈ G := hyF
+      (E.restrictScalars ℚ).comap jQ.toRatAlgHom
+    have haG : a ∈ G := hyE
     have hle : IntermediateField.adjoin ℚ {a} ≤ G :=
       IntermediateField.adjoin_simple_le_iff.mpr haG
     intro x hx
@@ -94,17 +100,57 @@ theorem exists_galois_closure (jQ : AlgebraicClosure ℚ →+* Kbar p)
       exact ⟨⟨x, hx⟩, trivial, rfl⟩
     rw [IntermediateField.adjoin_map, Set.image_singleton] at hx'
     exact hle hx'
+  refine ⟨F, hFG, hMin F hyF, ?_, ?_⟩
   · calc ramCard F 0 ≤ Module.finrank ℚ_[p] F := ramCard_le_finrank F hFG
       _ ≤ f.natDegree.factorial := PkgI6.finrank_isSplittingField_le_factorial f hsep
       _ ≤ (Module.finrank ℚ M).factorial := Nat.factorial_le hdeg
+  · intro hMgal
+    -- every root of `f` is `jQ b` with `b ∈ M`
+    have hroots : ∀ r ∈ f.rootSet (Kbar p), ∃ b ∈ M, jQ b = r := by
+      intro r hr
+      have hr0 : aeval r f = 0 := ((mem_rootSet_of_ne hf0).mp hr)
+      have hr1 : aeval r (minpoly ℚ a) = 0 := by
+        obtain ⟨g, hg⟩ := hdvd
+        have := congrArg (aeval r) hg
+        rw [aeval_map_algebraMap, map_mul, hr0, zero_mul] at this
+        exact this
+      have hspl : ((minpoly ℚ α).map (algebraMap ℚ M)).Splits :=
+        Normal.splits (IsGalois.to_normal) α
+      have hne : (minpoly ℚ α).map (algebraMap ℚ M) ≠ 0 := map_ne_zero (minpoly.ne_zero
+        (Algebra.IsIntegral.isIntegral α))
+      have hroot : (((minpoly ℚ α).map (algebraMap ℚ M)).map (jQ.comp M.val.toRingHom)).IsRoot r := by
+        rw [Polynomial.map_map, IsRoot, IntermediateField.minpoly_eq,
+          show (jQ.comp M.val.toRingHom).comp (algebraMap ℚ M) = algebraMap ℚ (Kbar p) from
+            RingHom.ext_rat _ _, eval_map_algebraMap]
+        exact hr1
+      obtain ⟨b, hb⟩ := hspl.mem_range_of_isRoot hne hroot
+      exact ⟨b, b.2, hb⟩
+    have hFle : ∀ F' : Fld p, (∀ x ∈ M, jQ x ∈ F') → F ≤ F' := by
+      intro F' hF'
+      rw [IntermediateField.adjoin_le_iff]
+      intro r hr
+      obtain ⟨b, hbM, rfl⟩ := hroots r hr
+      exact hF' b hbM
+    refine ⟨?_, fun F' hF' z hz => hFle F' hF' hz⟩
+    have hFy : F ≤ IntermediateField.adjoin ℚ_[p] {y} :=
+      hFle _ (hMin _ (IntermediateField.mem_adjoin_simple_self ℚ_[p] y))
+    haveI : FiniteDimensional ℚ_[p] (IntermediateField.adjoin ℚ_[p] {y}) :=
+      IntermediateField.adjoin.finiteDimensional hyi
+    calc Module.finrank ℚ_[p] F ≤ Module.finrank ℚ_[p] (IntermediateField.adjoin ℚ_[p] {y}) :=
+          IntermediateField.finrank_le_of_le_right hFy
+      _ = f.natDegree := IntermediateField.adjoin.finrank hyi
+      _ ≤ Module.finrank ℚ M := hdeg
 
-/-- **`e(ℚ_p(j L)/ℚ_p) ≤ [L:ℚ]`** for the kernel's `Lj` (g15-decomp's local field). -/
-theorem ramCard_Lj_le_finrank {L : Type} [Field L] [NumberField L] [IsGalois ℚ L]
-    (j : L →+* Kbar p) :
-    ramCard (ZInQ.Contrib.G15.Ladic.Lj j) 0 ≤ Module.finrank ℚ L := by
-  have := ZInQ.Contrib.G15.Ladic.primeOf_liesOver j
-  rw [ZInQ.Contrib.G15.Ladic.ramCard_Lj_zero]
-  exact PkgI6.ramificationIdx_le_finrank_of_numberField L _
+/-- The embedding `ℚ̄ → ℚ̄_p` underlying `PkgI4.decomp p` (copied from g15-decomp's
+`ZInQ.Contrib.G15.Ladic.decomp_spec`): it intertwines `decomp p σ` with `σ`. -/
+theorem decomp_spec (p : ℕ) [Fact p.Prime] : ∃ jQ : PkgI4.Qbar →+* PadicAlgCl p,
+    ∀ (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) x, jQ (PkgI4.decomp p σ x) = σ (jQ x) := by
+  letI : Algebra ℚ ℚ_[p] := (algebraMap ℚ ℚ_[p]).toAlgebra
+  letI g : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure ℚ_[p] := IsAlgClosed.lift
+  letI : Algebra (AlgebraicClosure ℚ) (AlgebraicClosure ℚ_[p]) := g.toAlgebra
+  refine ⟨g.toRingHom, fun σ x => ?_⟩
+  exact AlgEquiv.restrictNormal_commutes ((AlgEquiv.restrictScalarsHom ℚ) σ)
+    (AlgebraicClosure ℚ) x
 
 end ZInQ.Contrib.G8Local
 

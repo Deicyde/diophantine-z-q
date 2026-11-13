@@ -50,9 +50,9 @@ def RaynaudNF : Prop :=
 
 /-- **Glue: the field of `A[m]` (`m = 3, 5`) for a QM model `A/L` (N5 L814-815: "This extension
 has degree at most `DG₀`").** There is `M ⊆ ℚ̄`, `L ≤ M`, `[M:ℚ] ≤ [L:ℚ]·G₀`, such that
-`resQ L σ_L` fixes `M` iff `σ_L` fixes `A(L̄)[m]` (`M` is the fixed field of the image of the
-stabilizer), and `G_L` acts on `A[m]` through a finite group of exponent `k` whose prime factors
-are `≤ 31`. Why true: `A` is an abelian surface (a QM model), so `A(L̄)[m] ≅ (ℤ/m)⁴` (T5,
+`σ_L` fixes `A(L̄)[m]` whenever `resQ L σ_L` fixes `M` (`M` is the fixed field of the image of the
+stabilizer; only "fixers of `M` fix `A[m]`" is asserted), and `G_L` acts on `A[m]` through a
+finite group of exponent dividing `k`, whose prime factors are `≤ 31`. Why true: `A` is an abelian surface (a QM model), so `A(L̄)[m] ≅ (ℤ/m)⁴` (T5,
 Mumford §4) and `G_L` acts through a subgroup of `GL₄(ℤ/m)`, of order dividing
 `|GL₄(𝔽₃)| = 2⁹·3⁶·5·13` resp. `|GL₄(𝔽₅)| = 2¹¹·3²·5⁶·13·31 = G₀`; the stabilizer is open
 (glue-rho-cont, `PkgI3.RhoCont.exists_openSubgroup_galAct_eq`, with `A[m]` finite) and of index
@@ -61,15 +61,15 @@ infinite Galois theory), not a published theorem. -/
 def TorsionFieldBound : Prop :=
   ∀ (P : LeafQM.AV.QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
     (A : PkgI3.AbVar L), IsQMModel L A P → ∀ m : ℕ, m = 3 ∨ m = 5 →
-    ∃ M : IF, FiniteDimensional ℚ M ∧ L ≤ M ∧
+    (∃ M : IF, FiniteDimensional ℚ M ∧ L ≤ M ∧
       Module.finrank ℚ M ≤ Module.finrank ℚ L * ZInQ.heightG0 ∧
-      (∀ σL : Field.absoluteGaloisGroup L,
-        (@G0Galois.resQ L _ (numberField_of_fd L) σL ∈ M.fixingSubgroup ↔
+      ∀ σL : Field.absoluteGaloisGroup L,
+        @G0Galois.resQ L _ (numberField_of_fd L) σL ∈ M.fixingSubgroup →
           ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 →
-            A.galAct (L := AlgebraicClosure L) σL x = x)) ∧
-      ∃ k : ℕ, 0 < k ∧ (∀ q : ℕ, q.Prime → q ∣ k → q ≤ 31) ∧
-        ∀ σL : Field.absoluteGaloisGroup L, ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 →
-          A.galAct (L := AlgebraicClosure L) (σL ^ k) x = x
+            A.galAct (L := AlgebraicClosure L) σL x = x) ∧
+    ∃ k : ℕ, 0 < k ∧ (∀ q : ℕ, q.Prime → q ∣ k → q ≤ 31) ∧
+      ∀ σL : Field.absoluteGaloisGroup L, ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 →
+        A.galAct (L := AlgebraicClosure L) (σL ^ k) x = x
 
 /-- **Local class field theory at `p = 2` with the upper numbering theorem, D3 and Herbrand
 (N5 L835-847).** Let `F ⊆ ℚ̄_2` be finite Galois with `e(F/ℚ_2) ≤ e` and `e(F/ℚ_2) ≤ a!`, and
@@ -356,38 +356,19 @@ theorem betaUpper_mono {p : ℕ} [Fact p.Prime] {β : GQ → ℂˣ} {F F' : Fld 
     (hFF : ∀ x ∈ F, x ∈ F') (h : BetaUpperC p β F U) : BetaUpperC p β F' U :=
   fun t ht σ hσ => h t ht σ ⟨hσ.1, fun x hx => hσ.2 x (hFF x hx)⟩
 
-/-- `ℚ_p(j L) ⊆ F` when `j L ⊆ F`. -/
-theorem Lj_le {p : ℕ} [Fact p.Prime] {L : Type} [Field L] (j : L →+* Kbar p) {F : Fld p}
-    (hF : ∀ x : L, j x ∈ F) : ∀ y ∈ ZInQ.Contrib.G15.Ladic.Lj j, y ∈ F := by
-  intro y hy
-  have hle : ZInQ.Contrib.G15.Ladic.Lj j ≤ F := by
-    rw [ZInQ.Contrib.G15.Ladic.Lj, IntermediateField.adjoin_le_iff]
-    intro z hz
-    obtain ⟨x, rfl⟩ := (ZInQ.Contrib.G15.Ladic.mem_jField j z).mp hz
-    exact hF x
-  exact hle hy
-
-/-- **`BetaUpperC` at `p = 2` on `ℚ_2(j L)`** (N5 L835-847), from `Char2UpperBreak` with
-`e = a = D`: `e(ℚ_2(jL)/ℚ_2) ≤ [L:ℚ] ≤ D`, and `max(4D², 3D) ≤ U₀`. -/
-theorem betaUpper_Lj_two (hC : Char2UpperBreak) {u : ℚ} {P : LeafQM.AV.QML3 Qbar} {L : IF}
-    [FiniteDimensional ℚ L] [IsGalois ℚ L] {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ}
+/-- **`BetaUpperC` at `p = 2` on a field `F₀ ⊇ j(L)` with `e(F₀/ℚ_2) ≤ D`** (N5 L835-847), from
+`Char2UpperBreak` with `e = a = D` (`max(4D², 3D) ≤ U₀`). -/
+theorem betaUpper_two (hC : Char2UpperBreak) {u : ℚ} {P : LeafQM.AV.QML3 Qbar} {L : IF}
+    [FiniteDimensional ℚ L] {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ}
     [NeZero N] {χ : DirichletCharacter ℂ N} {β : GQ → ℂˣ} {L' : IF} {hLL' : L ≤ L'}
-    (h : G7Data u P L A ε N χ β L' hLL') (hLD : Module.finrank ℚ L ≤ ZInQ.heightD)
-    {jQ : AlgebraicClosure ℚ →+* Kbar 2}
-    (hj : ∀ (σ : GQp 2) (x : AlgebraicClosure ℚ), jQ (decomp 2 σ x) = σ (jQ x)) :
-    BetaUpperC 2 β (ZInQ.Contrib.G15.Ladic.Lj (jQ.comp (algebraMap L (AlgebraicClosure ℚ))))
-      G0ModNewform.U0 := by
-  letI := numberField_of_fd L
-  set j := jQ.comp (algebraMap L (AlgebraicClosure ℚ)) with hjdef
-  have hF₀ : IsFinGal (ZInQ.Contrib.G15.Ladic.Lj j) := ZInQ.Contrib.G15.Ladic.isFinGal_Lj j
-  have hcont : ContainsL 2 L (ZInQ.Contrib.G15.Ladic.Lj j) :=
-    ⟨jQ, hj, fun x hx => ZInQ.Contrib.G15.Ladic.j_mem_Lj j ⟨x, hx⟩⟩
+    (h : G7Data u P L A ε N χ β L' hLL') {F₀ : Fld 2} (hF₀ : IsFinGal F₀)
+    (hcont : ContainsL 2 L F₀) (he : ramCard F₀ 0 ≤ ZInQ.heightD) :
+    BetaUpperC 2 β F₀ G0ModNewform.U0 := by
   obtain ⟨-, hD, -, -, ⟨Tm, hTm, hN⟩, hβl, hβs, hβe, -⟩ := h
   obtain ⟨N', hN'0, h2N', hNN'⟩ := chiLevel_split_two Tm (fun q hq => T_primes u q (hTm hq))
   rw [← hN] at hNN'
-  have he : ramCard (ZInQ.Contrib.G15.Ladic.Lj j) 0 ≤ ZInQ.heightD :=
-    (ramCard_Lj_le_finrank j).trans hLD
   have hD1 : 1 ≤ ZInQ.heightD := by have := heightD_gt; omega
+  obtain ⟨j, hj, -⟩ := hcont
   intro t ht σ hσ
   refine hC _ hF₀ (fun σ => β (decomp 2 σ)) (hβl.comp_continuous (decomp_continuous 2)) ?_ ?_
     ZInQ.heightD ZInQ.heightD hD1 he (he.trans (Nat.self_le_factorial _)) t
@@ -402,37 +383,64 @@ theorem betaUpper_Lj_two (hC : Char2UpperBreak) {u : ℚ} {P : LeafQM.AV.QML3 Qb
 
 /-! ### §5. `WildTateTrivial` from `RaynaudNF` -/
 
+/-- **Wild inertia moves a point by a `p`-power period**: for wild `σ` and `σ_L` over `decomp σ`,
+some `σ_L^{p^a}` fixes a given `x ∈ A(L̄)` (`exists_fix_field` + `decomp_ppow_mem`). -/
+theorem exists_ppow_fix_point {L : IF} [FiniteDimensional ℚ L] (A : PkgI3.AbVar L)
+    (p : ℕ) [Fact p.Prime] {σ : GQp p} (hσ : σ ∈ wildSet) (σL : Field.absoluteGaloisGroup L)
+    (hres : @G0Galois.resQ L _ (numberField_of_fd L) σL = decomp p σ)
+    (x : A.Pt (AlgebraicClosure L)) :
+    ∃ a : ℕ, A.galAct (L := AlgebraicClosure L) (σL ^ (p ^ a)) x = x := by
+  letI := numberField_of_fd L
+  obtain ⟨E, hEfd, hE⟩ := exists_fix_field A x (G0Galois.qEmbRing L)
+    (algClosure_surjective L _) (fun τ => G0Galois.resQ L τ) (G0Galois.resQ_spec L)
+  haveI := hEfd
+  obtain ⟨jQ, hjQ⟩ := ZInQ.Contrib.G8Local.decomp_spec p
+  obtain ⟨a, ha⟩ := decomp_ppow_mem hjQ hσ E
+  refine ⟨a, hE _ ?_⟩
+  show G0Galois.resQ L (σL ^ (p ^ a)) ∈ E.fixingSubgroup
+  rw [map_pow, hres]
+  exact ha
+
+/-- **A wild `σ` fixes a point that a prime-to-`p` power of it fixes** (periods `p^a` and `k`
+with `p ∤ k`). -/
+theorem fix_of_pow_coprime_wild {L : IF} [FiniteDimensional ℚ L] (A : PkgI3.AbVar L)
+    (p : ℕ) [Fact p.Prime] {σ : GQp p} (hσ : σ ∈ wildSet) (σL : Field.absoluteGaloisGroup L)
+    (hres : @G0Galois.resQ L _ (numberField_of_fd L) σL = decomp p σ)
+    (x : A.Pt (AlgebraicClosure L)) {k : ℕ} (hpk : ¬ p ∣ k)
+    (hk : A.galAct (L := AlgebraicClosure L) (σL ^ k) x = x) :
+    A.galAct (L := AlgebraicClosure L) σL x = x := by
+  obtain ⟨a, ha⟩ := exists_ppow_fix_point A p hσ σL hres x
+  have h1 : Function.IsPeriodicPt (A.galAct (L := AlgebraicClosure L) σL) (p ^ a) x := by
+    show (A.galAct (L := AlgebraicClosure L) σL)^[p ^ a] x = x
+    rw [← galAct_pow_apply]; exact ha
+  have h2 : Function.IsPeriodicPt (A.galAct (L := AlgebraicClosure L) σL) k x := by
+    show (A.galAct (L := AlgebraicClosure L) σL)^[k] x = x
+    rw [← galAct_pow_apply]; exact hk
+  have hcop : Nat.Coprime (p ^ a) k :=
+    Nat.Coprime.pow_left a ((Nat.Prime.coprime_iff_not_dvd Fact.out).mpr hpk)
+  have := h1.gcd h2
+  rw [hcop] at this
+  exact this
+
 /-- **`WildTateTrivial` (R6 + D2 transported to `LadicCond`'s `G_{ℚ_p}`).** If every
-`σ ∈ G_F ∩ P_p` has `decomp σ` fixing a field `M` whose fixers fix `A[m]` (`m ≥ 3`, `p ∤ m`),
-then wild inertia of `G_F` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A)` for `ℓ ≠ p`: Raynaud gives
-`(σ_L − 1)² = 0` on `A[ℓⁿ]`, wild inertia gives `σ_L^{p^a} x = x` (`decomp_ppow_mem`, with the
-field of definition of `x` from `exists_fix_field`), and D2's algebra concludes. -/
+`σ_L` over `decomp σ`, `σ ∈ G_F ∩ P_p`, fixes `A[m]` (`m ≥ 3`, `p ∤ m`), then wild inertia of
+`G_F` acts trivially on `ℚ̄_ℓ ⊗ V_ℓ(A)` for `ℓ ≠ p`: Raynaud gives `(σ_L − 1)² = 0` on `A[ℓⁿ]`,
+wild inertia gives `σ_L^{p^a} x = x`, and D2's algebra concludes. -/
 theorem wildTate_of (hR : RaynaudNF) {L : IF} [FiniteDimensional ℚ L] (A : PkgI3.AbVar L)
     (p : ℕ) [Fact p.Prime] (ℓ : ℕ) [Fact ℓ.Prime] (hℓp : ℓ ≠ p) (m : ℕ) (hm3 : 3 ≤ m)
-    (hpm : ¬ p ∣ m) (M : IF)
-    (hM : ∀ σL : Field.absoluteGaloisGroup L,
-      @G0Galois.resQ L _ (numberField_of_fd L) σL ∈ M.fixingSubgroup →
-      ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 → A.galAct (L := AlgebraicClosure L) σL x = x)
-    (F : Fld p) (hF : ∀ σ ∈ fixSet F ∩ wildSet, decomp p σ ∈ M.fixingSubgroup) :
+    (hpm : ¬ p ∣ m) (F : Fld p)
+    (hfixm : ∀ σ ∈ fixSet F ∩ wildSet, ∀ σL : Field.absoluteGaloisGroup L,
+      @G0Galois.resQ L _ (numberField_of_fd L) σL = decomp p σ →
+      ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 → A.galAct (L := AlgebraicClosure L) σL x = x) :
     WildTateTrivial p L A ℓ F := by
   letI := numberField_of_fd L
   intro σ hσ σL hres
   show GlueI3.repBaseChange (PadicAlgCl ℓ) (A.galRep ℓ) σL = 1
   apply repBaseChange_galRep_eq_one_of_fix
   intro n x hx
-  have hfix := hM σL (hres ▸ hF σ hσ)
-  have hU := hR L A p m hm3 hpm σ (wildSet_subset_inertiaSet hσ.2) σL hres hfix ℓ Fact.out hℓp
-    n x hx
-  obtain ⟨E, hEfd, hE⟩ := exists_fix_field A x (G0Galois.qEmbRing L)
-    (algClosure_surjective L _) (fun τ => G0Galois.resQ L τ) (G0Galois.resQ_spec L)
-  haveI := hEfd
-  obtain ⟨jQ, hjQ⟩ := ZInQ.Contrib.G15.Ladic.decomp_spec p
-  obtain ⟨a, ha⟩ := decomp_ppow_mem hjQ hσ.2 E
-  have hit : A.galAct (L := AlgebraicClosure L) (σL ^ (p ^ a)) x = x := by
-    apply hE
-    show G0Galois.resQ L (σL ^ (p ^ a)) ∈ E.fixingSubgroup
-    rw [map_pow, hres]
-    exact ha
+  have hU := hR L A p m hm3 hpm σ (wildSet_subset_inertiaSet hσ.2) σL hres
+    (hfixm σ hσ σL hres) ℓ Fact.out hℓp n x hx
+  obtain ⟨a, hit⟩ := exists_ppow_fix_point A p hσ.2 σL hres x
   have hcop : Nat.Coprime (p ^ a) (ℓ ^ n) :=
     Nat.Coprime.pow a n ((Nat.coprime_primes Fact.out Fact.out).mpr hℓp.symm)
   exact fixed_of_unipSq_of_pow A σL x ℓ n p a hcop hx hU hit
@@ -441,7 +449,7 @@ theorem wildTate_of (hR : RaynaudNF) {L : IF} [FiniteDimensional ℚ L] (A : Pkg
 
 /-- **`LocalDataS p L A ℓ β` for a G7 datum with `[L:ℚ] ≤ D`** (proved from the three Props).
 `p ≤ D`: `F` = the normal closure of `ℚ_p(jQ M)`, `M` the field of `A[m]`. `p > D`:
-`F = ℚ_p(jQ L)`. -/
+`F = F₀`, the normal closure of `ℚ_p(jQ L)` (`[F₀:ℚ_p] ≤ [L:ℚ] ≤ D`). -/
 theorem localDataS_of (hR : RaynaudNF) (hT : TorsionFieldBound) (hC : Char2UpperBreak)
     {u : ℚ} {P : LeafQM.AV.QML3 Qbar} {L : IF} [FiniteDimensional ℚ L] [IsGalois ℚ L]
     {A : PkgI3.AbVar L} {ε : GQ → GQ → ℂˣ} {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N}
@@ -450,61 +458,43 @@ theorem localDataS_of (hR : RaynaudNF) (hT : TorsionFieldBound) (hC : Char2Upper
     (hℓp : ℓ ≠ p) (m : ℕ) (hm : m = 3 ∨ m = 5) (hpm : ¬ p ∣ m) : LocalDataS p L A ℓ β := by
   letI := numberField_of_fd L
   have hm3 : 3 ≤ m := by rcases hm with rfl | rfl <;> norm_num
-  obtain ⟨jQ, hjQ⟩ := ZInQ.Contrib.G15.Ladic.decomp_spec p
-  obtain ⟨M, hMfd, hLM, hMdeg, hMiff, k, hk0, hkq, hk⟩ := hT P L A h.1 m hm
+  obtain ⟨jQ, hjQ⟩ := ZInQ.Contrib.G8Local.decomp_spec p
+  obtain ⟨⟨M, hMfd, hLM, hMdeg, hM⟩, k, hk0, hkq, hk⟩ := hT P L A h.1 m hm
   haveI := hMfd
-  have hM : ∀ σL : Field.absoluteGaloisGroup L,
-      @G0Galois.resQ L _ (numberField_of_fd L) σL ∈ M.fixingSubgroup →
-      ∀ x : A.Pt (AlgebraicClosure L), x ^ m = 1 →
-        A.galAct (L := AlgebraicClosure L) σL x = x :=
-    fun σL hσL => (hMiff σL).mp hσL
+  obtain ⟨F₀, hF₀G, hLF₀, -, hF₀gal⟩ := exists_galois_closure jQ L
+  obtain ⟨hF₀deg, hF₀le⟩ := hF₀gal inferInstance
+  have hcont₀ : ContainsL p L F₀ := ⟨jQ, hjQ, hLF₀⟩
+  have he₀ : ramCard F₀ 0 ≤ ZInQ.heightD :=
+    ((ramCard_le_finrank F₀ hF₀G).trans hF₀deg).trans hLD
   refine ⟨fun hpD => ?_, fun hDp => ?_⟩
-  · obtain ⟨F, hFG, hMF, hFe⟩ := exists_galois_closure jQ M
+  · obtain ⟨F, hFG, hMF, hFe, -⟩ := exists_galois_closure jQ M
     have hcont : ContainsL p L F := ⟨jQ, hjQ, fun x hx => hMF x (hLM hx)⟩
     refine ⟨F, hFG, ?_, hcont, ?_, ?_⟩
     · exact hFe.trans (Nat.factorial_le (hMdeg.trans (Nat.mul_le_mul_right _ hLD)))
-    · refine wildTate_of hR A p ℓ hℓp m hm3 hpm M hM F fun σ hσ => ?_
-      rw [IntermediateField.mem_fixingSubgroup_iff]
+    · refine wildTate_of hR A p ℓ hℓp m hm3 hpm F fun σ hσ σL hres => hM σL ?_
+      rw [hres, IntermediateField.mem_fixingSubgroup_iff]
       intro x hx
       exact (decomp_apply_eq_iff hjQ σ x).mpr (hσ.1 _ (hMF x hx))
     · by_cases hp2 : p = 2
       · subst hp2
-        exact betaUpper_mono
-          (Lj_le (jQ.comp (algebraMap L (AlgebraicClosure ℚ))) fun x => hMF _ (hLM x.2))
-          (betaUpper_Lj_two hC h hLD hjQ)
+        exact betaUpper_mono (hF₀le F fun x hx => hMF x (hLM hx))
+          (betaUpper_two hC h hF₀G hcont₀ he₀)
       · exact betaUpper_odd h p hp2 hcont
-  · set j := jQ.comp (algebraMap L (AlgebraicClosure ℚ)) with hjdef
-    have hcont : ContainsL p L (ZInQ.Contrib.G15.Ladic.Lj j) :=
-      ⟨jQ, hjQ, fun x hx => ZInQ.Contrib.G15.Ladic.j_mem_Lj j ⟨x, hx⟩⟩
-    have hDp' : ZInQ.heightD < p := by exact_mod_cast hDp
+  · have hDp' : ZInQ.heightD < p := by exact_mod_cast hDp
     have hp31 : 31 < p := lt_trans heightD_gt hDp'
-    refine ⟨ZInQ.Contrib.G15.Ladic.Lj j, ZInQ.Contrib.G15.Ladic.isFinGal_Lj j, ?_, hcont, ?_, ?_⟩
+    have hpk : ¬ p ∣ k := fun hd => by
+      have := hkq p Fact.out hd
+      omega
+    refine ⟨F₀, hF₀G, ?_, hcont₀, ?_, ?_⟩
     · intro hdvd
-      have h1 : ramCard (ZInQ.Contrib.G15.Ladic.Lj j) 0 ≤ ZInQ.heightD :=
-        (ramCard_Lj_le_finrank j).trans hLD
-      obtain ⟨ϖ, hϖ⟩ := exists_isUnif (ZInQ.Contrib.G15.Ladic.isFinGal_Lj j).1
-      have h0 := ramCard_ne_zero (ZInQ.Contrib.G15.Ladic.isFinGal_Lj j) hϖ 0
+      obtain ⟨ϖ, hϖ⟩ := exists_isUnif hF₀G.1
+      have h0 := ramCard_ne_zero hF₀G hϖ 0
       have := Nat.le_of_dvd (Nat.pos_of_ne_zero h0) hdvd
       omega
-    · refine wildTate_of hR A p ℓ hℓp m hm3 hpm M hM _ fun σ hσ => ?_
-      have hg := decomp_mem_fixing p L hcont hσ.1
-      rw [← resQ_range L] at hg
-      obtain ⟨σL, hσL⟩ := hg
-      have hσL' : @G0Galois.resQ L _ (numberField_of_fd L) σL = decomp p σ := hσL
-      have hpk : ¬ p ∣ k := fun hd => by
-        have := hkq p Fact.out hd
-        omega
-      have hgk : (decomp p σ) ^ k ∈ M.fixingSubgroup := by
-        rw [← hσL', ← map_pow]
-        exact (hMiff (σL ^ k)).mpr (hk σL)
-      rw [IntermediateField.mem_fixingSubgroup_iff]
-      intro x hx
-      rw [decomp_apply_eq_iff hjQ]
-      apply fix_of_wild_pow hσ.2 hk0 hpk
-      rw [← decomp_apply_eq_iff hjQ, map_pow]
-      exact (IntermediateField.mem_fixingSubgroup_iff _ _).mp hgk x hx
+    · exact wildTate_of hR A p ℓ hℓp m hm3 hpm _ fun σ hσ σL hres x hx =>
+        fix_of_pow_coprime_wild A p hσ.2 σL hres x hpk (hk σL x hx)
     · have hp2 : p ≠ 2 := by omega
-      exact beta_wild_eq_one h p hp2 hcont
+      exact beta_wild_eq_one h p hp2 hcont₀
 
 /-- **G15's local data on G7Data's objects, at every prime** (`ℓ = 5` at `p ≠ 5`, `ℓ = 3` at
 `p = 5`; `m = 3`, or `m = 5` at `p = 3`): the two `LocalDataS` conjuncts of `LinkedTateObjS`. -/

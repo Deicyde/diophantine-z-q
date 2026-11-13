@@ -109,7 +109,7 @@ end
 #print axioms ZInQ.Contrib.G8Local.algClosure_surjective
 #print axioms ZInQ.Contrib.G8Local.ramCard_le_finrank
 #print axioms ZInQ.Contrib.G8Local.exists_galois_closure
-#print axioms ZInQ.Contrib.G8Local.ramCard_Lj_le_finrank
+#print axioms ZInQ.Contrib.G8Local.decomp_spec
 #print axioms G8Local.chiLevel_split
 #print axioms G8Local.chiLevel_split_two
 #print axioms G8Local.beta_mul
@@ -117,7 +117,9 @@ end
 #print axioms G8Local.betaUpper_odd
 #print axioms G8Local.fix_of_inertia_rootOfUnity
 #print axioms G8Local.galChar_sq_inertia_two
-#print axioms G8Local.betaUpper_Lj_two
+#print axioms G8Local.betaUpper_two
+#print axioms G8Local.exists_ppow_fix_point
+#print axioms G8Local.fix_of_pow_coprime_wild
 #print axioms G8Local.wildTate_of
 #print axioms G8Local.localDataS_of
 #print axioms G8Local.localDataS_all
