@@ -91,3 +91,12 @@ Named leaves (def … : Prop): `IgusaSL2X` (SL₂ part on x-coordinates; Shimura
   `x1RationalCusp_of_igusaGL2`, `x1RationalCusp_of_igusaSL2X`, `x1ConstantField_of_igusaSL2X`.
   To be updated to `X0Transitive → X1RationalCusp` when t40-tate's TateMuN lands.
 - docs/research/t40-igusa.md drafted.
+
+## Step 5: final T40.lean (VERIFIED, `lake build ZInQKernel.Contrib.RLeaf.T40`, 9395 jobs)
+- Merged origin/wip/t40-tate at 7ed2ca99: `ZInQ.RLeaf.tateMuN : TateMuN` (TateCuspMuN.lean,
+  via `tateMuN_of_at`), axioms standard three (VERIFIED in the build output).
+- T40.lean now: `igusaTransitive_iff_x0Transitive : IgusaTransitive ↔ X0Transitive`,
+  `x1RationalCusp_of_x0Transitive : X0Transitive → X1RationalCusp`,
+  `x1ConstantField_of_x0Transitive : X0Transitive → X1ConstantField`; standard axioms.
+- Remaining open leaf: `X0Transitive` (published; not proved).
+- diffcheck2: MOD-UNNOTED 0, NOTE-ONLY 0 (NOPROV 111 = t40-tate/other Backport files).

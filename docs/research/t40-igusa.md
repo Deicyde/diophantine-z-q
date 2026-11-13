@@ -2,21 +2,35 @@
 
 ## Main result
 
-`ZInQ.RLeaf.IgusaTransitive` (the `x`-coordinates of the points of exact order `N` on the generic
-elliptic curve `E_j` over `\overline{ℚ(j)}` form one `Gal(\overline{ℚ(j)}/ℚ(j))`-orbit) is
-**reduced, with all glue proved, to two strictly smaller published statements**:
+**T40 and T39 now depend on one published leaf, `X0Transitive`** (Galois transitivity on the
+cyclic subgroups of order `N` of the generic curve `E_j`, i.e. the irreducibility of `X₀(N)` /
+of the modular equation `Φ_N(X, j)` over `ℚ(j)`):
+
+```lean
+theorem ZInQ.RLeaf.igusaTransitive_iff_x0Transitive : IgusaTransitive ↔ X0Transitive
+theorem ZInQ.RLeaf.x1RationalCusp_of_x0Transitive (h0 : X0Transitive) : X1Belyi.X1RationalCusp
+theorem ZInQ.RLeaf.x1ConstantField_of_x0Transitive (h0 : X0Transitive) : X1Belyi.X1ConstantField
+```
+
+(ZInQKernel/Contrib/RLeaf/T40.lean, all with axioms `[propext, Classical.choice, Quot.sound]`.)
+
+How: `ZInQ.RLeaf.IgusaTransitive` (the `x`-coordinates of the points of exact order `N` on `E_j`
+over `\overline{ℚ(j)}` form one `Gal(\overline{ℚ(j)}/ℚ(j))`-orbit) is reduced here, all glue
+proved, to two strictly smaller published statements:
 
 ```
 igusaTransitive_iff : IgusaTransitive ↔ X0Transitive ∧ TateMuN
 ```
 
 * `X0Transitive`: the Galois group permutes the cyclic subgroups of order `N` of `E_j`
-  transitively (irreducibility of `X₀(N)`, i.e. of the modular equation `Φ_N(X, j)` over `ℚ(j)`).
+  transitively. **Open** (published leaf).
 * `TateMuN`: for each `N` some cyclic subgroup `⟨Q₀⟩` of order `N` has its generators permuted
   transitively (on `x`-coordinates) by the Galois group. Its source is local: the subgroup `μ_N`
-  of the Tate curve at `j = ∞`. It may be proved over any algebraically closed extension of
-  `ℚ(j)`, level by level (`tateMuN_of_at`, `tateMuN_of_over`), in particular over
-  `\overline{ℚ((1/j))}` (`TateMuNLocal`, `tateMuN_of_local`).
+  of the Tate curve at `j = ∞`. This task proved that it may be checked over any algebraically
+  closed extension of `ℚ(j)`, level by level (`tateMuN_of_at`, `tateMuN_of_over`, also
+  `tateMuN_of_local` over `\overline{ℚ((1/j))}`). **Proved by task t40-tate** through
+  `tateMuN_of_at` (`ZInQ.RLeaf.tateMuN : TateMuN`, ZInQKernel/Contrib/RLeaf/TateCuspMuN.lean,
+  merged here from origin/wip/t40-tate).
 
 Both are consequences of `IgusaTransitive` (proved: `x0Transitive_of_igusaTransitive`,
 `tateMuN_of_igusaTransitive`), so neither is stronger than the target. `X0Transitive` concerns
@@ -27,9 +41,9 @@ Independently, `IgusaTransitive` follows from Igusa's theorem in the form in whi
 published (`igusaTransitive_of_igusaGL2 : IgusaGL2 → IgusaTransitive`) and from its `SL₂` part on
 `x`-coordinates (Shimura 1971, Thm 6.6; `igusaTransitive_of_igusaSL2X`).
 
-Task t40-tate proves `TateCuspLaurent` (`ZInQ.RLeaf.tateCuspLaurent`, merged here from
-origin/wip/t40-tate) and is proving `TateMuN` in its own file (agreed by message, 2026-11-13).
-`ZInQKernel/Contrib/RLeaf/T40.lean` records the resulting reductions of T40 and T39.
+Task t40-tate proved `TateCuspLaurent` (`ZInQ.RLeaf.tateCuspLaurent`) and `TateMuN`
+(`ZInQ.RLeaf.tateMuN`); both are merged here. `ZInQKernel/Contrib/RLeaf/T40.lean` (written by this
+task, which finished second) combines them.
 
 All files compile (`lake env lean` on each, `lake build` of the modules), with no `sorry`; every
 `#print axioms` reads `[propext, Classical.choice, Quot.sound]` (VERIFIED, §4).
@@ -56,6 +70,9 @@ All files compile (`lake env lean` on each, `lake build` of the modules), with n
 | `transcendental_X`, `jInv_X`, `jInvLaurent_X` | `j` transcendental; `jInv j = j⁻¹`; `jInvLaurent j = (single 1 1)⁻¹ = t⁻¹` | same |
 | `tateMuN_of_local` | `TateMuNLocal → TateMuN` | same |
 | `igusaTransitive_of_x0_tateMuNLocal` | `X0Transitive → TateMuNLocal → IgusaTransitive` | same |
+| `igusaTransitive_iff_x0Transitive` | `IgusaTransitive ↔ X0Transitive` | `ZInQKernel/Contrib/RLeaf/T40.lean` |
+| `x1RationalCusp_of_x0Transitive` | `X0Transitive → X1Belyi.X1RationalCusp` (**T40**) | same |
+| `x1ConstantField_of_x0Transitive` | `X0Transitive → X1Belyi.X1ConstantField` (**T39**) | same |
 | `x1RationalCusp_of_x0_tateMuN` | `X0Transitive → TateMuN → X1Belyi.X1RationalCusp` (**T40 reduced**) | `ZInQKernel/Contrib/RLeaf/T40.lean` |
 | `x1ConstantField_of_x0_tateMuN` | `X0Transitive → TateMuN → X1Belyi.X1ConstantField` (**T39 reduced**) | same |
 | `x1RationalCusp_of_x0_tateMuNLocal` | `X0Transitive → TateMuNLocal → X1Belyi.X1RationalCusp` | same |
@@ -204,7 +221,7 @@ for composite `N` (many cusps of `X₀(N)`) local information does not suffice; 
 ## 4. Compilation and axioms (VERIFIED)
 
 `lake build ZInQKernel.Contrib.RLeaf.T40` (which builds IgusaSL2, IgusaX0, IgusaLocal and, from
-task t40-tate, TateCusp): `Build completed successfully (9394 jobs)`, no errors, no `sorry`. The
+task t40-tate, TateCusp and TateCuspMuN): `Build completed successfully (9395 jobs)`, no errors, no `sorry`. The
 `#print axioms` lines of the four files:
 
 ```
@@ -221,6 +238,10 @@ task t40-tate, TateCusp): `Build completed successfully (9394 jobs)`, no errors,
 'ZInQ.RLeaf.jInvLaurent_X' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.tateMuN_of_local' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.igusaTransitive_of_x0_tateMuNLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]   (t40-tate)
+'ZInQ.RLeaf.igusaTransitive_iff_x0Transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1RationalCusp_of_x0Transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.RLeaf.x1ConstantField_of_x0Transitive' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1ConstantField_of_x0_tateMuN' depends on axioms: [propext, Classical.choice, Quot.sound]
 'ZInQ.RLeaf.x1RationalCusp_of_x0_tateMuNLocal' depends on axioms: [propext, Classical.choice, Quot.sound]
@@ -237,6 +258,8 @@ No Tau Ceti file was vendored or modified by this task; `diffcheck2.py`: `MOD-UN
 * T40 (`X1Belyi.X1RationalCusp`) and T39 now follow from `X0Transitive` and `TateMuN`
   (`x1RationalCusp_of_x0_tateMuN`, `x1ConstantField_of_x0_tateMuN`), the Tate-curve half
   `TateCuspLaurent` being proved by t40-tate.
-* `TateMuN` is local at `j = ∞` (Tate curve; t40-tate is proving it with its backport of Tau
-  Ceti's Tate uniformization). If it is proved, the only elliptic input of the `X₁(N)` side of
-  the decomposition is `X0Transitive`, the irreducibility of `X₀(N)` over `ℚ`.
+* `TateMuN` (local at `j = ∞`) is proved by t40-tate, so T40 and T39 follow from `X0Transitive`
+  alone (`x1RationalCusp_of_x0Transitive`, `x1ConstantField_of_x0Transitive`): the only
+  elliptic input left on the `X₁(N)` side of the decomposition is the irreducibility of `X₀(N)`
+  over `ℚ`. The leaf T40 of the textbook list can be replaced by the published leaf
+  `X0Transitive` (Lang, *Elliptic functions*, Ch. 5, §2, Thm 3; Cox, Thm 11.18; UNVERIFIED).
