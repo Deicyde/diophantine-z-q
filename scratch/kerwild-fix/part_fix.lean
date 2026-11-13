@@ -739,6 +739,19 @@ theorem tateBridge35_of_E (h : TateBridge35E) : G14Bridge.TateBridge35 := by
     g7Out_beta_congr _ 5 _ _ _ _ _ _ _ h5 fun g => congrArg Φ5 (hιβ g),
     g7Out_beta_congr _ 3 _ _ _ _ _ _ _ h3 fun g => congrArg Φ3 (hιβ g), hF, ιC, hιβ⟩
 
+/-- **`dim A_{L'} = 2` from `G7Data` (proved)**: `A = (PK.A)_L` for a level-3 QM surface `PK/K`
+(`IsQMModel`) and dimension is invariant under field base change (g0-dim's
+`pkgI3_dim_baseChange`, in local-glue's DimBlock). The argument is g8-tate's (`tateBridgeOnL_of`). -/
+theorem dim_bc_of_g7Data {u : ℚ} {P : QML3 Qbar} {L : IF} {A : PkgI3.AbVar L}
+    {ε : GQ → GQ → ℂˣ} {N : ℕ} [NeZero N] {χ : DirichletCharacter ℂ N} {β : GQ → ℂˣ} {L' : IF}
+    {hLL' : L ≤ L'} (hD : G7Data u P L A ε N χ β L' hLL') :
+    (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 := by
+  obtain ⟨⟨K, hKL, PK, -, hA⟩, -⟩ := hD
+  rw [@G0Dim.pkgI3_dim_baseChange L _ L' _ (incAlg hLL') A, hA,
+    @G0Dim.pkgI3_dim_baseChange K _ L _ (incAlg hKL) PK.A]
+  exact PK.surface
+
+
 /-- **`KerWild` for `Φ ∘ β` (proved)**: local-glue's `kerWild_of_g7Data` with the injective
 `ι = Units.map Φ` and G7Data's kernel-field clause. -/
 theorem kerWild_of_equiv {ℓ : ℕ} [Fact ℓ.Prime] (Φ : ℂ ≃+* PadicAlgCl ℓ) {u : ℚ}
@@ -929,7 +942,8 @@ theorem exists_localGlue_of_leaves' (hT : PkgI3.TateModuleFree)
     u P L A ε N χ β L' hLL' hD hdim hrk hLD ℓ
 
 /-- **From G4's output (proved):** G4's data give G7's data with `[L:ℚ] ≤ D` (four B2 leaves,
-`g7OutUnrD_of_g4Out`), and on these data, given `dim A_{L'} = 2` and `rank End(A_{L'}) = 4`, every
+`g7OutUnrD_of_g4Out`), and on these data, given `rank End(A_{L'}) = 4` (`dim A_{L'} = 2` is
+`dim_bc_of_g7Data`), every
 `ℓ` has operator data in Glazer's normalization with `G7Clauses`, `KerWild` and `LocalGlue` at
 every `p ≠ ℓ` (leaves I3.M0, R6, I2-Tors). -/
 theorem exists_localGlue_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)
@@ -940,8 +954,7 @@ theorem exists_localGlue_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)
       (ε : GQ → GQ → ℂˣ) (N : ℕ) (_ : NeZero N) (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ)
       (L' : IF) (_ : FiniteDimensional ℚ L') (_ : IsGalois ℚ L') (hLL' : L ≤ L'),
       Module.finrank ℚ L ≤ ZInQ.heightD ∧ G7Data u P L A ε N χ β L' hLL' ∧
-      ((@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2 →
-        Module.finrank ℤ
+      (Module.finrank ℤ
           (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4 →
         ∀ (ℓ : ℕ) [Fact ℓ.Prime], ∃ (Φ : ℂ ≃+* PadicAlgCl ℓ)
           (Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ)
@@ -959,8 +972,8 @@ theorem exists_localGlue_of_g4Out (hHasse : LeafHasse) (hTwo : LeafLocalTwo)
   obtain ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hLD, hD⟩ :=
     g7OutUnrD_of_g4Out hHasse hTwo hSq hUnr u P h4
   exact ⟨L, hfd, hgal, A, ε, N, hN, χ, β, L', hfd', hgal', hLL', hLD, hD,
-    fun hdim hrk ℓ _ => exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD
-      hdim hrk hLD ℓ⟩
+    fun hrk ℓ _ => exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD
+      (dim_bc_of_g7Data hD) hrk hLD ℓ⟩
 
 /-- **`ℓ = 5, 3` with `FrobTraceLink`, from I3.M0, frob-trace's glue `AlgFrobRed`, R6 and I2-Tors
 (proved).** -/
@@ -996,7 +1009,8 @@ theorem exists_localGlue35_of_algFrobRed (hT : PkgI3.TateModuleFree)
   exact ⟨aQ, βQ, ιC, Φ5, Φ3, Tm5, Tm3, hιβ, hF, h5, h3⟩
 
 /-- **G15's `LocalData p r` at every `p ≠ ℓ` for every `r` that G8 attaches to these data
-(proved; leaves I3.M0, R6, I2-Tors).** local-data's `localData_of_g7` applied to the output of
+(proved; leaves I3.M0, R6, I2-Tors; hypotheses `G7Data`, `[L:ℚ] ≤ D`, `rank End(A_{L'}) = 4`).**
+local-data's `localData_of_g7` applied to the output of
 `exists_localGlue_of_leaves'`: the `G7Clauses` hypothesis is now discharged. -/
 theorem exists_localData_of_leaves (hT : PkgI3.TateModuleFree)
     (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.TorsionStructure)
@@ -1004,7 +1018,6 @@ theorem exists_localData_of_leaves (hT : PkgI3.TateModuleFree)
     (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N) (β : GQ → ℂˣ) (L' : IF)
     [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L')
     (hD : G7Data u P L A ε N χ β L' hLL')
-    (hdim : (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL')).dim = 2)
     (hrk : Module.finrank ℤ
       (PkgI3.AbVar.End (@PkgI3.AbVar.baseChange L _ A L' _ (incAlg hLL'))) = 4)
     (hLD : Module.finrank ℚ L ≤ ZInQ.heightD) (ℓ : ℕ) [Fact ℓ.Prime] :
@@ -1023,7 +1036,8 @@ theorem exists_localData_of_leaves (hT : PkgI3.TateModuleFree)
           (GlueDescent.rho Tm a (fun g => Φ (β g : ℂ))) r →
         ∀ (p : ℕ) (hp : p.Prime), p ≠ ℓ → @G15Ram.LocalData p ⟨hp⟩ ℓ _ r := by
   obtain ⟨Φ, Tm, c, a, uu, h7, hCl, -, hG⟩ :=
-    exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD hdim hrk hLD ℓ
+    exists_localGlue_of_leaves' hT hR6 hTors u P L A ε N χ β L' hLL' hD (dim_bc_of_g7Data hD)
+      hrk hLD ℓ
   refine ⟨Φ, Tm, c, a, uu, h7, fun r h8 p hp hpℓ => ?_⟩
   haveI : Fact p.Prime := ⟨hp⟩
   haveI : NumberField L' := numberField_of_fd L'
@@ -1055,3 +1069,4 @@ end KWFixFinalSec
 #print axioms KWFix.exists_localGlue_of_g4Out
 #print axioms KWFix.exists_localGlue35_of_algFrobRed
 #print axioms KWFix.exists_localData_of_leaves
+#print axioms KWFix.dim_bc_of_g7Data

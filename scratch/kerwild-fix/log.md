@@ -43,3 +43,23 @@
 - Pitfalls hit: FrobTrace.lean's file-level `open … GlueDescent.B3Q` (l.53-54) is needed for `GQL`
   in the copies; `rw` of lambdas `fun g => Φ (β g)` fails (GQ vs PkgI4.GQ binder types), replaced
   by `g7Out_beta_congr` with pointwise proofs.
+
+## Step 3 (12:45-13:05 PST): leaves-only forms, compiled
+- build.sh now also splices scratch/unram-roots/UnramRoots.lean l.53-end (its l.21-52 copy of
+  `G15Ram.UnramRoots` dropped: the only name clash with the rest of the file, checked by script;
+  two `end` close its unclosed `noncomputable section`s) and adds its Tau Ceti imports and
+  g8-tate's three cardinality imports. `lake build` of the 5 Tau Ceti modules: success.
+- New (VERIFIED, compile.out: exit 0, 0 errors, ~72 s; 21 `#print axioms`, all
+  `[propext, Classical.choice, Quot.sound]`):
+  - `KWFix.G7OutUnrD` (G7OutUnr + `[L:ℚ] ≤ D`), `g7OutUnr_of_D`, `g7OutUnrD_of_g4Out` (copy C of
+    g0-mod-field's `g7OutUnr_of_g4Out`, FrobTrace.lean l.636-662, with `hLD` kept);
+  - `dim_bc_of_g7Data` (`dim A_{L'} = 2` from G7Data, g8-tate's argument);
+  - `c_eq_of_a_one` (`a ≡ 1` ⟹ `c = ε'`);
+  - `exists_localGlue_of_leaves'` (no `UnramRoots` hypothesis: `UnramRootsTask.unramRoots_all`);
+  - `exists_localGlue_of_g4Out` (G4Out + 4 B2 leaves + I3.M0 + R6 + I2-Tors ⟹ G7 data with
+    `[L:ℚ] ≤ D`, and, given `rank End A_{L'} = 4`, LocalGlue at every ℓ, p ≠ ℓ);
+  - `exists_localData_of_leaves` (G15's `LocalData p r` at every p ≠ ℓ for every r with
+    `G8Out A_{L'} ℓ (rho Tm a (Φ ∘ β)) r`; hypotheses G7Data, `[L:ℚ] ≤ D`, rank 4);
+  - `exists_localGlue35_of_algFrobRed` (TateBridge35E, and at ℓ = 5, 3 FrobTraceLink + LocalGlue,
+    from I3.M0, AlgFrobRed, R6, I2-Tors).
+- compile0.out: the rebuild check of step 1 (lg-kerwild parts only).
