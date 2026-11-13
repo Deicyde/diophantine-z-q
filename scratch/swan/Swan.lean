@@ -237,4 +237,120 @@ theorem Bd.pow_sub {a : ℝ} (ha0 : 0 ≤ a) (ha1 : a ≤ 1) {A : Mat} (hA : Bd 
 
 end Matrix
 
+/-! ## §3. Continuity gives a finite Galois level -/
+
+section Topo
+
+open scoped Topology
+
+variable {p : ℕ} [Fact p.Prime] {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+local notation "Mat" => Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)
+
+/-- The neighbourhood `{g : ‖g_{ij} − δ_{ij}‖ < r ∀ i j}` of `1` in `GL_n(ℚ̄_ℓ)`. -/
+def nbhd (r : ℝ) : Set (GL (Fin n) (PadicAlgCl ℓ)) :=
+  {g | ∀ i j, ‖(g : Mat) i j - (1 : Mat) i j‖ < r}
+
+theorem isOpen_nbhd (r : ℝ) : IsOpen (nbhd (ℓ := ℓ) (n := n) r) := by
+  have e : nbhd (ℓ := ℓ) (n := n) r =
+      ⋂ i, ⋂ j, {g : GL (Fin n) (PadicAlgCl ℓ) | ‖(g : Mat) i j - (1 : Mat) i j‖ < r} := by
+    ext g; simp [nbhd]
+  rw [e]
+  refine isOpen_iInter_of_finite fun i => isOpen_iInter_of_finite fun j => ?_
+  exact isOpen_lt (((Units.continuous_val.matrix_elem i j).sub continuous_const).norm)
+    continuous_const
+
+theorem one_mem_nbhd {r : ℝ} (hr : 0 < r) : (1 : GL (Fin n) (PadicAlgCl ℓ)) ∈ nbhd r := by
+  intro i j; simp [hr]
+
+/-- **Continuity gives a level.** For continuous `ρ` and `r > 0` there is a finite Galois
+`L/ℚ_p` with `ρ(G_L) ⊆ nbhd r` (Krull topology, `krullTopology_mem_nhds_one_iff_of_normal`). -/
+theorem exists_level (ρ : GQp p →* GL (Fin n) (PadicAlgCl ℓ)) (hρ : Continuous ρ) {r : ℝ}
+    (hr : 0 < r) : ∃ L : Fld p, IsFinGal L ∧ ∀ σ ∈ fixSet L, ρ σ ∈ nbhd r := by
+  have hmem : ρ ⁻¹' nbhd r ∈ 𝓝 (1 : GQp p) := by
+    apply hρ.continuousAt.preimage_mem_nhds
+    rw [map_one]; exact (isOpen_nbhd r).mem_nhds (one_mem_nbhd hr)
+  obtain ⟨E, hEf, hEn, hE⟩ :=
+    (krullTopology_mem_nhds_one_iff_of_normal ℚ_[p] (PadicAlgCl p) _).1 hmem
+  refine ⟨E, ⟨hEf, isGalois_iff.2 ⟨inferInstance, hEn⟩⟩, fun σ hσ => ?_⟩
+  exact hE ((IntermediateField.mem_fixingSubgroup_iff E σ).2 hσ)
+
+end Topo
+
+/-! ## §4. `AdaptedExists` -/
+
+section Main
+
+variable {ℓ : ℕ} [Fact ℓ.Prime] {n : ℕ}
+
+local notation "Mat" => Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)
+
+/-- Ultrametric, for `ℚ̄_ℓ`: `‖a − b‖ < ‖b‖ ⇒ ‖a‖ = ‖b‖`. -/
+theorem norm_eq_of_norm_sub_lt' {a b : PadicAlgCl ℓ} (h : ‖a - b‖ < ‖b‖) : ‖a‖ = ‖b‖ :=
+  norm_eq_of_norm_sub_lt (p := ℓ) h
+
+/-- **The key estimate.** If all entries of `A` have norm `≤ a = ‖A_{ij}‖`, `0 < a < 1`, and
+`ℓ ∤ m`, then `‖((1 + A)^m − 1)_{ij}‖ = a`. -/
+theorem norm_pow_sub_one_entry {A : Mat} {a : ℝ} (ha0 : 0 < a) (ha1 : a < 1) (hA : Bd a A)
+    {i j : Fin n} (hij : ‖A i j‖ = a) {m : ℕ} (hm : ¬ ℓ ∣ m) :
+    ‖((1 + A) ^ m - 1) i j‖ = a := by
+  have hB := Bd.pow_sub ha0.le ha1.le hA m i j
+  set B := (1 + A) ^ m - 1 - m • A with hBdef
+  have e : ((1 + A) ^ m - 1) i j = B i j + (m : PadicAlgCl ℓ) * A i j := by
+    have hs : (m • A) i j = (m : PadicAlgCl ℓ) * A i j := by
+      rw [Matrix.smul_apply, nsmul_eq_mul]
+    simp only [hBdef, Matrix.sub_apply, hs]; ring
+  have hmA : ‖(m : PadicAlgCl ℓ) * A i j‖ = a := by
+    rw [norm_mul, norm_natCast_eq_one (p := ℓ) hm, one_mul, hij]
+  rw [e, ← hmA]
+  apply norm_eq_of_norm_sub_lt'
+  rw [add_sub_cancel_right, hmA]
+  calc ‖B i j‖ ≤ a ^ 2 := hB
+    _ < a := by nlinarith
+
+/-- **`AdaptedExists` (proved).** For `ℓ ≠ p` and continuous `ρ : G_{ℚ_p} → GL_n(ℚ̄_ℓ)` there is a
+finite Galois `L/ℚ_p` with `ρ` trivial on `P_p ∩ G_L`. Take `L` with `ρ(G_L) ⊆ nbhd 1`. If
+`γ ∈ P_p ∩ G_L` had `ρ(γ) = 1 + A ≠ 1`, let `a = max ‖A_{ij}‖ ∈ (0, 1)`, and take `L'` with
+`ρ(G_{L'}) ⊆ nbhd a`. Some `γ^{p^k}` fixes `L'` (`wild_pow_fix`), so `‖((1+A)^{p^k} − 1)_{ij}‖ < a`,
+against `norm_pow_sub_one_entry` (`ℓ ∤ p^k`). -/
+theorem adaptedExists {p : ℕ} [Fact p.Prime] : LadicCond.AdaptedExists (p := p) := by
+  intro ℓ _ hℓp n ρ hρ
+  obtain ⟨L, hL, hL1⟩ := exists_level ρ hρ one_pos
+  refine ⟨L, hL, fun γ hγ => ?_⟩
+  obtain ⟨hw, hf⟩ := hγ
+  by_contra hne
+  set A : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ) := (ρ γ : Matrix (Fin n) (Fin n) _) - 1 with hAdef
+  have hρA : (ρ γ : Matrix (Fin n) (Fin n) (PadicAlgCl ℓ)) = 1 + A := by
+    rw [hAdef]; abel
+  obtain ⟨i0, j0, h0⟩ : ∃ i j, A i j ≠ 0 := by
+    by_contra hc
+    push Not at hc
+    apply hne
+    apply Units.ext
+    rw [Units.val_one, hρA]
+    have : A = 0 := Matrix.ext fun i j => by simpa using hc i j
+    rw [this, add_zero]
+  have : Nonempty (Fin n × Fin n) := ⟨(i0, j0)⟩
+  obtain ⟨⟨i1, j1⟩, hmax⟩ := Finite.exists_max (fun ij : Fin n × Fin n => ‖A ij.1 ij.2‖)
+  set a := ‖A i1 j1‖ with hadef
+  have hBd : Bd a A := fun i j => hmax (i, j)
+  have ha0 : 0 < a := lt_of_lt_of_le (norm_pos_iff.2 h0) (hmax (i0, j0))
+  have ha1 : a < 1 := by
+    have := hL1 γ hf i1 j1
+    rwa [hadef, hAdef, Matrix.sub_apply]
+  obtain ⟨L', hL', hL'a⟩ := exists_level ρ hρ ha0
+  obtain ⟨k, hk⟩ := wild_pow_fix hL' hw
+  have hlt := hL'a (γ ^ (p ^ k)) hk i1 j1
+  rw [map_pow, Units.val_pow_eq_pow_val, hρA, ← Matrix.sub_apply] at hlt
+  have hℓ : ¬ ℓ ∣ p ^ k := by
+    intro h
+    have h1 := (Fact.out : ℓ.Prime).dvd_of_dvd_pow h
+    exact hℓp ((Nat.prime_dvd_prime_iff_eq Fact.out Fact.out).1 h1)
+  rw [norm_pow_sub_one_entry ha0 ha1 hBd rfl hℓ] at hlt
+  exact lt_irrefl _ hlt
+
+end Main
+
 end Swan
+
+#print axioms Swan.adaptedExists
