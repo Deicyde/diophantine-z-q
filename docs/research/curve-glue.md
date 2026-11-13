@@ -255,7 +255,7 @@ characteristic.
     a `K`-point.
 - **T5.** Mumford, *Abelian Varieties*, §4 (existing leaf).
 
-**Independent checks (model, not human).** Two fresh agents were given only the Lean files, not
+**Independent checks (model, not human).** Three fresh agents were given only the Lean files, not
 the arguments above, and asked for counterexamples.
 
 - The first judged (L) `GlobalFunctionsConst` and (G1) `ImagePlaneCurve` TRUE and not vacuous. It
