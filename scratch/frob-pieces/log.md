@@ -91,3 +91,6 @@
   torsion-freeness; nonempty fibres; Hartshorne III 11.3 is for projective morphisms, dropped).
 - After the fixes: FrobPieces.lean run 3 exit 0, 99 prints standard, 0 sorryAx; FrobPiecesFull.lean
   run full-1 exit 0, 114 prints standard, 0 sorryAx (VERIFIED, rerun ~10:50).
+
+## Final (11:00)
+- .fleet/frob-pieces.md written; last commit.
