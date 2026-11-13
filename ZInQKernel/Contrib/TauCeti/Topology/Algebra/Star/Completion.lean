@@ -4,6 +4,7 @@ Released under Apache 2.0 license as described in the file LICENSE.
 Authors: The Tau Ceti contributors
 -/
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 97a5b23586f9, module TauCeti.Topology.Algebra.Star.Completion), Apache-2.0.
+-- Modified for the Z-in-Q kernel: explicit continuity proofs instead of `fun_prop` (which times out at our pins).
 module
 
 public import Mathlib.Topology.Algebra.GroupCompletion

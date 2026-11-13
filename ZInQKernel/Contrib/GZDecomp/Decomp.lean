@@ -1,0 +1,410 @@
+import ZInQKernel.Contrib.GZDecomp.Scope
+import ZInQKernel.Contrib.HeckeFE.Basic
+import ZInQKernel.Contrib.GaussFE.FunctionalEquation5
+import ZInQKernel.Contrib.HeckeAll.LocalCd
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.LFunction.Sign
+import ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Twist.Basic
+import ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.GaloisDescent
+
+/-!
+# gz-decomp, steps (2)-(3): `GrossZagierCd` from three leaves and glue
+
+Objects (all genuine: Mathlib, or Tau Ceti vendored at `ZInQKernel/Contrib/TauCeti/`):
+* `HeckeRing.GL2.Newform N k` (Tau Ceti): a newform of level `Γ₁(N)`, weight `k`, nebentypus
+  `f.χ`, normalized `a₁ = 1`, in the new subspace;
+* `coeff f n`: its `n`-th Fourier coefficient at `∞` (Mathlib's `qExpansion`, width `1`);
+* `rootNumber f hχ = i² ε_N(f)` for `f.χ = 1`: the sign of Tau Ceti's functional equation
+  `Λ_N(2 − s, f) = rootNumber · Λ_N(s, f)` (`HeckeRing.GL2.Newform.frickeCompletedL_sub_eq`),
+  `Λ_N(s, f) = N^{s/2} (2π)^{−s} Γ(s) L(f, s)`;
+* `chiD D n = (n / |D|)` (Jacobi): for `D ≡ 1 (mod 4)` a fundamental discriminant this is the
+  Kronecker character `χ_D` of `ℚ(√D)`;
+* `IsEntireCont a σ G`: `G` is entire and equals `∑ aₙ n^{−s}` on `Re s > σ`;
+* Mathlib's `WeierstrassCurve.LFunction`, `Affine.Point`, `Affine.Point.map`.
+
+The target Prop `GrossZagierCd` is defined in `Contrib/GZDecomp/Scope.lean`.
+-/
+
+open UpperHalfPlane HeckeRing.GL2 WeierstrassCurve
+open scoped WeierstrassCurve.Affine
+
+namespace ZInQ.GZDecomp
+
+/-! ## Objects -/
+
+/-- The `n`-th Fourier coefficient `aₙ(f)` of a newform (expansion at `∞` in `q = e^{2πiτ}`). -/
+noncomputable def coeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (n : ℕ) : ℂ :=
+  (qExpansion 1 f.toCuspForm).coeff n
+
+/-- `G` is an entire continuation of the Dirichlet series `∑ aₙ n^{−s}` from `Re s > σ`. -/
+def IsEntireCont (a : ℕ → ℂ) (σ : ℝ) (G : ℂ → ℂ) : Prop :=
+  Differentiable ℂ G ∧ ∀ s : ℂ, σ < s.re → G s = LSeries a s
+
+/-- Entire continuations are unique (identity theorem). -/
+theorem IsEntireCont.eq {a : ℕ → ℂ} {σ : ℝ} {F G : ℂ → ℂ} (hF : IsEntireCont a σ F)
+    (hG : IsEntireCont a σ G) : F = G := by
+  have hU : {s : ℂ | σ < s.re} ∈ nhds ((σ + 1 : ℝ) : ℂ) :=
+    (isOpen_lt continuous_const Complex.continuous_re).mem_nhds (by simp)
+  have hev : F =ᶠ[nhds ((σ + 1 : ℝ) : ℂ)] G :=
+    Filter.mem_of_superset hU fun s hs => (hF.2 s hs).trans (hG.2 s hs).symm
+  funext z
+  have hFa := Complex.analyticOnNhd_univ_iff_differentiable.mpr hF.1
+  have hGa := Complex.analyticOnNhd_univ_iff_differentiable.mpr hG.1
+  exact hFa.eqOn_of_preconnected_of_eventuallyEq hGa isPreconnected_univ (Set.mem_univ _) hev
+    (Set.mem_univ z)
+
+/-- The **root number** of a weight-2 newform of trivial nebentypus: the sign `i² ε_N(f)` of its
+functional equation (Tau Ceti, `Newform.frickeCompletedL_sub_eq`; it is `±1` by
+`Newform.I_zpow_mul_frickeSign_eq_one_or_neg_one`). -/
+noncomputable def rootNumber {N : ℕ} [NeZero N] (f : Newform N 2) (hχ : f.χ = 1) : ℂ :=
+  Complex.I ^ (2 : ℤ) * f.frickeSign hχ
+
+/-- The quadratic character `n ↦ (n / |D|)`; for a fundamental discriminant `D ≡ 1 (mod 4)` it is
+the Kronecker character `χ_D` of `ℚ(√D)`. -/
+noncomputable def chiD (D : ℤ) (n : ℕ) : ℂ := (jacobiSym (n : ℤ) D.natAbs : ℂ)
+
+/-- `D` is an odd negative fundamental discriminant: `D < 0`, `D ≡ 1 (mod 4)`, squarefree. -/
+def IsOddImagFundDisc (D : ℤ) : Prop := D < 0 ∧ D % 4 = 1 ∧ Squarefree D
+
+/-- **Heegner hypothesis**: every prime `p ∣ N` splits in `ℚ(√D)`, i.e. `χ_D(p) = 1`. -/
+def HeegnerHyp (N : ℕ) (D : ℤ) : Prop :=
+  ∀ p : ℕ, p.Prime → p ∣ N → jacobiSym (p : ℤ) D.natAbs = 1
+
+/-- The coefficient sequence of the twist `f ⊗ χ_D`. -/
+noncomputable def twistCoeff {N : ℕ} [NeZero N] {k : ℤ} (f : Newform N k) (D : ℤ) (n : ℕ) : ℂ :=
+  coeff f n * chiD D n
+
+/-! ## Leaves -/
+
+/-- **(L1) Hecke–Shimura: the theta series of the Hecke character of `C_d` is a newform.**
+For squarefree `d ≡ 1 (mod 4)`, the series `∑ₙ heckeCoeff d n qⁿ`, where
+`heckeCoeff d n = ¼ ∑_{α ∈ ℤ[i], N(α) = n} (N(α)/d)·u(α)·α` is the Hecke character `ψ_d` of `ℚ(i)`
+attached to `C_d` (`HeckeFE.heckeCoeff`), is a newform of weight 2 and trivial nebentypus at
+some level `N`.
+
+Literature: E. Hecke (1936-37, Math. Ann. 114); G. Shimura, *Introduction to the arithmetic theory
+of automorphic functions* (1971); T. Miyake, *Modular forms* (1989), Theorem 4.8.2 (primitive
+Hecke character of an imaginary quadratic field ↦ primitive form of level `|d_K| N(𝔪)`); H.
+Iwaniec, *Topics in classical automorphic forms*, Theorem 12.5. All UNVERIFIED (no copy on this
+host). The level (`32 d²`) is not asserted. -/
+def HeckeThetaNewform : Prop :=
+  ∀ d : ℕ, d % 4 = 1 → Squarefree d →
+    ∃ (N : ℕ) (_ : NeZero N) (f : Newform N 2), f.χ = 1 ∧
+      ∀ n : ℕ, n ≠ 0 → coeff f n = ZInQ.Contrib.HeckeFE.heckeCoeff d n
+
+/-- **(L2) Friedberg–Hoffstein / Bump–Friedberg–Hoffstein: nonvanishing of central twisted values
+with the Heegner local conditions.** Let `f` be a newform of weight 2, level `N`, trivial
+nebentypus, with root number `−1`. Then for every bound `B` there is an odd imaginary
+fundamental discriminant `D < −B` such that every prime `p ∣ N` splits in `ℚ(√D)` and the twisted
+L-series `L(f ⊗ χ_D, s) = ∑ aₙ(f) χ_D(n) n^{−s}` has an entire continuation not vanishing at the
+centre `s = 1`.
+
+Literature: S. Friedberg, J. Hoffstein, Ann. of Math. 142 (1995), 385-423, Theorem B (UNVERIFIED
+number); D. Bump, S. Friedberg, J. Hoffstein, Invent. Math. 102 (1990), 543-618 (UNVERIFIED);
+alternatively Waldspurger, Compositio Math. 54 (1985) / J. Math. Pures Appl. 60 (1981) with
+local conditions. Folded in (textbook): the root number of the twist,
+`ε(f ⊗ χ_D) = ε(f) χ_D(−N) = +1` for `(D, N) = 1` (Shimura; Atkin–Li, Invent. Math. 48 (1978)),
+which is the compatibility hypothesis of the source. The continuation of `L(f ⊗ χ_D, s)` is not
+part of the leaf: it is proved (glue G6, `exists_isEntireCont_twist`, from Tau Ceti's
+`CuspForm.twist`). -/
+def FHNonvanishing : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1), rootNumber f hχ = -1 →
+    ∀ B : ℕ, ∃ D : ℤ, D < -(B : ℤ) ∧ IsOddImagFundDisc D ∧ HeegnerHyp N D ∧
+      ∀ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G → G 1 ≠ 0
+
+/-- **(L3) Gross–Zagier with Gross's conjugation relation, in the form that can be stated today.**
+Let `E/ℚ` be an elliptic curve whose L-series is that of a weight-2 newform `f` of level `N` and
+trivial nebentypus (`aₙ(f) = aₙ(E)` for all `n ≥ 1`). Let `D < −4` be an odd fundamental
+discriminant with the Heegner hypothesis for `N`, and suppose `L(f, s)` has a simple zero at
+`s = 1` while `L(f ⊗ χ_D, 1) ≠ 0` (so `L'(E/K, 1) = L'(f, 1) L(f ⊗ χ_D, 1) ≠ 0`). Then for every
+field `K ≅ ℚ(√D)` the group `E(K)` has a point `y` of infinite order (the Heegner point `y_K`)
+with `σ y − y` torsion for every `σ ∈ Aut(K/ℚ)` (`ȳ_K = −ε y_K` up to torsion, `ε = −1`).
+
+Literature: B. Gross, D. Zagier, Invent. Math. 84 (1986), 225-320, Theorem I.6.3 and its
+corollaries in Ch. V (UNVERIFIED numbers): `L'(E/K, 1) = c ĥ(y_K)` with `c ≠ 0`; B. Gross,
+*Heegner points on X₀(N)*, Modular forms (Durham 1983), 1984, for `ȳ_K = −ε y_K` mod torsion
+(UNVERIFIED). Folded in, because the modular curve `X₀(N)`, the parametrization and the Heegner
+point cannot be stated in Lean today: the modular parametrization `X₀(N) → E` (Eichler–Shimura
+construction of the strong Weil curve `E_f`, Shimura 1971, Thm 7.14-7.15, UNVERIFIED, plus
+Faltings 1983 Korollar 2 (`L(E) = L(E_f)` ⇒ `E ∼ E_f`), or for CM curves Shimura, Nagoya Math. J.
+43 (1971)); and nondegeneracy of `ĥ` on `E(K)` (proved in Tau Ceti:
+`Affine.Point.canonicalHeight_eq_zero_iff_isOfFinAddOrder`). -/
+def GrossZagierHeegner : Prop :=
+  ∀ (E : WeierstrassCurve ℚ) [E.IsElliptic] (N : ℕ) [NeZero N] (f : Newform N 2), f.χ = 1 →
+    (∀ n : ℕ, n ≠ 0 → coeff f n = (E.LFunction n : ℂ)) →
+    ∀ D : ℤ, IsOddImagFundDisc D → D < -4 → HeegnerHyp N D →
+    ∀ F G : ℂ → ℂ, IsEntireCont (coeff f) 2 F → IsEntireCont (twistCoeff f D) 2 G →
+      analyticOrderAt F 1 = 1 → G 1 ≠ 0 →
+    ∀ (K : Type) [Field K] [DecidableEq K] [Algebra ℚ K], Module.finrank ℚ K = 2 →
+      (∃ δ : K, δ ^ 2 = algebraMap ℚ K D) →
+      ∃ y : (E⁄K).Point, ¬IsOfFinAddOrder y ∧
+        ∀ σ : K ≃ₐ[ℚ] K, IsOfFinAddOrder (Affine.Point.map σ.toAlgHom y - y)
+
+/-! ## Glue -/
+
+/-- **(G3) The sign of a simple zero.** If `L(f, s)` has a simple zero at the centre then the
+root number is `−1`. From Tau Ceti's functional equation (`Newform.frickeCompletedL_sub_eq`,
+sign `±1`): with sign `+1`, `Λ_N(1 + z)` is even, so its order at `z = 0` is even, and
+`Λ_N = N^{s/2}(2π)^{−s}Γ(s) F` with a nonvanishing factor at `s = 1`. Open (medium) unless proved
+below. -/
+def SignOfSimpleZero : Prop :=
+  ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1) (F : ℂ → ℂ),
+    IsEntireCont (coeff f) 2 F → analyticOrderAt F 1 = 1 → rootNumber f hχ = -1
+
+/-- **(G1) Modularity of `C_d` in L-series form**, from (L1) and Deuring's identity
+`cdCoeff d = heckeCoeff d` (proved: `HeckeFE.deuringCd_of_gaussPointCount`,
+`GaussFE.gaussPointCount`). -/
+theorem modular_cd (hL1 : HeckeThetaNewform) {d : ℕ} (hd4 : d % 4 = 1) (hsq : Squarefree d) :
+    ∃ (N : ℕ) (_ : NeZero N) (f : Newform N 2), f.χ = 1 ∧
+      ∀ n : ℕ, n ≠ 0 → coeff f n = ((shortCurve (-(d : ℚ) ^ 2)).LFunction n : ℂ) := by
+  obtain ⟨N, hN, f, hχ, hf⟩ := hL1 d hd4 hsq
+  refine ⟨N, hN, f, hχ, fun n hn => ?_⟩
+  have hD := ZInQ.Contrib.HeckeFE.deuringCd_of_gaussPointCount hd4 hsq
+    ZInQ.Contrib.GaussFE.gaussPointCount n hn
+  rw [hf n hn, ← hD, ZInQ.Contrib.HeckeAll.LFunction_cd_apply' hsq hn]
+  simp [ZInQ.Literature.cdCoeff, hn]
+
+/-- **(G2) Transfer of the continuation.** If `aₙ(f) = aₙ(E)` for `n ≥ 1`, an entire continuation
+of `L(E, s)` from `Re s > 3/2` is one of `L(f, s)` from `Re s > 2`. -/
+theorem isEntireCont_of_isLContinuation {E : WeierstrassCurve ℚ} {N : ℕ} [NeZero N]
+    {f : Newform N 2} (hf : ∀ n : ℕ, n ≠ 0 → coeff f n = (E.LFunction n : ℂ)) {F : ℂ → ℂ}
+    (hF : ZInQ.Literature.IsLContinuation E F) : IsEntireCont (coeff f) 2 F := by
+  refine ⟨hF.1, fun s hs => ?_⟩
+  rw [hF.2 s (by linarith)]
+  exact LSeries_congr (fun {n} hn => (hf n hn).symm) s
+
+/-- `σ ↦ map σ` is multiplicative on points. -/
+theorem map_mul_apply {E : WeierstrassCurve ℚ} {K : Type} [Field K] [DecidableEq K] [Algebra ℚ K]
+    (σ τ : K ≃ₐ[ℚ] K) (y : (E⁄K).Point) :
+    Affine.Point.map (σ * τ).toAlgHom y = Affine.Point.map σ.toAlgHom (Affine.Point.map τ.toAlgHom y) := by
+  rw [Affine.Point.map_map]
+  rfl
+
+theorem map_one_apply {E : WeierstrassCurve ℚ} {K : Type} [Field K] [DecidableEq K] [Algebra ℚ K]
+    (y : (E⁄K).Point) : Affine.Point.map (1 : K ≃ₐ[ℚ] K).toAlgHom y = y := by
+  cases y <;> rfl
+
+/-- The function `x ↦ (x / |D|)` on `ZMod |D|`, which Tau Ceti's twist consumes. -/
+noncomputable def chiDMod (D : ℤ) : ZMod D.natAbs → ℂ :=
+  fun x => (jacobiSym (x.val : ℤ) D.natAbs : ℂ)
+
+theorem chiDMod_natCast (D : ℤ) [NeZero D.natAbs] (n : ℕ) : chiDMod D n = chiD D n := by
+  simp only [chiDMod, chiD, ZMod.val_natCast]
+  rw [Int.natCast_mod, ← jacobiSym.mod_left]
+
+open CongruenceSubgroup in
+/-- **(G6) The twisted L-series `∑ aₙ(f) χ_D(n) n^{−s}` has an entire continuation**: it is the
+L-series of the cusp form `f ⊗ χ_D` of level `N D²` (Tau Ceti `CuspForm.twist`,
+`CuspForm.qExpansion_twist_coeff`; Mathlib `CuspForm.differentiable_L`). -/
+theorem exists_isEntireCont_twist {N : ℕ} [NeZero N] (f : Newform N 2) {D : ℤ} (hD : D ≠ 0) :
+    ∃ G : ℂ → ℂ, IsEntireCont (twistCoeff f D) 2 G := by
+  have : NeZero D.natAbs := ⟨Int.natAbs_ne_zero.mpr hD⟩
+  have : NeZero (N * D.natAbs * D.natAbs) :=
+    ⟨mul_ne_zero (mul_ne_zero (NeZero.ne N) (NeZero.ne _)) (NeZero.ne _)⟩
+  have hk : (0 : ℤ) < 2 := by norm_num
+  set g := CuspForm.twist (chiDMod D) (L := N * D.natAbs * D.natAbs) (dvd_mul_right _ _)
+    ⟨N, by ring⟩ f.toCuspForm with hg
+  refine ⟨ModularForm.L hk g, CuspForm.differentiable_L hk g, fun s hs => ?_⟩
+  have h := CuspForm.LSeries_qExpansion_coeff_eq hk g (s := s) (by norm_num; linarith)
+  simp only [strictWidthInfty_Gamma1, Complex.ofReal_one, Complex.one_cpow, one_mul] at h
+  rw [← h]
+  refine LSeries_congr (fun {n} _ => ?_) s
+  rw [hg, CuspForm.qExpansion_twist_coeff, chiDMod_natCast]
+  simp only [twistCoeff, coeff]
+  ring
+
+/-- **(G4) Descent of the Heegner point.** If `y ∈ E(K)`, `[K : ℚ] = 2`, has infinite order and
+`σ y − y` is torsion for every `σ ∈ Aut(K/ℚ)`, then `E(ℚ)` has a point of infinite order
+(`y + σ y`, `σ ≠ 1`, is `σ`-fixed, hence rational, and is `2y` up to torsion). -/
+theorem exists_rat_point_of_heegner {E : WeierstrassCurve ℚ} {K : Type} [Field K] [DecidableEq K]
+    [Algebra ℚ K] (hK : Module.finrank ℚ K = 2) (y : (E⁄K).Point) (hy : ¬IsOfFinAddOrder y)
+    (hσ : ∀ σ : K ≃ₐ[ℚ] K, IsOfFinAddOrder (Affine.Point.map σ.toAlgHom y - y)) :
+    ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P := by
+  have : Algebra.IsQuadraticExtension ℚ K := ⟨hK⟩
+  have : FiniteDimensional ℚ K := Module.finite_of_finrank_eq_succ hK
+  obtain ⟨σ, hσ1⟩ := Algebra.IsQuadraticExtension.exists_algEquiv_ne_one (K := ℚ) (L := K)
+  set z := y + Affine.Point.map σ.toAlgHom y with hz
+  have hfix : Affine.Point.map σ.toAlgHom z = z := by
+    rw [hz, map_add, ← map_mul_apply, Algebra.IsQuadraticExtension.algEquiv_mul_self,
+      map_one_apply, add_comm]
+  have hz_tors : ¬IsOfFinAddOrder z := by
+    intro h
+    apply hy
+    have h2 : IsOfFinAddOrder ((2 : ℕ) • y) := by
+      have : (2 : ℕ) • y = z - (Affine.Point.map σ.toAlgHom y - y) := by
+        rw [hz, two_nsmul]; abel
+      rw [this, sub_eq_add_neg]
+      exact h.add (hσ σ).neg
+    exact IsOfFinAddOrder.of_nsmul h2 two_ne_zero
+  obtain ⟨Q, hQ⟩ := WeierstrassCurve.Affine.Point.exists_baseChange_eq_of_map_eq K hσ1 hfix
+  have hQt : ¬IsOfFinAddOrder Q := fun h => hz_tors (hQ ▸ AddMonoidHom.isOfFinAddOrder _ h)
+  have hE : E⁄ℚ = E := by
+    simp [WeierstrassCurve.baseChange, Algebra.algebraMap_self]
+  have key : ∀ W : WeierstrassCurve ℚ, W = E → (∃ Q : W.toAffine.Point, ¬IsOfFinAddOrder Q) →
+      ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P := by
+    rintro _ rfl h; exact h
+  exact key _ hE ⟨Q, hQt⟩
+
+/-! ## The quadratic field `ℚ(√D)` -/
+
+theorem irreducible_X_sq_sub {D : ℚ} (hD : D < 0) :
+    Irreducible (Polynomial.X ^ 2 - Polynomial.C D : Polynomial ℚ) := by
+  have hm : (Polynomial.X ^ 2 - Polynomial.C D : Polynomial ℚ).Monic :=
+    Polynomial.monic_X_pow_sub_C D (by norm_num)
+  have hdeg : (Polynomial.X ^ 2 - Polynomial.C D : Polynomial ℚ).natDegree = 2 :=
+    Polynomial.natDegree_X_pow_sub_C
+  rw [Polynomial.Monic.irreducible_iff_roots_eq_zero_of_degree_le_three hm (by omega) (by omega)]
+  refine Multiset.eq_zero_of_forall_notMem fun r hr => ?_
+  rw [Polynomial.mem_roots hm.ne_zero, Polynomial.IsRoot, Polynomial.eval_sub,
+    Polynomial.eval_pow, Polynomial.eval_X, Polynomial.eval_C, sub_eq_zero] at hr
+  nlinarith [sq_nonneg r]
+
+theorem exists_quadratic_field {D : ℚ} (hD : D < 0) :
+    ∃ (K : Type) (_ : Field K) (_ : Algebra ℚ K), Module.finrank ℚ K = 2 ∧
+      ∃ δ : K, δ ^ 2 = algebraMap ℚ K D := by
+  have hirr := irreducible_X_sq_sub hD
+  have : Fact (Irreducible (Polynomial.X ^ 2 - Polynomial.C D : Polynomial ℚ)) := ⟨hirr⟩
+  refine ⟨AdjoinRoot (Polynomial.X ^ 2 - Polynomial.C D), inferInstance, inferInstance, ?_,
+    AdjoinRoot.root _, ?_⟩
+  · rw [(AdjoinRoot.powerBasis hirr.ne_zero).finrank, AdjoinRoot.powerBasis_dim,
+      Polynomial.natDegree_X_pow_sub_C]
+  · have h := AdjoinRoot.eval₂_root (Polynomial.X ^ 2 - Polynomial.C D)
+    rw [Polynomial.eval₂_sub, Polynomial.eval₂_X_pow, Polynomial.eval₂_C, sub_eq_zero] at h
+    rw [h]
+    rfl
+
+/-! ## Assembly -/
+
+
+/-- **`GrossZagierCd` from the three leaves and the sign glue (G3).** -/
+theorem grossZagierCd_of_leaves (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+    (hL3 : GrossZagierHeegner) (hG3 : SignOfSimpleZero) : GrossZagierCd := by
+  intro d hd hsq F hF h1
+  have hd0 : d ≠ 0 := by omega
+  have hEll : (shortCurve (-(d : ℚ) ^ 2)).IsElliptic := by
+    have hd0' : (d : ℚ) ≠ 0 := by exact_mod_cast hd0
+    exact shortCurve_isElliptic (neg_ne_zero.mpr (pow_ne_zero 2 hd0'))
+  obtain ⟨N, hN, f, hχ, hf⟩ := modular_cd hL1 (by omega) hsq
+  have hFf : IsEntireCont (coeff f) 2 F := isEntireCont_of_isLContinuation hf hF
+  have hw : rootNumber f hχ = -1 := hG3 N f hχ F hFf h1
+  obtain ⟨D, hDB, hDisc, hHeeg, hGne⟩ := hL2 N f hχ hw 4
+  obtain ⟨G, hG⟩ := exists_isEntireCont_twist f (ne_of_lt hDisc.1)
+  have hG1 := hGne G hG
+  have hD0 : (D : ℚ) < 0 := by exact_mod_cast hDisc.1
+  obtain ⟨K, hKf, hKa, hK2, δ, hδ⟩ := exists_quadratic_field hD0
+  classical
+  obtain ⟨y, hy, hyσ⟩ := hL3 _ N f hχ hf D hDisc (by simpa using hDB) hHeeg F G hFf hG h1 hG1
+    K hK2 ⟨δ, by simpa using hδ⟩
+  exact exists_rat_point_of_heegner hK2 y hy hyσ
+
+/-! ## (G3) proved: the sign of a simple zero -/
+
+open CongruenceSubgroup in
+/-- **(G3) proved.** From Tau Ceti's functional equation `Λ_N(2 − s) = rootNumber · Λ_N(s)` with
+`rootNumber = ±1`. If it were `+1`: `F = w · Λ_N` with `w(s) = 2 Γ_ℂ(s)⁻¹ N^{−s/2}` entire,
+`w(1) ≠ 0`, so `F(s) w(2 − s) = w(s) F(2 − s)`; writing `F = (s − 1) g`, `g(1) ≠ 0`, near `1`
+gives `(s − 1)(g(s) w(2 − s) + w(s) g(2 − s)) = 0`, hence `2 g(1) w(1) = 0` by continuity. -/
+theorem signOfSimpleZero : SignOfSimpleZero := by
+  intro N _ f hχ F hF h1
+  have hk : (0 : ℤ) < 2 := by norm_num
+  rcases Newform.I_zpow_mul_frickeSign_eq_one_or_neg_one f hχ with h | h
+  swap
+  · exact h
+  exfalso
+  -- `F` is Mathlib's `L(f, s)`
+  have hEq : F = ModularForm.L hk f.toCuspForm := by
+    have := CuspForm.eq_strictWidthInfty_cpow_mul_L f.toCuspForm hk hF.1 (fun {s} hs => by
+      simp only [strictWidthInfty_Gamma1]
+      exact hF.2 s (by norm_num at hs; linarith))
+    simpa [strictWidthInfty_Gamma1] using this
+  set NP : ℕ+ := N.toPNat (NeZero.pos N) with hNP
+  set Φ : ℂ → ℂ := CuspForm.frickeCompletedL f.toCuspForm NP with hΦ
+  have hFE : ∀ s, Φ (2 - s) = Φ s := by
+    intro s
+    have := Newform.frickeCompletedL_sub_eq f hχ hk s
+    have e : ((2 : ℤ) : ℂ) = 2 := by norm_num
+    rw [h, one_mul, e] at this
+    exact this
+  have hN0 : (N : ℂ) ≠ 0 := by exact_mod_cast (NeZero.ne N)
+  set w : ℂ → ℂ := fun s => 2 * (Complex.Gammaℂ s)⁻¹ * (N : ℂ) ^ (-s / 2) with hw
+  have hFw : ∀ s, F s = w s * Φ s := by
+    intro s
+    rw [hEq, hΦ, CuspForm.frickeCompletedL_eq_cpow_mul_Λ f.toCuspForm NP hk s, ModularForm.L]
+    have hNPc : ((NP : ℕ) : ℂ) = (N : ℂ) := rfl
+    rw [hNPc, hw]
+    have hpos : (N : ℂ) ^ (s / 2) ≠ 0 := by
+      rw [Ne, Complex.cpow_eq_zero_iff]; tauto
+    have hc : (N : ℂ) ^ (-s / 2) * (N : ℂ) ^ (s / 2) = 1 := by
+      rw [neg_div, Complex.cpow_neg, inv_mul_cancel₀ hpos]
+    calc ModularForm.Λ hk f.toCuspForm s * (2 / Complex.Gammaℂ s)
+        = 2 * (Complex.Gammaℂ s)⁻¹ * ((N : ℂ) ^ (-s / 2) * (N : ℂ) ^ (s / 2)) *
+            ModularForm.Λ hk f.toCuspForm s := by rw [hc]; ring
+      _ = _ := by ring
+  have hwc : Continuous w := by
+    refine (continuous_const.mul Complex.differentiable_Gammaℂ_inv.continuous).mul ?_
+    exact (continuous_neg.div_const 2).const_cpow (Or.inl hN0)
+  have hw1 : w 1 ≠ 0 := by
+    simp only [hw, Complex.Gammaℂ_one, one_div, inv_inv]
+    refine mul_ne_zero (mul_ne_zero two_ne_zero ?_) ?_
+    · exact_mod_cast Real.pi_ne_zero
+    · exact (Complex.cpow_ne_zero_iff_of_exponent_ne_zero (by norm_num)).mpr hN0
+  have hsym : ∀ s, F s * w (2 - s) = w s * F (2 - s) := by
+    intro s
+    rw [hFw s, hFw (2 - s), hFE s]
+    ring
+  -- local form of `F` at `1`
+  have hFa : AnalyticAt ℂ F 1 := (Complex.analyticOnNhd_univ_iff_differentiable.mpr hF.1) 1
+    (Set.mem_univ _)
+  obtain ⟨g, hga, hg1, hgF⟩ := (hFa.analyticOrderAt_eq_natCast (n := 1)).mp (by exact_mod_cast h1)
+  have hT : Filter.Tendsto (fun s : ℂ => 2 - s) (nhds 1) (nhds 1) := by
+    have : Continuous (fun s : ℂ => 2 - s) := continuous_const.sub continuous_id
+    simpa [show (2 : ℂ) - 1 = 1 by norm_num] using this.tendsto 1
+  have hgF' := hT.eventually hgF
+  set k : ℂ → ℂ := fun s => g s * w (2 - s) + w s * g (2 - s) with hkdef
+  have hev : ∀ᶠ s in nhds (1 : ℂ), (s - 1) * k s = 0 := by
+    filter_upwards [hgF, hgF'] with s hs hs'
+    have := hsym s
+    rw [hs, hs'] at this
+    simp only [pow_one, smul_eq_mul] at this
+    rw [hkdef]
+    linear_combination this
+  have hkc : ContinuousAt k 1 := by
+    have hgc : ContinuousAt g 1 := hga.continuousAt
+    have hg2 : ContinuousAt (fun s => g (2 - s)) 1 := by
+      have h21 : ContinuousAt (fun s : ℂ => 2 - s) 1 :=
+        (continuous_const.sub continuous_id).continuousAt
+      exact ContinuousAt.comp_of_eq (g := g) hgc h21 (by norm_num)
+    exact (hgc.mul ((hwc.comp (continuous_const.sub continuous_id)).continuousAt)).add
+      (hwc.continuousAt.mul hg2)
+  have hk0 : k 1 = 0 := by
+    have hlim1 : Filter.Tendsto k (nhdsWithin 1 {1}ᶜ) (nhds (k 1)) :=
+      hkc.tendsto.mono_left nhdsWithin_le_nhds
+    have hlim0 : Filter.Tendsto k (nhdsWithin 1 {1}ᶜ) (nhds 0) := by
+      refine tendsto_const_nhds.congr' ?_
+      filter_upwards [eventually_nhdsWithin_of_eventually_nhds hev,
+        self_mem_nhdsWithin] with s hs hs1
+      have : s - 1 ≠ 0 := sub_ne_zero.mpr hs1
+      exact ((mul_eq_zero.mp hs).resolve_left this).symm
+    exact tendsto_nhds_unique hlim1 hlim0
+  have : k 1 = 2 * (g 1 * w 1) := by
+    simp only [hkdef, show (2 : ℂ) - 1 = 1 by norm_num]; ring
+  rw [this] at hk0
+  exact mul_ne_zero two_ne_zero (mul_ne_zero hg1 hw1) hk0
+
+/-- The assembly with (G3) discharged. -/
+theorem grossZagierCd_of_leaves' (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+    (hL3 : GrossZagierHeegner) : GrossZagierCd :=
+  grossZagierCd_of_leaves hL1 hL2 hL3 signOfSimpleZero
+
+
+/-! ## The headline from the three leaves -/
+
+/-- **Theorem 1.1 from `SixContactMin`, TYZ Theorem 3.5(2) in reading A, and the three leaves of
+Gross–Zagier for `C_d`** (Hecke–Shimura theta newform, Friedberg–Hoffstein nonvanishing,
+Gross–Zagier–Heegner). -/
+theorem frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves (hH : SixContactMin)
+    (hA : ZInQ.Literature.TYZThm35ReadingA) (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+    (hL3 : GrossZagierHeegner) : FrozenTarget :=
+  frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd hH hA
+    (grossZagierCd_of_leaves' hL1 hL2 hL3)
+
+end ZInQ.GZDecomp

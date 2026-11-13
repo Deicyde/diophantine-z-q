@@ -1,0 +1,1 @@
+30 discriminants D in [-199,-7], n in 1..200: 6000 pairs, 0 mismatches
