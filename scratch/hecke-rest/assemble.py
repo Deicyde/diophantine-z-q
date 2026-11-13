@@ -71,3 +71,38 @@ main2 = open("scratch/hecke-rest/NoVertMain.lean.part", encoding="utf-8").read()
 out2 = "\n".join(parts2) + "\n" + main2
 open("scratch/hecke-rest/NoVert.lean", "w", encoding="utf-8").write(out2)
 print("wrote NoVert", out2.count("\n"), "lines")
+
+# ---- CurveChart.lean: prop-ts prefix + image-plane value calculus + CurveNormChart + new part
+ip = open("scratch/image-plane/AlgDepProof.lean", encoding="utf-8").read().split("\n")
+def irng(a, b):
+    return "\n".join(ip[a - 1:b])
+HEADER3 = """import Mathlib
+import ZInQKernel.HDecomp.QM.Pin
+import ZInQKernel.HDecomp.Descent.B2Glue
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest: `CurveNormChart` (hence `CurveGaloisChart`) reduced to two statements of curve
+theory (assembled by `scratch/hecke-rest/assemble.py`)
+
+Verbatim copies: `scratch/ts-hecke/TSHecke.lean` lines 6-889 (prop-ts prefix, with
+`NormalizationModel`) and 6444-6455 (`CurveNormChart`, the target, inside `namespace TSHecke`);
+`scratch/image-plane/AlgDepProof.lean` lines 15-171 and 277-322 (the value calculus `ptOf`, `ev`,
+`ev_res`, `ev_comp`, `ev_spec_top`, `val_of_mem`, ...). New work below the last banner.
+No `sorry`, no `axiom`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+"""
+TSH2 = """
+noncomputable section
+
+namespace TSHecke
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin G0ModField PropTSRed PkgI3
+"""
+parts3 = [HEADER3, rng(6, 889), "", irng(15, 171), "", irng(277, 322), "",
+          "end ImagePlane", "", "end Pin", "", "end AV", "", "end LeafQM", "", "end", "",
+          TSH2, rng(6444, 6455), "", "end TSHecke", "", "end", ""]
+main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").read()
+out3 = "\n".join(parts3) + "\n" + main3
+open("scratch/hecke-rest/CurveChart.lean", "w", encoding="utf-8").write(out3)
+print("wrote CurveChart", out3.count("\n"), "lines")

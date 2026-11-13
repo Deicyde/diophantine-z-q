@@ -46,3 +46,28 @@ HeckeFibreSizes, HeckeNoVertRam.
 - New glue Prop `HeckeVertWitness` (one prime over pℤ[X] with e = 1, p > 324), with routes GR and
   NV in its docstring.
 - `#print axioms` (3 lines): [propext, Classical.choice, Quot.sound].
+
+## Step 4. Review of Steps 2-3 (read-only model agent, no Lean)
+- Verdict: QMAutCard, SerreRigidity3, ALFixedPoints TRUE as stated, consequences of published
+  results, not vacuous, not disguised; count n·s·a = 288 and case analysis correct.
+- Citation fix applied: Serre leaf cites the finite-order form (Silverberg–Zarhin JPAA 111 (1996),
+  UNVERIFIED); Mumford §21 Thm 5 is the polarized form.
+- HeckeVertWitness is EQUIVALENT to HeckeNoVertRam (lying over gives a prime over pℤ[X]), not
+  strictly weaker: a reduction of shape (one prime instead of all), not of content.
+- Caveat raised: the coordinate X must be the canonical one (X = p·j would ramify vertically);
+  R2fp pins π's values 0, ∞, −16/27 at the three CM types, and π induces Y/Γ' ≅ P¹, so π is the
+  canonical coordinate up to a Möbius map fixing three points, i.e. exactly (SPECULATIVE
+  argument, not formalized).
+
+## Step 5. Lean: CurveNormChart (`CurveChart.lean`, assembled by `assemble.py`) — VERIFIED (compiled, 0 errors, ~15 s)
+- Verbatim copies: TSHecke.lean 6-889 (prop-ts prefix) and 6444-6455 (CurveNormChart);
+  image-plane AlgDepProof.lean 15-171 and 277-322 (value calculus ptOf/ev/ev_comp/ev_spec_top/
+  val_of_mem/val_of_not_mem).
+- New glue Props: `ChartFinite` (π.U nonempty affine, ℚ[X] → Γ(Y, π.U) injective and finite, X ↦ π.f),
+  `ChartNormal` (nonempty affine opens of a smooth irreducible curve have integrally closed
+  domain sections).
+- Proved: `ev_fromSpec` (value of a section at Spec χ → Spec Γ(X,U) → X is χ s),
+  `curveNormChart_of : ChartFinite → ChartNormal → CurveNormChart` (E = Frac Γ(Y, π.U),
+  Γ(Y, π.U) ≅ integralClosure ℚ[X] E by IsIntegralClosure.equiv, FiniteDimensional via
+  IsIntegralClosure.isLocalization + Module.Finite.of_isLocalization).
+- `#print axioms HeckeRestCurve.curveNormChart_of`: [propext, Classical.choice, Quot.sound].

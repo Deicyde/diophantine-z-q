@@ -1,0 +1,137 @@
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# hecke-rest, Part 3: `CurveNormChart` from `ChartFinite` and `ChartNormal`
+
+`CurveNormChart` asks for a finite `E/ℚ(X)` with an open immersion `Spec B → Y`
+(`B = ` integral closure of `ℚ[X]` in `E`) through which every `ℚ̄`-point with `π ≠ ∞` factors and
+along which `π` is the coordinate `X`. Given that `U = π⁻¹(𝔸¹)` is affine with `Γ(Y, U)` a finite
+`ℚ[X]`-algebra via `X ↦ π.f` (`ChartFinite`) and a normal domain (`ChartNormal`), the field
+`E = Frac Γ(Y, U)` does it: `Γ(Y, U)` is the integral closure of `ℚ[X]` in `E`, and the chart is
+`Spec B ≅ Spec Γ(Y, U) ≅ U ⊆ Y` (compiled below).
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace HeckeRestCurve
+
+open CategoryTheory AlgebraicGeometry Limits Polynomial
+open LeafQM LeafQM.AV LeafQM.AV.Pin LeafQM.AV.Pin.ImagePlane PropTSRed TSHecke
+
+/-- `ℚ → Γ(Y, U)` through the structure morphism `Y → Spec ℚ`. -/
+def cQ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens) : ℚ →+* Γ(Y.left, U) :=
+  (res (le_top : U ≤ ⊤)).comp
+    ((Y.hom.appTop).hom.comp (Scheme.ΓSpecIso (CommRingCat.of ℚ)).inv.hom)
+
+/-- `ℚ[X] → Γ(Y, π⁻¹(𝔸¹))`, `X ↦ π.f` (the chart of `π` over `𝔸¹` on rings). -/
+def chartHom (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) : ℚ[X] →+* Γ(Y.left, π.U) :=
+  Polynomial.eval₂RingHom (cQ Y π.U) π.f
+
+/-- **Glue (curve theory: `π` is finite over `𝔸¹`).** For a proper smooth irreducible curve `Y/ℚ`
+and `π : Y → P¹` with finite `ℚ̄`-fibres, `U = π⁻¹(𝔸¹)` is a nonempty affine open and `Γ(Y, U)` is
+a finite `ℚ[X]`-algebra via `X ↦ π.f`, with `ℚ[X] → Γ(Y, U)` injective. *Proof* (STANDARD;
+Hartshorne II.6.8 and Ex. II.3.5, Stacks 02OG (= Mathlib's
+`IsFinite.of_isProper_of_locallyQuasiFinite`), 01WN; locators UNVERIFIED): `U → 𝔸¹` is proper
+(valuative criterion: a valuation-ring point of `Y` over `𝔸¹` cannot meet `π = ∞`, since `f g = 1`
+on `U ∩ V`) and quasi-finite (closed fibres: finite `ℚ̄`-fibres; generic fibre: the generic point
+of `Y`), hence finite (Zariski's main theorem), hence affine; it is surjective onto `𝔸¹` (finite and
+dominant), so `ℚ[X] → Γ(Y, U)` is injective. Glue, not a leaf. -/
+def ChartFinite : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left),
+    IsProper Y.hom → SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left →
+    (∀ t : OnePoint Qbar, {y : fieldPt Qbar ⟶ Y | π.val (K := Qbar) y.left = t}.Finite) →
+    IsAffineOpen π.U ∧ (π.U : Set Y.left).Nonempty ∧ Function.Injective (chartHom Y π) ∧
+      @Module.Finite ℚ[X] Γ(Y.left, π.U) _ _ (chartHom Y π).toAlgebra.toModule
+
+/-- **Glue (smooth curves are normal).** On a smooth irreducible curve `Y/ℚ`, the sections over a
+nonempty affine open form an integrally closed domain. *Proof* (STANDARD; Hartshorne I.6,
+II.6.2A, Stacks 033B/0567; locators UNVERIFIED): `Y` is reduced and irreducible, hence integral;
+its local rings at closed points are regular of dimension 1 (curve-glue, infra-smooth-dim:
+`isDomain_of_dim_one`, stalk dimensions), hence DVRs; a domain whose localizations at all maximal
+ideals are integrally closed is integrally closed. Glue, not a leaf. -/
+def ChartNormal : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (U : Y.left.Opens),
+    SmoothOfRelativeDimension 1 Y.hom → IrreducibleSpace Y.left → IsAffineOpen U →
+    (U : Set Y.left).Nonempty → IsDomain Γ(Y.left, U) ∧ IsIntegrallyClosed Γ(Y.left, U)
+
+/-- The value at `Spec χ → Spec Γ(X, U) → X` of a section over the affine open `U` is `χ s`. -/
+theorem ev_fromSpec {K : Type} [Field K] {X : Scheme.{0}} {U : X.Opens} (hU : IsAffineOpen U)
+    (χ : Γ(X, U) ⟶ CommRingCat.of K) (hx : ptOf (Spec.map χ ≫ hU.fromSpec) ∈ U) (s : Γ(X, U)) :
+    ev (Spec.map χ ≫ hU.fromSpec) hx s = χ s := by
+  rw [ev_comp, hU.fromSpec_app_self_apply]
+  change ev (Spec.map χ) _ (res (le_top : hU.fromSpec ⁻¹ᵁ U ≤ ⊤)
+    ((Scheme.ΓSpecIso Γ(X, U)).inv s)) = _
+  rw [ev_res]
+  exact ev_spec_top (R := Γ(X, U)) χ s
+
+/-- **`CurveNormChart` from `ChartFinite` and `ChartNormal`** (compiled). -/
+theorem curveNormChart_of (hF : ChartFinite) (hN : ChartNormal) : CurveNormChart := by
+  intro Y π hP hS hI hfin
+  obtain ⟨hU, hne, hinj, hfinM⟩ := hF Y π hP hS hI hfin
+  obtain ⟨hdom, hic⟩ := hN Y π.U hS hI hU hne
+  letI : Algebra ℚ[X] Γ(Y.left, π.U) := (chartHom Y π).toAlgebra
+  haveI : Module.Finite ℚ[X] Γ(Y.left, π.U) := hfinM
+  haveI := hdom
+  haveI := hic
+  let E := FractionRing Γ(Y.left, π.U)
+  have hinjE : Function.Injective (algebraMap ℚ[X] E) := by
+    rw [IsScalarTower.algebraMap_eq ℚ[X] Γ(Y.left, π.U) E]
+    exact (IsFractionRing.injective Γ(Y.left, π.U) E).comp hinj
+  letI : Algebra (RatFunc ℚ) E := (IsFractionRing.lift (K := RatFunc ℚ) hinjE).toAlgebra
+  haveI : IsScalarTower ℚ[X] (RatFunc ℚ) E := IsScalarTower.of_algebraMap_eq
+    (fun a => (IsFractionRing.lift_algebraMap (K := RatFunc ℚ) hinjE a).symm)
+  haveI : IsIntegralClosure Γ(Y.left, π.U) ℚ[X] E :=
+    IsIntegralClosure.of_isIntegrallyClosed Γ(Y.left, π.U) ℚ[X] E
+  haveI : Algebra.IsAlgebraic (RatFunc ℚ) E :=
+    isAlgebraic_of_isFractionRing ℚ[X] Γ(Y.left, π.U) (RatFunc ℚ) E
+  haveI : IsLocalization (Algebra.algebraMapSubmonoid Γ(Y.left, π.U) (nonZeroDivisors ℚ[X])) E :=
+    IsIntegralClosure.isLocalization ℚ[X] (RatFunc ℚ) E Γ(Y.left, π.U)
+  haveI : Module.Finite (RatFunc ℚ) E :=
+    Module.Finite.of_isLocalization ℚ[X] Γ(Y.left, π.U) (nonZeroDivisors ℚ[X])
+  let e : Γ(Y.left, π.U) ≃ₐ[ℚ[X]] integralClosure ℚ[X] E :=
+    IsIntegralClosure.equiv ℚ[X] Γ(Y.left, π.U) E (integralClosure ℚ[X] E)
+  let eH : Γ(Y.left, π.U) ⟶ CommRingCat.of (integralClosure ℚ[X] E) :=
+    CommRingCat.ofHom (e : Γ(Y.left, π.U) →+* integralClosure ℚ[X] E)
+  let eH' : CommRingCat.of (integralClosure ℚ[X] E) ⟶ Γ(Y.left, π.U) :=
+    CommRingCat.ofHom (e.symm : integralClosure ℚ[X] E →+* Γ(Y.left, π.U))
+  have heH : eH ≫ eH' = 𝟙 _ := by
+    ext x
+    exact e.symm_apply_apply x
+  haveI : IsIso eH := ⟨⟨eH', heH, by ext x; exact congrArg Subtype.val (e.apply_symm_apply x)⟩⟩
+  refine ⟨E, inferInstance, inferInstance, inferInstance, inferInstance, inferInstance,
+    Spec.map eH ≫ hU.fromSpec, inferInstance, ?_, ?_⟩
+  · intro y hy
+    have hmem : ptOf y ∈ π.U := by
+      by_contra h
+      exact hy (val_of_not_mem π y h)
+    have hr : Set.range y.base ⊆ Set.range hU.fromSpec.base := by
+      rintro _ ⟨z, rfl⟩
+      rw [hU.range_fromSpec]
+      have hz : z = IsLocalRing.closedPoint Qbar := Subsingleton.elim _ _
+      rw [hz]
+      exact hmem
+    refine ⟨IsOpenImmersion.lift hU.fromSpec y hr ≫ Spec.map eH', ?_⟩
+    rw [Category.assoc, ← Category.assoc (Spec.map eH'), ← Spec.map_comp, heH, Spec.map_id,
+      Category.id_comp, IsOpenImmersion.lift_fac]
+  · intro ψ
+    let χ : Γ(Y.left, π.U) ⟶ CommRingCat.of Qbar := eH ≫ CommRingCat.ofHom ψ
+    have hpt : Spec.map (CommRingCat.ofHom ψ) ≫ Spec.map eH ≫ hU.fromSpec =
+        Spec.map χ ≫ hU.fromSpec := by
+      rw [← Category.assoc, ← Spec.map_comp]
+    have hmem : ptOf (Spec.map χ ≫ hU.fromSpec) ∈ π.U := by
+      have h0 : ptOf (Spec.map χ ≫ hU.fromSpec) ∈ Set.range hU.fromSpec.base := by
+        rw [ptOf_comp]; exact ⟨_, rfl⟩
+      rw [hU.range_fromSpec] at h0
+      exact h0
+    rw [hpt, val_of_mem π _ hmem, ev_fromSpec hU χ hmem π.f]
+    congr 1
+    have hf : π.f = algebraMap ℚ[X] Γ(Y.left, π.U) X := by
+      show π.f = Polynomial.eval₂ (cQ Y π.U) π.f X
+      rw [Polynomial.eval₂_X]
+    rw [hf]
+    show ψ (e (algebraMap ℚ[X] Γ(Y.left, π.U) X)) = _
+    rw [AlgEquiv.commutes]
+
+end HeckeRestCurve
+
+end
+
+#print axioms HeckeRestCurve.curveNormChart_of
