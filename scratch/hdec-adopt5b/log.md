@@ -24,3 +24,4 @@
   ones). The file is removed from the tree; the flag regenerates it.
 - same.py: every draft declaration identical (whitespace-normalized) or a verbatim copy now
   imported; exceptions only m3_G23/m3_G33/m3_a112 (M3b).
+- 02:07 report and fleet summary committed.
