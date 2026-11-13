@@ -51,4 +51,4 @@ its statement unchanged, from six leaves and two named glue Props.
 - the quasi-inverse of an isogeny (Mumford §8);
 - the points/semilinear-`F_σ` bookkeeping.
 
-Report: `docs/research/kernel-field.md`. Log: `scratch/kernel-field/log.md`.
+Copies are verbatim (checked by `diff` or substring test; see the log). Report: `docs/research/kernel-field.md`. Log: `scratch/kernel-field/log.md`.
