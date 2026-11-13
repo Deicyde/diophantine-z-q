@@ -103,3 +103,12 @@ Task period-map (2026-11-13). Base 322303a2. Targets: `PeriodMapGlue`, `Hauptmod
 - run_heavy13 (build_heavy.sh): 0 errors, 21 axioms lines, none with sorryAx; `fibreQMPeriod_periodMap` now takes
   `S8WeightExact` instead of `S8Weight8`, `S8OrderCM3`. VERIFIED.
 - run_light_full4: `lake env lean scratch/period-map/PMLight.lean` (all light parts): see file.
+
+## PiCMC ⇐ CMDescends (part_heavy.lean)
+- New leaf candidate `CMDescends` (CM QM surfaces over ℂ are base changes of CM ones over ℚ̄, as QM pairs).
+  Proved `pi_of_descends`, `piCMC_of : R1fpProps → R2fpProps → BaseChangeClassUnique → PiTwistC → CMDescends → PiCMC`.
+  `fibreQMPeriod_periodMap` now takes `CMDescends` instead of `PiCMC`.
+- run_heavy14: errors (AbVar namespace, `ιe 16`); fixed. run_heavy15: 0 errors, 22 axioms lines standard. VERIFIED.
+- run_full1 (before PiCMC step): build_full.sh single file, 0 errors, 3m02s, 68 axioms lines, none sorryAx. VERIFIED.
+- run_full2 (final): build_full.sh (FibreQM base + part_fqm + part_light + part_theta + part_siegel + part_order +
+  part_heavy), `lake env lean`: 0 errors, 3m13s, 69 axioms lines, none with sorryAx. VERIFIED.

@@ -30,7 +30,8 @@ theorem isPreconnected_U : IsPreconnected U := (convex_halfSpace_im_gt 0).isPrec
 
 /-! ### Named Props (glue) shared by both reductions -/
 
-/-- **GLUE (holomorphy of the theta constants along the modular embedding).** `Σ_{m even} θ_m⁸ ∘ Ω`
+/-- **Holomorphy of the theta constants along the modular embedding** (stated as glue here; PROVED
+below, `thetaOmegaAnalytic_proof` in the section on `OmegaSiegel`). `Σ_{m even} θ_m⁸ ∘ Ω`
 and `∏_{m even} θ_m² ∘ Ω` are holomorphic on the upper half-plane.
 
 Why true: each `θ_m` is a holomorphic function on the Siegel upper half-space `𝔥₂` (the series
@@ -323,7 +324,8 @@ theorem hauptmodulUnique_of (hT : ThetaOmegaAnalytic) (hS : S8Nonzero)
 `ℍ`). -/
 def G8 (z : ℂ) : ℂ := PkgI1.thetaSum8 (PkgI1.Omega z) / ((z - 3) * (z + 1)) ^ 4
 
-/-- **GLUE (the weight of `Σθ⁸ ∘ Ω` under `Γ*`).** For `γ ∈ Γ*` and `τ ∈ ℍ`,
+/-- **The weight of `Σθ⁸ ∘ Ω` under `Γ*`** (absolute-value form; derived below from the exact form
+`S8WeightExact`, `s8Weight8_of`). For `γ ∈ Γ*` and `τ ∈ ℍ`,
 `|G8(γτ)| · det(γ)⁴ = |cτ + d|⁸ |G8(τ)|`, i.e. `G8` has weight 8 for the automorphy factor
 `(cτ + d)/√det γ`, in absolute value.
 
@@ -343,7 +345,7 @@ def S8Weight8 : Prop :=
     ‖G8 ((γ • z : UpperHalfPlane) : ℂ)‖ * ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ 4 =
       ‖denom γ z‖ ^ 8 * ‖G8 (z : ℂ)‖
 
-/-- **GLUE (a vanishing order).** `S/dF⁴` (equivalently `Σθ_m⁸ ∘ Ω`, since `dF(i√3) ≠ 0`) vanishes
+/-- **A vanishing order** (derived below from `S8WeightExact` and holomorphy, `s8OrderCM3_of`). `S/dF⁴` (equivalently `Σθ_m⁸ ∘ Ω`, since `dF(i√3) ≠ 0`) vanishes
 to order at least 2 at `i√3`, the fixed point of `ι((1+j)/2)`.
 
 Numerically VERIFIED: order `1.99992` (fibre-qm-period, `psi4_zeros_out.txt`) and `|S(Ω(i√3))| ≈

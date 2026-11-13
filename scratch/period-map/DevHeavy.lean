@@ -31,7 +31,8 @@ theorem isPreconnected_U : IsPreconnected U := (convex_halfSpace_im_gt 0).isPrec
 
 /-! ### Named Props (glue) shared by both reductions -/
 
-/-- **GLUE (holomorphy of the theta constants along the modular embedding).** `Σ_{m even} θ_m⁸ ∘ Ω`
+/-- **Holomorphy of the theta constants along the modular embedding** (stated as glue here; PROVED
+below, `thetaOmegaAnalytic_proof` in the section on `OmegaSiegel`). `Σ_{m even} θ_m⁸ ∘ Ω`
 and `∏_{m even} θ_m² ∘ Ω` are holomorphic on the upper half-plane.
 
 Why true: each `θ_m` is a holomorphic function on the Siegel upper half-space `𝔥₂` (the series
@@ -324,7 +325,8 @@ theorem hauptmodulUnique_of (hT : ThetaOmegaAnalytic) (hS : S8Nonzero)
 `ℍ`). -/
 def G8 (z : ℂ) : ℂ := PkgI1.thetaSum8 (PkgI1.Omega z) / ((z - 3) * (z + 1)) ^ 4
 
-/-- **GLUE (the weight of `Σθ⁸ ∘ Ω` under `Γ*`).** For `γ ∈ Γ*` and `τ ∈ ℍ`,
+/-- **The weight of `Σθ⁸ ∘ Ω` under `Γ*`** (absolute-value form; derived below from the exact form
+`S8WeightExact`, `s8Weight8_of`). For `γ ∈ Γ*` and `τ ∈ ℍ`,
 `|G8(γτ)| · det(γ)⁴ = |cτ + d|⁸ |G8(τ)|`, i.e. `G8` has weight 8 for the automorphy factor
 `(cτ + d)/√det γ`, in absolute value.
 
@@ -344,7 +346,7 @@ def S8Weight8 : Prop :=
     ‖G8 ((γ • z : UpperHalfPlane) : ℂ)‖ * ((γ : Matrix (Fin 2) (Fin 2) ℝ).det) ^ 4 =
       ‖denom γ z‖ ^ 8 * ‖G8 (z : ℂ)‖
 
-/-- **GLUE (a vanishing order).** `S/dF⁴` (equivalently `Σθ_m⁸ ∘ Ω`, since `dF(i√3) ≠ 0`) vanishes
+/-- **A vanishing order** (derived below from `S8WeightExact` and holomorphy, `s8OrderCM3_of`). `S/dF⁴` (equivalently `Σθ_m⁸ ∘ Ω`, since `dF(i√3) ≠ 0`) vanishes
 to order at least 2 at `i√3`, the fixed point of `ι((1+j)/2)`.
 
 Numerically VERIFIED: order `1.99992` (fibre-qm-period, `psi4_zeros_out.txt`) and `|S(Ω(i√3))| ≈
@@ -1382,6 +1384,77 @@ theorem periodMapGlue_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
     apply (hPT (yτ τ) (fieldMap ιe.toRatAlgHom ≫ y) Pτ Q hPτ (hQ'.trans hQQ)).mpr
     exact (hTL Pτ Q τ τ hPer ⟨Φu, hΦu, hc⟩).mpr ⟨1, one_mem_gammaStar, one_smul _ _⟩
 
+
+/-! ### `PiCMC` from `PiTwistC`, R1fp, R2fp and the descent of CM objects (proved) -/
+
+/-- **LEAF candidate (QM abelian surfaces with CM are defined over `ℚ̄`).** A level-3 QM surface
+`Q/ℂ` with CM by `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) is, as a QM pair, isomorphic to the base change
+along some `ι : ℚ̄ → ℂ` of a level-3 QM surface `P/ℚ̄` with the same CM.
+
+Sources: Shimura–Taniyama, *Complex multiplication of abelian varieties* (1961), and Shimura 1967:
+abelian varieties with CM are defined over `ℚ̄` (a CM point of `X₆` is algebraic; its fibre has a
+model over the field of moduli); the CM descends because endomorphisms of `P_ℂ` come from `P`
+(the kernel's textbook leaf T11b, `Hom_ℚ̄ = Hom_ℂ`); the level structure also descends because
+`A[3] ⊆ A(ℚ̄)` (locators UNVERIFIED). A consequence of those published statements; size of the glue
+around them: small-medium. -/
+def CMDescends : Prop :=
+  ∀ Q : QML3 ℂ,
+    (HasCM4 Q.q → ∃ (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ),
+      IsBaseChangeOf ιe P Q' ∧ HasCM4 P.q ∧ Nonempty (QMIso Q.q Q'.q)) ∧
+    (HasCM3 Q.q → ∃ (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ),
+      IsBaseChangeOf ιe P Q' ∧ HasCM3 P.q ∧ Nonempty (QMIso Q.q Q'.q)) ∧
+    (HasCM24 Q.q → ∃ (ιe : Qbar →+* ℂ) (P : QML3 Qbar) (Q' : QML3 ℂ),
+      IsBaseChangeOf ιe P Q' ∧ HasCM24 P.q ∧ Nonempty (QMIso Q.q Q'.q))
+
+/-- A QM isomorphism is one for the trivial twist. -/
+def qmIsoTwistRefl {A A' : PkgI3.AbVar ℂ} {q : QMStr A} {q' : QMStr A'} (e : QMIso q q') :
+    QMIso (q.twist (RingEquiv.refl LeafQM.O)) q' where
+  φ := e.φ
+  ψ := e.ψ
+  left := e.left
+  right := e.right
+  equivariant a := e.equivariant a
+
+/-- The value of `π` at a `ℂ`-point whose QM pair comes from a `ℚ̄`-point (proved). -/
+theorem pi_of_descends (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (h1 : R1fpProps Y Φ) (hBC : BaseChangeClassUnique) (hPT : PiTwistC Y Φ π)
+    (y : fieldPt ℂ ⟶ Y) (Q : QML3 ℂ) (hQ : Φ ℂ y = M3.mk Q) (ιe : Qbar →+* ℂ) (P : QML3 Qbar)
+    (Q' : QML3 ℂ) (hBCQ : IsBaseChangeOf ιe P Q') (hiso : Nonempty (QMIso Q.q Q'.q)) :
+    π.val (K := ℂ) y.left = (π.val (K := Qbar) ((Φ Qbar).symm (M3.mk P)).left).map ιe := by
+  set y₀ := (Φ Qbar).symm (M3.mk P) with hy₀
+  have hP : Φ Qbar y₀ = M3.mk P := by rw [hy₀, Equiv.apply_symm_apply]
+  obtain ⟨Q'', hQ'', hBC''⟩ := h1.2.2.2.1 Qbar ℂ ιe.toRatAlgHom y₀ P hP
+  have hQQ : M3.mk Q'' = M3.mk Q' := hBC ιe P Q'' Q' hBC'' hBCQ
+  have hval := ToP1.val_comp π ιe y₀.left
+  have hleft : (fieldMap ιe.toRatAlgHom ≫ y₀).left =
+      Spec.map (CommRingCat.ofHom ιe) ≫ y₀.left := rfl
+  rw [← hval, ← hleft]
+  obtain ⟨e⟩ := hiso
+  exact (hPT y (fieldMap ιe.toRatAlgHom ≫ y₀) Q Q' hQ (hQ''.trans hQQ)).mpr
+    ⟨RingEquiv.refl LeafQM.O, ⟨qmIsoTwistRefl e⟩⟩
+
+/-- **`PiCMC` from `PiTwistC`, R1fp naturality, R2fp's CM clauses, `BaseChangeClassUnique` and
+`CMDescends` (proved).** -/
+theorem piCMC_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (h1 : R1fpProps Y Φ) (h2 : R2fpProps Y Φ π) (hBC : BaseChangeClassUnique)
+    (hPT : PiTwistC Y Φ π) (hD : CMDescends) : PiCMC Y Φ π := by
+  intro y Q hQ
+  have hP : ∀ P : QML3 Qbar, Φ Qbar ((Φ Qbar).symm (M3.mk P)) = M3.mk P :=
+    fun P => Equiv.apply_symm_apply _ _
+  refine ⟨fun hcm => ?_, fun hcm => ?_, fun hcm => ?_⟩
+  · obtain ⟨ιe, P, Q', hB, hPcm, hiso⟩ := (hD Q).1 hcm
+    rw [pi_of_descends Y Φ π h1 hBC hPT y Q hQ ιe P Q' hB hiso,
+      (h2 _ _ P P (hP P) (hP P)).2.1 hPcm]
+    simp
+  · obtain ⟨ιe, P, Q', hB, hPcm, hiso⟩ := (hD Q).2.1 hcm
+    rw [pi_of_descends Y Φ π h1 hBC hPT y Q hQ ιe P Q' hB hiso,
+      (h2 _ _ P P (hP P) (hP P)).2.2.1 hPcm]
+    rfl
+  · obtain ⟨ιe, P, Q', hB, hPcm, hiso⟩ := (hD Q).2.2 hcm
+    rw [pi_of_descends Y Φ π h1 hBC hPT y Q hQ ιe P Q' hB hiso,
+      (h2 _ _ P P (hP P) (hP P)).2.2.2 hPcm]
+    simp [map_ofNat]
+
 /-- **`PeriodMapGlue` at the leaf's own triple (proved).** -/
 theorem periodMapGlue_own (h : R1R2fp) (hBC : BaseChangeClassUnique)
     (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h)) (hTL : QMTwistLattice)
@@ -1391,20 +1464,21 @@ theorem periodMapGlue_own (h : R1R2fp) (hBC : BaseChangeClassUnique)
 
 /-- **`FibreQMPeriod` with the three targets replaced by their named pieces (proved).** Leaves:
 `R1R2fp`, `PkgI1.QMHauptmodul`, T35, T11a, `QMClassNumberOne`, `R1bFamily`,
-`ValenceBoundGammaStar`. Glue: `Pin.MobiusGlue` (proved by mobius-glue), `BaseChangeClassUnique`,
-`PiTwistC`, `QMTwistLattice`, `PiCMC`, `S8Nonzero`,
+`ValenceBoundGammaStar`, `CMDescends` (leaf candidate). Glue: `Pin.MobiusGlue` (proved by
+mobius-glue), `BaseChangeClassUnique`, `PiTwistC`, `QMTwistLattice`, `S8Nonzero`,
 `SphereFactorAffine`, `S8WeightExact`, `CPtsTransport`. -/
 theorem fibreQMPeriod_periodMap (h : R1R2fp) (hM : Pin.MobiusGlue)
     (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
     (hCN : QMClassNumberOne) (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
     (hBC : BaseChangeClassUnique) (hPT : PiTwistC (ownY h) (ownΦ h) (ownπ h))
-    (hTL : QMTwistLattice) (hCM : PiCMC (ownY h) (ownΦ h) (ownπ h))
+    (hTL : QMTwistLattice) (hD : CMDescends)
     (hS : PeriodMap.S8Nonzero)
     (hSF : PeriodMap.SphereFactorAffine) (hW : PeriodMap.S8WeightExact)
     (hV : PeriodMap.ValenceBoundGammaStar)
     (hCP : CPtsTransport) : ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_main h hM hH hE hR11 hCN hR
-    (periodMapGlue_own h hBC hPT hTL hCM (cmFixedHasCM_of hR11))
+    (periodMapGlue_own h hBC hPT hTL
+      (piCMC_of _ _ _ (own_spec h).1 (own_spec h).2.2 hBC hPT hD) (cmFixedHasCM_of hR11))
     (PeriodMap.hauptmodulUnique_of' hS hSF) (PeriodMap.qmDenZeroCM3_of'' hS hW hV) hCP
 
 end HSyn.G0Split.FibreQM.PeriodMapH
@@ -1413,5 +1487,6 @@ end
 
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.cmFixedHasCM_of
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_of
+#print axioms HSyn.G0Split.FibreQM.PeriodMapH.piCMC_of
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.periodMapGlue_own
 #print axioms HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap
