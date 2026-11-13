@@ -1,0 +1,7 @@
+'ZInQ.SpreadOutN1.abVarSpreadsOut_of_ega' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.NF.abVarSpreadsOut_of_ega' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.exists_grpObj_descend' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.exists_lift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.exists_map_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.NF.specConeIsLimit' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.SpreadOut.isMonHom_descend' depends on axioms: [propext, Classical.choice, Quot.sound]
