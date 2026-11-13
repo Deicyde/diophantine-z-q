@@ -1,0 +1,189 @@
+
+/-! # r1b-state, part 1: R1(b), the analytic uniformization clause of R1, stated concretely
+
+Everything is over genuine definitions of the build:
+* bp-analytic's complex tori `BPAnalytic.Torus Λ = ℂ²/Λ`, its QM lattice
+  `BPAnalytic.QM.qmLattice hτ = ι(𝒪)(τ, 1)ᵀ` and its uniformization predicate
+  `BPAnalytic.Uniformization.IsUniformization` (an isomorphism of complex Lie groups
+  `ℂ²/Λ ≃ A(ℂ)`, phrased through regular functions; `ZInQKernel/HDecomp/Analytic/`);
+* the QM objects `LeafQM.AV.QML3`, their classes `M3`, the point bijections `PtEquiv` and the
+  repaired clause list `R1fpProps` (with qm-pin's `R1famProps`, `R1univProps`) of
+  `ZInQKernel/HDecomp/QM/`;
+* complex points `fieldPt ℂ ⟶ Y` of the `ℚ`-scheme `Y` and regular functions on its Zariski opens,
+  evaluated at those points through Mathlib's `Scheme.SpecToEquivOfField` and
+  `Scheme.evaluation` (as `LeafQM.AV.ToP1.val` does).
+No `sorry`, no `axiom`. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic Matrix
+open scoped Topology
+
+/-! ## §1 The QM torus at `τ` and QM-compatible uniformizations -/
+
+/-- `ι(a)` (bp-analytic's real embedding `B → M₂(ℝ)`, N5's) as a complex matrix. -/
+def iotaC (a : LeafQM.B) : Matrix (Fin 2) (Fin 2) ℂ :=
+  (BPAnalytic.QM.iota a).map (fun r : ℝ => (r : ℂ))
+
+theorem latVec_eq (a : LeafQM.B) (τ : ℂ) : QM.latVec a τ = iotaC a *ᵥ ![τ, 1] := rfl
+
+/-- **`φ : ℂ²/Λ_τ ≃ P.A(ℂ)` is a QM-compatible analytic uniformization of `P`**: an isomorphism
+of complex Lie groups (bp-analytic's `IsUniformization`) carrying the action of `a ∈ 𝒪` by the
+matrix `ι(a)` on `ℂ²` (which preserves `Λ_τ = ι(𝒪)(τ, 1)ᵀ`, `iotaC_mem` below) to the action of
+`ι_P(a)` on `P.A(ℂ)` (`qmAct`). -/
+structure IsQMUnif (P : QML3 ℂ) {τ : ℂ} (hτ : τ.im ≠ 0)
+    (φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)) : Prop where
+  unif : Uniformization.IsUniformization P.A (QM.qmLattice hτ) φ
+  iota_compat : ∀ (a : O) (v : Fin 2 → ℂ),
+    φ (proj (QM.qmLattice hτ) (iotaC (a : LeafQM.B) *ᵥ v)) =
+      qmAct P.q ℂ a (φ (proj (QM.qmLattice hτ) v))
+
+/-- **… and it carries the standard level-3 structure of the torus** `a ↦ [ι(a)(τ, 1)ᵀ/3]`
+(an `𝒪`-linear map `𝒪 → (ℂ²/Λ_τ)[3]` with kernel `3𝒪`: `level_linear`, `level_ker` below) to the
+level structure `η` of `P`. This pins the class of `P` given `τ` (the analytic family of the
+moduli problem over `ℍ`). -/
+def IsQMUnifLevel (P : QML3 ℂ) {τ : ℂ} (hτ : τ.im ≠ 0)
+    (φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)) : Prop :=
+  IsQMUnif P hτ φ ∧
+    ∀ a : O, P.e.eta a = φ (proj (QM.qmLattice hτ) ((1 / 3 : ℂ) • QM.latVec (a : LeafQM.B) τ))
+
+/-! ## §2 Complex points of `Y` and regular functions on them -/
+
+/-- The scheme point of `X` under a complex point `y : Spec ℂ → X`. -/
+abbrev ptOfS {X : Scheme.{0}} (y : Spec (CommRingCat.of ℂ) ⟶ X) : X :=
+  (Scheme.SpecToEquivOfField ℂ X y).1
+
+open Classical in
+/-- The value `s(y) ∈ ℂ` of a regular function `s ∈ Γ(U, 𝒪_X)` at a complex point `y ∈ U(ℂ)`:
+the image of `s(x) ∈ κ(x)` under the residue embedding `κ(x) → ℂ` of `y` (`0` if `y ∉ U(ℂ)`; only
+used on `U(ℂ)`). -/
+def evalS {X : Scheme.{0}} (y : Spec (CommRingCat.of ℂ) ⟶ X) (U : X.Opens) (s : Γ(X, U)) : ℂ :=
+  if h : ptOfS y ∈ U then
+    (Scheme.SpecToEquivOfField ℂ X y).2 (X.evaluation U _ h s)
+  else 0
+
+/-- The scheme point of `Y` under a complex point `y : Spec ℂ → Y` over `ℚ`. -/
+def ptOf {Y : Over (Spec (CommRingCat.of ℚ))} (y : fieldPt ℂ ⟶ Y) : Y.left := ptOfS y.left
+
+/-- The value at a complex point of `Y` over `ℚ` of a regular function on a Zariski open. -/
+def evalC {Y : Over (Spec (CommRingCat.of ℚ))} (y : fieldPt ℂ ⟶ Y) (U : Y.left.Opens)
+    (s : Γ(Y.left, U)) : ℂ := evalS y.left U s
+
+/-- The upper half plane as a subset of `ℂ`. -/
+def UHP : Set ℂ := {τ | 0 < τ.im}
+
+/-! ## §3 The leaf -/
+
+/-- **R1(b) clause list, family form** (rv-blueprints Q3), for a candidate `(Y, Φ)` of R1(a):
+
+(a) *every complex object occurs*: every `P : QML3 ℂ` has a QM-compatible analytic
+uniformization `ℂ²/Λ_τ ≃ P.A(ℂ)` for some `τ ∈ ℍ`;
+
+(b) *every `τ ∈ ℍ` occurs, in a family*: there is a map `y : ℍ → Y(ℂ)` (values off `ℍ` are not
+used) such that for every `τ ∈ ℍ` the class `Φ_ℂ(y(τ))` is the class of an object `P_τ` with a
+QM-compatible uniformization by `Λ_τ` carrying the standard level structure of the torus to
+`η_{P_τ}`;
+
+(c) *the family is holomorphic*: for every Zariski open `U ⊆ Y` and every regular function
+`s ∈ Γ(U, 𝒪_Y)`, the set `{τ ∈ ℍ : y(τ) ∈ U(ℂ)}` is open and `τ ↦ s(y(τ))` is holomorphic on it.
+(So `y` is a holomorphic map `ℍ → Y(ℂ)^an`; in particular `τ ↦ π(y(τ)) ∈ P¹(ℂ)` is holomorphic for
+every morphism `π : Y → P¹`, `holomorphicP1On_of_family` below.) -/
+def R1bProps (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) : Prop :=
+  (∀ P : QML3 ℂ, ∃ (τ : ℂ) (hτ : 0 < τ.im)
+      (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)), IsQMUnif P hτ.ne' φ) ∧
+  ∃ y : ℂ → (fieldPt ℂ ⟶ Y),
+    (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) ∧
+    (∀ (U : Y.left.Opens) (s : Γ(Y.left, U)),
+      IsOpen {τ : ℂ | 0 < τ.im ∧ ptOf (y τ) ∈ U} ∧
+      DifferentiableOn ℂ (fun τ => evalC (y τ) U s) {τ : ℂ | 0 < τ.im ∧ ptOf (y τ) ∈ U})
+
+/-- **LEAF R1(b) (Shimura–Deligne, complex uniformization in family form).** Some candidate
+`(Y, Φ)` satisfying R1(a)'s repaired clause list `R1fpProps` (the field-point leaf `R1fp`)
+satisfies the family clauses `R1bProps`.
+
+*Published statement.* Shimura, Ann. of Math. 85 (1967), Main Theorem I and §§2-3 (the family
+`A_τ = ℂ²/ι(𝒪)(τ, 1)ᵀ`, `τ ∈ ℍ`, with the Riemann form `Trd(μ⁻¹xȳ)` and its level structures, and
+the holomorphic map `ℍ → V(ℂ)` onto a component of the canonical model); Deligne, Sém. Bourbaki
+389 (1971), §4 (the canonical model as moduli space of the PEL problem, with the complex
+uniformization `Sh_K(ℂ) = G(ℚ)\(X × G(𝔸_f)/K)` of its analytification), (all locators
+UNVERIFIED; the audit read Deligne §§4.9-4.17 for R1(a), not this part).
+
+*Why a consequence, never stronger.* `Y = Y₃` with `Φ` the moduli bijection (R1(a)); for the
+type-`μ` PEL problem, `Y₃(ℂ)^an = G(ℚ)\(ℍ^± × G(𝔸_f)/K₃)`, and the component of `(τ, 1)` carries
+the polarized object `(ℂ²/Λ_τ, ι, E_μ, η_τ)` with `η_τ(a) = [ι(a)(τ, 1)ᵀ/3]`; forgetting `E_μ`
+(Lemma P, rv-qm-polar: it is the unique type-`μ` principal polarization) gives (b). The map
+`τ ↦ (τ, 1)` is holomorphic into the analytification and regular functions are holomorphic on
+it, which is (c). Clause (a) is the surjectivity of the uniformization (every complex point lies
+in some component, and on the component of `g ∈ G(𝔸_f)` the object is `ℂ²/ι(𝒪_g)(τ, 1)ᵀ` with
+`𝒪_g ≅ 𝒪`; with class number one of `𝒪` (Eichler) and the unit `1 + i` of norm `−1` the lattice is
+`c·ι(𝒪)(τ', 1)ᵀ` with `Im τ' > 0`; level structures are forgotten in (a)). Nothing is claimed
+about the other components of `Y₃(ℂ)` beyond (a), nor about polarizations, theta functions or
+`π`. -/
+def R01b_ComplexUniformization' : Prop :=
+  ∃ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y), R1fpProps Y Φ ∧ R1bProps Y Φ
+
+/-! ## §4 Glue (proved): `R1bProps` holds for every candidate satisfying `R1fpProps` -/
+
+theorem ptOfS_comp {X X' : Scheme.{0}} (h : X' ⟶ X) (y : Spec (CommRingCat.of ℂ) ⟶ X') :
+    ptOfS (y ≫ h) = h (ptOfS y) := by
+  unfold ptOfS
+  rw [specToEquivOfField_comp_right]
+
+theorem evalS_comp {X X' : Scheme.{0}} (h : X' ⟶ X) (y : Spec (CommRingCat.of ℂ) ⟶ X')
+    (U : X.Opens) (s : Γ(X, U)) :
+    evalS (y ≫ h) U s = evalS y (h ⁻¹ᵁ U) (h.app U s) := by
+  unfold evalS ptOfS
+  generalize hp : Scheme.SpecToEquivOfField ℂ X (y ≫ h) = p
+  rw [specToEquivOfField_comp_right] at hp
+  subst hp
+  dsimp only
+  split_ifs with h1 h2 h2
+  · rw [ConcreteCategory.comp_apply, Scheme.evaluation_naturality_apply]
+  · exact (h2 h1).elim
+  · exact (h1 h2).elim
+  · rfl
+
+theorem ptOf_comp {Y Y' : Over (Spec (CommRingCat.of ℚ))} (g : Y' ⟶ Y) (y : fieldPt ℂ ⟶ Y') :
+    ptOf (y ≫ g) = g.left (ptOf y) :=
+  ptOfS_comp g.left y.left
+
+theorem evalC_comp {Y Y' : Over (Spec (CommRingCat.of ℚ))} (g : Y' ⟶ Y) (y : fieldPt ℂ ⟶ Y')
+    (U : Y.left.Opens) (s : Γ(Y.left, U)) :
+    evalC (y ≫ g) U s = evalC y (g.left ⁻¹ᵁ U) (g.left.app U s) :=
+  evalS_comp g.left y.left U s
+
+/-- **Transport along a morphism compatible with the point bijections.** -/
+theorem R1bProps.of_hom {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} (g : Y' ⟶ Y)
+    (hg : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'), Φ' K y = Φ K (y ≫ g))
+    (h : R1bProps Y' Φ') : R1bProps Y Φ := by
+  obtain ⟨ha, y, hb, hc⟩ := h
+  refine ⟨ha, fun τ => y τ ≫ g, fun τ hτ => ?_, fun U s => ?_⟩
+  · obtain ⟨P, φ, hP, hu⟩ := hb τ hτ
+    exact ⟨P, φ, (hg ℂ (y τ)).symm.trans hP, hu⟩
+  · obtain ⟨ho, hd⟩ := hc (g.left ⁻¹ᵁ U) (g.left.app U s)
+    have e1 : {τ : ℂ | 0 < τ.im ∧ ptOf (y τ ≫ g) ∈ U} =
+        {τ : ℂ | 0 < τ.im ∧ ptOf (y τ) ∈ g.left ⁻¹ᵁ U} := by
+      ext τ
+      simp only [Set.mem_ofPred_eq, ptOf_comp]
+      rfl
+    rw [e1]
+    exact ⟨ho, hd.congr fun τ _ => evalC_comp g (y τ) U s⟩
+
+/-- **R1(b) for every candidate (glue, proved).** If the leaf holds, then every `(Y, Φ)`
+satisfying `R1fpProps` satisfies `R1bProps`: by qm-pin's `phi_part` (from `R1univProps` of `Y`)
+the leaf's witness maps to `Y` compatibly with `Φ`, and `R1bProps` transports forward. So the
+existential leaf serves consumers that quantify over all `(Y, Φ, π)` (g0-split's pieces), with
+no uniqueness glue (`PinUnique`, `MobiusGlue`). -/
+theorem r1bProps_of_leaf (h : R01b_ComplexUniformization') {Y : Over (Spec (CommRingCat.of ℚ))}
+    {Φ : PtEquiv Y} (h1 : R1fpProps Y Φ) : R1bProps Y Φ := by
+  obtain ⟨Y₀, Φ₀, h1₀, hb⟩ := h
+  obtain ⟨g, hg⟩ := Pin.phi_part (Pin.R1fpProps.univ h1) h1₀
+  exact R1bProps.of_hom g hg hb
+
+end R1bState

@@ -1,0 +1,110 @@
+
+/-! # r1b-state, part 7: `CMPointsExist` (proved)
+
+`ι(i + j)` fixes `√2 + i` (disc `−4`), `ι((1+j)/2)` fixes `i√3` (disc `−3`), and `ι(2j + ij)`
+fixes `i√(9+6√2)` (disc `−24`). The memberships and quadratic relations are pkg-I1's `cm4`,
+`cm3`, `cm24` (copied from `scratch/h-decomposition/Leaves.lean` lines 411-431). -/
+
+noncomputable section
+
+namespace R1bState
+
+open PkgI1 (B InO oBasis mu iota Mi Mj)
+
+theorem inO_of (x : B) (n : Fin 4 → ℤ) (h : x = ∑ k, (n k : ℚ) • oBasis k) : InO x := ⟨n, h⟩
+
+/-- (copied) `i + j ∈ 𝒪`, `(i+j)² = -1` (disc `-4`). -/
+theorem cm4 : InO ⟨0, 1, 1, 0⟩ ∧ (⟨0, 1, 1, 0⟩ : B) * ⟨0, 1, 1, 0⟩ = -1 := by
+  refine ⟨inO_of _ ![-1, 1, 2, 0] ?_, ?_⟩
+  · ext <;> simp [oBasis, Fin.sum_univ_four] <;> norm_num
+  · ext <;> simp <;> norm_num
+
+/-- (copied) `ω = (1+j)/2 ∈ 𝒪`, `ω² - ω + 1 = 0` (disc `-3`). -/
+theorem cm3 : InO ⟨1/2, 0, 1/2, 0⟩ ∧
+    (⟨1/2, 0, 1/2, 0⟩ : B) * ⟨1/2, 0, 1/2, 0⟩ - ⟨1/2, 0, 1/2, 0⟩ + 1 = 0 := by
+  refine ⟨inO_of _ ![0, 0, 1, 0] ?_, ?_⟩
+  · ext <;> simp [oBasis, Fin.sum_univ_four]
+  · ext <;> simp <;> norm_num
+
+/-- (copied) `μ = 2j + ij ∈ 𝒪`, `μ² = -6` (disc `-24`). -/
+theorem cm24 : InO mu ∧ mu * mu = -6 := by
+  refine ⟨inO_of _ ![-2, -1, 4, 2] ?_, ?_⟩
+  · ext <;> simp [mu, oBasis, Fin.sum_univ_four] <;> norm_num
+  · ext <;> simp [mu, QuaternionAlgebra.re_ofNat, QuaternionAlgebra.imI_ofNat,
+      QuaternionAlgebra.imJ_ofNat, QuaternionAlgebra.imK_ofNat] <;> norm_num
+
+/-- The entries of `ι(x)`. -/
+theorem iota_eq (x : B) : iota x = !![(x.re : ℝ) + √2 * x.imI, -3 * (x.imJ : ℝ) - 3 * √2 * x.imK;
+    (x.imJ : ℝ) - √2 * x.imK, (x.re : ℝ) - √2 * x.imI] := by
+  ext i j
+  fin_cases i <;> fin_cases j <;> simp [iota, Mi, Mj, Matrix.mul_apply, Fin.sum_univ_two] <;> ring
+
+/-- A fixed point of `g ∈ GL₂(ℝ)` with `det g > 0`: `g 1 0 · τ² + (g 1 1 − g 0 0)τ − g 0 1 = 0`. -/
+theorem smul_eq_self_of {g : GL (Fin 2) ℝ} (hg : 0 < g.det.val) (τ : UpperHalfPlane)
+    (h : (g 0 0 : ℂ) * τ + g 0 1 = τ * ((g 1 0 : ℂ) * τ + g 1 1)) : g • τ = τ := by
+  apply UpperHalfPlane.ext
+  rw [UpperHalfPlane.coe_smul_of_det_pos hg, div_eq_iff (UpperHalfPlane.denom_ne_zero g τ)]
+  exact h
+
+theorem sqrt2_sq : (√2 : ℝ) ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+
+theorem cmPointsExist : CMPointsExist := by
+  refine ⟨?_, ?_, ?_⟩
+  · -- disc −4: `x = i + j`, `ι(x) = [[√2, −3], [1, −√2]]`, `τ = √2 + i`
+    have hdet : (iota ⟨0, 1, 1, 0⟩).det = 1 := by
+      rw [iota_eq, Matrix.det_fin_two_of]; push_cast; ring_nf; rw [sqrt2_sq]; ring
+    let g : GL (Fin 2) ℝ := Matrix.nonsingInvUnit _ (by rw [hdet]; exact isUnit_one)
+    have hgdet : 0 < g.det.val := by
+      rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
+    refine ⟨⟨0, 1, 1, 0⟩, g, ⟨√2 + Complex.I, by simp⟩, cm4.1, cm4.2, rfl,
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
+    change ((iota _ 0 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
+      (√2 + Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√2 + Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
+    rw [iota_eq]
+    simp only [Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+      Matrix.empty_val', Matrix.cons_val_fin_one, Matrix.head_cons]
+    push_cast
+    apply Complex.ext <;> simp <;> norm_num
+  · -- disc −3: `x = (1+j)/2`, `ι(x) = [[1/2, −3/2], [1/2, 1/2]]`, `τ = i√3`
+    have hdet : (iota ⟨1/2, 0, 1/2, 0⟩).det = 1 := by
+      rw [iota_eq, Matrix.det_fin_two_of]; push_cast; ring
+    let g : GL (Fin 2) ℝ := Matrix.nonsingInvUnit _ (by rw [hdet]; exact isUnit_one)
+    have hgdet : 0 < g.det.val := by
+      rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
+    refine ⟨⟨1/2, 0, 1/2, 0⟩, g, ⟨√3 * Complex.I, by simp⟩, cm3.1, cm3.2, rfl,
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
+    change ((iota _ 0 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
+      (√3 * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√3 * Complex.I) + ((iota _ 1 1 : ℝ) : ℂ))
+    rw [iota_eq]
+    simp only [Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+      Matrix.empty_val', Matrix.cons_val_fin_one, Matrix.head_cons]
+    have h3 : (√3 : ℝ) ^ 2 = 3 := Real.sq_sqrt (by norm_num)
+    push_cast
+    apply Complex.ext <;> simp <;> first | linear_combination (-1/2 : ℝ) * h3 | ring
+  · -- disc −24: `x = μ = 2j + ij`, `ι(μ) = [[0, −6−3√2], [2−√2, 0]]`, `τ = i√(9+6√2)`
+    have hdet : (iota mu).det = 6 := by
+      rw [iota_eq, Matrix.det_fin_two_of]; simp [mu]; ring_nf; rw [sqrt2_sq]; ring
+    let g : GL (Fin 2) ℝ := Matrix.nonsingInvUnit _ (by rw [hdet]; exact isUnit_iff_ne_zero.mpr (by norm_num))
+    have hgdet : 0 < g.det.val := by
+      rw [Matrix.GeneralLinearGroup.val_det_apply]; change 0 < (iota _).det; rw [hdet]; norm_num
+    have hpos : (0 : ℝ) < 9 + 6 * √2 := by positivity
+    refine ⟨mu, g, ⟨√(9 + 6 * √2) * Complex.I, by simp [hpos]⟩, cm24.1, cm24.2, rfl,
+      by rw [← Matrix.GeneralLinearGroup.val_det_apply]; exact hgdet, smul_eq_self_of hgdet _ ?_⟩
+    change ((iota _ 0 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) + ((iota _ 0 1 : ℝ) : ℂ) =
+      (√(9 + 6 * √2) * Complex.I) * (((iota _ 1 0 : ℝ) : ℂ) * (√(9 + 6 * √2) * Complex.I) +
+        ((iota _ 1 1 : ℝ) : ℂ))
+    rw [iota_eq]
+    simp only [Matrix.of_apply, Matrix.cons_val', Matrix.cons_val_zero, Matrix.cons_val_one,
+      Matrix.empty_val', Matrix.cons_val_fin_one, Matrix.head_cons]
+    have hs : (√(9 + 6 * √2) : ℝ) ^ 2 = 9 + 6 * √2 := Real.sq_sqrt hpos.le
+    simp [mu]
+    apply Complex.ext <;> simp <;> linear_combination (2 - √2) * hs + (-6) * sqrt2_sq
+
+/-- **`FibreQMPeriod` from R1(b), `QMHauptmodul` and seven named glue Props (proved).** -/
+theorem fibreQMPeriod_of_r1b_final (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hM : MobiusRigidity) (hHol : HauptmodulHolomorphic)
+    (hO : FamilyOrbits) (hV : FamilyCMValues) (hB : PiOfQMLattice) (hC : JDenNonzero)
+    (hU : UnifBaseChange) : FibreQMPeriod' :=
+  fibreQMPeriod_of_r1b_fine hR1b hH hM hHol hO hV cmPointsExist hB hC hU
+
+end R1bState

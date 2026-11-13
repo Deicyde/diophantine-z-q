@@ -1,0 +1,102 @@
+
+/-! # r1b-state, part 2: the `π`-form of clause (c) (rv-blueprints Q3), proved from `R1bProps`
+
+`τ ↦ π(y(τ)) ∈ P¹(ℂ)` is holomorphic for every morphism `π : Y → P¹` (`LeafQM.AV.ToP1`, by
+charts). Holomorphy into `P¹(ℂ) = OnePoint ℂ` is stated by charts: near every point the map is
+`h` or `1/h` (`recipP1`, with `1/0 = ∞` written out, not Lean's `x/0 = 0`) for a holomorphic `h`. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj LeafQM.AV
+open scoped Topology
+
+/-- `z ↦ 1/z` into `P¹(ℂ)`, with `1/0 = ∞`. -/
+def recipP1 (z : ℂ) : OnePoint ℂ := if z = 0 then OnePoint.infty else ((z⁻¹ : ℂ) : OnePoint ℂ)
+
+/-- **Holomorphic maps into `P¹(ℂ)`, by charts.** `F` is holomorphic on `D` if near each point of
+`D` it is `h` (chart `t`) or `1/h` (chart `1/t`) for a holomorphic `h : ℂ → ℂ`. (Equivalent to the
+usual definition: such an `F` is continuous, and holomorphic in both charts of `P¹`.) -/
+def HolomorphicP1On (F : ℂ → OnePoint ℂ) (D : Set ℂ) : Prop :=
+  ∀ τ₀ ∈ D, ∃ N ∈ 𝓝 τ₀, ∃ h : ℂ → ℂ, DifferentiableOn ℂ h N ∧
+    ((∀ τ ∈ N, F τ = (h τ : OnePoint ℂ)) ∨ (∀ τ ∈ N, F τ = recipP1 (h τ)))
+
+theorem evaluation_res (X : Scheme.{0}) {U V : X.Opens} (hUV : U ≤ V) (x : X) (hx : x ∈ U)
+    (s : Γ(X, V)) :
+    X.evaluation U x hx (X.presheaf.map (homOfLE hUV).op s) = X.evaluation V x (hUV hx) s := by
+  simp only [Scheme.evaluation, ConcreteCategory.comp_apply]
+  rw [TopCat.Presheaf.germ_res_apply]
+
+theorem val_of_mem {X : Scheme.{0}} (π : ToP1 X) (y : Spec (CommRingCat.of ℂ) ⟶ X)
+    (h : ptOfS y ∈ π.U) : π.val y = ((evalS y π.U π.f : ℂ) : OnePoint ℂ) := by
+  have h' : (Scheme.SpecToEquivOfField ℂ X y).1 ∈ π.U := h
+  unfold ToP1.val evalS ptOfS
+  rw [dif_pos h', dif_pos h']
+
+theorem val_of_not_mem {X : Scheme.{0}} (π : ToP1 X) (y : Spec (CommRingCat.of ℂ) ⟶ X)
+    (h : ptOfS y ∉ π.U) : π.val y = OnePoint.infty := by
+  have h' : (Scheme.SpecToEquivOfField ℂ X y).1 ∉ π.U := h
+  unfold ToP1.val
+  rw [dif_neg h']
+
+theorem evalS_g_eq_zero {X : Scheme.{0}} (π : ToP1 X) (y : Spec (CommRingCat.of ℂ) ⟶ X)
+    (hV : ptOfS y ∈ π.V) (hU : ptOfS y ∉ π.U) : evalS y π.V π.g = 0 := by
+  unfold evalS
+  rw [dif_pos hV]
+  have : X.evaluation π.V _ hV π.g = 0 := by
+    rw [Scheme.evaluation_eq_zero_iff_notMem_basicOpen, π.basicOpen_g]
+    exact fun hx => hU (TopologicalSpace.Opens.mem_inf.mp hx).1
+  rw [this, map_zero]
+
+theorem evalS_f_mul_g {X : Scheme.{0}} (π : ToP1 X) (y : Spec (CommRingCat.of ℂ) ⟶ X)
+    (hU : ptOfS y ∈ π.U) (hV : ptOfS y ∈ π.V) : evalS y π.U π.f * evalS y π.V π.g = 1 := by
+  unfold evalS
+  rw [dif_pos hU, dif_pos hV]
+  have hUV : ptOfS y ∈ π.U ⊓ π.V := TopologicalSpace.Opens.mem_inf.mpr ⟨hU, hV⟩
+  have e := congrArg (X.evaluation (π.U ⊓ π.V) _ hUV) π.inv
+  rw [map_mul, map_one, evaluation_res, evaluation_res] at e
+  rw [← map_mul, e, map_one]
+
+/-- **Glue (proved): the `π`-form of clause (c).** For a family `y : ℍ → Y(ℂ)` along which regular
+functions are holomorphic, `τ ↦ π(y(τ))` is holomorphic into `P¹(ℂ)` for every `π : Y → P¹`. -/
+theorem holomorphicP1On_of_family {Y : Over (Spec (CommRingCat.of ℚ))} (y : ℂ → (fieldPt ℂ ⟶ Y))
+    (hc : ∀ (U : Y.left.Opens) (s : Γ(Y.left, U)),
+      IsOpen {τ : ℂ | 0 < τ.im ∧ ptOf (y τ) ∈ U} ∧
+      DifferentiableOn ℂ (fun τ => evalC (y τ) U s) {τ : ℂ | 0 < τ.im ∧ ptOf (y τ) ∈ U})
+    (π : ToP1 Y.left) :
+    HolomorphicP1On (fun τ => π.val (K := ℂ) (y τ).left) UHP := by
+  intro τ₀ hτ₀
+  by_cases hU : ptOf (y τ₀) ∈ π.U
+  · obtain ⟨ho, hd⟩ := hc π.U π.f
+    exact ⟨_, ho.mem_nhds ⟨hτ₀, hU⟩, _, hd, Or.inl fun τ hτ => val_of_mem π (y τ).left hτ.2⟩
+  · have hV : ptOf (y τ₀) ∈ π.V := by
+      have : ptOf (y τ₀) ∈ π.U ⊔ π.V := by rw [π.cover]; trivial
+      exact (TopologicalSpace.Opens.mem_sup.mp this).resolve_left hU
+    obtain ⟨ho, hd⟩ := hc π.V π.g
+    refine ⟨_, ho.mem_nhds ⟨hτ₀, hV⟩, _, hd, Or.inr fun τ hτ => ?_⟩
+    by_cases hU' : ptOf (y τ) ∈ π.U
+    · refine (val_of_mem π (y τ).left hU').trans ?_
+      have e : evalC (y τ) π.U π.f * evalC (y τ) π.V π.g = 1 :=
+        evalS_f_mul_g π (y τ).left hU' hτ.2
+      show ((evalC (y τ) π.U π.f : ℂ) : OnePoint ℂ) = _
+      unfold recipP1
+      rw [if_neg (right_ne_zero_of_mul_eq_one e)]
+      exact congrArg _ (eq_inv_of_mul_eq_one_left e)
+    · refine (val_of_not_mem π (y τ).left hU').trans ?_
+      have h0 : evalC (y τ) π.V π.g = 0 := evalS_g_eq_zero π (y τ).left hτ.2 hU'
+      simp only [recipP1, h0, if_pos]
+
+/-- **R1(b) in exactly the form rv-blueprints Q3 asks for (proved from `R1bProps`).** Every
+`τ ∈ ℍ` occurs (`P_τ`, in a family `y`), and `τ ↦ π(Φ⁻¹[P_τ])` is holomorphic on `ℍ` for every
+morphism `π : Y → P¹`. -/
+theorem q3_form_of_R1bProps {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h : R1bProps Y Φ) : ∃ y : ℂ → (fieldPt ℂ ⟶ Y),
+      (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : BPAnalytic.Torus (BPAnalytic.QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) ∧
+      ∀ π : ToP1 Y.left, HolomorphicP1On (fun τ => π.val (K := ℂ) (y τ).left) UHP := by
+  obtain ⟨-, y, hb, hc⟩ := h
+  exact ⟨y, hb, holomorphicP1On_of_family y hc⟩
+
+end R1bState

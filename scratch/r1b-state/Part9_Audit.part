@@ -1,0 +1,23 @@
+
+/-! ## Axiom audit -/
+#print axioms R1bState.r1bProps_of_leaf
+#print axioms R1bState.R1bProps.of_hom
+#print axioms R1bState.holomorphicP1On_of_family
+#print axioms R1bState.q3_form_of_R1bProps
+#print axioms R1bState.fibreQMPeriod_of_r1b
+#print axioms R1bState.iotaC_mem
+#print axioms R1bState.level_ker
+#print axioms R1bState.level_linear
+#print axioms R1bState.iota_mul
+#print axioms R1bState.hauptmodulCompare_of_parts
+#print axioms R1bState.fibreQMPeriod_of_r1b_parts
+#print axioms R1bState.familyHauptmodul_of_parts
+#print axioms R1bState.fibreQMPeriod_of_r1b_fine
+#print axioms R1bState.cmPointsExist
+#print axioms R1bState.fibreQMPeriod_of_r1b_final
+#print axioms R1bState.familyCMValues_of_T11a
+#print axioms R1bState.fibreQMPeriod_of_r1b_T11a
+#print axioms R1bState.piOfQMLattice_of
+#print axioms R1bState.fibreQMPeriod_of_r1b_T11aHom
+#print axioms R1bState.familyOrbitsInv_of
+#print axioms R1bState.fibreQMPeriod_of_r1b_orbits

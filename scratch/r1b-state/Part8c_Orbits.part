@@ -1,0 +1,260 @@
+
+/-! # r1b-state, part 8c: half of `FamilyOrbits` (`Γ*`-invariance) from `T11aHom` and `R2OnC`
+
+`FamilyOrbits` is split into `FamilyOrbitsInv` (`π ∘ y` is `Γ*`-invariant) and `FamilyOrbitsSep`
+(its fibres are no larger than the `Γ*`-orbits). The first is proved here
+(`familyOrbitsInv_of`). For `γ = ι(x) ∈ Γ*` (`x` normalizes `𝒪`, `y = x⁻¹`, `det > 0`) and
+`μ = cτ + d`, the map `M = μ⁻¹ι(x)` carries `Λ_τ` into `Λ_{γτ}` (`ι(x)ι(b)(τ, 1)ᵀ = μ·ι(xby)(γτ, 1)ᵀ`),
+`M' = μι(y)` carries it back, and `Mι(yax) = ι(a)M`. By `T11aHom` they are induced by
+homomorphisms, inverse to each other by uniqueness, and the first is equivariant for the twist
+by `a ↦ yax`; so the QM pairs at `τ` and `γτ` are twist-isomorphic and R2's fibre clause (on
+`ℂ`-points, `R2OnC`) gives equal `π`. `FamilyOrbitsSep` (the converse; it needs every
+homomorphism to be induced by a linear map, Skolem–Noether, and the centralizer of `ι(B)` in
+`M₂(ℂ)`) stays glue. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic Matrix
+open ZInQ.LeafPush2 (CPts IsUniformization isUniformization_of_bp)
+
+/-- **GLUE half 1 (`Γ*`-invariance), proved below from `T11aHom` and `R2OnC`.** -/
+def FamilyOrbitsInv : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∀ y : ℂ → (fieldPt ℂ ⟶ Y),
+      (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) →
+    ∀ (τ : UpperHalfPlane) (g : GL (Fin 2) ℝ), g ∈ PkgI1.GammaStar →
+      π.val (K := ℂ) (y τ).left = π.val (K := ℂ) (y (g • τ : UpperHalfPlane)).left
+
+/-- **GLUE half 2 (fibres no larger than `Γ*`-orbits).** Why true: an isomorphism of the QM pairs
+at `τ`, `τ'` up to a twist `α` is induced by a linear `M` with `MΛ_τ = Λ_{τ'}` (T11a, second half,
+in `Hom` form) and `Mι(α(a)) = ι(a)M`; `α = Ad n⁻¹` (Skolem–Noether, T13) with `n ∈ N_B(𝒪)`, so
+`Mι(n)⁻¹` centralizes `ι(B)`, hence is a scalar, and `τ' = γτ` for `γ = ι(nu) ∈ Γ*` (`u ∈ 𝒪^×`
+fixing the sign of the determinant). With R2's fibre clause on `ℂ`-points. -/
+def FamilyOrbitsSep : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π →
+    ∀ y : ℂ → (fieldPt ℂ ⟶ Y),
+      (∀ (τ : ℂ) (hτ : 0 < τ.im), ∃ (P : QML3 ℂ)
+        (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+        Φ ℂ (y τ) = M3.mk P ∧ IsQMUnifLevel P hτ.ne' φ) →
+    ∀ τ τ' : UpperHalfPlane, π.val (K := ℂ) (y τ).left = π.val (K := ℂ) (y τ').left →
+      ∃ g ∈ PkgI1.GammaStar, g • τ = τ'
+
+theorem familyOrbits_of_halves (h1 : FamilyOrbitsInv) (h2 : FamilyOrbitsSep) : FamilyOrbits := by
+  intro Y Φ π hY hR y hb τ τ'
+  constructor
+  · exact h2 Y Φ π hY hR y hb τ τ'
+  · rintro ⟨g, hg, rfl⟩
+    exact h1 Y Φ π hY hR y hb τ g hg
+
+/-! ### The proof of `FamilyOrbitsInv` -/
+
+theorem pkgI1_inO_of {x : LeafQM.B} (hx : LeafQM.InO x) : PkgI1.InO x := by
+  obtain ⟨n, rfl⟩ := hx
+  refine ⟨n, ?_⟩
+  ext <;> simp [ofInt, PkgI1.oBasis, Fin.sum_univ_four] <;> ring
+
+/-- Conjugation `a ↦ yax` by a normalizer element (`xy = yx = 1`), as a ring automorphism of `𝒪`. -/
+def conjO (x y : LeafQM.B) (hxy : x * y = 1) (hyx : y * x = 1)
+    (hn : ∀ z : PkgI1.B, PkgI1.InO z → PkgI1.InO (x * z * y) ∧ PkgI1.InO (y * z * x)) :
+    O ≃+* O where
+  toFun a := ⟨y * a * x, inO_of_pkgI1 (hn a (pkgI1_inO_of a.2)).2⟩
+  invFun a := ⟨x * a * y, inO_of_pkgI1 (hn a (pkgI1_inO_of a.2)).1⟩
+  left_inv a := by
+    apply Subtype.ext
+    change x * (y * (a : LeafQM.B) * x) * y = a
+    calc x * (y * (a : LeafQM.B) * x) * y = (x * y) * a * (x * y) := by noncomm_ring
+      _ = a := by rw [hxy, _root_.one_mul, _root_.mul_one]
+  right_inv a := by
+    apply Subtype.ext
+    change y * (x * (a : LeafQM.B) * y) * x = a
+    calc y * (x * (a : LeafQM.B) * y) * x = (y * x) * a * (y * x) := by noncomm_ring
+      _ = a := by rw [hyx, _root_.one_mul, _root_.mul_one]
+  map_mul' a b := by
+    apply Subtype.ext
+    change y * ((a : LeafQM.B) * b) * x = (y * a * x) * (y * b * x)
+    calc y * ((a : LeafQM.B) * b) * x = y * a * (x * y) * b * x := by rw [hxy]; noncomm_ring
+      _ = (y * a * x) * (y * b * x) := by noncomm_ring
+  map_add' a b := by
+    apply Subtype.ext
+    change y * ((a : LeafQM.B) + b) * x = y * a * x + y * b * x
+    noncomm_ring
+
+theorem iotaC_one : iotaC (1 : LeafQM.B) = 1 := by
+  unfold iotaC; rw [iota_one]; simp
+
+/-- The homomorphism induced by `M : Λ_τ → Λ_{τ'}` between two uniformized objects. -/
+theorem existsUnique_hom2 (hT : T11aHom) {P P' : QML3 ℂ} {τ τ' : ℂ} {hτ : τ.im ≠ 0}
+    {hτ' : τ'.im ≠ 0}
+    {φ : Torus (QM.qmLattice hτ) ≃+ Additive (P.A.Pt ℂ)}
+    {φ' : Torus (QM.qmLattice hτ') ≃+ Additive (P'.A.Pt ℂ)}
+    (hφ : Uniformization.IsUniformization P.A (QM.qmLattice hτ) φ)
+    (hφ' : Uniformization.IsUniformization P'.A (QM.qmLattice hτ') φ')
+    {M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)} (hM : ∀ z ∈ QM.qmLattice hτ, M z ∈ QM.qmLattice hτ') :
+    ∃! f : AbVar.Hom P.A P'.A, ∀ z, unifMap φ' (M z) = unifMap φ z ≫ f.hom :=
+  hT P.A P'.A 2 _ _ (unifMap φ) (unifMap φ') (dim_two P) (dim_two P')
+    (isUniformization_of_bp P.A hφ) (isUniformization_of_bp P'.A hφ') M hM
+
+/-- A linear map carrying generators of `Λ_τ` into `Λ_{τ'}` carries `Λ_τ` into `Λ_{τ'}`. -/
+theorem map_qmLattice {τ τ' : ℂ} (hτ : τ.im ≠ 0) (hτ' : τ'.im ≠ 0)
+    (M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))
+    (hgen : ∀ k, M (QM.qmVec τ k) ∈ QM.qmLattice hτ') :
+    ∀ z ∈ QM.qmLattice hτ, M z ∈ QM.qmLattice hτ' := by
+  intro z hz
+  rw [QM.qmLattice_eq] at hz
+  induction hz using Submodule.span_induction with
+  | mem w hw => obtain ⟨k, rfl⟩ := hw; exact hgen k
+  | zero => rw [map_zero]; exact Submodule.zero_mem _
+  | add v w _ _ hv hw => rw [map_add]; exact Submodule.add_mem _ hv hw
+  | smul n v _ hv => rw [map_zsmul]; exact Submodule.smul_mem _ n hv
+
+/-- `ι(x)(τ, 1)ᵀ = μ·(γτ, 1)ᵀ` with `μ = cτ + d`, for `γ = ι(x)`, `det > 0`. -/
+theorem iotaC_mulVec_smul {x : PkgI1.B} {g : GL (Fin 2) ℝ}
+    (hm : (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x) (hdet : 0 < (g : Matrix (Fin 2) (Fin 2) ℝ).det)
+    (τ : UpperHalfPlane) :
+    iotaC x *ᵥ ![(τ : ℂ), 1] = UpperHalfPlane.denom g τ • ![((g • τ : UpperHalfPlane) : ℂ), 1] := by
+  have hg : 0 < g.det.val := by rw [Matrix.GeneralLinearGroup.val_det_apply]; exact hdet
+  have h := UpperHalfPlane.coe_smul_of_det_pos hg τ
+  have hd := UpperHalfPlane.denom_ne_zero g τ
+  rw [h]
+  ext i
+  fin_cases i
+  · simp only [iotaC, Matrix.mulVec, dotProduct, Fin.sum_univ_two, Matrix.map_apply,
+      Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Pi.smul_apply, smul_eq_mul,
+      Fin.isValue, Fin.zero_eta]
+    rw [mul_div_cancel₀ _ hd]
+    simp [UpperHalfPlane.num, hm, pkgI1_iota_eq]
+  · simp [iotaC, Matrix.mulVec, dotProduct, Fin.sum_univ_two, UpperHalfPlane.denom, hm,
+      pkgI1_iota_eq]
+
+/-- **`FamilyOrbitsInv` from `T11aHom` and `R2OnC` (proved).** -/
+theorem familyOrbitsInv_of (hT : T11aHom) (hR : R2OnC) : FamilyOrbitsInv := by
+  intro Y Φ π h1 h2 yf hb τ g hgΓ
+  obtain ⟨x, ⟨y, hxy, hyx, hn⟩, hm, hdet⟩ := hgΓ
+  set τ' : UpperHalfPlane := g • τ
+  set dg : ℂ := UpperHalfPlane.denom g τ
+  have hdg : dg ≠ 0 := UpperHalfPlane.denom_ne_zero g τ
+  have hv : iotaC x *ᵥ ![(τ : ℂ), 1] = dg • ![(τ' : ℂ), 1] := iotaC_mulVec_smul hm hdet τ
+  obtain ⟨P, φ, hP, hφ, -⟩ := hb τ τ.im_pos
+  obtain ⟨P', φ', hP', hφ', -⟩ := hb τ' τ'.im_pos
+  -- the two lattice maps `M = dg⁻¹ι(x)`, `M' = dgι(y)`
+  let M : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := dg⁻¹ • Matrix.toLin' (iotaC x)
+  let M' : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ) := dg • Matrix.toLin' (iotaC y)
+  have hM_lat : ∀ b : LeafQM.B, M (QM.latVec b τ) = QM.latVec (x * b * y) τ' := by
+    intro b
+    simp only [M, LinearMap.smul_apply, Matrix.toLin'_apply]
+    rw [latVec_eq, latVec_eq, Matrix.mulVec_mulVec, ← iotaC_mul]
+    have e : iotaC (x * b) = iotaC (x * b * y) * iotaC x := by
+      rw [← iotaC_mul, _root_.mul_assoc (x * b) y x, hyx, _root_.mul_one]
+    rw [e, ← Matrix.mulVec_mulVec, hv, Matrix.mulVec_smul, smul_smul, inv_mul_cancel₀ hdg, one_smul]
+  have hM'_lat : ∀ b : LeafQM.B, M' (QM.latVec b τ') = QM.latVec (y * b * x) τ := by
+    intro b
+    simp only [M', LinearMap.smul_apply, Matrix.toLin'_apply]
+    rw [latVec_eq, latVec_eq, Matrix.mulVec_mulVec, ← iotaC_mul, iotaC_mul (y * b) x,
+      ← Matrix.mulVec_mulVec, hv, Matrix.mulVec_smul]
+  have hM_mem : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+      M z ∈ QM.qmLattice (τ := (τ' : ℂ)) (coe_im_ne_zero τ') :=
+    map_qmLattice _ _ M fun k => by
+      rw [QM.qmVec, hM_lat]
+      exact latVec_mem_of_inO (inO_of_pkgI1 (hn _ (pkgI1_inO_of (oBasis_inO k))).1) _
+  have hM'_mem : ∀ z ∈ QM.qmLattice (τ := (τ' : ℂ)) (coe_im_ne_zero τ'),
+      M' z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ) :=
+    map_qmLattice _ _ M' fun k => by
+      rw [QM.qmVec, hM'_lat]
+      exact latVec_mem_of_inO (inO_of_pkgI1 (hn _ (pkgI1_inO_of (oBasis_inO k))).2) _
+  have hM'M : ∀ z, M' (M z) = z := by
+    intro z
+    simp only [M, M', LinearMap.smul_apply, Matrix.toLin'_apply, Matrix.mulVec_smul, smul_smul,
+      Matrix.mulVec_mulVec, ← iotaC_mul, hyx, iotaC_one, Matrix.one_mulVec,
+      mul_inv_cancel₀ hdg, one_smul]
+  have hMM' : ∀ z, M (M' z) = z := by
+    intro z
+    simp only [M, M', LinearMap.smul_apply, Matrix.toLin'_apply, Matrix.mulVec_smul, smul_smul,
+      Matrix.mulVec_mulVec, ← iotaC_mul, hxy, iotaC_one, Matrix.one_mulVec,
+      inv_mul_cancel₀ hdg, one_smul]
+  obtain ⟨f, hf, -⟩ := existsUnique_hom2 hT hφ.unif hφ'.unif hM_mem
+  obtain ⟨h, hh, -⟩ := existsUnique_hom2 hT hφ'.unif hφ.unif hM'_mem
+  have hid : ∀ (σ : UpperHalfPlane) (z : Fin 2 → ℂ),
+      z ∈ QM.qmLattice (τ := (σ : ℂ)) (coe_im_ne_zero σ) →
+      (LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z ∈
+        QM.qmLattice (τ := (σ : ℂ)) (coe_im_ne_zero σ) := fun _ _ hz => hz
+  have hgf : f.hom ≫ h.hom = 𝟙 _ := by
+    have u := existsUnique_hom2 hT hφ.unif hφ.unif (hid τ)
+    have e1 : ∀ z, unifMap φ ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (f.hom ≫ h.hom) : AbVar.Hom P.A P.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hf z, ← hh (M z), hM'M]
+      rfl
+    have e2 : ∀ z, unifMap φ ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (𝟙 P.A.X) : AbVar.Hom P.A P.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', Category.comp_id]
+      rfl
+    simpa using congrArg AbVar.Hom.hom (u.unique e1 e2)
+  have hfg : h.hom ≫ f.hom = 𝟙 _ := by
+    have u := existsUnique_hom2 hT hφ'.unif hφ'.unif (hid τ')
+    have e1 : ∀ z, unifMap φ' ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ' z ≫ (AbVar.Hom.mk' (h.hom ≫ f.hom) : AbVar.Hom P'.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hh z, ← hf (M' z), hMM']
+      rfl
+    have e2 : ∀ z, unifMap φ' ((LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ)) z) =
+        unifMap φ' z ≫ (AbVar.Hom.mk' (𝟙 P'.A.X) : AbVar.Hom P'.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', Category.comp_id]
+      rfl
+    simpa using congrArg AbVar.Hom.hom (u.unique e1 e2)
+  -- equivariance for the twist `a ↦ yax`
+  let α := conjO x y hxy hyx hn
+  have hlin : ∀ (a : O) (z : Fin 2 → ℂ),
+      M (iotaC ((α a : O) : LeafQM.B) *ᵥ z) = iotaC (a : LeafQM.B) *ᵥ M z := by
+    intro a z
+    simp only [M, LinearMap.smul_apply, Matrix.toLin'_apply, Matrix.mulVec_smul,
+      Matrix.mulVec_mulVec, ← iotaC_mul]
+    congr 3
+    change x * (y * (a : LeafQM.B) * x) = a * x
+    calc x * (y * (a : LeafQM.B) * x) = (x * y) * a * x := by noncomm_ring
+      _ = a * x := by rw [hxy, _root_.one_mul]
+  have heq : ∀ a : O, ((P.q.twist α).iota a).hom ≫ f.hom = f.hom ≫ (P'.q.iota a).hom := by
+    intro a
+    change (P.q.iota (α a)).hom ≫ f.hom = f.hom ≫ (P'.q.iota a).hom
+    have hMa : ∀ z ∈ QM.qmLattice (τ := (τ : ℂ)) (coe_im_ne_zero τ),
+        (M ∘ₗ Matrix.toLin' (iotaC ((α a : O) : LeafQM.B))) z ∈
+          QM.qmLattice (τ := (τ' : ℂ)) (coe_im_ne_zero τ') := by
+      intro z hz
+      rw [LinearMap.comp_apply, Matrix.toLin'_apply]
+      exact hM_mem _ (iotaC_mem (α a) _ hz)
+    have u := existsUnique_hom2 hT hφ.unif hφ'.unif hMa
+    have e1 : ∀ z, unifMap φ' ((M ∘ₗ Matrix.toLin' (iotaC ((α a : O) : LeafQM.B))) z) =
+        unifMap φ z ≫
+          (AbVar.Hom.mk' ((P.q.iota (α a)).hom ≫ f.hom) : AbVar.Hom P.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← induces_iota hφ (α a) z]
+      exact hf _
+    have e2 : ∀ z, unifMap φ' ((M ∘ₗ Matrix.toLin' (iotaC ((α a : O) : LeafQM.B))) z) =
+        unifMap φ z ≫ (AbVar.Hom.mk' (f.hom ≫ (P'.q.iota a).hom) : AbVar.Hom P.A P'.A).hom := by
+      intro z
+      rw [AbVar.Hom.hom_mk', ← Category.assoc, ← hf z, LinearMap.comp_apply,
+        Matrix.toLin'_apply, hlin]
+      exact induces_iota hφ' a (M z)
+    simpa using congrArg AbVar.Hom.hom (u.unique e1 e2)
+  have iso : QMIso (P.q.twist α) P'.q :=
+    { φ := f, ψ := h, left := hgf, right := hfg, equivariant := heq }
+  exact ((hR Y Φ π h1 h2 (yf τ) (yf τ') P P' hP hP').1).2 ⟨α, ⟨iso⟩⟩
+
+/-- **`FibreQMPeriod` from R1(b), `QMHauptmodul`, T11a (both forms) and six glue Props, one of
+them (`FamilyOrbitsSep`) half of the former `FamilyOrbits` (proved).** -/
+theorem fibreQMPeriod_of_r1b_orbits (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hT : ZInQ.LeafPush2.T11a_RiemannEnd) (hTH : T11aHom)
+    (hM : MobiusRigidity) (hHol : HauptmodulHolomorphic) (hS : FamilyOrbitsSep) (hR : R2OnC)
+    (hC : JDenNonzero) (hU : UnifBaseChange) : FibreQMPeriod' :=
+  fibreQMPeriod_of_r1b_T11aHom hR1b hH hT hTH hM hHol
+    (familyOrbits_of_halves (familyOrbitsInv_of hTH hR) hS) hR hC hU
+
+end R1bState

@@ -1,0 +1,186 @@
+
+/-! # r1b-state, part 4: consistency probes for the clauses of `R1bProps`
+
+The clauses quantify over uniformizations with two compatibilities. If either were inconsistent
+on the torus side, no object could satisfy it and the leaf would be **false** (not vacuous), so
+both are checked here:
+* `iotaC_mem`: for `a ∈ 𝒪` the matrix `ι(a)` maps `Λ_τ` into itself, so `ι(a)` acts on
+  `ℂ²/Λ_τ` (the `ι`-compatibility of `IsQMUnif` is between two genuine actions), and the action is
+  multiplicative (`iotaC_mul`), unital and additive;
+* `level_linear`, `level_ker`: `a ↦ [ι(a)(τ, 1)ᵀ/3]` is `𝒪`-linear with kernel exactly `3𝒪`, the
+  shape of `LeafQM.AV.Level3` (so the level clause of `IsQMUnifLevel` is consistent).
+The domain clause of (b), (c) is nonempty (`I ∈ ℍ`), and `Λ_I` is a genuine full lattice
+(bp-analytic's instances). -/
+
+noncomputable section
+
+namespace R1bState
+
+open LeafQM BPAnalytic Matrix
+
+theorem iota_mul (x y : LeafQM.B) : QM.iota (x * y) = QM.iota x * QM.iota y := by
+  have h2 : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [QM.iota, QM.Mi, QM.Mj, Matrix.mul_apply, Fin.sum_univ_two] <;> push_cast <;>
+    ring_nf <;> rw [h2] <;> ring
+
+theorem iota_one : QM.iota (1 : LeafQM.B) = 1 := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [QM.iota]
+
+theorem iota_add (x y : LeafQM.B) : QM.iota (x + y) = QM.iota x + QM.iota y := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [QM.iota, QM.Mi, QM.Mj] <;> push_cast <;> ring
+
+theorem iotaC_mul (x y : LeafQM.B) : iotaC (x * y) = iotaC x * iotaC y := by
+  unfold iotaC
+  rw [iota_mul]
+  exact Matrix.map_mul (f := Complex.ofRealHom)
+
+/-- The explicit formula `ι(x)(τ, 1)ᵀ = ((a+√2b)τ − 3c − 3√2d, (c−√2d)τ + a − √2b)`. -/
+theorem latVec_apply (x : LeafQM.B) (τ : ℂ) :
+    QM.latVec x τ = ![((x.re : ℝ) + √2 * (x.imI : ℝ) : ℝ) * τ - 3 * ((x.imJ : ℝ) : ℂ)
+        - 3 * (√2 : ℂ) * ((x.imK : ℝ) : ℂ),
+      (((x.imJ : ℝ) - √2 * (x.imK : ℝ) : ℝ) : ℂ) * τ + ((x.re : ℝ) : ℂ)
+        - (√2 : ℂ) * ((x.imI : ℝ) : ℂ)] := by
+  ext i
+  fin_cases i <;>
+    simp [QM.latVec, QM.iota, QM.Mi, QM.Mj, Matrix.mulVec, dotProduct, Fin.sum_univ_two] <;>
+    push_cast <;> ring
+
+theorem latVec_mul (a x : LeafQM.B) (τ : ℂ) :
+    QM.latVec (a * x) τ = iotaC a *ᵥ QM.latVec x τ := by
+  rw [latVec_eq, latVec_eq, iotaC_mul, Matrix.mulVec_mulVec]
+
+theorem latVec_add (x y : LeafQM.B) (τ : ℂ) :
+    QM.latVec (x + y) τ = QM.latVec x τ + QM.latVec y τ := by
+  rw [latVec_apply, latVec_apply, latVec_apply]
+  ext i; fin_cases i <;> simp <;> push_cast <;> ring
+
+theorem latVec_ofInt (n : Fin 4 → ℤ) (τ : ℂ) :
+    QM.latVec (ofInt n) τ = ∑ k, n k • QM.qmVec τ k := by
+  simp only [QM.qmVec, Fin.sum_univ_four, QM.latVec0, QM.latVec1, QM.latVec2, QM.latVec3]
+  rw [latVec_apply]
+  ext i; fin_cases i <;> simp [ofInt] <;> push_cast <;> ring
+
+theorem latVec_mem_of_inO {x : LeafQM.B} (hx : InO x) {τ : ℂ} (hτ : τ.im ≠ 0) :
+    QM.latVec x τ ∈ QM.qmLattice hτ := by
+  obtain ⟨n, rfl⟩ := hx
+  rw [latVec_ofInt, QM.qmLattice_eq]
+  exact Submodule.sum_mem _ fun k _ =>
+    Submodule.smul_mem _ _ (Submodule.subset_span ⟨k, rfl⟩)
+
+theorem oBasis_inO (k : Fin 4) : InO (QM.oBasis k) := by
+  refine ⟨Pi.single k 1, ?_⟩
+  fin_cases k <;> ext <;> simp [ofInt, QM.oBasis]
+
+/-- **The action of `𝒪` on the torus is well defined**: `ι(a)Λ_τ ⊆ Λ_τ` for `a ∈ 𝒪`. -/
+theorem iotaC_mem (a : O) {τ : ℂ} (hτ : τ.im ≠ 0) {v : Fin 2 → ℂ}
+    (hv : v ∈ QM.qmLattice hτ) : iotaC (a : LeafQM.B) *ᵥ v ∈ QM.qmLattice hτ := by
+  rw [QM.qmLattice_eq] at hv
+  induction hv using Submodule.span_induction with
+  | mem w hw =>
+    obtain ⟨k, rfl⟩ := hw
+    rw [QM.qmVec, ← latVec_mul]
+    exact latVec_mem_of_inO (O.mul_mem a.2 (oBasis_inO k)) hτ
+  | zero => rw [Matrix.mulVec_zero]; exact Submodule.zero_mem _
+  | add v w _ _ hv hw => rw [Matrix.mulVec_add]; exact Submodule.add_mem _ hv hw
+  | smul n v _ hv =>
+    rw [show n • v = (n : ℂ) • v from (Int.cast_smul_eq_zsmul ℂ n v).symm, Matrix.mulVec_smul,
+      Int.cast_smul_eq_zsmul]
+    exact Submodule.smul_mem _ n hv
+
+/-- **The level map is `𝒪`-linear** (`η(ab) = ι(a)η(b)`, `Level3.linear`'s shape). -/
+theorem level_linear (a b : LeafQM.B) (τ : ℂ) :
+    (1 / 3 : ℂ) • QM.latVec (a * b) τ = iotaC a *ᵥ ((1 / 3 : ℂ) • QM.latVec b τ) := by
+  rw [latVec_mul, Matrix.mulVec_smul]
+
+/-- `x ↦ ι(x)(τ, 1)ᵀ` is injective on `B` for `Im τ ≠ 0`. -/
+theorem latVec_eq_zero {x : LeafQM.B} {τ : ℂ} (hτ : τ.im ≠ 0) (h : QM.latVec x τ = 0) :
+    x = 0 := by
+  have h1 := congrFun h 1
+  rw [latVec_apply] at h1
+  simp only [Matrix.cons_val_one, Matrix.cons_val_zero, Pi.zero_apply] at h1
+  have him := congrArg Complex.im h1
+  have hre := congrArg Complex.re h1
+  simp at him hre
+  have irr : ∀ p q : ℚ, (p : ℝ) = √2 * q → p = 0 ∧ q = 0 := by
+    intro p q hpq
+    by_cases hq : q = 0
+    · subst hq; simp at hpq; exact ⟨by exact_mod_cast hpq, rfl⟩
+    · exfalso
+      apply irrational_sqrt_two
+      refine ⟨p / q, ?_⟩
+      have : (q : ℝ) ≠ 0 := by exact_mod_cast hq
+      push_cast; field_simp; linarith
+  have hcd : (x.imJ : ℝ) = √2 * x.imK := by
+    have := him.resolve_right hτ
+    linarith
+  obtain ⟨hc, hd⟩ := irr _ _ hcd
+  rw [hc, hd] at hre
+  simp at hre
+  have hab : (x.re : ℝ) = √2 * x.imI := by linarith
+  obtain ⟨ha, hb⟩ := irr _ _ hab
+  ext <;> simp [ha, hb, hc, hd]
+
+theorem latVec_smul (q : ℚ) (x : LeafQM.B) (τ : ℂ) :
+    QM.latVec (q • x) τ = (q : ℂ) • QM.latVec x τ := by
+  rw [latVec_apply, latVec_apply]
+  ext i; fin_cases i <;> simp <;> push_cast <;> ring
+
+theorem mem_qmLattice_iff {τ : ℂ} (hτ : τ.im ≠ 0) {v : Fin 2 → ℂ} :
+    v ∈ QM.qmLattice hτ → ∃ n : Fin 4 → ℤ, v = QM.latVec (ofInt n) τ := by
+  rw [QM.qmLattice_eq]
+  intro hv
+  induction hv using Submodule.span_induction with
+  | mem w hw =>
+    obtain ⟨k, rfl⟩ := hw
+    exact ⟨Pi.single k 1, by
+      rw [latVec_ofInt]; simp [Pi.single_apply]⟩
+  | zero => exact ⟨0, by rw [latVec_ofInt]; simp⟩
+  | add v w _ _ hv hw =>
+    obtain ⟨n, rfl⟩ := hv
+    obtain ⟨m, rfl⟩ := hw
+    exact ⟨n + m, by rw [← latVec_add, ofInt_add]⟩
+  | smul k v _ hv =>
+    obtain ⟨n, rfl⟩ := hv
+    exact ⟨k • n, by
+      rw [latVec_ofInt, latVec_ofInt, Finset.smul_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Pi.smul_apply, smul_eq_mul, mul_smul]⟩
+
+/-- **The level map has kernel exactly `3𝒪`** (`Level3.ker`'s shape): for `a ∈ 𝒪`,
+`ι(a)(τ, 1)ᵀ/3 ∈ Λ_τ` iff `a ∈ 3𝒪`. -/
+theorem level_ker (a : O) {τ : ℂ} (hτ : τ.im ≠ 0) :
+    (1 / 3 : ℂ) • QM.latVec (a : LeafQM.B) τ ∈ QM.qmLattice hτ ↔ ∃ b : O, a = 3 * b := by
+  constructor
+  · intro h
+    obtain ⟨n, hn⟩ := mem_qmLattice_iff hτ h
+    have hb : (ofInt n : LeafQM.B) ∈ O := ⟨n, rfl⟩
+    refine ⟨⟨ofInt n, hb⟩, ?_⟩
+    apply Subtype.ext
+    have h0 : QM.latVec ((a : LeafQM.B) + (-3 : ℚ) • ofInt n) τ = 0 := by
+      rw [latVec_add, latVec_smul, ← hn, smul_smul]
+      ext i; simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply]; push_cast; ring
+    have := latVec_eq_zero hτ h0
+    change (a : LeafQM.B) = 3 * ofInt n
+    have e : (3 : LeafQM.B) * ofInt n = (3 : ℚ) • ofInt n := by
+      rw [Algebra.smul_def, map_ofNat]
+    rw [e]
+    have e2 : (a : LeafQM.B) = -((-3 : ℚ) • ofInt n) := eq_neg_of_add_eq_zero_left this
+    rw [e2, ← neg_smul]; norm_num
+  · rintro ⟨b, rfl⟩
+    have e : ((3 * b : O) : LeafQM.B) = (3 : ℚ) • (b : LeafQM.B) := by
+      rw [Algebra.smul_def, map_ofNat, Subring.coe_mul]
+      congr 1
+    rw [e, latVec_smul, smul_smul]
+    norm_num
+    exact latVec_mem_of_inO b.2 hτ
+
+/-- The domain of clauses (b), (c) is nonempty and `Λ_I` is a full lattice in `ℂ²`. -/
+example : (0 : ℝ) < (Complex.I).im := by simp
+
+theorem im_I_ne_zero : (Complex.I).im ≠ 0 := by simp
+
+example : IsZLattice ℝ (QM.qmLattice im_I_ne_zero) := inferInstance
+
+end R1bState
