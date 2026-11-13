@@ -60,3 +60,11 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
 ## N1N2.lean §7 — COMPILED 05:15 (0 errors; 15 #print axioms, all standard)
 - `NeronModelOver.neronProp`, `NeronModelOver.uniqueIso` (two Néron models over any base `R` are
   isomorphic by a group isomorphism compatible with `gen`) PROVED (glue lemma for the two glue Props).
+
+## N1N2.lean §8 — COMPILED 05:16 (0 errors; 17 #print axioms, all standard)
+- `trivNeronOver'` (Néron model `𝟙` of any `B` with `B.X ≅ 𝟙`), `bothSides_over` (for every `A`:
+  both sides of the compatibility equation of `LocalSemistableAt` agree after `𝒩₀ → Spec O₀`),
+  `localSemistableAt_zero` (the conclusion of leaf N2-loc holds for the zero AV, `L₀ = K`) PROVED.
+- Lean note: with `L₀ = K` there are two `Algebra K L'` instances in context (`[Algebra K L']`,
+  `[Algebra L₀ L']`); explicit `@` needed. `erw` on `Over.w` facts hit the heartbeat limit;
+  explicitly typed `have`s + `rw [reassoc_of% …]` work.

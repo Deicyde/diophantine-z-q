@@ -533,6 +533,99 @@ theorem NeronModelOver.uniqueIso {R : Type} [CommRing R] {L : Type} [Field L] [A
     φ.hom 𝒩.gen.hom 𝒩'.gen.hom hφ (fun a b hab => (𝒩'.neron _).1 hab)
     (fun a b hab => (𝒩'.neron _).1 hab)
 
+/-! ## §8. Sanity: the conclusion of the local leaf N2-loc holds for the zero abelian variety
+
+This checks that the compatibility equation of `LocalSemistableAt` is well-formed: both sides
+lie over `Spec O₀` (`bothSides_over`, for every `A`), and for `A = 0` the Néron model `𝒩₀` is
+`≅ Spec O₀`, whose structure map is an isomorphism. -/
+
+/-- The trivial Néron model of an abelian variety `B` with `B ≅ 𝟙` (e.g. `(Spec K)_L`). -/
+noncomputable def trivNeronOver' (R : Type) [CommRing R] (L : Type) [Field L] [Algebra R L]
+    (B : AbVar L) (e : B.X ≅ 𝟙_ _) : NeronModelOver R L B where
+  G := 𝟙_ _
+  smooth := by dsimp; infer_instance
+  separated := by dsimp; infer_instance
+  qc := by dsimp; infer_instance
+  gen := (Functor.Monoidal.εIso (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L))))).symm
+    ≪≫ e.symm
+  gen_hom := by
+    letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj
+      (𝟙_ (Over (Spec (CommRingCat.of R))))) := Functor.grpObjObj
+    exact ZInQ.H5Neron.isMonHom_of_iso_unit e _
+  neron Y _ := ⟨fun f g _ => toUnit_unique _ _,
+    fun g => ⟨toUnit Y, ZInQ.H5Neron.hom_ext_of_iso_unit e _ _⟩⟩
+
+/-- Both sides of the compatibility equation of `LocalSemistableAt`, composed with the structure
+map `𝒩₀ → Spec O₀`, agree (for every `A`, every `U`, `i`, `j`). -/
+theorem bothSides_over {K : Type} [Field K] (A : AbVar K) (L₀ : Type) [Field L₀] [NumberField L₀]
+    [Algebra K L₀] (O₀ : ValuationSubring L₀) (𝒩₀ : NeronModelOver O₀ L₀ (A.baseChange L₀))
+    (L' : Type) [Field L'] [NumberField L'] [Algebra K L'] [Algebra L₀ L'] [IsScalarTower K L₀ L']
+    (O' : ValuationSubring L') (hO' : O'.comap (algebraMap L₀ L') = O₀)
+    (𝒩' : NeronModelOver O' L' (A.baseChange L')) (U : Over (Spec (CommRingCat.of O')))
+    (i : U ⟶ 𝒩'.G)
+    (j : U ⟶ (Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))).obj 𝒩₀.G) :
+    (pullback.fst U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) ≫ j.left ≫
+        pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))) ≫ 𝒩₀.G.hom =
+      (((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map i).left ≫
+        𝒩'.gen.hom.left ≫ bcProj A L₀ L' ≫ 𝒩₀.gen.inv.left ≫
+        pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)))) ≫ 𝒩₀.G.hom := by
+  have ha : pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO'))) ≫ 𝒩₀.G.hom =
+      pullback.snd 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO'))) ≫
+        Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')) := pullback.condition
+  have hb : j.left ≫ pullback.snd 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO'))) =
+      U.hom := Over.w j
+  have hc : pullback.fst U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) ≫ U.hom =
+      pullback.snd U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O' L')) := pullback.condition
+  have hd : pullback.fst 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀))) ≫ 𝒩₀.G.hom =
+      pullback.snd 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀))) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)) := pullback.condition
+  have he : 𝒩₀.gen.inv.left ≫ pullback.snd 𝒩₀.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)))
+      = (A.baseChange L₀).X.hom := Over.w 𝒩₀.gen.inv
+  have hf : bcProj A L₀ L' ≫ (A.baseChange L₀).X.hom =
+      (A.baseChange L').X.hom ≫ Spec.map (CommRingCat.ofHom (algebraMap L₀ L')) :=
+    pullback.lift_snd _ _ _
+  have hg : 𝒩'.gen.hom.left ≫ (A.baseChange L').X.hom =
+      pullback.snd 𝒩'.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) := Over.w 𝒩'.gen.hom
+  have hh : ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map i).left ≫
+      pullback.snd 𝒩'.G.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) =
+      pullback.snd U.hom (Spec.map (CommRingCat.ofHom (algebraMap O' L'))) :=
+    Over.w ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap O' L')))).map i)
+  have hi : Spec.map (CommRingCat.ofHom (algebraMap O' L')) ≫
+      Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')) =
+      Spec.map (CommRingCat.ofHom (algebraMap L₀ L')) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap O₀ L₀)) := by
+    rw [← Spec.map_comp, ← Spec.map_comp]
+    rfl
+  simp only [Category.assoc]
+  rw [ha, reassoc_of% hb, reassoc_of% hc, hd, reassoc_of% he, reassoc_of% hf, reassoc_of% hg,
+    reassoc_of% hh, hi]
+
+/-- **The conclusion of N2-loc holds for the zero abelian variety** (with `L₀ = K`). -/
+theorem localSemistableAt_zero (K : Type) [Field K] [NumberField K] (O : ValuationSubring K) :
+    LocalSemistableAt (AbVar.zero K) O := by
+  refine ⟨K, inferInstance, inferInstance, inferInstance, ?_⟩
+  intro O₀ _ _ 𝒩₀ L' _ _ iKL' iL₀L' iST O' _ hO' 𝒩'
+  obtain ⟨φ₀, -, -⟩ := 𝒩₀.uniqueIso
+    (trivNeronOver' O₀ K _ (ZInQ.H5Neron.bcUnitIso K K))
+  obtain ⟨φ', -, -⟩ := 𝒩'.uniqueIso
+    (trivNeronOver' O' L' _ (@ZInQ.H5Neron.bcUnitIso K _ L' _ iKL'))
+  let F := Over.pullback (Spec.map (CommRingCat.ofHom (resHom O₀ O' hO')))
+  let eV : F.obj 𝒩₀.G ≅ 𝟙_ _ := F.mapIso φ₀ ≪≫ (Functor.Monoidal.εIso F).symm
+  letI : GrpObj (F.obj 𝒩₀.G) := Functor.grpObjObj
+  haveI : IsIso 𝒩₀.G.hom := by
+    rw [← Over.w φ₀.hom]
+    show IsIso (φ₀.hom.left ≫ 𝟙 _)
+    infer_instance
+  refine ⟨𝟙_ _, inferInstance, φ'.inv, eV.inv, ?_, ZInQ.H5Neron.isMonHom_of_iso_unit φ' _, ?_,
+    ZInQ.H5Neron.isMonHom_of_iso_unit eV _, ?_⟩
+  · show IsOpenImmersion ((Over.forget _).map φ'.inv)
+    infer_instance
+  · show IsOpenImmersion ((Over.forget _).map eV.inv)
+    infer_instance
+  · exact (cancel_mono 𝒩₀.G.hom).mp (@bothSides_over K _ (AbVar.zero K) K _ _ _ O₀ 𝒩₀ L' _ _ iKL'
+      iL₀L' iST O' hO' 𝒩' _ _ _)
+
 end ZInQ.TauN1N2
 
 #print axioms ZInQ.TauN1N2.neronModelExists_iff
@@ -550,3 +643,5 @@ end ZInQ.TauN1N2
 #print axioms ZInQ.TauN1N2.n1_n2_of_leaves
 #print axioms ZInQ.TauN1N2.neronModelExistsSelf_iff
 #print axioms ZInQ.TauN1N2.NeronModelOver.uniqueIso
+#print axioms ZInQ.TauN1N2.bothSides_over
+#print axioms ZInQ.TauN1N2.localSemistableAt_zero
