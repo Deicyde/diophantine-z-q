@@ -24,3 +24,9 @@
   vSurjOfSurjective, homVK_surjective, rhoF_subrep_J, bcVE_injective, bcVE_equivariant, exists_res,
   rhoF_subrep_JL: [propext, Classical.choice, Quot.sound].
   Finding: `set Ψ := … with …` in the final proof timed out (whnf, 200000 heartbeats); `let` works.
+- 23:16 VERIFIED (compiled): `rhoF_semisimple_of_surj` (rhoF semisimple: an equivariant quotient of
+  the semisimple V_ℓ(J)⊗ℚ̄_ℓ, via kernel `GlueI3.isSemisimple_of_surjective`); semisimplicity added
+  to the outputs of `rhoF_subrep_J`, `rhoF_subrep_JL`. Also `res` (G_L →* G_K), `res_spec`,
+  `rhoFL`, `rhoFL_subrep_JL`, `bcT_bijective` (hyp. `dim J_L = dim J`), `E1_R16` (nonzero
+  A' → J_L from an A'-side constituent ≅ rhoFL, plus Poincaré isogeny under EndDivision A').
+  All `#print axioms`: [propext, Classical.choice, Quot.sound].

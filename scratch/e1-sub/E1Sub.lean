@@ -355,6 +355,28 @@ theorem rhoF_subrep_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A
     ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
   rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
 
+/-- **`ρ_{f,ι}` is semisimple (GLUE, proved)**: it is an equivariant quotient of the semisimple
+`V_ℓ(J) ⊗ ℚ̄_ℓ` (a C9 input). -/
+theorem rhoF_semisimple_of_surj (hS : FaltingsSemisimple) (hT : TateModuleFree) (J A : AbVar ℚ)
+    (π : Hom J A) (hπ : Function.Surjective (homV ℓ π)) {F : Type} [Field F]
+    (θ : F →+* A.End0) (emb : F →+* PadicAlgCl ℓ)
+    [FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)] :
+    (rhoF ℓ A θ emb).IsSemisimpleRepresentation := by
+  have hℓ : (ℓ : ℚ) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  obtain ⟨-, hfin, -⟩ := hT ℚ J ℓ hℓ
+  have : FiniteDimensional ℚ_[ℓ] (J.V ℓ) := inferInstance
+  have hss := GlueI3.semisimpleBaseChange ℚ_[ℓ] (PadicAlgCl ℓ) _ _ (J.galRep ℓ) (hS ℚ J ℓ)
+  refine GlueI3.isSemisimple_of_surjective _ (rhoF ℓ A θ emb) hss
+    (evalEigE ℓ A θ emb ∘ₗ (homV ℓ π).baseChange (PadicAlgCl ℓ))
+    ((evalEigE_surjective ℓ A θ emb).comp (baseChange_surjective _ _ hπ)) ?_
+  intro g v
+  simp only [LinearMap.coe_comp, Function.comp_apply]
+  rw [← evalEigE_equivariant]
+  congr 1
+  change ((homV ℓ π).baseChange _ ∘ₗ (J.galRep ℓ g).baseChange _) v =
+    ((A.galRep ℓ g).baseChange _ ∘ₗ (homV ℓ π).baseChange _) v
+  rw [← LinearMap.baseChange_comp, ← LinearMap.baseChange_comp, homV_galRep]
+
 /-- **G13 as a subrepresentation (GLUE, proved from R16 and the I3 leaves).** For a newform `f`
 of level `N` and any `J₁(N)` `J`: Shimura's `A_f`, `π : J ↠ A_f`, `θ : K_f → End⁰(A_f)` such that
 for every prime `ℓ` and embedding `ι : K_f → ℚ̄_ℓ`, R16's `ρ_{f,ι} = rhoF ℓ A_f θ ι` is
@@ -368,6 +390,7 @@ theorem rhoF_subrep_J (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
     ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
       ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
         Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
         (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
           ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
             LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
@@ -381,7 +404,9 @@ theorem rhoF_subrep_J (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
   obtain ⟨h2, hfr⟩ := hrest ℓ emb
   have : FiniteDimensional (PadicAlgCl ℓ) (eigenFun ℓ A θ emb) :=
     Module.finite_of_finrank_pos (by omega)
-  refine ⟨finrank_rhoF ℓ A θ emb h2, fun p hp hpN σ hσ a ha => ?_,
+  have hVs := vSurjOfSurjective hS hF hT J A π ℓ hπ
+  refine ⟨finrank_rhoF ℓ A θ emb h2, rhoF_semisimple_of_surj ℓ hS hT J A π hVs θ emb,
+    fun p hp hpN σ hσ a ha => ?_,
     rhoF_subrep_of_surj ℓ hS hT J A π (vSurjOfSurjective hS hF hT J A π ℓ hπ) θ emb⟩
   rw [trace_rhoF ℓ A θ emb h2]
   exact (hfr p hp hpN σ hσ).1 a ha
@@ -702,6 +727,7 @@ theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
     ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
       ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
         Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
         (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
           ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
             LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
@@ -714,8 +740,8 @@ theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
                   U.apply_mem_toSubmodule τ u.2⟩ = rhoF ℓ A θ emb σ (e u) := by
   obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_J hR16 hS hF hT N hN χ f hf J hJ
   refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
-  obtain ⟨h2, htr, U0, e0, he0⟩ := hrest ℓ emb
-  refine ⟨h2, htr, ?_⟩
+  obtain ⟨h2, hss, htr, U0, e0, he0⟩ := hrest ℓ emb
+  refine ⟨h2, hss, htr, ?_⟩
   let Ψ := (bcV ℓ J i).baseChange (PadicAlgCl ℓ)
   have hΨ : Function.Injective Ψ := bcVE_injective ℓ (PadicAlgCl ℓ) J i
   let U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) ((J.baseChange L).galRep ℓ)) :=
@@ -767,7 +793,7 @@ theorem rhoFL_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
                 U.apply_mem_toSubmodule τ u.2⟩ = rhoFL ℓ A θ emb i τ (e u) := by
   obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
   refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
-  obtain ⟨h2, -, U, e, he⟩ := hrest ℓ emb
+  obtain ⟨h2, -, -, U, e, he⟩ := hrest ℓ emb
   exact ⟨h2, U, e, fun τ u => he τ (res i τ) (res_spec i τ) u⟩
 
 /-- **E1 for R16, assembled (GLUE, proved).** In the situation of `rhoF_subrep_JL`, with `L` a
@@ -796,7 +822,7 @@ theorem E1_R16 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
               IsIsogenyMor (fst A'.X Z.X ≫ φ.hom * snd A'.X Z.X ≫ g.hom)) := by
   obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
   refine ⟨A, π, θ, hπ, fun ℓ _ emb A' U hU eA heA => ?_⟩
-  obtain ⟨-, -, U', eJ, heJ⟩ := hrest ℓ emb
+  obtain ⟨-, -, -, U', eJ, heJ⟩ := hrest ℓ emb
   let e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] U'.toSubmodule := eA.trans eJ.symm
   have he : ∀ (τ : Field.absoluteGaloisGroup L) (u : U.toSubmodule),
       (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ :
