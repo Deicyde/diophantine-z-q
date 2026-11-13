@@ -28,3 +28,21 @@ into scratch/t28-igusa/Defs.lean. Compiles (VERIFIED, `lake env lean`, 77 s).
 - T1.lean (defs + JnR + actC + J10_eq + sexticAct_eq + actC_actC + actC_scale): those four
   compile (VERIFIED, 1m49 total). A single 246-term J10R definition times out in elaboration
   (4M heartbeats); split into 10 chunks J10R0..J10R9 it elaborates.
+- Forward.lean (= T2.lean): the (⇒) direction `igusa_forward`, `J{2,4,6,10}_sexticAct`,
+  `igusaClebschSeparation_iff : IgusaClebschSeparation ↔ IgusaSeparationEq` compile, no errors
+  (VERIFIED, 1m37). Key facts: `J10R_deriv` (derivative of J10 along the translation flow is 0)
+  closes by `simp only [derivative lemmas]; ring` within 4M heartbeats; `C 2` residues need
+  `map_ofNat` in the simp set.
+- SO3.lean: `T28SO3.so3` (SO(3)=PGL(2) for binary quadratics) compiles (VERIFIED, 7 s).
+- Igusa.lean (all parts): `#print axioms` = [propext, Classical.choice, Quot.sound] for
+  igusa_forward, igusaClebschSeparation_iff, T28SO3.so3, PkgI1.mestre_abstract (VERIFIED).
+  First attempt: y3c* (86-term rational expressions) time out in elaboration; regenerated in
+  20-term chunks.
+
+## M3 data (m3_interp.py, VERIFIED by running)
+- sizes: y1 8 terms/coefficient (degree 3), y2 29-31 (degree 5), y3 86 (degree 7).
+- all 6 Gram entries pair(y_i,y_j) and 10 numbers p6(f, y_i y_j y_k) are polynomials in
+  J2,J4,J6,J10 (interpolated on 45 random sextics, checked on 15 fresh); G13 = G22.
+  Written to m3_polys.txt.
+- special_check.py: det(yv) = 0 identically on x^6+px^4+qx^2+1 and on x^5+px^3+qx (VERIFIED).
+- pairing_check.py: p6 and pair invariant (det^6, det^2), cub equivariant (VERIFIED, symbolic).

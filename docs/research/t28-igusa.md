@@ -1,8 +1,9 @@
 # t28-igusa: textbook leaf T28 (Clebsch–Bolza–Igusa separation), plan and first half
 
-Status: research note (task t28-igusa, 2026-11-12). Lean: `scratch/t28-igusa/Igusa.lean` and
-`scratch/t28-igusa/SO3.lean` (each self-contained, `import Mathlib` only; check with
-`lake env lean scratch/t28-igusa/<file>.lean`). Results log: `scratch/t28-igusa/log.md`.
+Status: research note (task t28-igusa, 2026-11-12). Lean: `scratch/t28-igusa/Igusa.lean`
+(everything; self-contained, `import Mathlib` only; check with
+`lake env lean scratch/t28-igusa/Igusa.lean`, about 2 minutes); `Forward.lean` and `SO3.lean` are
+its first two parts as separately compiled drafts. Results log: `scratch/t28-igusa/log.md`.
 Computer algebra: `scratch/t28-igusa/mestre_check.py`, `gen.py`, `so3_coeffs.py`.
 No file under `ZInQKernel/`, `blueprint/` or another task's notes was edited.
 
@@ -12,30 +13,40 @@ reference given), **SPECULATIVE**; theorem numbers given from memory are **UNVER
 ## 0. Result
 
 The leaf `PkgI1.IgusaClebschSeparation` (copied verbatim, with `J2 J4 J6 j10Data J10
-sexticAct`, from `scratch/h-decomposition/Leaves.lean` L423-784) is an `↔`. This task
+sexticAct`, from `scratch/h-decomposition/Leaves.lean` L423-784) is an `↔`. In
+`scratch/t28-igusa/Igusa.lean` (sorry-free; `#print axioms` gives only `propext`,
+`Classical.choice`, `Quot.sound` for every theorem below) this task proves:
 
-1. **proves the `⇒` direction** (the transformation law) in Lean, over every field of
-   characteristic 0, sorry-free (`PkgI1.igusa_forward`, with
-   `J{2,4,6,10}_sexticAct : J_{2k}(sexticAct f M e) = (e·det M³)^{2k}·J_{2k}(f)` for `det M ≠ 0`);
-2. **proves** `IgusaClebschSeparation ↔ IgusaSeparationEq` (`PkgI1.igusaClebschSeparation_iff`),
-   where `IgusaSeparationEq` is the `⇐` content alone with the weighted scaling removed: sextics
-   over an algebraically closed field of characteristic 0 with `J10 ≠ 0` and **equal**
-   `J2, J4, J6, J10` are `GL₂ × 𝔾_m`-equivalent. So T28 can be replaced in the leaf list by the
-   strictly smaller `IgusaSeparationEq`;
-3. **chooses Mestre's reconstruction as the route for `⇐`** (§2), checks its polynomial
-   identities by computer algebra (§3: the conic and the cubic identity hold with constant
-   exactly 1 on random sextics; the leaf's `J`'s in terms of Clebsch's `A, B, C, D`), and
-   **proves in Lean its one geometric step**, `T28SO3.so3` (`SO(3) = PGL(2)` for binary
-   quadratics: two bases of binary quadratics with the same Gram matrix for the discriminant
-   pairing differ by one invertible substitution), sorry-free;
-4. lists what remains (§4): the generic case `det G ≠ 0` needs the quadratic covariants
-   `y₁, y₂, y₃` as Lean polynomials, their covariance (same technique as item 1), and the
-   expression of the Gram matrix `G_ij` and of `a_ijk` through `J2..J10` (computer algebra
-   finds them; verifying them in Lean is the bulk); the special case `det G = 0` (curves with an
-   extra involution, Bolza; Cardona–Quer) is a separate, case-heavy argument.
+1. **the `⇒` direction** (the transformation law), over every field of characteristic 0:
+   `PkgI1.igusa_forward`, from `J{2,4,6,10}_sexticAct :
+   J_{2k}(sexticAct f M e) = (e·det M³)^{2k}·J_{2k}(f)` for `det M ≠ 0`;
+2. **`igusaClebschSeparation_iff : IgusaClebschSeparation ↔ IgusaSeparationEq`**, where
+   `IgusaSeparationEq` is the `⇐` content with the weighted scaling removed (`J10 ≠ 0` and
+   **equal** `J2, J4, J6, J10` ⇒ equivalent);
+3. **the `SO(3) = PGL(2)` lemma** `T28SO3.so3`: two bases of binary quadratics with the same
+   Gram matrix for the discriminant pairing differ by one invertible substitution;
+4. **Mestre's separation step in abstract form** `PkgI1.mestre_abstract`: if sextics `f, g`
+   admit bases `(yᵢ)`, `(y'ᵢ)` of binary quadratics with equal Gram matrices and
+   `p6 g (y'ᵢy'ⱼy'ₖ) = p6 f (yᵢyⱼyₖ)` for all `i, j, k` (`p6` the invariant pairing of sextics),
+   then `g ≅ f`. The proof needs no reconstruction identity: `so3` gives the substitution, and
+   products of three basis quadratics span the sextics, on which `p6` is nondegenerate;
+5. **the generic case of `⇐`** `PkgI1.separation_generic`, from one explicit, computer-checked
+   but Lean-unproved Prop `M3Identities` (the Gram matrix of Clebsch's quadratic covariants
+   `y₁, y₂, y₃` and the ten numbers `p6 f (yᵢyⱼyₖ)` are fixed polynomials in `J₂, J₄, J₆, J₁₀`,
+   written out in Lean as `gramJ`, `cubJ`): when `det (yv f) ≠ 0`, equal invariants give
+   equivalent sextics;
+6. **`igusaClebschSeparation_of : M3Identities → SeparationSpecial → IgusaClebschSeparation`**,
+   where `SeparationSpecial` is the `⇐` statement restricted to `det (yv f) = 0` (Clebsch's
+   `R = 0`: the curves with an involution besides the hyperelliptic one).
 
-T28 is **not** closed. Verdict: the `⇒` half and the scaling are done; the `⇐` half is a
-substantial but elementary formalization (no geometric invariant theory needed on Mestre's route).
+So **T28 is reduced to two concrete statements over genuine definitions**: `M3Identities`
+(sixteen polynomial identities in `a₀..a₆`, degrees 6 to 22; true by computer algebra: found by
+interpolation on 45 random sextics and checked on 15 fresh ones, and spot-checked in Lean by
+`norm_num` for the two largest entries on one sextic) and `SeparationSpecial` (Bolza 1888,
+Cardona–Quer 2005; unproved, the hard part being "`R = 0` ⇒ extra involution"). Neither is a
+literature leaf in the project's sense: M3 is glue (a finite computation) and
+`SeparationSpecial` is a special case of T28 itself. Verdict: T28 is **not closed**; its `⇒`
+half, the scaling, the geometric step and the generic case are done modulo M3.
 
 ## 1. What compiles (VERIFIED, `lake env lean`)
 
@@ -57,9 +68,24 @@ substantial but elementary formalization (no geometric invariant theory needed o
 | `igusa_forward` | the `⇒` direction of the leaf |
 | `IgusaSeparationEq`, `igusaClebschSeparation_iff` | the leaf is equivalent to its exact-equality `⇐` form |
 
-`scratch/t28-igusa/SO3.lean` (namespace `T28SO3`): `qAct`, `pair` (polar form of `−disc`),
-`pair_qAct` (`pair` scales by `det²`), `null_sq` (a null vector is a square), `frame` (a
-hyperbolic frame `u, z, v` is the image of `1, x, x²`), `so3`.
+Namespace `T28SO3` (also `SO3.lean`): `qAct`, `pair` (polar form of `−disc`), `pair_qAct`
+(`pair` scales by `det²`), `null_sq` (a null vector is a square), `frame` (a hyperbolic frame
+`u, z, v` is the image of `1, x, x²`), `so3`.
+
+Mestre part (namespace `PkgI1`):
+
+| Lean name | Statement |
+| --- | --- |
+| `p6`, `p6_actC` | invariant pairing of sextics, `p6(f\|M, g\|M) = det⁶·p6(f, g)` (`ring`) |
+| `cub`, `cub_qAct` | product of three quadratics; equivariant |
+| `p6_cub_lin`, `eq_zero_of_p6_cub` | trilinearity; `p6 h (yᵢyⱼyₖ) = 0 ∀ i j k` with `(yᵢ)` a basis ⇒ `h = 0` |
+| `det_ne_zero_of_gram` | equal Gram matrices: one basis ⇒ the other is a basis (`det Pm = 4`) |
+| `mestre_abstract` | item 4 of §0 |
+| `y1c0 … y3c2`, `yv` | Clebsch's `y₁, y₂, y₃` as explicit polynomials (8, 29-31, 86 terms per coefficient) |
+| `m3G11 … m3a333`, `gramJ`, `cubJ` | the M3 polynomials in `J₂, J₄, J₆, J₁₀` |
+| `M3Identities`, `separation_generic` | item 5 |
+| `SeparationSpecial`, `igusaClebschSeparation_of` | item 6 |
+| `spot_J` and two `example`s | M3 for `G₃₃` and `a₃₃₃` on `2 − x + 3x² + x⁴ − 2x⁵ + x⁶` (`norm_num`) |
 
 The proof of the translation law is the classical infinitesimal argument made algebraic: for
 `T(t) =` coefficients of `f(x+t)`, `d/dt J(T(t)) = (DJ)(T(t))` with
@@ -75,14 +101,12 @@ sums (for `J10`: about 1700 monomials). Directly expanding `J10(f(x+1))` is out 
 | Rosenhain / Galois | normal form `x(x−1)(x−λ)(x−μ)(x−ν)`, then the fibres of `(λ,μ,ν) ↦ [J]` are the `S₆`-orbits (degree 720) | the pointwise fibre statement needs elimination of degree 720; not practical |
 | **Mestre 1991 + Cardona–Quer 2005** | Clebsch quadratic covariants `y₁, y₂, y₃`; Gram `G_ij = (y_i,y_j)₂` and `a_ijk = (f, y_iy_jy_k)₆` as polynomials in the invariants; reconstruction `det(G)³f = Σ a_ijk (adj G·y)_i(adj G·y)_j(adj G·y)_k`; the `SO(3)` lemma; the locus `det G = 0` (extra involution) separately | **chosen**: constructive, every step is an explicit identity or linear algebra; the identities are checkable by computer algebra |
 
-Mestre's argument for `det G(f) ≠ 0` (generic case), in the form proved here piecewise:
-(i) after scaling (item 2 of §0) `f` and `g` have equal `J`'s, hence equal `G` and `a`
-(identities M3 below); (ii) `y(f)` and `y(g)` are bases of binary quadratics with equal Gram
-matrices, so `so3` gives `M` with `y_i(g) = y_i(f)|M`, and by covariance `y_i(f)|M = c·y_i(f|M)`;
-(iii) the reconstruction identity writes `f|M` and `g` by the same cubic formula in their `y`'s
-and the common invariants, so `g ∝ f|M`. Step (iii) has a short conceptual proof that avoids
-expanding a degree-90 identity: `f(t) ∝ (f, ℓ_t⁶)₆` for `ℓ_t = x − t`, `ℓ_t⁶ = (ℓ_t²)³`,
-`ℓ_t² = Σ (G⁻¹Y)_i y_i` with `Y_j = (ℓ_t², y_j)₂ ∝ y_j(t)`, and multilinearity of transvectants.
+Mestre's argument for the generic case, in the form proved here (`mestre_abstract`): after
+scaling, `f` and `g` have equal `J`'s, hence (M3) the Gram matrices of `y(f)` and `y(g)` agree
+and `p6 g (yᵢyⱼyₖ(g)) = p6 f (yᵢyⱼyₖ(f))`; `so3` gives `M` with `yᵢ(g) = yᵢ(f)|M`; then
+`h = g − det(M)⁻⁶·(f|M)` pairs to zero with every `yᵢyⱼyₖ(g)`, these span the sextics, and `p6` is
+nondegenerate, so `h = 0`. Mestre's conic and cubic (the reconstruction identity checked in §3)
+are not needed for separation; they matter only for constructing a curve from given invariants.
 
 ## 3. Computer algebra (VERIFIED by running `mestre_check.py`, exact arithmetic)
 
@@ -102,25 +126,27 @@ Transvectants `(φ,ψ)_k = (m−k)!(n−k)!/(m!n!) Σ_j (−1)^j C(k,j) ∂^kφ/
   `J`'s give equal `A, B, C, D`.
 - `so3_coeffs.py`: the `linear_combination` certificates used in `T28SO3.frame`.
 
-## 4. What remains for `IgusaSeparationEq` (unproved)
+## 4. What remains (unproved)
 
-M1. Transvectants on coefficient vectors; `y₁, y₂, y₃`, `G_ij`, `a_ijk` as explicit Lean
-    polynomials (generated by `gen.py`-style scripts; `y₃` has degree 7 in `a₀..a₆`).
-M2. Covariance `y_i(f|M) = det(M)^{w_i}·(y_i(f))|M` and invariance of `G_ij`, `a_ijk`: the
-    generator technique of `Igusa.lean` (`IsInv`) extends to covariants; the translation step
-    needs the `D`-equivariance identity of each `y_i` (`ring`, moderate size).
-M3. `G_ij` and `a_ijk` as polynomials in `A, B, C, D` (equivalently in `J2..J10`; all have even
-    degree, up to 22 for `a₃₃₃`). Computer algebra finds them (Mestre's paper lists them,
-    UNVERIFIED). In Lean, direct `ring` in seven variables is likely too large; a workable plan is
-    to check both sides (invariants of equal weight) on the normal form
-    `x(x−1)(x³+px²+qx+r)` (three variables) and transport by M2 and `J10 ≠ 0`.
-M4. The reconstruction identity via the conceptual proof of §2(iii): small transvectant
-    identities `(φ, ℓ_t^n)_n ∝ φ(t)`, bilinearity, and `G⁻¹`.
-M5. The case `det G = 0`: Bolza's characterization (`det G = 0` iff the curve has an involution
-    besides the hyperelliptic one), the normal forms `x⁶ + ax⁴ + bx² + 1` (and the `D₄`, `D₆`,
-    `x⁵ − x`, `x⁵ − 1` loci), and the invariants of each normal form (Cardona–Quer 2005,
-    UNVERIFIED locator). This is the least explored piece; its hard direction
-    (`det G = 0` ⇒ extra involution) has no short proof known to this task.
+R1. **`M3Identities`** (glue, a finite computation). Sixteen polynomial identities in
+    `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`). Direct `ring` in seven variables is likely too
+    large for the top degrees. Workable plans: (a) prove covariance of `yv` by the generator
+    technique of the `⇒` part (`IsInv`: diagonal and swap by `ring`, translations by the
+    derivation trick with the `D`-equivariance identity of each `yᵢ`), so that both sides are
+    invariants of the same weight, then check on the normal form `x(x−1)(x³+px²+qx+r)` (three
+    variables) and transport using `J10 ≠ 0`; or (b) a verified sparse-polynomial normalizer
+    run by the kernel. Either is mechanical. The coefficients are in `m3_polys.txt`.
+R2. **`SeparationSpecial`** (the curves with an extra involution). Ingredients: Bolza's
+    characterization `R = 0` ⇔ an involution besides the hyperelliptic one (this task checked
+    by computer algebra that `det yv = 0` on `x⁶ + px⁴ + qx² + 1` and on `x⁵ + px³ + qx`, the
+    easy direction); the hard direction `det yv = 0` ⇒ `f ≅` an even sextic has no short proof
+    known to this task (classically via Clebsch's `R = ∏` over the 15 factorizations `f = q₁q₂q₃`
+    of `det(q₁,q₂,q₃)`); then separation inside the 2-parameter family by the dihedral
+    invariants and the strata `D₄`, `D₆`, `x⁵ − x`, `x⁶ − 1`, `x⁵ − 1` (Cardona–Quer 2005,
+    UNVERIFIED locator). This is the least explored piece and the main open part of T28.
+
+Recommendation for the crowd-sourcing list: replace T28 by `SeparationSpecial` (a genuine,
+smaller special case of the published theorem) plus the glue item `M3Identities`.
 
 References (STANDARD; locators UNVERIFIED, no network): J.-I. Igusa, *Arithmetic variety of
 moduli for genus two*, Ann. of Math. 72 (1960) 612-649; J.-F. Mestre, *Construction de courbes

@@ -73,7 +73,7 @@ theorem det_ne_zero_of_gram (y y' : Fin 3 → Fin 3 → K) [CharZero K] (hy : (M
     (hG : ∀ i j, pair (y' i) (y' j) = pair (y i) (y j)) : (Matrix.of y').det ≠ 0 := by
   have hM : Matrix.of y' * Pm K * (Matrix.of y').transpose =
       Matrix.of y * Pm K * (Matrix.of y).transpose := by
-    ext i j; rw [gram_apply, gram_apply]; exact hG i j
+    ext i j; rw [T28SO3.gram_apply, T28SO3.gram_apply]; exact hG i j
   have hd := congrArg Matrix.det hM
   simp only [Matrix.det_mul, Matrix.det_transpose] at hd
   have hP : (Pm K).det = 4 := by
