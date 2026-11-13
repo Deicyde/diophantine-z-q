@@ -19,18 +19,37 @@ kernel's own definition; nothing is copied except proofs.
    t-brauer-purity proved the whole leaf. I rebuilt `ZInQKernel.HDecomp.Objects` and recompiled
    `scratch/t-brauer-purity/T2Kernel.lean` here: `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}`
    and `abhyankarDVR_objBridge` compile with standard axioms. **T2 can move from leaf to glue.**
-2. **T15 (and T14) no longer involve topology.** I proved that continuous `ℤ/2`-cochains on a
-   compact, zero-dimensional group (in particular every `Field.absoluteGaloisGroup K` with
-   `char K = 0`) are exactly the cochains inflated from a finite quotient `G/N`, `N` open normal,
-   and the same for coboundaries (`ProfiniteCochains.lean`). Over the kernel's definitions
-   (`ProfiniteKernel.lean`):
-   * `TPurity2K.localH2CardC_iff_fin : PkgI6.LocalH2CardC ↔ (∀ p, H2TwoClassesFin G_{ℚ_p}) ∧ H2TwoClasses G_ℝ`.
-     The real conjunct is already a theorem (t-brauer-purity, `TBrauerPurityK.h2TwoClasses_real`).
-   * `TPurity2K.brauerHasse2C_iff_fin : PkgI6.BrauerHasse2C ↔ BrauerHasse2Fin`
-   * `TPurity2K.brauerReciprocity2C_iff_fin : PkgI6.BrauerReciprocity2C ↔ BrauerReciprocity2Fin`
+2. **T14 and T15 narrow to two weaker Props, which can be stated without topology.**
+   * *Narrowing.* The only consumer of the bundle fields `t14a`, `t14b`, `t15` is
+     `GlueWP3.b3_degree_le_QM_of_T14_T15` (WP3.lean:290-307, VERIFIED read and grep). It feeds
+     glue-descent's `LeafHasse` and `LeafLocalTwo`, and reciprocity enters only to supply the real
+     place, which `LeafHasse` (finite places only) does not need. `T14Narrow.lean` proves the
+     following over the kernel's definitions:
+     * `BrauerHasseFin2C`: a `ℤ/2` cocycle of `G_ℚ` that is a coboundary at every finite prime is a
+       coboundary. It is a consequence of T14 (`brauerHasseFin2C_of_T14`) and is equivalent to
+       `LeafHasse` (`leafHasse_iff_brauerHasseFin2C`).
+     * `LocalTwo2C`: the finite-place uniqueness half of T15 (`localTwo2C_of_T15`,
+       `leafLocalTwo_iff_localTwo2C`).
+     * `leaves_of_narrow : BrauerHasseFin2C → LocalTwo2C → LeafHasse ∧ LeafLocalTwo`.
 
-   The finite-place content of T15 (`|Br(ℚ_p)[2]| = 2`, local class field theory) is **not
-   proved**, and neither is T14 (§4).
+     So the three Props T14a (Hasse with the real place), T14b (reciprocity with finiteness and
+     parity) and T15 (existence and uniqueness, all places) can be announced as two weaker Props.
+     The real place of T15 is a theorem anyway (t-brauer-purity).
+   * *Topology-free.* Continuous `ℤ/2`-cochains on a compact, zero-dimensional group (every
+     `Field.absoluteGaloisGroup K` with `char K = 0`) are exactly the cochains inflated from a
+     finite quotient `G/N` with `N` open normal, and likewise for coboundaries
+     (`ProfiniteCochains.lean`). Over the kernel's definitions (`ProfiniteKernel.lean`):
+     * `TPurity2K.localH2CardC_iff_fin`
+     * `brauerHasse2C_iff_fin`
+     * `brauerReciprocity2C_iff_fin`
+
+     `T14T15Final.lean` combines the two directions into one file:
+     * `BrauerHasseFin2Fin`, `LocalTwo2Fin`: the narrowed Props, stated without topology;
+     * `leaves_of_narrow_fin : BrauerHasseFin2Fin → LocalTwo2Fin → LeafHasse ∧ LeafLocalTwo`;
+     * `narrow_fin_of_T14_T15`: both are consequences of T14 and T15.
+
+   The arithmetic content is **not proved**: the Hasse principle for `Br(ℚ)[2]`, and
+   `|Br(ℚ_p)[2]| ≤ 2` from local class field theory (§4).
 3. **T1 (Zariski–Nagata, `PkgI2.PurityBranchLocus`) is equivalent to Nagata's form T1″.**
    T1″ = `TPurity2K.PurityBranchLocusLocal`, stated over a regular **local** ring `R` with
    `[Module.Finite R S]` and a prime `q` of `S` over `𝔪_R`, such that `S_q` is a normal domain,
@@ -66,12 +85,12 @@ kernel's own definition; nothing is copied except proofs.
 * (ii) Announce T1 as T1″ (`PurityBranchLocusLocal`). It is a special case of the published
   statement, it is Nagata's own form (regular local base, finite normal cover), and it is
   provably equivalent to T1 in Lean.
-* (iii) Announce T15 as its finite-place uniqueness half. Glue uses only that half
-  (`leafLocalTwo_of_T15`, WP3.lean:231, VERIFIED read). The `…Fin` forms give a contributor a
-  statement free of topology. The existence half and the real place are not needed; the real
-  place is proved anyway.
-* (iv) Announce T14 in either form; `brauerHasse2C_iff_fin` and `brauerReciprocity2C_iff_fin` make
-  the two forms interchangeable.
+* (iii) Announce T14 as the single Prop `BrauerHasseFin2C`, a consequence of
+  Albert–Brauer–Hasse–Noether with reciprocity: a class in `H²(G_ℚ, ℤ/2)` that is trivial at
+  every prime is trivial. Announce T15 as `LocalTwo2C`, a consequence of `Br(ℚ_p)[2] ≅ ℤ/2`. These
+  are glue-descent's `LeafHasse` and `LeafLocalTwo` in cochain form. If topology-free statements
+  are preferred, use `BrauerHasseFin2Fin` and `LocalTwo2Fin` (`T14T15Final.lean`). The
+  three-Prop forms remain available, and Lean proves they imply the narrowed ones.
 
 ## 2. Statement audit of the new forms
 
@@ -108,6 +127,8 @@ unchanged.
 | **`T1Kernel.lean`** (imports `ZInQKernel.HDecomp.Objects`) | **`TPurity2K.purityBranchLocus_of_local`**, `local_of_purityBranchLocus`, `purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`, `objBridge_purityBranchLocus_of_local`, `objBridge_purityBranchLocus_of_finiteGe2` | compiles |
 | `ProfiniteCochains.lean` (Mathlib only; I6Base defs copied verbatim) | `exists_nhds_one_invariant`, `exists_openNormalSubgroup_invariant(₂)`, `continuous_of_invariant(₂)`, `isCocycle2_iff`, `isCoboundary2_iff`, `compactSpace_absoluteGaloisGroup`, `zeroDimensionalSpace_absoluteGaloisGroup` (char 0), `h2TwoClasses_iff_fin`, `localH2CardC_finite_iff_fin` | compiles |
 | **`ProfiniteKernel.lean`** (imports `ZInQKernel.HDecomp.Conductor.I6Base`) | **`TPurity2K.localH2CardC_iff_fin`, `brauerHasse2C_iff_fin`, `brauerReciprocity2C_iff_fin`** | compiles |
+| **`T14Narrow.lean`** (imports `ZInQKernel.HDecomp.Descent.WP3`) | `BrauerHasseFin2C`, `LocalTwo2C`, `brauerHasseFin2C_of_T14`, `brauerHasse2C_of_fin`, `leafHasse_iff_brauerHasseFin2C`, `localTwo2C_of_T15`, `leafLocalTwo_iff_localTwo2C`, **`leaves_of_narrow`** | compiles |
+| **`T14T15Final.lean`** (imports Mathlib and `…Descent.WP3`; the two above concatenated) | `BrauerHasseFin2Fin`, `LocalTwo2Fin`, `brauerHasseFin2C_iff_fin`, `localTwo2C_iff_fin`, **`leaves_of_narrow_fin`**, **`narrow_fin_of_T14_T15`** | compiles |
 | `scratch/t-brauer-purity/T2Kernel.lean` (t-brauer-purity's file, recompiled unchanged) | `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` | compiles at this base |
 
 **How the dimension-one case is proved.** Let `p = q ∩ R`. The hypotheses give `dim S_q = 1`, so
@@ -162,9 +183,9 @@ disconnected plus compact.
   for the degree-324! cover over a 2-dimensional base (`ℙ¹_ℤ`-type). It needs only dimension
   `≤ 2`, so in practice it needs only the dimension-2 case of T1″ (SPECULATIVE: the consumer is not
   in Lean yet; h-decomposition.md G2, WP3).
-* **T15 at `ℚ_p` and T14.** Both need class field theory and the Kummer bridge
-  `H²(G_K, ℤ/2) ≅ Br(K)[2]` (t-brauer-purity §4). The finiteness conjunct of T14 is elementary
-  modulo local field theory, by the following argument. A cocycle inflated from `Gal(L/ℚ)`
+* **T15 at `ℚ_p` and T14 (now `LocalTwo2C`, `BrauerHasseFin2C`).** Both need class field theory and the Kummer bridge
+  `H²(G_K, ℤ/2) ≅ Br(K)[2]` (t-brauer-purity §4). The finiteness conjunct of T14b is no longer needed (narrowing above). For the record, it is
+  elementary modulo local field theory, by the following argument. A cocycle inflated from `Gal(L/ℚ)`
   restricts, at `p` unramified in `L`, to an inflation from the cyclic decomposition group, and it
   dies on `G_{ℚ_p}` because `G_{ℚ_p} → D` factors through `Gal(ℚ_p^{(2|D|)}/ℚ_p) ≅ ℤ/2|D|`, where
   inflation `H²(ℤ/n, ℤ/2) → H²(ℤ/2n, ℤ/2)` is zero. This needs the unramified extensions of `ℚ_p`
@@ -174,7 +195,7 @@ disconnected plus compact.
 
 ```
 export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
-lake build ZInQKernel.HDecomp.Objects ZInQKernel.HDecomp.Conductor.I6Base   # oleans for kernel forms
+lake build ZInQKernel.HDecomp.Objects ZInQKernel.HDecomp.Descent.WP3   # oleans for kernel forms
 lake env lean scratch/t-purity2/EtaleLocal.lean
 lake env lean scratch/t-purity2/T1Dim1.lean
 lake env lean scratch/t-purity2/T1Finite.lean
@@ -183,6 +204,8 @@ lake env lean scratch/t-purity2/T1Reduced.lean
 lake env lean scratch/t-purity2/T1Kernel.lean
 lake env lean scratch/t-purity2/ProfiniteCochains.lean
 lake env lean scratch/t-purity2/ProfiniteKernel.lean
+lake env lean scratch/t-purity2/T14Narrow.lean
+lake env lean scratch/t-purity2/T14T15Final.lean
 lake env lean scratch/t-brauer-purity/T2Kernel.lean
 ```
 Each file ends with `#print axioms`, which reports `[propext, Classical.choice, Quot.sound]`.
