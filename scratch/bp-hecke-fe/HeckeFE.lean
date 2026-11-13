@@ -480,4 +480,77 @@ theorem heckeContinuation5_of_deuring (hD : ∀ d : ℕ, d % 8 = 5 → Squarefre
       ∃ F : ℂ → ℂ, ZInQ.Literature.IsLContinuation (ZInQ.shortCurve (-(d : ℚ) ^ 2)) F :=
   fun d h5 hsq => isLContinuation_of_deuring (Nat.odd_iff.mpr (by omega)) hsq (hD d h5 hsq)
 
+/-! ### The dual kernel as a lattice sum, and its Mellin transform -/
+
+theorem norm_cexp_two_pi_I (x : ℝ) : ‖cexp (2 * π * I * x)‖ = 1 := by
+  rw [Complex.norm_exp]; simp
+
+/-- `e(a ν₁ + b ν₂)`. -/
+noncomputable def ech (a b : ℝ) (p : ℤ × ℤ) : ℂ := cexp (2 * π * I * (a * p.1 + b * p.2))
+
+theorem norm_ech (a b : ℝ) (p : ℤ × ℤ) : ‖ech a b p‖ = 1 := by
+  have := norm_cexp_two_pi_I (a * p.1 + b * p.2)
+  simpa [ech] using this
+
+theorem hasSum_gaussThetaDual (a b : ℝ) {t : ℝ} (ht : 0 < t) :
+    HasSum (fun p : ℤ × ℤ => -I * gz 0 0 p * ech a b p * rexp (-π * gq 0 0 p * t))
+      (gaussThetaDual a b t) := by
+  set fs : ℝ → ℤ → ℂ := fun c n => -I * n * cexp (2 * π * I * c * n) * rexp (-π * n ^ 2 * t)
+  set fc : ℝ → ℤ → ℂ := fun c n => cexp (2 * π * I * c * n) * rexp (-π * n ^ 2 * t)
+  have hs : ∀ c : ℝ, HasSum (fs c) (sinKernel c t) := fun c => hasSum_int_sinKernel c ht
+  have hc : ∀ c : ℝ, HasSum (fc c) (cosKernel c t) := fun c => hasSum_int_cosKernel c ht
+  have hsn : ∀ c : ℝ, Summable fun n => ‖fs c n‖ := fun c => by
+    have h0 := (hasSum_int_oddKernel 0 ht).summable
+    refine (summable_abs_iff.mpr h0).congr fun n => ?_
+    have h1 := norm_cexp_two_pi_I (c * n)
+    simp only [fs, norm_mul, norm_neg, norm_I, one_mul, Complex.norm_intCast, Complex.norm_real,
+      Real.norm_eq_abs, abs_of_pos (exp_pos _), add_zero]
+    rw [show (2 * π * I * c * n : ℂ) = 2 * π * I * ((c * n : ℝ) : ℂ) by push_cast; ring, h1,
+      mul_one, abs_mul, abs_of_pos (exp_pos _)]
+  have hcn : ∀ c : ℝ, Summable fun n => ‖fc c n‖ := fun c => by
+    have h0 := (hasSum_int_evenKernel 0 ht).summable
+    refine (summable_abs_iff.mpr h0).congr fun n => ?_
+    have h1 := norm_cexp_two_pi_I (c * n)
+    simp only [fc, norm_mul, Complex.norm_real, Real.norm_eq_abs, abs_of_pos (exp_pos _), add_zero]
+    rw [show (2 * π * I * c * n : ℂ) = 2 * π * I * ((c * n : ℝ) : ℂ) by push_cast; ring, h1,
+      one_mul]
+  have P1 : HasSum (fun p : ℤ × ℤ => fs a p.1 * fc b p.2) (sinKernel a t * cosKernel b t) := by
+    have := (hs a).mul (hc b) (summable_mul_of_summable_norm (hsn a) (hcn b))
+    exact_mod_cast this
+  have P2 : HasSum (fun p : ℤ × ℤ => fc a p.1 * fs b p.2) (cosKernel a t * sinKernel b t) := by
+    have := (hc a).mul (hs b) (summable_mul_of_summable_norm (hcn a) (hsn b))
+    exact_mod_cast this
+  have P := P1.add (P2.mul_left I)
+  have hval : gaussThetaDual a b t = (sinKernel a t * cosKernel b t : ℂ) +
+      I * (cosKernel a t * sinKernel b t : ℂ) := rfl
+  rw [hval]
+  convert P using 1
+  funext p
+  have h1 : rexp (-π * gq 0 0 p * t) =
+      rexp (-π * (p.1 : ℝ) ^ 2 * t) * rexp (-π * (p.2 : ℝ) ^ 2 * t) := by
+    rw [← Real.exp_add]; simp only [gq, add_zero]; ring_nf
+  have h2 : ech a b p = cexp (2 * π * I * a * p.1) * cexp (2 * π * I * b * p.2) := by
+    rw [ech, ← Complex.exp_add]; ring_nf
+  simp only [gz, fs, fc, h1, h2]
+  push_cast
+  ring
+
+/-- **Mellin transform of the dual kernel** as a lattice Dirichlet series, `Re s > 3/2`. -/
+theorem hasSum_gaussLambdaDual (a b : ℝ) {s : ℂ} (hs : 3 / 2 < s.re) :
+    HasSum (fun p : ℤ × ℤ => π ^ (-s) * Gamma s * (-I * gz 0 0 p * ech a b p) /
+      (gq 0 0 p : ℂ) ^ s) (gaussLambdaDual a b s) := by
+  refine hasSum_mellin_pi_mul (fun p => ?_) (by linarith)
+    (fun t ht => hasSum_gaussThetaDual a b ht) ?_
+  · by_cases h : gz 0 0 p = 0
+    · left; rw [h]; ring
+    · right; rw [gq_eq_norm_sq]; positivity
+  · refine (summable_norm_gz_rpow 0 0 (r := 1 - 2 * s.re) (by linarith)).congr fun p => ?_
+    rw [gq_eq_norm_sq, norm_mul, norm_mul, norm_neg, norm_I, one_mul, norm_ech, mul_one]
+    rcases eq_or_ne ‖gz 0 0 p‖ 0 with h | h
+    · rw [h, Real.zero_rpow (by linarith), zero_div]
+    · rw [← Real.rpow_natCast, ← Real.rpow_mul (norm_nonneg _), div_eq_mul_inv,
+        ← Real.rpow_neg (norm_nonneg _), ← Real.rpow_one_add' (norm_nonneg _)]
+      · push_cast; ring_nf
+      · push_cast; linarith
+
 end BpHeckeFE

@@ -34,3 +34,6 @@
 - `fourier_check.py` → `out_fourier_check.txt`: finite Fourier transform of the character data:
   2-part g₂(ν) = Σ_{j mod 4} unitOf(j) e(j·ν/4) = 4(1+i)·unitOf(ν/(1+i)) (support ν ≡ (1+i)·odd);
   odd part Σ_{j mod d} (Nj/d) e(j·ν/d) = d·(Nν/d) for d ∈ {5,13,21,3,7} (all ν mod d).
+- (VERIFIED, compiled ~17:55) `ech a b p = e(a p₁ + b p₂)`, `hasSum_gaussThetaDual`
+  (dual kernel = Σ_p −i·gz₀₀(p)·e(a p₁ + b p₂)·exp(−π gq₀₀(p) t)), `hasSum_gaussLambdaDual`
+  (its Mellin transform as a lattice Dirichlet series, Re s > 3/2).
