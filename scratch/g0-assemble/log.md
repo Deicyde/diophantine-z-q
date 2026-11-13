@@ -41,3 +41,4 @@
   ZInQ.PoleValuation not built). TailG (74,75,70,72,77): VERIFIED 0 errors, no sorry.
 - part 87 (AfterG7 from g0-mod-galois + g0-mod-newform + ModelG3G6 + LinkedTateData): first run: missing `open CategoryTheory AlgebraicGeometry`; second run VERIFIED 0 errors, `HSyn.G0AssembleMod.afterG7_of` standard axioms.
 - Tail run (all parts, GluePieces2 with the full modular decomposition): VERIFIED 0 errors, no sorry; afterG7_of, modularConstituent_of_field, gluePieces_of_gluePieces2, sixContactMin_of_leaves2: standard axioms (04:44).
+- Flat file `lake env lean scratch/g0-assemble/G0Assemble.lean` (41847 lines, version of commit 'GluePieces2 with ModularConstituent fully decomposed'): VERIFIED exit 0 in 568 s, 0 errors, no sorry, 179 #print axioms lines, all [propext, Classical.choice, Quot.sound].
