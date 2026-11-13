@@ -868,6 +868,124 @@ theorem localData_of_g7_large {K : Type} [Field K] [NumberField K] {A : PkgI3.Ab
   · omega
   · exact tateWildTrivial_of_L hT hLE
 
+/-! ### Final form: the glue on `L_v = ℚ_p · embP(L)` and the assembly for every `p` -/
+
+/-- `L_v = ℚ_p · embP(L) ⊆ ℚ̄_p`, the completion of `L ⊆ ℚ̄` at the place of `embP`. -/
+def Lv (L : IntermediateField ℚ PkgI4.Qbar) : Fld p :=
+  IntermediateField.adjoin ℚ_[p] (embP '' (L : Set PkgI4.Qbar))
+
+theorem embP_mem_Lv {L : IntermediateField ℚ PkgI4.Qbar} {x : PkgI4.Qbar} (hx : x ∈ L) :
+    embP x ∈ Lv (p := p) L :=
+  IntermediateField.subset_adjoin _ _ ⟨x, hx, rfl⟩
+
+theorem Lv_le {L : IntermediateField ℚ PkgI4.Qbar} {E : Fld p} (h : ∀ x ∈ L, embP x ∈ E) :
+    Lv (p := p) L ≤ E :=
+  IntermediateField.adjoin_le_iff.mpr (by rintro _ ⟨x, hx, rfl⟩; exact h x hx)
+
+/-- `[L_v:ℚ_p] ≤ [L:ℚ]` (proved, from `exists_local_field_le`). -/
+theorem Lv_fin (L : IntermediateField ℚ PkgI4.Qbar) [FiniteDimensional ℚ L] :
+    FiniteDimensional ℚ_[p] (Lv (p := p) L) ∧
+      Module.finrank ℚ_[p] (Lv (p := p) L) ≤ Module.finrank ℚ L := by
+  obtain ⟨E, hEfd, hLE, hdeg⟩ := exists_local_field_le (p := p) L
+  have hle := Lv_le (p := p) hLE
+  have hfd : FiniteDimensional ℚ_[p] (Lv (p := p) L) :=
+    Module.Finite.of_injective (IntermediateField.inclusion hle).toLinearMap
+      (IntermediateField.inclusion hle).injective
+  exact ⟨hfd, (IntermediateField.finrank_le_of_le_right hle).trans hdeg⟩
+
+/-- **The clauses of G4/G7 used here (GLUE: transport between g0-mod-field's `ℂ^×`-valued data
+and g0-mod-galois's `ℚ̄_ℓ`-valued `G7Out`).** `L ⊆ ℚ̄` (G4's Hom field) is finite with
+`[L:ℚ] ≤ D` (`G4Out`); `∂β = ε` and `β ≠ 0` (`G0Galois.G7Out`); `β` locally constant and
+`β² = ι ∘ χ` for a Dirichlet character `χ` mod `chiLevel T₋`, `T₋` a set of primes (`G7Data`, with
+`ι : ℂ^× → ℚ̄_ℓ^×` the transport of values); `ε = 1` on `G_L × G_L` (`DescentDatum`: `ε` inflated
+from `Gal(L/ℚ)` with `ε(1,1) = 1`). Note: g0-mod-field's interface `G7Data` (and so `AfterG7`)
+does not carry `[L:ℚ] ≤ D`; `G4Out` does. -/
+def G7Clauses (β : GQ → PadicAlgCl ℓ) (ε : GQ → GQ → PadicAlgCl ℓ)
+    (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  FiniteDimensional ℚ L ∧ Module.finrank ℚ L ≤ ZInQ.heightD ∧
+  (∀ g h, β g * β h = ε g h * β (g * h)) ∧ (∀ g, β g ≠ 0) ∧ IsLocallyConstant β ∧
+  (∃ (Tmin : Finset ℕ) (_ : ∀ q ∈ Tmin, q.Prime) (_ : NeZero (GlueDescent.chiLevel Tmin))
+    (χ : DirichletCharacter ℂ (GlueDescent.chiLevel Tmin)) (ι : ℂˣ →* (PadicAlgCl ℓ)ˣ),
+    ∀ g, β g ^ 2 = (ι (GlueDescent.B2Q.galChar χ g) : PadicAlgCl ℓ)) ∧
+  (∀ g h : GQ, (∀ x ∈ L, g x = x) → (∀ x ∈ L, h x = x) → ε g h = 1)
+
+/-- **Glue on G4/G7 + R6 + D2 + the torsion field (N5 L813-818).** There is a finite
+`E ⊇ L_v` with `[E:ℚ_p] ≤ G₀·[L_v:ℚ_p]` on which `a·Tm` is trivial on wild inertia. Glazer:
+`E = L_v(A[3])` (`A[5]` if `p = 3`), `[E:L_v] ≤ |GL₄(𝔽₅)| = G₀ = 116064000000`
+(`A[m] ≅ (ℤ/m)⁴`, `PkgI2.TorsionStructure`); `A` is semistable over `E` (R6,
+`PkgI2.RaynaudCriterion`), so wild inertia acts trivially on `V_ℓ(A)` (D2,
+`PkgI2.D2_fixed_of_raynaud`), and `a_σ μ_σ = 1` on `G_L` (`DescentDatum`). Only for `p ≠ ℓ`. -/
+def TorsionFieldWild {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a : GQ → PadicAlgCl ℓ)
+    (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧ Lv (p := p) L ≤ E ∧
+    Module.finrank ℚ_[p] E ≤ ZInQ.heightG0 * Module.finrank ℚ_[p] (Lv (p := p) L) ∧
+    TateWildTrivial Tm a E
+
+/-- **The local glue at `p`.** `TorsionFieldWild` at `p ≤ D`, `TateWildTrivialL` at `p > D`, and
+at `p = 2` the bound for `β` on `L_v` (`BetaUpper`, glue on T16 + D3 + Herbrand's `ψ ≥ id`,
+N5 L826-844; `β|_{G_{L_v}}` is a character with `β⁴ = 1` on units since the 2-part of `χ` has
+conductor `4`). -/
+def LocalGlue {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (Tm : GQ → Module.End (PadicAlgCl ℓ) V) (a β : GQ → PadicAlgCl ℓ)
+    (L : IntermediateField ℚ PkgI4.Qbar) : Prop :=
+  ((p : ℝ) ≤ (ZInQ.heightD : ℝ) → TorsionFieldWild (p := p) Tm a L) ∧
+  ((ZInQ.heightD : ℝ) < p → TateWildTrivialL (p := p) Tm a L) ∧
+  (p = 2 → BetaUpper β (Lv (p := p) L) U0)
+
+/-- **`LocalData p r` for G8's `r`, every prime `p` (proved)** from G8's output, the G4/G7
+clauses (`G7Clauses`) and the local glue (`LocalGlue`). -/
+theorem localData_of_g7 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {a β : GQ → PadicAlgCl ℓ}
+    {ε : GQ → GQ → PadicAlgCl ℓ} {r : GaloisRep ℓ 2} {L : IntermediateField ℚ PkgI4.Qbar}
+    (hG8 : G0Galois.G8Out A ℓ (GlueDescent.rho Tm a β) r) (hC : G7Clauses β ε L)
+    (hG : LocalGlue (p := p) Tm a β L) : LocalData p r := by
+  obtain ⟨hLfd, hLD, hβε, hβ0, hβlc, ⟨Tmin, hTm, hNZ, χ, ι, hsq⟩, hε⟩ := hC
+  obtain ⟨hLvfd, hLvdeg⟩ := Lv_fin (p := p) L
+  have hD12 := ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD
+  -- the field of `TorsionFieldWild` has degree `≤ D G₀`
+  have hsmall : (p : ℝ) ≤ (ZInQ.heightD : ℝ) → ∃ E : Fld p, FiniteDimensional ℚ_[p] E ∧
+      (∀ x ∈ L, embP x ∈ E) ∧ Module.finrank ℚ_[p] E ≤ ZInQ.heightD * ZInQ.heightG0 ∧
+      TateWildTrivial Tm a E := by
+    intro hp
+    obtain ⟨E, hEfd, hLvE, hdeg, hT⟩ := hG.1 hp
+    refine ⟨E, hEfd, fun x hx => hLvE (embP_mem_Lv hx), ?_, hT⟩
+    calc Module.finrank ℚ_[p] E ≤ ZInQ.heightG0 * Module.finrank ℚ_[p] (Lv (p := p) L) := hdeg
+      _ ≤ ZInQ.heightG0 * ZInQ.heightD := Nat.mul_le_mul_left _ (hLvdeg.trans hLD)
+      _ = ZInQ.heightD * ZInQ.heightG0 := Nat.mul_comm _ _
+  by_cases hp2 : p = 2
+  · subst hp2
+    have hle : ((2 : ℕ) : ℝ) ≤ (ZInQ.heightD : ℝ) := by exact_mod_cast (by omega : 2 ≤ ZInQ.heightD)
+    refine ⟨fun hp => ?_, fun hp => absurd hp (not_lt.mpr hle)⟩
+    obtain ⟨E, hEfd, hLvE, hdeg, hT⟩ := hG.1 hp
+    obtain ⟨E', hE'fd, hLE', hdeg', hT'⟩ := hsmall hp
+    exact localData_small_of_g8 hG8 hdeg' hT' (betaUpper_mono (Lv_le hLE') (hG.2.2 rfl))
+  · refine localData_of_g7_odd hp2 hG8 hβε hβ0 hβlc hTm χ ι hsq hε hsmall (fun hp => ?_)
+    have hpD : ZInQ.heightD < p := by exact_mod_cast hp
+    exact ⟨Lv (p := p) L, hLvfd, fun x hx => embP_mem_Lv hx, by omega,
+      tateWildTrivial_of_L (hG.2.1 hp) (fun x hx => embP_mem_Lv hx)⟩
+
+/-- **`G15RamG D u` from G8's outputs, the G4/G7 clauses and the local glue (proved).**
+The G7/G8 data for `r₅` and `r₃` (models `A₅/K₅`, `A₃/K₃`, Hom fields `L₅`, `L₃`). -/
+theorem g15RamG_of_g7 {L : Type} [Field L] [NumberField L] {A : PkgI3.AbVar L}
+    (D : ModData L A) (u : ℚ)
+    {K₅ : Type} [Field K₅] [NumberField K₅] {A₅ : PkgI3.AbVar K₅}
+    {Tm₅ : GQ → Module.End (PadicAlgCl 5) (G0Galois.Vb A₅ 5)} {a₅ β₅ : GQ → PadicAlgCl 5}
+    {ε₅ : GQ → GQ → PadicAlgCl 5} {L₅ : IntermediateField ℚ PkgI4.Qbar}
+    (hG8₅ : G0Galois.G8Out A₅ 5 (GlueDescent.rho Tm₅ a₅ β₅) D.r5) (hC₅ : G7Clauses β₅ ε₅ L₅)
+    (hG₅ : ∀ (p : ℕ) (hp : p.Prime), p ≠ 5 → @LocalGlue p ⟨hp⟩ 5 _ _ _ _ Tm₅ a₅ β₅ L₅)
+    {K₃ : Type} [Field K₃] [NumberField K₃] {A₃ : PkgI3.AbVar K₃}
+    {Tm₃ : GQ → Module.End (PadicAlgCl 3) (G0Galois.Vb A₃ 3)} {a₃ β₃ : GQ → PadicAlgCl 3}
+    {ε₃ : GQ → GQ → PadicAlgCl 3} {L₃ : IntermediateField ℚ PkgI4.Qbar}
+    (hG8₃ : G0Galois.G8Out A₃ 3 (GlueDescent.rho Tm₃ a₃ β₃) D.r3) (hC₃ : G7Clauses β₃ ε₃ L₃)
+    (hG₃ : LocalGlue (p := 5) Tm₃ a₃ β₃ L₃)
+    (h11₅ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r5)
+    (h11₃ : G0Galois.G11Out (GlueDescent.ramSet ZInQ.Mult.S_mul u) D.r3) :
+    G15RamG D u :=
+  g15RamG_of_localData D u
+    (fun p hp hp5 => @localData_of_g7 p ⟨hp⟩ 5 _ _ _ _ _ _ _ _ _ _ _ hG8₅ hC₅ (hG₅ p hp hp5))
+    (localData_of_g7 hG8₃ hC₃ hG₃) h11₅ h11₃
+
 /-! ### Non-vacuity (proved) -/
 
 /-- **`G7LocalData` is satisfiable (proved):** it holds for trivial data (`Tm = 1`, `a = 1`,
@@ -887,6 +1005,25 @@ theorem g7LocalData_triv {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V
     fun _ => ⟨⊥, hF, ?_, hT, fun _ _ => rfl⟩⟩
   · rw [he]; exact Nat.one_le_iff_ne_zero.mpr (Nat.factorial_ne_zero _)
   · rw [he]; exact (Nat.Prime.one_lt Fact.out).ne' ∘ Nat.dvd_one.mp
+
+/-- **`G7Clauses` and `LocalGlue` are satisfiable (proved):** both hold for trivial data
+(`β = 1`, `ε = 1`, `L = ℚ`, `Tm = 1`, `a = 1`, `χ = 1`, `ι = 1`). -/
+theorem g7Clauses_triv : G7Clauses (ℓ := ℓ) (fun _ => 1) (fun _ _ => 1) ⊥ := by
+  have hD12 := ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD
+  refine ⟨inferInstance, ?_, fun _ _ => by simp, fun _ => one_ne_zero,
+    IsLocallyConstant.const _, ⟨∅, fun q hq => absurd hq (Finset.notMem_empty q),
+      ⟨by simp [GlueDescent.chiLevel]⟩, 1, 1, fun _ => by simp⟩, fun _ _ _ _ => rfl⟩
+  rw [IntermediateField.finrank_bot]
+  omega
+
+theorem localGlue_triv {V : Type*} [AddCommGroup V] [Module (PadicAlgCl ℓ) V]
+    (L : IntermediateField ℚ PkgI4.Qbar) [FiniteDimensional ℚ L] :
+    LocalGlue (p := p) (fun _ => (1 : Module.End (PadicAlgCl ℓ) V)) (fun _ => 1) (fun _ => 1) L := by
+  obtain ⟨hfd, -⟩ := Lv_fin (p := p) L
+  have hG0 : 1 ≤ ZInQ.heightG0 := by unfold ZInQ.heightG0; norm_num
+  refine ⟨fun _ => ⟨Lv (p := p) L, hfd, le_rfl, ?_, fun _ _ => one_smul _ _⟩,
+    fun _ _ _ _ => one_smul _ _, fun _ _ _ _ _ => rfl⟩
+  exact Nat.le_mul_of_pos_left _ hG0
 
 end LocalDataSec
 
@@ -914,3 +1051,8 @@ end G15Ram
 #print axioms G15Ram.g7LocalData_triv
 #print axioms G15Ram.exists_local_field_le
 #print axioms G15Ram.localData_of_g7_large
+#print axioms G15Ram.Lv_fin
+#print axioms G15Ram.localData_of_g7
+#print axioms G15Ram.g15RamG_of_g7
+#print axioms G15Ram.g7Clauses_triv
+#print axioms G15Ram.localGlue_triv

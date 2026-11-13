@@ -96,3 +96,19 @@
   G8Out, the G7 clauses, [L:ℚ] ≤ D and `TateWildTrivialL` (new glue def: a·Tm = 1 on wild σ
   with decomp σ ∈ G_L); p ≠ 2 from `ZInQ.Compiler.Precision.ten_pow_twelve_le_heightD`).
 - Compile: exit 0, 0 errors, no sorry.
+
+## Step 8 (06:18-06:30 PST): final form for every p
+- New defs (glue, docstrings name step and source): `Lv L` (= ℚ_p·embP(L)), `G7Clauses β ε L`
+  (G4/G7 clauses transported to ℚ̄_ℓ: L finite, [L:ℚ] ≤ D, ∂β = ε, β ≠ 0, β locally constant,
+  β² = ι∘galChar χ with χ mod chiLevel T₋, ε = 1 on G_L²), `TorsionFieldWild p Tm a L`
+  (∃ E ⊇ L_v, [E:ℚ_p] ≤ G₀[L_v:ℚ_p], TateWildTrivial on E), `LocalGlue p Tm a β L`
+  (TorsionFieldWild at p ≤ D, TateWildTrivialL at p > D, BetaUpper β L_v U₀ at p = 2).
+- Proved (VERIFIED, compiled, axioms standard): `Lv_fin` ([L_v:ℚ_p] ≤ [L:ℚ]),
+  `localData_of_g7 : G8Out A ℓ (rho Tm a β) r → G7Clauses β ε L → LocalGlue p Tm a β L →
+  LocalData p r` (every prime p), `g15RamG_of_g7` (G15RamG D u from G8Out, G7Clauses, LocalGlue
+  for D.r5 at p ≠ 5 and D.r3 at p = 5, and G11Out), `g7Clauses_triv`, `localGlue_triv`
+  (non-vacuity).
+- Pitfall (VERIFIED): `mul_comm` on `heightG0 * heightD` made the kernel evaluate `Nat.pow`
+  ("does not fit in a 32-bit unsigned integer"); `Nat.mul_comm` works.
+- Compile: exit 0, 0 errors, no sorry; 27 printed declarations, all
+  [propext, Classical.choice, Quot.sound].
