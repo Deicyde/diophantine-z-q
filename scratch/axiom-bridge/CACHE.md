@@ -10,8 +10,13 @@ pull request changing `scratch/axiom-bridge/**`, its workflow, or its trusted
 
 ## Owner setup: publish the already-verified cache
 
-`axiom-cache-v1` is a placeholder until the owner publishes it. No release,
-upload, push, PR, or remote write was performed while adding this workflow.
+`axiom-cache-v1` is now public at
+https://github.com/Deicyde/diophantine-z-q/releases/tag/axiom-cache-v1.
+On 2026-11-13, all four assets (two parts, `SHA256SUMS`, and
+`release-cache.json`) were uniquely present in state `uploaded`, with exact
+local sizes and SHA-256 digests verified. The owner published the release;
+this workflow change did not create or upload it. The creation command below
+is retained as a reproducibility reference, not a command to rerun.
 A missing release/asset or bad checksum fails the optional check; there is
 **no cold Axiom build fallback**.
 
