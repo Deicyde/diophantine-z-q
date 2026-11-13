@@ -34,3 +34,5 @@
 - Numeric consistency of TYZLcalOne (by hand, from LMFDB-style constants recalled, UNVERIFIED):
   omegaInt = Gamma(1/4)^2/(2 sqrt(2 pi)) ~ 2.622, Omega_1 = 5.244, L(E_1,1) ~ 0.6555 = Omega_1/8,
   so lcalSq 1 = 8 L / Omega_1 = 1; agrees with calL_small.py (VERIFIED there by PARI).
+- 06:40 CurveA.lean extended and COMPILES: slope_iPt, iPt_some, iPt_add ([i] additive on A(Qbar)),
+  iHom : PtA →+ PtA, iPt_iPt ([i]^2 = -1). Axioms standard three. (Report §4.2 item 1, first half.)
