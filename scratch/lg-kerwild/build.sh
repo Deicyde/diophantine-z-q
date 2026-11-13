@@ -13,7 +13,8 @@
 #   (local-glue's bc_block.lean l.11-134; `diff` identical modulo blank lines)
 # + scratch/g0-dim/Dim.lean l.107-305 and l.339-344 (verbatim: `G0Dim.dim_baseChange`,
 #   `G0Dim.pkgI3_dim_baseChange`), in a section
-# + part_kerwild.lean (new, §1-§4) + part_tbk.lean (new, §5; made by mk_tbk.py).
+# + part_kerwild.lean (new, §1-§4) + part_tbk.lean (new, §5; made by mk_tbk.py)
+# + part_final.lean (new, §6).
 # `#print axioms` lines of the copies are dropped.
 cd "$(dirname "$0")"
 LG=../local-glue/LocalGlue.lean
@@ -46,4 +47,5 @@ DM=../g0-dim/Dim.lean
   cat part_kerwild.lean
   echo
   cat part_tbk.lean
+  cat part_final.lean
 } > KerWild.lean
