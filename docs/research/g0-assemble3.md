@@ -184,6 +184,10 @@ g0-assemble2). **Project side:** 29 glue Props (22 in g0-assemble2, of which 11 
     `TangentDimAtOrigin`, closed by infra-smooth-dim's `closed_part` ported to def-faltings' `AbVar`, part e25).
   - G9: r10-amend's amended leaf with g9-abvarbc's `abVarBaseChange_of_mulIsogeny` fed by infra-stalks' `MulIsogeny`
     (g9-abvarbc's own `Main.lean` proof of `MulIsogeny` is not copied).
+- **Found on the base, folded here** (not named in the assignment, not folded by g0-assemble2): inner-twist's proof of
+  `UnramifiedConjugates` (Mathlib only, part f10) and x6-kummer's reduction of `X6KummerFibre` to the leaf
+  `X6ConicModel` plus `MobiusGlue` (part f20). x6-kummer also recommends `CMOptimalEmbedding` for N1b, which
+  g0-assemble2 already uses.
 - **Not folded:** r1b-state (its `FibreQMPeriod'` is over `PkgI3.AbVar` and `FibreOver'`, not g0-thetapoint's
   `FibreQMPeriod` over def-faltings' `AbVar`; a bridge is needed, its report says, and it also needs kernel
   `Analytic/Uniformization.lean`, not in `Leaves.lean`); cm-points (its target is `TYZThm35ReadingA`, the CR3 side).
@@ -207,6 +211,8 @@ g0-assemble2). **Project side:** 29 glue Props (22 in g0-assemble2, of which 11 
     absent (part a95 omitted them), so these names become the `_root_` ones; opens name `_root_.PkgI4`, as in a95.
   - e25: in infra-smooth-dim's `closed_part`, `PkgI3.AbVar` → `ZInQ.DefFaltings.AbVar` in the `InfraSmoothDim` block and
     `open PkgI3 (AbVar)` deleted (Leaves.lean's hodge-lattice statements are over def-faltings' `AbVar`).
+  - f10: inner-twist's `numberField_of_fd` omitted (part 75 has the same theorem); f20: x6-kummer's part0 (= a60)
+    and partR (= a15) omitted.
   - e30: as `scratch/unif-dims/build_leaves.py`; its copies of g0-dim §1-§2 (part 10), infra-stalks' `StalkPullback`
     (identical to part b10) and its earlier one-ring `CotangentProduct` are not repeated (part b10 has the final
     two-ring version; part_pc compiles against it).
@@ -222,13 +228,14 @@ g0-assemble2). **Project side:** 29 glue Props (22 in g0-assemble2, of which 11 
 
 - **Prefix** (`build_prefix.sh`, `Leaves.lean` unchanged): exit 0, 494 s.
 - **TailA** (with G7Data's clause): 0 errors, 65 s. **TailB** (a30 edit): 0 errors, 92 s. **TailC**: 0 errors, 167 s.
-- **TailE** (b10, b20, c10-c16): 0 errors, 30 s. **TailF** (d10-e30): 0 errors, 80 s.
-- **TailD** (z80-z95): 0 errors, 9 s. `#print axioms`: `HSyn.sixContactMin_of_leaves4`, `gluePieces_of_gluePieces4`,
+- **TailE** (b10, b20, c10-c16): 0 errors, 30 s. **TailF** (d10-f20): 0 errors, 103 s.
+- **TailD** (z80-z95): 0 errors, 62 s. `#print axioms`: `HSyn.sixContactMin_of_leaves4`, `gluePieces_of_gluePieces4`,
   `sixContactMin_of_leaves4'`, `ResearchLeaves4.toR3`, g0-assemble2's `sixContactMin_of_leaves3` and the component
   theorems `MulRigidity.mulIsogeny`, `CurveGlue.mobiusGlue_of_t5`, `RvGP2.burnsideAbsIrred`, `KernelField.endTransport`,
   `KernelField.oMaximal`, `R10.g9Glue_of_deRhamComparisonHT`, `conjTwistNontrivial_of_leaves`, `cotangentSpanBC`,
   `uniformizationLiftAnalytic`, `ProductUnif.productUnifSplits`, `HodgeLattice.tangentDimAtOrigin`,
-  `propTSAll_of_pieces''`, `linkedTateData_of_frobRam`, `productModelHeight_of_unifOfDim`: all
+  `propTSAll_of_pieces''`, `linkedTateData_of_frobRam`, `productModelHeight_of_unifOfDim`, `unramifiedConjugates`,
+  `x6KummerFibre_of_conic`: all
   `[propext, Classical.choice, Quot.sound]` (VERIFIED, `olean/TailD_out.txt`, not committed; log.md).
 - **Flat file:** see §5a (filled in after the run).
 
