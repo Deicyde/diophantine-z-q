@@ -196,8 +196,12 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
 - *Status:* **[S]+[R]**.
 
 **A2. Quotient and branch data** (N5 L420-422; the labelling of `j` at L908-909).
-- *Content.* The normalizer quotient of the discriminant-six curve is `P¹_j`. Its branch values
-  are `0, ∞, −16/27`, with indices `4, 6, 2`, at the CM points of discriminants `−4, −3, −24`.
+- *Content.* The normalizer quotient `Γ*\ℍ` of the discriminant-six curve is `P¹_j`. Its elliptic
+  points are `0, ∞, −16/27`, of orbifold orders `4, 6, 2`, at the CM points of discriminants
+  `−4, −3, −24`. The degree-4 map `X₆ → P¹_j` has index 2 at each. A5 uses the orbifold orders as
+  the indices of the torsion-free normal cover `Y₃ → P¹_j`. (Replaced 2026-11-12 by loc-fix with
+  the exact text of rv-nocm §3.2; the former text read "Its branch values are `0, ∞, −16/27`,
+  with indices `4, 6, 2`", which is wrong for the degree-4 map `X₆ → X₆/W`.)
 - *Suppliers.*
   - Baba–Granath, *Genus 2 curves with quaternionic multiplication*, Canad. J. Math. 60 (2008),
     §2.1 Thm 2.1, Lemma 3.1 and the §3 datum (p. 739); Props 3.7-3.10 are not used. The disc
@@ -228,6 +232,13 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
     alone do not fix the numerical normalization of `j`. The steps that use these indices (A5
     through h-b1's M4, which applies them to `Y₃ → P¹_j`) may be affected; the argument is not
     changed here (see the A5 note), and a separate review checks it.
+- *Review note (loc-fix, 2026-11-12, applying rv-nocm §2 and §3.2; model review, not a human
+  review).* The separate review is done. The indices that A5 needs are those of `Y₃ → P¹_j`, and
+  they are `4, 6, 2`: the orbifold orders of `Γ*` (Baba–Granath §3.1, p. 740 per locators.md,
+  UNVERIFIED here), which equal the ramification indices because `Γ₃` is torsion-free and normal
+  in `Γ*` (`RvNocm.ramification_eq_orbifold_order`, compiled; torsion-freeness of `1 + 3𝒪` on the
+  repository's `𝒪`, `RvNocm.Neat.eq_zero_of_pow_eq_one`, compiled). The Content line is restated
+  above. The leaf R2 states only the orbifold orders; the indices are glue.
 - *Status:* **[R]**.
 
 **A3. Level three, the normalizer action, and the degree** (N5 L423-441).
@@ -317,6 +328,18 @@ Each step gives N5 lines, content, supplier(s) with locator, and status.
   argument is affected is for the separate review. Prop. TS and M5-M8 use only that the branch
   values are `0, ∞, −16/27` and that `J(u)` is not one of them, which the audit does not touch.
   The argument is not changed here.
+- *Review note (loc-fix, 2026-11-12, applying rv-nocm §2; model review, not a human review).*
+  rv-nocm settles the question left open above: A5 HOLDS. M4's numbers `(0,4)`, `(∞,6)`,
+  `(−16/27,2)` are right for `Y₃ → P¹_j`, with the supplier changed: the orbifold orders of `Γ*`
+  (Baba–Granath §3.1) plus the glue that `Γ₃` is torsion-free (`−1 ∉ K₃`, `1 + 3M₄(ℤ₃)`
+  torsion-free, N5 L468-470; compiled on the repository's `𝒪`, `RvNocm.Neat.eq_zero_of_pow_eq_one`)
+  and normal in `Γ*`, so that the index equals the stabilizer order
+  (`RvNocm.ramification_eq_orbifold_order`, compiled). The SPECULATIVE neatness remark above is thus
+  checked. Lemma NV step 4 uses the indices `2, 2, 2` of `X₆ → P¹_j`, which it derives itself.
+  Cross-checks: Riemann–Hurwitz gives genus 4 for a component of `Y₃` with `(4,6,2)` and is
+  impossible with `(2,2,2)`; only Baba–Granath's labelling of `{4,6,2}` on `(0, ∞, −16/27)` makes
+  Lemma PR(i) true (rv-nocm §2.3). The direction A5 needs survives any indices dividing
+  `(4,6,2)` (`inertia_trivial_of_dvd`). Status unchanged.
 - *Fallback.* N5's own route (L443-530: the integral model through Buzzard's Thm 2.1 / Cor. 2.3,
   the tame extension argument, and the polynomial checks of Astra's `whole/arithmetic.json`)
   is inline in N5 and was accepted by Astra "whole" (11/4 text, identical there; Buzzard
@@ -417,7 +440,9 @@ L781 and L849-850).
   - The fibre over `t(u)` is a free `W`-orbit with residue field `ℚ(i)`:
     `scratch/rv-h-cm/check.py` (rerun, identical).
   - González–Rotger, *Non-elliptic Shimura curves of genus one*, J. Math. Soc. Japan 58 (2006),
-    Thm 5.12 and Prop. 5.6. Prop. 5.6 may be cited only under `(f, 6) = 1`. The numbers are
+    Thm 5.12 and Prop. 5.6. Prop. 5.6 may be cited only under `(f, 6) = 1`. On `X₆ = X₀(6,1)` it
+    reads `#CM(R) = 2^{b(R)} h(R)`, `b(R) = #{p | 6 inert in k}` (corrected 2026-11-12 by loc-fix,
+    rv-nocm §3.1; the proof below uses it only for `b(R) = 0`, where it reads `#CM(R) = h(R)`). The numbers are
     those of arXiv:math/0612732 (VERIFIED by rv-h-cm); the journal numbering is UNVERIFIED.
   - Vignéras LNM 800 for the embedding condition (UNVERIFIED).
 - *Locator audit note (loc-adopt, 2026-11-12; `docs/research/locators.md`, AI agents with web access, not a human review).* González–Rotger read by the audit in arXiv v1, v2 and
@@ -433,6 +458,18 @@ L781 and L849-850).
   appears to be this count (read here in h-cm.md; not re-derived). Whether the uses of the count
   and of the fields (which live on `X₀(6,1)`, while the fibre lies on `Y₃` over the quotient)
   are correct is left to the separate review; the argument is not changed here.
+- *Review note (loc-fix, 2026-11-12, applying rv-nocm §1 and §3.1; model review, not a human
+  review).* The separate review is done: NoCM HOLDS. Neither proof uses the unqualified count:
+  h-cm §4.1.4 uses `2^b h(𝔬)` with simple transitivity of `W' × Pic(𝔬)`, and the adopted proof
+  (rv-h-cm §7.2) uses `#CM(R) = h(R)` only when `D(R) = 1`, where `b = 0`. Every field claim
+  concerns points of `X₆ = X₀(6,1)`, González–Rotger's own curve, none `X₆/W` or `Y₃`; the
+  quotient enters only through the coordinate `t`. One expository gap of rv-h-cm §7.2 is
+  filled by rv-nocm's text, inserted here in the case `D(R) ≠ 1`: after "`R = ℤ[i]`", `CM(ℤ[i])`
+  has `2^1·1 = 2` points (GR Prop. 5.6). The two points of `X₆` over `t = 1` are `ℤ[i]`-CM points
+  (h-b1 M9), so `CM(ℤ[i])` is the fibre over `t = 1`. Then `x` lies over `t = 1`, i.e.
+  `F(u) = 0`, which is excluded. (With the unqualified count this step would contradict the two
+  points over `t = 1`.) The count is checked on Elkies' table by `scratch/rv-nocm/nocm_check.py`
+  (15 of 24 non-elliptic rows contradict `h(R)`, all agree with `2^b h(R)`).
 - *Repairs.* rv-h-cm R1-R5 must be applied when the CM paragraph is replaced.
 - *Status:* **[M]** (h-cm + rv-h-cm).
 
@@ -1382,7 +1419,8 @@ count of §1, or Lean statement changes.
 
 1. **F1, A2, Summary 2, §2.5 (rv-up §3.5).** F1's suppliers no longer include Lin–Yang eq. (2)
    (attributed by Lin–Yang to Baba–Granath, whose Prop. 3.9 rests on Prop. 3.7, whose printed
-   proof has a defect recorded upstream): Example 30's divisors, eqs. (13)-(14), the theta
+   proof has a defect recorded upstream): Example 30's divisors (Lin–Yang arXiv v1 Example 29 since
+   2026-11-12: v1's Example 30 is discriminant 14; locators.md item 3), eqs. (13)-(14), the theta
    expressions (LNY, Igusa), `igusa_check.py`, and `scratch/rv-up/endo24.py` and `theta24.py`
    for the constant at P₋₂₄ (all three rerun, identical). A2's Baba–Granath locator narrowed to
    Thm 2.1, Lemma 3.1 and the §3 datum. Summary 2 names what is used of each paper. §2.5: eq. (2)

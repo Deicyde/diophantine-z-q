@@ -1,7 +1,18 @@
 import ZInQKernel.HDecomp.A6.A6
 import ZInQKernel.HDecomp.A6.Extend
+import ZInQKernel.HDecomp.Analytic.Hom
+import ZInQKernel.HDecomp.Analytic.QMLattice
+import ZInQKernel.HDecomp.Analytic.Torus
+import ZInQKernel.HDecomp.Analytic.Uniformization
 import ZInQKernel.HDecomp.Assembly
+import ZInQKernel.HDecomp.Assembly.C8
+import ZInQKernel.HDecomp.Assembly.E1Lin
+import ZInQKernel.HDecomp.Assembly.E2Index
+import ZInQKernel.HDecomp.Assembly.F3Glue
+import ZInQKernel.HDecomp.B3Unram.B3b
+import ZInQKernel.HDecomp.B3Unram.T32a
 import ZInQKernel.HDecomp.C10.C10
+import ZInQKernel.HDecomp.C10.Link
 import ZInQKernel.HDecomp.C10.Trace
 import ZInQKernel.HDecomp.Conductor.ArtinUpper
 import ZInQKernel.HDecomp.Conductor.Breaks
@@ -9,6 +20,7 @@ import ZInQKernel.HDecomp.Conductor.D1Local
 import ZInQKernel.HDecomp.Conductor.Dyadic
 import ZInQKernel.HDecomp.Conductor.I6Base
 import ZInQKernel.HDecomp.Conductor.Inflation
+import ZInQKernel.HDecomp.Conductor.LadicCond
 import ZInQKernel.HDecomp.Conductor.Level
 import ZInQKernel.HDecomp.Conductor.SqrtChar
 import ZInQKernel.HDecomp.Descent.B1Quat
@@ -19,11 +31,46 @@ import ZInQKernel.HDecomp.Descent.Chi
 import ZInQKernel.HDecomp.Descent.Cochain
 import ZInQKernel.HDecomp.Descent.Constants
 import ZInQKernel.HDecomp.Descent.ProjRep
+import ZInQKernel.HDecomp.Descent.WP3
+import ZInQKernel.HDecomp.Faltings.Height
+import ZInQKernel.HDecomp.Faltings.HodgeData
+import ZInQKernel.HDecomp.Faltings.IdealLines
+import ZInQKernel.HDecomp.Faltings.Leaves
+import ZInQKernel.HDecomp.Faltings.Models
+import ZInQKernel.HDecomp.I3Linalg.C2
+import ZInQKernel.HDecomp.I3Linalg.RhoCont
+import ZInQKernel.HDecomp.I3Linalg.TateBC
+import ZInQKernel.HDecomp.LeafPush2.Bridge
+import ZInQKernel.HDecomp.LeafPush2.R18
+import ZInQKernel.HDecomp.LeafPush2.R22
+import ZInQKernel.HDecomp.LeafPush2.R3
+import ZInQKernel.HDecomp.LeafPush2.T
+import ZInQKernel.HDecomp.LeafPush2.UnifBridge
+import ZInQKernel.HDecomp.ModCurves.Defs
+import ZInQKernel.HDecomp.ModCurves.Genus
+import ZInQKernel.HDecomp.ModCurves.Glue
+import ZInQKernel.HDecomp.ModCurves.Leaves
 import ZInQKernel.HDecomp.Objects
+import ZInQKernel.HDecomp.QM.Leaves
+import ZInQKernel.HDecomp.QM.Pairs
+import ZInQKernel.HDecomp.QM.Pin
+import ZInQKernel.HDecomp.QM.Polar
+import ZInQKernel.HDecomp.QM.Structures
 import ZInQKernel.HDecomp.Repo.A1Quaternion
 import ZInQKernel.HDecomp.Repo.Numerics
 import ZInQKernel.HDecomp.Repo.PRArith
 import ZInQKernel.HDecomp.Repo.TorsionFree
+import ZInQKernel.HDecomp.Sqrt.Disj
+import ZInQKernel.HDecomp.Sqrt.SqrtLocal
+import ZInQKernel.HDecomp.Vigneras.Global
+import ZInQKernel.HDecomp.Vigneras.Local
+import ZInQKernel.HDecomp.ModCurves.C9
+import ZInQKernel.HDecomp.ModCurves.E1Sub
+import ZInQKernel.HDecomp.ModCurves.X1Belyi
+import ZInQKernel.HDecomp.Faltings.HodgeLattice
+import ZInQKernel.HDecomp.Faltings.H5Neron
+import ZInQKernel.HDecomp.Faltings.H5BaseChange
 
-/-! The glue of `docs/research/h-decomposition.md` (task hdec-adopt): every adopted module.
+/-! The glue of `docs/research/h-decomposition.md` (tasks hdec-adopt, hdec-adopt2,
+hdec-adopt3, hdec-adopt4): every adopted module.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
