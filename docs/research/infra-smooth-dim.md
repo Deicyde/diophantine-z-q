@@ -92,6 +92,16 @@ because scratch files cannot import each other.
   - **`topologicalKrullDim_eq_of_smoothOfRelativeDimension`** (irreducible, relative dimension `n`
     ⇒ `dim X = n`).
 
+**`FiniteDim.lean`** (Mathlib-only; copies g0-dim's cover lemmas and g0-reverseisog's
+`topologicalKrullDim_le_of_specializing` verbatim)
+- `ringKrullDim_le_of_isIntegral`: an integral ring map `A → B` gives `dim B ≤ dim A`. This is
+  incomparability (`Ideal.IsIntegral.under_lt_under`).
+- **`topologicalKrullDim_le_of_isIntegralHom`**: an integral morphism `f : X ⟶ Y` of schemes gives
+  `dim X ≤ dim Y`. The proof pulls back the affine cover of `Y`; the pieces are affine because
+  integral morphisms are affine.
+- **`topologicalKrullDim_eq_of_finite_surjective`**: a finite surjective morphism (for example an
+  isogeny, `IsIsogenyMor`) gives `dim X = dim Y`. The reverse inequality is g0-reverseisog's.
+
 ## 2. The Props
 
 - **`SmoothDimProps.lean`** (imports Mathlib + `ZInQKernel.HDecomp.Objects`). It contains
@@ -127,9 +137,13 @@ The files are generated from the parts by `assemble.py`. Compile times are 10-50
     Jacobson and dimension part is available now (`topologicalKrullDim_eq_of_smooth`: one closed
     point ⇒ dimension 0); the identification of `model.Pts τ` with closed points of `A_ℂ` is not
     done.
-- **e1-sub**: `dim (A' × Z) = dim J` for an isogeny needs "finite surjective preserves dimension".
-  That is an integral-extension argument (g0-dim's `ringKrullDim_eq_of_isIntegral_of_injective`) on
-  an affine cover. It is not done.
+- **e1-sub**: `dim (A' × Z) = dim J_L` for the isogeny `A' × Z → J_L` now follows from three
+  proved lemmas, but the application is not compiled:
+  - `topologicalKrullDim_eq_of_finite_surjective` (FiniteDim.lean);
+  - g0-product's `DimProductOverField`;
+  - g0-dim's base change.
+
+  e1-sub states no Prop for this step. Its remaining content, `2 ≤ g`, also needs `dim A' = 2`.
 - **Integration**: `HodgeLatticeClosed.lean` §6 and `SmoothStalk.lean` §0-§4 are ready to become a
   kernel module, e.g. `ZInQKernel/HDecomp/Faltings/HodgeLatticeProved.lean` importing a Mathlib-only
   `ZInQKernel/HDecomp/SmoothDim.lean`. `CurveFactsClosed.lean` §6 can join curve-facts once

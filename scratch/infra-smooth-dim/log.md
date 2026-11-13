@@ -35,3 +35,4 @@ Base f90cf864 + merge origin/wip/mul-rigidity (60a480e0).
   - `LeafQM.AV.Pin.smoothCurveNoIsolatedPoint : SmoothCurveNoIsolatedPoint` (C1a)
   - `LeafQM.AV.Pin.geomCompInfinite : GeomCompInfinite` (C1)
   - `LeafQM.AV.Pin.curveFacts_of_C2K_C3K : ConstOrOntoAlgClosed → RatFactorAlgClosed → CurveRatFactor ∧ CurveSurj`
+- run28-31 FiniteDim.lean (Mathlib-only; g0-dim cover lemmas and g0-reverseisog `topologicalKrullDim_le_of_specializing` copied verbatim): `ringKrullDim_le_of_isIntegral`, `topologicalKrullDim_le_of_isIntegralHom_of_isAffine`, `topologicalKrullDim_le_of_isIntegralHom` (integral f : X ⟶ Y ⇒ dim X ≤ dim Y), `topologicalKrullDim_eq_of_finite_surjective` (finite surjective ⇒ dim X = dim Y): 0 errors, standard axioms (VERIFIED). Pitfalls: `IsAffine (𝒰.X i)` is not found through a `let 𝒰 := Y.affineCover` (use `Scheme.isAffine_affineCover Y i`); `pullback f g` in a `show` needs `(C := Scheme)`.
