@@ -33,5 +33,5 @@ prefix='\n'.join(head)
 open(d+'Prefix.lean','w').write(prefix)
 parts=sorted(f for f in os.listdir(d) if f.startswith('phl_') and f.endswith('.lean.part'))
 if parts:
-  open(d+'ProductHodgeLattice.lean','w').write(prefix+'\n'+'\n\n'.join(open(d+f).read() for f in parts))
+  open(d+'ProductHodgeLattice.lean','w').write(prefix+'\n'+'\n\n'.join(open(d+f).read().replace('--IH:ABVAR','') for f in parts))
 print('parts:',parts)

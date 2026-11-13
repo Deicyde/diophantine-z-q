@@ -11,6 +11,7 @@ namespace ZInQ.InfraHodge
 
 open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
 open NumberField ZInQ.DefFaltings
+--IH:ABVAR
 open scoped TensorProduct
 
 section Omega
