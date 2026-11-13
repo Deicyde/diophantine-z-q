@@ -31,7 +31,7 @@ Lines copied by script (python slice of the source lines, no edit): Copies secti
   build's proved H4b `H5Neron.groupModelBaseChangeExists`).
 - Lean note: `ι` is a reserved token here (open NumberField?); renamed binder to `I`.
 
-## NeronLG.lean classification + N2-g1' — COMPILED 06:31 (0 errors; all 9 #print axioms standard)
+## NeronLG.lean classification + N2-g1' — COMPILED 06:10 (0 errors; all 9 #print axioms standard)
 - `ringOfIntegers_mem` (𝓞_K ⊆ every valuation subring), `toO`, `center O` (nonzero prime of 𝓞_K
   under a DVR `O`), `dvrAt_center : dvrAt (center O) = O` PROVED: every DVR valuation subring of a
   number field is `𝓞_{K,v}` (Mathlib `exists_primeCompl_mul_eq_of_integer`,
@@ -48,7 +48,7 @@ N1-g2 (h' ∉ v needs prime avoidance; isomorphism at v when f ∉ v), N1-g3 (g 
 N2-g1 (locators superfluous), N2-g2 (details of the generic-fibre equation), N2-g3 (c built from
 the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
 
-## NeronLG.lean localization — COMPILED 06:20 / 06:25 (0 errors; 13 #print axioms, all standard)
+## NeronLG.lean localization — COMPILED 06:19 / 06:20 (0 errors; 13 #print axioms, all standard)
 - `bcGenO` made `irreducible_def`; `bcGenO_hom₁..₄`, `bcGenO_hom`, `isMonHom_bcGenO`.
 - `neronModelOver_localize` PROVED: Néron model over 𝓞_L ⇒ Néron model over every DVR O ⊂ L (NL ⇒).
 - `localNeronModelExists_of_self` PROVED: leaf N1-loc ⇐ N1-self + NL (N1-loc not stronger than
@@ -59,3 +59,9 @@ the `IsBaseChangeOf` iso e and 𝒩₀.gen, not 𝒱.gen).
   (`(congrArg Iso.hom bcGenO_def).trans ((Iso.trans_hom _ _).trans (congrArg₂ …))`) gives
   "(kernel) deterministic timeout" even with `bcGenO` irreducible; the same chain split into four
   separately stated lemmas composed by `.trans` checks instantly.
+
+## Final check — 06:22
+- `lake env lean scratch/neron-lg/NeronLG.lean`: 0 errors, no sorry; 13 #print axioms, all
+  `[propext, Classical.choice, Quot.sound]`.
+- Verbatim check (python): the 12 copied blocks of scratch/tau-n1n2/N1N2.lean (§1 and §5) occur
+  unchanged in NeronLG.lean.

@@ -2,8 +2,19 @@ import ZInQKernel.HDecomp.Faltings.H5BaseChange
 
 /-! # neron-lg: the glue `NeronLocalToGlobal` and `SemistableLocalToGlobal` of `scratch/tau-n1n2/`
 
-§1 copies the two glue Props verbatim from `scratch/tau-n1n2/N1N2.lean`, with every definition
-they depend on (also verbatim). Later sections reduce them to smaller named Props. -/
+* §1 copies the two glue Props verbatim from `scratch/tau-n1n2/N1N2.lean`, with every definition
+  they depend on (also verbatim).
+* §2 proves that every DVR valuation subring of a number field is `dvrAt v` for a nonzero prime `v`
+  (`dvrAt_center`) and that only finitely many miss `1/f` (`badPlaces_finite`); states the new
+  **leaf** NL `NeronLocalOnBase` (BLR §1.2 Prop. 4) and proves from it that Néron models localize
+  (`neronModelOver_localize`).
+* §3 reduces `NeronLocalToGlobal` to NL and three **glue** statements N1-g1 `AbVarSpreadsOut`,
+  N1-g2 `NeronNearPoint`, N1-g3 `NeronGlueAway` (`neronLocalToGlobal_of`, proved).
+* §4 reduces `SemistableLocalToGlobal` to NL, N1-g1 and three **glue** statements N2-g1'
+  `GoodPlaceAnyField`, N2-g2 `LocalSemistableMono`, N2-g3 `SemistableGlobalOfLocal`
+  (`semistableLocalToGlobal_of`, `goodPlacesAnyField_of`, proved; composita `compositumFinset`).
+* §5 assembles N1 and N2 from the leaves N1-loc, N1-ab, N2-loc, NL and the six glue statements
+  (`n1_n2_of_leaves_and_glue`, proved), and shows N1-loc ⇐ N1-self + NL. -/
 
 namespace ZInQ.NeronLG
 
