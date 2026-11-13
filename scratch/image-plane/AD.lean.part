@@ -1,0 +1,203 @@
+
+/-! ## §AD `AlgDep` from C2K, (CI), (C1b) and the closed image (task image-plane)
+
+If `σ` is constant on the `K`-points of the component `W`, take `P = x − c` (or `P = 1`).
+Otherwise `σ` is onto (C2K); the locus `W ∩ {σ = 0} = W \ V_σ` is a proper closed subset of the
+irreducible (CI) set `W`, hence finite: an irreducible closed `Y' ⊊ W` with a closed point
+`x ≠ η(Y')` gives a chain `x < η(Y') < η(W)` of generizations, so `dim 𝒪_{X,x} ≥ 2`, against
+(C1b). So only finitely many `u` have `(0, u)` in the affine image; for any other `u` some
+`Q ∈ S` (the closed-image equations of `ImagePlane.image_closed`) has `Q(0, u) ≠ 0`, and
+`P = Q`. -/
+
+namespace ImagePlane
+
+open Polynomial
+
+/-- In a Noetherian scheme whose closed points have local rings of dimension `1`, a proper closed
+subset of an irreducible closed set is finite. -/
+theorem finite_of_closed_ssubset {X : Scheme.{0}} [TopologicalSpace.NoetherianSpace X]
+    (hdim : ∀ x : X, IsClosed ({x} : Set X) → ringKrullDim (X.presheaf.stalk x) = 1)
+    {W : Set X} (hW : IsIrreducible W) (hWc : IsClosed W) {Y : Set X} (hY : IsClosed Y)
+    (hYW : Y ⊆ W) (hne : Y ≠ W) : Y.Finite := by
+  classical
+  -- irreducible closed proper subsets of `W` are points
+  have key : ∀ Y' : Set X, IsIrreducible Y' → IsClosed Y' → Y' ⊆ W → Y' ≠ W →
+      Y' ⊆ {hW.genericPoint} ∨ Y'.Subsingleton := by
+    intro Y' hY' hY'c hY'W hY'ne
+    right
+    have hη : closure ({hY'.genericPoint} : Set X) = Y' := by
+      have := hY'.isGenericPoint_genericPoint_closure
+      rw [hY'c.closure_eq] at this
+      exact this
+    have hξ : closure ({hW.genericPoint} : Set X) = W := by
+      have := hW.isGenericPoint_genericPoint_closure
+      rw [hWc.closure_eq] at this
+      exact this
+    set η := hY'.genericPoint
+    set ξ := hW.genericPoint
+    -- every closed point of `Y'` is `η`
+    have hcl : ∀ x ∈ Y', IsClosed ({x} : Set X) → x = η := by
+      intro x hx hxc
+      by_contra hxη
+      have h1 : x < η := by
+        have hle : x ≤ η := specializes_iff_mem_closure.mpr (hη ▸ hx)
+        refine lt_of_le_not_ge hle fun hge => hxη ?_
+        have hmem : η ∈ closure ({x} : Set X) := specializes_iff_mem_closure.mp hge
+        rw [hxc.closure_eq] at hmem
+        exact hmem.symm
+      have h2 : η < ξ := by
+        have hle : η ≤ ξ := specializes_iff_mem_closure.mpr (hξ ▸ hY'W (hη ▸ subset_closure rfl))
+        refine lt_of_le_not_ge hle fun hge => hY'ne ?_
+        have hmem : ξ ∈ closure ({η} : Set X) := specializes_iff_mem_closure.mp hge
+        rw [hη] at hmem
+        refine le_antisymm hY'W ?_
+        rw [← hξ]
+        exact closure_minimal (Set.singleton_subset_iff.2 hmem) hY'c
+      have c1 := Order.coheight_add_one_le h1
+      have c2 := Order.coheight_add_one_le h2
+      have h3 : (2 : ℕ∞) ≤ Order.coheight x := by
+        calc (2 : ℕ∞) = 0 + 1 + 1 := by norm_num
+          _ ≤ Order.coheight ξ + 1 + 1 := by gcongr; exact zero_le
+          _ ≤ Order.coheight η + 1 := by gcongr
+          _ ≤ Order.coheight x := c1
+      have h4 := hdim x hxc
+      rw [ringKrullDim_stalk_eq_coheight] at h4
+      have h5 : Order.coheight x = 1 := by exact_mod_cast h4
+      rw [h5] at h3
+      exact absurd h3 (by decide)
+    intro a ha b hb
+    obtain ⟨x, hx, hxc⟩ := (hY'c.inter isClosed_closure : IsClosed (Y' ∩ closure {a})).exists_closed_singleton
+      ⟨a, ha, subset_closure rfl⟩
+    have hxη := hcl x hx.1 hxc
+    have hY'x : Y' = {x} := by
+      rw [← hη, ← hxη, hxc.closure_eq]
+    rw [hY'x] at ha hb
+    exact ha.trans hb.symm
+  obtain ⟨T, hT, hTe⟩ := TopologicalSpace.NoetherianSpace.exists_finset_irreducible ⟨Y, hY⟩
+  have hYe : Y = ⋃ k ∈ T, (k : Set X) := by
+    have := congrArg (fun c : TopologicalSpace.Closeds X => (c : Set X)) hTe
+    simpa [TopologicalSpace.Closeds.coe_finset_sup] using this
+  rw [hYe]
+  refine T.finite_toSet.biUnion fun k hk => ?_
+  have hkY : (k : Set X) ⊆ Y := by rw [hYe]; exact Set.subset_biUnion_of_mem (u := fun k : TopologicalSpace.Closeds X => (k : Set X)) hk
+  have hkne : (k : Set X) ≠ W := fun e => hne (le_antisymm hYW (e ▸ hkY))
+  rcases key k (hT ⟨k, hk⟩) k.isClosed (hkY.trans hYW) hkne with h | h
+  · exact (Set.finite_singleton _).subset h
+  · exact h.finite
+
+variable {K : Type} [Field K] {X : Scheme.{0}}
+
+/-- A finite value of `ρ` at a `K`-point depends only on the underlying point. -/
+theorem val_eq_of_ptOf_eq (f : X ⟶ Spec (CommRingCat.of K)) (ρ : ToP1 X)
+    {p p' : Spec (CommRingCat.of K) ⟶ X} (hp : p ≫ f = 𝟙 _) (hp' : p' ≫ f = 𝟙 _)
+    (h : ptOf p = ptOf p') {u u' : K} (hu : ρ.val p = OnePoint.some u)
+    (hu' : ρ.val p' = OnePoint.some u') : u = u' := by
+  have memU : ∀ (q : Spec (CommRingCat.of K) ⟶ X) (t : K),
+      ρ.val q = OnePoint.some t → ptOf q ∈ ρ.U := by
+    intro q t h
+    by_contra h'
+    rw [val_of_not_mem ρ q h'] at h
+    exact OnePoint.infty_ne_coe t h
+  have hU := memU p u hu
+  have hU' := memU p' u' hu'
+  rw [val_of_mem ρ p hU] at hu
+  rw [val_of_mem ρ p' hU'] at hu'
+  have e : ev p hU (ρ.f - cst f ρ.U u) = 0 := by
+    rw [map_sub, ev_cst f p hp, OnePoint.coe_injective hu, sub_self]
+  rw [ev_eq_zero_iff, h] at e
+  rw [← ev_eq_zero_iff p' hU', map_sub, ev_cst f p' hp', OnePoint.coe_injective hu'] at e
+  exact (sub_eq_zero.mp e).symm
+
+end ImagePlane
+
+open Polynomial in
+/-- **(AD) `AlgDep` from C1b (`SmoothStalkDimOne`, proved by infra-smooth-dim), C2K and (CI)**
+(task image-plane). -/
+theorem algDep_of (h1 : SmoothStalkDimOne) (h2 : ConstOrOntoAlgClosed)
+    (hI : ComponentIrreducible) : AlgDep := by
+  classical
+  intro K _ _ X f hP hS σ ρ p₀ hp₀
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  set x₀ := ptOf p₀ with hx₀
+  set W := connectedComponent x₀ with hWdef
+  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ W ↔
+      connectedComponent (ptOf p) = connectedComponent x₀ :=
+    fun p => ⟨fun h => (connectedComponent_eq h).symm,
+      fun h => by
+        show ptOf p ∈ connectedComponent x₀
+        rw [← h]; exact mem_connectedComponent⟩
+  obtain ⟨S, hSc⟩ := ImagePlane.image_closed f hP σ ρ (isClosed_connectedComponent (x := x₀))
+  by_cases hcst : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ →
+      connectedComponent (ptOf p) = connectedComponent (ptOf p₀) → σ.val p = σ.val p₀
+  · induction hv : σ.val p₀ using OnePoint.rec with
+    | infty =>
+      refine ⟨1, one_ne_zero, fun p hp hpc t u ht _ => ?_⟩
+      rw [hcst p hp hpc, hv] at ht
+      exact absurd ht (OnePoint.infty_ne_coe t)
+    | coe c =>
+      refine ⟨C (Polynomial.X - C c), ?_, fun p hp hpc t u ht _ => ?_⟩
+      · exact C_ne_zero.mpr (X_sub_C_ne_zero c)
+      · rw [hcst p hp hpc, hv] at ht
+        have htc : t = c := (OnePoint.coe_injective ht).symm
+        simp [Alg.evalXY, htc]
+  push Not at hcst
+  obtain ⟨pn, hpn, hpnc, hpnv⟩ := hcst
+  have honto : ∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+      connectedComponent (ptOf p) = connectedComponent (ptOf p₀) ∧ σ.val p = t := by
+    rcases h2 K X f hP hS σ p₀ hp₀ with hc | ho
+    · exact absurd (hc pn hpn hpnc) hpnv
+    · exact ho
+  -- the zero locus `Y = W \ V_σ` of `σ` on `W` is finite
+  set Y : Set X := W ∩ ((σ.V : Set X))ᶜ with hYdef
+  have hYc : IsClosed Y := isClosed_connectedComponent.inter σ.V.isOpen.isClosed_compl
+  obtain ⟨p₁, hp₁, hp₁c, hp₁v⟩ := honto (OnePoint.some 1)
+  have hp₁U : ptOf p₁ ∈ σ.U := by
+    by_contra h'
+    rw [val_of_not_mem σ p₁ h'] at hp₁v
+    exact OnePoint.infty_ne_coe 1 hp₁v
+  have hp₁V : ptOf p₁ ∈ σ.V := by
+    rw [val_of_mem σ p₁ hp₁U] at hp₁v
+    have e1 : ev p₁ hp₁U σ.f ≠ 0 := by rw [OnePoint.coe_injective hp₁v]; exact one_ne_zero
+    rw [Ne, ev_eq_zero_iff, not_not, σ.basicOpen_f] at e1
+    exact e1.2
+  have hYne : Y ≠ W := by
+    intro e
+    have : ptOf p₁ ∈ Y := e ▸ (memW p₁).2 hp₁c
+    exact this.2 hp₁V
+  have hYfin : Y.Finite := ImagePlane.finite_of_closed_ssubset
+    (fun x hx => h1 K X f hS x hx) (hI K X f hP hS x₀) isClosed_connectedComponent hYc
+    Set.inter_subset_left hYne
+  -- only finitely many `u` with `(0, u)` in the affine image
+  set Us : Set K := {u | ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧ ptOf p ∈ W ∧
+    σ.val p = OnePoint.some 0 ∧ ρ.val p = OnePoint.some u} with hUs
+  have hUsfin : Us.Finite := by
+    refine (hYfin.biUnion fun x _ => (show ({u | ∃ p : Spec (CommRingCat.of K) ⟶ X,
+        p ≫ f = 𝟙 _ ∧ ptOf p = x ∧ ρ.val p = OnePoint.some u} : Set K).Subsingleton from ?_).finite).subset ?_
+    · rintro u ⟨p, hp, hpx, hpu⟩ u' ⟨p', hp', hpx', hpu'⟩
+      exact ImagePlane.val_eq_of_ptOf_eq f ρ hp hp' (hpx.trans hpx'.symm) hpu hpu'
+    · rintro u ⟨p, hp, hpW, hp0, hpu⟩
+      have hpU : ptOf p ∈ σ.U := by
+        by_contra h'
+        rw [val_of_not_mem σ p h'] at hp0
+        exact OnePoint.infty_ne_coe 0 hp0
+      have hpV : ptOf p ∉ σ.V := by
+        intro hpV
+        rw [val_of_mem σ p hpU] at hp0
+        have e0 : ev p hpU σ.f = 0 := OnePoint.coe_injective hp0
+        rw [ev_eq_zero_iff, σ.basicOpen_f] at e0
+        exact e0 ⟨hpU, hpV⟩
+      exact Set.mem_biUnion (x := ptOf p) ⟨hpW, hpV⟩ ⟨p, hp, rfl, hpu⟩
+  have : Infinite K := inferInstance
+  obtain ⟨u, hu⟩ := hUsfin.infinite_compl.nonempty
+  have hnot : ¬ ∀ Q ∈ S, Alg.evalXY 0 u Q = 0 := by
+    intro h
+    obtain ⟨p, hp, hpc, hp0, hpu⟩ := (hSc 0 u).2 h
+    exact hu ⟨p, hp, hpc, hp0, hpu⟩
+  push Not at hnot
+  obtain ⟨Q, hQS, hQ0⟩ := hnot
+  refine ⟨Q, fun e => hQ0 (by rw [e]; simp [Alg.evalXY]), fun p hp hpc t u' ht hu' => ?_⟩
+  exact (hSc t u').1 ⟨p, hp, (memW p).2 hpc, ht, hu'⟩ Q hQS
