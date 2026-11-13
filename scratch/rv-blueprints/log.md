@@ -82,3 +82,17 @@ semistable field (H5). So H7 depends on M5/H5, contrary to bp-faltings §2.6 (H7
 and the covolume of a product lattice"), and h-decomposition's remark under R20 ("additivity ...
 follows from the definition: glue") is false for this definition. Base-change invariance does
 follow from H4 alone (cofinality of composita).
+
+## 18:35 Lean: R16Transfer.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+Over bp-modcurves' `AbVar` copy: `exists_quotient_transfer` — if `∃ A, π : J ⟶ A` surjective
+homomorphism with `P A`, and `J ≅ J'` (inverse a homomorphism), then the same holds for `J'`.
+Every clause of the existential R16 other than π concerns A only, so the conclusion transfers
+between Jacobians of ℚ-isomorphic models (repair M1: MC9 not needed as a leaf).
+
+## 18:38 Finding Q-e (bp-qmmoduli R2fp)
+R2fp's CM clauses are one-directional (HasCM4 → π = 0, ...). h-b1 Lemma NV step 2 (via M9) uses
+the converse: every point over a branch value b_i is a CM point by the maximal order of
+discriminant −4, −3, −24. With the one-directional clauses and R5fpCount's existence guard
+(`(∃ P, com P ≅ R) →`), no leaf asserts that such CM objects exist. Repair: biconditional
+clauses (true: com ⊇ ℤ[i] forces com = ℤ[i], and the fibre over 0 is the single orbit CM(ℤ[i])),
+a consequence of Baba–Granath's identification of the elliptic points with the CM points.
