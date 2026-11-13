@@ -51,7 +51,7 @@ literature leaf in the project's sense: M3 is glue (a finite computation) and
 `SeparationSpecial` is a special case of T28 itself. Verdict: T28 is **not closed**; its `⇒`
 half, the scaling, the geometric step and the generic case are done modulo M3.
 
-## 1. What compiles (VERIFIED, `lake env lean`)
+## 1. What compiles (VERIFIED, `lake env lean`, full file 8m47 with no errors)
 
 `scratch/t28-igusa/Igusa.lean` (namespace `PkgI1`; definitions verbatim):
 
@@ -134,7 +134,7 @@ Transvectants `(φ,ψ)_k = (m−k)!(n−k)!/(m!n!) Σ_j (−1)^j C(k,j) ∂^kφ/
 
 R1. **`M3Identities`** (glue, a finite computation). Sixteen polynomial identities in
     `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`); eight are proved by `ring`
-    (all six Gram entries `G₁₁ G₁₂ G₁₃ G₂₂ G₂₃ G₃₃` and `a₁₁₁`, `a₁₁₂`). A batch adding `a₁₁₃` and `a₁₂₂` did not finish within 10 minutes. Direct `ring` in seven variables does not scale to the top
+    (all six Gram entries `G₁₁ G₁₂ G₁₃ G₂₂ G₂₃ G₃₃` and `a₁₁₁`, `a₁₁₂`). A batch adding `a₁₁₃` and `a₁₂₂` did not finish within 10 minutes, and `a₁₁₃` alone reached 27 GB after 11 minutes (stopped). The eight left are `a₁₁₃ a₁₂₂ a₁₂₃ a₁₃₃ a₂₂₂ a₂₂₃ a₂₃₃ a₃₃₃`. Direct `ring` in seven variables does not scale to the top
     degrees (`a₃₃₃` expands to about `7·86³ ≈ 4.5·10⁶` monomial products). Workable plans: (a) prove covariance of `yv` by the generator
     technique of the `⇒` part (`IsInv`: diagonal and swap by `ring`, translations by the
     derivation trick with the `D`-equivariance identity of each `yᵢ`), so that both sides are

@@ -50,3 +50,14 @@ into scratch/t28-igusa/Defs.lean. Compiles (VERIFIED, `lake env lean`, 77 s).
   G22, a111 compile (VERIFIED, ~25 s together); G23, G33, a112 compile (VERIFIED, ~7 min
   together). A batch adding a113 and a122 did not finish within 10 minutes (killed).
   So all six Gram identities and two of the ten cubic ones are proved; folded into Igusa.lean.
+- a113 alone (on top of Igusa.lean): after 11 min the Lean process had 27 GB RSS; killed (not
+  proved). The remaining eight cubic identities need the covariance/normal-form route.
+- FINAL: `lake env lean scratch/t28-igusa/Igusa.lean` (8m47, no errors): #print axioms =
+  [propext, Classical.choice, Quot.sound] for igusa_forward, igusaClebschSeparation_iff,
+  T28SO3.so3, mestre_abstract, separation_generic, igusaClebschSeparation_of, m3_G11, m3_G12,
+  m3_G13, m3_G22, m3_G23, m3_G33, m3_a111, m3_a112 (VERIFIED).
+- Files: Igusa.lean (the deliverable, assembled from Defs.lean + gen_out.lean + gen_trp.lean +
+  part_basic/act/inv/main.lean + SO3.lean + part_mestre.lean + part_generic.lean (with
+  gen_m3.lean) + part_check.lean + part_m3a/b.lean; the part_*/gen_* fragments do not compile
+  alone). Forward.lean and SO3.lean are compiled standalone drafts of the first parts.
+- Unproved: M3 cubic identities a113 a122 a123 a133 a222 a223 a233 a333; SeparationSpecial.
