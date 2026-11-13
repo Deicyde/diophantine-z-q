@@ -8951,6 +8951,39 @@ example {ℓ : ℕ} [Fact ℓ.Prime] (L' : IF) [FiniteDimensional ℚ L'] [IsGal
   have := h g ((IntermediateField.mem_fixingSubgroup_iff _ _).mp hg) rfl
   rwa [RQ.resQ_range L'] at this
 
+
+-- (b) `G7Clauses` forces the cocycle to be a sign cocycle: `β² = ι ∘ galChar χ` is a homomorphism,
+-- so `(∂β)² = 1`.
+theorem rvf_g7Clauses_eps_sq {ℓ : ℕ} [Fact ℓ.Prime] {β : PkgI4.GQ → PadicAlgCl ℓ}
+    {ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ} {L : IntermediateField ℚ PkgI4.Qbar}
+    (hC : G15Ram.G7Clauses β ε L) : ∀ g k, ε g k ^ 2 = 1 := by
+  obtain ⟨-, -, hβε, hβ0, -, ⟨Tmin, -, -, χ, ι, hsq⟩, -⟩ := hC
+  intro g k
+  have hm : β (g * k) ^ 2 = β g ^ 2 * β k ^ 2 := by
+    rw [hsq (g * k), hsq g, hsq k, map_mul, map_mul, Units.val_mul]
+  have key : ε g k ^ 2 * β (g * k) ^ 2 = 1 * β (g * k) ^ 2 := by
+    calc ε g k ^ 2 * β (g * k) ^ 2 = (ε g k * β (g * k)) ^ 2 := by ring
+      _ = (β g * β k) ^ 2 := by rw [hβε g k]
+      _ = β g ^ 2 * β k ^ 2 := by ring
+      _ = 1 * β (g * k) ^ 2 := by rw [one_mul, hm]
+  exact mul_right_cancel₀ (pow_ne_zero 2 (hβ0 _)) key
+
+-- (b) with `a ≡ 1` (unram-tate's normalization, kept by `tateBridgeK_of_piecesK`: `a' = fun _ => 1`,
+-- `ε' = c'`), G7Out gives `c = ε'`, so `G7Clauses β' ε' L` forces the projective cocycle `c` of `Tm`
+-- to be `±1`-valued.
+theorem rvf_c_sq_of_a_one {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K} {ℓ : ℕ}
+    [Fact ℓ.Prime] {Tm : PkgI4.GQ → Module.End (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ)}
+    {c ε : PkgI4.GQ → PkgI4.GQ → PadicAlgCl ℓ} {a β : PkgI4.GQ → PadicAlgCl ℓ}
+    {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (GaloisCopy.Vb A ℓ)}
+    {L : IntermediateField ℚ PkgI4.Qbar}
+    (h7 : GaloisCopy.G7Out A ℓ Tm c ε a β u) (ha : ∀ g, a g = 1) (hC : G15Ram.G7Clauses β ε L) :
+    ∀ g k, c g k ^ 2 = 1 := by
+  intro g k
+  have h4 := h7.2.2.2.1 g k
+  rw [ha, ha, ha, one_mul, one_mul, mul_one] at h4
+  rw [h4]
+  exact rvf_g7Clauses_eps_sq hC g k
+
 end RvFastKW
 
 #print axioms UnramTate.tateBridgeK_of_tateModuleFree
@@ -8965,3 +8998,4 @@ end RvFastKW
 #print axioms LGKerWild.exists_localGlue_of_tateModuleFree
 #print axioms G15Ram.descentPts_baseChange
 #print axioms G15Ram.localGlue_of_unramRoots
+#print axioms rvf_c_sq_of_a_one
