@@ -3,7 +3,7 @@
 **Main result.** The opaque placeholders R01 (Shimura–Deligne), R02 (Baba–Granath) and R05
 (González–Rotger) of the H decomposition now have concrete Lean statements in field-point form,
 over the kernel's `PkgI3.AbVar` and Mathlib schemes. They are in
-`scratch/leaf-qm-fp/QMLeaves.lean`, which compiles (`lake env lean`, about 19 s) with no `sorry`
+`scratch/leaf-qm-fp/QMLeaves.lean`, which compiles (`lake env lean`, about 24 s; it imports `ZInQKernel.HDecomp.A6.A6`) with no `sorry`
 and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.sound. The note is
 `docs/research/leaf-qm-fp.md`.
 
@@ -33,7 +33,9 @@ and no `axiom`. Every `#print axioms` gives propext, Classical.choice, Quot.soun
 - h-b1 M9 on `X₆` (`cm_of_val`): the fibres over 0, ∞, −16/27 are CM points by ℤ[i], ℤ[ζ₃],
   ℤ[√−6]. This uses invariance of CM under isomorphism and twist.
 - R2 on `Y₃` from R2 on `X₆` (`R1R2fp_Y`).
-- For A3: the `𝒪^×` action laws, and the level-structure torsor (given nested ranges).
+- From the kernel leaf `TorsionStructure`: level structures are onto `A(K̄)[3]`, so `A[3]` is
+  `K`-rational. Hence the level-structure torsor for A3 (`Level3.torsor`, which also uses the
+  `𝒪^×` action laws), and A6 on every object (`QML3.goodReduction`, through the kernel's A6).
 
 **Finding.** NoCM needs `k ⊆ ℚ(x)`, not only `[ℚ(x):ℚ]`. With the degree alone, disc −19 is not
 excluded. So bp-qmmoduli's degree-only R5fp was too weak, and R5fp now carries the containment.
@@ -51,7 +53,7 @@ clauses, `N* = 1`.
 - Galois/inertia theory of the function-field cover `ℚ(Y^{(1)})/ℚ(j)`;
 - the Kummer model of `X₆ → P¹`, with the fibre field `ℚ(i)`;
 - residue field of a point versus field of moduli;
-- the 81 = 81 count from `TorsionStructure` for A3;
+- the final class count for A3;
 - A4 plumbing.
 
 R1an (complex uniformization, for F1) and R3 (Lin–Yang) are out of scope. No leaf is proved.

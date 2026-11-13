@@ -1,7 +1,9 @@
 # leaf-qm-fp: the Shimura-curve leaves R1, R2, R5 as concrete Lean statements (field-point form)
 
 Status: research note (task leaf-qm-fp, 2026-11-12). Lean file: `scratch/leaf-qm-fp/QMLeaves.lean`
-(results log `scratch/leaf-qm-fp/log.md`). Blueprint followed: `docs/research/bp-qmmoduli.md` §2.3.
+(results log `scratch/leaf-qm-fp/log.md`). It imports the kernel module `ZInQKernel.HDecomp.A6.A6`
+(prebuilt here; otherwise run `lake build ZInQKernel.HDecomp.A6.A6` first). Blueprint followed:
+`docs/research/bp-qmmoduli.md` §2.3.
 
 Marks. **VERIFIED**: read in a source named here, computed, or compiled. **STANDARD**: a published
 result with its reference. **SPECULATIVE**: an assessment. This host has no network, so theorem
@@ -16,7 +18,7 @@ from `docs/research/locators.md`. Steps A1-F4 are those of `docs/research/h-trus
 of `scratch/h-decomposition/Leaves.lean` now have concrete Lean statements, in field-point form,
 over the kernel's `PkgI3.AbVar` and genuine Mathlib objects.** They compile, with no `sorry` and
 no `axiom` anywhere in the file (VERIFIED: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean`, about
-19 s; every `#print axioms` at the end of the file gives `propext`, `Classical.choice`,
+24 s; every `#print axioms` at the end of the file gives `propext`, `Classical.choice`,
 `Quot.sound`).
 
 The leaves, bundled as `LeafQM.AV.QMLeaves`:
@@ -55,6 +57,11 @@ Glue proved in the same file from these leaves (VERIFIED, compiled):
     `Level3.exists_mul_of_range_le` and `Level3.range_le`.
   - Consequence: a `ℚ̄`-fibre of `Y₃ → X₆` has at most `#(𝒪/3𝒪)^× = 72` points
     (bp-qmmoduli's `Units72`). Assembling this count in Lean is a small step not done here.
+- **A6 on the leaves' objects (`QML3.goodReduction`).** Every `QML3` object over a field of
+  characteristic 0 has good reduction at every DVR in which 3 is a unit. It follows from the
+  kernel's leaves `NeronOggShafarevich`, `RaynaudCriterion`, `TorsionStructure` through
+  `GlueA6Alg.goodReduction_of_QM_rational3'`. The rationality hypothesis comes from
+  `Level3.onto` (`hrat`, `galAct_bcPt`). Applied to the fibre object of R1fp, this is A4 + A6.
 - `R5fpWeak_of_R5fp` (bp-qmmoduli's degree disjunction), `R1fp_of_R1R2fp`.
 
 **One finding about R5** (VERIFIED by reading rv-h-cm §7.2). NoCM needs more than the degree of
