@@ -1,3 +1,5 @@
+-- (g0-assemble2 edits: the `open PkgI4 …` lines name `_root_.PkgI4` explicitly, and also the extension namespace
+-- `ZInQ.Contrib.G9.PkgI4` once it exists, since `open` resolves only the innermost match.)
 /-! ## g0-assemble2: g9-derham (ZInQKernel/Contrib/G9/*.lean, verbatim minus imports and `#print` lines, in import
 order; its I3Layer.lean, I4Layer.lean and Statement.lean are verbatim restatements, inside `ZInQ.Contrib.G9`,
 of Leaves.lean's `PkgI3Sec`, `PkgI4Sec` and g0-mod-galois' `G9Glue`; they are omitted, so the names resolve to
@@ -739,7 +741,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module
+open _root_.PkgI4 Module
 
 noncomputable section
 
@@ -898,11 +900,12 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Ideal
+open _root_.PkgI4 Ideal
 
 noncomputable section
 
 namespace PkgI4.DR
+open _root_.PkgI4.DR  -- (g0-assemble2) the root namespace holds Leaves.lean's `PkgI4.DR`
 
 variable (p : ℕ) [Fact p.Prime] {O : Type*} [CommRing O]
 
@@ -1015,6 +1018,7 @@ theorem bdrMap_id (h : O →+* O) (k : O →+* O) (hkh : ∀ x, k (h x) = x) (hh
 end PkgI4.DR
 
 namespace PkgI4
+open _root_.PkgI4  -- (g0-assemble2) the root namespace holds Leaves.lean's `PkgI4`
 
 variable (p : ℕ) [Fact p.Prime]
 
@@ -1884,7 +1888,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module
 open scoped TensorProduct
 
 noncomputable section
@@ -2294,7 +2298,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module
 open scoped TensorProduct
 
 noncomputable section
@@ -2562,7 +2566,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module
 open scoped TensorProduct
 
 noncomputable section
@@ -2811,13 +2815,13 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module Ideal
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module Ideal
 
 noncomputable section
 
 namespace DRFunct
 
-open PkgI4.DR
+open _root_.PkgI4.DR ZInQ.Contrib.G9.PkgI4.DR
 
 variable (p : ℕ) [Fact p.Prime]
 
@@ -3177,7 +3181,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module Ideal
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module Ideal
 open scoped TensorProduct
 
 noncomputable section
@@ -3367,7 +3371,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module
 open scoped TensorProduct
 
 noncomputable section
@@ -3512,7 +3516,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 Module G0Galois
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 Module G0Galois
 open scoped TensorProduct
 
 noncomputable section
@@ -3672,7 +3676,7 @@ vanish, a clause of the published R10 missing from its Lean form).
 
 namespace ZInQ.Contrib.G9
 
-open PkgI4 G0Galois
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 G0Galois
 
 theorem fieldEmbBdR : G9Bridge.FieldEmbBdR := by
   intro p _ F _ _ _ _
@@ -3714,7 +3718,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 G0Galois Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 G0Galois Module
 
 noncomputable section
 
@@ -3898,7 +3902,7 @@ namespace ZInQ.Contrib.G9
 
 set_option linter.unusedSectionVars false
 
-open PkgI4 G0Galois Module
+open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4 G0Galois Module
 open scoped TensorProduct
 
 noncomputable section

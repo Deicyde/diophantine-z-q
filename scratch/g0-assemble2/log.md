@@ -39,3 +39,12 @@
   `sixContactMin_of_leaves3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp : GluePieces3)`,
   `sixContactMin_of_leaves3'`, `researchLeaves3_of`: [propext, Classical.choice, Quot.sound].
 - Flat file `lake env lean scratch/g0-assemble2/G0Assemble2.lean` (66352 lines, without a95): VERIFIED exit 0 in 749 s, 0 errors, no sorry, 200 `#print axioms` reports all [propext, Classical.choice, Quot.sound] (two printed over three lines) (07:21-07:34).
+- Part a95 (g9-derham, ZInQKernel/Contrib/G9 17 proof files, minus its layer copies I3Layer/I4Layer/Statement):
+  run 1: bare names inside its reopened `namespace PkgI4.DR` (now `ZInQ.Contrib.G9.PkgI4.DR`) do not see
+  Leaves.lean's root `PkgI4.DR` (fix: `open _root_.PkgI4.DR`); run 2: `open PkgI4` resolves only to the
+  innermost match `ZInQ.Contrib.G9.PkgI4` once that exists (fix: `open _root_.PkgI4 ZInQ.Contrib.G9.PkgI4`);
+  run 3 (TailE = TailC + a95): VERIFIED 0 errors, 58 s.
+- GluePieces3: field `g9Glue` replaced by `g9AbVarBaseChange` (GLUE) and `g9R10Weights` (LEAF, Hodge–Tate
+  vanishing; g9-derham recommends it as a clause of R10), via `ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange`
+  (40 fields: 15 LEAF, 3 LEAF?, 22 GLUE). TailC (with a95) to olean 158 s, TailD 6 s: VERIFIED 0 errors,
+  four main theorems standard axioms.

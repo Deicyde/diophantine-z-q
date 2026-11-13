@@ -81,8 +81,12 @@ structure GluePieces3 : Prop where
   burnsideAbsIrred : G0Galois.BurnsideAbsIrred
   /-- g0-mod-galois, LEAF (R14 with its determinant clause). -/
   r14Det : G0Galois.R14Det
-  /-- g0-mod-galois G9, GLUE (de Rham descent lemma). -/
-  g9Glue : G0Galois.G9Glue
+  /-- g9-derham F2, GLUE: base change of an abelian variety along a field embedding in
+  characteristic 0, with `V_ℓ` Galois-compatible (Mumford §4, §6; EGA IV 4.1.4). -/
+  g9AbVarBaseChange : ZInQ.Contrib.G9.G9Bridge.AbVarBaseChange
+  /-- g9-derham F1, LEAF (the vanishing half of the Hodge–Tate decomposition of `V_p(A)`, Tate 1967,
+  Faltings 1988; g9-derham recommends adding it to R10): HT multiplicities vanish off `{0, -1}`. -/
+  g9R10Weights : ZInQ.Contrib.G9.G9Bridge.R10Weights
   /-- conj-twist N1-surj, GLUE. -/
   artinTorsionSurj : G0Galois.ArtinTorsionSurj
   /-- conj-twist N2, LEAF (Birkenhake–Lange Prop. 1.2.1, UNVERIFIED). -/
@@ -161,7 +165,8 @@ theorem gluePieces_of_gluePieces3 (r : ResearchLeaves3) (t : TextbookLeaves) (gp
       (fibreComTrivial_of_gp3 r t gp) gp.oMaximal gp.endTransport gp.conjIsogMaps)
     UnramTate.unramifiedSup_mf
     (G0AssembleMod.afterG7_of3 r t
-      ⟨gp.burnsideAbsIrred, gp.r14Det, gp.g9Glue,
+      ⟨gp.burnsideAbsIrred, gp.r14Det,
+        ZInQ.Contrib.G9.g9Glue_of_abVarBaseChange gp.g9AbVarBaseChange gp.g9R10Weights,
         G0Galois.g10Glue_of_conjTwist (G0Galois.conjTwistNontrivial_main t.t26 t.t35
           gp.artinTorsionSurj gp.homLinearLift gp.conjUniformization),
         G0Galois.g12Weight_of_senTwist gp.senTwist gp.finiteImageHT,
