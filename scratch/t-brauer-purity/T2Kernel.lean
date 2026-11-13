@@ -618,7 +618,6 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
     IsScalarTower.of_algebraMap_eq (fun _ => rfl)
   haveI : IsScalarTower R (integralClosure (integralClosure R L) L1) M :=
     IsScalarTower.of_algebraMap_eq (fun x => by
-      change algebraMap R M x = _
       rw [IsScalarTower.algebraMap_apply R L M x]
       rfl)
   haveI : Algebra.IsIntegral R (integralClosure (integralClosure R L) L1) :=

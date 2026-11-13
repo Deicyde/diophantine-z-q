@@ -49,3 +49,15 @@ Start 2026-11-12 22:54 PST, fresh run (no earlier log). Base 01267822.
   (via `dvd_differentIdeal_iff`, `aeval_derivative_mem_differentIdeal`,
   `minpoly.isIntegrallyClosed_dvd`); `ramificationIdx_eq_one_of_pow_eq` (e(P) = 1).
   Step (b) of the T2 plan, in global Dedekind form.
+- **`T2Full.lean` (Mathlib only; `PkgI2.AbhyankarDVR` copied verbatim from Leaves.lean): COMPILES,
+  no sorry, axioms [propext, Classical.choice, Quot.sound]. `TBrauerPurity.abhyankarDVR :
+  PkgI2.AbhyankarDVR.{u}` — leaf T2 PROVED.** Assembly `abhyankarDVR_main`: step (a)
+  `exists_pow_mul_eq` (CRT-free: ϖ ∈ Q∖Q², (ϖ) = Q·J₂, b ∈ J₂ᵉ∖Q, b·π = ϖᵉ·a with a ∉ Q);
+  `w = b tᵐ/ϖ`, `wᵉ = bᵉ⁻¹a`; `L₁ = L(w)`, `A₂ = integralClosure A₁ L₁`; `A₁ → A₂` unramified at
+  `P = Q'∩A₂` (`isUnramifiedAt_of_pow_eq`); `e(Q'|P)·f(Q'|P) ≤ [M:L₁] ≤ m` (deprecated
+  `Ideal.sum_ramification_inertia`); `n ∣ e(Q'|𝔪) = e·e(Q'|P)` (`Ideal.ramificationIdx_tower`
+  twice, `ramificationIdx_eq_one`); residue separability via `dvd_differentIdeal_of_not_isSeparable`,
+  f = 1, and transitivity.
+- `T2Kernel.lean` (imports `ZInQKernel.HDecomp.Objects`; nothing copied but the proof):
+  COMPILES, standard axioms. `TBrauerPurityT2K.abhyankarDVR : PkgI2.AbhyankarDVR.{0}` (the
+  kernel's definition) and `TBrauerPurityT2K.abhyankarDVR_objBridge : ObjBridge.AbhyankarDVR`.

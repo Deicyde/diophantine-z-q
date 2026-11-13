@@ -1,7 +1,7 @@
 import Mathlib
 
 /-!
-# t-brauer-purity: Abhyankar's lemma, DVR form (leaf T2, `PkgI2.AbhyankarDVR`), full proof attempt
+# t-brauer-purity: Abhyankar's lemma, DVR form (leaf T2, `PkgI2.AbhyankarDVR`), proved
 
 Contents: copies of `AbhyankarBricks.lean` and `KummerUnramified.lean` (scratch files cannot import
 each other), then the assembly following docs/research/t-brauer-purity.md §4.
@@ -617,7 +617,6 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
     IsScalarTower.of_algebraMap_eq (fun _ => rfl)
   haveI : IsScalarTower R (integralClosure (integralClosure R L) L1) M :=
     IsScalarTower.of_algebraMap_eq (fun x => by
-      change algebraMap R M x = _
       rw [IsScalarTower.algebraMap_apply R L M x]
       rfl)
   haveI : Algebra.IsIntegral R (integralClosure (integralClosure R L) L1) :=
