@@ -9,15 +9,15 @@ import Mathlib.Topology.Connected.TotallyDisconnected
 /-!
 # pi0-x6: `π₀(X₆) = 1` from the bundle's clauses, modulo exact CM and algebraic geometry
 
-See `docs/research/pi0-x6.md`. One file (scratch files cannot import each other):
-* §1-§4 (`Core.lean`): the Galois input, stabilizers of `ℚ̄`-points, the core
-  `subsingleton_of_galois`, and its hypotheses from `R5ptProps`, `R5fpCount`
-  (`subsingleton_of_bundle`).
-* §5 (`ClosedQi.lean`): the closed facts for `ℚ(i) = ℚ(ζ₄)`.
-* §6 (`ClosedQ3.lean`): the closed facts for `ℚ(√−3) = ℚ(ζ₃)`.
-* §7: the exact-CM clause `R2X6CMExact` (rv-blueprints Q4 input (c), option c1), the
-  algebraic-geometry inputs `AGInputs` (input (d), unproved glue), and the final theorem
-  `r1pi0Props_of_bundle : R5ptProps ∧ R5fpCount ∧ R2X6CMExact ∧ AGInputs → R1pi0Props`.
+See `docs/research/pi0-x6.md`.
+* §1-§4: the Galois input, stabilizers of `ℚ̄`-points, the core `subsingleton_of_galois`, and
+  its hypotheses from `R5ptProps`, `R5fpCount` (`subsingleton_of_bundle`).
+* §5: the closed facts for `ℚ(i) = ℚ(ζ₄)`.
+* §6: the closed facts for `ℚ(√−3) = ℚ(ζ₃)`.
+* §7: the exact-CM clause `R2X6CMExact` (input (c), option c1), the Galois action on
+  `X_ℚ̄` and the proved compatibility `compOf_galois`, the algebraic-geometry inputs `AGInputs`
+  (input (d) minus Galois compatibility; unproved glue), and the final theorem
+  `r1pi0Props_of_bundle : R5ptProps → R5fpCount → R2X6CMExact → AGInputs → R1pi0Props`.
 No `sorry`, no `axiom`.
 -/
 

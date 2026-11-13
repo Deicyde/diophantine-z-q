@@ -84,3 +84,7 @@ information: Galois action on the geometric components. Inputs:
   (Spec σ⁻¹)` on `X_ℚ̄`, `secOf_comp`, `ptOf_galPt : ptOf (σ·x) = galXbar σ (ptOf x)`,
   `compOf_galois` (via `Continuous.connectedComponentsMap_mk`). `AGInputs` reduced to `over0`,
   `overInf`, `descend`.
+- L8 (VERIFIED): consolidated into the single file `scratch/pi0-x6/Pi0X6.lean` (the intermediate
+  Field/Core/ClosedQi/ClosedQ3 files are removed, they are in git history). Final compile:
+  `lake env lean scratch/pi0-x6/Pi0X6.lean`, exit 0, no errors, no warnings; output in
+  `compile_out.txt` (9 `#print axioms`, all `[propext, Classical.choice, Quot.sound]`).

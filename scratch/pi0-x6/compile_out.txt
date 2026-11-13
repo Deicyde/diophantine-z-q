@@ -1,0 +1,10 @@
+'Pi0X6.subsingleton_of_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.subsingleton_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.inertCount6_K4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.pic_R4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.inertCount6_K3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.pic_R3' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.subsingleton_components_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.r1pi0Props_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'Pi0X6.compOf_galois' depends on axioms: [propext, Classical.choice, Quot.sound]
+exit 0
