@@ -1,4 +1,4 @@
-# leaf-modcurves (fleet report, 2026-11-12)
+# leaf-modcurves (fleet report, 2026-11-12, final)
 
 **Main result.** The opaque placeholder R16 (Eichler–Shimura in `J₁(N)`) is replaced by a concrete
 Lean statement, `LeafModCurves.R16_EichlerShimuraJ1'`, in existential form. It is stated over
