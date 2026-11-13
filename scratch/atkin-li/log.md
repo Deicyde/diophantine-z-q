@@ -15,3 +15,4 @@
   ⇒ F = g ∈ cuspFormsNew.
   #print axioms: all three = [propext, Classical.choice, Quot.sound]
   (scratch/atkin-li/Check.lean, out_check_axioms.txt).
+- 10:05 VERIFIED (compiled): GZTheta/ALFricke.lean — twist_fricke: (G⊗(·/r))(−1/(Mr²τ)) = c r² χ(−M) τ² (G⊗χ)(τ) for G ∈ S₂(Γ₁(M), 1) with G(−1/(Mz)) = c z² G(z), r odd squarefree coprime to M.
