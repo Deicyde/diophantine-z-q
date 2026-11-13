@@ -37,7 +37,8 @@ ProductModelHeight` connects the two forms.
 `scratch/g0-split/Split.lean`. So are the definitions they use: lines 16667-18603 of that file,
 which are def-faltings' `ZInQ.DefFaltings`, copied unchanged as `Prefix.lean`. So the theorem is
 about the same Prop. An integration check pastes the proofs into a copy of `Split.lean` and closes
-the piece there with `r.h5`: `scratch/g0-heightadd/SplitIntegrated.lean`. Its outcome is in §5.
+the piece there with `r.h5`: `scratch/g0-heightadd/SplitIntegrated.lean` compiled in 3 min 26 s
+with 0 errors, and its `#print axioms` lists only the three standard axioms (VERIFIED).
 
 **The gap is not closed.** The four glue hypotheses U, `MetrizationDimUnique`,
 `MetrizationExists` and `ProductMetrization` are true (STANDARD, §3) but unproved. Each needs
@@ -109,7 +110,8 @@ Partial Lean toward P2a that is already in the file: the ideal-line case of degr
 **Consistency in dimension 0** (the only abelian variety Mathlib v4.35 can construct; §4). The
 three new glue Props hold for `A = B = C = 0` (`Spec K`), and every hypothesis of
 `ProductMetrization` is allowed there. So they are at least not contradictory where they can be
-tested.
+tested: `metrizationExists_zero`, `metrizationDimUnique_zero` and `productMetrization_zero`
+(VERIFIED, compiled).
 
 ## 4. Files
 
@@ -135,7 +137,9 @@ replaced by the leaf N1 (`NeronModelExists`) and the four glue Props U, `Metriza
 `MetrizationExists`, `ProductMetrization`, with
 `additivity := heightAdditivity_of_split hN1 r.h5 hU hD hE hP`. N1 then joins the leaf
 count as a new research/textbook leaf (BLR 1.4/3). The paste is exactly what
-`SplitIntegrated.lean` does. INTEGRATION CHECK: see the log (`scratch/g0-heightadd/log.md`, run 3).
+`SplitIntegrated.lean` does. That file compiled with 0 errors (3 min 26 s), and
+`heightAdditivity_of_split`, `glueOutputs_of_leaves` and `sixContactMin_of_leaves` all depend
+only on `propext`, `Classical.choice` and `Quot.sound` (VERIFIED, log run 3).
 
 ## 6. What remains
 

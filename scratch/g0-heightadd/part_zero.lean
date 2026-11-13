@@ -8,10 +8,19 @@ with `open PkgI3 (AbVar)` dropped. Then the three new glue Props are checked for
 
 namespace ZInQ.DefFaltings.AbVar
 
-open CategoryTheory AlgebraicGeometry MonoidalCategory
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory
+
+/-- (copied from `PkgI3.AbVar.geometricallyIntegral_id_spec`) -/
+instance geometricallyIntegral_id_spec (K : Type) [Field K] :
+    GeometricallyIntegral (𝟙 (Spec (CommRingCat.of K))) := by
+  constructor
+  intro L _ y Z fst snd h
+  have : IsIso snd := h.isIso_snd_of_isIso
+  have : Nonempty Z := ⟨(inv snd) (IsLocalRing.closedPoint L)⟩
+  exact isIntegral_of_isOpenImmersion snd
 
 /-- (copied from `PkgI3.AbVar.zero`) The zero abelian variety `Spec K`. -/
-def zero (K : Type) [Field K] : AbVar K :=
+noncomputable def zero (K : Type) [Field K] : AbVar K :=
   haveI : IsProper (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
   haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by dsimp; infer_instance
   haveI : GeometricallyIntegral (𝟙_ (Over (Spec (CommRingCat.of K)))).hom := by

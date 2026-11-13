@@ -27,3 +27,17 @@ origin/wip/h5-neron (b7c1dc21), neither was in the base.
   `MetrizationDimUnique`), `productModelHeight_of : U → DimUnique → Exists → P2a →
   ProductModelHeight`, and `HSyn.G0Split.heightAdditivity_of_split : N1 → LeafAdopt.H5 → U →
   DimUnique → Exists → P2a → HeightAdditivity`. VERIFIED (compiled).
+
+## Run 3: integration check SplitIntegrated.lean — COMPILED (3 min 26 s; 0 errors)
+- `build_integrated.sh`: g0-split's `Split.lean` + h5-neron parts A, E after l. 18603 + bridge,
+  P2 split and `example (hN1) (r : HSyn.ResearchLeaves) (hU) (hD) (hE) (hP) :
+  HSyn.G0Split.HeightAdditivity := heightAdditivity_of_split hN1 r.h5 hU hD hE hP` at the end.
+  All `#print axioms` (incl. g0-split's `glueOutputs_of_leaves`, `sixContactMin_of_leaves`, and
+  `heightAdditivity_of_split`): [propext, Classical.choice, Quot.sound]. VERIFIED.
+- needed first: `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (13 s).
+
+## Run 4: dimension-0 check (part_zero.lean) — COMPILED (HeightAdd.lean, 53 s; 0 errors)
+- first attempt failed: missing instance `GeometricallyIntegral (𝟙 (Spec K))`; copied
+  `PkgI3.AbVar.geometricallyIntegral_id_spec` from Objects.lean, `zero` marked noncomputable.
+- `metrizationExists_zero`, `metrizationDimUnique_zero`, `productMetrization_zero` for
+  `A = B = C = AbVar.zero K`: all [propext, Classical.choice, Quot.sound]. VERIFIED.
