@@ -1,0 +1,32 @@
+scratch/fs5-nocm/FS5Curves.lean:1207:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1207:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1207:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1221:88: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1221:92: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1225:76: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1225:80: warning: Unused tactic linter: `norm_num` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1221:92: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/fs5-nocm/FS5Curves.lean:1225:80: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+'FS5NoCM.fibreComTrivialFull_of_curves' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m11.820s
+user	0m29.978s
+sys	0m2.517s

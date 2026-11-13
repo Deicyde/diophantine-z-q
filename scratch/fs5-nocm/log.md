@@ -8,3 +8,13 @@
 - lake build ZInQKernel.HDecomp.QM.Leaves, Repo.PRArith, Hypotheses.JHeight: OK (VERIFIED).
 - 05:50 FS5NoCM.lean §A (qm-pin copy) + §B statements + §C named Props + §D arithmetic
   (two_not_prime_of_sqrt_neg_one, finrank_adjoin_sqrt_neg_one, adjoin_pair_eq, elkies_sq): compiles, 0 errors (VERIFIED).
+- 05:47 FS5NoCM.lean complete: `fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue) (hA : ComIntOrQuadOrder)
+  (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialFull`, via
+  `fibreComTrivialOwn_of` (FS5 on the leaf's own witnesses) and `fibreComTrivialFull_of_own` (qm-pin transfer).
+  `lake env lean` exit 0, 7.6 s; all #print axioms [propext, Classical.choice, Quot.sound] (run1.txt). VERIFIED.
+- FS5Curves.lean = mobius-glue/MobiusGlue.lean L1-1439 (+2 imports) + qm-pin `cm_objects_of_R1R2fp` + parts B, D, E, E2:
+  `fibreComTrivialFull_of_curves` (MobiusGlue replaced by CurveRatFactor, CurveSurj, T5): exit 0, 11.8 s, standard axioms (run2.txt). VERIFIED.
+- Verbatim checks (python string comparison, VERIFIED): FibreComTrivial = g0-fibresimple text; FibreComTrivialFull = it with
+  R1fpProps→R1fpPropsFull; R1fpPropsFull body = patched R1fpProps of qm-pin QM-Leaves-full.patch; qm-pin block = QMPin.lean
+  L34-95 + L507-619; kernel defs used (R1fpProps, R2fpProps, X6Props, R2X6Props, CMExists, X6Surj, R5ptProps, R5fpCount,
+  com, residueImage, inertCount6, conductor, QML3, QMPair, ToP1, ...) identical to the copies in FibreSimple.lean.

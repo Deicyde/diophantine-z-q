@@ -64,6 +64,20 @@ theorem R1R2fp_of_full (h : R1R2fpFull) : R1R2fp := by
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, h⟩ := h
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h1.old, h⟩
 
+/-- **FS5 for the leaf's own triple** (the restatement that qm-pin's `pointwise_of_witness_mor`
+allows): for every witness `(Y, Φ, X, Ψ, fY, π₆)` of the repaired leaf bundle, the objects over
+`J(u)`, `u ∉ 𝒞`, of the triple `(Y, Φ, π₆ ∘ fY)` have `End_𝒪 = ℤ`. Quantified over all witnesses
+(not a `Classical.choice` of one), so it is a statement about the published data, not about a
+choice. -/
+def FibreComTrivialOwn : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left), R1R2fpFullProps Y Φ X Ψ fY π₆ →
+    ∀ u : ℚ, u ∉ contactSet →
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      (π₆.comp fY.left).val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+      ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : AbVar.End P.A)
+
 /-! ## §C The named Props NoCM needs -/
 
 /-- **NoCM input N1a (glue; G5-G6, rv-h-cm §7.2 "the CM order"): `End_𝒪(A)` is `ℤ` or an order in

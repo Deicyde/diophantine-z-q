@@ -266,6 +266,20 @@ theorem R1R2fp_of_full (h : R1R2fpFull) : R1R2fp := by
   obtain ⟨Y, Φ, X, Ψ, fY, π₆, h1, h⟩ := h
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h1.old, h⟩
 
+/-- **FS5 for the leaf's own triple** (the restatement that qm-pin's `pointwise_of_witness_mor`
+allows): for every witness `(Y, Φ, X, Ψ, fY, π₆)` of the repaired leaf bundle, the objects over
+`J(u)`, `u ∉ 𝒞`, of the triple `(Y, Φ, π₆ ∘ fY)` have `End_𝒪 = ℤ`. Quantified over all witnesses
+(not a `Classical.choice` of one), so it is a statement about the published data, not about a
+choice. -/
+def FibreComTrivialOwn : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y)
+    (X : Over (Spec (CommRingCat.of ℚ))) (Ψ : (fieldPt Qbar ⟶ X) ≃ Quotient (pairSetoid Qbar))
+    (fY : Y ⟶ X) (π₆ : ToP1 X.left), R1R2fpFullProps Y Φ X Ψ fY π₆ →
+    ∀ u : ℚ, u ∉ contactSet →
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      (π₆.comp fY.left).val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+      ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : AbVar.End P.A)
+
 /-! ## §C The named Props NoCM needs -/
 
 /-- **NoCM input N1a (glue; G5-G6, rv-h-cm §7.2 "the CM order"): `End_𝒪(A)` is `ℤ` or an order in
@@ -515,14 +529,15 @@ theorem nocm_on_witness (hA : ComIntOrQuadOrder) (hB : CMConductorCoprime6)
   rw [hcard2, Nat.card_eq_fintype_card, Fintype.card_fin] at this
   omega
 
-/-- **FS5 with the repaired QM clauses, proved** from the leaf bundle (after qm-pin's full edit),
-`MobiusGlue` (proved by mobius-glue from `CurveRatFactor`, `CurveSurj` and T5), N1a, N1b, N2 and
-the leaf R5fpCount. The leaf's own witness `(Y₀, Φ₀, π₆ ∘ fY)` satisfies NoCM
-(`nocm_on_witness`); qm-pin's `pointwise_of_witness_mor` moves it to every triple satisfying the
-repaired clauses. -/
-theorem fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue) (hA : ComIntOrQuadOrder)
-    (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) :
-    FibreComTrivialFull := by
+/-- **FS5 for the leaf's own triple, from NoCM's inputs.** -/
+theorem fibreComTrivialOwn_of (hA : ComIntOrQuadOrder) (hB : CMConductorCoprime6)
+    (hK : X6KummerFibre) (hC : R5fpCount) : FibreComTrivialOwn :=
+  fun _ _ _ _ _ _ hW u hu y P hP hv => nocm_on_witness hA hB hK hC hW u hu y P hP hv
+
+/-- **From the leaf's own triple to every triple** (qm-pin's `pointwise_of_witness_mor`, with
+`MobiusGlue` and the CM objects of the bundle, `cm_objects_of_R1R2fp`). -/
+theorem fibreComTrivialFull_of_own (hL : R1R2fpFull) (hM : MobiusGlue)
+    (hO : FibreComTrivialOwn) : FibreComTrivialFull := by
   obtain ⟨Y₀, Φ₀, X, Ψ, fY, π₆, hW⟩ := hL
   have hCM := cm_objects_of_R1R2fp (R1R2fp_of_full ⟨Y₀, Φ₀, X, Ψ, fY, π₆, hW⟩)
   have h1 : R1fpPropsU Y₀ Φ₀ := (r1fpPropsFull_iff _ _).1 hW.1
@@ -530,9 +545,17 @@ theorem fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue) (hA : ComIntO
   have key := pointwise_of_witness_mor hM hCM h1 h2
     (fun t P => ∀ u : ℚ, u ∉ contactSet → t = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
       ∀ φ ∈ com P.q, ∃ n : ℤ, φ = (n : AbVar.End P.A))
-    (fun t y P hP ht u hu htu => nocm_on_witness hA hB hK hC hW u hu y P hP (ht.trans htu))
+    (fun t y P hP ht u hu htu => hO Y₀ Φ₀ X Ψ fY π₆ hW u hu y P hP (ht.trans htu))
   intro Y Φ π h1' h2' u hu y P hP hv
   exact key Y Φ π ((r1fpPropsFull_iff _ _).1 h1') h2' _ y P hP hv u hu rfl
+
+/-- **FS5 with the repaired QM clauses, proved** from the leaf bundle (after qm-pin's full edit),
+`MobiusGlue` (proved by mobius-glue from `CurveRatFactor`, `CurveSurj` and T5), N1a, N1b, N2 and
+the leaf R5fpCount. -/
+theorem fibreComTrivialFull_of (hL : R1R2fpFull) (hM : MobiusGlue) (hA : ComIntOrQuadOrder)
+    (hB : CMConductorCoprime6) (hK : X6KummerFibre) (hC : R5fpCount) :
+    FibreComTrivialFull :=
+  fibreComTrivialFull_of_own hL hM (fibreComTrivialOwn_of hA hB hK hC)
 
 end FS5NoCM
 
@@ -540,4 +563,6 @@ end FS5NoCM
 #print axioms FS5NoCM.finrank_adjoin_sqrt_neg_one
 #print axioms FS5NoCM.elkies_sq
 #print axioms FS5NoCM.nocm_on_witness
+#print axioms FS5NoCM.fibreComTrivialOwn_of
+#print axioms FS5NoCM.fibreComTrivialFull_of_own
 #print axioms FS5NoCM.fibreComTrivialFull_of
