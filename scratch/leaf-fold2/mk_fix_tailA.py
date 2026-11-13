@@ -13,6 +13,8 @@ for n in ['resQ','Vb','tate','Intertwines','G10Out','toRingEquivQ','cycQ','R14De
     i = next(i for i,l in enumerate(p) if re.match(r'^(noncomputable )?(def|abbrev) %s\b' % n, l))
     s = i
     while s > 0 and p[s-1].strip() != '': s -= 1
+    if s < i and not p[s].startswith('/--'):  # a docstring with a blank line inside: go back to its start
+        s = max(j for j in range(i) if p[j].startswith('/--'))
     e = i
     while e < len(p) and p[e].strip() != '': e += 1
     assert '\n'.join(p[i:e]) in L, n
