@@ -42,3 +42,10 @@ ringClassFieldD at a junk argument.
   Hprime 13 ≠ H4 13, H4bar 5 ≠ ⊥, ringClassFieldD (-64·13) = H4bar 13 compile. 9 axiom prints all
   [propext, Classical.choice, Quot.sound] (hprimeNormal, iInH4, both main variants, cmFieldTYZ_of_ringClassD,
   ringClassFieldD_tyz, condD_spec, normal_ringClassFieldD, relfinrank_Hprime).
+
+## curve-infra compile (VERIFIED, 11:14)
+- `lake build ZInQKernel.HDecomp.LeafPush2.R18` ok; `lake env lean scratch/rv-fast/CurveInfraCheck.lean`: exit 0,
+  0 errors, 1 linter warning (copied infra-smooth-dim line 362, as reported). Appended checks pass:
+  `ffAlgebra X = fnFieldAlgebra K X.left X.hom := rfl`; DimEqTrdegOver ↔ … := Iff.rfl;
+  trdeg K (FractionRing K[X]) toENat = 1 and trdeg K (FractionRing K) toENat = 0 derived from dimEqTrdegAlg.
+  8 axiom prints all [propext, Classical.choice, Quot.sound].
