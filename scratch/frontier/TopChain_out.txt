@@ -1,0 +1,3 @@
+'ZInQ.GZTheta.Frontier.newCM' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.GZTheta.Frontier.heckeThetaNewform' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Frontier.frozenTarget_of_open_main' depends on axioms: [propext, Classical.choice, Quot.sound]
