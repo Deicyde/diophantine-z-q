@@ -6,8 +6,8 @@ def seg(path, a=None, b=None):
         return '\n'.join(L)
     return '\n'.join(L[a-1:b])
 checks = [
-    ('prop-ts prefix (PropTSGlue.lean 3-906 = PropTS.lean)', seg('scratch/prop-ts-glue/PropTSGlue.lean', 3, 906)),
-    ('Hecke Props (PropTSGlue.lean 3356-3442)', seg('scratch/prop-ts-glue/PropTSGlue.lean', 3356, 3442)),
+    ('PropTSGlue.lean 3-3553 (prop-ts prefix, purity copy, Parts A-D incl. the five Hecke Props)',
+     seg('scratch/prop-ts-glue/PropTSGlue.lean', 3, 3553)),
     ('AutOFinite.lean 3-1037', seg('scratch/aut-o-finite/AutOFinite.lean', 3, 1037)),
     ('SmoothStalk.lean 3-388', seg('scratch/infra-smooth-dim/SmoothStalk.lean', 3, 388)),
     ('CurveGlueAll.lean 1251-1253 (ComponentIrreducible)', seg('scratch/curve-glue/CurveGlueAll.lean', 1251, 1253)),

@@ -10,24 +10,14 @@ S = 'scratch/infra-smooth-dim/SmoothStalk.lean'
 C = 'scratch/curve-glue/CIproof.lean.part'
 out = []
 out.append('import Mathlib\n' + lines(G, 1, 2) + 'import ZInQKernel.HDecomp.Textbook.SkolemNoether\n')
-out.append(lines(G, 3, 906))
 out.append('''
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
-# The five Hecke Props, copied verbatim from `scratch/prop-ts-glue/PropTSGlue.lean`
-(lines 3356-3442, Part C, with the two composition theorems; namespace `PropTSGlue` and its
-`open` line kept)
+# `scratch/prop-ts-glue/PropTSGlue.lean`, lines 3-3553 (everything but the imports and the trailing
+`#print axioms` lines), verbatim. Its first 906 lines are `scratch/prop-ts/PropTS.lean`; its Part C
+holds the five Hecke Props of this task.
 ════════════════════════════════════════════════════════════════════════════════════════════ -/
-
-noncomputable section
-
-namespace PropTSGlue
-
-open Polynomial G0ModField PropTSRed
-open scoped TensorProduct
-
 ''')
-out.append(lines(G, 3356, 3442))
-out.append('\nend PropTSGlue\n\nend\n')
+out.append(lines(G, 3, 3553))
 out.append('''
 /-! ════════════════════════════════════════════════════════════════════════════════════════════
 # Copy of `scratch/aut-o-finite/AutOFinite.lean` (lines 3-1037), verbatim except for the imports

@@ -104,3 +104,10 @@ ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
   ComponentIrreducible, CIproof; PropTSGlue 1-906 = PropTS.lean 1-906).
 - Full file: `lake env lean scratch/ts-hecke/TSHecke.lean` 0 errors; every `#print axioms` line
   standard (no sorryAx).
+
+## Step 9. Integration with prop-ts-glue's composite — VERIFIED (compiled, 0 errors, ~2.5 min)
+
+- The copy now contains all of PropTSGlue.lean 3-3553 (check_identical: ALL OK).
+- `propTSAll_of_tsHecke`: PropTSAll from T2, R1R2fp, MobiusGlue, SNSpecialize, the seven Kummer
+  pieces, Y3Connected, TorsionStructure, CurveGaloisChart, CurveChartInf, HeckeFibreSizes,
+  HeckeNoVertRam (through `propTSAll_final`). 57 `#print axioms` lines, all standard.

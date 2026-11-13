@@ -13,7 +13,7 @@ They are used unchanged, copied verbatim.
 
 | File | Contents |
 |---|---|
-| `scratch/ts-hecke/TSHecke.lean` | the Lean file (4190 lines), assembled by `assemble.py` |
+| `scratch/ts-hecke/TSHecke.lean` | the Lean file (6753 lines), assembled by `assemble.py` |
 | `scratch/ts-hecke/TSHeckeMain.lean.part` | the new part (Parts 1-5) |
 | `GenericFibre.lean`, `RamCount.lean`, `Units.lean` | development files, compiled; pasted verbatim into `TSHecke.lean` |
 | `pi0_check.py` / `pi0_check.out` | the computation behind `HeckeIrreducible` |
@@ -48,12 +48,13 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
 
 **What is VERIFIED:**
 
-- `lake env lean scratch/ts-hecke/TSHecke.lean` gives 0 errors. The warnings are linter warnings
-  only.
-- All 56 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
+- `lake env lean scratch/ts-hecke/TSHecke.lean` gives 0 errors (about 2.5 min). The warnings are
+  linter warnings only.
+- All 57 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
 - `check_identical.py` prints `ALL OK`. Each of the following is contained verbatim:
-  - the prop-ts prefix (PropTSGlue.lean 3-906, which equals `scratch/prop-ts/PropTS.lean`);
-  - the Hecke Props and prop-ts-glue's two composition theorems (PropTSGlue.lean 3356-3442);
+  - all of prop-ts-glue's `PropTSGlue.lean` except its imports and trailing `#print` lines
+    (lines 3-3553). This includes the prop-ts prefix (equal to `scratch/prop-ts/PropTS.lean`),
+    the purity copy, and Parts A-D with the five Hecke Props;
   - aut-o-finite's `AutOFinite.lean` (lines 3-1037);
   - infra-smooth-dim's `SmoothStalk.lean` (lines 3-388);
   - curve-glue's `ComponentIrreducible` and `CIproof.lean.part`.
@@ -73,6 +74,23 @@ theorem TSHecke.coverModelOfHecke_of_tsHecke (hconn : Y3Connected) (hRR : R1R2fp
 | `HeckeNormalizationIrr` | `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr` | glue `CurveGaloisChart` |
 | `HeckeBranch` | `heckeBranch_of' : R1R2fp → CurveChartInf → HeckeFibreSizes → TorsionStructure → HeckeBranch` | glue `CurveChartInf`, `HeckeFibreSizes` |
 | `HeckeNoVertRam` | none | open glue (§6) |
+
+**Wired into prop-ts-glue's final composite** (compiled):
+
+```lean
+theorem TSHecke.propTSAll_of_tsHecke (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp)
+    (hM : Pin.MobiusGlue) (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure) (hCG : CurveGaloisChart)
+    (hCI : CurveChartInf) (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : PropTSAll
+```
+
+In `propTSAll_final`, the five Hecke Props are replaced as follows:
+
+- two leaves: `Y3Connected` (new), and the kernel's existing `TorsionStructure`;
+- four glue Props: `CurveGaloisChart`, `CurveChartInf`, `HeckeFibreSizes`, and the unchanged
+  `HeckeNoVertRam`.
 
 ## 2. `HeckeIrreducible` (Part 1)
 

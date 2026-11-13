@@ -983,6 +983,20 @@ theorem coverModelOfHecke_of_tsHecke (hconn : Y3Connected) (hRR : R1R2fp)
   coverModelOfHecke_of_pieces (heckeNormalization_of hconn hCG hT) (heckeDegree_of_torsion hT)
     (heckeBranch_of' hRR hCI hF hT) hV
 
+/-- **`PropTSAll` with ts-hecke's reductions in place of the five Hecke Props** (compiled; through
+prop-ts-glue's `propTSAll_final`). Hypotheses: the bundle leaves T2 and `R1R2fp`, the kernel glue
+`MobiusGlue`, prop-ts-glue's open glue (`SNSpecialize`, seven Kummer pieces), and ts-hecke's
+inputs (leaves `Y3Connected`, `TorsionStructure`; glue `CurveGaloisChart`, `CurveChartInf`,
+`HeckeFibreSizes`, `HeckeNoVertRam`). -/
+theorem propTSAll_of_tsHecke (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hS : SNSpecialize) (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hconn : Y3Connected) (hT : ObjBridge.TorsionStructure) (hCG : CurveGaloisChart)
+    (hCI : CurveChartInf) (hF : HeckeFibreSizes) (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_final t2 hR hM hS hC hA hO hVF hAI hOI hVI (heckeIrreducible_of_connected hconn)
+    (heckeNormalizationIrr_of hCG hT) (heckeDegree_of_torsion hT) (heckeBranch_of' hR hCI hF hT) hV
+
 end TSHecke
 
 end
@@ -1019,3 +1033,4 @@ end
 #print axioms TSHecke.ramOfFibreCount
 #print axioms TSHecke.heckeBranch_of'
 #print axioms TSHecke.coverModelOfHecke_of_tsHecke
+#print axioms TSHecke.propTSAll_of_tsHecke
