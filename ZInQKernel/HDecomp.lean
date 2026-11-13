@@ -6,6 +6,7 @@ import ZInQKernel.HDecomp.Assembly.E1Lin
 import ZInQKernel.HDecomp.Assembly.E2Index
 import ZInQKernel.HDecomp.Assembly.F3Glue
 import ZInQKernel.HDecomp.B3Unram.B3b
+import ZInQKernel.HDecomp.B3Unram.T32a
 import ZInQKernel.HDecomp.C10.C10
 import ZInQKernel.HDecomp.C10.Link
 import ZInQKernel.HDecomp.C10.Trace
@@ -27,10 +28,22 @@ import ZInQKernel.HDecomp.Descent.Cochain
 import ZInQKernel.HDecomp.Descent.Constants
 import ZInQKernel.HDecomp.Descent.ProjRep
 import ZInQKernel.HDecomp.Descent.WP3
+import ZInQKernel.HDecomp.Faltings.Height
+import ZInQKernel.HDecomp.Faltings.HodgeData
+import ZInQKernel.HDecomp.Faltings.IdealLines
+import ZInQKernel.HDecomp.Faltings.Leaves
+import ZInQKernel.HDecomp.Faltings.Models
 import ZInQKernel.HDecomp.I3Linalg.C2
 import ZInQKernel.HDecomp.I3Linalg.RhoCont
 import ZInQKernel.HDecomp.I3Linalg.TateBC
+import ZInQKernel.HDecomp.ModCurves.Defs
+import ZInQKernel.HDecomp.ModCurves.Genus
+import ZInQKernel.HDecomp.ModCurves.Glue
+import ZInQKernel.HDecomp.ModCurves.Leaves
 import ZInQKernel.HDecomp.Objects
+import ZInQKernel.HDecomp.QM.Leaves
+import ZInQKernel.HDecomp.QM.Pairs
+import ZInQKernel.HDecomp.QM.Structures
 import ZInQKernel.HDecomp.Repo.A1Quaternion
 import ZInQKernel.HDecomp.Repo.Numerics
 import ZInQKernel.HDecomp.Repo.PRArith
@@ -40,6 +53,6 @@ import ZInQKernel.HDecomp.Sqrt.SqrtLocal
 import ZInQKernel.HDecomp.Vigneras.Global
 import ZInQKernel.HDecomp.Vigneras.Local
 
-/-! The glue of `docs/research/h-decomposition.md` (tasks hdec-adopt, hdec-adopt2): every adopted
-module.
+/-! The glue of `docs/research/h-decomposition.md` (tasks hdec-adopt, hdec-adopt2,
+hdec-adopt3): every adopted module.
 The literature leaves are hypotheses (`def … : Prop`); no `sorry`, no `axiom`. -/
