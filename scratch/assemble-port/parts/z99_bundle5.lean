@@ -39,7 +39,7 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r22 := r.r22,
     h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (32 fields): g0-assemble3's `GluePieces4` without
+/-- **The named Props left after assemble-port** (30 fields): g0-assemble3's `GluePieces4` without
 * `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
   together `PropTSGlue.specNonMeeting`);
 * `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
@@ -48,7 +48,8 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
   transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40);
 * `cPtsTransport`, `baseChangeClassUnique`: proved by cpts-transport (part e45);
 * the six Kummer pieces `kummerAbhyankarFinGlue`, `kummerOtherBranchFin`, `kummerVerticalFin`, `kummerAbhyankarInfGlue`,
-  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12). -/
+  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12);
+* `hodgeBCInjective`, `omegaBaseChange`: proved by hodge-bc2 (part b15). -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -59,10 +60,6 @@ structure GluePieces5 : Prop where
   x6ConicModel : X6Kummer.X6ConicModel
   -- ProductModelHeight (unif-dims, product-unif, infra-smooth-dim)
   -- StableHeightBaseChange (height-bc; infra-stalks proved the other two)
-  /-- height-bc, GLUE (BC-alg: `ψ` is injective on the Hodge line). -/
-  hodgeBCInjective : ZInQ.HeightBC.HodgeBCInjective
-  /-- height-bc, GLUE (`ω` base-changes along `𝓞_L → 𝓞_{L'}`). -/
-  omegaBaseChange : ZInQ.HeightBC.OmegaBaseChange
   -- ThetaPoint (g0-thetapoint, fibre-qm-period, period-map)
   /-- g0-thetapoint, LEAF? (theta-constant ratios at a period matrix are algebraic; Shimura 1976). -/
   thetaRatiosAlgebraic : G0Split.ThetaPt.ThetaRatiosAlgebraic
@@ -136,6 +133,8 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     analyticUniformizationOfDim := ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35,
     cPtsTransport := G0Split.FibreQM.cPtsTransport_proof,
     baseChangeClassUnique := G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof,
+    hodgeBCInjective := ZInQ.HeightBC.hodgeBCInjective,
+    omegaBaseChange := ZInQ.HeightBC.omegaBaseChange,
     kummerAbhyankarFinGlue := TsKummer.kummerAbhyankarFinGlue,
     kummerOtherBranchFin := TsKummer.kummerOtherBranchFin,
     kummerVerticalFin := TsKummer.kummerVerticalFin,
@@ -144,8 +143,6 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     kummerVerticalInf := TsKummer.kummerVerticalInf,
     cmOptimalEmbedding := gp.cmOptimalEmbedding,
     x6ConicModel := gp.x6ConicModel,
-    hodgeBCInjective := gp.hodgeBCInjective,
-    omegaBaseChange := gp.omegaBaseChange,
     thetaRatiosAlgebraic := gp.thetaRatiosAlgebraic,
     qmHauptmodul := gp.qmHauptmodul,
     qmClassNumberOne := gp.qmClassNumberOne,
@@ -176,7 +173,7 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
     tateRamAtThree := gp.tateRamAtThree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (32 fields: 13 LEAF, 3 LEAF?,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (30 fields: 13 LEAF, 3 LEAF?,
 24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
@@ -196,6 +193,8 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms ZInQ.HeightBC.hodgeBCInjective
+#print axioms ZInQ.HeightBC.omegaBaseChange
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerOtherBranchFin
 #print axioms TsKummer.kummerVerticalFin

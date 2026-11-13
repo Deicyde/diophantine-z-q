@@ -76,3 +76,11 @@
   #print, after PropTSGlue.lean's opens L26-27, + `end`. GluePieces5 loses the six Kummer pieces (GLUE; now
   `TsKummer.kummer…`): 32 fields. TailF VERIFIED exit 0 (136 s); TailD VERIFIED exit 0 (41 s), no sorryAx; axioms of
   `sixContactMin_of_leaves5` and the six `TsKummer` theorems standard.
+- Merged origin/wip/hodge-bc2 (report). Part b15 (mk/mk_b15.py): infra-stalks' CotangentBaseChange.lean L523-1127
+  (the 6 declarations not in b10, rooted; `IsLocalRing.mem_sq_of_map_mem_sq` → `_root_.…`), hodge-bc2's ExtFrac.lean
+  body, hbc_proof.lean.part, omega_proof.lean.part (`open PkgI3 (AbVar)` deleted, as in a20/b10). GluePieces5 loses
+  `hodgeBCInjective`, `omegaBaseChange` (GLUE; now `ZInQ.HeightBC.hodgeBCInjective`, `omegaBaseChange`): 30 fields.
+  TailE 35 s, TailF 124 s, TailD 10 s: VERIFIED exit 0, 0 errors, no sorryAx.
+- Not folded (read only): ts-hecke (report: HeckeDegree proved from T5, HeckeIrreducible ⇐ new leaf Y3Connected,
+  two Props reduced to new glue; its file carries its own copies of aut-o-finite, infra-smooth-dim's SmoothStalk and
+  curve-glue over kernel imports, which would need de-duplication against parts a56/a57/b20/e25).

@@ -1,7 +1,5 @@
 cmOptimalEmbedding
 x6ConicModel
-hodgeBCInjective
-omegaBaseChange
 thetaRatiosAlgebraic
 qmHauptmodul
 qmClassNumberOne

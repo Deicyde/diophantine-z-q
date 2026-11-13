@@ -14,12 +14,14 @@ while i < len(lines):
     if any(d in l for d in DROP_DOC): i += 2; continue
     if 'fibre-qm-period, LEAF (R1(b) in family form' in l: i += 5; continue  # doc + 4-line field r1bFamily
     if 'metrization (via unif-dims), LEAF (the uniformization theorem' in l: i += 3; continue  # doc (2 lines) + field
+    if 'height-bc, GLUE (BC-alg' in l or 'height-bc, GLUE (`ω` base-changes' in l:
+        i += 2; continue  # doc + field (proved by hodge-bc2)
     if 'period-map, GLUE (base change of QM classes is unique)' in l or 'fibre-qm-period, GLUE (transport of complex points' in l:
         i += 2; continue  # doc + field (proved by cpts-transport)
     out.append(l); i += 1
 blk = '\n'.join(out)
-assert all(k not in blk for k in KUM) and 'cPtsTransport' not in blk and 'baseChangeClassUnique' not in blk and 'analyticUniformizationOfDim' not in blk and 'r1bFamily' not in blk and 'carayolR17' not in blk and 'r14Det :' not in blk
-blk = blk.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (32 fields): g0-assemble3's `GluePieces4` without
+assert 'hodgeBCInjective' not in blk and 'omegaBaseChange' not in blk and all(k not in blk for k in KUM) and 'cPtsTransport' not in blk and 'baseChangeClassUnique' not in blk and 'analyticUniformizationOfDim' not in blk and 'r1bFamily' not in blk and 'carayolR17' not in blk and 'r14Det :' not in blk
+blk = blk.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- **The named Props left after assemble-port** (30 fields): g0-assemble3's `GluePieces4` without
 * `verticalResidueSeparable`, `snSpecialize`: proved by prop-ts-glue (`verticalResidueDegree`, `snSpecializeUnram`;
   together `PropTSGlue.specNonMeeting`);
 * `r14Det`, `r1bFamily`, `carayolR17`: these leaves are fields of leaf-fold2's research bundle `OpenResearchLeaves2`
@@ -28,9 +30,10 @@ blk = blk.replace('/-- **The named Props left after g0-assemble3.** -/', '''/-- 
   transport (leaf-fold2's `analyticUniformizationOfDim_of_uniformizationExists`, part e40);
 * `cPtsTransport`, `baseChangeClassUnique`: proved by cpts-transport (part e45);
 * the six Kummer pieces `kummerAbhyankarFinGlue`, `kummerOtherBranchFin`, `kummerVerticalFin`, `kummerAbhyankarInfGlue`,
-  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12). -/''').replace('structure GluePieces5', 'X').replace('structure GluePieces4', 'structure GluePieces5')
+  `kummerOtherBranchInf`, `kummerVerticalInf`: proved by ts-kummer (part e12);
+* `hodgeBCInjective`, `omegaBaseChange`: proved by hodge-bc2 (part b15). -/''').replace('structure GluePieces5', 'X').replace('structure GluePieces4', 'structure GluePieces5')
 fields = [f for f in re.findall(r'^\s*(?:/--.*?-/\s*)?([a-zA-Z0-9]+) : ', blk, re.M) if f != 'h']
-assert len(fields) == 32, len(fields)
+assert len(fields) == 30, len(fields)
 rf = ['r1r2','r1rec','r3','r4','r5','r5count','r6','r7a','r7b','r8','r9a','r9b','r10','r11r12','r13','r14','r15','r16',
       'r18','r19','r20','r21','r22','h5fin']
 def assign(lst, src, special={}):
@@ -61,7 +64,7 @@ theorem gluePieces4_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLe
   { %s }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (32 fields: 13 LEAF, 3 LEAF?,
+26 fields) and open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (30 fields: 13 LEAF, 3 LEAF?,
 24 GLUE; table in docs/research/assemble-port.md) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
@@ -81,6 +84,8 @@ end
 #print axioms HSyn.t37_proved
 #print axioms HSyn.t39_of_t40
 #print axioms PropTSGlue.specNonMeeting
+#print axioms ZInQ.HeightBC.hodgeBCInjective
+#print axioms ZInQ.HeightBC.omegaBaseChange
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerOtherBranchFin
 #print axioms TsKummer.kummerVerticalFin
@@ -93,13 +98,14 @@ end
 #print axioms PropTSGlue.verticalResidueDegree
 #print axioms PropTSGlue.snSpecializeUnram
 #print axioms PropTSGlue.propTSAll_final''
-''' % assign(['verticalResidueSeparable', 'snSpecialize', 'r14Det', 'r1bFamily', 'carayolR17', 'analyticUniformizationOfDim', 'cPtsTransport', 'baseChangeClassUnique'] + KUM + fields, 'gp', {
+''' % assign(['verticalResidueSeparable', 'snSpecialize', 'r14Det', 'r1bFamily', 'carayolR17', 'analyticUniformizationOfDim', 'cPtsTransport', 'baseChangeClassUnique', 'hodgeBCInjective', 'omegaBaseChange'] + KUM + fields, 'gp', {
     'verticalResidueSeparable': 'PropTSGlue.verticalResidueSeparable_of_degree PropTSGlue.verticalResidueDegree',
     'snSpecialize': 'PropTSGlue.snSpecialize_of_unram PropTSGlue.snSpecializeUnram',
     'r14Det': 'r.r14', 'r1bFamily': 'r.r1b', 'carayolR17': 'r.r17',
     'analyticUniformizationOfDim': 'ZInQ.Metrization2.analyticUniformizationOfDim_of_uniformizationExists t.t35',
     'cPtsTransport': 'G0Split.FibreQM.cPtsTransport_proof',
     'baseChangeClassUnique': 'G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof',
+    'hodgeBCInjective': 'ZInQ.HeightBC.hodgeBCInjective', 'omegaBaseChange': 'ZInQ.HeightBC.omegaBaseChange',
     **{k: 'TsKummer.' + k for k in KUM}})
 open('parts/z99_bundle5.lean', 'w').write(hdr + blk.rstrip() + '\n' + mid)
 open('fields5.txt', 'w').write('\n'.join(fields) + '\n')
