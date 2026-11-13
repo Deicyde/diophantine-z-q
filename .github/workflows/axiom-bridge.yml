@@ -1,0 +1,193 @@
+# Optional engineering check only; never a replacement for kernel-lean or
+# research-checks, and not a required check.
+name: axiom bridge (optional cache)
+
+on:
+  workflow_dispatch:
+  # Pushes run only on main, so a pull-request branch is not checked twice.
+  push:
+    branches: [main]
+    paths:
+      - 'scratch/axiom-bridge/**'
+      - '.github/workflows/axiom-bridge.yml'
+      - '.github/axiom-cache.json'
+  pull_request:
+    paths:
+      - 'scratch/axiom-bridge/**'
+      - '.github/workflows/axiom-bridge.yml'
+      - '.github/axiom-cache.json'
+
+permissions:
+  contents: read
+
+concurrency:
+  group: axiom-bridge-cache-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  LEAN_NUM_THREADS: '1'
+  PYTHONDONTWRITEBYTECODE: '1'
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  cache-bridge:
+    name: optional cached Axiom bridge
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      # FIRST, before checkout, toolchain installation, or dependency downloads.
+      # Only disposable GitHub-hosted runner SDKs; never run this on a shared machine.
+      - name: Free unused runner SDK disk and require 30 GiB
+        run: |
+          set -euo pipefail
+          df -h / | tee "$RUNNER_TEMP/axiom-disk-before.txt"
+          sudo rm -rf -- /usr/share/dotnet /usr/local/lib/android /opt/ghc \
+            /opt/hostedtoolcache/CodeQL
+          free_bytes() { df -B1 --output=avail / | awk 'NR==2 {print $1}'; }
+          if (( $(free_bytes) < 32212254720 )); then
+            sudo rm -rf -- /usr/local/.ghcup /home/runner/.ghcup
+          fi
+          df -h / | tee "$RUNNER_TEMP/axiom-disk-after.txt"
+          available="$(free_bytes)"
+          echo "Available bytes: $available; required: 32212254720 (30 GiB)"
+          if (( available < 32212254720 )); then
+            echo '::error::Insufficient disk after SDK cleanup; no toolchain or dependencies installed.'
+            exit 1
+          fi
+
+      - name: Check out project
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - name: Validate trusted cache metadata, dependency pins and helpers
+        run: |
+          set -euo pipefail
+          python3 scratch/axiom-bridge/scripts/restore_cache.py \
+            --metadata .github/axiom-cache.json --check-pins scratch/axiom-bridge
+          # Tiny synthetic archives only; no Lean, downloads or real cache bytes.
+          python3 scratch/axiom-bridge/scripts/test_restore_cache.py
+
+      # Same pinned, hash-checked installer as kernel-lean.yml.
+      - name: Install elan
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/axiom-elan"
+          cd "$RUNNER_TEMP/axiom-elan"
+          curl --fail --location --retry 3 -o elan.tar.gz \
+            https://github.com/leanprover/elan/releases/download/v4.2.4/elan-x86_64-unknown-linux-gnu.tar.gz
+          echo '42b94d4244e8353142c456ec0e4ca6528fd898a6c604d4059f494e706e431f63  elan.tar.gz' \
+            | sha256sum --check --strict
+          tar -xzf elan.tar.gz
+          ./elan-init -y --default-toolchain none
+          echo "$HOME/.elan/bin" >> "$GITHUB_PATH"
+
+      - name: Install pinned Lean and resolve bridge dependencies
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          mkdir -p ci-logs
+          elan toolchain install leanprover/lean4:v4.35.0
+          lake update 2>&1 | tee ci-logs/dependencies.log
+          python3 scripts/restore_cache.py \
+            --metadata ../../.github/axiom-cache.json --check-pins .
+          lake exe cache get 2>&1 | tee ci-logs/mathlib-cache.log
+          command -v zstd
+
+      - name: Download release parts with read-only token
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          parts="$RUNNER_TEMP/axiom-cache-parts"
+          mkdir -p "$parts"
+          mapfile -t assets < <(python3 scratch/axiom-bridge/scripts/restore_cache.py \
+            --metadata .github/axiom-cache.json --list-assets)
+          # Metadata validation already ran, and list-assets must emit 3 assets.
+          test "${#assets[@]}" -eq 3
+          # Repository and tag come only from the validated, committed metadata.
+          read -r repo tag < <(python3 -c 'import json; m = json.load(open(".github/axiom-cache.json")); print(m["repository"], m["release_tag"])')
+          test "$repo" = elliotglazer/diophantine-z-q
+          for asset in "${assets[@]}"; do
+            gh release download "$tag" --repo "$repo" \
+              --pattern "$asset" --dir "$parts"
+          done
+
+      - name: Verify all hashes and stream-restore the Axiom cache
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          python3 scripts/restore_cache.py \
+            --metadata ../../.github/axiom-cache.json \
+            --parts-dir "$RUNNER_TEMP/axiom-cache-parts" \
+            --checksums "$RUNNER_TEMP/axiom-cache-parts/SHA256SUMS" \
+            --packages-dir .lake/packages | tee ci-logs/cache-restore.log
+          # The helper deletes only verified part files after successful extraction.
+          df -h /
+
+      - name: Fail fast if any required Axiom artifact needs rebuilding
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          # --no-build fails rather than compiling any missing/stale dependency.
+          # +module selects leanArts, including olean companions and C/IR outputs.
+          lake --no-cache --no-build --fail-fast build \
+            +Mordell.Jacobian.Existence +Mordell.Jacobian.Dimension \
+            +Mordell.AbelianVariety.GoodReduction 2>&1 | tee ci-logs/cache-preflight.log
+
+      - name: Build the bridge with one compiler
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v -o ci-logs/bridge.time \
+            python3 scripts/measure.py --jobs 1 --label ci-cache AxiomBridge \
+            | tee ci-logs/build-summary.log
+
+      - name: Audit all nine theorem axiom reports
+        working-directory: scratch/axiom-bridge
+        run: |
+          set -euo pipefail
+          /usr/bin/time -v -o ci-logs/axioms.time \
+            lake env lean Check.lean | tee ci-logs/axioms.log
+          python3 scripts/check_axiom_output.py ci-logs/axioms.log \
+            | tee ci-logs/axioms.json
+
+      - name: Print peak RSS and final disk usage
+        if: always()
+        run: |
+          set -euo pipefail
+          logs="$GITHUB_WORKSPACE/scratch/axiom-bridge/ci-logs"
+          if [[ -d "$logs" ]]; then
+            for phase in bridge axioms; do
+              if [[ -f "$logs/$phase.time" ]]; then
+                echo "$phase:"
+                grep 'Maximum resident set size' "$logs/$phase.time" || true
+              fi
+            done
+            measurements="$GITHUB_WORKSPACE/scratch/axiom-bridge/.lake/measurements/ci-cache"
+            for file in build.log summary.json resources.jsonl; do
+              if [[ -f "$measurements/$file" ]]; then
+                cp "$measurements/$file" "$logs/measured-$file"
+              fi
+            done
+          fi
+          df -h / | tee "$RUNNER_TEMP/axiom-disk-final.txt"
+
+      # Optional diagnostics only: never upload cache parts or all of .lake.
+      - name: Keep small logs and reports
+        if: always()
+        continue-on-error: true
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: axiom-bridge-cache-logs
+          retention-days: 7
+          if-no-files-found: ignore
+          path: |
+            scratch/axiom-bridge/ci-logs/*.log
+            scratch/axiom-bridge/ci-logs/*.json
+            scratch/axiom-bridge/ci-logs/*.jsonl
+            scratch/axiom-bridge/ci-logs/*.time
+            ${{ runner.temp }}/axiom-disk-*.txt
