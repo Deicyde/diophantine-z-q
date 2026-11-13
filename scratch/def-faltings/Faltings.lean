@@ -1460,6 +1460,222 @@ theorem stableFaltingsHeightDeligne_eq (g : ℕ)
 
 end HeightLemmas
 
+/-! ## 19. Acceptance test AT1: elliptic curves
+
+`IsEllipticCurveOf A W` identifies an abelian variety with the elliptic curve of a Weierstrass
+equation using only Mathlib objects: the complement of the origin is an affine open whose ring of
+functions is `K`-isomorphic to the affine coordinate ring `K[x, y]/(W)`. (Then `A` is the smooth
+projective model of the function field of `W` with origin `O`, so `A ≅ E_W` as pointed curves,
+and the group law with a given origin is unique by rigidity: STANDARD.) Mathlib v4.35 cannot yet
+construct such an `A` from `W` (node AV7), so `AcceptanceEC` is a statement, not a theorem. -/
+
+section AT1
+
+open Polynomial
+
+variable {K : Type} [Field K]
+
+/-- The structure map `K → Γ(U, 𝒪_A)`. -/
+noncomputable def AbVar.structMapOn (A : AbVar K) (U : A.X.left.Opens) : K →+* Γ(A.X.left, U) :=
+  ((Scheme.ΓSpecIso (CommRingCat.of K)).inv ≫ A.X.hom.appTop ≫
+    A.X.left.presheaf.map (homOfLE le_top).op).hom
+
+/-- The origin of `A` (image of the unit section). -/
+noncomputable def AbVar.origin (A : AbVar K) : A.X.left :=
+  (η[A.X] : 𝟙_ (Over (Spec (CommRingCat.of K))) ⟶ A.X).left
+    ((⟨⊥, Ideal.isPrime_bot⟩ : PrimeSpectrum K) : Spec (CommRingCat.of K))
+
+/-- `A` is the elliptic curve `y² + a₁xy + a₃y = x³ + a₂x² + a₄x + a₆`: `A ∖ {O}` is affine with
+ring of functions `K[x, y]/(W)`, compatibly with `K`. -/
+def IsEllipticCurveOf (A : AbVar K) (W : WeierstrassCurve K) : Prop :=
+  ∃ U : A.X.left.Opens, (U : Set A.X.left) = {A.origin}ᶜ ∧ IsAffineOpen U ∧
+    ∃ e : W.toAffine.CoordinateRing ≃+* Γ(A.X.left, U),
+      ∀ c : K, e (algebraMap K W.toAffine.CoordinateRing c) = A.structMapOn U c
+
+/-- **Acceptance test AT1 (statement).** For an elliptic curve over a number field, the general
+definition agrees with pkg-I5's closed formula. Unproved: needs AV7 (an `A` with
+`IsEllipticCurveOf A W` exists), AN3 for `g = 1` (AN4: `℘`), AN5 (`PeriodAreaFormula`), M2 for
+the minimal Weierstrass model, AT1a (the Néron lattice) and H5 (the infimum is attained at the
+Néron model over a semistable field). -/
+def AcceptanceEC : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (W : WeierstrassCurve K) [W.IsElliptic] (A : AbVar K),
+    IsEllipticCurveOf A W → stableFaltingsHeight A = (faltingsHeightEC W : EReal)
+
+/-- **AT1, conditional form over the general definition (proved).** Let `M` be a metrized model
+of `A` over `K` itself whose Hodge lattice is free on `η₀` with `η₀ ↦ dz` for period pairs
+`Lp σ` (outputs of AN4 and M2 for a minimal semistable Weierstrass model: `η₀ = dx/(2y+a₁x+a₃)`),
+with the Weierstrass polynomial matching `4x³ − g₂x − g₃` and the finite part of
+`faltingsHeightEC` vanishing (AT1a: the model is semistable and minimal everywhere), and assume
+that no metrized model has smaller height (`hmin`, the output of H5: Néron mapping property and
+semistable base change). Then, given the area formula AN5, `stableFaltingsHeight A` is pkg-I5's
+`faltingsHeightEC W`. -/
+theorem stableFaltingsHeight_eq_faltingsHeightEC [NumberField K] (hA : PeriodAreaFormula)
+    (W : WeierstrassCurve K) [W.IsElliptic] (A : AbVar K) (M : MetrizedModel A K 1)
+    {η₀ : M.model.hodgeSpace 1}
+    (hspan : M.hodge.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
+    (Lp : (K →+* ℂ) → PeriodPair) (hper : ∀ σ, M.hodge.periods σ = (Lp σ).lattice1)
+    (hco : ∀ σ, M.hodge.coeff σ η₀ = 1)
+    (hP : ∀ σ, (4 * X ^ 3 + C W.b₂ * X ^ 2 + C (2 * W.b₄) * X + C W.b₆ : K[X]).map σ =
+      4 * X ^ 3 - C (Lp σ).g₂ * X - C (Lp σ).g₃)
+    (hfin : finiteHeightPart W.j = ∑ σ : K →+* ℂ, Real.log ‖σ W.Δ‖)
+    (hmin : ∀ (E : FinExt K) (g : ℕ) (M' : MetrizedModel A E.L g),
+      faltingsHeightEC W ≤ M'.hodge.modelHeight) :
+    stableFaltingsHeight A = (faltingsHeightEC W : EReal) := by
+  have hM : M.hodge.modelHeight = faltingsHeightEC W :=
+    modelHeight_eq_faltingsHeightEC hA W M.hodge hspan hη₀ Lp hper hco hP hfin
+  refine le_antisymm ?_ ?_
+  · exact (stableFaltingsHeight_le A M).trans_eq (by rw [hM])
+  · exact le_stableFaltingsHeight A fun E g M' => EReal.coe_le_coe_iff.mpr (hmin E g M')
+
+end AT1
+
+/-! ## 20. Acceptance test AT2: genus-2 curves with a smooth model
+
+`Genus2Eq`, `Genus2Eq.P`, `Genus2Eq.binDisc`, `Genus2Eq.Good` and `faltingsHeightGood` are copied
+from `scratch/pkg-I5/I5.lean`. A statement "`stableFaltingsHeight (Jac C) = faltingsHeightGood E`"
+cannot be written: Mathlib v4.35 has no Jacobians (node AV7) and no way to say that an `AbVar` is
+the Jacobian of a curve. What is proved is the conditional form: a metrized model whose Hodge
+lattice is free on `η₀` (M8: for a smooth Weierstrass model `𝒞/𝓞_K`, the Néron lattice is
+`∧² H⁰(𝒞, ω) = 𝓞_K · (dx/(2y+h)) ∧ (x dx/(2y+h))`, BLR 9.5 Thm 4, Liu, UNVERIFIED locators) and
+whose archimedean metric of `η₀` is the Gram determinant `hypVol 2` (AN6: Riemann's bilinear
+relations), with `hmin` (H5), has `stableFaltingsHeight = faltingsHeightGood E`. -/
+
+section AT2
+
+open Polynomial
+
+/-- (copied from pkg-I5) A genus-2 Weierstrass equation `y² + h(x) y = f(x)`. -/
+structure Genus2Eq (R : Type*) [CommRing R] where
+  f : R[X]
+  h : R[X]
+  deg_f : f.natDegree ≤ 6
+  deg_h : h.natDegree ≤ 3
+
+namespace Genus2Eq
+
+variable {R : Type*} [CommRing R]
+
+/-- (copied) `P = 4f + h²`. -/
+noncomputable def P (E : Genus2Eq R) : R[X] := 4 * E.f + E.h ^ 2
+
+/-- (copied) The discriminant of `P` as a binary sextic. -/
+noncomputable def binDisc (E : Genus2Eq R) : R :=
+  if E.P.natDegree = 6 then E.P.discr
+  else if E.P.natDegree = 5 then E.P.leadingCoeff ^ 2 * E.P.discr else 0
+
+/-- (copied) Smooth Weierstrass model over `𝓞 K`: `disc₆(P) = 2¹²·u`, `u` a unit. -/
+def Good {K : Type*} [Field K] [NumberField K] (E : Genus2Eq (𝓞 K)) : Prop :=
+  ∃ u : (𝓞 K)ˣ, E.binDisc = 2 ^ 12 * (u : 𝓞 K)
+
+end Genus2Eq
+
+/-- (copied from pkg-I5) `h_F(Jac C) = −(2[K:ℚ])⁻¹ ∑_σ log ‖ω₀∧ω₁‖²_σ` for a good equation. -/
+noncomputable def faltingsHeightGood {K : Type*} [Field K] [NumberField K]
+    (E : Genus2Eq (𝓞 K)) : ℝ :=
+  -(∑ σ : K →+* ℂ, Real.log (hypVol 2 ((E.P.map (algebraMap (𝓞 K) K)).map σ))) /
+    (2 * Module.finrank ℚ K)
+
+/-- **AT2 bridge at the level of Hodge data (proved).** -/
+theorem HodgeData.modelHeight_eq_faltingsHeightGood {K : Type*} [Field K] [NumberField K]
+    {V : Type*} [AddCommGroup V] [Module K V] [Module (𝓞 K) V] [IsScalarTower (𝓞 K) K V]
+    (E : Genus2Eq (𝓞 K)) (D : HodgeData K 2 V) {η₀ : V}
+    (hspan : D.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
+    (hgram : ∀ σ, torusMetricSq (D.periods σ) (D.coeff σ η₀) =
+      hypVol 2 ((E.P.map (algebraMap (𝓞 K) K)).map σ)) :
+    D.modelHeight = faltingsHeightGood E := by
+  rw [D.modelHeight_of_span hspan hη₀, faltingsHeightGood]
+  simp only [hgram]
+  have hd : (0 : ℝ) < Module.finrank ℚ K := by exact_mod_cast Module.finrank_pos
+  field_simp
+
+/-- **AT2, conditional form over the general definition (proved).** -/
+theorem stableFaltingsHeight_eq_faltingsHeightGood {K : Type} [Field K] [NumberField K]
+    (E : Genus2Eq (𝓞 K)) (A : AbVar K) (M : MetrizedModel A K 2) {η₀ : M.model.hodgeSpace 2}
+    (hspan : M.hodge.lattice = Submodule.span (𝓞 K) {η₀}) (hη₀ : η₀ ≠ 0)
+    (hgram : ∀ σ, torusMetricSq (M.hodge.periods σ) (M.hodge.coeff σ η₀) =
+      hypVol 2 ((E.P.map (algebraMap (𝓞 K) K)).map σ))
+    (hmin : ∀ (F : FinExt K) (g : ℕ) (M' : MetrizedModel A F.L g),
+      faltingsHeightGood E ≤ M'.hodge.modelHeight) :
+    stableFaltingsHeight A = (faltingsHeightGood E : EReal) := by
+  have hM := HodgeData.modelHeight_eq_faltingsHeightGood E M.hodge hspan hη₀ hgram
+  refine le_antisymm ?_ ?_
+  · exact (stableFaltingsHeight_le A M).trans_eq (by rw [hM])
+  · exact le_stableFaltingsHeight A fun F g M' => EReal.coe_le_coe_iff.mpr (hmin F g M')
+
+end AT2
+
+/-! ## 21. The leaves R19-R21 over `stableFaltingsHeight`
+
+Normalizations (docs/research/locators.md): Gaudron-Rémond (R19) and Faltings (R20) use the
+stable height in Faltings' original normalization, which is `stableFaltingsHeight`; Bost's bound
+(R21) is used in the form `h_F ≥ −(3/2) dim A` printed by Gaudron-Rémond §9; Pazuki (R22) uses
+Deligne's metric, `stableFaltingsHeightDeligne = stableFaltingsHeight + (g/2) log π`
+(`stableFaltingsHeightDeligne_eq`).
+
+Where the height is an input of an upper bound (R19, R20), it is taken through a real `x` with
+`stableFaltingsHeight A = x`, never through `EReal.toReal` (whose junk value `0` at `⊤` would
+make the statement stronger than the published one). Isogenies: homomorphisms of group schemes
+that are finite and surjective (project's `IsIsogenyMor`); the degree is the order of the kernel
+on `K̄`-points, which equals the degree in characteristic `0` (STANDARD). -/
+
+section Leaves
+
+open MonObj
+
+/-- `Spec L` as a `K`-scheme (copied from `ZInQKernel/HDecomp/Objects.lean`). -/
+noncomputable def ptObj (K L : Type) [Field K] [Field L] [Algebra K L] :
+    Over (Spec (CommRingCat.of K)) :=
+  Over.mk (Spec.map (CommRingCat.ofHom (algebraMap K L)))
+
+variable {K : Type} [Field K]
+
+/-- An isogeny: a homomorphism of group schemes, finite and surjective. -/
+def IsIsogeny {A B : AbVar K} (φ : A.X ⟶ B.X) : Prop :=
+  IsMonHom φ ∧ IsFinite φ.left ∧ Surjective φ.left
+
+/-- The degree of an isogeny in characteristic `0`: `# ker(φ)(K̄)`. -/
+noncomputable def isogDeg {A B : AbVar K} (φ : A.X ⟶ B.X) : ℕ :=
+  Nat.card {P : ptObj K (AlgebraicClosure K) ⟶ A.X // P ≫ φ = 1}
+
+/-- Gaudron-Rémond's `κ(A) = ((14g)^{64g²} [k:ℚ] max(h_F(A), log[k:ℚ], 1)²)^{1024g³}`. -/
+noncomputable def grKappa (g d : ℕ) (x : ℝ) : ℝ :=
+  ((14 * g : ℝ) ^ (64 * g ^ 2) * d * (max (max x (Real.log d)) 1) ^ 2) ^ (1024 * g ^ 3)
+
+/-- **R19. Gaudron-Rémond**, Duke Math. J. 163 (2014), Thm 1.4 (p. 2060; `κ` and
+`α(g) = 1024g³`, p. 2058), specialized to `k = K` (locators read by the audit, locators.md).
+Isogenous abelian varieties over a number field admit isogenies in both directions of degree
+`≤ κ(A)`. -/
+def R19_GaudronRemond : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : AbVar K) (g : ℕ) (x : ℝ),
+    A.dim = (g : WithBot ℕ∞) → stableFaltingsHeight A = x →
+    (∃ φ : A.X ⟶ B.X, IsIsogeny φ) →
+    (∃ φ : A.X ⟶ B.X, IsIsogeny φ ∧ (isogDeg φ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x) ∧
+    (∃ ψ : B.X ⟶ A.X, IsIsogeny ψ ∧ (isogDeg ψ : ℝ) ≤ grKappa g (Module.finrank ℚ K) x)
+
+/-- **R20. Faltings' height lemma** (Faltings 1983, Lemma 5; Raynaud, Astérisque 127, VII
+Cor. 2.1.3): for an isogeny `φ : A → B`, `|h_F(A) − h_F(B)| ≤ ½ log deg φ`. Locator audit: Lemma 5
+unread, UNVERIFIED (including direction and the stable/semistable hypotheses). -/
+def R20_FaltingsLemma5 : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A B : AbVar K) (φ : A.X ⟶ B.X), IsIsogeny φ →
+    ∀ x y : ℝ, stableFaltingsHeight A = x → stableFaltingsHeight B = y →
+      |x - y| ≤ (1 / 2) * Real.log (isogDeg φ)
+
+/-- **R21. Bost's lower bound**, in the form printed by Gaudron-Rémond 2014 §9 (proof of
+Lemma 9.1, p. 2098): `h_F(A) ≥ −(3/2) dim A`. Bost's own display UNVERIFIED (locators.md). -/
+def R21_Bost : Prop :=
+  ∀ (K : Type) [Field K] [NumberField K] (A : AbVar K) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    ((-(3 / 2) * g : ℝ) : EReal) ≤ stableFaltingsHeight A
+
+/-- R21 excludes `h = ⊥`. -/
+theorem stableFaltingsHeight_ne_bot_of_R21 (h : R21_Bost) {K : Type} [Field K] [NumberField K]
+    (A : AbVar K) (g : ℕ) (hg : A.dim = (g : WithBot ℕ∞)) : stableFaltingsHeight A ≠ ⊥ := by
+  intro hb
+  have := h K A g hg
+  rw [hb] at this
+  exact EReal.coe_ne_bot _ (le_bot_iff.mp this)
+
+end Leaves
+
 end ModelsSec
 
 end ZInQ.DefFaltings
