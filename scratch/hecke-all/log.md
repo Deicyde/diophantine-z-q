@@ -29,3 +29,13 @@
   (d = b²a, a squarefree, via LSeries_cd_sq_mul).
 - HeckeFE.lean: verbatim copy of scratch/bp-hecke-fe/HeckeFE.lean, namespace BpHeckeFE → ZInQ.Contrib.HeckeAll
   (GaussPointCount unchanged). Built with lake (20 s).
+
+## Checks
+- (VERIFIED, PARI via cypari2, `twist_check.py` → `out_twist_check.txt`, 26 values of d) a_n(C_d) = J(d'|n)·a_n(C_1)
+  for n ≤ 300, d' = squarefree part of d, d ∈ {1,2,3,5,6,7,10,11,13,14,15,21,22,30,34,4,8,9,12,18,20,25,27,45,50,72}:
+  0 mismatches; no multiplicative reduction anywhere; for squarefree d PARI's global minimal model has u = 1
+  (y² = x³ − d²x minimal at every p, matching `isMinimal_cdLocal'`); conductor 2^5 d² (d odd), 2^6 (d/2)²·… (d even:
+  f₂ = 6, Kodaira code −6 = I₁*), f_p = 2 at odd p | d.
+- (VERIFIED, `lake env lean scratch/hecke-all/ComposeTest.lean`, no errors) a GaussPointCount over independent
+  verbatim copies of normFiber/unitOf/gz is accepted by `heckeContinuation_of_gaussPointCount` (definitional
+  unfolding), so a proof of the gauss-proof task's copy composes directly.
