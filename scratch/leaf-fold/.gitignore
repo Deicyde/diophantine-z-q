@@ -4,3 +4,4 @@ Full.lean
 *.olean
 *.ilean
 olean/
+*.done

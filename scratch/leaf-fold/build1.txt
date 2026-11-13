@@ -1469,3 +1469,522 @@ warning: ZInQKernel/HDecomp/Assembly/E2Index.lean: imports `Mathlib` from packag
 ⚠ [10180/10240] Built ZInQKernel.HDecomp.Conductor.Breaks (24s)
 warning: ZInQKernel/HDecomp/Conductor/Breaks.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
 ✔ [10181/10240] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Eisenstein (2.3s)
+⚠ [10182/10240] Built ZInQKernel.HDecomp.C10.C10 (28s)
+warning: ZInQKernel/HDecomp/C10/C10.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/C10/C10.lean:210:40: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/C10/C10.lean:344:52: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+⚠ [10183/10240] Built ZInQKernel.Contrib.Chebotarev.FrobeniusDenseOfExists (28s)
+warning: ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/Chebotarev/FrobeniusDenseOfExists.lean:345:2: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+✔ [10184/10241] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.ArtinNorm (4.7s)
+✔ [10185/10243] Built ZInQKernel.Contrib.TauCeti.Algebra.GroupWithZero.Divisibility (685ms)
+✔ [10186/10243] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.ExplicitCyclotomicSymbol.ArtinMap (5.2s)
+✔ [10187/10246] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.SharpCutoff (6.5s)
+⚠ [10188/10246] Built ZInQKernel.Contrib.Different.Bridge (5.3s)
+warning: ZInQKernel/Contrib/Different/Bridge.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10189/10246] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Wild (2.0s)
+✔ [10190/10246] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Eigenspace.JointEigenvector.Basic (2.4s)
+✔ [10191/10246] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.MoebiusAction (1.7s)
+✔ [10192/10250] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Brauer.CharacterCarry (10s)
+✔ [10193/10250] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.ProductFormula (2.4s)
+✔ [10194/10250] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.Basic (1.8s)
+✔ [10195/10251] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.Boundary (1.0s)
+✔ [10196/10253] Built ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.LocalGlobal.Different.Wild (1.8s)
+✔ [10197/10253] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.DoubleCoset (1.1s)
+✔ [10198/10254] Built ZInQKernel.Contrib.TauCeti.Algebra.Group.Subgroup.Centralizer (787ms)
+✔ [10199/10254] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Basic (2.9s)
+✔ [10200/10254] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.DedekindZeta (1.8s)
+✔ [10201/10254] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CongruenceSubgroups.Basic (2.2s)
+✔ [10202/10254] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Basic (3.0s)
+✔ [10203/10256] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Diagonal (1.3s)
+✔ [10204/10258] Built ZInQKernel.Contrib.TauCeti.RingTheory.PowerSeries.Support (1.4s)
+✔ [10205/10258] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CongruenceSubgroups.Units (1.3s)
+✔ [10206/10258] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.Basic (2.4s)
+✔ [10207/10258] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LFunctions.PrimeIdealBoundary (1.9s)
+✔ [10208/10258] Built ZInQKernel.Contrib.TauCeti.Topology.DiscreteSeparation (788ms)
+✔ [10209/10258] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Diagonal.Basic (2.2s)
+⚠ [10210/10259] Built ZInQKernel.Contrib.Different.Global (4.5s)
+warning: ZInQKernel/Contrib/Different/Global.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10211/10263] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.SlashActionRat (2.0s)
+⚠ [10212/10265] Built ZInQKernel.Contrib.LocalKW.Basic (9.4s)
+warning: ZInQKernel/Contrib/LocalKW/Basic.lean: imports `Mathlib.NumberTheory.Padics.Hensel` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/LocalKW/Basic.lean: imports `Mathlib.FieldTheory.Galois.Infinite` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/Contrib/LocalKW/Basic.lean: imports `Mathlib.NumberTheory.Cyclotomic.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10213/10265] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.PrimeIdealTheorem (1.7s)
+✔ [10214/10265] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Basic (2.5s)
+✔ [10215/10267] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Basic (996ms)
+✔ [10216/10268] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.Manifold (1.6s)
+✔ [10217/10273] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Divisibility (1.2s)
+✔ [10218/10273] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Equivalence (1.3s)
+✔ [10219/10273] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.NaturalDensity (2.3s)
+✔ [10220/10274] Built ZInQKernel.Contrib.TauCeti.Data.Int.Fin2Tuple (819ms)
+✔ [10221/10274] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Basic (2.5s)
+✔ [10222/10277] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.DiamondOperators (3.0s)
+✔ [10223/10277] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SpecialLinearGroup.Equivalence (1.3s)
+✔ [10224/10277] Built ZInQKernel.Contrib.TauCeti.Data.Int.LinearCongruence (1.0s)
+✔ [10225/10277] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Basic (1.3s)
+✔ [10226/10277] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.ResidueDegree.NaturalDensity (1.6s)
+✔ [10227/10277] Built ZInQKernel.Contrib.LocalKW.LocalKW (4.5s)
+✔ [10228/10277] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.Triangular (1.7s)
+✔ [10229/10281] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Support (1.3s)
+✔ [10230/10281] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Unit (1.1s)
+✔ [10231/10284] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplication (1.2s)
+✔ [10232/10286] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Delta0 (1.6s)
+⚠ [10233/10286] Built ZInQKernel.HDecomp.Objects (28s)
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Geometrically.Connected` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Smooth` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.AlgebraicGeometry.Pullbacks` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Grp` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.CategoryTheory.Monoidal.Cartesian.Over` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Data.ZMod.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IntermediateField.Adjoin.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.FieldTheory.IsAlgClosed.AlgebraicClosure` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.DiscreteValuationRing.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Etale.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Ideal.Height` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.IntegralClosure.IntegralRestrict` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.QuasiFinite.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RamificationInertia.Ramification` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.RegularLocalRing.Defs` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Unramified.Locus` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.RingTheory.Valuation.RamificationGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean: imports `Mathlib.Topology.KrullDimension` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/Objects.lean:539:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:599:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:602:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:623:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:628:15: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+
+Hint: Replace the deprecated name:
+  S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
+warning: ZInQKernel/HDecomp/Objects.lean:669:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : M ⊗[R] N → Prop} (z : M ⊗[R] N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) → (∀ (x y : M ⊗[R] N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/Objects.lean:701:8: `simp` already closes the goal
+
+Hint: Use `simp` instead of `simpa`:
+  [apply] simp
+
+Note: This linter can be disabled with `set_option linter.unnecessarySimpa false`
+warning: ZInQKernel/HDecomp/Objects.lean:1299:58: Variable name `f` is not explicitly referenced.
+
+Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
+  [apply] _f
+
+Note: This linter can be disabled with `set_option linter.unusedVariables false`
+✔ [10234/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticDirichletSeries.Prime.Contraction (2.3s)
+✔ [10235/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.One (998ms)
+✔ [10236/10288] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Normalizer (991ms)
+✔ [10237/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Degeneracy (5.1s)
+✔ [10238/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Basic (1.3s)
+✔ [10239/10288] Built ZInQKernel.Contrib.LocalKW.T30 (4.1s)
+✔ [10240/10288] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.SmithNormalForm (5.8s)
+✔ [10241/10288] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Adjugate (1.2s)
+✔ [10242/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.FixedFieldContraction (2.6s)
+✔ [10243/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.Density.SplitsCompletely (1.9s)
+⚠ [10244/10288] Built ZInQKernel.HDecomp.I3Linalg.RhoCont (4.1s)
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.Topology.Algebra.Module.ModuleTopology` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.FieldTheory.KrullTopology` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.AlgebraicGeometry.ResidueField` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.AlgebraicGeometry.Morphisms.Proper` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.LinearAlgebra.TensorProduct.Basis` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/RhoCont.lean: imports `Mathlib.Topology.Instances.Matrix` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10245/10288] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Normalizer (1.1s)
+✔ [10246/10291] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma1.Basic (1.2s)
+✔ [10247/10293] Built ZInQKernel.HDecomp.ModCurves.Defs (4.7s)
+✔ [10248/10293] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.DoubleCoset (1.6s)
+⚠ [10249/10293] Built ZInQKernel.HDecomp.ModCurves.Genus (4.6s)
+warning: ZInQKernel/HDecomp/ModCurves/Genus.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10250/10293] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.DiagonalCosets (1.8s)
+✔ [10251/10296] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.BoundedAtCusp (1.3s)
+✔ [10252/10296] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Cyclotomic.Surjective (2.1s)
+⚠ [10253/10300] Built ZInQKernel.HDecomp.I3Linalg.C2 (6.6s)
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RepresentationTheory.Irreducible` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.LinearAlgebra.Projection` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.LinearAlgebra.FiniteDimensional.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.AlgebraicGeometry.Group.Abelian` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.NumberTheory.Padics.RingHoms` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RepresentationTheory.Semisimple` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.FieldTheory.AbsoluteGaloisGroup` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.NumberTheory.NumberField.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.Algebra.Quaternion` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.LinearAlgebra.Matrix.Charpoly.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.AdjoinRoot` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.SimpleModule.Basic` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.Artinian.Ring` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.Artinian.Module` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.Jacobson.Semiprimary` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.LinearAlgebra.Trace` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.RingTheory.TensorProduct.Free` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean: imports `Mathlib.LinearAlgebra.Dual.Lemmas` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:227:0: automatically included section variable(s) unused in theorem `GlueI3.finrank_commOf_le_of_equiv`:
+  [Monoid G]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [Monoid G] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:519:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:546:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:578:24: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:617:22: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+warning: ZInQKernel/HDecomp/I3Linalg/C2.lean:656:20: `TensorProduct.induction_on` has been deprecated: Use `TensorProduct.inductionOn` instead
+
+Note: The updated constant has a different type:
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+      (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+instead of
+  ∀ {R : Type u_1} [inst : CommSemiring R] {M : Type u_5} {N : Type u_6} [inst_1 : AddCommMonoid M]
+    [inst_2 : AddCommMonoid N] [inst_3 : Module R M] [inst_4 : Module R N] {motive : TensorProduct R M N → Prop}
+    (z : TensorProduct R M N),
+    motive 0 →
+      (∀ (x : M) (y : N), motive (x ⊗ₜ[R] y)) →
+        (∀ (x y : TensorProduct R M N), motive x → motive y → motive (x + y)) → motive z
+✔ [10254/10300] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Rat.Basic (1.5s)
+✔ [10255/10300] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.CosetMap (1.5s)
+✔ [10256/10300] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Basic (1.7s)
+✔ [10257/10302] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.CosetDecomposition (1.6s)
+✔ [10258/10303] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Diagonal.Basic (1.5s)
+✔ [10259/10303] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Cusps.Rat.Slash (1.4s)
+✔ [10260/10303] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.CharacterCarry (23s)
+✔ [10261/10309] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Coset (1.4s)
+✔ [10262/10309] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Holomorphic (1.5s)
+✔ [10263/10309] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Cyclotomic.Series (2.3s)
+✔ [10264/10310] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Reindex (1.7s)
+✔ [10265/10310] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.CosetDecomposition (1.5s)
+✔ [10266/10310] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Cusps (1.5s)
+✔ [10267/10312] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Diagonal.QExpansion (1.7s)
+✔ [10268/10312] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.GaloisCharacter.Cyclotomic.Nonvanishing (1.7s)
+✔ [10269/10312] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.Periodic (1.6s)
+✔ [10270/10312] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Independence (2.1s)
+✔ [10271/10312] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.UpperTriFactorization (1.7s)
+✔ [10272/10314] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Invariance (2.1s)
+✔ [10273/10314] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Sum (1.5s)
+✔ [10274/10315] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.AtInfinity (1.2s)
+✔ [10275/10318] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma1.UpperTriCosets (1.9s)
+✔ [10276/10318] Built ZInQKernel.Contrib.TauCeti.Order.Filter.ZeroAndBoundedAtFilter (1.1s)
+✔ [10277/10318] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Form (1.8s)
+✔ [10278/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.Cyclotomic (2.2s)
+✔ [10279/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Invariance (1.7s)
+✔ [10280/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Cusps (1.5s)
+✔ [10281/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Holomorphic (1.5s)
+✔ [10282/10320] Built ZInQKernel.HDecomp.ModCurves.Leaves (9.3s)
+✔ [10283/10320] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.Topology (1.6s)
+✔ [10284/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Periodic (2.0s)
+✔ [10285/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.Infty (1.5s)
+✔ [10286/10320] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.QExpansion.Basic (1.7s)
+✔ [10287/10321] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma1.CoprimeCosets (2.2s)
+✔ [10288/10324] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Cyclotomic.Compositum (8.3s)
+✔ [10289/10324] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.ModularForm (1.7s)
+✔ [10290/10325] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.GcdSplit (844ms)
+✔ [10291/10326] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.ModularForm (2.6s)
+✔ [10292/10327] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.Chebotarev (2.4s)
+✔ [10293/10327] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.Basic (799ms)
+✔ [10294/10327] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.QExpansion (2.0s)
+✔ [10295/10327] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Elem (1.3s)
+✔ [10296/10330] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Associativity (1.6s)
+✔ [10297/10330] Built ZInQKernel.Contrib.TauCeti.Algebra.LinearRecurrence.OrderTwo (1.0s)
+✔ [10298/10336] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Gamma1 (1.7s)
+✔ [10299/10336] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.PrimePowerProd.Basic (1.2s)
+✔ [10300/10336] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Chebotarev.PrimeCounting.FrobeniusPrimeCount (1.8s)
+✔ [10301/10336] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Commutativity (1.9s)
+✔ [10302/10336] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.BadPrimeCoset (1.8s)
+✔ [10303/10338] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.DoubleCoset (1.5s)
+✔ [10304/10338] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Factorization.PrimePowerProd.DivisorTable (1.1s)
+✔ [10305/10339] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.CoprimeRepresentative (1.7s)
+✔ [10306/10339] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GLn.TransposeAntiInvolution (1.2s)
+✔ [10307/10341] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula (5.7s)
+✔ [10308/10341] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Prime (1.6s)
+✔ [10309/10341] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.UpperUnit (1.2s)
+✔ [10310/10341] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.LinearExtension (1.1s)
+✔ [10311/10342] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.ElementaryDivisors (1.9s)
+✔ [10312/10342] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.StabConjugation (1.1s)
+✔ [10313/10342] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Operators (1.9s)
+✔ [10314/10342] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Recurrence (2.0s)
+✔ [10315/10342] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.PrimeCosets (1.8s)
+✔ [10316/10342] Built ZInQKernel.HDecomp.ModCurves.Glue (8.0s)
+✔ [10317/10342] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.Brauer.SumFormula (1.9s)
+✔ [10318/10346] Built ZInQKernel.Contrib.TauCeti.Algebra.BigOperators.Finset.Fiber (847ms)
+✔ [10319/10348] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Equiv (1.5s)
+✔ [10320/10348] Built ZInQKernel.Contrib.Chebotarev.Exists (5.3s)
+✔ [10321/10348] Built ZInQKernel.Contrib.TauCeti.GroupTheory.DoubleCoset.Inv (825ms)
+✔ [10322/10348] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.AtkinLehner (2.5s)
+✔ [10323/10348] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.LevelSupported (1.8s)
+✔ [10324/10354] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.CuspRing (1.5s)
+✔ [10325/10354] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Ring (1.5s)
+✔ [10326/10356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.Multiplicity.Handedness (924ms)
+✔ [10327/10356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.PrimePower (1.4s)
+✔ [10328/10356] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.NebentypusChar (1.3s)
+✔ [10329/10357] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Gamma0 (1.7s)
+✔ [10330/10367] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Degeneracy (2.0s)
+✔ [10331/10367] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.PairCoset (1.8s)
+✔ [10332/10368] Built ZInQKernel.Contrib.Chebotarev.FrobeniusDense (4.1s)
+✔ [10333/10368] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.ScalarMul (1.6s)
+✔ [10334/10370] Built ZInQKernel.Contrib.TauCeti.Algebra.BigOperators.Finset.Range (1.3s)
+✔ [10335/10371] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Basic (2.3s)
+✔ [10336/10371] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma0.Diagonal.Composite (1.6s)
+✔ [10337/10371] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.Measure (1.9s)
+✔ [10338/10371] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.ProjectiveSpecialLinearGroup (1.0s)
+✔ [10339/10376] Built ZInQKernel.Contrib.BrauerT14T15.GlobalT14 (10s)
+✔ [10340/10378] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Holomorphic (1.6s)
+✔ [10341/10378] Built ZInQKernel.Contrib.TauCeti.Backport.NumberTheory.ClassFieldTheory.Global.PrescribedInvariant (25s)
+✔ [10342/10378] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Cusps (1.5s)
+✔ [10343/10386] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Composition (3.9s)
+✔ [10344/10386] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Ring (1.9s)
+✔ [10345/10386] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Complex.Determinant (1.3s)
+✔ [10346/10386] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Group.FundamentalDomain (3.6s)
+✔ [10347/10387] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.QExpansion.Order (1.4s)
+✔ [10348/10390] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.UpperHalfPlane.PSL.Action (2.5s)
+✔ [10349/10390] Built ZInQKernel.Contrib.TauCeti.Analysis.Analytic.Order (1.8s)
+✔ [10350/10390] Built ZInQKernel.Contrib.TauCeti.Analysis.Complex.Coordinates (1.4s)
+✔ [10351/10397] Built ZInQKernel.Contrib.TauCeti.NumberTheory.HeckeRing.GL2.Gamma1.DiamondCosets (1.6s)
+✔ [10352/10397] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.Map (1.2s)
+✔ [10353/10398] Built ZInQKernel.Contrib.BrauerT14T15.Main (4.3s)
+✔ [10354/10398] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Invariance (2.9s)
+✔ [10355/10400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.QExpansion.Order (1.6s)
+✔ [10356/10400] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Measure.Lebesgue.Complex (1.6s)
+✔ [10357/10400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.SlashAdjugate (1.5s)
+✔ [10358/10400] Built ZInQKernel.Contrib.TauCeti.MeasureTheory.Integral.Bochner.Basic (1.0s)
+✔ [10359/10400] Built ZInQKernel.Contrib.TauCeti.NumberTheory.DirichletCharacter.Basic (1.1s)
+✔ [10360/10405] Built ZInQKernel.HDecomp.ModCurves.C9 (14s)
+✔ [10361/10406] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Independence (2.1s)
+✔ [10362/10406] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.GaloisProd (1.9s)
+✔ [10363/10406] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Trace (2.6s)
+✔ [10364/10406] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.CharRing (2.5s)
+✔ [10365/10408] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ArithmeticFunction.PrimeRecurrence (999ms)
+✔ [10366/10408] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.ClassFormation (6.9s)
+✔ [10367/10408] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CharacterDecomp (2.3s)
+✔ [10368/10408] Built ZInQKernel.Contrib.TauCeti.Data.Nat.Prime.FactorsProd (1.0s)
+✔ [10369/10411] Built ZInQKernel.Contrib.TauCeti.NumberTheory.Modular (2.8s)
+✔ [10370/10411] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.ModularForm (2.4s)
+✔ [10371/10411] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.One (1.8s)
+✔ [10372/10411] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.CuspDescent (1.8s)
+✔ [10373/10413] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Diamond (2.6s)
+✔ [10374/10413] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Norm.Trace (3.3s)
+✔ [10375/10423] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.WithCenter (1.6s)
+✔ [10376/10424] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Composition (3.9s)
+✔ [10377/10424] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.QSupport (1.7s)
+✔ [10378/10424] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Basic (2.3s)
+✔ [10379/10426] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.GlobalExistence.NormLimitation (3.6s)
+✔ [10380/10426] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.ConductorDichotomy (1.8s)
+✔ [10381/10426] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.SturmBound (1.0s)
+✔ [10382/10426] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.ProjectiveSpecialLinearGroup.FinTwo (1.7s)
+✔ [10383/10428] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Cosets (1.5s)
+✔ [10384/10432] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Basic (1.6s)
+✔ [10385/10432] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.CoprimeFilter.Basic (2.1s)
+✔ [10386/10432] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.FiniteIndex (2.2s)
+✔ [10387/10434] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.UpperTri.LevelRaise (1.7s)
+✔ [10388/10434] Built ZInQKernel.Contrib.TauCeti.Data.ZMod.OnePoint (920ms)
+✔ [10389/10436] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.RaySubgroup (2.4s)
+✔ [10390/10438] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Action (3.7s)
+✔ [10391/10441] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.CharacterSpace (1.7s)
+✔ [10392/10444] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.CoprimeFilter.Dichotomy (1.6s)
+✔ [10393/10444] Built ZInQKernel.Contrib.TauCeti.Topology.Compactification.OnePoint.ProjectiveLine (3.3s)
+✔ [10394/10445] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.BadPrime.Basic (1.4s)
+✔ [10395/10448] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.Reciprocity (7.9s)
+✔ [10396/10449] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Adjoint (2.8s)
+✔ [10397/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Prime.Basic (1.8s)
+✔ [10398/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Scalar (1.0s)
+✔ [10399/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Orthogonal (2.9s)
+✔ [10400/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.CoprimeFilter.Descent (1.6s)
+✔ [10401/10452] Built ZInQKernel.Contrib.TauCeti.LinearAlgebra.Matrix.GeneralLinearGroup.MoebiusZMod (1.7s)
+✔ [10402/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.SquarefreeDecomposition (2.4s)
+✔ [10403/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Prime.Recurrence (1.9s)
+✔ [10404/10452] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Eigenvector (2.1s)
+✔ [10405/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Unitary (2.0s)
+✔ [10406/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Basic (2.1s)
+✔ [10407/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.BadPrime.Eigenvector (1.7s)
+⚠ [10408/10454] Replayed ZInQKernel.Hypotheses.PrimePattern
+warning: ZInQKernel/Hypotheses/PrimePattern.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10409/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.EigenFromPrimes (1.9s)
+✔ [10410/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Action (2.7s)
+✔ [10411/10454] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Prime.Power (2.4s)
+✔ [10413/10454] Built ZInQKernel.Contrib.T31.Cyclic (4.6s)
+✔ [10414/10456] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Compatibility (5.2s)
+⚠ [10415/10461] Built ZInQKernel.Contrib.T31.Good (5.1s)
+warning: ZInQKernel/Contrib/T31/Good.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10416/10463] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Trace (2.4s)
+⚠ [10417/10463] Replayed ZInQKernel.Hypotheses.MordellWeil
+warning: ZInQKernel/Hypotheses/MordellWeil.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10418/10463] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Newform (1.8s)
+⚠ [10419/10463] Replayed ZInQKernel.Model.Field.ShortWeierstrass
+warning: ZInQKernel/Model/Field/ShortWeierstrass.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10420/10463] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.AtkinLehner (1.7s)
+⚠ [10422/10463] Replayed ZInQKernel.Syntax.Constants.PrimorialLiteral
+warning: ZInQKernel/Syntax/Constants/PrimorialLiteral.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10424/10463] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Nebentypus (1.0s)
+✔ [10425/10467] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.Composite (2.0s)
+✔ [10426/10467] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Sum (2.1s)
+✔ [10429/10467] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Hecke (1.7s)
+✔ [10430/10467] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.EigenFromPrimes (1.7s)
+✔ [10431/10467] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.Frobenius (2.3s)
+✔ [10433/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.RingEigenvalue (1.9s)
+✔ [10435/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Ramification (3.1s)
+✔ [10436/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.LevelRaise.Basic (1.5s)
+✔ [10437/10472] Built ZInQ.NumericalTowerBounds (681ms)
+✔ [10438/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.HeckeSlash.Nebentypus.CoefficientFormula (1.9s)
+⚠ [10440/10472] Replayed ZInQKernel.Hypotheses.Height
+warning: ZInQKernel/Hypotheses/Height.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10441/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Cusps (1.4s)
+✔ [10442/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.LevelCommute (1.6s)
+✔ [10444/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Hecke.Stability (1.7s)
+✔ [10445/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.EigenvalueExtension (1.6s)
+✔ [10446/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Normal (1.9s)
+✔ [10447/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Eigenform (2.2s)
+✔ [10448/10472] Built ZInQ.ExplicitCutoffBounds (1.5s)
+⚠ [10449/10472] Replayed ZInQKernel.Syntax.Constants.Fixed
+warning: ZInQKernel/Syntax/Constants/Fixed.lean: imports `ZInQ.ExplicitCutoffBounds` from package `z_in_q`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10454/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.CuspForm (1.6s)
+✔ [10455/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.PeterssonAdjoint (1.8s)
+✔ [10456/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.LevelRaise.Commute (2.2s)
+⚠ [10457/10472] Built ZInQKernel.Contrib.T31.Local (6.7s)
+warning: ZInQKernel/Contrib/T31/Local.lean:62:0: automatically included section variable(s) unused in theorem `ZInQ.Contrib.T31.mem_wIdeal`:
+  [NumberField L]
+consider restructuring your `variable` declarations so that the variables are not in scope or explicitly omit them:
+  omit [NumberField L] in theorem ...
+
+Note: This linter can be disabled with `set_option linter.unusedSectionVars false`
+✔ [10458/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Coefficient (2.1s)
+✔ [10459/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.AdmissibleModulus.Reciprocity (3.0s)
+✔ [10460/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Petersson.Eigenbasis (3.2s)
+✔ [10461/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Descent.Coefficient (2.1s)
+✔ [10462/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.ClassFields.KroneckerWeber (2.2s)
+✔ [10463/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.MainLemma (1.8s)
+✔ [10464/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.EigenvectorVanishing (1.6s)
+✔ [10465/10472] Built ZInQKernel.Contrib.T31.Main (5.0s)
+✔ [10466/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.StrongMultiplicityOne (1.9s)
+✔ [10467/10472] Built ZInQKernel.Contrib.KroneckerWeber.Leaves (5.2s)
+✔ [10468/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.OrthogonalBasis (2.3s)
+✔ [10469/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.Decomposition (2.2s)
+✔ [10470/10472] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ModularForms.Newforms.FullEigenform (1.8s)
+✔ [10471/10472] Built ZInQKernel.Contrib.T25.Bridge (6.3s)
+✔ [10472/10472] Built ZInQKernel.Contrib.T25.NewformOfEigenform (4.1s)
+Build completed successfully (10472 jobs).
+
+real	9m6.546s
+user	83m2.235s
+sys	10m54.976s

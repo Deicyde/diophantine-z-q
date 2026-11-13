@@ -35,23 +35,25 @@ elab "#hdec_same " id:ident : command => do
     if seen.contains c then continue
     seen := seen.insert c
     count := count + 1
-    let some ci := env.find? c | bad := bad.push s!"{c}: not found"; continue
-    let some ri := env.find? (strip c) | bad := bad.push s!"{c}: no root counterpart"; continue
-    if mapE ci.type != ri.type then bad := bad.push s!"{c}: types differ"
-    let isThm := match ci with | .thmInfo _ => true | _ => false
-    let mut used := ci.type.getUsedConstants
-    if !isThm then
-      match ci.value?, ri.value? with
-      | some v, some w =>
-        if mapE v != w then bad := bad.push s!"{c}: bodies differ"
-        used := used ++ v.getUsedConstants
-      | none, none => pure ()
-      | _, _ => bad := bad.push s!"{c}: kinds differ"
-    match ci with
-    | .inductInfo v => used := used ++ v.ctors.toArray
-    | _ => pure ()
-    for u in used do
-      if (`HDec).isPrefixOf u && !seen.contains u then todo := todo.push u
+    match env.find? c, env.find? (strip c) with
+    | none, _ => bad := bad.push s!"{c}: not found"
+    | some _, none => bad := bad.push s!"{c}: no root counterpart"
+    | some ci, some ri =>
+      if mapE ci.type != ri.type then bad := bad.push s!"{c}: types differ"
+      let isThm := match ci with | .thmInfo _ => true | _ => false
+      let mut used := ci.type.getUsedConstants
+      if !isThm then
+        match ci.value?, ri.value? with
+        | some v, some w =>
+          if mapE v != w then bad := bad.push s!"{c}: bodies differ"
+          used := used ++ v.getUsedConstants
+        | none, none => pure ()
+        | _, _ => bad := bad.push s!"{c}: kinds differ"
+      match ci with
+      | .inductInfo v => used := used ++ v.ctors.toArray
+      | _ => pure ()
+      for u in used do
+        if (`HDec).isPrefixOf u && !seen.contains u then todo := todo.push u
   if bad.isEmpty then
     logInfo m!"{n}: {count} HDec constants compared; each is its root counterpart verbatim (up to the prefix)"
   else
@@ -272,8 +274,8 @@ theorem eigenformRepExists_of_r14Det (h : G0Galois.R14Det) : EigenformRepExists 
   obtain ⟨ρ, hss, hatt, -⟩ := h ℓ ιC ιL N k χ g hN hk hg
   exact ⟨⟨ρ.toHom, ρ.continuous_toHom⟩, hss, hatt⟩
 
-/-- **The research-level leaves still open** (leaf-fold, 2026-11-13): all 23 of `ResearchLeaves`
-(none is proved), with two fields replaced by the published, corrected statements:
+/-- **The research-level leaves still open** (leaf-fold, 2026-11-13): the 26 fields of
+`ResearchLeaves` (the note's 23 research-level leaves; none is proved), with two fields replaced by the published, corrected statements:
 * `r10 : PkgI4.DeRhamComparisonHT`: R10 with the multiplicity-0 clause (g9-derham F1);
 * `r14 : G0Galois.R14Det`: R14 with the determinant `det ρ_g = ε χ_ℓ^{k−1}` (g0-mod-galois).
 Both imply the old fields (`PkgI4.deRhamComparison_of_HT`, `eigenformRepExists_of_r14Det`).
@@ -406,13 +408,13 @@ theorem textbookLeaves_of_open (t : OpenTextbookLeaves) : TextbookLeaves where
 /-- **G0 with only the open leaves** (leaf-fold, 2026-11-13; no `sorry`, standard axioms).
 `SixContactMin` follows from the open leaves and the ten glue pieces.
 
-Open research-level leaves (23 fields, 26 counting R1's parts as in the note; none proved):
+Open research-level leaves (all 23 of the note's R1-R22 and H5, in 26 fields; none is proved):
 R1(a,c,d)+R2+R5-on-`X₆` (`r1r2`), R1(b) (`r1an`, opaque), R1(d) reciprocity (`r1rec`), R3, R4,
 R5(ii) (`r5`), R5(i) (`r5count`), R6, R7(a), R7(b), R8, R9(a), R9(b), **R10 corrected**
 (`PkgI4.DeRhamComparisonHT`), R11+R12 (`r11r12`), R13, **R14 corrected** (`G0Galois.R14Det`), R15,
 R16, R17 (opaque), R18, R19, R20, R21, R22, H5.
 
-Open textbook leaves (26 fields, 30 leaves counting `x1` as T36-T40): T1, T3, T4, T5, T6, T7, T8,
+Open textbook leaves (26 fields; `x1` bundles T36-T40): T1, T3, T4, T5, T6, T7, T8,
 T9, T10, T11(a), T11(b), T14(a′), T14(b′), T16(b), T23, T24, T26, T27, T28, T29(a), T29(b), T33,
 T34, T35, T36-T40 (`x1`), T41.
 

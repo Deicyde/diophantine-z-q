@@ -8,5 +8,6 @@
   name resolution keeps every reference inside the file pointing at the file's own copy); then
   the Contrib theorems (over root `PkgI6.…`) are converted to the file's `HDec.PkgI6.…` by
   definitional unfolding (`exact`), which is the required defeq check.
-- 06:0x lake build of the needed Contrib modules started.
-- 06:25 wrap.py, parts/t2.lean (T2Full proof), parts/tail.lean (repairs R14Det, R10 HT, G10 concrete; open bundles; #hdec_same checker), assemble.py written. First full compile pending the Contrib build.
+- 05:55 lake build of the needed Contrib modules started.
+- 05:58 wrap.py, parts/t2.lean (T2Full proof), parts/tail.lean (repairs R14Det, R10 HT, G10 concrete; open bundles; #hdec_same checker), assemble.py written. First full compile pending the Contrib build.
+- 06:04 first compile of the assembled file started; early errors: (1) Tau Ceti's root `IsArithFrobAt.eq_of_isUnramifiedAt` captures a dot-notation call (fix: call Mathlib's AlgHom lemma explicitly); (2) heartbeat timeouts (instance search in htSpace_cycRep_eq_bot; QML3.Iso.twist) — fix: global maxHeartbeats 1e6 / synthInstance 2e5 inside HDec.

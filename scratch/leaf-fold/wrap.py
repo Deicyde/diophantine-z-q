@@ -23,7 +23,10 @@ assert L[2].startswith('import ZInQKernel.Compiler')
 L = L[:3] + IMPORTS + L[3:]
 # namespace HDec before the first `section`
 i0 = next(i for i, l in enumerate(L) if l.startswith('section PkgI1Sec'))
-L = L[:i0] + ['namespace HDec', ''] + L[i0:]
+# 8. global limits: elaboration is slower with the Contrib/Tau Ceti instances in scope (first run:
+#    timeouts at 200000 heartbeats in `QML3.Iso.twist`, at 20000 in an instance search).
+L = L[:i0] + ['namespace HDec', '', 'set_option maxHeartbeats 1000000',
+              'set_option synthInstance.maxHeartbeats 200000', ''] + L[i0:]
 txt = '\n'.join(L)
 n3 = 0
 def rootfix(m):
@@ -42,6 +45,18 @@ txt = re.sub(r'^open ZInQ\b(?!\.)', 'open _root_.ZInQ', txt, flags=re.M)
 # the one `open ZInQ` after `HDec.ZInQ` exists: open both halves of the former merged namespace
 txt = txt.replace('open _root_.ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings',
                   'open _root_.ZInQ ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings')
+# 6. Tau Ceti declares a root `IsArithFrobAt.eq_of_isUnramifiedAt` (group-action form, needs
+#    `FaithfulSMul`), which now captures the dot notation meant for Mathlib's
+#    `AlgHom.IsArithFrobAt.eq_of_isUnramifiedAt`: call the latter explicitly.
+FIX6 = ('  have heq := hσ.eq_of_isUnramifiedAt hτ hQ',
+        '  have heq := AlgHom.IsArithFrobAt.eq_of_isUnramifiedAt hσ hτ hQ')
+assert txt.count(FIX6[0]) == 1
+txt = txt.replace(*FIX6)
+# 7. instance searches are slower with the Contrib/Tau Ceti instances in scope: one search
+#    (`Module.IsTorsionFree ℚ_[p] ℂ_[p]` in `htSpace_cycRep_eq_bot`) exceeded 20000 heartbeats.
+FIX7 = '/-- **Convention check.** If `ℂ_p(j)^{G_{ℚ_p}} = 0`'
+assert txt.count(FIX7) == 1
+txt = txt.replace(FIX7, 'set_option synthInstance.maxHeartbeats 200000 in\n' + FIX7)
 txt = txt.rstrip('\n') + '\n\nend HDec\n'
 open(out, 'w').write(txt)
 print('root-renamed decls:', n3, ' lattice1 dot uses:', n4, ' open ZInQ:', n5)
