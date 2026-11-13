@@ -26,7 +26,7 @@
 - **`HeckeNoVertRam`** stays open. The analysis is in report §6: two routes (Lemma NV, or good
   reduction), and an example showing that branch data alone cannot give it.
 
-**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 66
+**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 67
 `#print axioms` lines are standard, with no sorryAx. The file contains prop-ts-glue's whole file
 verbatim (`check_identical.py` ALL OK). The composite `TSHecke.propTSAll_of_tsHecke` replaces
 prop-ts-glue's five Hecke Props by: Y3Connected, TorsionStructure, CurveGaloisChart,

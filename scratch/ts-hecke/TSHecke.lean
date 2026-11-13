@@ -5226,11 +5226,12 @@ theorem exists_extend {Λ : Type*} [Field Λ] [IsAlgClosed Λ] {R S : Type*} [Co
   rw [Ideal.Quotient.algebraMap_mk_of_liesOver] at h1
   exact h1
 
-/-- **`GenericFibreCount`, general form** (target field `Λ`). -/
-theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
+/-- **`GenericFibreCount`, general form** (target field `Λ`; the value `t` avoids a given finite
+set `S`). -/
+theorem genericFibreCountAvoid (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
     (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
-    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] :
-    ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (S : Finset ℚ) :
+    ∃ t : ℚ, t ∉ S ∧ ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
       Module.finrank (RatFunc ℚ) E ≤ s.card ∧
       ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Λ t := by
   classical
@@ -5293,10 +5294,17 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
       Polynomial.algebraMap_apply, hD, map_mul, Polynomial.C_mul]
     linear_combination (C (algebraMap ℚ[X] (RatFunc ℚ) c₁) * C (algebraMap ℚ[X] (RatFunc ℚ) c₂)) * hab₀
   -- a good rational value
-  obtain ⟨t, ht⟩ : ∃ t : ℚ, D.eval t ≠ 0 := by
-    by_contra h
-    push Not at h
-    exact hD0 (Polynomial.funext fun r => by simpa using h r)
+  obtain ⟨t, ht, htS⟩ : ∃ t : ℚ, D.eval t ≠ 0 ∧ t ∉ S := by
+    have hP0 : (∏ s ∈ S, (X - C s) : ℚ[X]) ≠ 0 :=
+      Finset.prod_ne_zero_iff.2 fun s _ => Polynomial.X_sub_C_ne_zero s
+    obtain ⟨t, ht⟩ : ∃ t : ℚ, (D * ∏ s ∈ S, (X - C s)).eval t ≠ 0 := by
+      by_contra h
+      push Not at h
+      exact mul_ne_zero hD0 hP0 (Polynomial.funext fun r => by simpa using h r)
+    rw [Polynomial.eval_mul] at ht
+    refine ⟨t, left_ne_zero_of_mul ht, fun htS => right_ne_zero_of_mul ht ?_⟩
+    rw [Polynomial.eval_prod]
+    exact Finset.prod_eq_zero htS (by simp)
   set ev : ℚ[X] →+* Λ := (algebraMap ℚ Λ).comp (Polynomial.evalRingHom t) with hev
   set g : Λ[X] := f.map ev with hg
   have hevD : ev D ≠ 0 := by
@@ -5358,11 +5366,11 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
   rcases isEmpty_or_nonempty (integralClosure ℚ[X] E →+* Λ) with hE | hne
   · have h0 : g.roots = 0 := Multiset.eq_zero_of_forall_notMem fun r hr =>
       hE.false (hext r hr).choose
-    refine ⟨t, ∅, ?_, by simp⟩
+    refine ⟨t, htS, ∅, ?_, by simp⟩
     rw [← hdeg, ← hgdeg, ← hroots, h0]
     simp
   choose! Ψ hΨ using hext
-  refine ⟨t, g.roots.toFinset.image Ψ, ?_, ?_⟩
+  refine ⟨t, htS, g.roots.toFinset.image Ψ, ?_, ?_⟩
   · rw [Finset.card_image_of_injOn, hroots, hgdeg, hdeg]
     intro r hr r' hr' h
     have h1 := (hΨ r (Multiset.mem_toFinset.1 hr)).1
@@ -5371,6 +5379,16 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
   · intro ψ hψ
     obtain ⟨r, hr, rfl⟩ := Finset.mem_image.1 hψ
     exact (hΨ r (Multiset.mem_toFinset.1 hr)).2
+
+/-- **`GenericFibreCount`, general form** (target field `Λ`). -/
+theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
+    (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] :
+    ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
+      Module.finrank (RatFunc ℚ) E ≤ s.card ∧
+      ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Λ t := by
+  obtain ⟨t, -, hs⟩ := genericFibreCountAvoid Λ E ∅
+  exact ⟨t, hs⟩
 
 end GFC
 
@@ -6551,8 +6569,8 @@ def CurveChartInf : Prop :=
       NormalizationModel Y π E → NormalizationModelInf Y π E
 
 /-- **The moduli input: sizes of the twist fibres** (the shape of Baba–Granath's elliptic table).
-There is `M` (it is `144 = |Γ'|`) such that every twist fibre has at most `M` classes, the fibre
-of an object without CM by `ℤ[i]`, `ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M`, and at objects with CM by
+There is `M` (it is `144 = |Γ'|`) such that the twist fibre of an object without CM by `ℤ[i]`,
+`ℤ[ζ₃]` or `ℤ[√−6]` has exactly `M` classes, and at objects with CM by
 `ℤ[i]` (resp. `ℤ[ζ₃]`, `ℤ[√−6]`) `M` divides `4` (resp. `6`, `2`) times the fibre size (the
 expected sizes are `36`, `24`, `72`). *Count*: a fixed pair `(A, ι)` over `ℚ̄` has
 `72 = |(𝒪/3𝒪)^×|` level structures, permuted freely by `com(ι)^×/{±1}` (trivial unless CM by
@@ -6569,7 +6587,7 @@ So the sizes are `4·36 = 144`, `2·18 = 36`, `2·12 = 24`, `2·36 = 72`. *Sourc
 the three maximal orders; `Γ₃` is torsion-free (`−1 ∉ K₃`). Glue from leaves (Shimura's
 uniformization and Baba–Granath). -/
 def HeckeFibreSizes : Prop :=
-  ∃ M : ℕ, (∀ P : QML3 Qbar, (twistFibre P).ncard ≤ M) ∧
+  ∃ M : ℕ,
     (∀ P : QML3 Qbar, ¬ HasCM4 P.q → ¬ HasCM3 P.q → ¬ HasCM24 P.q →
       (twistFibre P).ncard = M) ∧
     (∀ P : QML3 Qbar, HasCM4 P.q → M ∣ 4 * (twistFibre P).ncard) ∧
@@ -6725,6 +6743,46 @@ theorem finrank_le_twistFibre {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEqu
   rw [Set.ncard_coe_finset] at this
   exact ⟨P, hs.trans this⟩
 
+/-- `[E : ℚ(X)]` is at most the size of the twist fibre through a point over a value `t` given by
+`GenericFibreCount` (compiled). -/
+theorem finrank_le_twistFibre_of {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {π : ToP1 Y.left} (hT : ObjBridge.TorsionStructure) (h2 : R2fpProps Y Φ π) (E : Type)
+    [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E] [IsScalarTower ℚ[X] (RatFunc ℚ) E]
+    [FiniteDimensional (RatFunc ℚ) E] (hM : NormalizationModel Y π E) (t : ℚ)
+    (s : Finset (integralClosure ℚ[X] E →+* Qbar)) (hs : Module.finrank (RatFunc ℚ) E ≤ s.card)
+    (hst : ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Qbar t) :
+    ∃ y : fieldPt Qbar ⟶ Y, π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar t) ∧
+      Module.finrank (RatFunc ℚ) E ≤ (twistFibre (Quotient.out (Φ Qbar y))).ncard := by
+  obtain ⟨h, hO, -, hval⟩ := hM
+  let pt : (integralClosure ℚ[X] E →+* Qbar) → (fieldPt Qbar ⟶ Y) := fun ψ =>
+    Over.homMk (Spec.map (CommRingCat.ofHom ψ) ≫ h) (specQbar_to_specQ_eq _ _)
+  have hpt_inj : Function.Injective pt := by
+    intro ψ ψ' hψ
+    have h1 : Spec.map (CommRingCat.ofHom ψ) ≫ h = Spec.map (CommRingCat.ofHom ψ') ≫ h :=
+      congrArg (fun y : fieldPt Qbar ⟶ Y => y.left) hψ
+    exact congrArg CommRingCat.Hom.hom (Spec.map_injective ((cancel_mono h).1 h1))
+  have hpt_val : ∀ ψ ∈ s, π.val (K := Qbar) (pt ψ).left =
+      OnePoint.some (algebraMap ℚ Qbar t) := by
+    intro ψ hψ
+    show π.val (K := Qbar) (Spec.map (CommRingCat.ofHom ψ) ≫ h) = _
+    rw [hval ψ, hst ψ hψ]
+  have hnpos : 0 < Module.finrank (RatFunc ℚ) E := Module.finrank_pos
+  obtain ⟨ψ₀, hψ₀⟩ : s.Nonempty := by rw [← Finset.card_pos]; omega
+  set P : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ₀))
+  have hP : Φ Qbar (pt ψ₀) = M3.mk P := (Quotient.out_eq _).symm
+  have hmem : ∀ ψ ∈ s, Φ Qbar (pt ψ) ∈ twistFibre P := by
+    intro ψ hψ
+    set Q : QML3 Qbar := Quotient.out (Φ Qbar (pt ψ))
+    have hQ : Φ Qbar (pt ψ) = M3.mk Q := (Quotient.out_eq _).symm
+    refine ⟨Q, hQ, ((h2 (pt ψ₀) (pt ψ) P Q hP hQ).1).1 ?_⟩
+    rw [hpt_val ψ₀ hψ₀, hpt_val ψ hψ]
+  have hinj : Set.InjOn (fun ψ => Φ Qbar (pt ψ)) (s : Set _) :=
+    fun ψ _ ψ' _ hψ => hpt_inj ((Φ Qbar).injective hψ)
+  have := Set.ncard_le_ncard_of_injOn (fun ψ => Φ Qbar (pt ψ)) hmem hinj
+    (twistFibre_count hT P).1
+  rw [Set.ncard_coe_finset] at this
+  exact ⟨pt ψ₀, hpt_val ψ₀ hψ₀, hs.trans this⟩
+
 /-- `HasCM4` and its kin pass along isomorphisms of objects. -/
 def qmIso_of_iso {P Q : QML3 Qbar} (f : P.Iso Q) : QMIso P.q Q.q :=
   ⟨f.φ, f.ψ, f.left, f.right, f.equivariant⟩
@@ -6747,15 +6805,12 @@ theorem heckeBranch_of (hR : RamOfFibreCount) (hCI : CurveChartInf) (hF : HeckeF
     (hCM : (∃ P : QML3 Qbar, HasCM4 P.q) ∧ (∃ P : QML3 Qbar, HasCM3 P.q) ∧
       (∃ P : QML3 Qbar, HasCM24 P.q)) : HeckeBranch := by
   intro Y Φ π h1 hh h2 E _ _ _ _ _ _ hM
-  obtain ⟨M, hle, hgen, h4, h3, h24⟩ := hF
+  obtain ⟨M, hgen, h4, h3, h24⟩ := hF
   obtain ⟨hR0, hRfin, hRinf⟩ := hR E
   obtain ⟨⟨P₄, c₄⟩, ⟨P₃, c₃⟩, ⟨P₂₄, c₂₄⟩⟩ := hCM
   have hfinite := fibre_finite hT h2
   have hMinf := hCI Y π h1.1 h1.2.1 hfinite E hM
   have hnpos : 0 < Module.finrank (RatFunc ℚ) E := Module.finrank_pos
-  -- `n ≤ M`
-  obtain ⟨P₀, hP₀⟩ := finrank_le_twistFibre hT h2 h1.2.2.1 E hM
-  have hnM : Module.finrank (RatFunc ℚ) E ≤ M := hP₀.trans (hle P₀)
   -- the fibre count over a finite value `t`, through a point of the fibre
   have hfib : ∀ (t : Qbar) (y : fieldPt Qbar ⟶ Y), π.val (K := Qbar) y.left = OnePoint.some t →
       {ψ : integralClosure ℚ[X] E →+* Qbar |
@@ -6787,6 +6842,15 @@ theorem heckeBranch_of (hR : RamOfFibreCount) (hCI : CurveChartInf) (hF : HeckeF
     · exact OnePoint.coe_ne_infty _ (hy.symm.trans (hc3 h))
     · have := OnePoint.coe_injective (hy.symm.trans (hc24 h))
       rw [this, algebraMap_m16_27]
+  -- `n ≤ M`, through a generic rational value given by `GenericFibreCount`
+  have hnM : Module.finrank (RatFunc ℚ) E ≤ M := by
+    obtain ⟨t₀, ht₀S, s₀, hs₀, hst₀⟩ := GFC.genericFibreCountAvoid Qbar E {0, -16 / 27}
+    obtain ⟨y₀, hy₀, hle₀⟩ := finrank_le_twistFibre_of hT h2 E hM t₀ s₀ hs₀ hst₀
+    rw [hgenfib _ y₀ hy₀ (fun h => ht₀S (by
+        rw [← map_zero (algebraMap ℚ Qbar)] at h
+        simp [(algebraMap ℚ Qbar).injective h]))
+      (fun h => ht₀S (by simp [(algebraMap ℚ Qbar).injective h]))] at hle₀
+    exact hle₀
   -- `n = M`, through the value `1`
   have hnM' : Module.finrank (RatFunc ℚ) E = M := by
     have hinjB : Function.Injective (algebraMap ℚ[X] (integralClosure ℚ[X] E)) := by
@@ -7091,6 +7155,7 @@ end
 #print axioms TSHecke.ker_eval_rat
 #print axioms TSHecke.exists_ker_eval
 #print axioms TSHecke.finrank_le_twistFibre
+#print axioms TSHecke.finrank_le_twistFibre_of
 #print axioms TSHecke.heckeBranch_of
 #print axioms TSHecke.heckeBranch_of_R1R2fp
 #print axioms TSHecke.isFractionRing_infCoord

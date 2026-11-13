@@ -441,7 +441,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5262:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5263:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -449,7 +449,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5325:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5333:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -457,7 +457,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5326:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5334:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -465,7 +465,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5330:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5338:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -473,85 +473,13 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5309:6: warning: This simp argument is unused:
+scratch/ts-hecke/TSHecke.lean:5317:6: warning: This simp argument is unused:
   Polynomial.derivative_map
 
 Hint: Omit it from the simp argument list.
   [apply] simp only [Polynomial.map_add, Polynomial.map_mul, Polynomial.map_C] at this
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/ts-hecke/TSHecke.lean:5448:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5449:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5450:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5454:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5455:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5456:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5457:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5461:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5464:2: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 scratch/ts-hecke/TSHecke.lean:5466:2: warning: Try this: 
   haveI̵
 
@@ -560,19 +488,43 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5473:2: warning: Try this: 
-  letI̵
+scratch/ts-hecke/TSHecke.lean:5467:2: warning: Try this: 
+  haveI̵
 
-The goal is a proposition, so `let` is preferred over `letI`.
-The difference between `let` and `letI` is that `letI` inlines the value.
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5468:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5472:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5473:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 scratch/ts-hecke/TSHecke.lean:5474:2: warning: Try this: 
-  letI̵
+  haveI̵
 
-The goal is a proposition, so `let` is preferred over `letI`.
-The difference between `let` and `letI` is that `letI` inlines the value.
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
@@ -584,7 +536,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5490:6: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5479:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -592,7 +544,23 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5491:6: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5482:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5484:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5491:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -600,15 +568,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5498:6: warning: Try this: 
-  haveI̵
-
-The goal is a proposition, so `have` is preferred over `haveI`.
-The difference between `have` and `haveI` is that `haveI` inlines the value.
-But this is not relevant for proofs because of proof irrelevance.
-
-Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5499:6: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5492:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -616,7 +576,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5496:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5493:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -624,7 +584,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5749:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5508:6: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5509:6: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -632,7 +600,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5753:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5516:6: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -640,7 +608,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5754:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5517:6: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5514:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -648,7 +624,15 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5774:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5767:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5771:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -656,7 +640,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5826:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5772:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -664,13 +648,29 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5829:5: warning: `Ideal.isRadical_bot_of_noZeroDivisors` has been deprecated: Use `Ideal.isRadical_bot` instead
+scratch/ts-hecke/TSHecke.lean:5792:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5844:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/ts-hecke/TSHecke.lean:5847:5: warning: `Ideal.isRadical_bot_of_noZeroDivisors` has been deprecated: Use `Ideal.isRadical_bot` instead
 
 Note: The updated constant has a different type:
   ∀ {R : Type u} [inst : CommSemiring R] [_root_.IsReduced R], ⊥.IsRadical
 instead of
   ∀ {R : Type u_2} [inst : CommSemiring R] [NoZeroDivisors R], ⊥.IsRadical
-scratch/ts-hecke/TSHecke.lean:5832:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5850:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -678,7 +678,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5834:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5852:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -686,7 +686,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5841:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5859:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -694,7 +694,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5842:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5860:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -702,7 +702,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5844:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5862:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -710,7 +710,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5845:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5863:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -718,7 +718,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5846:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5864:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -726,7 +726,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5848:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5866:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -734,7 +734,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5851:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5869:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -742,13 +742,13 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5824:33: warning: Variable name `hinj` is not explicitly referenced.
+scratch/ts-hecke/TSHecke.lean:5842:33: warning: Variable name `hinj` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hinj
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/ts-hecke/TSHecke.lean:5911:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5929:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -756,7 +756,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5914:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5932:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -764,7 +764,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5968:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5986:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -772,7 +772,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:5971:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:5989:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -780,7 +780,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6054:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6072:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -788,11 +788,11 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6259:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/ts-hecke/TSHecke.lean:6277:18: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/ts-hecke/TSHecke.lean:6465:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6483:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -800,7 +800,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6613:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6631:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -808,7 +808,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6799:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6863:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -816,7 +816,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6821:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6885:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -824,7 +824,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6875:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6939:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -832,7 +832,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6897:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6961:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -840,7 +840,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6924:2: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:6988:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -848,11 +848,11 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6963:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/ts-hecke/TSHecke.lean:7027:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
-scratch/ts-hecke/TSHecke.lean:6974:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:7038:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -860,7 +860,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6975:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:7039:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -868,7 +868,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6976:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:7040:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -876,7 +876,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6977:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:7041:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -884,7 +884,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6978:4: warning: Try this: 
+scratch/ts-hecke/TSHecke.lean:7042:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -892,7 +892,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/TSHecke.lean:6993:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
+scratch/ts-hecke/TSHecke.lean:7057:15: warning: `Set.mem_setOf_eq` has been deprecated: Use `Set.mem_ofPred_eq` instead
 
 Hint: Replace the deprecated name:
   S̵e̵t̵.̵m̵e̵m̵_̵s̵e̵t̵O̵f̵_̵e̵q̵S̲e̲t̲.̲m̲e̲m̲_̲o̲f̲P̲r̲e̲d̲_̲e̲q̲
@@ -922,6 +922,7 @@ Hint: Replace the deprecated name:
 'TSHecke.ker_eval_rat' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.exists_ker_eval' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.finrank_le_twistFibre' depends on axioms: [propext, Classical.choice, Quot.sound]
+'TSHecke.finrank_le_twistFibre_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.heckeBranch_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.heckeBranch_of_R1R2fp' depends on axioms: [propext, Classical.choice, Quot.sound]
 'TSHecke.isFractionRing_infCoord' depends on axioms: [propext, Classical.choice, Quot.sound]

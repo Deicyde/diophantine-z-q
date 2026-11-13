@@ -52,7 +52,7 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
 
 - `lake env lean scratch/ts-hecke/TSHecke.lean` gives 0 errors (about 2.5 min). The warnings are
   linter warnings only.
-- All 66 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
+- All 67 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
 - `check_identical.py` prints `ALL OK`. Each of the following is contained verbatim:
   - all of prop-ts-glue's `PropTSGlue.lean` except its imports and trailing `#print` lines
     (lines 3-3553). This includes the prop-ts prefix (equal to `scratch/prop-ts/PropTS.lean`),
@@ -235,7 +235,7 @@ The proof goes through three facts:
 | `RamOfFibreCount` | glue (commutative algebra) | **proved** (`ramOfFibreCount`, details below) |
 | `NormalizationModelInf` | definition | the chart at `∞`: an open immersion `Spec B_∞ → Y` covering `π ≠ 0`, with `π = ∞` exactly where `s = 0` |
 | `CurveChartInf` | glue (curve theory) | open. STANDARD: a chart over `𝔸¹` gives one over `P¹ ∖ {0}`, since finite fibres force `Y` irreducible with function field `E` |
-| `HeckeFibreSizes` | glue from leaves (moduli count) | open. There is `M` (`= 144 = |Γ'|`) with: every twist fibre `≤ M`; `= M` without CM by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]`; and `M ∣ 4F`, `6F`, `2F` at those (sizes 36, 24, 72). Source: Shimura uniformization, Baba–Granath §3.1 elliptic orders, h-b1 M9 (VERIFIED enumeration) |
+| `HeckeFibreSizes` | glue from leaves (moduli count) | open. There is `M` (`= 144 = |Γ'|`) with: twist fibre `= M` without CM by `ℤ[i]`, `ℤ[ζ₃]`, `ℤ[√−6]`; and `M ∣ 4F`, `6F`, `2F` at those (sizes 36, 24, 72). Source: Shimura uniformization, Baba–Granath §3.1 elliptic orders, h-b1 M9 (VERIFIED enumeration). (An earlier clause "every fibre `≤ M`" was removed: the proof now gets `[E : ℚ(X)] ≤ M` from a generic value, `GFC.genericFibreCountAvoid`.) |
 
 `RamOfFibreCount` is a statement about Galois `E` and a prime `Q` over `ker(X ↦ t)`:
 `e(Q) · #{ψ : B → ℚ̄ | ψ X = t} = [E : ℚ(X)]`. It has an `∞` clause and a junk-zero clause. Its

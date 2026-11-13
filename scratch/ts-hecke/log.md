@@ -125,3 +125,10 @@ ts-hecke's own Props: HeckeFibreSizes, Y3Connected).
   `curveGaloisChart_of : CurveNormChart → CurveGaloisChart`, `coverModelOfHecke_of_tsHecke'`,
   `propTSAll_of_tsHecke'` (with CurveNormChart).
 - 66 `#print axioms` lines, all standard; check_identical ALL OK.
+
+## Step 11. HeckeFibreSizes weakened — VERIFIED (compiled, 0 errors, 67 axioms lines standard)
+
+- `GFC.genericFibreCountAvoid` (the rational value t avoids a given finite set S; D·∏(X − s)).
+- `HeckeFibreSizes` lost its clause "∀ P, F(P) ≤ M": `heckeBranch_of` now gets [E:ℚ(X)] ≤ M from
+  a generic value t₀ ∉ {0, −16/27} (`finrank_le_twistFibre_of`). The remaining clauses: generic
+  fibres = M; M | 4F, 6F, 2F at CM by ℤ[i], ℤ[ζ₃], ℤ[√−6].

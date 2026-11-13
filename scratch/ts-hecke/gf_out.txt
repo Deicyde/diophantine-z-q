@@ -70,7 +70,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/GenericFibre.lean:83:2: warning: Try this: 
+scratch/ts-hecke/GenericFibre.lean:84:2: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -78,7 +78,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/GenericFibre.lean:146:4: warning: Try this: 
+scratch/ts-hecke/GenericFibre.lean:154:4: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -86,7 +86,7 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/GenericFibre.lean:147:4: warning: Try this: 
+scratch/ts-hecke/GenericFibre.lean:155:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -94,7 +94,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/GenericFibre.lean:151:4: warning: Try this: 
+scratch/ts-hecke/GenericFibre.lean:159:4: warning: Try this: 
   haveI̵
 
 The goal is a proposition, so `have` is preferred over `haveI`.
@@ -102,7 +102,7 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/ts-hecke/GenericFibre.lean:130:6: warning: This simp argument is unused:
+scratch/ts-hecke/GenericFibre.lean:138:6: warning: This simp argument is unused:
   Polynomial.derivative_map
 
 Hint: Omit it from the simp argument list.
@@ -110,3 +110,4 @@ Hint: Omit it from the simp argument list.
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
 'GFC.genericFibreCount' depends on axioms: [propext, Classical.choice, Quot.sound]
+'GFC.genericFibreCountAvoid' depends on axioms: [propext, Classical.choice, Quot.sound]

@@ -47,11 +47,12 @@ theorem exists_extend {Λ : Type*} [Field Λ] [IsAlgClosed Λ] {R S : Type*} [Co
   rw [Ideal.Quotient.algebraMap_mk_of_liesOver] at h1
   exact h1
 
-/-- **`GenericFibreCount`, general form** (target field `Λ`). -/
-theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
+/-- **`GenericFibreCount`, general form** (target field `Λ`; the value `t` avoids a given finite
+set `S`). -/
+theorem genericFibreCountAvoid (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
     (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
-    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] :
-    ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (S : Finset ℚ) :
+    ∃ t : ℚ, t ∉ S ∧ ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
       Module.finrank (RatFunc ℚ) E ≤ s.card ∧
       ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Λ t := by
   classical
@@ -114,10 +115,17 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
       Polynomial.algebraMap_apply, hD, map_mul, Polynomial.C_mul]
     linear_combination (C (algebraMap ℚ[X] (RatFunc ℚ) c₁) * C (algebraMap ℚ[X] (RatFunc ℚ) c₂)) * hab₀
   -- a good rational value
-  obtain ⟨t, ht⟩ : ∃ t : ℚ, D.eval t ≠ 0 := by
-    by_contra h
-    push Not at h
-    exact hD0 (Polynomial.funext fun r => by simpa using h r)
+  obtain ⟨t, ht, htS⟩ : ∃ t : ℚ, D.eval t ≠ 0 ∧ t ∉ S := by
+    have hP0 : (∏ s ∈ S, (X - C s) : ℚ[X]) ≠ 0 :=
+      Finset.prod_ne_zero_iff.2 fun s _ => Polynomial.X_sub_C_ne_zero s
+    obtain ⟨t, ht⟩ : ∃ t : ℚ, (D * ∏ s ∈ S, (X - C s)).eval t ≠ 0 := by
+      by_contra h
+      push Not at h
+      exact mul_ne_zero hD0 hP0 (Polynomial.funext fun r => by simpa using h r)
+    rw [Polynomial.eval_mul] at ht
+    refine ⟨t, left_ne_zero_of_mul ht, fun htS => right_ne_zero_of_mul ht ?_⟩
+    rw [Polynomial.eval_prod]
+    exact Finset.prod_eq_zero htS (by simp)
   set ev : ℚ[X] →+* Λ := (algebraMap ℚ Λ).comp (Polynomial.evalRingHom t) with hev
   set g : Λ[X] := f.map ev with hg
   have hevD : ev D ≠ 0 := by
@@ -179,11 +187,11 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
   rcases isEmpty_or_nonempty (integralClosure ℚ[X] E →+* Λ) with hE | hne
   · have h0 : g.roots = 0 := Multiset.eq_zero_of_forall_notMem fun r hr =>
       hE.false (hext r hr).choose
-    refine ⟨t, ∅, ?_, by simp⟩
+    refine ⟨t, htS, ∅, ?_, by simp⟩
     rw [← hdeg, ← hgdeg, ← hroots, h0]
     simp
   choose! Ψ hΨ using hext
-  refine ⟨t, g.roots.toFinset.image Ψ, ?_, ?_⟩
+  refine ⟨t, htS, g.roots.toFinset.image Ψ, ?_, ?_⟩
   · rw [Finset.card_image_of_injOn, hroots, hgdeg, hdeg]
     intro r hr r' hr' h
     have h1 := (hΨ r (Multiset.mem_toFinset.1 hr)).1
@@ -193,6 +201,17 @@ theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
     obtain ⟨r, hr, rfl⟩ := Finset.mem_image.1 hψ
     exact (hΨ r (Multiset.mem_toFinset.1 hr)).2
 
+/-- **`GenericFibreCount`, general form** (target field `Λ`). -/
+theorem genericFibreCount (Λ : Type) [Field Λ] [IsAlgClosed Λ] [CharZero Λ]
+    (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] :
+    ∃ t : ℚ, ∃ s : Finset (integralClosure ℚ[X] E →+* Λ),
+      Module.finrank (RatFunc ℚ) E ≤ s.card ∧
+      ∀ ψ ∈ s, ψ (algebraMap ℚ[X] (integralClosure ℚ[X] E) X) = algebraMap ℚ Λ t := by
+  obtain ⟨t, -, hs⟩ := genericFibreCountAvoid Λ E ∅
+  exact ⟨t, hs⟩
+
 end GFC
 
 #print axioms GFC.genericFibreCount
+#print axioms GFC.genericFibreCountAvoid
