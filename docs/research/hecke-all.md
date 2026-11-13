@@ -24,11 +24,18 @@ from `scratch/bp-hecke-fe/HeckeFE.lean`. It says that for primes `p ≡ 1 (mod 4
 `p − #{y² = x³ − x}(𝔽_p) = ¼ Σ_{a²+b²=p} u(a+bi)(a+bi)`. The statement is over local copies of
 `normFiber`, `unitOf` and `gz`. A `GaussPointCount` stated over another verbatim copy of those
 definitions (for example the gauss-proof task's `ZInQ.Contrib.GaussFE`) is accepted by
-definitional unfolding (VERIFIED: `scratch/hecke-all/ComposeTest.lean` compiles). So when the
-parallel task proves its copy, the provider is one line:
-`theorem ZInQ.Contrib.heckeContinuation : ZInQ.Literature.HeckeContinuation :=
-heckeContinuation_of_gaussPointCount <gauss-proof's theorem>`. That line is not written here,
-because a Contrib module of this task may import only baseline files and its own files.
+definitional unfolding (VERIFIED: `scratch/hecke-all/ComposeTest.lean` compiles). The parallel
+task has now proved its copy (`ZInQ.Contrib.GaussFE.gaussPointCount`, origin/wip/gauss-proof
+`912f839b`, merged into this branch). **The provider closes** (VERIFIED: `lake env lean
+scratch/hecke-all/Provider.lean`, standard axioms):
+
+```lean
+theorem ZInQ.Contrib.heckeContinuation : ZInQ.Literature.HeckeContinuation :=
+  ZInQ.Contrib.heckeContinuation_of_gaussPointCount ZInQ.Contrib.GaussFE.gaussPointCount
+```
+
+It sits in a scratch file because a module of this task may import only baseline files and its
+own files. On integration it moves into a Contrib module that is allowed to import both.
 
 ## 1. What is new compared with bp-hecke-fe
 
@@ -105,10 +112,10 @@ side instead, so only the Hecke character of `C_1` is needed:
 
 ## 3. What remains
 
-* **`GaussPointCount`** is the only hypothesis left (Gauss 1814; Ireland–Rosen Ch. 18 §4, STANDARD,
-  theorem number UNVERIFIED). The gauss-proof task is proving it. When checked (about 22:19) its branch had
-  `gauss_jacobi`, which gives the count `p + 2A` with `A² + B² = p` and a primary normalization,
-  but not yet the `GaussPointCount` form.
+* **No hypothesis remains**: `GaussPointCount` (Gauss 1814; Ireland–Rosen Ch. 18 §4, STANDARD,
+  theorem number UNVERIFIED) is proved by the gauss-proof task, and the composed provider compiles
+  (§0). Integration only has to move the one-line provider from `scratch/hecke-all/Provider.lean`
+  into a Contrib module.
 * `HeckeFE.lean` is a full copy of bp-hecke-fe's file (2724 lines, including the
   functional-equation part). The gauss-proof task has made a second copy. On integration a single
   shared copy should be kept, and `HeckeAll.GaussPointCount` and `GaussFE.GaussPointCount` should

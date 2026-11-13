@@ -42,3 +42,9 @@
 - (VERIFIED, compiled; axioms standard) `ZInQ.Contrib.heckeContinuation_functionalEquation5_of_gaussPointCount :
   GaussPointCount → Literature.HeckeContinuation ∧ Literature.FunctionalEquation5`. Axiom check file:
   scratch/hecke-all/axioms.lean.
+
+## Provider (after merging origin/wip/gauss-proof 912f839b)
+- (VERIFIED, `lake env lean scratch/hecke-all/Provider.lean`, ~22:25; axioms propext, Classical.choice, Quot.sound)
+  `theorem ZInQ.Contrib.heckeContinuation : ZInQ.Literature.HeckeContinuation :=
+     heckeContinuation_of_gaussPointCount ZInQ.Contrib.GaussFE.gaussPointCount` (scratch file, since a
+  HeckeAll module may not import GaussFE; type is exactly the hypothesis, no extra hypotheses).
