@@ -10,6 +10,10 @@ import ZInQKernel.Contrib.PSide.Supersingular
 import ZInQKernel.Contrib.PSide.TYZInputsIff
 import ZInQKernel.Contrib.GZDecomp.Decomp
 import ZInQKernel.Contrib.T14.Main
+import ZInQKernel.Contrib.T28.Assemble
+import ZInQKernel.Contrib.RLeaf.T36Torsion
+import ZInQKernel.Contrib.RLeaf.T37GoodReduction
+import ZInQKernel.Contrib.AbVarBC.Main
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -28,3 +32,7 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves
 #print axioms ZInQ.Contrib.T14.brauerHasse2C
 #print axioms ZInQ.Contrib.T14.brauerReciprocity2C
+#print axioms T28.igusaClebschSeparation_proved
+#print axioms ZInQ.RLeaf.t36_torsionStructure
+#print axioms ZInQ.RLeaf.T37.t37_goodReductionUnramified
+#print axioms ZInQ.Contrib.AbVarBC.abVarBaseChange
