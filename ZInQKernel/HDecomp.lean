@@ -53,6 +53,7 @@ import ZInQKernel.HDecomp.ModCurves.Leaves
 import ZInQKernel.HDecomp.Objects
 import ZInQKernel.HDecomp.QM.Leaves
 import ZInQKernel.HDecomp.QM.Pairs
+import ZInQKernel.HDecomp.QM.Pin
 import ZInQKernel.HDecomp.QM.Polar
 import ZInQKernel.HDecomp.QM.Structures
 import ZInQKernel.HDecomp.Repo.A1Quaternion
