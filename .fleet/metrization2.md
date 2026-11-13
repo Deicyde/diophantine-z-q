@@ -36,9 +36,14 @@ only. It contains `HSyn.G0Split.heightAdditivity_of_metrization_v5`, which takes
 `ProductLocalStructure`. It also contains
 `metrizationExists_of_uniformizationExists : HodgeLatticeTheorem → T35 → MetrizationExists`.
 
+**Kernel check.** `scratch/metrization2/Kernel.lean` (built by `build_kernel.sh`) imports
+`ZInQKernel.HDecomp.LeafPush2.T` and runs the same proofs against the kernel's `PkgI3.AbVar`,
+`GroupModel` and T35: 0 errors, standard axioms.
+
 **What remains.**
-- Not compiled: integration into the two-AbVar-copies leaf file (one `abVarEquiv` step, noted in
-  the report).
+- Not compiled: integration into the scratch leaf file `Leaves.lean`, which keeps two AbVar
+  copies (one `abVarEquiv` step, noted in the report). The kernel itself has a single copy and
+  was checked.
 - Unchanged, outside this task: `ProductHodgeLattice` (metrization's glue), and
   `AnalyticUniformizationUnique` and `HodgeLatticeTheorem` from def-faltings.
 
