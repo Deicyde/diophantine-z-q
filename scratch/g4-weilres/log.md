@@ -73,3 +73,10 @@
 - **`conjActionExists : ConjActionExists (conjData K A)` — PROVED.** (index defeq `(στ)⁻¹∘e ≡ τ⁻¹∘σ⁻¹∘e` checked by rfl.)
 - `homField_of_model` now uses `conjAction K A` (no ρ hypothesis). Remaining hypotheses: hdim, hcont, hinert, hK.
 - G4.lean: 1184 lines, 0 sorry; 13 printed theorems all on [propext, Classical.choice, Quot.sound].
+
+## G4.lean — continuity from a descent input (COMPILED; axioms VERIFIED standard)
+- `HomDescends` (def, Prop): every morphism A ×_{K,e₁} ℚ̄ → B ×_{K,e₂} ℚ̄ is fixed by `G4Conj.conj` along an open
+  subgroup of G_ℚ. Consequence of EGA IV₃ 8.8.2 (UNVERIFIED locator) + descent bookkeeping (glue, not formalized).
+- `embAct_symm_of_mem`: G_K fixes the embeddings of Galois K. `stabSub`: stabilizer subgroup.
+- `conjAction_continuous (hD : HomDescends)`: every lattice element has an open stabilizer. PROVED.
+- `homField_of_model'`: G4 for A/K from HomFreeFinite + HomDescends + hdim + hK + hinert.

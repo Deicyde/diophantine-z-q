@@ -1087,7 +1087,6 @@ theorem conjActionExists : ConjActionExists (conjData K A) :=
 
 end Action
 
-
 /-- **G4 for a model `A/K` (the manuscript's statement, N5 L544-563).** Let `K ⊆ ℚ̄` be finite
 Galois with `[K:ℚ] ≤ F₀`, unramified outside `T` (G2), and `A/K` an abelian surface whose
 conjugates `A_e` are surfaces. Let `ρ = conjAction K A` be the conjugation action of `G_ℚ` on
@@ -1108,6 +1107,103 @@ theorem homField_of_model (hHFF : HomFreeFinite) [FiniteDimensional ℚ K] [IsGa
       GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
   homField_of_conjugates hHFF K hKF (by rw [card_conjugates]; exact hKF) (conjData K A).A hdim
     (conjAction K A) hcont T hK hinert
+
+/-! ### Continuity of the conjugation action from the descent of morphisms
+
+`HomDescends` is the input: a homomorphism between conjugates is fixed by conjugation through an
+open subgroup of `G_ℚ`. It is a consequence of EGA IV₃ 8.8.2 (a morphism between base changes to
+`ℚ̄ = colim L` of finitely presented `K`-schemes is the base change of a morphism over some number
+field `L`; locator UNVERIFIED) together with the descent bookkeeping "conjugation by `σ ∈ G_L`
+fixes a morphism defined over `L`" (`conj_unique` on the pasted squares `ℚ̄ → L → K`), which is
+glue not formalized here. Stated as a `Prop` over the genuine objects (`PkgI3.AbVar`, Mathlib's
+pullbacks, `G4Conj.conj`). -/
+
+/-- **Input (EGA IV₃ 8.8.2 + descent bookkeeping; not formalized).** For abelian varieties
+`A, B` over a number field `K ⊆ ℚ̄` and embeddings `e₁, e₂ : K → ℚ̄`, every morphism
+`A ×_{K,e₁} ℚ̄ → B ×_{K,e₂} ℚ̄` over `ℚ̄` is fixed by the conjugation of an open subgroup of
+`G_ℚ` (those `σ` fixing `e₁(K)`, `e₂(K)` and the field of definition). -/
+def HomDescends : Prop :=
+  ∀ (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] (A B : AbVar K)
+    (e₁ e₂ : K →ₐ[ℚ] Qbar)
+    (φ : (CategoryTheory.Over.pullback (specEmb K e₁)).obj A.X ⟶
+      (CategoryTheory.Over.pullback (specEmb K e₂)).obj B.X),
+    ∃ U : Subgroup Gal, IsOpen (U : Set Gal) ∧ ∀ σ ∈ U,
+      ∀ (hf : specEmb K e₁ = specGal σ ≫ specEmb K e₁)
+        (hg : specEmb K e₂ = specGal σ ≫ specEmb K e₂),
+        G4Conj.conj A.X B.X (specGal σ) hf hg φ = φ
+
+/-- `G_K` fixes every embedding of the Galois field `K`. -/
+theorem embAct_symm_of_mem [IsGalois ℚ K] (σ : Gal) (hσ : σ ∈ K.fixingSubgroup)
+    (e : K →ₐ[ℚ] Qbar) : (embAct K σ).symm e = e := by
+  ext x
+  have hx : e x ∈ K := by
+    have hmem : e x ∈ e.fieldRange := ⟨x, rfl⟩
+    rw [AlgHom.fieldRange_of_normal e] at hmem
+    exact hmem
+  have hσ' : σ⁻¹ ∈ K.fixingSubgroup := K.fixingSubgroup.inv_mem hσ
+  exact (IntermediateField.mem_fixingSubgroup_iff K _).mp hσ' _ hx
+
+/-- The stabilizer of a lattice element, as a subgroup. -/
+def stabSub (A : AbVar K) (m : HomLattice (conjData K A).A) : Subgroup Gal where
+  carrier := {σ | conjAction K A σ m = m}
+  one_mem' := by simp
+  mul_mem' {σ τ} hσ hτ := by
+    simp only [Set.mem_ofPred_eq] at *
+    rw [map_mul, LinearEquiv.mul_apply, hτ, hσ]
+  inv_mem' {σ} hσ := by
+    simp only [Set.mem_ofPred_eq] at *
+    conv_lhs => rw [← hσ]
+    rw [← LinearEquiv.mul_apply, ← map_mul, inv_mul_cancel, map_one]
+    rfl
+
+/-- **Continuity of the conjugation action (glue, proved from `HomDescends`).** -/
+theorem conjAction_continuous (hD : HomDescends) [FiniteDimensional ℚ K] [IsGalois ℚ K]
+    (A : AbVar K) (m : HomLattice (conjData K A).A) :
+    IsOpen {σ : Gal | conjAction K A σ m = m} := by
+  classical
+  choose U hUo hU using fun ij : (K →ₐ[ℚ] Qbar) × (K →ₐ[ℚ] Qbar) =>
+    hD K A A ij.1 ij.2 (m ij).hom
+  let W : Set Gal := (K.fixingSubgroup : Set Gal) ∩ ⋂ ij, (U ij : Set Gal)
+  have hWo : IsOpen W :=
+    (IntermediateField.fixingSubgroup_isOpen K).inter (isOpen_iInter_of_finite fun ij => hUo ij)
+  have hW1 : (1 : Gal) ∈ W :=
+    ⟨K.fixingSubgroup.one_mem, Set.mem_iInter.mpr fun ij => (U ij).one_mem⟩
+  have hWS : W ⊆ (stabSub K A m : Set Gal) := by
+    rintro σ ⟨hσK, hσU⟩
+    rw [Set.mem_iInter] at hσU
+    show conjAction K A σ m = m
+    rw [conjAction_apply]
+    funext ij
+    obtain ⟨i, j⟩ := ij
+    apply AbVar.Hom.ext'
+    rw [conjAct_apply, conjHom_hom]
+    have aux : ∀ (i' j' : K →ₐ[ℚ] Qbar) (hi : i' = i) (hj : j' = j)
+        (hf : specEmb K i = specGal σ ≫ specEmb K i')
+        (hg : specEmb K j = specGal σ ≫ specEmb K j'),
+        G4Conj.conj A.X A.X (specGal σ) hf hg (m (i', j')).hom = (m (i, j)).hom := by
+      intro i' j' hi hj hf hg
+      subst hi hj
+      exact hU (i', j') σ (hσU (i', j')) hf hg
+    exact aux _ _ (embAct_symm_of_mem K σ hσK i) (embAct_symm_of_mem K σ hσK j) _ _
+  have hS : IsOpen (stabSub K A m : Set Gal) :=
+    Subgroup.isOpen_of_mem_nhds _ (Filter.mem_of_superset (hWo.mem_nhds hW1) hWS)
+  exact hS
+
+/-- **G4 for a model `A/K`, continuity discharged.** As `homField_of_model`, with `hcont`
+replaced by the input `HomDescends`. -/
+theorem homField_of_model' (hHFF : HomFreeFinite) (hD : HomDescends) [FiniteDimensional ℚ K]
+    [IsGalois ℚ K] (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0) (A : AbVar K)
+    (hdim : ∀ e, ((conjData K A).A e).dim = 2)
+    (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
+    (hinert : ∀ p : ℕ, p.Prime → p ∉ T → ∀ w : ValuationSubring Qbar, LiesOver w p →
+      ∀ s ∈ inertiaGQ w, conjAction K A s = 1) :
+    ∃ L : IntermediateField ℚ Qbar, ∃ _ : FiniteDimensional ℚ L, ∃ _ : IsGalois ℚ L,
+      K ≤ L ∧ (∀ σ ∈ L.fixingSubgroup, conjAction K A σ = 1) ∧
+      Module.finrank ℚ L ≤ ZInQ.heightD ∧
+      GalUnramifiedOutside L T ∧ (∀ p : Nat.Primes, (p : ℕ) ∉ T → UnramifiedAt L p) :=
+  homField_of_model K hHFF hKF A hdim (conjAction_continuous K hD A) T hK hinert
+
+
 
 end Lattice
 
@@ -1180,5 +1276,7 @@ end G4WeilRes
 #print axioms G4WeilRes.conjActionExists
 #print axioms G4Conj.conj_isMonHom
 #print axioms G4WeilRes.homField_of_model
+#print axioms G4WeilRes.homField_of_model'
+#print axioms G4WeilRes.conjAction_continuous
 #print axioms G4WeilRes.tateHom_injective
 #print axioms G4WeilRes.inertia_of_tate
