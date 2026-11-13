@@ -335,6 +335,67 @@ theorem cmForm_eq_sum (τ : ℍ) :
   refine Finset.sum_congr rfl fun e _ => ?_
   ring
 
+
+theorem level_pos_div : 0 < 32 * d ^ 2 / M := by
+  have hN : 0 < 32 * d ^ 2 := Nat.pos_of_ne_zero (mul_ne_zero (by norm_num)
+    (pow_ne_zero 2 (NeZero.ne d)))
+  exact Nat.div_pos (Nat.le_of_dvd hN hMN) (Nat.pos_of_ne_zero (NeZero.ne M))
+
+/-- **The Fricke identity in terms of `g`**: with `κ = −32 d² (−32/d)` and `c_g` the Fricke
+constant of `g`, `κ f_d(τ) = c_g ∑_{e ∣ P} c_e (P/e)² g((P/e)τ)`, `P = N/M`. -/
+theorem fricke_identity :
+    ∃ cg : ℂ, ∀ τ : ℍ, (-32 * (d : ℂ) ^ 2 * jacobiChar d ((-32 : ℤ) : ZMod d)) *
+      cmForm etaForm32 d τ = cg * ∑ e ∈ (32 * d ^ 2 / M).divisors,
+        cAr M d (coeff g) e * (((32 * d ^ 2 / M / e : ℕ) : ℂ) ^ 2 *
+          gAt g.toCuspForm (32 * d ^ 2 / M / e) τ) := by
+  obtain ⟨cg, hcg⟩ := newform_fricke g hχ
+  refine ⟨cg, fun τ => ?_⟩
+  set P := 32 * d ^ 2 / M with hP
+  have hMP : M * P = 32 * d ^ 2 := Nat.mul_div_cancel' hMN
+  have hτ0 : (τ : ℂ) ≠ 0 := τ.ne_zero
+  have hw : 0 < (-1 / (32 * (d : ℂ) ^ 2 * τ)).im := by
+    have := fricke32_im_pos (⟨(d : ℂ) ^ 2 * τ, by
+      simp only [mul_im, ← Complex.ofReal_natCast, ← Complex.ofReal_pow, ofReal_re, ofReal_im,
+        zero_mul, add_zero]
+      exact mul_pos (by have := NeZero.ne d; positivity) τ.im_pos⟩ : ℍ)
+    simpa [mul_assoc] using this
+  have hfr := cmForm_fricke hd4 hsq τ hw
+  rw [cmForm_eq_sum hd4 hsq hMN g hχ hgood] at hfr
+  -- each term
+  have hterm : ∀ e ∈ P.divisors, gAt g.toCuspForm e ⟨-1 / (32 * (d : ℂ) ^ 2 * τ), hw⟩ =
+      cg * ((P / e : ℕ) : ℂ) ^ 2 * (τ : ℂ) ^ 2 * gAt g.toCuspForm (P / e) τ := by
+    intro e he
+    have he0 := Nat.pos_of_mem_divisors he
+    have heP : e ∣ P := Nat.dvd_of_mem_divisors he
+    have hj : 0 < P / e := Nat.div_pos (Nat.le_of_dvd (Nat.pos_of_ne_zero
+      (Nat.ne_of_gt (level_pos_div hd4 hsq hMN g hχ hgood))) heP) he0
+    rw [gAt, dif_pos he0, gAt, dif_pos hj]
+    have hcast : (M : ℂ) * ((P / e : ℕ) : ℂ) * (e : ℂ) = 32 * (d : ℂ) ^ 2 := by
+      have : M * (P / e) * e = 32 * d ^ 2 := by
+        rw [mul_assoc, Nat.div_mul_cancel heP, hMP]
+      exact_mod_cast this
+    have hpt : ((e : ℕ) : ℂ) * ((⟨-1 / (32 * (d : ℂ) ^ 2 * τ), hw⟩ : ℍ) : ℂ) =
+        -1 / ((M : ℂ) * (((P / e : ℕ) : ℂ) * τ)) := by
+      simp only [UpperHalfPlane.coe_mk]
+      have he0' : (e : ℂ) ≠ 0 := by exact_mod_cast he0.ne'
+      rw [← hcast]
+      field_simp
+    have hz' : 0 < (-1 / ((M : ℂ) * (((P / e : ℕ) : ℂ) * τ))).im := by
+      rw [← hpt]; exact mul_im_pos_of_nat he0 _
+    have := hcg (((P / e : ℕ) : ℂ) * τ) (mul_im_pos_of_nat hj τ) hz'
+    rw [show (⟨((e : ℕ) : ℂ) * ((⟨-1 / (32 * (d : ℂ) ^ 2 * τ), hw⟩ : ℍ) : ℂ),
+        mul_im_pos_of_nat he0 _⟩ : ℍ) = ⟨-1 / ((M : ℂ) * (((P / e : ℕ) : ℂ) * τ)), hz'⟩ from
+      UpperHalfPlane.ext hpt, this]
+    ring
+  rw [Finset.sum_congr rfl fun e he => by rw [hterm e he]] at hfr
+  apply mul_left_cancel₀ (pow_ne_zero 2 hτ0)
+  rw [Finset.mul_sum, Finset.mul_sum]
+  have : ∀ e ∈ P.divisors, cAr M d (coeff g) e * (cg * ((P / e : ℕ) : ℂ) ^ 2 * (τ : ℂ) ^ 2 *
+      gAt g.toCuspForm (P / e) τ) = (τ : ℂ) ^ 2 * (cg * (cAr M d (coeff g) e *
+        (((P / e : ℕ) : ℂ) ^ 2 * gAt g.toCuspForm (P / e) τ))) := fun e _ => by ring
+  rw [Finset.sum_congr rfl this] at hfr
+  linear_combination -hfr
+
 end Ident
 
 end ZInQ.GZTheta
