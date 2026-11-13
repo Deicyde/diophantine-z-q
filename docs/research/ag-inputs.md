@@ -14,8 +14,8 @@ are UNVERIFIED (no network).
    is compiled). The adversarial review found no gap in the deduction itself. Two caveats:
    - **(c) is a real extra input.** The exact-CM clause `R2X6CMExact` (`π₆ = 0 ⇒ com ≅ ℤ[i]`,
      `π₆ = ∞ ⇒ com ≅ ℤ[ζ₃]`) is not a clause of the bundle. Here it is weakened from pi0-x6's
-     biconditional to these forward directions, the only ones used. It is a consequence of Baba–Granath,
-     read in its printed meaning, as pi0-x6 says. It also follows from the bundle's
+     biconditional to these forward directions, the only ones used. It is a consequence of
+     Baba–Granath, read in its printed meaning, as pi0-x6 says. It also follows from the bundle's
      `R2X6PropsIff` together with the QM dichotomy and the maximality of `ℤ[i]` and `ℤ[ζ₃]`
      (§1.3). Neither derivation is in Lean.
    - **`AGInputs` was not pure algebraic geometry.** Its fields `over0` and `overInf` need the
@@ -45,11 +45,13 @@ are UNVERIFIED (no network).
    - the rest of the bundle;
    - the leaf `R5fpCount`;
    - the clause (c);
-   - four standard results, none from the Shimura-curve literature, listed below.
+   - standard results, none from the Shimura-curve literature, listed below (AG-CD is itself
+     proved from AG-CD1 and AG-CD2, so the remaining standard leaves are AG-GC, AG-CD1, AG-CD2
+     and AL).
 
    | Leaf | Lean | Content | Source | Status |
    | --- | --- | --- | --- | --- |
-   | AG-GC | `AGIn.ConnectedGeomConnected` | `k` algebraically closed, `Y → Spec k` proper, `Y` connected ⇒ geometrically connected | EGA IV₂ (4.5.1), (4.5.8); Stacks, Varieties, §"Geometrically connected schemes" (UNVERIFIED numbers) | STANDARD; a consequence of the published statement, which needs neither "proper" nor more than separable closedness |
+   | AG-GC | `AGIn.ConnectedGeomConnected` | `k` algebraically closed, `Y → Spec k` proper, `Y` connected ⇒ geometrically connected | EGA IV₂ (4.5.1), (4.5.8); Stacks, Varieties, §"Geometrically connected schemes" (UNVERIFIED numbers) | STANDARD; a consequence: the published statement has no properness hypothesis and needs only separable closedness |
    | AG-CD | `AGIn.CurveComponentDichotomy` (proved from AG-CD1 `ComponentInfinite` and AG-CD2 `ConstOrSurj`, `curveComponentDichotomy_of`) | `X` proper smooth of relative dimension 1 over `ℚ`, `π : X → P¹`: on each connected component of `X_ℚ̄`, `π` hits every value of `P¹(ℚ̄)` at a `ℚ̄`-point, or some value is hit at infinitely many | Hartshorne II.6.8 (constant or surjective); normal Noetherian ⇒ components irreducible (Stacks); Nullstellensatz (UNVERIFIED numbers) | STANDARD (consequence of the listed theorems) |
    | SN | `GlueDescent.LeafSkolemNoether` | automorphisms of a finite-dimensional central simple algebra are inner | Skolem–Noether | **proved** (t-skolem-kw, `TSkolemKW.leafSkolemNoether`; identical statement, VERIFIED by reading both) |
    | AL | `AGInO.AtkinLehnerFinite` | `N_{B^×}(𝒪)/ℚ^×𝒪^×` finite: finite `T ⊆ B^×` with every normalizing `b = r·t·u` | Vignéras LNM 800 Ch. II–III; Voight GTM 288 Ch. 18, §28.9 (UNVERIFIED locators): an elementary abelian 2-group of rank `≤ #{p ∣ D}` | STANDARD (consequence) |
@@ -63,7 +65,7 @@ are UNVERIFIED (no network).
      a `ℚ`-algebra automorphism of `B` (`extAut`) and conjugation by normalizing units
      (`conjAut`).
 
-3. **Mathlib v4.35 cannot prove AG-GC, AG-CD or AL** (SPECULATIVE assessment, from reading
+3. **Mathlib v4.35 cannot prove AG-GC, AG-CD (CD1, CD2) or AL** (SPECULATIVE assessment, from reading
    `Mathlib/AlgebraicGeometry/Geometrically/*`). It has `GeometricallyConnected`, base change of
    properness and surjectivity, and pullback pasting; all three are used in `descend_of_leaf`.
    What it lacks:
@@ -72,7 +74,7 @@ are UNVERIFIED (no network).
      schemes;
    - for AL, the normalizer of a quaternion order (two-sided ideals of a maximal order).
 4. **Recommendation.** The clause `R1pi0Props` can leave the R1 bundle. It would be replaced by:
-   - the three textbook leaves AG-GC, AG-CD and AL (SN is proved), which are crowdsourcable and
+   - the four textbook leaves AG-GC, AG-CD1, AG-CD2 and AL (SN is proved), which are crowdsourcable and
      independent of the Shimura-curve literature;
    - the clause (c), a restatement of Baba–Granath's CM clause.
 
@@ -236,7 +238,7 @@ Proof of `descend_of_leaf`:
 
 ## 3. What remains
 
-1. The three leaves AG-GC, AG-CD and AL. Each is textbook, and none is in Mathlib v4.35. Any of
+1. The four leaves AG-GC, AG-CD1, AG-CD2 and AL. Each is textbook, and none is in Mathlib v4.35. Any of
    them could be formalized independently of this project.
 2. Input (c): adopt `R2X6CMExact` (c1), or derive it from leaves already in the decomposition
    (c2). Not done. A roadmap for (c2) (SPECULATIVE estimate: several hundred lines). Let `A` be a

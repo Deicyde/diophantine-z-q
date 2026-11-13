@@ -6,8 +6,10 @@
 - Residue fields `ℚ(i)` over 0 and `ℚ(√−3)` over ∞ are also confirmed independently, by Shimura
   reciprocity and `X^D(ℝ) = ∅`.
 - Correction: pi0-x6's "algebraic geometry" input (d) also needed a quaternion fact, finite
-  `π₆`-fibres (`Aut(𝒪)/Inn(𝒪^×)` finite). The exact-CM clause (c), `R2X6CMExact`, remains a
-  restatement of Baba–Granath (or c2 glue, not done).
+  `π₆`-fibres (`Aut(𝒪)/Inn(𝒪^×)` finite).
+- The exact-CM clause (c), `R2X6CMExact`, is now weakened to its forward directions (over 0,
+  `com ≅ ℤ[i]`; over ∞, `com ≅ ℤ[ζ₃]`). It remains a restatement of Baba–Granath, or c2 glue
+  (not done).
 
 **Main result (VERIFIED: compiled, standard axioms only, no sorry/axiom, no warnings).**
 In `scratch/ag-inputs/AGInputs.lean`, all three fields of `AGInputs` are proved from standard
