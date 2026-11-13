@@ -43,7 +43,9 @@ theorem LTGoodRed.QM.qmEndRank_of_leaves (hM1 : PkgI3.HomFreeFinite)
       (gp4 : GluePieces4) : ZInQ.SixContactMin
   ```
 
-  INTEG-STATUS
+  It compiles against linked-tate's committed files (VERIFIED, §5). The fields are filled by:
+  - `goodRedTorsion := LTGoodRed.goodRedTorsion`;
+  - `qmEndRank := LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27`.
 
 **VERIFIED** (Lean 4.35.0, Mathlib v4.35.0): see §5. Every axiom report is
 `[propext, Classical.choice, Quot.sound]`.
@@ -133,7 +135,29 @@ Write `M = End(A')`, `A'' = A'_Ω` with `Ω = \bar{L'}`, and `ι : 𝒪 → End(
 
 ## 5. What compiles
 
-FLAT-STATUS
+- **`scratch/lt-goodred/GoodRed.lean`** (16 417 lines, assembled by `assemble.sh`) contains:
+  - lines 1-14993 of linked-tate's `Leaves.lean`, a byte-identical copy of the pin-applied
+    h-decomposition file, followed by four closers;
+  - the parts `05_dim` (g0-dim, verbatim), `10_copies` (the verbatim copies listed in `log.md`),
+    `20_goodred`, `30_qmendrank` (verbatim `QMEndRank` and `endBC`), `40_qmrank` and `50_split`.
+
+  `lake env lean scratch/lt-goodred/GoodRed.lean`: VERIFIED exit 0 in 160 s, with 0 errors and no
+  `sorry`. All 9 axiom reports are standard: `goodRedTorsion`, `quatB6_isUnit`, `quatEmbed`,
+  `four_le_finrank`, `qmEndRank_of`, `eq_zero_of_mul_self_eq_zero`, `eight_le_finrank`,
+  `qmSplitCaseRank` and `qmEndRank_of_leaves`.
+- **Iteration.** `olean/Tail.lean` is compiled against an olean of the same prefix
+  (`build_prefix.sh`, 202 s; then `ctail.sh`).
+- **Integration** (`integ/`). It reads linked-tate's committed `Leaves.lean`, `imports_extra.txt`
+  and `parts/`, and edits none of them. `build.sh prefix|tail|integ` runs an olean chain:
+  - `prefix`: 533 s;
+  - `tail`: 241 s;
+  - `integ`: 103 s. Its input is `99d_proofs.lean`, which `make_proofs.py` generates from `parts/`
+    without the copies that linked-tate already has, followed by `99e_bundle4.lean`.
+
+  Every step: VERIFIED exit 0, 0 errors.
+- **The integration as one flat file** (46 150 lines, generated, not committed): VERIFIED exit 0
+  in 686 s, with 0 errors and no `sorry`. All 233 axiom reports are standard, including
+  `HSyn.gluePieces3_of_gluePieces4` and `HSyn.sixContactMin_of_leaves4`.
 
 ## 6. What remains
 

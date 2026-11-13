@@ -58,3 +58,6 @@
   and `HSyn.sixContactMin_of_leaves4 (r : ResearchLeaves) (t : TextbookLeaves) (gp4 : GluePieces4) : ZInQ.SixContactMin`.
   `GluePieces4` = linked-tate's GluePieces3 minus `goodRedTorsion`, `qmEndRank` (27 fields, the others verbatim);
   `goodRedTorsion := LTGoodRed.goodRedTorsion`, `qmEndRank := LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27`.
+- Single flat composite `integ/olean/IntegFlat.lean` (46150 lines = LTPrefix + linked-tate's parts + 99d + 99e; generated,
+  not committed), `lake env lean`: VERIFIED exit 0 in 686 s, 0 errors, no sorry, 233 axiom reports all standard (two
+  line-wrapped), incl. `HSyn.gluePieces3_of_gluePieces4`, `HSyn.sixContactMin_of_leaves4`.
