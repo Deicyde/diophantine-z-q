@@ -14,9 +14,10 @@
 - **`HeckeDegree`** is proved from the kernel's textbook leaf `TorsionStructure` (T5, Mumford §4)
   alone. A π-fibre has ≤ 4·81 = 324 classes, using aut-o-finite's 4 inner classes and the
   kernel's level torsor. `GenericFibreCount` (generic étaleness) is proved from Mathlib.
-- **`HeckeNormalizationIrr`** is reduced to `CurveGaloisChart` (curve theory, no moduli: finite
-  map, normalization chart, Artin) plus T5. The moduli input is proved: fibre transitivity under
-  R1hecke, using 𝒪^× → (𝒪/3𝒪)^× onto (72 units, `decide`).
+- **`HeckeNormalizationIrr`** is reduced to `CurveNormChart` (curve theory: finite map and
+  normalization chart; no moduli, no Galois) plus T5. Two things are proved:
+  - fibre transitivity under R1hecke, using 𝒪^× → (𝒪/3𝒪)^× onto (72 units, `decide`);
+  - the Galois property (π-preserving automorphisms induce automorphisms of E/ℚ(X), then a count).
 - **`HeckeBranch`** is reduced to two glue Props plus the leaves T5 and `R1R2fp`:
   - `CurveChartInf` (the chart at ∞);
   - `HeckeFibreSizes` (twist-fibre sizes 144/36/24/72, Baba–Granath §3.1).
@@ -25,12 +26,13 @@
 - **`HeckeNoVertRam`** stays open. The analysis is in report §6: two routes (Lemma NV, or good
   reduction), and an example showing that branch data alone cannot give it.
 
-**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 57
+**What compiles.** `lake env lean scratch/ts-hecke/TSHecke.lean`: 0 errors. All 66
 `#print axioms` lines are standard, with no sorryAx. The file contains prop-ts-glue's whole file
 verbatim (`check_identical.py` ALL OK). The composite `TSHecke.propTSAll_of_tsHecke` replaces
 prop-ts-glue's five Hecke Props by: Y3Connected, TorsionStructure, CurveGaloisChart,
-CurveChartInf, HeckeFibreSizes, HeckeNoVertRam. An independent read-only review found every new
+CurveChartInf, HeckeFibreSizes, HeckeNoVertRam. The primed version takes CurveNormChart in place
+of CurveGaloisChart. An independent read-only review found every new
 Prop true.
 
-**What remains.** Leaf R1conn (`Y3Connected`). Glue: `CurveGaloisChart`, `CurveChartInf`,
+**What remains.** Leaf R1conn (`Y3Connected`). Glue: `CurveNormChart`, `CurveChartInf`,
 `HeckeFibreSizes`, `HeckeNoVertRam`. Report: docs/research/ts-hecke.md. Log: scratch/ts-hecke/log.md.

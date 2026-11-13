@@ -13,9 +13,9 @@ They are used unchanged, copied verbatim.
 
 | File | Contents |
 |---|---|
-| `scratch/ts-hecke/TSHecke.lean` | the Lean file (6753 lines), assembled by `assemble.py` |
+| `scratch/ts-hecke/TSHecke.lean` | the Lean file (7109 lines), assembled by `assemble.py` |
 | `scratch/ts-hecke/TSHeckeMain.lean.part` | the new part (Parts 1-5) |
-| `GenericFibre.lean`, `RamCount.lean`, `Units.lean` | development files, compiled; pasted verbatim into `TSHecke.lean` |
+| `GenericFibre.lean`, `RamCount.lean`, `Units.lean`, `GaloisPart.lean.part` (with `GaloisDev.lean`) | development files, compiled; pasted verbatim into `TSHecke.lean` |
 | `pi0_check.py` / `pi0_check.out` | the computation behind `HeckeIrreducible` |
 | `units_table.py` | the table of 72 units of `𝒪` |
 | `check_identical.py` | checks the verbatim copies |
@@ -33,11 +33,13 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
   `Y₃` has exactly two geometric components, and complex conjugation swaps them, so `Y₃` is
   `ℚ`-irreducible (VERIFIED, `pi0_check.py`). In Lean it is reduced to a single leaf, the
   connectedness of `Y₃` over `ℚ` (R1conn). The leaf is also necessary.
-- **`HeckeDegree`, proved from the kernel's existing textbook leaf `TorsionStructure`** (T5 of h-decomposition)
-  (Mumford §4) alone.
-- **`HeckeNormalizationIrr`** is reduced to one statement of curve theory with no moduli in it
-  (`CurveGaloisChart`), plus `TorsionStructure`. All the moduli input, fibre transitivity under
-  R1hecke, is proved.
+- **`HeckeDegree`, proved from the kernel's existing textbook leaf `TorsionStructure`** (T5 of
+  h-decomposition, Mumford §4) alone.
+- **`HeckeNormalizationIrr`** is reduced to `TorsionStructure` plus one statement of curve theory
+  with no moduli and no Galois theory in it: `CurveNormChart`, the normalization chart of a curve
+  over `P¹`. Two things are proved:
+  - all the moduli input, fibre transitivity under R1hecke;
+  - the Galois property, via Jacobson, induced automorphisms and a count.
 - **`HeckeBranch`** is reduced to three inputs:
   - `CurveChartInf` (curve theory: the chart at `∞`);
   - `HeckeFibreSizes` (the moduli count behind Baba–Granath's elliptic table);
@@ -50,7 +52,7 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
 
 - `lake env lean scratch/ts-hecke/TSHecke.lean` gives 0 errors (about 2.5 min). The warnings are
   linter warnings only.
-- All 57 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
+- All 66 `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`; none has `sorryAx`.
 - `check_identical.py` prints `ALL OK`. Each of the following is contained verbatim:
   - all of prop-ts-glue's `PropTSGlue.lean` except its imports and trailing `#print` lines
     (lines 3-3553). This includes the prop-ts prefix (equal to `scratch/prop-ts/PropTS.lean`),
@@ -71,7 +73,7 @@ theorem TSHecke.coverModelOfHecke_of_tsHecke (hconn : Y3Connected) (hRR : R1R2fp
 |---|---|---|
 | `HeckeIrreducible` | `heckeIrreducible_of_connected : Y3Connected → HeckeIrreducible`; conversely `connected_of_heckeIrreducible : R1R2fp → HeckeIrreducible → Y3Connected` | leaf R1conn (`Y3Connected`) |
 | `HeckeDegree` | `heckeDegree_of_torsion : ObjBridge.TorsionStructure → HeckeDegree` | kernel leaf I2-Tors only |
-| `HeckeNormalizationIrr` | `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr` | glue `CurveGaloisChart` |
+| `HeckeNormalizationIrr` | `heckeNormalizationIrr_of : CurveGaloisChart → TorsionStructure → HeckeNormalizationIrr` and `curveGaloisChart_of : CurveNormChart → CurveGaloisChart` | glue `CurveNormChart` |
 | `HeckeBranch` | `heckeBranch_of' : R1R2fp → CurveChartInf → HeckeFibreSizes → TorsionStructure → HeckeBranch` | glue `CurveChartInf`, `HeckeFibreSizes` |
 | `HeckeNoVertRam` | none | open glue (§6) |
 
@@ -91,6 +93,9 @@ In `propTSAll_final`, the five Hecke Props are replaced as follows:
 - two leaves: `Y3Connected` (new), and the kernel's existing `TorsionStructure`;
 - four glue Props: `CurveGaloisChart`, `CurveChartInf`, `HeckeFibreSizes`, and the unchanged
   `HeckeNoVertRam`.
+
+`propTSAll_of_tsHecke'` and `coverModelOfHecke_of_tsHecke'` are the same composites with
+`CurveNormChart` in place of `CurveGaloisChart`.
 
 ## 2. `HeckeIrreducible` (Part 1)
 
@@ -200,6 +205,23 @@ STANDARD (Hartshorne II.6.7-6.8; Stacks 02OG; Artin's theorem; UNVERIFIED locato
 - `heckeNormalization_of : Y3Connected → CurveGaloisChart → TorsionStructure →
   HeckeNormalization`.
 
+**The Galois step of `CurveGaloisChart` is proved too** (`GaloisPart.lean.part`, namespace
+`TSHeckeGal`). This leaves **`CurveNormChart`**: the same hypotheses without the automorphisms,
+and the same conclusion without `IsGalois`. That is steps 1-2 above, pure curve theory.
+
+`curveGaloisChart_of : CurveNormChart → CurveGaloisChart` goes through six lemmas:
+
+1. `exists_qbar_point`: a closed point of a scheme locally of finite type over `ℚ` has a
+   `ℚ̄`-point, since its residue field is integral over `ℚ` (`IsAlgClosed.lift`).
+2. `range_comp_subset`: a `π`-preserving endomorphism maps the chart `Spec B ↪ Y` into itself.
+   This uses Jacobson spaces and `nonempty_inter_closedPoints`.
+3. `eq_of_forall_qbar`: two elements of `B` with the same value at every map `B → ℚ̄` are equal,
+   because `B` is Jacobson with zero Jacobson radical.
+4. `exists_sigma`: the induced ring map `σ : B → B` fixes `X`.
+5. `exists_tau`: `σ` extends to an automorphism `τ` of `E` over `ℚ(X)`.
+6. `isGalois_of_transitive`: by `GenericFibreCount`, these automorphisms hit at least
+   `[E : ℚ(X)]` maps `B → ℚ̄` over a rational `t`, so `|Aut(E/ℚ(X))| = [E : ℚ(X)]`.
+
 ## 5. `HeckeBranch` (Part 4)
 
 The proof goes through three facts:
@@ -296,7 +318,7 @@ cite `Y3Connected` and §2.1. That file was not edited.
 | Prop | kind | content | suggested source / route |
 |---|---|---|---|
 | `Y3Connected` | **leaf** | `Y₃` is connected over `ℚ` | Deligne/Shimura `π₀` and reciprocity, with §2.1's computation; or the uniformization plus complex conjugation |
-| `CurveGaloisChart` | glue | finite map, normalization chart, Artin | Hartshorne II.6; Stacks 02OG |
+| `CurveNormChart` | glue | finite map, normalization chart, no Galois (`CurveGaloisChart` follows, compiled) | Hartshorne II.6; Stacks 02OG |
 | `CurveChartInf` | glue | the chart at `∞` | as above |
 | `HeckeFibreSizes` | glue from leaves | twist-fibre sizes 144, 36, 24, 72 | uniformization and Baba–Granath §3.1; or `End(A)` of QM surfaces (QM dichotomy) with CM units |
 | `HeckeNoVertRam` | glue | Lemma NV | §6 (NV or GR) |
