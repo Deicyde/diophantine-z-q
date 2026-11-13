@@ -1,0 +1,64 @@
+'PropTSRed.padicValRat_16_27' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_coverModel' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_eq_of_pt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_transfer' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_witness' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.beckmannSITTame_of_glue' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTS_of_coverModel_tame' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.unramifiedMono' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.padicValRat_sub_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.kummerStep_of_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_meet' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.exists_factor_scheme' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_specMap' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.residueImage_comp_openImmersion' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.functionFieldModel_of_normalization' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.coverModel_of_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.propTSAll_of_bundle_N' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.constOne_val' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSRed.not_propTS_cyclotomic' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/prop-ts-glue/PropTSGlue.lean:1086:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/prop-ts-glue/PropTSGlue.lean:1269:17: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1269:28: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/prop-ts-glue/PropTSGlue.lean:1316:48: warning: `if_true` has been deprecated: Use `ite_true` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵t̵r̵u̵e̵i̲t̲e̲_̲t̲r̲u̲e̲
+scratch/prop-ts-glue/PropTSGlue.lean:1317:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/prop-ts-glue/PropTSGlue.lean:1317:27: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+'PropTSGlue.regular_dim2_intPoly' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.zxMap_injective' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.not_dvd_den_of_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.exists_secIdeal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.specNonMeeting_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeet_of_cases' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coeff_X_pow_sub_C_nonneg' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetFin_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.kummerMeetGlue_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModelOfHeckeN_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.coverModelOfHecke_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]
+'PropTSGlue.propTSAll_of_pieces' depends on axioms: [propext, Classical.choice, Quot.sound]

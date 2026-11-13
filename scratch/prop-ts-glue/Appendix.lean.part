@@ -1,0 +1,544 @@
+
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# prop-ts-glue: the three glue Props under Proposition TS, reduced
+
+Everything above this line is `scratch/prop-ts/PropTS.lean`, copied verbatim (checked by
+`scratch/prop-ts-glue/check_identical.py`). The three Props of this task are
+`PropTSRed.SpecNonMeeting`, `PropTSRed.KummerMeetGlue` and `PropTSRed.CoverModelOfHecke`; they are
+used unchanged. Below, each is reduced to strictly smaller named Props.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+noncomputable section
+
+namespace PropTSGlue
+
+open Polynomial G0ModField PropTSRed
+
+/-! ## Part A: `SpecNonMeeting` from purity (t-purity3) and three pieces of commutative algebra -/
+
+universe u
+
+/-- **Purity of the branch locus over a two-dimensional regular local base** (Zariski–Nagata;
+SGA 1 X 3.1, UNVERIFIED number). Copied verbatim from `scratch/t-purity3/PurityDim2.lean`
+(namespace `TPurity3`), where it is **proved** (`TPurity3.purityGlobalDim2`, standard axioms;
+docs/research/t-purity3.md §1). It is a hypothesis here only because scratch files cannot import
+each other. -/
+def PurityGlobalDim2 : Prop :=
+  ∀ (R S : Type u) [CommRing R] [CommRing S] [Algebra R S] [IsRegularLocalRing R],
+    ringKrullDim R = 2 → ∀ [IsDomain S] [IsIntegrallyClosed S] [Module.Finite R S],
+    Function.Injective (algebraMap R S) →
+    (∀ P : Ideal R, P.IsPrime → P.height = 1 → Algebra.IsUnramifiedIn S P) →
+    Algebra.Etale R S
+
+/-- A maximal ideal of `ℤ[X]` over a nonzero prime of `ℤ` has height `2` (copied with its proof
+from `scratch/prop-ts/ZXRegular.lean`). -/
+theorem height_maximal_intPoly (m : Ideal ℤ[X]) [m.IsMaximal]
+    (hne : m.comap (C : ℤ →+* ℤ[X]) ≠ ⊥) : m.height = 2 := by
+  have hc : (m.comap (C : ℤ →+* ℤ[X])).IsMaximal :=
+    Ideal.IsPrime.isMaximal (Ideal.IsPrime.comap _) hne
+  have : m.LiesOver (m.comap (C : ℤ →+* ℤ[X])) := ⟨rfl⟩
+  rw [Polynomial.height_eq_height_add_one (m.comap (C : ℤ →+* ℤ[X])) m]
+  have h1 : (m.comap (C : ℤ →+* ℤ[X])).height = 1 := by
+    apply le_antisymm
+    · have := Ideal.height_le_ringKrullDim_of_isPrime (I := m.comap (C : ℤ →+* ℤ[X]))
+      rw [IsPrincipalIdealRing.ringKrullDim_eq_one ℤ Int.not_isField] at this
+      exact_mod_cast this
+    · rw [Order.one_le_iff_pos, pos_iff_ne_zero, Ne, Ideal.height_eq_zero_iff_eq_bot]
+      exact hne
+  rw [h1]
+  rfl
+
+/-- `ℤ[X]_m` is regular local of dimension `2` (copied with its proof from
+`scratch/prop-ts/ZXRegular.lean`). -/
+theorem regular_dim2_intPoly (m : Ideal ℤ[X]) [m.IsMaximal]
+    (hne : m.comap (C : ℤ →+* ℤ[X]) ≠ ⊥) :
+    IsRegularLocalRing (Localization.AtPrime m) ∧ ringKrullDim (Localization.AtPrime m) = 2 := by
+  refine ⟨inferInstance, ?_⟩
+  rw [IsLocalization.AtPrime.ringKrullDim_eq_height m, height_maximal_intPoly m hne]
+  rfl
+
+/-- `ℤ[X] → E` through `ℚ[X]` (the map of `intPolyAlg`). -/
+abbrev zxMap (E : Type) [Field E] [Algebra ℚ[X] E] : ℤ[X] →+* E :=
+  (algebraMap ℚ[X] E).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))
+
+theorem zxMap_injective (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] : Function.Injective (zxMap E) := by
+  intro a b h
+  simp only [zxMap, RingHom.comp_apply, IsScalarTower.algebraMap_apply ℚ[X] (RatFunc ℚ) E] at h
+  have h1 := (algebraMap (RatFunc ℚ) E).injective h
+  have h2 := (IsFractionRing.injective ℚ[X] (RatFunc ℚ)) h1
+  exact Polynomial.map_injective _ Int.cast_injective h2
+
+/-- **The local base `ℤ[X]_m` mapped to `E`** (the localization of `zxMap E`; elements outside
+`m` are nonzero, hence units in the field `E`). -/
+@[reducible] noncomputable def locAlg (E : Type) [Field E] [Algebra (RatFunc ℚ) E]
+    [Algebra ℚ[X] E] [IsScalarTower ℚ[X] (RatFunc ℚ) E] (m : Ideal ℤ[X]) [m.IsPrime] :
+    Algebra (Localization.AtPrime m) E :=
+  (IsLocalization.lift (M := m.primeCompl) (S := Localization.AtPrime m) (g := zxMap E)
+    (fun y => by
+      rw [isUnit_iff_ne_zero]
+      intro h
+      apply y.2
+      rw [(zxMap_injective E) (h.trans (map_zero _).symm)]
+      exact m.zero_mem)).toAlgebra
+
+/-- **Glue (commutative algebra; STANDARD): the normalization of the local base.** For `E/ℚ(X)`
+finite and a maximal ideal `m` of `ℤ[X]`, the integral closure `S` of `R = ℤ[X]_m` in `E` is
+integrally closed, module-finite over `R` (`R` is Noetherian and normal, `E/Frac R` finite
+separable: Mathlib `IsIntegralClosure.finite`), and `R → S` is injective. (`S` is a domain as a
+subring of a field.) -/
+def SNLocalData : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (m : Ideal ℤ[X]) [m.IsMaximal],
+    letI := locAlg E m
+    IsIntegrallyClosed (integralClosure (Localization.AtPrime m) E) ∧
+    Module.Finite (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) ∧
+    Function.Injective
+      (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E))
+
+/-- **Glue (prop-ts §4.1 step 1): unramified in codimension one at the section `X = s₀` over
+`p`.** Let `E/ℚ(X)` be finite with `[E : ℚ(X)] < p`, no vertical ramification at `p`, and let
+`s₀ = a/d` be `p`-integral and meet no branch point mod `p` (`NonMeeting`). Let `m ⊂ ℤ[X]` be the
+maximal ideal containing `p` and `dX − a` (it is `(p, dX − a)`). Then every height-one prime `P`
+of `R = ℤ[X]_m` is unramified in the integral closure of `R` in `E`. Proof: `P = (p)` is handled
+by `NoVerticalRam` (`e = 1`) and `[E : ℚ(X)] < p` (separable residue extension: the inseparable
+degree is a power of `p` dividing `f ≤ [E : ℚ(X)]`); `P = (g)`, `g` primitive irreducible with
+`g ∈ m`: a ramified prime over `gℚ[X]` would give, by `NonMeeting`, a `p`-integral `f ∈ gℚ[X]`
+with `f(s₀)` a unit, while Gauss's lemma gives `f = g h` with `h ∈ ℤ_(p)[X]`, so `p ∣ f(s₀)`;
+residue fields of horizontal primes have characteristic 0. -/
+def SNHeightOne : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    Module.finrank (RatFunc ℚ) E < p → NoVerticalRam E p →
+    ∀ s₀ : ℚ, 0 ≤ padicValRat p s₀ → NonMeeting E p s₀ →
+    ∀ (m : Ideal ℤ[X]) [m.IsMaximal], C (p : ℤ) ∈ m → C (s₀.den : ℤ) * X - C s₀.num ∈ m →
+      letI := locAlg E m
+      ∀ P : Ideal (Localization.AtPrime m), P.IsPrime → P.height = 1 →
+        Algebra.IsUnramifiedIn (integralClosure (Localization.AtPrime m) E) P
+
+/-- **Glue (prop-ts §4.1 step 3): specializing an étale cover along the section `X = s₀`.** With
+`m ∋ p, dX − a` as in `SNHeightOne`, if the integral closure `S` of `R = ℤ[X]_m` in `E` is étale
+over `R`, then every residue field `B/𝔓` of the integral closure `B` of `ℚ[X]` in `E` over
+`X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p`. Proof: `S/(dX − a)S` is étale over
+`R/(dX − a) = ℤ_(p)`, hence a finite product of finite étale `ℤ_(p)`-domains; the factor through
+`𝔓` (every `𝔓` survives: going up from `ℤ[1/d]` to the closure of `𝔓`) has fraction field
+`B/𝔓`, which is therefore unramified at `p` (Neukirch I.8; étale over a DVR = unramified with
+separable residue fields). -/
+def SNSpecialize : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ), p.Prime →
+    ∀ s₀ : ℚ, 0 ≤ padicValRat p s₀ →
+    ∀ (m : Ideal ℤ[X]) [m.IsMaximal], C (p : ℤ) ∈ m → C (s₀.den : ℤ) * X - C s₀.num ∈ m →
+      letI := locAlg E m
+      Algebra.Etale (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+          FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ)) ∧
+          UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p
+
+/-- A `p`-integral rational has denominator prime to `p`. -/
+theorem not_dvd_den_of_nonneg (p : ℕ) [hp : Fact p.Prime] (s : ℚ) (hs : 0 ≤ padicValRat p s) :
+    ¬ p ∣ s.den := by
+  intro hd
+  have hnum : ¬ (p : ℤ) ∣ s.num := by
+    intro hn
+    have h1 : p ∣ s.num.natAbs := Int.natCast_dvd.mp hn
+    exact hp.out.one_lt.ne' ((Nat.Coprime.coprime_dvd_left h1 s.reduced).eq_one_of_dvd hd)
+  rw [padicValRat_def, padicValInt.eq_zero_of_not_dvd hnum] at hs
+  have := one_le_padicValNat_of_dvd s.den_nz hd
+  omega
+
+/-- **The maximal ideal `(p, dX − a)` of `ℤ[X]` exists** for `p`-integral `s₀ = a/d`: the kernel
+of `ℤ[X] → 𝔽_p`, `X ↦ a d⁻¹`. -/
+theorem exists_secIdeal (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs : 0 ≤ padicValRat p s₀) :
+    ∃ m : Ideal ℤ[X], m.IsMaximal ∧ C (p : ℤ) ∈ m ∧ C (s₀.den : ℤ) * X - C s₀.num ∈ m := by
+  have hd : ((s₀.den : ℤ) : ZMod p) ≠ 0 := by
+    rw [Int.cast_natCast, Ne, ZMod.natCast_eq_zero_iff]
+    exact not_dvd_den_of_nonneg p s₀ hs
+  let f : ℤ[X] →+* ZMod p := Polynomial.eval₂RingHom (Int.castRingHom (ZMod p))
+    ((s₀.num : ZMod p) * ((s₀.den : ℤ) : ZMod p)⁻¹)
+  refine ⟨RingHom.ker f, RingHom.ker_isMaximal_of_surjective f ?_, ?_, ?_⟩
+  · intro z
+    obtain ⟨n, rfl⟩ := ZMod.intCast_surjective z
+    exact ⟨C n, by simp [f]⟩
+  · rw [RingHom.mem_ker]
+    simp [f]
+  · rw [RingHom.mem_ker]
+    simp only [f, coe_eval₂RingHom, eval₂_sub, eval₂_mul, eval₂_C, eval₂_X]
+    simp only [eq_intCast]
+    rw [mul_left_comm, mul_inv_cancel₀ hd, mul_one, sub_self]
+
+/-- **`SpecNonMeeting` from purity (proved by t-purity3) and the three commutative-algebra
+pieces.** The base `ℤ[X]_m` is regular local of dimension 2 (`regular_dim2_intPoly`, proved). -/
+theorem specNonMeeting_of_pieces (hPur : PurityGlobalDim2.{0}) (hL : SNLocalData)
+    (hH : SNHeightOne) (hS : SNSpecialize) : SpecNonMeeting := by
+  intro E _ _ _ _ _ p hp hdeg hV s₀ hs₀ hNM 𝔓 hP𝔓 hU φ
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨m, hmax, hpm, hsm⟩ := exists_secIdeal p s₀ hs₀
+  letI := locAlg E m
+  obtain ⟨hic, hfin, hinj⟩ := hL E m
+  have hne : m.comap (C : ℤ →+* ℤ[X]) ≠ ⊥ := by
+    intro h0
+    have : (p : ℤ) ∈ m.comap (C : ℤ →+* ℤ[X]) := hpm
+    rw [h0, Ideal.mem_bot] at this
+    exact hp.ne_zero (by exact_mod_cast this)
+  obtain ⟨hreg, hdim⟩ := regular_dim2_intPoly m hne
+  have het := hPur (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) hdim hinj
+    (hH E p hp hdeg hV s₀ hs₀ hNM m hpm hsm)
+  exact hS E p hp s₀ hs₀ m hpm hsm het 𝔓 hP𝔓 hU φ
+
+/-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
+facts -/
+
+/-- **`E'` is the compositum `E(s)` along `X ↦ r(s)`**: a field embedding `ι : E → E'` sending the
+coordinate `X` of `ℚ(X) ⊆ E` to `r ∈ ℚ(s) ⊆ E'` (`s` the coordinate of the second `RatFunc ℚ`),
+with `E'` generated as a field by `ι(E)` and `s`. -/
+def KummerShape (E E' : Type) [Field E] [Field E'] [Algebra (RatFunc ℚ) E]
+    [Algebra (RatFunc ℚ) E'] (ι : E →+* E') (r : RatFunc ℚ) : Prop :=
+  ι (algebraMap (RatFunc ℚ) E RatFunc.X) = algebraMap (RatFunc ℚ) E' r ∧
+    Subfield.closure (Set.range ι ∪ {algebraMap (RatFunc ℚ) E' RatFunc.X}) = ⊤
+
+/-- The Kummer substitution at a finite branch point: `X = b + s^n / c`, i.e. `s^n = c (X − b)`. -/
+def rFin (b c : ℚ) (n : ℕ) : RatFunc ℚ :=
+  algebraMap ℚ[X] (RatFunc ℚ) (C (b * c) + X ^ n) / algebraMap ℚ[X] (RatFunc ℚ) (C c)
+
+/-- The Kummer substitution at `∞`: `X = c / s^n`, i.e. `s^n = c / X`. -/
+def rInf (c : ℚ) (n : ℕ) : RatFunc ℚ :=
+  algebraMap ℚ[X] (RatFunc ℚ) (C c) / algebraMap ℚ[X] (RatFunc ℚ) (X ^ n)
+
+/-- **Glue (algebra; STANDARD): the compositum exists, with a prime over a given prime.** Let
+`E/ℚ(X)` be finite and `r = P/Q ∈ ℚ(s)` non-constant, regular at `s₀ ∈ ℚ` with `r(s₀) = t`. For
+every prime `𝔓` of the integral closure `B` of `ℚ[X]` in `E` over `X − t` and every embedding
+`φ : B/𝔓 → ℚ̄` there are a field `E'` finite over `ℚ(s)` which is a compositum `E(s)` along
+`X ↦ r` (a factor of `E ⊗_{ℚ(X)} ℚ(s)`), so `[E' : ℚ(s)] ≤ [E : ℚ(X)]`, a prime `𝔓'` of the
+integral closure of `ℚ[s]` in `E'` over `s − s₀`, and an embedding `φ'` of its residue field with
+`ℚ(φ(B/𝔓)) ⊆ ℚ(φ'(B'/𝔓'))`. Proof: every valuation of `E` over `X = t` extends to some factor
+of `E ⊗ ℚ(s)` above the valuation `s = s₀` of `ℚ(s)` (which restricts to `X = t` on `ℚ(X)`), and
+`φ` extends to the finite extension of residue fields as `ℚ̄` is algebraically closed. -/
+def KummerCompositum : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (P Q : ℚ[X]) (t s₀ : ℚ), Q.eval s₀ ≠ 0 → P.eval s₀ = t * Q.eval s₀ → (∀ a : ℚ, P ≠ C a * Q) →
+    ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime → 𝔓.under ℚ[X] = Ideal.span {X - C t} →
+    ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+    ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+      (ι : E →+* E'),
+      KummerShape E E' ι (algebraMap ℚ[X] (RatFunc ℚ) P / algebraMap ℚ[X] (RatFunc ℚ) Q) ∧
+      Module.finrank (RatFunc ℚ) E' ≤ Module.finrank (RatFunc ℚ) E ∧
+      ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+        𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+        ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+          IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ (Set.range φ')
+
+/-- **Glue from T2 (Abhyankar's lemma), finite branch point.** If `E' = E(s)` with
+`s^n = c (X − b)` (`c ≠ 0`) and every prime of `B` over `X − b` has ramification index dividing
+`n`, then `E'/ℚ(s)` is unramified over `s = 0`. Proof: T2 (`PkgI2.AbhyankarDVR`) for the DVR
+`ℚ[X]_(X−b)` with uniformizer `c (X − b) = s^n` gives `e = n` over `X = b` for every prime of
+`E'`; `ℚ(s)/ℚ(X)` is totally ramified of index `n` at `s = 0`, and `e` is multiplicative in
+towers. -/
+def KummerAbhyankarFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rFin b c n) →
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime → Q.under ℚ[X] = Ideal.span {X - C b} →
+      Q.ramificationIdx ℚ[X] ∣ n) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.under ℚ[X] = Ideal.span {X} →
+      Q'.ramificationIdx ℚ[X] = 1
+
+/-- `KummerAbhyankarFin` is glue whose proof uses the bundle leaf T2. -/
+def KummerAbhyankarFinGlue : Prop := PkgI2.AbhyankarDVR.{0} → KummerAbhyankarFin
+
+/-- **Glue (ramification in a compositum), finite branch point.** If `E' = E(s)` with
+`s^n = c (X − b)`, `b ∈ S` and `E/ℚ(X)` is unramified over every finite prime other than the
+`X − b'` (`b' ∈ S`), then a ramified prime of `E'/ℚ(s)` lies over `s = 0` or contains
+`s^n − c (b' − b)` for some `b' ∈ S ∖ {b}`. Proof: over a prime `g` of `ℚ[s]` with
+`g ∩ ℚ[X] = h`: if `h = (X − b)` then `g = (s)`; if `h = (X − b')` then `s^n − c(b' − b) ∈ g`;
+otherwise `E` and `ℚ(s)` are both unramified over `h` (`ℚ(s)/ℚ(X)` ramifies only over `b` and
+`∞`), hence so is the compositum. -/
+def KummerOtherBranchFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ), 0 < n → c ≠ 0 → KummerShape E E' ι (rFin b c n) →
+    ∀ S : Finset ℚ, b ∈ S →
+    (∀ Q : Ideal (integralClosure ℚ[X] E), Q.IsPrime →
+      (∀ b' ∈ S, Q.under ℚ[X] ≠ Ideal.span {X - C b'}) → Q.ramificationIdx ℚ[X] = 1) →
+    ∀ Q' : Ideal (integralClosure ℚ[X] E'), Q'.IsPrime → Q'.ramificationIdx ℚ[X] ≠ 1 →
+      Q'.under ℚ[X] = Ideal.span {X} ∨
+        ∃ b' ∈ S, b' ≠ b ∧ X ^ n - C (c * (b' - b)) ∈ Q'.under ℚ[X]
+
+/-- **Glue (Gauss valuation), finite branch point.** If `E' = E(s)` with `s^n = c (X − b)`,
+`0 < n < p`, `c` a `p`-unit, `b` `p`-integral, `[E : ℚ(X)] < p`, and `E` has no vertical
+ramification at `p`, then neither has `E'`. Proof: the Gauss valuation of `ℚ(s)` restricts to the
+Gauss valuation of `ℚ(X)` (the substitution `X ↦ b + s^n/c` is injective mod `p`), with `e = 1`
+and residue extension `𝔽_p(s)/𝔽_p(X̄)` separable of degree `n < p`; the vertical primes of `E` are
+unramified with separable residue fields (`[E : ℚ(X)] < p`); a compositum of extensions unramified
+at a valuation is unramified there. -/
+def KummerVerticalFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    (E' : Type) [Field E'] [Algebra (RatFunc ℚ) E'] [Algebra ℚ[X] E']
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E'] [FiniteDimensional (RatFunc ℚ) E']
+    (ι : E →+* E') (b c : ℚ) (n : ℕ) (p : ℕ), p.Prime → 0 < n → n < p →
+    Module.finrank (RatFunc ℚ) E < p → c ≠ 0 → padicValRat p c = 0 → 0 ≤ padicValRat p b →
+    KummerShape E E' ι (rFin b c n) → NoVerticalRam E p → NoVerticalRam E' p
+
+/-- **`KummerMeet`, finite case**: `KummerMeet` when `t` meets a finite branch point `b ∈ S`. -/
+def KummerMeetFin : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
+    BranchData E S n nInf →
+    Module.finrank (RatFunc ℚ) E < p →
+    (∀ b ∈ S, 0 < n b ∧ n b < p) → 0 < nInf → nInf < p →
+    (∀ b ∈ S, 0 ≤ padicValRat p b) →
+    (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
+    NoVerticalRam E p →
+    ∀ t : ℚ, t ∉ S →
+      (∀ b ∈ S, n b ∣ (padicValRat p (t - b)).toNat) → nInf ∣ (-padicValRat p t).toNat →
+      (∃ b ∈ S, 0 < padicValRat p (t - b)) →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C t} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+        ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+          (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+          (s₀ : ℚ), Module.finrank (RatFunc ℚ) E' < p ∧ NoVerticalRam E' p ∧
+          0 ≤ padicValRat p s₀ ∧ NonMeeting E' p s₀ ∧
+          ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+            𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+            ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+              IntermediateField.adjoin ℚ (Set.range φ) ≤
+                IntermediateField.adjoin ℚ (Set.range φ')
+
+/-- **`KummerMeet`, case at `∞`**: `KummerMeet` when `v_p(t) < 0` (glue from T2 at the DVR of `∞`,
+substitution `rInf`: `X = c/s^n`; prop-ts §4.2, second case). -/
+def KummerMeetInf : Prop :=
+  ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+    [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
+    BranchData E S n nInf →
+    Module.finrank (RatFunc ℚ) E < p →
+    (∀ b ∈ S, 0 < n b ∧ n b < p) → 0 < nInf → nInf < p →
+    (∀ b ∈ S, 0 ≤ padicValRat p b) →
+    (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
+    NoVerticalRam E p →
+    ∀ t : ℚ, t ∉ S →
+      (∀ b ∈ S, n b ∣ (padicValRat p (t - b)).toNat) → nInf ∣ (-padicValRat p t).toNat →
+      padicValRat p t < 0 →
+      ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+        𝔓.under ℚ[X] = Ideal.span {X - C t} →
+        ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar,
+        ∃ (E' : Type) (_ : Field E') (_ : Algebra (RatFunc ℚ) E') (_ : Algebra ℚ[X] E')
+          (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E') (_ : FiniteDimensional (RatFunc ℚ) E')
+          (s₀ : ℚ), Module.finrank (RatFunc ℚ) E' < p ∧ NoVerticalRam E' p ∧
+          0 ≤ padicValRat p s₀ ∧ NonMeeting E' p s₀ ∧
+          ∃ 𝔓' : Ideal (integralClosure ℚ[X] E'), 𝔓'.IsPrime ∧
+            𝔓'.under ℚ[X] = Ideal.span {X - C s₀} ∧
+            ∃ φ' : integralClosure ℚ[X] E' ⧸ 𝔓' →+* Qbar,
+              IntermediateField.adjoin ℚ (Set.range φ) ≤
+                IntermediateField.adjoin ℚ (Set.range φ')
+
+/-- `KummerMeet` splits into its two cases (compiled). -/
+theorem kummerMeet_of_cases (hF : KummerMeetFin) (hI : KummerMeetInf) : KummerMeet := by
+  intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+  rcases hm with hm | hm
+  · exact hI E S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+  · exact hF E S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+
+/-- `p`-adic valuation of `X^n − C a` coefficients: all `≥ 0` when `v_p(a) ≥ 0`. -/
+theorem coeff_X_pow_sub_C_nonneg (p : ℕ) (n : ℕ) (hn : 0 < n) (a : ℚ)
+    (ha : 0 ≤ padicValRat p a) (i : ℕ) : 0 ≤ padicValRat p ((X ^ n - C a : ℚ[X]).coeff i) := by
+  rw [coeff_sub, coeff_X_pow, coeff_C]
+  by_cases h1 : i = n
+  · subst h1
+    simp [hn.ne']
+  · by_cases h0 : i = 0
+    · subst h0
+      simp only [if_neg h1, if_true, zero_sub, padicValRat.neg]
+      exact ha
+    · simp [h1, h0]
+
+/-- **`KummerMeetFin` from the four pieces** (compiled; the `p`-adic bookkeeping of prop-ts §4.2:
+`t − b = p^M u`, `c = u^{n−1}`, `s₀ = p^{M/n} u`, so `s₀^n = c (t − b)`). -/
+theorem kummerMeetFin_of_pieces (hC : KummerCompositum) (hA : KummerAbhyankarFin)
+    (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin) : KummerMeetFin := by
+  intro E _ _ _ _ _ _ S n nInf p hp hBr hdeg hn0 hinf0 hinf1 hint hdist hV t ht hn hinf hm 𝔓 hP hU φ
+  have : Fact p.Prime := ⟨hp⟩
+  obtain ⟨b, hbS, hpos⟩ := hm
+  have htb : t - b ≠ 0 := sub_ne_zero.mpr (fun e => ht (e ▸ hbS))
+  set M : ℕ := (padicValRat p (t - b)).toNat with hMdef
+  have hM : padicValRat p (t - b) = (M : ℤ) := by rw [hMdef]; omega
+  obtain ⟨hnb0, hnbp⟩ := hn0 b hbS
+  set nb := n b with hnb
+  obtain ⟨k, hk⟩ : nb ∣ M := hn b hbS
+  have hp0 : (p : ℚ) ≠ 0 := by exact_mod_cast hp.ne_zero
+  set u : ℚ := (t - b) / (p : ℚ) ^ M with hu
+  have hu0 : u ≠ 0 := div_ne_zero htb (pow_ne_zero _ hp0)
+  have hvu : padicValRat p u = 0 := by
+    rw [hu, padicValRat.div htb (pow_ne_zero _ hp0), padicValRat.pow, padicValRat.self hp.one_lt,
+      hM]
+    ring
+  set c : ℚ := u ^ (nb - 1) with hc
+  have hc0 : c ≠ 0 := pow_ne_zero _ hu0
+  have hvc : padicValRat p c = 0 := by rw [hc, padicValRat.pow, hvu, mul_zero]
+  set s₀ : ℚ := (p : ℚ) ^ k * u with hs₀
+  have hs₀n : s₀ ^ nb = c * (t - b) := by
+    have e1 : t - b = (p : ℚ) ^ M * u := by rw [hu]; field_simp
+    rw [hs₀, hc, e1, hk, mul_pow, ← pow_mul, mul_comm k nb]
+    obtain ⟨j, hj⟩ : ∃ j, nb = j + 1 := ⟨nb - 1, by omega⟩
+    rw [hj, Nat.add_sub_cancel, pow_succ]
+    ring
+  have hvs₀ : 0 ≤ padicValRat p s₀ := by
+    rw [hs₀, padicValRat.mul (pow_ne_zero _ hp0) hu0, padicValRat.pow, padicValRat.self hp.one_lt,
+      hvu]
+    simp
+  -- the compositum
+  have hQ : (C c : ℚ[X]).eval s₀ ≠ 0 := by simpa using hc0
+  have hPQ : (C (b * c) + X ^ nb : ℚ[X]).eval s₀ = t * (C c : ℚ[X]).eval s₀ := by
+    simp only [eval_add, eval_C, eval_pow, eval_X]
+    rw [hs₀n]
+    ring
+  have hnc : ∀ a : ℚ, (C (b * c) + X ^ nb : ℚ[X]) ≠ C a * C c := by
+    intro a h
+    have := congrArg (fun f : ℚ[X] => f.coeff nb) h
+    simp only [coeff_add, coeff_C, coeff_X_pow, if_true, ← C_mul] at this
+    rw [if_neg (by omega), if_neg (by omega)] at this
+    simp at this
+  obtain ⟨E', i1, i2, i3, i4, i5, ι, hshape, hdeg', 𝔓', hP', hU', φ', hle⟩ :=
+    hC E (C (b * c) + X ^ nb) (C c) t s₀ hQ hPQ hnc 𝔓 hP hU φ
+  have hshape' : KummerShape E E' ι (rFin b c nb) := hshape
+  refine ⟨E', i1, i2, i3, i4, i5, s₀, lt_of_le_of_lt hdeg' hdeg,
+    hVF E E' ι b c nb p hp hnb0 hnbp hdeg hc0 hvc (hint b hbS) hshape' hV, hvs₀, ?_,
+    𝔓', hP', hU', φ', hle⟩
+  -- `NonMeeting E' p s₀`
+  intro Q' hQ' he
+  rcases hO E E' ι b c nb hnb0 hc0 hshape' S hbS hBr.1 Q' hQ' he with h0 | ⟨b', hb'S, hb'b, hmem⟩
+  · exact absurd (hA E E' ι b c nb hnb0 hc0 hshape' (hBr.2.1 b hbS) Q' hQ' h0) he
+  · have hbb' : b' - b ≠ 0 := sub_ne_zero.mpr hb'b
+    have htb' : t - b' ≠ 0 := sub_ne_zero.mpr (fun e => ht (e ▸ hb'S))
+    have hv1 : padicValRat p (b' - b) = 0 := hdist b' hb'S b hbS hb'b
+    have hval : padicValRat p (t - b') = 0 := by
+      have hbb'' : b - b' ≠ 0 := sub_ne_zero.mpr (Ne.symm hb'b)
+      have e2 : t - b' = (b - b') + (t - b) := by ring
+      have hv2 : padicValRat p (b - b') = 0 := hdist b hbS b' hb'S (Ne.symm hb'b)
+      rw [e2, padicValRat.add_eq_of_lt (by rw [← e2]; exact htb') hbb'' htb (by rw [hv2]; omega),
+        hv2]
+    refine ⟨X ^ nb - C (c * (b' - b)), hmem, ?_, ?_, ?_⟩
+    · apply coeff_X_pow_sub_C_nonneg p nb hnb0
+      rw [padicValRat.mul hc0 hbb', hvc, hv1]
+      simp
+    · simp only [eval_sub, eval_pow, eval_X, eval_C]
+      rw [hs₀n, show c * (t - b) - c * (b' - b) = c * (t - b') by ring]
+      exact mul_ne_zero hc0 htb'
+    · simp only [eval_sub, eval_pow, eval_X, eval_C]
+      rw [hs₀n, show c * (t - b) - c * (b' - b) = c * (t - b') by ring,
+        padicValRat.mul hc0 htb', hvc, hval]
+      simp
+
+/-- **`KummerMeetGlue` from the pieces**: T2 enters only through `KummerAbhyankarFinGlue` (and the
+`∞` case `KummerMeetInf`, glue from T2 at the DVR of `∞`). -/
+theorem kummerMeetGlue_of_pieces (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue)
+    (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hI : PkgI2.AbhyankarDVR.{0} → KummerMeetInf) : KummerMeetGlue :=
+  fun t2 => kummerMeet_of_cases (kummerMeetFin_of_pieces hC (hA t2) hO hVF) (hI t2)
+
+/-! ## Part C: `CoverModelOfHecke` from three properties of the normalization chart -/
+
+/-- **Glue (curve theory; h-b1 M1, M2, M8): the normalization chart of `Y₃ → P¹_j`.** A triple
+with R1fp, R1hecke and R2fp has a finite Galois `E/ℚ(X)` such that `π⁻¹(𝔸¹) ≅ Spec B` (`B` the
+integral closure of `ℚ[X]` in `E`) with `π = X` there (`NormalizationModel`). Proof sketch: `Y`
+is a smooth proper curve, `ℚ`-irreducible (its two geometric components are conjugate over
+`ℚ(√−3)`: `π₀ = ℤ̂^×/nrd(K₃) ≅ (ℤ/3)^×` with Galois acting through the cyclotomic character,
+SPECULATIVE reading of Deligne's reciprocity on `π₀`); `π` is finite and invariant under the group
+`Γ'` of R1hecke, whose orbits are the fibres (R2fp), so `ℚ(Y)/ℚ(j)` is Galois (Artin) and `Y`
+is the normalization of `P¹` in `ℚ(Y)`. -/
+def HeckeNormalization : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∃ (E : Type) (_ : Field E) (_ : Algebra (RatFunc ℚ) E) (_ : Algebra ℚ[X] E)
+      (_ : IsScalarTower ℚ[X] (RatFunc ℚ) E) (_ : FiniteDimensional (RatFunc ℚ) E)
+      (_ : IsGalois (RatFunc ℚ) E), NormalizationModel Y π E
+
+/-- **Glue from leaves (h-b1 M3): the degree.** For a triple as above and any `E` carrying the
+normalization chart, `[E : ℚ(X)] ≤ 324` (it divides `|Γ'| = 144`). `NormalizationModel` pins `B`
+(and so `E = Frac B`) up to isomorphism, so this is a property of the cover. -/
+def HeckeDegree : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      Module.finrank (RatFunc ℚ) E ≤ 324
+
+/-- **Glue from leaves (h-b1 M4; Baba–Granath §3.1 elliptic orders,
+`RvNocm.ramification_eq_orbifold_order`): the branch data.** For a triple as above and any `E`
+carrying the normalization chart, `E/ℚ(X)` is ramified at most over `0, −16/27, ∞` with indices
+dividing `4, 2, 6`. -/
+def HeckeBranch : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      BranchData E {0, -16 / 27} nY3 6
+
+/-- **Glue (h-b1 §3, Lemma NV; uses R1rec through `residue_unramified_over_branch`, Abhyankar and
+the `W`-quotient `X₆ → P¹_j`): no vertical ramification.** For a triple as above and any `E`
+carrying the normalization chart, `E` has no vertical ramification at any prime `p > 324`. -/
+def HeckeNoVertRam : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π →
+    ∀ (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+      [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
+      [IsGalois (RatFunc ℚ) E], NormalizationModel Y π E →
+      ∀ p : ℕ, p.Prime → 324 < p → NoVerticalRam E p
+
+/-- **`CoverModelOfHeckeN` from the four pieces** (compiled). -/
+theorem coverModelOfHeckeN_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
+    (hB : HeckeBranch) (hV : HeckeNoVertRam) : CoverModelOfHeckeN := by
+  intro Y Φ π h1 hh h2
+  obtain ⟨E, i1, i2, i3, i4, i5, i6, hM⟩ := hN Y Φ π h1 hh h2
+  exact ⟨E, i1, i2, i3, i4, i5, i6, hM, ⟨hD Y Φ π h1 hh h2 E hM, hB Y Φ π h1 hh h2 E hM⟩,
+    hV Y Φ π h1 hh h2 E hM⟩
+
+/-- **`CoverModelOfHecke` from the four pieces** (through prop-ts's
+`functionFieldModel_of_normalization`, compiled). -/
+theorem coverModelOfHecke_of_pieces (hN : HeckeNormalization) (hD : HeckeDegree)
+    (hB : HeckeBranch) (hV : HeckeNoVertRam) : CoverModelOfHecke :=
+  fun Y Φ π h1 hh h2 => coverModel_of_N (coverModelOfHeckeN_of_pieces hN hD hB hV Y Φ π h1 hh h2)
+
+/-! ## Part D: the composite -/
+
+/-- **`PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue `MobiusGlue`, purity
+(proved by t-purity3), and the smaller glue of Parts A-C.** -/
+theorem propTSAll_of_pieces (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hPur : PurityGlobalDim2.{0}) (hL : SNLocalData) (hH : SNHeightOne) (hS : SNSpecialize)
+    (hC : KummerCompositum) (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin)
+    (hVF : KummerVerticalFin) (hI : PkgI2.AbhyankarDVR.{0} → KummerMeetInf)
+    (hN : HeckeNormalization) (hD : HeckeDegree) (hB : HeckeBranch) (hV : HeckeNoVertRam) :
+    PropTSAll :=
+  propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces hC hA hO hVF hI)
+    (specNonMeeting_of_pieces hPur hL hH hS) hM (coverModelOfHecke_of_pieces hN hD hB hV)
+
+end PropTSGlue
+
+end
+
+#print axioms PropTSGlue.regular_dim2_intPoly
+#print axioms PropTSGlue.zxMap_injective
+#print axioms PropTSGlue.not_dvd_den_of_nonneg
+#print axioms PropTSGlue.exists_secIdeal
+#print axioms PropTSGlue.specNonMeeting_of_pieces
+#print axioms PropTSGlue.kummerMeet_of_cases
+#print axioms PropTSGlue.coeff_X_pow_sub_C_nonneg
+#print axioms PropTSGlue.kummerMeetFin_of_pieces
+#print axioms PropTSGlue.kummerMeetGlue_of_pieces
+#print axioms PropTSGlue.coverModelOfHeckeN_of_pieces
+#print axioms PropTSGlue.coverModelOfHecke_of_pieces
+#print axioms PropTSGlue.propTSAll_of_pieces
