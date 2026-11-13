@@ -1462,3 +1462,10 @@ warning: ZInQKernel/HDecomp/Textbook/KroneckerWeberUse.lean: imports `Mathlib` f
 ✔ [10174/10237] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Tower (2.6s)
 ✔ [10175/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Eisenstein.TotallyRamified (2.7s)
 ✔ [10176/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LSeries.WienerIkehara.Approximation (2.4s)
+✔ [10177/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Global.LocalArtin.FinitePlace (4.2s)
+✔ [10178/10239] Built ZInQKernel.Contrib.TauCeti.NumberTheory.ClassFieldTheory.Local.Cyclotomic (4.9s)
+⚠ [10179/10239] Built ZInQKernel.HDecomp.Assembly.E2Index (6.3s)
+warning: ZInQKernel/HDecomp/Assembly/E2Index.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+⚠ [10180/10240] Built ZInQKernel.HDecomp.Conductor.Breaks (24s)
+warning: ZInQKernel/HDecomp/Conductor/Breaks.lean: imports `Mathlib` from package `mathlib`, which is designed for use with the module system; consider adding `module` to the start of this file
+✔ [10181/10240] Built ZInQKernel.Contrib.TauCeti.NumberTheory.LocalField.Different.Eisenstein (2.3s)

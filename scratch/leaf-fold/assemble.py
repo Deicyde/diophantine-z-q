@@ -10,6 +10,9 @@ D = os.path.dirname(os.path.abspath(__file__))
 out = sys.argv[1] if len(sys.argv) > 1 else os.path.join(D, '..', 'h-decomposition', 'Leaves.lean')
 base = os.path.join(D, 'Leaves.base.lean')
 wr = os.path.join(D, 'Wrapped.lean')
+if not os.path.exists(base):
+    open(base, 'w').write(subprocess.run(['git', 'show', '89a5e60e:scratch/h-decomposition/Leaves.lean'],
+                                         check=True, capture_output=True, text=True).stdout)
 subprocess.run(['python3', os.path.join(D, 'wrap.py'), base, wr], check=True)
 txt = open(wr).read()
 mark = '#print axioms HSyn.weight_match\n'
