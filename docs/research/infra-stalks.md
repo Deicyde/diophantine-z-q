@@ -99,13 +99,25 @@ All in namespace `AlgebraicGeometry` unless stated; VERIFIED.
   the point lies in `W⁻¹U` and `s · H = Σ a_k ⊗ b_k` (chart `Spec (A ⊗[R] B)`, basic open `D(h)`,
   `s = a/hⁿ`, pure tensors evaluate to products).
 
-**Not proved (the other half of the first requested lemma):** the kernel half of
-"`𝒪_{X×_S Y,z}` is the localization of `𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y}` at a prime". Its proof is the
-same chart argument (an element of `A ⊗[R] B` killed in `(A ⊗[R] B)_t` is killed by some `w ∉ t`);
-the missing work is the compatibility of `A ⊗[R] B → 𝒪_x ⊗_{𝒪_s} 𝒪_y` with the germ maps through the
-charts. Consequently only the spanning half of "cotangent space of a base change over a field
-extension" is proved (`cotangent_span_pullback`); injectivity of `L' ⊗_L T*_x → T*_z` needs the
-kernel half.
+**`StalkTensor.lean`** (assembled from `StalkPullback.lean` and `stalk_tensor.lean.part`), the
+requested lemma in full:
+- **`pullback_stalk_tensor_isLocalization`**: for `z ∈ X ×_S Y` over named points `x`, `y`, `s`
+  (`f x = s = g y`), the ring map `Φ : 𝒪_{X,x} ⊗_{𝒪_{S,s}} 𝒪_{Y,y} → 𝒪_{X ×_S Y, z}`,
+  `Φ(a ⊗ b) = fst^♯ a · snd^♯ b`, is onto up to units and `Φ t = 0 ⇒ u t = 0` for some `u` with
+  `Φ u` a unit; **`pullback_stalk_isLocalization`** states this as Mathlib's
+  `IsLocalization (Φ⁻¹ 𝔪_z).primeCompl`, i.e. `𝒪_z = (𝒪_x ⊗_{𝒪_s} 𝒪_y)_{Φ⁻¹𝔪_z}` (Stacks 01JT,
+  EGA I 3.6.5, UNVERIFIED locators). Kernel half: write `t = (γ u ⊗ γ v)⁻¹ ι(t₀)` with
+  `t₀ ∈ A ⊗[R] B` (affine charts), `t₀` dies in `(A ⊗[R] B)_{t₀'}`, so some `w ∉ t₀'` kills it.
+
+**`CotangentBaseChange.lean`** (assembled from `StalkPullback.lean`, `stalk_tensor.lean.part`,
+`cot_bc.lean.part`), the second requested lemma in full:
+- `IsLocalRing.mem_sq_of_map_mem_sq` (pure algebra: for a localization `φ : B → R` at an ideal `J`
+  with `φ(J)R = 𝔪_R` and `B/J` residually a field, `φ p ∈ 𝔪_R² ⇒ p ∈ J²`).
+- **`cotangent_baseChange_injective`**: if `𝒪_{S,s}` and `𝒪_{Y,y}` are fields (`S = Spec L`,
+  `Y = Spec L'`, or the generic points of `Spec 𝓞_L`, `Spec 𝓞_{L'}`) and `x` is rational over `s`, the
+  map `𝒪_y ⊗_{𝒪_s} 𝔪_x/𝔪_x² → 𝔪_z/𝔪_z²`, `c ⊗ da ↦ c · d(fst^♯ a)`, is injective. It is built from
+  Mathlib's `Ideal.tensorCotangentHom` (flat base change of `I/I²`) and `pullback_stalk_tensor_isLocalization`.
+  With `cotangent_span_pullback` (onto), `T*_z ≅ L' ⊗_L T*_x`.
 
 ## 2. How each Prop is proved
 
@@ -139,7 +151,7 @@ kernel half.
 
 | Prop | status | missing lemma(s) |
 |---|---|---|
-| `HodgeBCInjective` (height-bc BC-alg) | open | (i) injectivity of `L' ⊗_L ω_{A_L} → ω_{A_{L'}}` (needs the kernel half of §1, or a tangent-vector argument via `Spec L'[ε]`); (ii) `L ⊗_{𝓞_L} ⋀^g_{𝓞_L} V ≅ ⋀^g_L V` for an `L`-vector space `V` (exterior powers and localization; `V` is not free over `𝓞_L`, so Mathlib's `Module.Basis.exteriorPower` does not apply) and `⋀^g` commuting with field extension |
+| `HodgeBCInjective` (height-bc BC-alg) | open | (i) the cotangent base change `L' ⊗_L ω_{A_L} ≅ ω_{A_{L'}}` is now proved in general (`cotangent_baseChange_injective`, `cotangent_span_pullback`) but not yet specialized to `GroupModel`s through `e` (as was done for `CotangentSpanBC`); (ii) `L ⊗_{𝓞_L} ⋀^g_{𝓞_L} V ≅ ⋀^g_L V` for an `L`-vector space `V` (exterior powers and localization; `V` is not free over `𝓞_L`, so Mathlib's `Module.Basis.exteriorPower` does not apply) and `⋀^g` commuting with field extension |
 | `OmegaBaseChange` (height-bc BC-omega) | open | (i) conormal base change at closed points, `ker(e'^♯_{s'}) = ker(e^♯_s) · 𝒪_{𝒢', e'(s')}` (provable with `pullback_stalkGen` and the argument of `maximalIdeal_eq_of_stalkGen`, not done); (ii) the local–global lattice step `ω_{𝒢'} = ⋂_{s'} omegaAt' s' ⊆ 𝓞_{L'} · π^*(⋂_s omegaAt s)` (localization of submodules of an `L`-space at primes of a Dedekind domain, and their base change) |
 | `ProductHodgeLattice` (metrization) | open | the cotangent splitting `ω_{𝒢P} ≅ ω₁ ⊕ ω₂` is now available in general form (`sub_mem_sq_pairPt` at the generic point of `Spec 𝓞_L`, unit sections) but not yet assembled on `GroupModel`s; still missing: `finrank (hodgeSpace (g₁+g₂)) = 1` (same exterior-power/localization issue as above), the lattice splitting `ω_{𝒢P} = ω_{𝒢₁} ⊕ ω_{𝒢₂}` (conormal of a product at closed points + local–global), and multiplicativity of `secIndex` for tensor products of rank-one lattices |
 | `ProductMetrizationOfProductUnif` (product-height S-alg) | open | everything `ProductHodgeLattice` lacks, plus the coefficient/Jacobian compatibilities of the product uniformization |
@@ -149,6 +161,8 @@ kernel half.
 | file | contents | result |
 |---|---|---|
 | `StalkPullback.lean` | general lemmas §1 | 0 errors |
+| `StalkTensor.lean` | `assemble_st.py` | 0 errors; axioms standard |
+| `CotangentBaseChange.lean` | `assemble_cbc.py` | 0 errors; axioms standard |
 | `CotangentProduct.lean` | pure algebra §1 | 0 errors |
 | `CotangentPullback.lean` | `assemble_general.py` | 0 errors; axioms standard |
 | `LocalStructure.lean` | `assemble_ls.py` | 0 errors; axioms standard |
