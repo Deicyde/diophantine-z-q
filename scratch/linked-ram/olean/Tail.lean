@@ -850,6 +850,164 @@ theorem upperAbsWild : UpperAbsWild := by
 theorem kernelFieldBreaks_of' (hB : UpperBreakBound) (h2 : BetaTrivialAtTwo) : KernelFieldBreaks :=
   kernelFieldBreaks_of_halves (kernelFieldBreaksLow_of hB upperAbsWild h2) kernelFieldBreaksHigh
 
+/-! ### `BetaTrivialAtTwo` reduced to its sign -/
+
+/-- **Glue: the sign of `β` on high upper groups at `2`.** `BetaTrivialAtTwo` with the extra
+hypothesis `β(decomp₂ σ)² = 1`, which is proved (`betaTrivialAtTwo_of_sign`). The remaining content
+is that `β(decomp₂ σ) ≠ −1`: the manuscript's local-reciprocity argument at 2 (L826-843). GLUE. -/
+def BetaSignAtTwo : Prop :=
+  ∀ (u : ℚ) (P : LeafQM.AV.QML3 Qbar) (L : IF) [FiniteDimensional ℚ L] [IsGalois ℚ L]
+    (A : PkgI3.AbVar L) (ε : GQ → GQ → ℂˣ) (N : ℕ) [NeZero N] (χ : DirichletCharacter ℂ N)
+    (β : GQ → ℂˣ) (L' : IF) [FiniteDimensional ℚ L'] [IsGalois ℚ L'] (hLL' : L ≤ L'),
+    G7Data u P L A ε N χ β L' hLL' →
+    letI : Fact (2 : ℕ).Prime := ⟨Nat.prime_two⟩
+    ∀ t : ℝ, G0ModNewform.U0 < t → ∀ σ ∈ LadicCond.upperAbs 2 t,
+      PkgI4.decomp 2 σ ∈ GQL L → β (PkgI4.decomp 2 σ) ^ 2 = 1 → β (PkgI4.decomp 2 σ) = 1
+
+/-- `8 ∤ chiLevel Tm` for a set of primes (`lev 2 = 4`, `lev q = q` odd). -/
+theorem not_eight_dvd_chiLevel :
+    ∀ Tm : Finset ℕ, (∀ q ∈ Tm, q.Prime) →
+      (2 ∉ Tm → ¬ 2 ∣ chiLevel Tm) ∧ ¬ 8 ∣ chiLevel Tm := by
+  intro Tm
+  induction Tm using Finset.induction_on with
+  | empty => intro _; simp [chiLevel]
+  | @insert a s ha ih =>
+    intro hTm
+    have ih' := ih (fun q hq => hTm q (Finset.mem_insert_of_mem hq))
+    have haP : a.Prime := hTm a (Finset.mem_insert_self a s)
+    have hcl : chiLevel (insert a s) = lev a * chiLevel s := Finset.prod_insert ha
+    rw [hcl]
+    by_cases ha2 : a = 2
+    · subst ha2
+      have hlev : lev 2 = 4 := by unfold lev; simp
+      rw [hlev]
+      have hns : ¬ 2 ∣ chiLevel s := ih'.1 ha
+      refine ⟨fun h => absurd (Finset.mem_insert_self 2 s) h, fun h => ?_⟩
+      have : 2 ∣ chiLevel s := by
+        have h8 : 4 * 2 ∣ 4 * chiLevel s := by simpa using h
+        exact Nat.dvd_of_mul_dvd_mul_left (by norm_num) h8
+      exact hns this
+    · have hlev : lev a = a := by unfold lev; simp [ha2]
+      rw [hlev]
+      have hodd : ¬ 2 ∣ a := fun h => ha2 ((Nat.prime_dvd_prime_iff_eq Nat.prime_two haP).mp h).symm
+      have hcop : Nat.Coprime 8 a :=
+        Nat.Coprime.pow_left 3 ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr hodd)
+      refine ⟨fun hnot h => ?_, fun h => ih'.2 (hcop.dvd_of_dvd_mul_left h)⟩
+      have hs : 2 ∉ s := fun h' => hnot (Finset.mem_insert_of_mem h')
+      rcases (Nat.Prime.dvd_mul Nat.prime_two).mp h with h | h
+      · exact hodd h
+      · exact ih'.1 hs h
+
+/-- At `2`, a high upper element acts trivially on `μ_N` when `8 ∤ N` (the `4`-part through
+`UpperBreakBound` for `ℚ_2(i)`, the odd part by wildness). -/
+theorem cyc_decomp_two_eq_one (hB : UpperBreakBound) {t : ℝ} (ht : G0ModNewform.U0 < t)
+    {σ : PkgI4.GQp 2} (hσ : σ ∈ LadicCond.upperAbs 2 t) {N : ℕ} [NeZero N] (hN8 : ¬ 8 ∣ N) :
+    cyc N (PkgI4.decomp 2 σ) = 1 := by
+  have ht0 : 0 < t := lt_of_le_of_lt U0_nonneg ht
+  have hw : LinkedRamWild.IsWild σ := upperAbsWild 2 t ht0 hσ
+  have he : ∀ x, embP 2 (PkgI4.decomp 2 σ x) = σ (embP 2 x) := embP_decomp 2 σ
+  obtain ⟨b, N', hN', hNeq⟩ := Nat.exists_eq_pow_mul_and_not_dvd (NeZero.ne N) 2 (by norm_num)
+  have hb : b ≤ 2 := by
+    by_contra hb
+    exact hN8 (hNeq ▸ Dvd.dvd.mul_right (show 8 ∣ 2 ^ b from
+      (pow_dvd_pow 2 (by omega : 3 ≤ b))) _)
+  have hN'0 : 0 < N' := Nat.pos_of_ne_zero (by rintro rfl; simp at hNeq; exact NeZero.ne N hNeq)
+  -- `g` fixes every `N`-th root of unity
+  have hfix : ∀ y : AlgebraicClosure ℚ, y ^ N = 1 → PkgI4.decomp 2 σ y = y := by
+    intro y hy
+    have hy0 : y ≠ 0 := by
+      rintro rfl; rw [zero_pow (NeZero.ne N)] at hy; exact zero_ne_one hy
+    -- `z = y^{N'}` has `z^4 = 1`, hence degree `≤ 4`, hence is fixed
+    have hz4 : (y ^ N') ^ 4 = 1 := by
+      have : (y ^ N') ^ (2 ^ b) = 1 := by rw [← pow_mul, mul_comm, ← hNeq, hy]
+      have h4 : 2 ^ b ∣ 4 := by
+        interval_cases b <;> norm_num
+      obtain ⟨c, hc⟩ := h4
+      rw [hc, pow_mul, this, one_pow]
+    have hzfix : PkgI4.decomp 2 σ (y ^ N') = y ^ N' := by
+      apply (embP 2).injective
+      rw [he]
+      set z := y ^ N'
+      let yz : PadicAlgCl 2 := embP 2 z
+      have hyint : IsIntegral ℚ_[2] yz := Algebra.IsIntegral.isIntegral yz
+      let F : LadicCond.Fld 2 := IntermediateField.adjoin ℚ_[2] {yz}
+      haveI : FiniteDimensional ℚ_[2] F := IntermediateField.adjoin.finiteDimensional hyint
+      have hq : (Polynomial.X ^ 4 - 1 : Polynomial ℚ_[2]) ≠ 0 := by
+        intro h
+        have := congrArg (Polynomial.eval 0) h
+        simp at this
+      have hdeg : Module.finrank ℚ_[2] F ≤ 4 := by
+        rw [IntermediateField.adjoin.finrank hyint]
+        have hdvd : minpoly ℚ_[2] yz ∣ (Polynomial.X ^ 4 - 1 : Polynomial ℚ_[2]) := by
+          apply minpoly.dvd
+          simp only [map_sub, map_pow, Polynomial.aeval_X, map_one]
+          rw [show yz ^ 4 = embP 2 (z ^ 4) by rw [map_pow], hz4, map_one, sub_self]
+        calc (minpoly ℚ_[2] yz).natDegree ≤ (Polynomial.X ^ 4 - 1 : Polynomial ℚ_[2]).natDegree :=
+              Polynomial.natDegree_le_of_dvd hdvd hq
+          _ = 4 := by
+            rw [Polynomial.natDegree_sub_eq_left_of_natDegree_lt] <;> simp
+      have hlt : 4 * (Module.finrank ℚ_[2] F : ℝ) ^ 2 < t := by
+        refine lt_of_le_of_lt ?_ (lt_trans four_D_sq_lt_U0 ht)
+        have h1 : (Module.finrank ℚ_[2] F : ℝ) ≤ 4 := by exact_mod_cast hdeg
+        have h2 : (4 : ℝ) ≤ (ZInQ.heightD : ℝ) := by
+          have := admissible_S_mul.2.2; nlinarith
+        exact mul_le_mul_of_nonneg_left
+          (pow_le_pow_left₀ (Nat.cast_nonneg _) (h1.trans h2) 2) (by norm_num)
+      exact hB 2 F t hlt σ hσ yz (IntermediateField.mem_adjoin_simple_self ℚ_[2] yz)
+    -- `ξ = σY/Y` has `ξ^{N'} = 1` and `‖ξ − 1‖ < 1`
+    apply (embP 2).injective
+    rw [he]
+    set Y := embP 2 y
+    have hY0 : Y ≠ 0 := (map_ne_zero _).mpr hy0
+    have hξ : (σ Y * Y⁻¹) ^ N' = 1 := by
+      have h1 : σ (Y ^ N') = Y ^ N' := by
+        have := congrArg (embP 2) hzfix
+        rw [he, map_pow] at this
+        exact this
+      rw [mul_pow, ← map_pow, h1, inv_pow, mul_inv_cancel₀ (pow_ne_zero _ hY0)]
+    have hlt : ‖σ Y * Y⁻¹ - 1‖ < 1 := by
+      have h1 := hw Y hY0
+      have : σ Y * Y⁻¹ - 1 = (σ Y - Y) * Y⁻¹ := by field_simp
+      rw [this, norm_mul, norm_inv]
+      have hn : 0 < ‖Y‖ := norm_pos_iff.mpr hY0
+      rw [mul_inv_lt_iff₀ hn, _root_.one_mul]; exact h1
+    have := LinkedRamWild.eq_one_of_pow_eq_one (p := 2) hN'0 hN' hξ hlt
+    field_simp at this
+    exact this
+  have : NeZero ((N : ℕ) : ℚ) := ⟨by exact_mod_cast NeZero.ne N⟩
+  have hc := modularCyclotomicCharacter.unique (L := AlgebraicClosure ℚ) (n := N)
+    (HasEnoughRootsOfUnity.natCard_rootsOfUnity (AlgebraicClosure ℚ) N)
+    (toRingAut (PkgI4.decomp 2 σ)) (c := 1) (fun (t : (AlgebraicClosure ℚ)ˣ) ht => by
+      have ht' : (t : AlgebraicClosure ℚ) ^ N = 1 := by
+        rw [← Units.val_pow_eq_pow_val, (mem_rootsOfUnity N t).mp ht, Units.val_one]
+      show (PkgI4.decomp 2 σ) (t : AlgebraicClosure ℚ) = _
+      rw [hfix _ ht']
+      rcases Nat.lt_or_ge 1 N with h1 | h1
+      · haveI : Fact (1 < N) := ⟨h1⟩
+        rw [ZMod.val_one, pow_one]
+      · have hN1 : N = 1 := by have := NeZero.ne N; omega
+        subst hN1
+        have : t = 1 := by
+          have := (mem_rootsOfUnity 1 t).mp ht
+          simpa using this
+        subst this
+        simp)
+  apply Units.ext
+  rw [Units.val_one]
+  exact hc.symm
+
+/-- **`BetaTrivialAtTwo` from `UpperBreakBound` and `BetaSignAtTwo`**: `β(g)² = χ(g) = 1`. -/
+theorem betaTrivialAtTwo_of_sign (hB : UpperBreakBound) (h : BetaSignAtTwo) : BetaTrivialAtTwo := by
+  intro u P L _ _ A ε N _ χ β L' _ _ hLL' hD t ht σ hσ hgL
+  obtain ⟨_, -, -, -, ⟨Tm, hTm, hNlev⟩, -, hβsq, -, -, -, -, -, -⟩ := id hD
+  have hN8 : ¬ 8 ∣ N := by
+    rw [hNlev]
+    exact (not_eight_dvd_chiLevel Tm (fun q hq => prime_of_mem_T (hTm hq))).2
+  have hχ : galChar χ (PkgI4.decomp 2 σ) = 1 := by
+    show χ.toUnitHom (cyc N (PkgI4.decomp 2 σ)) = 1
+    rw [cyc_decomp_two_eq_one hB ht hσ hN8, map_one]
+  exact h u P L A ε N χ β L' hLL' hD t ht σ hσ hgL ((hβsq _).trans hχ)
+
 /-! ### `TateRamAtThree`, corrected -/
 
 /-- **Glue: the Tate module of the QM model at `p = 3`, with `[L:ℚ] ≤ D`** (linked-tate's
@@ -1515,6 +1673,7 @@ end LinkedRamMain
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.upperAbsWild
 #print axioms UnramTate.kernelFieldBreaks_of'
+#print axioms UnramTate.betaTrivialAtTwo_of_sign
 #print axioms UnramTate.fix_of_pow_fix
 #print axioms UnramTate.tateRamCore_of
 #print axioms UnramTate.tateRamAtThreeD_of_raynaud
@@ -1628,8 +1787,9 @@ structure GluePieces5 : Prop where
   Glazer L796-811 from Serre, *Local Fields*, III §6 and IV §1-§3). With `BetaTrivialAtTwo` it gives linked-tate's
   `KernelFieldBreaks` (`UnramTate.kernelFieldBreaks_of'`). -/
   upperBreakBound : UnramTate.UpperBreakBound
-  /-- linked-ram, GLUE (`β` trivial on `G_{ℚ_2}^u ∩ G_L`, `u > U₀`; Glazer L826-843, local reciprocity). -/
-  betaTrivialAtTwo : UnramTate.BetaTrivialAtTwo
+  /-- linked-ram, GLUE (`β = 1`, not `−1`, on `G_{ℚ_2}^u ∩ G_L`, `u > U₀`, given `β² = 1` there; Glazer L826-843,
+  local reciprocity). `β² = χ = 1` there is proved (`UnramTate.betaTrivialAtTwo_of_sign`). -/
+  betaSignAtTwo : UnramTate.BetaSignAtTwo
 
 /-- FS5 (NoCM on the fibre) from `GluePieces5` (fs5-nocm). -/
 theorem fibreComTrivial_of_gp5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) :
@@ -1713,7 +1873,8 @@ theorem gluePieces_of_gluePieces5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp
         (LTGoodRed.QM.qmEndRank_of_leaves t.t6 t.t27)
         (UnramTate.linkedFrobRam_of gp.linkedFrob
           (UnramTate.linkedRam_of' (qmModelG3_of_gp5 r t gp)
-            (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound gp.betaTrivialAtTwo)
+            (UnramTate.kernelFieldBreaks_of' gp.upperBreakBound
+              (UnramTate.betaTrivialAtTwo_of_sign gp.upperBreakBound gp.betaSignAtTwo))
             UnramTate.localInertiaGlobal UnramTate.upperAbsInertia
             (UnramTate.tateRamAtThreeD_of_leaves r.r6 t.t5 gp.upperBreakBound)))))
   heightCopies := G0HeightCopies.heightCopiesAgree

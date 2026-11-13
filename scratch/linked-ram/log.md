@@ -81,3 +81,9 @@
   = 14 LEAF + 4 LEAF? + 26 GLUE. `sixContactMin_of_leaves5`: standard axioms. VERIFIED.
 - Pitfalls: `ι` is notation (GrpObj.inv) under `open MonObj`; `AddAut` is an additive group in Mathlib 4.35 (use
   `Multiplicative`); PkgI2.Pts vs PkgI3 Pt instances: work on one side, bridge with `exact` (defeq), not `rw`.
+
+## Step 8: `BetaTrivialAtTwo` reduced to `BetaSignAtTwo` — VERIFIED (0 errors, standard axioms)
+- `not_eight_dvd_chiLevel`, `cyc_decomp_two_eq_one` (UpperBreakBound for ℚ₂(z), z⁴ = 1, degree ≤ 4, 64 < U0; odd part by
+  wildness and eq_one_of_pow_eq_one with p = 2), `betaTrivialAtTwo_of_sign (hB) (h : BetaSignAtTwo)`.
+- `BetaSignAtTwo` = BetaTrivialAtTwo with the extra hypothesis β(g)² = 1 (strictly weaker Prop). GluePieces5 field
+  `betaTrivialAtTwo` → `betaSignAtTwo`. 44 fields = 14 LEAF + 4 LEAF? + 26 GLUE. Tail.lean 0 errors.
