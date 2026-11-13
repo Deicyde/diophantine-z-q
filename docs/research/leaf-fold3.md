@@ -55,7 +55,7 @@ theorem, and T3/T4, which leaf-fold2 had deleted as unused). The compact count, 
 - `cPtsTransport` (cpts-transport): part c20 = `scratch/cpts-transport/CPtsTransport.lean`;
   `cPtsTransport_proved3`.
 - `conjIsogMaps` (twist-descent): part c40 = kf-glue (g0-assemble3's port, its part d20 lines 431-end;
-  lines 16-430 duplicate part a75), part c50 = twist-descent's five parts; `conjIsogMaps_proved3 :=
+  lines 16-430 duplicate part a75), part c50 = twist-descent's parts XC, HFD, Main, Final (PartGDM, its unused `GaloisDescentMor`, omitted); `conjIsogMaps_proved3 :=
   conjIsogMaps_of_mulIsogeny mulIsogeny_proved`. **twist-descent's `G0FibreSimple.MulIsogeny` is the Prop
   that g9-abvarbc's `ZInQ.Contrib.AbVarBC.mulIsogeny` proves** (VERIFIED: leaf-fold2's
   `mulIsogeny_proved : G0FibreSimple.MulIsogeny := ZInQ.Contrib.AbVarBC.mulIsogeny`, and here the same
@@ -313,7 +313,7 @@ Abhyankar core, where the flat file's simp set differs from the olean chain's (l
 |---|---|---|
 | `mk_prefix.py` | issue #2 items 2, 5, 8 | the assignment |
 | `mk_g7bound.py` | `G7Data` gains `Module.finrank ℚ L ≤ heightD`; three proof adjustments (g0-assemble3's text) | lt-local's route needs `[L:ℚ] ≤ D` |
-| `mk_lf3.py` | leaf-fold's HDec edits (`_root_.PkgI4` → `_root_.HDec.PkgI4`; `open … ZInQ` also opens root `ZInQ`); `#print`/`#check`/`import` lines dropped; `open PkgI3 (AbVar)` dropped in c60; kf-glue's lines 16-430 (duplicates of part a75) and twist-descent's PartGDM (the unused `GaloisDescentMor`, not defined in the kf-glue port) omitted | the HDec wrapper; duplicates |
+| `mk_lf3.py` | leaf-fold's HDec edits (`_root_.PkgI4` → `_root_.HDec.PkgI4`; `open … ZInQ` also opens root `ZInQ`); `#print`/`#check`/`import` lines dropped (this also drops one docstring line of hecke-rest that begins with the word `import`); `open PkgI3 (AbVar)` dropped in c60; kf-glue's lines 16-430 (duplicates of part a75) and twist-descent's PartGDM (the unused `GaloisDescentMor`, not defined in the kf-glue port) omitted | the HDec wrapper; duplicates |
 | `mk_propts.py` | merge of PropTS.lean, PropTSGlue.lean, KummerComp.lean, HeckeRestAll.lean with duplicate declarations dropped (by full name, with their `… in` modifiers; also identical text); `rw [bcPt, …]` → `rw [LeafQM.AV.bcPt, …]`; one `simpa using h1` → `simpa only [RingHom.comp_apply, map_natCast] using h1`; `synthInstance.maxHeartbeats 400000` | the files share a verbatim prefix; two names are open at once in this chain; the flat file's simp set; instance search with this chain's larger instance set |
 | `mk_ltlocal.py` | merge of LtLocal4.lean, UnramRoots.lean, FrobPiecesFull.lean with declarations already in the chain dropped (by full name; anonymous instances by namespace and text). The dropped copies whose text differs from the chain's: `G0Galois.resQ`, `G14Trace.FrobTraceLink`, `G0Dim.pkgI3_dim_baseChange`, `LeafAdopt.abVarEquiv` (docstrings, blank lines, `rfl` fields), and frob-pieces' `G7Data`, `g7OutUnr_of_g4Out`, `g7Out_of_g7OutUnr`, `modularConstituent_of_ranges` (the version without the `[L:ℚ] ≤ D` clause); the chain's versions are used and the copied proofs compile against them | duplicates; none of these is a hypothesis of `sixContactMin_of_open3`, so the choice cannot change what the theorem assumes |
 | `assemble.sh` | `LF2ImagePlane` replaced by `import ZInQKernel.Contrib.Mobius.Main`; new modules `LF3Cot`, `TailF`-`TailI`; anonymous sections left open by a copied file are closed before its part's `end` (`py/balance.py`) | §1.1 |
