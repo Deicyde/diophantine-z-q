@@ -44,3 +44,8 @@
 - Flat file `lake env lean scratch/g0-assemble/G0Assemble.lean` (41847 lines, version of commit 'GluePieces2 with ModularConstituent fully decomposed'): VERIFIED exit 0 in 568 s, 0 errors, no sorry, 179 #print axioms lines, all [propext, Classical.choice, Quot.sound].
 - G15RamWild refinement (LinkedTateData asks only clauses (i)-(ii); `g15RamG_of_wild` proves G15RamG from them and G11Out): TailG VERIFIED 0 errors, afterG7_of standard axioms.
 - Final flat file (41883 lines): VERIFIED exit 0 in 573 s, 0 errors, no sorry, 179 axiom lines all standard (04:55-05:05).
+- `HSyn.G0AssembleMod.resQFiniteIndex : G0Galois.ResQFiniteIndex` proved (part 88; primitive element
+  `α`, stabilizer of `g⁻¹α` in the range of `resQ K`, orbit inside the roots of the minimal polynomial).
+  Run 1: wrong lemma name (`adjoin_simple_toSubalgebra_of_integral` -> `..._of_isAlgebraic`) and a
+  `subst` that removed `α`; run 2 VERIFIED, standard axioms. Field `resQFiniteIndex` removed from
+  GluePieces2 (now 28 fields). Tail run: 0 errors, standard axioms.

@@ -14,7 +14,7 @@ from the smaller named Props that wave 26 reduced them to, bundled as `HSyn.Glue
 | `productExists` | g0-product | `G0Product.productExists` (proved, Mathlib only) |
 | `reverseIsogeny` | g0-reverseisog | `G0RevIsog.reverseIsogeny_of_leaves r dimFinite` (route B: R19 and H5 of the bundle) |
 | `thetaPoint` | g0-thetapoint | `ThetaPt.thetaPointOfFibre_of_qm_ratios` from the glue `FibreQMPeriod` (blocked on qm-pin) and the leaf candidate `ThetaRatiosAlgebraic` |
-| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det`, g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
+| `modularConstituent` | g0-mod-field, g0-mod-galois, g0-mod-newform | `modularConstituent_of_field` (G2-G7: three glue Props, `KernelFieldExists` blocked on qm-pin; the bundle's T14a, T14b, T15, T30, T31) with `G0AssembleMod.afterG7_of` (G8-G16: g0-mod-galois' pieces with `R14Det` and `ResQFiniteIndex` proved here (`G0AssembleMod.resQFiniteIndex`), g0-mod-newform's leaves and glue, and the joint glue Props `ModelG3G6`, `LinkedTateData`) |
 | `heightCopies` | (no wave-26 task) | kept as one field (glue, pure transport) |
 -/
 
@@ -85,8 +85,6 @@ structure GluePieces2 : Prop where
   g12Weight : G0Galois.G12Weight
   /-- g0-mod-galois, GLUE (from T9): `det V_ℓ(A) = χ_ℓ^{dim A}`. -/
   detTate : G0Galois.DetTate
-  /-- g0-mod-galois, GLUE (Galois theory): `[G_ℚ : G_K] < ∞`. -/
-  resQFiniteIndex : G0Galois.ResQFiniteIndex
   /-- g0-mod-newform, GLUE (from Kronecker–Weber): finite-image characters are Dirichlet
   characters at Frobenius. -/
   dirichletOfFinite : G0ModNewform.DirichletOfFinite
@@ -127,7 +125,7 @@ theorem gluePieces_of_gluePieces2 (r : ResearchLeaves) (t : TextbookLeaves) (gp2
   modularConstituent := modularConstituent_of_field t gp2.fibreCoverExists gp2.kernelFieldExists
     gp2.unramifiedSup (G0AssembleMod.afterG7_of r t
       ⟨gp2.burnsideAbsIrred, gp2.r14Det, gp2.g9Glue, gp2.g10Glue, gp2.g12Weight, gp2.detTate,
-        gp2.resQFiniteIndex⟩
+        G0AssembleMod.resQFiniteIndex⟩
       gp2.dirichletOfFinite gp2.carayolR17 gp2.swanIndependent gp2.swanIntegral gp2.adaptedExists
       gp2.modelG3G6 gp2.linkedTateData)
   heightCopies := gp2.heightCopies
