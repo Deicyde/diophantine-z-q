@@ -17,7 +17,13 @@ import ZInQKernel.HDecomp.Faltings.H5BaseChange
   (`n1_n2_of_leaves_and_glue`, proved), and shows N1-loc ⇐ N1-self + NL.
 * §6 **proves** the glue N2-g1' (`goodPlaceAnyField`) from N1-ab (pasting lemmas for
   `Over.pullback`, `genSq`, `bcA`), so N1 ∧ N2 rest on four leaves and five glue statements
-  (`n1_n2_of_leaves_and_glue'`). -/
+  (`n1_n2_of_leaves_and_glue'`; with N1-g2 restricted to bad primes: `…''`).
+* §7 identifies the copies of N1, N2 with the build's Props (`h5neron_n1_n2_of_leaves_and_glue`)
+  and checks the zero abelian variety.
+* §8 gives the alternative leaf N2-loc⁺ (persistence built in), which removes N2-g2
+  (`h5neron_n1_n2_of_leaves_and_glue_mono`).
+* §9 proves that every proper valuation subring of a number field is a DVR `𝓞_{K,v}` and that DVRs
+  restrict to DVRs in finite extensions (`isDiscreteValuationRing_comap`). -/
 
 namespace ZInQ.NeronLG
 

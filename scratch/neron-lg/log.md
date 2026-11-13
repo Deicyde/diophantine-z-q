@@ -113,3 +113,9 @@ N2-loc + N2-g2 + localNeronModelsOf. One docstring point (O₁ ∩ L₀ is a DVR
 - `isDiscreteValuationRing_of_ne_top` PROVED.
 - `isDiscreteValuationRing_comap`: O₁ ∩ L₀ is a DVR for a DVR O₁ of a finite extension L₁ ⊇ L₀
   of number fields PROVED (a step of N2-g2 and of the N2-loc⁺ argument).
+
+## Final check — 07:12
+- `lake env lean scratch/neron-lg/NeronLG.lean`: 0 errors; no `sorry`, no `axiom`; 24 #print axioms,
+  all `[propext, Classical.choice, Quot.sound]`.
+- Verbatim check (python): the 14 copied blocks of scratch/tau-n1n2/N1N2.lean occur unchanged.
+- Not done: proofs of glue N1-g1, N1-g2 (bad primes), N1-g3, N2-g2, N2-g3.
