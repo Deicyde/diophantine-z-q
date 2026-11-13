@@ -24,21 +24,21 @@ Warnings are unused-tactic / deprecated `push_neg` linter warnings only.
 (First run failed only in the appended audit command: a `MessageData` numeral typing slip,
 fixed by `let mut n : Nat := 0`; the blueprint files themselves compiled in that run too.)
 
-## 18:40 AT3 normalization check (VERIFIED, computed: at3_check.py, at3_check.out)
+## 18:21 AT3 normalization check (VERIFIED, computed: at3_check.py, at3_check.out)
 faltingsHeightEC(y^2 = x^3 + 1) by direct 2-d integration = -1.3211174284280; the eta-product
 form -(1/12)log(|eta(rho)|^24 (Im rho)^6) - log 2pi gives the same to 19 digits. Deligne's
 recalled minimum -0.74875248 (STANDARD, locator UNVERIFIED) minus (1/2)log pi = -1.3211174229
 (agrees to the 8 digits of the recalled constant). So faltingsHeightEC is Faltings-normalized
 and h_D = h_F + (1/2) log pi at g = 1.
 
-## 18:55 §2.2 sign check of bp-qmmoduli (VERIFIED, computed: sheet_check.py, sheet_check.out)
+## 18:24 §2.2 sign check of bp-qmmoduli (VERIFIED, computed: sheet_check.py, sheet_check.out)
 B = (2,-3) in M2(R) (i -> diag(√2,-√2), j -> [[0,1],[-3,0]]; relations asserted), μ = 2j + ij,
 μ² = -6 asserted. For 30 random J with J² = -1 (16 on the sheet c > 0, 14 on c < 0), the form
 x ↦ E0(xJ, x), E0(x,y) = trd(μ⁻¹ x ȳ), is negative definite on the sheet c > 0 (eigenvalues in
 [-50.8, -0.028]) and positive definite on c < 0 (eigenvalues in [0.063, 46.7]). So exactly one
 sign of ±E0 is a Riemann form for each complex structure, as bp-qmmoduli §2.2 claims.
 
-## 19:00 Findings (statements; details in docs/research/rv-blueprints.md)
+## 18:26 Findings (statements; details in docs/research/rv-blueprints.md)
 - F-a (bp-faltings) inf definition: correct in Faltings' normalization (Néron mapping property
   for every smooth O_L-scheme ⇒ ω_N ⊆ ω_G ⇒ h(G) ≥ h(N_L) ≥ h(N_L') = h_st). STANDARD argument.
 - F-b R18, R20, R21, R22 hold for h_F as stated whatever the paper's normalization (directions:
@@ -61,3 +61,24 @@ sign of ±E0 is a Riemann form for each complex structure, as bp-qmmoduli §2.2 
   τ ↦ π(P_τ) holomorphic.
 - Q-d Lemma NV step 4 (h-b1) needs X6 geometrically connected and W-Galois (h-b1 M10, π0 = 1);
   no field-point leaf of bp-qmmoduli supplies π0.
+
+## 18:28 Lean: Normalizations.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+`log_two_pi_sq_lt_three : log(2π²) < 3`; `bost_F_of_D` (h_D = h_F + (g/2)log π and
+h_D ≥ −(g/2)log 2π ⇒ h_F ≥ −(3/2)g, i.e. R21 is a consequence of a Deligne-normalized Bost bound);
+`log_pi_lt_three` (R22's +3 covers the g = 2 shift); `faltings_le_deligne`, `faltings_kappa_le`
+(the h_F form of Gaudron–Rémond's κ is the smaller right side, so R19 over h_F is stronger than
+an h_D-normalized original would be). Mathlib only, about 1 min.
+
+## 18:31 Lean: R5Repair.lean (VERIFIED, compiled; axioms propext, Classical.choice, Quot.sound)
+Copy of bp-qmmoduli/QMAbVar.lean plus `R5fpStrong` (repair Q2: for b ≥ 1, [ℚ(x):ℚ] = 2#Pic R and
+k ↪ ℚ(x); for b = 0, [ℚ(x):ℚ] = #Pic R) and `R5fp_of_R5fpStrong : R5fpStrong → R5fp` (proved).
+
+## 18:33 Finding F-d (bp-faltings H7)
+E4 (N5 L893-905) uses additivity in the direction h(A) + h(Z) ≤ h(A×Z) (it bounds h(A) by
+h(A×Z) − h(Z)). Under the infimum definition, product models give only h(A×Z) ≤ h(A) + h(Z).
+The needed direction requires the infimum for A×Z to be attained by a product model: Néron model
+of a product = product of Néron models (immediate from the mapping property, M5) over a common
+semistable field (H5). So H7 depends on M5/H5, contrary to bp-faltings §2.6 (H7: "from AV6, AR3
+and the covolume of a product lattice"), and h-decomposition's remark under R20 ("additivity ...
+follows from the definition: glue") is false for this definition. Base-change invariance does
+follow from H4 alone (cofinality of composita).
