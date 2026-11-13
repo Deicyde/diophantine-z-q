@@ -451,4 +451,126 @@ theorem idealLat_alpha_mulN (n : ℕ) [NeZero n] (hn : n % 8 = 5) (hsq : Squaref
 
 end Assembly
 
+
+section Main
+open QuadraticAlgebra WeierstrassCurve.Affine Polynomial
+
+theorem omega_sq' (n : ℕ) : (QuadraticAlgebra.omega : QNeg n) ^ 2 = -(n : QNeg n) := by
+  ext <;> simp [sq]
+
+/-- An automorphism of `ℚ̄` negating a square root of `−m`, `m > 0`. -/
+theorem exists_galQ_neg {m : ℕ} (hm : 0 < m) {r : Qbar} (hr : r ^ 2 = -(m : Qbar)) :
+    ∃ γ : GalQ, γ r = -r := by
+  have hirr : Irreducible (X ^ 2 + C (m : ℚ)) := by
+    apply Polynomial.irreducible_of_degree_le_three_of_not_isRoot
+    · rw [natDegree_X_pow_add_C]; norm_num
+    · intro x hx
+      simp only [IsRoot, eval_add, eval_pow, eval_X, eval_C] at hx
+      have : (0 : ℚ) < x ^ 2 + m := by positivity
+      linarith
+  have hmon : (X ^ 2 + C (m : ℚ)).Monic := monic_X_pow_add_C _ two_ne_zero
+  have hroot : aeval r (X ^ 2 + C (m : ℚ)) = 0 := by simp [hr]
+  have hmin : minpoly ℚ r = X ^ 2 + C (m : ℚ) := (minpoly.eq_of_irreducible_of_monic hirr hroot hmon).symm
+  have halg : IsAlgebraic ℚ r := ⟨_, hmon.ne_zero, hroot⟩
+  have hev : aeval (-r) (minpoly ℚ r) = 0 := by rw [hmin]; simp [hr]
+  obtain ⟨σ, hσ⟩ := minpoly.exists_algEquiv_of_root halg hev
+  exact ⟨σ, by rw [← neg_neg r, map_neg, hσ, neg_neg]⟩
+
+set_option maxRecDepth 10000 in
+/-- **A normalized embedding for `ρ`**: if `ρ` acts on `H_{n,4}` as `σ_{1+2ϖ}` (through ring-class's
+`embed n`), it acts as the Artin symbol of `[(3+2√−n) ∩ O_{n,4}]` through an embedding `e` with
+`ιC(e(√−n)) = i√n` (`e = embed n` or `γ ∘ embed n`; `σ_{1+2ϖ}` has order 2, so conjugation, which
+inverts Artin symbols, does not change it). -/
+theorem exists_normalized_embed (n : ℕ) [NeZero n] {ρ : GalQ}
+    (hρ : Package.ActsAsArtin4 ρ n (sigmaClass n)) :
+    ∃ e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar,
+      ιC (e (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) ∧
+      ∀ x : ringClassField (conductorOrder (QNeg n) 4),
+        ρ (e x) = e (ringClassArtinEquiv (conductorOrder (QNeg n) 4)
+          ((conductorOrder (QNeg n) 4).picClass ⟨_, alphaIdeal_mem⟩) x) := by
+  set r := embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)
+  have hr : r ^ 2 = -(n : Qbar) := by
+    simp only [r, ← map_pow, omega_sq', map_neg, map_natCast]
+  have hn0 : 0 < n := Nat.pos_of_ne_zero (NeZero.ne n)
+  have hC : ιC r ^ 2 = (I * (Real.sqrt n : ℂ)) ^ 2 := by
+    rw [← map_pow, hr, mul_pow, I_sq, sq, sqrt_mul_self_C]; simp
+  have hcls : sigmaClass n = (O4 n).picClass ⟨_, alphaIdeal_mem⟩ := sigmaClass_eq
+  rcases sq_eq_sq_iff_eq_or_eq_neg.1 hC with h | h
+  · refine ⟨embed n, h, fun x => ?_⟩
+    have := hρ x
+    rw [hcls] at this
+    exact this
+  · obtain ⟨γ, hγ⟩ := exists_galQ_neg hn0 hr
+    have hr0 : r ≠ 0 := by
+      intro h0; rw [h0] at hr
+      have : (n : Qbar) = 0 := by linear_combination hr
+      exact NeZero.ne n (by exact_mod_cast this)
+    have hγinv : γ⁻¹ r = -r := by
+      apply γ.injective
+      show γ (γ.symm r) = γ (-r)
+      rw [AlgEquiv.apply_symm_apply, map_neg, hγ, neg_neg]
+    have hne : γ⁻¹ r ≠ r := by
+      rw [hγinv]; intro h'
+      apply hr0
+      have : (2 : Qbar) * r = 0 := by linear_combination -h'
+      simpa using this
+    have hconj := RingClassBridge.actsAsArtin4_conj (γ := γ⁻¹) hne hρ
+    have hinv : (sigmaClass n)⁻¹ = sigmaClass n :=
+      inv_eq_of_mul_eq_one_right (by rw [← sq, sigmaClass_sq])
+    rw [hinv, inv_inv, hcls] at hconj
+    refine ⟨γ.toAlgHom.comp (embed n), ?_, fun x => ?_⟩
+    · show ιC (γ r) = _
+      rw [hγ, map_neg, h, neg_neg]
+    · have := hconj x
+      simp only [AlgEquiv.mul_apply] at this
+      show ρ (γ (embed n x)) = γ (embed n _)
+      rw [← this]
+      show _ = γ (γ.symm (ρ (γ (embed n x))))
+      rw [AlgEquiv.apply_symm_apply]
+
+/-- `ρ` acting as `σ_{1+2ϖ}` fixes `i` (`i ∈ L_n(i) ⊆ H'_n`, ring-class's `Lni_le_Hprimebar`). -/
+theorem fixes_iQ_of_sigma (n : ℕ) [NeZero n] (hn : n % 4 = 1) (hsq : Squarefree n) {ρ : GalQ}
+    (hρ : Package.ActsAsArtin4 ρ n (sigmaClass n)) : ρ iQ = iQ := by
+  have hi : iQ ∈ Hprimebar n := Lni_le_Hprimebar hn hsq (Package.iQ_mem_Lni n)
+  rw [Hprimebar_eq_map] at hi
+  obtain ⟨x, hx, hxi⟩ := hi
+  have hx' : x ∈ Hprime n := hx
+  rw [Hprime, IntermediateField.lift, IntermediateField.mem_map] at hx'
+  obtain ⟨y, hy, rfl⟩ := hx'
+  have hfix : artin4 n (sigmaClass n) y = y :=
+    (IntermediateField.mem_fixedField_iff _ _).1 hy _ (Subgroup.mem_zpowers _)
+  rw [← hxi]
+  have := hρ y
+  rw [hfix] at this
+  exact this
+
+theorem toC_pt00 : toC Package.pt00 = pt00C := by
+  simp [toC, Package.pt00, pt00C, Point.map]
+
+/-- **`TYZSigmaFixesZn` from the Shimura reciprocity leaf and x0-32's Fricke leaf.** -/
+theorem tyzSigmaFixesZn_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke) :
+    Package.TYZSigmaFixesZn := by
+  intro n hn0 hn hsq ρ hρ
+  have hn4 : n % 4 = 1 := by omega
+  have hi := fixes_iQ_of_sigma n hn4 hsq hρ
+  obtain ⟨e, he, hρe⟩ := exists_normalized_embed n hρ
+  have hD : -64 * (n : ℤ) = discOf n 4 := by
+    rw [discOf, ite_eq_right (by omega)]; push_cast; ring
+  have hrec := hS n 4 hsq e he ⟨_, alphaIdeal_mem⟩ ρ hρe (-64 * n) hD (tyzForm n hn)
+    (tyzForm' n hn) (kappa n (cK n)) (idealLat_alpha_mul n hn hsq) (idealLat_alpha_mulN n hn hsq)
+  have hphi : X0.phiC (tyzForm' n hn).tauH = X0.phiC (tyzForm n hn).tauH + pt00C :=
+    phiC_N0 hF _ _ (tau'_eq n hn)
+  simp only [tyzZn, tyzHeegnerPt, hn, ↓reduceDIte]
+  by_cases h : ∃ P : PtA, toC P = X0.phiC (tyzForm n hn).tauH
+  · have h' : heegnerPt (tyzForm' n hn) = heegnerPt (tyzForm n hn) + Package.pt00 := by
+      apply heegnerPt_eq
+      rw [map_add, toC_heegnerPt _ h, toC_pt00, hphi]
+    rw [map_sub, galPt_iPt ρ hi, hrec, h', iPt_add, Package.iPt_pt00]
+    abel
+  · have h0 : heegnerPt (tyzForm n hn) = 0 := by simp only [heegnerPt, h, ↓reduceDIte]
+    rw [h0, Package.iPt_zero, sub_zero, galPt_zero]
+
+end Main
+
 end ZInQ.Contrib.TYZGenus.Shimura
