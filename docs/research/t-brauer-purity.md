@@ -37,9 +37,15 @@ None of the four leaves is fully proved. Here is what was proved (all VERIFIED: 
    * `dvd_ramificationIdx_of_pow_eq` (general): over a DVR `R` with uniformizer `π`, if `tⁿ = π`
      holds in a Dedekind `R`-algebra `S` with `𝔪S ≠ ⊥`, then `n` divides the ramification index of
      every prime of `S` over `𝔪`.
+   * `scratch/t-brauer-purity/KummerUnramified.lean`, `isUnramifiedAt_of_pow_eq` and
+     `ramificationIdx_eq_one_of_pow_eq`. Setting: `A` Dedekind, `B` its integral closure in a
+     finite separable `L = K(w)`, with `wᵉ = u ∈ A` and `e ≥ 1` invertible. Conclusion: `A → B` is
+     unramified, with `e(P) = 1`, at every prime `P` of `B` with `u ∉ P`. The proof uses Mathlib's
+     different ideal (`dvd_differentIdeal_iff`, `aeval_derivative_mem_differentIdeal`). This is the
+     "unit radicand" step of Abhyankar's lemma in global Dedekind form.
    * `scratch/t-brauer-purity/KummerEtale.lean`, `etale_adjoinRoot_X_pow_sub_C`: for any
      commutative ring `A`, `e ≥ 1` invertible and `u` a unit, `A[X]/(Xᵉ − u)` is étale over `A`
-     (a standard étale pair). This is the "unit radicand" step of Abhyankar's lemma.
+     (a standard étale pair). This is the same step in étale form.
 3. **T1 (Zariski–Nagata purity) and T14 (Brauer–Hasse–Noether with reciprocity): nothing proved.**
    The finite-place half of T15 is also unproved. §3 explains why: these are deep theorems, and the
    infrastructure they need is missing from Mathlib v4.35 (VERIFIED by grep).
@@ -107,6 +113,7 @@ two non-trivial classes differ by a coboundary, i.e. `|H²| = 2`. At `ℚ_p` thi
 | `LocalH2Real.lean` (Mathlib only; `IsCocycle2`, `IsCoboundary2`, `H2TwoClasses` copied verbatim from I6Base) | `h2TwoClasses_of_card_two` (any discrete group of order 2), `card_absoluteGaloisGroup_real : Nat.card G_ℝ = 2`, `discreteTopology_absoluteGaloisGroup_real`, `h2TwoClasses_real` | compiles, standard axioms |
 | `LocalH2RealKernel.lean` (imports `ZInQKernel.HDecomp.Conductor.I6Base`; nothing copied) | `TBrauerPurityK.h2TwoClasses_real : PkgI6.H2TwoClasses (Field.absoluteGaloisGroup ℝ)`, `TBrauerPurityK.localH2CardC_iff` | compiles, standard axioms |
 | `KummerEtale.lean` | `kummerPair`, `etale_adjoinRoot_X_pow_sub_C` | compiles, standard axioms |
+| `KummerUnramified.lean` | `isUnramifiedAt_of_pow_eq`, `ramificationIdx_eq_one_of_pow_eq` | compiles, standard axioms |
 | `AbhyankarBricks.lean` | `dvd_ramificationIdx_of_pow_eq`, `abhyankar_isScalarTower_RLM`, `abhyankar_finiteDimensional(_L)`, `abhyankar_isSeparable`, `abhyankar_isDedekindDomain`, `abhyankar_dvd_ramificationIdx`, `finrank_le_of_pow_eq`, `ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq`, `abhyankarDVR_conclusion_of_L_eq_K` | compiles, standard axioms |
 
 How the real place is proved. Every element of `G_ℝ` is `1` or `s`, with `s² = 1`. The cocycle
@@ -126,20 +133,28 @@ hence separability.
 
 ## 4. What remains, with the missing infrastructure (VERIFIED by grep of Mathlib v4.35 unless marked)
 
-**T2 (closest to done; SPECULATIVE estimate: a few hundred lines on top of §3).** Follow the proof
-in §2.
-* (a) Localize `S_L` at `Q`. This gives a DVR `D` with fraction field `L`. Choose `ϖ` and write
-  `π = uϖᵉ`.
-* (b) Show that `L(w)/L` with `wᵉ = u` is unramified at every prime over `Q`. `KummerEtale.lean`
-  gives `D[X]/(Xᵉ−u)` étale. The missing pieces are that its domain quotient is the integral
-  closure of `D` in `L(w)` (étale over normal implies normal; I did not find this in Mathlib), and
-  that `Algebra.IsUnramifiedAt` gives `e = 1` (`Ideal.ramificationIdx_eq_one`, exists).
-* (c) Apply `ramificationIdx_eq_and_inertiaDeg_eq_one_of_pow_eq` over `(S_{L(w)})_P` with
-  uniformizer `wϖ`.
-* (d) Compare ramification indices along `R → D → (S_{L(w)})_P → (S_M)_{Q'}` with
-  `Ideal.ramificationIdx_tower` (exists; flatness hypotheses) and the locality of Mathlib's
-  length-based `ramificationIdx`.
-* (e) Separability of the residue fields by transitivity.
+**T2 (closest to done; SPECULATIVE estimate: 300–500 lines of plumbing on top of §3).** A global
+proof that avoids completions and localizations. Notation: `A₁ = S_L`, `A₂ = S_{L(w)}`,
+`A₃ = S_M` (integral closures of `R`). Every nonzero prime of each `Aᵢ` lies over `𝔪`.
+* (a) Fix `Q'` in `A₃` over `𝔪`, and let `Q = Q' ∩ A₁`, `e = e(Q|𝔪)` (so `e ∣ n`), `m = n/e`.
+  Choose `ϖ ∈ A₁` with `(ϖ) = Q`, using CRT in the semilocal Dedekind `A₁`
+  (`IsDedekindDomain.exists_forall_sub_mem_ideal`). Then `π = uϖᵉ` with `u ∈ A₁ \ Q`. **Open**:
+  ideal arithmetic only.
+* (b) Put `w = t^m/ϖ ∈ A₃`, so `wᵉ = u`. Then `A₁ → A₂` is unramified at every prime over `Q`.
+  **Proved** (`isUnramifiedAt_of_pow_eq`), once `A₂` is shown to be the integral closure of `A₁` in
+  `L(w)` (transitivity of integrality).
+* (c) For `P = Q' ∩ A₂`, `e(Q'|P)·f(Q'|P) ≤ [M : L(w)] ≤ m`. This uses
+  `Ideal.sum_ramification_inertia_eq_finrank` and `IsIntegralClosure.rank` (a semilocal Dedekind
+  `A₂` is a PID), and `M = L(w)(t)` with `t^m = wϖ ∈ L(w)` (as in `finrank_le_of_pow_eq`). The
+  divisibility `n ∣ e(Q'|𝔪) = e(Q'|P)·1·e` is **proved** (`abhyankar_dvd_ramificationIdx` together
+  with `Ideal.ramificationIdx_tower`, which needs flatness: a torsion-free module over a Dedekind
+  domain is flat, an existing instance). It gives `m ∣ e(Q'|P)`, hence `e(Q'|P) = m` and
+  `f(Q'|P) = 1`, so `e(Q'|𝔪) = n`.
+* (d) Residue fields: `κ(Q') = κ(P)` (`f = 1`), `κ(P)/κ(Q)` is separable by (b)
+  (`Algebra.isUnramifiedAt_iff_map_eq`), and `κ(Q)/k` is separable by tameness, so transitivity
+  finishes.
+* Remaining plumbing: the `Algebra` instances `A₁ → A₂ → A₃` with their scalar towers and
+  `LiesOver` instances, and the residue-field towers.
 
 Mathlib has no notion of tame ramification and no Abhyankar lemma (grep for "abhyankar", "tamely":
 no hits in RingTheory).
@@ -177,6 +192,7 @@ export PATH="$HOME/bin:$HOME/.elan/bin:$PATH"
 lake env lean scratch/t-brauer-purity/LocalH2Real.lean
 lake env lean scratch/t-brauer-purity/LocalH2RealKernel.lean   # needs the ZInQKernel oleans
 lake env lean scratch/t-brauer-purity/KummerEtale.lean
+lake env lean scratch/t-brauer-purity/KummerUnramified.lean
 lake env lean scratch/t-brauer-purity/AbhyankarBricks.lean
 ```
 Each ends with `#print axioms`, which reports `[propext, Classical.choice, Quot.sound]`.
