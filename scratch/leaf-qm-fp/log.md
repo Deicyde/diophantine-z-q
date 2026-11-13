@@ -14,3 +14,14 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
   dimension lemma needed), `stab3`, `fieldOfModuli3`, `stabPair`, `fieldOfModuliPair`,
   `UnramifiedAbove5` (`p ∤ NumberField.discr`), `ToP1` (morphism to P¹ by two charts) and
   `ToP1.val` (via Mathlib `Scheme.SpecToEquivOfField`, `Scheme.evaluation`): COMPILES, 17 s.
+- 16:58 §8 leaves compile: `R1fpProps`, `R1heckeProps`, `R2fpProps`, `R1fp`, `R1R2fp`, `R1rec`,
+  `R5fp` (case split on b(k)), `R5fpWeak`, `R5fpCount` (2^b h), bundle `QMLeaves`. Proved:
+  `R1fp_of_R1R2fp`, `R5fpWeak_of_R5fp`. All `#print axioms`: propext, Classical.choice,
+  Quot.sound.
+- 17:03 glue proved: `specToEquivOfField_comp`, `ToP1.val_comp` (π(y∘Spec f) = f(π y)),
+  `conj_twist_of_rational` (A7 core: for a ℚ̄-point with rational π-value, every Galois
+  conjugate's QM pair is an Aut(𝒪)-twist of the original, so σA ≅ A), `QMIso.nonempty_abVarIso`.
+  COMPILES, 18 s.
+- Finding: NoCM (rv-h-cm §7.2, case D(R) ≠ 1) needs `k ⊆ ℚ(x)`, not only the degree: with the
+  degree form alone, disc −19 (h = 1, b = 2, degree 2h = 2) is not excluded by a fibre field
+  ℚ(i) of degree 2. R5fp must carry the containment.

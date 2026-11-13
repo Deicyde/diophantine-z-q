@@ -508,6 +508,30 @@ def ToP1.val {X : Scheme.{0}} (π : ToP1 X) {K : Type} [Field K]
       OnePoint.some ((Scheme.SpecToEquivOfField K X y).2 (X.evaluation π.U _ h π.f))
     else OnePoint.infty
 
+/-- Precomposing a field point with `Spec L → Spec K` keeps the point and composes the
+residue-field embedding with `f`. -/
+theorem specToEquivOfField_comp {K L : Type} [Field K] [Field L] {X : Scheme.{0}} (f : K →+* L)
+    (y : Spec (CommRingCat.of K) ⟶ X) :
+    Scheme.SpecToEquivOfField L X (Spec.map (CommRingCat.ofHom f) ≫ y) =
+      ⟨(Scheme.SpecToEquivOfField K X y).1,
+        (Scheme.SpecToEquivOfField K X y).2 ≫ CommRingCat.ofHom f⟩ := by
+  obtain ⟨p, rfl⟩ := (Scheme.SpecToEquivOfField K X).symm.surjective y
+  rw [Equiv.apply_symm_apply]
+  have : Spec.map (CommRingCat.ofHom f) ≫ (Scheme.SpecToEquivOfField K X).symm p =
+      (Scheme.SpecToEquivOfField L X).symm ⟨p.1, p.2 ≫ CommRingCat.ofHom f⟩ := by
+    simp only [Scheme.SpecToEquivOfField_symm_apply, Spec.map_comp, Category.assoc]
+  rw [this, Equiv.apply_symm_apply]
+
+/-- **Naturality of `π`-values**: `π(y ∘ Spec f) = f(π(y))`. -/
+theorem ToP1.val_comp {X : Scheme.{0}} (π : ToP1 X) {K L : Type} [Field K] [Field L]
+    (f : K →+* L) (y : Spec (CommRingCat.of K) ⟶ X) :
+    π.val (Spec.map (CommRingCat.ofHom f) ≫ y) = (π.val y).map f := by
+  unfold ToP1.val
+  generalize hp : Scheme.SpecToEquivOfField L X (Spec.map (CommRingCat.ofHom f) ≫ y) = p
+  rw [specToEquivOfField_comp] at hp
+  subst hp
+  split_ifs <;> rfl
+
 /-! ## §7 Field points of a `ℚ`-scheme -/
 
 /-- `Spec K` as a `ℚ`-scheme. -/
@@ -613,6 +637,36 @@ def R1R2fp : Prop :=
 theorem R1fp_of_R1R2fp (h : R1R2fp) : R1fp := by
   obtain ⟨Y, Φ, h1, -, -⟩ := h
   exact ⟨Y, Φ, h1⟩
+
+/-- **Glue A7 from R1fp + R2fp (compiled).** Let `y` be a `ℚ̄`-point of `Y` with object `P` whose
+`π`-value is rational. Then every Galois conjugate of `P` (its base change `Q` along `σ`) has an
+underlying QM pair that is an `Aut(𝒪)`-twist of `P`'s; in particular `σA ≅ A` over `ℚ̄`
+(h-trust A7: "the conjugates of `A` are geometrically isomorphic"). -/
+theorem conj_twist_of_rational {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    (h1 : R1fpProps Y Φ) (π : ToP1 Y.left)
+    (hfib : ∀ (y y' : fieldPt Qbar ⟶ Y) (P Q : QML3 Qbar),
+      Φ Qbar y = M3.mk P → Φ Qbar y' = M3.mk Q →
+      (π.val (K := Qbar) y.left = π.val (K := Qbar) y'.left ↔
+          ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q)))
+    (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar) (hP : Φ Qbar y = M3.mk P) (j₀ : ℚ)
+    (hj : π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀))
+    (σ : Qbar ≃ₐ[ℚ] Qbar) :
+    ∃ Q : QML3 Qbar, IsBaseChangeOf (σ : Qbar →+* Qbar) P Q ∧
+      ∃ α : O ≃+* O, Nonempty (QMIso (P.q.twist α) Q.q) := by
+  obtain ⟨-, -, hnat⟩ := h1
+  obtain ⟨Q, hQ, hbc⟩ := hnat Qbar Qbar (σ : Qbar →ₐ[ℚ] Qbar) y P hP
+  refine ⟨Q, hbc, (hfib y _ P Q hP hQ).1 ?_⟩
+  calc π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar j₀) := hj
+    _ = (OnePoint.some (algebraMap ℚ Qbar j₀)).map (σ : Qbar →+* Qbar) := by simp
+    _ = (π.val (K := Qbar) y.left).map (σ : Qbar →+* Qbar) := by rw [hj]
+    _ = π.val (K := Qbar) (fieldMap (σ : Qbar →ₐ[ℚ] Qbar) ≫ y).left :=
+        (π.val_comp (σ : Qbar →+* Qbar) y.left).symm
+
+/-- The underlying abelian surfaces of a QM-pair twist are isomorphic (A7's conclusion). -/
+theorem QMIso.nonempty_abVarIso {A A' : AbVar K} {q : QMStr A} {q' : QMStr A'}
+    (f : QMIso q q') : ∃ (φ : AbVar.Hom A A') (ψ : AbVar.Hom A' A),
+      φ.hom ≫ ψ.hom = 𝟙 _ ∧ ψ.hom ≫ φ.hom = 𝟙 _ :=
+  ⟨f.φ, f.ψ, f.left, f.right⟩
 
 /-- **Leaf R1rec (Shimura reciprocity at the three elliptic CM points, unramified form).**
 
@@ -724,3 +778,5 @@ end LeafQM
 #print axioms LeafQM.AV.ToP1.val
 #print axioms LeafQM.AV.fieldMap
 #print axioms LeafQM.AV.QMLeaves
+#print axioms LeafQM.AV.ToP1.val_comp
+#print axioms LeafQM.AV.conj_twist_of_rational
