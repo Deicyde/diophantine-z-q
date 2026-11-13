@@ -31,3 +31,13 @@ TateBridge, Bridge35, FrobTrace, Rigidity, AlgFrobRed, FExtend, Pieces, LinkedSt
 - `lake env lean scratch/frobchain-contrib/Check.lean`: exit 0 in 7 s, no error; 48 axiom reports (16 contrib-check
   + 32 frob chain), all [propext, Classical.choice, Quot.sound] (4 line-wrapped). Output: Check.out.
 - No import clash between the FrobChain modules and the contrib-check modules (same file imports both).
+
+## Audits (VERIFIED)
+- AxiomAudit.lean (metaprogram over all constants whose module is ZInQKernel.Contrib.FrobChain.*): exit 0 in 185 s;
+  "FrobChain declarations: 572 (theorems: 464); with non-standard axioms: 0 []". Output AxiomAudit.out.
+- verbatim_check.py: all 18 source slices occur verbatim in their modules (trailing blank lines aside); the dropped
+  `def AbsFrob` block equals frob-contrib's; ALL OK. Each chain Prop is defined once, except the two known pairs
+  FrobTraceLink (G14Bridge copy / G14Trace) and SmoothGeomConnIntegral (AlgFrobRedRed / FrobPieces), both shown
+  equal by Iff.rfl in Main.lean. Output verbatim_check.out.
+- Not found in the worktree (grep over ZInQKernel/ and scratch/): any theorem whose type is PkgI2.ReductionTorsionBijective,
+  PkgI2.NeronMappingAbelianScheme or PkgI3.TateModuleFree; h-decomposition.md lists T3, T4 as "open". They stay hypotheses.
