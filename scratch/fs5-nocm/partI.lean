@@ -1,6 +1,11 @@
-import ZInQKernel.HDecomp.QM.Leaves
+
+/-! ## §I N1b reduced to Shimura's description of CM points (`CMOptimalEmbedding`)
+
+`R = φ⁻¹(𝒪)` for an embedding `φ : k → B` forces `(f(R), 6) = 1`: N5's `𝒪` is the set of
+integral elements of `B_p` for `p = 2, 3` (finite checks `check2`, `check3` modulo `p²`). -/
 
 namespace FS5NoCM
+
 
 set_option maxRecDepth 100000 in
 theorem check3 : ∀ a b c d : ZMod 9,
@@ -192,13 +197,7 @@ def CMOptimalEmbedding : Prop :=
       AV.conductor R ≠ 0 → Nonempty (AV.com P.q ≃+* R) →
         ∃ φ : k →ₐ[ℚ] B, R = O.comap φ.toRingHom
 
-/-- `CMConductorCoprime6` text (verbatim copy for the test). -/
-def CMConductorCoprime6' : Prop :=
-  ∀ (P : AV.QMPair AV.Qbar) (k : Type) [Field k] [NumberField k] [NumberField.IsTotallyComplex k],
-    Module.finrank ℚ k = 2 → ∀ R : Subring k, R ≤ (integralClosure ℤ k).toSubring →
-      AV.conductor R ≠ 0 → Nonempty (AV.com P.q ≃+* R) → Nat.Coprime (AV.conductor R) 6
-
-theorem cmConductorCoprime6_of (h : CMOptimalEmbedding) : CMConductorCoprime6' := by
+theorem cmConductorCoprime6_of (h : CMOptimalEmbedding) : CMConductorCoprime6 := by
   intro P k _ _ _ hk2 R hR hc0 he
   obtain ⟨φ, hφ⟩ := h P k hk2 R hR hc0 he
   have h2 := not_dvd_conductor_of_optimal φ R hφ hc0 2 (Or.inl rfl)
@@ -207,4 +206,17 @@ theorem cmConductorCoprime6_of (h : CMOptimalEmbedding) : CMConductorCoprime6' :
   exact ⟨(Nat.coprime_comm.mp ((Nat.Prime.coprime_iff_not_dvd Nat.prime_two).mpr h2)),
     (Nat.coprime_comm.mp ((Nat.Prime.coprime_iff_not_dvd Nat.prime_three).mpr h3))⟩
 
+
+/-- **FS5 with the repaired clauses, from leaves and named glue**: the bundle, R5fpCount, T27, T6,
+N1b′ `CMOptimalEmbedding` (leaves), and `MobiusGlue`, N2 (glue). -/
+theorem fibreComTrivialFull_of_leaves'' (hL : R1R2fpFull) (hM : LeafQM.AV.Pin.MobiusGlue)
+    (t27 : PkgI3.QMDichotomyYu) (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding)
+    (hK : X6KummerFibre) (hC : LeafQM.AV.R5fpCount) : FibreComTrivialFull :=
+  fibreComTrivialFull_of_leaves' hL hM t27 t6 (cmConductorCoprime6_of hE) hK hC
+
 end FS5NoCM
+
+#print axioms FS5NoCM.dvd_of_sq_dvd_Qf
+#print axioms FS5NoCM.not_dvd_conductor_of_optimal
+#print axioms FS5NoCM.cmConductorCoprime6_of
+#print axioms FS5NoCM.fibreComTrivialFull_of_leaves''

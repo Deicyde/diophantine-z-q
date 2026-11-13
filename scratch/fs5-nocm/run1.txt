@@ -28,7 +28,19 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'FS5NoCM.comOfMatrixEnd0_of_homFree' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FS5NoCM.comIntOrQuadOrder_of_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FS5NoCM.fibreComTrivialFull_of_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/fs5-nocm/FS5NoCM.lean:1260:2: warning: Try this: 
+  haveI̵
 
-real	0m53.575s
-user	0m26.591s
-sys	0m3.971s
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'FS5NoCM.dvd_of_sq_dvd_Qf' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.not_dvd_conductor_of_optimal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.cmConductorCoprime6_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_leaves''' depends on axioms: [propext, Classical.choice, Quot.sound]
+
+real	0m24.177s
+user	0m31.904s
+sys	0m2.450s

@@ -39,9 +39,18 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/fs5-nocm/FS5Curves.lean:2520:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'FS5NoCM.fibreComTrivialFull_of_curves' depends on axioms: [propext, Classical.choice, Quot.sound]
 'FS5NoCM.fibreComTrivialFull_of_curves_leaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+'FS5NoCM.fibreComTrivialFull_of_curves_leaves'' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-real	0m30.842s
-user	0m50.622s
-sys	0m3.173s
+real	0m25.305s
+user	0m56.612s
+sys	0m2.685s

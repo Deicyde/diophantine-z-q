@@ -40,3 +40,11 @@
 - 06:10 Re-ran scratch/rv-nocm/nocm_check.py (~/pyenv/bin/python -I): output identical to rv-nocm's
   nocm_check.output.txt; Part B: the Kummer-model fibre field Q(√−t, √3(t−1)) agrees with González–Rotger Thm 5.12 on
   all 24 rational CM rows (VERIFIED, reproduced) — evidence for N2's constants.
+- 06:17 §I (partI.lean): N1b `CMConductorCoprime6` PROVED from the new leaf N1b′ `CMOptimalEmbedding`
+  (Shimura/Jordan/González–Rotger: End_𝒪(A) ≅ φ⁻¹(𝒪) for an embedding φ : k → B), `cmConductorCoprime6_of`:
+  `check2`, `check3` (decide: Q(n) ≡ 0 mod p² ⇒ p | n, p = 2, 3; N5's 𝒪 is the integral elements of B_p),
+  `nrd_ofInt`, `dvd_of_sq_dvd_Qf`, `not_dvd_conductor_of_optimal` (Cauchy in 𝒪_k/R, minpoly of φ(y) = minpoly of y
+  has integer coefficients, nrd(φ(py)) ∈ p²ℤ ⇒ φ(y) ∈ 𝒪 ⇒ y ∈ R). Final: `fibreComTrivialFull_of_leaves''`,
+  `fibreComTrivialFull_of_curves_leaves'`.
+  FS5NoCM.lean (1390 lines): exit 0, 24 s, 20 axioms lines standard (run1.txt). FS5Curves.lean (2684 lines): exit 0,
+  25 s, 3 axioms lines standard (run2.txt). VERIFIED.

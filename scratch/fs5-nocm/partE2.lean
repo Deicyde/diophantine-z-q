@@ -22,7 +22,17 @@ theorem fibreComTrivialFull_of_curves_leaves (hL : R1R2fpFull) (hRF : CurveRatFa
     (hC : R5fpCount) : FibreComTrivialFull :=
   fibreComTrivialFull_of_leaves' hL (mobiusGlue_of_curves hRF hSu hT) t27 t6 hB hK hC
 
+/-- **The same with N1b reduced to Shimura's description of CM points** (`CMOptimalEmbedding`):
+leaves the bundle, R5fpCount, T5, T6, T27, `CMOptimalEmbedding`; glue `CurveRatFactor`,
+`CurveSurj`, N2. -/
+theorem fibreComTrivialFull_of_curves_leaves' (hL : R1R2fpFull) (hRF : CurveRatFactor)
+    (hSu : CurveSurj) (hT : ObjBridge.TorsionStructure) (t27 : PkgI3.QMDichotomyYu)
+    (t6 : PkgI3.HomFreeFinite) (hE : CMOptimalEmbedding) (hK : X6KummerFibre)
+    (hC : R5fpCount) : FibreComTrivialFull :=
+  fibreComTrivialFull_of_leaves'' hL (mobiusGlue_of_curves hRF hSu hT) t27 t6 hE hK hC
+
 end FS5NoCM
 
 #print axioms FS5NoCM.fibreComTrivialFull_of_curves
 #print axioms FS5NoCM.fibreComTrivialFull_of_curves_leaves
+#print axioms FS5NoCM.fibreComTrivialFull_of_curves_leaves'
