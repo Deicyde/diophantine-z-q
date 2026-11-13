@@ -2874,14 +2874,75 @@ theorem heegnerPt_tyzForm7' (hF : X0.EtaModelFricke) (hA : CMAlgebraic) (hn : n 
   rw [map_sub, toC_heegnerPt _ hex, toC_ptT, ← hfr]
   abel
 
-/-- The class `[𝔭₂]^{−5}` is the class of `(32, ū)` (positive orientation) resp. `(32, u)`. -/
-theorem p2Class_inv_pow_five_pos (hn : n % 8 = 7) (hpos : PosOrient n) (h0 : Jub n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
-    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Jub n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
-  sorry
+theorem uO_mul_ubO (hn : n % 8 = 7) :
+    uO n (by omega) * ubO n (by omega) = 32 * (N7 n : 𝓞 (QNeg n)) := by
+  apply RingOfIntegers.ext
+  have h := n_delta_q hn
+  change algebraMap (𝓞 (QNeg n)) (QNeg n) (uO n _ * ubO n _) =
+    algebraMap (𝓞 (QNeg n)) (QNeg n) (32 * (N7 n : 𝓞 (QNeg n)))
+  rw [map_mul, map_mul, alg_uO hn, alg_ubO hn, map_ofNat, map_intCast]
+  ext <;> simp [uK, ubK, QuadraticAlgebra.re_ofNat, QuadraticAlgebra.im_ofNat] <;>
+    first | linear_combination (1/4 : ℚ) * h | linear_combination (-1/4 : ℚ) * h | ring1
 
-theorem p2Class_inv_pow_five_neg (hn : n % 8 = 7) (hpos : ¬ PosOrient n) (h0 : Ju n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+theorem uO_add_ubO (h3 : n % 4 = 3) : uO n h3 + ubO n h3 + 2 * (m7 n : 𝓞 (QNeg n)) = 1 := by
+  simp only [uO, ubO]; ring
+
+theorem mk0_inv_of_mul {I I' : Ideal (𝓞 (QNeg n))} (hI : I ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (hI' : I' ∈ (Ideal (𝓞 (QNeg n)))⁰) (h : I * I' = Ideal.span {(2 : 𝓞 (QNeg n))}) :
+    (ClassGroup.mk0 ⟨I', hI'⟩ : ClassGroup (𝓞 (QNeg n))) = (ClassGroup.mk0 ⟨I, hI⟩)⁻¹ := by
+  apply eq_inv_of_mul_eq_one_right
+  rw [← map_mul]
+  have h2 : (⟨I, hI⟩ : (Ideal (𝓞 (QNeg n)))⁰) * ⟨I', hI'⟩ =
+      ⟨Ideal.span {(2 : 𝓞 (QNeg n))}, by rw [← h]; exact Submonoid.mul_mem _ hI hI'⟩ := Subtype.ext h
+  rw [h2, ClassGroup.mk0_eq_one_iff]
+  exact ⟨⟨2, rfl⟩⟩
+
+theorem mk0_pow_five {I J : Ideal (𝓞 (QNeg n))} (hI : I ∈ (Ideal (𝓞 (QNeg n)))⁰)
+    (hJ : J ∈ (Ideal (𝓞 (QNeg n)))⁰) (h : I ^ 5 = J) :
+    (ClassGroup.mk0 ⟨J, hJ⟩ : ClassGroup (𝓞 (QNeg n))) = (ClassGroup.mk0 ⟨I, hI⟩) ^ 5 := by
+  rw [← map_pow]
+  congr 1
+  exact Subtype.ext (by rw [SubmonoidClass.coe_pow]; exact h.symm)
+
+theorem span2_mem (g : 𝓞 (QNeg n)) : Ideal.span {2, g} ∈ (Ideal (𝓞 (QNeg n)))⁰ := by
+  apply mem_nonZeroDivisors_of_ne_zero
+  intro h0
+  have h2 : (2 : 𝓞 (QNeg n)) ∈ Ideal.span {2, g} := Ideal.subset_span (Set.mem_insert _ _)
+  rw [h0, Ideal.zero_eq_bot, Ideal.mem_bot] at h2
+  exact two_ne_zero h2
+
+/-- The class `[𝔭₂]^{−5}` is the class of `(32, ū)` (positive orientation) resp. `(32, u)`. -/
+theorem p2Class_inv_pow_five_pos (hn : n % 8 = 7) (hpos : PosOrient n)
+    (h0 : Jub n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
+    (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Jub n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
+  have h3 : n % 4 = 3 := by omega
+  have hp : p2Ideal n = Ideal.span {2, uO n h3} := by
+    unfold p2Ideal; rw [dif_pos h3, if_pos hpos]; rfl
+  have hc : p2Class n = (ClassGroup.mk0 ⟨Ideal.span {2, uO n h3}, span2_mem _⟩ :
+      ClassGroup (𝓞 (QNeg n))) := by
+    unfold p2Class; congr 1; exact Subtype.ext hp
+  have hmul := span_two_mul_span_two (uO n h3) (ubO n h3) (m7 n) (N7 n) (uO_add_ubO h3)
+    (uO_mul_ubO hn)
+  have hpow := span_two_pow_five (ubO n h3) (uO n h3) (m7 n) (N7 n)
+    (by rw [add_comm (ubO n h3)]; exact uO_add_ubO h3) (by rw [mul_comm]; exact uO_mul_ubO hn)
+  rw [mk0_pow_five (span2_mem _) h0 hpow, mk0_inv_of_mul (span2_mem _) (span2_mem _) hmul, hc]
+  rfl
+
+theorem p2Class_inv_pow_five_neg (hn : n % 8 = 7) (hpos : ¬ PosOrient n)
+    (h0 : Ju n (by omega) ∈ (Ideal (𝓞 (QNeg n)))⁰) :
     (p2Class n)⁻¹ ^ 5 = (ClassGroup.mk0 ⟨Ju n (by omega), h0⟩ : ClassGroup (𝓞 (QNeg n))) := by
-  sorry
+  have h3 : n % 4 = 3 := by omega
+  have hp : p2Ideal n = Ideal.span {2, ubO n h3} := by
+    unfold p2Ideal; rw [dif_pos h3, if_neg hpos]; rfl
+  have hc : p2Class n = (ClassGroup.mk0 ⟨Ideal.span {2, ubO n h3}, span2_mem _⟩ :
+      ClassGroup (𝓞 (QNeg n))) := by
+    unfold p2Class; congr 1; exact Subtype.ext hp
+  have hmul := span_two_mul_span_two (ubO n h3) (uO n h3) (m7 n) (N7 n)
+    (by rw [add_comm (ubO n h3)]; exact uO_add_ubO h3) (by rw [mul_comm]; exact uO_mul_ubO hn)
+  have hpow := span_two_pow_five (uO n h3) (ubO n h3) (m7 n) (N7 n) (uO_add_ubO h3)
+    (uO_mul_ubO hn)
+  rw [mk0_pow_five (span2_mem _) h0 hpow, mk0_inv_of_mul (span2_mem _) (span2_mem _) hmul, hc]
+  rfl
 
 theorem acts_transport (e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar) (ρ : GalQ)
     (O : TauCeti.GlobalNumberFields.NumberFieldOrder (QNeg n))
@@ -2981,7 +3042,64 @@ theorem tyzThm36Seven_of (hS : ShimuraReciprocityPic) (hF : X0.EtaModelFricke)
     have hrec := hS n 1 hsq (embed n) he ⟨_, hJO⟩ ρ hρe (-(n : ℤ)) hD (tyzForm7 n hn)
       (tyzForm7' n hn) (kappa n (ubK n)) hlat hlatN
     rw [hrec, hfr]; abel
-  · sorry
+  · have hneg : ιC (embed n (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        -(I * (Real.sqrt n : ℂ)) := by
+      rcases ιC_omega_cases n with h | h
+      · exfalso; apply hpos; unfold PosOrient; rw [h]; simpa using hsqrt
+      · exact h
+    let e : SeparableClosure (QNeg n) →ₐ[ℚ] Qbar := (γ : Qbar →ₐ[ℚ] Qbar).comp (embed n)
+    have he : ιC (e (algebraMap (QNeg n) (SeparableClosure (QNeg n)) QuadraticAlgebra.omega)) =
+        I * (Real.sqrt n : ℂ) := by
+      change ιC (γ (embed n _)) = _
+      rw [hγ, hneg]; simp
+    have hJ32 : (32 : 𝓞 (QNeg n)) ∈ Ju n h3 := Ideal.subset_span (Set.mem_insert _ _)
+    have hJO := J_mem_primeTo _ hJ32
+    have hJ0 := J_mem_nzd _ hJ32
+    have hc := p2Class_inv_pow_five_neg hn hpos hJ0
+    have hρ'0 : ∀ x : hilbertField n, (γ * ρ * γ⁻¹) (e (x : SeparableClosure (QNeg n))) =
+        e ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+          (ClassGroup.mk0 ⟨Ju n h3, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+            SeparableClosure (QNeg n)) := by
+      intro x
+      have hx : ρ (embed n (x : SeparableClosure (QNeg n))) =
+          embed n ((TauCeti.ClassFieldTheory.ringClassArtinEquiv (OK n)
+            (ClassGroup.mk0 ⟨Ju n h3, hJ0⟩ : ClassGroup (𝓞 (QNeg n))) x : hilbertField n) :
+              SeparableClosure (QNeg n)) := by
+        rw [← hc]; exact hρ x
+      change (γ * ρ * γ⁻¹) (γ (embed n x)) = γ (embed n _)
+      rw [AlgEquiv.mul_apply, AlgEquiv.mul_apply,
+        show γ⁻¹ (γ (embed n x)) = embed n x from γ.symm_apply_apply _, hx]
+    have hρe := acts_transport e (γ * ρ * γ⁻¹) (conductorOrder (QNeg n) 1) (conductorOrder_one _)
+      (Ju n h3) hJO hJ0 hρ'0
+    have hlat : idealLat n 1 (Ju n h3) * (tyzForm7' n hn).conj.lat =
+        (tyzForm7 n hn).conj.lat.map (LinearMap.mulLeft ℤ (kappa n (-uK n))) := by
+      rw [show idealLat n 1 (Ju n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Ju n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        lat_eq_map' _ (tb'K n) (tyzForm7'_conj_tau hn), lat_eq_map' _ (tbK n) (tyzForm7_conj_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latK7c hn hsq]
+    have hlatN : idealLat n 1 (Ju n h3) * (tyzForm7' n hn).conj.latN =
+        (tyzForm7 n hn).conj.latN.map (LinearMap.mulLeft ℤ (kappa n (-uK n))) := by
+      rw [show idealLat n 1 (Ju n h3) = (Submodule.span ℤ (idealMeetOrder n 1 (Ju n h3))).map
+          (kappaLin n) by
+        rw [idealLat, show kappa n = kappaLin n from funext fun x => (kappaLin_apply n x).symm,
+          Submodule.span_image],
+        latN_eq_map' _ (tb'K n) (tyzForm7'_conj_tau hn), latN_eq_map' _ (tbK n) (tyzForm7_conj_tau hn),
+        map_mulLeft_span_pair, kappaLin, ← Submodule.map_mul, latNK7c hn hsq]
+    have hrec := hS n 1 hsq e he ⟨_, hJO⟩ (γ * ρ * γ⁻¹) hρe (-(n : ℤ)) hD (tyzForm7 n hn).conj
+      (tyzForm7' n hn).conj (kappa n (-uK n)) hlat hlatN
+    have h1 : galPt (γ * ρ * γ⁻¹) (heegnerPt (tyzForm7 n hn).conj) =
+        galPt γ (galPt ρ (heegnerPt (tyzForm7 n hn))) := by
+      rw [← hconj, ← galPt_mul, show γ * ρ * γ⁻¹ * γ = γ * ρ by group, galPt_mul]
+    have h2 : heegnerPt (tyzForm7' n hn).conj = Package.ptT - heegnerPt (tyzForm7 n hn) := by
+      rw [← cmComplexConj γ hγ _ (tyzForm7' n hn), hfr, map_sub, Package.galPt_ptT, ← hconj,
+        hγ.galPt_galPt]
+    have h4 : galPt ρ (heegnerPt (tyzForm7 n hn)) = Package.ptT - heegnerPt (tyzForm7 n hn).conj := by
+      have := congrArg (galPt γ) (h1.symm.trans (hrec.trans h2))
+      rw [hγ.galPt_galPt, map_sub, Package.galPt_ptT, hconj] at this
+      exact this
+    rw [h4]; abel
 
 end Thm36f
 
@@ -3064,3 +3182,5 @@ open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms lemma321Seven_of'
 open ZInQ.Contrib.TYZGenus.CMBridge in
 #print axioms tyzThm35ReadingA_of_ringClassD_sigmaShiftsF0_lemma318_thm35First_lemma321Five_thm36Seven
+open ZInQ.Contrib.TYZGenus.CMBridge in
+#print axioms tyzThm36Seven_of
