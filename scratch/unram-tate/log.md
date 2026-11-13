@@ -24,3 +24,10 @@
 - Construction: Tm g = opV(Θ ∘ m_{hgh⁻¹} ∘ Θ⁻¹), c = ε' = n/d (at conjugated arguments), a = 1, β' g = γ(hgh⁻¹),
   matrix units of I = opV(Θ∘ι(i)∘Θ⁻¹), J likewise; continuity: ρ(g₀·resQ σ) = ρ(g₀)·tate σ (rho_map_mul) + open embedding.
 - Named glue pieces (all glue, no new leaf): TatePoints, EndBaseChange, ScalarTransfer, TateCont, ResQEmbedding.
+- `resQEmbedding : ResQEmbedding` PROVED (continuous `Field.absoluteGaloisGroup.map`, injective via the onto embedding
+  of `resQ_comm'`, compact G_{L'} (instance via `Gal(AlgebraicClosure L'/L')`), open range `Fix(L')` by `resQRange`).
+- `tateCont_of_tateModuleFree : PkgI3.TateModuleFree → TateCont` PROVED (leaf I3.M0 + RhoCont's
+  `continuous_galRep_of_tateModuleFree`; tensor induction; `IsModuleTopology.continuous_of_linearMap`).
+  Added import `ZInQKernel.HDecomp.I3Linalg.RhoCont` to the copied header. VERIFIED compiled, standard axioms (~05:00).
+- Pitfall (VERIFIED): stating `Continuous fun σ => A.galRep ℓ σ w` with a type ascription times out at whnf
+  (1M heartbeats); `have h3 := hρ.comp (Continuous.prodMk_left w)` without ascription is instant.

@@ -13,6 +13,7 @@ import ZInQKernel.HDecomp.Repo.TorsionFree
 import ZInQKernel.Multiplication.Certificate.ConstantsProperties
 import ZInQKernel.Progressions.Final.Instance
 import ZInQKernel.Size.Constants.T
+import ZInQKernel.HDecomp.I3Linalg.RhoCont
 
 /-!
 # g0-mod-field: glue steps G2, G4, G7 of the H decomposition (first range of `ModularConstituent`)
@@ -1421,9 +1422,82 @@ theorem tateBridge_of_pieces (hP : TatePoints) (hE : EndBaseChange) (hS : Scalar
   rw [he₀.continuousAt_iff, he₀1] at hc
   exact hc
 
+/-! ## Proofs of two pieces -/
+
+/-- **`ResQEmbedding`, proved** (Mathlib Galois topology): `resQ L'` is continuous, injective
+(the embedding `g : ℚ̄ → \overline{L'}` of `resQ_comm'` is onto), `G_{L'}` is compact, so it is a
+closed embedding, with open image `Fix(L')` (`resQRange`). -/
+theorem resQEmbedding : ResQEmbedding := by
+  intro L' _ _
+  haveI hNF : NumberField L' := numberField_of_fd L'
+  have hIG : IsGalois L' (AlgebraicClosure L') := {}
+  haveI : CompactSpace (Field.absoluteGaloisGroup L') :=
+    (inferInstance : CompactSpace (AlgebraicClosure L' ≃ₐ[L'] AlgebraicClosure L'))
+  have hcont : Continuous (@GaloisCopy.resQ L' _ hNF) :=
+    (Field.absoluteGaloisGroup.map (algebraMap ℚ L')).continuous_toFun
+  obtain ⟨g0, hcomm⟩ := resQ_comm' L'
+  let g : Qbar →ₐ[ℚ] AlgebraicClosure L' := g0.toRatAlgHom
+  have hKalg : Algebra.IsAlgebraic ℚ (AlgebraicClosure L') := by
+    haveI : Algebra.IsAlgebraic ℚ L' := Algebra.IsAlgebraic.of_finite ℚ L'
+    haveI : Algebra.IsAlgebraic L' (AlgebraicClosure L') := AlgebraicClosure.isAlgebraic L'
+    exact Algebra.IsAlgebraic.trans ℚ L' (AlgebraicClosure L')
+  have hgbij : Function.Bijective g := by
+    letI : Algebra Qbar (AlgebraicClosure L') := g.toAlgebra
+    haveI : IsScalarTower ℚ Qbar (AlgebraicClosure L') :=
+      IsScalarTower.of_algebraMap_eq (fun x => (g.commutes x).symm)
+    haveI : Algebra.IsIntegral ℚ (AlgebraicClosure L') := inferInstance
+    haveI : Algebra.IsIntegral Qbar (AlgebraicClosure L') := Algebra.IsIntegral.tower_top ℚ
+    exact IsAlgClosed.algebraMap_bijective_of_isIntegral
+  have hinj : Function.Injective (@GaloisCopy.resQ L' _ hNF) := by
+    intro σ τ hστ
+    apply AlgEquiv.ext
+    intro y
+    obtain ⟨x, rfl⟩ := hgbij.2 y
+    have h1 := hcomm σ x
+    have h2 := hcomm τ x
+    rw [hστ] at h1
+    exact h1.symm.trans h2
+  refine ⟨(hcont.isClosedEmbedding hinj).isEmbedding, ?_⟩
+  rw [← MonoidHom.coe_range, resQRange L']
+  exact IntermediateField.fixingSubgroup_isOpen L'
+
+set_option maxHeartbeats 1000000 in
+/-- **`TateCont`, proved from the leaf I3.M0 `TateModuleFree`** (Mumford §18-19; pkg-I3) and
+glue-rho-cont's `continuous_galRep_of_tateModuleFree`: on `ℚ̄_ℓ ⊗ V_ℓ(A)`, `f(ρ(σ)(c ⊗ w)) =
+c · f(1 ⊗ ρ_ℓ(σ) w)` and `w ↦ f(1 ⊗ w)` is `ℚ_ℓ`-linear, hence continuous for the module
+topology of `V_ℓ(A)`. -/
+theorem tateCont_of_tateModuleFree (hT : PkgI3.TateModuleFree) : TateCont := by
+  intro K _ _ A ℓ _ f v
+  have hℓ : (ℓ : K) ≠ 0 := Nat.cast_ne_zero.mpr (Fact.out : ℓ.Prime).ne_zero
+  have hρ := (PkgI3.continuous_galRep_of_tateModuleFree hT A ℓ hℓ).1
+  induction v using TensorProduct.induction_on with
+  | zero => simp only [map_zero]; exact continuous_const
+  | tmul c w =>
+    let g : A.V ℓ →ₗ[ℚ_[ℓ]] PadicAlgCl ℓ :=
+      (f.restrictScalars ℚ_[ℓ]).comp (TensorProduct.mk ℚ_[ℓ] (PadicAlgCl ℓ) (A.V ℓ) 1)
+    have hg : Continuous g := IsModuleTopology.continuous_of_linearMap g
+    have heq : (fun σ : Field.absoluteGaloisGroup K => f (GaloisCopy.tate A ℓ σ (c ⊗ₜ w))) =
+        fun σ => c * g (A.galRep ℓ σ w) := by
+      funext σ
+      show f ((A.galRep ℓ σ).baseChange (PadicAlgCl ℓ) (c ⊗ₜ w)) = _
+      rw [LinearMap.baseChange_tmul]
+      have : c ⊗ₜ[ℚ_[ℓ]] (A.galRep ℓ σ w) = c • ((1 : PadicAlgCl ℓ) ⊗ₜ[ℚ_[ℓ]] (A.galRep ℓ σ w)) := by
+        rw [TensorProduct.smul_tmul', smul_eq_mul, _root_.mul_one]
+      rw [this, map_smul, smul_eq_mul]
+      rfl
+    have h3 := hρ.comp (Continuous.prodMk_left (X := Field.absoluteGaloisGroup K) w)
+    have h4 := hg.comp h3
+    rw [heq]
+    exact continuous_const.mul h4
+  | add x y hx hy =>
+    simp only [map_add]
+    exact hx.add hy
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
 #print axioms UnramTate.matrixUnits_of_quat
 #print axioms UnramTate.jO_sq
 #print axioms UnramTate.tateBridge_of_pieces
+#print axioms UnramTate.resQEmbedding
+#print axioms UnramTate.tateCont_of_tateModuleFree
