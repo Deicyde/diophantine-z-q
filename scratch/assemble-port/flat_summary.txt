@@ -1,0 +1,7 @@
+flat check (27-field state before ts-hecke; commit after 'fold twist-descent and period-glue')
+file: scratch/assemble-port/AssemblePort.lean, 101778 lines, md5 ea746d859e2ef31910fc30f7c89e1b9b
+command: lake env lean scratch/assemble-port/AssemblePort.lean (cflat.sh)
+result: exit 0 in 1021 s, 0 errors, 0 'declaration uses sorry'
+reports: 272  no-axiom reports: 0  nonstandard: 0
+HDec.HSyn.sixContactMin_of_leaves5 reported
+HDec.HSyn.gluePieces_of_gluePieces5 reported

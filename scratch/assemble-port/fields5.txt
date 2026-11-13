@@ -8,10 +8,6 @@ cmDescends
 sphereFactorAffine
 valenceBoundGammaStar
 kummerCompositum
-heckeIrreducible
-heckeNormalizationIrr
-heckeDegree
-heckeBranch
 heckeNoVertRam
 homLinearLift
 senTwist
@@ -25,3 +21,7 @@ betaTrivialAtTwo
 tateRamAtThreeD
 gammaStarGen
 t11aRiemannHom
+y3Connected
+curveNormChart
+curveChartInf
+heckeFibreSizes

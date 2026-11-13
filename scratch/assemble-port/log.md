@@ -103,3 +103,6 @@
 - GluePieces5: − twistDescent, s8Nonzero (proved), − s8WeightExact, qmTwistLattice (reduced), + gammaStarGen (LEAF?),
   t11aRiemannHom (LEAF); Skolem–Noether from Leaves.lean's `TSkolemKW.glueDescent_leafSkolemNoether`. 27 fields
   (11 LEAF, 5 LEAF?, 11 GLUE). TailF 138 s, TailD 34 s: VERIFIED exit 0, 0 errors, no sorryAx, all axiom reports standard.
+- FLAT CHECK (27-field state, before ts-hecke): AssemblePort.lean 101 778 lines, md5 ea746d85…: VERIFIED exit 0 in
+  1021 s, 0 errors, no sorry; 272 axiom reports (check_axioms.py, multi-line joined), all [propext, Classical.choice,
+  Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5` (flat_summary.txt, flat_out.txt).

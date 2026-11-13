@@ -21,12 +21,13 @@ theorem researchLeaves4_of_open2 (r : OpenResearchLeaves2) : ResearchLeaves4 :=
     r13 := r.r13, r14 := eigenformRepExists_of_r14Det r.r14, r15 := r.r15, r16 := r.r16, r18 := r.r18,
     r19 := r.r19, r20 := r.r20, r21 := r.r21, r22 := r.r22, h5fin := r.h5fin }
 
-/-- **The named Props left after assemble-port** (27 fields). g0-assemble3's `GluePieces4` (46 fields) without the 24
+/-- **The named Props left after assemble-port** (27 fields). g0-assemble3's `GluePieces4` (46 fields) without the 28
 fields proved or moved since (table: docs/research/assemble-port.md §2), plus linked-ram's `upperBreakBound` (LEAF?) and
 `betaTrivialAtTwo` (GLUE), which replace `kernelFieldBreaks`, and linked-ram's corrected `tateRamAtThreeD` (GLUE), which
 replaces `tateRamAtThree` (not quantified over `G7Data`, so without `[L:ℚ] ≤ D`; likely false as stated, linked-ram F1),
-and period-glue's leaves `gammaStarGen` (LEAF?) and `t11aRiemannHom` (LEAF), which replace `s8WeightExact` and
-`qmTwistLattice`. -/
+period-glue's leaves `gammaStarGen` (LEAF?) and `t11aRiemannHom` (LEAF), which replace `s8WeightExact` and
+`qmTwistLattice`, and ts-hecke's `y3Connected` (LEAF), `curveNormChart`, `curveChartInf`, `heckeFibreSizes` (GLUE), which
+replace `heckeIrreducible`, `heckeNormalizationIrr`, `heckeDegree` (proved from T5) and `heckeBranch`. -/
 structure GluePieces5 : Prop where
   -- FibreSimple: FS5 (NoCM on the fibre)
   /-- fs5-nocm, LEAF (N1b′: CM points via optimal embeddings; Shimura 1967, Jordan, González–Rotger). -/
@@ -57,10 +58,6 @@ structure GluePieces5 : Prop where
   valenceBoundGammaStar : G0Split.FibreQM.PeriodMap.ValenceBoundGammaStar
   -- ModularConstituent: G2 (fibre-cover; Prop. TS by prop-ts, prop-ts-glue)
   /-- prop-ts-glue, GLUE. -/ kummerCompositum : PropTSGlue.KummerCompositum
-  /-- prop-ts-glue, GLUE (truth SPECULATIVE per its report). -/ heckeIrreducible : PropTSGlue.HeckeIrreducible
-  /-- prop-ts-glue, GLUE. -/ heckeNormalizationIrr : PropTSGlue.HeckeNormalizationIrr
-  /-- prop-ts-glue, GLUE. -/ heckeDegree : PropTSGlue.HeckeDegree
-  /-- prop-ts-glue, GLUE. -/ heckeBranch : PropTSGlue.HeckeBranch
   /-- prop-ts-glue, GLUE (Lemma NV). -/ heckeNoVertRam : PropTSGlue.HeckeNoVertRam
   -- ModularConstituent: G4 (kernel-field, kf-glue)
   -- ModularConstituent: G8-G12
@@ -96,6 +93,18 @@ structure GluePieces5 : Prop where
   `ℂ`-linear maps; Mumford §1, Birkenhake–Lange 1.2.1, GAGA; with Skolem–Noether, proved, it gives period-map's
   `QMTwistLattice`, `qmTwistLattice_of'`). -/
   t11aRiemannHom : G0Split.FibreQM.PeriodGlue.T11aRiemannHom
+  /-- ts-hecke, LEAF (R1conn: the canonical model `Y₃` is connected over `ℚ`, witness form; Shimura, Deligne (Bourbaki 389,
+  PSPM 33 §2), Milne §5, §13 for `π₀(Sh_K)` with its Galois action; the two geometric components computed in
+  `scratch/ts-hecke/pi0_check.py`). Gives prop-ts-glue's `HeckeIrreducible` (`heckeIrreducible_of_connected`). -/
+  y3Connected : TSHecke.Y3Connected
+  /-- ts-hecke, GLUE (curve theory, h-b1 M1/M8: the normalization chart of `π : Y → P¹`). With T5 it gives
+  `HeckeNormalizationIrr` (`heckeNormalizationIrr_of`, `curveGaloisChart_of`). -/
+  curveNormChart : TSHecke.CurveNormChart
+  /-- ts-hecke, GLUE (curve theory: the chart at `∞`). -/
+  curveChartInf : TSHecke.CurveChartInf
+  /-- ts-hecke, GLUE (twist-fibre sizes 144/36/24/72 of `Y₃ → P¹`, from Shimura's uniformization and Baba–Granath §3.1).
+  With `curveChartInf`, T5, `R1R2fp` and the proved `RamOfFibreCount` it gives `HeckeBranch` (`heckeBranch_of'`). -/
+  heckeFibreSizes : TSHecke.HeckeFibreSizes
 
 /-- **`GluePieces` from `GluePieces5` and leaf-fold2's open leaf bundles.** g0-assemble3's `gluePieces_of_gluePieces4`
 (part z95), with every field proved since replaced by its proof: `analyticUniformizationOfDim` by T35's transport,
@@ -124,7 +133,11 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     PropTSGlue.propTSAll_final'' t2_proved (LeafAdopt.R1R2fp_of_rep r.r1r2) hMob gp.kummerCompositum
       TsKummer.kummerAbhyankarFinGlue TsKummer.kummerOtherBranchFin TsKummer.kummerVerticalFin
       TsKummer.kummerAbhyankarInfGlue TsKummer.kummerOtherBranchInf TsKummer.kummerVerticalInf
-      gp.heckeIrreducible gp.heckeNormalizationIrr gp.heckeDegree gp.heckeBranch gp.heckeNoVertRam
+      (TSHecke.heckeIrreducible_of_connected gp.y3Connected)
+      (TSHecke.heckeNormalizationIrr_of (TSHecke.curveGaloisChart_of gp.curveNormChart) t.t5)
+      (TSHecke.heckeDegree_of_torsion t.t5)
+      (TSHecke.heckeBranch_of' (LeafAdopt.R1R2fp_of_rep r.r1r2) gp.curveChartInf gp.heckeFibreSizes t.t5)
+      gp.heckeNoVertRam
   have hPM : G0Split.FibreQM.PeriodMapGlue (G0Split.FibreQM.ownY (LeafAdopt.R1R2fp_of_rep r.r1r2))
       (G0Split.FibreQM.ownΦ (LeafAdopt.R1R2fp_of_rep r.r1r2))
       (G0Split.FibreQM.ownπ (LeafAdopt.R1R2fp_of_rep r.r1r2)) :=
@@ -180,8 +193,8 @@ theorem gluePieces_of_gluePieces5 (r : OpenResearchLeaves2) (t : OpenTextbookLea
     heightCopies := G0HeightCopies.heightCopiesAgree }
 
 /-- **G0 after assemble-port** (no `sorry`, standard axioms): leaf-fold2's open research leaves (`OpenResearchLeaves2`,
-26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (27 fields: 11 LEAF, 5 LEAF?,
-11 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
+26 fields), its open textbook leaves (`OpenTextbookLeaves2`, 18 fields) and `GluePieces5` (27 fields: 12 LEAF, 5 LEAF?,
+10 GLUE; table in docs/research/assemble-port.md §2) imply `ZInQ.SixContactMin`. -/
 theorem sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTextbookLeaves2) (gp : GluePieces5) :
     ZInQ.SixContactMin :=
   sixContactMin_of_leavesR3 (researchLeaves4_of_open2 r).toR3 (textbookLeaves_of_open2 t)
@@ -219,6 +232,10 @@ end
 #print axioms UnramTate.linkedRam_of'
 #print axioms UnramTate.kernelFieldBreaksHigh
 #print axioms G0ModField.KernelField.twistDescent
+#print axioms TSHecke.heckeIrreducible_of_connected
+#print axioms TSHecke.heckeNormalizationIrr_of
+#print axioms TSHecke.heckeDegree_of_torsion
+#print axioms TSHecke.heckeBranch_of'
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.s8Nonzero_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.s8WeightExact_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.qmTwistLattice_of'
