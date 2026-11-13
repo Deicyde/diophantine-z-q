@@ -33,3 +33,10 @@
 - `b3_of_homField`: G4's L fed into `GlueDescent.B3Q.b3_degree_le_QM` (with T = ramSet S u); needs `hdesc`
   (ε inflated from any field defining the lattice — G7's instantiation, hypothesis).
 - `#print axioms` of all six main theorems: [propext, Classical.choice, Quot.sound].
+
+## G4.lean — conjugation data (COMPILED)
+- Lattice section generalized to any `[Fintype Idx]` (index = conjugates, e.g. embeddings K → ℚ̄); `homField_of_conjugates` takes `Fintype.card Idx ≤ F₀`.
+- `ConjData Idx` (A : Idx → AbVar ℚ̄, act : G_ℚ → Perm Idx, g σ i : A(σ·i) → A i with IsPullback over Spec σ).
+- `IsConjAction D ρ`: ρ σ f ∘ g_{σ,i} = g_{σ,j} ∘ f componentwise.
+- `isConjAction_unique`: two conjugation actions for the same data are equal (IsPullback.hom_ext). COMPILED.
+- `ConjActionExists D` (def, Prop): open glue target.

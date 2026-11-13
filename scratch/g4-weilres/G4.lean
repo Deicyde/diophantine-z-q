@@ -441,14 +441,14 @@ section Lattice
 
 /-- **Rank of the lattice (glue, proved).** A product over ordered pairs `(i, j) ∈ n × n` of free
 finite `ℤ`-modules of rank `≤ c` is free and finite of rank `≤ c·n²`. -/
-theorem pi_rank_le {n c : ℕ} (H : Fin n × Fin n → Type*) [∀ ij, AddCommGroup (H ij)]
+theorem pi_rank_le {ι : Type*} [Fintype ι] {c : ℕ} (H : ι × ι → Type*) [∀ ij, AddCommGroup (H ij)]
     [∀ ij, Module.Free ℤ (H ij)] [∀ ij, Module.Finite ℤ (H ij)]
     (hH : ∀ ij, Module.finrank ℤ (H ij) ≤ c) :
-    Module.finrank ℤ (∀ ij, H ij) ≤ c * n ^ 2 := by
+    Module.finrank ℤ (∀ ij, H ij) ≤ c * Fintype.card ι ^ 2 := by
   rw [Module.finrank_pi_fintype]
-  calc ∑ ij, Module.finrank ℤ (H ij) ≤ ∑ _ij : Fin n × Fin n, c :=
+  calc ∑ ij, Module.finrank ℤ (H ij) ≤ ∑ _ij : ι × ι, c :=
         Finset.sum_le_sum fun ij _ => hH ij
-    _ = c * n ^ 2 := by simp [Fintype.card_prod, sq, mul_comm]
+    _ = c * Fintype.card ι ^ 2 := by simp [Fintype.card_prod, sq, mul_comm]
 
 /-- **Inertia acts trivially on the lattice (glue, proved; N5 L559-561).** If the lattice `M`
 embeds equivariantly and injectively into a module `N` (in the application: `ℓ`-adic
@@ -475,18 +475,18 @@ theorem conj_trivial {R : Type*} [CommRing R] {T₁ T₂ : Type*} [AddCommGroup 
 open PkgI3 PkgI3.AbVar CategoryTheory MonObj
 
 /-- The geometric Hom lattice of `n` abelian varieties over `ℚ̄`: `⊕_{(i,j)} Hom(A i, A j)`. -/
-abbrev HomLattice {n : ℕ} (A : Fin n → AbVar Qbar) : Type :=
-  ∀ ij : Fin n × Fin n, AbVar.Hom (A ij.1) (A ij.2)
+abbrev HomLattice {Idx : Type} (A : Idx → AbVar Qbar) : Type :=
+  ∀ ij : Idx × Idx, AbVar.Hom (A ij.1) (A ij.2)
 
 /-- **Mumford's bound on the lattice (from the leaf `HomFreeFinite`).** For abelian surfaces
 `A i` over `ℚ̄`, the lattice `⊕ Hom(A i, A j)` is free and finite of rank `≤ 16n²`. -/
-theorem homLattice_free (hHFF : HomFreeFinite) {n : ℕ} (A : Fin n → AbVar Qbar)
+theorem homLattice_free (hHFF : HomFreeFinite) {Idx : Type} [Fintype Idx] (A : Idx → AbVar Qbar)
     (hdim : ∀ i, (A i).dim = 2) :
     Module.Free ℤ (HomLattice A) ∧ Module.Finite ℤ (HomLattice A) ∧
-      Module.finrank ℤ (HomLattice A) ≤ 16 * n ^ 2 := by
-  haveI : ∀ ij : Fin n × Fin n, Module.Free ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
+      Module.finrank ℤ (HomLattice A) ≤ 16 * Fintype.card Idx ^ 2 := by
+  haveI : ∀ ij : Idx × Idx, Module.Free ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
     fun ij => (hHFF Qbar (A ij.1) (A ij.2)).1
-  haveI : ∀ ij : Fin n × Fin n, Module.Finite ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
+  haveI : ∀ ij : Idx × Idx, Module.Finite ℤ (AbVar.Hom (A ij.1) (A ij.2)) :=
     fun ij => (hHFF Qbar (A ij.1) (A ij.2)).2.1
   refine ⟨inferInstance, inferInstance, pi_rank_le _ fun ij => ?_⟩
   have h := (hHFF Qbar (A ij.1) (A ij.2)).2.2.1
@@ -499,7 +499,7 @@ theorem homLattice_free (hHFF : HomFreeFinite) {n : ℕ} (A : Fin n → AbVar Qb
 
 /-- **G4 on the abelian-variety layer.** Let `K ⊆ ℚ̄` be finite Galois with `[K:ℚ] ≤ F₀`,
 unramified outside `T`; let `A 0, …, A (n-1)` be abelian surfaces over `ℚ̄` (the conjugates of
-the fibre object, `n ≤ F₀`), and let `G_ℚ` act `ℤ`-linearly on `⊕ Hom(A i, A j)` (the conjugation
+the fibre object, indexed by a finite type of size `≤ F₀`, e.g. the embeddings `K → ℚ̄`), and let `G_ℚ` act `ℤ`-linearly on `⊕ Hom(A i, A j)` (the conjugation
 action; its construction is the open part of G4) continuously and with every inertia group over
 `p ∉ T` acting trivially. Then the Hom field `L ⊇ K` exists: finite Galois, `[L:ℚ] ≤ D`, every
 element of the lattice is fixed by `G_L`, and `L` is unramified outside `T` (both forms).
@@ -507,7 +507,8 @@ Leaf used: `PkgI3.HomFreeFinite` (Mumford §19 Thm 3). -/
 theorem homField_of_conjugates (hHFF : HomFreeFinite)
     (K : IntermediateField ℚ Qbar) [FiniteDimensional ℚ K] [IsGalois ℚ K]
     (hKF : Module.finrank ℚ K ≤ ZInQ.heightF0)
-    {n : ℕ} (hn : n ≤ ZInQ.heightF0) (A : Fin n → AbVar Qbar) (hdim : ∀ i, (A i).dim = 2)
+    {Idx : Type} [Fintype Idx] (hn : Fintype.card Idx ≤ ZInQ.heightF0) (A : Idx → AbVar Qbar)
+    (hdim : ∀ i, (A i).dim = 2)
     (ρ : Gal →* (HomLattice A ≃ₗ[ℤ] HomLattice A))
     (hcont : ∀ m : HomLattice A, IsOpen {σ : Gal | ρ σ m = m})
     (T : Finset ℕ) (hK : GalUnramifiedOutside K T)
@@ -522,6 +523,67 @@ theorem homField_of_conjugates (hHFF : HomFreeFinite)
     hrank.trans (Nat.mul_le_mul_left _ (Nat.pow_le_pow_left hn 2))
   exact homField_le_heightD K hKF hr (Module.finBasisOfFinrankEq ℤ (HomLattice A) rfl) ρ hcont T
     hK hinert
+
+/-! ### The conjugation action, characterized
+
+For `σ ∈ G_ℚ`, a conjugate of an abelian variety `X` over `ℚ̄` is an `X'` with a pullback square
+`X' → X` over `Spec σ : Spec ℚ̄ → Spec ℚ̄` (the relation used by leaf-qm-fp's `IsBaseChangeOf`).
+`ConjData` records the conjugates of a finite family (`A (σ·i)` is the `σ`-conjugate of `A i`),
+and `IsConjAction D ρ` says that `ρ σ` sends `f : A i → A j` to its conjugate
+`σf : A (σ·i) → A (σ·j)`, the morphism with `σf ∘ g_{σ,i} = g_{σ,j} ∘ f`. Such a `ρ` is unique
+(`isConjAction_unique`): the action in `homField_of_conjugates` is then *the* conjugation action
+of `G_ℚ` on the geometric Hom groups among the conjugates (the endomorphism lattice of the Weil
+restriction), not an arbitrary one. Its existence (`ConjActionExists`) is open. -/
+
+open AlgebraicGeometry
+
+/-- `Spec σ : Spec ℚ̄ → Spec ℚ̄`. -/
+noncomputable abbrev specGal (σ : Gal) :
+    Spec (CommRingCat.of Qbar) ⟶ Spec (CommRingCat.of Qbar) :=
+  Spec.map (CommRingCat.ofHom (σ : Qbar →+* Qbar))
+
+/-- Conjugation data for a finite family of abelian varieties over `ℚ̄`: a permutation action of
+`G_ℚ` on the indices and, for every `σ` and `i`, a pullback square exhibiting `A (σ·i)` as the
+base change of `A i` along `Spec σ`. -/
+structure ConjData (Idx : Type) where
+  A : Idx → AbVar Qbar
+  act : Gal → Equiv.Perm Idx
+  g : ∀ (σ : Gal) (i : Idx), (A (act σ i)).X.left ⟶ (A i).X.left
+  pb : ∀ (σ : Gal) (i : Idx),
+    IsPullback (g σ i) (A (act σ i)).X.hom (A i).X.hom (specGal σ)
+
+/-- `ρ` is the conjugation action for the data `D`. -/
+def IsConjAction {Idx : Type} (D : ConjData Idx)
+    (ρ : Gal → HomLattice D.A → HomLattice D.A) : Prop :=
+  ∀ (σ : Gal) (f : HomLattice D.A) (i j : Idx),
+    (ρ σ f (D.act σ i, D.act σ j)).hom.left ≫ D.g σ j = D.g σ i ≫ (f (i, j)).hom.left
+
+/-- **The conjugation action is unique (glue, proved).** -/
+theorem isConjAction_unique {Idx : Type} (D : ConjData Idx)
+    {ρ ρ' : Gal → HomLattice D.A → HomLattice D.A}
+    (h : IsConjAction D ρ) (h' : IsConjAction D ρ') : ρ = ρ' := by
+  funext σ f
+  funext ij
+  obtain ⟨i', j'⟩ := ij
+  obtain ⟨i, rfl⟩ := (D.act σ).surjective i'
+  obtain ⟨j, rfl⟩ := (D.act σ).surjective j'
+  apply AbVar.Hom.ext'
+  apply CategoryTheory.Over.OverMorphism.ext
+  apply (D.pb σ j).hom_ext
+  · rw [h σ f i j, h' σ f i j]
+  · rw [CategoryTheory.Over.w, CategoryTheory.Over.w]
+
+/-- **Open glue target (the Weil-restriction step of G4).** The conjugates carry a `ℤ`-linear
+action of `G_ℚ` on their Hom lattice that is the conjugation action. Proof sketch (STANDARD,
+not formalized): the lift `σf` exists by the pullback property; it is a homomorphism because
+the squares are compatible with the group laws (the base change of a group scheme along
+`Spec σ` is a group scheme, and `g_{σ,i}` is a homomorphism over `Spec σ`); additivity and the
+group law `ρ(στ) = ρ(σ)ρ(τ)` follow from the uniqueness of lifts (`isConjAction_unique`'s
+argument) once the squares compose (`g_{στ,i} = g_{τ,σ⁻¹…}`-pasting, which needs the data to be
+chosen coherently, e.g. from a model `A/K` over a number field). -/
+def ConjActionExists {Idx : Type} (D : ConjData Idx) : Prop :=
+  ∃ ρ : Gal →* (HomLattice D.A ≃ₗ[ℤ] HomLattice D.A), IsConjAction D (fun σ f => ρ σ f)
+
 
 end Lattice
 
