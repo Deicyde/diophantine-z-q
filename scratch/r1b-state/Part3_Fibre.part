@@ -1,0 +1,148 @@
+
+/-! # r1b-state, part 3: g0-thetapoint's `FibreQMPeriod` from R1(b)
+
+`FibreQMPeriod'` below is g0-thetapoint's `HSyn.G0Split.ThetaPt.FibreQMPeriod`
+(scratch/g0-thetapoint/part_theta.lean) restated over the build's declarations, with the same
+text except for names: the build's `PkgI3.AbVar` stands for the scratch copy
+`ZInQ.DefFaltings.AbVar` (in the build `ZInQ.DefFaltings` uses `PkgI3.AbVar` itself, so
+`LeafAdopt.abVarEquiv` is the identity and is dropped), and `CPts`, `IsUniformization` are the
+build's `ZInQ.LeafPush2` ones (the scratch file's `HSyn.G0Split` copies have the same text).
+`FibreOver'` is g0-split's `FibreOver` with the same change.
+
+It follows from the leaf `R01b_ComplexUniformization'` (through `r1bProps_of_leaf`, used for
+clause (a) at the fibre and for the family clauses inside the comparison), the leaf
+`PkgI1.QMHauptmodul`, and two named glue Props:
+* `HauptmodulCompare` (the Möbius comparison of `τ ↦ π(P_τ)` with `QMHauptmodul`'s `f`, used only
+  where `π` is finite and nonzero, as the review's trap list requires);
+* `UnifBaseChange` (transport of a uniformization along base change of the fibre).
+The rest is proved: the embedding `ℚ̄ → ℂ`, the base change of the fibre object to `ℂ` (from the
+naturality clause of `R1fpProps`), the value of `π` there (`ToP1.val_comp`), and `J(u) ≠ 0`. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic ZInQ ZInQ.JHeight
+
+/-- g0-split's `FibreOver` (with `PkgI3.AbVar` for def-faltings' copy). -/
+def FibreOver' (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K) : Prop :=
+  ∃ (emb : K.K →+* Qbar) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) ∧
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X))
+
+/-- g0-thetapoint's `FibreQMPeriod` (GLUE G19), over the build's declarations. -/
+def FibreQMPeriod' : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K), FibreOver' Y Φ π u K A →
+    ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+      (Φu : (Fin 2 → ℂ) → ZInQ.LeafPush2.CPts A σ), ZInQ.LeafPush2.IsUniformization σ Λ Φu ∧
+    ∃ (τ : ℂ) (hτ : 0 < τ.im) (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)),
+      Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
+      PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = ((Jmap u : ℚ) : ℂ)
+
+/-- **GLUE (the Hauptmodul comparison; the analytic half of F1).** For a candidate `(Y, Φ, π)`
+satisfying R1(a)'s clauses, R2's clauses and R1(b)'s family clauses, and given `QMHauptmodul`:
+if a complex object `P` with class `Φ_ℂ(y)` has a QM-compatible uniformization by `Λ_τ`
+(`τ ∈ ℍ`) and `π(y)` is **finite and nonzero**, `π(y) = c`, then `jDen(Ω(τ)) ≠ 0` and
+`jNum(Ω(τ))/jDen(Ω(τ)) = c`.
+
+Why true (model argument, SPECULATIVE until proved; no human review). Let `f` be
+`QMHauptmodul`'s function and `y_τ` the family of `R1bProps` (b). `F(τ) = π(y_τ)` is holomorphic
+into `P¹` (`q3_form_of_R1bProps`); it is `Γ*`-invariant, because for `γ ∈ Γ* = ι(N_B(𝒪)⁺)` the
+lattice `Λ_{γτ}` is a scalar multiple of `ι(n)Λ_τ` (`γ = ι(n)`), so the QM pairs at `τ` and `γτ` are
+twist-isomorphic (`(A, ι∘Ad n) ≅ (A, ι)`-type), and `π` is constant on twist classes (R2's fibre
+clause, transported from `ℚ̄`- to `ℂ`-points: `π` is determined by its values on the dense set of
+`ℚ̄`-points). So `F = g ∘ f` with `g : P¹ → P¹` holomorphic (`f` identifies `Γ*\ℍ` with `P¹`),
+`g` is injective (R2's fibre clause: `π`-fibres are twist classes = `Γ*`-orbits, by R1(b)(a) and
+the lattice computation), hence a Möbius map; `F` and `f` take the values `0, ∞, −16/27` at the
+CM points of discriminants `−4, −3, −24` (R2's CM clauses; `QMHauptmodul`'s value clauses), so
+`g = id` and `π(y_τ) = f(τ)`. For `P` uniformized at `τ` (any level structure), `π(y) = π(y_τ)`
+(same QM pair). Finally, where `f(τ) = c` is finite and nonzero, `jDen(Ω(τ)) ≠ 0`: `jDen ∘ Ω =
+(4ψ₄ ∘ Ω)⁵` and `ψ₄ ∘ Ω` is a nonzero modular form of weight 8 for `Γ*` (signature `(0; 2, 4, 6)`,
+orbifold degree `8/2 · (1/12)·… = 1/3`), so its only zeros are at the order-6 elliptic orbit, the
+disc `−3` points, where `f = ∞`; so `f(τ) = jNum/jDen` there by `QMHauptmodul`'s second clause.
+
+The guards are needed. Without `c ≠ ∞` the clause would claim `jNum/jDen = π(y)` at the disc `−3`
+point, where Lean's `x/0 = 0` makes the left side `0` but `π = ∞`; `c ≠ 0` keeps the clause off
+the disc `−4` points, where Lin–Yang's weighted representative (`ψ₄ = 144j`, `χ₁₀ = −j³/4`)
+degenerates (it is not used for `J(u)`, which is nonzero for `u ∉ 𝒞`). The comparison is with the
+fixed `Ω(τ)` (the type-`μ` principal polarization of rv-qm-polar's Lemma P), never with every
+period matrix of `Λ_τ`: at CM points a product polarization makes the theta product vanish. -/
+def HauptmodulCompare : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R1bProps Y Φ → PkgI1.QMHauptmodul →
+    ∀ (y : fieldPt ℂ ⟶ Y) (P : QML3 ℂ), Φ ℂ y = M3.mk P →
+    ∀ (τ : ℂ) (hτ : 0 < τ.im) (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+      IsQMUnif P hτ.ne' φ →
+    ∀ c : ℂ, c ≠ 0 → π.val (K := ℂ) y.left = OnePoint.some c →
+      PkgI1.jDen (PkgI1.Omega τ) ≠ 0 ∧ PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = c
+
+/-- **GLUE (uniformization along base change; no analytic input).** Let `A` be an abelian
+variety over a number field `K`, `emb : K → ℚ̄` with `A_ℚ̄ ≅ P.A`, `ε : ℚ̄ → ℂ`, and `Pc` the base
+change of `P` along `ε` (`IsBaseChangeOf`). A uniformization `φ : ℂ²/Λ_τ ≃ Pc.A(ℂ)` (bp-analytic's
+`IsUniformization`, the `ι`-compatibility is not needed) gives a uniformization of `A(ℂ)_σ` at
+`σ = ε ∘ emb` with kernel `Λ_τ` (leaf-push2's `IsUniformization`). Why true: `A(ℂ)_σ`,
+`(A_ℚ̄)(ℂ)_ε`, `P.A(ℂ)_ε` and `Pc.A(ℂ)` are identified by the pullback squares (Yoneda), as groups
+(the identifications are morphisms of group objects after composing with the isomorphism, which
+can be chosen to respect the identity: an isomorphism of schemes between abelian varieties is a
+translate of a homomorphism, rigidity); regular functions on opens of `A` pull back to regular
+functions on opens of `Pc.A`, so bp-analytic's (i) gives openness and holomorphy. -/
+def UnifBaseChange : Prop :=
+  ∀ (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K) (emb : K.K →+* Qbar) (P : QML3 Qbar)
+    (ε : Qbar →+* ℂ) (Pc : QML3 ℂ),
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+    IsBaseChangeOf ε P Pc →
+    ∀ (τ : ℂ) (hτ : τ.im ≠ 0) (φ : Torus (QM.qmLattice hτ) ≃+ Additive (Pc.A.Pt ℂ)),
+      Uniformization.IsUniformization Pc.A (QM.qmLattice hτ) φ →
+    ∃ Φu : (Fin 2 → ℂ) → ZInQ.LeafPush2.CPts A (ε.comp emb),
+      ZInQ.LeafPush2.IsUniformization (ε.comp emb) (QM.qmLattice hτ) Φu
+
+/-- `J(u) ≠ 0` off the contact set. -/
+theorem jmap_ne_zero (u : ℚ) (hu : u ∉ contactSet) : Jmap u ≠ 0 := by
+  have hF : u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60) ≠ 0 := by
+    simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, not_or] at hu
+    obtain ⟨h0, h1, h2, h3, h4, h5⟩ := hu
+    refine mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero ?_ ?_) ?_) ?_) ?_) ?_
+    · exact h0
+    all_goals intro h; first
+      | exact h1 (by linarith) | exact h2 (by linarith) | exact h3 (by linarith)
+      | exact h4 (by linarith) | exact h5 (by linarith)
+  unfold Jmap
+  exact div_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero 2 hF)) (pow_ne_zero 6 (G_ne_zero u))
+
+/-- **`FibreQMPeriod` from R1(b) (proved, modulo the two named glue Props).** -/
+theorem fibreQMPeriod_of_r1b (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hC : HauptmodulCompare) (hB : UnifBaseChange) :
+    FibreQMPeriod' := by
+  intro Y Φ π h1 h2 u hu K A hF
+  obtain ⟨emb, y, P, hP, hπ, hiso⟩ := hF
+  have hb : R1bProps Y Φ := r1bProps_of_leaf hR1b h1
+  -- an embedding `ε : ℚ̄ → ℂ`
+  let ε : Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
+  -- the object at the complex point `y_ℂ = y ∘ Spec ε` is the base change of `P`
+  obtain ⟨Pc, hPc, hbc⟩ := h1.2.2.2.1 Qbar ℂ ε y P hP
+  -- the value of `π` at `y_ℂ`
+  have hπc : π.val (K := ℂ) (fieldMap ε ≫ y).left =
+      OnePoint.some (((Jmap u : ℚ) : ℂ)) := by
+    have e1 : π.val (K := ℂ) (fieldMap ε ≫ y).left =
+        (π.val (K := Qbar) y.left).map (ε : Qbar →+* ℂ) :=
+      ToP1.val_comp π (ε : Qbar →+* ℂ) y.left
+    rw [e1, hπ]
+    change OnePoint.some (ε (algebraMap ℚ Qbar (Jmap u))) = _
+    rw [ε.commutes, eq_ratCast]
+  -- R1(b)(a) at `Pc`
+  obtain ⟨τ, hτ, φ, hφ⟩ := hb.1 Pc
+  -- the comparison
+  obtain ⟨-, hj⟩ := hC Y Φ π h1 h2 hb hH (fieldMap ε ≫ y) Pc hPc τ hτ φ hφ
+    _ (by exact_mod_cast jmap_ne_zero u hu) hπc
+  -- the uniformization of `A(ℂ)_σ`
+  obtain ⟨Φu, hΦu⟩ := hB K A emb P (ε : Qbar →+* ℂ) Pc hiso hbc τ hτ.ne' φ hφ.unif
+  refine ⟨(ε : Qbar →+* ℂ).comp emb, QM.qmLattice hτ.ne', Φu, hΦu, τ, hτ, LinearEquiv.refl ℂ _,
+    ?_, hj⟩
+  convert Submodule.map_id (QM.qmLattice hτ.ne')
+  exact LinearMap.ext fun v => rfl
+
+end R1bState

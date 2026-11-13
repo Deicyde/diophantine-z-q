@@ -1,6 +1,8 @@
 import ZInQKernel.HDecomp.Analytic.Uniformization
 import ZInQKernel.HDecomp.Analytic.QMLattice
 import ZInQKernel.HDecomp.QM.Pin
+import ZInQKernel.HDecomp.LeafPush2.R22
+import ZInQKernel.HDecomp.Assembly
 
 /-! # r1b-state, part 0: pkg-I1's definitions (`PkgI1`), copied verbatim from
 `scratch/h-decomposition/Leaves.lean` lines 104-316 (the `PkgI1` section through
@@ -517,3 +519,348 @@ theorem q3_form_of_R1bProps {Y : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv
   exact ⟨y, hb, holomorphicP1On_of_family y hc⟩
 
 end R1bState
+
+/-! # r1b-state, part 3: g0-thetapoint's `FibreQMPeriod` from R1(b)
+
+`FibreQMPeriod'` below is g0-thetapoint's `HSyn.G0Split.ThetaPt.FibreQMPeriod`
+(scratch/g0-thetapoint/part_theta.lean) restated over the build's declarations, with the same
+text except for names: the build's `PkgI3.AbVar` stands for the scratch copy
+`ZInQ.DefFaltings.AbVar` (in the build `ZInQ.DefFaltings` uses `PkgI3.AbVar` itself, so
+`LeafAdopt.abVarEquiv` is the identity and is dropped), and `CPts`, `IsUniformization` are the
+build's `ZInQ.LeafPush2` ones (the scratch file's `HSyn.G0Split` copies have the same text).
+`FibreOver'` is g0-split's `FibreOver` with the same change.
+
+It follows from the leaf `R01b_ComplexUniformization'` (through `r1bProps_of_leaf`, used for
+clause (a) at the fibre and for the family clauses inside the comparison), the leaf
+`PkgI1.QMHauptmodul`, and two named glue Props:
+* `HauptmodulCompare` (the Möbius comparison of `τ ↦ π(P_τ)` with `QMHauptmodul`'s `f`, used only
+  where `π` is finite and nonzero, as the review's trap list requires);
+* `UnifBaseChange` (transport of a uniformization along base change of the fibre).
+The rest is proved: the embedding `ℚ̄ → ℂ`, the base change of the fibre object to `ℂ` (from the
+naturality clause of `R1fpProps`), the value of `π` there (`ToP1.val_comp`), and `J(u) ≠ 0`. -/
+
+noncomputable section
+
+namespace R1bState
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open LeafQM LeafQM.AV PkgI3 BPAnalytic ZInQ ZInQ.JHeight
+
+/-- g0-split's `FibreOver` (with `PkgI3.AbVar` for def-faltings' copy). -/
+def FibreOver' (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) (u : ℚ)
+    (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K) : Prop :=
+  ∃ (emb : K.K →+* Qbar) (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
+    Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) ∧
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X))
+
+/-- g0-thetapoint's `FibreQMPeriod` (GLUE G19), over the build's declarations. -/
+def FibreQMPeriod' : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K), FibreOver' Y Φ π u K A →
+    ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+      (Φu : (Fin 2 → ℂ) → ZInQ.LeafPush2.CPts A σ), ZInQ.LeafPush2.IsUniformization σ Λ Φu ∧
+    ∃ (τ : ℂ) (hτ : 0 < τ.im) (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)),
+      Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
+      PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = ((Jmap u : ℚ) : ℂ)
+
+/-- **GLUE (the Hauptmodul comparison; the analytic half of F1).** For a candidate `(Y, Φ, π)`
+satisfying R1(a)'s clauses, R2's clauses and R1(b)'s family clauses, and given `QMHauptmodul`:
+if a complex object `P` with class `Φ_ℂ(y)` has a QM-compatible uniformization by `Λ_τ`
+(`τ ∈ ℍ`) and `π(y)` is **finite and nonzero**, `π(y) = c`, then `jDen(Ω(τ)) ≠ 0` and
+`jNum(Ω(τ))/jDen(Ω(τ)) = c`.
+
+Why true (model argument, SPECULATIVE until proved; no human review). Let `f` be
+`QMHauptmodul`'s function and `y_τ` the family of `R1bProps` (b). `F(τ) = π(y_τ)` is holomorphic
+into `P¹` (`q3_form_of_R1bProps`); it is `Γ*`-invariant, because for `γ ∈ Γ* = ι(N_B(𝒪)⁺)` the
+lattice `Λ_{γτ}` is a scalar multiple of `ι(n)Λ_τ` (`γ = ι(n)`), so the QM pairs at `τ` and `γτ` are
+twist-isomorphic (`(A, ι∘Ad n) ≅ (A, ι)`-type), and `π` is constant on twist classes (R2's fibre
+clause, transported from `ℚ̄`- to `ℂ`-points: `π` is determined by its values on the dense set of
+`ℚ̄`-points). So `F = g ∘ f` with `g : P¹ → P¹` holomorphic (`f` identifies `Γ*\ℍ` with `P¹`),
+`g` is injective (R2's fibre clause: `π`-fibres are twist classes = `Γ*`-orbits, by R1(b)(a) and
+the lattice computation), hence a Möbius map; `F` and `f` take the values `0, ∞, −16/27` at the
+CM points of discriminants `−4, −3, −24` (R2's CM clauses; `QMHauptmodul`'s value clauses), so
+`g = id` and `π(y_τ) = f(τ)`. For `P` uniformized at `τ` (any level structure), `π(y) = π(y_τ)`
+(same QM pair). Finally, where `f(τ) = c` is finite and nonzero, `jDen(Ω(τ)) ≠ 0`: `jDen ∘ Ω =
+(4ψ₄ ∘ Ω)⁵` and `ψ₄ ∘ Ω` is a nonzero modular form of weight 8 for `Γ*` (signature `(0; 2, 4, 6)`,
+orbifold degree `8/2 · (1/12)·… = 1/3`), so its only zeros are at the order-6 elliptic orbit, the
+disc `−3` points, where `f = ∞`; so `f(τ) = jNum/jDen` there by `QMHauptmodul`'s second clause.
+
+The guards are needed. Without `c ≠ ∞` the clause would claim `jNum/jDen = π(y)` at the disc `−3`
+point, where Lean's `x/0 = 0` makes the left side `0` but `π = ∞`; `c ≠ 0` keeps the clause off
+the disc `−4` points, where Lin–Yang's weighted representative (`ψ₄ = 144j`, `χ₁₀ = −j³/4`)
+degenerates (it is not used for `J(u)`, which is nonzero for `u ∉ 𝒞`). The comparison is with the
+fixed `Ω(τ)` (the type-`μ` principal polarization of rv-qm-polar's Lemma P), never with every
+period matrix of `Λ_τ`: at CM points a product polarization makes the theta product vanish. -/
+def HauptmodulCompare : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R2fpProps Y Φ π → R1bProps Y Φ → PkgI1.QMHauptmodul →
+    ∀ (y : fieldPt ℂ ⟶ Y) (P : QML3 ℂ), Φ ℂ y = M3.mk P →
+    ∀ (τ : ℂ) (hτ : 0 < τ.im) (φ : Torus (QM.qmLattice hτ.ne') ≃+ Additive (P.A.Pt ℂ)),
+      IsQMUnif P hτ.ne' φ →
+    ∀ c : ℂ, c ≠ 0 → π.val (K := ℂ) y.left = OnePoint.some c →
+      PkgI1.jDen (PkgI1.Omega τ) ≠ 0 ∧ PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = c
+
+/-- **GLUE (uniformization along base change; no analytic input).** Let `A` be an abelian
+variety over a number field `K`, `emb : K → ℚ̄` with `A_ℚ̄ ≅ P.A`, `ε : ℚ̄ → ℂ`, and `Pc` the base
+change of `P` along `ε` (`IsBaseChangeOf`). A uniformization `φ : ℂ²/Λ_τ ≃ Pc.A(ℂ)` (bp-analytic's
+`IsUniformization`, the `ι`-compatibility is not needed) gives a uniformization of `A(ℂ)_σ` at
+`σ = ε ∘ emb` with kernel `Λ_τ` (leaf-push2's `IsUniformization`). Why true: `A(ℂ)_σ`,
+`(A_ℚ̄)(ℂ)_ε`, `P.A(ℂ)_ε` and `Pc.A(ℂ)` are identified by the pullback squares (Yoneda), as groups
+(the identifications are morphisms of group objects after composing with the isomorphism, which
+can be chosen to respect the identity: an isomorphism of schemes between abelian varieties is a
+translate of a homomorphism, rigidity); regular functions on opens of `A` pull back to regular
+functions on opens of `Pc.A`, so bp-analytic's (i) gives openness and holomorphy. -/
+def UnifBaseChange : Prop :=
+  ∀ (K : GlueAssembly.NF) (A : PkgI3.AbVar K.K) (emb : K.K →+* Qbar) (P : QML3 Qbar)
+    (ε : Qbar →+* ℂ) (Pc : QML3 ℂ),
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+    IsBaseChangeOf ε P Pc →
+    ∀ (τ : ℂ) (hτ : τ.im ≠ 0) (φ : Torus (QM.qmLattice hτ) ≃+ Additive (Pc.A.Pt ℂ)),
+      Uniformization.IsUniformization Pc.A (QM.qmLattice hτ) φ →
+    ∃ Φu : (Fin 2 → ℂ) → ZInQ.LeafPush2.CPts A (ε.comp emb),
+      ZInQ.LeafPush2.IsUniformization (ε.comp emb) (QM.qmLattice hτ) Φu
+
+/-- `J(u) ≠ 0` off the contact set. -/
+theorem jmap_ne_zero (u : ℚ) (hu : u ∉ contactSet) : Jmap u ≠ 0 := by
+  have hF : u * (u + 15) * (u + 20) * (u + 24) * (u + 30) * (u + 60) ≠ 0 := by
+    simp only [contactSet, Finset.mem_insert, Finset.mem_singleton, not_or] at hu
+    obtain ⟨h0, h1, h2, h3, h4, h5⟩ := hu
+    refine mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero (mul_ne_zero ?_ ?_) ?_) ?_) ?_) ?_
+    · exact h0
+    all_goals intro h; first
+      | exact h1 (by linarith) | exact h2 (by linarith) | exact h3 (by linarith)
+      | exact h4 (by linarith) | exact h5 (by linarith)
+  unfold Jmap
+  exact div_ne_zero (mul_ne_zero (by norm_num) (pow_ne_zero 2 hF)) (pow_ne_zero 6 (G_ne_zero u))
+
+/-- **`FibreQMPeriod` from R1(b) (proved, modulo the two named glue Props).** -/
+theorem fibreQMPeriod_of_r1b (hR1b : R01b_ComplexUniformization')
+    (hH : PkgI1.QMHauptmodul) (hC : HauptmodulCompare) (hB : UnifBaseChange) :
+    FibreQMPeriod' := by
+  intro Y Φ π h1 h2 u hu K A hF
+  obtain ⟨emb, y, P, hP, hπ, hiso⟩ := hF
+  have hb : R1bProps Y Φ := r1bProps_of_leaf hR1b h1
+  -- an embedding `ε : ℚ̄ → ℂ`
+  let ε : Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
+  -- the object at the complex point `y_ℂ = y ∘ Spec ε` is the base change of `P`
+  obtain ⟨Pc, hPc, hbc⟩ := h1.2.2.2.1 Qbar ℂ ε y P hP
+  -- the value of `π` at `y_ℂ`
+  have hπc : π.val (K := ℂ) (fieldMap ε ≫ y).left =
+      OnePoint.some (((Jmap u : ℚ) : ℂ)) := by
+    have e1 : π.val (K := ℂ) (fieldMap ε ≫ y).left =
+        (π.val (K := Qbar) y.left).map (ε : Qbar →+* ℂ) :=
+      ToP1.val_comp π (ε : Qbar →+* ℂ) y.left
+    rw [e1, hπ]
+    change OnePoint.some (ε (algebraMap ℚ Qbar (Jmap u))) = _
+    rw [ε.commutes, eq_ratCast]
+  -- R1(b)(a) at `Pc`
+  obtain ⟨τ, hτ, φ, hφ⟩ := hb.1 Pc
+  -- the comparison
+  obtain ⟨-, hj⟩ := hC Y Φ π h1 h2 hb hH (fieldMap ε ≫ y) Pc hPc τ hτ φ hφ
+    _ (by exact_mod_cast jmap_ne_zero u hu) hπc
+  -- the uniformization of `A(ℂ)_σ`
+  obtain ⟨Φu, hΦu⟩ := hB K A emb P (ε : Qbar →+* ℂ) Pc hiso hbc τ hτ.ne' φ hφ.unif
+  refine ⟨(ε : Qbar →+* ℂ).comp emb, QM.qmLattice hτ.ne', Φu, hΦu, τ, hτ, LinearEquiv.refl ℂ _,
+    ?_, hj⟩
+  convert Submodule.map_id (QM.qmLattice hτ.ne')
+  exact LinearMap.ext fun v => rfl
+
+end R1bState
+
+/-! # r1b-state, part 4: consistency probes for the clauses of `R1bProps`
+
+The clauses quantify over uniformizations with two compatibilities. If either were inconsistent
+on the torus side, no object could satisfy it and the leaf would be **false** (not vacuous), so
+both are checked here:
+* `iotaC_mem`: for `a ∈ 𝒪` the matrix `ι(a)` maps `Λ_τ` into itself, so `ι(a)` acts on
+  `ℂ²/Λ_τ` (the `ι`-compatibility of `IsQMUnif` is between two genuine actions), and the action is
+  multiplicative (`iotaC_mul`), unital and additive;
+* `level_linear`, `level_ker`: `a ↦ [ι(a)(τ, 1)ᵀ/3]` is `𝒪`-linear with kernel exactly `3𝒪`, the
+  shape of `LeafQM.AV.Level3` (so the level clause of `IsQMUnifLevel` is consistent).
+The domain clause of (b), (c) is nonempty (`I ∈ ℍ`), and `Λ_I` is a genuine full lattice
+(bp-analytic's instances). -/
+
+noncomputable section
+
+namespace R1bState
+
+open LeafQM BPAnalytic Matrix
+
+theorem iota_mul (x y : LeafQM.B) : QM.iota (x * y) = QM.iota x * QM.iota y := by
+  have h2 : Real.sqrt 2 ^ 2 = 2 := Real.sq_sqrt (by norm_num)
+  ext i j
+  fin_cases i <;> fin_cases j <;>
+    simp [QM.iota, QM.Mi, QM.Mj, Matrix.mul_apply, Fin.sum_univ_two] <;> push_cast <;>
+    ring_nf <;> rw [h2] <;> ring
+
+theorem iota_one : QM.iota (1 : LeafQM.B) = 1 := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [QM.iota]
+
+theorem iota_add (x y : LeafQM.B) : QM.iota (x + y) = QM.iota x + QM.iota y := by
+  ext i j; fin_cases i <;> fin_cases j <;> simp [QM.iota, QM.Mi, QM.Mj] <;> push_cast <;> ring
+
+theorem iotaC_mul (x y : LeafQM.B) : iotaC (x * y) = iotaC x * iotaC y := by
+  unfold iotaC
+  rw [iota_mul]
+  exact Matrix.map_mul (f := Complex.ofRealHom)
+
+/-- The explicit formula `ι(x)(τ, 1)ᵀ = ((a+√2b)τ − 3c − 3√2d, (c−√2d)τ + a − √2b)`. -/
+theorem latVec_apply (x : LeafQM.B) (τ : ℂ) :
+    QM.latVec x τ = ![((x.re : ℝ) + √2 * (x.imI : ℝ) : ℝ) * τ - 3 * ((x.imJ : ℝ) : ℂ)
+        - 3 * (√2 : ℂ) * ((x.imK : ℝ) : ℂ),
+      (((x.imJ : ℝ) - √2 * (x.imK : ℝ) : ℝ) : ℂ) * τ + ((x.re : ℝ) : ℂ)
+        - (√2 : ℂ) * ((x.imI : ℝ) : ℂ)] := by
+  ext i
+  fin_cases i <;>
+    simp [QM.latVec, QM.iota, QM.Mi, QM.Mj, Matrix.mulVec, dotProduct, Fin.sum_univ_two] <;>
+    push_cast <;> ring
+
+theorem latVec_mul (a x : LeafQM.B) (τ : ℂ) :
+    QM.latVec (a * x) τ = iotaC a *ᵥ QM.latVec x τ := by
+  rw [latVec_eq, latVec_eq, iotaC_mul, Matrix.mulVec_mulVec]
+
+theorem latVec_add (x y : LeafQM.B) (τ : ℂ) :
+    QM.latVec (x + y) τ = QM.latVec x τ + QM.latVec y τ := by
+  rw [latVec_apply, latVec_apply, latVec_apply]
+  ext i; fin_cases i <;> simp <;> push_cast <;> ring
+
+theorem latVec_ofInt (n : Fin 4 → ℤ) (τ : ℂ) :
+    QM.latVec (ofInt n) τ = ∑ k, n k • QM.qmVec τ k := by
+  simp only [QM.qmVec, Fin.sum_univ_four, QM.latVec0, QM.latVec1, QM.latVec2, QM.latVec3]
+  rw [latVec_apply]
+  ext i; fin_cases i <;> simp [ofInt] <;> push_cast <;> ring
+
+theorem latVec_mem_of_inO {x : LeafQM.B} (hx : InO x) {τ : ℂ} (hτ : τ.im ≠ 0) :
+    QM.latVec x τ ∈ QM.qmLattice hτ := by
+  obtain ⟨n, rfl⟩ := hx
+  rw [latVec_ofInt, QM.qmLattice_eq]
+  exact Submodule.sum_mem _ fun k _ =>
+    Submodule.smul_mem _ _ (Submodule.subset_span ⟨k, rfl⟩)
+
+theorem oBasis_inO (k : Fin 4) : InO (QM.oBasis k) := by
+  refine ⟨Pi.single k 1, ?_⟩
+  fin_cases k <;> ext <;> simp [ofInt, QM.oBasis]
+
+/-- **The action of `𝒪` on the torus is well defined**: `ι(a)Λ_τ ⊆ Λ_τ` for `a ∈ 𝒪`. -/
+theorem iotaC_mem (a : O) {τ : ℂ} (hτ : τ.im ≠ 0) {v : Fin 2 → ℂ}
+    (hv : v ∈ QM.qmLattice hτ) : iotaC (a : LeafQM.B) *ᵥ v ∈ QM.qmLattice hτ := by
+  rw [QM.qmLattice_eq] at hv
+  induction hv using Submodule.span_induction with
+  | mem w hw =>
+    obtain ⟨k, rfl⟩ := hw
+    rw [QM.qmVec, ← latVec_mul]
+    exact latVec_mem_of_inO (O.mul_mem a.2 (oBasis_inO k)) hτ
+  | zero => rw [Matrix.mulVec_zero]; exact Submodule.zero_mem _
+  | add v w _ _ hv hw => rw [Matrix.mulVec_add]; exact Submodule.add_mem _ hv hw
+  | smul n v _ hv =>
+    rw [show n • v = (n : ℂ) • v from (Int.cast_smul_eq_zsmul ℂ n v).symm, Matrix.mulVec_smul,
+      Int.cast_smul_eq_zsmul]
+    exact Submodule.smul_mem _ n hv
+
+/-- **The level map is `𝒪`-linear** (`η(ab) = ι(a)η(b)`, `Level3.linear`'s shape). -/
+theorem level_linear (a b : LeafQM.B) (τ : ℂ) :
+    (1 / 3 : ℂ) • QM.latVec (a * b) τ = iotaC a *ᵥ ((1 / 3 : ℂ) • QM.latVec b τ) := by
+  rw [latVec_mul, Matrix.mulVec_smul]
+
+/-- `x ↦ ι(x)(τ, 1)ᵀ` is injective on `B` for `Im τ ≠ 0`. -/
+theorem latVec_eq_zero {x : LeafQM.B} {τ : ℂ} (hτ : τ.im ≠ 0) (h : QM.latVec x τ = 0) :
+    x = 0 := by
+  have h1 := congrFun h 1
+  rw [latVec_apply] at h1
+  simp only [Matrix.cons_val_one, Matrix.cons_val_zero, Pi.zero_apply] at h1
+  have him := congrArg Complex.im h1
+  have hre := congrArg Complex.re h1
+  simp at him hre
+  have irr : ∀ p q : ℚ, (p : ℝ) = √2 * q → p = 0 ∧ q = 0 := by
+    intro p q hpq
+    by_cases hq : q = 0
+    · subst hq; simp at hpq; exact ⟨by exact_mod_cast hpq, rfl⟩
+    · exfalso
+      apply irrational_sqrt_two
+      refine ⟨p / q, ?_⟩
+      have : (q : ℝ) ≠ 0 := by exact_mod_cast hq
+      push_cast; field_simp; linarith
+  have hcd : (x.imJ : ℝ) = √2 * x.imK := by
+    have := him.resolve_right hτ
+    linarith
+  obtain ⟨hc, hd⟩ := irr _ _ hcd
+  rw [hc, hd] at hre
+  simp at hre
+  have hab : (x.re : ℝ) = √2 * x.imI := by linarith
+  obtain ⟨ha, hb⟩ := irr _ _ hab
+  ext <;> simp [ha, hb, hc, hd]
+
+theorem latVec_smul (q : ℚ) (x : LeafQM.B) (τ : ℂ) :
+    QM.latVec (q • x) τ = (q : ℂ) • QM.latVec x τ := by
+  rw [latVec_apply, latVec_apply]
+  ext i; fin_cases i <;> simp <;> push_cast <;> ring
+
+theorem mem_qmLattice_iff {τ : ℂ} (hτ : τ.im ≠ 0) {v : Fin 2 → ℂ} :
+    v ∈ QM.qmLattice hτ → ∃ n : Fin 4 → ℤ, v = QM.latVec (ofInt n) τ := by
+  rw [QM.qmLattice_eq]
+  intro hv
+  induction hv using Submodule.span_induction with
+  | mem w hw =>
+    obtain ⟨k, rfl⟩ := hw
+    exact ⟨Pi.single k 1, by
+      rw [latVec_ofInt]; simp [Pi.single_apply]⟩
+  | zero => exact ⟨0, by rw [latVec_ofInt]; simp⟩
+  | add v w _ _ hv hw =>
+    obtain ⟨n, rfl⟩ := hv
+    obtain ⟨m, rfl⟩ := hw
+    exact ⟨n + m, by rw [← latVec_add, ofInt_add]⟩
+  | smul k v _ hv =>
+    obtain ⟨n, rfl⟩ := hv
+    exact ⟨k • n, by
+      rw [latVec_ofInt, latVec_ofInt, Finset.smul_sum]
+      refine Finset.sum_congr rfl fun i _ => ?_
+      rw [Pi.smul_apply, smul_eq_mul, mul_smul]⟩
+
+/-- **The level map has kernel exactly `3𝒪`** (`Level3.ker`'s shape): for `a ∈ 𝒪`,
+`ι(a)(τ, 1)ᵀ/3 ∈ Λ_τ` iff `a ∈ 3𝒪`. -/
+theorem level_ker (a : O) {τ : ℂ} (hτ : τ.im ≠ 0) :
+    (1 / 3 : ℂ) • QM.latVec (a : LeafQM.B) τ ∈ QM.qmLattice hτ ↔ ∃ b : O, a = 3 * b := by
+  constructor
+  · intro h
+    obtain ⟨n, hn⟩ := mem_qmLattice_iff hτ h
+    have hb : (ofInt n : LeafQM.B) ∈ O := ⟨n, rfl⟩
+    refine ⟨⟨ofInt n, hb⟩, ?_⟩
+    apply Subtype.ext
+    have h0 : QM.latVec ((a : LeafQM.B) + (-3 : ℚ) • ofInt n) τ = 0 := by
+      rw [latVec_add, latVec_smul, ← hn, smul_smul]
+      ext i; simp only [Pi.add_apply, Pi.smul_apply, smul_eq_mul, Pi.zero_apply]; push_cast; ring
+    have := latVec_eq_zero hτ h0
+    change (a : LeafQM.B) = 3 * ofInt n
+    have e : (3 : LeafQM.B) * ofInt n = (3 : ℚ) • ofInt n := by
+      rw [Algebra.smul_def, map_ofNat]
+    rw [e]
+    have e2 : (a : LeafQM.B) = -((-3 : ℚ) • ofInt n) := eq_neg_of_add_eq_zero_left this
+    rw [e2, ← neg_smul]; norm_num
+  · rintro ⟨b, rfl⟩
+    have e : ((3 * b : O) : LeafQM.B) = (3 : ℚ) • (b : LeafQM.B) := by
+      rw [Algebra.smul_def, map_ofNat, Subring.coe_mul]
+      congr 1
+    rw [e, latVec_smul, smul_smul]
+    norm_num
+    exact latVec_mem_of_inO b.2 hτ
+
+/-- The domain of clauses (b), (c) is nonempty and `Λ_I` is a full lattice in `ℂ²`. -/
+example : (0 : ℝ) < (Complex.I).im := by simp
+
+theorem im_I_ne_zero : (Complex.I).im ≠ 0 := by simp
+
+example : IsZLattice ℝ (QM.qmLattice im_I_ne_zero) := inferInstance
+
+end R1bState
+
+/-! ## Axiom audit -/
+#print axioms R1bState.r1bProps_of_leaf
+#print axioms R1bState.R1bProps.of_hom
+#print axioms R1bState.holomorphicP1On_of_family
+#print axioms R1bState.q3_form_of_R1bProps
+#print axioms R1bState.fibreQMPeriod_of_r1b
+#print axioms R1bState.iotaC_mem
+#print axioms R1bState.level_ker
+#print axioms R1bState.level_linear
+#print axioms R1bState.iota_mul
