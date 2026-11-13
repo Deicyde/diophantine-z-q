@@ -5,26 +5,32 @@ import Mathlib.AlgebraicGeometry.AlgClosed.Basic
 import Mathlib.AlgebraicGeometry.ZariskisMainTheorem
 
 /-!
-# homlattice: `HomLatticeCorr` reduced to two narrow analytic statements
+# homlattice: `HomLatticeCorr` reduced to AN3 at every embedding and GAGA
 
 `HomLatticeCorr` (hom-unify, `ZInQKernel/Contrib/HomUnify/Corr.lean`) is
-`HomLinearLift ∧ HomRealize` (`ZInQ.HomUnify.corr_iff_lift_realize`). This file separates, in
-each half, the elementary scheme/lattice content (proved here) from the analytic content (stated
-as narrow hypotheses):
+`HomLinearLift ∧ HomRealize` (`ZInQ.HomUnify.corr_iff_lift_realize`). Main theorems (proved):
 
-* `IsAnalyticHom σ ψ`: the clauses of `IsUniformization` other than kernel and surjectivity
-  (a homomorphism `ℂ^n → A(ℂ)_σ`, open preimages of charts, holomorphic regular functions).
-* **Glue (proved).** `isAnalyticHom_comp`: an algebraic homomorphism `f` preserves analyticity
-  (`Φ_A ≫ f` is analytic); `isAnalyticHom_lin`: `Φ_B ∘ M` is analytic for `ℂ`-linear `M`.
-* **Lifting half.** `AnalyticHomLift` (every analytic homomorphism `ℂ^g → B(ℂ)_σ` factors as
-  `Φ_B ∘ M`, `M` linear) implies `HomLinearLift`. `AnalyticHomLift` is itself proved from the
-  one-variety statement `UnifLocalInverse` (a uniformization has a holomorphic local inverse at
-  `0` whose image is a neighbourhood of the identity) by pure analysis
-  (`eq_fderiv_of_locally_additive`: a locally additive map differentiable at `0` is linear on a
-  ball).
-* **Realization half.** `AnalyticHomAlgebraic` (GAGA + rigidity, for homomorphisms: an analytic
-  homomorphism `ℂ^g → B(ℂ)` killing the lattice of a uniformization of `A` comes from an
-  algebraic homomorphism `A → B`) implies `HomRealize`.
+* `homLatticeCorr_of_strong_gaga : StrongUniformizationExists → GAGAMorphism → HomLatticeCorr`
+  (hence `HomLinearLift`, `T11aHom`, leaf-push2's `T11a_RiemannEnd`);
+* `t11a_riemannEnd_of_leaf_gaga : UniformizationLeafAll → GAGAMorphism → T11a_RiemannEnd` and
+  `t11aHom_of_leaf_gaga`: over `ℂ` the only new input is GAGA; `UniformizationLeafAll` is
+  bp-analytic's AN3 leaf, already in the build;
+* `leafAll_of_strong : StrongUniformizationExists → UniformizationLeafAll`.
+
+The two analytic statements:
+* `StrongUniformizationExists`: bp-analytic's AN3 leaf at every `K` and `σ : K → ℂ`
+  (`IsStrongUnif` = bp's `IsUniformization` field by field, `isStrongUnif_of_bp` /
+  `bp_of_isStrongUnif` at `σ = id`);
+* `GAGAMorphism`: a holomorphic homomorphism `A^an → B^an` (given through a strong uniformization
+  of `A`) is an algebraic morphism.
+
+Proved glue: `isAnalyticHom_comp` (algebraic homomorphisms are analytic), `isAnalyticHom_lin`,
+the lifting argument (`continuous_symm_comp_strong`, `exists_realLinear_of_continuous`,
+`exists_complexLinear_of_analytic_strong`, `surjective_of_proj_comp_surjective`), rigidity (copied
+from mul-rigidity: a pointed morphism is a homomorphism), and the factorization of a weak
+uniformization through a strong one (`analyticMapAlgebraic_of_gaga'`). An alternative one-variety
+form of the lifting input, `UnifLocalInverse`, with the pure-analysis lemma
+`eq_fderiv_of_locally_additive`, is kept (`analyticHomLift_of_unifLocalInverse`).
 -/
 
 /-! ### Copy: rigidity (scratch/alg-frob-red/src_Rigidity.lean, lines 18-183, verbatim; task

@@ -1,20 +1,20 @@
-scratch/homlattice/HomLattice.lean:257:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:263:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:257:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+scratch/homlattice/HomLattice.lean:263:19: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/homlattice/HomLattice.lean:259:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:265:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/homlattice/HomLattice.lean:259:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+scratch/homlattice/HomLattice.lean:265:19: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
 
 Hint: Replace the deprecated name:
   d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/homlattice/HomLattice.lean:715:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/homlattice/HomLattice.lean:721:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
