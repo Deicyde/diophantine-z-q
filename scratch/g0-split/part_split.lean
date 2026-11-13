@@ -70,16 +70,7 @@ def StableHeightBaseChange : Prop :=
     (A : ZInQ.DefFaltings.AbVar K),
     stableFaltingsHeight (A.baseChange L) = stableFaltingsHeight A
 
-/-- **Missing piece 3 (glue G2/G4, the fibre field).** Every abelian variety over `ℚ̄` is the base
-change of an abelian variety of the same dimension over a number field `K ⊆ ℚ̄` (spreading out:
-EGA IV₃ 8.8.2, 8.10.5, IV₄ 17.7.8; STANDARD, locators UNVERIFIED). With A4
-(`exists_fibre_object`, proved from R1-R2) this gives `fibre_descent` below. -/
-def DescentToNumberField : Prop :=
-  ∀ B : PkgI3.AbVar Qbar, ∃ (K : GlueAssembly.NF) (emb : K.K →+* Qbar)
-    (A : ZInQ.DefFaltings.AbVar K.K), A.dim = B.dim ∧
-    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ B.X))
-
-/-- **Missing piece 4 (glue G18/E2: R18 applied to `X₁(N)`).** For every `N ≥ 1` and every
+/-- **Missing piece 3 (glue G18/E2: R18 applied to `X₁(N)`).** For every `N ≥ 1` and every
 `J₁(N)` over `ℚ` (`IsJ1`), `h_F(J₁(N)) ≤ 1.3·10⁷N¹²` (Javanpeykar, ANT 8 (2014), Thm 1.1.1 with
 §2.3, applied with `g, deg_B ≤ [SL₂(ℤ):Γ₁(N)] ≤ N²`). Proved parts: the index bound
 (`GlueAssembly.index_Gamma1_le`, `LeafModCurves.belyiDeg_Gamma1_le`, `genus_Gamma1_le`). Missing:
@@ -90,7 +81,7 @@ def JavanpeykarJ1 : Prop :=
     ∀ x : ℝ, stableFaltingsHeight ((LeafAdopt.abVarEquiv ℚ).symm J) = x →
       x ≤ 13000000 * (N : ℝ) ^ 12
 
-/-- **Missing piece 5 (glue E4, the additivity half that the transfer uses).**
+/-- **Missing piece 4 (glue E4, the additivity half that the transfer uses).**
 `h_F(A) + h_F(Z) ≤ h_F(A × Z)` for abelian varieties over a number field (equality holds;
 Faltings 1983 §1; needs Néron models and H5, rv-blueprints F1). -/
 def HeightAdditivity : Prop :=
@@ -98,7 +89,7 @@ def HeightAdditivity : Prop :=
     IsProductOf P.X A.X Z.X → ∀ a z p : ℝ, stableFaltingsHeight A = a →
       stableFaltingsHeight Z = z → stableFaltingsHeight P = p → a + z ≤ p
 
-/-- **Missing piece 6 (glue G17, after Poincaré).** From T8's isogeny `(f, g) : A × Z → J`
+/-- **Missing piece 5 (glue G17, after Poincaré).** From T8's isogeny `(f, g) : A × Z → J`
 (finite and surjective) to Gaudron-Rémond's input: the product `P = A × Z` exists as an abelian
 variety, there is an isogeny `J → P` in the other direction (Mumford §8, Thm 4 / Remark,
 UNVERIFIED), and `dim J = dim A + dim Z`. Definition-level glue (products of abelian varieties,
@@ -111,9 +102,9 @@ def IsogenousProduct : Prop :=
       ZInQ.DefFaltings.IsIsogeny φ ∧ IsProductOf P.X A.X Z.X ∧
       ∀ a n : ℕ, A.dim = a → J.dim = n → ∃ m : ℕ, Z.dim = m ∧ a + m = n
 
-/-- **Missing piece 7 (glue G5-G6 on the actual `A`: QM dichotomy and NoCM).** For `u ∉ 𝒞`, the
-fibre surface `A` stays simple over every finite extension `L` of its field: every nonzero
-`L`-endomorphism is an isogeny (`End⁰(A_ℚ̄) = B` is a division algebra). Proved parts: T27 at
+/-- **Missing piece 6 (glue G5-G6 on the actual `A`: QM dichotomy and NoCM).** For `u ∉ 𝒞`, the
+fibre surface `A` (any number-field model of it) is simple over its field: every nonzero
+endomorphism is an isogeny (because `End⁰(A_ℚ̄) = B` is a division algebra). Proved parts: T27 at
 `B = (2,-3)` (`PkgI3.qmDichotomy_B6`), the Elkies identities and the free `W`-orbit
 (`GlueRepo.PR.fibre_free`), `cm_of_val`. Missing: the instantiation on `A` and the counting with
 R5 (h-decomposition G6). -/
@@ -121,10 +112,9 @@ def FibreSimple : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
     R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
     ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
-    ∀ (L : GlueAssembly.NF) [Algebra K.K L.K],
-      PkgI3.EndDivision (LeafAdopt.abVarEquiv L.K (A.baseChange L.K))
+      PkgI3.EndDivision (LeafAdopt.abVarEquiv K.K A)
 
-/-- **Missing piece 8 (glue G19: F1 and F3 on the actual `A`).** For `u ∉ 𝒞` and the fibre
+/-- **Missing piece 7 (glue G19: F1 and F3 on the actual `A`).** For `u ∉ 𝒞` and the fibre
 surface `A` over `J(u)` with stable height `x`, the ten even theta nulls `z` of `A` (with its
 principal polarization) lie in a number field `K'`, satisfy `Φ(z) = J(u)` (F1: Lin-Yang's Igusa
 invariants, R3, with the theta expression of R4) and Pazuki's bound (F3: R22, Cor. 1.3(2), Deligne
@@ -141,33 +131,39 @@ def ThetaPazuki : Prop :=
         3779136 * (∏ i, z i) ^ 4 / (∑ i, z i ^ 8) ^ 5 = algebraMap ℚ K'.K (Jmap u) ∧
         GlueAssembly.PazukiOutput (Height.logHeight z / Module.finrank ℚ K'.K) x
 
-/-- **Missing piece 9 (glue G7-G16: scalar descent, modularity, conductor).** For `u ∉ 𝒞` and the
-fibre surface `A/K` over `J(u)`: there are a number field `L' ⊇ K` with `[L':ℚ] ≤ QM` (G7, B3),
-a level `1 ≤ N ≤ QM²` (G13-G16, the conductor of the newform `f`), a `J₁(N)` over `ℚ`, and a common
-constituent of `V_ℓ(A_{L'})` and `V_ℓ(J₁(N)_{L'})` as `G_{L'}`-representations (G8-G14: `r_ℓ`, its
-twist, Pan-Berger modularity, the newform and Eichler-Shimura). Here `Q = Q_D`, `M = M_{S_mul}(u)`.
-Proved cores (not on the actual `A`): `GlueDescent.B3Q.b3_degree_le_QM` (B3),
+/-- **Missing piece 8 (glue G2, G4, G7-G16: fibre field, scalar descent, modularity, conductor).**
+For `u ∉ 𝒞` and an object `P` of `Y₃` over `ℚ̄` at a point over `J(u)`: there are a number field
+`L' ⊆ ℚ̄` with `[L':ℚ] ≤ QM` (G2, G4, G7: the fibre field, the Hom field and B3) and a model `A`
+of `P`'s surface over `L'`, a level `1 ≤ N ≤ QM²` (G13-G16: the conductor of the newform `f`), a
+`J₁(N)` over `ℚ`, and a common constituent of `V_ℓ(A)` and `V_ℓ(J₁(N)_{L'})` as
+`G_{L'}`-representations (G8-G14: `r_ℓ`, its twist, Pan-Berger modularity, the newform and
+Eichler-Shimura). Here `Q = Q_D`, `M = M_{S_mul}(u)`. The model and the field are produced
+together because `[L':ℚ] ≤ QM` bounds the field of `A`: quantifying over all models would make the
+piece false. Proved cores (not on the actual `A`): `GlueDescent.B3Q.b3_degree_le_QM` (B3),
 `GlueConductor.level_le` (G16), `GlueConductor.D1_genuine` (D1), `PkgI2.D2_fixed_of_raynaud`,
 `PkgI6.artinConductor_le_of_upper`, `PkgI3.C2_absolutelyIrreducible`, `HSyn.weight_match`,
-`GlueAssembly.twist_finite`, `LeafModCurves.g13_constituent`, `GlueC10.c10`. Missing: the
-instantiation of all of these on `A`, the appendix lemma (G9), oddness (G10, needs T11-T12) and
-Carayol's conductor (R17, a placeholder). -/
+`GlueAssembly.twist_finite`, `LeafModCurves.g13_constituent`, `GlueC10.c10`,
+`PkgI2.goodReduction_of_QM_rational3` (G3), `PkgI2.inertiaTrivial_of_goodReduction` (G11).
+Missing: the instantiation of all of these on `A`, the appendix lemma (G9), oddness (G10, needs
+T11-T12, placeholders) and Carayol's conductor (R17, a placeholder). -/
 def ModularConstituent : Prop :=
   ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
     R1fpProps Y Φ → R2fpProps Y Φ π → ∀ u : ℚ, u ∉ contactSet →
-    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
-    ∃ (L : GlueAssembly.NF) (_ : Algebra K.K L.K) (N : ℕ) (J : PkgI3.AbVar ℚ),
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+      π.val (K := Qbar) y.left = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+    ∃ (L : GlueAssembly.NF) (emb : L.K →+* Qbar) (A : ZInQ.DefFaltings.AbVar L.K) (N : ℕ)
+      (J : PkgI3.AbVar ℚ),
+      (letI : Algebra L.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) ∧
       0 < N ∧ LeafModCurves.IsJ1 N J ∧
       (N : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ^ 2 ∧
       (Module.finrank ℚ L.K : ℝ) ≤ heightQ heightD * (contactSupport Mult.S_mul u : ℝ) ∧
-      CommonConstituent (LeafAdopt.abVarEquiv L.K (A.baseChange L.K))
+      CommonConstituent (LeafAdopt.abVarEquiv L.K A)
         (LeafAdopt.abVarEquiv L.K (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K))
 
-/-- The nine missing pieces, bundled. -/
+/-- The eight missing pieces, bundled. -/
 structure MissingPieces : Prop where
   dimBaseChange : DimBaseChange
   stableHeightBaseChange : StableHeightBaseChange
-  descent : DescentToNumberField
   javanpeykar : JavanpeykarJ1
   additivity : HeightAdditivity
   isogenousProduct : IsogenousProduct
@@ -177,16 +173,21 @@ structure MissingPieces : Prop where
 
 /-! ### Proved connective pieces -/
 
-/-- **A4 + descent (proved).** From A4 (`exists_fibre_object`'s fibre clause) and
-`DescentToNumberField`: over `J(u)` there is an abelian surface over a number field. -/
-theorem fibre_descent (hDesc : DescentToNumberField) {Y : Over (Spec (CommRingCat.of ℚ))}
-    {Φ : PtEquiv Y} {π : ToP1 Y.left}
-    (hfib : ∀ t : OnePoint Qbar, ∃ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar),
-      Φ Qbar y = M3.mk P ∧ π.val (K := Qbar) y.left = t) (u : ℚ) :
-    ∃ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), A.dim = 2 ∧ FibreOver Y Φ π u K A := by
-  obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ Qbar (Jmap u)))
-  obtain ⟨K, emb, A, hdim, hiso⟩ := hDesc P.A
-  exact ⟨K, A, hdim.trans P.surface, emb, y, P, hP, hy, hiso⟩
+/-- Isomorphic schemes over `S` have the same Krull dimension. -/
+theorem dim_eq_of_iso {S : Scheme} {X Y : Over S} (e : X ≅ Y) :
+    topologicalKrullDim X.left = topologicalKrullDim Y.left :=
+  IsHomeomorph.topologicalKrullDim_eq _ (Scheme.homeoOfIso ((Over.forget S).mapIso e)).isHomeomorph
+
+/-- **The model is a surface (proved from `DimBaseChange`).** A model over `L` of an abelian
+surface over `ℚ̄` has dimension `2`. -/
+theorem model_dim (hDim : DimBaseChange) {L : Type} [Field L] (emb : L →+* Qbar)
+    (A : ZInQ.DefFaltings.AbVar L) (B : PkgI3.AbVar Qbar)
+    (hiso : letI : Algebra L Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ B.X))
+    (hB : B.dim = 2) : A.dim = 2 := by
+  letI : Algebra L Qbar := emb.toAlgebra
+  obtain ⟨e⟩ : Nonempty ((A.baseChange Qbar).X ≅ B.X) := hiso
+  rw [← hDim L Qbar A, ← hB]
+  exact dim_eq_of_iso e
 
 /-- `log κ` of Gaudron-Rémond, computed. -/
 theorem log_grKappa (g d : ℕ) (x : ℝ) (hg : 1 ≤ g) (hd : 1 ≤ d) :
@@ -264,54 +265,62 @@ theorem hom_of_common (r : ResearchLeaves) (t : TextbookLeaves) {K : Type} [Fiel
 end G0Split
 
 open G0Split in
-/-- **The glue G1-G17 and G19 (non-Arakelov part), split (g0-split).** The leaves and the nine
-missing glue pieces (`G0Split.MissingPieces`, each a `def … : Prop` naming its glue step) give
+/-- **The glue G1-G17 and G19 (non-Arakelov part), split (g0-split).** The leaves and the eight
+missing glue pieces (each a `def … : Prop` in `G0Split` whose docstring names its glue step) give
 glue-assembly's interface `GlueOutputs` at `S = Mult.S_mul`. Applied proved pieces: A4
-(`LeafQM.AV.exists_fibre_object`), `fibre_descent`, H5's finiteness, E1
-(`hom_of_common`), T8 (Poincaré), E2's `dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`, from T34),
-and the E3-E4 numerics (`transfer_core`, from R19-R21). The non-CM disjunct is used (G6). -/
-theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves) (m : MissingPieces) :
+(`LeafQM.AV.exists_fibre_object`, from R1-R2), `model_dim`, H5's finiteness
+(`faltingsHeight_coe`), E1 (`hom_of_common`: R9, T26, glue-ssbc), T8 (Poincaré, a leaf), E2's
+`dim J₁(N) ≤ N²` (`LeafModCurves.dim_J1_le`, from T34), and the E3-E4 numerics (`transfer_core`,
+from R19-R21). The non-CM disjunct is used (G6, NoCM). -/
+theorem glueOutputs_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
+    (hDim : DimBaseChange) (hBC : StableHeightBaseChange) (hJav : JavanpeykarJ1)
+    (hAdd : HeightAdditivity) (hProd : IsogenousProduct) (hSimp : FibreSimple)
+    (hTheta : ThetaPazuki) (hMod : ModularConstituent) :
     GlueAssembly.GlueOutputs ZInQ.Mult.S_mul := by
+  -- A4: the moduli data and an object over every value
   obtain ⟨Y, Φ, π, h1, h2, hfib⟩ :=
     LeafQM.AV.exists_fibre_object (LeafAdopt.R1R2fp_of_rep r.r1r2)
   intro u hu
-  obtain ⟨K, A, hA2, hFib⟩ := fibre_descent m.descent hfib u
+  obtain ⟨y, P, hP, hy⟩ := hfib (OnePoint.some (algebraMap ℚ Qbar (ZInQ.JHeight.Jmap u)))
+  -- G2-G16 (missing piece 8): the field `L'`, the model `A`, the level `N`, `J₁(N)`
+  obtain ⟨L, emb, A, N, J, hiso, hN0, hJ1, hNQ, hdQ, hCC⟩ := hMod Y Φ π h1 h2 u hu y P hP hy
+  have hFib : FibreOver Y Φ π u L A := ⟨emb, y, P, hP, hy, hiso⟩
+  have hA2 : A.dim = 2 := model_dim hDim emb A P.A hiso P.surface
+  -- H5: the stable height of `A` is real
   have hfin := r.h5.1
   have hx : ZInQ.DefFaltings.stableFaltingsHeight A = ZInQ.DefFaltings.faltingsHeight A :=
     (ZInQ.DefFaltings.faltingsHeight_coe hfin A).symm
-  obtain ⟨K', z, hF1, hPaz⟩ :=
-    m.thetaPazuki Y Φ π h1 h2 u hu K A hFib _ hx
+  -- G19 (missing piece 7): the theta point and Pazuki
+  obtain ⟨K', z, hF1, hPaz⟩ := hTheta Y Φ π h1 h2 u hu L A hFib _ hx
   refine ⟨K', z, ZInQ.DefFaltings.faltingsHeight A, hF1, hPaz, Or.inl ?_⟩
-  obtain ⟨L, alg, N, J, hN0, hJ1, hNQ, hdQ, hCC⟩ :=
-    m.modularConstituent Y Φ π h1 h2 u hu K A hFib
-  letI := alg
-  -- E1: a nonzero homomorphism `A_L → J_L`
+  -- E1: a nonzero homomorphism `A → J₁(N)_{L'}`
   obtain ⟨f, hf⟩ := hom_of_common r t _ _ hCC
-  -- G5-G6: `A_L` simple; T8: Poincaré
-  obtain ⟨Z, g, hiso⟩ := t.t8 L.K _ _ (m.fibreSimple Y Φ π h1 h2 u hu K A hFib L) f hf
-  obtain ⟨P, φ, hφ, hPprod, hdims⟩ := m.isogenousProduct L.K _ _ _ f g hiso
+  -- G5-G6 (missing piece 6): `A` simple; T8: Poincaré
+  obtain ⟨Z, g, hisoZ⟩ := t.t8 L.K _ _ (hSimp Y Φ π h1 h2 u hu L A hFib) f hf
+  -- missing piece 5: `A × Z` and the isogeny `J₁(N)_{L'} → A × Z`
+  obtain ⟨Pr, φ, hφ, hPprod, hdims⟩ := hProd L.K _ _ _ f g hisoZ
   -- E2: `dim J₁(N) ≤ N²`
   obtain ⟨gJ, hgJ, hgN⟩ := LeafModCurves.dim_J1_le t.t34 N hN0 J hJ1
   have hJLd : (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K).dim = (gJ : WithBot ℕ∞) :=
-    (m.dimBaseChange ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)).trans hgJ
-  have hALd : (A.baseChange L.K).dim = ((2 : ℕ) : WithBot ℕ∞) :=
-    (m.dimBaseChange K.K L.K A).trans (by rw [hA2]; rfl)
+    (hDim ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)).trans hgJ
+  have hALd : A.dim = ((2 : ℕ) : WithBot ℕ∞) := by rw [hA2]; rfl
   obtain ⟨gZ, hZd, hsum⟩ := hdims 2 gJ hALd hJLd
-  -- heights
-  have hxJ : ZInQ.DefFaltings.stableFaltingsHeight (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) =
+  -- heights (H5, missing pieces 2-4)
+  have hxJ : ZInQ.DefFaltings.stableFaltingsHeight
+      (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) =
       ZInQ.DefFaltings.faltingsHeight ((LeafAdopt.abVarEquiv ℚ).symm J) := by
-    rw [m.stableHeightBaseChange ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)]; exact (ZInQ.DefFaltings.faltingsHeight_coe hfin ((LeafAdopt.abVarEquiv ℚ).symm J)).symm
-  have hxA : ZInQ.DefFaltings.stableFaltingsHeight (A.baseChange L.K) =
-      ZInQ.DefFaltings.faltingsHeight A := by
-    rw [m.stableHeightBaseChange K.K L.K A]; exact hx
-  have hyP := (ZInQ.DefFaltings.faltingsHeight_coe hfin P).symm
+    rw [hBC ℚ L.K ((LeafAdopt.abVarEquiv ℚ).symm J)]
+    exact (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
+  have hyP := (ZInQ.DefFaltings.faltingsHeight_coe hfin Pr).symm
   have hzZ := (ZInQ.DefFaltings.faltingsHeight_coe hfin ((LeafAdopt.abVarEquiv L.K).symm Z)).symm
-  have hadd := m.additivity L.K P (A.baseChange L.K) ((LeafAdopt.abVarEquiv L.K).symm Z) hPprod _ _ _ hxA hzZ hyP
-  have hJav := m.javanpeykar N hN0 J hJ1 _ (ZInQ.DefFaltings.faltingsHeight_coe hfin ((LeafAdopt.abVarEquiv ℚ).symm J)).symm
+  have hadd := hAdd L.K Pr A ((LeafAdopt.abVarEquiv L.K).symm Z) hPprod _ _ _ hx hzZ hyP
+  have hJb := hJav N hN0 J hJ1 _ (ZInQ.DefFaltings.faltingsHeight_coe hfin _).symm
   have hN1 : (1 : ℝ) ≤ N := by exact_mod_cast hN0
   have hgN' : (gJ : ℝ) ≤ (N : ℝ) ^ 2 := by exact_mod_cast hgN
-  exact transfer_core r.r19 r.r20 r.r21 (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) P (A.baseChange L.K) ((LeafAdopt.abVarEquiv L.K).symm Z) gJ gZ hJLd hZd
-    (by omega) (by omega) φ hφ _ _ _ _ hxJ hyP hzZ hadd hN1 hNQ hJav hgN' hdQ
+  -- E3-E4 (proved from R19-R21)
+  exact transfer_core r.r19 r.r20 r.r21 (((LeafAdopt.abVarEquiv ℚ).symm J).baseChange L.K) Pr A
+    ((LeafAdopt.abVarEquiv L.K).symm Z) gJ gZ hJLd hZd (by omega) (by omega) φ hφ _ _ _ _ hxJ hyP
+    hzZ hadd hN1 hNQ hJb hgN' hdQ
 
 /-- **G18-G20, proved** (glue-assembly): `GlueOutputs Mult.S_mul → SixContactMin`, through F2
 over Mathlib's Weil heights, the E2-E4 and F3 arithmetic, the final constant, and F4.
@@ -325,15 +334,18 @@ theorem jHeightBound_copy_iff :
     GlueAssembly.JHeightBound ZInQ.Mult.S_mul ↔ ZInQ.JHeight.JHeightBound ZInQ.Mult.S_mul :=
   Iff.rfl
 
-/-- **G0. The leaves and the nine missing glue pieces imply `SixContactMin`** (no `sorry`). -/
+/-- **G0. The leaves and the eight missing glue pieces imply `SixContactMin`** (no `sorry`). -/
 theorem sixContactMin_of_leaves (r : ResearchLeaves) (t : TextbookLeaves)
     (m : G0Split.MissingPieces) : ZInQ.SixContactMin :=
-  sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t m)
+  sixContactMin_of_glueOutputs (glueOutputs_of_leaves r t m.dimBaseChange
+    m.stableHeightBaseChange m.javanpeykar m.additivity m.isogenousProduct m.fibreSimple
+    m.thetaPazuki m.modularConstituent)
 
 end HSyn
 
 end
 
+#print axioms HSyn.glueOutputs_of_leaves
 #print axioms HSyn.sixContactMin_of_leaves
 #print axioms HSyn.G0Split.transfer_core
 #print axioms HSyn.G0Split.semisimpleBaseChange
