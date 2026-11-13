@@ -23,10 +23,10 @@ N1-loc, N1-ab, N2-loc and NL plus these five glue statements. Alternatively, wit
 as N2-loc⁺ (persistence under extensions, same SGA 7 IX sources), N2-g2 disappears and four glue
 statements remain (`…_mono`).
 
-**What compiles.** `scratch/neron-lg/NeronLG.lean` (about 1450 lines) imports only
-`ZInQKernel.HDecomp.Faltings.H5BaseChange`. It has no sorry and no axiom, and its 22
+**What compiles.** `scratch/neron-lg/NeronLG.lean` (about 1500 lines) imports only
+`ZInQKernel.HDecomp.Faltings.H5BaseChange`. It has no sorry and no axiom, and its 24
 `#print axioms` are all standard. It contains:
-- every DVR of a number field is `𝓞_{K,v}` (`dvrAt_center`), and only finitely many miss `1/f`;
+- every proper valuation subring of a number field is a DVR `𝓞_{K,v}` (`dvrAt_center'`); DVRs restrict to DVRs; only finitely many miss `1/f`;
 - composita of finitely many fields;
 - localization of Néron models from NL;
 - N1-loc follows from N1-self and NL;

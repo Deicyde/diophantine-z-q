@@ -2,9 +2,9 @@
 
 Status: research note (task neron-lg, 2026-11-13).
 
-- **Lean:** `scratch/neron-lg/NeronLG.lean` (about 1300 lines). It imports only
+- **Lean:** `scratch/neron-lg/NeronLG.lean` (about 1500 lines). It imports only
   `ZInQKernel.HDecomp.Faltings.H5BaseChange` and was checked with `lake env lean`. It has no `sorry`
-  and no `axiom`. All 22 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
+  and no `axiom`. All 24 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
   (VERIFIED).
 - **Results log:** `scratch/neron-lg/log.md`.
 - **Statements under study:** the two glue Props of task tau-n1n2 (`scratch/tau-n1n2/N1N2.lean`,
@@ -91,6 +91,8 @@ Other results, all proved (VERIFIED):
 | `goodPlacesAnyField_of`, `goodPlacesAnyField` | N2-g1 (a finite exceptional set of DVRs) from N2-g1' and `badPlaces_finite`; hence a theorem |
 | `isProper_of_abelian` | where `A` has an abelian-scheme model, every local Néron model `𝒩₀` is proper (N1-ab and uniqueness) |
 | `iso_baseChange_of_proper` | if `𝒩₀` is proper, every Néron model `𝒩'` over `O'` is isomorphic to `𝒩₀ ×_{O₀} O'` by a group isomorphism compatible with `gen` (N1-ab and uniqueness) |
+| `dvrAt_center'`, `isDiscreteValuationRing_of_ne_top` | every valuation subring `O ≠ ⊤` of a number field is `𝓞_{K,v}`, hence a DVR |
+| `isDiscreteValuationRing_comap` | for a finite extension `L₁ ⊇ L₀` of number fields and a DVR `O₁ ⊂ L₁`, `O₁ ∩ L₀` is a DVR (a step of N2-g2 and of the N2-loc⁺ argument) |
 | `hasAbelianSchemeAway_zero` | sanity: the conclusion of N1-g1 holds for the zero abelian variety, for every `f` and every presentation of `𝓞_L[1/f]` |
 | `genSq`, `genSq_fst`, `genSq_compat`, `bcA`, `bcA_proj`, `pbCompInv_fst` | reusable pasting lemmas for `Over.pullback`. The generic-fibre identification transported along a commutative square of base changes is a group isomorphism and is compatible with the projections. In particular, the first projection of `Over.pullbackComp` is computed (`pbCompInv_fst`, via `conjugateEquiv_counit`) |
 
@@ -252,6 +254,13 @@ points:
   - N2-g1: superfluous locators;
   - N2-g2: details of the generic-fibre equation;
   - N2-g3: `c` is built from the isomorphism of `IsBaseChangeOf` and `𝒩₀.gen`, not from `𝒱.gen`.
+
+A second read-only review checked the alternative leaf N2-loc⁺ (§4b) and found it OK:
+- It is a consequence of SGA 7 IX 3.6 + 3.3, never stronger, and is neither vacuous nor trivially
+  satisfiable.
+- In Lean it even follows from N2-loc + N2-g2 + `localNeronModelsOf`, so the switch hides nothing.
+- Its docstring point (that `O₁ ∩ L₀` is a DVR over `O`) was added and is now proved
+  (`isDiscreteValuationRing_comap`).
 
 There has been no human review.
 
