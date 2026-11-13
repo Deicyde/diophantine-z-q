@@ -3,6 +3,7 @@ import ZInQKernel.HDecomp.Conductor.Breaks
 import ZInQKernel.Contrib.TauCeti.NumberTheory.Padics.AlgebraicClosure
 import ZInQKernel.Contrib.TauCeti.NumberTheory.NumberField.AutomorphismAction
 import ZInQKernel.Contrib.TauCeti.RingTheory.Ideal.RamificationGroup
+import ZInQKernel.Contrib.Different.Local
 
 /-!
 # G15: the kernel's global ramification groups are the `LadicCond` ones of the closure in `ℚ̄_p`
@@ -583,6 +584,108 @@ theorem mem_upperSet_of_mem_upperAbs {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlg
   hσ (Lj j) (isFinGal_Lj j)
 
 end FinGal
+
+/-! ## §8. Real-indexed lower numbering, Herbrand's `φ` and the upper numbering -/
+
+section Upper
+
+variable [IsGalois ℚ L]
+
+/-- `j ∘ τ = σ ∘ j` forces `τ ∈ D_P`. -/
+theorem mem_stabilizer_of_spec {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : Gal(L/ℚ)}
+    (hστ : ∀ x, j (τ x) = σ (j x)) :
+    τ ∈ MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal := by
+  have hinv : ∀ x, j (τ⁻¹ x) = σ⁻¹ (j x) := fun x => by
+    have := hστ (τ⁻¹ x)
+    rw [show τ (τ⁻¹ x) = x from AlgEquiv.apply_symm_apply τ x] at this
+    rw [this]
+    exact (AlgEquiv.symm_apply_apply σ _).symm
+  rw [MulAction.mem_stabilizer_iff]
+  ext x
+  rw [Ideal.mem_pointwise_smul_iff_inv_smul_mem, mem_primeOf, mem_primeOf, coe_smul,
+    norm_j_apply hinv]
+
+theorem tauOf_mem_stabilizer (σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p) :
+    tauOf j σ ∈ MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal :=
+  mem_stabilizer_of_spec j (tauOf_spec j σ)
+
+/-- The restrictions of `G_{ℚ_p}` to `j L` are exactly `D_P`. -/
+theorem range_tauOf :
+    Set.range (tauOf j) = (MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal : Set Gal(L/ℚ)) := by
+  ext τ
+  constructor
+  · rintro ⟨σ, rfl⟩; exact tauOf_mem_stabilizer j σ
+  · intro hτ
+    obtain ⟨σ, hσ⟩ := exists_lift j hτ
+    exact ⟨σ, (eq_tauOf j hσ).symm⟩
+
+/-- `|Gal(Lj j/ℚ_p)| = |D_P|`, as the number of restrictions of `G_{ℚ_p}` to `Lj j`. -/
+theorem card_restr_univ :
+    Nat.card (LadicCond.restr (Lj j) '' Set.univ) =
+      Nat.card (MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal) := by
+  rw [card_image_eq_of_fibres (LadicCond.restr (Lj j)) (tauOf j) (restr_eq_iff j), Set.image_univ,
+    range_tauOf]
+  rfl
+
+theorem mem_ramSetR_iff {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : Gal(L/ℚ)}
+    (hστ : ∀ x, j (τ x) = σ (j x)) (t : ℝ) :
+    σ ∈ LadicCond.ramSetR (Lj j) t ↔
+      t ≤ -1 ∨ τ ∈ GlueConductor.ramGroup L (primeOf j).asIdeal ⌈t⌉.toNat := by
+  unfold LadicCond.ramSetR
+  split_ifs with ht
+  · simp [ht]
+  · rw [mem_ramSet_iff hστ]; simp [ht]
+
+/-- The kernel's lower filtration of `D_P`: `G_i(P)` as subgroups of `D_P`. -/
+abbrev decompFilt (i : ℕ) : Subgroup (MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal) :=
+  (GlueConductor.ramGroup L (primeOf j).asIdeal i).subgroupOf
+    (MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal)
+
+theorem ramGroup_le_stabilizer (i : ℕ) :
+    GlueConductor.ramGroup L (primeOf j).asIdeal i ≤
+      MulAction.stabilizer Gal(L/ℚ) (primeOf j).asIdeal := by
+  have := Ideal.ramificationGroup_le_stabilizer (G := Gal(L/ℚ)) (primeOf j).asIdeal i
+  rwa [Ideal.ramificationGroup_def] at this
+
+theorem card_decompFilt (i : ℕ) :
+    Nat.card (decompFilt j i) = GlueConductor.ramCard L (primeOf j).asIdeal i :=
+  Nat.card_congr (Subgroup.subgroupOfEquivOfLe (ramGroup_le_stabilizer j i)).toEquiv
+
+open Classical in
+/-- **`g_t(Lj j/ℚ_p)` for real `t`** is the order of `TDifferent.filtR` of the kernel's filtration
+of `D_P`. -/
+theorem ramCardR_Lj_eq (t : ℝ) :
+    LadicCond.ramCardR (Lj j) t = Nat.card (TDifferent.filtR (decompFilt j) t) := by
+  unfold LadicCond.ramCardR LadicCond.ramSetR TDifferent.filtR
+  split_ifs with ht
+  · rw [card_restr_univ]
+    exact (Nat.card_congr (Subgroup.topEquiv).toEquiv).symm
+  · rw [← LadicCond.ramCard, ramCard_Lj_eq, card_decompFilt]
+
+open Classical in
+/-- **Herbrand's function of `Lj j/ℚ_p` is `TDifferent.phiF` of the kernel's filtration of
+`D_P`.** -/
+theorem phiAt_Lj_eq (u : ℝ) : LadicCond.phiAt (Lj j) u = TDifferent.phiF (decompFilt j) u := by
+  unfold LadicCond.phiAt TDifferent.phiF
+  have h0 : (LadicCond.ramCard (Lj j) 0 : ℝ) = (Nat.card (TDifferent.filtR (decompFilt j) 0) : ℝ) := by
+    rw [TDifferent.filtR_zero, card_decompFilt, ramCard_Lj_eq]
+  simp_rw [ramCardR_Lj_eq, h0]
+
+open Classical in
+/-- **The upper numbering of `Lj j/ℚ_p`, read in `D_P ≤ Gal(L/ℚ)`.** For `j ∘ τ = σ ∘ j`,
+`σ ∈ G^v(Lj j/ℚ_p)` iff `τ ∈ G_{ψ(v)}(P)` (or `ψ(v) ≤ -1`), where
+`ψ(v) = inf {u ≥ -1 | v ≤ φ(u)}` and `φ = TDifferent.phiF` of the kernel's filtration. -/
+theorem mem_upperSet_iff {σ : PadicAlgCl p ≃ₐ[ℚ_[p]] PadicAlgCl p} {τ : Gal(L/ℚ)}
+    (hστ : ∀ x, j (τ x) = σ (j x)) (v : ℝ) :
+    σ ∈ LadicCond.upperSet (Lj j) v ↔
+      sInf {u : ℝ | -1 ≤ u ∧ v ≤ TDifferent.phiF (decompFilt j) u} ≤ -1 ∨
+        τ ∈ GlueConductor.ramGroup L (primeOf j).asIdeal
+          ⌈sInf {u : ℝ | -1 ≤ u ∧ v ≤ TDifferent.phiF (decompFilt j) u}⌉.toNat := by
+  unfold LadicCond.upperSet
+  simp_rw [phiAt_Lj_eq]
+  exact mem_ramSetR_iff j hστ _
+
+end Upper
 
 end ZInQ.Contrib.G15.Ladic
 
