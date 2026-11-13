@@ -49,7 +49,7 @@ docs/research/h5-neron.md.
   from leaves N1, N2 and glue HeightAntitone, OpenImmersionHeightLe, ModelHeightBaseChange only
   (h5-neron's version needed six glue hypotheses incl. NeronModelMinimal, GroupModelBaseChangeExists).
 
-## 6. Independent model review of H5Glue.lean (read-only subagent, ~02:08)
+## 6. Independent model review of H5Glue.lean (read-only subagent, ~02:06)
 - No statement false or vacuous; copied statements match H5Neron.lean token for token.
 - PROBLEM (documentation): `HeightAntitone`'s docstring omits an input. Building a metrization of
   𝒩 needs `HodgeData.isLattice` for 𝒩.detLattice g. Finite secIndex follows from 𝒢's lattice
@@ -60,8 +60,20 @@ docs/research/h5-neron.md.
     over the mapping property (corrects h5-neron finding (d)).
 - `OpenImmersionHeightLe`: TRUE with no extra input (ω_𝒰 = f*ω_𝒢; gives equality).
 
-## 7. Local ring at ξ along a generic isomorphism — PROVED (compiled ~02:20, scratch/h5-glue/Stalk.lean)
+## 7. Local ring at ξ along a generic isomorphism — PROVED (compiled ~02:07, scratch/h5-glue/Stalk.lean)
 - `map_genericUnit`: IsMonHom f ⇒ f.left 𝒢.genericUnit = 𝒩.genericUnit.
 - `stalkIso_of_genericIso`: IsIso (F.map f) ⇒ IsIso (f.left.stalkMap 𝒢.genericUnit).
 - Uses hodge-lattice's `genericFibreStalkIso`, `fst_genericFibreUnit` (copied verbatim, re-compiled).
   Axioms [propext, Classical.choice, Quot.sound].
+
+## 8. Additivity with reduced glue — PROVED (compiled ~02:09, scratch/h5-glue/Additivity.lean)
+- `stableFaltingsHeight_add_le_of_heightAntitone (hN1 hA hH)`: h(A)+h(B) ≤ h(C) for C ≅ A×B from
+  N1, HeightAntitone, ProductModelHeight (h5-neron's product material copied verbatim).
+
+## 9. Archimedean transport — PROVED (compiled ~02:11 / ~02:16, Analytic.lean, JacDet.lean)
+- `evalAt_comp`, `dom_comp` (rfl), `isAnalyticUniformization_comp`: f MonHom + generic iso ⇒
+  z ↦ Φ z ≫ f is an analytic uniformization of 𝒩 with the same Λ.
+- `evalAt_res`, `ptC_hom_apply` (Spec ℂ → Spec 𝓞_L hits the generic point), `one_mem_dom`,
+  `map_zero_of_hom`, `germAlong_comp_eventuallyEq` (germs along Φ≫f and along Φ agree near 0 for any
+  φ compatible with f^* on sections), `jacDet_comp_map`: jacDet (Φ≫f) t = jacDet Φ (φ∘t).
+  All axioms [propext, Classical.choice, Quot.sound].

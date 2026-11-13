@@ -1,0 +1,216 @@
+import ZInQKernel.HDecomp.Faltings.Leaves
+
+/-! # h5-glue: analytic uniformizations transport along generic isomorphisms
+
+`isAnalyticUniformization_comp`: if `f : 𝒢 → 𝒩` is a homomorphism of group models that is an
+isomorphism on generic fibres and `Φ : ℂ^g → 𝒢(ℂ)_τ` is an analytic uniformization with period
+lattice `Λ`, then `z ↦ Φ(z) ≫ f` is an analytic uniformization of `𝒩(ℂ)_τ` with the same `Λ`.
+This is the archimedean half of the glue `HeightAntitone` (all except the Jacobian determinants,
+which depend on the germ comparison along `f`). Includes `Pts.lean`. -/
+
+namespace ZInQ.H5Glue
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open NumberField DefFaltings
+open PkgI3 (AbVar)
+
+variable {K : Type} [Field K] {A : AbVar K} {L : Type} [Field L] [NumberField L] [Algebra K L]
+
+noncomputable abbrev jL (L : Type) [Field L] [NumberField L] :
+    Spec (CommRingCat.of L) ⟶ Spec (CommRingCat.of (𝓞 L)) :=
+  Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L))
+
+/-- `ptC τ = Over.map (jL L) (Spec ℂ over L via τ)`. -/
+noncomputable def ptCIso (τ : L →+* ℂ) :
+    GroupModel.ptC (L := L) τ ≅ (Over.map (jL L)).obj (Over.mk (Spec.map (CommRingCat.ofHom τ))) :=
+  Over.isoMk (Iso.refl _) (by
+    simp only [GroupModel.ptC, Over.mk_hom, Over.map_obj_hom, Iso.refl_hom, Category.id_comp]
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp])
+
+/-- Complex points of a group model are complex points of its generic fibre. -/
+noncomputable def ptsEquiv (𝒢 : GroupModel A L) (τ : L →+* ℂ) :
+    𝒢.Pts τ ≃ (Over.mk (Spec.map (CommRingCat.ofHom τ)) ⟶ (Over.pullback (jL L)).obj 𝒢.G) :=
+  ((ptCIso τ).homCongr (Iso.refl 𝒢.G)).trans ((Over.mapPullbackAdj (jL L)).homEquiv _ _)
+
+theorem ptsEquiv_comp (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) (τ : L →+* ℂ) (p : 𝒢.Pts τ) :
+    ptsEquiv 𝒩 τ (p ≫ f) = ptsEquiv 𝒢 τ p ≫ (Over.pullback (jL L)).map f := by
+  simp only [ptsEquiv, Equiv.trans_apply, Iso.homCongr_apply, Iso.refl_hom, Category.comp_id]
+  rw [← Adjunction.homEquiv_naturality_right, Category.assoc]
+
+/-- **A morphism of group models that is an isomorphism on generic fibres is bijective on
+complex points** (at every `τ : L → ℂ`). -/
+theorem pts_comp_bijective (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G)
+    [IsIso ((Over.pullback (jL L)).map f)] (τ : L →+* ℂ) :
+    Function.Bijective (fun p : 𝒢.Pts τ => p ≫ f) := by
+  have key : (fun p : 𝒢.Pts τ => p ≫ f) = (ptsEquiv 𝒩 τ).symm ∘
+      (fun q => q ≫ (Over.pullback (jL L)).map f) ∘ ptsEquiv 𝒢 τ := by
+    funext p
+    simp only [Function.comp, ← ptsEquiv_comp, Equiv.symm_apply_apply]
+  rw [key]
+  refine (Equiv.bijective _).comp (Function.Bijective.comp ?_ (Equiv.bijective _))
+  exact ⟨fun a b h => (cancel_mono _).mp h, fun c => ⟨c ≫ inv ((Over.pullback (jL L)).map f),
+    by simp⟩⟩
+
+
+/-- Values of regular functions along a morphism: `s(p ≫ f) = (f^* s)(p)`. -/
+theorem evalAt_comp (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) {τ : L →+* ℂ} (p : 𝒢.Pts τ)
+    (U : 𝒩.G.left.Opens) (s : Γ(𝒩.G.left, U)) :
+    𝒩.evalAt (p ≫ f) U s = 𝒢.evalAt p (f.left ⁻¹ᵁ U) (f.left.app U s) := by
+  unfold GroupModel.evalAt
+  by_cases h : ⊤ ≤ p.left ⁻¹ᵁ (f.left ⁻¹ᵁ U)
+  · have h' : ⊤ ≤ (p ≫ f).left ⁻¹ᵁ U := h
+    rw [dif_pos h', dif_pos h]
+    congr 1
+  · have h' : ¬ ⊤ ≤ (p ≫ f).left ⁻¹ᵁ U := h
+    rw [dif_neg h', dif_neg h]
+
+theorem dom_comp (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) {τ : L →+* ℂ} {g : ℕ}
+    (Φ : (Fin g → ℂ) → 𝒢.Pts τ) (U : 𝒩.G.left.Opens) :
+    𝒩.dom (fun z => Φ z ≫ f) U = 𝒢.dom Φ (f.left ⁻¹ᵁ U) := rfl
+
+/-- **Analytic uniformizations transport along generic isomorphisms** (proved). -/
+theorem isAnalyticUniformization_comp (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    [IsIso ((Over.pullback (jL L)).map f)] (τ : L →+* ℂ) {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → 𝒢.Pts τ) (h : 𝒢.IsAnalyticUniformization τ Λ Φ) :
+    𝒩.IsAnalyticUniformization τ Λ (fun z => Φ z ≫ f) := by
+  obtain ⟨hmul, hker, hsurj, hopen, hdiff⟩ := h
+  have hb := pts_comp_bijective 𝒢 𝒩 f τ
+  refine ⟨?_, ?_, ?_, ?_, ?_⟩
+  · intro z w
+    simp only
+    rw [hmul, MonObj.mul_comp]
+  · intro z
+    rw [← hker z]
+    constructor
+    · intro h1
+      apply hb.1
+      have h1' : Φ z ≫ f = 1 := h1
+      show Φ z ≫ f = 1 ≫ f
+      rw [h1', MonObj.one_comp]
+    · intro h1
+      simp only
+      rw [h1, MonObj.one_comp]
+  · intro q
+    obtain ⟨p, rfl⟩ := hb.2 q
+    obtain ⟨z, rfl⟩ := hsurj p
+    exact ⟨z, rfl⟩
+  · intro U
+    rw [dom_comp]
+    exact hopen _
+  · intro U s
+    rw [dom_comp]
+    simp only [evalAt_comp]
+    exact hdiff _ _
+
+
+/-- A homomorphism of group models sends `ξ_𝒢` to `ξ_𝒩` (as in `Stalk.lean`). -/
+theorem map_genericUnit' (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f] :
+    f.left 𝒢.genericUnit = 𝒩.genericUnit := by
+  have h : 𝒢.unitSection ≫ f.left = 𝒩.unitSection := by
+    have := congrArg CommaMorphism.left (IsMonHom.one_hom (f := f))
+    exact (Over.comp_left (f := η[𝒢.G]) (g := f)).symm.trans this
+  have h2 := congrArg (fun φ => φ (genericPt L)) h
+  exact (Scheme.Hom.comp_apply _ _ _).symm.trans h2
+
+/-! ### Jacobian determinants along a generic isomorphism -/
+
+/-- Restriction does not change values at points that land in the smaller open. -/
+theorem evalAt_res (𝒢 : GroupModel A L) {τ : L →+* ℂ} (p : 𝒢.Pts τ) {U W : 𝒢.G.left.Opens}
+    (i : W ⟶ U) (hp : ⊤ ≤ p.left ⁻¹ᵁ W) (s : Γ(𝒢.G.left, U)) :
+    𝒢.evalAt p U s = 𝒢.evalAt p W (𝒢.G.left.presheaf.map i.op s) := by
+  unfold GroupModel.evalAt
+  have hU : ⊤ ≤ p.left ⁻¹ᵁ U := hp.trans ((TopologicalSpace.Opens.map p.left.base).map i).le
+  rw [dif_pos hU, dif_pos hp]
+  congr 1
+  rw [← CommRingCat.comp_apply, Scheme.Hom.map_appLE]
+
+/-- The point `Spec ℂ → Spec 𝓞_L` (through `τ`) is the generic point. -/
+theorem ptC_hom_apply (τ : L →+* ℂ) (x : PrimeSpectrum ℂ) :
+    (GroupModel.ptC (L := L) τ).hom x = genericPt L := by
+  change PrimeSpectrum.comap (τ.comp (algebraMap (𝓞 L) L)) x = _
+  haveI := x.isPrime
+  have hx : x.asIdeal = ⊥ := Ideal.eq_bot_of_prime _
+  refine PrimeSpectrum.ext (Ideal.ext fun a => ?_)
+  show τ (algebraMap (𝓞 L) L a) ∈ x.asIdeal ↔ a ∈ (⊥ : Ideal (𝓞 L))
+  rw [hx, Ideal.mem_bot, Ideal.mem_bot, map_eq_zero_iff _ τ.injective]
+  exact map_eq_zero_iff _ (IsFractionRing.injective (𝓞 L) L)
+
+/-- The unit complex point lands in every open containing `ξ`. -/
+theorem one_mem_dom (𝒢 : GroupModel A L) (τ : L →+* ℂ) {W : 𝒢.G.left.Opens}
+    (hW : 𝒢.genericUnit ∈ W) : ⊤ ≤ (1 : 𝒢.Pts τ).left ⁻¹ᵁ W := by
+  intro x _
+  show (toUnit (GroupModel.ptC τ) ≫ η[𝒢.G]).left x ∈ W
+  rw [Over.comp_left, Scheme.Hom.comp_apply]
+  show (η[𝒢.G] : 𝟙_ _ ⟶ 𝒢.G).left ((GroupModel.ptC τ).hom x) ∈ W
+  have hx : (GroupModel.ptC (L := L) τ).hom x = genericPt L := ptC_hom_apply τ x
+  rw [hx]
+  exact hW
+
+/-- `Φ(0) = 1` for a homomorphism `Φ`. -/
+theorem map_zero_of_hom {G : Type*} [Group G] {g : ℕ} (Φ : (Fin g → ℂ) → G)
+    (h : ∀ z w, Φ (z + w) = Φ z * Φ w) : Φ 0 = 1 := by
+  have := h 0 0
+  rw [add_zero] at this
+  exact (mul_eq_left.mp this.symm)
+
+/-- **The germ along `Φ ≫ f` of `t` agrees near `0` with the germ along `Φ` of `φ(t)`**, for any
+map `φ : 𝒪_{𝒩,ξ} → 𝒪_{𝒢,ξ}` compatible with `f^*` on sections (the stalk map of `f`). -/
+theorem germAlong_comp_eventuallyEq (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    {τ : L →+* ℂ} {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → 𝒢.Pts τ)
+    (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (φ : 𝒩.genStalk → 𝒢.genStalk)
+    (hφ : ∀ (U : 𝒩.G.left.Opens) (hx : 𝒩.genericUnit ∈ U) (hx' : 𝒢.genericUnit ∈ f.left ⁻¹ᵁ U)
+      (s : Γ(𝒩.G.left, U)), φ (𝒩.G.left.presheaf.germ U 𝒩.genericUnit hx s) =
+        𝒢.G.left.presheaf.germ (f.left ⁻¹ᵁ U) 𝒢.genericUnit hx' (f.left.app U s))
+    (t : 𝒩.genStalk) :
+    𝒩.germAlong (fun z => Φ z ≫ f) t =ᶠ[nhds 0] 𝒢.germAlong Φ (φ t) := by
+  obtain ⟨hmul, -, -, hopen, -⟩ := hΦ
+  set U := (𝒩.exists_rep t).choose
+  set m := (𝒩.exists_rep t).choose_spec.choose
+  set s := (𝒩.exists_rep t).choose_spec.choose_spec.choose
+  have hs : 𝒩.G.left.presheaf.germ U 𝒩.genericUnit m s = t :=
+    (𝒩.exists_rep t).choose_spec.choose_spec.choose_spec
+  have hx' : 𝒢.genericUnit ∈ f.left ⁻¹ᵁ U := by
+    show f.left 𝒢.genericUnit ∈ U
+    rw [map_genericUnit' 𝒢 𝒩 f]; exact m
+  set U' := (𝒢.exists_rep (φ t)).choose
+  set m' := (𝒢.exists_rep (φ t)).choose_spec.choose
+  set s' := (𝒢.exists_rep (φ t)).choose_spec.choose_spec.choose
+  have hs' : 𝒢.G.left.presheaf.germ U' 𝒢.genericUnit m' s' = φ t :=
+    (𝒢.exists_rep (φ t)).choose_spec.choose_spec.choose_spec
+  have heq : 𝒢.G.left.presheaf.germ (f.left ⁻¹ᵁ U) 𝒢.genericUnit hx' (f.left.app U s) =
+      𝒢.G.left.presheaf.germ U' 𝒢.genericUnit m' s' := by
+    rw [hs', ← hs, hφ U m hx' s]
+  obtain ⟨W, mW, iU, iV, hW⟩ := TopCat.Presheaf.germ_eq _ _ hx' m' _ _ heq
+  have hnhds : 𝒢.dom Φ W ∈ nhds (0 : Fin g → ℂ) := by
+    refine (hopen W).mem_nhds ?_
+    show ⊤ ≤ (Φ 0).left ⁻¹ᵁ W
+    rw [map_zero_of_hom Φ hmul]
+    exact one_mem_dom 𝒢 τ mW
+  filter_upwards [hnhds] with z hz
+  show 𝒩.evalAt (Φ z ≫ f) U s = 𝒢.evalAt (Φ z) U' s'
+  rw [evalAt_comp, evalAt_res 𝒢 (Φ z) iU hz, hW, ← evalAt_res 𝒢 (Φ z) iV hz]
+
+/-- **Jacobian determinants along a generic isomorphism** (proved): with `φ` as above,
+`jacDet (Φ ≫ f) t = jacDet Φ (φ ∘ t)`. -/
+theorem jacDet_comp_map (𝒢 𝒩 : GroupModel A L) (f : 𝒢.G ⟶ 𝒩.G) [IsMonHom f]
+    {τ : L →+* ℂ} {g : ℕ} (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → 𝒢.Pts τ)
+    (hΦ : 𝒢.IsAnalyticUniformization τ Λ Φ) (φ : 𝒩.genStalk → 𝒢.genStalk)
+    (hφ : ∀ (U : 𝒩.G.left.Opens) (hx : 𝒩.genericUnit ∈ U) (hx' : 𝒢.genericUnit ∈ f.left ⁻¹ᵁ U)
+      (s : Γ(𝒩.G.left, U)), φ (𝒩.G.left.presheaf.germ U 𝒩.genericUnit hx s) =
+        𝒢.G.left.presheaf.germ (f.left ⁻¹ᵁ U) 𝒢.genericUnit hx' (f.left.app U s))
+    (t : Fin g → IsLocalRing.maximalIdeal 𝒩.genStalk)
+    (t' : Fin g → IsLocalRing.maximalIdeal 𝒢.genStalk) (ht : ∀ i, (t' i : 𝒢.genStalk) = φ (t i)) :
+    𝒩.jacDet (fun z => Φ z ≫ f) t = 𝒢.jacDet Φ t' := by
+  unfold GroupModel.jacDet
+  congr 1
+  ext i j
+  simp only [Matrix.of_apply]
+  rw [(germAlong_comp_eventuallyEq 𝒢 𝒩 f Λ Φ hΦ φ hφ (t i)).fderiv_eq, ht i]
+
+end ZInQ.H5Glue
+
+#print axioms ZInQ.H5Glue.pts_comp_bijective
+#print axioms ZInQ.H5Glue.evalAt_comp
+#print axioms ZInQ.H5Glue.isAnalyticUniformization_comp
+#print axioms ZInQ.H5Glue.germAlong_comp_eventuallyEq
+#print axioms ZInQ.H5Glue.jacDet_comp_map
