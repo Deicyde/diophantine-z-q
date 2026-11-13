@@ -93,3 +93,12 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
 - `eta_conj : η(−z̄) = conj η(z)` (via `Function.LeftInverse.map_tprod` with conj), `etaD_conj`,
   `xC_conj`, `yC_conj`, `phiC_conj`, `toC_galPt`, `conjPt_conjPt`, `tau_conj`, and
   `cmComplexConj : CMComplexConj` — axioms: standard three (VERIFIED). CM-4 leaves the leaf list.
+
+## 10:15 §10 Galois descent (Package.lean builds)
+- Proved `exists_actsAsArtin4` (every g ∈ Gal(H_{d,4}/K_d) extends to an automorphism of ℚ̄
+  compatible with ring-class's `embed`; via `IntermediateField.equivMap` + `AlgHom.liftNormal`),
+  `mem_Hprimebar_of_fixed` (Galois descent H_{d,4} → H'_d through Tau Ceti's Artin map and
+  `RingClass.Hprime`'s fixed field), `tyzZnOverHprime_of : CMFieldOfDefinitionTYZ → IInH4 →
+  TYZSigmaFixesZn → TYZZnOverHprime`, and `tyzThm35ReadingA_of_cmLeaves` (finest main theorem).
+- New leaf `IInH4` (i ∈ H_{n,4}; genus theory, textbook). `TYZZnOverHprime` is now glue.
+- Axioms of `tyzZnOverHprime_of`: standard three (VERIFIED).
