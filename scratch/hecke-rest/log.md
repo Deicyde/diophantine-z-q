@@ -149,3 +149,17 @@ HeckeFibreSizes, HeckeNoVertRam.
 - Composite: `coverModelOfHecke_of_heckeRest` takes only `ChartProper` on the curve side.
   `HeckeRestAll.lean` recompiled: 0 errors; 22 HeckeRest* `#print axioms` lines, all
   [propext, Classical.choice, Quot.sound].
+
+## Step 12. Lean: ChartProper proved; CurveNormChart, CurveChartInf, CurveGaloisChart are theorems (`ProperMain.lean.part`) — VERIFIED (compiled, 0 errors)
+- Proved: `toSpecQ_eq` (any two morphisms to Spec ℚ agree: toSpecΓ factorization +
+  Subsingleton (ℚ →+* R)), `secMor_comp`, `ev_secMor` (value of s at a field point of W over
+  Spec ρ is ρ X), `secMor_existence` (valuative existence: lift to Y by properness, closed point
+  stays in W since otherwise the pull-back G of s' is a non-unit while s·s' = 1 with s integral),
+  `secMor_isProper` (IsProper.of_valuativeCriterion with LocallyOfFiniteType/IsSeparated/
+  QuasiCompact by cancellation and IsSeparated.valuativeCriterion), `chartProper`,
+  `curveNormChart : CurveNormChart`, `curveChartInf : CurveChartInf`,
+  `HeckeRestAll.curveGaloisChart : CurveGaloisChart` (via ts-hecke's curveGaloisChart_of).
+- Composite: `coverModelOfHecke_of_heckeRest : Y3Connected → R1R2fp → TorsionStructure →
+  QMAutCard → SerreRigidity3 → ALFixedPoints → HeckeVertWitness → CoverModelOfHecke`.
+  `HeckeRestAll.lean` recompiled: 0 errors; 26 HeckeRest* `#print axioms` lines, all
+  [propext, Classical.choice, Quot.sound].

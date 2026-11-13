@@ -107,7 +107,8 @@ parts3 = [HEADER3, rng(6, 889), "", irng(15, 171), "", irng(277, 322), "",
           TSH2, rng(6444, 6455), "", rng(6526, 6551), "", "end TSHecke", "", "end", ""]
 main3 = open("scratch/hecke-rest/CurveChartMain.lean.part", encoding="utf-8").read() + "\n" + \
     open("scratch/hecke-rest/InfFnMain.lean.part", encoding="utf-8").read() + "\n" + \
-    open("scratch/hecke-rest/PointsMain.lean.part", encoding="utf-8").read()
+    open("scratch/hecke-rest/PointsMain.lean.part", encoding="utf-8").read() + "\n" + \
+    open("scratch/hecke-rest/ProperMain.lean.part", encoding="utf-8").read()
 out3 = "\n".join(parts3) + "\n" + main3
 open("scratch/hecke-rest/CurveChart.lean", "w", encoding="utf-8").write(out3)
 print("wrote CurveChart", out3.count("\n"), "lines")

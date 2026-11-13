@@ -751,3 +751,90 @@ Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HeckeRestCurve.curveChartInf_of_pq' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HeckeRestCurve.curveNormChart_of_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HeckeRestCurve.curveChartInf_of_proper' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/hecke-rest/CurveChart.lean:3156:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/CurveChart.lean:3157:6: warning: this tactic is never executed
+
+Note: This linter can be disabled with `set_option linter.unreachableTactic false`
+scratch/hecke-rest/CurveChart.lean:3156:6: warning: Unused tactic linter: `(simp only [← ConcreteCategory.comp_apply, ← Functor.map_comp]; rfl)` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/CurveChart.lean:3157:6: warning: Unused tactic linter: `(erw [← ConcreteCategory.comp_apply, hmor])` does nothing.
+
+Note: This linter can be disabled with `set_option linter.unusedTactic false`
+scratch/hecke-rest/CurveChart.lean:3264:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3265:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3267:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3270:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3272:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3274:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3276:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3278:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/hecke-rest/CurveChart.lean:3287:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+'HeckeRestCurve.chartProper' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveNormChart' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HeckeRestCurve.curveChartInf' depends on axioms: [propext, Classical.choice, Quot.sound]
