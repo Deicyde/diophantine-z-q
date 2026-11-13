@@ -33,7 +33,7 @@ means an assessment. Locators from memory are **UNVERIFIED** (no network).
   `Y₃` has exactly two geometric components, and complex conjugation swaps them, so `Y₃` is
   `ℚ`-irreducible (VERIFIED, `pi0_check.py`). In Lean it is reduced to a single leaf, the
   connectedness of `Y₃` over `ℚ` (R1conn). The leaf is also necessary.
-- **`HeckeDegree`, proved from the kernel's existing textbook leaf `TorsionStructure`**
+- **`HeckeDegree`, proved from the kernel's existing textbook leaf `TorsionStructure`** (T5 of h-decomposition)
   (Mumford §4) alone.
 - **`HeckeNormalizationIrr`** is reduced to one statement of curve theory with no moduli in it
   (`CurveGaloisChart`), plus `TorsionStructure`. All the moduli input, fibre transitivity under
