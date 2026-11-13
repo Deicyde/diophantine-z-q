@@ -11,3 +11,7 @@
    `AlgFrobRedRed.AbsFrob`, `frobenius_eq_powHom`, `absFrob : AbsFrob`: compiles;
    `#print axioms AlgFrobRedRed.absFrob` = [propext, Classical.choice, Quot.sound] (VERIFIED).
    Copy of the `AbsFrob` def+docstring is byte-identical to part_red.lean (VERIFIED, cmp, 12 lines).
+3. part_fext.lean drafted (FExtendGen from I2-NMP); build.sh assembles AfrAbsFrob.lean =
+   src_AlgFrobRed.lean (cmp-identical copy of scratch/alg-frob-red/AlgFrobRed.lean) + AbsFrobDef
+   body (minus import and the duplicate `def AbsFrob`) + part_fext.lean.
+   First run blocked: ZInQKernel.HDecomp.C10.Link olean missing -> `lake build ZInQKernel.HDecomp.C10.Link`.
