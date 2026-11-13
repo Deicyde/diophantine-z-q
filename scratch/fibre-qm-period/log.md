@@ -63,3 +63,7 @@ Base: 2dd83306 + merges of origin/wip/qm-pin, origin/wip/mobius-glue (g0-thetapo
   (Developed in /tmp/fqmnorm/Norm.lean importing only QMLattice; then ported.)
 - run_full3 (05:59-06:02): final assembled `FibreQM.lean`: 0 errors, 0 `sorry`, 2m47s; 25 axioms lines of §N/§F
   all `[propext, Classical.choice, Quot.sound]`. VERIFIED.
+- run_dev10/11 (06:04): Step 2g: `QMSkolemNoetherC` (textbook: unital ρ : 𝒪 → End_ℂ(ℂ²) is conjugate to ι),
+  `QMClassNumberOne` (textbook: an ι(𝒪)-stable full lattice is ι(𝒪)w), proved `qmLatticeFree_of` (lattice
+  transported by `ZLattice.comap` along G⁻¹, Mathlib's `instIsZLatticeComap`), `fibreQMPeriod_final'`:
+  0 errors, 6.6s, 27 axioms lines standard. VERIFIED.
