@@ -1129,6 +1129,58 @@ theorem kummerOtherBranchFin_of_unram (hU : UnramCompositum) : KummerOtherBranch
       exact eq_span_of_irreducible_mem (irreducible_X_sub_C b) h hm
     exact polyUnram _ hrdeg hint g' hg'0 (derivative_notMem b c n hn hc g' hXg')
 
+theorem sep_congr {A B : Type*} [CommRing A] [CommRing B] [Algebra A B] {p q : Ideal A}
+    [p.IsPrime] [q.IsPrime] (h : p = q) [Algebra.HasSeparableResidueFieldsAt A B p] :
+    Algebra.HasSeparableResidueFieldsAt A B q := by
+  subst h
+  assumption
+
+/-- A finite separable extension, unramified at every prime over the maximal ideal of a DVR, has
+formally unramified integral closure. -/
+theorem fu_of_unram (R K L : Type) [CommRing R] [IsDomain R] [IsDiscreteValuationRing R]
+    [Field K] [Algebra R K] [IsFractionRing R K]
+    [Field L] [Algebra K L] [Algebra R L] [IsScalarTower R K L]
+    [FiniteDimensional K L] [Algebra.IsSeparable K L]
+    (h : ∀ (Q : Ideal (integralClosure R L)) [Q.IsPrime] [Q.LiesOver (maximalIdeal R)],
+      Q.ramificationIdx R = 1 ∧
+      Algebra.IsSeparable (R ⧸ maximalIdeal R) (integralClosure R L ⧸ Q)) :
+    Algebra.FormallyUnramified R (integralClosure R L) := by
+  classical
+  set B := integralClosure R L
+  haveI : Module.Finite R B := IsIntegralClosure.finite R K L B
+  haveI : Algebra.EssFiniteType R B := inferInstance
+  haveI : IsFractionRing B L := integralClosure.isFractionRing_of_finite_extension K L
+  rw [Algebra.formallyUnramified_iff_forall]
+  rintro ⟨q, hq⟩
+  by_cases hq0 : q = ⊥
+  · subst hq0
+    change Algebra.FormallyUnramified R (Localization.AtPrime (⊥ : Ideal B))
+    haveI : IsFractionRing B (Localization.AtPrime (⊥ : Ideal B)) := by
+      simpa [Ideal.primeCompl_bot] using Localization.isLocalization (M := (⊥ : Ideal B).primeCompl)
+    let e : Localization.AtPrime (⊥ : Ideal B) ≃ₐ[B] L :=
+      IsLocalization.algEquiv (nonZeroDivisors B) _ L
+    haveI : Algebra.FormallyUnramified R K := Algebra.FormallyUnramified.of_isLocalization
+      (M := nonZeroDivisors R)
+    haveI : Algebra.FormallyUnramified K L := Algebra.FormallyUnramified.of_isSeparable K L
+    haveI : Algebra.FormallyUnramified R L := Algebra.FormallyUnramified.comp R K L
+    exact Algebra.FormallyUnramified.of_equiv (e.symm.restrictScalars R)
+  · have hu0 : q.under R ≠ ⊥ := Ideal.IsIntegral.under_ne_bot R hq0
+    haveI : (q.under R).IsPrime := Ideal.IsPrime.under R q
+    have hu : q.under R = maximalIdeal R :=
+      IsLocalRing.eq_maximalIdeal (Ideal.IsPrime.isMaximal inferInstance hu0)
+    haveI : q.LiesOver (maximalIdeal R) := ⟨hu.symm⟩
+    have he := (h q).1
+    haveI : Algebra.HasSeparableResidueFieldsAt R B (maximalIdeal R) := by
+      constructor
+      intro q' _ _
+      letI := Localization.AtPrime.algebraOfLiesOver (maximalIdeal R) q'
+      haveI : q'.IsMaximal := Ideal.isMaximal_of_isIntegral_of_isMaximal_under (R := R) q'
+        (by rw [← Ideal.LiesOver.over (P := q') (p := maximalIdeal R)]; infer_instance)
+      haveI := (h q').2
+      exact Algebra.isSeparable_residueField_iff.mpr inferInstance
+    haveI : Algebra.HasSeparableResidueFieldsAt R B (q.under R) := sep_congr hu.symm
+    exact (Ideal.ramificationIdx_eq_one_iff).mp he
+
 end TsKummer
 #print axioms TsKummer.kummerAbhyankarFinGlue
 #print axioms TsKummer.kummerAbhyankarInfGlue
