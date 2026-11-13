@@ -18,3 +18,10 @@ For every d (no hypothesis) unless noted:
 - `cdCoeff_prime_pow_succ_succ` : p ∤ 2d ⇒ c(p^{k+2}) = c(p) c(p^{k+1}) − p c(p^k).
 - `cdCoeff_prime_pow_of_dvd` : p ∣ 2d, k ≠ 0 ⇒ c(p^k) = 0; `cdCoeff_eq_zero_of_dvd` (p ∣ 2d, p ∣ n ⇒ c(n) = 0); `cdCoeff_eq_zero_of_even`.
 - d odd sqfree: `LFunction_cd_eq_cdCoeff` (Mathlib LFunction n = cdCoeff d n, all n), `LFunction_cd_prime_pow_succ_succ` (recursion on Mathlib's coefficients).
+
+## P3 — ZInQKernel/Contrib/PSide/BadPrimes.lean (compiles, no sorry; VERIFIED 22:36)
+- `cuspEquiv F : F ≃ {(x,y) : y² = x³}` (t ↦ (t², t³)); `natCard_cusp`.
+- `natCard_cd_of_dvd` : p ∣ d ⇒ #{y² = x³ − d²x over F_p} = p.
+- `natCard_cd_two` : d odd ⇒ #{y² = x³ − d²x over F_2} = 2 (decide).
+- `LFunction_cd_apply_prime_eq_sub_card_of_dvd` : d odd sqfree, p ∣ 2d ⇒ a_p = p − N_p (= 0).  [P3]
+- `LFunction_cd_apply_prime_eq_sub_card_all` : d odd sqfree, every prime p ⇒ a_p = p − N_p.
