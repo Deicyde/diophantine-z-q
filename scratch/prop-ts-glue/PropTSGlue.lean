@@ -3009,6 +3009,546 @@ theorem snSpecialize_of_unram (h : SNSpecializeUnram) : SNSpecialize :=
   fun E _ _ _ _ _ p hp s₀ hs₀ m _ hpm hsm het 𝔓 hP hU φ =>
     ⟨finiteDimensional_residue E s₀ 𝔓 hU φ, h E p hp s₀ hs₀ m hpm hsm het 𝔓 hP hU φ⟩
 
+/-- `n(u) = Σ u_i a^i d^{k−i}` (so that `n(u) = d^k u(s₀)`). -/
+def nval (s₀ : ℚ) (u : ℤ[X]) : ℤ :=
+  ∑ i ∈ Finset.range (u.natDegree + 1), u.coeff i * s₀.num ^ i * (s₀.den : ℤ) ^ (u.natDegree - i)
+
+theorem nval_cast (s₀ : ℚ) (u : ℤ[X]) :
+    (nval s₀ u : ℚ) = (s₀.den : ℚ) ^ u.natDegree * (u.map (Int.castRingHom ℚ)).eval s₀ := by
+  set k := u.natDegree
+  rw [eval_eq_sum_range, natDegree_map_eq_of_injective (RingHom.injective_int _), Finset.mul_sum]
+  simp only [nval, Int.cast_sum, Int.cast_mul, Int.cast_pow, coeff_map, eq_intCast, Int.cast_natCast]
+  apply Finset.sum_congr rfl
+  intro i hi
+  have hik : i ≤ k := Nat.lt_succ_iff.mp (Finset.mem_range.mp hi)
+  have hs : (s₀.num : ℚ) = (s₀.den : ℚ) * s₀ := by simp
+  rw [hs, show (s₀.den : ℚ) ^ k = (s₀.den : ℚ) ^ (k - i) * (s₀.den : ℚ) ^ i by
+    rw [← pow_add, Nat.sub_add_cancel hik]]
+  ring
+
+/-- **Membership in `m = (p, dX − a)`**: `u ∈ m ↔ p ∣ n(u)`. -/
+theorem mem_m_iff (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀)
+    (m : Ideal ℤ[X]) [m.IsMaximal] (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) (u : ℤ[X]) :
+    u ∈ m ↔ (p : ℤ) ∣ nval s₀ u := by
+  have hm : m ≠ ⊤ := Ideal.IsMaximal.ne_top ‹_›
+  have h1 : C ((s₀.den : ℤ) ^ u.natDegree) * u - C (nval s₀ u) ∈ m := homog_mem m s₀.num _ hsm u
+  have hd : ¬ (p : ℤ) ∣ (s₀.den : ℤ) ^ u.natDegree := by
+    intro h
+    exact not_dvd_den_of_nonneg p s₀ hs₀
+      (Int.natCast_dvd_natCast.mp ((Nat.prime_iff_prime_int.mp hp.out).dvd_of_dvd_pow h))
+  constructor
+  · intro hu
+    by_contra hn
+    apply C_notMem p m hm hpm _ hn
+    have := m.sub_mem (m.mul_mem_left (C ((s₀.den : ℤ) ^ u.natDegree)) hu) h1
+    rwa [sub_sub_cancel] at this
+  · intro hn
+    obtain ⟨c, hc⟩ := hn
+    have hCn : C (nval s₀ u) ∈ m := by rw [hc, C_mul]; exact m.mul_mem_right _ hpm
+    have h2 : C ((s₀.den : ℤ) ^ u.natDegree) * u ∈ m := by
+      have := m.add_mem h1 hCn
+      rwa [sub_add_cancel] at this
+    have hmp : m.IsPrime := Ideal.IsMaximal.isPrime ‹_›
+    rcases hmp.mem_or_mem h2 with h | h
+    · exact absurd h (C_notMem p m hm hpm _ hd)
+    · exact h
+
+/-- The generator `dX − a` of the section `X = s₀`. -/
+def secGen (s₀ : ℚ) : ℤ[X] := C (s₀.den : ℤ) * X - C s₀.num
+
+/-- Evaluation at `s₀` on `ℤ[X]_m` (denominators do not vanish at `s₀`). -/
+def evR (p : ℕ) [Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀)
+    (m : Ideal ℤ[X]) [m.IsMaximal] (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) : Localization.AtPrime m →+* ℚ :=
+  IsLocalization.lift (M := m.primeCompl) (S := Localization.AtPrime m)
+    (g := Polynomial.eval₂RingHom (Int.castRingHom ℚ) s₀) (fun y => by
+      rw [isUnit_iff_ne_zero]
+      intro h0
+      apply y.2
+      show (y : ℤ[X]) ∈ m
+      rw [mem_m_iff p s₀ hs₀ m hpm hsm]
+      have h1 := nval_cast s₀ y.1
+      have h2 : ((y.1).map (Int.castRingHom ℚ)).eval s₀ = 0 := by
+        rw [Polynomial.eval_map]; exact h0
+      rw [h2, mul_zero] at h1
+      have : nval s₀ y.1 = 0 := by exact_mod_cast h1
+      rw [this]
+      exact dvd_zero _)
+
+theorem rbar_isLocalization (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀)
+    (m : Ideal ℤ[X]) [m.IsMaximal] (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) :
+    IsLocalization (Ideal.span {(p : ℤ)}).primeCompl
+      (Localization.AtPrime m ⧸ Ideal.span {algebraMap ℤ[X] (Localization.AtPrime m) (secGen s₀)}) := by
+  set R := Localization.AtPrime m
+  set g : R := algebraMap ℤ[X] R (secGen s₀) with hg
+  set I : Ideal R := Ideal.span {g} with hI
+  set ev := evR p s₀ hs₀ m hpm hsm
+  have hev : ∀ F : ℤ[X], ev (algebraMap ℤ[X] R F) = F.eval₂ (Int.castRingHom ℚ) s₀ :=
+    fun F => IsLocalization.lift_eq _ F
+  have hevI : I ≤ RingHom.ker ev := by
+    rw [hI, Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe, RingHom.mem_ker, hg, hev,
+      secGen]
+    rw [eval₂_sub, eval₂_mul, eval₂_C, eval₂_X, eval₂_C]
+    simp only [eq_intCast, Int.cast_natCast]
+    rw [Rat.den_mul_eq_num, sub_self]
+  set evb : R ⧸ I →+* ℚ := Ideal.Quotient.lift I ev hevI
+  have hevb : ∀ n : ℤ, evb (algebraMap ℤ (R ⧸ I) n) = n := fun n => by simp
+  -- the ideal `I` pulled back to `ℤ[X]` contains `dX − a`
+  set J : Ideal ℤ[X] := (I.comap (algebraMap ℤ[X] R)) with hJ
+  have hJ : C (s₀.den : ℤ) * X - C s₀.num ∈ J := Ideal.subset_span rfl
+  have hmkF : ∀ F : ℤ[X], algebraMap ℤ (R ⧸ I) ((s₀.den : ℤ) ^ F.natDegree) *
+      Ideal.Quotient.mk I (algebraMap ℤ[X] R F) = algebraMap ℤ (R ⧸ I) (nval s₀ F) := by
+    intro F
+    have h := homog_mem J s₀.num _ hJ F
+    have h' : Ideal.Quotient.mk I (algebraMap ℤ[X] R (C ((s₀.den : ℤ) ^ F.natDegree) * F -
+        C (nval s₀ F))) = 0 := Ideal.Quotient.eq_zero_iff_mem.mpr h
+    simp only [map_sub, map_mul] at h'
+    rw [sub_eq_zero] at h'
+    have e1 : ∀ n : ℤ, Ideal.Quotient.mk I (algebraMap ℤ[X] R (C n)) = algebraMap ℤ (R ⧸ I) n :=
+      fun n => by simp
+    rw [e1, e1] at h'
+    exact h'
+  refine ⟨?_, ?_, ?_⟩
+  · rintro ⟨y, hy⟩
+    have hy' : ¬ (p : ℤ) ∣ y := fun h => hy (Ideal.mem_span_singleton.mpr h)
+    have hCy : C y ∉ m := C_notMem p m (Ideal.IsMaximal.ne_top ‹_›) hpm y hy'
+    have hu : IsUnit (algebraMap ℤ[X] R (C y)) :=
+      IsLocalization.map_units R (⟨C y, hCy⟩ : m.primeCompl)
+    have := hu.map (Ideal.Quotient.mk I)
+    simpa using this
+  · intro z
+    obtain ⟨r, rfl⟩ := Ideal.Quotient.mk_surjective z
+    obtain ⟨⟨F, u, hu⟩, rfl⟩ := IsLocalization.mk'_surjective m.primeCompl r
+    have hnu : ¬ (p : ℤ) ∣ nval s₀ u := fun h => hu ((mem_m_iff p s₀ hs₀ m hpm hsm u).mpr h)
+    have hd : ¬ (p : ℤ) ∣ (s₀.den : ℤ) ^ F.natDegree := by
+      intro h
+      exact not_dvd_den_of_nonneg p s₀ hs₀
+        (Int.natCast_dvd_natCast.mp ((Nat.prime_iff_prime_int.mp hp.out).dvd_of_dvd_pow h))
+    have hmem : nval s₀ u * (s₀.den : ℤ) ^ F.natDegree ∈ (Ideal.span {(p : ℤ)}).primeCompl := by
+      intro h
+      rcases (Ideal.span_singleton_prime (by exact_mod_cast hp.out.ne_zero)).mpr
+        (Nat.prime_iff_prime_int.mp hp.out) |>.mem_or_mem h with h | h
+      · exact hnu (Ideal.mem_span_singleton.mp h)
+      · exact hd (Ideal.mem_span_singleton.mp h)
+    refine ⟨⟨nval s₀ F * (s₀.den : ℤ) ^ u.natDegree, ⟨_, hmem⟩⟩, ?_⟩
+    have hspec : IsLocalization.mk' R F (⟨u, hu⟩ : m.primeCompl) * algebraMap ℤ[X] R u =
+        algebraMap ℤ[X] R F := IsLocalization.mk'_spec R F ⟨u, hu⟩
+    have h1 := hmkF F
+    have h2 := hmkF u
+    simp only [map_mul]
+    rw [← h1, ← h2, ← hspec, map_mul]
+    ring
+  · intro x y h
+    have := congrArg evb h
+    rw [hevb, hevb] at this
+    have hxy : x = y := by exact_mod_cast this
+    exact ⟨1, by rw [hxy]⟩
+
+/-- An integrally closed subring `A` of a field `K` contains every element of its subfield closure
+that is integral over `ℤ`. -/
+theorem mem_of_isIntegral_of_mem_closure {K : Type*} [Field K] (A : Subring K)
+    [IsIntegrallyClosed A] {x : K} (hx : x ∈ Subfield.closure (A : Set K)) (hint : IsIntegral ℤ x) :
+    x ∈ A := by
+  rw [Subfield.mem_closure_iff] at hx
+  obtain ⟨a, ha, b, hb, hab⟩ := hx
+  rw [Subring.closure_eq] at ha hb
+  by_cases hb0 : b = 0
+  · rw [hb0, div_zero] at hab
+    rw [← hab]
+    exact A.zero_mem
+  have hbA : (⟨b, hb⟩ : A) ∈ nonZeroDivisors A :=
+    mem_nonZeroDivisors_of_ne_zero (fun h => hb0 (congrArg Subtype.val h))
+  let ι : FractionRing A →+* K := IsFractionRing.lift A.subtype_injective
+  let z : FractionRing A := IsLocalization.mk' (FractionRing A) (⟨a, ha⟩ : A) ⟨⟨b, hb⟩, hbA⟩
+  have hz : ι z = x := by
+    show IsFractionRing.lift A.subtype_injective (IsLocalization.mk' (FractionRing A)
+      (⟨a, ha⟩ : A) ⟨⟨b, hb⟩, hbA⟩) = x
+    rw [IsFractionRing.lift_mk']
+    exact hab
+  have hzint : IsIntegral ℤ z := by
+    obtain ⟨f, hfm, hf⟩ := hint
+    refine ⟨f, hfm, ι.injective ?_⟩
+    rw [Polynomial.hom_eval₂, map_zero, hz]
+    have hsub : ι.comp (algebraMap ℤ (FractionRing A)) = algebraMap ℤ K := Subsingleton.elim _ _
+    rw [hsub]
+    exact hf
+  have hzintA : IsIntegral A z := hzint.tower_top
+  obtain ⟨c, hc⟩ := IsIntegrallyClosed.isIntegral_iff.mp hzintA
+  rw [← hz, ← hc]
+  show IsFractionRing.lift A.subtype_injective (algebraMap A (FractionRing A) c) ∈ A
+  rw [IsFractionRing.lift_algebraMap]
+  exact c.2
+
+/-- Integrality over `ℤ` descends along an injective ring hom. -/
+theorem isIntegral_int_of_injective {K₁ K₂ : Type*} [CommRing K₁] [CommRing K₂] (f : K₁ →+* K₂)
+    (hf : Function.Injective f) {x : K₁} (h : IsIntegral ℤ (f x)) : IsIntegral ℤ x := by
+  obtain ⟨q, hqm, hq⟩ := h
+  refine ⟨q, hqm, hf ?_⟩
+  rw [Polynomial.hom_eval₂, map_zero]
+  have hsub : f.comp (algebraMap ℤ K₁) = algebraMap ℤ K₂ := Subsingleton.elim _ _
+  rw [hsub]
+  exact hq
+
+/-- Integrality over `ℤ` is preserved by ring homs. -/
+theorem isIntegral_int_map {K₁ K₂ : Type*} [CommRing K₁] [CommRing K₂] (f : K₁ →+* K₂)
+    {x : K₁} (h : IsIntegral ℤ x) : IsIntegral ℤ (f x) := by
+  obtain ⟨q, hqm, hq⟩ := h
+  refine ⟨q, hqm, ?_⟩
+  have hsub : algebraMap ℤ K₂ = f.comp (algebraMap ℤ K₁) := Subsingleton.elim _ _
+  rw [hsub, ← Polynomial.hom_eval₂, hq, map_zero]
+
+set_option maxHeartbeats 1000000 in
+set_option synthInstance.maxHeartbeats 200000 in
+attribute [local instance] Polynomial.algebra in
+theorem snSpecializeUnram_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (p : ℕ) (hp : p.Prime)
+    (s₀ : ℚ) (hs₀ : 0 ≤ padicValRat p s₀) (m : Ideal ℤ[X]) [m.IsMaximal] (hpm : C (p : ℤ) ∈ m)
+    (hsm : C (s₀.den : ℤ) * X - C s₀.num ∈ m) :
+    letI := locAlg E m
+    Algebra.Etale (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) →
+    ∀ 𝔓 : Ideal (integralClosure ℚ[X] E), 𝔓.IsPrime →
+      𝔓.under ℚ[X] = Ideal.span {X - C s₀} →
+      ∀ φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* AlgebraicClosure ℚ,
+        UnramifiedAt (IntermediateField.adjoin ℚ (Set.range φ)) p := by
+  letI iE : Algebra (Localization.AtPrime m) E := locAlg E m
+  letI cS : CommRing (integralClosure (Localization.AtPrime m) E) := inferInstance
+  letI cS' : CommSemiring (integralClosure (Localization.AtPrime m) E) := CommRing.toCommSemiring
+  letI cS'' : Semiring (integralClosure (Localization.AtPrime m) E) := CommSemiring.toSemiring
+  intro het 𝔓 h𝔓 hU φ
+  have : Fact p.Prime := ⟨hp⟩
+  -- the rings
+  letI iZ : Algebra ℤ[X] E := (zxMap E).toAlgebra
+  have hTR : IsScalarTower ℤ[X] (Localization.AtPrime m) E := by
+    apply IsScalarTower.of_algebraMap_eq'
+    exact (IsLocalization.lift_comp _).symm
+  have hTQ : IsScalarTower ℤ[X] ℚ[X] E := IsScalarTower.of_algebraMap_eq' rfl
+  let ιS : integralClosure ℤ[X] E →+* integralClosure (Localization.AtPrime m) E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := Localization.AtPrime m) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  letI aCS := ιS.toAlgebra
+  have hCSE : IsScalarTower (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E)
+      E := IsScalarTower.of_algebraMap_eq' rfl
+  have hZCS : IsScalarTower ℤ[X] (integralClosure ℤ[X] E)
+      (integralClosure (Localization.AtPrime m) E) := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    apply Subtype.ext
+    rw [IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E)]
+    change algebraMap (Localization.AtPrime m) E (algebraMap ℤ[X] _ x) = algebraMap ℤ[X] E x
+    exact (IsScalarTower.algebraMap_apply _ _ _ x).symm
+  have hlocE : IsLocalization (Algebra.algebraMapSubmonoid E m.primeCompl) E :=
+    isLocalization_field_self _ (fun x hx h0 => hx (by
+      rw [(zxMap_injective E) (h0.trans (map_zero _).symm)]; exact m.zero_mem))
+  have hlocS : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E)
+      m.primeCompl) (integralClosure (Localization.AtPrime m) E) :=
+    IsLocalization.integralClosure m.primeCompl
+  let ιB : integralClosure ℤ[X] E →+* integralClosure ℚ[X] E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := ℚ[X]) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  letI aCB := ιB.toAlgebra
+  have hCBE : IsScalarTower (integralClosure ℤ[X] E) (integralClosure ℚ[X] E) E :=
+    IsScalarTower.of_algebraMap_eq' rfl
+  have hZCB : IsScalarTower ℤ[X] (integralClosure ℤ[X] E) (integralClosure ℚ[X] E) := by
+    apply IsScalarTower.of_algebraMap_eq
+    intro x
+    apply Subtype.ext
+    rw [IsScalarTower.algebraMap_apply ℤ[X] ℚ[X] (integralClosure ℚ[X] E)]
+    rfl
+  -- the map `g : C → ℚ̄` and its values on `ℤ[X]`
+  let g : integralClosure ℤ[X] E →+* AlgebraicClosure ℚ :=
+    φ.comp ((Ideal.Quotient.mk 𝔓).comp (algebraMap (integralClosure ℤ[X] E) (integralClosure ℚ[X] E)))
+  have hkeyQ : ∀ f : ℚ[X], φ (Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f)) =
+      algebraMap ℚ (AlgebraicClosure ℚ) (f.eval s₀) := by
+    intro f
+    have hmem : f - C (f.eval s₀) ∈ 𝔓.under ℚ[X] := by
+      rw [hU, Ideal.mem_span_singleton]
+      exact X_sub_C_dvd_sub_C_eval
+    have h1 : Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f) =
+        Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) (C (f.eval s₀))) := by
+      rw [Ideal.Quotient.eq, ← map_sub]
+      exact hmem
+    rw [h1]
+    have hsub : ((φ.comp (Ideal.Quotient.mk 𝔓)).comp
+        ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp C) : ℚ →+* AlgebraicClosure ℚ) =
+        algebraMap ℚ (AlgebraicClosure ℚ) := Subsingleton.elim _ _
+    exact congrArg (fun g : ℚ →+* AlgebraicClosure ℚ => g (f.eval s₀)) hsub
+  have hkey : ∀ u : ℤ[X], g (algebraMap ℤ[X] (integralClosure ℤ[X] E) u) =
+      algebraMap ℚ (AlgebraicClosure ℚ) ((u.map (Int.castRingHom ℚ)).eval s₀) := by
+    intro u
+    show φ (Ideal.Quotient.mk 𝔓 (algebraMap (integralClosure ℤ[X] E) (integralClosure ℚ[X] E)
+      (algebraMap ℤ[X] (integralClosure ℤ[X] E) u))) = _
+    rw [← IsScalarTower.algebraMap_apply, IsScalarTower.algebraMap_apply ℤ[X] ℚ[X]
+      (integralClosure ℚ[X] E)]
+    exact hkeyQ _
+  have hgu : ∀ y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl,
+      IsUnit (g y) := by
+    rintro ⟨_, u, hu, rfl⟩
+    rw [hkey, isUnit_iff_ne_zero]
+    intro h0
+    have h0' : (u.map (Int.castRingHom ℚ)).eval s₀ = 0 :=
+      (algebraMap ℚ (AlgebraicClosure ℚ)).injective (h0.trans (map_zero _).symm)
+    apply hu
+    show u ∈ m
+    rw [mem_m_iff p s₀ hs₀ m hpm hsm]
+    have h1 := nval_cast s₀ u
+    rw [h0', mul_zero] at h1
+    have : nval s₀ u = 0 := by exact_mod_cast h1
+    rw [this]
+    exact dvd_zero _
+  let Ψ : integralClosure (Localization.AtPrime m) E →+* AlgebraicClosure ℚ :=
+    IsLocalization.lift (M := Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl)
+      hgu
+  -- the image `A = Ψ(S) ⊆ ℚ̄` (the closed-fibre quotient) and its formal unramifiedness over `ℤ`
+  set A : Subring (AlgebraicClosure ℚ) := Ψ.range with hA
+  letI aRA0 : Algebra (Localization.AtPrime m) A :=
+    (Ψ.rangeRestrict.comp (algebraMap (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E))).toAlgebra
+  letI aSA : Algebra (integralClosure (Localization.AtPrime m) E) A := Ψ.rangeRestrict.toAlgebra
+  have hTSA : IsScalarTower (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) A :=
+    IsScalarTower.of_algebraMap_eq' rfl
+  set I : Ideal (Localization.AtPrime m) :=
+    Ideal.span {algebraMap ℤ[X] (Localization.AtPrime m) (secGen s₀)} with hI
+  have hΨsec : Ψ (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E)
+      (algebraMap ℤ[X] (Localization.AtPrime m) (secGen s₀))) = 0 := by
+    rw [← IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime m),
+      IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E)
+        (integralClosure (Localization.AtPrime m) E)]
+    rw [IsLocalization.lift_eq, hkey]
+    rw [secGen, Polynomial.map_sub, Polynomial.map_mul, Polynomial.map_C, Polynomial.map_C, map_X,
+      eval_sub, eval_mul, eval_C, eval_C, eval_X]
+    simp only [eq_intCast, Int.cast_natCast]
+    rw [Rat.den_mul_eq_num, sub_self, map_zero]
+  have hIker : I ≤ RingHom.ker (algebraMap (Localization.AtPrime m) A) := by
+    rw [hI, Ideal.span_le, Set.singleton_subset_iff, SetLike.mem_coe, RingHom.mem_ker]
+    apply Subtype.ext
+    exact hΨsec
+  letI aRbA : Algebra (Localization.AtPrime m ⧸ I) A :=
+    (Ideal.Quotient.lift I (algebraMap (Localization.AtPrime m) A) hIker).toAlgebra
+  have hTRA : IsScalarTower (Localization.AtPrime m) (Localization.AtPrime m ⧸ I) A :=
+    IsScalarTower.of_algebraMap_eq (R := Localization.AtPrime m) (S := Localization.AtPrime m ⧸ I)
+      (A := A) (fun x => rfl)
+  have hsurj : Function.Surjective (IsScalarTower.toAlgHom (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E) A) := Ψ.rangeRestrict_surjective
+  have hFU0 : Algebra.FormallyUnramified (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E) := inferInstance
+  have hFU1 : Algebra.FormallyUnramified (Localization.AtPrime m) A :=
+    Algebra.FormallyUnramified.of_surjective _ hsurj
+  have hFU2 : Algebra.FormallyUnramified (Localization.AtPrime m ⧸ I) A :=
+    Algebra.FormallyUnramified.of_restrictScalars (Localization.AtPrime m) _ _
+  have hloc := rbar_isLocalization p s₀ hs₀ m hpm hsm
+  have hFU3 : Algebra.FormallyUnramified ℤ (Localization.AtPrime m ⧸ I) :=
+    Algebra.FormallyUnramified.of_isLocalization (Ideal.span {(p : ℤ)}).primeCompl
+  haveI hTZ := IsScalarTower.of_algebraMap_eq (R := ℤ) (S := Localization.AtPrime m ⧸ I) (A := A)
+      (fun x => by simp only [eq_intCast, map_intCast])
+  have hFU4 : Algebra.FormallyUnramified ℤ A :=
+    Algebra.FormallyUnramified.comp ℤ (Localization.AtPrime m ⧸ I) A
+  -- `R ⧸ I` (≅ `ℤ_(p)`) is a Dedekind domain, so `A` is a Dedekind domain
+  have hRbdom : IsDomain (Localization.AtPrime m ⧸ I) :=
+    IsLocalization.isDomain_of_le_nonZeroDivisors (Localization.AtPrime m ⧸ I)
+      (Ideal.primeCompl_le_nonZeroDivisors (Ideal.span {(p : ℤ)}))
+  have hRbded : IsDedekindDomain (Localization.AtPrime m ⧸ I) :=
+    IsLocalization.isDedekindDomain ℤ
+      (Ideal.primeCompl_le_nonZeroDivisors (Ideal.span {(p : ℤ)})) _
+  have hfinS : Module.Finite (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) :=
+    (snLocalData_aux E m).2.1
+  have hfinA : Module.Finite (Localization.AtPrime m) A :=
+    Module.Finite.of_surjective (IsScalarTower.toAlgHom (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E) A).toLinearMap hsurj
+  letI mRbA : Module (Localization.AtPrime m ⧸ I) A := aRbA.toModule
+  have hfinA' : Module.Finite (Localization.AtPrime m ⧸ I) A :=
+    Module.Finite.of_restrictScalars_finite (Localization.AtPrime m) _ _
+  have hAded : IsDedekindDomain A := IsDedekindDomain.of_formallyUnramified
+    (Localization.AtPrime m ⧸ I) A
+  -- `A ⊆ L`, and `L` lies in the fraction field of `A`
+  set L : IntermediateField ℚ (AlgebraicClosure ℚ) := IntermediateField.adjoin ℚ (Set.range φ)
+    with hL
+  have hgL : ∀ c : integralClosure ℤ[X] E, g c ∈ L := fun c =>
+    IntermediateField.subset_adjoin _ _ ⟨_, rfl⟩
+  have hgM : ∀ y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl,
+      g y ≠ 0 := fun y => (hgu y).ne_zero
+  have hΨmk : ∀ (c : integralClosure ℤ[X] E)
+      (y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl),
+      Ψ (IsLocalization.mk' (integralClosure (Localization.AtPrime m) E) c y) = g c / g y := by
+    intro c y
+    rw [IsLocalization.lift_mk'_spec, mul_div_cancel₀ _ (hgM y)]
+  have hAL : ∀ a ∈ A, a ∈ L := by
+    rintro _ ⟨s, rfl⟩
+    obtain ⟨⟨c, y⟩, rfl⟩ := IsLocalization.mk'_surjective
+      (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl) s
+    rw [hΨmk]
+    exact div_mem (hgL c) (hgL y)
+  have hgA : ∀ c : integralClosure ℤ[X] E, g c ∈ A := fun c =>
+    ⟨algebraMap (integralClosure ℤ[X] E) (integralClosure (Localization.AtPrime m) E) c,
+      IsLocalization.lift_eq _ c⟩
+  -- `B` is a localization of `C`, so `L` lies in the fraction field of `A`
+  let ιB : integralClosure ℤ[X] E →+* integralClosure ℚ[X] E :=
+    { toFun := fun c => ⟨c.1, IsIntegral.tower_top (A := ℚ[X]) c.2⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hgdef : ∀ c, g c = φ (Ideal.Quotient.mk 𝔓
+      (algebraMap (integralClosure ℤ[X] E) (integralClosure ℚ[X] E) c)) := fun c => rfl
+  set M₀ : Submonoid ℤ[X] := (nonZeroDivisors ℤ).map C with hM₀
+  have hlocQ : IsLocalization M₀ ℚ[X] := Polynomial.isLocalization _ _
+  have hlocE₀ : IsLocalization (Algebra.algebraMapSubmonoid E M₀) E :=
+    isLocalization_field_self _ (by
+      rintro _ ⟨n, hn, rfl⟩ h0
+      have : C n = 0 := (zxMap_injective E) (h0.trans (map_zero _).symm)
+      exact nonZeroDivisors.ne_zero hn (C_eq_zero.mp this))
+  have hlocB : IsLocalization (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) M₀)
+      (integralClosure ℚ[X] E) :=
+    IsLocalization.integralClosure M₀
+  have hrange : Set.range φ ⊆ Subfield.closure (A : Set (AlgebraicClosure ℚ)) := by
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
+    obtain ⟨⟨c, n⟩, rfl⟩ := IsLocalization.mk'_surjective
+      (Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) M₀) b
+    have hspec := IsLocalization.mk'_spec (integralClosure ℚ[X] E) c n
+    have h1 : φ (Ideal.Quotient.mk 𝔓 (IsLocalization.mk' (integralClosure ℚ[X] E) c n)) * g n =
+        g c := by
+      rw [hgdef, hgdef, ← RingHom.map_mul, ← RingHom.map_mul, hspec]
+    have hn0 : g n ≠ 0 := by
+      obtain ⟨_, ⟨_, ⟨k, hk, rfl⟩, rfl⟩⟩ := n
+      show g (algebraMap ℤ[X] (integralClosure ℤ[X] E) (C k)) ≠ 0
+      rw [hkey, Polynomial.map_C, eval_C]
+      simp only [eq_intCast, map_intCast, ne_eq, Int.cast_eq_zero]
+      exact nonZeroDivisors.ne_zero hk
+    rw [eq_div_of_mul_eq hn0 h1]
+    exact div_mem (Subfield.subset_closure (hgA c)) (Subfield.subset_closure (hgA n))
+  have hQsub : Set.range (algebraMap ℚ (AlgebraicClosure ℚ)) ⊆
+      Subfield.closure (A : Set (AlgebraicClosure ℚ)) := by
+    rintro _ ⟨q, rfl⟩
+    rw [show algebraMap ℚ (AlgebraicClosure ℚ) q = (q.num : AlgebraicClosure ℚ) / (q.den : AlgebraicClosure ℚ) by
+      rw [eq_div_iff (by exact_mod_cast q.den_nz)]
+      simp only [eq_ratCast]
+      exact_mod_cast Rat.mul_den_eq_num q]
+    exact div_mem (Subfield.subset_closure (intCast_mem A q.num))
+      (Subfield.subset_closure (natCast_mem A q.den))
+  have hLsub : L.toSubfield ≤ Subfield.closure (A : Set (AlgebraicClosure ℚ)) :=
+    IntermediateField.adjoin_le_subfield (F := ℚ) (S := Set.range φ)
+      (K := Subfield.closure (A : Set (AlgebraicClosure ℚ))) hQsub hrange
+  -- `𝓞 L ⊆ A` (`A` is integrally closed)
+  have hOA : ∀ x : NumberField.RingOfIntegers L, ((x : L) : AlgebraicClosure ℚ) ∈ A := fun x =>
+    mem_of_isIntegral_of_mem_closure A (hLsub (x : L).2)
+      (isIntegral_int_map L.val.toRingHom x.2)
+  -- `j : 𝓞 L → A`, and `A` is the localization of `𝓞 L` away from `p`
+  let j : NumberField.RingOfIntegers L →+* A :=
+    { toFun := fun x => ⟨((x : L) : AlgebraicClosure ℚ), hOA x⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hj_inj : Function.Injective j := by
+    intro x y h
+    have h1 : ((x : L) : AlgebraicClosure ℚ) = ((y : L) : AlgebraicClosure ℚ) :=
+      congrArg (fun z : A => (z : AlgebraicClosure ℚ)) h
+    exact NumberField.RingOfIntegers.ext (Subtype.ext h1)
+  letI aOA : Algebra (NumberField.RingOfIntegers L) A := j.toAlgebra
+  set Mp : Submonoid ℤ := (Ideal.span {(p : ℤ)}).primeCompl with hMp
+  have hunitA : ∀ n ∈ Mp, IsUnit (n : A) := by
+    intro n hn
+    have h0 : IsUnit (algebraMap ℤ (Localization.AtPrime m ⧸ I) n) :=
+      IsLocalization.map_units (Localization.AtPrime m ⧸ I) (⟨n, hn⟩ : Mp)
+    have h1 := RingHom.isUnit_map (Ideal.Quotient.lift I (algebraMap (Localization.AtPrime m) A)
+      hIker) h0
+    simpa using h1
+  have hjint : ∀ n : ℤ, j (algebraMap ℤ (NumberField.RingOfIntegers L) n) = (n : A) := by
+    intro n
+    simp
+  have hlocA : IsLocalization (Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp) A := by
+    refine ⟨?_, ?_, ?_⟩
+    · rintro ⟨_, n, hn, rfl⟩
+      change IsUnit (j (algebraMap ℤ (NumberField.RingOfIntegers L) n))
+      rw [hjint]
+      exact hunitA n hn
+    · intro a
+      have hai : IsIntegral (Localization.AtPrime m ⧸ I) a := Algebra.IsIntegral.isIntegral a
+      obtain ⟨⟨n, hn⟩, hnint⟩ := IsIntegral.exists_multiple_integral_of_isLocalization
+        (R := ℤ) (M := Mp) (Rₘ := Localization.AtPrime m ⧸ I) a hai
+      have hyL : ((n • a : A) : AlgebraicClosure ℚ) ∈ L := hAL _ (n • a).2
+      have hyint : IsIntegral ℤ (⟨_, hyL⟩ : L) :=
+        isIntegral_int_of_injective L.val.toRingHom L.val.injective
+          (isIntegral_int_map A.subtype hnint)
+      let y : NumberField.RingOfIntegers L := ⟨⟨_, hyL⟩, hyint⟩
+      refine ⟨⟨y, ⟨_, n, hn, rfl⟩⟩, ?_⟩
+      change a * j (algebraMap ℤ (NumberField.RingOfIntegers L) n) = j y
+      rw [hjint]
+      apply Subtype.ext
+      change (a : AlgebraicClosure ℚ) * ((n : A) : AlgebraicClosure ℚ) = ((n • a : A) : AlgebraicClosure ℚ)
+      rw [zsmul_eq_mul]
+      push_cast
+      ring
+    · intro x y h
+      exact ⟨1, by rw [hj_inj h]⟩
+  -- the primes of `𝓞 L` over `p`
+  intro P hP hpP
+  have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hdisjP : Disjoint ((Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp :
+      Submonoid _) : Set (NumberField.RingOfIntegers L)) ↑P := by
+    rw [Set.disjoint_left]
+    rintro _ ⟨n, hn, rfl⟩ hnP
+    have hn' : ¬ (p : ℤ) ∣ n := fun h => hn (Ideal.mem_span_singleton.mpr h)
+    obtain ⟨α, β, hαβ⟩ := (Prime.coprime_iff_not_dvd hpr).mpr hn'
+    apply hP.ne_top
+    rw [Ideal.eq_top_iff_one]
+    have : algebraMap ℤ (NumberField.RingOfIntegers L) (α * p + β * n) ∈ P := by
+      rw [map_add, map_mul, map_mul]
+      exact P.add_mem (P.mul_mem_left _ (by simpa using hpP)) (P.mul_mem_left _ hnP)
+    rwa [hαβ, map_one] at this
+  set P' : Ideal A := P.map (algebraMap (NumberField.RingOfIntegers L) A) with hP'
+  have hP'p : P'.IsPrime := IsLocalization.isPrime_of_isPrime_disjoint _ A P hP hdisjP
+  have hP'c : P'.comap (algebraMap (NumberField.RingOfIntegers L) A) = P :=
+    IsLocalization.under_map_of_isPrime_disjoint _ A hP hdisjP
+  have hL1 : IsLocalization.AtPrime (Localization.AtPrime P')
+      (P'.comap (algebraMap (NumberField.RingOfIntegers L) A)) :=
+    IsLocalization.isLocalization_isLocalization_atPrime_isLocalization
+      (Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp) (Localization.AtPrime P') P'
+  have hL2 : IsLocalization.AtPrime (Localization.AtPrime P') P := atPrime_congr hP'c
+  let e : Localization.AtPrime P ≃ₐ[NumberField.RingOfIntegers L] Localization.AtPrime P' :=
+    IsLocalization.algEquiv P.primeCompl _ _
+  have hFU5 : Algebra.FormallyUnramified A (Localization.AtPrime P') :=
+    Algebra.FormallyUnramified.of_isLocalization P'.primeCompl
+  haveI hTZ2 := IsScalarTower.of_algebraMap_eq (R := ℤ) (S := A) (A := Localization.AtPrime P')
+      (fun x => by simp only [eq_intCast, map_intCast])
+  have hFU6 : Algebra.FormallyUnramified ℤ (Localization.AtPrime P') :=
+    Algebra.FormallyUnramified.comp ℤ A _
+  have hFU7 : Algebra.FormallyUnramified ℤ (Localization.AtPrime P) :=
+    Algebra.FormallyUnramified.of_equiv (A := Localization.AtPrime P')
+      (AlgEquiv.ofRingEquiv (f := (e.symm : Localization.AtPrime P' ≃+* Localization.AtPrime P))
+        (fun x => by simp only [eq_intCast, map_intCast]))
+  have hfdL : FiniteDimensional ℚ L := finiteDimensional_residue E s₀ 𝔓 hU φ
+  haveI : NumberField L := ⟨⟩
+  have : Algebra.EssFiniteType ℤ (NumberField.RingOfIntegers L) := inferInstance
+  have : Algebra.IsUnramifiedAt ℤ P := hFU7
+  exact Ideal.ramificationIdx_eq_one P ℤ
+
+/-- **`SNSpecializeUnram` is a theorem** (compiled): with `Ψ : S → ℚ̄` the extension of
+`φ ∘ (C → B/𝔓)` to `S = C_{ℤ[X]∖m}`, the image `A = Ψ(S)` is formally unramified over
+`R/(dX − a)` (quotient of the étale `S`), which is the localization of `ℤ` at `(p)`
+(`rbar_isLocalization`), so `A` is formally unramified over `ℤ` and a Dedekind domain
+(`IsDedekindDomain.of_formallyUnramified`); `𝓞_L ⊆ A` (`A` integrally closed,
+`mem_of_isIntegral_of_mem_closure`), `A = (𝓞_L)_{(p)}`, and for `P ∋ p` the local rings
+`(𝓞_L)_P ≅ A_{P A}` are formally unramified over `ℤ`, so `e(P) = 1`
+(`Ideal.ramificationIdx_eq_one`). -/
+theorem snSpecializeUnram : SNSpecializeUnram :=
+  fun E _ _ _ _ _ p hp s₀ hs₀ m _ hpm hsm het 𝔓 hP hU φ =>
+    snSpecializeUnram_aux E p hp s₀ hs₀ m hpm hsm het 𝔓 hP hU φ
+
+/-- **`SpecNonMeeting` is a theorem** (prop-ts §4.1, Grothendieck's specialization of étale
+covers in the form Prop. TS uses; compiled from Mathlib, with t-purity3's purity proof inlined). -/
+theorem specNonMeeting : SpecNonMeeting :=
+  specNonMeeting_of_specialize (snSpecialize_of_unram snSpecializeUnram)
+
 /-! ## Part B: `KummerMeetGlue` from the Kummer compositum, Abhyankar (T2) and two ramification
 facts -/
 
@@ -3623,6 +4163,19 @@ theorem propTSAll_final' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.M
     (hV : HeckeNoVertRam) : PropTSAll :=
   propTSAll_final t2 hR hM (snSpecialize_of_unram hS) hC hA hO hVF hAI hOI hVI hI hNI hD hB hV
 
+/-- **The final composite**: `PropTSAll` from the bundle leaves T2 and `R1R2fp`, the kernel glue
+`MobiusGlue`, and 12 open glue Props (seven Kummer pieces, five Hecke pieces); `SpecNonMeeting`
+is a theorem (`specNonMeeting`). -/
+theorem propTSAll_final'' (t2 : PkgI2.AbhyankarDVR.{0}) (hR : R1R2fp) (hM : Pin.MobiusGlue)
+    (hC : KummerCompositum)
+    (hA : KummerAbhyankarFinGlue) (hO : KummerOtherBranchFin) (hVF : KummerVerticalFin)
+    (hAI : KummerAbhyankarInfGlue) (hOI : KummerOtherBranchInf) (hVI : KummerVerticalInf)
+    (hI : HeckeIrreducible) (hNI : HeckeNormalizationIrr) (hD : HeckeDegree) (hB : HeckeBranch)
+    (hV : HeckeNoVertRam) : PropTSAll :=
+  propTSAll_of_bundle_meet t2 hR (kummerMeetGlue_of_pieces' hC hA hO hVF hAI hOI hVI)
+    specNonMeeting hM
+    (coverModelOfHecke_of_pieces (heckeNormalization_of_irr hI hNI) hD hB hV)
+
 end PropTSGlue
 
 end
@@ -3663,6 +4216,10 @@ end
 #print axioms PropTSGlue.finiteDimensional_residue
 #print axioms PropTSGlue.snSpecialize_of_unram
 #print axioms PropTSGlue.propTSAll_final'
+#print axioms PropTSGlue.rbar_isLocalization
+#print axioms PropTSGlue.snSpecializeUnram
+#print axioms PropTSGlue.specNonMeeting
+#print axioms PropTSGlue.propTSAll_final''
 #print axioms PropTSGlue.isSeparable_of_finrank_lt
 #print axioms PropTSGlue.verticalResidueSeparable_of_degree
 #print axioms PropTSGlue.functionFieldModel_transfer
