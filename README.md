@@ -131,6 +131,7 @@ This repository contains the November 5, 2026 manuscript **Z is Diophantine in Q
 | Browse the polynomial and run its checks | [Curated construction](construction/README.md) |
 | Build the 11/5 manuscript or accepted Lean modules | [Build instructions](docs/building.md) |
 | Inspect the formalization | [Accepted Lean helper snapshot](lean/README.md) |
+| Track the main-theorem obligations and integration queue | [Dated fork theorem index](docs/progress/2026-11-13-deicyde-theorem-index.md) |
 | Find the construction, supporting calculations, or earlier approaches | [Research guide](docs/research-guide.md) |
 | Audit exact theorem applications, conventions and repairs | [Theorem application inventory](docs/theorem-application-audit/README.md) |
 | Download the saved research history | [Research handoff zip, 340 MB](https://github.com/elliotglazer/diophantine-z-q/releases/download/research-handoff-2026-11-04-r2/z-in-q-research-handoff-2026-11-04-r2.zip) |

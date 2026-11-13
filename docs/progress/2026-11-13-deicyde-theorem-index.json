@@ -1,0 +1,146 @@
+{
+  "schema": "deicyde-main-theorem-index-v1",
+  "scope": "dated source-bound organization supplement, not a proof certificate",
+  "date": "2026-11-13",
+  "source_snapshots": {
+    "fork": {
+      "repo": "Deicyde/diophantine-z-q",
+      "revision": "8ec807114805afd96d90c468ec2cf40c6f9cc634",
+      "source_inspection_reported_at": "2026-11-13T23:01:15Z",
+      "git_blobs": {
+        "README.md": "3b7679e95fbdf2847e49b80adea714ea1c97c4d7",
+        "STATUS.md": "ed4e6db1697523a1757ff22ccd7b640b78b26b36",
+        "KERNEL_PLAN.md": "5d75b198b1da1744d97c0d30b9fb8690d396c8e2",
+        "ZInQKernel/Target.lean": "eaf28428304f3389b0378c692b0f5fbe093cc2ff",
+        "ZInQKernel/MainLiterature.lean": "caecc27ad917afd4aab2690e4828af4ab16d8cce",
+        "ZInQKernel/Contrib/GaussFE/Headline.lean": "7c0be2a4d83d49a723458b80e88bf15e03f0ce89",
+        "ZInQKernel/Hypotheses/HeightMin.lean": "1fed8ed502627ce4bab96b58d0a3323b5ebd1ba6",
+        "ZInQKernel/Hypotheses/CR3Literature.lean": "57e4d4ab861b15d0d781328291282bbb44b07c9f",
+        "ZInQKernel/HDecomp/C10/Link.lean": "1ea58d639bf12d9914493d557764248b6df02c6f",
+        "ZInQKernel/HDecomp/Assembly.lean": "afe51da81ca8e7cc74fdaece3da999638a6c7ee2",
+        "scripts/check_target.py": "5821ec7510ec871df2f09fef15358c8beacc27bb",
+        "lean/Frozen/BoundedIntegerPolynomial.lean": "8b7b555e2c6aa620001dac21a33386039a45a76f"
+      }
+    },
+    "upstream_roadmap": {
+      "revision": "b9389e7b53b3976dfc32bccf346697831b79bd2c",
+      "relationship": "frozen upstream consolidation snapshot, not the fork main revision",
+      "roadmap_url": "https://github.com/Deicyde/diophantine-z-q/blob/b9389e7b53b3976dfc32bccf346697831b79bd2c/docs/hilbert10-roadmap.md",
+      "roadmap_blob": "83fd80f96c2bda437d2de963b29e43c6aa4f0f50",
+      "source_map_url": "https://github.com/Deicyde/diophantine-z-q/blob/b9389e7b53b3976dfc32bccf346697831b79bd2c/docs/issue37-consolidation/SOURCE-MAP.json",
+      "source_map_blob": "3891768b718f6fabbbb2f47268594ee9722bedb1",
+      "source_map_claim": "source ledger only; combined validation separately bound; not a Hilbert10 proof"
+    }
+  },
+  "goal": {
+    "declaration": "ZInQ.FrozenTarget",
+    "path": "ZInQKernel/Target.lean",
+    "lines": [17, 26],
+    "coefficient_domain": "Int",
+    "input_domain": "Rat",
+    "ambient_variables": 292890231905,
+    "rational_witnesses": 292890231904,
+    "degree_bound": "P.totalDegree < hyperoperation 4 2 7",
+    "coefficient_bound": "(P.coeff m).natAbs < hyperoperation 4 2 8 for every m",
+    "quantifier_order": "one polynomial P, then every rational q, with rational witnesses iff q is an integer cast",
+    "alternate_214_variable_quartic_is_not_substituted": true,
+    "end_to_end_hilbert10_consumer_established_by_this_update": false
+  },
+  "consumer_contracts": [
+    {
+      "id": "canonical-five",
+      "declaration": "ZInQ.exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_tyzThm35ReadingA_heckeContinuation_functionalEquation5_grossZagier",
+      "path": "ZInQKernel/MainLiterature.lean",
+      "lines": [53, 57],
+      "premises": ["ZInQ.SixContactMin", "ZInQ.Literature.TYZThm35ReadingA", "ZInQ.Literature.HeckeContinuation", "ZInQ.Literature.FunctionalEquation5", "ZInQ.Literature.GrossZagier"],
+      "result": "ZInQ.FrozenTarget",
+      "state": "conditional-consumer",
+      "type_evidence": "exact source declaration inspected; no fresh full main kernel replay in this update"
+    },
+    {
+      "id": "folded-three",
+      "declaration": "ZInQ.Contrib.GaussFE.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier",
+      "path": "ZInQKernel/Contrib/GaussFE/Headline.lean",
+      "lines": [24, 28],
+      "premises": ["ZInQ.SixContactMin", "ZInQ.Literature.TYZThm35ReadingA", "ZInQ.Literature.GrossZagier"],
+      "result": "ZInQ.FrozenTarget",
+      "state": "conditional-consumer",
+      "analytic_route": "existing Gauss/HeckeFE provider route, not a rewrite of the canonical contract",
+      "type_evidence": "exact source declaration inspected; no fresh full main kernel replay in this update"
+    }
+  ],
+  "main_input_cards": [
+    {
+      "id": "H",
+      "declaration": "ZInQ.SixContactMin",
+      "path": "ZInQKernel/Hypotheses/HeightMin.lean",
+      "lines": [44, 52],
+      "required_scope": "all rational u outside contactSet, original Mult.S_mul and heightD, uniform effective inequality",
+      "source_definition": "def SixContactMin : Prop :=\n  ∀ u : ℚ, u ∉ contactSet →\n    ratHeight u ≤ heightH6 (heightD : ℝ) * (contactSupport Mult.S_mul u : ℝ) ^ 24",
+      "supplied_by_inspected_folded_consumer": false,
+      "existing_roadmap_card": "H10-H"
+    },
+    {
+      "id": "TYZ-A",
+      "declaration": "ZInQ.Literature.TYZThm35ReadingA",
+      "path": "ZInQKernel/Hypotheses/CR3Literature.lean",
+      "lines": [137, 144],
+      "required_scope": "squarefree natural d with d mod 8 = 5; actual L-continuation; analytic order at least two; both genus rows vanish",
+      "source_definition": "def TYZThm35ReadingA : Prop :=\n  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,\n    IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → 2 ≤ analyticOrderAt F 1 →\n      T5aCl d = 0 ∧ T5bCl d = 0",
+      "supplied_by_inspected_folded_consumer": false,
+      "existing_roadmap_card": "H10-TYZ"
+    },
+    {
+      "id": "GZ",
+      "declaration": "ZInQ.Literature.GrossZagier",
+      "path": "ZInQKernel/Hypotheses/CR3Literature.lean",
+      "lines": [61, 72],
+      "required_scope": "stated elliptic curve over Rat and L-continuation; analytic order exactly one; actual rational affine point of nonfinite additive order",
+      "source_definition": "def GrossZagier : Prop :=\n  ∀ (E : WeierstrassCurve ℚ), E.IsElliptic → ∀ F : ℂ → ℂ, IsLContinuation E F →\n    analyticOrderAt F 1 = 1 → ∃ P : E.toAffine.Point, ¬IsOfFinAddOrder P",
+      "supplied_by_inspected_folded_consumer": false,
+      "existing_roadmap_card": "H10-GZ"
+    }
+  ],
+  "recent_frobenius_checkpoint": {
+    "commit": "eec823474ed6919117e2328b24e3e7f96c452d11",
+    "date": "2026-11-13",
+    "availability": "local unpublished source checkpoint; separate from intended-main integration",
+    "implementation_modules": 6,
+    "checked_declarations": 45,
+    "verification_scope": "scoped module compilation, separate exact axiom probes and prior-adapter regressions; only standard axioms",
+    "closed_main_inputs_by_this_checkpoint": [],
+    "main_integration_established_by_this_index": false,
+    "frozen_optional_handoff_commit": "ac278bc309ebfa489a46e32351e12061abb76c72",
+    "later_separate_commits": ["fe98db3655f819b9f9662b6e2797f7c10db12dbe", "eec823474ed6919117e2328b24e3e7f96c452d11"]
+  },
+  "c10_consumer_bridge": {
+    "path": "ZInQKernel/HDecomp/C10/Link.lean",
+    "declaration": "GlueC10Link.c10_of_squares",
+    "lines": [398, 455],
+    "coefficient_primes": [3, 5],
+    "shared_objects": ["L", "k", "A", "Aσ", "mu", "Ab", "Ab'", "F", "mub", "N"],
+    "N_nonzero": true,
+    "needed_witness": "for every relevant g,p, the same objects with FrobSquares at both 3 and 5",
+    "original_other_hypotheses_retained": ["coefficient maps", "common traces", "continuity", "semisimplicity", "all original arithmetic hypotheses"],
+    "state": "actual-wiring-needed",
+    "same_field_frobenius_is_not_reduction_or_global_galois_comparison": true,
+    "existing_lanes": ["point/base-change and Hom naturality", "same-M Tate transport", "Frobenius packaging"],
+    "existing_roadmap_card": "H10-C10"
+  },
+  "priority_rule": "unfilled main inputs and actual consumer joins outrank recent generic supplier additions; recency alone is not advancement",
+  "progress_states": ["source-inspected", "proved-supplier", "conditional-consumer", "actual-wiring", "validated-candidate", "integrated", "end-to-end-complete"],
+  "verification_of_this_update": {
+    "source_blobs_checked_when_fetched": true,
+    "frozen_target_identity_check": {
+      "command": "python3 scripts/check_target.py",
+      "revision": "8ec807114805afd96d90c468ec2cf40c6f9cc634",
+      "status": "passed",
+      "output": "FrozenTarget matches lean/Frozen/BoundedIntegerPolynomial.lean"
+    },
+    "full_main_lean_build_rerun": false,
+    "fresh_main_type_printer_rerun": false,
+    "current_CI_status_not_inferred": true,
+    "final_git_scope_and_commit_check": "documentation-only scope checked against the pinned source; local commit recorded in a separate receipt",
+    "index_scope_guard_tests": {"status": "passed", "cases": 11, "mathematical_proof": false}
+  }
+}
