@@ -15,3 +15,12 @@
   jacobiSum_mul_jacobiSum_inv through ℤ[i] ↪ ℂ), `chi_neg_one_mul_chi_two_sq` (χ(−1)χ(2)² = 1),
   `two_add_two_i_dvd_jacobi_add_one` ((2+2i) ∣ J + 1; involution t ↦ t⁻¹ in ℤ[i]/(2+2i)),
   `card_cubic_eq` (count = p + Σ quadraticChar(x³ − x)).
+- ZInQKernel/Contrib/GaussFE/FunctionalEquation5.lean. VERIFIED compiled (22:35 PST; `lake env lean`
+  and `lake build ZInQKernel.Contrib.GaussFE.FunctionalEquation5`, no errors, no sorry).
+  `psiPair`, `psiPair_neg`, `psiPair_conj`, `unitOf_primary`, `psiPair_primary`,
+  `gaussPointCount : GaussPointCount` (bp-hecke-fe's Prop, definition unchanged in HeckeFE.lean),
+  `literature_hecke_fe : HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`,
+  `theorem ZInQ.Contrib.functionalEquation5 : ZInQ.Literature.FunctionalEquation5`.
+  scratch/gauss-proof/axioms.lean → out_axioms.txt: all three depend on
+  [propext, Classical.choice, Quot.sound]; `example : ZInQ.Literature.FunctionalEquation5 :=
+  ZInQ.Contrib.functionalEquation5` elaborates (type is exactly the hypothesis).
