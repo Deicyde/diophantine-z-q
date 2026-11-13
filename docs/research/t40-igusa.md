@@ -178,6 +178,15 @@ the reduction to Igusa's theorem as published (`IgusaGL2`) and to Shimura's `SL�
 `X0Transitive` (SPECULATIVE): the ℘-uniformization and the bridge `C ↦ j(E/C) ↦ j(γ N τ)`,
 several thousand lines.
 
+**Remark (prime levels; hand argument, SPECULATIVE, not formalized).** For `N = p` prime the
+`p + 1` cyclic subgroups are `μ_p` and the `p` lines `⟨ζ^k q^{1/p}⟩`, which form one orbit of the
+inertia group at `∞` (`q^{1/p} ↦ ζ q^{1/p}`). So `X0Transitive` at `p` is equivalent to `μ_p` not
+being `ℚ(j)`-rational. For `p ≡ 2 (mod 3)` this follows from the inertia at `j = 0` (an element
+of order `6` with characteristic polynomial `x² − x + 1`, which has no eigenline mod `p`), and for
+`p ≡ 3 (mod 4)` from the inertia at `j = 1728` (order `4`, `x² + 1`). For `p ≡ 1 (mod 12)` and
+for composite `N` (many cusps of `X₀(N)`) local information does not suffice; this is why
+`X0Transitive` is kept as a global leaf.
+
 ## 3. Remarks on the statements
 
 * No statement change is proposed: `IgusaTransitive` is true as stated and is the correct
