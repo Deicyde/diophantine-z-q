@@ -76,3 +76,14 @@ COMPILED 04:23 (41 s; 0 errors). `Base.lean` is byte-identical to scratch/g0-hei
   HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetMultilinear → JacDetNondegenerate →
   ProductUniformizationAnalytic → ProductHodgeCompat → HeightAdditivity`. Axioms
   [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Run 11-12: + part_prodsplit — first attempt 1 error (`IsMonHom.one_hom` needs explicit `φ`);
+  fixed — COMPILED 04:48 (54 s; 0 errors)
+- `map_genericUnit_of_isMonHom`: a homomorphism of group models maps `ξ` to `ξ` (from
+  `IsMonHom.one_hom`). PROVED. New def `pullGerm φ : 𝒪_{ℋ,ξ} ⟶ 𝒪_{𝒢,ξ}` (stalkSpecializes ≫ stalkMap).
+- new glue `ProductHodgeLattice` (algebra) and `ProductJacobian` (analysis, block-diagonal Jacobian).
+- `productHodgeCompat_of : ProductUniformization → ProductHodgeLattice → ProductJacobian →
+  ProductHodgeCompat` PROVED; `HSyn.G0Split.heightAdditivity_of_metrization''' : N1 → H5 → U →
+  HodgeLatticeTheorem → AnalyticUniformizationOfDim → JacDetMultilinear → JacDetNondegenerate →
+  ProductUniformizationAnalytic → ProductHodgeLattice → ProductJacobian → HeightAdditivity`.
+  Axioms [propext, Classical.choice, Quot.sound]. VERIFIED.
