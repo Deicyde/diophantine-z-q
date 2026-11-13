@@ -17,3 +17,15 @@
   that unfolds `Rd ⟨y₀, _⟩ v` is a kernel deterministic timeout (the kernel zeta-unfolds `y₀` and tries
   to reduce the cast along `pe.apply_symm_apply`); fix: hide the witness behind `∃` (`exists_reindex`)
   and rewrite with `RestrictedProduct.mk_apply` instead of `change`.
+- 03:32 `ZInQKernel/Contrib/G1Adelic/FiniteAdele.lean` (= scratch FA1.lean) builds with
+  `lake build ZInQKernel.Contrib.G1Adelic.FiniteAdele` (19 s). VERIFIED. Over Mathlib's objects
+  (`AF = FiniteAdeleRing ℤ ℚ`, `HA = ℍ[AF, 2, 0, -3]`): `ZhatAF` (ℤ̂ = {a | ∀ v, a v ∈ ℤ_v}),
+  `qcoord` (N5 coordinates), `OhatAF`/`OhatSubAF` (𝒪̂ = coordinates in ℤ̂), `NAF` (normalizer of 𝒪̂),
+  `K0AF = OhatSubAF.toSubmonoid.units`, `ZAF = range (Units.map (algebraMap AF HA))`,
+  `K3AF = {u ∈ K0AF | ∃ w ∈ 𝒪̂, u - 1 = 3w}`; `map_Nhat`, `map_K0`, `map_Zhat`, `map_K3` (each t30
+  subgroup maps onto the Mathlib-side one under `ThetaU = Units.mapEquiv Theta`);
+  `relIndex_eq_four_AF : (ZAF ⊔ K0AF).relIndex NAF = 4`,
+  `relIndex_K3_AF : ((ZAF ⊓ K0AF) ⊔ K3AF).relIndex K0AF = 36`,
+  `gamma_order_AF : (ZAF ⊔ K3AF).relIndex NAF = 144`.
+  `#print axioms` of Theta, gamma_order_AF, relIndex_eq_four_AF, relIndex_K3_AF:
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
