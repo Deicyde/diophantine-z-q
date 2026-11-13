@@ -30,6 +30,16 @@ Repository: https://github.com/TauCetiProject/TauCeti
   LFunction/, Twist/, HeckeSlash/ and four top-level files), and single modules in
   Analysis/, FieldTheory/Galois/, LinearAlgebra/, NumberTheory/LSeries/ and
   NumberTheory/MulChar/ (list in scratch/gz-license/new-modules.txt).
+- Commit 5a01f5fe (as above): the 192 further modules vendored by the Z-in-Q task
+  rleaf-elliptic (the closure of
+  AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.Torsion.Structure, used for the
+  structure of the torsion of an elliptic curve; list in
+  scratch/rleaf-elliptic/vendor-new.txt), and the 38 further modules of the closure of
+  AlgebraicGeometry.EllipticCurve.Affine.Point.Inertia (good reduction makes inertia act
+  trivially on prime-to-p torsion; list in scratch/rleaf-elliptic/vendor-new2.txt). One
+  of them, AlgebraicGeometry/EllipticCurve/Projective/Prime.lean, is modified (see
+  below); the others are copied unchanged apart from the mechanical changes described
+  below.
 
 Location in this repository
 ---------------------------
@@ -64,6 +74,7 @@ Each such file carries, directly under its provenance line, a line
 modifications are distributed under the same license. At the time of writing these
 are (paths relative to ZInQKernel/Contrib/TauCeti/):
 
+- AlgebraicGeometry/EllipticCurve/Projective/Prime.lean
 - GroupTheory/GroupAction/Norm.lean
 - GroupTheory/SpecificGroups/Cyclic/PowMonoidHom.lean
 - NumberTheory/ClassFieldTheory/ClassFields/KroneckerWeber.lean

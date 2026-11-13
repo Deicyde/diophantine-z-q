@@ -1,0 +1,8 @@
+✔ [3920/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Projective.Prime (1.7s)
+✔ [3921/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Projective.AdditionLaw.Equation (1.6s)
+✔ [3922/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Projective.AdditionLaw.LocalRing (1.2s)
+✔ [3923/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.NonsingularReduction (1.8s)
+✔ [3924/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.GoodReduction (1.6s)
+✔ [3925/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.TorsionReduction (4.3s)
+✔ [3926/3926] Built ZInQKernel.Contrib.TauCeti.AlgebraicGeometry.EllipticCurve.Affine.Point.Inertia (2.0s)
+Build completed successfully (3926 jobs).
