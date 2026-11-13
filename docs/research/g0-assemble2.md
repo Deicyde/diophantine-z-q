@@ -342,4 +342,11 @@ Truth status, as in the source reports:
 `senTwist`, `finiteImageHT`, `t09SymmIsogenyExists`, `isogenyQuasiInverse`, `divisiblePoints`,
 `carayolR17`. **LEAF? (3):** `thetaRatiosAlgebraic`, `qmHauptmodul`, `qmDenZeroCM3`.
 
-Bundle fields that the route never uses are not removed here. Pruning them is a separate check.
+**Unused bundle fields** (VERIFIED by grep over `Leaves.lean` and all parts).
+- Ten `TextbookLeaves` fields are never projected (`t.tX`) or destructured anywhere on the
+  composed route: `t1` (purity), `t2` (Abhyankar), `t3`, `t4`, `t16b`, `t20`, `t21`, `t28`,
+  `t29a` and `t29b`. Of these, T20 and T21 are also proved in the kernel (t-different).
+- Every `ResearchLeaves3` field is used.
+- So the `TextbookLeaves` that the proof actually needs has 25 fields, not 35.
+- They are not removed here: 31 declarations take `t : TextbookLeaves`, and removing the fields would
+  mean copying all of them, as `ResearchLeaves3` did for `r`.
