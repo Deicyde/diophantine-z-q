@@ -1,0 +1,10 @@
+TauCeti.AlgebraicGeometry.IrreducibleOfConnectedDomainStalk
+TauCeti.AlgebraicGeometry.Morphisms.Smooth.GeometricallyIntegral
+TauCeti.AlgebraicGeometry.Morphisms.Smooth.Regular
+TauCeti.AlgebraicGeometry.Scheme.RegularLocalRing
+TauCeti.LinearAlgebra.Span.Basic
+TauCeti.RingTheory.KrullDimension.Regular
+TauCeti.RingTheory.LocalRing.MaximalIdeal.Square
+TauCeti.RingTheory.RegularLocalRing.Basic
+TauCeti.RingTheory.RegularLocalRing.Flat
+TauCeti.RingTheory.Smooth.Regular

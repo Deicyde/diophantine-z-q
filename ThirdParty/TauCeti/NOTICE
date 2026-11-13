@@ -59,6 +59,14 @@ Repository: https://github.com/TauCetiProject/TauCeti
   GlobalExistence/NormSubgroupRingClass, NumberTheory/NumberField/Global/Adeles/
   Norm/Galois, NumberTheory/NumberField/Global/Ideles/{Basic,Norm/Galois} and
   NumberTheory/NumberField/Global/RayClass/Integral.
+- Commit 5a01f5fe (as above): the 10 further modules vendored unmodified by the Z-in-Q
+  task frob-pieces (the closure of
+  AlgebraicGeometry.Morphisms.Smooth.GeometricallyIntegral: smooth and geometrically
+  connected implies geometrically integral; list in scratch/frob-pieces/vendor-new.txt):
+  AlgebraicGeometry/{IrreducibleOfConnectedDomainStalk,Morphisms/Smooth/GeometricallyIntegral,
+  Morphisms/Smooth/Regular,Scheme/RegularLocalRing}, LinearAlgebra/Span/Basic,
+  RingTheory/{KrullDimension/Regular,LocalRing/MaximalIdeal/Square,RegularLocalRing/Basic,
+  RegularLocalRing/Flat,Smooth/Regular}.
 
 Location in this repository
 ---------------------------
