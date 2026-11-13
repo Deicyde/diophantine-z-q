@@ -1,0 +1,87 @@
+scratch/fibre-qm-period/Dev.lean:113:44: error: unexpected token 'γ'; expected '(', '_' or identifier
+scratch/fibre-qm-period/Dev.lean:125:73: error: Type mismatch
+  Iff.rfl
+has type
+  ?m.3 ↔ ?m.3
+but is expected to have type
+  PkgI1.QMHauptmodul ↔ ∃ f, QMHauptmodulFn f
+scratch/fibre-qm-period/Dev.lean:136:49: error: elaboration function for `Mathlib.Tactic.subscriptTerm` has not been implemented
+  ᵥ
+scratch/fibre-qm-period/Dev.lean:200:54: error: unexpected token 'γ'; expected '(', '_' or identifier
+scratch/fibre-qm-period/Dev.lean:237:23: error: unexpected token 'γ'; expected rcasesPat
+scratch/fibre-qm-period/Dev.lean:237:4: error: Unexpected syntax
+  failed to pretty print term (use 'set_option pp.rawOnError true' for raw representation)
+scratch/fibre-qm-period/Dev.lean:234:67: error: unsolved goals
+f : UpperHalfPlane → OnePoint ℂ
+hf : QMHauptmodulFn f
+hD : QMDenZeroCM3
+τ : UpperHalfPlane
+t : ℂ
+ht : f τ = ↑t
+hden : PkgI1.jDen (PkgI1.Omega ↑τ) ≠ 0
+⊢ PkgI1.jNum (PkgI1.Omega ↑τ) / PkgI1.jDen (PkgI1.Omega ↑τ) = t
+scratch/fibre-qm-period/Dev.lean:259:22: error: Application type mismatch: The argument
+  hf
+has type
+  Continuous f ∧
+    (∀ (τ : UpperHalfPlane),
+        PkgI1.jDen (PkgI1.Omega ↑τ) ≠ 0 → f τ = ↑(PkgI1.jNum (PkgI1.Omega ↑τ) / PkgI1.jDen (PkgI1.Omega ↑τ))) ∧
+      (∀ (τ τ' : UpperHalfPlane), f τ = f τ' ↔ ∃ «γ» ∈ PkgI1.GammaStar, «γ» • τ = τ') ∧
+        Function.Surjective f ∧
+          (∀ (x : PkgI1.B),
+              PkgI1.InO x →
+                x * x = -1 →
+                  ∀ («γ» : GL (Fin 2) ℝ), ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = ↑0) ∧
+            (∀ (x : PkgI1.B),
+                PkgI1.InO x →
+                  x * x - x + 1 = 0 →
+                    ∀ («γ» : GL (Fin 2) ℝ),
+                      ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = OnePoint.infty) ∧
+              ∀ (x : PkgI1.B),
+                PkgI1.InO x →
+                  x * x = -6 →
+                    ∀ («γ» : GL (Fin 2) ℝ),
+                      ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = ↑(-16 / 27)
+but is expected to have type
+  QMHauptmodulFn f
+in the application
+  hV f hf
+scratch/fibre-qm-period/Dev.lean:264:26: error: Application type mismatch: The argument
+  hf
+has type
+  Continuous f ∧
+    (∀ (τ : UpperHalfPlane),
+        PkgI1.jDen (PkgI1.Omega ↑τ) ≠ 0 → f τ = ↑(PkgI1.jNum (PkgI1.Omega ↑τ) / PkgI1.jDen (PkgI1.Omega ↑τ))) ∧
+      (∀ (τ τ' : UpperHalfPlane), f τ = f τ' ↔ ∃ «γ» ∈ PkgI1.GammaStar, «γ» • τ = τ') ∧
+        Function.Surjective f ∧
+          (∀ (x : PkgI1.B),
+              PkgI1.InO x →
+                x * x = -1 →
+                  ∀ («γ» : GL (Fin 2) ℝ), ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = ↑0) ∧
+            (∀ (x : PkgI1.B),
+                PkgI1.InO x →
+                  x * x - x + 1 = 0 →
+                    ∀ («γ» : GL (Fin 2) ℝ),
+                      ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = OnePoint.infty) ∧
+              ∀ (x : PkgI1.B),
+                PkgI1.InO x →
+                  x * x = -6 →
+                    ∀ («γ» : GL (Fin 2) ℝ),
+                      ↑«γ» = PkgI1.iota x → ∀ (τ : UpperHalfPlane), «γ» • τ = τ → f τ = ↑(-16 / 27)
+but is expected to have type
+  QMHauptmodulFn ?m.240
+in the application
+  jRatio_of_value hf
+'HSyn.G0Split.FibreQM.fibreQMPeriod_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_own' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.own_of_fibreQMPeriod' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.jRatio_of_value' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodAt_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriodOwn_of' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_all' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep' depends on axioms: [propext, sorryAx, Classical.choice, Quot.sound]
+
+real	0m4.309s
+user	0m2.907s
+sys	0m1.753s

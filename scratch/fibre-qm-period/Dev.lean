@@ -1,0 +1,310 @@
+import FQMBase
+
+/-! ## §F. fibre-qm-period: `ThetaPt.FibreQMPeriod` for the leaf's own triple, from named Props
+
+Task fibre-qm-period, 2026-11-13. `ThetaPt.FibreQMPeriod` (g0-thetapoint, above, unchanged; in
+this file `R1fpProps` is qm-pin's fully repaired clause list) is proved here in two steps.
+
+1. **qm-pin's reduction to the leaf's own triple** (`fibreQMPeriod_of_own`). `FibreQMPeriodAt Y Φ π`
+   is the body of `FibreQMPeriod` for one triple (`fibreQMPeriod_iff`, `Iff.rfl`).
+   `FibreQMPeriodOwn h` is `FibreQMPeriodAt` for the triple `ownY h, ownΦ h, ownπ h` that
+   `Classical.choice` extracts from the leaf bundle `R1R2fp` (through `R1R2fp_Y`). Given qm-pin's
+   `Pin.MobiusGlue` (proved by mobius-glue from `CurveRatFactor`, `CurveSurj` and the textbook leaf
+   T5), `FibreQMPeriodOwn h` implies `FibreQMPeriod` (`Pin.pointwise_of_witness_mor`).
+2. **The own-triple statement from named Props** (`fibreQMPeriodAt_of`): for any triple satisfying
+   `R1fpProps` (only its naturality clause is used), from
+   * `PkgI1.QMHauptmodul` (existing composite leaf, pkg-I1),
+   * `QMComplexUnif` (LEAF candidate: R1(b)(a), Shimura 1967: every QM surface over `ℂ` is
+     `ℂ²/ι(𝒪)(τ, 1)ᵀ` compatibly with `ι`, for some `τ ∈ ℍ`, by an analytic uniformization),
+   * `QMPeriodValue Y Φ π` (GLUE: the Hauptmodul comparison; the value of `π` at a point is the value
+     of `QMHauptmodul`'s `f` at the period `τ` of the point),
+   * `QMDenZeroCM3` (LEAF candidate: `Σθ_m⁸ ∘ Ω` vanishes on `ℍ` only at fixed points of `ι(x)`,
+     `x² − x + 1 = 0`; Lin–Yang's divisor of `ψ₄` on the QM curve),
+   * `UnifTransport` (GLUE: an analytic uniformization of the base change `Q/ℂ` of the fibre object
+     gives one of `A(ℂ)_σ` with the same kernel; base change of complex points and rigidity). -/
+
+noncomputable section
+
+namespace HSyn
+
+open scoped MatrixGroups ModularForm
+
+namespace G0Split
+
+open CategoryTheory AlgebraicGeometry Limits MonoidalCategory CartesianMonoidalCategory MonObj
+open ZInQ ZInQ.JHeight LeafQM.AV ZInQ.DefFaltings
+
+namespace FibreQM
+
+open Complex
+
+/-! ### Step 1: the statement for one triple, and qm-pin's reduction -/
+
+/-- The conclusion of `FibreQMPeriod` for the model `A` over `K` of the fibre over `J(u)`
+(verbatim). -/
+def QMConcl (u : ℚ) (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K) : Prop :=
+  ∃ (σ : K.K →+* ℂ) (Λ : Submodule ℤ (Fin 2 → ℂ))
+    (Φu : (Fin 2 → ℂ) → CPts (LeafAdopt.abVarEquiv K.K A) σ), IsUniformization σ Λ Φu ∧
+  ∃ (τ : ℂ) (hτ : 0 < τ.im) (F : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)),
+    Λ.map (F.toLinearMap.restrictScalars ℤ) = BPAnalytic.QM.qmLattice hτ.ne' ∧
+    PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = ((Jmap u : ℚ) : ℂ)
+
+/-- **`FibreQMPeriod` for one triple `(Y, Φ, π)`** (the body of `ThetaPt.FibreQMPeriod`, unchanged:
+`fibreQMPeriod_iff`). -/
+def FibreQMPeriodAt (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) :
+    Prop :=
+  ∀ u : ℚ, u ∉ contactSet →
+    ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K), FibreOver Y Φ π u K A →
+      QMConcl u K A
+
+/-- The restatement is the statement (checked by `Iff.rfl`). -/
+theorem fibreQMPeriod_iff : ThetaPt.FibreQMPeriod ↔
+    ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π → FibreQMPeriodAt Y Φ π :=
+  Iff.rfl
+
+/-- The leaf's own `Y₃`: the triple that `Classical.choice` extracts from the bundle `R1R2fp`
+(through `R1R2fp_Y`). -/
+def ownY (h : R1R2fp) : Over (Spec (CommRingCat.of ℚ)) := (R1R2fp_Y h).choose
+
+/-- The leaf's own moduli bijections. -/
+def ownΦ (h : R1R2fp) : PtEquiv (ownY h) := (R1R2fp_Y h).choose_spec.choose
+
+/-- The leaf's own `π : Y₃ → P¹`. -/
+def ownπ (h : R1R2fp) : ToP1 (ownY h).left := (R1R2fp_Y h).choose_spec.choose_spec.choose
+
+theorem own_spec (h : R1R2fp) : R1fpProps (ownY h) (ownΦ h) ∧ R1heckeProps (ownY h) (ownΦ h) ∧
+    R2fpProps (ownY h) (ownΦ h) (ownπ h) :=
+  (R1R2fp_Y h).choose_spec.choose_spec.choose_spec
+
+/-- **`FibreQMPeriod` restated for the leaf's own triple** (qm-pin's option 3 form; with
+`Pin.MobiusGlue` it is equivalent to `FibreQMPeriod`: `fibreQMPeriod_of_own` and
+`own_of_fibreQMPeriod`). -/
+def FibreQMPeriodOwn (h : R1R2fp) : Prop := FibreQMPeriodAt (ownY h) (ownΦ h) (ownπ h)
+
+/-- **qm-pin's reduction (proved).** The own-triple statement implies `FibreQMPeriod` for every
+triple satisfying the repaired clause list, given `Pin.MobiusGlue` (mobius-glue proves it from
+`CurveRatFactor`, `CurveSurj` and T5) and the CM objects of the bundle. -/
+theorem fibreQMPeriod_of_own (h : R1R2fp) (hM : Pin.MobiusGlue) (hOwn : FibreQMPeriodOwn h) :
+    ThetaPt.FibreQMPeriod := by
+  obtain ⟨h1, -, h2⟩ := own_spec h
+  intro Y Φ π h1' h2' u hu K A hFib
+  obtain ⟨emb, y, P, hP, hy, hiso⟩ := hFib
+  exact Pin.pointwise_of_witness_mor hM (Pin.cm_objects_of_R1R2fp h) h1 h2
+    (fun t P => ∀ u : ℚ, u ∉ contactSet → t = OnePoint.some (algebraMap ℚ Qbar (Jmap u)) →
+      ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K) (emb : K.K →+* Qbar),
+        (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+        QMConcl u K A)
+    (fun t y P hP ht u hu hJ K A emb hiso => hOwn u hu K A ⟨emb, y, P, hP, ht.trans hJ, hiso⟩)
+    Y Φ π h1' h2' _ y P hP rfl u hu hy K A emb hiso
+
+/-- The converse (trivial): `FibreQMPeriod` implies the own-triple statement. -/
+theorem own_of_fibreQMPeriod (h : R1R2fp) (hQM : ThetaPt.FibreQMPeriod) : FibreQMPeriodOwn h :=
+  hQM _ _ _ (own_spec h).1 (own_spec h).2.2
+
+/-! ### Step 2: the named Props -/
+
+/-- The clauses of `PkgI1.QMHauptmodul` for one function `f` (verbatim; `PkgI1.QMHauptmodul` is
+`∃ f, QMHauptmodulFn f`, `qmHauptmodul_iff`). -/
+def QMHauptmodulFn (f : UpperHalfPlane → OnePoint ℂ) : Prop :=
+  Continuous f ∧
+    (∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) ≠ 0 →
+      f τ = ((PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) : ℂ) : OnePoint ℂ)) ∧
+    (∀ τ τ' : UpperHalfPlane, f τ = f τ' ↔ ∃ g ∈ PkgI1.GammaStar, g • τ = τ') ∧
+    Function.Surjective f ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -1 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        f τ = ((0 : ℂ) : OnePoint ℂ)) ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x - x + 1 = 0 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        f τ = (OnePoint.infty : OnePoint ℂ)) ∧
+    (∀ x : PkgI1.B, PkgI1.InO x → x * x = -6 → ∀ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x → ∀ τ : UpperHalfPlane, g • τ = τ →
+        f τ = ((-16/27 : ℂ) : OnePoint ℂ))
+
+theorem qmHauptmodul_iff : PkgI1.QMHauptmodul ↔ ∃ f, QMHauptmodulFn f := Iff.rfl
+
+/-- `𝒪` acting on `ℂ²` through N5's real embedding: `z ↦ ι(a) z` (`ι(a) ∈ M₂(ℝ) ⊆ M₂(ℂ)`); it
+preserves `Λ_τ = ι(𝒪)(τ, 1)ᵀ`. (`LeafQM.O` is `ℤ⟨1, i, (1+j)/2, (i+ij)/2⟩ ⊆ B = (2, −3)`, the
+order of pkg-I1 and bp-analytic, with the same basis.) -/
+def qmMat (a : LeafQM.O) : Matrix (Fin 2) (Fin 2) ℂ :=
+  (BPAnalytic.QM.iota (a : LeafQM.B)).map (fun r : ℝ => (r : ℂ))
+
+/-- An analytic uniformization `Φ : ℂ² → Q.A(ℂ)` of a QM surface over `ℂ` is **`ι`-compatible**
+if `Φ(ι(a) z) = ι_Q(a)(Φ z)` for all `a ∈ 𝒪`. -/
+def IotaCompatible (Q : QML3 ℂ) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)) : Prop :=
+  ∀ (a : LeafQM.O) (z : Fin 2 → ℂ), Φu ((qmMat a).mulVec z) = Φu z ≫ (Q.q.iota a).hom
+
+/-- **LEAF candidate (R1(b)(a), the complex uniformization of QM surfaces).** Every abelian surface
+`Q/ℂ` with QM by `𝒪` (and level-3 structure) has an analytic uniformization
+`Φ : ℂ² → Q.A(ℂ)` (`IsUniformization`) whose kernel is exactly the QM lattice
+`Λ_τ = ι(𝒪)(τ, 1)ᵀ` for some `τ ∈ ℍ`, compatibly with `ι`.
+
+Sources: Shimura, *Construction of class fields and zeta functions of algebraic curves*,
+Ann. of Math. 85 (1967), Main Theorem I and §2 (the QM abelian varieties are the tori
+`ℂ²/ι(𝒪)(τ,1)ᵀ`); also Birkenhake–Lange, *Complex abelian varieties*, §9.4, and the analytic
+uniformization of `Q.A(ℂ)` with GAGA (the kernel's `UniformizationLeafAll`) (all locators
+UNVERIFIED). Why it is a consequence: `H₁(Q.A, ℤ)` is a left `𝒪`-module, locally free of rank one
+since `𝒪` is maximal, hence free because indefinite `B` has class number one (Eichler); the analytic
+representation of `B ⊗ ℝ = M₂(ℝ)` on `ℂ²` is the standard one up to `GL₂(ℂ)`; so the kernel is
+`ι(𝒪)w`, `w = c(τ, 1)ᵀ`, `τ ∉ ℝ`, and if `Im τ < 0` the unit `1 + i ∈ 𝒪` (reduced norm `−1`)
+moves it to `ℍ`. Not one printed theorem with this exact normalization: a leaf candidate. -/
+def QMComplexUnif : Prop :=
+  ∀ Q : QML3 ℂ, ∃ (τ : ℂ) (hτ : 0 < τ.im) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)),
+    IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice hτ.ne') Φu ∧ IotaCompatible Q Φu
+
+/-- **GLUE (F1, the Hauptmodul comparison, for one triple).** Let `f` satisfy the clauses of
+`PkgI1.QMHauptmodul`. For every `ℚ̄`-point `y` of `Y` with object `P`, every embedding
+`ι : ℚ̄ → ℂ`, every base change `Q/ℂ` of `P` along `ι`, and every `ι`-compatible uniformization of
+`Q.A` with kernel `Λ_τ` (`τ ∈ ℍ`): `f(τ) = ι(π(y))` in `P¹(ℂ)`.
+
+Why true for the genuine triple (model argument, no human review): by R1(b)(b)-(c) (Shimura 1967;
+Deligne 1971 §4.15) there is an analytic family `τ ↦ P_τ` over `ℍ` with `P_τ(ℂ) ≅ ℂ²/Λ_τ`
+compatibly with `ι`, and `h(τ) = π(P_τ)` is holomorphic `ℍ → P¹(ℂ)`. Two `ι`-compatible tori
+`ℂ²/Λ_τ`, `ℂ²/Λ_τ'` give `Aut(𝒪)`-twist-equivalent QM pairs iff `τ' ∈ Γ*τ` (Shimura; `Γ*` is the
+positive-norm normalizer, and twists by `Aut 𝒪 = N_B(𝒪)/ℚ^×` are the Atkin–Lehner moves). With
+R2fp's fibre clause (GAGA turns the analytic isomorphisms into algebraic ones), `h` is
+`Γ*`-invariant with fibres exactly the `Γ*`-orbits. So `h` and `f` both induce bijections
+`Γ*\ℍ ≅ P¹(ℂ)` that are holomorphic on the compact Riemann surface `X₆/W`; `h ∘ f⁻¹` is a
+biholomorphism of `P¹`, a Möbius map, and it fixes `0, ∞, −16/27` (R2fp's CM clauses at the CM
+points, which are the fixed points of `ι(x)`, `x ∈ 𝒪` with `x² = −1`, `x² − x + 1 = 0`, `x² = −6`;
+`QMHauptmodul`'s CM clauses), so `h = f`. Finally `Q ≅ P_τ` up to level structure (both are
+`ι`-compatibly `ℂ²/Λ_τ`), so `ι(π(y)) = π(Q) = h(τ) = f(τ)` (naturality of `π`,
+`ToP1.val_comp`). For other triples it follows from the genuine one by qm-pin's comparison. Inputs
+that are not in Mathlib: analytification of `Y₃`, the analytic family (R1(b)(b)-(c)), GAGA, the
+compact Riemann surface `X₆/W`. Size: large. -/
+def QMPeriodValue (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left) :
+    Prop :=
+  ∀ f : UpperHalfPlane → OnePoint ℂ, QMHauptmodulFn f →
+    ∀ (y : fieldPt Qbar ⟶ Y) (P : QML3 Qbar), Φ Qbar y = M3.mk P →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∀ (τ : UpperHalfPlane) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)),
+      IsUniformization (RingHom.id ℂ) (BPAnalytic.QM.qmLattice τ.im_pos.ne') Φu →
+      IotaCompatible Q Φu →
+      f τ = (π.val (K := Qbar) y.left).map ιe
+
+/-- **LEAF candidate (zeros of `ψ₄` on the QM curve).** `Σ_{m even} θ_m(Ω(τ))⁸ = 4ψ₄(Ω(τ))`
+vanishes at `τ ∈ ℍ` only at the CM points of discriminant `−3`, the fixed points of `ι(x)` for
+`x ∈ 𝒪` with `x² − x + 1 = 0`.
+
+Source: Lin–Yang, *Quaternionic loci in Siegel's modular threefold*, Math. Z. 295 (2020)
+(arXiv:1807.00466v1, Example 29 with eqs. (13)-(14)): on the Shimura curve `X = X₆/W ≅ P¹` the
+pull-back of `ψ₄` has its zeros only at the elliptic point `P₋₃` (so `j = χ₁₀²/ψ₄⁵`-type functions
+have their only pole there), with Igusa's theta expression of `ψ₄` (R4) (locators UNVERIFIED; the
+exact divisor statement was not read). Consistent with `QMHauptmodul` (`j_θ` has its only pole at
+`P₋₃`) unless `ψ₄` and `χ₁₀` had a common zero on `Ω(ℍ)`. Numerically: `jDen(Ω(i√3)) = 0` with a
+zero of order 30 in `τ` (pkg-I1's pole of order 6 of `j_θ`). SPECULATIVE as a reading of the
+source. -/
+def QMDenZeroCM3 : Prop :=
+  ∀ τ : UpperHalfPlane, PkgI1.jDen (PkgI1.Omega τ) = 0 →
+    ∃ x : PkgI1.B, PkgI1.InO x ∧ x * x - x + 1 = 0 ∧ ∃ g : GL (Fin 2) ℝ,
+      (g : Matrix (Fin 2) (Fin 2) ℝ) = PkgI1.iota x ∧ g • τ = τ
+
+/-- **GLUE (base change of complex points).** Let `A` be an abelian variety over a number field
+`K`, `emb : K → ℚ̄` with `A_ℚ̄ ≅ P.A` as `ℚ̄`-schemes (`FibreOver`'s isomorphism), `ι : ℚ̄ → ℂ`, and
+`Q/ℂ` a base change of `P` along `ι`. Every analytic uniformization of `Q.A(ℂ)` with kernel `Λ`
+gives one of `A(ℂ)_σ`, `σ = ι ∘ emb`, with the same kernel `Λ`.
+
+Why true: `A(ℂ)_σ = Hom_K(Spec ℂ, A) = Hom_ℂ(Spec ℂ, A ×_K ℂ)` and `A ×_K ℂ ≅ P.A ×_ℚ̄ ℂ ≅ Q.A` as
+`ℂ`-schemes (pullback pasting; `IsBaseChangeOf`'s square). The resulting bijection
+`ψ : Q.A(ℂ) → A(ℂ)_σ` comes from an isomorphism of `ℂ`-varieties, so by rigidity (Mumford,
+*Abelian Varieties*, §4 Cor. 1) `x ↦ ψ(x)·ψ(1)⁻¹` is a group isomorphism; regular functions on
+opens of `A` pull back to regular functions on opens of `Q.A` (translations are morphisms), so
+`z ↦ ψ(Φ z)·ψ(1)⁻¹` satisfies every clause of `IsUniformization`, with kernel `Λ`. Size: medium
+(scheme bookkeeping: pullbacks of points, `cEvalAt` along morphisms, rigidity, which is not in
+Mathlib). -/
+def UnifTransport : Prop :=
+  ∀ (K : GlueAssembly.NF) (A : ZInQ.DefFaltings.AbVar K.K) (emb : K.K →+* Qbar) (P : QML3 Qbar),
+    (letI : Algebra K.K Qbar := emb.toAlgebra; Nonempty ((A.baseChange Qbar).X ≅ P.A.X)) →
+    ∀ (ιe : Qbar →+* ℂ) (Q : QML3 ℂ), IsBaseChangeOf ιe P Q →
+    ∀ (Λ : Submodule ℤ (Fin 2 → ℂ)) (Φu : (Fin 2 → ℂ) → CPts Q.A (RingHom.id ℂ)),
+      IsUniformization (RingHom.id ℂ) Λ Φu →
+      ∃ Φa : (Fin 2 → ℂ) → CPts (LeafAdopt.abVarEquiv K.K A) (ιe.comp emb),
+        IsUniformization (ιe.comp emb) Λ Φa
+
+/-! ### Step 2: the proofs -/
+
+/-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
+def qbarToC : Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
+
+/-- **The finite value forces `jDen ≠ 0` (proved)** from `QMDenZeroCM3` and the `−3` clause of
+`QMHauptmodul`; then F1's quotient is the value of `f`. -/
+theorem jRatio_of_value {f : UpperHalfPlane → OnePoint ℂ} (hf : QMHauptmodulFn f)
+    (hD : QMDenZeroCM3) (τ : UpperHalfPlane) (t : ℂ) (ht : f τ = (t : OnePoint ℂ)) :
+    PkgI1.jNum (PkgI1.Omega τ) / PkgI1.jDen (PkgI1.Omega τ) = t := by
+  have hden : PkgI1.jDen (PkgI1.Omega τ) ≠ 0 := by
+    intro h0
+    obtain ⟨x, hxO, hx, g, hg, hfix⟩ := hD τ h0
+    have h3 := hf.2.2.2.2.2.1 x hxO hx g hg τ hfix
+    rw [ht] at h3
+    exact OnePoint.coe_ne_infty _ h3
+  have h2 := hf.2.1 τ hden
+  rw [ht] at h2
+  exact (OnePoint.coe_injective h2).symm
+
+/-- **`FibreQMPeriod` for one triple from the named Props (proved).** -/
+theorem fibreQMPeriodAt_of (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left)
+    (h1 : R1fpProps Y Φ) (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif)
+    (hV : QMPeriodValue Y Φ π) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    FibreQMPeriodAt Y Φ π := by
+  intro u hu K A hFib
+  obtain ⟨emb, y, P, hP, hy, hiso⟩ := hFib
+  obtain ⟨f, hf⟩ := hH
+  obtain ⟨Q, -, hQ⟩ := h1.2.2.2.1 Qbar ℂ qbarToC y P hP
+  obtain ⟨τ, hτ, Φu, hΦu, hc⟩ := hU Q
+  obtain ⟨Φa, hΦa⟩ := hT K A emb P hiso (qbarToC : Qbar →+* ℂ) Q hQ _ Φu hΦu
+  refine ⟨(qbarToC : Qbar →+* ℂ).comp emb, _, Φa, hΦa, τ, hτ, LinearEquiv.refl ℂ _, ?_, ?_⟩
+  · ext v
+    simp
+  · have hval := hV f hf y P hP (qbarToC : Qbar →+* ℂ) Q hQ ⟨τ, hτ⟩ Φu hΦu hc
+    rw [hy, OnePoint.map_some] at hval
+    have e : (qbarToC : Qbar →+* ℂ) (algebraMap ℚ Qbar (Jmap u)) = ((Jmap u : ℚ) : ℂ) := by
+      rw [RingHom.coe_coe, AlgHom.commutes, eq_ratCast]
+    rw [e] at hval
+    exact jRatio_of_value hf hD ⟨τ, hτ⟩ _ hval
+
+/-- **`FibreQMPeriod` for the leaf's own triple from the named Props (proved).** -/
+theorem fibreQMPeriodOwn_of (h : R1R2fp) (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif)
+    (hV : QMPeriodValue (ownY h) (ownΦ h) (ownπ h)) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    FibreQMPeriodOwn h :=
+  fibreQMPeriodAt_of _ _ _ (own_spec h).1 hH hU hV hD hT
+
+/-- **Main result: `FibreQMPeriod` from named Props (proved).** The Hauptmodul comparison is
+needed only for the leaf's own triple; `Pin.MobiusGlue` carries it to every triple. -/
+theorem fibreQMPeriod_of_named (h : R1R2fp) (hM : Pin.MobiusGlue) (hH : PkgI1.QMHauptmodul)
+    (hU : QMComplexUnif) (hV : QMPeriodValue (ownY h) (ownΦ h) (ownπ h)) (hD : QMDenZeroCM3)
+    (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_own h hM (fibreQMPeriodOwn_of h hH hU hV hD hT)
+
+/-- **Variant without `MobiusGlue` (proved):** with the Hauptmodul comparison for every triple. -/
+theorem fibreQMPeriod_of_named_all (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif)
+    (hV : ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+      R1fpProps Y Φ → R2fpProps Y Φ π → QMPeriodValue Y Φ π)
+    (hD : QMDenZeroCM3) (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
+  fun Y Φ π h1 h2 => fibreQMPeriodAt_of Y Φ π h1 hH hU (hV Y Φ π h1 h2) hD hT
+
+/-- The same from the decomposition's bundle form of the leaf (`LeafAdopt.R1R2fpRep`). -/
+theorem fibreQMPeriod_of_named_rep (h : LeafAdopt.R1R2fpRep) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hU : QMComplexUnif)
+    (hV : QMPeriodValue (ownY (LeafAdopt.R1R2fp_of_rep h)) (ownΦ (LeafAdopt.R1R2fp_of_rep h))
+      (ownπ (LeafAdopt.R1R2fp_of_rep h)))
+    (hD : QMDenZeroCM3) (hT : UnifTransport) : ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_named _ hM hH hU hV hD hT
+
+end FibreQM
+
+end G0Split
+
+end HSyn
+
+end
+
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_iff
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_own
+#print axioms HSyn.G0Split.FibreQM.own_of_fibreQMPeriod
+#print axioms HSyn.G0Split.FibreQM.jRatio_of_value
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriodAt_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriodOwn_of
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_all
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_named_rep
