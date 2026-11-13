@@ -27,8 +27,10 @@ theorem HDec.HSyn.sixContactMin_of_leaves5 (r : OpenResearchLeaves2) (t : OpenTe
   0 errors and no `sorry`. All 69 `#print axioms` reports of TailD are `[propext, Classical.choice, Quot.sound]`
   (`TailD_out.txt`, counted by `check_axioms.py`). They include `sixContactMin_of_leaves5`, `gluePieces_of_gluePieces5`
   and every theorem folded in.
-- **Flat file.** `lake env lean scratch/assemble-port/AssemblePort.lean` passed at the 32-field state, and again for the
-  final file; see §5 and `flat_summary.txt`.
+- **Flat file** (final, 110 743 lines, md5 `9bd33802…`). `lake env lean scratch/assemble-port/AssemblePort.lean`:
+  - exit 0 in 1079 s, 0 errors, no `sorry`;
+  - all 285 `#print axioms` reports are `[propext, Classical.choice, Quot.sound]`, including `sixContactMin_of_leaves5`
+    (`flat_summary.txt`, `flat_out.txt`).
 
 **The project's own work (GLUE) is down from 29 Props to 5:**
 - `piTwistC`;
