@@ -1040,4 +1040,68 @@ theorem heckeContinuation5_of_literature
   heckeContinuation5_of_deuring fun d h5 hsq =>
     deuringCd_of_heckeEuler_gaussSplit (Nat.odd_iff.mpr (by omega)) hsq (hE d h5 hsq) (hS d h5 hsq)
 
+/-! ### The Hecke character `ψ_d` is completely multiplicative (node B1) -/
+
+/-- `unitOf` with values in `ℤ[i]` (decidable equality). -/
+def unitG (t : ZMod 4 × ZMod 4) : GaussianInt :=
+  if t = (1, 0) ∨ t = (3, 2) then 1
+  else if t = (3, 0) ∨ t = (1, 2) then -1
+  else if t = (0, 3) ∨ t = (2, 1) then ⟨0, 1⟩
+  else if t = (0, 1) ∨ t = (2, 3) then ⟨0, -1⟩
+  else 0
+
+theorem unitOf_eq_unitG (t : ZMod 4 × ZMod 4) : unitOf t = ((unitG t : GaussianInt) : ℂ) := by
+  unfold unitOf unitG
+  split_ifs <;> simp [GaussianInt.toComplex_def']
+
+/-- Multiplicativity of the unit normalization on `(ℤ[i]/4)`: a finite check. -/
+theorem unitG_mul : ∀ a b c e : ZMod 4,
+    unitG (a * c - b * e, a * e + b * c) = unitG (a, b) * unitG (c, e) := by
+  decide
+
+/-- Gaussian multiplication on `ℤ²`. -/
+def gmul (p q : ℤ × ℤ) : ℤ × ℤ := (p.1 * q.1 - p.2 * q.2, p.1 * q.2 + p.2 * q.1)
+
+/-- The Hecke character `ψ_d(α) = (N(α)/d) u(α) α` on `ℤ[i] = ℤ²`. -/
+noncomputable def psi (d : ℕ) (p : ℤ × ℤ) : ℂ :=
+  (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p
+
+/-- **`ψ_d` is completely multiplicative.** -/
+theorem psi_mul (d : ℕ) (p q : ℤ × ℤ) : psi d (gmul p q) = psi d p * psi d q := by
+  have hN : (gmul p q).1 ^ 2 + (gmul p q).2 ^ 2 = (p.1 ^ 2 + p.2 ^ 2) * (q.1 ^ 2 + q.2 ^ 2) := by
+    simp only [gmul]; ring
+  have hU : unitOf (((gmul p q).1 : ZMod 4), ((gmul p q).2 : ZMod 4)) =
+      unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * unitOf ((q.1 : ZMod 4), (q.2 : ZMod 4)) := by
+    rw [unitOf_eq_unitG, unitOf_eq_unitG, unitOf_eq_unitG, ← map_mul, ← unitG_mul]
+    simp only [gmul]; push_cast; rfl
+  have hz : gz 0 0 (gmul p q) = gz 0 0 p * gz 0 0 q := by
+    simp only [gz, gmul]; push_cast; ring_nf; rw [I_sq]; ring
+  rw [psi, psi, psi, hN, jacobiSym.mul_left, hU, hz]
+  push_cast
+  ring
+
+/-- `heckeCoeff d n = ¼ Σ_{N(α) = n} ψ_d(α)`. -/
+theorem heckeCoeff_eq_sum_psi (d n : ℕ) :
+    heckeCoeff d n = (1 / 4) * ∑ p ∈ normFiber n, psi d p := rfl
+
+/-- `ψ_d(ε) = 1` for the four units `ε ∈ {±1, ±i}`; so `ψ_d(εα) = ψ_d(α)` and `ψ_d` is a
+function of the ideal `(α)`. -/
+theorem psi_units (d : ℕ) :
+    psi d (1, 0) = 1 ∧ psi d (-1, 0) = 1 ∧ psi d (0, 1) = 1 ∧ psi d (0, -1) = 1 := by
+  have hc : unitOf ((1 : ZMod 4), (0 : ZMod 4)) = 1 ∧ unitOf ((-1 : ZMod 4), (0 : ZMod 4)) = -1 ∧
+      unitOf ((0 : ZMod 4), (1 : ZMod 4)) = -I ∧ unitOf ((0 : ZMod 4), (-1 : ZMod 4)) = I := by
+    simp only [unitOf_eq_unitG]
+    have h : unitG (1, 0) = 1 ∧ unitG (-1, 0) = -1 ∧ unitG (0, 1) = ⟨0, -1⟩ ∧
+        unitG (0, -1) = ⟨0, 1⟩ := by decide
+    rw [h.1, h.2.1, h.2.2.1, h.2.2.2]
+    simp [GaussianInt.toComplex_def']
+  obtain ⟨h1, h2, h3, h4⟩ := hc
+  refine ⟨?_, ?_, ?_, ?_⟩ <;> simp only [psi, gz] <;> push_cast <;>
+    simp [h1, h2, h3, h4, jacobiSym.one_left]
+
+theorem psi_unit_mul (d : ℕ) (p : ℤ × ℤ) :
+    psi d (gmul (0, 1) p) = psi d p ∧ psi d (gmul (-1, 0) p) = psi d p := by
+  obtain ⟨-, h2, h3, -⟩ := psi_units d
+  exact ⟨by rw [psi_mul, h3, one_mul], by rw [psi_mul, h2, one_mul]⟩
+
 end BpHeckeFE

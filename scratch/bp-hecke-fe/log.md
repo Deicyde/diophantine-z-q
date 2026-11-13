@@ -63,3 +63,8 @@
   `literature_hecke_fe_of_euler_gauss_fourier : (∀d, HeckeEuler d) → (∀d, GaussSplit d) →
    (∀d, CdFourier d) → HeckeContinuation5 ∧ Literature.FunctionalEquation5` (d ≡ 5 mod 8 sqfree).
   HeckeEuler/GaussSplit are implied numerically by the deuring_check data (n ≤ 400).
+- (VERIFIED, compiled ~18:12) `HeckeContinuation5`, `tyzRow5b_of_readingA_five`
+  (TYZThm35ReadingA ∧ HeckeContinuation5 → TYZRow5b), `heckeContinuation5_of_literature`.
+- Node B1: `unitG` (unitOf in ℤ[i]), `unitOf_eq_unitG`, `unitG_mul` (by `decide`, 256 cases),
+  `gmul`, `psi d p = (Np/d)·u(p)·p`, `psi_mul` (ψ_d completely multiplicative),
+  `heckeCoeff_eq_sum_psi`, `psi_units` (ψ_d = 1 on ±1, ±i), `psi_unit_mul`.
