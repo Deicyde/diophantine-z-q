@@ -7,8 +7,8 @@ another task's directory was edited. Model work only; no human has reviewed it.
 ## 1. Result
 
 **Both curve facts of mobius-glue are proved in Lean from three smaller named facts, each stated
-over an arbitrary field (algebraically closed for the two curve leaves), as in Hartshorne.** One
-is a textbook leaf and two are glue. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles
+over an arbitrary field (algebraically closed for C2K and C3K, as in Hartshorne).** One is a
+textbook leaf and two are glue. Source: `scratch/curve-facts/CurveFacts.lean`. It compiles
 with 0 errors, 0 warnings and axioms `[propext, Classical.choice, Quot.sound]` (VERIFIED, `run8.txt`):
 
 ```lean
@@ -119,11 +119,12 @@ connected component of `X` instead of `S_ℚ̄`.
     mobius-glue's `(𝔸¹ ∖ 0) ⊔ pt` example; C3 itself only uses it through `σ|_C` being finite.
   - Classified as glue: it is a consequence of several textbook results, not one printed theorem.
 
-**Not vacuous or inert.** Each named fact quantifies over all proper smooth curves `S/ℚ` (C1a
-over all `X` smooth of relative dimension 1 over a field), with genuine `ToP1` maps. None
-quantifies over an invented structure, and none is a disguised form of its consequence:
+**Not vacuous or inert.** The assumed facts quantify over all fields `K` (algebraically closed
+for C2K and C3K) and all schemes `X` proper (C2K, C3K) and smooth of relative dimension 1 over
+`K`, with genuine `ToP1` maps. C1b is about Mathlib's `ringKrullDim` of a stalk. None quantifies
+over an invented structure, and none is a disguised form of its consequence:
 
-- C2 and C3 are per-component statements.
+- C2K and C3K are per-component statements about one curve over an algebraically closed field.
 - The glue that combines components (the fibre condition across components, finiteness of
   components, interpolation when every component is constant) and the passage from points of
   `S_ℚ̄` to `ℚ̄`-points of `S` are proved in Lean.
@@ -143,7 +144,6 @@ quantifies over an invented structure, and none is a disguised form of its conse
   - `σ(y) = (σ ∘ pr₁)(bcPt y)` (`val_bcPt`, from the kernel's `ToP1.val_comp_right`);
   - Mathlib's instances that properness and `SmoothOfRelativeDimension` are stable under base
     change.
-
 
 **Independent check (model, not human).** A fresh agent was given only the Lean statements of
 C1a, C2K and C3K and the kernel's `ToP1`/`ToP1.val`, and asked for counterexamples. It was not
@@ -208,7 +208,7 @@ given C1b, which was added afterwards. Its findings:
   - `Scheme.ordHom`, the order of vanishing at codimension-1 points (`OrderOfVanishing.lean`).
   - `AffineSpace`, and `Proj` proper (`ProjectiveSpectrum/Proper.lean`).
   - `GeometricallyConnected` and `ZariskisMainTheorem.lean`.
-- **Absent**, and needed by C1a, C2 and C3:
+- **Absent**, and needed by C1b, C2K and C3K:
   - `P¹` as a scheme with its point bijection (the kernel's `ToP1` works around this with
     charts);
   - dimension theory of smooth morphisms, and smooth ⇒ reduced/normal (`Smooth.lean` has no
@@ -224,20 +224,20 @@ given C1b, which was added afterwards. Its findings:
   a standard smooth algebra of relative dimension 1 over a field has Krull dimension 1 at every
   maximal ideal. Mathlib's `Algebra.IsStandardSmoothOfRelativeDimension` gives a presentation
   with invertible Jacobian, but nothing in Mathlib computes its dimension.
-- **C2** could be reduced further, argued but not compiled, to a "Liouville" fact: on a proper,
+- **C2K** could be reduced further, argued but not compiled, to a "Liouville" fact: on a proper,
   connected, smooth scheme over an algebraically closed field, global functions are constant
   (Hartshorne Ex. II.4.5 / Stacks "proper + geometrically connected + geometrically reduced
   ⇒ `Γ = k`", UNVERIFIED tags). The argument:
   - Suppose `σ` misses a finite `t` on the component `C`. Then `f - t` has no zero at a closed
-    point of `C ∩ U`. Since `S_ℚ̄` is Jacobson, `f - t` is a unit on `C ∩ U`.
+    point of `C ∩ U`. Since `X` is Jacobson, `f - t` is a unit on `C ∩ U`.
   - `1/(f - t)` on `C ∩ U` and `g/(1 - t g)` near `C ∖ U` glue to a global function on `C`, which
     is a constant `c`.
   - So `f = t + 1/c` on `C ∩ U`. A clopen argument (`C` connected) makes `σ` constant on `C`.
   - The Lean glue would need two-open sheaf gluing, restriction to the clopen `C`, and
     smooth ⇒ reduced; it was not attempted.
-- **C3** is the deepest of the three. A finer cut would separate an algebraic lemma from a
+- **C3K** is the deepest of the three. A finer cut would separate an algebraic lemma from a
   geometric one:
-  - the algebraic lemma: an irreducible `P ∈ ℚ̄[X][Y]` such that `P(t, ·)` has at most one root
+  - the algebraic lemma: an irreducible `P ∈ K[X][Y]` such that `P(t, ·)` has at most one root
     for all but finitely many `t` has `deg_Y P = 1` (char. 0, discriminant);
   - the geometric statement: the image of `(σ, ρ)` on the component is the curve `P = 0`.
   Neither was formalized.
