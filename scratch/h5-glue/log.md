@@ -142,3 +142,7 @@ docs/research/h5-neron.md.
   ModelHeightBaseChange ONLY.
 - H5Final.lean (now includes Part 4; H5Final2 renamed to H5Final): 0 errors, 9 #print axioms all
   [propext, Classical.choice, Quot.sound], no sorry/axiom; ~19 s.
+
+## 18. Ingredient of H4a — PROVED (compiled ~02:43, scratch/h5-glue/BaseChangePts.lean)
+- `ptC_hom_comp_bO`, `ptCMapIso`, `ptsBaseChangeEquiv`: 𝒢'(ℂ)_{τ'} ≃ 𝒢(ℂ)_{τ'|_L} for 𝒢' ≅ 𝒢 ×_{𝓞_L} 𝓞_{L'}.
+  Axioms standard. The rest of H4a (ω base change, Arakelov degree, inf/sum) NOT attempted.
