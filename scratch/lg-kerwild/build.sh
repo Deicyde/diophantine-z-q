@@ -1,30 +1,37 @@
 #!/bin/bash
-# KerWild.lean = imports (union) + scratch/local-glue/LocalGlue.lean body (verbatim; it contains
-# `KerWild`, `DescentPts`, `localGlue_of_unramRoots`, `descentPts_baseChange` and everything they
-# depend on) + `end` (closes its unclosed top-level `noncomputable section`)
-# + scratch/g14-trace/G14Bridge.lean body (verbatim: g0-mod-field's ModField.lean with `G7Data`,
-# `TateBridge`, and g14-trace's `TateBridge35`), in a section
+# KerWild.lean =
+#   imports (union of the sources' imports)
+# + scratch/local-glue/LocalGlue.lean body (verbatim; contains `KerWild`, `DescentPts`,
+#   `localGlue_of_unramRoots`, `descentPts_baseChange`, local-data's `LocalData`, `G7Clauses`,
+#   `LocalGlue` and everything they depend on) + `end` (closes its unclosed top-level
+#   `noncomputable section`)
+# + scratch/frob-trace/FrobTrace.lean body (verbatim: g0-mod-field's ModField.lean with `G7Data`,
+#   `TateBridge`; unram-tate's TateBridge.lean (`tateBridge_of_pieces`, `scalarTransfer`,
+#   `tatePoints`, ...); g14-trace's `TateBridge35`; frob-trace's `tateBridge35_of_algFrobRed`),
+#   in a section, WITHOUT its lines 1632-1754: these are unram-tate's BCPoints block (`sK` ...
+#   `trPt_galAct`, namespace `UnramTate`), already present verbatim in LocalGlue.lean
+#   (local-glue's bc_block.lean l.11-134; `diff` identical modulo blank lines)
 # + scratch/g0-dim/Dim.lean l.107-305 and l.339-344 (verbatim: `G0Dim.dim_baseChange`,
-# `G0Dim.pkgI3_dim_baseChange`), in a section
-# + part_kerwild.lean (new).
-# `#print axioms` lines of the copies are dropped; import lines are collected at the top.
+#   `G0Dim.pkgI3_dim_baseChange`), in a section
+# + part_kerwild.lean (new, §1-§4) + part_tbk.lean (new, §5; made by mk_tbk.py).
+# `#print axioms` lines of the copies are dropped.
 cd "$(dirname "$0")"
 LG=../local-glue/LocalGlue.lean
-GB=../g14-trace/G14Bridge.lean
+FT=../frob-trace/FrobTrace.lean
 DM=../g0-dim/Dim.lean
 {
-  cat $LG $GB | grep '^import' | awk '!seen[$0]++'
+  cat $LG $FT | grep '^import' | awk '!seen[$0]++'
   echo
   echo "-- BEGIN verbatim body of scratch/local-glue/LocalGlue.lean"
   grep -v '^import' $LG | grep -v '^#print axioms'
   echo "-- END verbatim body of scratch/local-glue/LocalGlue.lean"
   echo "end"
   echo
-  echo "section G14BridgeSec"
-  echo "-- BEGIN verbatim body of scratch/g14-trace/G14Bridge.lean"
-  grep -v '^import' $GB | grep -v '^#print axioms'
-  echo "-- END verbatim body of scratch/g14-trace/G14Bridge.lean"
-  echo "end G14BridgeSec"
+  echo "section FrobTraceSec"
+  echo "-- BEGIN verbatim body of scratch/frob-trace/FrobTrace.lean (minus l.1632-1754, see build.sh)"
+  sed '1632,1754d' $FT | grep -v '^import' | grep -v '^#print axioms'
+  echo "-- END verbatim body of scratch/frob-trace/FrobTrace.lean"
+  echo "end FrobTraceSec"
   echo
   echo "section G0DimSec"
   echo "set_option linter.style.haveILetI false"
@@ -37,4 +44,6 @@ DM=../g0-dim/Dim.lean
   echo "end G0DimSec"
   echo
   cat part_kerwild.lean
+  echo
+  cat part_tbk.lean
 } > KerWild.lean
