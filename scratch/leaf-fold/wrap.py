@@ -26,8 +26,14 @@ L = L[:3] + IMPORTS + L[3:]
 i0 = next(i for i, l in enumerate(L) if l.startswith('section PkgI1Sec'))
 # 8. global limits: elaboration is slower with the Contrib/Tau Ceti instances in scope (first run:
 #    timeouts at 200000 heartbeats in `QML3.Iso.twist`, at 20000 in an instance search).
-L = L[:i0] + ['namespace HDec', '', 'set_option maxHeartbeats 1000000',
-              'set_option synthInstance.maxHeartbeats 200000', ''] + L[i0:]
+#    The instance-search timeouts come from Tau Ceti's `FinitePadicExtension` instances
+#    (`toAlgebra` makes every `Algebra ℚ_[p] K` goal search `FinitePadicExtension K p`); they are
+#    switched off inside `HDec` (probe: scratch/leaf-fold/probe/P1, P2), which brings
+#    `Module.IsTorsionFree ℚ_[p] ℂ_[p]` from a timeout to 0.6 s.
+L = L[:i0] + ['namespace HDec', '', 'set_option maxHeartbeats 1000000', '',
+              'attribute [-instance] TauCeti.FinitePadicExtension.toAlgebra',
+              '  TauCeti.FinitePadicExtension.ofInstances TauCeti.FinitePadicExtension.toModuleFinite',
+              '  TauCeti.FinitePadicExtension.toValuativeExtension', ''] + L[i0:]
 txt = '\n'.join(L)
 n3 = 0
 def rootfix(m):
