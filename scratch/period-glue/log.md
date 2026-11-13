@@ -151,3 +151,18 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
 - `fibreTransferC_of' (hG : FibreGenericC Y π) : FibreTransferC Y π`.
 - End to end now takes `FibreGenericC` (generic-fibre half) instead of `FibreTransferC`.
   run_all: 0 errors, exit 0, standard axioms. Pitfall: `ι` is a token under `open MonObj` (renamed).
+
+## FibreGenericC / FibreTransferC — PROVED (VERIFIED, run_pitwist.txt, run_all.txt)
+- `fibreGenericC_proof`, `fibreTransferC_proof : FibreTransferC Y π` (any Y π, under the stated
+  properness/smoothness hypotheses; smoothness unused). Axioms standard.
+- Pieces: `Agree` (two P¹ maps agree at a point), `val_eq_iff_agree`, `isClosed_agree` (chart
+  cover; `disagree_nhds` uses f₁g₂ − 1), `diag_rfm`/`diag_eq` (a field point of Y×_ℚY over the
+  diagonal has equal projections; residue maps are sections of the injective κ(Δq) → κ(q),
+  `residueFieldMap_congr`, eqToHom bookkeeping), Γ = ⋃_g (pr₁≫g, pr₂)⁻¹(range Δ) closed
+  (IsSeparated), A ⊆ Γ by Jacobson + `exists_qbarPt` on Y×Y, conclusion via `diag_eq`.
+- PiTwistC now ⇐ R1fp, R1hecke, R2fp (own-triple bundle), T5, AutOInnerFinite (mobius-glue).
+- End to end: hypotheses = leaves + MobiusGlue/AutOInnerFinite (proved elsewhere) + CPtsTransport
+  (inherited). run_all: 0 errors, exit 0, standard axioms.
+- Pitfalls: domains `(fieldPt K).left` vs `Spec (of K)` break `rw` (restate with `let zl : Spec … := z.left`);
+  `pullback Y.hom Y.hom` needs `: Scheme.{0}` ascription in `Set`/instances; `set p1 := pullback.fst`
+  blocks `pullback.lift_fst` (use term-mode `pullback.lift_fst _ _ _`).

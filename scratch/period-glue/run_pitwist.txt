@@ -154,9 +154,42 @@ The difference between `have` and `haveI` is that `haveI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PiTwist.lean:385:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PiTwist.lean:386:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PiTwist.lean:388:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PiTwist.lean:390:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
 'HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.toP1AgreeC_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of' depends on axioms: [propext, Classical.choice, Quot.sound]
 exit 0

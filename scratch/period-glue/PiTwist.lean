@@ -375,6 +375,102 @@ theorem diag_eq (Y : Over (Spec (CommRingCat.of ℚ))) {K : Type} [Field K]
   simp only
   rw [he1, Category.assoc]
 
+/-- **`FibreGenericC` (proved).** Jacobson on `P = Y ×_ℚ Y`: the agreement locus `A` of `π∘pr₁`,
+`π∘pr₂` is closed, `Γ = ⋃_{g ∈ G} (pr₁ ≫ g, pr₂)⁻¹(Δ)` is closed (`Y` separated), `A \ Γ` has no
+closed point (closed points come from `ℚ̄`-points, where the hypothesis applies), so `A ⊆ Γ`; a
+`ℂ`-point of `A` over `Γ` has `y ≫ g = y'` (`diag_eq`). -/
+theorem fibreGenericC_proof (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) :
+    FibreGenericC Y π := by
+  intro hP hS G hGf hQ y y' hval
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : IsSeparated Y.hom := inferInstance
+  let PO : Over (Spec (CommRingCat.of ℚ)) := Over.mk ((pullback.fst Y.hom Y.hom) ≫ Y.hom)
+  haveI : LocallyOfFiniteType PO.hom := by
+    show LocallyOfFiniteType ((pullback.fst Y.hom Y.hom) ≫ Y.hom); infer_instance
+  haveI : JacobsonSpace ↥(pullback Y.hom Y.hom : Scheme.{0}) :=
+    LocallyOfFiniteType.jacobsonSpace PO.hom
+  set σ1 := π.comp (pullback.fst Y.hom Y.hom) with hσ1
+  set σ2 := π.comp (pullback.snd Y.hom Y.hom) with hσ2
+  set D := pullback.diagonal Y.hom with hD
+  have hLw : ∀ g : Y ≅ Y, ((pullback.fst Y.hom Y.hom) ≫ g.hom.left) ≫ Y.hom = (pullback.snd Y.hom Y.hom) ≫ Y.hom := fun g => by
+    rw [Category.assoc, Over.w g.hom, pullback.condition]
+  let L : (Y ≅ Y) → (pullback Y.hom Y.hom ⟶ pullback Y.hom Y.hom) :=
+    fun g => pullback.lift ((pullback.fst Y.hom Y.hom) ≫ g.hom.left) (pullback.snd Y.hom Y.hom) (hLw g)
+  have hLf : ∀ g : Y ≅ Y, L g ≫ pullback.fst Y.hom Y.hom = pullback.fst Y.hom Y.hom ≫ g.hom.left :=
+    fun g => pullback.lift_fst _ _ _
+  have hLs : ∀ g : Y ≅ Y, L g ≫ pullback.snd Y.hom Y.hom = pullback.snd Y.hom Y.hom :=
+    fun g => pullback.lift_snd _ _ _
+  let Γ : Set ↥(pullback Y.hom Y.hom : Scheme.{0}) :=
+    ⋃ g ∈ G, (fun x => L g x) ⁻¹' Set.range (fun q : Y.left => D q)
+  have hΓ : IsClosed Γ := by
+    apply hGf.isClosed_biUnion
+    intro g _
+    exact D.isClosedEmbedding.isClosed_range.preimage (L g).continuous
+  have hmemΓ : ∀ (K : Type) [Field K] (b : Spec (CommRingCat.of K) ⟶ (pullback Y.hom Y.hom : Scheme.{0}))
+      (g : Y ≅ Y) (c : Spec (CommRingCat.of K) ⟶ Y.left), b ≫ L g = c ≫ D →
+      L g (Scheme.SpecToEquivOfField K _ b).1 ∈ Set.range (fun q : Y.left => D q) := by
+    intro K _ b g c h
+    have := congrArg (fun t => (Scheme.SpecToEquivOfField K _ t).1) h
+    simp only [specToEquivOfField_comp_right] at this
+    exact ⟨_, this.symm⟩
+  -- the agreement locus lies in `Γ`
+  have hAΓ : ∀ p, Agree σ1 σ2 p → p ∈ Γ := by
+    intro p hp
+    by_contra hpΓ
+    obtain ⟨x, ⟨hxA, hxΓ⟩, hxc⟩ := nonempty_inter_closedPoints
+      (Z := {p : ↥(pullback Y.hom Y.hom : Scheme.{0}) | Agree σ1 σ2 p} ∩ Γᶜ) ⟨p, hp, hpΓ⟩
+      ((isClosed_agree σ1 σ2).isLocallyClosed.inter hΓ.isOpen_compl.isLocallyClosed)
+    obtain ⟨emb, z, hz⟩ := exists_qbarPt PO x hxc
+    let zl : Spec (CommRingCat.of Qbar) ⟶ (pullback Y.hom Y.hom : Scheme.{0}) := z.left
+    have hzl : zl = (Scheme.SpecToEquivOfField Qbar (pullback Y.hom Y.hom : Scheme.{0})).symm
+        ⟨x, emb⟩ := hz
+    have hzw : z.left ≫ ((pullback.fst Y.hom Y.hom) ≫ Y.hom) = (fieldPt Qbar).hom := Over.w z
+    let z1 : fieldPt Qbar ⟶ Y := Over.homMk (z.left ≫ (pullback.fst Y.hom Y.hom)) (by
+      rw [Category.assoc]; exact hzw)
+    let z2 : fieldPt Qbar ⟶ Y := Over.homMk (z.left ≫ (pullback.snd Y.hom Y.hom)) (by
+      rw [Category.assoc, ← pullback.condition]; exact hzw)
+    have hzval : π.val (K := Qbar) z1.left = π.val (K := Qbar) z2.left := by
+      show π.val (zl ≫ (pullback.fst Y.hom Y.hom)) = π.val (zl ≫ (pullback.snd Y.hom Y.hom))
+      rw [← ToP1.val_comp_right, ← ToP1.val_comp_right, ← hσ1, ← hσ2]
+      apply (val_eq_iff_agree σ1 σ2 zl).mpr
+      rw [hzl, Equiv.apply_symm_apply]
+      exact hxA
+    obtain ⟨g, hg, hgz⟩ := (hQ z1 z2).mp hzval
+    apply hxΓ
+    refine Set.mem_biUnion hg ?_
+    let z2l : Spec (CommRingCat.of Qbar) ⟶ Y.left := z2.left
+    have hfac : zl ≫ L g = z2l ≫ D := by
+      apply pullback.hom_ext
+      · rw [Category.assoc, hLf g, Category.assoc, pullback.diagonal_fst, Category.comp_id]
+        have h3 := congrArg CommaMorphism.left hgz
+        exact h3.symm
+      · rw [Category.assoc, hLs g, Category.assoc, pullback.diagonal_snd, Category.comp_id]
+        rfl
+    have := hmemΓ Qbar zl g z2l hfac
+    rw [hzl, Equiv.apply_symm_apply] at this
+    exact this
+  -- the `ℂ`-point
+  have hyw : y.left ≫ Y.hom = y'.left ≫ Y.hom := by rw [Over.w y, Over.w y']
+  let w : Spec (CommRingCat.of ℂ) ⟶ (pullback Y.hom Y.hom : Scheme.{0}) :=
+    pullback.lift y.left y'.left hyw
+  have hw1 : w ≫ pullback.fst Y.hom Y.hom = y.left := pullback.lift_fst _ _ _
+  have hw2 : w ≫ pullback.snd Y.hom Y.hom = y'.left := pullback.lift_snd _ _ _
+  have hwA : Agree σ1 σ2 (Scheme.SpecToEquivOfField ℂ _ w).1 := by
+    apply (val_eq_iff_agree σ1 σ2 w).mp
+    rw [hσ1, hσ2, ToP1.val_comp_right, ToP1.val_comp_right, hw1, hw2]
+    exact hval
+  obtain ⟨g, hg, hgΓ⟩ := Set.mem_iUnion₂.mp (hAΓ _ hwA)
+  refine ⟨g, hg, ?_⟩
+  have key := diag_eq Y (w ≫ L g) (by rw [specToEquivOfField_comp_right]; exact hgΓ)
+  rw [Category.assoc, Category.assoc, hLf g, hLs g, ← Category.assoc, hw1, hw2] at key
+  ext1
+  exact key.symm
+
+/-- **`FibreTransferC` (proved).** -/
+theorem fibreTransferC_proof (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left) :
+    FibreTransferC Y π :=
+  fibreTransferC_of' Y π (fibreGenericC_proof Y π)
+
 /-! ## `TwistOrbitFinite` from R1hecke, `TorsionStructure` and two algebra facts -/
 
 /-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`;
@@ -683,5 +779,6 @@ end HSyn.G0Split.FibreQM.PeriodGlue
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.toP1AgreeC_proof
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of
