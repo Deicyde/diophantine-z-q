@@ -1,0 +1,81 @@
+
+/-! ## §6 `HodgeLatticeTheorem` closed (task infra-smooth-dim)
+
+The kernel module `ZInQKernel.HDecomp.Faltings.HodgeLattice` (adopted from task hodge-lattice)
+proves `hodgeLatticeTheorem_of_abVarFacts : RegularAtOrigin → DimAtOrigin → DimBaseChange →
+HodgeLatticeTheorem`. The first two are proved by §4-§5 of this file, the third by g0-dim's
+`G0Dim.dim_baseChange` (§5 of this file, copied verbatim from `scratch/g0-dim/Dim.lean` §1-§2). -/
+
+namespace InfraSmoothDim
+open CategoryTheory AlgebraicGeometry MonoidalCategory MonObj
+open ZInQ.DefFaltings.HodgeLattice
+
+/-- A section of a morphism to `Spec K` is a closed immersion (copied from
+scratch/mul-rigidity/MulRigidity.lean). -/
+theorem isClosedImmersion_point {K : Type*} [Field K] (G : Over (Spec (.of K)))
+    (x : 𝟙_ (Over (Spec (.of K))) ⟶ G) : IsClosedImmersion x.left :=
+  isClosedImmersion_of_comp_eq_id (Y := Spec (.of K)) G.hom x.left (by simp)
+
+/-- The origin of an abelian variety is a closed point. -/
+theorem isClosed_originPt {L : Type} [Field L] (B : PkgI3.AbVar L) :
+    IsClosed ({originPt B} : Set B.X.left) := by
+  have := isClosedImmersion_point B.X η[B.X]
+  have hr : Set.range (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left.base =
+      {originPt B} := by
+    ext y
+    constructor
+    · rintro ⟨a, rfl⟩
+      have : Subsingleton (PrimeSpectrum L) := inferInstance
+      exact congrArg _ (Subsingleton.elim (α := PrimeSpectrum L) a ⟨⊥, Ideal.isPrime_bot⟩)
+    · rintro rfl
+      exact ⟨_, rfl⟩
+  rw [← hr]
+  exact (η[B.X] : 𝟙_ (Over (Spec (CommRingCat.of L))) ⟶ B.X).left.isClosedEmbedding.isClosed_range
+
+/-- Dimension and embedding dimension at the origin equal `dim B`. -/
+theorem originPt_dims {L : Type} [Field L] (B : PkgI3.AbVar L) :
+    B.dim = ringKrullDim (B.X.left.presheaf.stalk (originPt B)) ∧
+      ((IsLocalRing.maximalIdeal (B.X.left.presheaf.stalk (originPt B))).spanFinrank :
+        WithBot ℕ∞) = ringKrullDim (B.X.left.presheaf.stalk (originPt B)) := by
+  have : IrreducibleSpace B.X.left :=
+    GeometricallyIrreducible.irreducibleSpace_of_subsingleton (f := B.X.hom)
+  exact topologicalKrullDim_eq_of_smooth B.X.hom (originPt B) (isClosed_originPt B)
+
+end InfraSmoothDim
+
+namespace ZInQ.DefFaltings.HodgeLattice
+open NumberField CategoryTheory AlgebraicGeometry IsLocalRing
+open PkgI3 (AbVar)
+
+/-- **`RegularAtOrigin` holds** (kernel statement). -/
+theorem regularAtOrigin : RegularAtOrigin := by
+  intro L _ B
+  have : IsLocallyNoetherian B.X.left := LocallyOfFiniteType.isLocallyNoetherian B.X.hom
+  exact (isRegularLocalRing_iff _).mpr (InfraSmoothDim.originPt_dims B).2
+
+/-- **`DimAtOrigin` holds** (kernel statement). -/
+theorem dimAtOrigin : DimAtOrigin := by
+  intro L _ B g hg
+  rw [← (InfraSmoothDim.originPt_dims B).1, hg]
+
+/-- **`DimBaseChange` holds** (kernel statement; g0-dim's proof). -/
+theorem dimBaseChange : DimBaseChange := by
+  intro K _ A L _ _
+  exact G0Dim.dim_baseChange L A.X.left A.X.hom
+
+/-- **`TangentDimAtOrigin` holds** (kernel statement). -/
+theorem tangentDimAtOrigin : TangentDimAtOrigin :=
+  tangentDimAtOrigin_of regularAtOrigin dimAtOrigin
+
+/-- **`HodgeLatticeTheorem` holds**, with no hypotheses: for every smooth group model `𝒢/𝓞_L` of
+`A_L` with `dim A = g`, the Hodge space is a line and `⋀^g ω_𝒢` is a full lattice in it. -/
+theorem hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem :=
+  hodgeLatticeTheorem_of_abVarFacts regularAtOrigin dimAtOrigin dimBaseChange
+
+end ZInQ.DefFaltings.HodgeLattice
+
+#print axioms ZInQ.DefFaltings.HodgeLattice.regularAtOrigin
+#print axioms ZInQ.DefFaltings.HodgeLattice.dimAtOrigin
+#print axioms ZInQ.DefFaltings.HodgeLattice.dimBaseChange
+#print axioms ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin
+#print axioms ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem

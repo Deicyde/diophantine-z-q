@@ -138,6 +138,69 @@ theorem topologicalKrullDim_eq_of_smooth {K : Type*} [Field K] {X : Scheme}
   · rw [ringKrullDim_stalk_eq_coheight]
     exact Order.coheight_le_krullDim x
 
+
+/-! ### Corollaries: regularity, cotangent dimension, rational points, dimension of `X` -/
+
+/-- **Smooth over a field ⇒ regular at closed points.** -/
+theorem isRegularLocalRing_stalk_of_smooth {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) [Smooth f] (x : X) (hx : IsClosed ({x} : Set X)) :
+    IsRegularLocalRing (X.presheaf.stalk x) := by
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  obtain ⟨n, h1, h2⟩ := exists_stalk_dim_of_smooth f x hx
+  exact (isRegularLocalRing_iff _).mpr (by rw [h1, h2])
+
+/-- **Cotangent space at a closed point.** If `X → Spec K` is smooth of relative dimension `n`
+and `x` is a closed point, then `dim_{κ(x)} 𝔪_x/𝔪_x² = n`. -/
+theorem finrank_cotangentSpace_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (x : X) (hx : IsClosed ({x} : Set X)) :
+    Module.finrank (ResidueField (X.presheaf.stalk x)) (CotangentSpace (X.presheaf.stalk x)) =
+      n := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth n f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  rw [← spanFinrank_maximalIdeal_eq_finrank_cotangentSpace]
+  exact (stalk_dim_of_smoothOfRelativeDimension f n x hx).2
+
+/-- The image of a `K`-point (a section of `X → Spec K`) is a closed point. -/
+theorem isClosed_of_section {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (s : Spec (CommRingCat.of K) ⟶ X) (hs : s ≫ f = 𝟙 _)
+    (p : Spec (CommRingCat.of K)) : IsClosed ({s.base p} : Set X) := by
+  have := isClosedImmersion_of_comp_eq_id (Y := Spec (CommRingCat.of K)) f s hs
+  have hr : Set.range s.base = {s.base p} := by
+    ext y
+    constructor
+    · rintro ⟨a, rfl⟩
+      have : Subsingleton (PrimeSpectrum K) := inferInstance
+      exact congrArg _ (Subsingleton.elim (α := PrimeSpectrum K) a p)
+    · rintro rfl
+      exact ⟨_, rfl⟩
+  rw [← hr]
+  exact s.isClosedEmbedding.isClosed_range
+
+/-- **Cotangent space at a rational point.** If `X → Spec K` is smooth of relative dimension `n`
+and `s` is a `K`-point, then the local ring at `s` has dimension `n` and its cotangent space
+`𝔪/𝔪²` has dimension `n` over the residue field. -/
+theorem stalk_dims_of_section {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    (s : Spec (CommRingCat.of K) ⟶ X) (hs : s ≫ f = 𝟙 _) (p : Spec (CommRingCat.of K)) :
+    ringKrullDim (X.presheaf.stalk (s.base p)) = n ∧
+      Module.finrank (ResidueField (X.presheaf.stalk (s.base p)))
+        (CotangentSpace (X.presheaf.stalk (s.base p))) = n :=
+  ⟨(stalk_dim_of_smoothOfRelativeDimension f n _ (isClosed_of_section f s hs p)).1,
+    finrank_cotangentSpace_of_smoothOfRelativeDimension f n _ (isClosed_of_section f s hs p)⟩
+
+/-- **Dimension of an irreducible smooth `K`-scheme of relative dimension `n`** is `n`. -/
+theorem topologicalKrullDim_eq_of_smoothOfRelativeDimension {K : Type*} [Field K] {X : Scheme}
+    (f : X ⟶ Spec (CommRingCat.of K)) (n : ℕ) [SmoothOfRelativeDimension n f]
+    [IrreducibleSpace X] : topologicalKrullDim X = n := by
+  have : Smooth f := SmoothOfRelativeDimension.smooth n f
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : Nonempty X := IrreducibleSpace.toNonempty
+  obtain ⟨x, -, hx⟩ := nonempty_inter_closedPoints (Z := (Set.univ : Set X))
+    Set.univ_nonempty isClosed_univ.isLocallyClosed
+  rw [(topologicalKrullDim_eq_of_smooth f x hx).1,
+    (stalk_dim_of_smoothOfRelativeDimension f n x hx).1]
+
 end InfraSmoothDim
 
 #print axioms InfraSmoothDim.topologicalKrullDim_eq_of_smooth
@@ -145,3 +208,7 @@ end InfraSmoothDim
 
 #print axioms InfraSmoothDim.stalk_dim_of_smoothOfRelativeDimension
 #print axioms InfraSmoothDim.exists_stalk_dim_of_smooth
+#print axioms InfraSmoothDim.isRegularLocalRing_stalk_of_smooth
+#print axioms InfraSmoothDim.finrank_cotangentSpace_of_smoothOfRelativeDimension
+#print axioms InfraSmoothDim.stalk_dims_of_section
+#print axioms InfraSmoothDim.topologicalKrullDim_eq_of_smoothOfRelativeDimension

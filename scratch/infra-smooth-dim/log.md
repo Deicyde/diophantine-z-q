@@ -20,3 +20,19 @@ Base f90cf864 + merge origin/wip/mul-rigidity (60a480e0).
   - `ZInQ.DefFaltings.HodgeLattice.dimAtOrigin : DimAtOrigin`
   - `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin : TangentDimAtOrigin`
   Statements (and `originPt`) checked identical to the source files by a text comparison script.
+- run24 SmoothStalk.lean §4 corollaries: `isRegularLocalRing_stalk_of_smooth` (smooth over K ⇒ regular at closed points), `finrank_cotangentSpace_of_smoothOfRelativeDimension` (rel. dim n, x closed ⇒ finrank κ(x) 𝔪/𝔪² = n), `isClosed_of_section` (image of a K-point is closed), `stalk_dims_of_section` (K-point s ⇒ dim 𝒪 = n and finrank cotangent = n), `topologicalKrullDim_eq_of_smoothOfRelativeDimension` (irreducible, rel. dim n ⇒ dim X = n): 0 errors, standard axioms (VERIFIED). First attempt failed: `SmoothOfRelativeDimension n f` does not provide a `Smooth f` instance; fixed with `SmoothOfRelativeDimension.smooth n f`.
+- run25 SmoothDimProps.lean regenerated (assemble.py) and recompiled: 0 errors, four Props standard axioms (VERIFIED).
+- `lake build ZInQKernel.HDecomp.Faltings.HodgeLattice`: success (59 s). The kernel module (adopted by hdec-adopt5a from scratch/hodge-lattice) contains `RegularAtOrigin`, `DimAtOrigin`, `DimBaseChange`, `TangentDimAtOrigin`, `hodgeLatticeTheorem_of_abVarFacts` (VERIFIED, read).
+- run26 HodgeLatticeClosed.lean (imports Mathlib + ZInQKernel.HDecomp.Faltings.HodgeLattice; §0-§4 = SmoothStalk.lean, §5 = g0-dim Dim.lean lines 107-305 verbatim, §6 closed_part): 0 errors, 26 s; axioms all [propext, Classical.choice, Quot.sound] (VERIFIED) for the kernel statements:
+  - `ZInQ.DefFaltings.HodgeLattice.regularAtOrigin : RegularAtOrigin`
+  - `ZInQ.DefFaltings.HodgeLattice.dimAtOrigin : DimAtOrigin`
+  - `ZInQ.DefFaltings.HodgeLattice.dimBaseChange : DimBaseChange`
+  - `ZInQ.DefFaltings.HodgeLattice.tangentDimAtOrigin : TangentDimAtOrigin`
+  - `ZInQ.DefFaltings.HodgeLattice.hodgeLatticeTheorem : ZInQ.DefFaltings.HodgeLatticeTheorem` (no hypotheses)
+- `lake build ZInQKernel.HDecomp.QM.Pairs`: success.
+- run27 CurveFactsClosed.lean (curve-facts' CurveFacts.lean verbatim minus imports/#print, then §0-§4, then curve_part): 0 errors; axioms all standard (VERIFIED):
+  - `LeafQM.AV.Pin.smoothStalkDimOne : SmoothStalkDimOne` (against curve-facts' own definition, not a copy)
+  - `LeafQM.AV.Pin.smoothCurveNoIsolatedPoint : SmoothCurveNoIsolatedPoint` (C1a)
+  - `LeafQM.AV.Pin.geomCompInfinite : GeomCompInfinite` (C1)
+  - `LeafQM.AV.Pin.curveFacts_of_C2K_C3K : ConstOrOntoAlgClosed → RatFactorAlgClosed → CurveRatFactor ∧ CurveSurj`
+- run28-31 FiniteDim.lean (Mathlib-only; g0-dim cover lemmas and g0-reverseisog `topologicalKrullDim_le_of_specializing` copied verbatim): `ringKrullDim_le_of_isIntegral`, `topologicalKrullDim_le_of_isIntegralHom_of_isAffine`, `topologicalKrullDim_le_of_isIntegralHom` (integral f : X ⟶ Y ⇒ dim X ≤ dim Y), `topologicalKrullDim_eq_of_finite_surjective` (finite surjective ⇒ dim X = dim Y): 0 errors, standard axioms (VERIFIED). Pitfalls: `IsAffine (𝒰.X i)` is not found through a `let 𝒰 := Y.affineCover` (use `Scheme.isAffine_affineCover Y i`); `pullback f g` in a `show` needs `(C := Scheme)`.
