@@ -943,7 +943,11 @@
     "scripts/kernel_base_report.py": "994453807d588cd255edaa5b7488268f73f15f0d97b5e49b0ecc5cda8a83273c",
     "scripts/print_axioms.lean": "dda22248b496bc767c9ae88b24d84d350d8bd21585a647b2d54eb61f13e552e0",
     "scripts/test_kernel_audit.py": "81e103c0f06f5840ddd64ff997288a703e69557e39f1779f66bbd8c3ce3b0469",
-    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45"
+    "scripts/test_kernel_contract.py": "1f4641c5dcd96809f9a65857384b1b0ea981b680116b6d5e9ebedfd5afca8a45",
+    "ZInQKernel/Targets/H/T13.lean": "5adffb75f3a0be6eae9bac38d391993127c5fb6b7da328902c4561eaf2def89a",
+    "ZInQKernel/Targets/H/T17.lean": "87acb33bb5b9bdd6d5b7457c071a417fbbd1650be841a4518757b26a4f7dc3f1",
+    "ZInQKernel/Targets/H/T19.lean": "be5ec8989f668798a4de4442714d1b0d85e4274bb4adc17d2f758fe3fd718cf5",
+    "ZInQKernel/Targets/H/T21.lean": "ba83355e0ae4539bdd6167affd0e97660db5a81845dcefa01225b4b3138695ef"
   },
   "targets": [
     {
@@ -970,6 +974,26 @@
       "declaration": "ZInQ.Literature.GrossZagier",
       "provider": "ZInQ.Contrib.grossZagier",
       "source": "ZInQKernel/Hypotheses/CR3Literature.lean"
+    },
+    {
+      "declaration": "ZInQ.Targets.H.T13",
+      "provider": "ZInQ.Contrib.H.T13_holds",
+      "source": "ZInQKernel/Targets/H/T13.lean"
+    },
+    {
+      "declaration": "ZInQ.Targets.H.T17",
+      "provider": "ZInQ.Contrib.H.T17_holds",
+      "source": "ZInQKernel/Targets/H/T17.lean"
+    },
+    {
+      "declaration": "ZInQ.Targets.H.T19",
+      "provider": "ZInQ.Contrib.H.T19_holds",
+      "source": "ZInQKernel/Targets/H/T19.lean"
+    },
+    {
+      "declaration": "ZInQ.Targets.H.T21",
+      "provider": "ZInQ.Contrib.H.T21_holds",
+      "source": "ZInQKernel/Targets/H/T21.lean"
     }
   ],
   "headline": {
