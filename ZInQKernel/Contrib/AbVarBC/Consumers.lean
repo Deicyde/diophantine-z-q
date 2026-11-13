@@ -53,4 +53,17 @@ theorem bcT_bijective' {K : Type} [Field K] {L : Type} [Field L] [Algebra K L] (
     Function.Bijective (E1Sub.bcT ℓ J i) :=
   E1Sub.bcT_bijective ℓ hT J i hℓ (J.dim_baseChange L)
 
+open CategoryTheory AlgebraicGeometry in
+/-- `dim (A ×_{K, f} L) = dim A` for a field embedding `f : K → L`, stated for the object
+`(Over.pullback (Spec f)).obj A.X` that g4-weilres's `bcAlong A f` (and so its conjugates
+`(conjData K A).A e`) is built on. With it g4-weilres's hypothesis
+`hdim : ∀ e, ((conjData K A).A e).dim = 2` follows from `A.dim = 2`:
+`fun e => (dim_overPullback A (e : K →+* Qbar)).trans hA`. -/
+theorem dim_overPullback {K L : Type} [Field K] [Field L] (A : _root_.PkgI3.AbVar K)
+    (f : K →+* L) :
+    topologicalKrullDim ((Over.pullback (Spec.map (CommRingCat.ofHom f))).obj A.X).left =
+      A.dim := by
+  letI : Algebra K L := f.toAlgebra
+  exact dim_baseChange_scheme L A.X.left A.X.hom
+
 end ZInQ.Contrib.AbVarBC
