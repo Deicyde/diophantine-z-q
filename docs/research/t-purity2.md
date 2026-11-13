@@ -69,10 +69,9 @@ and `1 ≤ dim` becomes `2 ≤ dim`. Module-finite implies finite type (an insta
 at every prime (`QuasiFinite` of a finite algebra, then of a localization; instances, VERIFIED by
 the proof of `finiteGe2_of_purityBranchLocus`). So T1′ is an instance of T1 and hence of the
 published theorem. It is not vacuous: `S = R` regular of dimension 2 satisfies all hypotheses. The
-hypotheses `IsIntegrallyClosed S_q` and `IsRegularLocalRing R_p` are both still needed. With
-`S_q` not normal, the conclusion fails: for example `R = k[x,y]` and `S = R[z]/(z² − x²y)` give a
-branch locus that is not pure (the classical counterexample, SPECULATIVE recollection). Note that
-the dimension-one proof does not use normality.
+hypotheses `IsIntegrallyClosed S_q` and `IsRegularLocalRing R_p` remain. The classical proof uses
+both: normality for Serre's criterion, regularity for Auslander–Buchsbaum. The dimension-one proof
+here does not use normality.
 
 **`H2TwoClassesFin`, `IsCocycle2Fin`, `IsCoboundary2Fin`, `BrauerHasse2Fin`,
 `BrauerReciprocity2Fin`.** Each is the kernel Prop with `Continuous` replaced by "invariant under
