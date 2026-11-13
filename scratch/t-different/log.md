@@ -65,3 +65,17 @@
     deprecated-but-present `Ideal.ramificationIdx_mul_inertiaDeg_of_isLocalRing` for `e f = [L:K]`,
     `Module.Basis.traceDual_powerBasis_eq` for Euler's formula, `Algebra.trace_trace`).
   * `PkgI6.differentBound : PkgI6.DifferentBound` (verbatim leaf I6.6 = T21 local).
+
+## Step 6: T22b (transitivity of Herbrand's function) PROVED
+- `scratch/t-different/HerbrandT22.lean` (VERIFIED: compiles; axioms propext, Classical.choice,
+  Quot.sound): `PkgI6.herbrandTransitivity : PkgI6.HerbrandTransitivity` (verbatim leaf I6.9).
+  * Abstract layer (`TDifferent.filtR`, `phiF` = the formula of `PkgI6.herbrandPhi`, `rfl`):
+    `integral_indicator_Iic`, `phiF_formula` (min-formula), `coset_min`, `phiF_trans`
+    (transitivity for an exact sequence `1 → H → G → Q → 1` of finite groups with filtrations,
+    from Prop. 3 as a hypothesis).
+  * Galois layer: `isGaloisGroup_algEquiv` (from Mathlib's `Algebra.isInvariant_of_isGalois'`),
+    `resHom` = Mathlib's `IsGaloisGroup.restrictHom` (restriction, surjective), `resHom_eq_one_iff`
+    (kernel = `B ≃ₐ[C] B`), `isGaloisGroup_tower` (from `IsGaloisGroup.of_isScalarTower`).
+  * `span_sub_eq_span_prod` (Serre IV §1 Prop. 3, ideal form: `(σy - y)B = (∏_{s↦σ}(x - sx))`).
+  * `card_lowerRam_zero`: `|H_0| = e(B/C)` via Mathlib's `Ideal.card_inertia_eq_ramificationIdxIn`
+    (separable residue fields from the perfect residue field of `A`, `tower_top`).
