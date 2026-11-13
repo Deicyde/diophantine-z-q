@@ -16,3 +16,4 @@
 - 06:39 compile 3 CLEAN: 0 errors, 10m13s, 210 #print axioms lines all standard. Installed as scratch/h-decomposition/Leaves.lean. #hdec_same: 5 exact matches; differences to analyse (proof-aux names, resp/GQp, HasNebentypus).
 - 06:44 checker v2 (proof-irrelevant normal form; #hdec_same_as for restatements under a namespace), tested on probe P3; compile 4 started.
 - 06:55 compile 4 CLEAN (8m57s): 0 errors, no sorry, 205 axiom lists all standard; #hdec_same: 14 of 15 checks verbatim (up to prefix and proof names), PkgI4.NewformOfEigenform differs in HasNebentypus's elaborated body (texts identical; defeq checked by the exact conversion). Installed as Leaves.lean.
+- 06:57 report and docs done; .fleet/leaf-fold.md written.
