@@ -6,7 +6,7 @@ pu = open('scratch/product-unif/ProductUnif.lean').read()
 ph_body = '\n'.join(l for l in ph.splitlines() if not l.startswith('#print'))
 ph_body = ph_body.replace('import ZInQKernel.HDecomp.Faltings.H5Neron\n', '')
 imports = '\n'.join(l for l in pu.splitlines() if l.startswith('import '))
-start = pu.index('/-! ## §1. Elementary analysis')
+start = pu.index('/-! ## §1. Elementary analysis')  # §3b and §4 included
 end = pu.index('#print axioms')
 tail = '''
 namespace ZInQ.ProductUnif
@@ -26,8 +26,14 @@ theorem productModelHeight_of_salg' (hH : DefFaltings.HodgeLatticeTheorem)
     ZInQ.H5Neron.ProductModelHeight :=
   productModelHeight_of_salg hH hD hJ (productHodgeAdd_of hS)
 
+/-- **P2 from `HodgeLatticeTheorem`, `ProductUnifDims` and `ProductHodgeSections` (proved).** -/
+theorem productModelHeight_of_salg'' (hH : DefFaltings.HodgeLatticeTheorem)
+    (hD : ProductUnifDims) (hS : ProductHodgeSections) : ZInQ.H5Neron.ProductModelHeight :=
+  productModelHeight_of_salg' hH hD jacDetDescends' hS
+
 end ZInQ.ProductUnif
 
+#print axioms ZInQ.ProductUnif.productModelHeight_of_salg''
 #print axioms ZInQ.ProductUnif.productUnifSplits
 #print axioms ZInQ.ProductUnif.productModelHeight_of_salg'
 #print axioms ZInQ.ProductUnif.productMetrizationOfProductUnif_of

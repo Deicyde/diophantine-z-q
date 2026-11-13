@@ -41,3 +41,14 @@
   (covolumes from product-height's `prodLattice_facts`, heights from `modelHeight_add_of`, both
   copied verbatim into §0), `productMetrizationOfProductUnif_of'`. Compile: one fix (`.ge`);
   final 0 errors, 6/6 `#print axioms` standard (VERIFIED).
+- `JacDet.lean`: metrization's proof of `ZInQ.Metrization.JacDetDescends` ported to the kernel's
+  `DefFaltings` (verbatim copies of `scratch/metrization/part_exists.lean` l.30-43,
+  `part_jacdet.lean` l.1-138, `part_jacgerm.lean`, `part_jacscalar.lean`, `part_jacclass.lean`
+  l.1-139; only `open PkgI3 (AbVar)` added). Compile: 0 errors; `jacDetDescends` standard axioms
+  (VERIFIED). So metrization's proof transfers unchanged to the kernel's types.
+- Merged as §3b into `ProductUnif.lean`; `jacDetDescends' : JacDetDescends` (my S-alg-2, which has
+  an extra hypothesis `A.dim = d`) and `productMetrizationOfProductUnif_of'' : HodgeLatticeTheorem →
+  ProductUnifDims → ProductHodgeSections → ProductMetrizationOfProductUnif`. Compile: 0 errors, 8/8
+  `#print axioms` standard (VERIFIED). `WithProductHeight.lean` regenerated with
+  `productModelHeight_of_salg''` (P2 from `HodgeLatticeTheorem`, `ProductUnifDims`,
+  `ProductHodgeSections`): 0 errors, standard axioms (VERIFIED).
