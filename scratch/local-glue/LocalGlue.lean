@@ -4076,6 +4076,20 @@ theorem tateWildK_of_R6 (hR6 : ObjBridge.RaynaudCriterion) (hTors : ObjBridge.To
     rw [h13] at h
     norm_num at h
 
+/-- **`LocalGlue` on G7's data from the leaves R6 and I2-Tors (proved), with the remaining glue
+`KerWild`, `TateWildKE` (`p ≤ 5`) and `BetaTwist2` (`p = 2`).** At `p ≥ 7`, `p ≠ ℓ`, no glue is
+left. -/
+theorem localGlue_of_leaves (hR6 : ObjBridge.RaynaudCriterion)
+    (hTors : ObjBridge.TorsionStructure) {ℓ : ℕ} [Fact ℓ.Prime] (hpℓ : p ≠ ℓ)
+    {A : PkgI3.AbVar K}
+    {Tm : GQ → Module.End (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)} {c ε : GQ → GQ → PadicAlgCl ℓ}
+    {a β : GQ → PadicAlgCl ℓ} {u : GlueDescent.MatrixUnits2 (PadicAlgCl ℓ) (G0Galois.Vb A ℓ)}
+    (h7 : G0Galois.G7Out A ℓ Tm c ε a β u) {L : IntermediateField ℚ PkgI4.Qbar}
+    (hC : G7Clauses β ε L) (hK : KerWild K β L)
+    (hE : p ≤ 5 → TateWildKE (p := p) A ℓ β L) (hB : p = 2 → BetaTwist2 (p := p) β L) :
+    LocalGlue (p := p) Tm a β L :=
+  localGlue_of_g7_twist h7 hC hK (fun h => tateWildK_of_R6 hR6 hTors h7.1 (Ne.symm hpℓ) h) hE hB
+
 end RaynaudGen
 
 end G15Ram
@@ -4086,6 +4100,7 @@ end
 #print axioms G15Ram.raynaudPlace_rational
 #print axioms G15Ram.raynaudPlace_of_R6
 #print axioms G15Ram.tateWildK_of_R6
+#print axioms G15Ram.localGlue_of_leaves
 
 noncomputable section
 

@@ -189,3 +189,6 @@
   `modularConstituent_tail_R` take `hR6 : ObjBridge.RaynaudCriterion` and `hTors`.
 - Compile: LocalGlue.lean exit 0, no sorry, 56 printed declarations all standard axioms;
   TailK.lean exit 0, no sorry, tail_K/tail_R standard axioms.
+- (08:00-08:02) Proved (VERIFIED): `localGlue_of_leaves (hR6) (hTors) (p ≠ ℓ) : G7Out → G7Clauses →
+  KerWild → (p ≤ 5 → TateWildKE) → (p = 2 → BetaTwist2) → LocalGlue p Tm a β L`.
+  Compile: exit 0, no sorry, 57 printed declarations all standard axioms.
