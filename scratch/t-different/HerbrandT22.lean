@@ -392,6 +392,230 @@ theorem phiF_trans (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Su
 
 end Trans
 
+section Upper
+
+variable {G H Q : Type*} [Group G] [Fintype G] [DecidableEq G] [Group H] [Fintype H]
+  [DecidableEq H] [Group Q] [Fintype Q] [DecidableEq Q]
+
+theorem ceil_toNat_lt_iff {t : ℝ} (ht : -1 < t) (n : ℕ) : ⌈t⌉.toNat < n ↔ t ≤ (n : ℝ) - 1 := by
+  have hc : (0 : ℤ) ≤ ⌈t⌉ := Int.ceil_nonneg_of_neg_one_lt ht
+  have h1 : (⌈t⌉.toNat < n) ↔ ⌈t⌉ ≤ (n : ℤ) - 1 := by omega
+  rw [h1, Int.ceil_le]
+  push_cast
+  rfl
+
+/-- The min-formula as an explicit function. -/
+noncomputable def phiExpl (Γ : ℕ → Subgroup G) (n : G → ℕ) (u : ℝ) : ℝ :=
+  ((u + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (u + 1)) / (Nat.card (Γ 0) : ℝ) - 1
+
+theorem phiF_eq_phiExpl (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {u : ℝ} (hu : -1 ≤ u) :
+    phiF Γ u = phiExpl Γ n u := by
+  have h := phiF_formula Γ n hΓ hu
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  rw [phiExpl, ← h, mul_div_cancel_left₀ _ hg0.ne', add_sub_cancel_right]
+
+theorem phiF_strictMono (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a b : ℝ} (ha : -1 ≤ a) (hab : a < b) :
+    phiF Γ a < phiF Γ b := by
+  have h1 := phiF_formula Γ n hΓ ha
+  have h2 := phiF_formula Γ n hΓ (ha.trans hab.le)
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have h3 : (a + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (a + 1) <
+      (b + 1) + ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (b + 1) :=
+    add_lt_add_of_lt_of_le (by linarith)
+      (Finset.sum_le_sum fun s _ => min_le_min_left _ (by linarith))
+  rw [← h1, ← h2] at h3
+  have := lt_of_mul_lt_mul_left h3 hg0.le
+  linarith
+
+theorem phiF_neg_one (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) : phiF Γ (-1) = -1 := by
+  have h := phiF_formula Γ n hΓ (le_refl (-1 : ℝ))
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  have hs : ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (-1 + 1) = 0 :=
+    Finset.sum_eq_zero fun s _ => by rw [neg_add_cancel, min_eq_right (Nat.cast_nonneg _)]
+  rw [hs, neg_add_cancel, add_zero] at h
+  have := (mul_eq_zero.mp h).resolve_left hg0.ne'
+  linarith
+
+theorem exists_phiF_eq (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {v : ℝ} (hv : -1 ≤ v) :
+    ∃ a, -1 ≤ a ∧ phiF Γ a = v := by
+  have hg0 : (0 : ℝ) < Nat.card (Γ 0) := by exact_mod_cast Nat.card_pos
+  set M : ℝ := (Nat.card (Γ 0) : ℝ) * (v + 1)
+  have hM : -1 ≤ M := by have : 0 ≤ M := mul_nonneg hg0.le (by linarith); linarith
+  have hcont : Continuous (phiExpl Γ n) := by
+    unfold phiExpl
+    fun_prop
+  obtain ⟨a, ha, hfa⟩ := intermediate_value_Icc hM hcont.continuousOn
+    (show v ∈ Icc (phiExpl Γ n (-1)) (phiExpl Γ n M) by
+      constructor
+      · rw [← phiF_eq_phiExpl Γ n hΓ le_rfl, phiF_neg_one Γ n hΓ]; exact hv
+      · unfold phiExpl
+        have hsum : 0 ≤ ∑ s ∈ Finset.univ.erase 1, min (n s : ℝ) (M + 1) :=
+          Finset.sum_nonneg fun s _ => le_min (Nat.cast_nonneg _) (by linarith)
+        rw [le_sub_iff_add_le, le_div_iff₀ hg0]
+        nlinarith)
+  exact ⟨a, ha.1, (phiF_eq_phiExpl Γ n hΓ ha.1).trans hfa⟩
+
+theorem sInf_phiF (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {a v : ℝ} (ha : -1 ≤ a) (hav : phiF Γ a = v) :
+    sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = a := by
+  have : {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = Ici a := by
+    ext u
+    simp only [mem_setOf_eq, mem_Ici]
+    constructor
+    · rintro ⟨hu, hvu⟩
+      by_contra hlt
+      push Not at hlt
+      have := phiF_strictMono Γ n hΓ hu hlt
+      linarith
+    · intro hau
+      refine ⟨ha.trans hau, ?_⟩
+      rw [← hav]
+      exact phiF_mono Γ n hΓ ha hau
+  rw [this, csInf_Ici]
+
+theorem sInf_phiF_of_le (Γ : ℕ → Subgroup G) (n : G → ℕ)
+    (hΓ : ∀ i s, s ≠ 1 → (s ∈ Γ i ↔ i < n s)) {v : ℝ} (hv : v ≤ -1) :
+    sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = -1 := by
+  have : {u : ℝ | -1 ≤ u ∧ v ≤ phiF Γ u} = Ici (-1) := by
+    ext u
+    simp only [mem_setOf_eq, mem_Ici]
+    exact ⟨fun h => h.1, fun hu => ⟨hu, hv.trans (phiF_ge Γ n hΓ hu)⟩⟩
+  rw [this, csInf_Ici]
+
+/-- `nQ σ = φ_H(m - 1) + 1` with `m` the maximal `i_G` in the fibre (from Prop. 3). -/
+theorem nQ_eq (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {s' : G} (hs'1 : r s' ≠ 1) (hmax : ∀ s, r s = r s' → nG s ≤ nG s') :
+    (nQ (r s') : ℝ) = phiF (fun i => (ΓG i).comap ι) ((nG s' : ℝ) - 1) + 1 := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  have hh0 : (0 : ℝ) < Nat.card (ΓH 0) := by exact_mod_cast Nat.card_pos
+  have hcos : ∀ h : H, h ≠ 1 → nG (s' * ι h) = min (nG s') (nH h) := fun h hh =>
+    coset_min ΓG nG hG ι hι r hexact hs'1 hmax hh
+  have hm1 : -1 ≤ (nG s' : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) (nG s'); linarith
+  have hHm := phiF_formula ΓH nH hH hm1
+  have hP := hP3 (r s') hs'1
+  rw [show (Nat.card ((ΓG 0).comap ι) : ℝ) = Nat.card (ΓH 0) from rfl,
+    fiber_sum ι hι r hexact s', ← Finset.add_sum_erase _ _ (Finset.mem_univ (1 : H))] at hP
+  simp only [map_one, mul_one] at hP
+  rw [Finset.sum_congr rfl (fun h hh => by rw [hcos h (Finset.ne_of_mem_erase hh)])] at hP
+  have : (Nat.card (ΓH 0) : ℝ) * nQ (r s') =
+      (Nat.card (ΓH 0) : ℝ) * (phiF ΓH ((nG s' : ℝ) - 1) + 1) := by
+    rw [hP, hHm, sub_add_cancel]
+    congr 1
+    refine Finset.sum_congr rfl fun h _ => ?_
+    push_cast
+    exact min_comm _ _
+  exact mul_left_cancel₀ hh0.ne' this
+
+/-- **Herbrand's lemma** (Serre IV §3, Lemma 5): `G_u H/H = (G/H)_{φ_{L/K'}(u)}`. -/
+theorem herbrand_lemma (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    {u : ℝ} (hu : -1 ≤ u) :
+    (filtR ΓG u).map r = filtR ΓQ (phiF (fun i => (ΓG i).comap ι) u) := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  rcases eq_or_lt_of_le hu with h1 | h1
+  · subst h1
+    rw [phiF_neg_one ΓH nH hH]
+    simp only [filtR, le_refl, if_true]
+    exact Subgroup.map_top_of_surjective r hr
+  · have hv : -1 < phiF ΓH u := by
+      have := phiF_strictMono ΓH nH hH le_rfl h1
+      rwa [phiF_neg_one ΓH nH hH] at this
+    have hnot : ¬ u ≤ -1 := not_le.mpr h1
+    have hnotv : ¬ phiF ΓH u ≤ -1 := not_le.mpr hv
+    simp only [filtR, hnot, hnotv, if_false]
+    ext σ
+    rw [Subgroup.mem_map]
+    by_cases hσ : σ = 1
+    · subst hσ
+      exact ⟨fun _ => Subgroup.one_mem _, fun _ => ⟨1, Subgroup.one_mem _, map_one r⟩⟩
+    obtain ⟨s0, hs0⟩ := hr σ
+    obtain ⟨s', hs'mem, hs'max⟩ := Finset.exists_max_image
+      (Finset.univ.filter (fun s => r s = σ)) nG ⟨s0, by simp [hs0]⟩
+    have hrs' : r s' = σ := by simpa using hs'mem
+    have hmax : ∀ s, r s = r s' → nG s ≤ nG s' := fun s hs =>
+      hs'max s (by simp [hs, hrs'])
+    have hs'1 : r s' ≠ 1 := hrs' ▸ hσ
+    have hnQ := nQ_eq ΓG nG ΓQ nQ ι hι r hexact hG hP3 hs'1 hmax
+    rw [hrs'] at hnQ
+    rw [hQ _ σ hσ, ceil_toNat_lt_iff hv, hnQ, add_sub_cancel_right]
+    have hm1 : -1 ≤ (nG s' : ℝ) - 1 := by have := Nat.cast_nonneg (α := ℝ) (nG s'); linarith
+    have hiff : phiF ΓH u ≤ phiF ΓH ((nG s' : ℝ) - 1) ↔ u ≤ (nG s' : ℝ) - 1 := by
+      constructor
+      · intro h
+        by_contra hlt
+        push Not at hlt
+        have := phiF_strictMono ΓH nH hH hm1 hlt
+        linarith
+      · intro h; exact phiF_mono ΓH nH hH hu h
+    rw [hiff, ← ceil_toNat_lt_iff h1]
+    constructor
+    · rintro ⟨s, hs, hrs⟩
+      have hs1 : s ≠ 1 := fun e => hσ (by rw [← hrs, e, map_one])
+      exact lt_of_lt_of_le ((hG _ s hs1).mp hs) (hmax s (by rw [hrs, hrs']))
+    · intro h
+      have hs'ne : s' ≠ 1 := fun e => hs'1 (by rw [e, map_one])
+      exact ⟨s', (hG _ s' hs'ne).mpr h, hrs'⟩
+
+/-- **Herbrand's theorem, abstract form** (Serre IV §3, Prop. 14): `(G/H)^v = G^v H/H`. -/
+theorem upper_map (ΓG : ℕ → Subgroup G) (nG : G → ℕ) (ΓQ : ℕ → Subgroup Q) (nQ : Q → ℕ)
+    (ι : H →* G) (hι : Function.Injective ι) (r : G →* Q) (hr : Function.Surjective r)
+    (hexact : ∀ s, r s = 1 ↔ ∃ h, ι h = s)
+    (hG : ∀ i s, s ≠ 1 → (s ∈ ΓG i ↔ i < nG s))
+    (hQ : ∀ i σ, σ ≠ 1 → (σ ∈ ΓQ i ↔ i < nQ σ))
+    (hP3 : ∀ σ : Q, σ ≠ 1 → (Nat.card ((ΓG 0).comap ι) : ℝ) * nQ σ =
+      ∑ s ∈ Finset.univ.filter (fun s => r s = σ), (nG s : ℝ))
+    (v : ℝ) :
+    filtR ΓQ (sInf {w : ℝ | -1 ≤ w ∧ v ≤ phiF ΓQ w}) =
+      (filtR ΓG (sInf {u : ℝ | -1 ≤ u ∧ v ≤ phiF ΓG u})).map r := by
+  classical
+  set ΓH : ℕ → Subgroup H := fun i => (ΓG i).comap ι with hΓH
+  set nH : H → ℕ := fun h => nG (ι h) with hnH
+  have hι1 : ∀ h, ι h = 1 ↔ h = 1 :=
+    fun h => ⟨fun e => hι (e.trans (map_one ι).symm), fun e => e ▸ map_one ι⟩
+  have hH : ∀ i h, h ≠ 1 → (h ∈ ΓH i ↔ i < nH h) := fun i h hh => by
+    simp only [ΓH, nH, Subgroup.mem_comap]
+    exact hG i (ι h) (fun e => hh ((hι1 h).mp e))
+  rcases le_or_gt v (-1) with hv | hv
+  · rw [sInf_phiF_of_le ΓQ nQ hQ hv, sInf_phiF_of_le ΓG nG hG hv]
+    simp only [filtR, le_refl, if_true]
+    exact (Subgroup.map_top_of_surjective r hr).symm
+  · obtain ⟨a, ha, hav⟩ := exists_phiF_eq ΓG nG hG hv.le
+    have hb : -1 ≤ phiF ΓH a := phiF_ge ΓH nH hH ha
+    have hbv : phiF ΓQ (phiF ΓH a) = v := by
+      rw [← phiF_trans ΓG nG ΓQ nQ ι hι r hr hexact hG hQ hP3 ha]; exact hav
+    rw [sInf_phiF ΓG nG hG ha hav, sInf_phiF ΓQ nQ hQ hb hbv,
+      herbrand_lemma ΓG nG ΓQ nQ ι hι r hr hexact hG hQ hP3 ha]
+
+end Upper
+
 
 
 attribute [local instance] FractionRing.liftAlgebra FractionRing.isScalarTower_liftAlgebra
