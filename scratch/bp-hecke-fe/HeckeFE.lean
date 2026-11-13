@@ -2144,4 +2144,18 @@ theorem literature_hecke_fe_of_mult_split_gaussPointCount
   literature_hecke_fe_of_mult_primePow_gaussPointCount hM
     (fun d h5 hsq => heckePrimePow_of_split (Nat.odd_iff.mpr (by omega)) hsq (hS d h5 hsq)) h1
 
+/-- **CR₃ (`CertifiedRankTYZClRk`) with the two textbook Props replaced by elementary statements**:
+from TYZ reading A, Gross–Zagier, and the three statements about `ℤ[i]` and `𝔽_p`. With
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`
+(`RouteK/RankVariants.lean`) this gives the headline without `HeckeContinuation` and
+`FunctionalEquation5`. -/
+theorem certifiedRankTYZClRk_of_elementary (hA : ZInQ.Literature.TYZThm35ReadingA)
+    (hG : ZInQ.Literature.GrossZagier)
+    (hM : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckeMult d)
+    (hS : ∀ d : ℕ, d % 8 = 5 → Squarefree d → HeckePrimePowSplit d) (h1 : GaussPointCount) :
+    ZInQ.RouteK.Rank.CertifiedRankTYZClRk := by
+  obtain ⟨hC, hF⟩ := literature_hecke_fe_of_mult_split_gaussPointCount hM hS h1
+  exact ZInQ.Literature.certifiedRankTYZClRk_of_literature (tyzRow5b_of_readingA_five hA hC)
+    (ZInQ.Literature.rootNumberVanishing_of_functionalEquation hF) hG
+
 end BpHeckeFE

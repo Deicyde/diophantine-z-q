@@ -105,6 +105,14 @@ table, so a formalizer needs nothing from the elliptic-curve library.
    `gauss2D`, proved from Mathlib's `gaussSum_sq` and `gaussSum_mulShift_eq` by completing the
    square.
 
+**CR₃ without the two textbook Props** (VERIFIED, compiled): `certifiedRankTYZClRk_of_elementary :
+TYZThm35ReadingA → GrossZagier → (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
+RouteK.Rank.CertifiedRankTYZClRk`. With the existing
+`exists_bounded_integer_polynomial_defining_integers_of_sixContactMin_certifiedRankTYZClRk`
+(`RouteK/RankVariants.lean`) this gives the headline with `HeckeContinuation` and `FunctionalEquation5`
+replaced by the three elementary statements. That last step was not compiled here, because the
+`RankVariants` olean chain was out of date in this worktree; it is a one-line composition.
+
 **Suggested change on integration.** `Literature.HeckeContinuation` quantifies over every
 `d ≠ 0`, but its only use (`tyzRow5b_of_readingA`) is at squarefree `d ≡ 5 (mod 8)`. Replacing it
 by `HeckeContinuation5` loses nothing for the headline (`tyzRow5b_of_readingA_five`). It also
@@ -307,6 +315,7 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `HeckeMult`, `HeckePrimePow`, `normFiber_one`, `heckeCoeff_one`, `coeff_inv_quadratic`, `heckeCoeff_prime_of_dvd`, `heckeEuler_of_mult_primePow` | `HeckeEuler` from multiplicativity and the prime-power recursion |
 | `unitOf_eq_zero_of_even`, `heckeCoeff_two_pow`, `heckeCoeff_pow_of_dvd`, `dvd_of_dvd_sq_add_sq`, `normFiber_inert`, `heckeCoeff_inert`, `HeckePrimePowSplit`, `heckePrimePow_of_split` | the recursion at `p = 2`, `p ∣ d` and inert `p` |
 | `literature_hecke_fe_of_mult_split_gaussPointCount` | **the final reduction** (§0) |
+| `certifiedRankTYZClRk_of_elementary` | CR₃ from TYZ reading A, Gross–Zagier and the three elementary statements |
 
 Faithfulness. `DeuringCd` is stated over the project's `cdCoeff` (proved equal to Mathlib's
 `L(C_d,s)` coefficients by `LFunctionCd.lean`) and over explicit sums in `ℤ²`. It involves no

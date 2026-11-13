@@ -106,3 +106,7 @@
   `heckePrimePow_of_split`, `literature_hecke_fe_of_mult_split_gaussPointCount :
    (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
    HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5`.
+- (VERIFIED, compiled ~19:10; axioms standard) `certifiedRankTYZClRk_of_elementary`:
+  TYZThm35ReadingA → GrossZagier → (∀d HeckeMult d) → (∀d HeckePrimePowSplit d) → GaussPointCount →
+  RouteK.Rank.CertifiedRankTYZClRk (CR₃ without HeckeContinuation and FunctionalEquation5).
+  (MainLiterature/RankVariants not imported: their olean chain was out of date in this worktree.)
