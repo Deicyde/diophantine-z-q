@@ -7,10 +7,10 @@ Proposition TS in prop-ts's `propTSAll_of_bundle_meet`.
 
 | File | Contents |
 |---|---|
-| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (3399 lines) |
+| `scratch/prop-ts-glue/PropTSGlue.lean` | the Lean file (3592 lines) |
 | `scratch/prop-ts-glue/log.md` | results log |
 | `scratch/prop-ts-glue/compile_out.txt` | compiler output |
-| `LocalData.lean`, `HorizTransfer.lean` | development files, Mathlib-only, compiled; their results are pasted into the main file |
+| `LocalData.lean`, `HorizTransfer.lean`, `VRD.lean` | development files, Mathlib-only, compiled; their results are pasted into the main file |
 
 Model work only; no human has reviewed it. Marks: **VERIFIED** means compiled, computed or read
 in a named source. **STANDARD** means a published result with its reference. **PROVED HERE**
@@ -20,37 +20,40 @@ from memory are **UNVERIFIED** (no network).
 ## 1. Main result
 
 **None of the three statements is false, vacuous or inert, and none was changed. Each is reduced
-in Lean to smaller named Props, and five of the new pieces are proved.** The proved pieces are:
+in Lean to smaller named Props.** The headline: **`SpecNonMeeting` now follows from the single
+glue Prop `SNSpecialize`** (`specNonMeeting_of_specialize`). Every other step of prop-ts §4.1 is
+proved:
 
 - `SNLocalData`;
 - `SNHorizontalTransfer`;
-- `SNVertical`, modulo the degree bound `VerticalResidueDegree` (`Σ e f ≤ n`);
-- separability from degree `< p` (`isSeparable_of_finrank_lt`);
+- `SNVertical`;
+- `VerticalResidueDegree` (`Σ e f = n` at the vertical primes);
+- separability from degree `< p`;
 - purity, through an inlined copy of t-purity3's proof.
 
-All of the `p`-adic and Gauss-lemma bookkeeping is also proved.
+All of the `p`-adic and Gauss-lemma bookkeeping, for both `SpecNonMeeting` and `KummerMeet`, is
+also proved.
 
 **What is VERIFIED:**
 
-- `lake env lean scratch/prop-ts-glue/PropTSGlue.lean` (about 25 s) gives 0 errors. The 40
+- `lake env lean scratch/prop-ts-glue/PropTSGlue.lean` (about 25 s) gives 0 errors. The 48
   warnings are linter warnings only.
-- All 35 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
+- All 38 new `#print axioms` lines read `[propext, Classical.choice, Quot.sound]`.
 - `check_identical.py` prints `PREFIX IDENTICAL`: the first 906 lines are
   `scratch/prop-ts/PropTS.lean` byte for byte, so the three statements and their dependencies are
   verbatim.
 - It also prints `PURITY COPY CONTAINED`: t-purity3's `PurityDim2.lean` (origin/wip/t-purity3,
   7e4d4dd0) is included verbatim, minus its import and `#print` lines.
 
-**The final composite** is `PropTSGlue.propTSAll_of_pieces'''`. Its hypotheses are:
+**The final composite** is `PropTSGlue.propTSAll_final`. Its hypotheses are:
 
 - **Leaves:**
   - T2 (`PkgI2.AbhyankarDVR`);
   - `R1R2fp`.
 - **Kernel glue:**
   - `MobiusGlue`.
-- **Open glue: 14 Props in total. For `SpecNonMeeting`:**
-  - `VerticalResidueDegree`;
-  - `SNSpecialize`.
+- **Open glue: 13 Props in total. For `SpecNonMeeting`:**
+  - `SNSpecialize` only.
 - **Open glue, for `KummerMeetGlue`:**
   - `KummerCompositum`;
   - `KummerAbhyankarFinGlue`, `KummerOtherBranchFin`, `KummerVerticalFin`;
@@ -63,7 +66,7 @@ T2 enters only through the two Abhyankar steps. No new literature leaf is needed
 
 | Prop of the task | reduction (compiled) | proved along the way |
 |---|---|---|
-| `SpecNonMeeting` | `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize → SpecNonMeeting`, with `verticalResidueSeparable_of_degree : VerticalResidueDegree → VerticalResidueSeparable`. `PurityGlobalDim2` is a theorem in the file (`purityGlobalDim2`, t-purity3's proof inlined) | `snLocalData`, `snHorizontalTransfer`, `snVertical_of_sep`, `snHeightOne_of_pieces`, `isSeparable_of_finrank_lt`; the Gauss-lemma arithmetic (`exists_int_multiple`, `homog_mem`, `notMem_of_val_zero`); `isFractionRing_zx`; `exists_secIdeal`; `regular_dim2_intPoly` |
+| `SpecNonMeeting` | **`specNonMeeting_of_specialize : SNSpecialize → SpecNonMeeting`**. It goes through `specNonMeeting_of_pieces4 : PurityGlobalDim2 → VerticalResidueSeparable → SNSpecialize → SpecNonMeeting`, with `verticalResidueSeparable_of_degree` and `verticalResidueDegree`. `PurityGlobalDim2` is a theorem in the file (`purityGlobalDim2`, t-purity3's proof inlined) | `snLocalData`, `snHorizontalTransfer`, `snVertical_of_sep`, `snHeightOne_of_pieces`, `isSeparable_of_finrank_lt`, `verticalResidueDegree`; the Gauss-lemma arithmetic (`exists_int_multiple`, `homog_mem`, `notMem_of_val_zero`); `isFractionRing_zx`; `exists_secIdeal`; `regular_dim2_intPoly` |
 | `KummerMeetGlue` | `kummerMeetGlue_of_pieces'`, seven pieces | the case split; all of prop-ts §4.2's arithmetic in both cases (`kummerMeetFin_of_pieces`, `kummerMeetInf_of_pieces`) |
 | `CoverModelOfHecke` | `coverModelOfHecke_of_pieces` (four pieces) and `heckeNormalization_of_irr` | `coverModelOfHecke_of_witness : MobiusGlue → R1R2fp → CoverModelWitness → CoverModelOfHecke`, so one triple suffices (`functionFieldModel_transfer`, `coverModel_transfer`) |
 
@@ -91,7 +94,7 @@ purity, and the result follows by specialization.
 | `SNHorizontalTransfer` | **theorem** `snHorizontalTransfer` | see the steps below the table |
 | `SNVertical` | **theorem** from `VerticalResidueSeparable` (`snVertical_of_sep`) | see the steps below the table |
 | `VerticalResidueSeparable` | **theorem** from the next row (`verticalResidueSeparable_of_degree`) | `[E:ℚ(X)] < p ⇒ Algebra.HasSeparableResidueFieldsAt ℤ[X] C (pℤ[X])`. The step "degree `< p` in characteristic `p` ⇒ separable" is proved (`isSeparable_of_finrank_lt`, via `Polynomial.separable_or`) |
-| `VerticalResidueDegree` | **open glue** (STANDARD, `Σ e f = n`) | for `q` over `pℤ[X]` in `C`, `κ(q)/κ(pℤ[X])` is finite of degree `≤ [E:ℚ(X)]`. Proof: localize at `pℤ[X]` (a DVR); `C_{(p)}` is free of rank `[E:ℚ(X)]`; `κ(q)` is a quotient of `C_{(p)}/p`. In Lean: Mathlib's `Ideal.sum_ramification_inertia_eq_finrank` over `ℤ[X]_{(p)}` plus residue-field transport along localization |
+| `VerticalResidueDegree` | **theorem** `verticalResidueDegree` | for `q` over `pℤ[X]` in `C`, `κ(q)/κ(pℤ[X])` is finite of degree `≤ [E:ℚ(X)]`. Proof, in four steps:<br>(1) Mathlib's `Ideal.sum_ramification_inertia_eq_finrank_fiber` for `ℤ[X] → C` at `pℤ[X]`;<br>(2) `e(q) > 0`, since `q` is minimal over `pC` by incomparability;<br>(3) the fibre `κ ⊗_{ℤ[X]} C ≅ κ ⊗_{ℤ[X]_{(p)}} C_{(p)}` (`cancelBaseChange`, `IsLocalizedModule.isBaseChange`);<br>(4) `ℤ[X]_{(p)}` is a DVR (`IsDiscreteValuationRing.TFAE`) and `C_{(p)}` is free of rank `[E:ℚ(X)]` (`IsIntegralClosure.module_free`, `.rank`) |
 | `SNSpecialize` | **open glue** (STANDARD) | `R → S` étale ⇒ every residue field `B/𝔓` over `X − s₀`, embedded in `ℚ̄`, is a number field unramified at `p`. Proof: base change along `R → R/(dX − a) = ℤ_(p)`; then étale over a DVR ⇒ unramified |
 
 **Proof of `SNHorizontalTransfer`:**
@@ -175,17 +178,17 @@ Lean proofs (§2).
 
 Open glue, all STANDARD commutative algebra or curve theory; no new literature leaf:
 
-1. **`VerticalResidueDegree`.** The residue degree at a vertical prime is at most `[E:ℚ(X)]`.
-   - Route: Mathlib's `sum_ramification_inertia_eq_finrank` over the DVR `ℤ[X]_{(p)}` (regular
-     local of dimension 1; t-purity3's `isDiscreteValuationRing_of_dim1` is in the file).
-   - Remaining plumbing: transport the residue fields along localization.
-     `Localization.AtPrime.inertiaDeg_map_eq_inertiaDeg` needs a maximal base prime, so it does
-     not apply directly.
-2. **`SNSpecialize`.** Étale base change to `ℤ_(p)`, then a finite étale domain over `ℤ_(p)` is
-   unramified at `p`, phrased through the repository's `UnramifiedAt`.
-3. **The seven Kummer pieces.** `KummerCompositum` (a factor of `E ⊗ ℚ(s)` with a place over a
+1. **`SNSpecialize`**, the only open piece under `SpecNonMeeting`. Suggested route:
+   - `R → S` étale implies `R/(dX − a) → S/𝔓_S` is formally unramified (quotient and
+     restriction of scalars);
+   - `ℤ → R/(dX − a) = ℤ_(p)` is formally unramified;
+   - so `A = S/𝔓_S` is a domain, finite and formally unramified over `ℤ_(p)`. Its local rings at
+     the primes over `p` then have maximal ideal `(p)`, so they are DVRs
+     (`IsDiscreteValuationRing.TFAE`), hence equal to the local rings of `𝓞_L`, which gives
+     `e = 1`.
+2. **The seven Kummer pieces.** `KummerCompositum` (a factor of `E ⊗ ℚ(s)` with a place over a
    given place), Abhyankar via T2, and ramification in composita.
-4. **The Hecke pieces.**
+3. **The Hecke pieces.**
    - `HeckeNoVertRam` is h-b1's Lemma NV (inputs: R1rec and Abhyankar).
    - `HeckeIrreducible` is a reciprocity statement on `π₀` that should be checked against
      Deligne or Milne.
