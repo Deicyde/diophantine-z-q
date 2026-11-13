@@ -31,3 +31,10 @@
   Added import `ZInQKernel.HDecomp.I3Linalg.RhoCont` to the copied header. VERIFIED compiled, standard axioms (~05:00).
 - Pitfall (VERIFIED): stating `Continuous fun σ => A.galRep ℓ σ w` with a type ascription times out at whnf
   (1M heartbeats); `have h3 := hρ.comp (Continuous.prodMk_left w)` without ascription is instant.
+- `scalarTransfer : ScalarTransfer` PROVED (no leaf): γ_ℂ = β/a, ∂γ_ℂ = n/d; γ_ℂ(σ)^r ∈ ℚ with r = orderOf(σ|_{L'})
+  (`AlgEquiv.restrictNormalHom`, `restrictNormal_eq_one_iff`), so values integral over ℚ
+  (`monic_X_pow_sub_C`); F = ℚ(range γ_ℂ) algebraic (`IntermediateField.isAlgebraic_adjoin`); ψ = `IsAlgClosed.lift`.
+- `tateBridge_of_points : TatePoints → EndBaseChange → PkgI3.TateModuleFree → TateBridge` PROVED.
+  VERIFIED compiled, axioms [propext, Classical.choice, Quot.sound] (~05:05).
+- Remaining for TateBridge: glue TatePoints (points of A_{L'} over \bar{L'} vs A(ℚ̄), Galois-compatible) and glue
+  EndBaseChange (ring hom End_K(A) → End_L(A_L)); leaf I3.M0 TateModuleFree (existing, Mumford).

@@ -1493,6 +1493,92 @@ theorem tateCont_of_tateModuleFree (hT : PkgI3.TateModuleFree) : TateCont := by
     simp only [map_add]
     exact hx.add hy
 
+/-- **`ScalarTransfer`, proved** (algebra, no leaf). `γ_ℂ = β/a` has `∂γ_ℂ = n/d`, is constant
+on `G_{L'}`-cosets and `1` on `G_{L'}`; `γ_ℂ(σ)^r ∈ ℚ` for `σ^r ∈ G_{L'}` (`r` the order of
+`σ|_{L'}`), so every value is algebraic; `ψ : ℚ(γ_ℂ(G_ℚ)) → ℚ̄_ℓ` (`IsAlgClosed.lift`) and
+`γ = ψ ∘ γ_ℂ`. -/
+theorem scalarTransfer : ScalarTransfer := by
+  intro L' _ _ ℓ _ a β ε n d hd hna hβe ha0 hcos hone
+  let gC : GQ → ℂ := fun σ => (β σ : ℂ) / ((a σ : ℝ) : ℂ)
+  let q : GQ → GQ → ℚ := fun σ τ => (n σ τ : ℚ) / d σ τ
+  have ha0' : ∀ σ, ((a σ : ℝ) : ℂ) ≠ 0 := fun σ => Complex.ofReal_ne_zero.mpr (ha0 σ).ne'
+  have hq : ∀ σ τ, gC σ * gC τ = (q σ τ : ℂ) * gC (σ * τ) := by
+    intro σ τ
+    have h1 := hna σ τ
+    have h2 : (β σ : ℂ) * β τ = ε σ τ * β (σ * τ) := by
+      rw [← Units.val_mul, hβe σ τ, Units.val_mul]
+    have hdC : (d σ τ : ℂ) ≠ 0 := Int.cast_ne_zero.mpr (hd σ τ)
+    have hε : (ε σ τ : ℂ) = (((a σ * a τ * ((n σ τ : ℝ) / d σ τ)) : ℝ) : ℂ) / ((a (σ * τ) : ℝ) : ℂ) := by
+      rw [h1, mul_div_cancel_right₀ _ (ha0' _)]
+    have hA := ha0' σ
+    have hB := ha0' τ
+    have hAB := ha0' (σ * τ)
+    simp only [gC, q]
+    rw [div_mul_div_comm, h2, hε]
+    push_cast
+    field_simp
+  have hgcos : ∀ σ, ∀ k ∈ GQL L', gC (σ * k) = gC σ := by
+    intro σ k hk; simp only [gC]; rw [(hcos σ k hk).1, (hcos σ k hk).2]
+  have hg1 : ∀ k ∈ GQL L', gC k = 1 := by
+    intro k hk; simp only [gC]; rw [(hone k hk).1, (hone k hk).2]; simp
+  have hg0 : ∀ σ, gC σ ≠ 0 := fun σ => div_ne_zero (Units.ne_zero _) (ha0' σ)
+  have hpow : ∀ (σ : GQ) (k : ℕ), ∃ r : ℚ, gC σ ^ k = (r : ℂ) * gC (σ ^ k) := by
+    intro σ k
+    induction k with
+    | zero => exact ⟨1, by rw [pow_zero, pow_zero, hg1 1 (one_mem _)]; simp⟩
+    | succ k ih =>
+      obtain ⟨r, hr⟩ := ih
+      refine ⟨r * q (σ ^ k) σ, ?_⟩
+      rw [pow_succ, hr, _root_.mul_assoc, hq, pow_succ]
+      push_cast; ring
+  have hfin : ∀ σ : GQ, ∃ r : ℕ, 0 < r ∧ σ ^ r ∈ GQL L' := by
+    intro σ
+    let σ' : Qbar ≃ₐ[ℚ] Qbar := σ
+    let s := AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L' σ'
+    have hs : IsOfFinOrder s := isOfFinOrder_of_finite s
+    refine ⟨orderOf s, hs.orderOf_pos, ?_⟩
+    have h1 : AlgEquiv.restrictNormalHom (F := ℚ) (K₁ := Qbar) L' (σ' ^ orderOf s) = 1 := by
+      rw [map_pow, pow_orderOf_eq_one]
+    rw [mem_GQL]
+    intro x hx
+    exact (AlgEquiv.restrictNormal_eq_one_iff L' _).mp h1 x hx
+  have halg : ∀ σ, IsIntegral ℚ (gC σ) := by
+    intro σ
+    obtain ⟨r, hr0, hr⟩ := hfin σ
+    obtain ⟨t, ht⟩ := hpow σ r
+    rw [hg1 _ hr, _root_.mul_one] at ht
+    refine ⟨Polynomial.X ^ r - Polynomial.C t, Polynomial.monic_X_pow_sub_C t hr0.ne', ?_⟩
+    simp [Polynomial.eval₂_sub, ht]
+  let F : IntermediateField ℚ ℂ := IntermediateField.adjoin ℚ (Set.range gC)
+  haveI : Algebra.IsAlgebraic ℚ F := IntermediateField.isAlgebraic_adjoin (by
+    rintro x ⟨σ, rfl⟩; exact halg σ)
+  let ψ : F →ₐ[ℚ] PadicAlgCl ℓ := IsAlgClosed.lift
+  have hmem : ∀ σ, gC σ ∈ F := fun σ => IntermediateField.subset_adjoin ℚ _ ⟨σ, rfl⟩
+  let gam : GQ → PadicAlgCl ℓ := fun σ => ψ ⟨gC σ, hmem σ⟩
+  refine ⟨gam, ?_, ?_, ?_, ?_⟩
+  · intro σ h0
+    apply hg0 σ
+    have : (⟨gC σ, hmem σ⟩ : F) = 0 := ψ.toRingHom.injective (h0.trans (map_zero ψ).symm)
+    exact congrArg Subtype.val this
+  · intro σ τ
+    have hF : (⟨gC σ, hmem σ⟩ : F) * ⟨gC τ, hmem τ⟩ =
+        algebraMap ℚ F (q σ τ) * ⟨gC (σ * τ), hmem (σ * τ)⟩ := Subtype.ext (hq σ τ)
+    show ψ _ * ψ _ = _ * ψ _
+    rw [← map_mul, hF, map_mul, AlgHom.commutes]
+    congr 1
+    simp only [q, map_div₀, map_intCast]
+  · intro σ k hk
+    exact congrArg ψ (Subtype.ext (hgcos σ k hk))
+  · intro k hk
+    show ψ _ = 1
+    rw [← map_one ψ]
+    exact congrArg ψ (Subtype.ext (hg1 k hk))
+
+/-- **`TateBridge` from the two remaining glue pieces and the leaf I3.M0** (`TateModuleFree`). -/
+theorem tateBridge_of_points (hP : TatePoints) (hE : EndBaseChange)
+    (hT : PkgI3.TateModuleFree) : TateBridge :=
+  tateBridge_of_pieces hP hE scalarTransfer (tateCont_of_tateModuleFree hT) resQEmbedding
+
 end UnramTate
 
 #print axioms UnramTate.opVHom
@@ -1501,3 +1587,5 @@ end UnramTate
 #print axioms UnramTate.tateBridge_of_pieces
 #print axioms UnramTate.resQEmbedding
 #print axioms UnramTate.tateCont_of_tateModuleFree
+#print axioms UnramTate.scalarTransfer
+#print axioms UnramTate.tateBridge_of_points
