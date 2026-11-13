@@ -5,7 +5,10 @@ https://github.com/elliotglazer/diophantine-z-q) constructs one polynomial P wit
 P(q, w) = 0 for some tuple w of rational numbers. This project checks that proof in the Lean 4 proof assistant,
 with the Mathlib library.
 
-- Repository: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 533aa66c)
+- Upstream: since 2026-11-13 the Lean kernel is on the main branch of https://github.com/elliotglazer/diophantine-z-q
+  (pull request #36 merged #24's kernel, with CI checks for contributions)
+- Development fork: https://github.com/Deicyde/diophantine-z-q (Lean state of fork main 533aa66c, which adds glue
+  proved since then)
 - Blueprint, with every statement, its dependencies and its Lean declaration: https://deicyde.github.io/diophantine-z-q/
 
 ## Status in three lines
@@ -174,7 +177,9 @@ J₁(N), Carayol, Javanpeykar, Gaudron–Rémond, Bost, Pazuki), 32 textbook the
 
 Claim a subgoal in the tracking issue https://github.com/elliotglazer/diophantine-z-q/issues/37 before
 starting; it lists targets that can be started now, the definitions to build, the leaves, and the open glue.
-Pull requests go to the main branch of https://github.com/elliotglazer/diophantine-z-q. The work packages, with
+Pull requests go to the main branch of https://github.com/elliotglazer/diophantine-z-q, whose
+`docs/lean-contributions.md` explains how to submit a proof; a pull request merges only after the repository's
+required independent review check passes. The work packages, with
 their dependencies, are also in section 5 of docs/research/h-decomposition.md. To build and check: `lake exe cache get`, then `lake build ZInQKernel`; then
 `lake env lean scripts/print_axioms.lean` (every declaration listed must depend only on the three standard axioms)
 and `python3 scripts/check_target.py`.
@@ -188,7 +193,8 @@ standard axioms, with no `sorry`; `scripts/check_target.py` confirms the stateme
 (657 articles, 2,041 dependencies). An independent machine re-checked an earlier snapshot proposed for pull request
 #24 (before Proposition N): 9,923 jobs, 80 declarations with standard axioms, and an audit replay of 33,548
 declarations with 0 open statements. GitHub has disabled Actions on the fork since 2026-11-10, so these checks run
-on the project's own machines.
+on the project's own machines; on the upstream repository, the kernel build and an exact-target audit run as a
+required check on every pull request to main (since #36).
 
 ## Where the details are
 
