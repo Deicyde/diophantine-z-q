@@ -8,9 +8,11 @@ import Mathlib.NumberTheory.Zsqrtd.QuadraticReciprocity
 import Mathlib.Topology.Connected.TotallyDisconnected
 
 /-!
-# pi0-x6: `π₀(X₆) = 1` from the bundle's clauses, modulo exact CM and algebraic geometry
+# ag-inputs: `π₀(X₆) = 1` from the bundle's clauses, exact CM, and standard leaves
 
-See `docs/research/pi0-x6.md`.
+Based on pi0-x6's `scratch/pi0-x6/Pi0X6.lean` (§1-§7, namespace renamed).
+
+See `docs/research/pi0-x6.md` and `docs/research/ag-inputs.md`.
 * §1-§4: the Galois input, stabilizers of `ℚ̄`-points, the core `subsingleton_of_galois`, and
   its hypotheses from `R5ptProps`, `R5fpCount` (`subsingleton_of_bundle`).
 * §5: the closed facts for `ℚ(i) = ℚ(ζ₄)`.
@@ -19,6 +21,10 @@ See `docs/research/pi0-x6.md`.
   `X_ℚ̄` and the proved compatibility `compOf_galois`, the algebraic-geometry inputs `AGInputs`
   (input (d) minus Galois compatibility; unproved glue), and the final theorem
   `r1pi0Props_of_bundle : R5ptProps → R5fpCount → R2X6CMExact → AGInputs → R1pi0Props`.
+* §8-§11 (task ag-inputs, docs/research/ag-inputs.md): `AGInputs` proved from standard leaves:
+  `descend_of_leaf` (leaf AG-GC), `meets_fibre_of_finite` (leaf AG-CD, itself from AG-CD1 and
+  AG-CD2), `fibres_finite` (from `AutModInnFinite`, itself from Skolem–Noether and the leaf AL,
+  `AGInO.autModInnFinite_of`), and the bundle form `AGInLA.r1R2fpRep_of_noPi0'`.
 No `sorry`, no `axiom`.
 -/
 
@@ -1385,6 +1391,12 @@ theorem r1R2fpRep_of_noPi0 (h : R1R2fpRepNoPi0) (hcnt : R5fpCount)
   exact ⟨Y, Φ, X, Ψ, fY, π₆, h1, hh, h6, h2, hr, hs, h5,
     AGInO.r1pi0Props_of_leaves' h6 h2' h5 hcnt hex hL hD hSN hAL⟩
 
+/-- **The same with AG-CD replaced by AG-CD1 and AG-CD2** (the finest form). -/
+theorem r1R2fpRep_of_noPi0' (h : R1R2fpRepNoPi0) (hcnt : R5fpCount)
+    (hL : AGIn.ConnectedGeomConnected) (h1 : AGIn.ComponentInfinite) (h2 : AGIn.ConstOrSurj)
+    (hSN : GlueDescent.LeafSkolemNoether) (hAL : AGInO.AtkinLehnerFinite) : R1R2fpRep :=
+  r1R2fpRep_of_noPi0 h hcnt hL (AGIn.curveComponentDichotomy_of h1 h2) hSN hAL
+
 end AGInLA
 
 #print axioms AGIn.subsingleton_of_galois
@@ -1406,4 +1418,5 @@ end AGInLA
 #print axioms AGInO.autModInnFinite_of
 #print axioms AGInO.r1pi0Props_of_leaves'
 #print axioms AGInLA.r1R2fpRep_of_noPi0
+#print axioms AGInLA.r1R2fpRep_of_noPi0'
 #print axioms AGIn.curveComponentDichotomy_of

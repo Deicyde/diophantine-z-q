@@ -176,7 +176,7 @@ The only `X₆`-specific inputs are the bundle clauses and (c).
 
 All of the following is VERIFIED:
 - `lake env lean scratch/ag-inputs/AGInputs.lean` exits 0, with no errors and no warnings.
-- 20 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
+- 21 `#print axioms` lines all show `[propext, Classical.choice, Quot.sound]`
   (`compile_out.txt`).
 - The file contains no `sorry` and no `axiom`.
 - It imports `ZInQKernel.HDecomp.QM.Leaves` and `ZInQKernel.HDecomp.Descent.B1Quat` (built
@@ -208,6 +208,7 @@ All of the following is VERIFIED:
 | 11 | `AGInLA.R1pi0Props`, `R2X6PropsIff`, `R1R2fpRep` | verbatim copies from `scratch/h-decomposition/Leaves.lean` (checked by script) | defs |
 | 11 | `AGInLA.R1R2fpRepNoPi0` | `R1R2fpRep` with `R1pi0Props X` replaced by (c) | def |
 | 11 | `AGInLA.r1R2fpRep_of_noPi0` | `R1R2fpRepNoPi0` + `R5fpCount` + AG-GC + AG-CD + SN + AL ⇒ `R1R2fpRep` | proved |
+| 11 | `AGInLA.r1R2fpRep_of_noPi0'` | the same with AG-CD1 + AG-CD2 for AG-CD | proved |
 
 `scratch/ag-inputs/T1.lean` (`descend` over Mathlib alone) and `T2.lean` (§10 alone) are the
 development files; both compile (VERIFIED).
