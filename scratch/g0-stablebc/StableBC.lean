@@ -1790,6 +1790,98 @@ def BaseChangeCompIso : Prop :=
     [Algebra K M] [Algebra L M] [IsScalarTower K L M],
     ∃ e : ((A.baseChange L).baseChange M).X ≅ (A.baseChange M).X, IsMonHom e.hom
 
+/-! ### Pullback pasting and base change of group models (proved)
+
+The kernel timeout met by h5-neron (`bcGen_isMonHom`) is avoided by proving the pasting lemmas
+for an arbitrary scheme square (`exists_pbPaste`, `exists_pbSquare`, where the equation of the
+square is eliminated by `subst`) and only then instantiating them; the last composition is
+assembled with an explicit `instIsMonHomComp`, so that unification (not instance search) matches
+the instance terms of `AbVar.baseChange`. -/
+
+section PbPaste
+
+open scoped Obj
+
+/-- `f^* g^* G → (f ≫ g)^* G` (h5-neron). -/
+noncomputable def pbCompInv {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z) :
+    (Over.pullback f).obj ((Over.pullback g).obj G) ⟶ (Over.pullback (f ≫ g)).obj G :=
+  (Over.pullbackComp f g).inv.app G
+
+theorem isMonHom_pbCompInv {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (G : Over Z)
+    [MonObj G] : IsMonHom (pbCompInv f g G) := by
+  have h := ((Functor.mapMonCompIso (F := Over.pullback g) (G := Over.pullback f)).inv.app
+      (Mon.mk G) ≫ (Functor.mapMonNatIso (Over.pullbackComp f g)).inv.app (Mon.mk G)).isMonHom_hom
+  have e : pbCompInv f g G = 𝟙 _ ≫ pbCompInv f g G := (Category.id_comp _).symm
+  rw [e]
+  exact h
+
+/-- Pullback pasting for group objects, with an arbitrary third side `h = f ≫ g`. -/
+theorem exists_pbPaste {X Y Z : Scheme.{0}} (f : X ⟶ Y) (g : Y ⟶ Z) (h : X ⟶ Z) (sq : f ≫ g = h)
+    (G : Over Z) [GrpObj G] :
+    letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback f).obj ((Over.pullback g).obj G)) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback h).obj G) := Functor.grpObjObj
+    ∃ e : (Over.pullback f).obj ((Over.pullback g).obj G) ≅ (Over.pullback h).obj G,
+      IsMonHom e.hom := by
+  subst sq
+  letI : GrpObj ((Over.pullback g).obj G) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback f).obj ((Over.pullback g).obj G)) := Functor.grpObjObj
+  letI : GrpObj ((Over.pullback (f ≫ g)).obj G) := Functor.grpObjObj
+  exact ⟨(Over.pullbackComp f g).symm.app G, isMonHom_pbCompInv f g G⟩
+
+/-- **`BaseChangeCompIso`, proved.** -/
+theorem baseChangeCompIso : BaseChangeCompIso := by
+  intro K _ A L M _ _ _ _ _ _
+  have sq : Spec.map (CommRingCat.ofHom (algebraMap L M)) ≫
+      Spec.map (CommRingCat.ofHom (algebraMap K L)) =
+      Spec.map (CommRingCat.ofHom (algebraMap K M)) := by
+    rw [← Spec.map_comp, ← CommRingCat.ofHom_comp, ← IsScalarTower.algebraMap_eq]
+  exact exists_pbPaste _ _ _ sq A.X
+
+/-- Pasting two pullback squares, with a group-scheme iso on one leg. -/
+theorem exists_pbSquare {X Y₁ Y₂ Z : Scheme.{0}} (f₁ : X ⟶ Y₁) (g₁ : Y₁ ⟶ Z) (f₂ : X ⟶ Y₂)
+    (g₂ : Y₂ ⟶ Z) (sq : f₁ ≫ g₁ = f₂ ≫ g₂) (G : Over Z) [GrpObj G] (H : Over Y₂) [GrpObj H]
+    (u : (Over.pullback g₂).obj G ≅ H)
+    (hu : letI : GrpObj ((Over.pullback g₂).obj G) := Functor.grpObjObj; IsMonHom u.hom) :
+    letI : GrpObj ((Over.pullback g₁).obj G) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback f₁).obj ((Over.pullback g₁).obj G)) := Functor.grpObjObj
+    letI : GrpObj ((Over.pullback f₂).obj H) := Functor.grpObjObj
+    ∃ e : (Over.pullback f₁).obj ((Over.pullback g₁).obj G) ≅ (Over.pullback f₂).obj H,
+      IsMonHom e.hom := by
+  obtain ⟨e₁, he₁⟩ := exists_pbPaste f₁ g₁ (f₁ ≫ g₁) rfl G
+  obtain ⟨e₂, he₂⟩ := exists_pbPaste f₂ g₂ (f₁ ≫ g₁) sq.symm G
+  have hu' : IsMonHom ((Over.pullback f₂).map u.hom) := inferInstance
+  exact ⟨e₁ ≪≫ e₂.symm ≪≫ (Over.pullback f₂).mapIso u,
+    (inferInstance : IsMonHom (e₁.hom ≫ e₂.inv ≫ (Over.pullback f₂).map u.hom))⟩
+
+/-- The square `Spec L' → Spec 𝓞_{L'} → Spec 𝓞_L = Spec L' → Spec L → Spec 𝓞_L` (h5-neron). -/
+theorem square1 (L L' : Type) [Field L] [NumberField L] [Field L'] [NumberField L'] [Algebra L L'] :
+    Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L') L')) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))) =
+      Spec.map (CommRingCat.ofHom (algebraMap L L')) ≫
+        Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) L)) := by
+  rw [← Spec.map_comp, ← Spec.map_comp, ← CommRingCat.ofHom_comp, ← CommRingCat.ofHom_comp]
+  congr 2
+
+/-- **Glue H4b (`GroupModelBaseChangeExists`), proved**: `𝒢 ×_{𝓞_L} 𝓞_{L'}` with the generic
+fibre identification `(𝒢 ×_{𝓞_L} 𝓞_{L'})_{L'} ≅ (𝒢_L)_{L'} ≅ (A_L)_{L'} ≅ A_{L'}`. -/
+theorem groupModelBaseChangeExists : GroupModelBaseChangeExists := by
+  intro K _ A L L' _ _ _ _ _ _ _ _ 𝒢
+  haveI : Smooth ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj
+    𝒢.G).hom := by dsimp; infer_instance
+  haveI : IsSeparated ((Over.pullback (Spec.map (CommRingCat.ofHom
+    (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G).hom := by dsimp; infer_instance
+  haveI : QuasiCompact ((Over.pullback (Spec.map (CommRingCat.ofHom
+    (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G).hom := by dsimp; infer_instance
+  obtain ⟨c, hc⟩ := baseChangeCompIso K A L L'
+  obtain ⟨e, he⟩ := exists_pbSquare _ _ _ _ (square1 L L') 𝒢.G (A.baseChange L).X 𝒢.gen 𝒢.gen_hom
+  refine ⟨⟨_, e ≪≫ c, ?_⟩, Iso.refl _, ?_⟩
+  · exact @CategoryTheory.instIsMonHomComp _ _ _ _ _ _ _ _ _ e.hom c.hom he hc
+  · exact (inferInstance : IsMonHom (𝟙 ((Over.pullback
+      (Spec.map (CommRingCat.ofHom (algebraMap (𝓞 L) (𝓞 L'))))).obj 𝒢.G)))
+
+end PbPaste
+
 /-! ### Transport of (metrized) group models along an isomorphism of generic fibres (proved) -/
 
 section Transport
@@ -1860,6 +1952,15 @@ theorem stableHeightBaseChange_of_glue (hcomp : BaseChangeCompIso)
           iInf_le_of_le (FinExt.mk E.L) (iInf_le_of_le _ le_rfl)
       _ ≤ 𝒢.height := transportModel_height_le _ _ _
 
+/-- **`StableHeightBaseChange` from glue H4a alone** (`BaseChangeCompIso` and H4b are proved
+above). -/
+theorem stableHeightBaseChange_of_modelHeightBaseChange (hbc : ModelHeightBaseChange) :
+    StableHeightBaseChange :=
+  stableHeightBaseChange_of_glue baseChangeCompIso groupModelBaseChangeExists hbc
+
 end G0StableBC
 
 #print axioms G0StableBC.stableHeightBaseChange_of_glue
+#print axioms G0StableBC.baseChangeCompIso
+#print axioms G0StableBC.groupModelBaseChangeExists
+#print axioms G0StableBC.stableHeightBaseChange_of_modelHeightBaseChange

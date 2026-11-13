@@ -9,3 +9,13 @@
 - run1 (01:50): `lake env lean scratch/g0-stablebc/StableBC.lean`: 0 errors, no sorry, 2m43s.
   `#print axioms G0StableBC.stableHeightBaseChange_of_glue` = [propext, Classical.choice, Quot.sound].
   VERIFIED: StableHeightBaseChange ⇐ BaseChangeCompIso ∧ GroupModelBaseChangeExists ∧ ModelHeightBaseChange.
+- TestComp.lean (scratch test, minimal copies of AbVar/GroupModel): `baseChangeCompIso` and
+  `groupModelBaseChangeExists` compile (9.5s). Trick: pasting lemmas `exists_pbPaste`
+  (equation eliminated by `subst`) and `exists_pbSquare` over arbitrary schemes, instantiated
+  afterwards; final composition via explicit `@CategoryTheory.instIsMonHomComp ... he hc`
+  (instance search cannot see through `AbVar.baseChange`; unification can).
+- run2 (01:57): full StableBC.lean, 0 errors, no sorry, 17s. Axioms [propext, Classical.choice,
+  Quot.sound] for stableHeightBaseChange_of_glue, baseChangeCompIso, groupModelBaseChangeExists,
+  stableHeightBaseChange_of_modelHeightBaseChange.
+  VERIFIED: StableHeightBaseChange ⇐ ModelHeightBaseChange (h5-neron glue H4a) alone.
+  H4b (h5-neron's kernel-timeout item) is now proved.
