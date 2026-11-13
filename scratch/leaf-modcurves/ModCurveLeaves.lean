@@ -922,6 +922,95 @@ theorem g13_constituent (hR16 : R16_EichlerShimuraJ1') (hV : VSurjOfSurjective) 
 
 end G13
 
+/-! ## §J. C9 bridge: R16's `ρ_{f,ι}` satisfies the `AttachedTo` trace clause of `Leaves.lean`
+
+`Leaves.lean` (`PkgI4.GaloisRep.AttachedTo`, used by R14 `EigenformRepExists`) normalizes
+coefficients through `ιC : ℚ̄ → ℂ` and `ιL : ℚ̄ → ℚ̄_ℓ`: at `p ∤ Nℓ` there is `α ∈ ℚ̄` with
+`ιC α = a_p` and every arithmetic Frobenius has trace `ιL α`. R16 uses `ι : K_f → ℚ̄_ℓ`. The bridge
+is `ι := ιL ∘ ιC⁻¹` on `K_f ⊆ ιC(ℚ̄)`. -/
+
+section C9Bridge
+
+/-- Every algebraic complex number is in the image of `ιC : ℚ̄ → ℂ`. -/
+theorem exists_preimage (ιC : Qbar →ₐ[ℚ] ℂ) (a : ℂ) (ha : IsIntegral ℚ a) :
+    ∃ α : Qbar, ιC α = a := by
+  set q := minpoly ℚ a
+  have hf : (q.map (algebraMap ℚ Qbar)).Splits := IsAlgClosed.splits _
+  have hf0 : q.map (algebraMap ℚ Qbar) ≠ 0 := Polynomial.map_ne_zero (minpoly.ne_zero ha)
+  have hx : ((q.map (algebraMap ℚ Qbar)).map (ιC : Qbar →+* ℂ)).IsRoot a := by
+    rw [Polynomial.map_map, ιC.comp_algebraMap, Polynomial.IsRoot,
+      Polynomial.eval_map_algebraMap]
+    exact minpoly.aeval ℚ a
+  obtain ⟨α, hα⟩ := hf.mem_range_of_isRoot hf0 hx
+  exact ⟨α, hα⟩
+
+variable (ℓ : ℕ) [Fact ℓ.Prime]
+
+/-- `ιL ∘ ιC⁻¹` on a number field `K ⊆ ℂ`. -/
+def embOf (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) (K : IntermediateField ℚ ℂ)
+    [FiniteDimensional ℚ K] : K →+* PadicAlgCl ℓ :=
+  have pre : ∀ a : K, ∃ α : Qbar, ιC α = a := fun a =>
+    exists_preimage ιC a ((IsIntegral.of_finite ℚ a).map K.val)
+  have hinj : Function.Injective ιC := ιC.toRingHom.injective
+  { toFun := fun a => ιL (Classical.choose (pre a))
+    map_one' := by
+      rw [show Classical.choose (pre 1) = 1 from hinj ((Classical.choose_spec (pre 1)).trans
+        (by simp)), map_one]
+    map_mul' := fun a b => by
+      rw [← map_mul, show Classical.choose (pre (a * b)) =
+        Classical.choose (pre a) * Classical.choose (pre b) from hinj
+          ((Classical.choose_spec (pre (a * b))).trans (by
+            rw [map_mul, Classical.choose_spec (pre a), Classical.choose_spec (pre b)]; simp))]
+    map_zero' := by
+      rw [show Classical.choose (pre 0) = 0 from hinj ((Classical.choose_spec (pre 0)).trans
+        (by simp)), map_zero]
+    map_add' := fun a b => by
+      rw [← map_add, show Classical.choose (pre (a + b)) =
+        Classical.choose (pre a) + Classical.choose (pre b) from hinj
+          ((Classical.choose_spec (pre (a + b))).trans (by
+            rw [map_add, Classical.choose_spec (pre a), Classical.choose_spec (pre b)]; simp))] }
+
+theorem embOf_spec (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) (K : IntermediateField ℚ ℂ)
+    [FiniteDimensional ℚ K] (a : K) (α : Qbar) (h : ιC α = a) : embOf ℓ ιC ιL K a = ιL α := by
+  have pre : ∃ β : Qbar, ιC β = a := ⟨α, h⟩
+  change ιL (Classical.choose _) = ιL α
+  congr 1
+  exact ιC.toRingHom.injective ((Classical.choose_spec
+    (exists_preimage ιC a ((IsIntegral.of_finite ℚ a).map K.val))).trans h.symm)
+
+/-- **C9 bridge (proved from R16).** For a newform `f` of level `N`, any `J₁(N)`, a prime `ℓ` and
+embeddings `ιC : ℚ̄ → ℂ`, `ιL : ℚ̄ → ℚ̄_ℓ`: Shimura's `A_f` and a 2-dimensional representation
+`ρ = rhoF` of `G_ℚ` over `ℚ̄_ℓ` (the `ιL ∘ ιC⁻¹`-component of `V_ℓ(A_f)`) such that for every
+prime `p ∤ Nℓ` there is `α ∈ ℚ̄` with `ιC α = a_p(f)` and every arithmetic Frobenius at a place
+above `p` (in the sense of `Leaves.lean`, `PkgI4.IsArithFrob`) has trace `ιL α`: the trace clause
+of `PkgI4.GaloisRep.AttachedTo`. Together with R14's attached representation and Brauer–Nesbitt
+this identifies the two (C9), once both are known semisimple and continuous. -/
+theorem rhoF_attached (hR16 : R16_EichlerShimuraJ1') (N : ℕ) (hN : 0 < N)
+    (χ : DirichletCharacter ℂ N) (f : CF N 2) (hf : IsNewform f χ) (J : AbVar ℚ) (hJ : IsJ1 N J)
+    (ιC : Qbar →ₐ[ℚ] ℂ) (ιL : Qbar →ₐ[ℚ] PadicAlgCl ℓ) :
+    ∃ (_ : FiniteDimensional ℚ (coeffField f)) (A : AbVar ℚ) (π : Hom J A)
+      (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
+      Module.finrank (PadicAlgCl ℓ)
+        (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ (embOf ℓ ιC ιL (coeffField f)))) = 2 ∧
+      ∀ p : ℕ, p.Prime → ¬ p ∣ N * ℓ → ∃ α : Qbar, ιC α = coeff f p ∧
+        ∀ (v : ValuationSubring Qbar) (σ : GQ), LiesOver v p → IsArithFrob σ v p →
+          LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ (embOf ℓ ιC ιL (coeffField f)) σ) =
+            ιL α := by
+  obtain ⟨hfin, A, π, θ, hπ, -, hrest⟩ := hR16 N χ f J hN hf hJ
+  refine ⟨hfin, A, π, θ, hπ, ?_⟩
+  set emb := embOf ℓ ιC ιL (coeffField f)
+  obtain ⟨h2, hfr⟩ := hrest ℓ emb
+  refine ⟨finrank_rhoF ℓ A θ emb h2, fun p hp hpN => ?_⟩
+  obtain ⟨α, hα⟩ := exists_preimage ιC (coeff f p)
+    ((IsIntegral.of_finite ℚ (⟨coeff f p, coeff_mem_coeffField f p⟩ : coeffField f)).map
+      (coeffField f).val)
+  refine ⟨α, hα, fun v σ hv hσ => ?_⟩
+  have hF := isFrobAt_of_isArithFrob σ v p hp hv hσ
+  rw [trace_rhoF ℓ A θ emb h2, (hfr p hp hpN σ hF).1 ⟨coeff f p, coeff_mem_coeffField f p⟩ rfl]
+  exact embOf_spec ℓ ιC ιL (coeffField f) _ α hα
+
+end C9Bridge
+
 end LeafModCurves
 
 #print axioms LeafModCurves.genus_Gamma1_le
@@ -933,3 +1022,4 @@ end LeafModCurves
 #print axioms LeafModCurves.rhoF_traces
 #print axioms LeafModCurves.isFrobAt_of_isArithFrob
 #print axioms LeafModCurves.g13_constituent
+#print axioms LeafModCurves.rhoF_attached

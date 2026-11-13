@@ -43,3 +43,8 @@
   for a newform f of level N, any J₁(N), ℓ, ι, a 2-dim G_ℚ-stable space W of functionals on V_ℓ(J₁(N))
   (dual of a 2-dim quotient of V_ℓ(J)⊗ℚ̄_ℓ) with Frobenius trace ι(a_p), det ι(χ(p))p at p ∤ Nℓ — R16's former
   placeholder text. `lake env lean`: exit 0, no warnings; standard axioms (incl. `g13_constituent`). VERIFIED.
+- 17:08 §J (C9 bridge) added: `exists_preimage` (algebraic complex numbers lie in ιC(ℚ̄)), `embOf` (ιL ∘ ιC⁻¹
+  on a number field K ⊆ ℂ, a ring hom), `embOf_spec`, and **`rhoF_attached`** (proved from R16'): for a newform
+  f, J₁(N), ℓ, ιC, ιL: A_f and a 2-dim ρ = rhoF with, at every p ∤ Nℓ, α ∈ ℚ̄ with ιC α = a_p(f) and
+  tr ρ(σ) = ιL α for every PkgI4.IsArithFrob σ — the trace clause of Leaves' `PkgI4.GaloisRep.AttachedTo`.
+  `lake env lean`: exit 0, no warnings; standard axioms. VERIFIED.
