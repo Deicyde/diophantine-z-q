@@ -47,3 +47,14 @@
 - Step 4 verbatim check (VERIFIED, python string comparison): the blocks `ModData`, `U0`,
   `LocalRamG`, `G15RamG` with their docstrings equal those of
   `scratch/g0-mod-newform/NewForm.lean`; `G11Out` equals `scratch/g0-mod-galois/part_galois.lean`.
+
+## Step 5 (04:45-04:53 PST): full compile, tail integration
+- `G15Ram.lean` compile (VERIFIED): exit 0, 0 errors; axioms standard for all six printed
+  declarations incl. `hilbertSerre_of_model`, `g15RamG_of_model`.
+- `Tail.lean` (built by `build_tail.sh`: verbatim `scratch/g0-mod-newform/NewForm.lean` with four
+  extra imports appended after its own, `G11Out`, `G15Ram.lean` §1-§3, `tail_part.lean`):
+  `G0ModNewform.modularConstituent_tail_R` (the tail with `G15RamG` replaced by the pieces)
+  compiles; exit 0, 0 errors, ~42 s; axioms standard (VERIFIED, `tail_compile.out`).
+- Note: with the four extra imports placed *before* NewForm's imports, the copied
+  `bcPt.map_one'` (E1 copy) fails with "No goals to be solved" (its `rw` closes the goal, so
+  the trailing `rfl` errors); placing them after NewForm's imports avoids it.
