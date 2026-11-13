@@ -20656,6 +20656,187 @@ this file `R1fpProps` is qm-pin's fully repaired clause list) is proved here in 
    * `UnifTransport` (GLUE: an analytic uniformization of the base change `Q/ℂ` of the fibre object
      gives one of `A(ℂ)_σ` with the same kernel; base change of complex points and rigidity). -/
 
+
+/-! ## §N. fibre-qm-period: normalization of QM lattices (proved; used for `QMLatticeAlgebra`)
+
+`qmOrbit w = ι(𝒪)w` (the `ℤ`-span of `ι(b_k)w` over N5's basis); `qmLattice τ = qmOrbit (τ, 1)`;
+scaling; the unit `1 + i` (reduced norm `−1`) keeps the orbit (`qmOrbit_unit`, coefficients from
+`py/unit_coeffs.py`); hence `normalize`: if `w` is not a complex multiple of a real vector, then
+`ι(𝒪)w = c·Λ_τ` with `c ≠ 0` and `τ ∈ ℍ`. -/
+
+section FibreQMNormSec
+
+set_option linter.unusedSimpArgs false
+
+open BPAnalytic.QM Matrix
+
+noncomputable section
+
+namespace FibreQMNorm
+
+
+def qmMatB (x : B) : Matrix (Fin 2) (Fin 2) ℂ := (iota x).map (fun r : ℝ => (r : ℂ))
+
+def qmOrbit (w : Fin 2 → ℂ) : Submodule ℤ (Fin 2 → ℂ) :=
+  Submodule.span ℤ (Set.range fun k : Fin 4 => (qmMatB (oBasis k)).mulVec w)
+
+theorem qmLattice_eq_orbit {τ : ℂ} (hτ : τ.im ≠ 0) : qmLattice hτ = qmOrbit ![τ, 1] := by
+  rw [qmLattice_eq]; rfl
+
+/-- The four generators, explicitly. -/
+theorem gen_eq (a b : ℂ) : (fun k : Fin 4 => (qmMatB (oBasis k)).mulVec ![a, b]) =
+    ![![a, b], ![√2 * a, -(√2 * b)], ![(a - 3 * b) / 2, (a + b) / 2],
+      ![√2 * (a - 3 * b) / 2, -(√2 * (a + b)) / 2]] := by
+  funext k; ext i
+  fin_cases k <;> fin_cases i <;>
+    simp [qmMatB, iota, oBasis, Mi, Mj, mulVec, dotProduct, Fin.sum_univ_two] <;> ring
+
+def smulMap (c : ℂ) : (Fin 2 → ℂ) →ₗ[ℤ] (Fin 2 → ℂ) :=
+  ((c • LinearMap.id : (Fin 2 → ℂ) →ₗ[ℂ] (Fin 2 → ℂ))).restrictScalars ℤ
+
+theorem qmOrbit_smul (c : ℂ) (v : Fin 2 → ℂ) : qmOrbit (c • v) = (qmOrbit v).map (smulMap c) := by
+  unfold qmOrbit
+  rw [Submodule.map_span, ← Set.range_comp]
+  congr 2
+  funext k
+  simp [smulMap, Matrix.mulVec_smul]
+
+theorem sqrt2_sq' : (√2 : ℂ) * √2 = 2 := by
+  rw [← Complex.ofReal_mul, Real.mul_self_sqrt (by norm_num : (0:ℝ) ≤ 2)]; norm_num
+
+/-- The unit `1 + i` (reduced norm `−1`) does not change the orbit. -/
+theorem qmOrbit_unit (τ : ℂ) : qmOrbit ![τ, 1] = qmOrbit ![(1 + √2) * τ, 1 - √2] := by
+  have s := sqrt2_sq'
+  apply le_antisymm
+  · unfold qmOrbit
+    rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rw [gen_eq, gen_eq]
+    set S := Submodule.span ℤ (Set.range ![![((1 + √2) * τ), (1 - √2)], ![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))], ![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2], ![√2 * (((1 + √2) * τ) - 3 * (1 - √2)) / 2, -(√2 * (((1 + √2) * τ) + (1 - √2))) / 2]]) with hS
+    have m : ∀ j : Fin 4, (![![((1 + √2) * τ), (1 - √2)], ![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))], ![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2], ![√2 * (((1 + √2) * τ) - 3 * (1 - √2)) / 2, -(√2 * (((1 + √2) * τ) + (1 - √2))) / 2]] : Fin 4 → Fin 2 → ℂ) j ∈ S := fun j => Submodule.subset_span ⟨j, rfl⟩
+    fin_cases k
+    · have e : (![τ, 1] : Fin 2 → ℂ) = -(![((1 + √2) * τ), (1 - √2)] : Fin 2 → ℂ) + (![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-τ) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-1) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.add_mem (S.neg_mem (m 0)) (m 1))
+    · have e : (![√2 * τ, -(√2 * 1)] : Fin 2 → ℂ) = ((![((1 + √2) * τ), (1 - √2)] + ![((1 + √2) * τ), (1 - √2)] : Fin 2 → ℂ) : Fin 2 → ℂ) - (![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (τ) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (1) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.sub_mem (S.add_mem (m 0) (m 0)) (m 1))
+    · have e : (![(τ - 3 * 1) / 2, (τ + 1) / 2] : Fin 2 → ℂ) = (![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))] : Fin 2 → ℂ) - (![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2] : Fin 2 → ℂ) - (![√2 * (((1 + √2) * τ) - 3 * (1 - √2)) / 2, -(√2 * (((1 + √2) * τ) + (1 - √2))) / 2] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-(τ - 3)/2) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-(τ + 1)/2) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.sub_mem (S.sub_mem (m 1) (m 2)) (m 3))
+    · have e : (![√2 * (τ - 3 * 1) / 2, -(√2 * (τ + 1)) / 2] : Fin 2 → ℂ) = ((![((1 + √2) * τ), (1 - √2)] + ![((1 + √2) * τ), (1 - √2)] : Fin 2 → ℂ) : Fin 2 → ℂ) - ((![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2] + ![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2] : Fin 2 → ℂ) : Fin 2 → ℂ) - (![√2 * (((1 + √2) * τ) - 3 * (1 - √2)) / 2, -(√2 * (((1 + √2) * τ) + (1 - √2))) / 2] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination ((τ + 3)/2) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-(τ - 1)/2) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.sub_mem (S.sub_mem (S.add_mem (m 0) (m 0)) (S.add_mem (m 2) (m 2))) (m 3))
+  · unfold qmOrbit
+    rw [Submodule.span_le]
+    rintro _ ⟨k, rfl⟩
+    rw [gen_eq, gen_eq]
+    set S := Submodule.span ℤ (Set.range ![![τ, 1], ![√2 * τ, -(√2 * 1)], ![(τ - 3 * 1) / 2, (τ + 1) / 2], ![√2 * (τ - 3 * 1) / 2, -(√2 * (τ + 1)) / 2]]) with hS
+    have m : ∀ j : Fin 4, (![![τ, 1], ![√2 * τ, -(√2 * 1)], ![(τ - 3 * 1) / 2, (τ + 1) / 2], ![√2 * (τ - 3 * 1) / 2, -(√2 * (τ + 1)) / 2]] : Fin 4 → Fin 2 → ℂ) j ∈ S := fun j => Submodule.subset_span ⟨j, rfl⟩
+    fin_cases k
+    · have e : (![((1 + √2) * τ), (1 - √2)] : Fin 2 → ℂ) = (![τ, 1] : Fin 2 → ℂ) + (![√2 * τ, -(√2 * 1)] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (0) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (0) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.add_mem (m 0) (m 1))
+    · have e : (![√2 * ((1 + √2) * τ), -(√2 * (1 - √2))] : Fin 2 → ℂ) = ((![τ, 1] + ![τ, 1] : Fin 2 → ℂ) : Fin 2 → ℂ) + (![√2 * τ, -(√2 * 1)] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (τ) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (1) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.add_mem (S.add_mem (m 0) (m 0)) (m 1))
+    · have e : (![(((1 + √2) * τ) - 3 * (1 - √2)) / 2, (((1 + √2) * τ) + (1 - √2)) / 2] : Fin 2 → ℂ) = (![√2 * τ, -(√2 * 1)] : Fin 2 → ℂ) + (![(τ - 3 * 1) / 2, (τ + 1) / 2] : Fin 2 → ℂ) - (![√2 * (τ - 3 * 1) / 2, -(√2 * (τ + 1)) / 2] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (0) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (0) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.sub_mem (S.add_mem (m 1) (m 2)) (m 3))
+    · have e : (![√2 * (((1 + √2) * τ) - 3 * (1 - √2)) / 2, -(√2 * (((1 + √2) * τ) + (1 - √2))) / 2] : Fin 2 → ℂ) = ((![τ, 1] + ![τ, 1] : Fin 2 → ℂ) : Fin 2 → ℂ) - ((![(τ - 3 * 1) / 2, (τ + 1) / 2] + ![(τ - 3 * 1) / 2, (τ + 1) / 2] : Fin 2 → ℂ) : Fin 2 → ℂ) + (![√2 * (τ - 3 * 1) / 2, -(√2 * (τ + 1)) / 2] : Fin 2 → ℂ) := by
+        ext i; fin_cases i
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination ((τ + 3)/2) * s
+        · simp only [Pi.add_apply, Pi.sub_apply, Pi.neg_apply, Fin.zero_eta, Fin.isValue, Fin.mk_one, Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.cons_val_fin_one, Matrix.head_cons, Int.cast_ofNat]; linear_combination (-(τ - 1)/2) * s
+      show _ ∈ S
+      simp only [Matrix.cons_val_zero, Matrix.cons_val_one, Matrix.head_cons, Matrix.cons_val, Fin.isValue] at e ⊢
+      rw [e]; exact (S.add_mem (S.sub_mem (S.add_mem (m 0) (m 0)) (S.add_mem (m 2) (m 2))) (m 3))
+
+
+theorem smulMap_comp (a b : ℂ) : smulMap a ∘ₗ smulMap b = smulMap (a * b) := by
+  ext v i; simp [smulMap, mul_smul]
+
+theorem one_sub_sqrt2_ne : (1 - (√2 : ℂ)) ≠ 0 := by
+  have h : (1 : ℝ) < √2 := by
+    rw [show (1 : ℝ) = √1 by simp]; exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+  rw [show (1 - (√2 : ℂ)) = ((1 - √2 : ℝ) : ℂ) by push_cast; ring]
+  exact Complex.ofReal_ne_zero.mpr (by linarith)
+
+/-- **Normalization (proved):** if `w` is not a complex multiple of a real vector, `ι(𝒪)w` is a
+nonzero multiple of `Λ_τ` for some `τ ∈ ℍ` (using the unit `1 + i` of reduced norm `−1` when
+`Im(w₀/w₁) < 0`). -/
+theorem normalize (w : Fin 2 → ℂ) (hw : ¬ ∃ (c : ℂ) (r : Fin 2 → ℝ), w = c • (fun i => (r i : ℂ))) :
+    ∃ (τ : ℂ) (hτ : 0 < τ.im) (c : ℂ), c ≠ 0 ∧ qmOrbit w = (qmLattice hτ.ne').map (smulMap c) := by
+  have hw2 : w 1 ≠ 0 := by
+    intro h0; apply hw; refine ⟨w 0, ![1, 0], ?_⟩; ext i; fin_cases i <;> simp [h0]
+  set t := w 0 / w 1 with ht_def
+  have hwt : w = w 1 • ![t, 1] := by
+    ext i; fin_cases i
+    · simp [t]; field_simp
+    · simp
+  have ht : t.im ≠ 0 := by
+    intro h0; apply hw; refine ⟨w 1, ![t.re, 1], ?_⟩
+    rw [hwt]; ext i; fin_cases i
+    · simp; left; exact Complex.ext (by simp) (by simp [h0])
+    · simp
+  rcases lt_or_gt_of_ne ht with hneg | hpos
+  · set k : ℝ := (1 + √2) / (1 - √2) with hk
+    have hk0 : k < 0 := by
+      have h1 : (1 : ℝ) < √2 := by
+        rw [show (1 : ℝ) = √1 by simp]; exact Real.sqrt_lt_sqrt (by norm_num) (by norm_num)
+      exact div_neg_of_pos_of_neg (by positivity) (by linarith)
+    set τ' : ℂ := (k : ℂ) * t with hτ'_def
+    have hτ' : 0 < τ'.im := by
+      rw [hτ'_def, Complex.im_ofReal_mul]; exact mul_pos_of_neg_of_neg hk0 hneg
+    refine ⟨τ', hτ', w 1 * (1 - √2), mul_ne_zero hw2 one_sub_sqrt2_ne, ?_⟩
+    have hv : (![(1 + √2) * t, 1 - √2] : Fin 2 → ℂ) = (1 - √2 : ℂ) • ![τ', 1] := by
+      have hs := one_sub_sqrt2_ne
+      ext i; fin_cases i
+      · simp only [hτ'_def, hk, Fin.zero_eta, Fin.isValue, Matrix.cons_val_zero, Pi.smul_apply,
+          smul_eq_mul]
+        push_cast
+        field_simp
+      · simp
+    rw [hwt, qmOrbit_smul, qmOrbit_unit, hv, qmOrbit_smul, ← qmLattice_eq_orbit hτ'.ne',
+      ← Submodule.map_comp, smulMap_comp]
+    simp
+  · refine ⟨t, hpos, w 1, hw2, ?_⟩
+    rw [hwt, qmOrbit_smul, ← qmLattice_eq_orbit hpos.ne']
+    simp
+
+end FibreQMNorm
+
+end
+
+end FibreQMNormSec
+
 noncomputable section
 
 namespace HSyn
@@ -21092,6 +21273,165 @@ theorem qmComplexUnif_of (hE : UniformizationExistsC) (hS : UnifStructure)
     change Φu (F.symm ((qmMat a).mulVec z)) = Φu (F.symm z) ≫ (Q.q.iota a).hom
     rw [e1, hρ]
 
+/-! ### Step 2e: `QMComplexUnif` from the decomposition's textbook leaves T35, T11a and lattice algebra
+
+`UniformizationExistsT35` and `T11aRiemannEnd` are the kernel's textbook leaves
+`ZInQ.LeafPush2.UniformizationExists` (T35) and `ZInQ.LeafPush2.T11a_RiemannEnd` (T11a)
+(`ZInQKernel/HDecomp/LeafPush2/T.lean`), copied verbatim over this file's copies of `CPts` and
+`IsUniformization` (the same text as the kernel's); both are in leaf-adopt3's `TextbookLeaves`.
+With them, `UniformizationExistsC` and `UnifStructure` are proved (`unifStructure_of`,
+`uniformizationExistsC_of`), and only `QMLatticeAlgebra` remains. -/
+
+/-- (copied from `ZInQKernel/HDecomp/LeafPush2/T.lean`, `UniformizationExists`, T35) **AN3 for
+abelian varieties (textbook leaf; the analytic half of T11/T12).** Every abelian variety over a
+field `K` and every `σ : K → ℂ`: `A(ℂ)_σ` has an analytic uniformization by `ℂ^g`, `g = dim A`, with
+kernel a full lattice (Mumford, *Abelian varieties*, §1, with GAGA, Serre 1956, for the complex Lie
+group structure; UNVERIFIED numbers). -/
+def UniformizationExistsT35 : Prop :=
+  ∀ (K : Type) [Field K] (A : PkgI3.AbVar K) (σ : K →+* ℂ) (g : ℕ), A.dim = (g : WithBot ℕ∞) →
+    ∃ (Λ : Submodule ℤ (Fin g → ℂ)) (Φ : (Fin g → ℂ) → CPts A σ),
+      ∃ _ : DiscreteTopology Λ, IsZLattice ℝ Λ ∧ IsUniformization σ Λ Φ
+
+/-- (copied from `ZInQKernel/HDecomp/LeafPush2/T.lean`, `T11a_RiemannEnd`) **T11(a), Riemann/GAGA
+for endomorphisms (textbook leaf).** For an abelian variety over `ℂ` with a uniformization `Φ`
+(kernel `Λ`) at `σ = id`, the endomorphisms of `A` are exactly the `ℂ`-linear maps of `ℂ^g`
+preserving `Λ`: each such `M` is induced by a unique endomorphism `f` (`Φ(Mz) = f ∘ Φ(z)`), and each
+`f` is induced by some `M`. (Mumford §1 and §2, Birkenhake–Lange Prop. 1.2.1 for complex tori;
+GAGA, Serre 1956, for "holomorphic ⇒ algebraic"; UNVERIFIED numbers.) -/
+def T11aRiemannEnd : Prop :=
+  ∀ (A : PkgI3.AbVar ℂ) (g : ℕ) (Λ : Submodule ℤ (Fin g → ℂ))
+    (Φ : (Fin g → ℂ) → CPts A (RingHom.id ℂ)),
+    A.dim = (g : WithBot ℕ∞) → IsUniformization (RingHom.id ℂ) Λ Φ →
+    (∀ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), (∀ z ∈ Λ, M z ∈ Λ) →
+      ∃! f : PkgI3.AbVar.End A, ∀ z, Φ (M z) = Φ z ≫ f.hom) ∧
+    (∀ f : PkgI3.AbVar.End A, ∃ M : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ), ∀ z, Φ (M z) = Φ z ≫ f.hom)
+
+/-- `UniformizationExistsC` from T35 (proved). -/
+theorem uniformizationExistsC_of (h : UniformizationExistsT35) : UniformizationExistsC := by
+  intro A hA
+  obtain ⟨Λ, Φu, -, -, hU⟩ := h ℂ A (RingHom.id ℂ) 2 hA
+  exact ⟨Λ, Φu, hU⟩
+
+/-- **Lifts are unique (proved):** two `ℂ`-linear maps with the same image under a uniformization
+with discrete kernel are equal (their difference maps `ℂ^g` into the discrete `Λ`; `ℝ` is
+connected). -/
+theorem lift_unique {K : Type} [Field K] {A : PkgI3.AbVar K} {σ : K →+* ℂ} {g : ℕ}
+    {Λ : Submodule ℤ (Fin g → ℂ)} [DiscreteTopology Λ] {Φu : (Fin g → ℂ) → CPts A σ}
+    (h : IsUniformization σ Λ Φu) {M M' : (Fin g → ℂ) →ₗ[ℂ] (Fin g → ℂ)}
+    (hMM : ∀ z, Φu (M z) = Φu (M' z)) : M = M' := by
+  obtain ⟨hadd, hker, -, -, -⟩ := h
+  have hmem : ∀ z, (M - M') z ∈ Λ := by
+    intro z
+    rw [← hker, LinearMap.sub_apply]
+    have e := hadd (M z - M' z) (M' z)
+    rw [sub_add_cancel, hMM] at e
+    exact mul_right_cancel (e.symm.trans (one_mul (Φu (M' z))).symm)
+  refine LinearMap.ext fun z => ?_
+  let N := M - M'
+  have hc : Continuous (fun t : ℝ => N ((t : ℂ) • z)) :=
+    (LinearMap.continuous_of_finiteDimensional N).comp
+      (Complex.continuous_ofReal.smul continuous_const)
+  let f : ℝ → Λ := fun t => ⟨N ((t : ℂ) • z), hmem _⟩
+  have hf : Continuous f := hc.subtype_mk _
+  have h01 := PreconnectedSpace.constant inferInstance hf (x := 0) (y := 1)
+  have h2 : N (((0 : ℝ) : ℂ) • z) = N (((1 : ℝ) : ℂ) • z) := congrArg Subtype.val h01
+  simp only [Complex.ofReal_zero, zero_smul, map_zero, Complex.ofReal_one, one_smul] at h2
+  have h3 : M z - M' z = 0 := by
+    rw [h2]; rfl
+  exact sub_eq_zero.mp h3
+
+/-- **The analytic representation as a ring homomorphism, from T11a (proved).** For a
+uniformization with discrete kernel (as T35 provides), T11a's lifts `M_e` of the endomorphisms are
+unique (`lift_unique`), hence form a ring homomorphism `ρ`, and they preserve `Λ`. This is
+`UnifStructure`'s conclusion for T35's uniformizations (for an arbitrary uniformization the lattice
+clauses would follow by comparison with T35's, bp-analytic's `exists_complexLinear`, not reproved
+here; the reduction below only needs T35's). -/
+theorem unif_ring_hom (hR : T11aRiemannEnd) (A : PkgI3.AbVar ℂ) (hA : A.dim = (2 : WithBot ℕ∞))
+    (Λ : Submodule ℤ (Fin 2 → ℂ)) [DiscreteTopology Λ]
+    (Φu : (Fin 2 → ℂ) → CPts A (RingHom.id ℂ)) (hU : IsUniformization (RingHom.id ℂ) Λ Φu) :
+    ∃ ρ : PkgI3.AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ),
+      (∀ e z, Φu (ρ e z) = Φu z ≫ e.hom) ∧ (∀ e, ∀ z ∈ Λ, ρ e z ∈ Λ) := by
+  have hT := (hR A 2 Λ Φu hA hU).2
+  choose ρf hρf using hT
+  have hadd := hU.1
+  have hker := hU.2.1
+  let ρ : PkgI3.AbVar.End A →+* Module.End ℂ (Fin 2 → ℂ) :=
+    { toFun := ρf
+      map_one' := lift_unique hU fun z => by
+        rw [hρf]; exact Category.comp_id _
+      map_mul' := fun e f => lift_unique hU fun z => by
+        rw [hρf, Module.End.mul_apply, hρf, hρf]
+        exact (Category.assoc _ _ _).symm
+      map_zero' := lift_unique hU fun z => by
+        rw [hρf, LinearMap.zero_apply, (hker 0).2 (zero_mem _)]
+        exact MonObj.comp_one _
+      map_add' := fun e f => lift_unique hU fun z => by
+        rw [hρf, LinearMap.add_apply, hadd, hρf, hρf]
+        exact MonObj.comp_mul _ _ _ }
+  refine ⟨ρ, hρf, fun e z hz => ?_⟩
+  rw [← hker] at hz ⊢
+  change Φu (ρf e z) = 1
+  rw [hρf, hz]
+  exact MonObj.one_comp _
+
+/-- **`QMComplexUnif` from the textbook leaves T35, T11a and `QMLatticeAlgebra` (proved).** -/
+theorem qmComplexUnif_of_textbook (hE : UniformizationExistsT35) (hR : T11aRiemannEnd)
+    (hL : QMLatticeAlgebra) : QMComplexUnif := by
+  intro Q
+  obtain ⟨Λ, Φu, hd, hlat, hΦ⟩ := hE ℂ Q.A (RingHom.id ℂ) 2 Q.surface
+  obtain ⟨ρ, hρ, hpres⟩ := unif_ring_hom hR Q.A Q.surface Λ Φu hΦ
+  obtain ⟨τ, hτ, F, hF, hFρ⟩ :=
+    hL Λ hlat (ρ.comp Q.q.iota) (fun a z hz => hpres (Q.q.iota a) z hz)
+  refine ⟨τ, hτ, fun z => Φu (F.symm z), ?_, fun a z => ?_⟩
+  · rw [← hF]
+    exact isUniformization_comp hΦ F
+  · have e1 : F.symm ((qmMat a).mulVec z) = ρ (Q.q.iota a) (F.symm z) := by
+      rw [LinearEquiv.symm_apply_eq]
+      have := hFρ a (F.symm z)
+      simp only [RingHom.comp_apply, LinearEquiv.apply_symm_apply] at this
+      exact this.symm
+    change Φu (F.symm ((qmMat a).mulVec z)) = Φu (F.symm z) ≫ (Q.q.iota a).hom
+    rw [e1, hρ]
+
+/-! ### Step 2f: `QMLatticeAlgebra` from its algebraic core (`normalize`, proved) -/
+
+/-- **GLUE (lattice algebra core: Skolem–Noether over `ℂ` and class number one).** A full lattice
+`Λ ⊆ ℂ²` stable under a ring homomorphism `ρ : 𝒪 → End_ℂ(ℂ²)` is carried by a `ℂ`-linear
+automorphism `G` intertwining `ρ` with N5's `ι` onto `ι(𝒪)w` (`FibreQMNorm.qmOrbit w`) for a vector
+`w` that is not a complex multiple of a real vector.
+
+Proof sketch: `ρ ⊗ ℂ : B ⊗ ℂ ≅ M₂(ℂ) → M₂(ℂ)` is inner (Skolem–Noether; in the kernel as
+`TSkolemKW`), giving `G` with `Gρ(a)G⁻¹ = ι(a)`; `GΛ` is a left `𝒪`-lattice of rank 4, hence
+`ι(𝒪)w` because the maximal order of the indefinite algebra of discriminant 6 has class number one
+(Eichler; Vignéras Cor. III.5.7, Voight Cor. 28.5.17; numbers UNVERIFIED); and `w` is not a
+complex multiple `c·r` of a real vector `r`, since then `ι(𝒪)w ⊆ c·ℝ²` would not span `ℂ²` over
+`ℝ`. Size: medium (class number one is the substantial part). -/
+def QMLatticeFree : Prop :=
+  ∀ (Λ : Submodule ℤ (Fin 2 → ℂ)) [DiscreteTopology Λ], IsZLattice ℝ Λ →
+    ∀ ρ : LeafQM.O →+* Module.End ℂ (Fin 2 → ℂ), (∀ a, ∀ z ∈ Λ, ρ a z ∈ Λ) →
+      ∃ (G : (Fin 2 → ℂ) ≃ₗ[ℂ] (Fin 2 → ℂ)) (w : Fin 2 → ℂ),
+        (¬ ∃ (c : ℂ) (r : Fin 2 → ℝ), w = c • (fun i => (r i : ℂ))) ∧
+        Λ.map (G.toLinearMap.restrictScalars ℤ) = FibreQMNorm.qmOrbit w ∧
+        ∀ a z, G (ρ a z) = (qmMat a).mulVec (G z)
+
+/-- **`QMLatticeAlgebra` from `QMLatticeFree` (proved)**, by `FibreQMNorm.normalize` and rescaling
+(scalars commute with `ι`). -/
+theorem qmLatticeAlgebra_of_free (h : QMLatticeFree) : QMLatticeAlgebra := by
+  intro Λ _ hlat ρ hρ
+  obtain ⟨G, w, hw, hG, hGρ⟩ := h Λ hlat ρ hρ
+  obtain ⟨τ, hτ, c, hc, hcw⟩ := FibreQMNorm.normalize w hw
+  refine ⟨τ, hτ, G.trans (LinearEquiv.smulOfNeZero ℂ (Fin 2 → ℂ) c⁻¹ (inv_ne_zero hc)), ?_, ?_⟩
+  · have e1 : ((G.trans (LinearEquiv.smulOfNeZero ℂ (Fin 2 → ℂ) c⁻¹ (inv_ne_zero hc))).toLinearMap.restrictScalars ℤ) =
+        FibreQMNorm.smulMap c⁻¹ ∘ₗ (G.toLinearMap.restrictScalars ℤ) := by
+      ext v i; simp [FibreQMNorm.smulMap]
+    rw [e1, Submodule.map_comp, hG, hcw, ← Submodule.map_comp, FibreQMNorm.smulMap_comp,
+      inv_mul_cancel₀ hc]
+    have e2 : FibreQMNorm.smulMap 1 = LinearMap.id := by
+      ext v i; simp [FibreQMNorm.smulMap]
+    rw [e2, Submodule.map_id]
+  · intro a z
+    simp [hGρ, Matrix.mulVec_smul]
+
 /-! ### Step 2c: the proofs -/
 
 /-- An embedding `ℚ̄ → ℂ` over `ℚ`. -/
@@ -21192,6 +21532,32 @@ theorem fibreQMPeriod_of_leaves_glue (h : R1R2fp) (hM : Pin.MobiusGlue)
     ThetaPt.FibreQMPeriod :=
   fibreQMPeriod_of_parts' h hM hH hE hS hL (qmPeriodMap_of _ _ _ hR hG) hHU hD hT
 
+/-- **Main result, final form (proved):** `FibreQMPeriod` from
+* leaves: `PkgI1.QMHauptmodul` (existing composite leaf), the textbook leaves T35
+  (`UniformizationExistsT35`) and T11a (`T11aRiemannEnd`), both already in leaf-adopt3's
+  `TextbookLeaves`, and R1(b) in family form at the leaf's own triple (`R1bFamily`);
+* glue: `Pin.MobiusGlue` (proved by mobius-glue), `QMLatticeAlgebra`, `PeriodMapGlue` (own triple),
+  `HauptmodulUnique`, `QMDenZeroCM3`, `UnifTransport`. -/
+theorem fibreQMPeriod_of_textbook (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hL : QMLatticeAlgebra) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_parts h hM hH (qmComplexUnif_of_textbook hE hR11 hL)
+    (qmPeriodMap_of _ _ _ hR hG) hHU hD hT
+
+/-- **Main result, final form (proved):** as `fibreQMPeriod_of_textbook`, with
+`QMLatticeAlgebra` replaced by its algebraic core `QMLatticeFree` (Skolem–Noether and class number
+one). -/
+theorem fibreQMPeriod_final (h : R1R2fp) (hM : Pin.MobiusGlue)
+    (hH : PkgI1.QMHauptmodul) (hE : UniformizationExistsT35) (hR11 : T11aRiemannEnd)
+    (hR : R1bFamily (ownY h) (ownΦ h) (ownπ h))
+    (hF : QMLatticeFree) (hG : PeriodMapGlue (ownY h) (ownΦ h) (ownπ h))
+    (hHU : HauptmodulUnique) (hD : QMDenZeroCM3) (hT : UnifTransport) :
+    ThetaPt.FibreQMPeriod :=
+  fibreQMPeriod_of_textbook h hM hH hE hR11 hR (qmLatticeAlgebra_of_free hF) hG hHU hD hT
+
 end FibreQM
 
 end G0Split
@@ -21216,3 +21582,12 @@ end
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_parts'
 #print axioms HSyn.G0Split.FibreQM.qmPeriodMap_of
 #print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_leaves_glue
+#print axioms HSyn.G0Split.FibreQM.uniformizationExistsC_of
+#print axioms HSyn.G0Split.FibreQM.lift_unique
+#print axioms HSyn.G0Split.FibreQM.unif_ring_hom
+#print axioms HSyn.G0Split.FibreQM.qmComplexUnif_of_textbook
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_of_textbook
+#print axioms FibreQMNorm.qmOrbit_unit
+#print axioms FibreQMNorm.normalize
+#print axioms HSyn.G0Split.FibreQM.qmLatticeAlgebra_of_free
+#print axioms HSyn.G0Split.FibreQM.fibreQMPeriod_final
