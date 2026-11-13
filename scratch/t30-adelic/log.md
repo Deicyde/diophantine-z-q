@@ -50,3 +50,4 @@
 - 23:12 SqrtCrit.lean: added `T30.sqrtCrit_at` (per prime) and `T30.leafSqrtCrit_of_t16a` (HSyn's `t16a` form).
   Final check (sequential `lake env lean`): SqrtCrit, G1Count, Adelic: no error, no sorry, all `#print axioms`
   = [propext, Classical.choice, Quot.sound]. VERIFIED.
+- 23:15 Second attempt at the FiniteAdeleRing link: `Padic.adicCompletionEquiv ℤ p = (cast _).trans (padicEquiv _).symm` holds by `rfl` (VERIFIED), but `rw` with it inside a norm goal is again a kernel deterministic timeout. Abandoned; test file removed.
