@@ -308,6 +308,50 @@ abbrev GQ := Qbar ≃ₐ[ℚ] Qbar
 are its localizations), so the choice does not change the leaf. -/
 abbrev IsFrobAt (g : GQ) (p : ℕ) : Prop := GlueC10.IsFrobAt g p
 
+/-- (`Leaves.lean`, `PkgI4`) `v` is a place of `ℚ̄` above the prime `p`. -/
+def LiesOver (v : ValuationSubring Qbar) (p : ℕ) : Prop := (p : Qbar) ∈ v.nonunits
+
+/-- (`Leaves.lean`, `PkgI4`) `σ` is an arithmetic Frobenius at the place `v` above `p`. -/
+def IsArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) : Prop :=
+  σ ∈ v.decompositionSubgroup ℚ ∧ ∀ x ∈ v, σ x - x ^ p ∈ v.nonunits
+
+/-- `ℤ̄` lies in every valuation subring of `ℚ̄` (valuation rings are integrally closed). -/
+theorem zbar_mem (v : ValuationSubring Qbar) (x : GlueC10.Zbar) : (x : Qbar) ∈ v := by
+  have hx : IsIntegral ℤ (x : Qbar) := x.2
+  have hx' : IsIntegral v (x : Qbar) := hx.tower_top
+  obtain ⟨y, hy⟩ := (IsIntegrallyClosed.isIntegral_iff (R := v) (K := Qbar)).mp hx'
+  rw [← hy]
+  exact y.2
+
+/-- **Bridge (proved)**: an arithmetic Frobenius in the sense of `Leaves.lean` (`PkgI4`) is one in
+the sense of the kernel (`GlueC10.IsFrobAt`), with `𝔓 = 𝔪_v ∩ ℤ̄`. So R16 below, stated with
+`IsFrobAt`, implies its `IsArithFrob` form. (The converse, which shows `IsFrobAt` is the
+standard notion: `g x ≡ x^p mod 𝔓` on `ℤ̄` forces `g𝔓 = 𝔓`, take `v = ℤ̄_𝔓`.) -/
+theorem isFrobAt_of_isArithFrob (σ : GQ) (v : ValuationSubring Qbar) (p : ℕ) (hp : p.Prime)
+    (hv : LiesOver v p) (h : IsArithFrob σ v p) : IsFrobAt σ p := by
+  let ι : GlueC10.Zbar →+* v :=
+    { toFun := fun x => ⟨x, zbar_mem v x⟩
+      map_one' := rfl
+      map_mul' := fun _ _ => rfl
+      map_zero' := rfl
+      map_add' := fun _ _ => rfl }
+  have hP : ((IsLocalRing.maximalIdeal v).comap ι).IsPrime := Ideal.IsPrime.comap ι
+  refine ⟨(IsLocalRing.maximalIdeal v).comap ι, hP, ?_, ?_⟩
+  · have hU : (((IsLocalRing.maximalIdeal v).comap ι).under ℤ).IsPrime := Ideal.IsPrime.comap _
+    have hmax : (Ideal.span {(p : ℤ)}).IsMaximal :=
+      PrincipalIdealRing.isMaximal_of_irreducible (Nat.prime_iff_prime_int.mp hp).irreducible
+    refine (hmax.eq_of_le hU.ne_top ?_).symm
+    rw [Ideal.span_le, Set.singleton_subset_iff]
+    show ι (algebraMap ℤ GlueC10.Zbar p) ∈ IsLocalRing.maximalIdeal v
+    rw [← ValuationSubring.coe_mem_nonunits_iff]
+    simpa [ι, LiesOver] using hv
+  · intro x y hy
+    show ι y ∈ IsLocalRing.maximalIdeal v
+    rw [← ValuationSubring.coe_mem_nonunits_iff]
+    change (y : Qbar) ∈ v.nonunits
+    rw [hy]
+    exact h.2 _ (zbar_mem v x)
+
 /-- Cusp forms of weight `k` on `Γ₁(N)` (Mathlib). -/
 abbrev CF (N : ℕ) (k : ℤ) := CuspForm (CongruenceSubgroup.Gamma1 N : Subgroup (GL (Fin 2) ℝ)) k
 
@@ -795,3 +839,4 @@ end LeafModCurves
 #print axioms LeafModCurves.exists_J1_dim_le
 #print axioms LeafModCurves.exists_J1_quotient
 #print axioms LeafModCurves.rhoF_traces
+#print axioms LeafModCurves.isFrobAt_of_isArithFrob

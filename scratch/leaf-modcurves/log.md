@@ -25,3 +25,7 @@
   (R16 ⇒ 2-dim ρ with tr ρ(g) = ι(a_p) at IsFrobAt g p, p ∉ S ⊇ primes of Nℓ: the shape of C10's `hρ₅`).
   `lake env lean`: exit 0, no errors, no warnings; all `#print axioms` ⊆ {propext, Classical.choice,
   Quot.sound}. VERIFIED.
+- 16:55 Added `LiesOver`, `IsArithFrob` (copied from Leaves PkgI4), `zbar_mem` (ℤ̄ ⊆ every valuation subring
+  of ℚ̄), `isFrobAt_of_isArithFrob` (PkgI4 arithmetic Frobenius at v over p ⇒ kernel `GlueC10.IsFrobAt` with
+  𝔓 = 𝔪_v ∩ ℤ̄): so R16' (IsFrobAt form) implies its IsArithFrob form. `lake env lean`: exit 0, no
+  warnings; standard axioms. VERIFIED.
