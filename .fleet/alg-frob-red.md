@@ -15,7 +15,7 @@ transport of I2-Red from L‾ to ℚ̄ and the special fibre; σ = Frob on κ(v)
 
 **Compiles.** `lake env lean scratch/alg-frob-red/AlgFrobRed.lean` (build.sh: verbatim copies of frob-trace's parts and
 mul-rigidity's Rigidity.lean + part_red.lean): exit 0, no sorry, 87 axiom prints all
-[propext, Classical.choice, Quot.sound]. One model review of the first split: all Props true, none vacuous.
+[propext, Classical.choice, Quot.sound]. Two model reviews (first split; FExtendGen and AbsFrob): all Props true, none vacuous.
 
 **Remains.** Glue `FExtendGen` (from I2-NMP: conjugate model, F over Spec σ⁻¹|_L, Spec ℚ̄ → Spec L epi) and `AbsFrob`
 (needs the absolute Frobenius of schemes, absent in Mathlib 4.35); the two leaf candidates.
