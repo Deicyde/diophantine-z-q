@@ -187,6 +187,114 @@ theorem core (φ : Qj →+* LaurentSeries ℚ)
     rw [hψ, hφQ]
   · rw [hψ]; exact hφX
 
+/-! ### Comparing `E_j` with a curve of the same `j`-invariant over `\overline{ℚ((t))}` -/
+
+theorem c₄_ne_zero {W : WeierstrassCurve (LaurentSeries ℚ)} [W.IsElliptic]
+    (hj : W.j ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ)) : W.c₄ ≠ 0 := fun h =>
+  hj ⟨0, by rw [map_zero, W.j_eq_zero h]⟩
+
+theorem c₆_ne_zero {W : WeierstrassCurve (LaurentSeries ℚ)} [W.IsElliptic]
+    (hj : W.j ∉ Set.range (HahnSeries.ofPowerSeries ℤ ℚ)) : W.c₆ ≠ 0 := fun h => by
+  apply hj
+  refine ⟨1728, ?_⟩
+  have hrel := W.c_relation
+  rw [h] at hrel
+  have hΔ : ((W.Δ'⁻¹ : (LaurentSeries ℚ)ˣ) : LaurentSeries ℚ) * W.Δ = 1 := by
+    rw [← WeierstrassCurve.coe_Δ']; exact Units.inv_mul _
+  rw [map_ofNat, WeierstrassCurve.j, show W.c₄ ^ 3 = 1728 * W.Δ by rw [hrel]; ring]
+  linear_combination (-1728 : LaurentSeries ℚ) * hΔ
+
+theorem EjBar_j : EjBar.j = algebraMap Qj Kbar RatFunc.X := by
+  show (Ej.map (algebraMap Qj Kbar)).j = _
+  rw [WeierstrassCurve.map_j, Ej_j]
+
+open Classical in
+/-- **`TateCuspLaurent` from `TateLaurentTorsion`.** -/
+theorem tateCuspLaurent_of_tateLaurentTorsion (h : TateLaurentTorsion) : TateCuspLaurent := by
+  intro N hN
+  obtain ⟨W, hW, PW, hPW, hj⟩ := h (max N 2) (le_max_right _ _)
+  set ι := algebraMap (LaurentSeries ℚ) Lb with hι
+  let φ := phi W.j hj
+  letI : Algebra Qj Lb := (ι.comp φ).toAlgebra
+  let φb : Kbar →ₐ[Qj] Lb := IsAlgClosed.lift
+  have hφb : ∀ a, (φb : Kbar →+* Lb) (algebraMap Qj Kbar a) = ι (φ a) := fun a => φb.commutes a
+  obtain ⟨Q, hQ, hx⟩ : ∃ Q : (EjBar.map (φb : Kbar →+* Lb)).toAffine.Point,
+      addOrderOf Q = N ∧ xCoord Q ∈ Set.range ι := by
+    by_cases hN1 : N = 1
+    · exact ⟨0, by rw [hN1, addOrderOf_zero], ⟨0, by rw [map_zero]; rfl⟩⟩
+    have hmax : max N 2 = N := by omega
+    rw [hmax] at hPW
+    have hjeq : (EjBar.map (φb : Kbar →+* Lb)).j = (W.map ι).j := by
+      rw [WeierstrassCurve.map_j, WeierstrassCurve.map_j, EjBar_j, hφb, phi_X]
+    obtain ⟨C, hC⟩ := exists_variableChange_of_j_eq (EjBar.map (φb : Kbar →+* Lb)) (W.map ι) hjeq
+    -- the point `PW` over `\overline{ℚ((t))}`
+    let fι : W.toAffine.Point →+ (W.map ι).toAffine.Point :=
+      AddMonoidHom.mk' (Affine.Point.mapAlong ι ι.injective)
+        (Affine.Point.mapAlong_add ι ι.injective)
+    have hQ1 : addOrderOf (fι PW) = N := by
+      rw [addOrderOf_injective fι (Affine.Point.mapAlong_injective ι ι.injective) PW, hPW]
+    obtain ⟨Q2, hQ2o, hQ2x⟩ := exists_cast hC.symm (fι PW)
+    let e := Affine.Point.addEquivVariableChange (EjBar.map (φb : Kbar →+* Lb)) C
+    refine ⟨e Q2, ?_, ?_⟩
+    · exact (addOrderOf_injective e.toAddMonoidHom e.injective Q2).trans (hQ2o.trans hQ1)
+    -- the `x`-coordinate transforms by `x ↦ u² x + r` with `u², r ∈ ℚ((t))`
+    let R : Subfield Lb := ι.fieldRange
+    have hιR : ∀ z, ι z ∈ R := fun z => ⟨z, rfl⟩
+    have hTc₄ : (EjBar.map (φb : Kbar →+* Lb)).c₄ = ι (φ Ej.c₄) := by
+      rw [WeierstrassCurve.map_c₄, ← hφb]
+      show (φb : Kbar →+* Lb) (Ej.map (algebraMap Qj Kbar)).c₄ = _
+      rw [WeierstrassCurve.map_c₄]
+    have hTc₆ : (EjBar.map (φb : Kbar →+* Lb)).c₆ = ι (φ Ej.c₆) := by
+      rw [WeierstrassCurve.map_c₆, ← hφb]
+      show (φb : Kbar →+* Lb) (Ej.map (algebraMap Qj Kbar)).c₆ = _
+      rw [WeierstrassCurve.map_c₆]
+    have hTb₂ : (EjBar.map (φb : Kbar →+* Lb)).b₂ = ι (φ Ej.b₂) := by
+      rw [WeierstrassCurve.map_b₂, ← hφb]
+      show (φb : Kbar →+* Lb) (Ej.map (algebraMap Qj Kbar)).b₂ = _
+      rw [WeierstrassCurve.map_b₂]
+    have h4 := congrArg WeierstrassCurve.c₄ hC
+    have h6 := congrArg WeierstrassCurve.c₆ hC
+    have h2 := congrArg WeierstrassCurve.b₂ hC
+    rw [WeierstrassCurve.variableChange_c₄, WeierstrassCurve.map_c₄ W ι] at h4
+    rw [WeierstrassCurve.variableChange_c₆, WeierstrassCurve.map_c₆ W ι] at h6
+    rw [WeierstrassCurve.variableChange_b₂, WeierstrassCurve.map_b₂ W ι] at h2
+    set a : Lb := ((C.u⁻¹ : Lbˣ) : Lb) with ha
+    have ha0 : a ≠ 0 := Units.ne_zero _
+    have hc4 : ι W.c₄ ≠ 0 := (map_ne_zero ι).mpr (c₄_ne_zero hj)
+    have hc6 : ι W.c₆ ≠ 0 := (map_ne_zero ι).mpr (c₆_ne_zero hj)
+    have hT4 : (EjBar.map (φb : Kbar →+* Lb)).c₄ ≠ 0 := fun h0 => hc4 (by rw [← h4, h0, mul_zero])
+    have hT6 : (EjBar.map (φb : Kbar →+* Lb)).c₆ ≠ 0 := fun h0 => hc6 (by rw [← h6, h0, mul_zero])
+    have ha2 : a ^ 2 = ι W.c₆ * (EjBar.map (φb : Kbar →+* Lb)).c₄ / (ι W.c₄ * (EjBar.map (φb : Kbar →+* Lb)).c₆) := by
+      rw [← h4, ← h6]; field_simp
+    have ha2R : a ^ 2 ∈ R := by
+      rw [ha2, hTc₄, hTc₆]
+      exact div_mem (mul_mem (hιR _) (hιR _)) (mul_mem (hιR _) (hιR _))
+    have hu2R : ((C.u : Lbˣ) : Lb) ^ 2 ∈ R := by
+      have : ((C.u : Lbˣ) : Lb) ^ 2 = (a ^ 2)⁻¹ := by
+        rw [ha, Units.val_inv_eq_inv_val, inv_pow, inv_inv]
+      rw [this]; exact inv_mem ha2R
+    have hrR : C.r ∈ R := by
+      have : C.r = (ι W.b₂ / a ^ 2 - (EjBar.map (φb : Kbar →+* Lb)).b₂) / 12 := by
+        rw [← h2]; field_simp; ring
+      rw [this, hTb₂]
+      refine div_mem (sub_mem (div_mem (hιR _) ha2R) (hιR _)) ⟨12, map_ofNat ι 12⟩
+    have hx2 : xCoord Q2 ∈ R := by
+      rw [hQ2x]
+      show xCoord (PW.mapAlong ι ι.injective) ∈ R
+      rw [xCoord_mapAlong]; exact hιR _
+    rcases Q2 with _ | ⟨x, y, hxy⟩
+    · exact ⟨0, by rw [map_zero]; rfl⟩
+    · show xCoord (Affine.Point.equivVariableChange (EjBar.map (φb : Kbar →+* Lb)) C (.some x y hxy)) ∈ R
+      rw [Affine.Point.equivVariableChange_some]
+      exact add_mem (mul_mem hu2R hx2) hrR
+  exact core φ (phi_rat _ hj) (by rw [phi_X]; exact hj) φb hφb N hN Q hQ hx
+
 end TateCuspGlue
 
+/-- **`TateCuspLaurent` reduced to `TateLaurentTorsion`.** -/
+theorem tateCuspLaurent_of_tateLaurentTorsion (h : TateLaurentTorsion) : TateCuspLaurent :=
+  TateCuspGlue.tateCuspLaurent_of_tateLaurentTorsion h
+
 end ZInQ.RLeaf
+
+#print axioms ZInQ.RLeaf.tateCuspLaurent_of_tateLaurentTorsion
