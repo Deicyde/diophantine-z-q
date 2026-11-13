@@ -46,3 +46,7 @@ into scratch/t28-igusa/Defs.lean. Compiles (VERIFIED, `lake env lean`, 77 s).
   Written to m3_polys.txt.
 - special_check.py: det(yv) = 0 identically on x^6+px^4+qx^2+1 and on x^5+px^3+qx (VERIFIED).
 - pairing_check.py: p6 and pair invariant (det^6, det^2), cub equivariant (VERIFIED, symbolic).
+- M3 by `ring` (M3test.lean = Igusa.lean + generated theorems, gen_m3proofs.py): G11, G12, G13,
+  G22, a111 compile (VERIFIED, ~25 s together); G23, G33, a112 compile (VERIFIED, ~7 min
+  together). A batch adding a113 and a122 did not finish within 10 minutes (killed).
+  So all six Gram identities and two of the ten cubic ones are proved; folded into Igusa.lean.

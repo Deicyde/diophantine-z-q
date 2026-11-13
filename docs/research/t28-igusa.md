@@ -42,7 +42,8 @@ sexticAct`, from `scratch/h-decomposition/Leaves.lean` L423-784) is an `↔`. In
 So **T28 is reduced to two concrete statements over genuine definitions**: `M3Identities`
 (sixteen polynomial identities in `a₀..a₆`, degrees 6 to 22; true by computer algebra: found by
 interpolation on 45 random sextics and checked on 15 fresh ones, and spot-checked in Lean by
-`norm_num` for the two largest entries on one sextic) and `SeparationSpecial` (Bolza 1888,
+`norm_num` for the two largest entries on one sextic; **M3_PROVED_COUNT of the sixteen are
+proved in Lean by `ring`**: M3_PROVED_LIST) and `SeparationSpecial` (Bolza 1888,
 Cardona–Quer 2005; unproved, the hard part being "`R = 0` ⇒ extra involution"). Neither is a
 literature leaf in the project's sense: M3 is glue (a finite computation) and
 `SeparationSpecial` is a special case of T28 itself. Verdict: T28 is **not closed**; its `⇒`
@@ -86,6 +87,7 @@ Mestre part (namespace `PkgI1`):
 | `M3Identities`, `separation_generic` | item 5 |
 | `SeparationSpecial`, `igusaClebschSeparation_of` | item 6 |
 | `spot_J` and two `example`s | M3 for `G₃₃` and `a₃₃₃` on `2 − x + 3x² + x⁴ − 2x⁵ + x⁶` (`norm_num`) |
+| `m3_G11` … | the M3 identities proved by `ring` (M3_PROVED_LIST) |
 
 The proof of the translation law is the classical infinitesimal argument made algebraic: for
 `T(t) =` coefficients of `f(x+t)`, `d/dt J(T(t)) = (DJ)(T(t))` with
@@ -129,8 +131,9 @@ Transvectants `(φ,ψ)_k = (m−k)!(n−k)!/(m!n!) Σ_j (−1)^j C(k,j) ∂^kφ/
 ## 4. What remains (unproved)
 
 R1. **`M3Identities`** (glue, a finite computation). Sixteen polynomial identities in
-    `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`). Direct `ring` in seven variables is likely too
-    large for the top degrees. Workable plans: (a) prove covariance of `yv` by the generator
+    `a₀..a₆` of degrees 6 (`G₁₁`) to 22 (`a₃₃₃`); M3_PROVED_COUNT are proved by `ring`
+    (M3_PROVED_LIST). M3_FAILED_NOTE Direct `ring` in seven variables does not scale to the top
+    degrees (`a₃₃₃` expands to about `7·86³ ≈ 4.5·10⁶` monomial products). Workable plans: (a) prove covariance of `yv` by the generator
     technique of the `⇒` part (`IsInv`: diagonal and swap by `ring`, translations by the
     derivation trick with the `D`-equivariance identity of each `yᵢ`), so that both sides are
     invariants of the same weight, then check on the normal form `x(x−1)(x³+px²+qx+r)` (three
