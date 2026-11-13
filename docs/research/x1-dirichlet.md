@@ -91,7 +91,24 @@ In namespace `X1DirichletConnect`, over g0-mod-newform's own declarations:
 | `modularConstituent_tail_leaves` | `modularConstituent_tail` with `hX` replaced by `x1` |
 | `modularConstituent_tail_G_leaves` | `modularConstituent_tail_G` (g0-mod-newform's headline) with `hX` replaced by `x1` |
 
-COMPILE STATUS: see §5.
+VERIFIED: `lake env lean scratch/x1-dirichlet/Connect.lean` exits 0 with no error and no
+`sorry` (output: `scratch/x1-dirichlet/compile.out`). Each of the ten declarations printed
+(the eight above, `cycChar_frob` and `dirichletOfFinite_of_kroneckerWeberCyclic`) depends only on
+`[propext, Classical.choice, Quot.sound]`.
+
+The headline in its new form:
+
+```
+theorem X1DirichletConnect.modularConstituent_tail_G_leaves (lv : NewformLeaves)
+    (hJac : JacobianExists ℚ) (x1 : X1Belyi.X1Leaves)
+    (hSw : ∀ (p : ℕ) [Fact p.Prime], LadicCond.SwanIndependent (p := p))
+    (hL8 : LadicCond.SwanIntegral) (hAd : ∀ (p : ℕ) [Fact p.Prime], LadicCond.AdaptedExists (p := p))
+    {L : Type} [Field L] [NumberField L] (A : AbVar L) (u : ℚ)
+    (h : ∃ D : ModData L A, G12Spec D ∧ G14TraceCompat D ∧ G15RamG D u) :
+    ∃ (N : ℕ) (J : AbVar ℚ), 0 < N ∧ IsJ1 N J ∧
+      (N : ℝ) ≤ ZInQ.heightQ ZInQ.heightD * (ZInQ.contactSupport ZInQ.Mult.S_mul u : ℝ) ^ 2 ∧
+      CommonConstituent A (J.baseChange L)
+```
 
 After this task, g0-mod-newform's open glue Props are G14TraceCompat, G15RamG (clauses (i)-(ii)),
 SwanIndependent, SwanIntegral and AdaptedExists. `DirichletOfFinite` and `X1ModelExists` are now
@@ -105,6 +122,19 @@ closed.
   be identified by `Iff.rfl` as here.
 - In the leaf bundle, `t.t17` supplies `hKW` and `t.x1` supplies `X1Leaves`.
 
-## 5. Compile record
+## 5. Compile record (VERIFIED)
 
-See `scratch/x1-dirichlet/log.md`.
+- `lake build ZInQKernel.HDecomp.Textbook.KroneckerWeberUse`: success.
+- `lake env lean scratch/x1-dirichlet/Dirichlet.lean`: exit 0 (second run, after fixing Mathlib
+  names), 2 standard-axiom prints.
+- `lake build` of NewForm's imports and `ZInQKernel.HDecomp.ModCurves.X1Belyi`: success.
+- `lake env lean scratch/x1-dirichlet/Connect.lean`: exit 0 (first run), 10 standard-axiom prints.
+
+Details: `scratch/x1-dirichlet/log.md`.
+
+## 6. Caveats
+
+- `Connect.lean` contains a copy of g0-mod-newform's `NewForm.lean` as of base 2dd83306. If that
+  file changes, `build.sh` has to be rerun after copying the new version over `newform_src.lean`.
+- No theorem number above was checked against a source. The leaves' own locators are those
+  recorded by t-skolem-kw and x1-belyi.
