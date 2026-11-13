@@ -141,3 +141,13 @@ Targets: period-map's glue `S8Nonzero`, `S8WeightExact`, `SphereFactorAffine`,
   with `LeafQM.O` written for `O`.
 - run_all (after the FibreTransferC split): 0 errors, exit 0, all printed theorems standard axioms.
   No `sorry` in any period-glue Lean file.
+
+## ToP1AgreeC — PROVED (VERIFIED, run_pitwist.txt, run_all.txt)
+- `toP1AgreeC_proof : ToP1AgreeC Y` (any Y). `exists_qbarPt`: a closed point is the point of a
+  ℚ̄-point (isClosed_singleton_iff_locallyOfFiniteType, Zariski `finite_of_finite_type_of_isJacobsonRing`,
+  `IsAlgClosed.lift`); chart domains agree (`nonempty_inter_closedPoints` on σ.U \ ρ.U); the
+  difference of chart functions has empty basicOpen (Jacobson), so vanishes in every residue field
+  (`basicOpen_eq_bot_iff_forall_evaluation_eq_zero`). No reducedness needed.
+- `fibreTransferC_of' (hG : FibreGenericC Y π) : FibreTransferC Y π`.
+- End to end now takes `FibreGenericC` (generic-fibre half) instead of `FibreTransferC`.
+  run_all: 0 errors, exit 0, standard axioms. Pitfall: `ι` is a token under `open MonObj` (renamed).

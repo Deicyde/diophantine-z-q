@@ -19,7 +19,111 @@ Hint: Omit it from the simp argument list.
   [apply] simp [Matrix.mulVec, dotProduct] at c0 c1
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:1595:4: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:1172:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1173:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1180:2: warning: Try this: 
+  letI̵
+
+The goal is a proposition, so `let` is preferred over `letI`.
+The difference between `let` and `letI` is that `letI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1181:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1182:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1183:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1202:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1203:2: warning: Try this: 
+  haveI̵
+
+The goal is a proposition, so `have` is preferred over `haveI`.
+The difference between `have` and `haveI` is that `haveI` inlines the value.
+But this is not relevant for proofs because of proof irrelevance.
+
+Note: This linter can be disabled with `set_option linter.style.haveILetI false`
+scratch/period-glue/PGAll.lean:1215:10: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1215:22: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-glue/PGAll.lean:1218:10: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-glue/PGAll.lean:1218:22: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1220:10: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1220:22: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1265:8: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1265:20: warning: `dif_pos` has been deprecated: Use `dite_eq_left` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵p̵o̵s̵d̲i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-glue/PGAll.lean:1267:8: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-glue/PGAll.lean:1267:20: warning: `dif_neg` has been deprecated: Use `dite_eq_right` instead
+
+Hint: Replace the deprecated name:
+  d̵i̵f̵_̵n̵e̵g̵d̲i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-glue/PGAll.lean:1704:4: warning: This simp argument is unused:
   Matrix.head_cons
 
 Hint: Omit it from the simp argument list.
@@ -28,26 +132,26 @@ Hint: Omit it from the simp argument list.
     Matrix.cons_val_fin_one]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2037:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2146:16: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2184:68: warning: this tactic is never executed
+scratch/period-glue/PGAll.lean:2293:68: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/period-glue/PGAll.lean:2184:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/period-glue/PGAll.lean:2293:64: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:2184:68: warning: Unused tactic linter: `ring` does nothing.
+scratch/period-glue/PGAll.lean:2293:68: warning: Unused tactic linter: `ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:2189:28: warning: Variable name `hz` is not explicitly referenced.
+scratch/period-glue/PGAll.lean:2298:28: warning: Variable name `hz` is not explicitly referenced.
 
 Hint: The binding can be removed (if unused) or named `_` (if used implicitly). Alternatively, prefix the name with `_` to silence this warning:
   [apply] _hz
 
 Note: This linter can be disabled with `set_option linter.unusedVariables false`
-scratch/period-glue/PGAll.lean:2215:2: warning: Try this: 
+scratch/period-glue/PGAll.lean:2324:2: warning: Try this: 
   letI̵
 
 The goal is a proposition, so `let` is preferred over `letI`.
@@ -55,114 +159,114 @@ The difference between `let` and `letI` is that `letI` inlines the value.
 But this is not relevant for proofs because of proof irrelevance.
 
 Note: This linter can be disabled with `set_option linter.style.haveILetI false`
-scratch/period-glue/PGAll.lean:2222:12: warning: this tactic is never executed
+scratch/period-glue/PGAll.lean:2331:12: warning: this tactic is never executed
 
 Note: This linter can be disabled with `set_option linter.unreachableTactic false`
-scratch/period-glue/PGAll.lean:2222:2: warning: Unused tactic linter: `all_goals ring` does nothing.
+scratch/period-glue/PGAll.lean:2331:2: warning: Unused tactic linter: `all_goals ring` does nothing.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:2268:24: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2377:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2268:42: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2377:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C4, D4, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2311:24: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2420:24: warning: This simp argument is unused:
   Matrix.mul_apply
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Fin.sum_univ_two]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2311:42: warning: This simp argument is unused:
+scratch/period-glue/PGAll.lean:2420:42: warning: This simp argument is unused:
   Fin.sum_univ_two
 
 Hint: Omit it from the simp argument list.
   [apply] simp [C6, D6, Nf, dF, Matrix.mul_apply]
 
 Note: This linter can be disabled with `set_option linter.unusedSimpArgs false`
-scratch/period-glue/PGAll.lean:2370:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-glue/PGAll.lean:2479:70: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
 
 Note: This linter can be disabled with `set_option linter.unnecessarySeqFocus false`
-scratch/period-glue/PGAll.lean:2370:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
+scratch/period-glue/PGAll.lean:2479:70: warning: Unused tactic linter: `<;>` should be replaced with `;` or be removed.
 
 Note: This linter can be disabled with `set_option linter.unusedTactic false`
-scratch/period-glue/PGAll.lean:2524:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2633:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2525:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2634:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2606:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2715:8: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2606:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2715:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2607:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2716:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2607:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2716:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2608:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2717:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2608:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2717:19: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2630:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2739:34: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2818:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
+scratch/period-glue/PGAll.lean:2927:4: warning: `push_neg` has been deprecated. Prefer using `push Not` instead.
 If you'd rather continue using `push_neg` in your project, you can implement it as follows:
 ```
 open Lean.Parser.Tactic in
 macro "push_neg" cfg:optConfig loc:(location)? : tactic =>
   `(tactic| push $cfg:optConfig Not $[$loc]?)
 ```
-scratch/period-glue/PGAll.lean:2851:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:2960:19: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:2852:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:2961:8: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2963:28: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:3072:28: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2968:18: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:3077:18: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:2981:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+scratch/period-glue/PGAll.lean:3090:20: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
-scratch/period-glue/PGAll.lean:3065:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:3174:18: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
-scratch/period-glue/PGAll.lean:3095:76: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+scratch/period-glue/PGAll.lean:3204:76: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
 
 Hint: Replace the deprecated name:
   i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
@@ -175,7 +279,7 @@ Hint: Replace the deprecated name:
 'HSyn.G0Split.FibreQM.PeriodGlue.sphereFactorAffine_proof' depends on axioms: [propext, Classical.choice, Quot.sound]
 'HSyn.G0Split.FibreQM.PeriodGlue.fibreQMPeriod_periodGlue' depends on axioms: [propext, Classical.choice, Quot.sound]
 
-real	0m21.731s
-user	1m9.436s
-sys	0m3.281s
+real	0m22.508s
+user	1m11.110s
+sys	0m3.449s
 exit 0

@@ -128,6 +128,115 @@ theorem fibreTransferC_of (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.le
   rw [e] at hagree
   exact hagree.symm
 
+/-! ### `ToP1AgreeC` (proved: density of closed points) -/
+
+/-- A closed point of `Y` (locally of finite type over `ℚ`) is the point of a `ℚ̄`-point. -/
+theorem exists_qbarPt (Y : Over (Spec (CommRingCat.of ℚ))) [LocallyOfFiniteType Y.hom]
+    (x : Y.left) (hx : IsClosed ({x} : Set Y.left)) :
+    ∃ emb : Y.left.residueField x ⟶ CommRingCat.of Qbar, ∃ y0 : fieldPt Qbar ⟶ Y,
+      y0.left = (Scheme.SpecToEquivOfField Qbar Y.left).symm ⟨x, emb⟩ := by
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  haveI : LocallyOfFiniteType (Y.left.fromSpecResidueField x) :=
+    isClosed_singleton_iff_locallyOfFiniteType.mp hx
+  obtain ⟨φ, hφ⟩ := Spec.homEquiv.symm.surjective (Y.left.fromSpecResidueField x ≫ Y.hom)
+  have hφ' : Spec.map φ = Y.left.fromSpecResidueField x ≫ Y.hom := hφ
+  have hft : RingHom.FiniteType φ.hom := by
+    have : LocallyOfFiniteType (Spec.map φ) := by rw [hφ']; infer_instance
+    exact HasRingHomProperty.Spec_iff.mp this
+  letI : Algebra ℚ (Y.left.residueField x) := φ.hom.toAlgebra
+  haveI : Algebra.FiniteType ℚ (Y.left.residueField x) := hft
+  haveI : Module.Finite ℚ (Y.left.residueField x) := finite_of_finite_type_of_isJacobsonRing ℚ _
+  haveI : Algebra.IsAlgebraic ℚ (Y.left.residueField x) := Algebra.IsAlgebraic.of_finite ℚ _
+  let emb : Y.left.residueField x →ₐ[ℚ] Qbar := IsAlgClosed.lift
+  refine ⟨CommRingCat.ofHom emb.toRingHom,
+    Over.homMk ((Scheme.SpecToEquivOfField Qbar Y.left).symm ⟨x, CommRingCat.ofHom emb.toRingHom⟩) ?_,
+    rfl⟩
+  show _ ≫ Y.hom = Spec.map (CommRingCat.ofHom (algebraMap ℚ Qbar))
+  apply Spec.homEquiv.injective
+  ext1
+  exact Subsingleton.elim _ _
+
+theorem eval_res {X : Scheme.{0}} {U V : X.Opens} (h : V ≤ U) (x : X) (hx : x ∈ V)
+    (f : Γ(X, U)) :
+    X.evaluation V x hx (X.presheaf.map (homOfLE h).op f) = X.evaluation U x (h hx) f := by
+  rw [← Scheme.germ_residue, ← Scheme.germ_residue, CommRingCat.comp_apply,
+    CommRingCat.comp_apply, TopCat.Presheaf.germ_res_apply]
+
+/-- **`ToP1AgreeC` (proved).** -/
+theorem toP1AgreeC_proof (Y : Over (Spec (CommRingCat.of ℚ))) : ToP1AgreeC Y := by
+  intro hP hS σ ρ hQ y
+  haveI : LocallyOfFiniteType Y.hom := inferInstance
+  haveI : JacobsonSpace Y.left := LocallyOfFiniteType.jacobsonSpace Y.hom
+  -- closed points
+  have hcl : ∀ x : Y.left, IsClosed ({x} : Set Y.left) → (x ∈ σ.U ↔ x ∈ ρ.U) ∧
+      ∀ (h1 : x ∈ σ.U) (h2 : x ∈ ρ.U),
+        Y.left.evaluation σ.U x h1 σ.f = Y.left.evaluation ρ.U x h2 ρ.f := by
+    intro x hx
+    obtain ⟨emb, y0, hy0⟩ := exists_qbarPt Y x hx
+    have e := hQ y0
+    unfold ToP1.val at e
+    rw [hy0, Equiv.apply_symm_apply] at e
+    refine ⟨⟨fun h1 => ?_, fun h2 => ?_⟩, fun h1 h2 => ?_⟩
+    · by_contra h2
+      rw [dif_pos h1, dif_neg h2] at e
+      exact OnePoint.coe_ne_infty _ e
+    · by_contra h1
+      rw [dif_neg h1, dif_pos h2] at e
+      exact OnePoint.coe_ne_infty _ e.symm
+    · rw [dif_pos h1, dif_pos h2] at e
+      exact emb.hom.injective (OnePoint.coe_injective e)
+  -- the two chart domains coincide
+  have hU : ∀ p : Y.left, p ∈ σ.U ↔ p ∈ ρ.U := by
+    have side : ∀ (σ ρ : ToP1 Y.left),
+        (∀ x : Y.left, IsClosed ({x} : Set Y.left) → (x ∈ σ.U → x ∈ ρ.U)) →
+        ∀ p : Y.left, p ∈ σ.U → p ∈ ρ.U := by
+      intro σ ρ hc p hp
+      by_contra hq
+      obtain ⟨x, ⟨hxσ, hxρ⟩, hxc⟩ := nonempty_inter_closedPoints (Z := (σ.U : Set Y.left) ∩ (ρ.U : Set Y.left)ᶜ)
+        ⟨p, hp, hq⟩ (σ.U.isOpen.isLocallyClosed.inter ρ.U.isOpen.isClosed_compl.isLocallyClosed)
+      exact hxρ (hc x hxc hxσ)
+    intro p
+    exact ⟨side σ ρ (fun x hx => (hcl x hx).1.mp) p, side ρ σ (fun x hx => (hcl x hx).1.mpr) p⟩
+  -- the difference of the two chart functions vanishes in every residue field of `U ∩ V`
+  set W := σ.U ⊓ ρ.U with hW
+  let s : Γ(Y.left, W) := Y.left.presheaf.map (homOfLE inf_le_left).op σ.f -
+    Y.left.presheaf.map (homOfLE inf_le_right).op ρ.f
+  have hsx : ∀ (x : Y.left) (hx : x ∈ W), Y.left.evaluation W x hx s =
+      Y.left.evaluation σ.U x hx.1 σ.f - Y.left.evaluation ρ.U x hx.2 ρ.f := by
+    intro x hx
+    simp only [s, map_sub, eval_res]
+  have hs : Y.left.basicOpen s = ⊥ := by
+    by_contra hne
+    have hne' : ((Y.left.basicOpen s : Y.left.Opens) : Set Y.left).Nonempty := by
+      by_contra h0
+      apply hne
+      ext1
+      simpa [Set.not_nonempty_iff_eq_empty] using h0
+    obtain ⟨x, hxb, hxc⟩ := nonempty_inter_closedPoints hne'
+      (Y.left.basicOpen s).isOpen.isLocallyClosed
+    have hxW : x ∈ W := Y.left.basicOpen_le s hxb
+    have h0 := (Y.left.evaluation_ne_zero_iff_mem_basicOpen x hxW s).mpr hxb
+    rw [hsx x hxW, (hcl x hxc).2 hxW.1 hxW.2, sub_self] at h0
+    exact h0 rfl
+  have hev : ∀ (p : Y.left) (h1 : p ∈ σ.U) (h2 : p ∈ ρ.U),
+      Y.left.evaluation σ.U p h1 σ.f = Y.left.evaluation ρ.U p h2 ρ.f := by
+    intro p h1 h2
+    have := (Y.left.basicOpen_eq_bot_iff_forall_evaluation_eq_zero s).mp hs ⟨p, h1, h2⟩
+    rw [hsx p ⟨h1, h2⟩] at this
+    exact sub_eq_zero.mp this
+  -- conclusion at the `ℂ`-point
+  unfold ToP1.val
+  by_cases h1 : (Scheme.SpecToEquivOfField ℂ Y.left y.left).1 ∈ σ.U
+  · have h2 := (hU _).mp h1
+    rw [dif_pos h1, dif_pos h2, hev _ h1 h2]
+  · have h2 : (Scheme.SpecToEquivOfField ℂ Y.left y.left).1 ∉ ρ.U := fun h => h1 ((hU _).mpr h)
+    rw [dif_neg h1, dif_neg h2]
+
+/-- **`FibreTransferC` from its hard half `FibreGenericC` alone (proved).** -/
+theorem fibreTransferC_of' (Y : Over (Spec (CommRingCat.of ℚ))) (π : ToP1 Y.left)
+    (hG : FibreGenericC Y π) : FibreTransferC Y π :=
+  fibreTransferC_of Y π (toP1AgreeC_proof Y) hG
+
 /-! ## `TwistOrbitFinite` from R1hecke, `TorsionStructure` and two algebra facts -/
 
 /-- **GLUE, proved in mobius-glue** (`scratch/mobius-glue/MobiusGlue.lean` §7, `AutOInnerFinite`;
@@ -435,5 +544,6 @@ end HSyn.G0Split.FibreQM.PeriodGlue
 
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.piTwistC_of
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.fibreTransferC_of
+#print axioms HSyn.G0Split.FibreQM.PeriodGlue.toP1AgreeC_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.unitLiftMod3_proof
 #print axioms HSyn.G0Split.FibreQM.PeriodGlue.twistOrbitFinite_of
