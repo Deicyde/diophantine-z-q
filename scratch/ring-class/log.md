@@ -47,3 +47,11 @@
   out by the genus characters RouteK.Redei.chi), gNat_eq_relfinrank, gRingClass, gNat_eq_gRingClass (function
   equality), gCl_eq_gRingClass, T5aCl_eq_gRingClass, T5bCl_eq_gRingClass, GenusData.beta_seven_ringClass,
   GenusData.beta_five_ringClass.
+
+## 09:15 proofs, round 3 (VERIFIED, lake build success)
+- ideleClassArtinMap_restrict (Tau Ceti's idele-class Artin maps commute with restriction between abelian
+  subfields of Kˢ; from globalArtinMap_comp + of_ideleClassArtinMap), picToMax O : Pic O →* Cl(K) (= Q_max ∘ Q_O⁻¹),
+  picToMax_ringClassIdeleQuotient, picToMax_surjective, picToMax_picClass_span (principal ideals ↦ 1),
+  picToMax_sigmaClass, restrictNormalHom_inclusion_apply, restrict_ringClassArtinEquiv (Artin symbol in ring class
+  field of O restricted to H_K = Artin symbol of picToMax c), ringClassArtinEquiv_apply_of_picToMax_eq_one,
+  mem_lift_fixedField_zpowers, hilbertField_le_Hprime (H_d ⊆ H'_d; needs maxRecDepth 10000).
