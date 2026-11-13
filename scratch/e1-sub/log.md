@@ -31,3 +31,7 @@
   A' → J_L from an A'-side constituent ≅ rhoFL, plus Poincaré isogeny under EndDivision A').
   All `#print axioms`: [propext, Classical.choice, Quot.sound].
 - 23:20 VERIFIED (compiled): `g13_constituent'` (g13_constituent with `VSurjOfSurjective` discharged).
+- 23:28 Independent model review (read-only): verdict "minor issues", statements sound, not vacuous,
+  only published leaves as hypotheses. Applied: E1_R16 now exports finrank = 2, semisimplicity and
+  the trace clause (interface gap for C9); docstring wording on uniqueness of σ. Recompiled, VERIFIED
+  (no errors; all #print axioms standard).

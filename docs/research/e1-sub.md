@@ -1,6 +1,6 @@
 # e1-sub: E1 for R16, `ρ_{f,ι}` as a subrepresentation of `V_ℓ(J₁(N)_{L'}) ⊗ ℚ̄_ℓ`
 
-Task e1-sub, 2026-11-12. Lean file: `scratch/e1-sub/E1Sub.lean` (832 lines). It imports only kernel
+Task e1-sub, 2026-11-12. Lean file: `scratch/e1-sub/E1Sub.lean` (about 890 lines). It imports only kernel
 modules: `ZInQKernel.HDecomp.ModCurves.Glue`, `ZInQKernel.HDecomp.I3Linalg.C2` and
 `ZInQKernel.HDecomp.I3Linalg.TateBC`. Results log: `scratch/e1-sub/log.md`.
 
@@ -172,6 +172,31 @@ discharged by `E1Sub.vSurjOfSurjective hS hF hT`.
    file.
 4. An independent read-only model review of the statements is in §6.
 
-## §6. Independent review
+## §6. Independent review (2026-11-12, one read-only model review, no human review)
 
-See the end of this file (added after the review returned).
+Verdict: **minor issues; the statements are sound and not vacuous; the only hypotheses are the
+published leaves** (R16, `FaltingsSemisimple`, `FaltingsTate`, `TateModuleFree`, and
+`PoincareReducibility` in `E1_R16`); no hypothesis is a disguised form of the conclusion. The
+review confirmed:
+- `homVK_surjective` and `vSurjOfSurjective` match `LeafModCurves.VSurjOfSurjective` exactly.
+- The `G_L` action through compatible `σ` is correct and well defined: `σ` is unique because `i` is
+  injective.
+- There is no contragredient issue: `(eigenFun)^∨` with `rhoF` is the covariant `ι`-component
+  (Diamond–Shurman 9.5.4 convention).
+- The docstring claims about reducedness, dominance and flatness are correct.
+
+Findings and how they were handled:
+1. **Interface gap (applied).** `E1_R16` named `A_f, θ` existentially but did not export the
+   dimension, semisimplicity and trace clauses. C9 could therefore not build `eA` by
+   Brauer–Nesbitt for those same `A_f, θ`. Fix: `E1_R16` now exports `finrank = 2`,
+   `IsSemisimpleRepresentation` and the trace clause before the `∀ A' U …` part. Recompiled,
+   VERIFIED.
+2. **Wording (applied).** The `rhoF_subrep_JL` docstring now says that `σ` is unique because `i` is
+   injective.
+3. **Outside this task (not editable here).** The `VSurjOfSurjective` docstring in
+   `ZInQKernel/HDecomp/ModCurves/Glue.lean` still says "by Poincaré reducibility". It is now proved
+   by the Faltings route (§1), so the text should be updated at integration.
+4. **Noted.** C9 will have to transport its `G_ℚ`-action on `V_ℓ(A)` to `A' : AbVar L'` along the
+   same `i`. That is a fair obligation on C9; it is not a gap in E1.
+5. **Noted.** R16's determinant clause is not re-exported. Brauer–Nesbitt in characteristic 0
+   needs only traces.

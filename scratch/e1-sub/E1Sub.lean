@@ -731,8 +731,8 @@ field of characteristic `0` (in the application, the number field `L'` of N5 L86
 such that for every prime `ℓ` and embedding `ι : K_f → ℚ̄_ℓ`, R16's `ρ_{f,ι} = rhoF ℓ A_f θ ι` (on
 a 2-dimensional `ℚ̄_ℓ`-space, with Frobenius traces `ι(a_p(f))` at `p ∤ Nℓ`) is equivariantly
 isomorphic to a subrepresentation `U` of `V_ℓ(J_L) ⊗ ℚ̄_ℓ`, where `τ ∈ G_L` acts on `ρ_{f,ι}`
-through any `σ ∈ G_ℚ` with `i ∘ σ = τ ∘ i` (such `σ` exist: `exists_res`; the action does not
-depend on the choice, since `e` is injective). This is the `U'` that `PkgI3.E1_exists_hom_ne_zero`
+through any `σ ∈ G_ℚ` with `i ∘ σ = τ ∘ i` (such `σ` exists, `exists_res`, and is unique
+because `i` is injective; `rhoFL_subrep_JL` restates this with `res i`). This is the `U'` that `PkgI3.E1_exists_hom_ne_zero`
 consumes on the `J` side (with `K = L'`, `E = ℚ̄_ℓ`). -/
 theorem rhoF_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
     (hF : FaltingsTate) (hT : TateModuleFree) (N : ℕ) (hN : 0 < N)
@@ -814,7 +814,8 @@ theorem rhoFL_subrep_JL (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
 /-- **E1 for R16, assembled (GLUE, proved).** In the situation of `rhoF_subrep_JL`, with `L` a
 number field: for every abelian variety `A'` over `L` (the QM surface of N5) and every nonzero
 subrepresentation `U` of `V_ℓ(A') ⊗ ℚ̄_ℓ` that is `G_L`-equivariantly isomorphic to
-`ρ_{f,ι}|_{G_L}` (the output C9 must supply: `r_ℓ ≅ ρ_{f,ι}` on a constituent of `V_ℓ(A')`), there
+`ρ_{f,ι}|_{G_L}` (the output C9 must supply: `r_ℓ ≅ ρ_{f,ι}` on a constituent of `V_ℓ(A')`; the
+dimension, semisimplicity and trace clauses for these `A_f, θ` are exported for that purpose), there
 is a nonzero homomorphism `A' → J_L` over `L`; if moreover `End⁰(A')` is a division algebra,
 Poincaré reducibility (leaf T8) gives an abelian variety `Z` and `g : Z → J_L` with
 `(φ, g) : A' × Z → J_L` an isogeny (N5 L861-867). -/
@@ -824,7 +825,13 @@ theorem E1_R16 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
     (hJ : IsJ1 N J) (L : Type) [Field L] [NumberField L]
     (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure L) :
     ∃ (A : AbVar ℚ) (π : Hom J A) (θ : coeffField f →+* A.End0), Surjective π.hom.left ∧
-      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ) (A' : AbVar L)
+      ∀ (ℓ : ℕ) [Fact ℓ.Prime] (emb : coeffField f →+* PadicAlgCl ℓ),
+        Module.finrank (PadicAlgCl ℓ) (Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb)) = 2 ∧
+        (rhoF ℓ A θ emb).IsSemisimpleRepresentation ∧
+        (∀ (p : ℕ), p.Prime → ¬ p ∣ N * ℓ → ∀ σ : GQ, IsFrobAt σ p →
+          ∀ a : coeffField f, (a : ℂ) = PkgI4.coeff f p →
+            LinearMap.trace (PadicAlgCl ℓ) _ (rhoF ℓ A θ emb σ) = emb a) ∧
+        ∀ (A' : AbVar L)
         (U : Subrepresentation (GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ))),
         U ≠ ⊥ →
         ∀ eA : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] Module.Dual (PadicAlgCl ℓ) (eigenFun ℓ A θ emb),
@@ -836,8 +843,9 @@ theorem E1_R16 (hR16 : R16_EichlerShimuraJ1') (hS : FaltingsSemisimple)
             (EndDivision A' → ∃ (Z : AbVar L) (g : Hom Z (J.baseChange L)),
               IsIsogenyMor (fst A'.X Z.X ≫ φ.hom * snd A'.X Z.X ≫ g.hom)) := by
   obtain ⟨A, π, θ, hπ, hrest⟩ := rhoF_subrep_JL hR16 hS hF hT N hN χ f hf J hJ L i
-  refine ⟨A, π, θ, hπ, fun ℓ _ emb A' U hU eA heA => ?_⟩
-  obtain ⟨-, -, -, U', eJ, heJ⟩ := hrest ℓ emb
+  refine ⟨A, π, θ, hπ, fun ℓ _ emb => ?_⟩
+  obtain ⟨h2, hss, htr, U', eJ, heJ⟩ := hrest ℓ emb
+  refine ⟨h2, hss, htr, fun A' U hU eA heA => ?_⟩
   let e : U.toSubmodule ≃ₗ[PadicAlgCl ℓ] U'.toSubmodule := eA.trans eJ.symm
   have he : ∀ (τ : Field.absoluteGaloisGroup L) (u : U.toSubmodule),
       (e ⟨GlueI3.repBaseChange (PadicAlgCl ℓ) (A'.galRep ℓ) τ u, U.apply_mem_toSubmodule τ u.2⟩ :
