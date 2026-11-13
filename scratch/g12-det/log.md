@@ -35,3 +35,25 @@ Targets (copied verbatim from scratch/g0-mod-galois): `G12Weight` (part_galois.l
   [propext, Classical.choice, Quot.sound].
 - Note (VERIFIED by reading scratch/weil-pairing): weil-pairing proved only
   `det ρ_ℓ(σ)² = χ^{rank}`; the sign (Pfaffian) is what `Darboux` + `det_eq_one` supply.
+
+## G12Weight — REDUCED (VERIFIED, compiled)
+
+- Files: scratch/g12-det/part_weight.lean; build.sh appends it to g0-split's Split.lean (its
+  `#print` lines dropped) giving Weight.lean (20.2k lines). Prerequisite: `lake build
+  ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (13 s, replay).
+- Copied verbatim: `G0Galois.fact_five`, `G12Weight` (part_galois.lean).
+- Finding (VERIFIED, `g12Weight_concl_iff`, compiled): for `1 ≤ k`, the conclusion
+  `∃ n, {n, n+1−k} = {0,−1}` is equivalent to `k = 2`.
+- New named Props: `IsTwist`, `IsConj` (definitions); GLUE `TwistExists` (σ ↦ ψ(σ)ρ(σ) is a
+  continuous representation), `TwistConj` (r ≅ ψ⊗ρ_g from T18 + T19), `HTConj` (HT weights
+  invariant under conjugation, about `PkgI4.LocalHasHTWeights`); LEAVES `SenTwist` (Sen 1980:
+  both HT of full size ⇒ `S' = S + s`, `s ∈ ℤ`), `FiniteImageHT` (finite image ⇒ HT weights all 0).
+- Finding (argument, SPECULATIVE-standard): `SenTwist` needs `card S = card S' = n`; without
+  full size, `HasHTWeights S` holds for non-HT reps (e.g. nilpotent Sen operator, `S = {0}`) and
+  a non-integral Sen weight of `ψ` gives `S' = ∅ ≠ S + s`.
+- `g12Weight_of : TwistExists → TwistConj → HTConj → SenTwist → FiniteImageHT → G12Weight`.
+  Uses the given leaves R14 (HSyn.EigenformRepExists, converted to PkgI4.GaloisRep by defeq),
+  R13 (PkgI4.EigenformHT) for k ≥ 2, R15 (HSyn.DeligneSerreConseq) for k = 1; T18/T19 enter only
+  through `TwistConj`.
+- run1 (04:32, 2m55s): fact_five missing. run2 (04:45): 0 errors; `g12Weight_concl_iff`,
+  `g12Weight_of` on [propext, Classical.choice, Quot.sound].
