@@ -113,13 +113,13 @@ section DeRham
 
 variable (p : ℕ) [Fact p.Prime]
 
-theorem ddrSpace_eq_Dsp {C : Type*} [Field C] [Algebra ℚ_[p] C] [FiniteDimensional ℚ_[p] C]
+theorem ddrSpace_eq_DspAct {C : Type*} [Field C] [Algebra ℚ_[p] C] [FiniteDimensional ℚ_[p] C]
     {n : ℕ} (r : GQp p →* GL (Fin n) C) :
     ddrSpace p r = Dsp (bdrActHom p) (rRep p r) Set.univ := by
   ext φ
   exact ⟨fun h g _ v => h g v, fun h g v => h g trivial v⟩
 
-theorem ddrSpaceOver_eq_Dsp (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+theorem ddrSpaceOver_eq_DspAct (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
     {V : Type*} [AddCommGroup V] [Module ℚ_[p] V]
     (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) :
     ddrSpaceOver p ρ = Dsp ((bdrActHom p).comp (gfToGqp p F)) ρ Set.univ := by
@@ -147,14 +147,14 @@ theorem isDeRham_of_R10 (hR10 : DeRhamComparison) (F : Type) [Field F] [Algebra 
   set act := bdrActHom p
   have hnV : finrank ℚ_[p] (Dsp (act.comp (gfToGqp p F)) (A.galRep p) Set.univ) =
       finrank ℚ_[p] F * 4 := by
-    rw [← ddrSpaceOver_eq_Dsp, ← hV]
+    rw [← ddrSpaceOver_eq_DspAct, ← hV]
     exact hdr
   have hpos : 0 < finrank ℚ_[p] (Dsp (act.comp (gfToGqp p F)) (A.galRep p) Set.univ) := by
     rw [hnV]; positivity
   have hd := descended_finrank p F (A.galRep p) C r e he act (iotaDR p F)
     (bdrActHom_semi p F) hpos
   rw [hnV] at hd
-  rw [IsDeRham, ddrSpace_eq_Dsp]
+  rw [IsDeRham, ddrSpace_eq_DspAct]
   have : finrank ℚ_[p] F * 2 * (2 * finrank ℚ_[p] C) =
       finrank ℚ_[p] F * 2 * finrank ℚ_[p] (Dsp act (rRep p r) Set.univ) := by
     linarith [hd]

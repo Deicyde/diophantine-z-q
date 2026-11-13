@@ -51,9 +51,9 @@ theorem htMult_eq_zero_of_R10w (hR10w : DeRhamComparisonWeights) (F : Type) [Fie
   set act := cpActHom p i
   set nV := finrank ℚ_[p] (Dsp (act.comp (gfToGqp p F)) (A.galRep p) Set.univ)
   have hnV : finrank ℚ_[p] (htSpaceOver p (A.galRep p) i) = nV := by
-    rw [htSpaceOver_eq_Dsp]
+    rw [htSpaceOver_eq_DspAct]
   have hdvd : finrank ℚ_[p] F ∣ nV := by
-    have := finrank_dvd_Dsp (act.comp (gfToGqp p F)) (fun σ => A.galRep p σ) Set.univ
+    have := finrank_dvd_Dsp_of_emb (act.comp (gfToGqp p F)) (fun σ => A.galRep p σ) Set.univ
       (iotaCp p F) (fun σ _ x b => by
         have hk : gfToGqp p F σ ∈ (gammaF p F).ker := by
           rw [← range_gfToGqp]; exact ⟨σ, rfl⟩
@@ -70,7 +70,7 @@ theorem htMult_eq_zero_of_R10w (hR10w : DeRhamComparisonWeights) (F : Type) [Fie
     rw [hk, ← this, mul_zero]
   by_contra hne
   have hG : 0 < finrank ℚ_[p] (Dsp act (rRep p r) Set.univ) := by
-    rw [htMult, htSpace_eq_Dsp] at hne
+    rw [htMult, htSpace_eq_DspAct] at hne
     exact Nat.pos_of_ne_zero fun h0 => hne (by rw [h0, Nat.zero_div])
   have hdes := descent_finrank act (rRep p r) (iotaCp p F) (gammaF p F) (gammaF_surjective p F)
     (cpActHom_semi p F i)

@@ -36,7 +36,7 @@ verbatim restatement of that section. -/
 
 /-- If `ι : L → B` commutes with the action of `S`, then `Dsp act ρ S` is an `L`-space, so its
 `K`-dimension is divisible by `[L:K]`. -/
-theorem finrank_dvd_Dsp {K G B V L : Type*} [Field K] [Group G] [CommRing B] [Algebra K B]
+theorem finrank_dvd_Dsp_of_emb {K G B V L : Type*} [Field K] [Group G] [CommRing B] [Algebra K B]
     [AddCommGroup V] [Module K V] [Field L] [Algebra K L]
     (act : G → B →ₗ[K] B) (ρ : G → V →ₗ[K] V) (S : Set G) (ι : L →ₐ[K] B)
     (hlin : ∀ g ∈ S, ∀ x b, act g (ι x * b) = ι x * act g b) :
@@ -135,12 +135,12 @@ theorem rRep_apply (r : GQp p →* GL (Fin n) C) (σ : GQp p) (v : Fin n → C) 
 
 variable [FiniteDimensional ℚ_[p] C]
 
-theorem htSpace_eq_Dsp (r : GQp p →* GL (Fin n) C) (i : ℤ) :
+theorem htSpace_eq_DspAct (r : GQp p →* GL (Fin n) C) (i : ℤ) :
     htSpace p r i = Dsp (cpActHom p i) (rRep p r) Set.univ := by
   ext φ
   exact ⟨fun h g _ v => h g v, fun h g v => h g trivial v⟩
 
-theorem htSpaceOver_eq_Dsp (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
+theorem htSpaceOver_eq_DspAct (F : Type*) [Field F] [Algebra ℚ_[p] F] [FiniteDimensional ℚ_[p] F]
     {V : Type*} [AddCommGroup V] [Module ℚ_[p] V]
     (ρ : Representation ℚ_[p] (Field.absoluteGaloisGroup F) V) (i : ℤ) :
     htSpaceOver p ρ i = Dsp ((cpActHom p i).comp (gfToGqp p F)) ρ Set.univ := by
@@ -236,9 +236,9 @@ theorem htMult_eq_one_of_R10 (hR10 : DeRhamComparison) (F : Type) [Field F] [Alg
     set act := cpActHom p i
     set nV := finrank ℚ_[p] (Dsp (act.comp (gfToGqp p F)) (A.galRep p) Set.univ)
     have hnV : finrank ℚ_[p] (htSpaceOver p (A.galRep p) i) = nV := by
-      rw [htSpaceOver_eq_Dsp]
+      rw [htSpaceOver_eq_DspAct]
     have hdvd : finrank ℚ_[p] F ∣ nV := by
-      have := finrank_dvd_Dsp (act.comp (gfToGqp p F)) (fun σ => A.galRep p σ) Set.univ
+      have := finrank_dvd_Dsp_of_emb (act.comp (gfToGqp p F)) (fun σ => A.galRep p σ) Set.univ
         (iotaCp p F) (fun σ _ x b => by
           have hk : gfToGqp p F σ ∈ (gammaF p F).ker := by
             rw [← range_gfToGqp]; exact ⟨σ, rfl⟩
@@ -262,7 +262,7 @@ theorem htMult_eq_one_of_R10 (hR10 : DeRhamComparison) (F : Type) [Field F] [Alg
           finrank ℚ_[p] F * 2 * finrank ℚ_[p] (Dsp act (rRep p r) Set.univ) := by
         linarith [hd]
       exact (Nat.eq_of_mul_eq_mul_left (by positivity) this).symm
-    rw [htMult, htSpace_eq_Dsp, hG, Nat.div_self hC]
+    rw [htMult, htSpace_eq_DspAct, hG, Nat.div_self hC]
   exact ⟨key 0 h0, key (-1) h1⟩
 
 end HT
