@@ -81,8 +81,8 @@ theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwi
   intro Q Q' τ τ' ⟨Φ, hU, hc⟩ ⟨Φ', hU', hc'⟩
   set Λ := BPAnalytic.QM.qmLattice τ.im_pos.ne' with hΛ
   set Λ' := BPAnalytic.QM.qmLattice τ'.im_pos.ne' with hΛ'
-  haveI : DiscreteTopology Λ := by rw [hΛ]; unfold BPAnalytic.QM.qmLattice; infer_instance
-  haveI : DiscreteTopology Λ' := by rw [hΛ']; unfold BPAnalytic.QM.qmLattice; infer_instance
+  have : DiscreteTopology Λ := by rw [hΛ]; unfold BPAnalytic.QM.qmLattice; infer_instance
+  have : DiscreteTopology Λ' := by rw [hΛ']; unfold BPAnalytic.QM.qmLattice; infer_instance
   have H := hH Q.A Q'.A 2 Λ Λ' Φ Φ' Q.surface Q'.surface hU hU'
   have H' := hH Q'.A Q.A 2 Λ' Λ Φ' Φ Q'.surface Q.surface hU' hU
   have HQ := hH Q.A Q.A 2 Λ Λ Φ Φ Q.surface Q.surface hU hU
@@ -98,11 +98,11 @@ theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwi
     have hMN : M ∘ₗ N = LinearMap.id := lift_unique hU' fun z => by
       rw [LinearMap.comp_apply, hM, hN, Category.assoc, e.right, Category.comp_id,
         LinearMap.id_apply]
-    refine ⟨α, LinearEquiv.ofLinear M N hMN hNM, fun z => ⟨fun hz => ?_, fun hz => ?_⟩,
+    refine ⟨α, LinearEquiv.ofLinearMap M N hMN hNM, fun z => ⟨fun hz => ?_, fun hz => ?_⟩,
       fun a z => ?_⟩
     · exact lift_maps_lattice hU hU' hM z hz
     · have := lift_maps_lattice hU' hU hN _ hz
-      simpa [LinearEquiv.ofLinear_apply, ← LinearMap.comp_apply, hNM] using this
+      simpa [LinearEquiv.coe_ofLinearMap, ← LinearMap.comp_apply, hNM] using this
     · show M ((qmMat (α a)).mulVec z) = (qmMat a).mulVec (M z)
       have key : M ∘ₗ Matrix.toLin' (qmMat (α a)) = Matrix.toLin' (qmMat a) ∘ₗ M :=
         lift_unique hU' fun w => by
@@ -119,6 +119,7 @@ theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwi
       rw [hML]; simpa using hz
     obtain ⟨φ, hφ, -⟩ := H.1 M hMΛ
     obtain ⟨ψ, hψ, -⟩ := H'.1 M.symm hNΛ
+    have hφ' : ∀ z, Φ' (M z) = Φ z ≫ φ.hom := hφ
     -- uniqueness of the endomorphism lifting `id`
     obtain ⟨one, -, hone⟩ := HQ.1 LinearMap.id (fun z hz => hz)
     obtain ⟨one', -, hone'⟩ := HQ'.1 LinearMap.id (fun z hz => hz)
@@ -154,7 +155,7 @@ theorem qmTwistLattice_of (hH : T11aRiemannHom) (hA : QMLatticeTwistAlg) : QMTwi
     have e2 := hf (PkgI3.AbVar.Hom.mk' (φ.hom ≫ (Q'.q.iota a).hom)) fun z => by
       rw [PkgI3.AbVar.Hom.hom_mk', LinearMap.comp_apply, Matrix.toLin'_apply]
       change Φ' (M ((qmMat (α a)).mulVec z)) = _
-      rw [hMeq, hc', hφ, Category.assoc]
+      rw [hMeq, hc', hφ', Category.assoc]
     exact congrArg PkgI3.AbVar.Hom.hom (e1.trans e2.symm)
 
 end HSyn.G0Split.FibreQM.PeriodGlue
