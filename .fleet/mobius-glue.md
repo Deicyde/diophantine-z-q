@@ -22,6 +22,7 @@ in Lean from two named curve facts and the existing textbook leaf T5:
   - **N(𝒪)/ℚ^×𝒪^× = {1, i, j, ij}**, by descent on the reduced norm. The integer identity
     6x_l² = Σλ·coord(u e_k ū) comes from PARI; the checks mod 2 and mod 3 are done by `decide`.
 
-**Remains.** The two curve facts. They are true (argued in docs/research/mobius-glue.md §3) and need
+**Remains.** The two curve facts. They are true: argued in docs/research/mobius-glue.md §3, and an
+independent model review found no counterexample and showed that properness is necessary. They need
 curve theory Mathlib lacks: degree of finite morphisms, P¹ points, image curves.
 Report: docs/research/mobius-glue.md. Log: scratch/mobius-glue/log.md.
