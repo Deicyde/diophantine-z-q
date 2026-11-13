@@ -35,6 +35,6 @@
   sign-change involutions: X->-X: [0:±√-3:1] (j=-16/27); Y->-Y: [±i:0:1] (j=0);
   (X,Y)->(-X,-Y): [1:±√-3:0] (j=∞). Hilbert symbols of (-3,-3) and (-1,-3): -1 at 3 and ∞ only
   (2,5,7: +1). t(0)=1, t(-16/27)=0. Five sample rational j0: four distinct points on C, π=j0.
-- 07:10 docs/research/x6-kummer.md written. N1b verdict: true; consequence of CMOptimalEmbedding
+- 07:01 docs/research/x6-kummer.md written. N1b verdict: true; consequence of CMOptimalEmbedding
   (Shimura's description, published) + compiled Eichler half; not provable from Eichler's local
   theory alone (STANDARD argument in report §4).
