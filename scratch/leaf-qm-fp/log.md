@@ -35,7 +35,7 @@ Compile command: `lake env lean scratch/leaf-qm-fp/QMLeaves.lean` (one Lean proc
 - 16:55 proved `conj_iso_of_rational` (A7 in the manuscript's form: for a K-point with rational
   π-value and embeddings e₁ e₂ : K → ℚ̄, the base changes exist and their QM pairs are twists, so
   the abelian surfaces are isomorphic over ℚ̄), from R1fpProps + R2fpProps only. COMPILES.
-- 17:05 proved `conjHom` (ring hom End A → End A' from a QM-pair iso), `conjHom_iota`,
+- 16:56 proved `conjHom` (ring hom End A → End A' from a QM-pair iso), `conjHom_iota`,
   `conjHom_mem_com`, `HasCM4/3/24.of_iso`, `hasCM4/3/24_twist`, and `cm_of_val` (h-b1 M9 on X₆:
   points over 0, ∞, −16/27 are CM by ℤ[i], ℤ[ζ₃], ℤ[√−6], from R2X6Props + CMExists).
   COMPILES, 19 s, standard axioms.
