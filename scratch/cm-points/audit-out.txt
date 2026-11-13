@@ -1,0 +1,68 @@
+'ZInQ.Contrib.TYZGenus.CM.mem_ptsOver_iff' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.galPt_iPt' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.ιC_iQ' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.heegnerPt_eq' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.genusSum_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tauG_eq_zero' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.galPt_tauG' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.fixes_i_of_isBetaOneLift' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusData_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusPackage_of_genusPointLeaf' depends on axioms: [propext,
+ Classical.choice,
+ Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusPackage_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzThm35ReadingA_of_split' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.iContained_HHprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.normal_Lni' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.normalFields_HHprime' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusPackage_of_ringClass' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzThm35ReadingA_of_ringClass' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.cmFieldTYZ_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzGenusSum_mem' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusPtsDefined_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.genusPackage_of_cm' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzThm35ReadingA_of_cm' depends on axioms: [propext, Classical.choice, Quot.sound]
+@Package.genusData_of : ∀ {ℓ : ℕ → ℤ} {n : ℕ},
+  n % 8 = 5 →
+    ∀ (K : IntermediateField ℚ ZInQ.Contrib.TYZDecomp.CurveA.Qbar),
+      ZInQ.Contrib.TYZDecomp.CurveA.iQ ∈ K →
+        Normal ℚ ↥K →
+          (∀ P ∈ CM.ptsOver K, IsOfFinAddOrder P → ∃ y, Package.tauG y = P) →
+            ∀ (Z : ℕ → ZInQ.Contrib.TYZDecomp.CurveA.PtA),
+              (∀ e ∈ n.divisors, e % 8 = 5 ∨ e % 8 = 7 → Z e ∈ CM.ptsOver K) →
+                ∀ (ε : ℕ → ℕ → GaussianInt),
+                  Package.EpsClasses n ε →
+                    (ℓ n = 0 → IsOfFinAddOrder (Package.Pseq ℓ ε Z n)) →
+                      ∀ (σ : CM.GalQ),
+                        Package.IsBetaOneLift σ →
+                          (∀ e ∈ n.divisors,
+                              e % 8 = 5 →
+                                ∃ k,
+                                  (CM.galPt σ) (Z e) + Z e =
+                                    ↑(ZInQ.PropN.gNat e) • Package.tauG { re := 1, im := -1 } + k • Package.tauG 2) →
+                            (∀ e ∈ n.divisors,
+                                e % 8 = 7 → (CM.galPt σ) (Z e) + Z e = ↑(ZInQ.PropN.gNat e) • Package.tauG 1) →
+                              Nonempty (ZInQ.PropN.GenusData ℓ n)
+Package.genusPackage_of_cm : Package.TYZZnOverHprime →
+  Package.HprimeNormal →
+    Package.Lemma318 RingClass.HHprime →
+      (∀ (ℓ : ℕ → ℤ), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → Package.GenusPointLeafCM ℓ) →
+        ZInQ.Contrib.TYZDecomp.TYZGenusPackage
+Package.tyzThm35ReadingA_of_cm : ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+  ZInQ.Contrib.TYZDecomp.TYZLcalOne →
+    ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2 →
+      Package.TYZZnOverHprime →
+        Package.HprimeNormal →
+          Package.Lemma318 RingClass.HHprime →
+            (∀ (ℓ : ℕ → ℤ), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → Package.GenusPointLeafCM ℓ) →
+              ZInQ.Literature.TYZThm35ReadingA
+Package.tyzThm35ReadingA_of_ringClass : ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+  ZInQ.Contrib.TYZDecomp.TYZLcalOne →
+    ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2 →
+      ∀ (Z : ℕ → ZInQ.Contrib.TYZDecomp.CurveA.PtA),
+        Package.HprimeNormal →
+          Package.Lemma318 RingClass.HHprime →
+            Package.GenusPtsDefined RingClass.HHprime Z →
+              (∀ (ℓ : ℕ → ℤ), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → Package.Thm35First ℓ Z) →
+                Package.Lemma321 Z → ZInQ.Literature.TYZThm35ReadingA
+Package.tauG_eq_zero : ∀ (y : GaussianInt), Package.tauG y = 0 ↔ ZInQ.PropN.twoTwoI ∣ y
