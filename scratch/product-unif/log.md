@@ -65,3 +65,11 @@
   Metrization.ProductLocalStructure → Metrization.ProductHodgeLattice → S-alg`. First compile:
   0 errors, 10/10 `#print axioms` standard (VERIFIED). `WithProductHeight.lean` regenerated with
   `productModelHeight_of_local` (P2 from the same four Props): 0 errors, standard (VERIFIED).
+- Independent read-only model review (general-purpose agent) of `ProductUnifDims`,
+  `ProductHodgeAdd`, `ProductHodgeSections` as formalized: all TRUE for every instance (incl.
+  `g = 0`, `e` incompatible with generic fibres), not vacuous, not disguised S-alg. Noted the
+  analytic clauses of `prodUnif ∘ cast` are a real (true) ingredient absent from the hypotheses.
+  Docstring fixes applied: wedges span `hodgeSpace`; `nᵢ = dim A` (base-change invariance of
+  dimension); `gᵢ = dim` first; "any nonzero `sᵢ`" (⋀ω need not be free).
+- `lake build ZInQKernel.Hypotheses.JHeight ZInQKernel.Compiler.Precision.HeightConstant` (needed
+  by Leaves.lean): success (VERIFIED). First Leaves integration attempt failed only for this reason.

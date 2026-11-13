@@ -2219,15 +2219,23 @@ form: period lattice `Λ₁ × Λ₂` and coefficient map computed by `Φ₁ × 
 analytic uniformizations `Φᵢ : ℂ^{gᵢ} → 𝒢ᵢ(ℂ)_τ`, `g₁ + g₂ = g`. Then `g₁ = dim A`, `g₂ = dim B`,
 and both factor Jacobians are nonsingular on some `gᵢ`-tuple of germs.
 
-Why true (STANDARD; algebra and calculus, no AN3). Write `nᵢ` for the dimension of the cotangent
-space `𝔪/𝔪²` of `𝒢ᵢ` at the generic unit (`= dim` of the factor, a regular local ring of the
-smooth generic fibre). Via `e`, `𝔪_P/𝔪_P² = 𝔪₁/𝔪₁² ⊕ 𝔪₂/𝔪₂²` (the unit of a product), so
-`hodgeSpace_P g = L ⊗ ⋀^g(cot₁ ⊕ cot₂)` and `MP.hodge.finrank_eq_one` gives `g ∈ {0, n₁ + n₂}`.
-If `g = 0`, the `Φᵢ : ℂ⁰ → 𝒢ᵢ(ℂ)_τ` are onto, so `A_τ(ℂ)`, `B_τ(ℂ)` are trivial and `dim A = dim B
-= 0`. Otherwise `MP.hodge.coeff_ne_zero` and the coefficient formula give `f` with
-`jacDet (Φ₁ × Φ₂) f ≠ 0`; the derivative at `0` of a germ along `Φ₁ × Φ₂` depends only on its
-class in `cot₁ ⊕ cot₂` and is block-shaped, so the nonsingular `g × g` Jacobian forces `g₁ ≤ n₁`,
-`g₂ ≤ n₂`, hence equality, and nonsingular diagonal blocks. Unproved. -/
+Why true (STANDARD; algebra and calculus, no AN3). Write `nᵢ` for the `L`-dimension of the
+cotangent space `𝔪/𝔪²` of `𝒢ᵢ` at the generic unit. `genStalk` is the local ring of `A_L` at its
+origin (regular, smooth generic fibre), so `n₁ = dim A_L = dim A` (dimension of a finite-type
+scheme over a field is invariant under field extension; EGA IV 4.1.4, UNVERIFIED locator); `dim A`
+is finite since `A.X.left` is nonempty. Since `cot` is an `L`-space and `L` a localization of
+`𝓞_L`, `finrank_L (hodgeSpace g) = C(n, g)`. Via `e` (whose components preserve units),
+`𝔪_P/𝔪_P² = 𝔪₁/𝔪₁² ⊕ 𝔪₂/𝔪₂²`, so `MP.hodge.finrank_eq_one` gives `g ∈ {0, n₁ + n₂}`.
+If `g = 0`, then `g₁ = g₂ = 0`, the `Φᵢ : ℂ⁰ → 𝒢ᵢ(ℂ)_τ` are onto, so `A_τ(ℂ)`, `B_τ(ℂ)` are single
+points and `dim A = dim B = 0` (a positive-dimensional variety over `ℂ` has infinitely many
+points); `Fin 0` Jacobians are `1`. Otherwise: the wedges `wedge f` span `hodgeSpace` over `L`, so
+`MP.hodge.coeff_ne_zero` and the coefficient formula give `f` with `jacDet (Φ₁ × Φ₂) f ≠ 0`. The map
+`prodUnif ∘ cast` satisfies the analytic clauses (product-height's `ProductUnifAnalytic`,
+metrization's `ProductUniformizationAnalytic`: true, from basic opens `D(h)` of affine products),
+so the derivative at `0` of a germ along it depends only on its class in `cot₁ ⊕ cot₂` and the
+Jacobian rows are `(D₁x, 0)`, `(0, D₂y)`; nonsingularity forces `g₁ ≤ n₁`, `g₂ ≤ n₂`, hence
+equality, and nonsingular diagonal blocks. Unproved. (Reviewed: true for all instances, including
+`g = 0` and an `e` incompatible with any generic-fibre product structure.) -/
 def ProductUnifDims : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
@@ -2267,9 +2275,11 @@ analytic uniformizations `Φᵢ` of the factors with kernels the periods of `D�
 coefficients of `Dᵢ`, while `MP` has periods `D₁.periods × D₂.periods` and coefficients computed
 by `Φ₁ × Φ₂`. Then `h(D₁) + h(D₂) ≤ h(MP)`.
 
-Why true (STANDARD; equality holds). `ω_{MP} = ω₁ ⊕ ω₂` (unit of a product; this is a statement
+Why true (STANDARD; equality holds). First `gᵢ = dim`, as in `ProductUnifDims` (otherwise the
+decomposition of `⋀^g` below fails). `ω_{MP} = ω₁ ⊕ ω₂` (unit of a product; this is a statement
 about the conormal lattices `omega`, not only the generic cotangent spaces), so
-`s = p₁*s₁ ∧ p₂*s₂ ∈ ⋀^g ω_{MP}` for bases `sᵢ` of `⋀^{gᵢ} ω_{𝒢ᵢ}` and
+`s = p₁*s₁ ∧ p₂*s₂ ∈ ⋀^g ω_{MP}` for any nonzero `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` (an invertible
+`𝓞_L`-module, not necessarily free) and
 `secIndex s = secIndex s₁ · secIndex s₂`; the Jacobian of `Φ₁ × Φ₂` on `p₁*f ∧ p₂*h` is block
 diagonal, so the coefficients multiply; `covol(Λ₁ × Λ₂) = covol Λ₁ · covol Λ₂`
 (`prodLattice_facts` of product-height, proved, plus a coordinate permutation `Fin.cast`); then
@@ -2367,12 +2377,17 @@ theorem productMetrizationOfProductUnif_of (hH : HodgeLatticeTheorem) (hD : Prod
 `ProductHodgeAdd`, there are nonzero `s ∈ ⋀^g ω_{MP}`, `sᵢ ∈ ⋀^{gᵢ} ω_{𝒢ᵢ}` whose lattice indices
 and coefficients multiply.
 
-Why true (STANDARD). `ω_{MP} = ω₁ ⊕ ω₂` (pull back along the projections, restrict along the unit
-sections of the other factor), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂`
-locally where the `sᵢ` do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂`
-in a tensor product of invertible modules is multiplicative). For coefficients: write `s₁`, `s₂`
-as `𝓞_L`-combinations of wedges; on `p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block
-diagonal, so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Unproved. -/
+Why true (STANDARD). First `gᵢ = nᵢ = dim` (as in `ProductUnifDims`). `ω_{MP} = ω₁ ⊕ ω₂` (pull
+back along the projections, restrict along the unit sections of the other factor; `e` preserves
+units), so `s = p₁*s₁ ∧ p₂*s₂` generates `⋀^g ω_{MP} = ⋀^{g₁}ω₁ ⊗ ⋀^{g₂}ω₂` locally where the `sᵢ`
+do, and `secIndex s = secIndex s₁ · secIndex s₂` (the index of `𝓞_L s₁ ⊗ 𝓞_L s₂` in a tensor
+product of invertible modules is multiplicative: norms of fractional ideals). For coefficients:
+both sides are `τ`-semilinear in `s₁`, `s₂`, so it suffices to take pure wedges; on
+`p₁*f ∧ p₂*h` the Jacobian of `Φ₁ × Φ₂` at `0` is block diagonal (this uses the analytic clauses of
+`prodUnif ∘ cast`, which hold although the hypotheses do not state them: product-height's
+`ProductUnifAnalytic`), so `coeff_P(s) = coeff₁(s₁) · coeff₂(s₂)`. Reduced below
+(`productHodgeSections_of`) to metrization's `ProductUniformizationAnalytic` and
+`ProductHodgeLattice`. (Reviewed: true.) -/
 def ProductHodgeSections : Prop :=
   ∀ (K : Type) [Field K] (A B C : AbVar K) (L : Type) [Field L] [NumberField L] [Algebra K L]
     (𝒢₁ : GroupModel A L) (𝒢₂ : GroupModel B L) (g : ℕ) (MP : MetrizedModel C L g)
