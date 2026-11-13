@@ -1,0 +1,89 @@
+scratch/period-map/DevTheta.lean:134:41: warning: `if_pos` has been deprecated: Use `ite_eq_left` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵p̵o̵s̵i̲t̲e̲_̲e̲q̲_̲l̲e̲f̲t̲
+scratch/period-map/DevTheta.lean:136:15: warning: `if_neg` has been deprecated: Use `ite_eq_right` instead
+Hint: Replace the deprecated name:
+  i̵f̵_̵n̵e̵g̵i̲t̲e̲_̲e̲q̲_̲r̲i̲g̲h̲t̲
+scratch/period-map/DevTheta.lean:191:77: warning: this tactic is never executed
+scratch/period-map/DevTheta.lean:197:53: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevTheta.lean:201:62: warning: Used `tac1 <;> tac2` where `(tac1; tac2)` would suffice
+scratch/period-map/DevTheta.lean:208:42: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Fin.sum_univ_two]
+scratch/period-map/DevTheta.lean:208:60: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.iota, PkgI1.Mi, PkgI1.Mj, Matrix.mul_apply]
+'HSyn.G0Split.FibreQM.PeriodMap.isHolP1At_of_hauptFn' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm4_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm24_exists' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.hauptmodulUnique_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.iota_mul' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.gammaStar_inv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.cm3_of_equiv' depends on axioms: [propext, Classical.choice, Quot.sound]
+'HSyn.G0Split.FibreQM.PeriodMap.qmDenZeroCM3_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+scratch/period-map/DevTheta.lean:549:4: warning: This simp argument is unused:
+  Matrix.mul_apply
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Fin.sum_univ_two]
+scratch/period-map/DevTheta.lean:549:22: warning: This simp argument is unused:
+  Fin.sum_univ_two
+Hint: Omit it from the simp argument list.
+  [apply] simp [PkgI1.F0mat, PkgI1.Pinv, latVec_apply, PkgI1.iota, PkgI1.Mi, PkgI1.Mj, PkgI1.oBasis, Matrix.mul_apply]
+scratch/period-map/DevTheta.lean:578:68: warning: this tactic is never executed
+scratch/period-map/DevTheta.lean:636:4: error: Type mismatch: After simplification, term
+  this
+ has type
+  Summable fun n => Real.exp (-(Real.pi * (c * ↑n ^ 2 - 2 * (c / 2) * |↑n|)))
+but is expected to have type
+  Summable (gb c)
+scratch/period-map/DevTheta.lean:649:2: error: linarith failed to find a contradiction
+c : ℝ
+hc : 0 < c
+m : PkgI1.Char2
+n : Fin 2 → ℤ
+τ : ℂ
+hq : ∀ (w : Fin 2 → ℝ), c * (w 0 ^ 2 + w 1 ^ 2) ≤ qf τ w
+h : c * (wv m n 0 ^ 2 + wv m n 1 ^ 2) ≤ qf τ (wv m n)
+h0 : ↑(n 0) ^ 2 - |↑(n 0)| ≤ wv m n 0 ^ 2
+h1 : ↑(n 1) ^ 2 - |↑(n 1)| ≤ wv m n 1 ^ 2
+hp : 0 < Real.pi
+a✝ :
+  -Real.pi * (c * ↑(n 0) ^ 2 - 2 * (c / 2) * |↑(n 0)|) + -Real.pi * (c * ↑(n 1) ^ 2 - 2 * (c / 2) * |↑(n 1)|) <
+    -Real.pi * qf τ (wv m n)
+⊢ False
+failed
+scratch/period-map/DevTheta.lean:675:6: error: linarith failed to find a contradiction
+hS : OmegaSiegel
+τ₀ : ℂ
+hτ₀ : τ₀ ∈ U
+m : PkgI1.Char2
+hτ₀' : 0 < τ₀.im
+hsym : (PkgI1.Omega τ₀)ᵀ = PkgI1.Omega τ₀
+hpd : ((PkgI1.Omega τ₀).map im).PosDef
+p : ℂ → ℝ := fun τ => (PkgI1.Omega τ 0 0).im
+hp : p = fun τ => (PkgI1.Omega τ 0 0).im
+q : ℂ → ℝ := fun τ => ((PkgI1.Omega τ 0 1).im + (PkgI1.Omega τ 1 0).im) / 2
+hq : q = fun τ => ((PkgI1.Omega τ 0 1).im + (PkgI1.Omega τ 1 0).im) / 2
+r : ℂ → ℝ := fun τ => (PkgI1.Omega τ 1 1).im
+hr : r = fun τ => (PkgI1.Omega τ 1 1).im
+hcont : ∀ (i j : Fin 2), ContinuousAt (fun τ => (PkgI1.Omega τ i j).im) τ₀
+hp0 : 0 < p τ₀
+hr0 : 0 < r τ₀
+hsym01 : PkgI1.Omega τ₀ 1 0 = PkgI1.Omega τ₀ 0 1
+this : 0 < (PkgI1.Omega τ₀ 0 0).im * (PkgI1.Omega τ₀ 1 1).im - (PkgI1.Omega τ₀ 0 1).im * (PkgI1.Omega τ₀ 1 0).im
+a✝ :
+  (PkgI1.Omega τ₀ 0 0).im * (PkgI1.Omega τ₀ 1 1).im - (((PkgI1.Omega τ₀ 0 1).im + (PkgI1.Omega τ₀ 0 1).im) / 2) ^ 2 ≤ 0
+⊢ False
+failed
+scratch/period-map/DevTheta.lean:684:13: error(lean.invalidField): Invalid field notation: Field projection operates on types of the form `C ...` where C is a constant. The expression
+  IsOpen.mem_nhds isOpen_U hτ₀
+has type `(𝓝 τ₀).1 U` which does not have the necessary form.
+scratch/period-map/DevTheta.lean:685:6: error: No goals to be solved
+scratch/period-map/DevTheta.lean:706:6: error: `simp` made no progress
+'HSyn.G0Split.FibreQM.PeriodMap.thetaOmegaAnalytic_of' depends on axioms: [propext,
+ sorryAx,
+ Classical.choice,
+ Quot.sound]
