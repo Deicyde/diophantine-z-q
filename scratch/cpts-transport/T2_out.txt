@@ -1,1 +1,0 @@
-'HSyn.G0Split.FibreQM.PeriodMapH.baseChangeClassUnique_proof' depends on axioms: [propext, Classical.choice, Quot.sound]

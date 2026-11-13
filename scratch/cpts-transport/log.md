@@ -38,4 +38,4 @@ Setup: g0-assemble3's compiled olean chain (LPrefix..TailF, worktree g0-assemble
 - `HSyn.gluePieces4_of_gluePieces5 (gp : GluePieces5) : GluePieces4`;
   `HSyn.sixContactMin_of_leaves5 (r : ResearchLeaves4) (t : TextbookLeaves) (gp : GluePieces5) : ZInQ.SixContactMin`;
   `HSyn.G0Split.FibreQM.PeriodMapH.fibreQMPeriod_periodMap'` (= `fibreQMPeriod_periodMap` without `hBC`, `hCP`).
-- Output `Bundle5_out.txt`: exit 0, 0 errors, no sorry, 14 s; all 31 `#print axioms` lines standard.
+- Output `Bundle5_out.txt`: exit 0, 0 errors, no sorry, 14 s; all 30 `#print axioms` lines standard.
