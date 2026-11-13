@@ -88,3 +88,8 @@ SPECULATIVE / UNVERIFIED (theorem numbers from memory).
 - Suggestion taken up: CMComplexConj is provable (η(−z̄) = conj η(z)).
 - Reviewer notes GenusPointLeafCM/Lemma321 depend on the [i]-sign in tyzZn (tyz-t1 numerics only);
   TYZZnOverHprime does not (A(K)-membership is invariant under the sign).
+
+## 09:30 CMComplexConj proved (CM.lean builds)
+- `eta_conj : η(−z̄) = conj η(z)` (via `Function.LeftInverse.map_tprod` with conj), `etaD_conj`,
+  `xC_conj`, `yC_conj`, `phiC_conj`, `toC_galPt`, `conjPt_conjPt`, `tau_conj`, and
+  `cmComplexConj : CMComplexConj` — axioms: standard three (VERIFIED). CM-4 leaves the leaf list.
