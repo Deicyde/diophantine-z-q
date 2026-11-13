@@ -48,3 +48,21 @@ eq_pm_E0_of_principal). New:
   automorphism alpha of O, alpha(mu) = mu*v with v in O, nrd v = 1, dag v = v. (The type-mu
   polarization of (A, iota o alpha) is lambda o iota(+-v): the twist is a functor automorphism of
   the PEL problem of type mu, in families.)
+
+## Step 3. Findings (report docs/research/rv-qm-polar.md)
+
+- Verdict: PREMISE HOLDS WITH CONDITIONS. Lemma P: for FIXED mu in O, mu^2 = -6, an abelian
+  surface (A, iota) in char 0 has exactly one principal polarization of type mu (Rosati restricts
+  to b -> mu^-1 bbar mu on iota(O)); also at CM points. Without the type: one per c in O,
+  c^2 = -6, up to sign (infinitely many; type_eq_mu_mul, two_principal_types). Conditions:
+  C1 type fixed, C2 char 0, C3 O maximal, C4 isomorphisms automatic, twists via twist_type.
+- Leaves (R1fpProps, X6Props, R1heckeProps, R2X6Props/R2fpProps, CMExists, X6Surj, R1recProps,
+  R1rec, R5ptProps, R5fp, R5fpCount): each lambda-free form is a consequence of the published
+  type-mu PEL statement + Lemma P. No Lean statement corrected; docstring repairs listed (§4).
+- Glue: A4, A7 (unpolarized, compiled), NV step 2, h-b1 M9 use no lambda: unaffected. Polarized
+  A7 (N5 L532) follows from W_0 = W for D = 6 (dag_conj_chi2/3/mu). rv-jac-ext N1 gets lambda over
+  K from Lemma P (descent).
+- Published locators (UNVERIFIED): Buzzard 1997 p. 592 (cited by N5 v14 for the uniqueness);
+  Rotger Crelle 561 (2003) §§3-4; Rotger Trans. AMS 356 (2004) §§2-4; Boutot-Carayol III.
+- SPECULATIVE: pi_0(A) = 1 for D = 6 when End(A) = O (evidence: 12 small solutions all
+  O^*-conjugate to +-mu).
