@@ -966,6 +966,125 @@ theorem jacDet_bcPts (he : IsMonBC 𝒢 𝒢' e) (σ : L →+* ℂ) (τ' : L' �
 
 end Construction
 
+/-! ### Half of BC-lat: `ψ(⋀^g ω_𝒢) ⊆ ⋀^g ω_{𝒢'}` (proved) -/
+
+section LatticeHalf
+
+variable {K : Type} [Field K] {A : AbVar K} {L L' : Type} [Field L] [NumberField L] [Algebra K L]
+    [Field L'] [NumberField L'] [Algebra K L'] [Algebra L L']
+    {𝒢 : GroupModel A L} {𝒢' : GroupModel A L'} {e : 𝒢'.G ≅ (Over.pullback (bO L L')).obj 𝒢.G}
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) -/
+theorem stalkSpecializes_stalkSpecializes_apply' {X : Scheme.{0}} {x y z : X} (h : x ⤳ y)
+    (h' : y ⤳ z) (t : X.presheaf.stalk z) :
+    X.presheaf.stalkSpecializes h (X.presheaf.stalkSpecializes h' t) =
+      X.presheaf.stalkSpecializes (h.trans h') t := by
+  rw [← CommRingCat.comp_apply, TopCat.Presheaf.stalkSpecializes_comp]
+
+/-- (copied from `scratch/h5-glue/H5Final.lean`, proved there) -/
+theorem stalkSpecializes_self_apply' {X : Scheme.{0}} {x : X} (h : x ⤳ x)
+    (t : X.presheaf.stalk x) : X.presheaf.stalkSpecializes h t = t := by
+  rw [show h = specializes_refl x from rfl, TopCat.Presheaf.stalkSpecializes_refl]
+  rfl
+
+/-- At each point `s'` of `Spec 𝓞_{L'}`, `π^*` maps `(ω_𝒢)_{s}` (`s` the image of `s'`) into
+`(ω_{𝒢'})_{s'}`. -/
+theorem bcCot_omegaAt (he : IsMonBC 𝒢 𝒢' e) (s' : Spec (CommRingCat.of (𝓞 L')))
+    (m : 𝒢.cotangent) (hm : m ∈ 𝒢.omegaAt (bO L L' s')) : bcCot he m ∈ 𝒢'.omegaAt s' := by
+  have hE := bcProj_unit he
+  have hp : bcProj 𝒢 𝒢' e (𝒢'.unitSection s') = 𝒢.unitSection (bO L L' s') :=
+    (Scheme.Hom.comp_apply _ _ _).symm.trans
+      ((congrArg (fun φ => φ s') hE).trans (Scheme.Hom.comp_apply _ _ _))
+  let T := 𝒢.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).specializes
+  induction hm using Submodule.span_induction with
+  | mem x hx =>
+    obtain ⟨g, hg, hmem, rfl⟩ := hx
+    set g' := (bcProj 𝒢 𝒢' e).stalkMap (𝒢'.unitSection s') (T g)
+    have hspec : 𝒢'.G.left.presheaf.stalkSpecializes (𝒢'.specializes_genericUnit s') g' =
+        bcMap he (𝒢.G.left.presheaf.stalkSpecializes
+          (𝒢.specializes_genericUnit (bO L L' s')) g) := by
+      rw [← Scheme.Hom.stalkSpecializes_stalkMap_apply]
+      unfold bcMap
+      rw [CommRingCat.comp_apply]
+      congr 1
+      rw [stalkSpecializes_stalkSpecializes_apply', stalkSpecializes_stalkSpecializes_apply']
+    have hker : g' ∈ RingHom.ker (𝒢'.unitSection.stalkMap s').hom := by
+      rw [RingHom.mem_ker]
+      have h1 := Scheme.Hom.stalkMap_comp 𝒢'.unitSection (bcProj 𝒢 𝒢' e) s'
+      have h2 := Scheme.Hom.stalkMap_congr_hom _ _ hE s'
+      have h1' : (𝒢'.unitSection.stalkMap s') g' =
+          ((𝒢'.unitSection ≫ bcProj 𝒢 𝒢' e).stalkMap s') (T g) := by
+        have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h1
+        exact this.symm
+      have h2' : ((𝒢'.unitSection ≫ bcProj 𝒢 𝒢' e).stalkMap s') (T g) =
+          ((bO L L' ≫ 𝒢.unitSection).stalkMap s') ((𝒢.G.left.presheaf.stalkCongr
+            (Inseparable.of_eq (hE ▸ rfl))).hom (T g)) := by
+        have := congrArg (fun φ => (ConcreteCategory.hom φ) (T g)) h2
+        exact this
+      rw [h1', h2']
+      have h3 := Scheme.Hom.stalkMap_comp (bO L L') 𝒢.unitSection s'
+      have h3' := congrArg (fun φ => (ConcreteCategory.hom φ) ((𝒢.G.left.presheaf.stalkCongr
+            (Inseparable.of_eq (hE ▸ rfl))).hom (T g))) h3
+      simp only at h3'
+      rw [h3']
+      have h4 : ∀ y : 𝒢.G.left.presheaf.stalk (𝒢.unitSection (bO L L' s')), y = g →
+          (𝒢.unitSection.stalkMap (bO L L' s')) y = 0 := by
+        rintro y rfl; exact hg
+      have h5 : (𝒢.unitSection.stalkMap (bO L L' s')) ((𝒢.G.left.presheaf.stalkCongr
+          (Inseparable.of_eq hp)).hom (T g)) = 0 := by
+        apply h4
+        show 𝒢.G.left.presheaf.stalkSpecializes (Inseparable.of_eq hp).symm.specializes
+          (T g) = g
+        exact (stalkSpecializes_stalkSpecializes_apply' _ _ g).trans
+          (stalkSpecializes_self_apply' _ g)
+      exact (congrArg (fun y => ((bO L L').stalkMap s') y) h5).trans (map_zero _)
+    have hmem' : 𝒢'.G.left.presheaf.stalkSpecializes (𝒢'.specializes_genericUnit s') g' ∈
+        IsLocalRing.maximalIdeal 𝒢'.genStalk := by
+      rw [hspec]; exact bcMap_mem_maximalIdeal he _ hmem
+    apply Submodule.subset_span
+    refine ⟨g', hker, hmem', ?_⟩
+    rw [bcCot_dCls]
+    congr 1
+    exact Subtype.ext hspec.symm
+  | zero => rw [map_zero]; exact zero_mem _
+  | add x y _ _ hx hy => rw [map_add]; exact add_mem hx hy
+  | smul r x _ hx => rw [map_smulₛₗ]; exact Submodule.smul_mem _ _ hx
+
+/-- `π^*(ω_𝒢) ⊆ ω_{𝒢'}`. -/
+theorem bcCot_omega (he : IsMonBC 𝒢 𝒢' e) (m : 𝒢.cotangent) (hm : m ∈ 𝒢.omega) :
+    bcCot he m ∈ 𝒢'.omega := by
+  rw [GroupModel.omega, Submodule.mem_iInf] at hm ⊢
+  exact fun s' => bcCot_omegaAt he s' m (hm _)
+
+/-- `ψ(⋀^g ω_𝒢) ⊆ ⋀^g ω_{𝒢'}`. -/
+theorem bcHodge_detLattice (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) (x : 𝒢.hodgeSpace g)
+    (hx : x ∈ 𝒢.detLattice g) : bcHodge he g x ∈ 𝒢'.detLattice g := by
+  induction hx using Submodule.span_induction with
+  | mem y hy =>
+    obtain ⟨v, rfl⟩ := hy
+    rw [bcHodge_tmul, map_one, bcExt_ιMulti]
+    apply Submodule.subset_span
+    exact ⟨fun i => ⟨bcCot he (v i), bcCot_omega he _ (v i).2⟩, rfl⟩
+  | zero => rw [map_zero]; exact zero_mem _
+  | add y z _ _ hy hz => rw [map_add]; exact add_mem hy hz
+  | smul r y _ hy =>
+    rw [← algebraMap_smul L r y, bcHodge_smul]
+    have : algebraMap L L' (algebraMap (𝓞 L) L r) • bcHodge he g y =
+        (algebraMap (𝓞 L) (𝓞 L') r) • bcHodge he g y := by
+      rw [← algebraMap_smul L' (algebraMap (𝓞 L) (𝓞 L') r)]
+      rfl
+    rw [this]
+    exact Submodule.smul_mem _ _ hy
+
+/-- **Half of BC-lat (proved)**: `𝓞_{L'} · ψ(⋀^g ω_𝒢) ⊆ ⋀^g ω_{𝒢'}`. -/
+theorem span_bcHodge_le (he : IsMonBC 𝒢 𝒢' e) (g : ℕ) :
+    Submodule.span (𝓞 L') (bcHodge he g '' 𝒢.detLattice g) ≤ 𝒢'.detLattice g :=
+  Submodule.span_le.mpr (by
+    rintro _ ⟨x, hx, rfl⟩
+    exact bcHodge_detLattice he g x hx)
+
+end LatticeHalf
+
 /-! # Part C: `HodgeLineBaseChangeDescent` from six glue statements over the natural map
 
 All six are about the honest natural map: `π = e.hom.left ≫ pullback.fst : 𝒢' → 𝒢`, its stalk map
