@@ -41,3 +41,22 @@ Base: wip/tc-port 443ece10 + `git merge origin/main` (ee3e746f).
 - `grossZagierCd_of_leaves' (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
   (hL3 : GrossZagierHeegner) : GrossZagierCd`: axioms [propext, Classical.choice, Quot.sound].
   VERIFIED (lake env lean, 2026-11-13 ~06:00 PST).
+
+## Move to Contrib modules
+- `ZInQKernel/Contrib/GZDecomp/Scope.lean`, `ZInQKernel/Contrib/GZDecomp/Decomp.lean` (new files;
+  the scratch drafts are replaced by `scratch/gz-decomp/Check.lean`, which imports them).
+- `lake build ZInQKernel.Contrib.GZDecomp.Decomp`: success (10109 jobs). `lake env lean
+  scratch/gz-decomp/Check.lean`: every listed declaration depends on
+  [propext, Classical.choice, Quot.sound]. VERIFIED.
+- New: `frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves (hH : SixContactMin)
+  (hA : TYZThm35ReadingA) (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+  (hL3 : GrossZagierHeegner) : FrozenTarget`.
+
+## Numerical checks
+- `check_chiD.py` (pure Python): `jacobi(n, |D|) = kronecker(D, n)` for 30 odd fundamental
+  `D ∈ [−199, −7]`, `n ≤ 200` (6000 pairs), and `jacobi(2, |D|) = 1 ⇔ D ≡ 1 (8)`: 0 mismatches.
+  VERIFIED (`out_check_chiD.txt`).
+- PARI checks (conductor, root number, twist ranks) BLOCKED: `~/pyenv/bin/python` does not exist
+  on this host, `cypari2` is not in the uv cache, and network installs are not allowed. Earlier
+  evidence reused: rv-cr3-trust §2.1 (`N(C_d) = 32d²` and `ε(C_d) = −1` on 30 values; a Heegner `D`
+  with `L(C_d^D, 1) ≠ 0`, `|D| ≤ 455`, for 16 values; `out_indep_check.txt`).

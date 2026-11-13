@@ -1,4 +1,4 @@
-import ZInQKernel.Hypotheses.CR3Literature
+import ZInQKernel.Contrib.GZDecomp.Scope
 import ZInQKernel.Contrib.HeckeFE.Basic
 import ZInQKernel.Contrib.GaussFE.FunctionalEquation5
 import ZInQKernel.Contrib.HeckeAll.LocalCd
@@ -20,8 +20,7 @@ Objects (all genuine: Mathlib, or Tau Ceti vendored at `ZInQKernel/Contrib/TauCe
 * `IsEntireCont a σ G`: `G` is entire and equals `∑ aₙ n^{−s}` on `Re s > σ`;
 * Mathlib's `WeierstrassCurve.LFunction`, `Affine.Point`, `Affine.Point.map`.
 
-The Prop `GrossZagierCd` is restated from `Scope.lean` (the two scratch files are never imported
-together).
+The target Prop `GrossZagierCd` is defined in `Contrib/GZDecomp/Scope.lean`.
 -/
 
 open UpperHalfPlane HeckeRing.GL2 WeierstrassCurve
@@ -148,12 +147,6 @@ below. -/
 def SignOfSimpleZero : Prop :=
   ∀ (N : ℕ) [NeZero N] (f : Newform N 2) (hχ : f.χ = 1) (F : ℂ → ℂ),
     IsEntireCont (coeff f) 2 F → analyticOrderAt F 1 = 1 → rootNumber f hχ = -1
-
-/-- `GrossZagierCd` (as in `Scope.lean`). -/
-def GrossZagierCd : Prop :=
-  ∀ d : ℕ, d % 8 = 5 → Squarefree d → ∀ F : ℂ → ℂ,
-    ZInQ.Literature.IsLContinuation (shortCurve (-(d : ℚ) ^ 2)) F → analyticOrderAt F 1 = 1 →
-      ∃ P : (shortCurve (-(d : ℚ) ^ 2)).toAffine.Point, ¬IsOfFinAddOrder P
 
 /-- **(G1) Modularity of `C_d` in L-series form**, from (L1) and Deuring's identity
 `cdCoeff d = heckeCoeff d` (proved: `HeckeFE.deuringCd_of_gaussPointCount`,
@@ -369,10 +362,16 @@ theorem grossZagierCd_of_leaves' (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing
     (hL3 : GrossZagierHeegner) : GrossZagierCd :=
   grossZagierCd_of_leaves hL1 hL2 hL3 signOfSimpleZero
 
-end ZInQ.GZDecomp
 
-#print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves
-#print axioms ZInQ.GZDecomp.signOfSimpleZero
-#print axioms ZInQ.GZDecomp.grossZagierCd_of_leaves'
-#print axioms ZInQ.GZDecomp.modular_cd
-#print axioms ZInQ.GZDecomp.exists_rat_point_of_heegner
+/-! ## The headline from the three leaves -/
+
+/-- **Theorem 1.1 from `SixContactMin`, TYZ Theorem 3.5(2) in reading A, and the three leaves of
+Gross–Zagier for `C_d`** (Hecke–Shimura theta newform, Friedberg–Hoffstein nonvanishing,
+Gross–Zagier–Heegner). -/
+theorem frozenTarget_of_sixContactMin_tyzThm35ReadingA_gzLeaves (hH : SixContactMin)
+    (hA : ZInQ.Literature.TYZThm35ReadingA) (hL1 : HeckeThetaNewform) (hL2 : FHNonvanishing)
+    (hL3 : GrossZagierHeegner) : FrozenTarget :=
+  frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd hH hA
+    (grossZagierCd_of_leaves' hL1 hL2 hL3)
+
+end ZInQ.GZDecomp

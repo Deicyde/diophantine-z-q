@@ -90,7 +90,3 @@ theorem frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagier' (hH : SixCon
   frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd hH hA (grossZagierCd_of_grossZagier hG)
 
 end ZInQ.GZDecomp
-
-#print axioms ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzThm35ReadingA_grossZagierCd
-#print axioms ZInQ.GZDecomp.frozenTarget_of_sixContactMin_tyzInputs_grossZagierCd
-#print axioms ZInQ.GZDecomp.grossZagierCd_of_grossZagier
