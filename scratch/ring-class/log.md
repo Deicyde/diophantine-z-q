@@ -86,3 +86,12 @@
 - ~09:05 embedding independence (VERIFIED, build success): `map_eq_map_of_normal`, `ringClassFieldBar_eq_map`,
   `H4bar_eq_map'`, `Hprimebar_eq_map'` (the images in ℚ̄ of ring class fields, H_{d,4}, H'_d do not depend
   on the ℚ-embedding K_dˢ → ℚ̄).
+
+## ~09:35 round 6 (VERIFIED, `lake build ZInQKernel.Contrib.TYZGenus.RingClassTwo` success; axioms standard)
+- New ZInQKernel/Contrib/TYZGenus/RingClassTwo.lean (from scratch G3): K(√a) machinery (`sqrtK`, `adjSqrt`,
+  `sqrtO`, `isUnramifiedAt_sqrt` for Q ∌ 2a, `smul_sqrtO_eq_iff` Euler-criterion Frobenius,
+  `mem_splitSet_adjSqrt_iff`: 𝔭 ∌ 2a splits in K(√a) ⇔ a square mod 𝔭), `even_two_re` (d ≡ 1 mod 4 ⇒ Tr 𝓞 ⊆ 2ℤ),
+  `norm_of_mem_O4_mod8`, `adjSqrt_two_le_H4` (√2 ∈ H_{d,4}, d ≡ 1 mod 4), `splitSet_anti`, `normZ_alpha`
+  (N(3+2√−d) = 9+4d), `exists_prime_picClass_eq` (Chebotarev: every Pic(O_{d,4}) class has primes outside any
+  finite set), `not_adjSqrt_two_le_Hprime` (√2 ∉ H'_d, d ≡ 5 mod 8), `Hprime_sup_sqrt_two`
+  (H'_d ⊔ K_d(√2) = H_{d,4}: TYZ Prop 3.2(1)'s first assertion, a faithfulness check of `Hprime`).

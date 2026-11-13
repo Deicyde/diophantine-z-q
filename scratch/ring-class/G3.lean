@@ -419,6 +419,23 @@ theorem not_adjSqrt_two_le_Hprime (hd : d % 8 = 5) : ¬ adjSqrt (QNeg d) 2 ≤ H
   rw [Int.cast_ofNat, FiniteField.isSquare_two_iff, ← Nat.card_eq_fintype_card, hq] at hsplit2
   exact hsplit2.2 h8
 
+/-- **TYZ Proposition 3.2(1): `H'_d(√2) = H_{d,4}`** for `d ≡ 5 (mod 8)` (with `H'_d` defined as
+the fixed field of `σ_{1+2ϖ}`; TYZ L1255–1256 as quoted in the project notes). -/
+theorem Hprime_sup_sqrt_two (hd : d % 8 = 5) : Hprime d ⊔ adjSqrt (QNeg d) 2 = H4 d := by
+  have hle : Hprime d ⊔ adjSqrt (QNeg d) 2 ≤ H4 d :=
+    sup_le (Hprime_le_H4 d) (adjSqrt_two_le_H4 (by omega))
+  have h1 : Hprime d ≤ Hprime d ⊔ adjSqrt (QNeg d) 2 := le_sup_left
+  have hmul := IntermediateField.relfinrank_mul_relfinrank h1 hle
+  rw [relfinrank_Hprime d hd] at hmul
+  have hne : (Hprime d).relfinrank (Hprime d ⊔ adjSqrt (QNeg d) 2) ≠ 1 := by
+    rw [Ne, IntermediateField.relfinrank_eq_one_iff]
+    exact fun h => not_adjSqrt_two_le_Hprime hd (le_trans le_sup_right h)
+  have h2 : (Hprime d ⊔ adjSqrt (QNeg d) 2).relfinrank (H4 d) = 1 := by
+    rcases Nat.dvd_prime Nat.prime_two |>.1 (Dvd.intro _ hmul) with h | h
+    · exact absurd h hne
+    · rw [h] at hmul; omega
+  exact le_antisymm hle (IntermediateField.relfinrank_eq_one_iff.1 h2)
+
 end SqrtTwo
 
 end ZInQ.Contrib.TYZGenus.RingClass
