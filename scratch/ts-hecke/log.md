@@ -33,3 +33,17 @@ Verdict: HeckeIrreducible is TRUE (not speculative any more, modulo the publishe
 - `connected_of_heckeIrreducible : R1R2fp → HeckeIrreducible → Y3Connected` (so the leaf is exactly
   what is needed).
 - all `#print axioms`: [propext, Classical.choice, Quot.sound].
+
+## Step 3. Lean, Part 2: HeckeDegree — VERIFIED (compiled, 0 errors)
+
+- `twistFibre P` = classes whose QM pair is an Aut(𝒪)-twist of P's (a π-fibre, by R2fp).
+- `twistFibre_count (hT : ObjBridge.TorsionStructure) P : finite ∧ ncard ≤ 324` (4 inner classes
+  from aut-o-finite's `autO_mod_inner_exact`, copied; ≤ 81 level structures per pair from the
+  kernel's `Level3.torsor`; helper `pullLevel`, `pullIso`, `innerIso`, `exists_sub_liftO`).
+- `GenericFibreCount` (glue: some t ∈ ℚ has ≥ [E:ℚ(X)] ring maps B → ℚ̄ with X ↦ t):
+  **proved**, `GenericFibre.lean` (Mathlib only; primitive element made integral, minpoly over the
+  integrally closed ℚ[X], separability with denominators cleared by `integerNormalization`, a value
+  t avoiding the zeros of D, roots of f(t,T) in ℚ̄, extension of each root map to B by lying over +
+  `IsAlgClosed.lift`). 0 errors, axioms standard.
+- `heckeDegree_of_torsion : ObjBridge.TorsionStructure → HeckeDegree`. So HeckeDegree rests only on
+  the kernel's textbook leaf I2-Tors (Mumford §4).

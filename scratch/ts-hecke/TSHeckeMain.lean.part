@@ -286,6 +286,13 @@ theorem heckeDegree_of (hG : GenericFibreCount) (hT : ObjBridge.TorsionStructure
   rw [Set.ncard_coe_finset] at this
   omega
 
+/-- **`GenericFibreCount` is proved** (`GFC.genericFibreCount` at `Ω = ℚ̄`, Mathlib only). -/
+theorem genericFibreCount : GenericFibreCount := fun E _ _ _ _ _ => GFC.genericFibreCount Qbar E
+
+/-- **`HeckeDegree` from the kernel's textbook leaf `TorsionStructure` alone** (compiled). -/
+theorem heckeDegree_of_torsion (hT : ObjBridge.TorsionStructure) : HeckeDegree :=
+  heckeDegree_of genericFibreCount hT
+
 end TSHecke
 
 end
@@ -301,3 +308,5 @@ end
 #print axioms TSHecke.exists_sub_liftO
 #print axioms TSHecke.twistFibre_count
 #print axioms TSHecke.heckeDegree_of
+#print axioms TSHecke.genericFibreCount
+#print axioms TSHecke.heckeDegree_of_torsion

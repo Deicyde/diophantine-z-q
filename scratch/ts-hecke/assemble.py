@@ -66,6 +66,19 @@ out.append('\n')
 with open(C) as f:
     out.append(f.read())
 out.append('\nend CIcopy\n\nend CICopy\n')
+gf = open('scratch/ts-hecke/GenericFibre.lean').read().split('\n')
+assert gf[0] == 'import Mathlib'
+gf = [l for l in gf[1:] if not l.startswith('#print')]
+out.append('''
+/-! ════════════════════════════════════════════════════════════════════════════════════════════
+# `scratch/ts-hecke/GenericFibre.lean` (task ts-hecke, Mathlib only), minus its import and
+`#print` lines: `GFC.genericFibreCount`.
+════════════════════════════════════════════════════════════════════════════════════════════ -/
+
+section GFCopy
+''')
+out.append('\n'.join(gf))
+out.append('\nend GFCopy\n')
 with open('scratch/ts-hecke/TSHeckeMain.lean.part') as f:
     out.append(f.read())
 with open('scratch/ts-hecke/TSHecke.lean', 'w') as f:
