@@ -43,3 +43,23 @@
   [propext, Classical.choice, Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5`, `gluePieces4_of_gluePieces5`,
   `ResearchLeaves5.toR4`, `PropTSGlue.specNonMeeting`, `propTSAll_final''`, `textbookLeaves_of_open`
   (TailD_out.txt).
+- Merged origin/wip/leaf-fold2 (5a41b70a, report with flat compile: VERIFIED in its report) and origin/wip/lt-local
+  (3d1b90b5, report). Decision: port onto leaf-fold2's base. Leaves2.lean = leaf-fold2's prefix + g0-assemble2's parts
+  (with the same HDec edits as here) + leaf-fold2's folds; g0-assemble3's parts already contain g0-assemble2's parts and
+  newer folds of the same results (image-plane, infra-stalks, AbVarBC/mul-rigidity, unif-dims, conj-twist,
+  inner-twist), so the port takes from Leaves2: (1) its prefix: mk/mk_prefix.py = leaf-fold2's mk_prefix.py edit 2
+  (ten unused TextbookLeaves fields deleted) → LeavesP.lean; VERIFIED its body (minus imports) is a substring of
+  scratch/leaf-fold2/Leaves2.lean; (2) its textbook folds and open bundles: part z98 = verbatim slices of leaf-fold2's
+  parts/b20_fold.lean (T14(a′), T14(b′), T28, T36, T37, T39⇐T40, OpenResearchLeaves2, OpenTextbookLeaves2,
+  textbookLeaves_of_open2, x1Leaves_of_open2, researchLeaves3_of_open2); imports T14.Main, T28.Assemble,
+  RLeaf.X1ConstantField added to imports_extra.txt (lake build: OK).
+- z95: `t.t2` → `t2_proved` (TextbookLeaves.t2 deleted; T2 is leaf-fold's theorem).
+- z99 regenerated (mk/mk_z99.py): `GluePieces5` = GluePieces4 − {verticalResidueSeparable, snSpecialize (proved),
+  r14Det, r1bFamily, carayolR17 (fields r14, r1b, r17 of OpenResearchLeaves2)} = 41 fields;
+  `researchLeaves4_of_open2` (r10 := r.r10: leaf-fold's `PkgI4.DeRhamComparisonHT` accepted as r10-amend's
+  `ZInQ.Contrib.R10.DeRhamComparisonHT` by unfolding); `sixContactMin_of_leaves5 (r : OpenResearchLeaves2)
+  (t : OpenTextbookLeaves2) (gp : GluePieces5)`.
+- LPrefix (LeavesP): VERIFIED exit 0, 570 s. Tails (runtails.sh): TailA 70 s, TailB 94 s, TailC 165 s, TailE 30 s,
+  TailF 105 s, TailD 15 s: all VERIFIED exit 0, 0 errors, no sorry; TailD: 37 axiom reports, all
+  [propext, Classical.choice, Quot.sound], incl. `HDec.HSyn.sixContactMin_of_leaves5`, `researchLeaves4_of_open2`,
+  `t14a_proved`, `t36_proved` (TailD_out.txt).
