@@ -50,3 +50,8 @@
    (∀ such d, CdFourier d) → ZInQ.Literature.FunctionalEquation5`  (the Literature Prop itself).
 - (VERIFIED numerically) full `CdFourier d` as defined, all ν mod 4d, d ∈ {5, 13, 21}: 0 failures
   (`fourier_check.py`, last block).
+- (VERIFIED, compiled ~18:05) node B4: `sum_quadraticChar_cd_eq_zero` (p ≡ 3 mod 4),
+  `card_cd_affine_of_mod_four_eq_three` (#{y² = x³ − d²x} = p), `cdCoeff_eq_LFunction`,
+  `cdCoeff_prime_of_mod_four_eq_three` (a_p = 0), `normFiber_eq_empty_of_mod_four_eq_three`,
+  `deuring_prime_of_mod_four_eq_three`, `deuring_prime_of_dvd` (p | d), `deuring_two`:
+  DeuringCd holds at every prime n = p except the split primes p ≡ 1 (mod 4), p ∤ d.

@@ -811,4 +811,117 @@ theorem functionalEquation5_of_deuring_fourier'
   fun d h5 hsq F hF s hs0 hs2 =>
     functionalEquation5_of_deuring_fourier h5 hsq (hD d h5 hsq) (hFo d h5 hsq) F hF s hs0 hs2
 
+/-! ### `DeuringCd` at the primes `p ≢ 1 (mod 4)` (node B4) -/
+
+/-- `Σ_x ((x³ − d²x)/p) = 0` for `p ≡ 3 (mod 4)` (the involution `x ↦ −x`). -/
+theorem sum_quadraticChar_cd_eq_zero {p : ℕ} [Fact p.Prime] (hp : p % 4 = 3) (d : ℕ) :
+    ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) = 0 := by
+  have hc : ringChar (ZMod p) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; omega
+  have hneg : quadraticChar (ZMod p) (-1) = -1 := by
+    rw [quadraticChar_neg_one hc, ZMod.card]; exact ZMod.χ₄_nat_three_mod_four hp
+  set S := ∑ x : ZMod p, quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x)
+  have h : S = -S := by
+    calc S = ∑ x : ZMod p, quadraticChar (ZMod p) ((-x) ^ 3 - (d : ZMod p) ^ 2 * (-x)) :=
+          (Fintype.sum_equiv (Equiv.neg _) _ _ (fun x => rfl)).symm
+      _ = ∑ x : ZMod p, quadraticChar (ZMod p) (-1) *
+            quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) := by
+          refine Finset.sum_congr rfl fun x _ => ?_
+          rw [← map_mul]; congr 1; ring
+      _ = -S := by rw [hneg]; simp [S]
+  linarith
+
+/-- `#{(x, y) ∈ 𝔽_p² : y² = x³ − d²x} = p` for `p ≡ 3 (mod 4)`. -/
+theorem card_cd_affine_of_mod_four_eq_three {p : ℕ} [Fact p.Prime] (hp : p % 4 = 3) (d : ℕ) :
+    Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1} = p := by
+  classical
+  have hc : ringChar (ZMod p) ≠ 2 := by rw [ZMod.ringChar_zmod_n]; omega
+  rw [Nat.card_eq_fintype_card, Fintype.card_subtype]
+  have hfib : ((Finset.univ.filter fun xy : ZMod p × ZMod p =>
+      xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1).card : ℤ) =
+      ∑ x : ZMod p, (quadraticChar (ZMod p) (x ^ 3 - (d : ZMod p) ^ 2 * x) + 1) := by
+    rw [Finset.card_filter, Fintype.sum_prod_type]
+    push_cast
+    refine Finset.sum_congr rfl fun x _ => ?_
+    rw [← quadraticChar_card_sqrts hc, Set.toFinset_ofPred, Finset.card_filter]
+    push_cast; rfl
+  have h2 : ((Finset.univ.filter fun xy : ZMod p × ZMod p =>
+      xy.2 ^ 2 = xy.1 ^ 3 - (d : ZMod p) ^ 2 * xy.1).card : ℤ) = p := by
+    rw [hfib, Finset.sum_add_distrib, sum_quadraticChar_cd_eq_zero hp d]
+    simp [ZMod.card]
+  exact_mod_cast h2
+
+theorem cdCoeff_eq_LFunction {d : ℕ} (hd : Odd d) (hsq : Squarefree d) {n : ℕ} (hn : n ≠ 0) :
+    ZInQ.Literature.cdCoeff d n = (ZInQ.shortCurve (-(d : ℚ) ^ 2)).LFunction n := by
+  rw [ZInQ.Literature.LFunction_cd_apply hd hsq hn]
+  simp only [ZInQ.Literature.cdCoeff, hn, ↓reduceIte]
+
+/-- `a_p(C_d) = 0` for `p ≡ 3 (mod 4)`, `p ∤ d`. -/
+theorem cdCoeff_prime_of_mod_four_eq_three {d p : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    [hpp : Fact p.Prime] (hp : p % 4 = 3) (hpd : ¬ p ∣ d) : ZInQ.Literature.cdCoeff d p = 0 := by
+  have h2d : ¬ p ∣ 2 * d := by
+    intro h
+    rcases (Nat.Prime.dvd_mul hpp.out).mp h with h | h
+    · have := Nat.le_of_dvd two_pos h; omega
+    · exact hpd h
+  rw [cdCoeff_eq_LFunction hd hsq hpp.out.ne_zero,
+    ZInQ.Literature.LFunction_cd_apply_prime_eq_sub_card hd hsq p h2d,
+    card_cd_affine_of_mod_four_eq_three hp d, sub_self]
+
+theorem normFiber_eq_empty_of_mod_four_eq_three {n : ℕ} (hn : n % 4 = 3) : normFiber n = ∅ := by
+  refine Finset.eq_empty_of_forall_notMem fun q hq => ?_
+  have h := congrArg (Int.cast : ℤ → ZMod 4) (mem_normFiber.mp hq)
+  push_cast at h
+  have h3 : (n : ZMod 4) = 3 := by
+    rw [← ZMod.natCast_mod, hn]; rfl
+  rw [h3] at h
+  have key : ∀ a b : ZMod 4, a ^ 2 + b ^ 2 ≠ 3 := by decide
+  exact key _ _ h
+
+/-- **`DeuringCd` at a prime `p ≡ 3 (mod 4)`**, `p ∤ d`: both coefficients vanish. -/
+theorem deuring_prime_of_mod_four_eq_three {d p : ℕ} (hd : Odd d) (hsq : Squarefree d)
+    [Fact p.Prime] (hp : p % 4 = 3) (hpd : ¬ p ∣ d) :
+    ((ZInQ.Literature.cdCoeff d p : ℤ) : ℂ) = heckeCoeff d p := by
+  rw [cdCoeff_prime_of_mod_four_eq_three hd hsq hp hpd, heckeCoeff,
+    normFiber_eq_empty_of_mod_four_eq_three hp]
+  simp
+
+/-- **`DeuringCd` at a prime `p ∣ d`**: both coefficients vanish. -/
+theorem deuring_prime_of_dvd {d p : ℕ} (hd : Odd d) (hsq : Squarefree d) [hpp : Fact p.Prime]
+    (hpd : p ∣ d) : ((ZInQ.Literature.cdCoeff d p : ℤ) : ℂ) = heckeCoeff d p := by
+  have hd0 : NeZero d := ⟨by rintro rfl; simp at hd⟩
+  rw [cdCoeff_eq_LFunction hd hsq hpp.out.ne_zero,
+    ZInQ.Literature.LFunction_cd_apply_prime_of_dvd hd hsq p (dvd_mul_of_dvd_right hpd 2),
+    heckeCoeff, Int.cast_zero]
+  symm
+  refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
+  rw [mem_normFiber.mp hq]
+  have hJ : jacobiSym (p : ℤ) d = 0 := by
+    rw [jacobiSym.eq_zero_iff_not_coprime]
+    intro h
+    have h1 : (p : ℤ).gcd d = p := by
+      rw [Int.gcd_natCast_natCast]; exact Nat.gcd_eq_left hpd
+    rw [h1] at h
+    exact hpp.out.one_lt.ne' h
+  simp [hJ]
+
+/-- **`DeuringCd` at `p = 2`**: both coefficients vanish (`(1+i) ∣ α` when `N α = 2`). -/
+theorem deuring_two {d : ℕ} (hd : Odd d) (hsq : Squarefree d) :
+    ((ZInQ.Literature.cdCoeff d 2 : ℤ) : ℂ) = heckeCoeff d 2 := by
+  have : Fact (Nat.Prime 2) := ⟨Nat.prime_two⟩
+  rw [cdCoeff_eq_LFunction hd hsq two_ne_zero,
+    ZInQ.Literature.LFunction_cd_apply_prime_of_dvd hd hsq 2 (dvd_mul_right 2 d), heckeCoeff,
+    Int.cast_zero]
+  symm
+  refine mul_eq_zero_of_right _ (Finset.sum_eq_zero fun q hq => ?_)
+  have h := congrArg (Int.cast : ℤ → ZMod 4) (mem_normFiber.mp hq)
+  push_cast at h
+  have hc : ∀ a b : ZMod 4, a ^ 2 + b ^ 2 = 2 →
+      ¬ ((a, b) = (1, 0) ∨ (a, b) = (3, 2)) ∧ ¬ ((a, b) = (3, 0) ∨ (a, b) = (1, 2)) ∧
+      ¬ ((a, b) = (0, 3) ∨ (a, b) = (2, 1)) ∧ ¬ ((a, b) = (0, 1) ∨ (a, b) = (2, 3)) := by decide
+  have key : ∀ a b : ZMod 4, a ^ 2 + b ^ 2 = 2 → unitOf (a, b) = 0 := by
+    intro a b hab
+    obtain ⟨h1, h2, h3, h4⟩ := hc a b hab
+    simp only [unitOf, h1, h2, h3, h4, ite_false]
+  rw [key _ _ h]; simp
+
 end BpHeckeFE
