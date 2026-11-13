@@ -1,0 +1,5 @@
+*.olean
+*.ilean
+LPrefix.lean
+TailBase.lean
+*_out.txt
