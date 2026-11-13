@@ -1,5 +1,5 @@
 import ZInQKernel.Contrib.TYZDecomp.CurveA
-import Mathlib.Analysis.SpecialFunctions.Elliptic.Weierstrass
+import ZInQKernel.Contrib.TYZGenus.X0
 import Mathlib.AlgebraicGeometry.EllipticCurve.LFunction
 import Mathlib.FieldTheory.IsAlgClosed.Basic
 import Mathlib.RingTheory.IntegralClosure.IsIntegralClosure.Basic
@@ -18,15 +18,13 @@ genuine definitions:
 
 * `§1` the Galois action `galPt σ` of `Gal(ℚ̄/ℚ)` on `A(ℚ̄)` (Mathlib's `Point.map`), and `A(K)`
   for `K ⊆ ℚ̄` as an additive subgroup `ptsOver K` of `A(ℚ̄)`;
-* `§2` the complex uniformization: a fixed embedding `ιC : ℚ̄ → ℂ` with `ιC i = I`, the period
-  lattice `latA` of `A` (pinned by its invariants `g₂ = −16`, `g₃ = 0`: the Weierstrass map
-  `z ↦ (℘(z), ℘'(z)/2)` then lands on `y² = x³ + 4x`), and the modular parametrization
-  `modParam τ = Σ_{m ≥ 1} (a_m/m) e^{2πimτ}`, with `a_m` the coefficients of Mathlib's `L(A, s)`
-  (`WeierstrassCurve.LFunction`);
+* `§2` `A(ℚ̄) ⊆ A(ℂ)`: a fixed embedding `ιC : ℚ̄ → ℂ` with `ιC i = I`, the induced injective
+  `toC : A(ℚ̄) → A(ℂ)`, and the modular parametrization `X0.phiC : ℍ → A(ℂ)` of task x0-32
+  (eta quotients; `TYZGenus/X0.lean`);
 * `§3` Heegner forms `[A, B, C]` of level `N` and discriminant `D` (`N ∣ A`, `B² − 4AC = D < 0`), their
   CM points `τ_Q = (−B + √D)/(2A)` in the upper half plane, and the point
-  `heegnerPt Q ∈ A(ℚ̄)`: the unique algebraic point whose complex image is `modParam τ_Q` modulo
-  `latA` (junk `0` if there is none; there always is, by the leaf `CMAlgebraic`);
+  `heegnerPt Q ∈ A(ℚ̄)`: the unique algebraic point with `toC P = X0.phiC τ_Q` (junk `0` if there is
+  none; there always is, by the leaf `CMAlgebraic`);
 * `§4` the leaves (`def … : Prop`): algebraicity of CM values (`CMAlgebraic`), the field of
   definition of a CM point (`CMFieldOfDefinition`, over the ring class field of the order of
   discriminant `D`, a parameter until `RingClass.lean` provides it), Shimura reciprocity at split
@@ -110,56 +108,39 @@ theorem galPt_iPt (σ : GalQ) (hσ : σ iQ = iQ) (P : PtA) :
 
 end Basic
 
-/-! ## §2. The complex uniformization and the modular parametrization -/
+/-! ## §2. `A(ℚ̄) ⊆ A(ℂ)` and the modular parametrization of `X0.lean`
+
+The modular parametrization is task x0-32's `X0.phiC : ℍ → A(ℂ)`, `τ ↦ (x(τ), y(τ))` with the
+eta quotients `x = η(2τ)²η(16τ)/(η(4τ)η(32τ)²) + 2`, `y = −η(8τ)⁴η(16τ)²/(η(4τ)²η(32τ)⁴)`; that it is
+the modular parametrization `X₀(32) ≅ A` with `dx/2y = 2πi f dτ` is the content of x0-32's leaves
+`X0.X0AnalyticModel`. -/
 
 /-- A fixed embedding `ℚ̄ → ℂ` (any `ℚ`-algebra map; `ℂ` is algebraically closed). -/
 def ι₀ : Qbar →ₐ[ℚ] ℂ := IsAlgClosed.lift
 
+/-- Complex conjugation as a `ℚ`-algebra map. -/
+def conjQ : ℂ →ₐ[ℚ] ℂ := (Complex.conjAe.toAlgHom).restrictScalars ℚ
+
 open Classical in
 /-- The embedding `ℚ̄ → ℂ` used throughout, normalized by `ιC iQ = I` (compose `ι₀` with complex
 conjugation if `ι₀ iQ = −I`). -/
-def ιC : Qbar →+* ℂ :=
-  if ι₀ iQ = I then ι₀.toRingHom else (starRingEnd ℂ).comp ι₀.toRingHom
+def ιCA : Qbar →ₐ[ℚ] ℂ := if ι₀ iQ = I then ι₀ else conjQ.comp ι₀
 
-/-- A junk period pair (used only if no lattice has the invariants of `A`). -/
-def junkPeriodPair : PeriodPair where
-  ω₁ := 1
-  ω₂ := I
-  indep := by
-    rw [LinearIndependent.pair_iff]
-    intro s t h
-    have h1 := congrArg Complex.re h
-    have h2 := congrArg Complex.im h
-    simp at h1 h2
-    exact ⟨h1, h2⟩
+/-- `ιCA` as a ring homomorphism. -/
+abbrev ιC : Qbar →+* ℂ := ιCA.toRingHom
 
-open Classical in
-/-- **The period lattice of `A`**, pinned by its invariants: a period pair with `g₂ = −16`,
-`g₃ = 0`, so that `z ↦ (℘(z), ℘'(z)/2)` satisfies `y² = x³ + 4x` (Mathlib's
-`PeriodPair.derivWeierstrassP_sq`: `℘'² = 4℘³ − g₂℘ − g₃`). The lattice with given invariants is
-unique (uniformization theorem, STANDARD; not proved here), so `latA.lattice` is pinned; it is
-`(Ω⁺/2)(1 + i)ℤ[i]`, `Ω⁺` the real period (rv-tyz-inputs §1.5a). Junk if no such pair exists
-(one does, by the uniformization theorem). -/
-def latA : PeriodPair :=
-  if h : ∃ L : PeriodPair, L.g₂ = -16 ∧ L.g₃ = 0 then h.choose else junkPeriodPair
+/-- `A(ℚ̄) → A(ℂ)` through `ιC` (injective, `toC_injective`). -/
+def toC : PtA →+ X0.PtAC := WeierstrassCurve.Affine.Point.map (W' := curveA) ιCA
 
-/-- **`z ∈ ℂ` and `P ∈ A(ℚ̄)` correspond under `ℂ/Λ_A ≅ A(ℂ)`, `z ↦ (℘(z), ℘'(z)/2)`**, with
-`A(ℚ̄) ⊆ A(ℂ)` through `ιC`. -/
-def IsUnifImage (z : ℂ) : PtA → Prop
-  | .zero => z ∈ latA.lattice
-  | .some x y _ => z ∉ latA.lattice ∧ ιC x = latA.weierstrassP z ∧ ιC y = latA.derivWeierstrassP z / 2
+/-- The CM point `τ_Q = (−B + √D)/(2A)` (`√D = i√|D|`), the root of `Aτ² + Bτ + C` in the upper
+half plane (used for `D < 0`, `A > 0`). -/
+def cmPoint (A B D : ℤ) : ℂ :=
+  (-(B : ℂ) + I * (Real.sqrt (-(D : ℝ)) : ℂ)) / (2 * (A : ℂ))
 
-/-- The coefficient `a_m` of `L(A, s) = Σ a_m m^{−s}` (Mathlib's `WeierstrassCurve.LFunction`;
-`a_m` is the `m`-th Fourier coefficient of the newform of level 32 attached to `A`, by modularity
-of CM curves, Shimura 1971 / Deuring; not used in any proof here). -/
-def aCoeff (m : ℕ) : ℤ := curveA.LFunction m
-
-/-- **The modular parametrization** `X₀(32) → ℂ/Λ_A`, `τ ↦ 2πi ∫_{i∞}^τ f = Σ_{m ≥ 1} (a_m/m) q^m`,
-`q = e^{2πiτ}` (absolutely convergent for `Im τ > 0`). For the optimal curve 32a1 its period
-lattice is `Λ_A` (Manin constant 1), so composed with `IsUnifImage` it is the modular
-parametrization `X₀(32) → A`, defined over `ℚ`, sending `∞` to `O`. -/
-def modParam (τ : ℂ) : ℂ :=
-  ∑' m : ℕ, ((aCoeff m : ℂ) / m) * Complex.exp (2 * Real.pi * I * m * τ)
+theorem cmPoint_im (A B D : ℤ) : (cmPoint A B D).im = Real.sqrt (-(D : ℝ)) / (2 * A) := by
+  have h : (2 * (A : ℂ)) = ((2 * (A : ℝ) : ℝ) : ℂ) := by push_cast; ring
+  rw [cmPoint, h, Complex.div_ofReal_im]
+  simp
 
 /-! ## §3. Heegner forms and CM points -/
 
@@ -175,16 +156,57 @@ structure HeegnerForm (N : ℕ) (D : ℤ) where
   D_neg : D < 0
   primitive : Int.gcd (Int.gcd A B) C = 1
 
-/-- The CM point `τ_Q = (−B + √D)/(2A)` (`√D = i√|D|`), the root of `Aτ² + Bτ + C` in the upper
-half plane. -/
-def HeegnerForm.tau {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : ℂ :=
-  (-(Q.B : ℂ) + I * (Real.sqrt (-(D : ℝ)) : ℂ)) / (2 * (Q.A : ℂ))
+/-- `τ_Q ∈ ℂ`. -/
+def HeegnerForm.tau {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : ℂ := cmPoint Q.A Q.B D
+
+/-- `τ_Q ∈ ℍ`. -/
+def HeegnerForm.tauH {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : UpperHalfPlane :=
+  ⟨Q.tau, by
+    rw [HeegnerForm.tau, cmPoint_im]
+    have hD : (0 : ℝ) < -(D : ℝ) := by
+      have := Q.D_neg; have : (D : ℝ) < 0 := by exact_mod_cast this
+      linarith
+    have hA : (0 : ℝ) < Q.A := by exact_mod_cast Q.A_pos
+    positivity⟩
 
 open Classical in
-/-- **The image on `A` of the Heegner point attached to `Q`**: the point of `A(ℚ̄)` whose complex
-image is `modParam τ_Q` (unique, since `ιC` is injective). Junk `0` if there is none. -/
+/-- **The image on `A` of the Heegner point attached to `Q`**: the point of `A(ℚ̄)` whose image
+in `A(ℂ)` is `X0.phiC τ_Q` (unique, `toC_injective`). Junk `0` if there is none (there is one,
+by the leaf `CMAlgebraic`). -/
 def heegnerPt {D : ℤ} (Q : HeegnerForm 32 D) : PtA :=
-  if h : ∃ P : PtA, IsUnifImage (modParam Q.tau) P then h.choose else 0
+  if h : ∃ P : PtA, toC P = X0.phiC Q.tauH then h.choose else 0
+
+theorem ι₀_iQ_sq : ι₀ iQ ^ 2 = -1 := by rw [← map_pow, iQ_sq, map_neg, map_one]
+
+/-- **`ιC i = I`.** -/
+theorem ιC_iQ : ιC iQ = I := by
+  show ιCA iQ = I
+  unfold ιCA
+  split_ifs with h
+  · exact h
+  · have h2 : (ι₀ iQ - I) * (ι₀ iQ + I) = 0 := by
+      have := ι₀_iQ_sq
+      linear_combination this - Complex.I_sq
+    rcases mul_eq_zero.mp h2 with h3 | h3
+    · exact absurd (sub_eq_zero.mp h3) h
+    · have : ι₀ iQ = -I := eq_neg_of_add_eq_zero_left h3
+      show conjQ (ι₀ iQ) = I
+      rw [this]
+      simp [conjQ]
+
+theorem toC_injective : Function.Injective toC :=
+  WeierstrassCurve.Affine.Point.map_injective (W' := curveA) ιCA
+
+/-- Given `CMAlgebraic`, `heegnerPt Q` is the algebraic point over `X0.phiC τ_Q`. -/
+theorem toC_heegnerPt {D : ℤ} (Q : HeegnerForm 32 D) (h : ∃ P : PtA, toC P = X0.phiC Q.tauH) :
+    toC (heegnerPt Q) = X0.phiC Q.tauH := by
+  simp only [heegnerPt, h, ↓reduceDIte]
+  exact h.choose_spec
+
+/-- `heegnerPt` is pinned: any algebraic point over `X0.phiC τ_Q` is `heegnerPt Q`. -/
+theorem heegnerPt_eq {D : ℤ} (Q : HeegnerForm 32 D) {P : PtA} (hP : toC P = X0.phiC Q.tauH) :
+    heegnerPt Q = P :=
+  toC_injective ((toC_heegnerPt Q ⟨P, hP⟩).trans hP.symm)
 
 /-- The lattice `⟨1, τ_Q⟩ ⊂ ℂ` (a proper fractional ideal of the order of discriminant `D`). -/
 def HeegnerForm.lat {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : Submodule ℤ ℂ :=
@@ -211,15 +233,15 @@ def HeegnerForm.conj {N : ℕ} {D : ℤ} (Q : HeegnerForm N D) : HeegnerForm N D
 /-! ## §4. The leaves -/
 
 /-- **Leaf CM-1 (algebraicity of CM values; Shimura).** For every Heegner form `Q` of level 32,
-`modParam τ_Q` is the complex image of a point of `A(ℚ̄)`. Sources: the modular parametrization
-`X₀(32) → A` is defined over `ℚ` (Shimura, *Introduction to the arithmetic theory of automorphic
+the value `X0.phiC τ_Q ∈ A(ℂ)` of the modular parametrization is the image of a point of `A(ℚ̄)`.
+Sources: the modular parametrization `X₀(32) → A` is defined over `ℚ` (Shimura, *Introduction to the arithmetic theory of automorphic
 functions*, 1971, Thm. 7.14 and §7.5, UNVERIFIED numbers; for CM curves also Deuring), with
 Manin constant 1 for 32a1 (Cremona's tables; Edixhoven, UNVERIFIED locator), and CM points of
 `X₀(N)` are algebraic (Shimura 1971, Ch. 5–6, main theorem of complex multiplication; Gross,
 *Heegner points on X₀(N)*, in Modular Forms (Durham 1983), 1984, §1–3, UNVERIFIED numbers).
 Refereed (textbook). -/
 def CMAlgebraic : Prop :=
-  ∀ (D : ℤ) (Q : HeegnerForm 32 D), ∃ P : PtA, IsUnifImage (modParam Q.tau) P
+  ∀ (D : ℤ) (Q : HeegnerForm 32 D), ∃ P : PtA, toC P = X0.phiC Q.tauH
 
 /-- **Leaf CM-2 (field of definition of a CM point).** For a family `H D` of subfields of `ℚ̄`
 (intended: the ring class field `K(j(𝒪_D))` of the order of discriminant `D` in
@@ -318,5 +340,17 @@ def tyzZn (n : ℕ) : PtA := tyzHeegnerPt n - iPt (tyzHeegnerPt n)
 /-- The genus-point sum `Σ_{t ∈ Φ} t(z)` for a finite set `Φ` of automorphisms of `ℚ̄`
 (TYZ: `Z(n) = Σ_{t ∈ Φ₀} f_n(P_n)^t`, L1318, `Φ₀ ⊂ Gal(H'_n/K_n)` represented by lifts). -/
 def genusSum (Φ : Finset GalQ) (z : PtA) : PtA := ∑ t ∈ Φ, galPt t z
+
+/-- A genus-point sum of a point of `A(F)` lies in `A(K)` when every `t ∈ Φ` maps `F` into `K`
+(glue towards `Package.GenusPtsDefined`). -/
+theorem genusSum_mem {F K : IntermediateField ℚ Qbar} {Φ : Finset GalQ} {z : PtA}
+    (hΦ : ∀ t ∈ Φ, ∀ x ∈ F, t x ∈ K) (hz : z ∈ ptsOver F) : genusSum Φ z ∈ ptsOver K := by
+  refine (ptsOver K).sum_mem fun t ht => ?_
+  rw [mem_ptsOver_iff] at hz ⊢
+  rcases z with _ | ⟨x, y, h⟩
+  · trivial
+  · obtain ⟨h', e⟩ := galPt_some t h
+    rw [e]
+    exact ⟨hΦ t ht x hz.1, hΦ t ht y hz.2⟩
 
 end ZInQ.Contrib.TYZGenus.CM
