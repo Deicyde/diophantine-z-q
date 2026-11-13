@@ -59,6 +59,15 @@ theorem Scheme.Hom.stalkMapAt_germ_top {X Y : Scheme.{u}} (f : X ⟶ Y) {x : X} 
   rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.germ_stalkMap_apply]
   rfl
 
+/-- Stalk maps between given points commute with specialization. -/
+theorem Scheme.Hom.stalkMapAt_stalkSpecializes {X Y : Scheme.{u}} (f : X ⟶ Y) {x x' : X}
+    {y y' : Y} (hx : x ⤳ x') (hy : y ⤳ y') (h : f x = y) (h' : f x' = y') (r : Y.presheaf.stalk y') :
+    X.presheaf.stalkSpecializes hx ((f.stalkMapAt h').hom r) =
+      (f.stalkMapAt h).hom (Y.presheaf.stalkSpecializes hy r) := by
+  subst h h'
+  rw [Scheme.Hom.stalkMapAt_rfl, Scheme.Hom.stalkMapAt_rfl,
+    ← Scheme.Hom.stalkSpecializes_stalkMap_apply]
+
 end AlgebraicGeometry
 
 namespace ZInQ.UnifDims
@@ -128,8 +137,80 @@ theorem cotMap_dCls (φ : 𝒢.G ⟶ ℋ.G) (h : φ.left 𝒢.genericUnit = ℋ.
       𝒢.dCls ⟨germMap 𝒢 ℋ φ h f, map_nonunit (germMap 𝒢 ℋ φ h) _ f.2⟩ := by
   rfl
 
+
+theorem cotMap_comp {B : AbVar K} (𝒦 : GroupModel B L) (φ : 𝒢.G ⟶ ℋ.G) (ψ : ℋ.G ⟶ 𝒦.G)
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) (h' : ψ.left ℋ.genericUnit = 𝒦.genericUnit)
+    (h'' : (φ ≫ ψ).left 𝒢.genericUnit = 𝒦.genericUnit) :
+    cotMap 𝒢 𝒦 (φ ≫ ψ) h'' = cotMap 𝒢 ℋ φ h ∘ₗ cotMap ℋ 𝒦 ψ h' := by
+  apply LinearMap.ext
+  intro x
+  obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒦.genStalk).toCotangent_surjective x
+  change cotMap 𝒢 𝒦 (φ ≫ ψ) h'' (𝒦.dCls f) = cotMap 𝒢 ℋ φ h (cotMap ℋ 𝒦 ψ h' (𝒦.dCls f))
+  rw [cotMap_dCls, cotMap_dCls, cotMap_dCls]
+  congr 2
+  simp only [germMap]
+  rw [Scheme.Hom.stalkMapAt_congr (Over.comp_left _ _ _ φ ψ) h'' (by rw [← h', ← h]; rfl),
+    Scheme.Hom.stalkMapAt_comp φ.left ψ.left h h']
+  rfl
+
+theorem cotMap_id (h : (𝟙 𝒢.G : 𝒢.G ⟶ 𝒢.G).left 𝒢.genericUnit = 𝒢.genericUnit) :
+    cotMap 𝒢 𝒢 (𝟙 𝒢.G) h = LinearMap.id := by
+  apply LinearMap.ext
+  intro x
+  obtain ⟨f, rfl⟩ := (IsLocalRing.maximalIdeal 𝒢.genStalk).toCotangent_surjective x
+  change cotMap 𝒢 𝒢 (𝟙 𝒢.G) h (𝒢.dCls f) = 𝒢.dCls f
+  rw [cotMap_dCls]
+  congr 2
+  simp only [germMap]
+  rw [Scheme.Hom.stalkMapAt_congr (Over.id_left 𝒢.G) h h, Scheme.Hom.stalkMapAt_id]
+  rfl
+
+/-- A morphism of models preserving the unit sections maps every `e(s)` to `e(s)`. -/
+theorem map_unitSection (φ : 𝒢.G ⟶ ℋ.G) (hφ : η[𝒢.G] ≫ φ = η[ℋ.G])
+    (s : Spec (CommRingCat.of (𝓞 L))) : φ.left (𝒢.unitSection s) = ℋ.unitSection s := by
+  have h2 : 𝒢.unitSection ≫ φ.left = ℋ.unitSection := by
+    unfold GroupModel.unitSection
+    rw [← Over.comp_left, hφ]
+  rw [← h2]
+  rfl
+
+/-- **Functoriality of `ω`.** A morphism of models preserving the unit sections maps
+`ω_ℋ` into `ω_𝒢` under the cotangent map. -/
+theorem omega_map_le (φ : 𝒢.G ⟶ ℋ.G) (hφ : η[𝒢.G] ≫ φ = η[ℋ.G])
+    (h : φ.left 𝒢.genericUnit = ℋ.genericUnit) :
+    ℋ.omega.map (cotMap 𝒢 ℋ φ h) ≤ 𝒢.omega := by
+  refine le_iInf fun s => (Submodule.map_mono (iInf_le _ s)).trans ?_
+  rw [GroupModel.omegaAt, Submodule.map_span, Submodule.span_le]
+  rintro _ ⟨_, ⟨f, hf, hfm, rfl⟩, rfl⟩
+  have hs := map_unitSection 𝒢 ℋ φ hφ s
+  set f' := (φ.left.stalkMapAt hs).hom f with hf'
+  have h2 : 𝒢.unitSection ≫ φ.left = ℋ.unitSection := by
+    unfold GroupModel.unitSection
+    rw [← Over.comp_left, hφ]
+  have hker : f' ∈ RingHom.ker (𝒢.unitSection.stalkMap s).hom := by
+    rw [RingHom.mem_ker] at hf ⊢
+    have e1 := Scheme.Hom.stalkMapAt_comp 𝒢.unitSection φ.left (rfl : 𝒢.unitSection s = _) hs
+      (by rw [← hs]; rfl)
+    rw [Scheme.Hom.stalkMapAt_congr h2 _ rfl, Scheme.Hom.stalkMapAt_rfl,
+      Scheme.Hom.stalkMapAt_rfl] at e1
+    rw [hf', ← CommRingCat.comp_apply, ← e1, hf]
+  have hspec : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f' =
+      germMap 𝒢 ℋ φ h (ℋ.G.left.presheaf.stalkSpecializes (ℋ.specializes_genericUnit s) f) :=
+    Scheme.Hom.stalkMapAt_stalkSpecializes φ.left _ _ h hs f
+  have hm : 𝒢.G.left.presheaf.stalkSpecializes (𝒢.specializes_genericUnit s) f' ∈
+      IsLocalRing.maximalIdeal 𝒢.genStalk := by
+    rw [hspec]; exact map_nonunit (germMap 𝒢 ℋ φ h) _ hfm
+  apply Submodule.subset_span
+  refine ⟨f', hker, hm, ?_⟩
+  rw [cotMap_dCls]
+  congr 2
+  exact hspec.symm
+
 end CotMap
 
 end ZInQ.UnifDims
 
 #print axioms ZInQ.UnifDims.cotMap_dCls
+#print axioms ZInQ.UnifDims.cotMap_comp
+#print axioms ZInQ.UnifDims.cotMap_id
+#print axioms ZInQ.UnifDims.omega_map_le
