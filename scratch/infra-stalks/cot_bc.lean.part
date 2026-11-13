@@ -1,0 +1,225 @@
+
+/-! # Cotangent space of a base change by a field extension (bijective)
+
+For `z ∈ X ×_S Y` with `𝒪_{S,s}` and `𝒪_{Y,y}` fields (e.g. `S = Spec L`, `Y = Spec L'`) and `x`
+rational over `s`, the map `𝒪_y ⊗_{𝒪_s} 𝔪_x/𝔪_x² → 𝔪_z/𝔪_z²`, `c ⊗ da ↦ c · d(fst^♯ a)`, is
+injective (`cotangent_baseChange_injective`); it is onto by `cotangent_span_pullback`. The proof
+combines Mathlib's `Ideal.tensorCotangentHom` (flat base change of `I/I²`) with the localization
+`pullback_stalk_tensor_isLocalization` and an algebraic lemma on cotangent spaces of localizations
+at a maximal ideal (`mem_sq_of_map_mem_sq`). -/
+
+/-- If `φ : B → R` (`R` local) is a localization at an ideal `J` with `φ(J)R = 𝔪_R` and
+`B/J` a field in the sense that every `w` with `φ w` a unit is invertible modulo `J`, then
+`φ p ∈ 𝔪_R²` forces `p ∈ J²` for `p ∈ J`. -/
+theorem IsLocalRing.mem_sq_of_map_mem_sq {B R : Type*} [CommRing B] [CommRing R] [IsLocalRing R]
+    (φ : B →+* R) (J : Ideal B) (hJ : J.map φ = IsLocalRing.maximalIdeal R)
+    (hsurj : ∀ r : R, ∃ a u, IsUnit (φ u) ∧ r * φ u = φ a)
+    (hker : ∀ t, φ t = 0 → ∃ u, IsUnit (φ u) ∧ u * t = 0)
+    (hres : ∀ w, IsUnit (φ w) → ∃ d, d * w - 1 ∈ J)
+    {p : B} (hp : p ∈ J) (hφp : φ p ∈ IsLocalRing.maximalIdeal R ^ 2) : p ∈ J ^ 2 := by
+  have hK : ∀ q ∈ (J ^ 2).map φ, ∃ a ∈ J ^ 2, ∃ u, IsUnit (φ u) ∧ q * φ u = φ a := by
+    intro q hq
+    induction hq using Submodule.span_induction with
+    | mem w hw =>
+      obtain ⟨k, hk, rfl⟩ := hw
+      exact ⟨k, hk, 1, by simp, by simp⟩
+    | zero => exact ⟨0, Ideal.zero_mem _, 1, by simp, by simp⟩
+    | add q₁ q₂ _ _ h₁ h₂ =>
+      obtain ⟨a₁, ha₁, u₁, hu₁, e₁⟩ := h₁
+      obtain ⟨a₂, ha₂, u₂, hu₂, e₂⟩ := h₂
+      refine ⟨a₁ * u₂ + a₂ * u₁, Ideal.add_mem _ (Ideal.mul_mem_right _ _ ha₁)
+        (Ideal.mul_mem_right _ _ ha₂), u₁ * u₂, by rw [map_mul]; exact hu₁.mul hu₂, ?_⟩
+      rw [map_add, map_mul, map_mul, map_mul, ← e₁, ← e₂]
+      ring
+    | smul r q _ h =>
+      obtain ⟨a, ha, u, hu, e⟩ := h
+      obtain ⟨b, v, hv, ev⟩ := hsurj r
+      refine ⟨b * a, Ideal.mul_mem_left _ _ ha, v * u, by rw [map_mul]; exact hv.mul hu, ?_⟩
+      rw [smul_eq_mul, map_mul, map_mul, ← ev, ← e]
+      ring
+  have hφp' : φ p ∈ (J ^ 2).map φ := by rwa [Ideal.map_pow, hJ]
+  obtain ⟨a, ha, u, hu, e⟩ := hK _ hφp'
+  have h0 : φ (p * u - a) = 0 := by rw [map_sub, map_mul, e, sub_self]
+  obtain ⟨u', hu', e'⟩ := hker _ h0
+  -- `w p ∈ J²` with `w = u' u`, `φ w` a unit
+  have hwp : u' * u * p ∈ J ^ 2 := by
+    have : u' * u * p = u' * a := by
+      have := e'
+      rw [mul_sub, sub_eq_zero] at this
+      rw [← this]; ring
+    rw [this]; exact Ideal.mul_mem_left _ _ ha
+  obtain ⟨d, hd⟩ := hres (u' * u) (by rw [map_mul]; exact hu'.mul hu)
+  have : p = d * (u' * u * p) - (d * (u' * u) - 1) * p := by ring
+  rw [this]
+  refine Ideal.sub_mem _ (Ideal.mul_mem_left _ _ hwp) ?_
+  rw [pow_two]
+  exact Ideal.mul_mem_mul hd hp
+
+namespace AlgebraicGeometry
+
+open CategoryTheory Limits TensorProduct
+
+/-- **Cotangent space of a base change by a field extension.** See the section docstring.
+`Ψ ∘ tensorCotangentHom` is the map `c ⊗ da ↦ c · d(fst^♯ a)` and it is injective. -/
+theorem cotangent_baseChange_injective {X Y S : Scheme.{u}} (f : X ⟶ S) (g : Y ⟶ S)
+    (z : ↥(pullback f g)) {x : X} {y : Y} {s : S} (hx : pullback.fst f g z = x)
+    (hy : pullback.snd f g z = y) (hs : f x = s) (hys : g y = s)
+    (hS : IsLocalRing.maximalIdeal (S.presheaf.stalk s) = ⊥)
+    (hY : IsLocalRing.maximalIdeal (Y.presheaf.stalk y) = ⊥) (hrat : RationalOver f x) :
+    letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+    letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+    ∃ Ψ : (Ideal.map (Algebra.TensorProduct.includeRight.toRingHom :
+          X.presheaf.stalk x →+* (Y.presheaf.stalk y) ⊗[S.presheaf.stalk s] (X.presheaf.stalk x))
+          (IsLocalRing.maximalIdeal (X.presheaf.stalk x))).Cotangent →+
+        IsLocalRing.CotangentSpace ((pullback f g).presheaf.stalk z),
+      (∀ (c : Y.presheaf.stalk y) (a : IsLocalRing.maximalIdeal (X.presheaf.stalk x)),
+        Ψ (Ideal.tensorCotangentHom (S.presheaf.stalk s) (Y.presheaf.stalk y)
+            (IsLocalRing.maximalIdeal (X.presheaf.stalk x))
+            (c ⊗ₜ (IsLocalRing.maximalIdeal _).toCotangent a)) =
+          ((pullback.snd f g).stalkMapAt hy).hom c •
+            (IsLocalRing.maximalIdeal _).toCotangent
+              ⟨((pullback.fst f g).stalkMapAt hx).hom a, map_nonunit _ _ a.2⟩) ∧
+      Function.Injective fun t => Ψ (Ideal.tensorCotangentHom (S.presheaf.stalk s)
+        (Y.presheaf.stalk y) (IsLocalRing.maximalIdeal (X.presheaf.stalk x)) t) := by
+  letI : Algebra (S.presheaf.stalk s) (X.presheaf.stalk x) := (f.stalkMapAt hs).hom.toAlgebra
+  letI : Algebra (S.presheaf.stalk s) (Y.presheaf.stalk y) := (g.stalkMapAt hys).hom.toAlgebra
+  obtain ⟨Φ, hΦ, hsurj, hker⟩ := pullback_stalk_tensor_isLocalization f g z hx hy hs hys
+  let Ox := X.presheaf.stalk x
+  let Oy := Y.presheaf.stalk y
+  let Os := S.presheaf.stalk s
+  let Oz := (pullback f g).presheaf.stalk z
+  let ψX := ((pullback.fst f g).stalkMapAt hx).hom
+  let ψY := ((pullback.snd f g).stalkMapAt hy).hom
+  let cm : Oy ⊗[Os] Ox →+* Ox ⊗[Os] Oy := (Algebra.TensorProduct.comm Os Oy Ox).toRingHom
+  let cm' : Ox ⊗[Os] Oy →+* Oy ⊗[Os] Ox := (Algebra.TensorProduct.comm Os Oy Ox).symm.toRingHom
+  have hcm : ∀ w, cm' (cm w) = w := fun w =>
+    (Algebra.TensorProduct.comm Os Oy Ox).symm_apply_apply w
+  have hcm' : ∀ w, cm (cm' w) = w := fun w =>
+    (Algebra.TensorProduct.comm Os Oy Ox).apply_symm_apply w
+  let Φ' : Oy ⊗[Os] Ox →+* Oz := Φ.comp cm
+  have hΦ' : ∀ c a, Φ' (c ⊗ₜ a) = ψY c * ψX a := by
+    intro c a
+    change Φ ((Algebra.TensorProduct.comm Os Oy Ox) (c ⊗ₜ a)) = _
+    rw [Algebra.TensorProduct.comm_tmul, hΦ, mul_comm]
+  let J : Ideal (Oy ⊗[Os] Ox) := Ideal.map (Algebra.TensorProduct.includeRight.toRingHom :
+    Ox →+* Oy ⊗[Os] Ox) (IsLocalRing.maximalIdeal Ox)
+  -- `φ(J) = 𝔪_z`
+  have hrat' : RationalOver f (pullback.fst f g z) := by rw [hx]; exact hrat
+  have hm := maximalIdeal_eq_of_stalkGen pullback.condition (pullback_stalkGen f g z) hrat'
+  dsimp only [stalkIdeal] at hm
+  have hY' : IsLocalRing.maximalIdeal (Y.presheaf.stalk (pullback.snd f g z)) = ⊥ := by
+    rw [hy]; exact hY
+  rw [hY', Ideal.map_bot, sup_bot_eq] at hm
+  have hJ : J.map Φ' = IsLocalRing.maximalIdeal Oz := by
+    rw [hm, Ideal.map_map, ← Scheme.Hom.map_stalkMapAt_maximalIdeal (pullback.fst f g) hx]
+    congr 1
+    ext a
+    change Φ' (1 ⊗ₜ a) = ψX a
+    rw [hΦ', map_one, one_mul]
+  have hJle : J ≤ (IsLocalRing.maximalIdeal Oz).comap Φ' := by
+    rw [← Ideal.map_le_iff_le_comap, hJ]
+  -- localization properties for `Φ'`
+  have hsurj' : ∀ r : Oz, ∃ a u, IsUnit (Φ' u) ∧ r * Φ' u = Φ' a := by
+    intro r
+    obtain ⟨a, u, hu, e⟩ := hsurj r
+    refine ⟨cm' a, cm' u, ?_, ?_⟩
+    · change IsUnit (Φ (cm (cm' u))); rw [hcm']; exact hu
+    · change r * Φ (cm (cm' u)) = Φ (cm (cm' a)); rw [hcm', hcm']; exact e
+  have hker' : ∀ t, Φ' t = 0 → ∃ u, IsUnit (Φ' u) ∧ u * t = 0 := by
+    intro t ht
+    obtain ⟨u, hu, e⟩ := hker (cm t) ht
+    refine ⟨cm' u, ?_, ?_⟩
+    · change IsUnit (Φ (cm (cm' u))); rw [hcm']; exact hu
+    · have := congrArg cm' e
+      rwa [map_mul, hcm, map_zero] at this
+  -- residues: every element is `c ⊗ 1` modulo `J`
+  have hres0 : ∀ w : Oy ⊗[Os] Ox, ∃ c : Oy, w - c ⊗ₜ 1 ∈ J := by
+    intro w
+    induction w using TensorProduct.induction_on with
+    | zero => exact ⟨0, by simp⟩
+    | tmul c a =>
+      obtain ⟨r₀, hr₀⟩ := hrat a
+      obtain ⟨r, hr⟩ := Scheme.Hom.exists_stalkMapAt_eq f hs r₀
+      refine ⟨c * algebraMap Os Oy r, ?_⟩
+      have e1 : c ⊗ₜ[Os] a - (c * algebraMap Os Oy r) ⊗ₜ[Os] (1 : Ox) =
+          (c ⊗ₜ[Os] (1 : Ox)) * ((1 : Oy) ⊗ₜ[Os] (a - algebraMap Os Ox r)) := by
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul, TensorProduct.tmul_sub]
+        congr 1
+        rw [Algebra.algebraMap_eq_smul_one (A := Ox) r, ← TensorProduct.smul_tmul,
+          Algebra.smul_def, mul_comm]
+      rw [e1]
+      refine Ideal.mul_mem_left _ _ (Ideal.mem_map_of_mem _ ?_)
+      change a - (f.stalkMapAt hs).hom r ∈ _
+      rw [hr]; exact hr₀
+    | add w₁ w₂ h₁ h₂ =>
+      obtain ⟨c₁, e₁⟩ := h₁
+      obtain ⟨c₂, e₂⟩ := h₂
+      refine ⟨c₁ + c₂, ?_⟩
+      have : w₁ + w₂ - (c₁ + c₂) ⊗ₜ[Os] (1 : Ox) =
+          (w₁ - c₁ ⊗ₜ[Os] (1 : Ox)) + (w₂ - c₂ ⊗ₜ[Os] (1 : Ox)) := by
+        rw [TensorProduct.add_tmul]; ring
+      rw [this]; exact Ideal.add_mem _ e₁ e₂
+  have hres : ∀ w, IsUnit (Φ' w) → ∃ d, d * w - 1 ∈ J := by
+    intro w hw
+    obtain ⟨c, hc⟩ := hres0 w
+    have hcu : IsUnit (ψY c) := by
+      have h1 : Φ' w - ψY c ∈ IsLocalRing.maximalIdeal Oz := by
+        have := hJle hc
+        rw [Ideal.mem_comap, map_sub, hΦ', map_one, mul_one] at this
+        exact this
+      by_contra hn
+      exact (IsLocalRing.mem_maximalIdeal _).mp
+        (by have := Ideal.add_mem _ h1 (show ψY c ∈ IsLocalRing.maximalIdeal Oz from hn)
+            rwa [sub_add_cancel] at this) hw
+    have hcu' : IsUnit c := isUnit_of_map_unit ψY c hcu
+    obtain ⟨cu, rfl⟩ := hcu'
+    refine ⟨(↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox), ?_⟩
+    have : (↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox) * w - 1 =
+        (↑cu⁻¹ : Oy) ⊗ₜ[Os] (1 : Ox) * (w - (↑cu : Oy) ⊗ₜ[Os] (1 : Ox)) := by
+      rw [mul_sub, Algebra.TensorProduct.tmul_mul_tmul, Units.inv_mul, mul_one,
+        Algebra.TensorProduct.one_def]
+    rw [this]
+    exact Ideal.mul_mem_left _ _ hc
+  -- the map `J/J² → 𝔪_z/𝔪_z²`
+  set Ψ := Ideal.mapCotangent J (IsLocalRing.maximalIdeal Oz) Φ'.toIntAlgHom hJle with hΨ
+  refine ⟨Ψ.toAddMonoidHom, ?_, ?_⟩
+  · intro c a
+    rw [Ideal.tensorCotangentHom_tmul]
+    have hmem : c ⊗ₜ[Os] (a : Ox) ∈ J := by
+      have : c ⊗ₜ[Os] (a : Ox) = (c ⊗ₜ[Os] (1 : Ox)) * ((1 : Oy) ⊗ₜ[Os] (a : Ox)) := by
+        rw [Algebra.TensorProduct.tmul_mul_tmul, mul_one, one_mul]
+      rw [this]
+      exact Ideal.mul_mem_left _ _ (Ideal.mem_map_of_mem _ a.2)
+    have e1 : (c • J.toCotangent ⟨1 ⊗ₜ (a : Ox), Ideal.mem_map_of_mem _ a.2⟩) =
+        J.toCotangent ⟨c ⊗ₜ (a : Ox), hmem⟩ := by
+      rw [← LinearMap.map_smul_of_tower]
+      congr 1
+      apply Subtype.ext
+      change c • ((1 : Oy) ⊗ₜ[Os] (a : Ox)) = c ⊗ₜ[Os] (a : Ox)
+      rw [TensorProduct.smul_tmul', smul_eq_mul, mul_one]
+    change Ψ (c • J.toCotangent ⟨1 ⊗ₜ (a : Ox), Ideal.mem_map_of_mem _ a.2⟩) = _
+    rw [e1, hΨ]
+    refine (Ideal.mapCotangent_toCotangent _ _ _ _ _).trans ?_
+    rw [← map_smul]
+    congr 1
+    apply Subtype.ext
+    change Φ' (c ⊗ₜ (a : Ox)) = ψY c * ψX a
+    exact hΦ' c a
+  · haveI : Module.Flat Os Oy := by
+      letI : Field Os := (IsLocalRing.isField_iff_maximalIdeal_eq.mpr hS).toField
+      infer_instance
+    have hinj1 := Ideal.tensorCotangentHom_injective_of_flat Os Oy (IsLocalRing.maximalIdeal Ox)
+    have hinj2 : Function.Injective Ψ := by
+      rw [injective_iff_map_eq_zero]
+      intro v hv
+      obtain ⟨⟨p, hp⟩, rfl⟩ := J.toCotangent_surjective v
+      rw [hΨ] at hv
+      have hv' := (Ideal.mapCotangent_toCotangent _ _ _ _ _).symm.trans hv
+      rw [Ideal.toCotangent_eq_zero] at hv'
+      rw [Ideal.toCotangent_eq_zero]
+      exact IsLocalRing.mem_sq_of_map_mem_sq Φ' J hJ hsurj' hker' hres hp hv'
+    exact fun t₁ t₂ h => hinj1 (hinj2 h)
+
+end AlgebraicGeometry
+
+#print axioms AlgebraicGeometry.cotangent_baseChange_injective
