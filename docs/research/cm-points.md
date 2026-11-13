@@ -3,7 +3,7 @@
 Task cm-points, 2026-11-13. Lean: `ZInQKernel/Contrib/TYZGenus/CM.lean` and
 `ZInQKernel/Contrib/TYZGenus/Package.lean` (new files owned by this task; `lake build
 ZInQKernel.Contrib.TYZGenus.Package` builds both, VERIFIED). Results log: `scratch/cm-points/log.md`.
-Drafts: `scratch/cm-points/T1.lean`–`T6.lean`; axiom audit `scratch/cm-points/Audit.lean`
+Drafts: `scratch/cm-points/T1.lean`–`T9.lean`; axiom audit `scratch/cm-points/Audit.lean`
 (output `audit-out.txt`). No `sorry`, no `axiom`; no existing file edited. Merged into this branch:
 `origin/wip/x0-32` (`TYZGenus/X0.lean`, the modular parametrization `X0.phiC`) and
 `origin/wip/ring-class` (`TYZGenus/RingClass.lean`, `H_{d,4}`, `H'_d`, `ℍ'_n` from Tau Ceti's ring class
@@ -33,47 +33,61 @@ genus points are **pinned by genuine definitions**:
   as the idele `β₁ = r_∞(−1)r₂(−2)` (`Package.IsBetaOneLift`);
 * `P := Package.Pseq`, TYZ's recursion as a definition;
 * `Z(e) = Σ_{t∈Φ} t(z_e)` for `e ≡ 5 (mod 8)`, with `z_e = (1 − [i]) f₀(P_e)` and `f₀(P_e)` the Heegner
-  point (`CM.heegnerPt`) defined through x0-32's modular parametrization `X0.phiC` and a fixed
-  embedding `ιC : ℚ̄ → ℂ`, `ιC i = I`.
+  point of `[16(e+1), −8, 1]` (`CM.heegnerPt`), defined through x0-32's modular parametrization
+  `X0.phiC` and a fixed embedding `ιC : ℚ̄ → ℂ`, `ιC i = I`.
 
-**Theorem** (`Package.tyzThm35ReadingA_of_cm`, VERIFIED compiled, standard axioms):
+**Theorem** (`Package.tyzThm35ReadingA_of_cmLeaves`, VERIFIED compiled, standard axioms):
 
 ```lean
-theorem tyzThm35ReadingA_of_cm (h11 : TYZThm11Integral) (h1 : TYZLcalOne) (h29 : TYZLemma29Mod2)
-    (hz : TYZZnOverHprime) (hN : HprimeNormal) (h318 : Lemma318 HHprime)
+theorem tyzThm35ReadingA_of_cmLeaves (h11 : TYZThm11Integral) (h1 : TYZLcalOne)
+    (h29 : TYZLemma29Mod2) (hcm : CMFieldOfDefinitionTYZ) (hi : IInH4) (hs : TYZSigmaFixesZn)
+    (hN : HprimeNormal) (h318 : Lemma318Literal HHprime)
     (hG : ∀ ℓ : ℕ → ℤ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : ZInQ.Literature.TYZThm35ReadingA
 ```
 
-through `genusPackage_of_cm : TYZZnOverHprime → HprimeNormal → Lemma318 HHprime →
-(∀ ℓ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) → TYZGenusPackage`. The leaves:
+(through `genusPackage_of_cm`, `tyzZnOverHprime_of`, `lemma318_iff_literal`, `genusData_of`). The
+leaves, all `def … : Prop` closed over pinned objects except the last:
 
-| leaf | statement | source | refereed? | pinned objects only? |
-|---|---|---|---|---|
-| `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2` | (tyz-decomp, unchanged) | TYZ Thm 1.1, L1082, Lemma 2.9 | yes | yes |
-| `HprimeNormal` | `H'_d/ℚ` normal (`d ≡ 5`, squarefree), for ring-class's `Hprimebar d` | TYZ Prop 3.2(1) (L1253–1260) + Cox, *Primes of the form x²+ny²*, Lemma 9.3 (UNVERIFIED number) | yes | yes |
-| `Lemma318 HHprime` | every torsion point of `A(ℍ'_n)` is `tauG y` | TYZ Lemma 3.18 (L2230–2232), Lemma 3.16, L1386–1399 (Tian 2014) | yes | yes |
-| `TYZZnOverHprime` | `z_n ∈ A(H'_n)` | TYZ Prop 3.2(1), Thm 3.6 / Cor 3.9 (`σ_{1+2ϖ}` fixes `z_n`), with Shimura reciprocity; caveat (5) | yes (+ caveat 5) | yes |
-| `GenusPointLeafCM ℓ` | for each `n`: ∃ a choice `Φ` of TYZ's `Φ₀`, class-7 genus points `Z7 e ∈ A(L_e)`, `ε`, a lift `σ`, with Theorem 3.3/3.5 (first assertion) and Lemma 3.21(1),(4) for `tyzGenusPt Φ Z7` | TYZ Thm 3.3, 3.5, Lemma 3.21, L2558; "Lemma 3.21 holds for any choice of `Φ₀`" (L2547–2554, per rv-pn-encoding) | yes | **no**: existential over `Φ₀`, the class-7 genus points, `ε`, `σ` (bundled in one leaf, so sound) |
+| leaf | statement | source (numbers UNVERIFIED unless noted) | refereed? |
+|---|---|---|---|
+| `TYZThm11Integral`, `TYZLcalOne`, `TYZLemma29Mod2` | (tyz-decomp, unchanged) | TYZ Thm 1.1, L1082, Lemma 2.9 | yes |
+| `CMFieldOfDefinitionTYZ` | `f₀(P_n) ∈ A(H_{n,4})` (ring-class's `H4bar n`) | main theorem of CM / Shimura reciprocity for `X₀(N)`: Shimura 1971 Thm 5.4, Ch. 6; Gross, *Heegner points on X₀(N)* (1984) §3; TYZ Prop 3.2 | yes (textbook) |
+| `IInH4` | `i ∈ H_{n,4}` | genus theory: `K(i) = K(√n)` ⊂ genus field ⊂ `H_n ⊆ H_{n,4}` (Cox Thm 6.1; ring-class's `hilbertLeH4`) | yes (textbook) |
+| `TYZSigmaFixesZn` | every `ρ` acting on `H_{n,4}` as Tau Ceti's Artin symbol of `sigmaClass n` (`σ_{1+2ϖ}`) fixes `z_n` | TYZ Cor 3.9 / Thm 3.6 with Shimura reciprocity on `P_n = [h,1]` (rv-tyz-inputs §1.5); caveat (5) | yes (+ caveat 5) |
+| `HprimeNormal` | `H'_d/ℚ` normal (`d ≡ 5`, squarefree), ring-class's `Hprimebar d` | TYZ Prop 3.2(1) (L1253–1260) + Cox Lemma 9.3 | yes |
+| `Lemma318Literal HHprime` | every torsion point `P` of `A(ℍ'_n)` has `2(P + [i]P) = 0` | TYZ Lemma 3.18 (L2230–2232), literally | yes |
+| `GenusPointLeafCM ℓ` | for each `n`: ∃ a choice `Φ` of TYZ's `Φ₀`, class-7 genus points `Z7 e ∈ A(L_e(i))`, `ε`, a lift `σ`, with Thm 3.3/3.5 (first assertion) and Lemma 3.21(1),(4) for `tyzGenusPt Φ Z7` | TYZ Thm 3.3, 3.5, Lemma 3.21, L2558; "Lemma 3.21 holds for any choice of `Φ₀`" (L2547–2554, VERIFIED by rv-pn-encoding against the source) | yes; **bundled** (existential over `Φ₀`-choice, class-7 genus points, `ε`, `σ`) |
 
-Proved here (not leaves): `i ∈ ℍ'_n` (`iContained_HHprime`); `L_n(i)/ℚ` normal (`normal_Lni`);
-`ℍ'_n/ℚ` normal from `HprimeNormal` (`normalFields_HHprime`); `τ(y/2) = 0 ↔ (2+2i) ∣ y` for the pinned
-`τ` (`tauG_eq_zero`, TYZ L1386); `β'` fixes `τ(½ℤ[i])` (`galPt_tauG`); F4, `σ` fixing `i` commutes with
-`[i]` (`CM.galPt_iPt`); `σ` lifting `β₁` fixes `i` (`fixes_i_of_isBetaOneLift`, TYZ L2581); the class-5
-genus points lie in `A(ℍ'_n)` for every `Φ` (`tyzGenusSum_mem`); and the core `genusData_of`, which builds
+Proved here, not leaves: `i ∈ ℍ'_n` (`iContained_HHprime`); `L_n(i)/ℚ` normal (`normal_Lni`);
+`ℍ'_n/ℚ` normal from `HprimeNormal` (`normalFields_HHprime`); for the pinned `τ`,
+`τ(y/2) = 0 ↔ (2+2i) ∣ y` (`tauG_eq_zero`, TYZ L1386) and `τ(½ℤ[i]) = A[(1+i)³]`
+(`isTorsI3_mem_range`, `lemma318_iff_literal`, with x0-32's explicit list of `A[(1+i)³]`), so Lemma
+3.18 needs no fact about `τ`; `β'` fixes `τ(½ℤ[i])` (`galPt_tauG`); F4, `σ` fixing `i` commutes with
+`[i]` (`CM.galPt_iPt`); a `β₁`-lift fixes `i` (`fixes_i_of_isBetaOneLift`, TYZ L2581); every element of
+`Gal(H_{d,4}/K_d)` extends to `ℚ̄` (`exists_actsAsArtin4`) and Galois descent `H_{d,4} → H'_d`
+(`mem_Hprimebar_of_fixed`), giving `z_n ∈ A(H'_n)` (`tyzZnOverHprime_of`); the class-5 genus points lie in
+`A(ℍ'_n)` for every `Φ` (`tyzGenusSum_mem`); complex conjugation on Heegner points (`CM.cmComplexConj`,
+from `η(−z̄) = conj η(z)`; formerly leaf CM-4); and the core `genusData_of`, which builds
 `PropN.GenusData ℓ n` from the pinned objects.
 
-**What this buys over `TYZGenusPackage`.** In the package every object is existential and the TYZ
-statements are fields of one structure. Here four of them are separate leaves about pinned objects
-(Lemma 3.18, the normality F5, the field of definition of `z_n`, and implicitly Lemma 3.16/fact (1) for
-`τ`), two former fields are theorems (`τ_eq_zero`, `β_τ`, plus F4), and the existential of the
-remaining bundled leaf shrinks from `(M, τ, β, Z, P, ε)` to `(Φ₀-choice, class-7 genus points, ε, σ)`.
-The class-5 genus points are pinned up to the choice `Φ₀`, which TYZ allow to be arbitrary.
+**What this buys over `TYZGenusPackage`.** There every object is existential and the TYZ statements are
+fields of one structure. Here Lemma 3.18, the normality F5, the field of definition of `z_n` (itself
+split into Shimura's theorem, genus theory and TYZ's Corollary 3.9 with a proved Galois descent) are
+separate leaves about pinned objects; `τ_eq_zero`, `β_τ`, F4, `i ∈ ℍ'_n` and "`τ(½ℤ[i]) = A[(1+i)³]`" are
+theorems; and the existential of the remaining bundled leaf shrinks from `(M, τ, β, Z, P, ε)` to
+`(Φ₀-choice, class-7 genus points, ε, σ)`. The class-5 genus points are pinned up to the choice of
+`Φ₀`, which TYZ allow to be arbitrary.
 
 **What remains bundled, and why.** TYZ's class-7 genus point `Z(e) = Σ_{t ∈ 2Cl_e} f_e(P_e)^t`
-(`e ≡ 7 mod 8`) needs TYZ's base CM point for `n ≡ 7` (the fixed point of an embedding
-`M`, `M² = −n`, rv-tyz-inputs §1.5), which no note on this host records; pinning it by a guessed
-Heegner form could make Lemma 3.21(4) (an exact equality) false. With `Z7` pinned, `GenusPointLeafCM`
-splits by `genusPointLeaf_of_split` into `GenusPtsDefined`, `Thm35First`, `Lemma321` (all stated).
+(`e ≡ 7 mod 8`) needs TYZ's base CM point for `n ≡ 7` (the fixed point of an embedding `M`,
+`M² = −n`, rv-tyz-inputs §1.5), which no note on this host records; pinning it by a guessed Heegner
+form could make Lemma 3.21(4) (an exact equality) false. With `Z7` pinned, `GenusPointLeafCM` splits by
+`genusPointLeaf_of_split` into `GenusPtsDefined`, `Thm35First`, `Lemma321` (stated, with `Z` a
+parameter; see the soundness note in Package.lean §5: those three are closed leaves only for a pinned
+`Z`).
+
+Independent review (AI subagent, 2026-11-13, statements only): no false leaf; findings on
+free parameters applied as docstring notes (log 09:00).
 
 ### 0.1 Declarations proved (exact types; `open ZInQ.Contrib.TYZGenus`)
 
@@ -94,6 +108,13 @@ theorem heegnerPt_eq {D} (Q : HeegnerForm 32 D) {P : PtA} (hP : toC P = X0.phiC 
 theorem cmPoint_im (A B D : ℤ) : (cmPoint A B D).im = Real.sqrt (-(D : ℝ)) / (2 * A)
 theorem genusSum_mem {F K} {Φ : Finset GalQ} {z : PtA} (hΦ : ∀ t ∈ Φ, ∀ x ∈ F, t x ∈ K)
     (hz : z ∈ ptsOver F) : genusSum Φ z ∈ ptsOver K
+theorem eta_conj (z : ℂ) : ModularForm.eta (-conj z) = conj (ModularForm.eta z)
+theorem xC_conj (z : ℂ) : X0.xC (-conj z) = conj (X0.xC z)      -- also yC_conj, etaD_conj
+theorem phiC_conj (τ τ' : UpperHalfPlane) (h : (τ' : ℂ) = -conj (τ : ℂ)) :
+    X0.phiC τ' = conjPt (X0.phiC τ)
+theorem toC_galPt (σ : GalQ) (hσ : ∀ x : Qbar, ιC (σ x) = conj (ιC x)) (P : PtA) :
+    toC (galPt σ P) = conjPt (toC P)
+theorem cmComplexConj : CMComplexConj
 ```
 
 Package.lean (namespace `Package`):
@@ -143,6 +164,19 @@ theorem genusPtsDefined_of (hz hN) (Φ Z) (h5 : ∀ e, e % 8 = 5 → Z e = genus
 theorem genusPackage_of_cm (hz : TYZZnOverHprime) (hN : HprimeNormal) (h318 : Lemma318 HHprime)
     (hG : ∀ ℓ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : TYZGenusPackage
 theorem tyzThm35ReadingA_of_cm (h11 h1 h29 hz hN h318 hG) : TYZThm35ReadingA
+theorem ptT_add_iPt_ptT : ptT + iPt ptT = .some (-2 * iQ) 0 _      -- τ((1+i)/2) = (−2i, 0)
+theorem isTorsI3_mem_range (P : PtA) (h : X0.IsTorsI3 P) : ∃ y : GaussianInt, tauG y = P
+theorem lemma318_iff_literal (Hn) : Lemma318 Hn ↔ Lemma318Literal Hn
+theorem tyzThm35ReadingA_of_cm' (h11 h1 h29 hz hN) (h318 : Lemma318Literal HHprime) (hG) :
+    TYZThm35ReadingA
+theorem exists_actsAsArtin4 (d : ℕ) [NeZero d] (c : Pic (O4 d)) : ∃ ρ : GalQ, ActsAsArtin4 ρ d c
+theorem mem_Hprimebar_of_fixed (d : ℕ) [NeZero d] {x : Qbar} (hx : x ∈ H4bar d)
+    (hfix : ∀ ρ : GalQ, ActsAsArtin4 ρ d (sigmaClass d) → ρ x = x) : x ∈ Hprimebar d
+theorem tyzZnOverHprime_of (h1 : CMFieldOfDefinitionTYZ) (hi : IInH4) (hs : TYZSigmaFixesZn) :
+    TYZZnOverHprime
+theorem tyzThm35ReadingA_of_cmLeaves (h11 h1 h29) (hcm : CMFieldOfDefinitionTYZ) (hi : IInH4)
+    (hs : TYZSigmaFixesZn) (hN : HprimeNormal) (h318 : Lemma318Literal HHprime)
+    (hG : ∀ ℓ, IsTYZLcal ℓ → GenusPointLeafCM ℓ) : TYZThm35ReadingA
 ```
 
 `#print axioms` (VERIFIED, `lake env lean scratch/cm-points/Audit.lean`, 2026-11-13): every one of
@@ -152,9 +186,14 @@ Package.genusPackage_of_genusPointLeaf, Package.genusPackage_of_split, Package.t
 Package.iContained_HHprime, Package.normal_Lni, Package.normalFields_HHprime,
 Package.genusPackage_of_ringClass, Package.tyzThm35ReadingA_of_ringClass, Package.cmFieldTYZ_of,
 Package.tyzGenusSum_mem, Package.genusPtsDefined_of, Package.genusPackage_of_cm,
-Package.tyzThm35ReadingA_of_cm` depends on axioms: `[propext, Classical.choice, Quot.sound]`.
+Package.tyzThm35ReadingA_of_cm, CM.eta_conj, CM.phiC_conj, CM.cmComplexConj,
+Package.ptT_add_iPt_ptT, Package.isTorsI3_mem_range, Package.lemma318_iff_literal,
+Package.tyzThm35ReadingA_of_cm', Package.exists_actsAsArtin4, Package.mem_Hprimebar_of_fixed,
+Package.tyzZnOverHprime_of, Package.tyzThm35ReadingA_of_cmLeaves` (33 declarations) depends on axioms:
+`[propext, Classical.choice, Quot.sound]`.
 
-No leaf is proved. The leaves are `def … : Prop`.
+No TYZ or CM leaf of the main theorem is proved; they are `def … : Prop`. The former leaf CM-4
+(`CMComplexConj`) and the former leaf `TYZZnOverHprime` are now theorems / glue.
 
 ## 1. CM points (CM.lean)
 
@@ -185,9 +224,10 @@ input of TYZ §3):
 | `CMFieldOfDefinition H` | `heegnerPt Q ∈ A(H D)` (`H D` = ring class field of disc `D`) | Gross, *Heegner points on X₀(N)* (1984) §3; Shimura 1971 Thm 5.7 |
 | `CMFieldOfDefinitionTYZ` | `f₀(P_n) ∈ A(H_{n,4})`, ring-class's `H4bar n` (from CM-2: `cmFieldTYZ_of`) | as above; TYZ Prop 3.2 |
 | `ShimuraReciprocity` | for odd `p ∤ D` split, `b² ≡ D (4p)`, `σ` Frobenius above `𝔭 = (p, (−b+√D)/2)`: `σ(P_Q) = P_{Q'}` whenever `B' ≡ B (64)` and `(lat Q', latN Q') = c·𝔭̄·(lat Q, latN Q)` | main theorem of CM (Shimura 1971 Thm 5.4; Silverman, *Advanced topics* II.8.2); Gross 1984 `σ_𝔟(𝒪,𝔫,[𝔞]) = (𝒪,𝔫,[𝔞𝔟⁻¹])` |
-| `CMComplexConj` | the automorphism inducing complex conjugation maps `P_{[A,B,C]}` to `P_{[A,−B,C]}` | STANDARD (real `q`-coefficients) |
+| `CMComplexConj` | the automorphism inducing complex conjugation maps `P_{[A,B,C]}` to `P_{[A,−B,C]}` | **proved** (`cmComplexConj`) |
 | `TYZSigmaFixesZn` | every `ρ` acting on `H_{n,4}` as Tau Ceti's Artin symbol of ring-class's `sigmaClass n` fixes `z_n` (Shimura reciprocity in TYZ's form) | TYZ Cor 3.9 / Thm 3.6, Shimura reciprocity on `P_n = [h, 1]` (rv-tyz-inputs §1.5) |
-| `TYZZnOverHprime` | `z_n ∈ A(H'_n)` | consequence of the two previous rows and Prop 3.2(1) (the Galois deduction through ring-class's embedding is not formalized) |
+| `IInH4` | `i ∈ H_{n,4}` | genus theory (Cox Thm 6.1) |
+| `TYZZnOverHprime` | `z_n ∈ A(H'_n)` | **glue** (`tyzZnOverHprime_of`) from `CMFieldOfDefinitionTYZ`, `IInH4`, `TYZSigmaFixesZn` |
 
 Direction in `ShimuraReciprocity`: `Art(𝔭)` maps the lattice class `[𝔞]` to `[𝔭⁻¹𝔞] = [𝔭̄𝔞]`
 (arithmetic Frobenius; `j(𝔞)^{Art 𝔭} = j(𝔭⁻¹𝔞)`). STANDARD; **not checked numerically**: PARI is not
@@ -230,6 +270,11 @@ would also be supported (SPECULATIVE; not used).
 
 * TYZ's class-7 genus points (base CM point for `n ≡ 7`) are not pinned; with them,
   `GenusPointLeafCM` splits into three genuine leaves (`genusPointLeaf_of_split`).
-* `TYZZnOverHprime` from `CMFieldOfDefinitionTYZ` + `TYZSigmaFixesZn` (Galois theory through
-  `RingClass.embed`) is not formalized.
-* No CM leaf is proved; `ShimuraReciprocity`'s direction is not checked numerically (no PARI).
+* `HprimeNormal` and `IInH4` (ring class field facts) are leaves; Tau Ceti's norm-group description
+  might prove `IInH4`; `HprimeNormal` needs that ring class fields are Galois over `ℚ`.
+* `CMAlgebraic`, `CMFieldOfDefinition(TYZ)`, `ShimuraReciprocity`, `TYZSigmaFixesZn` are not proved;
+  `ShimuraReciprocity`'s direction is not checked numerically (no PARI), but was re-derived by the
+  independent review (Cox Cor. 11.37, Shimura Thm 5.4).
+* Duplicates: x0-32 independently proved `X0.cmComplexConj` and `X0.lemma318_iff` (files
+  `X0CM.lean`, `X0Pkg.lean`) after merging this branch; both versions compile together (VERIFIED,
+  `lake build … X0CM X0Pkg`). The integrator may keep either.

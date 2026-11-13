@@ -27,3 +27,19 @@ open ZInQ.Contrib.TYZGenus
 #check @Package.tyzThm35ReadingA_of_cm
 #check @Package.tyzThm35ReadingA_of_ringClass
 #check @Package.tauG_eq_zero
+#print axioms CM.eta_conj
+#print axioms CM.phiC_conj
+#print axioms CM.cmComplexConj
+#print axioms Package.ptT_add_iPt_ptT
+#print axioms Package.isTorsI3_mem_range
+#print axioms Package.lemma318_iff_literal
+#print axioms Package.tyzThm35ReadingA_of_cm'
+#print axioms Package.exists_actsAsArtin4
+#print axioms Package.mem_Hprimebar_of_fixed
+#print axioms Package.tyzZnOverHprime_of
+#print axioms Package.tyzThm35ReadingA_of_cmLeaves
+#check @Package.tyzThm35ReadingA_of_cmLeaves
+#check @Package.exists_actsAsArtin4
+#check @Package.mem_Hprimebar_of_fixed
+#check @Package.lemma318_iff_literal
+#check @CM.cmComplexConj

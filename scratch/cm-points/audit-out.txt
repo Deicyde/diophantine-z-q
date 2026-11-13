@@ -66,3 +66,32 @@ Package.tyzThm35ReadingA_of_ringClass : ZInQ.Contrib.TYZDecomp.TYZThm11Integral 
               (∀ (ℓ : ℕ → ℤ), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → Package.Thm35First ℓ Z) →
                 Package.Lemma321 Z → ZInQ.Literature.TYZThm35ReadingA
 Package.tauG_eq_zero : ∀ (y : GaussianInt), Package.tauG y = 0 ↔ ZInQ.PropN.twoTwoI ∣ y
+'ZInQ.Contrib.TYZGenus.CM.eta_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.phiC_conj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.CM.cmComplexConj' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.ptT_add_iPt_ptT' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.isTorsI3_mem_range' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.lemma318_iff_literal' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzThm35ReadingA_of_cm'' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.exists_actsAsArtin4' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.mem_Hprimebar_of_fixed' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzZnOverHprime_of' depends on axioms: [propext, Classical.choice, Quot.sound]
+'ZInQ.Contrib.TYZGenus.Package.tyzThm35ReadingA_of_cmLeaves' depends on axioms: [propext, Classical.choice, Quot.sound]
+Package.tyzThm35ReadingA_of_cmLeaves : ZInQ.Contrib.TYZDecomp.TYZThm11Integral →
+  ZInQ.Contrib.TYZDecomp.TYZLcalOne →
+    ZInQ.Contrib.TYZDecomp.TYZLemma29Mod2 →
+      Package.CMFieldOfDefinitionTYZ →
+        Package.IInH4 →
+          Package.TYZSigmaFixesZn →
+            Package.HprimeNormal →
+              Package.Lemma318Literal RingClass.HHprime →
+                (∀ (ℓ : ℕ → ℤ), ZInQ.Contrib.TYZDecomp.IsTYZLcal ℓ → Package.GenusPointLeafCM ℓ) →
+                  ZInQ.Literature.TYZThm35ReadingA
+Package.exists_actsAsArtin4 : ∀ (d : ℕ) [inst : NeZero d] (c : TauCeti.GlobalNumberFields.Pic (RingClass.O4 d)),
+  ∃ ρ, Package.ActsAsArtin4 ρ d c
+Package.mem_Hprimebar_of_fixed : ∀ (d : ℕ) [inst : NeZero d] {x : ZInQ.Contrib.TYZDecomp.CurveA.Qbar},
+  x ∈ RingClass.H4bar d →
+    (∀ (ρ : CM.GalQ), Package.ActsAsArtin4 ρ d (RingClass.sigmaClass d) → ρ x = x) → x ∈ RingClass.Hprimebar d
+Package.lemma318_iff_literal : ∀ (Hn : ℕ → IntermediateField ℚ ZInQ.Contrib.TYZDecomp.CurveA.Qbar),
+  Package.Lemma318 Hn ↔ Package.Lemma318Literal Hn
+CM.cmComplexConj : CM.CMComplexConj
