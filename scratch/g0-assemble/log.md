@@ -49,3 +49,4 @@
   Run 1: wrong lemma name (`adjoin_simple_toSubalgebra_of_integral` -> `..._of_isAlgebraic`) and a
   `subst` that removed `α`; run 2 VERIFIED, standard axioms. Field `resQFiniteIndex` removed from
   GluePieces2 (now 28 fields). Tail run: 0 errors, standard axioms.
+- Final flat file (41970 lines, with resQFiniteIndex): VERIFIED exit 0 in 548 s, 0 errors, no sorry, 180 axiom reports all standard.
