@@ -89,3 +89,17 @@
     `sInf_phiF` (`ψ(v)` computed), `upper_map` (abstract Prop. 14), `herbrand_quotient`
     (any `r` with the compatibility equals `resHom`).
 - The development files `Genuine.lean`, `HerbrandT22.lean` were merged into `Herbrand.lean`.
+
+## Step 8: final checks
+- All four files recompiled one after another (VERIFIED): Statements 6 s; HilbertLocal 9 s
+  (`PkgI6.hilbertDifferentFormula`); DifferentBound 41 s (`PkgI6.differentBound`); Herbrand 17 s
+  (`PkgI6.herbrandQuotient`, `PkgI6.herbrandTransitivity`); each `#print axioms` = propext,
+  Classical.choice, Quot.sound.
+- Statement identity (VERIFIED, python text comparison against Leaves.lean lines 5029-5133 and
+  5717-5746): `HilbertDifferentFormula`, `DifferentBound`, `HerbrandQuotient`,
+  `HerbrandTransitivity`, `SerreDifferentBound`, `lowerRam`, `lowerRamR`, `herbrandPhi`,
+  `upperRam`, `lowerRam_tower`: all IDENTICAL.
+- `HilbertLocal.lean` now defines `lowerRam` in `namespace PkgI6` (as in Leaves.lean) and adds
+  `PkgI6.hilbertDifferentFormula_of_dvr` (no completeness hypothesis).
+- Bundle status: `HSyn.TextbookLeaves.t22a/t22b` are exactly the proved statements; `t20/t21` are
+  the global `GlueConductor` forms, NOT proved.
