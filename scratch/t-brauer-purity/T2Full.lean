@@ -449,6 +449,42 @@ theorem abhyankarDVR_main (R K L M : Type*) [CommRing R] [IsDomain R] [IsDiscret
   have hw2 : w2 ^ e = algebraMap (integralClosure R L) _ u := Subtype.ext hwL1
   have hgen : Algebra.adjoin L {algebraMap (integralClosure (integralClosure R L) L1) L1 w2} = ⊤ :=
     algebra_adjoin_gen_eq_top hwint
+  -- the map `A₂ → A₃` and the towers
+  letI : Algebra R (integralClosure (integralClosure R L) L1) :=
+    ((algebraMap (integralClosure R L) (integralClosure (integralClosure R L) L1)).comp
+      (algebraMap R (integralClosure R L))).toAlgebra
+  haveI : IsScalarTower R (integralClosure R L) (integralClosure (integralClosure R L) L1) :=
+    IsScalarTower.of_algebraMap_eq (fun x => rfl)
+  let f23 : integralClosure (integralClosure R L) L1 →+* M :=
+    (L1.val.toRingHom).comp ((integralClosure (integralClosure R L) L1).val.toRingHom)
+  have hf23 : ∀ x, f23 x ∈ integralClosure R M := by
+    intro x
+    have h1 : IsIntegral (integralClosure R L) ((x : L1) : M) :=
+      x.2.map (L1.val.restrictScalars (integralClosure R L))
+    exact isIntegral_trans (R := R) (A := integralClosure R L) _ h1
+  let ι23 := f23.codRestrict (integralClosure R M) hf23
+  letI : Algebra (integralClosure (integralClosure R L) L1) (integralClosure R M) := ι23.toAlgebra
+  haveI : IsScalarTower (integralClosure R L) (integralClosure (integralClosure R L) L1)
+      (integralClosure R M) := IsScalarTower.of_algebraMap_eq (fun x => Subtype.ext rfl)
+  haveI : IsScalarTower R (integralClosure (integralClosure R L) L1) (integralClosure R M) :=
+    IsScalarTower.of_algebraMap_eq (fun x => by
+      apply Subtype.ext
+      change algebraMap R M x =
+        ((algebraMap R (integralClosure (integralClosure R L) L1) x : L1) : M)
+      rw [IsScalarTower.algebraMap_apply R L M x]
+      rfl)
+  let P : Ideal (integralClosure (integralClosure R L) L1) := Q'.under _
+  haveI : P.LiesOver Q := Ideal.LiesOver.tower_bot Q' P Q
+  have huP : algebraMap (integralClosure R L) _ u ∉ P := by
+    intro h
+    apply huQ
+    rw [P.over_def Q]
+    exact h
+  have heA1 : IsUnit ((e : ℕ) : integralClosure R L) := by
+    have := heU.map (algebraMap R (integralClosure R L))
+    rwa [map_natCast] at this
+  have hunr : Algebra.IsUnramifiedAt (integralClosure R L) P :=
+    isUnramifiedAt_of_pow_eq (integralClosure R L) L L1 _ e he0 heA1 w2 u hw2 hgen P huP
   sorry
 
 end Assembly
