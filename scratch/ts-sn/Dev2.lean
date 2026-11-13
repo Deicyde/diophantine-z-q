@@ -3129,6 +3129,7 @@ theorem homog_data (p : ℕ) [hp : Fact p.Prime] (s₀ : ℚ) (hs₀ : 0 ≤ pad
       rw [sub_add_cancel] at this
       exact ((Ideal.IsMaximal.isPrime ‹_›).mem_or_mem this).resolve_left hdk
 
+set_option maxHeartbeats 1000000 in
 attribute [local instance] Polynomial.algebra in
 /-- **`SNSpecialize`, the main argument** (see `snSpecialize`). -/
 theorem snSpecialize_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
@@ -3247,5 +3248,78 @@ theorem snSpecialize_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra
         exact V.smul_mem _ hb
     exact Submodule.finiteDimensional_of_le hle
   refine ⟨hfd, ?_⟩
+  haveI := hfd
+  -- `ρ : C → L` (reduction modulo `𝔓`)
+  let φL : (integralClosure ℚ[X] E ⧸ 𝔓) →+* L :=
+    φ.codRestrict L (fun y => IntermediateField.subset_adjoin ℚ _ ⟨y, rfl⟩)
+  let ρ : integralClosure ℤ[X] E →+* L := φL.comp ((Ideal.Quotient.mk 𝔓).comp ιB)
+  let ev : ℤ[X] →+* ℚ := (Polynomial.evalRingHom s₀).comp (Polynomial.mapRingHom (Int.castRingHom ℚ))
+  have hev : ∀ g : ℤ[X], ev g = (g.map (Int.castRingHom ℚ)).eval s₀ := fun g => rfl
+  have hρ : ∀ g : ℤ[X], ρ (algebraMap ℤ[X] (integralClosure ℤ[X] E) g) = algebraMap ℚ L (ev g) := by
+    intro g
+    apply Subtype.ext
+    have h1 : ιB (algebraMap ℤ[X] (integralClosure ℤ[X] E) g) =
+        algebraMap ℚ[X] (integralClosure ℚ[X] E) (g.map (Int.castRingHom ℚ)) := Subtype.ext rfl
+    change φ (Ideal.Quotient.mk 𝔓 (ιB (algebraMap ℤ[X] _ g))) = _
+    rw [h1, hφQ]
+    rfl
+  have hρv : ∀ c : integralClosure ℤ[X] E, ((ρ c : L) : Qbar) = φ (Ideal.Quotient.mk 𝔓 (ιB c)) :=
+    fun c => rfl
+  have hevne : ∀ g : ℤ[X], g ∉ m → ev g ≠ 0 := by
+    intro g hg h0
+    obtain ⟨k, n₀, hn₀, hdiv⟩ := homog_data p s₀ hs₀ m hpm hsm g
+    apply hg
+    rw [hdiv]
+    rw [← hev, h0, mul_zero] at hn₀
+    have : n₀ = 0 := by exact_mod_cast hn₀
+    rw [this]
+    exact dvd_zero _
+  -- `ψ : S → L`
+  have hunitρ : ∀ y : Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl,
+      IsUnit (ρ y) := by
+    rintro ⟨_, g, hg, rfl⟩
+    rw [isUnit_iff_ne_zero]
+    change ρ (algebraMap ℤ[X] _ g) ≠ 0
+    rw [hρ]
+    exact (_root_.map_ne_zero _).mpr (hevne g hg)
+  let ψ : integralClosure (Localization.AtPrime m) E →+* L :=
+    IsLocalization.lift (M := Algebra.algebraMapSubmonoid (integralClosure ℤ[X] E) m.primeCompl)
+      (S := integralClosure (Localization.AtPrime m) E) (g := ρ) hunitρ
+  have hψC : ∀ c, ψ (algebraMap (integralClosure ℤ[X] E)
+      (integralClosure (Localization.AtPrime m) E) c) = ρ c :=
+    fun c => IsLocalization.lift_eq _ _
+  let ψR : Localization.AtPrime m →+* L :=
+    ψ.comp (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E))
+  have hψR : ∀ g : ℤ[X], ψR (algebraMap ℤ[X] (Localization.AtPrime m) g) =
+      algebraMap ℚ L (ev g) := by
+    intro g
+    change ψ (algebraMap (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E)
+      (algebraMap ℤ[X] (Localization.AtPrime m) g)) = _
+    rw [← IsScalarTower.algebraMap_apply ℤ[X] (Localization.AtPrime m),
+      IsScalarTower.algebraMap_apply ℤ[X] (integralClosure ℤ[X] E), hψC, hρ]
+  -- the ring `A = ψ(S) ⊆ L`
+  let A : Subring L := @RingHom.range (integralClosure (Localization.AtPrime m) E) L _ _ ψ
+  let ψA : integralClosure (Localization.AtPrime m) E →+* A :=
+    { toFun := fun s => ⟨ψ s, ⟨s, rfl⟩⟩
+      map_one' := Subtype.ext ψ.map_one
+      map_mul' := fun a b => Subtype.ext (ψ.map_mul a b)
+      map_zero' := Subtype.ext ψ.map_zero
+      map_add' := fun a b => Subtype.ext (ψ.map_add a b) }
+  letI aSA : Algebra (integralClosure (Localization.AtPrime m) E) A := ψA.toAlgebra
+  letI aRA : Algebra (Localization.AtPrime m) A :=
+    (ψA.comp (algebraMap (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E))).toAlgebra
+  haveI : IsScalarTower (Localization.AtPrime m) (integralClosure (Localization.AtPrime m) E) A :=
+    IsScalarTower.of_algebraMap_eq' rfl
+  have hsurj : Function.Surjective
+      (algebraMap (integralClosure (Localization.AtPrime m) E) A) := by
+    rintro ⟨_, s, rfl⟩
+    exact ⟨s, rfl⟩
+  have hRA : ∀ r, ((algebraMap (Localization.AtPrime m) A r : A) : L) = ψR r := fun r => rfl
+  obtain ⟨-, hfinS, -⟩ := snLocalData_aux E m
+  haveI : Module.Finite (Localization.AtPrime m) A :=
+    Module.Finite.of_surjective (IsScalarTower.toAlgHom (Localization.AtPrime m)
+      (integralClosure (Localization.AtPrime m) E) A).toLinearMap hsurj
+  haveI : IsNoetherianRing A := isNoetherian_of_tower (Localization.AtPrime m) inferInstance
   sorry
 end PropTSGlue
