@@ -1,7 +1,7 @@
 # g10-odd results log
 
 ## Statements
-- `G10Glue` copied verbatim (scratch/g0-mod-galois/part_galois.lean L223-242) into
+- `G10Glue` copied verbatim (scratch/g0-mod-galois/part_galois.lean L224-242) into
   scratch/g10-odd/G10Odd.lean §1, with `HSyn.T11_RiemannGAGA`, `HSyn.T12_ArtinComparison`
   (opaque, verbatim from scratch/g0-split/Split.lean L19261-19268), `resQ`, `Vb`, `tate`,
   `Intertwines`, `G10Out` (verbatim). `PkgI3.*`, `PkgI4.*`, `GlueI3.repBaseChange` imported from
