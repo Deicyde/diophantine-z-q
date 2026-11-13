@@ -66,9 +66,9 @@
 
 ## Step 4 (13:10-13:35 PST): G15 corollary, compiled
 - Attempted `exists_g7LocalPackBC_of_leaves` (local-glue's `G7LocalPackBC ℓ r` for our data):
-  `(deterministic) timeout at whnf` (also at 1.6M heartbeats), located (by sorry-bisection) in
-  retyping `Tm` from `GaloisCopy.Vb (A.baseChange L' via incAlg)` to `G0Galois.Vb (bcL' hLL' A)`
-  (`incAlgL`, same text as `incAlg`). Dropped (FINDING for integration: avoid the `bcL'` retyping).
+  `(deterministic) timeout at whnf` (also at 1.6M heartbeats), located (by sorry-bisection) in the
+  steps supplying `L, L', A, Tm` (likely retyping `Tm` from `GaloisCopy.Vb (A.baseChange L' via incAlg)` to `G0Galois.Vb (bcL' hLL' A)`
+  (`incAlgL`, same text as `incAlg`); SPECULATIVE as to the exact cause). Dropped (FINDING for integration: avoid the `bcL'` retyping).
 - Instead proved (VERIFIED, compile.out: exit 0, 0 errors, ~73 s; 22 `#print axioms`, all
   `[propext, Classical.choice, Quot.sound]`): `exists_g15RamG_of_leaves` — operator data at ℓ = 5
   and ℓ = 3 (Glazer's normalization) and, for every `D : ModData` whose `r₅`, `r₃` satisfy G8Out for
