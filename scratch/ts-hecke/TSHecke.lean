@@ -6341,7 +6341,9 @@ The moduli-theoretic input is **fibre transitivity**: two `ℚ̄`-points with th
 differ by an automorphism of `Y` coming from R1hecke (`twist α`, then `rightMul u`), and these
 automorphisms preserve `π`. It is proved here from R1hecke, R2fp, the kernel's leaf
 `TorsionStructure` (level torsor) and the surjectivity of `𝒪^× → (𝒪/3𝒪)^×` (`Units.lean`). What
-is left is one statement of curve theory with no moduli in it, `CurveGaloisChart`. -/
+is left is one statement of curve theory with no moduli in it, `CurveGaloisChart`; its Galois
+property is proved below too (`curveGaloisChart_of`, from `TSHeckeGal.isGalois_of_transitive`), so
+that only `CurveNormChart` (the normalization chart, no Galois) remains. -/
 
 /-- **Fibre transitivity on classes** (compiled). -/
 theorem fibre_transitive (hT : ObjBridge.TorsionStructure) {Y : Over (Spec (CommRingCat.of ℚ))}
