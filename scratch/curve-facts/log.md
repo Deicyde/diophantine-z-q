@@ -61,3 +61,6 @@
 - C1a, C2K, C3K: all TRUE, none vacuous (P¹_K satisfies all hypotheses). C2K needs properness and
   alg. closure, not smoothness; C3K needs char 0 and alg. closure. C1b not reviewed (STANDARD).
 - run8.txt: deprecated names replaced; 0 errors, 0 warnings; verbatim check re-run IDENTICAL.
+
+## Done
+- .fleet/curve-facts.md written. Final: curveFacts_of_leaves : C1b → C2K → C3K → CurveRatFactor ∧ CurveSurj.
