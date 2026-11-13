@@ -69,3 +69,8 @@ origin/wip/g0-split (c20fa62b), `scratch/g0-split/part_split.lean`, not merged.
 - `LocalRamG`, `G15RamG` (clause (iii) = G11's output), `g15Ram_of_G`, `modularConstituent_tail_G`.
 - run13: exit 0, no error, no sorry; 19 `#print axioms` standard (VERIFIED). NewForm.lean 2505
   lines, part_new.lean 991 lines.
+
+## Review (02:24) and fix
+- One read-only model review: no defects; caveats recorded in the report §5.
+- Fix: `g12Spec_of_galois` restated as `∃ i ιC ι5, ∀ ι3, G12Spec ⟨i, ιC, ι5, ι3, r5, r3⟩` (ι₃ is
+  chosen after ι₅). run14: exit 0, no error, no sorry, 19 standard-axiom prints (VERIFIED).

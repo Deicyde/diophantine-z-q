@@ -150,8 +150,9 @@ copied verbatim into §9 of `part_new.lean`, over the kernel's objects, renamed 
 `GalG12Out` there. The bridge is **proved** (VERIFIED, standard axioms):
 
 - `g12Spec_of_galois (hDF : DirichletOfFinite) A ρ5 ρ3 r5 r3 (h5 : GalG8Out A 5 ρ5 r5)
-  (h3 : GalG8Out A 3 ρ3 r3) (h12 : GalG12Out r5) ι3 : ∃ D, D.r5 = r5 ∧ D.r3 = r3 ∧ D.ι3 = ι3 ∧
-  G12Spec D`.
+  (h3 : GalG8Out A 3 ρ3 r3) (h12 : GalG12Out r5) : ∃ i ιC ι5, ∀ ι3,
+  G12Spec ⟨i, ιC, ι5, ι3, r5, r3⟩`. Because of this form, `ι₃` can be chosen after `ι₅`,
+  compatibly with Glazer's embeddings of `C`, as `G14TraceCompat` needs (review point 4).
 - (a) Irreducibility: the span of `r(G_{L'})` is contained in the span of `r(G_ℚ)`.
 - (b) `isConstituentOf_of_GalG8Out`: `U = ker(pr₂ ∘ e)`, where `e` is their
   `ℚ̄_ℓ ⊗ V_ℓ(A) ≃ ℚ̄_ℓ² × ℚ̄_ℓ²`. `resQ_spec` shows that the embedding `IsAlgClosed.lift` underlying
@@ -202,3 +203,31 @@ C9 and E1Sub copies would come along) or moves `Split.lean` onto the kernel.
 
   None of these is a new literature leaf.
 - No new leaf was introduced, and no leaf is used in a form stronger than its kernel statement.
+
+## 5. Independent review (2026-11-13, one model review, read-only)
+
+**Verdict: no defects.** The reviewer judged every hypothesis Prop (`G12Spec`, `PanOutput`,
+`DirichletOfFinite`, `G14TraceCompat`, `G15Ram`/`G15LocalBounds`, and the kernel's
+`SwanIndependent`, `SwanIntegral`, `AdaptedExists`) true for Glazer's `A/L'`, `r₅`, `r₃` and Pan's
+eigenform, and found no unsatisfiable hypothesis. The reviewer also judged `LocalRam` to be exactly
+what N5 L819-852 proves, and the Carayol, R14, T24 and T25 leaves to be published statements up
+to standard reformulations. Caveats, and what was done:
+
+1. **`PanOutput`** asks for a *finite* twist in the arithmetic-Frobenius normalization (trace =
+   `a_p`). This holds if Pan is read in the homological normalization, or applied to `r₅^∨`. In the
+   cohomological normalization the twist would be finite·`ε²`. Glazer's `{0,−1}` against
+   `{0,1−k}` comparison (L760-766) assumes the homological reading. g0-mod-galois's `GalG12Out`
+   must be sourced that way. Not changed here.
+2. **`G14TraceCompat`** holds only for an `ι₃` chosen compatibly with `ι₅` and Glazer's embeddings
+   of the coefficient field `C`. Such an `ι₃` always exists. **Applied:** `g12Spec_of_galois` now
+   gives `G12Spec` for every `ι₃` (recompiled, exit 0, 19 declarations with standard axioms).
+3. **`CarayolR17'`** silently uses three standard steps: Casselman's `a(π_p) = v_p(N)`, transport
+   to any semisimple `ρ` with the same traces, and `a(ρ^∨) = a(ρ)` (`AttachedTo` is the dual of
+   Deligne's normalization). This is the kernel's leaf statement, unchanged. Glazer's L768-774
+   duality remark is the same point.
+4. **Transport into `ModularConstituent`** (`abVarEquiv` against `baseChange`, §3 step 4):
+   unchecked. Both `baseChange` bodies are `Over.pullback`, so it is probably definitional.
+5. The reviewer read an earlier version and called the global-to-local inertia step unproved. It
+   is proved (`localUnram_of_unramifiedAt`, §10). The reviewer also noted that clause (ii) holds
+   even at bad primes `p ∣ M` with `p > D`: wild inertia is trivial on `V_ℓ` for `p > 2g+1`
+   (Grothendieck), and `β` kills odd wild inertia.

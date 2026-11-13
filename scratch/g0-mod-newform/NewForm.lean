@@ -2330,13 +2330,17 @@ theorem isConstituentOf_of_GalG8Out {K : Type} [Field K] [NumberField K] (A : Pk
     rw [h1, toRep_apply, Matrix.toLin'_apply]
 
 /-- **G12Spec from g0-mod-galois's outputs (GLUE, proved from `DirichletOfFinite`).** Their
-`G8Out` at `ℓ = 5` and `ℓ = 3` and `G12Out r₅` give data `D` with `G12Spec D`. -/
+`G8Out` at `ℓ = 5` and `ℓ = 3` and `G12Out r₅` give `i`, `ιC`, `ι₅` such that the data
+`⟨i, ιC, ι₅, ι₃, r₅, r₃⟩` satisfy `G12Spec` for **every** `ι₃` (`G12Spec` does not involve `ι₃`).
+So `ι₃` can be chosen afterwards, compatibly with `ι₅`, as `G14TraceCompat` requires. -/
 theorem g12Spec_of_galois (hDF : DirichletOfFinite) {K : Type} [Field K] [NumberField K]
     (A : PkgI3.AbVar K) (ρ5 : PkgI4.GQ → Module.End (PadicAlgCl 5) (Vb A 5))
     (ρ3 : PkgI4.GQ → Module.End (PadicAlgCl 3) (Vb A 3)) (r5 : GaloisRep 5 2)
-    (r3 : GaloisRep 3 2) (h5 : GalG8Out A 5 ρ5 r5) (h3 : GalG8Out A 3 ρ3 r3) (h12 : GalG12Out r5)
-    (ι3 : Qbar →ₐ[ℚ] PadicAlgCl 3) :
-    ∃ D : ModData K A, D.r5 = r5 ∧ D.r3 = r3 ∧ D.ι3 = ι3 ∧ G12Spec D := by
+    (r3 : GaloisRep 3 2) (h5 : GalG8Out A 5 ρ5 r5) (h3 : GalG8Out A 3 ρ3 r3)
+    (h12 : GalG12Out r5) :
+    ∃ (i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K) (ιC : Qbar →ₐ[ℚ] ℂ)
+      (ι5 : Qbar →ₐ[ℚ] PadicAlgCl 5),
+      ∀ ι3 : Qbar →ₐ[ℚ] PadicAlgCl 3, G12Spec (⟨i, ιC, ι5, ι3, r5, r3⟩ : ModData K A) := by
   obtain ⟨i0, hi0⟩ := resQ_spec K
   let i : AlgebraicClosure ℚ →ₐ[ℚ] AlgebraicClosure K := i0.toRatAlgHom
   have hi : ∀ (τ : AlgebraicClosure K ≃ₐ[K] AlgebraicClosure K) x, i (resQ K τ x) = τ (i x) := hi0
@@ -2347,8 +2351,9 @@ theorem g12Spec_of_galois (hDF : DirichletOfFinite) {K : Type} [Field K] [Number
     obtain ⟨-, -, -, hadj⟩ := h
     rw [PkgI4.GaloisRep.IsIrreducible, eq_top_iff, ← hadj]
     exact Algebra.adjoin_mono (Set.range_subset_iff.mpr fun σ => ⟨resQ K σ, rfl⟩)
-  exact ⟨⟨i, ιC, ιL, ι3, r5, r3⟩, rfl, rfl, rfl, hirr ρ5 r5 h5, hirr ρ3 r3 h3,
-    isConstituentOf_of_GalG8Out A 5 ρ5 r5 h5 i hi, isConstituentOf_of_GalG8Out A 3 ρ3 r3 h3 i hi, hpan⟩
+  exact ⟨i, ιC, ιL, fun ι3 => ⟨hirr ρ5 r5 h5, hirr ρ3 r3 h3,
+    isConstituentOf_of_GalG8Out A 5 ρ5 r5 h5 i hi, isConstituentOf_of_GalG8Out A 3 ρ3 r3 h3 i hi,
+    hpan⟩⟩
 
 end Bridge
 
