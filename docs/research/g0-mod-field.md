@@ -1,11 +1,12 @@
 # g0-mod-field: glue steps G2, G4, G7 (the field half of `ModularConstituent`)
 
-Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (about 760 lines; it imports
+Task g0-mod-field, 2026-11-13. Lean: `scratch/g0-mod-field/ModField.lean` (822 lines; it imports
 `ZInQKernel/HDecomp/` modules and is not a flat copy). Log: `scratch/g0-mod-field/log.md`.
 
 ## 1. Result
 
-**For every fibre context, G7's output follows from five glue Props and four leaves. All of it
+**For every fibre context, G7's output follows from three named glue Props (`FibreCoverExists`,
+`KernelFieldExists`, `UnramifiedSup`) and the B2 leaves (T14a, T14b, T15, T30, T31). All of this
 is proved in Lean, with no `sorry`.** Composed with the next ranges (G8-G16, bundled as one Prop
 `AfterG7`), this gives `ModularConstituent`. VERIFIED: `lake env lean scratch/g0-mod-field/ModField.lean`
 gives 0 errors and no `declaration uses sorry`. `#print axioms` gives `[propext, Classical.choice,
@@ -38,11 +39,13 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
 |---|---|---|
 | `FibreCtx Y Φ π u P` | input | the hypotheses of `ModularConstituent`: R1-R2 clauses, `u ∉ 𝒞`, a `ℚ̄`-point `y` with object `P` over `J(u)` |
 | `IsModelOver L A P` | — | `A/L` (`L ⊆ ℚ̄`) is a model of `P`'s surface: `A_ℚ̄ ≅ P.A` as `ℚ̄`-schemes |
-| `G2Out u P` | G2 | `K ⊆ ℚ̄` finite Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`, a model of `P` over `K` |
+| `RationalFibre Y Φ P K PK` | — | `PK : QML3 K` is the object at a `K`-point of `Y₃` whose base change carries `P`, and `PK.A` is a model of `P` (Glazer's "fiber `A/K`") |
+| `IsQMModel L A P` | — | `A = (PK.A)_L` for some `PK : QML3 K`, `K ≤ L`, with `PK.A` a model of `P`. So `A` has good reduction away from 3 (G3) |
+| `G2Out Y Φ u P` | G2 | `K ⊆ ℚ̄` finite Galois, `[K:ℚ] ≤ 324!`, unramified outside `T`, a rational fibre `PK/K` |
 | `DescentDatum L A ε` | B1 | `ε` a normalized locally constant sign cocycle inflated from `Gal(L/ℚ)`, with maps `m_σ = μ_σ∘σ` on `A(ℚ̄)` and reals `a_σ > 0` (see §2) |
-| `G4Out u P` | G4 | Hom field `L` finite Galois, `[L:ℚ] ≤ D`, unramified outside `T`, model `A/L`, `DescentDatum L A ε` |
+| `G4Out u P` | G4 | Hom field `L` finite Galois, `[L:ℚ] ≤ D`, unramified outside `T`, a QM model `A/L`, `DescentDatum L A ε` |
 | `G7Out u P` | G7 | G4's data plus `χ`, `β` (`β² = χ`, `∂β = ε`) and `L' ⊇ L` with `G_{L'} = G_L ∩ ker β`, `[L':ℚ] ≤ Q_D·M`, `A_{L'}` a model |
-| `G7Data u P L A ε N χ β L' h` | G7 | the same as a clause list, plus `N` supported on `T`, the twisted `β`, and `L'` unramified outside `T` (inertia form `GlueB3Unram.GalUnramifiedOutside`) |
+| `G7Data u P L A ε N χ β L' h` | G7 | the same as a clause list, plus `N` supported on `T` with `N = ∏_{p∈T₋} lev p` (`T₋ ⊆ T`, `lev 2 = 4`, `lev p = p`), the twisted `β`, and `L'` unramified outside `T` (inertia form `GlueB3Unram.GalUnramifiedOutside`) |
 | `G7OutUnr u P` | G7 | `∃` data with `G7Data` |
 
 ### Proved steps
@@ -61,6 +64,7 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
 
 ### What remains (named Props), smallest first (sizes SPECULATIVE)
 
+0. `ResQRange`, `TateBridge`: the bridge to g0-mod-galois' inputs (§3).
 1. `UnramifiedSup`: a compositum of two finite Galois extensions of `ℚ`, both unramified at `p`,
    is unramified at `p`. STANDARD (Neukirch I §8; locator UNVERIFIED), but not in Mathlib v4.35.
    Small to medium.
@@ -70,7 +74,7 @@ prime of `S_mul` is `≤ D`, and `10¹² ≤ D`) are proved (`admissible_S_mul`,
    `GlueRepo.PR.inertia_orders_eq_one_iff` and Lemma NV step 2. Missing: the degree theory of
    curves and the function-field Galois theory (leaf-qm-fp §4). Large.
 3. `KernelFieldExists` (G4 + B1's geometric half). For each fibre context and each `K`, `A/K` as
-   in G2's output, `KernelFieldOut u P K A`. This asks for: the rank `r ≤ 16F₀²` of the
+   in G2's output (a `RationalFibre` `PK/K`), `KernelFieldOut u P K PK.A`. This asks for: the rank `r ≤ 16F₀²` of the
    endomorphism lattice of `Res_{K/ℚ} A`; its Galois image, a finite `G ≤ GL_r(ℤ)`; the kernel
    field `E` with `[E:ℚ] = |G|`, unramified outside `T`; and `ConjugacyData` on `A_{E⊔K}`. The
    last is the maps `m_σ = μ_σ∘σ` with `μ_σ` the `B`-linear conjugacy isogenies (Skolem-Noether,
@@ -104,11 +108,34 @@ The relation `c = n/d ∈ ℚ^×` holds because the discrepancy commutes with `B
 `GlueDescent.B6_commute_i_j`). The `a`-identity is N5 L651-660. In `ConjugacyData`, the kernel
 sizes are degrees: in characteristic 0, `deg μ = |ker μ(ℚ̄)|`, and on a surface `|A[n]| = n⁴`.
 
-**One fix found and made (VERIFIED as a logical point).** The first draft did not constrain `a`
+**Four fixes found and made (VERIFIED as logical points; each true-statement check is a model
+check).** First, `a` on `G_L`: The first draft did not constrain `a`
 on `G_L`. That left `a` free up to a character `G_ℚ → ℝ_{>0}` (the identity
 `a_σ a_τ c = ε a_{στ}` is invariant under `a ↦ aλ`). g0-mod-galois' `G7Out` asks for `a = 1` on
 `G_{L'}`. The clauses `a_k = 1`, `a_{σk} = a_{kσ} = a_σ` were added, and B1's normalization
 proves them from `|ker m_k| = 1`, `|ker m_{σk}| = |ker m_{kσ}| = |ker m_σ|`.
+
+Second, the models. `KernelFieldExists` first quantified over every `K`-model `A` of `P`. That
+is false in general. A twist of the fibre by a cocycle in `H¹(G_K, Aut A_ℚ̄)` that is ramified
+at some `p ∉ T` has bad reduction at `p`, and then its kernel field `E` can ramify at `p`. G2 now
+produces a `RationalFibre`: the object `PK` at a `K`-point of `Y₃`, which is the fibre of the
+universal family. `KernelFieldExists` quantifies over those only.
+
+Third, the same twist problem affects `AfterG7`, which quantifies over every `G7Data`: with an
+arbitrary model, G11 and G15 fail. `G4Out`, `G7Out` and `G7Data` now ask for `IsQMModel`
+(`A = (PK.A)_L` for a `QML3` object `PK`; good reduction away from 3 by G3).
+
+Fourth, the level of `χ`. `G7Data` first allowed any `χ` with modulus supported on `T`. Then
+`χλ²`, with `λ` wildly ramified at a large `p ∈ T`, would break G15's exponent bound `≤ 2`. The
+clause `N = chiLevel T₋` for some `T₋ ⊆ T` was added. It is proved from a copy of glue-descent's
+`b2_of_leaves` that exposes the level (`b2_of_leaves_level`).
+
+**Caveat on `DescentDatum`.** It is stated on points and does not record that `μ_σ` is algebraic.
+Its clauses determine `ρ_ℓ` on `G_{L'}`: there it is the Tate action. On `G_ℚ` they determine
+`ρ_ℓ` up to twists by finite-order characters of `Gal(L/ℚ)`, possibly a different one for each
+`ℓ`. The output (a common constituent over `L'`) is insensitive to such twists, and so are
+modularity, de Rham-ness and the conductor bounds. This is SPECULATIVE until the next ranges
+are checked against it.
 
 ## 3. How the conclusion feeds the next range and `ModularConstituent`
 
