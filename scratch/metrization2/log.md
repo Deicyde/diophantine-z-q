@@ -12,3 +12,14 @@
   ProductMapLocalStructure → MetrizationExists`. Compiles on top of MetrBase, 0 errors; all three
   `#print axioms`: propext, Classical.choice, Quot.sound (VERIFIED). Hypotheses `A.dim = g` and
   `IsZLattice ℝ Λ` of JacDetNondegenerate are unused (only discreteness of Λ is used).
+- part_unif0.lean: verbatim copies of leaf-push2's cptObj, CPts, cEvalAt, cDom, IsUniformization
+  (ZInQKernel/HDecomp/LeafPush2/R22.lean l. 22-56) and UniformizationExists (T.lean l. 26-37), in
+  namespace ZInQ.LeafPush2, with `AbVar` = Base's ZInQ.DefFaltings.AbVar (a copy of PkgI3.AbVar).
+- Checked (VERIFIED by diff of 12-line windows): Base.lean's GroupModel, ptC, evalAt, dom,
+  IsAnalyticUniformization, genericFibre match ZInQKernel/HDecomp/Faltings/Models.lean.
+- part_unif1.lean: θ : A_L(ℂ)_τ → 𝒢(ℂ)_τ (q ↦ Spec ℂ → A_L ≅ 𝒢_L → 𝒢) with inverse χ built from
+  the monoidal functor Over.pullback (Spec L → Spec 𝓞_L); theta_mul, theta_injective,
+  theta_surjective, evalAt_theta. `analyticUniformizationOfDim_of_uniformizationExists :
+  ZInQ.LeafPush2.UniformizationExists → ZInQ.Metrization.AnalyticUniformizationOfDim` (apply T35 to
+  A_L over L at σ = τ; dim A_L = dim A by G0Dim.dim_baseChange). Compiles, 0 errors; axioms
+  propext, Classical.choice, Quot.sound (VERIFIED).
