@@ -18,7 +18,18 @@ theorem HDec.HSyn.sixContactMin_of_open (r : OpenResearchLeaves) (t : OpenTextbo
 Its hypotheses are exactly the leaves still open and the ten glue pieces (unchanged).
 `#print axioms` gives `[propext, Classical.choice, Quot.sound]`.
 
-__COMPILE__
+VERIFIED (final run, 2026-11-13 06:54 PST): `lake env lean scratch/leaf-fold/Full.lean` (the file
+installed as `scratch/h-decomposition/Leaves.lean`, 35 850 lines) exits 0 in 8 min 57 s, with
+0 errors and no `declaration uses 'sorry'`. All 210 `#print axioms` outputs are
+`[propext, Classical.choice, Quot.sound]` (counted by script), including
+`HDec.HSyn.sixContactMin_of_open`, `HDec.HSyn.sixContactMin_of_leaves`, each `HSyn.tN_proved`
+and `HDec.TBrauerPurity.abhyankarDVR`. There are 2 `opaque` (R1(b), R17) and no `axiom`. Output:
+`scratch/leaf-fold/compile4.txt`. Before compiling, build the imported modules:
+`lake build ZInQKernel.Contrib.BrauerT14T15.Main ZInQKernel.Contrib.LocalKW.T30
+ZInQKernel.Contrib.KroneckerWeber.Leaves ZInQKernel.Contrib.Chebotarev.FrobeniusDense
+ZInQKernel.Contrib.Different.Global ZInQKernel.Contrib.T25.NewformOfEigenform
+ZInQKernel.Contrib.T31.Main ZInQKernel.HDecomp.Textbook.BrauerNesbitt` (about 9 min from a
+Mathlib-only build).
 
 **Open leaves (the list for the announcement): 50 = 23 research-level + 27 textbook.**
 
@@ -58,11 +69,19 @@ the file's own copy, while the imported kernel copy keeps its root name. The edi
    `FaithfulSMul`). It captured the dot notation `hσ.eq_of_isUnramifiedAt` in
    `GlueC10.restrictNormal_eq_of_frob`, meant for Mathlib's
    `AlgHom.IsArithFrobAt.eq_of_isUnramifiedAt`; that lemma is now called explicitly;
-5. heartbeat limits inside `HDec`: `maxHeartbeats 1000000`, `synthInstance.maxHeartbeats 200000`.
-   With the Tau Ceti instances in scope, 17 instance searches (e.g. `Module.IsTorsionFree ℚ_[p]
-   ℂ_[p]`, `IsMulTorsionFree Gal(L/ℚ_p)`) and `LeafQM.AV.QML3.Iso.twist` exceeded the defaults;
-6. T19's proof `TSkolemKW.brauerNesbittChar0`: its step `simp [LinearEquiv.conj_apply]; rfl` fails
-   with the larger simp set. The same proof compiles in the kernel module
+5. inside `HDec`: `attribute [-instance]` on Tau Ceti's `FinitePadicExtension.toAlgebra`,
+   `.ofInstances`, `.toModuleFinite`, `.toValuativeExtension`, and `maxHeartbeats 1000000`. With
+   those instances in scope every `Algebra ℚ_[p] K` subgoal searches `FinitePadicExtension K p`;
+   in the first compile 17 instance searches (e.g. `Module.IsTorsionFree ℚ_[p] ℂ_[p]`,
+   `IsMulTorsionFree Gal(L/ℚ_p)`, `Normal ℚ_[p] K`) and `LeafQM.AV.QML3.Iso.twist` timed out.
+   Raising `synthInstance.maxHeartbeats` instead made each failing search take minutes. With the
+   four instances off, `Module.IsTorsionFree ℚ_[p] ℂ_[p]` takes 0.6 s (probes
+   `scratch/leaf-fold/probe/P1.lean`, `P2.lean`). The file's own proofs never use them. (A local
+   `synthInstance.maxHeartbeats 200000` added on `htSpace_cycRep_eq_bot` before the culprit was
+   found is still there; it is harmless.)
+6. T19's proof `TSkolemKW.brauerNesbittChar0`: its step `simp [LinearEquiv.conj_apply]; rfl` failed
+   in the first compile, with the Contrib modules in scope (whether the instance fix of item 5
+   would also repair it was not tried). The same proof compiles in the kernel module
    `ZInQKernel.HDecomp.Textbook.BrauerNesbitt`, so the file's theorem is now that one
    (`_root_.TSkolemKW.brauerNesbittChar0`), converted by unfolding.
 
@@ -77,7 +96,38 @@ command defined in the file) compares `HDec.X` with the root `X` syntactically: 
 definitions, the bodies, after deleting the prefix `HDec.`, recursively through every `HDec.`
 constant they mention (for theorems, the types only).
 
-__TABLE__
+Results (VERIFIED: output of the final compile, `scratch/leaf-fold/compile4.txt`):
+
+| Leaf | Bundle field (this file) | Closed proof (Contrib) | `exact` (defeq) | `#hdec_same` |
+| --- | --- | --- | --- | --- |
+| T2 | `t2 : PkgI2.AbhyankarDVR.{0}` | t-brauer-purity's proof, copied in (`HDec.TBrauerPurity.abhyankarDVR`; T2Full's copy of the definition is textually this file's) | yes | `PkgI2.AbhyankarDVR` (kernel copy in `HDecomp/Objects.lean`): verbatim |
+| T15 | `t15 : PkgI6.LocalH2CardC` | `ZInQ.Contrib.BrauerT14T15.localH2CardC` | yes | verbatim (4 constants) |
+| T16(a) | `t16a : ∀ p [Fact p.Prime], PkgI6.LocalKroneckerWeber p` | `ZInQ.Contrib.localKroneckerWeber` | yes | verbatim |
+| T17 | `t17 : TSkolemKW.KW.KroneckerWeberCyclic` | `ZInQ.Contrib.KroneckerWeber.kroneckerWeberCyclic` | yes | verbatim |
+| T17 (old form) | `HSyn.KroneckerWeber` (not a field since leaf-adopt3) | `ZInQ.Contrib.KroneckerWeber.hSynKroneckerWeber` | yes | verbatim against `HSynKroneckerWeber` (`#hdec_same_as`) |
+| T18 | `t18 : PkgI6.ChebotarevExists` | `ZInQ.Contrib.chebotarevExists` | yes | verbatim |
+| T18 (density form) | `HSyn.FrobeniusDense` (proved from `t18` before) | `ZInQ.Contrib.frobeniusDense` | yes | verbatim against `ZInQ.Contrib.ChebFD.HSyn.FrobeniusDense` and its copies of `HSyn`'s definitions (5 constants) |
+| T20 | `t20 : GlueConductor.HilbertDifferentFormula` | `ZInQ.Contrib.Different.hilbertDifferentFormula` | yes | verbatim (3 constants) |
+| T21 | `t21 : GlueConductor.SerreDifferentBound` | `ZInQ.Contrib.Different.serreDifferentBound` | yes | verbatim |
+| T25 | `t25 : PkgI4.NewformOfEigenform` | `T25.newformOfEigenform_leaf` | yes | **one difference**: the elaborated body of `PkgI4.HasNebentypus` (see below); the other 7 constants verbatim |
+| T30 | (removed by leaf-adopt3; `GlueDescent.B2Q.LeafSqrtCrit`) | `ZInQ.Contrib.leafSqrtCrit` | yes | verbatim (7 constants) |
+| T31 | `t31 : GlueDescent.B2Q.LeafUnramified` | `ZInQ.Contrib.T31.leafUnramified` | yes | verbatim (11 constants) |
+| T14(a′), T14(b′) (not closed) | `t14a`, `t14b` | `…brauerHasse2C_of_kummerIndexBound`, `…brauerReciprocity2C_of_kummerIndexBound` (from `KummerIndexBound`) | yes | verbatim |
+
+"Verbatim" means: equal after deleting `HDec.` and replacing every proof constant (a theorem, an
+auxiliary `_proof_n`, a `Fact` instance) by "a proof of" its normalized type. Proof constants
+get different automatic names in the two files (for example `instFactPrimeValNat_scratch` against
+the kernel's own name for `local instance : Fact p.Prime`), and proof irrelevance makes them
+interchangeable. The first version of the checker, without this normalization, reported
+exactly those name differences and nothing else for T16(a), T17, T30 and T31.
+
+**The one difference (T25).** `PkgI4.HasNebentypus` has the same source text in both files
+(`Leaves.lean` §2 of `PkgI4` and `ZInQKernel/HDecomp/Conductor/LadicCond.lean`), with the same
+`open scoped MatrixGroups ModularForm`. A standalone copy elaborated with the same imports
+matches the kernel's (probe `scratch/leaf-fold/probe/P4.lean`). So the elaborated terms differ
+only in this file's context, presumably an instance path (an instance this file declares earlier
+inside `HDec`, which the kernel module does not import). The two Props are **definitionally
+equal**: `HSyn.t25_proved` is accepted by `exact`. Not investigated further.
 
 ## 3. Statement repairs
 
