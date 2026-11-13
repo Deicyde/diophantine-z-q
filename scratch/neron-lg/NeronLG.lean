@@ -1279,6 +1279,38 @@ theorem n1_n2_of_leaves_and_glue'' (hloc1 : LocalNeronModelExists) (hab : Abelia
     NeronModelExists ∧ SemistableNeronIdentityComponent :=
   n1_n2_of_leaves_and_glue' hloc1 hab hloc2 hNL g1 (neronNearPoint_of g2) g3 g5 g6
 
+
+/-! ## §7. Integration checks and sanity for the zero abelian variety -/
+
+/-- The copies of N1 and N2 are the build's Props (so `n1_n2_of_leaves_and_glue''` supplies the
+build's `ZInQ.H5Neron.NeronModelExists` and `SemistableNeronIdentityComponent`). -/
+theorem neronModelExists_iff : NeronModelExists ↔ ZInQ.H5Neron.NeronModelExists := Iff.rfl
+
+theorem semistableNeronIdentityComponent_iff :
+    SemistableNeronIdentityComponent ↔ ZInQ.H5Neron.SemistableNeronIdentityComponent := Iff.rfl
+
+/-- **N1 and N2 of the build** from the four leaves and five glue statements. -/
+theorem h5neron_n1_n2_of_leaves_and_glue (hloc1 : LocalNeronModelExists)
+    (hab : AbelianSchemeIsNeron) (hloc2 : LocalSemistableIdentityComponent)
+    (hNL : NeronLocalOnBase) (g1 : AbVarSpreadsOut) (g2 : NeronNearBadPoint) (g3 : NeronGlueAway)
+    (g5 : LocalSemistableMono) (g6 : SemistableGlobalOfLocal) :
+    ZInQ.H5Neron.NeronModelExists ∧ ZInQ.H5Neron.SemistableNeronIdentityComponent :=
+  n1_n2_of_leaves_and_glue'' hloc1 hab hloc2 hNL g1 g2 g3 g5 g6
+
+/-- Sanity: the zero abelian variety extends to an abelian scheme (`Spec R`) over every
+presentation of `𝓞_L[1/f]`, so the conclusion of N1-g1 holds for it (with `f = 1`). -/
+theorem hasAbelianSchemeAway_zero (L : Type) [Field L] [NumberField L] (f : 𝓞 L) :
+    HasAbelianSchemeAway L (AbVar.zero L) f := by
+  intro R _ _ _ _ _
+  haveI : IsProper (𝟙_ (Over (Spec (CommRingCat.of R)))).hom := by dsimp; infer_instance
+  haveI : Smooth (𝟙_ (Over (Spec (CommRingCat.of R)))).hom := by dsimp; infer_instance
+  letI : GrpObj ((Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L)))).obj
+    (𝟙_ (Over (Spec (CommRingCat.of R))))) := Functor.grpObjObj
+  exact ⟨𝟙_ _, inferInstance, inferInstance, inferInstance,
+    (Functor.Monoidal.εIso (Over.pullback (Spec.map (CommRingCat.ofHom (algebraMap R L))))).symm,
+    ⟨ZInQ.H5Neron.hom_ext_of_iso_unit (Iso.refl _) _ _,
+      ZInQ.H5Neron.hom_ext_of_iso_unit (Iso.refl _) _ _⟩⟩
+
 end ZInQ.NeronLG
 
 #print axioms ZInQ.NeronLG.neronLocalToGlobal_of
@@ -1299,3 +1331,5 @@ end ZInQ.NeronLG
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue'
 #print axioms ZInQ.NeronLG.neronNearPoint_of
 #print axioms ZInQ.NeronLG.n1_n2_of_leaves_and_glue''
+#print axioms ZInQ.NeronLG.h5neron_n1_n2_of_leaves_and_glue
+#print axioms ZInQ.NeronLG.hasAbelianSchemeAway_zero

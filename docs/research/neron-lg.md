@@ -4,7 +4,7 @@ Status: research note (task neron-lg, 2026-11-13).
 
 - **Lean:** `scratch/neron-lg/NeronLG.lean` (about 1300 lines). It imports only
   `ZInQKernel.HDecomp.Faltings.H5BaseChange` and was checked with `lake env lean`. It has no `sorry`
-  and no `axiom`. All 18 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
+  and no `axiom`. All 20 `#print axioms` list only `propext`, `Classical.choice` and `Quot.sound`
   (VERIFIED).
 - **Results log:** `scratch/neron-lg/log.md`.
 - **Statements under study:** the two glue Props of task tau-n1n2 (`scratch/tau-n1n2/N1N2.lean`,
@@ -57,8 +57,10 @@ theorem ZInQ.NeronLG.n1_n2_of_leaves_and_glue''
     NeronModelExists ∧ SemistableNeronIdentityComponent
 ```
 
-N1 and N2 are h5-neron's Props, in the build at `ZInQKernel/HDecomp/Faltings/H5Neron.lean`. The
-two glue Props of the task reduce as follows (VERIFIED):
+N1 and N2 are h5-neron's Props, in the build at `ZInQKernel/HDecomp/Faltings/H5Neron.lean`.
+`h5neron_n1_n2_of_leaves_and_glue` states the same conclusion with the build's own declarations
+(`ZInQ.H5Neron.NeronModelExists ∧ ZInQ.H5Neron.SemistableNeronIdentityComponent`), via `Iff.rfl`.
+The two glue Props of the task reduce as follows (VERIFIED):
 
 ```lean
 theorem neronLocalToGlobal_of (hsp : AbVarSpreadsOut) (hloc : NeronLocalOnBase)
@@ -85,6 +87,7 @@ Other results, all proved (VERIFIED):
 | `goodPlacesAnyField_of`, `goodPlacesAnyField` | N2-g1 (a finite exceptional set of DVRs) from N2-g1' and `badPlaces_finite`; hence a theorem |
 | `isProper_of_abelian` | where `A` has an abelian-scheme model, every local Néron model `𝒩₀` is proper (N1-ab and uniqueness) |
 | `iso_baseChange_of_proper` | if `𝒩₀` is proper, every Néron model `𝒩'` over `O'` is isomorphic to `𝒩₀ ×_{O₀} O'` by a group isomorphism compatible with `gen` (N1-ab and uniqueness) |
+| `hasAbelianSchemeAway_zero` | sanity: the conclusion of N1-g1 holds for the zero abelian variety, for every `f` and every presentation of `𝓞_L[1/f]` |
 | `genSq`, `genSq_fst`, `genSq_compat`, `bcA`, `bcA_proj`, `pbCompInv_fst` | reusable pasting lemmas for `Over.pullback`. The generic-fibre identification transported along a commutative square of base changes is a group isomorphism and is compatible with the projections. In particular, the first projection of `Over.pullbackComp` is computed (`pbCompInv_fst`, via `conjugateEquiv_counit`) |
 
 ## 1. The new leaf NL
