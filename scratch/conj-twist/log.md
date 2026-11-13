@@ -39,3 +39,10 @@
   `homT_tateLattice` (N1 ⇒ T_ℓ(f) α_A(1⊗λ) = α_B(1⊗Mλ)), `conjT_tateLattice`
   (N1 + toC_conjPt ⇒ c_* α_A(1⊗λ) = α_{A^s}(1⊗Nλ)). Compiles, 0 errors, axioms standard.
   VERIFIED (compiled).
+- 2026-11-13 06:00 §8 added: `toMatrix_of_lattice`, `toLin_of_lattice`, `lattice_contradiction`,
+  `twistC_one`, **`conjTwistNontrivial_of_lattice : TateModuleFree → UniformizationExists →
+  ArtinTorsion → HomLinearLift → ConjAntiLift → TateLattice → ConjVarDim → ConjTwistNontrivial`**
+  and `conjTwistFromLeaves_of_lattice : ArtinTorsion → HomLinearLift → ConjAntiLift →
+  TateLattice → ConjVarDim → ConjTwistFromLeaves`. `ConjAntiLift` (N3) now also asserts
+  `Function.Injective N` (true: N lifts the bijection twistC). Whole file: 0 errors, 0 sorry,
+  14 `#print axioms` all [propext, Classical.choice, Quot.sound]. VERIFIED (compiled).
