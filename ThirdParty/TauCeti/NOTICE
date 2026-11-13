@@ -30,6 +30,12 @@ Repository: https://github.com/TauCetiProject/TauCeti
   LFunction/, Twist/, HeckeSlash/ and four top-level files), and single modules in
   Analysis/, FieldTheory/Galois/, LinearAlgebra/, NumberTheory/LSeries/ and
   NumberTheory/MulChar/ (list in scratch/gz-license/new-modules.txt).
+- Commit 5a01f5fe (as above): the 192 further modules vendored by the Z-in-Q task
+  rleaf-elliptic (the closure of
+  AlgebraicGeometry.EllipticCurve.Isogeny.MulByInt.Torsion.Structure, used for the
+  structure of the torsion of an elliptic curve; list in
+  scratch/rleaf-elliptic/vendor-new.txt). They are copied unchanged apart from the
+  mechanical changes described below.
 
 Location in this repository
 ---------------------------
