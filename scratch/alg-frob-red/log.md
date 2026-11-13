@@ -70,3 +70,10 @@
 - residueAlgClosed : ResidueAlgClosed (proved from Mathlib: lifts_and_natDegree_eq_and_monic, IsAlgClosed.exists_root,
   IsIntegrallyClosed.isIntegral_iff for the valuation subring, eval₂_hom). Run 17: exit 0, 28 prints, all standard.
 - Added algFrobRed_of_final / tateBridge35_of_final (without ResidueAlgClosed); compile check in the next run.
+
+## Run 18: ResidueAlgebraic proved
+- residueAlgebraic : ResidueAlgebraic (proved from Mathlib: minimal polynomial over L, divide by a coefficient of largest
+  O_w-valuation (Finset.exists_max_image), lift to O_w[X] (lifts_iff_coeff_lifts), reduce). Run 18: exit 0, 31 prints,
+  all standard (VERIFIED).
+- Added algFrobRed_of_main / tateBridge35_of_main (pieces: GoodRedCofinite, SmoothGeomConnIntegral, RedRelMul,
+  RedTorsionQbar, FExtend, FrobMorph); compile check in the next run.

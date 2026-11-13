@@ -765,6 +765,61 @@ theorem residueAlgClosed : ResidueAlgClosed := by
   refine ⟨IsLocalRing.residue v y, ?_⟩
   rw [← hQmap, Polynomial.eval_map, Polynomial.eval₂_hom, h0, map_zero]
 
+/-- **`ResidueAlgebraic` holds (proved from Mathlib):** for `y ∈ O_v`, take `P ∈ L[X]`, `P ≠ 0`,
+`P(y) = 0`, and divide by a coefficient of largest valuation for `O_w`: the result has
+coefficients in `O_w` and a coefficient `1`, so its reduction is a nonzero polynomial over `κ(w)`
+vanishing at the residue of `y`. -/
+theorem residueAlgebraic : ResidueAlgebraic := by
+  intro L _ v
+  letI : Algebra (kw L v) (IsLocalRing.ResidueField v) :=
+    (IsLocalRing.ResidueField.map (PkgI2.toW (Ow L v) v rfl)).toAlgebra
+  refine ⟨fun z => ?_⟩
+  obtain ⟨y, rfl⟩ := IsLocalRing.residue_surjective z
+  have hyalg : IsAlgebraic L (y : PkgI4.Qbar) :=
+    (Algebra.IsAlgebraic.isAlgebraic (R := ℚ) (y : PkgI4.Qbar)).tower_top L
+  obtain ⟨P, hP0, hPy⟩ := hyalg
+  obtain ⟨i, hi, hmax⟩ := P.support.exists_max_image (fun n => (Ow L v).valuation (P.coeff n))
+    (Polynomial.support_nonempty.mpr hP0)
+  have hci : P.coeff i ≠ 0 := Polynomial.mem_support_iff.mp hi
+  have hlift : P * Polynomial.C (P.coeff i)⁻¹ ∈ Polynomial.lifts (algebraMap (Ow L v) L) := by
+    rw [Polynomial.lifts_iff_coeff_lifts]
+    intro n
+    rw [Polynomial.coeff_mul_C]
+    have hmem : P.coeff n * (P.coeff i)⁻¹ ∈ Ow L v := by
+      rw [← ValuationSubring.valuation_le_one_iff, map_mul, map_inv₀]
+      by_cases hn : n ∈ P.support
+      · exact mul_inv_le_one_of_le₀ (hmax n hn) zero_le'
+      · rw [Polynomial.notMem_support_iff.mp hn, map_zero, zero_mul]
+        exact zero_le'
+    exact ⟨⟨_, hmem⟩, rfl⟩
+  obtain ⟨Q, hQ⟩ := (Polynomial.mem_lifts _).mp hlift
+  have hinjO : Function.Injective (algebraMap (Ow L v) L) := IsFractionRing.injective (Ow L v) L
+  have hQi : Q.coeff i = 1 := by
+    apply hinjO
+    rw [← Polynomial.coeff_map, hQ, Polynomial.coeff_mul_C, mul_inv_cancel₀ hci, map_one]
+  refine ⟨Q.map (IsLocalRing.residue (Ow L v)), ?_, ?_⟩
+  · intro h0
+    have h1 := congrArg (fun r => r.coeff i) h0
+    simp only [Polynomial.coeff_map, hQi, map_one, Polynomial.coeff_zero] at h1
+    exact one_ne_zero h1
+  · rw [Polynomial.aeval_def, Polynomial.eval₂_map]
+    have hcomp : (algebraMap (kw L v) (IsLocalRing.ResidueField v)).comp
+        (IsLocalRing.residue (Ow L v)) =
+        (IsLocalRing.residue v).comp (PkgI2.toW (Ow L v) v rfl) := by
+      ext a
+      exact IsLocalRing.ResidueField.map_residue _ a
+    rw [hcomp, ← Polynomial.hom_eval₂]
+    have hzero : Q.eval₂ (PkgI2.toW (Ow L v) v rfl) y = 0 := by
+      apply IsFractionRing.injective v PkgI4.Qbar
+      rw [map_zero]
+      have e1 := Polynomial.hom_eval₂ Q (PkgI2.toW (Ow L v) v rfl) (algebraMap v PkgI4.Qbar) y
+      have e2 : (algebraMap v PkgI4.Qbar).comp (PkgI2.toW (Ow L v) v rfl) =
+          (algebraMap L PkgI4.Qbar).comp (algebraMap (Ow L v) L) := rfl
+      rw [e1, e2, ← Polynomial.eval₂_map, hQ, Polynomial.eval₂_mul, Polynomial.eval₂_C]
+      have e3 : P.eval₂ (algebraMap L PkgI4.Qbar) (algebraMap v PkgI4.Qbar y) = 0 := hPy
+      rw [e3, zero_mul]
+    rw [hzero, map_zero]
+
 set_option synthInstance.maxHeartbeats 400000 in
 /-- **`ResidueAlgClosure` from `ResidueAlgClosed` and `ResidueAlgebraic` (proved):** `κ(v)` is an
 algebraic closure of `κ(w)`, so `IsAlgClosure.equiv` gives `j`. -/
@@ -820,6 +875,22 @@ theorem tateBridge35_of_final (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
     (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
   FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_final hG hS hA hM h2 hE hFr)
 
+/-- **Main result: `FrobTrace.AlgFrobRed` from the leaf candidates `GoodRedCofinite`,
+`SmoothGeomConnIntegral` and the glue `RedRelMul`, `RedTorsionQbar`, `FExtend`, `FrobMorph`
+(proved).** Everything else (conjugating the place, isolating the finite set, the special fibre
+as an abelian variety, the residue characteristic, the valuative criterion, `κ(v) ≅ κ(w)‾`,
+`σ = Frob` on `κ(v)`, rigidity) is proved here or by Mathlib / mul-rigidity. -/
+theorem algFrobRed_of_main (hG : GoodRedCofinite) (hS : SmoothGeomConnIntegral)
+    (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend) (hFr : FrobMorph) :
+    FrobTrace.AlgFrobRed :=
+  algFrobRed_of_final hG hS residueAlgebraic hM h2 hE hFr
+
+/-- **`TateBridge35` from I3.M0 and the six remaining pieces (proved).** -/
+theorem tateBridge35_of_main (hT : PkgI3.TateModuleFree) (hG : GoodRedCofinite)
+    (hS : SmoothGeomConnIntegral) (hM : RedRelMul) (h2 : RedTorsionQbar) (hE : FExtend)
+    (hFr : FrobMorph) : G14Bridge.TateBridge35 :=
+  FrobTrace.tateBridge35_of_algFrobRed hT (algFrobRed_of_main hG hS hM h2 hE hFr)
+
 end AlgFrobRedRed
 
 end
@@ -848,8 +919,11 @@ end
 #print axioms AlgFrobRedRed.isLocalHom_toW
 #print axioms AlgFrobRedRed.residueAlgClosure_of
 #print axioms AlgFrobRedRed.residueAlgClosed
+#print axioms AlgFrobRedRed.residueAlgebraic
 #print axioms AlgFrobRedRed.algFrobRed_of_fine
 #print axioms AlgFrobRedRed.tateBridge35_of_fine
 #print axioms AlgFrobRedRed.algFrobRed_of_finest
 #print axioms AlgFrobRedRed.algFrobRed_of_final
 #print axioms AlgFrobRedRed.tateBridge35_of_final
+#print axioms AlgFrobRedRed.algFrobRed_of_main
+#print axioms AlgFrobRedRed.tateBridge35_of_main
