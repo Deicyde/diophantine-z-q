@@ -121,12 +121,12 @@ theorem td_construct {K : IF} [FiniteDimensional ℚ K] [IsGalois ℚ K] (B : Pk
       pullback.snd B.X.hom (sp (e₀ : K →+* Qbar)) := Over.w φ.hom
   have hψs : ψ₀ ≫ pullback.snd B.X.hom (sp (e₀ : K →+* Qbar)) =
       pullback.snd B.X.hom (sp (e₂ : K →+* Qbar)) := Over.w ψ.hom
-  obtain ⟨φL, hφL⟩ := hfd B e₁L e₂L _ _ h₁ h₂ he₁ he₂ φ₀ hφs
+  obtain ⟨φL, hφL⟩ := hfd B.X B.X e₁L e₂L _ _ h₁ h₂ he₁ he₂ φ₀ hφs
     (fun k hk k₁ k₂ => td_hom_inv B hKL hHF e₀ e₂ φ k hk k₁ k₂)
-  obtain ⟨ψL, hψL⟩ := hfd B e₂L e₁L _ _ h₂ h₁ he₂ he₁ ψ₀ hψs
+  obtain ⟨ψL, hψL⟩ := hfd B.X B.X e₂L e₁L _ _ h₂ h₁ he₂ he₁ ψ₀ hψs
     (fun k hk k₁ k₂ => td_hom_inv B hKL hHF e₂ e₀ ψ k hk k₁ k₂)
-  have ep₁ := xc_epi B e₁L _ h₁
-  have ep₂ := xc_epi B e₂L _ h₂
+  have ep₁ := xc_epi B.X e₁L _ h₁
+  have ep₂ := xc_epi B.X e₂L _ h₂
   have hφψ' : φ₀ ≫ ψ₀ = 𝟙 _ := congrArg Over.Hom.left hφψ
   have hψφ' : ψ₀ ≫ φ₀ = 𝟙 _ := congrArg Over.Hom.left hψφ
   have hφψL : φL ≫ ψL = 𝟙 _ := by

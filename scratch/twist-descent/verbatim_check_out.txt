@@ -4,4 +4,6 @@ scratch/kf-glue/New.lean verbatim in KfGlue.lean: True
 TwistDescent found in owner New.lean: True | verbatim in TwistDescent.lean: True | occurrences of 'def TwistDescent' in TwistDescent.lean: 1
 SemilinearTwistAt found in owner New.lean: True | verbatim in TwistDescent.lean: True | occurrences of 'def SemilinearTwistAt' in TwistDescent.lean: 1
 bcEnd found in owner New.lean: True | verbatim in TwistDescent.lean: True | occurrences of 'def bcEnd' in TwistDescent.lean: 1
+GaloisDescentMor found in owner New.lean: True | verbatim in TwistDescent.lean: True | occurrences of 'def GaloisDescentMor' in TwistDescent.lean: 1
 theorem twistDescent : TwistDescent present: True
+theorem galoisDescentMor : GaloisDescentMor present: True

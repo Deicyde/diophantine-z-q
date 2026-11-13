@@ -20,6 +20,8 @@ cat scratch/twist-descent/PartHFD.lean
 echo
 cat scratch/twist-descent/PartMain.lean
 echo
+cat scratch/twist-descent/PartGDM.lean
+echo
 cat scratch/twist-descent/PartFinal.lean
 } > $O
 wc -l $O

@@ -40,3 +40,11 @@ Base: fork main 57a7fa26 + merge of origin/wip/kf-glue.
   `conjIsogMaps_of_kerUnitOpen'`, `conjIsogMaps_of_cotangent'`,
   `kernelFieldExists_of_kerUnitOpen'` (T6, NOS, Raynaud, TorsionStructure, T27, FS5, KerUnitOpen),
   `kernelFieldExists_of_mulIsogeny`.
+
+## Step 4. `GaloisDescentMor` (kf-glue's standard statement, New.lean, unused there) proved — VERIFIED (compiled)
+- `hfd` generalized to arbitrary `X` (qc, qs) and `Y` (lfp) over `K` (was `B.X` twice).
+- `scratch/twist-descent/PartGDM.lean`: `theorem galoisDescentMor : GaloisDescentMor` (hfd with
+  K = L, e₁L = e₂L = id, X ×_{L,id} L ≅ X; uniqueness from `X_{ℚ̄} → X` epi).
+- Full single-file check `build3.txt`: rc=0, no error, no sorry; all new `#print axioms`
+  [propext, Classical.choice, Quot.sound]. `verbatim_check_out.txt`: `GaloisDescentMor` block equal to
+  the owner text, defined once.

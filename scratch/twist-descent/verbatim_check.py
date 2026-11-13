@@ -13,7 +13,7 @@ print("KfGlue.lean imports all present:", all(l in out.split('\n') for l in kf_l
 # 2. New.lean (owner file of TwistDescent) is verbatim inside KfGlue.lean
 print("scratch/kf-glue/New.lean verbatim in KfGlue.lean:", new in kf)
 # 3. the statements: owner text == text in the checked file
-for name in ["TwistDescent", "SemilinearTwistAt", "bcEnd"]:
+for name in ["TwistDescent", "SemilinearTwistAt", "bcEnd", "GaloisDescentMor"]:
     m = re.search(r"/--(?:(?!/--).)*?-/\n(?:noncomputable )?def " + name + r"\b.*?(?=\n\n)", new, re.S)
     print(name, "found in owner New.lean:", m is not None,
           "| verbatim in TwistDescent.lean:", m is not None and m.group(0) in out,
@@ -21,3 +21,4 @@ for name in ["TwistDescent", "SemilinearTwistAt", "bcEnd"]:
           len(re.findall(r"\ndef " + name + r"\b|\nnoncomputable def " + name + r"\b", out)))
 # 4. the theorem has exactly the Prop as its type
 print("theorem twistDescent : TwistDescent present:", "theorem twistDescent : TwistDescent :=" in out)
+print("theorem galoisDescentMor : GaloisDescentMor present:", "theorem galoisDescentMor : GaloisDescentMor :=" in out)
