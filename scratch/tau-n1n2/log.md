@@ -68,3 +68,10 @@ Start 2026-11-13 04:11 PST. Base 2dd83306. `lake build ZInQKernel.HDecomp.Faltin
 - Lean note: with `L₀ = K` there are two `Algebra K L'` instances in context (`[Algebra K L']`,
   `[Algebra L₀ L']`); explicit `@` needed. `erw` on `Over.w` facts hit the heartbeat limit;
   explicitly typed `have`s + `rw [reassoc_of% …]` work.
+
+## Verbatim check — VERIFIED 05:20
+- The bodies of `IsBaseChangeOf`, `IsOpenSubgroupModel`, `NeronModelExists`,
+  `SemistableNeronIdentityComponent` in N1N2.lean are textually identical to
+  scratch/h5-neron/Reduction.lean (python block comparison), and `Iff.rfl` to the build's.
+- N2 occurs in scratch/h-decomposition/Leaves.lean only as a hypothesis (lines 30250, 30275,
+  30445); no bundle field has its type.

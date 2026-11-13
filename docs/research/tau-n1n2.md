@@ -1,9 +1,9 @@
 # tau-n1n2: the Néron leaves N1 and N2
 
 Status: research note (task tau-n1n2, 2026-11-13).
-- **Lean:** `scratch/tau-n1n2/N1N2.lean` (about 520 lines). It imports only
+- **Lean:** `scratch/tau-n1n2/N1N2.lean` (about 640 lines). It imports only
   `ZInQKernel.HDecomp.Faltings.H5BaseChange` and was compiled with `lake env lean`. There is no
-  `sorry` and no `axiom`, and all 14 `#print axioms` list only `propext`, `Classical.choice`,
+  `sorry` and no `axiom`, and all 17 `#print axioms` list only `propext`, `Classical.choice`,
   `Quot.sound`.
 - **Results log:** `scratch/tau-n1n2/log.md`.
 - **Statements under study:** N1 `NeronModelExists` and N2 `SemistableNeronIdentityComponent` of
@@ -50,7 +50,9 @@ Intermediate results, all proved (VERIFIED):
 | `isMonHom_of_neron` | an isomorphism of Néron group models that is compatible with `gen` is a group isomorphism |
 | `semistableNeronIdentityComponent_of_some` | N2 ⇐ N2 with "some Néron model `𝒩'`" in place of "every Néron model `𝒩'`" (the converse holds given N1: `some_of_semistableNeronIdentityComponent`) |
 | `semistableNeronIdentityComponent_of_local` | N2 ⇐ N1 + N1-ab + N2-loc + `SemistableLocalToGlobal` |
-| `localNeronModelExists_zero`, `neronLocalToGlobal_zero` | the local leaf's conclusion and the glue's conclusion hold for the zero abelian variety |
+| `NeronModelOver.uniqueIso` | two Néron models over any base `R` are isomorphic by a group isomorphism compatible with `gen` (a glue lemma for the two glue statements) |
+| `localNeronModelExists_zero`, `neronLocalToGlobal_zero` | the conclusions of N1-loc and of `NeronLocalToGlobal` hold for the zero abelian variety |
+| `bothSides_over`, `localSemistableAt_zero` | for every `A`, the two sides of the compatibility equation in `LocalSemistableAt` agree after composing with `𝒩₀ → Spec O₀`; the conclusion of N2-loc holds for the zero abelian variety (with `L₀ = K`) |
 
 ## 1. What exists (VERIFIED by search on this host)
 
@@ -172,8 +174,12 @@ fibres: `U` is flat, so its generic fibre is schematically dense, and the target
 
 - **Leaves** (literature; to be formalized or kept as hypotheses): N1-loc, N1-ab, N2-loc. These
   replace N1 (`TextbookLeaves.t41`) and N2. N2 is not consumed by
-  `HSyn.sixContactMin_of_leaves` today, since H5 is the leaf `r.h5`. It enters through h5-glue's
-  `stableFaltingsHeight_eq_neron_all'` if H5 is later discharged.
+  `HSyn.sixContactMin_of_leaves` today (VERIFIED: in scratch/h-decomposition/Leaves.lean it
+  occurs only as a hypothesis of the H5 theorems at lines 30250, 30275 and 30445, and in no field
+  of `ResearchLeaves`, `TextbookLeaves` or `GluePieces`), since H5 is the leaf `r.h5`. It enters
+  through h5-glue's `stableFaltingsHeight_eq_neron_all'` if H5 is later discharged.
+- **Not done:** no case of N1 or N2 is proved for a nonzero abelian variety. That is impossible
+  in Mathlib v4.35 (§2). The two glue statements are stated and argued, but not proved in Lean.
 - **Glue** (to be proved by the project; needs algebraic geometry missing from Mathlib):
   `NeronLocalToGlobal` and `SemistableLocalToGlobal`. They use spreading out (EGA IV §8), gluing
   of schemes along opens, the identity component of a smooth group scheme over a Dedekind base
