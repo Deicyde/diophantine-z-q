@@ -57,3 +57,16 @@ Base 883c4ddf. Continues t-brauer-purity (T2 already proved there: T2Full.lean, 
 - `T1Kernel.lean` now the kernel form of T1Reduced (imports ZInQKernel.HDecomp.Objects):
   COMPILES, standard axioms. `TPurity2K.purityBranchLocus_of_finiteGe2`,
   `objBridge_purityBranchLocus_of_finiteGe2`, `finiteGe2_of_purityBranchLocus`.
+- `T1Local.lean` (Mathlib only; T1′ def copied from T1Reduced): COMPILES, standard axioms.
+  `TPurity2.PurityBranchLocusLocal` (T1″: `[IsRegularLocalRing R]`, `[Module.Finite R S]`,
+  `q.comap (algebraMap R S) = maximalIdeal R`, `S_q` normal domain, `dim S_q = dim R`,
+  `2 ≤ dim R`, unramified at height-one `q' ≤ q` ⇒ `IsEtaleAt R q`).
+  `finiteGe2_of_local : T1″ → T1′` (localize at `p`: `S_p` finite over `R_p`
+  (`Module.Finite.of_isLocalization`), `Q = qS_p`, `locLocEquiv : (S_p)_Q ≃ₐ[R] S_{Q∩S}`,
+  `Q ∩ R_p = 𝔪` via `IsLocalization.map_under`, heights via `IsLocalization.height_under`,
+  étale over `R_p` ⇒ over `R` by `FormallyEtale.comp`); `local_of_finiteGe2 : T1′ → T1″`
+  (`equivAtMaximal : A ≃ₐ[A] A_𝔪` for local `A`).
+- `T1Reduced.lean` / `T1Kernel.lean` regenerated with T1Local appended: COMPILE, standard axioms.
+  Kernel: `TPurity2K.purityBranchLocus_of_local : PurityBranchLocusLocal.{u} →
+  PkgI2.PurityBranchLocus.{u}`, `local_of_purityBranchLocus` (converse),
+  `objBridge_purityBranchLocus_of_local`; plus the T1′ versions. So T1 ⇔ T1′ ⇔ T1″.
