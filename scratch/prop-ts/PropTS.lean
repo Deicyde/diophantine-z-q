@@ -125,7 +125,8 @@ AMS 2013) (locators UNVERIFIED). h-b1 §1.2 proves the case from SGA 1 (purity +
 
 Let `E/ℚ(X)` be finite Galois (`X` need not be geometrically irreducible), with branch points in
 `S ∪ {∞}` (`S ⊆ ℚ`) and ramification indices dividing `n b` (at `b ∈ S`) and `nInf` (at `∞`).
-Let `p` be a prime with (a) `p ∤ [E : ℚ(X)]`, (b) the branch points pairwise distinct mod `p`
+Let `p` be a prime with (a) `[E : ℚ(X)] < p` (so `p ∤ |G|`; stated in this weaker form so
+that the leaf is implied by every version of the theorem), (b) the branch points pairwise distinct mod `p`
 (every `b ∈ S` is `p`-integral, so it does not meet `∞`, and `v_p(b − b') = 0`), (c) automatic
 (branch points rational), (d) no vertical ramification at `p`. Let `t ∈ ℚ ∖ S` (not a branch
 point). Beckmann: the inertia group at `p` of the specialization `E_t` is conjugate to
@@ -139,7 +140,7 @@ def BeckmannSIT : Prop :=
     [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E]
     [IsGalois (RatFunc ℚ) E] (S : Finset ℚ) (n : ℚ → ℕ) (nInf : ℕ) (p : ℕ), p.Prime →
     BranchData E S n nInf →
-    ¬ p ∣ Module.finrank (RatFunc ℚ) E →
+    Module.finrank (RatFunc ℚ) E < p →
     (∀ b ∈ S, 0 ≤ padicValRat p b) →
     (∀ b ∈ S, ∀ b' ∈ S, b ≠ b' → padicValRat p (b - b') = 0) →
     NoVerticalRam E p →
@@ -215,9 +216,7 @@ theorem propTS_of_coverModel (hB : BeckmannSIT) (Y : Over (Spec (CommRingCat.of 
   have h16 := padicValRat_16_27 p (by omega)
   have hne : (-16 / 27 : ℚ) ≠ 0 := by norm_num
   refine hB E {0, -16 / 27} nY3 6 p p.2 hBr ?_ ?_ ?_ (hV p p.2 hp) t ?_ ?_ h6 𝔓 hP hU φ
-  · intro hd
-    have := Nat.le_of_dvd Module.finrank_pos hd
-    omega
+  · omega
   · intro b hb
     simp only [Finset.mem_insert, Finset.mem_singleton] at hb
     rcases hb with rfl | rfl
@@ -245,6 +244,118 @@ theorem propTSAll_of_coverModel (hB : BeckmannSIT)
       R1fpProps Y Φ → R2fpProps Y Φ π → CoverModel Y π) : PropTSAll :=
   fun Y Φ π h1 h2 => propTS_of_coverModel hB Y π (h Y Φ π h1 h2)
 
+
+/-! ## Part 5: only the leaf's own triple needs a cover model (via the kernel's `MobiusGlue`) -/
+
+open LeafQM.AV.Pin
+
+/-- Intermediate fields of `ℚ̄/ℚ`. -/
+abbrev IF : Type := IntermediateField ℚ Qbar
+
+/-- Any two morphisms `Spec K ⟶ Spec ℚ` agree (copied from `scratch/fibre-cover/FibreCover.lean`). -/
+theorem spec_to_specQ_eq {K : Type} [Field K]
+    (g h : Spec (CommRingCat.of K) ⟶ Spec (CommRingCat.of ℚ)) : g = h := by
+  rw [← Spec.map_preimage g, ← Spec.map_preimage h]
+  congr 1
+  apply CommRingCat.hom_ext
+  exact Subsingleton.elim _ _
+
+/-- A `ℚ̄`-point factors through every subfield `K ⊆ ℚ̄` containing its residue field (copied from
+`scratch/fibre-cover/FibreCover.lean`). -/
+theorem exists_factor_of_residueImage_le (Y : Over (Spec (CommRingCat.of ℚ)))
+    (y : fieldPt Qbar ⟶ Y) (K : IF) (hK : residueImage (X := Y.left) y.left ≤ K) :
+    ∃ yK : fieldPt K ⟶ Y, fieldMap K.val ≫ yK = y := by
+  obtain ⟨⟨x, emb⟩, hp⟩ : ∃ q, Scheme.SpecToEquivOfField Qbar Y.left y.left = q := ⟨_, rfl⟩
+  unfold residueImage at hK
+  rw [hp] at hK
+  have hmem : ∀ a, emb a ∈ K := fun a => hK (IntermediateField.subset_adjoin ℚ _ ⟨a, rfl⟩)
+  let emb' : Y.left.residueField x ⟶ CommRingCat.of K :=
+    CommRingCat.ofHom (emb.hom.codRestrict K hmem)
+  have aux : Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫
+      (Scheme.SpecToEquivOfField K Y.left).symm ⟨x, emb'⟩ = y.left := by
+    apply (Scheme.SpecToEquivOfField Qbar Y.left).injective
+    rw [specToEquivOfField_comp, Equiv.apply_symm_apply, hp]
+    rfl
+  exact ⟨Over.homMk ((Scheme.SpecToEquivOfField K Y.left).symm ⟨x, emb'⟩)
+    (spec_to_specQ_eq _ _), Over.OverMorphism.ext aux⟩
+
+/-- The residue field of `z ∘ Spec(K ⊆ ℚ̄)` lies in `K` (copied from fibre-cover). -/
+theorem residueImage_le_aux {X : Scheme.{0}} (K : IF) (z : Spec (CommRingCat.of K) ⟶ X) :
+    residueImage (X := X)
+      (Spec.map (CommRingCat.ofHom ((K.val : K →ₐ[ℚ] Qbar) : K →+* Qbar)) ≫ z) ≤ K := by
+  unfold residueImage
+  rw [IntermediateField.adjoin_le_iff, specToEquivOfField_comp]
+  rintro _ ⟨a, rfl⟩
+  exact ((Scheme.SpecToEquivOfField K X z).2 a).2
+
+/-- The residue field can only shrink along a morphism (copied from fibre-cover). -/
+theorem residueImage_comp_le_self_aux {X X' : Scheme.{0}} (h : X ⟶ X')
+    (z : Spec (CommRingCat.of Qbar) ⟶ X) :
+    residueImage (X := X') (z ≫ h) ≤ residueImage (X := X) z := by
+  unfold residueImage
+  rw [specToEquivOfField_comp_right]
+  apply IntermediateField.adjoin_le_iff.mpr
+  rintro _ ⟨a, rfl⟩
+  exact IntermediateField.subset_adjoin ℚ _ ⟨_, rfl⟩
+
+/-- **Residue fields are preserved by a morphism compatible with the moduli bijections**: if
+`Φ' = Φ ∘ g` on `K`-points for every field `K`, then `ℚ(g ∘ y') = ℚ(y')` (composition with `g`
+is then a bijection on `K`-points, so `y'` factors through `ℚ(g ∘ y')`). -/
+theorem residueImage_comp_eq_of_pt {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} (g : Y' ⟶ Y)
+    (hΦ : ∀ (K : Type) [Field K] [Algebra ℚ K] (y : fieldPt K ⟶ Y'), Φ' K y = Φ K (y ≫ g))
+    (y' : fieldPt Qbar ⟶ Y') :
+    residueImage (X := Y.left) (y' ≫ g).left = residueImage (X := Y'.left) y'.left := by
+  apply le_antisymm (residueImage_comp_le_self_aux g.left y'.left)
+  let K : IF := residueImage (X := Y.left) (y' ≫ g).left
+  obtain ⟨w, hw⟩ := exists_factor_of_residueImage_le Y (y' ≫ g) K le_rfl
+  let z : fieldPt K ⟶ Y' := (Φ' K).symm (Φ K w)
+  have hz : z ≫ g = w := (Φ K).injective (by rw [← hΦ]; exact Equiv.apply_symm_apply _ _)
+  have hy : fieldMap K.val ≫ z = y' :=
+    (Φ' Qbar).injective (by rw [hΦ, hΦ, Category.assoc, hz, hw])
+  have key : residueImage (X := Y'.left) y'.left ≤ K := by
+    rw [← hy]
+    exact residueImage_le_aux K z.left
+  exact key
+
+/-- **Prop. TS transfers along the comparison of triples** (`SameTripleMor`, kernel
+`ZInQKernel/HDecomp/QM/Pin.lean`). -/
+theorem propTS_transfer {Y Y' : Over (Spec (CommRingCat.of ℚ))} {Φ : PtEquiv Y}
+    {Φ' : PtEquiv Y'} {π : ToP1 Y.left} {π' : ToP1 Y'.left}
+    (hS : SameTripleMor Y Y' Φ Φ' π π') (h : PropTS Y π) : PropTS Y' π' := by
+  obtain ⟨g, hΦ, hπ⟩ := hS
+  intro t y' ht0 htb hπ' p hp h4 h6 h2
+  rw [← residueImage_comp_eq_of_pt g hΦ y']
+  exact h t (y' ≫ g) ht0 htb ((hπ y').symm.trans hπ') p hp h4 h6 h2
+
+/-- **`PropTSAll` from Prop. TS on one triple satisfying the repaired clauses**, given the
+kernel's named curve glue `MobiusGlue` and the leaf bundle's `R1R2fp` (for the CM objects). -/
+theorem propTSAll_of_witness (hM : MobiusGlue) (hR : R1R2fp)
+    {Y₀ : Over (Spec (CommRingCat.of ℚ))} {Φ₀ : PtEquiv Y₀} {π₀ : ToP1 Y₀.left}
+    (h1 : R1fpProps Y₀ Φ₀) (h2 : R2fpProps Y₀ Φ₀ π₀) (h : PropTS Y₀ π₀) : PropTSAll :=
+  fun _ _ _ h1' h2' =>
+    propTS_transfer (sameTripleMor_of_mobius hM (cm_objects_of_R1R2fp hR) h1 h2 h1' h2') h
+
+/-- **Glue (from the leaf clauses on one triple): the cover model of `Y₃ → P¹_j`.** A triple with
+R1fp, R1hecke (the group `Γ'` acts over `ℚ`, so the function field of a `ℚ`-component is Galois
+over `ℚ(j)`, h-b1 M1-M2) and R2fp has a cover model: `FunctionFieldModel` (normalization; h-b1
+M8), `CoverBranchData` (h-b1 M3-M4), and `NoVerticalRam` at `p > 324` (Lemma NV, h-b1 §3). -/
+def CoverModelOfHecke : Prop :=
+  ∀ (Y : Over (Spec (CommRingCat.of ℚ))) (Φ : PtEquiv Y) (π : ToP1 Y.left),
+    R1fpProps Y Φ → R1heckeProps Y Φ → R2fpProps Y Φ π → CoverModel Y π
+
+/-- **The composite: `PropTSAll` from the leaf `BeckmannSIT`, the bundle leaf `R1R2fp`, the kernel
+glue `MobiusGlue`, and the glue `CoverModelOfHecke`.** -/
+theorem propTSAll_of_leaves (hB : BeckmannSIT) (hR : R1R2fp) (hM : MobiusGlue)
+    (hC : CoverModelOfHecke) : PropTSAll := by
+  obtain ⟨Y₀, Φ₀, π₀, h1, hh, h2⟩ := R1R2fp_Y hR
+  exact propTSAll_of_witness hM hR h1 h2 (propTS_of_coverModel hB Y₀ π₀ (hC Y₀ Φ₀ π₀ h1 hh h2))
+
+/-! ## Part 6: sanity checks on the statements -/
+
+/-- The leaf's instance binders are satisfiable by the genuine objects: `ℚ(X)` itself. -/
+example (h : BeckmannSIT) := h (RatFunc ℚ)
+
 end PropTSRed
 
 end
@@ -252,3 +363,7 @@ end
 #print axioms PropTSRed.padicValRat_16_27
 #print axioms PropTSRed.propTS_of_coverModel
 #print axioms PropTSRed.propTSAll_of_coverModel
+#print axioms PropTSRed.residueImage_comp_eq_of_pt
+#print axioms PropTSRed.propTS_transfer
+#print axioms PropTSRed.propTSAll_of_witness
+#print axioms PropTSRed.propTSAll_of_leaves
