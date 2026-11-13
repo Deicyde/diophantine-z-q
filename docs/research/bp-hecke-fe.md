@@ -50,36 +50,21 @@ Intermediate forms are also proved: `literature_hecke_fe_of_split_gaussPointCoun
 instead of `HeckeMult ∧ HeckePrimePowSplit`), and `literature_hecke_fe_of_heckeEuler_gaussSplit`
 (`GaussSplit 1`, phrased through `cdCoeff 1 p`).
 
-`GaussSplit 1` is a published, refereed, classical theorem about a single curve, so it is a
-legitimate leaf if the team wants one. `HeckeEuler` is glue (ideal counting in `ℤ[i]`).
-
-The exact Lean definitions (from `HeckeFE.lean`; `normFiber n` is the finset of `(a, b) ∈ ℤ²`
-with `a² + b² = n`, `gz 0 0 (a, b) = a + bi`, `unitOf` is the table of §2.1):
+Two consequences are worth naming: `heckeEuler_of_odd` (the Euler product of `L(ψ_d, s)` for odd
+squarefree `d`, proved outright) and `deuringCd_of_gaussPointCount` (Deuring's identity
+`L(C_d, s) = L(ψ_d, s)`, coefficientwise, for squarefree `d ≡ 1 (mod 4)`, from `GaussPointCount`).
+The Hecke coefficients are defined explicitly (`normFiber n` is the finset of `(a, b) ∈ ℤ²` with
+`a² + b² = n`, `gz 0 0 (a, b) = a + bi`, `unitOf` is the table of §2.1):
 
 ```lean
 noncomputable def heckeCoeff (d n : ℕ) : ℂ :=
   (1 / 4) * ∑ p ∈ normFiber n,
     (jacobiSym (p.1 ^ 2 + p.2 ^ 2) d : ℂ) * unitOf ((p.1 : ZMod 4), (p.2 : ZMod 4)) * gz 0 0 p
 
-noncomputable def heckeEulerPoly (d p : ℕ) : Polynomial ℂ :=
-  if p ∣ 2 * d then 1
-  else 1 - Polynomial.C (heckeCoeff d p) * Polynomial.X + Polynomial.C (p : ℂ) * Polynomial.X ^ 2
-
-def HeckeEuler (d : ℕ) : Prop :=
-  ∀ n : ℕ, n ≠ 0 → heckeCoeff d n = n.factorization.prod fun p k =>
-    PowerSeries.coeff k (PowerSeries.invOfUnit ((heckeEulerPoly d p : Polynomial ℂ) :
-      PowerSeries ℂ) 1)
-
--- Gauss's theorem as a point count (implies `GaussSplit 1`: `gaussSplit_one_of_pointCount`)
-def GaussPointCount : Prop :=
-  ∀ p : ℕ, p.Prime → p % 4 = 1 →
-    (p : ℂ) - (Nat.card {xy : ZMod p × ZMod p // xy.2 ^ 2 = xy.1 ^ 3 - xy.1} : ℂ) =
-      (1 / 4) * ∑ q ∈ normFiber p, unitOf ((q.1 : ZMod 4), (q.2 : ZMod 4)) * gz 0 0 q
+def DeuringCd (d : ℕ) : Prop :=
+  ∀ n : ℕ, n ≠ 0 → ((ZInQ.Literature.cdCoeff d n : ℤ) : ℂ) = heckeCoeff d n
 ```
 
-`literature_hecke_fe_of_heckeEuler_gaussPointCount` takes `HeckeEuler` (for `d ≡ 5 (mod 8)`
-squarefree) and `GaussPointCount`. `GaussPointCount` mentions only `𝔽_p`, `ℤ²` and a 16-entry
-table, so a formalizer needs nothing from the elliptic-curve library.
 
 **How the Props reduce** (all proved in `scratch/bp-hecke-fe/HeckeFE.lean`):
 
@@ -314,6 +299,7 @@ All VERIFIED: compiled with `lake env lean` against Mathlib v4.35 and the projec
 | `literature_hecke_fe_of_split_gaussPointCount` | reduction to `HeckePrimePowSplit`, `GaussPointCount` |
 | `isUnit_of_norm_one`, `prime_of_norm_prime`, `psi_split_prime`, `sum_mul_bij`, `unit_mem_unitsZ`, `norm_unitsZ`, `psi_gmul_unit`, `split_ne`, `piZ`, `not_conj_dvd`, `prime_piZ`, `p_eq_mul`, `split_dvd`, `sum_normFiber_prime`, `card_unitsZ`, `heckePrimePowSplit` | `HeckePrimePowSplit d` for every `d`: Gaussian primes above split `p`, `A_p = U·π ⊔ U·π̄`, the Hecke relation |
 | `literature_hecke_fe_of_gaussPointCount` | **the final reduction** (§0) |
+| `heckeEuler_of_odd`, `deuringCd_of_gaussPointCount` | `HeckeEuler d` (odd squarefree `d`); `DeuringCd d` from `GaussPointCount` (`d ≡ 1 mod 4`) |
 
 Faithfulness. `DeuringCd` is stated over the project's `cdCoeff` (proved equal to Mathlib's
 `L(C_d,s)` coefficients by `LFunctionCd.lean`) and over explicit sums in `ℤ²`. It involves no

@@ -123,3 +123,4 @@
   `card_unitsZ`, `heckePrimePowSplit` (HeckePrimePowSplit d for all d), and
   `literature_hecke_fe_of_gaussPointCount : GaussPointCount → HeckeContinuation5 ∧
    ZInQ.Literature.FunctionalEquation5`.  The only remaining hypothesis is Gauss's point count.
+- (VERIFIED, compiled ~19:35) `heckeEuler_of_odd`, `deuringCd_of_gaussPointCount`.

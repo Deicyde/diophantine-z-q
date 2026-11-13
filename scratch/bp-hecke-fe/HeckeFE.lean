@@ -2701,4 +2701,17 @@ theorem literature_hecke_fe_of_gaussPointCount (h1 : GaussPointCount) :
     HeckeContinuation5 ∧ ZInQ.Literature.FunctionalEquation5 :=
   literature_hecke_fe_of_split_gaussPointCount (fun d _ _ => heckePrimePowSplit d) h1
 
+/-- **The Euler product of `L(ψ_d, s)`**, for odd squarefree `d`. -/
+theorem heckeEuler_of_odd {d : ℕ} (hd : Odd d) (hsq : Squarefree d) : HeckeEuler d :=
+  heckeEuler_of_mult_primePow hd hsq (heckeMult d)
+    (heckePrimePow_of_split hd hsq (heckePrimePowSplit d))
+
+/-- **Deuring's identity `L(C_d, s) = L(ψ_d, s)` from Gauss's point count**, for squarefree
+`d ≡ 1 (mod 4)`. -/
+theorem deuringCd_of_gaussPointCount {d : ℕ} (hd4 : d % 4 = 1) (hsq : Squarefree d)
+    (h1 : GaussPointCount) : DeuringCd d :=
+  deuringCd_of_heckeEuler_gaussSplit (Nat.odd_iff.mpr (by omega)) hsq
+    (heckeEuler_of_odd (Nat.odd_iff.mpr (by omega)) hsq)
+    (gaussSplit_of_one hd4 hsq (gaussSplit_one_of_pointCount h1))
+
 end BpHeckeFE
