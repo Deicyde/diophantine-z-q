@@ -23,3 +23,10 @@
 - Lines: InfraDim 388, Glue ~1210, CurveFacts ~1600, ImagePlane ~790 (was 4693 in one file).
 - #print axioms (Main.lean, lake build): mobiusGlue_of_T5, mobiusGlue_of_t5,
   imagePlaneCurveClosed: [propext, Classical.choice, Quot.sound]. VERIFIED.
+
+## Step 2: contrib-check
+- `scratch/contrib-check/Check.lean`: added `import ZInQKernel.Contrib.Mobius.Main` and
+  `#print axioms` for `LeafQM.AV.CurveGlue.mobiusGlue_of_T5`, `…mobiusGlue_of_t5`.
+- `lake build` of all its imports, then `lake env lean scratch/contrib-check/Check.lean`: rc 0,
+  0 errors, all printed axiom sets are [propext, Classical.choice, Quot.sound], including the two
+  new lines (output `check.out`). VERIFIED. So no name clash with the other Contrib modules there.

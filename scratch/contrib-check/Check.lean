@@ -14,6 +14,7 @@ import ZInQKernel.Contrib.T28.Assemble
 import ZInQKernel.Contrib.RLeaf.T36Torsion
 import ZInQKernel.Contrib.RLeaf.T37GoodReduction
 import ZInQKernel.Contrib.AbVarBC.Main
+import ZInQKernel.Contrib.Mobius.Main
 
 /-! The two closed providers fed into the unchanged headline theorem: Theorem 1.1 from
 `SixContactMin`, `TYZThm35ReadingA` and `GrossZagier` alone. -/
@@ -36,3 +37,5 @@ theorem contribCheck_headline (hH : ZInQ.SixContactMin) (hA : ZInQ.Literature.TY
 #print axioms ZInQ.RLeaf.t36_torsionStructure
 #print axioms ZInQ.RLeaf.T37.t37_goodReductionUnramified
 #print axioms ZInQ.Contrib.AbVarBC.abVarBaseChange
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_T5
+#print axioms LeafQM.AV.CurveGlue.mobiusGlue_of_t5
