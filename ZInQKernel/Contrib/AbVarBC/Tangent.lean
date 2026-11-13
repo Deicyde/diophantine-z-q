@@ -210,4 +210,92 @@ theorem left_closedPoint {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : At
 
 end AbTan
 
+/-! ## §4. The derivation of a tangent vector; additivity under the group law -/
+
+section Deriv
+
+open TrivSqZeroExt
+
+variable {K : Type} [Field K] (A : PkgI3.AbVar K) {U : A.X.left.Opens} (hU : IsAffineOpen U)
+  (ho : orig A (IsLocalRing.closedPoint K) ∈ U)
+
+variable {V W : Type} [AddCommGroup V] [Module K V] [Module Kᵐᵒᵖ V] [IsCentralScalar K V]
+  [AddCommGroup W] [Module K W] [Module Kᵐᵒᵖ W] [IsCentralScalar K W]
+
+theorem mem_of_atOrigin (ho : orig A (IsLocalRing.closedPoint K) ∈ U) {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) :
+    a.left (IsLocalRing.closedPoint (TrivSqZeroExt K V)) ∈ U := by
+  rw [left_closedPoint A ha]
+  exact ho
+
+theorem comp_orig_mem (ho : orig A (IsLocalRing.closedPoint K) ∈ U) {Λ : CommRingCat.{0}} (p : Spec Λ ⟶ Spec (CommRingCat.of K)) (x : Spec Λ) :
+    (p ≫ orig A) x ∈ U := by
+  show orig A (p x) ∈ U
+  rw [Subsingleton.elim (p x) (IsLocalRing.closedPoint K)]
+  exact ho
+
+/-- The evaluation `Γ(A, U) → K` at the origin. -/
+def ev0 : Γ(A.X.left, U) ⟶ CommRingCat.of K := ptRing (orig A) ho
+
+/-- The ring map `Γ(A, U) → K ⊕ V` of a tangent vector at the origin. -/
+def tRing {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) :
+    Γ(A.X.left, U) ⟶ CommRingCat.of (TrivSqZeroExt K V) :=
+  ptRing (Λ := CommRingCat.of (TrivSqZeroExt K V)) a.left (mem_of_atOrigin A ho ha)
+
+/-- The derivation `Γ(A, U) → V` of a tangent vector at the origin. -/
+def D {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a) (x : Γ(A.X.left, U)) : V :=
+  ((tRing A ho ha).hom x).snd
+
+theorem tRing_specHom (hU : IsAffineOpen U) {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a)
+    (g : V →ₗ[K] W) :
+    tRing A ho (atOrigin_map A g ha) =
+      tRing A ho ha ≫ CommRingCat.ofHom ((map g : TrivSqZeroExt K V →ₐ[K] _) :
+        TrivSqZeroExt K V →+* TrivSqZeroExt K W) :=
+  ptRing_specMap_comp hU _ _ _ _
+
+theorem tRing_congr {a b : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (e : a = b)
+    (ha : AtOrigin A a) (hb : AtOrigin A b) : tRing A ho ha = tRing A ho hb := by
+  subst e; rfl
+
+theorem tRing_one (hU : IsAffineOpen U) :
+    tRing A ho (atOrigin_one A (V := V)) =
+      ev0 A ho ≫ CommRingCat.ofHom (algebraMap K (TrivSqZeroExt K V)) := by
+  unfold tRing ev0
+  rw [← ptRing_specMap_comp hU _ _ ho (comp_orig_mem A ho _ _)]
+  exact ptRing_congr (one_left A) _ _
+
+theorem fst_tRing (hU : IsAffineOpen U) {a : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a)
+    (x : Γ(A.X.left, U)) : ((tRing A ho ha).hom x).fst = (ev0 A ho).hom x := by
+  have h1 : tRing A ho ha ≫ CommRingCat.ofHom ((fstHom K K V : TrivSqZeroExt K V →ₐ[K] K) :
+      TrivSqZeroExt K V →+* K) = ev0 A ho ≫ CommRingCat.ofHom (algebraMap K K) := by
+    unfold tRing ev0
+    rw [← ptRing_specMap_comp hU _ _ (mem_of_atOrigin A ho ha) (by
+        show a.left (Spec.map (CommRingCat.ofHom ((fstHom K K V : TrivSqZeroExt K V →ₐ[K] K) :
+          TrivSqZeroExt K V →+* K)) (IsLocalRing.closedPoint K)) ∈ U
+        rw [closedPoint_eq]
+        exact mem_of_atOrigin A ho ha),
+      ← ptRing_specMap_comp hU _ _ ho (comp_orig_mem A ho _ _)]
+    refine ptRing_congr ?_ _ _
+    have := congrArg (fun f => f.left) ha
+    simp only [Over.comp_left, one_left] at this
+    exact this
+  have := congrArg (fun f => f.hom x) h1
+  simpa using this
+
+theorem D_one (hU : IsAffineOpen U) : D A ho (atOrigin_one A (V := V)) = 0 := by
+  funext x
+  unfold D
+  rw [tRing_one A ho hU]
+  simp [algebraMap_eq_inl]
+
+/-- A tangent vector at the origin is determined by its derivation. -/
+theorem eq_of_D_eq (hU : IsAffineOpen U) {a b : ptR (K := K) (TrivSqZeroExt K V) ⟶ A.X} (ha : AtOrigin A a)
+    (hb : AtOrigin A b) (h : D A ho ha = D A ho hb) : a = b := by
+  apply Over.OverMorphism.ext
+  apply ptRing_ext hU (mem_of_atOrigin A ho ha) (mem_of_atOrigin A ho hb)
+  ext x
+  · exact (fst_tRing A ho hU ha x).trans (fst_tRing A ho hU hb x).symm
+  · exact congrFun h x
+
+end Deriv
+
 end ZInQ.Contrib.AbVarBC.Tangent
