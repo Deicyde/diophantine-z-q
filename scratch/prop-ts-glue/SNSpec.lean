@@ -422,6 +422,53 @@ theorem mem_of_isIntegral_of_mem_closure {K : Type*} [Field K] (A : Subring K)
   rw [IsFractionRing.lift_algebraMap]
   exact c.2
 
+abbrev Qbar : Type := AlgebraicClosure ℚ
+
+/-- **The finiteness half of `SNSpecialize` is a theorem**: the residue field of `B` at a prime
+over `X − s₀`, embedded in `ℚ̄`, generates a number field (`B` is a finite `ℚ[X]`-module, and
+`ℚ[X]` acts on `B/𝔓` through `X ↦ s₀`). -/
+theorem finiteDimensional_residue (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Algebra ℚ[X] E]
+    [IsScalarTower ℚ[X] (RatFunc ℚ) E] [FiniteDimensional (RatFunc ℚ) E] (s₀ : ℚ)
+    (𝔓 : Ideal (integralClosure ℚ[X] E)) (hU : 𝔓.under ℚ[X] = Ideal.span {X - C s₀})
+    (φ : integralClosure ℚ[X] E ⧸ 𝔓 →+* Qbar) :
+    FiniteDimensional ℚ (IntermediateField.adjoin ℚ (Set.range φ)) := by
+  have hfin : Module.Finite ℚ[X] (integralClosure ℚ[X] E) :=
+    IsIntegralClosure.finite ℚ[X] (RatFunc ℚ) E (integralClosure ℚ[X] E)
+  obtain ⟨s, hs⟩ := hfin.fg_top
+  set T : Set Qbar := (fun b => φ (Ideal.Quotient.mk 𝔓 b)) '' (s : Set _) with hTdef
+  have hTfin : Finite T := Set.Finite.to_subtype (s.finite_toSet.image _)
+  have key : ∀ f : ℚ[X], φ (Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f)) =
+      algebraMap ℚ Qbar (f.eval s₀) := by
+    intro f
+    have hmem : f - C (f.eval s₀) ∈ 𝔓.under ℚ[X] := by
+      rw [hU, Ideal.mem_span_singleton]
+      exact X_sub_C_dvd_sub_C_eval
+    have h1 : Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) f) =
+        Ideal.Quotient.mk 𝔓 (algebraMap ℚ[X] (integralClosure ℚ[X] E) (C (f.eval s₀))) := by
+      rw [Ideal.Quotient.eq, ← map_sub]
+      exact hmem
+    rw [h1]
+    have hsub : ((φ.comp (Ideal.Quotient.mk 𝔓)).comp
+        ((algebraMap ℚ[X] (integralClosure ℚ[X] E)).comp C) : ℚ →+* Qbar) = algebraMap ℚ Qbar :=
+      Subsingleton.elim _ _
+    exact congrArg (fun g : ℚ →+* Qbar => g (f.eval s₀)) hsub
+  have hle : IntermediateField.adjoin ℚ (Set.range φ) ≤ IntermediateField.adjoin ℚ T := by
+    rw [IntermediateField.adjoin_le_iff]
+    rintro _ ⟨x, rfl⟩
+    obtain ⟨b, rfl⟩ := Ideal.Quotient.mk_surjective x
+    have hb : b ∈ Submodule.span ℚ[X] (s : Set (integralClosure ℚ[X] E)) := hs ▸ Submodule.mem_top
+    induction hb using Submodule.span_induction with
+    | mem y hy => exact IntermediateField.subset_adjoin _ _ ⟨y, hy, rfl⟩
+    | zero => rw [RingHom.map_zero, RingHom.map_zero]; exact zero_mem _
+    | add y z _ _ hy hz => rw [RingHom.map_add, RingHom.map_add]; exact add_mem hy hz
+    | smul f y _ hy =>
+      rw [Algebra.smul_def, RingHom.map_mul, RingHom.map_mul, key]
+      exact mul_mem (IntermediateField.algebraMap_mem _ _) hy
+  have hT : FiniteDimensional ℚ (IntermediateField.adjoin ℚ T) :=
+    IntermediateField.finiteDimensional_adjoin (fun x _ => Algebra.IsIntegral.isIntegral x)
+  exact FiniteDimensional.of_injective (IntermediateField.inclusion hle).toLinearMap
+    (IntermediateField.inclusion_injective hle)
+
 theorem atPrime_congr {R S : Type*} [CommSemiring R] [CommSemiring S] [Algebra R S]
     {p q : Ideal R} [p.IsPrime] [q.IsPrime] (h : p = q) [IsLocalization.AtPrime S p] :
     IsLocalization.AtPrime S q := by
@@ -737,6 +784,49 @@ theorem snSpecializeUnram_aux (E : Type) [Field E] [Algebra (RatFunc ℚ) E] [Al
       ring
     · intro x y h
       exact ⟨1, by rw [hj_inj h]⟩
-  sorry
+  -- the primes of `𝓞 L` over `p`
+  intro P hP hpP
+  have hpr : Prime (p : ℤ) := Nat.prime_iff_prime_int.mp hp
+  have hdisjP : Disjoint ((Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp :
+      Submonoid _) : Set (NumberField.RingOfIntegers L)) ↑P := by
+    rw [Set.disjoint_left]
+    rintro _ ⟨n, hn, rfl⟩ hnP
+    have hn' : ¬ (p : ℤ) ∣ n := fun h => hn (Ideal.mem_span_singleton.mpr h)
+    obtain ⟨α, β, hαβ⟩ := (Prime.coprime_iff_not_dvd hpr).mpr hn'
+    apply hP.ne_top
+    rw [Ideal.eq_top_iff_one]
+    have : algebraMap ℤ (NumberField.RingOfIntegers L) (α * p + β * n) ∈ P := by
+      rw [map_add, map_mul, map_mul]
+      exact P.add_mem (P.mul_mem_left _ (by simpa using hpP)) (P.mul_mem_left _ hnP)
+    rwa [hαβ, map_one] at this
+  set P' : Ideal A := P.map (algebraMap (NumberField.RingOfIntegers L) A) with hP'
+  have hP'p : P'.IsPrime := IsLocalization.isPrime_of_isPrime_disjoint _ A P hP hdisjP
+  have hP'c : P'.comap (algebraMap (NumberField.RingOfIntegers L) A) = P :=
+    IsLocalization.under_map_of_isPrime_disjoint _ A hP hdisjP
+  have hL1 : IsLocalization.AtPrime (Localization.AtPrime P')
+      (P'.comap (algebraMap (NumberField.RingOfIntegers L) A)) :=
+    IsLocalization.isLocalization_isLocalization_atPrime_isLocalization
+      (Algebra.algebraMapSubmonoid (NumberField.RingOfIntegers L) Mp) (Localization.AtPrime P') P'
+  have hL2 : IsLocalization.AtPrime (Localization.AtPrime P') P := atPrime_congr hP'c
+  let e : Localization.AtPrime P ≃ₐ[NumberField.RingOfIntegers L] Localization.AtPrime P' :=
+    IsLocalization.algEquiv P.primeCompl _ _
+  have hFU5 : Algebra.FormallyUnramified A (Localization.AtPrime P') :=
+    Algebra.FormallyUnramified.of_isLocalization P'.primeCompl
+  haveI hTZ2 := IsScalarTower.of_algebraMap_eq (R := ℤ) (S := A) (A := Localization.AtPrime P')
+      (fun x => by simp only [eq_intCast, map_intCast])
+  have hFU6 : Algebra.FormallyUnramified ℤ (Localization.AtPrime P') :=
+    Algebra.FormallyUnramified.comp ℤ A _
+  have hFU7 : Algebra.FormallyUnramified ℤ (Localization.AtPrime P) :=
+    Algebra.FormallyUnramified.of_equiv (A := Localization.AtPrime P')
+      (AlgEquiv.ofRingEquiv (f := (e.symm : Localization.AtPrime P' ≃+* Localization.AtPrime P))
+        (fun x => by simp only [eq_intCast, map_intCast]))
+  have hfdL : FiniteDimensional ℚ L := finiteDimensional_residue E s₀ 𝔓 hU φ
+  haveI : NumberField L := ⟨⟩
+  have : Algebra.EssFiniteType ℤ (NumberField.RingOfIntegers L) := inferInstance
+  have : Algebra.IsUnramifiedAt ℤ P := hFU7
+  exact Ideal.ramificationIdx_eq_one P ℤ
 
 end PropTSGlueDev4
+
+#print axioms PropTSGlueDev4.snSpecializeUnram_aux
+#print axioms PropTSGlueDev4.rbar_isLocalization
