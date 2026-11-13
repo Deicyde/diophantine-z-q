@@ -47,3 +47,4 @@
   analyticUniformizationOfDim_of_uniformizationExists (the latter now against the kernel's own
   ZInQ.LeafPush2.UniformizationExists over PkgI3.AbVar): propext, Classical.choice, Quot.sound
   (VERIFIED).
+- Final re-check 06:39: build.sh + lake env lean Metrization2.lean 0 errors; build_kernel.sh + lake env lean Kernel.lean 0 errors; no sorryAx in any #print axioms (VERIFIED).

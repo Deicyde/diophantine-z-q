@@ -48,3 +48,5 @@ only. It contains `HSyn.G0Split.heightAdditivity_of_metrization_v5`, which takes
   `AnalyticUniformizationUnique` and `HodgeLatticeTheorem` from def-faltings.
 
 Report: docs/research/metrization2.md; log: scratch/metrization2/log.md.
+
+_Final re-check: both generated files recompiled from the committed scripts, 0 errors._
