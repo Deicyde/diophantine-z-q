@@ -9,3 +9,6 @@
   t30-adelic: none; t10-etale: T10_groupIso (= ZInQ.LeafPush2's); t28-igusa: none.
 - Generator scratch/hdec-adopt5b/adopt5b.py writes 15 modules under ZInQKernel/HDecomp/Textbook/;
   wrap.py leaves no line over 100; decls.py finds no new duplicate declaration names.
+- 01:4x: Different, SkolemNoether, BrauerNesbitt, C10Closed, FrobeniusDense, KroneckerWeberUse,
+  ChebotarevCyclotomic, G1Count, G1Adelic, T30SqrtCrit, T10Etale each build with lake build
+  (exit 0). One wrap.py break repaired by hand in Different (fixups.py).
