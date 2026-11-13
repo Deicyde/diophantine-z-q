@@ -34,3 +34,16 @@
   (VERIFIED).
 - infra-stalks (origin/wip/infra-stalks 7667e59b, checked 07:30): has not closed
   `ProductHodgeLattice` (stalk infrastructure only, no fleet report yet).
+- Independent read-only model review (general-purpose agent) of `ProductCotangent`,
+  `DetLatticeProd`, `productHodgeLattice_of`: both Props TRUE for every instance, not vacuous, not
+  disguised forms of the conclusion; reduction faithful (ProductHodgeLattice and pullGerm identical
+  to scratch/metrization's); no wrong docstring claim (one looseness: "a section" means particular
+  sections).
+- `DetProd.lean` (imports `ZInQKernel.HDecomp.Faltings.HodgeLattice` only): `detFun` (det
+  functional of a basis `1 ⊗ wⱼ`), `detFun_injective`, `exists_basis_of_span`, `secIndex_map`,
+  `secIndex_one_mul` (FractionalIdeal.absNorm + kernel `secIndex_mul_absNorm`), `sumIso`,
+  `prodBasis`, `det_prodBasis_append` (block determinant, `Matrix.det_fromBlocks_zero₂₁`),
+  `card_le_of_li_range`, **`detLatticeProd_aux`** (= body of `DetLatticeProd`; generalized Laplace
+  via `MultilinearMap.map_add_univ`, `AlternatingMap.map_perm`, `map_linearDependent`).
+  Compile: 5 iterations; final 0 errors, ~6 s, all `#print axioms` standard (VERIFIED).
+  **`DetLatticeProd` is proved.**
