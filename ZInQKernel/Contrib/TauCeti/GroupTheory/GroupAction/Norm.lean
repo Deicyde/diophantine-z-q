@@ -6,6 +6,7 @@ Authors: The Tau Ceti contributors
 -- Vendored from Tau Ceti (https://github.com/TauCetiProject/TauCeti, commit 97a5b23586f9, module TauCeti.GroupTheory.GroupAction.Norm), Apache-2.0.
 module
 
+public import ZInQKernel.Contrib.TauCeti.RepresentationTheory.Homological.GroupCohomology.Cocycle
 public import Mathlib.Algebra.BigOperators.GroupWithZero.Action
 public import Mathlib.GroupTheory.GroupAction.Hom
 public import Mathlib.GroupTheory.OrderOfElement
@@ -31,38 +32,9 @@ public section
 
 namespace TauCeti
 
-/-- The group norm, `m ↦ ∑ x, x • m`, as an additive homomorphism. It needs only a finite
-scalar type and distributive scalar multiplication on an additive commutative monoid. -/
-def groupNorm (G M : Type*) [Fintype G] [AddCommMonoid M] [DistribSMul G M] : M →+ M :=
-  ∑ x : G, DistribSMul.toAddMonoidHom M x
-
-/-- Applying the group norm sums the scalar translates of the argument. -/
-@[simp]
-theorem groupNorm_apply (G M : Type*) [Fintype G] [AddCommMonoid M] [DistribSMul G M]
-    (m : M) : groupNorm G M m = ∑ x : G, x • m := by
-  simp [groupNorm]
-
-/-- The norm of a finite normal subgroup `N` of `G` commutes with the action of `G`: conjugation
-by `g` permutes `N`. -/
-theorem groupNorm_smul {G M : Type*} [Group G] [AddCommMonoid M] [DistribMulAction G M]
-    (N : Subgroup G) [N.Normal] [Fintype N] (g : G) (m : M) :
-    groupNorm N M (g • m) = g • groupNorm N M m := by
-  simp only [groupNorm_apply, Finset.smul_sum, Subgroup.smul_def]
-  exact Fintype.sum_equiv (MulAut.conjNormal g⁻¹).toEquiv _ _ fun n ↦ by
-    simp [← mul_smul, mul_assoc]
-
-/-- The norm of a finite normal subgroup `N` of `G`, as a `G`-equivariant additive endomorphism
-of `M` (`TauCeti.groupNorm_smul`). -/
-def groupNormHom {G : Type*} [Group G] (N : Subgroup G) [N.Normal] [Fintype N] (M : Type*)
-    [AddCommMonoid M] [DistribMulAction G M] : M →+[G] M :=
-  { groupNorm N M with map_smul' := groupNorm_smul N }
-
-/-- The equivariant norm `groupNormHom N M` is the group norm of `N`. -/
-@[simp]
-theorem groupNormHom_apply {G : Type*} [Group G] (N : Subgroup G) [N.Normal] [Fintype N]
-    (M : Type*) [AddCommMonoid M] [DistribMulAction G M] (m : M) :
-    groupNormHom N M m = groupNorm N M m :=
-  (rfl)
+-- Backport note: `groupNorm`, `groupNorm_apply`, `groupNorm_smul`, `groupNormHom` and
+-- `groupNormHom_apply` (identical statements) are taken from the oct16 module
+-- `GroupCohomology.Cocycle`, where they lived before moving to this file at nov01.
 
 /-- The norm of a finite cyclic group is the sum of the translates by powers of a generator.
 Only distributive scalar multiplication on an additive commutative monoid is required. -/
