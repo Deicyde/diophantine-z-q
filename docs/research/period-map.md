@@ -26,7 +26,9 @@ theorem PeriodMapH.cmFixedHasCM_of (hR : T11aRiemannEnd) : CMFixedHasCM
 
 `periodMapGlue_of` uses only the naturality clause of `R1fpProps`. At the leaf's own triple
 (`periodMapGlue_own`) the bundle `R1R2fp` supplies that clause, and T11a is already a hypothesis of
-fibre-qm-period's theorem, so `PeriodMapGlue` needs four glue Props. (Namespaces:
+fibre-qm-period's theorem. `PiCMC` follows from R2fp and the leaf candidate `CMDescends`
+(`piCMC_of`). So at the own triple `PeriodMapGlue` needs the three glue Props
+`BaseChangeClassUnique`, `PiTwistC`, `QMTwistLattice`, plus `CMDescends`. (Namespaces:
 `HSyn.G0Split.FibreQM.PeriodMap` and `HSyn.G0Split.FibreQM.PeriodMapH`.)
 
 **End to end** (`fibreQMPeriod_periodMap`, compiled). This is fibre-qm-period's
