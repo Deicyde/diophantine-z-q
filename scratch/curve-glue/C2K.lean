@@ -263,6 +263,170 @@ theorem mem_V_of_not_mem_U (σ : ToP1 X) {x : X} (hU : x ∉ σ.U) : x ∈ σ.V 
 
 end Main
 
+/-! ## §4 C2K from the leaf (L) -/
+
+/-- **The missed-value lemma.** If `σ` misses a value `t ∈ P¹(K)` on the `K`-points of a
+connected component `W`, it is constant on them. For `t = ∞`, `W ⊆ U` (Jacobson) and `f|_W` is
+constant by (L). For `t = a ∈ K`, `f − a` is a unit on `W ∩ U` and `1 − a g` on `W ∩ V`, and
+`1/(f − a)`, `g/(1 − a g)` glue to `h ∈ Γ(W)`, constant `= c` by (L); `c ≠ 0` if `W ∩ U` has a
+`K`-point, which forces `W ⊆ U` (`g = 0` off `U`) and `σ = a + 1/c` on `W`. -/
+theorem constant_of_missed (hL : GlobalFunctionsConst) {K : Type} [Field K] [IsAlgClosed K]
+    {X : Scheme.{0}} (f : X ⟶ Spec (CommRingCat.of K)) (hP : IsProper f)
+    (hS : SmoothOfRelativeDimension 1 f) [JacobsonSpace X] (σ : ToP1 X) (W : X.Opens)
+    (hWc : IsClopen (W : Set X)) (hWp : _root_.IsPreconnected (W : Set X)) (t : OnePoint K)
+    (ht : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W → σ.val p ≠ t) :
+    ∃ v : OnePoint K, ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W →
+      σ.val p = v := by
+  have : LocallyOfFiniteType f := inferInstance
+  induction t using OnePoint.rec with
+  | infty =>
+    have hWU : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ptOf p ∈ W → ptOf p ∈ σ.U :=
+      fun p hp hW => by
+        by_contra h
+        exact ht p hp hW (val_of_not_mem σ p h)
+    have hle : W ≤ σ.U := by
+      intro x hx
+      by_contra hxU
+      obtain ⟨p, hp, hpW, hpU⟩ := exists_point_of_isLocallyClosed f
+        (Z := (W : Set X) ∩ (σ.U : Set X)ᶜ)
+        (W.isOpen.isLocallyClosed.inter σ.U.isOpen.isClosed_compl.isLocallyClosed) ⟨x, hx, hxU⟩
+      exact hpU (hWU p hp hpW)
+    obtain ⟨c, hc⟩ := hL K X f hP hS W hWc hWp (res hle σ.f)
+    refine ⟨OnePoint.some c, fun p hp hpW => ?_⟩
+    rw [val_of_mem σ p (hle hpW), ← ev_res p hle hpW, ev_eq_of_nilpotent f hc p hp hpW]
+  | coe a =>
+    have hmiss : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ (hW : ptOf p ∈ W)
+        (hU : ptOf p ∈ σ.U), ev p hU σ.f ≠ a := fun p hp hW hU e =>
+      ht p hp hW (by rw [val_of_mem σ p hU, e])
+    let O₁ : X.Opens := W ⊓ σ.U
+    let O₂ : X.Opens := W ⊓ σ.V
+    let u₁ : Γ(X, O₁) := res inf_le_right σ.f - cst f O₁ a
+    let u₂ : Γ(X, O₂) := 1 - cst f O₂ a * res inf_le_right σ.g
+    have hu₁ev : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₁,
+        ev p hx u₁ = ev p hx.2 σ.f - a := by
+      intro p hp hx
+      simp only [u₁, map_sub, ev_res, ev_cst f p hp]
+    have hu₂ev : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₂,
+        ev p hx u₂ = 1 - a * ev p hx.2 σ.g := by
+      intro p hp hx
+      simp only [u₂, map_sub, map_one, map_mul, ev_res, ev_cst f p hp]
+    have hu₁ : IsUnit u₁ := isUnit_of_ev_ne_zero f u₁ fun p hp hx => by
+      rw [hu₁ev p hp hx]
+      exact sub_ne_zero.mpr (hmiss p hp hx.1 hx.2)
+    have hu₂ : IsUnit u₂ := isUnit_of_ev_ne_zero f u₂ fun p hp hx => by
+      rw [hu₂ev p hp hx]
+      by_cases hU : ptOf p ∈ σ.U
+      · have e := ev_f_mul_g σ p hU hx.2
+        have hne := hmiss p hp hx.1 hU
+        intro h0
+        have h1 : ev p hx.2 σ.g * (ev p hU σ.f - a) = 0 := by linear_combination h0 + e
+        rcases mul_eq_zero.mp h1 with h | h
+        · rw [h, mul_zero] at e; exact zero_ne_one e
+        · exact hne (sub_eq_zero.mp h)
+      · rw [ev_g_eq_zero σ p hx.2 hU, mul_zero, sub_zero]; exact one_ne_zero
+    obtain ⟨i₁, hi₁⟩ := hu₁.exists_left_inv
+    obtain ⟨i₂, hi₂⟩ := hu₂.exists_left_inv
+    let s₂ : Γ(X, O₂) := res inf_le_right σ.g * i₂
+    have hfg : res (show O₁ ⊓ O₂ ≤ σ.U from fun x hx => hx.1.2) σ.f *
+        res (show O₁ ⊓ O₂ ≤ σ.V from fun x hx => hx.2.2) σ.g = 1 := by
+      have e := congrArg (res (show O₁ ⊓ O₂ ≤ σ.U ⊓ σ.V from fun x hx => ⟨hx.1.2, hx.2.2⟩)) σ.inv
+      rw [map_mul, map_one] at e
+      rw [← e]
+      simp only [res_res]
+    have hcomp : res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ := by
+      have A : res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁ = 1 := by
+        rw [← map_mul, hi₁, map_one]
+      have C : res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) i₂ * res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) u₂ = 1 := by
+        rw [← map_mul, hi₂, map_one]
+      have B : res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁ = 1 := by
+        simp only [s₂, u₁, u₂, map_mul, map_sub, map_one, res_res, res_cst] at C hfg ⊢
+        linear_combination C + res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) i₂ * hfg
+      calc res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁
+          = res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ *
+              (res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁) := by
+            rw [B, mul_one]
+        _ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ *
+              (res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) i₁ * res (inf_le_left : O₁ ⊓ O₂ ≤ O₁) u₁) := by
+            ring
+        _ = res (inf_le_right : O₁ ⊓ O₂ ≤ O₂) s₂ := by rw [A, mul_one]
+    -- glue `i₁` and `s₂` to a section on `O₁ ⊔ O₂`
+    let h : Γ(X, O₁ ⊔ O₂) := (X.sheaf.objSupIsoProdEqLocus O₁ O₂).inv ⟨(i₁, s₂), hcomp⟩
+    have hh₁ : res (le_sup_left : O₁ ≤ O₁ ⊔ O₂) h = i₁ :=
+      X.sheaf.objSupIsoProdEqLocus_inv_fst O₁ O₂ _
+    have hh₂ : res (le_sup_right : O₂ ≤ O₁ ⊔ O₂) h = s₂ :=
+      X.sheaf.objSupIsoProdEqLocus_inv_snd O₁ O₂ _
+    have hW'eq : ((O₁ ⊔ O₂ : X.Opens) : Set X) = W := by
+      ext x
+      simp only [O₁, O₂, Opens.coe_sup, Opens.coe_inf, Set.mem_union, Set.mem_inter_iff,
+        SetLike.mem_coe]
+      constructor
+      · rintro (⟨hx, -⟩ | ⟨hx, -⟩) <;> exact hx
+      · intro hx
+        by_cases hU : x ∈ σ.U
+        · exact Or.inl ⟨hx, hU⟩
+        · exact Or.inr ⟨hx, mem_V_of_not_mem_U σ hU⟩
+    obtain ⟨c, hc⟩ := hL K X f hP hS (O₁ ⊔ O₂) (hW'eq ▸ hWc) (hW'eq ▸ hWp) h
+    have hv₁ : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₁,
+        ev p hx i₁ = c := by
+      intro p hp hx
+      rw [← hh₁, ev_res]; exact ev_eq_of_nilpotent f hc p hp _
+    have hv₂ : ∀ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ → ∀ hx : ptOf p ∈ O₂,
+        ev p hx s₂ = c := by
+      intro p hp hx
+      rw [← hh₂, ev_res]; exact ev_eq_of_nilpotent f hc p hp _
+    by_cases hex : ∃ q : Spec (CommRingCat.of K) ⟶ X, q ≫ f = 𝟙 _ ∧ ptOf q ∈ W ∧ ptOf q ∈ σ.U
+    · obtain ⟨q, hq, hqW, hqU⟩ := hex
+      have hc0 : c ≠ 0 := by
+        intro hc0
+        have e := congrArg (ev q (show ptOf q ∈ O₁ from ⟨hqW, hqU⟩)) hi₁
+        rw [map_mul, map_one, hv₁ q hq, hc0, zero_mul] at e
+        exact zero_ne_one e
+      refine ⟨OnePoint.some (a + c⁻¹), fun p hp hpW => ?_⟩
+      have hpU : ptOf p ∈ σ.U := by
+        by_contra hpU
+        have hpV := mem_V_of_not_mem_U σ hpU
+        have e := hv₂ p hp (show ptOf p ∈ O₂ from ⟨hpW, hpV⟩)
+        simp only [s₂, map_mul] at e
+        rw [ev_res, ev_g_eq_zero σ p hpV hpU, zero_mul] at e
+        exact hc0 e.symm
+      rw [val_of_mem σ p hpU]
+      congr 1
+      have e1 := congrArg (ev p (show ptOf p ∈ O₁ from ⟨hpW, hpU⟩)) hi₁
+      rw [map_mul, map_one, hv₁ p hp, hu₁ev p hp] at e1
+      have e2 := eq_inv_of_mul_eq_one_right e1
+      linear_combination e2
+    · push Not at hex
+      exact ⟨OnePoint.infty, fun p hp hpW => val_of_not_mem σ p (hex p hp hpW)⟩
+
+/-- **C2K from the leaf (L).** -/
+theorem constOrOntoAlgClosed_of (hL : GlobalFunctionsConst) : ConstOrOntoAlgClosed := by
+  intro K _ _ X f hP hS σ p₀ hp₀
+  have : LocallyOfFiniteType f := inferInstance
+  have : JacobsonSpace X := LocallyOfFiniteType.jacobsonSpace f
+  have : CompactSpace X := QuasiCompact.compactSpace_of_compactSpace f
+  have : IsLocallyNoetherian X := LocallyOfFiniteType.isLocallyNoetherian f
+  have : IsNoetherian X := { }
+  set x₀ := ptOf p₀ with hx₀
+  let W : X.Opens := ⟨connectedComponent x₀, isOpen_connectedComponent_of_noetherian x₀⟩
+  have hWc : IsClopen (W : Set X) := ⟨isClosed_connectedComponent, W.isOpen⟩
+  have hWp : _root_.IsPreconnected (W : Set X) := isPreconnected_connectedComponent
+  have memW : ∀ p : Spec (CommRingCat.of K) ⟶ X, ptOf p ∈ W ↔
+      connectedComponent (ptOf p) = connectedComponent x₀ :=
+    fun p => ⟨fun h => (connectedComponent_eq h).symm,
+      fun h => by
+        show ptOf p ∈ connectedComponent x₀
+        rw [← h]; exact mem_connectedComponent⟩
+  by_cases ho : ∀ t : OnePoint K, ∃ p : Spec (CommRingCat.of K) ⟶ X, p ≫ f = 𝟙 _ ∧
+      connectedComponent (ptOf p) = connectedComponent x₀ ∧ σ.val p = t
+  · exact Or.inr ho
+  · left
+    push Not at ho
+    obtain ⟨t, ht⟩ := ho
+    obtain ⟨v, hv⟩ := constant_of_missed hL f hP hS σ W hWc hWp t
+      (fun p hp hpW => ht p hp ((memW p).1 hpW))
+    intro p hp hpc
+    rw [hv p hp ((memW p).2 hpc), hv p₀ hp₀ (mem_connectedComponent : x₀ ∈ connectedComponent x₀)]
+
 end Pin
 
 end AV
@@ -270,3 +434,5 @@ end AV
 end LeafQM
 
 end
+
+#print axioms LeafQM.AV.Pin.constOrOntoAlgClosed_of
