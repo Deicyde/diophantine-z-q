@@ -18,3 +18,22 @@
   only `Tm = tate`, `a = 1` on `G_K`. So at odd `p` the kernel-field clause puts wild inertia of
   `G_L` inside `G_K` (β is tame there), and the abelian-variety content is on `A/K` only.
 - `lake build` of the 11 imported kernel modules started (HDecomp not prebuilt here).
+
+## Step 2 (07:02-07:12 PST): reduction compiled
+- `lake build` of the 11 imported modules: ok (9075 jobs, fast: shared artifacts).
+- `scratch/local-glue/LocalGlue.lean` (build.sh: verbatim LocalData.lean + part_glue.lean).
+  `lake env lean scratch/local-glue/LocalGlue.lean`: exit 0, 0 errors, no sorry, ~20 s;
+  `#print axioms` [propext, Classical.choice, Quot.sound] for all 7 printed (compile.out).
+- Proved (VERIFIED):
+  * `not_localGlue_zero (hp : D < p) L : ¬ LocalGlue (Tm := 0) (a := 1) (β := 1) L` (G1).
+  * `fixSet_Lv_iff : σ ∈ fixSet (Lv L) ↔ ∀ x ∈ L, decomp p σ x = x`.
+  * `beta_wild_of_clauses (p ≠ 2) : G7Clauses β ε L → σ ∈ wildSet → decomp σ fixes L →
+    β (decomp σ) = 1`.
+  * `aTm_eq_one_of_kerWild`, and the main reduction
+    `localGlue_of_g7 : G7Out A ℓ Tm c ε a β u → G7Clauses β ε L → KerWild K β L →
+     (7 ≤ p → TateWildK A ℓ) → (p ≤ 5 → TateWildKE A ℓ β L) → (p = 2 → BetaUpper β (Lv L) U0)
+     → LocalGlue p Tm a β L`.
+  * `tate_eq_one_of_torsFix`: σ fixes every ℓⁿ-torsion point of A(K̄) ⇒ `tate A ℓ σ = 1`;
+    `tateWildK_of_torsFixWild`, `tateWildKE_of_torsFixWildE`.
+- New named Props (glue): `KerWild`, `TateWildK`, `TateWildKE`, `TorsFixWild`, `TorsFixWildE`.
+- Pitfall: after `open CategoryTheory`, `ι` is a token (rcases pattern fails); renamed.

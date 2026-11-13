@@ -25,6 +25,7 @@ namespace G15Ram
 
 open PkgI4 (GQp GaloisRep GQ decomp)
 open LadicCond G0ModNewform
+open CategoryTheory MonObj
 
 section LocalGlueSec
 
@@ -72,11 +73,11 @@ open kernel (local constancy), so `betaTame_of_odd` applies with `F = L_v`. -/
 theorem beta_wild_of_clauses (hp2 : p ≠ 2) {β : GQ → PadicAlgCl ℓ} {ε : GQ → GQ → PadicAlgCl ℓ}
     {L : IntermediateField ℚ PkgI4.Qbar} (hC : G7Clauses β ε L) {σ : GQp p} (hσ : σ ∈ wildSet)
     (hfix : ∀ x ∈ L, decomp p σ x = x) : β (decomp p σ) = 1 := by
-  obtain ⟨-, -, hβε, hβ0, hβlc, ⟨Tmin, hTm, hNZ, χ, ι, hsq⟩, hε⟩ := hC
+  obtain ⟨-, -, hβε, hβ0, hβlc, ⟨Tmin, hTm, hNZ, χ, ιc, hsq⟩, hε⟩ := hC
   have hm : BetaCharOn β (Lv (p := p) L) :=
     betaCharOn_of_cocycle hβε hε (fun _ hx => embP_mem_Lv hx)
   have hs : BetaSqWild β (Lv (p := p) L) :=
-    betaSqWild_of_chi hp2 hTm χ ι (fun _ _ => hsq _)
+    betaSqWild_of_chi hp2 hTm χ ιc (fun _ _ => hsq _)
   have hopen := betaOpen_of_isLocallyConstant (p := p) hβlc (beta_one_of_charOn hm (hβ0 1))
   exact betaTame_of_odd hp2 hm hs hopen σ ⟨fixSet_Lv_of_fix hfix, hσ⟩
 
@@ -135,9 +136,9 @@ theorem aTm_eq_one_of_kerWild {K : Type} [Field K] [NumberField K] {A : PkgI3.Ab
     (htate : ∀ σ' : Field.absoluteGaloisGroup K, G0Galois.resQ K σ' = g →
       G0Galois.tate A ℓ σ' = 1) :
     a g • Tm g = 1 := by
-  obtain ⟨σ', hσ'⟩ := hK g hfix hβ
+  obtain ⟨σ', rfl⟩ := hK g hfix hβ
   obtain ⟨hT, ha, -⟩ := h7.2.2.2.2.2.2.1 σ'
-  rw [← hσ', hT, ha, one_smul, htate σ' rfl]
+  rw [hT, ha, one_smul, htate σ' rfl]
 
 /-- **`LocalGlue` on G7's data (proved).** For `Tm, a, β` as in `G0Galois.G7Out` with the
 clauses `G7Clauses`, `LocalGlue p Tm a β L` follows from `KerWild` (all `p`), `TateWildK` at
@@ -171,7 +172,7 @@ theorem localGlue_of_g7 {K : Type} [Field K] [NumberField K] {A : PkgI3.AbVar K}
       refine ⟨E, hEfd, hLvE, hdeg, fun σ hσ => ?_⟩
       have hfix := decomp_fix_of_le (fun _ hx => hLvE (embP_mem_Lv hx)) hσ.1
       exact aTm_eq_one_of_kerWild h7 hK hfix (hEw σ hσ).1 (hEw σ hσ).2
-    · haveI : FiniteDimensional ℚ L := hC.1
+    · have : FiniteDimensional ℚ L := hC.1
       obtain ⟨hfd, -⟩ := Lv_fin (p := p) L
       have hG0 : 1 ≤ ZInQ.heightG0 := by unfold ZInQ.heightG0; norm_num
       refine ⟨Lv (p := p) L, hfd, le_rfl, Nat.le_mul_of_pos_left _ hG0, fun σ hσ => ?_⟩
